@@ -5,9 +5,8 @@
  * ISCSI_DIGEST_TYPES enumeration indicates the digest type.
  * @see https://learn.microsoft.com/windows/win32/api/iscsidsc/ne-iscsidsc-iscsi_digest_types
  * @namespace Windows.Win32.Storage.IscsiDisc
- * @version v4.0.30319
  */
-class ISCSI_DIGEST_TYPES extends Win32Enum{
+class ISCSI_DIGEST_TYPES extends Win32Enum {
 
     /**
      * No digest is in use for guaranteeing data integrity.

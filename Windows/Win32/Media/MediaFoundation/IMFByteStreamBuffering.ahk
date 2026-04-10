@@ -40,9 +40,8 @@
  * After the presentation has started, the media source should forward and <a href="https://docs.microsoft.com/windows/desktop/medfound/mebufferingstarted">MEBufferingStarted</a> and <a href="https://docs.microsoft.com/windows/desktop/medfound/mebufferingstopped">MEBufferingStopped</a> events that it receives while started. The Media Session will pause the presentation clock while buffering is progress and restart the presentation clock when buffering completes. The media source should only forward these events while the presentation is playing. The purpose of sending these events to the Media Session is to pause the presentation time while the source buffers data.
  * @see https://learn.microsoft.com/windows/win32/api/mfidl/nn-mfidl-imfbytestreambuffering
  * @namespace Windows.Win32.Media.MediaFoundation
- * @version v4.0.30319
  */
-class IMFByteStreamBuffering extends IUnknown{
+class IMFByteStreamBuffering extends IUnknown {
 
     static sizeof => A_PtrSize
     /**

@@ -5,9 +5,8 @@
  * Specifies the element type of a changer device.
  * @see https://learn.microsoft.com/windows/win32/api/winioctl/ne-winioctl-element_type
  * @namespace Windows.Win32.System.Ioctl
- * @version v4.0.30319
  */
-class ELEMENT_TYPE extends Win32Enum{
+class ELEMENT_TYPE extends Win32Enum {
 
     /**
      * All elements of a changer, including its robotic transport, drives, slots, and insert/eject ports. This value is valid only with 
@@ -53,7 +52,6 @@ class ELEMENT_TYPE extends Win32Enum{
     static ChangerKeypad => 6
 
     /**
-     * 
      * @type {Integer (Int32)}
      */
     static ChangerMaxElement => 7

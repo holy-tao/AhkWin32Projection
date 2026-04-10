@@ -3,9 +3,8 @@
 
 /**
  * @namespace Windows.Win32.Security.Cryptography.UI
- * @version v4.0.30319
  */
-class CRYPTUI_WIZ_DIGITAL_ADDITIONAL_CERT_CHOICE extends Win32Enum{
+class CRYPTUI_WIZ_DIGITAL_ADDITIONAL_CERT_CHOICE extends Win32Enum {
 
     /**
      * @type {Integer (UInt32)}

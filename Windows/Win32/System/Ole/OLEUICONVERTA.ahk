@@ -1,5 +1,6 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
+#Include .\UI_CONVERT_FLAGS.ahk
 #Include ..\..\Foundation\HWND.ahk
 #Include ..\..\Foundation\HINSTANCE.ahk
 #Include ..\..\Foundation\HRSRC.ahk
@@ -12,11 +13,9 @@
  * > The oledlg.h header defines OLEUICONVERT as an alias which automatically selects the ANSI or Unicode version of this function based on the definition of the UNICODE preprocessor constant. Mixing usage of the encoding-neutral alias with code that not encoding-neutral can lead to mismatches that result in compilation or runtime errors. For more information, see [Conventions for Function Prototypes](/windows/win32/intl/conventions-for-function-prototypes).
  * @see https://learn.microsoft.com/windows/win32/api/oledlg/ns-oledlg-oleuiconverta
  * @namespace Windows.Win32.System.Ole
- * @version v4.0.30319
  * @charset ANSI
  */
-class OLEUICONVERTA extends Win32Struct
-{
+class OLEUICONVERTA extends Win32Struct {
     static sizeof => 160
 
     static packingSize => 8
@@ -138,7 +137,7 @@ class OLEUICONVERTA extends Win32Struct
      * </td>
      * </tr>
      * </table>
-     * @type {Integer}
+     * @type {UI_CONVERT_FLAGS}
      */
     dwFlags {
         get => NumGet(this, 4, "uint")
@@ -149,7 +148,7 @@ class OLEUICONVERTA extends Win32Struct
      * The window that owns the dialog box. This member should not be <b>NULL</b>.
      * @type {HWND}
      */
-    hWndOwner{
+    hWndOwner {
         get {
             if(!this.HasProp("__hWndOwner"))
                 this.__hWndOwner := HWND(8, this)
@@ -188,7 +187,7 @@ class OLEUICONVERTA extends Win32Struct
      * Instance that contains a dialog box template specified by the <b>lpszTemplate</b> member. This member is ignored if the <b>lpszTemplate</b> member is <b>NULL</b> or invalid.
      * @type {HINSTANCE}
      */
-    hInstance{
+    hInstance {
         get {
             if(!this.HasProp("__hInstance"))
                 this.__hInstance := HINSTANCE(40, this)
@@ -209,7 +208,7 @@ class OLEUICONVERTA extends Win32Struct
      * Resource handle for a custom dialog box. If this member is <b>NULL</b>, then the library uses the standard <b>Convert</b> dialog box template, or if it is valid, the template named by the <b>lpszTemplate</b> member.
      * @type {HRSRC}
      */
-    hResource{
+    hResource {
         get {
             if(!this.HasProp("__hResource"))
                 this.__hResource := HRSRC(56, this)
@@ -219,7 +218,7 @@ class OLEUICONVERTA extends Win32Struct
 
     /**
      * The CLSID of the object to be converted or activated. This member is set on input.
-     * @type {Pointer<Guid>}
+     * @type {Pointer}
      */
     clsid {
         get => NumGet(this, 64, "ptr")
@@ -228,7 +227,7 @@ class OLEUICONVERTA extends Win32Struct
 
     /**
      * The CLSID to use as the default class when <b>Convert To</b> is selected. This member is ignored if the <b>dwFlags</b> member does not include CF_SETCONVERTDEFAULT. This member is set on input.
-     * @type {Pointer<Guid>}
+     * @type {Pointer}
      */
     clsidConvertDefault {
         get => NumGet(this, 72, "ptr")
@@ -237,7 +236,7 @@ class OLEUICONVERTA extends Win32Struct
 
     /**
      * The CLSID to use as the default class when <b>Activate As</b> is selected. This member is ignored if the <b>dwFlags</b> member does not include CF_SETACTIVATEDEFAULT. This member is set on input.
-     * @type {Pointer<Guid>}
+     * @type {Pointer}
      */
     clsidActivateDefault {
         get => NumGet(this, 80, "ptr")
@@ -246,7 +245,7 @@ class OLEUICONVERTA extends Win32Struct
 
     /**
      * The CLSID of the selected class. This member is set on output.
-     * @type {Pointer<Guid>}
+     * @type {Pointer}
      */
     clsidNew {
         get => NumGet(this, 88, "ptr")
@@ -284,7 +283,7 @@ class OLEUICONVERTA extends Win32Struct
      * The <a href="https://docs.microsoft.com/windows/desktop/api/wingdi/ns-wingdi-metafilepict">METAFILEPICT</a> containing the iconic aspect. This member is set on input and output.
      * @type {HGLOBAL}
      */
-    hMetaPict{
+    hMetaPict {
         get {
             if(!this.HasProp("__hMetaPict"))
                 this.__hMetaPict := HGLOBAL(112, this)

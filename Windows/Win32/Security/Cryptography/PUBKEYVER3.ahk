@@ -4,10 +4,8 @@
 
 /**
  * @namespace Windows.Win32.Security.Cryptography
- * @version v4.0.30319
  */
-class PUBKEYVER3 extends Win32Struct
-{
+class PUBKEYVER3 extends Win32Struct {
     static sizeof => 40
 
     static packingSize => 4
@@ -47,7 +45,7 @@ class PUBKEYVER3 extends Win32Struct
     /**
      * @type {DSSSEED}
      */
-    DSSSeed{
+    DSSSeed {
         get {
             if(!this.HasProp("__DSSSeed"))
                 this.__DSSSeed := DSSSEED(16, this)

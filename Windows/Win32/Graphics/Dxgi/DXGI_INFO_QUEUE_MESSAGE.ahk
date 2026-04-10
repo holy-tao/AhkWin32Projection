@@ -1,5 +1,7 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
+#Include .\DXGI_INFO_QUEUE_MESSAGE_CATEGORY.ahk
+#Include .\DXGI_INFO_QUEUE_MESSAGE_SEVERITY.ahk
 
 /**
  * Describes a debug message in the information queue.
@@ -10,17 +12,15 @@
  * <div> </div>
  * @see https://learn.microsoft.com/windows/win32/api/dxgidebug/ns-dxgidebug-dxgi_info_queue_message
  * @namespace Windows.Win32.Graphics.Dxgi
- * @version v4.0.30319
  */
-class DXGI_INFO_QUEUE_MESSAGE extends Win32Struct
-{
+class DXGI_INFO_QUEUE_MESSAGE extends Win32Struct {
     static sizeof => 40
 
     static packingSize => 8
 
     /**
      * A <a href="https://docs.microsoft.com/windows/desktop/direct3ddxgi/dxgi-debug-id">DXGI_DEBUG_ID</a> value that identifies the entity that produced the message.
-     * @type {Pointer<Guid>}
+     * @type {Pointer}
      */
     Producer {
         get => NumGet(this, 0, "ptr")
@@ -29,7 +29,7 @@ class DXGI_INFO_QUEUE_MESSAGE extends Win32Struct
 
     /**
      * A <a href="https://docs.microsoft.com/windows/desktop/api/dxgidebug/ne-dxgidebug-dxgi_info_queue_message_category">DXGI_INFO_QUEUE_MESSAGE_CATEGORY</a>-typed value that specifies the category of the message.
-     * @type {Integer}
+     * @type {DXGI_INFO_QUEUE_MESSAGE_CATEGORY}
      */
     Category {
         get => NumGet(this, 8, "int")
@@ -38,7 +38,7 @@ class DXGI_INFO_QUEUE_MESSAGE extends Win32Struct
 
     /**
      * A <a href="https://docs.microsoft.com/windows/desktop/api/dxgidebug/ne-dxgidebug-dxgi_info_queue_message_severity">DXGI_INFO_QUEUE_MESSAGE_SEVERITY</a>-typed value that specifies the severity of the message.
-     * @type {Integer}
+     * @type {DXGI_INFO_QUEUE_MESSAGE_SEVERITY}
      */
     Severity {
         get => NumGet(this, 12, "int")

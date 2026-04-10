@@ -1,16 +1,14 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
-#Include .\IEnumDMO.ahk
 #Include ..\..\System\Com\IUnknown.ahk
 
 /**
  * The IEnumDMO interface provides methods for enumerating Microsoft DirectX Media Objects (DMOs). It is based on the OLE enumeration interfaces. For more information, see the IEnumXXXX topic in the Platform SDK.
  * @see https://learn.microsoft.com/windows/win32/api/mediaobj/nn-mediaobj-ienumdmo
  * @namespace Windows.Win32.Media.DxMediaObjects
- * @version v4.0.30319
  */
-class IEnumDMO extends IUnknown{
+class IEnumDMO extends IUnknown {
 
     static sizeof => A_PtrSize
     /**

@@ -22,9 +22,8 @@
  * <div> </div>
  * @see https://learn.microsoft.com/windows/win32/api/vds/ne-vds-vds_disk_flag
  * @namespace Windows.Win32.Storage.VirtualDiskService
- * @version v4.0.30319
  */
-class VDS_DISK_FLAG extends Win32Enum{
+class VDS_DISK_FLAG extends Win32Enum {
 
     /**
      * The media in a CDROM or DVD drive is an audio CD.
@@ -145,7 +144,6 @@ class VDS_DISK_FLAG extends Win32Enum{
     static VDS_DF_CURRENT_READ_ONLY => 32768
 
     /**
-     * 
      * @type {Integer (Int32)}
      */
     static VDS_DF_REFS_NOT_SUPPORTED => 65536

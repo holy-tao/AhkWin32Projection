@@ -1,19 +1,16 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
-#Include ..\..\..\Win32\NetworkManagement\Ndis\NET_LUID_LH.ahk
 
 /**
  * @namespace Windows.Wdk.NetworkManagement.Ndis
- * @version v4.0.30319
  */
-class NDIS_WMI_ENUM_ADAPTER extends Win32Struct
-{
-    static sizeof => 40
+class NDIS_WMI_ENUM_ADAPTER extends Win32Struct {
+    static sizeof => 32
 
     static packingSize => 8
 
     /**
-     * @type {Pointer<NDIS_OBJECT_HEADER>}
+     * @type {Pointer}
      */
     Header {
         get => NumGet(this, 0, "ptr")
@@ -29,29 +26,26 @@ class NDIS_WMI_ENUM_ADAPTER extends Win32Struct
     }
 
     /**
-     * @type {NET_LUID_LH}
+     * @type {Pointer}
      */
-    NetLuid{
-        get {
-            if(!this.HasProp("__NetLuid"))
-                this.__NetLuid := NET_LUID_LH(16, this)
-            return this.__NetLuid
-        }
+    NetLuid {
+        get => NumGet(this, 16, "ptr")
+        set => NumPut("ptr", value, this, 16)
     }
 
     /**
      * @type {Integer}
      */
     DeviceNameLength {
-        get => NumGet(this, 32, "ushort")
-        set => NumPut("ushort", value, this, 32)
+        get => NumGet(this, 24, "ushort")
+        set => NumPut("ushort", value, this, 24)
     }
 
     /**
      * @type {String}
      */
     DeviceName {
-        get => StrGet(this.ptr + 34, 0, "UTF-16")
-        set => StrPut(value, this.ptr + 34, 0, "UTF-16")
+        get => StrGet(this.ptr + 26, 0, "UTF-8")
+        set => StrPut(value, this.ptr + 26, 0, "UTF-8")
     }
 }

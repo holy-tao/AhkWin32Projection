@@ -7,9 +7,8 @@
  * The IContentPrefetcherTaskTrigger interface supports content prefetching behavior and performance testing by defining methods that allow you to verify that an installed app package is registered for this background task and manually trigger its content prefetch operations.
  * @see https://learn.microsoft.com/windows/win32/api/icontentprefetchertasktrigger/nn-icontentprefetchertasktrigger-icontentprefetchertasktrigger
  * @namespace Windows.Win32.Networking.WindowsWebServices
- * @version v4.0.30319
  */
-class IContentPrefetcherTaskTrigger extends IInspectable{
+class IContentPrefetcherTaskTrigger extends IInspectable {
 
     static sizeof => A_PtrSize
     /**

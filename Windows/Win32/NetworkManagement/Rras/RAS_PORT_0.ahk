@@ -1,15 +1,14 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
 #Include ..\..\Foundation\HANDLE.ahk
+#Include .\RAS_PORT_CONDITION.ahk
 
 /**
  * The RAS_PORT_0 structure contains general information regarding a specific RAS port, such as port condition and port name. For more detailed information about a specific port, such as line speed or errors, see RAS_PORT_1.
  * @see https://learn.microsoft.com/windows/win32/api/mprapi/ns-mprapi-ras_port_0
  * @namespace Windows.Win32.NetworkManagement.Rras
- * @version v4.0.30319
  */
-class RAS_PORT_0 extends Win32Struct
-{
+class RAS_PORT_0 extends Win32Struct {
     static sizeof => 392
 
     static packingSize => 8
@@ -18,7 +17,7 @@ class RAS_PORT_0 extends Win32Struct
      * Handle to the port.
      * @type {HANDLE}
      */
-    hPort{
+    hPort {
         get {
             if(!this.HasProp("__hPort"))
                 this.__hPort := HANDLE(0, this)
@@ -30,7 +29,7 @@ class RAS_PORT_0 extends Win32Struct
      * Handle to the connection.
      * @type {HANDLE}
      */
-    hConnection{
+    hConnection {
         get {
             if(!this.HasProp("__hConnection"))
                 this.__hConnection := HANDLE(8, this)
@@ -40,7 +39,7 @@ class RAS_PORT_0 extends Win32Struct
 
     /**
      * <a href="https://docs.microsoft.com/windows/desktop/api/mprapi/ne-mprapi-ras_port_condition">RAS_PORT_CONDITION</a> structure.
-     * @type {Integer}
+     * @type {RAS_PORT_CONDITION}
      */
     dwPortCondition {
         get => NumGet(this, 16, "int")

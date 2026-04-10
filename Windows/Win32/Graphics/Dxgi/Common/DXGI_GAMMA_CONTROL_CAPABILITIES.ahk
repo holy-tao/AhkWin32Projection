@@ -3,10 +3,8 @@
 
 /**
  * @namespace Windows.Win32.Graphics.Dxgi.Common
- * @version v4.0.30319
  */
-class DXGI_GAMMA_CONTROL_CAPABILITIES extends Win32Struct
-{
+class DXGI_GAMMA_CONTROL_CAPABILITIES extends Win32Struct {
     static sizeof => 4116
 
     static packingSize => 4
@@ -44,9 +42,9 @@ class DXGI_GAMMA_CONTROL_CAPABILITIES extends Win32Struct
     }
 
     /**
-     * @type {Array<Single>}
+     * @type {Array<Float>}
      */
-    ControlPointPositions{
+    ControlPointPositions {
         get {
             if(!this.HasProp("__ControlPointPositionsProxyArray"))
                 this.__ControlPointPositionsProxyArray := Win32FixedArray(this.ptr + 16, 1025, Primitive, "float")

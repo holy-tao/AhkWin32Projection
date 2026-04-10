@@ -1,16 +1,15 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
-#Include ..\..\Graphics\Gdi\XFORM.ahk
 #Include ..\..\System\Com\IDispatch.ahk
+#Include ..\..\Graphics\Gdi\XFORM.ahk
 
 /**
  * . (IInkTransform)
  * @see https://learn.microsoft.com/windows/win32/api/msinkaut/nn-msinkaut-iinktransform
  * @namespace Windows.Win32.UI.TabletPC
- * @version v4.0.30319
  */
-class IInkTransform extends IDispatch{
+class IInkTransform extends IDispatch {
 
     static sizeof => A_PtrSize
     /**

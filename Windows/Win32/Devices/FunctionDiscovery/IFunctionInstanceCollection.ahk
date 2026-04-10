@@ -1,8 +1,8 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
-#Include .\IFunctionInstance.ahk
 #Include ..\..\System\Com\IUnknown.ahk
+#Include .\IFunctionInstance.ahk
 
 /**
  * Represents a group of IFunctionInstance objects returned as the result of a query or get instance request.
@@ -10,9 +10,8 @@
  * The <b>IFunctionInstanceCollection</b> interface allows a client program to enumerate a collection of  <a href="https://docs.microsoft.com/windows/desktop/api/functiondiscoveryapi/nn-functiondiscoveryapi-ifunctioninstance">IFunctionInstance</a> objects.
  * @see https://learn.microsoft.com/windows/win32/api/functiondiscoveryapi/nn-functiondiscoveryapi-ifunctioninstancecollection
  * @namespace Windows.Win32.Devices.FunctionDiscovery
- * @version v4.0.30319
  */
-class IFunctionInstanceCollection extends IUnknown{
+class IFunctionInstanceCollection extends IUnknown {
 
     static sizeof => A_PtrSize
     /**

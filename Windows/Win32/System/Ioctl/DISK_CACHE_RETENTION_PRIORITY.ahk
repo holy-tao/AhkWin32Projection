@@ -3,9 +3,8 @@
 
 /**
  * @namespace Windows.Win32.System.Ioctl
- * @version v4.0.30319
  */
-class DISK_CACHE_RETENTION_PRIORITY extends Win32Enum{
+class DISK_CACHE_RETENTION_PRIORITY extends Win32Enum {
 
     /**
      * @type {Integer (Int32)}

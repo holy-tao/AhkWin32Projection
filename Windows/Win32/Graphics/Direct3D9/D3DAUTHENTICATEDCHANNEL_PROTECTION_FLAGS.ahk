@@ -5,10 +5,8 @@
  * Specifies the protection level for video content.
  * @see https://learn.microsoft.com/windows/win32/medfound/d3dauthenticatedchannel-protection-flags
  * @namespace Windows.Win32.Graphics.Direct3D9
- * @version v4.0.30319
  */
-class D3DAUTHENTICATEDCHANNEL_PROTECTION_FLAGS extends Win32Struct
-{
+class D3DAUTHENTICATEDCHANNEL_PROTECTION_FLAGS extends Win32Struct {
     static sizeof => 4
 
     static packingSize => 4

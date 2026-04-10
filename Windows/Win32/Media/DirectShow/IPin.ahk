@@ -1,19 +1,17 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
-#Include .\IPin.ahk
+#Include ..\..\System\Com\IUnknown.ahk
 #Include ..\MediaFoundation\AM_MEDIA_TYPE.ahk
 #Include .\PIN_INFO.ahk
 #Include .\IEnumMediaTypes.ahk
-#Include ..\..\System\Com\IUnknown.ahk
 
 /**
  * This interface is exposed by all input and output pins.The filter graph manager uses this interface to connect pins and perform flushing operations.
  * @see https://learn.microsoft.com/windows/win32/api/strmif/nn-strmif-ipin
  * @namespace Windows.Win32.Media.DirectShow
- * @version v4.0.30319
  */
-class IPin extends IUnknown{
+class IPin extends IUnknown {
 
     static sizeof => A_PtrSize
     /**
@@ -303,7 +301,7 @@ class IPin extends IUnknown{
 
     /**
      * The QueryDirection method gets the direction of the pin (input or output).
-     * @returns {Integer} Receives a member of the [PIN_DIRECTION](/windows/desktop/api/strmif/ne-strmif-pin_direction) enumerated type.
+     * @returns {PIN_DIRECTION} Receives a member of the [PIN_DIRECTION](/windows/desktop/api/strmif/ne-strmif-pin_direction) enumerated type.
      * @see https://learn.microsoft.com/windows/win32/api/strmif/nf-strmif-ipin-querydirection
      */
     QueryDirection() {

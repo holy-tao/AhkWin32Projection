@@ -5,10 +5,8 @@
  * The DWRITE_SCRIPT_PROPERTIES structure specifies script properties for caret navigation and justification.
  * @see https://learn.microsoft.com/windows/win32/api/dwrite_1/ns-dwrite_1-dwrite_script_properties
  * @namespace Windows.Win32.Graphics.DirectWrite
- * @version v4.0.30319
  */
-class DWRITE_SCRIPT_PROPERTIES extends Win32Struct
-{
+class DWRITE_SCRIPT_PROPERTIES extends Win32Struct {
     static sizeof => 20
 
     static packingSize => 4
@@ -78,7 +76,6 @@ class DWRITE_SCRIPT_PROPERTIES extends Win32Struct
     }
 
     /**
-     * Restrict the caret to whole clusters, like Thai and Devanagari. Scripts such as Arabic by default allow navigation between clusters. Others like Thai always navigate across whole clusters.
      * @type {Integer}
      */
     restrictCaretToClusters {
@@ -87,7 +84,6 @@ class DWRITE_SCRIPT_PROPERTIES extends Win32Struct
     }
 
     /**
-     * The language uses dividers between words, such as spaces between Latin or the Ethiopic wordspace. Examples include Latin, Greek, Devanagari, and Ethiopic. Chinese, Korean, and Thai are excluded.
      * @type {Integer}
      */
     usesWordDividers {
@@ -96,7 +92,6 @@ class DWRITE_SCRIPT_PROPERTIES extends Win32Struct
     }
 
     /**
-     * The characters are discrete units from each other. This includes both block scripts and clustered scripts. Examples include Latin, Greek, Cyrillic, Hebrew, Chinese, and Thai.
      * @type {Integer}
      */
     isDiscreteWriting {
@@ -105,7 +100,6 @@ class DWRITE_SCRIPT_PROPERTIES extends Win32Struct
     }
 
     /**
-     * The language is a block script, expanding between characters. Examples include Chinese, Japanese, Korean, and Bopomofo.
      * @type {Integer}
      */
     isBlockWriting {
@@ -114,7 +108,6 @@ class DWRITE_SCRIPT_PROPERTIES extends Win32Struct
     }
 
     /**
-     * The language is justified within glyph clusters, not just between glyph clusters, such as the character sequence of Thai Lu and Sara Am (U+E026, U+E033), which form a single cluster but still expand between them. Examples include Thai, Lao, and Khmer.
      * @type {Integer}
      */
     isDistributedWithinCluster {
@@ -123,11 +116,6 @@ class DWRITE_SCRIPT_PROPERTIES extends Win32Struct
     }
 
     /**
-     * The script's clusters are connected to each other (such as the baseline-linked Devanagari), and no separation is added between characters.
-     * 
-     * <div class="alert"><b>Note</b>  Cursively linked scripts like Arabic are also connected (but not all connected scripts are cursive). </div>
-     * <div> </div>
-     * Examples include Devanagari, Arabic, Syriac, Bengala, Gurmukhi, and Ogham. Latin, Chinese, and Thaana are excluded.
      * @type {Integer}
      */
     isConnectedWriting {
@@ -136,11 +124,6 @@ class DWRITE_SCRIPT_PROPERTIES extends Win32Struct
     }
 
     /**
-     * The script is naturally cursive (Arabic and Syriac), meaning it uses other justification methods like kashida extension rather than inter-character spacing.
-     * 
-     * <div class="alert"><b>Note</b>   Although other scripts like Latin and Japanese might actually support handwritten cursive forms, they are not considered cursive scripts.</div>
-     * <div> </div>
-     * Examples include Arabic, Syriac, and Mongolian. Thaana, Devanagari, Latin, and Chinese are excluded.
      * @type {Integer}
      */
     isCursiveWriting {
@@ -149,7 +132,6 @@ class DWRITE_SCRIPT_PROPERTIES extends Win32Struct
     }
 
     /**
-     * Reserved
      * @type {Integer}
      */
     reserved {

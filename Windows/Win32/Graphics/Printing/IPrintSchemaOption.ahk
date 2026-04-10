@@ -1,15 +1,13 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
-#Include ..\..\Foundation\BSTR.ahk
-#Include ..\..\System\Com\IUnknown.ahk
 #Include .\IPrintSchemaDisplayableElement.ahk
+#Include ..\..\System\Com\IUnknown.ahk
 
 /**
  * @namespace Windows.Win32.Graphics.Printing
- * @version v4.0.30319
  */
-class IPrintSchemaOption extends IPrintSchemaDisplayableElement{
+class IPrintSchemaOption extends IPrintSchemaDisplayableElement {
 
     static sizeof => A_PtrSize
     /**
@@ -38,7 +36,7 @@ class IPrintSchemaOption extends IPrintSchemaDisplayableElement{
     }
 
     /**
-     * @type {Integer} 
+     * @type {PrintSchemaConstrainedSetting} 
      */
     Constrained {
         get => this.get_Constrained()
@@ -55,7 +53,7 @@ class IPrintSchemaOption extends IPrintSchemaDisplayableElement{
 
     /**
      * 
-     * @returns {Integer} 
+     * @returns {PrintSchemaConstrainedSetting} 
      */
     get_Constrained() {
         result := ComCall(12, this, "int*", &pSetting := 0, "HRESULT")

@@ -5,9 +5,8 @@
  * Defines function return codes.
  * @see https://learn.microsoft.com/windows/win32/api/mi/ne-mi-mi_result
  * @namespace Windows.Win32.System.Wmi
- * @version v4.0.30319
  */
-class MI_Result extends Win32Enum{
+class MI_Result extends Win32Enum {
 
     /**
      * The operation was successful.

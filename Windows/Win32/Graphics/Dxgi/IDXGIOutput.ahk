@@ -1,12 +1,12 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
+#Include .\IDXGIObject.ahk
 #Include .\DXGI_OUTPUT_DESC.ahk
 #Include Common\DXGI_MODE_DESC.ahk
 #Include Common\DXGI_GAMMA_CONTROL_CAPABILITIES.ahk
 #Include Common\DXGI_GAMMA_CONTROL.ahk
 #Include .\DXGI_FRAME_STATISTICS.ahk
-#Include .\IDXGIObject.ahk
 
 /**
  * An IDXGIOutput interface represents an adapter output (such as a monitor).
@@ -14,9 +14,8 @@
  * To see the outputs available, use <a href="https://docs.microsoft.com/windows/desktop/api/dxgi/nf-dxgi-idxgiadapter-enumoutputs">IDXGIAdapter::EnumOutputs</a>. To see the specific output that the swap chain will update, use <a href="https://docs.microsoft.com/windows/desktop/api/dxgi/nf-dxgi-idxgiswapchain-getcontainingoutput">IDXGISwapChain::GetContainingOutput</a>.
  * @see https://learn.microsoft.com/windows/win32/api/dxgi/nn-dxgi-idxgioutput
  * @namespace Windows.Win32.Graphics.Dxgi
- * @version v4.0.30319
  */
-class IDXGIOutput extends IDXGIObject{
+class IDXGIOutput extends IDXGIObject {
 
     static sizeof => A_PtrSize
     /**
@@ -76,10 +75,10 @@ class IDXGIOutput extends IDXGIObject{
      * pOutput->GetDisplayModeList( format, flags, &num, pDescs);
      *       
      * ```
-     * @param {Integer} EnumFormat Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/dxgiformat/ne-dxgiformat-dxgi_format">DXGI_FORMAT</a></b>
+     * @param {DXGI_FORMAT} EnumFormat Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/dxgiformat/ne-dxgiformat-dxgi_format">DXGI_FORMAT</a></b>
      * 
      * The color format (see <a href="https://docs.microsoft.com/windows/desktop/api/dxgiformat/ne-dxgiformat-dxgi_format">DXGI_FORMAT</a>).
-     * @param {Integer} Flags Type: <b><a href="https://docs.microsoft.com/windows/desktop/WinProg/windows-data-types">UINT</a></b>
+     * @param {DXGI_ENUM_MODES} Flags Type: <b><a href="https://docs.microsoft.com/windows/desktop/WinProg/windows-data-types">UINT</a></b>
      * 
      * Options for modes to include (see <a href="https://docs.microsoft.com/windows/desktop/direct3ddxgi/dxgi-enum-modes">DXGI_ENUM_MODES</a>).
      *             DXGI_ENUM_MODES_SCALING needs to be specified to expose the display modes that require scaling.  Centered modes, requiring no 

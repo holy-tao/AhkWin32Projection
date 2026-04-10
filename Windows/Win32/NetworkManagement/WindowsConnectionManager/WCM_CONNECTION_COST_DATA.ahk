@@ -1,14 +1,13 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
+#Include .\WCM_CONNECTION_COST_SOURCE.ahk
 
 /**
  * Specifies information about a connection cost.
  * @see https://learn.microsoft.com/windows/win32/api/wcmapi/ns-wcmapi-wcm_connection_cost_data
  * @namespace Windows.Win32.NetworkManagement.WindowsConnectionManager
- * @version v4.0.30319
  */
-class WCM_CONNECTION_COST_DATA extends Win32Struct
-{
+class WCM_CONNECTION_COST_DATA extends Win32Struct {
     static sizeof => 8
 
     static packingSize => 4
@@ -127,7 +126,7 @@ class WCM_CONNECTION_COST_DATA extends Win32Struct
      * Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/wcmapi/ne-wcmapi-wcm_connection_cost_source">WCM_CONNECTION_COST_SOURCE</a></b>
      * 
      * Specifies the cost source.
-     * @type {Integer}
+     * @type {WCM_CONNECTION_COST_SOURCE}
      */
     CostSource {
         get => NumGet(this, 4, "int")

@@ -3,10 +3,8 @@
 
 /**
  * @namespace Windows.Wdk.Storage.FileSystem
- * @version v4.0.30319
  */
-class QUERY_ON_CREATE_FILE_LX_INFORMATION extends Win32Struct
-{
+class QUERY_ON_CREATE_FILE_LX_INFORMATION extends Win32Struct {
     static sizeof => 28
 
     static packingSize => 4

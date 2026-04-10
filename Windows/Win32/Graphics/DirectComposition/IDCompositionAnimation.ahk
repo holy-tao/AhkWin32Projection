@@ -7,9 +7,8 @@
  * Represents a function for animating one or more properties of one or more Microsoft DirectComposition objects.
  * @see https://learn.microsoft.com/windows/win32/api/dcompanimation/nn-dcompanimation-idcompositionanimation
  * @namespace Windows.Win32.Graphics.DirectComposition
- * @version v4.0.30319
  */
-class IDCompositionAnimation extends IUnknown{
+class IDCompositionAnimation extends IUnknown {
 
     static sizeof => A_PtrSize
     /**

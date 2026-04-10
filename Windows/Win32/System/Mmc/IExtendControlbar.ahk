@@ -7,9 +7,8 @@
  * The IExtendControlbar interface enables an extension to add control bars to the console. This provides a way to improve the functionality and appearance of your snap-in by adding toolbars or other user interface enhancements.
  * @see https://learn.microsoft.com/windows/win32/api/mmc/nn-mmc-iextendcontrolbar
  * @namespace Windows.Win32.System.Mmc
- * @version v4.0.30319
  */
-class IExtendControlbar extends IUnknown{
+class IExtendControlbar extends IUnknown {
 
     static sizeof => A_PtrSize
     /**
@@ -50,7 +49,7 @@ class IExtendControlbar extends IUnknown{
      * The IExtendControlbar::ControlbarNotify method specifies the notification sent to the snap-in from the console as a result of user action.
      * @remarks
      * For more information, see the individual notifications. The snap-in should return S_FALSE for any notification it does not handle.
-     * @param {Integer} event A value that specifies one of the following:
+     * @param {MMC_NOTIFY_TYPE} event A value that specifies one of the following:
      * @param {LPARAM} arg Depends on the event parameter. For more information, see 
      * <a href="https://docs.microsoft.com/previous-versions/windows/desktop/mmc/mmc-notifications">MMC Notifications</a>.
      * @param {LPARAM} param2 

@@ -5,9 +5,8 @@
  * . (DEFAULT_FOLDER_MENU_RESTRICTIONS)
  * @see https://learn.microsoft.com/windows/win32/api/shobjidl_core/ne-shobjidl_core-default_folder_menu_restrictions
  * @namespace Windows.Win32.UI.Shell
- * @version v4.0.30319
  */
-class DEFAULT_FOLDER_MENU_RESTRICTIONS extends Win32BitflagEnum{
+class DEFAULT_FOLDER_MENU_RESTRICTIONS extends Win32BitflagEnum {
 
     /**
      * 0x0000. No restrictions.

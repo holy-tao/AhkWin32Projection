@@ -4,10 +4,8 @@
 
 /**
  * @namespace Windows.Win32.Devices.Display
- * @version v4.0.30319
  */
-class FSVIDEO_SCREEN_INFORMATION extends Win32Struct
-{
+class FSVIDEO_SCREEN_INFORMATION extends Win32Struct {
     static sizeof => 8
 
     static packingSize => 2
@@ -15,7 +13,7 @@ class FSVIDEO_SCREEN_INFORMATION extends Win32Struct
     /**
      * @type {COORD}
      */
-    ScreenSize{
+    ScreenSize {
         get {
             if(!this.HasProp("__ScreenSize"))
                 this.__ScreenSize := COORD(0, this)
@@ -26,7 +24,7 @@ class FSVIDEO_SCREEN_INFORMATION extends Win32Struct
     /**
      * @type {COORD}
      */
-    FontSize{
+    FontSize {
         get {
             if(!this.HasProp("__FontSize"))
                 this.__FontSize := COORD(4, this)

@@ -7,9 +7,8 @@
  * Provides data about the frame buffer size and format and allows the contents to be retrieved.
  * @see https://learn.microsoft.com/windows/win32/api/rdpencomapi/nn-rdpencomapi-irdpsrapiframebuffer
  * @namespace Windows.Win32.System.DesktopSharing
- * @version v4.0.30319
  */
-class IRDPSRAPIFrameBuffer extends IDispatch{
+class IRDPSRAPIFrameBuffer extends IDispatch {
 
     static sizeof => A_PtrSize
     /**

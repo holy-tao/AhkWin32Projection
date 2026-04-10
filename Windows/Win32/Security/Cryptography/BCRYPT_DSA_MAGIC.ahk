@@ -3,9 +3,8 @@
 
 /**
  * @namespace Windows.Win32.Security.Cryptography
- * @version v4.0.30319
  */
-class BCRYPT_DSA_MAGIC extends Win32Enum{
+class BCRYPT_DSA_MAGIC extends Win32Enum {
 
     /**
      * @type {Integer (UInt32)}

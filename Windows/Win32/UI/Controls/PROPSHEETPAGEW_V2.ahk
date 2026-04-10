@@ -1,6 +1,7 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
 #Include ..\..\Foundation\HINSTANCE.ahk
+#Include ..\WindowsAndMessaging\DLGTEMPLATE.ahk
 #Include ..\WindowsAndMessaging\HICON.ahk
 
 /**
@@ -9,10 +10,8 @@
  * Comctl32.dll version 6 and later are not redistributable. To use Comctl32.dll version 6 or later, specify the .dll file in a manifest. For more information on manifests, see <a href="https://docs.microsoft.com/windows/desktop/Controls/cookbook-overview">Enabling Visual Styles</a>.
  * @see https://learn.microsoft.com/windows/win32/api/prsht/ns-prsht-propsheetpagew_v2
  * @namespace Windows.Win32.UI.Controls
- * @version v4.0.30319
  */
-class PROPSHEETPAGEW_V2 extends Win32Struct
-{
+class PROPSHEETPAGEW_V2 extends Win32Struct {
     static sizeof => 88
 
     static packingSize => 8
@@ -36,7 +35,7 @@ class PROPSHEETPAGEW_V2 extends Win32Struct
     /**
      * @type {HINSTANCE}
      */
-    hInstance{
+    hInstance {
         get {
             if(!this.HasProp("__hInstance"))
                 this.__hInstance := HINSTANCE(8, this)
@@ -63,7 +62,7 @@ class PROPSHEETPAGEW_V2 extends Win32Struct
     /**
      * @type {HICON}
      */
-    hIcon{
+    hIcon {
         get {
             if(!this.HasProp("__hIcon"))
                 this.__hIcon := HICON(24, this)

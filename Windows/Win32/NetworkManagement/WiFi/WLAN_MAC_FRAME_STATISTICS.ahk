@@ -5,10 +5,8 @@
  * Contains information about sent and received MAC frames.
  * @see https://learn.microsoft.com/windows/win32/api/wlanapi/ns-wlanapi-wlan_mac_frame_statistics
  * @namespace Windows.Win32.NetworkManagement.WiFi
- * @version v4.0.30319
  */
-class WLAN_MAC_FRAME_STATISTICS extends Win32Struct
-{
+class WLAN_MAC_FRAME_STATISTICS extends Win32Struct {
     static sizeof => 96
 
     static packingSize => 8

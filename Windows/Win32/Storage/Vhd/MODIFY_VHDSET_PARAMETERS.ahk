@@ -1,21 +1,20 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
+#Include .\MODIFY_VHDSET_VERSION.ahk
 
 /**
  * Contains VHD Set modification parameters, indicating how the VHD Set should be altered.
  * @see https://learn.microsoft.com/windows/win32/api/virtdisk/ns-virtdisk-modify_vhdset_parameters
  * @namespace Windows.Win32.Storage.Vhd
- * @version v4.0.30319
  */
-class MODIFY_VHDSET_PARAMETERS extends Win32Struct
-{
+class MODIFY_VHDSET_PARAMETERS extends Win32Struct {
     static sizeof => 24
 
     static packingSize => 8
 
     /**
      * A value from the MODIFY_VHDSET_VERSION enumeration that determines that is the discriminant for the union.
-     * @type {Integer}
+     * @type {MODIFY_VHDSET_VERSION}
      */
     Version {
         get => NumGet(this, 0, "int")
@@ -27,13 +26,13 @@ class MODIFY_VHDSET_PARAMETERS extends Win32Struct
         static packingSize => 8
 
         /**
-         * @type {Pointer<Guid>}
+         * @type {Pointer}
          */
         SnapshotId {
             get => NumGet(this, 0, "ptr")
             set => NumPut("ptr", value, this, 0)
         }
-    
+
         /**
          * @type {PWSTR}
          */
@@ -41,22 +40,21 @@ class MODIFY_VHDSET_PARAMETERS extends Win32Struct
             get => NumGet(this, 8, "ptr")
             set => NumPut("ptr", value, this, 8)
         }
-    
     }
 
     /**
      * @type {_SnapshotPath}
      */
-    SnapshotPath{
+    SnapshotPath {
         get {
             if(!this.HasProp("__SnapshotPath"))
-                this.__SnapshotPath := %this.__Class%._SnapshotPath(8, this)
+                this.__SnapshotPath := MODIFY_VHDSET_PARAMETERS._SnapshotPath(8, this)
             return this.__SnapshotPath
         }
     }
 
     /**
-     * @type {Pointer<Guid>}
+     * @type {Pointer}
      */
     SnapshotId {
         get => NumGet(this, 8, "ptr")

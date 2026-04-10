@@ -9,9 +9,8 @@
  * This interface is currently undefined.
  * @see https://learn.microsoft.com/windows/win32/api/tom/nn-tom-itextdisplays
  * @namespace Windows.Win32.UI.Controls.RichEdit
- * @version v4.0.30319
  */
-class ITextDisplays extends IDispatch{
+class ITextDisplays extends IDispatch {
 
     static sizeof => A_PtrSize
     /**

@@ -1,7 +1,10 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
 #Include .\IKEEXT_CIPHER_ALGORITHM0.ahk
+#Include .\IKEEXT_CIPHER_TYPE.ahk
 #Include .\IKEEXT_INTEGRITY_ALGORITHM0.ahk
+#Include .\IKEEXT_INTEGRITY_TYPE.ahk
+#Include .\IKEEXT_DH_GROUP.ahk
 
 /**
  * Is used to store an IKE/AuthIP main mode proposal.
@@ -13,10 +16,8 @@
  * <b>IKEEXT_PROPOSAL0</b> is a specific implementation of IKEEXT_PROPOSAL. See <a href="https://docs.microsoft.com/windows/desktop/FWP/wfp-version-independent-names-and-targeting-specific-versions-of-windows">WFP Version-Independent Names and Targeting Specific Versions of Windows</a>  for more information.
  * @see https://learn.microsoft.com/windows/win32/api/iketypes/ns-iketypes-ikeext_proposal0
  * @namespace Windows.Win32.NetworkManagement.WindowsFilteringPlatform
- * @version v4.0.30319
  */
-class IKEEXT_PROPOSAL0 extends Win32Struct
-{
+class IKEEXT_PROPOSAL0 extends Win32Struct {
     static sizeof => 28
 
     static packingSize => 4
@@ -25,7 +26,7 @@ class IKEEXT_PROPOSAL0 extends Win32Struct
      * Parameters for the encryption algorithm specified by [IKEEXT_CIPHER_ALGORITHM0](/windows/desktop/api/iketypes/ns-iketypes-ikeext_cipher_algorithm0).
      * @type {IKEEXT_CIPHER_ALGORITHM0}
      */
-    cipherAlgorithm{
+    cipherAlgorithm {
         get {
             if(!this.HasProp("__cipherAlgorithm"))
                 this.__cipherAlgorithm := IKEEXT_CIPHER_ALGORITHM0(0, this)
@@ -37,7 +38,7 @@ class IKEEXT_PROPOSAL0 extends Win32Struct
      * Parameters for the hash algorithm specified by [IKEEXT_INTEGRITY_ALGORITHM0](/windows/desktop/api/iketypes/ns-iketypes-ikeext_integrity_algorithm0).
      * @type {IKEEXT_INTEGRITY_ALGORITHM0}
      */
-    integrityAlgorithm{
+    integrityAlgorithm {
         get {
             if(!this.HasProp("__integrityAlgorithm"))
                 this.__integrityAlgorithm := IKEEXT_INTEGRITY_ALGORITHM0(12, this)
@@ -56,7 +57,7 @@ class IKEEXT_PROPOSAL0 extends Win32Struct
 
     /**
      * The Diffie Hellman group specified by [IKEEXT_DH_GROUP](/windows/desktop/api/iketypes/ne-iketypes-ikeext_dh_group).
-     * @type {Integer}
+     * @type {IKEEXT_DH_GROUP}
      */
     dhGroup {
         get => NumGet(this, 20, "int")

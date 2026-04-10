@@ -7,9 +7,8 @@
  * Allows primary snap-ins to compare result items that are displayed in a sorted order in the result pane.
  * @see https://learn.microsoft.com/windows/win32/api/mmc/nn-mmc-iresultdatacompare
  * @namespace Windows.Win32.System.Mmc
- * @version v4.0.30319
  */
-class IResultDataCompare extends IUnknown{
+class IResultDataCompare extends IUnknown {
 
     static sizeof => A_PtrSize
     /**

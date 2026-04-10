@@ -5,10 +5,8 @@
  * The WIA_DATA_CALLBACK_HEADER is transmitted to an application during a series of calls by the Windows Image Acquisition (WIA) run-time system to the IWiaDataCallback::BandedDataCallback method.
  * @see https://learn.microsoft.com/windows/win32/api/wia_xp/ns-wia_xp-wia_data_callback_header
  * @namespace Windows.Win32.Devices.ImageAcquisition
- * @version v4.0.30319
  */
-class WIA_DATA_CALLBACK_HEADER extends Win32Struct
-{
+class WIA_DATA_CALLBACK_HEADER extends Win32Struct {
     static sizeof => 24
 
     static packingSize => 8
@@ -28,7 +26,7 @@ class WIA_DATA_CALLBACK_HEADER extends Win32Struct
      * Type: <b>GUID</b>
      * 
      * Indicates the image clipboard format. For a list of clipboard formats, see <a href="https://docs.microsoft.com/windows/desktop/api/winuser/nf-winuser-setclipboarddata">SetClipboardData</a> Function. This parameter is queried during a callback to the <a href="https://docs.microsoft.com/windows/desktop/api/wia_xp/nf-wia_xp-iwiadatacallback-bandeddatacallback">IWiaDataCallback::BandedDataCallback</a> method with the <i>lMessage</i> parameter set to IT_MSG_DATA_HEADER.
-     * @type {Pointer<Guid>}
+     * @type {Pointer}
      */
     guidFormatID {
         get => NumGet(this, 8, "ptr")

@@ -5,9 +5,8 @@
  * Contains values that indicate the types of property pages in an access control editor property sheet.
  * @see https://learn.microsoft.com/windows/win32/api/aclui/ne-aclui-si_page_type
  * @namespace Windows.Win32.Security.Authorization.UI
- * @version v4.0.30319
  */
-class SI_PAGE_TYPE extends Win32Enum{
+class SI_PAGE_TYPE extends Win32Enum {
 
     /**
      * The 
@@ -50,7 +49,6 @@ class SI_PAGE_TYPE extends Win32Enum{
     static SI_PAGE_TAKEOWNERSHIP => 5
 
     /**
-     * 
      * @type {Integer (Int32)}
      */
     static SI_PAGE_SHARE => 6

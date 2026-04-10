@@ -7,9 +7,8 @@
  * This enumeration is a flag.
  * @see https://learn.microsoft.com/windows/win32/api/msinkaut/ne-msinkaut-inkextractflags
  * @namespace Windows.Win32.UI.TabletPC
- * @version v4.0.30319
  */
-class InkExtractFlags extends Win32Enum{
+class InkExtractFlags extends Win32Enum {
 
     /**
      * The ink is copied from the <a href="https://docs.microsoft.com/windows/desktop/tablet/inkdisp-class">InkDisp</a> object.

@@ -1,18 +1,18 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
-#Include .\CRYPT_INTEGER_BLOB.ahk
-#Include .\CRYPT_ALGORITHM_IDENTIFIER.ahk
 #Include .\OCSP_CERT_ID.ahk
+#Include .\CRYPT_ALGORITHM_IDENTIFIER.ahk
+#Include .\CRYPT_INTEGER_BLOB.ahk
+#Include .\OCSP_BASIC_REVOKED_INFO.ahk
 #Include ..\..\Foundation\FILETIME.ahk
+#Include .\CERT_EXTENSION.ahk
 
 /**
  * Contains the current certificate status for a single certificate.
  * @see https://learn.microsoft.com/windows/win32/api/wincrypt/ns-wincrypt-ocsp_basic_response_entry
  * @namespace Windows.Win32.Security.Cryptography
- * @version v4.0.30319
  */
-class OCSP_BASIC_RESPONSE_ENTRY extends Win32Struct
-{
+class OCSP_BASIC_RESPONSE_ENTRY extends Win32Struct {
     static sizeof => 120
 
     static packingSize => 8
@@ -21,7 +21,7 @@ class OCSP_BASIC_RESPONSE_ENTRY extends Win32Struct
      * An <a href="https://docs.microsoft.com/windows/desktop/api/wincrypt/ns-wincrypt-ocsp_cert_id">OCSP_CERT_ID</a> structure that specifies the target certificate of the <a href="https://docs.microsoft.com/windows/desktop/SecGloss/o-gly">online certificate status protocol</a> (OCSP) response.
      * @type {OCSP_CERT_ID}
      */
-    CertId{
+    CertId {
         get {
             if(!this.HasProp("__CertId"))
                 this.__CertId := OCSP_CERT_ID(0, this)
@@ -95,7 +95,7 @@ class OCSP_BASIC_RESPONSE_ENTRY extends Win32Struct
      * The date and time at which the response indicated by <i>dwCertStatus</i> is known to be correct.
      * @type {FILETIME}
      */
-    ThisUpdate{
+    ThisUpdate {
         get {
             if(!this.HasProp("__ThisUpdate"))
                 this.__ThisUpdate := FILETIME(88, this)
@@ -107,7 +107,7 @@ class OCSP_BASIC_RESPONSE_ENTRY extends Win32Struct
      * The date and time on or before which newer information will be available for the certificate status. A value of zero indicates that the certificate status never expires.
      * @type {FILETIME}
      */
-    NextUpdate{
+    NextUpdate {
         get {
             if(!this.HasProp("__NextUpdate"))
                 this.__NextUpdate := FILETIME(96, this)

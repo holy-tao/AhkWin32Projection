@@ -11,10 +11,8 @@
  * The maximum value of the  <b>iBounceMSec</b>, <b>iWaitMSec</b>, <b>iDelayMSec</b>, and <b>iRepeatMSec</b> members is 20,000 milliseconds.
  * @see https://learn.microsoft.com/windows/win32/api/winuser/ns-winuser-filterkeys
  * @namespace Windows.Win32.UI.Accessibility
- * @version v4.0.30319
  */
-class FILTERKEYS extends Win32Struct
-{
+class FILTERKEYS extends Win32Struct {
     static sizeof => 24
 
     static packingSize => 4

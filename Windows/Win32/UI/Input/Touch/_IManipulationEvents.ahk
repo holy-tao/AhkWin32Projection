@@ -7,9 +7,8 @@
  * Handles manipulation and inertia events.
  * @see https://learn.microsoft.com/windows/win32/api/manipulations/nn-manipulations-_imanipulationevents
  * @namespace Windows.Win32.UI.Input.Touch
- * @version v4.0.30319
  */
-class _IManipulationEvents extends IUnknown{
+class _IManipulationEvents extends IUnknown {
 
     static sizeof => A_PtrSize
     /**

@@ -1,12 +1,11 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\..\Guid.ahk
+#Include ..\..\..\System\Com\IDispatch.ahk
 #Include ..\..\..\System\Ole\IEnumVARIANT.ahk
 #Include .\IEnumComponentTypes.ahk
 #Include .\IComponentType.ahk
 #Include ..\..\..\System\Variant\VARIANT.ahk
-#Include .\IComponentTypes.ahk
-#Include ..\..\..\System\Com\IDispatch.ahk
 
 /**
  * The IComponentTypes interface is implemented on ComponentTypes objects and contains methods that enable applications to enumerate, add, remove and retrieve individual ComponentType objects. All ComponentTypes objects also support IPersistPropertyBag.
@@ -14,9 +13,8 @@
  * To declare the interface identifier (IID) for this interface, use the <b>__uuidof</b> operator: <c>__uuidof(IComponentTypes)</c>.
  * @see https://learn.microsoft.com/windows/win32/api/tuner/nn-tuner-icomponenttypes
  * @namespace Windows.Win32.Media.DirectShow.Tv
- * @version v4.0.30319
  */
-class IComponentTypes extends IDispatch{
+class IComponentTypes extends IDispatch {
 
     static sizeof => A_PtrSize
     /**
@@ -94,7 +92,7 @@ class IComponentTypes extends IDispatch{
     /**
      * The get_Item method retrieves the IComponentType interface pointer at the specified index number.
      * @param {VARIANT} Index The index number of the object to retrieve.
-     * @returns {IComponentType} 
+     * @returns {IComponentType} Receives a pointer to the <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/tuner/nn-tuner-icomponenttype">IComponentType</a> interface. The caller must release the interface.
      * @see https://learn.microsoft.com/windows/win32/api/tuner/nf-tuner-icomponenttypes-get_item
      */
     get_Item(Index) {
@@ -105,7 +103,7 @@ class IComponentTypes extends IDispatch{
     /**
      * The put_Item method replaces the ComponentType object at the specified index with a new ComponentType object.
      * @param {VARIANT} Index Index number of the item to be replaced.
-     * @param {IComponentType} _ComponentType 
+     * @param {IComponentType} _ComponentType Pointer to the <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/tuner/nn-tuner-icomponenttype">IComponentType</a> object that will be inserted into the collection.
      * @returns {HRESULT} Returns S_OK if successful. If the method fails, error information can be retrieved using the standard COM <b>IErrorInfo</b> interface.
      * @see https://learn.microsoft.com/windows/win32/api/tuner/nf-tuner-icomponenttypes-put_item
      */
@@ -116,7 +114,7 @@ class IComponentTypes extends IDispatch{
 
     /**
      * The Add method adds a new ComponentType object to the collection.
-     * @param {IComponentType} _ComponentType 
+     * @param {IComponentType} _ComponentType Pointer to the <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/tuner/nn-tuner-icomponenttype">IComponentType</a> object that will be added to the collection.
      * @returns {VARIANT} The index number of the component type after it has been added to the collection.
      * @see https://learn.microsoft.com/windows/win32/api/tuner/nf-tuner-icomponenttypes-add
      */

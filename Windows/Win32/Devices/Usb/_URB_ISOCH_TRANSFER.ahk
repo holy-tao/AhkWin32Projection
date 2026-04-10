@@ -1,15 +1,14 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
 #Include .\_URB_HEADER.ahk
+#Include .\URB.ahk
 #Include .\_URB_HCD_AREA.ahk
 #Include .\USBD_ISO_PACKET_DESCRIPTOR.ahk
 
 /**
  * @namespace Windows.Win32.Devices.Usb
- * @version v4.0.30319
  */
-class _URB_ISOCH_TRANSFER extends Win32Struct
-{
+class _URB_ISOCH_TRANSFER extends Win32Struct {
     static sizeof => 152
 
     static packingSize => 8
@@ -17,7 +16,7 @@ class _URB_ISOCH_TRANSFER extends Win32Struct
     /**
      * @type {_URB_HEADER}
      */
-    Hdr{
+    Hdr {
         get {
             if(!this.HasProp("__Hdr"))
                 this.__Hdr := _URB_HEADER(0, this)
@@ -76,7 +75,7 @@ class _URB_ISOCH_TRANSFER extends Win32Struct
     /**
      * @type {_URB_HCD_AREA}
      */
-    hca{
+    hca {
         get {
             if(!this.HasProp("__hca"))
                 this.__hca := _URB_HCD_AREA(64, this)
@@ -109,12 +108,12 @@ class _URB_ISOCH_TRANSFER extends Win32Struct
     }
 
     /**
-     * @type {Array<USBD_ISO_PACKET_DESCRIPTOR>}
+     * @type {USBD_ISO_PACKET_DESCRIPTOR}
      */
-    IsoPacket{
+    IsoPacket {
         get {
             if(!this.HasProp("__IsoPacketProxyArray"))
-                this.__IsoPacketProxyArray := Win32FixedArray(this.ptr + 144, 1, USBD_ISO_PACKET_DESCRIPTOR, "")
+                this.__IsoPacketProxyArray := Win32FixedArray(this.ptr + 140, 1, USBD_ISO_PACKET_DESCRIPTOR, "")
             return this.__IsoPacketProxyArray
         }
     }

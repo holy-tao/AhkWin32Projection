@@ -3,10 +3,8 @@
 
 /**
  * @namespace Windows.Win32.Devices.Geolocation
- * @version v4.0.30319
  */
-class GNSS_AGNSS_INJECTBLOB extends Win32Struct
-{
+class GNSS_AGNSS_INJECTBLOB extends Win32Struct {
     static sizeof => 28
 
     static packingSize => 4
@@ -60,9 +58,9 @@ class GNSS_AGNSS_INJECTBLOB extends Win32Struct
     }
 
     /**
-     * @type {Array<Byte>}
+     * @type {Array<Integer>}
      */
-    BlobData{
+    BlobData {
         get {
             if(!this.HasProp("__BlobDataProxyArray"))
                 this.__BlobDataProxyArray := Win32FixedArray(this.ptr + 24, 1, Primitive, "char")

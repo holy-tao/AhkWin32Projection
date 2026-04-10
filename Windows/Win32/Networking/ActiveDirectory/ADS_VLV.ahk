@@ -7,10 +7,8 @@
  * To set the VLV by <b>dwContentCount</b> and <b>dwOffset</b>, you must also set the <b>pszTarget</b> to a <b>NULL</b> value. If <b>pszTarget</b> contains a non-<b>NULL</b> value, then it is used as the offset, otherwise, <b>lOffset</b> is used as the offset. It is recommended that you initialize the structure to zero.
  * @see https://learn.microsoft.com/windows/win32/api/iads/ns-iads-ads_vlv
  * @namespace Windows.Win32.Networking.ActiveDirectory
- * @version v4.0.30319
  */
-class ADS_VLV extends Win32Struct
-{
+class ADS_VLV extends Win32Struct {
     static sizeof => 40
 
     static packingSize => 8

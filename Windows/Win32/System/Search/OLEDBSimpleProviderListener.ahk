@@ -5,9 +5,8 @@
 
 /**
  * @namespace Windows.Win32.System.Search
- * @version v4.0.30319
  */
-class OLEDBSimpleProviderListener extends IUnknown{
+class OLEDBSimpleProviderListener extends IUnknown {
 
     static sizeof => A_PtrSize
     /**
@@ -113,7 +112,7 @@ class OLEDBSimpleProviderListener extends IUnknown{
 
     /**
      * 
-     * @param {Integer} xfer 
+     * @param {OSPXFER} xfer 
      * @returns {HRESULT} 
      */
     transferComplete(xfer) {

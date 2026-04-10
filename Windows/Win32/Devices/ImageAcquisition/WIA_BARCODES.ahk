@@ -4,13 +4,11 @@
 
 /**
  * @namespace Windows.Win32.Devices.ImageAcquisition
- * @version v4.0.30319
  */
-class WIA_BARCODES extends Win32Struct
-{
-    static sizeof => 24
+class WIA_BARCODES extends Win32Struct {
+    static sizeof => 52
 
-    static packingSize => 8
+    static packingSize => 4
 
     /**
      * @type {Integer}
@@ -45,9 +43,9 @@ class WIA_BARCODES extends Win32Struct
     }
 
     /**
-     * @type {Array<WIA_BARCODE_INFO>}
+     * @type {WIA_BARCODE_INFO}
      */
-    Barcodes{
+    Barcodes {
         get {
             if(!this.HasProp("__BarcodesProxyArray"))
                 this.__BarcodesProxyArray := Win32FixedArray(this.ptr + 16, 1, WIA_BARCODE_INFO, "")

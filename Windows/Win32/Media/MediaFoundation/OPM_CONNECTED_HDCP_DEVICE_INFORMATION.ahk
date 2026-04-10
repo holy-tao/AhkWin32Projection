@@ -9,10 +9,8 @@
  * The layout of this structure is identical to the <a href="https://docs.microsoft.com/windows/desktop/api/dxva9typ/ns-dxva9typ-dxva_coppstatushdcpkeydata">DXVA_COPPStatusHDCPKeyData</a> structure used in Certified Output Protection Protocol (COPP).
  * @see https://learn.microsoft.com/windows/win32/api/opmapi/ns-opmapi-opm_connected_hdcp_device_information
  * @namespace Windows.Win32.Media.MediaFoundation
- * @version v4.0.30319
  */
-class OPM_CONNECTED_HDCP_DEVICE_INFORMATION extends Win32Struct
-{
+class OPM_CONNECTED_HDCP_DEVICE_INFORMATION extends Win32Struct {
     static sizeof => 72
 
     static packingSize => 4
@@ -21,7 +19,7 @@ class OPM_CONNECTED_HDCP_DEVICE_INFORMATION extends Win32Struct
      * An <a href="https://docs.microsoft.com/windows/desktop/api/ksopmapi/ns-ksopmapi-opm_random_number">OPM_RANDOM_NUMBER</a> structure. This structure contains the same 128-bit random number that the application sent to the driver in the <a href="https://docs.microsoft.com/windows/desktop/api/ksopmapi/ns-ksopmapi-opm_get_info_parameters">OPM_GET_INFO_PARAMETERS</a> or <a href="https://docs.microsoft.com/windows/desktop/api/opmapi/nf-opmapi-iopmvideooutput-coppcompatiblegetinformation">OPM_COPP_COMPATIBLE_GET_INFO_PARAMETERS</a> structure.
      * @type {OPM_RANDOM_NUMBER}
      */
-    rnRandomNumber{
+    rnRandomNumber {
         get {
             if(!this.HasProp("__rnRandomNumber"))
                 this.__rnRandomNumber := OPM_RANDOM_NUMBER(0, this)
@@ -80,7 +78,7 @@ class OPM_CONNECTED_HDCP_DEVICE_INFORMATION extends Win32Struct
      * An <a href="https://docs.microsoft.com/windows/desktop/api/opmapi/ns-opmapi-opm_hdcp_key_selection_vector">OPM_HDCP_KEY_SELECTION_VECTOR</a> structure that contains the device's key selection vector (KSV). This is the value named <i>Bksv</i> in the HDCP specification.
      * @type {OPM_HDCP_KEY_SELECTION_VECTOR}
      */
-    ksvB{
+    ksvB {
         get {
             if(!this.HasProp("__ksvB"))
                 this.__ksvB := OPM_HDCP_KEY_SELECTION_VECTOR(24, this)
@@ -90,9 +88,9 @@ class OPM_CONNECTED_HDCP_DEVICE_INFORMATION extends Win32Struct
 
     /**
      * Reserved for future use. Fill this array with zeros.
-     * @type {Array<Byte>}
+     * @type {Array<Integer>}
      */
-    Reserved{
+    Reserved {
         get {
             if(!this.HasProp("__ReservedProxyArray"))
                 this.__ReservedProxyArray := Win32FixedArray(this.ptr + 29, 11, Primitive, "char")
@@ -102,9 +100,9 @@ class OPM_CONNECTED_HDCP_DEVICE_INFORMATION extends Win32Struct
 
     /**
      * Reserved for future use. Fill this array with zeros.
-     * @type {Array<Byte>}
+     * @type {Array<Integer>}
      */
-    Reserved2{
+    Reserved2 {
         get {
             if(!this.HasProp("__Reserved2ProxyArray"))
                 this.__Reserved2ProxyArray := Win32FixedArray(this.ptr + 40, 16, Primitive, "char")
@@ -114,9 +112,9 @@ class OPM_CONNECTED_HDCP_DEVICE_INFORMATION extends Win32Struct
 
     /**
      * Reserved for future use. Fill this array with zeros.
-     * @type {Array<Byte>}
+     * @type {Array<Integer>}
      */
-    Reserved3{
+    Reserved3 {
         get {
             if(!this.HasProp("__Reserved3ProxyArray"))
                 this.__Reserved3ProxyArray := Win32FixedArray(this.ptr + 56, 16, Primitive, "char")

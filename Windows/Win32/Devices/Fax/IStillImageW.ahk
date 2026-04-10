@@ -1,14 +1,13 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
-#Include .\IStiDevice.ahk
 #Include ..\..\System\Com\IUnknown.ahk
+#Include .\IStiDevice.ahk
 
 /**
  * @namespace Windows.Win32.Devices.Fax
- * @version v4.0.30319
  */
-class IStillImageW extends IUnknown{
+class IStillImageW extends IUnknown {
 
     static sizeof => A_PtrSize
     /**
@@ -113,7 +112,7 @@ class IStillImageW extends IUnknown{
      * 
      * @param {PWSTR} pwszDeviceName 
      * @param {PWSTR} pValueName 
-     * @param {Pointer} pData 
+     * @param {Integer} pData 
      * @param {Pointer<Integer>} cbData 
      * @returns {Integer} 
      */
@@ -132,7 +131,7 @@ class IStillImageW extends IUnknown{
      * @param {PWSTR} pwszDeviceName 
      * @param {PWSTR} pValueName 
      * @param {Integer} Type 
-     * @param {Pointer} pData 
+     * @param {Integer} pData 
      * @param {Integer} cbData 
      * @returns {HRESULT} 
      */

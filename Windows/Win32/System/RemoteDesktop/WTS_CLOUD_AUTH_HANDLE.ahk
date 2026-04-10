@@ -5,10 +5,8 @@
 
 /**
  * @namespace Windows.Win32.System.RemoteDesktop
- * @version v4.0.30319
  */
-class WTS_CLOUD_AUTH_HANDLE extends Win32Handle
-{
+class WTS_CLOUD_AUTH_HANDLE extends Win32Handle {
     static sizeof => 8
 
     static packingSize => 8

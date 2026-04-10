@@ -3,10 +3,8 @@
 
 /**
  * @namespace Windows.Wdk.Storage.FileSystem
- * @version v4.0.30319
  */
-class FILE_BOTH_DIR_INFORMATION extends Win32Struct
-{
+class FILE_BOTH_DIR_INFORMATION extends Win32Struct {
     static sizeof => 96
 
     static packingSize => 8

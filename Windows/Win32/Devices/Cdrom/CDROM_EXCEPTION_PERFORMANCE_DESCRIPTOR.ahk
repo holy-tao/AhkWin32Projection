@@ -3,18 +3,16 @@
 
 /**
  * @namespace Windows.Win32.Devices.Cdrom
- * @version v4.0.30319
  */
-class CDROM_EXCEPTION_PERFORMANCE_DESCRIPTOR extends Win32Struct
-{
+class CDROM_EXCEPTION_PERFORMANCE_DESCRIPTOR extends Win32Struct {
     static sizeof => 6
 
     static packingSize => 1
 
     /**
-     * @type {Array<Byte>}
+     * @type {Array<Integer>}
      */
-    Lba{
+    Lba {
         get {
             if(!this.HasProp("__LbaProxyArray"))
                 this.__LbaProxyArray := Win32FixedArray(this.ptr + 0, 4, Primitive, "char")
@@ -23,9 +21,9 @@ class CDROM_EXCEPTION_PERFORMANCE_DESCRIPTOR extends Win32Struct
     }
 
     /**
-     * @type {Array<Byte>}
+     * @type {Array<Integer>}
      */
-    Time{
+    Time {
         get {
             if(!this.HasProp("__TimeProxyArray"))
                 this.__TimeProxyArray := Win32FixedArray(this.ptr + 4, 2, Primitive, "char")

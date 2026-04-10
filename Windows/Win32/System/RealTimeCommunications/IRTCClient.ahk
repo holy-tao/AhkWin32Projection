@@ -1,17 +1,16 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
-#Include ..\..\Foundation\BSTR.ahk
+#Include ..\Com\IUnknown.ahk
 #Include .\IRTCSession.ahk
 #Include ..\Variant\VARIANT.ahk
 #Include ..\..\Media\DirectShow\IVideoWindow.ahk
-#Include ..\Com\IUnknown.ahk
+#Include ..\..\Foundation\BSTR.ahk
 
 /**
  * @namespace Windows.Win32.System.RealTimeCommunications
- * @version v4.0.30319
  */
-class IRTCClient extends IUnknown{
+class IRTCClient extends IUnknown {
 
     static sizeof => A_PtrSize
     /**
@@ -61,7 +60,7 @@ class IRTCClient extends IUnknown{
     }
 
     /**
-     * @type {Integer} 
+     * @type {RTC_LISTEN_MODE} 
      */
     ListenForIncomingSessions {
         get => this.get_ListenForIncomingSessions()
@@ -242,7 +241,7 @@ class IRTCClient extends IUnknown{
 
     /**
      * 
-     * @param {Integer} enType 
+     * @param {RTC_SESSION_TYPE} enType 
      * @param {BSTR} bstrLocalPhoneURI 
      * @param {IRTCProfile} pProfile 
      * @param {Integer} lFlags 
@@ -257,7 +256,7 @@ class IRTCClient extends IUnknown{
 
     /**
      * 
-     * @param {Integer} enListen 
+     * @param {RTC_LISTEN_MODE} enListen 
      * @returns {HRESULT} 
      */
     put_ListenForIncomingSessions(enListen) {
@@ -267,7 +266,7 @@ class IRTCClient extends IUnknown{
 
     /**
      * 
-     * @returns {Integer} 
+     * @returns {RTC_LISTEN_MODE} 
      */
     get_ListenForIncomingSessions() {
         result := ComCall(13, this, "int*", &penListen := 0, "HRESULT")
@@ -288,7 +287,7 @@ class IRTCClient extends IUnknown{
 
     /**
      * 
-     * @param {Integer} enDevice 
+     * @param {RTC_AUDIO_DEVICE} enDevice 
      * @param {Integer} lVolume 
      * @returns {HRESULT} 
      */
@@ -299,7 +298,7 @@ class IRTCClient extends IUnknown{
 
     /**
      * 
-     * @param {Integer} enDevice 
+     * @param {RTC_AUDIO_DEVICE} enDevice 
      * @returns {Integer} 
      */
     get_Volume(enDevice) {
@@ -309,7 +308,7 @@ class IRTCClient extends IUnknown{
 
     /**
      * 
-     * @param {Integer} enDevice 
+     * @param {RTC_AUDIO_DEVICE} enDevice 
      * @param {VARIANT_BOOL} fMuted 
      * @returns {HRESULT} 
      */
@@ -320,7 +319,7 @@ class IRTCClient extends IUnknown{
 
     /**
      * 
-     * @param {Integer} enDevice 
+     * @param {RTC_AUDIO_DEVICE} enDevice 
      * @returns {VARIANT_BOOL} 
      */
     get_AudioMuted(enDevice) {
@@ -330,7 +329,7 @@ class IRTCClient extends IUnknown{
 
     /**
      * 
-     * @param {Integer} enDevice 
+     * @param {RTC_VIDEO_DEVICE} enDevice 
      * @returns {IVideoWindow} 
      */
     get_IVideoWindow(enDevice) {
@@ -340,7 +339,7 @@ class IRTCClient extends IUnknown{
 
     /**
      * 
-     * @param {Integer} enDevice 
+     * @param {RTC_AUDIO_DEVICE} enDevice 
      * @param {BSTR} bstrDeviceName 
      * @returns {HRESULT} 
      */
@@ -353,7 +352,7 @@ class IRTCClient extends IUnknown{
 
     /**
      * 
-     * @param {Integer} enDevice 
+     * @param {RTC_AUDIO_DEVICE} enDevice 
      * @returns {BSTR} 
      */
     get_PreferredAudioDevice(enDevice) {
@@ -364,7 +363,7 @@ class IRTCClient extends IUnknown{
 
     /**
      * 
-     * @param {Integer} enDevice 
+     * @param {RTC_AUDIO_DEVICE} enDevice 
      * @param {Integer} lVolume 
      * @returns {HRESULT} 
      */
@@ -375,7 +374,7 @@ class IRTCClient extends IUnknown{
 
     /**
      * 
-     * @param {Integer} enDevice 
+     * @param {RTC_AUDIO_DEVICE} enDevice 
      * @returns {Integer} 
      */
     get_PreferredVolume(enDevice) {
@@ -482,7 +481,7 @@ class IRTCClient extends IUnknown{
 
     /**
      * 
-     * @param {Integer} enApplet 
+     * @param {RTC_T120_APPLET} enApplet 
      * @returns {HRESULT} 
      */
     StartT120Applet(enApplet) {
@@ -501,7 +500,7 @@ class IRTCClient extends IUnknown{
 
     /**
      * 
-     * @param {Integer} enApplet 
+     * @param {RTC_T120_APPLET} enApplet 
      * @returns {VARIANT_BOOL} 
      */
     get_IsT120AppletRunning(enApplet) {
@@ -555,7 +554,7 @@ class IRTCClient extends IUnknown{
 
     /**
      * 
-     * @param {Integer} enType 
+     * @param {RTC_RING_TYPE} enType 
      * @param {VARIANT_BOOL} bPlay 
      * @returns {HRESULT} 
      */
@@ -566,7 +565,7 @@ class IRTCClient extends IUnknown{
 
     /**
      * 
-     * @param {Integer} enDTMF 
+     * @param {RTC_DTMF} enDTMF 
      * @returns {HRESULT} 
      */
     SendDTMF(enDTMF) {

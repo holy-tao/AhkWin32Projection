@@ -7,10 +7,8 @@
  * Once range tracking is enabled for a given volume it cannot be disabled except by deleting the USN Journal and recreating it.
  * @see https://learn.microsoft.com/windows/win32/api/winioctl/ns-winioctl-usn_track_modified_ranges
  * @namespace Windows.Win32.System.Ioctl
- * @version v4.0.30319
  */
-class USN_TRACK_MODIFIED_RANGES extends Win32Struct
-{
+class USN_TRACK_MODIFIED_RANGES extends Win32Struct {
     static sizeof => 24
 
     static packingSize => 8

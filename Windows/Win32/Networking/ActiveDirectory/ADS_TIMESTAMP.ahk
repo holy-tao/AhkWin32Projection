@@ -5,10 +5,8 @@
  * The ADS_TIMESTAMP structure is an ADSI representation of the Timestamp attribute syntax.
  * @see https://learn.microsoft.com/windows/win32/api/iads/ns-iads-ads_timestamp
  * @namespace Windows.Win32.Networking.ActiveDirectory
- * @version v4.0.30319
  */
-class ADS_TIMESTAMP extends Win32Struct
-{
+class ADS_TIMESTAMP extends Win32Struct {
     static sizeof => 8
 
     static packingSize => 4

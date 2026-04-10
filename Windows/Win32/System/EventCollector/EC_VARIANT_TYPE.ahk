@@ -5,9 +5,8 @@
  * The EC_VARIANT_TYPE enumeration defines the values that specify the data types that are used in the Windows Event Collector functions.
  * @see https://learn.microsoft.com/windows/win32/api/evcoll/ne-evcoll-ec_variant_type
  * @namespace Windows.Win32.System.EventCollector
- * @version v4.0.30319
  */
-class EC_VARIANT_TYPE extends Win32Enum{
+class EC_VARIANT_TYPE extends Win32Enum {
 
     /**
      * Null content that implies that the element that contains the content does not exist.

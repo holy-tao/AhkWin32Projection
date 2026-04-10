@@ -5,10 +5,8 @@
  * Stores time-out values for connections and data.
  * @see https://learn.microsoft.com/windows/win32/api/searchapi/ns-searchapi-timeout_info
  * @namespace Windows.Win32.System.Search
- * @version v4.0.30319
  */
-class TIMEOUT_INFO extends Win32Struct
-{
+class TIMEOUT_INFO extends Win32Struct {
     static sizeof => 12
 
     static packingSize => 4

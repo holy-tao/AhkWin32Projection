@@ -9,9 +9,8 @@
  * These values are also used with <a href="https://docs.microsoft.com/windows/desktop/medfound/camera-encoder-h264-uvc-1-5">H.264 UVC 1.5 camera encoders</a>.
  * @see https://learn.microsoft.com/windows/win32/api/codecapi/ne-codecapi-eavench264vprofile
  * @namespace Windows.Win32.Media.MediaFoundation
- * @version v4.0.30319
  */
-class eAVEncH264VProfile extends Win32Enum{
+class eAVEncH264VProfile extends Win32Enum {
 
     /**
      * The profile is unknown or not specified.

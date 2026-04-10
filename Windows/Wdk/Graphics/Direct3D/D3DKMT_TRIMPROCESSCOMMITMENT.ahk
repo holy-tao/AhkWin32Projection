@@ -4,10 +4,8 @@
 
 /**
  * @namespace Windows.Wdk.Graphics.Direct3D
- * @version v4.0.30319
  */
-class D3DKMT_TRIMPROCESSCOMMITMENT extends Win32Struct
-{
+class D3DKMT_TRIMPROCESSCOMMITMENT extends Win32Struct {
     static sizeof => 40
 
     static packingSize => 8
@@ -23,7 +21,7 @@ class D3DKMT_TRIMPROCESSCOMMITMENT extends Win32Struct
     /**
      * @type {HANDLE}
      */
-    hProcess{
+    hProcess {
         get {
             if(!this.HasProp("__hProcess"))
                 this.__hProcess := HANDLE(8, this)
@@ -32,7 +30,7 @@ class D3DKMT_TRIMPROCESSCOMMITMENT extends Win32Struct
     }
 
     /**
-     * @type {Pointer<D3DKMT_TRIMPROCESSCOMMITMENT_FLAGS>}
+     * @type {Pointer}
      */
     Flags {
         get => NumGet(this, 16, "ptr")

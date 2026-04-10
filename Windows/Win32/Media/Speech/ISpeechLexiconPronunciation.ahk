@@ -1,15 +1,14 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
+#Include ..\..\System\Com\IDispatch.ahk
 #Include ..\..\System\Variant\VARIANT.ahk
 #Include ..\..\Foundation\BSTR.ahk
-#Include ..\..\System\Com\IDispatch.ahk
 
 /**
  * @namespace Windows.Win32.Media.Speech
- * @version v4.0.30319
  */
-class ISpeechLexiconPronunciation extends IDispatch{
+class ISpeechLexiconPronunciation extends IDispatch {
 
     static sizeof => A_PtrSize
     /**
@@ -31,7 +30,7 @@ class ISpeechLexiconPronunciation extends IDispatch{
     static VTableNames => ["get_Type", "get_LangId", "get_PartOfSpeech", "get_PhoneIds", "get_Symbolic"]
 
     /**
-     * @type {Integer} 
+     * @type {SpeechLexiconType} 
      */
     Type {
         get => this.get_Type()
@@ -45,7 +44,7 @@ class ISpeechLexiconPronunciation extends IDispatch{
     }
 
     /**
-     * @type {Integer} 
+     * @type {SpeechPartOfSpeech} 
      */
     PartOfSpeech {
         get => this.get_PartOfSpeech()
@@ -67,7 +66,7 @@ class ISpeechLexiconPronunciation extends IDispatch{
 
     /**
      * 
-     * @returns {Integer} 
+     * @returns {SpeechLexiconType} 
      */
     get_Type() {
         result := ComCall(7, this, "int*", &LexiconType := 0, "HRESULT")
@@ -85,7 +84,7 @@ class ISpeechLexiconPronunciation extends IDispatch{
 
     /**
      * 
-     * @returns {Integer} 
+     * @returns {SpeechPartOfSpeech} 
      */
     get_PartOfSpeech() {
         result := ComCall(9, this, "int*", &PartOfSpeech := 0, "HRESULT")

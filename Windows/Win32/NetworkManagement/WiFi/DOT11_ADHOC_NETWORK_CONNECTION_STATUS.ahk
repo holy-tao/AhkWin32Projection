@@ -5,9 +5,8 @@
  * Specifies the connection state of an ad hoc network.
  * @see https://learn.microsoft.com/windows/win32/api/adhoc/ne-adhoc-dot11_adhoc_network_connection_status
  * @namespace Windows.Win32.NetworkManagement.WiFi
- * @version v4.0.30319
  */
-class DOT11_ADHOC_NETWORK_CONNECTION_STATUS extends Win32Enum{
+class DOT11_ADHOC_NETWORK_CONNECTION_STATUS extends Win32Enum {
 
     /**
      * The connection status cannot be determined. A network with this status should not be used.

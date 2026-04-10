@@ -9,9 +9,8 @@
  * The methods for this interface are not fully implemented at this time.
  * @see https://learn.microsoft.com/windows/win32/api/iads/nn-iads-idirectoryschemamgmt
  * @namespace Windows.Win32.Networking.ActiveDirectory
- * @version v4.0.30319
  */
-class IDirectorySchemaMgmt extends IUnknown{
+class IDirectorySchemaMgmt extends IUnknown {
 
     static sizeof => A_PtrSize
     /**

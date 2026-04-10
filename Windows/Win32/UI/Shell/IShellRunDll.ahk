@@ -7,9 +7,8 @@
  * Not supported. (IShellRunDll)
  * @see https://learn.microsoft.com/windows/win32/api/shobjidl/nn-shobjidl-ishellrundll
  * @namespace Windows.Win32.UI.Shell
- * @version v4.0.30319
  */
-class IShellRunDll extends IUnknown{
+class IShellRunDll extends IUnknown {
 
     static sizeof => A_PtrSize
     /**

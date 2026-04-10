@@ -1,16 +1,15 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
-#Include ..\..\Foundation\BSTR.ahk
 #Include ..\..\System\Com\IUnknown.ahk
+#Include ..\..\Foundation\BSTR.ahk
 
 /**
  * Exposes methods that channel customization information to the search hooks.
  * @see https://learn.microsoft.com/windows/win32/api/shlobj_core/nn-shlobj_core-isearchcontext
  * @namespace Windows.Win32.UI.Shell
- * @version v4.0.30319
  */
-class ISearchContext extends IUnknown{
+class ISearchContext extends IUnknown {
 
     static sizeof => A_PtrSize
     /**

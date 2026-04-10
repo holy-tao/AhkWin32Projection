@@ -1,16 +1,15 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
-#Include .\SimilarityFileId.ahk
 #Include ..\..\System\Com\IUnknown.ahk
+#Include .\SimilarityFileId.ahk
 
 /**
  * Defines methods for storing and retrieving similarity file ID information.
  * @see https://learn.microsoft.com/windows/win32/api/msrdc/nn-msrdc-isimilarityfileidtable
  * @namespace Windows.Win32.Networking.RemoteDifferentialCompression
- * @version v4.0.30319
  */
-class ISimilarityFileIdTable extends IUnknown{
+class ISimilarityFileIdTable extends IUnknown {
 
     static sizeof => A_PtrSize
     /**
@@ -41,11 +40,11 @@ class ISimilarityFileIdTable extends IUnknown{
      * Creates or opens a similarity file ID table.
      * @remarks
      * If an existing table is being opened, the table must be valid, and the value of the <i>recordSize</i> parameter must match  the record size of the existing table.  Otherwise, the existing table is overwritten, even if <b>FALSE</b> is specified for the <i>truncate</i> parameter.
-     * @param {PWSTR} _path 
+     * @param {PWSTR} _path A pointer to a null-terminated string that specifies the name of the file that will contain the similarity file ID table. The alternate stream name ":FileId" will be appended to the end of this file name. For more information, see <a href="https://docs.microsoft.com/windows/desktop/FileIO/naming-a-file">Naming a File</a>.
      * @param {BOOL} truncate <b>TRUE</b> if a new similarity file ID table should always be created or truncated. If <b>FALSE</b> is specified and the table exists and is valid, it may be used; otherwise, if the table is not valid or does not exist, the existing table is overwritten.
-     * @param {Pointer<Integer>} _securityDescriptor 
+     * @param {Pointer<Integer>} _securityDescriptor A pointer to a  security descriptor to use when opening the file. If this parameter is <b>NULL</b>, the file is assigned a default security descriptor. The access control lists (ACL) in the file's default security descriptor are inherited from the file's parent directory. For more information, see the <i>lpSecurityAttributes</i> parameter of the <a href="https://docs.microsoft.com/windows/desktop/api/fileapi/nf-fileapi-createfilea">CreateFile</a> function.
      * @param {Integer} recordSize The size, in bytes, of the file IDs that will be stored in the similarity file ID table. All file IDs must be the same size. The valid range is from <b>SimilarityFileIdMinSize</b> to <b>SimilarityFileIdMaxSize</b>. If an existing similarity file ID table is being opened, the value of this parameter must match the file ID size of the existing table. Otherwise, the existing table is assumed to be not valid and will be overwritten.
-     * @returns {Integer} A pointer to a variable that receives an  <a href="https://docs.microsoft.com/windows/win32/api/msrdc/ne-msrdc-rdccreatedtables">RdcCreatedTables</a> enumeration value that describes the state of the similarity file ID table. If a new table is created, this variable receives <b>RDCTABLE_New</b>. If an existing table is used, this variable receives <b>RDCTABLE_Existing</b>. If this method fails, this variable receives <b>RDCTABLE_InvalidOrUnknown</b>.
+     * @returns {RdcCreatedTables} A pointer to a variable that receives an  <a href="https://docs.microsoft.com/windows/win32/api/msrdc/ne-msrdc-rdccreatedtables">RdcCreatedTables</a> enumeration value that describes the state of the similarity file ID table. If a new table is created, this variable receives <b>RDCTABLE_New</b>. If an existing table is used, this variable receives <b>RDCTABLE_Existing</b>. If this method fails, this variable receives <b>RDCTABLE_InvalidOrUnknown</b>.
      * @see https://learn.microsoft.com/windows/win32/api/msrdc/nf-msrdc-isimilarityfileidtable-createtable
      */
     CreateTable(_path, truncate, _securityDescriptor, recordSize) {
@@ -65,7 +64,7 @@ class ISimilarityFileIdTable extends IUnknown{
      *       write the file ID table to the file.
      * @param {BOOL} truncate <b>TRUE</b> if a new similarity file ID table should always be created or truncated. If <b>FALSE</b> is specified and the table exists and is valid, it may be used; otherwise, if the table is not valid or does not exist, the existing table is overwritten.
      * @param {Integer} recordSize The size, in bytes, of the file IDs that will be stored in the similarity file ID table. All file IDs must be the same size. The valid range is from <b>SimilarityFileIdMinSize</b> to <b>SimilarityFileIdMaxSize</b>. If an existing similarity file ID table is being opened, the value of this parameter must match the file ID size of the existing table. Otherwise, the existing table is assumed to be not valid and will be overwritten.
-     * @returns {Integer} A pointer to a variable that receives an  <a href="https://docs.microsoft.com/windows/win32/api/msrdc/ne-msrdc-rdccreatedtables">RdcCreatedTables</a> enumeration value that describes the state of the similarity file ID table. If a new table is created, this variable receives <b>RDCTABLE_New</b>. If an existing table is used, this variable receives <b>RDCTABLE_Existing</b>. If this method fails, this variable receives <b>RDCTABLE_InvalidOrUnknown</b>.
+     * @returns {RdcCreatedTables} A pointer to a variable that receives an  <a href="https://docs.microsoft.com/windows/win32/api/msrdc/ne-msrdc-rdccreatedtables">RdcCreatedTables</a> enumeration value that describes the state of the similarity file ID table. If a new table is created, this variable receives <b>RDCTABLE_New</b>. If an existing table is used, this variable receives <b>RDCTABLE_Existing</b>. If this method fails, this variable receives <b>RDCTABLE_InvalidOrUnknown</b>.
      * @see https://learn.microsoft.com/windows/win32/api/msrdc/nf-msrdc-isimilarityfileidtable-createtableindirect
      */
     CreateTableIndirect(fileIdFile, truncate, recordSize) {
@@ -92,7 +91,7 @@ class ISimilarityFileIdTable extends IUnknown{
      * Adds the file ID to the similarity file ID table.
      * @remarks
      * If the <b>Append</b> method fails, the similarity file ID table is marked as corrupted and must be rebuilt.
-     * @param {Pointer<SimilarityFileId>} _similarityFileId 
+     * @param {Pointer<SimilarityFileId>} _similarityFileId The file ID to be added to the similarity file ID table.
      * @returns {Integer} A pointer to a variable that receives the file index for the file ID's entry in the similarity file ID table.
      * @see https://learn.microsoft.com/windows/win32/api/msrdc/nf-msrdc-isimilarityfileidtable-append
      */
@@ -104,7 +103,7 @@ class ISimilarityFileIdTable extends IUnknown{
     /**
      * Retrieves the file ID that corresponds to a given file index in the similarity file ID table.
      * @param {Integer} similarityFileIndex The file index that was previously returned for the file ID by the <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/msrdc/nf-msrdc-isimilarityfileidtable-append">ISimilarityFileIdTable::Append</a> method.
-     * @returns {SimilarityFileId} 
+     * @returns {SimilarityFileId} A pointer to a variable that receives the file ID. If the file has been marked as not valid, the file ID receives zero.
      * @see https://learn.microsoft.com/windows/win32/api/msrdc/nf-msrdc-isimilarityfileidtable-lookup
      */
     Lookup(similarityFileIndex) {

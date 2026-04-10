@@ -1,16 +1,15 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\..\Guid.ahk
-#Include .\IPrintDocumentPackageTarget.ahk
 #Include ..\..\..\System\Com\IUnknown.ahk
+#Include .\IPrintDocumentPackageTarget.ahk
 
 /**
  * Used with IPrintDocumentPackageTarget for starting a print job.
  * @see https://learn.microsoft.com/windows/win32/api/documenttarget/nn-documenttarget-iprintdocumentpackagetargetfactory
  * @namespace Windows.Win32.Storage.Xps.Printing
- * @version v4.0.30319
  */
-class IPrintDocumentPackageTargetFactory extends IUnknown{
+class IPrintDocumentPackageTargetFactory extends IUnknown {
 
     static sizeof => A_PtrSize
     /**

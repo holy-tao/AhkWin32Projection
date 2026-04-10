@@ -6,11 +6,9 @@
  * Contains information about an external name.
  * @see https://learn.microsoft.com/windows/win32/api/ntsecapi/ns-ntsecapi-kerb_external_name
  * @namespace Windows.Win32.Security.Authentication.Identity
- * @version v4.0.30319
  */
-class KERB_EXTERNAL_NAME extends Win32Struct
-{
-    static sizeof => 16
+class KERB_EXTERNAL_NAME extends Win32Struct {
+    static sizeof => 24
 
     static packingSize => 8
 
@@ -142,9 +140,9 @@ class KERB_EXTERNAL_NAME extends Win32Struct
     /**
      * Array of 
      * <a href="https://docs.microsoft.com/windows/desktop/api/subauth/ns-subauth-unicode_string">UNICODE_STRINGS</a> containing the names.
-     * @type {Array<LSA_UNICODE_STRING>}
+     * @type {LSA_UNICODE_STRING}
      */
-    Names{
+    Names {
         get {
             if(!this.HasProp("__NamesProxyArray"))
                 this.__NamesProxyArray := Win32FixedArray(this.ptr + 8, 1, LSA_UNICODE_STRING, "")

@@ -1,18 +1,16 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
-#Include ..\..\Foundation\BSTR.ahk
+#Include ..\Com\IDispatch.ahk
 #Include .\IWdsTransportNamespace.ahk
 #Include .\IWdsTransportCollection.ahk
-#Include ..\Com\IDispatch.ahk
 
 /**
  * Manages namespaces on a WDS transport server.
  * @see https://learn.microsoft.com/windows/win32/api/wdstptmgmt/nn-wdstptmgmt-iwdstransportnamespacemanager
  * @namespace Windows.Win32.System.DeploymentServices
- * @version v4.0.30319
  */
-class IWdsTransportNamespaceManager extends IDispatch{
+class IWdsTransportNamespaceManager extends IDispatch {
 
     static sizeof => A_PtrSize
     /**
@@ -41,7 +39,7 @@ class IWdsTransportNamespaceManager extends IDispatch{
 
     /**
      * Creates an object of an IWdsTransportNamespace interface that can be registered on the current WDS transport server.
-     * @param {Integer} NamespaceType The type of the new namespace object. This can be one of the namespace types listed by the <a href="https://docs.microsoft.com/windows/win32/api/wdstptmgmt/ne-wdstptmgmt-wdstransport_namespace_type">WDSTRANSPORT_NAMESPACE_TYPE</a> enumeration.
+     * @param {WDSTRANSPORT_NAMESPACE_TYPE} NamespaceType The type of the new namespace object. This can be one of the namespace types listed by the <a href="https://docs.microsoft.com/windows/win32/api/wdstptmgmt/ne-wdstptmgmt-wdstransport_namespace_type">WDSTRANSPORT_NAMESPACE_TYPE</a> enumeration.
      * @param {BSTR} bszNamespaceName The name of the new namespace object. If an application attempts to register this namespace with a WDS transport server, WDS confirms that the name is unique.
      * @param {BSTR} bszContentProvider The name of  the content provider to be associated with the new namespace object.
      * @param {BSTR} bszConfiguration The configuration information used by the content provider. The format of this information is defined by the content provider. The value can be an empty string if no parameter is required.

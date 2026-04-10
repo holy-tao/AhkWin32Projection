@@ -1,12 +1,13 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\..\Win32Struct.ahk
+#Include .\IInternetProtocolSink.ahk
+#Include .\IInternetProtocol.ahk
+#Include ..\IUnknown.ahk
 
 /**
  * @namespace Windows.Win32.System.Com.Urlmon
- * @version v4.0.30319
  */
-class PROTOCOLFILTERDATA extends Win32Struct
-{
+class PROTOCOLFILTERDATA extends Win32Struct {
     static sizeof => 40
 
     static packingSize => 8

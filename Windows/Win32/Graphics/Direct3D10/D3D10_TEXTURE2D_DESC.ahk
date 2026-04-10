@@ -1,6 +1,8 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
+#Include ..\Dxgi\Common\DXGI_FORMAT.ahk
 #Include ..\Dxgi\Common\DXGI_SAMPLE_DESC.ahk
+#Include .\D3D10_USAGE.ahk
 
 /**
  * Describes a 2D texture. (D3D10_TEXTURE2D_DESC)
@@ -10,10 +12,8 @@
  * The device places some size restrictions (must be multiples of a minimum size) for a subsampled, <a href="https://docs.microsoft.com/windows/desktop/direct3d10/d3d10-graphics-programming-guide-resources-block-compression">block compressed</a>, or bit-format resource.
  * @see https://learn.microsoft.com/windows/win32/api/d3d10/ns-d3d10-d3d10_texture2d_desc
  * @namespace Windows.Win32.Graphics.Direct3D10
- * @version v4.0.30319
  */
-class D3D10_TEXTURE2D_DESC extends Win32Struct
-{
+class D3D10_TEXTURE2D_DESC extends Win32Struct {
     static sizeof => 44
 
     static packingSize => 4
@@ -66,7 +66,7 @@ class D3D10_TEXTURE2D_DESC extends Win32Struct
      * Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/dxgiformat/ne-dxgiformat-dxgi_format">DXGI_FORMAT</a></b>
      * 
      * Texture format (see <a href="https://docs.microsoft.com/windows/desktop/api/dxgiformat/ne-dxgiformat-dxgi_format">DXGI_FORMAT</a>).
-     * @type {Integer}
+     * @type {DXGI_FORMAT}
      */
     Format {
         get => NumGet(this, 16, "int")
@@ -79,7 +79,7 @@ class D3D10_TEXTURE2D_DESC extends Win32Struct
      * Structure that specifies multisampling parameters for the texture. See <a href="https://docs.microsoft.com/windows/desktop/api/dxgicommon/ns-dxgicommon-dxgi_sample_desc">DXGI_SAMPLE_DESC</a>.
      * @type {DXGI_SAMPLE_DESC}
      */
-    SampleDesc{
+    SampleDesc {
         get {
             if(!this.HasProp("__SampleDesc"))
                 this.__SampleDesc := DXGI_SAMPLE_DESC(20, this)
@@ -91,7 +91,7 @@ class D3D10_TEXTURE2D_DESC extends Win32Struct
      * Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/d3d10/ne-d3d10-d3d10_usage">D3D10_USAGE</a></b>
      * 
      * Value that identifies how the texture is to be read from and written to. The most common value is D3D10_USAGE-DEFAULT; see <a href="https://docs.microsoft.com/windows/desktop/api/d3d10/ne-d3d10-d3d10_usage">D3D10_USAGE</a> for all possible values.
-     * @type {Integer}
+     * @type {D3D10_USAGE}
      */
     Usage {
         get => NumGet(this, 28, "int")

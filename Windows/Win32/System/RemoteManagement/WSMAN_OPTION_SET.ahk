@@ -1,14 +1,13 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
+#Include .\WSMAN_OPTION.ahk
 
 /**
  * Represents a set of options.
  * @see https://learn.microsoft.com/windows/win32/api/wsman/ns-wsman-wsman_option_set
  * @namespace Windows.Win32.System.RemoteManagement
- * @version v4.0.30319
  */
-class WSMAN_OPTION_SET extends Win32Struct
-{
+class WSMAN_OPTION_SET extends Win32Struct {
     static sizeof => 24
 
     static packingSize => 8

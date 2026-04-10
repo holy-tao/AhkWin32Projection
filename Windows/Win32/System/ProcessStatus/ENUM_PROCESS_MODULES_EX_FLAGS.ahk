@@ -3,9 +3,8 @@
 
 /**
  * @namespace Windows.Win32.System.ProcessStatus
- * @version v4.0.30319
  */
-class ENUM_PROCESS_MODULES_EX_FLAGS extends Win32Enum{
+class ENUM_PROCESS_MODULES_EX_FLAGS extends Win32Enum {
 
     /**
      * @type {Integer (UInt32)}

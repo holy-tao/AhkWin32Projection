@@ -3,10 +3,8 @@
 
 /**
  * @namespace Windows.Win32.NetworkManagement.Ndis
- * @version v4.0.30319
  */
-class TRANSPORT_HEADER_OFFSET extends Win32Struct
-{
+class TRANSPORT_HEADER_OFFSET extends Win32Struct {
     static sizeof => 4
 
     static packingSize => 2

@@ -1,6 +1,9 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\..\Win32Struct.ahk
 #Include .\APOInitBaseStruct.ahk
+#Include ..\..\..\UI\Shell\PropertiesSystem\IPropertyStore.ahk
+#Include ..\..\..\System\Com\IServiceProvider.ahk
+#Include ..\IMMDeviceCollection.ahk
 
 /**
  * Provides APO initialization parameters, extending APOInitSystemEffects2 to add the ability to specify a service provider for logging.
@@ -8,10 +11,8 @@
  * For more information on the Windows 11 APIs for the Audio Processing Objects (APOs) that can ship with audio drivers, see [Windows 11 APIs for Audio Processing Objects](/windows-hardware/drivers/audio/windows-11-apis-for-audio-processing-objects).
  * @see https://learn.microsoft.com/windows/win32/api/audioengineextensionapo/ns-audioengineextensionapo-apoinitsystemeffects3
  * @namespace Windows.Win32.Media.Audio.Apo
- * @version v4.0.30319
  */
-class APOInitSystemEffects3 extends Win32Struct
-{
+class APOInitSystemEffects3 extends Win32Struct {
     static sizeof => 64
 
     static packingSize => 8
@@ -20,7 +21,7 @@ class APOInitSystemEffects3 extends Win32Struct
      * An [APOInitBaseStruct](../audioenginebaseapo/ns-audioenginebaseapo-apoinitbasestruct) structure.
      * @type {APOInitBaseStruct}
      */
-    APOInit{
+    APOInit {
         get {
             if(!this.HasProp("__APOInit"))
                 this.__APOInit := APOInitBaseStruct(0, this)
@@ -75,7 +76,7 @@ class APOInitSystemEffects3 extends Win32Struct
 
     /**
      * Specifies the processing mode for the audio graph.
-     * @type {Pointer<Guid>}
+     * @type {Pointer}
      */
     AudioProcessingMode {
         get => NumGet(this, 48, "ptr")

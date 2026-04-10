@@ -7,9 +7,8 @@
  * Provides methods to monitor and debug a command queue.
  * @see https://learn.microsoft.com/windows/win32/api/d3d12sdklayers/nn-d3d12sdklayers-id3d12debugcommandqueue
  * @namespace Windows.Win32.Graphics.Direct3D12
- * @version v4.0.30319
  */
-class ID3D12DebugCommandQueue extends IUnknown{
+class ID3D12DebugCommandQueue extends IUnknown {
 
     static sizeof => A_PtrSize
     /**

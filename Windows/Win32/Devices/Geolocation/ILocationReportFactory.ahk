@@ -5,9 +5,8 @@
 
 /**
  * @namespace Windows.Win32.Devices.Geolocation
- * @version v4.0.30319
  */
-class ILocationReportFactory extends IDispatch{
+class ILocationReportFactory extends IDispatch {
 
     static sizeof => A_PtrSize
     /**

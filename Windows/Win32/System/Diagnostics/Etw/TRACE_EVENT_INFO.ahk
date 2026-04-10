@@ -1,7 +1,10 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\..\Win32Struct.ahk
 #Include .\EVENT_DESCRIPTOR.ahk
+#Include .\DECODING_SOURCE.ahk
+#Include .\TEMPLATE_FLAGS.ahk
 #Include .\EVENT_PROPERTY_INFO.ahk
+#Include .\PROPERTY_FLAGS.ahk
 
 /**
  * Defines the information about the event.
@@ -9,17 +12,15 @@
  * The value of an offset is zero if the member is not defined.
  * @see https://learn.microsoft.com/windows/win32/api/tdh/ns-tdh-trace_event_info
  * @namespace Windows.Win32.System.Diagnostics.Etw
- * @version v4.0.30319
  */
-class TRACE_EVENT_INFO extends Win32Struct
-{
-    static sizeof => 104
+class TRACE_EVENT_INFO extends Win32Struct {
+    static sizeof => 120
 
     static packingSize => 8
 
     /**
      * A GUID that identifies the provider.
-     * @type {Pointer<Guid>}
+     * @type {Pointer}
      */
     ProviderGuid {
         get => NumGet(this, 0, "ptr")
@@ -28,7 +29,7 @@ class TRACE_EVENT_INFO extends Win32Struct
 
     /**
      * A GUID that identifies the MOF class that contains the event. If the provider uses a manifest to define its events, this member is GUID_NULL.
-     * @type {Pointer<Guid>}
+     * @type {Pointer}
      */
     EventGuid {
         get => NumGet(this, 8, "ptr")
@@ -39,7 +40,7 @@ class TRACE_EVENT_INFO extends Win32Struct
      * A <a href="https://docs.microsoft.com/windows/desktop/api/evntprov/ns-evntprov-event_descriptor">EVENT_DESCRIPTOR</a> structure that describes the event.
      * @type {EVENT_DESCRIPTOR}
      */
-    EventDescriptor{
+    EventDescriptor {
         get {
             if(!this.HasProp("__EventDescriptor"))
                 this.__EventDescriptor := EVENT_DESCRIPTOR(16, this)
@@ -49,7 +50,7 @@ class TRACE_EVENT_INFO extends Win32Struct
 
     /**
      * A <a href="https://docs.microsoft.com/windows/desktop/api/tdh/ne-tdh-decoding_source">DECODING_SOURCE</a> enumeration value that identifies the source used to parse the event's data (for example, an instrumentation manifest of WMI MOF class).
-     * @type {Integer}
+     * @type {DECODING_SOURCE}
      */
     DecodingSource {
         get => NumGet(this, 32, "int")
@@ -199,7 +200,7 @@ class TRACE_EVENT_INFO extends Win32Struct
     }
 
     /**
-     * @type {Integer}
+     * @type {TEMPLATE_FLAGS}
      */
     Flags {
         get => NumGet(this, 92, "int")
@@ -227,9 +228,9 @@ class TRACE_EVENT_INFO extends Win32Struct
 
     /**
      * An array of <a href="https://docs.microsoft.com/windows/desktop/api/tdh/ns-tdh-event_property_info">EVENT_PROPERTY_INFO</a> structures that provides information about each property of the event's user data.
-     * @type {Array<EVENT_PROPERTY_INFO>}
+     * @type {EVENT_PROPERTY_INFO}
      */
-    EventPropertyInfoArray{
+    EventPropertyInfoArray {
         get {
             if(!this.HasProp("__EventPropertyInfoArrayProxyArray"))
                 this.__EventPropertyInfoArrayProxyArray := Win32FixedArray(this.ptr + 96, 1, EVENT_PROPERTY_INFO, "")

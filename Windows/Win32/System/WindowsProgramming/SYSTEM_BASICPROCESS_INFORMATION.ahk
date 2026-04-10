@@ -5,10 +5,8 @@
 
 /**
  * @namespace Windows.Win32.System.WindowsProgramming
- * @version v4.0.30319
  */
-class SYSTEM_BASICPROCESS_INFORMATION extends Win32Struct
-{
+class SYSTEM_BASICPROCESS_INFORMATION extends Win32Struct {
     static sizeof => 48
 
     static packingSize => 8
@@ -24,7 +22,7 @@ class SYSTEM_BASICPROCESS_INFORMATION extends Win32Struct
     /**
      * @type {HANDLE}
      */
-    UniqueProcessId{
+    UniqueProcessId {
         get {
             if(!this.HasProp("__UniqueProcessId"))
                 this.__UniqueProcessId := HANDLE(8, this)
@@ -35,7 +33,7 @@ class SYSTEM_BASICPROCESS_INFORMATION extends Win32Struct
     /**
      * @type {HANDLE}
      */
-    InheritedFromUniqueProcessId{
+    InheritedFromUniqueProcessId {
         get {
             if(!this.HasProp("__InheritedFromUniqueProcessId"))
                 this.__InheritedFromUniqueProcessId := HANDLE(16, this)
@@ -54,7 +52,7 @@ class SYSTEM_BASICPROCESS_INFORMATION extends Win32Struct
     /**
      * @type {UNICODE_STRING}
      */
-    ImageName{
+    ImageName {
         get {
             if(!this.HasProp("__ImageName"))
                 this.__ImageName := UNICODE_STRING(32, this)

@@ -5,10 +5,8 @@
  * Contains color settings for a composition string.
  * @see https://learn.microsoft.com/windows/win32/api/richedit/ns-richedit-compcolor
  * @namespace Windows.Win32.UI.Controls.RichEdit
- * @version v4.0.30319
  */
-class COMPCOLOR extends Win32Struct
-{
+class COMPCOLOR extends Win32Struct {
     static sizeof => 12
 
     static packingSize => 4

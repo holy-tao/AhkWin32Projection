@@ -5,9 +5,8 @@
  * Indicates the state of a session.
  * @see https://learn.microsoft.com/windows/win32/api/sessdirpublictypes/ne-sessdirpublictypes-tssession_state
  * @namespace Windows.Win32.System.RemoteDesktop
- * @version v4.0.30319
  */
-class TSSESSION_STATE extends Win32Enum{
+class TSSESSION_STATE extends Win32Enum {
 
     /**
      * The session state is not valid.
@@ -76,7 +75,6 @@ class TSSESSION_STATE extends Win32Enum{
     static STATE_INIT => 9
 
     /**
-     * 
      * @type {Integer (Int32)}
      */
     static STATE_MAX => 10

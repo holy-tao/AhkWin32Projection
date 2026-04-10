@@ -5,9 +5,8 @@
  * Specifies the type of Windows Imaging Component (WIC) component.
  * @see https://learn.microsoft.com/windows/win32/api/wincodec/ne-wincodec-wiccomponenttype
  * @namespace Windows.Win32.Graphics.Imaging
- * @version v4.0.30319
  */
-class WICComponentType extends Win32Enum{
+class WICComponentType extends Win32Enum {
 
     /**
      * A WIC decoder.

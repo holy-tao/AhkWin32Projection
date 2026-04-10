@@ -52,9 +52,8 @@
  * For example, assume that your input source is an MP3 file.  You set the container to be <b>MFTranscodeContainerType_ASF</b>, you do not set any stream attributes, and you set the <b>MF_TRANSCODE_ADJUST_PROFILE_USE_SOURCE_ATTRIBUTES</b> flag. In this case, the generated output file is an ASF file (.wma)  containing MP3 media data. Note that if you use this flag, certain input stream attributes and the container type might not be compatible.
  * @see https://learn.microsoft.com/windows/win32/api/mfidl/ne-mfidl-mf_transcode_adjust_profile_flags
  * @namespace Windows.Win32.Media.MediaFoundation
- * @version v4.0.30319
  */
-class MF_TRANSCODE_ADJUST_PROFILE_FLAGS extends Win32Enum{
+class MF_TRANSCODE_ADJUST_PROFILE_FLAGS extends Win32Enum {
 
     /**
      * Media Foundation uses the application-specified settings for audio and video streams. If the required settings are not provided by the application, the topology is created but the encoding session fails. For the video stream, the frame rate and the interlace mode settings are modified. For more information, see Remarks.

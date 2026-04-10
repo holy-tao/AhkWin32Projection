@@ -5,10 +5,8 @@
  * Represents the format of a synchronization entity ID.
  * @see https://learn.microsoft.com/windows/win32/api/winsync/ns-winsync-id_parameter_pair
  * @namespace Windows.Win32.System.WindowsSync
- * @version v4.0.30319
  */
-class ID_PARAMETER_PAIR extends Win32Struct
-{
+class ID_PARAMETER_PAIR extends Win32Struct {
     static sizeof => 8
 
     static packingSize => 4

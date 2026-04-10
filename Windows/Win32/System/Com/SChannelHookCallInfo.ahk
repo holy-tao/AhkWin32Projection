@@ -3,16 +3,14 @@
 
 /**
  * @namespace Windows.Win32.System.Com
- * @version v4.0.30319
  */
-class SChannelHookCallInfo extends Win32Struct
-{
+class SChannelHookCallInfo extends Win32Struct {
     static sizeof => 40
 
     static packingSize => 8
 
     /**
-     * @type {Pointer<Guid>}
+     * @type {Pointer}
      */
     iid {
         get => NumGet(this, 0, "ptr")
@@ -28,7 +26,7 @@ class SChannelHookCallInfo extends Win32Struct
     }
 
     /**
-     * @type {Pointer<Guid>}
+     * @type {Pointer}
      */
     uCausality {
         get => NumGet(this, 16, "ptr")

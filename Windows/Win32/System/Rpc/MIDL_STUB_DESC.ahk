@@ -1,14 +1,20 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
+#Include .\GENERIC_BINDING_INFO.ahk
+#Include .\GENERIC_BINDING_ROUTINE_PAIR.ahk
+#Include .\XMIT_ROUTINE_QUINTUPLE.ahk
+#Include .\MALLOC_FREE_STRUCT.ahk
+#Include .\COMM_FAULT_OFFSETS.ahk
+#Include .\USER_MARSHAL_ROUTINE_QUADRUPLE.ahk
+#Include .\NDR_CS_ROUTINES.ahk
+#Include .\NDR_EXPR_DESC.ahk
 
 /**
  * The MIDL_STUB_DESC structure is a MIDL-generated structure that contains information about the interface stub regarding RPC calls between the client and server.
  * @see https://learn.microsoft.com/windows/win32/api/rpcndr/ns-rpcndr-midl_stub_desc
  * @namespace Windows.Win32.System.Rpc
- * @version v4.0.30319
  */
-class MIDL_STUB_DESC extends Win32Struct
-{
+class MIDL_STUB_DESC extends Win32Struct {
     static sizeof => 152
 
     static packingSize => 8
@@ -24,7 +30,7 @@ class MIDL_STUB_DESC extends Win32Struct
             get => NumGet(this, 0, "ptr")
             set => NumPut("ptr", value, this, 0)
         }
-    
+
         /**
          * @type {Pointer<Pointer<Void>>}
          */
@@ -32,7 +38,7 @@ class MIDL_STUB_DESC extends Win32Struct
             get => NumGet(this, 0, "ptr")
             set => NumPut("ptr", value, this, 0)
         }
-    
+
         /**
          * @type {Pointer<GENERIC_BINDING_INFO>}
          */
@@ -40,7 +46,6 @@ class MIDL_STUB_DESC extends Win32Struct
             get => NumGet(this, 0, "ptr")
             set => NumPut("ptr", value, this, 0)
         }
-    
     }
 
     /**
@@ -74,10 +79,10 @@ class MIDL_STUB_DESC extends Win32Struct
      * The union contains one of the following handles.
      * @type {_IMPLICIT_HANDLE_INFO_e__Union}
      */
-    IMPLICIT_HANDLE_INFO{
+    IMPLICIT_HANDLE_INFO {
         get {
             if(!this.HasProp("__IMPLICIT_HANDLE_INFO"))
-                this.__IMPLICIT_HANDLE_INFO := %this.__Class%._IMPLICIT_HANDLE_INFO_e__Union(24, this)
+                this.__IMPLICIT_HANDLE_INFO := MIDL_STUB_DESC._IMPLICIT_HANDLE_INFO_e__Union(24, this)
             return this.__IMPLICIT_HANDLE_INFO
         }
     }
@@ -246,7 +251,6 @@ class MIDL_STUB_DESC extends Win32Struct
     }
 
     /**
-     * 
      * @type {Pointer<Void>}
      */
     ProxyServerInfo {
@@ -255,7 +259,6 @@ class MIDL_STUB_DESC extends Win32Struct
     }
 
     /**
-     * 
      * @type {Pointer<NDR_EXPR_DESC>}
      */
     pExprInfo {

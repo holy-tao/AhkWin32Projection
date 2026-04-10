@@ -3,10 +3,8 @@
 
 /**
  * @namespace Windows.Win32.System.Search
- * @version v4.0.30319
  */
-class ODBC_VS_ARGS extends Win32Struct
-{
+class ODBC_VS_ARGS extends Win32Struct {
     static sizeof => 40
 
     static packingSize => 8

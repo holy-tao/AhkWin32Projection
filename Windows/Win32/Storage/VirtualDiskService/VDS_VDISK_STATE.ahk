@@ -8,9 +8,8 @@
  * <div> </div>
  * @see https://learn.microsoft.com/windows/win32/api/vds/ne-vds-vds_vdisk_state
  * @namespace Windows.Win32.Storage.VirtualDiskService
- * @version v4.0.30319
  */
-class VDS_VDISK_STATE extends Win32Enum{
+class VDS_VDISK_STATE extends Win32Enum {
 
     /**
      * VDS was not able to identify the virtual disk's current status.

@@ -9,9 +9,8 @@
  * A metadata query writer uses metadata query expressions to set or remove metadata. For more information on the metadata query language, see the <a href="https://docs.microsoft.com/windows/desktop/wic/-wic-codec-metadataquerylanguage">Metadata Query Language Overview</a>.
  * @see https://learn.microsoft.com/windows/win32/api/wincodec/nn-wincodec-iwicmetadataquerywriter
  * @namespace Windows.Win32.Graphics.Imaging
- * @version v4.0.30319
  */
-class IWICMetadataQueryWriter extends IWICMetadataQueryReader{
+class IWICMetadataQueryWriter extends IWICMetadataQueryReader {
 
     static sizeof => A_PtrSize
     /**

@@ -7,9 +7,8 @@
  * This enumeration is used in the [DVD_KaraokeAttributes](/windows/desktop/api/strmif/ns-strmif-dvd_karaokeattributes) structure.
  * @see https://learn.microsoft.com/windows/win32/api/strmif/ne-strmif-dvd_karaoke_contents
  * @namespace Windows.Win32.Media.DirectShow
- * @version v4.0.30319
  */
-class DVD_KARAOKE_CONTENTS extends Win32Enum{
+class DVD_KARAOKE_CONTENTS extends Win32Enum {
 
     /**
      * The channel contains guide vocal 1.

@@ -5,10 +5,8 @@
  * Contains information about the high and low limits of a progress bar control. This structure is used with the PBM_GETRANGE message.
  * @see https://learn.microsoft.com/windows/win32/api/commctrl/ns-commctrl-pbrange
  * @namespace Windows.Win32.UI.Controls
- * @version v4.0.30319
  */
-class PBRANGE extends Win32Struct
-{
+class PBRANGE extends Win32Struct {
     static sizeof => 8
 
     static packingSize => 4

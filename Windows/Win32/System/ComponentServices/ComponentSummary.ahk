@@ -5,17 +5,15 @@
  * Represents summary information about a COM+ component hosted in a particular process. It can also represent a Services Without Components (SWC) context.
  * @see https://learn.microsoft.com/windows/win32/api/comsvcs/ns-comsvcs-componentsummary
  * @namespace Windows.Win32.System.ComponentServices
- * @version v4.0.30319
  */
-class ComponentSummary extends Win32Struct
-{
+class ComponentSummary extends Win32Struct {
     static sizeof => 48
 
     static packingSize => 8
 
     /**
      * The application instance GUID that uniquely identifies the process that hosts the component.
-     * @type {Pointer<Guid>}
+     * @type {Pointer}
      */
     ApplicationInstanceId {
         get => NumGet(this, 0, "ptr")
@@ -24,7 +22,7 @@ class ComponentSummary extends Win32Struct
 
     /**
      * The partition ID of the component.
-     * @type {Pointer<Guid>}
+     * @type {Pointer}
      */
     PartitionId {
         get => NumGet(this, 8, "ptr")
@@ -33,7 +31,7 @@ class ComponentSummary extends Win32Struct
 
     /**
      * The application ID of the component. The special value {84ac4168-6fe5-4308-a2ed-03688a023c7a} indicates that this is an SWC context.
-     * @type {Pointer<Guid>}
+     * @type {Pointer}
      */
     ApplicationId {
         get => NumGet(this, 16, "ptr")
@@ -42,7 +40,7 @@ class ComponentSummary extends Win32Struct
 
     /**
      * The CLSID of the component.
-     * @type {Pointer<Guid>}
+     * @type {Pointer}
      */
     Clsid {
         get => NumGet(this, 24, "ptr")

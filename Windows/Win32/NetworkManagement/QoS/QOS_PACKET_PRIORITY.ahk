@@ -5,10 +5,8 @@
  * The QOS_PACKET_PRIORITY structure that indicates the priority of the flow traffic.
  * @see https://learn.microsoft.com/windows/win32/api/qos2/ns-qos2-qos_packet_priority
  * @namespace Windows.Win32.NetworkManagement.QoS
- * @version v4.0.30319
  */
-class QOS_PACKET_PRIORITY extends Win32Struct
-{
+class QOS_PACKET_PRIORITY extends Win32Struct {
     static sizeof => 16
 
     static packingSize => 4

@@ -19,10 +19,8 @@
  * </ul>
  * @see https://learn.microsoft.com/windows/win32/api/amvideo/ns-amvideo-videoinfoheader
  * @namespace Windows.Win32.Media.MediaFoundation
- * @version v4.0.30319
  */
-class VIDEOINFOHEADER extends Win32Struct
-{
+class VIDEOINFOHEADER extends Win32Struct {
     static sizeof => 88
 
     static packingSize => 8
@@ -31,7 +29,7 @@ class VIDEOINFOHEADER extends Win32Struct
      * A <a href="https://docs.microsoft.com/windows/desktop/api/windef/ns-windef-rect">RECT</a> structure that specifies the source video window. This structure can be a clipping rectangle, to select a portion of the source video stream.
      * @type {RECT}
      */
-    rcSource{
+    rcSource {
         get {
             if(!this.HasProp("__rcSource"))
                 this.__rcSource := RECT(0, this)
@@ -43,7 +41,7 @@ class VIDEOINFOHEADER extends Win32Struct
      * A <a href="https://docs.microsoft.com/windows/desktop/api/windef/ns-windef-rect">RECT</a> structure that specifies the destination video window.
      * @type {RECT}
      */
-    rcTarget{
+    rcTarget {
         get {
             if(!this.HasProp("__rcTarget"))
                 this.__rcTarget := RECT(16, this)
@@ -84,7 +82,7 @@ class VIDEOINFOHEADER extends Win32Struct
      * When used inside a <b>VIDEOINFOHEADER</b> structure, the semantics of the <a href="https://docs.microsoft.com/windows/desktop/api/wingdi/ns-wingdi-bitmapinfoheader">BITMAPINFOHEADER</a> structure differ slightly from how the structure is used in GDI. For more information, refer to the topic <a href="https://docs.microsoft.com/windows/desktop/api/wingdi/ns-wingdi-bitmapinfoheader">BITMAPINFOHEADER Structure</a>.
      * @type {BITMAPINFOHEADER}
      */
-    bmiHeader{
+    bmiHeader {
         get {
             if(!this.HasProp("__bmiHeader"))
                 this.__bmiHeader := BITMAPINFOHEADER(48, this)

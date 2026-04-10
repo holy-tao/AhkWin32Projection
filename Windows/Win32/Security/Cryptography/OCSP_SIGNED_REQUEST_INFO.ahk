@@ -1,6 +1,7 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
 #Include .\CRYPT_INTEGER_BLOB.ahk
+#Include .\OCSP_SIGNATURE_INFO.ahk
 
 /**
  * Contains information for an online certificate status protocol (OCSP) request with optional signature information.
@@ -12,10 +13,8 @@
  * OCSP applications can encode or decode this structure by using <b>X509_ASN_ENCODING</b> or <b>PKCS_7_ASN_ENCODING</b>.
  * @see https://learn.microsoft.com/windows/win32/api/wincrypt/ns-wincrypt-ocsp_signed_request_info
  * @namespace Windows.Win32.Security.Cryptography
- * @version v4.0.30319
  */
-class OCSP_SIGNED_REQUEST_INFO extends Win32Struct
-{
+class OCSP_SIGNED_REQUEST_INFO extends Win32Struct {
     static sizeof => 24
 
     static packingSize => 8
@@ -24,7 +23,7 @@ class OCSP_SIGNED_REQUEST_INFO extends Win32Struct
      * A BLOB that has been encoded by using <a href="https://docs.microsoft.com/windows/desktop/SecGloss/d-gly">Distinguished Encoding Rules</a> (DER) and that contains the OCSP request information.
      * @type {CRYPT_INTEGER_BLOB}
      */
-    ToBeSigned{
+    ToBeSigned {
         get {
             if(!this.HasProp("__ToBeSigned"))
                 this.__ToBeSigned := CRYPT_INTEGER_BLOB(0, this)

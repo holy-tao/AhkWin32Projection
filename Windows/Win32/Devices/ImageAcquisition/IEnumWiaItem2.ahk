@@ -1,17 +1,15 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
-#Include .\IWiaItem2.ahk
-#Include .\IEnumWiaItem2.ahk
 #Include ..\..\System\Com\IUnknown.ahk
+#Include .\IWiaItem2.ahk
 
 /**
  * Used by applications to enumerate IWiaItem2 objects in the item tree's current folder.
  * @see https://learn.microsoft.com/windows/win32/wia/-wia-ienumwiaitem2
  * @namespace Windows.Win32.Devices.ImageAcquisition
- * @version v4.0.30319
  */
-class IEnumWiaItem2 extends IUnknown{
+class IEnumWiaItem2 extends IUnknown {
 
     static sizeof => A_PtrSize
     /**

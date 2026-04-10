@@ -5,10 +5,8 @@
  * Contains information about a memory read operation.
  * @see https://learn.microsoft.com/windows/win32/api/dbghelp/ns-dbghelp-imagehlp_cba_read_memory
  * @namespace Windows.Win32.System.Diagnostics.Debug
- * @version v4.0.30319
  */
-class IMAGEHLP_CBA_READ_MEMORY extends Win32Struct
-{
+class IMAGEHLP_CBA_READ_MEMORY extends Win32Struct {
     static sizeof => 32
 
     static packingSize => 8

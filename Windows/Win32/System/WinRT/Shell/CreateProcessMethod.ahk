@@ -3,9 +3,8 @@
 
 /**
  * @namespace Windows.Win32.System.WinRT.Shell
- * @version v4.0.30319
  */
-class CreateProcessMethod extends Win32Enum{
+class CreateProcessMethod extends Win32Enum {
 
     /**
      * @type {Integer (Int32)}

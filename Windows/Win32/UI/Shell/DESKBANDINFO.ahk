@@ -6,10 +6,8 @@
  * Receives information about a band object. This structure is used with the deprecated IDeskBand::GetBandInfo method.
  * @see https://learn.microsoft.com/windows/win32/api/shobjidl_core/ns-shobjidl_core-deskbandinfo
  * @namespace Windows.Win32.UI.Shell
- * @version v4.0.30319
  */
-class DESKBANDINFO extends Win32Struct
-{
+class DESKBANDINFO extends Win32Struct {
     static sizeof => 556
 
     static packingSize => 4
@@ -29,7 +27,7 @@ class DESKBANDINFO extends Win32Struct
      * A <a href="https://docs.microsoft.com/windows/win32/api/windef/ns-windef-pointl">POINTL</a> structure that receives the minimum size of the band object. The minimum width is given in the <b>POINTL</b> structure's <b>x</b> member and the minimum height is given in the <b>y</b> member.
      * @type {POINTL}
      */
-    ptMinSize{
+    ptMinSize {
         get {
             if(!this.HasProp("__ptMinSize"))
                 this.__ptMinSize := POINTL(4, this)
@@ -43,7 +41,7 @@ class DESKBANDINFO extends Win32Struct
      * A <a href="https://docs.microsoft.com/windows/win32/api/windef/ns-windef-pointl">POINTL</a> structure that receives the maximum size of the band object. The maximum height is given in the <b>POINTL</b> structure's <b>y</b> member and the <b>x</b> member is ignored. If the band object has no limit for its maximum height, (LONG)-1 should be used.
      * @type {POINTL}
      */
-    ptMaxSize{
+    ptMaxSize {
         get {
             if(!this.HasProp("__ptMaxSize"))
                 this.__ptMaxSize := POINTL(12, this)
@@ -59,7 +57,7 @@ class DESKBANDINFO extends Win32Struct
      * The <b>dwModeFlags</b> member must contain the DBIMF_VARIABLEHEIGHT flag; otherwise, <b>ptIntegral</b> is ignored.
      * @type {POINTL}
      */
-    ptIntegral{
+    ptIntegral {
         get {
             if(!this.HasProp("__ptIntegral"))
                 this.__ptIntegral := POINTL(20, this)
@@ -73,7 +71,7 @@ class DESKBANDINFO extends Win32Struct
      * A <a href="https://docs.microsoft.com/windows/win32/api/windef/ns-windef-pointl">POINTL</a> structure that receives the ideal size of the band object. The ideal width is given in the <b>POINTL</b> structure's <b>x</b> member and the ideal height is given in the <b>y</b> member. The band container attempts to use these values, but the band is not guaranteed to be this size.
      * @type {POINTL}
      */
-    ptActual{
+    ptActual {
         get {
             if(!this.HasProp("__ptActual"))
                 this.__ptActual := POINTL(28, this)

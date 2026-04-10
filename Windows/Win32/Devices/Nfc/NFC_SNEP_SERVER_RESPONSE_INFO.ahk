@@ -4,10 +4,8 @@
 
 /**
  * @namespace Windows.Win32.Devices.Nfc
- * @version v4.0.30319
  */
-class NFC_SNEP_SERVER_RESPONSE_INFO extends Win32Struct
-{
+class NFC_SNEP_SERVER_RESPONSE_INFO extends Win32Struct {
     static sizeof => 24
 
     static packingSize => 8
@@ -39,7 +37,7 @@ class NFC_SNEP_SERVER_RESPONSE_INFO extends Win32Struct
     /**
      * @type {NFC_DATA_BUFFER}
      */
-    sResponsePayload{
+    sResponsePayload {
         get {
             if(!this.HasProp("__sResponsePayload"))
                 this.__sResponsePayload := NFC_DATA_BUFFER(20, this)

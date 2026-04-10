@@ -3,9 +3,8 @@
 
 /**
  * @namespace Windows.Win32.System.Ioctl
- * @version v4.0.30319
  */
-class GPT_ATTRIBUTES extends Win32BitflagEnum{
+class GPT_ATTRIBUTES extends Win32BitflagEnum {
 
     /**
      * @type {Integer (UInt64)}

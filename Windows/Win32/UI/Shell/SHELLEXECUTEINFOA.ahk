@@ -24,11 +24,10 @@
  * > The shellapi.h header defines SHELLEXECUTEINFO as an alias which automatically selects the ANSI or Unicode version of this function based on the definition of the UNICODE preprocessor constant. Mixing usage of the encoding-neutral alias with code that not encoding-neutral can lead to mismatches that result in compilation or runtime errors. For more information, see [Conventions for Function Prototypes](/windows/win32/intl/conventions-for-function-prototypes).
  * @see https://learn.microsoft.com/windows/win32/api/shellapi/ns-shellapi-shellexecuteinfoa
  * @namespace Windows.Win32.UI.Shell
- * @version v4.0.30319
  * @charset ANSI
+ * @architecture X64, Arm64
  */
-class SHELLEXECUTEINFOA extends Win32Struct
-{
+class SHELLEXECUTEINFOA extends Win32Struct {
     static sizeof => 112
 
     static packingSize => 8
@@ -59,7 +58,7 @@ class SHELLEXECUTEINFOA extends Win32Struct
      * Optional. A handle to the owner window, used to display and position any UI that the system might produce while executing this function.
      * @type {HWND}
      */
-    hwnd{
+    hwnd {
         get {
             if(!this.HasProp("__hwnd"))
                 this.__hwnd := HWND(8, this)
@@ -156,7 +155,7 @@ class SHELLEXECUTEINFOA extends Win32Struct
      * | SE_ERR_NOASSOC (31) | File association not available. |
      * @type {HINSTANCE}
      */
-    hInstApp{
+    hInstApp {
         get {
             if(!this.HasProp("__hInstApp"))
                 this.__hInstApp := HINSTANCE(56, this)
@@ -199,7 +198,7 @@ class SHELLEXECUTEINFOA extends Win32Struct
      * A handle to the registry key for the file type. The access rights for this registry key should be set to KEY_READ. This member is ignored if <b>fMask</b> does not include <b>SEE_MASK_CLASSKEY</b>.
      * @type {HKEY}
      */
-    hkeyClass{
+    hkeyClass {
         get {
             if(!this.HasProp("__hkeyClass"))
                 this.__hkeyClass := HKEY(80, this)
@@ -221,7 +220,7 @@ class SHELLEXECUTEINFOA extends Win32Struct
     /**
      * @type {HANDLE}
      */
-    hIcon{
+    hIcon {
         get {
             if(!this.HasProp("__hIcon"))
                 this.__hIcon := HANDLE(96, this)
@@ -232,7 +231,7 @@ class SHELLEXECUTEINFOA extends Win32Struct
     /**
      * @type {HANDLE}
      */
-    hMonitor{
+    hMonitor {
         get {
             if(!this.HasProp("__hMonitor"))
                 this.__hMonitor := HANDLE(96, this)
@@ -248,7 +247,7 @@ class SHELLEXECUTEINFOA extends Win32Struct
      * <div class="alert"><b>Note:</b> <a href="https://docs.microsoft.com/windows/desktop/api/shellapi/nf-shellapi-shellexecuteexa">ShellExecuteEx</a> does not always return an <b>hProcess</b>, even if a process is launched as the result of the call. For example, an <b>hProcess</b> does not return when you use <b>SEE_MASK_INVOKEIDLIST</b> to invoke <a href="https://docs.microsoft.com/windows/desktop/api/shobjidl_core/nn-shobjidl_core-icontextmenu">IContextMenu</a>.</div>
      * @type {HANDLE}
      */
-    hProcess{
+    hProcess {
         get {
             if(!this.HasProp("__hProcess"))
                 this.__hProcess := HANDLE(104, this)

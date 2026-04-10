@@ -5,10 +5,8 @@
  * Specifies a BLOB to sign.
  * @see https://learn.microsoft.com/windows/win32/SecCrypto/signer-blob-info
  * @namespace Windows.Win32.Security.Cryptography
- * @version v4.0.30319
  */
-class SIGNER_BLOB_INFO extends Win32Struct
-{
+class SIGNER_BLOB_INFO extends Win32Struct {
     static sizeof => 40
 
     static packingSize => 8

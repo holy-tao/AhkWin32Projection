@@ -10,9 +10,8 @@
  * A media source implements <b>IMFPMPClientApp</b> in order to implement content protection functionality for Windows Store apps.
  * @see https://learn.microsoft.com/windows/win32/api/mfidl/nn-mfidl-imfpmpclientapp
  * @namespace Windows.Win32.Media.MediaFoundation
- * @version v4.0.30319
  */
-class IMFPMPClientApp extends IUnknown{
+class IMFPMPClientApp extends IUnknown {
 
     static sizeof => A_PtrSize
     /**

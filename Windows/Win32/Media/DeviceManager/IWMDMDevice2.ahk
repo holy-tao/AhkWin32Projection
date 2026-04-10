@@ -1,16 +1,15 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
-#Include .\IWMDMStorage.ahk
 #Include .\IWMDMDevice.ahk
+#Include .\IWMDMStorage.ahk
 
 /**
  * The IWMDMDevice2 interface extends IWMDMDevice by making it possible to get the video formats supported by a device, find storage from its name, and use property pages.
  * @see https://learn.microsoft.com/windows/win32/api/mswmdm/nn-mswmdm-iwmdmdevice2
  * @namespace Windows.Win32.Media.DeviceManager
- * @version v4.0.30319
  */
-class IWMDMDevice2 extends IWMDMDevice{
+class IWMDMDevice2 extends IWMDMDevice {
 
     static sizeof => A_PtrSize
     /**

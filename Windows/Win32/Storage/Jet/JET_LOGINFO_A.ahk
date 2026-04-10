@@ -3,11 +3,9 @@
 
 /**
  * @namespace Windows.Win32.Storage.Jet
- * @version v4.0.30319
  * @charset ANSI
  */
-class JET_LOGINFO_A extends Win32Struct
-{
+class JET_LOGINFO_A extends Win32Struct {
     static sizeof => 16
 
     static packingSize => 4
@@ -37,9 +35,9 @@ class JET_LOGINFO_A extends Win32Struct
     }
 
     /**
-     * @type {Array<SByte>}
+     * @type {Array<Integer>}
      */
-    szBaseName{
+    szBaseName {
         get {
             if(!this.HasProp("__szBaseNameProxyArray"))
                 this.__szBaseNameProxyArray := Win32FixedArray(this.ptr + 12, 4, Primitive, "char")

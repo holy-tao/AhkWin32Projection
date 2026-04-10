@@ -1,16 +1,15 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
-#Include ..\..\Foundation\HANDLE.ahk
 #Include ..\..\System\Com\IUnknown.ahk
+#Include ..\..\Foundation\HANDLE.ahk
 
 /**
  * Use this interface to retrieve the access token or authorization scheme used during the authentication of a client.
  * @see https://learn.microsoft.com/windows/win32/api/wsdbase/nn-wsdbase-iwsdhttpauthparameters
  * @namespace Windows.Win32.Devices.WebServicesOnDevices
- * @version v4.0.30319
  */
-class IWSDHttpAuthParameters extends IUnknown{
+class IWSDHttpAuthParameters extends IUnknown {
 
     static sizeof => A_PtrSize
     /**

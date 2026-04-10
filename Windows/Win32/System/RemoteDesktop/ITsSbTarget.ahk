@@ -1,18 +1,17 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
+#Include ..\Com\IUnknown.ahk
 #Include ..\..\Foundation\BSTR.ahk
 #Include .\TSSD_ConnectionPoint.ahk
 #Include .\ITsSbTargetPropertySet.ahk
-#Include ..\Com\IUnknown.ahk
 
 /**
  * Exposes properties that store configuration and state information about a target.
  * @see https://learn.microsoft.com/windows/win32/api/sbtsv/nn-sbtsv-itssbtarget
  * @namespace Windows.Win32.System.RemoteDesktop
- * @version v4.0.30319
  */
-class ITsSbTarget extends IUnknown{
+class ITsSbTarget extends IUnknown {
 
     static sizeof => A_PtrSize
     /**
@@ -66,7 +65,7 @@ class ITsSbTarget extends IUnknown{
     }
 
     /**
-     * @type {Integer} 
+     * @type {TARGET_STATE} 
      */
     TargetState {
         get => this.get_TargetState()
@@ -246,7 +245,7 @@ class ITsSbTarget extends IUnknown{
 
     /**
      * Retrieves or specifies the target state. (ITsSbTargetEx.get_TargetState)
-     * @returns {Integer} 
+     * @returns {TARGET_STATE} 
      * @see https://learn.microsoft.com/windows/win32/api/sbtsv/nf-sbtsv-itssbtarget-get_targetstate
      */
     get_TargetState() {
@@ -256,7 +255,7 @@ class ITsSbTarget extends IUnknown{
 
     /**
      * Retrieves or specifies the target state. (ITsSbTargetEx.put_TargetState)
-     * @param {Integer} State 
+     * @param {TARGET_STATE} State 
      * @returns {HRESULT} 
      * @see https://learn.microsoft.com/windows/win32/api/sbtsv/nf-sbtsv-itssbtarget-put_targetstate
      */

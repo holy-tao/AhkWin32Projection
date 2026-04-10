@@ -1,6 +1,7 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
 #Include .\ONEX_VARIABLE_BLOB.ahk
+#Include .\ONEX_AUTH_IDENTITY.ahk
 #Include ..\..\Foundation\HANDLE.ahk
 
 /**
@@ -15,10 +16,8 @@
  * For security reasons, the <b>hUserToken</b> and <b>OneXUserProfile</b> members of the <b>ONEX_AUTH_PARAMS</b> structure returned in the <b>authParams</b> member are always set to <b>NULL</b>.
  * @see https://learn.microsoft.com/windows/win32/api/dot1x/ns-dot1x-onex_auth_params
  * @namespace Windows.Win32.NetworkManagement.WiFi
- * @version v4.0.30319
  */
-class ONEX_AUTH_PARAMS extends Win32Struct
-{
+class ONEX_AUTH_PARAMS extends Win32Struct {
     static sizeof => 72
 
     static packingSize => 8
@@ -36,7 +35,7 @@ class ONEX_AUTH_PARAMS extends Win32Struct
      * The 802.1X authentication connection profile. This member contains an embedded <a href="https://docs.microsoft.com/windows/desktop/NativeWiFi/onex-connection-profile">ONEX_CONNECTION_PROFILE</a> structure starting at the <b>dwOffset</b> member of the <a href="https://docs.microsoft.com/windows/desktop/api/dot1x/ns-dot1x-onex_variable_blob">ONEX_VARIABLE_BLOB</a>.
      * @type {ONEX_VARIABLE_BLOB}
      */
-    oneXConnProfile{
+    oneXConnProfile {
         get {
             if(!this.HasProp("__oneXConnProfile"))
                 this.__oneXConnProfile := ONEX_VARIABLE_BLOB(4, this)
@@ -46,7 +45,7 @@ class ONEX_AUTH_PARAMS extends Win32Struct
 
     /**
      * The identity used for 802.1X authentication status. This member is a value from the <a href="https://docs.microsoft.com/windows/desktop/api/dot1x/ne-dot1x-onex_auth_identity">ONEX_AUTH_IDENTITY</a> enumeration.
-     * @type {Integer}
+     * @type {ONEX_AUTH_IDENTITY}
      */
     authIdentity {
         get => NumGet(this, 12, "int")
@@ -78,7 +77,6 @@ class ONEX_AUTH_PARAMS extends Win32Struct
     }
 
     /**
-     * Indicates if the <b>ONEX_AUTH_PARAMS</b> structure contains a session ID in the <b>dwSessionId</b> member.
      * @type {Integer}
      */
     fSessionId {
@@ -87,9 +85,6 @@ class ONEX_AUTH_PARAMS extends Win32Struct
     }
 
     /**
-     * Indicates if the <b>ONEX_AUTH_PARAMS</b> structure contains a user token handle in the <b>hUserToken</b> member. 
-     * 
-     * For security reasons, the <b>hUserToken</b> member of the <b>ONEX_AUTH_PARAMS</b> structure returned in the <b>authParams</b> member of the <a href="https://docs.microsoft.com/windows/desktop/api/dot1x/ns-dot1x-onex_result_update_data">ONEX_RESULT_UPDATE_DATA</a> structure is always set to <b>NULL</b>.
      * @type {Integer}
      */
     fhUserToken {
@@ -98,9 +93,6 @@ class ONEX_AUTH_PARAMS extends Win32Struct
     }
 
     /**
-     * Indicates if the <b>ONEX_AUTH_PARAMS</b> structure contains an 802.1X user profile in the <b>OneXUserProfile</b> member.
-     * 
-     * For security reasons, the <b>OneXUserProfile</b> member of the <b>ONEX_AUTH_PARAMS</b> structure returned in the <b>authParams</b> member of the <a href="https://docs.microsoft.com/windows/desktop/api/dot1x/ns-dot1x-onex_result_update_data">ONEX_RESULT_UPDATE_DATA</a> structure is always set to <b>NULL</b>.
      * @type {Integer}
      */
     fOnexUserProfile {
@@ -109,7 +101,6 @@ class ONEX_AUTH_PARAMS extends Win32Struct
     }
 
     /**
-     * Indicates if the <b>ONEX_AUTH_PARAMS</b> structure contains an 802.1X identity in the <b>Identity</b> member.
      * @type {Integer}
      */
     fIdentity {
@@ -118,7 +109,6 @@ class ONEX_AUTH_PARAMS extends Win32Struct
     }
 
     /**
-     * Indicates if the <b>ONEX_AUTH_PARAMS</b> structure contains a user name used for 802.1X authentication in the <b>UserName</b> member.
      * @type {Integer}
      */
     fUserName {
@@ -127,7 +117,6 @@ class ONEX_AUTH_PARAMS extends Win32Struct
     }
 
     /**
-     * Indicates if the <b>ONEX_AUTH_PARAMS</b> structure contains a domain used for 802.1X authentication in the <b>Domain</b> member.
      * @type {Integer}
      */
     fDomain {
@@ -150,7 +139,7 @@ class ONEX_AUTH_PARAMS extends Win32Struct
      * For security reasons, the <b>hUserToken</b> member of the <b>ONEX_AUTH_PARAMS</b> structure returned in the <b>authParams</b> member of the <a href="https://docs.microsoft.com/windows/desktop/api/dot1x/ns-dot1x-onex_result_update_data">ONEX_RESULT_UPDATE_DATA</a> structure is always set to <b>NULL</b>.
      * @type {HANDLE}
      */
-    hUserToken{
+    hUserToken {
         get {
             if(!this.HasProp("__hUserToken"))
                 this.__hUserToken := HANDLE(32, this)
@@ -164,7 +153,7 @@ class ONEX_AUTH_PARAMS extends Win32Struct
      * For security reasons, the <b>OneXUserProfile</b> member of the <b>ONEX_AUTH_PARAMS</b> structure returned in the <b>authParams</b> member of the <a href="https://docs.microsoft.com/windows/desktop/api/dot1x/ns-dot1x-onex_result_update_data">ONEX_RESULT_UPDATE_DATA</a> structure is always set to <b>NULL</b>.
      * @type {ONEX_VARIABLE_BLOB}
      */
-    OneXUserProfile{
+    OneXUserProfile {
         get {
             if(!this.HasProp("__OneXUserProfile"))
                 this.__OneXUserProfile := ONEX_VARIABLE_BLOB(40, this)
@@ -176,7 +165,7 @@ class ONEX_AUTH_PARAMS extends Win32Struct
      * The 802.1X identity used for 802.1X authentication. This member contains a NULL-terminated Unicode string with the identity starting at the <b>dwOffset</b> member of the <a href="https://docs.microsoft.com/windows/desktop/api/dot1x/ns-dot1x-onex_variable_blob">ONEX_VARIABLE_BLOB</a> if the <b>fIdentity</b> bitfield member is set.
      * @type {ONEX_VARIABLE_BLOB}
      */
-    Identity{
+    Identity {
         get {
             if(!this.HasProp("__Identity"))
                 this.__Identity := ONEX_VARIABLE_BLOB(48, this)
@@ -188,7 +177,7 @@ class ONEX_AUTH_PARAMS extends Win32Struct
      * The user name used for 802.1X authentication. This member contains a NULL-terminated Unicode string with the user name starting at the <b>dwOffset</b> member of the <a href="https://docs.microsoft.com/windows/desktop/api/dot1x/ns-dot1x-onex_variable_blob">ONEX_VARIABLE_BLOB</a> if the <b>fUserName</b> bitfield member is set.
      * @type {ONEX_VARIABLE_BLOB}
      */
-    UserName{
+    UserName {
         get {
             if(!this.HasProp("__UserName"))
                 this.__UserName := ONEX_VARIABLE_BLOB(56, this)
@@ -200,7 +189,7 @@ class ONEX_AUTH_PARAMS extends Win32Struct
      * The domain used for 802.1X authentication. This member contains a NULL-terminated Unicode string with the domain starting at the <b>dwOffset</b> member of the <a href="https://docs.microsoft.com/windows/desktop/api/dot1x/ns-dot1x-onex_variable_blob">ONEX_VARIABLE_BLOB</a> if the <b>fDomain</b> bitfield member is set.
      * @type {ONEX_VARIABLE_BLOB}
      */
-    Domain{
+    Domain {
         get {
             if(!this.HasProp("__Domain"))
                 this.__Domain := ONEX_VARIABLE_BLOB(64, this)

@@ -3,9 +3,8 @@
 
 /**
  * @namespace Windows.Win32.UI.WindowsAndMessaging
- * @version v4.0.30319
  */
-class SCROLLBAR_COMMAND extends Win32Enum{
+class SCROLLBAR_COMMAND extends Win32Enum {
 
     /**
      * @type {Integer (Int32)}

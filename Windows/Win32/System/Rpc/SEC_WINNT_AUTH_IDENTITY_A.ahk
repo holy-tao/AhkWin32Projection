@@ -1,5 +1,6 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
+#Include .\SEC_WINNT_AUTH_IDENTITY.ahk
 
 /**
  * The SEC_WINNT_AUTH_IDENTITY structure enables passing a particular user name and password to the run-time library for the purpose of authentication. The structure is valid for Windows and Macintosh. (ANSI)
@@ -9,11 +10,9 @@
  * The strings may be ANSI or UNICODE depending on the value assigned to <b>Flags</b>.
  * @see https://learn.microsoft.com/windows/win32/api/rpcdce/ns-rpcdce-sec_winnt_auth_identity_a
  * @namespace Windows.Win32.System.Rpc
- * @version v4.0.30319
  * @charset ANSI
  */
-class SEC_WINNT_AUTH_IDENTITY_A extends Win32Struct
-{
+class SEC_WINNT_AUTH_IDENTITY_A extends Win32Struct {
     static sizeof => 48
 
     static packingSize => 8
@@ -77,7 +76,7 @@ class SEC_WINNT_AUTH_IDENTITY_A extends Win32Struct
      * 
      * <a id="SEC_WINNT_AUTH_IDENTITY_ANSI"></a>
      * <a id="sec_winnt_auth_identity_ansi"></a>
-     * @type {Integer}
+     * @type {SEC_WINNT_AUTH_IDENTITY}
      */
     Flags {
         get => NumGet(this, 44, "uint")

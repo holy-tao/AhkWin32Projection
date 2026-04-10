@@ -11,9 +11,8 @@
  * <img alt="Illustration of four cap styles" src="./images/linecaps.png"/>
  * @see https://learn.microsoft.com/windows/win32/api/d2d1/ne-d2d1-d2d1_cap_style
  * @namespace Windows.Win32.Graphics.Direct2D
- * @version v4.0.30319
  */
-class D2D1_CAP_STYLE extends Win32Enum{
+class D2D1_CAP_STYLE extends Win32Enum {
 
     /**
      * A cap that does not extend past the last point of the line. Comparable to cap used for objects other than lines.

@@ -1,21 +1,20 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
+#Include .\SpatialAudioHrtfDirectivityType.ahk
 
 /**
  * Represents an omnidirectional model for an ISpatialAudioObjectForHrtf. The omnidirectional emission is interpolated linearly with the directivity model specified in the Type field based on the value of the Scaling field.
  * @see https://learn.microsoft.com/windows/win32/api/spatialaudiohrtf/ns-spatialaudiohrtf-spatialaudiohrtfdirectivity
  * @namespace Windows.Win32.Media.Audio
- * @version v4.0.30319
  */
-class SpatialAudioHrtfDirectivity extends Win32Struct
-{
+class SpatialAudioHrtfDirectivity extends Win32Struct {
     static sizeof => 8
 
     static packingSize => 4
 
     /**
      * The type of shape in which sound is emitted by an <a href="https://docs.microsoft.com/windows/desktop/api/spatialaudiohrtf/nn-spatialaudiohrtf-ispatialaudioobjectforhrtf">ISpatialAudioObjectForHrtf</a>.
-     * @type {Integer}
+     * @type {SpatialAudioHrtfDirectivityType}
      */
     Type {
         get => NumGet(this, 0, "int")

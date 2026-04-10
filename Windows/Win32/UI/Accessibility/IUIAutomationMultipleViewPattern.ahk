@@ -1,16 +1,15 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
-#Include ..\..\Foundation\BSTR.ahk
 #Include ..\..\System\Com\IUnknown.ahk
+#Include ..\..\Foundation\BSTR.ahk
 
 /**
  * Provides access to a control that can switch between multiple representations of the same information or set of child controls.
  * @see https://learn.microsoft.com/windows/win32/api/uiautomationclient/nn-uiautomationclient-iuiautomationmultipleviewpattern
  * @namespace Windows.Win32.UI.Accessibility
- * @version v4.0.30319
  */
-class IUIAutomationMultipleViewPattern extends IUnknown{
+class IUIAutomationMultipleViewPattern extends IUnknown {
 
     static sizeof => A_PtrSize
     /**
@@ -47,7 +46,9 @@ class IUIAutomationMultipleViewPattern extends IUnknown{
 
     /**
      * Retrieves the name of a control-specific view. (IUIAutomationMultipleViewPattern.GetViewName)
-     * @param {Integer} _view 
+     * @param {Integer} _view Type: <b>int</b>
+     * 
+     * The identifier of the view.
      * @returns {BSTR} Type: <b>BSTR*</b>
      * 
      * Receives a pointer to a localized view name.
@@ -61,7 +62,9 @@ class IUIAutomationMultipleViewPattern extends IUnknown{
 
     /**
      * Sets the view of the control.
-     * @param {Integer} _view 
+     * @param {Integer} _view Type: <b>int</b>
+     * 
+     * The control-specific view identifier.
      * @returns {HRESULT} Type: <b><a href="https://docs.microsoft.com/windows/desktop/WinProg/windows-data-types">HRESULT</a></b>
      * 
      * If this method succeeds, it returns <b>S_OK</b>. Otherwise, it returns an <b>HRESULT</b> error code.

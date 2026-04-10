@@ -1,17 +1,16 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
+#Include ..\Com\IUnknown.ahk
 #Include .\IContact.ahk
 #Include .\IContactCollection.ahk
-#Include ..\Com\IUnknown.ahk
 
 /**
  * Do not use. Used for retrieving a contact, based on a contact ID string.
  * @see https://learn.microsoft.com/windows/win32/api/icontact/nn-icontact-icontactmanager
  * @namespace Windows.Win32.System.Contacts
- * @version v4.0.30319
  */
-class IContactManager extends IUnknown{
+class IContactManager extends IUnknown {
 
     static sizeof => A_PtrSize
     /**

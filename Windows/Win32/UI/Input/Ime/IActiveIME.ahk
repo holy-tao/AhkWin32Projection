@@ -1,14 +1,13 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\..\Guid.ahk
-#Include .\IEnumRegisterWordW.ahk
 #Include ..\..\..\System\Com\IUnknown.ahk
+#Include .\IEnumRegisterWordW.ahk
 
 /**
  * @namespace Windows.Win32.UI.Input.Ime
- * @version v4.0.30319
  */
-class IActiveIME extends IUnknown{
+class IActiveIME extends IUnknown {
 
     static sizeof => A_PtrSize
     /**
@@ -77,7 +76,7 @@ class IActiveIME extends IUnknown{
      * 
      * The beginning of the [**EXPERTCONFIG**](expertconfig.md) data structure includes a Private section that stores the structure size information. The size of the **EXPERTCONFIG** structure should include the reserved **DWORD** length that appears at the beginning of the structure. For example, if your configuration data requires 20 bytes of storage space, allocate 24 bytes to store the data. If a *ppConfig* is **NULL**, the **Configure** function calls the [**ExpertAllocMemory**](expertallocmemory.md) function to allocate a new configuration that is the correct size. If the buffer is not enough to hold the expert data, the expert should call the [**ExpertReallocMemory**](expertreallocmemory.md) function.
      * @param {HKL} _hKL 
-     * @param {HWND} _hWnd 
+     * @param {HWND} _hWnd A handle to the parent window. Use the handle to open a dialog box.
      * @param {Integer} dwMode 
      * @param {Pointer<REGISTERWORDW>} pRegisterWord 
      * @returns {HRESULT} If the function is successful (that is, if a current configuration exists), the return value is **TRUE**.

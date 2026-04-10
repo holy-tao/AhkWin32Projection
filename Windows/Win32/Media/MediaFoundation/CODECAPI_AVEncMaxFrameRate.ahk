@@ -9,10 +9,8 @@
  * The frame rate is expressed as a ratio. The upper 32 bits of the attribute value contain the numerator and the lower 32 bits contain the denominator. For example, if the frame rate is 30 frames per second (fps), the ratio is 30/1. If the frame rate is 29.97 fps, the ratio is 30,000/1001.
  * @see https://learn.microsoft.com/windows/win32/medfound/codecapi-avencmaxframerate
  * @namespace Windows.Win32.Media.MediaFoundation
- * @version v4.0.30319
  */
-class CODECAPI_AVEncMaxFrameRate extends Win32Struct
-{
+class CODECAPI_AVEncMaxFrameRate extends Win32Struct {
     static sizeof => 0
 
     static packingSize => 1

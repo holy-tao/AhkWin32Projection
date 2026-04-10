@@ -3,14 +3,10 @@
 
 /**
  * Retrieves video extension command support using command-defined input and output structures.
- * @remarks
- * 
  * @see https://learn.microsoft.com/windows/win32/api/d3d12video/ns-d3d12video-d3d12_feature_data_video_extension_command_support
  * @namespace Windows.Win32.Media.MediaFoundation
- * @version v4.0.30319
  */
-class D3D12_FEATURE_DATA_VIDEO_EXTENSION_COMMAND_SUPPORT extends Win32Struct
-{
+class D3D12_FEATURE_DATA_VIDEO_EXTENSION_COMMAND_SUPPORT extends Win32Struct {
     static sizeof => 48
 
     static packingSize => 8
@@ -26,7 +22,7 @@ class D3D12_FEATURE_DATA_VIDEO_EXTENSION_COMMAND_SUPPORT extends Win32Struct
 
     /**
      * The unique identifier for the video extension command for which support is queried.
-     * @type {Pointer<Guid>}
+     * @type {Pointer}
      */
     CommandId {
         get => NumGet(this, 8, "ptr")

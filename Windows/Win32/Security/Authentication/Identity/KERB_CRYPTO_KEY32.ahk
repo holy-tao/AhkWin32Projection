@@ -3,10 +3,8 @@
 
 /**
  * @namespace Windows.Win32.Security.Authentication.Identity
- * @version v4.0.30319
  */
-class KERB_CRYPTO_KEY32 extends Win32Struct
-{
+class KERB_CRYPTO_KEY32 extends Win32Struct {
     static sizeof => 12
 
     static packingSize => 4

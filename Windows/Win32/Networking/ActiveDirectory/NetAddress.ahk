@@ -5,10 +5,8 @@
  * The IADsNetAddress interface provides methods for an ADSI client to access the Net Address attribute.
  * @see https://learn.microsoft.com/windows/win32/api/iads/nn-iads-iadsnetaddress
  * @namespace Windows.Win32.Networking.ActiveDirectory
- * @version v4.0.30319
  */
-class NetAddress extends Win32Struct
-{
+class NetAddress extends Win32Struct {
     static sizeof => 0
 
     static packingSize => 1

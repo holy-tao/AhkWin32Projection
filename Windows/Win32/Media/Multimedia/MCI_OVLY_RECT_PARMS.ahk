@@ -8,10 +8,8 @@
  * When assigning data to the members of this structure, set the corresponding flags in the *fdwCommand* parameter of the [**mciSendCommand**](/previous-versions//dd757160(v=vs.85)) function to validate the members.
  * @see https://learn.microsoft.com/windows/win32/Multimedia/mci-ovly-rect-parms
  * @namespace Windows.Win32.Media.Multimedia
- * @version v4.0.30319
  */
-class MCI_OVLY_RECT_PARMS extends Win32Struct
-{
+class MCI_OVLY_RECT_PARMS extends Win32Struct {
     static sizeof => 24
 
     static packingSize => 8
@@ -29,7 +27,7 @@ class MCI_OVLY_RECT_PARMS extends Win32Struct
      * Rectangle containing positioning information. [RECT](/previous-versions//ms536136(v=vs.85)) structures are handled differently in MCI than in other parts of Windows; in MCI, **rc.right** contains the width of the rectangle and **rc.bottom** contains its height.
      * @type {RECT}
      */
-    rc{
+    rc {
         get {
             if(!this.HasProp("__rc"))
                 this.__rc := RECT(8, this)

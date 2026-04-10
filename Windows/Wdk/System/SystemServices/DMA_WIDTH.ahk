@@ -3,9 +3,8 @@
 
 /**
  * @namespace Windows.Wdk.System.SystemServices
- * @version v4.0.30319
  */
-class DMA_WIDTH extends Win32Enum{
+class DMA_WIDTH extends Win32Enum {
 
     /**
      * @type {Integer (Int32)}

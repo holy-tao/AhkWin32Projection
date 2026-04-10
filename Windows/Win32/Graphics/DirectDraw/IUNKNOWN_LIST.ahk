@@ -1,12 +1,12 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
+#Include .\IUNKNOWN_LIST.ahk
+#Include ..\..\System\Com\IUnknown.ahk
 
 /**
  * @namespace Windows.Win32.Graphics.DirectDraw
- * @version v4.0.30319
  */
-class IUNKNOWN_LIST extends Win32Struct
-{
+class IUNKNOWN_LIST extends Win32Struct {
     static sizeof => 24
 
     static packingSize => 8

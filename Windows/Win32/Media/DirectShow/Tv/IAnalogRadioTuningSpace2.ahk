@@ -9,9 +9,8 @@
  * To declare the interface identifier (IID) for this interface, use the <b>__uuidof</b> operator: <c>__uuidof(IAnalogRadioTuningSpace2)</c>.
  * @see https://learn.microsoft.com/windows/win32/api/tuner/nn-tuner-ianalogradiotuningspace2
  * @namespace Windows.Win32.Media.DirectShow.Tv
- * @version v4.0.30319
  */
-class IAnalogRadioTuningSpace2 extends IAnalogRadioTuningSpace{
+class IAnalogRadioTuningSpace2 extends IAnalogRadioTuningSpace {
 
     static sizeof => A_PtrSize
     /**

@@ -5,9 +5,8 @@
 
 /**
  * @namespace Windows.Win32.Storage.Packaging.Appx
- * @version v4.0.30319
  */
-class IAppxPackagingDiagnosticEventSink extends IUnknown{
+class IAppxPackagingDiagnosticEventSink extends IUnknown {
 
     static sizeof => A_PtrSize
     /**
@@ -30,7 +29,7 @@ class IAppxPackagingDiagnosticEventSink extends IUnknown{
 
     /**
      * 
-     * @param {Integer} _changeType 
+     * @param {APPX_PACKAGING_CONTEXT_CHANGE_TYPE} _changeType 
      * @param {Integer} contextId 
      * @param {PSTR} contextName 
      * @param {PWSTR} contextMessage 

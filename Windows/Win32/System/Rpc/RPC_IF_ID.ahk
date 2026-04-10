@@ -8,10 +8,8 @@
  * <b>RPC_IF_ID</b>. In those routines, the application is responsible for providing memory for the structure.
  * @see https://learn.microsoft.com/windows/win32/api/rpcdce/ns-rpcdce-rpc_if_id
  * @namespace Windows.Win32.System.Rpc
- * @version v4.0.30319
  */
-class RPC_IF_ID extends Win32Struct
-{
+class RPC_IF_ID extends Win32Struct {
     static sizeof => 16
 
     static packingSize => 8
@@ -19,7 +17,7 @@ class RPC_IF_ID extends Win32Struct
     /**
      * Specifies the interface 
      * <a href="https://msdn.microsoft.com/">UUID</a>.
-     * @type {Pointer<Guid>}
+     * @type {Pointer}
      */
     Uuid {
         get => NumGet(this, 0, "ptr")

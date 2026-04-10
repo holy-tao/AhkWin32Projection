@@ -7,9 +7,8 @@
  * For more information about the normalization forms, see <a href="https://docs.microsoft.com/windows/desktop/Intl/using-unicode-normalization-to-represent-strings">Using Unicode Normalization to Represent Strings</a>.
  * @see https://learn.microsoft.com/windows/win32/api/winnls/ne-winnls-norm_form
  * @namespace Windows.Win32.Globalization
- * @version v4.0.30319
  */
-class NORM_FORM extends Win32Enum{
+class NORM_FORM extends Win32Enum {
 
     /**
      * Not supported.

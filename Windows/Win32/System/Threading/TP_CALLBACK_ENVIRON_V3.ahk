@@ -2,13 +2,12 @@
 #Include ..\..\..\..\Win32Struct.ahk
 #Include .\PTP_POOL.ahk
 #Include .\PTP_CLEANUP_GROUP.ahk
+#Include .\TP_CALLBACK_PRIORITY.ahk
 
 /**
  * @namespace Windows.Win32.System.Threading
- * @version v4.0.30319
  */
-class TP_CALLBACK_ENVIRON_V3 extends Win32Struct
-{
+class TP_CALLBACK_ENVIRON_V3 extends Win32Struct {
     static sizeof => 72
 
     static packingSize => 8
@@ -20,7 +19,7 @@ class TP_CALLBACK_ENVIRON_V3 extends Win32Struct
         class _s extends Win32Struct {
             static sizeof => 4
             static packingSize => 4
-    
+
             /**
              * This bitfield backs the following members:
              * - LongFunction
@@ -32,7 +31,7 @@ class TP_CALLBACK_ENVIRON_V3 extends Win32Struct
                 get => NumGet(this, 0, "uint")
                 set => NumPut("uint", value, this, 0)
             }
-        
+
             /**
              * @type {Integer}
              */
@@ -40,7 +39,7 @@ class TP_CALLBACK_ENVIRON_V3 extends Win32Struct
                 get => (this._bitfield >> 0) & 0x1
                 set => this._bitfield := ((value & 0x1) << 0) | (this._bitfield & ~(0x1 << 0))
             }
-        
+
             /**
              * @type {Integer}
              */
@@ -48,7 +47,7 @@ class TP_CALLBACK_ENVIRON_V3 extends Win32Struct
                 get => (this._bitfield >> 1) & 0x1
                 set => this._bitfield := ((value & 0x1) << 1) | (this._bitfield & ~(0x1 << 1))
             }
-        
+
             /**
              * @type {Integer}
              */
@@ -56,9 +55,8 @@ class TP_CALLBACK_ENVIRON_V3 extends Win32Struct
                 get => (this._bitfield >> 2) & 0x3FFFFFFF
                 set => this._bitfield := ((value & 0x3FFFFFFF) << 2) | (this._bitfield & ~(0x3FFFFFFF << 2))
             }
-        
         }
-    
+
         /**
          * @type {Integer}
          */
@@ -66,18 +64,17 @@ class TP_CALLBACK_ENVIRON_V3 extends Win32Struct
             get => NumGet(this, 0, "uint")
             set => NumPut("uint", value, this, 0)
         }
-    
+
         /**
          * @type {_s}
          */
-        s{
+        s {
             get {
                 if(!this.HasProp("__s"))
-                    this.__s := %this.__Class%._s(0, this)
+                    this.__s := TP_CALLBACK_ENVIRON_V3._u_e__Union._s(0, this)
                 return this.__s
             }
         }
-    
     }
 
     /**
@@ -91,7 +88,7 @@ class TP_CALLBACK_ENVIRON_V3 extends Win32Struct
     /**
      * @type {PTP_POOL}
      */
-    Pool{
+    Pool {
         get {
             if(!this.HasProp("__Pool"))
                 this.__Pool := PTP_POOL(8, this)
@@ -102,7 +99,7 @@ class TP_CALLBACK_ENVIRON_V3 extends Win32Struct
     /**
      * @type {PTP_CLEANUP_GROUP}
      */
-    CleanupGroup{
+    CleanupGroup {
         get {
             if(!this.HasProp("__CleanupGroup"))
                 this.__CleanupGroup := PTP_CLEANUP_GROUP(16, this)
@@ -145,16 +142,16 @@ class TP_CALLBACK_ENVIRON_V3 extends Win32Struct
     /**
      * @type {_u_e__Union}
      */
-    u{
+    u {
         get {
             if(!this.HasProp("__u"))
-                this.__u := %this.__Class%._u_e__Union(56, this)
+                this.__u := TP_CALLBACK_ENVIRON_V3._u_e__Union(56, this)
             return this.__u
         }
     }
 
     /**
-     * @type {Integer}
+     * @type {TP_CALLBACK_PRIORITY}
      */
     CallbackPriority {
         get => NumGet(this, 60, "int")

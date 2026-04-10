@@ -7,9 +7,8 @@
  * Extends the IInkTablet interface.
  * @see https://learn.microsoft.com/windows/win32/api/msinkaut/nn-msinkaut-iinktablet2
  * @namespace Windows.Win32.UI.TabletPC
- * @version v4.0.30319
  */
-class IInkTablet2 extends IDispatch{
+class IInkTablet2 extends IDispatch {
 
     static sizeof => A_PtrSize
     /**
@@ -31,7 +30,7 @@ class IInkTablet2 extends IDispatch{
     static VTableNames => ["get_DeviceKind"]
 
     /**
-     * @type {Integer} 
+     * @type {TabletDeviceKind} 
      */
     DeviceKind {
         get => this.get_DeviceKind()
@@ -39,7 +38,7 @@ class IInkTablet2 extends IDispatch{
 
     /**
      * Gets the type of Tablet device being used.
-     * @returns {Integer} 
+     * @returns {TabletDeviceKind} 
      * @see https://learn.microsoft.com/windows/win32/api/msinkaut/nf-msinkaut-iinktablet2-get_devicekind
      */
     get_DeviceKind() {

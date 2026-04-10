@@ -17,9 +17,8 @@
  * <b>IApplicationDocumentLists</b> is used only with the automatically generated <b>Recent</b> or <b>Frequent</b> categories. It cannot retrieve a list of items that the user has pinned to the Jump List. That list cannot be retrieved programmatically because it cannot be manipulated programmatically; it is strictly under the user's control. <b>IApplicationDocumentLists</b> also cannot access custom categories or the task list.
  * @see https://learn.microsoft.com/windows/win32/api/shobjidl_core/nn-shobjidl_core-iapplicationdocumentlists
  * @namespace Windows.Win32.UI.Shell
- * @version v4.0.30319
  */
-class IApplicationDocumentLists extends IUnknown{
+class IApplicationDocumentLists extends IUnknown {
 
     static sizeof => A_PtrSize
     /**
@@ -75,7 +74,7 @@ class IApplicationDocumentLists extends IUnknown{
      * An item can appear in both the <b>Recent</b> and <b>Frequent</b> lists.
      * 
      * If a user pins an item in the <b>Recent</b> or <b>Frequent</b> categories, the item is no longer shown in its original category to avoid duplication in the Jump List. However, the item will still be returned by this method.
-     * @param {Integer} listtype Type: <b>APPDOCLISTTYPE</b>
+     * @param {APPDOCLISTTYPE} listtype Type: <b>APPDOCLISTTYPE</b>
      * @param {Integer} cItemsDesired Type: <b>UINT</b>
      * 
      * The number of items to retrieve from the list specified in <i>listtype</i>. Set this parameter to 0 to retrieve the full list.

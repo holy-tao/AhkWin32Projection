@@ -43,9 +43,8 @@
  * </table>
  * @see https://learn.microsoft.com/windows/win32/api/shobjidl_core/ne-shobjidl_core-_nstcstyle
  * @namespace Windows.Win32.UI.Shell
- * @version v4.0.30319
  */
-class _NSTCSTYLE extends Win32Enum{
+class _NSTCSTYLE extends Win32Enum {
 
     /**
      * The control displays a triangle—known as an expando—on the leftmost edge of those items that have child items. Clicking on the expando expands the item to reveal the children of the item. Has no effect when combined with NSTCS_SHOWTABSBUTTON, NSTCS_SHOWDELETEBUTTON, or NSTCS_SHOWREFRESHBUTTON.

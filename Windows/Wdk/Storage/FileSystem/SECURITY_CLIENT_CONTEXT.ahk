@@ -1,71 +1,59 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
-#Include ..\..\..\Win32\Security\SECURITY_QUALITY_OF_SERVICE.ahk
-#Include ..\..\..\Win32\Foundation\LUID.ahk
-#Include ..\..\..\Win32\Security\TOKEN_SOURCE.ahk
-#Include ..\..\..\Win32\Security\TOKEN_CONTROL.ahk
 
 /**
  * @namespace Windows.Wdk.Storage.FileSystem
- * @version v4.0.30319
  */
-class SECURITY_CLIENT_CONTEXT extends Win32Struct
-{
-    static sizeof => 80
+class SECURITY_CLIENT_CONTEXT extends Win32Struct {
+    static sizeof => 32
 
     static packingSize => 8
 
     /**
-     * @type {SECURITY_QUALITY_OF_SERVICE}
+     * @type {Pointer}
      */
-    SecurityQos{
-        get {
-            if(!this.HasProp("__SecurityQos"))
-                this.__SecurityQos := SECURITY_QUALITY_OF_SERVICE(0, this)
-            return this.__SecurityQos
-        }
+    SecurityQos {
+        get => NumGet(this, 0, "ptr")
+        set => NumPut("ptr", value, this, 0)
     }
 
     /**
      * @type {Pointer<Void>}
      */
     ClientToken {
-        get => NumGet(this, 16, "ptr")
-        set => NumPut("ptr", value, this, 16)
+        get => NumGet(this, 8, "ptr")
+        set => NumPut("ptr", value, this, 8)
     }
 
     /**
      * @type {BOOLEAN}
      */
     DirectlyAccessClientToken {
-        get => NumGet(this, 24, "char")
-        set => NumPut("char", value, this, 24)
+        get => NumGet(this, 16, "char")
+        set => NumPut("char", value, this, 16)
     }
 
     /**
      * @type {BOOLEAN}
      */
     DirectAccessEffectiveOnly {
-        get => NumGet(this, 25, "char")
-        set => NumPut("char", value, this, 25)
+        get => NumGet(this, 17, "char")
+        set => NumPut("char", value, this, 17)
     }
 
     /**
      * @type {BOOLEAN}
      */
     ServerIsRemote {
-        get => NumGet(this, 26, "char")
-        set => NumPut("char", value, this, 26)
+        get => NumGet(this, 18, "char")
+        set => NumPut("char", value, this, 18)
     }
 
     /**
-     * @type {TOKEN_CONTROL}
+     * @type {Pointer}
      */
-    ClientTokenControl{
-        get {
-            if(!this.HasProp("__ClientTokenControl"))
-                this.__ClientTokenControl := TOKEN_CONTROL(28, this)
-            return this.__ClientTokenControl
-        }
+    ClientTokenControl {
+        get => NumGet(this, 24, "ptr")
+        set => NumPut("ptr", value, this, 24)
     }
 }

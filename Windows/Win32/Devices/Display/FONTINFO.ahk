@@ -7,10 +7,8 @@
  * GDI writes and returns this structure through <a href="https://docs.microsoft.com/windows/desktop/api/winddi/nf-winddi-fontobj_vgetinfo">FONTOBJ_vGetInfo</a>.
  * @see https://learn.microsoft.com/windows/win32/api/winddi/ns-winddi-fontinfo
  * @namespace Windows.Win32.Devices.Display
- * @version v4.0.30319
  */
-class FONTINFO extends Win32Struct
-{
+class FONTINFO extends Win32Struct {
     static sizeof => 28
 
     static packingSize => 4

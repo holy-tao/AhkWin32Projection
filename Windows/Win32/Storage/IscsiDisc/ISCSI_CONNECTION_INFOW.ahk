@@ -9,11 +9,9 @@
  * > The iscsidsc.h header defines ISCSI_CONNECTION_INFO as an alias which automatically selects the ANSI or Unicode version of this function based on the definition of the UNICODE preprocessor constant. Mixing usage of the encoding-neutral alias with code that not encoding-neutral can lead to mismatches that result in compilation or runtime errors. For more information, see [Conventions for Function Prototypes](/windows/win32/intl/conventions-for-function-prototypes).
  * @see https://learn.microsoft.com/windows/win32/api/iscsidsc/ns-iscsidsc-iscsi_connection_infow
  * @namespace Windows.Win32.Storage.IscsiDisc
- * @version v4.0.30319
  * @charset Unicode
  */
-class ISCSI_CONNECTION_INFOW extends Win32Struct
-{
+class ISCSI_CONNECTION_INFOW extends Win32Struct {
     static sizeof => 40
 
     static packingSize => 8
@@ -22,7 +20,7 @@ class ISCSI_CONNECTION_INFOW extends Win32Struct
      * A ISCSI_UNIQUE_CONNECTION_ID structure that contains the unique identifier for a connection. The LoginIScsiTarget and AddIScsiConnection functions return this value via the UniqueConnectionId parameter.
      * @type {ISCSI_UNIQUE_SESSION_ID}
      */
-    ConnectionId{
+    ConnectionId {
         get {
             if(!this.HasProp("__ConnectionId"))
                 this.__ConnectionId := ISCSI_UNIQUE_SESSION_ID(0, this)
@@ -68,9 +66,9 @@ class ISCSI_CONNECTION_INFOW extends Win32Struct
 
     /**
      * The connection identifier for the connection.
-     * @type {Array<Byte>}
+     * @type {Array<Integer>}
      */
-    CID{
+    CID {
         get {
             if(!this.HasProp("__CIDProxyArray"))
                 this.__CIDProxyArray := Win32FixedArray(this.ptr + 36, 2, Primitive, "char")

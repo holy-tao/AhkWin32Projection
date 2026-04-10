@@ -5,9 +5,8 @@
  * Specifies the set of possible RPC client localities.
  * @see https://learn.microsoft.com/windows/win32/api/rpcasync/ne-rpcasync-rpccallclientlocality
  * @namespace Windows.Win32.System.Rpc
- * @version v4.0.30319
  */
-class RpcCallClientLocality extends Win32Enum{
+class RpcCallClientLocality extends Win32Enum {
 
     /**
      * The RPC client locality is invalid.

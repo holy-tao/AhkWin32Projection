@@ -5,9 +5,8 @@
  * Local system has a valid connection to the Internet, but it might or might not be currently connected.
  * @see https://learn.microsoft.com/windows/win32/api/wininet/nf-wininet-internetgetconnectedstate
  * @namespace Windows.Win32.Networking.WinInet
- * @version v4.0.30319
  */
-class INTERNET_CONNECTION extends Win32BitflagEnum{
+class INTERNET_CONNECTION extends Win32BitflagEnum {
 
     /**
      * @type {Integer (UInt32)}

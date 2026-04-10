@@ -5,10 +5,8 @@
  * Contains disk, volume, or partition length information used by the IOCTL_DISK_GET_LENGTH_INFO control code.
  * @see https://learn.microsoft.com/windows/win32/api/winioctl/ns-winioctl-get_length_information
  * @namespace Windows.Win32.System.Ioctl
- * @version v4.0.30319
  */
-class GET_LENGTH_INFORMATION extends Win32Struct
-{
+class GET_LENGTH_INFORMATION extends Win32Struct {
     static sizeof => 8
 
     static packingSize => 8

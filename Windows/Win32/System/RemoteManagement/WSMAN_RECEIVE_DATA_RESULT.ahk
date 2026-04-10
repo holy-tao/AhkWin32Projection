@@ -1,18 +1,17 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
+#Include .\WSMAN_DATA.ahk
+#Include .\WSManDataType.ahk
 #Include .\WSMAN_DATA_TEXT.ahk
 #Include .\WSMAN_DATA_BINARY.ahk
-#Include .\WSMAN_DATA.ahk
 
 /**
  * Represents the output data received from a WSManReceiveShellOutput method.
  * @see https://learn.microsoft.com/windows/win32/api/wsman/ns-wsman-wsman_receive_data_result
  * @namespace Windows.Win32.System.RemoteManagement
- * @version v4.0.30319
  */
-class WSMAN_RECEIVE_DATA_RESULT extends Win32Struct
-{
-    static sizeof => 56
+class WSMAN_RECEIVE_DATA_RESULT extends Win32Struct {
+    static sizeof => 48
 
     static packingSize => 8
 
@@ -29,7 +28,7 @@ class WSMAN_RECEIVE_DATA_RESULT extends Win32Struct
      * Represents the data associated with <b>streamId</b>. The data can be stream text, binary content, or XML. For more information about the possible data, see <a href="https://docs.microsoft.com/windows/desktop/api/wsman/ns-wsman-wsman_data">WSMAN_DATA</a>.
      * @type {WSMAN_DATA}
      */
-    streamData{
+    streamData {
         get {
             if(!this.HasProp("__streamData"))
                 this.__streamData := WSMAN_DATA(8, this)
@@ -42,8 +41,8 @@ class WSMAN_RECEIVE_DATA_RESULT extends Win32Struct
      * @type {PWSTR}
      */
     commandState {
-        get => NumGet(this, 40, "ptr")
-        set => NumPut("ptr", value, this, 40)
+        get => NumGet(this, 32, "ptr")
+        set => NumPut("ptr", value, this, 32)
     }
 
     /**
@@ -51,7 +50,7 @@ class WSMAN_RECEIVE_DATA_RESULT extends Win32Struct
      * @type {Integer}
      */
     exitCode {
-        get => NumGet(this, 48, "uint")
-        set => NumPut("uint", value, this, 48)
+        get => NumGet(this, 40, "uint")
+        set => NumPut("uint", value, this, 40)
     }
 }

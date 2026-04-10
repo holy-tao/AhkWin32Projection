@@ -1,9 +1,8 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
-#Include ..\..\Foundation\BSTR.ahk
-#Include .\IMbnDeviceServicesContext.ahk
 #Include ..\..\System\Com\IUnknown.ahk
+#Include .\IMbnDeviceServicesContext.ahk
 
 /**
  * Provides access to IMbnDeviceServicesContext objects and Mobile Broadband device service notifications.
@@ -21,9 +20,8 @@
  * For sample code that registers COM notifications, see the Client section of the <a href="https://docs.microsoft.com/archive/msdn-magazine/2001/january/msdn-magazine-january-2001">COM Connection Points article</a>.
  * @see https://learn.microsoft.com/windows/win32/api/mbnapi/nn-mbnapi-imbndeviceservicesmanager
  * @namespace Windows.Win32.NetworkManagement.MobileBroadband
- * @version v4.0.30319
  */
-class IMbnDeviceServicesManager extends IUnknown{
+class IMbnDeviceServicesManager extends IUnknown {
 
     static sizeof => A_PtrSize
     /**

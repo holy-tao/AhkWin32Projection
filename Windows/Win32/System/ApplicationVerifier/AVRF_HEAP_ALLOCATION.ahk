@@ -1,14 +1,13 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
+#Include .\AVRF_BACKTRACE_INFORMATION.ahk
 
 /**
  * Stores metadata information about heap allocation.
  * @see https://learn.microsoft.com/windows/win32/api/avrfsdk/ns-avrfsdk-avrf_heap_allocation
  * @namespace Windows.Win32.System.ApplicationVerifier
- * @version v4.0.30319
  */
-class AVRF_HEAP_ALLOCATION extends Win32Struct
-{
+class AVRF_HEAP_ALLOCATION extends Win32Struct {
     static sizeof => 64
 
     static packingSize => 8

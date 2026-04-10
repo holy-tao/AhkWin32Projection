@@ -18,9 +18,8 @@
  * </ul>
  * @see https://learn.microsoft.com/windows/win32/api/directmanipulation/nn-directmanipulation-idirectmanipulationcompositor2
  * @namespace Windows.Win32.Graphics.DirectManipulation
- * @version v4.0.30319
  */
-class IDirectManipulationCompositor2 extends IDirectManipulationCompositor{
+class IDirectManipulationCompositor2 extends IDirectManipulationCompositor {
 
     static sizeof => A_PtrSize
     /**

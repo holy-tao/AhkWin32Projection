@@ -3,7 +3,6 @@
 
 /**
  * @namespace Windows.Win32.Devices.DeviceQuery
- * @version v4.0.30319
  */
 class DeviceQuery {
 
@@ -13,7 +12,7 @@ class DeviceQuery {
 ;@region Methods
     /**
      * 
-     * @param {Integer} _ObjectType 
+     * @param {DEV_OBJECT_TYPE} _ObjectType 
      * @param {Integer} QueryFlags 
      * @param {Integer} cRequestedProperties 
      * @param {Pointer<DEVPROPCOMPKEY>} pRequestedProperties 
@@ -32,7 +31,7 @@ class DeviceQuery {
 
     /**
      * 
-     * @param {Integer} _ObjectType 
+     * @param {DEV_OBJECT_TYPE} _ObjectType 
      * @param {Integer} QueryFlags 
      * @param {Integer} cRequestedProperties 
      * @param {Pointer<DEVPROPCOMPKEY>} pRequestedProperties 
@@ -53,7 +52,7 @@ class DeviceQuery {
 
     /**
      * 
-     * @param {Integer} _ObjectType 
+     * @param {DEV_OBJECT_TYPE} _ObjectType 
      * @param {PWSTR} pszObjectId 
      * @param {Integer} QueryFlags 
      * @param {Integer} cRequestedProperties 
@@ -75,7 +74,7 @@ class DeviceQuery {
 
     /**
      * 
-     * @param {Integer} _ObjectType 
+     * @param {DEV_OBJECT_TYPE} _ObjectType 
      * @param {PWSTR} pszObjectId 
      * @param {Integer} QueryFlags 
      * @param {Integer} cRequestedProperties 
@@ -99,7 +98,7 @@ class DeviceQuery {
 
     /**
      * 
-     * @param {Integer} _ObjectType 
+     * @param {DEV_OBJECT_TYPE} _ObjectType 
      * @param {PWSTR} pszzObjectIds 
      * @param {Integer} QueryFlags 
      * @param {Integer} cRequestedProperties 
@@ -121,7 +120,7 @@ class DeviceQuery {
 
     /**
      * 
-     * @param {Integer} _ObjectType 
+     * @param {DEV_OBJECT_TYPE} _ObjectType 
      * @param {PWSTR} pszzObjectIds 
      * @param {Integer} QueryFlags 
      * @param {Integer} cRequestedProperties 
@@ -154,7 +153,7 @@ class DeviceQuery {
 
     /**
      * 
-     * @param {Integer} _ObjectType 
+     * @param {DEV_OBJECT_TYPE} _ObjectType 
      * @param {Integer} QueryFlags 
      * @param {Integer} cRequestedProperties 
      * @param {Pointer<DEVPROPCOMPKEY>} pRequestedProperties 
@@ -174,7 +173,7 @@ class DeviceQuery {
 
     /**
      * 
-     * @param {Integer} _ObjectType 
+     * @param {DEV_OBJECT_TYPE} _ObjectType 
      * @param {Integer} QueryFlags 
      * @param {Integer} cRequestedProperties 
      * @param {Pointer<DEVPROPCOMPKEY>} pRequestedProperties 
@@ -206,7 +205,7 @@ class DeviceQuery {
 
     /**
      * 
-     * @param {Integer} _ObjectType 
+     * @param {DEV_OBJECT_TYPE} _ObjectType 
      * @param {PWSTR} pszObjectId 
      * @param {Integer} QueryFlags 
      * @param {Integer} cRequestedProperties 
@@ -227,7 +226,7 @@ class DeviceQuery {
 
     /**
      * 
-     * @param {Integer} _ObjectType 
+     * @param {DEV_OBJECT_TYPE} _ObjectType 
      * @param {PWSTR} pszObjectId 
      * @param {Integer} QueryFlags 
      * @param {Integer} cRequestedProperties 
@@ -261,7 +260,7 @@ class DeviceQuery {
     /**
      * 
      * @param {Pointer<DEVPROPKEY>} pKey 
-     * @param {Integer} Store 
+     * @param {DEVPROPSTORE} Store 
      * @param {PWSTR} pszLocaleName 
      * @param {Integer} cProperties 
      * @param {Pointer<DEVPROPERTY>} pProperties 

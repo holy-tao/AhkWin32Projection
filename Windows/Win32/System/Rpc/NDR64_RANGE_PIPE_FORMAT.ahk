@@ -3,10 +3,8 @@
 
 /**
  * @namespace Windows.Win32.System.Rpc
- * @version v4.0.30319
  */
-class NDR64_RANGE_PIPE_FORMAT extends Win32Struct
-{
+class NDR64_RANGE_PIPE_FORMAT extends Win32Struct {
     static sizeof => 32
 
     static packingSize => 8

@@ -3,10 +3,8 @@
 
 /**
  * @namespace Windows.Win32.Networking.WinInet
- * @version v4.0.30319
  */
-class GOPHER_SCORE_ATTRIBUTE_TYPE extends Win32Struct
-{
+class GOPHER_SCORE_ATTRIBUTE_TYPE extends Win32Struct {
     static sizeof => 4
 
     static packingSize => 4

@@ -3,10 +3,8 @@
 
 /**
  * @namespace Windows.Wdk.System.SystemServices
- * @version v4.0.30319
  */
-class WHEA_ERROR_RECORD_SECTION_DESCRIPTOR_VALIDBITS extends Win32Struct
-{
+class WHEA_ERROR_RECORD_SECTION_DESCRIPTOR_VALIDBITS extends Win32Struct {
     static sizeof => 2
 
     static packingSize => 1

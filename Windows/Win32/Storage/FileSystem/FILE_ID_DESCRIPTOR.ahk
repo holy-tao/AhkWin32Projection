@@ -1,15 +1,14 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
+#Include .\FILE_ID_TYPE.ahk
 #Include .\FILE_ID_128.ahk
 
 /**
  * Specifies the type of ID that is being used.
  * @see https://learn.microsoft.com/windows/win32/api/winbase/ns-winbase-file_id_descriptor
  * @namespace Windows.Win32.Storage.FileSystem
- * @version v4.0.30319
  */
-class FILE_ID_DESCRIPTOR extends Win32Struct
-{
+class FILE_ID_DESCRIPTOR extends Win32Struct {
     static sizeof => 24
 
     static packingSize => 8
@@ -69,7 +68,7 @@ class FILE_ID_DESCRIPTOR extends Win32Struct
      * </td>
      * </tr>
      * </table>
-     * @type {Integer}
+     * @type {FILE_ID_TYPE}
      */
     Type {
         get => NumGet(this, 4, "int")
@@ -85,7 +84,7 @@ class FILE_ID_DESCRIPTOR extends Win32Struct
     }
 
     /**
-     * @type {Pointer<Guid>}
+     * @type {Pointer}
      */
     ObjectId {
         get => NumGet(this, 8, "ptr")
@@ -95,7 +94,7 @@ class FILE_ID_DESCRIPTOR extends Win32Struct
     /**
      * @type {FILE_ID_128}
      */
-    ExtendedFileId{
+    ExtendedFileId {
         get {
             if(!this.HasProp("__ExtendedFileId"))
                 this.__ExtendedFileId := FILE_ID_128(8, this)

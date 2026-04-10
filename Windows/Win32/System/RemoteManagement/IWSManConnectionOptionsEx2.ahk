@@ -1,16 +1,14 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
-#Include ..\..\Foundation\BSTR.ahk
 #Include .\IWSManConnectionOptionsEx.ahk
 
 /**
  * The IWSManConnectionOptionsEx2 object is passed to the IWSMan::CreateSession method to provide the authentication mechanism, access type, and credentials to connect to a proxy server.
  * @see https://learn.microsoft.com/windows/win32/api/wsmandisp/nn-wsmandisp-iwsmanconnectionoptionsex2
  * @namespace Windows.Win32.System.RemoteManagement
- * @version v4.0.30319
  */
-class IWSManConnectionOptionsEx2 extends IWSManConnectionOptionsEx{
+class IWSManConnectionOptionsEx2 extends IWSManConnectionOptionsEx {
 
     static sizeof => A_PtrSize
     /**

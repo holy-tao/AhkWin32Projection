@@ -5,9 +5,8 @@
  * Specifies group policy flags.
  * @see https://learn.microsoft.com/windows/win32/api/certenroll/ne-certenroll-enrollmentpolicyflags
  * @namespace Windows.Win32.Security.Cryptography.Certificates
- * @version v4.0.30319
  */
-class EnrollmentPolicyFlags extends Win32Enum{
+class EnrollmentPolicyFlags extends Win32Enum {
 
     /**
      * Ignore policy servers configured in group policy.

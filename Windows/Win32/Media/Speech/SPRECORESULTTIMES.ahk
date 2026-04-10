@@ -4,10 +4,8 @@
 
 /**
  * @namespace Windows.Win32.Media.Speech
- * @version v4.0.30319
  */
-class SPRECORESULTTIMES extends Win32Struct
-{
+class SPRECORESULTTIMES extends Win32Struct {
     static sizeof => 32
 
     static packingSize => 8
@@ -15,7 +13,7 @@ class SPRECORESULTTIMES extends Win32Struct
     /**
      * @type {FILETIME}
      */
-    ftStreamTime{
+    ftStreamTime {
         get {
             if(!this.HasProp("__ftStreamTime"))
                 this.__ftStreamTime := FILETIME(0, this)

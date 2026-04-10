@@ -7,9 +7,8 @@
  * Initiates an assessment.
  * @see https://learn.microsoft.com/windows/win32/api/winsatcominterfacei/nn-winsatcominterfacei-iinitiatewinsatassessment
  * @namespace Windows.Win32.System.AssessmentTool
- * @version v4.0.30319
  */
-class IInitiateWinSATAssessment extends IUnknown{
+class IInitiateWinSATAssessment extends IUnknown {
 
     static sizeof => A_PtrSize
     /**

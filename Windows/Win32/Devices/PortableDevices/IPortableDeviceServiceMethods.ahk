@@ -7,9 +7,8 @@
  * Invokes, or cancels invocation of, a method on a service.
  * @see https://learn.microsoft.com/windows/win32/api/portabledeviceapi/nn-portabledeviceapi-iportabledeviceservicemethods
  * @namespace Windows.Win32.Devices.PortableDevices
- * @version v4.0.30319
  */
-class IPortableDeviceServiceMethods extends IUnknown{
+class IPortableDeviceServiceMethods extends IUnknown {
 
     static sizeof => A_PtrSize
     /**

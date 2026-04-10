@@ -1,24 +1,24 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
-#Include .\D3D12_PROGRAM_IDENTIFIER.ahk
+#Include .\D3D12_PROGRAM_TYPE.ahk
 #Include .\D3D12_SET_GENERIC_PIPELINE_DESC.ahk
+#Include .\D3D12_PROGRAM_IDENTIFIER.ahk
 #Include .\D3D12_SET_RAYTRACING_PIPELINE_DESC.ahk
+#Include .\D3D12_SET_WORK_GRAPH_DESC.ahk
+#Include .\D3D12_SET_WORK_GRAPH_FLAGS.ahk
 #Include .\D3D12_GPU_VIRTUAL_ADDRESS_RANGE.ahk
 #Include .\D3D12_GPU_VIRTUAL_ADDRESS_RANGE_AND_STRIDE.ahk
-#Include .\D3D12_SET_WORK_GRAPH_DESC.ahk
 
 /**
  * @namespace Windows.Win32.Graphics.Direct3D12
- * @version v4.0.30319
  */
-class D3D12_SET_PROGRAM_DESC extends Win32Struct
-{
+class D3D12_SET_PROGRAM_DESC extends Win32Struct {
     static sizeof => 88
 
     static packingSize => 8
 
     /**
-     * @type {Integer}
+     * @type {D3D12_PROGRAM_TYPE}
      */
     Type {
         get => NumGet(this, 0, "int")
@@ -28,7 +28,7 @@ class D3D12_SET_PROGRAM_DESC extends Win32Struct
     /**
      * @type {D3D12_SET_GENERIC_PIPELINE_DESC}
      */
-    GenericPipeline{
+    GenericPipeline {
         get {
             if(!this.HasProp("__GenericPipeline"))
                 this.__GenericPipeline := D3D12_SET_GENERIC_PIPELINE_DESC(8, this)
@@ -39,7 +39,7 @@ class D3D12_SET_PROGRAM_DESC extends Win32Struct
     /**
      * @type {D3D12_SET_RAYTRACING_PIPELINE_DESC}
      */
-    RaytracingPipeline{
+    RaytracingPipeline {
         get {
             if(!this.HasProp("__RaytracingPipeline"))
                 this.__RaytracingPipeline := D3D12_SET_RAYTRACING_PIPELINE_DESC(8, this)
@@ -50,7 +50,7 @@ class D3D12_SET_PROGRAM_DESC extends Win32Struct
     /**
      * @type {D3D12_SET_WORK_GRAPH_DESC}
      */
-    WorkGraph{
+    WorkGraph {
         get {
             if(!this.HasProp("__WorkGraph"))
                 this.__WorkGraph := D3D12_SET_WORK_GRAPH_DESC(8, this)

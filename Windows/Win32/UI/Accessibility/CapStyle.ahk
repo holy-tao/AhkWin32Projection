@@ -5,9 +5,8 @@
  * Contains values that specify the value of the CapStyle text attribute.
  * @see https://learn.microsoft.com/windows/win32/api/uiautomationcore/ne-uiautomationcore-capstyle
  * @namespace Windows.Win32.UI.Accessibility
- * @version v4.0.30319
  */
-class CapStyle extends Win32Enum{
+class CapStyle extends Win32Enum {
 
     /**
      * None.
@@ -52,7 +51,6 @@ class CapStyle extends Win32Enum{
     static CapStyle_Titling => 6
 
     /**
-     * 
      * @type {Integer (Int32)}
      */
     static CapStyle_Other => -1

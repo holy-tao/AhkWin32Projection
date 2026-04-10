@@ -3,11 +3,9 @@
 
 /**
  * Documentation varies per use. Refer to each: <see href="https://learn.microsoft.com/windows/win32/api/winscard/ns-winscard-scard_readerstatea">SCARD_READERSTATE</see>, <see href="https://learn.microsoft.com/windows/win32/api/winscard/ns-winscard-scard_readerstatea">SCARD_READERSTATE</see>, <see href="https://learn.microsoft.com/windows/win32/api/winscard/ns-winscard-scard_readerstatew">SCARD_READERSTATE</see>, <see href="https://learn.microsoft.com/windows/win32/api/winscard/ns-winscard-scard_readerstatew">SCARD_READERSTATE</see>, <see href="https://learn.microsoft.com/windows/win32/api/winscard/ns-winscard-scard_readerstatea">SCARD_READERSTATEA</see>, <see href="https://learn.microsoft.com/windows/win32/api/winscard/ns-winscard-scard_readerstatea">SCARD_READERSTATEA</see>, <see href="https://learn.microsoft.com/windows/win32/api/winscard/ns-winscard-scard_readerstatew">SCARD_READERSTATEA</see>, <see href="https://learn.microsoft.com/windows/win32/api/winscard/ns-winscard-scard_readerstatew">SCARD_READERSTATEA</see>, <see href="https://learn.microsoft.com/windows/win32/api/winscard/ns-winscard-scard_readerstatea">SCARD_READERSTATEW</see>, <see href="https://learn.microsoft.com/windows/win32/api/winscard/ns-winscard-scard_readerstatea">SCARD_READERSTATEW</see>, <see href="https://learn.microsoft.com/windows/win32/api/winscard/ns-winscard-scard_readerstatew">SCARD_READERSTATEW</see>, <see href="https://learn.microsoft.com/windows/win32/api/winscard/ns-winscard-scard_readerstatew">SCARD_READERSTATEW</see>.
- * @see 
  * @namespace Windows.Win32.Security.Credentials
- * @version v4.0.30319
  */
-class SCARD_STATE extends Win32Enum{
+class SCARD_STATE extends Win32Enum {
 
     /**
      * @type {Integer (UInt32)}

@@ -7,9 +7,8 @@
  * Extends the IUIAutomationElement8 interface.
  * @see https://learn.microsoft.com/windows/win32/api/uiautomationclient/nn-uiautomationclient-iuiautomationelement9
  * @namespace Windows.Win32.UI.Accessibility
- * @version v4.0.30319
  */
-class IUIAutomationElement9 extends IUIAutomationElement8{
+class IUIAutomationElement9 extends IUIAutomationElement8 {
 
     static sizeof => A_PtrSize
     /**

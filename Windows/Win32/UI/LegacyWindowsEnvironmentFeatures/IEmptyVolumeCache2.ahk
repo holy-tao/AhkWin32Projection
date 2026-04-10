@@ -9,9 +9,8 @@
  * This interface should be exported by disk cleanup handlers running on Windows 2000. Handlers running on Windows 98 must export <a href="https://docs.microsoft.com/windows/desktop/api/emptyvc/nn-emptyvc-iemptyvolumecache">IEmptyVolumeCache</a>.
  * @see https://learn.microsoft.com/windows/win32/api/emptyvc/nn-emptyvc-iemptyvolumecache2
  * @namespace Windows.Win32.UI.LegacyWindowsEnvironmentFeatures
- * @version v4.0.30319
  */
-class IEmptyVolumeCache2 extends IEmptyVolumeCache{
+class IEmptyVolumeCache2 extends IEmptyVolumeCache {
 
     static sizeof => A_PtrSize
     /**
@@ -58,7 +57,7 @@ class IEmptyVolumeCache2 extends IEmptyVolumeCache{
      * @param {Pointer<PWSTR>} ppwszBtnText Type: <b>LPWSTR*</b>
      * 
      * A pointer to a null-terminated Unicode string with the text that will be displayed on the disk cleanup manager's <b>Settings</b> button. If the <b>EVCF_HASSETTINGS</b> flag is set, you must assign a value to <i>ppwszBtnText</i>. Otherwise, you can set it to <b>NULL</b>.
-     * @param {Pointer<Integer>} pdwFlags Type: <b>DWORD*</b>
+     * @param {Pointer<EMPTY_VOLUME_CACHE_FLAGS>} pdwFlags Type: <b>DWORD*</b>
      * 
      * Flags that are used to pass information to the handler, and back to the disk cleanup manager.
      * @returns {HRESULT} Type: <b>HRESULT</b>

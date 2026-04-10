@@ -5,9 +5,8 @@
  * Defines the source of the event data.
  * @see https://learn.microsoft.com/windows/win32/api/tdh/ne-tdh-decoding_source
  * @namespace Windows.Win32.System.Diagnostics.Etw
- * @version v4.0.30319
  */
-class DECODING_SOURCE extends Win32Enum{
+class DECODING_SOURCE extends Win32Enum {
 
     /**
      * The source of the event data is a XML manifest.
@@ -34,7 +33,6 @@ class DECODING_SOURCE extends Win32Enum{
     static DecodingSourceTlg => 3
 
     /**
-     * 
      * @type {Integer (Int32)}
      */
     static DecodingSourceMax => 4

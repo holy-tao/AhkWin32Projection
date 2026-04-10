@@ -5,9 +5,8 @@
 
 /**
  * @namespace Windows.Win32.System.Diagnostics.Debug.ActiveScript
- * @version v4.0.30319
  */
-class IActiveScriptProfilerCallback2 extends IActiveScriptProfilerCallback{
+class IActiveScriptProfilerCallback2 extends IActiveScriptProfilerCallback {
 
     static sizeof => A_PtrSize
     /**
@@ -31,7 +30,7 @@ class IActiveScriptProfilerCallback2 extends IActiveScriptProfilerCallback{
     /**
      * 
      * @param {PWSTR} pwszFunctionName 
-     * @param {Integer} type 
+     * @param {PROFILER_SCRIPT_TYPE} type 
      * @returns {HRESULT} 
      */
     OnFunctionEnterByName(pwszFunctionName, type) {
@@ -44,7 +43,7 @@ class IActiveScriptProfilerCallback2 extends IActiveScriptProfilerCallback{
     /**
      * 
      * @param {PWSTR} pwszFunctionName 
-     * @param {Integer} type 
+     * @param {PROFILER_SCRIPT_TYPE} type 
      * @returns {HRESULT} 
      */
     OnFunctionExitByName(pwszFunctionName, type) {

@@ -5,9 +5,8 @@
  * The MMC_ACTION_TYPE enumeration is introduced in MMC 1.1.
  * @see https://learn.microsoft.com/windows/win32/api/mmc/ne-mmc-mmc_action_type
  * @namespace Windows.Win32.System.Mmc
- * @version v4.0.30319
  */
-class MMC_ACTION_TYPE extends Win32Enum{
+class MMC_ACTION_TYPE extends Win32Enum {
 
     /**
      * No actions specified.

@@ -5,10 +5,8 @@
  * The ICDRAW structure contains parameters for drawing video data to the screen. This structure is used with the ICM_DRAW message.
  * @see https://learn.microsoft.com/windows/win32/api/vfw/ns-vfw-icdraw
  * @namespace Windows.Win32.Media.Multimedia
- * @version v4.0.30319
  */
-class ICDRAW extends Win32Struct
-{
+class ICDRAW extends Win32Struct {
     static sizeof => 32
 
     static packingSize => 8

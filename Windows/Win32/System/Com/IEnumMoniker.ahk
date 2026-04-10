@@ -1,16 +1,14 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
-#Include .\IEnumMoniker.ahk
 #Include .\IUnknown.ahk
 
 /**
  * Enumerates the components of a moniker or the monikers in a table of monikers.
  * @see https://learn.microsoft.com/windows/win32/api/objidl/nn-objidl-ienummoniker
  * @namespace Windows.Win32.System.Com
- * @version v4.0.30319
  */
-class IEnumMoniker extends IUnknown{
+class IEnumMoniker extends IUnknown {
 
     static sizeof => A_PtrSize
     /**

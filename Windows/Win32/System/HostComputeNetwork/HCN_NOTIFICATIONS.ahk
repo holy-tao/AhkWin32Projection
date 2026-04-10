@@ -5,9 +5,8 @@
  * HCN_NOTIFICATIONS
  * @see https://learn.microsoft.com/virtualization/api/hcn/Reference/HCN_NOTIFICATIONS
  * @namespace Windows.Win32.System.HostComputeNetwork
- * @version v4.0.30319
  */
-class HCN_NOTIFICATIONS extends Win32Enum{
+class HCN_NOTIFICATIONS extends Win32Enum {
 
     /**
      * @type {Integer (Int32)}

@@ -7,9 +7,8 @@
  * The USB stack uses the <b>WDMUSB_POWER_STATE</b> enumeration to report the power state of the host controller after receiving a USBUSER_GET_POWER_STATE_MAP request. For more information about this request, see <a href="https://docs.microsoft.com/windows/desktop/api/usbuser/ni-usbuser-ioctl_usb_user_request">IOCTL_USB_USER_REQUEST</a>.
  * @see https://learn.microsoft.com/windows/win32/api/usbuser/ne-usbuser-wdmusb_power_state
  * @namespace Windows.Win32.Devices.Usb
- * @version v4.0.30319
  */
-class WDMUSB_POWER_STATE extends Win32Enum{
+class WDMUSB_POWER_STATE extends Win32Enum {
 
     /**
      * Power state information is not mapped.

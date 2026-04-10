@@ -1,17 +1,16 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
+#Include ..\..\System\Com\IUnknown.ahk
 #Include .\IMMDeviceCollection.ahk
 #Include .\IMMDevice.ahk
-#Include ..\..\System\Com\IUnknown.ahk
 
 /**
  * The IMMDeviceEnumerator interface provides methods for enumerating multimedia device resources.
  * @see https://learn.microsoft.com/windows/win32/api/mmdeviceapi/nn-mmdeviceapi-immdeviceenumerator
  * @namespace Windows.Win32.Media.Audio
- * @version v4.0.30319
  */
-class IMMDeviceEnumerator extends IUnknown{
+class IMMDeviceEnumerator extends IUnknown {
 
     static sizeof => A_PtrSize
     /**
@@ -54,8 +53,16 @@ class IMMDeviceEnumerator extends IUnknown{
      * 
      * 
      * In the preceding code fragment, variable <i>hr</i> is of type <b>HRESULT</b>, <i>pDevEnum</i> is a pointer to an <b>IMMDeviceEnumerator</b> interface, and <i>pEndpoints</i> is a pointer to an <b>IMMDeviceCollection</b> interface.
-     * @param {Integer} _dataFlow 
-     * @param {Integer} dwStateMask The state or states of the endpoints that are to be included in the collection. The caller should set this parameter to the bitwise OR of one or more of the following <a href="https://docs.microsoft.com/windows/desktop/CoreAudio/device-state-xxx-constants">DEVICE_STATE_XXX</a> constants:
+     * @param {EDataFlow} _dataFlow The data-flow direction for the endpoint devices in the collection. The caller should set this parameter to one of the following <a href="https://docs.microsoft.com/windows/win32/api/mmdeviceapi/ne-mmdeviceapi-edataflow">EDataFlow</a> enumeration values:
+     * 
+     * eRender
+     * 
+     * eCapture
+     * 
+     * eAll
+     * 
+     * If the caller specifies eAll, the method includes both rendering and capture endpoints in the collection.
+     * @param {DEVICE_STATE} dwStateMask The state or states of the endpoints that are to be included in the collection. The caller should set this parameter to the bitwise OR of one or more of the following <a href="https://docs.microsoft.com/windows/desktop/CoreAudio/device-state-xxx-constants">DEVICE_STATE_XXX</a> constants:
      * 
      * DEVICE_STATE_ACTIVE
      * 
@@ -108,8 +115,14 @@ class IMMDeviceEnumerator extends IUnknown{
      * <a href="https://docs.microsoft.com/windows/desktop/CoreAudio/audio-events-for-legacy-audio-applications">Audio Events for Legacy Audio Applications</a>
      * </li>
      * </ul>
-     * @param {Integer} _dataFlow 
-     * @param {Integer} role The role of the endpoint device. The caller should set this parameter to one of the following <a href="https://docs.microsoft.com/windows/win32/api/mmdeviceapi/ne-mmdeviceapi-erole">ERole</a> enumeration values:
+     * @param {EDataFlow} _dataFlow The data-flow direction for the endpoint device. The caller should set this parameter to one of the following two <a href="https://docs.microsoft.com/windows/win32/api/mmdeviceapi/ne-mmdeviceapi-edataflow">EDataFlow</a> enumeration values:
+     * 
+     * eRender
+     * 
+     * eCapture
+     * 
+     * The data-flow direction for a rendering device is eRender. The data-flow direction for a capture device is eCapture.
+     * @param {ERole} role The role of the endpoint device. The caller should set this parameter to one of the following <a href="https://docs.microsoft.com/windows/win32/api/mmdeviceapi/ne-mmdeviceapi-erole">ERole</a> enumeration values:
      * 
      * eConsole
      * 

@@ -1,14 +1,13 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
-#Include .\ISyncChange.ahk
 #Include ..\Com\IUnknown.ahk
+#Include .\ISyncChange.ahk
 
 /**
  * @namespace Windows.Win32.System.WindowsSync
- * @version v4.0.30319
  */
-class IConstraintConflict extends IUnknown{
+class IConstraintConflict extends IUnknown {
 
     static sizeof => A_PtrSize
     /**
@@ -85,7 +84,7 @@ class IConstraintConflict extends IUnknown{
 
     /**
      * 
-     * @param {Pointer<Integer>} pConstraintResolveAction 
+     * @param {Pointer<SYNC_CONSTRAINT_RESOLVE_ACTION>} pConstraintResolveAction 
      * @returns {HRESULT} 
      */
     GetConstraintResolveActionForChange(pConstraintResolveAction) {
@@ -97,7 +96,7 @@ class IConstraintConflict extends IUnknown{
 
     /**
      * 
-     * @param {Integer} constraintResolveAction 
+     * @param {SYNC_CONSTRAINT_RESOLVE_ACTION} constraintResolveAction 
      * @returns {HRESULT} 
      */
     SetConstraintResolveActionForChange(constraintResolveAction) {
@@ -108,7 +107,7 @@ class IConstraintConflict extends IUnknown{
     /**
      * 
      * @param {ISyncChangeUnit} pChangeUnit 
-     * @param {Pointer<Integer>} pConstraintResolveAction 
+     * @param {Pointer<SYNC_CONSTRAINT_RESOLVE_ACTION>} pConstraintResolveAction 
      * @returns {HRESULT} 
      */
     GetConstraintResolveActionForChangeUnit(pChangeUnit, pConstraintResolveAction) {
@@ -121,7 +120,7 @@ class IConstraintConflict extends IUnknown{
     /**
      * 
      * @param {ISyncChangeUnit} pChangeUnit 
-     * @param {Integer} constraintResolveAction 
+     * @param {SYNC_CONSTRAINT_RESOLVE_ACTION} constraintResolveAction 
      * @returns {HRESULT} 
      */
     SetConstraintResolveActionForChangeUnit(pChangeUnit, constraintResolveAction) {
@@ -131,7 +130,7 @@ class IConstraintConflict extends IUnknown{
 
     /**
      * 
-     * @param {Pointer<Integer>} pConstraintConflictReason 
+     * @param {Pointer<CONSTRAINT_CONFLICT_REASON>} pConstraintConflictReason 
      * @returns {HRESULT} 
      */
     GetConstraintConflictReason(pConstraintConflictReason) {

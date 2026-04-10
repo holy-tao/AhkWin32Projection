@@ -5,9 +5,8 @@
  * Specifies which policy WDS transport services should use when allocating UDP ports.
  * @see https://learn.microsoft.com/windows/win32/api/wdstptmgmt/ne-wdstptmgmt-wdstransport_udp_port_policy
  * @namespace Windows.Win32.System.DeploymentServices
- * @version v4.0.30319
  */
-class WDSTRANSPORT_UDP_PORT_POLICY extends Win32Enum{
+class WDSTRANSPORT_UDP_PORT_POLICY extends Win32Enum {
 
     /**
      * Use Windows Sockets (Winsock) to get a dynamic UDP port.

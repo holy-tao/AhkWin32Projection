@@ -7,10 +7,9 @@
  * This structure is used only in Asian-language versions of the operating system.
  * @see https://learn.microsoft.com/windows/win32/api/richedit/ns-richedit-punctuation
  * @namespace Windows.Win32.UI.Controls.RichEdit
- * @version v4.0.30319
+ * @architecture X64, Arm64
  */
-class PUNCTUATION extends Win32Struct
-{
+class PUNCTUATION extends Win32Struct {
     static sizeof => 16
 
     static packingSize => 8

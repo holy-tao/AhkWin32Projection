@@ -5,10 +5,8 @@
 
 /**
  * @namespace Windows.Win32.System.Diagnostics.Debug.Extensions
- * @version v4.0.30319
  */
-class STACK_SYM_FRAME_INFO extends Win32Struct
-{
+class STACK_SYM_FRAME_INFO extends Win32Struct {
     static sizeof => 176
 
     static packingSize => 8
@@ -16,7 +14,7 @@ class STACK_SYM_FRAME_INFO extends Win32Struct
     /**
      * @type {DEBUG_STACK_FRAME_EX}
      */
-    StackFrameEx{
+    StackFrameEx {
         get {
             if(!this.HasProp("__StackFrameEx"))
                 this.__StackFrameEx := DEBUG_STACK_FRAME_EX(0, this)
@@ -27,7 +25,7 @@ class STACK_SYM_FRAME_INFO extends Win32Struct
     /**
      * @type {STACK_SRC_INFO}
      */
-    SrcInfo{
+    SrcInfo {
         get {
             if(!this.HasProp("__SrcInfo"))
                 this.__SrcInfo := STACK_SRC_INFO(136, this)

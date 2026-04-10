@@ -5,9 +5,8 @@
  * BLUETOOTH_AUTHENTICATION_METHOD enumeration defines the supported authentication types during device pairing.
  * @see https://learn.microsoft.com/windows/win32/api/bluetoothapis/ne-bluetoothapis-bluetooth_authentication_method
  * @namespace Windows.Win32.Devices.Bluetooth
- * @version v4.0.30319
  */
-class BLUETOOTH_AUTHENTICATION_METHOD extends Win32Enum{
+class BLUETOOTH_AUTHENTICATION_METHOD extends Win32Enum {
 
     /**
      * The Bluetooth device supports authentication via a PIN.

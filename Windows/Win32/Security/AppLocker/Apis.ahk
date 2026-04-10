@@ -3,7 +3,6 @@
 
 /**
  * @namespace Windows.Win32.Security.AppLocker
- * @version v4.0.30319
  */
 class AppLocker {
 
@@ -248,7 +247,7 @@ class AppLocker {
      * </td>
      * </tr>
      * </table>
-     * @param {Integer} SaferPolicyInfoClass A <a href="https://docs.microsoft.com/windows/desktop/api/winsafer/ne-winsafer-safer_policy_info_class">SAFER_POLICY_INFO_CLASS</a>  enumeration value  that specifies the type of policy information that should be returned. The specified value determines the size and type of the <i>InfoBuffer</i> parameter. The following table shows the possible values.
+     * @param {SAFER_POLICY_INFO_CLASS} SaferPolicyInfoClass A <a href="https://docs.microsoft.com/windows/desktop/api/winsafer/ne-winsafer-safer_policy_info_class">SAFER_POLICY_INFO_CLASS</a>  enumeration value  that specifies the type of policy information that should be returned. The specified value determines the size and type of the <i>InfoBuffer</i> parameter. The following table shows the possible values.
      * 
      * <table>
      * <tr>
@@ -322,7 +321,7 @@ class AppLocker {
      * </tr>
      * </table>
      * @param {Integer} InfoBufferSize The size, in bytes, of the <i>InfoBuffer</i> parameter.
-     * @param {Pointer} InfoBuffer A buffer to contain the results of the query. The size and type of the returned information is determined by the <i>SaferPolicyInfoClass</i> parameter. For the type of the returned information for each possible value of the <i>SaferPolicyInfoClass</i> parameter, see the <i>SaferPolicyInfoClass</i> parameter.
+     * @param {Integer} InfoBuffer A buffer to contain the results of the query. The size and type of the returned information is determined by the <i>SaferPolicyInfoClass</i> parameter. For the type of the returned information for each possible value of the <i>SaferPolicyInfoClass</i> parameter, see the <i>SaferPolicyInfoClass</i> parameter.
      * @param {Pointer<Integer>} InfoBufferRetSize The number of bytes in the <i>InfoBuffer</i> parameter that were filled with policy information.
      * @returns {BOOL} <b>TRUE</b> if the function succeeds; otherwise, <b>FALSE</b>. For extended error information, call 
      * <a href="https://docs.microsoft.com/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>.
@@ -376,7 +375,7 @@ class AppLocker {
      * </td>
      * </tr>
      * </table>
-     * @param {Integer} SaferPolicyInfoClass A <a href="https://docs.microsoft.com/windows/desktop/api/winsafer/ne-winsafer-safer_policy_info_class">SAFER_POLICY_INFO_CLASS</a>  enumeration value  that specifies the type of policy information that should be set. The specified value determines the size and type of the <i>InfoBuffer</i> parameter. The following table shows the possible values.
+     * @param {SAFER_POLICY_INFO_CLASS} SaferPolicyInfoClass A <a href="https://docs.microsoft.com/windows/desktop/api/winsafer/ne-winsafer-safer_policy_info_class">SAFER_POLICY_INFO_CLASS</a>  enumeration value  that specifies the type of policy information that should be set. The specified value determines the size and type of the <i>InfoBuffer</i> parameter. The following table shows the possible values.
      * 
      * <table>
      * <tr>
@@ -450,7 +449,7 @@ class AppLocker {
      * </tr>
      * </table>
      * @param {Integer} InfoBufferSize The size, in bytes, of the <i>InfoBuffer</i> parameter.
-     * @param {Pointer} InfoBuffer A buffer to contain the results of the query. The size and type of the returned information is determined by the <i>SaferPolicyInfoClass</i> parameter. For the type of the returned information for each possible value of the <i>SaferPolicyInfoClass</i> parameter, see the <i>SaferPolicyInfoClass</i> parameter.
+     * @param {Integer} InfoBuffer A buffer to contain the results of the query. The size and type of the returned information is determined by the <i>SaferPolicyInfoClass</i> parameter. For the type of the returned information for each possible value of the <i>SaferPolicyInfoClass</i> parameter, see the <i>SaferPolicyInfoClass</i> parameter.
      * @returns {BOOL} <b>TRUE</b> if the function succeeds; otherwise, <b>FALSE</b>. For extended error information, call 
      * <a href="https://docs.microsoft.com/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>.
      * @see https://learn.microsoft.com/windows/win32/api/winsafer/nf-winsafer-safersetpolicyinformation
@@ -657,7 +656,7 @@ class AppLocker {
      * @param {SAFER_LEVEL_HANDLE} LevelHandle <b>SAFER_LEVEL_HANDLE</b> that contains the restrictions to place on the input token. Do not pass handles with a LevelId of <b>SAFER_LEVELID_FULLYTRUSTED</b> or <b>SAFER_LEVELID_DISALLOWED</b> to this function. This is because <b>SAFER_LEVELID_FULLYTRUSTED</b> is unrestricted and <b>SAFER_LEVELID_DISALLOWED</b> does not contain a token.
      * @param {HANDLE} InAccessToken Token to be restricted. If this parameter is <b>NULL</b>, the token of the current thread will be used. If the current thread does not contain a token, the token of the current process is used.
      * @param {Pointer<HANDLE>} OutAccessToken The resulting restricted token.
-     * @param {Integer} dwFlags 
+     * @param {SAFER_COMPUTE_TOKEN_FROM_LEVEL_FLAGS} dwFlags 
      * @param {Pointer<Void>} lpReserved If the <b>SAFER_TOKEN_COMPARE_ONLY</b>  flag is set, this parameter, on output, specifies the result of the token comparison. The output value is an <b>LPDWORD</b>. A value of –1 indicates that the resulting token would be less privileged than the token specified by the <i>InAccessToken</i> parameter.
      * 
      * If the <b>SAFER_TOKEN_WANT_FLAGS</b> flag is set, and the <b>SAFER_TOKEN_COMPARE_ONLY</b> flag is not set, this parameter is an <b>LPDWORD</b> value that specifies the flags used to create the restricted token.
@@ -684,7 +683,7 @@ class AppLocker {
     /**
      * Retrieves information about a policy level.
      * @param {SAFER_LEVEL_HANDLE} LevelHandle The handle of the level to be queried.
-     * @param {Integer} dwInfoType A SAFER_OBJECT_INFO_CLASS enumeration value that specifies the type of object information that should be returned.  The specified value determines the size and type of the <i>lpQueryBuffer</i> parameter. The following table shows the possible values.
+     * @param {SAFER_OBJECT_INFO_CLASS} dwInfoType A SAFER_OBJECT_INFO_CLASS enumeration value that specifies the type of object information that should be returned.  The specified value determines the size and type of the <i>lpQueryBuffer</i> parameter. The following table shows the possible values.
      * 
      * <table>
      * <tr>
@@ -744,7 +743,7 @@ class AppLocker {
      * </td>
      * </tr>
      * </table>
-     * @param {Pointer} lpQueryBuffer A buffer to contain the results of the query. For the type of the returned information for each possible value of the <i>dwInfoType</i> parameter, see the <i>dwInfoType</i> parameter.
+     * @param {Integer} lpQueryBuffer A buffer to contain the results of the query. For the type of the returned information for each possible value of the <i>dwInfoType</i> parameter, see the <i>dwInfoType</i> parameter.
      * @param {Integer} dwInBufferSize The size of the <i>lpQueryBuffer</i> parameter in bytes.
      * @param {Pointer<Integer>} lpdwOutBufferSize A pointer to return the output size of the <i>lpQueryBuffer</i> parameter.
      * @returns {BOOL} <b>TRUE</b> if the function succeeds; otherwise, <b>FALSE</b>. For extended error information, call 
@@ -770,7 +769,7 @@ class AppLocker {
     /**
      * Sets the information about a policy level.
      * @param {SAFER_LEVEL_HANDLE} LevelHandle The handle of the level to be set.
-     * @param {Integer} dwInfoType A <a href="https://docs.microsoft.com/windows/desktop/api/winsafer/ne-winsafer-safer_object_info_class">SAFER_OBJECT_INFO_CLASS</a> enumeration value that specifies the type of object information that should be set.  The specified value determines the size and type of the <i>lpQueryBuffer</i> parameter. The following table shows the possible values.
+     * @param {SAFER_OBJECT_INFO_CLASS} dwInfoType A <a href="https://docs.microsoft.com/windows/desktop/api/winsafer/ne-winsafer-safer_object_info_class">SAFER_OBJECT_INFO_CLASS</a> enumeration value that specifies the type of object information that should be set.  The specified value determines the size and type of the <i>lpQueryBuffer</i> parameter. The following table shows the possible values.
      * 
      * <table>
      * <tr>
@@ -830,7 +829,7 @@ class AppLocker {
      * </td>
      * </tr>
      * </table>
-     * @param {Pointer} lpQueryBuffer A buffer to contain the results of the query. For the type of the returned information for each possible value of the <i>dwInfoType</i> parameter, see the <i>dwInfoType</i> parameter.
+     * @param {Integer} lpQueryBuffer A buffer to contain the results of the query. For the type of the returned information for each possible value of the <i>dwInfoType</i> parameter, see the <i>dwInfoType</i> parameter.
      * @param {Integer} dwInBufferSize The size, in bytes, of the <i>lpQueryBuffer</i> parameter.
      * @returns {BOOL} <b>TRUE</b> if the function succeeds; otherwise, <b>FALSE</b>. For extended error information, call 
      * <a href="https://docs.microsoft.com/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>.

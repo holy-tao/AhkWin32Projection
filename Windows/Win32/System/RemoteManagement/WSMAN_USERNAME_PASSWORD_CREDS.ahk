@@ -9,10 +9,8 @@
  * If this structure is used, it should have both the user name and password fields specified. It can be used with Basic, Digest, Negotiate, or Kerberos authentication. The client must explicitly specify the credentials when either Basic or Digest authentication is used.
  * @see https://learn.microsoft.com/windows/win32/api/wsman/ns-wsman-wsman_username_password_creds
  * @namespace Windows.Win32.System.RemoteManagement
- * @version v4.0.30319
  */
-class WSMAN_USERNAME_PASSWORD_CREDS extends Win32Struct
-{
+class WSMAN_USERNAME_PASSWORD_CREDS extends Win32Struct {
     static sizeof => 16
 
     static packingSize => 8

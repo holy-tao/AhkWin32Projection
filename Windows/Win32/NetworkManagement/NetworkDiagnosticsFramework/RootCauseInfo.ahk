@@ -1,14 +1,13 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
+#Include .\RepairInfoEx.ahk
 
 /**
  * Contains detailed information about the root cause of an incident.
  * @see https://learn.microsoft.com/windows/win32/api/ndattrib/ns-ndattrib-rootcauseinfo
  * @namespace Windows.Win32.NetworkManagement.NetworkDiagnosticsFramework
- * @version v4.0.30319
  */
-class RootCauseInfo extends Win32Struct
-{
+class RootCauseInfo extends Win32Struct {
     static sizeof => 48
 
     static packingSize => 8
@@ -28,7 +27,7 @@ class RootCauseInfo extends Win32Struct
      * Type: <b>GUID</b>
      * 
      * The GUID that corresponds to the problem identified.
-     * @type {Pointer<Guid>}
+     * @type {Pointer}
      */
     rootCauseID {
         get => NumGet(this, 8, "ptr")
@@ -90,7 +89,7 @@ class RootCauseInfo extends Win32Struct
      * Type: <b>GUID</b>
      * 
      * GUID of the network interface on which the problem occurred. If the problem is not interface-specific, this value is zero (0).
-     * @type {Pointer<Guid>}
+     * @type {Pointer}
      */
     networkInterfaceID {
         get => NumGet(this, 24, "ptr")

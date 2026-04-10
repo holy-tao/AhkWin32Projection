@@ -84,9 +84,8 @@
  * </table></span></div>
  * @see https://learn.microsoft.com/windows/win32/api/strmif/nn-strmif-iamcopycapturefileprogress
  * @namespace Windows.Win32.Media.DirectShow
- * @version v4.0.30319
  */
-class IAMCopyCaptureFileProgress extends IUnknown{
+class IAMCopyCaptureFileProgress extends IUnknown {
 
     static sizeof => A_PtrSize
     /**

@@ -4,10 +4,8 @@
 
 /**
  * @namespace Windows.Win32.System.ComponentServices
- * @version v4.0.30319
  */
-class APPDATA extends Win32Struct
-{
+class APPDATA extends Win32Struct {
     static sizeof => 104
 
     static packingSize => 4
@@ -39,7 +37,7 @@ class APPDATA extends Win32Struct
     /**
      * @type {APPSTATISTICS}
      */
-    m_AppStatistics{
+    m_AppStatistics {
         get {
             if(!this.HasProp("__m_AppStatistics"))
                 this.__m_AppStatistics := APPSTATISTICS(88, this)

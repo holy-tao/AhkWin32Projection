@@ -13,10 +13,8 @@
  * **PaletteSize** is bytes, not the number of entries in the palette.
  * @see https://learn.microsoft.com/windows/win32/wia/-wia-wia-raw-header
  * @namespace Windows.Win32.Devices.ImageAcquisition
- * @version v4.0.30319
  */
-class WIA_RAW_HEADER extends Win32Struct
-{
+class WIA_RAW_HEADER extends Win32Struct {
     static sizeof => 80
 
     static packingSize => 4
@@ -162,9 +160,9 @@ class WIA_RAW_HEADER extends Win32Struct
     }
 
     /**
-     * @type {Array<Byte>}
+     * @type {Array<Integer>}
      */
-    BitsPerChannel{
+    BitsPerChannel {
         get {
             if(!this.HasProp("__BitsPerChannelProxyArray"))
                 this.__BitsPerChannelProxyArray := Win32FixedArray(this.ptr + 44, 8, Primitive, "char")

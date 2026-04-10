@@ -3,10 +3,8 @@
 
 /**
  * @namespace Windows.Win32.System.ErrorReporting
- * @version v4.0.30319
  */
-class WER_DUMP_CUSTOM_OPTIONS_V2 extends Win32Struct
-{
+class WER_DUMP_CUSTOM_OPTIONS_V2 extends Win32Struct {
     static sizeof => 560
 
     static packingSize => 4

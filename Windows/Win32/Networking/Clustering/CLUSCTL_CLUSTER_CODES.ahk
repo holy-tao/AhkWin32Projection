@@ -5,9 +5,8 @@
  * The CLUSCTL_CLUSTER_CODES enumeration (msclus.h) enumerates cluster control codes used by the ClusterControl function.
  * @see https://learn.microsoft.com/windows/win32/api/msclus/ne-msclus-clusctl_cluster_codes
  * @namespace Windows.Win32.Networking.Clustering
- * @version v4.0.30319
  */
-class CLUSCTL_CLUSTER_CODES extends Win32Enum{
+class CLUSCTL_CLUSTER_CODES extends Win32Enum {
 
     /**
      * See <a href="https://docs.microsoft.com/previous-versions/windows/desktop/mscs/clusctl-cluster-unknown">CLUSCTL_CLUSTER_UNKNOWN</a>.
@@ -244,7 +243,6 @@ class CLUSCTL_CLUSTER_CODES extends Win32Enum{
     static CLUSCTL_CLUSTER_STORAGE_RENAME_SHARED_VOLUME_GUID => 117452250
 
     /**
-     * 
      * @type {Integer (Int32)}
      */
     static CLUSCTL_CLUSTER_RELOAD_AUTOLOGGER_CONFIG => 117452242

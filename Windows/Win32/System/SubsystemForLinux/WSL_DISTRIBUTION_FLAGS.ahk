@@ -5,9 +5,8 @@
  * The WSL_DISTRIBUTION_FLAGS enumeration specifies the behavior of a distribution in the Windows Subsystem for Linux (WSL).
  * @see https://learn.microsoft.com/windows/win32/api/wslapi/ne-wslapi-wsl_distribution_flags
  * @namespace Windows.Win32.System.SubsystemForLinux
- * @version v4.0.30319
  */
-class WSL_DISTRIBUTION_FLAGS extends Win32BitflagEnum{
+class WSL_DISTRIBUTION_FLAGS extends Win32BitflagEnum {
 
     /**
      * No flags are being supplied.

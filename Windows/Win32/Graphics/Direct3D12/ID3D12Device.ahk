@@ -1,8 +1,8 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
-#Include ..\..\Foundation\HANDLE.ahk
 #Include .\ID3D12Object.ahk
+#Include ..\..\Foundation\HANDLE.ahk
 
 /**
  * Represents a virtual adapter; it is used to create command allocators, command lists, command queues, fences, resources, pipeline state objects, heaps, root signatures, samplers, and many resource views.
@@ -12,9 +12,8 @@
  * For Windows 10 Anniversary some additional functionality is available through <a href="https://docs.microsoft.com/windows/desktop/api/d3d12/nn-d3d12-id3d12device1">ID3D12Device1</a>.
  * @see https://learn.microsoft.com/windows/win32/api/d3d12/nn-d3d12-id3d12device
  * @namespace Windows.Win32.Graphics.Direct3D12
- * @version v4.0.30319
  */
-class ID3D12Device extends ID3D12Object{
+class ID3D12Device extends ID3D12Object {
 
     static sizeof => A_PtrSize
     /**
@@ -71,7 +70,7 @@ class ID3D12Device extends ID3D12Object{
      * Creates a command allocator object.
      * @remarks
      * The device creates command lists from the command allocator.
-     * @param {Integer} type Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/d3d12/ne-d3d12-d3d12_command_list_type">D3D12_COMMAND_LIST_TYPE</a></b>
+     * @param {D3D12_COMMAND_LIST_TYPE} type Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/d3d12/ne-d3d12-d3d12_command_list_type">D3D12_COMMAND_LIST_TYPE</a></b>
      * 
      * A <a href="https://docs.microsoft.com/windows/desktop/api/d3d12/ne-d3d12-d3d12_command_list_type">D3D12_COMMAND_LIST_TYPE</a>-typed value that specifies the type of command allocator to create.
      *             The type of command allocator can be the type that records either direct command lists or bundles.
@@ -139,7 +138,7 @@ class ID3D12Device extends ID3D12Object{
      * @param {Integer} nodeMask Type: **[UINT](/windows/win32/WinProg/windows-data-types)**
      * 
      * For single-GPU operation, set this to zero. If there are multiple GPU nodes, then set a bit to identify the node (the device's physical adapter) for which to create the command list. Each bit in the mask corresponds to a single node. Only one bit must be set. Also see [Multi-adapter systems](/windows/win32/direct3d12/multi-engine).
-     * @param {Integer} type Type: **[D3D12_COMMAND_LIST_TYPE](./ne-d3d12-d3d12_command_list_type.md)**
+     * @param {D3D12_COMMAND_LIST_TYPE} type Type: **[D3D12_COMMAND_LIST_TYPE](./ne-d3d12-d3d12_command_list_type.md)**
      * 
      * Specifies the type of command list to create.
      * @param {ID3D12CommandAllocator} pCommandAllocator Type: **[ID3D12CommandAllocator](./nn-d3d12-id3d12commandallocator.md)\***
@@ -196,10 +195,10 @@ class ID3D12Device extends ID3D12Object{
      * <a href="https://docs.microsoft.com/windows/desktop/direct3ddxgi/format-support-for-direct3d-feature-level-10-0-hardware">Format Support for Direct3D Feature Level 10.0 Hardware</a>
      * </li>
      * </ul>
-     * @param {Integer} Feature Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/d3d12/ne-d3d12-d3d12_feature">D3D12_FEATURE</a></b>
+     * @param {D3D12_FEATURE} Feature Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/d3d12/ne-d3d12-d3d12_feature">D3D12_FEATURE</a></b>
      * 
      * A constant from the <a href="https://docs.microsoft.com/windows/desktop/api/d3d12/ne-d3d12-d3d12_feature">D3D12_FEATURE</a> enumeration describing the feature(s) that you want to query for support.
-     * @param {Pointer} pFeatureSupportData Type: <b>void*</b>
+     * @param {Integer} pFeatureSupportData Type: <b>void*</b>
      * 
      * A pointer to a data structure that corresponds to the value of the <i>Feature</i> parameter. To determine the corresponding data structure for each constant, see <a href="https://docs.microsoft.com/windows/desktop/api/d3d12/ne-d3d12-d3d12_feature">D3D12_FEATURE</a>.
      * @param {Integer} FeatureSupportDataSize Type: <b><a href="https://docs.microsoft.com/windows/desktop/WinProg/windows-data-types">UINT</a></b>
@@ -242,7 +241,7 @@ class ID3D12Device extends ID3D12Object{
      * Gets the size of the handle increment for the given type of descriptor heap. This value is typically used to increment a handle into a descriptor array by the correct amount.
      * @remarks
      * The descriptor size returned by this method is used as one input to the helper structures <a href="https://docs.microsoft.com/windows/desktop/direct3d12/cd3dx12-cpu-descriptor-handle">CD3DX12_CPU_DESCRIPTOR_HANDLE</a> and <a href="https://docs.microsoft.com/windows/desktop/direct3d12/cd3dx12-gpu-descriptor-handle">CD3DX12_GPU_DESCRIPTOR_HANDLE</a>.
-     * @param {Integer} DescriptorHeapType The <a href="https://docs.microsoft.com/windows/desktop/api/d3d12/ne-d3d12-d3d12_descriptor_heap_type">D3D12_DESCRIPTOR_HEAP_TYPE</a>-typed value that specifies the type of descriptor heap to get the size of the handle increment for.
+     * @param {D3D12_DESCRIPTOR_HEAP_TYPE} DescriptorHeapType The <a href="https://docs.microsoft.com/windows/desktop/api/d3d12/ne-d3d12-d3d12_descriptor_heap_type">D3D12_DESCRIPTOR_HEAP_TYPE</a>-typed value that specifies the type of descriptor heap to get the size of the handle increment for.
      * @returns {Integer} Returns the size of the handle increment for the given type of descriptor heap, including any necessary padding.
      * @see https://learn.microsoft.com/windows/win32/api/d3d12/nf-d3d12-id3d12device-getdescriptorhandleincrementsize
      */
@@ -469,7 +468,7 @@ class ID3D12Device extends ID3D12Object{
      * @param {Pointer<Integer>} pSrcDescriptorRangeSizes Type: <b>const <a href="https://docs.microsoft.com/windows/desktop/WinProg/windows-data-types">UINT</a>*</b>
      * 
      * An array of source descriptor range sizes to copy from.
-     * @param {Integer} DescriptorHeapsType Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/d3d12/ne-d3d12-d3d12_descriptor_heap_type">D3D12_DESCRIPTOR_HEAP_TYPE</a></b>
+     * @param {D3D12_DESCRIPTOR_HEAP_TYPE} DescriptorHeapsType Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/d3d12/ne-d3d12-d3d12_descriptor_heap_type">D3D12_DESCRIPTOR_HEAP_TYPE</a></b>
      * 
      * The <a href="https://docs.microsoft.com/windows/desktop/api/d3d12/ne-d3d12-d3d12_descriptor_heap_type">D3D12_DESCRIPTOR_HEAP_TYPE</a>-typed value that specifies the type of descriptor heap to copy with. This is required as different descriptor types may have different sizes.
      * 
@@ -502,7 +501,7 @@ class ID3D12Device extends ID3D12Object{
      * 
      * > [!IMPORTANT]
      * > The *SrcDescriptorRangeStart* parameter must be in a non shader-visible descriptor heap. This is because shader-visible descriptor heaps may be created in **WRITE_COMBINE** memory or GPU local memory, which is prohibitively slow to read from. If your application manages descriptor heaps via copying the descriptors required for a given pass or frame from local "storage" descriptor heaps to the GPU-bound descriptor heap, then use shader-opaque heaps for the storage heaps and copy into the GPU-visible heap as required.
-     * @param {Integer} DescriptorHeapsType Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/d3d12/ne-d3d12-d3d12_descriptor_heap_type">D3D12_DESCRIPTOR_HEAP_TYPE</a></b>
+     * @param {D3D12_DESCRIPTOR_HEAP_TYPE} DescriptorHeapsType Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/d3d12/ne-d3d12-d3d12_descriptor_heap_type">D3D12_DESCRIPTOR_HEAP_TYPE</a></b>
      * 
      * The <a href="https://docs.microsoft.com/windows/desktop/api/d3d12/ne-d3d12-d3d12_descriptor_heap_type">D3D12_DESCRIPTOR_HEAP_TYPE</a>-typed value that specifies the type of descriptor heap to copy with. This is required as different descriptor types may have different sizes.
      * 
@@ -556,7 +555,7 @@ class ID3D12Device extends ID3D12Object{
      *           Each bit in the mask corresponds to a single node.
      *           Only 1 bit must be set.
      *           See <a href="https://docs.microsoft.com/windows/win32/direct3d12/multi-engine">Multi-adapter systems</a>.
-     * @param {Integer} heapType Type: <b><a href="https://docs.microsoft.com/windows/win32/api/d3d12/ne-d3d12-d3d12_heap_type">D3D12_HEAP_TYPE</a></b>
+     * @param {D3D12_HEAP_TYPE} heapType Type: <b><a href="https://docs.microsoft.com/windows/win32/api/d3d12/ne-d3d12-d3d12_heap_type">D3D12_HEAP_TYPE</a></b>
      * 
      * A <a href="https://docs.microsoft.com/windows/win32/api/d3d12/ne-d3d12-d3d12_heap_type">D3D12_HEAP_TYPE</a>-typed value that specifies the heap to get properties for.
      *           D3D12_HEAP_TYPE_CUSTOM is not supported as a parameter value.
@@ -662,13 +661,13 @@ class ID3D12Device extends ID3D12Object{
      * @param {Pointer<D3D12_HEAP_PROPERTIES>} pHeapProperties Type: **const [D3D12_HEAP_PROPERTIES](./ns-d3d12-d3d12_heap_properties.md)\***
      * 
      * A pointer to a **D3D12_HEAP_PROPERTIES** structure that provides properties for the resource's heap.
-     * @param {Integer} HeapFlags Type: **[D3D12_HEAP_FLAGS](./ne-d3d12-d3d12_heap_flags.md)**
+     * @param {D3D12_HEAP_FLAGS} HeapFlags Type: **[D3D12_HEAP_FLAGS](./ne-d3d12-d3d12_heap_flags.md)**
      * 
      * Heap options, as a bitwise-OR'd combination of **D3D12_HEAP_FLAGS** enumeration constants.
      * @param {Pointer<D3D12_RESOURCE_DESC>} pDesc Type: **const [D3D12_RESOURCE_DESC](./ns-d3d12-d3d12_resource_desc.md)\***
      * 
      * A pointer to a **D3D12_RESOURCE_DESC** structure that describes the resource.
-     * @param {Integer} InitialResourceState Type: **[D3D12_RESOURCE_STATES](./ne-d3d12-d3d12_resource_states.md)**
+     * @param {D3D12_RESOURCE_STATES} InitialResourceState Type: **[D3D12_RESOURCE_STATES](./ne-d3d12-d3d12_resource_states.md)**
      * 
      * The initial state of the resource, as a bitwise-OR'd combination of **D3D12_RESOURCE_STATES** enumeration constants.
      * 
@@ -744,7 +743,7 @@ class ID3D12Device extends ID3D12Object{
      * @param {Pointer<D3D12_RESOURCE_DESC>} pDesc Type: [in] **const <a href="https://docs.microsoft.com/windows/win32/api/d3d12/ns-d3d12-d3d12_resource_desc">D3D12_RESOURCE_DESC</a>***
      * 
      * A pointer to a **D3D12_RESOURCE_DESC** structure that describes the resource.
-     * @param {Integer} InitialState Type: **<a href="https://docs.microsoft.com/windows/win32/api/d3d12/ne-d3d12-d3d12_resource_states">D3D12_RESOURCE_STATES</a>**
+     * @param {D3D12_RESOURCE_STATES} InitialState Type: **<a href="https://docs.microsoft.com/windows/win32/api/d3d12/ne-d3d12-d3d12_resource_states">D3D12_RESOURCE_STATES</a>**
      * 
      * The initial state of the resource, as a bitwise-OR'd combination of **D3D12_RESOURCE_STATES** enumeration constants.
      * 
@@ -784,7 +783,7 @@ class ID3D12Device extends ID3D12Object{
      * @param {Pointer<D3D12_RESOURCE_DESC>} pDesc Type: **const [D3D12_RESOURCE_DESC](./ns-d3d12-d3d12_resource_desc.md)\***
      * 
      * A pointer to a **D3D12_RESOURCE_DESC** structure that describes the resource.
-     * @param {Integer} InitialState Type: **[D3D12_RESOURCE_STATES](./ne-d3d12-d3d12_resource_states.md)**
+     * @param {D3D12_RESOURCE_STATES} InitialState Type: **[D3D12_RESOURCE_STATES](./ne-d3d12-d3d12_resource_states.md)**
      * 
      * The initial state of the resource, as a bitwise-OR'd combination of **D3D12_RESOURCE_STATES** enumeration constants.
      * @param {Pointer<D3D12_CLEAR_VALUE>} pOptimizedClearValue Type: **const [D3D12_CLEAR_VALUE](./ns-d3d12-d3d12_clear_value.md)\***
@@ -1035,7 +1034,7 @@ class ID3D12Device extends ID3D12Object{
      * @param {Integer} InitialValue Type: <b><a href="https://docs.microsoft.com/windows/desktop/WinProg/windows-data-types">UINT64</a></b>
      * 
      * The initial value for the fence.
-     * @param {Integer} Flags Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/d3d12/ne-d3d12-d3d12_fence_flags">D3D12_FENCE_FLAGS</a></b>
+     * @param {D3D12_FENCE_FLAGS} Flags Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/d3d12/ne-d3d12-d3d12_fence_flags">D3D12_FENCE_FLAGS</a></b>
      * 
      * A combination of <a href="https://docs.microsoft.com/windows/desktop/api/d3d12/ne-d3d12-d3d12_fence_flags">D3D12_FENCE_FLAGS</a>-typed values that are combined by using a bitwise OR operation. 
      *             The resulting value specifies options for the fence.

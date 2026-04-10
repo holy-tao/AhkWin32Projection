@@ -13,7 +13,6 @@
 
 /**
  * @namespace Windows.Win32.Devices.WebServicesOnDevices
- * @version v4.0.30319
  */
 class WebServicesOnDevices {
 
@@ -508,7 +507,7 @@ class WebServicesOnDevices {
      * </td>
      * </tr>
      * </table>
-     * @param {Pointer} pVoid Pointer to the configuration data. If <i>dwOption</i> is set to WSDAPI_OPTION_MAX_INBOUND_MESSAGE_SIZE, then <i>pVoid</i> should point to a DWORD that represents the  size of an inbound message. The size of the message is  a value between 32768 and 1048576.
+     * @param {Integer} pVoid Pointer to the configuration data. If <i>dwOption</i> is set to WSDAPI_OPTION_MAX_INBOUND_MESSAGE_SIZE, then <i>pVoid</i> should point to a DWORD that represents the  size of an inbound message. The size of the message is  a value between 32768 and 1048576.
      * @param {Integer} cbInBuffer The size, in bytes, of the data pointed to by <i>pVoid</i>. If <i>dwOption</i> is set to WSDAPI_OPTION_MAX_INBOUND_MESSAGE_SIZE, this parameter should be set to <c>sizeof(DWORD)</c>.
      * @returns {HRESULT} This function can return one of these values.
      * 
@@ -569,7 +568,7 @@ class WebServicesOnDevices {
      * </td>
      * </tr>
      * </table>
-     * @param {Pointer} pVoid Pointer to the configuration data.
+     * @param {Integer} pVoid Pointer to the configuration data.
      * @param {Integer} cbOutBuffer The size, in bytes, of the data pointed to by <i>pVoid</i>. If <i>dwOption</i> is set to WSDAPI_OPTION_MAX_INBOUND_MESSAGE_SIZE, then this parameter should be set to <c>sizeof(DWORD)</c>.
      * @returns {HRESULT} This function can return one of these values.
      * 

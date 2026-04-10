@@ -5,9 +5,8 @@
  * Specifies interpolation mode, which affects how values are calculated during rasterization.
  * @see https://learn.microsoft.com/windows/win32/api/d3dcommon/ne-d3dcommon-d3d_interpolation_mode
  * @namespace Windows.Win32.Graphics.Direct3D
- * @version v4.0.30319
  */
-class D3D_INTERPOLATION_MODE extends Win32Enum{
+class D3D_INTERPOLATION_MODE extends Win32Enum {
 
     /**
      * The interpolation mode is undefined.

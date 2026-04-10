@@ -5,9 +5,8 @@
 
 /**
  * @namespace Windows.Win32.Media.Speech
- * @version v4.0.30319
  */
-class ISpSRAlternates2 extends ISpSRAlternates{
+class ISpSRAlternates2 extends ISpSRAlternates {
 
     static sizeof => A_PtrSize
     /**
@@ -32,7 +31,7 @@ class ISpSRAlternates2 extends ISpSRAlternates{
      * 
      * @param {Pointer<SPPHRASEALTREQUEST>} pAltRequest 
      * @param {PWSTR} pcszNewText 
-     * @param {Integer} commitFlags 
+     * @param {SPCOMMITFLAGS} commitFlags 
      * @returns {HRESULT} 
      */
     CommitText(pAltRequest, pcszNewText, commitFlags) {

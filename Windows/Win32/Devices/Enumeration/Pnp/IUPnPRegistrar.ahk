@@ -1,16 +1,15 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\..\Guid.ahk
-#Include ..\..\..\Foundation\BSTR.ahk
 #Include ..\..\..\System\Com\IUnknown.ahk
+#Include ..\..\..\Foundation\BSTR.ahk
 
 /**
  * The IUPnPRegistrar interface registers the devices that run in the context of the device host.
  * @see https://learn.microsoft.com/windows/win32/api/upnphost/nn-upnphost-iupnpregistrar
  * @namespace Windows.Win32.Devices.Enumeration.Pnp
- * @version v4.0.30319
  */
-class IUPnPRegistrar extends IUnknown{
+class IUPnPRegistrar extends IUnknown {
 
     static sizeof => A_PtrSize
     /**

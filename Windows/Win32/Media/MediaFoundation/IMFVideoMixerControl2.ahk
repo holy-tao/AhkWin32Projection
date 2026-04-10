@@ -7,9 +7,8 @@
  * Controls preferences for video deinterlacing.
  * @see https://learn.microsoft.com/windows/win32/api/evr/nn-evr-imfvideomixercontrol2
  * @namespace Windows.Win32.Media.MediaFoundation
- * @version v4.0.30319
  */
-class IMFVideoMixerControl2 extends IMFVideoMixerControl{
+class IMFVideoMixerControl2 extends IMFVideoMixerControl {
 
     static sizeof => A_PtrSize
     /**

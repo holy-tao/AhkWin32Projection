@@ -9,9 +9,8 @@
  * IID_IConsoleVerb is defined as E49F7A60-74AF-11D0-A286-00C04FD8FE93.
  * @see https://learn.microsoft.com/windows/win32/api/mmc/nn-mmc-iconsoleverb
  * @namespace Windows.Win32.System.Mmc
- * @version v4.0.30319
  */
-class IConsoleVerb extends IUnknown{
+class IConsoleVerb extends IUnknown {
 
     static sizeof => A_PtrSize
     /**
@@ -36,9 +35,9 @@ class IConsoleVerb extends IUnknown{
      * The GetVerbState method enables a snap-in to obtain a given verb's current state.
      * @remarks
      * When an item is selected, the verb states for all the commands are reset to disabled and hidden. It is up to the snap-in developer to update the verb state when an item is selected.
-     * @param {Integer} eCmdID A value that specifies the command identifier of the verb. Taken from the 
+     * @param {MMC_CONSOLE_VERB} eCmdID A value that specifies the command identifier of the verb. Taken from the 
      * <a href="https://docs.microsoft.com/windows/desktop/api/mmc/ne-mmc-mmc_console_verb">MMC_CONSOLE_VERB</a> enumeration. This value cannot be MMC_VERB_NONE.
-     * @param {Integer} nState A value that identifies the possible states of the button. Taken from the 
+     * @param {MMC_BUTTON_STATE} nState A value that identifies the possible states of the button. Taken from the 
      * <a href="https://docs.microsoft.com/windows/desktop/api/mmc/ne-mmc-mmc_button_state">MMC_BUTTON_STATE</a> enumeration.
      * @returns {BOOL} A pointer to the state information returned. <b>TRUE</b> if the state is enabled or hidden and <b>FALSE</b> if the state is disabled or visible.
      * @see https://learn.microsoft.com/windows/win32/api/mmc/nf-mmc-iconsoleverb-getverbstate
@@ -50,9 +49,9 @@ class IConsoleVerb extends IUnknown{
 
     /**
      * The SetVerbState method enables a snap-in to set a given verb's button state.
-     * @param {Integer} eCmdID A value that specifies the command identifier of the verb. Values are taken from the 
+     * @param {MMC_CONSOLE_VERB} eCmdID A value that specifies the command identifier of the verb. Values are taken from the 
      * <a href="https://docs.microsoft.com/windows/desktop/api/mmc/ne-mmc-mmc_console_verb">MMC_CONSOLE_VERB</a> enumeration. This value cannot be MMC_VERB_NONE.
-     * @param {Integer} nState Identifies the possible states of the button. Taken from the 
+     * @param {MMC_BUTTON_STATE} nState Identifies the possible states of the button. Taken from the 
      * <a href="https://docs.microsoft.com/windows/desktop/api/mmc/ne-mmc-mmc_button_state">MMC_BUTTON_STATE</a> enumeration.
      * @param {BOOL} bState This value is <b>TRUE</b> to enable or hide the verb, <b>FALSE</b> to disable or show the selected verb.
      * @returns {HRESULT} This method can return one of these values.
@@ -73,7 +72,7 @@ class IConsoleVerb extends IUnknown{
      * <li>Show the context menu item for the verb in bold.</li>
      * <li>Perform a default action (only for properties and open verbs) if the snap-in returns S_FALSE in its <a href="https://docs.microsoft.com/previous-versions/windows/desktop/mmc/mmcn-dblclick">MMCN_DBLCLICK</a> notification handler.</li>
      * </ul>
-     * @param {Integer} eCmdID The default verb.
+     * @param {MMC_CONSOLE_VERB} eCmdID The default verb.
      * @returns {HRESULT} This method can return one of these values.
      * @see https://learn.microsoft.com/windows/win32/api/mmc/nf-mmc-iconsoleverb-setdefaultverb
      */
@@ -87,7 +86,7 @@ class IConsoleVerb extends IUnknown{
      * @remarks
      * The 
      * <a href="https://docs.microsoft.com/windows/desktop/api/mmc/ne-mmc-mmc_console_verb">MMC_CONSOLE_VERB</a> enumeration defines the set of default verbs.
-     * @returns {Integer} A pointer to where the snap-in's default verb is returned.
+     * @returns {MMC_CONSOLE_VERB} A pointer to where the snap-in's default verb is returned.
      * @see https://learn.microsoft.com/windows/win32/api/mmc/nf-mmc-iconsoleverb-getdefaultverb
      */
     GetDefaultVerb() {

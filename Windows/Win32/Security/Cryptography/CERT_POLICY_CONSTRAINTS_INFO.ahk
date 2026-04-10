@@ -5,10 +5,8 @@
  * The CERT_POLICY_CONSTRAINTS_INFO structure contains established policies for accepting certificates as trusted.
  * @see https://learn.microsoft.com/windows/win32/api/wincrypt/ns-wincrypt-cert_policy_constraints_info
  * @namespace Windows.Win32.Security.Cryptography
- * @version v4.0.30319
  */
-class CERT_POLICY_CONSTRAINTS_INFO extends Win32Struct
-{
+class CERT_POLICY_CONSTRAINTS_INFO extends Win32Struct {
     static sizeof => 16
 
     static packingSize => 4

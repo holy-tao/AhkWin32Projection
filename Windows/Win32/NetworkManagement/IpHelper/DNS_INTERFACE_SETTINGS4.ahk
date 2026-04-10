@@ -1,12 +1,11 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
+#Include .\DNS_SERVER_PROPERTY.ahk
 
 /**
  * @namespace Windows.Win32.NetworkManagement.IpHelper
- * @version v4.0.30319
  */
-class DNS_INTERFACE_SETTINGS4 extends Win32Struct
-{
+class DNS_INTERFACE_SETTINGS4 extends Win32Struct {
     static sizeof => 120
 
     static packingSize => 8

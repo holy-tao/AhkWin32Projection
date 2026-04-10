@@ -9,10 +9,8 @@
  * To use this class from Microsoft Visual Basic, add a reference to the COM+ Services Type Library. An AppDomainHelper object can be declared using "COMSVCSLib.AppDomainHelper" as the class name.
  * @see https://learn.microsoft.com/windows/win32/cossdk/appdomainhelper
  * @namespace Windows.Win32.System.ComponentServices
- * @version v4.0.30319
  */
-class AppDomainHelper extends Win32Struct
-{
+class AppDomainHelper extends Win32Struct {
     static sizeof => 0
 
     static packingSize => 1

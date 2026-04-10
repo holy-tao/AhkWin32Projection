@@ -5,10 +5,8 @@
  * Defines the raw input data coming from the specified Human Interface Device (HID).
  * @see https://learn.microsoft.com/windows/win32/api/winuser/ns-winuser-rid_device_info_hid
  * @namespace Windows.Win32.UI.Input
- * @version v4.0.30319
  */
-class RID_DEVICE_INFO_HID extends Win32Struct
-{
+class RID_DEVICE_INFO_HID extends Win32Struct {
     static sizeof => 16
 
     static packingSize => 4

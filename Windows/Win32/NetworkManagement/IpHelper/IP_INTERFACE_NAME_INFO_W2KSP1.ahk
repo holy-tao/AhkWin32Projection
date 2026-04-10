@@ -11,10 +11,8 @@
  * The optional <b>InterfaceGuid</b> member is often set for dial-up interfaces, and can be used to distinguish multiple dial-up interfaces that share  the same  device GUID.
  * @see https://learn.microsoft.com/windows/win32/api/iptypes/ns-iptypes-ip_interface_name_info_w2ksp1
  * @namespace Windows.Win32.NetworkManagement.IpHelper
- * @version v4.0.30319
  */
-class IP_INTERFACE_NAME_INFO_W2KSP1 extends Win32Struct
-{
+class IP_INTERFACE_NAME_INFO_W2KSP1 extends Win32Struct {
     static sizeof => 32
 
     static packingSize => 8
@@ -291,7 +289,7 @@ class IP_INTERFACE_NAME_INFO_W2KSP1 extends Win32Struct
      * Type: <b>GUID</b>
      * 
      * The GUID that identifies the underlying device for the interface. This member can be a zero GUID.
-     * @type {Pointer<Guid>}
+     * @type {Pointer}
      */
     DeviceGuid {
         get => NumGet(this, 16, "ptr")
@@ -302,7 +300,7 @@ class IP_INTERFACE_NAME_INFO_W2KSP1 extends Win32Struct
      * Type: <b>GUID</b>
      * 
      * The GUID that identifies the interface mapped to the device. Optional. This member can be a zero GUID.
-     * @type {Pointer<Guid>}
+     * @type {Pointer}
      */
     InterfaceGuid {
         get => NumGet(this, 24, "ptr")

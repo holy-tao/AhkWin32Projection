@@ -5,10 +5,8 @@
 
 /**
  * @namespace Windows.Win32.UI.Controls
- * @version v4.0.30319
  */
-class HPROPSHEETPAGE extends Win32Handle
-{
+class HPROPSHEETPAGE extends Win32Handle {
     static sizeof => 8
 
     static packingSize => 8

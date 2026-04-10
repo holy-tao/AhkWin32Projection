@@ -7,9 +7,8 @@
  * Used to report significant events associated with Offline Files.
  * @see https://learn.microsoft.com/windows/win32/api/cscobj/nn-cscobj-iofflinefilesevents
  * @namespace Windows.Win32.Storage.OfflineFiles
- * @version v4.0.30319
  */
-class IOfflineFilesEvents extends IUnknown{
+class IOfflineFilesEvents extends IUnknown {
 
     static sizeof => A_PtrSize
     /**
@@ -122,7 +121,7 @@ class IOfflineFilesEvents extends IUnknown{
      * Reports that a sync conflict has been detected and recorded in the sync conflict log.
      * @param {PWSTR} pszConflictPath The UNC path of the item in conflict.
      * @param {Pointer<FILETIME>} pftConflictDateTime Pointer to a <a href="https://docs.microsoft.com/windows/desktop/api/minwinbase/ns-minwinbase-filetime">FILETIME</a> structure containing the date and time when the conflict was detected.  The value is in UTC.
-     * @param {Integer} ConflictSyncState Describes the state of the local and remote items in conflict.  One of the <a href="https://docs.microsoft.com/windows/desktop/api/cscobj/ne-cscobj-offlinefiles_sync_state">OFFLINEFILES_SYNC_STATE</a> sync state values, such as
+     * @param {OFFLINEFILES_SYNC_STATE} ConflictSyncState Describes the state of the local and remote items in conflict.  One of the <a href="https://docs.microsoft.com/windows/desktop/api/cscobj/ne-cscobj-offlinefiles_sync_state">OFFLINEFILES_SYNC_STATE</a> sync state values, such as
      * 
      * OFFLINEFILES_SYNC_STATE_FileChangedOnClient_ChangedOnServer
      * 
@@ -141,7 +140,7 @@ class IOfflineFilesEvents extends IUnknown{
      * Reports that a sync conflict has been detected and that a record of the conflict was already present in the sync conflict log.
      * @param {PWSTR} pszConflictPath The UNC path of the item in conflict.
      * @param {Pointer<FILETIME>} pftConflictDateTime Pointer to a <a href="https://docs.microsoft.com/windows/desktop/api/minwinbase/ns-minwinbase-filetime">FILETIME</a> structure containing the date and time when the conflict was detected.  The value is in UTC.
-     * @param {Integer} ConflictSyncState Describes the state of the local and remote items in conflict.  One of the <a href="https://docs.microsoft.com/windows/desktop/api/cscobj/ne-cscobj-offlinefiles_sync_state">OFFLINEFILES_SYNC_STATE</a> sync state values, such as
+     * @param {OFFLINEFILES_SYNC_STATE} ConflictSyncState Describes the state of the local and remote items in conflict.  One of the <a href="https://docs.microsoft.com/windows/desktop/api/cscobj/ne-cscobj-offlinefiles_sync_state">OFFLINEFILES_SYNC_STATE</a> sync state values, such as
      * 
      * OFFLINEFILES_SYNC_STATE_FileChangedOnClient_ChangedOnServer
      * 
@@ -160,7 +159,7 @@ class IOfflineFilesEvents extends IUnknown{
      * Reports that a sync conflict no longer exists and that its record has been removed from the sync conflict log.
      * @param {PWSTR} pszConflictPath The UNC path of the item that was in conflict.
      * @param {Pointer<FILETIME>} pftConflictDateTime Pointer to a <a href="https://docs.microsoft.com/windows/desktop/api/minwinbase/ns-minwinbase-filetime">FILETIME</a> structure containing the date and time when the deleted conflict was detected.  The value is in UTC.
-     * @param {Integer} ConflictSyncState Describes the state of the local and remote items in conflict.  One of the <a href="https://docs.microsoft.com/windows/desktop/api/cscobj/ne-cscobj-offlinefiles_sync_state">OFFLINEFILES_SYNC_STATE</a> sync state values, such as
+     * @param {OFFLINEFILES_SYNC_STATE} ConflictSyncState Describes the state of the local and remote items in conflict.  One of the <a href="https://docs.microsoft.com/windows/desktop/api/cscobj/ne-cscobj-offlinefiles_sync_state">OFFLINEFILES_SYNC_STATE</a> sync state values, such as
      * 
      * OFFLINEFILES_SYNC_STATE_FileChangedOnClient_ChangedOnServer
      * 
@@ -212,7 +211,7 @@ class IOfflineFilesEvents extends IUnknown{
     /**
      * Reports that an item in the Offline Files cache has transitioned from online to offline.
      * @param {PWSTR} pszPath The item's UNC path string.
-     * @param {Integer} ItemType An <a href="https://docs.microsoft.com/windows/desktop/api/cscobj/ne-cscobj-offlinefiles_item_type">OFFLINEFILES_ITEM_TYPE</a> enumeration value that indicates the type of the item.
+     * @param {OFFLINEFILES_ITEM_TYPE} ItemType An <a href="https://docs.microsoft.com/windows/desktop/api/cscobj/ne-cscobj-offlinefiles_item_type">OFFLINEFILES_ITEM_TYPE</a> enumeration value that indicates the type of the item.
      * @returns {HRESULT} The return value is ignored.
      * @see https://learn.microsoft.com/windows/win32/api/cscobj/nf-cscobj-iofflinefilesevents-itemdisconnected
      */
@@ -226,7 +225,7 @@ class IOfflineFilesEvents extends IUnknown{
     /**
      * Reports that an item in the Offline Files cache has transitioned from offline to online.
      * @param {PWSTR} pszPath The item's UNC path string.
-     * @param {Integer} ItemType An <a href="https://docs.microsoft.com/windows/desktop/api/cscobj/ne-cscobj-offlinefiles_item_type">OFFLINEFILES_ITEM_TYPE</a> enumeration value that indicates the type of the item.
+     * @param {OFFLINEFILES_ITEM_TYPE} ItemType An <a href="https://docs.microsoft.com/windows/desktop/api/cscobj/ne-cscobj-offlinefiles_item_type">OFFLINEFILES_ITEM_TYPE</a> enumeration value that indicates the type of the item.
      * @returns {HRESULT} The return value is ignored.
      * @see https://learn.microsoft.com/windows/win32/api/cscobj/nf-cscobj-iofflinefilesevents-itemreconnected
      */
@@ -240,7 +239,7 @@ class IOfflineFilesEvents extends IUnknown{
     /**
      * Reports that an item in the Offline Files cache is now available for offline use should the remote copy become unavailable.
      * @param {PWSTR} pszPath The item's UNC path string.
-     * @param {Integer} ItemType An <a href="https://docs.microsoft.com/windows/desktop/api/cscobj/ne-cscobj-offlinefiles_item_type">OFFLINEFILES_ITEM_TYPE</a> enumeration value that indicates the type of the item.
+     * @param {OFFLINEFILES_ITEM_TYPE} ItemType An <a href="https://docs.microsoft.com/windows/desktop/api/cscobj/ne-cscobj-offlinefiles_item_type">OFFLINEFILES_ITEM_TYPE</a> enumeration value that indicates the type of the item.
      * @returns {HRESULT} The return value is ignored.
      * @see https://learn.microsoft.com/windows/win32/api/cscobj/nf-cscobj-iofflinefilesevents-itemavailableoffline
      */
@@ -256,7 +255,7 @@ class IOfflineFilesEvents extends IUnknown{
      * @remarks
      * Receipt of this event does not mean the file has been removed from the cache.  The event <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/cscobj/nf-cscobj-iofflinefilesevents-itemdeletedfromcache">ItemDeletedFromCache</a> is sent when an item has been removed.
      * @param {PWSTR} pszPath The item's UNC path string.
-     * @param {Integer} ItemType An <a href="https://docs.microsoft.com/windows/desktop/api/cscobj/ne-cscobj-offlinefiles_item_type">OFFLINEFILES_ITEM_TYPE</a> enumeration value that indicates the type of the item.
+     * @param {OFFLINEFILES_ITEM_TYPE} ItemType An <a href="https://docs.microsoft.com/windows/desktop/api/cscobj/ne-cscobj-offlinefiles_item_type">OFFLINEFILES_ITEM_TYPE</a> enumeration value that indicates the type of the item.
      * @returns {HRESULT} The return value is ignored.
      * @see https://learn.microsoft.com/windows/win32/api/cscobj/nf-cscobj-iofflinefilesevents-itemnotavailableoffline
      */
@@ -270,7 +269,7 @@ class IOfflineFilesEvents extends IUnknown{
     /**
      * Reports that an item in the Offline Files cache is now pinned and guaranteed to be available offline should the remote copy become unavailable.
      * @param {PWSTR} pszPath The item's UNC path string.
-     * @param {Integer} ItemType An <a href="https://docs.microsoft.com/windows/desktop/api/cscobj/ne-cscobj-offlinefiles_item_type">OFFLINEFILES_ITEM_TYPE</a> enumeration value that indicates the type of the item.
+     * @param {OFFLINEFILES_ITEM_TYPE} ItemType An <a href="https://docs.microsoft.com/windows/desktop/api/cscobj/ne-cscobj-offlinefiles_item_type">OFFLINEFILES_ITEM_TYPE</a> enumeration value that indicates the type of the item.
      * @returns {HRESULT} The return value is ignored.
      * @see https://learn.microsoft.com/windows/win32/api/cscobj/nf-cscobj-iofflinefilesevents-itempinned
      */
@@ -284,7 +283,7 @@ class IOfflineFilesEvents extends IUnknown{
     /**
      * Reports that an item in the Offline Files cache is no longer pinned.
      * @param {PWSTR} pszPath The item's UNC path string.
-     * @param {Integer} ItemType An <a href="https://docs.microsoft.com/windows/desktop/api/cscobj/ne-cscobj-offlinefiles_item_type">OFFLINEFILES_ITEM_TYPE</a> enumeration value that indicates the type of the item.
+     * @param {OFFLINEFILES_ITEM_TYPE} ItemType An <a href="https://docs.microsoft.com/windows/desktop/api/cscobj/ne-cscobj-offlinefiles_item_type">OFFLINEFILES_ITEM_TYPE</a> enumeration value that indicates the type of the item.
      * @returns {HRESULT} The return value is ignored.
      * @see https://learn.microsoft.com/windows/win32/api/cscobj/nf-cscobj-iofflinefilesevents-itemnotpinned
      */
@@ -298,7 +297,7 @@ class IOfflineFilesEvents extends IUnknown{
     /**
      * Reports that an item in the Offline Files cache has been modified.
      * @param {PWSTR} pszPath The item's UNC path string.
-     * @param {Integer} ItemType An <a href="https://docs.microsoft.com/windows/desktop/api/cscobj/ne-cscobj-offlinefiles_item_type">OFFLINEFILES_ITEM_TYPE</a> enumeration value that indicates the type of the item.
+     * @param {OFFLINEFILES_ITEM_TYPE} ItemType An <a href="https://docs.microsoft.com/windows/desktop/api/cscobj/ne-cscobj-offlinefiles_item_type">OFFLINEFILES_ITEM_TYPE</a> enumeration value that indicates the type of the item.
      * @param {BOOL} bModifiedData <b>TRUE</b> if the item's data was modified, <b>FALSE</b> otherwise.
      * @param {BOOL} bModifiedAttributes <b>TRUE</b> if one or more of the item's attributes were modified, <b>FALSE</b> otherwise.
      * @returns {HRESULT} The return value is ignored.
@@ -316,7 +315,7 @@ class IOfflineFilesEvents extends IUnknown{
      * @remarks
      * Note that addition to the cache does not mean that the item is available for offline use.  It may still be sparsely cached.  When the item is available for offline use, the <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/cscobj/nf-cscobj-iofflinefilesevents-itemavailableoffline">ItemAvailableOffline</a> event will be sent.
      * @param {PWSTR} pszPath The item's UNC path string.
-     * @param {Integer} ItemType An <a href="https://docs.microsoft.com/windows/desktop/api/cscobj/ne-cscobj-offlinefiles_item_type">OFFLINEFILES_ITEM_TYPE</a> enumeration value that indicates the type of the item.
+     * @param {OFFLINEFILES_ITEM_TYPE} ItemType An <a href="https://docs.microsoft.com/windows/desktop/api/cscobj/ne-cscobj-offlinefiles_item_type">OFFLINEFILES_ITEM_TYPE</a> enumeration value that indicates the type of the item.
      * @returns {HRESULT} The return value is ignored.
      * @see https://learn.microsoft.com/windows/win32/api/cscobj/nf-cscobj-iofflinefilesevents-itemaddedtocache
      */
@@ -330,7 +329,7 @@ class IOfflineFilesEvents extends IUnknown{
     /**
      * Reports that an item has been removed from the Offline Files cache.
      * @param {PWSTR} pszPath The item's UNC path string.
-     * @param {Integer} ItemType An <a href="https://docs.microsoft.com/windows/desktop/api/cscobj/ne-cscobj-offlinefiles_item_type">OFFLINEFILES_ITEM_TYPE</a> enumeration value that indicates the type of the item.
+     * @param {OFFLINEFILES_ITEM_TYPE} ItemType An <a href="https://docs.microsoft.com/windows/desktop/api/cscobj/ne-cscobj-offlinefiles_item_type">OFFLINEFILES_ITEM_TYPE</a> enumeration value that indicates the type of the item.
      * @returns {HRESULT} The return value is ignored.
      * @see https://learn.microsoft.com/windows/win32/api/cscobj/nf-cscobj-iofflinefilesevents-itemdeletedfromcache
      */
@@ -347,7 +346,7 @@ class IOfflineFilesEvents extends IUnknown{
      * This event is sent whenever a server, share, directory or file is renamed in the cache.  Note that this is a rename resulting from a file system rename operation, not from <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/cscobj/nf-cscobj-iofflinefilescache-renameitem">IOfflineFilesCache::RenameItem</a> or <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/cscobj/nf-cscobj-iofflinefilescache2-renameitemex">IOfflineFilesCache2::RenameItemEx</a>.  (The rename in response to <b>RenameItem</b> or <b>RenameItemEx</b> is performed on system startup by the Offline Files driver before the Offline Files service is operational.)
      * @param {PWSTR} pszOldPath Original UNC path string for the item.
      * @param {PWSTR} pszNewPath New UNC path string for the item.
-     * @param {Integer} ItemType An <a href="https://docs.microsoft.com/windows/desktop/api/cscobj/ne-cscobj-offlinefiles_item_type">OFFLINEFILES_ITEM_TYPE</a> enumeration value that indicates the type of the item.
+     * @param {OFFLINEFILES_ITEM_TYPE} ItemType An <a href="https://docs.microsoft.com/windows/desktop/api/cscobj/ne-cscobj-offlinefiles_item_type">OFFLINEFILES_ITEM_TYPE</a> enumeration value that indicates the type of the item.
      * @returns {HRESULT} The return value is ignored.
      * @see https://learn.microsoft.com/windows/win32/api/cscobj/nf-cscobj-iofflinefilesevents-itemrenamed
      */

@@ -1,5 +1,6 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
+#Include .\WSB_OB_STATUS_ENTRY_VALUE_TYPE_PAIR.ahk
 
 /**
  * Contains status information for one entry to be shown in the Windows Server Backup MMC snap-in.
@@ -11,10 +12,8 @@
  *       entry value resource ID could point to the string "%0 copies".
  * @see https://learn.microsoft.com/windows/win32/api/wsbonline/ns-wsbonline-wsb_ob_status_entry
  * @namespace Windows.Win32.System.ServerBackup
- * @version v4.0.30319
  */
-class WSB_OB_STATUS_ENTRY extends Win32Struct
-{
+class WSB_OB_STATUS_ENTRY extends Win32Struct {
     static sizeof => 24
 
     static packingSize => 8

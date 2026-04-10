@@ -1,5 +1,6 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
+#Include .\HTTP_SSL_CLIENT_CERT_INFO.ahk
 
 /**
  * Contains data for a connection that uses Secure Sockets Layer (SSL), obtained through the SSL handshake.
@@ -9,10 +10,8 @@
  * <a href="https://docs.microsoft.com/previous-versions/windows/desktop/legacy/aa364545(v=vs.85)">HTTP_REQUEST</a> structure.
  * @see https://learn.microsoft.com/windows/win32/api/http/ns-http-http_ssl_info
  * @namespace Windows.Win32.Networking.HttpServer
- * @version v4.0.30319
  */
-class HTTP_SSL_INFO extends Win32Struct
-{
+class HTTP_SSL_INFO extends Win32Struct {
     static sizeof => 48
 
     static packingSize => 8

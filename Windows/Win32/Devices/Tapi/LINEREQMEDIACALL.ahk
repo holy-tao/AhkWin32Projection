@@ -6,11 +6,9 @@
  * Describes a request initiated by a call to the lineGetRequest function. This data structure is obsolete and should not be used.
  * @see https://learn.microsoft.com/windows/win32/api/tapi/ns-tapi-linereqmediacall
  * @namespace Windows.Win32.Devices.Tapi
- * @version v4.0.30319
  * @charset ANSI
  */
-class LINEREQMEDIACALL extends Win32Struct
-{
+class LINEREQMEDIACALL extends Win32Struct {
     static sizeof => 344
 
     static packingSize => 8
@@ -19,7 +17,7 @@ class LINEREQMEDIACALL extends Win32Struct
      * A handle to the window of the application that  made the request.
      * @type {HWND}
      */
-    hWnd{
+    hWnd {
         get {
             if(!this.HasProp("__hWnd"))
                 this.__hWnd := HWND(0, this)
@@ -47,9 +45,9 @@ class LINEREQMEDIACALL extends Win32Struct
 
     /**
      * The device identifier.
-     * @type {Array<Byte>}
+     * @type {Array<Integer>}
      */
-    ucDeviceID{
+    ucDeviceID {
         get {
             if(!this.HasProp("__ucDeviceIDProxyArray"))
                 this.__ucDeviceIDProxyArray := Win32FixedArray(this.ptr + 56, 40, Primitive, "char")

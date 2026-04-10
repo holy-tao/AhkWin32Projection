@@ -6,10 +6,8 @@
  * The MIXERCONTROLDETAILS structure refers to control-detail structures, retrieving or setting state information of an audio mixer control. (MIXERCONTROLDETAILS)
  * @see https://learn.microsoft.com/windows/win32/api/mmeapi/ns-mmeapi-mixercontroldetails
  * @namespace Windows.Win32.Media.Audio
- * @version v4.0.30319
  */
-class MIXERCONTROLDETAILS extends Win32Struct
-{
+class MIXERCONTROLDETAILS extends Win32Struct {
     static sizeof => 32
 
     static packingSize => 8
@@ -87,7 +85,7 @@ class MIXERCONTROLDETAILS extends Win32Struct
     /**
      * @type {HWND}
      */
-    hwndOwner{
+    hwndOwner {
         get {
             if(!this.HasProp("__hwndOwner"))
                 this.__hwndOwner := HWND(12, this)

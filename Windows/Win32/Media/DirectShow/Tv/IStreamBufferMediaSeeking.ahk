@@ -81,9 +81,8 @@
  * To declare the interface identifier (IID) for this interface, use the <b>__uuidof</b> operator: <c>__uuidof(IStreamBufferMediaSeeking)</c>.
  * @see https://learn.microsoft.com/windows/win32/api/sbe/nn-sbe-istreambuffermediaseeking
  * @namespace Windows.Win32.Media.DirectShow.Tv
- * @version v4.0.30319
  */
-class IStreamBufferMediaSeeking extends IMediaSeeking{
+class IStreamBufferMediaSeeking extends IMediaSeeking {
 
     static sizeof => A_PtrSize
     /**

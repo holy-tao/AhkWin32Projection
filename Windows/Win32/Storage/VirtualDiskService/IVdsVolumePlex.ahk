@@ -1,18 +1,17 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
+#Include ..\..\System\Com\IUnknown.ahk
 #Include .\VDS_VOLUME_PLEX_PROP.ahk
 #Include .\IVdsVolume.ahk
 #Include .\IVdsAsync.ahk
-#Include ..\..\System\Com\IUnknown.ahk
 
 /**
  * Provides methods for maintaining volume plexes.
  * @see https://learn.microsoft.com/windows/win32/api/vds/nn-vds-ivdsvolumeplex
  * @namespace Windows.Win32.Storage.VirtualDiskService
- * @version v4.0.30319
  */
-class IVdsVolumePlex extends IUnknown{
+class IVdsVolumePlex extends IUnknown {
 
     static sizeof => A_PtrSize
     /**

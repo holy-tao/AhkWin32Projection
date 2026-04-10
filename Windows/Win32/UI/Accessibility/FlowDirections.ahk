@@ -5,9 +5,8 @@
  * Contains values for the TextFlowDirections text attribute.
  * @see https://learn.microsoft.com/windows/win32/api/uiautomationcore/ne-uiautomationcore-flowdirections
  * @namespace Windows.Win32.UI.Accessibility
- * @version v4.0.30319
  */
-class FlowDirections extends Win32Enum{
+class FlowDirections extends Win32Enum {
 
     /**
      * The default flow direction.

@@ -1,16 +1,15 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
+#Include ..\..\System\Com\IDispatch.ahk
 #Include .\ISVGAnimatedEnumeration.ahk
 #Include .\ISVGAnimatedTransformList.ahk
 #Include .\ISVGAnimatedLength.ahk
-#Include ..\..\System\Com\IDispatch.ahk
 
 /**
  * @namespace Windows.Win32.Web.MsHtml
- * @version v4.0.30319
  */
-class ISVGPatternElement extends IDispatch{
+class ISVGPatternElement extends IDispatch {
 
     static sizeof => A_PtrSize
     /**

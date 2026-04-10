@@ -3,9 +3,8 @@
 
 /**
  * @namespace Windows.Win32.Security
- * @version v4.0.30319
  */
-class OBJECT_SECURITY_INFORMATION extends Win32BitflagEnum{
+class OBJECT_SECURITY_INFORMATION extends Win32BitflagEnum {
 
     /**
      * @type {Integer (UInt32)}

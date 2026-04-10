@@ -3,10 +3,8 @@
 
 /**
  * @namespace Windows.Wdk.System.SystemServices
- * @version v4.0.30319
  */
-class CONTROLLER_OBJECT extends Win32Struct
-{
+class CONTROLLER_OBJECT extends Win32Struct {
     static sizeof => 40
 
     static packingSize => 8
@@ -36,7 +34,7 @@ class CONTROLLER_OBJECT extends Win32Struct
     }
 
     /**
-     * @type {Pointer<KDEVICE_QUEUE>}
+     * @type {Pointer}
      */
     DeviceWaitQueue {
         get => NumGet(this, 16, "ptr")

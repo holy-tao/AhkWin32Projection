@@ -7,9 +7,8 @@
  * The IWMPacketSize2 interface provides methods to set and retrieve the minimum packet size for a profile.An IWMPacketSize2 interface can be obtained for either a profile object, a reader object, or a synchronous reader object.
  * @see https://learn.microsoft.com/windows/win32/api/wmsdkidl/nn-wmsdkidl-iwmpacketsize2
  * @namespace Windows.Win32.Media.WindowsMediaFormat
- * @version v4.0.30319
  */
-class IWMPacketSize2 extends IWMPacketSize{
+class IWMPacketSize2 extends IWMPacketSize {
 
     static sizeof => A_PtrSize
     /**

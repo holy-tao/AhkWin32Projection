@@ -5,10 +5,8 @@
  * Specifies attributes for a user-mode scheduling (UMS) worker thread.
  * @see https://learn.microsoft.com/windows/win32/api/winnt/ns-winnt-ums_create_thread_attributes
  * @namespace Windows.Win32.System.SystemServices
- * @version v4.0.30319
  */
-class UMS_CREATE_THREAD_ATTRIBUTES extends Win32Struct
-{
+class UMS_CREATE_THREAD_ATTRIBUTES extends Win32Struct {
     static sizeof => 24
 
     static packingSize => 8

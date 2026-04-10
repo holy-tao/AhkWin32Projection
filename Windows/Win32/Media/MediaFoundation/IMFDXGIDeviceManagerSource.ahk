@@ -1,16 +1,15 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
-#Include .\IMFDXGIDeviceManager.ahk
 #Include ..\..\System\Com\IUnknown.ahk
+#Include .\IMFDXGIDeviceManager.ahk
 
 /**
  * Provides functionality for getting the IMFDXGIDeviceManager from the Microsoft Media Foundation video rendering sink.
  * @see https://learn.microsoft.com/windows/win32/medfound/imfdxgidevicemanagersource
  * @namespace Windows.Win32.Media.MediaFoundation
- * @version v4.0.30319
  */
-class IMFDXGIDeviceManagerSource extends IUnknown{
+class IMFDXGIDeviceManagerSource extends IUnknown {
 
     static sizeof => A_PtrSize
     /**

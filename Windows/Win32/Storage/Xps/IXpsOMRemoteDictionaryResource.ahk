@@ -1,16 +1,15 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
-#Include .\IXpsOMDictionary.ahk
 #Include .\IXpsOMResource.ahk
+#Include .\IXpsOMDictionary.ahk
 
 /**
  * Provides an interface that enables pages in an XPS package to share resources.
  * @see https://learn.microsoft.com/windows/win32/api/xpsobjectmodel/nn-xpsobjectmodel-ixpsomremotedictionaryresource
  * @namespace Windows.Win32.Storage.Xps
- * @version v4.0.30319
  */
-class IXpsOMRemoteDictionaryResource extends IXpsOMResource{
+class IXpsOMRemoteDictionaryResource extends IXpsOMResource {
 
     static sizeof => A_PtrSize
     /**

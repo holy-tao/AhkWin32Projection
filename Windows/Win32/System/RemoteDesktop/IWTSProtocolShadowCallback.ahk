@@ -7,9 +7,8 @@
  * IWTSProtocolShadowCallback is no longer available. Instead, use IWRdsProtocolShadowCallback.
  * @see https://learn.microsoft.com/windows/win32/api/wtsprotocol/nn-wtsprotocol-iwtsprotocolshadowcallback
  * @namespace Windows.Win32.System.RemoteDesktop
- * @version v4.0.30319
  */
-class IWTSProtocolShadowCallback extends IUnknown{
+class IWTSProtocolShadowCallback extends IUnknown {
 
     static sizeof => A_PtrSize
     /**

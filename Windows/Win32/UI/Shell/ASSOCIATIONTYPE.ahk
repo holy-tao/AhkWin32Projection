@@ -5,9 +5,8 @@
  * Specifies the type of association for an application. Used by methods of the IApplicationAssociationRegistration interface.
  * @see https://learn.microsoft.com/windows/win32/api/shobjidl_core/ne-shobjidl_core-associationtype
  * @namespace Windows.Win32.UI.Shell
- * @version v4.0.30319
  */
-class ASSOCIATIONTYPE extends Win32Enum{
+class ASSOCIATIONTYPE extends Win32Enum {
 
     /**
      * Indicates a file name extension, such as <c>.htm</code> or <code>.mp3</c>.

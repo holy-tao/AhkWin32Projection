@@ -1,17 +1,16 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
-#Include .\CERT_ALT_NAME_INFO.ahk
 #Include .\CRL_DIST_POINT_NAME.ahk
+#Include .\CERT_ALT_NAME_INFO.ahk
+#Include .\CERT_ALT_NAME_ENTRY.ahk
 #Include .\CRYPT_BIT_BLOB.ahk
 
 /**
  * Contains information about the kinds of certificates listed in a certificate revocation list (CRL).
  * @see https://learn.microsoft.com/windows/win32/api/wincrypt/ns-wincrypt-crl_issuing_dist_point
  * @namespace Windows.Win32.Security.Cryptography
- * @version v4.0.30319
  */
-class CRL_ISSUING_DIST_POINT extends Win32Struct
-{
+class CRL_ISSUING_DIST_POINT extends Win32Struct {
     static sizeof => 64
 
     static packingSize => 8
@@ -21,7 +20,7 @@ class CRL_ISSUING_DIST_POINT extends Win32Struct
      * <a href="https://docs.microsoft.com/windows/desktop/api/wincrypt/ns-wincrypt-crl_dist_point_name">CRL_DIST_POINT_NAME</a> member.
      * @type {CRL_DIST_POINT_NAME}
      */
-    DistPointName{
+    DistPointName {
         get {
             if(!this.HasProp("__DistPointName"))
                 this.__DistPointName := CRL_DIST_POINT_NAME(0, this)
@@ -52,7 +51,7 @@ class CRL_ISSUING_DIST_POINT extends Win32Struct
      * <a href="https://docs.microsoft.com/windows/desktop/api/wincrypt/ns-wincrypt-crypt_bit_blob">CRYPT_BIT_BLOB</a> with bits indicating some reasons for certificate revocation.
      * @type {CRYPT_BIT_BLOB}
      */
-    OnlySomeReasonFlags{
+    OnlySomeReasonFlags {
         get {
             if(!this.HasProp("__OnlySomeReasonFlags"))
                 this.__OnlySomeReasonFlags := CRYPT_BIT_BLOB(32, this)

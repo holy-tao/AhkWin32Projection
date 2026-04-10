@@ -6,10 +6,8 @@
  * The MONITORINFO structure contains information about a display monitor.The GetMonitorInfo function stores information in a MONITORINFO structure or a MONITORINFOEX structure.The MONITORINFO structure is a subset of the MONITORINFOEX structure.
  * @see https://learn.microsoft.com/windows/win32/api/winuser/ns-winuser-monitorinfo
  * @namespace Windows.Win32.Graphics.Gdi
- * @version v4.0.30319
  */
-class MONITORINFO extends Win32Struct
-{
+class MONITORINFO extends Win32Struct {
     static sizeof => 40
 
     static packingSize => 4
@@ -29,7 +27,7 @@ class MONITORINFO extends Win32Struct
      * A <a href="https://docs.microsoft.com/windows/desktop/api/windef/ns-windef-rect">RECT</a> structure that specifies the display monitor rectangle, expressed in virtual-screen coordinates. Note that if the monitor is not the primary display monitor, some of the rectangle's coordinates may be negative values.
      * @type {RECT}
      */
-    rcMonitor{
+    rcMonitor {
         get {
             if(!this.HasProp("__rcMonitor"))
                 this.__rcMonitor := RECT(4, this)
@@ -41,7 +39,7 @@ class MONITORINFO extends Win32Struct
      * A <a href="https://docs.microsoft.com/windows/desktop/api/windef/ns-windef-rect">RECT</a> structure that specifies the work area rectangle of the display monitor, expressed in virtual-screen coordinates. Note that if the monitor is not the primary display monitor, some of the rectangle's coordinates may be negative values.
      * @type {RECT}
      */
-    rcWork{
+    rcWork {
         get {
             if(!this.HasProp("__rcWork"))
                 this.__rcWork := RECT(20, this)

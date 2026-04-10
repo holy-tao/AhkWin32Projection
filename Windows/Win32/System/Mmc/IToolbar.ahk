@@ -7,9 +7,8 @@
  * The IToolbar interface is used to create new toolbars, to add items to them, to extend the toolbars, and to display the resultant new toolbars. Each toolbar is created on its own band within the control bar.
  * @see https://learn.microsoft.com/windows/win32/api/mmc/nn-mmc-itoolbar
  * @namespace Windows.Win32.System.Mmc
- * @version v4.0.30319
  */
-class IToolbar extends IUnknown{
+class IToolbar extends IUnknown {
 
     static sizeof => A_PtrSize
     /**
@@ -91,7 +90,7 @@ class IToolbar extends IUnknown{
     /**
      * Enables a snap-in to obtain an attribute of a button.
      * @param {Integer} idCommand The command identifier of the toolbar button.
-     * @param {Integer} nState A value that identifies the possible states of the button. Can be one of the following:
+     * @param {MMC_BUTTON_STATE} nState A value that identifies the possible states of the button. Can be one of the following:
      * @returns {BOOL} A pointer to the state information that is returned.
      * @see https://learn.microsoft.com/windows/win32/api/mmc/nf-mmc-itoolbar-getbuttonstate
      */
@@ -109,7 +108,7 @@ class IToolbar extends IUnknown{
      * <a href="https://docs.microsoft.com/windows/desktop/api/mmc/nf-mmc-itoolbar-insertbutton">InsertButton</a> or 
      * <a href="https://docs.microsoft.com/windows/desktop/api/mmc/nf-mmc-itoolbar-addbuttons">AddButtons</a> method using the 
      * <a href="https://docs.microsoft.com/windows/desktop/api/mmc/ns-mmc-mmcbutton">MMCBUTTON</a> structure.
-     * @param {Integer} nState A value that specifies the state to be set for the button. Can be any one of the following:
+     * @param {MMC_BUTTON_STATE} nState A value that specifies the state to be set for the button. Can be any one of the following:
      * @param {BOOL} bState A value that specifies whether the state identified in nState is set to <b>TRUE</b> or <b>FALSE</b>. <b>TRUE</b> sets the button state to the state identified by nState and <b>FALSE</b> clears the state (if it is already set).
      * @returns {HRESULT} This method can return one of these values.
      * @see https://learn.microsoft.com/windows/win32/api/mmc/nf-mmc-itoolbar-setbuttonstate

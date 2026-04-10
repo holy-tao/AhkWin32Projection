@@ -3,9 +3,8 @@
 
 /**
  * @namespace Windows.Win32.System.UpdateAgent
- * @version v4.0.30319
  */
-class DownloadType extends Win32Enum{
+class DownloadType extends Win32Enum {
 
     /**
      * @type {Integer (Int32)}

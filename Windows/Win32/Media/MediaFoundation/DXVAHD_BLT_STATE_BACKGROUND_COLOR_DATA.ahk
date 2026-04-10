@@ -1,8 +1,8 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
+#Include .\DXVAHD_COLOR.ahk
 #Include .\DXVAHD_COLOR_RGBA.ahk
 #Include .\DXVAHD_COLOR_YCbCrA.ahk
-#Include .\DXVAHD_COLOR.ahk
 
 /**
  * Specifies the background color for blit operations, when using Microsoft DirectX Video Acceleration High Definition (DXVA-HD).
@@ -16,10 +16,8 @@
  * The default background color is full-range RGB black, with opaque alpha.
  * @see https://learn.microsoft.com/windows/win32/api/dxvahd/ns-dxvahd-dxvahd_blt_state_background_color_data
  * @namespace Windows.Win32.Media.MediaFoundation
- * @version v4.0.30319
  */
-class DXVAHD_BLT_STATE_BACKGROUND_COLOR_DATA extends Win32Struct
-{
+class DXVAHD_BLT_STATE_BACKGROUND_COLOR_DATA extends Win32Struct {
     static sizeof => 36
 
     static packingSize => 4
@@ -37,7 +35,7 @@ class DXVAHD_BLT_STATE_BACKGROUND_COLOR_DATA extends Win32Struct
      * A <a href="https://docs.microsoft.com/windows/win32/api/dxvahd/ns-dxvahd-dxvahd_color">DXVAHD_COLOR</a> union that specifies the background color. The default state value is (0.0, 0.0, 0.0, 1.0).
      * @type {DXVAHD_COLOR}
      */
-    BackgroundColor{
+    BackgroundColor {
         get {
             if(!this.HasProp("__BackgroundColor"))
                 this.__BackgroundColor := DXVAHD_COLOR(4, this)

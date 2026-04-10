@@ -1,14 +1,13 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
+#Include ..\..\Security\SID_AND_ATTRIBUTES.ahk
 
 /**
  * The FWP_TOKEN_INFORMATION structure defines a set of security identifiers that are used for user-mode classification.
  * @see https://learn.microsoft.com/windows/win32/api/fwptypes/ns-fwptypes-fwp_token_information
  * @namespace Windows.Win32.NetworkManagement.WindowsFilteringPlatform
- * @version v4.0.30319
  */
-class FWP_TOKEN_INFORMATION extends Win32Struct
-{
+class FWP_TOKEN_INFORMATION extends Win32Struct {
     static sizeof => 32
 
     static packingSize => 8

@@ -21,9 +21,8 @@
  * Generally, you should persist a filter graph only for testing purposes and not for production. There is no consistently reliable way to reload a filter graph from a file, because the user's hardware and software configurations can change between sessions. Therefore, except for testing, an application should always build a filter graph programmatically.
  * @see https://learn.microsoft.com/windows/win32/api/amxmlgraphbuilder/nn-amxmlgraphbuilder-ixmlgraphbuilder
  * @namespace Windows.Win32.Media.DirectShow.Xml
- * @version v4.0.30319
  */
-class IXMLGraphBuilder extends IUnknown{
+class IXMLGraphBuilder extends IUnknown {
 
     static sizeof => A_PtrSize
     /**

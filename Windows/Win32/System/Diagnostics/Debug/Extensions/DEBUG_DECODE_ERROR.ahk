@@ -3,11 +3,9 @@
 
 /**
  * @namespace Windows.Win32.System.Diagnostics.Debug.Extensions
- * @version v4.0.30319
  */
-class DEBUG_DECODE_ERROR extends Win32Struct
-{
-    static sizeof => 660
+class DEBUG_DECODE_ERROR extends Win32Struct {
+    static sizeof => 336
 
     static packingSize => 4
 
@@ -39,15 +37,15 @@ class DEBUG_DECODE_ERROR extends Win32Struct
      * @type {String}
      */
     Source {
-        get => StrGet(this.ptr + 12, 63, "UTF-16")
-        set => StrPut(value, this.ptr + 12, 63, "UTF-16")
+        get => StrGet(this.ptr + 12, 63, "UTF-8")
+        set => StrPut(value, this.ptr + 12, 63, "UTF-8")
     }
 
     /**
      * @type {String}
      */
     Message {
-        get => StrGet(this.ptr + 140, 259, "UTF-16")
-        set => StrPut(value, this.ptr + 140, 259, "UTF-16")
+        get => StrGet(this.ptr + 76, 259, "UTF-8")
+        set => StrPut(value, this.ptr + 76, 259, "UTF-8")
     }
 }

@@ -5,9 +5,8 @@
  * Specifies the logical screen descriptor properties for Graphics Interchange Format (GIF) metadata.
  * @see https://learn.microsoft.com/windows/win32/api/wincodec/ne-wincodec-wicgiflogicalscreendescriptorproperties
  * @namespace Windows.Win32.Graphics.Imaging
- * @version v4.0.30319
  */
-class WICGifLogicalScreenDescriptorProperties extends Win32Enum{
+class WICGifLogicalScreenDescriptorProperties extends Win32Enum {
 
     /**
      * [VT_UI1 | VT_VECTOR] Indicates the signature property.

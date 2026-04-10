@@ -13,10 +13,8 @@
  * More details can also be found in the *kbd.h*, *ntdd8042.h* and *ntddkbd.h* headers in the Windows SDK, the [USB HID to PS/2 Scan Code Translation Table](https://download.microsoft.com/download/1/6/1/161ba512-40e2-4cc9-843a-923143f3456c/translate.pdf) specification from Microsoft, and the [Keyboard Layout Samples](/samples/microsoft/windows-driver-samples/keyboard-layout-samples/).
  * @see https://learn.microsoft.com/windows/win32/api/ntddkbd/ns-ntddkbd-keyboard_attributes
  * @namespace Windows.Win32.Devices.HumanInterfaceDevice
- * @version v4.0.30319
  */
-class KEYBOARD_ATTRIBUTES extends Win32Struct
-{
+class KEYBOARD_ATTRIBUTES extends Win32Struct {
     static sizeof => 28
 
     static packingSize => 4
@@ -32,7 +30,7 @@ class KEYBOARD_ATTRIBUTES extends Win32Struct
      * ```
      * @type {KEYBOARD_ID}
      */
-    KeyboardIdentifier{
+    KeyboardIdentifier {
         get {
             if(!this.HasProp("__KeyboardIdentifier"))
                 this.__KeyboardIdentifier := KEYBOARD_ID(0, this)
@@ -89,7 +87,7 @@ class KEYBOARD_ATTRIBUTES extends Win32Struct
      * Specifies the minimum possible value for the keyboard typematic rate and delay in a [KEYBOARD_TYPEMATIC_PARAMETERS](ns-ntddkbd-keyboard_typematic_parameters.md) structure.
      * @type {KEYBOARD_TYPEMATIC_PARAMETERS}
      */
-    KeyRepeatMinimum{
+    KeyRepeatMinimum {
         get {
             if(!this.HasProp("__KeyRepeatMinimum"))
                 this.__KeyRepeatMinimum := KEYBOARD_TYPEMATIC_PARAMETERS(16, this)
@@ -101,7 +99,7 @@ class KEYBOARD_ATTRIBUTES extends Win32Struct
      * Specifies the maximum possible value for the keyboard typematic rate and delay in a [KEYBOARD_TYPEMATIC_PARAMETERS](ns-ntddkbd-keyboard_typematic_parameters.md) structure.
      * @type {KEYBOARD_TYPEMATIC_PARAMETERS}
      */
-    KeyRepeatMaximum{
+    KeyRepeatMaximum {
         get {
             if(!this.HasProp("__KeyRepeatMaximum"))
                 this.__KeyRepeatMaximum := KEYBOARD_TYPEMATIC_PARAMETERS(22, this)

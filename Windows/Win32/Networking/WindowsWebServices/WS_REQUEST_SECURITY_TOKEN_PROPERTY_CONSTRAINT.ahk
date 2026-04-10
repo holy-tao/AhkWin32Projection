@@ -1,15 +1,14 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
+#Include .\WS_REQUEST_SECURITY_TOKEN_PROPERTY_ID.ahk
 #Include .\WS_REQUEST_SECURITY_TOKEN_PROPERTY.ahk
 
 /**
  * This structure is used to specify a set of constraints for a particular request security token property. Any property constraints that are not specified will use the default constraints.
  * @see https://learn.microsoft.com/windows/win32/api/webservices/ns-webservices-ws_request_security_token_property_constraint
  * @namespace Windows.Win32.Networking.WindowsWebServices
- * @version v4.0.30319
  */
-class WS_REQUEST_SECURITY_TOKEN_PROPERTY_CONSTRAINT extends Win32Struct
-{
+class WS_REQUEST_SECURITY_TOKEN_PROPERTY_CONSTRAINT extends Win32Struct {
     static sizeof => 48
 
     static packingSize => 8
@@ -21,14 +20,13 @@ class WS_REQUEST_SECURITY_TOKEN_PROPERTY_CONSTRAINT extends Win32Struct
         /**
          * @type {WS_REQUEST_SECURITY_TOKEN_PROPERTY}
          */
-        requestSecurityTokenProperty{
+        requestSecurityTokenProperty {
             get {
                 if(!this.HasProp("__requestSecurityTokenProperty"))
                     this.__requestSecurityTokenProperty := WS_REQUEST_SECURITY_TOKEN_PROPERTY(0, this)
                 return this.__requestSecurityTokenProperty
             }
         }
-    
     }
 
     /**
@@ -53,7 +51,7 @@ class WS_REQUEST_SECURITY_TOKEN_PROPERTY_CONSTRAINT extends Win32Struct
      * 
      * </li>
      * </ul>
-     * @type {Integer}
+     * @type {WS_REQUEST_SECURITY_TOKEN_PROPERTY_ID}
      */
     id {
         get => NumGet(this, 0, "int")
@@ -89,10 +87,10 @@ class WS_REQUEST_SECURITY_TOKEN_PROPERTY_CONSTRAINT extends Win32Struct
      *                     entire contents of this structure will be filled out.
      * @type {_out}
      */
-    out{
+    out {
         get {
             if(!this.HasProp("__out"))
-                this.__out := %this.__Class%._out(24, this)
+                this.__out := WS_REQUEST_SECURITY_TOKEN_PROPERTY_CONSTRAINT._out(24, this)
             return this.__out
         }
     }

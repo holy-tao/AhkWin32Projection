@@ -1,19 +1,18 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
+#Include ..\Com\IDispatch.ahk
 #Include ..\..\Foundation\BSTR.ahk
 #Include .\IGPMGPOLink.ahk
 #Include .\IGPMGPOLinksCollection.ahk
 #Include .\IGPMSecurityInfo.ahk
-#Include ..\Com\IDispatch.ahk
 
 /**
  * The IGPMSOM interface contains methods that allow you to create and retrieve GPO links for a scope of management (SOM), and to set and retrieve security attributes and various properties for a SOM. A SOM can be a site, domain or OU.
  * @see https://learn.microsoft.com/windows/win32/api/gpmgmt/nn-gpmgmt-igpmsom
  * @namespace Windows.Win32.System.GroupPolicy
- * @version v4.0.30319
  */
-class IGPMSOM extends IDispatch{
+class IGPMSOM extends IDispatch {
 
     static sizeof => A_PtrSize
     /**
@@ -63,7 +62,7 @@ class IGPMSOM extends IDispatch{
     }
 
     /**
-     * @type {Integer} 
+     * @type {GPMSOMType} 
      */
     Type {
         get => this.get_Type()
@@ -125,7 +124,7 @@ class IGPMSOM extends IDispatch{
 
     /**
      * 
-     * @returns {Integer} 
+     * @returns {GPMSOMType} 
      */
     get_Type() {
         result := ComCall(12, this, "int*", &pVal := 0, "HRESULT")

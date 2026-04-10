@@ -5,18 +5,16 @@
 
 /**
  * @namespace Windows.Win32.System.RemoteDesktop
- * @version v4.0.30319
  */
-class RFX_GFX_MSG_CLIENT_DESKTOP_INFO_RESPONSE extends Win32Struct
-{
-    static sizeof => 208
+class RFX_GFX_MSG_CLIENT_DESKTOP_INFO_RESPONSE extends Win32Struct {
+    static sizeof => 588
 
-    static packingSize => 8
+    static packingSize => 4
 
     /**
      * @type {RFX_GFX_MSG_HEADER}
      */
-    channelHdr{
+    channelHdr {
         get {
             if(!this.HasProp("__channelHdr"))
                 this.__channelHdr := RFX_GFX_MSG_HEADER(0, this)
@@ -41,12 +39,12 @@ class RFX_GFX_MSG_CLIENT_DESKTOP_INFO_RESPONSE extends Win32Struct
     }
 
     /**
-     * @type {Array<RFX_GFX_MONITOR_INFO>}
+     * @type {RFX_GFX_MONITOR_INFO}
      */
-    MonitorData{
+    MonitorData {
         get {
             if(!this.HasProp("__MonitorDataProxyArray"))
-                this.__MonitorDataProxyArray := Win32FixedArray(this.ptr + 16, 16, RFX_GFX_MONITOR_INFO, "")
+                this.__MonitorDataProxyArray := Win32FixedArray(this.ptr + 12, 16, RFX_GFX_MONITOR_INFO, "")
             return this.__MonitorDataProxyArray
         }
     }
@@ -55,7 +53,7 @@ class RFX_GFX_MSG_CLIENT_DESKTOP_INFO_RESPONSE extends Win32Struct
      * @type {String}
      */
     clientUniqueId {
-        get => StrGet(this.ptr + 144, 31, "UTF-16")
-        set => StrPut(value, this.ptr + 144, 31, "UTF-16")
+        get => StrGet(this.ptr + 524, 31, "UTF-16")
+        set => StrPut(value, this.ptr + 524, 31, "UTF-16")
     }
 }

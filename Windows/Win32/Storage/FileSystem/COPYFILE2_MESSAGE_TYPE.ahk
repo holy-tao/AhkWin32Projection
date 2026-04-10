@@ -9,9 +9,8 @@
  *     <a href="https://docs.microsoft.com/windows/desktop/WinProg/using-the-windows-headers">Using the Windows Headers</a>.
  * @see https://learn.microsoft.com/windows/win32/api/winbase/ne-winbase-copyfile2_message_type
  * @namespace Windows.Win32.Storage.FileSystem
- * @version v4.0.30319
  */
-class COPYFILE2_MESSAGE_TYPE extends Win32Enum{
+class COPYFILE2_MESSAGE_TYPE extends Win32Enum {
 
     /**
      * Not a valid value.
@@ -51,7 +50,6 @@ class COPYFILE2_MESSAGE_TYPE extends Win32Enum{
     static COPYFILE2_CALLBACK_POLL_CONTINUE => 5
 
     /**
-     * 
      * @type {Integer (Int32)}
      */
     static COPYFILE2_CALLBACK_ERROR => 6

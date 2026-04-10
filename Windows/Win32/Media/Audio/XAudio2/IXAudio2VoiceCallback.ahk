@@ -9,9 +9,8 @@
  * Windows 10 (XAudio2.9); Windows 8, Windows Phone 8 (XAudio 2.8); DirectX SDK (XAudio 2.7)
  * @see https://learn.microsoft.com/windows/win32/api/xaudio2/nn-xaudio2-ixaudio2voicecallback
  * @namespace Windows.Win32.Media.Audio.XAudio2
- * @version v4.0.30319
  */
-class IXAudio2VoiceCallback extends Win32ComInterface{
+class IXAudio2VoiceCallback extends Win32ComInterface {
 
     static sizeof => A_PtrSize
 
@@ -193,13 +192,13 @@ class IXAudio2VoiceCallback extends Win32ComInterface{
      * <h3><a id="Platform_Requirements"></a><a id="platform_requirements"></a><a id="PLATFORM_REQUIREMENTS"></a>Platform Requirements</h3>
      * Windows 10 (XAudio2.9); Windows 8, Windows Phone 8 (XAudio 2.8); DirectX SDK (XAudio 2.7)
      * @param {Pointer<Void>} pBufferContext Context pointer that was assigned to the <b>pContext</b> member of the <a href="https://docs.microsoft.com/windows/desktop/api/xaudio2/ns-xaudio2-xaudio2_buffer">XAUDIO2_BUFFER</a> structure when the buffer was submitted.
-     * @param {HRESULT} Error The HRESULT code of the error encountered.
+     * @param {HRESULT} _Error The HRESULT code of the error encountered.
      * @returns {String} Nothing - always returns an empty string
      * @see https://learn.microsoft.com/windows/win32/api/xaudio2/nf-xaudio2-ixaudio2voicecallback-onvoiceerror
      */
-    OnVoiceError(pBufferContext, Error) {
+    OnVoiceError(pBufferContext, _Error) {
         pBufferContextMarshal := pBufferContext is VarRef ? "ptr" : "ptr"
 
-        ComCall(6, this, pBufferContextMarshal, pBufferContext, "int", Error)
+        ComCall(6, this, pBufferContextMarshal, pBufferContext, "int", _Error)
     }
 }

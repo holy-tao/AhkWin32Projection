@@ -5,18 +5,16 @@
 
 /**
  * @namespace Windows.Win32.Devices.Dvd
- * @version v4.0.30319
  */
-class DVD_DISC_CONTROL_BLOCK_SESSION extends Win32Struct
-{
-    static sizeof => 28736
+class DVD_DISC_CONTROL_BLOCK_SESSION extends Win32Struct {
+    static sizeof => 32768
 
-    static packingSize => 8
+    static packingSize => 1
 
     /**
      * @type {DVD_DISC_CONTROL_BLOCK_HEADER}
      */
-    header{
+    header {
         get {
             if(!this.HasProp("__header"))
                 this.__header := DVD_DISC_CONTROL_BLOCK_HEADER(0, this)
@@ -25,9 +23,9 @@ class DVD_DISC_CONTROL_BLOCK_SESSION extends Win32Struct
     }
 
     /**
-     * @type {Array<Byte>}
+     * @type {Array<Integer>}
      */
-    SessionNumber{
+    SessionNumber {
         get {
             if(!this.HasProp("__SessionNumberProxyArray"))
                 this.__SessionNumberProxyArray := Win32FixedArray(this.ptr + 40, 2, Primitive, "char")
@@ -36,9 +34,9 @@ class DVD_DISC_CONTROL_BLOCK_SESSION extends Win32Struct
     }
 
     /**
-     * @type {Array<Byte>}
+     * @type {Array<Integer>}
      */
-    Reserved0{
+    Reserved0 {
         get {
             if(!this.HasProp("__Reserved0ProxyArray"))
                 this.__Reserved0ProxyArray := Win32FixedArray(this.ptr + 42, 22, Primitive, "char")
@@ -47,9 +45,9 @@ class DVD_DISC_CONTROL_BLOCK_SESSION extends Win32Struct
     }
 
     /**
-     * @type {Array<Byte>}
+     * @type {Array<Integer>}
      */
-    DiscID{
+    DiscID {
         get {
             if(!this.HasProp("__DiscIDProxyArray"))
                 this.__DiscIDProxyArray := Win32FixedArray(this.ptr + 64, 32, Primitive, "char")
@@ -58,9 +56,9 @@ class DVD_DISC_CONTROL_BLOCK_SESSION extends Win32Struct
     }
 
     /**
-     * @type {Array<Byte>}
+     * @type {Array<Integer>}
      */
-    Reserved1{
+    Reserved1 {
         get {
             if(!this.HasProp("__Reserved1ProxyArray"))
                 this.__Reserved1ProxyArray := Win32FixedArray(this.ptr + 96, 32, Primitive, "char")
@@ -69,9 +67,9 @@ class DVD_DISC_CONTROL_BLOCK_SESSION extends Win32Struct
     }
 
     /**
-     * @type {Array<DVD_DISC_CONTROL_BLOCK_SESSION_ITEM>}
+     * @type {DVD_DISC_CONTROL_BLOCK_SESSION_ITEM}
      */
-    SessionItem{
+    SessionItem {
         get {
             if(!this.HasProp("__SessionItemProxyArray"))
                 this.__SessionItemProxyArray := Win32FixedArray(this.ptr + 128, 504, DVD_DISC_CONTROL_BLOCK_SESSION_ITEM, "")
@@ -80,12 +78,12 @@ class DVD_DISC_CONTROL_BLOCK_SESSION extends Win32Struct
     }
 
     /**
-     * @type {Array<Byte>}
+     * @type {Array<Integer>}
      */
-    Reserved2{
+    Reserved2 {
         get {
             if(!this.HasProp("__Reserved2ProxyArray"))
-                this.__Reserved2ProxyArray := Win32FixedArray(this.ptr + 4160, 24576, Primitive, "char")
+                this.__Reserved2ProxyArray := Win32FixedArray(this.ptr + 8192, 24576, Primitive, "char")
             return this.__Reserved2ProxyArray
         }
     }

@@ -3,7 +3,6 @@
 
 /**
  * @namespace Windows.Win32.NetworkManagement.WNet
- * @version v4.0.30319
  */
 class WNet {
 
@@ -400,7 +399,7 @@ class WNet {
      * 
      * <b>Windows Me/98/95:  </b>This parameter must be <b>NULL</b> or an empty string.
      * @param {PSTR} lpLocalName A pointer to a constant <b>null</b>-terminated string that specifies the name of a local device to be redirected, such as "F:" or "LPT1". The string is treated in a case-insensitive manner. If the string is <b>NULL</b>, a connection to the network resource is made without redirecting the local device.
-     * @returns {Integer} If the function succeeds, the return value is NO_ERROR.
+     * @returns {WIN32_ERROR} If the function succeeds, the return value is NO_ERROR.
      * 
      * If the function fails, the return value is a 
      * <a href="https://docs.microsoft.com/windows/desktop/Debug/system-error-codes">system error code</a>, such as one of the following values.
@@ -580,7 +579,7 @@ class WNet {
      * 
      * <b>Windows Me/98/95:  </b>This parameter must be <b>NULL</b> or an empty string.
      * @param {PWSTR} lpLocalName A pointer to a constant <b>null</b>-terminated string that specifies the name of a local device to be redirected, such as "F:" or "LPT1". The string is treated in a case-insensitive manner. If the string is <b>NULL</b>, a connection to the network resource is made without redirecting the local device.
-     * @returns {Integer} If the function succeeds, the return value is NO_ERROR.
+     * @returns {WIN32_ERROR} If the function succeeds, the return value is NO_ERROR.
      * 
      * If the function fails, the return value is a 
      * <a href="https://docs.microsoft.com/windows/desktop/Debug/system-error-codes">system error code</a>, such as one of the following values.
@@ -871,7 +870,7 @@ class WNet {
      * <a href="https://docs.microsoft.com/windows/desktop/SecGloss/s-gly">security context</a>. It may be specific to a network provider.
      * 
      * <b>Windows Me/98/95:  </b>This parameter must be <b>NULL</b> or an empty string.
-     * @param {Integer} dwFlags A set of connection options. The possible values for the connection options are defined in the <i>Winnetwk.h</i> header file. 
+     * @param {NET_CONNECT_FLAGS} dwFlags A set of connection options. The possible values for the connection options are defined in the <i>Winnetwk.h</i> header file. 
      * The following values can currently be used.
      * 
      * <table>
@@ -1018,7 +1017,7 @@ class WNet {
      * </td>
      * </tr>
      * </table>
-     * @returns {Integer} If the function succeeds, the return value is NO_ERROR.
+     * @returns {WIN32_ERROR} If the function succeeds, the return value is NO_ERROR.
      * 
      * If the function fails, the return value can be one of the following error codes or one of the 
      * <a href="https://docs.microsoft.com/windows/desktop/Debug/system-error-codes">system error codes</a>.
@@ -1398,7 +1397,7 @@ class WNet {
      * <a href="https://docs.microsoft.com/windows/desktop/SecGloss/s-gly">security context</a>. It may be specific to a network provider.
      * 
      * <b>Windows Me/98/95:  </b>This parameter must be <b>NULL</b> or an empty string.
-     * @param {Integer} dwFlags A set of connection options. The possible values for the connection options are defined in the <i>Winnetwk.h</i> header file. 
+     * @param {NET_CONNECT_FLAGS} dwFlags A set of connection options. The possible values for the connection options are defined in the <i>Winnetwk.h</i> header file. 
      * The following values can currently be used.
      * 
      * <table>
@@ -1545,7 +1544,7 @@ class WNet {
      * </td>
      * </tr>
      * </table>
-     * @returns {Integer} If the function succeeds, the return value is NO_ERROR.
+     * @returns {WIN32_ERROR} If the function succeeds, the return value is NO_ERROR.
      * 
      * If the function fails, the return value can be one of the following error codes or one of the 
      * <a href="https://docs.microsoft.com/windows/desktop/Debug/system-error-codes">system error codes</a>.
@@ -1943,7 +1942,7 @@ class WNet {
      * <a href="https://docs.microsoft.com/windows/desktop/SecGloss/s-gly">security context</a>. It may be specific to a network provider.
      * 
      * <b>Windows Me/98/95:  </b>This parameter must be <b>NULL</b> or an empty string.
-     * @param {Integer} dwFlags A set of connection options. The following values are currently defined.
+     * @param {NET_CONNECT_FLAGS} dwFlags A set of connection options. The following values are currently defined.
      * 
      * <table>
      * <tr>
@@ -2031,7 +2030,7 @@ class WNet {
      * </td>
      * </tr>
      * </table>
-     * @returns {Integer} If the function succeeds, the return value is NO_ERROR.
+     * @returns {WIN32_ERROR} If the function succeeds, the return value is NO_ERROR.
      * 
      * If the function fails, the return value is a 
      * <a href="https://docs.microsoft.com/windows/desktop/Debug/system-error-codes">system error code</a>, such as one of the following values.
@@ -2373,7 +2372,7 @@ class WNet {
      * <a href="https://docs.microsoft.com/windows/desktop/SecGloss/s-gly">security context</a>. It may be specific to a network provider.
      * 
      * <b>Windows Me/98/95:  </b>This parameter must be <b>NULL</b> or an empty string.
-     * @param {Integer} dwFlags A set of connection options. The following values are currently defined.
+     * @param {NET_CONNECT_FLAGS} dwFlags A set of connection options. The following values are currently defined.
      * 
      * <table>
      * <tr>
@@ -2461,7 +2460,7 @@ class WNet {
      * </td>
      * </tr>
      * </table>
-     * @returns {Integer} If the function succeeds, the return value is NO_ERROR.
+     * @returns {WIN32_ERROR} If the function succeeds, the return value is NO_ERROR.
      * 
      * If the function fails, the return value is a 
      * <a href="https://docs.microsoft.com/windows/desktop/Debug/system-error-codes">system error code</a>, such as one of the following values.
@@ -2654,12 +2653,12 @@ class WNet {
      * 
      * @param {HWND} hwndOwner 
      * @param {Pointer<NETRESOURCEA>} lpNetResource 
-     * @param {Pointer} pAuthBuffer 
+     * @param {Integer} pAuthBuffer 
      * @param {Integer} cbAuthBuffer 
-     * @param {Integer} dwFlags 
-     * @param {Pointer} lpUseOptions 
+     * @param {NET_CONNECT_FLAGS} dwFlags 
+     * @param {Integer} lpUseOptions 
      * @param {Integer} cbUseOptions 
-     * @returns {Integer} 
+     * @returns {WIN32_ERROR} 
      */
     static WNetAddConnection4A(hwndOwner, lpNetResource, pAuthBuffer, cbAuthBuffer, dwFlags, lpUseOptions, cbUseOptions) {
         hwndOwner := hwndOwner is Win32Handle ? NumGet(hwndOwner, "ptr") : hwndOwner
@@ -2672,12 +2671,12 @@ class WNet {
      * 
      * @param {HWND} hwndOwner 
      * @param {Pointer<NETRESOURCEW>} lpNetResource 
-     * @param {Pointer} pAuthBuffer 
+     * @param {Integer} pAuthBuffer 
      * @param {Integer} cbAuthBuffer 
-     * @param {Integer} dwFlags 
-     * @param {Pointer} lpUseOptions 
+     * @param {NET_CONNECT_FLAGS} dwFlags 
+     * @param {Integer} lpUseOptions 
      * @param {Integer} cbUseOptions 
-     * @returns {Integer} 
+     * @returns {WIN32_ERROR} 
      */
     static WNetAddConnection4W(hwndOwner, lpNetResource, pAuthBuffer, cbAuthBuffer, dwFlags, lpUseOptions, cbUseOptions) {
         hwndOwner := hwndOwner is Win32Handle ? NumGet(hwndOwner, "ptr") : hwndOwner
@@ -2708,7 +2707,7 @@ class WNet {
      * 
      * When this parameter specifies a redirected local device, the function cancels only the specified device redirection. If the parameter specifies a remote network resource, only the connections to remote networks without devices are canceled.
      * @param {BOOL} fForce Specifies whether or not the disconnection should occur if there are open files or jobs on the connection. If this parameter is <b>FALSE</b>, the function fails if there are open files or jobs.
-     * @returns {Integer} If the function succeeds, the return value is NO_ERROR.
+     * @returns {WIN32_ERROR} If the function succeeds, the return value is NO_ERROR.
      * 
      * If the function fails, the return value is a 
      * <a href="https://docs.microsoft.com/windows/desktop/Debug/system-error-codes">system error code</a>, such as one of the following values.
@@ -2818,7 +2817,7 @@ class WNet {
      * 
      * When this parameter specifies a redirected local device, the function cancels only the specified device redirection. If the parameter specifies a remote network resource, only the connections to remote networks without devices are canceled.
      * @param {BOOL} fForce Specifies whether or not the disconnection should occur if there are open files or jobs on the connection. If this parameter is <b>FALSE</b>, the function fails if there are open files or jobs.
-     * @returns {Integer} If the function succeeds, the return value is NO_ERROR.
+     * @returns {WIN32_ERROR} If the function succeeds, the return value is NO_ERROR.
      * 
      * If the function fails, the return value is a 
      * <a href="https://docs.microsoft.com/windows/desktop/Debug/system-error-codes">system error code</a>, such as one of the following values.
@@ -2920,7 +2919,7 @@ class WNet {
      * 
      * 
      * If  this parameter specifies a redirected local device, the function cancels only the specified device redirection. If the parameter specifies a remote network resource, all connections without devices are canceled.
-     * @param {Integer} dwFlags Connection type. The following values are defined. 
+     * @param {NET_CONNECT_FLAGS} dwFlags Connection type. The following values are defined. 
      * 
      * 
      * 
@@ -2961,7 +2960,7 @@ class WNet {
      * </tr>
      * </table>
      * @param {BOOL} fForce Specifies whether the disconnection should occur if there are open files or jobs on the connection. If this parameter is <b>FALSE</b>, the function fails if there are open files or jobs.
-     * @returns {Integer} If the function succeeds, the return value is NO_ERROR.
+     * @returns {WIN32_ERROR} If the function succeeds, the return value is NO_ERROR.
      * 
      * If the function fails, the return value is a 
      * <a href="https://docs.microsoft.com/windows/desktop/Debug/system-error-codes">system error code</a>, such as one of the following values.
@@ -3063,7 +3062,7 @@ class WNet {
      * 
      * 
      * If  this parameter specifies a redirected local device, the function cancels only the specified device redirection. If the parameter specifies a remote network resource, all connections without devices are canceled.
-     * @param {Integer} dwFlags Connection type. The following values are defined. 
+     * @param {NET_CONNECT_FLAGS} dwFlags Connection type. The following values are defined. 
      * 
      * 
      * 
@@ -3104,7 +3103,7 @@ class WNet {
      * </tr>
      * </table>
      * @param {BOOL} fForce Specifies whether the disconnection should occur if there are open files or jobs on the connection. If this parameter is <b>FALSE</b>, the function fails if there are open files or jobs.
-     * @returns {Integer} If the function succeeds, the return value is NO_ERROR.
+     * @returns {WIN32_ERROR} If the function succeeds, the return value is NO_ERROR.
      * 
      * If the function fails, the return value is a 
      * <a href="https://docs.microsoft.com/windows/desktop/Debug/system-error-codes">system error code</a>, such as one of the following values.
@@ -3207,7 +3206,7 @@ class WNet {
      * @param {PSTR} lpLocalName Pointer to a constant null-terminated string that specifies the name of the local device to get the network name for.
      * @param {PSTR} lpRemoteName Pointer to a null-terminated  string  that receives the remote name used to make the connection.
      * @param {Pointer<Integer>} lpnLength Pointer to a variable that specifies the size of the buffer pointed to by the <i>lpRemoteName</i> parameter, in characters. If the function fails because the buffer is not large enough, this parameter returns the required buffer size.
-     * @returns {Integer} If the function succeeds, the return value is NO_ERROR.
+     * @returns {WIN32_ERROR} If the function succeeds, the return value is NO_ERROR.
      * 
      * If the function fails, the return value is a 
      * <a href="https://docs.microsoft.com/windows/desktop/Debug/system-error-codes">system error code</a>, such as one of the following values.
@@ -3324,7 +3323,7 @@ class WNet {
      * @param {PWSTR} lpLocalName Pointer to a constant null-terminated string that specifies the name of the local device to get the network name for.
      * @param {PWSTR} lpRemoteName Pointer to a null-terminated  string  that receives the remote name used to make the connection.
      * @param {Pointer<Integer>} lpnLength Pointer to a variable that specifies the size of the buffer pointed to by the <i>lpRemoteName</i> parameter, in characters. If the function fails because the buffer is not large enough, this parameter returns the required buffer size.
-     * @returns {Integer} If the function succeeds, the return value is NO_ERROR.
+     * @returns {WIN32_ERROR} If the function succeeds, the return value is NO_ERROR.
      * 
      * If the function fails, the return value is a 
      * <a href="https://docs.microsoft.com/windows/desktop/Debug/system-error-codes">system error code</a>, such as one of the following values.
@@ -3547,7 +3546,7 @@ class WNet {
      * 
      * The user-name string represents a 
      * <a href="https://docs.microsoft.com/windows/desktop/SecGloss/s-gly">security context</a>. It may be specific to a network provider.
-     * @param {Integer} dwFlags 
+     * @param {NET_CONNECT_FLAGS} dwFlags 
      * @param {PSTR} lpAccessName Pointer to a buffer that receives system requests on the connection. This parameter can be <b>NULL</b>. 
      * 
      * 
@@ -3578,7 +3577,7 @@ class WNet {
      * </td>
      * </tr>
      * </table>
-     * @returns {Integer} If the function succeeds, the return value is NO_ERROR.
+     * @returns {WIN32_ERROR} If the function succeeds, the return value is NO_ERROR.
      * 
      * If the function fails, the return value is a 
      * <a href="https://docs.microsoft.com/windows/desktop/Debug/system-error-codes">system error code</a>, such as one of the following values.
@@ -3893,7 +3892,7 @@ class WNet {
      * 
      * The user-name string represents a 
      * <a href="https://docs.microsoft.com/windows/desktop/SecGloss/s-gly">security context</a>. It may be specific to a network provider.
-     * @param {Integer} dwFlags 
+     * @param {NET_CONNECT_FLAGS} dwFlags 
      * @param {PWSTR} lpAccessName Pointer to a buffer that receives system requests on the connection. This parameter can be <b>NULL</b>. 
      * 
      * 
@@ -3924,7 +3923,7 @@ class WNet {
      * </td>
      * </tr>
      * </table>
-     * @returns {Integer} If the function succeeds, the return value is NO_ERROR.
+     * @returns {WIN32_ERROR} If the function succeeds, the return value is NO_ERROR.
      * 
      * If the function fails, the return value is a 
      * <a href="https://docs.microsoft.com/windows/desktop/Debug/system-error-codes">system error code</a>, such as one of the following values.
@@ -4122,15 +4121,15 @@ class WNet {
      * 
      * @param {HWND} hwndOwner 
      * @param {Pointer<NETRESOURCEA>} lpNetResource 
-     * @param {Pointer} pAuthBuffer 
+     * @param {Integer} pAuthBuffer 
      * @param {Integer} cbAuthBuffer 
      * @param {Integer} dwFlags 
-     * @param {Pointer} lpUseOptions 
+     * @param {Integer} lpUseOptions 
      * @param {Integer} cbUseOptions 
      * @param {PSTR} lpAccessName 
      * @param {Pointer<Integer>} lpBufferSize 
      * @param {Pointer<Integer>} lpResult 
-     * @returns {Integer} 
+     * @returns {WIN32_ERROR} 
      */
     static WNetUseConnection4A(hwndOwner, lpNetResource, pAuthBuffer, cbAuthBuffer, dwFlags, lpUseOptions, cbUseOptions, lpAccessName, lpBufferSize, lpResult) {
         hwndOwner := hwndOwner is Win32Handle ? NumGet(hwndOwner, "ptr") : hwndOwner
@@ -4147,15 +4146,15 @@ class WNet {
      * 
      * @param {HWND} hwndOwner 
      * @param {Pointer<NETRESOURCEW>} lpNetResource 
-     * @param {Pointer} pAuthBuffer 
+     * @param {Integer} pAuthBuffer 
      * @param {Integer} cbAuthBuffer 
      * @param {Integer} dwFlags 
-     * @param {Pointer} lpUseOptions 
+     * @param {Integer} lpUseOptions 
      * @param {Integer} cbUseOptions 
      * @param {PWSTR} lpAccessName 
      * @param {Pointer<Integer>} lpBufferSize 
      * @param {Pointer<Integer>} lpResult 
-     * @returns {Integer} 
+     * @returns {WIN32_ERROR} 
      */
     static WNetUseConnection4W(hwndOwner, lpNetResource, pAuthBuffer, cbAuthBuffer, dwFlags, lpUseOptions, cbUseOptions, lpAccessName, lpBufferSize, lpResult) {
         hwndOwner := hwndOwner is Win32Handle ? NumGet(hwndOwner, "ptr") : hwndOwner
@@ -4175,7 +4174,7 @@ class WNet {
      * <b>WNetConnectionDialog</b> function returns.
      * 
      * If the function attempts to make a connection and the network provider returns the message ERROR_INVALID_PASSWORD, the system prompts the user to enter a password. The system uses the new password in another attempt to make the connection.
-     * @param {HWND} _hwnd 
+     * @param {HWND} _hwnd Handle to the owner window for the dialog box.
      * @param {Integer} dwType Resource type to allow connections to. This parameter can be the following value. 
      * 
      * 
@@ -4196,7 +4195,7 @@ class WNet {
      * </td>
      * </tr>
      * </table>
-     * @returns {Integer} If the function succeeds, the return value is NO_ERROR. If the user cancels the dialog box, the function returns –1.
+     * @returns {WIN32_ERROR} If the function succeeds, the return value is NO_ERROR. If the user cancels the dialog box, the function returns –1.
      * 
      * If the function fails, the return value is a 
      * <a href="https://docs.microsoft.com/windows/desktop/Debug/system-error-codes">system error code</a>, such as one of the following values.
@@ -4269,7 +4268,7 @@ class WNet {
      * <b>WNetDisconnectDialog</b> function returns immediately and creates a dialog box for disconnecting networked drives. This dialog box runs asynchronously on a worker thread.
      * 
      * If the worker thread is terminated, the owner window and its associated dialog box are also terminated. If this occurs, the user might not be able to interact with the dialog box, because it will not  appear on the user's screen or will appear briefly.
-     * @param {HWND} _hwnd 
+     * @param {HWND} _hwnd Handle to the owner window for the dialog box.
      * @param {Integer} dwType Resource type to disconnect from. This parameter can have the following value. 
      * 
      * 
@@ -4290,7 +4289,7 @@ class WNet {
      * </td>
      * </tr>
      * </table>
-     * @returns {Integer} If the function succeeds, the return value is NO_ERROR. If the user cancels the dialog box, the return value is –1.
+     * @returns {WIN32_ERROR} If the function succeeds, the return value is NO_ERROR. If the user cancels the dialog box, the return value is –1.
      * 
      * If the function fails, the return value is a 
      * <a href="https://docs.microsoft.com/windows/desktop/Debug/system-error-codes">system error code</a>, such as one of the following values.
@@ -4352,7 +4351,7 @@ class WNet {
      * > The winnetwk.h header defines WNetConnectionDialog1 as an alias which automatically selects the ANSI or Unicode version of this function based on the definition of the UNICODE preprocessor constant. Mixing usage of the encoding-neutral alias with code that not encoding-neutral can lead to mismatches that result in compilation or runtime errors. For more information, see [Conventions for Function Prototypes](/windows/win32/intl/conventions-for-function-prototypes).
      * @param {Pointer<CONNECTDLGSTRUCTA>} lpConnDlgStruct Pointer to a 
      * <b>CONNECTDLGSTRUCT</b> structure. The structure establishes the browsing dialog parameters.
-     * @returns {Integer} If the user cancels the dialog box, the function returns –1. If the function is successful, it returns NO_ERROR. Also, if the call is successful, the <b>dwDevNum</b> member of the 
+     * @returns {WIN32_ERROR} If the user cancels the dialog box, the function returns –1. If the function is successful, it returns NO_ERROR. Also, if the call is successful, the <b>dwDevNum</b> member of the 
      * <b>CONNECTDLGSTRUCT</b> structure contains the number of the connected device.
      * 
      * Typically this dialog returns an error only if the user cannot enter a dialog session. This is because errors that occur after a dialog session are reported to the user directly. If the function fails, the return value is a 
@@ -4462,7 +4461,7 @@ class WNet {
      * > The winnetwk.h header defines WNetConnectionDialog1 as an alias which automatically selects the ANSI or Unicode version of this function based on the definition of the UNICODE preprocessor constant. Mixing usage of the encoding-neutral alias with code that not encoding-neutral can lead to mismatches that result in compilation or runtime errors. For more information, see [Conventions for Function Prototypes](/windows/win32/intl/conventions-for-function-prototypes).
      * @param {Pointer<CONNECTDLGSTRUCTW>} lpConnDlgStruct Pointer to a 
      * <b>CONNECTDLGSTRUCT</b> structure. The structure establishes the browsing dialog parameters.
-     * @returns {Integer} If the user cancels the dialog box, the function returns –1. If the function is successful, it returns NO_ERROR. Also, if the call is successful, the <b>dwDevNum</b> member of the 
+     * @returns {WIN32_ERROR} If the user cancels the dialog box, the function returns –1. If the function is successful, it returns NO_ERROR. Also, if the call is successful, the <b>dwDevNum</b> member of the 
      * <b>CONNECTDLGSTRUCT</b> structure contains the number of the connected device.
      * 
      * Typically this dialog returns an error only if the user cannot enter a dialog session. This is because errors that occur after a dialog session are reported to the user directly. If the function fails, the return value is a 
@@ -4572,7 +4571,7 @@ class WNet {
      * > The winnetwk.h header defines WNetDisconnectDialog1 as an alias which automatically selects the ANSI or Unicode version of this function based on the definition of the UNICODE preprocessor constant. Mixing usage of the encoding-neutral alias with code that not encoding-neutral can lead to mismatches that result in compilation or runtime errors. For more information, see [Conventions for Function Prototypes](/windows/win32/intl/conventions-for-function-prototypes).
      * @param {Pointer<DISCDLGSTRUCTA>} lpConnDlgStruct Pointer to a 
      * <b>DISCDLGSTRUCT</b> structure. The structure specifies the behavior for the disconnect attempt.
-     * @returns {Integer} If the function succeeds, the return value is NO_ERROR. If the user cancels the dialog box, the return value is –1.
+     * @returns {WIN32_ERROR} If the function succeeds, the return value is NO_ERROR. If the user cancels the dialog box, the return value is –1.
      * 
      * If the function fails, the return value is a 
      * <a href="https://docs.microsoft.com/windows/desktop/Debug/system-error-codes">system error code</a>, such as one of the following values.
@@ -4665,7 +4664,7 @@ class WNet {
      * > The winnetwk.h header defines WNetDisconnectDialog1 as an alias which automatically selects the ANSI or Unicode version of this function based on the definition of the UNICODE preprocessor constant. Mixing usage of the encoding-neutral alias with code that not encoding-neutral can lead to mismatches that result in compilation or runtime errors. For more information, see [Conventions for Function Prototypes](/windows/win32/intl/conventions-for-function-prototypes).
      * @param {Pointer<DISCDLGSTRUCTW>} lpConnDlgStruct Pointer to a 
      * <b>DISCDLGSTRUCT</b> structure. The structure specifies the behavior for the disconnect attempt.
-     * @returns {Integer} If the function succeeds, the return value is NO_ERROR. If the user cancels the dialog box, the return value is –1.
+     * @returns {WIN32_ERROR} If the function succeeds, the return value is NO_ERROR. If the user cancels the dialog box, the return value is –1.
      * 
      * If the function fails, the return value is a 
      * <a href="https://docs.microsoft.com/windows/desktop/Debug/system-error-codes">system error code</a>, such as one of the following values.
@@ -4777,9 +4776,9 @@ class WNet {
      *     LASERJET (print) 
      * 
      * ```
-     * @param {Integer} dwScope 
-     * @param {Integer} dwType 
-     * @param {Integer} dwUsage 
+     * @param {NET_RESOURCE_SCOPE} dwScope 
+     * @param {NET_RESOURCE_TYPE} dwType 
+     * @param {WNET_OPEN_ENUM_USAGE} dwUsage 
      * @param {Pointer<NETRESOURCEA>} lpNetResource Pointer to a 
      * <a href="https://docs.microsoft.com/windows/desktop/api/winnetwk/ns-winnetwk-netresourcea">NETRESOURCE</a> structure that specifies the container to enumerate. If the <i>dwScope</i> parameter is not RESOURCE_GLOBALNET, this parameter must be <b>NULL</b>. 
      * 
@@ -4801,7 +4800,7 @@ class WNet {
      * <b>WNetOpenEnum</b> to open the resource for further enumeration.
      * @param {Pointer<HANDLE>} lphEnum Pointer to an enumeration handle that can be used in a subsequent call to 
      * <a href="https://docs.microsoft.com/windows/desktop/api/winnetwk/nf-winnetwk-wnetenumresourcea">WNetEnumResource</a>.
-     * @returns {Integer} If the function succeeds, the return value is NO_ERROR.
+     * @returns {WIN32_ERROR} If the function succeeds, the return value is NO_ERROR.
      * 
      * If the function fails, the return value is a 
      * <a href="https://docs.microsoft.com/windows/desktop/Debug/system-error-codes">system error code</a>, such as one of the following values.
@@ -4902,9 +4901,9 @@ class WNet {
      *     LASERJET (print) 
      * 
      * ```
-     * @param {Integer} dwScope 
-     * @param {Integer} dwType 
-     * @param {Integer} dwUsage 
+     * @param {NET_RESOURCE_SCOPE} dwScope 
+     * @param {NET_RESOURCE_TYPE} dwType 
+     * @param {WNET_OPEN_ENUM_USAGE} dwUsage 
      * @param {Pointer<NETRESOURCEW>} lpNetResource Pointer to a 
      * <a href="https://docs.microsoft.com/windows/desktop/api/winnetwk/ns-winnetwk-netresourcew">NETRESOURCE</a> structure that specifies the container to enumerate. If the <i>dwScope</i> parameter is not RESOURCE_GLOBALNET, this parameter must be <b>NULL</b>. 
      * 
@@ -4926,7 +4925,7 @@ class WNet {
      * <b>WNetOpenEnum</b> to open the resource for further enumeration.
      * @param {Pointer<HANDLE>} lphEnum Pointer to an enumeration handle that can be used in a subsequent call to 
      * <a href="https://docs.microsoft.com/windows/desktop/api/winnetwk/nf-winnetwk-wnetenumresourcea">WNetEnumResource</a>.
-     * @returns {Integer} If the function succeeds, the return value is NO_ERROR.
+     * @returns {WIN32_ERROR} If the function succeeds, the return value is NO_ERROR.
      * 
      * If the function fails, the return value is a 
      * <a href="https://docs.microsoft.com/windows/desktop/Debug/system-error-codes">system error code</a>, such as one of the following values.
@@ -5018,7 +5017,7 @@ class WNet {
      * 
      * 
      * If the function succeeds, on return the variable pointed to by this parameter contains the number of entries actually read.
-     * @param {Pointer} lpBuffer Pointer to the buffer that receives the enumeration results. The results are returned as an array of 
+     * @param {Integer} lpBuffer Pointer to the buffer that receives the enumeration results. The results are returned as an array of 
      * <a href="https://docs.microsoft.com/windows/win32/api/winnetwk/ns-winnetwk-netresourcea">NETRESOURCE</a> structures. Note that the buffer you allocate must be large enough to hold the structures, plus the strings to which their members point. For more information, see the following Remarks section. 
      * 
      * 
@@ -5027,7 +5026,7 @@ class WNet {
      * The buffer is valid until the next call using the handle specified by the <i>hEnum</i> parameter. The order of 
      * <b>NETRESOURCE</b> structures in the array is not predictable.
      * @param {Pointer<Integer>} lpBufferSize Pointer to a variable that specifies the size of the <i>lpBuffer</i> parameter, in bytes. If the buffer is too small to receive even one entry, this parameter receives the required size of the buffer.
-     * @returns {Integer} If the function succeeds, the return value is one of the following values.
+     * @returns {WIN32_ERROR} If the function succeeds, the return value is one of the following values.
      * 
      * <table>
      * <tr>
@@ -5144,7 +5143,7 @@ class WNet {
      * 
      * 
      * If the function succeeds, on return the variable pointed to by this parameter contains the number of entries actually read.
-     * @param {Pointer} lpBuffer Pointer to the buffer that receives the enumeration results. The results are returned as an array of 
+     * @param {Integer} lpBuffer Pointer to the buffer that receives the enumeration results. The results are returned as an array of 
      * <a href="https://docs.microsoft.com/windows/desktop/api/rrascfg/nn-rrascfg-ieapproviderconfig">NETRESOURCE</a> structures. Note that the buffer you allocate must be large enough to hold the structures, plus the strings to which their members point. For more information, see the following Remarks section. 
      * 
      * 
@@ -5153,7 +5152,7 @@ class WNet {
      * The buffer is valid until the next call using the handle specified by the <i>hEnum</i> parameter. The order of 
      * <b>NETRESOURCE</b> structures in the array is not predictable.
      * @param {Pointer<Integer>} lpBufferSize Pointer to a variable that specifies the size of the <i>lpBuffer</i> parameter, in bytes. If the buffer is too small to receive even one entry, this parameter receives the required size of the buffer.
-     * @returns {Integer} If the function succeeds, the return value is one of the following values.
+     * @returns {WIN32_ERROR} If the function succeeds, the return value is one of the following values.
      * 
      * <table>
      * <tr>
@@ -5257,7 +5256,7 @@ class WNet {
      * The WNetCloseEnum function ends a network resource enumeration started by a call to the WNetOpenEnum function.
      * @param {HANDLE} hEnum Handle that identifies an enumeration instance. This handle must be returned by the 
      * <b>WNetOpenEnum</b> function.
-     * @returns {Integer} If the function succeeds, the return value is NO_ERROR.
+     * @returns {WIN32_ERROR} If the function succeeds, the return value is NO_ERROR.
      * 
      * If the function fails, the return value is a 
      * <a href="https://docs.microsoft.com/windows/desktop/Debug/system-error-codes">system error code</a>, such as one of the following values.
@@ -5391,7 +5390,7 @@ class WNet {
      * 
      * All other members of the 
      * <b>NETRESOURCE</b> structure are ignored.
-     * @param {Pointer} lpBuffer Pointer to a buffer to receive a single 
+     * @param {Integer} lpBuffer Pointer to a buffer to receive a single 
      * <b>NETRESOURCE</b> structure that represents the parent resource. The function returns the <b>lpRemoteName</b>, <b>lpProvider</b>, <b>dwType</b>, <b>dwDisplayType</b>, and <b>dwUsage</b> members of the structure; all other members are set to <b>NULL</b>. 
      * 
      * 
@@ -5404,7 +5403,7 @@ class WNet {
      * 
      * The presence of the RESOURCEUSAGE_CONNECTABLE bit in the <b>dwUsage</b> member indicates that you can connect to the parent resource, but only when it is available on the network.
      * @param {Pointer<Integer>} lpcbBuffer Pointer to a location that, on entry, specifies the size of the <i>lpBuffer</i> buffer, in bytes. If the buffer is too small to hold the result, this location receives the required buffer size, and the function returns ERROR_MORE_DATA.
-     * @returns {Integer} If the function succeeds, the return value is NO_ERROR.
+     * @returns {WIN32_ERROR} If the function succeeds, the return value is NO_ERROR.
      * 
      * If the function fails, the return value is a 
      * <a href="https://docs.microsoft.com/windows/desktop/Debug/system-error-codes">system error code</a>, such as one of the following values.
@@ -5559,7 +5558,7 @@ class WNet {
      * 
      * All other members of the 
      * <b>NETRESOURCE</b> structure are ignored.
-     * @param {Pointer} lpBuffer Pointer to a buffer to receive a single 
+     * @param {Integer} lpBuffer Pointer to a buffer to receive a single 
      * <b>NETRESOURCE</b> structure that represents the parent resource. The function returns the <b>lpRemoteName</b>, <b>lpProvider</b>, <b>dwType</b>, <b>dwDisplayType</b>, and <b>dwUsage</b> members of the structure; all other members are set to <b>NULL</b>. 
      * 
      * 
@@ -5572,7 +5571,7 @@ class WNet {
      * 
      * The presence of the RESOURCEUSAGE_CONNECTABLE bit in the <b>dwUsage</b> member indicates that you can connect to the parent resource, but only when it is available on the network.
      * @param {Pointer<Integer>} lpcbBuffer Pointer to a location that, on entry, specifies the size of the <i>lpBuffer</i> buffer, in bytes. If the buffer is too small to hold the result, this location receives the required buffer size, and the function returns ERROR_MORE_DATA.
-     * @returns {Integer} If the function succeeds, the return value is NO_ERROR.
+     * @returns {WIN32_ERROR} If the function succeeds, the return value is NO_ERROR.
      * 
      * If the function fails, the return value is a 
      * <a href="https://docs.microsoft.com/windows/desktop/Debug/system-error-codes">system error code</a>, such as one of the following values.
@@ -5661,7 +5660,7 @@ class WNet {
      * 
      * The <b>lpRemoteName</b> member of the structure should specify the remote path name of the resource, typically one typed in by a user. The <b>lpProvider</b> and <b>dwType</b> members should also be filled in if known, because this operation can be memory intensive, especially if you do not specify the <b>dwType</b> member. If you do not know the values for these members, you should set them to <b>NULL</b>. All other members of the 
      * <b>NETRESOURCE</b> structure are ignored.
-     * @param {Pointer} lpBuffer Pointer to the buffer to receive the result. On successful return, the first portion of the buffer is a 
+     * @param {Integer} lpBuffer Pointer to the buffer to receive the result. On successful return, the first portion of the buffer is a 
      * <a href="https://docs.microsoft.com/windows/desktop/api/winnetwk/ns-winnetwk-netresourcea">NETRESOURCE</a> structure representing that portion of the input resource path that is accessed through the WNet functions, rather than through system functions specific to the input resource type. (The remainder of the buffer contains the variable-length strings to which the members of the 
      * <b>NETRESOURCE</b> structure point.) 
      * 
@@ -5686,7 +5685,7 @@ class WNet {
      * 
      * For example, if the input remote resource name is \\server\share\dir1\dir2, the <b>lpRemoteName</b> member of the output 
      * <a href="https://docs.microsoft.com/windows/desktop/api/winnetwk/ns-winnetwk-netresourcea">NETRESOURCE</a> structure points to \\server\share. Also, the <i>lplpSystem</i> parameter points to \dir1\dir2. Both strings are stored in the buffer pointed to by the <i>lpBuffer</i> parameter.
-     * @returns {Integer} If the function succeeds, the return value is NO_ERROR.
+     * @returns {WIN32_ERROR} If the function succeeds, the return value is NO_ERROR.
      * 
      * If the function fails, the return value is a 
      * <a href="https://docs.microsoft.com/windows/desktop/Debug/system-error-codes">system error code</a>, such as one of the following values.
@@ -5777,7 +5776,7 @@ class WNet {
      * 
      * The <b>lpRemoteName</b> member of the structure should specify the remote path name of the resource, typically one typed in by a user. The <b>lpProvider</b> and <b>dwType</b> members should also be filled in if known, because this operation can be memory intensive, especially if you do not specify the <b>dwType</b> member. If you do not know the values for these members, you should set them to <b>NULL</b>. All other members of the 
      * <b>NETRESOURCE</b> structure are ignored.
-     * @param {Pointer} lpBuffer Pointer to the buffer to receive the result. On successful return, the first portion of the buffer is a 
+     * @param {Integer} lpBuffer Pointer to the buffer to receive the result. On successful return, the first portion of the buffer is a 
      * <a href="https://docs.microsoft.com/windows/desktop/api/winnetwk/ns-winnetwk-netresourcew">NETRESOURCE</a> structure representing that portion of the input resource path that is accessed through the WNet functions, rather than through system functions specific to the input resource type. (The remainder of the buffer contains the variable-length strings to which the members of the 
      * <b>NETRESOURCE</b> structure point.) 
      * 
@@ -5802,7 +5801,7 @@ class WNet {
      * 
      * For example, if the input remote resource name is \\server\share\dir1\dir2, the <b>lpRemoteName</b> member of the output 
      * <a href="https://docs.microsoft.com/windows/desktop/api/winnetwk/ns-winnetwk-netresourcew">NETRESOURCE</a> structure points to \\server\share. Also, the <i>lplpSystem</i> parameter points to \dir1\dir2. Both strings are stored in the buffer pointed to by the <i>lpBuffer</i> parameter.
-     * @returns {Integer} If the function succeeds, the return value is NO_ERROR.
+     * @returns {WIN32_ERROR} If the function succeeds, the return value is NO_ERROR.
      * 
      * If the function fails, the return value is a 
      * <a href="https://docs.microsoft.com/windows/desktop/Debug/system-error-codes">system error code</a>, such as one of the following values.
@@ -5926,12 +5925,12 @@ class WNet {
      * 
      * 
      * For example, if drive H has been mapped to a network drive share, and the network       resource of interest is a file named Sample.doc in the directory \Win32\Examples on that share, the drive-based path is H:\Win32\Examples\Sample.doc.
-     * @param {Integer} dwInfoLevel 
-     * @param {Pointer} lpBuffer A pointer to a buffer that receives the structure specified by the <i>dwInfoLevel</i> parameter.
+     * @param {UNC_INFO_LEVEL} dwInfoLevel 
+     * @param {Integer} lpBuffer A pointer to a buffer that receives the structure specified by the <i>dwInfoLevel</i> parameter.
      * @param {Pointer<Integer>} lpBufferSize A pointer to a variable that specifies the size, in bytes, of the buffer pointed to by the <i>lpBuffer</i> parameter.
      * 
      * If the function succeeds, it sets the variable pointed to by <i>lpBufferSize</i> to the number of bytes stored in the buffer. If the function fails because the buffer is too small, this location receives the required buffer size, and the function returns ERROR_MORE_DATA.
-     * @returns {Integer} If the function succeeds, the return value is NO_ERROR.
+     * @returns {WIN32_ERROR} If the function succeeds, the return value is NO_ERROR.
      * 
      * If the function fails, the return value is a 
      * <a href="https://docs.microsoft.com/windows/desktop/Debug/system-error-codes">system error code</a>, such as one of the following values.
@@ -6089,12 +6088,12 @@ class WNet {
      * 
      * 
      * For example, if drive H has been mapped to a network drive share, and the network       resource of interest is a file named Sample.doc in the directory \Win32\Examples on that share, the drive-based path is H:\Win32\Examples\Sample.doc.
-     * @param {Integer} dwInfoLevel 
-     * @param {Pointer} lpBuffer A pointer to a buffer that receives the structure specified by the <i>dwInfoLevel</i> parameter.
+     * @param {UNC_INFO_LEVEL} dwInfoLevel 
+     * @param {Integer} lpBuffer A pointer to a buffer that receives the structure specified by the <i>dwInfoLevel</i> parameter.
      * @param {Pointer<Integer>} lpBufferSize A pointer to a variable that specifies the size, in bytes, of the buffer pointed to by the <i>lpBuffer</i> parameter.
      * 
      * If the function succeeds, it sets the variable pointed to by <i>lpBufferSize</i> to the number of bytes stored in the buffer. If the function fails because the buffer is too small, this location receives the required buffer size, and the function returns ERROR_MORE_DATA.
-     * @returns {Integer} If the function succeeds, the return value is NO_ERROR.
+     * @returns {WIN32_ERROR} If the function succeeds, the return value is NO_ERROR.
      * 
      * If the function fails, the return value is a 
      * <a href="https://docs.microsoft.com/windows/desktop/Debug/system-error-codes">system error code</a>, such as one of the following values.
@@ -6215,7 +6214,7 @@ class WNet {
      * If this parameter is <b>NULL</b> or the empty string, the system returns the name of the current user for the process.
      * @param {PSTR} lpUserName A pointer to a buffer that receives the <b>null</b>-terminated user name.
      * @param {Pointer<Integer>} lpnLength A pointer to a variable that specifies the size of the <i>lpUserName</i> buffer, in characters. If the call fails because the buffer is not large enough, this variable contains the required buffer size.
-     * @returns {Integer} If the function succeeds, the return value is NO_ERROR.
+     * @returns {WIN32_ERROR} If the function succeeds, the return value is NO_ERROR.
      * 
      * If the function fails, the return value is a 
      * <a href="https://docs.microsoft.com/windows/desktop/Debug/system-error-codes">system error code</a>, such as one of the following values.
@@ -6304,7 +6303,7 @@ class WNet {
      * If this parameter is <b>NULL</b> or the empty string, the system returns the name of the current user for the process.
      * @param {PWSTR} lpUserName A pointer to a buffer that receives the <b>null</b>-terminated user name.
      * @param {Pointer<Integer>} lpnLength A pointer to a variable that specifies the size of the <i>lpUserName</i> buffer, in characters. If the call fails because the buffer is not large enough, this variable contains the required buffer size.
-     * @returns {Integer} If the function succeeds, the return value is NO_ERROR.
+     * @returns {WIN32_ERROR} If the function succeeds, the return value is NO_ERROR.
      * 
      * If the function fails, the return value is a 
      * <a href="https://docs.microsoft.com/windows/desktop/Debug/system-error-codes">system error code</a>, such as one of the following values.
@@ -6402,7 +6401,7 @@ class WNet {
      * 
      * 
      * <b>Windows Me/98/95:  </b>The size of the buffer is in bytes, not characters. Also, the buffer must be at least 1 byte long.
-     * @returns {Integer} If the function succeeds, the return value is NO_ERROR.
+     * @returns {WIN32_ERROR} If the function succeeds, the return value is NO_ERROR.
      * 
      * If the function fails, the return value is a 
      * <a href="https://docs.microsoft.com/windows/desktop/Debug/system-error-codes">system error code</a>, such as one of the following values.
@@ -6476,7 +6475,7 @@ class WNet {
      * 
      * 
      * <b>Windows Me/98/95:  </b>The size of the buffer is in bytes, not characters. Also, the buffer must be at least 1 byte long.
-     * @returns {Integer} If the function succeeds, the return value is NO_ERROR.
+     * @returns {WIN32_ERROR} If the function succeeds, the return value is NO_ERROR.
      * 
      * If the function fails, the return value is a 
      * <a href="https://docs.microsoft.com/windows/desktop/Debug/system-error-codes">system error code</a>, such as one of the following values.
@@ -6540,7 +6539,7 @@ class WNet {
      * @param {PSTR} lpProvider Pointer to a constant null-terminated string that contains the name of the network provider for which information is required.
      * @param {Pointer<NETINFOSTRUCT>} lpNetInfoStruct Pointer to a 
      * <a href="https://docs.microsoft.com/windows/desktop/api/winnetwk/ns-winnetwk-netinfostruct">NETINFOSTRUCT</a> structure. The structure describes characteristics of the network.
-     * @returns {Integer} If the function succeeds, the return value is NO_ERROR.
+     * @returns {WIN32_ERROR} If the function succeeds, the return value is NO_ERROR.
      * 
      * If the function fails, the return value is a 
      * <a href="https://docs.microsoft.com/windows/desktop/Debug/system-error-codes">system error code</a>, such as one of the following values.
@@ -6592,7 +6591,7 @@ class WNet {
      * @param {PWSTR} lpProvider Pointer to a constant null-terminated string that contains the name of the network provider for which information is required.
      * @param {Pointer<NETINFOSTRUCT>} lpNetInfoStruct Pointer to a 
      * <a href="https://docs.microsoft.com/windows/desktop/api/winnetwk/ns-winnetwk-netinfostruct">NETINFOSTRUCT</a> structure. The structure describes characteristics of the network.
-     * @returns {Integer} If the function succeeds, the return value is NO_ERROR.
+     * @returns {WIN32_ERROR} If the function succeeds, the return value is NO_ERROR.
      * 
      * If the function fails, the return value is a 
      * <a href="https://docs.microsoft.com/windows/desktop/Debug/system-error-codes">system error code</a>, such as one of the following values.
@@ -6663,7 +6662,7 @@ class WNet {
      * @param {Integer} nErrorBufSize Size of the buffer pointed to by the <i>lpErrorBuf</i> parameter, in characters. If the buffer is too small for the error string, the string is truncated but still null-terminated. A buffer of at least 256 characters is recommended.
      * @param {PSTR} lpNameBuf Pointer to the buffer that receives the null-terminated string identifying the network provider that raised the error.
      * @param {Integer} nNameBufSize Size of the buffer pointed to by the <i>lpNameBuf</i> parameter, in characters. If the buffer is too small for the error string, the string is truncated but still null-terminated.
-     * @returns {Integer} If the function succeeds, and it obtains the last error that the network provider reported, the return value is NO_ERROR.
+     * @returns {WIN32_ERROR} If the function succeeds, and it obtains the last error that the network provider reported, the return value is NO_ERROR.
      * 
      * If the caller supplies an invalid buffer, the return value is ERROR_INVALID_ADDRESS.
      * @see https://learn.microsoft.com/windows/win32/api/winnetwk/nf-winnetwk-wnetgetlasterrora
@@ -6712,7 +6711,7 @@ class WNet {
      * @param {Integer} nErrorBufSize Size of the buffer pointed to by the <i>lpErrorBuf</i> parameter, in characters. If the buffer is too small for the error string, the string is truncated but still null-terminated. A buffer of at least 256 characters is recommended.
      * @param {PWSTR} lpNameBuf Pointer to the buffer that receives the null-terminated string identifying the network provider that raised the error.
      * @param {Integer} nNameBufSize Size of the buffer pointed to by the <i>lpNameBuf</i> parameter, in characters. If the buffer is too small for the error string, the string is truncated but still null-terminated.
-     * @returns {Integer} If the function succeeds, and it obtains the last error that the network provider reported, the return value is NO_ERROR.
+     * @returns {WIN32_ERROR} If the function succeeds, and it obtains the last error that the network provider reported, the return value is NO_ERROR.
      * 
      * If the caller supplies an invalid buffer, the return value is ERROR_INVALID_ADDRESS.
      * @see https://learn.microsoft.com/windows/win32/api/winnetwk/nf-winnetwk-wnetgetlasterrorw
@@ -7300,7 +7299,7 @@ class WNet {
      * </table>
      * @param {PWSTR} lpPassword Pointer to the password to be used in making the connection, normally the password associated with <i>lpUserName</i>. The <b>NULL</b> value may be passed in to cause the function to use the default password. An empty string may be used to indicate no password. When you have finished using the password, clear it from memory by calling the <a href="https://docs.microsoft.com/previous-versions/windows/desktop/legacy/aa366877(v=vs.85)">SecureZeroMemory</a> function. For more information about protecting the password, see <a href="https://docs.microsoft.com/windows/desktop/SecBP/handling-passwords">Handling Passwords</a>.
      * @param {PWSTR} lpUserName Pointer to the user name used to make the connection. If <b>NULL</b>, the default user name (that of the currently logged-on user) is applied. This is used when the user wants to connect to a resource but has a different assigned user name or account for that resource.
-     * @param {Integer} dwFlags 
+     * @param {NET_CONNECT_FLAGS} dwFlags 
      * @returns {Integer} If the function succeeds, it will return WN_SUCCESS. Otherwise, it will return an error code. This may include one of the following.
      * 
      * <table>
@@ -7402,10 +7401,10 @@ class WNet {
      * 
      * @param {HWND} hwndOwner 
      * @param {Pointer<NETRESOURCEW>} lpNetResource 
-     * @param {Pointer} lpAuthBuffer 
+     * @param {Integer} lpAuthBuffer 
      * @param {Integer} cbAuthBuffer 
      * @param {Integer} dwFlags 
-     * @param {Pointer} lpUseOptions 
+     * @param {Integer} lpUseOptions 
      * @param {Integer} cbUseOptions 
      * @returns {Integer} 
      */
@@ -7569,7 +7568,7 @@ class WNet {
      * </td>
      * </tr>
      * </table>
-     * @param {Pointer} lpBuffer Void pointer that receives a buffer that contains the requested information.
+     * @param {Integer} lpBuffer Void pointer that receives a buffer that contains the requested information.
      * @param {Pointer<Integer>} lpBufferSize Pointer to the size, in characters, of the <i>lpBuffer</i> buffer. If the call fails because the buffer is not big enough, <i>lpBufferSize</i> is set to the required buffer size.
      * @returns {Integer} If the function succeeds, it should return WN_SUCCESS.
      * 					
@@ -7630,8 +7629,8 @@ class WNet {
     /**
      * Retrieves the universal name of a network resource. The NPGetUniversalName function can retrieve this universal name in UNC format or in the older, remote-name format.
      * @param {PWSTR} lpLocalPath Pointer to the local path of an object on a network resource. This is a drive-based path.
-     * @param {Integer} dwInfoLevel 
-     * @param {Pointer} lpBuffer Pointer to a buffer to receive the information the user has requested. The specific structure returned depends on the information level specified in <i>dwInfoLevel</i>.
+     * @param {UNC_INFO_LEVEL} dwInfoLevel 
+     * @param {Integer} lpBuffer Pointer to a buffer to receive the information the user has requested. The specific structure returned depends on the information level specified in <i>dwInfoLevel</i>.
      * @param {Pointer<Integer>} lpBufferSize Pointer to the size, in bytes, of the <i>lpBuffer</i> buffer. If the call fails because the buffer is not big enough, this location will be used to return the required buffer size.
      * @returns {Integer} If the function succeeds, it should return WN_SUCCESS. Otherwise, it should return an error code, which may be one of the following.
      * 
@@ -7940,7 +7939,7 @@ class WNet {
      * @param {HANDLE} hEnum Handle obtained from an 
      * <a href="https://docs.microsoft.com/windows/desktop/api/npapi/nf-npapi-npopenenum">NPOpenEnum</a> call.
      * @param {Pointer<Integer>} lpcCount Pointer to the number of entries requested. It may be 0xFFFFFFFF to request as many entries as possible. If the call succeeds, this location will receive the number of entries actually read.
-     * @param {Pointer} lpBuffer Pointer to the buffer to receive the enumeration result, which is returned as an array of 
+     * @param {Integer} lpBuffer Pointer to the buffer to receive the enumeration result, which is returned as an array of 
      * <a href="https://docs.microsoft.com/windows/desktop/api/winnetwk/ns-winnetwk-netresourcea">NETRESOURCE</a> entries. The buffer is valid until the next call using <i>hEnum</i>.
      * @param {Pointer<Integer>} lpBufferSize Pointer to the size, in bytes, of the buffer passed to the function call on entry. If the buffer is too small for even one entry, this should contain, on exit, the number of bytes needed to read one entry. This value is  set only if the return code is WN_MORE_DATA.
      * @returns {Integer} If the function succeeds, it should return WN_SUCCESS. The caller may continue to call <b>NPEnumResource</b> to continue the enumeration. Otherwise, it should return one of the following error codes.
@@ -8132,9 +8131,9 @@ class WNet {
     /**
      * 
      * @param {PWSTR} lpRemotePath 
-     * @param {Pointer} lpReadUseOptions 
+     * @param {Integer} lpReadUseOptions 
      * @param {Integer} cbReadUseOptions 
-     * @param {Pointer} lpWriteUseOptions 
+     * @param {Integer} lpWriteUseOptions 
      * @param {Pointer<Integer>} lpSizeWriteUseOptions 
      * @returns {Integer} 
      */
@@ -8164,7 +8163,7 @@ class WNet {
      * The <b>dwType</b> field is filled in if the calling program knows its value. Otherwise, it is set to <b>NULL</b>.
      * 
      * All other fields in the <a href="https://docs.microsoft.com/windows/desktop/api/winnetwk/ns-winnetwk-netresourcea">NETRESOURCE</a> are ignored and are not initialized.
-     * @param {Pointer} lpBuffer Pointer to a buffer to receive the result, which is a single <a href="https://docs.microsoft.com/windows/desktop/api/winnetwk/ns-winnetwk-netresourcea">NETRESOURCE</a> structure representing the parent resource. The <b>lpRemoteName</b>, <b>lpProvider</b>, <b>dwType</b>, <b>dwDisplayType</b>, and <b>dwUsage</b> fields are returned; all other fields are set to <b>NULL</b>. 
+     * @param {Integer} lpBuffer Pointer to a buffer to receive the result, which is a single <a href="https://docs.microsoft.com/windows/desktop/api/winnetwk/ns-winnetwk-netresourcea">NETRESOURCE</a> structure representing the parent resource. The <b>lpRemoteName</b>, <b>lpProvider</b>, <b>dwType</b>, <b>dwDisplayType</b>, and <b>dwUsage</b> fields are returned; all other fields are set to <b>NULL</b>. 
      * 
      * 
      * 
@@ -8263,7 +8262,7 @@ class WNet {
      * If the <b>lpRemoteName</b> string contains a portion that is accessed through WNet APIs and a portion that is accessed through other system APIs specific to the resource type, the function should return information only about the network portion of the resource (except for <i>lplpSystem</i>, as described later in this topic).
      * 
      * For example, if the resource is "\\server\share\dir1\dir2", where "\\server\share" is accessed through WNet APIs and "\dir1\dir2" is accessed through file system APIs, the provider should verify that it is the right provider for "\\server\share", but need not check whether "\dir1\dir2" actually exists.
-     * @param {Pointer} lpBuffer Pointer to the buffer to receive the result. The first field in the result is a single 
+     * @param {Integer} lpBuffer Pointer to the buffer to receive the result. The first field in the result is a single 
      * <a href="https://docs.microsoft.com/windows/desktop/api/winnetwk/ns-winnetwk-netresourcea">NETRESOURCE</a> structure, and associated strings, representing that portion of the input resource that is accessed through the WNet API, rather than system APIs specific to the resource type. For example, if the input remote resource name was "\\server\share\dir1\dir2", then the output <b>NETRESOURCE</b> contains information about the resource "\\server\share". The <b>lpRemoteName</b>, <b>lpProvider</b>, <b>dwType</b>, <b>dwDisplayType</b>, and <b>dwUsage</b> fields are returned containing values, all other fields being set to <b>NULL</b>. 
      * 
      * 
@@ -8482,7 +8481,7 @@ class WNet {
      * @param {PWSTR} lpRemoteName Pointer to the network name to format.
      * @param {PWSTR} lpFormattedName Pointer to a string that receives the formatted name.
      * @param {Pointer<Integer>} lpnLength Pointer to <b>DWORD</b> that specifies the size, in characters, of the <i>lpFormattedName</i> buffer. If the return value of this function is WN_MORE_DATA, <i>lpnLength</i> contains the required buffer size, in characters.
-     * @param {Integer} dwFlags 
+     * @param {NETWORK_NAME_FORMAT_FLAGS} dwFlags 
      * @param {Integer} dwAveCharPerLine Specifies the average number of characters that will fit on a single line where the network name is being presented. Specifically, this value is defined as the width of the control divided by the <b>tmAveCharWidth</b> field of the 
      * <a href="https://docs.microsoft.com/windows/desktop/api/wingdi/ns-wingdi-textmetrica">TEXTMETRIC</a> structure from the font used for display in the control.
      * @returns {Integer} If the function succeeds, it should return WN_SUCCESS.

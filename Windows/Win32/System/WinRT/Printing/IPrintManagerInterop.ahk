@@ -7,9 +7,8 @@
  * Enables access to PrintManager methods in a Windows Store app that manages multiple windows.
  * @see https://learn.microsoft.com/windows/win32/api/printmanagerinterop/nn-printmanagerinterop-iprintmanagerinterop
  * @namespace Windows.Win32.System.WinRT.Printing
- * @version v4.0.30319
  */
-class IPrintManagerInterop extends IInspectable{
+class IPrintManagerInterop extends IInspectable {
 
     static sizeof => A_PtrSize
     /**

@@ -3,13 +3,10 @@
 
 /**
  * Identifies the host type of the WLDP caller.
- * @remarks
- * 
  * @see https://learn.microsoft.com/windows/win32/api/wldp/ne-wldp-wldp_host_id
  * @namespace Windows.Win32.System.WindowsProgramming
- * @version v4.0.30319
  */
-class WLDP_HOST_ID extends Win32Enum{
+class WLDP_HOST_ID extends Win32Enum {
 
     /**
      * The host type is unknown.

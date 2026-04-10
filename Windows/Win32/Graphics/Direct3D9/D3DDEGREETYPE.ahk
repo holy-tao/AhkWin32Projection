@@ -7,9 +7,8 @@
  * The values in this enumeration are used to describe the curves used by rectangle and triangle patches. For more information, see D3DRS\_CULLMODE.
  * @see https://learn.microsoft.com/windows/win32/direct3d9/d3ddegreetype
  * @namespace Windows.Win32.Graphics.Direct3D9
- * @version v4.0.30319
  */
-class D3DDEGREETYPE extends Win32Enum{
+class D3DDEGREETYPE extends Win32Enum {
 
     /**
      * @type {Integer (Int32)}

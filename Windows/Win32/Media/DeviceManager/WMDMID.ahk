@@ -5,10 +5,8 @@
  * The WMDMID structure describes serial numbers and group IDs.
  * @see https://learn.microsoft.com/windows/win32/WMDM/wmdmid
  * @namespace Windows.Win32.Media.DeviceManager
- * @version v4.0.30319
  */
-class WMDMID extends Win32Struct
-{
+class WMDMID extends Win32Struct {
     static sizeof => 140
 
     static packingSize => 4
@@ -23,7 +21,6 @@ class WMDMID extends Win32Struct
     }
 
     /**
-     * 
      * @type {Integer}
      */
     dwVendorID {
@@ -32,9 +29,9 @@ class WMDMID extends Win32Struct
     }
 
     /**
-     * @type {Array<Byte>}
+     * @type {Array<Integer>}
      */
-    pID{
+    pID {
         get {
             if(!this.HasProp("__pIDProxyArray"))
                 this.__pIDProxyArray := Win32FixedArray(this.ptr + 8, 128, Primitive, "char")

@@ -1,16 +1,15 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
-#Include .\IMFMediaSharingEngine.ahk
 #Include ..\..\System\Com\IUnknown.ahk
+#Include .\IMFMediaSharingEngine.ahk
 
 /**
  * Creates an instance of the IMFMediaSharingEngine. (IMFMediaSharingEngineClassFactory)
  * @see https://learn.microsoft.com/windows/win32/api/mfsharingengine/nn-mfsharingengine-imfmediasharingengineclassfactory
  * @namespace Windows.Win32.Media.MediaFoundation
- * @version v4.0.30319
  */
-class IMFMediaSharingEngineClassFactory extends IUnknown{
+class IMFMediaSharingEngineClassFactory extends IUnknown {
 
     static sizeof => A_PtrSize
     /**

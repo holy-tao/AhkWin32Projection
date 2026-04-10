@@ -5,10 +5,8 @@
  * The TTVALIDATIONTESTSPARAMS structure contains parameters for testing a Microsoft OpenType font.
  * @see https://learn.microsoft.com/windows/win32/api/t2embapi/ns-t2embapi-ttvalidationtestsparams
  * @namespace Windows.Win32.Graphics.Gdi
- * @version v4.0.30319
  */
-class TTVALIDATIONTESTSPARAMS extends Win32Struct
-{
+class TTVALIDATIONTESTSPARAMS extends Win32Struct {
     static sizeof => 32
 
     static packingSize => 8
@@ -41,7 +39,6 @@ class TTVALIDATIONTESTSPARAMS extends Win32Struct
     }
 
     /**
-     * 
      * @type {Integer}
      */
     ulCharSet {

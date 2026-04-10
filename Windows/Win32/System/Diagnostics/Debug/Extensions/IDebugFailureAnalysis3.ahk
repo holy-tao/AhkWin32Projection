@@ -1,17 +1,16 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\..\..\Guid.ahk
-#Include ..\..\..\..\Foundation\BSTR.ahk
+#Include ..\..\..\Com\IUnknown.ahk
 #Include .\IDebugFAEntryTags.ahk
 #Include ..\..\..\..\Data\Xml\MsXml\IXMLDOMElement.ahk
 #Include ..\..\..\Variant\VARIANT.ahk
-#Include ..\..\..\Com\IUnknown.ahk
+#Include ..\..\..\..\Foundation\BSTR.ahk
 
 /**
  * @namespace Windows.Win32.System.Diagnostics.Debug.Extensions
- * @version v4.0.30319
  */
-class IDebugFailureAnalysis3 extends IUnknown{
+class IDebugFailureAnalysis3 extends IUnknown {
 
     static sizeof => A_PtrSize
     /**
@@ -43,7 +42,7 @@ class IDebugFailureAnalysis3 extends IUnknown{
 
     /**
      * 
-     * @returns {Integer} 
+     * @returns {DEBUG_FAILURE_TYPE} 
      */
     GetFailureType() {
         result := ComCall(4, this, "int")
@@ -61,7 +60,7 @@ class IDebugFailureAnalysis3 extends IUnknown{
 
     /**
      * Get started learning the basics of building great desktop apps in this section.
-     * @param {Integer} Tag 
+     * @param {DEBUG_FLR_PARAM_TYPE} Tag 
      * @returns {Pointer<FA_ENTRY>} 
      * @see https://learn.microsoft.com/windows/win32/desktop-programming
      */
@@ -81,8 +80,8 @@ class IDebugFailureAnalysis3 extends IUnknown{
      * 
      * If the search for the next control in the group encounters a window with the <b>WS_EX_CONTROLPARENT</b> style, the system recursively searches the window's children.
      * @param {Pointer<FA_ENTRY>} Entry 
-     * @param {Integer} Tag 
-     * @param {Integer} TagMask 
+     * @param {DEBUG_FLR_PARAM_TYPE} Tag 
+     * @param {DEBUG_FLR_PARAM_TYPE} TagMask 
      * @returns {Pointer<FA_ENTRY>} Type: <b>HWND</b>
      * 
      * If the function succeeds, the return value is a handle to the previous (or next) control in the group of controls. 
@@ -97,7 +96,7 @@ class IDebugFailureAnalysis3 extends IUnknown{
 
     /**
      * Returns a string located at a given position within a BLOB.
-     * @param {Integer} Tag 
+     * @param {DEBUG_FLR_PARAM_TYPE} Tag 
      * @param {PSTR} Str 
      * @param {Integer} MaxSize 
      * @returns {Pointer<FA_ENTRY>} If the function is successful, the return value is NMERR\_SUCCESS.
@@ -118,8 +117,8 @@ class IDebugFailureAnalysis3 extends IUnknown{
      * Retrieves a pointer to the buffer bitmap if the buffer is a device-independent bitmap (DIB).
      * @remarks
      * The number of bits per pixel depends on the pixel format passed to <a href="https://docs.microsoft.com/windows/desktop/api/uxtheme/nf-uxtheme-beginbufferedpaint">BeginBufferedPaint</a>.
-     * @param {Integer} Tag 
-     * @param {Pointer} Buf 
+     * @param {DEBUG_FLR_PARAM_TYPE} Tag 
+     * @param {Integer} Buf 
      * @param {Integer} _Size 
      * @returns {Pointer<FA_ENTRY>} Type: <b><a href="https://docs.microsoft.com/windows/desktop/WinProg/windows-data-types">HRESULT</a></b>
      * 
@@ -133,7 +132,7 @@ class IDebugFailureAnalysis3 extends IUnknown{
 
     /**
      * 
-     * @param {Integer} Tag 
+     * @param {DEBUG_FLR_PARAM_TYPE} Tag 
      * @param {Pointer<Integer>} Value 
      * @returns {Pointer<FA_ENTRY>} 
      */
@@ -146,7 +145,7 @@ class IDebugFailureAnalysis3 extends IUnknown{
 
     /**
      * 
-     * @param {Integer} Tag 
+     * @param {DEBUG_FLR_PARAM_TYPE} Tag 
      * @param {Pointer<Integer>} Value 
      * @returns {Pointer<FA_ENTRY>} 
      */
@@ -169,7 +168,7 @@ class IDebugFailureAnalysis3 extends IUnknown{
 
     /**
      * Sets a string at a given location within a BLOB.
-     * @param {Integer} Tag 
+     * @param {DEBUG_FLR_PARAM_TYPE} Tag 
      * @param {PSTR} Str 
      * @returns {Pointer<FA_ENTRY>} If the function is successful, the return value is NMERR\_SUCCESS.
      * 
@@ -187,7 +186,7 @@ class IDebugFailureAnalysis3 extends IUnknown{
 
     /**
      * 
-     * @param {Integer} Tag 
+     * @param {DEBUG_FLR_PARAM_TYPE} Tag 
      * @param {PSTR} _Extension 
      * @returns {Pointer<FA_ENTRY>} 
      */
@@ -200,7 +199,7 @@ class IDebugFailureAnalysis3 extends IUnknown{
 
     /**
      * 
-     * @param {Integer} Tag 
+     * @param {DEBUG_FLR_PARAM_TYPE} Tag 
      * @param {Integer} Value 
      * @returns {Pointer<FA_ENTRY>} 
      */
@@ -211,7 +210,7 @@ class IDebugFailureAnalysis3 extends IUnknown{
 
     /**
      * 
-     * @param {Integer} Tag 
+     * @param {DEBUG_FLR_PARAM_TYPE} Tag 
      * @param {Integer} Value 
      * @returns {Pointer<FA_ENTRY>} 
      */
@@ -222,9 +221,9 @@ class IDebugFailureAnalysis3 extends IUnknown{
 
     /**
      * For current documentation on Windows Media codecs and digital signal processors, see Windows Media Audio and Video Codec and DSP APIs. | SetBufferFullnessBits
-     * @param {Integer} Tag 
-     * @param {Integer} EntryType 
-     * @param {Pointer} Buf 
+     * @param {DEBUG_FLR_PARAM_TYPE} Tag 
+     * @param {FA_ENTRY_TYPE} EntryType 
+     * @param {Integer} Buf 
      * @param {Integer} _Size 
      * @returns {Pointer<FA_ENTRY>} 
      * @see https://learn.microsoft.com/windows/win32/wmformat/iwmcodecleakybucket-setbufferfullnessbits
@@ -236,7 +235,7 @@ class IDebugFailureAnalysis3 extends IUnknown{
 
     /**
      * 
-     * @param {Integer} Tag 
+     * @param {DEBUG_FLR_PARAM_TYPE} Tag 
      * @param {PSTR} Str 
      * @returns {Pointer<FA_ENTRY>} 
      */
@@ -249,7 +248,7 @@ class IDebugFailureAnalysis3 extends IUnknown{
 
     /**
      * 
-     * @param {Integer} Tag 
+     * @param {DEBUG_FLR_PARAM_TYPE} Tag 
      * @param {PSTR} _Extension 
      * @returns {Pointer<FA_ENTRY>} 
      */
@@ -262,7 +261,7 @@ class IDebugFailureAnalysis3 extends IUnknown{
 
     /**
      * 
-     * @param {Integer} Tag 
+     * @param {DEBUG_FLR_PARAM_TYPE} Tag 
      * @param {Integer} Value 
      * @returns {Pointer<FA_ENTRY>} 
      */
@@ -273,7 +272,7 @@ class IDebugFailureAnalysis3 extends IUnknown{
 
     /**
      * 
-     * @param {Integer} Tag 
+     * @param {DEBUG_FLR_PARAM_TYPE} Tag 
      * @param {Integer} Value 
      * @returns {Pointer<FA_ENTRY>} 
      */
@@ -284,9 +283,9 @@ class IDebugFailureAnalysis3 extends IUnknown{
 
     /**
      * 
-     * @param {Integer} Tag 
-     * @param {Integer} EntryType 
-     * @param {Pointer} Buf 
+     * @param {DEBUG_FLR_PARAM_TYPE} Tag 
+     * @param {FA_ENTRY_TYPE} EntryType 
+     * @param {Integer} Buf 
      * @param {Integer} _Size 
      * @returns {Pointer<FA_ENTRY>} 
      */
@@ -315,7 +314,7 @@ class IDebugFailureAnalysis3 extends IUnknown{
 
     /**
      * 
-     * @param {Integer} Tag 
+     * @param {DEBUG_FLR_PARAM_TYPE} Tag 
      * @param {IDebugFailureAnalysis2} Analysis 
      * @returns {HRESULT} 
      */

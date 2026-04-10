@@ -4,10 +4,8 @@
 
 /**
  * @namespace Windows.Win32.System.Diagnostics.Debug.Extensions
- * @version v4.0.30319
  */
-class DEBUG_LAST_EVENT_INFO_EXCEPTION extends Win32Struct
-{
+class DEBUG_LAST_EVENT_INFO_EXCEPTION extends Win32Struct {
     static sizeof => 160
 
     static packingSize => 8
@@ -15,7 +13,7 @@ class DEBUG_LAST_EVENT_INFO_EXCEPTION extends Win32Struct
     /**
      * @type {EXCEPTION_RECORD64}
      */
-    ExceptionRecord{
+    ExceptionRecord {
         get {
             if(!this.HasProp("__ExceptionRecord"))
                 this.__ExceptionRecord := EXCEPTION_RECORD64(0, this)

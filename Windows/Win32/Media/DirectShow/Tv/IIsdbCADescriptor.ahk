@@ -7,9 +7,8 @@
  * Implements methods that get data from an Integrated Services Digital Broadcasting (ISDB) conditional access (CA) descriptor.
  * @see https://learn.microsoft.com/windows/win32/api/dvbsiparser/nn-dvbsiparser-iisdbcadescriptor
  * @namespace Windows.Win32.Media.DirectShow.Tv
- * @version v4.0.30319
  */
-class IIsdbCADescriptor extends IUnknown{
+class IIsdbCADescriptor extends IUnknown {
 
     static sizeof => A_PtrSize
     /**

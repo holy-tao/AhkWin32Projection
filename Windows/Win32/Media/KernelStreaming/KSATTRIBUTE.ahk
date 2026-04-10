@@ -3,10 +3,8 @@
 
 /**
  * @namespace Windows.Win32.Media.KernelStreaming
- * @version v4.0.30319
  */
-class KSATTRIBUTE extends Win32Struct
-{
+class KSATTRIBUTE extends Win32Struct {
     static sizeof => 16
 
     static packingSize => 8
@@ -28,7 +26,7 @@ class KSATTRIBUTE extends Win32Struct
     }
 
     /**
-     * @type {Pointer<Guid>}
+     * @type {Pointer}
      */
     Attribute {
         get => NumGet(this, 8, "ptr")

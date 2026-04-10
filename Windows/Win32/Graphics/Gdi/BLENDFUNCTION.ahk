@@ -118,10 +118,8 @@
  * </table>
  * @see https://learn.microsoft.com/windows/win32/api/wingdi/ns-wingdi-blendfunction
  * @namespace Windows.Win32.Graphics.Gdi
- * @version v4.0.30319
  */
-class BLENDFUNCTION extends Win32Struct
-{
+class BLENDFUNCTION extends Win32Struct {
     static sizeof => 4
 
     static packingSize => 1

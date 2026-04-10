@@ -3,9 +3,8 @@
 
 /**
  * @namespace Windows.Win32.Devices.Display
- * @version v4.0.30319
  */
-class SET_DISPLAY_CONFIG_FLAGS extends Win32BitflagEnum{
+class SET_DISPLAY_CONFIG_FLAGS extends Win32BitflagEnum {
 
     /**
      * @type {Integer (UInt32)}

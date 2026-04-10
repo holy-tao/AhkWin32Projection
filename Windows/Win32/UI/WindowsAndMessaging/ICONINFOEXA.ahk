@@ -15,11 +15,9 @@
  * > The winuser.h header defines ICONINFOEX as an alias which automatically selects the ANSI or Unicode version of this function based on the definition of the UNICODE preprocessor constant. Mixing usage of the encoding-neutral alias with code that not encoding-neutral can lead to mismatches that result in compilation or runtime errors. For more information, see [Conventions for Function Prototypes](/windows/win32/intl/conventions-for-function-prototypes).
  * @see https://learn.microsoft.com/windows/win32/api/winuser/ns-winuser-iconinfoexa
  * @namespace Windows.Win32.UI.WindowsAndMessaging
- * @version v4.0.30319
  * @charset ANSI
  */
-class ICONINFOEXA extends Win32Struct
-{
+class ICONINFOEXA extends Win32Struct {
     static sizeof => 560
 
     static packingSize => 8
@@ -74,7 +72,7 @@ class ICONINFOEXA extends Win32Struct
      * A handle to the icon monochrome mask <a href="https://docs.microsoft.com/windows/win32/gdi/bitmaps">bitmap</a>.
      * @type {HBITMAP}
      */
-    hbmMask{
+    hbmMask {
         get {
             if(!this.HasProp("__hbmMask"))
                 this.__hbmMask := HBITMAP(16, this)
@@ -88,7 +86,7 @@ class ICONINFOEXA extends Win32Struct
      * A handle to the icon color <a href="https://docs.microsoft.com/windows/win32/gdi/bitmaps">bitmap</a>.
      * @type {HBITMAP}
      */
-    hbmColor{
+    hbmColor {
         get {
             if(!this.HasProp("__hbmColor"))
                 this.__hbmColor := HBITMAP(24, this)

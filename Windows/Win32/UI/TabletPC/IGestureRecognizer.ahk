@@ -13,9 +13,8 @@
  * Adding an instance of the <a href="https://docs.microsoft.com/windows/desktop/tablet/gesturerecognizer-class">GestureRecognizer Class</a> to multiple <a href="https://docs.microsoft.com/windows/desktop/tablet/realtimestylus-class">RealTimeStylus Class</a> instances is not a valid operation.
  * @see https://learn.microsoft.com/windows/win32/api/rtscom/nn-rtscom-igesturerecognizer
  * @namespace Windows.Win32.UI.TabletPC
- * @version v4.0.30319
  */
-class IGestureRecognizer extends IUnknown{
+class IGestureRecognizer extends IUnknown {
 
     static sizeof => A_PtrSize
     /**

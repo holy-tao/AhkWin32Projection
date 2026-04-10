@@ -9,9 +9,8 @@
  * To declare the interface identifier (IID) for this interface, use the <b>__uuidof</b> operator: <c>__uuidof(IMSVidVideoInputDevice)</c>.
  * @see https://learn.microsoft.com/windows/win32/api/segment/nn-segment-imsvidvideoinputdevice
  * @namespace Windows.Win32.Media.DirectShow.Tv
- * @version v4.0.30319
  */
-class IMSVidVideoInputDevice extends IMSVidInputDevice{
+class IMSVidVideoInputDevice extends IMSVidInputDevice {
 
     static sizeof => A_PtrSize
     /**

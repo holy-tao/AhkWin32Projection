@@ -5,9 +5,8 @@
  * Specifies the origin of a package.
  * @see https://learn.microsoft.com/windows/win32/api/appmodel/ne-appmodel-packageorigin
  * @namespace Windows.Win32.Storage.Packaging.Appx
- * @version v4.0.30319
  */
-class PackageOrigin extends Win32Enum{
+class PackageOrigin extends Win32Enum {
 
     /**
      * The package's origin is unknown.

@@ -1,16 +1,15 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
-#Include ..\Variant\VARIANT.ahk
 #Include ..\Com\IUnknown.ahk
+#Include ..\Variant\VARIANT.ahk
 
 /**
  * Converts the log records to viewable format so that they can be presented using a generic monitoring tool.
  * @see https://learn.microsoft.com/windows/win32/api/comsvcs/nn-comsvcs-icrmformatlogrecords
  * @namespace Windows.Win32.System.ComponentServices
- * @version v4.0.30319
  */
-class ICrmFormatLogRecords extends IUnknown{
+class ICrmFormatLogRecords extends IUnknown {
 
     static sizeof => A_PtrSize
     /**

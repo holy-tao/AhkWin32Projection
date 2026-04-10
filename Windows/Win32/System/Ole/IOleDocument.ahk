@@ -1,16 +1,15 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
-#Include .\IOleDocumentView.ahk
 #Include ..\Com\IUnknown.ahk
+#Include .\IOleDocumentView.ahk
 
 /**
  * Enables a document object to communicate to containers its ability to create views of its data.
  * @see https://learn.microsoft.com/windows/win32/api/docobj/nn-docobj-ioledocument
  * @namespace Windows.Win32.System.Ole
- * @version v4.0.30319
  */
-class IOleDocument extends IUnknown{
+class IOleDocument extends IUnknown {
 
     static sizeof => A_PtrSize
     /**

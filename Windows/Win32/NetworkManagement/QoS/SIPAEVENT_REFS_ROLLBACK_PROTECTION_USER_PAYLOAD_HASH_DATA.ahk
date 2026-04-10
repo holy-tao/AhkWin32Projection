@@ -3,10 +3,8 @@
 
 /**
  * @namespace Windows.Win32.NetworkManagement.QoS
- * @version v4.0.30319
  */
-class SIPAEVENT_REFS_ROLLBACK_PROTECTION_USER_PAYLOAD_HASH_DATA extends Win32Struct
-{
+class SIPAEVENT_REFS_ROLLBACK_PROTECTION_USER_PAYLOAD_HASH_DATA extends Win32Struct {
     static sizeof => 4
 
     static packingSize => 2
@@ -20,9 +18,9 @@ class SIPAEVENT_REFS_ROLLBACK_PROTECTION_USER_PAYLOAD_HASH_DATA extends Win32Str
     }
 
     /**
-     * @type {Array<Byte>}
+     * @type {Array<Integer>}
      */
-    ChecksumBuffer{
+    ChecksumBuffer {
         get {
             if(!this.HasProp("__ChecksumBufferProxyArray"))
                 this.__ChecksumBufferProxyArray := Win32FixedArray(this.ptr + 2, 1, Primitive, "char")

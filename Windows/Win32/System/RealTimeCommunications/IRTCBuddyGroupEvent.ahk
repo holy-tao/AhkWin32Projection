@@ -1,15 +1,14 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
+#Include ..\Com\IDispatch.ahk
 #Include .\IRTCBuddyGroup.ahk
 #Include .\IRTCBuddy2.ahk
-#Include ..\Com\IDispatch.ahk
 
 /**
  * @namespace Windows.Win32.System.RealTimeCommunications
- * @version v4.0.30319
  */
-class IRTCBuddyGroupEvent extends IDispatch{
+class IRTCBuddyGroupEvent extends IDispatch {
 
     static sizeof => A_PtrSize
     /**
@@ -31,7 +30,7 @@ class IRTCBuddyGroupEvent extends IDispatch{
     static VTableNames => ["get_EventType", "get_Group", "get_Buddy", "get_StatusCode"]
 
     /**
-     * @type {Integer} 
+     * @type {RTC_GROUP_EVENT_TYPE} 
      */
     EventType {
         get => this.get_EventType()
@@ -60,7 +59,7 @@ class IRTCBuddyGroupEvent extends IDispatch{
 
     /**
      * 
-     * @returns {Integer} 
+     * @returns {RTC_GROUP_EVENT_TYPE} 
      */
     get_EventType() {
         result := ComCall(7, this, "int*", &pEventType := 0, "HRESULT")

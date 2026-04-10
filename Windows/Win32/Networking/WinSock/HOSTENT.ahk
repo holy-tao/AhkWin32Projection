@@ -14,10 +14,8 @@
  * An application should not try to release the memory used by the returned <b>hostent</b> structure. The application must never attempt to modify this structure or to free any of its components. Furthermore, only one copy of this structure is allocated per thread, so the application should copy any information it needs before issuing any other function calls to <a href="https://docs.microsoft.com/windows/desktop/api/wsipv6ok/nf-wsipv6ok-gethostbyaddr">gethostbyaddr</a> or <a href="https://docs.microsoft.com/windows/desktop/api/wsipv6ok/nf-wsipv6ok-gethostbyname">gethostbyname</a>.
  * @see https://learn.microsoft.com/windows/win32/api/winsock/ns-winsock-hostent
  * @namespace Windows.Win32.Networking.WinSock
- * @version v4.0.30319
  */
-class HOSTENT extends Win32Struct
-{
+class HOSTENT extends Win32Struct {
     static sizeof => 32
 
     static packingSize => 8

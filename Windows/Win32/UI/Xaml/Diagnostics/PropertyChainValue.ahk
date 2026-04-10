@@ -6,10 +6,8 @@
  * Represents a property defined on an element.
  * @see https://learn.microsoft.com/windows/win32/api/xamlom/ns-xamlom-propertychainvalue
  * @namespace Windows.Win32.UI.Xaml.Diagnostics
- * @version v4.0.30319
  */
-class PropertyChainValue extends Win32Struct
-{
+class PropertyChainValue extends Win32Struct {
     static sizeof => 80
 
     static packingSize => 8
@@ -27,7 +25,7 @@ class PropertyChainValue extends Win32Struct
      * The type of the object.
      * @type {BSTR}
      */
-    Type{
+    Type {
         get {
             if(!this.HasProp("__Type"))
                 this.__Type := BSTR(8, this)
@@ -39,7 +37,7 @@ class PropertyChainValue extends Win32Struct
      * The base type of the object.
      * @type {BSTR}
      */
-    DeclaringType{
+    DeclaringType {
         get {
             if(!this.HasProp("__DeclaringType"))
                 this.__DeclaringType := BSTR(16, this)
@@ -51,7 +49,7 @@ class PropertyChainValue extends Win32Struct
      * The type of the current value of the property.
      * @type {BSTR}
      */
-    ValueType{
+    ValueType {
         get {
             if(!this.HasProp("__ValueType"))
                 this.__ValueType := BSTR(24, this)
@@ -63,7 +61,7 @@ class PropertyChainValue extends Win32Struct
      * Collection item type, or <b>null</b> if not a collection.
      * @type {BSTR}
      */
-    ItemType{
+    ItemType {
         get {
             if(!this.HasProp("__ItemType"))
                 this.__ItemType := BSTR(32, this)
@@ -75,7 +73,7 @@ class PropertyChainValue extends Win32Struct
      * The value of the property.  (Represents an <b>InstanceHandle</b> if <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/xamlom/ne-xamlom-metadatabit">MetadataBit</a> is set.)
      * @type {BSTR}
      */
-    Value{
+    Value {
         get {
             if(!this.HasProp("__Value"))
                 this.__Value := BSTR(40, this)
@@ -105,7 +103,7 @@ class PropertyChainValue extends Win32Struct
      * The name of the property.
      * @type {BSTR}
      */
-    PropertyName{
+    PropertyName {
         get {
             if(!this.HasProp("__PropertyName"))
                 this.__PropertyName := BSTR(64, this)

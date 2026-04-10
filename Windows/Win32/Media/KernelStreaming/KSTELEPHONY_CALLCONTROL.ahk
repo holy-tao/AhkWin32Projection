@@ -1,18 +1,18 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
+#Include .\TELEPHONY_CALLTYPE.ahk
+#Include .\TELEPHONY_CALLCONTROLOP.ahk
 
 /**
  * @namespace Windows.Win32.Media.KernelStreaming
- * @version v4.0.30319
  */
-class KSTELEPHONY_CALLCONTROL extends Win32Struct
-{
+class KSTELEPHONY_CALLCONTROL extends Win32Struct {
     static sizeof => 8
 
     static packingSize => 4
 
     /**
-     * @type {Integer}
+     * @type {TELEPHONY_CALLTYPE}
      */
     CallType {
         get => NumGet(this, 0, "int")
@@ -20,7 +20,7 @@ class KSTELEPHONY_CALLCONTROL extends Win32Struct
     }
 
     /**
-     * @type {Integer}
+     * @type {TELEPHONY_CALLCONTROLOP}
      */
     CallControlOp {
         get => NumGet(this, 4, "int")

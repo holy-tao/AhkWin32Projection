@@ -3,10 +3,8 @@
 
 /**
  * @namespace Windows.Win32.Security.Cryptography
- * @version v4.0.30319
  */
-class CT_EXTRA_CERT_CHAIN_POLICY_STATUS extends Win32Struct
-{
+class CT_EXTRA_CERT_CHAIN_POLICY_STATUS extends Win32Struct {
     static sizeof => 20
 
     static packingSize => 4

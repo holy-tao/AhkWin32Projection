@@ -3,18 +3,16 @@
 
 /**
  * @namespace Windows.Win32.Networking.WinSock
- * @version v4.0.30319
  */
-class WCE_IRDA_DEVICE_INFO extends Win32Struct
-{
-    static sizeof => 50
+class WCE_IRDA_DEVICE_INFO extends Win32Struct {
+    static sizeof => 28
 
     static packingSize => 2
 
     /**
-     * @type {Array<Byte>}
+     * @type {Array<Integer>}
      */
-    irdaDeviceID{
+    irdaDeviceID {
         get {
             if(!this.HasProp("__irdaDeviceIDProxyArray"))
                 this.__irdaDeviceIDProxyArray := Win32FixedArray(this.ptr + 0, 4, Primitive, "char")
@@ -26,17 +24,17 @@ class WCE_IRDA_DEVICE_INFO extends Win32Struct
      * @type {String}
      */
     irdaDeviceName {
-        get => StrGet(this.ptr + 4, 21, "UTF-16")
-        set => StrPut(value, this.ptr + 4, 21, "UTF-16")
+        get => StrGet(this.ptr + 4, 21, "UTF-8")
+        set => StrPut(value, this.ptr + 4, 21, "UTF-8")
     }
 
     /**
-     * @type {Array<Byte>}
+     * @type {Array<Integer>}
      */
-    Reserved{
+    Reserved {
         get {
             if(!this.HasProp("__ReservedProxyArray"))
-                this.__ReservedProxyArray := Win32FixedArray(this.ptr + 48, 2, Primitive, "char")
+                this.__ReservedProxyArray := Win32FixedArray(this.ptr + 26, 2, Primitive, "char")
             return this.__ReservedProxyArray
         }
     }

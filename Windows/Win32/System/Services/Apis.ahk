@@ -6,7 +6,6 @@
 
 /**
  * @namespace Windows.Win32.System.Services
- * @version v4.0.30319
  */
 class Services {
 
@@ -717,7 +716,7 @@ class Services {
      * <a href="https://docs.microsoft.com/windows/desktop/api/winsvc/nf-winsvc-openservicea">OpenService</a> or 
      * <a href="https://docs.microsoft.com/windows/desktop/api/winsvc/nf-winsvc-createservicea">CreateService</a> function and must have the <b>SERVICE_CHANGE_CONFIG</b> access right. For more information, see 
      * <a href="https://docs.microsoft.com/windows/desktop/Services/service-security-and-access-rights">Service Security and Access Rights</a>.
-     * @param {Integer} dwServiceType The type of service. Specify <b>SERVICE_NO_CHANGE</b> if you are not changing the existing service type; otherwise, specify one of the following service types.
+     * @param {ENUM_SERVICE_TYPE} dwServiceType The type of service. Specify <b>SERVICE_NO_CHANGE</b> if you are not changing the existing service type; otherwise, specify one of the following service types.
      * 
      * <table>
      * <tr>
@@ -797,8 +796,8 @@ class Services {
      * </td>
      * </tr>
      * </table>
-     * @param {Integer} dwStartType 
-     * @param {Integer} dwErrorControl 
+     * @param {SERVICE_START_TYPE} dwStartType 
+     * @param {SERVICE_ERROR} dwErrorControl 
      * @param {PSTR} lpBinaryPathName The fully qualified path to the service binary file. Specify NULL if you are not changing the existing path. If the path contains a space, it must be quoted so that it is correctly interpreted. For example, "d:\\my share\\myservice.exe" should be specified as "\"d:\\my share\\myservice.exe\"". 
      * 
      * 
@@ -992,7 +991,7 @@ class Services {
      * <a href="https://docs.microsoft.com/windows/desktop/api/winsvc/nf-winsvc-openservicea">OpenService</a> or 
      * <a href="https://docs.microsoft.com/windows/desktop/api/winsvc/nf-winsvc-createservicea">CreateService</a> function and must have the <b>SERVICE_CHANGE_CONFIG</b> access right. For more information, see 
      * <a href="https://docs.microsoft.com/windows/desktop/Services/service-security-and-access-rights">Service Security and Access Rights</a>.
-     * @param {Integer} dwServiceType The type of service. Specify <b>SERVICE_NO_CHANGE</b> if you are not changing the existing service type; otherwise, specify one of the following service types.
+     * @param {ENUM_SERVICE_TYPE} dwServiceType The type of service. Specify <b>SERVICE_NO_CHANGE</b> if you are not changing the existing service type; otherwise, specify one of the following service types.
      * 
      * <table>
      * <tr>
@@ -1072,8 +1071,8 @@ class Services {
      * </td>
      * </tr>
      * </table>
-     * @param {Integer} dwStartType 
-     * @param {Integer} dwErrorControl 
+     * @param {SERVICE_START_TYPE} dwStartType 
+     * @param {SERVICE_ERROR} dwErrorControl 
      * @param {PWSTR} lpBinaryPathName The fully qualified path to the service binary file. Specify NULL if you are not changing the existing path. If the path contains a space, it must be quoted so that it is correctly interpreted. For example, "d:\\my share\\myservice.exe" should be specified as "\"d:\\my share\\myservice.exe\"". 
      * 
      * 
@@ -1298,7 +1297,7 @@ class Services {
      * 
      * 
      * If the service controller handles the <b>SC_ACTION_RESTART</b> action, <i>hService</i> must have the <b>SERVICE_START</b> access right.
-     * @param {Integer} dwInfoLevel 
+     * @param {SERVICE_CONFIG} dwInfoLevel 
      * @param {Pointer<Void>} lpInfo A pointer to the new value to be set for the configuration information. The format of this data depends on the value of the <i>dwInfoLevel</i> parameter. If this value is <b>NULL</b>, the information remains unchanged.
      * @returns {BOOL} If the function succeeds, the return value is nonzero.
      * 
@@ -1368,7 +1367,7 @@ class Services {
      * 
      * 
      * If the service controller handles the <b>SC_ACTION_RESTART</b> action, <i>hService</i> must have the <b>SERVICE_START</b> access right.
-     * @param {Integer} dwInfoLevel 
+     * @param {SERVICE_CONFIG} dwInfoLevel 
      * @param {Pointer<Void>} lpInfo A pointer to the new value to be set for the configuration information. The format of this data depends on the value of the <i>dwInfoLevel</i> parameter. If this value is <b>NULL</b>, the information remains unchanged.
      * @returns {BOOL} If the function succeeds, the return value is nonzero.
      * 
@@ -1936,9 +1935,9 @@ class Services {
      * @param {PSTR} lpDisplayName The display name to be used by user interface programs to identify the service. This string has a maximum length of 256 characters. The name is case-preserved in the service control manager. Display name comparisons are always case-insensitive.
      * @param {Integer} dwDesiredAccess The access to the service. Before granting the requested access, the system checks the access token of the calling process. For a list of values, see 
      * <a href="https://docs.microsoft.com/windows/desktop/Services/service-security-and-access-rights">Service Security and Access Rights</a>.
-     * @param {Integer} dwServiceType 
-     * @param {Integer} dwStartType 
-     * @param {Integer} dwErrorControl 
+     * @param {ENUM_SERVICE_TYPE} dwServiceType 
+     * @param {SERVICE_START_TYPE} dwStartType 
+     * @param {SERVICE_ERROR} dwErrorControl 
      * @param {PSTR} lpBinaryPathName The fully qualified path to the service binary file. If the path contains a space, it must be quoted so that it is correctly interpreted. For example, "d:\\my share\\myservice.exe" should be specified as "\"d:\\my share\\myservice.exe\"". 
      * 
      * 
@@ -2224,9 +2223,9 @@ class Services {
      * @param {PWSTR} lpDisplayName The display name to be used by user interface programs to identify the service. This string has a maximum length of 256 characters. The name is case-preserved in the service control manager. Display name comparisons are always case-insensitive.
      * @param {Integer} dwDesiredAccess The access to the service. Before granting the requested access, the system checks the access token of the calling process. For a list of values, see 
      * <a href="https://docs.microsoft.com/windows/desktop/Services/service-security-and-access-rights">Service Security and Access Rights</a>.
-     * @param {Integer} dwServiceType 
-     * @param {Integer} dwStartType 
-     * @param {Integer} dwErrorControl 
+     * @param {ENUM_SERVICE_TYPE} dwServiceType 
+     * @param {SERVICE_START_TYPE} dwStartType 
+     * @param {SERVICE_ERROR} dwErrorControl 
      * @param {PWSTR} lpBinaryPathName The fully qualified path to the service binary file. If the path contains a space, it must be quoted so that it is correctly interpreted. For example, "d:\\my share\\myservice.exe" should be specified as "\"d:\\my share\\myservice.exe\"". 
      * 
      * 
@@ -2509,8 +2508,8 @@ class Services {
      * <a href="https://docs.microsoft.com/windows/desktop/api/winsvc/nf-winsvc-openservicea">OpenService</a> or 
      * <a href="https://docs.microsoft.com/windows/desktop/api/winsvc/nf-winsvc-createservicea">CreateService</a> function, and it must have the <b>SERVICE_ENUMERATE_DEPENDENTS</b> access right. For more information, see 
      * <a href="https://docs.microsoft.com/windows/desktop/Services/service-security-and-access-rights">Service Security and Access Rights</a>.
-     * @param {Integer} dwServiceState 
-     * @param {Pointer} lpServices A pointer to an array of 
+     * @param {ENUM_SERVICE_STATE} dwServiceState 
+     * @param {Integer} lpServices A pointer to an array of 
      * <a href="https://docs.microsoft.com/windows/desktop/api/winsvc/ns-winsvc-enum_service_statusa">ENUM_SERVICE_STATUS</a> structures that receives the name and service status information for each dependent service in the database. The buffer must be large enough to hold the structures, plus the strings to which their members point.
      * 
      * The order of the services in this array is the reverse of the start order of the services. In other words, the first service in the array is the one that would be started last, and the last service in the array is the one that would be started first.
@@ -2603,8 +2602,8 @@ class Services {
      * <a href="https://docs.microsoft.com/windows/desktop/api/winsvc/nf-winsvc-openservicea">OpenService</a> or 
      * <a href="https://docs.microsoft.com/windows/desktop/api/winsvc/nf-winsvc-createservicea">CreateService</a> function, and it must have the <b>SERVICE_ENUMERATE_DEPENDENTS</b> access right. For more information, see 
      * <a href="https://docs.microsoft.com/windows/desktop/Services/service-security-and-access-rights">Service Security and Access Rights</a>.
-     * @param {Integer} dwServiceState 
-     * @param {Pointer} lpServices A pointer to an array of 
+     * @param {ENUM_SERVICE_STATE} dwServiceState 
+     * @param {Integer} lpServices A pointer to an array of 
      * <a href="https://docs.microsoft.com/windows/desktop/api/winsvc/ns-winsvc-enum_service_statusa">ENUM_SERVICE_STATUS</a> structures that receives the name and service status information for each dependent service in the database. The buffer must be large enough to hold the structures, plus the strings to which their members point.
      * 
      * The order of the services in this array is the reverse of the start order of the services. In other words, the first service in the array is the one that would be started last, and the last service in the array is the one that would be started first.
@@ -2697,9 +2696,9 @@ class Services {
      * @param {SC_HANDLE} hSCManager A handle to the service control manager database. This handle is returned by the 
      * <a href="https://docs.microsoft.com/windows/desktop/api/winsvc/nf-winsvc-openscmanagera">OpenSCManager</a> function, and must have the SC_MANAGER_ENUMERATE_SERVICE access right. For more information, see 
      * <a href="https://docs.microsoft.com/windows/desktop/Services/service-security-and-access-rights">Service Security and Access Rights</a>.
-     * @param {Integer} dwServiceType 
-     * @param {Integer} dwServiceState 
-     * @param {Pointer} lpServices A pointer to a buffer that contains an array of 
+     * @param {ENUM_SERVICE_TYPE} dwServiceType 
+     * @param {ENUM_SERVICE_STATE} dwServiceState 
+     * @param {Integer} lpServices A pointer to a buffer that contains an array of 
      * <a href="https://docs.microsoft.com/windows/desktop/api/winsvc/ns-winsvc-enum_service_statusa">ENUM_SERVICE_STATUS</a> structures that receive the name and service status information for each service in the database. The buffer must be large enough to hold the structures, plus the strings to which their members point.
      * 
      * The maximum size of this array is 256K bytes. To determine the required size, specify NULL for this parameter and 0 for the <i>cbBufSize</i> parameter. The function will fail and <a href="https://docs.microsoft.com/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a> will return ERROR_INSUFFICIENT_BUFFER. The <i>pcbBytesNeeded</i> parameter will receive the required size.
@@ -2797,9 +2796,9 @@ class Services {
      * @param {SC_HANDLE} hSCManager A handle to the service control manager database. This handle is returned by the 
      * <a href="https://docs.microsoft.com/windows/desktop/api/winsvc/nf-winsvc-openscmanagera">OpenSCManager</a> function, and must have the SC_MANAGER_ENUMERATE_SERVICE access right. For more information, see 
      * <a href="https://docs.microsoft.com/windows/desktop/Services/service-security-and-access-rights">Service Security and Access Rights</a>.
-     * @param {Integer} dwServiceType 
-     * @param {Integer} dwServiceState 
-     * @param {Pointer} lpServices A pointer to a buffer that contains an array of 
+     * @param {ENUM_SERVICE_TYPE} dwServiceType 
+     * @param {ENUM_SERVICE_STATE} dwServiceState 
+     * @param {Integer} lpServices A pointer to a buffer that contains an array of 
      * <a href="https://docs.microsoft.com/windows/desktop/api/winsvc/ns-winsvc-enum_service_statusa">ENUM_SERVICE_STATUS</a> structures that receive the name and service status information for each service in the database. The buffer must be large enough to hold the structures, plus the strings to which their members point.
      * 
      * The maximum size of this array is 256K bytes. To determine the required size, specify NULL for this parameter and 0 for the <i>cbBufSize</i> parameter. The function will fail and <a href="https://docs.microsoft.com/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a> will return ERROR_INSUFFICIENT_BUFFER. The <i>pcbBytesNeeded</i> parameter will receive the required size.
@@ -2903,13 +2902,13 @@ class Services {
      * @param {SC_HANDLE} hSCManager A handle to the service control manager database. This handle is returned by the 
      * <a href="https://docs.microsoft.com/windows/desktop/api/winsvc/nf-winsvc-openscmanagera">OpenSCManager</a> function, and must have the <b>SC_MANAGER_ENUMERATE_SERVICE</b> access right. For more information, see 
      * <a href="https://docs.microsoft.com/windows/desktop/Services/service-security-and-access-rights">Service Security and Access Rights</a>.
-     * @param {Integer} InfoLevel The service attributes that are to be returned. Use <b>SC_ENUM_PROCESS_INFO</b> to retrieve the name and service status information for each service in the database. The <i>lpServices</i> parameter is a pointer to a buffer that receives an array of 
+     * @param {SC_ENUM_TYPE} InfoLevel The service attributes that are to be returned. Use <b>SC_ENUM_PROCESS_INFO</b> to retrieve the name and service status information for each service in the database. The <i>lpServices</i> parameter is a pointer to a buffer that receives an array of 
      * <a href="https://docs.microsoft.com/windows/desktop/api/winsvc/ns-winsvc-enum_service_status_processa">ENUM_SERVICE_STATUS_PROCESS</a> structures. The buffer must be large enough to hold the structures as well as the strings to which their members point.
      * 
      * Currently, no other information levels are defined.
-     * @param {Integer} dwServiceType 
-     * @param {Integer} dwServiceState 
-     * @param {Pointer} lpServices A pointer to the buffer that receives the status information. The format of this data depends on the value of the <i>InfoLevel</i> parameter.
+     * @param {ENUM_SERVICE_TYPE} dwServiceType 
+     * @param {ENUM_SERVICE_STATE} dwServiceState 
+     * @param {Integer} lpServices A pointer to the buffer that receives the status information. The format of this data depends on the value of the <i>InfoLevel</i> parameter.
      * 
      * The maximum size of this array is 256K bytes. To determine the required size, specify <b>NULL</b> for this parameter and 0 for the <i>cbBufSize</i> parameter. The function will fail and <a href="https://docs.microsoft.com/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a> will return <b>ERROR_MORE_DATA</b>. The <i>pcbBytesNeeded</i> parameter will receive the required size.
      * 
@@ -3034,13 +3033,13 @@ class Services {
      * @param {SC_HANDLE} hSCManager A handle to the service control manager database. This handle is returned by the 
      * <a href="https://docs.microsoft.com/windows/desktop/api/winsvc/nf-winsvc-openscmanagera">OpenSCManager</a> function, and must have the <b>SC_MANAGER_ENUMERATE_SERVICE</b> access right. For more information, see 
      * <a href="https://docs.microsoft.com/windows/desktop/Services/service-security-and-access-rights">Service Security and Access Rights</a>.
-     * @param {Integer} InfoLevel The service attributes that are to be returned. Use <b>SC_ENUM_PROCESS_INFO</b> to retrieve the name and service status information for each service in the database. The <i>lpServices</i> parameter is a pointer to a buffer that receives an array of 
+     * @param {SC_ENUM_TYPE} InfoLevel The service attributes that are to be returned. Use <b>SC_ENUM_PROCESS_INFO</b> to retrieve the name and service status information for each service in the database. The <i>lpServices</i> parameter is a pointer to a buffer that receives an array of 
      * <a href="https://docs.microsoft.com/windows/desktop/api/winsvc/ns-winsvc-enum_service_status_processa">ENUM_SERVICE_STATUS_PROCESS</a> structures. The buffer must be large enough to hold the structures as well as the strings to which their members point.
      * 
      * Currently, no other information levels are defined.
-     * @param {Integer} dwServiceType 
-     * @param {Integer} dwServiceState 
-     * @param {Pointer} lpServices A pointer to the buffer that receives the status information. The format of this data depends on the value of the <i>InfoLevel</i> parameter.
+     * @param {ENUM_SERVICE_TYPE} dwServiceType 
+     * @param {ENUM_SERVICE_STATE} dwServiceState 
+     * @param {Integer} lpServices A pointer to the buffer that receives the status information. The format of this data depends on the value of the <i>InfoLevel</i> parameter.
      * 
      * The maximum size of this array is 256K bytes. To determine the required size, specify <b>NULL</b> for this parameter and 0 for the <i>cbBufSize</i> parameter. The function will fail and <a href="https://docs.microsoft.com/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a> will return <b>ERROR_MORE_DATA</b>. The <i>pcbBytesNeeded</i> parameter will receive the required size.
      * 
@@ -3848,7 +3847,7 @@ class Services {
      * <a href="https://docs.microsoft.com/windows/desktop/api/winsvc/nf-winsvc-openservicea">OpenService</a> or 
      * <a href="https://docs.microsoft.com/windows/desktop/api/winsvc/nf-winsvc-createservicea">CreateService</a> function, and it must have the SERVICE_QUERY_CONFIG access right. For more information, see 
      * <a href="https://docs.microsoft.com/windows/desktop/Services/service-security-and-access-rights">Service Security and Access Rights</a>.
-     * @param {Pointer} lpServiceConfig A pointer to a buffer that receives the service configuration information. The format of the data is a 
+     * @param {Integer} lpServiceConfig A pointer to a buffer that receives the service configuration information. The format of the data is a 
      * <a href="https://docs.microsoft.com/windows/desktop/api/winsvc/ns-winsvc-query_service_configa">QUERY_SERVICE_CONFIG</a> structure.
      * 
      * The maximum size of this array is 8K bytes. To determine the required size, specify NULL for this parameter and 0 for the <i>cbBufSize</i> parameter. The function will fail and <a href="https://docs.microsoft.com/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a> will return ERROR_INSUFFICIENT_BUFFER. The <i>pcbBytesNeeded</i> parameter will receive the required size.
@@ -3933,7 +3932,7 @@ class Services {
      * <a href="https://docs.microsoft.com/windows/desktop/api/winsvc/nf-winsvc-openservicea">OpenService</a> or 
      * <a href="https://docs.microsoft.com/windows/desktop/api/winsvc/nf-winsvc-createservicea">CreateService</a> function, and it must have the SERVICE_QUERY_CONFIG access right. For more information, see 
      * <a href="https://docs.microsoft.com/windows/desktop/Services/service-security-and-access-rights">Service Security and Access Rights</a>.
-     * @param {Pointer} lpServiceConfig A pointer to a buffer that receives the service configuration information. The format of the data is a 
+     * @param {Integer} lpServiceConfig A pointer to a buffer that receives the service configuration information. The format of the data is a 
      * <a href="https://docs.microsoft.com/windows/desktop/api/winsvc/ns-winsvc-query_service_configa">QUERY_SERVICE_CONFIG</a> structure.
      * 
      * The maximum size of this array is 8K bytes. To determine the required size, specify NULL for this parameter and 0 for the <i>cbBufSize</i> parameter. The function will fail and <a href="https://docs.microsoft.com/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a> will return ERROR_INSUFFICIENT_BUFFER. The <i>pcbBytesNeeded</i> parameter will receive the required size.
@@ -4018,8 +4017,8 @@ class Services {
      * <a href="https://docs.microsoft.com/windows/desktop/api/winsvc/nf-winsvc-openservicea">OpenService</a> or 
      * <a href="https://docs.microsoft.com/windows/desktop/api/winsvc/nf-winsvc-createservicea">CreateService</a> function and must have the <b>SERVICE_QUERY_CONFIG</b> access right. For more information, see 
      * <a href="https://docs.microsoft.com/windows/desktop/Services/service-security-and-access-rights">Service Security and Access Rights</a>.
-     * @param {Integer} dwInfoLevel 
-     * @param {Pointer} lpBuffer A pointer to the buffer that receives the service configuration information. The format of this data depends on the value of the <i>dwInfoLevel</i> parameter.
+     * @param {SERVICE_CONFIG} dwInfoLevel 
+     * @param {Integer} lpBuffer A pointer to the buffer that receives the service configuration information. The format of this data depends on the value of the <i>dwInfoLevel</i> parameter.
      * 
      * The maximum size of this array is 8K bytes. To determine the required size, specify <b>NULL</b> for this parameter and 0 for the <i>cbBufSize</i> parameter. The function fails and <a href="https://docs.microsoft.com/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a> returns <b>ERROR_INSUFFICIENT_BUFFER</b>. The <i>pcbBytesNeeded</i> parameter receives the needed size.
      * @param {Integer} cbBufSize The size of the structure pointed to by the <i>lpBuffer</i> parameter, in bytes.
@@ -4102,8 +4101,8 @@ class Services {
      * <a href="https://docs.microsoft.com/windows/desktop/api/winsvc/nf-winsvc-openservicea">OpenService</a> or 
      * <a href="https://docs.microsoft.com/windows/desktop/api/winsvc/nf-winsvc-createservicea">CreateService</a> function and must have the <b>SERVICE_QUERY_CONFIG</b> access right. For more information, see 
      * <a href="https://docs.microsoft.com/windows/desktop/Services/service-security-and-access-rights">Service Security and Access Rights</a>.
-     * @param {Integer} dwInfoLevel 
-     * @param {Pointer} lpBuffer A pointer to the buffer that receives the service configuration information. The format of this data depends on the value of the <i>dwInfoLevel</i> parameter.
+     * @param {SERVICE_CONFIG} dwInfoLevel 
+     * @param {Integer} lpBuffer A pointer to the buffer that receives the service configuration information. The format of this data depends on the value of the <i>dwInfoLevel</i> parameter.
      * 
      * The maximum size of this array is 8K bytes. To determine the required size, specify <b>NULL</b> for this parameter and 0 for the <i>cbBufSize</i> parameter. The function fails and <a href="https://docs.microsoft.com/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a> returns <b>ERROR_INSUFFICIENT_BUFFER</b>. The <i>pcbBytesNeeded</i> parameter receives the needed size.
      * @param {Integer} cbBufSize The size of the structure pointed to by the <i>lpBuffer</i> parameter, in bytes.
@@ -4192,7 +4191,7 @@ class Services {
      * @param {SC_HANDLE} hSCManager A handle to the service control manager database. The 
      * <a href="https://docs.microsoft.com/windows/desktop/api/winsvc/nf-winsvc-openscmanagera">OpenSCManager</a> function returns this handle, which must have the SC_MANAGER_QUERY_LOCK_STATUS access right. For more information, see 
      * <a href="https://docs.microsoft.com/windows/desktop/Services/service-security-and-access-rights">Service Security and Access Rights</a>.
-     * @param {Pointer} lpLockStatus A pointer to a 
+     * @param {Integer} lpLockStatus A pointer to a 
      * <a href="https://docs.microsoft.com/windows/desktop/api/winsvc/ns-winsvc-query_service_lock_statusa">QUERY_SERVICE_LOCK_STATUS</a> structure that receives the lock status of the specified database is returned, plus the strings to which its members point.
      * @param {Integer} cbBufSize The size of the buffer pointed to by the <i>lpLockStatus</i> parameter, in bytes.
      * @param {Pointer<Integer>} pcbBytesNeeded A pointer to a variable that receives the number of bytes needed to return all the lock status information, if the function fails.
@@ -4280,7 +4279,7 @@ class Services {
      * @param {SC_HANDLE} hSCManager A handle to the service control manager database. The 
      * <a href="https://docs.microsoft.com/windows/desktop/api/winsvc/nf-winsvc-openscmanagera">OpenSCManager</a> function returns this handle, which must have the SC_MANAGER_QUERY_LOCK_STATUS access right. For more information, see 
      * <a href="https://docs.microsoft.com/windows/desktop/Services/service-security-and-access-rights">Service Security and Access Rights</a>.
-     * @param {Pointer} lpLockStatus A pointer to a 
+     * @param {Integer} lpLockStatus A pointer to a 
      * <a href="https://docs.microsoft.com/windows/desktop/api/winsvc/ns-winsvc-query_service_lock_statusa">QUERY_SERVICE_LOCK_STATUS</a> structure that receives the lock status of the specified database is returned, plus the strings to which its members point.
      * @param {Integer} cbBufSize The size of the buffer pointed to by the <i>lpLockStatus</i> parameter, in bytes.
      * @param {Pointer<Integer>} pcbBytesNeeded A pointer to a variable that receives the number of bytes needed to return all the lock status information, if the function fails.
@@ -4365,7 +4364,7 @@ class Services {
      * @param {Integer} dwSecurityInformation A set of 
      * bit flags that indicate the type of security information to retrieve. This parameter can be a combination of the 
      * <a href="https://docs.microsoft.com/windows/desktop/SecAuthZ/security-information">SECURITY_INFORMATION</a> bit flags, with the exception that this function does not support the <b>LABEL_SECURITY_INFORMATION</b> value.
-     * @param {Pointer} lpSecurityDescriptor A pointer to a buffer that receives a copy of the security descriptor of the specified service object. The calling process must have the appropriate access to view the specified aspects of the  security descriptor of the object. The 
+     * @param {Integer} lpSecurityDescriptor A pointer to a buffer that receives a copy of the security descriptor of the specified service object. The calling process must have the appropriate access to view the specified aspects of the  security descriptor of the object. The 
      * <a href="https://docs.microsoft.com/windows/desktop/api/winnt/ns-winnt-security_descriptor">SECURITY_DESCRIPTOR</a> structure is returned in <a href="https://docs.microsoft.com/windows/desktop/SecGloss/s-gly">self-relative</a> format.
      * @param {Integer} cbBufSize The size of the buffer pointed to by the <i>lpSecurityDescriptor</i> parameter, in bytes. The largest size allowed is 8 kilobytes.
      * @param {Pointer<Integer>} pcbBytesNeeded A pointer to a variable that receives the number of bytes needed to return the requested security descriptor information, if the function fails.
@@ -4517,14 +4516,14 @@ class Services {
      * <a href="https://docs.microsoft.com/windows/desktop/api/winsvc/nf-winsvc-createservicea">CreateService</a> or 
      * <a href="https://docs.microsoft.com/windows/desktop/api/winsvc/nf-winsvc-openservicea">OpenService</a> function, and it must have the SERVICE_QUERY_STATUS access right. For more information, see 
      * <a href="https://docs.microsoft.com/windows/desktop/Services/service-security-and-access-rights">Service Security and Access Rights</a>.
-     * @param {Integer} InfoLevel The service attributes to be returned. Use SC_STATUS_PROCESS_INFO to retrieve the service status information. The <i>lpBuffer</i> parameter is a pointer to a 
+     * @param {SC_STATUS_TYPE} InfoLevel The service attributes to be returned. Use SC_STATUS_PROCESS_INFO to retrieve the service status information. The <i>lpBuffer</i> parameter is a pointer to a 
      * <a href="https://docs.microsoft.com/windows/desktop/api/winsvc/ns-winsvc-service_status_process">SERVICE_STATUS_PROCESS</a> structure. 
      * 
      * 
      * 
      * 
      * Currently, no other information levels are defined.
-     * @param {Pointer} lpBuffer A pointer to the buffer that receives the status information. The format of this data depends on the value of the <i>InfoLevel</i> parameter.
+     * @param {Integer} lpBuffer A pointer to the buffer that receives the status information. The format of this data depends on the value of the <i>InfoLevel</i> parameter.
      * 
      * The maximum size of this array is 8K bytes. To determine the required size, specify NULL for this parameter and 0 for the <i>cbBufSize</i> parameter. The function will fail and <a href="https://docs.microsoft.com/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a> will return ERROR_INSUFFICIENT_BUFFER. The <i>pcbBytesNeeded</i> parameter will receive the required size.
      * @param {Integer} cbBufSize The size of the buffer pointed to by the <i>lpBuffer</i> parameter, in bytes.
@@ -4966,7 +4965,7 @@ class Services {
      * @param {SC_HANDLE} hService A handle to the service. This handle is returned by the 
      * <a href="https://docs.microsoft.com/windows/desktop/api/winsvc/nf-winsvc-openservicea">OpenService</a> or 
      * <a href="https://docs.microsoft.com/windows/desktop/api/winsvc/nf-winsvc-createservicea">CreateService</a> function. The access required for this handle depends on the security information specified in the <i>dwSecurityInformation</i> parameter.
-     * @param {Integer} dwSecurityInformation 
+     * @param {OBJECT_SECURITY_INFORMATION} dwSecurityInformation 
      * @param {PSECURITY_DESCRIPTOR} lpSecurityDescriptor A pointer to a 
      * <a href="https://docs.microsoft.com/windows/desktop/api/winnt/ns-winnt-security_descriptor">SECURITY_DESCRIPTOR</a> structure that contains the new security information.
      * @returns {BOOL} If the function succeeds, the function returns nonzero. 
@@ -5792,7 +5791,7 @@ class Services {
      * <a href="https://docs.microsoft.com/windows/desktop/Services/service-security-and-access-rights">Service Security and Access Rights</a>.
      * 
      * There can only be one outstanding notification request per service.
-     * @param {Integer} dwNotifyMask 
+     * @param {SERVICE_NOTIFY} dwNotifyMask 
      * @param {Pointer<SERVICE_NOTIFY_2A>} pNotifyBuffer A pointer to a <a href="https://docs.microsoft.com/windows/desktop/api/winsvc/ns-winsvc-service_notify_2a">SERVICE_NOTIFY</a> structure that contains notification information, such as a pointer to the callback function. This structure must remain valid until the callback function is invoked or the calling thread cancels the notification request.
      * 
      * Do not make multiple calls to <b>NotifyServiceStatusChange</b> with the same buffer parameter until the callback function from the first call has finished with the buffer or the first notification request has been canceled. Otherwise, there is no guarantee which version of the buffer the callback function will receive.
@@ -5841,7 +5840,7 @@ class Services {
      * <a href="https://docs.microsoft.com/windows/desktop/Services/service-security-and-access-rights">Service Security and Access Rights</a>.
      * 
      * There can only be one outstanding notification request per service.
-     * @param {Integer} dwNotifyMask 
+     * @param {SERVICE_NOTIFY} dwNotifyMask 
      * @param {Pointer<SERVICE_NOTIFY_2W>} pNotifyBuffer A pointer to a <a href="https://docs.microsoft.com/windows/desktop/api/winsvc/ns-winsvc-service_notify_2a">SERVICE_NOTIFY</a> structure that contains notification information, such as a pointer to the callback function. This structure must remain valid until the callback function is invoked or the calling thread cancels the notification request.
      * 
      * Do not make multiple calls to <b>NotifyServiceStatusChange</b> with the same buffer parameter until the callback function from the first call has finished with the buffer or the first notification request has been canceled. Otherwise, there is no guarantee which version of the buffer the callback function will receive.
@@ -6641,7 +6640,7 @@ class Services {
      * @param {SC_HANDLE} hService A handle to the service or a handle to the service control manager (SCM) to monitor for changes.
      * 
      * Handles to services are returned by the [**OpenService**](/windows/desktop/api/Winsvc/nf-winsvc-openservicea) and [**CreateService**](/windows/desktop/api/Winsvc/nf-winsvc-createservicea) function and must have the **SERVICE\_QUERY\_STATUS** access right. Handles to the service control manager are returned by the [**OpenSCManager**](/windows/desktop/api/Winsvc/nf-winsvc-openscmanagera) function and must have the **SC\_MANAGER\_ENUMERATE\_SERVICE** access right.
-     * @param {Integer} eEventType Specifies the type of status changes that should be reported. This parameter is set to one of the values specified in [**SC\_EVENT\_TYPE**](sc-event-type.md). The behavior for this function is different depending on the event type as follows.
+     * @param {SC_EVENT_TYPE} eEventType Specifies the type of status changes that should be reported. This parameter is set to one of the values specified in [**SC\_EVENT\_TYPE**](sc-event-type.md). The behavior for this function is different depending on the event type as follows.
      * 
      * 
      * 
@@ -6705,7 +6704,7 @@ class Services {
      * 
      * All service state registry keys are deleted by the service control manager once the service is uninstalled.
      * @param {SERVICE_STATUS_HANDLE} ServiceStatusHandle A handle to the status information structure for the current service. This handle is returned by the [RegisterServiceCtrlHandler](./nf-winsvc-registerservicectrlhandlera.md) function.
-     * @param {Integer} StateType A member of the [SERVICE_REGISTRY_STATE_TYPE](./ne-winsvc-service_registry_state_type.md) specifying the state type for which the service registry key is retreived.
+     * @param {SERVICE_REGISTRY_STATE_TYPE} StateType A member of the [SERVICE_REGISTRY_STATE_TYPE](./ne-winsvc-service_registry_state_type.md) specifying the state type for which the service registry key is retreived.
      * @param {Integer} AccessMask The access mask with which to attempt to open the state key. For more information, see 
      * <a href="https://docs.microsoft.com/windows/desktop/SysInfo/registry-key-security-and-access-rights">Registry Key Security and Access Rights</a>.
      * @param {Pointer<HKEY>} ServiceStateKey Receives the output registry key handle.
@@ -6729,7 +6728,7 @@ class Services {
      * 
      * All service state directories are deleted by the service control manager once the service is uninstalled.
      * @param {SERVICE_STATUS_HANDLE} hServiceStatus A handle to the status information structure for the current service. This handle is returned by the [RegisterServiceCtrlHandler](./nf-winsvc-registerservicectrlhandlera.md) function.
-     * @param {Integer} eDirectoryType A member of the [SERVICE_DIRECTORY_TYPE](./ne-winsvc-service_directory_type.md) enumeration that identifies the type of per-service directory path to retrieve.
+     * @param {SERVICE_DIRECTORY_TYPE} eDirectoryType A member of the [SERVICE_DIRECTORY_TYPE](./ne-winsvc-service_directory_type.md) enumeration that identifies the type of per-service directory path to retrieve.
      * @param {PWSTR} lpPathBuffer A caller-allocated buffer into which the path string will be copied. If NULL, the function call will fail with ERROR_INSUFFICIENT_BUFFER and return the required buffer length, in WCHARs, in *lpcchRequiredBufferLength*. If non-NULL, the length of the buffer should be specified in *cchPathBufferLength*. The path, if written, will be NULL terminated.
      * @param {Integer} cchPathBufferLength The length of the buffer supplied in *lpPathBuffer*, in units of WCHARS. This argument is ignored if *lpPathBuffer* is NULL.
      * @param {Pointer<Integer>} lpcchRequiredBufferLength This value is set to the required length of the buffer in units of WCHARs. This length includes the terminating NULL character.
@@ -6756,7 +6755,7 @@ class Services {
      * 
      * All service state registry keys are deleted by the service control manager once the service is uninstalled.
      * @param {SC_HANDLE} ServiceHandle 
-     * @param {Integer} StateType A member of the [SERVICE_SHARED_REGISTRY_STATE_TYPE](./ne-winsvc-service_shared_registry_state_type.md) specifying the shared state type for which the service registry key is retrieved.
+     * @param {SERVICE_SHARED_REGISTRY_STATE_TYPE} StateType A member of the [SERVICE_SHARED_REGISTRY_STATE_TYPE](./ne-winsvc-service_shared_registry_state_type.md) specifying the shared state type for which the service registry key is retrieved.
      * @param {Integer} AccessMask The access mask with which to attempt to open the state key. For more information, see 
      * <a href="https://docs.microsoft.com/windows/desktop/SysInfo/registry-key-security-and-access-rights">Registry Key Security and Access Rights</a>.
      * @param {Pointer<HKEY>} ServiceStateKey Receives the output registry key handle.
@@ -6779,7 +6778,7 @@ class Services {
      * 
      * All service state directories are deleted by the service control manager once the service is uninstalled.
      * @param {SC_HANDLE} ServiceHandle A handle to the service. This handle is returned by the [OpenService](./nf-winsvc-openservicea.md) function.
-     * @param {Integer} DirectoryType A member of the [SERVICE_SHARED_DIRECTORY_TYPE](./ne-winsvc-service_shared_directory_type.md) enumeration that identifies the type of per-service shared directory path to retrieve.
+     * @param {SERVICE_SHARED_DIRECTORY_TYPE} DirectoryType A member of the [SERVICE_SHARED_DIRECTORY_TYPE](./ne-winsvc-service_shared_directory_type.md) enumeration that identifies the type of per-service shared directory path to retrieve.
      * @param {PWSTR} PathBuffer A caller-allocated buffer into which the path string will be copied. If NULL, the function call will fail with ERROR_INSUFFICIENT_BUFFER and return the required buffer length, in WCHARs, in *RequiredBufferLength*. If non-NULL, the length of the buffer should be specified in *PathBufferLength*. The path, if written, will be NULL terminated.
      * @param {Integer} PathBufferLength The length of the buffer supplied in *PathBuffer*, in units of WCHARS. This argument is ignored if *PathBuffer* is NULL.
      * @param {Pointer<Integer>} RequiredBufferLength This value is set to the required length of the buffer in units of WCHARs. This length includes the terminating NULL character.

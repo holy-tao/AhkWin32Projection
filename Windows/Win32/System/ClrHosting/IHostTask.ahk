@@ -5,9 +5,8 @@
 
 /**
  * @namespace Windows.Win32.System.ClrHosting
- * @version v4.0.30319
  */
-class IHostTask extends IUnknown{
+class IHostTask extends IUnknown {
 
     static sizeof => A_PtrSize
     /**

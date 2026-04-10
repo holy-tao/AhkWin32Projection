@@ -3,10 +3,8 @@
 
 /**
  * @namespace Windows.Win32.NetworkManagement.Ndis
- * @version v4.0.30319
  */
-class NETWORK_ADDRESS_IP extends Win32Struct
-{
+class NETWORK_ADDRESS_IP extends Win32Struct {
     static sizeof => 16
 
     static packingSize => 4
@@ -28,9 +26,9 @@ class NETWORK_ADDRESS_IP extends Win32Struct
     }
 
     /**
-     * @type {Array<Byte>}
+     * @type {Array<Integer>}
      */
-    sin_zero{
+    sin_zero {
         get {
             if(!this.HasProp("__sin_zeroProxyArray"))
                 this.__sin_zeroProxyArray := Win32FixedArray(this.ptr + 8, 8, Primitive, "char")

@@ -10,10 +10,8 @@
  * The <b>HTTP_SERVER_AUTHENTICATION_INFO</b> structure is included in the HTTP request if authentication has been configured on the associated URL group. The original HTTP authentication header received from the client is always included in the HTTP request, regardless of the authentication status.
  * @see https://learn.microsoft.com/windows/win32/api/http/ns-http-http_server_authentication_info
  * @namespace Windows.Win32.Networking.HttpServer
- * @version v4.0.30319
  */
-class HTTP_SERVER_AUTHENTICATION_INFO extends Win32Struct
-{
+class HTTP_SERVER_AUTHENTICATION_INFO extends Win32Struct {
     static sizeof => 64
 
     static packingSize => 8
@@ -22,7 +20,7 @@ class HTTP_SERVER_AUTHENTICATION_INFO extends Win32Struct
      * The <a href="https://docs.microsoft.com/windows/desktop/api/http/ns-http-http_property_flags">HTTP_PROPERTY_FLAGS</a> structure that specifies if the property is present.
      * @type {HTTP_PROPERTY_FLAGS}
      */
-    Flags{
+    Flags {
         get {
             if(!this.HasProp("__Flags"))
                 this.__Flags := HTTP_PROPERTY_FLAGS(0, this)
@@ -177,7 +175,7 @@ class HTTP_SERVER_AUTHENTICATION_INFO extends Win32Struct
      * The <a href="https://docs.microsoft.com/windows/desktop/api/http/ns-http-http_server_authentication_digest_params">HTTP_SERVER_AUTHENTICATION_DIGEST_PARAMS</a> structure that provides the domain and realm for the digest challenge.
      * @type {HTTP_SERVER_AUTHENTICATION_DIGEST_PARAMS}
      */
-    DigestParams{
+    DigestParams {
         get {
             if(!this.HasProp("__DigestParams"))
                 this.__DigestParams := HTTP_SERVER_AUTHENTICATION_DIGEST_PARAMS(16, this)
@@ -189,7 +187,7 @@ class HTTP_SERVER_AUTHENTICATION_INFO extends Win32Struct
      * The <a href="https://docs.microsoft.com/windows/desktop/api/http/ns-http-http_server_authentication_basic_params">HTTP_SERVER_AUTHENTICATION_BASIC_PARAMS</a> structure that provides the realm for the basic challenge.
      * @type {HTTP_SERVER_AUTHENTICATION_BASIC_PARAMS}
      */
-    BasicParams{
+    BasicParams {
         get {
             if(!this.HasProp("__BasicParams"))
                 this.__BasicParams := HTTP_SERVER_AUTHENTICATION_BASIC_PARAMS(48, this)

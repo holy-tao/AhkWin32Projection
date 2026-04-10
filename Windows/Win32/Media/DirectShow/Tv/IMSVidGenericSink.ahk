@@ -1,7 +1,6 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\..\Guid.ahk
-#Include ..\..\..\Foundation\BSTR.ahk
 #Include .\IMSVidOutputDevice.ahk
 
 /**
@@ -10,9 +9,8 @@
  * To declare the interface identifier (IID) for this interface, use the <b>__uuidof</b> operator: <c>__uuidof(IMSVidGenericSink)</c>.
  * @see https://learn.microsoft.com/windows/win32/api/segment/nn-segment-imsvidgenericsink
  * @namespace Windows.Win32.Media.DirectShow.Tv
- * @version v4.0.30319
  */
-class IMSVidGenericSink extends IMSVidOutputDevice{
+class IMSVidGenericSink extends IMSVidOutputDevice {
 
     static sizeof => A_PtrSize
     /**
@@ -40,7 +38,7 @@ class IMSVidGenericSink extends IMSVidOutputDevice{
     static VTableNames => ["SetSinkFilter", "get_SinkStreams", "put_SinkStreams"]
 
     /**
-     * @type {Integer} 
+     * @type {MSVidSinkStreams} 
      */
     SinkStreams {
         get => this.get_SinkStreams()
@@ -80,7 +78,7 @@ class IMSVidGenericSink extends IMSVidOutputDevice{
 
     /**
      * The get_SinkStreams method retrieves the streams that are required to be rendered down to the sink. Not implemented.
-     * @returns {Integer} Reserved.
+     * @returns {MSVidSinkStreams} Reserved.
      * @see https://learn.microsoft.com/windows/win32/api/segment/nf-segment-imsvidgenericsink-get_sinkstreams
      */
     get_SinkStreams() {
@@ -90,7 +88,7 @@ class IMSVidGenericSink extends IMSVidOutputDevice{
 
     /**
      * The put_SinkStreams method sets the streams that are required to be rendered down to the sink. Not implemented.
-     * @param {Integer} Streams Reserved.
+     * @param {MSVidSinkStreams} Streams Reserved.
      * @returns {HRESULT} Returns E_NOTIMPL.
      * @see https://learn.microsoft.com/windows/win32/api/segment/nf-segment-imsvidgenericsink-put_sinkstreams
      */

@@ -10,9 +10,8 @@
  *           <a href="https://docs.microsoft.com/windows/win32/api/d3d12/ns-d3d12-d3d12_resource_barrier">D3D12_RESOURCE_BARRIER</a> structure.
  * @see https://learn.microsoft.com/windows/win32/api/d3d12/ne-d3d12-d3d12_resource_barrier_flags
  * @namespace Windows.Win32.Graphics.Direct3D12
- * @version v4.0.30319
  */
-class D3D12_RESOURCE_BARRIER_FLAGS extends Win32BitflagEnum{
+class D3D12_RESOURCE_BARRIER_FLAGS extends Win32BitflagEnum {
 
     /**
      * No flags.

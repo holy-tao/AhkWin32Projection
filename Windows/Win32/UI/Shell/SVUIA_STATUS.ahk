@@ -5,9 +5,8 @@
  * Used with the IBrowserService2::_UIActivateView method to set the state of a browser view.
  * @see https://learn.microsoft.com/windows/win32/api/shobjidl_core/ne-shobjidl_core-svuia_status
  * @namespace Windows.Win32.UI.Shell
- * @version v4.0.30319
  */
-class SVUIA_STATUS extends Win32Enum{
+class SVUIA_STATUS extends Win32Enum {
 
     /**
      * The browser view has been deactivated.

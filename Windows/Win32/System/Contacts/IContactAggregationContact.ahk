@@ -5,9 +5,8 @@
 
 /**
  * @namespace Windows.Win32.System.Contacts
- * @version v4.0.30319
  */
-class IContactAggregationContact extends IUnknown{
+class IContactAggregationContact extends IUnknown {
 
     static sizeof => A_PtrSize
     /**

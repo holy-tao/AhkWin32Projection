@@ -7,9 +7,8 @@
  * The ITfCompartmentEventSink interface is implemented by a client (application or text service) and used by the TSF manager to notify the client when compartment data changes.
  * @see https://learn.microsoft.com/windows/win32/api/msctf/nn-msctf-itfcompartmenteventsink
  * @namespace Windows.Win32.UI.TextServices
- * @version v4.0.30319
  */
-class ITfCompartmentEventSink extends IUnknown{
+class ITfCompartmentEventSink extends IUnknown {
 
     static sizeof => A_PtrSize
     /**

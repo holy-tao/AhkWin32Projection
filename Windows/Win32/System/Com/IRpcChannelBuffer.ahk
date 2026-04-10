@@ -7,9 +7,8 @@
  * The IRpcChannelBuffer (objidlbase.h) interface marshals data between a COM client proxy and a COM server stub.
  * @see https://learn.microsoft.com/windows/win32/api/objidlbase/nn-objidlbase-irpcchannelbuffer
  * @namespace Windows.Win32.System.Com
- * @version v4.0.30319
  */
-class IRpcChannelBuffer extends IUnknown{
+class IRpcChannelBuffer extends IUnknown {
 
     static sizeof => A_PtrSize
     /**

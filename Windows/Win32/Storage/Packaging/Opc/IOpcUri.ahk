@@ -1,8 +1,8 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\..\Guid.ahk
-#Include .\IOpcPartUri.ahk
 #Include ..\..\..\System\Com\IUri.ahk
+#Include .\IOpcPartUri.ahk
 
 /**
  * Represents the URI of the package root or of a part that is relative to the package root.
@@ -11,9 +11,8 @@
  * The behavior and performance of this interface is the same on all supported Windows versions. For more information, see the <a href="https://docs.microsoft.com/previous-versions/windows/desktop/opc/packaging-api-overview">Getting Started with the Packaging API</a>, and <a href="https://docs.microsoft.com/windows/desktop/win7ip/platform-update-for-windows-vista-portal">Platform Update for Windows Vista</a>.
  * @see https://learn.microsoft.com/windows/win32/api/msopc/nn-msopc-iopcuri
  * @namespace Windows.Win32.Storage.Packaging.Opc
- * @version v4.0.30319
  */
-class IOpcUri extends IUri{
+class IOpcUri extends IUri {
 
     static sizeof => A_PtrSize
     /**

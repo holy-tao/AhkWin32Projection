@@ -5,10 +5,8 @@
 
 /**
  * @namespace Windows.Win32.Security.Cryptography
- * @version v4.0.30319
  */
-class CRYPT_ECC_PRIVATE_KEY_INFO extends Win32Struct
-{
+class CRYPT_ECC_PRIVATE_KEY_INFO extends Win32Struct {
     static sizeof => 56
 
     static packingSize => 8
@@ -24,7 +22,7 @@ class CRYPT_ECC_PRIVATE_KEY_INFO extends Win32Struct
     /**
      * @type {CRYPT_INTEGER_BLOB}
      */
-    PrivateKey{
+    PrivateKey {
         get {
             if(!this.HasProp("__PrivateKey"))
                 this.__PrivateKey := CRYPT_INTEGER_BLOB(8, this)
@@ -43,7 +41,7 @@ class CRYPT_ECC_PRIVATE_KEY_INFO extends Win32Struct
     /**
      * @type {CRYPT_BIT_BLOB}
      */
-    PublicKey{
+    PublicKey {
         get {
             if(!this.HasProp("__PublicKey"))
                 this.__PublicKey := CRYPT_BIT_BLOB(32, this)

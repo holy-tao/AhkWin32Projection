@@ -3,10 +3,8 @@
 
 /**
  * @namespace Windows.Wdk.System.SystemServices
- * @version v4.0.30319
  */
-class KDPC_WATCHDOG_INFORMATION extends Win32Struct
-{
+class KDPC_WATCHDOG_INFORMATION extends Win32Struct {
     static sizeof => 20
 
     static packingSize => 4

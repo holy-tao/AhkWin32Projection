@@ -12,10 +12,8 @@
  * For convenience, Direct2D provides the <a href="https://docs.microsoft.com/windows/win32/api/d2d1helper/nf-d2d1helper-radialgradientbrushproperties">D2D1::RadialGradientBrushProperties</a> function for creating new <b>D2D1_RADIAL_GRADIENT_BRUSH</b> structures.
  * @see https://learn.microsoft.com/windows/win32/api/d2d1/ns-d2d1-d2d1_radial_gradient_brush_properties
  * @namespace Windows.Win32.Graphics.Direct2D
- * @version v4.0.30319
  */
-class D2D1_RADIAL_GRADIENT_BRUSH_PROPERTIES extends Win32Struct
-{
+class D2D1_RADIAL_GRADIENT_BRUSH_PROPERTIES extends Win32Struct {
     static sizeof => 24
 
     static packingSize => 4
@@ -26,7 +24,7 @@ class D2D1_RADIAL_GRADIENT_BRUSH_PROPERTIES extends Win32Struct
      * In the brush's coordinate space, the center of the gradient ellipse.
      * @type {D2D_POINT_2F}
      */
-    center{
+    center {
         get {
             if(!this.HasProp("__center"))
                 this.__center := D2D_POINT_2F(0, this)
@@ -40,7 +38,7 @@ class D2D1_RADIAL_GRADIENT_BRUSH_PROPERTIES extends Win32Struct
      * In the brush's coordinate space, the offset of the gradient origin relative to the gradient ellipse's center.
      * @type {D2D_POINT_2F}
      */
-    gradientOriginOffset{
+    gradientOriginOffset {
         get {
             if(!this.HasProp("__gradientOriginOffset"))
                 this.__gradientOriginOffset := D2D_POINT_2F(8, this)

@@ -3,18 +3,16 @@
 
 /**
  * @namespace Windows.Win32.Media.MediaFoundation
- * @version v4.0.30319
  */
-class DXVA_COPPSignature extends Win32Struct
-{
+class DXVA_COPPSignature extends Win32Struct {
     static sizeof => 256
 
     static packingSize => 1
 
     /**
-     * @type {Array<Byte>}
+     * @type {Array<Integer>}
      */
-    Signature{
+    Signature {
         get {
             if(!this.HasProp("__SignatureProxyArray"))
                 this.__SignatureProxyArray := Win32FixedArray(this.ptr + 0, 256, Primitive, "char")

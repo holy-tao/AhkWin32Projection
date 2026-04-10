@@ -3,10 +3,8 @@
 
 /**
  * @namespace Windows.Win32.System.Diagnostics.Debug.Extensions
- * @version v4.0.30319
  */
-class DEBUG_DRIVER_OBJECT_INFO extends Win32Struct
-{
+class DEBUG_DRIVER_OBJECT_INFO extends Win32Struct {
     static sizeof => 56
 
     static packingSize => 8
@@ -22,7 +20,7 @@ class DEBUG_DRIVER_OBJECT_INFO extends Win32Struct
             get => NumGet(this, 0, "ushort")
             set => NumPut("ushort", value, this, 0)
         }
-    
+
         /**
          * @type {Integer}
          */
@@ -30,7 +28,7 @@ class DEBUG_DRIVER_OBJECT_INFO extends Win32Struct
             get => NumGet(this, 2, "ushort")
             set => NumPut("ushort", value, this, 2)
         }
-    
+
         /**
          * @type {Integer}
          */
@@ -38,7 +36,6 @@ class DEBUG_DRIVER_OBJECT_INFO extends Win32Struct
             get => NumGet(this, 8, "uint")
             set => NumPut("uint", value, this, 8)
         }
-    
     }
 
     /**
@@ -92,10 +89,10 @@ class DEBUG_DRIVER_OBJECT_INFO extends Win32Struct
     /**
      * @type {_DriverName}
      */
-    DriverName{
+    DriverName {
         get {
             if(!this.HasProp("__DriverName"))
-                this.__DriverName := %this.__Class%._DriverName(40, this)
+                this.__DriverName := DEBUG_DRIVER_OBJECT_INFO._DriverName(40, this)
             return this.__DriverName
         }
     }

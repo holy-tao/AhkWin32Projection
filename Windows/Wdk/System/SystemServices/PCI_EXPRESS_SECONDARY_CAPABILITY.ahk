@@ -3,16 +3,14 @@
 
 /**
  * @namespace Windows.Wdk.System.SystemServices
- * @version v4.0.30319
  */
-class PCI_EXPRESS_SECONDARY_CAPABILITY extends Win32Struct
-{
+class PCI_EXPRESS_SECONDARY_CAPABILITY extends Win32Struct {
     static sizeof => 24
 
     static packingSize => 8
 
     /**
-     * @type {Pointer<PCI_EXPRESS_ENHANCED_CAPABILITY_HEADER>}
+     * @type {Pointer}
      */
     Header {
         get => NumGet(this, 0, "ptr")
@@ -20,7 +18,7 @@ class PCI_EXPRESS_SECONDARY_CAPABILITY extends Win32Struct
     }
 
     /**
-     * @type {Pointer<PCI_EXPRESS_LINK_CONTROL3>}
+     * @type {Pointer}
      */
     LinkControl3 {
         get => NumGet(this, 8, "ptr")
@@ -28,7 +26,7 @@ class PCI_EXPRESS_SECONDARY_CAPABILITY extends Win32Struct
     }
 
     /**
-     * @type {Pointer<PCI_EXPRESS_LANE_ERROR_STATUS>}
+     * @type {Pointer}
      */
     LaneErrorStatus {
         get => NumGet(this, 16, "ptr")

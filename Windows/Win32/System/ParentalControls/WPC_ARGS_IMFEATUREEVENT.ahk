@@ -5,9 +5,8 @@
  * Indicates information about the features of the instant messaging interaction.
  * @see https://learn.microsoft.com/windows/win32/api/wpcevent/ne-wpcevent-wpc_args_imfeatureevent
  * @namespace Windows.Win32.System.ParentalControls
- * @version v4.0.30319
  */
-class WPC_ARGS_IMFEATUREEVENT extends Win32Enum{
+class WPC_ARGS_IMFEATUREEVENT extends Win32Enum {
 
     /**
      * The name of the application used for the instant messaging interaction.

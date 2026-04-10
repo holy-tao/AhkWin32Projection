@@ -16,10 +16,8 @@
  * On the Microsoft Windows Software Development Kit (SDK) released for Windows Vista and later, the organization of header files has changed. This  structure is defined in the <i>Udpmib.h</i> header file, not in the <i>Iprtrmib.h</i> header file. Note that the <i>Udpmib.h</i> header file is automatically included in <i>Iprtrmib.h</i>, which is automatically included in the <i>Iphlpapi.h</i> header file. The  <i>Udpmib.h</i> and <i>Iprtrmib.h</i> header files should never be used directly.
  * @see https://learn.microsoft.com/windows/win32/api/udpmib/ns-udpmib-mib_udprow_owner_module
  * @namespace Windows.Win32.NetworkManagement.IpHelper
- * @version v4.0.30319
  */
-class MIB_UDPROW_OWNER_MODULE extends Win32Struct
-{
+class MIB_UDPROW_OWNER_MODULE extends Win32Struct {
     static sizeof => 160
 
     static packingSize => 8
@@ -101,9 +99,9 @@ class MIB_UDPROW_OWNER_MODULE extends Win32Struct
      * Type: <b>ULONGLONG[TCPIP_OWNING_MODULE_SIZE]</b>
      * 
      * An array of opaque data that contains ownership information.
-     * @type {Array<UInt64>}
+     * @type {Array<Integer>}
      */
-    OwningModuleInfo{
+    OwningModuleInfo {
         get {
             if(!this.HasProp("__OwningModuleInfoProxyArray"))
                 this.__OwningModuleInfoProxyArray := Win32FixedArray(this.ptr + 32, 16, Primitive, "uint")

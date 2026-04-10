@@ -1,7 +1,6 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
-#Include .\ISyncKnowledge2.ahk
 #Include .\ISyncKnowledge.ahk
 #Include ..\Com\IUnknown.ahk
 
@@ -11,9 +10,8 @@
  * An <b>ISyncKnowledge2</b> object can be obtained by passing <b>IID_ISyncKnowledge2</b> to the <b>QueryInterface</b> method of an <b>ISyncKnowledge</b> object.
  * @see https://learn.microsoft.com/windows/win32/api/winsync/nn-winsync-isyncknowledge2
  * @namespace Windows.Win32.System.WindowsSync
- * @version v4.0.30319
  */
-class ISyncKnowledge2 extends ISyncKnowledge{
+class ISyncKnowledge2 extends ISyncKnowledge {
 
     static sizeof => A_PtrSize
     /**
@@ -114,7 +112,7 @@ class ISyncKnowledge2 extends ISyncKnowledge{
      *  When <b>SYNC_SERIALIZE_REPLICA_KEY_MAP</b> is specified for flags, the <b>IReplicaKeyMap</b> object is serialized along with the knowledge data. When this flag is not specified, the <b>IReplicaKeyMap</b> data must be stored in some other way so that the knowledge object can be deserialized.
      * 
      * The value of <i>targetFormatVersion</i> determines the format of the serialized knowledge data and refers to the version of <a href="https://www.microsoft.com/downloads/details.aspx?familyid=A3EE7BC5-A823-4FB4-B152-9E8CE9D5546F&displaylang=en">Microsoft Sync Framework</a>. For an overview of what is involved in building synchronization providers using  <a href="https://www.microsoft.com/downloads/details.aspx?familyid=A3EE7BC5-A823-4FB4-B152-9E8CE9D5546F&displaylang=en">Microsoft Sync Framework</a>, see <a href="https://docs.microsoft.com/previous-versions/windows/desktop/winsync/options-for-building-a-synchronization-provider">Options for Building a Synchronization Provider</a>.
-     * @param {Integer} targetFormatVersion The serialized knowledge is compatible with this version.
+     * @param {SYNC_SERIALIZATION_VERSION} targetFormatVersion The serialized knowledge is compatible with this version.
      * @param {Integer} dwFlags Options that specify additional information about how to serialize the object. Must be zero or a combination of the values specified by the <b>SYNC_SERIALIZE</b> flags (see Remarks). When zero is specified, the replica key map is not included as part of the serialized knowledge data.
      * @param {Pointer<Integer>} pbBuffer The serialized knowledge object data is serialized to this buffer.
      * @param {Pointer<Integer>} pdwSerializedSize Specifies the number of bytes in <i>pBuffer</i>. Returns either the number of bytes that are required to serialize the knowledge data when <i>pBuffer</i> is too small, or the number of bytes written.
@@ -320,7 +318,7 @@ class ISyncKnowledge2 extends ISyncKnowledge{
      * A knowledge object that has a version of <b>SYNC_SERIALIZATION_VERSION_V2</b> supports components that are compatible with Sync Framework 1.0 when the knowledge object contains only elements that are compatible with Sync Framework 1.0. In this situation, <b>GetMinSupportedVersion</b> returns a version of <b>SYNC_SERIALIZATION_VERSION_V1</b>.
      * 
      * For an overview of what is involved in building synchronization providers using  <a href="https://www.microsoft.com/downloads/details.aspx?familyid=A3EE7BC5-A823-4FB4-B152-9E8CE9D5546F&displaylang=en">Microsoft Sync Framework</a>, see <a href="https://docs.microsoft.com/previous-versions/windows/desktop/winsync/options-for-building-a-synchronization-provider">Options for Building a Synchronization Provider</a>.
-     * @param {Pointer<Integer>} pVersion The minimum supported version of Microsoft Sync Framework components that can be used with this object.
+     * @param {Pointer<SYNC_SERIALIZATION_VERSION>} pVersion The minimum supported version of Microsoft Sync Framework components that can be used with this object.
      * @returns {HRESULT} The possible return codes include, but are not limited to, the values shown in the following table.
      * 
      * <table>
@@ -362,7 +360,7 @@ class ISyncKnowledge2 extends ISyncKnowledge{
 
     /**
      * Gets the specified statistic data that is contained in this object.
-     * @param {Integer} which Specifies which statistic to retrieve.
+     * @param {SYNC_STATISTICS} which Specifies which statistic to retrieve.
      * @param {Pointer<Integer>} pValue The specified statistic data.
      * @returns {HRESULT} The possible return codes include, but are not limited to, the values shown in the following table.
      * 
@@ -650,7 +648,7 @@ class ISyncKnowledge2 extends ISyncKnowledge{
      * @remarks
      * This method can be used when the performance of the knowledge comparison operation is especially important.
      * @param {IUnknown} pKnowledgeCookie The knowledge cookie to compare against this object.
-     * @param {Pointer<Integer>} pResult The result of the comparison.
+     * @param {Pointer<KNOWLEDGE_COOKIE_COMPARISON_RESULT>} pResult The result of the comparison.
      * @returns {HRESULT} The possible return codes include, but are not limited to, the values shown in the following table.
      * 
      * <table>

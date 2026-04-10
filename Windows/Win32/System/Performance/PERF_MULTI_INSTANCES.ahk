@@ -8,10 +8,8 @@
  * contain <b>PERF_MULTI_INSTANCES</b> blocks within the <a href="https://docs.microsoft.com/windows/desktop/api/perflib/ns-perflib-perf_counter_header">PERF_COUNTER_HEADER</a> block.
  * @see https://learn.microsoft.com/windows/win32/api/perflib/ns-perflib-perf_multi_instances
  * @namespace Windows.Win32.System.Performance
- * @version v4.0.30319
  */
-class PERF_MULTI_INSTANCES extends Win32Struct
-{
+class PERF_MULTI_INSTANCES extends Win32Struct {
     static sizeof => 8
 
     static packingSize => 4

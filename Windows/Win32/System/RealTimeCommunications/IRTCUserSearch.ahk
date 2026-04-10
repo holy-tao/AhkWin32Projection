@@ -1,14 +1,13 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
-#Include .\IRTCUserSearchQuery.ahk
 #Include ..\Com\IUnknown.ahk
+#Include .\IRTCUserSearchQuery.ahk
 
 /**
  * @namespace Windows.Win32.System.RealTimeCommunications
- * @version v4.0.30319
  */
-class IRTCUserSearch extends IUnknown{
+class IRTCUserSearch extends IUnknown {
 
     static sizeof => A_PtrSize
     /**

@@ -6,10 +6,8 @@
  * Contains a single attribute value. The Value member's CRYPT_OBJID_BLOB is encoded.
  * @see https://learn.microsoft.com/windows/win32/api/wincrypt/ns-wincrypt-crypt_attribute_type_value
  * @namespace Windows.Win32.Security.Cryptography
- * @version v4.0.30319
  */
-class CRYPT_ATTRIBUTE_TYPE_VALUE extends Win32Struct
-{
+class CRYPT_ATTRIBUTE_TYPE_VALUE extends Win32Struct {
     static sizeof => 24
 
     static packingSize => 8
@@ -27,7 +25,7 @@ class CRYPT_ATTRIBUTE_TYPE_VALUE extends Win32Struct
      * A <a href="https://docs.microsoft.com/previous-versions/windows/desktop/legacy/aa381414(v=vs.85)">CRYPT_OBJID_BLOB</a> that contains the encoded attribute. The <b>cbData</b> member of the <b>CRYPT_OBJID_BLOB</b> structure indicates the length of the <b>pbData</b> member. The <b>pbData</b> member contains the attribute information.
      * @type {CRYPT_INTEGER_BLOB}
      */
-    Value{
+    Value {
         get {
             if(!this.HasProp("__Value"))
                 this.__Value := CRYPT_INTEGER_BLOB(8, this)

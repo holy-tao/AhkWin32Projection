@@ -1,21 +1,20 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
+#Include .\LocationCodeSchemeType.ahk
 
 /**
  * The EALocationCodeType structure defines an Emergency Alert (EA) location code, as defined in ANSI/SCTE 28.
  * @see https://learn.microsoft.com/windows/win32/api/bdaiface_enums/ns-bdaiface_enums-ealocationcodetype
  * @namespace Windows.Win32.Media.DirectShow
- * @version v4.0.30319
  */
-class EALocationCodeType extends Win32Struct
-{
+class EALocationCodeType extends Win32Struct {
     static sizeof => 8
 
     static packingSize => 4
 
     /**
      * Identifies the standard that shall be used to interpret the other members of this structure. Currently this value must be SCTE_18, meaning SCTE 18, "Emergency Alert Message for Cable."
-     * @type {Integer}
+     * @type {LocationCodeSchemeType}
      */
     LocationCodeScheme {
         get => NumGet(this, 0, "int")

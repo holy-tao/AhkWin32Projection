@@ -3,10 +3,8 @@
 
 /**
  * @namespace Windows.Wdk.System.SystemServices
- * @version v4.0.30319
  */
-class WHEA_SEL_BUGCHECK_RECOVERY_STATUS_PHASE1_EVENT extends Win32Struct
-{
+class WHEA_SEL_BUGCHECK_RECOVERY_STATUS_PHASE1_EVENT extends Win32Struct {
     static sizeof => 16
 
     static packingSize => 8
@@ -22,22 +20,21 @@ class WHEA_SEL_BUGCHECK_RECOVERY_STATUS_PHASE1_EVENT extends Win32Struct
             get => NumGet(this, 0, "char")
             set => NumPut("char", value, this, 0)
         }
-    
+
         /**
-         * @type {Array<Byte>}
+         * @type {Array<Integer>}
          */
-        Reserved{
+        Reserved {
             get {
                 if(!this.HasProp("__ReservedProxyArray"))
                     this.__ReservedProxyArray := Win32FixedArray(this.ptr + 1, 3, Primitive, "char")
                 return this.__ReservedProxyArray
             }
         }
-    
     }
 
     /**
-     * @type {Pointer<WHEA_EVENT_LOG_ENTRY>}
+     * @type {Pointer}
      */
     WheaEventLogEntry {
         get => NumGet(this, 0, "ptr")
@@ -71,10 +68,10 @@ class WHEA_SEL_BUGCHECK_RECOVERY_STATUS_PHASE1_EVENT extends Win32Struct
     /**
      * @type {_Data}
      */
-    Data{
+    Data {
         get {
             if(!this.HasProp("__Data"))
-                this.__Data := %this.__Class%._Data(12, this)
+                this.__Data := WHEA_SEL_BUGCHECK_RECOVERY_STATUS_PHASE1_EVENT._Data(12, this)
             return this.__Data
         }
     }

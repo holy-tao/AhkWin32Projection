@@ -5,9 +5,8 @@
  * At what point IPsec has failed.
  * @see https://learn.microsoft.com/windows/win32/api/ipsectypes/ne-ipsectypes-ipsec_failure_point
  * @namespace Windows.Win32.NetworkManagement.WindowsFilteringPlatform
- * @version v4.0.30319
  */
-class IPSEC_FAILURE_POINT extends Win32Enum{
+class IPSEC_FAILURE_POINT extends Win32Enum {
 
     /**
      * IPsec has not failed.

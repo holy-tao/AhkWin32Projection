@@ -3,10 +3,8 @@
 
 /**
  * @namespace Windows.Win32.System.Diagnostics.Debug
- * @version v4.0.30319
  */
-class WHEA_ERROR_SOURCE_CONFIGURATION_DEVICE_DRIVER extends Win32Struct
-{
+class WHEA_ERROR_SOURCE_CONFIGURATION_DEVICE_DRIVER extends Win32Struct {
     static sizeof => 64
 
     static packingSize => 8
@@ -20,7 +18,7 @@ class WHEA_ERROR_SOURCE_CONFIGURATION_DEVICE_DRIVER extends Win32Struct
     }
 
     /**
-     * @type {Pointer<Guid>}
+     * @type {Pointer}
      */
     SourceGuid {
         get => NumGet(this, 8, "ptr")
@@ -36,9 +34,9 @@ class WHEA_ERROR_SOURCE_CONFIGURATION_DEVICE_DRIVER extends Win32Struct
     }
 
     /**
-     * @type {Array<Byte>}
+     * @type {Array<Integer>}
      */
-    Reserved{
+    Reserved {
         get {
             if(!this.HasProp("__ReservedProxyArray"))
                 this.__ReservedProxyArray := Win32FixedArray(this.ptr + 18, 6, Primitive, "char")
@@ -79,7 +77,7 @@ class WHEA_ERROR_SOURCE_CONFIGURATION_DEVICE_DRIVER extends Win32Struct
     }
 
     /**
-     * @type {Pointer<Guid>}
+     * @type {Pointer}
      */
     CreatorId {
         get => NumGet(this, 48, "ptr")
@@ -87,7 +85,7 @@ class WHEA_ERROR_SOURCE_CONFIGURATION_DEVICE_DRIVER extends Win32Struct
     }
 
     /**
-     * @type {Pointer<Guid>}
+     * @type {Pointer}
      */
     PartitionId {
         get => NumGet(this, 56, "ptr")

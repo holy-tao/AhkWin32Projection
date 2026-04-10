@@ -1,6 +1,14 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
+#Include .\WAVEFORMATEX.ahk
+#Include .\AudioObjectType.ahk
+#Include .\AUDIO_STREAM_CATEGORY.ahk
 #Include ..\..\Foundation\HANDLE.ahk
+#Include .\ISpatialAudioObjectRenderStreamNotify.ahk
+#Include .\SpatialAudioHrtfDistanceDecay.ahk
+#Include .\SpatialAudioHrtfDirectivityUnion.ahk
+#Include .\SpatialAudioHrtfEnvironmentType.ahk
+#Include .\SPATIAL_AUDIO_STREAM_OPTIONS.ahk
 
 /**
  * Represents activation parameters for a spatial audio render stream, extending SpatialAudioHrtfActivationParams with the ability to specify stream options.
@@ -52,10 +60,8 @@
  * ```
  * @see https://learn.microsoft.com/windows/win32/api/spatialaudiohrtf/ns-spatialaudiohrtf-spatialaudiohrtfactivationparams2
  * @namespace Windows.Win32.Media.Audio
- * @version v4.0.30319
  */
-class SpatialAudioHrtfActivationParams2 extends Win32Struct
-{
+class SpatialAudioHrtfActivationParams2 extends Win32Struct {
     static sizeof => 80
 
     static packingSize => 8
@@ -71,7 +77,7 @@ class SpatialAudioHrtfActivationParams2 extends Win32Struct
 
     /**
      * A bitwise combination of <b>AudioObjectType</b> values indicating the set of static spatial audio channels that will be allowed by the activated stream.
-     * @type {Integer}
+     * @type {AudioObjectType}
      */
     StaticObjectTypeMask {
         get => NumGet(this, 8, "int")
@@ -98,7 +104,7 @@ class SpatialAudioHrtfActivationParams2 extends Win32Struct
 
     /**
      * The category of the audio stream and its spatial audio objects.
-     * @type {Integer}
+     * @type {AUDIO_STREAM_CATEGORY}
      */
     Category {
         get => NumGet(this, 20, "int")
@@ -109,7 +115,7 @@ class SpatialAudioHrtfActivationParams2 extends Win32Struct
      * The event that will signal the client to provide more audio data. This handle will be duplicated internally before it is used.
      * @type {HANDLE}
      */
-    EventHandle{
+    EventHandle {
         get {
             if(!this.HasProp("__EventHandle"))
                 this.__EventHandle := HANDLE(24, this)
@@ -146,7 +152,7 @@ class SpatialAudioHrtfActivationParams2 extends Win32Struct
 
     /**
      * Optional default value for the type of environment that is simulated when audio is processed for <a href="https://docs.microsoft.com/windows/desktop/api/spatialaudiohrtf/nn-spatialaudiohrtf-ispatialaudioobjectforhrtf">ISpatialAudioObjectForHrtf</a> objects associated with the stream. <b>nullptr</b> if unused.
-     * @type {Pointer<Integer>}
+     * @type {Pointer<SpatialAudioHrtfEnvironmentType>}
      */
     Environment {
         get => NumGet(this, 56, "ptr")
@@ -164,7 +170,7 @@ class SpatialAudioHrtfActivationParams2 extends Win32Struct
 
     /**
      * A member of the <xref:NE:spatialaudioclient.SPATIAL_AUDIO_STREAM_OPTIONS> emumeration, specifying options for the activated audio stream.
-     * @type {Integer}
+     * @type {SPATIAL_AUDIO_STREAM_OPTIONS}
      */
     Options {
         get => NumGet(this, 72, "int")

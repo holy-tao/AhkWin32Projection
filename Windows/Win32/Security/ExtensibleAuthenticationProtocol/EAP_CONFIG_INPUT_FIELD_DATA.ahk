@@ -1,5 +1,6 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
+#Include .\EAP_CONFIG_INPUT_FIELD_TYPE.ahk
 
 /**
  * Contains the data associated with a single input field.
@@ -11,10 +12,8 @@
  * The entire collection of input fields in a EAP configuration dialog box is represented by a <a href="https://docs.microsoft.com/windows/desktop/api/eaptypes/ns-eaptypes-eap_config_input_field_array">EAP_CONFIG_INPUT_FIELD_ARRAY</a> structure.
  * @see https://learn.microsoft.com/windows/win32/api/eaptypes/ns-eaptypes-eap_config_input_field_data
  * @namespace Windows.Win32.Security.ExtensibleAuthenticationProtocol
- * @version v4.0.30319
  */
-class EAP_CONFIG_INPUT_FIELD_DATA extends Win32Struct
-{
+class EAP_CONFIG_INPUT_FIELD_DATA extends Win32Struct {
     static sizeof => 40
 
     static packingSize => 8
@@ -30,7 +29,7 @@ class EAP_CONFIG_INPUT_FIELD_DATA extends Win32Struct
 
     /**
      * An <a href="https://docs.microsoft.com/windows/desktop/api/eaptypes/ne-eaptypes-eap_config_input_field_type">EAP_CONFIG_INPUT_FIELD_TYPE</a> enumeration value that specifies the type of the input field.
-     * @type {Integer}
+     * @type {EAP_CONFIG_INPUT_FIELD_TYPE}
      */
     Type {
         get => NumGet(this, 4, "int")

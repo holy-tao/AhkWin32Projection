@@ -3,10 +3,8 @@
 
 /**
  * @namespace Windows.Win32.Security.Authentication.Identity
- * @version v4.0.30319
  */
-class NEGOTIATE_PACKAGE_PREFIX extends Win32Struct
-{
+class NEGOTIATE_PACKAGE_PREFIX extends Win32Struct {
     static sizeof => 64
 
     static packingSize => 8
@@ -44,9 +42,9 @@ class NEGOTIATE_PACKAGE_PREFIX extends Win32Struct
     }
 
     /**
-     * @type {Array<Byte>}
+     * @type {Array<Integer>}
      */
-    Prefix{
+    Prefix {
         get {
             if(!this.HasProp("__PrefixProxyArray"))
                 this.__PrefixProxyArray := Win32FixedArray(this.ptr + 32, 32, Primitive, "char")

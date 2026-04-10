@@ -1,5 +1,7 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
+#Include ..\..\Foundation\WIN32_ERROR.ahk
+#Include .\NETINFOSTRUCT_CHARACTERISTICS.ahk
 
 /**
  * Contains information describing the network provider returned by the WNetGetNetworkInformation function.
@@ -7,10 +9,8 @@
  * The <b>NETINFOSTRUCT</b> structure contains information describing the network, such as the version of the network provider software and the network's current status.
  * @see https://learn.microsoft.com/windows/win32/api/winnetwk/ns-winnetwk-netinfostruct
  * @namespace Windows.Win32.NetworkManagement.WNet
- * @version v4.0.30319
  */
-class NETINFOSTRUCT extends Win32Struct
-{
+class NETINFOSTRUCT extends Win32Struct {
     static sizeof => 40
 
     static packingSize => 8
@@ -40,7 +40,7 @@ class NETINFOSTRUCT extends Win32Struct
 
     /**
      * Type: <b>DWORD</b>
-     * @type {Integer}
+     * @type {WIN32_ERROR}
      */
     dwStatus {
         get => NumGet(this, 8, "uint")
@@ -54,7 +54,7 @@ class NETINFOSTRUCT extends Win32Struct
      * 
      * 
      * This value is zero.
-     * @type {Integer}
+     * @type {NETINFOSTRUCT_CHARACTERISTICS}
      */
     dwCharacteristics {
         get => NumGet(this, 12, "uint")

@@ -3,10 +3,8 @@
 
 /**
  * @namespace Windows.Win32.Networking.HttpServer
- * @version v4.0.30319
  */
-class HTTP_REQUEST_TOKEN_BINDING_INFO extends Win32Struct
-{
+class HTTP_REQUEST_TOKEN_BINDING_INFO extends Win32Struct {
     static sizeof => 32
 
     static packingSize => 8

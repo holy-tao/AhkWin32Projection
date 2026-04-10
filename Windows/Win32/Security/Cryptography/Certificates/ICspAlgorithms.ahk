@@ -1,18 +1,16 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\..\Guid.ahk
-#Include ..\..\..\Foundation\BSTR.ahk
+#Include ..\..\..\System\Com\IDispatch.ahk
 #Include .\ICspAlgorithm.ahk
 #Include ..\..\..\System\Com\IUnknown.ahk
-#Include ..\..\..\System\Com\IDispatch.ahk
 
 /**
  * The ICspAlgorithms interface defines the following methods and properties that manage a collection of ICspAlgorithm objects.
  * @see https://learn.microsoft.com/windows/win32/api/certenroll/nn-certenroll-icspalgorithms
  * @namespace Windows.Win32.Security.Cryptography.Certificates
- * @version v4.0.30319
  */
-class ICspAlgorithms extends IDispatch{
+class ICspAlgorithms extends IDispatch {
 
     static sizeof => A_PtrSize
     /**

@@ -5,10 +5,8 @@
  * Represents the number and affinity of processors in a processor group.
  * @see https://learn.microsoft.com/windows/win32/api/winnt/ns-winnt-processor_group_info
  * @namespace Windows.Win32.System.SystemInformation
- * @version v4.0.30319
  */
-class PROCESSOR_GROUP_INFO extends Win32Struct
-{
+class PROCESSOR_GROUP_INFO extends Win32Struct {
     static sizeof => 48
 
     static packingSize => 8
@@ -33,9 +31,9 @@ class PROCESSOR_GROUP_INFO extends Win32Struct
 
     /**
      * This member is reserved.
-     * @type {Array<Byte>}
+     * @type {Array<Integer>}
      */
-    Reserved{
+    Reserved {
         get {
             if(!this.HasProp("__ReservedProxyArray"))
                 this.__ReservedProxyArray := Win32FixedArray(this.ptr + 2, 38, Primitive, "char")

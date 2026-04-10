@@ -5,10 +5,8 @@
 
 /**
  * @namespace Windows.Win32.Security.DiagnosticDataQuery
- * @version v4.0.30319
  */
-class HDIAGNOSTIC_EVENT_TAG_DESCRIPTION extends Win32Handle
-{
+class HDIAGNOSTIC_EVENT_TAG_DESCRIPTION extends Win32Handle {
     static sizeof => 8
 
     static packingSize => 8

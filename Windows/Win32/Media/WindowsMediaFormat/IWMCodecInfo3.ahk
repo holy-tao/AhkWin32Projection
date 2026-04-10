@@ -7,9 +7,8 @@
  * The IWMCodecInfo3 interface retrieves properties from a codec.You can retrieve a pointer to IWMCodecInfo3 with a call to the QueryInterface method of any other interface of the profile manager object.
  * @see https://learn.microsoft.com/windows/win32/api/wmsdkidl/nn-wmsdkidl-iwmcodecinfo3
  * @namespace Windows.Win32.Media.WindowsMediaFormat
- * @version v4.0.30319
  */
-class IWMCodecInfo3 extends IWMCodecInfo2{
+class IWMCodecInfo3 extends IWMCodecInfo2 {
 
     static sizeof => A_PtrSize
     /**
@@ -73,7 +72,7 @@ class IWMCodecInfo3 extends IWMCodecInfo2{
      * <td>The value is one from the <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/wmsdkidl/ne-wmsdkidl-wmt_musicspeech_class_mode">WMT_MUSICSPEECH_CLASS_MODE</a> enumeration type indicating the supported mode of the format. This property applies only to the Windows Media Audio 9 Voice codec.</td>
      * </tr>
      * </table>
-     * @param {Pointer<Integer>} pType Pointer to a variable that will receive a member of the <b>WMT_ATTR_DATATYPE</b> enumeration type. This value specifies the type of information returned to the buffer pointed to by <i>pValue</i>.
+     * @param {Pointer<WMT_ATTR_DATATYPE>} pType Pointer to a variable that will receive a member of the <b>WMT_ATTR_DATATYPE</b> enumeration type. This value specifies the type of information returned to the buffer pointed to by <i>pValue</i>.
      * @param {Pointer<Integer>} pValue Pointer to a buffer that will receive the value of the property. The data returned is of a type specified by <i>pType</i>.
      * @param {Pointer<Integer>} pdwSize Pointer to a <b>DWORD</b> value specifying the length of the buffer pointed to by <i>pValue</i>.
      * @returns {HRESULT} The method returns an <b>HRESULT</b>. Possible values include, but are not limited to, those in the following table.
@@ -184,7 +183,7 @@ class IWMCodecInfo3 extends IWMCodecInfo2{
      * <td>The value indicates whether the codec supports VBR.</td>
      * </tr>
      * </table>
-     * @param {Pointer<Integer>} pType Pointer to a variable that will receive a member of the <b>WMT_ATTR_DATATYPE</b> enumeration type. This value specifies the type of information returned to the buffer at <i>pValue</i>.
+     * @param {Pointer<WMT_ATTR_DATATYPE>} pType Pointer to a variable that will receive a member of the <b>WMT_ATTR_DATATYPE</b> enumeration type. This value specifies the type of information returned to the buffer at <i>pValue</i>.
      * @param {Pointer<Integer>} pValue Pointer to a buffer that will receive the value of the property. The data returned is of a type specified by <i>pType</i>.
      * @param {Pointer<Integer>} pdwSize Pointer to a <b>DWORD</b> value specifying the length of the buffer at <i>pValue</i>.
      * @returns {HRESULT} The method returns an <b>HRESULT</b>. Possible values include, but are not limited to, those in the following table.
@@ -318,7 +317,7 @@ class IWMCodecInfo3 extends IWMCodecInfo2{
      * </td>
      * </tr>
      * </table>
-     * @param {Integer} Type A <a href="https://docs.microsoft.com/windows/desktop/api/wmsdkidl/ne-wmsdkidl-wmt_attr_datatype">WMT_ATTR_DATATYPE</a> value specifying the data type of the value in <i>pValue</i>.
+     * @param {WMT_ATTR_DATATYPE} Type A <a href="https://docs.microsoft.com/windows/desktop/api/wmsdkidl/ne-wmsdkidl-wmt_attr_datatype">WMT_ATTR_DATATYPE</a> value specifying the data type of the value in <i>pValue</i>.
      * @param {Pointer<Integer>} pValue A pointer to a <b>BYTE</b> array containing the setting value.
      * @param {Integer} dwSize <b>DWORD</b> containing the size of the <i>pValue</i> <b>BYTE</b> array.
      * @returns {HRESULT} The method returns an <b>HRESULT</b>. Possible values include, but are not limited to, those in the following table.
@@ -405,7 +404,7 @@ class IWMCodecInfo3 extends IWMCodecInfo2{
      * </td>
      * </tr>
      * </table>
-     * @param {Pointer<Integer>} pType Pointer to a <a href="https://docs.microsoft.com/windows/desktop/api/wmsdkidl/ne-wmsdkidl-wmt_attr_datatype">WMT_ATTR_DATATYPE</a> enumeration value specifying the data type of the value returned in <i>pValue</i>.
+     * @param {Pointer<WMT_ATTR_DATATYPE>} pType Pointer to a <a href="https://docs.microsoft.com/windows/desktop/api/wmsdkidl/ne-wmsdkidl-wmt_attr_datatype">WMT_ATTR_DATATYPE</a> enumeration value specifying the data type of the value returned in <i>pValue</i>.
      * @param {Pointer<Integer>} pValue Pointer to a <b>BYTE</b> array containing the codec enumeration data. The data type and meaning of the data returned in this array depends on the setting specified by <i>pszName</i>. You can set this value to <b>NULL</b> to retrieve the required size of the array in <i>pdwSize</i>.
      * @param {Pointer<Integer>} pdwSize Pointer to a <b>DWORD</b> containing the size of the setting value in bytes. If you set <i>pValue</i> to <b>NULL</b>, this value will be set to the size required to hold the setting value.
      * @returns {HRESULT} The method returns an <b>HRESULT</b>. Possible values include, but are not limited to, those in the following table.

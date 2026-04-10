@@ -3,9 +3,8 @@
 
 /**
  * @namespace Windows.Win32.Networking.WinInet
- * @version v4.0.30319
  */
-class FTP_FLAGS extends Win32Enum{
+class FTP_FLAGS extends Win32Enum {
 
     /**
      * @type {Integer (UInt32)}

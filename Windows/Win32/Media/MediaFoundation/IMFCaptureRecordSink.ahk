@@ -20,9 +20,8 @@
  * To start the recording, call <a href="https://docs.microsoft.com/windows/desktop/api/mfcaptureengine/nf-mfcaptureengine-imfcaptureengine-startrecord">IMFCaptureEngine::StartRecord</a>.
  * @see https://learn.microsoft.com/windows/win32/api/mfcaptureengine/nn-mfcaptureengine-imfcapturerecordsink
  * @namespace Windows.Win32.Media.MediaFoundation
- * @version v4.0.30319
  */
-class IMFCaptureRecordSink extends IMFCaptureSink{
+class IMFCaptureRecordSink extends IMFCaptureSink {
 
     static sizeof => A_PtrSize
     /**

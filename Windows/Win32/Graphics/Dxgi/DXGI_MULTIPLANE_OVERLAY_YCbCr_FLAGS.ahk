@@ -7,9 +7,8 @@
  * This enum is used by [**SetColorSpace**](../dxgi1_3/nf-dxgi1_3-idxgidecodeswapchain-setcolorspace).
  * @see https://learn.microsoft.com/windows/win32/api/dxgi1_3/ne-dxgi1_3-dxgi_multiplane_overlay_ycbcr_flags
  * @namespace Windows.Win32.Graphics.Dxgi
- * @version v4.0.30319
  */
-class DXGI_MULTIPLANE_OVERLAY_YCbCr_FLAGS extends Win32BitflagEnum{
+class DXGI_MULTIPLANE_OVERLAY_YCbCr_FLAGS extends Win32BitflagEnum {
 
     /**
      * Specifies nominal range YCbCr, which isn't an absolute color space, but a way of encoding RGB info.

@@ -1,8 +1,8 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
-#Include .\DXGI_FRAME_STATISTICS_MEDIA.ahk
 #Include ..\..\System\Com\IUnknown.ahk
+#Include .\DXGI_FRAME_STATISTICS_MEDIA.ahk
 
 /**
  * This swap chain interface allows desktop media applications to request a seamless change to a specific refresh rate.
@@ -13,9 +13,8 @@
  * Custom refresh rates can be used when displaying video with a dynamic framerate. However, the refresh rate change should be kept imperceptible to the user. A best practice for keeping the refresh rate transition imperceptible  is to only set the custom framerate if the app determines it can present at that rate for least 5 seconds.
  * @see https://learn.microsoft.com/windows/win32/api/dxgi1_3/nn-dxgi1_3-idxgiswapchainmedia
  * @namespace Windows.Win32.Graphics.Dxgi
- * @version v4.0.30319
  */
-class IDXGISwapChainMedia extends IUnknown{
+class IDXGISwapChainMedia extends IUnknown {
 
     static sizeof => A_PtrSize
     /**

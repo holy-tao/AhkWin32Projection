@@ -1,16 +1,14 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\..\Win32Struct.ahk
-#Include .\MINIDUMP_LOCATION_DESCRIPTOR.ahk
 #Include .\MINIDUMP_MEMORY_DESCRIPTOR.ahk
+#Include .\MINIDUMP_LOCATION_DESCRIPTOR.ahk
 
 /**
  * Contains extended information for a specific thread.
  * @see https://learn.microsoft.com/windows/win32/api/minidumpapiset/ns-minidumpapiset-minidump_thread_ex
  * @namespace Windows.Win32.System.Diagnostics.Debug
- * @version v4.0.30319
  */
-class MINIDUMP_THREAD_EX extends Win32Struct
-{
+class MINIDUMP_THREAD_EX extends Win32Struct {
     static sizeof => 64
 
     static packingSize => 8
@@ -66,7 +64,7 @@ class MINIDUMP_THREAD_EX extends Win32Struct
      * <a href="https://docs.microsoft.com/windows/win32/api/minidumpapiset/ns-minidumpapiset-minidump_memory_descriptor">MINIDUMP_MEMORY_DESCRIPTOR</a> structure.
      * @type {MINIDUMP_MEMORY_DESCRIPTOR}
      */
-    Stack{
+    Stack {
         get {
             if(!this.HasProp("__Stack"))
                 this.__Stack := MINIDUMP_MEMORY_DESCRIPTOR(24, this)
@@ -79,7 +77,7 @@ class MINIDUMP_THREAD_EX extends Win32Struct
      * <a href="https://docs.microsoft.com/windows/win32/api/minidumpapiset/ns-minidumpapiset-minidump_location_descriptor">MINIDUMP_LOCATION_DESCRIPTOR</a> structure.
      * @type {MINIDUMP_LOCATION_DESCRIPTOR}
      */
-    ThreadContext{
+    ThreadContext {
         get {
             if(!this.HasProp("__ThreadContext"))
                 this.__ThreadContext := MINIDUMP_LOCATION_DESCRIPTOR(40, this)
@@ -91,7 +89,7 @@ class MINIDUMP_THREAD_EX extends Win32Struct
      * <b>Intel Itanium:  </b>The backing store for the thread.
      * @type {MINIDUMP_MEMORY_DESCRIPTOR}
      */
-    BackingStore{
+    BackingStore {
         get {
             if(!this.HasProp("__BackingStore"))
                 this.__BackingStore := MINIDUMP_MEMORY_DESCRIPTOR(48, this)

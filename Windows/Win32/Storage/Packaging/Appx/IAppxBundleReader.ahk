@@ -1,11 +1,11 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\..\Guid.ahk
+#Include ..\..\..\System\Com\IUnknown.ahk
 #Include .\IAppxFile.ahk
 #Include .\IAppxBlockMapReader.ahk
 #Include .\IAppxBundleManifestReader.ahk
 #Include .\IAppxFilesEnumerator.ahk
-#Include ..\..\..\System\Com\IUnknown.ahk
 
 /**
  * Provides a read-only object model for bundle packages.
@@ -15,9 +15,8 @@
  * Through <b>IAppxBundleReader</b>, you can retrieve both footprint files, such as the bundle’s manifest, block map, and signature, and app packages that are contained in the bundle.
  * @see https://learn.microsoft.com/windows/win32/api/appxpackaging/nn-appxpackaging-iappxbundlereader
  * @namespace Windows.Win32.Storage.Packaging.Appx
- * @version v4.0.30319
  */
-class IAppxBundleReader extends IUnknown{
+class IAppxBundleReader extends IUnknown {
 
     static sizeof => A_PtrSize
     /**
@@ -40,7 +39,7 @@ class IAppxBundleReader extends IUnknown{
 
     /**
      * Retrieves the specified type of footprint file from the bundle.
-     * @param {Integer} fileType Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/appxpackaging/ne-appxpackaging-appx_bundle_footprint_file_type">APPX_BUNDLE_FOOTPRINT_FILE_TYPE</a></b>
+     * @param {APPX_BUNDLE_FOOTPRINT_FILE_TYPE} fileType Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/appxpackaging/ne-appxpackaging-appx_bundle_footprint_file_type">APPX_BUNDLE_FOOTPRINT_FILE_TYPE</a></b>
      * 
      * The type of footprint file to be retrieved.
      * @returns {IAppxFile} Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/appxpackaging/nn-appxpackaging-iappxfile">IAppxFile</a>**</b>

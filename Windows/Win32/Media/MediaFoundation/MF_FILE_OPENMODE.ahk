@@ -5,9 +5,8 @@
  * Specifies how to open or create a file.
  * @see https://learn.microsoft.com/windows/win32/api/mfobjects/ne-mfobjects-mf_file_openmode
  * @namespace Windows.Win32.Media.MediaFoundation
- * @version v4.0.30319
  */
-class MF_FILE_OPENMODE extends Win32Enum{
+class MF_FILE_OPENMODE extends Win32Enum {
 
     /**
      * Open an existing file. Fail if the file does not exist.

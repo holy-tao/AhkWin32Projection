@@ -5,9 +5,8 @@
 
 /**
  * @namespace Windows.Win32.Graphics.Direct3D.Dxc
- * @version v4.0.30319
  */
-class IDxcCompilerArgs extends IUnknown{
+class IDxcCompilerArgs extends IUnknown {
 
     static sizeof => A_PtrSize
     /**

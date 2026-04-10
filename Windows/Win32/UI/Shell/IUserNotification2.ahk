@@ -10,9 +10,8 @@
  * An implementation of this interface is provided in Windows as CLSID_UserNotification.
  * @see https://learn.microsoft.com/windows/win32/api/shobjidl/nn-shobjidl-iusernotification2
  * @namespace Windows.Win32.UI.Shell
- * @version v4.0.30319
  */
-class IUserNotification2 extends IUnknown{
+class IUserNotification2 extends IUnknown {
 
     static sizeof => A_PtrSize
     /**
@@ -78,7 +77,9 @@ class IUserNotification2 extends IUnknown{
 
     /**
      * Sets the notification area icon associated with specific user information. (IUserNotification2.SetIconInfo)
-     * @param {HICON} _hIcon 
+     * @param {HICON} _hIcon Type: <b>HICON</b>
+     * 
+     * A handle to the icon.
      * @param {PWSTR} pszToolTip Type: <b>LPCWSTR</b>
      * 
      * A pointer to a string that contains the tooltip text to display for the specified icon. This value can be <b>NULL</b>, although it is not recommended.

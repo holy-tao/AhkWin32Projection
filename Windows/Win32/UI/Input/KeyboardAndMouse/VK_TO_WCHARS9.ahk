@@ -3,10 +3,8 @@
 
 /**
  * @namespace Windows.Win32.UI.Input.KeyboardAndMouse
- * @version v4.0.30319
  */
-class VK_TO_WCHARS9 extends Win32Struct
-{
+class VK_TO_WCHARS9 extends Win32Struct {
     static sizeof => 20
 
     static packingSize => 2

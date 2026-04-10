@@ -5,9 +5,8 @@
 
 /**
  * @namespace Windows.Win32.Data.Xml.MsXml
- * @version v4.0.30319
  */
-class IVBSAXDTDHandler extends IDispatch{
+class IVBSAXDTDHandler extends IDispatch {
 
     static sizeof => A_PtrSize
     /**

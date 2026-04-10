@@ -3,9 +3,8 @@
 
 /**
  * @namespace Windows.Win32.Storage.Nvme
- * @version v4.0.30319
  */
-class NVME_STATUS_FABRIC_COMMAND_CODES extends Win32Enum{
+class NVME_STATUS_FABRIC_COMMAND_CODES extends Win32Enum {
 
     /**
      * @type {Integer (Int32)}

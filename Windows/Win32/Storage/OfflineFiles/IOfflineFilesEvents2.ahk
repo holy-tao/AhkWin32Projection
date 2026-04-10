@@ -7,9 +7,8 @@
  * Used to report additional events associated with Offline Files.
  * @see https://learn.microsoft.com/windows/win32/api/cscobj/nn-cscobj-iofflinefilesevents2
  * @namespace Windows.Win32.Storage.OfflineFiles
- * @version v4.0.30319
  */
-class IOfflineFilesEvents2 extends IOfflineFilesEvents{
+class IOfflineFilesEvents2 extends IOfflineFilesEvents {
 
     static sizeof => A_PtrSize
     /**

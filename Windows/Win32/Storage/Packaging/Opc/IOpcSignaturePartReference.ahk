@@ -1,8 +1,8 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\..\Guid.ahk
-#Include .\IOpcPartUri.ahk
 #Include ..\..\..\System\Com\IUnknown.ahk
+#Include .\IOpcPartUri.ahk
 
 /**
  * Represents a reference to a part that has been or will be signed.
@@ -39,9 +39,8 @@
  * ```
  * @see https://learn.microsoft.com/windows/win32/api/msopc/nn-msopc-iopcsignaturepartreference
  * @namespace Windows.Win32.Storage.Packaging.Opc
- * @version v4.0.30319
  */
-class IOpcSignaturePartReference extends IUnknown{
+class IOpcSignaturePartReference extends IUnknown {
 
     static sizeof => A_PtrSize
     /**
@@ -146,7 +145,7 @@ class IOpcSignaturePartReference extends IUnknown{
 
     /**
      * Gets the canonicalization method to use on part content of a referenced part when the part is signed.
-     * @returns {Integer} The canonicalization method to use on part content of a referenced part when the part is signed.
+     * @returns {OPC_CANONICALIZATION_METHOD} The canonicalization method to use on part content of a referenced part when the part is signed.
      * @see https://learn.microsoft.com/windows/win32/api/msopc/nf-msopc-iopcsignaturepartreference-gettransformmethod
      */
     GetTransformMethod() {

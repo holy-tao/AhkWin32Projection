@@ -5,10 +5,8 @@
  * Describes a sample for a Video Image stream that uses the Windows Media Video 9 Image codec.
  * @see https://learn.microsoft.com/windows/win32/api/wmsdkidl/ns-wmsdkidl-wmt_videoimage_sample
  * @namespace Windows.Win32.Media.WindowsMediaFormat
- * @version v4.0.30319
  */
-class WMT_VIDEOIMAGE_SAMPLE extends Win32Struct
-{
+class WMT_VIDEOIMAGE_SAMPLE extends Win32Struct {
     static sizeof => 84
 
     static packingSize => 4
@@ -32,7 +30,6 @@ class WMT_VIDEOIMAGE_SAMPLE extends Win32Struct
     }
 
     /**
-     * 
      * @type {Integer}
      */
     dwControlFlags {

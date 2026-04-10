@@ -1,8 +1,8 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
-#Include ..\Gdi\HDC.ahk
 #Include ..\..\System\Com\IUnknown.ahk
+#Include ..\Gdi\HDC.ahk
 
 /**
  * Provides access to a device context that can accept GDI drawing commands.
@@ -16,9 +16,8 @@
  * To test whether a given render target supports the <b>ID2D1GdiInteropRenderTarget</b> interface, create a <a href="https://docs.microsoft.com/windows/win32/api/d2d1/ns-d2d1-d2d1_render_target_properties">D2D1_RENDER_TARGET_PROPERTIES </a> that specifies GDI compatibility and the appropriate pixel format, then call the render target's <a href="https://docs.microsoft.com/windows/win32/api/d2d1/nf-d2d1-id2d1rendertarget-issupported(constd2d1_render_target_properties_)">IsSupported</a> method to see whether the render target is GDI-compatible.
  * @see https://learn.microsoft.com/windows/win32/api/d2d1/nn-d2d1-id2d1gdiinteroprendertarget
  * @namespace Windows.Win32.Graphics.Direct2D
- * @version v4.0.30319
  */
-class ID2D1GdiInteropRenderTarget extends IUnknown{
+class ID2D1GdiInteropRenderTarget extends IUnknown {
 
     static sizeof => A_PtrSize
     /**
@@ -50,8 +49,12 @@ class ID2D1GdiInteropRenderTarget extends IUnknown{
      * <div> </div>
      * 
      * <a href="https://docs.microsoft.com/windows/win32/api/d2d1/nf-d2d1-id2d1gdiinteroprendertarget-releasedc">ReleaseDC</a> must be called once for each call to <b>GetDC</b>.
-     * @param {Integer} _mode 
-     * @returns {HDC} 
+     * @param {D2D1_DC_INITIALIZE_MODE} _mode Type: <b><a href="https://docs.microsoft.com/windows/win32/api/d2d1/ne-d2d1-d2d1_dc_initialize_mode">D2D1_DC_INITIALIZE_MODE</a></b>
+     * 
+     * A value that specifies whether the device context should be cleared.
+     * @returns {HDC} Type: <b>HDC*</b>
+     * 
+     * When this method returns, contains the device context associated with this render target. You must allocate storage for this parameter.
      * @see https://learn.microsoft.com/windows/win32/api/d2d1/nf-d2d1-id2d1gdiinteroprendertarget-getdc
      */
     GetDC(_mode) {

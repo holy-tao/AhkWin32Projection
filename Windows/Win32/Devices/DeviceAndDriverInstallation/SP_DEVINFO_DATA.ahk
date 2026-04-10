@@ -9,10 +9,9 @@
  * <b>SetupDi</b><i>Xxx</i> functions that take an SP_DEVINFO_DATA structure as a parameter verify that the <b>cbSize</b> member of the supplied structure is equal to the size, in bytes, of the structure. If the <b>cbSize</b> member is not set correctly for an input parameter, the function will fail and set an error code of ERROR_INVALID_PARAMETER. If the <b>cbSize</b> member is not set correctly for an output parameter, the function will fail and set an error code of ERROR_INVALID_USER_BUFFER.
  * @see https://learn.microsoft.com/windows/win32/api/setupapi/ns-setupapi-sp_devinfo_data
  * @namespace Windows.Win32.Devices.DeviceAndDriverInstallation
- * @version v4.0.30319
+ * @architecture X64, Arm64
  */
-class SP_DEVINFO_DATA extends Win32Struct
-{
+class SP_DEVINFO_DATA extends Win32Struct {
     static sizeof => 32
 
     static packingSize => 8
@@ -28,7 +27,7 @@ class SP_DEVINFO_DATA extends Win32Struct
 
     /**
      * The GUID of the device's setup class.
-     * @type {Pointer<Guid>}
+     * @type {Pointer}
      */
     ClassGuid {
         get => NumGet(this, 8, "ptr")

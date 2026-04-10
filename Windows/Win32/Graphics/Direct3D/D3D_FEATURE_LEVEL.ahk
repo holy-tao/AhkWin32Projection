@@ -9,9 +9,8 @@
  * For information about limitations creating non-hardware-type devices on certain feature levels, see [Limitations creating WARP and reference devices](/windows/desktop/direct3d11/overviews-direct3d-11-devices-limitations).
  * @see https://learn.microsoft.com/windows/win32/api/d3dcommon/ne-d3dcommon-d3d_feature_level
  * @namespace Windows.Win32.Graphics.Direct3D
- * @version v4.0.30319
  */
-class D3D_FEATURE_LEVEL extends Win32Enum{
+class D3D_FEATURE_LEVEL extends Win32Enum {
 
     /**
      * @type {Integer (Int32)}

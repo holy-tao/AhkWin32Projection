@@ -7,9 +7,8 @@
  * The IAudioProcessingObjectConfiguration interface is used to configure the APO. This interface uses its methods to lock and unlock the APO for processing.
  * @see https://learn.microsoft.com/windows/win32/api/audioenginebaseapo/nn-audioenginebaseapo-iaudioprocessingobjectconfiguration
  * @namespace Windows.Win32.Media.Audio.Apo
- * @version v4.0.30319
  */
-class IAudioProcessingObjectConfiguration extends IUnknown{
+class IAudioProcessingObjectConfiguration extends IUnknown {
 
     static sizeof => A_PtrSize
     /**

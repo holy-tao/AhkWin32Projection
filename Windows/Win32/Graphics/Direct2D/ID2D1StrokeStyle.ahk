@@ -12,9 +12,8 @@
  * A stroke style is a device-independent resource; you can create it once then retain it for the life of your application. For more information about resources, see the <a href="https://docs.microsoft.com/windows/win32/Direct2D/resources-and-resource-domains">Resources Overview</a>.
  * @see https://learn.microsoft.com/windows/win32/api/d2d1/nn-d2d1-id2d1strokestyle
  * @namespace Windows.Win32.Graphics.Direct2D
- * @version v4.0.30319
  */
-class ID2D1StrokeStyle extends ID2D1Resource{
+class ID2D1StrokeStyle extends ID2D1Resource {
 
     static sizeof => A_PtrSize
     /**
@@ -37,7 +36,7 @@ class ID2D1StrokeStyle extends ID2D1Resource{
 
     /**
      * Retrieves the type of shape used at the beginning of a stroke.
-     * @returns {Integer} Type: <b><a href="https://docs.microsoft.com/windows/win32/api/d2d1/ne-d2d1-d2d1_cap_style">D2D1_CAP_STYLE</a></b>
+     * @returns {D2D1_CAP_STYLE} Type: <b><a href="https://docs.microsoft.com/windows/win32/api/d2d1/ne-d2d1-d2d1_cap_style">D2D1_CAP_STYLE</a></b>
      * 
      * The type of shape used at the beginning of a stroke.
      * @see https://learn.microsoft.com/windows/win32/api/d2d1/nf-d2d1-id2d1strokestyle-getstartcap
@@ -49,7 +48,7 @@ class ID2D1StrokeStyle extends ID2D1Resource{
 
     /**
      * Retrieves the type of shape used at the end of a stroke.
-     * @returns {Integer} Type: <b><a href="https://docs.microsoft.com/windows/win32/api/d2d1/ne-d2d1-d2d1_cap_style">D2D1_CAP_STYLE</a></b>
+     * @returns {D2D1_CAP_STYLE} Type: <b><a href="https://docs.microsoft.com/windows/win32/api/d2d1/ne-d2d1-d2d1_cap_style">D2D1_CAP_STYLE</a></b>
      * 
      * The type of shape used at the end of a stroke.
      * @see https://learn.microsoft.com/windows/win32/api/d2d1/nf-d2d1-id2d1strokestyle-getendcap
@@ -61,7 +60,7 @@ class ID2D1StrokeStyle extends ID2D1Resource{
 
     /**
      * Gets a value that specifies how the ends of each dash are drawn.
-     * @returns {Integer} Type: <b><a href="https://docs.microsoft.com/windows/win32/api/d2d1/ne-d2d1-d2d1_cap_style">D2D1_CAP_STYLE</a></b>
+     * @returns {D2D1_CAP_STYLE} Type: <b><a href="https://docs.microsoft.com/windows/win32/api/d2d1/ne-d2d1-d2d1_cap_style">D2D1_CAP_STYLE</a></b>
      * 
      * A value that specifies how the ends of each dash are drawn.
      * @see https://learn.microsoft.com/windows/win32/api/d2d1/nf-d2d1-id2d1strokestyle-getdashcap
@@ -85,7 +84,7 @@ class ID2D1StrokeStyle extends ID2D1Resource{
 
     /**
      * Retrieves the type of joint used at the vertices of a shape's outline.
-     * @returns {Integer} Type: <b><a href="https://docs.microsoft.com/windows/win32/api/d2d1/ne-d2d1-d2d1_line_join">D2D1_LINE_JOIN</a></b>
+     * @returns {D2D1_LINE_JOIN} Type: <b><a href="https://docs.microsoft.com/windows/win32/api/d2d1/ne-d2d1-d2d1_line_join">D2D1_LINE_JOIN</a></b>
      * 
      * A value that specifies the type of joint used at the vertices of a shape's outline.
      * @see https://learn.microsoft.com/windows/win32/api/d2d1/nf-d2d1-id2d1strokestyle-getlinejoin
@@ -111,7 +110,7 @@ class ID2D1StrokeStyle extends ID2D1Resource{
      * Gets a value that describes the stroke's dash pattern.
      * @remarks
      * If a custom dash style is specified, the dash pattern is described by the dashes array, which can be retrieved by calling the <a href="https://docs.microsoft.com/windows/win32/api/d2d1/nf-d2d1-id2d1strokestyle-getdashes">GetDashes</a> method.
-     * @returns {Integer} Type: <b><a href="https://docs.microsoft.com/windows/win32/api/d2d1/ne-d2d1-d2d1_dash_style">D2D1_DASH_STYLE</a></b>
+     * @returns {D2D1_DASH_STYLE} Type: <b><a href="https://docs.microsoft.com/windows/win32/api/d2d1/ne-d2d1-d2d1_dash_style">D2D1_DASH_STYLE</a></b>
      * 
      * A value that describes the predefined dash pattern used, or <a href="https://docs.microsoft.com/windows/win32/api/d2d1/ne-d2d1-d2d1_dash_style">D2D1_DASH_STYLE_CUSTOM</a> if a custom dash style is used.
      * @see https://learn.microsoft.com/windows/win32/api/d2d1/nf-d2d1-id2d1strokestyle-getdashstyle

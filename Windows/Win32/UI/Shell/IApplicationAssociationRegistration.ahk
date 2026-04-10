@@ -9,9 +9,8 @@
  * Because <b>IApplicationAssociationRegistration</b> is only supported for Windows Vista and Windows 7, applications that support earlier operating systems must use their preexisting code in relation to defaults when running under those operating systems. Those applications should include a check for the operating system version to account for this.
  * @see https://learn.microsoft.com/windows/win32/api/shobjidl_core/nn-shobjidl_core-iapplicationassociationregistration
  * @namespace Windows.Win32.UI.Shell
- * @version v4.0.30319
  */
-class IApplicationAssociationRegistration extends IUnknown{
+class IApplicationAssociationRegistration extends IUnknown {
 
     static sizeof => A_PtrSize
     /**
@@ -45,10 +44,10 @@ class IApplicationAssociationRegistration extends IUnknown{
      * @param {PWSTR} pszQuery Type: <b>LPCWSTR</b>
      * 
      * A pointer to a null-terminated, Unicode string that contains the file name extension or protocol, such as .mp3 or http.
-     * @param {Integer} atQueryType Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/shobjidl_core/ne-shobjidl_core-associationtype">ASSOCIATIONTYPE</a></b>
+     * @param {ASSOCIATIONTYPE} atQueryType Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/shobjidl_core/ne-shobjidl_core-associationtype">ASSOCIATIONTYPE</a></b>
      * 
      * One of the <a href="https://docs.microsoft.com/windows/desktop/api/shobjidl_core/ne-shobjidl_core-associationtype">ASSOCIATIONTYPE</a> enumeration values that specifies the type of association, such as extension or MIME type.
-     * @param {Integer} alQueryLevel Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/shobjidl_core/ne-shobjidl_core-associationlevel">ASSOCIATIONLEVEL</a></b>
+     * @param {ASSOCIATIONLEVEL} alQueryLevel Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/shobjidl_core/ne-shobjidl_core-associationlevel">ASSOCIATIONLEVEL</a></b>
      * 
      * One of the <a href="https://docs.microsoft.com/windows/desktop/api/shobjidl_core/ne-shobjidl_core-associationlevel">ASSOCIATIONLEVEL</a> enumeration values that specifies the level of association, such as per-user or machine. This is typically <a href="https://docs.microsoft.com/windows/desktop/api/shobjidl_core/ne-shobjidl_core-associationlevel">AL_EFFECTIVE</a>.
      * @returns {PWSTR} Type: <b>LPWSTR*</b>
@@ -71,10 +70,10 @@ class IApplicationAssociationRegistration extends IUnknown{
      * @param {PWSTR} pszQuery Type: <b>LPCWSTR</b>
      * 
      * A pointer to a <b>null</b>-terminated Unicode string that contains the file name extension or protocol of the application, such as .mp3 or http.
-     * @param {Integer} atQueryType Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/shobjidl_core/ne-shobjidl_core-associationtype">ASSOCIATIONTYPE</a></b>
+     * @param {ASSOCIATIONTYPE} atQueryType Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/shobjidl_core/ne-shobjidl_core-associationtype">ASSOCIATIONTYPE</a></b>
      * 
      * One of the <a href="https://docs.microsoft.com/windows/desktop/api/shobjidl_core/ne-shobjidl_core-associationtype">ASSOCIATIONTYPE</a> enumeration values that specifies the type of the application named in <i>pszQuery</i>, such as file name extension or MIME type.
-     * @param {Integer} alQueryLevel Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/shobjidl_core/ne-shobjidl_core-associationlevel">ASSOCIATIONLEVEL</a></b>
+     * @param {ASSOCIATIONLEVEL} alQueryLevel Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/shobjidl_core/ne-shobjidl_core-associationlevel">ASSOCIATIONLEVEL</a></b>
      * 
      * One of the <a href="https://docs.microsoft.com/windows/desktop/api/shobjidl_core/ne-shobjidl_core-associationlevel">ASSOCIATIONLEVEL</a> enumeration values that specifies the level of association, such as per-user or machine. This is typically <a href="https://docs.microsoft.com/windows/desktop/api/shobjidl_core/ne-shobjidl_core-associationlevel">AL_EFFECTIVE</a>.
      * @param {PWSTR} pszAppRegistryName Type: <b>LPCWSTR</b>
@@ -95,7 +94,7 @@ class IApplicationAssociationRegistration extends IUnknown{
 
     /**
      * Determines whether an application owns all of the registered default associations for a given application level. Not intended for use in Windows 8.
-     * @param {Integer} alQueryLevel Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/shobjidl_core/ne-shobjidl_core-associationlevel">ASSOCIATIONLEVEL</a></b>
+     * @param {ASSOCIATIONLEVEL} alQueryLevel Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/shobjidl_core/ne-shobjidl_core-associationlevel">ASSOCIATIONLEVEL</a></b>
      * 
      * One of the <a href="https://docs.microsoft.com/windows/desktop/api/shobjidl_core/ne-shobjidl_core-associationlevel">ASSOCIATIONLEVEL</a> enumeration values that specifies the level of association, such as per-user or machine. This is typically <a href="https://docs.microsoft.com/windows/desktop/api/shobjidl_core/ne-shobjidl_core-associationlevel">AL_EFFECTIVE</a>.
      * @param {PWSTR} pszAppRegistryName Type: <b>LPCWSTR</b>
@@ -118,7 +117,7 @@ class IApplicationAssociationRegistration extends IUnknown{
      * Sets an application as the default for a given extension or protocol, provided that the application's publisher matches the current default's. For more information, see Default Programs. Not intended for use in Windows 8.
      * @param {PWSTR} pszAppRegistryName 
      * @param {PWSTR} pszSet 
-     * @param {Integer} atSetType Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/shobjidl_core/ne-shobjidl_core-associationtype">ASSOCIATIONTYPE</a></b>
+     * @param {ASSOCIATIONTYPE} atSetType Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/shobjidl_core/ne-shobjidl_core-associationtype">ASSOCIATIONTYPE</a></b>
      * 
      * One of the <a href="https://docs.microsoft.com/windows/desktop/api/shobjidl_core/ne-shobjidl_core-associationtype">ASSOCIATIONTYPE</a> enumeration values that specifies the type of the application named in <i>extOrUriScheme</i>, such as file name extension or MIME type.
      * @returns {HRESULT} Type: <b>HRESULT</b>

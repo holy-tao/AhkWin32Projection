@@ -1,5 +1,7 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
+#Include .\CTL_CONTEXT.ahk
+#Include .\CERT_CONTEXT.ahk
 
 /**
  * Contains information about a Certificate Trust List (CTL) returned by CertVerifyCTLUsage.
@@ -7,10 +9,8 @@
  * The members <b>dwError</b>, <b>dwFlags</b>, <b>dwCtlEntryIndex</b>, and <b>dwSignerIndex</b> should be initialized to zero by the calling application.
  * @see https://learn.microsoft.com/windows/win32/api/wincrypt/ns-wincrypt-ctl_verify_usage_status
  * @namespace Windows.Win32.Security.Cryptography
- * @version v4.0.30319
  */
-class CTL_VERIFY_USAGE_STATUS extends Win32Struct
-{
+class CTL_VERIFY_USAGE_STATUS extends Win32Struct {
     static sizeof => 48
 
     static packingSize => 8

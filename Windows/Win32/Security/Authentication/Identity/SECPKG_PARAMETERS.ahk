@@ -6,10 +6,8 @@
  * The SECPKG_PARAMETERS structure contains information about the computer system. This structure is used by the SpInitialize function.
  * @see https://learn.microsoft.com/windows/win32/api/ntsecpkg/ns-ntsecpkg-secpkg_parameters
  * @namespace Windows.Win32.Security.Authentication.Identity
- * @version v4.0.30319
  */
-class SECPKG_PARAMETERS extends Win32Struct
-{
+class SECPKG_PARAMETERS extends Win32Struct {
     static sizeof => 64
 
     static packingSize => 8
@@ -111,7 +109,7 @@ class SECPKG_PARAMETERS extends Win32Struct
      * The name of the primary domain.
      * @type {LSA_UNICODE_STRING}
      */
-    DomainName{
+    DomainName {
         get {
             if(!this.HasProp("__DomainName"))
                 this.__DomainName := LSA_UNICODE_STRING(24, this)
@@ -123,7 +121,7 @@ class SECPKG_PARAMETERS extends Win32Struct
      * The Domain Name System (DNS) name of the primary domain.
      * @type {LSA_UNICODE_STRING}
      */
-    DnsDomainName{
+    DnsDomainName {
         get {
             if(!this.HasProp("__DnsDomainName"))
                 this.__DnsDomainName := LSA_UNICODE_STRING(40, this)
@@ -133,7 +131,7 @@ class SECPKG_PARAMETERS extends Win32Struct
 
     /**
      * The GUID of the primary domain.
-     * @type {Pointer<Guid>}
+     * @type {Pointer}
      */
     DomainGuid {
         get => NumGet(this, 56, "ptr")

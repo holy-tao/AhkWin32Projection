@@ -1,17 +1,16 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\..\Guid.ahk
+#Include ..\..\..\System\Com\IDispatch.ahk
 #Include ..\..\..\Foundation\BSTR.ahk
 #Include ..\..\..\System\Variant\VARIANT.ahk
-#Include ..\..\..\System\Com\IDispatch.ahk
 
 /**
  * Represents a set of definitions that enable an Online Certificate Status Protocol (OCSP) service to respond to a certificate status request for a specific certification authority (CA).
  * @see https://learn.microsoft.com/windows/win32/api/certadm/nn-certadm-iocspcaconfiguration
  * @namespace Windows.Win32.Security.Cryptography.Certificates
- * @version v4.0.30319
  */
-class IOCSPCAConfiguration extends IDispatch{
+class IOCSPCAConfiguration extends IDispatch {
 
     static sizeof => A_PtrSize
     /**

@@ -7,9 +7,8 @@
  * Exposes a method that can be used by an accessibility application.
  * @see https://learn.microsoft.com/windows/win32/api/shobjidl/nn-shobjidl-iaccessibleobject
  * @namespace Windows.Win32.UI.Shell
- * @version v4.0.30319
  */
-class IAccessibleObject extends IUnknown{
+class IAccessibleObject extends IUnknown {
 
     static sizeof => A_PtrSize
     /**

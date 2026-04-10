@@ -7,9 +7,8 @@
  * Exposes methods that allow clients to reset or query the display state of the autocomplete drop-down list, which contains possible completions to a string entered by the user in an edit control.
  * @see https://learn.microsoft.com/windows/win32/api/shobjidl/nn-shobjidl-iautocompletedropdown
  * @namespace Windows.Win32.UI.Shell
- * @version v4.0.30319
  */
-class IAutoCompleteDropDown extends IUnknown{
+class IAutoCompleteDropDown extends IUnknown {
 
     static sizeof => A_PtrSize
     /**

@@ -1,15 +1,15 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
 #Include ..\..\Networking\WinSock\IN_ADDR.ahk
+#Include .\RASPPP_PROJECTION_INFO_SERVER_AUTH_PROTOCOL.ahk
+#Include .\RASPPP_PROJECTION_INFO_SERVER_AUTH_DATA.ahk
 
 /**
  * Contains information obtained during Point-to-Point (PPP) negotiation of Internet Protocol version 4 (IPv4) and IPv6 projection operations, and PPP Link Control Protocol (LCP)/multilink, and Compression Control Protocol (CCP) negotiation.
  * @see https://learn.microsoft.com/windows/win32/api/ras/ns-ras-rasppp_projection_info
  * @namespace Windows.Win32.NetworkManagement.Rras
- * @version v4.0.30319
  */
-class RASPPP_PROJECTION_INFO extends Win32Struct
-{
+class RASPPP_PROJECTION_INFO extends Win32Struct {
     static sizeof => 100
 
     static packingSize => 4
@@ -27,7 +27,7 @@ class RASPPP_PROJECTION_INFO extends Win32Struct
      * A <a href="https://docs.microsoft.com/windows/desktop/RRAS/remote-access-service-data-types">RASIPV4ADDR</a> that contains a null-terminated Unicode string that specifies the IPv4 address of the local client. This string has the form "a.b.c.d". <b>ipv4Address</b> is valid only if <b>dwIPv4NegotiationError</b> is zero.
      * @type {IN_ADDR}
      */
-    ipv4Address{
+    ipv4Address {
         get {
             if(!this.HasProp("__ipv4Address"))
                 this.__ipv4Address := IN_ADDR(4, this)
@@ -39,7 +39,7 @@ class RASPPP_PROJECTION_INFO extends Win32Struct
      * A <a href="https://docs.microsoft.com/windows/desktop/RRAS/remote-access-service-data-types">RASIPV4ADDR</a> structure that contains a Unicode string that specifies the IPv4 address of the remote server. This string has the form "a.b.c.d". <b>ipv4ServerAddress</b> is valid only if <b>dwIPv4NegotiationError</b> is zero. If the address is not available, this member is an empty string.
      * @type {IN_ADDR}
      */
-    ipv4ServerAddress{
+    ipv4ServerAddress {
         get {
             if(!this.HasProp("__ipv4ServerAddress"))
                 this.__ipv4ServerAddress := IN_ADDR(8, this)
@@ -110,9 +110,9 @@ class RASPPP_PROJECTION_INFO extends Win32Struct
 
     /**
      * An array that specifies the 64-bit IPv6 interface identifier of the client. The last 64 bits of a 128-bit IPv6 internet address are considered the "interface identifier," which provides a strong level of uniqueness for the preceding 64-bits. <b>bInterfaceIdentifier</b> must not be zero and is valid only if <b>dwIPv6NegotiationError</b> is zero.
-     * @type {Array<Byte>}
+     * @type {Array<Integer>}
      */
-    bInterfaceIdentifier{
+    bInterfaceIdentifier {
         get {
             if(!this.HasProp("__bInterfaceIdentifierProxyArray"))
                 this.__bInterfaceIdentifierProxyArray := Win32FixedArray(this.ptr + 24, 8, Primitive, "char")
@@ -122,9 +122,9 @@ class RASPPP_PROJECTION_INFO extends Win32Struct
 
     /**
      * An array that specifies the 64-bit IPv6 interface identifier of the server. The last 64 bits of a 128-bit IPv6 internet address are considered the "interface identifier," which provides a strong level of uniqueness for the preceding 64-bits. <b>bServerInterfaceIdentifier</b> must not be zero and is valid only if <b>dwIPv6NegotiationError</b> is zero.
-     * @type {Array<Byte>}
+     * @type {Array<Integer>}
      */
-    bServerInterfaceIdentifier{
+    bServerInterfaceIdentifier {
         get {
             if(!this.HasProp("__bServerInterfaceIdentifierProxyArray"))
                 this.__bServerInterfaceIdentifierProxyArray := Win32FixedArray(this.ptr + 32, 8, Primitive, "char")
@@ -151,8 +151,7 @@ class RASPPP_PROJECTION_INFO extends Win32Struct
     }
 
     /**
-     * 
-     * @type {Integer}
+     * @type {RASPPP_PROJECTION_INFO_SERVER_AUTH_PROTOCOL}
      */
     dwAuthenticationProtocol {
         get => NumGet(this, 48, "uint")
@@ -160,8 +159,7 @@ class RASPPP_PROJECTION_INFO extends Win32Struct
     }
 
     /**
-     * 
-     * @type {Integer}
+     * @type {RASPPP_PROJECTION_INFO_SERVER_AUTH_DATA}
      */
     dwAuthenticationData {
         get => NumGet(this, 52, "uint")
@@ -169,8 +167,7 @@ class RASPPP_PROJECTION_INFO extends Win32Struct
     }
 
     /**
-     * 
-     * @type {Integer}
+     * @type {RASPPP_PROJECTION_INFO_SERVER_AUTH_PROTOCOL}
      */
     dwServerAuthenticationProtocol {
         get => NumGet(this, 56, "uint")
@@ -178,8 +175,7 @@ class RASPPP_PROJECTION_INFO extends Win32Struct
     }
 
     /**
-     * 
-     * @type {Integer}
+     * @type {RASPPP_PROJECTION_INFO_SERVER_AUTH_DATA}
      */
     dwServerAuthenticationData {
         get => NumGet(this, 60, "uint")
@@ -337,7 +333,6 @@ class RASPPP_PROJECTION_INFO extends Win32Struct
     }
 
     /**
-     * 
      * @type {Integer}
      */
     dwCcpError {

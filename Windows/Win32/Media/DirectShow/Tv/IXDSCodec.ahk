@@ -9,9 +9,8 @@
  * To declare the interface identifier (IID) for this interface, use the <b>__uuidof</b> operator: <c>__uuidof(IXDSCodec)</c>.
  * @see https://learn.microsoft.com/windows/win32/api/encdec/nn-encdec-ixdscodec
  * @namespace Windows.Win32.Media.DirectShow.Tv
- * @version v4.0.30319
  */
-class IXDSCodec extends IUnknown{
+class IXDSCodec extends IUnknown {
 
     static sizeof => A_PtrSize
     /**
@@ -220,7 +219,7 @@ class IXDSCodec extends IUnknown{
 
     /**
      * Not implemented in this release.
-     * @param {Pointer<Integer>} _protType 
+     * @param {Pointer<ProtType>} _protType Reserved.
      * @returns {Integer} Reserved.
      * @see https://learn.microsoft.com/windows/win32/api/encdec/nf-encdec-ixdscodec-getcurrlicenseexpdate
      */

@@ -3,18 +3,16 @@
 
 /**
  * @namespace Windows.Win32.NetworkManagement.WiFi
- * @version v4.0.30319
  */
-class DOT11_KEY_ALGO_TKIP_MIC extends Win32Struct
-{
+class DOT11_KEY_ALGO_TKIP_MIC extends Win32Struct {
     static sizeof => 20
 
     static packingSize => 4
 
     /**
-     * @type {Array<Byte>}
+     * @type {Array<Integer>}
      */
-    ucIV48Counter{
+    ucIV48Counter {
         get {
             if(!this.HasProp("__ucIV48CounterProxyArray"))
                 this.__ucIV48CounterProxyArray := Win32FixedArray(this.ptr + 0, 6, Primitive, "char")
@@ -39,9 +37,9 @@ class DOT11_KEY_ALGO_TKIP_MIC extends Win32Struct
     }
 
     /**
-     * @type {Array<Byte>}
+     * @type {Array<Integer>}
      */
-    ucTKIPMICKeys{
+    ucTKIPMICKeys {
         get {
             if(!this.HasProp("__ucTKIPMICKeysProxyArray"))
                 this.__ucTKIPMICKeysProxyArray := Win32FixedArray(this.ptr + 16, 1, Primitive, "char")

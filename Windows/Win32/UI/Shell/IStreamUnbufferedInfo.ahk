@@ -7,9 +7,8 @@
  * Exposes a method that determines the sector size as an aid to byte alignment.
  * @see https://learn.microsoft.com/windows/win32/api/shobjidl/nn-shobjidl-istreamunbufferedinfo
  * @namespace Windows.Win32.UI.Shell
- * @version v4.0.30319
  */
-class IStreamUnbufferedInfo extends IUnknown{
+class IStreamUnbufferedInfo extends IUnknown {
 
     static sizeof => A_PtrSize
     /**

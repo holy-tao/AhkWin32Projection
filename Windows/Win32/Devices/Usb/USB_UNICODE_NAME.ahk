@@ -5,10 +5,8 @@
  * The USB_UNICODE_NAME structure contains a Unicode string that specifies a symbolic link name.
  * @see https://learn.microsoft.com/windows/win32/api/usbuser/ns-usbuser-usb_unicode_name
  * @namespace Windows.Win32.Devices.Usb
- * @version v4.0.30319
  */
-class USB_UNICODE_NAME extends Win32Struct
-{
+class USB_UNICODE_NAME extends Win32Struct {
     static sizeof => 8
 
     static packingSize => 4

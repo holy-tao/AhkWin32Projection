@@ -3,10 +3,8 @@
 
 /**
  * @namespace Windows.Win32.System.Diagnostics.Debug
- * @version v4.0.30319
  */
-class XSAVE_AREA_HEADER extends Win32Struct
-{
+class XSAVE_AREA_HEADER extends Win32Struct {
     static sizeof => 64
 
     static packingSize => 8
@@ -28,9 +26,9 @@ class XSAVE_AREA_HEADER extends Win32Struct
     }
 
     /**
-     * @type {Array<UInt64>}
+     * @type {Array<Integer>}
      */
-    Reserved2{
+    Reserved2 {
         get {
             if(!this.HasProp("__Reserved2ProxyArray"))
                 this.__Reserved2ProxyArray := Win32FixedArray(this.ptr + 16, 6, Primitive, "uint")

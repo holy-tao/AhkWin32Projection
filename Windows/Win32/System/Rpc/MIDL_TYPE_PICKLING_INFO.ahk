@@ -3,10 +3,8 @@
 
 /**
  * @namespace Windows.Win32.System.Rpc
- * @version v4.0.30319
  */
-class MIDL_TYPE_PICKLING_INFO extends Win32Struct
-{
+class MIDL_TYPE_PICKLING_INFO extends Win32Struct {
     static sizeof => 32
 
     static packingSize => 8
@@ -28,9 +26,9 @@ class MIDL_TYPE_PICKLING_INFO extends Win32Struct
     }
 
     /**
-     * @type {Array<UIntPtr>}
+     * @type {Array<Pointer>}
      */
-    Reserved{
+    Reserved {
         get {
             if(!this.HasProp("__ReservedProxyArray"))
                 this.__ReservedProxyArray := Win32FixedArray(this.ptr + 8, 3, Primitive, "ptr")

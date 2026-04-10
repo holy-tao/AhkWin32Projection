@@ -3,10 +3,8 @@
 
 /**
  * @namespace Windows.Win32.Security.Cryptography
- * @version v4.0.30319
  */
-class CERT_SERVER_OCSP_RESPONSE_OPEN_PARA extends Win32Struct
-{
+class CERT_SERVER_OCSP_RESPONSE_OPEN_PARA extends Win32Struct {
     static sizeof => 40
 
     static packingSize => 8

@@ -1,17 +1,16 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\..\Guid.ahk
+#Include ..\..\..\System\Com\IDispatch.ahk
 #Include .\IObjectId.ahk
 #Include ..\..\..\Foundation\BSTR.ahk
-#Include ..\..\..\System\Com\IDispatch.ahk
 
 /**
  * Represents an algorithm implemented by a cryptographic provider.
  * @see https://learn.microsoft.com/windows/win32/api/certenroll/nn-certenroll-icspalgorithm
  * @namespace Windows.Win32.Security.Cryptography.Certificates
- * @version v4.0.30319
  */
-class ICspAlgorithm extends IDispatch{
+class ICspAlgorithm extends IDispatch {
 
     static sizeof => A_PtrSize
     /**
@@ -82,14 +81,14 @@ class ICspAlgorithm extends IDispatch{
     }
 
     /**
-     * @type {Integer} 
+     * @type {AlgorithmType} 
      */
     Type {
         get => this.get_Type()
     }
 
     /**
-     * @type {Integer} 
+     * @type {AlgorithmOperationFlags} 
      */
     Operations {
         get => this.get_Operations()
@@ -111,7 +110,7 @@ class ICspAlgorithm extends IDispatch{
      * 
      *  If you specify zero for the <i>Length</i> parameter and <b>AlgorithmFlagsNone</b> (0x00000000) for the  <i>AlgFlags</i> parameter, the OID associated with the default algorithm is retrieved. For the Microsoft Software KSP and the Microsoft Smart Card KSP, the default AES algorithm is szOID_NIST_AES128_CBC (2.16.840.1.101.3.4.1.2).<div class="alert"><b>Note</b>  This parameter must be zero for any algorithm other than a symmetric encryption algorithm.</div>
      * <div> </div>
-     * @param {Integer} AlgFlags 
+     * @param {AlgorithmFlags} AlgFlags 
      * @returns {IObjectId} Address of a variable that receives a pointer to an <a href="https://docs.microsoft.com/windows/desktop/api/certenroll/nn-certenroll-iobjectid">IObjectId</a> interface that represents the algorithm OID.
      * @see https://learn.microsoft.com/windows/win32/api/certenroll/nf-certenroll-icspalgorithm-getalgorithmoid
      */
@@ -862,7 +861,7 @@ class ICspAlgorithm extends IDispatch{
      * Retrieves the algorithm type.
      * @remarks
      * The main difference between the <b>Type</b> property and the <a href="https://docs.microsoft.com/windows/desktop/api/certenroll/nf-certenroll-icspalgorithm-get_operations">Operations</a> property is that the latter contains a bitfield in which multiple bits can be set. Because many algorithms can be used for multiple purposes, the <b>Operations</b> property is often more useful. The <b>Type</b> value can correspond to only one of the <b>Operations</b> value bits. For example, if the <b>Operations</b> property returns XCN_NCRYPT_SIGNATURE_OPERATION | XCN_NCRYPT_ASYMMETRIC_ENCRYPTION_OPERATION, the <b>Type</b> property may return XCN_BCRYPT_ASYMMETRIC_ENCRYPTION_INTERFACE.
-     * @returns {Integer} 
+     * @returns {AlgorithmType} 
      * @see https://learn.microsoft.com/windows/win32/api/certenroll/nf-certenroll-icspalgorithm-get_type
      */
     get_Type() {
@@ -874,7 +873,7 @@ class ICspAlgorithm extends IDispatch{
      * Retrieves the operations that can be performed by the algorithm.
      * @remarks
      * The main difference between the <a href="https://docs.microsoft.com/windows/desktop/api/certenroll/nf-certenroll-icspalgorithm-get_type">Type</a> property and the <b>Operations</b> property is that the latter contains a bitfield in which multiple bits can be set. Because many algorithms can be used for multiple purposes, the <b>Operations</b> property is often more useful. The <b>Type</b> value can correspond to only one of the <b>Operations</b> value bits. For example, if the <b>Operations</b> property returns XCN_NCRYPT_SIGNATURE_OPERATION | XCN_NCRYPT_ASYMMETRIC_ENCRYPTION_OPERATION, the <b>Type</b> property may return XCN_BCRYPT_ASYMMETRIC_ENCRYPTION_INTERFACE.
-     * @returns {Integer} 
+     * @returns {AlgorithmOperationFlags} 
      * @see https://learn.microsoft.com/windows/win32/api/certenroll/nf-certenroll-icspalgorithm-get_operations
      */
     get_Operations() {

@@ -6,10 +6,8 @@
  * The SYSTEM_ALARM_ACE structure is reserved for future use.
  * @see https://learn.microsoft.com/windows/win32/api/winnt/ns-winnt-system_alarm_ace
  * @namespace Windows.Win32.Security
- * @version v4.0.30319
  */
-class SYSTEM_ALARM_ACE extends Win32Struct
-{
+class SYSTEM_ALARM_ACE extends Win32Struct {
     static sizeof => 12
 
     static packingSize => 4
@@ -17,7 +15,7 @@ class SYSTEM_ALARM_ACE extends Win32Struct
     /**
      * @type {ACE_HEADER}
      */
-    Header{
+    Header {
         get {
             if(!this.HasProp("__Header"))
                 this.__Header := ACE_HEADER(0, this)

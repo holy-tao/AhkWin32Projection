@@ -5,11 +5,9 @@
  * The BLUETOOTH_ADDRESS structure provides the address of a Bluetooth device.
  * @see https://learn.microsoft.com/windows/win32/api/bluetoothapis/ns-bluetoothapis-bluetooth_address_struct
  * @namespace Windows.Win32.Devices.Bluetooth
- * @version v4.0.30319
  */
-class BLUETOOTH_ADDRESS extends Win32Struct
-{
-    static sizeof => 16
+class BLUETOOTH_ADDRESS extends Win32Struct {
+    static sizeof => 8
 
     static packingSize => 8
 
@@ -22,9 +20,9 @@ class BLUETOOTH_ADDRESS extends Win32Struct
     }
 
     /**
-     * @type {Array<Byte>}
+     * @type {Array<Integer>}
      */
-    rgBytes{
+    rgBytes {
         get {
             if(!this.HasProp("__rgBytesProxyArray"))
                 this.__rgBytesProxyArray := Win32FixedArray(this.ptr + 0, 6, Primitive, "char")

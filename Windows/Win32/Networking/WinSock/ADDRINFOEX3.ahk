@@ -1,5 +1,7 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
+#Include .\SOCKADDR.ahk
+#Include .\ADDRINFOEX3.ahk
 
 /**
  * Used by the GetAddrInfoEx function to hold host address information when a specific network interface has been requested. (addrinfoex3W)
@@ -27,10 +29,8 @@
  * <b>addrinfoex3</b> structure points to a filled-in socket address structure, the length of which is specified in its <b>ai_addrlen</b> member.
  * @see https://learn.microsoft.com/windows/win32/api/ws2def/ns-ws2def-addrinfoex3
  * @namespace Windows.Win32.Networking.WinSock
- * @version v4.0.30319
  */
-class ADDRINFOEX3 extends Win32Struct
-{
+class ADDRINFOEX3 extends Win32Struct {
     static sizeof => 96
 
     static packingSize => 8

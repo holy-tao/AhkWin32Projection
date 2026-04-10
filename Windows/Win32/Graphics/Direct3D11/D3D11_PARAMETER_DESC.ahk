@@ -1,5 +1,9 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
+#Include ..\Direct3D\D3D_SHADER_VARIABLE_TYPE.ahk
+#Include ..\Direct3D\D3D_SHADER_VARIABLE_CLASS.ahk
+#Include ..\Direct3D\D3D_INTERPOLATION_MODE.ahk
+#Include ..\Direct3D\D3D_PARAMETER_FLAGS.ahk
 
 /**
  * Describes a function parameter. (D3D11_PARAMETER_DESC)
@@ -7,10 +11,8 @@
  * Get a function-parameter description by calling <a href="https://docs.microsoft.com/windows/desktop/api/d3d11shader/nf-d3d11shader-id3d11functionparameterreflection-getdesc">ID3D11FunctionParameterReflection::GetDesc</a>.
  * @see https://learn.microsoft.com/windows/win32/api/d3d11shader/ns-d3d11shader-d3d11_parameter_desc
  * @namespace Windows.Win32.Graphics.Direct3D11
- * @version v4.0.30319
  */
-class D3D11_PARAMETER_DESC extends Win32Struct
-{
+class D3D11_PARAMETER_DESC extends Win32Struct {
     static sizeof => 56
 
     static packingSize => 8
@@ -41,7 +43,7 @@ class D3D11_PARAMETER_DESC extends Win32Struct
      * Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/d3dcommon/ne-d3dcommon-d3d_shader_variable_type">D3D_SHADER_VARIABLE_TYPE</a></b>
      * 
      * A <a href="https://docs.microsoft.com/windows/desktop/api/d3dcommon/ne-d3dcommon-d3d_shader_variable_type">D3D_SHADER_VARIABLE_TYPE</a>-typed value that identifies the variable type for the parameter.
-     * @type {Integer}
+     * @type {D3D_SHADER_VARIABLE_TYPE}
      */
     Type {
         get => NumGet(this, 16, "int")
@@ -52,7 +54,7 @@ class D3D11_PARAMETER_DESC extends Win32Struct
      * Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/d3dcommon/ne-d3dcommon-d3d_shader_variable_class">D3D_SHADER_VARIABLE_CLASS</a></b>
      * 
      * A <a href="https://docs.microsoft.com/windows/desktop/api/d3dcommon/ne-d3dcommon-d3d_shader_variable_class">D3D_SHADER_VARIABLE_CLASS</a>-typed value that identifies the variable class for the parameter as one of scalar, vector, matrix, object, and so on.
-     * @type {Integer}
+     * @type {D3D_SHADER_VARIABLE_CLASS}
      */
     Class {
         get => NumGet(this, 20, "int")
@@ -85,7 +87,7 @@ class D3D11_PARAMETER_DESC extends Win32Struct
      * Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/d3dcommon/ne-d3dcommon-d3d_interpolation_mode">D3D_INTERPOLATION_MODE</a></b>
      * 
      * A <a href="https://docs.microsoft.com/windows/desktop/api/d3dcommon/ne-d3dcommon-d3d_interpolation_mode">D3D_INTERPOLATION_MODE</a>-typed value that identifies the interpolation mode for the parameter.
-     * @type {Integer}
+     * @type {D3D_INTERPOLATION_MODE}
      */
     InterpolationMode {
         get => NumGet(this, 32, "int")
@@ -96,7 +98,7 @@ class D3D11_PARAMETER_DESC extends Win32Struct
      * Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/d3dcommon/ne-d3dcommon-d3d_parameter_flags">D3D_PARAMETER_FLAGS</a></b>
      * 
      * A combination of <a href="https://docs.microsoft.com/windows/desktop/api/d3dcommon/ne-d3dcommon-d3d_parameter_flags">D3D_PARAMETER_FLAGS</a>-typed values that are combined by using a bitwise OR operation. The resulting value specifies semantic flags for the parameter.
-     * @type {Integer}
+     * @type {D3D_PARAMETER_FLAGS}
      */
     Flags {
         get => NumGet(this, 36, "int")

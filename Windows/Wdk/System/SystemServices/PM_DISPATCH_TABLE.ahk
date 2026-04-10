@@ -3,10 +3,8 @@
 
 /**
  * @namespace Windows.Wdk.System.SystemServices
- * @version v4.0.30319
  */
-class PM_DISPATCH_TABLE extends Win32Struct
-{
+class PM_DISPATCH_TABLE extends Win32Struct {
     static sizeof => 16
 
     static packingSize => 8
@@ -28,9 +26,9 @@ class PM_DISPATCH_TABLE extends Win32Struct
     }
 
     /**
-     * @type {Array<Void>}
+     * @type {Array<Pointer<Void>>}
      */
-    Function{
+    Function {
         get {
             if(!this.HasProp("__FunctionProxyArray"))
                 this.__FunctionProxyArray := Win32FixedArray(this.ptr + 8, 1, Primitive, "ptr")

@@ -8,11 +8,9 @@
  * > The dsgetdc.h header defines DOMAIN_CONTROLLER_INFO as an alias which automatically selects the ANSI or Unicode version of this function based on the definition of the UNICODE preprocessor constant. Mixing usage of the encoding-neutral alias with code that not encoding-neutral can lead to mismatches that result in compilation or runtime errors. For more information, see [Conventions for Function Prototypes](/windows/win32/intl/conventions-for-function-prototypes).
  * @see https://learn.microsoft.com/windows/win32/api/dsgetdc/ns-dsgetdc-domain_controller_infow
  * @namespace Windows.Win32.Networking.ActiveDirectory
- * @version v4.0.30319
  * @charset Unicode
  */
-class DOMAIN_CONTROLLER_INFOW extends Win32Struct
-{
+class DOMAIN_CONTROLLER_INFOW extends Win32Struct {
     static sizeof => 72
 
     static packingSize => 8
@@ -36,7 +34,6 @@ class DOMAIN_CONTROLLER_INFOW extends Win32Struct
     }
 
     /**
-     * 
      * @type {Integer}
      */
     DomainControllerAddressType {
@@ -46,7 +43,7 @@ class DOMAIN_CONTROLLER_INFOW extends Win32Struct
 
     /**
      * The <b>GUID</b> of the domain. This member is zero if the domain controller does not have a Domain GUID; for example, the domain controller is not a Windows 2000 domain controller.
-     * @type {Pointer<Guid>}
+     * @type {Pointer}
      */
     DomainGuid {
         get => NumGet(this, 24, "ptr")

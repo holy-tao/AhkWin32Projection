@@ -1,25 +1,33 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
+#Include .\FWP_IP_VERSION.ahk
+#Include .\FWP_DIRECTION.ahk
 #Include .\IPSEC_TRAFFIC1.ahk
-#Include .\IPSEC_SA_LIFETIME0.ahk
+#Include .\IPSEC_TRAFFIC_TYPE.ahk
 #Include .\IPSEC_SA_BUNDLE1.ahk
+#Include .\IPSEC_SA_BUNDLE_FLAGS.ahk
+#Include .\IPSEC_SA_LIFETIME0.ahk
+#Include .\IPSEC_ID0.ahk
+#Include .\IPSEC_SA0.ahk
+#Include .\IPSEC_KEYMODULE_STATE0.ahk
+#Include .\IPSEC_PFS_GROUP.ahk
+#Include .\IPSEC_V4_UDP_ENCAPSULATION0.ahk
+#Include .\FWPM_FILTER0.ahk
 #Include .\IPSEC_VIRTUAL_IF_TUNNEL_INFO0.ahk
 
 /**
  * Is used to store information returned when enumerating IPsec security associations (SAs). (IPSEC_SA_DETAILS1)
  * @see https://learn.microsoft.com/windows/win32/api/ipsectypes/ns-ipsectypes-ipsec_sa_details1
  * @namespace Windows.Win32.NetworkManagement.WindowsFilteringPlatform
- * @version v4.0.30319
  */
-class IPSEC_SA_DETAILS1 extends Win32Struct
-{
+class IPSEC_SA_DETAILS1 extends Win32Struct {
     static sizeof => 216
 
     static packingSize => 8
 
     /**
      * An [FWP_IP_VERSION](/windows/desktop/api/fwptypes/ne-fwptypes-fwp_ip_version) value that specifies the IP version. In tunnel mode, this is the version of the outer header.
-     * @type {Integer}
+     * @type {FWP_IP_VERSION}
      */
     ipVersion {
         get => NumGet(this, 0, "int")
@@ -28,7 +36,7 @@ class IPSEC_SA_DETAILS1 extends Win32Struct
 
     /**
      * An [FWP_DIRECTION](/windows/desktop/api/fwptypes/ne-fwptypes-fwp_direction) value that indicates the direction of the IPsec SA.
-     * @type {Integer}
+     * @type {FWP_DIRECTION}
      */
     saDirection {
         get => NumGet(this, 4, "int")
@@ -39,7 +47,7 @@ class IPSEC_SA_DETAILS1 extends Win32Struct
      * An [IPSEC_TRAFFIC1](/windows/desktop/api/ipsectypes/ns-ipsectypes-ipsec_traffic1) structure that specifies the traffic being secured by this IPsec SA. In tunnel mode, this contains both the tunnel endpoints and Quick Mode (QM)  traffic selectors.
      * @type {IPSEC_TRAFFIC1}
      */
-    traffic{
+    traffic {
         get {
             if(!this.HasProp("__traffic"))
                 this.__traffic := IPSEC_TRAFFIC1(8, this)
@@ -51,7 +59,7 @@ class IPSEC_SA_DETAILS1 extends Win32Struct
      * An [IPSEC_SA_BUNDLE1](/windows/desktop/api/ipsectypes/ns-ipsectypes-ipsec_sa_bundle1) structure that specifies various parameters of the SA .
      * @type {IPSEC_SA_BUNDLE1}
      */
-    saBundle{
+    saBundle {
         get {
             if(!this.HasProp("__saBundle"))
                 this.__saBundle := IPSEC_SA_BUNDLE1(80, this)
@@ -80,7 +88,7 @@ class IPSEC_SA_DETAILS1 extends Win32Struct
      * An [IPSEC_VIRTUAL_IF_TUNNEL_INFO0](/windows/desktop/api/fwptypes/ns-fwptypes-ipsec_virtual_if_tunnel_info0) structure that specifies the virtual interface tunnel information. Only supported by Internet Key Exchange version 2 (IKEv2).
      * @type {IPSEC_VIRTUAL_IF_TUNNEL_INFO0}
      */
-    virtualIfTunnelInfo{
+    virtualIfTunnelInfo {
         get {
             if(!this.HasProp("__virtualIfTunnelInfo"))
                 this.__virtualIfTunnelInfo := IPSEC_VIRTUAL_IF_TUNNEL_INFO0(200, this)

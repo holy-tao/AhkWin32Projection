@@ -3,10 +3,8 @@
 
 /**
  * @namespace Windows.Wdk.System.SystemServices
- * @version v4.0.30319
  */
-class ARBITER_PARAMETERS extends Win32Struct
-{
+class ARBITER_PARAMETERS extends Win32Struct {
     static sizeof => 8
 
     static packingSize => 8
@@ -16,70 +14,69 @@ class ARBITER_PARAMETERS extends Win32Struct
         static packingSize => 8
 
         /**
-         * @type {Pointer<ARBITER_TEST_ALLOCATION_PARAMETERS>}
+         * @type {Pointer}
          */
         TestAllocation {
             get => NumGet(this, 0, "ptr")
             set => NumPut("ptr", value, this, 0)
         }
-    
+
         /**
-         * @type {Pointer<ARBITER_RETEST_ALLOCATION_PARAMETERS>}
+         * @type {Pointer}
          */
         RetestAllocation {
             get => NumGet(this, 0, "ptr")
             set => NumPut("ptr", value, this, 0)
         }
-    
+
         /**
-         * @type {Pointer<ARBITER_BOOT_ALLOCATION_PARAMETERS>}
+         * @type {Pointer}
          */
         BootAllocation {
             get => NumGet(this, 0, "ptr")
             set => NumPut("ptr", value, this, 0)
         }
-    
+
         /**
-         * @type {Pointer<ARBITER_QUERY_ALLOCATED_RESOURCES_PARAMETERS>}
+         * @type {Pointer}
          */
         QueryAllocatedResources {
             get => NumGet(this, 0, "ptr")
             set => NumPut("ptr", value, this, 0)
         }
-    
+
         /**
-         * @type {Pointer<ARBITER_QUERY_CONFLICT_PARAMETERS>}
+         * @type {Pointer}
          */
         QueryConflict {
             get => NumGet(this, 0, "ptr")
             set => NumPut("ptr", value, this, 0)
         }
-    
+
         /**
-         * @type {Pointer<ARBITER_QUERY_ARBITRATE_PARAMETERS>}
+         * @type {Pointer}
          */
         QueryArbitrate {
             get => NumGet(this, 0, "ptr")
             set => NumPut("ptr", value, this, 0)
         }
-    
+
         /**
-         * @type {Pointer<ARBITER_ADD_RESERVED_PARAMETERS>}
+         * @type {Pointer}
          */
         AddReserved {
             get => NumGet(this, 0, "ptr")
             set => NumPut("ptr", value, this, 0)
         }
-    
     }
 
     /**
      * @type {_Parameters_e__Union}
      */
-    Parameters{
+    Parameters {
         get {
             if(!this.HasProp("__Parameters"))
-                this.__Parameters := %this.__Class%._Parameters_e__Union(0, this)
+                this.__Parameters := ARBITER_PARAMETERS._Parameters_e__Union(0, this)
             return this.__Parameters
         }
     }

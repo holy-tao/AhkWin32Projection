@@ -7,9 +7,8 @@
  * Extends the methods and properties of the IWSManEx interface to include a method that returns a session flag value related to authentication using client certificates.
  * @see https://learn.microsoft.com/windows/win32/api/wsmandisp/nn-wsmandisp-iwsmanex2
  * @namespace Windows.Win32.System.RemoteManagement
- * @version v4.0.30319
  */
-class IWSManEx2 extends IWSManEx{
+class IWSManEx2 extends IWSManEx {
 
     static sizeof => A_PtrSize
     /**

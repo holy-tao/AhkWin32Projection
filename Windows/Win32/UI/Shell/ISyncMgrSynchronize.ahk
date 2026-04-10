@@ -1,8 +1,8 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
-#Include .\ISyncMgrEnumItems.ahk
 #Include ..\..\System\Com\IUnknown.ahk
+#Include .\ISyncMgrEnumItems.ahk
 
 /**
  * Exposes methods that enable the registered application or service to receive notifications from the synchronization manager.
@@ -16,9 +16,8 @@
  * The synchronization manager calls the methods of this interface to send notifications to the registered application or service during synchronization.
  * @see https://learn.microsoft.com/windows/win32/api/mobsync/nn-mobsync-isyncmgrsynchronize
  * @namespace Windows.Win32.UI.Shell
- * @version v4.0.30319
  */
-class ISyncMgrSynchronize extends IUnknown{
+class ISyncMgrSynchronize extends IUnknown {
 
     static sizeof => A_PtrSize
     /**

@@ -14,10 +14,8 @@
  * which  initializes all members to zero/null except the size field which is set correctly.
  * @see https://learn.microsoft.com/windows/win32/api/winbase/ns-winbase-actctx_section_keyed_data
  * @namespace Windows.Win32.System.ApplicationInstallationAndServicing
- * @version v4.0.30319
  */
-class ACTCTX_SECTION_KEYED_DATA extends Win32Struct
-{
+class ACTCTX_SECTION_KEYED_DATA extends Win32Struct {
     static sizeof => 112
 
     static packingSize => 8
@@ -109,7 +107,7 @@ class ACTCTX_SECTION_KEYED_DATA extends Win32Struct
      * <a href="https://docs.microsoft.com/windows/desktop/api/winbase/nf-winbase-releaseactctx">ReleaseActCtx</a>() on the activation context handle returned to release system resources when all other references to the activation context have been released.
      * @type {HANDLE}
      */
-    hActCtx{
+    hActCtx {
         get {
             if(!this.HasProp("__hActCtx"))
                 this.__hActCtx := HANDLE(56, this)
@@ -127,7 +125,6 @@ class ACTCTX_SECTION_KEYED_DATA extends Win32Struct
     }
 
     /**
-     * 
      * @type {Integer}
      */
     ulFlags {
@@ -136,10 +133,9 @@ class ACTCTX_SECTION_KEYED_DATA extends Win32Struct
     }
 
     /**
-     * 
      * @type {ACTCTX_SECTION_KEYED_DATA_ASSEMBLY_METADATA}
      */
-    AssemblyMetadata{
+    AssemblyMetadata {
         get {
             if(!this.HasProp("__AssemblyMetadata"))
                 this.__AssemblyMetadata := ACTCTX_SECTION_KEYED_DATA_ASSEMBLY_METADATA(72, this)

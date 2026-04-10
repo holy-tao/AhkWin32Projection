@@ -47,9 +47,8 @@
  * ...
  * @see https://learn.microsoft.com/windows/win32/wpd_sdk/wpd-video-scan-types
  * @namespace Windows.Win32.Devices.PortableDevices
- * @version v4.0.30319
  */
-class WPD_VIDEO_SCAN_TYPES extends Win32Enum{
+class WPD_VIDEO_SCAN_TYPES extends Win32Enum {
 
     /**
      * @type {Integer (Int32)}

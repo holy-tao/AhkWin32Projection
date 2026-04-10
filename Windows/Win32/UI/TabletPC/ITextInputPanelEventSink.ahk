@@ -9,9 +9,8 @@
  * This element is declared in Peninputpanel.h.
  * @see https://learn.microsoft.com/windows/win32/api/peninputpanel/nn-peninputpanel-itextinputpaneleventsink
  * @namespace Windows.Win32.UI.TabletPC
- * @version v4.0.30319
  */
-class ITextInputPanelEventSink extends IUnknown{
+class ITextInputPanelEventSink extends IUnknown {
 
     static sizeof => A_PtrSize
     /**
@@ -34,8 +33,8 @@ class ITextInputPanelEventSink extends IUnknown{
 
     /**
      * Occurs when the In-Place state is about to change.
-     * @param {Integer} oldInPlaceState The current state, as defined by the <a href="https://docs.microsoft.com/windows/win32/api/peninputpanel/ne-peninputpanel-inplacestate">InPlaceState Enumeration</a>.
-     * @param {Integer} newInPlaceState The new state that the Input Panel is changing to, as defined by the <a href="https://docs.microsoft.com/windows/win32/api/peninputpanel/ne-peninputpanel-inplacestate">InPlaceState Enumeration</a>.
+     * @param {InPlaceState} oldInPlaceState The current state, as defined by the <a href="https://docs.microsoft.com/windows/win32/api/peninputpanel/ne-peninputpanel-inplacestate">InPlaceState Enumeration</a>.
+     * @param {InPlaceState} newInPlaceState The new state that the Input Panel is changing to, as defined by the <a href="https://docs.microsoft.com/windows/win32/api/peninputpanel/ne-peninputpanel-inplacestate">InPlaceState Enumeration</a>.
      * @returns {HRESULT} This method can return one of these values.
      * 
      * <table>
@@ -75,8 +74,8 @@ class ITextInputPanelEventSink extends IUnknown{
 
     /**
      * Occurs when the In-Place state has changed.
-     * @param {Integer} oldInPlaceState The current state, as defined by the <a href="https://docs.microsoft.com/windows/win32/api/peninputpanel/ne-peninputpanel-inplacestate">InPlaceState Enumeration</a>.
-     * @param {Integer} newInPlaceState The new state that the Input Panel has changed to, as defined by the <a href="https://docs.microsoft.com/windows/win32/api/peninputpanel/ne-peninputpanel-inplacestate">InPlaceState Enumeration</a>.
+     * @param {InPlaceState} oldInPlaceState The current state, as defined by the <a href="https://docs.microsoft.com/windows/win32/api/peninputpanel/ne-peninputpanel-inplacestate">InPlaceState Enumeration</a>.
+     * @param {InPlaceState} newInPlaceState The new state that the Input Panel has changed to, as defined by the <a href="https://docs.microsoft.com/windows/win32/api/peninputpanel/ne-peninputpanel-inplacestate">InPlaceState Enumeration</a>.
      * @returns {HRESULT} This method can return one of these values.
      * 
      * <table>
@@ -202,8 +201,8 @@ class ITextInputPanelEventSink extends IUnknown{
 
     /**
      * Occurs when the input area is about to change on the Tablet PC Input Panel.
-     * @param {Integer} oldInputArea The current input area as defined by the <a href="https://docs.microsoft.com/windows/win32/api/peninputpanel/ne-peninputpanel-panelinputarea">PanelInputArea Enumeration</a>.
-     * @param {Integer} newInputArea The input area the Input Panel is changing to as defined by the <a href="https://docs.microsoft.com/windows/win32/api/peninputpanel/ne-peninputpanel-panelinputarea">PanelInputArea Enumeration</a>.
+     * @param {PanelInputArea} oldInputArea The current input area as defined by the <a href="https://docs.microsoft.com/windows/win32/api/peninputpanel/ne-peninputpanel-panelinputarea">PanelInputArea Enumeration</a>.
+     * @param {PanelInputArea} newInputArea The input area the Input Panel is changing to as defined by the <a href="https://docs.microsoft.com/windows/win32/api/peninputpanel/ne-peninputpanel-panelinputarea">PanelInputArea Enumeration</a>.
      * @returns {HRESULT} This method can return one of these values.
      * 
      * <table>
@@ -243,8 +242,8 @@ class ITextInputPanelEventSink extends IUnknown{
 
     /**
      * Occurs when the input area has changed on the Tablet PC Input Panel.
-     * @param {Integer} oldInputArea The previous input area as defined by the <a href="https://docs.microsoft.com/windows/win32/api/peninputpanel/ne-peninputpanel-panelinputarea">PanelInputArea Enumeration</a>.
-     * @param {Integer} newInputArea The current input area as defined by the <a href="https://docs.microsoft.com/windows/win32/api/peninputpanel/ne-peninputpanel-panelinputarea">PanelInputArea Enumeration</a>.
+     * @param {PanelInputArea} oldInputArea The previous input area as defined by the <a href="https://docs.microsoft.com/windows/win32/api/peninputpanel/ne-peninputpanel-panelinputarea">PanelInputArea Enumeration</a>.
+     * @param {PanelInputArea} newInputArea The current input area as defined by the <a href="https://docs.microsoft.com/windows/win32/api/peninputpanel/ne-peninputpanel-panelinputarea">PanelInputArea Enumeration</a>.
      * @returns {HRESULT} This method can return one of these values.
      * 
      * <table>
@@ -288,8 +287,8 @@ class ITextInputPanelEventSink extends IUnknown{
      * <div class="alert"><b>Note</b>  In Windows 7, this event no longer is raised.		
      * 		</div>
      * <div> </div>
-     * @param {Integer} oldCorrectionMode The current correction mode, as defined by the <a href="https://docs.microsoft.com/windows/win32/api/peninputpanel/ne-peninputpanel-correctionmode">CorrectionMode Enumeration</a>.
-     * @param {Integer} newCorrectionMode The correction mode the Input Panel is changing to, as defined by the <a href="https://docs.microsoft.com/windows/win32/api/peninputpanel/ne-peninputpanel-correctionmode">CorrectionMode Enumeration</a>.
+     * @param {CorrectionMode} oldCorrectionMode The current correction mode, as defined by the <a href="https://docs.microsoft.com/windows/win32/api/peninputpanel/ne-peninputpanel-correctionmode">CorrectionMode Enumeration</a>.
+     * @param {CorrectionMode} newCorrectionMode The correction mode the Input Panel is changing to, as defined by the <a href="https://docs.microsoft.com/windows/win32/api/peninputpanel/ne-peninputpanel-correctionmode">CorrectionMode Enumeration</a>.
      * @returns {HRESULT} This method can return one of these values.
      * 
      * <table>
@@ -333,8 +332,8 @@ class ITextInputPanelEventSink extends IUnknown{
      * <div class="alert"><b>Note</b>  In Windows 7, this event is no longer raised.
      * 		</div>
      * <div> </div>
-     * @param {Integer} oldCorrectionMode The previous correction mode, as defined by the <a href="https://docs.microsoft.com/windows/win32/api/peninputpanel/ne-peninputpanel-correctionmode">CorrectionMode Enumeration</a>.
-     * @param {Integer} newCorrectionMode The current correction mode, as defined by the <a href="https://docs.microsoft.com/windows/win32/api/peninputpanel/ne-peninputpanel-correctionmode">CorrectionMode Enumeration</a>.
+     * @param {CorrectionMode} oldCorrectionMode The previous correction mode, as defined by the <a href="https://docs.microsoft.com/windows/win32/api/peninputpanel/ne-peninputpanel-correctionmode">CorrectionMode Enumeration</a>.
+     * @param {CorrectionMode} newCorrectionMode The current correction mode, as defined by the <a href="https://docs.microsoft.com/windows/win32/api/peninputpanel/ne-peninputpanel-correctionmode">CorrectionMode Enumeration</a>.
      * @returns {HRESULT} This method can return one of these values.
      * 
      * <table>
@@ -458,7 +457,7 @@ class ITextInputPanelEventSink extends IUnknown{
      * Occurs when the Tablet PC Input Panel is about to insert text into the control with input focus. Provides access to the ink the user entered in the Input Panel.
      * @remarks
      * There is a minimum of one <a href="https://docs.microsoft.com/windows/desktop/tablet/inkdisp-class">Ink</a> object for each line of the Input Panel containing text at the time of insertion.
-     * @param {Pointer<SAFEARRAY>} _Ink 
+     * @param {Pointer<SAFEARRAY>} _Ink Array of <a href="https://docs.microsoft.com/windows/desktop/tablet/inkdisp-class">Ink</a> objects in the Input Panel.
      * @returns {HRESULT} This method can return one of these values.
      * 
      * <table>
@@ -500,7 +499,7 @@ class ITextInputPanelEventSink extends IUnknown{
      * Occurs when the Tablet PC Input Panel has inserted text into the control with input focus. Provides access to the ink the user entered in the Input Panel.
      * @remarks
      * There is a minimum of one <a href="https://docs.microsoft.com/windows/desktop/tablet/inkdisp-class">Ink</a> object for each line of the Input Panel containing text at the time of insertion.
-     * @param {Pointer<SAFEARRAY>} _Ink 
+     * @param {Pointer<SAFEARRAY>} _Ink Array of <a href="https://docs.microsoft.com/windows/desktop/tablet/inkdisp-class">Ink</a> objects in the Input Panel.
      * @returns {HRESULT} This method can return one of these values.
      * 
      * <table>

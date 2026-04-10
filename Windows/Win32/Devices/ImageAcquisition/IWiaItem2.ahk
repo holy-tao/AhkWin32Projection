@@ -1,12 +1,11 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
-#Include ..\..\Foundation\BSTR.ahk
-#Include .\IWiaItem2.ahk
+#Include ..\..\System\Com\IUnknown.ahk
 #Include .\IEnumWiaItem2.ahk
+#Include ..\..\..\..\Guid.ahk
 #Include .\IEnumWIA_DEV_CAPS.ahk
 #Include .\IWiaPreview.ahk
-#Include ..\..\System\Com\IUnknown.ahk
 
 /**
  * The IWiaItem2 interface provides applications with the same functionality as the IWiaItem interface (the ability to query devices to discover their capabilities, to access data transfer interfaces and item properties, and to control the device).
@@ -29,9 +28,8 @@
  * | [IUnknown::Release](/windows/win32/api/unknwn/nf-unknwn-iunknown-release)               | Decrements reference count.               |
  * @see https://learn.microsoft.com/windows/win32/wia/-wia-iwiaitem2
  * @namespace Windows.Win32.Devices.ImageAcquisition
- * @version v4.0.30319
  */
-class IWiaItem2 extends IUnknown{
+class IWiaItem2 extends IUnknown {
 
     static sizeof => A_PtrSize
     /**

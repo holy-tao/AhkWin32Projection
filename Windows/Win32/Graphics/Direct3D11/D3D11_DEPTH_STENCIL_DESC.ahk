@@ -1,6 +1,9 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
+#Include .\D3D11_DEPTH_WRITE_MASK.ahk
+#Include .\D3D11_COMPARISON_FUNC.ahk
 #Include .\D3D11_DEPTH_STENCILOP_DESC.ahk
+#Include .\D3D11_STENCIL_OP.ahk
 
 /**
  * Describes depth-stencil state. (D3D11_DEPTH_STENCIL_DESC)
@@ -90,10 +93,8 @@
  * The formats that support stenciling are DXGI_FORMAT_D24_UNORM_S8_UINT and DXGI_FORMAT_D32_FLOAT_S8X24_UINT.
  * @see https://learn.microsoft.com/windows/win32/api/d3d11/ns-d3d11-d3d11_depth_stencil_desc
  * @namespace Windows.Win32.Graphics.Direct3D11
- * @version v4.0.30319
  */
-class D3D11_DEPTH_STENCIL_DESC extends Win32Struct
-{
+class D3D11_DEPTH_STENCIL_DESC extends Win32Struct {
     static sizeof => 52
 
     static packingSize => 4
@@ -113,7 +114,7 @@ class D3D11_DEPTH_STENCIL_DESC extends Win32Struct
      * Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/d3d11/ne-d3d11-d3d11_depth_write_mask">D3D11_DEPTH_WRITE_MASK</a></b>
      * 
      * Identify a portion of the depth-stencil buffer that can be modified by depth data (see <a href="https://docs.microsoft.com/windows/desktop/api/d3d11/ne-d3d11-d3d11_depth_write_mask">D3D11_DEPTH_WRITE_MASK</a>).
-     * @type {Integer}
+     * @type {D3D11_DEPTH_WRITE_MASK}
      */
     DepthWriteMask {
         get => NumGet(this, 4, "int")
@@ -124,7 +125,7 @@ class D3D11_DEPTH_STENCIL_DESC extends Win32Struct
      * Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/d3d11/ne-d3d11-d3d11_comparison_func">D3D11_COMPARISON_FUNC</a></b>
      * 
      * A function that compares depth data against existing depth data. The function options are listed in <a href="https://docs.microsoft.com/windows/desktop/api/d3d11/ne-d3d11-d3d11_comparison_func">D3D11_COMPARISON_FUNC</a>.
-     * @type {Integer}
+     * @type {D3D11_COMPARISON_FUNC}
      */
     DepthFunc {
         get => NumGet(this, 8, "int")
@@ -170,7 +171,7 @@ class D3D11_DEPTH_STENCIL_DESC extends Win32Struct
      * Identify how to use the results of the depth test and the stencil test for pixels whose surface normal is facing towards the camera (see <a href="https://docs.microsoft.com/windows/desktop/api/d3d11/ns-d3d11-d3d11_depth_stencilop_desc">D3D11_DEPTH_STENCILOP_DESC</a>).
      * @type {D3D11_DEPTH_STENCILOP_DESC}
      */
-    FrontFace{
+    FrontFace {
         get {
             if(!this.HasProp("__FrontFace"))
                 this.__FrontFace := D3D11_DEPTH_STENCILOP_DESC(20, this)
@@ -184,7 +185,7 @@ class D3D11_DEPTH_STENCIL_DESC extends Win32Struct
      * Identify how to use the results of the depth test and the stencil test for pixels whose surface normal is facing away from the camera (see <a href="https://docs.microsoft.com/windows/desktop/api/d3d11/ns-d3d11-d3d11_depth_stencilop_desc">D3D11_DEPTH_STENCILOP_DESC</a>).
      * @type {D3D11_DEPTH_STENCILOP_DESC}
      */
-    BackFace{
+    BackFace {
         get {
             if(!this.HasProp("__BackFace"))
                 this.__BackFace := D3D11_DEPTH_STENCILOP_DESC(36, this)

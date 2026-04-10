@@ -5,10 +5,8 @@
  * Contains the default owner security identifier (SID) that will be applied to newly created objects.
  * @see https://learn.microsoft.com/windows/win32/api/winnt/ns-winnt-token_owner
  * @namespace Windows.Win32.Security
- * @version v4.0.30319
  */
-class TOKEN_OWNER extends Win32Struct
-{
+class TOKEN_OWNER extends Win32Struct {
     static sizeof => 8
 
     static packingSize => 8

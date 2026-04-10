@@ -1,16 +1,14 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
-#Include .\IDWriteFontSet4.ahk
 #Include .\IDWriteFontSet3.ahk
 
 /**
  * Represents a font set. (IDWriteFontSet4)
  * @see https://learn.microsoft.com/windows/win32/api/dwrite_3/nn-dwrite_3-idwritefontset4
  * @namespace Windows.Win32.Graphics.DirectWrite
- * @version v4.0.30319
  */
-class IDWriteFontSet4 extends IDWriteFontSet3{
+class IDWriteFontSet4 extends IDWriteFontSet3 {
 
     static sizeof => A_PtrSize
     /**
@@ -41,13 +39,15 @@ class IDWriteFontSet4 extends IDWriteFontSet3{
      * @param {Integer} inputAxisCount Type: **[UINT32](/windows/win32/winprog/windows-data-types)**
      * 
      * Size of the array of input axis values.
-     * @param {Integer} fontWeight Type: **[DWRITE_FONT_WEIGHT](/windows/win32/api/dwrite/ne-dwrite-dwrite_font_weight)**
+     * @param {DWRITE_FONT_WEIGHT} fontWeight Type: **[DWRITE_FONT_WEIGHT](/windows/win32/api/dwrite/ne-dwrite-dwrite_font_weight)**
      * 
      * Font weight, used to compute "wght" axis value.
-     * @param {Integer} fontStretch Type: **[DWRITE_FONT_STRETCH](/windows/win32/api/dwrite/ne-dwrite-dwrite_font_stretch)**
+     * @param {DWRITE_FONT_STRETCH} fontStretch Type: **[DWRITE_FONT_STRETCH](/windows/win32/api/dwrite/ne-dwrite-dwrite_font_stretch)**
      * 
      * Font stretch, used to compute "wdth" axis value.
-     * @param {Integer} _fontStyle 
+     * @param {DWRITE_FONT_STYLE} _fontStyle Type: **[DWRITE_FONT_STYLE](/windows/win32/api/dwrite/ne-dwrite-dwrite_font_style)**
+     * 
+     * Font style, used to compute "slnt" and "ital" axis values.
      * @param {Float} fontSize Type: **float**
      * 
      * Font size in DIPs, used to compute "opsz" axis value. If this parameter is zero, then no "opsz" axis value is added to the output array.
@@ -77,7 +77,7 @@ class IDWriteFontSet4 extends IDWriteFontSet3{
      * @param {Integer} fontAxisValueCount Type: **[UINT32](/windows/win32/winprog/windows-data-types)**
      * 
      * Number of font axis values.
-     * @param {Integer} allowedSimulations Type: **[DWRITE_FONT_SIMULATIONS](/windows/win32/api/dwrite/ne-dwrite-dwrite_font_simulations)**
+     * @param {DWRITE_FONT_SIMULATIONS} allowedSimulations Type: **[DWRITE_FONT_SIMULATIONS](/windows/win32/api/dwrite/ne-dwrite-dwrite_font_simulations)**
      * 
      * Specifies which simulations (that is, algorithmic emboldening and/or slant) may be applied to matching fonts to better match the specified axis values. If the argument is **DWRITE_FONT_SIMULATIONS_NONE** (0), then no simulations are applied.
      * @returns {IDWriteFontSet4} Type: \_COM\_Outptr\_ **[IDWriteFontSet4](.\nn-dwrite_3-idwritefontset4.md)\*\***

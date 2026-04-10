@@ -1,7 +1,6 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
-#Include ..\..\Foundation\BSTR.ahk
 #Include .\IFsiDirectoryItem.ahk
 
 /**
@@ -14,9 +13,8 @@
  * This interface is supported in Windows Server 2003 with Service Pack 1 (SP1), Windows XP with Service Pack 2 (SP2),  and Windows Vista  via the Windows Feature Pack for Storage. All  features provided by this  update package are supported natively in Windows 7 and Windows Server 2008 R2.
  * @see https://learn.microsoft.com/windows/win32/api/imapi2fs/nn-imapi2fs-ifsidirectoryitem2
  * @namespace Windows.Win32.Storage.Imapi
- * @version v4.0.30319
  */
-class IFsiDirectoryItem2 extends IFsiDirectoryItem{
+class IFsiDirectoryItem2 extends IFsiDirectoryItem {
 
     static sizeof => A_PtrSize
     /**

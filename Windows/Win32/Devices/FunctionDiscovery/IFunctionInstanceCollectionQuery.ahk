@@ -1,8 +1,8 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
-#Include .\IFunctionInstanceCollection.ahk
 #Include ..\..\System\Com\IUnknown.ahk
+#Include .\IFunctionInstanceCollection.ahk
 
 /**
  * Implements the asynchronous query for a collection of function instances based on category and subcategory.
@@ -10,9 +10,8 @@
  * The <a href="https://docs.microsoft.com/windows/desktop/api/functiondiscoveryapi/nf-functiondiscoveryapi-ifunctioninstancecollectionquery-execute">Execute</a> method must be invoked by the client program before any data can be retrieved from the query object.
  * @see https://learn.microsoft.com/windows/win32/api/functiondiscoveryapi/nn-functiondiscoveryapi-ifunctioninstancecollectionquery
  * @namespace Windows.Win32.Devices.FunctionDiscovery
- * @version v4.0.30319
  */
-class IFunctionInstanceCollectionQuery extends IUnknown{
+class IFunctionInstanceCollectionQuery extends IUnknown {
 
     static sizeof => A_PtrSize
     /**
@@ -116,7 +115,7 @@ class IFunctionInstanceCollectionQuery extends IUnknown{
      * <p class="indent">VT_UI8
      * 
      * <p class="indent">VT_UINT
-     * @param {Integer} enumPropertyConstraint A <a href="https://docs.microsoft.com/windows/win32/api/functiondiscoveryconstraints/ne-functiondiscoveryconstraints-propertyconstraint">PropertyConstraint</a> value that specifies the type of comparison to use when comparing the constraint's PKEY to the function instance's PKEY.
+     * @param {PropertyConstraint} enumPropertyConstraint A <a href="https://docs.microsoft.com/windows/win32/api/functiondiscoveryconstraints/ne-functiondiscoveryconstraints-propertyconstraint">PropertyConstraint</a> value that specifies the type of comparison to use when comparing the constraint's PKEY to the function instance's PKEY.
      * @returns {HRESULT} Possible return values include, but are not limited to, the following.
      * 
      * <table>

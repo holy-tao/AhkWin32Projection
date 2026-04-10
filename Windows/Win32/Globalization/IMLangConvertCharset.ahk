@@ -5,9 +5,8 @@
 
 /**
  * @namespace Windows.Win32.Globalization
- * @version v4.0.30319
  */
-class IMLangConvertCharset extends IUnknown{
+class IMLangConvertCharset extends IUnknown {
 
     static sizeof => A_PtrSize
     /**
@@ -98,9 +97,9 @@ class IMLangConvertCharset extends IUnknown{
 
     /**
      * 
-     * @param {Pointer} pSrcStr 
+     * @param {Integer} pSrcStr 
      * @param {Pointer<Integer>} pcSrcSize 
-     * @param {Pointer} pDstStr 
+     * @param {Integer} pDstStr 
      * @param {Pointer<Integer>} pcDstSize 
      * @returns {HRESULT} 
      */
@@ -114,7 +113,7 @@ class IMLangConvertCharset extends IUnknown{
 
     /**
      * 
-     * @param {Pointer} pSrcStr 
+     * @param {Integer} pSrcStr 
      * @param {Pointer<Integer>} pcSrcSize 
      * @param {PWSTR} pDstStr 
      * @param {Pointer<Integer>} pcDstSize 
@@ -134,7 +133,7 @@ class IMLangConvertCharset extends IUnknown{
      * 
      * @param {PWSTR} pSrcStr 
      * @param {Pointer<Integer>} pcSrcSize 
-     * @param {Pointer} pDstStr 
+     * @param {Integer} pDstStr 
      * @param {Pointer<Integer>} pcDstSize 
      * @returns {HRESULT} 
      */

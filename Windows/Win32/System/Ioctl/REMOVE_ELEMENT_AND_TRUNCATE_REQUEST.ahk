@@ -3,10 +3,8 @@
 
 /**
  * @namespace Windows.Win32.System.Ioctl
- * @version v4.0.30319
  */
-class REMOVE_ELEMENT_AND_TRUNCATE_REQUEST extends Win32Struct
-{
+class REMOVE_ELEMENT_AND_TRUNCATE_REQUEST extends Win32Struct {
     static sizeof => 24
 
     static packingSize => 8

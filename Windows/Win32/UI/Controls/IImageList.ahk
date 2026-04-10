@@ -1,18 +1,17 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
+#Include ..\..\System\Com\IUnknown.ahk
 #Include ..\WindowsAndMessaging\HICON.ahk
 #Include .\IMAGEINFO.ahk
 #Include ..\..\Foundation\RECT.ahk
-#Include ..\..\System\Com\IUnknown.ahk
 
 /**
  * Exposes methods that manipulate and interact with image lists.
  * @see https://learn.microsoft.com/windows/win32/api/commoncontrols/nn-commoncontrols-iimagelist
  * @namespace Windows.Win32.UI.Controls
- * @version v4.0.30319
  */
-class IImageList extends IUnknown{
+class IImageList extends IUnknown {
 
     static sizeof => A_PtrSize
     /**
@@ -68,7 +67,9 @@ class IImageList extends IUnknown{
      * @param {Integer} i Type: <b>int</b>
      * 
      * A value of type <b>int</b> that contains the index of the image to replace. If i is -1, the function adds the image to the end of the list.
-     * @param {HICON} _hicon 
+     * @param {HICON} _hicon Type: <b><a href="https://docs.microsoft.com/windows/desktop/WinProg/windows-data-types">HICON</a></b>
+     * 
+     * A handle to the icon or cursor that contains the bitmap and mask for the new image.
      * @returns {Integer} Type: <b>int*</b>
      * 
      * A pointer to an <b>int</b> that will contain the index of the image on return if 	successful, or -1 otherwise.
@@ -94,7 +95,9 @@ class IImageList extends IUnknown{
      * @param {Integer} iImage Type: <b>int</b>
      * 
      * A value of type <b>int</b> that contains the zero-based index of an image in the image list. This index identifies the image to use as an overlay mask.
-     * @param {Integer} _iOverlay 
+     * @param {Integer} _iOverlay Type: <b>int</b>
+     * 
+     * A value of type <b>int</b> that contains the one-based index of the overlay mask.
      * @returns {HRESULT} Type: <b><a href="https://docs.microsoft.com/windows/desktop/WinProg/windows-data-types">HRESULT</a></b>
      * 
      * If this method succeeds, it returns <b>S_OK</b>. Otherwise, it returns an <b>HRESULT</b> error code.
@@ -364,7 +367,9 @@ class IImageList extends IUnknown{
      * @param {Pointer<Integer>} cx Type: <b>int*</b>
      * 
      * A pointer to an <b>int</b> that receives the width, in pixels, of each image.
-     * @param {Pointer<Integer>} _cy 
+     * @param {Pointer<Integer>} _cy Type: <b>int*</b>
+     * 
+     * A pointer to an <b>int</b> that receives the height, in pixels, of each image.
      * @returns {HRESULT} Type: <b><a href="https://docs.microsoft.com/windows/desktop/WinProg/windows-data-types">HRESULT</a></b>
      * 
      * If this method succeeds, it returns <b>S_OK</b>. Otherwise, it returns an <b>HRESULT</b> error code.
@@ -385,7 +390,9 @@ class IImageList extends IUnknown{
      * @param {Integer} cx Type: <b>int</b>
      * 
      * A value of type <b>int</b> that contains the width, in pixels, of the images in the image list. All images in an image list have the same dimensions.
-     * @param {Integer} _cy 
+     * @param {Integer} _cy Type: <b>int</b>
+     * 
+     * A value of type <b>int</b> that contains the height, in pixels, of the images in the image list. All images in an image list have the same dimensions.
      * @returns {HRESULT} Type: <b><a href="https://docs.microsoft.com/windows/desktop/WinProg/windows-data-types">HRESULT</a></b>
      * 
      * If this method succeeds, it returns <b>S_OK</b>. Otherwise, it returns an <b>HRESULT</b> error code.
@@ -654,7 +661,7 @@ class IImageList extends IUnknown{
      * @param {Integer} i Type: <b>int</b>
      * 
      * A value of type <b>int</b> that contains the index of the images whose flags need to be retrieved.
-     * @returns {Integer} Type: <b><a href="https://docs.microsoft.com/windows/desktop/WinProg/windows-data-types">DWORD</a>*</b>
+     * @returns {IMAGE_LIST_ITEM_FLAGS} Type: <b><a href="https://docs.microsoft.com/windows/desktop/WinProg/windows-data-types">DWORD</a>*</b>
      * @see https://learn.microsoft.com/windows/win32/api/commoncontrols/nf-commoncontrols-iimagelist-getitemflags
      */
     GetItemFlags(i) {
@@ -666,7 +673,9 @@ class IImageList extends IUnknown{
      * Retrieves a specified image from the list of images used as overlay masks.
      * @remarks
      * To use <b>IImageList::GetOverlayImage</b>, specify Comctl32.dll version 6 in the manifest. For more information on manifests, see <a href="https://docs.microsoft.com/windows/desktop/Controls/cookbook-overview">Enabling Visual Styles</a>.
-     * @param {Integer} _iOverlay 
+     * @param {Integer} _iOverlay Type: <b>int</b>
+     * 
+     * A value of type <b>int</b> that contains the one-based index of the overlay mask.
      * @returns {Integer} Type: <b>int*</b>
      * 
      * A pointer to an <b>int</b> that receives the zero-based index of  

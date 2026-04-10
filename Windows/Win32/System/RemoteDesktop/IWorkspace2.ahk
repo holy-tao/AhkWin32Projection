@@ -1,16 +1,14 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
-#Include ..\..\Foundation\BSTR.ahk
 #Include .\IWorkspace.ahk
 
 /**
  * Exposes additional methods that provide information about a connection in RemoteApp and Desktop Connection.
  * @see https://learn.microsoft.com/windows/win32/api/workspaceruntime/nn-workspaceruntime-iworkspace2
  * @namespace Windows.Win32.System.RemoteDesktop
- * @version v4.0.30319
  */
-class IWorkspace2 extends IWorkspace{
+class IWorkspace2 extends IWorkspace {
 
     static sizeof => A_PtrSize
     /**

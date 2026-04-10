@@ -3,9 +3,8 @@
 
 /**
  * @namespace Windows.Win32.Devices.Communication
- * @version v4.0.30319
  */
-class MODEMDEVCAPS_DIAL_OPTIONS extends Win32BitflagEnum{
+class MODEMDEVCAPS_DIAL_OPTIONS extends Win32BitflagEnum {
 
     /**
      * @type {Integer (UInt32)}

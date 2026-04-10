@@ -9,10 +9,8 @@
  * Refer to the section on NV12 in <a href="https://docs.microsoft.com/windows/desktop/direct3d11/direct3d-11-4-features">Direct3D 11.4 Features</a>.
  * @see https://learn.microsoft.com/windows/win32/api/d3d11_4/ns-d3d11_4-d3d11_feature_data_d3d11_options4
  * @namespace Windows.Win32.Graphics.Direct3D11
- * @version v4.0.30319
  */
-class D3D11_FEATURE_DATA_D3D11_OPTIONS4 extends Win32Struct
-{
+class D3D11_FEATURE_DATA_D3D11_OPTIONS4 extends Win32Struct {
     static sizeof => 4
 
     static packingSize => 4

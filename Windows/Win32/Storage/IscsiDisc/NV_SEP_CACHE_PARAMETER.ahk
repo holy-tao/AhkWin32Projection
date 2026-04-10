@@ -3,10 +3,8 @@
 
 /**
  * @namespace Windows.Win32.Storage.IscsiDisc
- * @version v4.0.30319
  */
-class NV_SEP_CACHE_PARAMETER extends Win32Struct
-{
+class NV_SEP_CACHE_PARAMETER extends Win32Struct {
     static sizeof => 16
 
     static packingSize => 4
@@ -18,7 +16,7 @@ class NV_SEP_CACHE_PARAMETER extends Win32Struct
         class _CacheFlags extends Win32Struct {
             static sizeof => 1
             static packingSize => 1
-    
+
             /**
              * This bitfield backs the following members:
              * - WriteCacheEnabled
@@ -32,7 +30,7 @@ class NV_SEP_CACHE_PARAMETER extends Win32Struct
                 get => NumGet(this, 0, "char")
                 set => NumPut("char", value, this, 0)
             }
-        
+
             /**
              * @type {Integer}
              */
@@ -40,7 +38,7 @@ class NV_SEP_CACHE_PARAMETER extends Win32Struct
                 get => (this._bitfield >> 0) & 0x1
                 set => this._bitfield := ((value & 0x1) << 0) | (this._bitfield & ~(0x1 << 0))
             }
-        
+
             /**
              * @type {Integer}
              */
@@ -48,7 +46,7 @@ class NV_SEP_CACHE_PARAMETER extends Win32Struct
                 get => (this._bitfield >> 1) & 0x1
                 set => this._bitfield := ((value & 0x1) << 1) | (this._bitfield & ~(0x1 << 1))
             }
-        
+
             /**
              * @type {Integer}
              */
@@ -56,7 +54,7 @@ class NV_SEP_CACHE_PARAMETER extends Win32Struct
                 get => (this._bitfield >> 2) & 0x1
                 set => this._bitfield := ((value & 0x1) << 2) | (this._bitfield & ~(0x1 << 2))
             }
-        
+
             /**
              * @type {Integer}
              */
@@ -64,7 +62,7 @@ class NV_SEP_CACHE_PARAMETER extends Win32Struct
                 get => (this._bitfield >> 3) & 0x1
                 set => this._bitfield := ((value & 0x1) << 3) | (this._bitfield & ~(0x1 << 3))
             }
-        
+
             /**
              * @type {Integer}
              */
@@ -72,20 +70,19 @@ class NV_SEP_CACHE_PARAMETER extends Win32Struct
                 get => (this._bitfield >> 4) & 0xF
                 set => this._bitfield := ((value & 0xF) << 4) | (this._bitfield & ~(0xF << 4))
             }
-        
         }
-    
+
         /**
          * @type {_CacheFlags}
          */
-        CacheFlags{
+        CacheFlags {
             get {
                 if(!this.HasProp("__CacheFlags"))
-                    this.__CacheFlags := %this.__Class%._CacheFlags(0, this)
+                    this.__CacheFlags := NV_SEP_CACHE_PARAMETER._Flags_e__Union._CacheFlags(0, this)
                 return this.__CacheFlags
             }
         }
-    
+
         /**
          * @type {Integer}
          */
@@ -93,7 +90,6 @@ class NV_SEP_CACHE_PARAMETER extends Win32Struct
             get => NumGet(this, 0, "char")
             set => NumPut("char", value, this, 0)
         }
-    
     }
 
     /**
@@ -115,10 +111,10 @@ class NV_SEP_CACHE_PARAMETER extends Win32Struct
     /**
      * @type {_Flags_e__Union}
      */
-    Flags{
+    Flags {
         get {
             if(!this.HasProp("__Flags"))
-                this.__Flags := %this.__Class%._Flags_e__Union(8, this)
+                this.__Flags := NV_SEP_CACHE_PARAMETER._Flags_e__Union(8, this)
             return this.__Flags
         }
     }
@@ -140,9 +136,9 @@ class NV_SEP_CACHE_PARAMETER extends Win32Struct
     }
 
     /**
-     * @type {Array<Byte>}
+     * @type {Array<Integer>}
      */
-    ParameterReserve1{
+    ParameterReserve1 {
         get {
             if(!this.HasProp("__ParameterReserve1ProxyArray"))
                 this.__ParameterReserve1ProxyArray := Win32FixedArray(this.ptr + 11, 3, Primitive, "char")

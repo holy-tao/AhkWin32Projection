@@ -1,16 +1,13 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
-#Include ..\..\..\Win32\Foundation\RECTL.ahk
 
 /**
  * @namespace Windows.Wdk.Graphics.Direct3D
- * @version v4.0.30319
  */
-class D3DNTHAL_DP2ADDDIRTYRECT extends Win32Struct
-{
-    static sizeof => 20
+class D3DNTHAL_DP2ADDDIRTYRECT extends Win32Struct {
+    static sizeof => 16
 
-    static packingSize => 4
+    static packingSize => 8
 
     /**
      * @type {Integer}
@@ -21,13 +18,10 @@ class D3DNTHAL_DP2ADDDIRTYRECT extends Win32Struct
     }
 
     /**
-     * @type {RECTL}
+     * @type {Pointer}
      */
-    rDirtyArea{
-        get {
-            if(!this.HasProp("__rDirtyArea"))
-                this.__rDirtyArea := RECTL(4, this)
-            return this.__rDirtyArea
-        }
+    rDirtyArea {
+        get => NumGet(this, 8, "ptr")
+        set => NumPut("ptr", value, this, 8)
     }
 }

@@ -1,5 +1,6 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
+#Include .\JOB_OBJECT_TERMINATE_AT_END_ACTION.ahk
 
 /**
  * Specifies the action the system will perform when an end-of-job time limit is exceeded.
@@ -11,17 +12,14 @@
  * <a href="https://docs.microsoft.com/windows/desktop/api/winnt/ns-winnt-jobobject_associate_completion_port">JOBOBJECT_ASSOCIATE_COMPLETION_PORT</a> structure.
  * @see https://learn.microsoft.com/windows/win32/api/winnt/ns-winnt-jobobject_end_of_job_time_information
  * @namespace Windows.Win32.System.JobObjects
- * @version v4.0.30319
  */
-class JOBOBJECT_END_OF_JOB_TIME_INFORMATION extends Win32Struct
-{
+class JOBOBJECT_END_OF_JOB_TIME_INFORMATION extends Win32Struct {
     static sizeof => 4
 
     static packingSize => 4
 
     /**
-     * 
-     * @type {Integer}
+     * @type {JOB_OBJECT_TERMINATE_AT_END_ACTION}
      */
     EndOfJobTimeAction {
         get => NumGet(this, 0, "uint")

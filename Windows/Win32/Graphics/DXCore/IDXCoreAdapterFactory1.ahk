@@ -5,9 +5,8 @@
 
 /**
  * @namespace Windows.Win32.Graphics.DXCore
- * @version v4.0.30319
  */
-class IDXCoreAdapterFactory1 extends IDXCoreAdapterFactory{
+class IDXCoreAdapterFactory1 extends IDXCoreAdapterFactory {
 
     static sizeof => A_PtrSize
     /**
@@ -30,9 +29,9 @@ class IDXCoreAdapterFactory1 extends IDXCoreAdapterFactory{
 
     /**
      * 
-     * @param {Integer} workload 
-     * @param {Integer} runtimeFilter 
-     * @param {Integer} hardwareTypeFilter 
+     * @param {DXCoreWorkload} workload 
+     * @param {DXCoreRuntimeFilterFlags} runtimeFilter 
+     * @param {DXCoreHardwareTypeFilterFlags} hardwareTypeFilter 
      * @param {Pointer<Guid>} riid 
      * @returns {Pointer<Void>} 
      */

@@ -7,9 +7,8 @@
  * These flags can be combined with a bitwise OR.
  * @see https://learn.microsoft.com/windows/win32/api/d3d11/ne-d3d11-d3d11_color_write_enable
  * @namespace Windows.Win32.Graphics.Direct3D11
- * @version v4.0.30319
  */
-class D3D11_COLOR_WRITE_ENABLE extends Win32Enum{
+class D3D11_COLOR_WRITE_ENABLE extends Win32Enum {
 
     /**
      * Allow data to be stored in the red component.

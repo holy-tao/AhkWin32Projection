@@ -3,9 +3,8 @@
 
 /**
  * @namespace Windows.Win32.UI.WindowsAndMessaging
- * @version v4.0.30319
  */
-class GDI_IMAGE_TYPE extends Win32Enum{
+class GDI_IMAGE_TYPE extends Win32Enum {
 
     /**
      * @type {Integer (UInt32)}

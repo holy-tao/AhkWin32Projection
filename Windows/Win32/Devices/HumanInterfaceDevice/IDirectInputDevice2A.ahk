@@ -1,15 +1,14 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
-#Include .\IDirectInputEffect.ahk
 #Include .\IDirectInputDeviceA.ahk
+#Include .\IDirectInputEffect.ahk
 
 /**
  * @namespace Windows.Win32.Devices.HumanInterfaceDevice
- * @version v4.0.30319
  * @charset ANSI
  */
-class IDirectInputDevice2A extends IDirectInputDeviceA{
+class IDirectInputDevice2A extends IDirectInputDeviceA {
 
     static sizeof => A_PtrSize
     /**

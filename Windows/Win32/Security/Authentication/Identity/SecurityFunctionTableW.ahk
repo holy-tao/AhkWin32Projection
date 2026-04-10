@@ -10,11 +10,9 @@
  * QueryContextAttributesExW and QueryCredentialsAttributesW are not initialized.
  * @see https://learn.microsoft.com/windows/win32/api/sspi/ns-sspi-securityfunctiontablew
  * @namespace Windows.Win32.Security.Authentication.Identity
- * @version v4.0.30319
  * @charset Unicode
  */
-class SecurityFunctionTableW extends Win32Struct
-{
+class SecurityFunctionTableW extends Win32Struct {
     static sizeof => 256
 
     static packingSize => 8
@@ -29,7 +27,6 @@ class SecurityFunctionTableW extends Win32Struct
     }
 
     /**
-     * 
      * @type {Pointer<ENUMERATE_SECURITY_PACKAGES_FN_W>}
      */
     EnumerateSecurityPackagesW {
@@ -38,7 +35,6 @@ class SecurityFunctionTableW extends Win32Struct
     }
 
     /**
-     * 
      * @type {Pointer<QUERY_CREDENTIALS_ATTRIBUTES_FN_W>}
      */
     QueryCredentialsAttributesW {
@@ -47,7 +43,6 @@ class SecurityFunctionTableW extends Win32Struct
     }
 
     /**
-     * 
      * @type {Pointer<ACQUIRE_CREDENTIALS_HANDLE_FN_W>}
      */
     AcquireCredentialsHandleW {
@@ -74,7 +69,6 @@ class SecurityFunctionTableW extends Win32Struct
     }
 
     /**
-     * 
      * @type {Pointer<INITIALIZE_SECURITY_CONTEXT_FN_W>}
      */
     InitializeSecurityContextW {
@@ -119,7 +113,6 @@ class SecurityFunctionTableW extends Win32Struct
     }
 
     /**
-     * 
      * @type {Pointer<QUERY_CONTEXT_ATTRIBUTES_FN_W>}
      */
     QueryContextAttributesW {
@@ -173,7 +166,6 @@ class SecurityFunctionTableW extends Win32Struct
     }
 
     /**
-     * 
      * @type {Pointer<QUERY_SECURITY_PACKAGE_INFO_FN_W>}
      */
     QuerySecurityPackageInfoW {
@@ -209,7 +201,6 @@ class SecurityFunctionTableW extends Win32Struct
     }
 
     /**
-     * 
      * @type {Pointer<IMPORT_SECURITY_CONTEXT_FN_W>}
      */
     ImportSecurityContextW {
@@ -218,7 +209,6 @@ class SecurityFunctionTableW extends Win32Struct
     }
 
     /**
-     * 
      * @type {Pointer<ADD_CREDENTIALS_FN_W>}
      */
     AddCredentialsW {
@@ -263,7 +253,6 @@ class SecurityFunctionTableW extends Win32Struct
     }
 
     /**
-     * 
      * @type {Pointer<SET_CONTEXT_ATTRIBUTES_FN_W>}
      */
     SetContextAttributesW {
@@ -272,7 +261,6 @@ class SecurityFunctionTableW extends Win32Struct
     }
 
     /**
-     * 
      * @type {Pointer<SET_CREDENTIALS_ATTRIBUTES_FN_W>}
      */
     SetCredentialsAttributesW {
@@ -281,7 +269,6 @@ class SecurityFunctionTableW extends Win32Struct
     }
 
     /**
-     * 
      * @type {Pointer<CHANGE_PASSWORD_FN_W>}
      */
     ChangeAccountPasswordW {
@@ -290,7 +277,6 @@ class SecurityFunctionTableW extends Win32Struct
     }
 
     /**
-     * 
      * @type {Pointer<QUERY_CONTEXT_ATTRIBUTES_EX_FN_W>}
      */
     QueryContextAttributesExW {
@@ -299,7 +285,6 @@ class SecurityFunctionTableW extends Win32Struct
     }
 
     /**
-     * 
      * @type {Pointer<QUERY_CREDENTIALS_ATTRIBUTES_EX_FN_W>}
      */
     QueryCredentialsAttributesExW {

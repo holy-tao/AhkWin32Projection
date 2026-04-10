@@ -1,16 +1,15 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
-#Include ..\..\Foundation\FILETIME.ahk
 #Include ..\Com\IUnknown.ahk
+#Include ..\..\Foundation\FILETIME.ahk
 
 /**
  * Exposes methods that reports completion to and gets wait time from the Remote Desktop Connection Broker (RD Connection Broker).
  * @see https://learn.microsoft.com/windows/win32/api/sbtsv/nn-sbtsv-itssbgenericnotifysink
  * @namespace Windows.Win32.System.RemoteDesktop
- * @version v4.0.30319
  */
-class ITsSbGenericNotifySink extends IUnknown{
+class ITsSbGenericNotifySink extends IUnknown {
 
     static sizeof => A_PtrSize
     /**
@@ -33,7 +32,7 @@ class ITsSbGenericNotifySink extends IUnknown{
 
     /**
      * Reports completion to Remote Desktop Connection Broker (RD Connection Broker).
-     * @param {HRESULT} _Status 
+     * @param {HRESULT} _Status The status to report.
      * @returns {HRESULT} If this method succeeds, it returns <b>S_OK</b>. Otherwise, it returns an <b>HRESULT</b> error code.
      * @see https://learn.microsoft.com/windows/win32/api/sbtsv/nf-sbtsv-itssbgenericnotifysink-oncompleted
      */

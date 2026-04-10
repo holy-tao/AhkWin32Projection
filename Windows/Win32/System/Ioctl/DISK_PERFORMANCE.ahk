@@ -5,10 +5,8 @@
  * Provides disk performance information.
  * @see https://learn.microsoft.com/windows/win32/api/winioctl/ns-winioctl-disk_performance
  * @namespace Windows.Win32.System.Ioctl
- * @version v4.0.30319
  */
-class DISK_PERFORMANCE extends Win32Struct
-{
+class DISK_PERFORMANCE extends Win32Struct {
     static sizeof => 88
 
     static packingSize => 8

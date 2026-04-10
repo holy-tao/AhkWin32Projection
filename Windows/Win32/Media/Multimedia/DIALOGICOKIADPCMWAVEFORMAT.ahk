@@ -4,10 +4,8 @@
 
 /**
  * @namespace Windows.Win32.Media.Multimedia
- * @version v4.0.30319
  */
-class DIALOGICOKIADPCMWAVEFORMAT extends Win32Struct
-{
+class DIALOGICOKIADPCMWAVEFORMAT extends Win32Struct {
     static sizeof => 20
 
     static packingSize => 4
@@ -15,7 +13,7 @@ class DIALOGICOKIADPCMWAVEFORMAT extends Win32Struct
     /**
      * @type {WAVEFORMATEX}
      */
-    ewf{
+    ewf {
         get {
             if(!this.HasProp("__ewf"))
                 this.__ewf := WAVEFORMATEX(0, this)

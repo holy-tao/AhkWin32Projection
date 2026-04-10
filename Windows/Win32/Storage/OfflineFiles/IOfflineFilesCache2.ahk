@@ -7,9 +7,8 @@
  * Implements the RenameItemEx method.
  * @see https://learn.microsoft.com/windows/win32/api/cscobj/nn-cscobj-iofflinefilescache2
  * @namespace Windows.Win32.Storage.OfflineFiles
- * @version v4.0.30319
  */
-class IOfflineFilesCache2 extends IOfflineFilesCache{
+class IOfflineFilesCache2 extends IOfflineFilesCache {
 
     static sizeof => A_PtrSize
     /**

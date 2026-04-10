@@ -5,9 +5,8 @@
  * . (MBN_DEVICE_SERVICES_INTERFACE_STATE)
  * @see https://learn.microsoft.com/windows/win32/api/mbnapi/ne-mbnapi-mbn_device_services_interface_state
  * @namespace Windows.Win32.NetworkManagement.MobileBroadband
- * @version v4.0.30319
  */
-class MBN_DEVICE_SERVICES_INTERFACE_STATE extends Win32Enum{
+class MBN_DEVICE_SERVICES_INTERFACE_STATE extends Win32Enum {
 
     /**
      * A Mobile Broadband device capable of supporting device service functionality has arrived.

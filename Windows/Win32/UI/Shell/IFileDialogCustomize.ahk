@@ -19,9 +19,8 @@
  * Items with a container control cannot be changed after they have been created, except for their enabled and visible states. However, they can be added and removed at any time. For example, if you needed to change the text of a menu, you would have to remove the current menu and add another with the correct text.
  * @see https://learn.microsoft.com/windows/win32/api/shobjidl_core/nn-shobjidl_core-ifiledialogcustomize
  * @namespace Windows.Win32.UI.Shell
- * @version v4.0.30319
  */
-class IFileDialogCustomize extends IUnknown{
+class IFileDialogCustomize extends IUnknown {
 
     static sizeof => A_PtrSize
     /**
@@ -256,7 +255,7 @@ class IFileDialogCustomize extends IUnknown{
      * @param {Integer} dwIDCtl Type: <b>DWORD</b>
      * 
      * The ID of the control in question.
-     * @returns {Integer} Type: <b>CDCONTROLSTATEF*</b>
+     * @returns {CDCONTROLSTATEF} Type: <b>CDCONTROLSTATEF*</b>
      * 
      * A pointer to a variable that receives one or more values from the <a href="https://docs.microsoft.com/previous-versions/windows/desktop/legacy/bb762483(v=vs.85)">CDCONTROLSTATE</a> enumeration that indicate the current state of the control.
      * @see https://learn.microsoft.com/windows/win32/api/shobjidl_core/nf-shobjidl_core-ifiledialogcustomize-getcontrolstate
@@ -273,7 +272,7 @@ class IFileDialogCustomize extends IUnknown{
      * @param {Integer} dwIDCtl Type: <b>DWORD</b>
      * 
      * The ID of the control in question.
-     * @param {Integer} dwState Type: <b>CDCONTROLSTATEF</b>
+     * @param {CDCONTROLSTATEF} dwState Type: <b>CDCONTROLSTATEF</b>
      * 
      * One or more values from the <a href="https://docs.microsoft.com/previous-versions/windows/desktop/legacy/bb762483(v=vs.85)">CDCONTROLSTATE</a> enumeration that indicate the current state of the control.
      * @returns {HRESULT} Type: <b>HRESULT</b>
@@ -430,7 +429,7 @@ class IFileDialogCustomize extends IUnknown{
      * @param {Integer} dwIDItem Type: <b>DWORD</b>
      * 
      * The ID of the item.
-     * @returns {Integer} Type: <b>CDCONTROLSTATEF*</b>
+     * @returns {CDCONTROLSTATEF} Type: <b>CDCONTROLSTATEF*</b>
      * 
      * A pointer to a variable that receives one of more values from the <a href="https://docs.microsoft.com/previous-versions/windows/desktop/legacy/bb762483(v=vs.85)">CDCONTROLSTATE</a> enumeration that indicate the current state of the control.
      * @see https://learn.microsoft.com/windows/win32/api/shobjidl_core/nf-shobjidl_core-ifiledialogcustomize-getcontrolitemstate
@@ -452,7 +451,7 @@ class IFileDialogCustomize extends IUnknown{
      * @param {Integer} dwIDItem Type: <b>DWORD</b>
      * 
      * The ID of the item.
-     * @param {Integer} dwState Type: <b>CDCONTROLSTATEF</b>
+     * @param {CDCONTROLSTATEF} dwState Type: <b>CDCONTROLSTATEF</b>
      * 
      * One or more values from the <a href="https://docs.microsoft.com/previous-versions/windows/desktop/legacy/bb762483(v=vs.85)">CDCONTROLSTATE</a> enumeration that indicate the new state of the control.
      * @returns {HRESULT} Type: <b>HRESULT</b>

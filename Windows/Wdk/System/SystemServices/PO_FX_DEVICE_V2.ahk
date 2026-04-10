@@ -1,13 +1,10 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
-#Include .\PO_FX_COMPONENT_V2.ahk
 
 /**
  * @namespace Windows.Wdk.System.SystemServices
- * @version v4.0.30319
  */
-class PO_FX_DEVICE_V2 extends Win32Struct
-{
+class PO_FX_DEVICE_V2 extends Win32Struct {
     static sizeof => 88
 
     static packingSize => 8
@@ -93,9 +90,9 @@ class PO_FX_DEVICE_V2 extends Win32Struct
     }
 
     /**
-     * @type {Array<PO_FX_COMPONENT_V2>}
+     * @type {Array<Pointer>}
      */
-    Components{
+    Components {
         get {
             if(!this.HasProp("__ComponentsProxyArray"))
                 this.__ComponentsProxyArray := Win32FixedArray(this.ptr + 80, 1, Primitive, "ptr")

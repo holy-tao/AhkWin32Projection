@@ -7,9 +7,8 @@
  * The ITfThreadFocusSink interface is implemented by an application or TSF text service to receive notifications when the thread receives or loses the UI focus.
  * @see https://learn.microsoft.com/windows/win32/api/msctf/nn-msctf-itfthreadfocussink
  * @namespace Windows.Win32.UI.TextServices
- * @version v4.0.30319
  */
-class ITfThreadFocusSink extends IUnknown{
+class ITfThreadFocusSink extends IUnknown {
 
     static sizeof => A_PtrSize
     /**

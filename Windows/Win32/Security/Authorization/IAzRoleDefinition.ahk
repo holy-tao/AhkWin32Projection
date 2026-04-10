@@ -1,18 +1,16 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
-#Include ..\..\Foundation\BSTR.ahk
+#Include .\IAzTask.ahk
 #Include .\IAzRoleAssignments.ahk
 #Include .\IAzRoleDefinitions.ahk
-#Include .\IAzTask.ahk
 
 /**
  * Represents one or more IAzRoleDefinition, IAzTask, and IAzOperation objects that specify a set of operations.
  * @see https://learn.microsoft.com/windows/win32/api/azroles/nn-azroles-iazroledefinition
  * @namespace Windows.Win32.Security.Authorization
- * @version v4.0.30319
  */
-class IAzRoleDefinition extends IAzTask{
+class IAzRoleDefinition extends IAzTask {
 
     static sizeof => A_PtrSize
     /**

@@ -4,10 +4,8 @@
 
 /**
  * @namespace Windows.Win32.Security
- * @version v4.0.30319
  */
-class SAFER_LEVEL_HANDLE extends Win32Handle
-{
+class SAFER_LEVEL_HANDLE extends Win32Handle {
     static sizeof => 8
 
     static packingSize => 8

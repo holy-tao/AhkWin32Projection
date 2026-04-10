@@ -28,9 +28,8 @@
  * <div> </div>
  * @see https://learn.microsoft.com/windows/win32/api/vds/ne-vds-vds_san_policy
  * @namespace Windows.Win32.Storage.VirtualDiskService
- * @version v4.0.30319
  */
-class VDS_SAN_POLICY extends Win32Enum{
+class VDS_SAN_POLICY extends Win32Enum {
 
     /**
      * The SAN policy is unknown.
@@ -57,13 +56,11 @@ class VDS_SAN_POLICY extends Win32Enum{
     static VDS_SP_OFFLINE => 3
 
     /**
-     * 
      * @type {Integer (Int32)}
      */
     static VDS_SP_OFFLINE_INTERNAL => 4
 
     /**
-     * 
      * @type {Integer (Int32)}
      */
     static VDS_SP_MAX => 5

@@ -18,9 +18,8 @@
  * </ul>
  * @see https://learn.microsoft.com/windows/win32/api/mfidl/nn-mfidl-imflocalmftregistration
  * @namespace Windows.Win32.Media.MediaFoundation
- * @version v4.0.30319
  */
-class IMFLocalMFTRegistration extends IUnknown{
+class IMFLocalMFTRegistration extends IUnknown {
 
     static sizeof => A_PtrSize
     /**

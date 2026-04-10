@@ -5,9 +5,8 @@
  * The values of the IASDOMAINTYPE enumeration type specify whether the SDO computer is part of a domain, and if so, what type of domain.
  * @see https://learn.microsoft.com/windows/win32/api/sdoias/ne-sdoias-iasdomaintype
  * @namespace Windows.Win32.NetworkManagement.NetworkPolicyServer
- * @version v4.0.30319
  */
-class IASDOMAINTYPE extends Win32Enum{
+class IASDOMAINTYPE extends Win32Enum {
 
     /**
      * The SDO computer is running in stand-alone mode.

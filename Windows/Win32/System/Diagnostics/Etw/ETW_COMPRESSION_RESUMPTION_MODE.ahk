@@ -3,9 +3,8 @@
 
 /**
  * @namespace Windows.Win32.System.Diagnostics.Etw
- * @version v4.0.30319
  */
-class ETW_COMPRESSION_RESUMPTION_MODE extends Win32Enum{
+class ETW_COMPRESSION_RESUMPTION_MODE extends Win32Enum {
 
     /**
      * @type {Integer (Int32)}

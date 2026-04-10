@@ -7,9 +7,8 @@
  * Since VBScript cannot read information from a type library, VBScript applications do not understand the symbolic constants as defined above. You should use the numerical constants instead to set the appropriate flags in your VBScript applications. If you want to use the symbolic constants as a good programming practice, you should make explicit declarations of such constants, as done here, in your VBScript applications.
  * @see https://learn.microsoft.com/windows/win32/api/iads/ne-iads-ads_settype_enum
  * @namespace Windows.Win32.Networking.ActiveDirectory
- * @version v4.0.30319
  */
-class ADS_SETTYPE_ENUM extends Win32Enum{
+class ADS_SETTYPE_ENUM extends Win32Enum {
 
     /**
      * Sets the full path, for example, "LDAP://servername/o=internet/…/cn=bar".

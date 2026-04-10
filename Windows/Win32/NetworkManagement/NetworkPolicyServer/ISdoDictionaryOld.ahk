@@ -1,17 +1,15 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
-#Include ..\..\Foundation\BSTR.ahk
-#Include ..\..\System\Variant\VARIANT.ahk
 #Include ..\..\System\Com\IDispatch.ahk
+#Include ..\..\System\Variant\VARIANT.ahk
 
 /**
  * Use the ISdoDictionaryOld interface to manipulate the dictionary of Remote Access Dial-In User Service (RADIUS) attributes.
  * @see https://learn.microsoft.com/windows/win32/api/sdoias/nn-sdoias-isdodictionaryold
  * @namespace Windows.Win32.NetworkManagement.NetworkPolicyServer
- * @version v4.0.30319
  */
-class ISdoDictionaryOld extends IDispatch{
+class ISdoDictionaryOld extends IDispatch {
 
     static sizeof => A_PtrSize
     /**
@@ -69,7 +67,7 @@ class ISdoDictionaryOld extends IDispatch{
      * @remarks
      * Although Server Data Objects (SDO) exposes this method, you do not need it in order to use SDO. The use of 
      *     this method is discouraged.
-     * @param {Integer} Id Specifies the ID for the attribute.
+     * @param {ATTRIBUTEID} Id Specifies the ID for the attribute.
      * @param {Pointer<VARIANT>} pInfoIDs Pointer to an array of information IDs. This pointer cannot be <b>NULL</b>.
      * @returns {VARIANT} Pointer to a <a href="https://docs.microsoft.com/windows/desktop/api/oaidl/ns-oaidl-safearray">SAFEARRAY</a> of 
      *       information values.
@@ -85,7 +83,7 @@ class ISdoDictionaryOld extends IDispatch{
      * The EnumAttributeValues method retrieves the values for an enumerable attribute.
      * @remarks
      * The return value is S_OK even if the attribute is not enumerable.
-     * @param {Integer} Id Specifies the ID of the attribute.
+     * @param {ATTRIBUTEID} Id Specifies the ID of the attribute.
      * @param {Pointer<VARIANT>} pValueIds On successful return points to a 
      * <a href="https://docs.microsoft.com/windows/desktop/api/oaidl/ns-oaidl-safearray">SAFEARRAY</a> of value IDs for the enumerable attribute. If the attribute is not enumerable, points to a 
      * <a href="https://docs.microsoft.com/windows/desktop/api/oaidl/ns-oaidl-variant">VT_EMPTY</a> variant.
@@ -102,7 +100,7 @@ class ISdoDictionaryOld extends IDispatch{
 
     /**
      * The CreateAttribute method creates a new attribute object and returns an IDispatch interface to it.
-     * @param {Integer} Id Specifies a value from the enumeration type 
+     * @param {ATTRIBUTEID} Id Specifies a value from the enumeration type 
      * <a href="https://docs.microsoft.com/windows/desktop/api/sdoias/ne-sdoias-attributeid">ATTRIBUTEID</a>. This value specifies the type of attribute to create.
      * @returns {IDispatch} Pointer to a pointer to an 
      * <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/oaidl/nn-oaidl-idispatch">IDispatch</a> interface pointer for the created attribute object.
@@ -116,7 +114,7 @@ class ISdoDictionaryOld extends IDispatch{
     /**
      * The GetAttributeID method retrieves the ID for the specified attribute.
      * @param {BSTR} bstrAttributeName Specifies the name of the attribute. This name is either the Lightweight Directory Access Protocol (LDAP) name, or the display name for the attribute.
-     * @returns {Integer} Pointer to an 
+     * @returns {ATTRIBUTEID} Pointer to an 
      * <a href="https://docs.microsoft.com/windows/desktop/api/sdoias/ne-sdoias-attributeid">ATTRIBUTEID</a> that receives the ID of the specified attribute.
      * @see https://learn.microsoft.com/windows/win32/api/sdoias/nf-sdoias-isdodictionaryold-getattributeid
      */

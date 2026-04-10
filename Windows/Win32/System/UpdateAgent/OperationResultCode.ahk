@@ -5,9 +5,8 @@
  * Defines the possible results of a download, install, uninstall, or verification operation on an update.
  * @see https://learn.microsoft.com/windows/win32/api/wuapi/ne-wuapi-operationresultcode
  * @namespace Windows.Win32.System.UpdateAgent
- * @version v4.0.30319
  */
-class OperationResultCode extends Win32Enum{
+class OperationResultCode extends Win32Enum {
 
     /**
      * The operation is not started.

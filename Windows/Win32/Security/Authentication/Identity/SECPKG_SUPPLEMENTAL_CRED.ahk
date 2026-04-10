@@ -6,10 +6,8 @@
  * The SECPKG_SUPPLEMENTAL_CRED structure contains supplemental credentials recognized by the security package.
  * @see https://learn.microsoft.com/windows/win32/api/ntsecpkg/ns-ntsecpkg-secpkg_supplemental_cred
  * @namespace Windows.Win32.Security.Authentication.Identity
- * @version v4.0.30319
  */
-class SECPKG_SUPPLEMENTAL_CRED extends Win32Struct
-{
+class SECPKG_SUPPLEMENTAL_CRED extends Win32Struct {
     static sizeof => 32
 
     static packingSize => 8
@@ -18,7 +16,7 @@ class SECPKG_SUPPLEMENTAL_CRED extends Win32Struct
      * The name of the <a href="https://docs.microsoft.com/windows/desktop/SecGloss/a-gly">authentication package</a> that authenticated the <a href="https://docs.microsoft.com/windows/desktop/SecGloss/c-gly">credentials</a>.
      * @type {LSA_UNICODE_STRING}
      */
-    PackageName{
+    PackageName {
         get {
             if(!this.HasProp("__PackageName"))
                 this.__PackageName := LSA_UNICODE_STRING(0, this)

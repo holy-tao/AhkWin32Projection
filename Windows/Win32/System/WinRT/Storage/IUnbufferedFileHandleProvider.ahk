@@ -7,9 +7,8 @@
  * Provides access to handles from a random-access byte stream that the StorageFile.OpenAsync method created.
  * @see https://learn.microsoft.com/windows/win32/api/windowsstoragecom/nn-windowsstoragecom-iunbufferedfilehandleprovider
  * @namespace Windows.Win32.System.WinRT.Storage
- * @version v4.0.30319
  */
-class IUnbufferedFileHandleProvider extends IUnknown{
+class IUnbufferedFileHandleProvider extends IUnknown {
 
     static sizeof => A_PtrSize
     /**

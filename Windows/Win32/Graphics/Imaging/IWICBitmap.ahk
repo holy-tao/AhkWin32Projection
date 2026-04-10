@@ -1,8 +1,8 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
-#Include .\IWICBitmapLock.ahk
 #Include .\IWICBitmapSource.ahk
+#Include .\IWICBitmapLock.ahk
 
 /**
  * Defines methods that add the concept of writeability and static in-memory representations of bitmaps to IWICBitmapSource.
@@ -15,9 +15,8 @@
  *             This is contrasted to procedural bitmaps which implement only <b>CopyPixels</b> because there is no internal memory representation and one would need to be created on demand to satisfy a call to <b>Lock</b>.
  * @see https://learn.microsoft.com/windows/win32/api/wincodec/nn-wincodec-iwicbitmap
  * @namespace Windows.Win32.Graphics.Imaging
- * @version v4.0.30319
  */
-class IWICBitmap extends IWICBitmapSource{
+class IWICBitmap extends IWICBitmapSource {
 
     static sizeof => A_PtrSize
     /**

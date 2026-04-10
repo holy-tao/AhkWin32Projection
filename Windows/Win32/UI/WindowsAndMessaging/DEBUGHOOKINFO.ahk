@@ -5,10 +5,8 @@
  * Contains debugging information passed to a WH_DEBUG hook procedure, DebugProc.
  * @see https://learn.microsoft.com/windows/win32/api/winuser/ns-winuser-debughookinfo
  * @namespace Windows.Win32.UI.WindowsAndMessaging
- * @version v4.0.30319
  */
-class DEBUGHOOKINFO extends Win32Struct
-{
+class DEBUGHOOKINFO extends Win32Struct {
     static sizeof => 32
 
     static packingSize => 8

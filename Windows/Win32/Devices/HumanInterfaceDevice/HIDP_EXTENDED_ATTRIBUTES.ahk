@@ -1,12 +1,11 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
+#Include .\HIDP_UNKNOWN_TOKEN.ahk
 
 /**
  * @namespace Windows.Win32.Devices.HumanInterfaceDevice
- * @version v4.0.30319
  */
-class HIDP_EXTENDED_ATTRIBUTES extends Win32Struct
-{
+class HIDP_EXTENDED_ATTRIBUTES extends Win32Struct {
     static sizeof => 24
 
     static packingSize => 8
@@ -20,9 +19,9 @@ class HIDP_EXTENDED_ATTRIBUTES extends Win32Struct
     }
 
     /**
-     * @type {Array<Byte>}
+     * @type {Array<Integer>}
      */
-    Reserved{
+    Reserved {
         get {
             if(!this.HasProp("__ReservedProxyArray"))
                 this.__ReservedProxyArray := Win32FixedArray(this.ptr + 1, 3, Primitive, "char")
@@ -39,9 +38,9 @@ class HIDP_EXTENDED_ATTRIBUTES extends Win32Struct
     }
 
     /**
-     * @type {Array<UInt32>}
+     * @type {Array<Integer>}
      */
-    Data{
+    Data {
         get {
             if(!this.HasProp("__DataProxyArray"))
                 this.__DataProxyArray := Win32FixedArray(this.ptr + 16, 1, Primitive, "uint")

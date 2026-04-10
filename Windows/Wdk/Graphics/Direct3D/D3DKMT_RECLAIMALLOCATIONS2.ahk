@@ -1,12 +1,11 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
+#Include .\D3DDDI_RECLAIM_RESULT.ahk
 
 /**
  * @namespace Windows.Wdk.Graphics.Direct3D
- * @version v4.0.30319
  */
-class D3DKMT_RECLAIMALLOCATIONS2 extends Win32Struct
-{
+class D3DKMT_RECLAIMALLOCATIONS2 extends Win32Struct {
     static sizeof => 40
 
     static packingSize => 8
@@ -52,7 +51,7 @@ class D3DKMT_RECLAIMALLOCATIONS2 extends Win32Struct
     }
 
     /**
-     * @type {Pointer<Integer>}
+     * @type {Pointer<D3DDDI_RECLAIM_RESULT>}
      */
     pResults {
         get => NumGet(this, 24, "ptr")

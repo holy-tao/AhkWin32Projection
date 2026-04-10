@@ -5,9 +5,8 @@
  * Indicates the elevation type of token being queried by the GetTokenInformation function or set by the SetTokenInformation function.
  * @see https://learn.microsoft.com/windows/win32/api/winnt/ne-winnt-token_elevation_type
  * @namespace Windows.Win32.Security
- * @version v4.0.30319
  */
-class TOKEN_ELEVATION_TYPE extends Win32Enum{
+class TOKEN_ELEVATION_TYPE extends Win32Enum {
 
     /**
      * The token does not have a linked token.

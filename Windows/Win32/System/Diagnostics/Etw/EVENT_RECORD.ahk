@@ -1,8 +1,9 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\..\Win32Struct.ahk
-#Include .\EVENT_DESCRIPTOR.ahk
 #Include .\EVENT_HEADER.ahk
+#Include .\EVENT_DESCRIPTOR.ahk
 #Include .\ETW_BUFFER_CONTEXT.ahk
+#Include .\EVENT_HEADER_EXTENDED_DATA_ITEM.ahk
 
 /**
  * The EVENT_RECORD structure (evntcons.h) defines the layout of an event that ETW delivers.
@@ -10,10 +11,8 @@
  * The <b>EVENT_RECORD</b> structure is passed to the consumer's implementation of the <a href="https://docs.microsoft.com/windows/desktop/ETW/eventrecordcallback">EventRecordCallback</a> callback .
  * @see https://learn.microsoft.com/windows/win32/api/evntcons/ns-evntcons-event_record
  * @namespace Windows.Win32.System.Diagnostics.Etw
- * @version v4.0.30319
  */
-class EVENT_RECORD extends Win32Struct
-{
+class EVENT_RECORD extends Win32Struct {
     static sizeof => 96
 
     static packingSize => 8
@@ -22,7 +21,7 @@ class EVENT_RECORD extends Win32Struct
      * Information about the event such as the time stamp for when it was written. For details, see the <a href="https://docs.microsoft.com/windows/desktop/api/evntcons/ns-evntcons-event_header">EVENT_HEADER</a> structure.
      * @type {EVENT_HEADER}
      */
-    EventHeader{
+    EventHeader {
         get {
             if(!this.HasProp("__EventHeader"))
                 this.__EventHeader := EVENT_HEADER(0, this)
@@ -34,7 +33,7 @@ class EVENT_RECORD extends Win32Struct
      * Defines information such as the session that logged the event. For details, see the <a href="https://docs.microsoft.com/windows/desktop/api/relogger/ns-relogger-etw_buffer_context">ETW_BUFFER_CONTEXT</a> structure.
      * @type {ETW_BUFFER_CONTEXT}
      */
-    BufferContext{
+    BufferContext {
         get {
             if(!this.HasProp("__BufferContext"))
                 this.__BufferContext := ETW_BUFFER_CONTEXT(64, this)

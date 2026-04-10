@@ -1,15 +1,15 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\..\Win32Struct.ahk
+#Include .\DML_TENSOR_DESC.ahk
+#Include .\DML_TENSOR_DATA_TYPE.ahk
 #Include .\DML_SCALAR_UNION.ahk
 
 /**
  * Fills a tensor with a sequence.
  * @see https://learn.microsoft.com/windows/win32/api/directml/ns-directml-dml_fill_value_sequence_operator_desc
  * @namespace Windows.Win32.AI.MachineLearning.DirectML
- * @version v4.0.30319
  */
-class DML_FILL_VALUE_SEQUENCE_OPERATOR_DESC extends Win32Struct
-{
+class DML_FILL_VALUE_SEQUENCE_OPERATOR_DESC extends Win32Struct {
     static sizeof => 128
 
     static packingSize => 8
@@ -29,7 +29,7 @@ class DML_FILL_VALUE_SEQUENCE_OPERATOR_DESC extends Win32Struct
      * Type: **[DML_TENSOR_DATA_TYPE](/windows/win32/api/directml/ne-directml-dml_tensor_data_type)**
      * 
      * The data type of *Value* field, which must match *OutputTensor.DataType*.
-     * @type {Integer}
+     * @type {DML_TENSOR_DATA_TYPE}
      */
     ValueDataType {
         get => NumGet(this, 8, "int")
@@ -42,7 +42,7 @@ class DML_FILL_VALUE_SEQUENCE_OPERATOR_DESC extends Win32Struct
      * The initial value to fill the first element in the output, with *ValueDataType* determining how to interpret the field.
      * @type {DML_SCALAR_UNION}
      */
-    ValueStart{
+    ValueStart {
         get {
             if(!this.HasProp("__ValueStart"))
                 this.__ValueStart := DML_SCALAR_UNION(16, this)
@@ -56,7 +56,7 @@ class DML_FILL_VALUE_SEQUENCE_OPERATOR_DESC extends Win32Struct
      * A step to add to the value for each element written, with *ValueDataType* determining how to interpret the field.
      * @type {DML_SCALAR_UNION}
      */
-    ValueDelta{
+    ValueDelta {
         get {
             if(!this.HasProp("__ValueDelta"))
                 this.__ValueDelta := DML_SCALAR_UNION(72, this)

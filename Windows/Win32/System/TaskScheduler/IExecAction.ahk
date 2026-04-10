@@ -1,7 +1,6 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
-#Include ..\..\Foundation\BSTR.ahk
 #Include .\IAction.ahk
 
 /**
@@ -14,9 +13,8 @@
  * If environment variables are used in the <a href="https://docs.microsoft.com/windows/desktop/api/taskschd/nf-taskschd-iexecaction-get_path">Path</a>, <a href="https://docs.microsoft.com/windows/desktop/api/taskschd/nf-taskschd-iexecaction-get_arguments">Arguments</a>, or <a href="https://docs.microsoft.com/windows/desktop/api/taskschd/nf-taskschd-iexecaction-get_workingdirectory">WorkingDirectory</a> properties, then the values of the environment variables are cached and used when the Taskeng.exe (the task engine) is launched. Changes to the environment variables that occur after the task engine is launched will not be used by the task engine.
  * @see https://learn.microsoft.com/windows/win32/api/taskschd/nn-taskschd-iexecaction
  * @namespace Windows.Win32.System.TaskScheduler
- * @version v4.0.30319
  */
-class IExecAction extends IAction{
+class IExecAction extends IAction {
 
     static sizeof => A_PtrSize
     /**
@@ -38,6 +36,7 @@ class IExecAction extends IAction{
     static VTableNames => ["get_Path", "put_Path", "get_Arguments", "put_Arguments", "get_WorkingDirectory", "put_WorkingDirectory"]
 
     /**
+     * @type {BSTR} 
      */
     Path {
         get => this.get_Path()
@@ -45,6 +44,7 @@ class IExecAction extends IAction{
     }
 
     /**
+     * @type {BSTR} 
      */
     Arguments {
         get => this.get_Arguments()
@@ -52,6 +52,7 @@ class IExecAction extends IAction{
     }
 
     /**
+     * @type {BSTR} 
      */
     WorkingDirectory {
         get => this.get_WorkingDirectory()

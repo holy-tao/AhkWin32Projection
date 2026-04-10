@@ -7,9 +7,8 @@
  * Manages file classification. Use this interface to define properties to use in classification, add classification rules for classifying files, define classification and storage modules, and enable classification reporting. (IFsrmClassificationManager2)
  * @see https://learn.microsoft.com/windows/win32/api/fsrmpipeline/nn-fsrmpipeline-ifsrmclassificationmanager2
  * @namespace Windows.Win32.Storage.FileServerResourceManager
- * @version v4.0.30319
  */
-class IFsrmClassificationManager2 extends IFsrmClassificationManager{
+class IFsrmClassificationManager2 extends IFsrmClassificationManager {
 
     static sizeof => A_PtrSize
     /**
@@ -39,7 +38,7 @@ class IFsrmClassificationManager2 extends IFsrmClassificationManager{
      *       <b>VT_BSTR</b>. For each item in the array, use the <b>bstrVal</b> member 
      *       to access the property name.
      * @param {Pointer<SAFEARRAY>} propertyValues A list of the property values.
-     * @param {Integer} options Options for the operation as enumerated by the 
+     * @param {FsrmGetFilePropertyOptions} options Options for the operation as enumerated by the 
      *       <a href="https://docs.microsoft.com/windows/desktop/api/fsrmenums/ne-fsrmenums-fsrmgetfilepropertyoptions">FsrmGetFilePropertyOptions</a> enumeration. The 
      *       default value is <b>FsrmGetFilePropertyOptions_None</b>.
      * @returns {HRESULT} The method returns the following return values.

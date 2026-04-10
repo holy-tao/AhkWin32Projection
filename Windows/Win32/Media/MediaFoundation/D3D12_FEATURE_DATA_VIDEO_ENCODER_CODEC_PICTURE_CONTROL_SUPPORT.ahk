@@ -1,18 +1,21 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
+#Include .\D3D12_VIDEO_ENCODER_CODEC.ahk
 #Include .\D3D12_VIDEO_ENCODER_PROFILE_DESC.ahk
+#Include .\D3D12_VIDEO_ENCODER_PROFILE_H264.ahk
+#Include .\D3D12_VIDEO_ENCODER_PROFILE_HEVC.ahk
+#Include .\D3D12_VIDEO_ENCODER_AV1_PROFILE.ahk
 #Include .\D3D12_VIDEO_ENCODER_CODEC_PICTURE_CONTROL_SUPPORT.ahk
+#Include .\D3D12_VIDEO_ENCODER_CODEC_PICTURE_CONTROL_SUPPORT_H264.ahk
+#Include .\D3D12_VIDEO_ENCODER_CODEC_PICTURE_CONTROL_SUPPORT_HEVC.ahk
+#Include .\D3D12_VIDEO_ENCODER_CODEC_AV1_PICTURE_CONTROL_SUPPORT.ahk
 
 /**
  * Retrieves the picture control support for the specified codec and profile.
- * @remarks
- * 
  * @see https://learn.microsoft.com/windows/win32/api/d3d12video/ns-d3d12video-d3d12_feature_data_video_encoder_codec_picture_control_support
  * @namespace Windows.Win32.Media.MediaFoundation
- * @version v4.0.30319
  */
-class D3D12_FEATURE_DATA_VIDEO_ENCODER_CODEC_PICTURE_CONTROL_SUPPORT extends Win32Struct
-{
+class D3D12_FEATURE_DATA_VIDEO_ENCODER_CODEC_PICTURE_CONTROL_SUPPORT extends Win32Struct {
     static sizeof => 48
 
     static packingSize => 8
@@ -28,7 +31,7 @@ class D3D12_FEATURE_DATA_VIDEO_ENCODER_CODEC_PICTURE_CONTROL_SUPPORT extends Win
 
     /**
      * A member of the [D3D12_VIDEO_ENCODER_CODEC](ne-d3d12video-d3d12_video_encoder_codec.md) enumeration specifying the codec for which picture control support is being queried.
-     * @type {Integer}
+     * @type {D3D12_VIDEO_ENCODER_CODEC}
      */
     Codec {
         get => NumGet(this, 4, "int")
@@ -39,7 +42,7 @@ class D3D12_FEATURE_DATA_VIDEO_ENCODER_CODEC_PICTURE_CONTROL_SUPPORT extends Win
      * A [D3D12_VIDEO_ENCODER_PROFILE_DESC](ns-d3d12video-d3d12_video_encoder_profile_desc.md) structure specifying the profile for which picture control support is being queried.
      * @type {D3D12_VIDEO_ENCODER_PROFILE_DESC}
      */
-    Profile{
+    Profile {
         get {
             if(!this.HasProp("__Profile"))
                 this.__Profile := D3D12_VIDEO_ENCODER_PROFILE_DESC(8, this)
@@ -60,7 +63,7 @@ class D3D12_FEATURE_DATA_VIDEO_ENCODER_CODEC_PICTURE_CONTROL_SUPPORT extends Win
      * Receives a [D3D12_VIDEO_ENCODER_CODEC_PICTURE_CONTROL_SUPPORT](ns-d3d12video-d3d12_video_encoder_codec_picture_control_support.md) structure representing the picture control support for the provided values.
      * @type {D3D12_VIDEO_ENCODER_CODEC_PICTURE_CONTROL_SUPPORT}
      */
-    PictureSupport{
+    PictureSupport {
         get {
             if(!this.HasProp("__PictureSupport"))
                 this.__PictureSupport := D3D12_VIDEO_ENCODER_CODEC_PICTURE_CONTROL_SUPPORT(32, this)

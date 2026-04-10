@@ -3,9 +3,8 @@
 
 /**
  * @namespace Windows.Win32.Security.Cryptography.Certificates
- * @version v4.0.30319
  */
-class ADDED_CERT_TYPE extends Win32Enum{
+class ADDED_CERT_TYPE extends Win32Enum {
 
     /**
      * @type {Integer (Int32)}

@@ -7,9 +7,8 @@
  * The IWMDRMReader3 interface enables content transcription by providing a method to get protection systems approved by a license.
  * @see https://learn.microsoft.com/windows/win32/api/wmsdkidl/nn-wmsdkidl-iwmdrmreader3
  * @namespace Windows.Win32.Media.WindowsMediaFormat
- * @version v4.0.30319
  */
-class IWMDRMReader3 extends IWMDRMReader2{
+class IWMDRMReader3 extends IWMDRMReader2 {
 
     static sizeof => A_PtrSize
     /**

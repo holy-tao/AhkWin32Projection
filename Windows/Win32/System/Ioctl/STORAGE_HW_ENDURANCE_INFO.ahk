@@ -3,10 +3,8 @@
 
 /**
  * @namespace Windows.Win32.System.Ioctl
- * @version v4.0.30319
  */
-class STORAGE_HW_ENDURANCE_INFO extends Win32Struct
-{
+class STORAGE_HW_ENDURANCE_INFO extends Win32Struct {
     static sizeof => 48
 
     static packingSize => 4
@@ -25,7 +23,7 @@ class STORAGE_HW_ENDURANCE_INFO extends Win32Struct
             get => NumGet(this, 0, "uint")
             set => NumPut("uint", value, this, 0)
         }
-    
+
         /**
          * @type {Integer}
          */
@@ -33,7 +31,6 @@ class STORAGE_HW_ENDURANCE_INFO extends Win32Struct
             get => (this._bitfield >> 0) & 0x1
             set => this._bitfield := ((value & 0x1) << 0) | (this._bitfield & ~(0x1 << 0))
         }
-    
     }
 
     /**
@@ -55,10 +52,10 @@ class STORAGE_HW_ENDURANCE_INFO extends Win32Struct
     /**
      * @type {_Flags}
      */
-    Flags{
+    Flags {
         get {
             if(!this.HasProp("__Flags"))
-                this.__Flags := %this.__Class%._Flags(8, this)
+                this.__Flags := STORAGE_HW_ENDURANCE_INFO._Flags(8, this)
             return this.__Flags
         }
     }
@@ -72,9 +69,9 @@ class STORAGE_HW_ENDURANCE_INFO extends Win32Struct
     }
 
     /**
-     * @type {Array<Byte>}
+     * @type {Array<Integer>}
      */
-    BytesReadCount{
+    BytesReadCount {
         get {
             if(!this.HasProp("__BytesReadCountProxyArray"))
                 this.__BytesReadCountProxyArray := Win32FixedArray(this.ptr + 16, 16, Primitive, "char")
@@ -83,9 +80,9 @@ class STORAGE_HW_ENDURANCE_INFO extends Win32Struct
     }
 
     /**
-     * @type {Array<Byte>}
+     * @type {Array<Integer>}
      */
-    ByteWriteCount{
+    ByteWriteCount {
         get {
             if(!this.HasProp("__ByteWriteCountProxyArray"))
                 this.__ByteWriteCountProxyArray := Win32FixedArray(this.ptr + 32, 16, Primitive, "char")

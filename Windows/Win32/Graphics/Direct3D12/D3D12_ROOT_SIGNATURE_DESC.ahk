@@ -1,5 +1,8 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
+#Include .\D3D12_ROOT_PARAMETER.ahk
+#Include .\D3D12_STATIC_SAMPLER_DESC.ahk
+#Include .\D3D12_ROOT_SIGNATURE_FLAGS.ahk
 
 /**
  * Describes the layout of a root signature version 1.0.
@@ -11,10 +14,8 @@
  * There is one graphics root signature, and one compute root signature.
  * @see https://learn.microsoft.com/windows/win32/api/d3d12/ns-d3d12-d3d12_root_signature_desc
  * @namespace Windows.Win32.Graphics.Direct3D12
- * @version v4.0.30319
  */
-class D3D12_ROOT_SIGNATURE_DESC extends Win32Struct
-{
+class D3D12_ROOT_SIGNATURE_DESC extends Win32Struct {
     static sizeof => 40
 
     static packingSize => 8
@@ -58,7 +59,7 @@ class D3D12_ROOT_SIGNATURE_DESC extends Win32Struct
     /**
      * A combination of <a href="https://docs.microsoft.com/windows/desktop/api/d3d12/ne-d3d12-d3d12_root_signature_flags">D3D12_ROOT_SIGNATURE_FLAGS</a>-typed values that are combined by using a bitwise OR operation.
      *             The resulting value specifies options for the root signature layout.
-     * @type {Integer}
+     * @type {D3D12_ROOT_SIGNATURE_FLAGS}
      */
     Flags {
         get => NumGet(this, 32, "int")

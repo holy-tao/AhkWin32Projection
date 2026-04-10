@@ -28,19 +28,17 @@
  * This structure is used in conjunction with the <a href="https://docs.microsoft.com/windows/desktop/api/dxgi1_5/nf-dxgi1_5-idxgiswapchain4-sethdrmetadata">SetHDRMetaData</a> method.
  * @see https://learn.microsoft.com/windows/win32/api/dxgi1_5/ns-dxgi1_5-dxgi_hdr_metadata_hdr10
  * @namespace Windows.Win32.Graphics.Dxgi
- * @version v4.0.30319
  */
-class DXGI_HDR_METADATA_HDR10 extends Win32Struct
-{
+class DXGI_HDR_METADATA_HDR10 extends Win32Struct {
     static sizeof => 28
 
     static packingSize => 4
 
     /**
      * The chromaticity coordinates of the red value in the CIE1931 color space. Index 0 contains the X coordinate and index 1 contains the Y coordinate. The values are normalized to 50,000.
-     * @type {Array<UInt16>}
+     * @type {Array<Integer>}
      */
-    RedPrimary{
+    RedPrimary {
         get {
             if(!this.HasProp("__RedPrimaryProxyArray"))
                 this.__RedPrimaryProxyArray := Win32FixedArray(this.ptr + 0, 2, Primitive, "ushort")
@@ -50,9 +48,9 @@ class DXGI_HDR_METADATA_HDR10 extends Win32Struct
 
     /**
      * The chromaticity coordinates of the green value in the CIE1931 color space. Index 0 contains the X coordinate and index 1 contains the Y coordinate. The values are normalized to 50,000.
-     * @type {Array<UInt16>}
+     * @type {Array<Integer>}
      */
-    GreenPrimary{
+    GreenPrimary {
         get {
             if(!this.HasProp("__GreenPrimaryProxyArray"))
                 this.__GreenPrimaryProxyArray := Win32FixedArray(this.ptr + 4, 2, Primitive, "ushort")
@@ -62,9 +60,9 @@ class DXGI_HDR_METADATA_HDR10 extends Win32Struct
 
     /**
      * The chromaticity coordinates of the blue value in the CIE1931 color space. Index 0 contains the X coordinate and index 1 contains the Y coordinate. The values are normalized to 50,000.
-     * @type {Array<UInt16>}
+     * @type {Array<Integer>}
      */
-    BluePrimary{
+    BluePrimary {
         get {
             if(!this.HasProp("__BluePrimaryProxyArray"))
                 this.__BluePrimaryProxyArray := Win32FixedArray(this.ptr + 8, 2, Primitive, "ushort")
@@ -74,9 +72,9 @@ class DXGI_HDR_METADATA_HDR10 extends Win32Struct
 
     /**
      * The chromaticity coordinates of the white point in the CIE1931 color space. Index 0 contains the X coordinate and index 1 contains the Y coordinate. The values are normalized to 50,000.
-     * @type {Array<UInt16>}
+     * @type {Array<Integer>}
      */
-    WhitePoint{
+    WhitePoint {
         get {
             if(!this.HasProp("__WhitePointProxyArray"))
                 this.__WhitePointProxyArray := Win32FixedArray(this.ptr + 12, 2, Primitive, "ushort")

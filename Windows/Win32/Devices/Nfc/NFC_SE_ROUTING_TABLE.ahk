@@ -1,17 +1,16 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
+#Include .\NFC_SE_ROUTING_TABLE_ENTRY.ahk
+#Include .\SECURE_ELEMENT_ROUTING_TYPE.ahk
 #Include .\NFC_SE_TECH_ROUTING_INFO.ahk
 #Include .\NFC_SE_PROTO_ROUTING_INFO.ahk
 #Include .\NFC_SE_AID_ROUTING_INFO.ahk
-#Include .\NFC_SE_ROUTING_TABLE_ENTRY.ahk
 
 /**
  * @namespace Windows.Win32.Devices.Nfc
- * @version v4.0.30319
  */
-class NFC_SE_ROUTING_TABLE extends Win32Struct
-{
-    static sizeof => 16
+class NFC_SE_ROUTING_TABLE extends Win32Struct {
+    static sizeof => 48
 
     static packingSize => 8
 
@@ -24,9 +23,9 @@ class NFC_SE_ROUTING_TABLE extends Win32Struct
     }
 
     /**
-     * @type {Array<NFC_SE_ROUTING_TABLE_ENTRY>}
+     * @type {NFC_SE_ROUTING_TABLE_ENTRY}
      */
-    TableEntries{
+    TableEntries {
         get {
             if(!this.HasProp("__TableEntriesProxyArray"))
                 this.__TableEntriesProxyArray := Win32FixedArray(this.ptr + 8, 1, NFC_SE_ROUTING_TABLE_ENTRY, "")

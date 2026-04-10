@@ -1,14 +1,13 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
+#Include .\WDS_TRANSPORTCLIENT_REQUEST_AUTH_LEVEL.ahk
 
 /**
  * This structure is used by the WdsTransportClientStartSession function.
  * @see https://learn.microsoft.com/windows/win32/api/wdstci/ns-wdstci-wds_transportclient_request
  * @namespace Windows.Win32.System.DeploymentServices
- * @version v4.0.30319
  */
-class WDS_TRANSPORTCLIENT_REQUEST extends Win32Struct
-{
+class WDS_TRANSPORTCLIENT_REQUEST extends Win32Struct {
     static sizeof => 64
 
     static packingSize => 8
@@ -55,8 +54,7 @@ class WDS_TRANSPORTCLIENT_REQUEST extends Win32Struct
     }
 
     /**
-     * 
-     * @type {Integer}
+     * @type {WDS_TRANSPORTCLIENT_REQUEST_AUTH_LEVEL}
      */
     ulAuthLevel {
         get => NumGet(this, 8, "uint")

@@ -5,10 +5,8 @@
  * The DHCP_SERVER_OPTIONS structure specifies requested DHCP Server options.
  * @see https://learn.microsoft.com/windows/win32/api/dhcpssdk/ns-dhcpssdk-dhcp_server_options
  * @namespace Windows.Win32.NetworkManagement.Dhcp
- * @version v4.0.30319
  */
-class DHCP_SERVER_OPTIONS extends Win32Struct
-{
+class DHCP_SERVER_OPTIONS extends Win32Struct {
     static sizeof => 176
 
     static packingSize => 8

@@ -7,9 +7,8 @@
  * This optional, application-implemented IWMDMOperation interface allows the application to control how data is read from or written to the computer during a file transfer.
  * @see https://learn.microsoft.com/windows/win32/api/mswmdm/nn-mswmdm-iwmdmoperation
  * @namespace Windows.Win32.Media.DeviceManager
- * @version v4.0.30319
  */
-class IWMDMOperation extends IUnknown{
+class IWMDMOperation extends IUnknown {
 
     static sizeof => A_PtrSize
     /**

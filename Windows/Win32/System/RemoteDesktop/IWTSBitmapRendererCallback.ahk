@@ -7,9 +7,8 @@
  * A dynamic virtual channel plug-in implements this interface to be notified when the size of the rendering area changes.
  * @see https://learn.microsoft.com/windows/win32/api/tsvirtualchannels/nn-tsvirtualchannels-iwtsbitmaprenderercallback
  * @namespace Windows.Win32.System.RemoteDesktop
- * @version v4.0.30319
  */
-class IWTSBitmapRendererCallback extends IUnknown{
+class IWTSBitmapRendererCallback extends IUnknown {
 
     static sizeof => A_PtrSize
     /**

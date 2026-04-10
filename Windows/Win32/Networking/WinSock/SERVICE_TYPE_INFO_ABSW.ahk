@@ -20,12 +20,10 @@
  * > The nspapi.h header defines SERVICE_TYPE_INFO_ABS as an alias which automatically selects the ANSI or Unicode version of this function based on the definition of the UNICODE preprocessor constant. Mixing usage of the encoding-neutral alias with code that not encoding-neutral can lead to mismatches that result in compilation or runtime errors. For more information, see [Conventions for Function Prototypes](/windows/win32/intl/conventions-for-function-prototypes).
  * @see https://learn.microsoft.com/windows/win32/api/nspapi/ns-nspapi-service_type_info_absw
  * @namespace Windows.Win32.Networking.WinSock
- * @version v4.0.30319
  * @charset Unicode
  */
-class SERVICE_TYPE_INFO_ABSW extends Win32Struct
-{
-    static sizeof => 24
+class SERVICE_TYPE_INFO_ABSW extends Win32Struct {
+    static sizeof => 48
 
     static packingSize => 8
 
@@ -61,9 +59,9 @@ class SERVICE_TYPE_INFO_ABSW extends Win32Struct
      * 
      * The information in these structures may be specific to a namespace. For example, if a network service uses the SAP namespace, but does not have a <b>GUID</b> that contains the SAP identifier (SAPID), it defines the SAPID in a 
      * <a href="https://docs.microsoft.com/windows/desktop/api/nspapi/ns-nspapi-service_type_value_absa">SERVICE_TYPE_VALUE_ABS</a> structure.
-     * @type {Array<SERVICE_TYPE_VALUE_ABSW>}
+     * @type {SERVICE_TYPE_VALUE_ABSW}
      */
-    Values{
+    Values {
         get {
             if(!this.HasProp("__ValuesProxyArray"))
                 this.__ValuesProxyArray := Win32FixedArray(this.ptr + 16, 1, SERVICE_TYPE_VALUE_ABSW, "")

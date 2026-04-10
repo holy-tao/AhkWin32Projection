@@ -3,9 +3,8 @@
 
 /**
  * @namespace Windows.Win32.System.Diagnostics.Etw
- * @version v4.0.30319
  */
-class ENABLECALLBACK_ENABLED_STATE extends Win32Enum{
+class ENABLECALLBACK_ENABLED_STATE extends Win32Enum {
 
     /**
      * @type {Integer (UInt32)}

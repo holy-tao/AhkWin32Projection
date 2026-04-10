@@ -3,10 +3,8 @@
 
 /**
  * @namespace Windows.Win32.Devices.Display
- * @version v4.0.30319
  */
-class VIDEO_CURSOR_ATTRIBUTES extends Win32Struct
-{
+class VIDEO_CURSOR_ATTRIBUTES extends Win32Struct {
     static sizeof => 10
 
     static packingSize => 2

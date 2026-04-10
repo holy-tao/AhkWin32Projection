@@ -9,9 +9,8 @@
  * In pass-through mode, the MFT does not apply any processing to the video.
  * @see https://learn.microsoft.com/windows/win32/api/wmcodecdsp/ne-wmcodecdsp-mfvideodspmode
  * @namespace Windows.Win32.Media.MediaFoundation
- * @version v4.0.30319
  */
-class MFVideoDSPMode extends Win32Enum{
+class MFVideoDSPMode extends Win32Enum {
 
     /**
      * Pass-through mode. Video stabilization is not applied.

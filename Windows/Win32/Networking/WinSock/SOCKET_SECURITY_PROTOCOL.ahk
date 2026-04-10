@@ -13,9 +13,8 @@
  * In addition to identifying the security protocol, this type is also used to decide how to interpret a pointer passed to some of the secure socket functions. This is analogous to how the <b>sa_family</b> member of the <a href="https://docs.microsoft.com/windows/desktop/WinSock/sockaddr-2">sockaddr</a> type is used to interpret a pointer as either <b>sockaddr_in</b> or <b>sockaddr_in6</b>.
  * @see https://learn.microsoft.com/windows/win32/api/mstcpip/ne-mstcpip-socket_security_protocol
  * @namespace Windows.Win32.Networking.WinSock
- * @version v4.0.30319
  */
-class SOCKET_SECURITY_PROTOCOL extends Win32Enum{
+class SOCKET_SECURITY_PROTOCOL extends Win32Enum {
 
     /**
      * The default system security will be used.
@@ -30,7 +29,6 @@ class SOCKET_SECURITY_PROTOCOL extends Win32Enum{
     static SOCKET_SECURITY_PROTOCOL_IPSEC => 1
 
     /**
-     * 
      * @type {Integer (Int32)}
      */
     static SOCKET_SECURITY_PROTOCOL_IPSEC2 => 2

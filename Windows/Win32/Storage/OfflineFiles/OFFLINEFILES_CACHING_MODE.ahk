@@ -5,9 +5,8 @@
  * Describes the caching mode used in methods such as IOfflineFilesCache::IsPathCacheable and IOfflineFilesShareInfo::GetShareCachingMode.
  * @see https://learn.microsoft.com/windows/win32/api/cscobj/ne-cscobj-offlinefiles_caching_mode
  * @namespace Windows.Win32.Storage.OfflineFiles
- * @version v4.0.30319
  */
-class OFFLINEFILES_CACHING_MODE extends Win32Enum{
+class OFFLINEFILES_CACHING_MODE extends Win32Enum {
 
     /**
      * No caching mode value was found.

@@ -1,7 +1,6 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
-#Include .\IAccessibleEx.ahk
 #Include ..\..\System\Com\IUnknown.ahk
 
 /**
@@ -10,9 +9,8 @@
  * This interface can be implemented on custom controls that also implement the [IAccessible](/windows/desktop/api/oleacc/nn-oleacc-iaccessible) interface, to provide added support for UI Automation without the cost of a full UI Automation provider implementation.
  * @see https://learn.microsoft.com/windows/win32/api/uiautomationcore/nn-uiautomationcore-iaccessibleex
  * @namespace Windows.Win32.UI.Accessibility
- * @version v4.0.30319
  */
-class IAccessibleEx extends IUnknown{
+class IAccessibleEx extends IUnknown {
 
     static sizeof => A_PtrSize
     /**

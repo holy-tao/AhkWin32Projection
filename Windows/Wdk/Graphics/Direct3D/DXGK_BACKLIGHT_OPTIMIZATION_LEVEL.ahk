@@ -3,9 +3,8 @@
 
 /**
  * @namespace Windows.Wdk.Graphics.Direct3D
- * @version v4.0.30319
  */
-class DXGK_BACKLIGHT_OPTIMIZATION_LEVEL extends Win32Enum{
+class DXGK_BACKLIGHT_OPTIMIZATION_LEVEL extends Win32Enum {
 
     /**
      * @type {Integer (Int32)}

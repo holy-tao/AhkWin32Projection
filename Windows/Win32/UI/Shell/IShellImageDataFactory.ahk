@@ -1,8 +1,9 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
-#Include .\IShellImageData.ahk
 #Include ..\..\System\Com\IUnknown.ahk
+#Include .\IShellImageData.ahk
+#Include ..\..\..\..\Guid.ahk
 
 /**
  * Exposes methods that create IShellImageData instances based on various image sources.
@@ -12,9 +13,8 @@
  * This interface was not included in a public header file prior to Windows Vista.
  * @see https://learn.microsoft.com/windows/win32/api/shimgdata/nn-shimgdata-ishellimagedatafactory
  * @namespace Windows.Win32.UI.Shell
- * @version v4.0.30319
  */
-class IShellImageDataFactory extends IUnknown{
+class IShellImageDataFactory extends IUnknown {
 
     static sizeof => A_PtrSize
     /**

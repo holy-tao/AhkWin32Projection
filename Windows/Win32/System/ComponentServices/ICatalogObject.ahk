@@ -1,17 +1,15 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
-#Include ..\..\Foundation\BSTR.ahk
-#Include ..\Variant\VARIANT.ahk
 #Include ..\Com\IDispatch.ahk
+#Include ..\Variant\VARIANT.ahk
 
 /**
  * Represents items in collections on the COM+ catalog. ICatalogObject enables you to get and put properties exposed by objects in the catalog.
  * @see https://learn.microsoft.com/windows/win32/api/comadmin/nn-comadmin-icatalogobject
  * @namespace Windows.Win32.System.ComponentServices
- * @version v4.0.30319
  */
-class ICatalogObject extends IDispatch{
+class ICatalogObject extends IDispatch {
 
     static sizeof => A_PtrSize
     /**

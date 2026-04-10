@@ -1,10 +1,9 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
-#Include ..\..\Foundation\BSTR.ahk
+#Include ..\..\System\Com\IDispatch.ahk
 #Include ..\..\System\Com\IUnknown.ahk
 #Include .\IFaxRecipient.ahk
-#Include ..\..\System\Com\IDispatch.ahk
 
 /**
  * The IFaxRecipients interface defines a FaxRecipients messaging collection is used by a fax client application to manage the fax recipient objects (FaxRecipient) that represent the recipients of a single fax document.
@@ -12,9 +11,8 @@
  * A default implementation of <b>IFaxRecipients</b> is provided as the <a href="https://docs.microsoft.com/previous-versions/windows/desktop/fax/-mfax-faxrecipients">FaxRecipients</a> object.
  * @see https://learn.microsoft.com/windows/win32/api/faxcomex/nn-faxcomex-ifaxrecipients
  * @namespace Windows.Win32.Devices.Fax
- * @version v4.0.30319
  */
-class IFaxRecipients extends IDispatch{
+class IFaxRecipients extends IDispatch {
 
     static sizeof => A_PtrSize
     /**

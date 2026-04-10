@@ -3,11 +3,9 @@
 
 /**
  * @namespace Windows.Win32.NetworkManagement.Rras
- * @version v4.0.30319
  * @charset ANSI
  */
-class RASSUBENTRYA extends Win32Struct
-{
+class RASSUBENTRYA extends Win32Struct {
     static sizeof => 288
 
     static packingSize => 4

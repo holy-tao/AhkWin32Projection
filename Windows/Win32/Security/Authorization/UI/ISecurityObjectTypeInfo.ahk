@@ -7,9 +7,8 @@
  * Provides a means of determining the source of inherited access control entries (ACEs) in discretionary access control lists (DACLs) and system access control lists (SACLs).
  * @see https://learn.microsoft.com/windows/win32/api/aclui/nn-aclui-isecurityobjecttypeinfo
  * @namespace Windows.Win32.Security.Authorization.UI
- * @version v4.0.30319
  */
-class ISecurityObjectTypeInfo extends IUnknown{
+class ISecurityObjectTypeInfo extends IUnknown {
 
     static sizeof => A_PtrSize
     /**

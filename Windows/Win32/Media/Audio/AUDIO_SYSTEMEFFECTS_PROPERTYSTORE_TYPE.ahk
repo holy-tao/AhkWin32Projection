@@ -7,9 +7,8 @@
  * For more information on the Windows 11 APIs for the Audio Processing Objects (APOs) that can ship with audio drivers, see [Windows 11 APIs for Audio Processing Objects](/windows-hardware/drivers/audio/windows-11-apis-for-audio-processing-objects).
  * @see https://learn.microsoft.com/windows/win32/api/mmdeviceapi/ne-mmdeviceapi-audio_systemeffects_propertystore_type
  * @namespace Windows.Win32.Media.Audio
- * @version v4.0.30319
  */
-class AUDIO_SYSTEMEFFECTS_PROPERTYSTORE_TYPE extends Win32Enum{
+class AUDIO_SYSTEMEFFECTS_PROPERTYSTORE_TYPE extends Win32Enum {
 
     /**
      * Default property store. Contains custom effects properties and is populated from the INF file. Properties will not be persisted across OS upgrades.
@@ -30,7 +29,6 @@ class AUDIO_SYSTEMEFFECTS_PROPERTYSTORE_TYPE extends Win32Enum{
     static AUDIO_SYSTEMEFFECTS_PROPERTYSTORE_TYPE_VOLATILE => 2
 
     /**
-     * 
      * @type {Integer (Int32)}
      */
     static AUDIO_SYSTEMEFFECTS_PROPERTYSTORE_TYPE_ENUM_COUNT => 3

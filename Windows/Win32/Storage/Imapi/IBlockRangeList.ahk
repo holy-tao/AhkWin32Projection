@@ -11,9 +11,8 @@
  * The order of sector ranges in <b>IBlockRangeList</b> is taken into account during burning. The sector ranges having lower indexes in the safe array returned by <a href="https://docs.microsoft.com/windows/desktop/api/imapi2/nf-imapi2-iblockrangelist-get_blockranges">IBlockRangeList::get_BlockRanges</a> are written before those with higher indexes.
  * @see https://learn.microsoft.com/windows/win32/api/imapi2/nn-imapi2-iblockrangelist
  * @namespace Windows.Win32.Storage.Imapi
- * @version v4.0.30319
  */
-class IBlockRangeList extends IDispatch{
+class IBlockRangeList extends IDispatch {
 
     static sizeof => A_PtrSize
     /**

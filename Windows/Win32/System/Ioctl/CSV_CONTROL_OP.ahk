@@ -7,9 +7,8 @@
  * An alternative to calling the [FSCTL_CSV_CONTROL](ni-winioctl-fsctl_csv_control.md) control code with this enumeration is to use the [CSV_CONTROL_PARAM](ns-winioctl-csv_control_param.md) structure, which encapsulates a member of this enumeration type.
  * @see https://learn.microsoft.com/windows/win32/api/winioctl/ne-winioctl-csv_control_op
  * @namespace Windows.Win32.System.Ioctl
- * @version v4.0.30319
  */
-class CSV_CONTROL_OP extends Win32Enum{
+class CSV_CONTROL_OP extends Win32Enum {
 
     /**
      * Start file redirection.
@@ -36,55 +35,46 @@ class CSV_CONTROL_OP extends Win32Enum{
     static CsvControlQueryFileRevision => 6
 
     /**
-     * 
      * @type {Integer (Int32)}
      */
     static CsvControlQueryMdsPath => 8
 
     /**
-     * 
      * @type {Integer (Int32)}
      */
     static CsvControlQueryFileRevisionFileId128 => 9
 
     /**
-     * 
      * @type {Integer (Int32)}
      */
     static CsvControlQueryVolumeRedirectState => 10
 
     /**
-     * 
      * @type {Integer (Int32)}
      */
     static CsvControlEnableUSNRangeModificationTracking => 13
 
     /**
-     * 
      * @type {Integer (Int32)}
      */
     static CsvControlMarkHandleLocalVolumeMount => 14
 
     /**
-     * 
      * @type {Integer (Int32)}
      */
     static CsvControlUnmarkHandleLocalVolumeMount => 15
 
     /**
-     * 
      * @type {Integer (Int32)}
      */
     static CsvControlGetCsvFsMdsPathV2 => 18
 
     /**
-     * 
      * @type {Integer (Int32)}
      */
     static CsvControlDisableCaching => 19
 
     /**
-     * 
      * @type {Integer (Int32)}
      */
     static CsvControlEnableCaching => 20

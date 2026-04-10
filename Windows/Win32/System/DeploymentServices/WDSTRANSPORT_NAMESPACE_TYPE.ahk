@@ -5,9 +5,8 @@
  * Determines the type of multicast sessions used for transmitting objects covered by this namespace.
  * @see https://learn.microsoft.com/windows/win32/api/wdstptmgmt/ne-wdstptmgmt-wdstransport_namespace_type
  * @namespace Windows.Win32.System.DeploymentServices
- * @version v4.0.30319
  */
-class WDSTRANSPORT_NAMESPACE_TYPE extends Win32Enum{
+class WDSTRANSPORT_NAMESPACE_TYPE extends Win32Enum {
 
     /**
      * Default value that indicates that the namespace type is not yet known. This could also be the case if a new namespace type was introduced in later server versions and this version of WdsTptMgmt has not been updated to fully recognize and classify it.

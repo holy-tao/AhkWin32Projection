@@ -4,10 +4,8 @@
 
 /**
  * @namespace Windows.Win32.System.Diagnostics.Debug
- * @version v4.0.30319
  */
-class XSTATE_CONFIG_FEATURE_MSC_INFO extends Win32Struct
-{
+class XSTATE_CONFIG_FEATURE_MSC_INFO extends Win32Struct {
     static sizeof => 528
 
     static packingSize => 8
@@ -37,9 +35,9 @@ class XSTATE_CONFIG_FEATURE_MSC_INFO extends Win32Struct
     }
 
     /**
-     * @type {Array<XSTATE_FEATURE>}
+     * @type {XSTATE_FEATURE}
      */
-    Features{
+    Features {
         get {
             if(!this.HasProp("__FeaturesProxyArray"))
                 this.__FeaturesProxyArray := Win32FixedArray(this.ptr + 16, 64, XSTATE_FEATURE, "")

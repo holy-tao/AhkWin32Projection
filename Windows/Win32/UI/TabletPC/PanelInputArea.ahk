@@ -5,9 +5,8 @@
  * Specifies the values that represent the default input areas of the Tablet PC Input Panel.
  * @see https://learn.microsoft.com/windows/win32/api/peninputpanel/ne-peninputpanel-panelinputarea
  * @namespace Windows.Win32.UI.TabletPC
- * @version v4.0.30319
  */
-class PanelInputArea extends Win32Enum{
+class PanelInputArea extends Win32Enum {
 
     /**
      * The system controls the default input area.

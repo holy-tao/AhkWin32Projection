@@ -1,17 +1,15 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
-#Include .\ISingleItemException.ahk
-#Include .\IEnumSingleItemExceptions.ahk
 #Include ..\Com\IUnknown.ahk
+#Include .\ISingleItemException.ahk
 
 /**
  * Enumerates single-item exceptions that are stored in a knowledge object.
  * @see https://learn.microsoft.com/windows/win32/api/winsync/nn-winsync-ienumsingleitemexceptions
  * @namespace Windows.Win32.System.WindowsSync
- * @version v4.0.30319
  */
-class IEnumSingleItemExceptions extends IUnknown{
+class IEnumSingleItemExceptions extends IUnknown {
 
     static sizeof => A_PtrSize
     /**

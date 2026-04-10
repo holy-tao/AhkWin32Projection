@@ -1,15 +1,15 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
-#Include ..\..\Foundation\BSTR.ahk
+#Include ..\Com\IDispatch.ahk
 #Include .\Views.ahk
 #Include .\SnapIns.ahk
 #Include .\View.ahk
+#Include ..\..\Foundation\BSTR.ahk
 #Include .\Node.ahk
 #Include .\ScopeNamespace.ahk
 #Include .\Properties.ahk
 #Include .\_Application.ahk
-#Include ..\Com\IDispatch.ahk
 
 /**
  * Specifies any additional documentation for the task.
@@ -19,9 +19,8 @@
  * For C++ applications, additional task documentation is specified using the using the [**IRegistrationInfo::Documentation**](/windows/desktop/api/taskschd/nf-taskschd-iregistrationinfo-get_documentation) property.
  * @see https://learn.microsoft.com/windows/win32/TaskSchd/taskschedulerschema-documentation-registrationinfotype-element
  * @namespace Windows.Win32.System.Mmc
- * @version v4.0.30319
  */
-class Document extends IDispatch{
+class Document extends IDispatch {
 
     static sizeof => A_PtrSize
     /**
@@ -92,7 +91,7 @@ class Document extends IDispatch{
     }
 
     /**
-     * @type {Integer} 
+     * @type {_DocumentMode} 
      */
     Mode {
         get => this.get_Mode()
@@ -231,7 +230,7 @@ class Document extends IDispatch{
 
     /**
      * 
-     * @returns {Integer} 
+     * @returns {_DocumentMode} 
      */
     get_Mode() {
         result := ComCall(17, this, "int*", &_Mode := 0, "HRESULT")
@@ -240,7 +239,7 @@ class Document extends IDispatch{
 
     /**
      * 
-     * @param {Integer} _Mode 
+     * @param {_DocumentMode} _Mode 
      * @returns {HRESULT} 
      */
     put_Mode(_Mode) {

@@ -1,14 +1,13 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
-#Include .\IUri.ahk
 #Include .\IUnknown.ahk
+#Include .\IUri.ahk
 
 /**
  * @namespace Windows.Win32.System.Com
- * @version v4.0.30319
  */
-class IUriBuilder extends IUnknown{
+class IUriBuilder extends IUnknown {
 
     static sizeof => A_PtrSize
     /**

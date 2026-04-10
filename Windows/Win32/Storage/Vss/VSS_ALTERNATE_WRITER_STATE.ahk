@@ -5,9 +5,8 @@
  * Used to indicate whether a given writer has an associated alternate writer.
  * @see https://learn.microsoft.com/windows/win32/api/vswriter/ne-vswriter-vss_alternate_writer_state
  * @namespace Windows.Win32.Storage.Vss
- * @version v4.0.30319
  */
-class VSS_ALTERNATE_WRITER_STATE extends Win32Enum{
+class VSS_ALTERNATE_WRITER_STATE extends Win32Enum {
 
     /**
      * No information is available as to the existence of an alternate writer. This value indicates an application 

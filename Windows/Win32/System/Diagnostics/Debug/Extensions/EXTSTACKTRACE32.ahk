@@ -3,10 +3,8 @@
 
 /**
  * @namespace Windows.Win32.System.Diagnostics.Debug.Extensions
- * @version v4.0.30319
  */
-class EXTSTACKTRACE32 extends Win32Struct
-{
+class EXTSTACKTRACE32 extends Win32Struct {
     static sizeof => 28
 
     static packingSize => 4
@@ -36,9 +34,9 @@ class EXTSTACKTRACE32 extends Win32Struct
     }
 
     /**
-     * @type {Array<UInt32>}
+     * @type {Array<Integer>}
      */
-    Args{
+    Args {
         get {
             if(!this.HasProp("__ArgsProxyArray"))
                 this.__ArgsProxyArray := Win32FixedArray(this.ptr + 12, 4, Primitive, "uint")

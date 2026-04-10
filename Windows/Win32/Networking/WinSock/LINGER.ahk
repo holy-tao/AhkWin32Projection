@@ -22,10 +22,8 @@
  * The <a href="https://docs.microsoft.com/windows/desktop/api/winsock/nf-winsock-getsockopt">getsockopt</a> function can be called with the <i>optname</i> parameter set to <b>SO_LINGER</b> to retrieve the current value of the <b>linger</b> structure associated with a socket.
  * @see https://learn.microsoft.com/windows/win32/api/winsock/ns-winsock-linger
  * @namespace Windows.Win32.Networking.WinSock
- * @version v4.0.30319
  */
-class LINGER extends Win32Struct
-{
+class LINGER extends Win32Struct {
     static sizeof => 4
 
     static packingSize => 2

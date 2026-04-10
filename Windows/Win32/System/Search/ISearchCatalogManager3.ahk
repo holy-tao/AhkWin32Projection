@@ -5,9 +5,8 @@
 
 /**
  * @namespace Windows.Win32.System.Search
- * @version v4.0.30319
  */
-class ISearchCatalogManager3 extends ISearchCatalogManager2{
+class ISearchCatalogManager3 extends ISearchCatalogManager2 {
 
     static sizeof => A_PtrSize
     /**

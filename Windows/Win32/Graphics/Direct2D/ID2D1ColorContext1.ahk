@@ -1,16 +1,15 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
-#Include .\D2D1_SIMPLE_COLOR_PROFILE.ahk
 #Include .\ID2D1ColorContext.ahk
+#Include .\D2D1_SIMPLE_COLOR_PROFILE.ahk
 
 /**
  * Represents a color context to be used with the Color Management Effect.
  * @see https://learn.microsoft.com/windows/win32/api/d2d1_3/nn-d2d1_3-id2d1colorcontext1
  * @namespace Windows.Win32.Graphics.Direct2D
- * @version v4.0.30319
  */
-class ID2D1ColorContext1 extends ID2D1ColorContext{
+class ID2D1ColorContext1 extends ID2D1ColorContext {
 
     static sizeof => A_PtrSize
     /**
@@ -33,7 +32,7 @@ class ID2D1ColorContext1 extends ID2D1ColorContext{
 
     /**
      * Retrieves the color context type. (ID2D1ColorContext1.GetColorContextType)
-     * @returns {Integer} Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/d2d1_3/ne-d2d1_3-d2d1_color_context_type">D2D1_COLOR_CONTEXT_TYPE</a></b>
+     * @returns {D2D1_COLOR_CONTEXT_TYPE} Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/d2d1_3/ne-d2d1_3-d2d1_color_context_type">D2D1_COLOR_CONTEXT_TYPE</a></b>
      * 
      * This method returns color context type.
      * @see https://learn.microsoft.com/windows/win32/api/d2d1_3/nf-d2d1_3-id2d1colorcontext1-getcolorcontexttype
@@ -45,7 +44,7 @@ class ID2D1ColorContext1 extends ID2D1ColorContext{
 
     /**
      * Retrieves the DXGI color space of this context. Returns DXGI_COLOR_SPACE_CUSTOM when color context type is ICC.
-     * @returns {Integer} Type: <b>DXGI_COLOR_SPACE_TYPE</b>
+     * @returns {DXGI_COLOR_SPACE_TYPE} Type: <b>DXGI_COLOR_SPACE_TYPE</b>
      * 
      * This method returns the DXGI color space of this context.
      * @see https://learn.microsoft.com/windows/win32/api/d2d1_3/nf-d2d1_3-id2d1colorcontext1-getdxgicolorspace

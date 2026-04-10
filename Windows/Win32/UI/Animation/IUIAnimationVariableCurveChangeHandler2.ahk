@@ -7,9 +7,8 @@
  * Defines a method for handling animation curve update events.
  * @see https://learn.microsoft.com/windows/win32/api/uianimation/nn-uianimation-iuianimationvariablecurvechangehandler2
  * @namespace Windows.Win32.UI.Animation
- * @version v4.0.30319
  */
-class IUIAnimationVariableCurveChangeHandler2 extends IUnknown{
+class IUIAnimationVariableCurveChangeHandler2 extends IUnknown {
 
     static sizeof => A_PtrSize
     /**

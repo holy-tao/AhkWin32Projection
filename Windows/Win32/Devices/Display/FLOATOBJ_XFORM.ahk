@@ -7,16 +7,14 @@
  * All elements are specified as <a href="https://docs.microsoft.com/windows/desktop/api/winddi/ns-winddi-floatobj">FLOATOBJ</a> values. The transform can be downloaded to the driver. Structure members can be operated on by the <b>FLOATOBJ_</b><i>Xxx</i> routines.
  * @see https://learn.microsoft.com/windows/win32/api/winddi/ns-winddi-floatobj_xform
  * @namespace Windows.Win32.Devices.Display
- * @version v4.0.30319
+ * @architecture X64, Arm64
  */
-class FLOATOBJ_XFORM extends Win32Struct
-{
+class FLOATOBJ_XFORM extends Win32Struct {
     static sizeof => 24
 
     static packingSize => 4
 
     /**
-     * 
      * @type {Float}
      */
     eM11 {
@@ -25,7 +23,6 @@ class FLOATOBJ_XFORM extends Win32Struct
     }
 
     /**
-     * 
      * @type {Float}
      */
     eM12 {
@@ -34,7 +31,6 @@ class FLOATOBJ_XFORM extends Win32Struct
     }
 
     /**
-     * 
      * @type {Float}
      */
     eM21 {
@@ -52,7 +48,6 @@ class FLOATOBJ_XFORM extends Win32Struct
     }
 
     /**
-     * 
      * @type {Float}
      */
     eDx {

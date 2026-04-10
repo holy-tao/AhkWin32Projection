@@ -7,9 +7,8 @@
  * Used to implement error trapping on the asynchronous batch work that is submitted through the activity created by CoCreateActivity.
  * @see https://learn.microsoft.com/windows/win32/api/comsvcs/nn-comsvcs-iasyncerrornotify
  * @namespace Windows.Win32.System.ComponentServices
- * @version v4.0.30319
  */
-class IAsyncErrorNotify extends IUnknown{
+class IAsyncErrorNotify extends IUnknown {
 
     static sizeof => A_PtrSize
     /**

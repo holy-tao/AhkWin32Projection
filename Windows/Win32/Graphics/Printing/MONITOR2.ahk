@@ -3,10 +3,8 @@
 
 /**
  * @namespace Windows.Win32.Graphics.Printing
- * @version v4.0.30319
  */
-class MONITOR2 extends Win32Struct
-{
+class MONITOR2 extends Win32Struct {
     static sizeof => 184
 
     static packingSize => 8

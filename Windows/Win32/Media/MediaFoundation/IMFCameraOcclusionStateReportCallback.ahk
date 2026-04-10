@@ -9,9 +9,8 @@
  * Register the callback interface when you create the camera occlusion state monitor with a call to [MFCreateCameraOcclusionStateMonitor](nf-mfidl-mfcreatecameraocclusionstatemonitor.md).
  * @see https://learn.microsoft.com/windows/win32/api/mfidl/nn-mfidl-imfcameraocclusionstatereportcallback
  * @namespace Windows.Win32.Media.MediaFoundation
- * @version v4.0.30319
  */
-class IMFCameraOcclusionStateReportCallback extends IUnknown{
+class IMFCameraOcclusionStateReportCallback extends IUnknown {
 
     static sizeof => A_PtrSize
     /**

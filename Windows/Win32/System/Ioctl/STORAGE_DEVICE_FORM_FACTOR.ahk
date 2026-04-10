@@ -5,12 +5,10 @@
  * Specifies the form factor of a device.
  * @see https://learn.microsoft.com/windows/win32/api/winioctl/ne-winioctl-storage_device_form_factor
  * @namespace Windows.Win32.System.Ioctl
- * @version v4.0.30319
  */
-class STORAGE_DEVICE_FORM_FACTOR extends Win32Enum{
+class STORAGE_DEVICE_FORM_FACTOR extends Win32Enum {
 
     /**
-     * 
      * @type {Integer (Int32)}
      */
     static FormFactorUnknown => 0

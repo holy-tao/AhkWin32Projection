@@ -9,9 +9,8 @@
  * Include Vptype.h before Vpnotify.h.
  * @see https://learn.microsoft.com/windows/win32/api/vpnotify/nn-vpnotify-ivpbasenotify
  * @namespace Windows.Win32.Media.DirectShow
- * @version v4.0.30319
  */
-class IVPBaseNotify extends IUnknown{
+class IVPBaseNotify extends IUnknown {
 
     static sizeof => A_PtrSize
 

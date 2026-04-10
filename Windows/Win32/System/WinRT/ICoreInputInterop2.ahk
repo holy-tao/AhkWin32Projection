@@ -1,14 +1,13 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
-#Include ..\..\Foundation\HWND.ahk
 #Include .\IInspectable.ahk
+#Include ..\..\Foundation\HWND.ahk
 
 /**
  * @namespace Windows.Win32.System.WinRT
- * @version v4.0.30319
  */
-class ICoreInputInterop2 extends IInspectable{
+class ICoreInputInterop2 extends IInspectable {
 
     static sizeof => A_PtrSize
     /**

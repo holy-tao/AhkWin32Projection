@@ -10,9 +10,8 @@
  * Use this interface when initializing a handler for OpenSearch result sets, which are returned as RSS or Atom feeds.
  * @see https://learn.microsoft.com/windows/win32/api/shobjidl_core/nn-shobjidl_core-iinitializewithpropertystore
  * @namespace Windows.Win32.UI.Shell
- * @version v4.0.30319
  */
-class IInitializeWithPropertyStore extends IUnknown{
+class IInitializeWithPropertyStore extends IUnknown {
 
     static sizeof => A_PtrSize
     /**

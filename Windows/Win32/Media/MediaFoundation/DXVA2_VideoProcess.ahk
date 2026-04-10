@@ -5,9 +5,8 @@
  * Contains parameters for the IDirectXVideoProcessor::VideoProcessBlt method.
  * @see https://learn.microsoft.com/windows/win32/api/dxva2api/ns-dxva2api-dxva2_videoprocessbltparams
  * @namespace Windows.Win32.Media.MediaFoundation
- * @version v4.0.30319
  */
-class DXVA2_VideoProcess extends Win32Enum{
+class DXVA2_VideoProcess extends Win32Enum {
 
     /**
      * @type {Integer (Int32)}

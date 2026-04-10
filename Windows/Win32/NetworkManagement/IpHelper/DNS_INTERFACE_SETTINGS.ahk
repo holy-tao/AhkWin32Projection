@@ -3,14 +3,10 @@
 
 /**
  * Represents the DNS settings that can be configured on a given interface by calling the [**SetInterfaceDnsSettings**](/windows/win32/api/netioapi/nf-netioapi-setinterfacednssettings) function. (DNS_INTERFACE_SETTINGS)
- * @remarks
- * 
  * @see https://learn.microsoft.com/windows/win32/api/netioapi/ns-netioapi-dns_interface_settings
  * @namespace Windows.Win32.NetworkManagement.IpHelper
- * @version v4.0.30319
  */
-class DNS_INTERFACE_SETTINGS extends Win32Struct
-{
+class DNS_INTERFACE_SETTINGS extends Win32Struct {
     static sizeof => 64
 
     static packingSize => 8

@@ -5,9 +5,8 @@
  * Specifies the alternative name types that can be specified when initializing an IAlternativeName object.
  * @see https://learn.microsoft.com/windows/win32/api/certenroll/ne-certenroll-alternativenametype
  * @namespace Windows.Win32.Security.Cryptography.Certificates
- * @version v4.0.30319
  */
-class AlternativeNameType extends Win32Enum{
+class AlternativeNameType extends Win32Enum {
 
     /**
      * The name type is not identified.
@@ -34,7 +33,6 @@ class AlternativeNameType extends Win32Enum{
     static XCN_CERT_ALT_NAME_DNS_NAME => 3
 
     /**
-     * 
      * @type {Integer (Int32)}
      */
     static XCN_CERT_ALT_NAME_X400_ADDRESS => 4
@@ -46,7 +44,6 @@ class AlternativeNameType extends Win32Enum{
     static XCN_CERT_ALT_NAME_DIRECTORY_NAME => 5
 
     /**
-     * 
      * @type {Integer (Int32)}
      */
     static XCN_CERT_ALT_NAME_EDI_PARTY_NAME => 6

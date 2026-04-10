@@ -3,9 +3,8 @@
 
 /**
  * @namespace Windows.Win32.System.ErrorReporting
- * @version v4.0.30319
  */
-class REPORT_STORE_TYPES extends Win32Enum{
+class REPORT_STORE_TYPES extends Win32Enum {
 
     /**
      * @type {Integer (Int32)}

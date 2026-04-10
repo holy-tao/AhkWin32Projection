@@ -5,9 +5,8 @@
  * Information about a fault.
  * @see https://learn.microsoft.com/windows/win32/api/webservices/ne-webservices-ws_fault_error_property_id
  * @namespace Windows.Win32.Networking.WindowsWebServices
- * @version v4.0.30319
  */
-class WS_FAULT_ERROR_PROPERTY_ID extends Win32Enum{
+class WS_FAULT_ERROR_PROPERTY_ID extends Win32Enum {
 
     /**
      * An optional <a href="https://docs.microsoft.com/windows/desktop/api/webservices/ns-webservices-ws_fault">WS_FAULT</a> value that is the fault representation of the error.  If no

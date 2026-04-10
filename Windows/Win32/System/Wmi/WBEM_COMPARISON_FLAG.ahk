@@ -5,9 +5,8 @@
  * Contains flags that define the comparison to perform when using the IWbemClassObject::CompareTo method.
  * @see https://learn.microsoft.com/windows/win32/api/wbemcli/ne-wbemcli-wbem_comparison_flag
  * @namespace Windows.Win32.System.Wmi
- * @version v4.0.30319
  */
-class WBEM_COMPARISON_FLAG extends Win32Enum{
+class WBEM_COMPARISON_FLAG extends Win32Enum {
 
     /**
      * Compare all features.

@@ -7,9 +7,8 @@
  * The ISequentialStream interface supports simplified sequential access to stream objects. The IStream interface inherits its Read and Write methods from ISequentialStream.
  * @see https://learn.microsoft.com/windows/win32/api/objidl/nn-objidl-isequentialstream
  * @namespace Windows.Win32.System.Com
- * @version v4.0.30319
  */
-class ISequentialStream extends IUnknown{
+class ISequentialStream extends IUnknown {
 
     static sizeof => A_PtrSize
     /**
@@ -41,7 +40,7 @@ class ISequentialStream extends IUnknown{
      * The actual number of bytes read can be less than the number of bytes requested if an error occurs or if the end of the stream is reached during the read operation.  The number of bytes returned should always  be compared to the number of bytes requested.  If the number of bytes returned is less than the number of bytes requested, it usually means the <b>Read</b> method attempted to read  past the end of the stream.
      * 
      * The application should handle both a returned error  and <b>S_OK</b> return values on end-of-stream read operations.
-     * @param {Pointer} pv A pointer to the buffer which the stream data is read into.
+     * @param {Integer} pv A pointer to the buffer which the stream data is read into.
      * @param {Integer} cb The number of bytes of data to read from the stream object.
      * @returns {Integer} A pointer to a <b>ULONG</b> variable that receives the actual number of bytes read from the stream object. 
      * 
@@ -67,7 +66,7 @@ class ISequentialStream extends IUnknown{
      * The <i>pcbWritten</i> parameter can have a value even if an error occurs.
      * 
      * In the COM-provided implementation, stream objects are not sparse. Any fill bytes are eventually allocated on the disk and assigned to the stream.
-     * @param {Pointer} pv A pointer to the buffer that contains the data that is to be written to the stream. A valid pointer must be provided for this parameter even when <i>cb</i> is zero.
+     * @param {Integer} pv A pointer to the buffer that contains the data that is to be written to the stream. A valid pointer must be provided for this parameter even when <i>cb</i> is zero.
      * @param {Integer} cb The number of bytes of data to attempt to write into the stream. This value can be zero.
      * @returns {Integer} A pointer to a <b>ULONG</b> variable where this method writes the actual number of bytes written to the stream object. The caller can set this pointer to <b>NULL</b>, in which case this method does not provide the actual number of bytes written.
      * @see https://learn.microsoft.com/windows/win32/api/objidl/nf-objidl-isequentialstream-write

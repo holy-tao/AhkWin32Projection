@@ -5,10 +5,8 @@
  * The AM_DVD_RENDERSTATUS structure contains codes indicating the status of DVD-Video playback. These codes are used in the IDvdGraphBuilder::RenderDvdVideoVolume method.
  * @see https://learn.microsoft.com/windows/win32/api/strmif/ns-strmif-am_dvd_renderstatus
  * @namespace Windows.Win32.Media.DirectShow
- * @version v4.0.30319
  */
-class AM_DVD_RENDERSTATUS extends Win32Struct
-{
+class AM_DVD_RENDERSTATUS extends Win32Struct {
     static sizeof => 32
 
     static packingSize => 4

@@ -5,16 +5,13 @@
  * Used by SendIMEMessageEx to specify the subfunction to be executed in the Input Method Editor (IME) message and its parameters. This structure is also used to receive return values from those subfunctions.
  * @see https://learn.microsoft.com/windows/win32/api/ime/ns-ime-imestruct
  * @namespace Windows.Win32.System.WindowsProgramming
- * @version v4.0.30319
  */
-class IMESTRUCT extends Win32Struct
-{
+class IMESTRUCT extends Win32Struct {
     static sizeof => 56
 
     static packingSize => 8
 
     /**
-     * 
      * @type {Integer}
      */
     fnc {

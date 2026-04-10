@@ -18,10 +18,8 @@
  * You can use **DXGI\_RGBA** with [**IDXGISwapChain1::SetBackgroundColor**](/windows/desktop/api/DXGI1_2/nf-dxgi1_2-idxgiswapchain1-setbackgroundcolor), [**IDXGISwapChain1::GetBackgroundColor**](/windows/desktop/api/DXGI1_2/nf-dxgi1_2-idxgiswapchain1-getbackgroundcolor), and [**DXGI\_ALPHA\_MODE**](/windows/desktop/api/DXGI1_2/ne-dxgi1_2-dxgi_alpha_mode).
  * @see https://learn.microsoft.com/windows/win32/direct3ddxgi/dxgi-rgba
  * @namespace Windows.Win32.Graphics.Dxgi.Common
- * @version v4.0.30319
  */
-class DXGI_RGB extends Win32Struct
-{
+class DXGI_RGB extends Win32Struct {
     static sizeof => 12
 
     static packingSize => 4

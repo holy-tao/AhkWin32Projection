@@ -4,10 +4,8 @@
 
 /**
  * @namespace Windows.Win32.Graphics.Printing
- * @version v4.0.30319
  */
-class MONITOREX extends Win32Struct
-{
+class MONITOREX extends Win32Struct {
     static sizeof => 144
 
     static packingSize => 8
@@ -23,7 +21,7 @@ class MONITOREX extends Win32Struct
     /**
      * @type {MONITOR}
      */
-    Monitor{
+    Monitor {
         get {
             if(!this.HasProp("__Monitor"))
                 this.__Monitor := MONITOR(8, this)

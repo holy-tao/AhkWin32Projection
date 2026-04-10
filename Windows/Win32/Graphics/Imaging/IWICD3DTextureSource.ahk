@@ -1,14 +1,13 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
-#Include ..\..\System\Com\StructuredStorage\IPropertyBag2.ahk
 #Include ..\..\System\Com\IUnknown.ahk
+#Include ..\..\System\Com\StructuredStorage\IPropertyBag2.ahk
 
 /**
  * @namespace Windows.Win32.Graphics.Imaging
- * @version v4.0.30319
  */
-class IWICD3DTextureSource extends IUnknown{
+class IWICD3DTextureSource extends IUnknown {
 
     static sizeof => A_PtrSize
     /**
@@ -47,7 +46,7 @@ class IWICD3DTextureSource extends IUnknown{
      * @param {Integer} uiWidth 
      * @param {Integer} uiHeight 
      * @param {Pointer<Guid>} pguidDstFormat 
-     * @param {Integer} dstTransform 
+     * @param {WICBitmapTransformOptions} dstTransform 
      * @param {IUnknown} pD3DDevice 
      * @param {IPropertyBag2} pID3DTextureOptions 
      * @param {Pointer<Guid>} riid 

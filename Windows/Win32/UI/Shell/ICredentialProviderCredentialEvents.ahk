@@ -1,8 +1,8 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
-#Include ..\..\Foundation\HWND.ahk
 #Include ..\..\System\Com\IUnknown.ahk
+#Include ..\..\Foundation\HWND.ahk
 
 /**
  * Provides an asynchronous callback mechanism used by a credential to notify it of state or text change events in the Logon UI or Credential UI.
@@ -13,9 +13,8 @@
  * Third parties do not implement <b>ICredentialProviderCredentialEvents</b>. An implementation is included with Windows.
  * @see https://learn.microsoft.com/windows/win32/api/credentialprovider/nn-credentialprovider-icredentialprovidercredentialevents
  * @namespace Windows.Win32.UI.Shell
- * @version v4.0.30319
  */
-class ICredentialProviderCredentialEvents extends IUnknown{
+class ICredentialProviderCredentialEvents extends IUnknown {
 
     static sizeof => A_PtrSize
     /**
@@ -44,7 +43,7 @@ class ICredentialProviderCredentialEvents extends IUnknown{
      * @param {Integer} dwFieldID Type: <b>DWORD</b>
      * 
      * The unique ID of the field where the change occurred to generate the event.
-     * @param {Integer} cpfs Type: <b><a href="https://docs.microsoft.com/windows/win32/api/credentialprovider/ne-credentialprovider-credential_provider_field_state">CREDENTIAL_PROVIDER_FIELD_STATE</a></b>
+     * @param {CREDENTIAL_PROVIDER_FIELD_STATE} cpfs Type: <b><a href="https://docs.microsoft.com/windows/win32/api/credentialprovider/ne-credentialprovider-credential_provider_field_state">CREDENTIAL_PROVIDER_FIELD_STATE</a></b>
      * 
      * The value from the <a href="https://docs.microsoft.com/windows/win32/api/credentialprovider/ne-credentialprovider-credential_provider_field_state">CREDENTIAL_PROVIDER_FIELD_STATE</a> enumeration that specifies the new field state.
      * @returns {HRESULT} Type: <b>HRESULT</b>
@@ -65,7 +64,7 @@ class ICredentialProviderCredentialEvents extends IUnknown{
      * @param {Integer} dwFieldID Type: <b>DWORD</b>
      * 
      * The unique ID of the field.
-     * @param {Integer} cpfis Type: <b><a href="https://docs.microsoft.com/windows/win32/api/credentialprovider/ne-credentialprovider-credential_provider_field_interactive_state">CREDENTIAL_PROVIDER_FIELD_INTERACTIVE_STATE</a></b>
+     * @param {CREDENTIAL_PROVIDER_FIELD_INTERACTIVE_STATE} cpfis Type: <b><a href="https://docs.microsoft.com/windows/win32/api/credentialprovider/ne-credentialprovider-credential_provider_field_interactive_state">CREDENTIAL_PROVIDER_FIELD_INTERACTIVE_STATE</a></b>
      * 
      * The new interactive state of the field.
      * @returns {HRESULT} Type: <b>HRESULT</b>

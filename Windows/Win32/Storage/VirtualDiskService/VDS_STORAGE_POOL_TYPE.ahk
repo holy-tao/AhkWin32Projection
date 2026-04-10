@@ -12,9 +12,8 @@
  * <div> </div>
  * @see https://learn.microsoft.com/windows/win32/api/vdshwprv/ne-vdshwprv-vds_storage_pool_type
  * @namespace Windows.Win32.Storage.VirtualDiskService
- * @version v4.0.30319
  */
-class VDS_STORAGE_POOL_TYPE extends Win32Enum{
+class VDS_STORAGE_POOL_TYPE extends Win32Enum {
 
     /**
      * The storage pool type is unknown.

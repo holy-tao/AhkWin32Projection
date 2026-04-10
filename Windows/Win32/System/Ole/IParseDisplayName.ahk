@@ -7,9 +7,8 @@
  * Parses a displayable name string to convert it into a moniker for custom moniker implementations.
  * @see https://learn.microsoft.com/windows/win32/api/oleidl/nn-oleidl-iparsedisplayname
  * @namespace Windows.Win32.System.Ole
- * @version v4.0.30319
  */
-class IParseDisplayName extends IUnknown{
+class IParseDisplayName extends IUnknown {
 
     static sizeof => A_PtrSize
     /**

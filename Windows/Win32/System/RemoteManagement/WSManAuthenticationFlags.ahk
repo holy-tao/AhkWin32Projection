@@ -5,9 +5,8 @@
  * Determines the authentication method for the operation.
  * @see https://learn.microsoft.com/windows/win32/api/wsman/ne-wsman-wsmanauthenticationflags
  * @namespace Windows.Win32.System.RemoteManagement
- * @version v4.0.30319
  */
-class WSManAuthenticationFlags extends Win32Enum{
+class WSManAuthenticationFlags extends Win32Enum {
 
     /**
      * Use the default authentication.

@@ -1,16 +1,15 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\..\..\Guid.ahk
-#Include ..\..\..\..\Web\MsHtml\IHTMLDocument2.ahk
 #Include ..\..\..\Com\IUnknown.ahk
+#Include ..\..\..\..\Web\MsHtml\IHTMLDocument2.ahk
 
 /**
  * Exposes methods and properties that are implemented by the WWAHost.
  * @see https://learn.microsoft.com/windows/win32/api/webapplication/nn-webapplication-iwebapplicationhost
  * @namespace Windows.Win32.System.Diagnostics.Debug.WebApp
- * @version v4.0.30319
  */
-class IWebApplicationHost extends IUnknown{
+class IWebApplicationHost extends IUnknown {
 
     static sizeof => A_PtrSize
     /**

@@ -1,12 +1,12 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
+#Include .\IFsrmObject.ahk
 #Include ..\..\Foundation\BSTR.ahk
 #Include .\IFsrmActionCommand.ahk
 #Include .\IFsrmCollection.ahk
 #Include .\IFsrmAction.ahk
 #Include .\IFsrmPropertyCondition.ahk
-#Include .\IFsrmObject.ahk
 
 /**
  * Defines a file management job.
@@ -41,9 +41,8 @@
  *     "$Recycle").
  * @see https://learn.microsoft.com/windows/win32/api/fsrmreports/nn-fsrmreports-ifsrmfilemanagementjob
  * @namespace Windows.Win32.Storage.FileServerResourceManager
- * @version v4.0.30319
  */
-class IFsrmFileManagementJob extends IFsrmObject{
+class IFsrmFileManagementJob extends IFsrmObject {
 
     static sizeof => A_PtrSize
     /**
@@ -89,7 +88,7 @@ class IFsrmFileManagementJob extends IFsrmObject{
     }
 
     /**
-     * @type {Integer} 
+     * @type {FsrmFileManagementType} 
      */
     OperationType {
         get => this.get_OperationType()
@@ -206,7 +205,7 @@ class IFsrmFileManagementJob extends IFsrmObject{
     }
 
     /**
-     * @type {Integer} 
+     * @type {FsrmReportRunningStatus} 
      */
     RunningStatus {
         get => this.get_RunningStatus()
@@ -347,7 +346,7 @@ class IFsrmFileManagementJob extends IFsrmObject{
      *     specified in the <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/fsrmreports/nf-fsrmreports-ifsrmfilemanagementjob-get_customaction">CustomAction</a> 
      *     property for every file that meets all the file management job's conditions when the file management job is 
      *     run.
-     * @returns {Integer} 
+     * @returns {FsrmFileManagementType} 
      * @see https://learn.microsoft.com/windows/win32/api/fsrmreports/nf-fsrmreports-ifsrmfilemanagementjob-get_operationtype
      */
     get_OperationType() {
@@ -367,7 +366,7 @@ class IFsrmFileManagementJob extends IFsrmObject{
      *     specified in the <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/fsrmreports/nf-fsrmreports-ifsrmfilemanagementjob-get_customaction">CustomAction</a> 
      *     property for every file that meets all the file management job's conditions when the file management job is 
      *     run.
-     * @param {Integer} operationType 
+     * @param {FsrmFileManagementType} operationType 
      * @returns {HRESULT} 
      * @see https://learn.microsoft.com/windows/win32/api/fsrmreports/nf-fsrmreports-ifsrmfilemanagementjob-put_operationtype
      */
@@ -842,7 +841,7 @@ class IFsrmFileManagementJob extends IFsrmObject{
 
     /**
      * The running status of the job.
-     * @returns {Integer} 
+     * @returns {FsrmReportRunningStatus} 
      * @see https://learn.microsoft.com/windows/win32/api/fsrmreports/nf-fsrmreports-ifsrmfilemanagementjob-get_runningstatus
      */
     get_RunningStatus() {
@@ -940,7 +939,9 @@ class IFsrmFileManagementJob extends IFsrmObject{
      *     the status of the job, access the 
      *     <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/fsrmreports/nf-fsrmreports-ifsrmreportjob-get_runningstatus">IFsrmReportJob::RunningStatus</a> 
      *     property.
-     * @param {Integer} _context 
+     * @param {FsrmReportGenerationContext} _context Specifies to which subdirectory the reports or logging are written, if enabled. For possible values, see 
+     *       the <a href="https://docs.microsoft.com/windows/desktop/api/fsrmenums/ne-fsrmenums-fsrmreportgenerationcontext">FsrmReportGenerationContext</a> 
+     *       enumeration.
      * @returns {HRESULT} The method returns the following return values.
      * @see https://learn.microsoft.com/windows/win32/api/fsrmreports/nf-fsrmreports-ifsrmfilemanagementjob-run
      */
@@ -1071,7 +1072,7 @@ class IFsrmFileManagementJob extends IFsrmObject{
      * 
      * The action is deleted when the notification is deleted.
      * @param {Integer} days The notification value to associate with the action.
-     * @param {Integer} actionType The action to perform when the notification period is reached, enumerated by the 
+     * @param {FsrmActionType} actionType The action to perform when the notification period is reached, enumerated by the 
      *       <a href="https://docs.microsoft.com/windows/desktop/api/fsrmenums/ne-fsrmenums-fsrmactiontype">FsrmActionType</a> enumeration.
      * 
      * <div class="alert"><b>Note</b>  The <b>FsrmActionType_Report</b> type is not valid for this method.</div>

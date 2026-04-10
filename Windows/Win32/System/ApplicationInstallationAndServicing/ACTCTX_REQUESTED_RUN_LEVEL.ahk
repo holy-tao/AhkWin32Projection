@@ -5,9 +5,8 @@
  * The ACTCTX_REQUESTED_RUN_LEVEL enumeration describes the requested run level of the activation context.
  * @see https://learn.microsoft.com/windows/win32/api/winnt/ne-winnt-actctx_requested_run_level
  * @namespace Windows.Win32.System.ApplicationInstallationAndServicing
- * @version v4.0.30319
  */
-class ACTCTX_REQUESTED_RUN_LEVEL extends Win32Enum{
+class ACTCTX_REQUESTED_RUN_LEVEL extends Win32Enum {
 
     /**
      * The application manifest does not specify a requested run level for the application.

@@ -5,10 +5,8 @@
  * Contains a set of CNG configuration context identifiers.
  * @see https://learn.microsoft.com/windows/win32/api/bcrypt/ns-bcrypt-crypt_contexts
  * @namespace Windows.Win32.Security.Cryptography
- * @version v4.0.30319
  */
-class CRYPT_CONTEXTS extends Win32Struct
-{
+class CRYPT_CONTEXTS extends Win32Struct {
     static sizeof => 16
 
     static packingSize => 8

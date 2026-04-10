@@ -3,18 +3,16 @@
 
 /**
  * @namespace Windows.Wdk.Graphics.Direct3D
- * @version v4.0.30319
  */
-class D3DNTHAL_DP2INDEXEDLINESTRIP extends Win32Struct
-{
+class D3DNTHAL_DP2INDEXEDLINESTRIP extends Win32Struct {
     static sizeof => 4
 
     static packingSize => 2
 
     /**
-     * @type {Array<UInt16>}
+     * @type {Array<Integer>}
      */
-    wV{
+    wV {
         get {
             if(!this.HasProp("__wVProxyArray"))
                 this.__wVProxyArray := Win32FixedArray(this.ptr + 0, 2, Primitive, "ushort")

@@ -40,9 +40,8 @@
  * <div> </div>
  * @see https://learn.microsoft.com/windows/win32/api/dwrite/ne-dwrite-dwrite_font_style
  * @namespace Windows.Win32.Graphics.DirectWrite
- * @version v4.0.30319
  */
-class DWRITE_FONT_STYLE extends Win32Enum{
+class DWRITE_FONT_STYLE extends Win32Enum {
 
     /**
      * Font style : Normal.

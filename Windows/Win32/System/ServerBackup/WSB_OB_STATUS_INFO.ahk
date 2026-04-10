@@ -1,21 +1,20 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
+#Include .\WSB_OB_STATUS_ENTRY.ahk
 
 /**
  * Contains information to update the cloud backup provider status in the Windows Server Backup MMC snap-in.
  * @see https://learn.microsoft.com/windows/win32/api/wsbonline/ns-wsbonline-wsb_ob_status_info
  * @namespace Windows.Win32.System.ServerBackup
- * @version v4.0.30319
  */
-class WSB_OB_STATUS_INFO extends Win32Struct
-{
+class WSB_OB_STATUS_INFO extends Win32Struct {
     static sizeof => 24
 
     static packingSize => 8
 
     /**
      * The snap-in identifier of the cloud backup provider registered with Windows Server Backup.
-     * @type {Pointer<Guid>}
+     * @type {Pointer}
      */
     m_guidSnapinId {
         get => NumGet(this, 0, "ptr")

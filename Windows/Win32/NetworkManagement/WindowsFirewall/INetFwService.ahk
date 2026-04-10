@@ -1,9 +1,9 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
+#Include ..\..\System\Com\IDispatch.ahk
 #Include ..\..\Foundation\BSTR.ahk
 #Include .\INetFwOpenPorts.ahk
-#Include ..\..\System\Com\IDispatch.ahk
 
 /**
  * The INetFwService interface provides access to the properties of a service that may be authorized to listen through the firewall.
@@ -15,9 +15,8 @@
  * effect immediately.
  * @see https://learn.microsoft.com/windows/win32/api/netfw/nn-netfw-inetfwservice
  * @namespace Windows.Win32.NetworkManagement.WindowsFirewall
- * @version v4.0.30319
  */
-class INetFwService extends IDispatch{
+class INetFwService extends IDispatch {
 
     static sizeof => A_PtrSize
     /**
@@ -46,7 +45,7 @@ class INetFwService extends IDispatch{
     }
 
     /**
-     * @type {Integer} 
+     * @type {NET_FW_SERVICE_TYPE} 
      */
     Type {
         get => this.get_Type()
@@ -60,7 +59,7 @@ class INetFwService extends IDispatch{
     }
 
     /**
-     * @type {Integer} 
+     * @type {NET_FW_IP_VERSION} 
      */
     IpVersion {
         get => this.get_IpVersion()
@@ -68,7 +67,7 @@ class INetFwService extends IDispatch{
     }
 
     /**
-     * @type {Integer} 
+     * @type {NET_FW_SCOPE} 
      */
     Scope {
         get => this.get_Scope()
@@ -111,7 +110,7 @@ class INetFwService extends IDispatch{
 
     /**
      * Retrieves the type of the service.
-     * @returns {Integer} 
+     * @returns {NET_FW_SERVICE_TYPE} 
      * @see https://learn.microsoft.com/windows/win32/api/netfw/nf-netfw-inetfwservice-get_type
      */
     get_Type() {
@@ -138,7 +137,7 @@ class INetFwService extends IDispatch{
      * @remarks
      * Only
      *    <b>NET_FW_IP_VERSION_ANY</b> is supported.
-     * @returns {Integer} 
+     * @returns {NET_FW_IP_VERSION} 
      * @see https://learn.microsoft.com/windows/win32/api/netfw/nf-netfw-inetfwservice-get_ipversion
      */
     get_IpVersion() {
@@ -151,7 +150,7 @@ class INetFwService extends IDispatch{
      * @remarks
      * Only
      *    <b>NET_FW_IP_VERSION_ANY</b> is supported.
-     * @param {Integer} ipVersion 
+     * @param {NET_FW_IP_VERSION} ipVersion 
      * @returns {HRESULT} 
      * @see https://learn.microsoft.com/windows/win32/api/netfw/nf-netfw-inetfwservice-put_ipversion
      */
@@ -171,7 +170,7 @@ class INetFwService extends IDispatch{
      *    <b>NET_FW_SCOPE_ALL</b> for new ports.
      * 
      * To create a custom scope, use the <a href="https://docs.microsoft.com/windows/desktop/api/netfw/nf-netfw-inetfwservice-get_remoteaddresses">RemoteAddresses</a> property.
-     * @returns {Integer} 
+     * @returns {NET_FW_SCOPE} 
      * @see https://learn.microsoft.com/windows/win32/api/netfw/nf-netfw-inetfwservice-get_scope
      */
     get_Scope() {
@@ -190,7 +189,7 @@ class INetFwService extends IDispatch{
      *    <b>NET_FW_SCOPE_ALL</b> for new ports.
      * 
      * To create a custom scope, use the <a href="https://docs.microsoft.com/windows/desktop/api/netfw/nf-netfw-inetfwservice-get_remoteaddresses">RemoteAddresses</a> property.
-     * @param {Integer} scope 
+     * @param {NET_FW_SCOPE} scope 
      * @returns {HRESULT} 
      * @see https://learn.microsoft.com/windows/win32/api/netfw/nf-netfw-inetfwservice-put_scope
      */

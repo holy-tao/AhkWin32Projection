@@ -1,14 +1,13 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
+#Include .\DSOP_SCOPE_INIT_INFO.ahk
 
 /**
  * The DSOP_INIT_INFO structure contains data required to initialize an object picker dialog box. This structure is used with the IDsObjectPicker::Initialize method.
  * @see https://learn.microsoft.com/windows/win32/api/objsel/ns-objsel-dsop_init_info
  * @namespace Windows.Win32.Networking.ActiveDirectory
- * @version v4.0.30319
  */
-class DSOP_INIT_INFO extends Win32Struct
-{
+class DSOP_INIT_INFO extends Win32Struct {
     static sizeof => 48
 
     static packingSize => 8

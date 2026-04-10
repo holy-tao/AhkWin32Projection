@@ -3,9 +3,8 @@
 
 /**
  * @namespace Windows.Win32.NetworkManagement.NetManagement
- * @version v4.0.30319
  */
-class NETWORK_UPGRADE_TYPE extends Win32Enum{
+class NETWORK_UPGRADE_TYPE extends Win32Enum {
 
     /**
      * @type {Integer (Int32)}

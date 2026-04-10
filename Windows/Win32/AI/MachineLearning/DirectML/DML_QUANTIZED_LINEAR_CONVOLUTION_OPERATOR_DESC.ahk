@@ -1,14 +1,13 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\..\Win32Struct.ahk
+#Include .\DML_TENSOR_DESC.ahk
 
 /**
  * Performs a convolution of the *FilterTensor* with the *InputTensor*. This operator performs forward convolution on quantized data. This operator is mathematically equivalent to dequantizing the inputs, convolving, and then quantizing the output.
  * @see https://learn.microsoft.com/windows/win32/api/directml/ns-directml-dml_quantized_linear_convolution_operator_desc
  * @namespace Windows.Win32.AI.MachineLearning.DirectML
- * @version v4.0.30319
  */
-class DML_QUANTIZED_LINEAR_CONVOLUTION_OPERATOR_DESC extends Win32Struct
-{
+class DML_QUANTIZED_LINEAR_CONVOLUTION_OPERATOR_DESC extends Win32Struct {
     static sizeof => 128
 
     static packingSize => 8

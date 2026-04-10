@@ -4,10 +4,8 @@
 
 /**
  * @namespace Windows.Win32.Media.Audio.DirectMusic
- * @version v4.0.30319
  */
-class DMUS_WAVE extends Win32Struct
-{
+class DMUS_WAVE extends Win32Struct {
     static sizeof => 32
 
     static packingSize => 4
@@ -39,7 +37,7 @@ class DMUS_WAVE extends Win32Struct
     /**
      * @type {WAVEFORMATEX}
      */
-    WaveformatEx{
+    WaveformatEx {
         get {
             if(!this.HasProp("__WaveformatEx"))
                 this.__WaveformatEx := WAVEFORMATEX(12, this)

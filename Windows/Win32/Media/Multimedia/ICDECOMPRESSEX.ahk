@@ -1,14 +1,13 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
+#Include ..\..\Graphics\Gdi\BITMAPINFOHEADER.ahk
 
 /**
  * The ICDECOMPRESSEX structure contains decompression parameters used with the ICM_DECOMPRESSEX message.
  * @see https://learn.microsoft.com/windows/win32/api/vfw/ns-vfw-icdecompressex
  * @namespace Windows.Win32.Media.Multimedia
- * @version v4.0.30319
  */
-class ICDECOMPRESSEX extends Win32Struct
-{
+class ICDECOMPRESSEX extends Win32Struct {
     static sizeof => 72
 
     static packingSize => 8

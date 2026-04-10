@@ -7,9 +7,8 @@
  * The ITfClientId interface is implemented by the TSF manager. This interface is used to obtain a client identifier for TSF objects. An instance of this interface is obtained by querying the thread manager with IID_ITfClientId.
  * @see https://learn.microsoft.com/windows/win32/api/msctf/nn-msctf-itfclientid
  * @namespace Windows.Win32.UI.TextServices
- * @version v4.0.30319
  */
-class ITfClientId extends IUnknown{
+class ITfClientId extends IUnknown {
 
     static sizeof => A_PtrSize
     /**

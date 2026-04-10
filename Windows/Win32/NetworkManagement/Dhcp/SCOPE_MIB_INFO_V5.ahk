@@ -5,10 +5,8 @@
  * Contains information about a specific DHCP scope.
  * @see https://learn.microsoft.com/windows/win32/api/dhcpsapi/ns-dhcpsapi-scope_mib_info_v5
  * @namespace Windows.Win32.NetworkManagement.Dhcp
- * @version v4.0.30319
  */
-class SCOPE_MIB_INFO_V5 extends Win32Struct
-{
+class SCOPE_MIB_INFO_V5 extends Win32Struct {
     static sizeof => 16
 
     static packingSize => 4

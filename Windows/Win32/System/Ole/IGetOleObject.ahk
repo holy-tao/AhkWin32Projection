@@ -7,9 +7,8 @@
  * Gets access to an OLE control on a Visual Basic container.
  * @see https://learn.microsoft.com/windows/win32/api/vbinterf/nn-vbinterf-igetoleobject
  * @namespace Windows.Win32.System.Ole
- * @version v4.0.30319
  */
-class IGetOleObject extends IUnknown{
+class IGetOleObject extends IUnknown {
 
     static sizeof => A_PtrSize
     /**

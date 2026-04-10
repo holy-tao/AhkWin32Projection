@@ -5,9 +5,8 @@
  * Specifies a range of tile mappings to use with ID3D11DeviceContext2::UpdateTiles.
  * @see https://learn.microsoft.com/windows/win32/api/d3d11_2/ne-d3d11_2-d3d11_tile_range_flag
  * @namespace Windows.Win32.Graphics.Direct3D11
- * @version v4.0.30319
  */
-class D3D11_TILE_RANGE_FLAG extends Win32Enum{
+class D3D11_TILE_RANGE_FLAG extends Win32Enum {
 
     /**
      * The tile range is <b>NULL</b>.

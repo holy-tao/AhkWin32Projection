@@ -5,10 +5,8 @@
  * Used generically to filter elements.
  * @see https://learn.microsoft.com/windows/win32/api/shtypes/ns-shtypes-comdlg_filterspec
  * @namespace Windows.Win32.UI.Shell.Common
- * @version v4.0.30319
  */
-class COMDLG_FILTERSPEC extends Win32Struct
-{
+class COMDLG_FILTERSPEC extends Win32Struct {
     static sizeof => 16
 
     static packingSize => 8

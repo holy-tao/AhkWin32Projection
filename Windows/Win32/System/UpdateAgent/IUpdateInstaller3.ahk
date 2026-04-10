@@ -7,9 +7,8 @@
  * Installs or uninstalls updates on a computer. (IUpdateInstaller3)
  * @see https://learn.microsoft.com/windows/win32/api/wuapi/nn-wuapi-iupdateinstaller3
  * @namespace Windows.Win32.System.UpdateAgent
- * @version v4.0.30319
  */
-class IUpdateInstaller3 extends IUpdateInstaller2{
+class IUpdateInstaller3 extends IUpdateInstaller2 {
 
     static sizeof => A_PtrSize
     /**

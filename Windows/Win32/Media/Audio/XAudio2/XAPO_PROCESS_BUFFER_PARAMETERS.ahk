@@ -1,5 +1,6 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\..\Win32Struct.ahk
+#Include .\XAPO_BUFFER_FLAGS.ahk
 
 /**
  * Defines stream buffer parameters that may change from one call to the next. Used with the Process method.
@@ -14,10 +15,8 @@
  * Windows 10 (XAudio2.9); Windows 8, Windows Phone 8 (XAudio 2.8); DirectX SDK (XAudio 2.7)
  * @see https://learn.microsoft.com/windows/win32/api/xapo/ns-xapo-xapo_process_buffer_parameters
  * @namespace Windows.Win32.Media.Audio.XAudio2
- * @version v4.0.30319
  */
-class XAPO_PROCESS_BUFFER_PARAMETERS extends Win32Struct
-{
+class XAPO_PROCESS_BUFFER_PARAMETERS extends Win32Struct {
     static sizeof => 16
 
     static packingSize => 8
@@ -33,7 +32,7 @@ class XAPO_PROCESS_BUFFER_PARAMETERS extends Win32Struct
 
     /**
      * An <a href="https://docs.microsoft.com/windows/desktop/api/xapo/ne-xapo-xapo_buffer_flags">XAPO_BUFFER_FLAGS</a> enumeration describing the contents of the stream buffer.
-     * @type {Integer}
+     * @type {XAPO_BUFFER_FLAGS}
      */
     BufferFlags {
         get => NumGet(this, 8, "int")

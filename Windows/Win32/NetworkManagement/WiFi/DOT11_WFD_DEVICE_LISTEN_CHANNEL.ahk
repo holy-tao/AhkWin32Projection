@@ -4,10 +4,8 @@
 
 /**
  * @namespace Windows.Win32.NetworkManagement.WiFi
- * @version v4.0.30319
  */
-class DOT11_WFD_DEVICE_LISTEN_CHANNEL extends Win32Struct
-{
+class DOT11_WFD_DEVICE_LISTEN_CHANNEL extends Win32Struct {
     static sizeof => 6
 
     static packingSize => 2
@@ -15,7 +13,7 @@ class DOT11_WFD_DEVICE_LISTEN_CHANNEL extends Win32Struct
     /**
      * @type {NDIS_OBJECT_HEADER}
      */
-    Header{
+    Header {
         get {
             if(!this.HasProp("__Header"))
                 this.__Header := NDIS_OBJECT_HEADER(0, this)

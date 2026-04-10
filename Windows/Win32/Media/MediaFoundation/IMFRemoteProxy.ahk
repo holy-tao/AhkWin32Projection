@@ -7,9 +7,8 @@
  * Exposed by objects that act as a proxy for a remote object.
  * @see https://learn.microsoft.com/windows/win32/api/mfidl/nn-mfidl-imfremoteproxy
  * @namespace Windows.Win32.Media.MediaFoundation
- * @version v4.0.30319
  */
-class IMFRemoteProxy extends IUnknown{
+class IMFRemoteProxy extends IUnknown {
 
     static sizeof => A_PtrSize
     /**

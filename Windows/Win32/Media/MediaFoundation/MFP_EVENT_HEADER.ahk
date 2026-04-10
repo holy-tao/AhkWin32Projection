@@ -1,21 +1,23 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
+#Include .\MFP_EVENT_TYPE.ahk
+#Include .\IMFPMediaPlayer.ahk
+#Include .\MFP_MEDIAPLAYER_STATE.ahk
+#Include ..\..\UI\Shell\PropertiesSystem\IPropertyStore.ahk
 
 /**
  * Contains information that is common to every type of MFPlay event.
  * @see https://learn.microsoft.com/windows/win32/api/mfplay/ns-mfplay-mfp_event_header
  * @namespace Windows.Win32.Media.MediaFoundation
- * @version v4.0.30319
  */
-class MFP_EVENT_HEADER extends Win32Struct
-{
+class MFP_EVENT_HEADER extends Win32Struct {
     static sizeof => 32
 
     static packingSize => 8
 
     /**
      * The type of event, specified as a member of the <a href="https://docs.microsoft.com/windows/desktop/api/mfplay/ne-mfplay-mfp_event_type">MFP_EVENT_TYPE</a> enumeration.
-     * @type {Integer}
+     * @type {MFP_EVENT_TYPE}
      */
     eEventType {
         get => NumGet(this, 0, "int")
@@ -42,7 +44,7 @@ class MFP_EVENT_HEADER extends Win32Struct
 
     /**
      * The new state of the MFPlay player object, specified as a member of the <a href="https://docs.microsoft.com/windows/desktop/api/mfplay/ne-mfplay-mfp_mediaplayer_state">MFP_MEDIAPLAYER_STATE</a> enumeration.
-     * @type {Integer}
+     * @type {MFP_MEDIAPLAYER_STATE}
      */
     eState {
         get => NumGet(this, 16, "int")

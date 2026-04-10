@@ -14,10 +14,8 @@
  * the specified event IDs.
  * @see https://learn.microsoft.com/windows/win32/api/evntprov/ns-evntprov-event_filter_event_id
  * @namespace Windows.Win32.System.Diagnostics.Etw
- * @version v4.0.30319
  */
-class EVENT_FILTER_EVENT_ID extends Win32Struct
-{
+class EVENT_FILTER_EVENT_ID extends Win32Struct {
     static sizeof => 6
 
     static packingSize => 2
@@ -55,9 +53,9 @@ class EVENT_FILTER_EVENT_ID extends Win32Struct
 
     /**
      * An array of event IDs.
-     * @type {Array<UInt16>}
+     * @type {Array<Integer>}
      */
-    Events{
+    Events {
         get {
             if(!this.HasProp("__EventsProxyArray"))
                 this.__EventsProxyArray := Win32FixedArray(this.ptr + 4, 1, Primitive, "ushort")

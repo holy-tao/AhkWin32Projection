@@ -5,10 +5,8 @@
  * The DIEFFESCAPE structure passes hardware-specific data directly to the device driver.
  * @see https://learn.microsoft.com/windows/win32/api/dinput/ns-dinput-dieffescape
  * @namespace Windows.Win32.Devices.HumanInterfaceDevice
- * @version v4.0.30319
  */
-class DIEFFESCAPE extends Win32Struct
-{
+class DIEFFESCAPE extends Win32Struct {
     static sizeof => 40
 
     static packingSize => 8

@@ -7,9 +7,8 @@
  * Submits batch work through the activity created by the MTSCreateActivity function.
  * @see https://learn.microsoft.com/windows/win32/api/comsvcs/nn-comsvcs-imtsactivity
  * @namespace Windows.Win32.System.ComponentServices
- * @version v4.0.30319
  */
-class IMTSActivity extends IUnknown{
+class IMTSActivity extends IUnknown {
 
     static sizeof => A_PtrSize
     /**

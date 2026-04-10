@@ -3,9 +3,8 @@
 
 /**
  * @namespace Windows.Win32.System.Power
- * @version v4.0.30319
  */
-class BATTERY_SET_INFORMATION_LEVEL extends Win32Enum{
+class BATTERY_SET_INFORMATION_LEVEL extends Win32Enum {
 
     /**
      * @type {Integer (Int32)}

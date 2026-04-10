@@ -9,9 +9,8 @@
  * The ASF splitter accepts ASF packets and extracts the samples for individual streams from them. As with the other ASF base components, the ASF splitter object must be initialized with data from an ASF ContentInfo object before use.
  * @see https://learn.microsoft.com/windows/win32/api/wmcontainer/nn-wmcontainer-imfasfsplitter
  * @namespace Windows.Win32.Media.MediaFoundation
- * @version v4.0.30319
  */
-class IMFASFSplitter extends IUnknown{
+class IMFASFSplitter extends IUnknown {
 
     static sizeof => A_PtrSize
     /**
@@ -346,7 +345,7 @@ class IMFASFSplitter extends IUnknown{
      * Before calling this method, call <a href="https://docs.microsoft.com/windows/desktop/api/wmcontainer/nf-wmcontainer-imfasfsplitter-parsedata">IMFASFSplitter::ParseData</a> to give input data to the splitter. If the input does not contain enough data for a complete sample, the <b>GetNextSample</b> method succeeds but returns <b>NULL</b> in the <i>ppISample</i> parameter.
      * 
      * The ASF splitter skips samples for unselected streams. To select streams, call <a href="https://docs.microsoft.com/windows/desktop/api/wmcontainer/nf-wmcontainer-imfasfsplitter-selectstreams">IMFASFSplitter::SelectStreams</a>.
-     * @param {Pointer<Integer>} pdwStatusFlags 
+     * @param {Pointer<ASF_STATUSFLAGS>} pdwStatusFlags 
      * @param {Pointer<Integer>} pwStreamNumber If the method returns a sample in the <i>ppISample</i> parameter, this parameter receives the number of the stream to which the sample belongs.
      * @param {Pointer<IMFSample>} ppISample Receives a pointer to the <a href="https://docs.microsoft.com/windows/desktop/api/mfobjects/nn-mfobjects-imfsample">IMFSample</a> interface of the parsed sample. The caller must release the interface. If no samples are ready, this parameter receives the value <b>NULL</b>.
      * @returns {HRESULT} The method returns an <b>HRESULT</b>. Possible values include, but are not limited to, those in the following table.

@@ -1,9 +1,9 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
+#Include ..\..\System\Com\IUnknown.ahk
 #Include .\IMbnSmsConfiguration.ahk
 #Include .\MBN_SMS_STATUS_INFO.ahk
-#Include ..\..\System\Com\IUnknown.ahk
 
 /**
  * SMS interface for sending and receiving messages as well as controlling the messaging configuration.
@@ -11,9 +11,8 @@
  * The calling application can acquire this interface by calling the <a href="https://docs.microsoft.com/windows/desktop/api/unknwn/nf-unknwn-iunknown-queryinterface(q)">QueryInterface</a> method of <a href="https://docs.microsoft.com/windows/desktop/api/mbnapi/nn-mbnapi-imbninterface">IMbnInterface</a>
  * @see https://learn.microsoft.com/windows/win32/api/mbnapi/nn-mbnapi-imbnsms
  * @namespace Windows.Win32.NetworkManagement.MobileBroadband
- * @version v4.0.30319
  */
-class IMbnSms extends IUnknown{
+class IMbnSms extends IUnknown {
 
     static sizeof => A_PtrSize
     /**
@@ -107,7 +106,7 @@ class IMbnSms extends IUnknown{
      * 
      * This is an asynchronous operation that will return immediately. If the method returns without error,  then the Mobile Broadband service will call the <a href="https://docs.microsoft.com/windows/desktop/api/mbnapi/nf-mbnapi-imbnsmsevents-onsmssendcomplete">OnSmsSendComplete</a> method of the  <a href="https://docs.microsoft.com/windows/desktop/api/mbnapi/nn-mbnapi-imbnsmsevents">IMbnSmsEvents</a> interface.
      * @param {PWSTR} pduData A string representing the PDU message in hexadecimal format.
-     * @param {Integer} _size 
+     * @param {Integer} _size The size of PDU message in number of bytes before converting to hexadecimal string format and excluding the service center address length.
      * @returns {Integer} A pointer to a request ID issued by the Mobile Broadband service to identify this request.
      * @see https://learn.microsoft.com/windows/win32/api/mbnapi/nf-mbnapi-imbnsms-smssendpdu
      */
@@ -133,9 +132,9 @@ class IMbnSms extends IUnknown{
      * 
      * 
      * This is an asynchronous operation that will return immediately. If the method returns without error,  then the Mobile Broadband service will call the <a href="https://docs.microsoft.com/windows/desktop/api/mbnapi/nf-mbnapi-imbnsmsevents-onsmssendcomplete">OnSmsSendComplete</a> method of the  <a href="https://docs.microsoft.com/windows/desktop/api/mbnapi/nn-mbnapi-imbnsmsevents">IMbnSmsEvents</a> interface.
-     * @param {PWSTR} _address 
-     * @param {Integer} encoding A <a href="https://docs.microsoft.com/windows/desktop/api/mbnapi/ne-mbnapi-mbn_sms_cdma_encoding">MBN_SMS_CDMA_ENCODING</a> value that specifies the data encoding.
-     * @param {Integer} language An <a href="https://docs.microsoft.com/windows/desktop/api/mbnapi/ne-mbnapi-mbn_sms_cdma_lang">MBN_SMS_CDMA_LANG</a> value that specifies the language.
+     * @param {PWSTR} _address A null terminated string that contains the receiver's phone number.  The maximum size of the string is 15 digits.
+     * @param {MBN_SMS_CDMA_ENCODING} encoding A <a href="https://docs.microsoft.com/windows/desktop/api/mbnapi/ne-mbnapi-mbn_sms_cdma_encoding">MBN_SMS_CDMA_ENCODING</a> value that specifies the data encoding.
+     * @param {MBN_SMS_CDMA_LANG} language An <a href="https://docs.microsoft.com/windows/desktop/api/mbnapi/ne-mbnapi-mbn_sms_cdma_lang">MBN_SMS_CDMA_LANG</a> value that specifies the language.
      * @param {Integer} sizeInCharacters The number of encoded characters in the message. This can be different from the size of the message array.
      * @param {Pointer<SAFEARRAY>} message An array of bytes containing the encoded CDMA message.  
      * 
@@ -178,7 +177,7 @@ class IMbnSms extends IUnknown{
      * 
      * This is an asynchronous operation that will return immediately. If the method returns without error,  then the Mobile Broadband service will call the <a href="https://docs.microsoft.com/windows/desktop/api/mbnapi/nf-mbnapi-imbnsmsevents-onsmsreadcomplete">OnSmsReadComplete</a> method of the  <a href="https://docs.microsoft.com/windows/desktop/api/mbnapi/nn-mbnapi-imbnsmsevents">IMbnSmsEvents</a> interface.
      * @param {Pointer<MBN_SMS_FILTER>} smsFilter A pointer to a <a href="https://docs.microsoft.com/windows/desktop/api/mbnapi/ns-mbnapi-mbn_sms_filter">MBN_SMS_FILTER</a> structure that defines the set of messages to read.
-     * @param {Integer} smsFormat An <a href="https://docs.microsoft.com/windows/desktop/api/mbnapi/ne-mbnapi-mbn_sms_format">MBN_SMS_FORMAT</a> value that specifies the format in which an SMS message should be read.  
+     * @param {MBN_SMS_FORMAT} smsFormat An <a href="https://docs.microsoft.com/windows/desktop/api/mbnapi/ne-mbnapi-mbn_sms_format">MBN_SMS_FORMAT</a> value that specifies the format in which an SMS message should be read.  
      * 
      * For GSM devices, it should always be <b>MBN_SMS_FORMAT_PDU</b>.
      * 

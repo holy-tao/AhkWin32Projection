@@ -1,17 +1,15 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
-#Include .\IMFMediaType.ahk
-#Include .\IMFSensorStream.ahk
 #Include .\IMFAttributes.ahk
+#Include .\IMFMediaType.ahk
 
 /**
  * . (IMFSensorStream)
  * @see https://learn.microsoft.com/windows/win32/api/mfidl/nn-mfidl-imfsensorstream
  * @namespace Windows.Win32.Media.MediaFoundation
- * @version v4.0.30319
  */
-class IMFSensorStream extends IMFAttributes{
+class IMFSensorStream extends IMFAttributes {
 
     static sizeof => A_PtrSize
     /**

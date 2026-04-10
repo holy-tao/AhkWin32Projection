@@ -3,10 +3,8 @@
 
 /**
  * @namespace Windows.Win32.Storage.Nvme
- * @version v4.0.30319
  */
-class LATENCY_STAMP extends Win32Struct
-{
+class LATENCY_STAMP extends Win32Struct {
     static sizeof => 96
 
     static packingSize => 8

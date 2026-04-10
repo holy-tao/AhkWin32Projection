@@ -8,9 +8,8 @@
  * This class is only used by the [**StgConvertPropertyToVariant**](/windows/desktop/api/propidl/nf-propidl-stgconvertpropertytovariant) function.
  * @see https://learn.microsoft.com/windows/win32/Stg/imemoryallocator
  * @namespace Windows.Win32.System.Com.StructuredStorage
- * @version v4.0.30319
  */
-class IMemoryAllocator extends Win32ComInterface{
+class IMemoryAllocator extends Win32ComInterface {
 
     static sizeof => A_PtrSize
 

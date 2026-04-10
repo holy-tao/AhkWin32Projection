@@ -7,9 +7,8 @@
  * The IImePad interface inserts text into apps from IMEPadApplets that implement the IImePadApplet interface.
  * @see https://learn.microsoft.com/windows/win32/api/imepad/nn-imepad-iimepad
  * @namespace Windows.Win32.UI.Input.Ime
- * @version v4.0.30319
  */
-class IImePad extends IUnknown{
+class IImePad extends IUnknown {
 
     static sizeof => A_PtrSize
     /**
@@ -193,8 +192,8 @@ class IImePad extends IUnknown{
      * </table>
      * @param {IImePadApplet} pIImePadApplet The interface pointer of the calling applet.
      * @param {Integer} reqId 
-     * @param {WPARAM} _wParam 
-     * @param {LPARAM} _lParam 
+     * @param {WPARAM} _wParam Additional information specific to <i>reqId</i>.
+     * @param {LPARAM} _lParam Additional information specific to <i>reqId</i>.
      * @returns {HRESULT} <b>S_OK</b> if successful, otherwise <b>E_FAIL</b>.
      * @see https://learn.microsoft.com/windows/win32/api/imepad/nf-imepad-iimepad-request
      */

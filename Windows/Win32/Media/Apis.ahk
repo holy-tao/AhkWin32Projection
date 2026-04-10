@@ -3,7 +3,6 @@
 
 /**
  * @namespace Windows.Win32.Media
- * @version v4.0.30319
  */
 class Media {
 
@@ -520,7 +519,7 @@ class Media {
      * The timeGetSystemTime function retrieves the system time, in milliseconds.
      * @remarks
      * The system time is returned in the <b>ms</b> member of the <a href="https://docs.microsoft.com/previous-versions/dd757347(v=vs.85)">MMTIME</a> structure.
-     * @param {Pointer} pmmt Pointer to an <a href="https://docs.microsoft.com/previous-versions/dd757347(v=vs.85)">MMTIME</a> structure.
+     * @param {Integer} pmmt Pointer to an <a href="https://docs.microsoft.com/previous-versions/dd757347(v=vs.85)">MMTIME</a> structure.
      * @param {Integer} cbmmt Size, in bytes, of the <a href="https://docs.microsoft.com/previous-versions/dd757347(v=vs.85)">MMTIME</a> structure.
      * @returns {Integer} If successful, returns <b>TIMERR_NOERROR</b>. Otherwise, returns an error code.
      * @see https://learn.microsoft.com/windows/win32/api/timeapi/nf-timeapi-timegetsystemtime
@@ -550,7 +549,7 @@ class Media {
 
     /**
      * The timeGetDevCaps function queries the timer device to determine its resolution.
-     * @param {Pointer} ptc A pointer to a <a href="https://docs.microsoft.com/windows/desktop/api/timeapi/ns-timeapi-timecaps">TIMECAPS</a> structure. This structure is filled with information about the resolution of the timer device.
+     * @param {Integer} ptc A pointer to a <a href="https://docs.microsoft.com/windows/desktop/api/timeapi/ns-timeapi-timecaps">TIMECAPS</a> structure. This structure is filled with information about the resolution of the timer device.
      * @param {Integer} cbtc The size, in bytes, of the <a href="https://docs.microsoft.com/windows/desktop/api/timeapi/ns-timeapi-timecaps">TIMECAPS</a> structure.
      * @returns {Integer} Returns <b>MMSYSERR_NOERROR</b> if successful or an error code otherwise. Possible error codes include the following.
      * 

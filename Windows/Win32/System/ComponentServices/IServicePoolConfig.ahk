@@ -1,16 +1,15 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
-#Include ..\Com\IClassFactory.ahk
 #Include ..\Com\IUnknown.ahk
+#Include ..\Com\IClassFactory.ahk
 
 /**
  * Used to configure an object pool.
  * @see https://learn.microsoft.com/windows/win32/api/comsvcs/nn-comsvcs-iservicepoolconfig
  * @namespace Windows.Win32.System.ComponentServices
- * @version v4.0.30319
  */
-class IServicePoolConfig extends IUnknown{
+class IServicePoolConfig extends IUnknown {
 
     static sizeof => A_PtrSize
     /**
@@ -38,6 +37,7 @@ class IServicePoolConfig extends IUnknown{
     static VTableNames => ["put_MaxPoolSize", "get_MaxPoolSize", "put_MinPoolSize", "get_MinPoolSize", "put_CreationTimeout", "get_CreationTimeout", "put_TransactionAffinity", "get_TransactionAffinity", "put_ClassFactory", "get_ClassFactory"]
 
     /**
+     * @type {Integer} 
      */
     MaxPoolSize {
         get => this.get_MaxPoolSize()
@@ -45,6 +45,7 @@ class IServicePoolConfig extends IUnknown{
     }
 
     /**
+     * @type {Integer} 
      */
     MinPoolSize {
         get => this.get_MinPoolSize()
@@ -52,6 +53,7 @@ class IServicePoolConfig extends IUnknown{
     }
 
     /**
+     * @type {Integer} 
      */
     CreationTimeout {
         get => this.get_CreationTimeout()
@@ -59,6 +61,7 @@ class IServicePoolConfig extends IUnknown{
     }
 
     /**
+     * @type {BOOL} 
      */
     TransactionAffinity {
         get => this.get_TransactionAffinity()

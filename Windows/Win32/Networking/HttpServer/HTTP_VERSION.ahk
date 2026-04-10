@@ -16,10 +16,8 @@
  * <div> </div>
  * @see https://learn.microsoft.com/windows/win32/api/http/ns-http-http_version
  * @namespace Windows.Win32.Networking.HttpServer
- * @version v4.0.30319
  */
-class HTTP_VERSION extends Win32Struct
-{
+class HTTP_VERSION extends Win32Struct {
     static sizeof => 4
 
     static packingSize => 2

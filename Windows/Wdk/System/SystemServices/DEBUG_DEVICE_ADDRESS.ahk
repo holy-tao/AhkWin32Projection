@@ -3,10 +3,8 @@
 
 /**
  * @namespace Windows.Wdk.System.SystemServices
- * @version v4.0.30319
  */
-class DEBUG_DEVICE_ADDRESS extends Win32Struct
-{
+class DEBUG_DEVICE_ADDRESS extends Win32Struct {
     static sizeof => 24
 
     static packingSize => 8
@@ -28,9 +26,9 @@ class DEBUG_DEVICE_ADDRESS extends Win32Struct
     }
 
     /**
-     * @type {Array<Byte>}
+     * @type {Array<Integer>}
      */
-    Reserved{
+    Reserved {
         get {
             if(!this.HasProp("__ReservedProxyArray"))
                 this.__ReservedProxyArray := Win32FixedArray(this.ptr + 2, 2, Primitive, "char")

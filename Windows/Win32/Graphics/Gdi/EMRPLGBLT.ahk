@@ -1,6 +1,7 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
 #Include .\EMR.ahk
+#Include .\ENHANCED_METAFILE_RECORD_TYPE.ahk
 #Include ..\..\Foundation\RECTL.ahk
 #Include ..\..\Foundation\POINTL.ahk
 #Include .\XFORM.ahk
@@ -9,19 +10,17 @@
  * The EMRPLGBLT structure contains members for the PlgBlt enhanced metafile record. Note that graphics device interface (GDI) converts the device-dependent bitmap into a device-independent bitmap (DIB) before storing it in the metafile record.
  * @see https://learn.microsoft.com/windows/win32/api/wingdi/ns-wingdi-emrplgblt
  * @namespace Windows.Win32.Graphics.Gdi
- * @version v4.0.30319
  */
-class EMRPLGBLT extends Win32Struct
-{
-    static sizeof => 144
+class EMRPLGBLT extends Win32Struct {
+    static sizeof => 140
 
-    static packingSize => 8
+    static packingSize => 4
 
     /**
      * The base structure for all record types.
      * @type {EMR}
      */
-    emr{
+    emr {
         get {
             if(!this.HasProp("__emr"))
                 this.__emr := EMR(0, this)
@@ -33,7 +32,7 @@ class EMRPLGBLT extends Win32Struct
      * Bounding rectangle, in device units.
      * @type {RECTL}
      */
-    rclBounds{
+    rclBounds {
         get {
             if(!this.HasProp("__rclBounds"))
                 this.__rclBounds := RECTL(8, this)
@@ -43,9 +42,9 @@ class EMRPLGBLT extends Win32Struct
 
     /**
      * Array of three points in logical space that identify three corners of the destination parallelogram. The upper-left corner of the source rectangle is mapped to the first point in this array, the upper-right corner to the second point in this array, and the lower-left corner to the third point. The lower-right corner of the source rectangle is mapped to the implicit fourth point in the parallelogram.
-     * @type {Array<POINTL>}
+     * @type {POINTL}
      */
-    aptlDest{
+    aptlDest {
         get {
             if(!this.HasProp("__aptlDestProxyArray"))
                 this.__aptlDestProxyArray := Win32FixedArray(this.ptr + 24, 3, POINTL, "")
@@ -93,7 +92,7 @@ class EMRPLGBLT extends Win32Struct
      * World-space to page-space transformation of the source device context.
      * @type {XFORM}
      */
-    xformSrc{
+    xformSrc {
         get {
             if(!this.HasProp("__xformSrc"))
                 this.__xformSrc := XFORM(64, this)

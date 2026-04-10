@@ -5,9 +5,8 @@
  * Describes the type of break that separates the current word from the previous word.
  * @see https://learn.microsoft.com/windows/win32/api/indexsrv/ne-indexsrv-wordrep_break_type
  * @namespace Windows.Win32.Storage.IndexServer
- * @version v4.0.30319
  */
-class WORDREP_BREAK_TYPE extends Win32Enum{
+class WORDREP_BREAK_TYPE extends Win32Enum {
 
     /**
      * A word break is placed between this word and the previous word that was placed in the <b>WordSink</b>. This break is the default used by the <a href="https://docs.microsoft.com/windows/desktop/search/iwordsink-putword">PutWord</a> method.

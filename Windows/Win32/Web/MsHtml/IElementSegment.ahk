@@ -1,14 +1,13 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
-#Include .\IHTMLElement.ahk
 #Include .\ISegment.ahk
+#Include .\IHTMLElement.ahk
 
 /**
  * @namespace Windows.Win32.Web.MsHtml
- * @version v4.0.30319
  */
-class IElementSegment extends ISegment{
+class IElementSegment extends ISegment {
 
     static sizeof => A_PtrSize
     /**

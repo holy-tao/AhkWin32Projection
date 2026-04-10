@@ -1,18 +1,17 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
+#Include ..\..\System\Com\IUnknown.ahk
 #Include .\VDS_ISCSI_INITIATOR_ADAPTER_PROP.ahk
 #Include .\IEnumVdsObject.ahk
 #Include .\IVdsAsync.ahk
-#Include ..\..\System\Com\IUnknown.ahk
 
 /**
  * Provides methods to query and interact with iSCSI initiator adapters on the local system.
  * @see https://learn.microsoft.com/windows/win32/api/vds/nn-vds-ivdsiscsiinitiatoradapter
  * @namespace Windows.Win32.Storage.VirtualDiskService
- * @version v4.0.30319
  */
-class IVdsIscsiInitiatorAdapter extends IUnknown{
+class IVdsIscsiInitiatorAdapter extends IUnknown {
 
     static sizeof => A_PtrSize
     /**
@@ -60,7 +59,7 @@ class IVdsIscsiInitiatorAdapter extends IUnknown{
 
     /**
      * Performs a manual login to an iSCSI target.
-     * @param {Integer} loginType The type of login that will be performed, enumerated by 
+     * @param {VDS_ISCSI_LOGIN_TYPE} loginType The type of login that will be performed, enumerated by 
      *       <a href="https://docs.microsoft.com/windows/desktop/api/vdshwprv/ne-vdshwprv-vds_iscsi_login_type">VDS_ISCSI_LOGIN_TYPE</a>.
      * @param {Guid} targetId The <b>VDS_OBJECT_ID</b> of the target to login to. <b>GUID_NULL</b> 
      *       indicates that the initiator is to select the portal.
@@ -72,7 +71,7 @@ class IVdsIscsiInitiatorAdapter extends IUnknown{
      *       specifying login options.
      * @param {BOOL} bHeaderDigest If <b>TRUE</b>, the initiator should enable header digest when logging into the target portal.
      * @param {BOOL} bDataDigest If <b>TRUE</b>, the initiator should enable data digest when logging into the target portal.
-     * @param {Integer} authType The type of authentication required to log into the target, enumerated by 
+     * @param {VDS_ISCSI_AUTH_TYPE} authType The type of authentication required to log into the target, enumerated by 
      *       <a href="https://docs.microsoft.com/windows/desktop/api/vdshwprv/ne-vdshwprv-vds_iscsi_auth_type">VDS_ISCSI_AUTH_TYPE</a>.
      * @returns {IVdsAsync} The address of an <a href="https://docs.microsoft.com/windows/desktop/api/vdshwprv/nn-vdshwprv-ivdsasync">IVdsAsync</a> interface pointer. VDS 
      *       initializes the interface on return. Callers must release the interface. Use this interface to cancel, wait 

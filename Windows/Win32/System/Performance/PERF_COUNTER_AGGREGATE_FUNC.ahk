@@ -3,9 +3,8 @@
 
 /**
  * @namespace Windows.Win32.System.Performance
- * @version v4.0.30319
  */
-class PERF_COUNTER_AGGREGATE_FUNC extends Win32Enum{
+class PERF_COUNTER_AGGREGATE_FUNC extends Win32Enum {
 
     /**
      * @type {Integer (UInt32)}

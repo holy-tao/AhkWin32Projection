@@ -7,9 +7,8 @@
  * The <b>APPX_CAPABILITIES</b> enumeration specifies privileges that a package declares in the package manifest. If a capability is not explicitly declared, then the default is no access to that capability. If a capability is declared then  a package may still not have the particular capability for reasons such as the capability does not exist on the system or there are other security policies in place that limit the capability.
  * @see https://learn.microsoft.com/windows/win32/api/appxpackaging/ne-appxpackaging-appx_capabilities
  * @namespace Windows.Win32.Storage.Packaging.Appx
- * @version v4.0.30319
  */
-class APPX_CAPABILITIES extends Win32BitflagEnum{
+class APPX_CAPABILITIES extends Win32BitflagEnum {
 
     /**
      * Your Internet connection for outgoing connections to the Internet.
@@ -72,13 +71,11 @@ class APPX_CAPABILITIES extends Win32BitflagEnum{
     static APPX_CAPABILITY_REMOVABLE_STORAGE => 512
 
     /**
-     * 
      * @type {Integer (Int32)}
      */
     static APPX_CAPABILITY_APPOINTMENTS => 1024
 
     /**
-     * 
      * @type {Integer (Int32)}
      */
     static APPX_CAPABILITY_CONTACTS => 2048

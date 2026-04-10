@@ -7,9 +7,8 @@
  * You can combine these flags, but you can only choose one flag from each group of related flags. Typically one flag from each of the access and sharing groups must be specified for all functions and methods which use these constants. Flags from other groups are optional.
  * @see https://learn.microsoft.com/windows/win32/Stg/stgm-constants
  * @namespace Windows.Win32.System.Com
- * @version v4.0.30319
  */
-class STGM extends Win32BitflagEnum{
+class STGM extends Win32BitflagEnum {
 
     /**
      * @type {Integer (UInt32)}

@@ -8,10 +8,8 @@
  * This structure is retrieved by a call to <a href="https://docs.microsoft.com/windows/desktop/api/contentpartner/nf-contentpartner-iwmpcontentpartner-getcommands">IWMPContentPartner::GetCommands</a>.
  * @see https://learn.microsoft.com/windows/win32/api/contentpartner/ns-contentpartner-wmpcontextmenuinfo
  * @namespace Windows.Win32.Media.MediaPlayer
- * @version v4.0.30319
  */
-class WMPContextMenuInfo extends Win32Struct
-{
+class WMPContextMenuInfo extends Win32Struct {
     static sizeof => 24
 
     static packingSize => 8
@@ -29,7 +27,7 @@ class WMPContextMenuInfo extends Win32Struct
      * The menu text to display for the command.
      * @type {BSTR}
      */
-    bstrMenuText{
+    bstrMenuText {
         get {
             if(!this.HasProp("__bstrMenuText"))
                 this.__bstrMenuText := BSTR(8, this)
@@ -41,7 +39,7 @@ class WMPContextMenuInfo extends Win32Struct
      * The help text to display for the command.
      * @type {BSTR}
      */
-    bstrHelpText{
+    bstrHelpText {
         get {
             if(!this.HasProp("__bstrHelpText"))
                 this.__bstrHelpText := BSTR(16, this)

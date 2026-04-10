@@ -11,9 +11,8 @@
  * The EVR media sink for Media Foundation does not support this interface. To add new streams to the EVR media sink, call <a href="https://docs.microsoft.com/windows/desktop/api/mfidl/nf-mfidl-imfmediasink-addstreamsink">IMFMediaSink::AddStreamSink</a>.
  * @see https://learn.microsoft.com/windows/win32/api/evr/nn-evr-ievrfilterconfig
  * @namespace Windows.Win32.Media.MediaFoundation
- * @version v4.0.30319
  */
-class IEVRFilterConfig extends IUnknown{
+class IEVRFilterConfig extends IUnknown {
 
     static sizeof => A_PtrSize
     /**

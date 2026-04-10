@@ -1,21 +1,21 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\..\Win32Struct.ahk
+#Include .\TOKENBINDING_TYPE.ahk
+#Include .\TOKENBINDING_IDENTIFIER.ahk
+#Include .\TOKENBINDING_EXTENSION_FORMAT.ahk
 
 /**
  * Contains data about the result of generating a token binding or verifying one of the token bindings in a token binding message.
  * @see https://learn.microsoft.com/windows/win32/api/tokenbinding/ns-tokenbinding-tokenbinding_result_data
  * @namespace Windows.Win32.Security.Authentication.Identity
- * @version v4.0.30319
  */
-class TOKENBINDING_RESULT_DATA extends Win32Struct
-{
+class TOKENBINDING_RESULT_DATA extends Win32Struct {
     static sizeof => 32
 
     static packingSize => 8
 
     /**
-     * 
-     * @type {Integer}
+     * @type {TOKENBINDING_TYPE}
      */
     bindingType {
         get => NumGet(this, 0, "int")
@@ -42,7 +42,7 @@ class TOKENBINDING_RESULT_DATA extends Win32Struct
 
     /**
      * The format to use to interpret the data in the <i>extensionData</i> parameter. This value must be <b>TOKENBINDING_EXTENSION_FORMAT_UNDEFINED</b>.
-     * @type {Integer}
+     * @type {TOKENBINDING_EXTENSION_FORMAT}
      */
     extensionFormat {
         get => NumGet(this, 16, "int")

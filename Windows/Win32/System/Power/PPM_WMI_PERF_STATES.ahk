@@ -4,11 +4,9 @@
 
 /**
  * @namespace Windows.Win32.System.Power
- * @version v4.0.30319
  */
-class PPM_WMI_PERF_STATES extends Win32Struct
-{
-    static sizeof => 88
+class PPM_WMI_PERF_STATES extends Win32Struct {
+    static sizeof => 144
 
     static packingSize => 8
 
@@ -173,9 +171,9 @@ class PPM_WMI_PERF_STATES extends Win32Struct
     }
 
     /**
-     * @type {Array<PPM_WMI_PERF_STATE>}
+     * @type {PPM_WMI_PERF_STATE}
      */
-    State{
+    State {
         get {
             if(!this.HasProp("__StateProxyArray"))
                 this.__StateProxyArray := Win32FixedArray(this.ptr + 80, 1, PPM_WMI_PERF_STATE, "")

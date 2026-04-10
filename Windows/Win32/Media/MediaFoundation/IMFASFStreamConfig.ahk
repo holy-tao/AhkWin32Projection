@@ -1,17 +1,16 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
-#Include .\IMFMediaType.ahk
-#Include .\IMFASFStreamConfig.ahk
 #Include .\IMFAttributes.ahk
+#Include ..\..\..\..\Guid.ahk
+#Include .\IMFMediaType.ahk
 
 /**
  * Configures the settings of a stream in an ASF file.
  * @see https://learn.microsoft.com/windows/win32/api/wmcontainer/nn-wmcontainer-imfasfstreamconfig
  * @namespace Windows.Win32.Media.MediaFoundation
- * @version v4.0.30319
  */
-class IMFASFStreamConfig extends IMFAttributes{
+class IMFASFStreamConfig extends IMFAttributes {
 
     static sizeof => A_PtrSize
     /**

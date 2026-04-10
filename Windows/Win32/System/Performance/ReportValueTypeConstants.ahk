@@ -5,9 +5,8 @@
  * Determines if the Histogram and Report views graph the last value sampled or a calculated value using values from the sampling period, such as the average or minimum value.
  * @see https://learn.microsoft.com/windows/win32/api/isysmon/ne-isysmon-reportvaluetypeconstants
  * @namespace Windows.Win32.System.Performance
- * @version v4.0.30319
  */
-class ReportValueTypeConstants extends Win32Enum{
+class ReportValueTypeConstants extends Win32Enum {
 
     /**
      * The value displayed depends on the source of the counter data. If the source of the counter data is from the current activity of the computer, <b>sysmonCurrentValue</b> is used. If the source of the counter data is a log file, <b>sysmonAverage</b> is used.

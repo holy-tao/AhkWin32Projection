@@ -5,9 +5,8 @@
  * Defines the values that specify what to render.
  * @see https://learn.microsoft.com/windows/win32/api/winevt/ne-winevt-evt_render_flags
  * @namespace Windows.Win32.System.EventLog
- * @version v4.0.30319
  */
-class EVT_RENDER_FLAGS extends Win32Enum{
+class EVT_RENDER_FLAGS extends Win32Enum {
 
     /**
      * Render the event properties specified in the rendering context.

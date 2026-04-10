@@ -5,9 +5,8 @@
 
 /**
  * @namespace Windows.Win32.Data.Xml.MsXml
- * @version v4.0.30319
  */
-class IXMLDOMComment extends IXMLDOMCharacterData{
+class IXMLDOMComment extends IXMLDOMCharacterData {
 
     static sizeof => A_PtrSize
     /**

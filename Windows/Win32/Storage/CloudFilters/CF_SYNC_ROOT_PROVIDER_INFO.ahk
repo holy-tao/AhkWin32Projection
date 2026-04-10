@@ -1,21 +1,20 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
+#Include .\CF_SYNC_PROVIDER_STATUS.ahk
 
 /**
  * Sync root provider information.
  * @see https://learn.microsoft.com/windows/win32/api/cfapi/ns-cfapi-cf_sync_root_provider_info
  * @namespace Windows.Win32.Storage.CloudFilters
- * @version v4.0.30319
  */
-class CF_SYNC_ROOT_PROVIDER_INFO extends Win32Struct
-{
+class CF_SYNC_ROOT_PROVIDER_INFO extends Win32Struct {
     static sizeof => 1028
 
     static packingSize => 4
 
     /**
      * Status of the sync root provider. See [CF_SYNC_PROVIDER_STATUS](ne-cfapi-cf_sync_provider_status.md) for possible values.
-     * @type {Integer}
+     * @type {CF_SYNC_PROVIDER_STATUS}
      */
     ProviderStatus {
         get => NumGet(this, 0, "uint")

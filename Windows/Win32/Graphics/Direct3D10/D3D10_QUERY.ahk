@@ -5,9 +5,8 @@
  * Query types. (D3D10_QUERY)
  * @see https://learn.microsoft.com/windows/win32/api/d3d10/ne-d3d10-d3d10_query
  * @namespace Windows.Win32.Graphics.Direct3D10
- * @version v4.0.30319
  */
-class D3D10_QUERY extends Win32Enum{
+class D3D10_QUERY extends Win32Enum {
 
     /**
      * Determines whether or not the GPU is finished processing commands. When the GPU is finished processing commands <a href="https://docs.microsoft.com/windows/desktop/api/d3d10/nf-d3d10-id3d10asynchronous-getdata">GetData</a> will return S_OK, and pData will point to a BOOL with a value of <b>TRUE</b>. When using this type of query, <a href="https://docs.microsoft.com/windows/desktop/api/d3d10/nf-d3d10-id3d10asynchronous-begin">Begin</a> is disabled.

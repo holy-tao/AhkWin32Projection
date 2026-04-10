@@ -1,16 +1,15 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
-#Include .\IEnumVdsObject.ahk
 #Include ..\..\System\Com\IUnknown.ahk
+#Include .\IEnumVdsObject.ahk
 
 /**
  * The IVdsLunIscsi interface (vdshwprv.h) provides methods for performing query and configuration operations on an iSCSI LUN.
  * @see https://learn.microsoft.com/windows/win32/api/vdshwprv/nn-vdshwprv-ivdsluniscsi
  * @namespace Windows.Win32.Storage.VirtualDiskService
- * @version v4.0.30319
  */
-class IVdsLunIscsi extends IUnknown{
+class IVdsLunIscsi extends IUnknown {
 
     static sizeof => A_PtrSize
     /**

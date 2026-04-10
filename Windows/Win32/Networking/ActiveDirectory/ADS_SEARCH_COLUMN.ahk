@@ -1,5 +1,7 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
+#Include .\ADSTYPE.ahk
+#Include .\ADSVALUE.ahk
 #Include ..\..\Foundation\HANDLE.ahk
 
 /**
@@ -10,10 +12,8 @@
  * For more information about  <b>ADS_SEARCH_COLUMN</b>, see  <a href="https://docs.microsoft.com/windows/desktop/api/iads/nf-iads-idirectorysearch-getcolumn">IDirectorySearch::GetColumn</a>.
  * @see https://learn.microsoft.com/windows/win32/api/iads/ns-iads-ads_search_column
  * @namespace Windows.Win32.Networking.ActiveDirectory
- * @version v4.0.30319
  */
-class ADS_SEARCH_COLUMN extends Win32Struct
-{
+class ADS_SEARCH_COLUMN extends Win32Struct {
     static sizeof => 40
 
     static packingSize => 8
@@ -29,7 +29,7 @@ class ADS_SEARCH_COLUMN extends Win32Struct
 
     /**
      * Value from the  <a href="https://docs.microsoft.com/windows/win32/api/iads/ne-iads-adstypeenum">ADSTYPEENUM</a> enumeration that indicates how the attribute values are interpreted.
-     * @type {Integer}
+     * @type {ADSTYPE}
      */
     dwADsType {
         get => NumGet(this, 8, "int")
@@ -58,7 +58,7 @@ class ADS_SEARCH_COLUMN extends Win32Struct
      * Reserved for internal use by providers.
      * @type {HANDLE}
      */
-    hReserved{
+    hReserved {
         get {
             if(!this.HasProp("__hReserved"))
                 this.__hReserved := HANDLE(32, this)

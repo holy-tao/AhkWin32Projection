@@ -1,9 +1,10 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
+#Include .\PEER_ADDRESS.ahk
+#Include ..\..\Networking\WinSock\SOCKADDR_IN6.ahk
+#Include ..\..\Networking\WinSock\ADDRESS_FAMILY.ahk
 #Include ..\..\Networking\WinSock\IN6_ADDR.ahk
 #Include ..\..\Networking\WinSock\SCOPE_ID.ahk
-#Include ..\..\Networking\WinSock\SOCKADDR_IN6.ahk
-#Include .\PEER_ADDRESS.ahk
 
 /**
  * The PEER_ENDPOINT structure contains the address and friendly name of a peer endpoint.
@@ -13,20 +14,18 @@
  * A peer watching a contact can query any of the endpoints associated with that contact for specific peer presence, application, or object updates.
  * @see https://learn.microsoft.com/windows/win32/api/p2p/ns-p2p-peer_endpoint
  * @namespace Windows.Win32.NetworkManagement.P2P
- * @version v4.0.30319
  */
-class PEER_ENDPOINT extends Win32Struct
-{
+class PEER_ENDPOINT extends Win32Struct {
     static sizeof => 40
 
     static packingSize => 8
 
     /**
      * <a href="https://docs.microsoft.com/windows/desktop/api/p2p/ns-p2p-peer_address">PEER_ADDRESS</a> structure that contains the IPv6 network address of the endpoint.
-     * @deprecated 
+     * @deprecated
      * @type {PEER_ADDRESS}
      */
-    address{
+    address {
         get {
             if(!this.HasProp("__address"))
                 this.__address := PEER_ADDRESS(0, this)

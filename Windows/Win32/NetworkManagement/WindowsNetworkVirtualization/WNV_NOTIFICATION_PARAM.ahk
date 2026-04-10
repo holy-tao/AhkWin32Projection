@@ -1,15 +1,14 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
 #Include .\WNV_OBJECT_HEADER.ahk
+#Include .\WNV_NOTIFICATION_TYPE.ahk
 
 /**
  * Specifies the version, notification type, and the buffer location in a WnvRequestNotification function call.
  * @see https://learn.microsoft.com/windows/win32/api/wnvapi/ns-wnvapi-wnv_notification_param
  * @namespace Windows.Win32.NetworkManagement.WindowsNetworkVirtualization
- * @version v4.0.30319
  */
-class WNV_NOTIFICATION_PARAM extends Win32Struct
-{
+class WNV_NOTIFICATION_PARAM extends Win32Struct {
     static sizeof => 24
 
     static packingSize => 8
@@ -20,7 +19,7 @@ class WNV_NOTIFICATION_PARAM extends Win32Struct
      * The version and buffer size for this structure.
      * @type {WNV_OBJECT_HEADER}
      */
-    Header{
+    Header {
         get {
             if(!this.HasProp("__Header"))
                 this.__Header := WNV_OBJECT_HEADER(0, this)
@@ -33,7 +32,7 @@ class WNV_NOTIFICATION_PARAM extends Win32Struct
      * 
      * A value of the <a href="https://docs.microsoft.com/windows/desktop/api/wnvapi/ne-wnvapi-wnv_notification_type">WNV_NOTIFICATION_TYPE</a> enumeration that specifies the type of notifications requested, such as policy mismatches, Internet Control Message Protocol
      * (ICMP) redirect message arrivals, and object changes.
-     * @type {Integer}
+     * @type {WNV_NOTIFICATION_TYPE}
      */
     NotificationType {
         get => NumGet(this, 8, "int")

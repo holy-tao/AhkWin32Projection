@@ -9,10 +9,8 @@
  * Clip status is not updated by [**DrawRectPatch**](/windows/desktop/api) and [**DrawTriPatch**](/windows/win32/api/d3d9helper/nf-d3d9helper-idirect3ddevice9-drawtripatch) because there is no software emulation for them.
  * @see https://learn.microsoft.com/windows/win32/direct3d9/d3dclipstatus9
  * @namespace Windows.Win32.Graphics.Direct3D9
- * @version v4.0.30319
  */
-class D3DCLIPSTATUS extends Win32Struct
-{
+class D3DCLIPSTATUS extends Win32Struct {
     static sizeof => 32
 
     static packingSize => 4

@@ -7,9 +7,8 @@
  * Provides a write-only object model for encrypted bundle packages. (IAppxEncryptedBundleWriter)
  * @see https://learn.microsoft.com/windows/win32/api/appxpackaging/nn-appxpackaging-iappxencryptedbundlewriter
  * @namespace Windows.Win32.Storage.Packaging.Appx
- * @version v4.0.30319
  */
-class IAppxEncryptedBundleWriter extends IUnknown{
+class IAppxEncryptedBundleWriter extends IUnknown {
 
     static sizeof => A_PtrSize
     /**

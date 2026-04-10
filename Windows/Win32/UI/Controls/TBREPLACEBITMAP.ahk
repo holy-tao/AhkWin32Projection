@@ -9,10 +9,8 @@
  * 				<b>nIDNew</b> holds a bitmap handle, rather than a resource ID, do not destroy the bitmap until it has been replaced with <a href="https://docs.microsoft.com/windows/desktop/Controls/tb-replacebitmap">TB_REPLACEBITMAP</a>, or the toolbar is destroyed.
  * @see https://learn.microsoft.com/windows/win32/api/commctrl/ns-commctrl-tbreplacebitmap
  * @namespace Windows.Win32.UI.Controls
- * @version v4.0.30319
  */
-class TBREPLACEBITMAP extends Win32Struct
-{
+class TBREPLACEBITMAP extends Win32Struct {
     static sizeof => 40
 
     static packingSize => 8
@@ -23,7 +21,7 @@ class TBREPLACEBITMAP extends Win32Struct
      * Module instance handle to the bitmap resource being replaced. Set this member to <b>NULL</b> to instead use a bitmap handle.
      * @type {HINSTANCE}
      */
-    hInstOld{
+    hInstOld {
         get {
             if(!this.HasProp("__hInstOld"))
                 this.__hInstOld := HINSTANCE(0, this)
@@ -49,7 +47,7 @@ class TBREPLACEBITMAP extends Win32Struct
      * Module instance handle that contains the new bitmap resource. Set this member to <b>NULL</b> to instead use a bitmap handle.
      * @type {HINSTANCE}
      */
-    hInstNew{
+    hInstNew {
         get {
             if(!this.HasProp("__hInstNew"))
                 this.__hInstNew := HINSTANCE(16, this)

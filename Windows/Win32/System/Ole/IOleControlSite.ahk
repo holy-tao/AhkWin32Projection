@@ -1,16 +1,15 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
-#Include ..\Com\IDispatch.ahk
 #Include ..\Com\IUnknown.ahk
+#Include ..\Com\IDispatch.ahk
 
 /**
  * Provides the methods that enable a site object to manage each embedded control within a container.
  * @see https://learn.microsoft.com/windows/win32/api/ocidl/nn-ocidl-iolecontrolsite
  * @namespace Windows.Win32.System.Ole
- * @version v4.0.30319
  */
-class IOleControlSite extends IUnknown{
+class IOleControlSite extends IUnknown {
 
     static sizeof => A_PtrSize
     /**
@@ -161,7 +160,7 @@ class IOleControlSite extends IUnknown{
      * @remarks
      * This method is called by a control that can be UI-active. In such cases, a control can process all keystrokes first through <a href="https://docs.microsoft.com/windows/desktop/api/oleidl/nf-oleidl-ioleinplaceactiveobject-translateaccelerator">IOleInPlaceActiveObject::TranslateAccelerator</a>, according to normal OLE Compound Document rules. Inside that method, the control can give the container certain messages to process first by calling <b>IOleControlSite::TranslateAccelerator</b> and using the return value to determine if any processing took place. Otherwise, the control always processes the message first. If the control does not use the keystroke as an accelerator, it passes the keystroke to the container through this method.
      * @param {Pointer<MSG>} pMsg A pointer to the <a href="https://docs.microsoft.com/windows/desktop/api/winuser/ns-winuser-msg">MSG</a> structure describing the keystroke to be processed.
-     * @param {Integer} grfModifiers Flags describing the state of the Control, Alt, and Shift keys. The value of the flag can be any valid <a href="https://docs.microsoft.com/previous-versions/windows/desktop/legacy/ms683763(v=vs.85)">KEYMODIFIERS</a> enumeration values.
+     * @param {KEYMODIFIERS} grfModifiers Flags describing the state of the Control, Alt, and Shift keys. The value of the flag can be any valid <a href="https://docs.microsoft.com/previous-versions/windows/desktop/legacy/ms683763(v=vs.85)">KEYMODIFIERS</a> enumeration values.
      * @returns {HRESULT} This method can return the following values.
      * 
      * <table>

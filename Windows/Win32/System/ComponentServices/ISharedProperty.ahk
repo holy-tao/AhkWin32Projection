@@ -1,16 +1,15 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
-#Include ..\Variant\VARIANT.ahk
 #Include ..\Com\IDispatch.ahk
+#Include ..\Variant\VARIANT.ahk
 
 /**
  * Exposes property methods that you can use to set or retrieve the value of a shared property.
  * @see https://learn.microsoft.com/windows/win32/api/comsvcs/nn-comsvcs-isharedproperty
  * @namespace Windows.Win32.System.ComponentServices
- * @version v4.0.30319
  */
-class ISharedProperty extends IDispatch{
+class ISharedProperty extends IDispatch {
 
     static sizeof => A_PtrSize
     /**
@@ -58,7 +57,7 @@ class ISharedProperty extends IDispatch{
 
     /**
      * Sets the value of a shared property.
-     * @param {VARIANT} _val 
+     * @param {VARIANT} _val The new value that is to be set for this shared property.
      * @returns {HRESULT} This method can return the standard return values E_INVALIDARG, E_OUTOFMEMORY, E_UNEXPECTED, and E_FAIL, as well as the following values.
      * 
      * <table>

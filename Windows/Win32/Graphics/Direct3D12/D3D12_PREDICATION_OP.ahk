@@ -11,9 +11,8 @@
  *           Predication can be set based on the value of 64-bits within a buffer.
  * @see https://learn.microsoft.com/windows/win32/api/d3d12/ne-d3d12-d3d12_predication_op
  * @namespace Windows.Win32.Graphics.Direct3D12
- * @version v4.0.30319
  */
-class D3D12_PREDICATION_OP extends Win32Enum{
+class D3D12_PREDICATION_OP extends Win32Enum {
 
     /**
      * Enables predication if all 64-bits are zero.

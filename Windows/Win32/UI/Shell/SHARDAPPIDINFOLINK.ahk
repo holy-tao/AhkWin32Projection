@@ -1,5 +1,6 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
+#Include .\IShellLinkA.ahk
 
 /**
  * Contains data used by SHAddToRecentDocs to identify both an item, in this case through an IShellLink, and the process that it is associated with.
@@ -18,10 +19,8 @@
  * Optionally, the description field (<a href="https://docs.microsoft.com/windows/desktop/api/shobjidl_core/nf-shobjidl_core-ishelllinka-setdescription">IShellLink::SetDescription</a>) can be set to provide a custom tooltip for the item in the Jump List.
  * @see https://learn.microsoft.com/windows/win32/api/shlobj_core/ns-shlobj_core-shardappidinfolink
  * @namespace Windows.Win32.UI.Shell
- * @version v4.0.30319
  */
-class SHARDAPPIDINFOLINK extends Win32Struct
-{
+class SHARDAPPIDINFOLINK extends Win32Struct {
     static sizeof => 16
 
     static packingSize => 8

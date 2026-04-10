@@ -1,5 +1,6 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
+#Include .\LIST_VIEW_BACKGROUND_IMAGE_FLAGS.ahk
 #Include ..\..\Graphics\Gdi\HBITMAP.ahk
 
 /**
@@ -14,11 +15,9 @@
  * > The commctrl.h header defines LVBKIMAGE as an alias which automatically selects the ANSI or Unicode version of this function based on the definition of the UNICODE preprocessor constant. Mixing usage of the encoding-neutral alias with code that not encoding-neutral can lead to mismatches that result in compilation or runtime errors. For more information, see [Conventions for Function Prototypes](/windows/win32/intl/conventions-for-function-prototypes).
  * @see https://learn.microsoft.com/windows/win32/api/commctrl/ns-commctrl-lvbkimagea
  * @namespace Windows.Win32.UI.Controls
- * @version v4.0.30319
  * @charset ANSI
  */
-class LVBKIMAGEA extends Win32Struct
-{
+class LVBKIMAGEA extends Win32Struct {
     static sizeof => 40
 
     static packingSize => 8
@@ -114,7 +113,7 @@ class LVBKIMAGEA extends Win32Struct
      * </td>
      * </tr>
      * </table>
-     * @type {Integer}
+     * @type {LIST_VIEW_BACKGROUND_IMAGE_FLAGS}
      */
     ulFlags {
         get => NumGet(this, 0, "uint")
@@ -129,7 +128,7 @@ class LVBKIMAGEA extends Win32Struct
      * 					<b>ulFlags</b>.
      * @type {HBITMAP}
      */
-    hbm{
+    hbm {
         get {
             if(!this.HasProp("__hbm"))
                 this.__hbm := HBITMAP(8, this)

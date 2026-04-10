@@ -79,9 +79,8 @@
  * Instead, components should use sample attributes to describe per-sample interlacing information, as described in the topic <a href="https://docs.microsoft.com/windows/desktop/medfound/video-interlacing">Video Interlacing</a>.
  * @see https://learn.microsoft.com/windows/win32/api/mfobjects/ne-mfobjects-mfvideoflags
  * @namespace Windows.Win32.Media.MediaFoundation
- * @version v4.0.30319
  */
-class MFVideoFlags extends Win32Enum{
+class MFVideoFlags extends Win32Enum {
 
     /**
      * Use this value to mask out the next three flags, which describe the effective aspect ratio of the image. This value by itself is not a valid flag.

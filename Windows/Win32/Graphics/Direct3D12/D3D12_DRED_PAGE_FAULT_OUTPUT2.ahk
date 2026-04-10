@@ -1,12 +1,12 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
+#Include .\D3D12_DRED_ALLOCATION_NODE1.ahk
+#Include .\D3D12_DRED_PAGE_FAULT_FLAGS.ahk
 
 /**
  * @namespace Windows.Win32.Graphics.Direct3D12
- * @version v4.0.30319
  */
-class D3D12_DRED_PAGE_FAULT_OUTPUT2 extends Win32Struct
-{
+class D3D12_DRED_PAGE_FAULT_OUTPUT2 extends Win32Struct {
     static sizeof => 32
 
     static packingSize => 8
@@ -36,7 +36,7 @@ class D3D12_DRED_PAGE_FAULT_OUTPUT2 extends Win32Struct
     }
 
     /**
-     * @type {Integer}
+     * @type {D3D12_DRED_PAGE_FAULT_FLAGS}
      */
     PageFaultFlags {
         get => NumGet(this, 24, "int")

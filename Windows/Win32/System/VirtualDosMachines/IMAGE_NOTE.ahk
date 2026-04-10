@@ -3,11 +3,9 @@
 
 /**
  * @namespace Windows.Win32.System.VirtualDosMachines
- * @version v4.0.30319
  */
-class IMAGE_NOTE extends Win32Struct
-{
-    static sizeof => 536
+class IMAGE_NOTE extends Win32Struct {
+    static sizeof => 270
 
     static packingSize => 2
 
@@ -15,31 +13,31 @@ class IMAGE_NOTE extends Win32Struct
      * @type {String}
      */
     Module {
-        get => StrGet(this.ptr + 0, 9, "UTF-16")
-        set => StrPut(value, this.ptr + 0, 9, "UTF-16")
+        get => StrGet(this.ptr + 0, 9, "UTF-8")
+        set => StrPut(value, this.ptr + 0, 9, "UTF-8")
     }
 
     /**
      * @type {String}
      */
     FileName {
-        get => StrGet(this.ptr + 20, 255, "UTF-16")
-        set => StrPut(value, this.ptr + 20, 255, "UTF-16")
+        get => StrGet(this.ptr + 10, 255, "UTF-8")
+        set => StrPut(value, this.ptr + 10, 255, "UTF-8")
     }
 
     /**
      * @type {Integer}
      */
     hModule {
-        get => NumGet(this, 532, "ushort")
-        set => NumPut("ushort", value, this, 532)
+        get => NumGet(this, 266, "ushort")
+        set => NumPut("ushort", value, this, 266)
     }
 
     /**
      * @type {Integer}
      */
     hTask {
-        get => NumGet(this, 534, "ushort")
-        set => NumPut("ushort", value, this, 534)
+        get => NumGet(this, 268, "ushort")
+        set => NumPut("ushort", value, this, 268)
     }
 }

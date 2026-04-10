@@ -8,10 +8,8 @@
  * The MPEG2_FILTER2 structure specifies criteria for matching MPEG-2 section headers.
  * @see https://learn.microsoft.com/windows/win32/api/mpeg2structs/ns-mpeg2structs-mpeg2_filter2
  * @namespace Windows.Win32.Media.DirectShow.Tv
- * @version v4.0.30319
  */
-class MPEG2_FILTER2 extends Win32Struct
-{
+class MPEG2_FILTER2 extends Win32Struct {
     static sizeof => 160
 
     static packingSize => 4
@@ -41,9 +39,9 @@ class MPEG2_FILTER2 extends Win32Struct
     }
 
     /**
-     * @type {Array<Byte>}
+     * @type {Array<Integer>}
      */
-    Filter{
+    Filter {
         get {
             if(!this.HasProp("__FilterProxyArray"))
                 this.__FilterProxyArray := Win32FixedArray(this.ptr + 8, 16, Primitive, "char")
@@ -52,9 +50,9 @@ class MPEG2_FILTER2 extends Win32Struct
     }
 
     /**
-     * @type {Array<Byte>}
+     * @type {Array<Integer>}
      */
-    Mask{
+    Mask {
         get {
             if(!this.HasProp("__MaskProxyArray"))
                 this.__MaskProxyArray := Win32FixedArray(this.ptr + 24, 16, Primitive, "char")
@@ -137,7 +135,7 @@ class MPEG2_FILTER2 extends Win32Struct
     /**
      * @type {DSMCC_FILTER_OPTIONS}
      */
-    Dsmcc{
+    Dsmcc {
         get {
             if(!this.HasProp("__Dsmcc"))
                 this.__Dsmcc := DSMCC_FILTER_OPTIONS(76, this)
@@ -156,7 +154,7 @@ class MPEG2_FILTER2 extends Win32Struct
     /**
      * @type {ATSC_FILTER_OPTIONS}
      */
-    Atsc{
+    Atsc {
         get {
             if(!this.HasProp("__Atsc"))
                 this.__Atsc := ATSC_FILTER_OPTIONS(140, this)
@@ -165,9 +163,9 @@ class MPEG2_FILTER2 extends Win32Struct
     }
 
     /**
-     * @type {Array<Byte>}
+     * @type {Array<Integer>}
      */
-    bVersion1Bytes{
+    bVersion1Bytes {
         get {
             if(!this.HasProp("__bVersion1BytesProxyArray"))
                 this.__bVersion1BytesProxyArray := Win32FixedArray(this.ptr + 0, 124, Primitive, "char")
@@ -196,7 +194,7 @@ class MPEG2_FILTER2 extends Win32Struct
      * <div> </div>
      * @type {DVB_EIT_FILTER_OPTIONS}
      */
-    DvbEit{
+    DvbEit {
         get {
             if(!this.HasProp("__DvbEit"))
                 this.__DvbEit := DVB_EIT_FILTER_OPTIONS(152, this)

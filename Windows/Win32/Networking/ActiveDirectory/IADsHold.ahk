@@ -1,16 +1,15 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
-#Include ..\..\Foundation\BSTR.ahk
 #Include ..\..\System\Com\IDispatch.ahk
+#Include ..\..\Foundation\BSTR.ahk
 
 /**
  * The IADsHold interface provides methods for an ADSI client to access the Hold attribute.
  * @see https://learn.microsoft.com/windows/win32/api/iads/nn-iads-iadshold
  * @namespace Windows.Win32.Networking.ActiveDirectory
- * @version v4.0.30319
  */
-class IADsHold extends IDispatch{
+class IADsHold extends IDispatch {
 
     static sizeof => A_PtrSize
     /**

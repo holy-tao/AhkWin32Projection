@@ -6,10 +6,8 @@
  * Describes the subresources involved in resolving at the conclusion of a render pass.
  * @see https://learn.microsoft.com/windows/win32/api/d3d12/ns-d3d12-d3d12_render_pass_ending_access_resolve_subresource_parameters
  * @namespace Windows.Win32.Graphics.Direct3D12
- * @version v4.0.30319
  */
-class D3D12_RENDER_PASS_ENDING_ACCESS_RESOLVE_SUBRESOURCE_PARAMETERS extends Win32Struct
-{
+class D3D12_RENDER_PASS_ENDING_ACCESS_RESOLVE_SUBRESOURCE_PARAMETERS extends Win32Struct {
     static sizeof => 32
 
     static packingSize => 4
@@ -54,7 +52,7 @@ class D3D12_RENDER_PASS_ENDING_ACCESS_RESOLVE_SUBRESOURCE_PARAMETERS extends Win
      * A <a href="https://docs.microsoft.com/windows/desktop/direct3d12/d3d12-rect">D3D12_RECT</a>. The rectangle within the source subresource.
      * @type {RECT}
      */
-    SrcRect{
+    SrcRect {
         get {
             if(!this.HasProp("__SrcRect"))
                 this.__SrcRect := RECT(16, this)

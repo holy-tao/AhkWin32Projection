@@ -1,14 +1,11 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
-#Include .\OFFLOAD_SECURITY_ASSOCIATION.ahk
 #Include ..\..\..\Win32\Foundation\HANDLE.ahk
 
 /**
  * @namespace Windows.Wdk.NetworkManagement.Ndis
- * @version v4.0.30319
  */
-class OFFLOAD_IPSEC_ADD_SA extends Win32Struct
-{
+class OFFLOAD_IPSEC_ADD_SA extends Win32Struct {
     static sizeof => 80
 
     static packingSize => 8
@@ -102,9 +99,9 @@ class OFFLOAD_IPSEC_ADD_SA extends Win32Struct
     }
 
     /**
-     * @type {Array<OFFLOAD_SECURITY_ASSOCIATION>}
+     * @type {Array<Pointer>}
      */
-    SecAssoc{
+    SecAssoc {
         get {
             if(!this.HasProp("__SecAssocProxyArray"))
                 this.__SecAssocProxyArray := Win32FixedArray(this.ptr + 40, 3, Primitive, "ptr")
@@ -115,7 +112,7 @@ class OFFLOAD_IPSEC_ADD_SA extends Win32Struct
     /**
      * @type {HANDLE}
      */
-    OffloadHandle{
+    OffloadHandle {
         get {
             if(!this.HasProp("__OffloadHandle"))
                 this.__OffloadHandle := HANDLE(64, this)
@@ -132,9 +129,9 @@ class OFFLOAD_IPSEC_ADD_SA extends Win32Struct
     }
 
     /**
-     * @type {Array<Byte>}
+     * @type {Array<Integer>}
      */
-    KeyMat{
+    KeyMat {
         get {
             if(!this.HasProp("__KeyMatProxyArray"))
                 this.__KeyMatProxyArray := Win32FixedArray(this.ptr + 76, 1, Primitive, "char")

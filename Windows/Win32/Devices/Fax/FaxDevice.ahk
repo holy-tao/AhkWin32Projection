@@ -3,10 +3,8 @@
 
 /**
  * @namespace Windows.Win32.Devices.Fax
- * @version v4.0.30319
  */
-class FaxDevice extends Win32Struct
-{
+class FaxDevice extends Win32Struct {
     static sizeof => 0
 
     static packingSize => 1

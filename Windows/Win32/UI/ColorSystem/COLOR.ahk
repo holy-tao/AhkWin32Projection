@@ -26,10 +26,8 @@
  * `aColor.rgb.blue=2;`
  * @see https://learn.microsoft.com/windows/win32/api/icm/ns-icm-color
  * @namespace Windows.Win32.UI.ColorSystem
- * @version v4.0.30319
  */
-class COLOR extends Win32Struct
-{
+class COLOR extends Win32Struct {
     static sizeof => 72
 
     static packingSize => 8
@@ -38,7 +36,7 @@ class COLOR extends Win32Struct
      * TBD
      * @type {GRAYCOLOR}
      */
-    gray{
+    gray {
         get {
             if(!this.HasProp("__gray"))
                 this.__gray := GRAYCOLOR(0, this)
@@ -50,7 +48,7 @@ class COLOR extends Win32Struct
      * TBD
      * @type {RGBCOLOR}
      */
-    rgb{
+    rgb {
         get {
             if(!this.HasProp("__rgb"))
                 this.__rgb := RGBCOLOR(0, this)
@@ -62,7 +60,7 @@ class COLOR extends Win32Struct
      * TBD
      * @type {CMYKCOLOR}
      */
-    cmyk{
+    cmyk {
         get {
             if(!this.HasProp("__cmyk"))
                 this.__cmyk := CMYKCOLOR(0, this)
@@ -74,7 +72,7 @@ class COLOR extends Win32Struct
      * TBD
      * @type {XYZCOLOR}
      */
-    XYZ{
+    XYZ {
         get {
             if(!this.HasProp("__XYZ"))
                 this.__XYZ := XYZCOLOR(0, this)
@@ -86,7 +84,7 @@ class COLOR extends Win32Struct
      * TBD
      * @type {YxyCOLOR}
      */
-    Yxy{
+    Yxy {
         get {
             if(!this.HasProp("__Yxy"))
                 this.__Yxy := YxyCOLOR(0, this)
@@ -98,7 +96,7 @@ class COLOR extends Win32Struct
      * TBD
      * @type {LabCOLOR}
      */
-    Lab{
+    Lab {
         get {
             if(!this.HasProp("__Lab"))
                 this.__Lab := LabCOLOR(0, this)
@@ -110,7 +108,7 @@ class COLOR extends Win32Struct
      * TBD
      * @type {GENERIC3CHANNEL}
      */
-    gen3ch{
+    gen3ch {
         get {
             if(!this.HasProp("__gen3ch"))
                 this.__gen3ch := GENERIC3CHANNEL(0, this)
@@ -122,7 +120,7 @@ class COLOR extends Win32Struct
      * TBD
      * @type {NAMEDCOLOR}
      */
-    named{
+    named {
         get {
             if(!this.HasProp("__named"))
                 this.__named := NAMEDCOLOR(0, this)
@@ -134,7 +132,7 @@ class COLOR extends Win32Struct
      * TBD
      * @type {HiFiCOLOR}
      */
-    hifi{
+    hifi {
         get {
             if(!this.HasProp("__hifi"))
                 this.__hifi := HiFiCOLOR(0, this)

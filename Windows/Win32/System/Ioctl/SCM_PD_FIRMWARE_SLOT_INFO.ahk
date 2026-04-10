@@ -3,10 +3,8 @@
 
 /**
  * @namespace Windows.Win32.System.Ioctl
- * @version v4.0.30319
  */
-class SCM_PD_FIRMWARE_SLOT_INFO extends Win32Struct
-{
+class SCM_PD_FIRMWARE_SLOT_INFO extends Win32Struct {
     static sizeof => 48
 
     static packingSize => 4
@@ -63,9 +61,9 @@ class SCM_PD_FIRMWARE_SLOT_INFO extends Win32Struct
     }
 
     /**
-     * @type {Array<Byte>}
+     * @type {Array<Integer>}
      */
-    Reserved1{
+    Reserved1 {
         get {
             if(!this.HasProp("__Reserved1ProxyArray"))
                 this.__Reserved1ProxyArray := Win32FixedArray(this.ptr + 10, 6, Primitive, "char")
@@ -74,9 +72,9 @@ class SCM_PD_FIRMWARE_SLOT_INFO extends Win32Struct
     }
 
     /**
-     * @type {Array<Byte>}
+     * @type {Array<Integer>}
      */
-    Revision{
+    Revision {
         get {
             if(!this.HasProp("__RevisionProxyArray"))
                 this.__RevisionProxyArray := Win32FixedArray(this.ptr + 16, 32, Primitive, "char")

@@ -1,9 +1,9 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\..\Guid.ahk
+#Include ..\..\..\System\Com\IUnknown.ahk
 #Include .\IOpcPart.ahk
 #Include .\IOpcPartEnumerator.ahk
-#Include ..\..\..\System\Com\IUnknown.ahk
 
 /**
  * An unordered set of IOpcPart interface pointers to part objects that represent the parts in a package that are not Relationships parts.
@@ -23,9 +23,8 @@
  * An <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/msopc/nn-msopc-iopcpart">IOpcPart</a> provides access to the properties of the part. For details about these properties, see the <a href="https://docs.microsoft.com/previous-versions/windows/desktop/opc/parts-overview">Parts Overview</a> and <b>IOpcPart</b>.
  * @see https://learn.microsoft.com/windows/win32/api/msopc/nn-msopc-iopcpartset
  * @namespace Windows.Win32.Storage.Packaging.Opc
- * @version v4.0.30319
  */
-class IOpcPartSet extends IUnknown{
+class IOpcPartSet extends IUnknown {
 
     static sizeof => A_PtrSize
     /**
@@ -79,7 +78,7 @@ class IOpcPartSet extends IUnknown{
      * 
      * To create  a part URI object (which implements the <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/msopc/nn-msopc-iopcparturi">IOpcPartUri</a> interface) to represent the part name of the part, call the <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/msopc/nf-msopc-iopcfactory-createparturi">IOpcFactory::CreatePartUri</a> method.
      * @param {PWSTR} contentType The media type of part content.
-     * @param {Integer} compressionOptions A value that describes the way to compress the part content of the part.
+     * @param {OPC_COMPRESSION_OPTIONS} compressionOptions A value that describes the way to compress the part content of the part.
      * @returns {IOpcPart} A pointer to the new <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/msopc/nn-msopc-iopcpart">IOpcPart</a> that represents the part.
      * 
      * This parameter cannot be <b>NULL</b>.

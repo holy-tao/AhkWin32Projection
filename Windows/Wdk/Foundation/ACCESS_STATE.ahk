@@ -1,55 +1,42 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\Win32Struct.ahk
-#Include ..\..\Win32\Foundation\LUID.ahk
 #Include ..\..\Win32\Security\PSECURITY_DESCRIPTOR.ahk
-#Include ..\..\Win32\Security\LUID_AND_ATTRIBUTES.ahk
-#Include ..\..\Win32\Security\PRIVILEGE_SET.ahk
-#Include ..\..\Win32\Foundation\UNICODE_STRING.ahk
 
 /**
  * @namespace Windows.Wdk.Foundation
- * @version v4.0.30319
  */
-class ACCESS_STATE extends Win32Struct
-{
-    static sizeof => 112
+class ACCESS_STATE extends Win32Struct {
+    static sizeof => 88
 
     static packingSize => 8
 
     class _Privileges_e__Union extends Win32Struct {
-        static sizeof => 16
+        static sizeof => 8
         static packingSize => 8
 
         /**
-         * @type {Pointer<INITIAL_PRIVILEGE_SET>}
+         * @type {Pointer}
          */
         InitialPrivilegeSet {
             get => NumGet(this, 0, "ptr")
             set => NumPut("ptr", value, this, 0)
         }
-    
+
         /**
-         * @type {PRIVILEGE_SET}
+         * @type {Pointer}
          */
-        PrivilegeSet{
-            get {
-                if(!this.HasProp("__PrivilegeSet"))
-                    this.__PrivilegeSet := PRIVILEGE_SET(0, this)
-                return this.__PrivilegeSet
-            }
+        PrivilegeSet {
+            get => NumGet(this, 0, "ptr")
+            set => NumPut("ptr", value, this, 0)
         }
-    
     }
 
     /**
-     * @type {LUID}
+     * @type {Pointer}
      */
-    OperationID{
-        get {
-            if(!this.HasProp("__OperationID"))
-                this.__OperationID := LUID(0, this)
-            return this.__OperationID
-        }
+    OperationID {
+        get => NumGet(this, 0, "ptr")
+        set => NumPut("ptr", value, this, 0)
     }
 
     /**
@@ -117,7 +104,7 @@ class ACCESS_STATE extends Win32Struct
     }
 
     /**
-     * @type {Pointer<SECURITY_SUBJECT_CONTEXT>}
+     * @type {Pointer}
      */
     SubjectSecurityContext {
         get => NumGet(this, 32, "ptr")
@@ -127,7 +114,7 @@ class ACCESS_STATE extends Win32Struct
     /**
      * @type {PSECURITY_DESCRIPTOR}
      */
-    SecurityDescriptor{
+    SecurityDescriptor {
         get {
             if(!this.HasProp("__SecurityDescriptor"))
                 this.__SecurityDescriptor := PSECURITY_DESCRIPTOR(40, this)
@@ -146,10 +133,10 @@ class ACCESS_STATE extends Win32Struct
     /**
      * @type {_Privileges_e__Union}
      */
-    Privileges{
+    Privileges {
         get {
             if(!this.HasProp("__Privileges"))
-                this.__Privileges := %this.__Class%._Privileges_e__Union(56, this)
+                this.__Privileges := ACCESS_STATE._Privileges_e__Union(56, this)
             return this.__Privileges
         }
     }
@@ -158,29 +145,23 @@ class ACCESS_STATE extends Win32Struct
      * @type {BOOLEAN}
      */
     AuditPrivileges {
-        get => NumGet(this, 72, "char")
-        set => NumPut("char", value, this, 72)
+        get => NumGet(this, 64, "char")
+        set => NumPut("char", value, this, 64)
     }
 
     /**
-     * @type {UNICODE_STRING}
+     * @type {Pointer}
      */
-    ObjectName{
-        get {
-            if(!this.HasProp("__ObjectName"))
-                this.__ObjectName := UNICODE_STRING(80, this)
-            return this.__ObjectName
-        }
+    ObjectName {
+        get => NumGet(this, 72, "ptr")
+        set => NumPut("ptr", value, this, 72)
     }
 
     /**
-     * @type {UNICODE_STRING}
+     * @type {Pointer}
      */
-    ObjectTypeName{
-        get {
-            if(!this.HasProp("__ObjectTypeName"))
-                this.__ObjectTypeName := UNICODE_STRING(96, this)
-            return this.__ObjectTypeName
-        }
+    ObjectTypeName {
+        get => NumGet(this, 80, "ptr")
+        set => NumPut("ptr", value, this, 80)
     }
 }

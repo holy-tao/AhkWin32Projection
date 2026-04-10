@@ -5,17 +5,15 @@
  * Contains the result from a Signaling query in Certified Output Protection Protocol (COPP).
  * @see https://learn.microsoft.com/windows/win32/api/dxva9typ/ns-dxva9typ-dxva_coppstatussignalingcmddata
  * @namespace Windows.Win32.Media.DirectShow
- * @version v4.0.30319
  */
-class DXVA_COPPStatusSignalingCmdData extends Win32Struct
-{
+class DXVA_COPPStatusSignalingCmdData extends Win32Struct {
     static sizeof => 80
 
     static packingSize => 8
 
     /**
      * A 128-bit random number that was passed by the application in the <b>AMCOPPStatusInput</b> structure.
-     * @type {Pointer<Guid>}
+     * @type {Pointer}
      */
     rApp {
         get => NumGet(this, 0, "ptr")
@@ -114,9 +112,9 @@ class DXVA_COPPStatusSignalingCmdData extends Win32Struct
 
     /**
      * Array of bit masks indicating which bits in <b>ExtendedInfoData</b> are valid.
-     * @type {Array<UInt32>}
+     * @type {Array<Integer>}
      */
-    ExtendedInfoValidMask{
+    ExtendedInfoValidMask {
         get {
             if(!this.HasProp("__ExtendedInfoValidMaskProxyArray"))
                 this.__ExtendedInfoValidMaskProxyArray := Win32FixedArray(this.ptr + 48, 4, Primitive, "uint")
@@ -126,9 +124,9 @@ class DXVA_COPPStatusSignalingCmdData extends Win32Struct
 
     /**
      * Additional signaling elements. This array is currently not used.
-     * @type {Array<UInt32>}
+     * @type {Array<Integer>}
      */
-    ExtendedInfoData{
+    ExtendedInfoData {
         get {
             if(!this.HasProp("__ExtendedInfoDataProxyArray"))
                 this.__ExtendedInfoDataProxyArray := Win32FixedArray(this.ptr + 64, 4, Primitive, "uint")

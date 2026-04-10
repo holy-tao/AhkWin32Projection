@@ -2,12 +2,12 @@
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
 #Include ..\..\System\Com\IUnknown.ahk
+#Include ..\..\..\..\Guid.ahk
 
 /**
  * @namespace Windows.Win32.Security.Isolation
- * @version v4.0.30319
  */
-class IIsolatedProcessLauncher extends IUnknown{
+class IIsolatedProcessLauncher extends IUnknown {
 
     static sizeof => A_PtrSize
     /**

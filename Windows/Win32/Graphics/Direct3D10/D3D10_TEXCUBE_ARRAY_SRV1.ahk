@@ -9,10 +9,8 @@
  * This structure requires Windows Vista Service Pack 1.
  * @see https://learn.microsoft.com/windows/win32/api/d3d10_1/ns-d3d10_1-d3d10_texcube_array_srv1
  * @namespace Windows.Win32.Graphics.Direct3D10
- * @version v4.0.30319
  */
-class D3D10_TEXCUBE_ARRAY_SRV1 extends Win32Struct
-{
+class D3D10_TEXCUBE_ARRAY_SRV1 extends Win32Struct {
     static sizeof => 16
 
     static packingSize => 4

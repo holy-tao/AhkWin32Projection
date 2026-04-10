@@ -5,7 +5,6 @@
 
 /**
  * @namespace Windows.Wdk.Devices.Bluetooth
- * @version v4.0.30319
  */
 class Bluetooth {
 

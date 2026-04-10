@@ -3,14 +3,10 @@
 
 /**
  * Contains parameters for the Get Features command that retrieves the attributes of the specified feature.
- * @remarks
- * 
  * @see https://learn.microsoft.com/windows/win32/api/nvme/ns-nvme-nvme_cdw10_get_features
  * @namespace Windows.Win32.Storage.Nvme
- * @version v4.0.30319
  */
-class NVME_CDW10_GET_FEATURES extends Win32Struct
-{
+class NVME_CDW10_GET_FEATURES extends Win32Struct {
     static sizeof => 8
 
     static packingSize => 4
@@ -52,7 +48,6 @@ class NVME_CDW10_GET_FEATURES extends Win32Struct
     }
 
     /**
-     * 
      * @type {Integer}
      */
     AsUlong {

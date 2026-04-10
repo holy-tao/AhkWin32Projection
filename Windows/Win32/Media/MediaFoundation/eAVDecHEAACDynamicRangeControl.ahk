@@ -5,9 +5,8 @@
  * Specifies whether an AAC decoder performs dynamic range control.
  * @see https://learn.microsoft.com/windows/win32/api/codecapi/ne-codecapi-eavdecheaacdynamicrangecontrol
  * @namespace Windows.Win32.Media.MediaFoundation
- * @version v4.0.30319
  */
-class eAVDecHEAACDynamicRangeControl extends Win32Enum{
+class eAVDecHEAACDynamicRangeControl extends Win32Enum {
 
     /**
      * The decoder does not apply dynamic range control.

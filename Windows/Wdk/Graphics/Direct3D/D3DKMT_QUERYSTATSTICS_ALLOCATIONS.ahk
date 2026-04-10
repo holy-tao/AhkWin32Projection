@@ -3,16 +3,14 @@
 
 /**
  * @namespace Windows.Wdk.Graphics.Direct3D
- * @version v4.0.30319
  */
-class D3DKMT_QUERYSTATSTICS_ALLOCATIONS extends Win32Struct
-{
+class D3DKMT_QUERYSTATSTICS_ALLOCATIONS extends Win32Struct {
     static sizeof => 56
 
     static packingSize => 8
 
     /**
-     * @type {Pointer<D3DKMT_QUERYSTATISTICS_COUNTER>}
+     * @type {Pointer}
      */
     Created {
         get => NumGet(this, 0, "ptr")
@@ -20,7 +18,7 @@ class D3DKMT_QUERYSTATSTICS_ALLOCATIONS extends Win32Struct
     }
 
     /**
-     * @type {Pointer<D3DKMT_QUERYSTATISTICS_COUNTER>}
+     * @type {Pointer}
      */
     Destroyed {
         get => NumGet(this, 8, "ptr")
@@ -28,7 +26,7 @@ class D3DKMT_QUERYSTATSTICS_ALLOCATIONS extends Win32Struct
     }
 
     /**
-     * @type {Pointer<D3DKMT_QUERYSTATISTICS_COUNTER>}
+     * @type {Pointer}
      */
     Opened {
         get => NumGet(this, 16, "ptr")
@@ -36,7 +34,7 @@ class D3DKMT_QUERYSTATSTICS_ALLOCATIONS extends Win32Struct
     }
 
     /**
-     * @type {Pointer<D3DKMT_QUERYSTATISTICS_COUNTER>}
+     * @type {Pointer}
      */
     Closed {
         get => NumGet(this, 24, "ptr")
@@ -44,7 +42,7 @@ class D3DKMT_QUERYSTATSTICS_ALLOCATIONS extends Win32Struct
     }
 
     /**
-     * @type {Pointer<D3DKMT_QUERYSTATISTICS_COUNTER>}
+     * @type {Pointer}
      */
     MigratedSuccess {
         get => NumGet(this, 32, "ptr")
@@ -52,7 +50,7 @@ class D3DKMT_QUERYSTATSTICS_ALLOCATIONS extends Win32Struct
     }
 
     /**
-     * @type {Pointer<D3DKMT_QUERYSTATISTICS_COUNTER>}
+     * @type {Pointer}
      */
     MigratedFail {
         get => NumGet(this, 40, "ptr")
@@ -60,7 +58,7 @@ class D3DKMT_QUERYSTATSTICS_ALLOCATIONS extends Win32Struct
     }
 
     /**
-     * @type {Pointer<D3DKMT_QUERYSTATISTICS_COUNTER>}
+     * @type {Pointer}
      */
     MigratedAbandoned {
         get => NumGet(this, 48, "ptr")

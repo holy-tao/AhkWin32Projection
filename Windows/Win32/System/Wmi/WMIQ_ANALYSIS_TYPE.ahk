@@ -5,9 +5,8 @@
  * Contains constants used to specify the type of analysis to perform by using the GetAnalysis method.
  * @see https://learn.microsoft.com/windows/win32/api/wmiutils/ne-wmiutils-wmiq_analysis_type
  * @namespace Windows.Win32.System.Wmi
- * @version v4.0.30319
  */
-class WMIQ_ANALYSIS_TYPE extends Win32Enum{
+class WMIQ_ANALYSIS_TYPE extends Win32Enum {
 
     /**
      * Used if the query has a SELECT clause. When this type of analysis is used,  <i>pAnalysis</i> points to an <a href="https://docs.microsoft.com/windows/win32/api/wmiutils/ns-wmiutils-swbemrpnencodedquery">SWbemRpnEncodedQuery</a> structure.

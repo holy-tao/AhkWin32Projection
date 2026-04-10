@@ -30,10 +30,8 @@
  * 				<b>cy</b> members specify values in dialog box units. You can convert these values to screen units (pixels) by using the <a href="https://docs.microsoft.com/windows/desktop/api/winuser/nf-winuser-mapdialogrect">MapDialogRect</a> function.
  * @see https://learn.microsoft.com/windows/win32/api/winuser/ns-winuser-dlgtemplate
  * @namespace Windows.Win32.UI.WindowsAndMessaging
- * @version v4.0.30319
  */
-class DLGTEMPLATE extends Win32Struct
-{
+class DLGTEMPLATE extends Win32Struct {
     static sizeof => 20
 
     static packingSize => 4

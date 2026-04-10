@@ -3,10 +3,8 @@
 
 /**
  * @namespace Windows.Win32.UI.ColorSystem
- * @version v4.0.30319
  */
-class WCS_DEVICE_MHC2_CAPABILITIES extends Win32Struct
-{
+class WCS_DEVICE_MHC2_CAPABILITIES extends Win32Struct {
     static sizeof => 20
 
     static packingSize => 4

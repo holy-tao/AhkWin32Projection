@@ -14,9 +14,8 @@
  *     specify for the data format is <b>CLUSPROP_FORMAT_DWORD</b>.
  * @see https://learn.microsoft.com/windows/win32/api/resapi/ne-resapi-vm_resdll_context
  * @namespace Windows.Win32.Networking.Clustering
- * @version v4.0.30319
  */
-class VM_RESDLL_CONTEXT extends Win32Enum{
+class VM_RESDLL_CONTEXT extends Win32Enum {
 
     /**
      * Turns off the virtual machine.

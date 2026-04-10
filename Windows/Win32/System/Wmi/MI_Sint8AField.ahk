@@ -6,10 +6,8 @@
  * Represents a property inside an MI_Instance structure. (MI_Sint8AField)
  * @see https://learn.microsoft.com/windows/win32/api/mi/ns-mi-mi_sint8afield
  * @namespace Windows.Win32.System.Wmi
- * @version v4.0.30319
  */
-class MI_Sint8AField extends Win32Struct
-{
+class MI_Sint8AField extends Win32Struct {
     static sizeof => 24
 
     static packingSize => 8
@@ -18,7 +16,7 @@ class MI_Sint8AField extends Win32Struct
      * A field of type <b>MI_Sint8A</b>.
      * @type {MI_Sint8A}
      */
-    value{
+    value {
         get {
             if(!this.HasProp("__value"))
                 this.__value := MI_Sint8A(0, this)

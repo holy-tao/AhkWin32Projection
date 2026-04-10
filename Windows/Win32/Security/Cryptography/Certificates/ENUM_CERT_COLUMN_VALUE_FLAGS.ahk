@@ -3,9 +3,8 @@
 
 /**
  * @namespace Windows.Win32.Security.Cryptography.Certificates
- * @version v4.0.30319
  */
-class ENUM_CERT_COLUMN_VALUE_FLAGS extends Win32Enum{
+class ENUM_CERT_COLUMN_VALUE_FLAGS extends Win32Enum {
 
     /**
      * @type {Integer (Int32)}

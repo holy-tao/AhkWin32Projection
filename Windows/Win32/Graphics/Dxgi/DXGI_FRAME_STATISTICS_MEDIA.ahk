@@ -1,5 +1,6 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
+#Include .\DXGI_FRAME_PRESENTATION_MODE.ahk
 
 /**
  * Used to verify system approval for the app's custom present duration (custom refresh rate).
@@ -7,10 +8,8 @@
  * This structure is used with the <a href="https://docs.microsoft.com/windows/desktop/api/dxgi1_3/nf-dxgi1_3-idxgiswapchainmedia-getframestatisticsmedia">GetFrameStatisticsMedia</a> method.
  * @see https://learn.microsoft.com/windows/win32/api/dxgi1_3/ns-dxgi1_3-dxgi_frame_statistics_media
  * @namespace Windows.Win32.Graphics.Dxgi
- * @version v4.0.30319
  */
-class DXGI_FRAME_STATISTICS_MEDIA extends Win32Struct
-{
+class DXGI_FRAME_STATISTICS_MEDIA extends Win32Struct {
     static sizeof => 40
 
     static packingSize => 8
@@ -80,7 +79,7 @@ class DXGI_FRAME_STATISTICS_MEDIA extends Win32Struct
      * Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/dxgi1_3/ne-dxgi1_3-dxgi_frame_presentation_mode">DXGI_FRAME_PRESENTATION_MODE</a></b>
      * 
      * A value indicating the composition presentation mode. This value is used to determine whether the app should continue to use the decode swap chain. See <a href="https://docs.microsoft.com/windows/desktop/api/dxgi1_3/ne-dxgi1_3-dxgi_frame_presentation_mode">DXGI_FRAME_PRESENTATION_MODE</a>.
-     * @type {Integer}
+     * @type {DXGI_FRAME_PRESENTATION_MODE}
      */
     CompositionMode {
         get => NumGet(this, 32, "int")

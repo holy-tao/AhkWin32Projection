@@ -1,16 +1,15 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
-#Include .\IDWriteFontFile.ahk
 #Include .\IDWriteFontFileLoader.ahk
+#Include .\IDWriteFontFile.ahk
 
 /**
  * Represents a font file loader that can access in-memory fonts.
  * @see https://learn.microsoft.com/windows/win32/api/dwrite_3/nn-dwrite_3-idwriteinmemoryfontfileloader
  * @namespace Windows.Win32.Graphics.DirectWrite
- * @version v4.0.30319
  */
-class IDWriteInMemoryFontFileLoader extends IDWriteFontFileLoader{
+class IDWriteInMemoryFontFileLoader extends IDWriteFontFileLoader {
 
     static sizeof => A_PtrSize
     /**
@@ -36,7 +35,7 @@ class IDWriteInMemoryFontFileLoader extends IDWriteFontFileLoader{
      * @param {IDWriteFactory} factory Type: <b><a href="https://docs.microsoft.com/windows/win32/api/dwrite/nn-dwrite-idwritefactory">IDWriteFactory</a>*</b>
      * 
      * Factory object used to create the font file reference.
-     * @param {Pointer} fontData Type: <b>void const*</b>
+     * @param {Integer} fontData Type: <b>void const*</b>
      * 
      * Pointer to a memory block containing the font data.
      * @param {Integer} fontDataSize Type: <b>UINT32</b>

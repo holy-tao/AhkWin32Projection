@@ -10,10 +10,8 @@
  * The <b>DHCP_CLIENT_INFO_V5</b> structure is returned by the <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/dhcpsapi/nf-dhcpsapi-dhcpenumsubnetclientsv5">DhcpEnumSubnetClientsV5</a> function.
  * @see https://learn.microsoft.com/windows/win32/api/dhcpsapi/ns-dhcpsapi-dhcp_client_info_v5
  * @namespace Windows.Win32.NetworkManagement.Dhcp
- * @version v4.0.30319
  */
-class DHCP_CLIENT_INFO_V5 extends Win32Struct
-{
+class DHCP_CLIENT_INFO_V5 extends Win32Struct {
     static sizeof => 80
 
     static packingSize => 8
@@ -40,7 +38,7 @@ class DHCP_CLIENT_INFO_V5 extends Win32Struct
      * <a href="https://docs.microsoft.com/windows/desktop/api/dhcpsapi/ns-dhcpsapi-dhcp_binary_data">DHCP_CLIENT_UID</a> structure containing the MAC address of the client's network interface device.
      * @type {DHCP_BINARY_DATA}
      */
-    ClientHardwareAddress{
+    ClientHardwareAddress {
         get {
             if(!this.HasProp("__ClientHardwareAddress"))
                 this.__ClientHardwareAddress := DHCP_BINARY_DATA(8, this)
@@ -70,7 +68,7 @@ class DHCP_CLIENT_INFO_V5 extends Win32Struct
      * <a href="https://docs.microsoft.com/windows/desktop/api/dhcpsapi/ns-dhcpsapi-date_time">DATE_TIME</a> structure that contains the date and time the DHCP client lease will expire, in UTC time.
      * @type {DATE_TIME}
      */
-    ClientLeaseExpires{
+    ClientLeaseExpires {
         get {
             if(!this.HasProp("__ClientLeaseExpires"))
                 this.__ClientLeaseExpires := DATE_TIME(40, this)
@@ -82,7 +80,7 @@ class DHCP_CLIENT_INFO_V5 extends Win32Struct
      * <a href="https://docs.microsoft.com/windows/desktop/api/dhcpsapi/ns-dhcpsapi-dhcp_host_info">DHCP_HOST_INFO</a> structure that contains information on the DHCP server that assigned the IP address to the  client.
      * @type {DHCP_HOST_INFO}
      */
-    OwnerHost{
+    OwnerHost {
         get {
             if(!this.HasProp("__OwnerHost"))
                 this.__OwnerHost := DHCP_HOST_INFO(48, this)

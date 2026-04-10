@@ -1,16 +1,14 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
-#Include ..\..\Foundation\BSTR.ahk
 #Include ..\..\System\Com\IUnknown.ahk
 
 /**
  * The IWMPFolderMonitorServices interface is deprecated.The IWMPFolderMonitorServices interface provides methods to enumerate, scan, and modify file folders that Windows Media Player monitors for digital media content.To use this interface, you must create a remoted instance of the Windows Media Player 11 control. For more information about remoting, see Remoting the Windows Media Player Control.
  * @see https://learn.microsoft.com/windows/win32/api/wmp/nn-wmp-iwmpfoldermonitorservices
  * @namespace Windows.Win32.Media.MediaPlayer
- * @version v4.0.30319
  */
-class IWMPFolderMonitorServices extends IUnknown{
+class IWMPFolderMonitorServices extends IUnknown {
 
     static sizeof => A_PtrSize
     /**
@@ -202,7 +200,7 @@ class IWMPFolderMonitorServices extends IUnknown{
      * A scanning operation consists of two phases: scanning and updating. During the first phase, Windows Media Player determines which digital media files to add to the library. During the second phase, the Player adds the files. You can handle the <b>FolderScanStateChange</b> event to receive notifications when the scan state changes.
      * 
      * <b>Windows Media Player 10 Mobile: </b>This method is not supported.
-     * @param {Pointer<Integer>} pwmpfss Pointer to a variable that receives a value from the <b>WMPFolderScanState</b> enumeration that indicates the scan state.
+     * @param {Pointer<WMPFolderScanState>} pwmpfss Pointer to a variable that receives a value from the <b>WMPFolderScanState</b> enumeration that indicates the scan state.
      * @returns {HRESULT} The method returns an <b>HRESULT</b>. Possible values include, but are not limited to, those in the following table.
      * 
      * <table>

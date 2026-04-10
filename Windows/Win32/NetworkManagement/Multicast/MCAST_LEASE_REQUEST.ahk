@@ -8,10 +8,8 @@
  * In MCAST_API_VERSION_1 version, <b>MaxLeaseStartTime</b>, <b>MinLeaseDuration</b>, and <b>MinAddrCount</b> members are ignored. Clients should still set appropriate values for these members, however, to take advantage of their implementation in future updates.
  * @see https://learn.microsoft.com/windows/win32/api/madcapcl/ns-madcapcl-mcast_lease_request
  * @namespace Windows.Win32.NetworkManagement.Multicast
- * @version v4.0.30319
  */
-class MCAST_LEASE_REQUEST extends Win32Struct
-{
+class MCAST_LEASE_REQUEST extends Win32Struct {
     static sizeof => 48
 
     static packingSize => 8
@@ -58,7 +56,7 @@ class MCAST_LEASE_REQUEST extends Win32Struct
      * <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/madcapcl/nf-madcapcl-mcastrequestaddress">McastRequestAddress</a> function call, set <b>ServerAddress</b> to zero.
      * @type {IPNG_ADDRESS}
      */
-    ServerAddress{
+    ServerAddress {
         get {
             if(!this.HasProp("__ServerAddress"))
                 this.__ServerAddress := IPNG_ADDRESS(16, this)

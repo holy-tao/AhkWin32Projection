@@ -1,18 +1,17 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
+#Include .\VIDEO_WIN32K_CALLBACKS_PARAMS_TYPE.ahk
 
 /**
  * @namespace Windows.Win32.Devices.Display
- * @version v4.0.30319
  */
-class VIDEO_WIN32K_CALLBACKS_PARAMS extends Win32Struct
-{
+class VIDEO_WIN32K_CALLBACKS_PARAMS extends Win32Struct {
     static sizeof => 32
 
     static packingSize => 8
 
     /**
-     * @type {Integer}
+     * @type {VIDEO_WIN32K_CALLBACKS_PARAMS_TYPE}
      */
     CalloutType {
         get => NumGet(this, 0, "int")

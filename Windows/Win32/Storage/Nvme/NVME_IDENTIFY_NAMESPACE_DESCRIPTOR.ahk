@@ -3,10 +3,8 @@
 
 /**
  * @namespace Windows.Win32.Storage.Nvme
- * @version v4.0.30319
  */
-class NVME_IDENTIFY_NAMESPACE_DESCRIPTOR extends Win32Struct
-{
+class NVME_IDENTIFY_NAMESPACE_DESCRIPTOR extends Win32Struct {
     static sizeof => 5
 
     static packingSize => 1
@@ -28,9 +26,9 @@ class NVME_IDENTIFY_NAMESPACE_DESCRIPTOR extends Win32Struct
     }
 
     /**
-     * @type {Array<Byte>}
+     * @type {Array<Integer>}
      */
-    Reserved{
+    Reserved {
         get {
             if(!this.HasProp("__ReservedProxyArray"))
                 this.__ReservedProxyArray := Win32FixedArray(this.ptr + 2, 2, Primitive, "char")
@@ -39,9 +37,9 @@ class NVME_IDENTIFY_NAMESPACE_DESCRIPTOR extends Win32Struct
     }
 
     /**
-     * @type {Array<Byte>}
+     * @type {Array<Integer>}
      */
-    NID{
+    NID {
         get {
             if(!this.HasProp("__NIDProxyArray"))
                 this.__NIDProxyArray := Win32FixedArray(this.ptr + 4, 1, Primitive, "char")

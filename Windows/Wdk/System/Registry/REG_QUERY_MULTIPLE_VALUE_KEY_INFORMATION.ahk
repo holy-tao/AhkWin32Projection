@@ -1,12 +1,11 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
+#Include .\KEY_VALUE_ENTRY.ahk
 
 /**
  * @namespace Windows.Wdk.System.Registry
- * @version v4.0.30319
  */
-class REG_QUERY_MULTIPLE_VALUE_KEY_INFORMATION extends Win32Struct
-{
+class REG_QUERY_MULTIPLE_VALUE_KEY_INFORMATION extends Win32Struct {
     static sizeof => 72
 
     static packingSize => 8

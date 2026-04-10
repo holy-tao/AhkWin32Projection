@@ -4,7 +4,6 @@
 
 /**
  * @namespace Windows.Win32.System.DistributedTransactionCoordinator
- * @version v4.0.30319
  */
 class DistributedTransactionCoordinator {
 
@@ -364,7 +363,7 @@ class DistributedTransactionCoordinator {
      * @param {Pointer<Guid>} i_riid 
      * @param {Integer} i_dwReserved1 
      * @param {Integer} i_wcbReserved2 
-     * @param {Pointer} i_pvReserved2 
+     * @param {Integer} i_pvReserved2 
      * @param {Pointer<Pointer<Void>>} o_ppvObject 
      * @returns {HRESULT} 
      */
@@ -385,7 +384,7 @@ class DistributedTransactionCoordinator {
      * @param {Pointer<Guid>} i_riid 
      * @param {Integer} i_dwReserved1 
      * @param {Integer} i_wcbReserved2 
-     * @param {Pointer} i_pvReserved2 
+     * @param {Integer} i_pvReserved2 
      * @param {Pointer<Pointer<Void>>} o_ppvObject 
      * @returns {HRESULT} 
      */

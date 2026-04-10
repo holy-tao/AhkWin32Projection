@@ -3,10 +3,8 @@
 
 /**
  * @namespace Windows.Win32.Graphics.DirectDraw
- * @version v4.0.30319
  */
-class DDHAL_GETDRIVERINFODATA extends Win32Struct
-{
+class DDHAL_GETDRIVERINFODATA extends Win32Struct {
     static sizeof => 48
 
     static packingSize => 8
@@ -28,7 +26,7 @@ class DDHAL_GETDRIVERINFODATA extends Win32Struct
     }
 
     /**
-     * @type {Pointer<Guid>}
+     * @type {Pointer}
      */
     guidInfo {
         get => NumGet(this, 8, "ptr")

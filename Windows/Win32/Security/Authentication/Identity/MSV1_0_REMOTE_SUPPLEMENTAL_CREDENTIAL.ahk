@@ -1,13 +1,12 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\..\Win32Struct.ahk
 #Include .\MSV1_0_CREDENTIAL_KEY.ahk
+#Include .\MSV1_0_CREDENTIAL_KEY_TYPE.ahk
 
 /**
  * @namespace Windows.Win32.Security.Authentication.Identity
- * @version v4.0.30319
  */
-class MSV1_0_REMOTE_SUPPLEMENTAL_CREDENTIAL extends Win32Struct
-{
+class MSV1_0_REMOTE_SUPPLEMENTAL_CREDENTIAL extends Win32Struct {
     static sizeof => 40
 
     static packingSize => 4
@@ -31,7 +30,7 @@ class MSV1_0_REMOTE_SUPPLEMENTAL_CREDENTIAL extends Win32Struct
     /**
      * @type {MSV1_0_CREDENTIAL_KEY}
      */
-    CredentialKey{
+    CredentialKey {
         get {
             if(!this.HasProp("__CredentialKey"))
                 this.__CredentialKey := MSV1_0_CREDENTIAL_KEY(8, this)
@@ -40,7 +39,7 @@ class MSV1_0_REMOTE_SUPPLEMENTAL_CREDENTIAL extends Win32Struct
     }
 
     /**
-     * @type {Integer}
+     * @type {MSV1_0_CREDENTIAL_KEY_TYPE}
      */
     CredentialKeyType {
         get => NumGet(this, 28, "int")
@@ -56,9 +55,9 @@ class MSV1_0_REMOTE_SUPPLEMENTAL_CREDENTIAL extends Win32Struct
     }
 
     /**
-     * @type {Array<Byte>}
+     * @type {Array<Integer>}
      */
-    EncryptedCreds{
+    EncryptedCreds {
         get {
             if(!this.HasProp("__EncryptedCredsProxyArray"))
                 this.__EncryptedCredsProxyArray := Win32FixedArray(this.ptr + 36, 1, Primitive, "char")

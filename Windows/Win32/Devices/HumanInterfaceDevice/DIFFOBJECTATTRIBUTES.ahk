@@ -5,10 +5,8 @@
  * The DIFFOBJECTATTRIBUTES structure describes the information contained in the &quot;FFAttributes&quot; value of the registry key for each &quot;object&quot; on a force-feedback device.
  * @see https://learn.microsoft.com/windows/win32/api/dinputd/ns-dinputd-diffobjectattributes
  * @namespace Windows.Win32.Devices.HumanInterfaceDevice
- * @version v4.0.30319
  */
-class DIFFOBJECTATTRIBUTES extends Win32Struct
-{
+class DIFFOBJECTATTRIBUTES extends Win32Struct {
     static sizeof => 8
 
     static packingSize => 4

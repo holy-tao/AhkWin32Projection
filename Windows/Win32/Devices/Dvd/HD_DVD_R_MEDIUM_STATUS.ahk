@@ -3,10 +3,8 @@
 
 /**
  * @namespace Windows.Win32.Devices.Dvd
- * @version v4.0.30319
  */
-class HD_DVD_R_MEDIUM_STATUS extends Win32Struct
-{
+class HD_DVD_R_MEDIUM_STATUS extends Win32Struct {
     static sizeof => 4
 
     static packingSize => 1
@@ -47,9 +45,9 @@ class HD_DVD_R_MEDIUM_STATUS extends Win32Struct
     }
 
     /**
-     * @type {Array<Byte>}
+     * @type {Array<Integer>}
      */
-    NumberOfRemainingRMDsInCurrentRMZ{
+    NumberOfRemainingRMDsInCurrentRMZ {
         get {
             if(!this.HasProp("__NumberOfRemainingRMDsInCurrentRMZProxyArray"))
                 this.__NumberOfRemainingRMDsInCurrentRMZProxyArray := Win32FixedArray(this.ptr + 2, 2, Primitive, "char")

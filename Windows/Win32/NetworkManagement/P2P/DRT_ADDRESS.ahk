@@ -1,16 +1,15 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
 #Include ..\..\Networking\WinSock\SOCKADDR_STORAGE.ahk
+#Include ..\..\Networking\WinSock\ADDRESS_FAMILY.ahk
 
 /**
  * DRT_ADDRESS structure contains endpoint information about a DRT node that participated in a search. This information is intended for use in debugging connectivity problems.
  * @see https://learn.microsoft.com/windows/win32/api/drt/ns-drt-drt_address
  * @namespace Windows.Win32.NetworkManagement.P2P
- * @version v4.0.30319
  */
-class DRT_ADDRESS extends Win32Struct
-{
-    static sizeof => 264
+class DRT_ADDRESS extends Win32Struct {
+    static sizeof => 144
 
     static packingSize => 8
 
@@ -18,7 +17,7 @@ class DRT_ADDRESS extends Win32Struct
      * Contains the endpoint on which the DRT protocol is listening on the remote node.
      * @type {SOCKADDR_STORAGE}
      */
-    socketAddress{
+    socketAddress {
         get {
             if(!this.HasProp("__socketAddress"))
                 this.__socketAddress := SOCKADDR_STORAGE(0, this)
@@ -31,8 +30,8 @@ class DRT_ADDRESS extends Win32Struct
      * @type {Integer}
      */
     flags {
-        get => NumGet(this, 248, "uint")
-        set => NumPut("uint", value, this, 248)
+        get => NumGet(this, 128, "uint")
+        set => NumPut("uint", value, this, 128)
     }
 
     /**
@@ -40,8 +39,8 @@ class DRT_ADDRESS extends Win32Struct
      * @type {Integer}
      */
     nearness {
-        get => NumGet(this, 252, "int")
-        set => NumPut("int", value, this, 252)
+        get => NumGet(this, 132, "int")
+        set => NumPut("int", value, this, 132)
     }
 
     /**
@@ -49,7 +48,7 @@ class DRT_ADDRESS extends Win32Struct
      * @type {Integer}
      */
     latency {
-        get => NumGet(this, 256, "uint")
-        set => NumPut("uint", value, this, 256)
+        get => NumGet(this, 136, "uint")
+        set => NumPut("uint", value, this, 136)
     }
 }

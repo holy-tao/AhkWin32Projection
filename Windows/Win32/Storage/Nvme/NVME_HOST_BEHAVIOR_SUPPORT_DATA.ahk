@@ -3,10 +3,8 @@
 
 /**
  * @namespace Windows.Win32.Storage.Nvme
- * @version v4.0.30319
  */
-class NVME_HOST_BEHAVIOR_SUPPORT_DATA extends Win32Struct
-{
+class NVME_HOST_BEHAVIOR_SUPPORT_DATA extends Win32Struct {
     static sizeof => 512
 
     static packingSize => 1
@@ -36,9 +34,9 @@ class NVME_HOST_BEHAVIOR_SUPPORT_DATA extends Win32Struct
     }
 
     /**
-     * @type {Array<Byte>}
+     * @type {Array<Integer>}
      */
-    Reserved{
+    Reserved {
         get {
             if(!this.HasProp("__ReservedProxyArray"))
                 this.__ReservedProxyArray := Win32FixedArray(this.ptr + 3, 509, Primitive, "char")

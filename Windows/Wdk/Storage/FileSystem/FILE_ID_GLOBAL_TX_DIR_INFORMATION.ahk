@@ -3,10 +3,8 @@
 
 /**
  * @namespace Windows.Wdk.Storage.FileSystem
- * @version v4.0.30319
  */
-class FILE_ID_GLOBAL_TX_DIR_INFORMATION extends Win32Struct
-{
+class FILE_ID_GLOBAL_TX_DIR_INFORMATION extends Win32Struct {
     static sizeof => 88
 
     static packingSize => 8
@@ -100,7 +98,7 @@ class FILE_ID_GLOBAL_TX_DIR_INFORMATION extends Win32Struct
     }
 
     /**
-     * @type {Pointer<Guid>}
+     * @type {Pointer}
      */
     LockingTransactionId {
         get => NumGet(this, 72, "ptr")

@@ -1,14 +1,13 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
+#Include .\PROCESSOR_ARCHITECTURE.ahk
 
 /**
  * Contains information about the current computer system. This includes the architecture and type of the processor, the number of processors in the system, the page size, and other such information.
  * @see https://learn.microsoft.com/windows/win32/api/sysinfoapi/ns-sysinfoapi-system_info
  * @namespace Windows.Win32.System.SystemInformation
- * @version v4.0.30319
  */
-class SYSTEM_INFO extends Win32Struct
-{
+class SYSTEM_INFO extends Win32Struct {
     static sizeof => 48
 
     static packingSize => 8
@@ -22,7 +21,7 @@ class SYSTEM_INFO extends Win32Struct
     }
 
     /**
-     * @type {Integer}
+     * @type {PROCESSOR_ARCHITECTURE}
      */
     wProcessorArchitecture {
         get => NumGet(this, 0, "ushort")

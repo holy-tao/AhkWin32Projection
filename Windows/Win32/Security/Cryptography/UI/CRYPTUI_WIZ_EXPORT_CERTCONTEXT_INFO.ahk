@@ -1,14 +1,13 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\..\Win32Struct.ahk
+#Include .\CRYPTUI_WIZ_EXPORT_FORMAT.ahk
 
 /**
  * Contains information that controls the operation of the CryptUIWizExport function when a certificate is the object being exported.
  * @see https://learn.microsoft.com/windows/win32/api/cryptuiapi/ns-cryptuiapi-cryptui_wiz_export_certcontext_info
  * @namespace Windows.Win32.Security.Cryptography.UI
- * @version v4.0.30319
  */
-class CRYPTUI_WIZ_EXPORT_CERTCONTEXT_INFO extends Win32Struct
-{
+class CRYPTUI_WIZ_EXPORT_CERTCONTEXT_INFO extends Win32Struct {
     static sizeof => 32
 
     static packingSize => 8
@@ -23,8 +22,7 @@ class CRYPTUI_WIZ_EXPORT_CERTCONTEXT_INFO extends Win32Struct
     }
 
     /**
-     * 
-     * @type {Integer}
+     * @type {CRYPTUI_WIZ_EXPORT_FORMAT}
      */
     dwExportFormat {
         get => NumGet(this, 4, "uint")

@@ -1,18 +1,17 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\Guid.ahk
+#Include ..\System\Com\IUnknown.ahk
 #Include .\IEnumSpellingError.ahk
 #Include ..\System\Com\IEnumString.ahk
 #Include .\IOptionDescription.ahk
-#Include ..\System\Com\IUnknown.ahk
 
 /**
  * Represents a particular spell checker for a particular language.
  * @see https://learn.microsoft.com/windows/win32/api/spellcheck/nn-spellcheck-ispellchecker
  * @namespace Windows.Win32.Globalization
- * @version v4.0.30319
  */
-class ISpellChecker extends IUnknown{
+class ISpellChecker extends IUnknown {
 
     static sizeof => A_PtrSize
     /**

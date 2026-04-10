@@ -5,10 +5,8 @@
  * The TAPI_DETECTTONE structure describes a tone to be monitored. This is used as an entry in an array.
  * @see https://learn.microsoft.com/windows/win32/api/tapi3if/ns-tapi3if-tapi_detecttone
  * @namespace Windows.Win32.Devices.Tapi
- * @version v4.0.30319
  */
-class TAPI_DETECTTONE extends Win32Struct
-{
+class TAPI_DETECTTONE extends Win32Struct {
     static sizeof => 20
 
     static packingSize => 4

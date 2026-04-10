@@ -1,18 +1,17 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
+#Include ..\..\System\Com\IDispatch.ahk
 #Include .\ITStream.ahk
 #Include .\IEnumStream.ahk
 #Include ..\..\System\Variant\VARIANT.ahk
-#Include ..\..\System\Com\IDispatch.ahk
 
 /**
  * The ITStreamControl interface represents the media streaming features of a call and exposes methods that allow an application to enumerate, create, or remove streams.
  * @see https://learn.microsoft.com/windows/win32/api/tapi3if/nn-tapi3if-itstreamcontrol
  * @namespace Windows.Win32.Devices.Tapi
- * @version v4.0.30319
  */
-class ITStreamControl extends IDispatch{
+class ITStreamControl extends IDispatch {
 
     static sizeof => A_PtrSize
     /**
@@ -52,7 +51,7 @@ class ITStreamControl extends IDispatch{
      * <b>ITStream</b> interface to free resources associated with it.
      * @param {Integer} lMediaType Indicates 
      * <a href="https://docs.microsoft.com/windows/desktop/Tapi/tapimediatype--constants">media type</a> for stream.
-     * @param {Integer} td Indicates the 
+     * @param {TERMINAL_DIRECTION} td Indicates the 
      * <a href="https://docs.microsoft.com/windows/desktop/api/tapi3if/ne-tapi3if-terminal_direction">TERMINAL_DIRECTION</a>.
      * @returns {ITStream} Pointer to pointer for newly created 
      * <a href="https://docs.microsoft.com/windows/desktop/api/tapi3if/nn-tapi3if-itstream">ITStream</a> interface.

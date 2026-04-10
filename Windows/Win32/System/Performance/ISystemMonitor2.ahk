@@ -1,14 +1,12 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
-#Include ..\..\Foundation\BSTR.ahk
 #Include .\ISystemMonitor.ahk
 
 /**
  * @namespace Windows.Win32.System.Performance
- * @version v4.0.30319
  */
-class ISystemMonitor2 extends ISystemMonitor{
+class ISystemMonitor2 extends ISystemMonitor {
 
     static sizeof => A_PtrSize
     /**
@@ -197,7 +195,7 @@ class ISystemMonitor2 extends ISystemMonitor{
     /**
      * 
      * @param {BSTR} bstrFileName 
-     * @param {Integer} eSysmonFileType 
+     * @param {SysmonFileType} eSysmonFileType 
      * @returns {HRESULT} 
      */
     SaveAs(bstrFileName, eSysmonFileType) {
@@ -210,7 +208,7 @@ class ISystemMonitor2 extends ISystemMonitor{
     /**
      * 
      * @param {BSTR} bstrFileName 
-     * @param {Integer} eSysmonFileType 
+     * @param {SysmonFileType} eSysmonFileType 
      * @param {Integer} _iFilter 
      * @returns {HRESULT} 
      */
@@ -276,7 +274,7 @@ class ISystemMonitor2 extends ISystemMonitor{
     /**
      * 
      * @param {VARIANT_BOOL} fLock 
-     * @param {Integer} eBatchReason 
+     * @param {SysmonBatchReason} eBatchReason 
      * @returns {HRESULT} 
      */
     BatchingLock(fLock, eBatchReason) {

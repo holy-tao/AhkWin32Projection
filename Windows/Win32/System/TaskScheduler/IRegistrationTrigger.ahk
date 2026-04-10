@@ -1,7 +1,6 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
-#Include ..\..\Foundation\BSTR.ahk
 #Include .\ITrigger.ahk
 
 /**
@@ -12,9 +11,8 @@
  * If a task with a delayed registration trigger is registered, and the computer that the task is registered on is shutdown or restarted during  the delay, before the task runs, then the task will not run and the delay will be lost.
  * @see https://learn.microsoft.com/windows/win32/api/taskschd/nn-taskschd-iregistrationtrigger
  * @namespace Windows.Win32.System.TaskScheduler
- * @version v4.0.30319
  */
-class IRegistrationTrigger extends ITrigger{
+class IRegistrationTrigger extends ITrigger {
 
     static sizeof => A_PtrSize
     /**
@@ -36,6 +34,7 @@ class IRegistrationTrigger extends ITrigger{
     static VTableNames => ["get_Delay", "put_Delay"]
 
     /**
+     * @type {BSTR} 
      */
     Delay {
         get => this.get_Delay()

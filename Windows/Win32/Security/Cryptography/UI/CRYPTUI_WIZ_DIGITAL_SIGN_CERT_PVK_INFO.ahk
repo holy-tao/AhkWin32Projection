@@ -1,14 +1,15 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\..\Win32Struct.ahk
+#Include .\CRYPTUI_WIZ_DIGITAL_SIGN_PVK_OPTION.ahk
+#Include .\CRYPTUI_WIZ_DIGITAL_SIGN_PVK_FILE_INFO.ahk
+#Include ..\CRYPT_KEY_PROV_INFO.ahk
 
 /**
  * Contains information about the PVK file that contains the certificates used by the CryptUIWizDigitalSign function.
  * @see https://learn.microsoft.com/windows/win32/api/cryptuiapi/ns-cryptuiapi-cryptui_wiz_digital_sign_cert_pvk_info
  * @namespace Windows.Win32.Security.Cryptography.UI
- * @version v4.0.30319
  */
-class CRYPTUI_WIZ_DIGITAL_SIGN_CERT_PVK_INFO extends Win32Struct
-{
+class CRYPTUI_WIZ_DIGITAL_SIGN_CERT_PVK_INFO extends Win32Struct {
     static sizeof => 32
 
     static packingSize => 8
@@ -32,8 +33,7 @@ class CRYPTUI_WIZ_DIGITAL_SIGN_CERT_PVK_INFO extends Win32Struct
     }
 
     /**
-     * 
-     * @type {Integer}
+     * @type {CRYPTUI_WIZ_DIGITAL_SIGN_PVK_OPTION}
      */
     dwPvkChoice {
         get => NumGet(this, 16, "uint")

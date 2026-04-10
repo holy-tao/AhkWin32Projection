@@ -2,15 +2,16 @@
 #Include ..\..\..\..\Win32Struct.ahk
 #Include ..\..\Foundation\HWND.ahk
 #Include .\NETRESOURCEA.ahk
+#Include .\NET_RESOURCE_SCOPE.ahk
+#Include .\NET_RESOURCE_TYPE.ahk
+#Include .\NET_CONNECT_FLAGS.ahk
 
 /**
  * The NOTIFYADD structure contains the details of a network connect operation. It is used by the AddConnectNotify function.
  * @see https://learn.microsoft.com/windows/win32/api/npapi/ns-npapi-notifyadd
  * @namespace Windows.Win32.NetworkManagement.WNet
- * @version v4.0.30319
  */
-class NOTIFYADD extends Win32Struct
-{
+class NOTIFYADD extends Win32Struct {
     static sizeof => 64
 
     static packingSize => 8
@@ -19,7 +20,7 @@ class NOTIFYADD extends Win32Struct
      * A handle to a window which should own any messages or dialog boxes the application receiving the notification might display.
      * @type {HWND}
      */
-    hwndOwner{
+    hwndOwner {
         get {
             if(!this.HasProp("__hwndOwner"))
                 this.__hwndOwner := HWND(0, this)
@@ -32,7 +33,7 @@ class NOTIFYADD extends Win32Struct
      * <a href="https://docs.microsoft.com/windows/desktop/api/npapi/nf-npapi-npaddconnection">NPAddConnection</a> function.
      * @type {NETRESOURCEA}
      */
-    NetResource{
+    NetResource {
         get {
             if(!this.HasProp("__NetResource"))
                 this.__NetResource := NETRESOURCEA(8, this)
@@ -41,8 +42,7 @@ class NOTIFYADD extends Win32Struct
     }
 
     /**
-     * 
-     * @type {Integer}
+     * @type {NET_CONNECT_FLAGS}
      */
     dwAddFlags {
         get => NumGet(this, 56, "uint")

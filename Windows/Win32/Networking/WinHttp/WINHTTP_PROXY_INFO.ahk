@@ -1,5 +1,6 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
+#Include .\WINHTTP_ACCESS_TYPE.ahk
 
 /**
  * The WINHTTP_PROXY_INFO structure contains the session or default proxy configuration.
@@ -26,17 +27,14 @@
  * <div> </div>
  * @see https://learn.microsoft.com/windows/win32/api/winhttp/ns-winhttp-winhttp_proxy_info
  * @namespace Windows.Win32.Networking.WinHttp
- * @version v4.0.30319
  */
-class WINHTTP_PROXY_INFO extends Win32Struct
-{
+class WINHTTP_PROXY_INFO extends Win32Struct {
     static sizeof => 24
 
     static packingSize => 8
 
     /**
-     * 
-     * @type {Integer}
+     * @type {WINHTTP_ACCESS_TYPE}
      */
     dwAccessType {
         get => NumGet(this, 0, "uint")

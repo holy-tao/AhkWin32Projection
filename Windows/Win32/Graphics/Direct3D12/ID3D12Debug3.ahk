@@ -7,9 +7,8 @@
  * Adds configurable levels of GPU-based validation to the debug layer. (ID3D12Debug3)
  * @see https://learn.microsoft.com/windows/win32/api/d3d12sdklayers/nn-d3d12sdklayers-id3d12debug3
  * @namespace Windows.Win32.Graphics.Direct3D12
- * @version v4.0.30319
  */
-class ID3D12Debug3 extends ID3D12Debug{
+class ID3D12Debug3 extends ID3D12Debug {
 
     static sizeof => A_PtrSize
     /**
@@ -70,7 +69,7 @@ class ID3D12Debug3 extends ID3D12Debug{
      * This method configures the level of GPU-based validation that the debug device is to perform at runtime. (ID3D12Debug3.SetGPUBasedValidationFlags)
      * @remarks
      * This method overrides the default behavior of GPU-based validation so it must be called before creating the D3D12 Device. These settings can't be changed or cancelled after the device is created. If you want to change the behavior of GPU-based validation at a later time, the device must be destroyed and recreated with different parameters.
-     * @param {Integer} Flags Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/d3d12sdklayers/ne-d3d12sdklayers-d3d12_gpu_based_validation_flags">D3D12_GPU_BASED_VALIDATION_FLAGS</a></b>
+     * @param {D3D12_GPU_BASED_VALIDATION_FLAGS} Flags Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/d3d12sdklayers/ne-d3d12sdklayers-d3d12_gpu_based_validation_flags">D3D12_GPU_BASED_VALIDATION_FLAGS</a></b>
      * 
      * Specifies the level of GPU-based validation to perform at runtime.
      * @returns {String} Nothing - always returns an empty string

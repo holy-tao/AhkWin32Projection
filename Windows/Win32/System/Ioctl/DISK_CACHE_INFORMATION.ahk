@@ -1,14 +1,13 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
+#Include .\DISK_CACHE_RETENTION_PRIORITY.ahk
 
 /**
  * Provides information about the disk cache.
  * @see https://learn.microsoft.com/windows/win32/api/winioctl/ns-winioctl-disk_cache_information
  * @namespace Windows.Win32.System.Ioctl
- * @version v4.0.30319
  */
-class DISK_CACHE_INFORMATION extends Win32Struct
-{
+class DISK_CACHE_INFORMATION extends Win32Struct {
     static sizeof => 24
 
     static packingSize => 4
@@ -42,7 +41,7 @@ class DISK_CACHE_INFORMATION extends Win32Struct
 
     /**
      * Determines the likelihood of data cached from a read operation remaining in the cache. This data might be given a different priority than data cached under other circumstances, such as from a prefetch operation.
-     * @type {Integer}
+     * @type {DISK_CACHE_RETENTION_PRIORITY}
      */
     ReadRetentionPriority {
         get => NumGet(this, 4, "int")
@@ -51,7 +50,7 @@ class DISK_CACHE_INFORMATION extends Win32Struct
 
     /**
      * Determines the likelihood of data cached from a write operation remaining in the cache. This data might be given a different priority than data cached under other circumstances, such as from a prefetch operation.
-     * @type {Integer}
+     * @type {DISK_CACHE_RETENTION_PRIORITY}
      */
     WriteRetentionPriority {
         get => NumGet(this, 8, "int")
@@ -87,7 +86,7 @@ class DISK_CACHE_INFORMATION extends Win32Struct
             get => NumGet(this, 0, "ushort")
             set => NumPut("ushort", value, this, 0)
         }
-    
+
         /**
          * @type {Integer}
          */
@@ -95,7 +94,7 @@ class DISK_CACHE_INFORMATION extends Win32Struct
             get => NumGet(this, 2, "ushort")
             set => NumPut("ushort", value, this, 2)
         }
-    
+
         /**
          * @type {Integer}
          */
@@ -103,7 +102,6 @@ class DISK_CACHE_INFORMATION extends Win32Struct
             get => NumGet(this, 4, "ushort")
             set => NumPut("ushort", value, this, 4)
         }
-    
     }
 
     class _BlockPrefetch extends Win32Struct {
@@ -117,7 +115,7 @@ class DISK_CACHE_INFORMATION extends Win32Struct
             get => NumGet(this, 0, "ushort")
             set => NumPut("ushort", value, this, 0)
         }
-    
+
         /**
          * @type {Integer}
          */
@@ -125,16 +123,15 @@ class DISK_CACHE_INFORMATION extends Win32Struct
             get => NumGet(this, 2, "ushort")
             set => NumPut("ushort", value, this, 2)
         }
-    
     }
 
     /**
      * @type {_ScalarPrefetch}
      */
-    ScalarPrefetch{
+    ScalarPrefetch {
         get {
             if(!this.HasProp("__ScalarPrefetch"))
-                this.__ScalarPrefetch := %this.__Class%._ScalarPrefetch(16, this)
+                this.__ScalarPrefetch := DISK_CACHE_INFORMATION._ScalarPrefetch(16, this)
             return this.__ScalarPrefetch
         }
     }
@@ -142,10 +139,10 @@ class DISK_CACHE_INFORMATION extends Win32Struct
     /**
      * @type {_BlockPrefetch}
      */
-    BlockPrefetch{
+    BlockPrefetch {
         get {
             if(!this.HasProp("__BlockPrefetch"))
-                this.__BlockPrefetch := %this.__Class%._BlockPrefetch(16, this)
+                this.__BlockPrefetch := DISK_CACHE_INFORMATION._BlockPrefetch(16, this)
             return this.__BlockPrefetch
         }
     }

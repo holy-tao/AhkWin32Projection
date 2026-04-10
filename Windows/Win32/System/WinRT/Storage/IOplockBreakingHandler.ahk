@@ -7,9 +7,8 @@
  * This interface is not currently implemented.
  * @see https://learn.microsoft.com/windows/win32/api/windowsstoragecom/nn-windowsstoragecom-ioplockbreakinghandler
  * @namespace Windows.Win32.System.WinRT.Storage
- * @version v4.0.30319
  */
-class IOplockBreakingHandler extends IUnknown{
+class IOplockBreakingHandler extends IUnknown {
 
     static sizeof => A_PtrSize
     /**

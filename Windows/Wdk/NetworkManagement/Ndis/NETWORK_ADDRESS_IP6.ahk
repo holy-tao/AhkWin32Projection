@@ -3,10 +3,8 @@
 
 /**
  * @namespace Windows.Wdk.NetworkManagement.Ndis
- * @version v4.0.30319
  */
-class NETWORK_ADDRESS_IP6 extends Win32Struct
-{
+class NETWORK_ADDRESS_IP6 extends Win32Struct {
     static sizeof => 28
 
     static packingSize => 4
@@ -28,9 +26,9 @@ class NETWORK_ADDRESS_IP6 extends Win32Struct
     }
 
     /**
-     * @type {Array<UInt16>}
+     * @type {Array<Integer>}
      */
-    sin6_addr{
+    sin6_addr {
         get {
             if(!this.HasProp("__sin6_addrProxyArray"))
                 this.__sin6_addrProxyArray := Win32FixedArray(this.ptr + 8, 8, Primitive, "ushort")

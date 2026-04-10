@@ -3,10 +3,8 @@
 
 /**
  * @namespace Windows.Win32.Globalization
- * @version v4.0.30319
  */
-class ULocaleData extends Win32Struct
-{
+class ULocaleData extends Win32Struct {
     static sizeof => 8
 
     static packingSize => 8

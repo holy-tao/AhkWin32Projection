@@ -3,9 +3,8 @@
 
 /**
  * @namespace Windows.Win32.UI.Input.Ime
- * @version v4.0.30319
  */
-class IMEREG extends Win32Enum{
+class IMEREG extends Win32Enum {
 
     /**
      * @type {Integer (Int32)}

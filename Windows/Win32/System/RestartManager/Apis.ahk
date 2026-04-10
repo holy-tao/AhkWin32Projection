@@ -3,7 +3,6 @@
 
 /**
  * @namespace Windows.Win32.System.RestartManager
- * @version v4.0.30319
  */
 class RestartManager {
 
@@ -46,7 +45,7 @@ class RestartManager {
      * A secondary installer can join an existing Restart Manager session by calling the <a href="https://docs.microsoft.com/windows/desktop/api/restartmanager/nf-restartmanager-rmjoinsession">RmJoinSession</a> function with the session handle and session key returned from the <b>RmStartSession</b> function call of the primary installer.
      * @param {Pointer<Integer>} pSessionHandle A pointer to the handle of a Restart Manager session. The session handle can be passed in subsequent calls to the Restart Manager API.
      * @param {PWSTR} strSessionKey A <b>null</b>-terminated string that contains the session key to the new session. The string must be allocated before calling  the <b>RmStartSession</b> function.
-     * @returns {Integer} This is the most recent error received. The function can return one of the <a href="https://docs.microsoft.com/windows/desktop/Debug/system-error-codes">system error codes</a> that are defined in Winerror.h. 
+     * @returns {WIN32_ERROR} This is the most recent error received. The function can return one of the <a href="https://docs.microsoft.com/windows/desktop/Debug/system-error-codes">system error codes</a> that are defined in Winerror.h. 
      * 
      * <table>
      * <tr>
@@ -146,7 +145,7 @@ class RestartManager {
      * The <b>RmJoinSession</b> function joins a secondary installer to an existing Restart Manager session. This is typically an installer that does not control the user interface and can run either in-process or out-of-process of the primary installer. Only the primary installer can call the <a href="https://docs.microsoft.com/windows/desktop/api/restartmanager/nf-restartmanager-rmstartsession">RmStartSession</a> function and this is typically the application that controls the user interface or that controls the installation sequence of multiple patches in an update.
      * @param {Pointer<Integer>} pSessionHandle A pointer to the handle of an existing Restart Manager Session.
      * @param {PWSTR} strSessionKey A <b>null</b>-terminated string that contains the session key of an existing session.
-     * @returns {Integer} This is the most recent error received. The function can return one of the <a href="https://docs.microsoft.com/windows/desktop/Debug/system-error-codes">system error codes</a> that are defined in Winerror.h. 
+     * @returns {WIN32_ERROR} This is the most recent error received. The function can return one of the <a href="https://docs.microsoft.com/windows/desktop/Debug/system-error-codes">system error codes</a> that are defined in Winerror.h. 
      * 
      * <table>
      * <tr>
@@ -253,7 +252,7 @@ class RestartManager {
     /**
      * Ends the Restart Manager session.
      * @param {Integer} dwSessionHandle A handle to an existing Restart Manager session.
-     * @returns {Integer} This is the most recent error received. The function can return one of the <a href="https://docs.microsoft.com/windows/desktop/Debug/system-error-codes">system error codes</a> that are defined in Winerror.h.
+     * @returns {WIN32_ERROR} This is the most recent error received. The function can return one of the <a href="https://docs.microsoft.com/windows/desktop/Debug/system-error-codes">system error codes</a> that are defined in Winerror.h.
      * 
      * <table>
      * <tr>
@@ -340,7 +339,7 @@ class RestartManager {
      * @param {Pointer<RM_UNIQUE_PROCESS>} rgApplications An array of <a href="https://docs.microsoft.com/windows/desktop/api/restartmanager/ns-restartmanager-rm_unique_process">RM_UNIQUE_PROCESS</a> structures. This parameter can be <b>NULL</b> if <i>nApplications</i> is 0.
      * @param {Integer} nServices The number of services to be registered.
      * @param {Pointer<PWSTR>} rgsServiceNames An array of <b>null</b>-terminated strings of service short names. This parameter can be <b>NULL</b> if <i>nServices</i> is 0.
-     * @returns {Integer} This is the most recent error received. The function can return one of the <a href="https://docs.microsoft.com/windows/desktop/Debug/system-error-codes">system error codes</a> that are defined in Winerror.h. 
+     * @returns {WIN32_ERROR} This is the most recent error received. The function can return one of the <a href="https://docs.microsoft.com/windows/desktop/Debug/system-error-codes">system error codes</a> that are defined in Winerror.h. 
      * 
      * <table>
      * <tr>
@@ -438,7 +437,7 @@ class RestartManager {
      * @param {Pointer<Integer>} pnProcInfo A pointer to the total number of <a href="https://docs.microsoft.com/windows/desktop/api/restartmanager/ns-restartmanager-rm_process_info">RM_PROCESS_INFO</a> structures in an array and number of structures filled.
      * @param {Pointer<RM_PROCESS_INFO>} rgAffectedApps An array of <a href="https://docs.microsoft.com/windows/desktop/api/restartmanager/ns-restartmanager-rm_process_info">RM_PROCESS_INFO</a> structures that list the applications and services  using resources that have been registered with the session.
      * @param {Pointer<Integer>} lpdwRebootReasons Pointer to location that receives a value of the  <a href="https://docs.microsoft.com/windows/desktop/api/restartmanager/ne-restartmanager-rm_reboot_reason">RM_REBOOT_REASON</a> enumeration that describes the reason a system restart is needed.
-     * @returns {Integer} This is the most recent error received. The function can return one of the <a href="https://docs.microsoft.com/windows/desktop/Debug/system-error-codes">system error codes</a> that are defined in Winerror.h.
+     * @returns {WIN32_ERROR} This is the most recent error received. The function can return one of the <a href="https://docs.microsoft.com/windows/desktop/Debug/system-error-codes">system error codes</a> that are defined in Winerror.h.
      * 
      * <table>
      * <tr>
@@ -594,7 +593,7 @@ class RestartManager {
      * </tr>
      * </table>
      * @param {Pointer<RM_WRITE_STATUS_CALLBACK>} fnStatus A pointer to an <a href="https://docs.microsoft.com/windows/desktop/api/restartmanager/nc-restartmanager-rm_write_status_callback">RM_WRITE_STATUS_CALLBACK</a> function that is used to communicate detailed status while this function is executing. If <b>NULL</b>, no status is provided.
-     * @returns {Integer} This is the most recent error received. The function can return one of the <a href="https://docs.microsoft.com/windows/desktop/Debug/system-error-codes">system error codes</a> that are defined in Winerror.h. 
+     * @returns {WIN32_ERROR} This is the most recent error received. The function can return one of the <a href="https://docs.microsoft.com/windows/desktop/Debug/system-error-codes">system error codes</a> that are defined in Winerror.h. 
      * 
      * <table>
      * <tr>
@@ -735,7 +734,7 @@ class RestartManager {
      *  The <b>RmRestart</b> function does not restart any applications that do not run as the currently-logged on user. Even if the application was shutdown by Restart Manager. For example, the <b>RmRestart</b> function does not restart applications started with the <b>Run As</b> command that do not run as the currently-logged on user. These applications must be manually restarted.
      * @param {Integer} dwSessionHandle A handle to the existing Restart Manager session.
      * @param {Pointer<RM_WRITE_STATUS_CALLBACK>} fnStatus A pointer to a status message callback function that is used to communicate status while the <b>RmRestart</b> function is running. If <b>NULL</b>, no status is provided.
-     * @returns {Integer} This is the most recent error received. The function can return one of the <a href="https://docs.microsoft.com/windows/desktop/Debug/system-error-codes">system error codes</a> that are defined in Winerror.h.
+     * @returns {WIN32_ERROR} This is the most recent error received. The function can return one of the <a href="https://docs.microsoft.com/windows/desktop/Debug/system-error-codes">system error codes</a> that are defined in Winerror.h.
      * 
      * <table>
      * <tr>
@@ -864,7 +863,7 @@ class RestartManager {
     /**
      * Cancels the current RmShutdown or RmRestart operation. This function must be called from the application that has started the session by calling the RmStartSession function.
      * @param {Integer} dwSessionHandle A handle to an existing session.
-     * @returns {Integer} This is the most recent error received. The function can return one of the <a href="https://docs.microsoft.com/windows/desktop/Debug/system-error-codes">system error codes</a> that are defined in Winerror.h. 
+     * @returns {WIN32_ERROR} This is the most recent error received. The function can return one of the <a href="https://docs.microsoft.com/windows/desktop/Debug/system-error-codes">system error codes</a> that are defined in Winerror.h. 
      * 
      * <table>
      * <tr>
@@ -934,8 +933,8 @@ class RestartManager {
      * @param {PWSTR} strModuleName A pointer to a <b>null</b>-terminated string value that contains the full path to the application's executable file. Modifications to shutdown or restart actions are applied for the application that is referenced by the full path.  This parameter must be <b>NULL</b> if the <i>Application</i> or <i>strServiceShortName</i> parameter is non-<b>NULL</b>.
      * @param {Pointer<RM_UNIQUE_PROCESS>} pProcess A pointer to a <a href="https://docs.microsoft.com/windows/desktop/api/restartmanager/ns-restartmanager-rm_unique_process">RM_UNIQUE_PROCESS</a> structure for the application.  Modifications to shutdown or restart actions are applied for the application that is referenced by the <b>RM_UNIQUE_PROCESS</b> structure. This parameter must be <b>NULL</b> if the <i>strFilename</i>  or <i>strShortServiceName</i> parameter is non-<b>NULL</b>.
      * @param {PWSTR} strServiceShortName A pointer to a <b>null</b>-terminated string value that contains the short service name. Modifications to shutdown or restart actions are applied for the service that is referenced by short service filename.  This parameter must be <b>NULL</b> if the <i>strFilename</i> or <i>Application</i> parameter is non-<b>NULL</b>.
-     * @param {Integer} FilterAction An <a href="https://docs.microsoft.com/windows/desktop/api/restartmanager/ne-restartmanager-rm_filter_action">RM_FILTER_ACTION</a> enumeration value that specifies the type of modification to be applied.
-     * @returns {Integer} This is the most recent error received. The function can return one of the <a href="https://docs.microsoft.com/windows/desktop/Debug/system-error-codes">system error codes</a> that are defined in Winerror.h.
+     * @param {RM_FILTER_ACTION} FilterAction An <a href="https://docs.microsoft.com/windows/desktop/api/restartmanager/ne-restartmanager-rm_filter_action">RM_FILTER_ACTION</a> enumeration value that specifies the type of modification to be applied.
+     * @returns {WIN32_ERROR} This is the most recent error received. The function can return one of the <a href="https://docs.microsoft.com/windows/desktop/Debug/system-error-codes">system error codes</a> that are defined in Winerror.h.
      * 
      * <table>
      * <tr>
@@ -996,7 +995,7 @@ class RestartManager {
      * @param {PWSTR} strModuleName A pointer to a <b>null</b>-terminated string value that contains the full path for the application's  executable file. The <b>RmRemoveFilter</b> function removes any modifications to the referenced application's shutdown or restart actions previously applied by the <a href="https://docs.microsoft.com/windows/desktop/api/restartmanager/nf-restartmanager-rmaddfilter">RmAddFilter</a> function.  This parameter must be <b>NULL</b> if the <i>Application</i> or <i>strServiceShortName</i> parameter is non-<b>NULL</b>.
      * @param {Pointer<RM_UNIQUE_PROCESS>} pProcess The <a href="https://docs.microsoft.com/windows/desktop/api/restartmanager/ns-restartmanager-rm_unique_process">RM_UNIQUE_PROCESS</a> structure for the application. The <b>RmRemoveFilter</b> function removes any modifications to the referenced application's shutdown or restart actions previously applied by the <a href="https://docs.microsoft.com/windows/desktop/api/restartmanager/nf-restartmanager-rmaddfilter">RmAddFilter</a> function.  This parameter must be <b>NULL</b> if the <i>strFilename</i>  or <i>strShortServiceName</i> parameter is non-<b>NULL</b>.
      * @param {PWSTR} strServiceShortName A pointer to a <b>null</b>-terminated string value that contains the short service name.  The <b>RmRemoveFilter</b> function removes any modifications to the referenced service's shutdown or restart actions previously applied by the <a href="https://docs.microsoft.com/windows/desktop/api/restartmanager/nf-restartmanager-rmaddfilter">RmAddFilter</a> function.  This parameter must be <b>NULL</b> if the <i>strFilename</i> or <i>Application</i> parameter is non-<b>NULL</b>.
-     * @returns {Integer} This is the most recent error received. The function can return one of the <a href="https://docs.microsoft.com/windows/desktop/Debug/system-error-codes">system error codes</a> that are defined in Winerror.h.
+     * @returns {WIN32_ERROR} This is the most recent error received. The function can return one of the <a href="https://docs.microsoft.com/windows/desktop/Debug/system-error-codes">system error codes</a> that are defined in Winerror.h.
      * 
      * <table>
      * <tr>
@@ -1056,10 +1055,10 @@ class RestartManager {
      * @remarks
      * The returned <i>pbFilterBuf</i> buffer has to be typecast to <b>RM_FILTER_INFO</b> to access the filter list.
      * @param {Integer} dwSessionHandle A handle to an existing Restart Manager session.
-     * @param {Pointer} pbFilterBuf A pointer to a buffer that contains modification information.
+     * @param {Integer} pbFilterBuf A pointer to a buffer that contains modification information.
      * @param {Integer} cbFilterBuf The size of the buffer that contains modification information in bytes.
      * @param {Pointer<Integer>} cbFilterBufNeeded The number of bytes needed in the buffer.
-     * @returns {Integer} This is the most recent error received. The function can return one of the <a href="https://docs.microsoft.com/windows/desktop/Debug/system-error-codes">system error codes</a> that are defined in Winerror.h.
+     * @returns {WIN32_ERROR} This is the most recent error received. The function can return one of the <a href="https://docs.microsoft.com/windows/desktop/Debug/system-error-codes">system error codes</a> that are defined in Winerror.h.
      * 
      * <table>
      * <tr>

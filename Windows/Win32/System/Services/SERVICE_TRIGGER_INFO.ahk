@@ -1,14 +1,13 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
+#Include .\SERVICE_TRIGGER.ahk
 
 /**
  * Contains trigger event information for a service. This structure is used by the ChangeServiceConfig2 and QueryServiceConfig2 functions.
  * @see https://learn.microsoft.com/windows/win32/api/winsvc/ns-winsvc-service_trigger_info
  * @namespace Windows.Win32.System.Services
- * @version v4.0.30319
  */
-class SERVICE_TRIGGER_INFO extends Win32Struct
-{
+class SERVICE_TRIGGER_INFO extends Win32Struct {
     static sizeof => 24
 
     static packingSize => 8

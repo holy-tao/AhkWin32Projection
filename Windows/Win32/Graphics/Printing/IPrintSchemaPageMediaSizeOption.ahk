@@ -5,9 +5,8 @@
 
 /**
  * @namespace Windows.Win32.Graphics.Printing
- * @version v4.0.30319
  */
-class IPrintSchemaPageMediaSizeOption extends IPrintSchemaOption{
+class IPrintSchemaPageMediaSizeOption extends IPrintSchemaOption {
 
     static sizeof => A_PtrSize
     /**

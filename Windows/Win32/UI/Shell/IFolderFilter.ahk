@@ -1,8 +1,8 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
-#Include ..\..\Foundation\HWND.ahk
 #Include ..\..\System\Com\IUnknown.ahk
+#Include ..\..\Foundation\HWND.ahk
 
 /**
  * Exposed by a client to specify how to filter the enumeration of a Shell folder by a server application.
@@ -20,9 +20,8 @@
  * </ol>
  * @see https://learn.microsoft.com/windows/win32/api/shobjidl_core/nn-shobjidl_core-ifolderfilter
  * @namespace Windows.Win32.UI.Shell
- * @version v4.0.30319
  */
-class IFolderFilter extends IUnknown{
+class IFolderFilter extends IUnknown {
 
     static sizeof => A_PtrSize
     /**

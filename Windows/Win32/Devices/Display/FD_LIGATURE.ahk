@@ -4,11 +4,9 @@
 
 /**
  * @namespace Windows.Win32.Devices.Display
- * @version v4.0.30319
  */
-class FD_LIGATURE extends Win32Struct
-{
-    static sizeof => 24
+class FD_LIGATURE extends Win32Struct {
+    static sizeof => 40
 
     static packingSize => 8
 
@@ -37,9 +35,9 @@ class FD_LIGATURE extends Win32Struct
     }
 
     /**
-     * @type {Array<LIGATURE>}
+     * @type {LIGATURE}
      */
-    alig{
+    alig {
         get {
             if(!this.HasProp("__aligProxyArray"))
                 this.__aligProxyArray := Win32FixedArray(this.ptr + 16, 1, LIGATURE, "")

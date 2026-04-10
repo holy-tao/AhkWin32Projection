@@ -1,12 +1,11 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
+#Include .\D3DDDIGPUVIRTUALADDRESS_RESERVATION_TYPE.ahk
 
 /**
  * @namespace Windows.Wdk.Graphics.Direct3D
- * @version v4.0.30319
  */
-class D3DDDI_RESERVEGPUVIRTUALADDRESS extends Win32Struct
-{
+class D3DDDI_RESERVEGPUVIRTUALADDRESS extends Win32Struct {
     static sizeof => 72
 
     static packingSize => 8
@@ -60,7 +59,7 @@ class D3DDDI_RESERVEGPUVIRTUALADDRESS extends Win32Struct
     }
 
     /**
-     * @type {Integer}
+     * @type {D3DDDIGPUVIRTUALADDRESS_RESERVATION_TYPE}
      */
     ReservationType {
         get => NumGet(this, 40, "int")

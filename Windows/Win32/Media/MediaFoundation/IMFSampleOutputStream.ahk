@@ -23,9 +23,8 @@
  * </ul>
  * @see https://learn.microsoft.com/windows/win32/api/mfobjects/nn-mfobjects-imfsampleoutputstream
  * @namespace Windows.Win32.Media.MediaFoundation
- * @version v4.0.30319
  */
-class IMFSampleOutputStream extends IUnknown{
+class IMFSampleOutputStream extends IUnknown {
 
     static sizeof => A_PtrSize
     /**

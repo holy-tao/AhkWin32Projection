@@ -1,8 +1,8 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
-#Include .\ICategoryCollection.ahk
 #Include .\IUpdateHistoryEntry.ahk
+#Include .\ICategoryCollection.ahk
 
 /**
  * Represents the recorded history of an update. (IUpdateHistoryEntry2)
@@ -10,9 +10,8 @@
  * The <b>IUpdateHistoryEntry2</b> interface  may require you to update Windows Update Agent (WUA). For more information, see <a href="https://docs.microsoft.com/windows/desktop/Wua_Sdk/updating-the-windows-update-agent">Updating Windows Update Agent</a>.
  * @see https://learn.microsoft.com/windows/win32/api/wuapi/nn-wuapi-iupdatehistoryentry2
  * @namespace Windows.Win32.System.UpdateAgent
- * @version v4.0.30319
  */
-class IUpdateHistoryEntry2 extends IUpdateHistoryEntry{
+class IUpdateHistoryEntry2 extends IUpdateHistoryEntry {
 
     static sizeof => A_PtrSize
     /**

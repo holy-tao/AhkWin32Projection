@@ -5,9 +5,8 @@
  * Specifies the type of event being reported to Sync Center.
  * @see https://learn.microsoft.com/windows/win32/api/syncmgr/ne-syncmgr-syncmgr_event_level
  * @namespace Windows.Win32.UI.Shell
- * @version v4.0.30319
  */
-class SYNCMGR_EVENT_LEVEL extends Win32Enum{
+class SYNCMGR_EVENT_LEVEL extends Win32Enum {
 
     /**
      * The event is informational in nature and will be displayed with the appropriate icon.

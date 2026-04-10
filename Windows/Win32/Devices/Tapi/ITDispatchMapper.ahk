@@ -1,16 +1,14 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
-#Include ..\..\Foundation\BSTR.ahk
 #Include ..\..\System\Com\IDispatch.ahk
 
 /**
  * The ITDispatchMapper interface allows an application to retrieve the dispatch pointer of another interface on an object, given the dispatch pointer of one interface and the GUID of another.
  * @see https://learn.microsoft.com/windows/win32/api/tapi3if/nn-tapi3if-itdispatchmapper
  * @namespace Windows.Win32.Devices.Tapi
- * @version v4.0.30319
  */
-class ITDispatchMapper extends IDispatch{
+class ITDispatchMapper extends IDispatch {
 
     static sizeof => A_PtrSize
     /**

@@ -1,5 +1,6 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
+#Include Common\DXGI_FORMAT.ahk
 #Include Common\DXGI_SAMPLE_DESC.ahk
 
 /**
@@ -8,10 +9,8 @@
  * This structure is used by the <a href="https://docs.microsoft.com/windows/desktop/api/dxgi/nf-dxgi-idxgisurface-getdesc">GetDesc</a> and  <a href="https://docs.microsoft.com/windows/desktop/api/dxgi/nf-dxgi-idxgidevice-createsurface">CreateSurface</a> methods.
  * @see https://learn.microsoft.com/windows/win32/api/dxgi/ns-dxgi-dxgi_surface_desc
  * @namespace Windows.Win32.Graphics.Dxgi
- * @version v4.0.30319
  */
-class DXGI_SURFACE_DESC extends Win32Struct
-{
+class DXGI_SURFACE_DESC extends Win32Struct {
     static sizeof => 20
 
     static packingSize => 4
@@ -42,7 +41,7 @@ class DXGI_SURFACE_DESC extends Win32Struct
      * Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/dxgiformat/ne-dxgiformat-dxgi_format">DXGI_FORMAT</a></b>
      * 
      * A member of the <a href="https://docs.microsoft.com/windows/desktop/api/dxgiformat/ne-dxgiformat-dxgi_format">DXGI_FORMAT</a> enumerated type that describes the surface format.
-     * @type {Integer}
+     * @type {DXGI_FORMAT}
      */
     Format {
         get => NumGet(this, 8, "int")
@@ -55,7 +54,7 @@ class DXGI_SURFACE_DESC extends Win32Struct
      * A member of the <a href="https://docs.microsoft.com/windows/desktop/api/dxgicommon/ns-dxgicommon-dxgi_sample_desc">DXGI_SAMPLE_DESC</a> structure that describes multi-sampling parameters for the surface.
      * @type {DXGI_SAMPLE_DESC}
      */
-    SampleDesc{
+    SampleDesc {
         get {
             if(!this.HasProp("__SampleDesc"))
                 this.__SampleDesc := DXGI_SAMPLE_DESC(12, this)

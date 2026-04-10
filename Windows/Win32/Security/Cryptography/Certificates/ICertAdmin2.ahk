@@ -1,17 +1,16 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\..\Guid.ahk
-#Include ..\..\..\Foundation\BSTR.ahk
-#Include ..\..\..\System\Variant\VARIANT.ahk
 #Include .\ICertAdmin.ahk
+#Include ..\..\..\System\Variant\VARIANT.ahk
+#Include ..\..\..\Foundation\BSTR.ahk
 
 /**
  * Provide administration functionality for properly authorized clients.
  * @see https://learn.microsoft.com/windows/win32/api/certadm/nn-certadm-icertadmin2
  * @namespace Windows.Win32.Security.Cryptography.Certificates
- * @version v4.0.30319
  */
-class ICertAdmin2 extends ICertAdmin{
+class ICertAdmin2 extends ICertAdmin {
 
     static sizeof => A_PtrSize
     /**
@@ -615,7 +614,7 @@ class ICertAdmin2 extends ICertAdmin{
      * </tr>
      * </table>
      * @param {Integer} PropIndex If the <i>PropId</i> parameter is indexed, the zero-based index to use when retrieving the property value. If <i>PropId</i> is not indexed, this value is ignored.
-     * @param {Integer} PropType 
+     * @param {CERT_PROPERTY_TYPE} PropType 
      * @param {Pointer<VARIANT>} pvarPropertyValue <table>
      * <tr>
      * <td><strong>C++</strong></td>
@@ -828,7 +827,7 @@ class ICertAdmin2 extends ICertAdmin{
      * <div> </div>
      * @param {Integer} RequestId <b>LONG</b> value that represents the <a href="https://docs.microsoft.com/windows/desktop/SecGloss/c-gly">certificate request</a> ID in the Certificates Services database. If the serial number (passed in as <i>strCertHash</i>) is to be used instead of the request ID, use zero for this value.
      * @param {BSTR} strCertHash String value that represents the certificate hash. For <i>strCertHash</i> to be used, you must specify a value of zero for <i>RequestId</i>.
-     * @param {Integer} Flags 
+     * @param {CERT_IMPORT_FLAGS} Flags 
      * @param {BSTR} strKey String value that represents the KRA key information.
      * @returns {HRESULT} 
      * @see https://learn.microsoft.com/windows/win32/api/certadm/nf-certadm-icertadmin2-importkey
@@ -849,7 +848,7 @@ class ICertAdmin2 extends ICertAdmin{
      * 
      * <div class="alert"><b>Important</b>  <b>GetMyRoles</b> does not clear the internal cache when the configuration string is changed. When you change the configuration string for the CA, you must instantiate a new <a href="https://docs.microsoft.com/windows/desktop/api/certadm/nn-certadm-icertadmin2">ICertAdmin</a> object and call this method again with the new configuration string.</div>
      * <div> </div>
-     * @returns {Integer} 
+     * @returns {CERTADMIN_GET_ROLES_FLAGS} 
      * @see https://learn.microsoft.com/windows/win32/api/certadm/nf-certadm-icertadmin2-getmyroles
      */
     GetMyRoles(strConfig) {
@@ -867,11 +866,11 @@ class ICertAdmin2 extends ICertAdmin{
      * 
      * <div class="alert"><b>Important</b>  <b>DeleteRow</b> does not clear the internal cache when the configuration string is changed. When you change the configuration string for the CA, you must instantiate a new <a href="https://docs.microsoft.com/windows/desktop/api/certadm/nn-certadm-icertadmin2">ICertAdmin</a> object and call this method again with the new configuration string.</div>
      * <div> </div>
-     * @param {Integer} Flags If not zero, specifies whether <i>Date</i> applies to an expiration date or a last modified date.
+     * @param {CERT_DELETE_ROW_FLAGS} Flags If not zero, specifies whether <i>Date</i> applies to an expiration date or a last modified date.
      * @param {Float} Date Specifies an expiration date when deleting certificates or CRLs, and a last modified date when deleting certificate requests.
      * 
      * If this value is not zero, then <i>RowID</i> must be zero.
-     * @param {Integer} Table A <b>LONG</b> value that specifies the Certificate Services database table from which the rows are to be deleted.
+     * @param {CVRC_TABLE} Table A <b>LONG</b> value that specifies the Certificate Services database table from which the rows are to be deleted.
      * @param {Integer} RowId Specifies the ID of the row to delete.
      * 
      * If this value is not zero, then <i>Date</i> must be zero.

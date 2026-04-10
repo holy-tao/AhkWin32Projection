@@ -3,16 +3,14 @@
 
 /**
  * @namespace Windows.Wdk.System.SystemServices
- * @version v4.0.30319
  */
-class WHEA_PCIXBUS_ERROR_SECTION extends Win32Struct
-{
+class WHEA_PCIXBUS_ERROR_SECTION extends Win32Struct {
     static sizeof => 88
 
     static packingSize => 8
 
     /**
-     * @type {Pointer<WHEA_PCIXBUS_ERROR_SECTION_VALIDBITS>}
+     * @type {Pointer}
      */
     ValidBits {
         get => NumGet(this, 0, "ptr")
@@ -20,7 +18,7 @@ class WHEA_PCIXBUS_ERROR_SECTION extends Win32Struct
     }
 
     /**
-     * @type {Pointer<WHEA_ERROR_STATUS>}
+     * @type {Pointer}
      */
     ErrorStatus {
         get => NumGet(this, 8, "ptr")
@@ -36,7 +34,7 @@ class WHEA_PCIXBUS_ERROR_SECTION extends Win32Struct
     }
 
     /**
-     * @type {Pointer<WHEA_PCIXBUS_ID>}
+     * @type {Pointer}
      */
     BusId {
         get => NumGet(this, 24, "ptr")
@@ -68,7 +66,7 @@ class WHEA_PCIXBUS_ERROR_SECTION extends Win32Struct
     }
 
     /**
-     * @type {Pointer<WHEA_PCIXBUS_COMMAND>}
+     * @type {Pointer}
      */
     BusCommand {
         get => NumGet(this, 56, "ptr")

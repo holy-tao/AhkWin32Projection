@@ -1,14 +1,14 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
+#Include .\CRYPT_XML_STATUS_ERROR_STATUS.ahk
+#Include .\CRYPT_XML_STATUS_INFO_STATUS.ahk
 
 /**
  * Returns information about the signature validation status, summary status information about a SignedInfo element, or summary status information about an array of Reference elements.
  * @see https://learn.microsoft.com/windows/win32/api/cryptxml/ns-cryptxml-crypt_xml_status
  * @namespace Windows.Win32.Security.Cryptography
- * @version v4.0.30319
  */
-class CRYPT_XML_STATUS extends Win32Struct
-{
+class CRYPT_XML_STATUS extends Win32Struct {
     static sizeof => 12
 
     static packingSize => 4
@@ -24,7 +24,7 @@ class CRYPT_XML_STATUS extends Win32Struct
 
     /**
      * The retrieved error flags.
-     * @type {Integer}
+     * @type {CRYPT_XML_STATUS_ERROR_STATUS}
      */
     dwErrorStatus {
         get => NumGet(this, 4, "uint")
@@ -33,7 +33,7 @@ class CRYPT_XML_STATUS extends Win32Struct
 
     /**
      * The retrieved informational flags.
-     * @type {Integer}
+     * @type {CRYPT_XML_STATUS_INFO_STATUS}
      */
     dwInfoStatus {
         get => NumGet(this, 8, "uint")

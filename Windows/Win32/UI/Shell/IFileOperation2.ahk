@@ -5,9 +5,8 @@
 
 /**
  * @namespace Windows.Win32.UI.Shell
- * @version v4.0.30319
  */
-class IFileOperation2 extends IFileOperation{
+class IFileOperation2 extends IFileOperation {
 
     static sizeof => A_PtrSize
     /**
@@ -30,7 +29,7 @@ class IFileOperation2 extends IFileOperation{
 
     /**
      * 
-     * @param {Integer} operationFlags2 
+     * @param {FILE_OPERATION_FLAGS2} operationFlags2 
      * @returns {HRESULT} 
      */
     SetOperationFlags2(operationFlags2) {

@@ -6,13 +6,11 @@
  * The Adapter structure describes a graphics adapter.
  * @see https://learn.microsoft.com/windows/win32/api/cloneviewhelper/ns-cloneviewhelper-adapter
  * @namespace Windows.Win32.Devices.Display
- * @version v4.0.30319
  */
-class Adapter extends Win32Struct
-{
+class Adapter extends Win32Struct {
     static sizeof => 272
 
-    static packingSize => 8
+    static packingSize => 4
 
     /**
      * A single wide-character string that holds the name of the graphics adapter.
@@ -34,12 +32,12 @@ class Adapter extends Win32Struct
 
     /**
      * An array of <a href="https://docs.microsoft.com/windows/desktop/api/cloneviewhelper/ns-cloneviewhelper-sources">Sources</a> structures that specify a list of Video Present Network (VidPN) topologies.
-     * @type {Array<Sources>}
+     * @type {Sources}
      */
-    sources{
+    sources {
         get {
             if(!this.HasProp("__sourcesProxyArray"))
-                this.__sourcesProxyArray := Win32FixedArray(this.ptr + 264, 1, Sources, "")
+                this.__sourcesProxyArray := Win32FixedArray(this.ptr + 260, 1, Sources, "")
             return this.__sourcesProxyArray
         }
     }

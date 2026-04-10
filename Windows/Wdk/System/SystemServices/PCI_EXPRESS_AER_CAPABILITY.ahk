@@ -3,16 +3,14 @@
 
 /**
  * @namespace Windows.Wdk.System.SystemServices
- * @version v4.0.30319
  */
-class PCI_EXPRESS_AER_CAPABILITY extends Win32Struct
-{
+class PCI_EXPRESS_AER_CAPABILITY extends Win32Struct {
     static sizeof => 120
 
     static packingSize => 8
 
     /**
-     * @type {Pointer<PCI_EXPRESS_ENHANCED_CAPABILITY_HEADER>}
+     * @type {Pointer}
      */
     Header {
         get => NumGet(this, 0, "ptr")
@@ -20,7 +18,7 @@ class PCI_EXPRESS_AER_CAPABILITY extends Win32Struct
     }
 
     /**
-     * @type {Pointer<PCI_EXPRESS_UNCORRECTABLE_ERROR_STATUS>}
+     * @type {Pointer}
      */
     UncorrectableErrorStatus {
         get => NumGet(this, 8, "ptr")
@@ -28,7 +26,7 @@ class PCI_EXPRESS_AER_CAPABILITY extends Win32Struct
     }
 
     /**
-     * @type {Pointer<PCI_EXPRESS_UNCORRECTABLE_ERROR_MASK>}
+     * @type {Pointer}
      */
     UncorrectableErrorMask {
         get => NumGet(this, 16, "ptr")
@@ -36,7 +34,7 @@ class PCI_EXPRESS_AER_CAPABILITY extends Win32Struct
     }
 
     /**
-     * @type {Pointer<PCI_EXPRESS_UNCORRECTABLE_ERROR_SEVERITY>}
+     * @type {Pointer}
      */
     UncorrectableErrorSeverity {
         get => NumGet(this, 24, "ptr")
@@ -44,7 +42,7 @@ class PCI_EXPRESS_AER_CAPABILITY extends Win32Struct
     }
 
     /**
-     * @type {Pointer<PCI_EXPRESS_CORRECTABLE_ERROR_STATUS>}
+     * @type {Pointer}
      */
     CorrectableErrorStatus {
         get => NumGet(this, 32, "ptr")
@@ -52,7 +50,7 @@ class PCI_EXPRESS_AER_CAPABILITY extends Win32Struct
     }
 
     /**
-     * @type {Pointer<PCI_EXPRESS_CORRECTABLE_ERROR_MASK>}
+     * @type {Pointer}
      */
     CorrectableErrorMask {
         get => NumGet(this, 40, "ptr")
@@ -60,7 +58,7 @@ class PCI_EXPRESS_AER_CAPABILITY extends Win32Struct
     }
 
     /**
-     * @type {Pointer<PCI_EXPRESS_AER_CAPABILITIES>}
+     * @type {Pointer}
      */
     CapabilitiesAndControl {
         get => NumGet(this, 48, "ptr")
@@ -68,9 +66,9 @@ class PCI_EXPRESS_AER_CAPABILITY extends Win32Struct
     }
 
     /**
-     * @type {Array<UInt32>}
+     * @type {Array<Integer>}
      */
-    HeaderLog{
+    HeaderLog {
         get {
             if(!this.HasProp("__HeaderLogProxyArray"))
                 this.__HeaderLogProxyArray := Win32FixedArray(this.ptr + 56, 4, Primitive, "uint")
@@ -79,7 +77,7 @@ class PCI_EXPRESS_AER_CAPABILITY extends Win32Struct
     }
 
     /**
-     * @type {Pointer<PCI_EXPRESS_SEC_UNCORRECTABLE_ERROR_STATUS>}
+     * @type {Pointer}
      */
     SecUncorrectableErrorStatus {
         get => NumGet(this, 72, "ptr")
@@ -87,7 +85,7 @@ class PCI_EXPRESS_AER_CAPABILITY extends Win32Struct
     }
 
     /**
-     * @type {Pointer<PCI_EXPRESS_SEC_UNCORRECTABLE_ERROR_MASK>}
+     * @type {Pointer}
      */
     SecUncorrectableErrorMask {
         get => NumGet(this, 80, "ptr")
@@ -95,7 +93,7 @@ class PCI_EXPRESS_AER_CAPABILITY extends Win32Struct
     }
 
     /**
-     * @type {Pointer<PCI_EXPRESS_SEC_UNCORRECTABLE_ERROR_SEVERITY>}
+     * @type {Pointer}
      */
     SecUncorrectableErrorSeverity {
         get => NumGet(this, 88, "ptr")
@@ -103,7 +101,7 @@ class PCI_EXPRESS_AER_CAPABILITY extends Win32Struct
     }
 
     /**
-     * @type {Pointer<PCI_EXPRESS_SEC_AER_CAPABILITIES>}
+     * @type {Pointer}
      */
     SecCapabilitiesAndControl {
         get => NumGet(this, 96, "ptr")
@@ -111,9 +109,9 @@ class PCI_EXPRESS_AER_CAPABILITY extends Win32Struct
     }
 
     /**
-     * @type {Array<UInt32>}
+     * @type {Array<Integer>}
      */
-    SecHeaderLog{
+    SecHeaderLog {
         get {
             if(!this.HasProp("__SecHeaderLogProxyArray"))
                 this.__SecHeaderLogProxyArray := Win32FixedArray(this.ptr + 104, 4, Primitive, "uint")

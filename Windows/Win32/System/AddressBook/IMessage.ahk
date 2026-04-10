@@ -1,17 +1,16 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
+#Include .\IMAPIProp.ahk
 #Include .\IMAPITable.ahk
 #Include .\IAttach.ahk
-#Include .\IMAPIProp.ahk
 
 /**
  * Manages messages, attachments, and recipients. Read-only properties are set by the provider when a client calls a message's IMAPIProp::SaveChanges method.
  * @see https://learn.microsoft.com/office/client-developer/outlook/mapi/imessageimapiprop
  * @namespace Windows.Win32.System.AddressBook
- * @version v4.0.30319
  */
-class IMessage extends IMAPIProp{
+class IMessage extends IMAPIProp {
 
     static sizeof => A_PtrSize
 

@@ -5,10 +5,8 @@
  * Indicates a range of bytes in a file.
  * @see https://learn.microsoft.com/windows/win32/api/winioctl/ns-winioctl-file_allocated_range_buffer
  * @namespace Windows.Win32.System.Ioctl
- * @version v4.0.30319
  */
-class FILE_ALLOCATED_RANGE_BUFFER extends Win32Struct
-{
+class FILE_ALLOCATED_RANGE_BUFFER extends Win32Struct {
     static sizeof => 16
 
     static packingSize => 8

@@ -5,9 +5,8 @@
 
 /**
  * @namespace Windows.Win32.Graphics.Direct3D.Dxc
- * @version v4.0.30319
  */
-class IDxcBlobEncoding extends IDxcBlob{
+class IDxcBlobEncoding extends IDxcBlob {
 
     static sizeof => A_PtrSize
     /**
@@ -31,7 +30,7 @@ class IDxcBlobEncoding extends IDxcBlob{
     /**
      * 
      * @param {Pointer<BOOL>} pKnown 
-     * @param {Pointer<Integer>} pCodePage 
+     * @param {Pointer<DXC_CP>} pCodePage 
      * @returns {HRESULT} 
      */
     GetEncoding(pKnown, pCodePage) {

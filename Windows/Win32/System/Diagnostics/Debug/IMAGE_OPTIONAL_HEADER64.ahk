@@ -1,5 +1,8 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\..\Win32Struct.ahk
+#Include .\IMAGE_OPTIONAL_HEADER_MAGIC.ahk
+#Include .\IMAGE_SUBSYSTEM.ahk
+#Include .\IMAGE_DLL_CHARACTERISTICS.ahk
 #Include .\IMAGE_DATA_DIRECTORY.ahk
 
 /**
@@ -52,17 +55,14 @@
  * ```
  * @see https://learn.microsoft.com/windows/win32/api/winnt/ns-winnt-image_optional_header64
  * @namespace Windows.Win32.System.Diagnostics.Debug
- * @version v4.0.30319
  */
-class IMAGE_OPTIONAL_HEADER64 extends Win32Struct
-{
+class IMAGE_OPTIONAL_HEADER64 extends Win32Struct {
     static sizeof => 240
 
     static packingSize => 8
 
     /**
-     * 
-     * @type {Integer}
+     * @type {IMAGE_OPTIONAL_HEADER_MAGIC}
      */
     Magic {
         get => NumGet(this, 0, "ushort")
@@ -425,7 +425,7 @@ class IMAGE_OPTIONAL_HEADER64 extends Win32Struct
      * </td>
      * </tr>
      * </table>
-     * @type {Integer}
+     * @type {IMAGE_SUBSYSTEM}
      */
     Subsystem {
         get => NumGet(this, 68, "ushort")
@@ -599,7 +599,7 @@ class IMAGE_OPTIONAL_HEADER64 extends Win32Struct
      * </td>
      * </tr>
      * </table>
-     * @type {Integer}
+     * @type {IMAGE_DLL_CHARACTERISTICS}
      */
     DllCharacteristics {
         get => NumGet(this, 70, "ushort")
@@ -648,7 +648,7 @@ class IMAGE_OPTIONAL_HEADER64 extends Win32Struct
 
     /**
      * This member is obsolete.
-     * @deprecated 
+     * @deprecated
      * @type {Integer}
      */
     LoaderFlags {
@@ -670,9 +670,9 @@ class IMAGE_OPTIONAL_HEADER64 extends Win32Struct
      * A pointer to the first 
      * <a href="https://docs.microsoft.com/windows/desktop/api/winnt/ns-winnt-image_data_directory">IMAGE_DATA_DIRECTORY</a> structure in the data 
      *  directory.
-     * @type {Array<IMAGE_DATA_DIRECTORY>}
+     * @type {IMAGE_DATA_DIRECTORY}
      */
-    DataDirectory{
+    DataDirectory {
         get {
             if(!this.HasProp("__DataDirectoryProxyArray"))
                 this.__DataDirectoryProxyArray := Win32FixedArray(this.ptr + 112, 16, IMAGE_DATA_DIRECTORY, "")

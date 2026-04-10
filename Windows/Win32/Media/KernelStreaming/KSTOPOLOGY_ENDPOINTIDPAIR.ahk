@@ -4,10 +4,8 @@
 
 /**
  * @namespace Windows.Win32.Media.KernelStreaming
- * @version v4.0.30319
  */
-class KSTOPOLOGY_ENDPOINTIDPAIR extends Win32Struct
-{
+class KSTOPOLOGY_ENDPOINTIDPAIR extends Win32Struct {
     static sizeof => 1048
 
     static packingSize => 4
@@ -15,7 +13,7 @@ class KSTOPOLOGY_ENDPOINTIDPAIR extends Win32Struct
     /**
      * @type {KSTOPOLOGY_ENDPOINTID}
      */
-    RenderEndpoint{
+    RenderEndpoint {
         get {
             if(!this.HasProp("__RenderEndpoint"))
                 this.__RenderEndpoint := KSTOPOLOGY_ENDPOINTID(0, this)
@@ -26,7 +24,7 @@ class KSTOPOLOGY_ENDPOINTIDPAIR extends Win32Struct
     /**
      * @type {KSTOPOLOGY_ENDPOINTID}
      */
-    CaptureEndpoint{
+    CaptureEndpoint {
         get {
             if(!this.HasProp("__CaptureEndpoint"))
                 this.__CaptureEndpoint := KSTOPOLOGY_ENDPOINTID(524, this)

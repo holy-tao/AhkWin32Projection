@@ -7,9 +7,8 @@
  * Implement this interface to receive notification when status changes occur in event subscriptions.
  * @see https://learn.microsoft.com/windows/win32/api/wsdclient/nn-wsdclient-iwsdeventingstatus
  * @namespace Windows.Win32.Devices.WebServicesOnDevices
- * @version v4.0.30319
  */
-class IWSDEventingStatus extends IUnknown{
+class IWSDEventingStatus extends IUnknown {
 
     static sizeof => A_PtrSize
     /**

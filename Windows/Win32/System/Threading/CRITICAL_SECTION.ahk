@@ -1,13 +1,12 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
+#Include .\CRITICAL_SECTION_DEBUG.ahk
 #Include ..\..\Foundation\HANDLE.ahk
 
 /**
  * @namespace Windows.Win32.System.Threading
- * @version v4.0.30319
  */
-class CRITICAL_SECTION extends Win32Struct
-{
+class CRITICAL_SECTION extends Win32Struct {
     static sizeof => 40
 
     static packingSize => 8
@@ -39,7 +38,7 @@ class CRITICAL_SECTION extends Win32Struct
     /**
      * @type {HANDLE}
      */
-    OwningThread{
+    OwningThread {
         get {
             if(!this.HasProp("__OwningThread"))
                 this.__OwningThread := HANDLE(16, this)
@@ -50,7 +49,7 @@ class CRITICAL_SECTION extends Win32Struct
     /**
      * @type {HANDLE}
      */
-    LockSemaphore{
+    LockSemaphore {
         get {
             if(!this.HasProp("__LockSemaphore"))
                 this.__LockSemaphore := HANDLE(24, this)

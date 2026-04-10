@@ -1,7 +1,6 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
-#Include ..\..\Foundation\BSTR.ahk
 #Include ..\..\System\Com\IUnknown.ahk
 
 /**
@@ -20,9 +19,8 @@
  * To view some code that registers for COM notifications, see the Client section of the <a href="https://docs.microsoft.com/archive/msdn-magazine/2001/january/msdn-magazine-january-2001">COM Connection Points article</a>.
  * @see https://learn.microsoft.com/windows/win32/api/mbnapi/nn-mbnapi-imbndeviceservicesevents
  * @namespace Windows.Win32.NetworkManagement.MobileBroadband
- * @version v4.0.30319
  */
-class IMbnDeviceServicesEvents extends IUnknown{
+class IMbnDeviceServicesEvents extends IUnknown {
 
     static sizeof => A_PtrSize
     /**
@@ -49,7 +47,7 @@ class IMbnDeviceServicesEvents extends IUnknown{
      * The Mobile Broadband service will free the memory for <i>commandIDList</i> after the function call returns. If an application wants to use this data then it should copy the contents in its own memory.
      * @param {IMbnDeviceService} deviceService The <a href="https://docs.microsoft.com/windows/desktop/api/mbnapi/nn-mbnapi-imbndeviceservice">IMbnDeviceService</a> object on which the query was requested.
      * @param {Pointer<SAFEARRAY>} commandIDList An array that contains the list of command IDs supported by the device service.  This field is valid only if the status is <b>S_OK</b>.
-     * @param {HRESULT} _status 
+     * @param {HRESULT} _status A status code that indicates the outcome of the operation.
      * @param {Integer} requestID The request ID that was assigned by the Mobile Broadband service to the query operation request.
      * @returns {HRESULT} The method must return the following value.
      * 
@@ -80,7 +78,7 @@ class IMbnDeviceServicesEvents extends IUnknown{
     /**
      * Notification method indicating that a device service CommandSessionOpen request has completed.
      * @param {IMbnDeviceService} deviceService The <a href="https://docs.microsoft.com/windows/desktop/api/mbnapi/nn-mbnapi-imbndeviceservice">IMbnDeviceService</a> object on which the <b>CommandSessionOpen</b> was requested.
-     * @param {HRESULT} _status 
+     * @param {HRESULT} _status A status code that indicates the outcome of the operation.
      * @param {Integer} requestID The request ID that was assigned by the Mobile Broadband service to the <b>CommandSessionOpen</b> request.
      * @returns {HRESULT} The method must return the following value.
      * 
@@ -111,7 +109,7 @@ class IMbnDeviceServicesEvents extends IUnknown{
     /**
      * Notification method indicating that a device service CloseCommandSession request has completed.
      * @param {IMbnDeviceService} deviceService The <a href="https://docs.microsoft.com/windows/desktop/api/mbnapi/nn-mbnapi-imbndeviceservice">IMbnDeviceService</a> object on which the <b>CloseCommandSession</b> was requested.
-     * @param {HRESULT} _status 
+     * @param {HRESULT} _status A status code that indicates the outcome of the operation.
      * @param {Integer} requestID The request ID that was assigned by the Mobile Broadband service to the close request.
      * @returns {HRESULT} The method must return the following value.
      * 
@@ -146,7 +144,7 @@ class IMbnDeviceServicesEvents extends IUnknown{
      * @param {IMbnDeviceService} deviceService The <a href="https://docs.microsoft.com/windows/desktop/api/mbnapi/nn-mbnapi-imbndeviceservice">IMbnDeviceService</a> object on which the operation was requested.
      * @param {Integer} responseID An identifier for the response.
      * @param {Pointer<SAFEARRAY>} deviceServiceData A byte array containing the data returned by the device. If the response is fragmented across multiple indications, this only contains the information for one fragment. This field is valid only if the status is <b>S_OK</b>.
-     * @param {HRESULT} _status 
+     * @param {HRESULT} _status A status code that indicates the outcome of the operation.
      * @param {Integer} requestID The request ID that was assigned by the Mobile Broadband service to the set operation request.
      * @returns {HRESULT} The method must return the following value.
      * 
@@ -181,7 +179,7 @@ class IMbnDeviceServicesEvents extends IUnknown{
      * @param {IMbnDeviceService} deviceService The <a href="https://docs.microsoft.com/windows/desktop/api/mbnapi/nn-mbnapi-imbndeviceservice">IMbnDeviceService</a> object on which the operation was requested.
      * @param {Integer} responseID A identifier for the response.
      * @param {Pointer<SAFEARRAY>} deviceServiceData A byte array containing the data returned by the device. If the response is fragmented across multiple indications, this only contains the information for one fragment. This field is valid only if the status is <b>S_OK</b>.
-     * @param {HRESULT} _status 
+     * @param {HRESULT} _status A status code that indicates the outcome of the operation.
      * @param {Integer} requestID The request ID that was assigned by the Mobile Broadband service to the query operation request.
      * @returns {HRESULT} The method must return the following value.
      * 
@@ -245,7 +243,7 @@ class IMbnDeviceServicesEvents extends IUnknown{
     /**
      * Notification method indicating that a device service OpenDataSession request has completed.
      * @param {IMbnDeviceService} deviceService The <a href="https://docs.microsoft.com/windows/desktop/api/mbnapi/nn-mbnapi-imbndeviceservice">IMbnDeviceService</a> object on which the <b>OpenDataSession</b>  was requested.
-     * @param {HRESULT} _status 
+     * @param {HRESULT} _status A status code that indicates the outcome of the operation.
      * @param {Integer} requestID The request ID that was assigned by the Mobile Broadband service to the <b>OpenDataSession</b> request.
      * @returns {HRESULT} The method must return the following value.
      * 
@@ -276,7 +274,7 @@ class IMbnDeviceServicesEvents extends IUnknown{
     /**
      * Notification method indicating that a device service session CloseDataSession request has completed.
      * @param {IMbnDeviceService} deviceService The <a href="https://docs.microsoft.com/windows/desktop/api/mbnapi/nn-mbnapi-imbndeviceservice">IMbnDeviceService</a> session object on which the <b>CloseDataSession</b> was requested.
-     * @param {HRESULT} _status 
+     * @param {HRESULT} _status A status code that indicates the outcome of the operation.
      * @param {Integer} requestID The request ID that was assigned by the Mobile Broadband service to the <b>CloseDataSession</b> request.
      * @returns {HRESULT} The method must return the following value.
      * 
@@ -307,7 +305,7 @@ class IMbnDeviceServicesEvents extends IUnknown{
     /**
      * Notification method indicating that a device service session Write request has completed.
      * @param {IMbnDeviceService} deviceService The <a href="https://docs.microsoft.com/windows/desktop/api/mbnapi/nn-mbnapi-imbndeviceservice">IMbnDeviceService</a> session object on which the <b>Write</b> was requested.
-     * @param {HRESULT} _status 
+     * @param {HRESULT} _status A status code that indicates the outcome of the operation.
      * @param {Integer} requestID The request ID that was assigned by the Mobile Broadband service to the <b>Write</b> request.
      * @returns {HRESULT} The method must return the following value.
      * 
@@ -370,7 +368,7 @@ class IMbnDeviceServicesEvents extends IUnknown{
     /**
      * Notification method that signals a change in the state of device services on the system.
      * @param {BSTR} interfaceID The <a href="https://docs.microsoft.com/windows/desktop/api/mbnapi/nf-mbnapi-imbninterface-get_interfaceid">InterfaceID</a> of the device for which the device services state change notification is sent.
-     * @param {Integer} stateChange A <a href="https://docs.microsoft.com/windows/desktop/api/mbnapi/ne-mbnapi-mbn_device_services_interface_state">MBN_DEVICE_SERVICES_INTERFACE_STATE</a> enumeration that specifies whether the device service capable device is available or unavailable.
+     * @param {MBN_DEVICE_SERVICES_INTERFACE_STATE} stateChange A <a href="https://docs.microsoft.com/windows/desktop/api/mbnapi/ne-mbnapi-mbn_device_services_interface_state">MBN_DEVICE_SERVICES_INTERFACE_STATE</a> enumeration that specifies whether the device service capable device is available or unavailable.
      * @returns {HRESULT} The method must return the following value.
      * 
      * <table>

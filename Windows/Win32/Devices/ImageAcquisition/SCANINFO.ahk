@@ -6,10 +6,8 @@
 
 /**
  * @namespace Windows.Win32.Devices.ImageAcquisition
- * @version v4.0.30319
  */
-class SCANINFO extends Win32Struct
-{
+class SCANINFO extends Win32Struct {
     static sizeof => 312
 
     static packingSize => 8
@@ -73,7 +71,7 @@ class SCANINFO extends Win32Struct
     /**
      * @type {RANGEVALUE}
      */
-    IntensityRange{
+    IntensityRange {
         get {
             if(!this.HasProp("__IntensityRange"))
                 this.__IntensityRange := RANGEVALUE(28, this)
@@ -84,7 +82,7 @@ class SCANINFO extends Win32Struct
     /**
      * @type {RANGEVALUE}
      */
-    ContrastRange{
+    ContrastRange {
         get {
             if(!this.HasProp("__ContrastRange"))
                 this.__ContrastRange := RANGEVALUE(40, this)
@@ -183,7 +181,7 @@ class SCANINFO extends Win32Struct
     /**
      * @type {SCANWINDOW}
      */
-    Window{
+    Window {
         get {
             if(!this.HasProp("__Window"))
                 this.__Window := SCANWINDOW(96, this)
@@ -290,18 +288,18 @@ class SCANINFO extends Win32Struct
     /**
      * @type {Array<HANDLE>}
      */
-    DeviceIOHandles{
+    DeviceIOHandles {
         get {
             if(!this.HasProp("__DeviceIOHandlesProxyArray"))
-                this.__DeviceIOHandlesProxyArray := Win32FixedArray(this.ptr + 160, 16, HANDLE, "")
+                this.__DeviceIOHandlesProxyArray := Win32FixedArray(this.ptr + 160, 16, Primitive, "ptr")
             return this.__DeviceIOHandlesProxyArray
         }
     }
 
     /**
-     * @type {Array<Int32>}
+     * @type {Array<Integer>}
      */
-    lReserved{
+    lReserved {
         get {
             if(!this.HasProp("__lReservedProxyArray"))
                 this.__lReservedProxyArray := Win32FixedArray(this.ptr + 288, 4, Primitive, "int")

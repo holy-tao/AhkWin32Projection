@@ -4,10 +4,8 @@
 
 /**
  * @namespace Windows.Win32.Storage.DataDeduplication
- * @version v4.0.30319
  */
-class DedupStream extends Win32Struct
-{
+class DedupStream extends Win32Struct {
     static sizeof => 32
 
     static packingSize => 8
@@ -15,7 +13,7 @@ class DedupStream extends Win32Struct
     /**
      * @type {BSTR}
      */
-    Path{
+    Path {
         get {
             if(!this.HasProp("__Path"))
                 this.__Path := BSTR(0, this)

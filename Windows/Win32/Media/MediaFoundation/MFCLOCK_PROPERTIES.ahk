@@ -5,10 +5,8 @@
  * Defines the properties of a clock.
  * @see https://learn.microsoft.com/windows/win32/api/mfidl/ns-mfidl-mfclock_properties
  * @namespace Windows.Win32.Media.MediaFoundation
- * @version v4.0.30319
  */
-class MFCLOCK_PROPERTIES extends Win32Struct
-{
+class MFCLOCK_PROPERTIES extends Win32Struct {
     static sizeof => 40
 
     static packingSize => 8
@@ -24,7 +22,7 @@ class MFCLOCK_PROPERTIES extends Win32Struct
 
     /**
      * The unique identifier of the underlying device that provides the time. If two clocks have the same unique identifier, they are based on the same device. If the underlying device is not shared between two clocks, the value can be <b>GUID_NULL</b>.
-     * @type {Pointer<Guid>}
+     * @type {Pointer}
      */
     guidClockId {
         get => NumGet(this, 8, "ptr")

@@ -1,8 +1,8 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\..\Guid.ahk
-#Include .\ITuneRequest.ahk
 #Include ..\..\..\System\Com\IUnknown.ahk
+#Include .\ITuneRequest.ahk
 
 /**
  * The ITuneRequestInfo interface is implemented on the BDA MPEG2 Transport Information Filter (TIF) and is used by the Network Provider.
@@ -10,9 +10,8 @@
  * To declare the interface identifier (IID) for this interface, use the <b>__uuidof</b> operator: <c>__uuidof(ITuneRequestInfo)</c>.
  * @see https://learn.microsoft.com/windows/win32/api/bdatif/nn-bdatif-itunerequestinfo
  * @namespace Windows.Win32.Media.DirectShow.Tv
- * @version v4.0.30319
  */
-class ITuneRequestInfo extends IUnknown{
+class ITuneRequestInfo extends IUnknown {
 
     static sizeof => A_PtrSize
     /**
@@ -188,7 +187,7 @@ class ITuneRequestInfo extends IUnknown{
      * @remarks
      * This method might be used by a custom Guide Store Loader to enumerate the available services on a transport stream.
      * @param {ITuneRequest} CurrentRequest Specifies the <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/tuner/nn-tuner-itunerequest">ITuneRequest</a> interface of the current request.
-     * @returns {ITuneRequest} 
+     * @returns {ITuneRequest} Pointer to a variable that will receive a tune request for the next service on the transport stream.
      * @see https://learn.microsoft.com/windows/win32/api/bdatif/nf-bdatif-itunerequestinfo-getnextprogram
      */
     GetNextProgram(CurrentRequest) {
@@ -201,7 +200,7 @@ class ITuneRequestInfo extends IUnknown{
      * @remarks
      * This method might be used by a custom Guide Store Loader to enumerate the available services on a transport stream.
      * @param {ITuneRequest} CurrentRequest Specifies the current request.
-     * @returns {ITuneRequest} 
+     * @returns {ITuneRequest} Pointer to a variable that receives a tune request for the previous service in the current transport stream.
      * @see https://learn.microsoft.com/windows/win32/api/bdatif/nf-bdatif-itunerequestinfo-getpreviousprogram
      */
     GetPreviousProgram(CurrentRequest) {
@@ -216,7 +215,7 @@ class ITuneRequestInfo extends IUnknown{
      * 
      * Currently this method is not implemented for DVB-C or DVB-S networks, and the method returns E_NOTIMPL. The method is implemented for DVB-T.
      * @param {ITuneRequest} CurrentRequest Specifies the <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/tuner/nn-tuner-itunerequest">ITuneRequest</a> interface of the current tune request. <b>NULL</b> means to return information for the first stream.
-     * @returns {ITuneRequest} 
+     * @returns {ITuneRequest} Pointer to a variable that receives a tune request for the next transport stream.
      * @see https://learn.microsoft.com/windows/win32/api/bdatif/nf-bdatif-itunerequestinfo-getnextlocator
      */
     GetNextLocator(CurrentRequest) {
@@ -229,7 +228,7 @@ class ITuneRequestInfo extends IUnknown{
      * @remarks
      * Currently this method is not implemented for DVB-C or DVB-S networks, and the method returns E_NOTIMPL. The method is implemented for DVB-T.
      * @param {ITuneRequest} CurrentRequest Specifies current request.
-     * @returns {ITuneRequest} 
+     * @returns {ITuneRequest} Pointer to a variable that receives the tune request for the previous transport stream in the network.
      * @see https://learn.microsoft.com/windows/win32/api/bdatif/nf-bdatif-itunerequestinfo-getpreviouslocator
      */
     GetPreviousLocator(CurrentRequest) {

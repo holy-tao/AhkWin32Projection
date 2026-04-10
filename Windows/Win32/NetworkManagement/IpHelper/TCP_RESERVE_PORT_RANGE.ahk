@@ -5,10 +5,8 @@
  * The TCP_RESERVE_PORT_RANGE structure specifies a TCP port range to reserve.
  * @see https://learn.microsoft.com/windows/win32/api/ipexport/ns-ipexport-tcp_reserve_port_range
  * @namespace Windows.Win32.NetworkManagement.IpHelper
- * @version v4.0.30319
  */
-class TCP_RESERVE_PORT_RANGE extends Win32Struct
-{
+class TCP_RESERVE_PORT_RANGE extends Win32Struct {
     static sizeof => 4
 
     static packingSize => 2

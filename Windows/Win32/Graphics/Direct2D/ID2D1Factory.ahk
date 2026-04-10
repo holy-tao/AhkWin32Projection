@@ -1,6 +1,7 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
+#Include ..\..\System\Com\IUnknown.ahk
 #Include .\ID2D1RectangleGeometry.ahk
 #Include .\ID2D1RoundedRectangleGeometry.ahk
 #Include .\ID2D1EllipseGeometry.ahk
@@ -12,7 +13,6 @@
 #Include .\ID2D1RenderTarget.ahk
 #Include .\ID2D1HwndRenderTarget.ahk
 #Include .\ID2D1DCRenderTarget.ahk
-#Include ..\..\System\Com\IUnknown.ahk
 
 /**
  * Creates Direct2D resources. (ID2D1Factory)
@@ -43,9 +43,8 @@
  * See <a href="https://docs.microsoft.com/windows/win32/Direct2D/multi-threaded-direct2d-apps">Multithreaded Direct2D Apps</a> for more info.
  * @see https://learn.microsoft.com/windows/win32/api/d2d1/nn-d2d1-id2d1factory
  * @namespace Windows.Win32.Graphics.Direct2D
- * @version v4.0.30319
  */
-class ID2D1Factory extends IUnknown{
+class ID2D1Factory extends IUnknown {
 
     static sizeof => A_PtrSize
     /**
@@ -138,7 +137,9 @@ class ID2D1Factory extends IUnknown{
      * Creates an ID2D1GeometryGroup, which is an object that holds other geometries.
      * @remarks
      * Geometry groups are a convenient way to group several geometries simultaneously so all figures of several distinct geometries are concatenated into one. To create a  <a href="https://docs.microsoft.com/windows/win32/api/d2d1/nn-d2d1-id2d1geometrygroup">ID2D1GeometryGroup</a> object, call  the <b>CreateGeometryGroup</b> method on the <a href="https://docs.microsoft.com/windows/win32/api/d2d1/nn-d2d1-id2d1factory">ID2D1Factory</a> object, passing in the <i>fillMode</i> with possible values of   <a href="https://docs.microsoft.com/windows/win32/api/d2d1/ne-d2d1-d2d1_fill_mode">D2D1_FILL_MODE_ALTERNATE</a> (alternate) and <b>D2D1_FILL_MODE_WINDING</b>, an array of geometry objects to add to the geometry group, and the number of elements in this array.
-     * @param {Integer} _fillMode 
+     * @param {D2D1_FILL_MODE} _fillMode Type: <b><a href="https://docs.microsoft.com/windows/win32/api/d2d1/ne-d2d1-d2d1_fill_mode">D2D1_FILL_MODE</a></b>
+     * 
+     * A value that specifies the rule that a composite shape uses to determine whether a given point is part of the geometry.
      * @param {Pointer<ID2D1Geometry>} geometries Type: <b><a href="https://docs.microsoft.com/windows/win32/api/d2d1/nn-d2d1-id2d1geometry">ID2D1Geometry</a>**</b>
      * 
      * An array containing the geometry objects to add to the geometry group. The number of elements in this array is indicated by the <i>geometriesCount</i> parameter.

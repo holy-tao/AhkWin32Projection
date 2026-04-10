@@ -4,10 +4,8 @@
 
 /**
  * @namespace Windows.Win32.Networking.WinInet
- * @version v4.0.30319
  */
-class HTTP_PUSH_WAIT_HANDLE extends Win32Handle
-{
+class HTTP_PUSH_WAIT_HANDLE extends Win32Handle {
     static sizeof => 8
 
     static packingSize => 8

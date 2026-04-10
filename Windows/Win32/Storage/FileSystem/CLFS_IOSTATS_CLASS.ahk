@@ -5,9 +5,8 @@
  * Defines types of I/O statistics reported by CLFS and is used when a client calls GetLogIoStatistics.
  * @see https://learn.microsoft.com/windows/win32/api/clfs/ne-clfs-clfs_iostats_class
  * @namespace Windows.Win32.Storage.FileSystem
- * @version v4.0.30319
  */
-class CLFS_IOSTATS_CLASS extends Win32Enum{
+class CLFS_IOSTATS_CLASS extends Win32Enum {
 
     /**
      * The default I/O statistics exported.

@@ -3,16 +3,14 @@
 
 /**
  * @namespace Windows.Wdk.System.SystemServices
- * @version v4.0.30319
  */
-class DMA_ADAPTER_INFO_CRASHDUMP extends Win32Struct
-{
+class DMA_ADAPTER_INFO_CRASHDUMP extends Win32Struct {
     static sizeof => 24
 
     static packingSize => 8
 
     /**
-     * @type {Pointer<DEVICE_DESCRIPTION>}
+     * @type {Pointer}
      */
     DeviceDescription {
         get => NumGet(this, 0, "ptr")

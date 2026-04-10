@@ -1,15 +1,16 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
 #Include .\WS_SECURITY_BINDING.ahk
+#Include .\WS_SECURITY_BINDING_TYPE.ahk
+#Include .\WS_SECURITY_BINDING_PROPERTY.ahk
+#Include .\WS_WINDOWS_INTEGRATED_AUTH_CREDENTIAL.ahk
 
 /**
  * The security binding subtype for specifying the use of HTTP header authentication against a target service or a HTTP proxy server based on the basic, digest (RFC 2617) and the SPNEGO (RFC4559) protocols.
  * @see https://learn.microsoft.com/windows/win32/api/webservices/ns-webservices-ws_http_header_auth_security_binding
  * @namespace Windows.Win32.Networking.WindowsWebServices
- * @version v4.0.30319
  */
-class WS_HTTP_HEADER_AUTH_SECURITY_BINDING extends Win32Struct
-{
+class WS_HTTP_HEADER_AUTH_SECURITY_BINDING extends Win32Struct {
     static sizeof => 32
 
     static packingSize => 8
@@ -18,7 +19,7 @@ class WS_HTTP_HEADER_AUTH_SECURITY_BINDING extends Win32Struct
      * The base type from which this security binding subtype and all other security binding subtypes derive.
      * @type {WS_SECURITY_BINDING}
      */
-    binding{
+    binding {
         get {
             if(!this.HasProp("__binding"))
                 this.__binding := WS_SECURITY_BINDING(0, this)

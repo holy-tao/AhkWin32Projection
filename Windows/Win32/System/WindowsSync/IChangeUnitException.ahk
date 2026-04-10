@@ -7,9 +7,8 @@
  * Represents a change unit to exclude from a knowledge object.
  * @see https://learn.microsoft.com/windows/win32/api/winsync/nn-winsync-ichangeunitexception
  * @namespace Windows.Win32.System.WindowsSync
- * @version v4.0.30319
  */
-class IChangeUnitException extends IUnknown{
+class IChangeUnitException extends IUnknown {
 
     static sizeof => A_PtrSize
     /**

@@ -7,9 +7,8 @@
  * Suspends or releases a share root or directory tree in the Offline Files cache.
  * @see https://learn.microsoft.com/windows/win32/api/cscobj/nn-cscobj-iofflinefilessuspend
  * @namespace Windows.Win32.Storage.OfflineFiles
- * @version v4.0.30319
  */
-class IOfflineFilesSuspend extends IUnknown{
+class IOfflineFilesSuspend extends IUnknown {
 
     static sizeof => A_PtrSize
     /**

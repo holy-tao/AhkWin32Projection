@@ -1,6 +1,9 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
+#Include ..\Dxgi\Common\DXGI_FORMAT.ahk
+#Include .\D3D12_SRV_DIMENSION.ahk
 #Include .\D3D12_BUFFER_SRV.ahk
+#Include .\D3D12_BUFFER_SRV_FLAGS.ahk
 #Include .\D3D12_TEX1D_SRV.ahk
 #Include .\D3D12_TEX1D_ARRAY_SRV.ahk
 #Include .\D3D12_TEX2D_SRV.ahk
@@ -22,17 +25,15 @@
  * Create a shader-resource-view description by calling <a href="https://docs.microsoft.com/windows/desktop/api/d3d12/nf-d3d12-id3d12device-createshaderresourceview">ID3D12Device::CreateShaderResourceView</a>.
  * @see https://learn.microsoft.com/windows/win32/api/d3d12/ns-d3d12-d3d12_shader_resource_view_desc
  * @namespace Windows.Win32.Graphics.Direct3D12
- * @version v4.0.30319
  */
-class D3D12_SHADER_RESOURCE_VIEW_DESC extends Win32Struct
-{
+class D3D12_SHADER_RESOURCE_VIEW_DESC extends Win32Struct {
     static sizeof => 40
 
     static packingSize => 8
 
     /**
      * A <a href="https://docs.microsoft.com/windows/desktop/api/dxgiformat/ne-dxgiformat-dxgi_format">DXGI_FORMAT</a>-typed value that specifies the viewing format. See remarks.
-     * @type {Integer}
+     * @type {DXGI_FORMAT}
      */
     Format {
         get => NumGet(this, 0, "int")
@@ -41,7 +42,7 @@ class D3D12_SHADER_RESOURCE_VIEW_DESC extends Win32Struct
 
     /**
      * A <a href="https://docs.microsoft.com/windows/desktop/api/d3d12/ne-d3d12-d3d12_srv_dimension">D3D12_SRV_DIMENSION</a>-typed value that specifies the resource type of the view. This type is the same as the resource type of the underlying resource. This member also determines which _SRV to use in the union below.
-     * @type {Integer}
+     * @type {D3D12_SRV_DIMENSION}
      */
     ViewDimension {
         get => NumGet(this, 4, "int")
@@ -60,7 +61,7 @@ class D3D12_SHADER_RESOURCE_VIEW_DESC extends Win32Struct
     /**
      * @type {D3D12_BUFFER_SRV}
      */
-    Buffer{
+    Buffer {
         get {
             if(!this.HasProp("__Buffer"))
                 this.__Buffer := D3D12_BUFFER_SRV(16, this)
@@ -71,7 +72,7 @@ class D3D12_SHADER_RESOURCE_VIEW_DESC extends Win32Struct
     /**
      * @type {D3D12_TEX1D_SRV}
      */
-    Texture1D{
+    Texture1D {
         get {
             if(!this.HasProp("__Texture1D"))
                 this.__Texture1D := D3D12_TEX1D_SRV(16, this)
@@ -82,7 +83,7 @@ class D3D12_SHADER_RESOURCE_VIEW_DESC extends Win32Struct
     /**
      * @type {D3D12_TEX1D_ARRAY_SRV}
      */
-    Texture1DArray{
+    Texture1DArray {
         get {
             if(!this.HasProp("__Texture1DArray"))
                 this.__Texture1DArray := D3D12_TEX1D_ARRAY_SRV(16, this)
@@ -93,7 +94,7 @@ class D3D12_SHADER_RESOURCE_VIEW_DESC extends Win32Struct
     /**
      * @type {D3D12_TEX2D_SRV}
      */
-    Texture2D{
+    Texture2D {
         get {
             if(!this.HasProp("__Texture2D"))
                 this.__Texture2D := D3D12_TEX2D_SRV(16, this)
@@ -104,7 +105,7 @@ class D3D12_SHADER_RESOURCE_VIEW_DESC extends Win32Struct
     /**
      * @type {D3D12_TEX2D_ARRAY_SRV}
      */
-    Texture2DArray{
+    Texture2DArray {
         get {
             if(!this.HasProp("__Texture2DArray"))
                 this.__Texture2DArray := D3D12_TEX2D_ARRAY_SRV(16, this)
@@ -115,7 +116,7 @@ class D3D12_SHADER_RESOURCE_VIEW_DESC extends Win32Struct
     /**
      * @type {D3D12_TEX2DMS_SRV}
      */
-    Texture2DMS{
+    Texture2DMS {
         get {
             if(!this.HasProp("__Texture2DMS"))
                 this.__Texture2DMS := D3D12_TEX2DMS_SRV(16, this)
@@ -126,7 +127,7 @@ class D3D12_SHADER_RESOURCE_VIEW_DESC extends Win32Struct
     /**
      * @type {D3D12_TEX2DMS_ARRAY_SRV}
      */
-    Texture2DMSArray{
+    Texture2DMSArray {
         get {
             if(!this.HasProp("__Texture2DMSArray"))
                 this.__Texture2DMSArray := D3D12_TEX2DMS_ARRAY_SRV(16, this)
@@ -137,7 +138,7 @@ class D3D12_SHADER_RESOURCE_VIEW_DESC extends Win32Struct
     /**
      * @type {D3D12_TEX3D_SRV}
      */
-    Texture3D{
+    Texture3D {
         get {
             if(!this.HasProp("__Texture3D"))
                 this.__Texture3D := D3D12_TEX3D_SRV(16, this)
@@ -148,7 +149,7 @@ class D3D12_SHADER_RESOURCE_VIEW_DESC extends Win32Struct
     /**
      * @type {D3D12_TEXCUBE_SRV}
      */
-    TextureCube{
+    TextureCube {
         get {
             if(!this.HasProp("__TextureCube"))
                 this.__TextureCube := D3D12_TEXCUBE_SRV(16, this)
@@ -159,7 +160,7 @@ class D3D12_SHADER_RESOURCE_VIEW_DESC extends Win32Struct
     /**
      * @type {D3D12_TEXCUBE_ARRAY_SRV}
      */
-    TextureCubeArray{
+    TextureCubeArray {
         get {
             if(!this.HasProp("__TextureCubeArray"))
                 this.__TextureCubeArray := D3D12_TEXCUBE_ARRAY_SRV(16, this)
@@ -170,7 +171,7 @@ class D3D12_SHADER_RESOURCE_VIEW_DESC extends Win32Struct
     /**
      * @type {D3D12_RAYTRACING_ACCELERATION_STRUCTURE_SRV}
      */
-    RaytracingAccelerationStructure{
+    RaytracingAccelerationStructure {
         get {
             if(!this.HasProp("__RaytracingAccelerationStructure"))
                 this.__RaytracingAccelerationStructure := D3D12_RAYTRACING_ACCELERATION_STRUCTURE_SRV(16, this)

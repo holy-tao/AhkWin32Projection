@@ -1,14 +1,11 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
-#Include .\IO_RESOURCE_DESCRIPTOR.ahk
-#Include .\IO_RESOURCE_LIST.ahk
+#Include .\INTERFACE_TYPE.ahk
 
 /**
  * @namespace Windows.Wdk.System.SystemServices
- * @version v4.0.30319
  */
-class IO_RESOURCE_REQUIREMENTS_LIST extends Win32Struct
-{
+class IO_RESOURCE_REQUIREMENTS_LIST extends Win32Struct {
     static sizeof => 40
 
     static packingSize => 8
@@ -22,7 +19,7 @@ class IO_RESOURCE_REQUIREMENTS_LIST extends Win32Struct
     }
 
     /**
-     * @type {Integer}
+     * @type {INTERFACE_TYPE}
      */
     InterfaceType {
         get => NumGet(this, 4, "int")
@@ -46,9 +43,9 @@ class IO_RESOURCE_REQUIREMENTS_LIST extends Win32Struct
     }
 
     /**
-     * @type {Array<UInt32>}
+     * @type {Array<Integer>}
      */
-    Reserved{
+    Reserved {
         get {
             if(!this.HasProp("__ReservedProxyArray"))
                 this.__ReservedProxyArray := Win32FixedArray(this.ptr + 16, 3, Primitive, "uint")
@@ -65,9 +62,9 @@ class IO_RESOURCE_REQUIREMENTS_LIST extends Win32Struct
     }
 
     /**
-     * @type {Array<IO_RESOURCE_LIST>}
+     * @type {Array<Pointer>}
      */
-    List{
+    List {
         get {
             if(!this.HasProp("__ListProxyArray"))
                 this.__ListProxyArray := Win32FixedArray(this.ptr + 32, 1, Primitive, "ptr")

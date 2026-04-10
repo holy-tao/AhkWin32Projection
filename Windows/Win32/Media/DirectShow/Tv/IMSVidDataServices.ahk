@@ -9,9 +9,8 @@
  * To declare the interface identifier (IID) for this interface, use the <b>__uuidof</b> operator: <c>__uuidof(IMSVidDataServices)</c>.
  * @see https://learn.microsoft.com/windows/win32/api/segment/nn-segment-imsviddataservices
  * @namespace Windows.Win32.Media.DirectShow.Tv
- * @version v4.0.30319
  */
-class IMSVidDataServices extends IMSVidFeature{
+class IMSVidDataServices extends IMSVidFeature {
 
     static sizeof => A_PtrSize
     /**

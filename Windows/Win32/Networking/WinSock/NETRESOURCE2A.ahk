@@ -4,11 +4,9 @@
 
 /**
  * @namespace Windows.Win32.Networking.WinSock
- * @version v4.0.30319
  * @charset ANSI
  */
-class NETRESOURCE2A extends Win32Struct
-{
+class NETRESOURCE2A extends Win32Struct {
     static sizeof => 80
 
     static packingSize => 8
@@ -72,7 +70,7 @@ class NETRESOURCE2A extends Win32Struct
     /**
      * @type {NS_INFOA}
      */
-    ns_info{
+    ns_info {
         get {
             if(!this.HasProp("__ns_info"))
                 this.__ns_info := NS_INFOA(40, this)
@@ -81,7 +79,7 @@ class NETRESOURCE2A extends Win32Struct
     }
 
     /**
-     * @type {Pointer<Guid>}
+     * @type {Pointer}
      */
     ServiceType {
         get => NumGet(this, 56, "ptr")

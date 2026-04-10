@@ -5,9 +5,8 @@
  * Describes the CSV backup state.
  * @see https://learn.microsoft.com/windows/win32/api/clusapi/ne-clusapi-cluster_shared_volume_backup_state
  * @namespace Windows.Win32.Networking.Clustering
- * @version v4.0.30319
  */
-class CLUSTER_SHARED_VOLUME_BACKUP_STATE extends Win32Enum{
+class CLUSTER_SHARED_VOLUME_BACKUP_STATE extends Win32Enum {
 
     /**
      * There is no backup in progress for this CSV.

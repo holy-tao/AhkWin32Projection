@@ -3,9 +3,8 @@
 
 /**
  * @namespace Windows.Win32.NetworkManagement.Ndis
- * @version v4.0.30319
  */
-class OFFLOAD_INTEGRITY_ALGO extends Win32Enum{
+class OFFLOAD_INTEGRITY_ALGO extends Win32Enum {
 
     /**
      * @type {Integer (Int32)}

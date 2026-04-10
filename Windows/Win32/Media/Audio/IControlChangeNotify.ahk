@@ -7,9 +7,8 @@
  * The IControlChangeNotify interface provides notifications when the status of a part (connector or subunit) changes.
  * @see https://learn.microsoft.com/windows/win32/api/devicetopology/nn-devicetopology-icontrolchangenotify
  * @namespace Windows.Win32.Media.Audio
- * @version v4.0.30319
  */
-class IControlChangeNotify extends IUnknown{
+class IControlChangeNotify extends IUnknown {
 
     static sizeof => A_PtrSize
     /**

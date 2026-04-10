@@ -5,9 +5,8 @@
 
 /**
  * @namespace Windows.Win32.Media.DirectShow.Tv
- * @version v4.0.30319
  */
-class IMceBurnerControl extends IUnknown{
+class IMceBurnerControl extends IUnknown {
 
     static sizeof => A_PtrSize
     /**

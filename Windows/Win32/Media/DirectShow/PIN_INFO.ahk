@@ -1,5 +1,7 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
+#Include .\IBaseFilter.ahk
+#Include .\PIN_DIRECTION.ahk
 
 /**
  * The PIN_INFO structure contains information about a pin.
@@ -11,10 +13,8 @@
  * The <b>pFilter</b> member has an outstanding reference count. The application must release the interface.
  * @see https://learn.microsoft.com/windows/win32/api/strmif/ns-strmif-pin_info
  * @namespace Windows.Win32.Media.DirectShow
- * @version v4.0.30319
  */
-class PIN_INFO extends Win32Struct
-{
+class PIN_INFO extends Win32Struct {
     static sizeof => 272
 
     static packingSize => 8
@@ -30,7 +30,7 @@ class PIN_INFO extends Win32Struct
 
     /**
      * Direction of the pin (input or output).
-     * @type {Integer}
+     * @type {PIN_DIRECTION}
      */
     dir {
         get => NumGet(this, 8, "int")

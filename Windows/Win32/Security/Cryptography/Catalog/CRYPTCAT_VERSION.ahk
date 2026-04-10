@@ -5,9 +5,8 @@
  * Version 1 file format.
  * @see https://learn.microsoft.com/windows/win32/api/mscat/nf-mscat-cryptcatopen
  * @namespace Windows.Win32.Security.Cryptography.Catalog
- * @version v4.0.30319
  */
-class CRYPTCAT_VERSION extends Win32Enum{
+class CRYPTCAT_VERSION extends Win32Enum {
 
     /**
      * @type {Integer (UInt32)}

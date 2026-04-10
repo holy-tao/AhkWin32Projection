@@ -1,15 +1,15 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
+#Include .\MapiRecipDesc.ahk
+#Include .\MapiFileDesc.ahk
 
 /**
  * A MapiMessage structure contains information about a message. For Unicode support, use the MapiMessageW structure.
  * @see https://learn.microsoft.com/windows/win32/api/mapi/ns-mapi-mapimessage
  * @namespace Windows.Win32.System.Mapi
- * @version v4.0.30319
  * @charset ANSI
  */
-class MapiMessage extends Win32Struct
-{
+class MapiMessage extends Win32Struct {
     static sizeof => 96
 
     static packingSize => 8

@@ -1,5 +1,6 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
+#Include ..\..\Graphics\Direct3D9\IDirect3DSurface9.ahk
 
 /**
  * Contains per-stream data for the IDXVAHD_VideoProcessor::VideoProcessBltHD method.
@@ -58,10 +59,8 @@
  * </ul>
  * @see https://learn.microsoft.com/windows/win32/api/dxvahd/ns-dxvahd-dxvahd_stream_data
  * @namespace Windows.Win32.Media.MediaFoundation
- * @version v4.0.30319
  */
-class DXVAHD_STREAM_DATA extends Win32Struct
-{
+class DXVAHD_STREAM_DATA extends Win32Struct {
     static sizeof => 48
 
     static packingSize => 8

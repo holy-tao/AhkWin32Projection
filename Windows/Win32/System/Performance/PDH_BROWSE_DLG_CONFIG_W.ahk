@@ -1,6 +1,7 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
 #Include ..\..\Foundation\HWND.ahk
+#Include .\PERF_DETAIL.ahk
 
 /**
  * The PDH_BROWSE_DLG_CONFIG structure is used by the PdhBrowseCounters function to configure the Browse Performance Counters dialog box. (Unicode)
@@ -10,11 +11,9 @@
  * <a href="https://docs.microsoft.com/windows/desktop/api/pdh/nf-pdh-pdhaddcountera">PdhAddCounter</a> function for each counter in the buffer.
  * @see https://learn.microsoft.com/windows/win32/api/pdh/ns-pdh-pdh_browse_dlg_config_w
  * @namespace Windows.Win32.System.Performance
- * @version v4.0.30319
  * @charset Unicode
  */
-class PDH_BROWSE_DLG_CONFIG_W extends Win32Struct
-{
+class PDH_BROWSE_DLG_CONFIG_W extends Win32Struct {
     static sizeof => 72
 
     static packingSize => 8
@@ -40,7 +39,6 @@ class PDH_BROWSE_DLG_CONFIG_W extends Win32Struct
     }
 
     /**
-     * If this flag is <b>TRUE</b>, the dialog box includes an index number for duplicate instance names. For example, if there are two cmd instances, the instance list will contain cmd and cmd#1. If this flag is <b>FALSE</b>, duplicate instance names will not contain an index number.
      * @type {Integer}
      */
     bIncludeInstanceIndex {
@@ -49,7 +47,6 @@ class PDH_BROWSE_DLG_CONFIG_W extends Win32Struct
     }
 
     /**
-     * If this flag is <b>TRUE</b>, the dialog returns only one counter. If this flag is <b>FALSE</b>, the dialog can return multiple selections, and wildcard selections are permitted. Selected counters are returned as a MULTI_SZ string.
      * @type {Integer}
      */
     bSingleCounterPerAdd {
@@ -58,7 +55,6 @@ class PDH_BROWSE_DLG_CONFIG_W extends Win32Struct
     }
 
     /**
-     * If this flag is <b>TRUE</b>, the dialog box uses an OK and Cancel button. The dialog returns when the user clicks either button. If this flag is <b>FALSE</b>, the dialog box uses an Add and Close button. The dialog box closes when the user clicks the Close button. The Add button can be clicked multiple times. The Add button overwrites the previously selected items with the currently selected items.
      * @type {Integer}
      */
     bSingleCounterPerDialog {
@@ -67,7 +63,6 @@ class PDH_BROWSE_DLG_CONFIG_W extends Win32Struct
     }
 
     /**
-     * If this flag is <b>TRUE</b>, the dialog box lets the user select counters only from the local computer (the path will not contain a computer name). If this flag is <b>FALSE</b>, the user can specify a computer from which to select counters. The computer name will prefix the counter path unless the user selects <b>Use local computer counters</b>.
      * @type {Integer}
      */
     bLocalCountersOnly {
@@ -76,10 +71,6 @@ class PDH_BROWSE_DLG_CONFIG_W extends Win32Struct
     }
 
     /**
-     * If this flag is <b>TRUE</b> and the user selects <b>All instances</b>, the counter path will include the wildcard character for the instance field. 
-     * 
-     * 
-     * If this flag is <b>FALSE</b>, and the user selects <b>All instances</b>, all the instances currently found for that object will be returned in a MULTI_SZ string.
      * @type {Integer}
      */
     bWildCardInstances {
@@ -88,14 +79,6 @@ class PDH_BROWSE_DLG_CONFIG_W extends Win32Struct
     }
 
     /**
-     * If this flag is <b>TRUE</b>, this removes <b>Detail level</b> from the dialog box so the user cannot change the detail level of the counters displayed in the dialog box. The detail level will be fixed to the value of the <b>dwDefaultDetailLevel</b> member. 
-     * 
-     * 
-     * If this flag is <b>FALSE</b>, this displays <b>Detail level</b> in the dialog box, allowing the user to change the detail level of the counters displayed. 
-     * 
-     * 
-     * 
-     * Note that the counters displayed will be those whose detail level is less than or equal to the current detail level selection. Selecting a detail level of Wizard will display all counters and objects.
      * @type {Integer}
      */
     bHideDetailBox {
@@ -104,10 +87,6 @@ class PDH_BROWSE_DLG_CONFIG_W extends Win32Struct
     }
 
     /**
-     * If this flag is <b>TRUE</b>, the dialog highlights the counter and object specified in <b>szReturnPathBuffer</b> when the dialog box is first displayed, instead of using the default counter and object specified by the computer. 
-     * 
-     * 
-     * If this flag is <b>FALSE</b>, this selects the initial counter and object using the default counter and object information returned by the computer.
      * @type {Integer}
      */
     bInitializePath {
@@ -116,11 +95,6 @@ class PDH_BROWSE_DLG_CONFIG_W extends Win32Struct
     }
 
     /**
-     * If this flag is <b>TRUE</b>, the user cannot select a computer from  <b>Select counters from computer</b>. 
-     * 
-     * 
-     * If this flag is <b>FALSE</b>, the user can select a computer from <b>Select counters from computer</b>. This is the default value. 
-     * The list contains the local computer only unless you call the <a href="https://docs.microsoft.com/windows/desktop/api/pdh/nf-pdh-pdhconnectmachinea">PdhConnectMachine</a> to connect to other computers first.
      * @type {Integer}
      */
     bDisableMachineSelection {
@@ -129,10 +103,6 @@ class PDH_BROWSE_DLG_CONFIG_W extends Win32Struct
     }
 
     /**
-     * If this flag is <b>TRUE</b>, the counters list will also contain costly data—that is, data that requires a relatively large amount of processor time or memory overhead to collect. 
-     * 
-     * 
-     * If this flag is <b>FALSE</b>, the list will not contain costly counters. This is the default value.
      * @type {Integer}
      */
     bIncludeCostlyObjects {
@@ -141,7 +111,6 @@ class PDH_BROWSE_DLG_CONFIG_W extends Win32Struct
     }
 
     /**
-     * If this flag is <b>TRUE</b>, the dialog lists only performance objects. When the user selects an object, the dialog returns a counter path that includes the object and wildcard characters for the instance name and counter if the object is a multiple instance object. For example, if the "Process" object is selected, the dialog returns the string "\Process(*)\*". If the object is a single instance object, the path contains a wildcard character for counter only. For example, "\System\*". You can then pass the path to <a href="https://docs.microsoft.com/windows/desktop/api/pdh/nf-pdh-pdhexpandwildcardpatha">PdhExpandWildCardPath</a> to retrieve a list of actual paths for the object.
      * @type {Integer}
      */
     bShowObjectBrowser {
@@ -150,7 +119,6 @@ class PDH_BROWSE_DLG_CONFIG_W extends Win32Struct
     }
 
     /**
-     * 
      * @type {Integer}
      */
     bReserved {
@@ -162,7 +130,7 @@ class PDH_BROWSE_DLG_CONFIG_W extends Win32Struct
      * Handle of the window to own the dialog. If <b>NULL</b>, the owner is the desktop.
      * @type {HWND}
      */
-    hWndOwner{
+    hWndOwner {
         get {
             if(!this.HasProp("__hWndOwner"))
                 this.__hWndOwner := HWND(8, this)
@@ -237,8 +205,7 @@ class PDH_BROWSE_DLG_CONFIG_W extends Win32Struct
     }
 
     /**
-     * 
-     * @type {Integer}
+     * @type {PERF_DETAIL}
      */
     dwDefaultDetailLevel {
         get => NumGet(this, 60, "uint")

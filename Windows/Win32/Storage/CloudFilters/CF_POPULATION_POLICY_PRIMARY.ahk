@@ -5,9 +5,8 @@
  * Allows a sync provider to control how placeholder directories and files should be created by the platform. This is the primary policy.
  * @see https://learn.microsoft.com/windows/win32/api/cfapi/ne-cfapi-cf_population_policy_primary
  * @namespace Windows.Win32.Storage.CloudFilters
- * @version v4.0.30319
  */
-class CF_POPULATION_POLICY_PRIMARY extends Win32Enum{
+class CF_POPULATION_POLICY_PRIMARY extends Win32Enum {
 
     /**
      * With **CF_POPULATION_POLICY_PARTIAL** population policy, when the platform detects access on a not fully populated directory, it will request only the entries required by the user application from the sync provider. This policy is not currently supported by the platform.

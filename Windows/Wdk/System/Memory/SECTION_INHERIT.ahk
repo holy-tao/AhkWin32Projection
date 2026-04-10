@@ -3,9 +3,8 @@
 
 /**
  * @namespace Windows.Wdk.System.Memory
- * @version v4.0.30319
  */
-class SECTION_INHERIT extends Win32Enum{
+class SECTION_INHERIT extends Win32Enum {
 
     /**
      * @type {Integer (Int32)}

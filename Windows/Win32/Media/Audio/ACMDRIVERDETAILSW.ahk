@@ -4,11 +4,9 @@
 
 /**
  * @namespace Windows.Win32.Media.Audio
- * @version v4.0.30319
  * @charset Unicode
  */
-class ACMDRIVERDETAILSW extends Win32Struct
-{
+class ACMDRIVERDETAILSW extends Win32Struct {
     static sizeof => 1808
 
     static packingSize => 8
@@ -96,7 +94,7 @@ class ACMDRIVERDETAILSW extends Win32Struct
     /**
      * @type {HICON}
      */
-    hicon{
+    hicon {
         get {
             if(!this.HasProp("__hicon"))
                 this.__hicon := HICON(40, this)

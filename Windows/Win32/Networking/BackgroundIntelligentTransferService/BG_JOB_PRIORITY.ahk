@@ -13,9 +13,8 @@
  * For more information, see [Best practices when using BITS](/windows/desktop/bits/best-practices-when-using-bits).
  * @see https://learn.microsoft.com/windows/win32/api/bits/ne-bits-bg_job_priority
  * @namespace Windows.Win32.Networking.BackgroundIntelligentTransferService
- * @version v4.0.30319
  */
-class BG_JOB_PRIORITY extends Win32Enum{
+class BG_JOB_PRIORITY extends Win32Enum {
 
     /**
      * Transfers the job in the foreground. Foreground transfers compete for network bandwidth with other applications, which can impede the user's network experience. This is the highest priority level.

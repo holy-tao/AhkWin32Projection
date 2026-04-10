@@ -1,10 +1,10 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
+#Include ..\..\System\Com\IDispatch.ahk
 #Include ..\..\Foundation\BSTR.ahk
 #Include .\IFaxSender.ahk
 #Include .\IFaxRecipients.ahk
-#Include ..\..\System\Com\IDispatch.ahk
 #Include ..\..\System\Variant\VARIANT.ahk
 
 /**
@@ -13,9 +13,8 @@
  * A default implementation of <b>IFaxDocument</b> and <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/faxcomex/nn-faxcomex-ifaxdocument2">IFaxDocument2</a> is provided as the <a href="https://docs.microsoft.com/previous-versions/windows/desktop/fax/-mfax-faxdocument">FaxDocument</a> object.
  * @see https://learn.microsoft.com/windows/win32/api/faxcomex/nn-faxcomex-ifaxdocument
  * @namespace Windows.Win32.Devices.Fax
- * @version v4.0.30319
  */
-class IFaxDocument extends IDispatch{
+class IFaxDocument extends IDispatch {
 
     static sizeof => A_PtrSize
     /**
@@ -121,7 +120,7 @@ class IFaxDocument extends IDispatch{
     }
 
     /**
-     * @type {Integer} 
+     * @type {FAX_COVERPAGE_TYPE_ENUM} 
      */
     CoverPageType {
         get => this.get_CoverPageType()
@@ -129,7 +128,7 @@ class IFaxDocument extends IDispatch{
     }
 
     /**
-     * @type {Integer} 
+     * @type {FAX_SCHEDULE_TYPE_ENUM} 
      */
     ScheduleType {
         get => this.get_ScheduleType()
@@ -137,7 +136,7 @@ class IFaxDocument extends IDispatch{
     }
 
     /**
-     * @type {Integer} 
+     * @type {FAX_RECEIPT_TYPE_ENUM} 
      */
     ReceiptType {
         get => this.get_ReceiptType()
@@ -153,7 +152,7 @@ class IFaxDocument extends IDispatch{
     }
 
     /**
-     * @type {Integer} 
+     * @type {FAX_PRIORITY_TYPE_ENUM} 
      */
     Priority {
         get => this.get_Priority()
@@ -423,7 +422,7 @@ class IFaxDocument extends IDispatch{
      * By default, <b>IFaxDocument::get_CoverPageType</b> is set to <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/faxcomex/ne-faxcomex-fax_coverpage_type_enum">fcptNONE</a>, indicating that no file is used.
      * 
      * Provide the name of the cover page in the <a href="https://docs.microsoft.com/previous-versions/windows/desktop/fax/-mfax-faxdocument-coverpage-vb">IFaxDocument::get_CoverPage</a> property.
-     * @returns {Integer} 
+     * @returns {FAX_COVERPAGE_TYPE_ENUM} 
      * @see https://learn.microsoft.com/windows/win32/api/faxcomex/nf-faxcomex-ifaxdocument-get_coverpagetype
      */
     get_CoverPageType() {
@@ -437,7 +436,7 @@ class IFaxDocument extends IDispatch{
      * By default, <b>IFaxDocument::get_CoverPageType</b> is set to <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/faxcomex/ne-faxcomex-fax_coverpage_type_enum">fcptNONE</a>, indicating that no file is used.
      * 
      * Provide the name of the cover page in the <a href="https://docs.microsoft.com/previous-versions/windows/desktop/fax/-mfax-faxdocument-coverpage-vb">IFaxDocument::get_CoverPage</a> property.
-     * @param {Integer} CoverPageType 
+     * @param {FAX_COVERPAGE_TYPE_ENUM} CoverPageType 
      * @returns {HRESULT} 
      * @see https://learn.microsoft.com/windows/win32/api/faxcomex/nf-faxcomex-ifaxdocument-put_coverpagetype
      */
@@ -450,7 +449,7 @@ class IFaxDocument extends IDispatch{
      * The IFaxDocument::get_ScheduleType property indicates when to schedule the fax job; for example, you can specify that the fax service send the fax immediately, at a specified time, or during a predefined discount period. (Get)
      * @remarks
      * By default, <b>IFaxDocument::get_ScheduleType</b> is set to <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/faxcomex/ne-faxcomex-fax_schedule_type_enum">fstNOW</a>, indicating that the fax will be sent as soon as the device is available.
-     * @returns {Integer} 
+     * @returns {FAX_SCHEDULE_TYPE_ENUM} 
      * @see https://learn.microsoft.com/windows/win32/api/faxcomex/nf-faxcomex-ifaxdocument-get_scheduletype
      */
     get_ScheduleType() {
@@ -462,7 +461,7 @@ class IFaxDocument extends IDispatch{
      * The IFaxDocument::get_ScheduleType property indicates when to schedule the fax job; for example, you can specify that the fax service send the fax immediately, at a specified time, or during a predefined discount period. (Put)
      * @remarks
      * By default, <b>IFaxDocument::get_ScheduleType</b> is set to <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/faxcomex/ne-faxcomex-fax_schedule_type_enum">fstNOW</a>, indicating that the fax will be sent as soon as the device is available.
-     * @param {Integer} ScheduleType 
+     * @param {FAX_SCHEDULE_TYPE_ENUM} ScheduleType 
      * @returns {HRESULT} 
      * @see https://learn.microsoft.com/windows/win32/api/faxcomex/nf-faxcomex-ifaxdocument-put_scheduletype
      */
@@ -477,7 +476,7 @@ class IFaxDocument extends IDispatch{
      * The fax service sends a report (a delivery receipt) to the sender of the fax when the fax completes successfully or when the fax transmission fails.
      * 
      * If an email receipt will be sent, an address has to be provided in the <a href="https://docs.microsoft.com/previous-versions/windows/desktop/fax/-mfax-faxdocument-receiptaddress-vb">IFaxDocument::get_ReceiptAddress</a> property. If the receipt type is set to <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/faxcomex/ne-faxcomex-fax_receipt_type_enum">frtMSGBOX</a>, the message box will appear on the computer from which the document was sent. By default, <b>ReceiptType</b> is set to <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/faxcomex/ne-faxcomex-fax_receipt_type_enum">frtNONE</a>, indicating that no receipt will be sent.
-     * @returns {Integer} 
+     * @returns {FAX_RECEIPT_TYPE_ENUM} 
      * @see https://learn.microsoft.com/windows/win32/api/faxcomex/nf-faxcomex-ifaxdocument-get_receipttype
      */
     get_ReceiptType() {
@@ -491,7 +490,7 @@ class IFaxDocument extends IDispatch{
      * The fax service sends a report (a delivery receipt) to the sender of the fax when the fax completes successfully or when the fax transmission fails.
      * 
      * If an email receipt will be sent, an address has to be provided in the <a href="https://docs.microsoft.com/previous-versions/windows/desktop/fax/-mfax-faxdocument-receiptaddress-vb">IFaxDocument::get_ReceiptAddress</a> property. If the receipt type is set to <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/faxcomex/ne-faxcomex-fax_receipt_type_enum">frtMSGBOX</a>, the message box will appear on the computer from which the document was sent. By default, <b>ReceiptType</b> is set to <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/faxcomex/ne-faxcomex-fax_receipt_type_enum">frtNONE</a>, indicating that no receipt will be sent.
-     * @param {Integer} ReceiptType 
+     * @param {FAX_RECEIPT_TYPE_ENUM} ReceiptType 
      * @returns {HRESULT} 
      * @see https://learn.microsoft.com/windows/win32/api/faxcomex/nf-faxcomex-ifaxdocument-put_receipttype
      */
@@ -525,7 +524,7 @@ class IFaxDocument extends IDispatch{
      * The IFaxDocument::get_Priority property specifies the priority to use when sending the fax; for example, normal, low, or high priority. (Get)
      * @remarks
      * By default, <b>IFaxDocument::get_Priority</b> is set to <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/faxcomex/ne-faxcomex-fax_priority_type_enum">fptLow</a>, which indicates low priority.
-     * @returns {Integer} 
+     * @returns {FAX_PRIORITY_TYPE_ENUM} 
      * @see https://learn.microsoft.com/windows/win32/api/faxcomex/nf-faxcomex-ifaxdocument-get_priority
      */
     get_Priority() {
@@ -537,7 +536,7 @@ class IFaxDocument extends IDispatch{
      * The IFaxDocument::get_Priority property specifies the priority to use when sending the fax; for example, normal, low, or high priority. (Put)
      * @remarks
      * By default, <b>IFaxDocument::get_Priority</b> is set to <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/faxcomex/ne-faxcomex-fax_priority_type_enum">fptLow</a>, which indicates low priority.
-     * @param {Integer} _Priority 
+     * @param {FAX_PRIORITY_TYPE_ENUM} _Priority 
      * @returns {HRESULT} 
      * @see https://learn.microsoft.com/windows/win32/api/faxcomex/nf-faxcomex-ifaxdocument-put_priority
      */

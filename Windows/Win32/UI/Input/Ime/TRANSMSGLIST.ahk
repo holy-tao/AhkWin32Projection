@@ -4,11 +4,9 @@
 
 /**
  * @namespace Windows.Win32.UI.Input.Ime
- * @version v4.0.30319
  */
-class TRANSMSGLIST extends Win32Struct
-{
-    static sizeof => 16
+class TRANSMSGLIST extends Win32Struct {
+    static sizeof => 32
 
     static packingSize => 8
 
@@ -21,9 +19,9 @@ class TRANSMSGLIST extends Win32Struct
     }
 
     /**
-     * @type {Array<TRANSMSG>}
+     * @type {TRANSMSG}
      */
-    TransMsg{
+    TransMsg {
         get {
             if(!this.HasProp("__TransMsgProxyArray"))
                 this.__TransMsgProxyArray := Win32FixedArray(this.ptr + 8, 1, TRANSMSG, "")

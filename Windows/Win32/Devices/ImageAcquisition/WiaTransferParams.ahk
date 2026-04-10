@@ -5,10 +5,8 @@
  * The WiaTransferParams is transmitted to an application during a data transfer by the Windows Image Acquisition (WIA) run-time system to the IWiaTransferCallback::TransferCallback method.
  * @see https://learn.microsoft.com/windows/win32/wia/-wia-wiatransferparams
  * @namespace Windows.Win32.Devices.ImageAcquisition
- * @version v4.0.30319
  */
-class WiaTransferParams extends Win32Struct
-{
+class WiaTransferParams extends Win32Struct {
     static sizeof => 24
 
     static packingSize => 8

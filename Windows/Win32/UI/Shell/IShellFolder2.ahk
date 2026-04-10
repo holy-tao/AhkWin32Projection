@@ -1,11 +1,12 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
+#Include .\IShellFolder.ahk
+#Include ..\..\..\..\Guid.ahk
 #Include .\IEnumExtraSearch.ahk
 #Include ..\..\System\Variant\VARIANT.ahk
 #Include Common\SHELLDETAILS.ahk
 #Include ..\..\Foundation\PROPERTYKEY.ahk
-#Include .\IShellFolder.ahk
 
 /**
  * Extends the capabilities of IShellFolder. Its methods provide a variety of information about the contents of a Shell folder.
@@ -19,9 +20,8 @@
  * Call <b>IShellFolder2</b> when you need detailed information on items contained by a Shell folder. This interface supersedes <a href="https://docs.microsoft.com/windows/desktop/api/shlobj_core/nn-shlobj_core-ishelldetails">IShellDetails</a>.
  * @see https://learn.microsoft.com/windows/win32/api/shobjidl_core/nn-shobjidl_core-ishellfolder2
  * @namespace Windows.Win32.UI.Shell
- * @version v4.0.30319
  */
-class IShellFolder2 extends IShellFolder{
+class IShellFolder2 extends IShellFolder {
 
     static sizeof => A_PtrSize
     /**
@@ -114,7 +114,7 @@ class IShellFolder2 extends IShellFolder{
      * @param {Integer} iColumn Type: <b>UINT</b>
      * 
      * An integer that specifies the column number.
-     * @returns {Integer} Type: <b>SHCOLSTATEF*</b>
+     * @returns {SHCOLSTATE} Type: <b>SHCOLSTATEF*</b>
      * 
      * A pointer to a value that contains flags that indicate the default column state. This parameter can include a combination of the following flags.
      * @see https://learn.microsoft.com/windows/win32/api/shobjidl_core/nf-shobjidl_core-ishellfolder2-getdefaultcolumnstate

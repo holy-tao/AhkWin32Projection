@@ -3,7 +3,6 @@
 
 /**
  * @namespace Windows.Win32.System.Environment
- * @version v4.0.30319
  */
 class Environment {
 
@@ -1306,7 +1305,7 @@ class Environment {
      * </td>
      * </tr>
      * </table>
-     * @param {Pointer} lpEnclaveInformation A pointer to the architecture-specific information to use to create the enclave.
+     * @param {Integer} lpEnclaveInformation A pointer to the architecture-specific information to use to create the enclave.
      * 
      * For the **ENCLAVE_TYPE_SGX** and **ENCLAVE_TYPE_SGX2** enclave types, you must specify a pointer to an [ENCLAVE_CREATE_INFO_SGX](/windows/win32/api/winnt/ns-winnt-enclave_create_info_sgx) structure.
      * 
@@ -1374,7 +1373,7 @@ class Environment {
      * **LoadEnclaveData** is only supported enclaves that have the **ENCLAVE_TYPE_SGX** and **ENCLAVE_TYPE_SGX2** enclave types.
      * @param {HANDLE} hProcess A handle to the process for which the enclave was created.
      * @param {Pointer<Void>} lpAddress The address in the enclave where you want to load the data.
-     * @param {Pointer} lpBuffer A pointer to the data the you want to load into the enclave.
+     * @param {Integer} lpBuffer A pointer to the data the you want to load into the enclave.
      * @param {Pointer} nSize The size of the data that you want to load into the enclave, in bytes. This value must be a whole-number multiple of the page size.
      * @param {Integer} flProtect The memory protection to use for the pages that you want to add to the enclave. For a list of memory protection values, see [memory protection constants](/windows/win32/Memory/memory-protection-constants). This value must not include the following constants:
      * 
@@ -1400,7 +1399,7 @@ class Environment {
      * <td>The page contents that you supply are excluded from measurement with the EEXTEND instruction of the Intel Software Guard Extensions programming model.</td>
      * </tr>
      * </table>
-     * @param {Pointer} lpPageInformation A pointer to information that describes the pages that you want to add to the enclave. The _lpPageInformation_ parameter is not used.
+     * @param {Integer} lpPageInformation A pointer to information that describes the pages that you want to add to the enclave. The _lpPageInformation_ parameter is not used.
      * @param {Integer} dwInfoLength The length of the structure that the _lpPageInformation_ parameter points to, in bytes. This value must be 0.
      * @param {Pointer<Pointer>} lpNumberOfBytesWritten A pointer to a variable that receives the number of bytes that **LoadEnclaveData** copied into the enclave.
      * @param {Pointer<Integer>} lpEnclaveError An optional pointer to  a variable that receives an enclave error code that is architecture-specific. The _lpEnclaveError_ parameter is not used.
@@ -1459,7 +1458,7 @@ class Environment {
      * - **MEM_RELEASE** for the _dwFreeType_ parameter.
      * @param {HANDLE} hProcess A handle to the process for which the enclave was created.
      * @param {Pointer<Void>} lpAddress Any address within the enclave.
-     * @param {Pointer} lpEnclaveInformation A pointer to architecture-specific information to use to initialize the enclave.
+     * @param {Integer} lpEnclaveInformation A pointer to architecture-specific information to use to initialize the enclave.
      * 
      * For the **ENCLAVE_TYPE_SGX** and **ENCLAVE_TYPE_SGX2** enclave types, specify a pointer to an [ENCLAVE_INIT_INFO_SGX](/windows/win32/api/winnt/ns-winnt-enclave_init_info_sgx) structure.
      * 
@@ -1710,7 +1709,7 @@ class Environment {
      * </ul>
      * The enclave attestation report provide proof that specific code is running with an enclave.  If a validating entity  also obtains proof that the host system is running with VBS turned on, that entity can use that proof in conjunction with the enclave attestation report to verify that a specific enclave, populated with specific code, has been loaded.
      * @param {Pointer<Integer>} EnclaveData A pointer to a 64-byte buffer of data that the enclave wants to insert into its signed report.  For example, this buffer could include a 256-bit nonce that the relying party supplied, followed by a SHA-256 hash of additional data that the enclave wants to convey, such as a public key that corresponds to a private key that the enclave owns.  If this parameter is NULL, the corresponding field of the report is  filled with zeroes.
-     * @param {Pointer} Report A pointer to a buffer where the report should be placed.  This report may be stored either within the address range of the enclave or within the address space of the host process.  Specify NULL to indicate that only the size of the buffer required for the output should be calculated, and not the report itself.
+     * @param {Integer} Report A pointer to a buffer where the report should be placed.  This report may be stored either within the address range of the enclave or within the address space of the host process.  Specify NULL to indicate that only the size of the buffer required for the output should be calculated, and not the report itself.
      * @param {Integer} BufferSize The size of the buffer to which the <i>Report</i> parameter points.  If <i>Report</i> is NULL, <i>BufferSize</i> must be zero.  If <i>Report</i> is not NULL, and if the size of the report is larger than this value, an error is returned.
      * @returns {Integer} A pointer to a variable that receives the size of the report.
      * @see https://learn.microsoft.com/windows/win32/api/winenclaveapi/nf-winenclaveapi-enclavegetattestationreport
@@ -1730,7 +1729,7 @@ class Environment {
      * 
      * <b>EnclaveVerifyAttestationReport</b> must be called from within an enclave, and is only supported within enclaves that have the  <b>ENCLAVE_TYPE_VBS</b> enclave type.
      * @param {Integer} EnclaveType The type of the enclave for which the report was generated. Must be <b>ENCLAVE_TYPE_VBS</b>.
-     * @param {Pointer} Report A pointer to a buffer that stores the report.  This report may be stored either within the address range of the enclave or within the address space of the host process.
+     * @param {Integer} Report A pointer to a buffer that stores the report.  This report may be stored either within the address range of the enclave or within the address space of the host process.
      * @param {Integer} ReportSize The size of the report, in bytes.
      * @returns {HRESULT} If this function succeeds, it returns <b>S_OK</b>. Otherwise, it returns an <b>HRESULT</b> error code.
      * @see https://learn.microsoft.com/windows/win32/api/winenclaveapi/nf-winenclaveapi-enclaveverifyattestationreport
@@ -1745,9 +1744,9 @@ class Environment {
      * Generates an encrypted binary large object (blob) from unencypted data.
      * @remarks
      * <b>EnclaveSealData</b> must be called from within an enclave, and is only supported within enclaves that have the  <b>ENCLAVE_TYPE_VBS</b> enclave type.
-     * @param {Pointer} DataToEncrypt A pointer to the data that you want to seal. This data can be stored either within the address range of the enclave or within the address range of the host process.
+     * @param {Integer} DataToEncrypt A pointer to the data that you want to seal. This data can be stored either within the address range of the enclave or within the address range of the host process.
      * @param {Integer} DataToEncryptSize The size of the data that you want to seal, in bytes.
-     * @param {Integer} IdentityPolicy A value that specifies how another enclave must be related to the enclave that calls <b>EnclaveSealData</b> for the enclave to unseal the data.
+     * @param {ENCLAVE_SEALING_IDENTITY_POLICY} IdentityPolicy A value that specifies how another enclave must be related to the enclave that calls <b>EnclaveSealData</b> for the enclave to unseal the data.
      * @param {Integer} RuntimePolicy A value that indicates whether an enclave that runs with debugging turned on is permitted to unseal the data the this call to <b>EnclaveSealData</b> seals.
      * 
      * <table>
@@ -1780,7 +1779,7 @@ class Environment {
      * </td>
      * </tr>
      * </table>
-     * @param {Pointer} ProtectedBlob A pointer to a buffer where the sealed data should be placed.  This data may be stored either within the address range of the enclave or within the address space of the host process.  If this parameter is NULL, only the size of the protected blob is calculated.
+     * @param {Integer} ProtectedBlob A pointer to a buffer where the sealed data should be placed.  This data may be stored either within the address range of the enclave or within the address space of the host process.  If this parameter is NULL, only the size of the protected blob is calculated.
      * @param {Integer} BufferSize A pointer to a variable that holds the size of the buffer to which the <i>ProtectedBlob</i> parameter points.  If <i>ProtectedBlob</i> is NULL, this value must be zero.  If <i>ProtectedBlob</i> is not NULL, and if the size of the encrypted data is larger than this value, an error occurs.
      * @returns {Integer} A pointer to a variable that receives the actual size of the encrypted blob.
      * @see https://learn.microsoft.com/windows/win32/api/winenclaveapi/nf-winenclaveapi-enclavesealdata
@@ -1797,9 +1796,9 @@ class Environment {
      * The enclave that calls <b>EnclaveUnsealData</b> must meet the criteria that correspond to the value of the <a href="https://docs.microsoft.com/windows/desktop/api/ntenclv/ne-ntenclv-enclave_sealing_identity_policy">ENCLAVE_SEALING_IDENTITY_POLICY</a> that was specified by the enclave that sealed the data by calling <a href="https://docs.microsoft.com/windows/desktop/api/winenclaveapi/nf-winenclaveapi-enclavesealdata">EnclaveSealData</a>.
      * 
      * <b>EnclaveUnsealData</b> must be called from within an enclave, and is only supported within enclaves that have the  <b>ENCLAVE_TYPE_VBS</b> enclave type.
-     * @param {Pointer} ProtectedBlob A pointer to the sealed data to unseal.  This data may be stored either within the address range of the enclave or within the address space of the host process
+     * @param {Integer} ProtectedBlob A pointer to the sealed data to unseal.  This data may be stored either within the address range of the enclave or within the address space of the host process
      * @param {Integer} ProtectedBlobSize The size of the sealed data to unseal, in bytes.
-     * @param {Pointer} DecryptedData A pointer to a buffer where the unencrypted data should be placed.  This data may be stored either within the address range of the enclave or within the address space of the host process.  If this  parameter is NULL, only the size of the decrypted data is calculated.
+     * @param {Integer} DecryptedData A pointer to a buffer where the unencrypted data should be placed.  This data may be stored either within the address range of the enclave or within the address space of the host process.  If this  parameter is NULL, only the size of the decrypted data is calculated.
      * @param {Integer} BufferSize The size of the buffer to which the <i>DecryptedData</i> parameter points, in bytes. If <i>DecryptedData</i> is NULL, <i>BufferSize</i> must be zero.  If <i>DecryptedData</i> is not NULL, and if the size of the decrypted data is larger than this value, an error is returned.
      * @param {Pointer<Integer>} DecryptedDataSize A pointer to a variable that receives the actual size of the decrypted data, in bytes.
      * @param {Pointer<ENCLAVE_IDENTITY>} SealingIdentity An optional pointer to a buffer that should be filled with the identity of the enclave that sealed the data.  If this pointer is NULL, the  identity of the sealing enclave is  not returned.
@@ -1836,10 +1835,10 @@ class Environment {
 
     /**
      * 
-     * @param {Pointer} DataToEncrypt 
+     * @param {Integer} DataToEncrypt 
      * @param {Integer} DataToEncryptSize 
      * @param {Pointer<TRUSTLET_BINDING_DATA>} TrustletBindingData 
-     * @param {Pointer} EncryptedData 
+     * @param {Integer} EncryptedData 
      * @param {Integer} BufferSize 
      * @returns {Integer} 
      */
@@ -1853,7 +1852,7 @@ class Environment {
      * @remarks
      * <b>EnclaveGetEnclaveInformation</b> must be called from within an enclave, and is only supported within enclaves that have the  <b>ENCLAVE_TYPE_VBS</b> enclave type.
      * @param {Integer} InformationSize The size of the <a href="https://docs.microsoft.com/windows/desktop/api/ntenclv/ns-ntenclv-enclave_information">ENCLAVE_INFORMATION</a> structure that the <i>EnclaveInformation</i> parameter points to, in bytes.
-     * @param {Pointer} EnclaveInformation Information about the currently executing enclave.
+     * @param {Integer} EnclaveInformation Information about the currently executing enclave.
      * @returns {HRESULT} If this function succeeds, it returns <b>S_OK</b>. Otherwise, it returns an <b>HRESULT</b> error code.
      * @see https://learn.microsoft.com/windows/win32/api/winenclaveapi/nf-winenclaveapi-enclavegetenclaveinformation
      * @since windows10.0.16299
@@ -1884,8 +1883,8 @@ class Environment {
 
     /**
      * 
-     * @param {Pointer} EnclaveAddress 
-     * @param {Pointer} UnsecureAddress 
+     * @param {Integer} EnclaveAddress 
+     * @param {Integer} UnsecureAddress 
      * @param {Pointer} NumberOfBytes 
      * @returns {HRESULT} 
      */
@@ -1896,8 +1895,8 @@ class Environment {
 
     /**
      * 
-     * @param {Pointer} UnsecureAddress 
-     * @param {Pointer} EnclaveAddress 
+     * @param {Integer} UnsecureAddress 
+     * @param {Integer} EnclaveAddress 
      * @param {Pointer} NumberOfBytes 
      * @returns {HRESULT} 
      */

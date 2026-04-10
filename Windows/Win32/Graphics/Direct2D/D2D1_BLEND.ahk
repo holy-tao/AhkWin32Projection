@@ -7,9 +7,8 @@
  * This enumeration has the same numeric values as <a href="https://docs.microsoft.com/windows/desktop/api/d3d10/ne-d3d10-d3d10_blend">D3D10_BLEND</a>.
  * @see https://learn.microsoft.com/windows/win32/api/d2d1effectauthor/ne-d2d1effectauthor-d2d1_blend
  * @namespace Windows.Win32.Graphics.Direct2D
- * @version v4.0.30319
  */
-class D2D1_BLEND extends Win32Enum{
+class D2D1_BLEND extends Win32Enum {
 
     /**
      * The data source is black (0, 0, 0, 0). There is no preblend operation.

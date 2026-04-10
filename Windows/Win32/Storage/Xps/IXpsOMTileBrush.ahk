@@ -1,9 +1,9 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
+#Include .\IXpsOMBrush.ahk
 #Include .\IXpsOMMatrixTransform.ahk
 #Include .\XPS_RECT.ahk
-#Include .\IXpsOMBrush.ahk
 
 /**
  * A tile brush uses a visual image to paint a region by repeating the image.
@@ -23,9 +23,8 @@
  * <img alt="An illustration that shows different examples of different tile mode behaviors" src="./images/TileMode.png"/>
  * @see https://learn.microsoft.com/windows/win32/api/xpsobjectmodel/nn-xpsobjectmodel-ixpsomtilebrush
  * @namespace Windows.Win32.Storage.Xps
- * @version v4.0.30319
  */
-class IXpsOMTileBrush extends IXpsOMBrush{
+class IXpsOMTileBrush extends IXpsOMBrush {
 
     static sizeof => A_PtrSize
     /**
@@ -630,7 +629,7 @@ class IXpsOMTileBrush extends IXpsOMBrush{
      * The tile mode determines how the tile image is repeated to fill the output area. If the tile mode value is <a href="https://docs.microsoft.com/windows/win32/api/xpsobjectmodel/ne-xpsobjectmodel-xps_tile_mode">XPS_TILE_MODE_NONE</a>, the tile image is drawn only once. The following illustration shows examples of how the tile image appears in several tile modes.
      * 
      * <img alt="An illustration that shows different examples of different tile mode behaviors" src="./images/TileMode.png"/>
-     * @returns {Integer} The <a href="https://docs.microsoft.com/windows/win32/api/xpsobjectmodel/ne-xpsobjectmodel-xps_tile_mode">XPS_TILE_MODE</a> value that describes the tile mode of the brush.
+     * @returns {XPS_TILE_MODE} The <a href="https://docs.microsoft.com/windows/win32/api/xpsobjectmodel/ne-xpsobjectmodel-xps_tile_mode">XPS_TILE_MODE</a> value that describes the tile mode of the brush.
      * @see https://learn.microsoft.com/windows/win32/api/xpsobjectmodel/nf-xpsobjectmodel-ixpsomtilebrush-gettilemode
      */
     GetTileMode() {
@@ -644,7 +643,7 @@ class IXpsOMTileBrush extends IXpsOMBrush{
      * The tile mode determines how the tile image is repeated to fill the output area. If the tile mode value is <a href="https://docs.microsoft.com/windows/win32/api/xpsobjectmodel/ne-xpsobjectmodel-xps_tile_mode">XPS_TILE_MODE_NONE</a>, the tile image is drawn only once.
      * 
      * <img alt="An illustration that shows different examples of different tile mode behaviors" src="./images/TileMode.png"/>
-     * @param {Integer} tileMode The <a href="https://docs.microsoft.com/windows/win32/api/xpsobjectmodel/ne-xpsobjectmodel-xps_tile_mode">XPS_TILE_MODE</a> value to be set.
+     * @param {XPS_TILE_MODE} tileMode The <a href="https://docs.microsoft.com/windows/win32/api/xpsobjectmodel/ne-xpsobjectmodel-xps_tile_mode">XPS_TILE_MODE</a> value to be set.
      * @returns {HRESULT} If the method succeeds, it returns S_OK; otherwise, it returns an <b>HRESULT</b> error code.
      * 
      * <table>

@@ -5,9 +5,8 @@
 
 /**
  * @namespace Windows.Win32.System.DistributedTransactionCoordinator
- * @version v4.0.30319
  */
-class ITransactionCloner extends ITransaction{
+class ITransactionCloner extends ITransaction {
 
     static sizeof => A_PtrSize
     /**

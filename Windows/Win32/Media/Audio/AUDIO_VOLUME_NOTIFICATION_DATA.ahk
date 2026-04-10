@@ -38,17 +38,15 @@
  * In its implementation of the <b>OnNotify</b> method, a client can inspect the event-context GUID from that call to discover whether it or another client is the source of the volume-change event.
  * @see https://learn.microsoft.com/windows/win32/api/endpointvolume/ns-endpointvolume-audio_volume_notification_data
  * @namespace Windows.Win32.Media.Audio
- * @version v4.0.30319
  */
-class AUDIO_VOLUME_NOTIFICATION_DATA extends Win32Struct
-{
+class AUDIO_VOLUME_NOTIFICATION_DATA extends Win32Struct {
     static sizeof => 24
 
     static packingSize => 8
 
     /**
      * Context value for the <a href="https://docs.microsoft.com/windows/desktop/api/endpointvolume/nf-endpointvolume-iaudioendpointvolumecallback-onnotify">IAudioEndpointVolumeCallback::OnNotify</a> method. This member is the value of the event-context GUID that was provided as an input parameter to the <a href="https://docs.microsoft.com/windows/desktop/api/endpointvolume/nn-endpointvolume-iaudioendpointvolume">IAudioEndpointVolume</a> method call that changed the endpoint volume level or muting state. For more information, see Remarks.
-     * @type {Pointer<Guid>}
+     * @type {Pointer}
      */
     guidEventContext {
         get => NumGet(this, 0, "ptr")
@@ -84,9 +82,9 @@ class AUDIO_VOLUME_NOTIFICATION_DATA extends Win32Struct
 
     /**
      * The first element in an array of channel volumes. This element contains the current volume level of channel 0 in the audio stream. If the audio stream contains more than one channel, the volume levels for the additional channels immediately follow the <b>AUDIO_VOLUME_NOTIFICATION_DATA</b> structure. The volume level for each channel is normalized to the range from 0.0 to 1.0, where 0.0 is the minimum volume level and 1.0 is the maximum level. Within this range, the relationship of the normalized volume level to the attenuation of signal amplitude is described by a nonlinear, audio-tapered curve.
-     * @type {Array<Single>}
+     * @type {Array<Float>}
      */
-    afChannelVolumes{
+    afChannelVolumes {
         get {
             if(!this.HasProp("__afChannelVolumesProxyArray"))
                 this.__afChannelVolumesProxyArray := Win32FixedArray(this.ptr + 20, 1, Primitive, "float")

@@ -5,9 +5,8 @@
  * Contains values that specify whether data in a table should be read primarily by row or by column.
  * @see https://learn.microsoft.com/windows/win32/api/uiautomationcore/ne-uiautomationcore-roworcolumnmajor
  * @namespace Windows.Win32.UI.Accessibility
- * @version v4.0.30319
  */
-class RowOrColumnMajor extends Win32Enum{
+class RowOrColumnMajor extends Win32Enum {
 
     /**
      * Data in the table should be read row by row.

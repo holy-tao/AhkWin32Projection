@@ -1,6 +1,7 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
 #Include .\DEV_BROADCAST_HDR.ahk
+#Include .\DEV_BROADCAST_HDR_DEVICE_TYPE.ahk
 
 /**
  * Contains the user-defined event and optional data associated with the DBT_USERDEFINED device event.
@@ -11,10 +12,8 @@
  * ```cpp
  * @see https://learn.microsoft.com/windows/win32/api/dbt/ns-dbt-_dev_broadcast_userdefined
  * @namespace Windows.Win32.UI.WindowsAndMessaging
- * @version v4.0.30319
  */
-class _DEV_BROADCAST_USERDEFINED extends Win32Struct
-{
+class _DEV_BROADCAST_USERDEFINED extends Win32Struct {
     static sizeof => 16
 
     static packingSize => 4
@@ -26,7 +25,7 @@ class _DEV_BROADCAST_USERDEFINED extends Win32Struct
      * <b>_DEV_BROADCAST_USERDEFINED</b> is variable length, the <b>dbch_size</b> member of the <b>dbud_dbh</b> structure must be the size in bytes of the entire structure, including the variable length portion.
      * @type {DEV_BROADCAST_HDR}
      */
-    dbud_dbh{
+    dbud_dbh {
         get {
             if(!this.HasProp("__dbud_dbh"))
                 this.__dbud_dbh := DEV_BROADCAST_HDR(0, this)
@@ -39,7 +38,7 @@ class _DEV_BROADCAST_USERDEFINED extends Win32Struct
      * @type {String}
      */
     dbud_szName {
-        get => StrGet(this.ptr + 12, 0, "UTF-16")
-        set => StrPut(value, this.ptr + 12, 0, "UTF-16")
+        get => StrGet(this.ptr + 12, 0, "UTF-8")
+        set => StrPut(value, this.ptr + 12, 0, "UTF-8")
     }
 }

@@ -5,10 +5,8 @@
  * This type description is used with WS_WSZ_TYPE and is optional. It is used to specify constraints on the set of values which can be deserialized.
  * @see https://learn.microsoft.com/windows/win32/api/webservices/ns-webservices-ws_wsz_description
  * @namespace Windows.Win32.Networking.WindowsWebServices
- * @version v4.0.30319
  */
-class WS_WSZ_DESCRIPTION extends Win32Struct
-{
+class WS_WSZ_DESCRIPTION extends Win32Struct {
     static sizeof => 8
 
     static packingSize => 4

@@ -5,9 +5,8 @@
  * An authorization error occurred.
  * @see https://learn.microsoft.com/windows/win32/api/winsnmp/nf-winsnmp-snmpgetpdudata
  * @namespace Windows.Win32.NetworkManagement.Snmp
- * @version v4.0.30319
  */
-class SNMP_ERROR extends Win32Enum{
+class SNMP_ERROR extends Win32Enum {
 
     /**
      * @type {Integer (UInt32)}

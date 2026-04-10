@@ -9,10 +9,8 @@
  * At initialization, the   DXVA-HD runtime calls the plug-in device's <a href="https://docs.microsoft.com/windows/desktop/api/dxvahd/nc-dxvahd-pdxvahdsw_plugin">PDXVAHDSW_Plugin</a> function. This function fills in a <b>DXVAHDSW_CALLBACKS</b> structure with pointers to  the set of functions that are implemented by the plug-in device. When the application calls DXVA-HD methods, the DXVA-HD runtime calls the corresponding plug-in functions.
  * @see https://learn.microsoft.com/windows/win32/api/dxvahd/ns-dxvahd-dxvahdsw_callbacks
  * @namespace Windows.Win32.Media.MediaFoundation
- * @version v4.0.30319
  */
-class DXVAHDSW_CALLBACKS extends Win32Struct
-{
+class DXVAHDSW_CALLBACKS extends Win32Struct {
     static sizeof => 128
 
     static packingSize => 8

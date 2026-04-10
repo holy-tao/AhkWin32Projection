@@ -4,7 +4,6 @@
 
 /**
  * @namespace Windows.Wdk.System.Registry
- * @version v4.0.30319
  */
 class Registry {
 
@@ -72,7 +71,7 @@ class Registry {
      * </tr>
      * </table>
      * @param {BOOLEAN} WatchTree If this parameter is <b>TRUE</b>, the caller is notified about changes to all subkeys of the specified key. If this parameter is <b>FALSE</b>, the caller is notified only about changes to the specified key.
-     * @param {Pointer} _Buffer 
+     * @param {Integer} _Buffer Reserved for system use. This parameter must be <b>NULL</b>.
      * @param {Integer} BufferSize Reserved for system use. This parameter must be zero.
      * @param {BOOLEAN} Asynchronous If this parameter is <b>TRUE</b>, the function returns immediately. If this parameter is <b>FALSE</b>, the function does not return until the specified event occurs.
      * @returns {NTSTATUS} Returns an <b>NTSTATUS</b> or error code.
@@ -104,7 +103,7 @@ class Registry {
      * @param {Pointer<IO_STATUS_BLOCK>} IoStatusBlock 
      * @param {Integer} CompletionFilter 
      * @param {BOOLEAN} WatchTree 
-     * @param {Pointer} _Buffer 
+     * @param {Integer} _Buffer 
      * @param {Integer} BufferSize 
      * @param {BOOLEAN} Asynchronous 
      * @returns {NTSTATUS} 
@@ -127,7 +126,7 @@ class Registry {
      * @param {HANDLE} KeyHandle A handle to the key for which to retrieve values. The handle must be opened with the <b>KEY_QUERY_VALUE</b> access right.
      * @param {Pointer<KEY_VALUE_ENTRY>} ValueEntries A pointer to an array of [**KEY_VALUE_ENTRY**] structures containing the names of values to retrieve.
      * @param {Integer} EntryCount The number of elements in the <i>ValueEntries</i> array.
-     * @param {Pointer} ValueBuffer A pointer to a buffer to receive the values.
+     * @param {Integer} ValueBuffer A pointer to a buffer to receive the values.
      * @param {Pointer<Integer>} BufferLength A pointer to a variable that contains the size of the buffer at <i>ValueBuffer</i>, in bytes. When the function returns, the <i>BufferLength</i> parameter contains the number of bytes written to the buffer at <i>ValueBuffer</i>.
      * @param {Pointer<Integer>} RequiredBufferLength A pointer to a variable to receive the number of bytes required for all of the values to be returned by the function. This parameter can be <b>NULL</b>.
      * @returns {NTSTATUS} Returns an <b>NTSTATUS</b> or error code.
@@ -153,7 +152,7 @@ class Registry {
      * @param {HANDLE} KeyHandle 
      * @param {Pointer<KEY_VALUE_ENTRY>} ValueEntries 
      * @param {Integer} EntryCount 
-     * @param {Pointer} ValueBuffer 
+     * @param {Integer} ValueBuffer 
      * @param {Pointer<Integer>} BufferLength 
      * @param {Pointer<Integer>} RequiredBufferLength 
      * @returns {NTSTATUS} 
@@ -199,9 +198,9 @@ class Registry {
      *     Ntdll.dll.
      * @param {HANDLE} KeyHandle A handle to the registry key. The handle must be opened with the <b>KEY_WRITE</b> access 
      *       right.
-     * @param {Integer} KeySetInformationClass A <a href="https://docs.microsoft.com/windows-hardware/drivers/ddi/content/wdm/ne-wdm-_key_set_information_class">KEY_SET_INFORMATION_CLASS</a> value that 
+     * @param {KEY_SET_INFORMATION_CLASS} KeySetInformationClass A <a href="https://docs.microsoft.com/windows-hardware/drivers/ddi/content/wdm/ne-wdm-_key_set_information_class">KEY_SET_INFORMATION_CLASS</a> value that 
      *       specifies the kind of information to be set.
-     * @param {Pointer} KeySetInformation A pointer to the buffer that contains the information to be set. The format of this buffer is determined by 
+     * @param {Integer} KeySetInformation A pointer to the buffer that contains the information to be set. The format of this buffer is determined by 
      *       the <i>KeySetInformationClass</i> parameter.
      * @param {Integer} KeySetInformationLength The length of the buffer specified by the <i>KeySetInformation</i> parameter, in 
      *       bytes.
@@ -384,8 +383,8 @@ class Registry {
      * 
      * @param {HANDLE} KeyHandle 
      * @param {Integer} Index 
-     * @param {Integer} KeyInformationClass 
-     * @param {Pointer} KeyInformation 
+     * @param {KEY_INFORMATION_CLASS} KeyInformationClass 
+     * @param {Integer} KeyInformation 
      * @param {Integer} Length 
      * @param {Pointer<Integer>} ResultLength 
      * @returns {NTSTATUS} 
@@ -404,8 +403,8 @@ class Registry {
      * 
      * @param {HANDLE} KeyHandle 
      * @param {Integer} Index 
-     * @param {Integer} KeyValueInformationClass 
-     * @param {Pointer} KeyValueInformation 
+     * @param {KEY_VALUE_INFORMATION_CLASS} KeyValueInformationClass 
+     * @param {Integer} KeyValueInformation 
      * @param {Integer} Length 
      * @param {Pointer<Integer>} ResultLength 
      * @returns {NTSTATUS} 
@@ -436,8 +435,8 @@ class Registry {
     /**
      * 
      * @param {HANDLE} KeyHandle 
-     * @param {Integer} KeyInformationClass 
-     * @param {Pointer} KeyInformation 
+     * @param {KEY_INFORMATION_CLASS} KeyInformationClass 
+     * @param {Integer} KeyInformation 
      * @param {Integer} Length 
      * @param {Pointer<Integer>} ResultLength 
      * @returns {NTSTATUS} 
@@ -456,8 +455,8 @@ class Registry {
      * 
      * @param {HANDLE} KeyHandle 
      * @param {Pointer<UNICODE_STRING>} _ValueName 
-     * @param {Integer} KeyValueInformationClass 
-     * @param {Pointer} KeyValueInformation 
+     * @param {KEY_VALUE_INFORMATION_CLASS} KeyValueInformationClass 
+     * @param {Integer} KeyValueInformation 
      * @param {Integer} Length 
      * @param {Pointer<Integer>} ResultLength 
      * @returns {NTSTATUS} 
@@ -525,7 +524,7 @@ class Registry {
      * @param {Pointer<UNICODE_STRING>} _ValueName 
      * @param {Integer} TitleIndex 
      * @param {Integer} Type 
-     * @param {Pointer} Data 
+     * @param {Integer} Data 
      * @param {Integer} DataSize 
      * @returns {NTSTATUS} 
      */
@@ -753,8 +752,8 @@ class Registry {
      * 
      * @param {HANDLE} KeyHandle 
      * @param {Integer} Index 
-     * @param {Integer} KeyInformationClass 
-     * @param {Pointer} KeyInformation 
+     * @param {KEY_INFORMATION_CLASS} KeyInformationClass 
+     * @param {Integer} KeyInformation 
      * @param {Integer} Length 
      * @param {Pointer<Integer>} ResultLength 
      * @returns {NTSTATUS} 
@@ -773,8 +772,8 @@ class Registry {
      * 
      * @param {HANDLE} KeyHandle 
      * @param {Integer} Index 
-     * @param {Integer} KeyValueInformationClass 
-     * @param {Pointer} KeyValueInformation 
+     * @param {KEY_VALUE_INFORMATION_CLASS} KeyValueInformationClass 
+     * @param {Integer} KeyValueInformation 
      * @param {Integer} Length 
      * @param {Pointer<Integer>} ResultLength 
      * @returns {NTSTATUS} 
@@ -805,8 +804,8 @@ class Registry {
     /**
      * 
      * @param {HANDLE} KeyHandle 
-     * @param {Integer} KeyInformationClass 
-     * @param {Pointer} KeyInformation 
+     * @param {KEY_INFORMATION_CLASS} KeyInformationClass 
+     * @param {Integer} KeyInformation 
      * @param {Integer} Length 
      * @param {Pointer<Integer>} ResultLength 
      * @returns {NTSTATUS} 
@@ -825,8 +824,8 @@ class Registry {
      * 
      * @param {HANDLE} KeyHandle 
      * @param {Pointer<UNICODE_STRING>} _ValueName 
-     * @param {Integer} KeyValueInformationClass 
-     * @param {Pointer} KeyValueInformation 
+     * @param {KEY_VALUE_INFORMATION_CLASS} KeyValueInformationClass 
+     * @param {Integer} KeyValueInformation 
      * @param {Integer} Length 
      * @param {Pointer<Integer>} ResultLength 
      * @returns {NTSTATUS} 
@@ -905,8 +904,8 @@ class Registry {
     /**
      * 
      * @param {HANDLE} KeyHandle 
-     * @param {Integer} KeySetInformationClass 
-     * @param {Pointer} KeySetInformation 
+     * @param {KEY_SET_INFORMATION_CLASS} KeySetInformationClass 
+     * @param {Integer} KeySetInformation 
      * @param {Integer} KeySetInformationLength 
      * @returns {NTSTATUS} 
      */
@@ -924,7 +923,7 @@ class Registry {
      * @param {Pointer<UNICODE_STRING>} _ValueName 
      * @param {Integer} TitleIndex 
      * @param {Integer} Type 
-     * @param {Pointer} Data 
+     * @param {Integer} Data 
      * @param {Integer} DataSize 
      * @returns {NTSTATUS} 
      */

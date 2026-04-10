@@ -3,10 +3,8 @@
 
 /**
  * @namespace Windows.Win32.System.Ioctl
- * @version v4.0.30319
  */
-class STORAGE_BREAK_RESERVATION_REQUEST extends Win32Struct
-{
+class STORAGE_BREAK_RESERVATION_REQUEST extends Win32Struct {
     static sizeof => 8
 
     static packingSize => 4

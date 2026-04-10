@@ -7,9 +7,8 @@
  * Enables object clients to selectively update each cache that was created with IOleCache::Cache.
  * @see https://learn.microsoft.com/windows/win32/api/oleidl/nn-oleidl-iolecache2
  * @namespace Windows.Win32.System.Ole
- * @version v4.0.30319
  */
-class IOleCache2 extends IOleCache{
+class IOleCache2 extends IOleCache {
 
     static sizeof => A_PtrSize
     /**
@@ -33,7 +32,7 @@ class IOleCache2 extends IOleCache{
     /**
      * Updates the specified caches. This method is used when the application needs precise control over caching.
      * @param {IDataObject} pDataObject A pointer to the <a href="https://docs.microsoft.com/windows/desktop/api/objidl/nn-objidl-idataobject">IDataObject</a> interface on the data object from which the cache is updated. Object handlers and in-process servers typically pass a non-<b>NULL</b> value. A container application usually passes <b>NULL</b>, and the source is obtained from the currently running object.
-     * @param {Integer} grfUpdf 
+     * @param {UPDFCACHE_FLAGS} grfUpdf 
      * @returns {HRESULT} This method returns S_OK on success. Other possible return values include the following.
      * 
      * <table>

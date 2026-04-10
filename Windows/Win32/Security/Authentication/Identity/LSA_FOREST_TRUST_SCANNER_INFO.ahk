@@ -4,10 +4,8 @@
 
 /**
  * @namespace Windows.Win32.Security.Authentication.Identity
- * @version v4.0.30319
  */
-class LSA_FOREST_TRUST_SCANNER_INFO extends Win32Struct
-{
+class LSA_FOREST_TRUST_SCANNER_INFO extends Win32Struct {
     static sizeof => 40
 
     static packingSize => 8
@@ -23,7 +21,7 @@ class LSA_FOREST_TRUST_SCANNER_INFO extends Win32Struct
     /**
      * @type {LSA_UNICODE_STRING}
      */
-    DnsName{
+    DnsName {
         get {
             if(!this.HasProp("__DnsName"))
                 this.__DnsName := LSA_UNICODE_STRING(8, this)
@@ -34,7 +32,7 @@ class LSA_FOREST_TRUST_SCANNER_INFO extends Win32Struct
     /**
      * @type {LSA_UNICODE_STRING}
      */
-    NetbiosName{
+    NetbiosName {
         get {
             if(!this.HasProp("__NetbiosName"))
                 this.__NetbiosName := LSA_UNICODE_STRING(24, this)

@@ -1,7 +1,9 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
 #Include .\EMR.ahk
+#Include .\ENHANCED_METAFILE_RECORD_TYPE.ahk
 #Include ..\..\Foundation\RECTL.ahk
+#Include .\GRADIENT_FILL.ahk
 #Include .\TRIVERTEX.ahk
 
 /**
@@ -12,19 +14,17 @@
  * This structure is to be used during metafile playback.
  * @see https://learn.microsoft.com/windows/win32/api/wingdi/ns-wingdi-emrgradientfill
  * @namespace Windows.Win32.Graphics.Gdi
- * @version v4.0.30319
  */
-class EMRGRADIENTFILL extends Win32Struct
-{
-    static sizeof => 48
+class EMRGRADIENTFILL extends Win32Struct {
+    static sizeof => 52
 
-    static packingSize => 8
+    static packingSize => 4
 
     /**
      * The base structure for all record types.
      * @type {EMR}
      */
-    emr{
+    emr {
         get {
             if(!this.HasProp("__emr"))
                 this.__emr := EMR(0, this)
@@ -36,7 +36,7 @@ class EMRGRADIENTFILL extends Win32Struct
      * The bounding rectangle, in device units.
      * @type {RECTL}
      */
-    rclBounds{
+    rclBounds {
         get {
             if(!this.HasProp("__rclBounds"))
                 this.__rclBounds := RECTL(8, this)
@@ -63,8 +63,7 @@ class EMRGRADIENTFILL extends Win32Struct
     }
 
     /**
-     * 
-     * @type {Integer}
+     * @type {GRADIENT_FILL}
      */
     ulMode {
         get => NumGet(this, 32, "uint")
@@ -73,12 +72,12 @@ class EMRGRADIENTFILL extends Win32Struct
 
     /**
      * An array of <a href="https://docs.microsoft.com/windows/desktop/api/wingdi/ns-wingdi-trivertex">TRIVERTEX</a> structures that each define a vertex.
-     * @type {Array<TRIVERTEX>}
+     * @type {TRIVERTEX}
      */
-    Ver{
+    Ver {
         get {
             if(!this.HasProp("__VerProxyArray"))
-                this.__VerProxyArray := Win32FixedArray(this.ptr + 40, 1, TRIVERTEX, "")
+                this.__VerProxyArray := Win32FixedArray(this.ptr + 36, 1, TRIVERTEX, "")
             return this.__VerProxyArray
         }
     }

@@ -5,9 +5,8 @@
 
 /**
  * @namespace Windows.Win32.UI.Shell
- * @version v4.0.30319
  */
-class DWebBrowserEvents2 extends IDispatch{
+class DWebBrowserEvents2 extends IDispatch {
 
     static sizeof => A_PtrSize
     /**

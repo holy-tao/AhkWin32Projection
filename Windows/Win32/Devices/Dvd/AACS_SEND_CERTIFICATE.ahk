@@ -4,10 +4,8 @@
 
 /**
  * @namespace Windows.Win32.Devices.Dvd
- * @version v4.0.30319
  */
-class AACS_SEND_CERTIFICATE extends Win32Struct
-{
+class AACS_SEND_CERTIFICATE extends Win32Struct {
     static sizeof => 116
 
     static packingSize => 4
@@ -23,7 +21,7 @@ class AACS_SEND_CERTIFICATE extends Win32Struct
     /**
      * @type {AACS_CERTIFICATE}
      */
-    Certificate{
+    Certificate {
         get {
             if(!this.HasProp("__Certificate"))
                 this.__Certificate := AACS_CERTIFICATE(4, this)

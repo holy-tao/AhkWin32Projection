@@ -3,16 +3,14 @@
 
 /**
  * @namespace Windows.Wdk.System.SystemServices
- * @version v4.0.30319
  */
-class WHEAP_GENERIC_ERR_MEM_MAP_EVENT extends Win32Struct
-{
-    static sizeof => 88
+class WHEAP_GENERIC_ERR_MEM_MAP_EVENT extends Win32Struct {
+    static sizeof => 56
 
     static packingSize => 8
 
     /**
-     * @type {Pointer<WHEA_EVENT_LOG_ENTRY>}
+     * @type {Pointer}
      */
     WheaEventLogEntry {
         get => NumGet(this, 0, "ptr")
@@ -23,23 +21,23 @@ class WHEAP_GENERIC_ERR_MEM_MAP_EVENT extends Win32Struct
      * @type {String}
      */
     MapReason {
-        get => StrGet(this.ptr + 8, 31, "UTF-16")
-        set => StrPut(value, this.ptr + 8, 31, "UTF-16")
+        get => StrGet(this.ptr + 8, 31, "UTF-8")
+        set => StrPut(value, this.ptr + 8, 31, "UTF-8")
     }
 
     /**
      * @type {Integer}
      */
     PhysicalAddress {
-        get => NumGet(this, 72, "uint")
-        set => NumPut("uint", value, this, 72)
+        get => NumGet(this, 40, "uint")
+        set => NumPut("uint", value, this, 40)
     }
 
     /**
      * @type {Integer}
      */
     Length {
-        get => NumGet(this, 80, "uint")
-        set => NumPut("uint", value, this, 80)
+        get => NumGet(this, 48, "uint")
+        set => NumPut("uint", value, this, 48)
     }
 }

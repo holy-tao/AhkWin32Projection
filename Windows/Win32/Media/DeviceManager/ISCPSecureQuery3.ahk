@@ -7,9 +7,8 @@
  * The ISCPSecureQuery3 interface extends ISCPSecureQuery2 by providing a set of new methods for retrieving the rights and making decision on a clear channel.
  * @see https://learn.microsoft.com/windows/win32/api/mswmdm/nn-mswmdm-iscpsecurequery3
  * @namespace Windows.Win32.Media.DeviceManager
- * @version v4.0.30319
  */
-class ISCPSecureQuery3 extends ISCPSecureQuery2{
+class ISCPSecureQuery3 extends ISCPSecureQuery2 {
 
     static sizeof => A_PtrSize
     /**

@@ -5,9 +5,8 @@
  * Contains values that correspond to the types of Windows objects that support security.
  * @see https://learn.microsoft.com/windows/win32/api/accctrl/ne-accctrl-se_object_type
  * @namespace Windows.Win32.Security.Authorization
- * @version v4.0.30319
  */
-class SE_OBJECT_TYPE extends Win32Enum{
+class SE_OBJECT_TYPE extends Win32Enum {
 
     /**
      * Unknown object type.
@@ -115,7 +114,6 @@ class SE_OBJECT_TYPE extends Win32Enum{
     static SE_REGISTRY_WOW64_32KEY => 12
 
     /**
-     * 
      * @type {Integer (Int32)}
      */
     static SE_REGISTRY_WOW64_64KEY => 13

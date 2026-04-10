@@ -5,10 +5,8 @@
 
 /**
  * @namespace Windows.Win32.Security.Cryptography
- * @version v4.0.30319
  */
-class RECIPIENTPOLICY2 extends Win32Struct
-{
+class RECIPIENTPOLICY2 extends Win32Struct {
     static sizeof => 120
 
     static packingSize => 8
@@ -16,7 +14,7 @@ class RECIPIENTPOLICY2 extends Win32Struct
     /**
      * @type {ENDPOINTADDRESS2}
      */
-    recipient{
+    recipient {
         get {
             if(!this.HasProp("__recipient"))
                 this.__recipient := ENDPOINTADDRESS2(0, this)
@@ -27,7 +25,7 @@ class RECIPIENTPOLICY2 extends Win32Struct
     /**
      * @type {ENDPOINTADDRESS2}
      */
-    issuer{
+    issuer {
         get {
             if(!this.HasProp("__issuer"))
                 this.__issuer := ENDPOINTADDRESS2(32, this)
@@ -46,7 +44,7 @@ class RECIPIENTPOLICY2 extends Win32Struct
     /**
      * @type {CLAIMLIST}
      */
-    requiredClaims{
+    requiredClaims {
         get {
             if(!this.HasProp("__requiredClaims"))
                 this.__requiredClaims := CLAIMLIST(72, this)
@@ -57,7 +55,7 @@ class RECIPIENTPOLICY2 extends Win32Struct
     /**
      * @type {CLAIMLIST}
      */
-    optionalClaims{
+    optionalClaims {
         get {
             if(!this.HasProp("__optionalClaims"))
                 this.__optionalClaims := CLAIMLIST(88, this)

@@ -7,10 +7,8 @@
  * The <b>DXGI_MAPPED_RECT</b> structure is initialized by the <a href="https://docs.microsoft.com/windows/desktop/api/dxgi/nf-dxgi-idxgisurface-map">IDXGISurface::Map</a> method.
  * @see https://learn.microsoft.com/windows/win32/api/dxgi/ns-dxgi-dxgi_mapped_rect
  * @namespace Windows.Win32.Graphics.Dxgi
- * @version v4.0.30319
  */
-class DXGI_MAPPED_RECT extends Win32Struct
-{
+class DXGI_MAPPED_RECT extends Win32Struct {
     static sizeof => 16
 
     static packingSize => 8

@@ -3,10 +3,8 @@
 
 /**
  * @namespace Windows.Wdk.Graphics.Direct3D
- * @version v4.0.30319
  */
-class DXGK_ADAPTER_PERFDATA extends Win32Struct
-{
+class DXGK_ADAPTER_PERFDATA extends Win32Struct {
     static sizeof => 56
 
     static packingSize => 8

@@ -7,9 +7,8 @@
  * The IVdsLunNumber interface (vdshwprv.h) provides a method to query the LUN number for a LUN.
  * @see https://learn.microsoft.com/windows/win32/api/vdshwprv/nn-vdshwprv-ivdslunnumber
  * @namespace Windows.Win32.Storage.VirtualDiskService
- * @version v4.0.30319
  */
-class IVdsLunNumber extends IUnknown{
+class IVdsLunNumber extends IUnknown {
 
     static sizeof => A_PtrSize
     /**

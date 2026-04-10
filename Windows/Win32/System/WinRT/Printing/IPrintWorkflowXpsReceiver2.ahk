@@ -5,9 +5,8 @@
 
 /**
  * @namespace Windows.Win32.System.WinRT.Printing
- * @version v4.0.30319
  */
-class IPrintWorkflowXpsReceiver2 extends IPrintWorkflowXpsReceiver{
+class IPrintWorkflowXpsReceiver2 extends IPrintWorkflowXpsReceiver {
 
     static sizeof => A_PtrSize
     /**

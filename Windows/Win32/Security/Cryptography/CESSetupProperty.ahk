@@ -5,9 +5,8 @@
  * Used by the GetProperty and SetProperty methods on the ICertificateEnrollmentServerSetup interface to specify the type of property information to retrieve or set.
  * @see https://learn.microsoft.com/windows/win32/api/casetup/ne-casetup-cessetupproperty
  * @namespace Windows.Win32.Security.Cryptography
- * @version v4.0.30319
  */
-class CESSetupProperty extends Win32Enum{
+class CESSetupProperty extends Win32Enum {
 
     /**
      * The property value specifies whether the server context is <b>ApplicationPoolIdentity</b>.
@@ -46,7 +45,6 @@ class CESSetupProperty extends Win32Enum{
     static ENUM_CESSETUPPROP_RENEWALONLY => 5
 
     /**
-     * 
      * @type {Integer (Int32)}
      */
     static ENUM_CESSETUPPROP_ALLOW_KEYBASED_RENEWAL => 6

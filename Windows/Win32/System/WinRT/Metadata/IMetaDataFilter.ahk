@@ -5,9 +5,8 @@
 
 /**
  * @namespace Windows.Win32.System.WinRT.Metadata
- * @version v4.0.30319
  */
-class IMetaDataFilter extends IUnknown{
+class IMetaDataFilter extends IUnknown {
 
     static sizeof => A_PtrSize
     /**

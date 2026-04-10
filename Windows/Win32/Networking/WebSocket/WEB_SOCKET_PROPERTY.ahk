@@ -1,14 +1,13 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
+#Include .\WEB_SOCKET_PROPERTY_TYPE.ahk
 
 /**
  * Contains a single WebSocket property.
  * @see https://learn.microsoft.com/windows/win32/api/websocket/ns-websocket-web_socket_property
  * @namespace Windows.Win32.Networking.WebSocket
- * @version v4.0.30319
  */
-class WEB_SOCKET_PROPERTY extends Win32Struct
-{
+class WEB_SOCKET_PROPERTY extends Win32Struct {
     static sizeof => 24
 
     static packingSize => 8
@@ -17,7 +16,7 @@ class WEB_SOCKET_PROPERTY extends Win32Struct
      * Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/websocket/ne-websocket-web_socket_property_type">WEB_SOCKET_PROPERTY_TYPE</a></b>
      * 
      * The WebSocket property type.
-     * @type {Integer}
+     * @type {WEB_SOCKET_PROPERTY_TYPE}
      */
     Type {
         get => NumGet(this, 0, "int")

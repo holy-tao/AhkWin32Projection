@@ -7,9 +7,8 @@
  * The IAMOverlayFX interface controls how the video overlay appears on the user's screen. The Overlay Mixer filter implements this interface.
  * @see https://learn.microsoft.com/windows/win32/api/strmif/nn-strmif-iamoverlayfx
  * @namespace Windows.Win32.Media.DirectShow
- * @version v4.0.30319
  */
-class IAMOverlayFX extends IUnknown{
+class IAMOverlayFX extends IUnknown {
 
     static sizeof => A_PtrSize
     /**

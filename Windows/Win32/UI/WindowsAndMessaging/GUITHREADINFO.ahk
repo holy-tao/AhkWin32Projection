@@ -1,5 +1,6 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
+#Include .\GUITHREADINFO_FLAGS.ahk
 #Include ..\..\Foundation\HWND.ahk
 #Include ..\..\Foundation\RECT.ahk
 
@@ -9,10 +10,8 @@
  * This structure is used with the <a href="https://docs.microsoft.com/windows/desktop/api/winuser/nf-winuser-getguithreadinfo">GetGUIThreadInfo</a> function to retrieve information about the active window or a specified GUI thread.
  * @see https://learn.microsoft.com/windows/win32/api/winuser/ns-winuser-guithreadinfo
  * @namespace Windows.Win32.UI.WindowsAndMessaging
- * @version v4.0.30319
  */
-class GUITHREADINFO extends Win32Struct
-{
+class GUITHREADINFO extends Win32Struct {
     static sizeof => 72
 
     static packingSize => 8
@@ -30,7 +29,7 @@ class GUITHREADINFO extends Win32Struct
 
     /**
      * Type: <b>DWORD</b>
-     * @type {Integer}
+     * @type {GUITHREADINFO_FLAGS}
      */
     flags {
         get => NumGet(this, 4, "uint")
@@ -43,7 +42,7 @@ class GUITHREADINFO extends Win32Struct
      * A handle to the active window within the thread.
      * @type {HWND}
      */
-    hwndActive{
+    hwndActive {
         get {
             if(!this.HasProp("__hwndActive"))
                 this.__hwndActive := HWND(8, this)
@@ -57,7 +56,7 @@ class GUITHREADINFO extends Win32Struct
      * A handle to the window that has the keyboard focus.
      * @type {HWND}
      */
-    hwndFocus{
+    hwndFocus {
         get {
             if(!this.HasProp("__hwndFocus"))
                 this.__hwndFocus := HWND(16, this)
@@ -71,7 +70,7 @@ class GUITHREADINFO extends Win32Struct
      * A handle to the window that has captured the mouse.
      * @type {HWND}
      */
-    hwndCapture{
+    hwndCapture {
         get {
             if(!this.HasProp("__hwndCapture"))
                 this.__hwndCapture := HWND(24, this)
@@ -85,7 +84,7 @@ class GUITHREADINFO extends Win32Struct
      * A handle to the window that owns any active menus.
      * @type {HWND}
      */
-    hwndMenuOwner{
+    hwndMenuOwner {
         get {
             if(!this.HasProp("__hwndMenuOwner"))
                 this.__hwndMenuOwner := HWND(32, this)
@@ -99,7 +98,7 @@ class GUITHREADINFO extends Win32Struct
      * A handle to the window in a move or size loop.
      * @type {HWND}
      */
-    hwndMoveSize{
+    hwndMoveSize {
         get {
             if(!this.HasProp("__hwndMoveSize"))
                 this.__hwndMoveSize := HWND(40, this)
@@ -113,7 +112,7 @@ class GUITHREADINFO extends Win32Struct
      * A handle to the window that is displaying the caret.
      * @type {HWND}
      */
-    hwndCaret{
+    hwndCaret {
         get {
             if(!this.HasProp("__hwndCaret"))
                 this.__hwndCaret := HWND(48, this)
@@ -127,7 +126,7 @@ class GUITHREADINFO extends Win32Struct
      * The caret's bounding rectangle, in client coordinates, relative to the window specified by the <b>hwndCaret</b> member.
      * @type {RECT}
      */
-    rcCaret{
+    rcCaret {
         get {
             if(!this.HasProp("__rcCaret"))
                 this.__rcCaret := RECT(56, this)

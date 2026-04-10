@@ -3,11 +3,9 @@
 
 /**
  * @namespace Windows.Win32.NetworkManagement.Rras
- * @version v4.0.30319
  * @charset ANSI
  */
-class RASAMBA extends Win32Struct
-{
+class RASAMBA extends Win32Struct {
     static sizeof => 28
 
     static packingSize => 4

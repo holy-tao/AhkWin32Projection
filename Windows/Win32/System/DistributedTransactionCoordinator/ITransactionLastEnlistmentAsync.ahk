@@ -5,9 +5,8 @@
 
 /**
  * @namespace Windows.Win32.System.DistributedTransactionCoordinator
- * @version v4.0.30319
  */
-class ITransactionLastEnlistmentAsync extends IUnknown{
+class ITransactionLastEnlistmentAsync extends IUnknown {
 
     static sizeof => A_PtrSize
     /**
@@ -30,7 +29,7 @@ class ITransactionLastEnlistmentAsync extends IUnknown{
 
     /**
      * 
-     * @param {Integer} _XactStat 
+     * @param {XACTSTAT} _XactStat 
      * @param {Pointer<BOID>} pboidReason 
      * @returns {HRESULT} 
      */

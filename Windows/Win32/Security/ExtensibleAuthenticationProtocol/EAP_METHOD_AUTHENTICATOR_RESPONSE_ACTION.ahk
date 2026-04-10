@@ -5,9 +5,8 @@
  * Defines the set of response instructions sent by the authenticator to the supplicant or EAP peer method.
  * @see https://learn.microsoft.com/windows/win32/api/eapauthenticatoractiondefine/ne-eapauthenticatoractiondefine-eap_method_authenticator_response_action
  * @namespace Windows.Win32.Security.ExtensibleAuthenticationProtocol
- * @version v4.0.30319
  */
-class EAP_METHOD_AUTHENTICATOR_RESPONSE_ACTION extends Win32Enum{
+class EAP_METHOD_AUTHENTICATOR_RESPONSE_ACTION extends Win32Enum {
 
     /**
      * The supplicant should discard the response as it is not usable by EAPHost.

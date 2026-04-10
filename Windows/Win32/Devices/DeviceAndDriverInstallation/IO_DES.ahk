@@ -1,20 +1,18 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
+#Include .\IOD_DESFLAGS.ahk
 
 /**
  * The IO_DES structure is used for specifying either a resource list or a resource requirements list that describes I/O port usage for a device instance. For more information about resource lists and resource requirements lists, see Hardware Resources.
  * @see https://learn.microsoft.com/windows/win32/api/cfgmgr32/ns-cfgmgr32-io_des
  * @namespace Windows.Win32.Devices.DeviceAndDriverInstallation
- * @version v4.0.30319
  */
-class IO_DES extends Win32Struct
-{
+class IO_DES extends Win32Struct {
     static sizeof => 32
 
     static packingSize => 8
 
     /**
-     * 
      * @type {Integer}
      */
     IOD_Count {
@@ -32,7 +30,6 @@ class IO_DES extends Win32Struct
     }
 
     /**
-     * 
      * @type {Integer}
      */
     IOD_Alloc_Base {
@@ -41,7 +38,6 @@ class IO_DES extends Win32Struct
     }
 
     /**
-     * 
      * @type {Integer}
      */
     IOD_Alloc_End {
@@ -161,7 +157,7 @@ class IO_DES extends Win32Struct
      * </td>
      * </tr>
      * </table>
-     * @type {Integer}
+     * @type {IOD_DESFLAGS}
      */
     IOD_DesFlags {
         get => NumGet(this, 24, "uint")

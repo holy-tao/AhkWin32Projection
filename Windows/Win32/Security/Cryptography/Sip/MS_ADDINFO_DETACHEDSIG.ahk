@@ -4,10 +4,8 @@
 
 /**
  * @namespace Windows.Win32.Security.Cryptography.Sip
- * @version v4.0.30319
  */
-class MS_ADDINFO_DETACHEDSIG extends Win32Struct
-{
+class MS_ADDINFO_DETACHEDSIG extends Win32Struct {
     static sizeof => 32
 
     static packingSize => 8
@@ -23,7 +21,7 @@ class MS_ADDINFO_DETACHEDSIG extends Win32Struct
     /**
      * @type {HANDLE}
      */
-    hSignatureFile{
+    hSignatureFile {
         get {
             if(!this.HasProp("__hSignatureFile"))
                 this.__hSignatureFile := HANDLE(8, this)

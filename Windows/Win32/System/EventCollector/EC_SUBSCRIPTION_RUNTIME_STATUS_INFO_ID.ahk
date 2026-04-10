@@ -5,9 +5,8 @@
  * The EC_SUBSCRIPTION_RUNTIME_STATUS_INFO_ID enumeration specifies the values used to get the status of a subscription or the status of a particular event source with respect to a subscription.
  * @see https://learn.microsoft.com/windows/win32/api/evcoll/ne-evcoll-ec_subscription_runtime_status_info_id
  * @namespace Windows.Win32.System.EventCollector
- * @version v4.0.30319
  */
-class EC_SUBSCRIPTION_RUNTIME_STATUS_INFO_ID extends Win32Enum{
+class EC_SUBSCRIPTION_RUNTIME_STATUS_INFO_ID extends Win32Enum {
 
     /**
      * Get the status of an active or inactive subscription or an event source. This will return an unsigned 32-bit integer value from the <a href="https://docs.microsoft.com/windows/win32/api/evcoll/ne-evcoll-ec_subscription_runtime_status_active_status">EC_SUBSCRIPTION_RUNTIME_STATUS_ACTIVE_STATUS</a> enumeration.
@@ -52,7 +51,6 @@ class EC_SUBSCRIPTION_RUNTIME_STATUS_INFO_ID extends Win32Enum{
     static EcSubscriptionRunTimeStatusLastHeartbeatTime => 6
 
     /**
-     * 
      * @type {Integer (Int32)}
      */
     static EcSubscriptionRunTimeStatusInfoIdEND => 7

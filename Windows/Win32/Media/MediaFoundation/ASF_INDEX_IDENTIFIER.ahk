@@ -7,17 +7,15 @@
  * The index object of an ASF file can contain a number of distinct indexes. Each index is identified by the type of index and the stream number. No ASF index object can contain more than one index for a particular combination of stream number and index type.
  * @see https://learn.microsoft.com/windows/win32/api/wmcontainer/ns-wmcontainer-asf_index_identifier
  * @namespace Windows.Win32.Media.MediaFoundation
- * @version v4.0.30319
  */
-class ASF_INDEX_IDENTIFIER extends Win32Struct
-{
+class ASF_INDEX_IDENTIFIER extends Win32Struct {
     static sizeof => 16
 
     static packingSize => 8
 
     /**
      * The type of index. Currently this value must be GUID_NULL, which specifies time-based indexing.
-     * @type {Pointer<Guid>}
+     * @type {Pointer}
      */
     guidIndexType {
         get => NumGet(this, 0, "ptr")

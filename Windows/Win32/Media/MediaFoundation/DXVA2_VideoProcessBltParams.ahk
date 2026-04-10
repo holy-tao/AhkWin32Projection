@@ -4,18 +4,16 @@
 #Include ..\..\Foundation\SIZE.ahk
 #Include .\DXVA2_AYUVSample16.ahk
 #Include .\DXVA2_ExtendedFormat.ahk
-#Include .\DXVA2_Fixed32.ahk
 #Include .\DXVA2_ProcAmpValues.ahk
+#Include .\DXVA2_Fixed32.ahk
 #Include .\DXVA2_FilterValues.ahk
 
 /**
  * Contains parameters for the IDirectXVideoProcessor::VideoProcessBlt method.
  * @see https://learn.microsoft.com/windows/win32/api/dxva2api/ns-dxva2api-dxva2_videoprocessbltparams
  * @namespace Windows.Win32.Media.MediaFoundation
- * @version v4.0.30319
  */
-class DXVA2_VideoProcessBltParams extends Win32Struct
-{
+class DXVA2_VideoProcessBltParams extends Win32Struct {
     static sizeof => 120
 
     static packingSize => 8
@@ -36,7 +34,7 @@ class DXVA2_VideoProcessBltParams extends Win32Struct
      * The target rectangle cannot be larger than the destination surface.
      * @type {RECT}
      */
-    TargetRect{
+    TargetRect {
         get {
             if(!this.HasProp("__TargetRect"))
                 this.__TargetRect := RECT(8, this)
@@ -51,7 +49,7 @@ class DXVA2_VideoProcessBltParams extends Win32Struct
      * The downsampling size cannot be less than zero, or larger than the size of the target rectangle (<b>TargetRect</b>).
      * @type {SIZE}
      */
-    ConstrictionSize{
+    ConstrictionSize {
         get {
             if(!this.HasProp("__ConstrictionSize"))
                 this.__ConstrictionSize := SIZE(24, this)
@@ -76,7 +74,7 @@ class DXVA2_VideoProcessBltParams extends Win32Struct
      * The color space for the background color is given by the <b>DestFormat</b> member. Note that the background color is always specified as a YUV color, even if the destination surface is RGB.
      * @type {DXVA2_AYUVSample16}
      */
-    BackgroundColor{
+    BackgroundColor {
         get {
             if(!this.HasProp("__BackgroundColor"))
                 this.__BackgroundColor := DXVA2_AYUVSample16(36, this)
@@ -88,7 +86,7 @@ class DXVA2_VideoProcessBltParams extends Win32Struct
      * A <a href="https://docs.microsoft.com/windows/desktop/api/dxva2api/ns-dxva2api-dxva2_extendedformat">DXVA2_ExtendedFormat</a> structure that contains extended color information for the destination rectangle. For video playback, the recommended value for the nominal range is DXVA2_NominalRange_Unknown. For more information, see <a href="https://docs.microsoft.com/windows/desktop/api/dxva2api/ne-dxva2api-dxva2_nominalrange">DXVA2_NominalRange</a> enumeration.
      * @type {DXVA2_ExtendedFormat}
      */
-    DestFormat{
+    DestFormat {
         get {
             if(!this.HasProp("__DestFormat"))
                 this.__DestFormat := DXVA2_ExtendedFormat(44, this)
@@ -100,7 +98,7 @@ class DXVA2_VideoProcessBltParams extends Win32Struct
      * A <a href="https://docs.microsoft.com/windows/desktop/api/dxva2api/ns-dxva2api-dxva2_procampvalues">DXVA2_ProcAmpValues</a> structure that specifies color adjustment (ProcAmp) settings. These values must fall within the ranges returned by the <a href="https://docs.microsoft.com/windows/desktop/api/dxva2api/nf-dxva2api-idirectxvideoprocessor-getprocamprange">IDirectXVideoProcessor::GetProcAmpRange</a> method.
      * @type {DXVA2_ProcAmpValues}
      */
-    ProcAmpValues{
+    ProcAmpValues {
         get {
             if(!this.HasProp("__ProcAmpValues"))
                 this.__ProcAmpValues := DXVA2_ProcAmpValues(48, this)
@@ -112,7 +110,7 @@ class DXVA2_VideoProcessBltParams extends Win32Struct
      * Alpha value that is applied to the composited image when it is copied to the destination surface. The alpha value is fixed-point value, specified as a <a href="https://docs.microsoft.com/windows/desktop/api/dxva2api/ns-dxva2api-dxva2_fixed32">DXVA2_Fixed32</a> structure. To specify 100% opacity, use the <a href="https://docs.microsoft.com/windows/desktop/api/dxva2api/nf-dxva2api-dxva2_fixed32opaquealpha">DXVA2_Fixed32OpaqueAlpha</a> function.
      * @type {DXVA2_Fixed32}
      */
-    Alpha{
+    Alpha {
         get {
             if(!this.HasProp("__Alpha"))
                 this.__Alpha := DXVA2_Fixed32(64, this)
@@ -124,7 +122,7 @@ class DXVA2_VideoProcessBltParams extends Win32Struct
      * A <a href="https://docs.microsoft.com/windows/desktop/api/dxva2api/ns-dxva2api-dxva2_filtervalues">DXVA2_FilterValues</a> structure that contains parameters for the luma noise filter.
      * @type {DXVA2_FilterValues}
      */
-    NoiseFilterLuma{
+    NoiseFilterLuma {
         get {
             if(!this.HasProp("__NoiseFilterLuma"))
                 this.__NoiseFilterLuma := DXVA2_FilterValues(68, this)
@@ -136,7 +134,7 @@ class DXVA2_VideoProcessBltParams extends Win32Struct
      * A <a href="https://docs.microsoft.com/windows/desktop/api/dxva2api/ns-dxva2api-dxva2_filtervalues">DXVA2_FilterValues</a> structure that contains parameters for the chroma noise filter.
      * @type {DXVA2_FilterValues}
      */
-    NoiseFilterChroma{
+    NoiseFilterChroma {
         get {
             if(!this.HasProp("__NoiseFilterChroma"))
                 this.__NoiseFilterChroma := DXVA2_FilterValues(80, this)
@@ -148,7 +146,7 @@ class DXVA2_VideoProcessBltParams extends Win32Struct
      * A <a href="https://docs.microsoft.com/windows/desktop/api/dxva2api/ns-dxva2api-dxva2_filtervalues">DXVA2_FilterValues</a> structure that contains parameters for the luma detail filter.
      * @type {DXVA2_FilterValues}
      */
-    DetailFilterLuma{
+    DetailFilterLuma {
         get {
             if(!this.HasProp("__DetailFilterLuma"))
                 this.__DetailFilterLuma := DXVA2_FilterValues(92, this)
@@ -160,7 +158,7 @@ class DXVA2_VideoProcessBltParams extends Win32Struct
      * A <a href="https://docs.microsoft.com/windows/desktop/api/dxva2api/ns-dxva2api-dxva2_filtervalues">DXVA2_FilterValues</a> structure that contains parameters for the chroma detail filter.
      * @type {DXVA2_FilterValues}
      */
-    DetailFilterChroma{
+    DetailFilterChroma {
         get {
             if(!this.HasProp("__DetailFilterChroma"))
                 this.__DetailFilterChroma := DXVA2_FilterValues(104, this)

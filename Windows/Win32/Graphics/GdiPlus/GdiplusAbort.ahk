@@ -4,9 +4,8 @@
 
 /**
  * @namespace Windows.Win32.Graphics.GdiPlus
- * @version v4.0.30319
  */
-class GdiplusAbort extends Win32ComInterface{
+class GdiplusAbort extends Win32ComInterface {
 
     static sizeof => A_PtrSize
 

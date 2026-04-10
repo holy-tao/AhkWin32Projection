@@ -1,17 +1,16 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
+#Include ..\..\System\Com\IUnknown.ahk
 #Include .\IAudioSessionControl.ahk
 #Include .\ISimpleAudioVolume.ahk
-#Include ..\..\System\Com\IUnknown.ahk
 
 /**
  * The IAudioSessionManager interface enables a client to access the session controls and volume controls for both cross-process and process-specific audio sessions.
  * @see https://learn.microsoft.com/windows/win32/api/audiopolicy/nn-audiopolicy-iaudiosessionmanager
  * @namespace Windows.Win32.Media.Audio
- * @version v4.0.30319
  */
-class IAudioSessionManager extends IUnknown{
+class IAudioSessionManager extends IUnknown {
 
     static sizeof => A_PtrSize
     /**

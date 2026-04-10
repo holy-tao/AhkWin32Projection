@@ -1,14 +1,13 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
+#Include .\DWRITE_TRIMMING_GRANULARITY.ahk
 
 /**
  * Specifies the trimming option for text overflowing the layout box.
  * @see https://learn.microsoft.com/windows/win32/api/dwrite/ns-dwrite-dwrite_trimming
  * @namespace Windows.Win32.Graphics.DirectWrite
- * @version v4.0.30319
  */
-class DWRITE_TRIMMING extends Win32Struct
-{
+class DWRITE_TRIMMING extends Win32Struct {
     static sizeof => 12
 
     static packingSize => 4
@@ -17,7 +16,7 @@ class DWRITE_TRIMMING extends Win32Struct
      * Type: <b><a href="https://docs.microsoft.com/windows/win32/api/dwrite/ne-dwrite-dwrite_trimming_granularity">DWRITE_TRIMMING_GRANULARITY</a></b>
      * 
      * A value that specifies  the text granularity used to trim text overflowing the layout box.
-     * @type {Integer}
+     * @type {DWRITE_TRIMMING_GRANULARITY}
      */
     granularity {
         get => NumGet(this, 0, "int")

@@ -1,14 +1,13 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
-#Include .\BucketParameters.ahk
 #Include ..\Com\IUnknown.ahk
+#Include .\BucketParameters.ahk
 
 /**
  * @namespace Windows.Win32.System.ClrHosting
- * @version v4.0.30319
  */
-class ICLRErrorReportingManager extends IUnknown{
+class ICLRErrorReportingManager extends IUnknown {
 
     static sizeof => A_PtrSize
     /**
@@ -41,7 +40,7 @@ class ICLRErrorReportingManager extends IUnknown{
 
     /**
      * 
-     * @param {Integer} dwFlavor 
+     * @param {ECustomDumpFlavor} dwFlavor 
      * @param {Integer} dwNumItems 
      * @param {Pointer<CustomDumpItem>} items 
      * @param {Integer} dwReserved 

@@ -7,9 +7,8 @@
  * The IWMReaderPlaylistBurn interface verifies that the files in a playlist can be copied to CD, in the order in which they are specified.
  * @see https://learn.microsoft.com/windows/win32/api/wmsdkidl/nn-wmsdkidl-iwmreaderplaylistburn
  * @namespace Windows.Win32.Media.WindowsMediaFormat
- * @version v4.0.30319
  */
-class IWMReaderPlaylistBurn extends IUnknown{
+class IWMReaderPlaylistBurn extends IUnknown {
 
     static sizeof => A_PtrSize
     /**

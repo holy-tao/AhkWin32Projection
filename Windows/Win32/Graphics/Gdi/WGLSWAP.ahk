@@ -4,10 +4,8 @@
 
 /**
  * @namespace Windows.Win32.Graphics.Gdi
- * @version v4.0.30319
  */
-class WGLSWAP extends Win32Struct
-{
+class WGLSWAP extends Win32Struct {
     static sizeof => 16
 
     static packingSize => 8
@@ -15,7 +13,7 @@ class WGLSWAP extends Win32Struct
     /**
      * @type {HDC}
      */
-    hdc{
+    hdc {
         get {
             if(!this.HasProp("__hdc"))
                 this.__hdc := HDC(0, this)

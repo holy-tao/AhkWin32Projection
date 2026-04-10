@@ -7,9 +7,8 @@
  * Exposed by a client to specify how to filter the enumeration of a Shell item by a server application.
  * @see https://learn.microsoft.com/windows/win32/api/shobjidl_core/nn-shobjidl_core-ishellitemfilter
  * @namespace Windows.Win32.UI.Shell
- * @version v4.0.30319
  */
-class IShellItemFilter extends IUnknown{
+class IShellItemFilter extends IUnknown {
 
     static sizeof => A_PtrSize
     /**

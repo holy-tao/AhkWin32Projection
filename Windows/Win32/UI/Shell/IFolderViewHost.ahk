@@ -7,9 +7,8 @@
  * Exposes a method that hosts an IFolderView object in a window.
  * @see https://learn.microsoft.com/windows/win32/api/shobjidl/nn-shobjidl-ifolderviewhost
  * @namespace Windows.Win32.UI.Shell
- * @version v4.0.30319
  */
-class IFolderViewHost extends IUnknown{
+class IFolderViewHost extends IUnknown {
 
     static sizeof => A_PtrSize
     /**

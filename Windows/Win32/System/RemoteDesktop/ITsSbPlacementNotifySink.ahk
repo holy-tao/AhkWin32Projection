@@ -7,9 +7,8 @@
  * Exposes methods that return information about environments to Remote Desktop Connection Broker (RD Connection Broker).
  * @see https://learn.microsoft.com/windows/win32/api/sbtsv/nn-sbtsv-itssbplacementnotifysink
  * @namespace Windows.Win32.System.RemoteDesktop
- * @version v4.0.30319
  */
-class ITsSbPlacementNotifySink extends ITsSbBaseNotifySink{
+class ITsSbPlacementNotifySink extends ITsSbBaseNotifySink {
 
     static sizeof => A_PtrSize
     /**

@@ -1,5 +1,7 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
+#Include .\WS_SECURITY_BINDING.ahk
+#Include .\WS_SECURITY_PROPERTY.ahk
 
 /**
  * The top-level structure used to specify the security requirements for a channel (on the client side) or a listener (on the server side).
@@ -9,10 +11,8 @@
  * :::image type="content" source="images/SecurityDescription.png" border="false" alt-text="Diagram of the elements in a security description. A Channel-wide Settings Bag,  a Security Binding, and the properties of the Security Binding.":::
  * @see https://learn.microsoft.com/windows/win32/api/webservices/ns-webservices-ws_security_description
  * @namespace Windows.Win32.Networking.WindowsWebServices
- * @version v4.0.30319
  */
-class WS_SECURITY_DESCRIPTION extends Win32Struct
-{
+class WS_SECURITY_DESCRIPTION extends Win32Struct {
     static sizeof => 32
 
     static packingSize => 8

@@ -1,14 +1,14 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\..\Win32Struct.ahk
+#Include .\DML_TENSOR_DESC.ahk
+#Include .\DML_INTERPOLATION_MODE.ahk
 
 /**
  * Computes backpropagation gradients for Resample (see [DML_RESAMPLE1_OPERATOR_DESC](/windows/win32/api/directml/ns-directml-dml_resample1_operator_desc)).
  * @see https://learn.microsoft.com/windows/win32/api/directml/ns-directml-dml_resample_grad_operator_desc
  * @namespace Windows.Win32.AI.MachineLearning.DirectML
- * @version v4.0.30319
  */
-class DML_RESAMPLE_GRAD_OPERATOR_DESC extends Win32Struct
-{
+class DML_RESAMPLE_GRAD_OPERATOR_DESC extends Win32Struct {
     static sizeof => 48
 
     static packingSize => 8
@@ -39,7 +39,7 @@ class DML_RESAMPLE_GRAD_OPERATOR_DESC extends Win32Struct
      * Type: [**DML_INTERPOLATION_MODE**](/windows/win32/api/directml/ne-directml-dml_interpolation_mode)
      * 
      * See *InterpolationMode* in [DML_RESAMPLE1_OPERATOR_DESC](/windows/win32/api/directml/ns-directml-dml_resample1_operator_desc).
-     * @type {Integer}
+     * @type {DML_INTERPOLATION_MODE}
      */
     InterpolationMode {
         get => NumGet(this, 16, "int")

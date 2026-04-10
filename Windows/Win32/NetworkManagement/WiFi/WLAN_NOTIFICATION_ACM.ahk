@@ -19,9 +19,8 @@
  * <b>Windows XP with SP3 and Wireless LAN API for Windows XP with SP2:  </b>Only the <b>wlan_notification_acm_connection_complete</b> and <b>wlan_notification_acm_disconnected</b> notifications are available.
  * @see https://learn.microsoft.com/windows/win32/api/wlanapi/ne-wlanapi-wlan_notification_acm~r1
  * @namespace Windows.Win32.NetworkManagement.WiFi
- * @version v4.0.30319
  */
-class WLAN_NOTIFICATION_ACM extends Win32Enum{
+class WLAN_NOTIFICATION_ACM extends Win32Enum {
 
     /**
      * Indicates the beginning of the range that specifies the possible values for ACM notifications.
@@ -220,7 +219,6 @@ class WLAN_NOTIFICATION_ACM extends Win32Enum{
     static wlan_notification_acm_scan_list_refresh => 26
 
     /**
-     * 
      * @type {Integer (Int32)}
      */
     static wlan_notification_acm_operational_state_change => 27

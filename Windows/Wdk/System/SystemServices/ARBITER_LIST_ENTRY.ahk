@@ -1,121 +1,121 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
-#Include ..\..\..\Win32\System\Kernel\LIST_ENTRY.ahk
+#Include .\IO_RESOURCE_DESCRIPTOR.ahk
+#Include ..\..\Foundation\DEVICE_OBJECT.ahk
+#Include .\ARBITER_REQUEST_SOURCE.ahk
+#Include .\INTERFACE_TYPE.ahk
+#Include .\CM_PARTIAL_RESOURCE_DESCRIPTOR.ahk
+#Include .\ARBITER_RESULT.ahk
 
 /**
  * @namespace Windows.Wdk.System.SystemServices
- * @version v4.0.30319
  */
-class ARBITER_LIST_ENTRY extends Win32Struct
-{
-    static sizeof => 96
+class ARBITER_LIST_ENTRY extends Win32Struct {
+    static sizeof => 88
 
     static packingSize => 8
 
     /**
-     * @type {LIST_ENTRY}
+     * @type {Pointer}
      */
-    ListEntry{
-        get {
-            if(!this.HasProp("__ListEntry"))
-                this.__ListEntry := LIST_ENTRY(0, this)
-            return this.__ListEntry
-        }
+    ListEntry {
+        get => NumGet(this, 0, "ptr")
+        set => NumPut("ptr", value, this, 0)
     }
 
     /**
      * @type {Integer}
      */
     AlternativeCount {
-        get => NumGet(this, 16, "uint")
-        set => NumPut("uint", value, this, 16)
+        get => NumGet(this, 8, "uint")
+        set => NumPut("uint", value, this, 8)
     }
 
     /**
      * @type {Pointer<IO_RESOURCE_DESCRIPTOR>}
      */
     Alternatives {
-        get => NumGet(this, 24, "ptr")
-        set => NumPut("ptr", value, this, 24)
+        get => NumGet(this, 16, "ptr")
+        set => NumPut("ptr", value, this, 16)
     }
 
     /**
      * @type {Pointer<DEVICE_OBJECT>}
      */
     PhysicalDeviceObject {
-        get => NumGet(this, 32, "ptr")
-        set => NumPut("ptr", value, this, 32)
+        get => NumGet(this, 24, "ptr")
+        set => NumPut("ptr", value, this, 24)
     }
 
     /**
-     * @type {Integer}
+     * @type {ARBITER_REQUEST_SOURCE}
      */
     RequestSource {
-        get => NumGet(this, 40, "int")
-        set => NumPut("int", value, this, 40)
+        get => NumGet(this, 32, "int")
+        set => NumPut("int", value, this, 32)
     }
 
     /**
      * @type {Integer}
      */
     Flags {
-        get => NumGet(this, 44, "uint")
-        set => NumPut("uint", value, this, 44)
+        get => NumGet(this, 36, "uint")
+        set => NumPut("uint", value, this, 36)
     }
 
     /**
      * @type {Pointer}
      */
     WorkSpace {
-        get => NumGet(this, 48, "ptr")
-        set => NumPut("ptr", value, this, 48)
+        get => NumGet(this, 40, "ptr")
+        set => NumPut("ptr", value, this, 40)
     }
 
     /**
-     * @type {Integer}
+     * @type {INTERFACE_TYPE}
      */
     InterfaceType {
-        get => NumGet(this, 56, "int")
-        set => NumPut("int", value, this, 56)
+        get => NumGet(this, 48, "int")
+        set => NumPut("int", value, this, 48)
     }
 
     /**
      * @type {Integer}
      */
     SlotNumber {
-        get => NumGet(this, 60, "uint")
-        set => NumPut("uint", value, this, 60)
+        get => NumGet(this, 52, "uint")
+        set => NumPut("uint", value, this, 52)
     }
 
     /**
      * @type {Integer}
      */
     BusNumber {
-        get => NumGet(this, 64, "uint")
-        set => NumPut("uint", value, this, 64)
+        get => NumGet(this, 56, "uint")
+        set => NumPut("uint", value, this, 56)
     }
 
     /**
      * @type {Pointer<CM_PARTIAL_RESOURCE_DESCRIPTOR>}
      */
     Assignment {
-        get => NumGet(this, 72, "ptr")
-        set => NumPut("ptr", value, this, 72)
+        get => NumGet(this, 64, "ptr")
+        set => NumPut("ptr", value, this, 64)
     }
 
     /**
      * @type {Pointer<IO_RESOURCE_DESCRIPTOR>}
      */
     SelectedAlternative {
-        get => NumGet(this, 80, "ptr")
-        set => NumPut("ptr", value, this, 80)
+        get => NumGet(this, 72, "ptr")
+        set => NumPut("ptr", value, this, 72)
     }
 
     /**
-     * @type {Integer}
+     * @type {ARBITER_RESULT}
      */
     Result {
-        get => NumGet(this, 88, "int")
-        set => NumPut("int", value, this, 88)
+        get => NumGet(this, 80, "int")
+        set => NumPut("int", value, this, 80)
     }
 }

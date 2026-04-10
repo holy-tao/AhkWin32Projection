@@ -7,9 +7,8 @@
  * Exposes methods that show, hide, and query deskbands.
  * @see https://learn.microsoft.com/windows/win32/api/shobjidl/nn-shobjidl-itraydeskband
  * @namespace Windows.Win32.UI.Shell
- * @version v4.0.30319
  */
-class ITrayDeskBand extends IUnknown{
+class ITrayDeskBand extends IUnknown {
 
     static sizeof => A_PtrSize
     /**

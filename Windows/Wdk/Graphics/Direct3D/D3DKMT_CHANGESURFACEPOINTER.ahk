@@ -5,10 +5,8 @@
 
 /**
  * @namespace Windows.Wdk.Graphics.Direct3D
- * @version v4.0.30319
  */
-class D3DKMT_CHANGESURFACEPOINTER extends Win32Struct
-{
+class D3DKMT_CHANGESURFACEPOINTER extends Win32Struct {
     static sizeof => 40
 
     static packingSize => 8
@@ -16,7 +14,7 @@ class D3DKMT_CHANGESURFACEPOINTER extends Win32Struct
     /**
      * @type {HDC}
      */
-    hDC{
+    hDC {
         get {
             if(!this.HasProp("__hDC"))
                 this.__hDC := HDC(0, this)
@@ -27,7 +25,7 @@ class D3DKMT_CHANGESURFACEPOINTER extends Win32Struct
     /**
      * @type {HANDLE}
      */
-    hBitmap{
+    hBitmap {
         get {
             if(!this.HasProp("__hBitmap"))
                 this.__hBitmap := HANDLE(8, this)

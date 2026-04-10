@@ -4,10 +4,8 @@
 
 /**
  * @namespace Windows.Win32.Devices.Display
- * @version v4.0.30319
  */
-class VIDEO_SHARE_MEMORY extends Win32Struct
-{
+class VIDEO_SHARE_MEMORY extends Win32Struct {
     static sizeof => 24
 
     static packingSize => 8
@@ -15,7 +13,7 @@ class VIDEO_SHARE_MEMORY extends Win32Struct
     /**
      * @type {HANDLE}
      */
-    ProcessHandle{
+    ProcessHandle {
         get {
             if(!this.HasProp("__ProcessHandle"))
                 this.__ProcessHandle := HANDLE(0, this)

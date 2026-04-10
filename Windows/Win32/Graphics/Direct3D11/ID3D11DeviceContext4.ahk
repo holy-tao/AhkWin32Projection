@@ -7,9 +7,8 @@
  * The device context interface represents a device context; it is used to render commands. ID3D11DeviceContext4 adds new methods to those in ID3D11DeviceContext3.
  * @see https://learn.microsoft.com/windows/win32/api/d3d11_3/nn-d3d11_3-id3d11devicecontext4
  * @namespace Windows.Win32.Graphics.Direct3D11
- * @version v4.0.30319
  */
-class ID3D11DeviceContext4 extends ID3D11DeviceContext3{
+class ID3D11DeviceContext4 extends ID3D11DeviceContext3 {
 
     static sizeof => A_PtrSize
     /**

@@ -5,11 +5,9 @@
  * The SYMSRV_INDEX_INFO structure (dbghelp.h) contains symbol server index information.
  * @see https://learn.microsoft.com/windows/win32/api/dbghelp/ns-dbghelp-symsrv_index_info
  * @namespace Windows.Win32.System.Diagnostics.Debug
- * @version v4.0.30319
  * @charset ANSI
  */
-class SYMSRV_INDEX_INFO extends Win32Struct
-{
+class SYMSRV_INDEX_INFO extends Win32Struct {
     static sizeof => 824
 
     static packingSize => 8
@@ -79,7 +77,7 @@ class SYMSRV_INDEX_INFO extends Win32Struct
 
     /**
      * The GUID of the .pdb file. If there is no GUID available, the signature of the .pdb file is copied into first <b>DWORD</b> of the GUID.
-     * @type {Pointer<Guid>}
+     * @type {Pointer}
      */
     guid {
         get => NumGet(this, 808, "ptr")

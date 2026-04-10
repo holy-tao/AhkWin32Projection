@@ -10,9 +10,8 @@
  * <b>IWbemEventProviderSecurity</b>. If the consumer has access permission for the event the consumer is subscribed to the event; otherwise, the subscription is denied.
  * @see https://learn.microsoft.com/windows/win32/api/wbemprov/nn-wbemprov-iwbemeventprovidersecurity
  * @namespace Windows.Win32.System.Wmi
- * @version v4.0.30319
  */
-class IWbemEventProviderSecurity extends IUnknown{
+class IWbemEventProviderSecurity extends IUnknown {
 
     static sizeof => A_PtrSize
     /**
@@ -38,7 +37,7 @@ class IWbemEventProviderSecurity extends IUnknown{
      * @param {Pointer<Integer>} wszQueryLanguage Language of the following query filter, which is "WQL".
      * @param {Pointer<Integer>} wszQuery Text of the event query filter, which is registered by a logical consumer.
      * @param {Integer} lSidLength Integer that contains the security identifier (SID) length, or 0 (zero) if the subscription builder token is available.
-     * @param {Pointer<Integer>} _pSid 
+     * @param {Pointer<Integer>} _pSid Pointer to the constant byte integer type that contains the SID, or <b>NULL</b> if the subscription builder's token is available.
      * @returns {HRESULT} This method returns an <b>HRESULT</b> that indicates the status of the method call. The following list lists the value contained in an <b>HRESULT</b>.
      * @see https://learn.microsoft.com/windows/win32/api/wbemprov/nf-wbemprov-iwbemeventprovidersecurity-accesscheck
      */

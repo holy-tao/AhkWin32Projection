@@ -1,9 +1,9 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
+#Include .\IDXGIObject.ahk
 #Include .\IDXGIAdapter.ahk
 #Include .\IDXGISurface.ahk
-#Include .\IDXGIObject.ahk
 
 /**
  * An IDXGIDevice interface implements a derived class for DXGI objects that produce image data.
@@ -28,9 +28,8 @@
  *         </b> This API is supported.
  * @see https://learn.microsoft.com/windows/win32/api/dxgi/nn-dxgi-idxgidevice
  * @namespace Windows.Win32.Graphics.Dxgi
- * @version v4.0.30319
  */
-class IDXGIDevice extends IDXGIObject{
+class IDXGIDevice extends IDXGIObject {
 
     static sizeof => A_PtrSize
     /**
@@ -77,7 +76,7 @@ class IDXGIDevice extends IDXGIObject{
      * @param {Integer} NumSurfaces Type: <b><a href="https://docs.microsoft.com/windows/desktop/WinProg/windows-data-types">UINT</a></b>
      * 
      * The number of surfaces to create.
-     * @param {Integer} Usage Type: <b><a href="https://docs.microsoft.com/windows/desktop/direct3ddxgi/dxgi-usage">DXGI_USAGE</a></b>
+     * @param {DXGI_USAGE} Usage Type: <b><a href="https://docs.microsoft.com/windows/desktop/direct3ddxgi/dxgi-usage">DXGI_USAGE</a></b>
      * 
      * A <a href="https://docs.microsoft.com/windows/desktop/direct3ddxgi/dxgi-usage">DXGI_USAGE</a> flag that specifies how the surface is expected to be used.
      * @param {Pointer<DXGI_SHARED_RESOURCE>} pSharedResource Type: <b>const <a href="https://docs.microsoft.com/windows/desktop/api/dxgi/ns-dxgi-dxgi_shared_resource">DXGI_SHARED_RESOURCE</a>*</b>
@@ -111,7 +110,7 @@ class IDXGIDevice extends IDXGIObject{
      * @param {Integer} NumResources Type: <b><a href="https://docs.microsoft.com/windows/desktop/WinProg/windows-data-types">UINT</a></b>
      * 
      * The number of resources in the <i>ppResources</i> argument array and <i>pResidencyStatus</i> argument array.
-     * @returns {Integer} Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/dxgi/ne-dxgi-dxgi_residency">DXGI_RESIDENCY</a>*</b>
+     * @returns {DXGI_RESIDENCY} Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/dxgi/ne-dxgi-dxgi_residency">DXGI_RESIDENCY</a>*</b>
      * 
      * An array of <a href="https://docs.microsoft.com/windows/desktop/api/dxgi/ne-dxgi-dxgi_residency">DXGI_RESIDENCY</a> flags. Each element describes the residency status for corresponding element in 
      *         the <i>ppResources</i> argument array.
@@ -133,7 +132,9 @@ class IDXGIDevice extends IDXGIObject{
      * <li>The device is guaranteed to receive some GPU execution cycles at all settings.</li>
      * </ul>
      * To use the <b>SetGPUThreadPriority</b> method, you should have a comprehensive understanding of GPU scheduling. You should profile your application to ensure that it behaves as intended. If used inappropriately, the <b>SetGPUThreadPriority</b> method can impede rendering speed and result in a poor user experience.
-     * @param {Integer} _Priority 
+     * @param {Integer} _Priority Type: <b><a href="https://docs.microsoft.com/windows/desktop/WinProg/windows-data-types">INT</a></b>
+     * 
+     * A value that specifies the required GPU thread priority. This value must be between -7 and 7, inclusive, where 0 represents normal priority.
      * @returns {HRESULT} Type: <b><a href="https://docs.microsoft.com/windows/win32/com/structure-of-com-error-codes">HRESULT</a></b>
      * 
      * Return S_OK if successful; otherwise, returns E_INVALIDARG if the <i>Priority</i> parameter is invalid.

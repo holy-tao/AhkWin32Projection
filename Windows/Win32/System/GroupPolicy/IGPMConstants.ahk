@@ -12,9 +12,8 @@
  * <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/gpmgmt/nf-gpmgmt-igpm-createpermission">IGPM::CreatePermission</a> (<b>GPM.CreatePermission</b>).
  * @see https://learn.microsoft.com/windows/win32/api/gpmgmt/nn-gpmgmt-igpmconstants
  * @namespace Windows.Win32.System.GroupPolicy
- * @version v4.0.30319
  */
-class IGPMConstants extends IDispatch{
+class IGPMConstants extends IDispatch {
 
     static sizeof => A_PtrSize
     /**
@@ -42,196 +41,196 @@ class IGPMConstants extends IDispatch{
     static VTableNames => ["get_PermGPOApply", "get_PermGPORead", "get_PermGPOEdit", "get_PermGPOEditSecurityAndDelete", "get_PermGPOCustom", "get_PermWMIFilterEdit", "get_PermWMIFilterFullControl", "get_PermWMIFilterCustom", "get_PermSOMLink", "get_PermSOMLogging", "get_PermSOMPlanning", "get_PermSOMGPOCreate", "get_PermSOMWMICreate", "get_PermSOMWMIFullControl", "get_SearchPropertyGPOPermissions", "get_SearchPropertyGPOEffectivePermissions", "get_SearchPropertyGPODisplayName", "get_SearchPropertyGPOWMIFilter", "get_SearchPropertyGPOID", "get_SearchPropertyGPOComputerExtensions", "get_SearchPropertyGPOUserExtensions", "get_SearchPropertySOMLinks", "get_SearchPropertyGPODomain", "get_SearchPropertyBackupMostRecent", "get_SearchOpEquals", "get_SearchOpContains", "get_SearchOpNotContains", "get_SearchOpNotEquals", "get_UsePDC", "get_UseAnyDC", "get_DoNotUseW2KDC", "get_SOMSite", "get_SOMDomain", "get_SOMOU", "get_SecurityFlags", "get_DoNotValidateDC", "get_ReportHTML", "get_ReportXML", "get_RSOPModeUnknown", "get_RSOPModePlanning", "get_RSOPModeLogging", "get_EntryTypeUser", "get_EntryTypeComputer", "get_EntryTypeLocalGroup", "get_EntryTypeGlobalGroup", "get_EntryTypeUniversalGroup", "get_EntryTypeUNCPath", "get_EntryTypeUnknown", "get_DestinationOptionSameAsSource", "get_DestinationOptionNone", "get_DestinationOptionByRelativeName", "get_DestinationOptionSet", "get_MigrationTableOnly", "get_ProcessSecurity", "get_RsopLoggingNoComputer", "get_RsopLoggingNoUser", "get_RsopPlanningAssumeSlowLink", "get_RsopPlanningLoopbackOption", "get_RsopPlanningAssumeUserWQLFilterTrue", "get_RsopPlanningAssumeCompWQLFilterTrue"]
 
     /**
-     * @type {Integer} 
+     * @type {GPMPermissionType} 
      */
     PermGPOApply {
         get => this.get_PermGPOApply()
     }
 
     /**
-     * @type {Integer} 
+     * @type {GPMPermissionType} 
      */
     PermGPORead {
         get => this.get_PermGPORead()
     }
 
     /**
-     * @type {Integer} 
+     * @type {GPMPermissionType} 
      */
     PermGPOEdit {
         get => this.get_PermGPOEdit()
     }
 
     /**
-     * @type {Integer} 
+     * @type {GPMPermissionType} 
      */
     PermGPOEditSecurityAndDelete {
         get => this.get_PermGPOEditSecurityAndDelete()
     }
 
     /**
-     * @type {Integer} 
+     * @type {GPMPermissionType} 
      */
     PermGPOCustom {
         get => this.get_PermGPOCustom()
     }
 
     /**
-     * @type {Integer} 
+     * @type {GPMPermissionType} 
      */
     PermWMIFilterEdit {
         get => this.get_PermWMIFilterEdit()
     }
 
     /**
-     * @type {Integer} 
+     * @type {GPMPermissionType} 
      */
     PermWMIFilterFullControl {
         get => this.get_PermWMIFilterFullControl()
     }
 
     /**
-     * @type {Integer} 
+     * @type {GPMPermissionType} 
      */
     PermWMIFilterCustom {
         get => this.get_PermWMIFilterCustom()
     }
 
     /**
-     * @type {Integer} 
+     * @type {GPMPermissionType} 
      */
     PermSOMLink {
         get => this.get_PermSOMLink()
     }
 
     /**
-     * @type {Integer} 
+     * @type {GPMPermissionType} 
      */
     PermSOMLogging {
         get => this.get_PermSOMLogging()
     }
 
     /**
-     * @type {Integer} 
+     * @type {GPMPermissionType} 
      */
     PermSOMPlanning {
         get => this.get_PermSOMPlanning()
     }
 
     /**
-     * @type {Integer} 
+     * @type {GPMPermissionType} 
      */
     PermSOMGPOCreate {
         get => this.get_PermSOMGPOCreate()
     }
 
     /**
-     * @type {Integer} 
+     * @type {GPMPermissionType} 
      */
     PermSOMWMICreate {
         get => this.get_PermSOMWMICreate()
     }
 
     /**
-     * @type {Integer} 
+     * @type {GPMPermissionType} 
      */
     PermSOMWMIFullControl {
         get => this.get_PermSOMWMIFullControl()
     }
 
     /**
-     * @type {Integer} 
+     * @type {GPMSearchProperty} 
      */
     SearchPropertyGPOPermissions {
         get => this.get_SearchPropertyGPOPermissions()
     }
 
     /**
-     * @type {Integer} 
+     * @type {GPMSearchProperty} 
      */
     SearchPropertyGPOEffectivePermissions {
         get => this.get_SearchPropertyGPOEffectivePermissions()
     }
 
     /**
-     * @type {Integer} 
+     * @type {GPMSearchProperty} 
      */
     SearchPropertyGPODisplayName {
         get => this.get_SearchPropertyGPODisplayName()
     }
 
     /**
-     * @type {Integer} 
+     * @type {GPMSearchProperty} 
      */
     SearchPropertyGPOWMIFilter {
         get => this.get_SearchPropertyGPOWMIFilter()
     }
 
     /**
-     * @type {Integer} 
+     * @type {GPMSearchProperty} 
      */
     SearchPropertyGPOID {
         get => this.get_SearchPropertyGPOID()
     }
 
     /**
-     * @type {Integer} 
+     * @type {GPMSearchProperty} 
      */
     SearchPropertyGPOComputerExtensions {
         get => this.get_SearchPropertyGPOComputerExtensions()
     }
 
     /**
-     * @type {Integer} 
+     * @type {GPMSearchProperty} 
      */
     SearchPropertyGPOUserExtensions {
         get => this.get_SearchPropertyGPOUserExtensions()
     }
 
     /**
-     * @type {Integer} 
+     * @type {GPMSearchProperty} 
      */
     SearchPropertySOMLinks {
         get => this.get_SearchPropertySOMLinks()
     }
 
     /**
-     * @type {Integer} 
+     * @type {GPMSearchProperty} 
      */
     SearchPropertyGPODomain {
         get => this.get_SearchPropertyGPODomain()
     }
 
     /**
-     * @type {Integer} 
+     * @type {GPMSearchProperty} 
      */
     SearchPropertyBackupMostRecent {
         get => this.get_SearchPropertyBackupMostRecent()
     }
 
     /**
-     * @type {Integer} 
+     * @type {GPMSearchOperation} 
      */
     SearchOpEquals {
         get => this.get_SearchOpEquals()
     }
 
     /**
-     * @type {Integer} 
+     * @type {GPMSearchOperation} 
      */
     SearchOpContains {
         get => this.get_SearchOpContains()
     }
 
     /**
-     * @type {Integer} 
+     * @type {GPMSearchOperation} 
      */
     SearchOpNotContains {
         get => this.get_SearchOpNotContains()
     }
 
     /**
-     * @type {Integer} 
+     * @type {GPMSearchOperation} 
      */
     SearchOpNotEquals {
         get => this.get_SearchOpNotEquals()
@@ -259,21 +258,21 @@ class IGPMConstants extends IDispatch{
     }
 
     /**
-     * @type {Integer} 
+     * @type {GPMSOMType} 
      */
     SOMSite {
         get => this.get_SOMSite()
     }
 
     /**
-     * @type {Integer} 
+     * @type {GPMSOMType} 
      */
     SOMDomain {
         get => this.get_SOMDomain()
     }
 
     /**
-     * @type {Integer} 
+     * @type {GPMSOMType} 
      */
     SOMOU {
         get => this.get_SOMOU()
@@ -287,112 +286,112 @@ class IGPMConstants extends IDispatch{
     }
 
     /**
-     * @type {Integer} 
+     * @type {GPMReportType} 
      */
     ReportHTML {
         get => this.get_ReportHTML()
     }
 
     /**
-     * @type {Integer} 
+     * @type {GPMReportType} 
      */
     ReportXML {
         get => this.get_ReportXML()
     }
 
     /**
-     * @type {Integer} 
+     * @type {GPMRSOPMode} 
      */
     RSOPModeUnknown {
         get => this.get_RSOPModeUnknown()
     }
 
     /**
-     * @type {Integer} 
+     * @type {GPMRSOPMode} 
      */
     RSOPModePlanning {
         get => this.get_RSOPModePlanning()
     }
 
     /**
-     * @type {Integer} 
+     * @type {GPMRSOPMode} 
      */
     RSOPModeLogging {
         get => this.get_RSOPModeLogging()
     }
 
     /**
-     * @type {Integer} 
+     * @type {GPMEntryType} 
      */
     EntryTypeUser {
         get => this.get_EntryTypeUser()
     }
 
     /**
-     * @type {Integer} 
+     * @type {GPMEntryType} 
      */
     EntryTypeComputer {
         get => this.get_EntryTypeComputer()
     }
 
     /**
-     * @type {Integer} 
+     * @type {GPMEntryType} 
      */
     EntryTypeLocalGroup {
         get => this.get_EntryTypeLocalGroup()
     }
 
     /**
-     * @type {Integer} 
+     * @type {GPMEntryType} 
      */
     EntryTypeGlobalGroup {
         get => this.get_EntryTypeGlobalGroup()
     }
 
     /**
-     * @type {Integer} 
+     * @type {GPMEntryType} 
      */
     EntryTypeUniversalGroup {
         get => this.get_EntryTypeUniversalGroup()
     }
 
     /**
-     * @type {Integer} 
+     * @type {GPMEntryType} 
      */
     EntryTypeUNCPath {
         get => this.get_EntryTypeUNCPath()
     }
 
     /**
-     * @type {Integer} 
+     * @type {GPMEntryType} 
      */
     EntryTypeUnknown {
         get => this.get_EntryTypeUnknown()
     }
 
     /**
-     * @type {Integer} 
+     * @type {GPMDestinationOption} 
      */
     DestinationOptionSameAsSource {
         get => this.get_DestinationOptionSameAsSource()
     }
 
     /**
-     * @type {Integer} 
+     * @type {GPMDestinationOption} 
      */
     DestinationOptionNone {
         get => this.get_DestinationOptionNone()
     }
 
     /**
-     * @type {Integer} 
+     * @type {GPMDestinationOption} 
      */
     DestinationOptionByRelativeName {
         get => this.get_DestinationOptionByRelativeName()
     }
 
     /**
-     * @type {Integer} 
+     * @type {GPMDestinationOption} 
      */
     DestinationOptionSet {
         get => this.get_DestinationOptionSet()
@@ -449,7 +448,7 @@ class IGPMConstants extends IDispatch{
 
     /**
      * 
-     * @returns {Integer} 
+     * @returns {GPMPermissionType} 
      */
     get_PermGPOApply() {
         result := ComCall(7, this, "int*", &pVal := 0, "HRESULT")
@@ -458,7 +457,7 @@ class IGPMConstants extends IDispatch{
 
     /**
      * 
-     * @returns {Integer} 
+     * @returns {GPMPermissionType} 
      */
     get_PermGPORead() {
         result := ComCall(8, this, "int*", &pVal := 0, "HRESULT")
@@ -467,7 +466,7 @@ class IGPMConstants extends IDispatch{
 
     /**
      * 
-     * @returns {Integer} 
+     * @returns {GPMPermissionType} 
      */
     get_PermGPOEdit() {
         result := ComCall(9, this, "int*", &pVal := 0, "HRESULT")
@@ -476,7 +475,7 @@ class IGPMConstants extends IDispatch{
 
     /**
      * 
-     * @returns {Integer} 
+     * @returns {GPMPermissionType} 
      */
     get_PermGPOEditSecurityAndDelete() {
         result := ComCall(10, this, "int*", &pVal := 0, "HRESULT")
@@ -485,7 +484,7 @@ class IGPMConstants extends IDispatch{
 
     /**
      * 
-     * @returns {Integer} 
+     * @returns {GPMPermissionType} 
      */
     get_PermGPOCustom() {
         result := ComCall(11, this, "int*", &pVal := 0, "HRESULT")
@@ -494,7 +493,7 @@ class IGPMConstants extends IDispatch{
 
     /**
      * 
-     * @returns {Integer} 
+     * @returns {GPMPermissionType} 
      */
     get_PermWMIFilterEdit() {
         result := ComCall(12, this, "int*", &pVal := 0, "HRESULT")
@@ -503,7 +502,7 @@ class IGPMConstants extends IDispatch{
 
     /**
      * 
-     * @returns {Integer} 
+     * @returns {GPMPermissionType} 
      */
     get_PermWMIFilterFullControl() {
         result := ComCall(13, this, "int*", &pVal := 0, "HRESULT")
@@ -512,7 +511,7 @@ class IGPMConstants extends IDispatch{
 
     /**
      * 
-     * @returns {Integer} 
+     * @returns {GPMPermissionType} 
      */
     get_PermWMIFilterCustom() {
         result := ComCall(14, this, "int*", &pVal := 0, "HRESULT")
@@ -521,7 +520,7 @@ class IGPMConstants extends IDispatch{
 
     /**
      * 
-     * @returns {Integer} 
+     * @returns {GPMPermissionType} 
      */
     get_PermSOMLink() {
         result := ComCall(15, this, "int*", &pVal := 0, "HRESULT")
@@ -530,7 +529,7 @@ class IGPMConstants extends IDispatch{
 
     /**
      * 
-     * @returns {Integer} 
+     * @returns {GPMPermissionType} 
      */
     get_PermSOMLogging() {
         result := ComCall(16, this, "int*", &pVal := 0, "HRESULT")
@@ -539,7 +538,7 @@ class IGPMConstants extends IDispatch{
 
     /**
      * 
-     * @returns {Integer} 
+     * @returns {GPMPermissionType} 
      */
     get_PermSOMPlanning() {
         result := ComCall(17, this, "int*", &pVal := 0, "HRESULT")
@@ -548,7 +547,7 @@ class IGPMConstants extends IDispatch{
 
     /**
      * 
-     * @returns {Integer} 
+     * @returns {GPMPermissionType} 
      */
     get_PermSOMGPOCreate() {
         result := ComCall(18, this, "int*", &pVal := 0, "HRESULT")
@@ -557,7 +556,7 @@ class IGPMConstants extends IDispatch{
 
     /**
      * 
-     * @returns {Integer} 
+     * @returns {GPMPermissionType} 
      */
     get_PermSOMWMICreate() {
         result := ComCall(19, this, "int*", &pVal := 0, "HRESULT")
@@ -566,7 +565,7 @@ class IGPMConstants extends IDispatch{
 
     /**
      * 
-     * @returns {Integer} 
+     * @returns {GPMPermissionType} 
      */
     get_PermSOMWMIFullControl() {
         result := ComCall(20, this, "int*", &pVal := 0, "HRESULT")
@@ -575,7 +574,7 @@ class IGPMConstants extends IDispatch{
 
     /**
      * 
-     * @returns {Integer} 
+     * @returns {GPMSearchProperty} 
      */
     get_SearchPropertyGPOPermissions() {
         result := ComCall(21, this, "int*", &pVal := 0, "HRESULT")
@@ -584,7 +583,7 @@ class IGPMConstants extends IDispatch{
 
     /**
      * 
-     * @returns {Integer} 
+     * @returns {GPMSearchProperty} 
      */
     get_SearchPropertyGPOEffectivePermissions() {
         result := ComCall(22, this, "int*", &pVal := 0, "HRESULT")
@@ -593,7 +592,7 @@ class IGPMConstants extends IDispatch{
 
     /**
      * 
-     * @returns {Integer} 
+     * @returns {GPMSearchProperty} 
      */
     get_SearchPropertyGPODisplayName() {
         result := ComCall(23, this, "int*", &pVal := 0, "HRESULT")
@@ -602,7 +601,7 @@ class IGPMConstants extends IDispatch{
 
     /**
      * 
-     * @returns {Integer} 
+     * @returns {GPMSearchProperty} 
      */
     get_SearchPropertyGPOWMIFilter() {
         result := ComCall(24, this, "int*", &pVal := 0, "HRESULT")
@@ -611,7 +610,7 @@ class IGPMConstants extends IDispatch{
 
     /**
      * 
-     * @returns {Integer} 
+     * @returns {GPMSearchProperty} 
      */
     get_SearchPropertyGPOID() {
         result := ComCall(25, this, "int*", &pVal := 0, "HRESULT")
@@ -620,7 +619,7 @@ class IGPMConstants extends IDispatch{
 
     /**
      * 
-     * @returns {Integer} 
+     * @returns {GPMSearchProperty} 
      */
     get_SearchPropertyGPOComputerExtensions() {
         result := ComCall(26, this, "int*", &pVal := 0, "HRESULT")
@@ -629,7 +628,7 @@ class IGPMConstants extends IDispatch{
 
     /**
      * 
-     * @returns {Integer} 
+     * @returns {GPMSearchProperty} 
      */
     get_SearchPropertyGPOUserExtensions() {
         result := ComCall(27, this, "int*", &pVal := 0, "HRESULT")
@@ -638,7 +637,7 @@ class IGPMConstants extends IDispatch{
 
     /**
      * 
-     * @returns {Integer} 
+     * @returns {GPMSearchProperty} 
      */
     get_SearchPropertySOMLinks() {
         result := ComCall(28, this, "int*", &pVal := 0, "HRESULT")
@@ -647,7 +646,7 @@ class IGPMConstants extends IDispatch{
 
     /**
      * 
-     * @returns {Integer} 
+     * @returns {GPMSearchProperty} 
      */
     get_SearchPropertyGPODomain() {
         result := ComCall(29, this, "int*", &pVal := 0, "HRESULT")
@@ -656,7 +655,7 @@ class IGPMConstants extends IDispatch{
 
     /**
      * 
-     * @returns {Integer} 
+     * @returns {GPMSearchProperty} 
      */
     get_SearchPropertyBackupMostRecent() {
         result := ComCall(30, this, "int*", &pVal := 0, "HRESULT")
@@ -665,7 +664,7 @@ class IGPMConstants extends IDispatch{
 
     /**
      * 
-     * @returns {Integer} 
+     * @returns {GPMSearchOperation} 
      */
     get_SearchOpEquals() {
         result := ComCall(31, this, "int*", &pVal := 0, "HRESULT")
@@ -674,7 +673,7 @@ class IGPMConstants extends IDispatch{
 
     /**
      * 
-     * @returns {Integer} 
+     * @returns {GPMSearchOperation} 
      */
     get_SearchOpContains() {
         result := ComCall(32, this, "int*", &pVal := 0, "HRESULT")
@@ -683,7 +682,7 @@ class IGPMConstants extends IDispatch{
 
     /**
      * 
-     * @returns {Integer} 
+     * @returns {GPMSearchOperation} 
      */
     get_SearchOpNotContains() {
         result := ComCall(33, this, "int*", &pVal := 0, "HRESULT")
@@ -692,7 +691,7 @@ class IGPMConstants extends IDispatch{
 
     /**
      * 
-     * @returns {Integer} 
+     * @returns {GPMSearchOperation} 
      */
     get_SearchOpNotEquals() {
         result := ComCall(34, this, "int*", &pVal := 0, "HRESULT")
@@ -728,7 +727,7 @@ class IGPMConstants extends IDispatch{
 
     /**
      * 
-     * @returns {Integer} 
+     * @returns {GPMSOMType} 
      */
     get_SOMSite() {
         result := ComCall(38, this, "int*", &pVal := 0, "HRESULT")
@@ -737,7 +736,7 @@ class IGPMConstants extends IDispatch{
 
     /**
      * 
-     * @returns {Integer} 
+     * @returns {GPMSOMType} 
      */
     get_SOMDomain() {
         result := ComCall(39, this, "int*", &pVal := 0, "HRESULT")
@@ -746,7 +745,7 @@ class IGPMConstants extends IDispatch{
 
     /**
      * 
-     * @returns {Integer} 
+     * @returns {GPMSOMType} 
      */
     get_SOMOU() {
         result := ComCall(40, this, "int*", &pVal := 0, "HRESULT")
@@ -780,7 +779,7 @@ class IGPMConstants extends IDispatch{
 
     /**
      * 
-     * @returns {Integer} 
+     * @returns {GPMReportType} 
      */
     get_ReportHTML() {
         result := ComCall(43, this, "int*", &pVal := 0, "HRESULT")
@@ -789,7 +788,7 @@ class IGPMConstants extends IDispatch{
 
     /**
      * 
-     * @returns {Integer} 
+     * @returns {GPMReportType} 
      */
     get_ReportXML() {
         result := ComCall(44, this, "int*", &pVal := 0, "HRESULT")
@@ -798,7 +797,7 @@ class IGPMConstants extends IDispatch{
 
     /**
      * 
-     * @returns {Integer} 
+     * @returns {GPMRSOPMode} 
      */
     get_RSOPModeUnknown() {
         result := ComCall(45, this, "int*", &pVal := 0, "HRESULT")
@@ -807,7 +806,7 @@ class IGPMConstants extends IDispatch{
 
     /**
      * 
-     * @returns {Integer} 
+     * @returns {GPMRSOPMode} 
      */
     get_RSOPModePlanning() {
         result := ComCall(46, this, "int*", &pVal := 0, "HRESULT")
@@ -816,7 +815,7 @@ class IGPMConstants extends IDispatch{
 
     /**
      * 
-     * @returns {Integer} 
+     * @returns {GPMRSOPMode} 
      */
     get_RSOPModeLogging() {
         result := ComCall(47, this, "int*", &pVal := 0, "HRESULT")
@@ -825,7 +824,7 @@ class IGPMConstants extends IDispatch{
 
     /**
      * 
-     * @returns {Integer} 
+     * @returns {GPMEntryType} 
      */
     get_EntryTypeUser() {
         result := ComCall(48, this, "int*", &pVal := 0, "HRESULT")
@@ -834,7 +833,7 @@ class IGPMConstants extends IDispatch{
 
     /**
      * 
-     * @returns {Integer} 
+     * @returns {GPMEntryType} 
      */
     get_EntryTypeComputer() {
         result := ComCall(49, this, "int*", &pVal := 0, "HRESULT")
@@ -843,7 +842,7 @@ class IGPMConstants extends IDispatch{
 
     /**
      * 
-     * @returns {Integer} 
+     * @returns {GPMEntryType} 
      */
     get_EntryTypeLocalGroup() {
         result := ComCall(50, this, "int*", &pVal := 0, "HRESULT")
@@ -852,7 +851,7 @@ class IGPMConstants extends IDispatch{
 
     /**
      * 
-     * @returns {Integer} 
+     * @returns {GPMEntryType} 
      */
     get_EntryTypeGlobalGroup() {
         result := ComCall(51, this, "int*", &pVal := 0, "HRESULT")
@@ -861,7 +860,7 @@ class IGPMConstants extends IDispatch{
 
     /**
      * 
-     * @returns {Integer} 
+     * @returns {GPMEntryType} 
      */
     get_EntryTypeUniversalGroup() {
         result := ComCall(52, this, "int*", &pVal := 0, "HRESULT")
@@ -870,7 +869,7 @@ class IGPMConstants extends IDispatch{
 
     /**
      * 
-     * @returns {Integer} 
+     * @returns {GPMEntryType} 
      */
     get_EntryTypeUNCPath() {
         result := ComCall(53, this, "int*", &pVal := 0, "HRESULT")
@@ -879,7 +878,7 @@ class IGPMConstants extends IDispatch{
 
     /**
      * 
-     * @returns {Integer} 
+     * @returns {GPMEntryType} 
      */
     get_EntryTypeUnknown() {
         result := ComCall(54, this, "int*", &pVal := 0, "HRESULT")
@@ -888,7 +887,7 @@ class IGPMConstants extends IDispatch{
 
     /**
      * 
-     * @returns {Integer} 
+     * @returns {GPMDestinationOption} 
      */
     get_DestinationOptionSameAsSource() {
         result := ComCall(55, this, "int*", &pVal := 0, "HRESULT")
@@ -897,7 +896,7 @@ class IGPMConstants extends IDispatch{
 
     /**
      * 
-     * @returns {Integer} 
+     * @returns {GPMDestinationOption} 
      */
     get_DestinationOptionNone() {
         result := ComCall(56, this, "int*", &pVal := 0, "HRESULT")
@@ -906,7 +905,7 @@ class IGPMConstants extends IDispatch{
 
     /**
      * 
-     * @returns {Integer} 
+     * @returns {GPMDestinationOption} 
      */
     get_DestinationOptionByRelativeName() {
         result := ComCall(57, this, "int*", &pVal := 0, "HRESULT")
@@ -915,7 +914,7 @@ class IGPMConstants extends IDispatch{
 
     /**
      * 
-     * @returns {Integer} 
+     * @returns {GPMDestinationOption} 
      */
     get_DestinationOptionSet() {
         result := ComCall(58, this, "int*", &pVal := 0, "HRESULT")

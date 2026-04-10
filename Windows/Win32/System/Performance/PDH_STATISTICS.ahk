@@ -6,10 +6,8 @@
  * The PDH_STATISTICS structure contains the minimum, maximum, and mean values for an array of raw counters values.
  * @see https://learn.microsoft.com/windows/win32/api/pdh/ns-pdh-pdh_statistics
  * @namespace Windows.Win32.System.Performance
- * @version v4.0.30319
  */
-class PDH_STATISTICS extends Win32Struct
-{
+class PDH_STATISTICS extends Win32Struct {
     static sizeof => 56
 
     static packingSize => 8
@@ -37,7 +35,7 @@ class PDH_STATISTICS extends Win32Struct
      * Minimum of the values.
      * @type {PDH_FMT_COUNTERVALUE}
      */
-    min{
+    min {
         get {
             if(!this.HasProp("__min"))
                 this.__min := PDH_FMT_COUNTERVALUE(8, this)
@@ -49,7 +47,7 @@ class PDH_STATISTICS extends Win32Struct
      * Maximum of the values.
      * @type {PDH_FMT_COUNTERVALUE}
      */
-    max{
+    max {
         get {
             if(!this.HasProp("__max"))
                 this.__max := PDH_FMT_COUNTERVALUE(24, this)
@@ -61,7 +59,7 @@ class PDH_STATISTICS extends Win32Struct
      * Mean of the values.
      * @type {PDH_FMT_COUNTERVALUE}
      */
-    mean{
+    mean {
         get {
             if(!this.HasProp("__mean"))
                 this.__mean := PDH_FMT_COUNTERVALUE(40, this)

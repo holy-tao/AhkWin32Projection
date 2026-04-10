@@ -1,16 +1,15 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
-#Include .\IVssCreateExpressWriterMetadata.ahk
 #Include ..\..\System\Com\IUnknown.ahk
+#Include .\IVssCreateExpressWriterMetadata.ahk
 
 /**
  * Defines methods to manage metadata for a VSS express writer.
  * @see https://learn.microsoft.com/windows/win32/api/vswriter/nl-vswriter-ivssexpresswriter
  * @namespace Windows.Win32.Storage.Vss
- * @version v4.0.30319
  */
-class IVssExpressWriter extends IUnknown{
+class IVssExpressWriter extends IUnknown {
 
     static sizeof => A_PtrSize
     /**
@@ -44,7 +43,7 @@ class IVssExpressWriter extends IUnknown{
      * If a writer does not specify a version number, VSS will assign a default version number of 0.0.
      * @param {Guid} writerId The globally unique identifier (GUID) of the writer class.
      * @param {PWSTR} writerName A null-terminated wide character string that contains the name of the writer class. This string is not localized.
-     * @param {Integer} usageType A <a href="https://docs.microsoft.com/windows/desktop/api/vswriter/ne-vswriter-vss_usage_type">VSS_USAGE_TYPE</a> enumeration value that indicates how the data that is managed by the writer is used on the host system. The only valid values for this parameter are VSS_UT_BOOTABLESYSTEMSTATE, VSS_UT_SYSTEMSERVICE, and VSS_UT_USERDATA.
+     * @param {VSS_USAGE_TYPE} usageType A <a href="https://docs.microsoft.com/windows/desktop/api/vswriter/ne-vswriter-vss_usage_type">VSS_USAGE_TYPE</a> enumeration value that indicates how the data that is managed by the writer is used on the host system. The only valid values for this parameter are VSS_UT_BOOTABLESYSTEMSTATE, VSS_UT_SYSTEMSERVICE, and VSS_UT_USERDATA.
      * @param {Integer} versionMajor The major version of the writer application. For more information, see the Remarks section.
      * @param {Integer} versionMinor The minor version of the writer application. For more information, see the Remarks section.
      * @param {Integer} reserved This parameter is reserved for system use.

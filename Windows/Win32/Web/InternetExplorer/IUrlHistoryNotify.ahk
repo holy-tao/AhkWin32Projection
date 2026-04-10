@@ -5,9 +5,8 @@
 
 /**
  * @namespace Windows.Win32.Web.InternetExplorer
- * @version v4.0.30319
  */
-class IUrlHistoryNotify extends IOleCommandTarget{
+class IUrlHistoryNotify extends IOleCommandTarget {
 
     static sizeof => A_PtrSize
     /**

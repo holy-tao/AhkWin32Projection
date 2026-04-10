@@ -5,9 +5,8 @@
  * Specifies an item's policies to control how they can be enabled or disabled by group policy.
  * @see https://learn.microsoft.com/windows/win32/api/syncmgr/ne-syncmgr-syncmgr_item_policies
  * @namespace Windows.Win32.UI.Shell
- * @version v4.0.30319
  */
-class SYNCMGR_ITEM_POLICIES extends Win32Enum{
+class SYNCMGR_ITEM_POLICIES extends Win32Enum {
 
     /**
      * No policy flags are set.

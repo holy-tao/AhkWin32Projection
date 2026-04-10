@@ -9,10 +9,8 @@
  * If true,  content that cannot be retrieved from the Peer Distribution APIs may soon be available for retrieval.
  * @see https://learn.microsoft.com/windows/win32/api/peerdist/ns-peerdist-peerdist_client_basic_info
  * @namespace Windows.Win32.NetworkManagement.P2P
- * @version v4.0.30319
  */
-class PEERDIST_CLIENT_BASIC_INFO extends Win32Struct
-{
+class PEERDIST_CLIENT_BASIC_INFO extends Win32Struct {
     static sizeof => 4
 
     static packingSize => 4

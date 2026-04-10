@@ -19,9 +19,8 @@
  * In Windows 8, this interface is extended with <a href="https://docs.microsoft.com/windows/desktop/api/mfidl/nn-mfidl-imfrealtimeclientex">IMFRealTimeClientEx</a>.
  * @see https://learn.microsoft.com/windows/win32/api/mfidl/nn-mfidl-imfrealtimeclient
  * @namespace Windows.Win32.Media.MediaFoundation
- * @version v4.0.30319
  */
-class IMFRealTimeClient extends IUnknown{
+class IMFRealTimeClient extends IUnknown {
 
     static sizeof => A_PtrSize
     /**

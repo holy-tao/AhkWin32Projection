@@ -8,9 +8,8 @@
  *     <a href="https://docs.microsoft.com/windows/desktop/api/vsbackup/nf-vsbackup-ivssbackupcomponents-getwriterstatus">IVssBackupComponents::GetWriterStatus</a>.
  * @see https://learn.microsoft.com/windows/win32/api/vss/ne-vss-vss_writer_state
  * @namespace Windows.Win32.Storage.Vss
- * @version v4.0.30319
  */
-class VSS_WRITER_STATE extends Win32Enum{
+class VSS_WRITER_STATE extends Win32Enum {
 
     /**
      * The writer's state is not known. 

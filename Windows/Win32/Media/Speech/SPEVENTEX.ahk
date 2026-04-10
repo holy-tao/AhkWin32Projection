@@ -3,10 +3,8 @@
 
 /**
  * @namespace Windows.Win32.Media.Speech
- * @version v4.0.30319
  */
-class SPEVENTEX extends Win32Struct
-{
+class SPEVENTEX extends Win32Struct {
     static sizeof => 40
 
     static packingSize => 8

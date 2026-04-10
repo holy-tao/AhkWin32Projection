@@ -4,10 +4,8 @@
 
 /**
  * @namespace Windows.Win32.System.WindowsProgramming
- * @version v4.0.30319
  */
-class DCICREATEINPUT extends Win32Struct
-{
+class DCICREATEINPUT extends Win32Struct {
     static sizeof => 64
 
     static packingSize => 8
@@ -15,7 +13,7 @@ class DCICREATEINPUT extends Win32Struct
     /**
      * @type {DCICMD}
      */
-    cmd{
+    cmd {
         get {
             if(!this.HasProp("__cmd"))
                 this.__cmd := DCICMD(0, this)
@@ -32,9 +30,9 @@ class DCICREATEINPUT extends Win32Struct
     }
 
     /**
-     * @type {Array<UInt32>}
+     * @type {Array<Integer>}
      */
-    dwMask{
+    dwMask {
         get {
             if(!this.HasProp("__dwMaskProxyArray"))
                 this.__dwMaskProxyArray := Win32FixedArray(this.ptr + 24, 3, Primitive, "uint")

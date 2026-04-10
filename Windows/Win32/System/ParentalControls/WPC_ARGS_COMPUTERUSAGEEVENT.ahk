@@ -3,9 +3,8 @@
 
 /**
  * @namespace Windows.Win32.System.ParentalControls
- * @version v4.0.30319
  */
-class WPC_ARGS_COMPUTERUSAGEEVENT extends Win32Enum{
+class WPC_ARGS_COMPUTERUSAGEEVENT extends Win32Enum {
 
     /**
      * @type {Integer (Int32)}

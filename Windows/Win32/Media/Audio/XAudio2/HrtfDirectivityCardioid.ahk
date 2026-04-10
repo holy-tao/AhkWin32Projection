@@ -1,15 +1,14 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\..\Win32Struct.ahk
 #Include .\HrtfDirectivity.ahk
+#Include .\HrtfDirectivityType.ahk
 
 /**
  * Describes a cardioid directivity pattern.
  * @see https://learn.microsoft.com/windows/win32/api/hrtfapoapi/ns-hrtfapoapi-hrtfdirectivitycardioid
  * @namespace Windows.Win32.Media.Audio.XAudio2
- * @version v4.0.30319
  */
-class HrtfDirectivityCardioid extends Win32Struct
-{
+class HrtfDirectivityCardioid extends Win32Struct {
     static sizeof => 12
 
     static packingSize => 4
@@ -18,7 +17,7 @@ class HrtfDirectivityCardioid extends Win32Struct
      * Descriptor for the cardioid pattern. The type parameter must be set to HrtfDirectivityType.Cardioid.
      * @type {HrtfDirectivity}
      */
-    directivity{
+    directivity {
         get {
             if(!this.HasProp("__directivity"))
                 this.__directivity := HrtfDirectivity(0, this)

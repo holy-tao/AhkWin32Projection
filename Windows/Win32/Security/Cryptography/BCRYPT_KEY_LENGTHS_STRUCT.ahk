@@ -7,10 +7,8 @@
  * The key sizes are given in a range that is inclusive of the minimum and maximum values and are separated by the increment. For example, if the minimum key size is 8 bits, the maximum key size is 16 bits, and the increment is 2 bits, the provider would support key sizes of 8, 10, 12, 14, and 16 bits.
  * @see https://learn.microsoft.com/windows/win32/api/bcrypt/ns-bcrypt-bcrypt_key_lengths_struct
  * @namespace Windows.Win32.Security.Cryptography
- * @version v4.0.30319
  */
-class BCRYPT_KEY_LENGTHS_STRUCT extends Win32Struct
-{
+class BCRYPT_KEY_LENGTHS_STRUCT extends Win32Struct {
     static sizeof => 12
 
     static packingSize => 4

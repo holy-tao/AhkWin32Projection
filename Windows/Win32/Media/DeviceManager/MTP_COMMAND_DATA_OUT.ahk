@@ -10,10 +10,8 @@
  * ``` syntax
  * @see https://learn.microsoft.com/windows/win32/api/mtpext/ns-mtpext-mtp_command_data_out
  * @namespace Windows.Win32.Media.DeviceManager
- * @version v4.0.30319
  */
-class MTP_COMMAND_DATA_OUT extends Win32Struct
-{
+class MTP_COMMAND_DATA_OUT extends Win32Struct {
     static sizeof => 36
 
     static packingSize => 4
@@ -38,9 +36,9 @@ class MTP_COMMAND_DATA_OUT extends Win32Struct
 
     /**
      * Parameters of the response. <b>MTP_RESPONSE_MAX_PARAMS</b> is a defined constant with a value of 5.
-     * @type {Array<UInt32>}
+     * @type {Array<Integer>}
      */
-    Params{
+    Params {
         get {
             if(!this.HasProp("__ParamsProxyArray"))
                 this.__ParamsProxyArray := Win32FixedArray(this.ptr + 8, 5, Primitive, "uint")
@@ -59,9 +57,9 @@ class MTP_COMMAND_DATA_OUT extends Win32Struct
 
     /**
      * Optional, first byte of data to read from the device if <b>MTP_COMMAND_DATA_IN.NextPhase</b> is MTP_NEXTPHASE_READ_DATA.
-     * @type {Array<Byte>}
+     * @type {Array<Integer>}
      */
-    CommandReadData{
+    CommandReadData {
         get {
             if(!this.HasProp("__CommandReadDataProxyArray"))
                 this.__CommandReadDataProxyArray := Win32FixedArray(this.ptr + 32, 1, Primitive, "char")

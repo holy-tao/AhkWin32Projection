@@ -3,10 +3,8 @@
 
 /**
  * @namespace Windows.Win32.System.Diagnostics.Debug
- * @version v4.0.30319
  */
-class EXCEPTION_RECORD32 extends Win32Struct
-{
+class EXCEPTION_RECORD32 extends Win32Struct {
     static sizeof => 80
 
     static packingSize => 4
@@ -52,9 +50,9 @@ class EXCEPTION_RECORD32 extends Win32Struct
     }
 
     /**
-     * @type {Array<UInt32>}
+     * @type {Array<Integer>}
      */
-    ExceptionInformation{
+    ExceptionInformation {
         get {
             if(!this.HasProp("__ExceptionInformationProxyArray"))
                 this.__ExceptionInformationProxyArray := Win32FixedArray(this.ptr + 20, 15, Primitive, "uint")

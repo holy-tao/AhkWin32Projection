@@ -9,9 +9,8 @@
  * <img alt="An illustration that shows different examples of different tile mode behaviors" src="./images/TileMode.png"/>
  * @see https://learn.microsoft.com/windows/win32/api/xpsobjectmodel/ne-xpsobjectmodel-xps_tile_mode
  * @namespace Windows.Win32.Storage.Xps
- * @version v4.0.30319
  */
-class XPS_TILE_MODE extends Win32Enum{
+class XPS_TILE_MODE extends Win32Enum {
 
     /**
      * Only the base tile is drawn.

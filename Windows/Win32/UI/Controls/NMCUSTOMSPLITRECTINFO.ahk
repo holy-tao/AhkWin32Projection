@@ -1,7 +1,7 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
-#Include ..\..\Foundation\HWND.ahk
 #Include .\NMHDR.ahk
+#Include ..\..\Foundation\HWND.ahk
 #Include ..\..\Foundation\RECT.ahk
 
 /**
@@ -10,10 +10,8 @@
  * This information is used to draw the button. The button must be of style <a href="https://docs.microsoft.com/windows/desktop/Controls/button-styles">BS_SPLITBUTTON</a> or <a href="https://docs.microsoft.com/windows/desktop/Controls/button-styles">BS_DEFSPLITBUTTON</a>
  * @see https://learn.microsoft.com/windows/win32/api/commctrl/ns-commctrl-nmcustomsplitrectinfo
  * @namespace Windows.Win32.UI.Controls
- * @version v4.0.30319
  */
-class NMCUSTOMSPLITRECTINFO extends Win32Struct
-{
+class NMCUSTOMSPLITRECTINFO extends Win32Struct {
     static sizeof => 72
 
     static packingSize => 8
@@ -24,7 +22,7 @@ class NMCUSTOMSPLITRECTINFO extends Win32Struct
      * An <a href="https://docs.microsoft.com/windows/desktop/api/richedit/ns-richedit-nmhdr">NMHDR</a> structure that contains information about the notification.
      * @type {NMHDR}
      */
-    hdr{
+    hdr {
         get {
             if(!this.HasProp("__hdr"))
                 this.__hdr := NMHDR(0, this)
@@ -38,7 +36,7 @@ class NMCUSTOMSPLITRECTINFO extends Win32Struct
      * A <a href="https://docs.microsoft.com/windows/desktop/api/windef/ns-windef-rect">RECT</a> structure that describes the client area the button occupies.
      * @type {RECT}
      */
-    rcClient{
+    rcClient {
         get {
             if(!this.HasProp("__rcClient"))
                 this.__rcClient := RECT(24, this)
@@ -52,7 +50,7 @@ class NMCUSTOMSPLITRECTINFO extends Win32Struct
      * A <a href="https://docs.microsoft.com/windows/desktop/api/windef/ns-windef-rect">RECT</a> structure that describes the rectangle that does not contain the drop-down arrow.
      * @type {RECT}
      */
-    rcButton{
+    rcButton {
         get {
             if(!this.HasProp("__rcButton"))
                 this.__rcButton := RECT(40, this)
@@ -66,7 +64,7 @@ class NMCUSTOMSPLITRECTINFO extends Win32Struct
      * A <a href="https://docs.microsoft.com/windows/desktop/api/windef/ns-windef-rect">RECT</a> structure that describes the rectangle that contains the drop-down arrow.
      * @type {RECT}
      */
-    rcSplit{
+    rcSplit {
         get {
             if(!this.HasProp("__rcSplit"))
                 this.__rcSplit := RECT(56, this)

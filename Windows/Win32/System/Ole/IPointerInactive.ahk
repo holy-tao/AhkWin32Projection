@@ -7,9 +7,8 @@
  * Enables an object to remain inactive most of the time, yet still participate in interaction with the mouse, including drag and drop.
  * @see https://learn.microsoft.com/windows/win32/api/ocidl/nn-ocidl-ipointerinactive
  * @namespace Windows.Win32.System.Ole
- * @version v4.0.30319
  */
-class IPointerInactive extends IUnknown{
+class IPointerInactive extends IUnknown {
 
     static sizeof => A_PtrSize
     /**
@@ -45,7 +44,7 @@ class IPointerInactive extends IUnknown{
      * 
      * <h3><a id="Notes_to_Callers"></a><a id="notes_to_callers"></a><a id="NOTES_TO_CALLERS"></a>Notes to Callers</h3>
      * The activation policy should not be cached. The container should call this method each time the mouse enters an inactive object.
-     * @returns {Integer} A pointer to a variable that receives the activation policy. Possible values come from the <a href="https://docs.microsoft.com/windows/desktop/api/ocidl/ne-ocidl-pointerinactive">POINTERINACTIVE</a> enumeration.
+     * @returns {POINTERINACTIVE} A pointer to a variable that receives the activation policy. Possible values come from the <a href="https://docs.microsoft.com/windows/desktop/api/ocidl/ne-ocidl-pointerinactive">POINTERINACTIVE</a> enumeration.
      * @see https://learn.microsoft.com/windows/win32/api/ocidl/nf-ocidl-ipointerinactive-getactivationpolicy
      */
     GetActivationPolicy() {

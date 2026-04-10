@@ -6,10 +6,8 @@
  * Contains inbound replication state data for a particular naming context and source server pair, as returned by the DsReplicaGetInfo and DsReplicaGetInfo2 functions.
  * @see https://learn.microsoft.com/windows/win32/api/ntdsapi/ns-ntdsapi-ds_repl_neighborw
  * @namespace Windows.Win32.Networking.ActiveDirectory
- * @version v4.0.30319
  */
-class DS_REPL_NEIGHBORW extends Win32Struct
-{
+class DS_REPL_NEIGHBORW extends Win32Struct {
     static sizeof => 112
 
     static packingSize => 8
@@ -70,7 +68,7 @@ class DS_REPL_NEIGHBORW extends Win32Struct
 
     /**
      * Contains the <b>objectGuid</b> of the naming context corresponding to <b>pszNamingContext</b>.
-     * @type {Pointer<Guid>}
+     * @type {Pointer}
      */
     uuidNamingContextObjGuid {
         get => NumGet(this, 40, "ptr")
@@ -79,7 +77,7 @@ class DS_REPL_NEIGHBORW extends Win32Struct
 
     /**
      * Contains the <b>objectGuid</b> of the <b>nTDSDSA</b> object corresponding to <b>pszSourceDsaDN</b>.
-     * @type {Pointer<Guid>}
+     * @type {Pointer}
      */
     uuidSourceDsaObjGuid {
         get => NumGet(this, 48, "ptr")
@@ -88,7 +86,7 @@ class DS_REPL_NEIGHBORW extends Win32Struct
 
     /**
      * Contains the invocation identifier used by the source server as of the last replication attempt.
-     * @type {Pointer<Guid>}
+     * @type {Pointer}
      */
     uuidSourceDsaInvocationID {
         get => NumGet(this, 56, "ptr")
@@ -97,7 +95,7 @@ class DS_REPL_NEIGHBORW extends Win32Struct
 
     /**
      * Contains the <b>objectGuid</b> of the inter-site transport object corresponding to <b>pszAsyncIntersiteTransportDN</b>.
-     * @type {Pointer<Guid>}
+     * @type {Pointer}
      */
     uuidAsyncIntersiteTransportObjGuid {
         get => NumGet(this, 64, "ptr")
@@ -126,7 +124,7 @@ class DS_REPL_NEIGHBORW extends Win32Struct
      * Contains a <a href="https://docs.microsoft.com/windows/desktop/api/minwinbase/ns-minwinbase-filetime">FILETIME</a> structure that contains the date and time the last successful replication cycle was completed from this source. All members of this structure are zero if the replication cycle has never been completed.
      * @type {FILETIME}
      */
-    ftimeLastSyncSuccess{
+    ftimeLastSyncSuccess {
         get {
             if(!this.HasProp("__ftimeLastSyncSuccess"))
                 this.__ftimeLastSyncSuccess := FILETIME(88, this)
@@ -138,7 +136,7 @@ class DS_REPL_NEIGHBORW extends Win32Struct
      * Contains a <a href="https://docs.microsoft.com/windows/desktop/api/minwinbase/ns-minwinbase-filetime">FILETIME</a> structure that contains the date and time of the last replication attempt from this source. All members of this structure are zero if the replication  has never been attempted.
      * @type {FILETIME}
      */
-    ftimeLastSyncAttempt{
+    ftimeLastSyncAttempt {
         get {
             if(!this.HasProp("__ftimeLastSyncAttempt"))
                 this.__ftimeLastSyncAttempt := FILETIME(96, this)

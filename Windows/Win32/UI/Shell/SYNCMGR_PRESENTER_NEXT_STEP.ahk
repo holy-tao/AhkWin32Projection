@@ -5,9 +5,8 @@
  * Describes the next step that is to occur in sync manager conflict resolution. Used by ISyncMgrConflictPresenter.
  * @see https://learn.microsoft.com/windows/win32/api/syncmgr/ne-syncmgr-syncmgr_presenter_next_step
  * @namespace Windows.Win32.UI.Shell
- * @version v4.0.30319
  */
-class SYNCMGR_PRESENTER_NEXT_STEP extends Win32Enum{
+class SYNCMGR_PRESENTER_NEXT_STEP extends Win32Enum {
 
     /**
      * The conflict has been resolved and subsequent

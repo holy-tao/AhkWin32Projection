@@ -1,16 +1,13 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\..\Win32Struct.ahk
+#Include .\WEBAUTHN_X5C.ahk
 
 /**
  * The structure containing the common data for an attestation.
- * @remarks
- * 
  * @see https://learn.microsoft.com/windows/win32/api/webauthn/ns-webauthn-webauthn_common_attestation
  * @namespace Windows.Win32.Security.Authentication.WebAuthn
- * @version v4.0.30319
  */
-class WEBAUTHN_COMMON_ATTESTATION extends Win32Struct
-{
+class WEBAUTHN_COMMON_ATTESTATION extends Win32Struct {
     static sizeof => 88
 
     static packingSize => 8

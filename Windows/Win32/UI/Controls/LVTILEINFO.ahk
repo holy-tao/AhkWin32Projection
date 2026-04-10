@@ -9,10 +9,8 @@
  * Column information can also be set in the <a href="https://docs.microsoft.com/windows/desktop/api/commctrl/ns-commctrl-lvitema">LVITEM</a> structure when creating the list item.
  * @see https://learn.microsoft.com/windows/win32/api/commctrl/ns-commctrl-lvtileinfo
  * @namespace Windows.Win32.UI.Controls
- * @version v4.0.30319
  */
-class LVTILEINFO extends Win32Struct
-{
+class LVTILEINFO extends Win32Struct {
     static sizeof => 32
 
     static packingSize => 8

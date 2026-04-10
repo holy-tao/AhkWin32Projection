@@ -1,20 +1,18 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
-#Include ..\..\Foundation\BSTR.ahk
+#Include ..\..\System\Com\IDispatch.ahk
 #Include ..\..\System\Variant\VARIANT.ahk
 #Include .\IEnumAddress.ahk
 #Include .\IEnumCallHub.ahk
 #Include ..\..\System\Com\IEnumUnknown.ahk
-#Include ..\..\System\Com\IDispatch.ahk
 
 /**
  * The ITTAPI interface is the base interface for the TAPI object. The TAPI object is created by CoCreateInstance. For information on CoCreateInstance, see documentation on COM. All other TAPI 3 objects are created by TAPI 3 itself.
  * @see https://learn.microsoft.com/windows/win32/api/tapi3if/nn-tapi3if-ittapi
  * @namespace Windows.Win32.Devices.Tapi
- * @version v4.0.30319
  */
-class ITTAPI extends IDispatch{
+class ITTAPI extends IDispatch {
 
     static sizeof => A_PtrSize
     /**

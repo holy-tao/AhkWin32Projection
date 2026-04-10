@@ -5,10 +5,8 @@
 
 /**
  * @namespace Windows.Win32.System.Diagnostics.Debug
- * @version v4.0.30319
  */
-class DIMM_ADDR_VALID_BITS extends Win32Struct
-{
+class DIMM_ADDR_VALID_BITS extends Win32Struct {
     static sizeof => 12
 
     static packingSize => 1
@@ -16,7 +14,7 @@ class DIMM_ADDR_VALID_BITS extends Win32Struct
     /**
      * @type {DIMM_ADDR_VALID_BITS_DDR4}
      */
-    VB_DDR4{
+    VB_DDR4 {
         get {
             if(!this.HasProp("__VB_DDR4"))
                 this.__VB_DDR4 := DIMM_ADDR_VALID_BITS_DDR4(0, this)
@@ -27,7 +25,7 @@ class DIMM_ADDR_VALID_BITS extends Win32Struct
     /**
      * @type {DIMM_ADDR_VALID_BITS_DDR5}
      */
-    VB_DDR5{
+    VB_DDR5 {
         get {
             if(!this.HasProp("__VB_DDR5"))
                 this.__VB_DDR5 := DIMM_ADDR_VALID_BITS_DDR5(0, this)

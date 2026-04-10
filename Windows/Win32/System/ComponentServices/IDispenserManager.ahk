@@ -1,16 +1,15 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
-#Include .\IHolder.ahk
 #Include ..\Com\IUnknown.ahk
+#Include .\IHolder.ahk
 
 /**
  * Connects to the dispenser manager.
  * @see https://learn.microsoft.com/windows/win32/api/comsvcs/nn-comsvcs-idispensermanager
  * @namespace Windows.Win32.System.ComponentServices
- * @version v4.0.30319
  */
-class IDispenserManager extends IUnknown{
+class IDispenserManager extends IUnknown {
 
     static sizeof => A_PtrSize
     /**

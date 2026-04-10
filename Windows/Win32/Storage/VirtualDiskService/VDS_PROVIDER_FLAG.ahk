@@ -11,9 +11,8 @@
  * <div> </div>
  * @see https://learn.microsoft.com/windows/win32/api/vdshwprv/ne-vdshwprv-vds_provider_flag
  * @namespace Windows.Win32.Storage.VirtualDiskService
- * @version v4.0.30319
  */
-class VDS_PROVIDER_FLAG extends Win32Enum{
+class VDS_PROVIDER_FLAG extends Win32Enum {
 
     /**
      * The provider is a dynamic  provider. If this flag is set for the provider of a disk, the disk is dynamic.

@@ -1,5 +1,7 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
+#Include .\PFD_FLAGS.ahk
+#Include .\PFD_PIXEL_TYPE.ahk
 
 /**
  * The PIXELFORMATDESCRIPTOR structure describes the pixel format of a drawing surface.
@@ -7,10 +9,8 @@
  * Please notice carefully, as documented above, that certain pixel format properties are not supported in the current generic implementation. The generic implementation is the Microsoft GDI software implementation of OpenGL. Hardware manufacturers may enhance parts of OpenGL, and may support some pixel format properties not supported by the generic implementation.
  * @see https://learn.microsoft.com/windows/win32/api/wingdi/ns-wingdi-pixelformatdescriptor
  * @namespace Windows.Win32.Graphics.OpenGL
- * @version v4.0.30319
  */
-class PIXELFORMATDESCRIPTOR extends Win32Struct
-{
+class PIXELFORMATDESCRIPTOR extends Win32Struct {
     static sizeof => 40
 
     static packingSize => 4
@@ -162,7 +162,7 @@ class PIXELFORMATDESCRIPTOR extends Win32Struct
      * <td>Specifies the content of the back buffer in the double-buffered main color plane following a buffer swap. Swapping the color buffers causes the exchange of the back buffer's content with the front buffer's content. Following the swap, the back buffer's content contains the front buffer's content before the swap. PFD_SWAP_EXCHANGE is a hint only and might not be provided by a driver.</td>
      * </tr>
      * </table>
-     * @type {Integer}
+     * @type {PFD_FLAGS}
      */
     dwFlags {
         get => NumGet(this, 4, "uint")
@@ -190,7 +190,7 @@ class PIXELFORMATDESCRIPTOR extends Win32Struct
      * <td>Color-index pixels. Each pixel uses a color-index value.</td>
      * </tr>
      * </table>
-     * @type {Integer}
+     * @type {PFD_PIXEL_TYPE}
      */
     iPixelType {
         get => NumGet(this, 8, "char")

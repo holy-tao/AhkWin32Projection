@@ -5,10 +5,8 @@
  * The ADS_NETADDRESS structure is an ADSI representation of the Net Address attribute syntax.
  * @see https://learn.microsoft.com/windows/win32/api/iads/ns-iads-ads_netaddress
  * @namespace Windows.Win32.Networking.ActiveDirectory
- * @version v4.0.30319
  */
-class ADS_NETADDRESS extends Win32Struct
-{
+class ADS_NETADDRESS extends Win32Struct {
     static sizeof => 16
 
     static packingSize => 8

@@ -11,9 +11,8 @@
  * <a href="https://docs.microsoft.com/windows/desktop/api/mmc/nf-mmc-icomponent-getresultviewtype">IComponent::GetResultViewType</a> method is called, the snap-in should return S_FALSE to indicate that the default list view should be used.
  * @see https://learn.microsoft.com/windows/win32/api/mmc/ne-mmc-mmc_menu_command_ids
  * @namespace Windows.Win32.System.Mmc
- * @version v4.0.30319
  */
-class MMC_MENU_COMMAND_IDS extends Win32Enum{
+class MMC_MENU_COMMAND_IDS extends Win32Enum {
 
     /**
      * Sent to a snap-in's 

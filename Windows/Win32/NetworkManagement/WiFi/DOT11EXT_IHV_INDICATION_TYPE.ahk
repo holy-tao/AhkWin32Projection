@@ -3,9 +3,8 @@
 
 /**
  * @namespace Windows.Win32.NetworkManagement.WiFi
- * @version v4.0.30319
  */
-class DOT11EXT_IHV_INDICATION_TYPE extends Win32Enum{
+class DOT11EXT_IHV_INDICATION_TYPE extends Win32Enum {
 
     /**
      * @type {Integer (Int32)}

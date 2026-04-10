@@ -5,10 +5,8 @@
  * Contains the starting VCN to the FSCTL_GET_RETRIEVAL_POINTERS control code.
  * @see https://learn.microsoft.com/windows/win32/api/winioctl/ns-winioctl-starting_vcn_input_buffer
  * @namespace Windows.Win32.System.Ioctl
- * @version v4.0.30319
  */
-class STARTING_VCN_INPUT_BUFFER extends Win32Struct
-{
+class STARTING_VCN_INPUT_BUFFER extends Win32Struct {
     static sizeof => 8
 
     static packingSize => 8

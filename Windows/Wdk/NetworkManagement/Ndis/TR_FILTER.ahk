@@ -3,10 +3,8 @@
 
 /**
  * @namespace Windows.Wdk.NetworkManagement.Ndis
- * @version v4.0.30319
  */
-class TR_FILTER extends Win32Struct
-{
+class TR_FILTER extends Win32Struct {
     static sizeof => 8
 
     static packingSize => 8

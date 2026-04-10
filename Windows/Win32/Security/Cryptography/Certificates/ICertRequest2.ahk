@@ -1,17 +1,16 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\..\Guid.ahk
+#Include .\ICertRequest.ahk
 #Include ..\..\..\Foundation\BSTR.ahk
 #Include ..\..\..\System\Variant\VARIANT.ahk
-#Include .\ICertRequest.ahk
 
 /**
  * Provide communications between a client or intermediary application and Certificate Services. (ICertRequest2)
  * @see https://learn.microsoft.com/windows/win32/api/certcli/nn-certcli-icertrequest2
  * @namespace Windows.Win32.Security.Cryptography.Certificates
- * @version v4.0.30319
  */
-class ICertRequest2 extends ICertRequest{
+class ICertRequest2 extends ICertRequest {
 
     static sizeof => A_PtrSize
     /**
@@ -40,7 +39,7 @@ class ICertRequest2 extends ICertRequest{
      * <b>Windows Server 2008, Windows Vista, Windows Server 2003 and Windows XP:  </b>An HTTPS URL is not supported as an input.
      * @param {Integer} RequestId A <b>LONG</b> value that represents the <a href="https://docs.microsoft.com/windows/desktop/SecGloss/c-gly">certificate request</a> ID in the Certificates Services database. Use –1 for this value if the serial number (passed in as <i>strSerialNumber</i>) is to be used instead of the request ID.
      * @param {BSTR} strSerialNumber A <b>BSTR</b> value that represents the certificate serial number, as issued by the CA. For <i>strSerialNumber</i> to be used, you must specify a value of –1 for <i>RequestId</i>.
-     * @returns {Integer} 
+     * @returns {CR_DISP} 
      * @see https://learn.microsoft.com/windows/win32/api/certcli/nf-certcli-icertrequest2-getissuedcertificate
      */
     GetIssuedCertificate(strConfig, RequestId, strSerialNumber) {
@@ -328,10 +327,10 @@ class ICertRequest2 extends ICertRequest{
      * <li>
      * <a href="https://docs.microsoft.com/windows/desktop/api/xenroll/nf-xenroll-icenroll4-getcertfromresponse">ICEnroll4::GetCertFromResponse</a> can be called to parse the certificate from the response.</li>
      * </ul>
-     * @param {Integer} PropId The data to be retrieved. If the property is indexed, use <i>PropIndex</i> to specify the index.
+     * @param {FULL_RESPONSE_PROPERTY_ID} PropId The data to be retrieved. If the property is indexed, use <i>PropIndex</i> to specify the index.
      * @param {Integer} PropIndex The zero-based index when <i>PropId</i> is an indexed property. If <i>PropId</i> is not an indexed property, then <i>PropIndex</i> must be zero.
-     * @param {Integer} PropType The type of data returned in <i>pvarPropertyValue</i>. The property type here must match the type of data specified by the <i>PropId</i> parameter.
-     * @param {Integer} Flags The format of the data returned in <i>pvarPropertyValue</i>. The flag set here must match the type of data specified by the <i>PropId</i> parameter. 
+     * @param {CERT_PROPERTY_TYPE} PropType The type of data returned in <i>pvarPropertyValue</i>. The property type here must match the type of data specified by the <i>PropId</i> parameter.
+     * @param {CERT_REQUEST_OUT_TYPE} Flags The format of the data returned in <i>pvarPropertyValue</i>. The flag set here must match the type of data specified by the <i>PropId</i> parameter. 
      * 
      * 
      * 

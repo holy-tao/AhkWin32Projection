@@ -3,9 +3,8 @@
 
 /**
  * @namespace Windows.Wdk.Graphics.Direct3D
- * @version v4.0.30319
  */
-class DXGKDT_OPM_DVI_CHARACTERISTICS extends Win32Enum{
+class DXGKDT_OPM_DVI_CHARACTERISTICS extends Win32Enum {
 
     /**
      * @type {Integer (Int32)}

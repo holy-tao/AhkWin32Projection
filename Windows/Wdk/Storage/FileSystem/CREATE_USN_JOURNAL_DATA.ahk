@@ -8,10 +8,8 @@
  *     <a href="https://docs.microsoft.com/windows/desktop/FileIO/creating-modifying-and-deleting-a-change-journal">Creating, Modifying, and Deleting a Change Journal</a>.
  * @see https://learn.microsoft.com/windows/win32/api/winioctl/ns-winioctl-create_usn_journal_data
  * @namespace Windows.Wdk.Storage.FileSystem
- * @version v4.0.30319
  */
-class CREATE_USN_JOURNAL_DATA extends Win32Struct
-{
+class CREATE_USN_JOURNAL_DATA extends Win32Struct {
     static sizeof => 16
 
     static packingSize => 8

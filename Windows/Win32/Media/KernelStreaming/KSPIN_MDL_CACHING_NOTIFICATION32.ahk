@@ -1,18 +1,17 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
+#Include .\KSPIN_MDL_CACHING_EVENT.ahk
 
 /**
  * @namespace Windows.Win32.Media.KernelStreaming
- * @version v4.0.30319
  */
-class KSPIN_MDL_CACHING_NOTIFICATION32 extends Win32Struct
-{
+class KSPIN_MDL_CACHING_NOTIFICATION32 extends Win32Struct {
     static sizeof => 8
 
     static packingSize => 4
 
     /**
-     * @type {Integer}
+     * @type {KSPIN_MDL_CACHING_EVENT}
      */
     Event {
         get => NumGet(this, 0, "int")

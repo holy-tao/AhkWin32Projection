@@ -1,14 +1,13 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
-#Include .\IXpsRasterizer.ahk
 #Include ..\..\System\Com\IUnknown.ahk
+#Include .\IXpsRasterizer.ahk
 
 /**
  * @namespace Windows.Win32.Graphics.Printing
- * @version v4.0.30319
  */
-class IXpsRasterizationFactory extends IUnknown{
+class IXpsRasterizationFactory extends IUnknown {
 
     static sizeof => A_PtrSize
     /**
@@ -33,8 +32,8 @@ class IXpsRasterizationFactory extends IUnknown{
      * 
      * @param {IXpsOMPage} xpsPage 
      * @param {Float} DPI 
-     * @param {Integer} nonTextRenderingMode 
-     * @param {Integer} textRenderingMode 
+     * @param {XPSRAS_RENDERING_MODE} nonTextRenderingMode 
+     * @param {XPSRAS_RENDERING_MODE} textRenderingMode 
      * @returns {IXpsRasterizer} 
      */
     CreateRasterizer(xpsPage, DPI, nonTextRenderingMode, textRenderingMode) {

@@ -4,7 +4,6 @@
 
 /**
  * @namespace Windows.Win32.System.SubsystemForLinux
- * @version v4.0.30319
  */
 class SubsystemForLinux {
 
@@ -72,7 +71,7 @@ class SubsystemForLinux {
      * Modifies the behavior of a distribution registered with the Windows Subsystem for Linux (WSL).
      * @param {PWSTR} distributionName Unique name representing a distribution (for example, "Fabrikam.Distro.10.01").
      * @param {Integer} defaultUID The Linux user ID to use when launching new WSL sessions for this distribution.
-     * @param {Integer} wslDistributionFlags Flags specifying what behavior to use for this distribution.
+     * @param {WSL_DISTRIBUTION_FLAGS} wslDistributionFlags Flags specifying what behavior to use for this distribution.
      * @returns {HRESULT} Returns S_OK on success, or a failing HRESULT otherwise.
      * @see https://learn.microsoft.com/windows/win32/api/wslapi/nf-wslapi-wslconfiguredistribution
      */
@@ -90,7 +89,7 @@ class SubsystemForLinux {
      * @param {PWSTR} distributionName Unique name representing a distribution (for example, "Fabrikam.Distro.10.01").
      * @param {Pointer<Integer>} distributionVersion The version of WSL for which this distribution is configured.
      * @param {Pointer<Integer>} defaultUID The default user ID used when launching new WSL sessions for this distribution.
-     * @param {Pointer<Integer>} wslDistributionFlags The flags governing the behavior of this distribution.
+     * @param {Pointer<WSL_DISTRIBUTION_FLAGS>} wslDistributionFlags The flags governing the behavior of this distribution.
      * @param {Pointer<Pointer<PSTR>>} defaultEnvironmentVariables The address of a pointer to an array of default environment variable strings used when launching new WSL sessions for this distribution.
      * @param {Pointer<Integer>} defaultEnvironmentVariableCount The number of elements in <i>pDefaultEnvironmentVariablesArray</i>.
      * @returns {HRESULT} Returns S_OK on success, or a failing HRESULT otherwise.

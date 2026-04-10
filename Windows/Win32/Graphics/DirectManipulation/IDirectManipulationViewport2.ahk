@@ -14,9 +14,8 @@
  * A behavior can be attached or removed at any time and takes effect immediately (even during an active manipulation or inertia animation).
  * @see https://learn.microsoft.com/windows/win32/api/directmanipulation/nn-directmanipulation-idirectmanipulationviewport2
  * @namespace Windows.Win32.Graphics.DirectManipulation
- * @version v4.0.30319
  */
-class IDirectManipulationViewport2 extends IDirectManipulationViewport{
+class IDirectManipulationViewport2 extends IDirectManipulationViewport {
 
     static sizeof => A_PtrSize
     /**

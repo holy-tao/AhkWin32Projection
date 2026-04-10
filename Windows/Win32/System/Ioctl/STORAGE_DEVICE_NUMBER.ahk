@@ -7,10 +7,8 @@
  * The values in the <b>STORAGE_DEVICE_NUMBER</b> structure are guaranteed to remain unchanged until the device is removed or the system is restarted. They are not guaranteed to be persistent across device or system restarts.
  * @see https://learn.microsoft.com/windows/win32/api/winioctl/ns-winioctl-storage_device_number
  * @namespace Windows.Win32.System.Ioctl
- * @version v4.0.30319
  */
-class STORAGE_DEVICE_NUMBER extends Win32Struct
-{
+class STORAGE_DEVICE_NUMBER extends Win32Struct {
     static sizeof => 12
 
     static packingSize => 4

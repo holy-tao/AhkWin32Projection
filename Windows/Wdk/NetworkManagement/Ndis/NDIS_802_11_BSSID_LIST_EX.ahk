@@ -1,13 +1,10 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
-#Include .\NDIS_WLAN_BSSID_EX.ahk
 
 /**
  * @namespace Windows.Wdk.NetworkManagement.Ndis
- * @version v4.0.30319
  */
-class NDIS_802_11_BSSID_LIST_EX extends Win32Struct
-{
+class NDIS_802_11_BSSID_LIST_EX extends Win32Struct {
     static sizeof => 16
 
     static packingSize => 8
@@ -21,9 +18,9 @@ class NDIS_802_11_BSSID_LIST_EX extends Win32Struct
     }
 
     /**
-     * @type {Array<NDIS_WLAN_BSSID_EX>}
+     * @type {Array<Pointer>}
      */
-    Bssid{
+    Bssid {
         get {
             if(!this.HasProp("__BssidProxyArray"))
                 this.__BssidProxyArray := Win32FixedArray(this.ptr + 8, 1, Primitive, "ptr")

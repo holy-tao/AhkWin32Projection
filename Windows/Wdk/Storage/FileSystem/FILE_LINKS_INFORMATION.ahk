@@ -3,10 +3,8 @@
 
 /**
  * @namespace Windows.Wdk.Storage.FileSystem
- * @version v4.0.30319
  */
-class FILE_LINKS_INFORMATION extends Win32Struct
-{
+class FILE_LINKS_INFORMATION extends Win32Struct {
     static sizeof => 16
 
     static packingSize => 8
@@ -28,7 +26,7 @@ class FILE_LINKS_INFORMATION extends Win32Struct
     }
 
     /**
-     * @type {Pointer<FILE_LINK_ENTRY_INFORMATION>}
+     * @type {Pointer}
      */
     Entry {
         get => NumGet(this, 8, "ptr")

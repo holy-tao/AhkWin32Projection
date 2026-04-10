@@ -1,16 +1,15 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
-#Include .\D2D1_SVG_LENGTH.ahk
 #Include .\ID2D1SvgAttribute.ahk
+#Include .\D2D1_SVG_LENGTH.ahk
 
 /**
  * Interface describing an SVG stroke-dasharray value.
  * @see https://learn.microsoft.com/windows/win32/api/d2d1svg/nn-d2d1svg-id2d1svgstrokedasharray
  * @namespace Windows.Win32.Graphics.Direct2D
- * @version v4.0.30319
  */
-class ID2D1SvgStrokeDashArray extends ID2D1SvgAttribute{
+class ID2D1SvgStrokeDashArray extends ID2D1SvgAttribute {
 
     static sizeof => A_PtrSize
     /**

@@ -5,10 +5,8 @@
  * Represents a GPU virtual address range and stride.
  * @see https://learn.microsoft.com/windows/win32/api/d3d12/ns-d3d12-d3d12_gpu_virtual_address_range_and_stride
  * @namespace Windows.Win32.Graphics.Direct3D12
- * @version v4.0.30319
  */
-class D3D12_GPU_VIRTUAL_ADDRESS_RANGE_AND_STRIDE extends Win32Struct
-{
+class D3D12_GPU_VIRTUAL_ADDRESS_RANGE_AND_STRIDE extends Win32Struct {
     static sizeof => 24
 
     static packingSize => 8

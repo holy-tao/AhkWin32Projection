@@ -1,13 +1,12 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
+#Include ..\..\Graphics\Direct3D9\D3DFORMAT.ahk
 #Include .\DXVA_Frequency.ahk
 
 /**
  * @namespace Windows.Win32.Media.MediaFoundation
- * @version v4.0.30319
  */
-class DXVA_VideoDesc extends Win32Struct
-{
+class DXVA_VideoDesc extends Win32Struct {
     static sizeof => 36
 
     static packingSize => 4
@@ -45,7 +44,7 @@ class DXVA_VideoDesc extends Win32Struct
     }
 
     /**
-     * @type {Integer}
+     * @type {D3DFORMAT}
      */
     d3dFormat {
         get => NumGet(this, 16, "uint")
@@ -55,7 +54,7 @@ class DXVA_VideoDesc extends Win32Struct
     /**
      * @type {DXVA_Frequency}
      */
-    InputSampleFreq{
+    InputSampleFreq {
         get {
             if(!this.HasProp("__InputSampleFreq"))
                 this.__InputSampleFreq := DXVA_Frequency(20, this)
@@ -66,7 +65,7 @@ class DXVA_VideoDesc extends Win32Struct
     /**
      * @type {DXVA_Frequency}
      */
-    OutputFrameFreq{
+    OutputFrameFreq {
         get {
             if(!this.HasProp("__OutputFrameFreq"))
                 this.__OutputFrameFreq := DXVA_Frequency(28, this)

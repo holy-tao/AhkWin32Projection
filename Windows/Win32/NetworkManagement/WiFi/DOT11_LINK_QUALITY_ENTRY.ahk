@@ -3,18 +3,16 @@
 
 /**
  * @namespace Windows.Win32.NetworkManagement.WiFi
- * @version v4.0.30319
  */
-class DOT11_LINK_QUALITY_ENTRY extends Win32Struct
-{
+class DOT11_LINK_QUALITY_ENTRY extends Win32Struct {
     static sizeof => 7
 
     static packingSize => 1
 
     /**
-     * @type {Array<Byte>}
+     * @type {Array<Integer>}
      */
-    PeerMacAddr{
+    PeerMacAddr {
         get {
             if(!this.HasProp("__PeerMacAddrProxyArray"))
                 this.__PeerMacAddrProxyArray := Win32FixedArray(this.ptr + 0, 6, Primitive, "char")

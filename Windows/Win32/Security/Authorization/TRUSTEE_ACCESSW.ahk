@@ -3,11 +3,9 @@
 
 /**
  * @namespace Windows.Win32.Security.Authorization
- * @version v4.0.30319
  * @charset Unicode
  */
-class TRUSTEE_ACCESSW extends Win32Struct
-{
+class TRUSTEE_ACCESSW extends Win32Struct {
     static sizeof => 24
 
     static packingSize => 8

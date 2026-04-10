@@ -3,9 +3,8 @@
 
 /**
  * @namespace Windows.Win32.Graphics.Gdi
- * @version v4.0.30319
  */
-class DISPLAYCONFIG_ADVANCED_COLOR_MODE extends Win32Enum{
+class DISPLAYCONFIG_ADVANCED_COLOR_MODE extends Win32Enum {
 
     /**
      * @type {Integer (Int32)}

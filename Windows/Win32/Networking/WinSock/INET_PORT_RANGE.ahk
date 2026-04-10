@@ -13,10 +13,8 @@
  * <b>INET_PORT_RANGE</b> structure is typedefed to the <b>INET_PORT_RESERVATION</b> structure.
  * @see https://learn.microsoft.com/windows/win32/api/mstcpip/ns-mstcpip-inet_port_range
  * @namespace Windows.Win32.Networking.WinSock
- * @version v4.0.30319
  */
-class INET_PORT_RANGE extends Win32Struct
-{
+class INET_PORT_RANGE extends Win32Struct {
     static sizeof => 4
 
     static packingSize => 2

@@ -1,7 +1,7 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
-#Include ..\..\Foundation\POINT.ahk
 #Include .\DXGI_OUTDUPL_POINTER_POSITION.ahk
+#Include ..\..\Foundation\POINT.ahk
 
 /**
  * The DXGI_OUTDUPL_FRAME_INFO structure describes the current desktop image.
@@ -18,10 +18,8 @@
  * <div> </div>
  * @see https://learn.microsoft.com/windows/win32/api/dxgi1_2/ns-dxgi1_2-dxgi_outdupl_frame_info
  * @namespace Windows.Win32.Graphics.Dxgi
- * @version v4.0.30319
  */
-class DXGI_OUTDUPL_FRAME_INFO extends Win32Struct
-{
+class DXGI_OUTDUPL_FRAME_INFO extends Win32Struct {
     static sizeof => 48
 
     static packingSize => 8
@@ -77,7 +75,7 @@ class DXGI_OUTDUPL_FRAME_INFO extends Win32Struct
      * A <a href="https://docs.microsoft.com/windows/desktop/api/dxgi1_2/ns-dxgi1_2-dxgi_outdupl_pointer_position">DXGI_OUTDUPL_POINTER_POSITION</a> structure that describes the most recent mouse position if the <b>LastMouseUpdateTime</b> member is a non-zero value; otherwise, this value is ignored. This value provides the coordinates of the location where the top-left-hand corner of the pointer shape is drawn; this value is not the desktop position of the hot spot.
      * @type {DXGI_OUTDUPL_POINTER_POSITION}
      */
-    PointerPosition{
+    PointerPosition {
         get {
             if(!this.HasProp("__PointerPosition"))
                 this.__PointerPosition := DXGI_OUTDUPL_POINTER_POSITION(28, this)

@@ -1,7 +1,6 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
-#Include ..\..\Foundation\BSTR.ahk
 #Include ..\Com\IDispatch.ahk
 
 /**
@@ -12,9 +11,8 @@
  * When reading or writing XML for a task, registration information for the task is specified in the <a href="https://docs.microsoft.com/windows/desktop/TaskSchd/taskschedulerschema-registrationinfo-tasktype-element">RegistrationInfo</a> element of the Task Scheduler schema.
  * @see https://learn.microsoft.com/windows/win32/api/taskschd/nn-taskschd-iregistrationinfo
  * @namespace Windows.Win32.System.TaskScheduler
- * @version v4.0.30319
  */
-class IRegistrationInfo extends IDispatch{
+class IRegistrationInfo extends IDispatch {
 
     static sizeof => A_PtrSize
     /**
@@ -36,6 +34,7 @@ class IRegistrationInfo extends IDispatch{
     static VTableNames => ["get_Description", "put_Description", "get_Author", "put_Author", "get_Version", "put_Version", "get_Date", "put_Date", "get_Documentation", "put_Documentation", "get_XmlText", "put_XmlText", "get_URI", "put_URI", "get_SecurityDescriptor", "put_SecurityDescriptor", "get_Source", "put_Source"]
 
     /**
+     * @type {BSTR} 
      */
     Description {
         get => this.get_Description()
@@ -43,6 +42,7 @@ class IRegistrationInfo extends IDispatch{
     }
 
     /**
+     * @type {BSTR} 
      */
     Author {
         get => this.get_Author()
@@ -50,6 +50,7 @@ class IRegistrationInfo extends IDispatch{
     }
 
     /**
+     * @type {BSTR} 
      */
     Version {
         get => this.get_Version()
@@ -57,6 +58,7 @@ class IRegistrationInfo extends IDispatch{
     }
 
     /**
+     * @type {BSTR} 
      */
     Date {
         get => this.get_Date()
@@ -64,6 +66,7 @@ class IRegistrationInfo extends IDispatch{
     }
 
     /**
+     * @type {BSTR} 
      */
     Documentation {
         get => this.get_Documentation()
@@ -71,6 +74,7 @@ class IRegistrationInfo extends IDispatch{
     }
 
     /**
+     * @type {BSTR} 
      */
     XmlText {
         get => this.get_XmlText()
@@ -78,6 +82,7 @@ class IRegistrationInfo extends IDispatch{
     }
 
     /**
+     * @type {BSTR} 
      */
     URI {
         get => this.get_URI()
@@ -85,6 +90,7 @@ class IRegistrationInfo extends IDispatch{
     }
 
     /**
+     * @type {VARIANT} 
      */
     SecurityDescriptor {
         get => this.get_SecurityDescriptor()
@@ -92,6 +98,7 @@ class IRegistrationInfo extends IDispatch{
     }
 
     /**
+     * @type {BSTR} 
      */
     Source {
         get => this.get_Source()

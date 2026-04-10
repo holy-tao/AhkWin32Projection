@@ -7,9 +7,8 @@
  * Provides access to the underlying object model implemented by a control or application. (IUIAutomationObjectModelPattern)
  * @see https://learn.microsoft.com/windows/win32/api/uiautomationclient/nn-uiautomationclient-iuiautomationobjectmodelpattern
  * @namespace Windows.Win32.UI.Accessibility
- * @version v4.0.30319
  */
-class IUIAutomationObjectModelPattern extends IUnknown{
+class IUIAutomationObjectModelPattern extends IUnknown {
 
     static sizeof => A_PtrSize
     /**

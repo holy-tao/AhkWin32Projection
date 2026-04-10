@@ -5,13 +5,10 @@
 
 /**
  * Extends the ID3D12VideoDevice interface to add support video encoding capabilities.
- * @remarks
- * 
  * @see https://learn.microsoft.com/windows/win32/api/d3d12video/nn-d3d12video-id3d12videodevice3
  * @namespace Windows.Win32.Media.MediaFoundation
- * @version v4.0.30319
  */
-class ID3D12VideoDevice3 extends ID3D12VideoDevice2{
+class ID3D12VideoDevice3 extends ID3D12VideoDevice2 {
 
     static sizeof => A_PtrSize
     /**

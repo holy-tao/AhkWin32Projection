@@ -8,11 +8,9 @@
  * > The dsgetdc.h header defines DS_DOMAIN_TRUSTS as an alias which automatically selects the ANSI or Unicode version of this function based on the definition of the UNICODE preprocessor constant. Mixing usage of the encoding-neutral alias with code that not encoding-neutral can lead to mismatches that result in compilation or runtime errors. For more information, see [Conventions for Function Prototypes](/windows/win32/intl/conventions-for-function-prototypes).
  * @see https://learn.microsoft.com/windows/win32/api/dsgetdc/ns-dsgetdc-ds_domain_trustsw
  * @namespace Windows.Win32.Networking.ActiveDirectory
- * @version v4.0.30319
  * @charset Unicode
  */
-class DS_DOMAIN_TRUSTSW extends Win32Struct
-{
+class DS_DOMAIN_TRUSTSW extends Win32Struct {
     static sizeof => 48
 
     static packingSize => 8
@@ -36,7 +34,6 @@ class DS_DOMAIN_TRUSTSW extends Win32Struct
     }
 
     /**
-     * 
      * @type {Integer}
      */
     Flags {
@@ -87,7 +84,7 @@ class DS_DOMAIN_TRUSTSW extends Win32Struct
 
     /**
      * Contains the GUID of the domain represented by this structure.
-     * @type {Pointer<Guid>}
+     * @type {Pointer}
      */
     DomainGuid {
         get => NumGet(this, 40, "ptr")

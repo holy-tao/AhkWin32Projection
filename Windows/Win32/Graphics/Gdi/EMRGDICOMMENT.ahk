@@ -1,15 +1,14 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
 #Include .\EMR.ahk
+#Include .\ENHANCED_METAFILE_RECORD_TYPE.ahk
 
 /**
  * The EMRGDICOMMENT structure contains application-specific data.
  * @see https://learn.microsoft.com/windows/win32/api/wingdi/ns-wingdi-emrgdicomment
  * @namespace Windows.Win32.Graphics.Gdi
- * @version v4.0.30319
  */
-class EMRGDICOMMENT extends Win32Struct
-{
+class EMRGDICOMMENT extends Win32Struct {
     static sizeof => 16
 
     static packingSize => 4
@@ -18,7 +17,7 @@ class EMRGDICOMMENT extends Win32Struct
      * The base structure for all record types.
      * @type {EMR}
      */
-    emr{
+    emr {
         get {
             if(!this.HasProp("__emr"))
                 this.__emr := EMR(0, this)
@@ -37,9 +36,9 @@ class EMRGDICOMMENT extends Win32Struct
 
     /**
      * Application-specific data.
-     * @type {Array<Byte>}
+     * @type {Array<Integer>}
      */
-    Data{
+    Data {
         get {
             if(!this.HasProp("__DataProxyArray"))
                 this.__DataProxyArray := Win32FixedArray(this.ptr + 12, 1, Primitive, "char")

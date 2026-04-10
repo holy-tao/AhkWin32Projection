@@ -7,9 +7,8 @@
  * Base interface that provides methods for controlling a spatial audio object render stream, including starting, stopping, and resetting the stream.
  * @see https://learn.microsoft.com/windows/win32/api/spatialaudioclient/nn-spatialaudioclient-ispatialaudioobjectrenderstreambase
  * @namespace Windows.Win32.Media.Audio
- * @version v4.0.30319
  */
-class ISpatialAudioObjectRenderStreamBase extends IUnknown{
+class ISpatialAudioObjectRenderStreamBase extends IUnknown {
 
     static sizeof => A_PtrSize
     /**

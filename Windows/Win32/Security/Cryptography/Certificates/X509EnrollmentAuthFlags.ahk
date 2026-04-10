@@ -5,9 +5,8 @@
  * Specifies the authentication type.
  * @see https://learn.microsoft.com/windows/win32/api/certcli/ne-certcli-x509enrollmentauthflags
  * @namespace Windows.Win32.Security.Cryptography.Certificates
- * @version v4.0.30319
  */
-class X509EnrollmentAuthFlags extends Win32Enum{
+class X509EnrollmentAuthFlags extends Win32Enum {
 
     /**
      * Reserved.

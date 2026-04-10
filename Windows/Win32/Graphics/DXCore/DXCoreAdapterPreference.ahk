@@ -5,9 +5,8 @@
  * Defines constants that specify DXCore adapter preferences to be used as list-sorting criteria.
  * @see https://learn.microsoft.com/windows/win32/api/dxcore_interface/ne-dxcore_interface-dxcoreadapterpreference
  * @namespace Windows.Win32.Graphics.DXCore
- * @version v4.0.30319
  */
-class DXCoreAdapterPreference extends Win32Enum{
+class DXCoreAdapterPreference extends Win32Enum {
 
     /**
      * Specifies a preference for hardware adapters (as opposed to software adapters).

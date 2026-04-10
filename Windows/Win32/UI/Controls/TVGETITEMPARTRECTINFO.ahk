@@ -1,14 +1,14 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
+#Include ..\..\Foundation\RECT.ahk
+#Include .\TVITEMPART.ahk
 
 /**
  * Contains information for identifying the &quot;hit zone&quot; for a specified part of a tree item. The structure is used with the TVM_GETITEMPARTRECT message and the TreeView_GetItemPartRect macro.
  * @see https://learn.microsoft.com/windows/win32/api/commctrl/ns-commctrl-tvgetitempartrectinfo
  * @namespace Windows.Win32.UI.Controls
- * @version v4.0.30319
  */
-class TVGETITEMPARTRECTINFO extends Win32Struct
-{
+class TVGETITEMPARTRECTINFO extends Win32Struct {
     static sizeof => 24
 
     static packingSize => 8
@@ -39,7 +39,7 @@ class TVGETITEMPARTRECTINFO extends Win32Struct
      * Type: <b>TVITEMPART</b>
      * 
      * ID of the item part. This value must be <b>TVGIPR_BUTTON</b> (0x0001).
-     * @type {Integer}
+     * @type {TVITEMPART}
      */
     partID {
         get => NumGet(this, 16, "int")

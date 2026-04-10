@@ -4,10 +4,8 @@
 
 /**
  * @namespace Windows.Win32.System.Diagnostics.Debug
- * @version v4.0.30319
  */
-class IMAGEHLP_SYMBOLW64_PACKAGE extends Win32Struct
-{
+class IMAGEHLP_SYMBOLW64_PACKAGE extends Win32Struct {
     static sizeof => 4040
 
     static packingSize => 8
@@ -15,7 +13,7 @@ class IMAGEHLP_SYMBOLW64_PACKAGE extends Win32Struct
     /**
      * @type {IMAGEHLP_SYMBOLW64}
      */
-    sym{
+    sym {
         get {
             if(!this.HasProp("__sym"))
                 this.__sym := IMAGEHLP_SYMBOLW64(0, this)

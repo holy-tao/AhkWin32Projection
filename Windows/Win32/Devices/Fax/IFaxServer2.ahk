@@ -1,11 +1,11 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
+#Include .\IFaxServer.ahk
 #Include .\IFaxConfiguration.ahk
 #Include .\IFaxAccount.ahk
 #Include .\IFaxAccountSet.ahk
 #Include .\IFaxSecurity2.ahk
-#Include .\IFaxServer.ahk
 
 /**
  * Inherits all the functionality of the IFaxServer interface and adds read-only properties for the server's configuration, account management, security objects, and the current account.
@@ -13,9 +13,8 @@
  * In Windows Vista and later, the <a href="https://docs.microsoft.com/previous-versions/windows/desktop/fax/-mfax-faxserver">FaxServer</a> object provides a default implementation of the interface.
  * @see https://learn.microsoft.com/windows/win32/api/faxcomex/nn-faxcomex-ifaxserver2
  * @namespace Windows.Win32.Devices.Fax
- * @version v4.0.30319
  */
-class IFaxServer2 extends IFaxServer{
+class IFaxServer2 extends IFaxServer {
 
     static sizeof => A_PtrSize
     /**

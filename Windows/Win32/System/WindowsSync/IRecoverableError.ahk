@@ -1,17 +1,16 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
+#Include ..\Com\IUnknown.ahk
 #Include .\ISyncChange.ahk
 #Include .\IRecoverableErrorData.ahk
-#Include ..\Com\IUnknown.ahk
 
 /**
  * Represents a recoverable error that occurred when an item was loaded or when an item was saved.
  * @see https://learn.microsoft.com/windows/win32/api/winsync/nn-winsync-irecoverableerror
  * @namespace Windows.Win32.System.WindowsSync
- * @version v4.0.30319
  */
-class IRecoverableError extends IUnknown{
+class IRecoverableError extends IUnknown {
 
     static sizeof => A_PtrSize
     /**
@@ -34,7 +33,7 @@ class IRecoverableError extends IUnknown{
 
     /**
      * Gets the stage in the synchronization session when the error occurred.
-     * @param {Pointer<Integer>} pStage Returns the stage in the synchronization session when the error occurred.
+     * @param {Pointer<SYNC_PROGRESS_STAGE>} pStage Returns the stage in the synchronization session when the error occurred.
      * @returns {HRESULT} The possible return codes include, but are not limited to, the values shown in the following table.
      * 
      * <table>
@@ -76,7 +75,7 @@ class IRecoverableError extends IUnknown{
 
     /**
      * Gets the role of the provider that skipped the item change.
-     * @param {Pointer<Integer>} pProviderRole Returns the role of the provider that skipped the item change.
+     * @param {Pointer<SYNC_PROVIDER_ROLE>} pProviderRole Returns the role of the provider that skipped the item change.
      * @returns {HRESULT} The possible return codes include, but are not limited to, the values shown in the following table.
      * 
      * <table>

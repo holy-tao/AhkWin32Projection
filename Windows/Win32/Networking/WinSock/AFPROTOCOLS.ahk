@@ -8,10 +8,8 @@
  * <b>AFPROTOCOLS</b> structure are a functional pair, and only have meaning when used together, as protocol values have meaning only within the context of an address family.
  * @see https://learn.microsoft.com/windows/win32/api/winsock2/ns-winsock2-afprotocols
  * @namespace Windows.Win32.Networking.WinSock
- * @version v4.0.30319
  */
-class AFPROTOCOLS extends Win32Struct
-{
+class AFPROTOCOLS extends Win32Struct {
     static sizeof => 8
 
     static packingSize => 4

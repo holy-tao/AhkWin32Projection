@@ -5,9 +5,8 @@
  * The DHCP_POLICY_FIELDS_TO_UPDATE enumeration defines which properties of a DHCP server policy must be updated.
  * @see https://learn.microsoft.com/windows/win32/api/dhcpsapi/ne-dhcpsapi-dhcp_policy_fields_to_update
  * @namespace Windows.Win32.NetworkManagement.Dhcp
- * @version v4.0.30319
  */
-class DHCP_POLICY_FIELDS_TO_UPDATE extends Win32Enum{
+class DHCP_POLICY_FIELDS_TO_UPDATE extends Win32Enum {
 
     /**
      * Update DHCP server policy name.
@@ -46,7 +45,6 @@ class DHCP_POLICY_FIELDS_TO_UPDATE extends Win32Enum{
     static DhcpUpdatePolicyStatus => 32
 
     /**
-     * 
      * @type {Integer (Int32)}
      */
     static DhcpUpdatePolicyDnsSuffix => 64

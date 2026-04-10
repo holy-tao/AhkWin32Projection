@@ -1,7 +1,6 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
-#Include ..\..\Foundation\BSTR.ahk
 #Include ..\Com\IDispatch.ahk
 
 /**
@@ -12,9 +11,8 @@
  * If a task is triggered by an idle trigger, then the <a href="https://docs.microsoft.com/windows/desktop/api/taskschd/nf-taskschd-iidlesettings-get_waittimeout">WaitTimeout</a> property of the <b>IIdleSettings</b> interface is ignored.
  * @see https://learn.microsoft.com/windows/win32/api/taskschd/nn-taskschd-iidlesettings
  * @namespace Windows.Win32.System.TaskScheduler
- * @version v4.0.30319
  */
-class IIdleSettings extends IDispatch{
+class IIdleSettings extends IDispatch {
 
     static sizeof => A_PtrSize
     /**
@@ -36,6 +34,7 @@ class IIdleSettings extends IDispatch{
     static VTableNames => ["get_IdleDuration", "put_IdleDuration", "get_WaitTimeout", "put_WaitTimeout", "get_StopOnIdleEnd", "put_StopOnIdleEnd", "get_RestartOnIdle", "put_RestartOnIdle"]
 
     /**
+     * @type {BSTR} 
      */
     IdleDuration {
         get => this.get_IdleDuration()
@@ -43,6 +42,7 @@ class IIdleSettings extends IDispatch{
     }
 
     /**
+     * @type {BSTR} 
      */
     WaitTimeout {
         get => this.get_WaitTimeout()
@@ -50,6 +50,7 @@ class IIdleSettings extends IDispatch{
     }
 
     /**
+     * @type {VARIANT_BOOL} 
      */
     StopOnIdleEnd {
         get => this.get_StopOnIdleEnd()
@@ -57,6 +58,7 @@ class IIdleSettings extends IDispatch{
     }
 
     /**
+     * @type {VARIANT_BOOL} 
      */
     RestartOnIdle {
         get => this.get_RestartOnIdle()

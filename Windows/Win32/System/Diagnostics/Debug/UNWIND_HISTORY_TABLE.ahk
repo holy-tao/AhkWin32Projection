@@ -1,14 +1,14 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\..\Win32Struct.ahk
 #Include .\UNWIND_HISTORY_TABLE_ENTRY.ahk
+#Include .\IMAGE_ARM64_RUNTIME_FUNCTION_ENTRY.ahk
 
 /**
  * @namespace Windows.Win32.System.Diagnostics.Debug
- * @version v4.0.30319
+ * @architecture X64, Arm64
  */
-class UNWIND_HISTORY_TABLE extends Win32Struct
-{
-    static sizeof => 120
+class UNWIND_HISTORY_TABLE extends Win32Struct {
+    static sizeof => 216
 
     static packingSize => 8
 
@@ -69,9 +69,9 @@ class UNWIND_HISTORY_TABLE extends Win32Struct
     }
 
     /**
-     * @type {Array<UNWIND_HISTORY_TABLE_ENTRY>}
+     * @type {UNWIND_HISTORY_TABLE_ENTRY}
      */
-    Entry{
+    Entry {
         get {
             if(!this.HasProp("__EntryProxyArray"))
                 this.__EntryProxyArray := Win32FixedArray(this.ptr + 24, 12, UNWIND_HISTORY_TABLE_ENTRY, "")

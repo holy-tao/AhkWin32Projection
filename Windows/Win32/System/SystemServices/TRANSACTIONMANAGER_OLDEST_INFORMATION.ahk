@@ -3,16 +3,14 @@
 
 /**
  * @namespace Windows.Win32.System.SystemServices
- * @version v4.0.30319
  */
-class TRANSACTIONMANAGER_OLDEST_INFORMATION extends Win32Struct
-{
+class TRANSACTIONMANAGER_OLDEST_INFORMATION extends Win32Struct {
     static sizeof => 8
 
     static packingSize => 8
 
     /**
-     * @type {Pointer<Guid>}
+     * @type {Pointer}
      */
     OldestTransactionGuid {
         get => NumGet(this, 0, "ptr")

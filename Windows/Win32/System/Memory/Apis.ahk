@@ -7,7 +7,6 @@
 
 /**
  * @namespace Windows.Win32.System.Memory
- * @version v4.0.30319
  */
 class Memory {
 
@@ -93,7 +92,7 @@ class Memory {
      * If the <a href="https://docs.microsoft.com/windows/desktop/api/heapapi/nf-heapapi-heaplock">HeapLock</a> and <a href="https://docs.microsoft.com/windows/desktop/api/heapapi/nf-heapapi-heapunlock">HeapUnlock</a> functions are called on a heap created with the <b>HEAP_NO_SERIALIZE</b> flag, the results are undefined.
      * 
      * To obtain a handle to the default heap for a process, use the <a href="https://docs.microsoft.com/windows/desktop/api/heapapi/nf-heapapi-getprocessheap">GetProcessHeap</a> function. To obtain handles to the default heap and private heaps that are active for the calling process, use the <a href="https://docs.microsoft.com/windows/desktop/api/heapapi/nf-heapapi-getprocessheaps">GetProcessHeaps</a> function.
-     * @param {Integer} flOptions 
+     * @param {HEAP_FLAGS} flOptions 
      * @param {Pointer} dwInitialSize The initial size of the heap, in bytes. This value determines the initial amount of memory that is committed for the heap. The value is rounded up to a multiple of the system page size. The value must be smaller than <i>dwMaximumSize</i>.
      * 
      * If this parameter is 0, the function commits one page. To determine the size of a page on the host computer, use the 
@@ -181,7 +180,7 @@ class Memory {
      * @param {HANDLE} hHeap A handle to the heap from which the memory will be allocated. This handle is returned by the 
      * <a href="https://docs.microsoft.com/windows/desktop/api/heapapi/nf-heapapi-heapcreate">HeapCreate</a> or 
      * <a href="https://docs.microsoft.com/windows/desktop/api/heapapi/nf-heapapi-getprocessheap">GetProcessHeap</a> function.
-     * @param {Integer} dwFlags The heap allocation options. Specifying any of these values will override the corresponding value specified when the heap was created with
+     * @param {HEAP_FLAGS} dwFlags The heap allocation options. Specifying any of these values will override the corresponding value specified when the heap was created with
      * @param {Pointer} dwBytes The number of bytes to be allocated.
      * 
      * If the heap specified by the <i>hHeap</i> parameter is a "non-growable" heap, <i>dwBytes</i> must be less than 0x7FFF8. You create a non-growable heap by calling the <a href="https://docs.microsoft.com/windows/desktop/api/heapapi/nf-heapapi-heapcreate">HeapCreate</a> function with a nonzero value.
@@ -243,7 +242,7 @@ class Memory {
      * @param {HANDLE} hHeap A handle to the heap from which the memory is to be reallocated. This handle is a returned by either the 
      * <a href="https://docs.microsoft.com/windows/desktop/api/heapapi/nf-heapapi-heapcreate">HeapCreate</a> or 
      * <a href="https://docs.microsoft.com/windows/desktop/api/heapapi/nf-heapapi-getprocessheap">GetProcessHeap</a> function.
-     * @param {Integer} dwFlags The heap reallocation options. Specifying a value overrides the corresponding value specified in the <i>flOptions</i> parameter when the heap was created by using the
+     * @param {HEAP_FLAGS} dwFlags The heap reallocation options. Specifying a value overrides the corresponding value specified in the <i>flOptions</i> parameter when the heap was created by using the
      * @param {Pointer<Void>} lpMem A pointer to the block of memory that the function reallocates. This pointer is returned by an earlier call to the 
      * <a href="https://docs.microsoft.com/windows/desktop/api/heapapi/nf-heapapi-heapalloc">HeapAlloc</a> or 
      * <b>HeapReAlloc</b> function.
@@ -304,7 +303,7 @@ class Memory {
      * @param {HANDLE} hHeap A handle to the heap whose memory block is to be freed. This handle is returned by either the 
      * <a href="https://docs.microsoft.com/windows/desktop/api/heapapi/nf-heapapi-heapcreate">HeapCreate</a> or 
      * <a href="https://docs.microsoft.com/windows/desktop/api/heapapi/nf-heapapi-getprocessheap">GetProcessHeap</a> function.
-     * @param {Integer} dwFlags The heap free options. Specifying the following value overrides the corresponding value specified in the <i>flOptions</i> parameter when the heap was created by using the 
+     * @param {HEAP_FLAGS} dwFlags The heap free options. Specifying the following value overrides the corresponding value specified in the <i>flOptions</i> parameter when the heap was created by using the 
      * <a href="https://docs.microsoft.com/windows/desktop/api/heapapi/nf-heapapi-heapcreate">HeapCreate</a> function. 
      * 
      * 
@@ -375,7 +374,7 @@ class Memory {
      * @param {HANDLE} hHeap A handle to the heap in which the memory block resides. This handle is returned by either the 
      *       <a href="https://docs.microsoft.com/windows/desktop/api/heapapi/nf-heapapi-heapcreate">HeapCreate</a> or 
      *       <a href="https://docs.microsoft.com/windows/desktop/api/heapapi/nf-heapapi-getprocessheap">GetProcessHeap</a> function.
-     * @param {Integer} dwFlags The heap size options. Specifying the following value overrides the corresponding value specified in the 
+     * @param {HEAP_FLAGS} dwFlags The heap size options. Specifying the following value overrides the corresponding value specified in the 
      *       <i>flOptions</i> parameter when the heap was created by using the 
      *       <a href="https://docs.microsoft.com/windows/desktop/api/heapapi/nf-heapapi-heapcreate">HeapCreate</a> function.
      * 
@@ -477,7 +476,7 @@ class Memory {
      * @param {HANDLE} hHeap A handle to the heap. This handle is returned by either the 
      * <a href="https://docs.microsoft.com/windows/desktop/api/heapapi/nf-heapapi-heapcreate">HeapCreate</a> or 
      * <a href="https://docs.microsoft.com/windows/desktop/api/heapapi/nf-heapapi-getprocessheap">GetProcessHeap</a> function.
-     * @param {Integer} dwFlags The heap access options. This parameter can be the following value. 
+     * @param {HEAP_FLAGS} dwFlags The heap access options. This parameter can be the following value. 
      * 
      * 
      * 
@@ -538,8 +537,8 @@ class Memory {
      * @param {HANDLE} HeapHandle A handle to the heap where information is to be set. This handle is returned by either the 
      *       <a href="https://docs.microsoft.com/windows/desktop/api/heapapi/nf-heapapi-heapcreate">HeapCreate</a> or 
      *       <a href="https://docs.microsoft.com/windows/desktop/api/heapapi/nf-heapapi-getprocessheap">GetProcessHeap</a> function.
-     * @param {Integer} HeapInformationClass 
-     * @param {Pointer} HeapInformation The heap information buffer. The format of this data depends on the value of the 
+     * @param {HEAP_INFORMATION_CLASS} HeapInformationClass 
+     * @param {Integer} HeapInformation The heap information buffer. The format of this data depends on the value of the 
      *        <i>HeapInformationClass</i> parameter.
      * 
      * If the <i>HeapInformationClass</i> parameter is 
@@ -600,7 +599,7 @@ class Memory {
      * @param {HANDLE} hHeap A handle to the heap to be validated. This handle is returned by either the 
      * <a href="https://docs.microsoft.com/windows/desktop/api/heapapi/nf-heapapi-heapcreate">HeapCreate</a> or 
      * <a href="https://docs.microsoft.com/windows/desktop/api/heapapi/nf-heapapi-getprocessheap">GetProcessHeap</a> function.
-     * @param {Integer} dwFlags The heap access options. This parameter can be the following value. 
+     * @param {HEAP_FLAGS} dwFlags The heap access options. This parameter can be the following value. 
      * 
      * 
      * 
@@ -862,7 +861,7 @@ class Memory {
      * @param {HANDLE} HeapHandle A handle to the heap whose information is to be retrieved. This handle is returned by either the 
      * <a href="https://docs.microsoft.com/windows/desktop/api/heapapi/nf-heapapi-heapcreate">HeapCreate</a> or 
      * <a href="https://docs.microsoft.com/windows/desktop/api/heapapi/nf-heapapi-getprocessheap">GetProcessHeap</a> function.
-     * @param {Integer} HeapInformationClass The class of information to be retrieved. This parameter can be the following value from the <b>HEAP_INFORMATION_CLASS</b> enumeration type.
+     * @param {HEAP_INFORMATION_CLASS} HeapInformationClass The class of information to be retrieved. This parameter can be the following value from the <b>HEAP_INFORMATION_CLASS</b> enumeration type.
      * 
      * <table>
      * <tr>
@@ -892,7 +891,7 @@ class Memory {
      * </td>
      * </tr>
      * </table>
-     * @param {Pointer} HeapInformation A pointer to a buffer that receives the heap information. The format of this data depends on the value of the <i>HeapInformationClass</i> parameter.
+     * @param {Integer} HeapInformation A pointer to a buffer that receives the heap information. The format of this data depends on the value of the <i>HeapInformationClass</i> parameter.
      * @param {Pointer} HeapInformationLength The size of the heap information being queried, in bytes.
      * @param {Pointer<Pointer>} ReturnLength A pointer to a variable that receives the length of data written to the <i>HeapInformation</i> buffer. If the buffer is too small, the function fails and <i>ReturnLength</i> specifies the minimum size required for the buffer. 
      * 
@@ -950,8 +949,8 @@ class Memory {
      * 
      * If the address is within an enclave that you initialized, then the allocation operation fails with the **ERROR_INVALID_ADDRESS** error. That is true for enclaves that do not support dynamic memory management (i.e. SGX1). SGX2 enclaves will permit allocation, and the page must be accepted by the enclave after it has been allocated.
      * @param {Pointer} dwSize The size of the region, in bytes. If the _lpAddress_ parameter is **NULL**, this value is rounded up to the next page boundary. Otherwise, the allocated pages include all pages containing one or more bytes in the range from _lpAddress_ to _lpAddress_+_dwSize_. This means that a 2-byte range straddling a page boundary causes both pages to be included in the allocated region.
-     * @param {Integer} flAllocationType 
-     * @param {Integer} flProtect The memory protection for the region of pages to be allocated. If the pages are being committed, you can specify any one of the [memory protection constants](/windows/win32/Memory/memory-protection-constants).
+     * @param {VIRTUAL_ALLOCATION_TYPE} flAllocationType 
+     * @param {PAGE_PROTECTION_FLAGS} flProtect The memory protection for the region of pages to be allocated. If the pages are being committed, you can specify any one of the [memory protection constants](/windows/win32/Memory/memory-protection-constants).
      * @returns {Pointer<Void>} If the function succeeds, the return value is the base address of the allocated region of pages.
      * 
      * If the function fails, the return value is **NULL**. To get extended error information, call [GetLastError](/windows/win32/api/errhandlingapi/nf-errhandlingapi-getlasterror).
@@ -985,10 +984,10 @@ class Memory {
      * 
      * All pages in the specified region must be within the same reserved region allocated when calling the [VirtualAlloc](/windows/win32/api/memoryapi/nf-memoryapi-virtualalloc) or [VirtualAllocEx](/windows/win32/api/memoryapi/nf-memoryapi-virtualallocex) function using **MEM_RESERVE**. The pages cannot span adjacent reserved regions that were allocated by separate calls to **VirtualAlloc** or **VirtualAllocEx** using **MEM_RESERVE**.
      * @param {Pointer} dwSize The size of the region whose access protection attributes are to be changed, in bytes. The region of affected pages includes all pages containing one or more bytes in the range from the ***lpAddress*** parameter to `(lpAddress+dwSize)`. This means that a 2-byte range  straddling a page boundary causes the protection attributes of both pages to be changed.
-     * @param {Integer} flNewProtect The memory protection option. This parameter can be one of the [memory protection constants](/windows/win32/Memory/memory-protection-constants).
+     * @param {PAGE_PROTECTION_FLAGS} flNewProtect The memory protection option. This parameter can be one of the [memory protection constants](/windows/win32/Memory/memory-protection-constants).
      * 
      * For mapped views, this value must be compatible with the access protection specified when the view was mapped (see [MapViewOfFile](/windows/win32/api/memoryapi/nf-memoryapi-mapviewoffile), [MapViewOfFileEx](/windows/win32/api/memoryapi/nf-memoryapi-mapviewoffileex), and [MapViewOfFileExNuma](/windows/win32/api/winbase/nf-winbase-mapviewoffileexnuma)).
-     * @param {Pointer<Integer>} lpflOldProtect A pointer to a variable that receives the previous access protection value of the first page in the specified region of pages. If this parameter is **NULL** or does not point to a valid variable, the function fails.
+     * @param {Pointer<PAGE_PROTECTION_FLAGS>} lpflOldProtect A pointer to a variable that receives the previous access protection value of the first page in the specified region of pages. If this parameter is **NULL** or does not point to a valid variable, the function fails.
      * @returns {BOOL} If the function succeeds, the return value is nonzero.
      * 
      * If the function fails, the return value is zero. To get extended error information, call [GetLastError](/windows/win32/api/errhandlingapi/nf-errhandlingapi-getlasterror).
@@ -1037,7 +1036,7 @@ class Memory {
      * If the _dwFreeType_ parameter is **MEM_RELEASE**, this parameter must be 0 (zero). The function frees the entire region that is reserved in the initial allocation call to [VirtualAlloc](/windows/win32/api/memoryapi/nf-memoryapi-virtualalloc).
      * 
      * If the _dwFreeType_ parameter is **MEM_DECOMMIT**, the function decommits all memory pages that contain one or more bytes in the range from the _lpAddress_ parameter to `(lpAddress+dwSize)`. This means, for example, that a 2-byte region of memory that straddles a page boundary causes both pages to be decommitted. If _lpAddress_ is the base address returned by [VirtualAlloc](/windows/win32/api/memoryapi/nf-memoryapi-virtualalloc) and _dwSize_ is 0 (zero), the function decommits the entire region that is allocated by **VirtualAlloc**. After that, the entire region is in the reserved state.
-     * @param {Integer} dwFreeType 
+     * @param {VIRTUAL_FREE_TYPE} dwFreeType 
      * @returns {BOOL} If the function succeeds, the return value is nonzero.
      * 
      * If the function fails, the return value is 0 (zero). To get extended error information, call [GetLastError](/windows/win32/api/errhandlingapi/nf-errhandlingapi-getlasterror).
@@ -1078,7 +1077,7 @@ class Memory {
      * <a href="https://docs.microsoft.com/windows/desktop/api/sysinfoapi/nf-sysinfoapi-getsysteminfo">GetSystemInfo</a> function.
      * 
      * If <i>lpAddress</i> specifies an address above the highest memory address accessible to the process, the function fails with <b>ERROR_INVALID_PARAMETER</b>.
-     * @param {Pointer} lpBuffer A pointer to a 
+     * @param {Integer} lpBuffer A pointer to a 
      * <a href="https://docs.microsoft.com/windows/desktop/api/winnt/ns-winnt-memory_basic_information">MEMORY_BASIC_INFORMATION</a> structure in which information about the specified page range is returned.
      * @param {Pointer} dwLength The size of the buffer pointed to by the <i>lpBuffer</i> parameter, in bytes.
      * @returns {Pointer} The return value is the actual number of bytes returned in the information buffer.
@@ -1179,8 +1178,8 @@ class Memory {
      *        pages that contain one or more bytes in the range from <i>lpAddress</i> to 
      *        <i>lpAddress</i>+<i>dwSize</i>. This means, for example, that a 2-byte 
      *        range that straddles a page boundary causes the function to allocate both pages.
-     * @param {Integer} flAllocationType 
-     * @param {Integer} flProtect The memory protection for the region of pages to be allocated. If the pages are being committed, you can specify any one of the [memory protection constants](/windows/win32/Memory/memory-protection-constants).
+     * @param {VIRTUAL_ALLOCATION_TYPE} flAllocationType 
+     * @param {PAGE_PROTECTION_FLAGS} flProtect The memory protection for the region of pages to be allocated. If the pages are being committed, you can specify any one of the [memory protection constants](/windows/win32/Memory/memory-protection-constants).
      * @returns {Pointer<Void>} If the function succeeds, the return value is the base address of the allocated region of pages.
      * 
      * If the function fails, the return value is <b>NULL</b>. To get extended error information, 
@@ -1218,10 +1217,10 @@ class Memory {
      * 
      * All pages in the specified region must be within the same reserved region allocated when calling the [VirtualAlloc](/windows/win32/api/memoryapi/nf-memoryapi-virtualalloc) or [VirtualAllocEx](/windows/win32/api/memoryapi/nf-memoryapi-virtualallocex) function using **MEM_RESERVE**. The pages cannot span adjacent reserved regions that were allocated by separate calls to **VirtualAlloc** or **VirtualAllocEx** using **MEM_RESERVE**.
      * @param {Pointer} dwSize The size of the region whose access protection attributes are changed, in bytes. The region of affected pages includes all pages containing one or more bytes in the range from the _lpAddress_ parameter to `(lpAddress+dwSize)`. This means that a 2-byte range straddling a page boundary causes the protection attributes of both pages to be changed.
-     * @param {Integer} flNewProtect The memory protection option. This parameter can be one of the [memory protection constants](/windows/win32/Memory/memory-protection-constants).
+     * @param {PAGE_PROTECTION_FLAGS} flNewProtect The memory protection option. This parameter can be one of the [memory protection constants](/windows/win32/Memory/memory-protection-constants).
      * 
      * For mapped views, this value must be compatible with the access protection specified when the view was mapped (see [MapViewOfFile](/windows/win32/api/memoryapi/nf-memoryapi-mapviewoffile), [MapViewOfFileEx](/windows/win32/api/memoryapi/nf-memoryapi-mapviewoffileex), and [MapViewOfFileExNuma](/windows/win32/api/winbase/nf-winbase-mapviewoffileexnuma)).
-     * @param {Pointer<Integer>} lpflOldProtect A pointer to a variable that receives the previous access protection of the first page in the specified region of pages. If this parameter is **NULL** or does not point to a valid variable, the function fails.
+     * @param {Pointer<PAGE_PROTECTION_FLAGS>} lpflOldProtect A pointer to a variable that receives the previous access protection of the first page in the specified region of pages. If this parameter is **NULL** or does not point to a valid variable, the function fails.
      * @returns {BOOL} If the function succeeds, the return value is nonzero.
      * 
      * If the function fails, the return value is zero. To get extended error information, call [GetLastError](/windows/win32/api/errhandlingapi/nf-errhandlingapi-getlasterror).
@@ -1265,7 +1264,7 @@ class Memory {
      * <a href="https://docs.microsoft.com/windows/desktop/api/sysinfoapi/nf-sysinfoapi-getsysteminfo">GetSystemInfo</a> function.
      * 
      * If <i>lpAddress</i> specifies an address above the highest memory address accessible to the process, the function fails with <b>ERROR_INVALID_PARAMETER</b>.
-     * @param {Pointer} lpBuffer A pointer to a 
+     * @param {Integer} lpBuffer A pointer to a 
      * <a href="https://docs.microsoft.com/windows/desktop/api/winnt/ns-winnt-memory_basic_information">MEMORY_BASIC_INFORMATION</a> structure in which information about the specified page range is returned.
      * @param {Pointer} dwLength The size of the buffer pointed to by the <i>lpBuffer</i> parameter, in bytes.
      * @returns {Pointer} The return value is the actual number of bytes returned in the information buffer.
@@ -1451,7 +1450,7 @@ class Memory {
      *       security descriptor for a file mapping object come from the primary or impersonation token of the creator. For 
      *       more information, see 
      *       <a href="https://docs.microsoft.com/windows/desktop/Memory/file-mapping-security-and-access-rights">File Mapping Security and Access Rights</a>.
-     * @param {Integer} flProtect Specifies the page protection of the file mapping object. All mapped views of the object must be compatible 
+     * @param {PAGE_PROTECTION_FLAGS} flProtect Specifies the page protection of the file mapping object. All mapped views of the object must be compatible 
      *        with this protection.
      * @param {Integer} dwMaximumSizeHigh The high-order <b>DWORD</b> of the maximum size of the file mapping object.
      * @param {Integer} dwMaximumSizeLow The low-order <b>DWORD</b> of the maximum size of the file mapping object.
@@ -1750,7 +1749,7 @@ class Memory {
      * @param {HANDLE} hFileMappingObject A handle to a file mapping object. The 
      *        <a href="https://docs.microsoft.com/windows/desktop/api/winbase/nf-winbase-createfilemappinga">CreateFileMapping</a> and 
      *        <a href="https://docs.microsoft.com/windows/desktop/api/winbase/nf-winbase-openfilemappinga">OpenFileMapping</a> functions return this handle.
-     * @param {Integer} dwDesiredAccess The type of access to a file mapping object, which determines the page protection of the pages. This
+     * @param {FILE_MAP} dwDesiredAccess The type of access to a file mapping object, which determines the page protection of the pages. This
      * @param {Integer} dwFileOffsetHigh A high-order <b>DWORD</b> of the file offset where the view begins.
      * @param {Integer} dwFileOffsetLow A low-order <b>DWORD</b> of the file offset where the view is to begin. The combination 
      *        of the high and low offsets must specify an offset within the file mapping. They must also match the  memory 
@@ -1903,7 +1902,7 @@ class Memory {
      * @param {HANDLE} hFileMappingObject A handle to a file mapping object. The 
      *       <a href="https://docs.microsoft.com/windows/desktop/api/winbase/nf-winbase-createfilemappinga">CreateFileMapping</a> and 
      *       <a href="https://docs.microsoft.com/windows/desktop/api/winbase/nf-winbase-openfilemappinga">OpenFileMapping</a> functions return this handle.
-     * @param {Integer} dwDesiredAccess The type of access to a file mapping object, which determines the page protection of the pages. This
+     * @param {FILE_MAP} dwDesiredAccess The type of access to a file mapping object, which determines the page protection of the pages. This
      * @param {Integer} dwFileOffsetHigh The high-order <b>DWORD</b> of the file offset where the view is to begin.
      * @param {Integer} dwFileOffsetLow The low-order <b>DWORD</b> of the file offset where the view is to begin. The 
      *       combination of the high and low offsets must specify an offset within the file mapping. They must also match the 
@@ -1993,7 +1992,7 @@ class Memory {
      * If <i>dwFreeType</i> is <b>MEM_DECOMMIT</b>, the function decommits all memory pages that contain one or more bytes in the range from the <i>lpAddress</i> parameter to <c>(lpAddress+dwSize)</c>. This means, for example, that a 2-byte region of memory that straddles a page boundary causes both pages to be decommitted. If <i>lpAddress</i> is the base address returned by 
      * <a href="https://docs.microsoft.com/windows/desktop/api/memoryapi/nf-memoryapi-virtualallocex">VirtualAllocEx</a> and <i>dwSize</i> is 0 (zero), the function decommits the entire region that is allocated by 
      * <b>VirtualAllocEx</b>. After that, the entire region is in the reserved state.
-     * @param {Integer} dwFreeType 
+     * @param {VIRTUAL_FREE_TYPE} dwFreeType 
      * @returns {BOOL} If the function succeeds, the return value is a nonzero value.
      * 
      * If the function fails, the return value is 0 (zero). To get extended error information, call 
@@ -2328,7 +2327,7 @@ class Memory {
      * This parameter must be greater than or equal to 13 pages (for example, 53,248 on systems with a 4K page size), and less than the system-wide maximum (number of available pages minus 512 pages). The default size is 345 pages (for example, this is 1,413,120 bytes on systems with a 4K page size).
      * 
      * If both <i>dwMinimumWorkingSetSize</i> and <i>dwMaximumWorkingSetSize</i> have the value (<b>SIZE_T</b>)–1, the function removes as many pages as possible from the working set of the specified process. For details, see Remarks.
-     * @param {Integer} Flags The flags that control the enforcement of the minimum and maximum working set sizes.
+     * @param {SETPROCESSWORKINGSETSIZEEX_FLAGS} Flags The flags that control the enforcement of the minimum and maximum working set sizes.
      * 
      * <table>
      * <tr>
@@ -2595,7 +2594,7 @@ class Memory {
      * To compile an application that uses this function, define the <b>_WIN32_WINNT</b> macro 
      *     as 0x0501 or later. For more information, see 
      *     <a href="https://docs.microsoft.com/windows/desktop/WinProg/using-the-windows-headers">Using the Windows Headers</a>.
-     * @param {Integer} NotificationType The memory condition under which the object is to be signaled. This parameter can be one of the following 
+     * @param {MEMORY_RESOURCE_NOTIFICATION_TYPE} NotificationType The memory condition under which the object is to be signaled. This parameter can be one of the following 
      *       values from the <b>MEMORY_RESOURCE_NOTIFICATION_TYPE</b> enumeration.
      * 
      * <table>
@@ -2997,7 +2996,7 @@ class Memory {
      *        default security descriptor for a file mapping object come from the primary or impersonation token of the 
      *        creator. For more information, see 
      *        <a href="https://docs.microsoft.com/windows/desktop/Memory/file-mapping-security-and-access-rights">File Mapping Security and Access Rights</a>.
-     * @param {Integer} flProtect Specifies the page protection of the file mapping object. All mapped views of the object must be compatible 
+     * @param {PAGE_PROTECTION_FLAGS} flProtect Specifies the page protection of the file mapping object. All mapped views of the object must be compatible 
      *        with this protection.
      * @param {Integer} dwMaximumSizeHigh The high-order <b>DWORD</b> of the maximum size of the file mapping object.
      * @param {Integer} dwMaximumSizeLow The low-order <b>DWORD</b> of the maximum size of the file mapping object.
@@ -3228,7 +3227,7 @@ class Memory {
      *        default security descriptor for a file mapping object come from the primary or impersonation token of the 
      *        creator. For more information, see 
      *        <a href="https://docs.microsoft.com/windows/desktop/Memory/file-mapping-security-and-access-rights">File Mapping Security and Access Rights</a>.
-     * @param {Integer} PageProtection Specifies the page protection of the file mapping object. All mapped views of the object must be compatible 
+     * @param {PAGE_PROTECTION_FLAGS} PageProtection Specifies the page protection of the file mapping object. All mapped views of the object must be compatible 
      *        with this protection.
      * @param {Integer} MaximumSize The maximum size of the file mapping object.
      * 
@@ -3300,7 +3299,7 @@ class Memory {
      * @param {HANDLE} hFileMappingObject A handle to a file mapping object. The 
      *        <a href="https://docs.microsoft.com/windows/desktop/api/memoryapi/nf-memoryapi-createfilemappingfromapp">CreateFileMappingFromApp</a>  function returns 
      *        this handle.
-     * @param {Integer} DesiredAccess The type of access to a file mapping object, which determines the page protection of the pages. This
+     * @param {FILE_MAP} DesiredAccess The type of access to a file mapping object, which determines the page protection of the pages. This
      * @param {Integer} FileOffset The file offset where the view is to begin. The offset must specify an offset within the file mapping. They 
      *        must also match the  memory allocation granularity of the system. That is, the offset must be a multiple of the 
      *        allocation granularity. To obtain the memory allocation granularity of the system, use the 
@@ -3337,7 +3336,7 @@ class Memory {
      * @param {MEMORY_MAPPED_VIEW_ADDRESS} BaseAddress A pointer to the base address of the mapped view of a file that is to be unmapped. This value must be identical to the value returned by a previous call to the 
      * <a href="https://docs.microsoft.com/windows/desktop/api/memoryapi/nf-memoryapi-mapviewoffile">MapViewOfFile</a> or 
      * <a href="https://docs.microsoft.com/windows/desktop/api/memoryapi/nf-memoryapi-mapviewoffileex">MapViewOfFileEx</a> function.
-     * @param {Integer} UnmapFlags 
+     * @param {UNMAP_VIEW_OF_FILE_FLAGS} UnmapFlags 
      * @returns {BOOL} If the function succeeds, the return value is nonzero.
      * 
      * If the function fails, the return value is zero. To get extended error information, call 
@@ -3692,7 +3691,7 @@ class Memory {
      *        pages that contain one or more bytes in the range from <i>lpAddress</i> to 
      *        <c>(lpAddress+dwSize)</c>. This means, for example, that a 2-byte 
      *        range that straddles a page boundary causes the function to allocate both pages.
-     * @param {Integer} flAllocationType 
+     * @param {VIRTUAL_ALLOCATION_TYPE} flAllocationType 
      * @param {Integer} flProtect The memory protection for the region of pages to be allocated. If the pages are being committed, you can 
      *        specify any one of the 
      *        <a href="https://docs.microsoft.com/windows/desktop/Memory/memory-protection-constants">memory protection constants</a>.
@@ -3831,8 +3830,10 @@ class Memory {
      * Note that offering and reclaiming virtual memory is similar to using the MEM_RESET and MEM_RESET_UNDO memory allocation flags,
      *       except that <b>OfferVirtualMemory</b> removes the memory from the process working set and restricts access to the offered pages until they are reclaimed.
      * @param {Pointer<Void>} VirtualAddress Page-aligned starting address of the memory to offer.
-     * @param {Pointer} _Size 
-     * @param {Integer} _Priority 
+     * @param {Pointer} _Size Size, in bytes, of the memory region to offer.  <i>Size</i> must be an integer multiple of the system page size.
+     * @param {OFFER_PRIORITY} _Priority <i>Priority</i> indicates how important the offered memory is to the application.
+     *        A higher priority increases the probability that the offered memory can be reclaimed intact when calling <a href="https://docs.microsoft.com/windows/desktop/api/memoryapi/nf-memoryapi-reclaimvirtualmemory">ReclaimVirtualMemory</a>.
+     *        The system typically discards lower priority memory before discarding higher priority memory.
      * @returns {Integer} ERROR_SUCCESS if successful; a <a href="https://docs.microsoft.com/windows/desktop/Debug/system-error-codes">System Error Code</a> otherwise.
      * @see https://learn.microsoft.com/windows/win32/api/memoryapi/nf-memoryapi-offervirtualmemory
      * @since windows8.1
@@ -3853,7 +3854,7 @@ class Memory {
      *       If the function returns ERROR_BUSY, the data in the reclaimed pages was discarded by the system and is no longer valid.
      *       For this reason, memory should only be offered to the system if the application does not need or can regenerate the data.
      * @param {Pointer<Void>} VirtualAddress Page-aligned starting address of the memory to reclaim.
-     * @param {Pointer} _Size 
+     * @param {Pointer} _Size Size, in bytes, of the memory region to reclaim.  <i>Size</i> must be an integer multiple of the system page size.
      * @returns {Integer} Returns ERROR_SUCCESS if successful and the memory was reclaimed intact.
      * 
      * Returns ERROR_BUSY if successful but the memory was discarded and must be rewritten by the application.  In this case, the contents of the memory region is undefined.
@@ -3881,7 +3882,7 @@ class Memory {
      * <div class="alert"><b>Important</b>  Calls to <b>DiscardVirtualMemory</b> will fail if the memory protection is not <b>PAGE_READWRITE</b>.</div>
      * <div> </div>
      * @param {Pointer<Void>} VirtualAddress Page-aligned starting address of the memory to discard.
-     * @param {Pointer} _Size 
+     * @param {Pointer} _Size Size, in bytes, of the memory region to discard.  <i>Size</i> must be an integer multiple of the system page size.
      * @returns {Integer} ERROR_SUCCESS if successful; a <a href="https://docs.microsoft.com/windows/desktop/Debug/system-error-codes">System Error Code</a> otherwise.
      * @see https://learn.microsoft.com/windows/win32/api/memoryapi/nf-memoryapi-discardvirtualmemory
      * @since windows8.1
@@ -3997,8 +3998,12 @@ class Memory {
      *       allocation granularity on the host computer, use the 
      *       <a href="https://docs.microsoft.com/windows/desktop/api/sysinfoapi/nf-sysinfoapi-getsysteminfo">GetSystemInfo</a> function. If this parameter is 
      *       <b>NULL</b>, the system determines where to allocate the region.
-     * @param {Pointer} _Size 
-     * @param {Integer} AllocationType 
+     * @param {Pointer} _Size The size of the region, in bytes. If the <i>BaseAddress</i> parameter is 
+     *       <b>NULL</b>, this value is rounded up to the next page boundary. Otherwise, the allocated 
+     *       pages include all pages containing one or more bytes in the range from <i>BaseAddress</i> to 
+     *       <i>BaseAddress</i>+<i>Size</i>. This means that a 2-byte range straddling 
+     *       a page boundary causes both pages to be included in the allocated region.
+     * @param {VIRTUAL_ALLOCATION_TYPE} AllocationType 
      * @param {Integer} Protection The memory protection for the region of pages to be allocated. If the pages are being committed, you can 
      *       specify one of the 
      *       <a href="https://docs.microsoft.com/windows/desktop/Memory/memory-protection-constants">memory protection constants</a>. The following constants generate an error:
@@ -4055,8 +4060,21 @@ class Memory {
      *    <a href="https://docs.microsoft.com/windows/desktop/api/processthreadsapi/nf-processthreadsapi-flushinstructioncache">FlushInstructionCache</a> once the code has been set 
      *    in place.  Otherwise attempts to execute code out of the newly executable region may produce unpredictable 
      *    results.
-     * @param {Pointer<Void>} _Address 
-     * @param {Pointer} _Size 
+     * @param {Pointer<Void>} _Address A pointer an address that describes the starting page of the region of pages whose access protection 
+     *        attributes are to be changed.
+     * 
+     * All pages in the specified region must be within the same reserved region allocated when calling the 
+     *        <a href="https://docs.microsoft.com/windows/desktop/api/memoryapi/nf-memoryapi-virtualalloc">VirtualAlloc</a>, <a href="https://docs.microsoft.com/windows/desktop/api/memoryapi/nf-memoryapi-virtualallocfromapp">VirtualAllocFromApp</a>, or 
+     *        <a href="https://docs.microsoft.com/windows/desktop/api/memoryapi/nf-memoryapi-virtualallocex">VirtualAllocEx</a> function using 
+     *        <b>MEM_RESERVE</b>. The pages cannot span adjacent reserved regions that were allocated by 
+     *        separate calls to <b>VirtualAlloc</b>, <b>VirtualAllocFromApp</b>,  or 
+     *        <b>VirtualAllocEx</b> using 
+     *        <b>MEM_RESERVE</b>.
+     * @param {Pointer} _Size The size of the region whose access protection attributes are to be changed, in bytes. The region of 
+     *       affected pages includes all pages containing one or more bytes in the range from the 
+     *       <i>Address</i> parameter to 
+     *       <c>(Address+Size)</c>. This means that a 2-byte range 
+     *       straddling a page boundary causes the protection attributes of both pages to be changed.
      * @param {Integer} NewProtection The memory protection option. This parameter can be one of the 
      *        <a href="https://docs.microsoft.com/windows/desktop/Memory/memory-protection-constants">memory protection constants</a>.
      * 
@@ -4159,8 +4177,8 @@ class Memory {
      * If the <i>MemoryInformationClass</i> parameter has a value of <b>MemoryRegionInfo</b>, the <i>MemoryInformation</i> parameter must point to a <a href="https://docs.microsoft.com/windows/desktop/api/memoryapi/ns-memoryapi-win32_memory_region_information">WIN32_MEMORY_REGION_INFORMATION</a> structure. The <i>VirtualAddress</i> parameter must point to an address within a valid memory allocation. If the <i>VirtualAddress</i> parameter points to an unallocated memory region, the function fails.
      * @param {HANDLE} Process A handle for the process in whose context the pages to be queried reside.
      * @param {Pointer<Void>} VirtualAddress The address of the region of pages to be queried. This value is rounded down to the next host-page-address boundary.
-     * @param {Integer} MemoryInformationClass The memory information class about which to retrieve information. The only supported value is <b>MemoryRegionInfo</b>.
-     * @param {Pointer} MemoryInformation A pointer to a buffer that receives the specified information.
+     * @param {WIN32_MEMORY_INFORMATION_CLASS} MemoryInformationClass The memory information class about which to retrieve information. The only supported value is <b>MemoryRegionInfo</b>.
+     * @param {Integer} MemoryInformation A pointer to a buffer that receives the specified information.
      * 
      * If the <i>MemoryInformationClass</i> parameter has a value of  <b>MemoryRegionInfo</b>, this parameter must point to a <a href="https://docs.microsoft.com/windows/desktop/api/memoryapi/ns-memoryapi-win32_memory_region_information">WIN32_MEMORY_REGION_INFORMATION</a> structure.
      * @param {Pointer} MemoryInformationSize Specifies the length in bytes of the memory information buffer.
@@ -4241,7 +4259,7 @@ class Memory {
      *                   view that is to be unmapped.  This value must be
      *                   identical to the value returned by a previous call
      *                   to <a href="https://docs.microsoft.com/windows/desktop/api/memoryapi/nf-memoryapi-mapviewoffile2">MapViewOfFile2</a>.
-     * @param {Integer} UnmapFlags 
+     * @param {UNMAP_VIEW_OF_FILE_FLAGS} UnmapFlags 
      * @returns {BOOL} Returns <b>TRUE</b> if successful. Otherwise, returns <b>FALSE</b> and extended error status is available
      *             using <a href="https://docs.microsoft.com/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>.
      * @see https://learn.microsoft.com/windows/win32/api/memoryapi/nf-memoryapi-unmapviewoffile2
@@ -4356,8 +4374,15 @@ class Memory {
      * If this address is within an enclave that you have not initialized by calling <a href="https://docs.microsoft.com/windows/desktop/api/enclaveapi/nf-enclaveapi-initializeenclave">InitializeEnclave</a>, <b>VirtualAlloc2</b> allocates a page of zeros for the enclave at that address. The page must be previously uncommitted, and will not be measured with the EEXTEND instruction of the Intel Software Guard Extensions programming model.
      * 
      * If the address in within an enclave that you initialized, then the allocation operation fails with the **ERROR_INVALID_ADDRESS** error. That is true for enclaves that do not support dynamic memory management (i.e. SGX1). SGX2 enclaves will permit allocation, and the page must be accepted by the enclave after it has been allocated.
-     * @param {Pointer} _Size 
-     * @param {Integer} AllocationType 
+     * @param {Pointer} _Size The size of the region of memory to allocate, in bytes.
+     * 
+     * The size must always be a multiple of the page size.
+     * 
+     * If <i>BaseAddress</i> is not <b>NULL</b>, the function allocates all 
+     *        pages that contain one or more bytes in the range from <i>BaseAddress</i> to 
+     *        <i>BaseAddress</i>+<i>Size</i>. This means, for example, that a 2-byte 
+     *        range that straddles a page boundary causes the function to allocate both pages.
+     * @param {VIRTUAL_ALLOCATION_TYPE} AllocationType 
      * @param {Integer} PageProtection The memory protection for the region of pages to be allocated. If the pages are being committed, you can specify any one of the [memory protection constants](/windows/win32/Memory/memory-protection-constants).
      * @param {Pointer<MEM_EXTENDED_PARAMETER>} ExtendedParameters An optional pointer to one or more extended parameters of type <a href="https://docs.microsoft.com/windows/win32/api/winnt/ns-winnt-mem_extended_parameter">MEM_EXTENDED_PARAMETER</a>. Each of those extended parameter values can itself have a <i>Type</i> field of either <b>MemExtendedParameterAddressRequirements</b> or <b>MemExtendedParameterNumaNode</b>. If no <b>MemExtendedParameterNumaNode</b> extended parameter is provided, then the behavior is the same as for the <a href="https://docs.microsoft.com/windows/desktop/api/memoryapi/nf-memoryapi-virtualalloc">VirtualAlloc</a>/<a href="https://docs.microsoft.com/windows/desktop/api/memoryapi/nf-memoryapi-mapviewoffile">MapViewOfFile</a> functions (that is, the preferred NUMA node for the physical pages is determined based on the ideal processor of the thread that first accesses the memory).
      * @param {Integer} ParameterCount The number of extended parameters pointed to by <i>ExtendedParameters</i>.
@@ -4400,7 +4425,7 @@ class Memory {
      *                specifies that the entire section is to be mapped.
      * 
      * The size must always be a multiple of the page size.
-     * @param {Integer} AllocationType 
+     * @param {VIRTUAL_ALLOCATION_TYPE} AllocationType 
      * @param {Integer} PageProtection The desired page protection.
      * 
      * For file-mapping objects created with the <b>SEC_IMAGE</b> attribute, the 
@@ -4494,8 +4519,15 @@ class Memory {
      * 
      * If <i>BaseAddress</i> is <b>NULL</b>, the function determines where to 
      *        allocate the region.
-     * @param {Pointer} _Size 
-     * @param {Integer} AllocationType 
+     * @param {Pointer} _Size The size of the region of memory to allocate, in bytes.
+     * 
+     * The size must always be a multiple of the page size.
+     * 
+     * If <i>BaseAddress</i> is not <b>NULL</b>, the function allocates all 
+     *        pages that contain one or more bytes in the range from <i>BaseAddress</i> to 
+     *        <i>BaseAddress</i>+<i>Size</i>. This means, for example, that a 2-byte 
+     *        range that straddles a page boundary causes the function to allocate both pages.
+     * @param {VIRTUAL_ALLOCATION_TYPE} AllocationType 
      * @param {Integer} PageProtection The memory protection for the region of pages to be allocated. If the pages are being committed, you can 
      *       specify one of the 
      *       <a href="https://docs.microsoft.com/windows/desktop/Memory/memory-protection-constants">memory protection constants</a>. The following constants generate an error:
@@ -4561,7 +4593,7 @@ class Memory {
      *                specifies that the entire section is to be mapped.
      * 
      * The size must always be a multiple of the page size.
-     * @param {Integer} AllocationType 
+     * @param {VIRTUAL_ALLOCATION_TYPE} AllocationType 
      * @param {Integer} PageProtection The desired page protection.
      * 
      * For file-mapping objects created with the <b>SEC_IMAGE</b> attribute, the 
@@ -4595,7 +4627,13 @@ class Memory {
      * Creates or opens a named or unnamed file mapping object for a specified file. You can specify a preferred NUMA node for the physical memory as an extended parameter; see the *ExtendedParameters* parameter.
      * @remarks
      * See the **Remarks** for [CreateFileMapping](/windows/win32/api/memoryapi/nf-memoryapi-createfilemappingw#remarks).
-     * @param {HANDLE} _File 
+     * @param {HANDLE} _File Type: \_In\_ **[HANDLE](/windows/win32/winprog/windows-data-types)**
+     * 
+     * A handle to the file from which to create a file mapping object.
+     * 
+     * The file must be opened with access rights that are compatible with the protection flags that the <i>flProtect</i> parameter specifies. It is not required, but it is recommended that files you intend to map be opened for exclusive access. For more information, see <a href="https://docs.microsoft.com/windows/win32/FileIO/file-security-and-access-rights">File security and access rights</a>.
+     * 
+     * If <i>hFile</i> is <b>INVALID_HANDLE_VALUE</b>, the calling process must also specify a size for the file mapping object in the <i>dwMaximumSizeHigh</i> and <i>dwMaximumSizeLow</i> parameters. In this scenario, <b>CreateFileMapping</b> creates a file mapping object of a specified size  that is backed by the system paging file instead of by a file in the file system.
      * @param {Pointer<SECURITY_ATTRIBUTES>} SecurityAttributes Type: \_In_opt\_ **[SECURITY_ATTRIBUTES](/previous-versions/windows/desktop/legacy/aa379560(v=vs.85))\***
      * 
      * A pointer to a <a href="https://docs.microsoft.com/previous-versions/windows/desktop/legacy/aa379560(v=vs.85)">SECURITY_ATTRIBUTES</a> structure that determines whether a returned handle can be inherited by child processes. The <b>lpSecurityDescriptor</b> member of the <b>SECURITY_ATTRIBUTES</b> structure specifies a security descriptor for a new file mapping object.
@@ -4604,7 +4642,7 @@ class Memory {
      * @param {Integer} DesiredAccess Type: \_In\_ **[ULONG](/windows/win32/winprog/windows-data-types)**
      * 
      * The desired access mask for the returned file mapping handle. For a list of access rights, see [File-mapping security and access rights](/windows/win32/memory/file-mapping-security-and-access-rights).
-     * @param {Integer} PageProtection Type: \_In\_ **[ULONG](/windows/win32/winprog/windows-data-types)**
+     * @param {PAGE_PROTECTION_FLAGS} PageProtection Type: \_In\_ **[ULONG](/windows/win32/winprog/windows-data-types)**
      * 
      * Specifies the page protection of the file mapping object. All mapped views of the object must be compatible with this protection.
      * @param {Integer} AllocationAttributes Type: \_In\_ **[ULONG](/windows/win32/winprog/windows-data-types)**
@@ -4861,8 +4899,8 @@ class Memory {
     /**
      * 
      * @param {HANDLE} Partition 
-     * @param {Integer} PartitionInformationClass 
-     * @param {Pointer} PartitionInformation 
+     * @param {WIN32_MEMORY_PARTITION_INFORMATION_CLASS} PartitionInformationClass 
+     * @param {Integer} PartitionInformation 
      * @param {Integer} PartitionInformationLength 
      * @returns {BOOL} 
      */
@@ -4917,7 +4955,7 @@ class Memory {
 
     /**
      * 
-     * @param {Pointer} _Buffer 
+     * @param {Integer} _Buffer 
      * @param {Pointer} _Size 
      * @param {Integer} InitialCrc 
      * @returns {Integer} 
@@ -4929,7 +4967,7 @@ class Memory {
 
     /**
      * 
-     * @param {Pointer} _Buffer 
+     * @param {Integer} _Buffer 
      * @param {Pointer} _Size 
      * @param {Integer} InitialCrc 
      * @returns {Integer} 
@@ -4972,7 +5010,7 @@ class Memory {
      * 
      * To free the memory, use the 
      * <a href="https://docs.microsoft.com/windows/desktop/api/winbase/nf-winbase-globalfree">GlobalFree</a> function. It is not safe to free memory allocated with <b>GlobalAlloc</b> using <a href="https://docs.microsoft.com/windows/desktop/api/winbase/nf-winbase-localfree">LocalFree</a>.
-     * @param {Integer} uFlags 
+     * @param {GLOBAL_ALLOC_FLAGS} uFlags 
      * @param {Pointer} dwBytes The number of bytes to allocate. If this parameter is zero and the <i>uFlags</i> parameter specifies <b>GMEM_MOVEABLE</b>, the function returns a handle to a memory object that is marked as discarded.
      * @returns {HGLOBAL} If the function succeeds, the return value is a handle to the newly allocated memory object.
      * 
@@ -5263,7 +5301,7 @@ class Memory {
      * 
      * To free the memory, use the 
      * <a href="https://docs.microsoft.com/windows/desktop/api/winbase/nf-winbase-localfree">LocalFree</a> function. It is not safe to free memory allocated with <b>LocalAlloc</b> using <a href="https://docs.microsoft.com/windows/desktop/api/winbase/nf-winbase-globalfree">GlobalFree</a>.
-     * @param {Integer} uFlags 
+     * @param {LOCAL_ALLOC_FLAGS} uFlags 
      * @param {Pointer} uBytes The number of bytes to allocate. If this parameter is zero and the <i>uFlags</i> parameter specifies <b>LMEM_MOVEABLE</b>, the function returns a handle to a memory object that is marked as discarded.
      * @returns {HLOCAL} If the function succeeds, the return value is a handle to the newly allocated memory object.
      * 
@@ -5692,7 +5730,7 @@ class Memory {
      *       security descriptor for a file mapping object come from the primary or impersonation token of the creator. For 
      *       more information, see 
      *       <a href="https://docs.microsoft.com/windows/desktop/Memory/file-mapping-security-and-access-rights">File Mapping Security and Access Rights</a>.
-     * @param {Integer} flProtect Specifies the page protection of the file mapping object. All mapped views of the object must be compatible 
+     * @param {PAGE_PROTECTION_FLAGS} flProtect Specifies the page protection of the file mapping object. All mapped views of the object must be compatible 
      *        with this protection.
      * @param {Integer} dwMaximumSizeHigh The high-order <b>DWORD</b> of the maximum size of the file mapping object.
      * @param {Integer} dwMaximumSizeLow The low-order <b>DWORD</b> of the maximum size of the file mapping object.
@@ -5910,7 +5948,7 @@ class Memory {
      *        default security descriptor for a file mapping object come from the primary or impersonation token of the 
      *        creator. For more information, see 
      *        <a href="https://docs.microsoft.com/windows/desktop/Memory/file-mapping-security-and-access-rights">File Mapping Security and Access Rights</a>.
-     * @param {Integer} flProtect Specifies the page protection of the file mapping object. All mapped views of the object must be compatible 
+     * @param {PAGE_PROTECTION_FLAGS} flProtect Specifies the page protection of the file mapping object. All mapped views of the object must be compatible 
      *        with this protection.
      * @param {Integer} dwMaximumSizeHigh The high-order <b>DWORD</b> of the maximum size of the file mapping object.
      * @param {Integer} dwMaximumSizeLow The low-order <b>DWORD</b> of the maximum size of the file mapping object.
@@ -6224,7 +6262,7 @@ class Memory {
      * @param {HANDLE} hFileMappingObject A handle to a file mapping object. The 
      *       <a href="https://docs.microsoft.com/windows/desktop/api/winbase/nf-winbase-createfilemappingnumaa">CreateFileMappingNuma</a> and 
      *       <a href="https://docs.microsoft.com/windows/desktop/api/winbase/nf-winbase-openfilemappinga">OpenFileMapping</a> functions return this handle.
-     * @param {Integer} dwDesiredAccess The type of access to a file mapping object, which determines the page protection of the pages. This
+     * @param {FILE_MAP} dwDesiredAccess The type of access to a file mapping object, which determines the page protection of the pages. This
      * @param {Integer} dwFileOffsetHigh The high-order <b>DWORD</b> of the file offset where the view is to begin.
      * @param {Integer} dwFileOffsetLow The low-order <b>DWORD</b> of the file offset where the view is to begin. The 
      *       combination of the high and low offsets must specify an offset within the file mapping. They must also match the 
@@ -6536,7 +6574,9 @@ class Memory {
      * To compile an application that uses this function, define <b>_WIN32_WINNT</b> as 0x0600 
      *     or later. For more information, see 
      *     <a href="https://docs.microsoft.com/windows/desktop/WinProg/using-the-windows-headers">Using the Windows Headers</a>.
-     * @param {Pointer<PSECURE_MEMORY_CACHE_CALLBACK>} _pfnCallBack 
+     * @param {Pointer<PSECURE_MEMORY_CACHE_CALLBACK>} _pfnCallBack A pointer to the application-defined 
+     *       <a href="https://docs.microsoft.com/windows/desktop/api/winnt/nc-winnt-psecure_memory_cache_callback">SecureMemoryCacheCallback</a> function to 
+     *       register.
      * @returns {BOOL} If the function succeeds, it registers the callback function and returns 
      *       <b>TRUE</b>.
      * 
@@ -6560,7 +6600,7 @@ class Memory {
      * Unregisters a callback function that was previously registered with the AddSecureMemoryCacheCallback function.
      * @remarks
      * To compile an application that uses this function, define _WIN32_WINNT as 0x0600 or later. For more information, see <a href="https://docs.microsoft.com/windows/desktop/WinProg/using-the-windows-headers">Using the Windows Headers</a>.
-     * @param {Pointer<PSECURE_MEMORY_CACHE_CALLBACK>} _pfnCallBack 
+     * @param {Pointer<PSECURE_MEMORY_CACHE_CALLBACK>} _pfnCallBack A pointer to the application-defined <a href="https://docs.microsoft.com/windows/desktop/api/winnt/nc-winnt-psecure_memory_cache_callback">SecureMemoryCacheCallback</a> function to remove.
      * @returns {BOOL} If the function succeeds, it returns <b>TRUE</b>.
      * 
      * If the function fails, it returns <b>FALSE</b>.

@@ -1,9 +1,9 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
+#Include .\IXpsOMResource.ahk
 #Include .\IXpsOMPageReference.ahk
 #Include ..\..\System\Com\IStream.ahk
-#Include .\IXpsOMResource.ahk
 
 /**
  * Provides access to the content of the resource stream of a page's StoryFragments part.
@@ -13,9 +13,8 @@
  * The XML markup  of the DocumentStructure and StoryFragments parts is described in the <a href="https://www.ecma-international.org/activities/XML%20Paper%20Specification/XPS%20Standard%20WD%201.6.pdf">XML Paper Specification</a>.
  * @see https://learn.microsoft.com/windows/win32/api/xpsobjectmodel/nn-xpsobjectmodel-ixpsomstoryfragmentsresource
  * @namespace Windows.Win32.Storage.Xps
- * @version v4.0.30319
  */
-class IXpsOMStoryFragmentsResource extends IXpsOMResource{
+class IXpsOMStoryFragmentsResource extends IXpsOMResource {
 
     static sizeof => A_PtrSize
     /**

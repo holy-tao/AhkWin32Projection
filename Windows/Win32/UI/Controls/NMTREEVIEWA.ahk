@@ -1,8 +1,12 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
-#Include ..\..\Foundation\HWND.ahk
 #Include .\NMHDR.ahk
+#Include ..\..\Foundation\HWND.ahk
+#Include .\NM_TREEVIEW_ACTION.ahk
 #Include .\TVITEMA.ahk
+#Include .\TVITEM_MASK.ahk
+#Include .\TREE_VIEW_ITEM_STATE_FLAGS.ahk
+#Include .\TVITEMEXW_CHILDREN.ahk
 #Include ..\..\Foundation\POINT.ahk
 
 /**
@@ -12,11 +16,9 @@
  * > The commctrl.h header defines NMTREEVIEW as an alias which automatically selects the ANSI or Unicode version of this function based on the definition of the UNICODE preprocessor constant. Mixing usage of the encoding-neutral alias with code that not encoding-neutral can lead to mismatches that result in compilation or runtime errors. For more information, see [Conventions for Function Prototypes](/windows/win32/intl/conventions-for-function-prototypes).
  * @see https://learn.microsoft.com/windows/win32/api/commctrl/ns-commctrl-nmtreeviewa
  * @namespace Windows.Win32.UI.Controls
- * @version v4.0.30319
  * @charset ANSI
  */
-class NMTREEVIEWA extends Win32Struct
-{
+class NMTREEVIEWA extends Win32Struct {
     static sizeof => 152
 
     static packingSize => 8
@@ -28,7 +30,7 @@ class NMTREEVIEWA extends Win32Struct
      * <a href="https://docs.microsoft.com/windows/desktop/api/richedit/ns-richedit-nmhdr">NMHDR</a> structure that contains information about this notification message.
      * @type {NMHDR}
      */
-    hdr{
+    hdr {
         get {
             if(!this.HasProp("__hdr"))
                 this.__hdr := NMHDR(0, this)
@@ -56,7 +58,7 @@ class NMTREEVIEWA extends Win32Struct
      * </li>
      * </ul>
      * For the possible action flag values, see <a href="https://docs.microsoft.com/windows/desktop/Controls/tvm-expand">TVM_EXPAND</a> and <a href="https://docs.microsoft.com/windows/desktop/Controls/tvn-selchanged">TVN_SELCHANGED</a>.
-     * @type {Integer}
+     * @type {NM_TREEVIEW_ACTION}
      */
     action {
         get => NumGet(this, 24, "uint")
@@ -70,7 +72,7 @@ class NMTREEVIEWA extends Win32Struct
      * <a href="https://docs.microsoft.com/windows/desktop/api/commctrl/ns-commctrl-tvitema">TVITEM</a> structure that contains information about the old item state. This member is zero for notification messages that do not use it.
      * @type {TVITEMA}
      */
-    itemOld{
+    itemOld {
         get {
             if(!this.HasProp("__itemOld"))
                 this.__itemOld := TVITEMA(32, this)
@@ -85,7 +87,7 @@ class NMTREEVIEWA extends Win32Struct
      * <a href="https://docs.microsoft.com/windows/desktop/api/commctrl/ns-commctrl-tvitema">TVITEM</a> structure that contains information about the new item state. This member is zero for notification messages that do not use it.
      * @type {TVITEMA}
      */
-    itemNew{
+    itemNew {
         get {
             if(!this.HasProp("__itemNew"))
                 this.__itemNew := TVITEMA(88, this)
@@ -100,7 +102,7 @@ class NMTREEVIEWA extends Win32Struct
      * <a href="https://docs.microsoft.com/windows/win32/api/windef/ns-windef-point">POINT</a> structure that contains the client coordinates of the mouse at the time the event occurred that caused the notification message to be sent.
      * @type {POINT}
      */
-    ptDrag{
+    ptDrag {
         get {
             if(!this.HasProp("__ptDrag"))
                 this.__ptDrag := POINT(144, this)

@@ -1,18 +1,18 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
+#Include .\D3D12_WORK_GRAPHS_TIER.ahk
+#Include .\D3D12_EXECUTE_INDIRECT_TIER.ahk
 
 /**
  * @namespace Windows.Win32.Graphics.Direct3D12
- * @version v4.0.30319
  */
-class D3D12_FEATURE_DATA_D3D12_OPTIONS21 extends Win32Struct
-{
+class D3D12_FEATURE_DATA_D3D12_OPTIONS21 extends Win32Struct {
     static sizeof => 16
 
     static packingSize => 4
 
     /**
-     * @type {Integer}
+     * @type {D3D12_WORK_GRAPHS_TIER}
      */
     WorkGraphsTier {
         get => NumGet(this, 0, "int")
@@ -20,7 +20,7 @@ class D3D12_FEATURE_DATA_D3D12_OPTIONS21 extends Win32Struct
     }
 
     /**
-     * @type {Integer}
+     * @type {D3D12_EXECUTE_INDIRECT_TIER}
      */
     ExecuteIndirectTier {
         get => NumGet(this, 4, "int")

@@ -1,6 +1,10 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
 #Include ..\..\Foundation\HANDLE.ahk
+#Include .\WINBIO_SENSOR_INTERFACE.ahk
+#Include .\WINBIO_ENGINE_INTERFACE.ahk
+#Include .\WINBIO_STORAGE_INTERFACE.ahk
+#Include .\WINBIO_FRAMEWORK_INTERFACE.ahk
 
 /**
  * Contains shared context information used by the sensor, engine, and storage adapter components in a single biometric unit.
@@ -8,10 +12,8 @@
  * Each biometric unit has its own unique <b>WINBIO_PIPELINE</b> structure to maintain the current processing state of operations performed by the biometric unit. The Windows Biometric Framework automatically passes the address of the pipeline structure to each adapter in the component stack. Adapters use this pipeline pointer to access their own private context data and to call functions in lower levels of the component stack.
  * @see https://learn.microsoft.com/windows/win32/api/winbio_adapter/ns-winbio_adapter-winbio_pipeline
  * @namespace Windows.Win32.Devices.BiometricFramework
- * @version v4.0.30319
  */
-class WINBIO_PIPELINE extends Win32Struct
-{
+class WINBIO_PIPELINE extends Win32Struct {
     static sizeof => 80
 
     static packingSize => 8
@@ -20,7 +22,7 @@ class WINBIO_PIPELINE extends Win32Struct
      * File handle to the sensor device associated with the biometric unit. Adapters should treat this as a read-only field.
      * @type {HANDLE}
      */
-    SensorHandle{
+    SensorHandle {
         get {
             if(!this.HasProp("__SensorHandle"))
                 this.__SensorHandle := HANDLE(0, this)
@@ -32,7 +34,7 @@ class WINBIO_PIPELINE extends Win32Struct
      * File handle to the dedicated hardware matching engine, if one is present. This is modified only by the engine adapter. It is read by the Windows Biometric Framework.
      * @type {HANDLE}
      */
-    EngineHandle{
+    EngineHandle {
         get {
             if(!this.HasProp("__EngineHandle"))
                 this.__EngineHandle := HANDLE(8, this)
@@ -44,7 +46,7 @@ class WINBIO_PIPELINE extends Win32Struct
      * File handle to the template storage database. This is read by the Windows Biometric Framework, but it is modified only by the storage adapter.
      * @type {HANDLE}
      */
-    StorageHandle{
+    StorageHandle {
         get {
             if(!this.HasProp("__StorageHandle"))
                 this.__StorageHandle := HANDLE(16, this)
@@ -107,7 +109,6 @@ class WINBIO_PIPELINE extends Win32Struct
     }
 
     /**
-     * 
      * @type {Pointer<WINBIO_FRAMEWORK_INTERFACE>}
      */
     FrameworkInterface {

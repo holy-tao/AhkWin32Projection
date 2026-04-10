@@ -5,9 +5,8 @@
  * Defines preload hints for the Media Engine.
  * @see https://learn.microsoft.com/windows/win32/api/mfmediaengine/ne-mfmediaengine-mf_media_engine_preload
  * @namespace Windows.Win32.Media.MediaFoundation
- * @version v4.0.30319
  */
-class MF_MEDIA_ENGINE_PRELOAD extends Win32Enum{
+class MF_MEDIA_ENGINE_PRELOAD extends Win32Enum {
 
     /**
      * The <b>preload</b> attribute is missing.

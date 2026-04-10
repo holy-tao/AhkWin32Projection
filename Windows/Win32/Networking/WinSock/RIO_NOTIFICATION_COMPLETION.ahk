@@ -1,5 +1,6 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
+#Include .\RIO_NOTIFICATION_COMPLETION_TYPE.ahk
 #Include ..\..\Foundation\HANDLE.ahk
 
 /**
@@ -18,17 +19,15 @@
  * An application using thread pools can use thread pool wait objects to get <a href="https://docs.microsoft.com/windows/win32/api/mswsock/nc-mswsock-lpfn_rionotify">RIONotify</a> completions via its thread pool.  In that case, the call to the <a href="https://docs.microsoft.com/windows/desktop/api/threadpoolapiset/nf-threadpoolapiset-setthreadpoolwait">SetThreadpoolWait</a> function should immediately follow the call to <b>RIONotify</b>.  If the <b>SetThreadpoolWait</b> function is called before <b>RIONotify</b> and the application relies on <b>RIONotify</b> to clear the event object, this may result in spurious executions of the wait object callback.
  * @see https://learn.microsoft.com/windows/win32/api/mswsock/ns-mswsock-rio_notification_completion
  * @namespace Windows.Win32.Networking.WinSock
- * @version v4.0.30319
  */
-class RIO_NOTIFICATION_COMPLETION extends Win32Struct
-{
+class RIO_NOTIFICATION_COMPLETION extends Win32Struct {
     static sizeof => 32
 
     static packingSize => 8
 
     /**
      * The type of completion to use with the <a href="https://docs.microsoft.com/windows/win32/api/mswsock/nc-mswsock-lpfn_rionotify">RIONotify</a> function when sending or receiving data.
-     * @type {Integer}
+     * @type {RIO_NOTIFICATION_COMPLETION_TYPE}
      */
     Type {
         get => NumGet(this, 0, "int")
@@ -42,14 +41,14 @@ class RIO_NOTIFICATION_COMPLETION extends Win32Struct
         /**
          * @type {HANDLE}
          */
-        EventHandle{
+        EventHandle {
             get {
                 if(!this.HasProp("__EventHandle"))
                     this.__EventHandle := HANDLE(0, this)
                 return this.__EventHandle
             }
         }
-    
+
         /**
          * @type {BOOL}
          */
@@ -57,7 +56,6 @@ class RIO_NOTIFICATION_COMPLETION extends Win32Struct
             get => NumGet(this, 8, "int")
             set => NumPut("int", value, this, 8)
         }
-    
     }
 
     class _Iocp extends Win32Struct {
@@ -67,14 +65,14 @@ class RIO_NOTIFICATION_COMPLETION extends Win32Struct
         /**
          * @type {HANDLE}
          */
-        IocpHandle{
+        IocpHandle {
             get {
                 if(!this.HasProp("__IocpHandle"))
                     this.__IocpHandle := HANDLE(0, this)
                 return this.__IocpHandle
             }
         }
-    
+
         /**
          * @type {Pointer<Void>}
          */
@@ -82,7 +80,7 @@ class RIO_NOTIFICATION_COMPLETION extends Win32Struct
             get => NumGet(this, 8, "ptr")
             set => NumPut("ptr", value, this, 8)
         }
-    
+
         /**
          * @type {Pointer<Void>}
          */
@@ -90,16 +88,15 @@ class RIO_NOTIFICATION_COMPLETION extends Win32Struct
             get => NumGet(this, 16, "ptr")
             set => NumPut("ptr", value, this, 16)
         }
-    
     }
 
     /**
      * @type {_Event}
      */
-    Event{
+    Event {
         get {
             if(!this.HasProp("__Event"))
-                this.__Event := %this.__Class%._Event(8, this)
+                this.__Event := RIO_NOTIFICATION_COMPLETION._Event(8, this)
             return this.__Event
         }
     }
@@ -107,10 +104,10 @@ class RIO_NOTIFICATION_COMPLETION extends Win32Struct
     /**
      * @type {_Iocp}
      */
-    Iocp{
+    Iocp {
         get {
             if(!this.HasProp("__Iocp"))
-                this.__Iocp := %this.__Class%._Iocp(8, this)
+                this.__Iocp := RIO_NOTIFICATION_COMPLETION._Iocp(8, this)
             return this.__Iocp
         }
     }

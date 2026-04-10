@@ -5,9 +5,8 @@
  * WCN_PASSWORD_TYPE enumeration defines the authentication that will be used in a WPS session.
  * @see https://learn.microsoft.com/windows/win32/api/wcndevice/ne-wcndevice-wcn_password_type
  * @namespace Windows.Win32.NetworkManagement.WindowsConnectNow
- * @version v4.0.30319
  */
-class WCN_PASSWORD_TYPE extends Win32Enum{
+class WCN_PASSWORD_TYPE extends Win32Enum {
 
     /**
      * Indicates the device uses a WPS button interface to put the device into wireless provisioning mode. If this value is specified when calling <a href="https://docs.microsoft.com/windows/desktop/api/wcndevice/nf-wcndevice-iwcndevice-setpassword">IWCNDevice::SetPassword</a>, set <i>dwPasswordLength</i> to zero and <i>pbPassword</i> to <b>NULL</b>.
@@ -31,13 +30,11 @@ class WCN_PASSWORD_TYPE extends Win32Enum{
     static WCN_PASSWORD_TYPE_PIN_REGISTRAR_SPECIFIED => 2
 
     /**
-     * 
      * @type {Integer (Int32)}
      */
     static WCN_PASSWORD_TYPE_OOB_SPECIFIED => 3
 
     /**
-     * 
      * @type {Integer (Int32)}
      */
     static WCN_PASSWORD_TYPE_WFDS => 4

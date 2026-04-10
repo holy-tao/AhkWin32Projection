@@ -5,10 +5,8 @@
  * Contains the output for the FSCTL_GET_BOOT_AREA_INFO control code.
  * @see https://learn.microsoft.com/windows/win32/api/winioctl/ns-winioctl-boot_area_info
  * @namespace Windows.Wdk.Storage.FileSystem
- * @version v4.0.30319
  */
-class BOOT_AREA_INFO extends Win32Struct
-{
+class BOOT_AREA_INFO extends Win32Struct {
     static sizeof => 24
 
     static packingSize => 8

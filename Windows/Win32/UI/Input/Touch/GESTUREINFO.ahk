@@ -107,10 +107,8 @@
  * ```
  * @see https://learn.microsoft.com/windows/win32/api/winuser/ns-winuser-gestureinfo
  * @namespace Windows.Win32.UI.Input.Touch
- * @version v4.0.30319
  */
-class GESTUREINFO extends Win32Struct
-{
+class GESTUREINFO extends Win32Struct {
     static sizeof => 56
 
     static packingSize => 8
@@ -146,7 +144,7 @@ class GESTUREINFO extends Win32Struct
      * A handle to the window that is targeted by this gesture.
      * @type {HWND}
      */
-    hwndTarget{
+    hwndTarget {
         get {
             if(!this.HasProp("__hwndTarget"))
                 this.__hwndTarget := HWND(16, this)
@@ -158,7 +156,7 @@ class GESTUREINFO extends Win32Struct
      * A <b>POINTS</b> structure containing the coordinates associated with the gesture. These coordinates are always relative to the origin of the screen.
      * @type {POINTS}
      */
-    ptsLocation{
+    ptsLocation {
         get {
             if(!this.HasProp("__ptsLocation"))
                 this.__ptsLocation := POINTS(24, this)

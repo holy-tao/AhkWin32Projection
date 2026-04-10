@@ -5,9 +5,8 @@
  * Specifies the CGMS-A protection level.
  * @see https://learn.microsoft.com/windows/win32/api/dxva9typ/ne-dxva9typ-copp_cgmsa_protection_level
  * @namespace Windows.Win32.Media.DirectShow
- * @version v4.0.30319
  */
-class COPP_CGMSA_Protection_Level extends Win32Enum{
+class COPP_CGMSA_Protection_Level extends Win32Enum {
 
     /**
      * CGMS-A is disabled.

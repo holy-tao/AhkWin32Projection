@@ -10,9 +10,8 @@
  * <div> </div>
  * @see https://learn.microsoft.com/windows/win32/api/searchapi/ne-searchapi-search_query_syntax
  * @namespace Windows.Win32.System.Search
- * @version v4.0.30319
  */
-class SEARCH_QUERY_SYNTAX extends Win32Enum{
+class SEARCH_QUERY_SYNTAX extends Win32Enum {
 
     /**
      * No syntax.

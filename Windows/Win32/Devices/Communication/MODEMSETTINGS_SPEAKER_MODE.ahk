@@ -3,9 +3,8 @@
 
 /**
  * @namespace Windows.Win32.Devices.Communication
- * @version v4.0.30319
  */
-class MODEMSETTINGS_SPEAKER_MODE extends Win32Enum{
+class MODEMSETTINGS_SPEAKER_MODE extends Win32Enum {
 
     /**
      * @type {Integer (UInt32)}

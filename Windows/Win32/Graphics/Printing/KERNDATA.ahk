@@ -4,13 +4,11 @@
 
 /**
  * @namespace Windows.Win32.Graphics.Printing
- * @version v4.0.30319
  */
-class KERNDATA extends Win32Struct
-{
+class KERNDATA extends Win32Struct {
     static sizeof => 16
 
-    static packingSize => 8
+    static packingSize => 4
 
     /**
      * @type {Integer}
@@ -29,9 +27,9 @@ class KERNDATA extends Win32Struct
     }
 
     /**
-     * @type {Array<FD_KERNINGPAIR>}
+     * @type {FD_KERNINGPAIR}
      */
-    KernPair{
+    KernPair {
         get {
             if(!this.HasProp("__KernPairProxyArray"))
                 this.__KernPairProxyArray := Win32FixedArray(this.ptr + 8, 1, FD_KERNINGPAIR, "")

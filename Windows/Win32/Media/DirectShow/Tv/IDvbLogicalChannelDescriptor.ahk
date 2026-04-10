@@ -15,9 +15,8 @@
  * </ol>
  * @see https://learn.microsoft.com/windows/win32/api/dvbsiparser/nn-dvbsiparser-idvblogicalchanneldescriptor
  * @namespace Windows.Win32.Media.DirectShow.Tv
- * @version v4.0.30319
  */
-class IDvbLogicalChannelDescriptor extends IUnknown{
+class IDvbLogicalChannelDescriptor extends IUnknown {
 
     static sizeof => A_PtrSize
     /**

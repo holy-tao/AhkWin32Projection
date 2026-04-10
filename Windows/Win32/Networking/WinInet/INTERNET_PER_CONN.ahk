@@ -5,9 +5,8 @@
  * Read only option. Returns the time the last known good autoconfig URL was found using autodiscovery.
  * @see https://learn.microsoft.com/windows/win32/api/wininet/ns-wininet-internet_per_conn_optiona
  * @namespace Windows.Win32.Networking.WinInet
- * @version v4.0.30319
  */
-class INTERNET_PER_CONN extends Win32Enum{
+class INTERNET_PER_CONN extends Win32Enum {
 
     /**
      * @type {Integer (UInt32)}

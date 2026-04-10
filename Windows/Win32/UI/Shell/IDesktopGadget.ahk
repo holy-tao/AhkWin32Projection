@@ -13,9 +13,8 @@
  * Use this interface to run a gadget. A running gadget is displayed on the desktop. This action is often taken at the end of a gadget or application's installation.
  * @see https://learn.microsoft.com/windows/win32/api/shobjidl/nn-shobjidl-idesktopgadget
  * @namespace Windows.Win32.UI.Shell
- * @version v4.0.30319
  */
-class IDesktopGadget extends IUnknown{
+class IDesktopGadget extends IUnknown {
 
     static sizeof => A_PtrSize
     /**

@@ -1,13 +1,14 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\..\Win32Struct.ahk
 #Include .\WEBAUTHN_CREDENTIAL_LIST.ahk
+#Include .\WEBAUTHN_CREDENTIAL_EX.ahk
+#Include .\WEBAUTHN_CTAPCBOR_AUTHENTICATOR_OPTIONS.ahk
+#Include .\WEBAUTHN_CTAPCBOR_HMAC_SALT_EXTENSION.ahk
 
 /**
  * @namespace Windows.Win32.Security.Authentication.WebAuthn
- * @version v4.0.30319
  */
-class WEBAUTHN_CTAPCBOR_GET_ASSERTION_REQUEST extends Win32Struct
-{
+class WEBAUTHN_CTAPCBOR_GET_ASSERTION_REQUEST extends Win32Struct {
     static sizeof => 176
 
     static packingSize => 8
@@ -63,7 +64,7 @@ class WEBAUTHN_CTAPCBOR_GET_ASSERTION_REQUEST extends Win32Struct
     /**
      * @type {WEBAUTHN_CREDENTIAL_LIST}
      */
-    CredentialList{
+    CredentialList {
         get {
             if(!this.HasProp("__CredentialList"))
                 this.__CredentialList := WEBAUTHN_CREDENTIAL_LIST(48, this)

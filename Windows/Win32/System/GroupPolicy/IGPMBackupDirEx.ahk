@@ -1,17 +1,16 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
+#Include ..\Com\IDispatch.ahk
 #Include ..\..\Foundation\BSTR.ahk
 #Include ..\Variant\VARIANT.ahk
-#Include ..\Com\IDispatch.ahk
 
 /**
  * The IGPMBackupDirEx interface supports methods that allow you to query GPMBackup, GPMBackupCollection, GPMStarterGPOBackup, and GPMStarterGPOBackupCollection objects when you are using the Group Policy Management Console (GPMC) interfaces.
  * @see https://learn.microsoft.com/windows/win32/api/gpmgmt/nn-gpmgmt-igpmbackupdirex
  * @namespace Windows.Win32.System.GroupPolicy
- * @version v4.0.30319
  */
-class IGPMBackupDirEx extends IDispatch{
+class IGPMBackupDirEx extends IDispatch {
 
     static sizeof => A_PtrSize
     /**
@@ -46,7 +45,7 @@ class IGPMBackupDirEx extends IDispatch{
     }
 
     /**
-     * @type {Integer} 
+     * @type {GPMBackupType} 
      */
     BackupType {
         get => this.get_BackupType()
@@ -64,7 +63,7 @@ class IGPMBackupDirEx extends IDispatch{
 
     /**
      * 
-     * @returns {Integer} 
+     * @returns {GPMBackupType} 
      */
     get_BackupType() {
         result := ComCall(8, this, "int*", &pgpmBackupType := 0, "HRESULT")

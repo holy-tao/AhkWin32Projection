@@ -3,9 +3,8 @@
 
 /**
  * @namespace Windows.Win32.UI.Controls
- * @version v4.0.30319
  */
-class DRAWITEMSTRUCT_CTL_TYPE extends Win32Enum{
+class DRAWITEMSTRUCT_CTL_TYPE extends Win32Enum {
 
     /**
      * @type {Integer (UInt32)}

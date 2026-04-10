@@ -19,9 +19,8 @@
  * If the <b>Type</b> member of the <a href="https://docs.microsoft.com/windows/desktop/api/mswsock/ns-mswsock-rio_notification_completion">RIO_NOTIFICATION_COMPLETION</a> structure is set to <b>RIO_IOCP_COMPLETION</b>,  an I/O completion port is used to signal completion queue notifications. An I/O completion port handle is provided as the <b>Iocp.IocpHandle</b> member in the <b>RIO_NOTIFICATION_COMPLETION</b> structure passed to the <a href="https://docs.microsoft.com/windows/win32/api/mswsock/nc-mswsock-lpfn_riocreatecompletionqueue">RIOCreateCompletionQueue</a> function. The completion of the <a href="https://docs.microsoft.com/windows/win32/api/mswsock/nc-mswsock-lpfn_rionotify">RIONotify</a> function for this <a href="https://docs.microsoft.com/windows/desktop/WinSock/riocqueue">RIO_CQ</a> will queue an entry to the I/O completion port which can be retrieved using the <a href="https://docs.microsoft.com/windows/desktop/api/ioapiset/nf-ioapiset-getqueuedcompletionstatus">GetQueuedCompletionStatus</a> or <a href="https://docs.microsoft.com/windows/desktop/FileIO/getqueuedcompletionstatusex-func">GetQueuedCompletionStatusEx</a> function.
  * @see https://learn.microsoft.com/windows/win32/api/mswsock/ne-mswsock-rio_notification_completion_type
  * @namespace Windows.Win32.Networking.WinSock
- * @version v4.0.30319
  */
-class RIO_NOTIFICATION_COMPLETION_TYPE extends Win32Enum{
+class RIO_NOTIFICATION_COMPLETION_TYPE extends Win32Enum {
 
     /**
      * An event handle is used to signal completion queue notifications. 

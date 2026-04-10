@@ -6,10 +6,8 @@
  * The MPR_IFTRANSPORT_0 structure contains information for a particular interface transport.
  * @see https://learn.microsoft.com/windows/win32/api/mprapi/ns-mprapi-mpr_iftransport_0
  * @namespace Windows.Win32.NetworkManagement.Rras
- * @version v4.0.30319
  */
-class MPR_IFTRANSPORT_0 extends Win32Struct
-{
+class MPR_IFTRANSPORT_0 extends Win32Struct {
     static sizeof => 104
 
     static packingSize => 8
@@ -27,7 +25,7 @@ class MPR_IFTRANSPORT_0 extends Win32Struct
      * Handle to the interface transport.
      * @type {HANDLE}
      */
-    hIfTransport{
+    hIfTransport {
         get {
             if(!this.HasProp("__hIfTransport"))
                 this.__hIfTransport := HANDLE(8, this)

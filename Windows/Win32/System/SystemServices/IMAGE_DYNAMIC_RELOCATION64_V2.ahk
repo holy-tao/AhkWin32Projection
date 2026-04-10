@@ -3,10 +3,8 @@
 
 /**
  * @namespace Windows.Win32.System.SystemServices
- * @version v4.0.30319
  */
-class IMAGE_DYNAMIC_RELOCATION64_V2 extends Win32Struct
-{
+class IMAGE_DYNAMIC_RELOCATION64_V2 extends Win32Struct {
     static sizeof => 24
 
     static packingSize => 8

@@ -9,9 +9,8 @@
  * In the above formulas, S<sub>RGBA</sub> is the RGBA color produced by a texture operation, and Arg1, Arg2, and Arg3 represent the complete RGBA color of the texture arguments. Individual components of an argument are shown with subscripts. For example, the alpha component for argument 1 would be shown as Arg1<sub>A</sub>.
  * @see https://learn.microsoft.com/windows/win32/direct3d9/d3dtextureop
  * @namespace Windows.Win32.Graphics.Direct3D9
- * @version v4.0.30319
  */
-class D3DTEXTUREOP extends Win32Enum{
+class D3DTEXTUREOP extends Win32Enum {
 
     /**
      * @type {Integer (Int32)}

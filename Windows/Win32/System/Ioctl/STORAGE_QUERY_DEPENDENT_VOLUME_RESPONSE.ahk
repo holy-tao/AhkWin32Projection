@@ -1,16 +1,14 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
-#Include ..\..\Storage\Vhd\VIRTUAL_STORAGE_TYPE.ahk
 #Include .\STORAGE_QUERY_DEPENDENT_VOLUME_LEV1_ENTRY.ahk
+#Include ..\..\Storage\Vhd\VIRTUAL_STORAGE_TYPE.ahk
 #Include .\STORAGE_QUERY_DEPENDENT_VOLUME_LEV2_ENTRY.ahk
 
 /**
  * @namespace Windows.Win32.System.Ioctl
- * @version v4.0.30319
  */
-class STORAGE_QUERY_DEPENDENT_VOLUME_RESPONSE extends Win32Struct
-{
-    static sizeof => 16
+class STORAGE_QUERY_DEPENDENT_VOLUME_RESPONSE extends Win32Struct {
+    static sizeof => 80
 
     static packingSize => 8
 
@@ -31,9 +29,9 @@ class STORAGE_QUERY_DEPENDENT_VOLUME_RESPONSE extends Win32Struct
     }
 
     /**
-     * @type {Array<STORAGE_QUERY_DEPENDENT_VOLUME_LEV1_ENTRY>}
+     * @type {STORAGE_QUERY_DEPENDENT_VOLUME_LEV1_ENTRY}
      */
-    Lev1Depends{
+    Lev1Depends {
         get {
             if(!this.HasProp("__Lev1DependsProxyArray"))
                 this.__Lev1DependsProxyArray := Win32FixedArray(this.ptr + 8, 1, STORAGE_QUERY_DEPENDENT_VOLUME_LEV1_ENTRY, "")
@@ -42,9 +40,9 @@ class STORAGE_QUERY_DEPENDENT_VOLUME_RESPONSE extends Win32Struct
     }
 
     /**
-     * @type {Array<STORAGE_QUERY_DEPENDENT_VOLUME_LEV2_ENTRY>}
+     * @type {STORAGE_QUERY_DEPENDENT_VOLUME_LEV2_ENTRY}
      */
-    Lev2Depends{
+    Lev2Depends {
         get {
             if(!this.HasProp("__Lev2DependsProxyArray"))
                 this.__Lev2DependsProxyArray := Win32FixedArray(this.ptr + 8, 1, STORAGE_QUERY_DEPENDENT_VOLUME_LEV2_ENTRY, "")

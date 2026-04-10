@@ -5,9 +5,8 @@
 
 /**
  * @namespace Windows.Win32.Security.EnterpriseData
- * @version v4.0.30319
  */
-class IProtectionPolicyManagerInterop3 extends IInspectable{
+class IProtectionPolicyManagerInterop3 extends IInspectable {
 
     static sizeof => A_PtrSize
     /**

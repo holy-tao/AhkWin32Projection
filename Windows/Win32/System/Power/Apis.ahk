@@ -1,14 +1,13 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Handle.ahk
 #Include ..\..\..\..\Guid.ahk
+#Include ..\..\Foundation\DEVPROPKEY.ahk
 #Include ..\..\Foundation\NTSTATUS.ahk
 #Include .\HPOWERNOTIFY.ahk
 #Include ..\..\Foundation\HANDLE.ahk
-#Include ..\..\Foundation\DEVPROPKEY.ahk
 
 /**
  * @namespace Windows.Win32.System.Power
- * @version v4.0.30319
  */
 class Power {
 
@@ -943,7 +942,7 @@ class Power {
      * 
      * For more information on using PowrProf.h, see <a href="https://docs.microsoft.com/windows/desktop/Power/power-schemes">Power 
      *     Schemes</a>.
-     * @param {Integer} InformationLevel The information level requested. This value indicates the specific power information to be set or 
+     * @param {POWER_INFORMATION_LEVEL} InformationLevel The information level requested. This value indicates the specific power information to be set or 
      *       retrieved. This parameter must be one of the following 
      *       <b>POWER_INFORMATION_LEVEL</b> enumeration type values.
      * 
@@ -1080,10 +1079,10 @@ class Power {
      *         
      * 
      * The <i>lpOutputBuffer</i> buffer receives a <b>ULONG</b> value
-     * @param {Pointer} InputBuffer A pointer to an optional input buffer. The data type of this buffer depends on the information level 
+     * @param {Integer} InputBuffer A pointer to an optional input buffer. The data type of this buffer depends on the information level 
      *       requested in the <i>InformationLevel</i> parameter.
      * @param {Integer} InputBufferLength The size of the input buffer, in bytes.
-     * @param {Pointer} OutputBuffer A pointer to an optional output buffer. The data type of this buffer depends on the information level 
+     * @param {Integer} OutputBuffer A pointer to an optional output buffer. The data type of this buffer depends on the information level 
      *       requested in the <i>InformationLevel</i> parameter. If the buffer is too small to contain the 
      *       information, the function returns STATUS_BUFFER_TOO_SMALL.
      * @param {Integer} OutputBufferLength The size of the output buffer, in bytes. Depending on the information level requested, this may be a 
@@ -1166,8 +1165,8 @@ class Power {
      * 
      * 
      * If the OEM preferred computer role is not supported on the platform specified by the caller, the function returns the closest supported value.  For example, calling the <b>PowerDeterminePlatformRoleEx</b> function with a <i>Version</i> of <b>POWER_PLATFORM_ROLE_V1</b> on a tablet device returns <b>PlatformRoleMobile</b>.
-     * @param {Integer} _Version 
-     * @returns {Integer} The return value is one of the values from the 
+     * @param {POWER_PLATFORM_ROLE_VERSION} _Version 
+     * @returns {POWER_PLATFORM_ROLE} The return value is one of the values from the 
      *       specified version of the <a href="https://docs.microsoft.com/windows/desktop/api/winnt/ne-winnt-power_platform_role">POWER_PLATFORM_ROLE</a> enumeration.
      * @see https://learn.microsoft.com/windows/win32/api/powerbase/nf-powerbase-powerdetermineplatformroleex
      * @since windows8.0
@@ -1179,10 +1178,10 @@ class Power {
 
     /**
      * Registers to receive notification when the system is suspended or resumed.
-     * @param {Integer} Flags This parameter must be <b>DEVICE_NOTIFY_CALLBACK</b>.
+     * @param {REGISTER_NOTIFICATION_FLAGS} Flags This parameter must be <b>DEVICE_NOTIFY_CALLBACK</b>.
      * @param {HANDLE} Recipient This parameter is a pointer to a <a href="https://docs.microsoft.com/windows/win32/api/powrprof/ns-powrprof-device_notify_subscribe_parameters">DEVICE_NOTIFY_SUBSCRIBE_PARAMETERS</a> structure. In this case, the callback function is <a href="https://docs.microsoft.com/windows/desktop/api/powrprof/nc-powrprof-device_notify_callback_routine">DeviceNotifyCallbackRoutine</a>. When the <b>Callback</b> function executes, the  <i>Type</i> parameter is set indicating the type of event that occurred. Possible values include <b>PBT_APMSUSPEND</b>, <b>PBT_APMRESUMESUSPEND</b>, and <b>PBT_APMRESUMEAUTOMATIC</b> - see  <a href="https://docs.microsoft.com/windows/desktop/Power/power-management-events">Power Management Events</a> for more info. The <i>Setting</i> parameter is not used with suspend/resume notifications.
      * @param {Pointer<Pointer<Void>>} RegistrationHandle A handle to the registration. Use this handle to unregister for notifications.
-     * @returns {Integer} Returns ERROR_SUCCESS (zero) if the call was successful, and a nonzero value if the call failed.
+     * @returns {WIN32_ERROR} Returns ERROR_SUCCESS (zero) if the call was successful, and a nonzero value if the call failed.
      * @see https://learn.microsoft.com/windows/win32/api/powerbase/nf-powerbase-powerregistersuspendresumenotification
      * @since windows8.0
      */
@@ -1198,7 +1197,7 @@ class Power {
     /**
      * Cancels a registration to receive notification when the system is suspended or resumed.
      * @param {HPOWERNOTIFY} RegistrationHandle A handle to a registration obtained by calling the <a href="https://docs.microsoft.com/windows/desktop/api/powerbase/nf-powerbase-powerregistersuspendresumenotification">PowerRegisterSuspendResumeNotification</a> function.
-     * @returns {Integer} Returns ERROR_SUCCESS (zero) if the call was successful, and a nonzero value if the call failed.
+     * @returns {WIN32_ERROR} Returns ERROR_SUCCESS (zero) if the call was successful, and a nonzero value if the call failed.
      * @see https://learn.microsoft.com/windows/win32/api/powerbase/nf-powerbase-powerunregistersuspendresumenotification
      * @since windows8.0
      */
@@ -1218,7 +1217,9 @@ class Power {
      * @param {Pointer<Integer>} Type A pointer to a variable that receives the type of data for the value. The 
      *      possible values are listed in <a href="https://docs.microsoft.com/windows/desktop/SysInfo/registry-value-types">Registry Value Types</a>. 
      *      This parameter can be <b>NULL</b> and the type of data is not returned.
-     * @param {Pointer} _Buffer 
+     * @param {Integer} _Buffer A pointer to a buffer that receives the data value. If this parameter is <b>NULL</b>, 
+     *      the <i>BufferSize</i> 
+     *      parameter receives the required buffer size.
      * @param {Pointer<Integer>} BufferSize A pointer to a variable that contains the size of the buffer pointed to by the 
      *      <i>Buffer</i> parameter. 
      * 
@@ -1226,7 +1227,7 @@ class Power {
      * 
      * If the specified buffer size is not large enough to hold the 
      *      requested data, the function returns  <b>ERROR_MORE_DATA</b> and the variable receives the required buffer size.
-     * @returns {Integer} Returns <b>ERROR_SUCCESS</b> (zero) if the call was successful, and a nonzero value if 
+     * @returns {WIN32_ERROR} Returns <b>ERROR_SUCCESS</b> (zero) if the call was successful, and a nonzero value if 
      *       the call failed. If the buffer size specified by the <i>BufferSize</i> parameter is too small, 
      *       <b>ERROR_MORE_DATA</b> will be returned and the <b>DWORD</b> pointed to 
      *       by the <i>BufferSize</i> parameter will be filled in with the required buffer size.
@@ -1252,7 +1253,9 @@ class Power {
      * @param {Pointer<Integer>} Type A pointer to a variable that receives the type of data for the value. The 
      *      possible values are listed in <a href="https://docs.microsoft.com/windows/desktop/SysInfo/registry-value-types">Registry Value Types</a>. 
      *      This parameter can be <b>NULL</b> and the type of data is not returned.
-     * @param {Pointer} _Buffer 
+     * @param {Integer} _Buffer A pointer to a variable that receives the data value. If this parameter is <b>NULL</b>, 
+     *      the <i>BufferSize</i> 
+     *      parameter receives the required buffer size.
      * @param {Pointer<Integer>} BufferSize A pointer to a variable that contains the size of the buffer pointed to by the 
      *      <i>Buffer</i> parameter. 
      * 
@@ -1260,7 +1263,7 @@ class Power {
      * 
      * If the specified buffer size is not large enough to hold the 
      *      requested data, the function returns  <b>ERROR_MORE_DATA</b> and the variable receives the required buffer size.
-     * @returns {Integer} Returns <b>ERROR_SUCCESS</b> (zero) if the call was successful, and a nonzero value if 
+     * @returns {WIN32_ERROR} Returns <b>ERROR_SUCCESS</b> (zero) if the call was successful, and a nonzero value if 
      *       the call failed. If the buffer size specified by the <i>BufferSize</i> parameter is too small, 
      *       <b>ERROR_MORE_DATA</b> will be returned and the <b>DWORD</b> pointed to 
      *       by the <i>BufferSize</i> parameter will be filled in with the required buffer size.
@@ -1287,7 +1290,7 @@ class Power {
      * @param {Pointer<Guid>} SubGroupOfPowerSettingsGuid 
      * @param {Pointer<Guid>} PowerSettingGuid The identifier of the power setting.
      * @param {Integer} AcValueIndex The AC value index.
-     * @returns {Integer} Returns <b>ERROR_SUCCESS</b> (zero) if the call was successful, and a nonzero value if 
+     * @returns {WIN32_ERROR} Returns <b>ERROR_SUCCESS</b> (zero) if the call was successful, and a nonzero value if 
      *       the call failed.
      * @see https://learn.microsoft.com/windows/win32/api/powersetting/nf-powersetting-powerwriteacvalueindex
      * @since windows6.0.6000
@@ -1326,7 +1329,7 @@ class Power {
      * @param {HKEY} UserRootPowerKey This parameter is reserved for future use and must be set to <b>NULL</b>.
      * @param {Pointer<Pointer<Guid>>} ActivePolicyGuid A pointer that receives a pointer to a <b>GUID</b> structure. 
      *       Use the <a href="https://docs.microsoft.com/windows/desktop/api/winbase/nf-winbase-localfree">LocalFree</a> function to free this memory.
-     * @returns {Integer} Returns <b>ERROR_SUCCESS</b> (zero) if the call was successful, and a nonzero value if 
+     * @returns {WIN32_ERROR} Returns <b>ERROR_SUCCESS</b> (zero) if the call was successful, and a nonzero value if 
      *       the call failed.
      * @see https://learn.microsoft.com/windows/win32/api/powersetting/nf-powersetting-powergetactivescheme
      * @since windows6.0.6000
@@ -1344,7 +1347,7 @@ class Power {
      * Sets the active power scheme for the current user.
      * @param {HKEY} UserRootPowerKey This parameter is reserved for future use and must be set to <b>NULL</b>.
      * @param {Pointer<Guid>} SchemeGuid The identifier of the power scheme.
-     * @returns {Integer} Returns <b>ERROR_SUCCESS</b> (zero) if the call was successful, and a nonzero value if 
+     * @returns {WIN32_ERROR} Returns <b>ERROR_SUCCESS</b> (zero) if the call was successful, and a nonzero value if 
      *       the call failed.
      * @see https://learn.microsoft.com/windows/win32/api/powersetting/nf-powersetting-powersetactivescheme
      * @since windows6.0.6000
@@ -1361,10 +1364,10 @@ class Power {
      * @remarks
      * Immediately after registration, the callback will be invoked with the current value of the power setting. If the registration occurs while the power setting is changing, you may receive multiple callbacks; the last callback is the most recent update.
      * @param {Pointer<Guid>} SettingGuid A GUID that represents the power setting.
-     * @param {Integer} Flags 
+     * @param {REGISTER_NOTIFICATION_FLAGS} Flags 
      * @param {HANDLE} Recipient A handle to the recipient of the notifications.
      * @param {Pointer<Pointer<Void>>} RegistrationHandle A handle to the registration. Use this handle to unregister for notifications.
-     * @returns {Integer} Returns ERROR_SUCCESS (zero) if the call was successful, and a nonzero value if the call failed.
+     * @returns {WIN32_ERROR} Returns ERROR_SUCCESS (zero) if the call was successful, and a nonzero value if the call failed.
      * @see https://learn.microsoft.com/windows/win32/api/powersetting/nf-powersetting-powersettingregisternotification
      * @since windows6.1
      */
@@ -1380,7 +1383,7 @@ class Power {
     /**
      * Cancels a registration to receive notification when a power setting changes.
      * @param {HPOWERNOTIFY} RegistrationHandle A handle to a registration obtained by calling the <a href="https://docs.microsoft.com/windows/desktop/api/powersetting/nf-powersetting-powersettingregisternotification">PowerSettingRegisterNotification</a> function.
-     * @returns {Integer} Returns ERROR_SUCCESS (zero) if the call was successful, and a nonzero value if the call failed.
+     * @returns {WIN32_ERROR} Returns ERROR_SUCCESS (zero) if the call was successful, and a nonzero value if the call failed.
      * @see https://learn.microsoft.com/windows/win32/api/powersetting/nf-powersetting-powersettingunregisternotification
      * @since windows6.1
      */
@@ -1395,9 +1398,13 @@ class Power {
      * Registers a callback to receive effective power mode change notifications.
      * @remarks
      * Immediately after registration, the callback will be invoked with the current value of the power setting. If the registration occurs while the power mode is changing, you may receive multiple callbacks; the last callback is the most recent update.
-     * @param {Integer} _Version 
+     * @param {Integer} _Version Supplies the maximum effective power mode version the caller understands. If the effective power mode comes from a later version, it is reduced to a compatible version that is then passed to the callback. 
+     * 
+     * The following values can be passed in: 
+     * - EFFECTIVE_POWER_MODE_V1 is available starting with Windows 10, version 1809 and tracks the performance power slider and battery saver states. 
+     * - EFFECTIVE_POWER_MODE_V2 is available starting with Windows 10, version 1903 and tracks the performance power slider, battery saver, game mode and windows mixed reality power states.
      * @param {Pointer<EFFECTIVE_POWER_MODE_CALLBACK>} Callback A pointer to the callback to call when the effective power mode changes. This will also be called once upon registration to supply the current mode. If multiple callbacks are registered using this API, those callbacks can be called concurrently.
-     * @param {Pointer<Void>} _Context 
+     * @param {Pointer<Void>} _Context Caller-specified opaque context.
      * @returns {Pointer<Void>} A handle to the registration. Use this handle to unregister for notifications.
      * @see https://learn.microsoft.com/windows/win32/api/powersetting/nf-powersetting-powerregisterforeffectivepowermodenotifications
      * @since windows10.0.17763
@@ -1478,7 +1485,7 @@ class Power {
      * 
      * For more information on using PowrProf.h, see <a href="https://docs.microsoft.com/windows/desktop/Power/power-schemes">Power Schemes</a>.
      * @param {Pointer<PWRSCHEMESENUMPROC>} lpfn A pointer to a callback function to be called for each power scheme enumerated. For more information, see Remarks.
-     * @param {LPARAM} _lParam 
+     * @param {LPARAM} _lParam A user-defined value to be passed to the callback function.
      * @returns {BOOLEAN} If the function succeeds, the return value is nonzero.
      * 
      * If the function fails, the return value is zero. To get extended error information, call 
@@ -1978,7 +1985,7 @@ class Power {
 
     /**
      * Queries for a group policy override for specified power settings and specifies the requested access for the setting.
-     * @param {Integer} AccessFlags The type of access to check for group policy overrides.
+     * @param {POWER_DATA_ACCESSOR} AccessFlags The type of access to check for group policy overrides.
      * 
      * <table>
      * <tr>
@@ -2042,8 +2049,8 @@ class Power {
      * </tr>
      * </table>
      * @param {Pointer<Guid>} PowerGuid The identifier of the power setting.
-     * @param {Integer} AccessType The type of security access for the setting. For more information, see <a href="https://docs.microsoft.com/windows/desktop/SysInfo/registry-key-security-and-access-rights">Registry Key Security and Access Rights</a>.
-     * @returns {Integer} Returns <b>ERROR_SUCCESS</b> (zero) if the call was successful, and a nonzero value if 
+     * @param {REG_SAM_FLAGS} AccessType The type of security access for the setting. For more information, see <a href="https://docs.microsoft.com/windows/desktop/SysInfo/registry-key-security-and-access-rights">Registry Key Security and Access Rights</a>.
+     * @returns {WIN32_ERROR} Returns <b>ERROR_SUCCESS</b> (zero) if the call was successful, and a nonzero value if 
      *       the call failed.
      * 
      * <table>
@@ -2098,7 +2105,7 @@ class Power {
 
     /**
      * Queries for a group policy override for specified power settings.
-     * @param {Integer} AccessFlags The type of access to check for group policy overrides.
+     * @param {POWER_DATA_ACCESSOR} AccessFlags The type of access to check for group policy overrides.
      * 
      * <table>
      * <tr>
@@ -2162,7 +2169,7 @@ class Power {
      * </tr>
      * </table>
      * @param {Pointer<Guid>} PowerGuid The identifier of the power setting.
-     * @returns {Integer} Returns <b>ERROR_SUCCESS</b> (zero) if the call was successful, and a nonzero value if 
+     * @returns {WIN32_ERROR} Returns <b>ERROR_SUCCESS</b> (zero) if the call was successful, and a nonzero value if 
      *       the call failed.
      * 
      * <table>
@@ -2262,7 +2269,7 @@ class Power {
      * @param {Pointer<Guid>} SubGroupOfPowerSettingsGuid 
      * @param {Pointer<Guid>} PowerSettingGuid The identifier of the power setting.
      * @param {Pointer<Integer>} AcValueIndex A pointer to a variable that receives the AC value index.
-     * @returns {Integer} Returns <b>ERROR_SUCCESS</b> (zero) if the call was successful, and a nonzero value if 
+     * @returns {WIN32_ERROR} Returns <b>ERROR_SUCCESS</b> (zero) if the call was successful, and a nonzero value if 
      *       the call failed.
      * @see https://learn.microsoft.com/windows/win32/api/powrprof/nf-powrprof-powerreadacvalueindex
      * @since windows6.0.6000
@@ -2500,7 +2507,9 @@ class Power {
      * </tr>
      * </table>
      * @param {Pointer<Guid>} PowerSettingGuid The identifier of the power setting that is being used.
-     * @param {Pointer} _Buffer 
+     * @param {Integer} _Buffer A pointer to a buffer that receives the friendly name. If this parameter is <b>NULL</b>, 
+     *      the <i>BufferSize</i> 
+     *      parameter receives the required buffer size. The strings returned are all wide (Unicode) strings.
      * @param {Pointer<Integer>} BufferSize A pointer to a variable that contains the size of the buffer pointed to by the 
      *      <i>Buffer</i> parameter. 
      * 
@@ -2508,7 +2517,7 @@ class Power {
      * 
      * If the specified buffer size is not large enough to hold the 
      *      requested data, the function returns  <b>ERROR_MORE_DATA</b> and the variable receives the required buffer size.
-     * @returns {Integer} Returns <b>ERROR_SUCCESS</b> (zero) if the call was successful, and a nonzero value if 
+     * @returns {WIN32_ERROR} Returns <b>ERROR_SUCCESS</b> (zero) if the call was successful, and a nonzero value if 
      *         the call failed. If the buffer size specified by the <i>BufferSize</i> parameter is too small, 
      *         <b>ERROR_MORE_DATA</b> will be returned and the <b>DWORD</b> pointed 
      *         to by the <i>BufferSize</i> parameter will be filled in with the required buffer size.
@@ -2530,7 +2539,9 @@ class Power {
      * @param {Pointer<Guid>} SchemeGuid The identifier of the power scheme.
      * @param {Pointer<Guid>} SubGroupOfPowerSettingsGuid 
      * @param {Pointer<Guid>} PowerSettingGuid The identifier of the power setting that is being used.
-     * @param {Pointer} _Buffer 
+     * @param {Integer} _Buffer A pointer to a buffer that receives the description. If this parameter is <b>NULL</b>, 
+     *      the <i>BufferSize</i> 
+     *      parameter receives the required buffer size. The strings returned are all wide (Unicode) strings.
      * @param {Pointer<Integer>} BufferSize A pointer to a variable that contains the size of the buffer pointed to by the 
      *      <i>Buffer</i> parameter. 
      * 
@@ -2538,7 +2549,7 @@ class Power {
      * 
      * If the specified buffer size is not large enough to hold the 
      *      requested data, the function returns  <b>ERROR_MORE_DATA</b> and the variable receives the required buffer size.
-     * @returns {Integer} Returns <b>ERROR_SUCCESS</b> (zero) if the call was successful, and a nonzero value if 
+     * @returns {WIN32_ERROR} Returns <b>ERROR_SUCCESS</b> (zero) if the call was successful, and a nonzero value if 
      * 	      the call failed. If the buffer size specified by the <i>BufferSize</i> parameter is too small, 
      * 	      the function returns 
      * 	      <b>ERROR_SUCCESS</b> and the <b>DWORD</b> pointed 
@@ -2565,13 +2576,13 @@ class Power {
      *      possible values are listed in <a href="https://docs.microsoft.com/windows/desktop/SysInfo/registry-value-types">Registry Value Types</a>. 
      *      This parameter can be <b>NULL</b> and the type of data is not returned.
      * @param {Integer} PossibleSettingIndex The zero-based index of the possible setting.
-     * @param {Pointer} _Buffer 
+     * @param {Integer} _Buffer A pointer to a buffer that receives the value. If this parameter is <b>NULL</b>, the <i>BufferSize</i> parameter receives the required buffer size.
      * @param {Pointer<Integer>} BufferSize A pointer to a variable that contains the size of the buffer pointed to by the  <i>Buffer</i> parameter. 
      * 
      * If the <i>Buffer</i> parameter is <b>NULL</b>, the function returns ERROR_SUCCESS and the variable receives the required buffer size. 
      * 
      * If the specified buffer size is not large enough to hold the requested data, the function returns  <b>ERROR_MORE_DATA</b> and the variable receives the required buffer size.
-     * @returns {Integer} Returns <b>ERROR_SUCCESS</b> (zero) if the call was successful, and a nonzero value if the call failed. If the buffer size specified by the <i>BufferSize</i> parameter is too small, 
+     * @returns {WIN32_ERROR} Returns <b>ERROR_SUCCESS</b> (zero) if the call was successful, and a nonzero value if the call failed. If the buffer size specified by the <i>BufferSize</i> parameter is too small, 
      *        
      * <b>ERROR_MORE_DATA</b> will be returned and the <b>DWORD</b> pointed to by the <i>BufferSize</i> parameter will be filled in with the required buffer size.
      * @see https://learn.microsoft.com/windows/win32/api/powrprof/nf-powrprof-powerreadpossiblevalue
@@ -2593,14 +2604,15 @@ class Power {
      * @param {Pointer<Guid>} SubGroupOfPowerSettingsGuid 
      * @param {Pointer<Guid>} PowerSettingGuid The identifier of the power setting.
      * @param {Integer} PossibleSettingIndex The zero-based index for the possible setting.
-     * @param {Pointer} _Buffer 
+     * @param {Integer} _Buffer A pointer to a buffer that receives the friendly name. If this parameter is <b>NULL</b>, the <i>BufferSize</i> 
+     * parameter receives the required buffer size. The strings returned are all wide (Unicode) strings.
      * @param {Pointer<Integer>} BufferSize A pointer to a variable that contains the size of the buffer pointed to by the 
      * <i>Buffer</i> parameter. 
      * 
      * If the <i>Buffer</i> parameter is <b>NULL</b>, the function returns ERROR_SUCCESS and the variable receives the required buffer size. 
      * 
      * If the specified buffer size is not large enough to hold the requested data, the function returns <b>ERROR_MORE_DATA</b> and the variable receives the required buffer size.
-     * @returns {Integer} Returns <b>ERROR_SUCCESS</b> (zero) if the call was successful, and a nonzero value if the call failed. If the buffer size specified by the <i>BufferSize</i> parameter is too small, 
+     * @returns {WIN32_ERROR} Returns <b>ERROR_SUCCESS</b> (zero) if the call was successful, and a nonzero value if the call failed. If the buffer size specified by the <i>BufferSize</i> parameter is too small, 
      * 	      
      * <b>ERROR_MORE_DATA</b> will be returned and the <b>DWORD</b> pointed to by the <i>BufferSize</i> parameter will be filled in with the required buffer size.
      * @see https://learn.microsoft.com/windows/win32/api/powrprof/nf-powrprof-powerreadpossiblefriendlyname
@@ -2621,13 +2633,13 @@ class Power {
      * @param {Pointer<Guid>} SubGroupOfPowerSettingsGuid 
      * @param {Pointer<Guid>} PowerSettingGuid The identifier of the power setting that is being used.
      * @param {Integer} PossibleSettingIndex The zero-based index for the possible setting.
-     * @param {Pointer} _Buffer 
+     * @param {Integer} _Buffer A pointer to a buffer that receives the description. If this parameter is <b>NULL</b>, the <i>BufferSize</i>  parameter receives the required buffer size. The strings returned are all wide (Unicode) strings.
      * @param {Pointer<Integer>} BufferSize A pointer to a variable that contains the size of the buffer pointed to by the <i>Buffer</i> parameter. 
      * 
      * If the <i>Buffer</i> parameter is <b>NULL</b>, the function returns ERROR_SUCCESS and the variable receives the required buffer size. 
      * 
      * If the specified buffer size is not large enough to hold the requested data, the function returns  <b>ERROR_MORE_DATA</b> and the variable receives the required buffer size.
-     * @returns {Integer} Returns <b>ERROR_SUCCESS</b> (zero) if the call was successful, and a nonzero value if the call failed. If the buffer size specified by the <i>BufferSize</i> parameter is too small, 
+     * @returns {WIN32_ERROR} Returns <b>ERROR_SUCCESS</b> (zero) if the call was successful, and a nonzero value if the call failed. If the buffer size specified by the <i>BufferSize</i> parameter is too small, 
      *        
      * <b>ERROR_MORE_DATA</b> will be returned and the <b>DWORD</b> pointed to by the <i>BufferSize</i> parameter will be filled in with the required buffer size.
      * @see https://learn.microsoft.com/windows/win32/api/powrprof/nf-powrprof-powerreadpossibledescription
@@ -2649,7 +2661,7 @@ class Power {
      * @param {Pointer<Guid>} PowerSettingGuid The identifier of the power setting that is being used.
      * @param {Pointer<Integer>} ValueMinimum A pointer to a variable that receives the minimum value for the specified power 
      *       setting.
-     * @returns {Integer} Returns <b>ERROR_SUCCESS</b> (zero) if the call was successful, and a nonzero value if 
+     * @returns {WIN32_ERROR} Returns <b>ERROR_SUCCESS</b> (zero) if the call was successful, and a nonzero value if 
      * 	     the call failed.
      * @see https://learn.microsoft.com/windows/win32/api/powrprof/nf-powrprof-powerreadvaluemin
      * @since windows6.0.6000
@@ -2670,7 +2682,7 @@ class Power {
      * @param {Pointer<Guid>} PowerSettingGuid The identifier of the power setting that is being used.
      * @param {Pointer<Integer>} ValueMaximum A pointer to a variable that receives the maximum for the specified power 
      *       setting.
-     * @returns {Integer} Returns <b>ERROR_SUCCESS</b> (zero) if the call was successful, and a nonzero value if 
+     * @returns {WIN32_ERROR} Returns <b>ERROR_SUCCESS</b> (zero) if the call was successful, and a nonzero value if 
      *      the call failed.
      * @see https://learn.microsoft.com/windows/win32/api/powrprof/nf-powrprof-powerreadvaluemax
      * @since windows6.0.6000
@@ -2690,7 +2702,7 @@ class Power {
      * @param {Pointer<Guid>} SubGroupOfPowerSettingsGuid 
      * @param {Pointer<Guid>} PowerSettingGuid The identifier of the power setting that is being used.
      * @param {Pointer<Integer>} ValueIncrement A pointer to a variable that receives the increment for the specified power setting.
-     * @returns {Integer} Returns <b>ERROR_SUCCESS</b> (zero) if the call was successful, and a nonzero value if 
+     * @returns {WIN32_ERROR} Returns <b>ERROR_SUCCESS</b> (zero) if the call was successful, and a nonzero value if 
      *      the call failed.
      * @see https://learn.microsoft.com/windows/win32/api/powrprof/nf-powrprof-powerreadvalueincrement
      * @since windows6.0.6000
@@ -2709,13 +2721,13 @@ class Power {
      * @param {HKEY} RootPowerKey This parameter is reserved for future use and must be set to <b>NULL</b>.
      * @param {Pointer<Guid>} SubGroupOfPowerSettingsGuid 
      * @param {Pointer<Guid>} PowerSettingGuid The identifier of the power setting that is being used.
-     * @param {Pointer} _Buffer 
+     * @param {Integer} _Buffer A pointer to a buffer that receives the string. If this parameter is <b>NULL</b>, the <i>BufferSize</i> parameter receives the required buffer size. The strings returned are all wide (Unicode) strings.
      * @param {Pointer<Integer>} BufferSize A pointer to a variable that contains the size of the buffer pointed to by the <i>Buffer</i> parameter. 
      * 
      * If the <i>Buffer</i> parameter is <b>NULL</b>, the function returns ERROR_SUCCESS and the variable receives the required buffer size. 
      * 
      * If the specified buffer size is not large enough to hold the requested data, the function returns  <b>ERROR_MORE_DATA</b> and the variable receives the required buffer size.
-     * @returns {Integer} Returns <b>ERROR_SUCCESS</b> (zero) if the call was successful, and a nonzero value if the call failed. If the buffer size specified by the <i>BufferSize</i> parameter is too small, 
+     * @returns {WIN32_ERROR} Returns <b>ERROR_SUCCESS</b> (zero) if the call was successful, and a nonzero value if the call failed. If the buffer size specified by the <i>BufferSize</i> parameter is too small, 
      * 		      
      * <b>ERROR_MORE_DATA</b> will be returned and the <b>DWORD</b> pointed to by the <i>BufferSize</i> parameter will be filled in with the required buffer size.
      * @see https://learn.microsoft.com/windows/win32/api/powrprof/nf-powrprof-powerreadvalueunitsspecifier
@@ -2780,7 +2792,9 @@ class Power {
      * @param {Pointer<Guid>} SchemeGuid The identifier of the power scheme.
      * @param {Pointer<Guid>} SubGroupOfPowerSettingsGuid 
      * @param {Pointer<Guid>} PowerSettingGuid The identifier of the power setting.
-     * @param {Pointer} _Buffer 
+     * @param {Integer} _Buffer A pointer to a buffer that receives the icon resource. If this parameter is <b>NULL</b>, 
+     *      the <i>BufferSize</i> 
+     *      parameter receives the required buffer size.
      * @param {Pointer<Integer>} BufferSize A pointer to a variable that contains the size of the buffer pointed to by the 
      *      <i>Buffer</i> parameter. 
      * 
@@ -2788,7 +2802,7 @@ class Power {
      * 
      * If the specified buffer size is not large enough to hold the 
      *      requested data, the function returns  <b>ERROR_MORE_DATA</b> and the variable receives the required buffer size.
-     * @returns {Integer} Returns <b>ERROR_SUCCESS</b> (zero) if the call was successful, and a nonzero value if 
+     * @returns {WIN32_ERROR} Returns <b>ERROR_SUCCESS</b> (zero) if the call was successful, and a nonzero value if 
      *        the call failed. If the buffer size specified by the <i>BufferSize</i> parameter is too small, 
      *        <b>ERROR_MORE_DATA</b> will be returned and the <b>DWORD</b> pointed 
      *        to by the <i>BufferSize</i> parameter will be filled in with the required buffer size.
@@ -2846,9 +2860,9 @@ class Power {
      * @param {Pointer<Guid>} SchemeGuid The identifier of the power scheme.
      * @param {Pointer<Guid>} SubGroupOfPowerSettingsGuid 
      * @param {Pointer<Guid>} PowerSettingGuid The identifier of the power setting.
-     * @param {Pointer} _Buffer 
+     * @param {Integer} _Buffer The friendly name, in wide (Unicode) characters.
      * @param {Integer} BufferSize The size of the friendly name specified by the <i>Buffer</i> parameter, including the terminating <b>NULL</b> character.
-     * @returns {Integer} Returns <b>ERROR_SUCCESS</b> (zero) if the call was successful, and a nonzero value if 
+     * @returns {WIN32_ERROR} Returns <b>ERROR_SUCCESS</b> (zero) if the call was successful, and a nonzero value if 
      *       the call failed.
      * @see https://learn.microsoft.com/windows/win32/api/powrprof/nf-powrprof-powerwritefriendlyname
      * @since windows6.0.6000
@@ -2880,9 +2894,9 @@ class Power {
      * @param {Pointer<Guid>} SchemeGuid The identifier of the power scheme.
      * @param {Pointer<Guid>} SubGroupOfPowerSettingsGuid 
      * @param {Pointer<Guid>} PowerSettingGuid The identifier of the power setting.
-     * @param {Pointer} _Buffer 
+     * @param {Integer} _Buffer The description, in wide (Unicode) characters.
      * @param {Integer} BufferSize The size of the buffer pointed to by the <i>Buffer</i> parameter.
-     * @returns {Integer} Returns <b>ERROR_SUCCESS</b> (zero) if the call was successful, and a nonzero value if 
+     * @returns {WIN32_ERROR} Returns <b>ERROR_SUCCESS</b> (zero) if the call was successful, and a nonzero value if 
      *        the call failed.
      * @see https://learn.microsoft.com/windows/win32/api/powrprof/nf-powrprof-powerwritedescription
      * @since windows6.0.6000
@@ -2905,9 +2919,9 @@ class Power {
      * @param {Integer} Type The type of data for the value. The possible values are listed in 
      *       <a href="https://docs.microsoft.com/windows/desktop/SysInfo/registry-value-types">Registry Value Types</a>.
      * @param {Integer} PossibleSettingIndex The zero-based index for the possible setting.
-     * @param {Pointer} _Buffer 
+     * @param {Integer} _Buffer The value for the possible setting.
      * @param {Integer} BufferSize The size of the buffer pointed to by the <i>Buffer</i> parameter.
-     * @returns {Integer} Returns <b>ERROR_SUCCESS</b> (zero) if the call was successful, and a nonzero value if 
+     * @returns {WIN32_ERROR} Returns <b>ERROR_SUCCESS</b> (zero) if the call was successful, and a nonzero value if 
      *      the call failed.
      * @see https://learn.microsoft.com/windows/win32/api/powrprof/nf-powrprof-powerwritepossiblevalue
      * @since windows6.0.6000
@@ -2928,9 +2942,9 @@ class Power {
      * @param {Pointer<Guid>} SubGroupOfPowerSettingsGuid 
      * @param {Pointer<Guid>} PowerSettingGuid The identifier of the power setting.
      * @param {Integer} PossibleSettingIndex The zero-based index for the possible setting.
-     * @param {Pointer} _Buffer 
+     * @param {Integer} _Buffer The friendly name, in wide (Unicode) characters.
      * @param {Integer} BufferSize The size of the buffer pointed to by the <i>Buffer</i> parameter.
-     * @returns {Integer} Returns <b>ERROR_SUCCESS</b> (zero) if the call was successful, and a nonzero value if 
+     * @returns {WIN32_ERROR} Returns <b>ERROR_SUCCESS</b> (zero) if the call was successful, and a nonzero value if 
      *       the call failed.
      * @see https://learn.microsoft.com/windows/win32/api/powrprof/nf-powrprof-powerwritepossiblefriendlyname
      * @since windows6.0.6000
@@ -2951,9 +2965,9 @@ class Power {
      * @param {Pointer<Guid>} SubGroupOfPowerSettingsGuid 
      * @param {Pointer<Guid>} PowerSettingGuid The identifier of the power setting that is being used.
      * @param {Integer} PossibleSettingIndex The zero-based index for the possible setting.
-     * @param {Pointer} _Buffer 
+     * @param {Integer} _Buffer The description, in wide (Unicode) characters.
      * @param {Integer} BufferSize The size of the buffer pointed to by the <i>Buffer</i> parameter.
-     * @returns {Integer} Returns <b>ERROR_SUCCESS</b> (zero) if the call was successful, and a nonzero value if 
+     * @returns {WIN32_ERROR} Returns <b>ERROR_SUCCESS</b> (zero) if the call was successful, and a nonzero value if 
      *       the call failed.
      * @see https://learn.microsoft.com/windows/win32/api/powrprof/nf-powrprof-powerwritepossibledescription
      * @since windows6.0.6000
@@ -2974,7 +2988,7 @@ class Power {
      * @param {Pointer<Guid>} SubGroupOfPowerSettingsGuid 
      * @param {Pointer<Guid>} PowerSettingGuid The identifier of the power setting.
      * @param {Integer} ValueMinimum The minimum value to be set.
-     * @returns {Integer} Returns <b>ERROR_SUCCESS</b> (zero) if the call was successful, and a nonzero value if 
+     * @returns {WIN32_ERROR} Returns <b>ERROR_SUCCESS</b> (zero) if the call was successful, and a nonzero value if 
      *        the call failed.
      * @see https://learn.microsoft.com/windows/win32/api/powrprof/nf-powrprof-powerwritevaluemin
      * @since windows6.0.6000
@@ -2995,7 +3009,7 @@ class Power {
      * @param {Pointer<Guid>} SubGroupOfPowerSettingsGuid 
      * @param {Pointer<Guid>} PowerSettingGuid The identifier of the power setting.
      * @param {Integer} ValueMaximum The maximum value to be set.
-     * @returns {Integer} Returns <b>ERROR_SUCCESS</b> (zero) if the call was successful, and a nonzero value if 
+     * @returns {WIN32_ERROR} Returns <b>ERROR_SUCCESS</b> (zero) if the call was successful, and a nonzero value if 
      *       the call failed.
      * @see https://learn.microsoft.com/windows/win32/api/powrprof/nf-powrprof-powerwritevaluemax
      * @since windows6.0.6000
@@ -3016,7 +3030,7 @@ class Power {
      * @param {Pointer<Guid>} SubGroupOfPowerSettingsGuid 
      * @param {Pointer<Guid>} PowerSettingGuid The identifier of the power setting.
      * @param {Integer} ValueIncrement The increment to be set.
-     * @returns {Integer} Returns <b>ERROR_SUCCESS</b> (zero) if the call was successful, and a nonzero value if 
+     * @returns {WIN32_ERROR} Returns <b>ERROR_SUCCESS</b> (zero) if the call was successful, and a nonzero value if 
      * 	     the call failed.
      * @see https://learn.microsoft.com/windows/win32/api/powrprof/nf-powrprof-powerwritevalueincrement
      * @since windows6.0.6000
@@ -3036,9 +3050,9 @@ class Power {
      * @param {HKEY} RootPowerKey This parameter is reserved for future use and must be set to <b>NULL</b>.
      * @param {Pointer<Guid>} SubGroupOfPowerSettingsGuid 
      * @param {Pointer<Guid>} PowerSettingGuid The identifier of the power setting.
-     * @param {Pointer} _Buffer 
+     * @param {Integer} _Buffer The units specifier, in wide (Unicode) characters.
      * @param {Integer} BufferSize The size of the buffer pointed to by the <i>Buffer</i> parameter.
-     * @returns {Integer} Returns <b>ERROR_SUCCESS</b> (zero) if the call was successful, and a nonzero value if 
+     * @returns {WIN32_ERROR} Returns <b>ERROR_SUCCESS</b> (zero) if the call was successful, and a nonzero value if 
      *       the call failed.
      * @see https://learn.microsoft.com/windows/win32/api/powrprof/nf-powrprof-powerwritevalueunitsspecifier
      * @since windows6.0.6000
@@ -3116,9 +3130,9 @@ class Power {
      * @param {Pointer<Guid>} SchemeGuid The identifier of the power scheme.
      * @param {Pointer<Guid>} SubGroupOfPowerSettingsGuid 
      * @param {Pointer<Guid>} PowerSettingGuid The identifier of the power setting.
-     * @param {Pointer} _Buffer 
+     * @param {Integer} _Buffer The icon resource.
      * @param {Integer} BufferSize The size of the buffer pointed to by the <i>Buffer</i> parameter.
-     * @returns {Integer} Returns <b>ERROR_SUCCESS</b> (zero) if the call was successful, and a nonzero value if 
+     * @returns {WIN32_ERROR} Returns <b>ERROR_SUCCESS</b> (zero) if the call was successful, and a nonzero value if 
      *       the call failed.
      * @see https://learn.microsoft.com/windows/win32/api/powrprof/nf-powrprof-powerwriteiconresourcespecifier
      * @since windows6.0.6000
@@ -3156,7 +3170,7 @@ class Power {
      * </td>
      * </tr>
      * </table>
-     * @returns {Integer} Returns <b>ERROR_SUCCESS</b> (zero) if the call was successful, and a nonzero value if 
+     * @returns {WIN32_ERROR} Returns <b>ERROR_SUCCESS</b> (zero) if the call was successful, and a nonzero value if 
      *      the call failed.
      * @see https://learn.microsoft.com/windows/win32/api/powrprof/nf-powrprof-powerwritesettingattributes
      * @since windows6.0.6000
@@ -3174,7 +3188,7 @@ class Power {
      *       <b>NULL</b>, the function allocates memory for a new 
      *       <b>GUID</b> and puts the address of this memory in the pointer. The caller can free this 
      *       memory using <a href="https://docs.microsoft.com/windows/desktop/api/winbase/nf-winbase-localfree">LocalFree</a>.
-     * @returns {Integer} Returns <b>ERROR_SUCCESS</b> (zero) if the call was successful, and a nonzero value if 
+     * @returns {WIN32_ERROR} Returns <b>ERROR_SUCCESS</b> (zero) if the call was successful, and a nonzero value if 
      *       the call failed.
      * 
      * <table>
@@ -3241,7 +3255,7 @@ class Power {
      *       <b>NULL</b>, the function allocates memory for a new 
      *       <b>GUID</b> and puts the address of this memory in the pointer. The caller can free this 
      *       memory using <a href="https://docs.microsoft.com/windows/desktop/api/winbase/nf-winbase-localfree">LocalFree</a>.
-     * @returns {Integer} Returns <b>ERROR_SUCCESS</b> (zero) if the call was successful, and a nonzero value if 
+     * @returns {WIN32_ERROR} Returns <b>ERROR_SUCCESS</b> (zero) if the call was successful, and a nonzero value if 
      *       the call failed.
      * @see https://learn.microsoft.com/windows/win32/api/powrprof/nf-powrprof-powerimportpowerscheme
      * @since windows6.0.6000
@@ -3260,7 +3274,7 @@ class Power {
      * Deletes the specified power scheme from the database.
      * @param {HKEY} RootPowerKey This parameter is reserved for future use and must be set to <b>NULL</b>.
      * @param {Pointer<Guid>} SchemeGuid The identifier of the power scheme.
-     * @returns {Integer} Returns <b>ERROR_SUCCESS</b> (zero) if the call was successful, and a nonzero value if 
+     * @returns {WIN32_ERROR} Returns <b>ERROR_SUCCESS</b> (zero) if the call was successful, and a nonzero value if 
      *       the call failed.
      * @see https://learn.microsoft.com/windows/win32/api/powrprof/nf-powrprof-powerdeletescheme
      * @since windows6.0.6000
@@ -3276,7 +3290,7 @@ class Power {
      * Deletes the specified power setting.
      * @param {Pointer<Guid>} PowerSettingSubKeyGuid 
      * @param {Pointer<Guid>} PowerSettingGuid The identifier of the power setting to be deleted.
-     * @returns {Integer} Returns <b>ERROR_SUCCESS</b> (zero) if the call was successful, and a nonzero value if 
+     * @returns {WIN32_ERROR} Returns <b>ERROR_SUCCESS</b> (zero) if the call was successful, and a nonzero value if 
      * 	     the call failed.
      * @see https://learn.microsoft.com/windows/win32/api/powrprof/nf-powrprof-powerremovepowersetting
      * @since windows6.0.6000
@@ -3291,7 +3305,7 @@ class Power {
      * @param {HKEY} RootSystemPowerKey This parameter is reserved for future use and must be set to <b>NULL</b>.
      * @param {Pointer<Guid>} SubGroupOfPowerSettingsGuid 
      * @param {Pointer<Guid>} PowerSettingGuid The identifier of the power setting that is being created.
-     * @returns {Integer} Returns <b>ERROR_SUCCESS</b> (zero) if the call was successful, and a nonzero value if 
+     * @returns {WIN32_ERROR} Returns <b>ERROR_SUCCESS</b> (zero) if the call was successful, and a nonzero value if 
      *       the call failed.
      * @see https://learn.microsoft.com/windows/win32/api/powrprof/nf-powrprof-powercreatesetting
      * @since windows6.0.6000
@@ -3309,7 +3323,7 @@ class Power {
      * @param {Pointer<Guid>} SubGroupOfPowerSettingsGuid 
      * @param {Pointer<Guid>} PowerSettingGuid The identifier of the power setting that is being created.
      * @param {Integer} PossibleSettingIndex The zero-based index for the possible setting being created.
-     * @returns {Integer} Returns <b>ERROR_SUCCESS</b> (zero) if the call was successful, and a nonzero value if 
+     * @returns {WIN32_ERROR} Returns <b>ERROR_SUCCESS</b> (zero) if the call was successful, and a nonzero value if 
      *       the call failed.
      * @see https://learn.microsoft.com/windows/win32/api/powrprof/nf-powrprof-powercreatepossiblesetting
      * @since windows6.0.6000
@@ -3423,7 +3437,7 @@ class Power {
      * </td>
      * </tr>
      * </table>
-     * @param {Integer} AccessFlags A set of flags that specifies what will be enumerated
+     * @param {POWER_DATA_ACCESSOR} AccessFlags A set of flags that specifies what will be enumerated
      * 
      * <table>
      * <tr>
@@ -3471,12 +3485,12 @@ class Power {
      * </tr>
      * </table>
      * @param {Integer} Index The zero-based index of the scheme, subgroup, or setting that is being enumerated.
-     * @param {Pointer} _Buffer 
+     * @param {Integer} _Buffer A pointer to a variable to receive the elements. If this parameter is <b>NULL</b>, the function retrieves the size of the buffer required.
      * @param {Pointer<Integer>} BufferSize A pointer to a variable that on input contains the size of the buffer pointed to by 
      *       the <i>Buffer</i> parameter. If the  <i>Buffer</i> parameter is 
      *       <b>NULL</b> or if the <i>BufferSize</i> is not large enough, the function 
      *       will return <b>ERROR_MORE_DATA</b> and the variable receives the required buffer size.
-     * @returns {Integer} Returns <b>ERROR_SUCCESS</b> (zero) if the call was successful, and a nonzero value if 
+     * @returns {WIN32_ERROR} Returns <b>ERROR_SUCCESS</b> (zero) if the call was successful, and a nonzero value if 
      *       the call failed. If the buffer size passed in the <i>BufferSize</i> parameter is too small, 
      *       or if the <i>Buffer</i> parameter is <b>NULL</b>, 
      *       <b>ERROR_MORE_DATA</b> will be returned and the <b>DWORD</b> pointed to 
@@ -3520,7 +3534,7 @@ class Power {
     /**
      * Determines if the current user has access to the data for the specified power scheme so that it could be restored if necessary.
      * @param {Pointer<Guid>} SchemeGuid The identifier of the power scheme.
-     * @returns {Integer} Returns <b>ERROR_SUCCESS</b> (zero) if the call was successful, and a nonzero value if 
+     * @returns {WIN32_ERROR} Returns <b>ERROR_SUCCESS</b> (zero) if the call was successful, and a nonzero value if 
      *       the call failed.
      * @see https://learn.microsoft.com/windows/win32/api/powrprof/nf-powrprof-powercanrestoreindividualdefaultpowerscheme
      * @since windows6.0.6000
@@ -3533,7 +3547,7 @@ class Power {
     /**
      * Replaces a specific power scheme for the current user with one from the default user (stored in HKEY_USERS\.Default).
      * @param {Pointer<Guid>} SchemeGuid The identifier of the power scheme.
-     * @returns {Integer} Returns <b>ERROR_SUCCESS</b> (zero) if the call was successful, and a nonzero value if 
+     * @returns {WIN32_ERROR} Returns <b>ERROR_SUCCESS</b> (zero) if the call was successful, and a nonzero value if 
      * 	     the call failed.
      * @see https://learn.microsoft.com/windows/win32/api/powrprof/nf-powrprof-powerrestoreindividualdefaultpowerscheme
      * @since windows6.0.6000
@@ -3547,7 +3561,7 @@ class Power {
      * Replaces the power schemes for the system with default power schemes. All current power schemes and settings are deleted and replaced with the default system power schemes.
      * @remarks
      * The caller must be a member of the local Administrators group.
-     * @returns {Integer} Returns <b>ERROR_SUCCESS</b> (zero) if the call was successful, and a nonzero value if 
+     * @returns {WIN32_ERROR} Returns <b>ERROR_SUCCESS</b> (zero) if the call was successful, and a nonzero value if 
      *       the call failed.
      * @see https://learn.microsoft.com/windows/win32/api/powrprof/nf-powrprof-powerrestoredefaultpowerschemes
      * @since windows6.0.6000
@@ -3580,7 +3594,7 @@ class Power {
      * 
      * <div class="alert"><b>Note</b>  This API has a newer version. To query additional power platform roles defined after Windows 7 and Windows Server 2008 R2, use <a href="https://docs.microsoft.com/windows/desktop/api/powerbase/nf-powerbase-powerdetermineplatformroleex">PowerDeterminePlatformRoleEx</a>.</div>
      * <div> </div>
-     * @returns {Integer} The return value is one of the values from the 
+     * @returns {POWER_PLATFORM_ROLE} The return value is one of the values from the 
      *       <a href="https://docs.microsoft.com/windows/desktop/api/winnt/ne-winnt-power_platform_role">POWER_PLATFORM_ROLE</a> enumeration.
      * @see https://learn.microsoft.com/windows/win32/api/powrprof/nf-powrprof-powerdetermineplatformrole
      * @since windows6.0.6000
@@ -3887,7 +3901,7 @@ class Power {
      * </td>
      * </tr>
      * </table>
-     * @param {Pointer} pReturnBuffer Pointer to a buffer that receives the requested information.
+     * @param {Integer} pReturnBuffer Pointer to a buffer that receives the requested information.
      * @param {Pointer<Integer>} pBufferSize The size, in bytes, of the return buffer.
      *       
      * 
@@ -3998,7 +4012,7 @@ class Power {
      * 
      * Before calling <b>PowerReportThermalEvent</b>, the thermal manager sets the members of the <a href="https://docs.microsoft.com/windows/desktop/api/powrprof/ns-powrprof-thermal_event">THERMAL_EVENT</a> structure to describe the thermal event.
      * @param {Pointer<THERMAL_EVENT>} Event The thermal event structure, <a href="https://docs.microsoft.com/windows/desktop/api/powrprof/ns-powrprof-thermal_event">THERMAL_EVENT</a>.
-     * @returns {Integer} Returns <b>ERROR_SUCCESS</b> (zero) if the call was successful, and a nonzero value if 
+     * @returns {WIN32_ERROR} Returns <b>ERROR_SUCCESS</b> (zero) if the call was successful, and a nonzero value if 
      *       the call failed.
      * @see https://learn.microsoft.com/windows/win32/api/powrprof/nf-powrprof-powerreportthermalevent
      * @since windows8.1
@@ -4018,7 +4032,7 @@ class Power {
      *      <a href="https://docs.microsoft.com/windows/desktop/api/winsvc/nf-winsvc-registerservicectrlhandlerexa">RegisterServiceCtrlHandlerEx</a>.
      * @param {Pointer<Guid>} PowerSettingGuid The <b>GUID</b> of the power setting for which notifications are to be sent. For more information see <a href="https://docs.microsoft.com/windows/desktop/Power/registering-for-power-events">Registering for Power 
      *       Events</a>.
-     * @param {Integer} Flags <table>
+     * @param {REGISTER_NOTIFICATION_FLAGS} Flags <table>
      * <tr>
      * <th>Value</th>
      * <th>Meaning</th>
@@ -4072,7 +4086,7 @@ class Power {
 
     /**
      * Unregisters the power setting notification.
-     * @param {HPOWERNOTIFY} _Handle 
+     * @param {HPOWERNOTIFY} _Handle The handle returned from the <a href="https://docs.microsoft.com/windows/desktop/api/winuser/nf-winuser-registerpowersettingnotification">RegisterPowerSettingNotification</a> function.
      * @returns {BOOL} If the function succeeds, the return value is nonzero.
      * 
      * If the function fails, the return value is zero. To get extended error information, call 
@@ -4100,7 +4114,7 @@ class Power {
      * If <i>Flags</i> is <b>DEVICE_NOTIFY_CALLBACK</b>, <i>hRecipient</i> is interpreted as a pointer to a <a href="https://docs.microsoft.com/windows/win32/api/powrprof/ns-powrprof-device_notify_subscribe_parameters">DEVICE_NOTIFY_SUBSCRIBE_PARAMETERS</a> structure. In this case, the callback function is <a href="https://docs.microsoft.com/windows/desktop/api/powrprof/nc-powrprof-device_notify_callback_routine">DeviceNotifyCallbackRoutine</a>. When the <b>Callback</b> function executes, the  <i>Type</i> parameter is set indicating the type of event that occurred. Possible values include <b>PBT_APMSUSPEND</b>, <b>PBT_APMRESUMESUSPEND</b>, and <b>PBT_APMRESUMEAUTOMATIC</b> - see  <a href="https://docs.microsoft.com/windows/desktop/Power/power-management-events">Power Management Events</a> for more info. The <i>Setting</i> parameter is not used with suspend/resume notifications.
      * 
      * If <i>Flags</i> is <b>DEVICE_NOTIFY_WINDOW_HANDLE</b>, <i>hRecipient</i> is a handle to the window to deliver events to.
-     * @param {Integer} Flags This parameter can be <b>DEVICE_NOTIFY_WINDOW_HANDLE</b> or <b>DEVICE_NOTIFY_CALLBACK</b>.
+     * @param {REGISTER_NOTIFICATION_FLAGS} Flags This parameter can be <b>DEVICE_NOTIFY_WINDOW_HANDLE</b> or <b>DEVICE_NOTIFY_CALLBACK</b>.
      * @returns {HPOWERNOTIFY} A handle to the registration. Use this handle to unregister for notifications.
      * 
      * If the function fails, the return value is NULL. To get extended error information call 
@@ -4124,7 +4138,7 @@ class Power {
 
     /**
      * Cancels a registration to receive notification when the system is suspended or resumed. Similar to PowerUnregisterSuspendResumeNotification but operates in user mode.
-     * @param {HPOWERNOTIFY} _Handle 
+     * @param {HPOWERNOTIFY} _Handle A handle to a registration obtained by calling the <a href="https://docs.microsoft.com/windows/desktop/api/winuser/nf-winuser-registersuspendresumenotification">RegisterSuspendResumeNotification</a> function.
      * @returns {BOOL} If the function succeeds, the return value is nonzero.
      * 
      * If the function fails, the return value is zero. To get extended error information, call 
@@ -4154,7 +4168,7 @@ class Power {
      * To cancel a latency request, call 
      *     <b>RequestWakeupLatency</b> with 
      *     <b>LT_DONT_CARE</b>.
-     * @param {Integer} latency The latency requirement for the time is takes to wake the computer. This parameter can be one of the 
+     * @param {LATENCY_TIME} latency The latency requirement for the time is takes to wake the computer. This parameter can be one of the 
      *       following values.
      * 
      * <table>
@@ -4230,8 +4244,8 @@ class Power {
      * <b>SetThreadExecutionState</b> function cannot be used to prevent the user from putting the computer to sleep. Applications should respect that the user expects a certain behavior when they close the lid on their laptop or press the power button.
      * 
      * This function does not  stop the screen saver from executing.
-     * @param {Integer} esFlags 
-     * @returns {Integer} If the function succeeds, the return value is the previous thread execution state.
+     * @param {EXECUTION_STATE} esFlags 
+     * @returns {EXECUTION_STATE} If the function succeeds, the return value is the previous thread execution state.
      * 
      * If the function fails, the return value is <b>NULL</b>.
      * @see https://learn.microsoft.com/windows/win32/api/winbase/nf-winbase-setthreadexecutionstate
@@ -4246,7 +4260,7 @@ class Power {
      * Creates a new power request object.
      * @remarks
      * When the power request object is no longer needed, use the <a href="https://docs.microsoft.com/windows/desktop/api/handleapi/nf-handleapi-closehandle">CloseHandle</a> function to free the handle and clean up the object.
-     * @param {Pointer<REASON_CONTEXT>} _Context 
+     * @param {Pointer<REASON_CONTEXT>} _Context Points to a <a href="https://docs.microsoft.com/windows/desktop/api/minwinbase/ns-minwinbase-reason_context">REASON_CONTEXT</a> structure that contains information about the power request.
      * @returns {HANDLE} If the function succeeds, the return value is a handle to the power request object.
      * 
      * If the function fails, the return value is INVALID_HANDLE_VALUE. To get extended error information, call 
@@ -4280,7 +4294,7 @@ class Power {
      * * Call <a href="https://docs.microsoft.com/windows/desktop/api/winbase/nf-winbase-powerclearrequest">PowerClearRequest</a> to decrement the reference count for the request as soon as the scenario is finished.
      * * Clean up all request objects and associated handles before the process exits or the service stops.
      * @param {HANDLE} PowerRequest A handle to a power request object.
-     * @param {Integer} RequestType 
+     * @param {POWER_REQUEST_TYPE} RequestType 
      * @returns {BOOL} If the function succeeds, it returns a nonzero value.
      * 
      * If the function fails, it returns zero. To get extended error information, call <a href="https://docs.microsoft.com/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>.
@@ -4303,7 +4317,7 @@ class Power {
     /**
      * Decrements the count of power requests of the specified type for a power request object.
      * @param {HANDLE} PowerRequest A handle to a power request object.
-     * @param {Integer} RequestType 
+     * @param {POWER_REQUEST_TYPE} RequestType 
      * @returns {BOOL} If the function succeeds, it returns a nonzero value.
      * 
      * If the function fails, it returns zero. To get extended error information, call 

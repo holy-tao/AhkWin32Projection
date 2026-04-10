@@ -5,10 +5,8 @@
  * Windows app package key information.
  * @see https://learn.microsoft.com/windows/win32/api/appxpackaging/ns-appxpackaging-appx_key_info
  * @namespace Windows.Win32.Storage.Packaging.Appx
- * @version v4.0.30319
  */
-class APPX_KEY_INFO extends Win32Struct
-{
+class APPX_KEY_INFO extends Win32Struct {
     static sizeof => 24
 
     static packingSize => 8

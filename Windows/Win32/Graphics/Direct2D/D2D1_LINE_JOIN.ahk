@@ -13,9 +13,8 @@
  * <img alt="Illustration of line join settings" src="./images/StrokeStyle_Join.png"/>
  * @see https://learn.microsoft.com/windows/win32/api/d2d1/ne-d2d1-d2d1_line_join
  * @namespace Windows.Win32.Graphics.Direct2D
- * @version v4.0.30319
  */
-class D2D1_LINE_JOIN extends Win32Enum{
+class D2D1_LINE_JOIN extends Win32Enum {
 
     /**
      * Regular angular vertices.

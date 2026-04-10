@@ -3,9 +3,8 @@
 
 /**
  * @namespace Windows.Win32.UI.Controls
- * @version v4.0.30319
  */
-class IMAGE_LIST_DRAW_STYLE extends Win32BitflagEnum{
+class IMAGE_LIST_DRAW_STYLE extends Win32BitflagEnum {
 
     /**
      * @type {Integer (UInt32)}

@@ -2,6 +2,7 @@
 #Include ..\..\..\..\Win32Struct.ahk
 #Include Common\D2D_POINT_2F.ahk
 #Include Common\D2D1_COLOR_F.ahk
+#Include .\D2D1_PATCH_EDGE_MODE.ahk
 
 /**
  * Represents a tensor patch with 16 control points, 4 corner colors, and boundary flags. An ID2D1GradientMesh is made up of 1 or more gradient mesh patches. Use the GradientMeshPatch function or the GradientMeshPatchFromCoonsPatch function to create one.
@@ -11,10 +12,8 @@
  * <img alt="Number of control points on a tensor grid" src="./images/tensorpatch.png"/>
  * @see https://learn.microsoft.com/windows/win32/api/d2d1_3/ns-d2d1_3-d2d1_gradient_mesh_patch
  * @namespace Windows.Win32.Graphics.Direct2D
- * @version v4.0.30319
  */
-class D2D1_GRADIENT_MESH_PATCH extends Win32Struct
-{
+class D2D1_GRADIENT_MESH_PATCH extends Win32Struct {
     static sizeof => 208
 
     static packingSize => 4
@@ -23,7 +22,7 @@ class D2D1_GRADIENT_MESH_PATCH extends Win32Struct
      * The coordinate-space location of the control point in column 0 and row 0 of the tensor grid.
      * @type {D2D_POINT_2F}
      */
-    point00{
+    point00 {
         get {
             if(!this.HasProp("__point00"))
                 this.__point00 := D2D_POINT_2F(0, this)
@@ -35,7 +34,7 @@ class D2D1_GRADIENT_MESH_PATCH extends Win32Struct
      * The coordinate-space location of the control point in column 0 and row 1 of the tensor grid.
      * @type {D2D_POINT_2F}
      */
-    point01{
+    point01 {
         get {
             if(!this.HasProp("__point01"))
                 this.__point01 := D2D_POINT_2F(8, this)
@@ -47,7 +46,7 @@ class D2D1_GRADIENT_MESH_PATCH extends Win32Struct
      * The coordinate-space location of the control point in column 0 and row 2 of the tensor grid.
      * @type {D2D_POINT_2F}
      */
-    point02{
+    point02 {
         get {
             if(!this.HasProp("__point02"))
                 this.__point02 := D2D_POINT_2F(16, this)
@@ -59,7 +58,7 @@ class D2D1_GRADIENT_MESH_PATCH extends Win32Struct
      * The coordinate-space location of the control point in column 0 and row 3 of the tensor grid.
      * @type {D2D_POINT_2F}
      */
-    point03{
+    point03 {
         get {
             if(!this.HasProp("__point03"))
                 this.__point03 := D2D_POINT_2F(24, this)
@@ -71,7 +70,7 @@ class D2D1_GRADIENT_MESH_PATCH extends Win32Struct
      * The coordinate-space location of the control point in column 1 and row 0 of the tensor grid.
      * @type {D2D_POINT_2F}
      */
-    point10{
+    point10 {
         get {
             if(!this.HasProp("__point10"))
                 this.__point10 := D2D_POINT_2F(32, this)
@@ -83,7 +82,7 @@ class D2D1_GRADIENT_MESH_PATCH extends Win32Struct
      * The coordinate-space location of the control point in column 1 and row 1 of the tensor grid.
      * @type {D2D_POINT_2F}
      */
-    point11{
+    point11 {
         get {
             if(!this.HasProp("__point11"))
                 this.__point11 := D2D_POINT_2F(40, this)
@@ -95,7 +94,7 @@ class D2D1_GRADIENT_MESH_PATCH extends Win32Struct
      * The coordinate-space location of the control point in column 1 and row 2 of the tensor grid.
      * @type {D2D_POINT_2F}
      */
-    point12{
+    point12 {
         get {
             if(!this.HasProp("__point12"))
                 this.__point12 := D2D_POINT_2F(48, this)
@@ -107,7 +106,7 @@ class D2D1_GRADIENT_MESH_PATCH extends Win32Struct
      * The coordinate-space location of the control point in column 1 and row 3 of the tensor grid.
      * @type {D2D_POINT_2F}
      */
-    point13{
+    point13 {
         get {
             if(!this.HasProp("__point13"))
                 this.__point13 := D2D_POINT_2F(56, this)
@@ -119,7 +118,7 @@ class D2D1_GRADIENT_MESH_PATCH extends Win32Struct
      * The coordinate-space location of the control point in column 2 and row 0 of the tensor grid.
      * @type {D2D_POINT_2F}
      */
-    point20{
+    point20 {
         get {
             if(!this.HasProp("__point20"))
                 this.__point20 := D2D_POINT_2F(64, this)
@@ -131,7 +130,7 @@ class D2D1_GRADIENT_MESH_PATCH extends Win32Struct
      * The coordinate-space location of the control point in column 2 and row 1 of the tensor grid.
      * @type {D2D_POINT_2F}
      */
-    point21{
+    point21 {
         get {
             if(!this.HasProp("__point21"))
                 this.__point21 := D2D_POINT_2F(72, this)
@@ -143,7 +142,7 @@ class D2D1_GRADIENT_MESH_PATCH extends Win32Struct
      * The coordinate-space location of the control point in column 2 and row 2 of the tensor grid.
      * @type {D2D_POINT_2F}
      */
-    point22{
+    point22 {
         get {
             if(!this.HasProp("__point22"))
                 this.__point22 := D2D_POINT_2F(80, this)
@@ -155,7 +154,7 @@ class D2D1_GRADIENT_MESH_PATCH extends Win32Struct
      * The coordinate-space location of the control point in column 2 and row 3 of the tensor grid.
      * @type {D2D_POINT_2F}
      */
-    point23{
+    point23 {
         get {
             if(!this.HasProp("__point23"))
                 this.__point23 := D2D_POINT_2F(88, this)
@@ -167,7 +166,7 @@ class D2D1_GRADIENT_MESH_PATCH extends Win32Struct
      * The coordinate-space location of the control point in column 3 and row 0 of the tensor grid.
      * @type {D2D_POINT_2F}
      */
-    point30{
+    point30 {
         get {
             if(!this.HasProp("__point30"))
                 this.__point30 := D2D_POINT_2F(96, this)
@@ -179,7 +178,7 @@ class D2D1_GRADIENT_MESH_PATCH extends Win32Struct
      * The coordinate-space location of the control point in column 3 and row 1 of the tensor grid.
      * @type {D2D_POINT_2F}
      */
-    point31{
+    point31 {
         get {
             if(!this.HasProp("__point31"))
                 this.__point31 := D2D_POINT_2F(104, this)
@@ -191,7 +190,7 @@ class D2D1_GRADIENT_MESH_PATCH extends Win32Struct
      * The coordinate-space location of the control point in column 3 and row 2 of the tensor grid.
      * @type {D2D_POINT_2F}
      */
-    point32{
+    point32 {
         get {
             if(!this.HasProp("__point32"))
                 this.__point32 := D2D_POINT_2F(112, this)
@@ -203,7 +202,7 @@ class D2D1_GRADIENT_MESH_PATCH extends Win32Struct
      * The coordinate-space location of the control point in column 3 and row 3 of the tensor grid.
      * @type {D2D_POINT_2F}
      */
-    point33{
+    point33 {
         get {
             if(!this.HasProp("__point33"))
                 this.__point33 := D2D_POINT_2F(120, this)
@@ -215,7 +214,7 @@ class D2D1_GRADIENT_MESH_PATCH extends Win32Struct
      * The color associated with the control point in column 0 and row 0 of the tensor grid.
      * @type {D2D1_COLOR_F}
      */
-    color00{
+    color00 {
         get {
             if(!this.HasProp("__color00"))
                 this.__color00 := D2D1_COLOR_F(128, this)
@@ -227,7 +226,7 @@ class D2D1_GRADIENT_MESH_PATCH extends Win32Struct
      * The color associated with the control point in column 0 and row 3 of the tensor grid.
      * @type {D2D1_COLOR_F}
      */
-    color03{
+    color03 {
         get {
             if(!this.HasProp("__color03"))
                 this.__color03 := D2D1_COLOR_F(144, this)
@@ -239,7 +238,7 @@ class D2D1_GRADIENT_MESH_PATCH extends Win32Struct
      * The color associated with the control point in column 3 and row 0 of the tensor grid.
      * @type {D2D1_COLOR_F}
      */
-    color30{
+    color30 {
         get {
             if(!this.HasProp("__color30"))
                 this.__color30 := D2D1_COLOR_F(160, this)
@@ -251,7 +250,7 @@ class D2D1_GRADIENT_MESH_PATCH extends Win32Struct
      * The color associated with the control point in column 3 and row 3 of the tensor grid.
      * @type {D2D1_COLOR_F}
      */
-    color33{
+    color33 {
         get {
             if(!this.HasProp("__color33"))
                 this.__color33 := D2D1_COLOR_F(176, this)
@@ -261,7 +260,7 @@ class D2D1_GRADIENT_MESH_PATCH extends Win32Struct
 
     /**
      * Specifies how to render the top edge of the mesh.
-     * @type {Integer}
+     * @type {D2D1_PATCH_EDGE_MODE}
      */
     topEdgeMode {
         get => NumGet(this, 192, "int")
@@ -270,7 +269,7 @@ class D2D1_GRADIENT_MESH_PATCH extends Win32Struct
 
     /**
      * Specifies how to render the left edge of the mesh.
-     * @type {Integer}
+     * @type {D2D1_PATCH_EDGE_MODE}
      */
     leftEdgeMode {
         get => NumGet(this, 196, "int")
@@ -279,7 +278,7 @@ class D2D1_GRADIENT_MESH_PATCH extends Win32Struct
 
     /**
      * Specifies how to render the bottom edge of the mesh.
-     * @type {Integer}
+     * @type {D2D1_PATCH_EDGE_MODE}
      */
     bottomEdgeMode {
         get => NumGet(this, 200, "int")
@@ -288,7 +287,7 @@ class D2D1_GRADIENT_MESH_PATCH extends Win32Struct
 
     /**
      * Specifies how to render the right edge of the mesh.
-     * @type {Integer}
+     * @type {D2D1_PATCH_EDGE_MODE}
      */
     rightEdgeMode {
         get => NumGet(this, 204, "int")

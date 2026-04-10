@@ -1,6 +1,8 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
 #Include .\IPSEC_SA_LIFETIME0.ahk
+#Include .\IPSEC_SA_TRANSFORM0.ahk
+#Include .\IPSEC_PFS_GROUP.ahk
 
 /**
  * Used to store an IPsec quick mode proposal.
@@ -12,10 +14,8 @@
  * <b>IPSEC_PROPOSAL0</b> is a specific implementation of IPSEC_PROPOSAL. See <a href="https://docs.microsoft.com/windows/desktop/FWP/wfp-version-independent-names-and-targeting-specific-versions-of-windows">WFP Version-Independent Names and Targeting Specific Versions of Windows</a>  for more information.
  * @see https://learn.microsoft.com/windows/win32/api/ipsectypes/ns-ipsectypes-ipsec_proposal0
  * @namespace Windows.Win32.NetworkManagement.WindowsFilteringPlatform
- * @version v4.0.30319
  */
-class IPSEC_PROPOSAL0 extends Win32Struct
-{
+class IPSEC_PROPOSAL0 extends Win32Struct {
     static sizeof => 32
 
     static packingSize => 8
@@ -24,7 +24,7 @@ class IPSEC_PROPOSAL0 extends Win32Struct
      * Lifetime of the IPsec security association (SA) as specified by [IPSEC_SA_LIFETIME0](/windows/desktop/api/ipsectypes/ns-ipsectypes-ipsec_sa_lifetime0). Cannot be zero.
      * @type {IPSEC_SA_LIFETIME0}
      */
-    lifetime{
+    lifetime {
         get {
             if(!this.HasProp("__lifetime"))
                 this.__lifetime := IPSEC_SA_LIFETIME0(0, this)
@@ -52,7 +52,7 @@ class IPSEC_PROPOSAL0 extends Win32Struct
 
     /**
      * Perfect forward secrecy (PFS) group of the IPsec SA as specified by [IPSEC_PFS_GROUP](/windows/desktop/api/ipsectypes/ne-ipsectypes-ipsec_pfs_group).
-     * @type {Integer}
+     * @type {IPSEC_PFS_GROUP}
      */
     pfsGroup {
         get => NumGet(this, 24, "int")

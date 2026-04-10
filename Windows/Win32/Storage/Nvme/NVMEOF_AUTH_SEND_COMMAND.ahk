@@ -4,10 +4,8 @@
 
 /**
  * @namespace Windows.Win32.Storage.Nvme
- * @version v4.0.30319
  */
-class NVMEOF_AUTH_SEND_COMMAND extends Win32Struct
-{
+class NVMEOF_AUTH_SEND_COMMAND extends Win32Struct {
     static sizeof => 64
 
     static packingSize => 4
@@ -45,9 +43,9 @@ class NVMEOF_AUTH_SEND_COMMAND extends Win32Struct
     }
 
     /**
-     * @type {Array<Byte>}
+     * @type {Array<Integer>}
      */
-    Reserved1{
+    Reserved1 {
         get {
             if(!this.HasProp("__Reserved1ProxyArray"))
                 this.__Reserved1ProxyArray := Win32FixedArray(this.ptr + 5, 19, Primitive, "char")
@@ -58,7 +56,7 @@ class NVMEOF_AUTH_SEND_COMMAND extends Win32Struct
     /**
      * @type {NVME_SGL_DESC}
      */
-    SGL1{
+    SGL1 {
         get {
             if(!this.HasProp("__SGL1"))
                 this.__SGL1 := NVME_SGL_DESC(24, this)
@@ -107,9 +105,9 @@ class NVMEOF_AUTH_SEND_COMMAND extends Win32Struct
     }
 
     /**
-     * @type {Array<Byte>}
+     * @type {Array<Integer>}
      */
-    Reserved3{
+    Reserved3 {
         get {
             if(!this.HasProp("__Reserved3ProxyArray"))
                 this.__Reserved3ProxyArray := Win32FixedArray(this.ptr + 48, 16, Primitive, "char")

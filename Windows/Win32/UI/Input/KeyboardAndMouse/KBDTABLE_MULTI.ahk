@@ -4,13 +4,11 @@
 
 /**
  * @namespace Windows.Win32.UI.Input.KeyboardAndMouse
- * @version v4.0.30319
  */
-class KBDTABLE_MULTI extends Win32Struct
-{
-    static sizeof => 72
+class KBDTABLE_MULTI extends Win32Struct {
+    static sizeof => 580
 
-    static packingSize => 8
+    static packingSize => 4
 
     /**
      * @type {Integer}
@@ -21,12 +19,12 @@ class KBDTABLE_MULTI extends Win32Struct
     }
 
     /**
-     * @type {Array<KBDTABLE_DESC>}
+     * @type {KBDTABLE_DESC}
      */
-    aKbdTables{
+    aKbdTables {
         get {
             if(!this.HasProp("__aKbdTablesProxyArray"))
-                this.__aKbdTablesProxyArray := Win32FixedArray(this.ptr + 8, 8, KBDTABLE_DESC, "")
+                this.__aKbdTablesProxyArray := Win32FixedArray(this.ptr + 4, 8, KBDTABLE_DESC, "")
             return this.__aKbdTablesProxyArray
         }
     }

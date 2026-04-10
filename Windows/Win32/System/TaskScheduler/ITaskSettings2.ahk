@@ -9,9 +9,8 @@
  * When reading or writing XML for a task, the task settings are defined in the  <a href="https://docs.microsoft.com/windows/desktop/TaskSchd/taskschedulerschema-settings-tasktype-element">Settings</a> element of the Task Scheduler schema.
  * @see https://learn.microsoft.com/windows/win32/api/taskschd/nn-taskschd-itasksettings2
  * @namespace Windows.Win32.System.TaskScheduler
- * @version v4.0.30319
  */
-class ITaskSettings2 extends IDispatch{
+class ITaskSettings2 extends IDispatch {
 
     static sizeof => A_PtrSize
     /**
@@ -33,6 +32,7 @@ class ITaskSettings2 extends IDispatch{
     static VTableNames => ["get_DisallowStartOnRemoteAppSession", "put_DisallowStartOnRemoteAppSession", "get_UseUnifiedSchedulingEngine", "put_UseUnifiedSchedulingEngine"]
 
     /**
+     * @type {VARIANT_BOOL} 
      */
     DisallowStartOnRemoteAppSession {
         get => this.get_DisallowStartOnRemoteAppSession()
@@ -40,6 +40,7 @@ class ITaskSettings2 extends IDispatch{
     }
 
     /**
+     * @type {VARIANT_BOOL} 
      */
     UseUnifiedSchedulingEngine {
         get => this.get_UseUnifiedSchedulingEngine()

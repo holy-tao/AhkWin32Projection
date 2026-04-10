@@ -7,9 +7,8 @@
  * Used to save imported file screen templates.
  * @see https://learn.microsoft.com/windows/win32/api/fsrmscreen/nn-fsrmscreen-ifsrmfilescreentemplateimported
  * @namespace Windows.Win32.Storage.FileServerResourceManager
- * @version v4.0.30319
  */
-class IFsrmFileScreenTemplateImported extends IFsrmFileScreenTemplate{
+class IFsrmFileScreenTemplateImported extends IFsrmFileScreenTemplate {
 
     static sizeof => A_PtrSize
     /**

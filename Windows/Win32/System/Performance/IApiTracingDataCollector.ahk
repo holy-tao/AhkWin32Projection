@@ -1,8 +1,8 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
-#Include ..\..\Foundation\BSTR.ahk
 #Include .\IDataCollector.ahk
+#Include ..\..\Foundation\BSTR.ahk
 
 /**
  * Logs Win32 calls to Kernel32.dll, Advapi32.dll, Gdi32.dll, and User32.dll.
@@ -28,9 +28,8 @@
  * When you specify the XML to create the collector, you can specify only the elements for the properties that you want to set. If you do not specify a property, PLA provides a default value. When you retrieve the XML for the collector, the XML provides all elements, including those from <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/pla/nn-pla-idatacollector">IDataCollector</a>.
  * @see https://learn.microsoft.com/windows/win32/api/pla/nn-pla-iapitracingdatacollector
  * @namespace Windows.Win32.System.Performance
- * @version v4.0.30319
  */
-class IApiTracingDataCollector extends IDataCollector{
+class IApiTracingDataCollector extends IDataCollector {
 
     static sizeof => A_PtrSize
     /**

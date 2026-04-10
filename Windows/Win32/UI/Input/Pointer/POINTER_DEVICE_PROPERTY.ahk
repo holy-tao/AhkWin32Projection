@@ -7,10 +7,8 @@
  * Developers can use this function to determine the properties that a device supports beyond the standard ones that are delivered through <a href="https://docs.microsoft.com/windows/win32/inputmsg/messages-and-notifications-portal">Pointer Input Messages and Notifications</a>. The properties map directly to HID usages.
  * @see https://learn.microsoft.com/windows/win32/api/winuser/ns-winuser-pointer_device_property
  * @namespace Windows.Win32.UI.Input.Pointer
- * @version v4.0.30319
  */
-class POINTER_DEVICE_PROPERTY extends Win32Struct
-{
+class POINTER_DEVICE_PROPERTY extends Win32Struct {
     static sizeof => 28
 
     static packingSize => 4

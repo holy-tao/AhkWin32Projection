@@ -9,9 +9,8 @@
  * Use <a href="https://docs.microsoft.com/windows/desktop/api/d3d12/nf-d3d12-d3d12createdevice">D3D12CreateDevice</a> to create a device.
  * @see https://learn.microsoft.com/windows/win32/api/d3d12/nn-d3d12-id3d12device2
  * @namespace Windows.Win32.Graphics.Direct3D12
- * @version v4.0.30319
  */
-class ID3D12Device2 extends ID3D12Device1{
+class ID3D12Device2 extends ID3D12Device1 {
 
     static sizeof => A_PtrSize
     /**

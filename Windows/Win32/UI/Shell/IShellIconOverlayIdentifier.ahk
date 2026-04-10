@@ -15,9 +15,8 @@
  * This interface is not typically called by applications.
  * @see https://learn.microsoft.com/windows/win32/api/shobjidl_core/nn-shobjidl_core-ishelliconoverlayidentifier
  * @namespace Windows.Win32.UI.Shell
- * @version v4.0.30319
  */
-class IShellIconOverlayIdentifier extends IUnknown{
+class IShellIconOverlayIdentifier extends IUnknown {
 
     static sizeof => A_PtrSize
     /**

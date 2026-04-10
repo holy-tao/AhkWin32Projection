@@ -3,18 +3,16 @@
 
 /**
  * @namespace Windows.Win32.Graphics.GdiPlus
- * @version v4.0.30319
  */
-class ColorLUTParams extends Win32Struct
-{
+class ColorLUTParams extends Win32Struct {
     static sizeof => 1024
 
     static packingSize => 1
 
     /**
-     * @type {Array<Byte>}
+     * @type {Array<Integer>}
      */
-    lutB{
+    lutB {
         get {
             if(!this.HasProp("__lutBProxyArray"))
                 this.__lutBProxyArray := Win32FixedArray(this.ptr + 0, 256, Primitive, "char")
@@ -23,9 +21,9 @@ class ColorLUTParams extends Win32Struct
     }
 
     /**
-     * @type {Array<Byte>}
+     * @type {Array<Integer>}
      */
-    lutG{
+    lutG {
         get {
             if(!this.HasProp("__lutGProxyArray"))
                 this.__lutGProxyArray := Win32FixedArray(this.ptr + 256, 256, Primitive, "char")
@@ -34,9 +32,9 @@ class ColorLUTParams extends Win32Struct
     }
 
     /**
-     * @type {Array<Byte>}
+     * @type {Array<Integer>}
      */
-    lutR{
+    lutR {
         get {
             if(!this.HasProp("__lutRProxyArray"))
                 this.__lutRProxyArray := Win32FixedArray(this.ptr + 512, 256, Primitive, "char")
@@ -45,9 +43,9 @@ class ColorLUTParams extends Win32Struct
     }
 
     /**
-     * @type {Array<Byte>}
+     * @type {Array<Integer>}
      */
-    lutA{
+    lutA {
         get {
             if(!this.HasProp("__lutAProxyArray"))
                 this.__lutAProxyArray := Win32FixedArray(this.ptr + 768, 256, Primitive, "char")

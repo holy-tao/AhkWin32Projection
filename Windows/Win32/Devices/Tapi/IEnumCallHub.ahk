@@ -1,17 +1,15 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
-#Include .\ITCallHub.ahk
-#Include .\IEnumCallHub.ahk
 #Include ..\..\System\Com\IUnknown.ahk
+#Include .\ITCallHub.ahk
 
 /**
  * The IEnumCallHub interface provides COM-standard enumeration methods for the ITCallHub interface. The ITTAPI::EnumerateCallHubs method returns a pointer to IEnumCallHub.
  * @see https://learn.microsoft.com/windows/win32/api/tapi3if/nn-tapi3if-ienumcallhub
  * @namespace Windows.Win32.Devices.Tapi
- * @version v4.0.30319
  */
-class IEnumCallHub extends IUnknown{
+class IEnumCallHub extends IUnknown {
 
     static sizeof => A_PtrSize
     /**

@@ -3,10 +3,8 @@
 
 /**
  * @namespace Windows.Win32.System.Iis
- * @version v4.0.30319
  */
-class HSE_UNICODE_URL_MAPEX_INFO extends Win32Struct
-{
+class HSE_UNICODE_URL_MAPEX_INFO extends Win32Struct {
     static sizeof => 532
 
     static packingSize => 4

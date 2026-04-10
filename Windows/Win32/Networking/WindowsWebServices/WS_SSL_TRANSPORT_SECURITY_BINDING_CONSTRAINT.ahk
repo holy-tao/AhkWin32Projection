@@ -1,15 +1,15 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
 #Include .\WS_SECURITY_BINDING_CONSTRAINT.ahk
+#Include .\WS_SECURITY_BINDING_CONSTRAINT_TYPE.ahk
+#Include .\WS_SECURITY_BINDING_PROPERTY_CONSTRAINT.ahk
 
 /**
  * A security binding constraint that corresponds to the WS_SSL_TRANSPORT_SECURITY_BINDING.
  * @see https://learn.microsoft.com/windows/win32/api/webservices/ns-webservices-ws_ssl_transport_security_binding_constraint
  * @namespace Windows.Win32.Networking.WindowsWebServices
- * @version v4.0.30319
  */
-class WS_SSL_TRANSPORT_SECURITY_BINDING_CONSTRAINT extends Win32Struct
-{
+class WS_SSL_TRANSPORT_SECURITY_BINDING_CONSTRAINT extends Win32Struct {
     static sizeof => 32
 
     static packingSize => 8
@@ -25,7 +25,6 @@ class WS_SSL_TRANSPORT_SECURITY_BINDING_CONSTRAINT extends Win32Struct
             get => NumGet(this, 0, "int")
             set => NumPut("int", value, this, 0)
         }
-    
     }
 
     /**
@@ -36,7 +35,7 @@ class WS_SSL_TRANSPORT_SECURITY_BINDING_CONSTRAINT extends Win32Struct
      *                     at this time.
      * @type {WS_SECURITY_BINDING_CONSTRAINT}
      */
-    bindingConstraint{
+    bindingConstraint {
         get {
             if(!this.HasProp("__bindingConstraint"))
                 this.__bindingConstraint := WS_SECURITY_BINDING_CONSTRAINT(0, this)
@@ -49,10 +48,10 @@ class WS_SSL_TRANSPORT_SECURITY_BINDING_CONSTRAINT extends Win32Struct
      *                     entire contents of this structure will be filled out.
      * @type {_out}
      */
-    out{
+    out {
         get {
             if(!this.HasProp("__out"))
-                this.__out := %this.__Class%._out(24, this)
+                this.__out := WS_SSL_TRANSPORT_SECURITY_BINDING_CONSTRAINT._out(24, this)
             return this.__out
         }
     }

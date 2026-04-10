@@ -6,10 +6,8 @@
  * Defines the CF_HDROP clipboard format. The data that follows is a double null-terminated list of file names.
  * @see https://learn.microsoft.com/windows/win32/api/shlobj_core/ns-shlobj_core-dropfiles
  * @namespace Windows.Win32.UI.Shell
- * @version v4.0.30319
  */
-class DROPFILES extends Win32Struct
-{
+class DROPFILES extends Win32Struct {
     static sizeof => 20
 
     static packingSize => 4
@@ -31,7 +29,7 @@ class DROPFILES extends Win32Struct
      * The drop point. The coordinates depend on <b>fNC</b>.
      * @type {POINT}
      */
-    pt{
+    pt {
         get {
             if(!this.HasProp("__pt"))
                 this.__pt := POINT(4, this)

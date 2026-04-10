@@ -3,10 +3,8 @@
 
 /**
  * @namespace Windows.Win32.System.Rpc
- * @version v4.0.30319
  */
-class MALLOC_FREE_STRUCT extends Win32Struct
-{
+class MALLOC_FREE_STRUCT extends Win32Struct {
     static sizeof => 16
 
     static packingSize => 8

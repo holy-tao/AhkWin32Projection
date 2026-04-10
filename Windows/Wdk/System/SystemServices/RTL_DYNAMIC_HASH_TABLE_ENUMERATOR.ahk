@@ -1,18 +1,17 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
+#Include ..\..\..\Win32\System\Kernel\LIST_ENTRY.ahk
 
 /**
  * @namespace Windows.Wdk.System.SystemServices
- * @version v4.0.30319
  */
-class RTL_DYNAMIC_HASH_TABLE_ENUMERATOR extends Win32Struct
-{
+class RTL_DYNAMIC_HASH_TABLE_ENUMERATOR extends Win32Struct {
     static sizeof => 24
 
     static packingSize => 8
 
     /**
-     * @type {Pointer<RTL_DYNAMIC_HASH_TABLE_ENTRY>}
+     * @type {Pointer}
      */
     HashEntry {
         get => NumGet(this, 0, "ptr")

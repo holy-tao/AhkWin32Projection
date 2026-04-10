@@ -9,10 +9,8 @@
  * For backward compatibility, the Ddraw.h header file contains multiple definitions of the DDCAPS structure. The version that passes the preprocessor is determined by the value of the DIRECTDRAW_VERSION constant.
  * @see https://learn.microsoft.com/windows/win32/api/ddraw/ns-ddraw-ddcaps_dx6
  * @namespace Windows.Win32.Graphics.DirectDraw
- * @version v4.0.30319
  */
-class DDCAPS_DX6 extends Win32Struct
-{
+class DDCAPS_DX6 extends Win32Struct {
     static sizeof => 380
 
     static packingSize => 4
@@ -244,9 +242,9 @@ class DDCAPS_DX6 extends Win32Struct
 
     /**
      * Raster operations supported.
-     * @type {Array<UInt32>}
+     * @type {Array<Integer>}
      */
-    dwRops{
+    dwRops {
         get {
             if(!this.HasProp("__dwRopsProxyArray"))
                 this.__dwRopsProxyArray := Win32FixedArray(this.ptr + 100, 8, Primitive, "uint")
@@ -258,7 +256,7 @@ class DDCAPS_DX6 extends Win32Struct
      * Obsolete. Prior to DirectX 6.0, this member contained general surface capabilities, which are now contained in the <b>ddsCaps</b> member (a <a href="https://docs.microsoft.com/previous-versions/windows/hardware/drivers/ff550292(v=vs.85)">DDSCAPS2</a> structure).
      * @type {DDSCAPS}
      */
-    ddsOldCaps{
+    ddsOldCaps {
         get {
             if(!this.HasProp("__ddsOldCaps"))
                 this.__ddsOldCaps := DDSCAPS(132, this)
@@ -376,9 +374,9 @@ class DDCAPS_DX6 extends Win32Struct
 
     /**
      * Raster operations supported for bitblts from system memory to display memory.
-     * @type {Array<UInt32>}
+     * @type {Array<Integer>}
      */
-    dwSVBRops{
+    dwSVBRops {
         get {
             if(!this.HasProp("__dwSVBRopsProxyArray"))
                 this.__dwSVBRopsProxyArray := Win32FixedArray(this.ptr + 184, 8, Primitive, "uint")
@@ -415,9 +413,9 @@ class DDCAPS_DX6 extends Win32Struct
 
     /**
      * Raster operations supported for bitblts from display memory to system memory.
-     * @type {Array<UInt32>}
+     * @type {Array<Integer>}
      */
-    dwVSBRops{
+    dwVSBRops {
         get {
             if(!this.HasProp("__dwVSBRopsProxyArray"))
                 this.__dwVSBRopsProxyArray := Win32FixedArray(this.ptr + 228, 8, Primitive, "uint")
@@ -454,9 +452,9 @@ class DDCAPS_DX6 extends Win32Struct
 
     /**
      * Raster operations supported for bitblts from system memory to system memory.
-     * @type {Array<UInt32>}
+     * @type {Array<Integer>}
      */
-    dwSSBRops{
+    dwSSBRops {
         get {
             if(!this.HasProp("__dwSSBRopsProxyArray"))
                 this.__dwSSBRopsProxyArray := Win32FixedArray(this.ptr + 272, 8, Primitive, "uint")
@@ -529,9 +527,9 @@ class DDCAPS_DX6 extends Win32Struct
 
     /**
      * Raster operations supported for bitblts from nonlocal to local video memory.
-     * @type {Array<UInt32>}
+     * @type {Array<Integer>}
      */
-    dwNLVBRops{
+    dwNLVBRops {
         get {
             if(!this.HasProp("__dwNLVBRopsProxyArray"))
                 this.__dwNLVBRopsProxyArray := Win32FixedArray(this.ptr + 332, 8, Primitive, "uint")
@@ -543,7 +541,7 @@ class DDCAPS_DX6 extends Win32Struct
      * A <a href="https://docs.microsoft.com/previous-versions/windows/hardware/drivers/ff550292(v=vs.85)">DDSCAPS2</a> structure that contains general surface capabilities.
      * @type {DDSCAPS2}
      */
-    ddsCaps{
+    ddsCaps {
         get {
             if(!this.HasProp("__ddsCaps"))
                 this.__ddsCaps := DDSCAPS2(364, this)

@@ -1,14 +1,13 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
-#Include .\ID2D1Device7.ahk
 #Include .\ID2D1Factory7.ahk
+#Include .\ID2D1Device7.ahk
 
 /**
  * @namespace Windows.Win32.Graphics.Direct2D
- * @version v4.0.30319
  */
-class ID2D1Factory8 extends ID2D1Factory7{
+class ID2D1Factory8 extends ID2D1Factory7 {
 
     static sizeof => A_PtrSize
     /**

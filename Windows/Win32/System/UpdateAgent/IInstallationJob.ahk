@@ -1,18 +1,17 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
+#Include ..\Com\IDispatch.ahk
 #Include ..\Variant\VARIANT.ahk
 #Include .\IUpdateCollection.ahk
 #Include .\IInstallationProgress.ahk
-#Include ..\Com\IDispatch.ahk
 
 /**
  * Contains properties and methods that are available to an installation or uninstallation operation.
  * @see https://learn.microsoft.com/windows/win32/api/wuapi/nn-wuapi-iinstallationjob
  * @namespace Windows.Win32.System.UpdateAgent
- * @version v4.0.30319
  */
-class IInstallationJob extends IDispatch{
+class IInstallationJob extends IDispatch {
 
     static sizeof => A_PtrSize
     /**

@@ -5,11 +5,9 @@
 
 /**
  * @namespace Windows.Win32.Storage.Jet
- * @version v4.0.30319
  * @charset Unicode
  */
-class JET_INSTANCE_INFO_W extends Win32Struct
-{
+class JET_INSTANCE_INFO_W extends Win32Struct {
     static sizeof => 48
 
     static packingSize => 8
@@ -17,7 +15,7 @@ class JET_INSTANCE_INFO_W extends Win32Struct
     /**
      * @type {JET_INSTANCE}
      */
-    hInstanceId{
+    hInstanceId {
         get {
             if(!this.HasProp("__hInstanceId"))
                 this.__hInstanceId := JET_INSTANCE(0, this)
@@ -36,7 +34,7 @@ class JET_INSTANCE_INFO_W extends Win32Struct
     /**
      * @type {JET_API_PTR}
      */
-    cDatabases{
+    cDatabases {
         get {
             if(!this.HasProp("__cDatabases"))
                 this.__cDatabases := JET_API_PTR(16, this)

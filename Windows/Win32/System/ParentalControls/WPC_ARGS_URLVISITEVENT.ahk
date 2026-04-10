@@ -5,9 +5,8 @@
  * Indicates information about the address URL of a website viewed.
  * @see https://learn.microsoft.com/windows/win32/api/wpcevent/ne-wpcevent-wpc_args_urlvisitevent
  * @namespace Windows.Win32.System.ParentalControls
- * @version v4.0.30319
  */
-class WPC_ARGS_URLVISITEVENT extends Win32Enum{
+class WPC_ARGS_URLVISITEVENT extends Win32Enum {
 
     /**
      * The address URL of a website viewed.

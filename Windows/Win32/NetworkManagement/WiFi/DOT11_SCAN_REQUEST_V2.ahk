@@ -1,18 +1,18 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
+#Include .\DOT11_BSS_TYPE.ahk
+#Include .\DOT11_SCAN_TYPE.ahk
 
 /**
  * @namespace Windows.Win32.NetworkManagement.WiFi
- * @version v4.0.30319
  */
-class DOT11_SCAN_REQUEST_V2 extends Win32Struct
-{
+class DOT11_SCAN_REQUEST_V2 extends Win32Struct {
     static sizeof => 60
 
     static packingSize => 4
 
     /**
-     * @type {Integer}
+     * @type {DOT11_BSS_TYPE}
      */
     dot11BSSType {
         get => NumGet(this, 0, "int")
@@ -20,9 +20,9 @@ class DOT11_SCAN_REQUEST_V2 extends Win32Struct
     }
 
     /**
-     * @type {Array<Byte>}
+     * @type {Array<Integer>}
      */
-    dot11BSSID{
+    dot11BSSID {
         get {
             if(!this.HasProp("__dot11BSSIDProxyArray"))
                 this.__dot11BSSIDProxyArray := Win32FixedArray(this.ptr + 4, 6, Primitive, "char")
@@ -31,7 +31,7 @@ class DOT11_SCAN_REQUEST_V2 extends Win32Struct
     }
 
     /**
-     * @type {Integer}
+     * @type {DOT11_SCAN_TYPE}
      */
     dot11ScanType {
         get => NumGet(this, 12, "int")
@@ -119,9 +119,9 @@ class DOT11_SCAN_REQUEST_V2 extends Win32Struct
     }
 
     /**
-     * @type {Array<Byte>}
+     * @type {Array<Integer>}
      */
-    ucBuffer{
+    ucBuffer {
         get {
             if(!this.HasProp("__ucBufferProxyArray"))
                 this.__ucBufferProxyArray := Win32FixedArray(this.ptr + 56, 1, Primitive, "char")

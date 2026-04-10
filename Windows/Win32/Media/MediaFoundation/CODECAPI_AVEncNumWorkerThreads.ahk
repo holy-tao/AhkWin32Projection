@@ -7,10 +7,8 @@
  * If the value is zero, the encoder selects the number of threads.
  * @see https://learn.microsoft.com/windows/win32/medfound/codecapi-avencnumworkerthreads
  * @namespace Windows.Win32.Media.MediaFoundation
- * @version v4.0.30319
  */
-class CODECAPI_AVEncNumWorkerThreads extends Win32Struct
-{
+class CODECAPI_AVEncNumWorkerThreads extends Win32Struct {
     static sizeof => 0
 
     static packingSize => 1

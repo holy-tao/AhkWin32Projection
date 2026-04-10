@@ -1,14 +1,15 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
+#Include .\MI_Qualifier.ahk
+#Include .\MI_ParameterDecl.ahk
+#Include .\MI_SchemaDecl.ahk
 
 /**
  * Represents a CIM method.
  * @see https://learn.microsoft.com/windows/win32/api/mi/ns-mi-mi_methoddecl
  * @namespace Windows.Win32.System.Wmi
- * @version v4.0.30319
  */
-class MI_MethodDecl extends Win32Struct
-{
+class MI_MethodDecl extends Win32Struct {
     static sizeof => 88
 
     static packingSize => 8

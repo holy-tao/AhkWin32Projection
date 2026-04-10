@@ -1,6 +1,8 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
 #Include .\GLYPHDEF.ahk
+#Include .\GLYPHBITS.ahk
+#Include .\PATHOBJ.ahk
 #Include ..\..\Foundation\RECTL.ahk
 #Include .\POINTQF.ahk
 
@@ -12,10 +14,8 @@
  * For a description of the FIX data type, see <a href="https://docs.microsoft.com/windows-hardware/drivers/display/gdi-data-types">GDI Data Types</a>.
  * @see https://learn.microsoft.com/windows/win32/api/winddi/ns-winddi-glyphdata
  * @namespace Windows.Win32.Devices.Display
- * @version v4.0.30319
  */
-class GLYPHDATA extends Win32Struct
-{
+class GLYPHDATA extends Win32Struct {
     static sizeof => 72
 
     static packingSize => 8
@@ -24,7 +24,7 @@ class GLYPHDATA extends Win32Struct
      * Specifies a <a href="https://docs.microsoft.com/windows/desktop/api/winddi/ns-winddi-glyphdef">GLYPHDEF</a> union that contains a pointer to either a <a href="https://docs.microsoft.com/windows/desktop/api/winddi/ns-winddi-glyphbits">GLYPHBITS</a> structure or a <a href="https://docs.microsoft.com/windows/desktop/api/winddi/ns-winddi-pathobj">PATHOBJ</a> structure, depending on whether, respectively, the glyph data is in the form of a bitmap or an outline.
      * @type {GLYPHDEF}
      */
-    gdf{
+    gdf {
         get {
             if(!this.HasProp("__gdf"))
                 this.__gdf := GLYPHDEF(0, this)
@@ -90,7 +90,7 @@ class GLYPHDATA extends Win32Struct
      * Specifies a <a href="https://docs.microsoft.com/windows/desktop/api/windef/ns-windef-rectl">RECTL</a> structure that describes the ink box in which the glyph fits. The sides of the ink box are parallel to the x and y axes.
      * @type {RECTL}
      */
-    rclInk{
+    rclInk {
         get {
             if(!this.HasProp("__rclInk"))
                 this.__rclInk := RECTL(40, this)
@@ -102,7 +102,7 @@ class GLYPHDATA extends Win32Struct
      * Specifies a POINTQF structure that contains the character increment vector, D = A + B + C. The high-order WORDs of <b>ptqD</b> are 28.4 device coordinates. The low-order WORDs of this member provide additional precision. For a description of the POINTQF structure, see <a href="https://docs.microsoft.com/windows-hardware/drivers/display/gdi-data-types">GDI Data Types</a>.
      * @type {POINTQF}
      */
-    ptqD{
+    ptqD {
         get {
             if(!this.HasProp("__ptqD"))
                 this.__ptqD := POINTQF(56, this)

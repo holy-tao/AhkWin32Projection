@@ -5,9 +5,8 @@
  * Contains virtual hard disk (VHD) mirror request flags.
  * @see https://learn.microsoft.com/windows/win32/api/virtdisk/ne-virtdisk-mirror_virtual_disk_flag
  * @namespace Windows.Win32.Storage.Vhd
- * @version v4.0.30319
  */
-class MIRROR_VIRTUAL_DISK_FLAG extends Win32BitflagEnum{
+class MIRROR_VIRTUAL_DISK_FLAG extends Win32BitflagEnum {
 
     /**
      * The mirror virtual disk file does not exist, and needs to be created.
@@ -22,7 +21,6 @@ class MIRROR_VIRTUAL_DISK_FLAG extends Win32BitflagEnum{
     static MIRROR_VIRTUAL_DISK_FLAG_EXISTING_FILE => 1
 
     /**
-     * 
      * @type {Integer (Int32)}
      */
     static MIRROR_VIRTUAL_DISK_FLAG_SKIP_MIRROR_ACTIVATION => 2

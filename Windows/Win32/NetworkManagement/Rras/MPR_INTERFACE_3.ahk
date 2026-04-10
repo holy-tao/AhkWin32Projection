@@ -1,6 +1,11 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
 #Include ..\..\Foundation\HANDLE.ahk
+#Include .\ROUTER_INTERFACE_TYPE.ahk
+#Include .\ROUTER_CONNECTION_STATE.ahk
+#Include .\MPR_INTERFACE_DIAL_MODE.ahk
+#Include .\MPR_ET.ahk
+#Include .\MPR_VS.ahk
 #Include ..\..\Networking\WinSock\IN6_ADDR.ahk
 
 /**
@@ -23,10 +28,8 @@
  * <b>64-bit Windows:  </b>Does not support the IPX protocol.
  * @see https://learn.microsoft.com/windows/win32/api/mprapi/ns-mprapi-mpr_interface_3
  * @namespace Windows.Win32.NetworkManagement.Rras
- * @version v4.0.30319
  */
-class MPR_INTERFACE_3 extends Win32Struct
-{
+class MPR_INTERFACE_3 extends Win32Struct {
     static sizeof => 2528
 
     static packingSize => 8
@@ -44,7 +47,7 @@ class MPR_INTERFACE_3 extends Win32Struct
      * A handle to the interface.
      * @type {HANDLE}
      */
-    hInterface{
+    hInterface {
         get {
             if(!this.HasProp("__hInterface"))
                 this.__hInterface := HANDLE(520, this)
@@ -64,7 +67,7 @@ class MPR_INTERFACE_3 extends Win32Struct
     /**
      * A value that identifies the 
      * <a href="https://docs.microsoft.com/windows/desktop/api/mprapi/ne-mprapi-router_interface_type">interface type</a>.
-     * @type {Integer}
+     * @type {ROUTER_INTERFACE_TYPE}
      */
     dwIfType {
         get => NumGet(this, 532, "int")
@@ -74,7 +77,7 @@ class MPR_INTERFACE_3 extends Win32Struct
     /**
      * A value that describes the current state of the interface, for example, connected, disconnected, or unreachable. For more information and a list of possible states, see 
      * <a href="https://docs.microsoft.com/windows/desktop/api/mprapi/ne-mprapi-router_connection_state">ROUTER_CONNECTION_STATE</a>.
-     * @type {Integer}
+     * @type {ROUTER_CONNECTION_STATE}
      */
     dwConnectionState {
         get => NumGet(this, 536, "int")
@@ -666,8 +669,7 @@ class MPR_INTERFACE_3 extends Win32Struct
     }
 
     /**
-     * 
-     * @type {Integer}
+     * @type {MPR_INTERFACE_DIAL_MODE}
      */
     dwDialMode {
         get => NumGet(this, 2420, "uint")
@@ -719,7 +721,6 @@ class MPR_INTERFACE_3 extends Win32Struct
     }
 
     /**
-     * 
      * @type {Integer}
      */
     dwIdleDisconnectSeconds {
@@ -774,8 +775,7 @@ class MPR_INTERFACE_3 extends Win32Struct
     }
 
     /**
-     * 
-     * @type {Integer}
+     * @type {MPR_ET}
      */
     dwEncryptionType {
         get => NumGet(this, 2448, "uint")
@@ -811,7 +811,7 @@ class MPR_INTERFACE_3 extends Win32Struct
 
     /**
      * The globally unique identifier (GUID) that represents this phone-book entry. This member is read-only.
-     * @type {Pointer<Guid>}
+     * @type {Pointer}
      */
     guidId {
         get => NumGet(this, 2472, "ptr")
@@ -819,8 +819,7 @@ class MPR_INTERFACE_3 extends Win32Struct
     }
 
     /**
-     * 
-     * @type {Integer}
+     * @type {MPR_VS}
      */
     dwVpnStrategy {
         get => NumGet(this, 2480, "uint")
@@ -840,7 +839,7 @@ class MPR_INTERFACE_3 extends Win32Struct
      * A value that specifies the IP address of the DNS server to be used while this connection is active.
      * @type {IN6_ADDR}
      */
-    ipv6addrDns{
+    ipv6addrDns {
         get {
             if(!this.HasProp("__ipv6addrDns"))
                 this.__ipv6addrDns := IN6_ADDR(2488, this)
@@ -852,7 +851,7 @@ class MPR_INTERFACE_3 extends Win32Struct
      * A value that specifies the IP address of a secondary or backup DNS server to be used while this connection is active.
      * @type {IN6_ADDR}
      */
-    ipv6addrDnsAlt{
+    ipv6addrDnsAlt {
         get {
             if(!this.HasProp("__ipv6addrDnsAlt"))
                 this.__ipv6addrDnsAlt := IN6_ADDR(2504, this)

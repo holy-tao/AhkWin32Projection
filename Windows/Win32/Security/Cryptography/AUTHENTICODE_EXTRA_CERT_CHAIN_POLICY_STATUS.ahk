@@ -5,10 +5,8 @@
  * The AUTHENTICODE_EXTRA_CERT_CHAIN_POLICY_STATUS structure holds additional Authenticode policy information for chain verification of files.
  * @see https://learn.microsoft.com/windows/win32/api/wincrypt/ns-wincrypt-authenticode_extra_cert_chain_policy_status
  * @namespace Windows.Win32.Security.Cryptography
- * @version v4.0.30319
  */
-class AUTHENTICODE_EXTRA_CERT_CHAIN_POLICY_STATUS extends Win32Struct
-{
+class AUTHENTICODE_EXTRA_CERT_CHAIN_POLICY_STATUS extends Win32Struct {
     static sizeof => 8
 
     static packingSize => 4

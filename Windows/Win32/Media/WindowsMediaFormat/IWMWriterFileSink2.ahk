@@ -7,9 +7,8 @@
  * The IWMWriterFileSink2 interface provides extended management of a file sink.This interface can be obtained by calling the QueryInterface method of an IWMWriterFileSink interface.
  * @see https://learn.microsoft.com/windows/win32/api/wmsdkidl/nn-wmsdkidl-iwmwriterfilesink2
  * @namespace Windows.Win32.Media.WindowsMediaFormat
- * @version v4.0.30319
  */
-class IWMWriterFileSink2 extends IWMWriterFileSink{
+class IWMWriterFileSink2 extends IWMWriterFileSink {
 
     static sizeof => A_PtrSize
     /**

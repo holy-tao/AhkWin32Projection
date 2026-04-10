@@ -2,15 +2,14 @@
 #Include ..\..\..\..\Win32Struct.ahk
 #Include .\MANIPULATION_TRANSFORM.ahk
 #Include .\MANIPULATION_VELOCITY.ahk
+#Include .\MANIPULATION_RAILS_STATE.ahk
 
 /**
  * Defines the state of a manipulation.
  * @see https://learn.microsoft.com/windows/win32/api/interactioncontext/ns-interactioncontext-interaction_arguments_manipulation
  * @namespace Windows.Win32.UI.InteractionContext
- * @version v4.0.30319
  */
-class INTERACTION_ARGUMENTS_MANIPULATION extends Win32Struct
-{
+class INTERACTION_ARGUMENTS_MANIPULATION extends Win32Struct {
     static sizeof => 60
 
     static packingSize => 4
@@ -19,7 +18,7 @@ class INTERACTION_ARGUMENTS_MANIPULATION extends Win32Struct
      * The change in translation, rotation, and scale since the last <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/interactioncontext/nc-interactioncontext-interaction_context_output_callback">INTERACTION_CONTEXT_OUTPUT_CALLBACK</a>.
      * @type {MANIPULATION_TRANSFORM}
      */
-    delta{
+    delta {
         get {
             if(!this.HasProp("__delta"))
                 this.__delta := MANIPULATION_TRANSFORM(0, this)
@@ -31,7 +30,7 @@ class INTERACTION_ARGUMENTS_MANIPULATION extends Win32Struct
      * The accumulated change in translation, rotation, and scale since the interaction started.
      * @type {MANIPULATION_TRANSFORM}
      */
-    cumulative{
+    cumulative {
         get {
             if(!this.HasProp("__cumulative"))
                 this.__cumulative := MANIPULATION_TRANSFORM(20, this)
@@ -43,7 +42,7 @@ class INTERACTION_ARGUMENTS_MANIPULATION extends Win32Struct
      * The velocities of the accumulated transformations for the interaction.
      * @type {MANIPULATION_VELOCITY}
      */
-    velocity{
+    velocity {
         get {
             if(!this.HasProp("__velocity"))
                 this.__velocity := MANIPULATION_VELOCITY(40, this)
@@ -53,7 +52,7 @@ class INTERACTION_ARGUMENTS_MANIPULATION extends Win32Struct
 
     /**
      * One of the constants from <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/interactioncontext/ne-interactioncontext-manipulation_rails_state">MANIPULATION_RAILS_STATE</a>.
-     * @type {Integer}
+     * @type {MANIPULATION_RAILS_STATE}
      */
     railsState {
         get => NumGet(this, 56, "int")

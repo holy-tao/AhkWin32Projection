@@ -1,7 +1,6 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
-#Include ..\..\Foundation\BSTR.ahk
 #Include .\IAction.ahk
 
 /**
@@ -12,9 +11,8 @@
  * When reading or writing XML, a COM handler action is specified in the <a href="https://docs.microsoft.com/windows/desktop/TaskSchd/taskschedulerschema-comhandler-actiongroup-element">ComHandler</a> element of the Task Scheduler schema.
  * @see https://learn.microsoft.com/windows/win32/api/taskschd/nn-taskschd-icomhandleraction
  * @namespace Windows.Win32.System.TaskScheduler
- * @version v4.0.30319
  */
-class IComHandlerAction extends IAction{
+class IComHandlerAction extends IAction {
 
     static sizeof => A_PtrSize
     /**
@@ -36,6 +34,7 @@ class IComHandlerAction extends IAction{
     static VTableNames => ["get_ClassId", "put_ClassId", "get_Data", "put_Data"]
 
     /**
+     * @type {BSTR} 
      */
     ClassId {
         get => this.get_ClassId()
@@ -43,6 +42,7 @@ class IComHandlerAction extends IAction{
     }
 
     /**
+     * @type {BSTR} 
      */
     Data {
         get => this.get_Data()

@@ -9,9 +9,8 @@
  * All flags are still valid for previous versions of Windows.
  * @see https://learn.microsoft.com/windows/win32/api/mobsync/ne-mobsync-syncmgrhandlerflags
  * @namespace Windows.Win32.UI.Shell
- * @version v4.0.30319
  */
-class SYNCMGRHANDLERFLAGS extends Win32Enum{
+class SYNCMGRHANDLERFLAGS extends Win32Enum {
 
     /**
      * The current handler provides a property sheet dialog.

@@ -1,19 +1,18 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
+#Include .\WHV_NOTIFICATION_PORT_TYPE.ahk
 #Include .\WHV_DOORBELL_MATCH_DATA.ahk
 
 /**
  * @namespace Windows.Win32.System.Hypervisor
- * @version v4.0.30319
  */
-class WHV_NOTIFICATION_PORT_PARAMETERS extends Win32Struct
-{
-    static sizeof => 40
+class WHV_NOTIFICATION_PORT_PARAMETERS extends Win32Struct {
+    static sizeof => 32
 
     static packingSize => 8
 
     /**
-     * @type {Integer}
+     * @type {WHV_NOTIFICATION_PORT_TYPE}
      */
     NotificationPortType {
         get => NumGet(this, 0, "int")
@@ -39,13 +38,12 @@ class WHV_NOTIFICATION_PORT_PARAMETERS extends Win32Struct
             get => NumGet(this, 0, "uint")
             set => NumPut("uint", value, this, 0)
         }
-    
     }
 
     /**
      * @type {WHV_DOORBELL_MATCH_DATA}
      */
-    Doorbell{
+    Doorbell {
         get {
             if(!this.HasProp("__Doorbell"))
                 this.__Doorbell := WHV_DOORBELL_MATCH_DATA(8, this)
@@ -56,10 +54,10 @@ class WHV_NOTIFICATION_PORT_PARAMETERS extends Win32Struct
     /**
      * @type {_Event}
      */
-    Event{
+    Event {
         get {
             if(!this.HasProp("__Event"))
-                this.__Event := %this.__Class%._Event(8, this)
+                this.__Event := WHV_NOTIFICATION_PORT_PARAMETERS._Event(8, this)
             return this.__Event
         }
     }

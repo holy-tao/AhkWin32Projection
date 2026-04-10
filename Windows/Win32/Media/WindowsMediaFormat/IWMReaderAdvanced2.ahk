@@ -7,9 +7,8 @@
  * The IWMReaderAdvanced2 interface provides additional advanced methods for a reader object.
  * @see https://learn.microsoft.com/windows/win32/api/wmsdkidl/nn-wmsdkidl-iwmreaderadvanced2
  * @namespace Windows.Win32.Media.WindowsMediaFormat
- * @version v4.0.30319
  */
-class IWMReaderAdvanced2 extends IWMReaderAdvanced{
+class IWMReaderAdvanced2 extends IWMReaderAdvanced {
 
     static sizeof => A_PtrSize
     /**
@@ -34,7 +33,7 @@ class IWMReaderAdvanced2 extends IWMReaderAdvanced{
      * The SetPlayMode method specifies the play mode.
      * @remarks
      * The default play mode is WMT_PLAY_MODE_AUTOSELECT, which enables the reader to pick the mode. If the application selects a play mode that is incompatible with the requested URL, an error is returned when the URL is opened. After the asynchronous reply to the <b>Open</b> request is completed, the mode is changed from WMT_PLAY_MODE_AUTOSELECT to the appropriately selected play mode. The play mode cannot be changed after the content has been opened, and returns an error if this is attempted.
-     * @param {Integer} _Mode 
+     * @param {WMT_PLAY_MODE} _Mode Variable containing one member of the <a href="https://docs.microsoft.com/windows/desktop/api/wmsdkidl/ne-wmsdkidl-wmt_play_mode">WMT_PLAY_MODE</a> enumeration type.
      * @returns {HRESULT} If the method succeeds, it returns S_OK. If it fails, it returns an <b>HRESULT</b> error code.
      * @see https://learn.microsoft.com/windows/win32/api/wmsdkidl/nf-wmsdkidl-iwmreaderadvanced2-setplaymode
      */
@@ -49,7 +48,7 @@ class IWMReaderAdvanced2 extends IWMReaderAdvanced{
      * Before a file is opened, this method returns the play mode the reader will use to open a file. The default setting is auto-select (the reader picks the mode). After a file is opened, this method returns the actual mode used to play the file. For an asynchronous <b>Open</b> request, the actual mode can be obtained after receiving the WMT_OPENED status message.
      * 
      * For more information, see the Remarks section of <a href="https://docs.microsoft.com/windows/desktop/api/wmsdkidl/nf-wmsdkidl-iwmreaderadvanced2-setplaymode">IWMReaderAdvanced2::SetPlayMode</a>.
-     * @returns {Integer} Pointer to a variable that receives a member of the <a href="https://docs.microsoft.com/windows/desktop/api/wmsdkidl/ne-wmsdkidl-wmt_play_mode">WMT_PLAY_MODE</a> enumeration type.
+     * @returns {WMT_PLAY_MODE} Pointer to a variable that receives a member of the <a href="https://docs.microsoft.com/windows/desktop/api/wmsdkidl/ne-wmsdkidl-wmt_play_mode">WMT_PLAY_MODE</a> enumeration type.
      * @see https://learn.microsoft.com/windows/win32/api/wmsdkidl/nf-wmsdkidl-iwmreaderadvanced2-getplaymode
      */
     GetPlayMode() {
@@ -358,7 +357,7 @@ class IWMReaderAdvanced2 extends IWMReaderAdvanced{
      * You should make two calls to <b>GetOutputSetting</b>. On the first call, pass <b>NULL</b> for <i>pValue</i>. On return, the value pointed to by <i>pcbLength</i> is set to the buffer size required to hold the setting value. Then you can allocate the required amount of memory for the buffer and pass a pointer to it as <i>pValue</i> on the second call.
      * @param {Integer} dwOutputNum <b>DWORD</b> containing the output number.
      * @param {PWSTR} pszName Pointer to a wide-character <b>null</b>-terminated string containing the setting name. For a list of global constants representing setting names, see <a href="https://docs.microsoft.com/windows/desktop/wmformat/output-settings">Output Settings</a>.
-     * @param {Pointer<Integer>} pType Pointer to a member of the <a href="https://docs.microsoft.com/windows/desktop/api/wmsdkidl/ne-wmsdkidl-wmt_attr_datatype">WMT_ATTR_DATATYPE</a> enumeration type that specifies the type of the value.
+     * @param {Pointer<WMT_ATTR_DATATYPE>} pType Pointer to a member of the <a href="https://docs.microsoft.com/windows/desktop/api/wmsdkidl/ne-wmsdkidl-wmt_attr_datatype">WMT_ATTR_DATATYPE</a> enumeration type that specifies the type of the value.
      * @param {Pointer<Integer>} pValue Pointer to a byte buffer containing the value. Pass <b>NULL</b> to retrieve the length of the buffer required.
      * @param {Pointer<Integer>} pcbLength On input, pointer to a variable containing the length of <i>pValue</i>. On output, the variable contains the number of bytes in <i>pValue</i>.
      * @returns {HRESULT} If the method succeeds, it returns S_OK. If it fails, it returns an <b>HRESULT</b> error code.
@@ -379,7 +378,7 @@ class IWMReaderAdvanced2 extends IWMReaderAdvanced{
      * The SetOutputSetting method specifies a named setting for a particular output.
      * @param {Integer} dwOutputNum <b>DWORD</b> containing the output number.
      * @param {PWSTR} pszName Pointer to a wide-character null-terminated string containing the name. For a list of global constants that represent setting names, see <a href="https://docs.microsoft.com/windows/desktop/wmformat/output-settings">Output Settings</a>.
-     * @param {Integer} Type Member of the <a href="https://docs.microsoft.com/windows/desktop/api/wmsdkidl/ne-wmsdkidl-wmt_attr_datatype">WMT_ATTR_DATATYPE</a> enumeration type that specifies the type of the value.
+     * @param {WMT_ATTR_DATATYPE} Type Member of the <a href="https://docs.microsoft.com/windows/desktop/api/wmsdkidl/ne-wmsdkidl-wmt_attr_datatype">WMT_ATTR_DATATYPE</a> enumeration type that specifies the type of the value.
      * @param {Pointer<Integer>} pValue Pointer to a byte array containing the value.
      * @param {Integer} cbLength Size of <i>pValue</i>.
      * @returns {HRESULT} If the method succeeds, it returns S_OK. If it fails, it returns an <b>HRESULT</b> error code.

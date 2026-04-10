@@ -1,16 +1,15 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
-#Include .\IPin.ahk
 #Include ..\..\System\Com\IUnknown.ahk
+#Include .\IPin.ahk
 
 /**
  * This interface is implemented on the MPEG-2 Demultiplexer filter (Demux) and is used in both program stream mode and transport stream mode.
  * @see https://learn.microsoft.com/windows/win32/api/strmif/nn-strmif-impeg2demultiplexer
  * @namespace Windows.Win32.Media.DirectShow
- * @version v4.0.30319
  */
-class IMpeg2Demultiplexer extends IUnknown{
+class IMpeg2Demultiplexer extends IUnknown {
 
     static sizeof => A_PtrSize
     /**

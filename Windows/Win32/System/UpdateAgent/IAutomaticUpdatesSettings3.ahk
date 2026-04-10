@@ -7,9 +7,8 @@
  * Contains the settings that are available in Automatic Updates. (IAutomaticUpdatesSettings3)
  * @see https://learn.microsoft.com/windows/win32/api/wuapi/nn-wuapi-iautomaticupdatessettings3
  * @namespace Windows.Win32.System.UpdateAgent
- * @version v4.0.30319
  */
-class IAutomaticUpdatesSettings3 extends IAutomaticUpdatesSettings2{
+class IAutomaticUpdatesSettings3 extends IAutomaticUpdatesSettings2 {
 
     static sizeof => A_PtrSize
     /**

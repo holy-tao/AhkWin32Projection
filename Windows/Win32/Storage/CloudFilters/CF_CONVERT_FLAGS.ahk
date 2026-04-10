@@ -5,9 +5,8 @@
  * Normal file/directory to placeholder file/directory conversion flags.
  * @see https://learn.microsoft.com/windows/win32/api/cfapi/ne-cfapi-cf_convert_flags
  * @namespace Windows.Win32.Storage.CloudFilters
- * @version v4.0.30319
  */
-class CF_CONVERT_FLAGS extends Win32BitflagEnum{
+class CF_CONVERT_FLAGS extends Win32BitflagEnum {
 
     /**
      * No conversion flags.

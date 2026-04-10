@@ -1,12 +1,12 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
+#Include ..\..\System\SystemServices\DMA_WIDTH.ahk
+#Include ..\..\System\SystemServices\DMA_SPEED.ahk
 
 /**
  * @namespace Windows.Wdk.NetworkManagement.Ndis
- * @version v4.0.30319
  */
-class NDIS_DMA_DESCRIPTION extends Win32Struct
-{
+class NDIS_DMA_DESCRIPTION extends Win32Struct {
     static sizeof => 20
 
     static packingSize => 4
@@ -36,7 +36,7 @@ class NDIS_DMA_DESCRIPTION extends Win32Struct
     }
 
     /**
-     * @type {Integer}
+     * @type {DMA_WIDTH}
      */
     DmaWidth {
         get => NumGet(this, 4, "int")
@@ -44,7 +44,7 @@ class NDIS_DMA_DESCRIPTION extends Win32Struct
     }
 
     /**
-     * @type {Integer}
+     * @type {DMA_SPEED}
      */
     DmaSpeed {
         get => NumGet(this, 8, "int")

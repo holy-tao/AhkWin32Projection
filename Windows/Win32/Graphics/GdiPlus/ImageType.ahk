@@ -5,9 +5,8 @@
  * Defines the type that contains the binary information for an image in a Journal note.
  * @see https://learn.microsoft.com/windows/win32/tablet/imagetype-complex-type
  * @namespace Windows.Win32.Graphics.GdiPlus
- * @version v4.0.30319
  */
-class ImageType extends Win32Enum{
+class ImageType extends Win32Enum {
 
     /**
      * @type {Integer (Int32)}

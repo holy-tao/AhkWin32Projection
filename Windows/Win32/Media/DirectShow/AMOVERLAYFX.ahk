@@ -5,9 +5,8 @@
  * Specifies effects on a DirectDraw hardware overlay surface.
  * @see https://learn.microsoft.com/windows/win32/api/strmif/ne-strmif-amoverlayfx
  * @namespace Windows.Win32.Media.DirectShow
- * @version v4.0.30319
  */
-class AMOVERLAYFX extends Win32Enum{
+class AMOVERLAYFX extends Win32Enum {
 
     /**
      * Normal video (no effects).

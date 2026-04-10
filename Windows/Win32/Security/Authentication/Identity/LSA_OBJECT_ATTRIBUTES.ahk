@@ -1,6 +1,7 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\..\Win32Struct.ahk
 #Include ..\..\..\Foundation\HANDLE.ahk
+#Include .\LSA_UNICODE_STRING.ahk
 
 /**
  * The LSA_OBJECT_ATTRIBUTES structure is used with the LsaOpenPolicy function to specify the attributes of the connection to the Policy object.
@@ -10,10 +11,8 @@
  * <b>Windows Server 2008 with SP2 and earlier, Windows Vista with SP2 and earlier, Windows Server 2003, Windows XP/2000:  </b>The <b>LSA_OBJECT_ATTRIBUTES</b> structure is defined in the NTSecAPI.h header file.
  * @see https://learn.microsoft.com/windows/win32/api/lsalookup/ns-lsalookup-lsa_object_attributes
  * @namespace Windows.Win32.Security.Authentication.Identity
- * @version v4.0.30319
  */
-class LSA_OBJECT_ATTRIBUTES extends Win32Struct
-{
+class LSA_OBJECT_ATTRIBUTES extends Win32Struct {
     static sizeof => 48
 
     static packingSize => 8
@@ -31,7 +30,7 @@ class LSA_OBJECT_ATTRIBUTES extends Win32Struct
      * Should be <b>NULL</b>.
      * @type {HANDLE}
      */
-    RootDirectory{
+    RootDirectory {
         get {
             if(!this.HasProp("__RootDirectory"))
                 this.__RootDirectory := HANDLE(8, this)

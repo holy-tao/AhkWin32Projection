@@ -5,9 +5,8 @@
  * Specifies the interaction states used for configuring an Interaction Context object.
  * @see https://learn.microsoft.com/windows/win32/api/interactioncontext/ne-interactioncontext-interaction_id
  * @namespace Windows.Win32.UI.InteractionContext
- * @version v4.0.30319
  */
-class INTERACTION_ID extends Win32Enum{
+class INTERACTION_ID extends Win32Enum {
 
     /**
      * Not used.

@@ -5,9 +5,8 @@
  * Represents the action to be taken by an application in response to ISyncCallback::OnFullEnumerationNeeded.
  * @see https://learn.microsoft.com/windows/win32/api/winsync/ne-winsync-sync_full_enumeration_action
  * @namespace Windows.Win32.System.WindowsSync
- * @version v4.0.30319
  */
-class SYNC_FULL_ENUMERATION_ACTION extends Win32Enum{
+class SYNC_FULL_ENUMERATION_ACTION extends Win32Enum {
 
     /**
      * Perform a full enumeration. This is the default option when the application does not register an <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/winsync/nn-winsync-isynccallback">ISyncCallback</a> interface.

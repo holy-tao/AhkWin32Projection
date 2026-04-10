@@ -5,9 +5,8 @@
 
 /**
  * @namespace Windows.Win32.System.Search
- * @version v4.0.30319
  */
-class IRowSchemaChange extends IRowChange{
+class IRowSchemaChange extends IRowChange {
 
     static sizeof => A_PtrSize
     /**

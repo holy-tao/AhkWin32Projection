@@ -1,17 +1,16 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
+#Include ..\..\System\Com\IDispatch.ahk
 #Include ..\..\Foundation\BSTR.ahk
 #Include .\ISpeechDataKey.ahk
 #Include .\ISpeechObjectTokenCategory.ahk
 #Include ..\..\System\Com\IUnknown.ahk
-#Include ..\..\System\Com\IDispatch.ahk
 
 /**
  * @namespace Windows.Win32.Media.Speech
- * @version v4.0.30319
  */
-class ISpeechObjectToken extends IDispatch{
+class ISpeechObjectToken extends IDispatch {
 
     static sizeof => A_PtrSize
     /**
@@ -137,7 +136,7 @@ class ISpeechObjectToken extends IDispatch{
      * @remarks
      * The destructor for the class is <b>CWbemGlueFactory::~CWbemGlueFactory.</b>
      * @param {IUnknown} pUnkOuter 
-     * @param {Integer} ClsContext 
+     * @param {SpeechTokenContext} ClsContext 
      * @returns {IUnknown} 
      * @see https://learn.microsoft.com/windows/win32/api/wbemglue/nl-wbemglue-cwbemgluefactory
      */
@@ -176,7 +175,7 @@ class ISpeechObjectToken extends IDispatch{
      * @param {BSTR} ObjectStorageCLSID 
      * @param {BSTR} KeyName 
      * @param {BSTR} FileName 
-     * @param {Integer} _Folder 
+     * @param {SpeechTokenShellFolder} _Folder 
      * @returns {BSTR} 
      */
     GetStorageFileName(ObjectStorageCLSID, KeyName, FileName, _Folder) {

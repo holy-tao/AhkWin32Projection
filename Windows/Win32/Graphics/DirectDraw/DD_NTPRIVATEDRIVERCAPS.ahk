@@ -11,10 +11,8 @@
  * When the DDHAL_PRIVATECAP_NOTIFYPRIMARYCREATION flag is not set, DirectDraw performs primary surface creation using the original method, that is, it does not call the driver when creating a primary surface.
  * @see https://learn.microsoft.com/windows/win32/api/ddrawint/ns-ddrawint-dd_ntprivatedrivercaps
  * @namespace Windows.Win32.Graphics.DirectDraw
- * @version v4.0.30319
  */
-class DD_NTPRIVATEDRIVERCAPS extends Win32Struct
-{
+class DD_NTPRIVATEDRIVERCAPS extends Win32Struct {
     static sizeof => 8
 
     static packingSize => 4

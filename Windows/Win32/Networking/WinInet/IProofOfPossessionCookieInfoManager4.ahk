@@ -7,9 +7,8 @@
  * Supports the creation of proof-of-possession cookies, for a WebAccount and a client id.
  * @see https://learn.microsoft.com/windows/win32/WinInet/proofofpossessioncookieinfo/nn-proofofpossessioncookieinfo-iproofofpossessioncookieinfomanager4
  * @namespace Windows.Win32.Networking.WinInet
- * @version v4.0.30319
  */
-class IProofOfPossessionCookieInfoManager4 extends IUnknown{
+class IProofOfPossessionCookieInfoManager4 extends IUnknown {
 
     static sizeof => A_PtrSize
     /**

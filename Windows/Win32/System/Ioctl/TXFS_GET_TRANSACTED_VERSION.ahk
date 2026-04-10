@@ -9,10 +9,8 @@
  *     is reset to zero.
  * @see https://learn.microsoft.com/windows/win32/api/winioctl/ns-winioctl-txfs_get_transacted_version
  * @namespace Windows.Win32.System.Ioctl
- * @version v4.0.30319
  */
-class TXFS_GET_TRANSACTED_VERSION extends Win32Struct
-{
+class TXFS_GET_TRANSACTED_VERSION extends Win32Struct {
     static sizeof => 16
 
     static packingSize => 4

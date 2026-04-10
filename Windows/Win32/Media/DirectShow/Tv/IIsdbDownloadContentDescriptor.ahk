@@ -1,16 +1,15 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\..\Guid.ahk
-#Include ..\..\..\Foundation\BSTR.ahk
 #Include ..\..\..\System\Com\IUnknown.ahk
+#Include ..\..\..\Foundation\BSTR.ahk
 
 /**
  * Implements methods that get data from an Integrated Services Digital Broadcasting (ISDB) download content descriptor.
  * @see https://learn.microsoft.com/windows/win32/api/dvbsiparser/nn-dvbsiparser-iisdbdownloadcontentdescriptor
  * @namespace Windows.Win32.Media.DirectShow.Tv
- * @version v4.0.30319
  */
-class IIsdbDownloadContentDescriptor extends IUnknown{
+class IIsdbDownloadContentDescriptor extends IUnknown {
 
     static sizeof => A_PtrSize
     /**
@@ -212,7 +211,7 @@ class IIsdbDownloadContentDescriptor extends IUnknown{
 
     /**
      * Gets the text from an Integrated Services Digital Broadcasting (ISDB) download content descriptor that describes the descriptor contents, in Unicode text format.
-     * @param {Integer} convMode 
+     * @param {DVB_STRCONV_MODE} convMode 
      * @returns {BSTR} Pointer to a buffer that receives the description text. The caller is responsible for freeing this memory.
      * @see https://learn.microsoft.com/windows/win32/api/dvbsiparser/nf-dvbsiparser-iisdbdownloadcontentdescriptor-gettextw
      */

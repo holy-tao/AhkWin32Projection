@@ -3,10 +3,8 @@
 
 /**
  * @namespace Windows.Win32.Storage.Nvme
- * @version v4.0.30319
  */
-class NVMEOF_AUTH_FAILURE extends Win32Struct
-{
+class NVMEOF_AUTH_FAILURE extends Win32Struct {
     static sizeof => 8
 
     static packingSize => 2

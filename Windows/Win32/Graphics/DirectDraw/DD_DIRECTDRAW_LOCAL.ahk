@@ -1,14 +1,13 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
+#Include .\DD_DIRECTDRAW_GLOBAL.ahk
 
 /**
  * The DD_DIRECTDRAW_LOCAL structure contains driver information that is relevant to the current DirectDraw process only.
  * @see https://learn.microsoft.com/windows/win32/api/ddrawint/ns-ddrawint-dd_directdraw_local
  * @namespace Windows.Win32.Graphics.DirectDraw
- * @version v4.0.30319
  */
-class DD_DIRECTDRAW_LOCAL extends Win32Struct
-{
+class DD_DIRECTDRAW_LOCAL extends Win32Struct {
     static sizeof => 8
 
     static packingSize => 8

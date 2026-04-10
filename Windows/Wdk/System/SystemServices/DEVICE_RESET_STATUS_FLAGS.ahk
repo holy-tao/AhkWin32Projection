@@ -3,10 +3,8 @@
 
 /**
  * @namespace Windows.Wdk.System.SystemServices
- * @version v4.0.30319
  */
-class DEVICE_RESET_STATUS_FLAGS extends Win32Struct
-{
+class DEVICE_RESET_STATUS_FLAGS extends Win32Struct {
     static sizeof => 16
 
     static packingSize => 8
@@ -26,7 +24,7 @@ class DEVICE_RESET_STATUS_FLAGS extends Win32Struct
             get => NumGet(this, 0, "uint")
             set => NumPut("uint", value, this, 0)
         }
-    
+
         /**
          * @type {Integer}
          */
@@ -34,7 +32,7 @@ class DEVICE_RESET_STATUS_FLAGS extends Win32Struct
             get => (this._bitfield >> 0) & 0x1
             set => this._bitfield := ((value & 0x1) << 0) | (this._bitfield & ~(0x1 << 0))
         }
-    
+
         /**
          * @type {Integer}
          */
@@ -42,16 +40,15 @@ class DEVICE_RESET_STATUS_FLAGS extends Win32Struct
             get => (this._bitfield >> 1) & 0x1
             set => this._bitfield := ((value & 0x1) << 1) | (this._bitfield & ~(0x1 << 1))
         }
-    
     }
 
     /**
      * @type {_u}
      */
-    u{
+    u {
         get {
             if(!this.HasProp("__u"))
-                this.__u := %this.__Class%._u(0, this)
+                this.__u := DEVICE_RESET_STATUS_FLAGS._u(0, this)
             return this.__u
         }
     }

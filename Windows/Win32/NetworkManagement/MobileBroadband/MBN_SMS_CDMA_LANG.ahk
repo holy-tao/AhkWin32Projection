@@ -5,9 +5,8 @@
  * The MBN_SMS_CDMA_LANG enumerated type represents the different languages that can be used in a CDMA message.
  * @see https://learn.microsoft.com/windows/win32/api/mbnapi/ne-mbnapi-mbn_sms_cdma_lang
  * @namespace Windows.Win32.NetworkManagement.MobileBroadband
- * @version v4.0.30319
  */
-class MBN_SMS_CDMA_LANG extends Win32Enum{
+class MBN_SMS_CDMA_LANG extends Win32Enum {
 
     /**
      * None.

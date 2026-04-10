@@ -5,10 +5,8 @@
  * The DIDRIVERVERSIONS structure is used by the DirectInput effect driver to report version information back to DirectInput.
  * @see https://learn.microsoft.com/windows/win32/api/dinputd/ns-dinputd-didriverversions
  * @namespace Windows.Win32.Devices.HumanInterfaceDevice
- * @version v4.0.30319
  */
-class DIDRIVERVERSIONS extends Win32Struct
-{
+class DIDRIVERVERSIONS extends Win32Struct {
     static sizeof => 16
 
     static packingSize => 4

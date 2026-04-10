@@ -1,14 +1,13 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
-#Include .\IMFMediaType.ahk
 #Include .\IMFVideoProcessorControl2.ahk
+#Include .\IMFMediaType.ahk
 
 /**
  * @namespace Windows.Win32.Media.MediaFoundation
- * @version v4.0.30319
  */
-class IMFVideoProcessorControl3 extends IMFVideoProcessorControl2{
+class IMFVideoProcessorControl3 extends IMFVideoProcessorControl2 {
 
     static sizeof => A_PtrSize
     /**
@@ -41,8 +40,8 @@ class IMFVideoProcessorControl3 extends IMFVideoProcessorControl2{
     /**
      * 
      * @param {BOOL} fEnable 
-     * @param {Integer} eFormat 
-     * @param {Integer} eProjectionMode 
+     * @param {MFVideoSphericalFormat} eFormat 
+     * @param {MFVideoSphericalProjectionMode} eProjectionMode 
      * @returns {HRESULT} 
      */
     EnableSphericalVideoProcessing(fEnable, eFormat, eProjectionMode) {

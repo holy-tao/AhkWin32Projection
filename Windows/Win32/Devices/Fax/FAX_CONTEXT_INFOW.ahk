@@ -15,11 +15,9 @@
  * > The winfax.h header defines FAX_CONTEXT_INFO as an alias which automatically selects the ANSI or Unicode version of this function based on the definition of the UNICODE preprocessor constant. Mixing usage of the encoding-neutral alias with code that not encoding-neutral can lead to mismatches that result in compilation or runtime errors. For more information, see [Conventions for Function Prototypes](/windows/win32/intl/conventions-for-function-prototypes).
  * @see https://learn.microsoft.com/windows/win32/api/winfax/ns-winfax-fax_context_infow
  * @namespace Windows.Win32.Devices.Fax
- * @version v4.0.30319
  * @charset Unicode
  */
-class FAX_CONTEXT_INFOW extends Win32Struct
-{
+class FAX_CONTEXT_INFOW extends Win32Struct {
     static sizeof => 48
 
     static packingSize => 8
@@ -41,7 +39,7 @@ class FAX_CONTEXT_INFOW extends Win32Struct
      * Handle to a fax printer device context. A call to the <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/winfax/nf-winfax-faxstartprintjoba">FaxStartPrintJob</a> function supplies the data for this member.
      * @type {HDC}
      */
-    hDC{
+    hDC {
         get {
             if(!this.HasProp("__hDC"))
                 this.__hDC := HDC(8, this)

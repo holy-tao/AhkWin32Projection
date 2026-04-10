@@ -5,10 +5,8 @@
  * The SERVER_INFO_1529 structure specifies the minimum number of free receive work items the server requires before it begins allocating more items.
  * @see https://learn.microsoft.com/windows/win32/api/lmserver/ns-lmserver-server_info_1529
  * @namespace Windows.Win32.NetworkManagement.NetManagement
- * @version v4.0.30319
  */
-class SERVER_INFO_1529 extends Win32Struct
-{
+class SERVER_INFO_1529 extends Win32Struct {
     static sizeof => 4
 
     static packingSize => 4

@@ -62,10 +62,9 @@
  * 7.  Compare the values of SyncRefreshCount from the two stored D3DPRESENTSTATS structures. If the difference is greater than one, then a frame was skipped.
  * @see https://learn.microsoft.com/windows/win32/direct3d9/d3dpresentstats
  * @namespace Windows.Win32.Graphics.Direct3D9
- * @version v4.0.30319
+ * @architecture X64, Arm64
  */
-class D3DPRESENTSTATS extends Win32Struct
-{
+class D3DPRESENTSTATS extends Win32Struct {
     static sizeof => 32
 
     static packingSize => 8

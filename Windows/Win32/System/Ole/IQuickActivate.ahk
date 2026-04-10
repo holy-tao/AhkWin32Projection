@@ -1,16 +1,15 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
-#Include ..\..\Foundation\SIZE.ahk
 #Include ..\Com\IUnknown.ahk
+#Include ..\..\Foundation\SIZE.ahk
 
 /**
  * Enables controls and containers to avoid performance bottlenecks on loading controls. It combines the load-time or initialization-time handshaking between the control and its container into a single call.
  * @see https://learn.microsoft.com/windows/win32/api/ocidl/nn-ocidl-iquickactivate
  * @namespace Windows.Win32.System.Ole
- * @version v4.0.30319
  */
-class IQuickActivate extends IUnknown{
+class IQuickActivate extends IUnknown {
 
     static sizeof => A_PtrSize
     /**

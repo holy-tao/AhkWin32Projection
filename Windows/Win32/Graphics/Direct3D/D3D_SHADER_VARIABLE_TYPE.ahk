@@ -22,9 +22,8 @@
  * ```
  * @see https://learn.microsoft.com/windows/win32/api/d3dcommon/ne-d3dcommon-d3d_shader_variable_type
  * @namespace Windows.Win32.Graphics.Direct3D
- * @version v4.0.30319
  */
-class D3D_SHADER_VARIABLE_TYPE extends Win32Enum{
+class D3D_SHADER_VARIABLE_TYPE extends Win32Enum {
 
     /**
      * The variable is a void pointer.

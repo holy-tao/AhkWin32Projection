@@ -9,10 +9,8 @@
  * <a href="https://docs.microsoft.com/windows/win32/api/windns/ns-windns-dns_recorda">DNS_RECORD</a> structure to programmatically manage DNS entries.
  * @see https://learn.microsoft.com/windows/win32/api/windns/ns-windns-dns_opt_data
  * @namespace Windows.Win32.NetworkManagement.Dns
- * @version v4.0.30319
  */
-class DNS_OPT_DATA extends Win32Struct
-{
+class DNS_OPT_DATA extends Win32Struct {
     static sizeof => 6
 
     static packingSize => 2
@@ -37,9 +35,9 @@ class DNS_OPT_DATA extends Win32Struct
 
     /**
      * A <b>BYTE</b> array that contains variable transport level information as specified in section 4 of <a href="https://www.ietf.org/rfc/rfc2671.txt">RFC 2671</a>.
-     * @type {Array<Byte>}
+     * @type {Array<Integer>}
      */
-    Data{
+    Data {
         get {
             if(!this.HasProp("__DataProxyArray"))
                 this.__DataProxyArray := Win32FixedArray(this.ptr + 4, 1, Primitive, "char")

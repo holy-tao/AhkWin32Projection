@@ -7,10 +7,8 @@
  * <b>CERT_HASH_LENGTH</b> is defined as 20 in WinCred.h.
  * @see https://learn.microsoft.com/windows/win32/api/wincred/ns-wincred-cert_credential_info
  * @namespace Windows.Win32.Security.Credentials
- * @version v4.0.30319
  */
-class CERT_CREDENTIAL_INFO extends Win32Struct
-{
+class CERT_CREDENTIAL_INFO extends Win32Struct {
     static sizeof => 24
 
     static packingSize => 4
@@ -28,9 +26,9 @@ class CERT_CREDENTIAL_INFO extends Win32Struct
 
     /**
      * SHA-1 hash of the certificate referenced.
-     * @type {Array<Byte>}
+     * @type {Array<Integer>}
      */
-    rgbHashOfCert{
+    rgbHashOfCert {
         get {
             if(!this.HasProp("__rgbHashOfCertProxyArray"))
                 this.__rgbHashOfCertProxyArray := Win32FixedArray(this.ptr + 4, 20, Primitive, "char")

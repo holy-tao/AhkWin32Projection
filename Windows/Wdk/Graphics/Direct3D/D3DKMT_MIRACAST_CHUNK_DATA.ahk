@@ -3,16 +3,14 @@
 
 /**
  * @namespace Windows.Wdk.Graphics.Direct3D
- * @version v4.0.30319
  */
-class D3DKMT_MIRACAST_CHUNK_DATA extends Win32Struct
-{
+class D3DKMT_MIRACAST_CHUNK_DATA extends Win32Struct {
     static sizeof => 16
 
     static packingSize => 8
 
     /**
-     * @type {Pointer<DXGK_MIRACAST_CHUNK_INFO>}
+     * @type {Pointer}
      */
     ChunkInfo {
         get => NumGet(this, 0, "ptr")
@@ -28,9 +26,9 @@ class D3DKMT_MIRACAST_CHUNK_DATA extends Win32Struct
     }
 
     /**
-     * @type {Array<Byte>}
+     * @type {Array<Integer>}
      */
-    PrivateDriverData{
+    PrivateDriverData {
         get {
             if(!this.HasProp("__PrivateDriverDataProxyArray"))
                 this.__PrivateDriverDataProxyArray := Win32FixedArray(this.ptr + 12, 1, Primitive, "char")

@@ -5,9 +5,8 @@
  * Specifies the type of change that occurred in a target.
  * @see https://learn.microsoft.com/windows/win32/api/sessdirpublictypes/ne-sessdirpublictypes-target_change_type
  * @namespace Windows.Win32.System.RemoteDesktop
- * @version v4.0.30319
  */
-class TARGET_CHANGE_TYPE extends Win32Enum{
+class TARGET_CHANGE_TYPE extends Win32Enum {
 
     /**
      * Unspecified change in the target.
@@ -52,25 +51,21 @@ class TARGET_CHANGE_TYPE extends Win32Enum{
     static TARGET_IDLE => 64
 
     /**
-     * 
      * @type {Integer (Int32)}
      */
     static TARGET_PENDING => 128
 
     /**
-     * 
      * @type {Integer (Int32)}
      */
     static TARGET_INUSE => 256
 
     /**
-     * 
      * @type {Integer (Int32)}
      */
     static TARGET_PATCH_STATE_CHANGED => 512
 
     /**
-     * 
      * @type {Integer (Int32)}
      */
     static TARGET_FARM_MEMBERSHIP_CHANGED => 1024

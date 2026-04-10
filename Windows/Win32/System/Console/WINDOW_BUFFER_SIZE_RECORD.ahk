@@ -8,10 +8,8 @@
  * Buffer size events are placed in the input buffer when the console is in window-aware mode (**ENABLE\_WINDOW\_INPUT**).
  * @see https://learn.microsoft.com/windows/console/window-buffer-size-record-str
  * @namespace Windows.Win32.System.Console
- * @version v4.0.30319
  */
-class WINDOW_BUFFER_SIZE_RECORD extends Win32Struct
-{
+class WINDOW_BUFFER_SIZE_RECORD extends Win32Struct {
     static sizeof => 4
 
     static packingSize => 2
@@ -20,7 +18,7 @@ class WINDOW_BUFFER_SIZE_RECORD extends Win32Struct
      * A [**COORD**](coord-str.md) structure that contains the size of the console screen buffer, in character cell columns and rows.
      * @type {COORD}
      */
-    dwSize{
+    dwSize {
         get {
             if(!this.HasProp("__dwSize"))
                 this.__dwSize := COORD(0, this)

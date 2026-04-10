@@ -13,9 +13,8 @@
  * The effect is to scale the blending of the visual's subtree up or down, and apply the corresponding translation such that the center point does not move.
  * @see https://learn.microsoft.com/windows/win32/api/dcomp/nn-dcomp-idcompositionscaletransform3d
  * @namespace Windows.Win32.Graphics.DirectComposition
- * @version v4.0.30319
  */
-class IDCompositionScaleTransform3D extends IDCompositionTransform3D{
+class IDCompositionScaleTransform3D extends IDCompositionTransform3D {
 
     static sizeof => A_PtrSize
     /**

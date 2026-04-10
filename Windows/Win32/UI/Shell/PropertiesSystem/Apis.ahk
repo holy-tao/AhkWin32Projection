@@ -6,7 +6,6 @@
 
 /**
  * @namespace Windows.Win32.UI.Shell.PropertiesSystem
- * @version v4.0.30319
  */
 class PropertiesSystem {
 
@@ -201,7 +200,7 @@ class PropertiesSystem {
      * @param {Pointer<PROPVARIANT>} propvar Type: <b>REFPROPVARIANT</b>
      * 
      * Reference to a <a href="https://docs.microsoft.com/windows/desktop/api/propidl/ns-propidl-propvariant">PROPVARIANT</a> structure that contains the type and value of the property.
-     * @param {Integer} pdfFlags Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/propsys/ne-propsys-propdesc_format_flags">PROPDESC_FORMAT_FLAGS</a></b>
+     * @param {PROPDESC_FORMAT_FLAGS} pdfFlags Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/propsys/ne-propsys-propdesc_format_flags">PROPDESC_FORMAT_FLAGS</a></b>
      * 
      * A flag that specifies the format to apply to the property string. See <a href="https://docs.microsoft.com/windows/desktop/api/propsys/ne-propsys-propdesc_format_flags">PROPDESC_FORMAT_FLAGS</a> for possible values.
      * @param {PWSTR} pwszText Type: <b>LPWSTR</b>
@@ -430,7 +429,7 @@ class PropertiesSystem {
      * @param {Pointer<PROPVARIANT>} propvar Type: <b>REFPROPVARIANT</b>
      * 
      * Reference to a <a href="https://docs.microsoft.com/windows/desktop/api/propidl/ns-propidl-propvariant">PROPVARIANT</a> structure that contains the type and value of the property.
-     * @param {Integer} pdff Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/propsys/ne-propsys-propdesc_format_flags">PROPDESC_FORMAT_FLAGS</a></b>
+     * @param {PROPDESC_FORMAT_FLAGS} pdff Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/propsys/ne-propsys-propdesc_format_flags">PROPDESC_FORMAT_FLAGS</a></b>
      * 
      * One or more flags that specify the format to apply to the property string. See <a href="https://docs.microsoft.com/windows/desktop/api/propsys/ne-propsys-propdesc_format_flags">PROPDESC_FORMAT_FLAGS</a> for possible values.
      * @returns {PWSTR} Type: <b>PWSTR*</b>
@@ -611,7 +610,7 @@ class PropertiesSystem {
      * @param {IPropertyDescription} ppd Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/propsys/nn-propsys-ipropertydescription">IPropertyDescription</a>*</b>
      * 
      * Pointer to an <a href="https://docs.microsoft.com/windows/desktop/api/propsys/nn-propsys-ipropertydescription">IPropertyDescription</a>, which represents the property whose value is being retrieved.
-     * @param {Integer} pdff Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/propsys/ne-propsys-propdesc_format_flags">PROPDESC_FORMAT_FLAGS</a></b>
+     * @param {PROPDESC_FORMAT_FLAGS} pdff Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/propsys/ne-propsys-propdesc_format_flags">PROPDESC_FORMAT_FLAGS</a></b>
      * 
      * One or more <a href="https://docs.microsoft.com/windows/desktop/api/propsys/ne-propsys-propdesc_format_flags">PROPDESC_FORMAT_FLAGS</a> that specify the format to apply to the property string. See <b>PROPDESC_FORMAT_FLAGS</b> for possible values.
      * @returns {PWSTR} Type: <b>LPWSTR*</b>
@@ -739,7 +738,7 @@ class PropertiesSystem {
      * If the call to <a href="https://docs.microsoft.com/windows/desktop/api/propsys/nn-propsys-idelayedpropertystorefactory">IDelayedPropertyStoreFactory</a> fails with E_NOTIMPL or E_ACCESSDENIED for a particular property store ID, or if the application specified <a href="https://docs.microsoft.com/windows/desktop/api/propsys/ne-propsys-getpropertystoreflags">GPS_BESTEFFORT</a>, then the failure is ignored and the delayed multiplex property store moves on to the next property store.
      * 
      * In some cases, it might be beneficial to use <a href="https://docs.microsoft.com/windows/desktop/api/propsys/nf-propsys-pscreatedelayedmultiplexpropertystore">PSCreateDelayedMultiplexPropertyStore</a> in place of <a href="https://docs.microsoft.com/windows/desktop/api/propsys/nf-propsys-pscreatemultiplexpropertystore">PSCreateMultiplexPropertyStore</a>. For example, if an application needs to multiplex two property stores and the first property store is not memory-intensive to initialize and provides PKEY_Size information. Often, calling applications ask for a multiplex property store and then ask for only PKEY_Size before they release the object. In such a case, the application could avoid the cost of initializing the second property store by calling <b>PSCreateDelayedMultiplexPropertyStore</b> and implementing <a href="https://docs.microsoft.com/windows/desktop/api/propsys/nn-propsys-idelayedpropertystorefactory">IDelayedPropertyStoreFactory</a>.
-     * @param {Integer} flags Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/propsys/ne-propsys-getpropertystoreflags">GETPROPERTYSTOREFLAGS</a></b>
+     * @param {GETPROPERTYSTOREFLAGS} flags Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/propsys/ne-propsys-getpropertystoreflags">GETPROPERTYSTOREFLAGS</a></b>
      * 
      * One or more <a href="https://docs.microsoft.com/windows/desktop/api/propsys/ne-propsys-getpropertystoreflags">GETPROPERTYSTOREFLAGS</a> values. These values specify details of the created property store object.
      * @param {IDelayedPropertyStoreFactory} pdpsf Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/propsys/nn-propsys-idelayedpropertystorefactory">IDelayedPropertyStoreFactory</a>*</b>
@@ -819,7 +818,7 @@ class PropertiesSystem {
      * @param {Pointer<PROPERTYKEY>} rgpropkey Type: <b>const <a href="https://docs.microsoft.com/windows/desktop/api/wtypes/ns-wtypes-propertykey">PROPERTYKEY</a>*</b>
      * 
      * Pointer to an array of <a href="https://docs.microsoft.com/windows/desktop/api/wtypes/ns-wtypes-propertykey">PROPERTYKEY</a> structures that name the specific properties whose changes are being stored. If this value is <b>NULL</b>, <i>cChanges</i> must be 0.
-     * @param {Pointer<Integer>} rgflags Type: <b>const <a href="https://docs.microsoft.com/windows/desktop/api/propsys/ne-propsys-pka_flags">PKA_FLAGS</a>*</b>
+     * @param {Pointer<PKA_FLAGS>} rgflags Type: <b>const <a href="https://docs.microsoft.com/windows/desktop/api/propsys/ne-propsys-pka_flags">PKA_FLAGS</a>*</b>
      * 
      * Pointer to an array of <a href="https://docs.microsoft.com/windows/desktop/api/propsys/ne-propsys-pka_flags">PKA_FLAGS</a> values. If this value is <b>NULL</b>, <i>cChanges</i> must be 0.
      * @param {Pointer<PROPVARIANT>} rgpropvar Type: <b>const <a href="https://docs.microsoft.com/windows/desktop/api/propidl/ns-propidl-propvariant">PROPVARIANT</a>*</b>
@@ -848,7 +847,7 @@ class PropertiesSystem {
      * Creates a simple property change.
      * @remarks
      * Property changes can be placed into an <a href="https://docs.microsoft.com/windows/desktop/api/propsys/nn-propsys-ipropertychangearray">IPropertyChangeArray</a> which can then be used with <a href="https://docs.microsoft.com/windows/desktop/api/shobjidl_core/nn-shobjidl_core-ifileoperation">IFileOperation</a> to modify the properties on an item.
-     * @param {Integer} flags Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/propsys/ne-propsys-pka_flags">PKA_FLAGS</a></b>
+     * @param {PKA_FLAGS} flags Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/propsys/ne-propsys-pka_flags">PKA_FLAGS</a></b>
      * 
      * 
      * <a href="https://docs.microsoft.com/windows/desktop/api/propsys/ne-propsys-pka_flags">PKA_FLAGS</a> flags.
@@ -1726,7 +1725,7 @@ class PropertiesSystem {
      * A wrapper API that calls the schema subsystem's IPropertySystem::EnumeratePropertyDescriptions.
      * @remarks
      * We recommend that you use the IID_PPV_ARGS macro, defined in objbase.h, to package the <i>riid</i> and <i>ppv</i> parameters. This macro provides the correct IID based on the interface pointed to by the value in <i>ppv</i>, eliminating the possibility of a coding error.
-     * @param {Integer} filterOn Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/propsys/ne-propsys-propdesc_enumfilter">PROPDESC_ENUMFILTER</a></b>
+     * @param {PROPDESC_ENUMFILTER} filterOn Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/propsys/ne-propsys-propdesc_enumfilter">PROPDESC_ENUMFILTER</a></b>
      * 
      * The list to return. <a href="https://docs.microsoft.com/windows/desktop/api/propsys/ne-propsys-propdesc_enumfilter">PROPDESC_ENUMFILTER</a> shows the valid values for this method.
      * @param {Pointer<Guid>} riid Type: <b>REFIID</b>
@@ -2162,7 +2161,7 @@ class PropertiesSystem {
      * Note that <a href="https://docs.microsoft.com/windows/desktop/api/propsys/nf-propsys-psgetpropertyfrompropertystorage">PSGetPropertyFromPropertyStorage</a> works only on serialized buffers created by the system implementation of <a href="https://docs.microsoft.com/windows/desktop/api/propsys/nn-propsys-ipersistserializedpropstorage">IPersistSerializedPropStorage</a>. You must first obtain a memory property store by calling <a href="https://docs.microsoft.com/windows/desktop/api/propsys/nf-propsys-pscreatememorypropertystore">PSCreateMemoryPropertyStore</a>. That store can then create a serialized buffer using the <b>IPersistSerializedPropStorage</b> interface.
      * 
      * Although SERIALIZEDPROPSTORAGE is an opaque serialized data structure whose format may change in the future, earlier formats will be supported on subsequent versions of Windows. Because the format is opaque, applications should use supported property storage APIs to access and manipulate the serialized buffer (see <a href="https://docs.microsoft.com/windows/desktop/api/propsys/nn-propsys-ipersistserializedpropstorage">IPersistSerializedPropStorage</a>).
-     * @param {Pointer} psps Type: <b>PCUSERIALIZEDPROPSTORAGE</b>
+     * @param {Integer} psps Type: <b>PCUSERIALIZEDPROPSTORAGE</b>
      * 
      * Pointer to an allocated buffer that contains the serialized properties. This buffer is obtained by a call to <a href="https://docs.microsoft.com/windows/desktop/api/propsys/nf-propsys-ipersistserializedpropstorage-getpropertystorage">IPersistSerializedPropStorage::GetPropertyStorage</a>.
      * @param {Integer} cb Type: <b>DWORD</b>
@@ -2193,7 +2192,7 @@ class PropertiesSystem {
      * Note that <a href="https://docs.microsoft.com/windows/desktop/api/propsys/nf-propsys-psgetnamedpropertyfrompropertystorage">PSGetNamedPropertyFromPropertyStorage</a> works only on serialized buffers created by the system implementation of <a href="https://docs.microsoft.com/windows/desktop/api/propsys/nn-propsys-ipersistserializedpropstorage">IPersistSerializedPropStorage</a>. You must first obtain a memory property store by calling <a href="https://docs.microsoft.com/windows/desktop/api/propsys/nf-propsys-pscreatememorypropertystore">PSCreateMemoryPropertyStore</a>; that store can then create a serialized buffer using the <b>IPersistSerializedPropStorage</b> interface.
      * 
      * Although SERIALIZEDPROPSTORAGE is an opaque serialized data structure whose format may change in the future, earlier formats will be supported on subsequent versions of Windows. Because the format is opaque, applications should use supported property storage APIs to access and manipulate the serialized buffer (see <a href="https://docs.microsoft.com/windows/desktop/api/propsys/nn-propsys-ipersistserializedpropstorage">IPersistSerializedPropStorage</a> and  <a href="https://docs.microsoft.com/windows/desktop/api/propsys/nf-propsys-psgetpropertyfrompropertystorage">PSGetPropertyFromPropertyStorage</a>).
-     * @param {Pointer} psps Type: <b>PCUSERIALIZEDPROPSTORAGE</b>
+     * @param {Integer} psps Type: <b>PCUSERIALIZEDPROPSTORAGE</b>
      * 
      * A pointer to an allocated buffer that contains the serialized properties. Call <a href="https://docs.microsoft.com/windows/desktop/api/propsys/nf-propsys-ipersistserializedpropstorage-getpropertystorage">IPersistSerializedPropStorage::GetPropertyStorage</a> to obtain the buffer.
      * @param {Integer} cb Type: <b>DWORD</b>
@@ -2231,7 +2230,7 @@ class PropertiesSystem {
      * @param {Pointer<VARIANT>} var Type: <b>VARIANT*</b>
      * 
      * Returns on successful function completion a pointer to a <b>VARIANT</b> data type that contains the property value.
-     * @param {Integer} type Type: <b>VARTYPE*</b>
+     * @param {VARENUM} type Type: <b>VARTYPE*</b>
      * 
      * If <i>type</i> is VT_EMPTY, this function reads the <b>VARIANT</b> of the property in the IPropertyBag   <i>propBag</i> parameter. If <i>type</i> is not VT_EMPTY and not the same as the <b>VARIANT</b> read, then this function attempts to convert the <b>VARIANT</b> read to the <b>VARTYPE</b> defined by <i>type</i> parameter before returning.
      * @returns {HRESULT} Type: <b>HRESULT</b>
@@ -3071,7 +3070,7 @@ class PropertiesSystem {
      * @param {Pointer<ITEMIDLIST>} pidl Type: <b>PCIDLIST_ABSOLUTE</b>
      * 
      * A pointer to an item ID list.
-     * @param {Integer} flags Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/propsys/ne-propsys-getpropertystoreflags">GETPROPERTYSTOREFLAGS</a></b>
+     * @param {GETPROPERTYSTOREFLAGS} flags Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/propsys/ne-propsys-getpropertystoreflags">GETPROPERTYSTOREFLAGS</a></b>
      * 
      * One or more values from the <a href="https://docs.microsoft.com/windows/desktop/api/propsys/ne-propsys-getpropertystoreflags">GETPROPERTYSTOREFLAGS</a> constants. This parameter can also be <b>NULL</b>.
      * @param {Pointer<Guid>} riid Type: <b>REFIID</b>
@@ -3096,7 +3095,7 @@ class PropertiesSystem {
      * @param {IBindCtx} pbc Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/objidl/nn-objidl-ibindctx">IBindCtx</a>*</b>
      * 
      * A pointer to a <a href="https://docs.microsoft.com/windows/desktop/api/objidl/nn-objidl-ibindctx">IBindCtx</a> object, which provides access to a bind context. This value can be <b>NULL</b>.
-     * @param {Integer} flags Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/propsys/ne-propsys-getpropertystoreflags">GETPROPERTYSTOREFLAGS</a></b>
+     * @param {GETPROPERTYSTOREFLAGS} flags Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/propsys/ne-propsys-getpropertystoreflags">GETPROPERTYSTOREFLAGS</a></b>
      * 
      * One or more values from the <a href="https://docs.microsoft.com/windows/desktop/api/propsys/ne-propsys-getpropertystoreflags">GETPROPERTYSTOREFLAGS</a> constants. This parameter can also be <b>NULL</b>.
      * @param {Pointer<Guid>} riid Type: <b>REFIID</b>
@@ -3212,7 +3211,7 @@ class PropertiesSystem {
      * @param {PSTR} pszGroup Type: <b>PCSTR</b>
      * 
      * A null-terminated string that contains the property group name. It can be one of the following, or any other name that corresponds to a valid .pif extension.
-     * @param {Pointer} lpProps Type: <b>void*</b>
+     * @param {Integer} lpProps Type: <b>void*</b>
      * 
      * When this function returns, contains a pointer to a <a href="https://docs.microsoft.com/windows/desktop/api/shlobj_core/ns-shlobj_core-propprg">PROPPRG</a> structure.
      * @param {Integer} cbProps Type: <b>int</b>
@@ -3243,7 +3242,7 @@ class PropertiesSystem {
      * @param {PSTR} pszGroup Type: <b>PCSTR</b>
      * 
      * A null-terminated ANSI string containing the property group name. It can be one of the following, or any other name that corresponds to a valid .pif extension.
-     * @param {Pointer} lpProps Type: <b>const void*</b>
+     * @param {Integer} lpProps Type: <b>const void*</b>
      * 
      * A property group record buffer that holds the data.
      * @param {Integer} cbProps Type: <b>int</b>
@@ -3412,7 +3411,9 @@ class PropertiesSystem {
      * <a href="https://docs.microsoft.com/windows/desktop/properties/props-system-appusermodel-relaunchiconresource">System.AppUserModel.RelaunchIconResource</a>
      * </li>
      * </ul>
-     * @param {HWND} _hwnd 
+     * @param {HWND} _hwnd Type: <b>HWND</b>
+     * 
+     * A handle to the window whose properties are being retrieved.
      * @param {Pointer<Guid>} riid Type: <b>REFIID</b>
      * 
      * A reference to the IID of the property store object to retrieve through <i>ppv</i>. This is typically IID_IPropertyStore.

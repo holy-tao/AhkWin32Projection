@@ -1,5 +1,6 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
+#Include .\POINTFIX.ahk
 
 /**
  * The PATHDATA structure describes all or part of a subpath.
@@ -7,10 +8,8 @@
  * The PATHDATA structure describes all or part of a subpath. For example, a <b>MoveTo</b> call by an application within a path begins a new subpath.
  * @see https://learn.microsoft.com/windows/win32/api/winddi/ns-winddi-pathdata
  * @namespace Windows.Win32.Devices.Display
- * @version v4.0.30319
  */
-class PATHDATA extends Win32Struct
-{
+class PATHDATA extends Win32Struct {
     static sizeof => 16
 
     static packingSize => 8

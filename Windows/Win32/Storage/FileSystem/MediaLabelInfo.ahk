@@ -5,10 +5,8 @@
  * The MediaLabelInfo structure conveys information to the RSM database about a tape OMID. The media label library fills in this structure for all media labels the library recognizes.
  * @see https://learn.microsoft.com/windows/win32/api/ntmsmli/ns-ntmsmli-medialabelinfo
  * @namespace Windows.Win32.Storage.FileSystem
- * @version v4.0.30319
  */
-class MediaLabelInfo extends Win32Struct
-{
+class MediaLabelInfo extends Win32Struct {
     static sizeof => 900
 
     static packingSize => 4
@@ -34,9 +32,9 @@ class MediaLabelInfo extends Win32Struct
 
     /**
      * Unique identifier for the media label.
-     * @type {Array<Byte>}
+     * @type {Array<Integer>}
      */
-    LabelID{
+    LabelID {
         get {
             if(!this.HasProp("__LabelIDProxyArray"))
                 this.__LabelIDProxyArray := Win32FixedArray(this.ptr + 132, 256, Primitive, "char")

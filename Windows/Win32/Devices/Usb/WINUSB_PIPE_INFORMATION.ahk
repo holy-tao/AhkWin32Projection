@@ -1,21 +1,20 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
+#Include .\USBD_PIPE_TYPE.ahk
 
 /**
  * The WINUSB_PIPE_INFORMATION structure contains pipe information that the WinUsb_QueryPipe routine retrieves.
  * @see https://learn.microsoft.com/windows/win32/api/winusbio/ns-winusbio-winusb_pipe_information
  * @namespace Windows.Win32.Devices.Usb
- * @version v4.0.30319
  */
-class WINUSB_PIPE_INFORMATION extends Win32Struct
-{
+class WINUSB_PIPE_INFORMATION extends Win32Struct {
     static sizeof => 12
 
     static packingSize => 4
 
     /**
      * A <a href="https://docs.microsoft.com/windows-hardware/drivers/ddi/content/usb/ne-usb-_usbd_pipe_type">USBD_PIPE_TYPE</a>-type enumeration value that specifies the pipe type.
-     * @type {Integer}
+     * @type {USBD_PIPE_TYPE}
      */
     PipeType {
         get => NumGet(this, 0, "int")

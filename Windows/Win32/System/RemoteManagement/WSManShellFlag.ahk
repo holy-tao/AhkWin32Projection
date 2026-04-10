@@ -3,9 +3,8 @@
 
 /**
  * @namespace Windows.Win32.System.RemoteManagement
- * @version v4.0.30319
  */
-class WSManShellFlag extends Win32Enum{
+class WSManShellFlag extends Win32Enum {
 
     /**
      * @type {Integer (Int32)}

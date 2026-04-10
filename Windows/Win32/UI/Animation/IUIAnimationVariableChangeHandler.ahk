@@ -11,9 +11,8 @@
  * To receive value updates as <b>INT32</b> values, use <a href="https://docs.microsoft.com/windows/desktop/api/uianimation/nf-uianimation-iuianimationvariableintegerchangehandler-onintegervaluechanged">IUIAnimationVariableIntegerChangeHandler::OnIntegerValueChanged</a>.
  * @see https://learn.microsoft.com/windows/win32/api/uianimation/nn-uianimation-iuianimationvariablechangehandler
  * @namespace Windows.Win32.UI.Animation
- * @version v4.0.30319
  */
-class IUIAnimationVariableChangeHandler extends IUnknown{
+class IUIAnimationVariableChangeHandler extends IUnknown {
 
     static sizeof => A_PtrSize
     /**

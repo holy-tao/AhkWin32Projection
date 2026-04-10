@@ -18,9 +18,8 @@
  * };</pre>
  * @see https://learn.microsoft.com/windows/win32/api/dwrite/ne-dwrite-dwrite_rendering_mode
  * @namespace Windows.Win32.Graphics.DirectWrite
- * @version v4.0.30319
  */
-class DWRITE_RENDERING_MODE extends Win32Enum{
+class DWRITE_RENDERING_MODE extends Win32Enum {
 
     /**
      * Specifies that the rendering mode is determined automatically, based on the font and size.
@@ -72,25 +71,21 @@ class DWRITE_RENDERING_MODE extends Win32Enum{
     static DWRITE_RENDERING_MODE_OUTLINE => 6
 
     /**
-     * 
      * @type {Integer (Int32)}
      */
     static DWRITE_RENDERING_MODE_CLEARTYPE_GDI_CLASSIC => 2
 
     /**
-     * 
      * @type {Integer (Int32)}
      */
     static DWRITE_RENDERING_MODE_CLEARTYPE_GDI_NATURAL => 3
 
     /**
-     * 
      * @type {Integer (Int32)}
      */
     static DWRITE_RENDERING_MODE_CLEARTYPE_NATURAL => 4
 
     /**
-     * 
      * @type {Integer (Int32)}
      */
     static DWRITE_RENDERING_MODE_CLEARTYPE_NATURAL_SYMMETRIC => 5

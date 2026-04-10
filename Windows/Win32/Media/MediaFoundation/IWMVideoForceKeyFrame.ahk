@@ -7,9 +7,8 @@
  * Forces the encoder to encode the current frame as a key frame.
  * @see https://learn.microsoft.com/windows/win32/api/wmcodecdsp/nn-wmcodecdsp-iwmvideoforcekeyframe
  * @namespace Windows.Win32.Media.MediaFoundation
- * @version v4.0.30319
  */
-class IWMVideoForceKeyFrame extends IUnknown{
+class IWMVideoForceKeyFrame extends IUnknown {
 
     static sizeof => A_PtrSize
     /**

@@ -1,13 +1,13 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\..\Win32Struct.ahk
 #Include .\IMEWRD.ahk
+#Include .\IMEUCT.ahk
+#Include .\IMEREL.ahk
 
 /**
  * @namespace Windows.Win32.UI.Input.Ime
- * @version v4.0.30319
  */
-class IMEDP extends Win32Struct
-{
+class IMEDP extends Win32Struct {
     static sizeof => 104
 
     static packingSize => 8
@@ -15,7 +15,7 @@ class IMEDP extends Win32Struct
     /**
      * @type {IMEWRD}
      */
-    wrdModifier{
+    wrdModifier {
         get {
             if(!this.HasProp("__wrdModifier"))
                 this.__wrdModifier := IMEWRD(0, this)
@@ -26,7 +26,7 @@ class IMEDP extends Win32Struct
     /**
      * @type {IMEWRD}
      */
-    wrdModifiee{
+    wrdModifiee {
         get {
             if(!this.HasProp("__wrdModifiee"))
                 this.__wrdModifiee := IMEWRD(48, this)
@@ -35,7 +35,7 @@ class IMEDP extends Win32Struct
     }
 
     /**
-     * @type {Integer}
+     * @type {IMEREL}
      */
     relID {
         get => NumGet(this, 96, "int")

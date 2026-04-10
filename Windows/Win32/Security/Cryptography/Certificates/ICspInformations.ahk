@@ -1,22 +1,20 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\..\Guid.ahk
-#Include ..\..\..\Foundation\BSTR.ahk
+#Include ..\..\..\System\Com\IDispatch.ahk
 #Include .\ICspInformation.ahk
 #Include ..\..\..\System\Com\IUnknown.ahk
 #Include .\ICspStatus.ahk
 #Include .\ICspStatuses.ahk
 #Include .\ICspAlgorithms.ahk
 #Include .\IObjectIds.ahk
-#Include ..\..\..\System\Com\IDispatch.ahk
 
 /**
  * The ICspInformations interface defines the following methods and properties to manage a collection of ICspInformation objects.
  * @see https://learn.microsoft.com/windows/win32/api/certenroll/nn-certenroll-icspinformations
  * @namespace Windows.Win32.Security.Cryptography.Certificates
- * @version v4.0.30319
  */
-class ICspInformations extends IDispatch{
+class ICspInformations extends IDispatch {
 
     static sizeof => A_PtrSize
     /**
@@ -169,7 +167,7 @@ class ICspInformations extends IDispatch{
     /**
      * Retrieves an ICspStatus object for a legacy provider by provider name and supported key operations.
      * @param {BSTR} strProviderName A <b>BSTR</b> that contains the cryptographic provider name or the provider and algorithm names separated by a comma in the format <i>algorithm_name, provider_name</i>.
-     * @param {Integer} LegacyKeySpec 
+     * @param {X509KeySpec} LegacyKeySpec 
      * @returns {ICspStatus} Address of a variable that receives a pointer to an <a href="https://docs.microsoft.com/windows/desktop/api/certenroll/nn-certenroll-icspstatus">ICspStatus</a> interface that contains information about a cryptographic provider and algorithm pair that satisfies the <i>strProviderName</i> and <i>LegacyKeySpec</i> parameter values.
      * @see https://learn.microsoft.com/windows/win32/api/certenroll/nf-certenroll-icspinformations-getcspstatusfromprovidername
      */
@@ -182,7 +180,7 @@ class ICspInformations extends IDispatch{
 
     /**
      * Retrieves an ICspStatuses collection by supported key operations and optional provider information.
-     * @param {Integer} Operations An <a href="https://docs.microsoft.com/windows/desktop/api/certenroll/ne-certenroll-algorithmoperationflags">AlgorithmOperationFlags</a> enumeration value that  specifies the supported operations. This can be a bitwise combination of the following flags:
+     * @param {AlgorithmOperationFlags} Operations An <a href="https://docs.microsoft.com/windows/desktop/api/certenroll/ne-certenroll-algorithmoperationflags">AlgorithmOperationFlags</a> enumeration value that  specifies the supported operations. This can be a bitwise combination of the following flags:
      * 
      * <ul>
      * <li>XCN_NCRYPT_NO_OPERATION</li>

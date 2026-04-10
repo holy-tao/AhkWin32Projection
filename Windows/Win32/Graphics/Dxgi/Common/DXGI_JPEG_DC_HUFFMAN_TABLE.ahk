@@ -5,19 +5,17 @@
  * Describes a JPEG DC huffman table.
  * @see https://learn.microsoft.com/windows/win32/direct3ddxgi/dxgi-jpeg-dc-huffman-table
  * @namespace Windows.Win32.Graphics.Dxgi.Common
- * @version v4.0.30319
  */
-class DXGI_JPEG_DC_HUFFMAN_TABLE extends Win32Struct
-{
+class DXGI_JPEG_DC_HUFFMAN_TABLE extends Win32Struct {
     static sizeof => 24
 
     static packingSize => 1
 
     /**
      * The number of codes for each code length.
-     * @type {Array<Byte>}
+     * @type {Array<Integer>}
      */
-    CodeCounts{
+    CodeCounts {
         get {
             if(!this.HasProp("__CodeCountsProxyArray"))
                 this.__CodeCountsProxyArray := Win32FixedArray(this.ptr + 0, 12, Primitive, "char")
@@ -27,9 +25,9 @@ class DXGI_JPEG_DC_HUFFMAN_TABLE extends Win32Struct
 
     /**
      * The Huffman code values, in order of increasing code length.
-     * @type {Array<Byte>}
+     * @type {Array<Integer>}
      */
-    CodeValues{
+    CodeValues {
         get {
             if(!this.HasProp("__CodeValuesProxyArray"))
                 this.__CodeValuesProxyArray := Win32FixedArray(this.ptr + 12, 12, Primitive, "char")

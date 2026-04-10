@@ -3,10 +3,8 @@
 
 /**
  * @namespace Windows.Win32.System.Search
- * @version v4.0.30319
  */
-class SSERRORINFO extends Win32Struct
-{
+class SSERRORINFO extends Win32Struct {
     static sizeof => 32
 
     static packingSize => 8

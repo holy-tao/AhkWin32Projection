@@ -1,12 +1,11 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
+#Include .\CLUSTER_SHARED_VOLUME_STATE.ahk
 
 /**
  * @namespace Windows.Win32.Networking.Clustering
- * @version v4.0.30319
  */
-class CLUSTER_SHARED_VOLUME_STATE_INFO_EX extends Win32Struct
-{
+class CLUSTER_SHARED_VOLUME_STATE_INFO_EX extends Win32Struct {
     static sizeof => 1584
 
     static packingSize => 8
@@ -28,7 +27,7 @@ class CLUSTER_SHARED_VOLUME_STATE_INFO_EX extends Win32Struct
     }
 
     /**
-     * @type {Integer}
+     * @type {CLUSTER_SHARED_VOLUME_STATE}
      */
     VolumeState {
         get => NumGet(this, 1040, "int")

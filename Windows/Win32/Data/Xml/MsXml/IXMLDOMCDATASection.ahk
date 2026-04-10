@@ -5,9 +5,8 @@
 
 /**
  * @namespace Windows.Win32.Data.Xml.MsXml
- * @version v4.0.30319
  */
-class IXMLDOMCDATASection extends IXMLDOMText{
+class IXMLDOMCDATASection extends IXMLDOMText {
 
     static sizeof => A_PtrSize
     /**

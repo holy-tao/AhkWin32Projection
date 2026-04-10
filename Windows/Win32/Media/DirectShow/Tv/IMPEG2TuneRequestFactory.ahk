@@ -1,8 +1,8 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\..\Guid.ahk
-#Include .\IMPEG2TuneRequest.ahk
 #Include ..\..\..\System\Com\IDispatch.ahk
+#Include .\IMPEG2TuneRequest.ahk
 
 /**
  * The IMPEG2TuneRequestFactory interface creates a tune request for a basic MPEG-2 transport stream containing the minimal tables. To obtain this interface, call CoCreateInstance with the class identifier CLSID_MPEG2TuneRequestFactory.
@@ -13,9 +13,8 @@
  * To declare the interface identifier (IID) for this interface, use the <b>__uuidof</b> operator: <c>__uuidof(IMPEG2TuneRequestFactory)</c>.
  * @see https://learn.microsoft.com/windows/win32/api/tuner/nn-tuner-impeg2tunerequestfactory
  * @namespace Windows.Win32.Media.DirectShow.Tv
- * @version v4.0.30319
  */
-class IMPEG2TuneRequestFactory extends IDispatch{
+class IMPEG2TuneRequestFactory extends IDispatch {
 
     static sizeof => A_PtrSize
     /**
@@ -44,8 +43,8 @@ class IMPEG2TuneRequestFactory extends IDispatch{
 
     /**
      * The CreateTuneRequest method creates the minimal MPEG-2 tune request for a specified tuning space.
-     * @param {ITuningSpace} _TuningSpace 
-     * @returns {IMPEG2TuneRequest} 
+     * @param {ITuningSpace} _TuningSpace Pointer to the <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/tuner/nn-tuner-ituningspace">ITuningSpace</a> interface of the tuning space.
+     * @returns {IMPEG2TuneRequest} Address of a variable that receives a pointer to the <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/tuner/nn-tuner-impeg2tunerequest">IMPEG2TuneRequest</a> interface.
      * @see https://learn.microsoft.com/windows/win32/api/tuner/nf-tuner-impeg2tunerequestfactory-createtunerequest
      */
     CreateTuneRequest(_TuningSpace) {

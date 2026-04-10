@@ -1,18 +1,17 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
+#Include ..\..\System\Com\IUnknown.ahk
 #Include .\IVdsOpenVDisk.ahk
 #Include .\VDS_VDISK_PROPERTIES.ahk
 #Include .\IVdsVolume.ahk
-#Include ..\..\System\Com\IUnknown.ahk
 
 /**
  * Defines methods for managing a virtual disk. (IVdsVDisk)
  * @see https://learn.microsoft.com/windows/win32/api/vds/nn-vds-ivdsvdisk
  * @namespace Windows.Win32.Storage.VirtualDiskService
- * @version v4.0.30319
  */
-class IVdsVDisk extends IUnknown{
+class IVdsVDisk extends IUnknown {
 
     static sizeof => A_PtrSize
     /**
@@ -39,8 +38,8 @@ class IVdsVDisk extends IUnknown{
      * Applications must initialize process-wide security by calling the <a href="https://docs.microsoft.com/windows/desktop/api/combaseapi/nf-combaseapi-coinitializesecurity">CoInitializeSecurity</a> function. The <i>dwImpLevel</i> parameter should be set to <b>RPC_C_IMP_LEVEL_IMPERSONATE</b>.
      * 
      * <b>Windows Server 2008, Windows Vista and Windows Server 2003:  </b>These actions are not required until Windows 7 and Windows Server 2008 R2.
-     * @param {Integer} AccessMask A bitmask of <a href="https://docs.microsoft.com/windows/win32/api/virtdisk/ne-virtdisk-virtual_disk_access_mask-r1">VIRTUAL_DISK_ACCESS_MASK</a> flags specifying the access rights to be applied to the opened virtual disk.
-     * @param {Integer} Flags A bitmask of <a href="https://docs.microsoft.com/windows/win32/api/virtdisk/ne-virtdisk-open_virtual_disk_flag">OPEN_VIRTUAL_DISK_FLAG</a> flags specifying how the virtual disk is to be opened.
+     * @param {VIRTUAL_DISK_ACCESS_MASK} AccessMask A bitmask of <a href="https://docs.microsoft.com/windows/win32/api/virtdisk/ne-virtdisk-virtual_disk_access_mask-r1">VIRTUAL_DISK_ACCESS_MASK</a> flags specifying the access rights to be applied to the opened virtual disk.
+     * @param {OPEN_VIRTUAL_DISK_FLAG} Flags A bitmask of <a href="https://docs.microsoft.com/windows/win32/api/virtdisk/ne-virtdisk-open_virtual_disk_flag">OPEN_VIRTUAL_DISK_FLAG</a> flags specifying how the virtual disk is to be opened.
      * @param {Integer} ReadWriteDepth The number of stores (backing files), beginning with the child, of the backing store chain to open read/write. The remaining stores in the differencing chain will be opened read-only. (This is necessary for merge operations to succeed.)
      * @returns {IVdsOpenVDisk} A pointer to a variable that receives an <a href="https://docs.microsoft.com/windows/desktop/api/vds/nn-vds-ivdsopenvdisk">IVdsOpenVDisk</a> interface pointer to the newly created object that represents the handle opened to the virtual disk object. Callers must release the interface pointer when it is no longer needed by calling the <a href="https://docs.microsoft.com/windows/desktop/api/unknwn/nf-unknwn-iunknown-release">IUnknown::Release</a> method.
      * @see https://learn.microsoft.com/windows/win32/api/vds/nf-vds-ivdsvdisk-open

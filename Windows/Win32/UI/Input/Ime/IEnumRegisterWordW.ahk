@@ -1,15 +1,13 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\..\Guid.ahk
-#Include .\IEnumRegisterWordW.ahk
 #Include ..\..\..\System\Com\IUnknown.ahk
 
 /**
  * @namespace Windows.Win32.UI.Input.Ime
- * @version v4.0.30319
  * @charset Unicode
  */
-class IEnumRegisterWordW extends IUnknown{
+class IEnumRegisterWordW extends IUnknown {
 
     static sizeof => A_PtrSize
     /**

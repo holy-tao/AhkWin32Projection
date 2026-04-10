@@ -1,14 +1,13 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
+#Include .\WSMAN_KEY.ahk
 
 /**
  * Defines a set of keys that represent the identity of a resource.
  * @see https://learn.microsoft.com/windows/win32/api/wsman/ns-wsman-wsman_selector_set
  * @namespace Windows.Win32.System.RemoteManagement
- * @version v4.0.30319
  */
-class WSMAN_SELECTOR_SET extends Win32Struct
-{
+class WSMAN_SELECTOR_SET extends Win32Struct {
     static sizeof => 16
 
     static packingSize => 8

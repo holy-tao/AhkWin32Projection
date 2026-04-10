@@ -1,12 +1,13 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
+#Include .\D3DKMT_CLIENTHINT.ahk
+#Include .\D3DDDI_ALLOCATIONLIST.ahk
+#Include .\D3DDDI_PATCHLOCATIONLIST.ahk
 
 /**
  * @namespace Windows.Wdk.Graphics.Direct3D
- * @version v4.0.30319
  */
-class D3DKMT_CREATECONTEXT extends Win32Struct
-{
+class D3DKMT_CREATECONTEXT extends Win32Struct {
     static sizeof => 104
 
     static packingSize => 8
@@ -36,7 +37,7 @@ class D3DKMT_CREATECONTEXT extends Win32Struct
     }
 
     /**
-     * @type {Pointer<D3DDDI_CREATECONTEXTFLAGS>}
+     * @type {Pointer}
      */
     Flags {
         get => NumGet(this, 16, "ptr")
@@ -60,7 +61,7 @@ class D3DKMT_CREATECONTEXT extends Win32Struct
     }
 
     /**
-     * @type {Integer}
+     * @type {D3DKMT_CLIENTHINT}
      */
     ClientHint {
         get => NumGet(this, 36, "int")

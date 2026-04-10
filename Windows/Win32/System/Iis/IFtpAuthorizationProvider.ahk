@@ -5,9 +5,8 @@
 
 /**
  * @namespace Windows.Win32.System.Iis
- * @version v4.0.30319
  */
-class IFtpAuthorizationProvider extends IUnknown{
+class IFtpAuthorizationProvider extends IUnknown {
 
     static sizeof => A_PtrSize
     /**
@@ -34,7 +33,7 @@ class IFtpAuthorizationProvider extends IUnknown{
      * @param {PWSTR} pszSiteName 
      * @param {PWSTR} pszVirtualPath 
      * @param {PWSTR} pszUserName 
-     * @returns {Integer} 
+     * @returns {FTP_ACCESS} 
      */
     GetUserAccessPermission(pszSessionId, pszSiteName, pszVirtualPath, pszUserName) {
         pszSessionId := pszSessionId is String ? StrPtr(pszSessionId) : pszSessionId

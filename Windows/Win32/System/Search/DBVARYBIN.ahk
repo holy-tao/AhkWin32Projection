@@ -3,10 +3,8 @@
 
 /**
  * @namespace Windows.Win32.System.Search
- * @version v4.0.30319
  */
-class DBVARYBIN extends Win32Struct
-{
+class DBVARYBIN extends Win32Struct {
     static sizeof => 8004
 
     static packingSize => 2
@@ -20,9 +18,9 @@ class DBVARYBIN extends Win32Struct
     }
 
     /**
-     * @type {Array<Byte>}
+     * @type {Array<Integer>}
      */
-    array{
+    array {
         get {
             if(!this.HasProp("__arrayProxyArray"))
                 this.__arrayProxyArray := Win32FixedArray(this.ptr + 2, 8001, Primitive, "char")

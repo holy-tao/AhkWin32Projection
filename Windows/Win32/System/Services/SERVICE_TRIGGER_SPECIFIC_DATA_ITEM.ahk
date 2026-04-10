@@ -1,5 +1,6 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
+#Include .\SERVICE_TRIGGER_SPECIFIC_DATA_ITEM_DATA_TYPE.ahk
 
 /**
  * Contains trigger-specific data for a service trigger event.
@@ -42,17 +43,14 @@
  * </table>
  * @see https://learn.microsoft.com/windows/win32/api/winsvc/ns-winsvc-service_trigger_specific_data_item
  * @namespace Windows.Win32.System.Services
- * @version v4.0.30319
  */
-class SERVICE_TRIGGER_SPECIFIC_DATA_ITEM extends Win32Struct
-{
+class SERVICE_TRIGGER_SPECIFIC_DATA_ITEM extends Win32Struct {
     static sizeof => 16
 
     static packingSize => 8
 
     /**
-     * 
-     * @type {Integer}
+     * @type {SERVICE_TRIGGER_SPECIFIC_DATA_ITEM_DATA_TYPE}
      */
     dwDataType {
         get => NumGet(this, 0, "uint")

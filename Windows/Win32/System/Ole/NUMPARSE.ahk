@@ -1,5 +1,6 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
+#Include .\NUMPARSE_FLAGS.ahk
 
 /**
  * Specifies numeric parsing information.
@@ -14,10 +15,8 @@
  * </ul>
  * @see https://learn.microsoft.com/windows/win32/api/oleauto/ns-oleauto-numparse
  * @namespace Windows.Win32.System.Ole
- * @version v4.0.30319
  */
-class NUMPARSE extends Win32Struct
-{
+class NUMPARSE extends Win32Struct {
     static sizeof => 24
 
     static packingSize => 4
@@ -33,7 +32,7 @@ class NUMPARSE extends Win32Struct
 
     /**
      * Input flags.
-     * @type {Integer}
+     * @type {NUMPARSE_FLAGS}
      */
     dwInFlags {
         get => NumGet(this, 4, "uint")
@@ -42,7 +41,7 @@ class NUMPARSE extends Win32Struct
 
     /**
      * Output flags. Includes all the values for <b>dwInFlags</b>, plus the following values.
-     * @type {Integer}
+     * @type {NUMPARSE_FLAGS}
      */
     dwOutFlags {
         get => NumGet(this, 8, "uint")

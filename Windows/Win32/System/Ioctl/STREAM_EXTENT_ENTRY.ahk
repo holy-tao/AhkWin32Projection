@@ -4,29 +4,26 @@
 
 /**
  * @namespace Windows.Win32.System.Ioctl
- * @version v4.0.30319
  */
-class STREAM_EXTENT_ENTRY extends Win32Struct
-{
-    static sizeof => 32
+class STREAM_EXTENT_ENTRY extends Win32Struct {
+    static sizeof => 40
 
     static packingSize => 8
 
     class _ExtentInformation_e__Union extends Win32Struct {
-        static sizeof => 24
+        static sizeof => 32
         static packingSize => 8
 
         /**
          * @type {RETRIEVAL_POINTERS_BUFFER}
          */
-        RetrievalPointers{
+        RetrievalPointers {
             get {
                 if(!this.HasProp("__RetrievalPointers"))
                     this.__RetrievalPointers := RETRIEVAL_POINTERS_BUFFER(0, this)
                 return this.__RetrievalPointers
             }
         }
-    
     }
 
     /**
@@ -40,10 +37,10 @@ class STREAM_EXTENT_ENTRY extends Win32Struct
     /**
      * @type {_ExtentInformation_e__Union}
      */
-    ExtentInformation{
+    ExtentInformation {
         get {
             if(!this.HasProp("__ExtentInformation"))
-                this.__ExtentInformation := %this.__Class%._ExtentInformation_e__Union(8, this)
+                this.__ExtentInformation := STREAM_EXTENT_ENTRY._ExtentInformation_e__Union(8, this)
             return this.__ExtentInformation
         }
     }

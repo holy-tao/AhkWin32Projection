@@ -1,16 +1,14 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
-#Include .\BINARY_CONTAINER.ahk
-#Include .\BIDI_DATA.ahk
 #Include .\BIDI_RESPONSE_DATA.ahk
+#Include .\BIDI_DATA.ahk
+#Include .\BINARY_CONTAINER.ahk
 
 /**
  * @namespace Windows.Win32.Graphics.Printing
- * @version v4.0.30319
  */
-class BIDI_RESPONSE_CONTAINER extends Win32Struct
-{
-    static sizeof => 24
+class BIDI_RESPONSE_CONTAINER extends Win32Struct {
+    static sizeof => 56
 
     static packingSize => 8
 
@@ -39,9 +37,9 @@ class BIDI_RESPONSE_CONTAINER extends Win32Struct
     }
 
     /**
-     * @type {Array<BIDI_RESPONSE_DATA>}
+     * @type {BIDI_RESPONSE_DATA}
      */
-    aData{
+    aData {
         get {
             if(!this.HasProp("__aDataProxyArray"))
                 this.__aDataProxyArray := Win32FixedArray(this.ptr + 16, 1, BIDI_RESPONSE_DATA, "")

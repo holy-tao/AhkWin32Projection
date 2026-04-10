@@ -1,18 +1,22 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
 #Include ..\..\Storage\IndexServer\DBID.ahk
+#Include ..\Variant\VARIANT.ahk
+#Include ..\Variant\VARENUM.ahk
 #Include ..\Com\CY.ahk
 #Include ..\..\Foundation\BSTR.ahk
+#Include ..\Com\IUnknown.ahk
+#Include ..\Com\IDispatch.ahk
+#Include ..\Com\SAFEARRAY.ahk
 #Include ..\..\Foundation\DECIMAL.ahk
-#Include ..\Variant\VARIANT.ahk
+#Include ..\Ole\IRecordInfo.ahk
 
 /**
  * @namespace Windows.Win32.System.Search
- * @version v4.0.30319
+ * @architecture X64, Arm64
  */
-class DBPROP extends Win32Struct
-{
-    static sizeof => 72
+class DBPROP extends Win32Struct {
+    static sizeof => 64
 
     static packingSize => 8
 
@@ -43,7 +47,7 @@ class DBPROP extends Win32Struct
     /**
      * @type {DBID}
      */
-    colid{
+    colid {
         get {
             if(!this.HasProp("__colid"))
                 this.__colid := DBID(16, this)
@@ -54,10 +58,10 @@ class DBPROP extends Win32Struct
     /**
      * @type {VARIANT}
      */
-    vValue{
+    vValue {
         get {
             if(!this.HasProp("__vValue"))
-                this.__vValue := VARIANT(48, this)
+                this.__vValue := VARIANT(40, this)
             return this.__vValue
         }
     }

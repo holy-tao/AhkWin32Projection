@@ -11,9 +11,8 @@
  * The <b>oneXStatus</b> member of the <a href="https://docs.microsoft.com/windows/desktop/api/dot1x/ns-dot1x-onex_result_update_data">ONEX_RESULT_UPDATE_DATA</a> structure contains an <a href="https://docs.microsoft.com/windows/desktop/api/dot1x/ns-dot1x-onex_status">ONEX_STATUS</a> structure. If an error occurred during 802.1X authentication, the dwReason member of this <b>ONEX_STATUS</b> structure contains the reason for the error specified as a value from the <b>ONEX_REASON_CODE</b> enumeration.
  * @see https://learn.microsoft.com/windows/win32/api/dot1x/ne-dot1x-onex_reason_code
  * @namespace Windows.Win32.NetworkManagement.WiFi
- * @version v4.0.30319
  */
-class ONEX_REASON_CODE extends Win32Enum{
+class ONEX_REASON_CODE extends Win32Enum {
 
     /**
      * Indicates the 802.1X authentication was a success.

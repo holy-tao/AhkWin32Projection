@@ -3,9 +3,8 @@
 
 /**
  * @namespace Windows.Win32.Media.DirectShow
- * @version v4.0.30319
  */
-class BDA_Frequency_Multiplier extends Win32Enum{
+class BDA_Frequency_Multiplier extends Win32Enum {
 
     /**
      * @type {Integer (Int32)}

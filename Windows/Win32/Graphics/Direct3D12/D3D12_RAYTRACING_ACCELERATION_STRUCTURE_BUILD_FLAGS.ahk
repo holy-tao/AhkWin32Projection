@@ -5,9 +5,8 @@
  * Specifies flags for the build of a raytracing acceleration structure. Use a value from this enumeration with the D3D12_BUILD_RAYTRACING_ACCELERATION_STRUCTURE_INPUTS structure that provides input to the acceleration structure build operation.
  * @see https://learn.microsoft.com/windows/win32/api/d3d12/ne-d3d12-d3d12_raytracing_acceleration_structure_build_flags
  * @namespace Windows.Win32.Graphics.Direct3D12
- * @version v4.0.30319
  */
-class D3D12_RAYTRACING_ACCELERATION_STRUCTURE_BUILD_FLAGS extends Win32BitflagEnum{
+class D3D12_RAYTRACING_ACCELERATION_STRUCTURE_BUILD_FLAGS extends Win32BitflagEnum {
 
     /**
      * No options specified for the acceleration structure build.

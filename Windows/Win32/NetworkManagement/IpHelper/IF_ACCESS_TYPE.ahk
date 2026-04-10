@@ -3,9 +3,8 @@
 
 /**
  * @namespace Windows.Win32.NetworkManagement.IpHelper
- * @version v4.0.30319
  */
-class IF_ACCESS_TYPE extends Win32Enum{
+class IF_ACCESS_TYPE extends Win32Enum {
 
     /**
      * @type {Integer (Int32)}

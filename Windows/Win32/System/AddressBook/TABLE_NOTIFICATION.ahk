@@ -1,5 +1,7 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
+#Include .\SPropValue.ahk
+#Include .\__UPV.ahk
 #Include ..\Com\CY.ahk
 #Include ..\..\Foundation\FILETIME.ahk
 #Include .\SBinary.ahk
@@ -15,8 +17,6 @@
 #Include .\SWStringArray.ahk
 #Include .\SGuidArray.ahk
 #Include .\SLargeIntegerArray.ahk
-#Include .\__UPV.ahk
-#Include .\SPropValue.ahk
 #Include .\SRow.ahk
 
 /**
@@ -37,10 +37,8 @@
  * Because table notifications are asynchronous, clients can receive notification of an added row after learning about the addition through another means. It is possible to receive a TABLE_ERROR event when there is an error in an **IMAPITable::Sort**, **IMAPITable::Restrict**, or **IMAPITable::SetColumns** method or when an underlying process attempts to update a table with, for example, new or modified rows.
  * @see https://learn.microsoft.com/office/client-developer/outlook/mapi/table_notification
  * @namespace Windows.Win32.System.AddressBook
- * @version v4.0.30319
  */
-class TABLE_NOTIFICATION extends Win32Struct
-{
+class TABLE_NOTIFICATION extends Win32Struct {
     static sizeof => 672
 
     static packingSize => 8
@@ -113,7 +111,7 @@ class TABLE_NOTIFICATION extends Win32Struct
      * > [SPropValue](spropvalue.md) structure for the **PR_INSTANCE_KEY** property of the affected row.
      * @type {SPropValue}
      */
-    propIndex{
+    propIndex {
         get {
             if(!this.HasProp("__propIndex"))
                 this.__propIndex := SPropValue(8, this)
@@ -125,7 +123,7 @@ class TABLE_NOTIFICATION extends Win32Struct
      * > **SPropValue** structure for the **PR_INSTANCE_KEY** property of the row before the affected one. If the affected row is the first row in the table, **propPrior** must be set to **PR_NULL** and not zero. Zero is not a valid property tag.
      * @type {SPropValue}
      */
-    propPrior{
+    propPrior {
         get {
             if(!this.HasProp("__propPrior"))
                 this.__propPrior := SPropValue(328, this)
@@ -137,7 +135,7 @@ class TABLE_NOTIFICATION extends Win32Struct
      * > [SRow](srow.md) structure describing the affected row. This structure is filled for all table notification events. For table notification events that do not pass row data, the **cValues** member of the **SRow** structure is set to zero and the **lpProps** member is set to NULL. Because this **SRow** structure is read-only; clients must make a copy of it if they want to make modifications. The [ScDupPropset](scduppropset.md) function can be used to make the copy.
      * @type {SRow}
      */
-    row{
+    row {
         get {
             if(!this.HasProp("__row"))
                 this.__row := SRow(648, this)

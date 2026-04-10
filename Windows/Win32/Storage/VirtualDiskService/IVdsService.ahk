@@ -1,18 +1,17 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
+#Include ..\..\System\Com\IUnknown.ahk
 #Include .\VDS_SERVICE_PROP.ahk
 #Include .\IEnumVdsObject.ahk
-#Include ..\..\System\Com\IUnknown.ahk
 #Include .\VDS_DRIVE_LETTER_PROP.ahk
 
 /**
  * Provides methods to query and interact with VDS.
  * @see https://learn.microsoft.com/windows/win32/api/vds/nn-vds-ivdsservice
  * @namespace Windows.Win32.Storage.VirtualDiskService
- * @version v4.0.30319
  */
-class IVdsService extends IUnknown{
+class IVdsService extends IUnknown {
 
     static sizeof => A_PtrSize
     /**
@@ -189,8 +188,8 @@ class IVdsService extends IUnknown{
      * @remarks
      * VDS notifications return an object identifier instead of an object pointer. Callers  use this method to get a 
      *     pointer to the object referenced in the notification.
-     * @param {Guid} _ObjectId 
-     * @param {Integer} type A <a href="https://docs.microsoft.com/windows/desktop/api/vdshwprv/ne-vdshwprv-vds_object_type">VDS_OBJECT_TYPE</a> enumeration value that specifies the object type. 
+     * @param {Guid} _ObjectId The GUID of the desired object.
+     * @param {VDS_OBJECT_TYPE} type A <a href="https://docs.microsoft.com/windows/desktop/api/vdshwprv/ne-vdshwprv-vds_object_type">VDS_OBJECT_TYPE</a> enumeration value that specifies the object type. 
      *       <b>VDS_OT_UNKNOWN</b>, <b>VDS_OT_PROVIDER</b>, 
      *       <b>VDS_OT_ASYNC</b>, <b>VDS_OT_ENUM</b>, and <b>VDS_OT_OPEN_VDISK</b> are not supported.
      * @returns {IUnknown} A pointer to a buffer that receives the <a href="https://docs.microsoft.com/windows/desktop/api/unknwn/nn-unknwn-iunknown">IUnknown</a> pointer to the object. When the pointer is no longer needed, the caller should release it by calling the <a href="https://docs.microsoft.com/windows/desktop/api/unknwn/nf-unknwn-iunknown-release">IUnknown::Release</a> method.

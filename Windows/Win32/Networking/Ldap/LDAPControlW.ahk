@@ -19,11 +19,9 @@
  * > The winldap.h header defines LDAPControl as an alias which automatically selects the ANSI or Unicode version of this function based on the definition of the UNICODE preprocessor constant. Mixing usage of the encoding-neutral alias with code that not encoding-neutral can lead to mismatches that result in compilation or runtime errors. For more information, see [Conventions for Function Prototypes](/windows/win32/intl/conventions-for-function-prototypes).
  * @see https://learn.microsoft.com/windows/win32/api/winldap/ns-winldap-ldapcontrolw
  * @namespace Windows.Win32.Networking.Ldap
- * @version v4.0.30319
  * @charset Unicode
  */
-class LDAPControlW extends Win32Struct
-{
+class LDAPControlW extends Win32Struct {
     static sizeof => 32
 
     static packingSize => 8
@@ -41,7 +39,7 @@ class LDAPControlW extends Win32Struct
      * The data associated with the control, if any. If no data is associated with the control, set this member to <b>NULL</b>.
      * @type {LDAP_BERVAL}
      */
-    ldctl_value{
+    ldctl_value {
         get {
             if(!this.HasProp("__ldctl_value"))
                 this.__ldctl_value := LDAP_BERVAL(8, this)

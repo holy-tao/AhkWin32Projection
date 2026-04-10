@@ -1,16 +1,15 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
-#Include .\INSSBuffer.ahk
 #Include .\IWMStatusCallback.ahk
+#Include .\INSSBuffer.ahk
 
 /**
  * The IWMWriterPostViewCallback interface manages the receiving of uncompressed samples from the writer. Postview can be used only for video streams.This interface must be implemented by the application and passed to IWMWriterPostView::SetPostViewCallback.
  * @see https://learn.microsoft.com/windows/win32/api/wmsdkidl/nn-wmsdkidl-iwmwriterpostviewcallback
  * @namespace Windows.Win32.Media.WindowsMediaFormat
- * @version v4.0.30319
  */
-class IWMWriterPostViewCallback extends IWMStatusCallback{
+class IWMWriterPostViewCallback extends IWMStatusCallback {
 
     static sizeof => A_PtrSize
     /**

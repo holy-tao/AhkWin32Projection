@@ -9,10 +9,8 @@
  * The <b>CapturedMetadataWhiteBalanceGains</b> structure only describes the blob format for the <b>MF_CAPTURE_METADATA_WHITEBALANCE_GAINS</b> attribute.  The metadata item structure for white balance gains (<a href="https://docs.microsoft.com/windows-hardware/drivers/ddi/content/ksmedia/ns-ksmedia-tagkscamera_metadata_itemheader">KSCAMERA_METADATA_ITEMHEADER</a> + white balance gains metadata payload) is up to driver and must be 8-byte aligned.
  * @see https://learn.microsoft.com/windows/win32/api/mfapi/ns-mfapi-capturedmetadatawhitebalancegains
  * @namespace Windows.Win32.Media.Streaming
- * @version v4.0.30319
  */
-class CapturedMetadataWhiteBalanceGains extends Win32Struct
-{
+class CapturedMetadataWhiteBalanceGains extends Win32Struct {
     static sizeof => 12
 
     static packingSize => 4

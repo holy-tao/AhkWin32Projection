@@ -3,10 +3,8 @@
 
 /**
  * @namespace Windows.Win32.Security.Authentication.Identity
- * @version v4.0.30319
  */
-class SEND_GENERIC_TLS_EXTENSION extends Win32Struct
-{
+class SEND_GENERIC_TLS_EXTENSION extends Win32Struct {
     static sizeof => 12
 
     static packingSize => 4
@@ -44,9 +42,9 @@ class SEND_GENERIC_TLS_EXTENSION extends Win32Struct
     }
 
     /**
-     * @type {Array<Byte>}
+     * @type {Array<Integer>}
      */
-    Buffer{
+    Buffer {
         get {
             if(!this.HasProp("__BufferProxyArray"))
                 this.__BufferProxyArray := Win32FixedArray(this.ptr + 10, 1, Primitive, "char")

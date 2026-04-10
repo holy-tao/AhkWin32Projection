@@ -1,16 +1,13 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\..\Win32Struct.ahk
+#Include .\SEC_TRAFFIC_SECRET_TYPE.ahk
 
 /**
  * Contains the traffic secrets for a connection.
- * @remarks
- * 
  * @see https://learn.microsoft.com/windows/win32/api/sspi/ns-sspi-sec_traffic_secrets
  * @namespace Windows.Win32.Security.Authentication.Identity
- * @version v4.0.30319
  */
-class SEC_TRAFFIC_SECRETS extends Win32Struct
-{
+class SEC_TRAFFIC_SECRETS extends Win32Struct {
     static sizeof => 400
 
     static packingSize => 4
@@ -80,7 +77,7 @@ class SEC_TRAFFIC_SECRETS extends Win32Struct
 
     /**
      * The type of traffic secret from the [TRAFFIC_SECRET_TYPE](ne-sspi-sec_traffic_secret_type.md) enumeration.
-     * @type {Integer}
+     * @type {SEC_TRAFFIC_SECRET_TYPE}
      */
     TrafficSecretType {
         get => NumGet(this, 392, "int")
@@ -98,9 +95,9 @@ class SEC_TRAFFIC_SECRETS extends Win32Struct
 
     /**
      * Traffic secret of type **TrafficSecretType**, **TrafficSecretSize** bytes long, used to derive write key and IV for message protection.
-     * @type {Array<Byte>}
+     * @type {Array<Integer>}
      */
-    TrafficSecret{
+    TrafficSecret {
         get {
             if(!this.HasProp("__TrafficSecretProxyArray"))
                 this.__TrafficSecretProxyArray := Win32FixedArray(this.ptr + 398, 1, Primitive, "char")

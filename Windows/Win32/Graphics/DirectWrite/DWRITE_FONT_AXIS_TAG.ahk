@@ -11,9 +11,8 @@
  * ```
  * @see https://learn.microsoft.com/windows/win32/api/dwrite_3/ne-dwrite_3-dwrite_font_axis_tag
  * @namespace Windows.Win32.Graphics.DirectWrite
- * @version v4.0.30319
  */
-class DWRITE_FONT_AXIS_TAG extends Win32Enum{
+class DWRITE_FONT_AXIS_TAG extends Win32Enum {
 
     /**
      * Specifies the weight axis, using the identifier 'w','g','h','t'.

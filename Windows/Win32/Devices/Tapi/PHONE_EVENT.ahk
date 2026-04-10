@@ -5,9 +5,8 @@
  * The PHONE_EVENT enum indicates a type of phone event.
  * @see https://learn.microsoft.com/windows/win32/api/tapi3if/ne-tapi3if-phone_event
  * @namespace Windows.Win32.Devices.Tapi
- * @version v4.0.30319
  */
-class PHONE_EVENT extends Win32Enum{
+class PHONE_EVENT extends Win32Enum {
 
     /**
      * Phone display has changed.

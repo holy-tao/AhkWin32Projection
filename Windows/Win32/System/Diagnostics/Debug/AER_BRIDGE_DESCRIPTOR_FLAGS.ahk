@@ -3,10 +3,8 @@
 
 /**
  * @namespace Windows.Win32.System.Diagnostics.Debug
- * @version v4.0.30319
  */
-class AER_BRIDGE_DESCRIPTOR_FLAGS extends Win32Struct
-{
+class AER_BRIDGE_DESCRIPTOR_FLAGS extends Win32Struct {
     static sizeof => 4
 
     static packingSize => 1

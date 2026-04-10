@@ -7,9 +7,8 @@
  * The IAMTuner interface controls a TV tuner.
  * @see https://learn.microsoft.com/windows/win32/api/strmif/nn-strmif-iamtuner
  * @namespace Windows.Win32.Media.DirectShow
- * @version v4.0.30319
  */
-class IAMTuner extends IUnknown{
+class IAMTuner extends IUnknown {
 
     static sizeof => A_PtrSize
     /**
@@ -47,7 +46,7 @@ class IAMTuner extends IUnknown{
     }
 
     /**
-     * @type {Integer} 
+     * @type {AMTunerModeType} 
      */
     Mode {
         get => this.get_Mode()
@@ -255,7 +254,7 @@ class IAMTuner extends IUnknown{
 
     /**
      * The put_Mode method sets a multifunction tuner to the specified mode.
-     * @param {Integer} lMode Flag indicating which mode to switch to. Possible values are defined in the [AMTunerModeType](/windows/desktop/api/strmif/ne-strmif-amtunermodetype) enumeration.
+     * @param {AMTunerModeType} lMode Flag indicating which mode to switch to. Possible values are defined in the [AMTunerModeType](/windows/desktop/api/strmif/ne-strmif-amtunermodetype) enumeration.
      * 
      * You can also set the mode to digital TV if the card supports it. To do this, define AMTUNER_MODE_DTV with a value of 0x0010.
      * @returns {HRESULT} Returns an <b>HRESULT</b> value.
@@ -268,7 +267,7 @@ class IAMTuner extends IUnknown{
 
     /**
      * The get_Mode method retrieves the current mode on a multifunction tuner.
-     * @returns {Integer} Pointer to a variable that receives a flag indicating the current mode setting. The possible values are defined in the [AMTunerModeType](/windows/desktop/api/strmif/ne-strmif-amtunermodetype) enumeration.
+     * @returns {AMTunerModeType} Pointer to a variable that receives a flag indicating the current mode setting. The possible values are defined in the [AMTunerModeType](/windows/desktop/api/strmif/ne-strmif-amtunermodetype) enumeration.
      * @see https://learn.microsoft.com/windows/win32/api/strmif/nf-strmif-iamtuner-get_mode
      */
     get_Mode() {

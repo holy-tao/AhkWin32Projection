@@ -3,18 +3,16 @@
 
 /**
  * @namespace Windows.Wdk.Graphics.Direct3D
- * @version v4.0.30319
  */
-class D3DDDI_HDR_METADATA_HDR10 extends Win32Struct
-{
+class D3DDDI_HDR_METADATA_HDR10 extends Win32Struct {
     static sizeof => 28
 
     static packingSize => 4
 
     /**
-     * @type {Array<UInt16>}
+     * @type {Array<Integer>}
      */
-    RedPrimary{
+    RedPrimary {
         get {
             if(!this.HasProp("__RedPrimaryProxyArray"))
                 this.__RedPrimaryProxyArray := Win32FixedArray(this.ptr + 0, 2, Primitive, "ushort")
@@ -23,9 +21,9 @@ class D3DDDI_HDR_METADATA_HDR10 extends Win32Struct
     }
 
     /**
-     * @type {Array<UInt16>}
+     * @type {Array<Integer>}
      */
-    GreenPrimary{
+    GreenPrimary {
         get {
             if(!this.HasProp("__GreenPrimaryProxyArray"))
                 this.__GreenPrimaryProxyArray := Win32FixedArray(this.ptr + 4, 2, Primitive, "ushort")
@@ -34,9 +32,9 @@ class D3DDDI_HDR_METADATA_HDR10 extends Win32Struct
     }
 
     /**
-     * @type {Array<UInt16>}
+     * @type {Array<Integer>}
      */
-    BluePrimary{
+    BluePrimary {
         get {
             if(!this.HasProp("__BluePrimaryProxyArray"))
                 this.__BluePrimaryProxyArray := Win32FixedArray(this.ptr + 8, 2, Primitive, "ushort")
@@ -45,9 +43,9 @@ class D3DDDI_HDR_METADATA_HDR10 extends Win32Struct
     }
 
     /**
-     * @type {Array<UInt16>}
+     * @type {Array<Integer>}
      */
-    WhitePoint{
+    WhitePoint {
         get {
             if(!this.HasProp("__WhitePointProxyArray"))
                 this.__WhitePointProxyArray := Win32FixedArray(this.ptr + 12, 2, Primitive, "ushort")

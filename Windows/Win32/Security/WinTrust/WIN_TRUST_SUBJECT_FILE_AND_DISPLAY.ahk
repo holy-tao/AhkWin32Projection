@@ -4,10 +4,8 @@
 
 /**
  * @namespace Windows.Win32.Security.WinTrust
- * @version v4.0.30319
  */
-class WIN_TRUST_SUBJECT_FILE_AND_DISPLAY extends Win32Struct
-{
+class WIN_TRUST_SUBJECT_FILE_AND_DISPLAY extends Win32Struct {
     static sizeof => 24
 
     static packingSize => 8
@@ -15,7 +13,7 @@ class WIN_TRUST_SUBJECT_FILE_AND_DISPLAY extends Win32Struct
     /**
      * @type {HANDLE}
      */
-    hFile{
+    hFile {
         get {
             if(!this.HasProp("__hFile"))
                 this.__hFile := HANDLE(0, this)

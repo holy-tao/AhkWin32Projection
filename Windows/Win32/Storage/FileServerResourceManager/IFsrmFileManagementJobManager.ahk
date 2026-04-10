@@ -1,10 +1,9 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
-#Include ..\..\Foundation\BSTR.ahk
+#Include ..\..\System\Com\IDispatch.ahk
 #Include .\IFsrmCollection.ahk
 #Include .\IFsrmFileManagementJob.ahk
-#Include ..\..\System\Com\IDispatch.ahk
 
 /**
  * Used to manage file management jobs.
@@ -17,9 +16,8 @@
  *     file was expired; however, you can also perform custom actions.
  * @see https://learn.microsoft.com/windows/win32/api/fsrmreports/nn-fsrmreports-ifsrmfilemanagementjobmanager
  * @namespace Windows.Win32.Storage.FileServerResourceManager
- * @version v4.0.30319
  */
-class IFsrmFileManagementJobManager extends IDispatch{
+class IFsrmFileManagementJobManager extends IDispatch {
 
     static sizeof => A_PtrSize
     /**
@@ -84,7 +82,7 @@ class IFsrmFileManagementJobManager extends IDispatch{
 
     /**
      * Enumerates the list of existing file management jobs.
-     * @param {Integer} options One or more options to use when enumerating the management jobs. For possible values, see the <a href="https://docs.microsoft.com/windows/desktop/api/fsrmenums/ne-fsrmenums-fsrmenumoptions">FsrmEnumOptions</a> enumeration.
+     * @param {FsrmEnumOptions} options One or more options to use when enumerating the management jobs. For possible values, see the <a href="https://docs.microsoft.com/windows/desktop/api/fsrmenums/ne-fsrmenums-fsrmenumoptions">FsrmEnumOptions</a> enumeration.
      * 
      * <div class="alert"><b>Note</b>  This parameter must be set to either <b>FsrmEnumOptions_IncludeClusterNodes</b> or <b>FsrmEnumOptions_None</b> for this method.</div>
      * <div> </div>

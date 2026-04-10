@@ -5,9 +5,8 @@
 
 /**
  * @namespace Windows.Win32.Media.MediaFoundation
- * @version v4.0.30319
  */
-class IMFTimedTextRuby extends IUnknown{
+class IMFTimedTextRuby extends IUnknown {
 
     static sizeof => A_PtrSize
     /**
@@ -39,7 +38,7 @@ class IMFTimedTextRuby extends IUnknown{
 
     /**
      * 
-     * @returns {Integer} 
+     * @returns {MF_TIMED_TEXT_RUBY_POSITION} 
      */
     GetRubyPosition() {
         result := ComCall(4, this, "int*", &value := 0, "HRESULT")
@@ -48,7 +47,7 @@ class IMFTimedTextRuby extends IUnknown{
 
     /**
      * 
-     * @returns {Integer} 
+     * @returns {MF_TIMED_TEXT_RUBY_ALIGN} 
      */
     GetRubyAlign() {
         result := ComCall(5, this, "int*", &value := 0, "HRESULT")
@@ -57,7 +56,7 @@ class IMFTimedTextRuby extends IUnknown{
 
     /**
      * 
-     * @returns {Integer} 
+     * @returns {MF_TIMED_TEXT_RUBY_RESERVE} 
      */
     GetRubyReserve() {
         result := ComCall(6, this, "int*", &value := 0, "HRESULT")

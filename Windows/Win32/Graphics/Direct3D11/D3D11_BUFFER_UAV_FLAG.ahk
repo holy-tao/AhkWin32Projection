@@ -5,9 +5,8 @@
  * Identifies unordered-access view options for a buffer resource. (D3D11_BUFFER_UAV_FLAG)
  * @see https://learn.microsoft.com/windows/win32/api/d3d11/ne-d3d11-d3d11_buffer_uav_flag
  * @namespace Windows.Win32.Graphics.Direct3D11
- * @version v4.0.30319
  */
-class D3D11_BUFFER_UAV_FLAG extends Win32Enum{
+class D3D11_BUFFER_UAV_FLAG extends Win32Enum {
 
     /**
      * Resource contains raw, unstructured data.  Requires the UAV format to be DXGI_FORMAT_R32_TYPELESS.

@@ -1,17 +1,16 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
+#Include ..\Com\IUnknown.ahk
 #Include ..\Com\IStream.ahk
 #Include .\IContactPropertyCollection.ahk
-#Include ..\Com\IUnknown.ahk
 
 /**
  * Do not use. Used to retrieve, set, create, and remove properties on an IContact. Property names and extension mechanisms are described in icontactproperties.h.
  * @see https://learn.microsoft.com/windows/win32/api/icontact/nn-icontact-icontactproperties
  * @namespace Windows.Win32.System.Contacts
- * @version v4.0.30319
  */
-class IContactProperties extends IUnknown{
+class IContactProperties extends IUnknown {
 
     static sizeof => A_PtrSize
     /**

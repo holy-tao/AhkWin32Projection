@@ -7,9 +7,8 @@
  * The IWMReaderCallback is implemented by the application to handle data being read from a file. A pointer to the interface is passed to IWMReader::Open.
  * @see https://learn.microsoft.com/windows/win32/api/wmsdkidl/nn-wmsdkidl-iwmreadercallback
  * @namespace Windows.Win32.Media.WindowsMediaFormat
- * @version v4.0.30319
  */
-class IWMReaderCallback extends IWMStatusCallback{
+class IWMReaderCallback extends IWMStatusCallback {
 
     static sizeof => A_PtrSize
     /**

@@ -1,7 +1,6 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\..\Guid.ahk
-#Include ..\..\..\Foundation\BSTR.ahk
 #Include .\IDTFilter2.ahk
 
 /**
@@ -10,9 +9,8 @@
  * To declare the interface identifier (IID) for this interface, use the <b>__uuidof</b> operator: <c>__uuidof(IDTFilter3)</c>.
  * @see https://learn.microsoft.com/windows/win32/api/encdec/nn-encdec-idtfilter3
  * @namespace Windows.Win32.Media.DirectShow.Tv
- * @version v4.0.30319
  */
-class IDTFilter3 extends IDTFilter2{
+class IDTFilter3 extends IDTFilter2 {
 
     static sizeof => A_PtrSize
     /**
@@ -35,7 +33,7 @@ class IDTFilter3 extends IDTFilter2{
 
     /**
      * The GetProtectionType method retrieves the type of content protection that is currently in effect.
-     * @returns {Integer} Receives the current protection type, specified as a member of the <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/encdec/ne-encdec-prottype">ProtType</a> enumeration type.
+     * @returns {ProtType} Receives the current protection type, specified as a member of the <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/encdec/ne-encdec-prottype">ProtType</a> enumeration type.
      * @see https://learn.microsoft.com/windows/win32/api/encdec/nf-encdec-idtfilter3-getprotectiontype
      */
     GetProtectionType() {

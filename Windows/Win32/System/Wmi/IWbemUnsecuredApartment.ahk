@@ -1,8 +1,8 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
-#Include .\IWbemObjectSink.ahk
 #Include .\IUnsecuredApartment.ahk
+#Include .\IWbemObjectSink.ahk
 
 /**
  * Allows client applications to determine whether Unsecapp.exe performs access checks on asynchronous callbacks.
@@ -16,9 +16,8 @@
  * <b>HKEY_LOCAL_MACHINE</b>&#92;<b>SOFTWARE</b>&#92;<b>Microsoft</b>&#92;<b>WBEM</b>&#92;<b>CIMOM</b>&#92;<b>UnsecAppAccessControlDefault</b>
  * @see https://learn.microsoft.com/windows/win32/api/wbemcli/nn-wbemcli-iwbemunsecuredapartment
  * @namespace Windows.Win32.System.Wmi
- * @version v4.0.30319
  */
-class IWbemUnsecuredApartment extends IUnsecuredApartment{
+class IWbemUnsecuredApartment extends IUnsecuredApartment {
 
     static sizeof => A_PtrSize
     /**

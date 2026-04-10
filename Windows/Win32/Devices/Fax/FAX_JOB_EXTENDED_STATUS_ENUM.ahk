@@ -5,9 +5,8 @@
  * The FAX_JOB_EXTENDED_STATUS_ENUM enumeration defines the extended status values for a fax job.
  * @see https://learn.microsoft.com/windows/win32/api/faxcomex/ne-faxcomex-fax_job_extended_status_enum
  * @namespace Windows.Win32.Devices.Fax
- * @version v4.0.30319
  */
-class FAX_JOB_EXTENDED_STATUS_ENUM extends Win32Enum{
+class FAX_JOB_EXTENDED_STATUS_ENUM extends Win32Enum {
 
     /**
      * No extended status value.

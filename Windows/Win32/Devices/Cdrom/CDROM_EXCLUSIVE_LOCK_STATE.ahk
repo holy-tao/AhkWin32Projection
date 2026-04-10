@@ -3,10 +3,8 @@
 
 /**
  * @namespace Windows.Win32.Devices.Cdrom
- * @version v4.0.30319
  */
-class CDROM_EXCLUSIVE_LOCK_STATE extends Win32Struct
-{
+class CDROM_EXCLUSIVE_LOCK_STATE extends Win32Struct {
     static sizeof => 65
 
     static packingSize => 1
@@ -20,9 +18,9 @@ class CDROM_EXCLUSIVE_LOCK_STATE extends Win32Struct
     }
 
     /**
-     * @type {Array<Byte>}
+     * @type {Array<Integer>}
      */
-    CallerName{
+    CallerName {
         get {
             if(!this.HasProp("__CallerNameProxyArray"))
                 this.__CallerNameProxyArray := Win32FixedArray(this.ptr + 1, 64, Primitive, "char")

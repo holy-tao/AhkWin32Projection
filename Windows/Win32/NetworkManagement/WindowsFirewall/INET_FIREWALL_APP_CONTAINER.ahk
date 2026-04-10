@@ -1,16 +1,16 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
+#Include ..\..\Security\SID.ahk
 #Include .\INET_FIREWALL_AC_CAPABILITIES.ahk
+#Include ..\..\Security\SID_AND_ATTRIBUTES.ahk
 #Include .\INET_FIREWALL_AC_BINARIES.ahk
 
 /**
  * The INET_FIREWALL_APP_CONTAINER structure contains information about a specific app container. (INET_FIREWALL_APP_CONTAINER)
  * @see https://learn.microsoft.com/windows/win32/api/netfw/ns-netfw-inet_firewall_app_container
  * @namespace Windows.Win32.NetworkManagement.WindowsFirewall
- * @version v4.0.30319
  */
-class INET_FIREWALL_APP_CONTAINER extends Win32Struct
-{
+class INET_FIREWALL_APP_CONTAINER extends Win32Struct {
     static sizeof => 88
 
     static packingSize => 8
@@ -78,7 +78,7 @@ class INET_FIREWALL_APP_CONTAINER extends Win32Struct
      * The capabilities of the app container.
      * @type {INET_FIREWALL_AC_CAPABILITIES}
      */
-    capabilities{
+    capabilities {
         get {
             if(!this.HasProp("__capabilities"))
                 this.__capabilities := INET_FIREWALL_AC_CAPABILITIES(40, this)
@@ -92,7 +92,7 @@ class INET_FIREWALL_APP_CONTAINER extends Win32Struct
      * Binary paths to the applications running in the app container.
      * @type {INET_FIREWALL_AC_BINARIES}
      */
-    binaries{
+    binaries {
         get {
             if(!this.HasProp("__binaries"))
                 this.__binaries := INET_FIREWALL_AC_BINARIES(56, this)
@@ -101,7 +101,6 @@ class INET_FIREWALL_APP_CONTAINER extends Win32Struct
     }
 
     /**
-     * 
      * @type {PWSTR}
      */
     workingDirectory {
@@ -110,7 +109,6 @@ class INET_FIREWALL_APP_CONTAINER extends Win32Struct
     }
 
     /**
-     * 
      * @type {PWSTR}
      */
     packageFullName {

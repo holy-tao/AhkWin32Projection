@@ -1,17 +1,16 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
+#Include ..\..\System\Com\IDispatch.ahk
 #Include ..\..\System\Com\IUnknown.ahk
 #Include ..\..\System\Variant\VARIANT.ahk
-#Include ..\..\System\Com\IDispatch.ahk
 
 /**
  * Defines a collection of FSRM objects.
  * @see https://learn.microsoft.com/windows/win32/api/fsrm/nn-fsrm-ifsrmcollection
  * @namespace Windows.Win32.Storage.FileServerResourceManager
- * @version v4.0.30319
  */
-class IFsrmCollection extends IDispatch{
+class IFsrmCollection extends IDispatch {
 
     static sizeof => A_PtrSize
     /**
@@ -47,7 +46,7 @@ class IFsrmCollection extends IDispatch{
     }
 
     /**
-     * @type {Integer} 
+     * @type {FsrmCollectionState} 
      */
     State {
         get => this.get_State()
@@ -112,7 +111,7 @@ class IFsrmCollection extends IDispatch{
 
     /**
      * Retrieves the state of the collection.
-     * @returns {Integer} 
+     * @returns {FsrmCollectionState} 
      * @see https://learn.microsoft.com/windows/win32/api/fsrm/nf-fsrm-ifsrmcollection-get_state
      */
     get_State() {

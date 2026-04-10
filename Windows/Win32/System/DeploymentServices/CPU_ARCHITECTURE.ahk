@@ -3,9 +3,8 @@
 
 /**
  * @namespace Windows.Win32.System.DeploymentServices
- * @version v4.0.30319
  */
-class CPU_ARCHITECTURE extends Win32Enum{
+class CPU_ARCHITECTURE extends Win32Enum {
 
     /**
      * @type {Integer (UInt32)}

@@ -1,6 +1,7 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
+#Include .\ID2D1DeviceContext1.ahk
 #Include .\ID2D1Ink.ahk
 #Include .\ID2D1InkStyle.ahk
 #Include .\ID2D1GradientMesh.ahk
@@ -9,15 +10,13 @@
 #Include .\ID2D1ImageSource.ahk
 #Include Common\D2D_RECT_F.ahk
 #Include .\ID2D1TransformedImageSource.ahk
-#Include .\ID2D1DeviceContext1.ahk
 
 /**
  * This interface performs all the same functions as the ID2D1DeviceContext1 interface, plus it enables functionality such as ink rendering, gradient mesh rendering, and improved image loading.
  * @see https://learn.microsoft.com/windows/win32/api/d2d1_3/nn-d2d1_3-id2d1devicecontext2
  * @namespace Windows.Win32.Graphics.Direct2D
- * @version v4.0.30319
  */
-class ID2D1DeviceContext2 extends ID2D1DeviceContext1{
+class ID2D1DeviceContext2 extends ID2D1DeviceContext1 {
 
     static sizeof => A_PtrSize
     /**
@@ -43,7 +42,9 @@ class ID2D1DeviceContext2 extends ID2D1DeviceContext1{
      * @param {Pointer<D2D1_INK_POINT>} startPoint Type: <b>const <a href="https://docs.microsoft.com/windows/desktop/api/d2d1_3/ns-d2d1_3-d2d1_ink_point">D2D1_INK_POINT</a></b>
      * 
      * The starting point of the first segment of the first stroke in the new ink object.
-     * @returns {ID2D1Ink} 
+     * @returns {ID2D1Ink} Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/d2d1_3/nn-d2d1_3-id2d1ink">ID2D1Ink</a>**</b>
+     * 
+     * When this method returns, contains the address of a pointer to a new ink object.
      * @see https://learn.microsoft.com/windows/win32/api/d2d1_3/nf-d2d1_3-id2d1devicecontext2-createink(constd2d1_ink_point__id2d1ink)
      */
     CreateInk(startPoint) {
@@ -104,10 +105,10 @@ class ID2D1DeviceContext2 extends ID2D1DeviceContext1{
      * @param {IWICBitmapSource} wicBitmapSource Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/wincodec/nn-wincodec-iwicbitmapsource">IWICBitmapSource</a>*</b>
      * 
      * The WIC bitmap source to create the image source from.
-     * @param {Integer} loadingOptions Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/d2d1_3/ne-d2d1_3-d2d1_image_source_loading_options">D2D1_IMAGE_SOURCE_LOADING_OPTIONS</a></b>
+     * @param {D2D1_IMAGE_SOURCE_LOADING_OPTIONS} loadingOptions Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/d2d1_3/ne-d2d1_3-d2d1_image_source_loading_options">D2D1_IMAGE_SOURCE_LOADING_OPTIONS</a></b>
      * 
      * Options for creating the image source.  Default options are used if NULL.
-     * @param {Integer} alphaMode 
+     * @param {D2D1_ALPHA_MODE} alphaMode 
      * @returns {ID2D1ImageSourceFromWic} Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/d2d1_3/nn-d2d1_3-id2d1imagesourcefromwic">ID2D1ImageSourceFromWic</a>**</b>
      * 
      * Receives the new image source instance.
@@ -120,7 +121,7 @@ class ID2D1DeviceContext2 extends ID2D1DeviceContext1{
 
     /**
      * Creates a 3D lookup table for mapping a 3-channel input to a 3-channel output. The table data must be provided in 4-channel format. (ID2D1DeviceContext2.CreateLookupTable3D)
-     * @param {Integer} precision Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/d2d1_1/ne-d2d1_1-d2d1_buffer_precision">D2D1_BUFFER_PRECISION</a></b>
+     * @param {D2D1_BUFFER_PRECISION} precision Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/d2d1_1/ne-d2d1_1-d2d1_buffer_precision">D2D1_BUFFER_PRECISION</a></b>
      * 
      * Precision of the input lookup table data.
      * @param {Pointer<Integer>} extents Type: <b>const UINT32*</b>
@@ -264,10 +265,10 @@ class ID2D1DeviceContext2 extends ID2D1DeviceContext1{
      * @param {Integer} surfaceCount Type: <b>UINT32</b>
      * 
      * The number of surfaces provided; must be between one and three.
-     * @param {Integer} colorSpace Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/dxgicommon/ne-dxgicommon-dxgi_color_space_type">DXGI_COLOR_SPACE_TYPE</a></b>
+     * @param {DXGI_COLOR_SPACE_TYPE} colorSpace Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/dxgicommon/ne-dxgicommon-dxgi_color_space_type">DXGI_COLOR_SPACE_TYPE</a></b>
      * 
      * The color space of the input.
-     * @param {Integer} options Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/d2d1_3/ne-d2d1_3-d2d1_image_source_from_dxgi_options">D2D1_IMAGE_SOURCE_FROM_DXGI_OPTIONS</a></b>
+     * @param {D2D1_IMAGE_SOURCE_FROM_DXGI_OPTIONS} options Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/d2d1_3/ne-d2d1_3-d2d1_image_source_from_dxgi_options">D2D1_IMAGE_SOURCE_FROM_DXGI_OPTIONS</a></b>
      * 
      * Options controlling color space conversions.
      * @returns {ID2D1ImageSource} Type: [out] <b><a href="https://docs.microsoft.com/windows/desktop/api/d2d1_3/nn-d2d1_3-id2d1imagesource">ID2D1ImageSource</a>**</b>
@@ -301,7 +302,9 @@ class ID2D1DeviceContext2 extends ID2D1DeviceContext1{
 
     /**
      * Renders the given ink object using the given brush and ink style. (ID2D1DeviceContext2.DrawInk)
-     * @param {ID2D1Ink} _ink 
+     * @param {ID2D1Ink} _ink Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/d2d1_3/nn-d2d1_3-id2d1ink">ID2D1Ink</a>*</b>
+     * 
+     * The ink object to be rendered.
      * @param {ID2D1Brush} brush Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/d2d1/nn-d2d1-id2d1brush">ID2D1Brush</a>*</b>
      * 
      * The brush with which to render the ink object.
@@ -353,7 +356,9 @@ class ID2D1DeviceContext2 extends ID2D1DeviceContext1{
      * @param {ID2D1ImageSource} imageSource Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/d2d1_3/nn-d2d1_3-id2d1imagesource">ID2D1ImageSource</a>*</b>
      * 
      * The original image.
-     * @param {Pointer<D2D1_TRANSFORMED_IMAGE_SOURCE_PROPERTIES>} _properties 
+     * @param {Pointer<D2D1_TRANSFORMED_IMAGE_SOURCE_PROPERTIES>} _properties Type: <b>const <a href="https://docs.microsoft.com/windows/desktop/api/d2d1_3/ns-d2d1_3-d2d1_transformed_image_source_properties">D2D1_TRANSFORMED_IMAGE_SOURCE_PROPERTIES</a>*</b>
+     * 
+     * Properties for the source image.
      * @returns {ID2D1TransformedImageSource} Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/d2d1_3/nn-d2d1_3-id2d1transformedimagesource">ID2D1TransformedImageSource</a>**</b>
      * 
      * Receives the new image source.

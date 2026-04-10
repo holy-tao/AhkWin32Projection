@@ -1,13 +1,13 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
 #Include .\INTERNET_ASYNC_RESULT.ahk
+#Include .\HTTP_WEB_SOCKET_OPERATION.ahk
+#Include .\HTTP_WEB_SOCKET_BUFFER_TYPE.ahk
 
 /**
  * @namespace Windows.Win32.Networking.WinInet
- * @version v4.0.30319
  */
-class HTTP_WEB_SOCKET_ASYNC_RESULT extends Win32Struct
-{
+class HTTP_WEB_SOCKET_ASYNC_RESULT extends Win32Struct {
     static sizeof => 32
 
     static packingSize => 8
@@ -15,7 +15,7 @@ class HTTP_WEB_SOCKET_ASYNC_RESULT extends Win32Struct
     /**
      * @type {INTERNET_ASYNC_RESULT}
      */
-    AsyncResult{
+    AsyncResult {
         get {
             if(!this.HasProp("__AsyncResult"))
                 this.__AsyncResult := INTERNET_ASYNC_RESULT(0, this)
@@ -24,7 +24,7 @@ class HTTP_WEB_SOCKET_ASYNC_RESULT extends Win32Struct
     }
 
     /**
-     * @type {Integer}
+     * @type {HTTP_WEB_SOCKET_OPERATION}
      */
     Operation {
         get => NumGet(this, 16, "int")
@@ -32,7 +32,7 @@ class HTTP_WEB_SOCKET_ASYNC_RESULT extends Win32Struct
     }
 
     /**
-     * @type {Integer}
+     * @type {HTTP_WEB_SOCKET_BUFFER_TYPE}
      */
     BufferType {
         get => NumGet(this, 20, "int")

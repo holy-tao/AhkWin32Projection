@@ -5,10 +5,8 @@
  * The DD_PALETTE_LOCAL structure contains palette-related data that is unique to an individual palette object.
  * @see https://learn.microsoft.com/windows/win32/api/ddrawint/ns-ddrawint-dd_palette_local
  * @namespace Windows.Win32.Graphics.DirectDraw
- * @version v4.0.30319
  */
-class DD_PALETTE_LOCAL extends Win32Struct
-{
+class DD_PALETTE_LOCAL extends Win32Struct {
     static sizeof => 16
 
     static packingSize => 8

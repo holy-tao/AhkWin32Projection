@@ -9,9 +9,8 @@
  * This is an optional interface on an endpoint.
  * @see https://learn.microsoft.com/windows/win32/api/audioengineendpoint/nn-audioengineendpoint-iaudioendpointlastbuffercontrol
  * @namespace Windows.Win32.Media.Audio.Endpoints
- * @version v4.0.30319
  */
-class IAudioEndpointLastBufferControl extends IUnknown{
+class IAudioEndpointLastBufferControl extends IUnknown {
 
     static sizeof => A_PtrSize
     /**

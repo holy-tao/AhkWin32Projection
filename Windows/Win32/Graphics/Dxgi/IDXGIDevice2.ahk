@@ -26,9 +26,8 @@
  *         </b> This API is supported.
  * @see https://learn.microsoft.com/windows/win32/api/dxgi1_2/nn-dxgi1_2-idxgidevice2
  * @namespace Windows.Win32.Graphics.Dxgi
- * @version v4.0.30319
  */
-class IDXGIDevice2 extends IDXGIDevice1{
+class IDXGIDevice2 extends IDXGIDevice1 {
 
     static sizeof => A_PtrSize
     /**
@@ -63,7 +62,7 @@ class IDXGIDevice2 extends IDXGIDevice1{
      * <b>Platform Update for Windows 7:  </b>The runtime validates that <b>OfferResources</b> is used correctly on non-shared resources but doesn't perform the intended functionality. For more info about the Platform Update for Windows 7, see <a href="https://docs.microsoft.com/windows/desktop/direct3darticles/platform-update-for-windows-7">Platform Update for Windows 7</a>.
      * @param {Integer} NumResources The number of resources in the <i>ppResources</i> argument array.
      * @param {Pointer<IDXGIResource>} ppResources An array of pointers to <a href="https://docs.microsoft.com/windows/desktop/api/dxgi/nn-dxgi-idxgiresource">IDXGIResource</a> interfaces for the resources to offer.
-     * @param {Integer} _Priority 
+     * @param {DXGI_OFFER_RESOURCE_PRIORITY} _Priority A <a href="https://docs.microsoft.com/windows/desktop/api/dxgi1_2/ne-dxgi1_2-dxgi_offer_resource_priority">DXGI_OFFER_RESOURCE_PRIORITY</a>-typed value that indicates how valuable data is.
      * @returns {HRESULT} <b>OfferResources</b> returns:
      *             
      *           

@@ -1,5 +1,6 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
+#Include .\SC_ACTION_TYPE.ahk
 
 /**
  * Represents an action that the service control manager can perform.
@@ -10,17 +11,14 @@
  * <a href="https://docs.microsoft.com/windows/desktop/api/winsvc/ns-winsvc-service_failure_actionsa">SERVICE_FAILURE_ACTIONS</a> structure.
  * @see https://learn.microsoft.com/windows/win32/api/winsvc/ns-winsvc-sc_action
  * @namespace Windows.Win32.System.Services
- * @version v4.0.30319
  */
-class SC_ACTION extends Win32Struct
-{
+class SC_ACTION extends Win32Struct {
     static sizeof => 8
 
     static packingSize => 4
 
     /**
-     * 
-     * @type {Integer}
+     * @type {SC_ACTION_TYPE}
      */
     Type {
         get => NumGet(this, 0, "int")

@@ -1,16 +1,15 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
-#Include .\IPart.ahk
 #Include ..\..\System\Com\IUnknown.ahk
+#Include .\IPart.ahk
 
 /**
  * The IPartsList interface represents a list of parts, each of which is an object with an IPart interface that represents a connector or subunit.
  * @see https://learn.microsoft.com/windows/win32/api/devicetopology/nn-devicetopology-ipartslist
  * @namespace Windows.Win32.Media.Audio
- * @version v4.0.30319
  */
-class IPartsList extends IUnknown{
+class IPartsList extends IUnknown {
 
     static sizeof => A_PtrSize
     /**

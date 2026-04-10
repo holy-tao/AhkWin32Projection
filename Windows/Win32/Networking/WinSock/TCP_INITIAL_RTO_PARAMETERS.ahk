@@ -13,10 +13,8 @@
  * An application can choose system defaults for any of these fields and supply those values using the default defines, <b>TCP_INITIAL_RTO_DEFAULT_RTT</b> and <b>TCP_INITIAL_RTO_DEFAULT_MAX_SYN_RETRANSMISSIONS</b>.
  * @see https://learn.microsoft.com/windows/win32/api/mstcpip/ns-mstcpip-tcp_initial_rto_parameters
  * @namespace Windows.Win32.Networking.WinSock
- * @version v4.0.30319
  */
-class TCP_INITIAL_RTO_PARAMETERS extends Win32Struct
-{
+class TCP_INITIAL_RTO_PARAMETERS extends Win32Struct {
     static sizeof => 4
 
     static packingSize => 2

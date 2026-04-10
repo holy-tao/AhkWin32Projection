@@ -3,16 +3,14 @@
 
 /**
  * @namespace Windows.Wdk.System.SystemServices
- * @version v4.0.30319
  */
-class WHEA_PCIE_CORRECTABLE_ERROR_DEVICES extends Win32Struct
-{
+class WHEA_PCIE_CORRECTABLE_ERROR_DEVICES extends Win32Struct {
     static sizeof => 152
 
     static packingSize => 8
 
     /**
-     * @type {Pointer<WHEA_PCIE_CORRECTABLE_ERROR_DEVICES_VALIDBITS>}
+     * @type {Pointer}
      */
     ValidBits {
         get => NumGet(this, 0, "ptr")
@@ -20,7 +18,7 @@ class WHEA_PCIE_CORRECTABLE_ERROR_DEVICES extends Win32Struct
     }
 
     /**
-     * @type {Pointer<WHEA_PCIE_ADDRESS>}
+     * @type {Pointer}
      */
     Address {
         get => NumGet(this, 8, "ptr")
@@ -36,9 +34,9 @@ class WHEA_PCIE_CORRECTABLE_ERROR_DEVICES extends Win32Struct
     }
 
     /**
-     * @type {Array<UInt32>}
+     * @type {Array<Integer>}
      */
-    CorrectableErrorCount{
+    CorrectableErrorCount {
         get {
             if(!this.HasProp("__CorrectableErrorCountProxyArray"))
                 this.__CorrectableErrorCountProxyArray := Win32FixedArray(this.ptr + 20, 32, Primitive, "uint")

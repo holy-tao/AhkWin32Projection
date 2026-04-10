@@ -1,14 +1,14 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\..\Win32Struct.ahk
+#Include ..\..\..\System\Com\IStream.ahk
+#Include .\APPX_COMPRESSION_OPTION.ahk
 
 /**
  * Contains the data and metadata of files to write into the app package.
  * @see https://learn.microsoft.com/windows/win32/api/appxpackaging/ns-appxpackaging-appx_package_writer_payload_stream
  * @namespace Windows.Win32.Storage.Packaging.Appx
- * @version v4.0.30319
  */
-class APPX_PACKAGE_WRITER_PAYLOAD_STREAM extends Win32Struct
-{
+class APPX_PACKAGE_WRITER_PAYLOAD_STREAM extends Win32Struct {
     static sizeof => 32
 
     static packingSize => 8
@@ -42,7 +42,7 @@ class APPX_PACKAGE_WRITER_PAYLOAD_STREAM extends Win32Struct
 
     /**
      * The degree of compression used for the file in the package.
-     * @type {Integer}
+     * @type {APPX_COMPRESSION_OPTION}
      */
     compressionOption {
         get => NumGet(this, 24, "int")

@@ -7,9 +7,8 @@
  * The ITfStatusSink interface supports changes to the global document status. This advise sink is installed by calling ITfSource::AdviseSink with IID_ITfStatusSink. A text service can optionally implement this interface.
  * @see https://learn.microsoft.com/windows/win32/api/msctf/nn-msctf-itfstatussink
  * @namespace Windows.Win32.UI.TextServices
- * @version v4.0.30319
  */
-class ITfStatusSink extends IUnknown{
+class ITfStatusSink extends IUnknown {
 
     static sizeof => A_PtrSize
     /**

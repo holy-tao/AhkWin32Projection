@@ -3,10 +3,8 @@
 
 /**
  * @namespace Windows.Win32.Foundation
- * @version v4.0.30319
  */
-class VARIANT_BOOL extends Win32Struct
-{
+class VARIANT_BOOL extends Win32Struct {
     static sizeof => 2
 
     static packingSize => 2

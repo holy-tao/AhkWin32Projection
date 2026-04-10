@@ -1,13 +1,12 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
 #Include .\SPAUDIOSTATUS.ahk
+#Include .\SPAUDIOSTATE.ahk
 
 /**
  * @namespace Windows.Win32.Media.Speech
- * @version v4.0.30319
  */
-class SPRECOGNIZERSTATUS extends Win32Struct
-{
+class SPRECOGNIZERSTATUS extends Win32Struct {
     static sizeof => 120
 
     static packingSize => 8
@@ -15,7 +14,7 @@ class SPRECOGNIZERSTATUS extends Win32Struct
     /**
      * @type {SPAUDIOSTATUS}
      */
-    AudioStatus{
+    AudioStatus {
         get {
             if(!this.HasProp("__AudioStatus"))
                 this.__AudioStatus := SPAUDIOSTATUS(0, this)
@@ -48,7 +47,7 @@ class SPRECOGNIZERSTATUS extends Win32Struct
     }
 
     /**
-     * @type {Pointer<Guid>}
+     * @type {Pointer}
      */
     clsidEngine {
         get => NumGet(this, 56, "ptr")
@@ -64,9 +63,9 @@ class SPRECOGNIZERSTATUS extends Win32Struct
     }
 
     /**
-     * @type {Array<UInt16>}
+     * @type {Array<Integer>}
      */
-    aLangID{
+    aLangID {
         get {
             if(!this.HasProp("__aLangIDProxyArray"))
                 this.__aLangIDProxyArray := Win32FixedArray(this.ptr + 68, 20, Primitive, "ushort")

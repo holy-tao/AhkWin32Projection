@@ -5,10 +5,8 @@
  * Represents an array of pointers to null-terminated MI_Char* strings.
  * @see https://learn.microsoft.com/windows/win32/api/mi/ns-mi-mi_stringa
  * @namespace Windows.Win32.System.Wmi
- * @version v4.0.30319
  */
-class MI_StringA extends Win32Struct
-{
+class MI_StringA extends Win32Struct {
     static sizeof => 16
 
     static packingSize => 8

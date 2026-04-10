@@ -9,9 +9,8 @@
  * To publish applications to Add/Remove Programs in Control Panel, you must support <a href="https://docs.microsoft.com/windows/desktop/api/shappmgr/nn-shappmgr-ienumpublishedapps">IEnumPublishedApps</a>, <a href="https://docs.microsoft.com/windows/desktop/api/shappmgr/nn-shappmgr-iapppublisher">IAppPublisher</a> and <b>IPublishedApp</b>.
  * @see https://learn.microsoft.com/windows/win32/api/shappmgr/nn-shappmgr-ipublishedapp
  * @namespace Windows.Win32.UI.Shell
- * @version v4.0.30319
  */
-class IPublishedApp extends IShellApp{
+class IPublishedApp extends IShellApp {
 
     static sizeof => A_PtrSize
     /**

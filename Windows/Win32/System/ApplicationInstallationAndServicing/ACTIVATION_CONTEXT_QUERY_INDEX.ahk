@@ -10,10 +10,8 @@
  * <a href="https://docs.microsoft.com/windows/desktop/api/winnt/ns-winnt-assembly_file_detailed_information">ASSEMBLY_FILE_DETAILED_INFORMATION</a> for an example of its use.
  * @see https://learn.microsoft.com/windows/win32/api/winnt/ns-winnt-activation_context_query_index
  * @namespace Windows.Win32.System.ApplicationInstallationAndServicing
- * @version v4.0.30319
  */
-class ACTIVATION_CONTEXT_QUERY_INDEX extends Win32Struct
-{
+class ACTIVATION_CONTEXT_QUERY_INDEX extends Win32Struct {
     static sizeof => 8
 
     static packingSize => 4

@@ -1,5 +1,6 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
+#Include .\WTS_CERT_TYPE.ahk
 
 /**
  * Contains information about the licensing capabilities of the client.
@@ -7,16 +8,13 @@
  * This enumeration is used by the <a href="https://docs.microsoft.com/windows/desktop/api/wtsprotocol/nf-wtsprotocol-iwtsprotocollicenseconnection-requestlicensingcapabilities">RequestLicensingCapabilities</a> method.
  * @see https://learn.microsoft.com/windows/win32/api/wtsdefs/ns-wtsdefs-wts_license_capabilities
  * @namespace Windows.Win32.System.RemoteDesktop
- * @version v4.0.30319
  */
-class WTS_LICENSE_CAPABILITIES extends Win32Struct
-{
+class WTS_LICENSE_CAPABILITIES extends Win32Struct {
     static sizeof => 64
 
     static packingSize => 4
 
     /**
-     * 
      * @type {Integer}
      */
     KeyExchangeAlg {
@@ -44,7 +42,7 @@ class WTS_LICENSE_CAPABILITIES extends Win32Struct
 
     /**
      * A <a href="https://docs.microsoft.com/windows/desktop/api/wtsdefs/ne-wtsdefs-wts_cert_type">WTS_CERT_TYPE</a> enumeration value that specifies the type of the certificate used to obtain the license.
-     * @type {Integer}
+     * @type {WTS_CERT_TYPE}
      */
     CertType {
         get => NumGet(this, 12, "int")
@@ -62,9 +60,9 @@ class WTS_LICENSE_CAPABILITIES extends Win32Struct
 
     /**
      * The client name, including a terminating null character.
-     * @type {Array<Byte>}
+     * @type {Array<Integer>}
      */
-    rgbClientName{
+    rgbClientName {
         get {
             if(!this.HasProp("__rgbClientNameProxyArray"))
                 this.__rgbClientNameProxyArray := Win32FixedArray(this.ptr + 20, 42, Primitive, "char")

@@ -2,15 +2,14 @@
 #Include ..\..\..\..\Win32Struct.ahk
 #Include .\CRYPT_INTEGER_BLOB.ahk
 #Include ..\..\Foundation\FILETIME.ahk
+#Include .\CERT_EXTENSION.ahk
 
 /**
  * Contains information about a single revoked certificate. It is a member of a CRL_INFO structure.
  * @see https://learn.microsoft.com/windows/win32/api/wincrypt/ns-wincrypt-crl_entry
  * @namespace Windows.Win32.Security.Cryptography
- * @version v4.0.30319
  */
-class CRL_ENTRY extends Win32Struct
-{
+class CRL_ENTRY extends Win32Struct {
     static sizeof => 40
 
     static packingSize => 8
@@ -25,7 +24,7 @@ class CRL_ENTRY extends Win32Struct
      * <a href="https://docs.microsoft.com/windows/desktop/api/wincrypt/nf-wincrypt-certcompareintegerblob">CertCompareIntegerBlob</a>.
      * @type {CRYPT_INTEGER_BLOB}
      */
-    SerialNumber{
+    SerialNumber {
         get {
             if(!this.HasProp("__SerialNumber"))
                 this.__SerialNumber := CRYPT_INTEGER_BLOB(0, this)
@@ -37,7 +36,7 @@ class CRL_ENTRY extends Win32Struct
      * Date that the certificate was revoked. Time is UTC-time encoded as an eight-byte date/time precise to seconds with a two digit year (that is, YYMMDDHHMMSS plus 2 bytes). The date is interpreted as a date between the years 1968 and 2067.
      * @type {FILETIME}
      */
-    RevocationDate{
+    RevocationDate {
         get {
             if(!this.HasProp("__RevocationDate"))
                 this.__RevocationDate := FILETIME(16, this)

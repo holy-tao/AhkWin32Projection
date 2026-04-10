@@ -7,9 +7,8 @@
  * The interface you implement to receive the output of the text analyzers.
  * @see https://learn.microsoft.com/windows/win32/api/dwrite_1/nn-dwrite_1-idwritetextanalysissink1
  * @namespace Windows.Win32.Graphics.DirectWrite
- * @version v4.0.30319
  */
-class IDWriteTextAnalysisSink1 extends IDWriteTextAnalysisSink{
+class IDWriteTextAnalysisSink1 extends IDWriteTextAnalysisSink {
 
     static sizeof => A_PtrSize
     /**
@@ -38,7 +37,7 @@ class IDWriteTextAnalysisSink1 extends IDWriteTextAnalysisSink{
      * @param {Integer} textLength Type: <b>UINT32 </b>
      * 
      * Number of UTF-16 units of the reported range.
-     * @param {Integer} glyphOrientationAngle Type: <b><a href="https://docs.microsoft.com/windows/win32/api/dwrite_1/ne-dwrite_1-dwrite_glyph_orientation_angle">DWRITE_GLYPH_ORIENTATION_ANGLE</a></b>
+     * @param {DWRITE_GLYPH_ORIENTATION_ANGLE} glyphOrientationAngle Type: <b><a href="https://docs.microsoft.com/windows/win32/api/dwrite_1/ne-dwrite_1-dwrite_glyph_orientation_angle">DWRITE_GLYPH_ORIENTATION_ANGLE</a></b>
      * 
      * A <a href="https://docs.microsoft.com/windows/win32/api/dwrite_1/ne-dwrite_1-dwrite_glyph_orientation_angle">DWRITE_GLYPH_ORIENTATION_ANGLE</a>-typed value that specifies the angle of the glyphs within the text
      *     range (pass to <a href="https://docs.microsoft.com/windows/win32/api/dwrite_1/nf-dwrite_1-idwritetextanalyzer1-getglyphorientationtransform">IDWriteTextAnalyzer1::GetGlyphOrientationTransform</a> to get the world

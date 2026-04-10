@@ -1,9 +1,10 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
 #Include ..\..\Graphics\Gdi\HDC.ahk
+#Include ..\..\Graphics\Direct3D9\IDirect3DSurface9.ahk
+#Include .\MFVideoAlphaBitmapParams.ahk
 #Include ..\..\Foundation\RECT.ahk
 #Include .\MFVideoNormalizedRect.ahk
-#Include .\MFVideoAlphaBitmapParams.ahk
 
 /**
  * Specifies a bitmap for the enhanced video renderer (EVR) to alpha-blend with the video.
@@ -11,10 +12,8 @@
  * To specify a GDI bitmap, create a device context and call <b>SelectObject</b> to select the bitmap into the DC. Then set the <b>hdc</b> member of the structure equal to the handle to the DC and set the <b>GetBitmapFromDC</b> member to <b>TRUE</b>.
  * @see https://learn.microsoft.com/windows/win32/api/evr9/ns-evr9-mfvideoalphabitmap
  * @namespace Windows.Win32.Media.MediaFoundation
- * @version v4.0.30319
  */
-class MFVideoAlphaBitmap extends Win32Struct
-{
+class MFVideoAlphaBitmap extends Win32Struct {
     static sizeof => 64
 
     static packingSize => 8
@@ -26,14 +25,14 @@ class MFVideoAlphaBitmap extends Win32Struct
         /**
          * @type {HDC}
          */
-        hdc{
+        hdc {
             get {
                 if(!this.HasProp("__hdc"))
                     this.__hdc := HDC(0, this)
                 return this.__hdc
             }
         }
-    
+
         /**
          * @type {IDirect3DSurface9}
          */
@@ -41,7 +40,6 @@ class MFVideoAlphaBitmap extends Win32Struct
             get => NumGet(this, 0, "ptr")
             set => NumPut("ptr", value, this, 0)
         }
-    
     }
 
     /**
@@ -57,10 +55,10 @@ class MFVideoAlphaBitmap extends Win32Struct
      * A union that contains the following members.
      * @type {_bitmap_e__Union}
      */
-    bitmap{
+    bitmap {
         get {
             if(!this.HasProp("__bitmap"))
-                this.__bitmap := %this.__Class%._bitmap_e__Union(8, this)
+                this.__bitmap := MFVideoAlphaBitmap._bitmap_e__Union(8, this)
             return this.__bitmap
         }
     }
@@ -69,7 +67,7 @@ class MFVideoAlphaBitmap extends Win32Struct
      * <a href="https://docs.microsoft.com/windows/desktop/api/evr9/ns-evr9-mfvideoalphabitmapparams">MFVideoAlphaBitmapParams</a> structure that specifies the parameters for the alpha-blending operation.
      * @type {MFVideoAlphaBitmapParams}
      */
-    params{
+    params {
         get {
             if(!this.HasProp("__params"))
                 this.__params := MFVideoAlphaBitmapParams(16, this)

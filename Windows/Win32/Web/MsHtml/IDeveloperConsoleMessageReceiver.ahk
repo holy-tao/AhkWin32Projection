@@ -5,9 +5,8 @@
 
 /**
  * @namespace Windows.Win32.Web.MsHtml
- * @version v4.0.30319
  */
-class IDeveloperConsoleMessageReceiver extends IUnknown{
+class IDeveloperConsoleMessageReceiver extends IUnknown {
 
     static sizeof => A_PtrSize
     /**
@@ -31,7 +30,7 @@ class IDeveloperConsoleMessageReceiver extends IUnknown{
     /**
      * The WriteBackRootHintDatafile method writes the RootHints back to the DNS Cache file.
      * @param {PWSTR} source 
-     * @param {Integer} level 
+     * @param {DEV_CONSOLE_MESSAGE_LEVEL} level 
      * @param {Integer} messageId 
      * @param {PWSTR} messageText 
      * @returns {HRESULT} This method has no parameters.
@@ -51,7 +50,7 @@ class IDeveloperConsoleMessageReceiver extends IUnknown{
     /**
      * 
      * @param {PWSTR} source 
-     * @param {Integer} level 
+     * @param {DEV_CONSOLE_MESSAGE_LEVEL} level 
      * @param {Integer} messageId 
      * @param {PWSTR} messageText 
      * @param {PWSTR} fileUrl 
@@ -69,7 +68,7 @@ class IDeveloperConsoleMessageReceiver extends IUnknown{
     /**
      * 
      * @param {PWSTR} source 
-     * @param {Integer} level 
+     * @param {DEV_CONSOLE_MESSAGE_LEVEL} level 
      * @param {Integer} messageId 
      * @param {PWSTR} messageText 
      * @param {PWSTR} fileUrl 
@@ -88,7 +87,7 @@ class IDeveloperConsoleMessageReceiver extends IUnknown{
     /**
      * 
      * @param {PWSTR} source 
-     * @param {Integer} level 
+     * @param {DEV_CONSOLE_MESSAGE_LEVEL} level 
      * @param {Integer} messageId 
      * @param {PWSTR} messageText 
      * @param {PWSTR} fileUrl 

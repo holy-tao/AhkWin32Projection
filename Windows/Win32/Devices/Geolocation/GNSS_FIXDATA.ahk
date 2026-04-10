@@ -3,16 +3,14 @@
 #Include ..\..\Foundation\FILETIME.ahk
 #Include .\GNSS_FIXDATA_BASIC.ahk
 #Include .\GNSS_FIXDATA_ACCURACY.ahk
-#Include .\GNSS_SATELLITEINFO.ahk
 #Include .\GNSS_FIXDATA_SATELLITE.ahk
+#Include .\GNSS_SATELLITEINFO.ahk
 
 /**
  * @namespace Windows.Win32.Devices.Geolocation
- * @version v4.0.30319
  */
-class GNSS_FIXDATA extends Win32Struct
-{
-    static sizeof => 672
+class GNSS_FIXDATA extends Win32Struct {
+    static sizeof => 2208
 
     static packingSize => 8
 
@@ -43,7 +41,7 @@ class GNSS_FIXDATA extends Win32Struct
     /**
      * @type {FILETIME}
      */
-    FixTimeStamp{
+    FixTimeStamp {
         get {
             if(!this.HasProp("__FixTimeStamp"))
                 this.__FixTimeStamp := FILETIME(12, this)
@@ -78,7 +76,7 @@ class GNSS_FIXDATA extends Win32Struct
     /**
      * @type {GNSS_FIXDATA_BASIC}
      */
-    BasicData{
+    BasicData {
         get {
             if(!this.HasProp("__BasicData"))
                 this.__BasicData := GNSS_FIXDATA_BASIC(32, this)
@@ -89,7 +87,7 @@ class GNSS_FIXDATA extends Win32Struct
     /**
      * @type {GNSS_FIXDATA_ACCURACY}
      */
-    AccuracyData{
+    AccuracyData {
         get {
             if(!this.HasProp("__AccuracyData"))
                 this.__AccuracyData := GNSS_FIXDATA_ACCURACY(80, this)
@@ -100,7 +98,7 @@ class GNSS_FIXDATA extends Win32Struct
     /**
      * @type {GNSS_FIXDATA_SATELLITE}
      */
-    SatelliteData{
+    SatelliteData {
         get {
             if(!this.HasProp("__SatelliteData"))
                 this.__SatelliteData := GNSS_FIXDATA_SATELLITE(144, this)

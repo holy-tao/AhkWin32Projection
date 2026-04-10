@@ -6,10 +6,8 @@
  * Extends the MI_InstanceFT structure.
  * @see https://learn.microsoft.com/windows/win32/api/mi/ns-mi-mi_instanceexft
  * @namespace Windows.Win32.System.Wmi
- * @version v4.0.30319
  */
-class MI_InstanceExFT extends Win32Struct
-{
+class MI_InstanceExFT extends Win32Struct {
     static sizeof => 152
 
     static packingSize => 8
@@ -18,7 +16,7 @@ class MI_InstanceExFT extends Win32Struct
      * Parent <a href="https://docs.microsoft.com/windows/desktop/api/mi/ns-mi-mi_instanceft">MI_InstanceFT</a> function table.
      * @type {MI_InstanceFT}
      */
-    parent{
+    parent {
         get {
             if(!this.HasProp("__parent"))
                 this.__parent := MI_InstanceFT(0, this)

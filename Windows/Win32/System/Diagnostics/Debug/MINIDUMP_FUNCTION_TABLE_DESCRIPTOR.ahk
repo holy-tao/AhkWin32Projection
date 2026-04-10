@@ -8,10 +8,8 @@
  * <a href="https://docs.microsoft.com/windows/win32/api/minidumpapiset/ns-minidumpapiset-minidump_function_table_stream">MINIDUMP_FUNCTION_TABLE_STREAM</a>. The generic descriptor is followed by a native system descriptor, then by <b>EntryCount</b> native system function entry structures.
  * @see https://learn.microsoft.com/windows/win32/api/minidumpapiset/ns-minidumpapiset-minidump_function_table_descriptor
  * @namespace Windows.Win32.System.Diagnostics.Debug
- * @version v4.0.30319
  */
-class MINIDUMP_FUNCTION_TABLE_DESCRIPTOR extends Win32Struct
-{
+class MINIDUMP_FUNCTION_TABLE_DESCRIPTOR extends Win32Struct {
     static sizeof => 32
 
     static packingSize => 8

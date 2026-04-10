@@ -7,9 +7,8 @@
  * The <b>SAFER_POLICY_INFO_CLASS</b> enumeration type is used by the <a href="https://docs.microsoft.com/windows/desktop/api/winsafer/nf-winsafer-safergetpolicyinformation">SaferGetPolicyInformation</a> function.
  * @see https://learn.microsoft.com/windows/win32/api/winsafer/ne-winsafer-safer_policy_info_class
  * @namespace Windows.Win32.Security.AppLocker
- * @version v4.0.30319
  */
-class SAFER_POLICY_INFO_CLASS extends Win32Enum{
+class SAFER_POLICY_INFO_CLASS extends Win32Enum {
 
     /**
      * Queries for the list of all levels defined in a policy.
@@ -42,13 +41,11 @@ class SAFER_POLICY_INFO_CLASS extends Win32Enum{
     static SaferPolicyScopeFlags => 5
 
     /**
-     * 
      * @type {Integer (Int32)}
      */
     static SaferPolicyDefaultLevelFlags => 6
 
     /**
-     * 
      * @type {Integer (Int32)}
      */
     static SaferPolicyAuthenticodeEnabled => 7

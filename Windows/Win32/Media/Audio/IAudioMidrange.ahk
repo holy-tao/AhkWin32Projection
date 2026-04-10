@@ -7,9 +7,8 @@
  * The IAudioMidrange interface provides access to a hardware midrange-level control.
  * @see https://learn.microsoft.com/windows/win32/api/devicetopology/nn-devicetopology-iaudiomidrange
  * @namespace Windows.Win32.Media.Audio
- * @version v4.0.30319
  */
-class IAudioMidrange extends IPerChannelDbLevel{
+class IAudioMidrange extends IPerChannelDbLevel {
 
     static sizeof => A_PtrSize
     /**

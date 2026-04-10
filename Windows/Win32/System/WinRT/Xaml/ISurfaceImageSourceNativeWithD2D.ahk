@@ -46,9 +46,8 @@
  * Handle the <a href="https://docs.microsoft.com/uwp/api/windows.ui.xaml.media.compositiontarget.surfacecontentslost">SurfaceContentsLost</a> event to determine when you need to recreate content which may be lost if the system resets the GPU.
  * @see https://learn.microsoft.com/windows/win32/api/windows.ui.xaml.media.dxinterop/nn-windows-ui-xaml-media-dxinterop-isurfaceimagesourcenativewithd2d
  * @namespace Windows.Win32.System.WinRT.Xaml
- * @version v4.0.30319
  */
-class ISurfaceImageSourceNativeWithD2D extends IUnknown{
+class ISurfaceImageSourceNativeWithD2D extends IUnknown {
 
     static sizeof => A_PtrSize
     /**

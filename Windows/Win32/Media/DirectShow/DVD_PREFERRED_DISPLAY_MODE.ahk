@@ -51,9 +51,8 @@
  * The native window size used is always the user's preferred size.
  * @see https://learn.microsoft.com/windows/win32/api/strmif/ne-strmif-dvd_preferred_display_mode
  * @namespace Windows.Win32.Media.DirectShow
- * @version v4.0.30319
  */
-class DVD_PREFERRED_DISPLAY_MODE extends Win32Enum{
+class DVD_PREFERRED_DISPLAY_MODE extends Win32Enum {
 
     /**
      * Use the default window size and content type.

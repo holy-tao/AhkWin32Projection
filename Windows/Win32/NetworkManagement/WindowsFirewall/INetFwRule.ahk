@@ -1,9 +1,9 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
+#Include ..\..\System\Com\IDispatch.ahk
 #Include ..\..\Foundation\BSTR.ahk
 #Include ..\..\System\Variant\VARIANT.ahk
-#Include ..\..\System\Com\IDispatch.ahk
 
 /**
  * To the properties of a rule.
@@ -156,9 +156,8 @@
  * For additional information on each property, please see the corresponding topic.
  * @see https://learn.microsoft.com/windows/win32/api/netfw/nn-netfw-inetfwrule
  * @namespace Windows.Win32.NetworkManagement.WindowsFirewall
- * @version v4.0.30319
  */
-class INetFwRule extends IDispatch{
+class INetFwRule extends IDispatch {
 
     static sizeof => A_PtrSize
     /**
@@ -266,7 +265,7 @@ class INetFwRule extends IDispatch{
     }
 
     /**
-     * @type {Integer} 
+     * @type {NET_FW_RULE_DIRECTION} 
      */
     Direction {
         get => this.get_Direction()
@@ -322,7 +321,7 @@ class INetFwRule extends IDispatch{
     }
 
     /**
-     * @type {Integer} 
+     * @type {NET_FW_ACTION} 
      */
     Action {
         get => this.get_Action()
@@ -730,7 +729,7 @@ class INetFwRule extends IDispatch{
      * This property is optional.  If this property is not specified, the default value is <b>in</b>.
      * 
      * Also see the restrictions on changing properties described in the Remarks section of the <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/netfw/nn-netfw-inetfwrule">INetFwRule</a> interface page.
-     * @returns {Integer} 
+     * @returns {NET_FW_RULE_DIRECTION} 
      * @see https://learn.microsoft.com/windows/win32/api/netfw/nf-netfw-inetfwrule-get_direction
      */
     get_Direction() {
@@ -744,7 +743,7 @@ class INetFwRule extends IDispatch{
      * This property is optional.  If this property is not specified, the default value is <b>in</b>.
      * 
      * Also see the restrictions on changing properties described in the Remarks section of the <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/netfw/nn-netfw-inetfwrule">INetFwRule</a> interface page.
-     * @param {Integer} dir 
+     * @param {NET_FW_RULE_DIRECTION} dir 
      * @returns {HRESULT} 
      * @see https://learn.microsoft.com/windows/win32/api/netfw/nf-netfw-inetfwrule-put_direction
      */
@@ -956,7 +955,7 @@ class INetFwRule extends IDispatch{
      * This property is optional.
      * 
      * Also see the restrictions on changing properties described in the Remarks section of the <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/netfw/nn-netfw-inetfwrule">INetFwRule</a> interface page.
-     * @returns {Integer} 
+     * @returns {NET_FW_ACTION} 
      * @see https://learn.microsoft.com/windows/win32/api/netfw/nf-netfw-inetfwrule-get_action
      */
     get_Action() {
@@ -970,7 +969,7 @@ class INetFwRule extends IDispatch{
      * This property is optional.
      * 
      * Also see the restrictions on changing properties described in the Remarks section of the <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/netfw/nn-netfw-inetfwrule">INetFwRule</a> interface page.
-     * @param {Integer} action 
+     * @param {NET_FW_ACTION} action 
      * @returns {HRESULT} 
      * @see https://learn.microsoft.com/windows/win32/api/netfw/nf-netfw-inetfwrule-put_action
      */

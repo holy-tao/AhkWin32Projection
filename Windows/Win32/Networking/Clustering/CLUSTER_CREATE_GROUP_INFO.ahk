@@ -1,14 +1,13 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
+#Include .\CLUSGROUP_TYPE.ahk
 
 /**
  * The CLUSTER_CREATE_GROUP_INFO structure allows the caller to provide additional properties when creating a new group.
  * @see https://learn.microsoft.com/windows/win32/api/msclus/ns-msclus-cluster_create_group_info
  * @namespace Windows.Win32.Networking.Clustering
- * @version v4.0.30319
  */
-class CLUSTER_CREATE_GROUP_INFO extends Win32Struct
-{
+class CLUSTER_CREATE_GROUP_INFO extends Win32Struct {
     static sizeof => 8
 
     static packingSize => 4
@@ -24,7 +23,7 @@ class CLUSTER_CREATE_GROUP_INFO extends Win32Struct
 
     /**
      * The type of the cluster group that will be created.
-     * @type {Integer}
+     * @type {CLUSGROUP_TYPE}
      */
     groupType {
         get => NumGet(this, 4, "int")

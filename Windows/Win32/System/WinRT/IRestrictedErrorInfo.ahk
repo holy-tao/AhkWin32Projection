@@ -1,16 +1,15 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
-#Include ..\..\Foundation\BSTR.ahk
 #Include ..\Com\IUnknown.ahk
+#Include ..\..\Foundation\BSTR.ahk
 
 /**
  * Represents the details of an error, including restricted error information.
  * @see https://learn.microsoft.com/windows/win32/api/restrictederrorinfo/nn-restrictederrorinfo-irestrictederrorinfo
  * @namespace Windows.Win32.System.WinRT
- * @version v4.0.30319
  */
-class IRestrictedErrorInfo extends IUnknown{
+class IRestrictedErrorInfo extends IUnknown {
 
     static sizeof => A_PtrSize
     /**
@@ -36,7 +35,7 @@ class IRestrictedErrorInfo extends IUnknown{
      * @param {Pointer<BSTR>} description Type: <b>BSTR*</b>
      * 
      * The error description.
-     * @param {Pointer<HRESULT>} error Type: <b>HRESULT*</b>
+     * @param {Pointer<HRESULT>} _error Type: <b>HRESULT*</b>
      * 
      * The error code associated with the error condition.
      * @param {Pointer<BSTR>} restrictedDescription Type: <b>BSTR*</b>
@@ -48,16 +47,18 @@ class IRestrictedErrorInfo extends IUnknown{
      * If this method succeeds, it returns <b>S_OK</b>. Otherwise, it returns an <b>HRESULT</b> error code.
      * @see https://learn.microsoft.com/windows/win32/api/restrictederrorinfo/nf-restrictederrorinfo-irestrictederrorinfo-geterrordetails
      */
-    GetErrorDetails(description, error, restrictedDescription, capabilitySid) {
-        errorMarshal := error is VarRef ? "int*" : "ptr"
+    GetErrorDetails(description, _error, restrictedDescription, capabilitySid) {
+        _errorMarshal := _error is VarRef ? "int*" : "ptr"
 
-        result := ComCall(3, this, "ptr", description, errorMarshal, error, "ptr", restrictedDescription, "ptr", capabilitySid, "HRESULT")
+        result := ComCall(3, this, "ptr", description, _errorMarshal, _error, "ptr", restrictedDescription, "ptr", capabilitySid, "HRESULT")
         return result
     }
 
     /**
      * Returns a reference to restricted error information.
-     * @returns {BSTR} 
+     * @returns {BSTR} Type: <b>BSTR*</b>
+     * 
+     * A reference to the error information.
      * @see https://learn.microsoft.com/windows/win32/api/restrictederrorinfo/nf-restrictederrorinfo-irestrictederrorinfo-getreference
      */
     GetReference() {

@@ -3,10 +3,8 @@
 
 /**
  * @namespace Windows.Win32.Security.WinTrust
- * @version v4.0.30319
  */
-class WINTRUST_DETACHED_SIG_BLOBS extends Win32Struct
-{
+class WINTRUST_DETACHED_SIG_BLOBS extends Win32Struct {
     static sizeof => 32
 
     static packingSize => 8

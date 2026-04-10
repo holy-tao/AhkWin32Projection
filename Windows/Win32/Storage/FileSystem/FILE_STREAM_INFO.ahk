@@ -15,10 +15,8 @@
  * The <b>FILE_STREAM_INFO</b> structure must be aligned on a <b>LONGLONG</b> (8-byte) boundary. If a buffer contains two or more of these structures, the <b>NextEntryOffset</b> value in each entry, except the last, falls on an 8-byte boundary.
  * @see https://learn.microsoft.com/windows/win32/api/winbase/ns-winbase-file_stream_info
  * @namespace Windows.Win32.Storage.FileSystem
- * @version v4.0.30319
  */
-class FILE_STREAM_INFO extends Win32Struct
-{
+class FILE_STREAM_INFO extends Win32Struct {
     static sizeof => 32
 
     static packingSize => 8

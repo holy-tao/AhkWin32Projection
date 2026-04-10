@@ -3,9 +3,8 @@
 
 /**
  * @namespace Windows.Win32.System.SideShow
- * @version v4.0.30319
  */
-class SCF_BUTTON_IDS extends Win32Enum{
+class SCF_BUTTON_IDS extends Win32Enum {
 
     /**
      * @type {Integer (Int32)}

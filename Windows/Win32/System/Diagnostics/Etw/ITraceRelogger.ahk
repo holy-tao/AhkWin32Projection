@@ -1,9 +1,8 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\..\Guid.ahk
-#Include ..\..\..\Foundation\BSTR.ahk
-#Include .\ITraceEvent.ahk
 #Include ..\..\Com\IUnknown.ahk
+#Include .\ITraceEvent.ahk
 
 /**
  * Provides access to the relogging functionality, allowing you to manipulate and relog events from an ETW trace stream.
@@ -11,9 +10,8 @@
  * This interface is not supported on Windows 7 for the IA64 architecture.
  * @see https://learn.microsoft.com/windows/win32/api/relogger/nn-relogger-itracerelogger
  * @namespace Windows.Win32.System.Diagnostics.Etw
- * @version v4.0.30319
  */
-class ITraceRelogger extends IUnknown{
+class ITraceRelogger extends IUnknown {
 
     static sizeof => A_PtrSize
     /**

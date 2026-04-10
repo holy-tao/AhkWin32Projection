@@ -9,13 +9,11 @@
  * 				<a href="https://docs.microsoft.com/windows/desktop/api/winnt/ns-winnt-message_resource_block">MESSAGE_RESOURCE_BLOCK</a> structures, which can each contain one or more <a href="https://docs.microsoft.com/windows/desktop/api/winnt/ns-winnt-message_resource_entry">MESSAGE_RESOURCE_ENTRY</a> structures.
  * @see https://learn.microsoft.com/windows/win32/api/winnt/ns-winnt-message_resource_data
  * @namespace Windows.Win32.UI.WindowsAndMessaging
- * @version v4.0.30319
  */
-class MESSAGE_RESOURCE_DATA extends Win32Struct
-{
+class MESSAGE_RESOURCE_DATA extends Win32Struct {
     static sizeof => 16
 
-    static packingSize => 8
+    static packingSize => 4
 
     /**
      * Type: <b>DWORD</b>
@@ -33,12 +31,12 @@ class MESSAGE_RESOURCE_DATA extends Win32Struct
      * 
      * An array of structures. The array is the size indicated by the 
      * 					<b>NumberOfBlocks</b>  member.
-     * @type {Array<MESSAGE_RESOURCE_BLOCK>}
+     * @type {MESSAGE_RESOURCE_BLOCK}
      */
-    Blocks{
+    Blocks {
         get {
             if(!this.HasProp("__BlocksProxyArray"))
-                this.__BlocksProxyArray := Win32FixedArray(this.ptr + 8, 1, MESSAGE_RESOURCE_BLOCK, "")
+                this.__BlocksProxyArray := Win32FixedArray(this.ptr + 4, 1, MESSAGE_RESOURCE_BLOCK, "")
             return this.__BlocksProxyArray
         }
     }

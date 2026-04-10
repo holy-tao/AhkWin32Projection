@@ -1,10 +1,12 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
-#Include ..\..\Foundation\HWND.ahk
+#Include .\NMCUSTOMDRAW.ahk
 #Include .\NMHDR.ahk
+#Include ..\..\Foundation\HWND.ahk
+#Include .\NMCUSTOMDRAW_DRAW_STAGE.ahk
 #Include ..\..\Graphics\Gdi\HDC.ahk
 #Include ..\..\Foundation\RECT.ahk
-#Include .\NMCUSTOMDRAW.ahk
+#Include .\NMCUSTOMDRAW_DRAW_STATE_FLAGS.ahk
 #Include ..\..\Graphics\Gdi\HBRUSH.ahk
 #Include ..\..\Graphics\Gdi\HPEN.ahk
 
@@ -12,10 +14,8 @@
  * Contains information specific to an NM_CUSTOMDRAW notification code sent by a toolbar control.
  * @see https://learn.microsoft.com/windows/win32/api/commctrl/ns-commctrl-nmtbcustomdraw
  * @namespace Windows.Win32.UI.Controls
- * @version v4.0.30319
  */
-class NMTBCUSTOMDRAW extends Win32Struct
-{
+class NMTBCUSTOMDRAW extends Win32Struct {
     static sizeof => 160
 
     static packingSize => 8
@@ -28,7 +28,7 @@ class NMTBCUSTOMDRAW extends Win32Struct
      * 					<b>uItemState</b> member of this structure can be modified so that a toolbar item will be drawn in the specified state without actually changing the item's state.
      * @type {NMCUSTOMDRAW}
      */
-    nmcd{
+    nmcd {
         get {
             if(!this.HasProp("__nmcd"))
                 this.__nmcd := NMCUSTOMDRAW(0, this)
@@ -42,7 +42,7 @@ class NMTBCUSTOMDRAW extends Win32Struct
      * HBRUSH that the control will use when drawing the background of marked or dithered items. This member is ignored if TBCDRF_NOMARK is returned from the <a href="https://docs.microsoft.com/windows/desktop/Controls/nm-customdraw-toolbar">NM_CUSTOMDRAW</a> notification code.
      * @type {HBRUSH}
      */
-    hbrMonoDither{
+    hbrMonoDither {
         get {
             if(!this.HasProp("__hbrMonoDither"))
                 this.__hbrMonoDither := HBRUSH(80, this)
@@ -56,7 +56,7 @@ class NMTBCUSTOMDRAW extends Win32Struct
      * HBRUSH that the control will use when drawing lines on the buttons.
      * @type {HBRUSH}
      */
-    hbrLines{
+    hbrLines {
         get {
             if(!this.HasProp("__hbrLines"))
                 this.__hbrLines := HBRUSH(88, this)
@@ -70,7 +70,7 @@ class NMTBCUSTOMDRAW extends Win32Struct
      * HPEN that the control will use when drawing lines on the buttons.
      * @type {HPEN}
      */
-    hpenLines{
+    hpenLines {
         get {
             if(!this.HasProp("__hpenLines"))
                 this.__hpenLines := HPEN(96, this)
@@ -154,7 +154,7 @@ class NMTBCUSTOMDRAW extends Win32Struct
      * 					<b>bottom</b> members of this structure can be modified to change the width and height, respectively, of the text rectangle of the item.
      * @type {RECT}
      */
-    rcText{
+    rcText {
         get {
             if(!this.HasProp("__rcText"))
                 this.__rcText := RECT(128, this)

@@ -4,13 +4,11 @@
 
 /**
  * @namespace Windows.Win32.NetworkManagement.WiFi
- * @version v4.0.30319
  */
-class DOT11_REG_DOMAINS_SUPPORT_VALUE extends Win32Struct
-{
+class DOT11_REG_DOMAINS_SUPPORT_VALUE extends Win32Struct {
     static sizeof => 16
 
-    static packingSize => 8
+    static packingSize => 4
 
     /**
      * @type {Integer}
@@ -29,9 +27,9 @@ class DOT11_REG_DOMAINS_SUPPORT_VALUE extends Win32Struct
     }
 
     /**
-     * @type {Array<DOT11_REG_DOMAIN_VALUE>}
+     * @type {DOT11_REG_DOMAIN_VALUE}
      */
-    dot11RegDomainValue{
+    dot11RegDomainValue {
         get {
             if(!this.HasProp("__dot11RegDomainValueProxyArray"))
                 this.__dot11RegDomainValueProxyArray := Win32FixedArray(this.ptr + 8, 1, DOT11_REG_DOMAIN_VALUE, "")

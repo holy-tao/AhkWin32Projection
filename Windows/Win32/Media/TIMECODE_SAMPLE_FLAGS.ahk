@@ -3,9 +3,8 @@
 
 /**
  * @namespace Windows.Win32.Media
- * @version v4.0.30319
  */
-class TIMECODE_SAMPLE_FLAGS extends Win32BitflagEnum{
+class TIMECODE_SAMPLE_FLAGS extends Win32BitflagEnum {
 
     /**
      * @type {Integer (UInt32)}

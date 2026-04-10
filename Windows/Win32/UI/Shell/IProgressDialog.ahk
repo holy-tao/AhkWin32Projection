@@ -41,9 +41,8 @@
  * </ol>
  * @see https://learn.microsoft.com/windows/win32/api/shlobj_core/nn-shlobj_core-iprogressdialog
  * @namespace Windows.Win32.UI.Shell
- * @version v4.0.30319
  */
-class IProgressDialog extends IUnknown{
+class IProgressDialog extends IUnknown {
 
     static sizeof => A_PtrSize
     /**

@@ -1,12 +1,13 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
+#Include .\D3DDDI_GAMMARAMP_TYPE.ahk
+#Include .\D3DDDI_GAMMA_RAMP_RGB256x3x16.ahk
+#Include .\D3DDDI_GAMMA_RAMP_DXGI_1.ahk
 
 /**
  * @namespace Windows.Wdk.Graphics.Direct3D
- * @version v4.0.30319
  */
-class D3DKMT_SETGAMMARAMP extends Win32Struct
-{
+class D3DKMT_SETGAMMARAMP extends Win32Struct {
     static sizeof => 32
 
     static packingSize => 8
@@ -28,7 +29,7 @@ class D3DKMT_SETGAMMARAMP extends Win32Struct
     }
 
     /**
-     * @type {Integer}
+     * @type {D3DDDI_GAMMARAMP_TYPE}
      */
     Type {
         get => NumGet(this, 8, "int")

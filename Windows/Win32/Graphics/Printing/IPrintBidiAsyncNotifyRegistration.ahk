@@ -5,9 +5,8 @@
 
 /**
  * @namespace Windows.Win32.Graphics.Printing
- * @version v4.0.30319
  */
-class IPrintBidiAsyncNotifyRegistration extends IPrintAsyncNotifyRegistration{
+class IPrintBidiAsyncNotifyRegistration extends IPrintAsyncNotifyRegistration {
 
     static sizeof => A_PtrSize
 

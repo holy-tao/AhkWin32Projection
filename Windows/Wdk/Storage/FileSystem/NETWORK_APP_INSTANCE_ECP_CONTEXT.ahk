@@ -3,10 +3,8 @@
 
 /**
  * @namespace Windows.Wdk.Storage.FileSystem
- * @version v4.0.30319
  */
-class NETWORK_APP_INSTANCE_ECP_CONTEXT extends Win32Struct
-{
+class NETWORK_APP_INSTANCE_ECP_CONTEXT extends Win32Struct {
     static sizeof => 16
 
     static packingSize => 8
@@ -28,7 +26,7 @@ class NETWORK_APP_INSTANCE_ECP_CONTEXT extends Win32Struct
     }
 
     /**
-     * @type {Pointer<Guid>}
+     * @type {Pointer}
      */
     AppInstanceID {
         get => NumGet(this, 8, "ptr")

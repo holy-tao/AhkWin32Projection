@@ -9,9 +9,8 @@
  * To declare the interface identifier (IID) for this interface, use the <b>__uuidof</b> operator: <c>__uuidof(IEvalRat)</c>.
  * @see https://learn.microsoft.com/windows/win32/api/tvratings/nn-tvratings-ievalrat
  * @namespace Windows.Win32.Media.DirectShow.Tv
- * @version v4.0.30319
  */
-class IEvalRat extends IDispatch{
+class IEvalRat extends IDispatch {
 
     static sizeof => A_PtrSize
     /**
@@ -50,8 +49,8 @@ class IEvalRat extends IDispatch{
      * The get_BlockedRatingAttributes method determines whether content is blocked for a given rating system and rating level.
      * @remarks
      * If the <b>BfIsBlocked</b> flag is set, all content with the specified rating level will be blocked. If one of the <b>BfIsAttr_X</b> flags is set, any content with that rating level and attribute will be blocked.
-     * @param {Integer} enSystem Specifies the rating system, as an <a href="https://docs.microsoft.com/previous-versions/dd375612(v=vs.85)">EnTvRat_System</a> enumeration type.
-     * @param {Integer} enLevel Specifies the rating level, as an <a href="https://docs.microsoft.com/previous-versions/dd375610(v=vs.85)">EnTvRat_GenericLevel</a> enumeration type. The meaning of this value depends on the rating system.
+     * @param {EnTvRat_System} enSystem Specifies the rating system, as an <a href="https://docs.microsoft.com/previous-versions/dd375612(v=vs.85)">EnTvRat_System</a> enumeration type.
+     * @param {EnTvRat_GenericLevel} enLevel Specifies the rating level, as an <a href="https://docs.microsoft.com/previous-versions/dd375610(v=vs.85)">EnTvRat_GenericLevel</a> enumeration type. The meaning of this value depends on the rating system.
      * @returns {Integer} [out, retval] Receives a bitwise combination of flags from the <a href="https://docs.microsoft.com/previous-versions/dd318226(v=vs.85)">BfEnTvRat_GenericAttributes</a> enumeration. The flags indicate whether the overall rating is blocked, or specific attributes within the rating are blocked.
      * @see https://learn.microsoft.com/windows/win32/api/tvratings/nf-tvratings-ievalrat-get_blockedratingattributes
      */
@@ -70,8 +69,8 @@ class IEvalRat extends IDispatch{
      * <li>If the <b>BflsBlocked</b> flag is set, this rating level is restricted. No program with this rating level can be viewed.</li>
      * <li>Flags in the range <b>BfIsAttr_1</b> to <b>BfIsAttr_7</b> specify content attributes, such as violence or adult language. If one of these flags is set, it means that a program with that content attribute and the specified rating level will be blocked.</li>
      * </ul>
-     * @param {Integer} enSystem Specifies the rating system, as an <a href="https://docs.microsoft.com/previous-versions/dd375612(v=vs.85)">EnTvRat_System</a> enumeration type.
-     * @param {Integer} enLevel Specifies the rating level, as an <a href="https://docs.microsoft.com/previous-versions/dd375610(v=vs.85)">EnTvRat_GenericLevel</a> enumeration type. The meaning of this value depends on the rating system.
+     * @param {EnTvRat_System} enSystem Specifies the rating system, as an <a href="https://docs.microsoft.com/previous-versions/dd375612(v=vs.85)">EnTvRat_System</a> enumeration type.
+     * @param {EnTvRat_GenericLevel} enLevel Specifies the rating level, as an <a href="https://docs.microsoft.com/previous-versions/dd375610(v=vs.85)">EnTvRat_GenericLevel</a> enumeration type. The meaning of this value depends on the rating system.
      * @param {Integer} lbfAttrs Bitwise combination of zero or more flags from the <a href="https://docs.microsoft.com/previous-versions/dd318226(v=vs.85)">BfEnTvRat_GenericAttributes</a> enumeration. The flags specify whether the overall rating is blocked, or specific attributes within the rating are blocked.
      * @returns {HRESULT} The method returns an <b>HRESULT</b>. Possible values include those in the following table.
      * 
@@ -149,14 +148,14 @@ class IEvalRat extends IDispatch{
      * When the method compares ratings from two different ratings systems, it returns a rating expressed in the first system, unless the first system is unknown (TvRat_SystemDontKnow). In that case, it returns a rating using the second system.
      * 
      * The method returns S_FALSE if the ratings systems are not the same. There may not be an exact mapping between the two systems.
-     * @param {Integer} enSystem1 The rating system of the first rating to compare, specified as a member of the <a href="https://docs.microsoft.com/previous-versions/dd375612(v=vs.85)">EnTvRat_System</a> enumeration.
-     * @param {Integer} enEnLevel1 The rating level of the first rating, specified as a member of the <a href="https://docs.microsoft.com/previous-versions/dd375610(v=vs.85)">EnTvRat_GenericLevel</a> enumeration.
+     * @param {EnTvRat_System} enSystem1 The rating system of the first rating to compare, specified as a member of the <a href="https://docs.microsoft.com/previous-versions/dd375612(v=vs.85)">EnTvRat_System</a> enumeration.
+     * @param {EnTvRat_GenericLevel} enEnLevel1 The rating level of the first rating, specified as a member of the <a href="https://docs.microsoft.com/previous-versions/dd375610(v=vs.85)">EnTvRat_GenericLevel</a> enumeration.
      * @param {Integer} lbfEnAttr1 Specifies the content attributes of the first rating, as a bitwise combination of flags from the <a href="https://docs.microsoft.com/previous-versions/dd318226(v=vs.85)">BfEnTvRat_GenericAttributes</a> enumeration.
-     * @param {Integer} enSystem2 The rating system of the second rating to compare, specified as a member of the <a href="https://docs.microsoft.com/previous-versions/dd375612(v=vs.85)">EnTvRat_System</a> enumeration.
-     * @param {Integer} enEnLevel2 The rating level of the second rating, specified as a member of the <a href="https://docs.microsoft.com/previous-versions/dd375610(v=vs.85)">EnTvRat_GenericLevel</a> enumeration.
+     * @param {EnTvRat_System} enSystem2 The rating system of the second rating to compare, specified as a member of the <a href="https://docs.microsoft.com/previous-versions/dd375612(v=vs.85)">EnTvRat_System</a> enumeration.
+     * @param {EnTvRat_GenericLevel} enEnLevel2 The rating level of the second rating, specified as a member of the <a href="https://docs.microsoft.com/previous-versions/dd375610(v=vs.85)">EnTvRat_GenericLevel</a> enumeration.
      * @param {Integer} lbfEnAttr2 Specifies the content attributes of the second rating, as a bitwise combination of flags from the <a href="https://docs.microsoft.com/previous-versions/dd318226(v=vs.85)">BfEnTvRat_GenericAttributes</a> enumeration.
-     * @param {Pointer<Integer>} penSystem Receives the rating system of the more restrictive rating.
-     * @param {Pointer<Integer>} penEnLevel Receives the rating level of the more restrictive rating.
+     * @param {Pointer<EnTvRat_System>} penSystem Receives the rating system of the more restrictive rating.
+     * @param {Pointer<EnTvRat_GenericLevel>} penEnLevel Receives the rating level of the more restrictive rating.
      * @param {Pointer<Integer>} plbfEnAttr Receives a bitwise combination of flags from the <a href="https://docs.microsoft.com/previous-versions/dd318226(v=vs.85)">BfEnTvRat_GenericAttributes</a> enumeration.
      * @returns {HRESULT} The method returns an <b>HRESULT</b>. Possible values include those in the following table.
      * 
@@ -242,8 +241,8 @@ class IEvalRat extends IDispatch{
      * }
      * 
      * ```
-     * @param {Integer} enShowSystem Specifies the rating system, as an <a href="https://docs.microsoft.com/previous-versions/dd375612(v=vs.85)">EnTvRat_System</a> enumeration type.
-     * @param {Integer} enShowLevel Specifies the rating level, as an <a href="https://docs.microsoft.com/previous-versions/dd375610(v=vs.85)">EnTvRat_GenericLevel</a> enumeration type. The meaning of this value depends on the rating system.
+     * @param {EnTvRat_System} enShowSystem Specifies the rating system, as an <a href="https://docs.microsoft.com/previous-versions/dd375612(v=vs.85)">EnTvRat_System</a> enumeration type.
+     * @param {EnTvRat_GenericLevel} enShowLevel Specifies the rating level, as an <a href="https://docs.microsoft.com/previous-versions/dd375610(v=vs.85)">EnTvRat_GenericLevel</a> enumeration type. The meaning of this value depends on the rating system.
      * @param {Integer} lbfEnShowAttributes Bitwise combination of zero or more flags from the <a href="https://docs.microsoft.com/previous-versions/dd318226(v=vs.85)">BfEnTvRat_GenericAttributes</a> enumeration. The flags specify content attributes, such as violence or adult language. Content attributes do not apply to all rating systems.
      * @returns {HRESULT} The method returns an <b>HRESULT</b>. Possible values include those in the following table.
      * 

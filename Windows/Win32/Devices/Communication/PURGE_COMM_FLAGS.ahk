@@ -3,9 +3,8 @@
 
 /**
  * @namespace Windows.Win32.Devices.Communication
- * @version v4.0.30319
  */
-class PURGE_COMM_FLAGS extends Win32BitflagEnum{
+class PURGE_COMM_FLAGS extends Win32BitflagEnum {
 
     /**
      * @type {Integer (UInt32)}

@@ -4,10 +4,8 @@
 
 /**
  * @namespace Windows.Win32.Devices.Fax
- * @version v4.0.30319
  */
-class STI_WIA_DEVICE_INFORMATIONW extends Win32Struct
-{
+class STI_WIA_DEVICE_INFORMATIONW extends Win32Struct {
     static sizeof => 328
 
     static packingSize => 8
@@ -39,7 +37,7 @@ class STI_WIA_DEVICE_INFORMATIONW extends Win32Struct
     /**
      * @type {STI_DEV_CAPS}
      */
-    DeviceCapabilitiesA{
+    DeviceCapabilitiesA {
         get {
             if(!this.HasProp("__DeviceCapabilitiesA"))
                 this.__DeviceCapabilitiesA := STI_DEV_CAPS(264, this)

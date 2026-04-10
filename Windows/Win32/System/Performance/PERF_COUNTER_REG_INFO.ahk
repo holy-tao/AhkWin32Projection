@@ -1,5 +1,6 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
+#Include .\PERF_COUNTER_AGGREGATE_FUNC.ahk
 
 /**
  * Provides registration information about a performance counter.
@@ -13,10 +14,8 @@
  * <b>PERF_REG_COUNTER_STRUCT</b> gets a <b>PERF_COUNTER_REG_INFO</b> structure.
  * @see https://learn.microsoft.com/windows/win32/api/perflib/ns-perflib-perf_counter_reg_info
  * @namespace Windows.Win32.System.Performance
- * @version v4.0.30319
  */
-class PERF_COUNTER_REG_INFO extends Win32Struct
-{
+class PERF_COUNTER_REG_INFO extends Win32Struct {
     static sizeof => 48
 
     static packingSize => 8
@@ -216,7 +215,7 @@ class PERF_COUNTER_REG_INFO extends Win32Struct
      * Instance Aggregate, or Global Aggregate History. The client specifies the  counter instances across which the aggregation is performed if the counter set type  
      * 
      * is Multiple Instance Aggregate; otherwise, the client must aggregate values
-     * @type {Integer}
+     * @type {PERF_COUNTER_AGGREGATE_FUNC}
      */
     AggregateFunc {
         get => NumGet(this, 40, "uint")

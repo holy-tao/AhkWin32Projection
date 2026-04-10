@@ -1,14 +1,13 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\..\Win32Struct.ahk
+#Include ..\..\OBJECT_TYPE_LIST.ahk
 
 /**
  * Lists the effective permissions.
  * @see https://learn.microsoft.com/windows/win32/api/aclui/ns-aclui-effperm_result_list
  * @namespace Windows.Win32.Security.Authorization.UI
- * @version v4.0.30319
  */
-class EFFPERM_RESULT_LIST extends Win32Struct
-{
+class EFFPERM_RESULT_LIST extends Win32Struct {
     static sizeof => 24
 
     static packingSize => 8

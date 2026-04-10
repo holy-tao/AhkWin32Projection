@@ -58,10 +58,8 @@
  * ```
  * @see https://learn.microsoft.com/windows/win32/api/winnls/ns-winnls-filemuiinfo
  * @namespace Windows.Win32.Globalization
- * @version v4.0.30319
  */
-class FILEMUIINFO extends Win32Struct
-{
+class FILEMUIINFO extends Win32Struct {
     static sizeof => 80
 
     static packingSize => 4
@@ -101,9 +99,9 @@ class FILEMUIINFO extends Win32Struct
 
     /**
      * Pointer to a 128-bit checksum for the file, if it is either an LN file or a language-specific resource file.
-     * @type {Array<Byte>}
+     * @type {Array<Integer>}
      */
-    pChecksum{
+    pChecksum {
         get {
             if(!this.HasProp("__pChecksumProxyArray"))
                 this.__pChecksumProxyArray := Win32FixedArray(this.ptr + 12, 16, Primitive, "char")
@@ -113,9 +111,9 @@ class FILEMUIINFO extends Win32Struct
 
     /**
      * Pointer to a 128-bit checksum for the file, used for servicing.
-     * @type {Array<Byte>}
+     * @type {Array<Integer>}
      */
-    pServiceChecksum{
+    pServiceChecksum {
         get {
             if(!this.HasProp("__pServiceChecksumProxyArray"))
                 this.__pServiceChecksumProxyArray := Win32FixedArray(this.ptr + 28, 16, Primitive, "char")
@@ -188,9 +186,9 @@ class FILEMUIINFO extends Win32Struct
 
     /**
      * Remainder of the allocated memory for this structure. See the Remarks section for correct use of this array.
-     * @type {Array<Byte>}
+     * @type {Array<Integer>}
      */
-    abBuffer{
+    abBuffer {
         get {
             if(!this.HasProp("__abBufferProxyArray"))
                 this.__abBufferProxyArray := Win32FixedArray(this.ptr + 72, 8, Primitive, "char")

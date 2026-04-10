@@ -7,9 +7,8 @@
  * The ITfMouseTracker interface is implemented by the TSF manager and is used by a text service to manage mouse event notification sinks. An instance of this interface is obtained by querying an ITfContext object for IID_ITfMouseTracker.
  * @see https://learn.microsoft.com/windows/win32/api/msctf/nn-msctf-itfmousetracker
  * @namespace Windows.Win32.UI.TextServices
- * @version v4.0.30319
  */
-class ITfMouseTracker extends IUnknown{
+class ITfMouseTracker extends IUnknown {
 
     static sizeof => A_PtrSize
     /**

@@ -1,12 +1,11 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
+#Include .\D3DKMT_CLIENTHINT.ahk
 
 /**
  * @namespace Windows.Wdk.Graphics.Direct3D
- * @version v4.0.30319
  */
-class D3DKMT_QUERYSTATISTICS_PROCESS_ADAPTER_INFORMATION extends Win32Struct
-{
+class D3DKMT_QUERYSTATISTICS_PROCESS_ADAPTER_INFORMATION extends Win32Struct {
     static sizeof => 56
 
     static packingSize => 8
@@ -44,7 +43,7 @@ class D3DKMT_QUERYSTATISTICS_PROCESS_ADAPTER_INFORMATION extends Win32Struct
     }
 
     /**
-     * @type {Pointer<D3DKMT_QUERYSTATISTICS_DMA_BUFFER>}
+     * @type {Pointer}
      */
     DmaBuffer {
         get => NumGet(this, 16, "ptr")
@@ -52,7 +51,7 @@ class D3DKMT_QUERYSTATISTICS_PROCESS_ADAPTER_INFORMATION extends Win32Struct
     }
 
     /**
-     * @type {Pointer<D3DKMT_QUERYSTATISTICS_COMMITMENT_DATA>}
+     * @type {Pointer}
      */
     CommitmentData {
         get => NumGet(this, 24, "ptr")
@@ -60,7 +59,7 @@ class D3DKMT_QUERYSTATISTICS_PROCESS_ADAPTER_INFORMATION extends Win32Struct
     }
 
     /**
-     * @type {Pointer<D3DKMT_QUERYSTATISTICS_POLICY>}
+     * @type {Pointer}
      */
     _Policy {
         get => NumGet(this, 32, "ptr")
@@ -68,7 +67,7 @@ class D3DKMT_QUERYSTATISTICS_PROCESS_ADAPTER_INFORMATION extends Win32Struct
     }
 
     /**
-     * @type {Pointer<D3DKMT_QUERYSTATISTICS_PROCESS_INTERFERENCE_COUNTERS>}
+     * @type {Pointer}
      */
     ProcessInterferenceCounters {
         get => NumGet(this, 40, "ptr")
@@ -76,7 +75,7 @@ class D3DKMT_QUERYSTATISTICS_PROCESS_ADAPTER_INFORMATION extends Win32Struct
     }
 
     /**
-     * @type {Integer}
+     * @type {D3DKMT_CLIENTHINT}
      */
     ClientHint {
         get => NumGet(this, 48, "int")

@@ -11,9 +11,8 @@
  * A valid use of <b>IQueryCancelAutoPlay</b> is illustrated in the following scenario: Assume that you have, through AutoPlay, previously designated application A to handle video camera events. For video editing, however, you prefer application B. You open application B, begin editing some previously filmed video, and then decide to add some new content to the video being edited. Application B's import function prompts you to turn on the video camera so that the new content can be accessed. Normally, this video device activation would trigger the launch of the device-associated application A. Fortunately, using <b>IQueryCancelAutoPlay</b>, application B has canceled AutoPlay processing of video camera events while you are editing video content. In this case, the cancellation of Autoplay by application B has created a better user experience.
  * @see https://learn.microsoft.com/windows/win32/api/shobjidl/nn-shobjidl-iquerycancelautoplay
  * @namespace Windows.Win32.UI.Shell
- * @version v4.0.30319
  */
-class IQueryCancelAutoPlay extends IUnknown{
+class IQueryCancelAutoPlay extends IUnknown {
 
     static sizeof => A_PtrSize
     /**

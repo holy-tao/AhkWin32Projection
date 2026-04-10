@@ -9,10 +9,8 @@
  * The **TransactionContextEx** class was not designed to be used in Visual Basic. Use the [**TransactionContext**](transactioncontext.md) class instead.
  * @see https://learn.microsoft.com/windows/win32/cossdk/transactioncontextex
  * @namespace Windows.Win32.System.ComponentServices
- * @version v4.0.30319
  */
-class TransactionContextEx extends Win32Struct
-{
+class TransactionContextEx extends Win32Struct {
     static sizeof => 0
 
     static packingSize => 1

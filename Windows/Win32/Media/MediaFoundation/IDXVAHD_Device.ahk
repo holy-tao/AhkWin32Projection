@@ -1,21 +1,20 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
+#Include ..\..\System\Com\IUnknown.ahk
 #Include ..\..\Graphics\Direct3D9\IDirect3DSurface9.ahk
 #Include .\DXVAHD_VPDEVCAPS.ahk
 #Include .\DXVAHD_VPCAPS.ahk
 #Include .\DXVAHD_CUSTOM_RATE_DATA.ahk
 #Include .\DXVAHD_FILTER_RANGE_DATA.ahk
 #Include .\IDXVAHD_VideoProcessor.ahk
-#Include ..\..\System\Com\IUnknown.ahk
 
 /**
  * Represents a Microsoft DirectX Video Acceleration High Definition (DXVA-HD) device.
  * @see https://learn.microsoft.com/windows/win32/api/dxvahd/nn-dxvahd-idxvahd_device
  * @namespace Windows.Win32.Media.MediaFoundation
- * @version v4.0.30319
  */
-class IDXVAHD_Device extends IUnknown{
+class IDXVAHD_Device extends IUnknown {
 
     static sizeof => A_PtrSize
     /**
@@ -40,10 +39,10 @@ class IDXVAHD_Device extends IUnknown{
      * Creates one or more Microsoft Direct3D video surfaces.
      * @param {Integer} Width The width of each surface, in pixels.
      * @param {Integer} Height The height of each surface, in pixels.
-     * @param {Integer} Format The pixel format, specified as a <b>D3DFORMAT</b> value or FOURCC code. For more information, see <a href="https://docs.microsoft.com/windows/desktop/medfound/video-fourccs">Video FOURCCs</a>.
-     * @param {Integer} Pool The memory pool in which the surface is  created. This parameter must equal the <b>InputPool</b> member of the <a href="https://docs.microsoft.com/windows/desktop/api/dxvahd/ns-dxvahd-dxvahd_vpdevcaps">DXVAHD_VPDEVCAPS</a> structure. Call the <a href="https://docs.microsoft.com/windows/desktop/api/dxvahd/nf-dxvahd-idxvahd_device-getvideoprocessordevicecaps">IDXVAHD_Device::GetVideoProcessorDeviceCaps</a> method to get this value.
+     * @param {D3DFORMAT} Format The pixel format, specified as a <b>D3DFORMAT</b> value or FOURCC code. For more information, see <a href="https://docs.microsoft.com/windows/desktop/medfound/video-fourccs">Video FOURCCs</a>.
+     * @param {D3DPOOL} Pool The memory pool in which the surface is  created. This parameter must equal the <b>InputPool</b> member of the <a href="https://docs.microsoft.com/windows/desktop/api/dxvahd/ns-dxvahd-dxvahd_vpdevcaps">DXVAHD_VPDEVCAPS</a> structure. Call the <a href="https://docs.microsoft.com/windows/desktop/api/dxvahd/nf-dxvahd-idxvahd_device-getvideoprocessordevicecaps">IDXVAHD_Device::GetVideoProcessorDeviceCaps</a> method to get this value.
      * @param {Integer} Usage Reserved. Set to 0.
-     * @param {Integer} Type The type of surface to create, specified as a member of the <a href="https://docs.microsoft.com/windows/desktop/api/dxvahd/ne-dxvahd-dxvahd_surface_type">DXVAHD_SURFACE_TYPE</a> enumeration.
+     * @param {DXVAHD_SURFACE_TYPE} Type The type of surface to create, specified as a member of the <a href="https://docs.microsoft.com/windows/desktop/api/dxvahd/ne-dxvahd-dxvahd_surface_type">DXVAHD_SURFACE_TYPE</a> enumeration.
      * @param {Integer} NumSurfaces The number of surfaces to create.
      * @param {Pointer<HANDLE>} pSharedHandle Reserved. Set to <b>NULL</b>.
      * @returns {IDirect3DSurface9} A pointer to an array of <b>IDirect3DSurface9</b> pointers. The <i>NumSurfaces</i> parameter specifies the number of elements in the array. The method fills the array with pointers to the new video surfaces. The caller must release the pointers.
@@ -70,7 +69,7 @@ class IDXVAHD_Device extends IUnknown{
      * @remarks
      * The list of formats can include both <b>D3DFORMAT</b> values, such as <b>D3DFMT_X8R8G8B8</b>, and FOURCC codes, such as 'NV12'. For more information, see <a href="https://docs.microsoft.com/windows/desktop/medfound/video-fourccs">Video FOURCCs</a>.
      * @param {Integer} Count The number of formats to retrieve. This parameter must equal the <b>OutputFormatCount</b> member of the <a href="https://docs.microsoft.com/windows/desktop/api/dxvahd/ns-dxvahd-dxvahd_vpdevcaps">DXVAHD_VPDEVCAPS</a> structure. Call the <a href="https://docs.microsoft.com/windows/desktop/api/dxvahd/nf-dxvahd-idxvahd_device-getvideoprocessordevicecaps">IDXVAHD_Device::GetVideoProcessorDeviceCaps</a> method to get this value.
-     * @returns {Integer} A pointer to an array of <b>D3DFORMAT</b> values. The <i>Count</i> parameter specifies the number of elements in the array. The method fills the array with a list of output formats.
+     * @returns {D3DFORMAT} A pointer to an array of <b>D3DFORMAT</b> values. The <i>Count</i> parameter specifies the number of elements in the array. The method fills the array with a list of output formats.
      * @see https://learn.microsoft.com/windows/win32/api/dxvahd/nf-dxvahd-idxvahd_device-getvideoprocessoroutputformats
      */
     GetVideoProcessorOutputFormats(Count) {
@@ -83,7 +82,7 @@ class IDXVAHD_Device extends IUnknown{
      * @remarks
      * The list of formats can include both <b>D3DFORMAT</b> values, such as <b>D3DFMT_X8R8G8B8</b>, and FOURCC codes, such as 'NV12'. For more information, see <a href="https://docs.microsoft.com/windows/desktop/medfound/video-fourccs">Video FOURCCs</a>.
      * @param {Integer} Count The number of formats to retrieve. This parameter must equal the <b>InputFormatCount</b> member of the <a href="https://docs.microsoft.com/windows/desktop/api/dxvahd/ns-dxvahd-dxvahd_vpdevcaps">DXVAHD_VPDEVCAPS</a> structure. Call the <a href="https://docs.microsoft.com/windows/desktop/api/dxvahd/nf-dxvahd-idxvahd_device-getvideoprocessordevicecaps">IDXVAHD_Device::GetVideoProcessorDeviceCaps</a> method to get this value.
-     * @returns {Integer} A pointer to an array of <b>D3DFORMAT</b> values. The <i>Count</i> parameter specifies the number of elements in the array. The method fills the array with a list of input formats.
+     * @returns {D3DFORMAT} A pointer to an array of <b>D3DFORMAT</b> values. The <i>Count</i> parameter specifies the number of elements in the array. The method fills the array with a list of input formats.
      * @see https://learn.microsoft.com/windows/win32/api/dxvahd/nf-dxvahd-idxvahd_device-getvideoprocessorinputformats
      */
     GetVideoProcessorInputFormats(Count) {
@@ -120,7 +119,7 @@ class IDXVAHD_Device extends IUnknown{
      * Gets the range of values for an image filter that the Microsoft DirectX Video Acceleration High Definition (DXVA-HD) device supports.
      * @remarks
      * To find out which image filters the device supports, check the <b>FilterCaps</b> member of the <a href="https://docs.microsoft.com/windows/desktop/api/dxvahd/ns-dxvahd-dxvahd_vpdevcaps">DXVAHD_VPDEVCAPS</a> structure. Call the <a href="https://docs.microsoft.com/windows/desktop/api/dxvahd/nf-dxvahd-idxvahd_device-getvideoprocessordevicecaps">IDXVAHD_Device::GetVideoProcessorDeviceCaps</a> method to get this value.
-     * @param {Integer} Filter The type of image filter, specified as a member of the <a href="https://docs.microsoft.com/windows/desktop/api/dxvahd/ne-dxvahd-dxvahd_filter">DXVAHD_FILTER</a> enumeration.
+     * @param {DXVAHD_FILTER} Filter The type of image filter, specified as a member of the <a href="https://docs.microsoft.com/windows/desktop/api/dxvahd/ne-dxvahd-dxvahd_filter">DXVAHD_FILTER</a> enumeration.
      * @returns {DXVAHD_FILTER_RANGE_DATA} A pointer to a <a href="https://docs.microsoft.com/windows/desktop/api/dxvahd/ns-dxvahd-dxvahd_filter_range_data">DXVAHD_FILTER_RANGE_DATA</a> structure. The method fills the structure with the range of values for the specified filter.
      * @see https://learn.microsoft.com/windows/win32/api/dxvahd/nf-dxvahd-idxvahd_device-getvideoprocessorfilterrange
      */

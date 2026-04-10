@@ -5,10 +5,8 @@
 
 /**
  * @namespace Windows.Win32.System.Com
- * @version v4.0.30319
  */
-class CO_DEVICE_CATALOG_COOKIE extends Win32Handle
-{
+class CO_DEVICE_CATALOG_COOKIE extends Win32Handle {
     static sizeof => 8
 
     static packingSize => 8

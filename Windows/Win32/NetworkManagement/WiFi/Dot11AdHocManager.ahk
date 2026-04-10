@@ -3,10 +3,8 @@
 
 /**
  * @namespace Windows.Win32.NetworkManagement.WiFi
- * @version v4.0.30319
  */
-class Dot11AdHocManager extends Win32Struct
-{
+class Dot11AdHocManager extends Win32Struct {
     static sizeof => 0
 
     static packingSize => 1

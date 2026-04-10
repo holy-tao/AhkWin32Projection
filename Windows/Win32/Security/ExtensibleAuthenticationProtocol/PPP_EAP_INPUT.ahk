@@ -1,5 +1,6 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
+#Include .\RAS_AUTH_ATTRIBUTE.ahk
 #Include ..\..\Foundation\HANDLE.ahk
 
 /**
@@ -22,10 +23,8 @@
  * <a href="https://docs.microsoft.com/windows/desktop/api/raseapif/ns-raseapif-ras_auth_attribute">RAS_AUTH_ATTRIBUTE</a> structures is passed only if <b>fAuthenticator</b> is <b>TRUE</b>. This array contains current session information such as port identifier and local IP address.
  * @see https://learn.microsoft.com/windows/win32/api/raseapif/ns-raseapif-ppp_eap_input
  * @namespace Windows.Win32.Security.ExtensibleAuthenticationProtocol
- * @version v4.0.30319
  */
-class PPP_EAP_INPUT extends Win32Struct
-{
+class PPP_EAP_INPUT extends Win32Struct {
     static sizeof => 144
 
     static packingSize => 8
@@ -231,7 +230,7 @@ class PPP_EAP_INPUT extends Win32Struct
      * Handle to an impersonation token for the user requesting authentication. This member is valid only on the client side. For more information on impersonation tokens, see <a href="https://docs.microsoft.com/windows/desktop/SecAuthZ/access-tokens">Access Tokens</a>.
      * @type {HANDLE}
      */
-    hTokenImpersonateUser{
+    hTokenImpersonateUser {
         get {
             if(!this.HasProp("__hTokenImpersonateUser"))
                 this.__hTokenImpersonateUser := HANDLE(56, this)
@@ -333,7 +332,7 @@ class PPP_EAP_INPUT extends Win32Struct
      * This member is reserved.
      * @type {HANDLE}
      */
-    hReserved{
+    hReserved {
         get {
             if(!this.HasProp("__hReserved"))
                 this.__hReserved := HANDLE(120, this)
@@ -342,8 +341,7 @@ class PPP_EAP_INPUT extends Win32Struct
     }
 
     /**
-     * 
-     * @type {Pointer<Guid>}
+     * @type {Pointer}
      */
     guidConnectionId {
         get => NumGet(this, 128, "ptr")
@@ -351,7 +349,6 @@ class PPP_EAP_INPUT extends Win32Struct
     }
 
     /**
-     * 
      * @type {BOOL}
      */
     isVpn {

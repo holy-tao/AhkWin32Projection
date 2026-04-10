@@ -3,7 +3,6 @@
 
 /**
  * @namespace Windows.Win32.Graphics.DirectWrite
- * @version v4.0.30319
  */
 class DirectWrite {
 
@@ -81,7 +80,7 @@ class DirectWrite {
      * 
      * 
      * ```
-     * @param {Integer} factoryType Type: <b><a href="https://docs.microsoft.com/windows/win32/api/dwrite/ne-dwrite-dwrite_factory_type">DWRITE_FACTORY_TYPE</a></b>
+     * @param {DWRITE_FACTORY_TYPE} factoryType Type: <b><a href="https://docs.microsoft.com/windows/win32/api/dwrite/ne-dwrite-dwrite_factory_type">DWRITE_FACTORY_TYPE</a></b>
      * 
      * A value that specifies whether the factory object will be shared or isolated.
      * @param {Pointer<Guid>} iid Type: <b>REFIID</b>

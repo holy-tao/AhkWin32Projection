@@ -1,8 +1,9 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
+#Include .\D3DAUTHENTICATEDCHANNEL_QUERY_OUTPUT.ahk
 #Include .\D3D_OMAC.ahk
 #Include ..\..\Foundation\HANDLE.ahk
-#Include .\D3DAUTHENTICATEDCHANNEL_QUERY_OUTPUT.ahk
+#Include .\D3DAUTHENTICATEDCHANNEL_PROCESSIDENTIFIERTYPE.ahk
 
 /**
  * Contains the response to a D3DAUTHENTICATEDQUERY\_RESTRICTEDSHAREDRESOURCEPROCESS query.
@@ -10,10 +11,8 @@
  * The Desktop Window Manager (DWM) process is identified by setting **ProcessIdentifier** equal to **PROCESSIDTYPE\_DWM**. Other processes are identified by setting the process handle in **ProcessHandle** and setting **ProcessIdentifier** equal to **PROCESSIDTYPE\_HANDLE**.
  * @see https://learn.microsoft.com/windows/win32/medfound/d3dauthenticatedchannel-queryrestrictedsharedresourceprocess-output
  * @namespace Windows.Win32.Graphics.Direct3D9
- * @version v4.0.30319
  */
-class D3DAUTHENTICATEDCHANNEL_QUERYRESTRICTEDSHAREDRESOURCEPROCESS_OUTPUT extends Win32Struct
-{
+class D3DAUTHENTICATEDCHANNEL_QUERYRESTRICTEDSHAREDRESOURCEPROCESS_OUTPUT extends Win32Struct {
     static sizeof => 56
 
     static packingSize => 8
@@ -22,7 +21,7 @@ class D3DAUTHENTICATEDCHANNEL_QUERYRESTRICTEDSHAREDRESOURCEPROCESS_OUTPUT extend
      * A [**D3DAUTHENTICATEDCHANNEL\_QUERY\_OUTPUT**](d3dauthenticatedchannel-query-output.md) structure that contains a Message Authentication Code (MAC) and other data.
      * @type {D3DAUTHENTICATEDCHANNEL_QUERY_OUTPUT}
      */
-    Output{
+    Output {
         get {
             if(!this.HasProp("__Output"))
                 this.__Output := D3DAUTHENTICATEDCHANNEL_QUERY_OUTPUT(0, this)
@@ -41,7 +40,7 @@ class D3DAUTHENTICATEDCHANNEL_QUERYRESTRICTEDSHAREDRESOURCEPROCESS_OUTPUT extend
 
     /**
      * A [**D3DAUTHENTICATEDCHANNEL\_PROCESSIDENTIFIERTYPE**](d3dauthenticatedchannel-processidentifiertype.md) value that specifies the type of process.
-     * @type {Integer}
+     * @type {D3DAUTHENTICATEDCHANNEL_PROCESSIDENTIFIERTYPE}
      */
     ProcessIdentifer {
         get => NumGet(this, 44, "int")
@@ -52,7 +51,7 @@ class D3DAUTHENTICATEDCHANNEL_QUERYRESTRICTEDSHAREDRESOURCEPROCESS_OUTPUT extend
      * A process handle. If the **ProcessIdentifier** member equals **PROCESSIDTYPE\_HANDLE**, the **ProcessHandle** member contains a valid handle to a process. Otherwise, this member is ignored.
      * @type {HANDLE}
      */
-    ProcessHandle{
+    ProcessHandle {
         get {
             if(!this.HasProp("__ProcessHandle"))
                 this.__ProcessHandle := HANDLE(48, this)

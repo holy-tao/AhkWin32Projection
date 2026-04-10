@@ -9,9 +9,8 @@
  * Callers that want  to use asynchronous operations on an instance that's created by CreateDeviceAccessInstance should implement the <b>IDeviceRequestCompletionCallback</b> interface.
  * @see https://learn.microsoft.com/windows/win32/api/deviceaccess/nn-deviceaccess-idevicerequestcompletioncallback
  * @namespace Windows.Win32.Devices.DeviceAccess
- * @version v4.0.30319
  */
-class IDeviceRequestCompletionCallback extends IUnknown{
+class IDeviceRequestCompletionCallback extends IUnknown {
 
     static sizeof => A_PtrSize
     /**

@@ -5,9 +5,8 @@
 
 /**
  * @namespace Windows.Win32.System.Com.Urlmon
- * @version v4.0.30319
  */
-class IInternetProtocolInfo extends IUnknown{
+class IInternetProtocolInfo extends IUnknown {
 
     static sizeof => A_PtrSize
     /**
@@ -31,7 +30,7 @@ class IInternetProtocolInfo extends IUnknown{
     /**
      * 
      * @param {PWSTR} pwzUrl 
-     * @param {Integer} _ParseAction 
+     * @param {PARSEACTION} _ParseAction 
      * @param {Integer} dwParseFlags 
      * @param {PWSTR} pwzResult 
      * @param {Integer} cchResult 
@@ -90,7 +89,7 @@ class IInternetProtocolInfo extends IUnknown{
      * To compile an application that uses this function, define <b>_WIN32_WINNT</b> as 0x0500 or later. For more information, see 
      * <a href="https://docs.microsoft.com/windows/desktop/WinProg/using-the-windows-headers">Using the Windows Headers</a>.
      * @param {PWSTR} pwzUrl 
-     * @param {Integer} OueryOption 
+     * @param {QUERYOPTION} OueryOption 
      * @param {Integer} dwQueryFlags 
      * @param {Pointer<Void>} pBuffer 
      * @param {Integer} cbBuffer 

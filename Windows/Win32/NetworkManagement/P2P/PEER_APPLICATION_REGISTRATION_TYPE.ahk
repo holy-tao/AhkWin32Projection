@@ -9,9 +9,8 @@
  * Applications with the same GUID and registered for the <b>current user</b>  take precedence over applications with that same GUID registered for <b>all users</b>.
  * @see https://learn.microsoft.com/windows/win32/api/p2p/ne-p2p-peer_application_registration_type
  * @namespace Windows.Win32.NetworkManagement.P2P
- * @version v4.0.30319
  */
-class PEER_APPLICATION_REGISTRATION_TYPE extends Win32Enum{
+class PEER_APPLICATION_REGISTRATION_TYPE extends Win32Enum {
 
     /**
      * The application is available only to the current user account logged into the machine.

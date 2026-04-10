@@ -5,10 +5,8 @@
  * Contains information about message strings with identifiers in the range indicated by the LowId and HighId members.
  * @see https://learn.microsoft.com/windows/win32/api/winnt/ns-winnt-message_resource_block
  * @namespace Windows.Win32.UI.WindowsAndMessaging
- * @version v4.0.30319
  */
-class MESSAGE_RESOURCE_BLOCK extends Win32Struct
-{
+class MESSAGE_RESOURCE_BLOCK extends Win32Struct {
     static sizeof => 12
 
     static packingSize => 4

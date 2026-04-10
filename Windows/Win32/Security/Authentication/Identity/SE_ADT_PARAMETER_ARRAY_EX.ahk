@@ -1,14 +1,13 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\..\Win32Struct.ahk
 #Include .\SE_ADT_PARAMETER_ARRAY_ENTRY.ahk
+#Include .\SE_ADT_PARAMETER_TYPE.ahk
 
 /**
  * @namespace Windows.Win32.Security.Authentication.Identity
- * @version v4.0.30319
  */
-class SE_ADT_PARAMETER_ARRAY_EX extends Win32Struct
-{
-    static sizeof => 288
+class SE_ADT_PARAMETER_ARRAY_EX extends Win32Struct {
+    static sizeof => 1056
 
     static packingSize => 8
 
@@ -77,9 +76,9 @@ class SE_ADT_PARAMETER_ARRAY_EX extends Win32Struct
     }
 
     /**
-     * @type {Array<SE_ADT_PARAMETER_ARRAY_ENTRY>}
+     * @type {SE_ADT_PARAMETER_ARRAY_ENTRY}
      */
-    Parameters{
+    Parameters {
         get {
             if(!this.HasProp("__ParametersProxyArray"))
                 this.__ParametersProxyArray := Win32FixedArray(this.ptr + 32, 32, SE_ADT_PARAMETER_ARRAY_ENTRY, "")

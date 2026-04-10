@@ -1,18 +1,21 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
+#Include .\WLAN_CONNECTION_MODE.ahk
+#Include .\DOT11_SSID.ahk
+#Include .\DOT11_BSSID_LIST.ahk
+#Include .\DOT11_BSS_TYPE.ahk
+#Include .\DOT11_ACCESSNETWORKOPTIONS.ahk
 
 /**
  * @namespace Windows.Win32.NetworkManagement.WiFi
- * @version v4.0.30319
  */
-class WLAN_CONNECTION_PARAMETERS_V2 extends Win32Struct
-{
+class WLAN_CONNECTION_PARAMETERS_V2 extends Win32Struct {
     static sizeof => 56
 
     static packingSize => 8
 
     /**
-     * @type {Integer}
+     * @type {WLAN_CONNECTION_MODE}
      */
     wlanConnectionMode {
         get => NumGet(this, 0, "int")
@@ -52,7 +55,7 @@ class WLAN_CONNECTION_PARAMETERS_V2 extends Win32Struct
     }
 
     /**
-     * @type {Integer}
+     * @type {DOT11_BSS_TYPE}
      */
     dot11BssType {
         get => NumGet(this, 40, "int")

@@ -3,10 +3,8 @@
 
 /**
  * @namespace Windows.Win32.Storage.FileSystem
- * @version v4.0.30319
  */
-class NTMS_FILESYSTEM_INFO extends Win32Struct
-{
+class NTMS_FILESYSTEM_INFO extends Win32Struct {
     static sizeof => 644
 
     static packingSize => 4

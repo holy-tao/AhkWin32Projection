@@ -1,7 +1,8 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\Win32Struct.ahk
-#Include ..\Foundation\LUID.ahk
 #Include .\LUID_AND_ATTRIBUTES.ahk
+#Include ..\Foundation\LUID.ahk
+#Include .\TOKEN_PRIVILEGES_ATTRIBUTES.ahk
 
 /**
  * Specifies a set of privileges.
@@ -9,13 +10,11 @@
  * A privilege is used to control access to an object or service more strictly than is typical with discretionary access control. A system manager uses privileges to control which users are able to manipulate system resources. An application uses privileges when it changes a system-wide resource, such as when it changes the system time or shuts down the system.
  * @see https://learn.microsoft.com/windows/win32/api/winnt/ns-winnt-privilege_set
  * @namespace Windows.Win32.Security
- * @version v4.0.30319
  */
-class PRIVILEGE_SET extends Win32Struct
-{
-    static sizeof => 16
+class PRIVILEGE_SET extends Win32Struct {
+    static sizeof => 20
 
-    static packingSize => 8
+    static packingSize => 4
 
     /**
      * Specifies the number of privileges in the privilege set.
@@ -80,9 +79,9 @@ class PRIVILEGE_SET extends Win32Struct
      * </td>
      * </tr>
      * </table>
-     * @type {Array<LUID_AND_ATTRIBUTES>}
+     * @type {LUID_AND_ATTRIBUTES}
      */
-    Privilege{
+    Privilege {
         get {
             if(!this.HasProp("__PrivilegeProxyArray"))
                 this.__PrivilegeProxyArray := Win32FixedArray(this.ptr + 8, 1, LUID_AND_ATTRIBUTES, "")

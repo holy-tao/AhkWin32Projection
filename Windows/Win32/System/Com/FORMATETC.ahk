@@ -1,5 +1,6 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
+#Include .\DVTARGETDEVICE.ahk
 
 /**
  * Represents a generalized clipboard format.
@@ -7,10 +8,8 @@
  * The <b>FORMATETC</b> structure is used by methods in the data transfer and presentation interfaces as a parameter specifying the data being transferred. For example, the <a href="https://docs.microsoft.com/windows/desktop/api/objidl/nf-objidl-idataobject-getdata">IDataObject::GetData</a> method uses the <b>FORMATETC</b> structure to indicate exactly what kind of data the caller is requesting.
  * @see https://learn.microsoft.com/windows/win32/api/objidl/ns-objidl-formatetc
  * @namespace Windows.Win32.System.Com
- * @version v4.0.30319
  */
-class FORMATETC extends Win32Struct
-{
+class FORMATETC extends Win32Struct {
     static sizeof => 32
 
     static packingSize => 8

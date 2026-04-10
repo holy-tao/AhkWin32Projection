@@ -1,18 +1,17 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
+#Include ..\..\..\Win32\Graphics\Direct3D9\D3DQUERYTYPE.ahk
 
 /**
  * @namespace Windows.Wdk.Graphics.Direct3D
- * @version v4.0.30319
  */
-class DDNT_GETD3DQUERYDATA extends Win32Struct
-{
+class DDNT_GETD3DQUERYDATA extends Win32Struct {
     static sizeof => 16
 
     static packingSize => 8
 
     /**
-     * @type {Pointer<DDNT_GETDRIVERINFO2DATA>}
+     * @type {Pointer}
      */
     gdi2 {
         get => NumGet(this, 0, "ptr")
@@ -28,7 +27,7 @@ class DDNT_GETD3DQUERYDATA extends Win32Struct
     }
 
     /**
-     * @type {Integer}
+     * @type {D3DQUERYTYPE}
      */
     QueryType {
         get => NumGet(this, 8, "int")

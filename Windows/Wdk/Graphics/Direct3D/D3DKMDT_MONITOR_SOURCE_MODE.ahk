@@ -1,12 +1,13 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
+#Include .\D3DKMDT_COLOR_BASIS.ahk
+#Include .\D3DKMDT_MONITOR_CAPABILITIES_ORIGIN.ahk
+#Include .\D3DKMDT_MODE_PREFERENCE.ahk
 
 /**
  * @namespace Windows.Wdk.Graphics.Direct3D
- * @version v4.0.30319
  */
-class D3DKMDT_MONITOR_SOURCE_MODE extends Win32Struct
-{
+class D3DKMDT_MONITOR_SOURCE_MODE extends Win32Struct {
     static sizeof => 40
 
     static packingSize => 8
@@ -20,7 +21,7 @@ class D3DKMDT_MONITOR_SOURCE_MODE extends Win32Struct
     }
 
     /**
-     * @type {Pointer<D3DKMDT_VIDEO_SIGNAL_INFO>}
+     * @type {Pointer}
      */
     VideoSignalInfo {
         get => NumGet(this, 8, "ptr")
@@ -28,7 +29,7 @@ class D3DKMDT_MONITOR_SOURCE_MODE extends Win32Struct
     }
 
     /**
-     * @type {Integer}
+     * @type {D3DKMDT_COLOR_BASIS}
      */
     ColorBasis {
         get => NumGet(this, 16, "int")
@@ -36,7 +37,7 @@ class D3DKMDT_MONITOR_SOURCE_MODE extends Win32Struct
     }
 
     /**
-     * @type {Pointer<D3DKMDT_COLOR_COEFF_DYNAMIC_RANGES>}
+     * @type {Pointer}
      */
     ColorCoeffDynamicRanges {
         get => NumGet(this, 24, "ptr")
@@ -44,7 +45,7 @@ class D3DKMDT_MONITOR_SOURCE_MODE extends Win32Struct
     }
 
     /**
-     * @type {Integer}
+     * @type {D3DKMDT_MONITOR_CAPABILITIES_ORIGIN}
      */
     Origin {
         get => NumGet(this, 32, "int")
@@ -52,7 +53,7 @@ class D3DKMDT_MONITOR_SOURCE_MODE extends Win32Struct
     }
 
     /**
-     * @type {Integer}
+     * @type {D3DKMDT_MODE_PREFERENCE}
      */
     Preference {
         get => NumGet(this, 36, "int")

@@ -7,9 +7,8 @@
  * IWMPEffects2 interface
  * @see https://learn.microsoft.com/windows/win32/api/effects/nn-effects-iwmpeffects2
  * @namespace Windows.Win32.Media.MediaPlayer
- * @version v4.0.30319
  */
-class IWMPEffects2 extends IWMPEffects{
+class IWMPEffects2 extends IWMPEffects {
 
     static sizeof => A_PtrSize
     /**
@@ -89,9 +88,9 @@ class IWMPEffects2 extends IWMPEffects{
      * The OnWindowMessage method is called by Windows Media Player to pass window messages to a visualization.
      * @remarks
      * Your implementation must only return S_OK if it has handled the window message. If it has not handled the window message, it should return S_FALSE. If this method is not implemented, return E_NOTIMPL.
-     * @param {Integer} _msg 
-     * @param {WPARAM} _WParam 
-     * @param {LPARAM} _LParam 
+     * @param {Integer} _msg <b>UINT</b> that identifies the window message.
+     * @param {WPARAM} _WParam <b>WPARAM</b> specifying a window message parameter.
+     * @param {LPARAM} _LParam <b>LPARAM</b> specifying a window message parameter.
      * @param {Pointer<LRESULT>} plResultParam Pointer to an <b>LRESULT</b> specifying the result code for the window message.
      * @returns {HRESULT} This method returns an <b>HRESULT</b>.
      * @see https://learn.microsoft.com/windows/win32/api/effects/nf-effects-iwmpeffects2-onwindowmessage

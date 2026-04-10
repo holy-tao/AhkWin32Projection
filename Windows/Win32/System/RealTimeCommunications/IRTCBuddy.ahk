@@ -1,14 +1,13 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
-#Include ..\..\Foundation\BSTR.ahk
 #Include .\IRTCPresenceContact.ahk
+#Include ..\..\Foundation\BSTR.ahk
 
 /**
  * @namespace Windows.Win32.System.RealTimeCommunications
- * @version v4.0.30319
  */
-class IRTCBuddy extends IRTCPresenceContact{
+class IRTCBuddy extends IRTCPresenceContact {
 
     static sizeof => A_PtrSize
     /**
@@ -30,7 +29,7 @@ class IRTCBuddy extends IRTCPresenceContact{
     static VTableNames => ["get_Status", "get_Notes"]
 
     /**
-     * @type {Integer} 
+     * @type {RTC_PRESENCE_STATUS} 
      */
     Status {
         get => this.get_Status()
@@ -45,7 +44,7 @@ class IRTCBuddy extends IRTCPresenceContact{
 
     /**
      * 
-     * @returns {Integer} 
+     * @returns {RTC_PRESENCE_STATUS} 
      */
     get_Status() {
         result := ComCall(11, this, "int*", &penStatus := 0, "HRESULT")

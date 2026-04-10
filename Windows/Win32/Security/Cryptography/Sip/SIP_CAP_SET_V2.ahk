@@ -5,10 +5,8 @@
  * The SIP_CAP_SET_V2 structure defines the capabilities of a subject interface package (SIP). (SIP_CAP_SET_V2 structure)
  * @see https://learn.microsoft.com/windows/win32/api/mssip/ns-mssip-sip_cap_set_v2
  * @namespace Windows.Win32.Security.Cryptography.Sip
- * @version v4.0.30319
  */
-class SIP_CAP_SET_V2 extends Win32Struct
-{
+class SIP_CAP_SET_V2 extends Win32Struct {
     static sizeof => 16
 
     static packingSize => 4

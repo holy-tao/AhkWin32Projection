@@ -1,14 +1,13 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
+#Include .\SERVER_INFO_SECURITY.ahk
 
 /**
  * Contains information about a specified server.
  * @see https://learn.microsoft.com/windows/win32/api/lmserver/ns-lmserver-server_info_402
  * @namespace Windows.Win32.NetworkManagement.NetManagement
- * @version v4.0.30319
  */
-class SERVER_INFO_402 extends Win32Struct
-{
+class SERVER_INFO_402 extends Win32Struct {
     static sizeof => 144
 
     static packingSize => 8
@@ -59,7 +58,7 @@ class SERVER_INFO_402 extends Win32Struct
 
     /**
      * Type: <b>DWORD</b>
-     * @type {Integer}
+     * @type {SERVER_INFO_SECURITY}
      */
     sv402_security {
         get => NumGet(this, 24, "uint")

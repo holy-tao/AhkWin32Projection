@@ -7,9 +7,8 @@
  * Provides methods to create a new metadata scope, or open an existing one.
  * @see https://learn.microsoft.com/windows/win32/api/rometadataapi/nn-rometadataapi-imetadatadispenser
  * @namespace Windows.Win32.System.WinRT.Metadata
- * @version v4.0.30319
  */
-class IMetaDataDispenser extends IUnknown{
+class IMetaDataDispenser extends IUnknown {
 
     static sizeof => A_PtrSize
     /**

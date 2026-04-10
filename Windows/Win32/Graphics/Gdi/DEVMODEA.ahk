@@ -1,6 +1,13 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
+#Include .\DEVMODE_FIELD_FLAGS.ahk
 #Include ..\..\Foundation\POINTL.ahk
+#Include .\DEVMODE_DISPLAY_ORIENTATION.ahk
+#Include .\DEVMODE_DISPLAY_FIXED_OUTPUT.ahk
+#Include .\DEVMODE_COLOR.ahk
+#Include .\DEVMODE_DUPLEX.ahk
+#Include .\DEVMODE_TRUETYPE_OPTION.ahk
+#Include .\DEVMODE_COLLATE.ahk
 
 /**
  * The DEVMODE data structure contains information about the initialization and environment of a printer or a display device.
@@ -16,20 +23,18 @@
  * > The wingdi.h header defines DEVMODE as an alias which automatically selects the ANSI or Unicode version of this function based on the definition of the UNICODE preprocessor constant. Mixing usage of the encoding-neutral alias with code that not encoding-neutral can lead to mismatches that result in compilation or runtime errors. For more information, see [Conventions for Function Prototypes](/windows/win32/intl/conventions-for-function-prototypes).
  * @see https://learn.microsoft.com/windows/win32/api/wingdi/ns-wingdi-devmodea
  * @namespace Windows.Win32.Graphics.Gdi
- * @version v4.0.30319
  * @charset ANSI
  */
-class DEVMODEA extends Win32Struct
-{
+class DEVMODEA extends Win32Struct {
     static sizeof => 156
 
     static packingSize => 4
 
     /**
      * A zero-terminated character array that specifies the "friendly" name of the printer or display; for example, "PCL/HP LaserJet" in the case of PCL/HP LaserJet. This string is unique among device drivers. Note that this name may be truncated to fit in the <b>dmDeviceName</b> array.
-     * @type {Array<Byte>}
+     * @type {Array<Integer>}
      */
-    dmDeviceName{
+    dmDeviceName {
         get {
             if(!this.HasProp("__dmDeviceNameProxyArray"))
                 this.__dmDeviceNameProxyArray := Win32FixedArray(this.ptr + 0, 32, Primitive, "char")
@@ -204,7 +209,7 @@ class DEVMODEA extends Win32Struct
      * <td><b>dmPanningHeight</b></td>
      * </tr>
      * </table>
-     * @type {Integer}
+     * @type {DEVMODE_FIELD_FLAGS}
      */
     dmFields {
         get => NumGet(this, 40, "uint")
@@ -278,7 +283,7 @@ class DEVMODEA extends Win32Struct
     /**
      * @type {POINTL}
      */
-    dmPosition{
+    dmPosition {
         get {
             if(!this.HasProp("__dmPosition"))
                 this.__dmPosition := POINTL(44, this)
@@ -287,7 +292,7 @@ class DEVMODEA extends Win32Struct
     }
 
     /**
-     * @type {Integer}
+     * @type {DEVMODE_DISPLAY_ORIENTATION}
      */
     dmDisplayOrientation {
         get => NumGet(this, 52, "uint")
@@ -295,7 +300,7 @@ class DEVMODEA extends Win32Struct
     }
 
     /**
-     * @type {Integer}
+     * @type {DEVMODE_DISPLAY_FIXED_OUTPUT}
      */
     dmDisplayFixedOutput {
         get => NumGet(this, 56, "uint")
@@ -309,7 +314,7 @@ class DEVMODEA extends Win32Struct
      * <li>DMCOLOR_COLOR</li>
      * <li>DMCOLOR_MONOCHROME</li>
      * </ul>
-     * @type {Integer}
+     * @type {DEVMODE_COLOR}
      */
     dmColor {
         get => NumGet(this, 60, "short")
@@ -337,7 +342,7 @@ class DEVMODEA extends Win32Struct
      * <td>Long-edge binding, that is, the long edge of the page is vertical.</td>
      * </tr>
      * </table>
-     * @type {Integer}
+     * @type {DEVMODE_DUPLEX}
      */
     dmDuplex {
         get => NumGet(this, 62, "short")
@@ -354,8 +359,7 @@ class DEVMODEA extends Win32Struct
     }
 
     /**
-     * 
-     * @type {Integer}
+     * @type {DEVMODE_TRUETYPE_OPTION}
      */
     dmTTOption {
         get => NumGet(this, 66, "short")
@@ -363,8 +367,7 @@ class DEVMODEA extends Win32Struct
     }
 
     /**
-     * 
-     * @type {Integer}
+     * @type {DEVMODE_COLLATE}
      */
     dmCollate {
         get => NumGet(this, 68, "short")
@@ -373,9 +376,9 @@ class DEVMODEA extends Win32Struct
 
     /**
      * A zero-terminated character array that specifies the name of the form to use; for example, "Letter" or "Legal". A complete set of names can be retrieved by using the <a href="https://docs.microsoft.com/windows/desktop/printdocs/enumforms">EnumForms</a> function.
-     * @type {Array<Byte>}
+     * @type {Array<Integer>}
      */
-    dmFormName{
+    dmFormName {
         get {
             if(!this.HasProp("__dmFormNameProxyArray"))
                 this.__dmFormNameProxyArray := Win32FixedArray(this.ptr + 70, 32, Primitive, "char")

@@ -9,9 +9,8 @@
  * Because VBScript cannot read data from a type library, VBScript applications cannot recognize the symbolic constants as defined above. Use the numerical constants instead to set the appropriate flags in your VBScript applications. To use the symbolic constants as a good programming practice, write explicit declarations of such constants, as done here, in your VBScript applications.
  * @see https://learn.microsoft.com/windows/win32/api/iads/ne-iads-ads_sd_revision_enum
  * @namespace Windows.Win32.Networking.ActiveDirectory
- * @version v4.0.30319
  */
-class ADS_SD_REVISION_ENUM extends Win32Enum{
+class ADS_SD_REVISION_ENUM extends Win32Enum {
 
     /**
      * The revision number of the ACE, or the ACL, for Active Directory.

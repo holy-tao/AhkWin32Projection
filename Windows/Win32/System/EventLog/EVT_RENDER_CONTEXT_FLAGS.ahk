@@ -7,9 +7,8 @@
  * You cannot specify the EvtRenderContextValues flag with the EvtRenderContextSystem or EvtRenderContextUser flag.
  * @see https://learn.microsoft.com/windows/win32/api/winevt/ne-winevt-evt_render_context_flags
  * @namespace Windows.Win32.System.EventLog
- * @version v4.0.30319
  */
-class EVT_RENDER_CONTEXT_FLAGS extends Win32Enum{
+class EVT_RENDER_CONTEXT_FLAGS extends Win32Enum {
 
     /**
      * Render specific properties from the event.

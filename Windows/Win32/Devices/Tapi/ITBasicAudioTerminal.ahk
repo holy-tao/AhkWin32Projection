@@ -7,9 +7,8 @@
  * The ITBasicAudioTerminal interface provides methods that allow an application to control basic sound characteristics of terminal.
  * @see https://learn.microsoft.com/windows/win32/api/tapi3if/nn-tapi3if-itbasicaudioterminal
  * @namespace Windows.Win32.Devices.Tapi
- * @version v4.0.30319
  */
-class ITBasicAudioTerminal extends IDispatch{
+class ITBasicAudioTerminal extends IDispatch {
 
     static sizeof => A_PtrSize
     /**

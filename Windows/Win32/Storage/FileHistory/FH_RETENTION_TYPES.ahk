@@ -9,9 +9,8 @@
  * If <b>FH_RETENTION_AGE_BASED</b> is specified and the target is large enough, it is possible for the target to contain versions that are much older than the minimum age that is specified by the <b>FH_RETENTION_AGE</b> local policy.
  * @see https://learn.microsoft.com/windows/win32/api/fhcfg/ne-fhcfg-fh_retention_types
  * @namespace Windows.Win32.Storage.FileHistory
- * @version v4.0.30319
  */
-class FH_RETENTION_TYPES extends Win32Enum{
+class FH_RETENTION_TYPES extends Win32Enum {
 
     /**
      * Previous versions are never deleted from the backup target.

@@ -5,10 +5,8 @@
  * The RSAPUBKEY structure contains information specific to the particular public key contained in the key BLOB.
  * @see https://learn.microsoft.com/windows/win32/api/wincrypt/ns-wincrypt-rsapubkey
  * @namespace Windows.Win32.Security.Cryptography
- * @version v4.0.30319
  */
-class RSAPUBKEY extends Win32Struct
-{
+class RSAPUBKEY extends Win32Struct {
     static sizeof => 12
 
     static packingSize => 4

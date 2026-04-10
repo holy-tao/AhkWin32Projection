@@ -4,10 +4,8 @@
 
 /**
  * @namespace Windows.Win32.System.Hypervisor
- * @version v4.0.30319
  */
-class WHV_VP_EXCEPTION_CONTEXT extends Win32Struct
-{
+class WHV_VP_EXCEPTION_CONTEXT extends Win32Struct {
     static sizeof => 48
 
     static packingSize => 8
@@ -21,9 +19,9 @@ class WHV_VP_EXCEPTION_CONTEXT extends Win32Struct
     }
 
     /**
-     * @type {Array<Byte>}
+     * @type {Array<Integer>}
      */
-    Reserved{
+    Reserved {
         get {
             if(!this.HasProp("__ReservedProxyArray"))
                 this.__ReservedProxyArray := Win32FixedArray(this.ptr + 1, 3, Primitive, "char")
@@ -32,9 +30,9 @@ class WHV_VP_EXCEPTION_CONTEXT extends Win32Struct
     }
 
     /**
-     * @type {Array<Byte>}
+     * @type {Array<Integer>}
      */
-    InstructionBytes{
+    InstructionBytes {
         get {
             if(!this.HasProp("__InstructionBytesProxyArray"))
                 this.__InstructionBytesProxyArray := Win32FixedArray(this.ptr + 4, 16, Primitive, "char")
@@ -45,7 +43,7 @@ class WHV_VP_EXCEPTION_CONTEXT extends Win32Struct
     /**
      * @type {WHV_VP_EXCEPTION_INFO}
      */
-    ExceptionInfo{
+    ExceptionInfo {
         get {
             if(!this.HasProp("__ExceptionInfo"))
                 this.__ExceptionInfo := WHV_VP_EXCEPTION_INFO(20, this)
@@ -62,9 +60,9 @@ class WHV_VP_EXCEPTION_CONTEXT extends Win32Struct
     }
 
     /**
-     * @type {Array<Byte>}
+     * @type {Array<Integer>}
      */
-    Reserved2{
+    Reserved2 {
         get {
             if(!this.HasProp("__Reserved2ProxyArray"))
                 this.__Reserved2ProxyArray := Win32FixedArray(this.ptr + 29, 3, Primitive, "char")

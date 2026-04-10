@@ -1,14 +1,13 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\..\Win32Struct.ahk
+#Include .\DML_BUFFER_BINDING.ahk
 
 /**
  * Specifies a resource binding that is an array of individual buffer bindings.
  * @see https://learn.microsoft.com/windows/win32/api/directml/ns-directml-dml_buffer_array_binding
  * @namespace Windows.Win32.AI.MachineLearning.DirectML
- * @version v4.0.30319
  */
-class DML_BUFFER_ARRAY_BINDING extends Win32Struct
-{
+class DML_BUFFER_ARRAY_BINDING extends Win32Struct {
     static sizeof => 16
 
     static packingSize => 8

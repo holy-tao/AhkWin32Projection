@@ -8,11 +8,9 @@
  * Port monitors that do not support TrueEndOfJob will set the job as JOB\_STATUS\_PRINTED right after the job is submitted to the printer.
  * @see https://learn.microsoft.com/windows/win32/printdocs/job-info-1
  * @namespace Windows.Win32.Graphics.Printing
- * @version v4.0.30319
  * @charset ANSI
  */
-class JOB_INFO_1A extends Win32Struct
-{
+class JOB_INFO_1A extends Win32Struct {
     static sizeof => 96
 
     static packingSize => 8
@@ -158,7 +156,7 @@ class JOB_INFO_1A extends Win32Struct
      * This time value is in Universal Time Coordinate (UTC) format. You should convert it to a local time value before displaying it. You can use the [**FileTimeToLocalFileTime**](/windows/desktop/api/fileapi/nf-fileapi-filetimetolocalfiletime) function to perform the conversion.
      * @type {SYSTEMTIME}
      */
-    Submitted{
+    Submitted {
         get {
             if(!this.HasProp("__Submitted"))
                 this.__Submitted := SYSTEMTIME(76, this)

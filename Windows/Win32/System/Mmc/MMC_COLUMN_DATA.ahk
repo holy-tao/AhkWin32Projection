@@ -9,10 +9,8 @@
  * <a href="https://docs.microsoft.com/windows/desktop/api/mmc/nf-mmc-icolumndata-setcolumnconfigdata">IColumnData::SetColumnConfigData</a>. However, column "0" of a column set cannot be hidden. This is to ensure that result pane icons are properly inserted in the first column and that the MMC_VERB_RENAME console verb functions properly.
  * @see https://learn.microsoft.com/windows/win32/api/mmc/ns-mmc-mmc_column_data
  * @namespace Windows.Win32.System.Mmc
- * @version v4.0.30319
  */
-class MMC_COLUMN_DATA extends Win32Struct
-{
+class MMC_COLUMN_DATA extends Win32Struct {
     static sizeof => 24
 
     static packingSize => 8

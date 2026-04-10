@@ -1,12 +1,12 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
+#Include .\NETWORK_OPEN_LOCATION_QUALIFIER.ahk
+#Include .\NETWORK_OPEN_INTEGRITY_QUALIFIER.ahk
 
 /**
  * @namespace Windows.Wdk.Storage.FileSystem
- * @version v4.0.30319
  */
-class NETWORK_OPEN_ECP_CONTEXT_V0 extends Win32Struct
-{
+class NETWORK_OPEN_ECP_CONTEXT_V0 extends Win32Struct {
     static sizeof => 20
 
     static packingSize => 4
@@ -32,21 +32,20 @@ class NETWORK_OPEN_ECP_CONTEXT_V0 extends Win32Struct
         static packingSize => 4
 
         /**
-         * @type {Integer}
+         * @type {NETWORK_OPEN_LOCATION_QUALIFIER}
          */
         Location {
             get => NumGet(this, 0, "int")
             set => NumPut("int", value, this, 0)
         }
-    
+
         /**
-         * @type {Integer}
+         * @type {NETWORK_OPEN_INTEGRITY_QUALIFIER}
          */
         Integrity {
             get => NumGet(this, 4, "int")
             set => NumPut("int", value, this, 4)
         }
-    
     }
 
     class _out extends Win32Struct {
@@ -54,30 +53,29 @@ class NETWORK_OPEN_ECP_CONTEXT_V0 extends Win32Struct
         static packingSize => 4
 
         /**
-         * @type {Integer}
+         * @type {NETWORK_OPEN_LOCATION_QUALIFIER}
          */
         Location {
             get => NumGet(this, 0, "int")
             set => NumPut("int", value, this, 0)
         }
-    
+
         /**
-         * @type {Integer}
+         * @type {NETWORK_OPEN_INTEGRITY_QUALIFIER}
          */
         Integrity {
             get => NumGet(this, 4, "int")
             set => NumPut("int", value, this, 4)
         }
-    
     }
 
     /**
      * @type {_in}
      */
-    in{
+    in {
         get {
             if(!this.HasProp("__in"))
-                this.__in := %this.__Class%._in(4, this)
+                this.__in := NETWORK_OPEN_ECP_CONTEXT_V0._in(4, this)
             return this.__in
         }
     }
@@ -85,10 +83,10 @@ class NETWORK_OPEN_ECP_CONTEXT_V0 extends Win32Struct
     /**
      * @type {_out}
      */
-    out{
+    out {
         get {
             if(!this.HasProp("__out"))
-                this.__out := %this.__Class%._out(12, this)
+                this.__out := NETWORK_OPEN_ECP_CONTEXT_V0._out(12, this)
             return this.__out
         }
     }

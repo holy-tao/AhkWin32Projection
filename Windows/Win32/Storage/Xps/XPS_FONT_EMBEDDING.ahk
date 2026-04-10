@@ -5,9 +5,8 @@
  * Describes the option for embedding a font.
  * @see https://learn.microsoft.com/windows/win32/api/xpsobjectmodel/ne-xpsobjectmodel-xps_font_embedding
  * @namespace Windows.Win32.Storage.Xps
- * @version v4.0.30319
  */
-class XPS_FONT_EMBEDDING extends Win32Enum{
+class XPS_FONT_EMBEDDING extends Win32Enum {
 
     /**
      * The embedded font is neither obfuscated nor restricted.

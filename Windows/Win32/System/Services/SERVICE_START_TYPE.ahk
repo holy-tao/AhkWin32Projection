@@ -3,9 +3,8 @@
 
 /**
  * @namespace Windows.Win32.System.Services
- * @version v4.0.30319
  */
-class SERVICE_START_TYPE extends Win32Enum{
+class SERVICE_START_TYPE extends Win32Enum {
 
     /**
      * @type {Integer (UInt32)}

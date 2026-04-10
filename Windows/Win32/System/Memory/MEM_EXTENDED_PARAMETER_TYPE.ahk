@@ -5,12 +5,10 @@
  * Defines values for extended parameters used for file mapping into an address space.
  * @see https://learn.microsoft.com/windows/win32/api/winnt/ne-winnt-mem_extended_parameter_type
  * @namespace Windows.Win32.System.Memory
- * @version v4.0.30319
  */
-class MEM_EXTENDED_PARAMETER_TYPE extends Win32Enum{
+class MEM_EXTENDED_PARAMETER_TYPE extends Win32Enum {
 
     /**
-     * 
      * @type {Integer (Int32)}
      */
     static MemExtendedParameterInvalidType => 0
@@ -28,19 +26,16 @@ class MEM_EXTENDED_PARAMETER_TYPE extends Win32Enum{
     static MemExtendedParameterNumaNode => 2
 
     /**
-     * 
      * @type {Integer (Int32)}
      */
     static MemExtendedParameterPartitionHandle => 3
 
     /**
-     * 
      * @type {Integer (Int32)}
      */
     static MemExtendedParameterUserPhysicalHandle => 4
 
     /**
-     * 
      * @type {Integer (Int32)}
      */
     static MemExtendedParameterAttributeFlags => 5
@@ -51,7 +46,6 @@ class MEM_EXTENDED_PARAMETER_TYPE extends Win32Enum{
     static MemExtendedParameterImageMachine => 6
 
     /**
-     * 
      * @type {Integer (Int32)}
      */
     static MemExtendedParameterMax => 7

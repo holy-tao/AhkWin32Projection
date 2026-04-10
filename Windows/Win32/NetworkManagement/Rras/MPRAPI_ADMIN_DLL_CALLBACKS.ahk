@@ -14,10 +14,8 @@
  * </ul>
  * @see https://learn.microsoft.com/windows/win32/api/mprapi/ns-mprapi-mprapi_admin_dll_callbacks
  * @namespace Windows.Win32.NetworkManagement.Rras
- * @version v4.0.30319
  */
-class MPRAPI_ADMIN_DLL_CALLBACKS extends Win32Struct
-{
+class MPRAPI_ADMIN_DLL_CALLBACKS extends Win32Struct {
     static sizeof => 104
 
     static packingSize => 8
@@ -179,7 +177,6 @@ class MPRAPI_ADMIN_DLL_CALLBACKS extends Win32Struct
     }
 
     /**
-     * 
      * @type {Pointer<PMPRADMINACCEPTTUNNELENDPOINTCHANGEEX>}
      */
     lpfnRasAdminAcceptEndpointChangeEx {
@@ -218,7 +215,6 @@ class MPRAPI_ADMIN_DLL_CALLBACKS extends Win32Struct
     }
 
     /**
-     * 
      * @type {Pointer<PMPRADMINRASVALIDATEPREAUTHENTICATEDCONNECTIONEX>}
      */
     lpfnRASValidatePreAuthenticatedConnectionEx {

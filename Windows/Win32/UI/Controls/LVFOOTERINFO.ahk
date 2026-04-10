@@ -9,10 +9,8 @@
  * The creation of footers in list-view controls is currently not supported.
  * @see https://learn.microsoft.com/windows/win32/api/commctrl/ns-commctrl-lvfooterinfo
  * @namespace Windows.Win32.UI.Controls
- * @version v4.0.30319
  */
-class LVFOOTERINFO extends Win32Struct
-{
+class LVFOOTERINFO extends Win32Struct {
     static sizeof => 24
 
     static packingSize => 8

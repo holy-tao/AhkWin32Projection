@@ -3,14 +3,10 @@
 
 /**
  * Contains an array of device service GUIDs.
- * @remarks
- * 
  * @see https://learn.microsoft.com/windows/win32/api/wlanapi/ns-wlanapi-wlan_device_service_guid_list
  * @namespace Windows.Win32.NetworkManagement.WiFi
- * @version v4.0.30319
  */
-class WLAN_DEVICE_SERVICE_GUID_LIST extends Win32Struct
-{
+class WLAN_DEVICE_SERVICE_GUID_LIST extends Win32Struct {
     static sizeof => 16
 
     static packingSize => 8
@@ -41,9 +37,9 @@ class WLAN_DEVICE_SERVICE_GUID_LIST extends Win32Struct
      * Type: **[GUID](../guiddef/ns-guiddef-guid.md)\[1\]**
      * 
      * A pointer to an array containing **GUID**s; each corresponds to a WLAN device service that the driver supports.
-     * @type {Array<Guid>}
+     * @type {Array<Pointer>}
      */
-    DeviceService{
+    DeviceService {
         get {
             if(!this.HasProp("__DeviceServiceProxyArray"))
                 this.__DeviceServiceProxyArray := Win32FixedArray(this.ptr + 8, 1, Primitive, "ptr")

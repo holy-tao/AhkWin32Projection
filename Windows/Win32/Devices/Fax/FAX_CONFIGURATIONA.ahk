@@ -15,11 +15,9 @@
  * > The winfax.h header defines FAX_CONFIGURATION as an alias which automatically selects the ANSI or Unicode version of this function based on the definition of the UNICODE preprocessor constant. Mixing usage of the encoding-neutral alias with code that not encoding-neutral can lead to mismatches that result in compilation or runtime errors. For more information, see [Conventions for Function Prototypes](/windows/win32/intl/conventions-for-function-prototypes).
  * @see https://learn.microsoft.com/windows/win32/api/winfax/ns-winfax-fax_configurationa
  * @namespace Windows.Win32.Devices.Fax
- * @version v4.0.30319
  * @charset ANSI
  */
-class FAX_CONFIGURATIONA extends Win32Struct
-{
+class FAX_CONFIGURATIONA extends Win32Struct {
     static sizeof => 64
 
     static packingSize => 8
@@ -118,7 +116,7 @@ class FAX_CONFIGURATIONA extends Win32Struct
      * Specifies a <a href="https://docs.microsoft.com/windows/desktop/api/winfax/ns-winfax-fax_time">FAX_TIME</a> structure that indicates the hour and minute at which the discount period begins. The discount period applies only to outgoing transmissions.
      * @type {FAX_TIME}
      */
-    StartCheapTime{
+    StartCheapTime {
         get {
             if(!this.HasProp("__StartCheapTime"))
                 this.__StartCheapTime := FAX_TIME(32, this)
@@ -132,7 +130,7 @@ class FAX_CONFIGURATIONA extends Win32Struct
      * Specifies a <a href="https://docs.microsoft.com/windows/desktop/api/winfax/ns-winfax-fax_time">FAX_TIME</a> structure that indicates the hour and minute at which the discount period ends. The discount period applies only to outgoing transmissions.
      * @type {FAX_TIME}
      */
-    StopCheapTime{
+    StopCheapTime {
         get {
             if(!this.HasProp("__StopCheapTime"))
                 this.__StopCheapTime := FAX_TIME(36, this)
@@ -163,7 +161,6 @@ class FAX_CONFIGURATIONA extends Win32Struct
     }
 
     /**
-     * 
      * @type {PSTR}
      */
     Reserved {

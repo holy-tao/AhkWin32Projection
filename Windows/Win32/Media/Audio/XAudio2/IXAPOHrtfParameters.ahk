@@ -9,9 +9,8 @@
  * Create instances of the XAPO interface by calling the <a href="https://docs.microsoft.com/windows/desktop/api/hrtfapoapi/nf-hrtfapoapi-createhrtfapo">CreateHrtfApo</a> function.
  * @see https://learn.microsoft.com/windows/win32/api/hrtfapoapi/nn-hrtfapoapi-ixapohrtfparameters
  * @namespace Windows.Win32.Media.Audio.XAudio2
- * @version v4.0.30319
  */
-class IXAPOHrtfParameters extends IUnknown{
+class IXAPOHrtfParameters extends IUnknown {
 
     static sizeof => A_PtrSize
     /**
@@ -69,7 +68,7 @@ class IXAPOHrtfParameters extends IUnknown{
      * Selects the acoustic environment to simulate.
      * @remarks
      * The environment represents distance-cue params.
-     * @param {Integer} environment The acoustic environment to simulate.
+     * @param {HrtfEnvironment} environment The acoustic environment to simulate.
      * @returns {HRESULT} If this method succeeds, it returns <b>S_OK</b>. Otherwise, it returns an <b>HRESULT</b> error code.
      * @see https://learn.microsoft.com/windows/win32/api/hrtfapoapi/nf-hrtfapoapi-ixapohrtfparameters-setenvironment
      */

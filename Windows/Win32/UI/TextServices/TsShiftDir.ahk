@@ -5,9 +5,8 @@
  * Elements of the TsShiftDir enumeration specify which direction an anchor is moved.
  * @see https://learn.microsoft.com/windows/win32/api/textstor/ne-textstor-tsshiftdir
  * @namespace Windows.Win32.UI.TextServices
- * @version v4.0.30319
  */
-class TsShiftDir extends Win32Enum{
+class TsShiftDir extends Win32Enum {
 
     /**
      * Specifies that the anchor will be moved to the region immediately preceding a range of text.

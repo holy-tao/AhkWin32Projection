@@ -4,7 +4,6 @@
 
 /**
  * @namespace Windows.Win32.Devices.BiometricFramework
- * @version v4.0.30319
  */
 class BiometricFramework {
 
@@ -866,13 +865,13 @@ class BiometricFramework {
      * The <i>AsynchronousOpen</i> parameter determines only whether the open operation will block. This parameter has no effect on the completion behavior of subsequent calls that use the session handle.
      * 
      * If you set the  <i>AsynchronousOpen</i> parameter to <b>TRUE</b>, this function will return <b>S_OK</b> as soon as it has performed an initial validation of the arguments. Any errors detected beyond that point will be reported to the caller using the method specified by the <i>NotificationMethod</i> parameter. That is, a successful return value indicates only that the <b>WinBioAsyncOpenFramework</b> parameters were fine and not that the open operation succeeded. To determine whether the open operation succeeded, you must examine the <a href="https://docs.microsoft.com/windows/desktop/api/winbio/ns-winbio-winbio_async_result">WINBIO_ASYNC_RESULT</a> structure.
-     * @param {Integer} NotificationMethod 
+     * @param {WINBIO_ASYNC_NOTIFICATION_METHOD} NotificationMethod 
      * @param {HWND} TargetWindow Handle  of the window that will receive the completion notices. This value is ignored unless the <i>NotificationMethod</i> parameter is set to <b>WINBIO_ASYNC_NOTIFY_MESSAGE</b>.
      * @param {Integer} MessageCode Window message code the framework must send to signify completion notices. This value is ignored unless the <i>NotificationMethod</i> parameter is set to <b>WINBIO_ASYNC_NOTIFY_MESSAGE</b>. The value must be within the range <a href="https://docs.microsoft.com/windows/desktop/winmsg/wm-app">WM_APP</a> (0x8000) to 0xBFFF.
      * 
      * The Windows Biometric Framework sets the <b>LPARAM</b> value of the message to the address of the <a href="https://docs.microsoft.com/windows/desktop/api/winbio/ns-winbio-winbio_async_result">WINBIO_ASYNC_RESULT</a> structure that contains the results of the operation. You must call <a href="https://docs.microsoft.com/windows/desktop/api/winbio/nf-winbio-winbiofree">WinBioFree</a> to release the structure after you have finished using it.
      * @param {Pointer<PWINBIO_ASYNC_COMPLETION_CALLBACK>} CallbackRoutine Address of the callback routine to be invoked for  completion notices. This value is ignored unless the <i>NotificationMethod</i> parameter is set to <b>WINBIO_ASYNC_NOTIFY_CALLBACK</b>.
-     * @param {Pointer<Void>} _UserData 
+     * @param {Pointer<Void>} _UserData Address of a buffer supplied by the caller. The buffer is not modified by the framework or the biometric unit. It is returned in the <a href="https://docs.microsoft.com/windows/desktop/api/winbio/ns-winbio-winbio_async_result">WINBIO_ASYNC_RESULT</a> structure. Your application can use the data to help it determine what actions to perform upon receipt of the completion notice or to maintain additional information about the requested operation.
      * @param {BOOL} AsynchronousOpen Specifies whether to block until the framework session has been opened. Specifying <b>FALSE</b> causes the process to block. Specifying <b>TRUE</b> causes the session to be opened asynchronously.
      * 
      * If you specify <b>FALSE</b> to open the framework session synchronously, success or failure is returned to the caller directly by this function in the  <b>HRESULT</b> return value. If the session is opened successfully, the first  asynchronous completion event your application receives will be for an asynchronous operation requested after the framework has been open.
@@ -1264,7 +1263,7 @@ class BiometricFramework {
     /**
      * Connects to a biometric service provider and one or more biometric units.
      * @param {Integer} Factor A bitmask of <a href="https://docs.microsoft.com/windows-hardware/drivers/ddi/content/winbio_ioctl/ns-winbio_ioctl-_winbio_sensor_attributes">WINBIO_BIOMETRIC_TYPE</a> flags that specifies the biometric unit types to be enumerated. Only <b>WINBIO_TYPE_FINGERPRINT</b> is currently supported.
-     * @param {Integer} PoolType 
+     * @param {WINBIO_POOL} PoolType 
      * @param {Integer} Flags A <b>ULONG</b> value that specifies biometric unit configuration and access characteristics for the new session. Configuration flags specify the general configuration of units in the session. Access flags specify how the application will use the biometric units. You must specify one configuration flag but you can combine that flag with any access flag.
      * 
      * <table>
@@ -1476,7 +1475,7 @@ class BiometricFramework {
      * 
      * If you set the  <i>AsynchronousOpen</i> parameter to <b>TRUE</b>, this function will return <b>S_OK</b> as soon as it has performed an initial validation of the arguments. Any errors detected beyond that point will be reported to the caller using the method specified by the <i>NotificationMethod</i> parameter. That is, a successful return value indicates only that the <b>WinBioAsyncOpenSession</b> parameters were fine and not that the open operation succeeded. To determine whether the open operation succeeded, you must examine the <a href="https://docs.microsoft.com/windows/desktop/api/winbio/ns-winbio-winbio_async_result">WINBIO_ASYNC_RESULT</a> structure.
      * @param {Integer} Factor A bitmask of <a href="https://docs.microsoft.com/windows-hardware/drivers/ddi/content/winbio_ioctl/ns-winbio_ioctl-_winbio_sensor_attributes">WINBIO_BIOMETRIC_TYPE</a> flags that specifies the biometric unit types to be enumerated. Only <b>WINBIO_TYPE_FINGERPRINT</b> is currently supported.
-     * @param {Integer} PoolType 
+     * @param {WINBIO_POOL} PoolType 
      * @param {Integer} Flags A <b>ULONG</b> value that specifies biometric unit configuration and access characteristics for the new session. Configuration flags specify the general configuration of units in the session. Access flags specify how the application will use the biometric units. You must specify one configuration flag but you can combine that flag with any access flag.
      * 
      * <table>
@@ -1585,13 +1584,13 @@ class BiometricFramework {
      * </td>
      * </tr>
      * </table>
-     * @param {Integer} NotificationMethod 
+     * @param {WINBIO_ASYNC_NOTIFICATION_METHOD} NotificationMethod 
      * @param {HWND} TargetWindow Handle  of the window that will receive the completion notices. This value is ignored unless the <i>NotificationMethod</i> parameter is set to <b>WINBIO_ASYNC_NOTIFY_MESSAGE</b>.
      * @param {Integer} MessageCode Window message code the framework must send to signify completion notices. This value is ignored unless the <i>NotificationMethod</i> parameter is set to <b>WINBIO_ASYNC_NOTIFY_MESSAGE</b>. The value must be within the range WM_APP(0x8000) to 0xBFFF.
      * 
      * The Windows Biometric Framework sets the <b>LPARAM</b> value of the message to the address of the <a href="https://docs.microsoft.com/windows/desktop/api/winbio/ns-winbio-winbio_async_result">WINBIO_ASYNC_RESULT</a> structure that contains the results of the operation. You must call <a href="https://docs.microsoft.com/windows/desktop/api/winbio/nf-winbio-winbiofree">WinBioFree</a> to release the structure after you have finished using it.
      * @param {Pointer<PWINBIO_ASYNC_COMPLETION_CALLBACK>} CallbackRoutine Address of callback routine to be invoked when the operation started by using the session handle completes. This value is ignored unless the  <i>NotificationMethod</i> parameter is set to <b>WINBIO_ASYNC_NOTIFY_CALLBACK</b>.
-     * @param {Pointer<Void>} _UserData 
+     * @param {Pointer<Void>} _UserData Address of a buffer supplied by the caller. The buffer is not modified by the framework or the biometric unit. It is returned in the <a href="https://docs.microsoft.com/windows/desktop/api/winbio/ns-winbio-winbio_async_result">WINBIO_ASYNC_RESULT</a> structure. Your application can use the data to help it determine what actions to perform upon receipt of the completion notice or to maintain additional information about the requested operation.
      * @param {BOOL} AsynchronousOpen Specifies whether to block until the framework session has been opened. Specifying <b>FALSE</b> causes the process to block. Specifying <b>TRUE</b> causes the session to be opened asynchronously.
      * 
      * If you specify <b>FALSE</b> to open the framework session synchronously, success or failure is returned to the caller directly by this function in the  <b>HRESULT</b> return value. If the session is opened successfully, the first  asynchronous completion event your application receives will be for an asynchronous operation requested after the framework has been open.
@@ -2756,7 +2755,17 @@ class BiometricFramework {
      * );
      * ```
      * @param {Integer} SessionHandle A <b>WINBIO_SESSION_HANDLE</b> value that identifies the open biometric session. Open the session handle by calling <a href="https://docs.microsoft.com/windows/desktop/api/winbio/nf-winbio-winbioopensession">WinBioOpenSession</a>.
-     * @param {Integer} _EventMask 
+     * @param {Integer} _EventMask A value that specifies the types of events to monitor. Only the fingerprint provider is currently supported. You must specify one of the following flags.
+     * 
+     * 
+     * 
+     * * **WINBIO_EVENT_FP_UNCLAIMED**
+     * 
+     * The sensor detected a finger swipe that was not requested by the application, or the requesting application does not have window focus. The Windows Biometric Framework calls into your callback function to indicate that a finger swipe has occurred but does not try to identify the fingerprint.
+     * 
+     * * **WINBIO_EVENT_FP_UNCLAIMED_IDENTIFY**
+     * 
+     * The sensor detected a finger swipe that was not requested by the application, or the requesting application does not have window focus. The Windows Biometric Framework attempts to identify the fingerprint and passes the result of that process to your callback function.
      * @param {Pointer<PWINBIO_EVENT_CALLBACK>} EventCallback Address of a callback function that receives the event notifications sent by the Windows Biometric Framework. You must define this function.
      * @param {Pointer<Void>} EventCallbackContext An optional application-defined value that is returned in the <i>pvContext</i> parameter of the callback function. This value can contain any data that the custom callback function is designed to handle.
      * @returns {HRESULT} If the function succeeds, it returns S_OK. If the function fails, it returns an <b>HRESULT</b> value that indicates the error. Possible values include, but are not limited to, those in the following table.  For a list of common error codes, see <a href="https://docs.microsoft.com/windows/desktop/SecCrypto/common-hresult-values">Common HRESULT Values</a>.
@@ -3441,11 +3450,11 @@ class BiometricFramework {
      * To prevent memory leaks, you must call <a href="https://docs.microsoft.com/windows/desktop/api/winbio/nf-winbio-winbiofree">WinBioFree</a> to release the <a href="https://docs.microsoft.com/windows/desktop/api/winbio/ns-winbio-winbio_async_result">WINBIO_ASYNC_RESULT</a> structure after you have finished using it.
      * @param {Integer} SessionHandle A <b>WINBIO_SESSION_HANDLE</b> value that identifies an open biometric session. Open a synchronous session handle by calling <a href="https://docs.microsoft.com/windows/desktop/api/winbio/nf-winbio-winbioopensession">WinBioOpenSession</a>. Open an asynchronous session handle by calling <a href="https://docs.microsoft.com/windows/desktop/api/winbio/nf-winbio-winbioasyncopensession">WinBioAsyncOpenSession</a>.
      * @param {Integer} UnitId A <b>WINBIO_UNIT_ID</b> value that identifies the biometric unit. This value must correspond to the unit ID used previously in  the <a href="https://docs.microsoft.com/windows/desktop/api/winbio/nf-winbio-winbiolockunit">WinBioLockUnit</a> function.
-     * @param {Integer} _Component 
+     * @param {WINBIO_COMPONENT} _Component 
      * @param {Integer} ControlCode A vendor-defined code recognized by the biometric unit specified by the <i>UnitId</i> parameter and the adapter specified by the <i>Component</i> parameter.
-     * @param {Pointer} SendBuffer Address of the buffer that contains the control information to be sent to the adapter specified by the <i>Component</i> parameter. The format and content of the buffer is vendor-defined.
+     * @param {Integer} SendBuffer Address of the buffer that contains the control information to be sent to the adapter specified by the <i>Component</i> parameter. The format and content of the buffer is vendor-defined.
      * @param {Pointer} SendBufferSize Size, in bytes, of the buffer specified by the <i>SendBuffer</i> parameter.
-     * @param {Pointer} ReceiveBuffer Address of the buffer that receives information sent by the adapter specified by the <i>Component</i> parameter. The format and content of the buffer is vendor-defined.
+     * @param {Integer} ReceiveBuffer Address of the buffer that receives information sent by the adapter specified by the <i>Component</i> parameter. The format and content of the buffer is vendor-defined.
      * @param {Pointer} ReceiveBufferSize Size, in bytes, of the buffer specified by the <i>ReceiveBuffer</i> parameter.
      * @param {Pointer<Pointer>} ReceiveDataSize Pointer to a <b>SIZE_T</b> value that contains the size, in bytes, of the data written to the buffer specified by the <i>ReceiveBuffer</i> parameter.
      * @returns {Integer} Pointer to an integer that contains a vendor-defined status code that specifies the outcome of the control operation.
@@ -3479,11 +3488,11 @@ class BiometricFramework {
      * To prevent memory leaks, you must call <a href="https://docs.microsoft.com/windows/desktop/api/winbio/nf-winbio-winbiofree">WinBioFree</a> to release the <a href="https://docs.microsoft.com/windows/desktop/api/winbio/ns-winbio-winbio_async_result">WINBIO_ASYNC_RESULT</a> structure after you have finished using it.
      * @param {Integer} SessionHandle A <b>WINBIO_SESSION_HANDLE</b> value that identifies an open biometric session. Open a synchronous session handle by calling <a href="https://docs.microsoft.com/windows/desktop/api/winbio/nf-winbio-winbioopensession">WinBioOpenSession</a>. Open an asynchronous session handle by calling <a href="https://docs.microsoft.com/windows/desktop/api/winbio/nf-winbio-winbioasyncopensession">WinBioAsyncOpenSession</a>.
      * @param {Integer} UnitId A <b>WINBIO_UNIT_ID</b> value that identifies the biometric unit. This value must correspond to the unit ID used previously in  the <a href="https://docs.microsoft.com/windows/desktop/api/winbio/nf-winbio-winbiolockunit">WinBioLockUnit</a> function.
-     * @param {Integer} _Component 
+     * @param {WINBIO_COMPONENT} _Component 
      * @param {Integer} ControlCode A vendor-defined code recognized by the biometric unit specified by the <i>UnitId</i> parameter and the adapter specified by the <i>Component</i> parameter.
-     * @param {Pointer} SendBuffer Address of the buffer that contains the control information to be sent to the adapter specified by the <i>Component</i> parameter. The format and content of the buffer is vendor-defined.
+     * @param {Integer} SendBuffer Address of the buffer that contains the control information to be sent to the adapter specified by the <i>Component</i> parameter. The format and content of the buffer is vendor-defined.
      * @param {Pointer} SendBufferSize Size, in bytes, of the buffer specified by the <i>SendBuffer</i> parameter.
-     * @param {Pointer} ReceiveBuffer Address of the buffer that receives information sent by the adapter specified by the <i>Component</i> parameter. The format and content of the buffer is vendor-defined.
+     * @param {Integer} ReceiveBuffer Address of the buffer that receives information sent by the adapter specified by the <i>Component</i> parameter. The format and content of the buffer is vendor-defined.
      * @param {Pointer} ReceiveBufferSize Size, in bytes, of the buffer specified by the <i>ReceiveBuffer</i> parameter.
      * @param {Pointer<Pointer>} ReceiveDataSize Pointer to a <b>SIZE_T</b> value that contains the size, in bytes, of the data written to the buffer specified by the <i>ReceiveBuffer</i> parameter.
      * @returns {Integer} Pointer to an integer that contains a vendor-defined status code that specifies the outcome of the control operation.
@@ -3723,7 +3732,7 @@ class BiometricFramework {
      * @param {Integer} UnitId A <b>WINBIO_UNIT_ID</b> value that identifies the biometric unit. For the <b>WINBIO_PROPERTY_ANTI_SPOOF_POLICY</b> property, this value must be 0.
      * @param {Pointer<WINBIO_IDENTITY>} Identity Address of a <a href="https://docs.microsoft.com/windows/desktop/SecBioMet/winbio-identity">WINBIO_IDENTITY</a> structure that specifies the account for which you want to set the property.
      * @param {Integer} SubFactor Reserved. This must be <b>WINBIO_SUBTYPE_NO_INFORMATION</b>.
-     * @param {Pointer} PropertyBuffer A pointer to a structure that specifies the new value for the property. This value cannot be NULL. For setting the <b>WINBIO_PROPERTY_ANTI_SPOOF_POLICY</b> property, the structure must be a <a href="https://docs.microsoft.com/windows/desktop/SecBioMet/winbio-anti-spoof-policy">WINBIO_ANTI_SPOOF_POLICY</a> structure.
+     * @param {Integer} PropertyBuffer A pointer to a structure that specifies the new value for the property. This value cannot be NULL. For setting the <b>WINBIO_PROPERTY_ANTI_SPOOF_POLICY</b> property, the structure must be a <a href="https://docs.microsoft.com/windows/desktop/SecBioMet/winbio-anti-spoof-policy">WINBIO_ANTI_SPOOF_POLICY</a> structure.
      * @param {Pointer} PropertyBufferSize The size, in bytes, of the structure to which the <i>PropertyBuffer</i> parameter points. This value cannot be 0.
      * @returns {HRESULT} If the function succeeds, it returns <b>S_OK</b>. If the function fails, it returns an <b>HRESULT</b> value that indicates the error. Possible values include, but are not limited to, those in the following table.  For a list of common error codes, see <a href="https://docs.microsoft.com/windows/desktop/SecCrypto/common-hresult-values">Common HRESULT Values</a>.
      * 
@@ -3886,7 +3895,7 @@ class BiometricFramework {
      * <td>Structure</td>
      * </tr>
      * </table>
-     * @param {Pointer<Void>} _Address 
+     * @param {Pointer<Void>} _Address Address of the memory block to delete.
      * @returns {HRESULT} If the function succeeds, it returns S_OK. If the function fails, it returns an <b>HRESULT</b> value that indicates the error. Possible values include, but are not limited to, those in the following table.  For a list of common error codes, see <a href="https://docs.microsoft.com/windows/desktop/SecCrypto/common-hresult-values">Common HRESULT Values</a>.
      * 
      * <table>
@@ -3925,10 +3934,10 @@ class BiometricFramework {
      * You should call <a href="https://docs.microsoft.com/previous-versions/windows/desktop/legacy/aa366877(v=vs.85)">SecureZeroMemory</a> to securely zero the credential if you pass  <b>WINBIO_PASSWORD_PACKED</b> in the <i>Format</i> parameter.
      * 
      * Only medium and higher  integrity processes can set credentials. If a lower integrity process attempts to set credentials, the function returns E_ACCESSDENIED.
-     * @param {Integer} Type A <a href="https://docs.microsoft.com/windows/desktop/SecBioMet/winbio-credential-type">WINBIO_CREDENTIAL_TYPE</a> value that specifies the credential type. Currently, this can be WINBIO_CREDENTIAL_PASSWORD.
-     * @param {Pointer} Credential A pointer to a variable length array of bytes that contains the credential. The format depends on the <i>Type</i> and <i>Format</i> parameters.
+     * @param {WINBIO_CREDENTIAL_TYPE} Type A <a href="https://docs.microsoft.com/windows/desktop/SecBioMet/winbio-credential-type">WINBIO_CREDENTIAL_TYPE</a> value that specifies the credential type. Currently, this can be WINBIO_CREDENTIAL_PASSWORD.
+     * @param {Integer} Credential A pointer to a variable length array of bytes that contains the credential. The format depends on the <i>Type</i> and <i>Format</i> parameters.
      * @param {Pointer} CredentialSize Size, in bytes, of the value specified by the <i>Credential</i> parameter.
-     * @param {Integer} Format A <a href="https://docs.microsoft.com/windows/desktop/SecBioMet/winbio-credential-format">WINBIO_CREDENTIAL_FORMAT</a> enumeration value that specifies the format of the credential. If the <i>Type</i> parameter is <b>WINBIO_CREDENTIAL_PASSWORD</b>, this  can be one of the following:
+     * @param {WINBIO_CREDENTIAL_FORMAT} Format A <a href="https://docs.microsoft.com/windows/desktop/SecBioMet/winbio-credential-format">WINBIO_CREDENTIAL_FORMAT</a> enumeration value that specifies the format of the credential. If the <i>Type</i> parameter is <b>WINBIO_CREDENTIAL_PASSWORD</b>, this  can be one of the following:
      * 
      * <table>
      * <tr>
@@ -4031,7 +4040,7 @@ class BiometricFramework {
      * @remarks
      * Users who do not have elevated privileges can delete only their own credentials. Elevated users can remove credentials for any user account. Deleting a credential does not affect any biometric enrollments for that user. Deleting a biometric credential does not prevent the user from logging on by using a password. Only medium and higher  integrity processes can delete credentials. If a lower integrity process attempts to delete credentials, the function returns E_ACCESSDENIED.
      * @param {WINBIO_IDENTITY} Identity A  <a href="https://docs.microsoft.com/windows/desktop/SecBioMet/winbio-identity">WINBIO_IDENTITY</a> structure that contains the SID of the user account for which the logon credential will be removed.
-     * @param {Integer} Type 
+     * @param {WINBIO_CREDENTIAL_TYPE} Type 
      * @returns {HRESULT} If the function succeeds, it returns S_OK. If the function fails, it returns an <b>HRESULT</b> value that indicates the error. Possible values include, but are not limited to, those in the following table.  For a list of common error codes, see <a href="https://docs.microsoft.com/windows/desktop/SecCrypto/common-hresult-values">Common HRESULT Values</a>.
      * 
      * <table>
@@ -4101,8 +4110,8 @@ class BiometricFramework {
      * 
      * Users who do not have elevated privileges can retrieve information about only their own credentials. Elevated users can retrieve information for any credential.
      * @param {WINBIO_IDENTITY} Identity A  <a href="https://docs.microsoft.com/windows/desktop/SecBioMet/winbio-identity">WINBIO_IDENTITY</a> structure that contains the SID of the user account for which the credential is being queried.
-     * @param {Integer} Type 
-     * @returns {Integer} 
+     * @param {WINBIO_CREDENTIAL_TYPE} Type 
+     * @returns {WINBIO_CREDENTIAL_STATE} 
      * @see https://learn.microsoft.com/windows/win32/api/winbio/nf-winbio-winbiogetcredentialstate
      * @since windows6.1
      */
@@ -4258,7 +4267,7 @@ class BiometricFramework {
     /**
      * Retrieves a value that specifies whether the Windows Biometric Framework is currently enabled.
      * @param {Pointer<Integer>} Value Pointer to a Boolean value that specifies whether the Windows Biometric Framework is currently enabled.
-     * @param {Pointer<Integer>} Source 
+     * @param {Pointer<WINBIO_SETTING_SOURCE>} Source 
      * @returns {String} Nothing - always returns an empty string
      * @see https://learn.microsoft.com/windows/win32/api/winbio/nf-winbio-winbiogetenabledsetting
      * @since windows6.1
@@ -4273,7 +4282,7 @@ class BiometricFramework {
     /**
      * Retrieves a value that indicates whether users can log on by using biometric information.
      * @param {Pointer<Integer>} Value Pointer to a Boolean value that specifies whether biometric logons are enabled.
-     * @param {Pointer<Integer>} Source 
+     * @param {Pointer<WINBIO_SETTING_SOURCE>} Source 
      * @returns {String} Nothing - always returns an empty string
      * @see https://learn.microsoft.com/windows/win32/api/winbio/nf-winbio-winbiogetlogonsetting
      * @since windows6.1
@@ -4288,7 +4297,7 @@ class BiometricFramework {
     /**
      * Retrieves a value that specifies whether users can log on to a domain by using biometric information.
      * @param {Pointer<Integer>} Value Pointer to a Boolean value that specifies whether biometric domain logons are enabled.
-     * @param {Pointer<Integer>} Source 
+     * @param {Pointer<WINBIO_SETTING_SOURCE>} Source 
      * @returns {String} Nothing - always returns an empty string
      * @see https://learn.microsoft.com/windows/win32/api/winbio/nf-winbio-winbiogetdomainlogonsetting
      * @since windows6.1

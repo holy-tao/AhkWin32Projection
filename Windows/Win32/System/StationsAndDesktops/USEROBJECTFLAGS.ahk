@@ -5,10 +5,8 @@
  * Contains information about a window station or desktop handle.
  * @see https://learn.microsoft.com/windows/win32/api/winuser/ns-winuser-userobjectflags
  * @namespace Windows.Win32.System.StationsAndDesktops
- * @version v4.0.30319
  */
-class USEROBJECTFLAGS extends Win32Struct
-{
+class USEROBJECTFLAGS extends Win32Struct {
     static sizeof => 12
 
     static packingSize => 4

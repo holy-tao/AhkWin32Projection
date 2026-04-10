@@ -1,16 +1,15 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
-#Include ..\Com\IEnumSTATDATA.ahk
 #Include ..\Com\IUnknown.ahk
+#Include ..\Com\IEnumSTATDATA.ahk
 
 /**
  * Provides control of the presentation data that gets cached inside of an object. Cached presentation data is available to the container of the object even when the server application is not running or is unavailable.
  * @see https://learn.microsoft.com/windows/win32/api/oleidl/nn-oleidl-iolecache
  * @namespace Windows.Win32.System.Ole
- * @version v4.0.30319
  */
-class IOleCache extends IUnknown{
+class IOleCache extends IUnknown {
 
     static sizeof => A_PtrSize
     /**
@@ -117,7 +116,7 @@ class IOleCache extends IUnknown{
      * </tr>
      * </table>
      * @param {Pointer<FORMATETC>} pformatetc A pointer to a <a href="https://docs.microsoft.com/windows/desktop/api/objidl/ns-objidl-formatetc">FORMATETC</a> structure that specifies the format and other data to be cached. View caching is specified by passing a zero clipboard format in <i>pformatetc</i>.
-     * @param {Integer} _advf 
+     * @param {Integer} _advf A group of flags that control the caching. Possible values come from the <a href="https://docs.microsoft.com/windows/desktop/api/objidl/ne-objidl-advf">ADVF</a> enumeration. When used in this context, for a cache, these values have specific meanings, which are outlined in Remarks. Refer to the <b>ADVF</b> enumeration for a more detailed description.
      * @returns {Integer} A pointer to a variable that receives the identifier of this connection, which can later be used to turn caching off (by passing it to <a href="https://docs.microsoft.com/windows/desktop/api/oleidl/nf-oleidl-iolecache-uncache">IOleCache::Uncache</a>). If this value is 0, the connection was not established. The OLE-provided implementation uses nonzero numbers for connection identifiers.
      * @see https://learn.microsoft.com/windows/win32/api/oleidl/nf-oleidl-iolecache-cache
      */

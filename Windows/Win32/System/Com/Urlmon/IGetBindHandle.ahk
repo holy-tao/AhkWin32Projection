@@ -1,14 +1,13 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\..\Guid.ahk
-#Include ..\..\..\Foundation\HANDLE.ahk
 #Include ..\IUnknown.ahk
+#Include ..\..\..\Foundation\HANDLE.ahk
 
 /**
  * @namespace Windows.Win32.System.Com.Urlmon
- * @version v4.0.30319
  */
-class IGetBindHandle extends IUnknown{
+class IGetBindHandle extends IUnknown {
 
     static sizeof => A_PtrSize
     /**
@@ -31,7 +30,7 @@ class IGetBindHandle extends IUnknown{
 
     /**
      * 
-     * @param {Integer} enumRequestedHandle 
+     * @param {BINDHANDLETYPES} enumRequestedHandle 
      * @returns {HANDLE} 
      */
     GetBindHandle(enumRequestedHandle) {

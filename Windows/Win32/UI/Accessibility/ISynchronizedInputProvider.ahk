@@ -7,9 +7,8 @@
  * Enables Microsoft UI Automation client applications to direct the mouse or keyboard input to a specific UI element.
  * @see https://learn.microsoft.com/windows/win32/api/uiautomationcore/nn-uiautomationcore-isynchronizedinputprovider
  * @namespace Windows.Win32.UI.Accessibility
- * @version v4.0.30319
  */
-class ISynchronizedInputProvider extends IUnknown{
+class ISynchronizedInputProvider extends IUnknown {
 
     static sizeof => A_PtrSize
     /**
@@ -38,7 +37,7 @@ class ISynchronizedInputProvider extends IUnknown{
      * This is a one-shot method; after receiving input, the provider stops listening and continues normally.
      * 
      * This method returns E_INVALIDOPERATION if the provider is already listening for input.
-     * @param {Integer} inputType Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/uiautomationcore/ne-uiautomationcore-synchronizedinputtype">SynchronizedInputType</a></b>
+     * @param {SynchronizedInputType} inputType Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/uiautomationcore/ne-uiautomationcore-synchronizedinputtype">SynchronizedInputType</a></b>
      * 
      * The type of input that is requested to be synchronized.
      * @returns {HRESULT} Type: <b><a href="https://docs.microsoft.com/windows/desktop/WinProg/windows-data-types">HRESULT</a></b>

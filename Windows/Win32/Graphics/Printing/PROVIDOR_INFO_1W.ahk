@@ -5,11 +5,9 @@
  * The PROVIDOR\_INFO\_1 structure identifies a print provider.
  * @see https://learn.microsoft.com/windows/win32/printdocs/providor-info-1
  * @namespace Windows.Win32.Graphics.Printing
- * @version v4.0.30319
  * @charset Unicode
  */
-class PROVIDOR_INFO_1W extends Win32Struct
-{
+class PROVIDOR_INFO_1W extends Win32Struct {
     static sizeof => 24
 
     static packingSize => 8

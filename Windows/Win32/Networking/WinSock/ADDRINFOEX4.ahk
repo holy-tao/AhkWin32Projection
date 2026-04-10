@@ -1,5 +1,7 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
+#Include .\SOCKADDR.ahk
+#Include .\ADDRINFOEX4.ahk
 #Include ..\..\Foundation\HANDLE.ahk
 
 /**
@@ -26,10 +28,8 @@
  * <b>addrinfoex4</b> structure points to a filled-in socket address structure, the length of which is specified in its <b>ai_addrlen</b> member.
  * @see https://learn.microsoft.com/windows/win32/api/ws2def/ns-ws2def-addrinfoex4
  * @namespace Windows.Win32.Networking.WinSock
- * @version v4.0.30319
  */
-class ADDRINFOEX4 extends Win32Struct
-{
+class ADDRINFOEX4 extends Win32Struct {
     static sizeof => 104
 
     static packingSize => 8
@@ -568,7 +568,7 @@ class ADDRINFOEX4 extends Win32Struct
      * Handle pointing to the fully qualified domain name for the host.
      * @type {HANDLE}
      */
-    ai_resolutionhandle{
+    ai_resolutionhandle {
         get {
             if(!this.HasProp("__ai_resolutionhandle"))
                 this.__ai_resolutionhandle := HANDLE(96, this)

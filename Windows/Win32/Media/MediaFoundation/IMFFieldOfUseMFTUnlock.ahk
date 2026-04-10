@@ -9,9 +9,8 @@
  * If you register an MFT that requires unlocking, include the <b>MFT_ENUM_FLAG_FIELDOFUSE</b> flag when you call the <a href="https://docs.microsoft.com/windows/desktop/api/mfapi/nf-mfapi-mftregister">MFTRegister</a> function.
  * @see https://learn.microsoft.com/windows/win32/api/mfidl/nn-mfidl-imffieldofusemftunlock
  * @namespace Windows.Win32.Media.MediaFoundation
- * @version v4.0.30319
  */
-class IMFFieldOfUseMFTUnlock extends IUnknown{
+class IMFFieldOfUseMFTUnlock extends IUnknown {
 
     static sizeof => A_PtrSize
     /**

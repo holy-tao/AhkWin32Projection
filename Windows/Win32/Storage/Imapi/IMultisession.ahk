@@ -1,8 +1,8 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
-#Include .\IDiscRecorder2.ahk
 #Include ..\..\System\Com\IDispatch.ahk
+#Include .\IDiscRecorder2.ahk
 
 /**
  * Base interface containing properties common to derived multisession interfaces.
@@ -10,9 +10,8 @@
  * If more than one multi-session interface exist, the application can let <a href="https://docs.microsoft.com/windows/desktop/api/imapi2fs/nn-imapi2fs-ifilesystemimage">IFileSystemImage</a> choose a compatible multi-session interface to use  or the application can specify the multi-session interface to use by setting the <a href="https://docs.microsoft.com/windows/desktop/api/imapi2/nf-imapi2-imultisession-put_inuse">put_InUse</a> property to VARIANT_TRUE.
  * @see https://learn.microsoft.com/windows/win32/api/imapi2/nn-imapi2-imultisession
  * @namespace Windows.Win32.Storage.Imapi
- * @version v4.0.30319
  */
-class IMultisession extends IDispatch{
+class IMultisession extends IDispatch {
 
     static sizeof => A_PtrSize
     /**

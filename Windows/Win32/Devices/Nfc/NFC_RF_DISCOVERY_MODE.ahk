@@ -3,9 +3,8 @@
 
 /**
  * @namespace Windows.Win32.Devices.Nfc
- * @version v4.0.30319
  */
-class NFC_RF_DISCOVERY_MODE extends Win32Enum{
+class NFC_RF_DISCOVERY_MODE extends Win32Enum {
 
     /**
      * @type {Integer (Int32)}

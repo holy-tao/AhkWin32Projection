@@ -5,10 +5,8 @@
  * Used in connection with obtaining WM_DEVICECHANGE messages for Bluetooth.
  * @see https://learn.microsoft.com/windows/win32/api/bthdef/ns-bthdef-bth_hci_event_info
  * @namespace Windows.Win32.Devices.Bluetooth
- * @version v4.0.30319
  */
-class BTH_HCI_EVENT_INFO extends Win32Struct
-{
+class BTH_HCI_EVENT_INFO extends Win32Struct {
     static sizeof => 16
 
     static packingSize => 8

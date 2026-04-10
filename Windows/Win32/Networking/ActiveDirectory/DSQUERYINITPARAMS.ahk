@@ -9,10 +9,8 @@
  * <a href="https://docs.microsoft.com/windows/desktop/api/cmnquery/nf-cmnquery-icommonquery-openquerywindow">ICommonQuery::OpenQueryWindow</a>.
  * @see https://learn.microsoft.com/windows/win32/api/dsquery/ns-dsquery-dsqueryinitparams
  * @namespace Windows.Win32.Networking.ActiveDirectory
- * @version v4.0.30319
  */
-class DSQUERYINITPARAMS extends Win32Struct
-{
+class DSQUERYINITPARAMS extends Win32Struct {
     static sizeof => 48
 
     static packingSize => 8
@@ -27,7 +25,6 @@ class DSQUERYINITPARAMS extends Win32Struct
     }
 
     /**
-     * 
      * @type {Integer}
      */
     dwFlags {

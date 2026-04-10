@@ -7,10 +7,8 @@
  * Structures of this type are created in an application call to <a href="https://docs.microsoft.com/windows/desktop/api/elscore/nf-elscore-mappinggetservices">MappingGetServices</a>.
  * @see https://learn.microsoft.com/windows/win32/api/elscore/ns-elscore-mapping_service_info
  * @namespace Windows.Win32.Globalization
- * @version v4.0.30319
  */
-class MAPPING_SERVICE_INFO extends Win32Struct
-{
+class MAPPING_SERVICE_INFO extends Win32Struct {
     static sizeof => 176
 
     static packingSize => 8
@@ -182,7 +180,7 @@ class MAPPING_SERVICE_INFO extends Win32Struct
 
     /**
      * Globally unique identifier (GUID) for the service.
-     * @type {Pointer<Guid>}
+     * @type {Pointer}
      */
     guid {
         get => NumGet(this, 120, "ptr")
@@ -248,35 +246,6 @@ class MAPPING_SERVICE_INFO extends Win32Struct
     }
 
     /**
-     * Flag indicating the language mapping between input language and output language that is supported by the service. Possible values are shown in the following table.
-     * 			 
-     * 
-     * <table>
-     * <tr>
-     * <th>Value</th>
-     * <th>Meaning</th>
-     * </tr>
-     * <tr>
-     * <td width="40%"><a id="0"></a><dl>
-     * <dt><b>0</b></dt>
-     * </dl>
-     * </td>
-     * <td width="60%">
-     * The input and output languages are not paired and the service can receive data in any of the input languages and render data in any of the output languages.
-     * 
-     * </td>
-     * </tr>
-     * <tr>
-     * <td width="40%"><a id="1"></a><dl>
-     * <dt><b>1</b></dt>
-     * </dl>
-     * </td>
-     * <td width="60%">
-     * The arrays of the input and output languages for the service are paired. In other words, given a particular input language, the service retrieves results in the paired language defined in the output language array. Use of the language pairing can be useful, for example, in bilingual dictionary scenarios. 
-     * 
-     * </td>
-     * </tr>
-     * </table>
      * @type {Integer}
      */
     IsOneToOneLanguageMapping {
@@ -285,34 +254,6 @@ class MAPPING_SERVICE_INFO extends Win32Struct
     }
 
     /**
-     * Flag indicating if the service has subservices, that is, other services that plug into the service. This flag is used in service enumeration to determine if the parent service must be called to get a list of subservices. Possible values are shown in the following table.
-     * 
-     * <table>
-     * <tr>
-     * <th>Value</th>
-     * <th>Meaning</th>
-     * </tr>
-     * <tr>
-     * <td width="40%"><a id="0"></a><dl>
-     * <dt><b>0</b></dt>
-     * </dl>
-     * </td>
-     * <td width="60%">
-     * The service is a regular service that stands alone and has no subservices. 
-     * 
-     * </td>
-     * </tr>
-     * <tr>
-     * <td width="40%"><a id="1"></a><dl>
-     * <dt><b>1</b></dt>
-     * </dl>
-     * </td>
-     * <td width="60%">
-     * The service acts as a parent for subservices.
-     * 
-     * </td>
-     * </tr>
-     * </table>
      * @type {Integer}
      */
     HasSubservices {
@@ -321,7 +262,6 @@ class MAPPING_SERVICE_INFO extends Win32Struct
     }
 
     /**
-     * Reserved for future use.
      * @type {Integer}
      */
     OnlineOnly {
@@ -330,7 +270,6 @@ class MAPPING_SERVICE_INFO extends Win32Struct
     }
 
     /**
-     * Reserved for future use.
      * @type {Integer}
      */
     ServiceType {

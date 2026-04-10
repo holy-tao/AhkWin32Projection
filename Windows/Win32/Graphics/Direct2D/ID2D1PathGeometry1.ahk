@@ -1,8 +1,8 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
-#Include .\D2D1_POINT_DESCRIPTION.ahk
 #Include .\ID2D1PathGeometry.ahk
+#Include .\D2D1_POINT_DESCRIPTION.ahk
 
 /**
  * The ID2D1PathGeometry1 interface adds functionality to ID2D1PathGeometry. In particular, it provides the path geometry-specific ComputePointAndSegmentAtLength method.
@@ -10,9 +10,8 @@
  * This interface adds functionality to <a href="https://docs.microsoft.com/windows/desktop/api/d2d1/nn-d2d1-id2d1pathgeometry">ID2D1PathGeometry</a>.
  * @see https://learn.microsoft.com/windows/win32/api/d2d1_1/nn-d2d1_1-id2d1pathgeometry1
  * @namespace Windows.Win32.Graphics.Direct2D
- * @version v4.0.30319
  */
-class ID2D1PathGeometry1 extends ID2D1PathGeometry{
+class ID2D1PathGeometry1 extends ID2D1PathGeometry {
 
     static sizeof => A_PtrSize
     /**

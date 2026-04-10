@@ -5,10 +5,8 @@
  * Contains information about the session, including name of the computer; name of the user; and active and idle times for the session.
  * @see https://learn.microsoft.com/windows/win32/api/lmshare/ns-lmshare-session_info_10
  * @namespace Windows.Win32.Storage.FileSystem
- * @version v4.0.30319
  */
-class SESSION_INFO_10 extends Win32Struct
-{
+class SESSION_INFO_10 extends Win32Struct {
     static sizeof => 24
 
     static packingSize => 8

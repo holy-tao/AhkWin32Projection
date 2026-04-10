@@ -1,14 +1,15 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
+#Include .\IMAGE_DELAYLOAD_DESCRIPTOR.ahk
+#Include .\IMAGE_THUNK_DATA64.ahk
 #Include .\DELAYLOAD_PROC_DESCRIPTOR.ahk
 
 /**
  * @namespace Windows.Win32.System.WindowsProgramming
- * @version v4.0.30319
+ * @architecture X64, Arm64
  */
-class DELAYLOAD_INFO extends Win32Struct
-{
-    static sizeof => 80
+class DELAYLOAD_INFO extends Win32Struct {
+    static sizeof => 72
 
     static packingSize => 8
 
@@ -47,7 +48,7 @@ class DELAYLOAD_INFO extends Win32Struct
     /**
      * @type {DELAYLOAD_PROC_DESCRIPTOR}
      */
-    TargetApiDescriptor{
+    TargetApiDescriptor {
         get {
             if(!this.HasProp("__TargetApiDescriptor"))
                 this.__TargetApiDescriptor := DELAYLOAD_PROC_DESCRIPTOR(32, this)
@@ -59,23 +60,23 @@ class DELAYLOAD_INFO extends Win32Struct
      * @type {Pointer<Void>}
      */
     TargetModuleBase {
-        get => NumGet(this, 56, "ptr")
-        set => NumPut("ptr", value, this, 56)
+        get => NumGet(this, 48, "ptr")
+        set => NumPut("ptr", value, this, 48)
     }
 
     /**
      * @type {Pointer<Void>}
      */
     Unused {
-        get => NumGet(this, 64, "ptr")
-        set => NumPut("ptr", value, this, 64)
+        get => NumGet(this, 56, "ptr")
+        set => NumPut("ptr", value, this, 56)
     }
 
     /**
      * @type {Integer}
      */
     LastError {
-        get => NumGet(this, 72, "uint")
-        set => NumPut("uint", value, this, 72)
+        get => NumGet(this, 64, "uint")
+        set => NumPut("uint", value, this, 64)
     }
 }

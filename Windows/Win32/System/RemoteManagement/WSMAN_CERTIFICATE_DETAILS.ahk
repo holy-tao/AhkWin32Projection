@@ -5,10 +5,8 @@
  * Stores client information for an inbound request that was sent with a client certificate.
  * @see https://learn.microsoft.com/windows/win32/api/wsman/ns-wsman-wsman_certificate_details
  * @namespace Windows.Win32.System.RemoteManagement
- * @version v4.0.30319
  */
-class WSMAN_CERTIFICATE_DETAILS extends Win32Struct
-{
+class WSMAN_CERTIFICATE_DETAILS extends Win32Struct {
     static sizeof => 32
 
     static packingSize => 8

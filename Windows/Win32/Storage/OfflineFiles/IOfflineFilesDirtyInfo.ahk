@@ -7,9 +7,8 @@
  * Represents information about an unsynchronized (&quot;dirty&quot;) file in the Offline Files cache.
  * @see https://learn.microsoft.com/windows/win32/api/cscobj/nn-cscobj-iofflinefilesdirtyinfo
  * @namespace Windows.Win32.Storage.OfflineFiles
- * @version v4.0.30319
  */
-class IOfflineFilesDirtyInfo extends IUnknown{
+class IOfflineFilesDirtyInfo extends IUnknown {
 
     static sizeof => A_PtrSize
     /**

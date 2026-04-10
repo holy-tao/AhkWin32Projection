@@ -1,14 +1,16 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
+#Include .\DHCP_FAILOVER_MODE.ahk
+#Include .\DHCP_FAILOVER_SERVER.ahk
+#Include .\FSM_STATE.ahk
+#Include .\DHCP_IP_ARRAY.ahk
 
 /**
  * The DHCP_FAILOVER_RELATIONSHIP structure defines information about a DHCPv4 server failover relationship.
  * @see https://learn.microsoft.com/windows/win32/api/dhcpsapi/ns-dhcpsapi-dhcp_failover_relationship
  * @namespace Windows.Win32.NetworkManagement.Dhcp
- * @version v4.0.30319
  */
-class DHCP_FAILOVER_RELATIONSHIP extends Win32Struct
-{
+class DHCP_FAILOVER_RELATIONSHIP extends Win32Struct {
     static sizeof => 80
 
     static packingSize => 8
@@ -33,7 +35,7 @@ class DHCP_FAILOVER_RELATIONSHIP extends Win32Struct
 
     /**
      * <a href="https://docs.microsoft.com/windows/desktop/api/dhcpsapi/ne-dhcpsapi-dhcp_failover_mode">DHCP_FAILOVER_MODE</a> enumeration that specifies the failover relationship mode.
-     * @type {Integer}
+     * @type {DHCP_FAILOVER_MODE}
      */
     Mode {
         get => NumGet(this, 8, "int")
@@ -42,7 +44,7 @@ class DHCP_FAILOVER_RELATIONSHIP extends Win32Struct
 
     /**
      * <a href="https://docs.microsoft.com/windows/desktop/api/dhcpsapi/ne-dhcpsapi-dhcp_failover_server">DHCP_FAILOVER_SERVER</a> enumeration that specifies if the server is the primary or secondary server in the failover relationship
-     * @type {Integer}
+     * @type {DHCP_FAILOVER_SERVER}
      */
     ServerType {
         get => NumGet(this, 12, "int")
@@ -51,7 +53,7 @@ class DHCP_FAILOVER_RELATIONSHIP extends Win32Struct
 
     /**
      * <a href="https://docs.microsoft.com/windows/desktop/api/dhcpsapi/ne-dhcpsapi-fsm_state">FSM_STATE</a> enumeration that specifies the state of the failover relationship.
-     * @type {Integer}
+     * @type {FSM_STATE}
      */
     State {
         get => NumGet(this, 16, "int")
@@ -60,7 +62,7 @@ class DHCP_FAILOVER_RELATIONSHIP extends Win32Struct
 
     /**
      * <a href="https://docs.microsoft.com/windows/desktop/api/dhcpsapi/ne-dhcpsapi-fsm_state">FSM_STATE</a> enumeration that specifies the previous state of the failover relationship.
-     * @type {Integer}
+     * @type {FSM_STATE}
      */
     PrevState {
         get => NumGet(this, 20, "int")

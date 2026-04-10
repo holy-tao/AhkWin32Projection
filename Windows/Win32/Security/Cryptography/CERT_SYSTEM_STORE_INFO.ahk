@@ -7,10 +7,8 @@
  * Currently, no system store information is persisted.
  * @see https://learn.microsoft.com/windows/win32/api/wincrypt/ns-wincrypt-cert_system_store_info
  * @namespace Windows.Win32.Security.Cryptography
- * @version v4.0.30319
  */
-class CERT_SYSTEM_STORE_INFO extends Win32Struct
-{
+class CERT_SYSTEM_STORE_INFO extends Win32Struct {
     static sizeof => 4
 
     static packingSize => 4

@@ -1,10 +1,10 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
+#Include ..\Com\IUnknown.ahk
 #Include .\IQuerySolution.ahk
 #Include ..\Com\StructuredStorage\PROPVARIANT.ahk
 #Include .\ISchemaProvider.ahk
-#Include ..\Com\IUnknown.ahk
 
 /**
  * Provides methods to parse an input string into an IQuerySolution object.
@@ -12,9 +12,8 @@
  * The <a href="https://github.com/microsoft/Windows-classic-samples/tree/master/Samples/Win7Samples/winui/WindowsSearch/StructuredQuerySample">StructuredQuerySample</a> demonstrates how to read lines from the console, parse them using the system schema, and display the resulting condition trees.
  * @see https://learn.microsoft.com/windows/win32/api/structuredquery/nn-structuredquery-iqueryparser
  * @namespace Windows.Win32.System.Search
- * @version v4.0.30319
  */
-class IQueryParser extends IUnknown{
+class IQueryParser extends IUnknown {
 
     static sizeof => A_PtrSize
     /**
@@ -77,7 +76,7 @@ class IQueryParser extends IUnknown{
      * Sets a single option, such as a specified wordbreaker, for parsing an input string.
      * @remarks
      * For more information, see <a href="https://docs.microsoft.com/windows/win32/api/structuredquery/ne-structuredquery-structured_query_single_option">STRUCTURED_QUERY_SINGLE_OPTION</a>.
-     * @param {Integer} option Type: <b><a href="https://docs.microsoft.com/windows/win32/api/structuredquery/ne-structuredquery-structured_query_single_option">STRUCTURED_QUERY_SINGLE_OPTION</a></b>
+     * @param {STRUCTURED_QUERY_SINGLE_OPTION} option Type: <b><a href="https://docs.microsoft.com/windows/win32/api/structuredquery/ne-structuredquery-structured_query_single_option">STRUCTURED_QUERY_SINGLE_OPTION</a></b>
      * 
      * Identifies the type of option to be set.
      * @param {Pointer<PROPVARIANT>} pOptionValue Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/propidl/ns-propidl-propvariant">PROPVARIANT</a>*</b>
@@ -95,7 +94,7 @@ class IQueryParser extends IUnknown{
 
     /**
      * Retrieves a specified simple option value for this query parser.
-     * @param {Integer} option Type: <b><a href="https://docs.microsoft.com/windows/win32/api/structuredquery/ne-structuredquery-structured_query_single_option">STRUCTURED_QUERY_SINGLE_OPTION</a></b>
+     * @param {STRUCTURED_QUERY_SINGLE_OPTION} option Type: <b><a href="https://docs.microsoft.com/windows/win32/api/structuredquery/ne-structuredquery-structured_query_single_option">STRUCTURED_QUERY_SINGLE_OPTION</a></b>
      * 
      * The <a href="https://docs.microsoft.com/windows/win32/api/structuredquery/ne-structuredquery-structured_query_single_option">STRUCTURED_QUERY_SINGLE_OPTION</a> enumerated type that specifies the option to be retrieved.
      * @returns {PROPVARIANT} Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/propidl/ns-propidl-propvariant">PROPVARIANT</a>*</b>
@@ -111,7 +110,7 @@ class IQueryParser extends IUnknown{
 
     /**
      * Sets a complex option, such as a specified condition generator, to use when parsing an input string.
-     * @param {Integer} option Type: <b><a href="https://docs.microsoft.com/windows/win32/api/structuredquery/ne-structuredquery-structured_query_multioption">STRUCTURED_QUERY_MULTIOPTION</a></b>
+     * @param {STRUCTURED_QUERY_MULTIOPTION} option Type: <b><a href="https://docs.microsoft.com/windows/win32/api/structuredquery/ne-structuredquery-structured_query_multioption">STRUCTURED_QUERY_MULTIOPTION</a></b>
      * 
      * The complex option to be set.
      * @param {PWSTR} pszOptionKey Type: <b>LPCWSTR</b>

@@ -3,16 +3,14 @@
 
 /**
  * @namespace Windows.Wdk.System.SystemServices
- * @version v4.0.30319
  */
-class WHEA_XPF_PROCESSOR_ERROR_SECTION extends Win32Struct
-{
+class WHEA_XPF_PROCESSOR_ERROR_SECTION extends Win32Struct {
     static sizeof => 72
 
     static packingSize => 8
 
     /**
-     * @type {Pointer<WHEA_XPF_PROCESSOR_ERROR_SECTION_VALIDBITS>}
+     * @type {Pointer}
      */
     ValidBits {
         get => NumGet(this, 0, "ptr")
@@ -28,9 +26,9 @@ class WHEA_XPF_PROCESSOR_ERROR_SECTION extends Win32Struct
     }
 
     /**
-     * @type {Array<Byte>}
+     * @type {Array<Integer>}
      */
-    CpuId{
+    CpuId {
         get {
             if(!this.HasProp("__CpuIdProxyArray"))
                 this.__CpuIdProxyArray := Win32FixedArray(this.ptr + 16, 48, Primitive, "char")
@@ -39,9 +37,9 @@ class WHEA_XPF_PROCESSOR_ERROR_SECTION extends Win32Struct
     }
 
     /**
-     * @type {Array<Byte>}
+     * @type {Array<Integer>}
      */
-    VariableInfo{
+    VariableInfo {
         get {
             if(!this.HasProp("__VariableInfoProxyArray"))
                 this.__VariableInfoProxyArray := Win32FixedArray(this.ptr + 64, 1, Primitive, "char")

@@ -2,15 +2,16 @@
 #Include ..\..\..\..\Win32Struct.ahk
 #Include ..\WindowsAndMessaging\HMENU.ahk
 #Include ..\..\Foundation\HWND.ahk
+#Include ..\..\System\Com\IUnknown.ahk
+#Include Common\ITEMIDLIST.ahk
+#Include .\IShellFolder.ahk
 
 /**
  * Contains information from a menu band.
  * @see https://learn.microsoft.com/windows/win32/api/shobjidl_core/ns-shobjidl_core-smdata
  * @namespace Windows.Win32.UI.Shell
- * @version v4.0.30319
  */
-class SMDATA extends Win32Struct
-{
+class SMDATA extends Win32Struct {
     static sizeof => 80
 
     static packingSize => 8
@@ -41,7 +42,7 @@ class SMDATA extends Win32Struct
      * The static menu portion of the menu band.
      * @type {HMENU}
      */
-    hmenu{
+    hmenu {
         get {
             if(!this.HasProp("__hmenu"))
                 this.__hmenu := HMENU(8, this)
@@ -55,7 +56,7 @@ class SMDATA extends Win32Struct
      * The HWND value of the owner window.
      * @type {HWND}
      */
-    hwnd{
+    hwnd {
         get {
             if(!this.HasProp("__hwnd"))
                 this.__hwnd := HWND(16, this)

@@ -1,14 +1,13 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\..\Win32Struct.ahk
+#Include ..\..\..\UI\Shell\PropertiesSystem\IPropertyStore.ahk
 
 /**
  * The AudioFXExtensionParams structure is passed to the system effects ControlPanel Extension PropertyPage via IShellPropSheetExt::AddPages.
  * @see https://learn.microsoft.com/windows/win32/api/audioenginebaseapo/ns-audioenginebaseapo-audiofxextensionparams
  * @namespace Windows.Win32.Media.Audio.Apo
- * @version v4.0.30319
  */
-class AudioFXExtensionParams extends Win32Struct
-{
+class AudioFXExtensionParams extends Win32Struct {
     static sizeof => 24
 
     static packingSize => 8

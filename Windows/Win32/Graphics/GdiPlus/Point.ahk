@@ -5,16 +5,13 @@
  * Represents an ordered pair of floating-point x- and y-coordinates that defines a point in a two-dimensional plane.
  * @see https://learn.microsoft.com/windows/win32/api/windows.foundation/ns-windows-foundation-point
  * @namespace Windows.Win32.Graphics.GdiPlus
- * @version v4.0.30319
  */
-class Point extends Win32Struct
-{
+class Point extends Win32Struct {
     static sizeof => 8
 
     static packingSize => 4
 
     /**
-     * 
      * @type {Integer}
      */
     X {
@@ -23,7 +20,6 @@ class Point extends Win32Struct
     }
 
     /**
-     * 
      * @type {Integer}
      */
     Y {

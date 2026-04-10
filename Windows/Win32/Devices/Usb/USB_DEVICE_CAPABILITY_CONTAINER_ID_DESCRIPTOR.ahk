@@ -3,10 +3,8 @@
 
 /**
  * @namespace Windows.Win32.Devices.Usb
- * @version v4.0.30319
  */
-class USB_DEVICE_CAPABILITY_CONTAINER_ID_DESCRIPTOR extends Win32Struct
-{
+class USB_DEVICE_CAPABILITY_CONTAINER_ID_DESCRIPTOR extends Win32Struct {
     static sizeof => 20
 
     static packingSize => 1
@@ -44,9 +42,9 @@ class USB_DEVICE_CAPABILITY_CONTAINER_ID_DESCRIPTOR extends Win32Struct
     }
 
     /**
-     * @type {Array<Byte>}
+     * @type {Array<Integer>}
      */
-    ContainerID{
+    ContainerID {
         get {
             if(!this.HasProp("__ContainerIDProxyArray"))
                 this.__ContainerIDProxyArray := Win32FixedArray(this.ptr + 4, 16, Primitive, "char")

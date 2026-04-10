@@ -4,10 +4,8 @@
 
 /**
  * @namespace Windows.Win32.Media.KernelStreaming
- * @version v4.0.30319
  */
-class KSCAMERA_EXTENDEDPROP_BACKGROUNDSEGMENTATION_CONFIGCAPS extends Win32Struct
-{
+class KSCAMERA_EXTENDEDPROP_BACKGROUNDSEGMENTATION_CONFIGCAPS extends Win32Struct {
     static sizeof => 32
 
     static packingSize => 8
@@ -23,7 +21,7 @@ class KSCAMERA_EXTENDEDPROP_BACKGROUNDSEGMENTATION_CONFIGCAPS extends Win32Struc
             get => NumGet(this, 0, "int")
             set => NumPut("int", value, this, 0)
         }
-    
+
         /**
          * @type {Integer}
          */
@@ -31,13 +29,12 @@ class KSCAMERA_EXTENDEDPROP_BACKGROUNDSEGMENTATION_CONFIGCAPS extends Win32Struc
             get => NumGet(this, 4, "int")
             set => NumPut("int", value, this, 4)
         }
-    
     }
 
     /**
      * @type {SIZE}
      */
-    Resolution{
+    Resolution {
         get {
             if(!this.HasProp("__Resolution"))
                 this.__Resolution := SIZE(0, this)
@@ -48,10 +45,10 @@ class KSCAMERA_EXTENDEDPROP_BACKGROUNDSEGMENTATION_CONFIGCAPS extends Win32Struc
     /**
      * @type {_MaxFrameRate}
      */
-    MaxFrameRate{
+    MaxFrameRate {
         get {
             if(!this.HasProp("__MaxFrameRate"))
-                this.__MaxFrameRate := %this.__Class%._MaxFrameRate(8, this)
+                this.__MaxFrameRate := KSCAMERA_EXTENDEDPROP_BACKGROUNDSEGMENTATION_CONFIGCAPS._MaxFrameRate(8, this)
             return this.__MaxFrameRate
         }
     }
@@ -59,7 +56,7 @@ class KSCAMERA_EXTENDEDPROP_BACKGROUNDSEGMENTATION_CONFIGCAPS extends Win32Struc
     /**
      * @type {SIZE}
      */
-    MaskResolution{
+    MaskResolution {
         get {
             if(!this.HasProp("__MaskResolution"))
                 this.__MaskResolution := SIZE(16, this)
@@ -68,7 +65,7 @@ class KSCAMERA_EXTENDEDPROP_BACKGROUNDSEGMENTATION_CONFIGCAPS extends Win32Struc
     }
 
     /**
-     * @type {Pointer<Guid>}
+     * @type {Pointer}
      */
     SubType {
         get => NumGet(this, 24, "ptr")

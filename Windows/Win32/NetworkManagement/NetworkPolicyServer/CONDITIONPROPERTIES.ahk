@@ -8,9 +8,8 @@
  * <a href="https://docs.microsoft.com/windows/desktop/api/sdoias/ne-sdoias-policyproperties">POLICYPROPERTIES</a> enumeration type contains the value PROPERTY_POLICY_CONDITIONS_COLLECTION, which is the property for the conditions collection.
  * @see https://learn.microsoft.com/windows/win32/api/sdoias/ne-sdoias-conditionproperties
  * @namespace Windows.Win32.NetworkManagement.NetworkPolicyServer
- * @version v4.0.30319
  */
-class CONDITIONPROPERTIES extends Win32Enum{
+class CONDITIONPROPERTIES extends Win32Enum {
 
     /**
      * The text of the NAP condition.

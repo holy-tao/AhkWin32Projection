@@ -3,10 +3,8 @@
 
 /**
  * @namespace Windows.Win32.NetworkManagement.QoS
- * @version v4.0.30319
  */
-class PLUTON_UPGRADE_IMAGEDATA extends Win32Struct
-{
+class PLUTON_UPGRADE_IMAGEDATA extends Win32Struct {
     static sizeof => 196
 
     static packingSize => 2
@@ -28,9 +26,9 @@ class PLUTON_UPGRADE_IMAGEDATA extends Win32Struct
     }
 
     /**
-     * @type {Array<Byte>}
+     * @type {Array<Integer>}
      */
-    digest{
+    digest {
         get {
             if(!this.HasProp("__digestProxyArray"))
                 this.__digestProxyArray := Win32FixedArray(this.ptr + 4, 64, Primitive, "char")

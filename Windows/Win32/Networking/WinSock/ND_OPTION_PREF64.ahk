@@ -3,10 +3,8 @@
 
 /**
  * @namespace Windows.Win32.Networking.WinSock
- * @version v4.0.30319
  */
-class ND_OPTION_PREF64 extends Win32Struct
-{
+class ND_OPTION_PREF64 extends Win32Struct {
     static sizeof => 16
 
     static packingSize => 2
@@ -63,9 +61,9 @@ class ND_OPTION_PREF64 extends Win32Struct
     }
 
     /**
-     * @type {Array<Byte>}
+     * @type {Array<Integer>}
      */
-    nd_opt_p64_prefix{
+    nd_opt_p64_prefix {
         get {
             if(!this.HasProp("__nd_opt_p64_prefixProxyArray"))
                 this.__nd_opt_p64_prefixProxyArray := Win32FixedArray(this.ptr + 4, 12, Primitive, "char")

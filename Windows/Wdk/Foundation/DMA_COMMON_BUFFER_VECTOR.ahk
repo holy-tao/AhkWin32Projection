@@ -3,10 +3,8 @@
 
 /**
  * @namespace Windows.Wdk.Foundation
- * @version v4.0.30319
  */
-class DMA_COMMON_BUFFER_VECTOR extends Win32Struct
-{
+class DMA_COMMON_BUFFER_VECTOR extends Win32Struct {
     static sizeof => 8
 
     static packingSize => 8

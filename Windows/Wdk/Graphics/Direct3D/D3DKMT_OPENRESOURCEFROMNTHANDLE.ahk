@@ -1,13 +1,12 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
 #Include ..\..\..\Win32\Foundation\HANDLE.ahk
+#Include .\D3DDDI_OPENALLOCATIONINFO2.ahk
 
 /**
  * @namespace Windows.Wdk.Graphics.Direct3D
- * @version v4.0.30319
  */
-class D3DKMT_OPENRESOURCEFROMNTHANDLE extends Win32Struct
-{
+class D3DKMT_OPENRESOURCEFROMNTHANDLE extends Win32Struct {
     static sizeof => 104
 
     static packingSize => 8
@@ -23,7 +22,7 @@ class D3DKMT_OPENRESOURCEFROMNTHANDLE extends Win32Struct
     /**
      * @type {HANDLE}
      */
-    hNtHandle{
+    hNtHandle {
         get {
             if(!this.HasProp("__hNtHandle"))
                 this.__hNtHandle := HANDLE(8, this)

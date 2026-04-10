@@ -1,5 +1,6 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
+#Include .\WMDM_PROP_CONFIG.ahk
 
 /**
  * The WMDM\_FORMAT\_CAPABILITY structure describes the capabilities of a device for a particular format.
@@ -55,10 +56,8 @@
  * ```
  * @see https://learn.microsoft.com/windows/win32/WMDM/wmdm-format-capability
  * @namespace Windows.Win32.Media.DeviceManager
- * @version v4.0.30319
  */
-class WMDM_FORMAT_CAPABILITY extends Win32Struct
-{
+class WMDM_FORMAT_CAPABILITY extends Win32Struct {
     static sizeof => 16
 
     static packingSize => 8

@@ -7,9 +7,8 @@
  * Configures the &quot;leaky bucket&quot; parameters on a video encoder.
  * @see https://learn.microsoft.com/windows/win32/api/wmcodecdsp/nn-wmcodecdsp-iwmcodecleakybucket
  * @namespace Windows.Win32.Media.MediaFoundation
- * @version v4.0.30319
  */
-class IWMCodecLeakyBucket extends IUnknown{
+class IWMCodecLeakyBucket extends IUnknown {
 
     static sizeof => A_PtrSize
     /**

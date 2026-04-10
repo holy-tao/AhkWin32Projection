@@ -1,16 +1,15 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
-#Include ..\..\System\Com\StructuredStorage\PROPVARIANT.ahk
 #Include ..\..\System\Com\IUnknown.ahk
+#Include ..\..\System\Com\StructuredStorage\PROPVARIANT.ahk
 
 /**
  * IUISimplePropertySet is a read-only interface that defines a method for retrieving the value identified by a property key.
  * @see https://learn.microsoft.com/windows/win32/api/uiribbon/nn-uiribbon-iuisimplepropertyset
  * @namespace Windows.Win32.UI.Ribbon
- * @version v4.0.30319
  */
-class IUISimplePropertySet extends IUnknown{
+class IUISimplePropertySet extends IUnknown {
 
     static sizeof => A_PtrSize
     /**

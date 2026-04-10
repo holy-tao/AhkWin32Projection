@@ -5,9 +5,8 @@
  * The stencil operations that can be performed during depth-stencil testing. (D3D10_STENCIL_OP)
  * @see https://learn.microsoft.com/windows/win32/api/d3d10/ne-d3d10-d3d10_stencil_op
  * @namespace Windows.Win32.Graphics.Direct3D10
- * @version v4.0.30319
  */
-class D3D10_STENCIL_OP extends Win32Enum{
+class D3D10_STENCIL_OP extends Win32Enum {
 
     /**
      * Keep the existing stencil data.

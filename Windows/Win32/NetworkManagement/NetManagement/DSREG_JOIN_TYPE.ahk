@@ -5,9 +5,8 @@
  * Specifies the possible ways that a device can be joined to Microsoft Azure Active Directory.
  * @see https://learn.microsoft.com/windows/win32/api/lmjoin/ne-lmjoin-dsreg_join_type
  * @namespace Windows.Win32.NetworkManagement.NetManagement
- * @version v4.0.30319
  */
-class DSREG_JOIN_TYPE extends Win32Enum{
+class DSREG_JOIN_TYPE extends Win32Enum {
 
     /**
      * The type of join is not known.

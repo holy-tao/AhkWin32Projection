@@ -1,14 +1,13 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
+#Include .\DHCP_FAILOVER_RELATIONSHIP.ahk
 
 /**
  * The DHCP_FAILOVER_RELATIONSHIP_ARRAY structure defines an array of DHCPv4 failover relationships between partner servers.
  * @see https://learn.microsoft.com/windows/win32/api/dhcpsapi/ns-dhcpsapi-dhcp_failover_relationship_array
  * @namespace Windows.Win32.NetworkManagement.Dhcp
- * @version v4.0.30319
  */
-class DHCP_FAILOVER_RELATIONSHIP_ARRAY extends Win32Struct
-{
+class DHCP_FAILOVER_RELATIONSHIP_ARRAY extends Win32Struct {
     static sizeof => 16
 
     static packingSize => 8

@@ -1,7 +1,21 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
 #Include .\LOGFONTW.ahk
+#Include .\FONT_CHARSET.ahk
+#Include .\FONT_OUTPUT_PRECISION.ahk
+#Include .\FONT_CLIP_PRECISION.ahk
+#Include .\FONT_QUALITY.ahk
 #Include .\PANOSE.ahk
+#Include .\PAN_FAMILY_TYPE.ahk
+#Include .\PAN_SERIF_STYLE.ahk
+#Include .\PAN_WEIGHT.ahk
+#Include .\PAN_PROPORTION.ahk
+#Include .\PAN_CONTRAST.ahk
+#Include .\PAN_STROKE_VARIATION.ahk
+#Include .\PAN_ARM_STYLE.ahk
+#Include .\PAN_LETT_FORM.ahk
+#Include .\PAN_MIDLINE.ahk
+#Include .\PAN_XHEIGHT.ahk
 
 /**
  * The EXTLOGFONT structure defines the attributes of a font. (Unicode)
@@ -10,11 +24,9 @@
  * > The wingdi.h header defines EXTLOGFONT as an alias which automatically selects the ANSI or Unicode version of this function based on the definition of the UNICODE preprocessor constant. Mixing usage of the encoding-neutral alias with code that not encoding-neutral can lead to mismatches that result in compilation or runtime errors. For more information, see [Conventions for Function Prototypes](/windows/win32/intl/conventions-for-function-prototypes).
  * @see https://learn.microsoft.com/windows/win32/api/wingdi/ns-wingdi-extlogfontw
  * @namespace Windows.Win32.Graphics.Gdi
- * @version v4.0.30319
  * @charset Unicode
  */
-class EXTLOGFONTW extends Win32Struct
-{
+class EXTLOGFONTW extends Win32Struct {
     static sizeof => 320
 
     static packingSize => 4
@@ -23,7 +35,7 @@ class EXTLOGFONTW extends Win32Struct
      * Specifies some of the attributes of the specified font. This member is a <a href="https://docs.microsoft.com/windows/desktop/api/wingdi/ns-wingdi-logfonta">LOGFONT</a> structure.
      * @type {LOGFONTW}
      */
-    elfLogFont{
+    elfLogFont {
         get {
             if(!this.HasProp("__elfLogFont"))
                 this.__elfLogFont := LOGFONTW(0, this)
@@ -87,9 +99,9 @@ class EXTLOGFONTW extends Win32Struct
 
     /**
      * A 4-byte identifier of the font vendor.
-     * @type {Array<Byte>}
+     * @type {Array<Integer>}
      */
-    elfVendorId{
+    elfVendorId {
         get {
             if(!this.HasProp("__elfVendorIdProxyArray"))
                 this.__elfVendorIdProxyArray := Win32FixedArray(this.ptr + 300, 4, Primitive, "char")
@@ -110,7 +122,7 @@ class EXTLOGFONTW extends Win32Struct
      * A <a href="https://docs.microsoft.com/windows/desktop/api/wingdi/ns-wingdi-panose">PANOSE</a> structure that specifies the shape of the font. If all members of this structure are set to zero, the <b>elfPanose</b> member is ignored by the font mapper.
      * @type {PANOSE}
      */
-    elfPanose{
+    elfPanose {
         get {
             if(!this.HasProp("__elfPanose"))
                 this.__elfPanose := PANOSE(308, this)

@@ -4,10 +4,8 @@
 
 /**
  * @namespace Windows.Win32.Devices.Usb
- * @version v4.0.30319
  */
-class USB_HUB_INFORMATION extends Win32Struct
-{
+class USB_HUB_INFORMATION extends Win32Struct {
     static sizeof => 74
 
     static packingSize => 2
@@ -15,7 +13,7 @@ class USB_HUB_INFORMATION extends Win32Struct
     /**
      * @type {USB_HUB_DESCRIPTOR}
      */
-    HubDescriptor{
+    HubDescriptor {
         get {
             if(!this.HasProp("__HubDescriptor"))
                 this.__HubDescriptor := USB_HUB_DESCRIPTOR(0, this)

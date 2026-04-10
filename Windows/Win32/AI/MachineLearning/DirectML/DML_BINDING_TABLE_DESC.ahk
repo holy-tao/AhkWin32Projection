@@ -1,5 +1,6 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\..\Win32Struct.ahk
+#Include .\IDMLDispatchable.ahk
 #Include ..\..\..\Graphics\Direct3D12\D3D12_CPU_DESCRIPTOR_HANDLE.ahk
 #Include ..\..\..\Graphics\Direct3D12\D3D12_GPU_DESCRIPTOR_HANDLE.ahk
 
@@ -7,10 +8,8 @@
  * Specifies parameters to IDMLDevice::CreateBindingTable and IDMLBindingTable::Reset.
  * @see https://learn.microsoft.com/windows/win32/api/directml/ns-directml-dml_binding_table_desc
  * @namespace Windows.Win32.AI.MachineLearning.DirectML
- * @version v4.0.30319
  */
-class DML_BINDING_TABLE_DESC extends Win32Struct
-{
+class DML_BINDING_TABLE_DESC extends Win32Struct {
     static sizeof => 32
 
     static packingSize => 8
@@ -35,7 +34,7 @@ class DML_BINDING_TABLE_DESC extends Win32Struct
      *         DirectML may write descriptors.
      * @type {D3D12_CPU_DESCRIPTOR_HANDLE}
      */
-    CPUDescriptorHandle{
+    CPUDescriptorHandle {
         get {
             if(!this.HasProp("__CPUDescriptorHandle"))
                 this.__CPUDescriptorHandle := D3D12_CPU_DESCRIPTOR_HANDLE(8, this)
@@ -49,7 +48,7 @@ class DML_BINDING_TABLE_DESC extends Win32Struct
      * A valid GPU descriptor handle representing the start of a range into a constant buffer view (CBV)/shader resource view (SRV)/ unordered access view (UAV) descriptor heap that DirectML may use to bind resources to the pipeline.
      * @type {D3D12_GPU_DESCRIPTOR_HANDLE}
      */
-    GPUDescriptorHandle{
+    GPUDescriptorHandle {
         get {
             if(!this.HasProp("__GPUDescriptorHandle"))
                 this.__GPUDescriptorHandle := D3D12_GPU_DESCRIPTOR_HANDLE(16, this)

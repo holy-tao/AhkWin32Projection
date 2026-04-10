@@ -11,10 +11,8 @@
  * <div> </div>
  * @see https://learn.microsoft.com/windows/win32/api/wininet/ns-wininet-http_version_info
  * @namespace Windows.Win32.Networking.WinHttp
- * @version v4.0.30319
  */
-class HTTP_VERSION_INFO extends Win32Struct
-{
+class HTTP_VERSION_INFO extends Win32Struct {
     static sizeof => 8
 
     static packingSize => 4

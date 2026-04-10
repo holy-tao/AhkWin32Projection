@@ -5,17 +5,15 @@
  * The SdpQueryUuidUnion union contains the UUID on which to perform an SDP query. Used in conjunction with the SdpQueryUuid structure.
  * @see https://learn.microsoft.com/windows/win32/api/bthsdpdef/ns-bthsdpdef-sdpqueryuuidunion
  * @namespace Windows.Win32.Devices.Bluetooth
- * @version v4.0.30319
  */
-class SdpQueryUuidUnion extends Win32Struct
-{
+class SdpQueryUuidUnion extends Win32Struct {
     static sizeof => 16
 
     static packingSize => 8
 
     /**
      * UUID in 128-bit format.
-     * @type {Pointer<Guid>}
+     * @type {Pointer}
      */
     uuid128 {
         get => NumGet(this, 0, "ptr")

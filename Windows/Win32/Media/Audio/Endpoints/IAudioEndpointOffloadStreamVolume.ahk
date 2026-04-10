@@ -7,9 +7,8 @@
  * The IAudioEndpointOffloadStreamVolume interface allows the client application to manipulate the volume level of the offloaded audio stream.
  * @see https://learn.microsoft.com/windows/win32/api/audioengineendpoint/nn-audioengineendpoint-iaudioendpointoffloadstreamvolume
  * @namespace Windows.Win32.Media.Audio.Endpoints
- * @version v4.0.30319
  */
-class IAudioEndpointOffloadStreamVolume extends IUnknown{
+class IAudioEndpointOffloadStreamVolume extends IUnknown {
 
     static sizeof => A_PtrSize
     /**
@@ -44,7 +43,7 @@ class IAudioEndpointOffloadStreamVolume extends IUnknown{
      * The SetChannelVolumes method sets the volume levels for the various audio channels in the offloaded stream.
      * @param {Integer} u32ChannelCount Indicates the number of available audio channels in the offloaded stream.
      * @param {Pointer<Float>} pf32Volumes A pointer to the volume levels for the various audio channels in the offloaded stream.
-     * @param {Integer} u32CurveType A value from the [AUDIO_CURVE_TYPE](/windows-hardware/drivers/ddi/content/ksmedia/ne-ksmedia-audio_curve_type) enumeration specifying the curve to use when changing the channel volumes.
+     * @param {AUDIO_CURVE_TYPE} u32CurveType A value from the [AUDIO_CURVE_TYPE](/windows-hardware/drivers/ddi/content/ksmedia/ne-ksmedia-audio_curve_type) enumeration specifying the curve to use when changing the channel volumes.
      * @param {Pointer<Integer>} pCurveDuration A **LONGLONG** value specifying the curve duration in hundred nanosecond units.
      * @returns {HRESULT} The <b>SetChannelVolumes</b> method returns <b>S_OK</b> to indicate that it has completed successfully. Otherwise it returns an appropriate error code.
      * @see https://learn.microsoft.com/windows/win32/api/audioengineendpoint/nf-audioengineendpoint-iaudioendpointoffloadstreamvolume-setchannelvolumes

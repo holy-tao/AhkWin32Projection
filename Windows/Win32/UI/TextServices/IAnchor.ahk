@@ -1,16 +1,14 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
-#Include .\IAnchor.ahk
 #Include ..\..\System\Com\IUnknown.ahk
 
 /**
  * The IAnchor interface is implemented by the TSF manager. Clients of Microsoft Active Accessibility use IAnchor anchor objects to delimit a range of text within a text stream.
  * @see https://learn.microsoft.com/windows/win32/api/textstor/nn-textstor-ianchor
  * @namespace Windows.Win32.UI.TextServices
- * @version v4.0.30319
  */
-class IAnchor extends IUnknown{
+class IAnchor extends IUnknown {
 
     static sizeof => A_PtrSize
     /**
@@ -33,7 +31,7 @@ class IAnchor extends IUnknown{
 
     /**
      * IAnchor::SetGravity method
-     * @param {Integer} gravity Contains a value from the <a href="https://docs.microsoft.com/windows/win32/api/textstor/ne-textstor-tsgravity">TsGravity</a> enumeration that specifies a new forward or backward gravity for the anchor.
+     * @param {TsGravity} gravity Contains a value from the <a href="https://docs.microsoft.com/windows/win32/api/textstor/ne-textstor-tsgravity">TsGravity</a> enumeration that specifies a new forward or backward gravity for the anchor.
      * @returns {HRESULT} This method can return one of these values.
      * 
      * <table>
@@ -62,7 +60,7 @@ class IAnchor extends IUnknown{
 
     /**
      * The IAnchor::GetGravity method retrieves the gravity of the anchor in an IAnchor object.
-     * @returns {Integer} Pointer that receives a <a href="https://docs.microsoft.com/windows/win32/api/textstor/ne-textstor-tsgravity">TsGravity</a> value that specifies the anchor gravity.
+     * @returns {TsGravity} Pointer that receives a <a href="https://docs.microsoft.com/windows/win32/api/textstor/ne-textstor-tsgravity">TsGravity</a> value that specifies the anchor gravity.
      * @see https://learn.microsoft.com/windows/win32/api/textstor/nf-textstor-ianchor-getgravity
      */
     GetGravity() {
@@ -258,7 +256,7 @@ class IAnchor extends IUnknown{
      * </td>
      * </tr>
      * </table>
-     * @param {Integer} dir Contains one of the <a href="https://docs.microsoft.com/windows/win32/api/textstor/ne-textstor-tsshiftdir">TsShiftDir</a> values that specifies which adjacent region the anchor is moved to.
+     * @param {TsShiftDir} dir Contains one of the <a href="https://docs.microsoft.com/windows/win32/api/textstor/ne-textstor-tsshiftdir">TsShiftDir</a> values that specifies which adjacent region the anchor is moved to.
      * 
      * <table>
      * <tr>
@@ -356,7 +354,7 @@ class IAnchor extends IUnknown{
      * The <i>pdwHistory</i> change flags must be set when deletions adjacent to the anchor have occurred.
      * 
      * The change flags remain set until they are cleared with a call to <a href="https://docs.microsoft.com/windows/desktop/api/textstor/nf-textstor-ianchor-clearchangehistory">IAnchor::ClearChangeHistory</a>.
-     * @returns {Integer} 
+     * @returns {ANCHOR_CHANGE_HISTORY_FLAGS} 
      * @see https://learn.microsoft.com/windows/win32/api/textstor/nf-textstor-ianchor-getchangehistory
      */
     GetChangeHistory() {

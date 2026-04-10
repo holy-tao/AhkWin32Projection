@@ -4,10 +4,8 @@
 
 /**
  * @namespace Windows.Win32.Storage.IscsiDisc
- * @version v4.0.30319
  */
-class DUMP_DRIVER_EX extends Win32Struct
-{
+class DUMP_DRIVER_EX extends Win32Struct {
     static sizeof => 88
 
     static packingSize => 8
@@ -39,7 +37,7 @@ class DUMP_DRIVER_EX extends Win32Struct
     /**
      * @type {NTSCSI_UNICODE_STRING}
      */
-    DriverFullPath{
+    DriverFullPath {
         get {
             if(!this.HasProp("__DriverFullPath"))
                 this.__DriverFullPath := NTSCSI_UNICODE_STRING(72, this)

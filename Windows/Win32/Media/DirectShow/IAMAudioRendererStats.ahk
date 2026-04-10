@@ -7,9 +7,8 @@
  * The IAMAudioRendererStats interface retrieves statistical performance information from an audio renderer filter.This interface is intended for use during development, to log performance data from the audio renderer.
  * @see https://learn.microsoft.com/windows/win32/api/strmif/nn-strmif-iamaudiorendererstats
  * @namespace Windows.Win32.Media.DirectShow
- * @version v4.0.30319
  */
-class IAMAudioRendererStats extends IUnknown{
+class IAMAudioRendererStats extends IUnknown {
 
     static sizeof => A_PtrSize
     /**

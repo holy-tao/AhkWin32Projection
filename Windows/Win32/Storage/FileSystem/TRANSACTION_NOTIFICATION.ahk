@@ -5,10 +5,8 @@
  * Contains the data that is associated with a transaction notification.
  * @see https://learn.microsoft.com/windows/win32/api/ktmtypes/ns-ktmtypes-transaction_notification
  * @namespace Windows.Win32.Storage.FileSystem
- * @version v4.0.30319
  */
-class TRANSACTION_NOTIFICATION extends Win32Struct
-{
+class TRANSACTION_NOTIFICATION extends Win32Struct {
     static sizeof => 32
 
     static packingSize => 8

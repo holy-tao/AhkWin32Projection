@@ -78,10 +78,8 @@
  * </table>
  * @see https://learn.microsoft.com/windows/win32/api/ndattrib/ns-ndattrib-shellcommandinfo
  * @namespace Windows.Win32.NetworkManagement.NetworkDiagnosticsFramework
- * @version v4.0.30319
  */
-class ShellCommandInfo extends Win32Struct
-{
+class ShellCommandInfo extends Win32Struct {
     static sizeof => 40
 
     static packingSize => 8

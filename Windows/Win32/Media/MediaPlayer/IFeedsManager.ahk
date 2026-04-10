@@ -1,14 +1,13 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
-#Include ..\..\Foundation\BSTR.ahk
 #Include ..\..\System\Com\IDispatch.ahk
+#Include ..\..\Foundation\BSTR.ahk
 
 /**
  * @namespace Windows.Win32.Media.MediaPlayer
- * @version v4.0.30319
  */
-class IFeedsManager extends IDispatch{
+class IFeedsManager extends IDispatch {
 
     static sizeof => A_PtrSize
     /**
@@ -43,7 +42,7 @@ class IFeedsManager extends IDispatch{
     }
 
     /**
-     * @type {Integer} 
+     * @type {FEEDS_BACKGROUNDSYNC_STATUS} 
      */
     BackgroundSyncStatus {
         get => this.get_BackgroundSyncStatus()
@@ -171,7 +170,7 @@ class IFeedsManager extends IDispatch{
 
     /**
      * 
-     * @param {Integer} action 
+     * @param {FEEDS_BACKGROUNDSYNC_ACTION} action 
      * @returns {HRESULT} 
      */
     BackgroundSync(action) {
@@ -181,7 +180,7 @@ class IFeedsManager extends IDispatch{
 
     /**
      * 
-     * @returns {Integer} 
+     * @returns {FEEDS_BACKGROUNDSYNC_STATUS} 
      */
     get_BackgroundSyncStatus() {
         result := ComCall(17, this, "int*", &_status := 0, "HRESULT")

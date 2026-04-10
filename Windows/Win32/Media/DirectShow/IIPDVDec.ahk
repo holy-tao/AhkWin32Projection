@@ -7,9 +7,8 @@
  * The IIPDVDec interface provides methods for setting and retrieving properties on the DV Video Decoder filter.
  * @see https://learn.microsoft.com/windows/win32/api/strmif/nn-strmif-iipdvdec
  * @namespace Windows.Win32.Media.DirectShow
- * @version v4.0.30319
  */
-class IIPDVDec extends IUnknown{
+class IIPDVDec extends IUnknown {
 
     static sizeof => A_PtrSize
     /**

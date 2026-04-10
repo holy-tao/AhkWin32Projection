@@ -1,14 +1,13 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
+#Include .\MEDIA_TYPE.ahk
 
 /**
  * Contains information used in formatting a contiguous set of disk tracks. It is used by the IOCTL_DISK_FORMAT_TRACKS_EX control code.
  * @see https://learn.microsoft.com/windows/win32/api/winioctl/ns-winioctl-format_ex_parameters
  * @namespace Windows.Win32.System.Ioctl
- * @version v4.0.30319
  */
-class FORMAT_EX_PARAMETERS extends Win32Struct
-{
+class FORMAT_EX_PARAMETERS extends Win32Struct {
     static sizeof => 28
 
     static packingSize => 4
@@ -16,7 +15,7 @@ class FORMAT_EX_PARAMETERS extends Win32Struct
     /**
      * The media type. For a list of values, see 
      * <a href="https://docs.microsoft.com/windows/desktop/api/winioctl/ne-winioctl-media_type">MEDIA_TYPE</a>.
-     * @type {Integer}
+     * @type {MEDIA_TYPE}
      */
     MediaType {
         get => NumGet(this, 0, "int")
@@ -79,9 +78,9 @@ class FORMAT_EX_PARAMETERS extends Win32Struct
 
     /**
      * An array of values specifying the sector numbers of the sectors to be included in the track to be formatted.
-     * @type {Array<UInt16>}
+     * @type {Array<Integer>}
      */
-    SectorNumber{
+    SectorNumber {
         get {
             if(!this.HasProp("__SectorNumberProxyArray"))
                 this.__SectorNumberProxyArray := Win32FixedArray(this.ptr + 24, 1, Primitive, "ushort")

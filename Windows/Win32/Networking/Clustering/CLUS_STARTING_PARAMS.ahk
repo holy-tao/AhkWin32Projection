@@ -7,10 +7,8 @@
  * The  <b>CLUS_STARTING_PARAMS</b> structure allows resource DLLs to respond to the CLUSCTL_RESOURCE_TYPE_STARTING_PHASE1 and CLUSCTL_RESOURCE_TYPE_STARTING_PHASE2 control codes based on the circumstances of the start. For example, a DLL might perform special initialization steps when the cluster forms, and perform another set of operations in response to joins.
  * @see https://learn.microsoft.com/windows/win32/api/clusapi/ns-clusapi-clus_starting_params
  * @namespace Windows.Win32.Networking.Clustering
- * @version v4.0.30319
  */
-class CLUS_STARTING_PARAMS extends Win32Struct
-{
+class CLUS_STARTING_PARAMS extends Win32Struct {
     static sizeof => 12
 
     static packingSize => 4

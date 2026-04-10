@@ -1,14 +1,14 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
+#Include .\WINTRUST_SIGNATURE_SETTINGS_FLAGS.ahk
+#Include ..\Cryptography\CERT_STRONG_SIGN_PARA.ahk
 
 /**
  * Can be used to specify the signatures on a file.
  * @see https://learn.microsoft.com/windows/win32/api/wintrust/ns-wintrust-wintrust_signature_settings
  * @namespace Windows.Win32.Security.WinTrust
- * @version v4.0.30319
  */
-class WINTRUST_SIGNATURE_SETTINGS extends Win32Struct
-{
+class WINTRUST_SIGNATURE_SETTINGS extends Win32Struct {
     static sizeof => 32
 
     static packingSize => 8
@@ -32,8 +32,7 @@ class WINTRUST_SIGNATURE_SETTINGS extends Win32Struct
     }
 
     /**
-     * 
-     * @type {Integer}
+     * @type {WINTRUST_SIGNATURE_SETTINGS_FLAGS}
      */
     dwFlags {
         get => NumGet(this, 8, "uint")

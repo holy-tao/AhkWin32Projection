@@ -1,16 +1,14 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
-#Include ..\..\Foundation\HWND.ahk
 #Include .\NMHDR.ahk
+#Include ..\..\Foundation\HWND.ahk
 
 /**
  * Contains information used with NM_TOOLTIPSCREATED notification codes.
  * @see https://learn.microsoft.com/windows/win32/api/commctrl/ns-commctrl-nmtooltipscreated
  * @namespace Windows.Win32.UI.Controls
- * @version v4.0.30319
  */
-class NMTOOLTIPSCREATED extends Win32Struct
-{
+class NMTOOLTIPSCREATED extends Win32Struct {
     static sizeof => 32
 
     static packingSize => 8
@@ -21,7 +19,7 @@ class NMTOOLTIPSCREATED extends Win32Struct
      * An <a href="https://docs.microsoft.com/windows/desktop/api/richedit/ns-richedit-nmhdr">NMHDR</a> structure that contains additional information about this notification.
      * @type {NMHDR}
      */
-    hdr{
+    hdr {
         get {
             if(!this.HasProp("__hdr"))
                 this.__hdr := NMHDR(0, this)
@@ -35,7 +33,7 @@ class NMTOOLTIPSCREATED extends Win32Struct
      * The window handle to the tooltip control created.
      * @type {HWND}
      */
-    hwndToolTips{
+    hwndToolTips {
         get {
             if(!this.HasProp("__hwndToolTips"))
                 this.__hwndToolTips := HWND(24, this)

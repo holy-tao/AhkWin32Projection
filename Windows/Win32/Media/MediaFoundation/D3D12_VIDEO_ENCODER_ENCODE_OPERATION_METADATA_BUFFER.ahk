@@ -1,16 +1,13 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
+#Include ..\..\Graphics\Direct3D12\ID3D12Resource.ahk
 
 /**
  * Represents a buffer containing metadata about an ID3D12VideoEncodeCommandList2::EncodeFrame operation.
- * @remarks
- * 
  * @see https://learn.microsoft.com/windows/win32/api/d3d12video/ns-d3d12video-d3d12_video_encoder_encode_operation_metadata_buffer
  * @namespace Windows.Win32.Media.MediaFoundation
- * @version v4.0.30319
  */
-class D3D12_VIDEO_ENCODER_ENCODE_OPERATION_METADATA_BUFFER extends Win32Struct
-{
+class D3D12_VIDEO_ENCODER_ENCODE_OPERATION_METADATA_BUFFER extends Win32Struct {
     static sizeof => 16
 
     static packingSize => 8

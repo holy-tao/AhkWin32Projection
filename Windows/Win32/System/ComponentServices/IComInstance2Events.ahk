@@ -7,9 +7,8 @@
  * Notifies the subscriber if an object is created or released by a client.
  * @see https://learn.microsoft.com/windows/win32/api/comsvcs/nn-comsvcs-icominstance2events
  * @namespace Windows.Win32.System.ComponentServices
- * @version v4.0.30319
  */
-class IComInstance2Events extends IUnknown{
+class IComInstance2Events extends IUnknown {
 
     static sizeof => A_PtrSize
     /**
@@ -37,7 +36,7 @@ class IComInstance2Events extends IUnknown{
      * @param {Pointer<Guid>} clsid The CLSID of the object being created.
      * @param {Pointer<Guid>} tsid The transaction stream identifier, which is unique for correlation to objects.
      * @param {Integer} CtxtID The context identifier for this object.
-     * @param {Integer} _ObjectID 
+     * @param {Integer} _ObjectID The initial JIT-activated object.
      * @param {Pointer<Guid>} guidPartition The partition identifier for which this instance is created.
      * @returns {HRESULT} The user verifies the return values from this method.
      * @see https://learn.microsoft.com/windows/win32/api/comsvcs/nf-comsvcs-icominstance2events-onobjectcreate2

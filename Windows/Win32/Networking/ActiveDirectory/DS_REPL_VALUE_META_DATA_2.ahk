@@ -6,10 +6,8 @@
  * Used with the DS_REPL_ATTR_VALUE_META_DATA_2 structure to contain attribute value replication metadata.
  * @see https://learn.microsoft.com/windows/win32/api/ntdsapi/ns-ntdsapi-ds_repl_value_meta_data_2
  * @namespace Windows.Win32.Networking.ActiveDirectory
- * @version v4.0.30319
  */
-class DS_REPL_VALUE_META_DATA_2 extends Win32Struct
-{
+class DS_REPL_VALUE_META_DATA_2 extends Win32Struct {
     static sizeof => 96
 
     static packingSize => 8
@@ -54,7 +52,7 @@ class DS_REPL_VALUE_META_DATA_2 extends Win32Struct
      * Contains a <a href="https://docs.microsoft.com/windows/desktop/api/minwinbase/ns-minwinbase-filetime">FILETIME</a> structure that contains the time this attribute was deleted.
      * @type {FILETIME}
      */
-    ftimeDeleted{
+    ftimeDeleted {
         get {
             if(!this.HasProp("__ftimeDeleted"))
                 this.__ftimeDeleted := FILETIME(32, this)
@@ -66,7 +64,7 @@ class DS_REPL_VALUE_META_DATA_2 extends Win32Struct
      * Contains a <a href="https://docs.microsoft.com/windows/desktop/api/minwinbase/ns-minwinbase-filetime">FILETIME</a> structure that contains the time this attribute was created.
      * @type {FILETIME}
      */
-    ftimeCreated{
+    ftimeCreated {
         get {
             if(!this.HasProp("__ftimeCreated"))
                 this.__ftimeCreated := FILETIME(40, this)
@@ -87,7 +85,7 @@ class DS_REPL_VALUE_META_DATA_2 extends Win32Struct
      * Contains a <a href="https://docs.microsoft.com/windows/desktop/api/minwinbase/ns-minwinbase-filetime">FILETIME</a> structure that contains the time at which the last originating change was made to this attribute. Replication of the change does not affect this value.
      * @type {FILETIME}
      */
-    ftimeLastOriginatingChange{
+    ftimeLastOriginatingChange {
         get {
             if(!this.HasProp("__ftimeLastOriginatingChange"))
                 this.__ftimeLastOriginatingChange := FILETIME(52, this)
@@ -97,7 +95,7 @@ class DS_REPL_VALUE_META_DATA_2 extends Win32Struct
 
     /**
      * Contains the invocation identifier of the server on which the last change was made to this attribute. Replication of the change does not affect this value.
-     * @type {Pointer<Guid>}
+     * @type {Pointer}
      */
     uuidLastOriginatingDsaInvocationID {
         get => NumGet(this, 64, "ptr")

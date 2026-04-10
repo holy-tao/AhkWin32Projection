@@ -9,9 +9,8 @@
  * The <b>IDCompositionTransform3D</b> interface is an abstract interface that represents a 3D perspective transformation effect. A 3D transform object can be associated with multiple visuals and multiple effect groups. When a 3D transform object is modified, all affected visuals are recomposed to reflect the change.
  * @see https://learn.microsoft.com/windows/win32/api/dcomp/nn-dcomp-idcompositiontransform3d
  * @namespace Windows.Win32.Graphics.DirectComposition
- * @version v4.0.30319
  */
-class IDCompositionTransform3D extends IDCompositionEffect{
+class IDCompositionTransform3D extends IDCompositionEffect {
 
     static sizeof => A_PtrSize
     /**

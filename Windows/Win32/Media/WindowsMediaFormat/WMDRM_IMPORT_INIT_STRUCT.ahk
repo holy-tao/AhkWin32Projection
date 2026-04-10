@@ -7,10 +7,8 @@
  * This structure is used to initialize protected stream sample writing in a call to the <a href="https://docs.microsoft.com/windows/desktop/api/wmsdkidl/nf-wmsdkidl-iwmdrmwriter3-setprotectstreamsamples">IWMDRMWriter3::SetProtectStreamSamples</a> method.
  * @see https://learn.microsoft.com/windows/win32/api/wmsdkidl/ns-wmsdkidl-wmdrm_import_init_struct
  * @namespace Windows.Win32.Media.WindowsMediaFormat
- * @version v4.0.30319
  */
-class WMDRM_IMPORT_INIT_STRUCT extends Win32Struct
-{
+class WMDRM_IMPORT_INIT_STRUCT extends Win32Struct {
     static sizeof => 32
 
     static packingSize => 8

@@ -3,10 +3,8 @@
 
 /**
  * @namespace Windows.Wdk.System.SystemServices
- * @version v4.0.30319
  */
-class FILE_NUMA_NODE_INFORMATION extends Win32Struct
-{
+class FILE_NUMA_NODE_INFORMATION extends Win32Struct {
     static sizeof => 2
 
     static packingSize => 2

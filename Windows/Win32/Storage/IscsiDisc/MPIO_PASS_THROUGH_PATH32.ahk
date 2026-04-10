@@ -4,10 +4,9 @@
 
 /**
  * @namespace Windows.Win32.Storage.IscsiDisc
- * @version v4.0.30319
+ * @architecture X64, Arm64
  */
-class MPIO_PASS_THROUGH_PATH32 extends Win32Struct
-{
+class MPIO_PASS_THROUGH_PATH32 extends Win32Struct {
     static sizeof => 64
 
     static packingSize => 8
@@ -15,7 +14,7 @@ class MPIO_PASS_THROUGH_PATH32 extends Win32Struct
     /**
      * @type {SCSI_PASS_THROUGH32}
      */
-    PassThrough{
+    PassThrough {
         get {
             if(!this.HasProp("__PassThrough"))
                 this.__PassThrough := SCSI_PASS_THROUGH32(0, this)

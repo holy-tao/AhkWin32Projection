@@ -45,10 +45,8 @@
  * </table>
  * @see https://learn.microsoft.com/windows/win32/api/wingdi/ns-wingdi-xform
  * @namespace Windows.Win32.Graphics.Gdi
- * @version v4.0.30319
  */
-class XFORM extends Win32Struct
-{
+class XFORM extends Win32Struct {
     static sizeof => 24
 
     static packingSize => 4

@@ -1,15 +1,15 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
 #Include ..\..\Foundation\FILETIME.ahk
+#Include ..\..\Security\Cryptography\CERT_PUBLIC_KEY_INFO.ahk
+#Include .\PEER_GROUP_AUTHENTICATION_SCHEME.ahk
 
 /**
  * The PEER_INVITATION_INFO structure defines information about an invitation to join a peer group.
  * @see https://learn.microsoft.com/windows/win32/api/p2p/ns-p2p-peer_invitation_info
  * @namespace Windows.Win32.NetworkManagement.P2P
- * @version v4.0.30319
  */
-class PEER_INVITATION_INFO extends Win32Struct
-{
+class PEER_INVITATION_INFO extends Win32Struct {
     static sizeof => 136
 
     static packingSize => 8
@@ -183,7 +183,7 @@ class PEER_INVITATION_INFO extends Win32Struct
      * Specifies a UTC <b>FILETIME</b> value that indicates when the invitation  becomes valid.
      * @type {FILETIME}
      */
-    ftValidityStart{
+    ftValidityStart {
         get {
             if(!this.HasProp("__ftValidityStart"))
                 this.__ftValidityStart := FILETIME(72, this)
@@ -195,7 +195,7 @@ class PEER_INVITATION_INFO extends Win32Struct
      * Specifies a UTC <b>FILETIME</b> value that indicates when the invitation becomes invalid.
      * @type {FILETIME}
      */
-    ftValidityEnd{
+    ftValidityEnd {
         get {
             if(!this.HasProp("__ftValidityEnd"))
                 this.__ftValidityEnd := FILETIME(80, this)
@@ -277,8 +277,8 @@ class PEER_INVITATION_INFO extends Win32Struct
 
     /**
      * <b>Windows Vista or later.</b>           The <a href="https://docs.microsoft.com/windows/desktop/api/p2p/ne-p2p-peer_group_authentication_scheme">PEER_GROUP_AUTHENTICATION_SCHEME</a> enumeration value that indicates the type of authentication used to validate the peer group invitee.
-     * @deprecated 
-     * @type {Integer}
+     * @deprecated
+     * @type {PEER_GROUP_AUTHENTICATION_SCHEME}
      */
     authScheme {
         get => NumGet(this, 128, "int")

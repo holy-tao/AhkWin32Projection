@@ -1,14 +1,13 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
-#Include .\ISyncChangeBuilder.ahk
 #Include .\ISyncFullEnumerationChangeBatch.ahk
+#Include .\ISyncChangeBuilder.ahk
 
 /**
  * @namespace Windows.Win32.System.WindowsSync
- * @version v4.0.30319
  */
-class ISyncFullEnumerationChangeBatch2 extends ISyncFullEnumerationChangeBatch{
+class ISyncFullEnumerationChangeBatch2 extends ISyncFullEnumerationChangeBatch {
 
     static sizeof => A_PtrSize
     /**

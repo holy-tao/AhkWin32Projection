@@ -1,8 +1,8 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
-#Include ..\..\System\Registry\HKEY.ahk
 #Include ..\..\System\Com\IUnknown.ahk
+#Include ..\..\System\Registry\HKEY.ahk
 
 /**
  * Exposes methods that simplify the process of retrieving information stored in the registry in association with defining a file type or protocol and associating it with an application.
@@ -22,9 +22,8 @@
  * The <b>IQueryAssociations</b> interface is useful if you need to repeatedly query the registry for information. Once the interface is initialized, the overhead of calling the various methods is relatively small. There are also several related functions, listed in the See Also section, that allow you to retrieve the same information from the registry with a single function call. While they are simpler to use, they cause the overhead of creating and initializing <b>IQueryAssociations</b> each time they are called. Because of this, they are best suited for single use.
  * @see https://learn.microsoft.com/windows/win32/api/shlwapi/nn-shlwapi-iqueryassociations
  * @namespace Windows.Win32.UI.Shell
- * @version v4.0.30319
  */
-class IQueryAssociations extends IUnknown{
+class IQueryAssociations extends IUnknown {
 
     static sizeof => A_PtrSize
     /**
@@ -49,7 +48,7 @@ class IQueryAssociations extends IUnknown{
      * Initializes the IQueryAssociations interface and sets the root key to the appropriate ProgID.
      * @remarks
      * This method initializes the interface, and is also called each time you need to specify a new root key. You can use <i>pwszAssoc</i> to specify a string, such as a file name extension or its associated ProgID, that identifies the root key. You can also specify the root key's HKEY value. <b>Init</b> will then use this information to locate the root key in the registry. Subsequent calls to the other <a href="https://docs.microsoft.com/windows/desktop/api/shlwapi/nn-shlwapi-iqueryassociations">IQueryAssociations</a> methods will use it as their starting point and search for the information in the root key's subkeys.
-     * @param {Integer} flags Type: <b><a href="https://docs.microsoft.com/windows/win32/api/shlwapi/ne-shlwapi-url_scheme">ASSOCF</a></b>
+     * @param {ASSOCF} flags Type: <b><a href="https://docs.microsoft.com/windows/win32/api/shlwapi/ne-shlwapi-url_scheme">ASSOCF</a></b>
      * 
      * A flag that specifies how the search is to be initialized. It is typically set to zero, but it can also take one of the following <a href="https://docs.microsoft.com/windows/win32/api/shlwapi/ne-shlwapi-url_scheme">ASSOCF</a> values. 
      * 					
@@ -72,7 +71,7 @@ class IQueryAssociations extends IUnknown{
      * @param {HKEY} hkProgid Type: <b>HKEY</b>
      * 
      * The HKEY value of the subkey that is used as a root key. The search looks only below this key. If a value is specified for <i>pwszAssoc</i>, set this parameter to <b>NULL</b>.
-     * @param {HWND} _hwnd 
+     * @param {HWND} _hwnd Type: <b>HWND</b>
      * @returns {HRESULT} Type: <b>HRESULT</b>
      * 
      * If this method succeeds, it returns <b>S_OK</b>. Otherwise, it returns an <b>HRESULT</b> error code.
@@ -89,7 +88,7 @@ class IQueryAssociations extends IUnknown{
 
     /**
      * Searches for and retrieves a file or protocol association-related string from the registry. (IQueryAssociations.GetString)
-     * @param {Integer} flags Type: <b><a href="https://docs.microsoft.com/windows/win32/shell/assocf_str">ASSOCF</a></b>
+     * @param {ASSOCF} flags Type: <b><a href="https://docs.microsoft.com/windows/win32/shell/assocf_str">ASSOCF</a></b>
      * 
      * A flag that can be used to control the search. It can be any combination of the following <a href="https://docs.microsoft.com/windows/win32/shell/assocf_str">ASSOCF</a> values. 
      * 
@@ -115,7 +114,7 @@ class IQueryAssociations extends IUnknown{
      * <a href="https://docs.microsoft.com/windows/win32/api/shlwapi/ne-shlwapi-url_scheme">ASSOCF_VERIFY</a>
      * </li>
      * </ul>
-     * @param {Integer} str Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/shlwapi/ne-shlwapi-assocstr">ASSOCSTR</a></b>
+     * @param {ASSOCSTR} str Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/shlwapi/ne-shlwapi-assocstr">ASSOCSTR</a></b>
      * 
      * An <a href="https://docs.microsoft.com/windows/desktop/api/shlwapi/ne-shlwapi-assocstr">ASSOCSTR</a> value that specifies the type of string that is to be returned.
      * @param {PWSTR} pszExtra Type: <b>LPCWSTR</b>
@@ -169,10 +168,10 @@ class IQueryAssociations extends IUnknown{
 
     /**
      * Searches for and retrieves a file or protocol association-related key from the registry.
-     * @param {Integer} flags Type: <b><a href="https://docs.microsoft.com/windows/win32/shell/assocf_str">ASSOCF</a></b>
+     * @param {ASSOCF} flags Type: <b><a href="https://docs.microsoft.com/windows/win32/shell/assocf_str">ASSOCF</a></b>
      * 
      * The <a href="https://docs.microsoft.com/windows/win32/shell/assocf_str">ASSOCF</a> value that can be used to control the search.
-     * @param {Integer} key Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/shlwapi/ne-shlwapi-assockey">ASSOCKEY</a></b>
+     * @param {ASSOCKEY} key Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/shlwapi/ne-shlwapi-assockey">ASSOCKEY</a></b>
      * 
      * The <a href="https://docs.microsoft.com/windows/desktop/api/shlwapi/ne-shlwapi-assockey">ASSOCKEY</a> value that specifies the type of key that is to be returned.
      * @param {PWSTR} pszExtra Type: <b>LPCWSTR</b>
@@ -193,16 +192,16 @@ class IQueryAssociations extends IUnknown{
 
     /**
      * Searches for and retrieves file or protocol association-related binary data from the registry.
-     * @param {Integer} flags Type: <b><a href="https://docs.microsoft.com/windows/win32/shell/assocf_str">ASSOCF</a></b>
+     * @param {ASSOCF} flags Type: <b><a href="https://docs.microsoft.com/windows/win32/shell/assocf_str">ASSOCF</a></b>
      * 
      * The <a href="https://docs.microsoft.com/windows/win32/shell/assocf_str">ASSOCF</a> value that can be used to control the search.
-     * @param {Integer} data Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/shlwapi/ne-shlwapi-assocdata">ASSOCDATA</a></b>
+     * @param {ASSOCDATA} data Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/shlwapi/ne-shlwapi-assocdata">ASSOCDATA</a></b>
      * 
      * The <a href="https://docs.microsoft.com/windows/desktop/api/shlwapi/ne-shlwapi-assocdata">ASSOCDATA</a> value that specifies the type of data that is to be returned.
      * @param {PWSTR} pszExtra Type: <b>LPCWSTR</b>
      * 
      * A pointer to an optional, null-terminated Unicode string with information about the location of the data. It is normally set to a Shell verb such as <b>open</b>. Set this parameter to <b>NULL</b> if it is not used.
-     * @param {Pointer} pvOut Type: <b>void*</b>
+     * @param {Integer} pvOut Type: <b>void*</b>
      * 
      * A pointer to a value that, when this method returns successfully, receives the requested data value.
      * @param {Pointer<Integer>} pcbOut Type: <b>DWORD*</b>
@@ -224,8 +223,8 @@ class IQueryAssociations extends IUnknown{
 
     /**
      * This method is not implemented. (IQueryAssociations.GetEnum)
-     * @param {Integer} flags TBD
-     * @param {Integer} _assocenum 
+     * @param {ASSOCF} flags TBD
+     * @param {ASSOCENUM} _assocenum TBD
      * @param {PWSTR} pszExtra TBD
      * @param {Pointer<Guid>} riid TBD
      * @returns {Pointer<Void>} TBD

@@ -3,10 +3,8 @@
 
 /**
  * @namespace Windows.Win32.System.Memory
- * @version v4.0.30319
  */
-class WIN32_MEMORY_NUMA_PERFORMANCE_ENTRY extends Win32Struct
-{
+class WIN32_MEMORY_NUMA_PERFORMANCE_ENTRY extends Win32Struct {
     static sizeof => 32
 
     static packingSize => 8
@@ -26,7 +24,7 @@ class WIN32_MEMORY_NUMA_PERFORMANCE_ENTRY extends Win32Struct
             get => NumGet(this, 0, "char")
             set => NumPut("char", value, this, 0)
         }
-    
+
         /**
          * @type {Integer}
          */
@@ -34,7 +32,7 @@ class WIN32_MEMORY_NUMA_PERFORMANCE_ENTRY extends Win32Struct
             get => (this._bitfield >> 0) & 0x1
             set => this._bitfield := ((value & 0x1) << 0) | (this._bitfield & ~(0x1 << 0))
         }
-    
+
         /**
          * @type {Integer}
          */
@@ -42,7 +40,6 @@ class WIN32_MEMORY_NUMA_PERFORMANCE_ENTRY extends Win32Struct
             get => (this._bitfield >> 1) & 0x1
             set => this._bitfield := ((value & 0x1) << 1) | (this._bitfield & ~(0x1 << 1))
         }
-    
     }
 
     /**
@@ -72,10 +69,10 @@ class WIN32_MEMORY_NUMA_PERFORMANCE_ENTRY extends Win32Struct
     /**
      * @type {_Flags}
      */
-    Flags{
+    Flags {
         get {
             if(!this.HasProp("__Flags"))
-                this.__Flags := %this.__Class%._Flags(9, this)
+                this.__Flags := WIN32_MEMORY_NUMA_PERFORMANCE_ENTRY._Flags(9, this)
             return this.__Flags
         }
     }

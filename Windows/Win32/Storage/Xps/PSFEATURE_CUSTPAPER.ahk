@@ -7,10 +7,8 @@
  * For the semantics of the <b>lOrientation</b>, <b>lWidth</b>, <b>lHeight</b>, <b>lWidthOffset</b>, and <b>lHeightOffset</b> members, please refer to "Custom Page Size Parameters" in "PostScript Printer Description File Format Specification" v.4.3.
  * @see https://learn.microsoft.com/windows/win32/api/wingdi/ns-wingdi-psfeature_custpaper
  * @namespace Windows.Win32.Storage.Xps
- * @version v4.0.30319
  */
-class PSFEATURE_CUSTPAPER extends Win32Struct
-{
+class PSFEATURE_CUSTPAPER extends Win32Struct {
     static sizeof => 20
 
     static packingSize => 4

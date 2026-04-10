@@ -3,15 +3,11 @@
 
 /**
  * Contains the credential name and type.
- * @remarks
- * 
  * @see https://learn.microsoft.com/windows/win32/api/sspi/ns-sspi-_secpkgcontext_credentialnamea
  * @namespace Windows.Win32.Security.Authentication.Identity
- * @version v4.0.30319
  * @charset ANSI
  */
-class SecPkgContext_CredentialNameA extends Win32Struct
-{
+class SecPkgContext_CredentialNameA extends Win32Struct {
     static sizeof => 16
 
     static packingSize => 8

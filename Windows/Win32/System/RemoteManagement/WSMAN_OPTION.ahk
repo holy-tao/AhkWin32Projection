@@ -5,10 +5,8 @@
  * Represents a specific option name and value pair.
  * @see https://learn.microsoft.com/windows/win32/api/wsman/ns-wsman-wsman_option
  * @namespace Windows.Win32.System.RemoteManagement
- * @version v4.0.30319
  */
-class WSMAN_OPTION extends Win32Struct
-{
+class WSMAN_OPTION extends Win32Struct {
     static sizeof => 24
 
     static packingSize => 8

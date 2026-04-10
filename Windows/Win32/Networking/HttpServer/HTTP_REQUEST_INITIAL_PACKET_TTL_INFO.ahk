@@ -3,10 +3,8 @@
 
 /**
  * @namespace Windows.Win32.Networking.HttpServer
- * @version v4.0.30319
  */
-class HTTP_REQUEST_INITIAL_PACKET_TTL_INFO extends Win32Struct
-{
+class HTTP_REQUEST_INITIAL_PACKET_TTL_INFO extends Win32Struct {
     static sizeof => 1
 
     static packingSize => 1

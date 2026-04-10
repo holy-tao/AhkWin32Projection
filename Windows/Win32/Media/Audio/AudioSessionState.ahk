@@ -13,9 +13,8 @@
  * For more information about session states, see <a href="https://docs.microsoft.com/windows/desktop/CoreAudio/audio-sessions">Audio Sessions</a>.
  * @see https://learn.microsoft.com/windows/win32/api/audiosessiontypes/ne-audiosessiontypes-audiosessionstate
  * @namespace Windows.Win32.Media.Audio
- * @version v4.0.30319
  */
-class AudioSessionState extends Win32Enum{
+class AudioSessionState extends Win32Enum {
 
     /**
      * The audio session is inactive. (It contains at least one stream, but none of the streams in the session is currently running.)

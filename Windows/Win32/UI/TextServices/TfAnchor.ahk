@@ -7,9 +7,8 @@
  * A range refers to a span of text in a document. Each range is delimited by a start anchor and an end anchor.
  * @see https://learn.microsoft.com/windows/win32/api/msctf/ne-msctf-tfanchor
  * @namespace Windows.Win32.UI.TextServices
- * @version v4.0.30319
  */
-class TfAnchor extends Win32Enum{
+class TfAnchor extends Win32Enum {
 
     /**
      * Specifies the start anchor of the <b>ITfRange</b> object.

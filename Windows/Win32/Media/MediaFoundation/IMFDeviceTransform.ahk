@@ -1,17 +1,16 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
+#Include ..\..\System\Com\IUnknown.ahk
 #Include .\IMFMediaType.ahk
 #Include .\IMFAttributes.ahk
-#Include ..\..\System\Com\IUnknown.ahk
 
 /**
  * This section contains reference information for the IMFDeviceTransform interface.
  * @see https://learn.microsoft.com/windows/win32/api/mftransform/nn-mftransform-imfdevicetransform
  * @namespace Windows.Win32.Media.MediaFoundation
- * @version v4.0.30319
  */
-class IMFDeviceTransform extends IUnknown{
+class IMFDeviceTransform extends IUnknown {
 
     static sizeof => A_PtrSize
     /**
@@ -499,7 +498,7 @@ class IMFDeviceTransform extends IUnknown{
      * The MFT might ignore certain message types. If so, the method returns <b>S_OK</b>. An error code indicates that the transform handles this message type but was unable to process the message in this instance.
      * 
      * For more information, see <a href="https://docs.microsoft.com/windows/desktop/api/mftransform/ne-mftransform-mft_message_type">MFT_MESSAGE_TYPE</a>.
-     * @param {Integer} eMessage The message to send, specified as a member of the <a href="https://docs.microsoft.com/windows/desktop/api/mftransform/ne-mftransform-mft_message_type">MFT_MESSAGE_TYPE</a> enumeration.
+     * @param {MFT_MESSAGE_TYPE} eMessage The message to send, specified as a member of the <a href="https://docs.microsoft.com/windows/desktop/api/mftransform/ne-mftransform-mft_message_type">MFT_MESSAGE_TYPE</a> enumeration.
      * @param {Pointer} ulParam Message parameter. The meaning of this parameter depends on the message type.
      * @returns {HRESULT} The method returns an <b>HRESULT</b>. Possible values include but not limited to values given in the following table.
      * 
@@ -611,7 +610,7 @@ class IMFDeviceTransform extends IUnknown{
      * As an  example, consider a Device MFT that has two input streams and three output streams. Let  Output 1 and Output 2 source from Input 1 and  stream at 720p. Now, if   Output 2’s media type changes to 1080p, Device MFT has to change Input 1's media type to 1080p. To achieve this, Device MFT should request DTM to call this method using the <a href="https://docs.microsoft.com/windows-hardware/drivers/stream/metransforminputstreamstatechanged">METransformInputStreamStateChanged</a> message.
      * @param {Integer} dwStreamID Stream ID of the input stream where the state and media type needs to be changed.
      * @param {IMFMediaType} pMediaType Preferred media type for the input stream is passed in through this parameter. Device MFT should change the media type only if the incoming media type is different from the current media type.
-     * @param {Integer} value Specifies the  <b>DeviceStreamState</b> which the input stream should transition to.
+     * @param {DeviceStreamState} value Specifies the  <b>DeviceStreamState</b> which the input stream should transition to.
      * @param {Integer} dwFlags When  <b>S_OK</b> is returned, perform the state change operation. Otherwise, this contains an error that occurred while setting the media type on the devproxy  output pin. In this case, propagate the error appropriately.
      * @returns {HRESULT} The method returns an <b>HRESULT</b>. Possible values include but not limited to values given in the following table.
      * 
@@ -677,7 +676,7 @@ class IMFDeviceTransform extends IUnknown{
      * @remarks
      * This method is used by device transform  manager (DTM) to get a specific input stream’s state.
      * @param {Integer} dwStreamID Stream ID of the input stream whose state needs to be retrieved.
-     * @returns {Integer} Specifies the current <b>DeviceStreamState</b> of the specified input Device MFT stream.
+     * @returns {DeviceStreamState} Specifies the current <b>DeviceStreamState</b> of the specified input Device MFT stream.
      * @see https://learn.microsoft.com/windows/win32/api/mftransform/nf-mftransform-imfdevicetransform-getinputstreamstate
      */
     GetInputStreamState(dwStreamID) {
@@ -699,7 +698,7 @@ class IMFDeviceTransform extends IUnknown{
      * As an  example, consider a Device MFT that has two input streams and three output streams. Let  Output 1 and Output 2 source from Input 1 and  stream at 720p. Now, let us say Output 2’s media type changes to 1080p. To satisfy this request, Device MFT must  change the Input 1 media type to 1080p, by posting <a href="https://docs.microsoft.com/windows-hardware/drivers/stream/metransforminputstreamstatechanged">METransformInputStreamStateChanged</a> event to the DTM. DTM would call <a href="https://docs.microsoft.com/windows/desktop/api/mftransform/nf-mftransform-imfdevicetransform-setinputstreamstate">SetInputStreamState</a> to change the input stream’ media type and state. After this call, the <b>SetOutputStreamState</b> must return.
      * @param {Integer} dwStreamID Stream ID of the input stream where the state and media type needs to be changed.
      * @param {IMFMediaType} pMediaType Preferred media type for the input stream is passed in through this parameter. Device MFT should change the media type only if the incoming media type is different from the current media type.
-     * @param {Integer} value Specifies the  <b>DeviceStreamState</b> which the input stream should transition to.
+     * @param {DeviceStreamState} value Specifies the  <b>DeviceStreamState</b> which the input stream should transition to.
      * @param {Integer} dwFlags Must be zero.
      * @returns {HRESULT} The method returns an <b>HRESULT</b>. Possible values include but not limited to values given in the following table.
      * 
@@ -765,7 +764,7 @@ class IMFDeviceTransform extends IUnknown{
      * @remarks
      * This method is used by device transform manager (DTM) to get a specific output stream’s state.
      * @param {Integer} dwStreamID Stream ID of the output stream whose state needs to be retrieved.
-     * @returns {Integer} Specifies the current <b>DeviceStreamState</b> of the specified output Device MFT stream.
+     * @returns {DeviceStreamState} Specifies the current <b>DeviceStreamState</b> of the specified output Device MFT stream.
      * @see https://learn.microsoft.com/windows/win32/api/mftransform/nf-mftransform-imfdevicetransform-getoutputstreamstate
      */
     GetOutputStreamState(dwStreamID) {
@@ -782,7 +781,7 @@ class IMFDeviceTransform extends IUnknown{
      * 
      * As an  example, consider a Device MFT that has two input streams and three output streams. Let  Output 1 and Output 2 source from Input 1 and  stream at 720p. Now, let us say Output 2’s media type changes to 1080p. To satisfy this request, Device MFT must  change the Input 1 media type to 1080p, by posting <a href="https://docs.microsoft.com/windows-hardware/drivers/stream/metransforminputstreamstatechanged">METransformInputStreamStateChanged</a> event to the DTM. DTM would call <b>GetInputStreamPreferredState</b> and retrieve the preferred state and mediatype. DTM would call  <a href="https://docs.microsoft.com/windows/desktop/api/mftransform/nf-mftransform-imfdevicetransform-setinputstreamstate">SetInputStreamState</a> to change the input stream’ mediatype and state.
      * @param {Integer} dwStreamID Stream ID of the input stream whose state needs to be retrieved.
-     * @param {Pointer<Integer>} value Specifies the current <b>DeviceStreamState</b> of the specified input Device MFT stream.
+     * @param {Pointer<DeviceStreamState>} value Specifies the current <b>DeviceStreamState</b> of the specified input Device MFT stream.
      * @param {Pointer<IMFMediaType>} ppMediaType Preferred media type for the input stream is passed in through this parameter.
      * @returns {HRESULT} The method returns an <b>HRESULT</b>. Possible values include but not limited to values given in the following table.
      * 

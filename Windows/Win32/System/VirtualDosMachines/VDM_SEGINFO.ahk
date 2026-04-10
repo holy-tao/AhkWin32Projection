@@ -3,11 +3,9 @@
 
 /**
  * @namespace Windows.Win32.System.VirtualDosMachines
- * @version v4.0.30319
  */
-class VDM_SEGINFO extends Win32Struct
-{
-    static sizeof => 540
+class VDM_SEGINFO extends Win32Struct {
+    static sizeof => 276
 
     static packingSize => 4
 
@@ -47,15 +45,15 @@ class VDM_SEGINFO extends Win32Struct
      * @type {String}
      */
     ModuleName {
-        get => StrGet(this.ptr + 10, 8, "UTF-16")
-        set => StrPut(value, this.ptr + 10, 8, "UTF-16")
+        get => StrGet(this.ptr + 10, 8, "UTF-8")
+        set => StrPut(value, this.ptr + 10, 8, "UTF-8")
     }
 
     /**
      * @type {String}
      */
     FileName {
-        get => StrGet(this.ptr + 28, 254, "UTF-16")
-        set => StrPut(value, this.ptr + 28, 254, "UTF-16")
+        get => StrGet(this.ptr + 20, 254, "UTF-8")
+        set => StrPut(value, this.ptr + 20, 254, "UTF-8")
     }
 }

@@ -3,10 +3,8 @@
 
 /**
  * @namespace Windows.Win32.System.MixedReality
- * @version v4.0.30319
  */
-class PERCEPTION_STATE_STREAM_TIMESTAMPS extends Win32Struct
-{
+class PERCEPTION_STATE_STREAM_TIMESTAMPS extends Win32Struct {
     static sizeof => 16
 
     static packingSize => 8

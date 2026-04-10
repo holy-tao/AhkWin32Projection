@@ -3,14 +3,10 @@
 
 /**
  * Contains the necessary information to perform an mDNS query.
- * @remarks
- * 
  * @see https://learn.microsoft.com/windows/win32/api/windns/ns-windns-mdns_query_request
  * @namespace Windows.Win32.NetworkManagement.Dns
- * @version v4.0.30319
  */
-class MDNS_QUERY_REQUEST extends Win32Struct
-{
+class MDNS_QUERY_REQUEST extends Win32Struct {
     static sizeof => 64
 
     static packingSize => 8

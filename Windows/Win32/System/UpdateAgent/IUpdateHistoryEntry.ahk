@@ -1,18 +1,17 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
+#Include ..\Com\IDispatch.ahk
 #Include .\IUpdateIdentity.ahk
 #Include ..\..\Foundation\BSTR.ahk
 #Include .\IStringCollection.ahk
-#Include ..\Com\IDispatch.ahk
 
 /**
  * Represents the recorded history of an update. (IUpdateHistoryEntry)
  * @see https://learn.microsoft.com/windows/win32/api/wuapi/nn-wuapi-iupdatehistoryentry
  * @namespace Windows.Win32.System.UpdateAgent
- * @version v4.0.30319
  */
-class IUpdateHistoryEntry extends IDispatch{
+class IUpdateHistoryEntry extends IDispatch {
 
     static sizeof => A_PtrSize
     /**
@@ -34,14 +33,14 @@ class IUpdateHistoryEntry extends IDispatch{
     static VTableNames => ["get_Operation", "get_ResultCode", "get_HResult", "get_Date", "get_UpdateIdentity", "get_Title", "get_Description", "get_UnmappedResultCode", "get_ClientApplicationID", "get_ServerSelection", "get_ServiceID", "get_UninstallationSteps", "get_UninstallationNotes", "get_SupportUrl"]
 
     /**
-     * @type {Integer} 
+     * @type {UpdateOperation} 
      */
     Operation {
         get => this.get_Operation()
     }
 
     /**
-     * @type {Integer} 
+     * @type {OperationResultCode} 
      */
     ResultCode {
         get => this.get_ResultCode()
@@ -97,7 +96,7 @@ class IUpdateHistoryEntry extends IDispatch{
     }
 
     /**
-     * @type {Integer} 
+     * @type {ServerSelection} 
      */
     ServerSelection {
         get => this.get_ServerSelection()
@@ -133,7 +132,7 @@ class IUpdateHistoryEntry extends IDispatch{
 
     /**
      * Gets an UpdateOperation value that specifies the operation on an update.
-     * @returns {Integer} 
+     * @returns {UpdateOperation} 
      * @see https://learn.microsoft.com/windows/win32/api/wuapi/nf-wuapi-iupdatehistoryentry-get_operation
      */
     get_Operation() {
@@ -143,7 +142,7 @@ class IUpdateHistoryEntry extends IDispatch{
 
     /**
      * Gets an OperationResultCode value that specifies the result of an operation on an update. (IUpdateHistoryEntry.get_ResultCode)
-     * @returns {Integer} 
+     * @returns {OperationResultCode} 
      * @see https://learn.microsoft.com/windows/win32/api/wuapi/nf-wuapi-iupdatehistoryentry-get_resultcode
      */
     get_ResultCode() {
@@ -246,7 +245,7 @@ class IUpdateHistoryEntry extends IDispatch{
 
     /**
      * Gets the ServerSelection value that indicates which server provided an update.
-     * @returns {Integer} 
+     * @returns {ServerSelection} 
      * @see https://learn.microsoft.com/windows/win32/api/wuapi/nf-wuapi-iupdatehistoryentry-get_serverselection
      */
     get_ServerSelection() {

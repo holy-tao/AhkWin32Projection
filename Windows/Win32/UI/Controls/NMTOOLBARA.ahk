@@ -1,7 +1,7 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
-#Include ..\..\Foundation\HWND.ahk
 #Include .\NMHDR.ahk
+#Include ..\..\Foundation\HWND.ahk
 #Include .\TBBUTTON.ahk
 #Include ..\..\Foundation\RECT.ahk
 
@@ -12,11 +12,9 @@
  * > The commctrl.h header defines NMTOOLBAR as an alias which automatically selects the ANSI or Unicode version of this function based on the definition of the UNICODE preprocessor constant. Mixing usage of the encoding-neutral alias with code that not encoding-neutral can lead to mismatches that result in compilation or runtime errors. For more information, see [Conventions for Function Prototypes](/windows/win32/intl/conventions-for-function-prototypes).
  * @see https://learn.microsoft.com/windows/win32/api/commctrl/ns-commctrl-nmtoolbara
  * @namespace Windows.Win32.UI.Controls
- * @version v4.0.30319
  * @charset ANSI
  */
-class NMTOOLBARA extends Win32Struct
-{
+class NMTOOLBARA extends Win32Struct {
     static sizeof => 96
 
     static packingSize => 8
@@ -28,7 +26,7 @@ class NMTOOLBARA extends Win32Struct
      * <a href="https://docs.microsoft.com/windows/desktop/api/richedit/ns-richedit-nmhdr">NMHDR</a> structure that contains additional information about the notification.
      * @type {NMHDR}
      */
-    hdr{
+    hdr {
         get {
             if(!this.HasProp("__hdr"))
                 this.__hdr := NMHDR(0, this)
@@ -54,7 +52,7 @@ class NMTOOLBARA extends Win32Struct
      * <a href="https://docs.microsoft.com/windows/desktop/api/commctrl/ns-commctrl-tbbutton">TBBUTTON</a> structure that contains information about the toolbar button associated with the notification code. This member only contains valid information with the <a href="https://docs.microsoft.com/windows/desktop/Controls/tbn-queryinsert">TBN_QUERYINSERT</a> and <a href="https://docs.microsoft.com/windows/desktop/Controls/tbn-querydelete">TBN_QUERYDELETE</a> notification codes.
      * @type {TBBUTTON}
      */
-    tbButton{
+    tbButton {
         get {
             if(!this.HasProp("__tbButton"))
                 this.__tbButton := TBBUTTON(32, this)
@@ -91,7 +89,7 @@ class NMTOOLBARA extends Win32Struct
      * <a href="https://docs.microsoft.com/windows/desktop/Controls/common-control-versions">Version 5.80.</a> A <a href="https://docs.microsoft.com/windows/desktop/api/windef/ns-windef-rect">RECT</a> structure that defines the area covered by the button.
      * @type {RECT}
      */
-    rcButton{
+    rcButton {
         get {
             if(!this.HasProp("__rcButton"))
                 this.__rcButton := RECT(80, this)

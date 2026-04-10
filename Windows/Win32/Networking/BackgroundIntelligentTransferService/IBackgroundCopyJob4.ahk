@@ -7,9 +7,8 @@
  * Use this interface to enable peer caching, restrict download time, and inspect user token characteristics.
  * @see https://learn.microsoft.com/windows/win32/api/bits3_0/nn-bits3_0-ibackgroundcopyjob4
  * @namespace Windows.Win32.Networking.BackgroundIntelligentTransferService
- * @version v4.0.30319
  */
-class IBackgroundCopyJob4 extends IBackgroundCopyJob3{
+class IBackgroundCopyJob4 extends IBackgroundCopyJob3 {
 
     static sizeof => A_PtrSize
     /**

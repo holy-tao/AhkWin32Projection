@@ -1,17 +1,16 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
+#Include .\ITfUIElement.ahk
 #Include .\ITfContext.ahk
 #Include ..\..\Foundation\BSTR.ahk
-#Include .\ITfUIElement.ahk
 
 /**
  * The ITfCandidateListUIElement interface is implemented by a text service that has a UI for reading information UI at the near caret.
  * @see https://learn.microsoft.com/windows/win32/api/msctf/nn-msctf-itfreadinginformationuielement
  * @namespace Windows.Win32.UI.TextServices
- * @version v4.0.30319
  */
-class ITfReadingInformationUIElement extends ITfUIElement{
+class ITfReadingInformationUIElement extends ITfUIElement {
 
     static sizeof => A_PtrSize
     /**
@@ -111,7 +110,7 @@ class ITfReadingInformationUIElement extends ITfUIElement{
 
     /**
      * This method returns the string on the reading information UI.
-     * @returns {BSTR} 
+     * @returns {BSTR} [out] A pointer to the BSTR of the reading information string.
      * @see https://learn.microsoft.com/windows/win32/api/msctf/nf-msctf-itfreadinginformationuielement-getstring
      */
     GetString() {

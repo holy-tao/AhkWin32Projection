@@ -5,10 +5,8 @@
  * Contains image list statistics. Used by GetStatistics.
  * @see https://learn.microsoft.com/windows/win32/api/commoncontrols/ns-commoncontrols-imageliststats
  * @namespace Windows.Win32.UI.Controls
- * @version v4.0.30319
  */
-class IMAGELISTSTATS extends Win32Struct
-{
+class IMAGELISTSTATS extends Win32Struct {
     static sizeof => 16
 
     static packingSize => 4

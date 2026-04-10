@@ -1,16 +1,15 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
-#Include ..\..\System\Com\IEnumMoniker.ahk
 #Include ..\..\System\Com\IUnknown.ahk
+#Include ..\..\System\Com\IEnumMoniker.ahk
 
 /**
  * The ICreateDevEnum interface creates an enumerator for a category of filters, such as video capture devices or audio capture devices.
  * @see https://learn.microsoft.com/windows/win32/api/strmif/nn-strmif-icreatedevenum
  * @namespace Windows.Win32.Media.DirectShow
- * @version v4.0.30319
  */
-class ICreateDevEnum extends IUnknown{
+class ICreateDevEnum extends IUnknown {
 
     static sizeof => A_PtrSize
     /**

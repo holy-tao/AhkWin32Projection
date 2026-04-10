@@ -4,10 +4,8 @@
 
 /**
  * @namespace Windows.Win32.Storage.ProjectedFileSystem
- * @version v4.0.30319
  */
-class PRJ_NAMESPACE_VIRTUALIZATION_CONTEXT extends Win32Handle
-{
+class PRJ_NAMESPACE_VIRTUALIZATION_CONTEXT extends Win32Handle {
     static sizeof => 8
 
     static packingSize => 8

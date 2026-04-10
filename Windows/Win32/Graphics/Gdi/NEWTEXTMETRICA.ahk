@@ -1,5 +1,6 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
+#Include .\TMPF_FLAGS.ahk
 
 /**
  * The NEWTEXTMETRIC structure contains data that describes a physical font. (ANSI)
@@ -16,11 +17,9 @@
  * > The wingdi.h header defines NEWTEXTMETRIC as an alias which automatically selects the ANSI or Unicode version of this function based on the definition of the UNICODE preprocessor constant. Mixing usage of the encoding-neutral alias with code that not encoding-neutral can lead to mismatches that result in compilation or runtime errors. For more information, see [Conventions for Function Prototypes](/windows/win32/intl/conventions-for-function-prototypes).
  * @see https://learn.microsoft.com/windows/win32/api/wingdi/ns-wingdi-newtextmetrica
  * @namespace Windows.Win32.Graphics.Gdi
- * @version v4.0.30319
  * @charset ANSI
  */
-class NEWTEXTMETRICA extends Win32Struct
-{
+class NEWTEXTMETRICA extends Win32Struct {
     static sizeof => 72
 
     static packingSize => 4
@@ -193,7 +192,7 @@ class NEWTEXTMETRICA extends Win32Struct
      * The pitch and family of the selected font. The low-order bit (bit 0) specifies the pitch of the font. If it is 1, the font is variable pitch (or proportional). If it is 0, the font is fixed pitch (or monospace). Bits 1 and 2 specify the font type. If both bits are 0, the font is a raster font; if bit 1 is 1 and bit 2 is 0, the font is a vector font; if bit 1 is 0 and bit 2 is set, or if both bits are 1, the font is some other type. Bit 3 is 1 if the font is a device font; otherwise, it is 0.
      * 
      * The four high-order bits designate the font family. The <b>tmPitchAndFamily</b> member can be combined with the hexadecimal value 0xF0 by using the bitwise AND operator and can then be compared with the font family names for an identical match. For more information about the font families, see <a href="https://docs.microsoft.com/windows/desktop/api/wingdi/ns-wingdi-logfonta">LOGFONT</a>.
-     * @type {Integer}
+     * @type {TMPF_FLAGS}
      */
     tmPitchAndFamily {
         get => NumGet(this, 51, "char")
@@ -210,7 +209,6 @@ class NEWTEXTMETRICA extends Win32Struct
     }
 
     /**
-     * 
      * @type {Integer}
      */
     ntmFlags {

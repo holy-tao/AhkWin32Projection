@@ -5,10 +5,8 @@
 
 /**
  * @namespace Windows.Win32.System.Power
- * @version v4.0.30319
  */
-class HPOWERNOTIFY extends Win32Handle
-{
+class HPOWERNOTIFY extends Win32Handle {
     static sizeof => 8
 
     static packingSize => 8

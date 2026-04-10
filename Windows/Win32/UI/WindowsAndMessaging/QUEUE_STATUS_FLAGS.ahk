@@ -3,9 +3,8 @@
 
 /**
  * @namespace Windows.Win32.UI.WindowsAndMessaging
- * @version v4.0.30319
  */
-class QUEUE_STATUS_FLAGS extends Win32BitflagEnum{
+class QUEUE_STATUS_FLAGS extends Win32BitflagEnum {
 
     /**
      * @type {Integer (UInt32)}

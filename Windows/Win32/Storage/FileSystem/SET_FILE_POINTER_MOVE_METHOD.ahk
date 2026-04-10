@@ -3,9 +3,8 @@
 
 /**
  * @namespace Windows.Win32.Storage.FileSystem
- * @version v4.0.30319
  */
-class SET_FILE_POINTER_MOVE_METHOD extends Win32Enum{
+class SET_FILE_POINTER_MOVE_METHOD extends Win32Enum {
 
     /**
      * @type {Integer (UInt32)}

@@ -7,10 +7,8 @@
  * Selects the next locale identifier in the circular list of loaded locale identifiers maintained by the system.
  * @see https://learn.microsoft.com/windows/win32/api/winuser/nf-winuser-activatekeyboardlayout
  * @namespace Windows.Win32.UI.Input.KeyboardAndMouse
- * @version v4.0.30319
  */
-class HKL extends Win32Handle
-{
+class HKL extends Win32Handle {
     static sizeof => 8
 
     static packingSize => 8

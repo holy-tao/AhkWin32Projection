@@ -1,12 +1,11 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
+#Include .\VDS_RECOVER_ACTION.ahk
 
 /**
  * @namespace Windows.Win32.Storage.VirtualDiskService
- * @version v4.0.30319
  */
-class VDS_SERVICE_NOTIFICATION extends Win32Struct
-{
+class VDS_SERVICE_NOTIFICATION extends Win32Struct {
     static sizeof => 8
 
     static packingSize => 4
@@ -20,7 +19,7 @@ class VDS_SERVICE_NOTIFICATION extends Win32Struct
     }
 
     /**
-     * @type {Integer}
+     * @type {VDS_RECOVER_ACTION}
      */
     action {
         get => NumGet(this, 4, "int")

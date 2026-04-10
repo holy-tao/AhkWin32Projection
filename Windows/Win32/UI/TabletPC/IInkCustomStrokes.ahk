@@ -1,10 +1,9 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
-#Include ..\..\Foundation\BSTR.ahk
+#Include ..\..\System\Com\IDispatch.ahk
 #Include ..\..\System\Com\IUnknown.ahk
 #Include .\IInkStrokes.ahk
-#Include ..\..\System\Com\IDispatch.ahk
 
 /**
  * Contains a collection of user-defined InkStrokes collections.
@@ -29,9 +28,8 @@
  * If you define a class that implements this interface, the new class will not interact correctly with the Tablet PC application programming interfaces (APIs).
  * @see https://learn.microsoft.com/windows/win32/api/msinkaut/nn-msinkaut-iinkcustomstrokes
  * @namespace Windows.Win32.UI.TabletPC
- * @version v4.0.30319
  */
-class IInkCustomStrokes extends IDispatch{
+class IInkCustomStrokes extends IDispatch {
 
     static sizeof => A_PtrSize
     /**

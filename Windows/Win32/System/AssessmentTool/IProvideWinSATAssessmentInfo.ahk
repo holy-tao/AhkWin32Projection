@@ -1,8 +1,8 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
-#Include ..\..\Foundation\BSTR.ahk
 #Include ..\Com\IDispatch.ahk
+#Include ..\..\Foundation\BSTR.ahk
 
 /**
  * Gets summary information for a subcomponent of the assessment, for example, its score.
@@ -10,9 +10,8 @@
  * To retrieve details of the subcomponent, call the <a href="https://docs.microsoft.com/windows/desktop/api/winsatcominterfacei/nf-winsatcominterfacei-iqueryrecentwinsatassessment-get_xml">IQueryRecentWinSATAssessment::get_XML</a> method.
  * @see https://learn.microsoft.com/windows/win32/api/winsatcominterfacei/nn-winsatcominterfacei-iprovidewinsatassessmentinfo
  * @namespace Windows.Win32.System.AssessmentTool
- * @version v4.0.30319
  */
-class IProvideWinSATAssessmentInfo extends IDispatch{
+class IProvideWinSATAssessmentInfo extends IDispatch {
 
     static sizeof => A_PtrSize
     /**

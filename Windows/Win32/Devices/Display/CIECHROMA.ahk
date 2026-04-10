@@ -13,10 +13,8 @@
  * The value of the <b>Y</b> member of this structure should be in the range from 0 through 100. This member can also be 65534 (0xFFFE) under certain circumstances. For more information about these circumstances, see <a href="https://docs.microsoft.com/windows/desktop/api/winddi/ns-winddi-colorinfo">COLORINFO</a>.
  * @see https://learn.microsoft.com/windows/win32/api/winddi/ns-winddi-ciechroma
  * @namespace Windows.Win32.Devices.Display
- * @version v4.0.30319
  */
-class CIECHROMA extends Win32Struct
-{
+class CIECHROMA extends Win32Struct {
     static sizeof => 12
 
     static packingSize => 4

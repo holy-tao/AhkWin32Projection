@@ -2,19 +2,19 @@
 #Include ..\..\..\..\Win32Struct.ahk
 #Include .\DRIVE_LAYOUT_INFORMATION_MBR.ahk
 #Include .\DRIVE_LAYOUT_INFORMATION_GPT.ahk
+#Include .\PARTITION_INFORMATION_EX.ahk
+#Include .\PARTITION_STYLE.ahk
 #Include .\PARTITION_INFORMATION_MBR.ahk
 #Include .\PARTITION_INFORMATION_GPT.ahk
-#Include .\PARTITION_INFORMATION_EX.ahk
+#Include .\GPT_ATTRIBUTES.ahk
 
 /**
  * Contains extended information about a drive's partitions.
  * @see https://learn.microsoft.com/windows/win32/api/winioctl/ns-winioctl-drive_layout_information_ex
  * @namespace Windows.Win32.System.Ioctl
- * @version v4.0.30319
  */
-class DRIVE_LAYOUT_INFORMATION_EX extends Win32Struct
-{
-    static sizeof => 48
+class DRIVE_LAYOUT_INFORMATION_EX extends Win32Struct {
+    static sizeof => 168
 
     static packingSize => 8
 
@@ -45,7 +45,7 @@ class DRIVE_LAYOUT_INFORMATION_EX extends Win32Struct
     /**
      * @type {DRIVE_LAYOUT_INFORMATION_MBR}
      */
-    Mbr{
+    Mbr {
         get {
             if(!this.HasProp("__Mbr"))
                 this.__Mbr := DRIVE_LAYOUT_INFORMATION_MBR(8, this)
@@ -56,7 +56,7 @@ class DRIVE_LAYOUT_INFORMATION_EX extends Win32Struct
     /**
      * @type {DRIVE_LAYOUT_INFORMATION_GPT}
      */
-    Gpt{
+    Gpt {
         get {
             if(!this.HasProp("__Gpt"))
                 this.__Gpt := DRIVE_LAYOUT_INFORMATION_GPT(8, this)
@@ -66,9 +66,9 @@ class DRIVE_LAYOUT_INFORMATION_EX extends Win32Struct
 
     /**
      * A variable-sized array of [**PARTITION_INFORMATION_EX**](ns-winioctl-partition_information_ex.md) structures, one structure for each partition on the drive.
-     * @type {Array<PARTITION_INFORMATION_EX>}
+     * @type {PARTITION_INFORMATION_EX}
      */
-    PartitionEntry{
+    PartitionEntry {
         get {
             if(!this.HasProp("__PartitionEntryProxyArray"))
                 this.__PartitionEntryProxyArray := Win32FixedArray(this.ptr + 40, 1, PARTITION_INFORMATION_EX, "")

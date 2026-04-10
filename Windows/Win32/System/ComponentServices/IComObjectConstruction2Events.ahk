@@ -7,9 +7,8 @@
  * Notifies the subscriber if a constructed object is created.
  * @see https://learn.microsoft.com/windows/win32/api/comsvcs/nn-comsvcs-icomobjectconstruction2events
  * @namespace Windows.Win32.System.ComponentServices
- * @version v4.0.30319
  */
-class IComObjectConstruction2Events extends IUnknown{
+class IComObjectConstruction2Events extends IUnknown {
 
     static sizeof => A_PtrSize
     /**

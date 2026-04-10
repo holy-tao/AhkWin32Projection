@@ -1,7 +1,8 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
-#Include ..\..\Foundation\HWND.ahk
 #Include .\NMHDR.ahk
+#Include ..\..\Foundation\HWND.ahk
+#Include .\NMTBDISPINFOW_MASK.ahk
 
 /**
  * Contains and receives display information for a toolbar item. This structure is used with the TBN_GETDISPINFO notification code. (ANSI)
@@ -10,11 +11,9 @@
  * > The commctrl.h header defines NMTBDISPINFO as an alias which automatically selects the ANSI or Unicode version of this function based on the definition of the UNICODE preprocessor constant. Mixing usage of the encoding-neutral alias with code that not encoding-neutral can lead to mismatches that result in compilation or runtime errors. For more information, see [Conventions for Function Prototypes](/windows/win32/intl/conventions-for-function-prototypes).
  * @see https://learn.microsoft.com/windows/win32/api/commctrl/ns-commctrl-nmtbdispinfoa
  * @namespace Windows.Win32.UI.Controls
- * @version v4.0.30319
  * @charset ANSI
  */
-class NMTBDISPINFOA extends Win32Struct
-{
+class NMTBDISPINFOA extends Win32Struct {
     static sizeof => 64
 
     static packingSize => 8
@@ -26,7 +25,7 @@ class NMTBDISPINFOA extends Win32Struct
      * <a href="https://docs.microsoft.com/windows/desktop/api/richedit/ns-richedit-nmhdr">NMHDR</a> structure that contains additional information about the notification.
      * @type {NMHDR}
      */
-    hdr{
+    hdr {
         get {
             if(!this.HasProp("__hdr"))
                 this.__hdr := NMHDR(0, this)
@@ -36,7 +35,7 @@ class NMTBDISPINFOA extends Win32Struct
 
     /**
      * Type: <b><a href="https://docs.microsoft.com/windows/desktop/WinProg/windows-data-types">DWORD</a></b>
-     * @type {Integer}
+     * @type {NMTBDISPINFOW_MASK}
      */
     dwMask {
         get => NumGet(this, 24, "uint")

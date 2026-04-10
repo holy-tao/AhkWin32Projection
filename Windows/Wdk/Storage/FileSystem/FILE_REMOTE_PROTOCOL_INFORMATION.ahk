@@ -3,10 +3,8 @@
 
 /**
  * @namespace Windows.Wdk.Storage.FileSystem
- * @version v4.0.30319
  */
-class FILE_REMOTE_PROTOCOL_INFORMATION extends Win32Struct
-{
+class FILE_REMOTE_PROTOCOL_INFORMATION extends Win32Struct {
     static sizeof => 116
 
     static packingSize => 4
@@ -16,16 +14,15 @@ class FILE_REMOTE_PROTOCOL_INFORMATION extends Win32Struct
         static packingSize => 4
 
         /**
-         * @type {Array<UInt32>}
+         * @type {Array<Integer>}
          */
-        Reserved{
+        Reserved {
             get {
                 if(!this.HasProp("__ReservedProxyArray"))
                     this.__ReservedProxyArray := Win32FixedArray(this.ptr + 0, 8, Primitive, "uint")
                 return this.__ReservedProxyArray
             }
         }
-    
     }
 
     class _ProtocolSpecific_e__Union extends Win32Struct {
@@ -35,11 +32,11 @@ class FILE_REMOTE_PROTOCOL_INFORMATION extends Win32Struct
         class _Smb2 extends Win32Struct {
             static sizeof => 20
             static packingSize => 4
-    
+
             class _Server extends Win32Struct {
                 static sizeof => 4
                 static packingSize => 4
-        
+
                 /**
                  * @type {Integer}
                  */
@@ -47,13 +44,12 @@ class FILE_REMOTE_PROTOCOL_INFORMATION extends Win32Struct
                     get => NumGet(this, 0, "uint")
                     set => NumPut("uint", value, this, 0)
                 }
-            
             }
-        
+
             class _Share extends Win32Struct {
                 static sizeof => 16
                 static packingSize => 4
-        
+
                 /**
                  * @type {Integer}
                  */
@@ -61,7 +57,7 @@ class FILE_REMOTE_PROTOCOL_INFORMATION extends Win32Struct
                     get => NumGet(this, 0, "uint")
                     set => NumPut("uint", value, this, 0)
                 }
-            
+
                 /**
                  * @type {Integer}
                  */
@@ -69,7 +65,7 @@ class FILE_REMOTE_PROTOCOL_INFORMATION extends Win32Struct
                     get => NumGet(this, 4, "uint")
                     set => NumPut("uint", value, this, 4)
                 }
-            
+
                 /**
                  * @type {Integer}
                  */
@@ -77,18 +73,18 @@ class FILE_REMOTE_PROTOCOL_INFORMATION extends Win32Struct
                     get => NumGet(this, 8, "char")
                     set => NumPut("char", value, this, 8)
                 }
-            
+
                 /**
-                 * @type {Array<Byte>}
+                 * @type {Array<Integer>}
                  */
-                Reserved0{
+                Reserved0 {
                     get {
                         if(!this.HasProp("__Reserved0ProxyArray"))
                             this.__Reserved0ProxyArray := Win32FixedArray(this.ptr + 9, 3, Primitive, "char")
                         return this.__Reserved0ProxyArray
                     }
                 }
-            
+
                 /**
                  * @type {Integer}
                  */
@@ -96,55 +92,52 @@ class FILE_REMOTE_PROTOCOL_INFORMATION extends Win32Struct
                     get => NumGet(this, 12, "uint")
                     set => NumPut("uint", value, this, 12)
                 }
-            
             }
-        
+
             /**
              * @type {_Server}
              */
-            Server{
+            Server {
                 get {
                     if(!this.HasProp("__Server"))
-                        this.__Server := %this.__Class%._Server(0, this)
+                        this.__Server := FILE_REMOTE_PROTOCOL_INFORMATION._ProtocolSpecific_e__Union._Smb2._Server(0, this)
                     return this.__Server
                 }
             }
-        
+
             /**
              * @type {_Share}
              */
-            Share{
+            Share {
                 get {
                     if(!this.HasProp("__Share"))
-                        this.__Share := %this.__Class%._Share(4, this)
+                        this.__Share := FILE_REMOTE_PROTOCOL_INFORMATION._ProtocolSpecific_e__Union._Smb2._Share(4, this)
                     return this.__Share
                 }
             }
-        
         }
-    
+
         /**
          * @type {_Smb2}
          */
-        Smb2{
+        Smb2 {
             get {
                 if(!this.HasProp("__Smb2"))
-                    this.__Smb2 := %this.__Class%._Smb2(0, this)
+                    this.__Smb2 := FILE_REMOTE_PROTOCOL_INFORMATION._ProtocolSpecific_e__Union._Smb2(0, this)
                 return this.__Smb2
             }
         }
-    
+
         /**
-         * @type {Array<UInt32>}
+         * @type {Array<Integer>}
          */
-        Reserved{
+        Reserved {
             get {
                 if(!this.HasProp("__ReservedProxyArray"))
                     this.__ReservedProxyArray := Win32FixedArray(this.ptr + 0, 16, Primitive, "uint")
                 return this.__ReservedProxyArray
             }
         }
-    
     }
 
     /**
@@ -214,10 +207,10 @@ class FILE_REMOTE_PROTOCOL_INFORMATION extends Win32Struct
     /**
      * @type {_GenericReserved}
      */
-    GenericReserved{
+    GenericReserved {
         get {
             if(!this.HasProp("__GenericReserved"))
-                this.__GenericReserved := %this.__Class%._GenericReserved(20, this)
+                this.__GenericReserved := FILE_REMOTE_PROTOCOL_INFORMATION._GenericReserved(20, this)
             return this.__GenericReserved
         }
     }
@@ -225,10 +218,10 @@ class FILE_REMOTE_PROTOCOL_INFORMATION extends Win32Struct
     /**
      * @type {_ProtocolSpecific_e__Union}
      */
-    ProtocolSpecific{
+    ProtocolSpecific {
         get {
             if(!this.HasProp("__ProtocolSpecific"))
-                this.__ProtocolSpecific := %this.__Class%._ProtocolSpecific_e__Union(52, this)
+                this.__ProtocolSpecific := FILE_REMOTE_PROTOCOL_INFORMATION._ProtocolSpecific_e__Union(52, this)
             return this.__ProtocolSpecific
         }
     }

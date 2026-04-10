@@ -1,16 +1,15 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
-#Include ..\..\Foundation\RECT.ahk
 #Include .\IOleWindow.ahk
+#Include ..\..\Foundation\RECT.ahk
 
 /**
  * Implemented by container applications and used by object applications to negotiate border space on the document or frame window.
  * @see https://learn.microsoft.com/windows/win32/api/oleidl/nn-oleidl-ioleinplaceuiwindow
  * @namespace Windows.Win32.System.Ole
- * @version v4.0.30319
  */
-class IOleInPlaceUIWindow extends IOleWindow{
+class IOleInPlaceUIWindow extends IOleWindow {
 
     static sizeof => A_PtrSize
     /**

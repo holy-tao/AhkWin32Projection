@@ -5,10 +5,8 @@
  * The ICINFO structure contains compression parameters supplied by a video compression driver. The driver fills or updates the structure when it receives the ICM_GETINFO message.
  * @see https://learn.microsoft.com/windows/win32/api/vfw/ns-vfw-icinfo
  * @namespace Windows.Win32.Media.Multimedia
- * @version v4.0.30319
  */
-class ICINFO extends Win32Struct
-{
+class ICINFO extends Win32Struct {
     static sizeof => 568
 
     static packingSize => 4

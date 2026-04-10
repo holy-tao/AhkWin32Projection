@@ -3,13 +3,11 @@
 
 /**
  * @namespace Windows.Win32.Networking.WinSock
- * @version v4.0.30319
  */
-class TCP_OPT_SACK extends Win32Struct
-{
-    static sizeof => 16
+class TCP_OPT_SACK extends Win32Struct {
+    static sizeof => 12
 
-    static packingSize => 8
+    static packingSize => 4
 
     class tcp_opt_sack_block extends Win32Struct {
         static sizeof => 8
@@ -22,7 +20,7 @@ class TCP_OPT_SACK extends Win32Struct
             get => NumGet(this, 0, "uint")
             set => NumPut("uint", value, this, 0)
         }
-    
+
         /**
          * @type {Integer}
          */
@@ -30,7 +28,6 @@ class TCP_OPT_SACK extends Win32Struct
             get => NumGet(this, 4, "uint")
             set => NumPut("uint", value, this, 4)
         }
-    
     }
 
     /**
@@ -50,12 +47,12 @@ class TCP_OPT_SACK extends Win32Struct
     }
 
     /**
-     * @type {Array<tcp_opt_sack_block>}
+     * @type {tcp_opt_sack_block}
      */
-    Block{
+    Block {
         get {
             if(!this.HasProp("__BlockProxyArray"))
-                this.__BlockProxyArray := Win32FixedArray(this.ptr + 8, 1, %this.__Class%.tcp_opt_sack_block, "")
+                this.__BlockProxyArray := Win32FixedArray(this.ptr + 4, 1, TCP_OPT_SACK.tcp_opt_sack_block, "")
             return this.__BlockProxyArray
         }
     }

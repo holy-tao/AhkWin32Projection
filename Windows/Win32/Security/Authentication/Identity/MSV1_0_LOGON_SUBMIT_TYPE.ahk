@@ -5,9 +5,8 @@
  * Indicates the kind of logon being requested.
  * @see https://learn.microsoft.com/windows/win32/api/ntsecapi/ne-ntsecapi-msv1_0_logon_submit_type
  * @namespace Windows.Win32.Security.Authentication.Identity
- * @version v4.0.30319
  */
-class MSV1_0_LOGON_SUBMIT_TYPE extends Win32Enum{
+class MSV1_0_LOGON_SUBMIT_TYPE extends Win32Enum {
 
     /**
      * Requests an interactive user logon. This dispatch routine handles NTLM interactive logons initiated by 
@@ -70,7 +69,6 @@ class MSV1_0_LOGON_SUBMIT_TYPE extends Win32Enum{
     static MsV1_0NoElevationLogon => 83
 
     /**
-     * 
      * @type {Integer (Int32)}
      */
     static MsV1_0LuidLogon => 84

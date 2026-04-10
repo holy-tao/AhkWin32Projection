@@ -4,10 +4,8 @@
 
 /**
  * @namespace Windows.Win32.Media.KernelStreaming
- * @version v4.0.30319
  */
-class KSAUDIOMODULE_PROPERTY extends Win32Struct
-{
+class KSAUDIOMODULE_PROPERTY extends Win32Struct {
     static sizeof => 32
 
     static packingSize => 8
@@ -15,7 +13,7 @@ class KSAUDIOMODULE_PROPERTY extends Win32Struct
     /**
      * @type {KSIDENTIFIER}
      */
-    Property{
+    Property {
         get {
             if(!this.HasProp("__Property"))
                 this.__Property := KSIDENTIFIER(0, this)
@@ -24,7 +22,7 @@ class KSAUDIOMODULE_PROPERTY extends Win32Struct
     }
 
     /**
-     * @type {Pointer<Guid>}
+     * @type {Pointer}
      */
     ClassId {
         get => NumGet(this, 16, "ptr")

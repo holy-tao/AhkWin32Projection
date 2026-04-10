@@ -1,14 +1,13 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
+#Include .\PCD_FLAGS.ahk
 
 /**
  * The PCCARD_DES structure is used for specifying either a resource list or a resource requirements list that describes resource usage by a PC Card instance. For more information about resource lists and resource requirements lists, see Hardware Resources.
  * @see https://learn.microsoft.com/windows/win32/api/cfgmgr32/ns-cfgmgr32-pccard_des
  * @namespace Windows.Win32.Devices.DeviceAndDriverInstallation
- * @version v4.0.30319
  */
-class PCCARD_DES extends Win32Struct
-{
+class PCCARD_DES extends Win32Struct {
     static sizeof => 40
 
     static packingSize => 4
@@ -121,7 +120,7 @@ class PCCARD_DES extends Win32Struct
      * </td>
      * </tr>
      * </table>
-     * @type {Integer}
+     * @type {PCD_FLAGS}
      */
     PCD_Flags {
         get => NumGet(this, 8, "uint")
@@ -139,9 +138,9 @@ class PCCARD_DES extends Win32Struct
 
     /**
      * <i>Not used.</i>
-     * @type {Array<Byte>}
+     * @type {Array<Integer>}
      */
-    PCD_Reserved{
+    PCD_Reserved {
         get {
             if(!this.HasProp("__PCD_ReservedProxyArray"))
                 this.__PCD_ReservedProxyArray := Win32FixedArray(this.ptr + 13, 3, Primitive, "char")
@@ -169,9 +168,9 @@ class PCCARD_DES extends Win32Struct
 
     /**
      * This member is currently unused.
-     * @type {Array<UInt32>}
+     * @type {Array<Integer>}
      */
-    PCD_MemoryCardBase{
+    PCD_MemoryCardBase {
         get {
             if(!this.HasProp("__PCD_MemoryCardBaseProxyArray"))
                 this.__PCD_MemoryCardBaseProxyArray := Win32FixedArray(this.ptr + 24, 2, Primitive, "uint")
@@ -181,9 +180,9 @@ class PCCARD_DES extends Win32Struct
 
     /**
      * This member is currently unused.
-     * @type {Array<UInt16>}
+     * @type {Array<Integer>}
      */
-    PCD_MemoryFlags{
+    PCD_MemoryFlags {
         get {
             if(!this.HasProp("__PCD_MemoryFlagsProxyArray"))
                 this.__PCD_MemoryFlagsProxyArray := Win32FixedArray(this.ptr + 32, 2, Primitive, "ushort")
@@ -193,9 +192,9 @@ class PCCARD_DES extends Win32Struct
 
     /**
      * This member is currently unused.
-     * @type {Array<Byte>}
+     * @type {Array<Integer>}
      */
-    PCD_IoFlags{
+    PCD_IoFlags {
         get {
             if(!this.HasProp("__PCD_IoFlagsProxyArray"))
                 this.__PCD_IoFlagsProxyArray := Win32FixedArray(this.ptr + 36, 2, Primitive, "char")

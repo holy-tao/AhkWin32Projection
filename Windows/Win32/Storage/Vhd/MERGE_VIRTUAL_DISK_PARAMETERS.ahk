@@ -1,5 +1,6 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
+#Include .\MERGE_VIRTUAL_DISK_VERSION.ahk
 
 /**
  * Contains virtual hard disk (VHD) merge request parameters.
@@ -9,10 +10,8 @@
  *     <a href="https://docs.microsoft.com/windows/win32/api/virtdisk/nf-virtdisk-mergevirtualdisk">MergeVirtualDisk</a>.
  * @see https://learn.microsoft.com/windows/win32/api/virtdisk/ns-virtdisk-merge_virtual_disk_parameters
  * @namespace Windows.Win32.Storage.Vhd
- * @version v4.0.30319
  */
-class MERGE_VIRTUAL_DISK_PARAMETERS extends Win32Struct
-{
+class MERGE_VIRTUAL_DISK_PARAMETERS extends Win32Struct {
     static sizeof => 12
 
     static packingSize => 4
@@ -22,7 +21,7 @@ class MERGE_VIRTUAL_DISK_PARAMETERS extends Win32Struct
      *       that specifies the version of the 
      *       <b>MERGE_VIRTUAL_DISK_PARAMETERS</b> structure 
      *       being passed to or from the VHD functions.
-     * @type {Integer}
+     * @type {MERGE_VIRTUAL_DISK_VERSION}
      */
     Version {
         get => NumGet(this, 0, "int")
@@ -40,7 +39,6 @@ class MERGE_VIRTUAL_DISK_PARAMETERS extends Win32Struct
             get => NumGet(this, 0, "uint")
             set => NumPut("uint", value, this, 0)
         }
-    
     }
 
     class _Version2 extends Win32Struct {
@@ -54,7 +52,7 @@ class MERGE_VIRTUAL_DISK_PARAMETERS extends Win32Struct
             get => NumGet(this, 0, "uint")
             set => NumPut("uint", value, this, 0)
         }
-    
+
         /**
          * @type {Integer}
          */
@@ -62,16 +60,15 @@ class MERGE_VIRTUAL_DISK_PARAMETERS extends Win32Struct
             get => NumGet(this, 4, "uint")
             set => NumPut("uint", value, this, 4)
         }
-    
     }
 
     /**
      * @type {_Version1}
      */
-    Version1{
+    Version1 {
         get {
             if(!this.HasProp("__Version1"))
-                this.__Version1 := %this.__Class%._Version1(4, this)
+                this.__Version1 := MERGE_VIRTUAL_DISK_PARAMETERS._Version1(4, this)
             return this.__Version1
         }
     }
@@ -79,10 +76,10 @@ class MERGE_VIRTUAL_DISK_PARAMETERS extends Win32Struct
     /**
      * @type {_Version2}
      */
-    Version2{
+    Version2 {
         get {
             if(!this.HasProp("__Version2"))
-                this.__Version2 := %this.__Class%._Version2(4, this)
+                this.__Version2 := MERGE_VIRTUAL_DISK_PARAMETERS._Version2(4, this)
             return this.__Version2
         }
     }

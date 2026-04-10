@@ -74,9 +74,8 @@
  * If you are using the <a href="https://docs.microsoft.com/windows/desktop/api/mfobjects/nn-mfobjects-imfmediatype">IMFMediaType</a> interface to describe the video format, the color primaries are specified in the <a href="https://docs.microsoft.com/windows/desktop/medfound/mf-mt-video-primaries-attribute">MF_MT_VIDEO_PRIMARIES</a> attribute.
  * @see https://learn.microsoft.com/windows/win32/api/dxva2api/ne-dxva2api-dxva2_videoprimaries
  * @namespace Windows.Win32.Media.MediaFoundation
- * @version v4.0.30319
  */
-class DXVA2_VideoPrimaries extends Win32Enum{
+class DXVA2_VideoPrimaries extends Win32Enum {
 
     /**
      * Bitmask to validate flag values. This value is not a valid flag.

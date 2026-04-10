@@ -5,9 +5,8 @@
  * Indicates information about when a participant leaves the instant messaging interaction.
  * @see https://learn.microsoft.com/windows/win32/api/wpcevent/ne-wpcevent-wpcflag_im_leave
  * @namespace Windows.Win32.System.ParentalControls
- * @version v4.0.30319
  */
-class WPCFLAG_IM_LEAVE extends Win32Enum{
+class WPCFLAG_IM_LEAVE extends Win32Enum {
 
     /**
      * An instant message participant left the interaction.

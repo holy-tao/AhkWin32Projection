@@ -1,13 +1,13 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
 #Include ..\..\Foundation\RECT.ahk
+#Include ..\..\Graphics\Direct3D9\D3DFORMAT.ahk
+#Include .\DXVAHD_FRAME_FORMAT.ahk
 
 /**
  * @namespace Windows.Win32.Media.MediaFoundation
- * @version v4.0.30319
  */
-class DXVAHDETW_VIDEOPROCESSBLTHD_STREAM extends Win32Struct
-{
+class DXVAHDETW_VIDEOPROCESSBLTHD_STREAM extends Win32Struct {
     static sizeof => 80
 
     static packingSize => 8
@@ -31,7 +31,7 @@ class DXVAHDETW_VIDEOPROCESSBLTHD_STREAM extends Win32Struct
     /**
      * @type {RECT}
      */
-    SourceRect{
+    SourceRect {
         get {
             if(!this.HasProp("__SourceRect"))
                 this.__SourceRect := RECT(16, this)
@@ -42,7 +42,7 @@ class DXVAHDETW_VIDEOPROCESSBLTHD_STREAM extends Win32Struct
     /**
      * @type {RECT}
      */
-    DestinationRect{
+    DestinationRect {
         get {
             if(!this.HasProp("__DestinationRect"))
                 this.__DestinationRect := RECT(32, this)
@@ -51,7 +51,7 @@ class DXVAHDETW_VIDEOPROCESSBLTHD_STREAM extends Win32Struct
     }
 
     /**
-     * @type {Integer}
+     * @type {D3DFORMAT}
      */
     InputFormat {
         get => NumGet(this, 48, "uint")
@@ -59,7 +59,7 @@ class DXVAHDETW_VIDEOPROCESSBLTHD_STREAM extends Win32Struct
     }
 
     /**
-     * @type {Integer}
+     * @type {DXVAHD_FRAME_FORMAT}
      */
     FrameFormat {
         get => NumGet(this, 52, "int")

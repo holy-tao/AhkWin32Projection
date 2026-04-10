@@ -5,9 +5,8 @@
 
 /**
  * @namespace Windows.Win32.System.Ole
- * @version v4.0.30319
  */
-class ITypeFactory extends IUnknown{
+class ITypeFactory extends IUnknown {
 
     static sizeof => A_PtrSize
     /**

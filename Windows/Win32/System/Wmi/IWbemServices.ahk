@@ -1,10 +1,9 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
-#Include ..\..\Foundation\BSTR.ahk
+#Include ..\Com\IUnknown.ahk
 #Include .\IWbemObjectSink.ahk
 #Include .\IEnumWbemClassObject.ahk
-#Include ..\Com\IUnknown.ahk
 
 /**
  * Used by clients and providers to access WMI services. The interface is implemented by WMI and WMI providers, and is the primary WMI interface.
@@ -18,9 +17,8 @@
  * <a href="https://docs.microsoft.com/windows/desktop/api/wbemcli/nn-wbemcli-iwbemclassobject">IWbemClassObject</a> interface pointer that should be pre-initialized to <b>NULL</b> before the <b>IWbemServices::GetObject</b> method  call.
  * @see https://learn.microsoft.com/windows/win32/api/wbemcli/nn-wbemcli-iwbemservices
  * @namespace Windows.Win32.System.Wmi
- * @version v4.0.30319
  */
-class IWbemServices extends IUnknown{
+class IWbemServices extends IUnknown {
 
     static sizeof => A_PtrSize
     /**
@@ -57,7 +55,7 @@ class IWbemServices extends IUnknown{
      * @param {BSTR} strNamespace Path to the target namespace. For more information, see 
      * <a href="https://docs.microsoft.com/windows/desktop/WmiSdk/creating-hierarchies-within-wmi">Creating Hierarchies within WMI</a>. This namespace can only be relative to the current namespace associated with the 
      * <a href="https://docs.microsoft.com/windows/desktop/api/wbemcli/nn-wbemcli-iwbemservices">IWbemServices</a> interface pointer. This parameter cannot be an absolute path or <b>NULL</b>.
-     * @param {Integer} lFlags This parameter can be set to 0 to make this a synchronous call. To make this a semisynchronous call, set <i>lFlags</i> to <b>WBEM_FLAG_RETURN_IMMEDIATELY</b>, provide a valid pointer for the <i>ppResult</i> parameter, and this call will return immediately. For more information, see 
+     * @param {WBEM_GENERIC_FLAG_TYPE} lFlags This parameter can be set to 0 to make this a synchronous call. To make this a semisynchronous call, set <i>lFlags</i> to <b>WBEM_FLAG_RETURN_IMMEDIATELY</b>, provide a valid pointer for the <i>ppResult</i> parameter, and this call will return immediately. For more information, see 
      * <a href="https://docs.microsoft.com/windows/desktop/WmiSdk/calling-a-method">Calling a Method</a>.
      * @param {IWbemContext} pCtx Reserved. This parameter must be <b>NULL</b>.
      * @param {Pointer<IWbemServices>} ppWorkingNamespace Receives the object that represents the new namespace context. The returned pointer has a positive reference count. The caller must call <b>Release</b> on this pointer when it is no longer needed. This pointer is set to <b>NULL</b> when there are errors. If this parameter is specified, then <i>ppResult</i> must be <b>NULL</b>.
@@ -120,7 +118,7 @@ class IWbemServices extends IUnknown{
 
     /**
      * The IWbemServices::QueryObjectSink method allows the caller to obtain a notification handler that is exported by Windows Management.
-     * @param {Integer} lFlags Reserved. This parameter must be 0.
+     * @param {WBEM_GENERIC_FLAG_TYPE} lFlags Reserved. This parameter must be 0.
      * @returns {IWbemObjectSink} Receives the interface pointer to the notification handler. This is set to point to <b>NULL</b> when there is an error. The returned pointer has a positive reference count, and the caller must call <b>IWbemServices::Release</b> on the pointer when it is no longer needed. A <b>NULL</b> value can be returned if no notification handler is available. This is not an error.
      * 
      * <div class="alert"><b>Note</b>  The value of the <i>ppResponseHandler</i> parameter cannot be <b>NULL</b> when it is passed to this method.</div>
@@ -136,7 +134,7 @@ class IWbemServices extends IUnknown{
      * The IWbemServices::GetObject method retrieves a class or instance. This method only retrieves objects from the namespace associated with the current IWbemServices object.
      * @param {BSTR} strObjectPath Path of the object to retrieve. If this is <b>NULL</b>, an empty object is returned that can become a new class. For more information, see 
      * <a href="https://docs.microsoft.com/windows/desktop/WmiSdk/creating-a-class">Creating a Class</a>.
-     * @param {Integer} lFlags The following flags affect the behavior of this method.
+     * @param {WBEM_GENERIC_FLAG_TYPE} lFlags The following flags affect the behavior of this method.
      * @param {IWbemContext} pCtx Typically <b>NULL</b>. Otherwise, this is a pointer to an 
      * <a href="https://docs.microsoft.com/windows/desktop/api/wbemcli/nn-wbemcli-iwbemcontext">IWbemContext</a> object that may be used by the provider that is producing the requested class or instance. The values in the context object must be specified in the documentation for the provider in question. For more information about this parameter, see 
      * <a href="https://docs.microsoft.com/windows/desktop/WmiSdk/making-calls-to-wmi">Making Calls to WMI</a>.
@@ -186,7 +184,7 @@ class IWbemServices extends IUnknown{
      * 
      * If this is <b>NULL</b>, an empty object, which can become a new class, is returned. For more information, see 
      * <a href="https://docs.microsoft.com/windows/desktop/WmiSdk/creating-a-class">Creating a Class</a>.
-     * @param {Integer} lFlags The following flags affect the behavior of this method.
+     * @param {WBEM_GENERIC_FLAG_TYPE} lFlags The following flags affect the behavior of this method.
      * @param {IWbemContext} pCtx Typically <b>NULL</b>. Otherwise, this is a pointer to an 
      * <a href="https://docs.microsoft.com/windows/desktop/api/wbemcli/nn-wbemcli-iwbemcontext">IWbemContext</a> object that can be used by the provider that produces the requested class or instance. The values in the context object must be specified in the documentation for the provider in question. For more information about this parameter, see 
      * <a href="https://docs.microsoft.com/windows/desktop/WmiSdk/making-calls-to-wmi">Making Calls to WMI</a>.
@@ -213,7 +211,7 @@ class IWbemServices extends IUnknown{
     /**
      * The IWbemServices::PutClass method creates a new class or updates an existing one. The class specified by the pObject parameter must have been correctly initialized with all of the required property values.
      * @param {IWbemClassObject} pObject Must point to a valid class definition. The reference count is not changed.
-     * @param {Integer} lFlags The following flags affect the behavior of this method.
+     * @param {WBEM_GENERIC_FLAG_TYPE} lFlags The following flags affect the behavior of this method.
      * @param {IWbemContext} pCtx Typically <b>NULL</b>. Otherwise, this is a pointer to an 
      * <a href="https://docs.microsoft.com/windows/desktop/api/wbemcli/nn-wbemcli-iwbemcontext">IWbemContext</a> object required by the dynamic class provider that is producing the class instances. The values in the context object must be specified in the documentation for the provider in question. For more information about this parameter, see 
      * <a href="https://docs.microsoft.com/windows/desktop/WmiSdk/making-calls-to-wmi">Making Calls to WMI</a>.
@@ -255,7 +253,7 @@ class IWbemServices extends IUnknown{
      *      <a href="https://docs.microsoft.com/windows/desktop/api/wbemcli/nf-wbemcli-iwbemservices-putclass">IWbemServices::PutClass</a> and 
      *      <a href="https://docs.microsoft.com/windows/desktop/WmiSdk/calling-a-method">Calling a Method</a>.
      * @param {IWbemClassObject} pObject Pointer to the object containing the class definition.
-     * @param {Integer} lFlags 
+     * @param {WBEM_GENERIC_FLAG_TYPE} lFlags 
      * @param {IWbemContext} pCtx Typically <b>NULL</b>. Otherwise, this is a pointer to an 
      * <a href="https://docs.microsoft.com/windows/desktop/api/wbemcli/nn-wbemcli-iwbemcontext">IWbemContext</a> object that may be used by the provider that is receiving the requested class. The values in the context object must be specified in the documentation for the provider in question. For more information about this parameter, see 
      * <a href="https://docs.microsoft.com/windows/desktop/WmiSdk/making-calls-to-wmi">Making Calls to WMI</a>.
@@ -291,7 +289,7 @@ class IWbemServices extends IUnknown{
     /**
      * The IWbemServices::DeleteClass method deletes the specified class from the current namespace.
      * @param {BSTR} strClass Name of the class targeted for deletion.
-     * @param {Integer} lFlags 
+     * @param {WBEM_GENERIC_FLAG_TYPE} lFlags 
      * @param {IWbemContext} pCtx Typically <b>NULL</b>. Otherwise, this is a pointer to an 
      * <a href="https://docs.microsoft.com/windows/desktop/api/wbemcli/nn-wbemcli-iwbemcontext">IWbemContext</a> object that may be used by the provider deleting the class. The values in the context object must be specified in the documentation for the provider in question. For more information about this parameter, see 
      * <a href="https://docs.microsoft.com/windows/desktop/WmiSdk/making-calls-to-wmi">Making Calls to WMI</a>.
@@ -325,7 +323,7 @@ class IWbemServices extends IUnknown{
      * 
      * For more information about using methods semisynchronously, see <a href="https://docs.microsoft.com/windows/desktop/api/wbemcli/nf-wbemcli-iwbemservices-deleteclass">IWbemServices::DeleteClass</a> and <a href="https://docs.microsoft.com/windows/desktop/WmiSdk/calling-a-method">Calling a Method</a>.
      * @param {BSTR} strClass Name of the class targeted for deletion.
-     * @param {Integer} lFlags 
+     * @param {WBEM_GENERIC_FLAG_TYPE} lFlags 
      * @param {IWbemContext} pCtx Typically <b>NULL</b>. Otherwise, this is a pointer to an 
      * <a href="https://docs.microsoft.com/windows/desktop/api/wbemcli/nn-wbemcli-iwbemcontext">IWbemContext</a> object that may be used by the provider deleting the class. The values in the context object must be specified in the documentation for the provider in question. For more information about this parameter, see 
      * <a href="https://docs.microsoft.com/windows/desktop/WmiSdk/making-calls-to-wmi">Making Calls to WMI</a>.
@@ -353,7 +351,7 @@ class IWbemServices extends IUnknown{
     /**
      * The IWbemServices::CreateClassEnum method returns an enumerator for all classes that satisfy selection criteria.
      * @param {BSTR} strSuperclass If not <b>NULL</b> or blank, specifies a parent class name. Only classes that are subclasses of this class are returned in the enumerator. If it is <b>NULL</b> or blank, and <i>lFlags</i> is WBEM_FLAG_SHALLOW, only the top-level classes are returned (that is, classes that have no parent class). If it is <b>NULL</b> or blank and <i>lFlags</i> is <b>WBEM_FLAG_DEEP</b>, all classes within the namespace are returned.
-     * @param {Integer} lFlags The following flags affect the behavior of this method. The suggested value for this parameter is WBEM_FLAG_RETURN_IMMEDIATELY and WBEM_FLAG_FORWARD_ONLY for best performance.
+     * @param {WBEM_GENERIC_FLAG_TYPE} lFlags The following flags affect the behavior of this method. The suggested value for this parameter is WBEM_FLAG_RETURN_IMMEDIATELY and WBEM_FLAG_FORWARD_ONLY for best performance.
      * @param {IWbemContext} pCtx Typically <b>NULL</b>. Otherwise, this is a pointer to an 
      * <a href="https://docs.microsoft.com/windows/desktop/api/wbemcli/nn-wbemcli-iwbemcontext">IWbemContext</a> object that can be used by the provider that is providing the requested classes. The values in the context object must be specified in the documentation for the provider. For more information about this parameter, see 
      * <a href="https://docs.microsoft.com/windows/desktop/WmiSdk/making-calls-to-wmi">Making Calls to WMI</a>.
@@ -374,7 +372,7 @@ class IWbemServices extends IUnknown{
      * 
      * For more information about using methods semisynchronously, see <a href="https://docs.microsoft.com/windows/desktop/api/wbemcli/nf-wbemcli-iwbemservices-createclassenum">IWbemServices::CreateClassEnum</a> and <a href="https://docs.microsoft.com/windows/desktop/WmiSdk/calling-a-method">Calling a Method</a>.
      * @param {BSTR} strSuperclass If not <b>NULL</b> or blank, this parameter specifies a parent class name. Only classes that are subclasses of this class are returned in the enumerator. If <b>NULL</b> or blank, and <i>lFlags</i> is <b>WBEM_FLAG_SHALLOW</b>, only top-level classes—those that have no parent class—are returned. If it is <b>NULL</b> or blank and <i>lFlags</i> is <b>WBEM_FLAG_DEEP</b>, all classes within the namespace are returned.
-     * @param {Integer} lFlags 
+     * @param {WBEM_GENERIC_FLAG_TYPE} lFlags 
      * @param {IWbemContext} pCtx Typically <b>NULL</b>. Otherwise, this is a pointer to an 
      * <a href="https://docs.microsoft.com/windows/desktop/api/wbemcli/nn-wbemcli-iwbemcontext">IWbemContext</a> object that can be used by the provider that returns the requested classes. The values in the context object must be specified in the documentation for the provider. For more information about this parameter, see 
      * <a href="https://docs.microsoft.com/windows/desktop/WmiSdk/making-calls-to-wmi">Making Calls to WMI</a>.
@@ -421,7 +419,7 @@ class IWbemServices extends IUnknown{
      * Calling 
      * <b>PutInstance</b> on an instance of an abstract class is not allowed.
      * @param {IWbemClassObject} pInst Pointer to the instance to be written. The caller cannot make assumptions about the reference count at the completion of this call.
-     * @param {Integer} lFlags 
+     * @param {WBEM_GENERIC_FLAG_TYPE} lFlags 
      * @param {IWbemContext} pCtx Typically <b>NULL</b>, indicating that every property in the instance is to be updated. Otherwise, this is a pointer to an 
      * <a href="https://docs.microsoft.com/windows/desktop/api/wbemcli/nn-wbemcli-iwbemcontext">IWbemContext</a> object containing more information about the instance. The data in the context object must be documented by the provider responsible for the instance. A non-<b>NULL</b><b>IWbemContext</b> object can indicate whether support exists for partial-instance updates.
      * 
@@ -538,7 +536,7 @@ class IWbemServices extends IUnknown{
      * Even in catastrophic cases, you must release the references for decoupled providers. This is because in sync and semi-sync cases, the WMI service owns the implementation of <i>pResponseHandler</i>: even if your decoupled provider's process exits, the clients will still not be responding.
      * @param {IWbemClassObject} pInst Pointer to the instance to be written to the WMI repository. The caller cannot make assumptions about the 
      *     reference count at the completion of this call.
-     * @param {Integer} lFlags Specifies whether the caller wants the instance created if the instance does not currently exist.
+     * @param {WBEM_GENERIC_FLAG_TYPE} lFlags Specifies whether the caller wants the instance created if the instance does not currently exist.
      * 
      * When implementing an instance provider, you can choose to support a limited number of the flags in 
      *        <i>lFlags</i> by returning <b>WBEM_E_PROVIDER_NOT_CAPABLE</b>.
@@ -593,7 +591,7 @@ class IWbemServices extends IUnknown{
      * If ClassX, ClassA, and ClassB are all abstract and the <i>strObjectPath</i> parameter in 
      * <b>DeleteInstance</b> again points to an instance of ClassB, either the provider for ClassC or the provider for ClassD must succeed.
      * @param {BSTR} strObjectPath Valid <b>BSTR</b> containing the object path to the instance to be deleted.
-     * @param {Integer} lFlags 
+     * @param {WBEM_GENERIC_FLAG_TYPE} lFlags 
      * @param {IWbemContext} pCtx Typically NULL. Otherwise, this is a pointer to an 
      * <a href="https://docs.microsoft.com/windows/desktop/api/wbemcli/nn-wbemcli-iwbemcontext">IWbemContext</a> object that may be used by the provider that is deleting the instance. The values in the context object must be specified in the documentation for the provider in question.
      * @param {Pointer<IWbemCallResult>} ppCallResult If NULL, this parameter is not used. If <i>ppCallResult</i> is specified, it must be set to point to <b>NULL</b> on entry. If the <i>lFlags</i> parameter contains <b>WBEM_FLAG_RETURN_IMMEDIATELY</b>, this call returns immediately with <b>WBEM_S_NO_ERROR</b>. The <i>ppCallResult</i> parameter receives a pointer to a new 
@@ -624,7 +622,7 @@ class IWbemServices extends IUnknown{
      * For more information about using methods semisynchronously, see <a href="https://docs.microsoft.com/windows/desktop/api/wbemcli/nf-wbemcli-iwbemservices-deleteinstance">IWbemServices::DeleteInstance</a> and <a href="https://docs.microsoft.com/windows/desktop/WmiSdk/calling-a-method">Calling a Method</a>.
      * @param {BSTR} strObjectPath Valid <b>BSTR</b> that contains the 
      * <a href="https://docs.microsoft.com/windows/desktop/WmiSdk/describing-an-instance-object-path">object path</a> of the object to be deleted.
-     * @param {Integer} lFlags <b>WBEM_FLAG_SEND_STATUS</b> registers with Windows Management a request to receive intermediate status reports through the client's implementation of 
+     * @param {WBEM_GENERIC_FLAG_TYPE} lFlags <b>WBEM_FLAG_SEND_STATUS</b> registers with Windows Management a request to receive intermediate status reports through the client's implementation of 
      * <a href="https://docs.microsoft.com/windows/desktop/api/wbemcli/nf-wbemcli-iwbemobjectsink-setstatus">IWbemObjectSink::SetStatus</a>. Provider implementation must support intermediate status reporting, for this flag to change behavior. Note that the <b>WBEM_FLAG_USE_AMENDED_QUALIFIERS</b> flag cannot be used here.
      * @param {IWbemContext} pCtx Typically <b>NULL</b>. Otherwise, this is a pointer to an 
      * <a href="https://docs.microsoft.com/windows/desktop/api/wbemcli/nn-wbemcli-iwbemcontext">IWbemContext</a> object that may be used by the provider that is deleting the instance. The values in the context object must be specified in the documentation for the provider in question.
@@ -668,7 +666,7 @@ class IWbemServices extends IUnknown{
      * @remarks
      * It is not an error for the returned enumerator to have zero elements.
      * @param {BSTR} strFilter Valid <b>BSTR</b> containing the name of the class for which instances are desired. This parameter cannot be <b>NULL</b>.
-     * @param {Integer} lFlags The following flags affect the behavior of this method. The suggested value for this parameter is <b>WBEM_FLAG_RETURN_IMMEDIATELY</b> and <b>WBEM_FLAG_FORWARD_ONLY</b> for best performance.
+     * @param {WBEM_GENERIC_FLAG_TYPE} lFlags The following flags affect the behavior of this method. The suggested value for this parameter is <b>WBEM_FLAG_RETURN_IMMEDIATELY</b> and <b>WBEM_FLAG_FORWARD_ONLY</b> for best performance.
      * @param {IWbemContext} pCtx Typically <b>NULL</b>. Otherwise, this is a pointer to an 
      * <a href="https://docs.microsoft.com/windows/desktop/api/wbemcli/nn-wbemcli-iwbemcontext">IWbemContext</a> object that may be used by the provider that is providing the requested instances. The values in the context object must be specified in the documentation for the provider in question. For more information about this parameter, see 
      * <a href="https://docs.microsoft.com/windows/desktop/WmiSdk/making-calls-to-wmi">Making Calls to WMI</a>.
@@ -693,7 +691,7 @@ class IWbemServices extends IUnknown{
      * 
      * For more information, see <a href="https://docs.microsoft.com/windows/desktop/api/wbemcli/nf-wbemcli-iwbemservices-createinstanceenum">IWbemServices::CreateInstanceEnum</a> and <a href="https://docs.microsoft.com/windows/desktop/WmiSdk/calling-a-method">Calling a Method</a>.
      * @param {BSTR} strFilter Valid <b>BSTR</b> containing the name of the class for which instances are desired. This parameter cannot be <b>NULL</b>.
-     * @param {Integer} lFlags 
+     * @param {WBEM_GENERIC_FLAG_TYPE} lFlags 
      * @param {IWbemContext} pCtx Typically NULL. Otherwise, this is a pointer to an 
      * <a href="https://docs.microsoft.com/windows/desktop/api/wbemcli/nn-wbemcli-iwbemcontext">IWbemContext</a> object that may be used by the provider that is returning the requested instances. The values in the context object must be specified in the documentation for the provider in question. For more information, see 
      * <a href="https://docs.microsoft.com/windows/desktop/WmiSdk/making-calls-to-wmi">Making Calls to WMI</a>.
@@ -736,7 +734,7 @@ class IWbemServices extends IUnknown{
      * There are limits to the number of "AND" and "OR" keywords that can be used in WQL queries.  Large numbers of WQL keywords used in a complex query can cause WMI to return the <b>WBEM_E_QUOTA_VIOLATION</b> error code as an <b>HRESULT</b> value.  The limit of WQL keywords depends on how complex the query is.
      * @param {BSTR} strQueryLanguage Valid <b>BSTR</b> that contains one of the query languages supported by Windows Management. This must be "WQL", the acronym for WMI Query Language.
      * @param {BSTR} strQuery Valid <b>BSTR</b> that contains the text of the query. This parameter cannot be <b>NULL</b>. For more information on building WMI query strings, see <a href="https://docs.microsoft.com/windows/desktop/WmiSdk/querying-with-wql">Querying with WQL</a> and the <a href="https://docs.microsoft.com/windows/desktop/WmiSdk/wql-sql-for-wmi">WQL</a> reference.
-     * @param {Integer} lFlags The following flags affect the behavior of this method. The suggested value for this parameter is <b>WBEM_FLAG_RETURN_IMMEDIATELY</b> and <b>WBEM_FLAG_FORWARD_ONLY</b> for best performance.
+     * @param {WBEM_GENERIC_FLAG_TYPE} lFlags The following flags affect the behavior of this method. The suggested value for this parameter is <b>WBEM_FLAG_RETURN_IMMEDIATELY</b> and <b>WBEM_FLAG_FORWARD_ONLY</b> for best performance.
      * @param {IWbemContext} pCtx Typically <b>NULL</b>. Otherwise, this is a pointer to an 
      * <a href="https://docs.microsoft.com/windows/desktop/api/wbemcli/nn-wbemcli-iwbemcontext">IWbemContext</a> object that can be used by the provider that is providing the requested classes or instances. The values in the context object must be specified in the documentation for the provider in question. For more information about this parameter, see 
      * <a href="https://docs.microsoft.com/windows/desktop/WmiSdk/making-calls-to-wmi">Making Calls to WMI</a>.
@@ -861,7 +859,7 @@ class IWbemServices extends IUnknown{
      * For more information on building WMI query strings, see 
      *    <a href="https://docs.microsoft.com/windows/desktop/WmiSdk/querying-with-wql">Querying with WQL</a> and the 
      *    <a href="https://docs.microsoft.com/windows/desktop/WmiSdk/wql-sql-for-wmi">WQL</a> reference.
-     * @param {Integer} lFlags 
+     * @param {WBEM_GENERIC_FLAG_TYPE} lFlags 
      * @param {IWbemContext} pCtx Typically <b>NULL</b>. Otherwise, this is a pointer to an 
      * <a href="https://docs.microsoft.com/windows/desktop/api/wbemcli/nn-wbemcli-iwbemcontext">IWbemContext</a> object that the provider can use to  return the requested classes or instances. The values in the context object must be specified in the documentation for the provider. For more information about this parameter, see 
      * <a href="https://docs.microsoft.com/windows/desktop/WmiSdk/making-calls-to-wmi">Making Calls to WMI</a>.
@@ -902,7 +900,7 @@ class IWbemServices extends IUnknown{
      * @param {BSTR} strQueryLanguage Valid <b>BSTR</b> that contains one of the query languages supported by Windows Management. This cannot be <b>NULL</b>. Currently, only the 
      * <a href="https://docs.microsoft.com/windows/desktop/WmiSdk/querying-with-wql">WMI Query Language</a> (WQL) is supported.
      * @param {BSTR} strQuery Valid <b>BSTR</b> that contains the text of the event-related query. This cannot be <b>NULL</b>. For more information on building WMI query strings, see <a href="https://docs.microsoft.com/windows/desktop/WmiSdk/querying-with-wql">Querying with WQL</a> and the <a href="https://docs.microsoft.com/windows/desktop/WmiSdk/wql-sql-for-wmi">WQL</a> reference.
-     * @param {Integer} lFlags This parameter must be set to both <b>WBEM_FLAG_RETURN_IMMEDIATELY</b> and <b>WBEM_FLAG_FORWARD_ONLY</b> or the call fails.
+     * @param {WBEM_GENERIC_FLAG_TYPE} lFlags This parameter must be set to both <b>WBEM_FLAG_RETURN_IMMEDIATELY</b> and <b>WBEM_FLAG_FORWARD_ONLY</b> or the call fails.
      * @param {IWbemContext} pCtx Typically <b>NULL</b>. Otherwise, this is a pointer to an 
      * <a href="https://docs.microsoft.com/windows/desktop/api/wbemcli/nn-wbemcli-iwbemcontext">IWbemContext</a> object that can be used by the provider that provides the requested events. The values in the context object must be specified in the documentation for the provider in question. For more information about this parameter, see 
      * <a href="https://docs.microsoft.com/windows/desktop/WmiSdk/making-calls-to-wmi">Making Calls to WMI</a>.
@@ -933,7 +931,7 @@ class IWbemServices extends IUnknown{
      * There are limits to the number of <b>AND</b> and <b>OR</b> keywords that can be used in WQL queries.  Large numbers of WQL keywords used in a complex query can cause WMI to return the <b>WBEM_E_QUOTA_VIOLATION</b> error code as an <b>HRESULT</b> value.  The limit of WQL keywords depends on how complex the query is.
      * @param {BSTR} strQueryLanguage Valid <b>BSTR</b> that contains one of the query languages supported by Windows Management. This must be "WQL".
      * @param {BSTR} strQuery Valid <b>BSTR</b> that contains the text of the event-related query. This cannot be <b>NULL</b>. For more information on building WMI query strings, see <a href="https://docs.microsoft.com/windows/desktop/WmiSdk/querying-with-wql">Querying with WQL</a> and the <a href="https://docs.microsoft.com/windows/desktop/WmiSdk/wql-sql-for-wmi">WQL</a> reference.
-     * @param {Integer} lFlags This parameter can be the following value.
+     * @param {WBEM_GENERIC_FLAG_TYPE} lFlags This parameter can be the following value.
      * @param {IWbemContext} pCtx Typically <b>NULL</b>. Otherwise, this is a pointer to an 
      * <a href="https://docs.microsoft.com/windows/desktop/api/wbemcli/nn-wbemcli-iwbemcontext">IWbemContext</a> object that may be used by the provider that is returning the requested events. The values in the context object must be specified in the documentation for the provider in question. For more information about this parameter, see 
      * <a href="https://docs.microsoft.com/windows/desktop/WmiSdk/making-calls-to-wmi">Making Calls to WMI</a>.
@@ -969,7 +967,7 @@ class IWbemServices extends IUnknown{
      * @param {BSTR} strObjectPath Valid <b>BSTR</b> containing the 
      * <a href="https://docs.microsoft.com/windows/desktop/WmiSdk/describing-a-class-object-path">object path</a> of the object for which the method is executed.
      * @param {BSTR} strMethodName Name of the method for the object.
-     * @param {Integer} lFlags This parameter can be set to 0 to make this a synchronous call. To make this a semisynchronous call, set <i>lFlags</i> to <b>WBEM_FLAG_RETURN_IMMEDIATELY</b>, provide a valid pointer for the <i>ppCallResult</i> parameter, and this call returns immediately. For more information, see 
+     * @param {WBEM_GENERIC_FLAG_TYPE} lFlags This parameter can be set to 0 to make this a synchronous call. To make this a semisynchronous call, set <i>lFlags</i> to <b>WBEM_FLAG_RETURN_IMMEDIATELY</b>, provide a valid pointer for the <i>ppCallResult</i> parameter, and this call returns immediately. For more information, see 
      * <a href="https://docs.microsoft.com/windows/desktop/WmiSdk/calling-a-method">Calling a Method</a>.
      * @param {IWbemContext} pCtx Typically <b>NULL</b>;  otherwise, this is a pointer to an 
      * <a href="https://docs.microsoft.com/windows/desktop/api/wbemcli/nn-wbemcli-iwbemcontext">IWbemContext</a> object that may be used by the provider executing the method. The values in the context object must be specified in the documentation for the provider in question. For more information about this parameter, see 
@@ -1050,7 +1048,7 @@ class IWbemServices extends IUnknown{
      * @param {BSTR} strObjectPath Valid <b>BSTR</b> containing the 
      * <a href="https://docs.microsoft.com/windows/desktop/WmiSdk/describing-a-class-object-path">object path</a> of the object for which the method is to be executed. You can invoke a static method using either a class name or an object path to an instance. The method provider can parse the object path parameter to determine the class and instance that contain the method definition.
      * @param {BSTR} strMethodName Name of the method for the object.
-     * @param {Integer} lFlags <b>WBEM_FLAG_SEND_STATUS</b> registers with Windows Management a request to receive intermediate status reports through the clients implementation of 
+     * @param {WBEM_GENERIC_FLAG_TYPE} lFlags <b>WBEM_FLAG_SEND_STATUS</b> registers with Windows Management a request to receive intermediate status reports through the clients implementation of 
      * <a href="https://docs.microsoft.com/windows/desktop/api/wbemcli/nf-wbemcli-iwbemobjectsink-setstatus">IWbemObjectSink::SetStatus</a>. Provider implementation must support intermediate status reporting for this flag to change behavior. Note that the <b>WBEM_FLAG_USE_AMENDED_QUALIFIERS</b> flag cannot be used here.
      * @param {IWbemContext} pCtx Typically <b>NULL</b>;  otherwise, this is a pointer to an 
      * <a href="https://docs.microsoft.com/windows/desktop/api/wbemcli/nn-wbemcli-iwbemcontext">IWbemContext</a> object that may be used by the provider executing the method. The values in the context object must be specified in the documentation for the provider in question. For more information about this parameter, see 

@@ -1,12 +1,12 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
+#Include .\D3DDDI_FLIPINTERVAL_TYPE.ahk
+#Include .\D3DKMT_MULTIPLANE_OVERLAY2.ahk
 
 /**
  * @namespace Windows.Wdk.Graphics.Direct3D
- * @version v4.0.30319
  */
-class D3DKMT_PRESENT_MULTIPLANE_OVERLAY2 extends Win32Struct
-{
+class D3DKMT_PRESENT_MULTIPLANE_OVERLAY2 extends Win32Struct {
     static sizeof => 312
 
     static packingSize => 8
@@ -44,9 +44,9 @@ class D3DKMT_PRESENT_MULTIPLANE_OVERLAY2 extends Win32Struct
     }
 
     /**
-     * @type {Array<UInt32>}
+     * @type {Array<Integer>}
      */
-    BroadcastContext{
+    BroadcastContext {
         get {
             if(!this.HasProp("__BroadcastContextProxyArray"))
                 this.__BroadcastContextProxyArray := Win32FixedArray(this.ptr + 12, 64, Primitive, "uint")
@@ -71,7 +71,7 @@ class D3DKMT_PRESENT_MULTIPLANE_OVERLAY2 extends Win32Struct
     }
 
     /**
-     * @type {Integer}
+     * @type {D3DDDI_FLIPINTERVAL_TYPE}
      */
     FlipInterval {
         get => NumGet(this, 276, "int")
@@ -79,7 +79,7 @@ class D3DKMT_PRESENT_MULTIPLANE_OVERLAY2 extends Win32Struct
     }
 
     /**
-     * @type {Pointer<D3DKMT_PRESENTFLAGS>}
+     * @type {Pointer}
      */
     Flags {
         get => NumGet(this, 280, "ptr")

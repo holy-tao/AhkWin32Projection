@@ -4,10 +4,8 @@
 
 /**
  * @namespace Windows.Win32.Networking.WinInet
- * @version v4.0.30319
  */
-class GOPHER_MOD_DATE_ATTRIBUTE_TYPE extends Win32Struct
-{
+class GOPHER_MOD_DATE_ATTRIBUTE_TYPE extends Win32Struct {
     static sizeof => 8
 
     static packingSize => 4
@@ -15,7 +13,7 @@ class GOPHER_MOD_DATE_ATTRIBUTE_TYPE extends Win32Struct
     /**
      * @type {FILETIME}
      */
-    DateAndTime{
+    DateAndTime {
         get {
             if(!this.HasProp("__DateAndTime"))
                 this.__DateAndTime := FILETIME(0, this)

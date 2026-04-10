@@ -2,19 +2,21 @@
 #Include ..\..\..\..\Win32Struct.ahk
 #Include .\HCONV.ahk
 #Include .\HSZ.ahk
+#Include .\DDE_CLIENT_TRANSACTION_TYPE.ahk
+#Include .\CONVINFO_STATUS.ahk
+#Include .\CONVINFO_CONVERSATION_STATE.ahk
 #Include .\HCONVLIST.ahk
-#Include ..\..\Security\SECURITY_QUALITY_OF_SERVICE.ahk
 #Include .\CONVCONTEXT.ahk
+#Include ..\..\Security\SECURITY_QUALITY_OF_SERVICE.ahk
+#Include ..\..\Security\SECURITY_IMPERSONATION_LEVEL.ahk
 #Include ..\..\Foundation\HWND.ahk
 
 /**
  * Contains information about a Dynamic Data Exchange (DDE) conversation.
  * @see https://learn.microsoft.com/windows/win32/api/ddeml/ns-ddeml-convinfo
  * @namespace Windows.Win32.System.DataExchange
- * @version v4.0.30319
  */
-class CONVINFO extends Win32Struct
-{
+class CONVINFO extends Win32Struct {
     static sizeof => 144
 
     static packingSize => 8
@@ -47,7 +49,7 @@ class CONVINFO extends Win32Struct
      * A handle to the partner application in the DDE conversation. This member is zero if the partner has not registered itself (using the <a href="https://docs.microsoft.com/windows/desktop/api/ddeml/nf-ddeml-ddeinitializea">DdeInitialize</a> function) to make DDEML function calls. An application should not pass this member to any DDEML function except <a href="https://docs.microsoft.com/windows/desktop/api/ddeml/nf-ddeml-ddequeryconvinfo">DdeQueryConvInfo</a>.
      * @type {HCONV}
      */
-    hConvPartner{
+    hConvPartner {
         get {
             if(!this.HasProp("__hConvPartner"))
                 this.__hConvPartner := HCONV(16, this)
@@ -61,7 +63,7 @@ class CONVINFO extends Win32Struct
      * A handle to the service name of the partner application.
      * @type {HSZ}
      */
-    hszSvcPartner{
+    hszSvcPartner {
         get {
             if(!this.HasProp("__hszSvcPartner"))
                 this.__hszSvcPartner := HSZ(24, this)
@@ -75,7 +77,7 @@ class CONVINFO extends Win32Struct
      * A handle to the service name of the server application that was requested for connection.
      * @type {HSZ}
      */
-    hszServiceReq{
+    hszServiceReq {
         get {
             if(!this.HasProp("__hszServiceReq"))
                 this.__hszServiceReq := HSZ(32, this)
@@ -89,7 +91,7 @@ class CONVINFO extends Win32Struct
      * A handle to the name of the requested topic.
      * @type {HSZ}
      */
-    hszTopic{
+    hszTopic {
         get {
             if(!this.HasProp("__hszTopic"))
                 this.__hszTopic := HSZ(40, this)
@@ -103,7 +105,7 @@ class CONVINFO extends Win32Struct
      * A handle to the name of the requested item. This member is transaction specific.
      * @type {HSZ}
      */
-    hszItem{
+    hszItem {
         get {
             if(!this.HasProp("__hszItem"))
                 this.__hszItem := HSZ(48, this)
@@ -124,7 +126,7 @@ class CONVINFO extends Win32Struct
 
     /**
      * Type: <b>UINT</b>
-     * @type {Integer}
+     * @type {DDE_CLIENT_TRANSACTION_TYPE}
      */
     wType {
         get => NumGet(this, 60, "uint")
@@ -133,7 +135,7 @@ class CONVINFO extends Win32Struct
 
     /**
      * Type: <b>UINT</b>
-     * @type {Integer}
+     * @type {CONVINFO_STATUS}
      */
     wStatus {
         get => NumGet(this, 64, "uint")
@@ -142,7 +144,7 @@ class CONVINFO extends Win32Struct
 
     /**
      * Type: <b>UINT</b>
-     * @type {Integer}
+     * @type {CONVINFO_CONVERSATION_STATE}
      */
     wConvst {
         get => NumGet(this, 68, "uint")
@@ -166,7 +168,7 @@ class CONVINFO extends Win32Struct
      * A handle to the conversation list if the handle to the current conversation is in a conversation list. This member is <b>NULL</b> if the conversation is not in a conversation list.
      * @type {HCONVLIST}
      */
-    hConvList{
+    hConvList {
         get {
             if(!this.HasProp("__hConvList"))
                 this.__hConvList := HCONVLIST(80, this)
@@ -180,7 +182,7 @@ class CONVINFO extends Win32Struct
      * The conversation context.
      * @type {CONVCONTEXT}
      */
-    ConvCtxt{
+    ConvCtxt {
         get {
             if(!this.HasProp("__ConvCtxt"))
                 this.__ConvCtxt := CONVCONTEXT(88, this)
@@ -194,7 +196,7 @@ class CONVINFO extends Win32Struct
      * A handle to the window of the calling application involved in the conversation.
      * @type {HWND}
      */
-    hwnd{
+    hwnd {
         get {
             if(!this.HasProp("__hwnd"))
                 this.__hwnd := HWND(128, this)
@@ -208,7 +210,7 @@ class CONVINFO extends Win32Struct
      * A handle to the window of the partner application involved in the current conversation.
      * @type {HWND}
      */
-    hwndPartner{
+    hwndPartner {
         get {
             if(!this.HasProp("__hwndPartner"))
                 this.__hwndPartner := HWND(136, this)

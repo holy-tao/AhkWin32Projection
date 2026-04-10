@@ -10,9 +10,8 @@
  * For a single topology, the Media Session sends these status flags in numerical order, starting with <b>MF_TOPOSTATUS_READY</b>. However, there is no guarantee about the ordering of the events across two different topologies. For example, you might get <b>MF_TOPOSTATUS_READY</b> for a topology before you get <b>MF_TOPOSTATUS_ENDED</b> for the previous topology.
  * @see https://learn.microsoft.com/windows/win32/api/mfapi/ne-mfapi-mf_topostatus
  * @namespace Windows.Win32.Media.MediaFoundation
- * @version v4.0.30319
  */
-class MF_TOPOSTATUS extends Win32Enum{
+class MF_TOPOSTATUS extends Win32Enum {
 
     /**
      * This value is not used.

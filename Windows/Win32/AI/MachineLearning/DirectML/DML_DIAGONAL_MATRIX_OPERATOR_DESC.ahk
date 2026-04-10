@@ -1,16 +1,13 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\..\Win32Struct.ahk
+#Include .\DML_TENSOR_DESC.ahk
 
 /**
  * Generates an identity-like matrix with ones (or other explicit value) on the major diagonal, and zeros everywhere else.
- * @remarks
- * 
  * @see https://learn.microsoft.com/windows/win32/api/directml/ns-directml-dml_diagonal_matrix_operator_desc
  * @namespace Windows.Win32.AI.MachineLearning.DirectML
- * @version v4.0.30319
  */
-class DML_DIAGONAL_MATRIX_OPERATOR_DESC extends Win32Struct
-{
+class DML_DIAGONAL_MATRIX_OPERATOR_DESC extends Win32Struct {
     static sizeof => 16
 
     static packingSize => 8

@@ -10,10 +10,8 @@
  * ``` syntax
  * @see https://learn.microsoft.com/windows/win32/api/mtpext/ns-mtpext-mtp_command_data_in
  * @namespace Windows.Win32.Media.DeviceManager
- * @version v4.0.30319
  */
-class MTP_COMMAND_DATA_IN extends Win32Struct
-{
+class MTP_COMMAND_DATA_IN extends Win32Struct {
     static sizeof => 40
 
     static packingSize => 4
@@ -38,9 +36,9 @@ class MTP_COMMAND_DATA_IN extends Win32Struct
 
     /**
      * Parameters to the command. <b>MTP_COMMAND_MAX_PARAMS</b> is a defined constant with a value of 5.
-     * @type {Array<UInt32>}
+     * @type {Array<Integer>}
      */
-    Params{
+    Params {
         get {
             if(!this.HasProp("__ParamsProxyArray"))
                 this.__ParamsProxyArray := Win32FixedArray(this.ptr + 8, 5, Primitive, "uint")
@@ -68,9 +66,9 @@ class MTP_COMMAND_DATA_IN extends Win32Struct
 
     /**
      * Optional, first byte of data to write to the device if <b>NextPhase</b> is MTP_NEXTPHASE_WRITE_DATA.
-     * @type {Array<Byte>}
+     * @type {Array<Integer>}
      */
-    CommandWriteData{
+    CommandWriteData {
         get {
             if(!this.HasProp("__CommandWriteDataProxyArray"))
                 this.__CommandWriteDataProxyArray := Win32FixedArray(this.ptr + 36, 1, Primitive, "char")

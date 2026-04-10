@@ -9,9 +9,8 @@
  * This interface supercedes <a href="https://docs.microsoft.com/windows/desktop/api/d3d12/nn-d3d12-id3d12rootsignaturedeserializer">ID3D12RootSignatureDeserializer</a>.
  * @see https://learn.microsoft.com/windows/win32/api/d3d12/nn-d3d12-id3d12versionedrootsignaturedeserializer
  * @namespace Windows.Win32.Graphics.Direct3D12
- * @version v4.0.30319
  */
-class ID3D12VersionedRootSignatureDeserializer extends IUnknown{
+class ID3D12VersionedRootSignatureDeserializer extends IUnknown {
 
     static sizeof => A_PtrSize
     /**
@@ -40,7 +39,7 @@ class ID3D12VersionedRootSignatureDeserializer extends IUnknown{
      * Converting a root signature from 1.1 to 1.0 will drop all <a href="https://docs.microsoft.com/windows/desktop/api/d3d12/ne-d3d12-d3d12_descriptor_range_flags">D3D12_DESCRIPTOR_RANGE_FLAGS</a> and <a href="https://docs.microsoft.com/windows/desktop/api/d3d12/ne-d3d12-d3d12_root_descriptor_flags">D3D12_ROOT_DESCRIPTOR_FLAGS</a> can be useful for generating compatible root signatures that need to run on old operating systems, though does lose optimization opportunities.  For instance, multiple root signature versions can be serialized and stored with application assets, with the appropriate version used at runtime based on the operating system capabilities.  
      * 
      * Converting a root signature from 1.0 to 1.1 just adds the appropriate flags to match 1.0 semantics.
-     * @param {Integer} convertToVersion Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/d3d12/ne-d3d12-d3d_root_signature_version">D3D_ROOT_SIGNATURE_VERSION</a></b>
+     * @param {D3D_ROOT_SIGNATURE_VERSION} convertToVersion Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/d3d12/ne-d3d12-d3d_root_signature_version">D3D_ROOT_SIGNATURE_VERSION</a></b>
      * 
      * Specifies the required <a href="https://docs.microsoft.com/windows/desktop/api/d3d12/ne-d3d12-d3d_root_signature_version">D3D_ROOT_SIGNATURE_VERSION</a>.
      * @returns {Pointer<D3D12_VERSIONED_ROOT_SIGNATURE_DESC>} Type: <b>const <a href="https://docs.microsoft.com/windows/desktop/api/d3d12/ns-d3d12-d3d12_versioned_root_signature_desc">D3D12_VERSIONED_ROOT_SIGNATURE_DESC</a>**</b>

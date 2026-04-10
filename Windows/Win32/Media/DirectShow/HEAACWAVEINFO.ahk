@@ -51,10 +51,8 @@
  * </table>
  * @see https://learn.microsoft.com/windows/win32/api/mmreg/ns-mmreg-heaacwaveinfo
  * @namespace Windows.Win32.Media.DirectShow
- * @version v4.0.30319
  */
-class HEAACWAVEINFO extends Win32Struct
-{
+class HEAACWAVEINFO extends Win32Struct {
     static sizeof => 32
 
     static packingSize => 4
@@ -64,7 +62,7 @@ class HEAACWAVEINFO extends Win32Struct
      *  without SBR or PS extensions. See Remarks.
      * @type {WAVEFORMATEX}
      */
-    wfx{
+    wfx {
         get {
             if(!this.HasProp("__wfx"))
                 this.__wfx := WAVEFORMATEX(0, this)

@@ -3,10 +3,8 @@
 
 /**
  * @namespace Windows.Wdk.System.SystemServices
- * @version v4.0.30319
  */
-class CM_ROM_BLOCK extends Win32Struct
-{
+class CM_ROM_BLOCK extends Win32Struct {
     static sizeof => 8
 
     static packingSize => 4

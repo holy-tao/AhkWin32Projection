@@ -7,9 +7,8 @@
  * The values of this enumeration are used with the <a href="https://docs.microsoft.com/windows/desktop/medfound/mf-devicestream-attribute-framesource-types">MF_DEVICESTREAM_ATTRIBUTE_FRAMESOURCE_TYPES</a> attribute.
  * @see https://learn.microsoft.com/windows/win32/api/mfapi/ne-mfapi-mfframesourcetypes
  * @namespace Windows.Win32.Media.MediaFoundation
- * @version v4.0.30319
  */
-class MFFrameSourceTypes extends Win32Enum{
+class MFFrameSourceTypes extends Win32Enum {
 
     /**
      * The frame source provides color data.

@@ -15,9 +15,8 @@
  * Objects that can be named by monikers must be registered with the ROT when they are loaded and their registration must be revoked when they are no longer running.
  * @see https://learn.microsoft.com/windows/win32/api/objidl/nn-objidl-irunningobjecttable
  * @namespace Windows.Win32.System.Com
- * @version v4.0.30319
  */
-class IRunningObjectTable extends IUnknown{
+class IRunningObjectTable extends IUnknown {
 
     static sizeof => A_PtrSize
     /**
@@ -67,7 +66,7 @@ class IRunningObjectTable extends IUnknown{
      * As of Windows Server 2003, if there are stale entries that remain in the ROT due to unexpected server problems, COM will automatically remove these stale entries from the ROT.
      * 
      * The system's implementation of <b>Register</b> calls <a href="https://docs.microsoft.com/windows/desktop/api/objidl/nf-objidl-imoniker-reduce">IMoniker::Reduce</a> on the <i>pmkObjectName</i> parameter to ensure that the moniker is fully reduced before registration. If an object is known by more than one fully reduced moniker, it should be registered under all such monikers.
-     * @param {Integer} grfFlags Specifies whether the ROT's reference to punkObject is weak or strong and controls access to the object through its entry in the ROT. For details, see the Remarks section.
+     * @param {ROT_FLAGS} grfFlags Specifies whether the ROT's reference to punkObject is weak or strong and controls access to the object through its entry in the ROT. For details, see the Remarks section.
      * 
      * <table>
      * <tr>

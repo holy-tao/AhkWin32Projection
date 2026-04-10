@@ -1,15 +1,14 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
+#Include ..\..\System\Com\IUnknown.ahk
 #Include ..\..\Foundation\BSTR.ahk
 #Include .\IPrintReadStream.ahk
-#Include ..\..\System\Com\IUnknown.ahk
 
 /**
  * @namespace Windows.Win32.Graphics.Printing
- * @version v4.0.30319
  */
-class IPartBase extends IUnknown{
+class IPartBase extends IUnknown {
 
     static sizeof => A_PtrSize
     /**
@@ -52,7 +51,7 @@ class IPartBase extends IUnknown{
 
     /**
      * 
-     * @returns {Integer} 
+     * @returns {EXpsCompressionOptions} 
      */
     GetPartCompression() {
         result := ComCall(5, this, "int*", &pCompression := 0, "HRESULT")
@@ -61,7 +60,7 @@ class IPartBase extends IUnknown{
 
     /**
      * 
-     * @param {Integer} compression 
+     * @param {EXpsCompressionOptions} compression 
      * @returns {HRESULT} 
      */
     SetPartCompression(compression) {

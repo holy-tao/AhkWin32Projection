@@ -3,9 +3,8 @@
 
 /**
  * @namespace Windows.Win32.System.MessageQueuing
- * @version v4.0.30319
  */
-class MQQUEUEACCESSMASK extends Win32BitflagEnum{
+class MQQUEUEACCESSMASK extends Win32BitflagEnum {
 
     /**
      * @type {Integer (UInt32)}

@@ -1,14 +1,13 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
-#Include .\ISynchronize.ahk
 #Include .\IUnknown.ahk
+#Include .\ISynchronize.ahk
 
 /**
  * @namespace Windows.Win32.System.Com
- * @version v4.0.30319
  */
-class IWaitMultiple extends IUnknown{
+class IWaitMultiple extends IUnknown {
 
     static sizeof => A_PtrSize
     /**

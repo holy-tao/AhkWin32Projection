@@ -1,14 +1,13 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\..\..\Guid.ahk
-#Include .\INamedModelsEnumerator.ahk
 #Include .\IDataModelManager2.ahk
+#Include .\INamedModelsEnumerator.ahk
 
 /**
  * @namespace Windows.Win32.System.Diagnostics.Debug.Extensions
- * @version v4.0.30319
  */
-class IDataModelManager3 extends IDataModelManager2{
+class IDataModelManager3 extends IDataModelManager2 {
 
     static sizeof => A_PtrSize
     /**

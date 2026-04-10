@@ -7,9 +7,8 @@
  * The ICommandTree interface is optional for providers that support commands. It contains methods for manipulating query trees. Providers that support command trees must also support specifying the same functionality through the ICommandText interface.
  * @see https://learn.microsoft.com/windows/win32/api/cmdtree/nn-cmdtree-icommandtree
  * @namespace Windows.Win32.System.Search
- * @version v4.0.30319
  */
-class ICommand extends IUnknown{
+class ICommand extends IUnknown {
 
     static sizeof => A_PtrSize
     /**

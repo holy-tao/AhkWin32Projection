@@ -7,9 +7,8 @@
  * Represents the set of transforms implemented by the effect-rendering system, which provides fixed-functionality.
  * @see https://learn.microsoft.com/windows/win32/api/d2d1effectauthor/nn-d2d1effectauthor-id2d1concretetransform
  * @namespace Windows.Win32.Graphics.Direct2D
- * @version v4.0.30319
  */
-class ID2D1ConcreteTransform extends ID2D1TransformNode{
+class ID2D1ConcreteTransform extends ID2D1TransformNode {
 
     static sizeof => A_PtrSize
     /**
@@ -36,10 +35,10 @@ class ID2D1ConcreteTransform extends ID2D1TransformNode{
      * You can use the <a href="https://docs.microsoft.com/windows/desktop/api/d2d1effectauthor/nf-d2d1effectauthor-id2d1effectcontext-isbufferprecisionsupported">ID2D1EffectContext::IsBufferPrecisionSupported</a> method to see if buffer precision is supported.
      * 
      * The available channel depth and precision depend on the capabilities of the underlying Microsoft Direct3D device.
-     * @param {Integer} bufferPrecision Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/d2d1_1/ne-d2d1_1-d2d1_buffer_precision">D2D1_BUFFER_PRECISION</a></b>
+     * @param {D2D1_BUFFER_PRECISION} bufferPrecision Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/d2d1_1/ne-d2d1_1-d2d1_buffer_precision">D2D1_BUFFER_PRECISION</a></b>
      * 
      * The number of bits and the type of the output buffer.
-     * @param {Integer} channelDepth Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/d2d1effectauthor/ne-d2d1effectauthor-d2d1_channel_depth">D2D1_CHANNEL_DEPTH</a></b>
+     * @param {D2D1_CHANNEL_DEPTH} channelDepth Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/d2d1effectauthor/ne-d2d1effectauthor-d2d1_channel_depth">D2D1_CHANNEL_DEPTH</a></b>
      * 
      * The number of channels in the output buffer (1 or 4).
      * @returns {HRESULT} Type: <b>HRESULT</b>

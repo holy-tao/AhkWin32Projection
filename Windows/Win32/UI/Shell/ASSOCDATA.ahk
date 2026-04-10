@@ -5,9 +5,8 @@
  * Used by IQueryAssociations::GetData to define the type of data that is to be returned.
  * @see https://learn.microsoft.com/windows/win32/api/shlwapi/ne-shlwapi-assocdata
  * @namespace Windows.Win32.UI.Shell
- * @version v4.0.30319
  */
-class ASSOCDATA extends Win32Enum{
+class ASSOCDATA extends Win32Enum {
 
     /**
      * The component descriptor to pass to the Windows Installer API.
@@ -22,7 +21,6 @@ class ASSOCDATA extends Win32Enum{
     static ASSOCDATA_NOACTIVATEHANDLER => 2
 
     /**
-     * 
      * @type {Integer (Int32)}
      */
     static ASSOCDATA_UNUSED1 => 3
@@ -46,7 +44,6 @@ class ASSOCDATA extends Win32Enum{
     static ASSOCDATA_VALUE => 6
 
     /**
-     * 
      * @type {Integer (Int32)}
      */
     static ASSOCDATA_MAX => 7

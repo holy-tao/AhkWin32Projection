@@ -1,16 +1,14 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
-#Include ..\..\Foundation\BSTR.ahk
 #Include ..\Com\IDispatch.ahk
 
 /**
  * Provides the settings that the Task Scheduler uses to perform task during Automatic maintenance.
  * @see https://learn.microsoft.com/windows/win32/api/taskschd/nn-taskschd-imaintenancesettings
  * @namespace Windows.Win32.System.TaskScheduler
- * @version v4.0.30319
  */
-class IMaintenanceSettings extends IDispatch{
+class IMaintenanceSettings extends IDispatch {
 
     static sizeof => A_PtrSize
     /**
@@ -32,6 +30,7 @@ class IMaintenanceSettings extends IDispatch{
     static VTableNames => ["put_Period", "get_Period", "put_Deadline", "get_Deadline", "put_Exclusive", "get_Exclusive"]
 
     /**
+     * @type {BSTR} 
      */
     Period {
         get => this.get_Period()
@@ -39,6 +38,7 @@ class IMaintenanceSettings extends IDispatch{
     }
 
     /**
+     * @type {BSTR} 
      */
     Deadline {
         get => this.get_Deadline()
@@ -46,6 +46,7 @@ class IMaintenanceSettings extends IDispatch{
     }
 
     /**
+     * @type {VARIANT_BOOL} 
      */
     Exclusive {
         get => this.get_Exclusive()

@@ -9,10 +9,8 @@
  * Host software should continue to process completion queue entries within Completion Queues regardless of whether there are entries available in any Submission Queue.
  * @see https://learn.microsoft.com/windows/win32/api/nvme/ns-nvme-nvme_completion_queue_head_doorbell
  * @namespace Windows.Win32.Storage.Nvme
- * @version v4.0.30319
  */
-class NVME_COMPLETION_QUEUE_HEAD_DOORBELL extends Win32Struct
-{
+class NVME_COMPLETION_QUEUE_HEAD_DOORBELL extends Win32Struct {
     static sizeof => 8
 
     static packingSize => 4
@@ -45,7 +43,6 @@ class NVME_COMPLETION_QUEUE_HEAD_DOORBELL extends Win32Struct
     }
 
     /**
-     * 
      * @type {Integer}
      */
     AsUlong {

@@ -1,9 +1,9 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
+#Include .\ID3D10EffectVariable.ahk
 #Include .\ID3D10Buffer.ahk
 #Include .\ID3D10ShaderResourceView.ahk
-#Include .\ID3D10EffectVariable.ahk
 
 /**
  * A constant-buffer interface accesses constant buffers or texture buffers.
@@ -11,9 +11,8 @@
  * Use constant buffers to store many effect constants; grouping constants into buffers based on their frequency of update. This allows you to minimize the number of state changes as well as make the fewest API calls to change state. Both of these factors lead to better performance.
  * @see https://learn.microsoft.com/windows/win32/api/d3d10effect/nn-d3d10effect-id3d10effectconstantbuffer
  * @namespace Windows.Win32.Graphics.Direct3D10
- * @version v4.0.30319
  */
-class ID3D10EffectConstantBuffer extends ID3D10EffectVariable{
+class ID3D10EffectConstantBuffer extends ID3D10EffectVariable {
 
     static sizeof => A_PtrSize
     /**

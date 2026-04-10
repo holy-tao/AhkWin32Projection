@@ -11,10 +11,8 @@
  * If the structure is an element of an array of structures, set ArrayIndex in the first descriptor to the zero-based index of the structure in the array.
  * @see https://learn.microsoft.com/windows/win32/api/tdh/ns-tdh-property_data_descriptor
  * @namespace Windows.Win32.System.Diagnostics.Etw
- * @version v4.0.30319
  */
-class PROPERTY_DATA_DESCRIPTOR extends Win32Struct
-{
+class PROPERTY_DATA_DESCRIPTOR extends Win32Struct {
     static sizeof => 16
 
     static packingSize => 8

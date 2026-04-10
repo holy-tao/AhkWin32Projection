@@ -7,9 +7,8 @@
  * The IAudioRenderClient interface enables a client to write output data to a rendering endpoint buffer.
  * @see https://learn.microsoft.com/windows/win32/api/audioclient/nn-audioclient-iaudiorenderclient
  * @namespace Windows.Win32.Media.Audio
- * @version v4.0.30319
  */
-class IAudioRenderClient extends IUnknown{
+class IAudioRenderClient extends IUnknown {
 
     static sizeof => A_PtrSize
     /**

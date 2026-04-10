@@ -1,16 +1,15 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
-#Include ..\..\Foundation\FILETIME.ahk
 #Include .\RM_UNIQUE_PROCESS.ahk
+#Include ..\..\Foundation\FILETIME.ahk
+#Include .\RM_APP_TYPE.ahk
 
 /**
  * Describes an application that is to be registered with the Restart Manager.
  * @see https://learn.microsoft.com/windows/win32/api/restartmanager/ns-restartmanager-rm_process_info
  * @namespace Windows.Win32.System.RestartManager
- * @version v4.0.30319
  */
-class RM_PROCESS_INFO extends Win32Struct
-{
+class RM_PROCESS_INFO extends Win32Struct {
     static sizeof => 668
 
     static packingSize => 4
@@ -19,7 +18,7 @@ class RM_PROCESS_INFO extends Win32Struct
      * Contains an <a href="https://docs.microsoft.com/windows/desktop/api/restartmanager/ns-restartmanager-rm_unique_process">RM_UNIQUE_PROCESS</a> structure that  uniquely identifies the application by its PID and the time the process began.
      * @type {RM_UNIQUE_PROCESS}
      */
-    Process{
+    Process {
         get {
             if(!this.HasProp("__Process"))
                 this.__Process := RM_UNIQUE_PROCESS(0, this)
@@ -47,7 +46,7 @@ class RM_PROCESS_INFO extends Win32Struct
 
     /**
      * Contains an <a href="https://docs.microsoft.com/windows/desktop/api/restartmanager/ne-restartmanager-rm_app_type">RM_APP_TYPE</a> enumeration value that specifies the type of application as <b>RmUnknownApp</b>,  <b>RmMainWindow</b>, <b>RmOtherWindow</b>, <b>RmService</b>, <b>RmExplorer</b> or <b>RmCritical</b>.
-     * @type {Integer}
+     * @type {RM_APP_TYPE}
      */
     ApplicationType {
         get => NumGet(this, 652, "int")

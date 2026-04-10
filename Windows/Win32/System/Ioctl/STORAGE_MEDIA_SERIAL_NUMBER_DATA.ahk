@@ -3,10 +3,8 @@
 
 /**
  * @namespace Windows.Win32.System.Ioctl
- * @version v4.0.30319
  */
-class STORAGE_MEDIA_SERIAL_NUMBER_DATA extends Win32Struct
-{
+class STORAGE_MEDIA_SERIAL_NUMBER_DATA extends Win32Struct {
     static sizeof => 6
 
     static packingSize => 2
@@ -28,9 +26,9 @@ class STORAGE_MEDIA_SERIAL_NUMBER_DATA extends Win32Struct
     }
 
     /**
-     * @type {Array<Byte>}
+     * @type {Array<Integer>}
      */
-    SerialNumber{
+    SerialNumber {
         get {
             if(!this.HasProp("__SerialNumberProxyArray"))
                 this.__SerialNumberProxyArray := Win32FixedArray(this.ptr + 4, 1, Primitive, "char")

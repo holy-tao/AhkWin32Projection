@@ -1,14 +1,17 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
+#Include .\WS_FIELD_MAPPING.ahk
+#Include .\WS_XML_STRING.ahk
+#Include .\WS_TYPE.ahk
+#Include .\WS_DEFAULT_VALUE.ahk
+#Include .\WS_ITEM_RANGE.ahk
 
 /**
  * Represents serialization information about a field within a structure.
  * @see https://learn.microsoft.com/windows/win32/api/webservices/ns-webservices-ws_field_description
  * @namespace Windows.Win32.Networking.WindowsWebServices
- * @version v4.0.30319
  */
-class WS_FIELD_DESCRIPTION extends Win32Struct
-{
+class WS_FIELD_DESCRIPTION extends Win32Struct {
     static sizeof => 88
 
     static packingSize => 8
@@ -16,7 +19,7 @@ class WS_FIELD_DESCRIPTION extends Win32Struct
     /**
      * Identifies how the field maps to the XML.  See <a href="https://docs.microsoft.com/windows/desktop/api/webservices/ne-webservices-ws_field_mapping">WS_FIELD_MAPPING</a> for 
      *                     the ways that the field can be exposed in the XML content.
-     * @type {Integer}
+     * @type {WS_FIELD_MAPPING}
      */
     mapping {
         get => NumGet(this, 0, "int")
@@ -57,7 +60,7 @@ class WS_FIELD_DESCRIPTION extends Win32Struct
 
     /**
      * The type of the field.  See <a href="https://docs.microsoft.com/windows/desktop/api/webservices/ne-webservices-ws_type">WS_TYPE</a> for a list of supported types.
-     * @type {Integer}
+     * @type {WS_TYPE}
      */
     type {
         get => NumGet(this, 24, "int")

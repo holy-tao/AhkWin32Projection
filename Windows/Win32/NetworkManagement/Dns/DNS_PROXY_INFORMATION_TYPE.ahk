@@ -5,9 +5,8 @@
  * The DNS_PROXY_INFORMATION_TYPE enumeration defines the proxy information type in the DNS_PROXY_INFORMATION structure.
  * @see https://learn.microsoft.com/windows/win32/api/windns/ne-windns-dns_proxy_information_type
  * @namespace Windows.Win32.NetworkManagement.Dns
- * @version v4.0.30319
  */
-class DNS_PROXY_INFORMATION_TYPE extends Win32Enum{
+class DNS_PROXY_INFORMATION_TYPE extends Win32Enum {
 
     /**
      * The type is bypass proxy information.

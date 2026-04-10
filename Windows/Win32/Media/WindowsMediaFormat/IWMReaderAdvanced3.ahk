@@ -7,9 +7,8 @@
  * The IWMReaderAdvanced3 interface provides additional functionality to the reader object.
  * @see https://learn.microsoft.com/windows/win32/api/wmsdkidl/nn-wmsdkidl-iwmreaderadvanced3
  * @namespace Windows.Win32.Media.WindowsMediaFormat
- * @version v4.0.30319
  */
-class IWMReaderAdvanced3 extends IWMReaderAdvanced2{
+class IWMReaderAdvanced3 extends IWMReaderAdvanced2 {
 
     static sizeof => A_PtrSize
     /**
@@ -115,7 +114,7 @@ class IWMReaderAdvanced3 extends IWMReaderAdvanced2{
      * <td><b>QWORD</b></td>
      * </tr>
      * </table>
-     * @param {Integer} dwOffsetFormat <b>DWORD</b> containing one member of the <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/wmsdkidl/ne-wmsdkidl-wmt_offset_format">WMT_OFFSET_FORMAT</a> enumeration type. Valid values and their meanings are as follows.
+     * @param {WMT_OFFSET_FORMAT} dwOffsetFormat <b>DWORD</b> containing one member of the <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/wmsdkidl/ne-wmsdkidl-wmt_offset_format">WMT_OFFSET_FORMAT</a> enumeration type. Valid values and their meanings are as follows.
      * 
      * <table>
      * <tr>

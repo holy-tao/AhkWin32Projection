@@ -1,8 +1,8 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
-#Include .\IShellItem.ahk
 #Include ..\..\System\Com\IUnknown.ahk
+#Include .\IShellItem.ahk
 
 /**
  * Exposes methods that derive related items with specific relationships.
@@ -12,9 +12,8 @@
  * An example derivation is the creation of an identity name handler. For more information, see <a href="https://docs.microsoft.com/windows/desktop/api/shobjidl_core/nn-shobjidl_core-iidentityname">IIdentityName</a>. Other interfaces that may derive from this interface include <a href="https://docs.microsoft.com/windows/desktop/api/shobjidl_core/nn-shobjidl_core-icurrentitem">ICurrentItem</a>, and <a href="https://docs.microsoft.com/windows/desktop/api/shobjidl_core/nn-shobjidl_core-itransfermediumitem">ITransferMediumItem</a>.
  * @see https://learn.microsoft.com/windows/win32/api/shobjidl_core/nn-shobjidl_core-irelateditem
  * @namespace Windows.Win32.UI.Shell
- * @version v4.0.30319
  */
-class IRelatedItem extends IUnknown{
+class IRelatedItem extends IUnknown {
 
     static sizeof => A_PtrSize
     /**

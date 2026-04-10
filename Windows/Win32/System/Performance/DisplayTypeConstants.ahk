@@ -12,9 +12,8 @@
  * </ul>
  * @see https://learn.microsoft.com/windows/win32/api/isysmon/ne-isysmon-displaytypeconstants
  * @namespace Windows.Win32.System.Performance
- * @version v4.0.30319
  */
-class DisplayTypeConstants extends Win32Enum{
+class DisplayTypeConstants extends Win32Enum {
 
     /**
      * Counter values are displayed in a line graph. Each marker on the line graph represents a data value.

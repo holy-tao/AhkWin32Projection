@@ -7,9 +7,8 @@
  * This enum is used by the <a href="https://docs.microsoft.com/windows/desktop/api/d3d12/ns-d3d12-d3d12_heap_properties">D3D12_HEAP_PROPERTIES</a> structure.
  * @see https://learn.microsoft.com/windows/win32/api/d3d12/ne-d3d12-d3d12_cpu_page_property
  * @namespace Windows.Win32.Graphics.Direct3D12
- * @version v4.0.30319
  */
-class D3D12_CPU_PAGE_PROPERTY extends Win32Enum{
+class D3D12_CPU_PAGE_PROPERTY extends Win32Enum {
 
     /**
      * The CPU-page property is unknown.

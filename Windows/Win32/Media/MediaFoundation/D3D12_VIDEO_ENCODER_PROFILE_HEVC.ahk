@@ -7,9 +7,8 @@
  * Use this enumeration to specify the encoder profile in a [D3D12_VIDEO_ENCODER_PROFILE_DESC](ns-d3d12video-d3d12_video_encoder_profile_desc.md) structure.
  * @see https://learn.microsoft.com/windows/win32/api/d3d12video/ne-d3d12video-d3d12_video_encoder_profile_hevc
  * @namespace Windows.Win32.Media.MediaFoundation
- * @version v4.0.30319
  */
-class D3D12_VIDEO_ENCODER_PROFILE_HEVC extends Win32Enum{
+class D3D12_VIDEO_ENCODER_PROFILE_HEVC extends Win32Enum {
 
     /**
      * Main profile.

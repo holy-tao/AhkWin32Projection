@@ -5,10 +5,8 @@
  * The SECPKG_EVENT_NOTIFY structure contains information about security events. This structure is passed to a function registered to receive event notifications. Event notification functions are registered by calling the RegisterNotification function.
  * @see https://learn.microsoft.com/windows/win32/api/ntsecpkg/ns-ntsecpkg-secpkg_event_notify
  * @namespace Windows.Win32.Security.Authentication.Identity
- * @version v4.0.30319
  */
-class SECPKG_EVENT_NOTIFY extends Win32Struct
-{
+class SECPKG_EVENT_NOTIFY extends Win32Struct {
     static sizeof => 32
 
     static packingSize => 8

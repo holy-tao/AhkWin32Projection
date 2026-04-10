@@ -16,9 +16,8 @@
  * [**IWordBreaker**](/windows/win32/api/indexsrv/nn-indexsrv-iwordbreaker) implementations receive a pointer to the **IWordSink** object in the [**IWordBreaker::BreakText**](/windows/win32/api/indexsrv/nf-indexsrv-iwordbreaker-breaktext) method.
  * @see https://learn.microsoft.com/windows/win32/search/iwordsink
  * @namespace Windows.Win32.System.Search
- * @version v4.0.30319
  */
-class IWordSink extends IUnknown{
+class IWordSink extends IUnknown {
 
     static sizeof => A_PtrSize
     /**
@@ -137,7 +136,7 @@ class IWordSink extends IUnknown{
      * Puts a break after the preceding word.
      * @remarks
      * The [**IWordSinkPutWord**](iwordsink-putword.md) and [**IWordSink::PutAltWord**](iwordsink-putaltword.md) methods automatically insert an end-of-word break (EOW, indicated by the WORDREP\_BREAK\_EOW element of the [**WORDREP\_BREAK\_TYPE**](/previous-versions/windows/desktop/legacy/ff819130(v=vs.85)) enumerated type) after each word. Call the **PutBreak** method to insert a break type other than end of word. This method does not change the source text buffer (*pSourceText*) or increment the character count (*cwc*). However, it does increment the current position in the index and affects query results.
-     * @param {Integer} breakType A value from [**WORDREP\_BREAK\_TYPE**](/previous-versions/windows/desktop/legacy/ff819130(v=vs.85)) that indicates the type of break that the WordSink inserts after the preceding word. Each break occupies a unique position in the index. Therefore, inserting breaks between words changes the relative distance between words.
+     * @param {WORDREP_BREAK_TYPE} breakType A value from [**WORDREP\_BREAK\_TYPE**](/previous-versions/windows/desktop/legacy/ff819130(v=vs.85)) that indicates the type of break that the WordSink inserts after the preceding word. Each break occupies a unique position in the index. Therefore, inserting breaks between words changes the relative distance between words.
      * @returns {HRESULT} This method can return one of these values.
      * 
      * 

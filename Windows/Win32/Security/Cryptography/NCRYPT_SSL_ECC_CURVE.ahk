@@ -3,11 +3,9 @@
 
 /**
  * @namespace Windows.Win32.Security.Cryptography
- * @version v4.0.30319
  */
-class NCRYPT_SSL_ECC_CURVE extends Win32Struct
-{
-    static sizeof => 1032
+class NCRYPT_SSL_ECC_CURVE extends Win32Struct {
+    static sizeof => 780
 
     static packingSize => 4
 
@@ -23,31 +21,31 @@ class NCRYPT_SSL_ECC_CURVE extends Win32Struct
      * @type {String}
      */
     szOID {
-        get => StrGet(this.ptr + 510, 254, "UTF-16")
-        set => StrPut(value, this.ptr + 510, 254, "UTF-16")
+        get => StrGet(this.ptr + 510, 254, "UTF-8")
+        set => StrPut(value, this.ptr + 510, 254, "UTF-8")
     }
 
     /**
      * @type {Integer}
      */
     dwPublicKeyLength {
-        get => NumGet(this, 1020, "uint")
-        set => NumPut("uint", value, this, 1020)
+        get => NumGet(this, 768, "uint")
+        set => NumPut("uint", value, this, 768)
     }
 
     /**
      * @type {Integer}
      */
     dwCurveType {
-        get => NumGet(this, 1024, "uint")
-        set => NumPut("uint", value, this, 1024)
+        get => NumGet(this, 772, "uint")
+        set => NumPut("uint", value, this, 772)
     }
 
     /**
      * @type {Integer}
      */
     dwFlags {
-        get => NumGet(this, 1028, "uint")
-        set => NumPut("uint", value, this, 1028)
+        get => NumGet(this, 776, "uint")
+        set => NumPut("uint", value, this, 776)
     }
 }

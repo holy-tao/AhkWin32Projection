@@ -3,10 +3,8 @@
 
 /**
  * @namespace Windows.Win32.System.Wmi
- * @version v4.0.30319
  */
-class SWbemAnalysisMatrix extends Win32Struct
-{
+class SWbemAnalysisMatrix extends Win32Struct {
     static sizeof => 40
 
     static packingSize => 8

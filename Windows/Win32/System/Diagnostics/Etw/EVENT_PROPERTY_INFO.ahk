@@ -1,5 +1,6 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\..\Win32Struct.ahk
+#Include .\PROPERTY_FLAGS.ahk
 
 /**
  * Provides information about a single property of the event or filter.
@@ -7,17 +8,15 @@
  * Filters do not support maps, structures, or arrays.
  * @see https://learn.microsoft.com/windows/win32/api/tdh/ns-tdh-event_property_info
  * @namespace Windows.Win32.System.Diagnostics.Etw
- * @version v4.0.30319
  */
-class EVENT_PROPERTY_INFO extends Win32Struct
-{
+class EVENT_PROPERTY_INFO extends Win32Struct {
     static sizeof => 24
 
     static packingSize => 4
 
     /**
      * Flags that indicate if the property is contained in a structure or array. For possible values, see the <a href="https://docs.microsoft.com/windows/desktop/api/tdh/ne-tdh-property_flags">PROPERTY_FLAGS</a> enumeration.
-     * @type {Integer}
+     * @type {PROPERTY_FLAGS}
      */
     Flags {
         get => NumGet(this, 0, "int")
@@ -44,7 +43,7 @@ class EVENT_PROPERTY_INFO extends Win32Struct
             get => NumGet(this, 0, "ushort")
             set => NumPut("ushort", value, this, 0)
         }
-    
+
         /**
          * @type {Integer}
          */
@@ -52,7 +51,7 @@ class EVENT_PROPERTY_INFO extends Win32Struct
             get => NumGet(this, 2, "ushort")
             set => NumPut("ushort", value, this, 2)
         }
-    
+
         /**
          * @type {Integer}
          */
@@ -60,7 +59,6 @@ class EVENT_PROPERTY_INFO extends Win32Struct
             get => NumGet(this, 4, "uint")
             set => NumPut("uint", value, this, 4)
         }
-    
     }
 
     class _structType extends Win32Struct {
@@ -74,7 +72,7 @@ class EVENT_PROPERTY_INFO extends Win32Struct
             get => NumGet(this, 0, "ushort")
             set => NumPut("ushort", value, this, 0)
         }
-    
+
         /**
          * @type {Integer}
          */
@@ -82,7 +80,7 @@ class EVENT_PROPERTY_INFO extends Win32Struct
             get => NumGet(this, 2, "ushort")
             set => NumPut("ushort", value, this, 2)
         }
-    
+
         /**
          * @type {Integer}
          */
@@ -90,7 +88,6 @@ class EVENT_PROPERTY_INFO extends Win32Struct
             get => NumGet(this, 4, "uint")
             set => NumPut("uint", value, this, 4)
         }
-    
     }
 
     class _customSchemaType extends Win32Struct {
@@ -104,7 +101,7 @@ class EVENT_PROPERTY_INFO extends Win32Struct
             get => NumGet(this, 0, "ushort")
             set => NumPut("ushort", value, this, 0)
         }
-    
+
         /**
          * @type {Integer}
          */
@@ -112,7 +109,7 @@ class EVENT_PROPERTY_INFO extends Win32Struct
             get => NumGet(this, 2, "ushort")
             set => NumPut("ushort", value, this, 2)
         }
-    
+
         /**
          * @type {Integer}
          */
@@ -120,16 +117,15 @@ class EVENT_PROPERTY_INFO extends Win32Struct
             get => NumGet(this, 4, "uint")
             set => NumPut("uint", value, this, 4)
         }
-    
     }
 
     /**
      * @type {_nonStructType}
      */
-    nonStructType{
+    nonStructType {
         get {
             if(!this.HasProp("__nonStructType"))
-                this.__nonStructType := %this.__Class%._nonStructType(8, this)
+                this.__nonStructType := EVENT_PROPERTY_INFO._nonStructType(8, this)
             return this.__nonStructType
         }
     }
@@ -137,10 +133,10 @@ class EVENT_PROPERTY_INFO extends Win32Struct
     /**
      * @type {_structType}
      */
-    structType{
+    structType {
         get {
             if(!this.HasProp("__structType"))
-                this.__structType := %this.__Class%._structType(8, this)
+                this.__structType := EVENT_PROPERTY_INFO._structType(8, this)
             return this.__structType
         }
     }
@@ -148,10 +144,10 @@ class EVENT_PROPERTY_INFO extends Win32Struct
     /**
      * @type {_customSchemaType}
      */
-    customSchemaType{
+    customSchemaType {
         get {
             if(!this.HasProp("__customSchemaType"))
-                this.__customSchemaType := %this.__Class%._customSchemaType(8, this)
+                this.__customSchemaType := EVENT_PROPERTY_INFO._customSchemaType(8, this)
             return this.__customSchemaType
         }
     }

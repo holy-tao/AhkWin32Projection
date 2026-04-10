@@ -5,10 +5,9 @@
  * Learn more about: JET_RECSIZE structure
  * @see https://learn.microsoft.com/windows/win32/extensible-storage-engine/jet-recsize-structure2
  * @namespace Windows.Win32.Storage.Jet
- * @version v4.0.30319
+ * @architecture X64, Arm64
  */
-class JET_RECSIZE extends Win32Struct
-{
+class JET_RECSIZE extends Win32Struct {
     static sizeof => 64
 
     static packingSize => 8

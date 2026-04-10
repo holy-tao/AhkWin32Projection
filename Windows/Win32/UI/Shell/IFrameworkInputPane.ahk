@@ -1,8 +1,8 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
-#Include ..\..\Foundation\RECT.ahk
 #Include ..\..\System\Com\IUnknown.ahk
+#Include ..\..\Foundation\RECT.ahk
 
 /**
  * Provides methods that enable apps to be informed of state changes and location for the input pane.
@@ -11,9 +11,8 @@
  * Do not implement this interface; the implementation is supplied with Windows as CLSID_FrameworkInputPane.
  * @see https://learn.microsoft.com/windows/win32/api/shobjidl_core/nn-shobjidl_core-iframeworkinputpane
  * @namespace Windows.Win32.UI.Shell
- * @version v4.0.30319
  */
-class IFrameworkInputPane extends IUnknown{
+class IFrameworkInputPane extends IUnknown {
 
     static sizeof => A_PtrSize
     /**
@@ -60,7 +59,9 @@ class IFrameworkInputPane extends IUnknown{
 
     /**
      * Registers the app's input pane handler object to receive notifications on behalf of a window when an event triggers the input pane. This method differs from Advise in that it references its window through an HWND.
-     * @param {HWND} _hwnd 
+     * @param {HWND} _hwnd Type: <b>HWND</b>
+     * 
+     * The handle of the window for which the handler should listen for input pane events.
      * @param {IFrameworkInputPaneHandler} pHandler Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/shobjidl_core/nn-shobjidl_core-iframeworkinputpanehandler">IFrameworkInputPaneHandler</a>*</b>
      * 
      * An <a href="https://docs.microsoft.com/windows/desktop/api/shobjidl_core/nn-shobjidl_core-iframeworkinputpanehandler">IFrameworkInputPaneHandler</a> interface pointer to the handler instance for this app.

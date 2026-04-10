@@ -1,13 +1,13 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
 #Include ..\..\Security\Cryptography\CRYPT_INTEGER_BLOB.ahk
+#Include .\ROUTER_CUSTOM_IKEv2_POLICY0.ahk
+#Include .\MPR_CERT_EKU.ahk
 
 /**
  * @namespace Windows.Win32.NetworkManagement.Rras
- * @version v4.0.30319
  */
-class IKEV2_TUNNEL_CONFIG_PARAMS4 extends Win32Struct
-{
+class IKEV2_TUNNEL_CONFIG_PARAMS4 extends Win32Struct {
     static sizeof => 104
 
     static packingSize => 8
@@ -71,7 +71,7 @@ class IKEV2_TUNNEL_CONFIG_PARAMS4 extends Win32Struct
     /**
      * @type {CRYPT_INTEGER_BLOB}
      */
-    machineCertificateName{
+    machineCertificateName {
         get {
             if(!this.HasProp("__machineCertificateName"))
                 this.__machineCertificateName := CRYPT_INTEGER_BLOB(32, this)
@@ -114,7 +114,7 @@ class IKEV2_TUNNEL_CONFIG_PARAMS4 extends Win32Struct
     /**
      * @type {CRYPT_INTEGER_BLOB}
      */
-    machineCertificateHash{
+    machineCertificateHash {
         get {
             if(!this.HasProp("__machineCertificateHash"))
                 this.__machineCertificateHash := CRYPT_INTEGER_BLOB(80, this)

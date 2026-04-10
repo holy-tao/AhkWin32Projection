@@ -1,8 +1,8 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
-#Include .\SMDATA.ahk
 #Include ..\..\System\Com\IUnknown.ahk
+#Include .\SMDATA.ahk
 
 /**
  * Exposes methods that interact with Shell menus such as the Start menu, and the Favorites menu.
@@ -10,9 +10,8 @@
  * To get a pointer to this interface, call <a href="https://docs.microsoft.com/windows/desktop/api/combaseapi/nf-combaseapi-cocreateinstance">CoCreateInstance</a> with the <i>rclsid</i> parameter set to CLSID_MenuBand and the <i>riid</i> parameter set to IID_IShellMenu. You must first initialize the interface by calling <a href="https://docs.microsoft.com/windows/desktop/api/shobjidl_core/nf-shobjidl_core-ishellmenu-initialize">IShellMenu::Initialize</a>, and then initialize the menu band by calling <a href="https://docs.microsoft.com/windows/desktop/api/shobjidl_core/nf-shobjidl_core-ishellmenu-setshellfolder">IShellMenu::SetShellFolder</a>.
  * @see https://learn.microsoft.com/windows/win32/api/shobjidl_core/nn-shobjidl_core-ishellmenu
  * @namespace Windows.Win32.UI.Shell
- * @version v4.0.30319
  */
-class IShellMenu extends IUnknown{
+class IShellMenu extends IUnknown {
 
     static sizeof => A_PtrSize
     /**
@@ -178,7 +177,9 @@ class IShellMenu extends IUnknown{
      * @param {Pointer<ITEMIDLIST>} pidlFolder Type: <b>PCIDLIST_ABSOLUTE</b>
      * 
      * The folder's fully qualified <a href="https://docs.microsoft.com/windows/desktop/api/shtypes/ns-shtypes-itemidlist">ITEMIDLIST</a>. This value can be <b>NULL</b>.
-     * @param {HKEY} _hKey 
+     * @param {HKEY} _hKey Type: <b>HKEY</b>
+     * 
+     * An HKEY with an "Order" value that is used to store the order of the menu. This value can be <b>NULL</b>.
      * @param {Integer} dwFlags Type: <b>DWORD</b>
      * 
      * Flags that specify how the menu band operates.
@@ -309,8 +310,12 @@ class IShellMenu extends IUnknown{
 
     /**
      * Appends a static menu to the menu band.
-     * @param {HMENU} _hmenu 
-     * @param {HWND} _hwnd 
+     * @param {HMENU} _hmenu Type: <b>HMENU</b>
+     * 
+     * The handle of the static menu that is to be appended. This value can be <b>NULL</b>.
+     * @param {HWND} _hwnd Type: <b>HWND</b>
+     * 
+     * The <b>HWND</b> of the owner window. This value can be <b>NULL</b>.
      * @param {Integer} dwFlags Type: <b>DWORD</b>
      * 
      * Flags that specify how the menu operates.

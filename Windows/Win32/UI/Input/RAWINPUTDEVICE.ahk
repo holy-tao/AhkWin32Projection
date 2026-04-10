@@ -1,5 +1,6 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
+#Include .\RAWINPUTDEVICE_FLAGS.ahk
 #Include ..\..\Foundation\HWND.ahk
 
 /**
@@ -10,10 +11,8 @@
  * If <b>RIDEV_REMOVE</b> is set and the <b>hwndTarget</b> member is not set to <b>NULL</b>, then [RegisterRawInputDevices](nf-winuser-registerrawinputdevices.md) function will fail.
  * @see https://learn.microsoft.com/windows/win32/api/winuser/ns-winuser-rawinputdevice
  * @namespace Windows.Win32.UI.Input
- * @version v4.0.30319
  */
-class RAWINPUTDEVICE extends Win32Struct
-{
+class RAWINPUTDEVICE extends Win32Struct {
     static sizeof => 16
 
     static packingSize => 8
@@ -42,7 +41,7 @@ class RAWINPUTDEVICE extends Win32Struct
 
     /**
      * Type: <b>DWORD</b>
-     * @type {Integer}
+     * @type {RAWINPUTDEVICE_FLAGS}
      */
     dwFlags {
         get => NumGet(this, 4, "uint")
@@ -55,7 +54,7 @@ class RAWINPUTDEVICE extends Win32Struct
      * A handle to the target window. If <b>NULL</b> it follows the keyboard focus.
      * @type {HWND}
      */
-    hwndTarget{
+    hwndTarget {
         get {
             if(!this.HasProp("__hwndTarget"))
                 this.__hwndTarget := HWND(8, this)

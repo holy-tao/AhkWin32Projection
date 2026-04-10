@@ -1,9 +1,8 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
-#Include .\IWSDAddress.ahk
-#Include .\IWSDMessageParameters.ahk
 #Include ..\..\System\Com\IUnknown.ahk
+#Include .\IWSDAddress.ahk
 
 /**
  * Use this interface to communicate message specific information up and down the protocol stack.
@@ -13,9 +12,8 @@
  * Since message parameters can be packaged with a request or a response, and can be sent or received, the meaning of the local and remote address depends on the direction the message parameters.
  * @see https://learn.microsoft.com/windows/win32/api/wsdbase/nn-wsdbase-iwsdmessageparameters
  * @namespace Windows.Win32.Devices.WebServicesOnDevices
- * @version v4.0.30319
  */
-class IWSDMessageParameters extends IUnknown{
+class IWSDMessageParameters extends IUnknown {
 
     static sizeof => A_PtrSize
     /**

@@ -1,14 +1,14 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\..\Win32Struct.ahk
+#Include .\IMAGEHLP_GET_TYPE_INFO_FLAGS.ahk
+#Include .\IMAGEHLP_SYMBOL_TYPE_INFO.ahk
 
 /**
  * Contains type information for a module.
  * @see https://learn.microsoft.com/windows/win32/api/dbghelp/ns-dbghelp-imagehlp_get_type_info_params
  * @namespace Windows.Win32.System.Diagnostics.Debug
- * @version v4.0.30319
  */
-class IMAGEHLP_GET_TYPE_INFO_PARAMS extends Win32Struct
-{
+class IMAGEHLP_GET_TYPE_INFO_PARAMS extends Win32Struct {
     static sizeof => 128
 
     static packingSize => 8
@@ -23,8 +23,7 @@ class IMAGEHLP_GET_TYPE_INFO_PARAMS extends Win32Struct
     }
 
     /**
-     * 
-     * @type {Integer}
+     * @type {IMAGEHLP_GET_TYPE_INFO_FLAGS}
      */
     Flags {
         get => NumGet(this, 4, "uint")
@@ -69,7 +68,7 @@ class IMAGEHLP_GET_TYPE_INFO_PARAMS extends Win32Struct
 
     /**
      * An array of information types to be requested. Each element is one of the enumeration values in the <a href="https://docs.microsoft.com/windows/desktop/api/dbghelp/ne-dbghelp-imagehlp_symbol_type_info">IMAGEHLP_SYMBOL_TYPE_INFO</a> enumeration type.
-     * @type {Pointer<Integer>}
+     * @type {Pointer<IMAGEHLP_SYMBOL_TYPE_INFO>}
      */
     ReqKinds {
         get => NumGet(this, 40, "ptr")

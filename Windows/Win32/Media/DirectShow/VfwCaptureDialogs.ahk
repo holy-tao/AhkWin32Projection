@@ -5,9 +5,8 @@
  * Specifies a dialog box that might exist in a Video for Windows capture driver.
  * @see https://learn.microsoft.com/windows/win32/api/strmif/ne-strmif-vfwcapturedialogs
  * @namespace Windows.Win32.Media.DirectShow
- * @version v4.0.30319
  */
-class VfwCaptureDialogs extends Win32Enum{
+class VfwCaptureDialogs extends Win32Enum {
 
     /**
      * Video source dialog box.

@@ -5,10 +5,8 @@
  * Contains the version information about the miniversion that is created.
  * @see https://learn.microsoft.com/windows/win32/api/winioctl/ns-winioctl-txfs_get_metadata_info_out
  * @namespace Windows.Win32.System.Ioctl
- * @version v4.0.30319
  */
-class TXFS_GET_METADATA_INFO_OUT extends Win32Struct
-{
+class TXFS_GET_METADATA_INFO_OUT extends Win32Struct {
     static sizeof => 40
 
     static packingSize => 8
@@ -24,7 +22,7 @@ class TXFS_GET_METADATA_INFO_OUT extends Win32Struct
             get => NumGet(this, 0, "int64")
             set => NumPut("int64", value, this, 0)
         }
-    
+
         /**
          * @type {Integer}
          */
@@ -32,24 +30,22 @@ class TXFS_GET_METADATA_INFO_OUT extends Win32Struct
             get => NumGet(this, 8, "int64")
             set => NumPut("int64", value, this, 8)
         }
-    
     }
 
     /**
-     * 
      * @type {_TxfFileId}
      */
-    TxfFileId{
+    TxfFileId {
         get {
             if(!this.HasProp("__TxfFileId"))
-                this.__TxfFileId := %this.__Class%._TxfFileId(0, this)
+                this.__TxfFileId := TXFS_GET_METADATA_INFO_OUT._TxfFileId(0, this)
             return this.__TxfFileId
         }
     }
 
     /**
      * The <b>GUID</b> of the transaction that locked the specified file locked, if the file is locked.
-     * @type {Pointer<Guid>}
+     * @type {Pointer}
      */
     LockingTransaction {
         get => NumGet(this, 16, "ptr")

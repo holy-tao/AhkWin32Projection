@@ -5,9 +5,8 @@
 
 /**
  * @namespace Windows.Win32.Storage.VirtualDiskService
- * @version v4.0.30319
  */
-class IVdsServiceSw extends IUnknown{
+class IVdsServiceSw extends IUnknown {
 
     static sizeof => A_PtrSize
     /**

@@ -7,9 +7,8 @@
  * The IServerSecurity (objidlbase.h) interface is used by a server to help authenticate the client and to manage impersonation of the client.
  * @see https://learn.microsoft.com/windows/win32/api/objidlbase/nn-objidlbase-iserversecurity
  * @namespace Windows.Win32.System.Com
- * @version v4.0.30319
  */
-class IServerSecurity extends IUnknown{
+class IServerSecurity extends IUnknown {
 
     static sizeof => A_PtrSize
     /**

@@ -1,8 +1,8 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\..\Guid.ahk
-#Include .\ISBE2EnumStream.ahk
 #Include ..\..\..\System\Com\IUnknown.ahk
+#Include .\ISBE2EnumStream.ahk
 
 /**
  * Handles the mapping between output pins and streams for the Stream Buffer Source filter.
@@ -20,9 +20,8 @@
  * To declare the interface identifier (IID) for this interface, use the <b>__uuidof</b> operator: <c>__uuidof(ISBE2StreamMap)</c>.
  * @see https://learn.microsoft.com/windows/win32/api/sbe/nn-sbe-isbe2streammap
  * @namespace Windows.Win32.Media.DirectShow.Tv
- * @version v4.0.30319
  */
-class ISBE2StreamMap extends IUnknown{
+class ISBE2StreamMap extends IUnknown {
 
     static sizeof => A_PtrSize
     /**

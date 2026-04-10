@@ -37,9 +37,8 @@
  * </table>
  * @see https://learn.microsoft.com/windows/win32/api/objidlbase/nn-objidlbase-irpcoptions
  * @namespace Windows.Win32.System.Com
- * @version v4.0.30319
  */
-class IRpcOptions extends IUnknown{
+class IRpcOptions extends IUnknown {
 
     static sizeof => A_PtrSize
     /**
@@ -65,7 +64,7 @@ class IRpcOptions extends IUnknown{
      * @remarks
      * See <a href="https://docs.microsoft.com/windows/desktop/api/objidl/nn-objidl-irpcoptions">IRpcOptions</a> for a table of the possible values of the COMBND_RPCTIMEOUT property.
      * @param {IUnknown} pPrx A pointer to the proxy whose property is being set.
-     * @param {Integer} dwProperty An identifier of the property to be set, which must be COMBND_RPCTIMEOUT.
+     * @param {RPCOPT_PROPERTIES} dwProperty An identifier of the property to be set, which must be COMBND_RPCTIMEOUT.
      * @param {Pointer} dwValue The new value of the property.
      * @returns {HRESULT} This method can return the standard return values E_INVALIDARG, E_OUTOFMEMORY, E_UNEXPECTED, E_FAIL, and S_OK.
      * @see https://learn.microsoft.com/windows/win32/api/objidlbase/nf-objidlbase-irpcoptions-set
@@ -109,7 +108,7 @@ class IRpcOptions extends IUnknown{
      * </tr>
      * </table>
      * @param {IUnknown} pPrx A pointer to the proxy whose property is being queried.
-     * @param {Integer} dwProperty An identifier of the property to be queried, which must be COMBND_RPCTIMEOUT or COMBND_SERVER_LOCALITY (this flag is available starting with Windows Server 2003.)
+     * @param {RPCOPT_PROPERTIES} dwProperty An identifier of the property to be queried, which must be COMBND_RPCTIMEOUT or COMBND_SERVER_LOCALITY (this flag is available starting with Windows Server 2003.)
      * @returns {Pointer} A pointer to the property value.
      * @see https://learn.microsoft.com/windows/win32/api/objidlbase/nf-objidlbase-irpcoptions-query
      */

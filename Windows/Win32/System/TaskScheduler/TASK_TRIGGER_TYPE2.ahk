@@ -5,9 +5,8 @@
  * Defines the type of triggers that can be used by tasks.
  * @see https://learn.microsoft.com/windows/win32/api/taskschd/ne-taskschd-task_trigger_type2
  * @namespace Windows.Win32.System.TaskScheduler
- * @version v4.0.30319
  */
-class TASK_TRIGGER_TYPE2 extends Win32Enum{
+class TASK_TRIGGER_TYPE2 extends Win32Enum {
 
     /**
      * Triggers the task when a specific event occurs. For more information about event triggers, see <a href="https://docs.microsoft.com/windows/desktop/api/taskschd/nn-taskschd-ieventtrigger">IEventTrigger</a>.
@@ -76,7 +75,6 @@ class TASK_TRIGGER_TYPE2 extends Win32Enum{
     static TASK_TRIGGER_SESSION_STATE_CHANGE => 11
 
     /**
-     * 
      * @type {Integer (Int32)}
      */
     static TASK_TRIGGER_CUSTOM_TRIGGER_01 => 12

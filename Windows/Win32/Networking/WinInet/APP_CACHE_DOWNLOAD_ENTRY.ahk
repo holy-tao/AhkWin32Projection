@@ -3,10 +3,8 @@
 
 /**
  * @namespace Windows.Win32.Networking.WinInet
- * @version v4.0.30319
  */
-class APP_CACHE_DOWNLOAD_ENTRY extends Win32Struct
-{
+class APP_CACHE_DOWNLOAD_ENTRY extends Win32Struct {
     static sizeof => 16
 
     static packingSize => 8

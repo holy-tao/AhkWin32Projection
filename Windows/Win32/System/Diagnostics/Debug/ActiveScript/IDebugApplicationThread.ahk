@@ -5,9 +5,8 @@
 
 /**
  * @namespace Windows.Win32.System.Diagnostics.Debug.ActiveScript
- * @version v4.0.30319
  */
-class IDebugApplicationThread extends IRemoteDebugApplicationThread{
+class IDebugApplicationThread extends IRemoteDebugApplicationThread {
 
     static sizeof => A_PtrSize
     /**

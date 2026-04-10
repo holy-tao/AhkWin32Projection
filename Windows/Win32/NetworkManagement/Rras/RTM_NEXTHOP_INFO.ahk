@@ -6,10 +6,8 @@
  * The RTM_NEXTHOP_INFO structure is used to exchange next-hop information with the routing table manager.
  * @see https://learn.microsoft.com/windows/win32/api/rtmv2/ns-rtmv2-rtm_nexthop_info
  * @namespace Windows.Win32.NetworkManagement.Rras
- * @version v4.0.30319
  */
-class RTM_NEXTHOP_INFO extends Win32Struct
-{
+class RTM_NEXTHOP_INFO extends Win32Struct {
     static sizeof => 56
 
     static packingSize => 8
@@ -18,7 +16,7 @@ class RTM_NEXTHOP_INFO extends Win32Struct
      * Specifies the network address for this next hop.
      * @type {RTM_NET_ADDRESS}
      */
-    NextHopAddress{
+    NextHopAddress {
         get {
             if(!this.HasProp("__NextHopAddress"))
                 this.__NextHopAddress := RTM_NET_ADDRESS(0, this)

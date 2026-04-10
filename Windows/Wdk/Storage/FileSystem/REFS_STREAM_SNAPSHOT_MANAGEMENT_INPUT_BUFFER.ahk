@@ -1,18 +1,17 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
+#Include .\REFS_STREAM_SNAPSHOT_OPERATION.ahk
 
 /**
  * @namespace Windows.Wdk.Storage.FileSystem
- * @version v4.0.30319
  */
-class REFS_STREAM_SNAPSHOT_MANAGEMENT_INPUT_BUFFER extends Win32Struct
-{
+class REFS_STREAM_SNAPSHOT_MANAGEMENT_INPUT_BUFFER extends Win32Struct {
     static sizeof => 32
 
     static packingSize => 8
 
     /**
-     * @type {Integer}
+     * @type {REFS_STREAM_SNAPSHOT_OPERATION}
      */
     Operation {
         get => NumGet(this, 0, "int")
@@ -36,9 +35,9 @@ class REFS_STREAM_SNAPSHOT_MANAGEMENT_INPUT_BUFFER extends Win32Struct
     }
 
     /**
-     * @type {Array<UInt64>}
+     * @type {Array<Integer>}
      */
-    Reserved{
+    Reserved {
         get {
             if(!this.HasProp("__ReservedProxyArray"))
                 this.__ReservedProxyArray := Win32FixedArray(this.ptr + 8, 2, Primitive, "uint")
@@ -47,9 +46,9 @@ class REFS_STREAM_SNAPSHOT_MANAGEMENT_INPUT_BUFFER extends Win32Struct
     }
 
     /**
-     * @type {Array<UInt16>}
+     * @type {Array<Integer>}
      */
-    NameAndInputBuffer{
+    NameAndInputBuffer {
         get {
             if(!this.HasProp("__NameAndInputBufferProxyArray"))
                 this.__NameAndInputBufferProxyArray := Win32FixedArray(this.ptr + 24, 1, Primitive, "ushort")

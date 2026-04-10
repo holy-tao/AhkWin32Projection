@@ -5,9 +5,8 @@
 
 /**
  * @namespace Windows.Win32.Media.Speech
- * @version v4.0.30319
  */
-class ISpShortcut extends IUnknown{
+class ISpShortcut extends IUnknown {
 
     static sizeof => A_PtrSize
     /**
@@ -39,7 +38,7 @@ class ISpShortcut extends IUnknown{
      * @param {PWSTR} pszDisplay 
      * @param {Integer} LangID 
      * @param {PWSTR} pszSpoken 
-     * @param {Integer} shType 
+     * @param {SPSHORTCUTTYPE} shType 
      * @returns {HRESULT} 
      */
     AddShortcut(pszDisplay, LangID, pszSpoken, shType) {
@@ -55,7 +54,7 @@ class ISpShortcut extends IUnknown{
      * @param {PWSTR} pszDisplay 
      * @param {Integer} LangID 
      * @param {PWSTR} pszSpoken 
-     * @param {Integer} shType 
+     * @param {SPSHORTCUTTYPE} shType 
      * @returns {HRESULT} 
      */
     RemoveShortcut(pszDisplay, LangID, pszSpoken, shType) {

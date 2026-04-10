@@ -8,10 +8,8 @@
  * If the function succeeds, be sure to call the <a href="https://docs.microsoft.com/windows/desktop/api/handleapi/nf-handleapi-closehandle">CloseHandle</a> function to close the <b>hProcess</b> and <b>hThread</b> handles when you are finished with them. Otherwise, when the child process exits, the system cannot clean up the process structures for the child process because the parent process still has open handles to the child process. However, the system will close these handles when the parent process terminates, so the structures related to the child process object would be cleaned up at this point.
  * @see https://learn.microsoft.com/windows/win32/api/processthreadsapi/ns-processthreadsapi-process_information
  * @namespace Windows.Win32.System.Threading
- * @version v4.0.30319
  */
-class PROCESS_INFORMATION extends Win32Struct
-{
+class PROCESS_INFORMATION extends Win32Struct {
     static sizeof => 24
 
     static packingSize => 8
@@ -20,7 +18,7 @@ class PROCESS_INFORMATION extends Win32Struct
      * A handle to the newly created process. The handle is used to specify the process in all functions that perform operations on the process object.
      * @type {HANDLE}
      */
-    hProcess{
+    hProcess {
         get {
             if(!this.HasProp("__hProcess"))
                 this.__hProcess := HANDLE(0, this)
@@ -32,7 +30,7 @@ class PROCESS_INFORMATION extends Win32Struct
      * A handle to the primary thread of the newly created process. The handle is used to specify the thread in all functions that perform operations on the thread object.
      * @type {HANDLE}
      */
-    hThread{
+    hThread {
         get {
             if(!this.HasProp("__hThread"))
                 this.__hThread := HANDLE(8, this)

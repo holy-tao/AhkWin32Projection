@@ -21,9 +21,8 @@
  * For more information about advise sinks that can be installed by each implementation, see <a href="https://docs.microsoft.com/windows/desktop/api/msctf/nf-msctf-itfsourcesingle-advisesinglesink">ITfSourceSingle::AdviseSingleSink</a>.
  * @see https://learn.microsoft.com/windows/win32/api/msctf/nn-msctf-itfsourcesingle
  * @namespace Windows.Win32.UI.TextServices
- * @version v4.0.30319
  */
-class ITfSourceSingle extends IUnknown{
+class ITfSourceSingle extends IUnknown {
 
     static sizeof => A_PtrSize
     /**

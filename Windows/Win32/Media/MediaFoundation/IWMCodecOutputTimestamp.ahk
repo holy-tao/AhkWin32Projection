@@ -7,9 +7,8 @@
  * Gets the time stamp of the next video frame to be decoded.
  * @see https://learn.microsoft.com/windows/win32/api/wmcodecdsp/nn-wmcodecdsp-iwmcodecoutputtimestamp
  * @namespace Windows.Win32.Media.MediaFoundation
- * @version v4.0.30319
  */
-class IWMCodecOutputTimestamp extends IUnknown{
+class IWMCodecOutputTimestamp extends IUnknown {
 
     static sizeof => A_PtrSize
     /**

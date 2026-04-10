@@ -3,9 +3,8 @@
 
 /**
  * @namespace Windows.Win32.UI.Controls
- * @version v4.0.30319
  */
-class TAB_CONTROL_ITEM_STATE extends Win32Enum{
+class TAB_CONTROL_ITEM_STATE extends Win32Enum {
 
     /**
      * @type {Integer (UInt32)}

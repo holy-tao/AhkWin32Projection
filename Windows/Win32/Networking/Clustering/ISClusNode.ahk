@@ -1,18 +1,17 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
+#Include ..\..\System\Com\IDispatch.ahk
 #Include .\ISClusProperties.ahk
 #Include ..\..\Foundation\BSTR.ahk
 #Include .\ISClusResGroups.ahk
 #Include .\ISCluster.ahk
 #Include .\ISClusNodeNetInterfaces.ahk
-#Include ..\..\System\Com\IDispatch.ahk
 
 /**
  * @namespace Windows.Win32.Networking.Clustering
- * @version v4.0.30319
  */
-class ISClusNode extends IDispatch{
+class ISClusNode extends IDispatch {
 
     static sizeof => A_PtrSize
     /**
@@ -83,7 +82,7 @@ class ISClusNode extends IDispatch{
     }
 
     /**
-     * @type {Integer} 
+     * @type {CLUSTER_NODE_STATE} 
      */
     State {
         get => this.get_State()
@@ -177,7 +176,7 @@ class ISClusNode extends IDispatch{
 
     /**
      * 
-     * @returns {Integer} 
+     * @returns {CLUSTER_NODE_STATE} 
      */
     get_State() {
         result := ComCall(14, this, "int*", &dwState := 0, "HRESULT")

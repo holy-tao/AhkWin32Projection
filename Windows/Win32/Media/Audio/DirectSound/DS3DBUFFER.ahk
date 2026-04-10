@@ -4,10 +4,8 @@
 
 /**
  * @namespace Windows.Win32.Media.Audio.DirectSound
- * @version v4.0.30319
  */
-class DS3DBUFFER extends Win32Struct
-{
+class DS3DBUFFER extends Win32Struct {
     static sizeof => 64
 
     static packingSize => 4
@@ -23,7 +21,7 @@ class DS3DBUFFER extends Win32Struct
     /**
      * @type {D3DVECTOR}
      */
-    vPosition{
+    vPosition {
         get {
             if(!this.HasProp("__vPosition"))
                 this.__vPosition := D3DVECTOR(4, this)
@@ -34,7 +32,7 @@ class DS3DBUFFER extends Win32Struct
     /**
      * @type {D3DVECTOR}
      */
-    vVelocity{
+    vVelocity {
         get {
             if(!this.HasProp("__vVelocity"))
                 this.__vVelocity := D3DVECTOR(16, this)
@@ -61,7 +59,7 @@ class DS3DBUFFER extends Win32Struct
     /**
      * @type {D3DVECTOR}
      */
-    vConeOrientation{
+    vConeOrientation {
         get {
             if(!this.HasProp("__vConeOrientation"))
                 this.__vConeOrientation := D3DVECTOR(36, this)

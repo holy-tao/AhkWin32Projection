@@ -1,15 +1,14 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\..\..\Guid.ahk
+#Include .\IDebugHostType5.ahk
 #Include .\IDebugHostTaggedUnionRangeEnumerator.ahk
 #Include .\IDebugHostType.ahk
-#Include .\IDebugHostType5.ahk
 
 /**
  * @namespace Windows.Win32.System.Diagnostics.Debug.Extensions
- * @version v4.0.30319
  */
-class IDebugHostType6 extends IDebugHostType5{
+class IDebugHostType6 extends IDebugHostType5 {
 
     static sizeof => A_PtrSize
     /**

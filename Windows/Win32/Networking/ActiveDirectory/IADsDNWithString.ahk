@@ -1,16 +1,15 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
-#Include ..\..\Foundation\BSTR.ahk
 #Include ..\..\System\Com\IDispatch.ahk
+#Include ..\..\Foundation\BSTR.ahk
 
 /**
  * The IADsDNWithString interface provides methods for an ADSI client to associate a distinguished name (DN) to a string value.
  * @see https://learn.microsoft.com/windows/win32/api/iads/nn-iads-iadsdnwithstring
  * @namespace Windows.Win32.Networking.ActiveDirectory
- * @version v4.0.30319
  */
-class IADsDNWithString extends IDispatch{
+class IADsDNWithString extends IDispatch {
 
     static sizeof => A_PtrSize
     /**

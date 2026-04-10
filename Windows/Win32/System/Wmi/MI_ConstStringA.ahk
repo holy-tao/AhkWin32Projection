@@ -5,10 +5,8 @@
  * Represents an array of MI_Char types.
  * @see https://learn.microsoft.com/windows/win32/api/mi/ns-mi-mi_conststringa
  * @namespace Windows.Win32.System.Wmi
- * @version v4.0.30319
  */
-class MI_ConstStringA extends Win32Struct
-{
+class MI_ConstStringA extends Win32Struct {
     static sizeof => 16
 
     static packingSize => 8

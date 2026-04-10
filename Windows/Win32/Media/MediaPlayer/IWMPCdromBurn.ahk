@@ -1,17 +1,15 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
-#Include ..\..\Foundation\BSTR.ahk
-#Include .\IWMPPlaylist.ahk
 #Include ..\..\System\Com\IUnknown.ahk
+#Include .\IWMPPlaylist.ahk
 
 /**
  * The IWMPCdromBurn interface provides methods to manage creating audio CDs.
  * @see https://learn.microsoft.com/windows/win32/api/wmp/nn-wmp-iwmpcdromburn
  * @namespace Windows.Win32.Media.MediaPlayer
- * @version v4.0.30319
  */
-class IWMPCdromBurn extends IUnknown{
+class IWMPCdromBurn extends IUnknown {
 
     static sizeof => A_PtrSize
     /**
@@ -33,6 +31,7 @@ class IWMPCdromBurn extends IUnknown{
     static VTableNames => ["isAvailable", "getItemInfo", "get_label", "put_label", "get_burnFormat", "put_burnFormat", "get_burnPlaylist", "put_burnPlaylist", "refreshStatus", "get_burnState", "get_burnProgress", "startBurn", "stopBurn", "erase"]
 
     /**
+     * @type {BSTR} 
      */
     label {
         get => this.get_label()
@@ -40,6 +39,7 @@ class IWMPCdromBurn extends IUnknown{
     }
 
     /**
+     * @type {WMPBurnFormat} 
      */
     burnFormat {
         get => this.get_burnFormat()
@@ -206,7 +206,7 @@ class IWMPCdromBurn extends IUnknown{
      * The get_burnFormat method retrieves a value that indicates the type of CD to burn.
      * @remarks
      * <b>Windows Media Player 10 Mobile: </b>This method is not supported.
-     * @param {Pointer<Integer>} pwmpbf Pointer to a variable that receives a value from the <b>WMPBurnFormat</b> enumeration that indicates the type of CD to burn.
+     * @param {Pointer<WMPBurnFormat>} pwmpbf Pointer to a variable that receives a value from the <b>WMPBurnFormat</b> enumeration that indicates the type of CD to burn.
      * @returns {HRESULT} The method returns an <b>HRESULT</b>. Possible values include, but are not limited to, those in the following table.
      * 
      * <table>
@@ -239,7 +239,7 @@ class IWMPCdromBurn extends IUnknown{
      * The put_burnFormat method specifies the type of CD to burn.
      * @remarks
      * <b>Windows Media Player 10 Mobile: </b>This method is not supported.
-     * @param {Integer} wmpbf A value from the <b>WMPBurnFormat</b> enumeration that specifies the type of CD to burn.
+     * @param {WMPBurnFormat} wmpbf A value from the <b>WMPBurnFormat</b> enumeration that specifies the type of CD to burn.
      * @returns {HRESULT} The method returns an <b>HRESULT</b>. Possible values include, but are not limited to, those in the following table.
      * 
      * <table>
@@ -347,7 +347,7 @@ class IWMPCdromBurn extends IUnknown{
      * The get_burnState method retrieves an enumeration value that indicates the current burn state.
      * @remarks
      * <b>Windows Media Player 10 Mobile: </b>This method is not supported.
-     * @param {Pointer<Integer>} pwmpbs Pointer to a variable that receives a value from the <b>WMPBurnState</b> enumeration that indicates the current state.
+     * @param {Pointer<WMPBurnState>} pwmpbs Pointer to a variable that receives a value from the <b>WMPBurnState</b> enumeration that indicates the current state.
      * @returns {HRESULT} The method returns an <b>HRESULT</b>. Possible values include, but are not limited to, those in the following table.
      * 
      * <table>

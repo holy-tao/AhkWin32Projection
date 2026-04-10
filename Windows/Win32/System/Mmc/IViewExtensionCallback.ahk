@@ -7,9 +7,8 @@
  * The IViewExtensionCallback interface is used to add a view to the result pane.
  * @see https://learn.microsoft.com/windows/win32/api/mmc/nn-mmc-iviewextensioncallback
  * @namespace Windows.Win32.System.Mmc
- * @version v4.0.30319
  */
-class IViewExtensionCallback extends IUnknown{
+class IViewExtensionCallback extends IUnknown {
 
     static sizeof => A_PtrSize
     /**

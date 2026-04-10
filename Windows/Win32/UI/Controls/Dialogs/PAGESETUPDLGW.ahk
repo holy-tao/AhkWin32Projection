@@ -2,6 +2,7 @@
 #Include ..\..\..\..\..\Win32Struct.ahk
 #Include ..\..\..\Foundation\HWND.ahk
 #Include ..\..\..\Foundation\HGLOBAL.ahk
+#Include .\PAGESETUPDLG_FLAGS.ahk
 #Include ..\..\..\Foundation\POINT.ahk
 #Include ..\..\..\Foundation\RECT.ahk
 #Include ..\..\..\Foundation\HINSTANCE.ahk
@@ -22,11 +23,10 @@
  * > The commdlg.h header defines PAGESETUPDLG as an alias which automatically selects the ANSI or Unicode version of this function based on the definition of the UNICODE preprocessor constant. Mixing usage of the encoding-neutral alias with code that not encoding-neutral can lead to mismatches that result in compilation or runtime errors. For more information, see [Conventions for Function Prototypes](/windows/win32/intl/conventions-for-function-prototypes).
  * @see https://learn.microsoft.com/windows/win32/api/commdlg/ns-commdlg-pagesetupdlgw
  * @namespace Windows.Win32.UI.Controls.Dialogs
- * @version v4.0.30319
  * @charset Unicode
+ * @architecture X64, Arm64
  */
-class PAGESETUPDLGW extends Win32Struct
-{
+class PAGESETUPDLGW extends Win32Struct {
     static sizeof => 128
 
     static packingSize => 8
@@ -48,7 +48,7 @@ class PAGESETUPDLGW extends Win32Struct
      * A handle to the window that owns the dialog box. This member can be any valid window handle, or it can be <b>NULL</b> if the dialog box has no owner.
      * @type {HWND}
      */
-    hwndOwner{
+    hwndOwner {
         get {
             if(!this.HasProp("__hwndOwner"))
                 this.__hwndOwner := HWND(8, this)
@@ -62,7 +62,7 @@ class PAGESETUPDLGW extends Win32Struct
      * A handle to a global memory object that contains a <a href="https://docs.microsoft.com/windows/win32/api/wingdi/ns-wingdi-devmodea">DEVMODE</a> structure. On input, if a handle is specified, the values in the corresponding <b>DEVMODE</b> structure are used to initialize the controls in the dialog box. On output, the dialog box sets <b>hDevMode</b> to a global memory handle to a <b>DEVMODE</b> structure that contains values specifying the user's selections. If the user's selections are not available, the dialog box sets <b>hDevMode</b> to <b>NULL</b>.
      * @type {HGLOBAL}
      */
-    hDevMode{
+    hDevMode {
         get {
             if(!this.HasProp("__hDevMode"))
                 this.__hDevMode := HGLOBAL(16, this)
@@ -77,7 +77,7 @@ class PAGESETUPDLGW extends Win32Struct
      * 					<b>hDevNames</b> to a global memory handle to a <b>DEVNAMES</b> structure that contains strings specifying the user's selections. If the user's selections are not available, the dialog box sets <b>hDevNames</b> to <b>NULL</b>.
      * @type {HGLOBAL}
      */
-    hDevNames{
+    hDevNames {
         get {
             if(!this.HasProp("__hDevNames"))
                 this.__hDevNames := HGLOBAL(24, this)
@@ -87,7 +87,7 @@ class PAGESETUPDLGW extends Win32Struct
 
     /**
      * Type: <b>DWORD</b>
-     * @type {Integer}
+     * @type {PAGESETUPDLG_FLAGS}
      */
     Flags {
         get => NumGet(this, 32, "uint")
@@ -100,7 +100,7 @@ class PAGESETUPDLGW extends Win32Struct
      * The dimensions of the paper selected by the user. The <b>PSD_INTHOUSANDTHSOFINCHES</b> or <b>PSD_INHUNDREDTHSOFMILLIMETERS</b> flag indicates the units of measurement.
      * @type {POINT}
      */
-    ptPaperSize{
+    ptPaperSize {
         get {
             if(!this.HasProp("__ptPaperSize"))
                 this.__ptPaperSize := POINT(36, this)
@@ -114,7 +114,7 @@ class PAGESETUPDLGW extends Win32Struct
      * The minimum allowable widths for the left, top, right, and bottom margins. The system ignores this member if the <b>PSD_MINMARGINS</b> flag is not set. These values must be less than or equal to the values specified in the <b>rtMargin</b> member. The <b>PSD_INTHOUSANDTHSOFINCHES</b> or <b>PSD_INHUNDREDTHSOFMILLIMETERS</b> flag indicates the units of measurement.
      * @type {RECT}
      */
-    rtMinMargin{
+    rtMinMargin {
         get {
             if(!this.HasProp("__rtMinMargin"))
                 this.__rtMinMargin := RECT(44, this)
@@ -128,7 +128,7 @@ class PAGESETUPDLGW extends Win32Struct
      * The widths of the left, top, right, and bottom margins. If you set the <b>PSD_MARGINS</b> flag, <b>rtMargin</b> specifies the initial margin values. When <a href="https://docs.microsoft.com/previous-versions/windows/desktop/legacy/ms646937(v=vs.85)">PageSetupDlg</a> returns, <b>rtMargin</b> contains the margin widths selected by the user. The <b>PSD_INHUNDREDTHSOFMILLIMETERS</b> or <b>PSD_INTHOUSANDTHSOFINCHES</b> flag indicates the units of measurement.
      * @type {RECT}
      */
-    rtMargin{
+    rtMargin {
         get {
             if(!this.HasProp("__rtMargin"))
                 this.__rtMargin := RECT(60, this)
@@ -142,7 +142,7 @@ class PAGESETUPDLGW extends Win32Struct
      * If the <b>PSD_ENABLEPAGESETUPTEMPLATE</b> flag is set in the <b>Flags</b> member, <b>hInstance</b> is a handle to the application or module instance that contains the dialog box template named by the <b>lpPageSetupTemplateName</b> member.
      * @type {HINSTANCE}
      */
-    hInstance{
+    hInstance {
         get {
             if(!this.HasProp("__hInstance"))
                 this.__hInstance := HINSTANCE(80, this)
@@ -200,7 +200,7 @@ class PAGESETUPDLGW extends Win32Struct
      * If the <b>PSD_ENABLEPAGESETUPTEMPLATEHANDLE</b> flag is set in the <b>Flags</b> member, <b>hPageSetupTemplate</b> is a handle to a memory object containing a dialog box template.
      * @type {HGLOBAL}
      */
-    hPageSetupTemplate{
+    hPageSetupTemplate {
         get {
             if(!this.HasProp("__hPageSetupTemplate"))
                 this.__hPageSetupTemplate := HGLOBAL(120, this)

@@ -7,10 +7,8 @@
  * Learn more about: JET_INSTANCE
  * @see https://learn.microsoft.com/windows/win32/extensible-storage-engine/jet-instance
  * @namespace Windows.Win32.Storage.Jet
- * @version v4.0.30319
  */
-class JET_INSTANCE extends Win32Handle
-{
+class JET_INSTANCE extends Win32Handle {
     static sizeof => 8
 
     static packingSize => 8

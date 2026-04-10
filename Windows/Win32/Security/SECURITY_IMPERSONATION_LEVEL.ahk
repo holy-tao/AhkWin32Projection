@@ -7,9 +7,8 @@
  * Impersonation is the ability of a process to take on the security attributes of another process.
  * @see https://learn.microsoft.com/windows/win32/api/winnt/ne-winnt-security_impersonation_level
  * @namespace Windows.Win32.Security
- * @version v4.0.30319
  */
-class SECURITY_IMPERSONATION_LEVEL extends Win32Enum{
+class SECURITY_IMPERSONATION_LEVEL extends Win32Enum {
 
     /**
      * The server process cannot obtain identification information about the client, and it cannot impersonate the client. It is defined with no value given, and thus, by ANSI C rules, defaults to a value of zero.

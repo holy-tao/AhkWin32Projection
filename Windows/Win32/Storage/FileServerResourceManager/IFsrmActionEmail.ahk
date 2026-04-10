@@ -1,8 +1,8 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
-#Include ..\..\Foundation\BSTR.ahk
 #Include .\IFsrmAction.ahk
+#Include ..\..\Foundation\BSTR.ahk
 
 /**
  * Used to send an email message in response to a quota or file screen event.
@@ -12,9 +12,8 @@
  *     properties are optional.
  * @see https://learn.microsoft.com/windows/win32/api/fsrm/nn-fsrm-ifsrmactionemail
  * @namespace Windows.Win32.Storage.FileServerResourceManager
- * @version v4.0.30319
  */
-class IFsrmActionEmail extends IFsrmAction{
+class IFsrmActionEmail extends IFsrmAction {
 
     static sizeof => A_PtrSize
     /**

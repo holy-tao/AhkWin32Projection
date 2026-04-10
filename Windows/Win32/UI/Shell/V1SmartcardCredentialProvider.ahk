@@ -3,10 +3,8 @@
 
 /**
  * @namespace Windows.Win32.UI.Shell
- * @version v4.0.30319
  */
-class V1SmartcardCredentialProvider extends Win32Struct
-{
+class V1SmartcardCredentialProvider extends Win32Struct {
     static sizeof => 0
 
     static packingSize => 1

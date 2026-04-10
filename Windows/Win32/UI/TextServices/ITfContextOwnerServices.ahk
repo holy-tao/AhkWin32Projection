@@ -1,17 +1,16 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
+#Include ..\..\System\Com\IUnknown.ahk
 #Include .\TF_PERSISTENT_PROPERTY_HEADER_ACP.ahk
 #Include .\ITfRangeACP.ahk
-#Include ..\..\System\Com\IUnknown.ahk
 
 /**
  * The ITfContextOwnerServices interface is implemented by the manager and used by a text service or application acting as context owners.
  * @see https://learn.microsoft.com/windows/win32/api/msctf/nn-msctf-itfcontextownerservices
  * @namespace Windows.Win32.UI.TextServices
- * @version v4.0.30319
  */
-class ITfContextOwnerServices extends IUnknown{
+class ITfContextOwnerServices extends IUnknown {
 
     static sizeof => A_PtrSize
     /**

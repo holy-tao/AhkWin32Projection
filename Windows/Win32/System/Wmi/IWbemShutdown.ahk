@@ -7,9 +7,8 @@
  * The IWbemShutdown interface indicates to the provider that an instance of an object is ready to be discarded. The provider can use this call to release resources that it is referencing currently.
  * @see https://learn.microsoft.com/windows/win32/api/wbemcli/nn-wbemcli-iwbemshutdown
  * @namespace Windows.Win32.System.Wmi
- * @version v4.0.30319
  */
-class IWbemShutdown extends IUnknown{
+class IWbemShutdown extends IUnknown {
 
     static sizeof => A_PtrSize
     /**

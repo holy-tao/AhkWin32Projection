@@ -13,9 +13,8 @@
  *       either one may be set in the resource creation calls but not both simultaneously.
  * @see https://learn.microsoft.com/windows/win32/api/d3d10/ne-d3d10-d3d10_resource_misc_flag
  * @namespace Windows.Win32.Graphics.Direct3D10
- * @version v4.0.30319
  */
-class D3D10_RESOURCE_MISC_FLAG extends Win32Enum{
+class D3D10_RESOURCE_MISC_FLAG extends Win32Enum {
 
     /**
      * Enables an application to call <a href="https://docs.microsoft.com/windows/desktop/api/d3d10/nf-d3d10-id3d10device-generatemips">ID3D10Device::GenerateMips</a> on 

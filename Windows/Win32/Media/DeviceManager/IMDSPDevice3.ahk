@@ -1,18 +1,17 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
+#Include .\IMDSPDevice2.ahk
 #Include ..\..\System\Com\StructuredStorage\PROPVARIANT.ahk
 #Include .\WMDM_FORMAT_CAPABILITY.ahk
 #Include .\IMDSPStorage.ahk
-#Include .\IMDSPDevice2.ahk
 
 /**
  * The IMDSPDevice3 interface must be supported for devices that expect to synchronize with Windows Media Player.
  * @see https://learn.microsoft.com/windows/win32/api/mswmdm/nn-mswmdm-imdspdevice3
  * @namespace Windows.Win32.Media.DeviceManager
- * @version v4.0.30319
  */
-class IMDSPDevice3 extends IMDSPDevice2{
+class IMDSPDevice3 extends IMDSPDevice2 {
 
     static sizeof => A_PtrSize
     /**
@@ -90,7 +89,7 @@ class IMDSPDevice3 extends IMDSPDevice2{
      * This method can be called for any of the supported formats. The list of supported formats are represented by <b>g_wszWMDMFormatsSupported</b> device property.
      * 
      * For a particular format, this method should return all configurations of supported properties (for example, combinations of bit rate and sample rate). This information is expressed as a format capability. For detailed information, see <a href="https://docs.microsoft.com/windows/desktop/WMDM/wmdm-format-capability">WMDM_FORMAT_CAPABILITY</a>.
-     * @param {Integer} format <a href="https://docs.microsoft.com/windows/desktop/WMDM/wmdm-formatcode">WMDM_FORMATCODE</a>
+     * @param {WMDM_FORMATCODE} format <a href="https://docs.microsoft.com/windows/desktop/WMDM/wmdm-formatcode">WMDM_FORMATCODE</a>
      * 
      * 
      * Enumerated value representing inquired format.
@@ -134,7 +133,7 @@ class IMDSPDevice3 extends IMDSPDevice2{
      * A persistent unique identifier is used to uniquely identify content stored on a particular device. It does not represent a content-specific globally unique identifier that remains identical across all devices. Thus, the same content stored in different storages will have different persistent unique identifiers.
      * 
      * Windows Media Device Manager calls this method only for devices that are registered to enable synchronization with Windows Media Player. For more information, see <a href="https://docs.microsoft.com/windows/desktop/WMDM/enabling-synchronization-with-windows-media-player">Enabling Synchronization with Windows Media Player</a>.
-     * @param {Integer} findScope 
+     * @param {WMDM_FIND_SCOPE} findScope 
      * @param {PWSTR} pwszUniqueID Persistent unique identifier of the storage.
      * @returns {IMDSPStorage} Pointer to the returned storage specified by the <i>pwszUniqueID</i> parameter.
      * @see https://learn.microsoft.com/windows/win32/api/mswmdm/nf-mswmdm-imdspdevice3-findstorage

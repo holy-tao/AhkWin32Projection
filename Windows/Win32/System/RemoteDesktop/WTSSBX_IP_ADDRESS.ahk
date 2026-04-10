@@ -1,21 +1,20 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
+#Include .\WTSSBX_ADDRESS_FAMILY.ahk
 
 /**
  * Contains information about the IP address of a network resource.
  * @see https://learn.microsoft.com/windows/win32/api/tssbx/ns-tssbx-wtssbx_ip_address
  * @namespace Windows.Win32.System.RemoteDesktop
- * @version v4.0.30319
  */
-class WTSSBX_IP_ADDRESS extends Win32Struct
-{
+class WTSSBX_IP_ADDRESS extends Win32Struct {
     static sizeof => 28
 
     static packingSize => 4
 
     /**
      * A value of the <a href="https://docs.microsoft.com/windows/win32/api/tssbx/ne-tssbx-wtssbx_address_family">WTSSBX_ADDRESS_FAMILY</a> enumeration type that indicates the address family of the network address.
-     * @type {Integer}
+     * @type {WTSSBX_ADDRESS_FAMILY}
      */
     AddressFamily {
         get => NumGet(this, 0, "int")
@@ -24,9 +23,9 @@ class WTSSBX_IP_ADDRESS extends Win32Struct
 
     /**
      * The network address of the resource.
-     * @type {Array<Byte>}
+     * @type {Array<Integer>}
      */
-    Address{
+    Address {
         get {
             if(!this.HasProp("__AddressProxyArray"))
                 this.__AddressProxyArray := Win32FixedArray(this.ptr + 4, 16, Primitive, "char")

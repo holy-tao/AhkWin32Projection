@@ -5,10 +5,8 @@
  * Specifies tags used for the PreprocessCommand function.
  * @see https://learn.microsoft.com/windows/win32/api/netsh/ns-netsh-tag_type
  * @namespace Windows.Win32.NetworkManagement.NetShell
- * @version v4.0.30319
  */
-class TAG_TYPE extends Win32Struct
-{
+class TAG_TYPE extends Win32Struct {
     static sizeof => 16
 
     static packingSize => 8

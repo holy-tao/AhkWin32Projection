@@ -11,10 +11,8 @@
  * <a href="https://docs.microsoft.com/previous-versions/windows/desktop/mmc/ccf-nodeid">CCF_NODEID</a>.
  * @see https://learn.microsoft.com/windows/win32/api/mmc/ns-mmc-snodeid
  * @namespace Windows.Win32.System.Mmc
- * @version v4.0.30319
  */
-class SNodeID extends Win32Struct
-{
+class SNodeID extends Win32Struct {
     static sizeof => 8
 
     static packingSize => 4
@@ -32,9 +30,9 @@ class SNodeID extends Win32Struct
 
     /**
      * The bytes that contains the node ID of the scope item.
-     * @type {Array<Byte>}
+     * @type {Array<Integer>}
      */
-    id{
+    id {
         get {
             if(!this.HasProp("__idProxyArray"))
                 this.__idProxyArray := Win32FixedArray(this.ptr + 4, 1, Primitive, "char")

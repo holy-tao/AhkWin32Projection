@@ -5,10 +5,8 @@
  * The EXTLOGPEN structure defines the pen style, width, and brush attributes for an extended pen.
  * @see https://learn.microsoft.com/windows/win32/api/wingdi/ns-wingdi-extlogpen
  * @namespace Windows.Win32.Graphics.Gdi
- * @version v4.0.30319
  */
-class EXTLOGPEN extends Win32Struct
-{
+class EXTLOGPEN extends Win32Struct {
     static sizeof => 32
 
     static packingSize => 8
@@ -233,9 +231,9 @@ class EXTLOGPEN extends Win32Struct
      * A user-supplied style array. The array is specified with a finite length, but it is used as if it repeated indefinitely. The first entry in the array specifies the length of the first dash. The second entry specifies the length of the first gap. Thereafter, lengths of dashes and gaps alternate.
      * 
      * If <b>elpWidth</b> specifies geometric lines, the lengths are in logical units. Otherwise, the lines are cosmetic and lengths are in device units.
-     * @type {Array<UInt32>}
+     * @type {Array<Integer>}
      */
-    elpStyleEntry{
+    elpStyleEntry {
         get {
             if(!this.HasProp("__elpStyleEntryProxyArray"))
                 this.__elpStyleEntryProxyArray := Win32FixedArray(this.ptr + 28, 1, Primitive, "uint")

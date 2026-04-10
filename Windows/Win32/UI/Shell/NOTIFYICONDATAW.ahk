@@ -1,7 +1,10 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
 #Include ..\..\Foundation\HWND.ahk
+#Include .\NOTIFY_ICON_DATA_FLAGS.ahk
 #Include ..\WindowsAndMessaging\HICON.ahk
+#Include .\NOTIFY_ICON_STATE.ahk
+#Include .\NOTIFY_ICON_INFOTIP_FLAGS.ahk
 
 /**
  * Contains information that the system needs to display notifications in the notification area. Used by Shell_NotifyIcon. (Unicode)
@@ -19,11 +22,10 @@
  * // Windows Vista and later:
  * @see https://learn.microsoft.com/windows/win32/api/shellapi/ns-shellapi-notifyicondataw
  * @namespace Windows.Win32.UI.Shell
- * @version v4.0.30319
  * @charset Unicode
+ * @architecture X64, Arm64
  */
-class NOTIFYICONDATAW extends Win32Struct
-{
+class NOTIFYICONDATAW extends Win32Struct {
     static sizeof => 968
 
     static packingSize => 8
@@ -45,7 +47,7 @@ class NOTIFYICONDATAW extends Win32Struct
      * A handle to the window that receives notifications associated with an icon in the notification area.
      * @type {HWND}
      */
-    hWnd{
+    hWnd {
         get {
             if(!this.HasProp("__hWnd"))
                 this.__hWnd := HWND(8, this)
@@ -66,7 +68,7 @@ class NOTIFYICONDATAW extends Win32Struct
 
     /**
      * Type: <b>UINT</b>
-     * @type {Integer}
+     * @type {NOTIFY_ICON_DATA_FLAGS}
      */
     uFlags {
         get => NumGet(this, 20, "uint")
@@ -109,7 +111,7 @@ class NOTIFYICONDATAW extends Win32Struct
      * If only a 16x16 pixel icon is provided, it is scaled to a larger size in a system set to a high dpi value. This can lead to an unattractive result. It is recommended that you provide both a 16x16 pixel icon and a 32x32 icon in your resource file. Use <a href="https://docs.microsoft.com/windows/desktop/api/commctrl/nf-commctrl-loadiconmetric">LoadIconMetric</a> to ensure that the correct icon is loaded and scaled appropriately. See Remarks for a code example.
      * @type {HICON}
      */
-    hIcon{
+    hIcon {
         get {
             if(!this.HasProp("__hIcon"))
                 this.__hIcon := HICON(32, this)
@@ -134,7 +136,7 @@ class NOTIFYICONDATAW extends Win32Struct
 
     /**
      * Type: <b>DWORD</b>
-     * @type {Integer}
+     * @type {NOTIFY_ICON_STATE}
      */
     dwState {
         get => NumGet(this, 296, "uint")
@@ -145,7 +147,7 @@ class NOTIFYICONDATAW extends Win32Struct
      * Type: <b>DWORD</b>
      * 
      * <b>Windows 2000 and later</b>. A value that specifies which bits of the <b>dwState</b> member are retrieved or modified. The possible values are the same as those for <b>dwState</b>. For example, setting this member to <b>NIS_HIDDEN</b> causes only the item's hidden state to be modified while the icon sharing bit is ignored regardless of its value.
-     * @type {Integer}
+     * @type {NOTIFY_ICON_STATE}
      */
     dwStateMask {
         get => NumGet(this, 300, "uint")
@@ -194,7 +196,7 @@ class NOTIFYICONDATAW extends Win32Struct
      * Type: <b>DWORD</b>
      * 
      * <b>Windows 2000 and later</b>. Flags that can be set to modify the behavior and appearance of a balloon notification. The icon is placed to the left of the title. If the <b>szInfoTitle</b> member is zero-length, the icon is not shown.
-     * @type {Integer}
+     * @type {NOTIFY_ICON_INFOTIP_FLAGS}
      */
     dwInfoFlags {
         get => NumGet(this, 948, "uint")
@@ -217,7 +219,7 @@ class NOTIFYICONDATAW extends Win32Struct
      * If you identify the notification icon with a GUID in one call to <a href="https://docs.microsoft.com/windows/desktop/api/shellapi/nf-shellapi-shell_notifyicona">Shell_NotifyIcon</a>, you must use that same GUID to identify the icon in any subsequent <b>Shell_NotifyIcon</b> calls that deal with that same icon.
      * 
      * To generate a GUID for use in this member, use a GUID-generating tool such as Guidgen.exe.
-     * @type {Pointer<Guid>}
+     * @type {Pointer}
      */
     guidItem {
         get => NumGet(this, 952, "ptr")
@@ -230,7 +232,7 @@ class NOTIFYICONDATAW extends Win32Struct
      * <b>Windows Vista and later</b>. The handle of a customized notification icon provided by the application that should be used independently of the notification area icon. If this member is non-NULL and the NIIF_USER flag is set in the <b>dwInfoFlags</b> member, this icon is used as the notification icon. If this member is <b>NULL</b>, the legacy behavior is carried out.
      * @type {HICON}
      */
-    hBalloonIcon{
+    hBalloonIcon {
         get {
             if(!this.HasProp("__hBalloonIcon"))
                 this.__hBalloonIcon := HICON(960, this)

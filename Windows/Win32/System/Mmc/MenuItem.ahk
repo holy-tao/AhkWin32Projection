@@ -1,16 +1,15 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
-#Include ..\..\Foundation\BSTR.ahk
 #Include ..\Com\IDispatch.ahk
+#Include ..\..\Foundation\BSTR.ahk
 
 /**
  * Determines which menu item, if any, is at the specified location.
  * @see https://learn.microsoft.com/windows/win32/api/winuser/nf-winuser-menuitemfrompoint
  * @namespace Windows.Win32.System.Mmc
- * @version v4.0.30319
  */
-class MenuItem extends IDispatch{
+class MenuItem extends IDispatch {
 
     static sizeof => A_PtrSize
     /**

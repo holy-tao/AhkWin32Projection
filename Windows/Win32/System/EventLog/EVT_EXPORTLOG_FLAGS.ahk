@@ -5,9 +5,8 @@
  * Defines values that indicate whether the events come from a channel or log file.
  * @see https://learn.microsoft.com/windows/win32/api/winevt/ne-winevt-evt_exportlog_flags
  * @namespace Windows.Win32.System.EventLog
- * @version v4.0.30319
  */
-class EVT_EXPORTLOG_FLAGS extends Win32Enum{
+class EVT_EXPORTLOG_FLAGS extends Win32Enum {
 
     /**
      * The source of the events is a channel.
@@ -28,7 +27,6 @@ class EVT_EXPORTLOG_FLAGS extends Win32Enum{
     static EvtExportLogTolerateQueryErrors => 4096
 
     /**
-     * 
      * @type {Integer (UInt32)}
      */
     static EvtExportLogOverwrite => 8192

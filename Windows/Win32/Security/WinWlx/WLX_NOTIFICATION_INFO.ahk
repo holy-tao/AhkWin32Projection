@@ -7,10 +7,8 @@
  * This structure stores information about a Winlogon event.
  * @see https://learn.microsoft.com/windows/win32/api/winwlx/ns-winwlx-wlx_notification_info
  * @namespace Windows.Win32.Security.WinWlx
- * @version v4.0.30319
  */
-class WLX_NOTIFICATION_INFO extends Win32Struct
-{
+class WLX_NOTIFICATION_INFO extends Win32Struct {
     static sizeof => 56
 
     static packingSize => 8
@@ -65,7 +63,7 @@ class WLX_NOTIFICATION_INFO extends Win32Struct
      * A handle to the user's token. This value is <b>NULL</b> if the event occurs before a user logs on.
      * @type {HANDLE}
      */
-    hToken{
+    hToken {
         get {
             if(!this.HasProp("__hToken"))
                 this.__hToken := HANDLE(32, this)
@@ -77,7 +75,7 @@ class WLX_NOTIFICATION_INFO extends Win32Struct
      * A handle to the desktop that is currently active.
      * @type {HDESK}
      */
-    hDesktop{
+    hDesktop {
         get {
             if(!this.HasProp("__hDesktop"))
                 this.__hDesktop := HDESK(40, this)

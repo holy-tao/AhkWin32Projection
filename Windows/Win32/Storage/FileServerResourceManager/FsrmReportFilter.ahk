@@ -11,9 +11,8 @@
  *     filter's value when calling <b>SetFilter</b>.
  * @see https://learn.microsoft.com/windows/win32/api/fsrmenums/ne-fsrmenums-fsrmreportfilter
  * @namespace Windows.Win32.Storage.FileServerResourceManager
- * @version v4.0.30319
  */
-class FsrmReportFilter extends Win32Enum{
+class FsrmReportFilter extends Win32Enum {
 
     /**
      * The report will show only files that meet a minimum size.

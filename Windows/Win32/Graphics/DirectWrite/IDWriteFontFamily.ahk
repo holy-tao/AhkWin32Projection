@@ -1,9 +1,9 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
+#Include .\IDWriteFontList.ahk
 #Include .\IDWriteLocalizedStrings.ahk
 #Include .\IDWriteFont.ahk
-#Include .\IDWriteFontList.ahk
 
 /**
  * Represents a family of related fonts. (IDWriteFontFamily)
@@ -43,9 +43,8 @@
  * ```
  * @see https://learn.microsoft.com/windows/win32/api/dwrite/nn-dwrite-idwritefontfamily
  * @namespace Windows.Win32.Graphics.DirectWrite
- * @version v4.0.30319
  */
-class IDWriteFontFamily extends IDWriteFontList{
+class IDWriteFontFamily extends IDWriteFontList {
 
     static sizeof => A_PtrSize
     /**
@@ -140,13 +139,13 @@ class IDWriteFontFamily extends IDWriteFontList{
 
     /**
      * Gets the font that best matches the specified properties.
-     * @param {Integer} weight Type: <b><a href="https://docs.microsoft.com/windows/win32/api/dwrite/ne-dwrite-dwrite_font_weight">DWRITE_FONT_WEIGHT</a></b>
+     * @param {DWRITE_FONT_WEIGHT} weight Type: <b><a href="https://docs.microsoft.com/windows/win32/api/dwrite/ne-dwrite-dwrite_font_weight">DWRITE_FONT_WEIGHT</a></b>
      * 
      * A value that is used to match a requested font weight.
-     * @param {Integer} stretch Type: <b><a href="https://docs.microsoft.com/windows/win32/api/dwrite/ne-dwrite-dwrite_font_stretch">DWRITE_FONT_STRETCH</a></b>
+     * @param {DWRITE_FONT_STRETCH} stretch Type: <b><a href="https://docs.microsoft.com/windows/win32/api/dwrite/ne-dwrite-dwrite_font_stretch">DWRITE_FONT_STRETCH</a></b>
      * 
      * A value that is used to match a requested font stretch.
-     * @param {Integer} style Type: <b><a href="https://docs.microsoft.com/windows/win32/api/dwrite/ne-dwrite-dwrite_font_style">DWRITE_FONT_STYLE</a></b>
+     * @param {DWRITE_FONT_STYLE} style Type: <b><a href="https://docs.microsoft.com/windows/win32/api/dwrite/ne-dwrite-dwrite_font_style">DWRITE_FONT_STYLE</a></b>
      * 
      * A value that is used to match a requested font style.
      * @returns {IDWriteFont} Type: <b><a href="https://docs.microsoft.com/windows/win32/api/dwrite/nn-dwrite-idwritefont">IDWriteFont</a>**</b>
@@ -161,13 +160,13 @@ class IDWriteFontFamily extends IDWriteFontList{
 
     /**
      * Gets a list of fonts in the font family ranked in order of how well they match the specified properties.
-     * @param {Integer} weight Type: <b><a href="https://docs.microsoft.com/windows/win32/api/dwrite/ne-dwrite-dwrite_font_weight">DWRITE_FONT_WEIGHT</a></b>
+     * @param {DWRITE_FONT_WEIGHT} weight Type: <b><a href="https://docs.microsoft.com/windows/win32/api/dwrite/ne-dwrite-dwrite_font_weight">DWRITE_FONT_WEIGHT</a></b>
      * 
      * A value that is used to match a requested font weight.
-     * @param {Integer} stretch Type: <b><a href="https://docs.microsoft.com/windows/win32/api/dwrite/ne-dwrite-dwrite_font_stretch">DWRITE_FONT_STRETCH</a></b>
+     * @param {DWRITE_FONT_STRETCH} stretch Type: <b><a href="https://docs.microsoft.com/windows/win32/api/dwrite/ne-dwrite-dwrite_font_stretch">DWRITE_FONT_STRETCH</a></b>
      * 
      * A value that is used to match a requested font stretch.
-     * @param {Integer} style Type: <b><a href="https://docs.microsoft.com/windows/win32/api/dwrite/ne-dwrite-dwrite_font_style">DWRITE_FONT_STYLE</a></b>
+     * @param {DWRITE_FONT_STYLE} style Type: <b><a href="https://docs.microsoft.com/windows/win32/api/dwrite/ne-dwrite-dwrite_font_style">DWRITE_FONT_STYLE</a></b>
      * 
      * A value that is used to match a requested font style.
      * @returns {IDWriteFontList} Type: <b><a href="https://docs.microsoft.com/windows/win32/api/dwrite/nn-dwrite-idwritefontlist">IDWriteFontList</a>**</b>

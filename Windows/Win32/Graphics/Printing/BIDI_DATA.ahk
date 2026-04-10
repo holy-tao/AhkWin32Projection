@@ -4,10 +4,8 @@
 
 /**
  * @namespace Windows.Win32.Graphics.Printing
- * @version v4.0.30319
  */
-class BIDI_DATA extends Win32Struct
-{
+class BIDI_DATA extends Win32Struct {
     static sizeof => 24
 
     static packingSize => 8
@@ -23,7 +21,7 @@ class BIDI_DATA extends Win32Struct
             get => NumGet(this, 0, "int")
             set => NumPut("int", value, this, 0)
         }
-    
+
         /**
          * @type {Integer}
          */
@@ -31,7 +29,7 @@ class BIDI_DATA extends Win32Struct
             get => NumGet(this, 0, "int")
             set => NumPut("int", value, this, 0)
         }
-    
+
         /**
          * @type {PWSTR}
          */
@@ -39,7 +37,7 @@ class BIDI_DATA extends Win32Struct
             get => NumGet(this, 0, "ptr")
             set => NumPut("ptr", value, this, 0)
         }
-    
+
         /**
          * @type {Float}
          */
@@ -47,18 +45,17 @@ class BIDI_DATA extends Win32Struct
             get => NumGet(this, 0, "float")
             set => NumPut("float", value, this, 0)
         }
-    
+
         /**
          * @type {BINARY_CONTAINER}
          */
-        biData{
+        biData {
             get {
                 if(!this.HasProp("__biData"))
                     this.__biData := BINARY_CONTAINER(0, this)
                 return this.__biData
             }
         }
-    
     }
 
     /**
@@ -72,10 +69,10 @@ class BIDI_DATA extends Win32Struct
     /**
      * @type {_u_e__Union}
      */
-    u{
+    u {
         get {
             if(!this.HasProp("__u"))
-                this.__u := %this.__Class%._u_e__Union(8, this)
+                this.__u := BIDI_DATA._u_e__Union(8, this)
             return this.__u
         }
     }

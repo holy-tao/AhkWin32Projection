@@ -1,16 +1,15 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
-#Include ..\..\Foundation\HWND.ahk
 #Include .\IFullScreenVideo.ahk
+#Include ..\..\Foundation\HWND.ahk
 
 /**
  * The IFullScreenVideoEx interface is implemented on the Full Screen Renderer filter, which provides full-screen video rendering on older hardware.
  * @see https://learn.microsoft.com/windows/win32/api/amvideo/nn-amvideo-ifullscreenvideoex
  * @namespace Windows.Win32.Media.DirectShow
- * @version v4.0.30319
  */
-class IFullScreenVideoEx extends IFullScreenVideo{
+class IFullScreenVideoEx extends IFullScreenVideo {
 
     static sizeof => A_PtrSize
     /**
@@ -33,8 +32,8 @@ class IFullScreenVideoEx extends IFullScreenVideo{
 
     /**
      * The SetAcceleratorTable method specifies an accelerator table that will be used to translate keyboard messages. The Full Screen Renderer filter does not support this method.
-     * @param {HWND} _hwnd 
-     * @param {HACCEL} _hAccel 
+     * @param {HWND} _hwnd Handle of the window that will receive the translated messages.
+     * @param {HACCEL} _hAccel Handle to the accelerator table.
      * @returns {HRESULT} Returns an <b>HRESULT</b> value.
      * @see https://learn.microsoft.com/windows/win32/api/amvideo/nf-amvideo-ifullscreenvideoex-setacceleratortable
      */

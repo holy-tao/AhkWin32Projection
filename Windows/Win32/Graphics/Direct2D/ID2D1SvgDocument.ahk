@@ -1,20 +1,19 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
+#Include .\ID2D1Resource.ahk
 #Include .\ID2D1SvgElement.ahk
 #Include .\ID2D1SvgPaint.ahk
 #Include .\ID2D1SvgStrokeDashArray.ahk
 #Include .\ID2D1SvgPointCollection.ahk
 #Include .\ID2D1SvgPathData.ahk
-#Include .\ID2D1Resource.ahk
 
 /**
  * Represents an SVG document.
  * @see https://learn.microsoft.com/windows/win32/api/d2d1svg/nn-d2d1svg-id2d1svgdocument
  * @namespace Windows.Win32.Graphics.Direct2D
- * @version v4.0.30319
  */
-class ID2D1SvgDocument extends ID2D1Resource{
+class ID2D1SvgDocument extends ID2D1Resource {
 
     static sizeof => A_PtrSize
     /**
@@ -94,7 +93,9 @@ class ID2D1SvgDocument extends ID2D1Resource{
      * @param {PWSTR} id Type: <b>PCWSTR</b>
      * 
      * ID of the element to retrieve.
-     * @returns {ID2D1SvgElement} 
+     * @returns {ID2D1SvgElement} Type: <b>ID2D1SvgElement**</b>
+     * 
+     * The element matching the specified ID. If the element cannot be found, the returned element will be null.
      * @see https://learn.microsoft.com/windows/win32/api/d2d1svg/nf-d2d1svg-id2d1svgdocument-findelementbyid
      */
     FindElementById(id) {
@@ -139,7 +140,7 @@ class ID2D1SvgDocument extends ID2D1Resource{
 
     /**
      * Creates a paint object which can be used to set the 'fill' or 'stroke' properties.
-     * @param {Integer} paintType 
+     * @param {D2D1_SVG_PAINT_TYPE} paintType 
      * @param {Pointer<D2D1_COLOR_F>} _color 
      * @param {PWSTR} id 
      * @returns {ID2D1SvgPaint} 
@@ -172,7 +173,9 @@ class ID2D1SvgDocument extends ID2D1Resource{
 
     /**
      * Creates a points object which can be used to set a points attribute on a polygon or polyline element.
-     * @param {Pointer<D2D_POINT_2F>} _points 
+     * @param {Pointer<D2D_POINT_2F>} _points Type: <b>const D2D1_POINT_2F*</b>
+     * 
+     * The points in the point collection.
      * @param {Integer} pointsCount Type: <b>UINT32</b>
      * 
      * The number of points in the points argument.
@@ -194,13 +197,15 @@ class ID2D1SvgDocument extends ID2D1Resource{
      * @param {Integer} segmentDataCount Type: <b>UINT32</b>
      * 
      * Number of items in segmentData.
-     * @param {Pointer<Integer>} commands Type: <b>const <a href="https://docs.microsoft.com/windows/desktop/api/d2d1svg/ne-d2d1svg-d2d1_svg_path_command">D2D1_SVG_PATH_COMMAND</a>*</b>
+     * @param {Pointer<D2D1_SVG_PATH_COMMAND>} commands Type: <b>const <a href="https://docs.microsoft.com/windows/desktop/api/d2d1svg/ne-d2d1svg-d2d1_svg_path_command">D2D1_SVG_PATH_COMMAND</a>*</b>
      * 
      * An array of path commands.
      * @param {Integer} commandsCount Type: <b>UINT32</b>
      * 
      * The number of items in commands.
-     * @returns {ID2D1SvgPathData} 
+     * @returns {ID2D1SvgPathData} Type: <b>ID2D1SvgPathData**</b>
+     * 
+     * When this method completes, this points to the created path data.
      * @see https://learn.microsoft.com/windows/win32/api/d2d1svg/nf-d2d1svg-id2d1svgdocument-createpathdata
      */
     CreatePathData(segmentData, segmentDataCount, commands, commandsCount) {

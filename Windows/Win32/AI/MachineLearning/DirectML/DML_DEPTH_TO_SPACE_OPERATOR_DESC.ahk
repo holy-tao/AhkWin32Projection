@@ -1,5 +1,6 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\..\Win32Struct.ahk
+#Include .\DML_TENSOR_DESC.ahk
 
 /**
  * Rearranges (permutes) data from depth into blocks of spatial data. The operator outputs a copy of the input tensor where values from the depth dimension are moved in spatial blocks to the height and width dimensions. (DML_DEPTH_TO_SPACE_OPERATOR_DESC)
@@ -7,10 +8,8 @@
  * A newer version of this operator, [DML_DEPTH_TO_SPACE1_OPERATOR_DESC](/windows/win32/api/directml/ns-directml-dml_depth_to_space1_operator_desc), was introduced in `DML_FEATURE_LEVEL_2_1`.
  * @see https://learn.microsoft.com/windows/win32/api/directml/ns-directml-dml_depth_to_space_operator_desc
  * @namespace Windows.Win32.AI.MachineLearning.DirectML
- * @version v4.0.30319
  */
-class DML_DEPTH_TO_SPACE_OPERATOR_DESC extends Win32Struct
-{
+class DML_DEPTH_TO_SPACE_OPERATOR_DESC extends Win32Struct {
     static sizeof => 24
 
     static packingSize => 8

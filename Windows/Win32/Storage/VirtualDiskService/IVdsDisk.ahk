@@ -1,18 +1,17 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
+#Include ..\..\System\Com\IUnknown.ahk
 #Include .\VDS_DISK_PROP.ahk
 #Include .\IVdsPack.ahk
 #Include .\VDS_LUN_INFORMATION.ahk
-#Include ..\..\System\Com\IUnknown.ahk
 
 /**
  * Provides methods to query and configure basic and dynamic disks.
  * @see https://learn.microsoft.com/windows/win32/api/vds/nn-vds-ivdsdisk
  * @namespace Windows.Win32.Storage.VirtualDiskService
- * @version v4.0.30319
  */
-class IVdsDisk extends IUnknown{
+class IVdsDisk extends IUnknown {
 
     static sizeof => A_PtrSize
     /**
@@ -137,7 +136,7 @@ class IVdsDisk extends IUnknown{
      * Converts the partition style of an empty disk from one style to another.
      * @remarks
      * An empty disk contains no user data, OEM partitions, ESP partitions, or unknown partitions. Only LDM metadata partitions and MSR partitions are valid on an empty disk.
-     * @param {Integer} NewStyle The partition styles enumerated by <a href="https://docs.microsoft.com/windows/desktop/api/vds/ne-vds-vds_partition_style">VDS_PARTITION_STYLE</a>.
+     * @param {VDS_PARTITION_STYLE} NewStyle The partition styles enumerated by <a href="https://docs.microsoft.com/windows/desktop/api/vds/ne-vds-vds_partition_style">VDS_PARTITION_STYLE</a>.
      * @returns {HRESULT} This method can return standard HRESULT values, such as E_INVALIDARG or E_OUTOFMEMORY, and <a href="https://docs.microsoft.com/windows/desktop/VDS/virtual-disk-service-common-return-codes">VDS-specific return values</a>. It can also return converted <a href="https://docs.microsoft.com/windows/desktop/Debug/system-error-codes">system error codes</a>  using the <a href="https://docs.microsoft.com/windows/desktop/api/winerror/nf-winerror-hresult_from_win32">HRESULT_FROM_WIN32</a> macro. Errors can originate from VDS itself or from the underlying <a href="https://docs.microsoft.com/windows/desktop/VDS/about-vds">VDS provider</a> that is being used. Possible return values include the following.
      * 
      * <table>

@@ -1,14 +1,13 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\..\..\Guid.ahk
-#Include ..\..\..\..\Foundation\BSTR.ahk
 #Include .\IDataModelScript.ahk
+#Include ..\..\..\..\Foundation\BSTR.ahk
 
 /**
  * @namespace Windows.Win32.System.Diagnostics.Debug.Extensions
- * @version v4.0.30319
  */
-class IDataModelScript2 extends IDataModelScript{
+class IDataModelScript2 extends IDataModelScript {
 
     static sizeof => A_PtrSize
     /**

@@ -1,8 +1,8 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
-#Include ..\..\Foundation\HWND.ahk
 #Include ..\Com\IUnknown.ahk
+#Include ..\..\Foundation\HWND.ahk
 
 /**
  * Enables apps to obtain the window handle of the window (CoreWindow) associated with this interface.
@@ -10,9 +10,8 @@
  * Windows Store apps can have multiple <a href="https://docs.microsoft.com/uwp/api/windows.ui.core.corewindow">CoreWindow</a> instances. Each <b>CoreWindow</b> instance also has a native interface for accessing the underlying HWND, represented as an instance of <b>ICoreWindowInterop</b>.
  * @see https://learn.microsoft.com/windows/win32/api/corewindow/nn-corewindow-icorewindowinterop
  * @namespace Windows.Win32.System.WinRT
- * @version v4.0.30319
  */
-class ICoreWindowInterop extends IUnknown{
+class ICoreWindowInterop extends IUnknown {
 
     static sizeof => A_PtrSize
     /**
@@ -41,7 +40,7 @@ class ICoreWindowInterop extends IUnknown{
     }
 
     /**
-     * @type {HRESULT} 
+     * @type {Integer} 
      */
     MessageHandled {
         set => this.put_MessageHandled(value)

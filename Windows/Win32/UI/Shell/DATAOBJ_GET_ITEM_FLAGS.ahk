@@ -5,9 +5,8 @@
  * Values used by the SHGetItemFromDataObject function to specify options concerning the processing of the source object.
  * @see https://learn.microsoft.com/windows/win32/api/shobjidl_core/ne-shobjidl_core-dataobj_get_item_flags
  * @namespace Windows.Win32.UI.Shell
- * @version v4.0.30319
  */
-class DATAOBJ_GET_ITEM_FLAGS extends Win32BitflagEnum{
+class DATAOBJ_GET_ITEM_FLAGS extends Win32BitflagEnum {
 
     /**
      * 0x0000. No special options.

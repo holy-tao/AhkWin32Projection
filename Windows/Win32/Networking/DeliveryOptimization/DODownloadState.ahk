@@ -3,13 +3,10 @@
 
 /**
  * Specifies the ID of the current download state, which is part of the **DO_DOWNLOAD_STATUS** structure.
- * @remarks
- * 
  * @see https://learn.microsoft.com/windows/win32/api/deliveryoptimization/ne-deliveryoptimization-dodownloadstate
  * @namespace Windows.Win32.Networking.DeliveryOptimization
- * @version v4.0.30319
  */
-class DODownloadState extends Win32Enum{
+class DODownloadState extends Win32Enum {
 
     /**
      * Download object is created but hasn't been started yet.

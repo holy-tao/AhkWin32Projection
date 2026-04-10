@@ -5,9 +5,8 @@
 
 /**
  * @namespace Windows.Win32.Media.Audio.DirectMusic
- * @version v4.0.30319
  */
-class IDirectMusic8 extends IDirectMusic{
+class IDirectMusic8 extends IDirectMusic {
 
     static sizeof => A_PtrSize
     /**

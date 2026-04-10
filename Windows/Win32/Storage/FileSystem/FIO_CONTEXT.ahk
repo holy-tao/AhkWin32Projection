@@ -4,10 +4,8 @@
 
 /**
  * @namespace Windows.Win32.Storage.FileSystem
- * @version v4.0.30319
  */
-class FIO_CONTEXT extends Win32Struct
-{
+class FIO_CONTEXT extends Win32Struct {
     static sizeof => 24
 
     static packingSize => 8
@@ -31,7 +29,7 @@ class FIO_CONTEXT extends Win32Struct
     /**
      * @type {HANDLE}
      */
-    m_hFile{
+    m_hFile {
         get {
             if(!this.HasProp("__m_hFile"))
                 this.__m_hFile := HANDLE(8, this)

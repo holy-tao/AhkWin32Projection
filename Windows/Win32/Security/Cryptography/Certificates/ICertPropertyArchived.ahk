@@ -7,9 +7,8 @@
  * Represents a certificate property that identifies whether a certificate has been archived.
  * @see https://learn.microsoft.com/windows/win32/api/certenroll/nn-certenroll-icertpropertyarchived
  * @namespace Windows.Win32.Security.Cryptography.Certificates
- * @version v4.0.30319
  */
-class ICertPropertyArchived extends ICertProperty{
+class ICertPropertyArchived extends ICertProperty {
 
     static sizeof => A_PtrSize
     /**

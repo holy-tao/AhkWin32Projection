@@ -5,9 +5,8 @@
  * This callback is used to inform the sync provider that a placeholder file or directory under one of its sync roots is about to be deleted or undeleted.
  * @see https://learn.microsoft.com/windows/win32/api/cfapi/ne-cfapi-cf_callback_delete_flags
  * @namespace Windows.Win32.Storage.CloudFilters
- * @version v4.0.30319
  */
-class CF_CALLBACK_DELETE_FLAGS extends Win32BitflagEnum{
+class CF_CALLBACK_DELETE_FLAGS extends Win32BitflagEnum {
 
     /**
      * `0x00000000`

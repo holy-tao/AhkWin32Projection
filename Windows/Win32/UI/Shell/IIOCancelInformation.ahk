@@ -7,9 +7,8 @@
  * Exposes methods for posting a cancel window message to the process thread from the Progress Dialog.
  * @see https://learn.microsoft.com/windows/win32/api/shobjidl_core/nn-shobjidl_core-iiocancelinformation
  * @namespace Windows.Win32.UI.Shell
- * @version v4.0.30319
  */
-class IIOCancelInformation extends IUnknown{
+class IIOCancelInformation extends IUnknown {
 
     static sizeof => A_PtrSize
     /**

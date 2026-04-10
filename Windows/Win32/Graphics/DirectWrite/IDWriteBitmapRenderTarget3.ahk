@@ -1,14 +1,13 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
-#Include ..\..\Foundation\RECT.ahk
 #Include .\IDWriteBitmapRenderTarget2.ahk
+#Include ..\..\Foundation\RECT.ahk
 
 /**
  * @namespace Windows.Win32.Graphics.DirectWrite
- * @version v4.0.30319
  */
-class IDWriteBitmapRenderTarget3 extends IDWriteBitmapRenderTarget2{
+class IDWriteBitmapRenderTarget3 extends IDWriteBitmapRenderTarget2 {
 
     static sizeof => A_PtrSize
     /**
@@ -31,7 +30,7 @@ class IDWriteBitmapRenderTarget3 extends IDWriteBitmapRenderTarget2{
 
     /**
      * 
-     * @returns {Integer} 
+     * @returns {DWRITE_PAINT_FEATURE_LEVEL} 
      */
     GetPaintFeatureLevel() {
         result := ComCall(14, this, "int")
@@ -42,9 +41,9 @@ class IDWriteBitmapRenderTarget3 extends IDWriteBitmapRenderTarget2{
      * 
      * @param {Float} baselineOriginX 
      * @param {Float} baselineOriginY 
-     * @param {Integer} measuringMode 
+     * @param {DWRITE_MEASURING_MODE} measuringMode 
      * @param {Pointer<DWRITE_GLYPH_RUN>} _glyphRun 
-     * @param {Integer} glyphImageFormat 
+     * @param {DWRITE_GLYPH_IMAGE_FORMATS} glyphImageFormat 
      * @param {COLORREF} textColor 
      * @param {Integer} colorPaletteIndex 
      * @returns {RECT} 
@@ -59,7 +58,7 @@ class IDWriteBitmapRenderTarget3 extends IDWriteBitmapRenderTarget2{
      * 
      * @param {Float} baselineOriginX 
      * @param {Float} baselineOriginY 
-     * @param {Integer} measuringMode 
+     * @param {DWRITE_MEASURING_MODE} measuringMode 
      * @param {Pointer<DWRITE_GLYPH_RUN>} _glyphRun 
      * @param {IDWriteRenderingParams} renderingParams 
      * @param {COLORREF} textColor 

@@ -1,21 +1,20 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\..\Win32Struct.ahk
+#Include .\KERB_PROTOCOL_MESSAGE_TYPE.ahk
 #Include ..\..\..\Foundation\LUID.ahk
 #Include ..\..\Credentials\SecHandle.ahk
 #Include .\LSA_UNICODE_STRING.ahk
 
 /**
  * @namespace Windows.Win32.Security.Authentication.Identity
- * @version v4.0.30319
  */
-class KERB_SETPASSWORD_REQUEST extends Win32Struct
-{
+class KERB_SETPASSWORD_REQUEST extends Win32Struct {
     static sizeof => 88
 
     static packingSize => 8
 
     /**
-     * @type {Integer}
+     * @type {KERB_PROTOCOL_MESSAGE_TYPE}
      */
     MessageType {
         get => NumGet(this, 0, "int")
@@ -25,7 +24,7 @@ class KERB_SETPASSWORD_REQUEST extends Win32Struct
     /**
      * @type {LUID}
      */
-    LogonId{
+    LogonId {
         get {
             if(!this.HasProp("__LogonId"))
                 this.__LogonId := LUID(4, this)
@@ -36,7 +35,7 @@ class KERB_SETPASSWORD_REQUEST extends Win32Struct
     /**
      * @type {SecHandle}
      */
-    CredentialsHandle{
+    CredentialsHandle {
         get {
             if(!this.HasProp("__CredentialsHandle"))
                 this.__CredentialsHandle := SecHandle(16, this)
@@ -55,7 +54,7 @@ class KERB_SETPASSWORD_REQUEST extends Win32Struct
     /**
      * @type {LSA_UNICODE_STRING}
      */
-    DomainName{
+    DomainName {
         get {
             if(!this.HasProp("__DomainName"))
                 this.__DomainName := LSA_UNICODE_STRING(40, this)
@@ -66,7 +65,7 @@ class KERB_SETPASSWORD_REQUEST extends Win32Struct
     /**
      * @type {LSA_UNICODE_STRING}
      */
-    AccountName{
+    AccountName {
         get {
             if(!this.HasProp("__AccountName"))
                 this.__AccountName := LSA_UNICODE_STRING(56, this)
@@ -77,7 +76,7 @@ class KERB_SETPASSWORD_REQUEST extends Win32Struct
     /**
      * @type {LSA_UNICODE_STRING}
      */
-    Password{
+    Password {
         get {
             if(!this.HasProp("__Password"))
                 this.__Password := LSA_UNICODE_STRING(72, this)

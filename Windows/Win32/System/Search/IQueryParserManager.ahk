@@ -9,9 +9,8 @@
  * The <a href="https://github.com/microsoft/Windows-classic-samples/tree/master/Samples/Win7Samples/winui/WindowsSearch/StructuredQuerySample">StructuredQuerySample</a> demonstrates how to read lines from the console, parse them using the system schema, and display the resulting condition trees.
  * @see https://learn.microsoft.com/windows/win32/api/structuredquery/nn-structuredquery-iqueryparsermanager
  * @namespace Windows.Win32.System.Search
- * @version v4.0.30319
  */
-class IQueryParserManager extends IUnknown{
+class IQueryParserManager extends IUnknown {
 
     static sizeof => A_PtrSize
     /**
@@ -86,7 +85,7 @@ class IQueryParserManager extends IUnknown{
 
     /**
      * Changes a single option in this IQueryParserManager object. For example, this method could change the name of the schema binary to load or the location of localized schema binaries.
-     * @param {Integer} option Type: <b><a href="https://docs.microsoft.com/windows/win32/api/structuredquery/ne-structuredquery-query_parser_manager_option">QUERY_PARSER_MANAGER_OPTION</a></b>
+     * @param {QUERY_PARSER_MANAGER_OPTION} option Type: <b><a href="https://docs.microsoft.com/windows/win32/api/structuredquery/ne-structuredquery-query_parser_manager_option">QUERY_PARSER_MANAGER_OPTION</a></b>
      * 
      * The <a href="https://docs.microsoft.com/windows/win32/api/structuredquery/ne-structuredquery-query_parser_manager_option">QUERY_PARSER_MANAGER_OPTION</a> to be changed.
      * @param {Pointer<PROPVARIANT>} pOptionValue Type: <b>PROPVARIANT const*</b>

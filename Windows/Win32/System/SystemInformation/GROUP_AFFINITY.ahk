@@ -5,10 +5,8 @@
  * Represents a processor group-specific affinity, such as the affinity of a thread.
  * @see https://learn.microsoft.com/windows/win32/api/winnt/ns-winnt-group_affinity
  * @namespace Windows.Win32.System.SystemInformation
- * @version v4.0.30319
  */
-class GROUP_AFFINITY extends Win32Struct
-{
+class GROUP_AFFINITY extends Win32Struct {
     static sizeof => 16
 
     static packingSize => 8
@@ -33,9 +31,9 @@ class GROUP_AFFINITY extends Win32Struct
 
     /**
      * This member is reserved.
-     * @type {Array<UInt16>}
+     * @type {Array<Integer>}
      */
-    Reserved{
+    Reserved {
         get {
             if(!this.HasProp("__ReservedProxyArray"))
                 this.__ReservedProxyArray := Win32FixedArray(this.ptr + 10, 3, Primitive, "ushort")

@@ -3,10 +3,8 @@
 
 /**
  * @namespace Windows.Win32.Storage.InstallableFileSystems
- * @version v4.0.30319
  */
-class INSTANCE_PARTIAL_INFORMATION extends Win32Struct
-{
+class INSTANCE_PARTIAL_INFORMATION extends Win32Struct {
     static sizeof => 12
 
     static packingSize => 4

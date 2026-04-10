@@ -1,14 +1,13 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\..\Win32Struct.ahk
+#Include .\LSA_AUTH_INFORMATION.ahk
 
 /**
  * The TRUSTED_DOMAIN_AUTH_INFORMATION structure is used to retrieve authentication information for a trusted domain. The LsaQueryTrustedDomainInfo function uses this structure when its InformationClass parameter is set to TrustedDomainAuthInformation.
  * @see https://learn.microsoft.com/windows/win32/api/ntsecapi/ns-ntsecapi-trusted_domain_auth_information
  * @namespace Windows.Win32.Security.Authentication.Identity
- * @version v4.0.30319
  */
-class TRUSTED_DOMAIN_AUTH_INFORMATION extends Win32Struct
-{
+class TRUSTED_DOMAIN_AUTH_INFORMATION extends Win32Struct {
     static sizeof => 48
 
     static packingSize => 8

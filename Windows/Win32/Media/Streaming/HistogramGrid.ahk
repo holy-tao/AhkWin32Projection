@@ -6,10 +6,8 @@
  * The HistogramGrid structure describes the blob format for MF_CAPTURE_METADATA_HISTOGRAM.
  * @see https://learn.microsoft.com/windows/win32/api/mfapi/ns-mfapi-histogramgrid
  * @namespace Windows.Win32.Media.Streaming
- * @version v4.0.30319
  */
-class HistogramGrid extends Win32Struct
-{
+class HistogramGrid extends Win32Struct {
     static sizeof => 24
 
     static packingSize => 4
@@ -36,7 +34,7 @@ class HistogramGrid extends Win32Struct
      * Absolute coordinates of the region on the sensor output that the histogram is collected for.
      * @type {RECT}
      */
-    Region{
+    Region {
         get {
             if(!this.HasProp("__Region"))
                 this.__Region := RECT(8, this)

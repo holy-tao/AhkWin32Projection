@@ -1,5 +1,6 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
+#Include .\TMPF_FLAGS.ahk
 
 /**
  * The TEXTMETRIC structure contains basic information about a physical font. All sizes are specified in logical units; that is, they depend on the current mapping mode of the display context. (Unicode)
@@ -8,11 +9,9 @@
  * > The wingdi.h header defines TEXTMETRIC as an alias which automatically selects the ANSI or Unicode version of this function based on the definition of the UNICODE preprocessor constant. Mixing usage of the encoding-neutral alias with code that not encoding-neutral can lead to mismatches that result in compilation or runtime errors. For more information, see [Conventions for Function Prototypes](/windows/win32/intl/conventions-for-function-prototypes).
  * @see https://learn.microsoft.com/windows/win32/api/wingdi/ns-wingdi-textmetricw
  * @namespace Windows.Win32.Graphics.Gdi
- * @version v4.0.30319
  * @charset Unicode
  */
-class TEXTMETRICW extends Win32Struct
-{
+class TEXTMETRICW extends Win32Struct {
     static sizeof => 60
 
     static packingSize => 4
@@ -213,7 +212,7 @@ class TEXTMETRICW extends Win32Struct
      * An application should carefully test for qualities encoded in these low-order bits, making no arbitrary assumptions. For example, besides having their own bits set, TrueType and PostScript fonts set the TMPF_VECTOR bit. A monospace bitmap font has all of these low-order bits clear; a proportional bitmap font sets the TMPF_FIXED_PITCH bit. A Postscript printer device font sets the TMPF_DEVICE, TMPF_VECTOR, and TMPF_FIXED_PITCH bits.
      * 
      * The four high-order bits of <b>tmPitchAndFamily</b> designate the font's font family. An application can use the value 0xF0 and the bitwise AND operator to mask out the four low-order bits of <b>tmPitchAndFamily</b>, thus obtaining a value that can be directly compared with font family names to find an identical match. For information about font families, see the description of the <a href="https://docs.microsoft.com/windows/desktop/api/wingdi/ns-wingdi-logfonta">LOGFONT</a> structure.
-     * @type {Integer}
+     * @type {TMPF_FLAGS}
      */
     tmPitchAndFamily {
         get => NumGet(this, 55, "char")
@@ -221,7 +220,6 @@ class TEXTMETRICW extends Win32Struct
     }
 
     /**
-     * 
      * @type {Integer}
      */
     tmCharSet {

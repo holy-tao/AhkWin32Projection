@@ -1,16 +1,15 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
+#Include .\HTTP_UNKNOWN_HEADER.ahk
 #Include .\HTTP_KNOWN_HEADER.ahk
 
 /**
  * Contains the headers sent with an HTTP response.
  * @see https://learn.microsoft.com/windows/win32/api/http/ns-http-http_response_headers
  * @namespace Windows.Win32.Networking.HttpServer
- * @version v4.0.30319
  */
-class HTTP_RESPONSE_HEADERS extends Win32Struct
-{
-    static sizeof => 272
+class HTTP_RESPONSE_HEADERS extends Win32Struct {
+    static sizeof => 512
 
     static packingSize => 8
 
@@ -55,9 +54,9 @@ class HTTP_RESPONSE_HEADERS extends Win32Struct
      * Fixed-size array of 
      * <a href="https://docs.microsoft.com/windows/desktop/api/http/ns-http-http_known_header">HTTP_KNOWN_HEADER</a> structures. The 
      * <a href="https://docs.microsoft.com/windows/desktop/api/http/ne-http-http_header_id">HTTP_HEADER_ID</a> enumeration provides a mapping from header types to array indexes. If a known header of a given type is included in the HTTP response, the array element at the index that corresponds to that type specifies the header value. Those elements of the array for which no corresponding headers are present contain a zero-valued <b>RawValueLength</b> member. Use <b>RawValueLength</b> to determine the end of the header string pointed to by <b>pRawValue</b>, rather than relying on the string to have a terminating null.
-     * @type {Array<HTTP_KNOWN_HEADER>}
+     * @type {HTTP_KNOWN_HEADER}
      */
-    KnownHeaders{
+    KnownHeaders {
         get {
             if(!this.HasProp("__KnownHeadersProxyArray"))
                 this.__KnownHeadersProxyArray := Win32FixedArray(this.ptr + 32, 30, HTTP_KNOWN_HEADER, "")

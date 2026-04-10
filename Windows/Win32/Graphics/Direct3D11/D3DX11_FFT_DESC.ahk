@@ -1,14 +1,13 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
+#Include .\D3DX11_FFT_DATA_TYPE.ahk
 
 /**
  * Describes an FFT.
  * @see https://learn.microsoft.com/windows/win32/api/d3dcsx/ns-d3dcsx-d3dx11_fft_desc
  * @namespace Windows.Win32.Graphics.Direct3D11
- * @version v4.0.30319
  */
-class D3DX11_FFT_DESC extends Win32Struct
-{
+class D3DX11_FFT_DESC extends Win32Struct {
     static sizeof => 140
 
     static packingSize => 4
@@ -28,9 +27,9 @@ class D3DX11_FFT_DESC extends Win32Struct
      * Type: <b><a href="https://docs.microsoft.com/windows/desktop/WinProg/windows-data-types">UINT</a>[D3DX11_FFT_MAX_DIMENSIONS]</b>
      * 
      * Length of each dimension in the FFT.
-     * @type {Array<UInt32>}
+     * @type {Array<Integer>}
      */
-    ElementLengths{
+    ElementLengths {
         get {
             if(!this.HasProp("__ElementLengthsProxyArray"))
                 this.__ElementLengthsProxyArray := Win32FixedArray(this.ptr + 4, 32, Primitive, "uint")
@@ -54,7 +53,7 @@ class D3DX11_FFT_DESC extends Win32Struct
      * 
      * 
      * <a href="https://docs.microsoft.com/windows/desktop/api/d3dcsx/ne-d3dcsx-d3dx11_fft_data_type">D3DX11_FFT_DATA_TYPE</a> flag indicating the type of data being transformed.
-     * @type {Integer}
+     * @type {D3DX11_FFT_DATA_TYPE}
      */
     Type {
         get => NumGet(this, 136, "int")

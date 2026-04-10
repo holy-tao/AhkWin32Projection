@@ -3,10 +3,8 @@
 
 /**
  * @namespace Windows.Wdk.System.SystemServices
- * @version v4.0.30319
  */
-class HAL_DISPATCH extends Win32Struct
-{
+class HAL_DISPATCH extends Win32Struct {
     static sizeof => 192
 
     static packingSize => 8

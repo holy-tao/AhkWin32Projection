@@ -5,10 +5,8 @@
 
 /**
  * @namespace Windows.Win32.Media.KernelStreaming
- * @version v4.0.30319
  */
-class KS_VIDEOINFOHEADER extends Win32Struct
-{
+class KS_VIDEOINFOHEADER extends Win32Struct {
     static sizeof => 88
 
     static packingSize => 8
@@ -16,7 +14,7 @@ class KS_VIDEOINFOHEADER extends Win32Struct
     /**
      * @type {RECT}
      */
-    rcSource{
+    rcSource {
         get {
             if(!this.HasProp("__rcSource"))
                 this.__rcSource := RECT(0, this)
@@ -27,7 +25,7 @@ class KS_VIDEOINFOHEADER extends Win32Struct
     /**
      * @type {RECT}
      */
-    rcTarget{
+    rcTarget {
         get {
             if(!this.HasProp("__rcTarget"))
                 this.__rcTarget := RECT(16, this)
@@ -62,7 +60,7 @@ class KS_VIDEOINFOHEADER extends Win32Struct
     /**
      * @type {KS_BITMAPINFOHEADER}
      */
-    bmiHeader{
+    bmiHeader {
         get {
             if(!this.HasProp("__bmiHeader"))
                 this.__bmiHeader := KS_BITMAPINFOHEADER(48, this)

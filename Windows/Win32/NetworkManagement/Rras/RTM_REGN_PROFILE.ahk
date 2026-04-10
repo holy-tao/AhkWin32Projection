@@ -5,10 +5,8 @@
  * The RTM_REGN_PROFILE structure contains information returned during the registration process. The information is used for later function calls (such as the maximum number of routes that can be returned by a call to RtmGetEnumRoutes).
  * @see https://learn.microsoft.com/windows/win32/api/rtmv2/ns-rtmv2-rtm_regn_profile
  * @namespace Windows.Win32.NetworkManagement.Rras
- * @version v4.0.30319
  */
-class RTM_REGN_PROFILE extends Win32Struct
-{
+class RTM_REGN_PROFILE extends Win32Struct {
     static sizeof => 16
 
     static packingSize => 4

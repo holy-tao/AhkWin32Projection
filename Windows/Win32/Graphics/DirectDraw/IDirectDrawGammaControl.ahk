@@ -22,9 +22,8 @@
  * ```
  * @see https://learn.microsoft.com/windows/win32/api/ddraw/nn-ddraw-idirectdrawgammacontrol
  * @namespace Windows.Win32.Graphics.DirectDraw
- * @version v4.0.30319
  */
-class IDirectDrawGammaControl extends IUnknown{
+class IDirectDrawGammaControl extends IUnknown {
 
     static sizeof => A_PtrSize
     /**

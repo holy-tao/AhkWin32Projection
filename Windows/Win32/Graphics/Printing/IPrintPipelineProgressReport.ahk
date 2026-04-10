@@ -5,9 +5,8 @@
 
 /**
  * @namespace Windows.Win32.Graphics.Printing
- * @version v4.0.30319
  */
-class IPrintPipelineProgressReport extends IUnknown{
+class IPrintPipelineProgressReport extends IUnknown {
 
     static sizeof => A_PtrSize
     /**
@@ -30,7 +29,7 @@ class IPrintPipelineProgressReport extends IUnknown{
 
     /**
      * 
-     * @param {Integer} update 
+     * @param {EXpsJobConsumption} update 
      * @returns {HRESULT} 
      */
     ReportProgress(update) {

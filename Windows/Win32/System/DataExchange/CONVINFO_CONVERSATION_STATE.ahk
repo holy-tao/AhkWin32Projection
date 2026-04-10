@@ -3,9 +3,8 @@
 
 /**
  * @namespace Windows.Win32.System.DataExchange
- * @version v4.0.30319
  */
-class CONVINFO_CONVERSATION_STATE extends Win32Enum{
+class CONVINFO_CONVERSATION_STATE extends Win32Enum {
 
     /**
      * @type {Integer (UInt32)}

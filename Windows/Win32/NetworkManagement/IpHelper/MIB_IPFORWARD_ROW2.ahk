@@ -1,13 +1,16 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
 #Include ..\Ndis\NET_LUID_LH.ahk
-#Include ..\..\Networking\WinSock\IN_ADDR.ahk
+#Include .\IP_ADDRESS_PREFIX.ahk
+#Include ..\..\Networking\WinSock\SOCKADDR_INET.ahk
 #Include ..\..\Networking\WinSock\SOCKADDR_IN.ahk
+#Include ..\..\Networking\WinSock\ADDRESS_FAMILY.ahk
+#Include ..\..\Networking\WinSock\IN_ADDR.ahk
+#Include ..\..\Networking\WinSock\SOCKADDR_IN6.ahk
 #Include ..\..\Networking\WinSock\IN6_ADDR.ahk
 #Include ..\..\Networking\WinSock\SCOPE_ID.ahk
-#Include ..\..\Networking\WinSock\SOCKADDR_IN6.ahk
-#Include ..\..\Networking\WinSock\SOCKADDR_INET.ahk
-#Include .\IP_ADDRESS_PREFIX.ahk
+#Include ..\..\Networking\WinSock\NL_ROUTE_PROTOCOL.ahk
+#Include ..\..\Networking\WinSock\NL_ROUTE_ORIGIN.ahk
 
 /**
  * Stores information about an IP route entry.
@@ -33,11 +36,9 @@
  * Note that the <i>Netioapi.h</i> header file is automatically included in the <i>Iphlpapi.h</i> header file. The  <i>Netioapi.h</i> header file should never be used directly.
  * @see https://learn.microsoft.com/windows/win32/api/netioapi/ns-netioapi-mib_ipforward_row2
  * @namespace Windows.Win32.NetworkManagement.IpHelper
- * @version v4.0.30319
  */
-class MIB_IPFORWARD_ROW2 extends Win32Struct
-{
-    static sizeof => 168
+class MIB_IPFORWARD_ROW2 extends Win32Struct {
+    static sizeof => 152
 
     static packingSize => 8
 
@@ -47,7 +48,7 @@ class MIB_IPFORWARD_ROW2 extends Win32Struct
      * The locally unique identifier (LUID) for the network interface associated with this IP route entry.
      * @type {NET_LUID_LH}
      */
-    InterfaceLuid{
+    InterfaceLuid {
         get {
             if(!this.HasProp("__InterfaceLuid"))
                 this.__InterfaceLuid := NET_LUID_LH(0, this)
@@ -72,7 +73,7 @@ class MIB_IPFORWARD_ROW2 extends Win32Struct
      * The IP address prefix for the destination IP address for this route.
      * @type {IP_ADDRESS_PREFIX}
      */
-    DestinationPrefix{
+    DestinationPrefix {
         get {
             if(!this.HasProp("__DestinationPrefix"))
                 this.__DestinationPrefix := IP_ADDRESS_PREFIX(20, this)
@@ -86,10 +87,10 @@ class MIB_IPFORWARD_ROW2 extends Win32Struct
      * For a remote route, the IP address of the next system or gateway en route. If the route is to a local loopback address or an IP address on the local link, the next hop is unspecified (all zeros). For a local loopback route, this member should be an IPv4 address of 0.0.0.0 for an IPv4 route entry or an IPv6 address address of 0::0  for an IPv6 route entry.
      * @type {SOCKADDR_INET}
      */
-    NextHop{
+    NextHop {
         get {
             if(!this.HasProp("__NextHop"))
-                this.__NextHop := SOCKADDR_INET(80, this)
+                this.__NextHop := SOCKADDR_INET(72, this)
             return this.__NextHop
         }
     }
@@ -102,8 +103,8 @@ class MIB_IPFORWARD_ROW2 extends Win32Struct
      * @type {Integer}
      */
     SitePrefixLength {
-        get => NumGet(this, 136, "char")
-        set => NumPut("char", value, this, 136)
+        get => NumGet(this, 120, "char")
+        set => NumPut("char", value, this, 120)
     }
 
     /**
@@ -113,8 +114,8 @@ class MIB_IPFORWARD_ROW2 extends Win32Struct
      * @type {Integer}
      */
     ValidLifetime {
-        get => NumGet(this, 140, "uint")
-        set => NumPut("uint", value, this, 140)
+        get => NumGet(this, 124, "uint")
+        set => NumPut("uint", value, this, 124)
     }
 
     /**
@@ -124,8 +125,8 @@ class MIB_IPFORWARD_ROW2 extends Win32Struct
      * @type {Integer}
      */
     PreferredLifetime {
-        get => NumGet(this, 144, "uint")
-        set => NumPut("uint", value, this, 144)
+        get => NumGet(this, 128, "uint")
+        set => NumPut("uint", value, this, 128)
     }
 
     /**
@@ -136,8 +137,8 @@ class MIB_IPFORWARD_ROW2 extends Win32Struct
      * @type {Integer}
      */
     Metric {
-        get => NumGet(this, 148, "uint")
-        set => NumPut("uint", value, this, 148)
+        get => NumGet(this, 132, "uint")
+        set => NumPut("uint", value, this, 132)
     }
 
     /**
@@ -345,11 +346,11 @@ class MIB_IPFORWARD_ROW2 extends Win32Struct
      * </td>
      * </tr>
      * </table>
-     * @type {Integer}
+     * @type {NL_ROUTE_PROTOCOL}
      */
     Protocol {
-        get => NumGet(this, 152, "int")
-        set => NumPut("int", value, this, 152)
+        get => NumGet(this, 136, "int")
+        set => NumPut("int", value, this, 136)
     }
 
     /**
@@ -359,8 +360,8 @@ class MIB_IPFORWARD_ROW2 extends Win32Struct
      * @type {BOOLEAN}
      */
     Loopback {
-        get => NumGet(this, 156, "char")
-        set => NumPut("char", value, this, 156)
+        get => NumGet(this, 140, "char")
+        set => NumPut("char", value, this, 140)
     }
 
     /**
@@ -370,8 +371,8 @@ class MIB_IPFORWARD_ROW2 extends Win32Struct
      * @type {BOOLEAN}
      */
     AutoconfigureAddress {
-        get => NumGet(this, 157, "char")
-        set => NumPut("char", value, this, 157)
+        get => NumGet(this, 141, "char")
+        set => NumPut("char", value, this, 141)
     }
 
     /**
@@ -381,8 +382,8 @@ class MIB_IPFORWARD_ROW2 extends Win32Struct
      * @type {BOOLEAN}
      */
     Publish {
-        get => NumGet(this, 158, "char")
-        set => NumPut("char", value, this, 158)
+        get => NumGet(this, 142, "char")
+        set => NumPut("char", value, this, 142)
     }
 
     /**
@@ -392,8 +393,8 @@ class MIB_IPFORWARD_ROW2 extends Win32Struct
      * @type {BOOLEAN}
      */
     Immortal {
-        get => NumGet(this, 159, "char")
-        set => NumPut("char", value, this, 159)
+        get => NumGet(this, 143, "char")
+        set => NumPut("char", value, this, 143)
     }
 
     /**
@@ -404,8 +405,8 @@ class MIB_IPFORWARD_ROW2 extends Win32Struct
      * @type {Integer}
      */
     Age {
-        get => NumGet(this, 160, "uint")
-        set => NumPut("uint", value, this, 160)
+        get => NumGet(this, 144, "uint")
+        set => NumPut("uint", value, this, 144)
     }
 
     /**
@@ -474,10 +475,10 @@ class MIB_IPFORWARD_ROW2 extends Win32Struct
      * </td>
      * </tr>
      * </table>
-     * @type {Integer}
+     * @type {NL_ROUTE_ORIGIN}
      */
     Origin {
-        get => NumGet(this, 164, "int")
-        set => NumPut("int", value, this, 164)
+        get => NumGet(this, 148, "int")
+        set => NumPut("int", value, this, 148)
     }
 }

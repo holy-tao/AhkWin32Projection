@@ -1,18 +1,17 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
+#Include .\KMT_DISPLAY_UMD_VERSION.ahk
 
 /**
  * @namespace Windows.Wdk.Graphics.Direct3D
- * @version v4.0.30319
  */
-class D3DKMT_DISPLAY_UMD_FILENAMEINFO extends Win32Struct
-{
+class D3DKMT_DISPLAY_UMD_FILENAMEINFO extends Win32Struct {
     static sizeof => 524
 
     static packingSize => 4
 
     /**
-     * @type {Integer}
+     * @type {KMT_DISPLAY_UMD_VERSION}
      */
     Version {
         get => NumGet(this, 0, "int")

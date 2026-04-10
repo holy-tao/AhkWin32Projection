@@ -3,10 +3,8 @@
 
 /**
  * @namespace Windows.Win32.Media.MediaFoundation
- * @version v4.0.30319
  */
-class MACROBLOCK_DATA extends Win32Struct
-{
+class MACROBLOCK_DATA extends Win32Struct {
     static sizeof => 12
 
     static packingSize => 4

@@ -5,9 +5,8 @@
 
 /**
  * @namespace Windows.Win32.Graphics.Direct3D12
- * @version v4.0.30319
  */
-class ID3D12GBVDiagnostics extends IUnknown{
+class ID3D12GBVDiagnostics extends IUnknown {
 
     static sizeof => A_PtrSize
     /**
@@ -31,7 +30,7 @@ class ID3D12GBVDiagnostics extends IUnknown{
     /**
      * 
      * @param {ID3D12Resource} pResource 
-     * @param {Pointer} pData 
+     * @param {Integer} pData 
      * @param {Integer} DataSize 
      * @returns {HRESULT} 
      */

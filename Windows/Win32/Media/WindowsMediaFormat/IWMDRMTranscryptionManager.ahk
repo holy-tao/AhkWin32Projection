@@ -1,16 +1,15 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
-#Include .\IWMDRMTranscryptor.ahk
 #Include ..\..\System\Com\IUnknown.ahk
+#Include .\IWMDRMTranscryptor.ahk
 
 /**
  * Creates a DRM transcryptor object.
  * @see https://learn.microsoft.com/windows/win32/api/wmsdkidl/nf-wmsdkidl-iwmdrmtranscryptionmanager-createtranscryptor
  * @namespace Windows.Win32.Media.WindowsMediaFormat
- * @version v4.0.30319
  */
-class IWMDRMTranscryptionManager extends IUnknown{
+class IWMDRMTranscryptionManager extends IUnknown {
 
     static sizeof => A_PtrSize
     /**

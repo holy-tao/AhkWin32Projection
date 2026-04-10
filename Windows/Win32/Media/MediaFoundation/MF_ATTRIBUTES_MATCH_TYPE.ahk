@@ -5,9 +5,8 @@
  * Specifies how to compare the attributes on two objects.
  * @see https://learn.microsoft.com/windows/win32/api/mfobjects/ne-mfobjects-mf_attributes_match_type
  * @namespace Windows.Win32.Media.MediaFoundation
- * @version v4.0.30319
  */
-class MF_ATTRIBUTES_MATCH_TYPE extends Win32Enum{
+class MF_ATTRIBUTES_MATCH_TYPE extends Win32Enum {
 
     /**
      * Check whether all the attributes in <i>pThis</i> exist in <i>pTheirs</i> and have the same data, where <i>pThis</i> is the object whose <a href="https://docs.microsoft.com/windows/desktop/api/mfobjects/nf-mfobjects-imfattributes-compare">Compare</a> method is being called and <i>pTheirs</i> is the object given in the <i>pTheirs</i> parameter.

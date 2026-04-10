@@ -5,9 +5,8 @@
 
 /**
  * @namespace Windows.Win32.System.WinRT.ML
- * @version v4.0.30319
  */
-class ILearningModelSessionOptionsNative1 extends IUnknown{
+class ILearningModelSessionOptionsNative1 extends IUnknown {
 
     static sizeof => A_PtrSize
     /**

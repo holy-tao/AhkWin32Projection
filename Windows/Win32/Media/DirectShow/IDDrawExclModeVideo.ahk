@@ -7,9 +7,8 @@
  * The IDDrawExclModeVideo interface enables video playback in DirectDraw exclusive full-screen mode.
  * @see https://learn.microsoft.com/windows/win32/api/strmif/nn-strmif-iddrawexclmodevideo
  * @namespace Windows.Win32.Media.DirectShow
- * @version v4.0.30319
  */
-class IDDrawExclModeVideo extends IUnknown{
+class IDDrawExclModeVideo extends IUnknown {
 
     static sizeof => A_PtrSize
     /**

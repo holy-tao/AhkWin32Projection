@@ -7,9 +7,8 @@
  * Downgrades the frame rate on a digital video (DV) stream.
  * @see https://learn.microsoft.com/windows/win32/api/strmif/nn-strmif-idvsplitter
  * @namespace Windows.Win32.Media.DirectShow
- * @version v4.0.30319
  */
-class IDVSplitter extends IUnknown{
+class IDVSplitter extends IUnknown {
 
     static sizeof => A_PtrSize
     /**

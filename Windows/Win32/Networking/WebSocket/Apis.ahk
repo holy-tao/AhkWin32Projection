@@ -4,7 +4,6 @@
 
 /**
  * @namespace Windows.Win32.Networking.WebSocket
- * @version v4.0.30319
  */
 class WebSocket {
 
@@ -284,7 +283,7 @@ class WebSocket {
      * @param {WEB_SOCKET_HANDLE} hWebSocket Type: <b><a href="https://docs.microsoft.com/windows/desktop/WebSock/web-socket-protocol-component-api-data-types">WEB_SOCKET_HANDLE</a></b>
      * 
      * WebSocket session handle returned by a previous call to <a href="https://docs.microsoft.com/windows/desktop/api/websocket/nf-websocket-websocketcreateclienthandle">WebSocketCreateClientHandle</a> or <a href="https://docs.microsoft.com/windows/desktop/api/websocket/nf-websocket-websocketcreateserverhandle">WebSocketCreateServerHandle</a>.
-     * @param {Integer} BufferType Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/websocket/ne-websocket-web_socket_buffer_type">WEB_SOCKET_BUFFER_TYPE</a></b>
+     * @param {WEB_SOCKET_BUFFER_TYPE} BufferType Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/websocket/ne-websocket-web_socket_buffer_type">WEB_SOCKET_BUFFER_TYPE</a></b>
      * 
      * The type of WebSocket buffer data to send in <i>pBuffer</i>.
      * @param {Pointer<WEB_SOCKET_BUFFER>} pBuffer Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/websocket/ns-websocket-web_socket_buffer">WEB_SOCKET_BUFFER</a>*</b>
@@ -293,7 +292,9 @@ class WebSocket {
      * 
      * <div class="alert"><b>Note</b>  Once <a href="https://docs.microsoft.com/windows/desktop/api/websocket/ne-websocket-web_socket_property_type">WEB_SOCKET_INDICATE_SEND_COMPLETE</a> is returned by <a href="https://docs.microsoft.com/windows/desktop/api/websocket/nf-websocket-websocketgetaction">WebSocketGetAction</a> for this action, the memory pointer to by <i>pBuffer</i> can be reclaimed.</div>
      * <div> </div>
-     * @param {Pointer<Void>} _Context 
+     * @param {Pointer<Void>} _Context Type: <b>PVOID</b>
+     * 
+     * A pointer to an application context handle that will be returned by a subsequent call to  <a href="https://docs.microsoft.com/windows/desktop/api/websocket/nf-websocket-websocketgetaction">WebSocketGetAction</a>.
      * @returns {HRESULT} Type: <b>HRESULT</b>
      * 
      * If the function succeeds, it returns <b>S_OK</b>.
@@ -397,7 +398,7 @@ class WebSocket {
      * @param {WEB_SOCKET_HANDLE} hWebSocket Type: <b><a href="https://docs.microsoft.com/windows/desktop/WebSock/web-socket-protocol-component-api-data-types">WEB_SOCKET_HANDLE</a></b>
      * 
      * WebSocket session handle returned by a previous call to <a href="https://docs.microsoft.com/windows/desktop/api/websocket/nf-websocket-websocketcreateclienthandle">WebSocketCreateClientHandle</a> or <a href="https://docs.microsoft.com/windows/desktop/api/websocket/nf-websocket-websocketcreateserverhandle">WebSocketCreateServerHandle</a>.
-     * @param {Integer} eActionQueue Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/websocket/ne-websocket-web_socket_action_queue">WEB_SOCKET_ACTION_QUEUE</a></b>
+     * @param {WEB_SOCKET_ACTION_QUEUE} eActionQueue Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/websocket/ne-websocket-web_socket_action_queue">WEB_SOCKET_ACTION_QUEUE</a></b>
      * 
      * Enumeration that specifies whether to query the send queue, the receive queue, or both.
      * @param {Pointer<WEB_SOCKET_BUFFER>} pDataBuffers Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/websocket/ns-websocket-web_socket_buffer">WEB_SOCKET_BUFFER</a>*</b>
@@ -409,10 +410,10 @@ class WebSocket {
      * @param {Pointer<Integer>} pulDataBufferCount Type: <b>ULONG*</b>
      * 
      * On input, pointer to a value that specifies the number of elements in <i>pDataBuffers</i>. On successful output, number of elements that were actually returned in <i>pDataBuffers</i>.
-     * @param {Pointer<Integer>} pAction Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/websocket/ne-websocket-web_socket_action">WEB_SOCKET_ACTION</a>*</b>
+     * @param {Pointer<WEB_SOCKET_ACTION>} pAction Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/websocket/ne-websocket-web_socket_action">WEB_SOCKET_ACTION</a>*</b>
      * 
      * On successful output, pointer to a <a href="https://docs.microsoft.com/windows/desktop/api/websocket/ne-websocket-web_socket_action">WEB_SOCKET_ACTION</a> enumeration that specifies the action returned from the query to the queue defines in <i>eActionQueue</i>.
-     * @param {Pointer<Integer>} pBufferType Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/websocket/ne-websocket-web_socket_buffer_type">WEB_SOCKET_BUFFER_TYPE</a>*</b>
+     * @param {Pointer<WEB_SOCKET_BUFFER_TYPE>} pBufferType Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/websocket/ne-websocket-web_socket_buffer_type">WEB_SOCKET_BUFFER_TYPE</a>*</b>
      * 
      * On successful output, pointer to a <a href="https://docs.microsoft.com/windows/desktop/api/websocket/ne-websocket-web_socket_buffer_type">WEB_SOCKET_BUFFER_TYPE</a> enumeration that specifies the type of Web Socket buffer data returned in <i>pDataBuffers</i>.
      * @param {Pointer<Pointer<Void>>} pvApplicationContext Type: <b>PVOID*</b>
@@ -542,7 +543,7 @@ class WebSocket {
 
     /**
      * Gets a single WebSocket property.
-     * @param {Integer} eType Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/websocket/ns-websocket-web_socket_property">WEB_SOCKET_PROPERTY</a></b>
+     * @param {WEB_SOCKET_PROPERTY_TYPE} eType Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/websocket/ns-websocket-web_socket_property">WEB_SOCKET_PROPERTY</a></b>
      * 
      * A WebSocket property.
      * @param {Pointer<Void>} pvValue Type: <b>PVOID</b>

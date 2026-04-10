@@ -5,9 +5,8 @@
 
 /**
  * @namespace Windows.Win32.NetworkManagement.WindowsFirewall
- * @version v4.0.30319
  */
-class INetConnectionConnectUi extends IUnknown{
+class INetConnectionConnectUi extends IUnknown {
 
     static sizeof => A_PtrSize
     /**

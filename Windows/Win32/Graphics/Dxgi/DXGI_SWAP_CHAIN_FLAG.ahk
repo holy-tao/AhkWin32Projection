@@ -15,9 +15,8 @@
  * When you call <a href="https://docs.microsoft.com/windows/desktop/api/dxgi/nf-dxgi-idxgiswapchain-resizebuffers">IDXGISwapChain::ResizeBuffers</a> to change the swap chain's back buffer, you can reset or change all <b>DXGI_SWAP_CHAIN_FLAG</b> flags.
  * @see https://learn.microsoft.com/windows/win32/api/dxgi/ne-dxgi-dxgi_swap_chain_flag
  * @namespace Windows.Win32.Graphics.Dxgi
- * @version v4.0.30319
  */
-class DXGI_SWAP_CHAIN_FLAG extends Win32BitflagEnum{
+class DXGI_SWAP_CHAIN_FLAG extends Win32BitflagEnum {
 
     /**
      * Set this flag to turn off automatic image rotation; that is, do not perform a rotation when transferring the contents of the front buffer to the monitor. 
@@ -134,7 +133,6 @@ class DXGI_SWAP_CHAIN_FLAG extends Win32BitflagEnum{
     static DXGI_SWAP_CHAIN_FLAG_ALLOW_TEARING => 2048
 
     /**
-     * 
      * @type {Integer (Int32)}
      */
     static DXGI_SWAP_CHAIN_FLAG_RESTRICTED_TO_ALL_HOLOGRAPHIC_DISPLAYS => 4096

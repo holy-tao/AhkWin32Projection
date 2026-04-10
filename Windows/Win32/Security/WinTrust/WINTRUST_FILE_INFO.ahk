@@ -6,10 +6,8 @@
  * The WINTRUST_FILE_INFO structure is used when calling WinVerifyTrust to verify an individual file.
  * @see https://learn.microsoft.com/windows/win32/api/wintrust/ns-wintrust-wintrust_file_info
  * @namespace Windows.Win32.Security.WinTrust
- * @version v4.0.30319
  */
-class WINTRUST_FILE_INFO extends Win32Struct
-{
+class WINTRUST_FILE_INFO extends Win32Struct {
     static sizeof => 32
 
     static packingSize => 8
@@ -36,7 +34,7 @@ class WINTRUST_FILE_INFO extends Win32Struct
      * Optional. File handle to the open file to be verified. This handle must be to a file that has at least read permission. This member can be set to <b>NULL</b>.
      * @type {HANDLE}
      */
-    hFile{
+    hFile {
         get {
             if(!this.HasProp("__hFile"))
                 this.__hFile := HANDLE(16, this)

@@ -5,9 +5,8 @@
 
 /**
  * @namespace Windows.Win32.Media.DirectShow
- * @version v4.0.30319
  */
-class IBaseVideoMixer extends IUnknown{
+class IBaseVideoMixer extends IUnknown {
 
     static sizeof => A_PtrSize
     /**

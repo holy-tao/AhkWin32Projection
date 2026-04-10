@@ -34,9 +34,8 @@
  * You do not usually use the <b>IDockingWindow</b> interface directly. The Shell browser uses this interface to support docked windows inside the browser frame.
  * @see https://learn.microsoft.com/windows/win32/api/shobjidl_core/nn-shobjidl_core-idockingwindow
  * @namespace Windows.Win32.UI.Shell
- * @version v4.0.30319
  */
-class IDockingWindow extends IOleWindow{
+class IDockingWindow extends IOleWindow {
 
     static sizeof => A_PtrSize
     /**

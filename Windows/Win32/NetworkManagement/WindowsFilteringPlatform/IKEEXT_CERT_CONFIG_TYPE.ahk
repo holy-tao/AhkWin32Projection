@@ -5,9 +5,8 @@
  * Indicates a type of certificate configuration.
  * @see https://learn.microsoft.com/windows/win32/api/iketypes/ne-iketypes-ikeext_cert_config_type
  * @namespace Windows.Win32.NetworkManagement.WindowsFilteringPlatform
- * @version v4.0.30319
  */
-class IKEEXT_CERT_CONFIG_TYPE extends Win32Enum{
+class IKEEXT_CERT_CONFIG_TYPE extends Win32Enum {
 
     /**
      * An explicit trust list will be used for authentication.

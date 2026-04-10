@@ -1,16 +1,15 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
-#Include .\VDS_HINTS2.ahk
 #Include ..\..\System\Com\IUnknown.ahk
+#Include .\VDS_HINTS2.ahk
 
 /**
  * The IVdsLun2 interface (vdshwprv.h) provides methods for applying and querying logical unit number (LUN) hints.
  * @see https://learn.microsoft.com/windows/win32/api/vdshwprv/nn-vdshwprv-ivdslun2
  * @namespace Windows.Win32.Storage.VirtualDiskService
- * @version v4.0.30319
  */
-class IVdsLun2 extends IUnknown{
+class IVdsLun2 extends IUnknown {
 
     static sizeof => A_PtrSize
     /**

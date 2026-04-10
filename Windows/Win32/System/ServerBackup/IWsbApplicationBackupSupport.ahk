@@ -1,16 +1,15 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
-#Include .\IWsbApplicationAsync.ahk
 #Include ..\Com\IUnknown.ahk
+#Include .\IWsbApplicationAsync.ahk
 
 /**
  * Defines a method for checking the consistency of the application's VSS writer's components.
  * @see https://learn.microsoft.com/windows/win32/api/wsbapp/nn-wsbapp-iwsbapplicationbackupsupport
  * @namespace Windows.Win32.System.ServerBackup
- * @version v4.0.30319
  */
-class IWsbApplicationBackupSupport extends IUnknown{
+class IWsbApplicationBackupSupport extends IUnknown {
 
     static sizeof => A_PtrSize
     /**

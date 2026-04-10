@@ -1,18 +1,17 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
-#Include .\NDIS_802_11_STATUS_INDICATION.ahk
-#Include .\NDIS_802_11_AUTHENTICATION_REQUEST.ahk
 #Include .\NDIS_802_11_AUTHENTICATION_EVENT.ahk
+#Include .\NDIS_802_11_STATUS_INDICATION.ahk
+#Include .\NDIS_802_11_STATUS_TYPE.ahk
+#Include .\NDIS_802_11_AUTHENTICATION_REQUEST.ahk
 
 /**
  * @namespace Windows.Win32.NetworkManagement.Ndis
- * @version v4.0.30319
  */
-class NDIS_802_11_TEST extends Win32Struct
-{
-    static sizeof => 32
+class NDIS_802_11_TEST extends Win32Struct {
+    static sizeof => 28
 
-    static packingSize => 8
+    static packingSize => 4
 
     /**
      * @type {Integer}
@@ -33,7 +32,7 @@ class NDIS_802_11_TEST extends Win32Struct
     /**
      * @type {NDIS_802_11_AUTHENTICATION_EVENT}
      */
-    AuthenticationEvent{
+    AuthenticationEvent {
         get {
             if(!this.HasProp("__AuthenticationEvent"))
                 this.__AuthenticationEvent := NDIS_802_11_AUTHENTICATION_EVENT(8, this)

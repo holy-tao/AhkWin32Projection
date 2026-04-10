@@ -5,9 +5,8 @@
  * Contains values that specify the location of a docking window represented by the Dock control pattern.
  * @see https://learn.microsoft.com/windows/win32/api/uiautomationcore/ne-uiautomationcore-dockposition
  * @namespace Windows.Win32.UI.Accessibility
- * @version v4.0.30319
  */
-class DockPosition extends Win32Enum{
+class DockPosition extends Win32Enum {
 
     /**
      * The window is docked at the top.

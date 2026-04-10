@@ -6,10 +6,8 @@
  * Specifies search criteria for Bluetooth device searches.
  * @see https://learn.microsoft.com/windows/win32/api/bluetoothapis/ns-bluetoothapis-bluetooth_device_search_params
  * @namespace Windows.Win32.Devices.Bluetooth
- * @version v4.0.30319
  */
-class BLUETOOTH_DEVICE_SEARCH_PARAMS extends Win32Struct
-{
+class BLUETOOTH_DEVICE_SEARCH_PARAMS extends Win32Struct {
     static sizeof => 40
 
     static packingSize => 8
@@ -81,7 +79,7 @@ class BLUETOOTH_DEVICE_SEARCH_PARAMS extends Win32Struct
      * A handle for the radio on which to perform the inquiry. Set to <b>NULL</b> to perform the inquiry on all local Bluetooth radios.
      * @type {HANDLE}
      */
-    hRadio{
+    hRadio {
         get {
             if(!this.HasProp("__hRadio"))
                 this.__hRadio := HANDLE(32, this)

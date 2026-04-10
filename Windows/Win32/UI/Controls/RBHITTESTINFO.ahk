@@ -6,10 +6,8 @@
  * Contains information specific to a hit test operation. This structure is used with the RB_HITTEST message.
  * @see https://learn.microsoft.com/windows/win32/api/commctrl/ns-commctrl-rbhittestinfo
  * @namespace Windows.Win32.UI.Controls
- * @version v4.0.30319
  */
-class RBHITTESTINFO extends Win32Struct
-{
+class RBHITTESTINFO extends Win32Struct {
     static sizeof => 16
 
     static packingSize => 4
@@ -21,7 +19,7 @@ class RBHITTESTINFO extends Win32Struct
      * <a href="https://docs.microsoft.com/windows/win32/api/windef/ns-windef-point">POINT</a> structure that describes the point to be hit tested, in client coordinates.
      * @type {POINT}
      */
-    pt{
+    pt {
         get {
             if(!this.HasProp("__pt"))
                 this.__pt := POINT(0, this)

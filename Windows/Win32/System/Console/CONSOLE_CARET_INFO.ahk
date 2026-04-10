@@ -5,10 +5,8 @@
 
 /**
  * @namespace Windows.Win32.System.Console
- * @version v4.0.30319
  */
-class CONSOLE_CARET_INFO extends Win32Struct
-{
+class CONSOLE_CARET_INFO extends Win32Struct {
     static sizeof => 24
 
     static packingSize => 8
@@ -16,7 +14,7 @@ class CONSOLE_CARET_INFO extends Win32Struct
     /**
      * @type {HWND}
      */
-    hwnd{
+    hwnd {
         get {
             if(!this.HasProp("__hwnd"))
                 this.__hwnd := HWND(0, this)
@@ -27,7 +25,7 @@ class CONSOLE_CARET_INFO extends Win32Struct
     /**
      * @type {RECT}
      */
-    rc{
+    rc {
         get {
             if(!this.HasProp("__rc"))
                 this.__rc := RECT(8, this)

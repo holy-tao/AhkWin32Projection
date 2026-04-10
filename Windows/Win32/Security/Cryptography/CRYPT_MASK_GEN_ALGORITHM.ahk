@@ -1,16 +1,14 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
-#Include .\CRYPT_INTEGER_BLOB.ahk
 #Include .\CRYPT_ALGORITHM_IDENTIFIER.ahk
+#Include .\CRYPT_INTEGER_BLOB.ahk
 
 /**
  * Identifies the algorithm used to generate an RSA PKCS
  * @see https://learn.microsoft.com/windows/win32/api/wincrypt/ns-wincrypt-crypt_mask_gen_algorithm
  * @namespace Windows.Win32.Security.Cryptography
- * @version v4.0.30319
  */
-class CRYPT_MASK_GEN_ALGORITHM extends Win32Struct
-{
+class CRYPT_MASK_GEN_ALGORITHM extends Win32Struct {
     static sizeof => 32
 
     static packingSize => 8
@@ -46,7 +44,7 @@ class CRYPT_MASK_GEN_ALGORITHM extends Win32Struct
      * A <a href="https://docs.microsoft.com/windows/desktop/api/wincrypt/ns-wincrypt-crypt_algorithm_identifier">CRYPT_ALGORITHM_IDENTIFIER</a> structure that identifies the hash algorithm to use for the mask generation.
      * @type {CRYPT_ALGORITHM_IDENTIFIER}
      */
-    HashAlgorithm{
+    HashAlgorithm {
         get {
             if(!this.HasProp("__HashAlgorithm"))
                 this.__HashAlgorithm := CRYPT_ALGORITHM_IDENTIFIER(8, this)

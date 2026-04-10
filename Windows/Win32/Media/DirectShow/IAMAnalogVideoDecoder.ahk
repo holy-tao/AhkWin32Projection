@@ -9,9 +9,8 @@
  * For Windows Driver Model (WDM) devices, the <a href="https://docs.microsoft.com/windows/desktop/DirectShow/wdm-video-capture-filter">WDM Video Capture Filter</a> automatically exposes this interface if the WDM driver supports the <a href="https://docs.microsoft.com/windows-hardware/drivers/stream/propsetid-vidcap-videodecoder">PROPSETID_VIDCAP_VIDEODECODER</a> property set. For more information, see the <a href="https://docs.microsoft.com/windows-hardware/drivers/gettingstarted/">Windows Driver Kit (WDK)</a> documentation.
  * @see https://learn.microsoft.com/windows/win32/api/strmif/nn-strmif-iamanalogvideodecoder
  * @namespace Windows.Win32.Media.DirectShow
- * @version v4.0.30319
  */
-class IAMAnalogVideoDecoder extends IUnknown{
+class IAMAnalogVideoDecoder extends IUnknown {
 
     static sizeof => A_PtrSize
     /**

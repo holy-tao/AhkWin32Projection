@@ -1,8 +1,8 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
-#Include .\IInkDisp.ahk
 #Include ..\..\System\Com\IUnknown.ahk
+#Include .\IInkDisp.ahk
 
 /**
  * Use interface to programmatically create strokes from packet data.
@@ -19,9 +19,8 @@
  * </ul>
  * @see https://learn.microsoft.com/windows/win32/api/rtscom/nn-rtscom-istrokebuilder
  * @namespace Windows.Win32.UI.TabletPC
- * @version v4.0.30319
  */
-class IStrokeBuilder extends IUnknown{
+class IStrokeBuilder extends IUnknown {
 
     static sizeof => A_PtrSize
     /**
@@ -83,7 +82,7 @@ class IStrokeBuilder extends IUnknown{
      * @remarks
      * Used in conjunction with the <a href="https://docs.microsoft.com/windows/desktop/api/rtscom/nf-rtscom-istrokebuilder-appendpackets">IStrokeBuilder::AppendPackets Method</a> and <a href="https://docs.microsoft.com/windows/desktop/api/rtscom/nf-rtscom-istrokebuilder-endstroke">IStrokeBuilder::EndStroke Method</a> methods. <b>IStrokeBuilder::BeginStroke Method</b> starts building the stroke. As the motion continues and additional packets are received, the <b>IStrokeBuilder::AppendPackets Method</b> method adds that additional stroke data. When the tablet pen is raised from the surface and there are no more incoming packets, the <b>IStrokeBuilder::EndStroke Method</b> method is called.
      * @param {Integer} tcid The tablet context identifier.
-     * @param {Integer} _sid 
+     * @param {Integer} _sid The stylus identifier.
      * @param {Pointer<Integer>} pPacket The start of the packet data. It is read-only.
      * @param {Integer} cPacketProperties The count of LONGs, which is the number of packets multiplied by the number of properties, in the <i>pPacketProperties</i> buffer.
      * @param {Pointer<PACKET_PROPERTY>} pPacketProperties The buffer containing the packet properties.
@@ -108,7 +107,7 @@ class IStrokeBuilder extends IUnknown{
      * <div class="alert"><b>Note</b>  The incoming packet data is in Himetric format and must be converted to pixels.</div>
      * <div> </div>
      * @param {Integer} tcid The context identifier for the tablet device to which the stylus belongs.
-     * @param {Integer} _sid 
+     * @param {Integer} _sid The identifier of the stylus object.
      * @param {Integer} cPktBuffLength The number of LONGs in the <i>pPackets</i> array not the size in bytes. Valid values are between 0 and 0x7FFF, inclusive.
      * @param {Pointer<Integer>} pPackets The start of the packet data. It is read-only.
      * @returns {HRESULT} For a description of the return values, see <a href="https://docs.microsoft.com/windows/desktop/tablet/realtimestylus-classes-and-interfaces">RealTimeStylus Classes and Interfaces</a>.
@@ -126,7 +125,7 @@ class IStrokeBuilder extends IUnknown{
      * @remarks
      * A dirty region describes a tablet range which has been changed.
      * @param {Integer} tcid The tablet context identifier.
-     * @param {Integer} _sid 
+     * @param {Integer} _sid The stylus identifier.
      * @param {Pointer<IInkStrokeDisp>} ppIInkStroke A pointer to the new stroke. This value can be <b>NULL</b>.
      * @param {Pointer<RECT>} pDirtyRect The dirty, or changed, rectangle of the tablet. This value can be <b>NULL</b>.
      * @returns {HRESULT} For a description of return values, see <a href="https://docs.microsoft.com/windows/desktop/tablet/realtimestylus-classes-and-interfaces">RealTimeStylus Classes and Interfaces</a>..

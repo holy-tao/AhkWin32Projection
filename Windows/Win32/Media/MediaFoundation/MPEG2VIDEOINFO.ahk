@@ -1,8 +1,9 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
+#Include .\VIDEOINFOHEADER2.ahk
 #Include ..\..\Foundation\RECT.ahk
 #Include ..\..\Graphics\Gdi\BITMAPINFOHEADER.ahk
-#Include .\VIDEOINFOHEADER2.ahk
+#Include .\MPEG2VIDEOINFO_FLAGS.ahk
 
 /**
  * The MPEG2VIDEOINFO structure describes an MPEG-2 video stream.
@@ -10,10 +11,8 @@
  * The <a href="https://docs.microsoft.com/windows/desktop/api/wingdi/ns-wingdi-bitmapinfoheader">BITMAPINFOHEADER</a> structure contained in the <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/dvdmedia/ns-dvdmedia-videoinfoheader2">VIDEOINFOHEADER2</a> structure (<b>hdr</b>) cannot be followed by any palette entries or color masks, because this structure is immediately followed by the <b>dwStartTimeCode</b> member.
  * @see https://learn.microsoft.com/windows/win32/api/dvdmedia/ns-dvdmedia-mpeg2videoinfo
  * @namespace Windows.Win32.Media.MediaFoundation
- * @version v4.0.30319
  */
-class MPEG2VIDEOINFO extends Win32Struct
-{
+class MPEG2VIDEOINFO extends Win32Struct {
     static sizeof => 136
 
     static packingSize => 8
@@ -22,7 +21,7 @@ class MPEG2VIDEOINFO extends Win32Struct
      * <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/dvdmedia/ns-dvdmedia-videoinfoheader2">VIDEOINFOHEADER2</a> structure.
      * @type {VIDEOINFOHEADER2}
      */
-    hdr{
+    hdr {
         get {
             if(!this.HasProp("__hdr"))
                 this.__hdr := VIDEOINFOHEADER2(0, this)
@@ -67,8 +66,7 @@ class MPEG2VIDEOINFO extends Win32Struct
     }
 
     /**
-     * 
-     * @type {Integer}
+     * @type {MPEG2VIDEOINFO_FLAGS}
      */
     dwFlags {
         get => NumGet(this, 128, "uint")
@@ -77,9 +75,9 @@ class MPEG2VIDEOINFO extends Win32Struct
 
     /**
      * Start of an array that contains the sequence header, including quantization matrices and the sequence extension, if required. This field is typed as <b>DWORD</b> array to enforce 32-bit alignment. The size of the array, in bytes, is given in the <b>cbSequenceHeader</b> member.
-     * @type {Array<UInt32>}
+     * @type {Array<Integer>}
      */
-    dwSequenceHeader{
+    dwSequenceHeader {
         get {
             if(!this.HasProp("__dwSequenceHeaderProxyArray"))
                 this.__dwSequenceHeaderProxyArray := Win32FixedArray(this.ptr + 132, 1, Primitive, "uint")

@@ -34,9 +34,8 @@
  * Note that the shadow copies technology does not store entire copies of older versions unless they are deleted; only the changed bits are stored.
  * @see https://learn.microsoft.com/windows/win32/api/shobjidl/nn-shobjidl-ipreviousversionsinfo
  * @namespace Windows.Win32.UI.Shell
- * @version v4.0.30319
  */
-class IPreviousVersionsInfo extends IUnknown{
+class IPreviousVersionsInfo extends IUnknown {
 
     static sizeof => A_PtrSize
     /**

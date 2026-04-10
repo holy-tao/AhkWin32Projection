@@ -3,10 +3,8 @@
 
 /**
  * @namespace Windows.Wdk.System.SystemServices
- * @version v4.0.30319
  */
-class VM_COUNTERS_EX extends Win32Struct
-{
+class VM_COUNTERS_EX extends Win32Struct {
     static sizeof => 96
 
     static packingSize => 8

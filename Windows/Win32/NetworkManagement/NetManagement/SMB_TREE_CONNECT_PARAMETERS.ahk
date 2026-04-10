@@ -3,10 +3,8 @@
 
 /**
  * @namespace Windows.Win32.NetworkManagement.NetManagement
- * @version v4.0.30319
  */
-class SMB_TREE_CONNECT_PARAMETERS extends Win32Struct
-{
+class SMB_TREE_CONNECT_PARAMETERS extends Win32Struct {
     static sizeof => 16
 
     static packingSize => 4

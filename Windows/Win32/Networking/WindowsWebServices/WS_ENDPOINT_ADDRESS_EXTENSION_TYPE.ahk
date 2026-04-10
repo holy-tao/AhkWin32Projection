@@ -5,9 +5,8 @@
  * This identifies a type of extension within the extensions field of the WS_ENDPOINT_ADDRESS.
  * @see https://learn.microsoft.com/windows/win32/api/webservices/ne-webservices-ws_endpoint_address_extension_type
  * @namespace Windows.Win32.Networking.WindowsWebServices
- * @version v4.0.30319
  */
-class WS_ENDPOINT_ADDRESS_EXTENSION_TYPE extends Win32Enum{
+class WS_ENDPOINT_ADDRESS_EXTENSION_TYPE extends Win32Enum {
 
     /**
      * The address that metadata can be downloaded from the endpoint.

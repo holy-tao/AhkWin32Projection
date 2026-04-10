@@ -3,10 +3,8 @@
 
 /**
  * @namespace Windows.Wdk.Storage.FileSystem
- * @version v4.0.30319
  */
-class FSCTL_GHOST_FILE_EXTENTS_INPUT_BUFFER extends Win32Struct
-{
+class FSCTL_GHOST_FILE_EXTENTS_INPUT_BUFFER extends Win32Struct {
     static sizeof => 32
 
     static packingSize => 8
@@ -28,7 +26,7 @@ class FSCTL_GHOST_FILE_EXTENTS_INPUT_BUFFER extends Win32Struct
     }
 
     /**
-     * @type {Pointer<Guid>}
+     * @type {Pointer}
      */
     RecallOwnerGuid {
         get => NumGet(this, 16, "ptr")
@@ -44,9 +42,9 @@ class FSCTL_GHOST_FILE_EXTENTS_INPUT_BUFFER extends Win32Struct
     }
 
     /**
-     * @type {Array<Byte>}
+     * @type {Array<Integer>}
      */
-    RecallMetadataBuffer{
+    RecallMetadataBuffer {
         get {
             if(!this.HasProp("__RecallMetadataBufferProxyArray"))
                 this.__RecallMetadataBufferProxyArray := Win32FixedArray(this.ptr + 28, 1, Primitive, "char")

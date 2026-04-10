@@ -5,10 +5,8 @@
  * The INSTALLSPEC structure specifies a group policy application by its user-friendly name and group policy GUID or by its file name extension. The Spec member of the INSTALLDATA structure provides this information to the InstallApplication function.
  * @see https://learn.microsoft.com/windows/win32/api/appmgmt/ns-appmgmt-installspec
  * @namespace Windows.Win32.System.GroupPolicy
- * @version v4.0.30319
  */
-class INSTALLSPEC extends Win32Struct
-{
+class INSTALLSPEC extends Win32Struct {
     static sizeof => 48
 
     static packingSize => 8
@@ -24,15 +22,14 @@ class INSTALLSPEC extends Win32Struct
             get => NumGet(this, 0, "ptr")
             set => NumPut("ptr", value, this, 0)
         }
-    
+
         /**
-         * @type {Pointer<Guid>}
+         * @type {Pointer}
          */
         GPOId {
             get => NumGet(this, 8, "ptr")
             set => NumPut("ptr", value, this, 8)
         }
-    
     }
 
     class _COMClass extends Win32Struct {
@@ -40,13 +37,13 @@ class INSTALLSPEC extends Win32Struct
         static packingSize => 8
 
         /**
-         * @type {Pointer<Guid>}
+         * @type {Pointer}
          */
         Clsid {
             get => NumGet(this, 0, "ptr")
             set => NumPut("ptr", value, this, 0)
         }
-    
+
         /**
          * @type {Integer}
          */
@@ -54,17 +51,16 @@ class INSTALLSPEC extends Win32Struct
             get => NumGet(this, 8, "uint")
             set => NumPut("uint", value, this, 8)
         }
-    
     }
 
     /**
      * Structure that contains the following members.
      * @type {_AppName}
      */
-    AppName{
+    AppName {
         get {
             if(!this.HasProp("__AppName"))
-                this.__AppName := %this.__Class%._AppName(0, this)
+                this.__AppName := INSTALLSPEC._AppName(0, this)
             return this.__AppName
         }
     }
@@ -94,10 +90,10 @@ class INSTALLSPEC extends Win32Struct
      * This parameter is reserved and should not be used.
      * @type {_COMClass}
      */
-    COMClass{
+    COMClass {
         get {
             if(!this.HasProp("__COMClass"))
-                this.__COMClass := %this.__Class%._COMClass(0, this)
+                this.__COMClass := INSTALLSPEC._COMClass(0, this)
             return this.__COMClass
         }
     }

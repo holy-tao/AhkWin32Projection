@@ -5,9 +5,8 @@
 
 /**
  * @namespace Windows.Win32.Storage.Packaging.Appx
- * @version v4.0.30319
  */
-class IAppxPackagingDiagnosticEventSinkManager extends IUnknown{
+class IAppxPackagingDiagnosticEventSinkManager extends IUnknown {
 
     static sizeof => A_PtrSize
     /**

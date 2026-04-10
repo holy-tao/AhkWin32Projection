@@ -1,5 +1,8 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
+#Include ..\Dxgi\Common\DXGI_FORMAT.ahk
+#Include .\D3D12_DSV_DIMENSION.ahk
+#Include .\D3D12_DSV_FLAGS.ahk
 #Include .\D3D12_TEX1D_DSV.ahk
 #Include .\D3D12_TEX1D_ARRAY_DSV.ahk
 #Include .\D3D12_TEX2D_DSV.ahk
@@ -26,17 +29,15 @@
  * Pass a depth-stencil-view description into <a href="https://docs.microsoft.com/windows/desktop/api/d3d12/nf-d3d12-id3d12device-createdepthstencilview">ID3D12Device::CreateDepthStencilView</a> to create a depth-stencil view.
  * @see https://learn.microsoft.com/windows/win32/api/d3d12/ns-d3d12-d3d12_depth_stencil_view_desc
  * @namespace Windows.Win32.Graphics.Direct3D12
- * @version v4.0.30319
  */
-class D3D12_DEPTH_STENCIL_VIEW_DESC extends Win32Struct
-{
+class D3D12_DEPTH_STENCIL_VIEW_DESC extends Win32Struct {
     static sizeof => 24
 
     static packingSize => 4
 
     /**
      * A <a href="https://docs.microsoft.com/windows/desktop/api/dxgiformat/ne-dxgiformat-dxgi_format">DXGI_FORMAT</a>-typed value that specifies the viewing format.  For allowable formats, see Remarks.
-     * @type {Integer}
+     * @type {DXGI_FORMAT}
      */
     Format {
         get => NumGet(this, 0, "int")
@@ -45,7 +46,7 @@ class D3D12_DEPTH_STENCIL_VIEW_DESC extends Win32Struct
 
     /**
      * A <a href="https://docs.microsoft.com/windows/desktop/api/d3d12/ne-d3d12-d3d12_dsv_dimension">D3D12_DSV_DIMENSION</a>-typed value that specifies how the depth-stencil resource will be accessed. This member also determines which _DSV to use in the following union.
-     * @type {Integer}
+     * @type {D3D12_DSV_DIMENSION}
      */
     ViewDimension {
         get => NumGet(this, 4, "int")
@@ -56,7 +57,7 @@ class D3D12_DEPTH_STENCIL_VIEW_DESC extends Win32Struct
      * A combination of <a href="https://docs.microsoft.com/windows/desktop/api/d3d12/ne-d3d12-d3d12_dsv_flags">D3D12_DSV_FLAGS</a> enumeration constants that are combined by using a bitwise OR operation. 
      *             The resulting value specifies whether the texture is read only.  
      *             Pass 0 to specify that it isn't read only; otherwise, pass one or more of the members of the <b>D3D12_DSV_FLAGS</b> enumerated type.
-     * @type {Integer}
+     * @type {D3D12_DSV_FLAGS}
      */
     Flags {
         get => NumGet(this, 8, "int")
@@ -66,7 +67,7 @@ class D3D12_DEPTH_STENCIL_VIEW_DESC extends Win32Struct
     /**
      * @type {D3D12_TEX1D_DSV}
      */
-    Texture1D{
+    Texture1D {
         get {
             if(!this.HasProp("__Texture1D"))
                 this.__Texture1D := D3D12_TEX1D_DSV(12, this)
@@ -77,7 +78,7 @@ class D3D12_DEPTH_STENCIL_VIEW_DESC extends Win32Struct
     /**
      * @type {D3D12_TEX1D_ARRAY_DSV}
      */
-    Texture1DArray{
+    Texture1DArray {
         get {
             if(!this.HasProp("__Texture1DArray"))
                 this.__Texture1DArray := D3D12_TEX1D_ARRAY_DSV(12, this)
@@ -88,7 +89,7 @@ class D3D12_DEPTH_STENCIL_VIEW_DESC extends Win32Struct
     /**
      * @type {D3D12_TEX2D_DSV}
      */
-    Texture2D{
+    Texture2D {
         get {
             if(!this.HasProp("__Texture2D"))
                 this.__Texture2D := D3D12_TEX2D_DSV(12, this)
@@ -99,7 +100,7 @@ class D3D12_DEPTH_STENCIL_VIEW_DESC extends Win32Struct
     /**
      * @type {D3D12_TEX2D_ARRAY_DSV}
      */
-    Texture2DArray{
+    Texture2DArray {
         get {
             if(!this.HasProp("__Texture2DArray"))
                 this.__Texture2DArray := D3D12_TEX2D_ARRAY_DSV(12, this)
@@ -110,7 +111,7 @@ class D3D12_DEPTH_STENCIL_VIEW_DESC extends Win32Struct
     /**
      * @type {D3D12_TEX2DMS_DSV}
      */
-    Texture2DMS{
+    Texture2DMS {
         get {
             if(!this.HasProp("__Texture2DMS"))
                 this.__Texture2DMS := D3D12_TEX2DMS_DSV(12, this)
@@ -121,7 +122,7 @@ class D3D12_DEPTH_STENCIL_VIEW_DESC extends Win32Struct
     /**
      * @type {D3D12_TEX2DMS_ARRAY_DSV}
      */
-    Texture2DMSArray{
+    Texture2DMSArray {
         get {
             if(!this.HasProp("__Texture2DMSArray"))
                 this.__Texture2DMSArray := D3D12_TEX2DMS_ARRAY_DSV(12, this)

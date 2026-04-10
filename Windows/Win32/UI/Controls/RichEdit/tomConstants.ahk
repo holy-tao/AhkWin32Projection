@@ -5,9 +5,8 @@
  * Defines values that are used with the Text Object Model (TOM) API.
  * @see https://learn.microsoft.com/windows/win32/api/tom/ne-tom-tomconstants
  * @namespace Windows.Win32.UI.Controls.RichEdit
- * @version v4.0.30319
  */
-class tomConstants extends Win32Enum{
+class tomConstants extends Win32Enum {
 
     /**
      * A <a href="https://docs.microsoft.com/windows/desktop/Controls/about-text-object-model">tomBool</a> value that indicates false.
@@ -2218,37 +2217,31 @@ class tomConstants extends Win32Enum{
     static tomFontAlignmentMax => 4
 
     /**
-     * 
      * @type {Integer (Int32)}
      */
     static tomRubyBelow => 128
 
     /**
-     * 
      * @type {Integer (Int32)}
      */
     static tomRubyAlignCenter => 0
 
     /**
-     * 
      * @type {Integer (Int32)}
      */
     static tomRubyAlign010 => 1
 
     /**
-     * 
      * @type {Integer (Int32)}
      */
     static tomRubyAlign121 => 2
 
     /**
-     * 
      * @type {Integer (Int32)}
      */
     static tomRubyAlignLeft => 3
 
     /**
-     * 
      * @type {Integer (Int32)}
      */
     static tomRubyAlignRight => 4
@@ -2476,13 +2469,11 @@ class tomConstants extends Win32Enum{
     static tomGravityOut => 4
 
     /**
-     * 
      * @type {Integer (Int32)}
      */
     static tomGravityBackward => 536870912
 
     /**
-     * 
      * @type {Integer (Int32)}
      */
     static tomGravityForward => 1073741824
@@ -3187,13 +3178,11 @@ class tomConstants extends Win32Enum{
     static tomFontPropAlign => 829
 
     /**
-     * 
      * @type {Integer (Int32)}
      */
     static tomFontStretch => 830
 
     /**
-     * 
      * @type {Integer (Int32)}
      */
     static tomFontStyle => 831
@@ -3511,7 +3500,6 @@ class tomConstants extends Win32Enum{
     static tomRowUpdate => 1
 
     /**
-     * 
      * @type {Integer (Int32)}
      */
     static tomRowApplyDefault => 0

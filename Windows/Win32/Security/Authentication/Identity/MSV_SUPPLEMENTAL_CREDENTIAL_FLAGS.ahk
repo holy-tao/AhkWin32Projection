@@ -3,9 +3,8 @@
 
 /**
  * @namespace Windows.Win32.Security.Authentication.Identity
- * @version v4.0.30319
  */
-class MSV_SUPPLEMENTAL_CREDENTIAL_FLAGS extends Win32BitflagEnum{
+class MSV_SUPPLEMENTAL_CREDENTIAL_FLAGS extends Win32BitflagEnum {
 
     /**
      * @type {Integer (UInt32)}

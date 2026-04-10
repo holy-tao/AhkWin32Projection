@@ -5,9 +5,8 @@
  * CLUSTER_RESOURCE_STATE_CHANGE_REASON (msclus.h) is used by two specific control codes to describe the reason for a resource state change.
  * @see https://learn.microsoft.com/windows/win32/api/msclus/ne-msclus-cluster_resource_state_change_reason
  * @namespace Windows.Win32.Networking.Clustering
- * @version v4.0.30319
  */
-class CLUSTER_RESOURCE_STATE_CHANGE_REASON extends Win32Enum{
+class CLUSTER_RESOURCE_STATE_CHANGE_REASON extends Win32Enum {
 
     /**
      * This reason code is never sent by the cluster. 

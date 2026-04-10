@@ -1,17 +1,18 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\..\Win32Struct.ahk
+#Include ..\..\WindowsAndMessaging\POINTER_INPUT_TYPE.ahk
+#Include .\POINTER_FLAGS.ahk
 #Include ..\..\..\Foundation\HANDLE.ahk
 #Include ..\..\..\Foundation\HWND.ahk
 #Include ..\..\..\Foundation\POINT.ahk
+#Include .\POINTER_BUTTON_CHANGE_TYPE.ahk
 
 /**
  * Contains basic pointer information common to all pointer types. Applications can retrieve this information using the GetPointerInfo, GetPointerFrameInfo, GetPointerInfoHistory and GetPointerFrameInfoHistory functions.
  * @see https://learn.microsoft.com/windows/win32/api/winuser/ns-winuser-pointer_info
  * @namespace Windows.Win32.UI.Input.Pointer
- * @version v4.0.30319
  */
-class POINTER_INFO extends Win32Struct
-{
+class POINTER_INFO extends Win32Struct {
     static sizeof => 96
 
     static packingSize => 8
@@ -20,7 +21,7 @@ class POINTER_INFO extends Win32Struct
      * Type: <b><a href="https://docs.microsoft.com/windows/win32/api/winuser/ne-winuser-tagpointer_input_type">POINTER_INPUT_TYPE</a></b>
      * 
      * A value from the <a href="https://docs.microsoft.com/windows/win32/api/winuser/ne-winuser-tagpointer_input_type">POINTER_INPUT_TYPE</a> enumeration that specifies the pointer type.
-     * @type {Integer}
+     * @type {POINTER_INPUT_TYPE}
      */
     pointerType {
         get => NumGet(this, 0, "int")
@@ -55,7 +56,7 @@ class POINTER_INFO extends Win32Struct
      * Type: <b><a href="https://docs.microsoft.com/windows/win32/inputmsg/pointer-flags-contants">POINTER_FLAGS</a></b>
      * 
      * May be any reasonable combination of flags from the <a href="https://docs.microsoft.com/windows/win32/inputmsg/pointer-flags-contants">Pointer Flags</a> constants.
-     * @type {Integer}
+     * @type {POINTER_FLAGS}
      */
     pointerFlags {
         get => NumGet(this, 12, "uint")
@@ -68,7 +69,7 @@ class POINTER_INFO extends Win32Struct
      * Handle to the source device that can be used in calls to the raw input device API and the digitizer device API.
      * @type {HANDLE}
      */
-    sourceDevice{
+    sourceDevice {
         get {
             if(!this.HasProp("__sourceDevice"))
                 this.__sourceDevice := HANDLE(16, this)
@@ -82,7 +83,7 @@ class POINTER_INFO extends Win32Struct
      * Window to which this message was targeted. If the pointer is captured, either implicitly by virtue of having made contact over this window or explicitly using the pointer capture API, this is the capture window. If the pointer is uncaptured, this is the window over which the pointer was when this message was generated.
      * @type {HWND}
      */
-    hwndTarget{
+    hwndTarget {
         get {
             if(!this.HasProp("__hwndTarget"))
                 this.__hwndTarget := HWND(24, this)
@@ -98,7 +99,7 @@ class POINTER_INFO extends Win32Struct
      * The predicted value is based on the pointer position reported by the digitizer and the motion of the pointer. This correction can compensate for visual lag due to inherent delays in sensing and processing the pointer location on the digitizer. This is applicable to  pointers of type <a href="https://docs.microsoft.com/windows/win32/api/winuser/ne-winuser-tagpointer_input_type">PT_TOUCH</a>. For other pointer types, the predicted value will be the same as the non-predicted value (see <b>ptPixelLocationRaw</b>).
      * @type {POINT}
      */
-    ptPixelLocation{
+    ptPixelLocation {
         get {
             if(!this.HasProp("__ptPixelLocation"))
                 this.__ptPixelLocation := POINT(32, this)
@@ -114,7 +115,7 @@ class POINTER_INFO extends Win32Struct
      * The predicted value is based on the pointer position reported by the digitizer and the motion of the pointer. This correction can compensate for visual lag due to inherent delays in sensing and processing the pointer location on the digitizer. This is applicable to  pointers of type <a href="https://docs.microsoft.com/windows/win32/api/winuser/ne-winuser-tagpointer_input_type">PT_TOUCH</a>. For other pointer types, the predicted value will be the same as the non-predicted value (see <b>ptHimetricLocationRaw</b>).
      * @type {POINT}
      */
-    ptHimetricLocation{
+    ptHimetricLocation {
         get {
             if(!this.HasProp("__ptHimetricLocation"))
                 this.__ptHimetricLocation := POINT(40, this)
@@ -128,7 +129,7 @@ class POINTER_INFO extends Win32Struct
      * The screen coordinates of the pointer, in pixels. For adjusted screen coordinates, see <b>ptPixelLocation</b>.
      * @type {POINT}
      */
-    ptPixelLocationRaw{
+    ptPixelLocationRaw {
         get {
             if(!this.HasProp("__ptPixelLocationRaw"))
                 this.__ptPixelLocationRaw := POINT(48, this)
@@ -142,7 +143,7 @@ class POINTER_INFO extends Win32Struct
      * The screen coordinates of the pointer, in HIMETRIC units. For adjusted screen coordinates, see <b>ptHimetricLocation</b>.
      * @type {POINT}
      */
-    ptHimetricLocationRaw{
+    ptHimetricLocationRaw {
         get {
             if(!this.HasProp("__ptHimetricLocationRaw"))
                 this.__ptHimetricLocationRaw := POINT(56, this)
@@ -188,7 +189,6 @@ class POINTER_INFO extends Win32Struct
     }
 
     /**
-     * 
      * @type {Integer}
      */
     InputData {
@@ -220,7 +220,7 @@ class POINTER_INFO extends Win32Struct
      * Type: <b>POINTER_BUTTON_CHANGE_TYPE</b>
      * 
      * A value from the <a href="https://docs.microsoft.com/windows/desktop/api/winuser/ne-winuser-pointer_button_change_type">POINTER_BUTTON_CHANGE_TYPE</a> enumeration that specifies the change in button state between this input and the previous input.
-     * @type {Integer}
+     * @type {POINTER_BUTTON_CHANGE_TYPE}
      */
     ButtonChangeType {
         get => NumGet(this, 88, "int")

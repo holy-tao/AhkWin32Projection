@@ -3,10 +3,8 @@
 
 /**
  * @namespace Windows.Win32.System.Diagnostics.Debug
- * @version v4.0.30319
  */
-class ARM64_NT_NEON128 extends Win32Struct
-{
+class ARM64_NT_NEON128 extends Win32Struct {
     static sizeof => 80
 
     static packingSize => 8
@@ -28,9 +26,9 @@ class ARM64_NT_NEON128 extends Win32Struct
     }
 
     /**
-     * @type {Array<Double>}
+     * @type {Array<Float>}
      */
-    D{
+    D {
         get {
             if(!this.HasProp("__DProxyArray"))
                 this.__DProxyArray := Win32FixedArray(this.ptr + 0, 2, Primitive, "double")
@@ -39,9 +37,9 @@ class ARM64_NT_NEON128 extends Win32Struct
     }
 
     /**
-     * @type {Array<Single>}
+     * @type {Array<Float>}
      */
-    S{
+    S {
         get {
             if(!this.HasProp("__SProxyArray"))
                 this.__SProxyArray := Win32FixedArray(this.ptr + 0, 4, Primitive, "float")
@@ -50,9 +48,9 @@ class ARM64_NT_NEON128 extends Win32Struct
     }
 
     /**
-     * @type {Array<UInt16>}
+     * @type {Array<Integer>}
      */
-    H{
+    H {
         get {
             if(!this.HasProp("__HProxyArray"))
                 this.__HProxyArray := Win32FixedArray(this.ptr + 0, 8, Primitive, "ushort")
@@ -61,9 +59,9 @@ class ARM64_NT_NEON128 extends Win32Struct
     }
 
     /**
-     * @type {Array<Byte>}
+     * @type {Array<Integer>}
      */
-    B{
+    B {
         get {
             if(!this.HasProp("__BProxyArray"))
                 this.__BProxyArray := Win32FixedArray(this.ptr + 0, 16, Primitive, "char")

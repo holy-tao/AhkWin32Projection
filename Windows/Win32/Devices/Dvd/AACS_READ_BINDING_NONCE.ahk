@@ -4,10 +4,8 @@
 
 /**
  * @namespace Windows.Win32.Devices.Dvd
- * @version v4.0.30319
  */
-class AACS_READ_BINDING_NONCE extends Win32Struct
-{
+class AACS_READ_BINDING_NONCE extends Win32Struct {
     static sizeof => 24
 
     static packingSize => 8
@@ -39,7 +37,7 @@ class AACS_READ_BINDING_NONCE extends Win32Struct
     /**
      * @type {HANDLE}
      */
-    Handle{
+    Handle {
         get {
             if(!this.HasProp("__Handle"))
                 this.__Handle := HANDLE(16, this)

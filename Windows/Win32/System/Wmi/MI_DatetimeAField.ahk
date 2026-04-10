@@ -1,15 +1,14 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
 #Include .\MI_DatetimeA.ahk
+#Include .\MI_Datetime.ahk
 
 /**
  * Represents a property inside an MI_Instance structure. (MI_DatetimeAField)
  * @see https://learn.microsoft.com/windows/win32/api/mi/ns-mi-mi_datetimeafield
  * @namespace Windows.Win32.System.Wmi
- * @version v4.0.30319
  */
-class MI_DatetimeAField extends Win32Struct
-{
+class MI_DatetimeAField extends Win32Struct {
     static sizeof => 24
 
     static packingSize => 8
@@ -18,7 +17,7 @@ class MI_DatetimeAField extends Win32Struct
      * A field of type <a href="https://docs.microsoft.com/windows/desktop/api/mi/ns-mi-mi_datetimea">MI_DatetimeA</a>.
      * @type {MI_DatetimeA}
      */
-    value{
+    value {
         get {
             if(!this.HasProp("__value"))
                 this.__value := MI_DatetimeA(0, this)

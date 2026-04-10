@@ -4,10 +4,8 @@
 
 /**
  * @namespace Windows.Win32.Media.KernelStreaming
- * @version v4.0.30319
  */
-class KSCAMERA_EXTENDEDPROP_VIDEOPROCSETTING extends Win32Struct
-{
+class KSCAMERA_EXTENDEDPROP_VIDEOPROCSETTING extends Win32Struct {
     static sizeof => 32
 
     static packingSize => 8
@@ -47,7 +45,7 @@ class KSCAMERA_EXTENDEDPROP_VIDEOPROCSETTING extends Win32Struct
     /**
      * @type {KSCAMERA_EXTENDEDPROP_VALUE}
      */
-    VideoProc{
+    VideoProc {
         get {
             if(!this.HasProp("__VideoProc"))
                 this.__VideoProc := KSCAMERA_EXTENDEDPROP_VALUE(16, this)

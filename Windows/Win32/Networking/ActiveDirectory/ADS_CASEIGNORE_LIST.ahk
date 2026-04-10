@@ -1,5 +1,6 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
+#Include .\ADS_CASEIGNORE_LIST.ahk
 
 /**
  * The ADS_CASEIGNORE_LIST structure is an ADSI representation of the Case Ignore List attribute syntax.
@@ -7,10 +8,8 @@
  * A <b>Case Ignore List</b> attribute represents an ordered sequence of case insensitive strings.
  * @see https://learn.microsoft.com/windows/win32/api/iads/ns-iads-ads_caseignore_list
  * @namespace Windows.Win32.Networking.ActiveDirectory
- * @version v4.0.30319
  */
-class ADS_CASEIGNORE_LIST extends Win32Struct
-{
+class ADS_CASEIGNORE_LIST extends Win32Struct {
     static sizeof => 16
 
     static packingSize => 8

@@ -7,9 +7,8 @@
  * Allows the caller to create a handler for notifications that the state of the speller has changed.
  * @see https://learn.microsoft.com/windows/win32/api/spellcheck/nn-spellcheck-ispellcheckerchangedeventhandler
  * @namespace Windows.Win32.Globalization
- * @version v4.0.30319
  */
-class ISpellCheckerChangedEventHandler extends IUnknown{
+class ISpellCheckerChangedEventHandler extends IUnknown {
 
     static sizeof => A_PtrSize
     /**

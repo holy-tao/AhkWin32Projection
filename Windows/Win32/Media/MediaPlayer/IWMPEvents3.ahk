@@ -7,9 +7,8 @@
  * The IWMPEvents3 interface provides access to events originating from the Windows Media Player 11 control so that an application that has this control embedded in it can respond to these events.
  * @see https://learn.microsoft.com/windows/win32/api/wmp/nn-wmp-iwmpevents3
  * @namespace Windows.Win32.Media.MediaPlayer
- * @version v4.0.30319
  */
-class IWMPEvents3 extends IWMPEvents2{
+class IWMPEvents3 extends IWMPEvents2 {
 
     static sizeof => A_PtrSize
     /**
@@ -37,7 +36,7 @@ class IWMPEvents3 extends IWMPEvents2{
      * 
      * <b>Windows Media Player 10 Mobile: </b>This event is not supported.
      * @param {IWMPCdromRip} pCdromRip Pointer to the <b>IWMPCdromRip</b> interface that represents the ripping operation that raised the error.
-     * @param {Integer} wmprs <b>WMPRipState</b> enumeration value that indicates the new state.
+     * @param {WMPRipState} wmprs <b>WMPRipState</b> enumeration value that indicates the new state.
      * @returns {String} Nothing - always returns an empty string
      * @see https://learn.microsoft.com/windows/win32/api/wmp/nf-wmp-iwmpevents3-cdromripstatechange
      */
@@ -67,7 +66,7 @@ class IWMPEvents3 extends IWMPEvents2{
      * 
      * <b>Windows Media Player 10 Mobile: </b>This event is not supported.
      * @param {IWMPCdromBurn} pCdromBurn Pointer to the <b>IWMPCdromBurn</b> interface that represents the burning operation that raised the event.
-     * @param {Integer} wmpbs <b>WMPBurnState</b> enumeration value that indicates the new state.
+     * @param {WMPBurnState} wmpbs <b>WMPBurnState</b> enumeration value that indicates the new state.
      * @returns {String} Nothing - always returns an empty string
      * @see https://learn.microsoft.com/windows/win32/api/wmp/nf-wmp-iwmpevents3-cdromburnstatechange
      */
@@ -147,7 +146,7 @@ class IWMPEvents3 extends IWMPEvents2{
      * You can also handle this event through an <b>IDispatch</b> event sink by using the <b>_WMPOCXEvents</b> interface.
      * 
      * <b>Windows Media Player 10 Mobile: </b>This event is not supported.
-     * @param {Integer} wmpfss <b>WMPFolderScanState</b> enumeration value that indicates the new state.
+     * @param {WMPFolderScanState} wmpfss <b>WMPFolderScanState</b> enumeration value that indicates the new state.
      * @returns {String} Nothing - always returns an empty string
      * @see https://learn.microsoft.com/windows/win32/api/wmp/nf-wmp-iwmpevents3-folderscanstatechange
      */
@@ -170,7 +169,7 @@ class IWMPEvents3 extends IWMPEvents2{
      * 
      * <b>Windows Media Player 10 Mobile: </b>This event is not supported.
      * @param {IDispatch} pdispStringCollection Pointer to the <b>IDispatch</b> interface that represents the string collection that changed. Call <b>QueryInterface</b> to retrieve a pointer to <b>IWMPStringCollection</b>.
-     * @param {Integer} change <a href="https://docs.microsoft.com/windows/desktop/api/wmp/ne-wmp-wmpstringcollectionchangeeventtype">WMPStringCollectionChangeEventType</a> value indicating the type of change that occurred.
+     * @param {WMPStringCollectionChangeEventType} change <a href="https://docs.microsoft.com/windows/desktop/api/wmp/ne-wmp-wmpstringcollectionchangeeventtype">WMPStringCollectionChangeEventType</a> value indicating the type of change that occurred.
      * @param {Integer} lCollectionIndex The index of the string collection item that changed.
      * @returns {String} Nothing - always returns an empty string
      * @see https://learn.microsoft.com/windows/win32/api/wmp/nf-wmp-iwmpevents3-stringcollectionchange

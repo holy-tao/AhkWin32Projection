@@ -1,18 +1,29 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
+#Include .\MBN_BAND_CLASS.ahk
+#Include .\MBN_CONTEXT_CONSTANTS.ahk
+#Include .\MBN_CTRL_CAPS.ahk
+#Include .\MBN_DATA_CLASS.ahk
+#Include .\MBN_INTERFACE_CAPS_CONSTANTS.ahk
+#Include .\MBN_PIN_CONSTANTS.ahk
+#Include .\MBN_PROVIDER_CONSTANTS.ahk
+#Include .\MBN_PROVIDER_STATE.ahk
+#Include .\MBN_REGISTRATION_CONSTANTS.ahk
+#Include .\MBN_SIGNAL_CONSTANTS.ahk
+#Include .\MBN_SMS_CAPS.ahk
+#Include .\WWAEXT_SMS_CONSTANTS.ahk
+#Include .\MBN_SMS_STATUS_FLAG.ahk
 
 /**
  * @namespace Windows.Win32.NetworkManagement.MobileBroadband
- * @version v4.0.30319
  */
-class __mbnapi_ReferenceRemainingTypes__ extends Win32Struct
-{
+class __mbnapi_ReferenceRemainingTypes__ extends Win32Struct {
     static sizeof => 56
 
     static packingSize => 4
 
     /**
-     * @type {Integer}
+     * @type {MBN_BAND_CLASS}
      */
     bandClass {
         get => NumGet(this, 0, "int")
@@ -20,7 +31,7 @@ class __mbnapi_ReferenceRemainingTypes__ extends Win32Struct
     }
 
     /**
-     * @type {Integer}
+     * @type {MBN_CONTEXT_CONSTANTS}
      */
     contextConstants {
         get => NumGet(this, 4, "int")
@@ -28,7 +39,7 @@ class __mbnapi_ReferenceRemainingTypes__ extends Win32Struct
     }
 
     /**
-     * @type {Integer}
+     * @type {MBN_CTRL_CAPS}
      */
     ctrlCaps {
         get => NumGet(this, 8, "int")
@@ -36,7 +47,7 @@ class __mbnapi_ReferenceRemainingTypes__ extends Win32Struct
     }
 
     /**
-     * @type {Integer}
+     * @type {MBN_DATA_CLASS}
      */
     dataClass {
         get => NumGet(this, 12, "int")
@@ -44,7 +55,7 @@ class __mbnapi_ReferenceRemainingTypes__ extends Win32Struct
     }
 
     /**
-     * @type {Integer}
+     * @type {MBN_INTERFACE_CAPS_CONSTANTS}
      */
     interfaceCapsConstants {
         get => NumGet(this, 16, "int")
@@ -52,7 +63,7 @@ class __mbnapi_ReferenceRemainingTypes__ extends Win32Struct
     }
 
     /**
-     * @type {Integer}
+     * @type {MBN_PIN_CONSTANTS}
      */
     pinConstants {
         get => NumGet(this, 20, "int")
@@ -60,7 +71,7 @@ class __mbnapi_ReferenceRemainingTypes__ extends Win32Struct
     }
 
     /**
-     * @type {Integer}
+     * @type {MBN_PROVIDER_CONSTANTS}
      */
     providerConstants {
         get => NumGet(this, 24, "int")
@@ -68,7 +79,7 @@ class __mbnapi_ReferenceRemainingTypes__ extends Win32Struct
     }
 
     /**
-     * @type {Integer}
+     * @type {MBN_PROVIDER_STATE}
      */
     providerState {
         get => NumGet(this, 28, "int")
@@ -76,7 +87,7 @@ class __mbnapi_ReferenceRemainingTypes__ extends Win32Struct
     }
 
     /**
-     * @type {Integer}
+     * @type {MBN_REGISTRATION_CONSTANTS}
      */
     registrationConstants {
         get => NumGet(this, 32, "int")
@@ -84,7 +95,7 @@ class __mbnapi_ReferenceRemainingTypes__ extends Win32Struct
     }
 
     /**
-     * @type {Integer}
+     * @type {MBN_SIGNAL_CONSTANTS}
      */
     signalConstants {
         get => NumGet(this, 36, "int")
@@ -92,7 +103,7 @@ class __mbnapi_ReferenceRemainingTypes__ extends Win32Struct
     }
 
     /**
-     * @type {Integer}
+     * @type {MBN_SMS_CAPS}
      */
     smsCaps {
         get => NumGet(this, 40, "int")
@@ -100,7 +111,7 @@ class __mbnapi_ReferenceRemainingTypes__ extends Win32Struct
     }
 
     /**
-     * @type {Integer}
+     * @type {WWAEXT_SMS_CONSTANTS}
      */
     smsConstants {
         get => NumGet(this, 44, "int")
@@ -108,7 +119,7 @@ class __mbnapi_ReferenceRemainingTypes__ extends Win32Struct
     }
 
     /**
-     * @type {Integer}
+     * @type {WWAEXT_SMS_CONSTANTS}
      */
     wwaextSmsConstants {
         get => NumGet(this, 48, "int")
@@ -116,7 +127,7 @@ class __mbnapi_ReferenceRemainingTypes__ extends Win32Struct
     }
 
     /**
-     * @type {Integer}
+     * @type {MBN_SMS_STATUS_FLAG}
      */
     smsStatusFlag {
         get => NumGet(this, 52, "int")

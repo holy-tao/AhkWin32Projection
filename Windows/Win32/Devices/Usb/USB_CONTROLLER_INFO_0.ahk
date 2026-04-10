@@ -1,5 +1,6 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
+#Include .\USB_CONTROLLER_FLAVOR.ahk
 
 /**
  * The USB_CONTROLLER_INFO_0 structure is used with the IOCTL_USB_USER_REQUEST I/O control request to retrieve information about the USB host controller.
@@ -7,10 +8,8 @@
  * The <b>USB_CONTROLLER_INFO_0</b> structure is used with the USBUSER_GET_CONTROLLER_INFO_0 user-mode request. For a description of this request, see <a href="https://docs.microsoft.com/windows/desktop/api/usbuser/ni-usbuser-ioctl_usb_user_request">IOCTL_USB_USER_REQUEST</a>.
  * @see https://learn.microsoft.com/windows/win32/api/usbuser/ns-usbuser-usb_controller_info_0
  * @namespace Windows.Win32.Devices.Usb
- * @version v4.0.30319
  */
-class USB_CONTROLLER_INFO_0 extends Win32Struct
-{
+class USB_CONTROLLER_INFO_0 extends Win32Struct {
     static sizeof => 24
 
     static packingSize => 4
@@ -56,7 +55,7 @@ class USB_CONTROLLER_INFO_0 extends Win32Struct
 
     /**
      * A <a href="https://docs.microsoft.com/windows-hardware/drivers/ddi/content/usb/ne-usb-_usb_controller_flavor">USB_CONTROLLER_FLAVOR</a>-typed enumerator  that specifies the type of controller.
-     * @type {Integer}
+     * @type {USB_CONTROLLER_FLAVOR}
      */
     ControllerFlavor {
         get => NumGet(this, 16, "int")

@@ -7,10 +7,8 @@
  * If the <b>dpFontSim</b> member of the <a href="https://docs.microsoft.com/windows/desktop/api/winddi/ns-winddi-ifimetrics">IFIMETRICS</a> structure is nonzero, it holds the offset from the beginning of that structure to the beginning of a FONTSIM structure.
  * @see https://learn.microsoft.com/windows/win32/api/winddi/ns-winddi-fontsim
  * @namespace Windows.Win32.Devices.Display
- * @version v4.0.30319
  */
-class FONTSIM extends Win32Struct
-{
+class FONTSIM extends Win32Struct {
     static sizeof => 12
 
     static packingSize => 4

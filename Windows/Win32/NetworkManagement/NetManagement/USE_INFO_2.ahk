@@ -1,5 +1,6 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
+#Include .\USE_INFO_ASG_TYPE.ahk
 
 /**
  * The USE_INFO_2 structure contains information about a connection between a local computer and a shared resource, including connection type, connection status, user name, and domain name.
@@ -8,10 +9,8 @@
  * <a href="https://docs.microsoft.com/windows/desktop/api/lmuse/nf-lmuse-netuseadd">NetUseAdd</a> function. This information includes the combination of the <b>ui2_password</b>, <b>ui2_username</b>, and <b>ui2_domainname</b> members.
  * @see https://learn.microsoft.com/windows/win32/api/lmuse/ns-lmuse-use_info_2
  * @namespace Windows.Win32.NetworkManagement.NetManagement
- * @version v4.0.30319
  */
-class USE_INFO_2 extends Win32Struct
-{
+class USE_INFO_2 extends Win32Struct {
     static sizeof => 56
 
     static packingSize => 8
@@ -157,7 +156,7 @@ class USE_INFO_2 extends Win32Struct
 
     /**
      * Type: <b>DWORD</b>
-     * @type {Integer}
+     * @type {USE_INFO_ASG_TYPE}
      */
     ui2_asg_type {
         get => NumGet(this, 28, "uint")

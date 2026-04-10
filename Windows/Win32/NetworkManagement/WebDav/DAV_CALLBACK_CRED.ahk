@@ -9,10 +9,8 @@
  * This structure is used by the <a href="https://docs.microsoft.com/windows/desktop/api/davclnt/nc-davclnt-pfndavauthcallback">DavAuthCallback</a> callback function.
  * @see https://learn.microsoft.com/windows/win32/api/davclnt/ns-davclnt-dav_callback_cred
  * @namespace Windows.Win32.NetworkManagement.WebDav
- * @version v4.0.30319
  */
-class DAV_CALLBACK_CRED extends Win32Struct
-{
+class DAV_CALLBACK_CRED extends Win32Struct {
     static sizeof => 56
 
     static packingSize => 8
@@ -21,7 +19,7 @@ class DAV_CALLBACK_CRED extends Win32Struct
      * If the <b>bAuthBlobValid</b> member is <b>TRUE</b>, this member is a <a href="https://docs.microsoft.com/windows/desktop/api/davclnt/ns-davclnt-dav_callback_auth_blob">DAV_CALLBACK_AUTH_BLOB</a> structure that contains the user credential information.
      * @type {DAV_CALLBACK_AUTH_BLOB}
      */
-    AuthBlob{
+    AuthBlob {
         get {
             if(!this.HasProp("__AuthBlob"))
                 this.__AuthBlob := DAV_CALLBACK_AUTH_BLOB(0, this)
@@ -33,7 +31,7 @@ class DAV_CALLBACK_CRED extends Win32Struct
      * If the <b>bAuthBlobValid</b> member is <b>FALSE</b>, this member is a <a href="https://docs.microsoft.com/windows/desktop/api/davclnt/ns-davclnt-dav_callback_auth_unp">DAV_CALLBACK_AUTH_UNP</a> structure that contains the user credential information.
      * @type {DAV_CALLBACK_AUTH_UNP}
      */
-    UNPBlob{
+    UNPBlob {
         get {
             if(!this.HasProp("__UNPBlob"))
                 this.__UNPBlob := DAV_CALLBACK_AUTH_UNP(16, this)

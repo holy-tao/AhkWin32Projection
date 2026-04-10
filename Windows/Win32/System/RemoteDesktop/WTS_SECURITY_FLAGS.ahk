@@ -3,9 +3,8 @@
 
 /**
  * @namespace Windows.Win32.System.RemoteDesktop
- * @version v4.0.30319
  */
-class WTS_SECURITY_FLAGS extends Win32BitflagEnum{
+class WTS_SECURITY_FLAGS extends Win32BitflagEnum {
 
     /**
      * @type {Integer (UInt32)}

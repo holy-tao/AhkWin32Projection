@@ -1,5 +1,6 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\..\Win32Struct.ahk
+#Include ..\..\..\System\Com\IUnknown.ahk
 
 /**
  * Contains information about an XAPO for use in an effect chain.
@@ -14,10 +15,8 @@
  * Windows 10 (XAudio2.9); Windows 8, Windows Phone 8 (XAudio 2.8); DirectX SDK (XAudio 2.7)
  * @see https://learn.microsoft.com/windows/win32/api/xaudio2/ns-xaudio2-xaudio2_effect_descriptor
  * @namespace Windows.Win32.Media.Audio.XAudio2
- * @version v4.0.30319
  */
-class XAUDIO2_EFFECT_DESCRIPTOR extends Win32Struct
-{
+class XAUDIO2_EFFECT_DESCRIPTOR extends Win32Struct {
     static sizeof => 16
 
     static packingSize => 8

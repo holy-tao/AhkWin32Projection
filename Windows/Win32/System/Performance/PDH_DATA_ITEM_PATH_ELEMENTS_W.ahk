@@ -5,11 +5,9 @@
  * The PDH_DATA_ITEM_PATH_ELEMENTS structure contains the path elements of a specific data item. (Unicode)
  * @see https://learn.microsoft.com/windows/win32/api/pdh/ns-pdh-pdh_data_item_path_elements_w
  * @namespace Windows.Win32.System.Performance
- * @version v4.0.30319
  * @charset Unicode
  */
-class PDH_DATA_ITEM_PATH_ELEMENTS_W extends Win32Struct
-{
+class PDH_DATA_ITEM_PATH_ELEMENTS_W extends Win32Struct {
     static sizeof => 32
 
     static packingSize => 8
@@ -25,7 +23,7 @@ class PDH_DATA_ITEM_PATH_ELEMENTS_W extends Win32Struct
 
     /**
      * GUID of the object where the data item resides.
-     * @type {Pointer<Guid>}
+     * @type {Pointer}
      */
     ObjectGUID {
         get => NumGet(this, 8, "ptr")

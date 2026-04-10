@@ -5,9 +5,8 @@
  * Specifies the type of acoustic environment that is simulated when audio is processed for an ISpatialAudioObjectForHrtf.
  * @see https://learn.microsoft.com/windows/win32/api/spatialaudiohrtf/ne-spatialaudiohrtf-spatialaudiohrtfenvironmenttype
  * @namespace Windows.Win32.Media.Audio
- * @version v4.0.30319
  */
-class SpatialAudioHrtfEnvironmentType extends Win32Enum{
+class SpatialAudioHrtfEnvironmentType extends Win32Enum {
 
     /**
      * A small room.

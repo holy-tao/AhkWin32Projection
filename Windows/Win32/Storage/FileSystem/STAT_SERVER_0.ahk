@@ -5,10 +5,8 @@
  * Contains statistical information about the server.
  * @see https://learn.microsoft.com/windows/win32/api/lmstats/ns-lmstats-stat_server_0
  * @namespace Windows.Win32.Storage.FileSystem
- * @version v4.0.30319
  */
-class STAT_SERVER_0 extends Win32Struct
-{
+class STAT_SERVER_0 extends Win32Struct {
     static sizeof => 68
 
     static packingSize => 4

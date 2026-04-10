@@ -7,9 +7,8 @@
  * The ITfCompositionSink interface is implemented by a text service to receive a notification when a composition is terminated.
  * @see https://learn.microsoft.com/windows/win32/api/msctf/nn-msctf-itfcompositionsink
  * @namespace Windows.Win32.UI.TextServices
- * @version v4.0.30319
  */
-class ITfCompositionSink extends IUnknown{
+class ITfCompositionSink extends IUnknown {
 
     static sizeof => A_PtrSize
     /**

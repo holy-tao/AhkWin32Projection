@@ -7,7 +7,6 @@
 
 /**
  * @namespace Windows.Win32.Graphics.Direct3D.Fxc
- * @version v4.0.30319
  */
 class Fxc {
 
@@ -291,7 +290,7 @@ class Fxc {
      * Compile HLSL code or an effect file into bytecode for a given target.
      * @remarks
      * The difference between <b>D3DCompile</b> and <a href="https://docs.microsoft.com/windows/desktop/direct3dhlsl/d3dcompile2">D3DCompile2</a> is that the latter method takes some optional parameters that can be used to control some aspects of how bytecode is generated. If this extra flexibility is not required, there is no performance gain from using <b>D3DCompile2</b>.
-     * @param {Pointer} pSrcData Type: <b><a href="https://docs.microsoft.com/windows/desktop/WinProg/windows-data-types">LPCVOID</a></b>
+     * @param {Integer} pSrcData Type: <b><a href="https://docs.microsoft.com/windows/desktop/WinProg/windows-data-types">LPCVOID</a></b>
      * 
      * A pointer to uncompiled shader data; either ASCII HLSL code or a compiled effect.
      * @param {Pointer} SrcDataSize Type: <b><a href="https://docs.microsoft.com/windows/desktop/WinProg/windows-data-types">SIZE_T</a></b>
@@ -345,7 +344,7 @@ class Fxc {
      * Compiles Microsoft High Level Shader Language (HLSL) code into bytecode for a given target. (D3DCompile2)
      * @remarks
      * The difference between <b>D3DCompile2</b> and <a href="https://docs.microsoft.com/windows/desktop/direct3dhlsl/d3dcompile">D3DCompile</a> is that <b>D3DCompile2</b> takes some optional parameters (<i>SecondaryDataFlags</i>, <i>pSecondaryData</i> and <i>SecondaryDataSize</i>)  that can be used to control some aspects of how bytecode is generated. Refer to the descriptions of these parameters for more details. There is no difference otherwise to the efficiency of the bytecode generated between  <b>D3DCompile2</b> and <b>D3DCompile</b>.
-     * @param {Pointer} pSrcData Type: <b><a href="https://docs.microsoft.com/windows/desktop/WinProg/windows-data-types">LPCVOID</a></b>
+     * @param {Integer} pSrcData Type: <b><a href="https://docs.microsoft.com/windows/desktop/WinProg/windows-data-types">LPCVOID</a></b>
      * 
      * A pointer to uncompiled shader data (ASCII HLSL code).
      * @param {Pointer} SrcDataSize Type: <b><a href="https://docs.microsoft.com/windows/desktop/WinProg/windows-data-types">SIZE_T</a></b>
@@ -398,7 +397,7 @@ class Fxc {
      * </table>
      * 
      * If <i>pSecondaryData</i> is <b>NULL</b>, set to zero.
-     * @param {Pointer} pSecondaryData Type: <b><a href="https://docs.microsoft.com/windows/desktop/WinProg/windows-data-types">LPCVOID</a></b>
+     * @param {Integer} pSecondaryData Type: <b><a href="https://docs.microsoft.com/windows/desktop/WinProg/windows-data-types">LPCVOID</a></b>
      * 
      * A pointer to secondary data. If you don't pass secondary data, set to <b>NULL</b>. Use this secondary data  to align UAV slots in two shaders. Suppose shader A has UAVs and they are bound to some slots. To compile shader B such that UAVs with the same names are mapped in B to the same slots as in A, pass A’s byte code to <b>D3DCompile2</b> as the secondary data.
      * @param {Pointer} SecondaryDataSize Type: <b><a href="https://docs.microsoft.com/windows/desktop/WinProg/windows-data-types">SIZE_T</a></b>
@@ -457,7 +456,7 @@ class Fxc {
      * Preprocesses uncompiled HLSL code.
      * @remarks
      * <b>D3DPreprocess</b> outputs <a href="https://docs.microsoft.com/windows/desktop/direct3dhlsl/dx-graphics-hlsl-appendix-pre-line">#line</a> directives and preserves line numbering of source input so that output line numbering can be properly related to the input source.
-     * @param {Pointer} pSrcData Type: <b><a href="https://docs.microsoft.com/windows/desktop/WinProg/windows-data-types">LPCVOID</a></b>
+     * @param {Integer} pSrcData Type: <b><a href="https://docs.microsoft.com/windows/desktop/WinProg/windows-data-types">LPCVOID</a></b>
      * 
      * A pointer to uncompiled shader data; either ASCII HLSL code or a compiled effect.
      * @param {Pointer} SrcDataSize Type: <b><a href="https://docs.microsoft.com/windows/desktop/WinProg/windows-data-types">SIZE_T</a></b>
@@ -497,7 +496,7 @@ class Fxc {
      * Note  You can use this API to develop your Windows Store apps, but you can't use it in apps that you submit to the Windows Store. Gets shader debug information.
      * @remarks
      * Debug information is embedded in the body of the shader after calling <a href="https://docs.microsoft.com/windows/desktop/direct3dhlsl/d3dcompile">D3DCompile</a>.
-     * @param {Pointer} pSrcData Type: <b><a href="https://docs.microsoft.com/windows/desktop/WinProg/windows-data-types">LPCVOID</a></b>
+     * @param {Integer} pSrcData Type: <b><a href="https://docs.microsoft.com/windows/desktop/WinProg/windows-data-types">LPCVOID</a></b>
      * 
      * A pointer to source data; either uncompiled or compiled HLSL code.
      * @param {Pointer} SrcDataSize Type: <b><a href="https://docs.microsoft.com/windows/desktop/WinProg/windows-data-types">SIZE_T</a></b>
@@ -531,7 +530,7 @@ class Fxc {
      *             IID_ID3D11ShaderReflection, (void**) &pReflector);
      * 
      * ```
-     * @param {Pointer} pSrcData Type: <b><a href="https://docs.microsoft.com/windows/desktop/WinProg/windows-data-types">LPCVOID</a></b>
+     * @param {Integer} pSrcData Type: <b><a href="https://docs.microsoft.com/windows/desktop/WinProg/windows-data-types">LPCVOID</a></b>
      * 
      * A pointer to source data as compiled HLSL code.
      * @param {Pointer} SrcDataSize Type: <b><a href="https://docs.microsoft.com/windows/desktop/WinProg/windows-data-types">SIZE_T</a></b>
@@ -552,7 +551,7 @@ class Fxc {
 
     /**
      * Creates a library-reflection interface from source data that contains an HLSL library of functions.
-     * @param {Pointer} pSrcData Type: <b><a href="https://docs.microsoft.com/windows/desktop/WinProg/windows-data-types">LPCVOID</a></b>
+     * @param {Integer} pSrcData Type: <b><a href="https://docs.microsoft.com/windows/desktop/WinProg/windows-data-types">LPCVOID</a></b>
      * 
      * A pointer to source data as an HLSL library of functions.
      * @param {Pointer} SrcDataSize Type: <b><a href="https://docs.microsoft.com/windows/desktop/WinProg/windows-data-types">SIZE_T</a></b>
@@ -573,7 +572,7 @@ class Fxc {
 
     /**
      * Disassembles compiled HLSL code.
-     * @param {Pointer} pSrcData Type: <b><a href="https://docs.microsoft.com/windows/desktop/WinProg/windows-data-types">LPCVOID</a></b>
+     * @param {Integer} pSrcData Type: <b><a href="https://docs.microsoft.com/windows/desktop/WinProg/windows-data-types">LPCVOID</a></b>
      * 
      * A pointer to source data as compiled HLSL code.
      * @param {Pointer} SrcDataSize Type: <b><a href="https://docs.microsoft.com/windows/desktop/WinProg/windows-data-types">SIZE_T</a></b>
@@ -600,7 +599,7 @@ class Fxc {
      * @remarks
      * <div class="alert"><b>Note</b>  The D3dcompiler_44.dll or later version of the file contains the <b>D3DDisassembleRegion</b> compiler function.</div>
      * <div> </div>
-     * @param {Pointer} pSrcData A pointer to compiled shader data.
+     * @param {Integer} pSrcData A pointer to compiled shader data.
      * @param {Pointer} SrcDataSize The size, in bytes, of the block of memory that <i>pSrcData</i> points to.
      * @param {Integer} Flags A combination of zero or more of the following flags that are combined by using a bitwise <b>OR</b> operation. The resulting value specifies how <b>D3DDisassembleRegion</b> disassembles the compiled shader data.
      * 
@@ -718,7 +717,7 @@ class Fxc {
      * 
      * <div class="alert"><b>Note</b>  The D3dcompiler_44.dll or later version of the file contains the <b>D3DGetTraceInstructionOffsets</b> compiler function.</div>
      * <div> </div>
-     * @param {Pointer} pSrcData A pointer to the compiled shader data.
+     * @param {Integer} pSrcData A pointer to the compiled shader data.
      * @param {Pointer} SrcDataSize The size, in bytes, of the block of memory that <i>pSrcData</i> points to.
      * @param {Integer} Flags A combination of the following flags that are combined by using a bitwise <b>OR</b> operation. The resulting value specifies how <b>D3DGetTraceInstructionOffsets</b> retrieves the instruction offsets.
      * 
@@ -749,7 +748,7 @@ class Fxc {
 
     /**
      * Note  D3DGetInputSignatureBlob may be altered or unavailable for releases after Windows 8.1. Instead use D3DGetBlobPart with the D3D_BLOB_INPUT_SIGNATURE_BLOB value.  Gets the input signature from a compilation result.
-     * @param {Pointer} pSrcData Type: <b><a href="https://docs.microsoft.com/windows/desktop/WinProg/windows-data-types">LPCVOID</a></b>
+     * @param {Integer} pSrcData Type: <b><a href="https://docs.microsoft.com/windows/desktop/WinProg/windows-data-types">LPCVOID</a></b>
      * 
      * A pointer to source data as compiled HLSL code.
      * @param {Pointer} SrcDataSize Type: <b><a href="https://docs.microsoft.com/windows/desktop/WinProg/windows-data-types">SIZE_T</a></b>
@@ -767,7 +766,7 @@ class Fxc {
 
     /**
      * Note  D3DGetOutputSignatureBlob may be altered or unavailable for releases after Windows 8.1. Instead use D3DGetBlobPart with the D3D_BLOB_OUTPUT_SIGNATURE_BLOB value.  Gets the output signature from a compilation result.
-     * @param {Pointer} pSrcData Type: <b><a href="https://docs.microsoft.com/windows/desktop/WinProg/windows-data-types">LPCVOID</a></b>
+     * @param {Integer} pSrcData Type: <b><a href="https://docs.microsoft.com/windows/desktop/WinProg/windows-data-types">LPCVOID</a></b>
      * 
      * A pointer to source data as compiled HLSL code.
      * @param {Pointer} SrcDataSize Type: <b><a href="https://docs.microsoft.com/windows/desktop/WinProg/windows-data-types">SIZE_T</a></b>
@@ -785,7 +784,7 @@ class Fxc {
 
     /**
      * Note  D3DGetInputAndOutputSignatureBlob may be altered or unavailable for releases after Windows 8.1. Instead use D3DGetBlobPart with the D3D_BLOB_INPUT_AND_OUTPUT_SIGNATURE_BLOB value.  Gets the input and output signatures from a compilation result.
-     * @param {Pointer} pSrcData Type: <b><a href="https://docs.microsoft.com/windows/desktop/WinProg/windows-data-types">LPCVOID</a></b>
+     * @param {Integer} pSrcData Type: <b><a href="https://docs.microsoft.com/windows/desktop/WinProg/windows-data-types">LPCVOID</a></b>
      * 
      * A pointer to source data as compiled HLSL code.
      * @param {Pointer} SrcDataSize Type: <b><a href="https://docs.microsoft.com/windows/desktop/WinProg/windows-data-types">SIZE_T</a></b>
@@ -803,7 +802,7 @@ class Fxc {
 
     /**
      * Removes unwanted blobs from a compilation result.
-     * @param {Pointer} pShaderBytecode Type: <b><a href="https://docs.microsoft.com/windows/desktop/WinProg/windows-data-types">LPCVOID</a></b>
+     * @param {Integer} pShaderBytecode Type: <b><a href="https://docs.microsoft.com/windows/desktop/WinProg/windows-data-types">LPCVOID</a></b>
      * 
      * A pointer to source data as compiled HLSL code.
      * @param {Pointer} BytecodeLength Type: <b><a href="https://docs.microsoft.com/windows/desktop/WinProg/windows-data-types">SIZE_T</a></b>
@@ -826,13 +825,13 @@ class Fxc {
      * Retrieves a specific part from a compilation result.
      * @remarks
      * <b>D3DGetBlobPart</b> retrieves the part of a blob (arbitrary length data buffer) that contains the type of data that the  <i>Part</i> parameter specifies.
-     * @param {Pointer} pSrcData Type: <b><a href="https://docs.microsoft.com/windows/desktop/WinProg/windows-data-types">LPCVOID</a></b>
+     * @param {Integer} pSrcData Type: <b><a href="https://docs.microsoft.com/windows/desktop/WinProg/windows-data-types">LPCVOID</a></b>
      * 
      * A pointer to uncompiled shader data; either ASCII HLSL code or a compiled effect.
      * @param {Pointer} SrcDataSize Type: <b><a href="https://docs.microsoft.com/windows/desktop/WinProg/windows-data-types">SIZE_T</a></b>
      * 
      * Length of uncompiled shader data that <i>pSrcData</i> points to.
-     * @param {Integer} Part Type: <b><a href="https://docs.microsoft.com/windows/desktop/direct3dhlsl/d3d-blob-part">D3D_BLOB_PART</a></b>
+     * @param {D3D_BLOB_PART} Part Type: <b><a href="https://docs.microsoft.com/windows/desktop/direct3dhlsl/d3d-blob-part">D3D_BLOB_PART</a></b>
      * 
      * A <a href="https://docs.microsoft.com/windows/desktop/direct3dhlsl/d3d-blob-part">D3D_BLOB_PART</a>-typed value that specifies the part of the buffer to retrieve.
      * @param {Integer} Flags Type: <b><a href="https://docs.microsoft.com/windows/desktop/WinProg/windows-data-types">UINT</a></b>
@@ -855,19 +854,19 @@ class Fxc {
      * 
      * <div class="alert"><b>Note</b>  The D3dcompiler_44.dll or later version of the file contains the <b>D3DSetBlobPart</b> compiler function.</div>
      * <div> </div>
-     * @param {Pointer} pSrcData Type: <b><a href="https://docs.microsoft.com/windows/desktop/WinProg/windows-data-types">LPCVOID</a></b>
+     * @param {Integer} pSrcData Type: <b><a href="https://docs.microsoft.com/windows/desktop/WinProg/windows-data-types">LPCVOID</a></b>
      * 
      * A pointer to compiled shader data.
      * @param {Pointer} SrcDataSize Type: <b><a href="https://docs.microsoft.com/windows/desktop/WinProg/windows-data-types">SIZE_T</a></b>
      * 
      * The length of the compiled shader data that <i>pSrcData</i> points to.
-     * @param {Integer} Part Type: <b><a href="https://docs.microsoft.com/windows/desktop/direct3dhlsl/d3d-blob-part">D3D_BLOB_PART</a></b>
+     * @param {D3D_BLOB_PART} Part Type: <b><a href="https://docs.microsoft.com/windows/desktop/direct3dhlsl/d3d-blob-part">D3D_BLOB_PART</a></b>
      * 
      * A <a href="https://docs.microsoft.com/windows/desktop/direct3dhlsl/d3d-blob-part">D3D_BLOB_PART</a>-typed value that specifies the part to set. Currently, you can update only private data; that is, <b>D3DSetBlobPart</b> currently only supports the <a href="https://docs.microsoft.com/windows/desktop/direct3dhlsl/d3d-blob-part">D3D_BLOB_PRIVATE_DATA</a> value.
      * @param {Integer} Flags Type: <b><a href="https://docs.microsoft.com/windows/desktop/WinProg/windows-data-types">UINT</a></b>
      * 
      * Flags that indicate how to set the blob part. Currently, no flags are defined; therefore, set to zero.
-     * @param {Pointer} pPart Type: <b><a href="https://docs.microsoft.com/windows/desktop/WinProg/windows-data-types">LPCVOID</a></b>
+     * @param {Integer} pPart Type: <b><a href="https://docs.microsoft.com/windows/desktop/WinProg/windows-data-types">LPCVOID</a></b>
      * 
      * A pointer to data to set in the compilation result.
      * @param {Pointer} PartSize Type: <b><a href="https://docs.microsoft.com/windows/desktop/WinProg/windows-data-types">SIZE_T</a></b>
@@ -887,7 +886,9 @@ class Fxc {
      * Creates a buffer.
      * @remarks
      * The latest D3dcompiler_nn.dll contains the <b>D3DCreateBlob</b> compiler function. Therefore, you are no longer required to create and use an arbitrary length data buffer by using the  <a href="https://docs.microsoft.com/windows/desktop/api/d3d10misc/nf-d3d10misc-d3d10createblob">D3D10CreateBlob</a> function that is contained in D3d10.dll.
-     * @param {Pointer} _Size 
+     * @param {Pointer} _Size Type: <b><a href="https://docs.microsoft.com/windows/desktop/WinProg/windows-data-types">SIZE_T</a></b>
+     * 
+     * Number of bytes in the blob.
      * @returns {ID3DBlob} Type: <b><a href="https://docs.microsoft.com/previous-versions/windows/desktop/legacy/ff728743(v=vs.85)">ID3DBlob</a>**</b>
      * 
      * The address of a pointer to the <a href="https://docs.microsoft.com/previous-versions/windows/desktop/legacy/ff728743(v=vs.85)">ID3DBlob</a> interface that is used to retrieve the buffer.
@@ -921,7 +922,7 @@ class Fxc {
 
     /**
      * Decompresses one or more shaders from a compressed set.
-     * @param {Pointer} pSrcData Type: <b><a href="https://docs.microsoft.com/windows/desktop/WinProg/windows-data-types">LPCVOID</a></b>
+     * @param {Integer} pSrcData Type: <b><a href="https://docs.microsoft.com/windows/desktop/WinProg/windows-data-types">LPCVOID</a></b>
      * 
      * A pointer to uncompiled shader data; either ASCII HLSL code or a compiled effect.
      * @param {Pointer} SrcDataSize Type: <b><a href="https://docs.microsoft.com/windows/desktop/WinProg/windows-data-types">SIZE_T</a></b>

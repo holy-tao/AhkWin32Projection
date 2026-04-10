@@ -5,9 +5,8 @@
  * Defines prompt types for the CIM extensions.
  * @see https://learn.microsoft.com/windows/win32/api/mi/ne-mi-mi_prompttype
  * @namespace Windows.Win32.System.Wmi
- * @version v4.0.30319
  */
-class MI_PromptType extends Win32Enum{
+class MI_PromptType extends Win32Enum {
 
     /**
      * A parameter of the  <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/mi/nf-mi-mi_context_promptuser">MI_Context_PromptUser</a> function that specifies whether the prompt is a normal prompt such as "are you sure you want to delete this file?"

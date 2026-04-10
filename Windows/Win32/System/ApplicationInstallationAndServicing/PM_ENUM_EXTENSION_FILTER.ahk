@@ -3,9 +3,8 @@
 
 /**
  * @namespace Windows.Win32.System.ApplicationInstallationAndServicing
- * @version v4.0.30319
  */
-class PM_ENUM_EXTENSION_FILTER extends Win32Enum{
+class PM_ENUM_EXTENSION_FILTER extends Win32Enum {
 
     /**
      * @type {Integer (Int32)}

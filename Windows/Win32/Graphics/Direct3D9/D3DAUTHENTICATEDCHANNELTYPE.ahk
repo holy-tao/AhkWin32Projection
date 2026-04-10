@@ -5,9 +5,8 @@
  * Specifies the type of Direct3D authenticated channel.
  * @see https://learn.microsoft.com/windows/win32/medfound/d3dauthenticatedchanneltype
  * @namespace Windows.Win32.Graphics.Direct3D9
- * @version v4.0.30319
  */
-class D3DAUTHENTICATEDCHANNELTYPE extends Win32Enum{
+class D3DAUTHENTICATEDCHANNELTYPE extends Win32Enum {
 
     /**
      * @type {Integer (Int32)}

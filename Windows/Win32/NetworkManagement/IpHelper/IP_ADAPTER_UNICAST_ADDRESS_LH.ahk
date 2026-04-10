@@ -1,6 +1,11 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
+#Include .\IP_ADAPTER_UNICAST_ADDRESS_LH.ahk
 #Include ..\..\Networking\WinSock\SOCKET_ADDRESS.ahk
+#Include ..\..\Networking\WinSock\SOCKADDR.ahk
+#Include ..\..\Networking\WinSock\NL_PREFIX_ORIGIN.ahk
+#Include ..\..\Networking\WinSock\NL_SUFFIX_ORIGIN.ahk
+#Include ..\..\Networking\WinSock\NL_DAD_STATE.ahk
 
 /**
  * The IP_ADAPTER_UNICAST_ADDRESS_LH structure (iptypes.h) stores a single unicast IP address in a linked list of IP addresses for a particular adapter.
@@ -18,10 +23,8 @@
  * The <a href="https://docs.microsoft.com/windows/desktop/api/ws2def/ns-ws2def-socket_address">SOCKET_ADDRESS</a> structure is used in the <b>IP_ADAPTER_UNICAST_ADDRESS</b> structure. On the Microsoft Windows Software Development Kit (SDK) released for Windows Vista and later, the organization of header files has changed and the <b>SOCKET_ADDRESS</b> structure is defined in the <i>Ws2def.h</i> header file which is automatically included by the <i>Winsock2.h</i> header file. On the Platform Software Development Kit (SDK) released for Windows Server 2003 and Windows XP, the <b>SOCKET_ADDRESS</b> structure is declared in the <i>Winsock2.h</i> header file. In order to use the <b>IP_ADAPTER_UNICAST_ADDRESS</b> structure, the <i>Winsock2.h</i> header file must be included before the <i>Iphlpapi.h</i> header file.
  * @see https://learn.microsoft.com/windows/win32/api/iptypes/ns-iptypes-ip_adapter_unicast_address_lh
  * @namespace Windows.Win32.NetworkManagement.IpHelper
- * @version v4.0.30319
  */
-class IP_ADAPTER_UNICAST_ADDRESS_LH extends Win32Struct
-{
+class IP_ADAPTER_UNICAST_ADDRESS_LH extends Win32Struct {
     static sizeof => 64
 
     static packingSize => 8
@@ -67,7 +70,7 @@ class IP_ADAPTER_UNICAST_ADDRESS_LH extends Win32Struct
      * The IP address for this unicast IP address entry. This member can be an IPv6 address or an IPv4 address.
      * @type {SOCKET_ADDRESS}
      */
-    Address{
+    Address {
         get {
             if(!this.HasProp("__Address"))
                 this.__Address := SOCKET_ADDRESS(16, this)
@@ -79,7 +82,7 @@ class IP_ADAPTER_UNICAST_ADDRESS_LH extends Win32Struct
      * Type: <b>IP_PREFIX_ORIGIN</b>
      * 
      * The prefix or network part of IP the address. This member can be one of the values from the <a href="https://docs.microsoft.com/windows/desktop/api/nldef/ne-nldef-nl_prefix_origin">IP_PREFIX_ORIGIN</a> enumeration type defined in the <i>Iptypes.h</i> header file.
-     * @type {Integer}
+     * @type {NL_PREFIX_ORIGIN}
      */
     PrefixOrigin {
         get => NumGet(this, 32, "int")
@@ -90,7 +93,7 @@ class IP_ADAPTER_UNICAST_ADDRESS_LH extends Win32Struct
      * Type: <b>IP_SUFFIX_ORIGIN</b>
      * 
      * The suffix or host part of the IP address. This member can be one of the values from the <a href="https://docs.microsoft.com/windows/desktop/api/nldef/ne-nldef-nl_suffix_origin">IP_SUFFIX_ORIGIN</a> enumeration type defined in the <i>Iptypes.h</i> header file.
-     * @type {Integer}
+     * @type {NL_SUFFIX_ORIGIN}
      */
     SuffixOrigin {
         get => NumGet(this, 36, "int")
@@ -102,7 +105,7 @@ class IP_ADAPTER_UNICAST_ADDRESS_LH extends Win32Struct
      * 
      * The duplicate address detection (DAD) state. This member can be one of the values from the <a href="https://docs.microsoft.com/windows/desktop/api/nldef/ne-nldef-nl_dad_state">IP_DAD_STATE</a> enumeration type defined in the <i>Iptypes.h</i> header file. 
      * Duplicate address detection is available for both IPv4 and IPv6 addresses.
-     * @type {Integer}
+     * @type {NL_DAD_STATE}
      */
     DadState {
         get => NumGet(this, 40, "int")

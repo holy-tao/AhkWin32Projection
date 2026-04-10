@@ -7,9 +7,8 @@
  * This enumeration is a member of the [DVD_AudioAttributes](/windows/desktop/api/strmif/ns-strmif-dvd_audioattributes) structure.
  * @see https://learn.microsoft.com/windows/win32/api/strmif/ne-strmif-dvd_audio_format
  * @namespace Windows.Win32.Media.DirectShow
- * @version v4.0.30319
  */
-class DVD_AUDIO_FORMAT extends Win32Enum{
+class DVD_AUDIO_FORMAT extends Win32Enum {
 
     /**
      * Audio format is Dolby AC-3.

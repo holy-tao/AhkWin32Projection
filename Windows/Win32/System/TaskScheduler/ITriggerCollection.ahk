@@ -1,9 +1,9 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
+#Include ..\Com\IDispatch.ahk
 #Include .\ITrigger.ahk
 #Include ..\Com\IUnknown.ahk
-#Include ..\Com\IDispatch.ahk
 
 /**
  * Provides the methods that are used to add to, remove from, and get the triggers of a task.
@@ -11,9 +11,8 @@
  * When reading or writing XML for a task, the triggers for the task are specified in the <a href="https://docs.microsoft.com/windows/desktop/TaskSchd/taskschedulerschema-triggers-tasktype-element">Triggers</a> element of the Task Scheduler schema.
  * @see https://learn.microsoft.com/windows/win32/api/taskschd/nn-taskschd-itriggercollection
  * @namespace Windows.Win32.System.TaskScheduler
- * @version v4.0.30319
  */
-class ITriggerCollection extends IDispatch{
+class ITriggerCollection extends IDispatch {
 
     static sizeof => A_PtrSize
     /**
@@ -85,7 +84,7 @@ class ITriggerCollection extends IDispatch{
 
     /**
      * Creates a new trigger for the task.
-     * @param {Integer} type This parameter is set to one of the following  <a href="https://docs.microsoft.com/windows/desktop/api/taskschd/ne-taskschd-task_trigger_type2">TASK_TRIGGER_TYPE2</a> enumeration constants.
+     * @param {TASK_TRIGGER_TYPE2} type This parameter is set to one of the following  <a href="https://docs.microsoft.com/windows/desktop/api/taskschd/ne-taskschd-task_trigger_type2">TASK_TRIGGER_TYPE2</a> enumeration constants.
      * 
      * <table>
      * <tr>

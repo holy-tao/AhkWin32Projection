@@ -3,9 +3,8 @@
 
 /**
  * @namespace Windows.Win32.System.SystemServices
- * @version v4.0.30319
  */
-class RESOURCEMANAGER_INFORMATION_CLASS extends Win32Enum{
+class RESOURCEMANAGER_INFORMATION_CLASS extends Win32Enum {
 
     /**
      * @type {Integer (Int32)}

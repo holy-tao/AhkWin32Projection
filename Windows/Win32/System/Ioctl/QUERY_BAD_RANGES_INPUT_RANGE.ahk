@@ -3,10 +3,8 @@
 
 /**
  * @namespace Windows.Win32.System.Ioctl
- * @version v4.0.30319
  */
-class QUERY_BAD_RANGES_INPUT_RANGE extends Win32Struct
-{
+class QUERY_BAD_RANGES_INPUT_RANGE extends Win32Struct {
     static sizeof => 16
 
     static packingSize => 8

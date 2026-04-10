@@ -7,9 +7,8 @@
  * The IWMReaderNetworkConfig2 interface provides advanced networking functionality.An IWMReaderNetworkConfig2 interface exists for every reader object.
  * @see https://learn.microsoft.com/windows/win32/api/wmsdkidl/nn-wmsdkidl-iwmreadernetworkconfig2
  * @namespace Windows.Win32.Media.WindowsMediaFormat
- * @version v4.0.30319
  */
-class IWMReaderNetworkConfig2 extends IWMReaderNetworkConfig{
+class IWMReaderNetworkConfig2 extends IWMReaderNetworkConfig {
 
     static sizeof => A_PtrSize
     /**

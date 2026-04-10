@@ -3,7 +3,6 @@
 
 /**
  * @namespace Windows.Win32.System.Shutdown
- * @version v4.0.30319
  */
 class Shutdown {
 
@@ -312,7 +311,7 @@ class Shutdown {
      * <b>Windows Server 2003 and Windows XP with SP1:  </b>If the computer to be shut down is a Terminal Services server, the system displays a dialog box to all local and remote users warning them that shutdown has been initiated. The dialog box includes who requested the shutdown, the display message (see <i>lpMessage</i>), and how much time there is until the server is shut down.
      * @param {BOOL} bForceAppsClosed If this parameter is <b>TRUE</b>, applications with unsaved changes are to be forcibly closed. If this parameter is <b>FALSE</b>, the system displays a dialog box instructing the user to close the applications.
      * @param {BOOL} bRebootAfterShutdown If this parameter is <b>TRUE</b>, the computer is to restart immediately after shutting down. If this parameter is <b>FALSE</b>, the system flushes all caches to disk  and  safely powers down the system.
-     * @param {Integer} dwReason The reason for initiating the shutdown. This parameter must be one of the 
+     * @param {SHUTDOWN_REASON} dwReason The reason for initiating the shutdown. This parameter must be one of the 
      * <a href="https://docs.microsoft.com/windows/desktop/Shutdown/system-shutdown-reason-codes">system shutdown reason codes</a>. 
      * 
      * 
@@ -390,7 +389,7 @@ class Shutdown {
      * <b>Windows Server 2003 and Windows XP with SP1:  </b>If the computer to be shut down is a Terminal Services server, the system displays a dialog box to all local and remote users warning them that shutdown has been initiated. The dialog box includes who requested the shutdown, the display message (see <i>lpMessage</i>), and how much time there is until the server is shut down.
      * @param {BOOL} bForceAppsClosed If this parameter is <b>TRUE</b>, applications with unsaved changes are to be forcibly closed. If this parameter is <b>FALSE</b>, the system displays a dialog box instructing the user to close the applications.
      * @param {BOOL} bRebootAfterShutdown If this parameter is <b>TRUE</b>, the computer is to restart immediately after shutting down. If this parameter is <b>FALSE</b>, the system flushes all caches to disk  and  safely powers down the system.
-     * @param {Integer} dwReason The reason for initiating the shutdown. This parameter must be one of the 
+     * @param {SHUTDOWN_REASON} dwReason The reason for initiating the shutdown. This parameter must be one of the 
      * <a href="https://docs.microsoft.com/windows/desktop/Shutdown/system-shutdown-reason-codes">system shutdown reason codes</a>. 
      * 
      * 
@@ -441,7 +440,7 @@ class Shutdown {
      * @param {Integer} dwGracePeriod The number of seconds to wait before shutting down the computer. If the value of this parameter is zero, the computer is shut down immediately. This value is limited to <b>MAX_SHUTDOWN_TIMEOUT</b>.
      * 
      * If the value of this parameter is greater than zero, and the <i>dwShutdownFlags</i> parameter specifies the flag <b>SHUTDOWN_GRACE_OVERRIDE</b>, the function fails and returns the error code <b>ERROR_BAD_ARGUMENTS</b>.
-     * @param {Integer} dwShutdownFlags One or more bit flags that specify options for the shutdown. The following values are defined.
+     * @param {SHUTDOWN_FLAGS} dwShutdownFlags One or more bit flags that specify options for the shutdown. The following values are defined.
      * 
      * <table>
      * <tr>
@@ -550,7 +549,7 @@ class Shutdown {
      * </td>
      * </tr>
      * </table>
-     * @param {Integer} dwReason The reason for initiating the shutdown. This parameter must be one of the <a href="https://docs.microsoft.com/windows/desktop/Shutdown/system-shutdown-reason-codes">system shutdown reason codes</a>. 
+     * @param {SHUTDOWN_REASON} dwReason The reason for initiating the shutdown. This parameter must be one of the <a href="https://docs.microsoft.com/windows/desktop/Shutdown/system-shutdown-reason-codes">system shutdown reason codes</a>. 
      * If this parameter is zero, the default is an undefined shutdown that is logged as "No title for this reason could be found". By default, it is also an unplanned shutdown. Depending on how the system is configured, an unplanned shutdown triggers the creation of a file that contains the system state information, which can delay shutdown. Therefore, do not use zero for this parameter.
      * @returns {Integer} If the function succeeds, it returns <b>ERROR_SUCCESS</b>.
      * 
@@ -687,7 +686,7 @@ class Shutdown {
      * @param {Integer} dwGracePeriod The number of seconds to wait before shutting down the computer. If the value of this parameter is zero, the computer is shut down immediately. This value is limited to <b>MAX_SHUTDOWN_TIMEOUT</b>.
      * 
      * If the value of this parameter is greater than zero, and the <i>dwShutdownFlags</i> parameter specifies the flag <b>SHUTDOWN_GRACE_OVERRIDE</b>, the function fails and returns the error code <b>ERROR_BAD_ARGUMENTS</b>.
-     * @param {Integer} dwShutdownFlags One or more bit flags that specify options for the shutdown. The following values are defined.
+     * @param {SHUTDOWN_FLAGS} dwShutdownFlags One or more bit flags that specify options for the shutdown. The following values are defined.
      * 
      * <table>
      * <tr>
@@ -796,7 +795,7 @@ class Shutdown {
      * </td>
      * </tr>
      * </table>
-     * @param {Integer} dwReason The reason for initiating the shutdown. This parameter must be one of the <a href="https://docs.microsoft.com/windows/desktop/Shutdown/system-shutdown-reason-codes">system shutdown reason codes</a>. 
+     * @param {SHUTDOWN_REASON} dwReason The reason for initiating the shutdown. This parameter must be one of the <a href="https://docs.microsoft.com/windows/desktop/Shutdown/system-shutdown-reason-codes">system shutdown reason codes</a>. 
      * If this parameter is zero, the default is an undefined shutdown that is logged as "No title for this reason could be found". By default, it is also an unplanned shutdown. Depending on how the system is configured, an unplanned shutdown triggers the creation of a file that contains the system state information, which can delay shutdown. Therefore, do not use zero for this parameter.
      * @returns {Integer} If the function succeeds, it returns <b>ERROR_SUCCESS</b>.
      * 
@@ -954,8 +953,8 @@ class Shutdown {
      * To shut down or restart the system, the calling process must use the 
      * <a href="https://docs.microsoft.com/windows/desktop/api/securitybaseapi/nf-securitybaseapi-adjusttokenprivileges">AdjustTokenPrivileges</a> function to enable the SE_SHUTDOWN_NAME privilege. For more information, see 
      * <a href="https://docs.microsoft.com/windows/desktop/SecBP/running-with-special-privileges">Running with Special Privileges</a>.
-     * @param {Integer} uFlags 
-     * @param {Integer} dwReason The reason for initiating the shutdown. This parameter must be one of the 
+     * @param {EXIT_WINDOWS_FLAGS} uFlags 
+     * @param {SHUTDOWN_REASON} dwReason The reason for initiating the shutdown. This parameter must be one of the 
      * <a href="https://docs.microsoft.com/windows/desktop/Shutdown/system-shutdown-reason-codes">system shutdown reason codes</a>.
      * 
      * If this parameter is zero, the SHTDN_REASON_FLAG_PLANNED reason code  will not be set and therefore the default action is an undefined shutdown that is logged as "No title for this reason could be found". By default, it is also an unplanned shutdown. Depending on how the system is configured, an unplanned shutdown triggers the creation of a file that contains the system state information, which can delay shutdown. Therefore, do not use zero for this parameter.
@@ -1012,7 +1011,7 @@ class Shutdown {
      * Applications should call this function as they begin an operation that cannot be interrupted, such as burning a CD or DVD. When the operation has completed, call the <a href="https://docs.microsoft.com/windows/desktop/api/winuser/nf-winuser-shutdownblockreasondestroy">ShutdownBlockReasonDestroy</a> function to indicate that the system can be shut down.
      * 
      * Because users are typically in a hurry when shutting down the system, they may spend only  a few seconds looking at the shutdown reasons that are displayed by the system. Therefore, it is important that your reason strings are short and clear. For example "A CD burn is in progress." is better than "This application is blocking system shutdown because a CD burn is in progress. Do not shut down."
-     * @param {HWND} _hWnd 
+     * @param {HWND} _hWnd A handle to the main window of the application.
      * @param {PWSTR} pwszReason The reason the application must block system shutdown. This string will be truncated for display purposes after MAX_STR_BLOCKREASON characters.
      * @returns {BOOL} If the call succeeds, the return value is nonzero.
      * 
@@ -1039,7 +1038,7 @@ class Shutdown {
      * Retrieves the reason string set by the ShutdownBlockReasonCreate function.
      * @remarks
      * This function can only be called from the thread that created the window specified by the <i>hWnd</i> parameter. Otherwise, the function fails and the last error code is ERROR_ACCESS_DENIED.
-     * @param {HWND} _hWnd 
+     * @param {HWND} _hWnd A handle to the main window of the application.
      * @param {PWSTR} pwszBuff A pointer to a buffer that receives the reason string. If this parameter is <b>NULL</b>, the function retrieves the number of characters in the reason string.
      * @param {Pointer<Integer>} pcchBuff A pointer to a variable that specifies the size of the <i>pwszBuff</i> buffer, in characters. If the function succeeds, this variable receives the number of characters copied into the buffer, including the <b>null</b>-terminating character. If the buffer is too small, the variable receives the required buffer size, in characters, not including the <b>null</b>-terminating character.
      * @returns {BOOL} If the call succeeds, the return value is nonzero.
@@ -1071,7 +1070,7 @@ class Shutdown {
      * This function can only be called from the thread that created the window specified by the <i>hWnd</i> parameter. Otherwise, the function fails and the last error code is ERROR_ACCESS_DENIED.
      * 
      * If system shutdown has been previously blocked by the <a href="https://docs.microsoft.com/windows/desktop/api/winuser/nf-winuser-shutdownblockreasoncreate">ShutdownBlockReasonCreate</a> function, this function frees the reason string. Otherwise, this function is a no-op.
-     * @param {HWND} _hWnd 
+     * @param {HWND} _hWnd A handle to the main window of the application.
      * @returns {BOOL} If the call succeeds, the return value is nonzero.
      * 
      * If the call fails, the return value is zero. To get extended error information, call 

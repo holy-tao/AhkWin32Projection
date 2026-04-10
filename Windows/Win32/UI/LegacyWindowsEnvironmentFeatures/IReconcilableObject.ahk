@@ -7,9 +7,8 @@
  * Exposes methods that reconcile a given document. The briefcase reconciler is responsible for implementing this interface.
  * @see https://learn.microsoft.com/windows/win32/api/reconcil/nn-reconcil-ireconcilableobject
  * @namespace Windows.Win32.UI.LegacyWindowsEnvironmentFeatures
- * @version v4.0.30319
  */
-class IReconcilableObject extends IUnknown{
+class IReconcilableObject extends IUnknown {
 
     static sizeof => A_PtrSize
     /**

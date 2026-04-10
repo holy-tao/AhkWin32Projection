@@ -1,8 +1,8 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
-#Include .\IAutomaticUpdatesResults.ahk
 #Include .\IAutomaticUpdates.ahk
+#Include .\IAutomaticUpdatesResults.ahk
 
 /**
  * Contains the functionality of Automatic Updates. (IAutomaticUpdates2)
@@ -11,9 +11,8 @@
  *     Microsoft.Update.AutoUpdate program identifier to create the object.
  * @see https://learn.microsoft.com/windows/win32/api/wuapi/nn-wuapi-iautomaticupdates2
  * @namespace Windows.Win32.System.UpdateAgent
- * @version v4.0.30319
  */
-class IAutomaticUpdates2 extends IAutomaticUpdates{
+class IAutomaticUpdates2 extends IAutomaticUpdates {
 
     static sizeof => A_PtrSize
     /**

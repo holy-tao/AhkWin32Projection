@@ -1,12 +1,11 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
+#Include .\SWbemAnalysisMatrix.ahk
 
 /**
  * @namespace Windows.Win32.System.Wmi
- * @version v4.0.30319
  */
-class SWbemAnalysisMatrixList extends Win32Struct
-{
+class SWbemAnalysisMatrixList extends Win32Struct {
     static sizeof => 24
 
     static packingSize => 8

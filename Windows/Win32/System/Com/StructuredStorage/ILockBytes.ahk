@@ -1,16 +1,15 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\..\Guid.ahk
-#Include ..\STATSTG.ahk
 #Include ..\IUnknown.ahk
+#Include ..\STATSTG.ahk
 
 /**
  * The ILockBytes interface is implemented on a byte array object that is backed by some physical storage, such as a disk file, global memory, or a database.
  * @see https://learn.microsoft.com/windows/win32/api/objidl/nn-objidl-ilockbytes
  * @namespace Windows.Win32.System.Com.StructuredStorage
- * @version v4.0.30319
  */
-class ILockBytes extends IUnknown{
+class ILockBytes extends IUnknown {
 
     static sizeof => A_PtrSize
     /**
@@ -38,7 +37,7 @@ class ILockBytes extends IUnknown{
      * 
      * It is not an error to read less than the specified number of bytes if the operation encounters the end of the byte array. Note that this is the same end-of-file behavior as found in MS-DOS file allocation table (FAT) file system files.
      * @param {Integer} ulOffset Specifies the starting point from the beginning of the byte array for reading data.
-     * @param {Pointer} pv Pointer to the buffer into which the byte array is read.  The size of this buffer is contained in <i>cb</i>.
+     * @param {Integer} pv Pointer to the buffer into which the byte array is read.  The size of this buffer is contained in <i>cb</i>.
      * @param {Integer} cb Specifies the number of bytes of data to attempt to read from the byte array.
      * @returns {Integer} Pointer to a <b>ULONG</b> where this method writes the actual number of bytes read from the byte array. You can set this pointer to <b>NULL</b> to indicate that you are not interested in this value. In this case, this method does not provide the actual number of bytes that were read.
      * @see https://learn.microsoft.com/windows/win32/api/objidl/nf-objidl-ilockbytes-readat
@@ -55,7 +54,7 @@ class ILockBytes extends IUnknown{
      * 
      * If <i>ulOffset</i> is past the end of the byte array and <i>cb</i> is greater than zero, <b>ILockBytes::WriteAt</b> increases the size of the byte array. The fill bytes written to the byte array are not initialized to any particular value.
      * @param {Integer} ulOffset Specifies the starting point from the beginning of the byte array for the data to be written.
-     * @param {Pointer} pv Pointer to the buffer containing the data to be written.
+     * @param {Integer} pv Pointer to the buffer containing the data to be written.
      * @param {Integer} cb Specifies the number of bytes of data to attempt to write into the byte array.
      * @returns {Integer} Pointer to a location where this method specifies the actual number of bytes written to the byte array. You can set this pointer to <b>NULL</b> to indicate that you are not interested in this value. In this case, this method does not provide the actual number of bytes written.
      * @see https://learn.microsoft.com/windows/win32/api/objidl/nf-objidl-ilockbytes-writeat

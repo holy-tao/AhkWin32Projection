@@ -5,9 +5,8 @@
 
 /**
  * @namespace Windows.Win32.Media.WindowsMediaFormat
- * @version v4.0.30319
  */
-class IWMDRMTranscryptor2 extends IWMDRMTranscryptor{
+class IWMDRMTranscryptor2 extends IWMDRMTranscryptor {
 
     static sizeof => A_PtrSize
     /**

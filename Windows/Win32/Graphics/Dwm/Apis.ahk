@@ -3,7 +3,6 @@
 
 /**
  * @namespace Windows.Win32.Graphics.Dwm
- * @version v4.0.30319
  */
 class Dwm {
 
@@ -115,10 +114,10 @@ class Dwm {
      * Default window procedure for Desktop Window Manager (DWM) hit testing within the non-client area.
      * @remarks
      * When creating custom frames that include the standard caption buttons, <a href="https://docs.microsoft.com/windows/desktop/inputdev/wm-nchittest">WM_NCHITTEST</a> and other non-client hit test messages should first be passed to the <b>DwmDefWindowProc</b> function. This enables the DWM to provide hit testing for the captions buttons. If <b>DwmDefWindowProc</b> does not handle the non-client hit test messages, further processing of these messages might be necessary.
-     * @param {HWND} _hWnd 
-     * @param {Integer} _msg 
-     * @param {WPARAM} _wParam 
-     * @param {LPARAM} _lParam 
+     * @param {HWND} _hWnd A handle to the window procedure that received the message.
+     * @param {Integer} _msg The message.
+     * @param {WPARAM} _wParam Specifies additional message information. The content of this parameter depends on the value of the <i>msg</i> parameter.
+     * @param {LPARAM} _lParam Specifies additional message information. The content of this parameter depends on the value of the <i>msg</i> parameter.
      * @param {Pointer<LRESULT>} plResult A pointer to an <b>LRESULT</b> value that, when this method returns successfully,receives the result of the hit test.
      * @returns {BOOL} <b>TRUE</b> if <b>DwmDefWindowProc</b> handled the message; otherwise, <b>FALSE</b>.
      * @see https://learn.microsoft.com/windows/win32/api/dwmapi/nf-dwmapi-dwmdefwindowproc
@@ -148,7 +147,7 @@ class Dwm {
      * This function can be called only on top-level windows. An error occurs when this function is called on other window types.
      * 
      * This function must be called whenever Desktop Window Manager (DWM) composition is toggled. Handle the <a href="https://docs.microsoft.com/windows/win32/dwm/wm-dwmcompositionchanged">WM_DWMCOMPOSITIONCHANGED</a> message for composition change notification.
-     * @param {HWND} _hWnd 
+     * @param {HWND} _hWnd The handle to the window on which the blur-behind data is applied.
      * @param {Pointer<DWM_BLURBEHIND>} pBlurBehind `[in]`
      * 
      * A pointer to a <a href="https://docs.microsoft.com/windows/win32/api/dwmapi/ns-dwmapi-dwm_blurbehind">DWM_BLURBEHIND</a> structure that provides blur-behind data.
@@ -201,7 +200,7 @@ class Dwm {
      * This function must be called whenever Desktop Window Manager (DWM) composition is toggled. Handle the <a href="https://docs.microsoft.com/windows/desktop/dwm/wm-dwmcompositionchanged">WM_DWMCOMPOSITIONCHANGED</a> message for composition change notification. 
      * 
      * Use negative margin values to create the "sheet of glass" effect where the client area is rendered as a solid surface with no window border.
-     * @param {HWND} _hWnd 
+     * @param {HWND} _hWnd The handle to the window in which the frame will be extended into the client area.
      * @param {Pointer<MARGINS>} pMarInset A pointer to a <a href="https://docs.microsoft.com/windows/desktop/api/uxtheme/ns-uxtheme-margins">MARGINS</a> structure that describes the margins to use when extending the frame into the client area.
      * @returns {HRESULT} If this function succeeds, it returns <b>S_OK</b>. Otherwise, it returns an <b>HRESULT</b> error code.
      * @see https://learn.microsoft.com/windows/win32/api/dwmapi/nf-dwmapi-dwmextendframeintoclientarea
@@ -234,7 +233,11 @@ class Dwm {
 
     /**
      * Retrieves the current composition timing information for a specified window.
-     * @param {HWND} _hwnd 
+     * @param {HWND} _hwnd The handle to the window for which the composition timing information should be retrieved.
+     *         
+     *                         
+     * 
+     * Starting with Windows 8.1, this parameter must be set to <b>NULL</b>. If this parameter is not set to <b>NULL</b>, <b>DwmGetCompositionTimingInfo</b> returns E_INVALIDARG.
      * @param {Pointer<DWM_TIMING_INFO>} pTimingInfo A pointer to a <a href="https://docs.microsoft.com/windows/desktop/api/dwmapi/ns-dwmapi-dwm_timing_info">DWM_TIMING_INFO</a> structure that, when this function returns successfully, receives the current composition timing information for the window. The <b>cbSize</b> member of this structure must be set before this function is called.
      * @returns {HRESULT} If this function succeeds, it returns <b>S_OK</b>. Otherwise, it returns an <b>HRESULT</b> error code.
      * @see https://learn.microsoft.com/windows/win32/api/dwmapi/nf-dwmapi-dwmgetcompositiontiminginfo
@@ -249,9 +252,9 @@ class Dwm {
 
     /**
      * Retrieves the current value of a specified Desktop Window Manager (DWM) attribute applied to a window.
-     * @param {HWND} _hwnd 
+     * @param {HWND} _hwnd The handle to the window from which the attribute value is to be retrieved.
      * @param {Integer} dwAttribute A flag describing which value to retrieve, specified as a value of the [DWMWINDOWATTRIBUTE](/windows/desktop/api/dwmapi/ne-dwmapi-dwmwindowattribute) enumeration. This parameter specifies which attribute to retrieve, and the *pvAttribute* parameter points to an object into which the attribute value is retrieved.
-     * @param {Pointer} pvAttribute A pointer to a value which, when this function returns successfully, receives the current value of the attribute. The type of the retrieved value depends on the value of the *dwAttribute* parameter. The [**DWMWINDOWATTRIBUTE**](/windows/desktop/api/Dwmapi/ne-dwmapi-dwmwindowattribute) enumeration topic indicates, in the row for each flag, what type of value you should pass a pointer to in the *pvAttribute* parameter.
+     * @param {Integer} pvAttribute A pointer to a value which, when this function returns successfully, receives the current value of the attribute. The type of the retrieved value depends on the value of the *dwAttribute* parameter. The [**DWMWINDOWATTRIBUTE**](/windows/desktop/api/Dwmapi/ne-dwmapi-dwmwindowattribute) enumeration topic indicates, in the row for each flag, what type of value you should pass a pointer to in the *pvAttribute* parameter.
      * @param {Integer} cbAttribute The size, in bytes, of the attribute value being received via the *pvAttribute* parameter. The type of the retrieved value, and therefore its size in bytes, depends on the value of the *dwAttribute* parameter.
      * @returns {HRESULT} Type: **[HRESULT](/windows/desktop/com/structure-of-com-error-codes)**
      * 
@@ -285,7 +288,7 @@ class Dwm {
 
     /**
      * Changes the number of monitor refreshes through which the previous frame will be displayed. DwmModifyPreviousDxFrameDuration is no longer supported. Starting with Windows 8.1, calls to DwmModifyPreviousDxFrameDuration always return E_NOTIMPL.
-     * @param {HWND} _hwnd 
+     * @param {HWND} _hwnd The handle to the window for which the new duration is applied to the previous frame.
      * @param {Integer} cRefreshes The number of refreshes to apply to the previous frame.
      * @param {BOOL} fRelative <b>TRUE</b> if the value given in <i>cRefreshes</i> is relative to the current value (added to or subtracted from it); <b>FALSE</b> if the value replaces the current value.
      * @returns {HRESULT} This function always returns S_OK, even when DWM is not running.
@@ -338,7 +341,7 @@ class Dwm {
      * Sets the number of monitor refreshes through which to display the presented frame. DwmSetDxFrameDuration is no longer supported. Starting with Windows 8.1, calls to DwmSetDxFrameDuration always return E_NOTIMPL.
      * @remarks
      * The DWM will attempt to display the presented frame for at least the number of monitor refreshes specified. It might be impossible to display the frame for the precise number of refreshes due to the current composition rate. If the frame is presented late to the DWM or the DWM is late in composing, a frame could be displayed for fewer than the number of refreshes requested or even skipped completely.
-     * @param {HWND} _hwnd 
+     * @param {HWND} _hwnd The handle to the window that displays the presented frame.
      * @param {Integer} cRefreshes The number of refreshes through which to display the presented frame.
      * @returns {HRESULT} This function always returns S_OK, even when the frame duration is not changed or DWM is not running.
      * @see https://learn.microsoft.com/windows/win32/api/dwmapi/nf-dwmapi-dwmsetdxframeduration
@@ -353,7 +356,7 @@ class Dwm {
 
     /**
      * Sets the present parameters for frame composition. DwmSetPresentParameters is no longer supported. Starting with Windows 8.1, calls to DwmSetPresentParameters always return E_NOTIMPL.
-     * @param {HWND} _hwnd 
+     * @param {HWND} _hwnd The handle to the window where the present parameters are applied.
      * @param {Pointer<DWM_PRESENT_PARAMETERS>} pPresentParams A pointer to a <a href="https://docs.microsoft.com/windows/desktop/api/dwmapi/ns-dwmapi-dwm_present_parameters">DWM_PRESENT_PARAMETERS</a> structure that contains DWM video frame parameters for frame composition.
      * @returns {HRESULT} This function always returns S_OK.
      * @see https://learn.microsoft.com/windows/win32/api/dwmapi/nf-dwmapi-dwmsetpresentparameters
@@ -370,9 +373,9 @@ class Dwm {
      * Sets the value of Desktop Window Manager (DWM) non-client rendering attributes for a window.
      * @remarks
      * It's not valid to call this function with the *dwAttribute* parameter set to **DWMWA_NCRENDERING_ENABLED**. To enable or disable non-client rendering, you should use the **DWMWA_NCRENDERING_POLICY** attribute, and set the desired value. For more info, and a code example, see [Controlling non-client region rendering](/windows/desktop/dwm/composition-ovw#controlling-non-client-region-rendering).
-     * @param {HWND} _hwnd 
+     * @param {HWND} _hwnd The handle to the window for which the attribute value is to be set.
      * @param {Integer} dwAttribute A flag describing which value to set, specified as a value of the [DWMWINDOWATTRIBUTE](/windows/desktop/api/dwmapi/ne-dwmapi-dwmwindowattribute) enumeration. This parameter specifies which attribute to set, and the *pvAttribute* parameter points to an object containing the attribute value.
-     * @param {Pointer} pvAttribute A pointer to an object containing the attribute value to set. The type of the value set depends on the value of the *dwAttribute* parameter. The [**DWMWINDOWATTRIBUTE**](/windows/desktop/api/Dwmapi/ne-dwmapi-dwmwindowattribute) enumeration topic indicates, in the row for each flag, what type of value you should pass a pointer to in the *pvAttribute* parameter.
+     * @param {Integer} pvAttribute A pointer to an object containing the attribute value to set. The type of the value set depends on the value of the *dwAttribute* parameter. The [**DWMWINDOWATTRIBUTE**](/windows/desktop/api/Dwmapi/ne-dwmapi-dwmwindowattribute) enumeration topic indicates, in the row for each flag, what type of value you should pass a pointer to in the *pvAttribute* parameter.
      * @param {Integer} cbAttribute The size, in bytes, of the attribute value being set via the *pvAttribute* parameter. The type of the value set, and therefore its size in bytes, depends on the value of the *dwAttribute* parameter.
      * @returns {HRESULT} Type: **[HRESULT](/windows/desktop/com/structure-of-com-error-codes)**
      * 
@@ -426,7 +429,7 @@ class Dwm {
      * The application calls <a href="https://docs.microsoft.com/windows/desktop/api/dwmapi/nf-dwmapi-dwminvalidateiconicbitmaps">DwmInvalidateIconicBitmaps</a> to indicate to the Desktop Window Manager (DWM) that the iconic thumbnail and live preview bitmaps are out-of-date and should be refreshed. The DWM then requests new versions from the window when they are needed. However, if the DWM bitmap cache is full, DWM will not request updated versions.
      * 
      * The DWM uses a copy of the bitmap, but the application can release this copy at any time because of memory constraints. If the copy is released, the window is not notified, but it might receive a subsequent <a href="https://docs.microsoft.com/windows/desktop/dwm/wm-dwmsendiconicthumbnail">WM_DWMSENDICONICTHUMBNAIL</a> request when its thumbnail is needed again. The caller retains ownership of the original bitmap and is responsible for freeing the resources that it uses when it is no longer needed.
-     * @param {HWND} _hwnd 
+     * @param {HWND} _hwnd A handle to the window or tab. This window must belong to the calling process.
      * @param {HBITMAP} hbmp A handle to the bitmap to represent the window that <i>hwnd</i> specifies.
      * @param {Integer} dwSITFlags 
      * @returns {HRESULT} If this function succeeds, it returns <b>S_OK</b>. Otherwise, it returns an <b>HRESULT</b> error code.
@@ -449,7 +452,7 @@ class Dwm {
      * A window typically calls the <b>DwmSetIconicLivePreviewBitmap</b> function in response to a <a href="https://docs.microsoft.com/windows/desktop/dwm/wm-dwmsendiconiclivepreviewbitmap">WM_DWMSENDICONICLIVEPREVIEWBITMAP</a> message. The returned bitmap must not be larger than the client area of the window or frame and must have 32-bit color depth.
      * 
      * The Desktop Window Manager (DWM) uses a copy of the bitmap, but the caller retains ownership of the original bitmap and is responsible for freeing the resources that it uses when it is no longer needed. The DWM does not keep its copy of the bitmap when the DWM stops displaying the live preview representation.
-     * @param {HWND} _hwnd 
+     * @param {HWND} _hwnd A handle to the window. This window must belong to the calling process.
      * @param {HBITMAP} hbmp A handle to the bitmap to represent the window that <i>hwnd</i> specifies.
      * @param {Pointer<POINT>} pptClient The offset of a tab window's <i>client region</i> (the content area inside the client window frame) from the host window's frame. This offset enables the tab window's contents to be drawn correctly in a live preview  when it is drawn without its frame.
      * @param {Integer} dwSITFlags The display options for the live preview. This parameter can be 0 or the following value.
@@ -469,7 +472,7 @@ class Dwm {
      * Called by an application to indicate that all previously provided iconic bitmaps from a window, both thumbnails and peek representations, should be refreshed.
      * @remarks
      * Calling this function causes the Desktop Window Manager (DWM) to invalidate its current bitmaps for the window and request new bitmaps from the window when they are next needed. <b>DwmInvalidateIconicBitmaps</b> should not be called frequently. Doing so can lead to poor performance as new bitmaps are created and retrieved.
-     * @param {HWND} _hwnd 
+     * @param {HWND} _hwnd A handle to the window or tab whose bitmaps are being invalidated through this call. This window must belong to the calling process.
      * @returns {HRESULT} If this function succeeds, it returns <b>S_OK</b>. Otherwise, it returns an <b>HRESULT</b> error code.
      * @see https://learn.microsoft.com/windows/win32/api/dwmapi/nf-dwmapi-dwminvalidateiconicbitmaps
      * @since windows6.1
@@ -568,8 +571,8 @@ class Dwm {
 
     /**
      * Coordinates the animations of tool windows with the Desktop Window Manager (DWM).
-     * @param {HWND} _hwnd 
-     * @param {Integer} target 
+     * @param {HWND} _hwnd Handle to the window.
+     * @param {DWMTRANSITION_OWNEDWINDOW_TARGET} target 
      * @returns {HRESULT} 
      * @see https://learn.microsoft.com/windows/win32/api/dwmapi/nf-dwmapi-dwmtransitionownedwindow
      * @since windows8.0
@@ -583,7 +586,7 @@ class Dwm {
 
     /**
      * Notifies Desktop Window Manager (DWM) that a touch contact has been recognized as a gesture, and that DWM should draw feedback for that gesture.
-     * @param {Integer} gt 
+     * @param {GESTURE_TYPE} gt 
      * @param {Integer} cContacts The number of contact points.
      * @param {Pointer<Integer>} pdwPointerID The pointer ID.
      * @param {Pointer<POINT>} pPoints The points.
@@ -617,7 +620,7 @@ class Dwm {
      * @remarks
      * It is safe to call this function on the UI thread.
      * @param {Integer} dwPointerID The pointer ID of the contact. Each touch or pen contact is given a unique ID when it is detected.
-     * @param {Integer} eShowContact 
+     * @param {DWM_SHOWCONTACT} eShowContact 
      * @returns {HRESULT} If <i>dwPointerID</i> does not match that of a contact currently present on the screen, this function returns E_INVALIDARG; otherwise, it returns S_OK.
      * @see https://learn.microsoft.com/windows/win32/api/dwmapi/nf-dwmapi-dwmshowcontact
      * @since windows8.0
@@ -630,7 +633,7 @@ class Dwm {
     /**
      * This function was part of an experimental feature that was never implemented in Windows. It has no effect and should not be used.
      * @param {HWND} appWindow This parameter is not used.
-     * @returns {Integer} 
+     * @returns {DWM_TAB_WINDOW_REQUIREMENTS} 
      * @see https://learn.microsoft.com/windows/win32/api/dwmapi/nf-dwmapi-dwmgetunmettabrequirements
      * @since windows10.0.17134
      */

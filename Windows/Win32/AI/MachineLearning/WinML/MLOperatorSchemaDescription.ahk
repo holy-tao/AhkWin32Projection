@@ -1,12 +1,14 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\..\Win32Struct.ahk
+#Include .\MLOperatorSchemaEdgeDescription.ahk
+#Include .\MLOperatorEdgeTypeConstraint.ahk
+#Include .\MLOperatorAttribute.ahk
+#Include .\MLOperatorAttributeNameValue.ahk
 
 /**
  * @namespace Windows.Win32.AI.MachineLearning.WinML
- * @version v4.0.30319
  */
-class MLOperatorSchemaDescription extends Win32Struct
-{
+class MLOperatorSchemaDescription extends Win32Struct {
     static sizeof => 96
 
     static packingSize => 8

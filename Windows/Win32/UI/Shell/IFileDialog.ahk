@@ -1,8 +1,8 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
-#Include .\IShellItem.ahk
 #Include .\IModalWindow.ahk
+#Include .\IShellItem.ahk
 
 /**
  * Exposes methods that initialize, show, and get results from the common file dialog.
@@ -12,9 +12,8 @@
  * file save dialog (CLSID_FileSaveDialog).
  * @see https://learn.microsoft.com/windows/win32/api/shobjidl_core/nn-shobjidl_core-ifiledialog
  * @namespace Windows.Win32.UI.Shell
- * @version v4.0.30319
  */
-class IFileDialog extends IModalWindow{
+class IFileDialog extends IModalWindow {
 
     static sizeof => A_PtrSize
     /**
@@ -166,7 +165,7 @@ class IFileDialog extends IModalWindow{
      * Sets flags to control the behavior of the dialog.
      * @remarks
      * Generally, this method should take the value that was retrieved by <a href="https://docs.microsoft.com/windows/desktop/api/shobjidl_core/nf-shobjidl_core-ifiledialog-getoptions">IFileDialog::GetOptions</a> and modify it to include or exclude options by setting the appropriate flags.
-     * @param {Integer} fos Type: <b>FILEOPENDIALOGOPTIONS</b>
+     * @param {FILEOPENDIALOGOPTIONS} fos Type: <b>FILEOPENDIALOGOPTIONS</b>
      * 
      * One or more of the <a href="https://docs.microsoft.com/windows/win32/api/shobjidl_core/ne-shobjidl_core-_fileopendialogoptions">FILEOPENDIALOGOPTIONS</a> values.
      * @returns {HRESULT} Type: <b>HRESULT</b>
@@ -181,7 +180,7 @@ class IFileDialog extends IModalWindow{
 
     /**
      * Gets the current flags that are set to control dialog behavior.
-     * @returns {Integer} Type: <b>FILEOPENDIALOGOPTIONS*</b>
+     * @returns {FILEOPENDIALOGOPTIONS} Type: <b>FILEOPENDIALOGOPTIONS*</b>
      * 
      * When this method returns successfully, points to a value made up of one or more of the <a href="https://docs.microsoft.com/windows/win32/api/shobjidl_core/ne-shobjidl_core-_fileopendialogoptions">FILEOPENDIALOGOPTIONS</a> values.
      * @see https://learn.microsoft.com/windows/win32/api/shobjidl_core/nf-shobjidl_core-ifiledialog-getoptions
@@ -364,7 +363,9 @@ class IFileDialog extends IModalWindow{
      * @param {IShellItem} psi Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/shobjidl_core/nn-shobjidl_core-ishellitem">IShellItem</a>*</b>
      * 
      * A pointer to an <a href="https://docs.microsoft.com/windows/desktop/api/shobjidl_core/nn-shobjidl_core-ishellitem">IShellItem</a> that represents the folder to be made available to the user. This can only be a folder.
-     * @param {Integer} _fdap 
+     * @param {FDAP} _fdap Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/shobjidl_core/ne-shobjidl_core-fdap">FDAP</a></b>
+     * 
+     * Specifies where the folder is placed within the list. See <a href="https://docs.microsoft.com/windows/desktop/api/shobjidl_core/ne-shobjidl_core-fdap">FDAP</a>.
      * @returns {HRESULT} Type: <b>HRESULT</b>
      * 
      * If this method succeeds, it returns <b>S_OK</b>. Otherwise, it returns an <b>HRESULT</b> error code.

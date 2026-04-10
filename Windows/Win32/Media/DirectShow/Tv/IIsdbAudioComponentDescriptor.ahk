@@ -1,16 +1,15 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\..\Guid.ahk
-#Include ..\..\..\Foundation\BSTR.ahk
 #Include ..\..\..\System\Com\IUnknown.ahk
+#Include ..\..\..\Foundation\BSTR.ahk
 
 /**
  * Implements methods that get data from an Integrated Services Digital Broadcasting (ISDB) audio component descriptor.
  * @see https://learn.microsoft.com/windows/win32/api/dvbsiparser/nn-dvbsiparser-iisdbaudiocomponentdescriptor
  * @namespace Windows.Win32.Media.DirectShow.Tv
- * @version v4.0.30319
  */
-class IIsdbAudioComponentDescriptor extends IUnknown{
+class IIsdbAudioComponentDescriptor extends IUnknown {
 
     static sizeof => A_PtrSize
     /**
@@ -252,7 +251,7 @@ class IIsdbAudioComponentDescriptor extends IUnknown{
 
     /**
      * Gets the component stream description from an Integrated Services Digital Broadcasting (ISDB) audio component descriptor, in Unicode text format,.
-     * @param {Integer} convMode 
+     * @param {DVB_STRCONV_MODE} convMode 
      * @returns {BSTR} Pointer to a buffer that receives the component stream description. The caller is responsible for freeing this memory.
      * @see https://learn.microsoft.com/windows/win32/api/dvbsiparser/nf-dvbsiparser-iisdbaudiocomponentdescriptor-gettextw
      */

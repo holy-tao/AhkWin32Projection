@@ -9,9 +9,8 @@
  * <a href="https://docs.microsoft.com/windows/desktop/api/tapi3if/nf-tapi3if-itterminalsupport-get_staticterminals">ITTerminalSupport::get_StaticTerminals</a>.
  * @see https://learn.microsoft.com/windows/win32/api/tapi3if/ne-tapi3if-address_event
  * @namespace Windows.Win32.Devices.Tapi
- * @version v4.0.30319
  */
-class ADDRESS_EVENT extends Win32Enum{
+class ADDRESS_EVENT extends Win32Enum {
 
     /**
      * The address state has changed. See 

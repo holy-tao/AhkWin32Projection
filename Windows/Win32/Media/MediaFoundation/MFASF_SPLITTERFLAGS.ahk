@@ -5,9 +5,8 @@
  * Defines the ASF splitter options.
  * @see https://learn.microsoft.com/windows/win32/api/wmcontainer/ne-wmcontainer-mfasf_splitterflags
  * @namespace Windows.Win32.Media.MediaFoundation
- * @version v4.0.30319
  */
-class MFASF_SPLITTERFLAGS extends Win32Enum{
+class MFASF_SPLITTERFLAGS extends Win32Enum {
 
     /**
      * The splitter delivers samples for the ASF content in reverse order to accommodate reverse playback.

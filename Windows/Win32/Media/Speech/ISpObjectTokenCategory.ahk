@@ -6,9 +6,8 @@
 
 /**
  * @namespace Windows.Win32.Media.Speech
- * @version v4.0.30319
  */
-class ISpObjectTokenCategory extends ISpDataKey{
+class ISpObjectTokenCategory extends ISpDataKey {
 
     static sizeof => A_PtrSize
     /**
@@ -71,7 +70,7 @@ class ISpObjectTokenCategory extends ISpDataKey{
 
     /**
      * 
-     * @param {Integer} spdkl 
+     * @param {SPDATAKEYLOCATION} spdkl 
      * @returns {ISpDataKey} 
      */
     GetDataKey(spdkl) {

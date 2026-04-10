@@ -16,13 +16,11 @@
  * For more information about standard and categorized sorting, see [Sorting and Categorization](sorting-and-categorization.md).
  * @see https://learn.microsoft.com/office/client-developer/outlook/mapi/ssortorderset
  * @namespace Windows.Win32.System.AddressBook
- * @version v4.0.30319
  */
-class SSortOrderSet extends Win32Struct
-{
-    static sizeof => 24
+class SSortOrderSet extends Win32Struct {
+    static sizeof => 20
 
-    static packingSize => 8
+    static packingSize => 4
 
     /**
      * > Count of [SSortOrder](ssortorder.md) structures that are included in the **aSort** member.
@@ -53,12 +51,12 @@ class SSortOrderSet extends Win32Struct
 
     /**
      * > Array of **SSortOrder** structures, each defining a sort order.
-     * @type {Array<SSortOrder>}
+     * @type {SSortOrder}
      */
-    aSort{
+    aSort {
         get {
             if(!this.HasProp("__aSortProxyArray"))
-                this.__aSortProxyArray := Win32FixedArray(this.ptr + 16, 1, SSortOrder, "")
+                this.__aSortProxyArray := Win32FixedArray(this.ptr + 12, 1, SSortOrder, "")
             return this.__aSortProxyArray
         }
     }

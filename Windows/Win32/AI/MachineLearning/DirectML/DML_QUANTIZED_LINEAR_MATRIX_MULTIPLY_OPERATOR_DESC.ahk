@@ -1,14 +1,13 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\..\Win32Struct.ahk
+#Include .\DML_TENSOR_DESC.ahk
 
 /**
  * Performs a matrix multiplication function on quantized data. This operator is mathematically equivalent to dequantizing the inputs, then performing matrix multiply, and then quantizing the output.
  * @see https://learn.microsoft.com/windows/win32/api/directml/ns-directml-dml_quantized_linear_matrix_multiply_operator_desc
  * @namespace Windows.Win32.AI.MachineLearning.DirectML
- * @version v4.0.30319
  */
-class DML_QUANTIZED_LINEAR_MATRIX_MULTIPLY_OPERATOR_DESC extends Win32Struct
-{
+class DML_QUANTIZED_LINEAR_MATRIX_MULTIPLY_OPERATOR_DESC extends Win32Struct {
     static sizeof => 72
 
     static packingSize => 8

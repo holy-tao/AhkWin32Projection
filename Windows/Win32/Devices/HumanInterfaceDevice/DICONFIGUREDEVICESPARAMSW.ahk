@@ -1,15 +1,15 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
+#Include .\DIACTIONFORMATW.ahk
 #Include ..\..\Foundation\HWND.ahk
 #Include .\DICOLORSET.ahk
+#Include ..\..\System\Com\IUnknown.ahk
 
 /**
  * @namespace Windows.Win32.Devices.HumanInterfaceDevice
- * @version v4.0.30319
  * @charset Unicode
  */
-class DICONFIGUREDEVICESPARAMSW extends Win32Struct
-{
+class DICONFIGUREDEVICESPARAMSW extends Win32Struct {
     static sizeof => 88
 
     static packingSize => 8
@@ -57,7 +57,7 @@ class DICONFIGUREDEVICESPARAMSW extends Win32Struct
     /**
      * @type {HWND}
      */
-    hwnd{
+    hwnd {
         get {
             if(!this.HasProp("__hwnd"))
                 this.__hwnd := HWND(32, this)
@@ -68,7 +68,7 @@ class DICONFIGUREDEVICESPARAMSW extends Win32Struct
     /**
      * @type {DICOLORSET}
      */
-    dics{
+    dics {
         get {
             if(!this.HasProp("__dics"))
                 this.__dics := DICOLORSET(40, this)

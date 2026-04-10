@@ -5,9 +5,8 @@
 
 /**
  * @namespace Windows.Win32.Graphics.Printing
- * @version v4.0.30319
  */
-class IPrinterScriptableStream extends IPrinterScriptableSequentialStream{
+class IPrinterScriptableStream extends IPrinterScriptableSequentialStream {
 
     static sizeof => A_PtrSize
     /**
@@ -54,7 +53,7 @@ class IPrinterScriptableStream extends IPrinterScriptableSequentialStream{
      * 
      * The value of this attribute for a file may vary depending upon the object exposing the [**IWMHeaderInfo**](/previous-versions/windows/desktop/api/wmsdkidl/nn-wmsdkidl-iwmheaderinfo) or [**IWMHeaderInfo3**](/previous-versions/windows/desktop/api/wmsdkidl/nn-wmsdkidl-iwmheaderinfo3) interface used to retrieve it. This is because the reader objects (both synchronous and asynchronous) perform a more thorough check than the metadata editor object does, to ascertain whether you can seek to a point in a file. The **Seekable** attribute value returned by a reader object is more accurate.
      * @param {Integer} lOffset 
-     * @param {Integer} streamSeek 
+     * @param {STREAM_SEEK} streamSeek 
      * @returns {Integer} 
      * @see https://learn.microsoft.com/windows/win32/wmformat/seekable
      */

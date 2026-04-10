@@ -1,12 +1,11 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\..\Win32Struct.ahk
+#Include .\VK_TO_WCHARS1.ahk
 
 /**
  * @namespace Windows.Win32.UI.Input.KeyboardAndMouse
- * @version v4.0.30319
  */
-class VK_TO_WCHAR_TABLE extends Win32Struct
-{
+class VK_TO_WCHAR_TABLE extends Win32Struct {
     static sizeof => 16
 
     static packingSize => 8

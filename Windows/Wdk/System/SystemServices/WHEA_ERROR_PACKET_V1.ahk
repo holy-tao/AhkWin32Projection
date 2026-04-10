@@ -1,12 +1,14 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
+#Include .\WHEA_ERROR_TYPE.ahk
+#Include .\WHEA_ERROR_SEVERITY.ahk
+#Include ..\..\..\Win32\System\Diagnostics\Debug\WHEA_ERROR_SOURCE_TYPE.ahk
+#Include .\WHEA_RAW_DATA_FORMAT.ahk
 
 /**
  * @namespace Windows.Wdk.System.SystemServices
- * @version v4.0.30319
  */
-class WHEA_ERROR_PACKET_V1 extends Win32Struct
-{
+class WHEA_ERROR_PACKET_V1 extends Win32Struct {
     static sizeof => 96
 
     static packingSize => 8
@@ -16,61 +18,60 @@ class WHEA_ERROR_PACKET_V1 extends Win32Struct
         static packingSize => 8
 
         /**
-         * @type {Pointer<WHEA_PROCESSOR_GENERIC_ERROR_SECTION>}
+         * @type {Pointer}
          */
         ProcessorError {
             get => NumGet(this, 0, "ptr")
             set => NumPut("ptr", value, this, 0)
         }
-    
+
         /**
-         * @type {Pointer<WHEA_MEMORY_ERROR_SECTION>}
+         * @type {Pointer}
          */
         MemoryError {
             get => NumGet(this, 0, "ptr")
             set => NumPut("ptr", value, this, 0)
         }
-    
+
         /**
-         * @type {Pointer<WHEA_NMI_ERROR_SECTION>}
+         * @type {Pointer}
          */
         NmiError {
             get => NumGet(this, 0, "ptr")
             set => NumPut("ptr", value, this, 0)
         }
-    
+
         /**
-         * @type {Pointer<WHEA_PCIEXPRESS_ERROR_SECTION>}
+         * @type {Pointer}
          */
         PciExpressError {
             get => NumGet(this, 0, "ptr")
             set => NumPut("ptr", value, this, 0)
         }
-    
+
         /**
-         * @type {Pointer<WHEA_PCIXBUS_ERROR_SECTION>}
+         * @type {Pointer}
          */
         PciXBusError {
             get => NumGet(this, 0, "ptr")
             set => NumPut("ptr", value, this, 0)
         }
-    
+
         /**
-         * @type {Pointer<WHEA_PCIXDEVICE_ERROR_SECTION>}
+         * @type {Pointer}
          */
         PciXDeviceError {
             get => NumGet(this, 0, "ptr")
             set => NumPut("ptr", value, this, 0)
         }
-    
+
         /**
-         * @type {Pointer<WHEA_PMEM_ERROR_SECTION>}
+         * @type {Pointer}
          */
         PmemError {
             get => NumGet(this, 0, "ptr")
             set => NumPut("ptr", value, this, 0)
         }
-    
     }
 
     /**
@@ -82,7 +83,7 @@ class WHEA_ERROR_PACKET_V1 extends Win32Struct
     }
 
     /**
-     * @type {Pointer<WHEA_ERROR_PACKET_FLAGS>}
+     * @type {Pointer}
      */
     Flags {
         get => NumGet(this, 8, "ptr")
@@ -122,7 +123,7 @@ class WHEA_ERROR_PACKET_V1 extends Win32Struct
     }
 
     /**
-     * @type {Integer}
+     * @type {WHEA_ERROR_TYPE}
      */
     ErrorType {
         get => NumGet(this, 40, "int")
@@ -130,7 +131,7 @@ class WHEA_ERROR_PACKET_V1 extends Win32Struct
     }
 
     /**
-     * @type {Integer}
+     * @type {WHEA_ERROR_SEVERITY}
      */
     ErrorSeverity {
         get => NumGet(this, 44, "int")
@@ -146,7 +147,7 @@ class WHEA_ERROR_PACKET_V1 extends Win32Struct
     }
 
     /**
-     * @type {Integer}
+     * @type {WHEA_ERROR_SOURCE_TYPE}
      */
     ErrorSourceType {
         get => NumGet(this, 52, "int")
@@ -180,16 +181,16 @@ class WHEA_ERROR_PACKET_V1 extends Win32Struct
     /**
      * @type {_u_e__Union}
      */
-    u{
+    u {
         get {
             if(!this.HasProp("__u"))
-                this.__u := %this.__Class%._u_e__Union(72, this)
+                this.__u := WHEA_ERROR_PACKET_V1._u_e__Union(72, this)
             return this.__u
         }
     }
 
     /**
-     * @type {Integer}
+     * @type {WHEA_RAW_DATA_FORMAT}
      */
     RawDataFormat {
         get => NumGet(this, 80, "int")
@@ -205,9 +206,9 @@ class WHEA_ERROR_PACKET_V1 extends Win32Struct
     }
 
     /**
-     * @type {Array<Byte>}
+     * @type {Array<Integer>}
      */
-    RawData{
+    RawData {
         get {
             if(!this.HasProp("__RawDataProxyArray"))
                 this.__RawDataProxyArray := Win32FixedArray(this.ptr + 88, 1, Primitive, "char")

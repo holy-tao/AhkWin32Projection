@@ -5,9 +5,8 @@
 
 /**
  * @namespace Windows.Win32.System.Search
- * @version v4.0.30319
  */
-class ISessionProperties extends IUnknown{
+class ISessionProperties extends IUnknown {
 
     static sizeof => A_PtrSize
     /**

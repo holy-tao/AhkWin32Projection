@@ -1,18 +1,17 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
+#Include ..\..\System\Com\IUnknown.ahk
 #Include .\IDWriteFontFace3.ahk
 #Include .\IDWriteFontFile.ahk
 #Include ..\..\Foundation\FILETIME.ahk
-#Include ..\..\System\Com\IUnknown.ahk
 
 /**
  * Represents a reference to a font face.
  * @see https://learn.microsoft.com/windows/win32/api/dwrite_3/nn-dwrite_3-idwritefontfacereference
  * @namespace Windows.Win32.Graphics.DirectWrite
- * @version v4.0.30319
  */
-class IDWriteFontFaceReference extends IUnknown{
+class IDWriteFontFaceReference extends IUnknown {
 
     static sizeof => A_PtrSize
     /**
@@ -51,7 +50,7 @@ class IDWriteFontFaceReference extends IUnknown{
      * Creates a font face with alternate font simulations, for example, to explicitly simulate a bold font face out of a regular variant.
      * @remarks
      * This function can fail with DWRITE_E_REMOTEFONT if the font is not local.
-     * @param {Integer} fontFaceSimulationFlags Type: <b><a href="https://docs.microsoft.com/windows/win32/api/dwrite/ne-dwrite-dwrite_font_simulations">DWRITE_FONT_SIMULATIONS</a></b>
+     * @param {DWRITE_FONT_SIMULATIONS} fontFaceSimulationFlags Type: <b><a href="https://docs.microsoft.com/windows/win32/api/dwrite/ne-dwrite-dwrite_font_simulations">DWRITE_FONT_SIMULATIONS</a></b>
      * 
      * Font face simulation flags for algorithmic emboldening and italicization.
      * @returns {IDWriteFontFace3} Type: <b><a href="https://docs.microsoft.com/windows/win32/api/dwrite_3/nn-dwrite_3-idwritefontface3">IDWriteFontFace3</a>**</b>
@@ -89,7 +88,7 @@ class IDWriteFontFaceReference extends IUnknown{
 
     /**
      * Obtains the algorithmic style simulation flags of a font face. (IDWriteFontFaceReference.GetSimulations)
-     * @returns {Integer} Type: <b><a href="https://docs.microsoft.com/windows/win32/api/dwrite/ne-dwrite-dwrite_font_simulations">DWRITE_FONT_SIMULATIONS</a></b>
+     * @returns {DWRITE_FONT_SIMULATIONS} Type: <b><a href="https://docs.microsoft.com/windows/win32/api/dwrite/ne-dwrite-dwrite_font_simulations">DWRITE_FONT_SIMULATIONS</a></b>
      * 
      * Returns the algorithmic style simulation flags of a font face.
      * @see https://learn.microsoft.com/windows/win32/api/dwrite_3/nf-dwrite_3-idwritefontfacereference-getsimulations
@@ -156,7 +155,7 @@ class IDWriteFontFaceReference extends IUnknown{
      *      face on a remote or partially local font may fail with DWRITE_E_REMOTEFONT.    
      *      This function may change between calls depending on background downloads    
      *      and whether cached data expires.
-     * @returns {Integer} Type: <b><a href="https://docs.microsoft.com/windows/win32/api/dwrite_3/ne-dwrite_3-dwrite_locality">DWRITE_LOCALITY</a></b>
+     * @returns {DWRITE_LOCALITY} Type: <b><a href="https://docs.microsoft.com/windows/win32/api/dwrite_3/ne-dwrite_3-dwrite_locality">DWRITE_LOCALITY</a></b>
      * 
      * Returns the locality of this font face reference.
      * @see https://learn.microsoft.com/windows/win32/api/dwrite_3/nf-dwrite_3-idwritefontfacereference-getlocality

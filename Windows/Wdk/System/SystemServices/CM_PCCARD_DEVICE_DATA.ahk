@@ -3,10 +3,8 @@
 
 /**
  * @namespace Windows.Wdk.System.SystemServices
- * @version v4.0.30319
  */
-class CM_PCCARD_DEVICE_DATA extends Win32Struct
-{
+class CM_PCCARD_DEVICE_DATA extends Win32Struct {
     static sizeof => 32
 
     static packingSize => 4
@@ -60,9 +58,9 @@ class CM_PCCARD_DEVICE_DATA extends Win32Struct
     }
 
     /**
-     * @type {Array<Byte>}
+     * @type {Array<Integer>}
      */
-    IRQMap{
+    IRQMap {
         get {
             if(!this.HasProp("__IRQMapProxyArray"))
                 this.__IRQMapProxyArray := Win32FixedArray(this.ptr + 16, 16, Primitive, "char")

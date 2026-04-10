@@ -3,10 +3,8 @@
 
 /**
  * @namespace Windows.Win32.Management.MobileDeviceManagementRegistration
- * @version v4.0.30319
  */
-class MANAGEMENT_REGISTRATION_INFO extends Win32Struct
-{
+class MANAGEMENT_REGISTRATION_INFO extends Win32Struct {
     static sizeof => 24
 
     static packingSize => 8

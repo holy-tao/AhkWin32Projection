@@ -3,9 +3,8 @@
 
 /**
  * @namespace Windows.Win32.System.Variant
- * @version v4.0.30319
  */
-class VAR_CHANGE_FLAGS extends Win32BitflagEnum{
+class VAR_CHANGE_FLAGS extends Win32BitflagEnum {
 
     /**
      * @type {Integer (UInt16)}

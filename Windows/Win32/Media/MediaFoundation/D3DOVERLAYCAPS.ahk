@@ -5,10 +5,8 @@
  * Specifies hardware overlay capabilities for a Direct3D device.
  * @see https://learn.microsoft.com/windows/win32/api/d3d9caps/ns-d3d9caps-d3doverlaycaps
  * @namespace Windows.Win32.Media.MediaFoundation
- * @version v4.0.30319
  */
-class D3DOVERLAYCAPS extends Win32Struct
-{
+class D3DOVERLAYCAPS extends Win32Struct {
     static sizeof => 12
 
     static packingSize => 4

@@ -5,9 +5,8 @@
  * Provides the list of possible state codes of the session invitation.
  * @see https://learn.microsoft.com/windows/win32/api/rendezvoussession/ne-rendezvoussession-rendezvous_session_state
  * @namespace Windows.Win32.System.RemoteAssistance
- * @version v4.0.30319
  */
-class RENDEZVOUS_SESSION_STATE extends Win32Enum{
+class RENDEZVOUS_SESSION_STATE extends Win32Enum {
 
     /**
      * Unknown response.

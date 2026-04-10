@@ -5,10 +5,8 @@
  * The POINTFLOAT structure contains the x and y coordinates of a point.
  * @see https://learn.microsoft.com/windows/win32/api/wingdi/ns-wingdi-pointfloat
  * @namespace Windows.Win32.Graphics.OpenGL
- * @version v4.0.30319
  */
-class POINTFLOAT extends Win32Struct
-{
+class POINTFLOAT extends Win32Struct {
     static sizeof => 8
 
     static packingSize => 4

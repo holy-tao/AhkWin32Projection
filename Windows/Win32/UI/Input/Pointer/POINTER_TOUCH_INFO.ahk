@@ -1,19 +1,20 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\..\Win32Struct.ahk
+#Include .\POINTER_INFO.ahk
+#Include ..\..\WindowsAndMessaging\POINTER_INPUT_TYPE.ahk
+#Include .\POINTER_FLAGS.ahk
 #Include ..\..\..\Foundation\HANDLE.ahk
 #Include ..\..\..\Foundation\HWND.ahk
 #Include ..\..\..\Foundation\POINT.ahk
-#Include .\POINTER_INFO.ahk
+#Include .\POINTER_BUTTON_CHANGE_TYPE.ahk
 #Include ..\..\..\Foundation\RECT.ahk
 
 /**
  * Defines basic touch information common to all pointer types.
  * @see https://learn.microsoft.com/windows/win32/api/winuser/ns-winuser-pointer_touch_info
  * @namespace Windows.Win32.UI.Input.Pointer
- * @version v4.0.30319
  */
-class POINTER_TOUCH_INFO extends Win32Struct
-{
+class POINTER_TOUCH_INFO extends Win32Struct {
     static sizeof => 144
 
     static packingSize => 8
@@ -24,7 +25,7 @@ class POINTER_TOUCH_INFO extends Win32Struct
      * An embedded [POINTER_INFO](ns-winuser-pointer_info.md) header structure.
      * @type {POINTER_INFO}
      */
-    pointerInfo{
+    pointerInfo {
         get {
             if(!this.HasProp("__pointerInfo"))
                 this.__pointerInfo := POINTER_INFO(0, this)
@@ -63,7 +64,7 @@ class POINTER_TOUCH_INFO extends Win32Struct
      * The predicted value is based on the pointer position reported by the digitizer and the motion of the pointer. This correction can compensate for visual lag due to inherent delays in sensing and processing the pointer location on the digitizer. This is applicable to  pointers of type [PT_TOUCH](ne-winuser-tagpointer_input_type.md).
      * @type {RECT}
      */
-    rcContact{
+    rcContact {
         get {
             if(!this.HasProp("__rcContact"))
                 this.__rcContact := RECT(104, this)
@@ -77,7 +78,7 @@ class POINTER_TOUCH_INFO extends Win32Struct
      * The raw screen coordinates of the contact area, in pixels. For adjusted screen coordinates, see **rcContact**.
      * @type {RECT}
      */
-    rcContactRaw{
+    rcContactRaw {
         get {
             if(!this.HasProp("__rcContactRaw"))
                 this.__rcContactRaw := RECT(120, this)

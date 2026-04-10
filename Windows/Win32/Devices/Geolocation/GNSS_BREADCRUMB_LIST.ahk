@@ -1,15 +1,13 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
-#Include ..\..\Foundation\FILETIME.ahk
 #Include .\GNSS_BREADCRUMB_V1.ahk
+#Include ..\..\Foundation\FILETIME.ahk
 
 /**
  * @namespace Windows.Win32.Devices.Geolocation
- * @version v4.0.30319
  */
-class GNSS_BREADCRUMB_LIST extends Win32Struct
-{
-    static sizeof => 416
+class GNSS_BREADCRUMB_LIST extends Win32Struct {
+    static sizeof => 2016
 
     static packingSize => 8
 
@@ -38,9 +36,9 @@ class GNSS_BREADCRUMB_LIST extends Win32Struct
     }
 
     /**
-     * @type {Array<GNSS_BREADCRUMB_V1>}
+     * @type {GNSS_BREADCRUMB_V1}
      */
-    v1{
+    v1 {
         get {
             if(!this.HasProp("__v1ProxyArray"))
                 this.__v1ProxyArray := Win32FixedArray(this.ptr + 16, 50, GNSS_BREADCRUMB_V1, "")

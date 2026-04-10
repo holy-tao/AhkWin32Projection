@@ -3,10 +3,8 @@
 
 /**
  * @namespace Windows.Win32.NetworkManagement.Dns
- * @version v4.0.30319
  */
-class DNS_HEADER_EXT extends Win32Struct
-{
+class DNS_HEADER_EXT extends Win32Struct {
     static sizeof => 4
 
     static packingSize => 2

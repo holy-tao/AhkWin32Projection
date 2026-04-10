@@ -50,9 +50,8 @@
  *     method.
  * @see https://learn.microsoft.com/windows/win32/api/vss/ne-vss-vss_file_spec_backup_type
  * @namespace Windows.Win32.Storage.Vss
- * @version v4.0.30319
  */
-class VSS_FILE_SPEC_BACKUP_TYPE extends Win32Enum{
+class VSS_FILE_SPEC_BACKUP_TYPE extends Win32Enum {
 
     /**
      * A file set tagged with this value must be involved in all types of backup operations. 

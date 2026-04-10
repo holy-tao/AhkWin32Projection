@@ -1,8 +1,8 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
-#Include .\IFunctionInstance.ahk
 #Include ..\..\System\Com\IUnknown.ahk
+#Include .\IFunctionInstance.ahk
 
 /**
  * Is implemented by a discovery provider to enable a client program to add and remove function instances.
@@ -12,9 +12,8 @@
  * The <b>IProviderPublishing</b> interface can only be implemented by discovery providers that support category change notification. At this time only PnP providers support change notification.
  * @see https://learn.microsoft.com/windows/win32/api/functiondiscoveryprovider/nn-functiondiscoveryprovider-iproviderpublishing
  * @namespace Windows.Win32.Devices.FunctionDiscovery
- * @version v4.0.30319
  */
-class IProviderPublishing extends IUnknown{
+class IProviderPublishing extends IUnknown {
 
     static sizeof => A_PtrSize
     /**
@@ -37,7 +36,7 @@ class IProviderPublishing extends IUnknown{
 
     /**
      * Creates a new function instance.
-     * @param {Integer} enumVisibilityFlags A <a href="https://docs.microsoft.com/windows/win32/api/functiondiscoveryapi/ne-functiondiscoveryapi-systemvisibilityflags">SystemVisibilityFlags</a> enumeration value that specifies the visibility of the function instance which the provider is about to create.  It is up to the provider whether or not to honor this flag, however the current user visibility can be used to allow processes running in a non-Administrator security context to still be able to add function instances.
+     * @param {SystemVisibilityFlags} enumVisibilityFlags A <a href="https://docs.microsoft.com/windows/win32/api/functiondiscoveryapi/ne-functiondiscoveryapi-systemvisibilityflags">SystemVisibilityFlags</a> enumeration value that specifies the visibility of the function instance which the provider is about to create.  It is up to the provider whether or not to honor this flag, however the current user visibility can be used to allow processes running in a non-Administrator security context to still be able to add function instances.
      * @param {PWSTR} pszSubCategory The subcategory string for the function instance.
      * @param {PWSTR} pszProviderInstanceIdentity The provider instance identifier.
      * @returns {IFunctionInstance} A pointer to an <a href="https://docs.microsoft.com/windows/desktop/api/functiondiscoveryapi/nn-functiondiscoveryapi-ifunctioninstance">IFunctionInstance</a> interface pointer used to return the newly created function instance.
@@ -53,7 +52,7 @@ class IProviderPublishing extends IUnknown{
 
     /**
      * Deletes an existing function instance.
-     * @param {Integer} enumVisibilityFlags A <a href="https://docs.microsoft.com/windows/win32/api/functiondiscoveryapi/ne-functiondiscoveryapi-systemvisibilityflags">SystemVisibilityFlags</a> enumeration value which specifies the visibility of the function instance which the provider is about to delete.  It is up to the provider whether or not to honor this setting, however the current user visibility can be used to allow processes running in a non-Administrator security context to still be able to remove function instances.
+     * @param {SystemVisibilityFlags} enumVisibilityFlags A <a href="https://docs.microsoft.com/windows/win32/api/functiondiscoveryapi/ne-functiondiscoveryapi-systemvisibilityflags">SystemVisibilityFlags</a> enumeration value which specifies the visibility of the function instance which the provider is about to delete.  It is up to the provider whether or not to honor this setting, however the current user visibility can be used to allow processes running in a non-Administrator security context to still be able to remove function instances.
      * @param {PWSTR} pszSubCategory The subcategory string of the function instance.
      * @param {PWSTR} pszProviderInstanceIdentity The provider instance identifier.
      * @returns {HRESULT} Possible return values include, but are not limited to, the following.

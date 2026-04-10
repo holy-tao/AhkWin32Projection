@@ -5,10 +5,8 @@
  * Defines a level-4 control query response from a domain controller.
  * @see https://learn.microsoft.com/windows/win32/api/lmaccess/ns-lmaccess-netlogon_info_4
  * @namespace Windows.Win32.NetworkManagement.NetManagement
- * @version v4.0.30319
  */
-class NETLOGON_INFO_4 extends Win32Struct
-{
+class NETLOGON_INFO_4 extends Win32Struct {
     static sizeof => 16
 
     static packingSize => 8

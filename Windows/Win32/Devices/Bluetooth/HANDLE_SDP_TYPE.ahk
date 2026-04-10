@@ -4,10 +4,8 @@
 
 /**
  * @namespace Windows.Win32.Devices.Bluetooth
- * @version v4.0.30319
  */
-class HANDLE_SDP_TYPE extends Win32Handle
-{
+class HANDLE_SDP_TYPE extends Win32Handle {
     static sizeof => 8
 
     static packingSize => 8

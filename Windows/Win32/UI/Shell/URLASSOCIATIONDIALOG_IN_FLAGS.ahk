@@ -5,9 +5,8 @@
  * The URLASSOCIATIONDIALOG_IN_FLAGS enumerated values are used with URLAssociationDialog to determine how it executes.
  * @see https://learn.microsoft.com/windows/win32/api/intshcut/ne-intshcut-urlassociationdialog_in_flags
  * @namespace Windows.Win32.UI.Shell
- * @version v4.0.30319
  */
-class URLASSOCIATIONDIALOG_IN_FLAGS extends Win32Enum{
+class URLASSOCIATIONDIALOG_IN_FLAGS extends Win32Enum {
 
     /**
      * Use the default file name (that is, "Internet Shortcut").

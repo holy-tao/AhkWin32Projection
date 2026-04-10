@@ -3,10 +3,8 @@
 
 /**
  * @namespace Windows.Win32.Networking.HttpServer
- * @version v4.0.30319
  */
-class HTTP_REQUEST_SIZING_INFO extends Win32Struct
-{
+class HTTP_REQUEST_SIZING_INFO extends Win32Struct {
     static sizeof => 56
 
     static packingSize => 8
@@ -36,9 +34,9 @@ class HTTP_REQUEST_SIZING_INFO extends Win32Struct
     }
 
     /**
-     * @type {Array<UInt64>}
+     * @type {Array<Integer>}
      */
-    RequestSizing{
+    RequestSizing {
         get {
             if(!this.HasProp("__RequestSizingProxyArray"))
                 this.__RequestSizingProxyArray := Win32FixedArray(this.ptr + 16, 5, Primitive, "uint")

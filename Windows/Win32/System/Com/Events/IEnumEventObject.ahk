@@ -1,16 +1,14 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\..\Guid.ahk
-#Include .\IEnumEventObject.ahk
 #Include ..\IUnknown.ahk
 
 /**
  * Enumerates the event objects that are registered in the COM+ events store.
  * @see https://learn.microsoft.com/windows/win32/api/eventsys/nn-eventsys-ienumeventobject
  * @namespace Windows.Win32.System.Com.Events
- * @version v4.0.30319
  */
-class IEnumEventObject extends IUnknown{
+class IEnumEventObject extends IUnknown {
 
     static sizeof => A_PtrSize
     /**

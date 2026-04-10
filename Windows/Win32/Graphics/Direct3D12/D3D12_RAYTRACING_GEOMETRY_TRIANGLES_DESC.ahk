@@ -1,15 +1,14 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
+#Include ..\Dxgi\Common\DXGI_FORMAT.ahk
 #Include .\D3D12_GPU_VIRTUAL_ADDRESS_AND_STRIDE.ahk
 
 /**
  * Describes a set of triangles used as raytracing geometry. The geometry pointed to by this struct are always in triangle list form, indexed or non-indexed. Triangle strips are not supported.
  * @see https://learn.microsoft.com/windows/win32/api/d3d12/ns-d3d12-d3d12_raytracing_geometry_triangles_desc
  * @namespace Windows.Win32.Graphics.Direct3D12
- * @version v4.0.30319
  */
-class D3D12_RAYTRACING_GEOMETRY_TRIANGLES_DESC extends Win32Struct
-{
+class D3D12_RAYTRACING_GEOMETRY_TRIANGLES_DESC extends Win32Struct {
     static sizeof => 48
 
     static packingSize => 8
@@ -36,7 +35,7 @@ class D3D12_RAYTRACING_GEOMETRY_TRIANGLES_DESC extends Win32Struct
      * <li><b>DXGI_FORMAT_R32_UINT</b></li>
      * <li><b>DXGI_FORMAT_R16_UINT</b></li>
      * </ul>
-     * @type {Integer}
+     * @type {DXGI_FORMAT}
      */
     IndexFormat {
         get => NumGet(this, 8, "int")
@@ -65,7 +64,7 @@ class D3D12_RAYTRACING_GEOMETRY_TRIANGLES_DESC extends Win32Struct
      * <li><b>DXGI_FORMAT_R8G8B8A8_SNORM</b>  - A8 component is ignored, other data can be packed there, such as setting vertex stride to 3 bytes</li>
      * <li><b>DXGI_FORMAT_R8G8_SNORM</b>   - third component assumed 0</li>
      * </ul>
-     * @type {Integer}
+     * @type {DXGI_FORMAT}
      */
     VertexFormat {
         get => NumGet(this, 12, "int")
@@ -107,7 +106,7 @@ class D3D12_RAYTRACING_GEOMETRY_TRIANGLES_DESC extends Win32Struct
      * The memory pointed to must be in state <a href="https://docs.microsoft.com/windows/desktop/api/d3d12/ne-d3d12-d3d12_resource_states">D3D12_RESOURCE_STATE_NON_PIXEL_SHADER_RESOURCE</a>.  Note that if an app wants to share vertex buffer inputs between graphics input assembler and raytracing acceleration structure build input, it can always put a resource into a combination of read states simultaneously, e.g. <b>D3D12_RESOURCE_STATE_VERTEX_AND_CONSTANT_BUFFER</b> | <b>D3D12_RESOURCE_STATE_NON_PIXEL_SHADER_RESOURCE</b>
      * @type {D3D12_GPU_VIRTUAL_ADDRESS_AND_STRIDE}
      */
-    VertexBuffer{
+    VertexBuffer {
         get {
             if(!this.HasProp("__VertexBuffer"))
                 this.__VertexBuffer := D3D12_GPU_VIRTUAL_ADDRESS_AND_STRIDE(32, this)

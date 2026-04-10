@@ -7,9 +7,8 @@
  * Notifies the subscriber if an object's method has been called, returned, or generated an exception. (IComMethod2Events)
  * @see https://learn.microsoft.com/windows/win32/api/comsvcs/nn-comsvcs-icommethod2events
  * @namespace Windows.Win32.System.ComponentServices
- * @version v4.0.30319
  */
-class IComMethod2Events extends IUnknown{
+class IComMethod2Events extends IUnknown {
 
     static sizeof => A_PtrSize
     /**
@@ -54,7 +53,7 @@ class IComMethod2Events extends IUnknown{
      * @param {Pointer<Guid>} guidRid The identifier of the method being called.
      * @param {Integer} dwThread The identifier of the thread executing the call.
      * @param {Integer} iMeth The v-table index of the method.
-     * @param {HRESULT} _hresult 
+     * @param {HRESULT} _hresult The result of the method call.
      * @returns {HRESULT} The user verifies the return values from this method.
      * @see https://learn.microsoft.com/windows/win32/api/comsvcs/nf-comsvcs-icommethod2events-onmethodreturn2
      */

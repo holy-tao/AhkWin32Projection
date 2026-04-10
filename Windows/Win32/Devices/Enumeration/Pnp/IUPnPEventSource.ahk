@@ -7,9 +7,8 @@
  * The IUPnPEventSource interface allows the device host to manage event subscriptions for the hosted service.
  * @see https://learn.microsoft.com/windows/win32/api/upnphost/nn-upnphost-iupnpeventsource
  * @namespace Windows.Win32.Devices.Enumeration.Pnp
- * @version v4.0.30319
  */
-class IUPnPEventSource extends IUnknown{
+class IUPnPEventSource extends IUnknown {
 
     static sizeof => A_PtrSize
     /**

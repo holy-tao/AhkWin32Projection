@@ -7,9 +7,8 @@
  * Specify one or more actions. The data manager applies the actions in the order in which they are defined in this enumeration.
  * @see https://learn.microsoft.com/windows/win32/api/pla/ne-pla-folderactionsteps
  * @namespace Windows.Win32.System.Performance
- * @version v4.0.30319
  */
-class FolderActionSteps extends Win32Enum{
+class FolderActionSteps extends Win32Enum {
 
     /**
      * Creates a cabinet file. The name of the cabinet file is  <i>nameofthesubfolder</i>.cab.

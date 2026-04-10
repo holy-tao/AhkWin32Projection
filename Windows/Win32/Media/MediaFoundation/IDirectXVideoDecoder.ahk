@@ -1,8 +1,8 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
-#Include .\IDirectXVideoDecoderService.ahk
 #Include ..\..\System\Com\IUnknown.ahk
+#Include .\IDirectXVideoDecoderService.ahk
 
 /**
  * Represents a DirectX Video Acceleration (DXVA) video decoder device.
@@ -10,9 +10,8 @@
  * The <b>IDirectXVideoDecoder</b> methods make calls to the Direct3D device. Therefore, the <b>D3DCREATE</b> flags that you specify  when creating the device can affect the behavior of this interface. For example, if you specify the <b>D3DCREATE_MULTITHREADED</b> flag, the Direct3D global critical section will be held during decode operations.
  * @see https://learn.microsoft.com/windows/win32/api/dxva2api/nn-dxva2api-idirectxvideodecoder
  * @namespace Windows.Win32.Media.MediaFoundation
- * @version v4.0.30319
  */
-class IDirectXVideoDecoder extends IUnknown{
+class IDirectXVideoDecoder extends IUnknown {
 
     static sizeof => A_PtrSize
     /**

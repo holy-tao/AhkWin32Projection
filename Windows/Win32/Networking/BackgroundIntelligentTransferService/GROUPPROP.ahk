@@ -38,9 +38,8 @@
  * <div> </div>
  * @see https://learn.microsoft.com/windows/win32/api/qmgr/ne-qmgr-groupprop
  * @namespace Windows.Win32.Networking.BackgroundIntelligentTransferService
- * @version v4.0.30319
  */
-class GROUPPROP extends Win32Enum{
+class GROUPPROP extends Win32Enum {
 
     /**
      * Determines when the QMGR processes the group relative to other groups in the queue.

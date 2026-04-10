@@ -4,10 +4,8 @@
 
 /**
  * @namespace Windows.Win32.UI.Input.Ime
- * @version v4.0.30319
  */
-class IMEKMSINIT extends Win32Struct
-{
+class IMEKMSINIT extends Win32Struct {
     static sizeof => 16
 
     static packingSize => 8
@@ -23,7 +21,7 @@ class IMEKMSINIT extends Win32Struct
     /**
      * @type {HWND}
      */
-    hWnd{
+    hWnd {
         get {
             if(!this.HasProp("__hWnd"))
                 this.__hWnd := HWND(8, this)

@@ -1,17 +1,16 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
+#Include ..\..\System\Com\IDispatch.ahk
 #Include .\ITCallInfo.ahk
 #Include ..\..\Foundation\BSTR.ahk
-#Include ..\..\System\Com\IDispatch.ahk
 
 /**
  * The ITDigitsGatheredEvent interface exposes methods that allow an application to retrieve data when the TAPI Server sends an event indicating that the Server has gathered digits required by the application.
  * @see https://learn.microsoft.com/windows/win32/api/tapi3if/nn-tapi3if-itdigitsgatheredevent
  * @namespace Windows.Win32.Devices.Tapi
- * @version v4.0.30319
  */
-class ITDigitsGatheredEvent extends IDispatch{
+class ITDigitsGatheredEvent extends IDispatch {
 
     static sizeof => A_PtrSize
     /**
@@ -47,7 +46,7 @@ class ITDigitsGatheredEvent extends IDispatch{
     }
 
     /**
-     * @type {Integer} 
+     * @type {TAPI_GATHERTERM} 
      */
     GatherTermination {
         get => this.get_GatherTermination()
@@ -91,7 +90,7 @@ class ITDigitsGatheredEvent extends IDispatch{
 
     /**
      * The get_GatherTermination method gets the reason why the TAPI Server terminated the gathering of digits on the call.
-     * @returns {Integer} Pointer to a value from the 
+     * @returns {TAPI_GATHERTERM} Pointer to a value from the 
      * <a href="https://docs.microsoft.com/windows/desktop/api/tapi3if/ne-tapi3if-tapi_gatherterm">TAPI_GATHERTERM</a> enumeration.
      * @see https://learn.microsoft.com/windows/win32/api/tapi3if/nf-tapi3if-itdigitsgatheredevent-get_gathertermination
      */

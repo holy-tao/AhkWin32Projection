@@ -7,9 +7,8 @@
  * The IPortableDeviceDataStream interface exposes additional methods on an IStream that is used for data transfers.
  * @see https://learn.microsoft.com/windows/win32/api/portabledeviceapi/nn-portabledeviceapi-iportabledevicedatastream
  * @namespace Windows.Win32.Devices.PortableDevices
- * @version v4.0.30319
  */
-class IPortableDeviceDataStream extends IStream{
+class IPortableDeviceDataStream extends IStream {
 
     static sizeof => A_PtrSize
     /**

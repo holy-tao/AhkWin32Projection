@@ -3,11 +3,10 @@
 
 /**
  * @namespace Windows.Win32.Devices.DeviceAndDriverInstallation
- * @version v4.0.30319
  * @charset ANSI
+ * @architecture X64, Arm64
  */
-class SP_BACKUP_QUEUE_PARAMS_V2_A extends Win32Struct
-{
+class SP_BACKUP_QUEUE_PARAMS_V2_A extends Win32Struct {
     static sizeof => 528
 
     static packingSize => 4

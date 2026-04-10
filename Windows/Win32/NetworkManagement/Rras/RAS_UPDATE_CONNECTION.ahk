@@ -6,10 +6,8 @@
  * Used to update an active RAS connection.
  * @see https://learn.microsoft.com/windows/win32/api/mprapi/ns-mprapi-ras_update_connection
  * @namespace Windows.Win32.NetworkManagement.Rras
- * @version v4.0.30319
  */
-class RAS_UPDATE_CONNECTION extends Win32Struct
-{
+class RAS_UPDATE_CONNECTION extends Win32Struct {
     static sizeof => 268
 
     static packingSize => 4
@@ -21,7 +19,7 @@ class RAS_UPDATE_CONNECTION extends Win32Struct
      * <div> </div>
      * @type {MPRAPI_OBJECT_HEADER}
      */
-    Header{
+    Header {
         get {
             if(!this.HasProp("__Header"))
                 this.__Header := MPRAPI_OBJECT_HEADER(0, this)

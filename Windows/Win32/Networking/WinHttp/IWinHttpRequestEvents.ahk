@@ -1,7 +1,6 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
-#Include ..\..\Foundation\BSTR.ahk
 #Include ..\..\System\Com\IUnknown.ahk
 
 /**
@@ -26,9 +25,8 @@
  * > For Windows XP and Windows 2000, see the [Run-Time Requirements](winhttp-start-page.md) section of the WinHTTP Start Page.
  * @see https://learn.microsoft.com/windows/win32/WinHttp/iwinhttprequestevents-interface
  * @namespace Windows.Win32.Networking.WinHttp
- * @version v4.0.30319
  */
-class IWinHttpRequestEvents extends IUnknown{
+class IWinHttpRequestEvents extends IUnknown {
 
     static sizeof => A_PtrSize
     /**
@@ -58,7 +56,7 @@ class IWinHttpRequestEvents extends IUnknown{
      * 
      * > [!Note]  
      * > For Windows XP and Windows 2000, see the [Run-Time Requirements](winhttp-start-page.md) section of the WinHTTP Start Page.
-     * @param {Integer} _Status 
+     * @param {Integer} _Status Receives the standard status code returned with the response data. Status codes are defined in [RFC 2616](https://www.ietf.org/rfc/rfc2616.txt).
      * @param {BSTR} ContentType Specifies the type of content received, such as "text/html" or "image/gif".
      * @returns {String} Nothing - always returns an empty string
      * @see https://learn.microsoft.com/windows/win32/WinHttp/iwinhttprequestevents-onresponsestart

@@ -3,10 +3,8 @@
 
 /**
  * @namespace Windows.Win32.System.IO
- * @version v4.0.30319
  */
-class IO_STATUS_BLOCK extends Win32Struct
-{
+class IO_STATUS_BLOCK extends Win32Struct {
     static sizeof => 16
 
     static packingSize => 8

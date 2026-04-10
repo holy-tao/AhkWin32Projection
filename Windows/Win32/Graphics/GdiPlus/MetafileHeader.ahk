@@ -1,22 +1,21 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
+#Include .\MetafileType.ahk
 #Include ..\Gdi\METAHEADER.ahk
+#Include .\ENHMETAHEADER3.ahk
 #Include ..\..\Foundation\RECTL.ahk
 #Include ..\..\Foundation\SIZE.ahk
-#Include .\ENHMETAHEADER3.ahk
 
 /**
  * @namespace Windows.Win32.Graphics.GdiPlus
- * @version v4.0.30319
  */
-class MetafileHeader extends Win32Struct
-{
+class MetafileHeader extends Win32Struct {
     static sizeof => 140
 
     static packingSize => 4
 
     /**
-     * @type {Integer}
+     * @type {MetafileType}
      */
     Type {
         get => NumGet(this, 0, "int")
@@ -98,7 +97,7 @@ class MetafileHeader extends Win32Struct
     /**
      * @type {METAHEADER}
      */
-    WmfHeader{
+    WmfHeader {
         get {
             if(!this.HasProp("__WmfHeader"))
                 this.__WmfHeader := METAHEADER(40, this)
@@ -109,7 +108,7 @@ class MetafileHeader extends Win32Struct
     /**
      * @type {ENHMETAHEADER3}
      */
-    EmfHeader{
+    EmfHeader {
         get {
             if(!this.HasProp("__EmfHeader"))
                 this.__EmfHeader := ENHMETAHEADER3(40, this)

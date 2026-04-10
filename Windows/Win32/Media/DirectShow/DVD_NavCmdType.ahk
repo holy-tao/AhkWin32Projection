@@ -5,9 +5,8 @@
  * Defines DVD navigation command types.
  * @see https://learn.microsoft.com/windows/win32/api/strmif/ne-strmif-dvd_navcmdtype
  * @namespace Windows.Win32.Media.DirectShow
- * @version v4.0.30319
  */
-class DVD_NavCmdType extends Win32Enum{
+class DVD_NavCmdType extends Win32Enum {
 
     /**
      * Pre-command.

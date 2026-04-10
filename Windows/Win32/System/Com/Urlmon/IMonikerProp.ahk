@@ -5,9 +5,8 @@
 
 /**
  * @namespace Windows.Win32.System.Com.Urlmon
- * @version v4.0.30319
  */
-class IMonikerProp extends IUnknown{
+class IMonikerProp extends IUnknown {
 
     static sizeof => A_PtrSize
     /**
@@ -30,7 +29,7 @@ class IMonikerProp extends IUnknown{
 
     /**
      * 
-     * @param {Integer} mkp 
+     * @param {MONIKERPROPERTY} mkp 
      * @param {PWSTR} _val 
      * @returns {HRESULT} 
      */

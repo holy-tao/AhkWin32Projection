@@ -7,9 +7,8 @@
  * Used as the base interface for the resource interfaces of the XPS object model.
  * @see https://learn.microsoft.com/windows/win32/api/xpsobjectmodel/nn-xpsobjectmodel-ixpsomresource
  * @namespace Windows.Win32.Storage.Xps
- * @version v4.0.30319
  */
-class IXpsOMResource extends IXpsOMPart{
+class IXpsOMResource extends IXpsOMPart {
 
     static sizeof => A_PtrSize
     /**

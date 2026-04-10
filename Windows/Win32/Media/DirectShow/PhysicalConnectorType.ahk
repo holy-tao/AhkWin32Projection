@@ -5,9 +5,8 @@
  * Specifies the physical type of pin (audio or video).
  * @see https://learn.microsoft.com/windows/win32/api/strmif/ne-strmif-physicalconnectortype
  * @namespace Windows.Win32.Media.DirectShow
- * @version v4.0.30319
  */
-class PhysicalConnectorType extends Win32Enum{
+class PhysicalConnectorType extends Win32Enum {
 
     /**
      * Specifies a tuner pin for video.

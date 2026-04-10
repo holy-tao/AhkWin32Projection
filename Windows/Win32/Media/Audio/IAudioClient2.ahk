@@ -7,9 +7,8 @@
  * The IAudioClient2 interface is derived from the IAudioClient interface, with a set of additional methods that enable a Windows Audio Session API (WASAPI) audio client to do the following:\_opt in for offloading, query stream properties, and get information from the hardware that handles offloading.The audio client can be successful in creating an offloaded stream if the underlying endpoint supports the hardware audio engine, the endpoint has been enumerated and discovered by the audio system, and there are still offload pin instances available on the endpoint.
  * @see https://learn.microsoft.com/windows/win32/api/audioclient/nn-audioclient-iaudioclient2
  * @namespace Windows.Win32.Media.Audio
- * @version v4.0.30319
  */
-class IAudioClient2 extends IAudioClient{
+class IAudioClient2 extends IAudioClient {
 
     static sizeof => A_PtrSize
     /**
@@ -32,7 +31,7 @@ class IAudioClient2 extends IAudioClient{
 
     /**
      * The IsOffloadCapable method retrieves information about whether or not the endpoint on which a stream is created is capable of supporting an offloaded audio stream.
-     * @param {Integer} Category An enumeration that specifies the category of an audio stream.
+     * @param {AUDIO_STREAM_CATEGORY} Category An enumeration that specifies the category of an audio stream.
      * @returns {BOOL} A pointer to a Boolean value. <b>TRUE</b> indicates that the endpoint is offload-capable. <b>FALSE</b> indicates that the endpoint is not offload-capable.
      * @see https://learn.microsoft.com/windows/win32/api/audioclient/nf-audioclient-iaudioclient2-isoffloadcapable
      */

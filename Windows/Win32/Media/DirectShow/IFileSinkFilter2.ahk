@@ -7,9 +7,8 @@
  * The IFileSinkFilter2 interface extends the IFileSinkFilter interface.
  * @see https://learn.microsoft.com/windows/win32/api/strmif/nn-strmif-ifilesinkfilter2
  * @namespace Windows.Win32.Media.DirectShow
- * @version v4.0.30319
  */
-class IFileSinkFilter2 extends IFileSinkFilter{
+class IFileSinkFilter2 extends IFileSinkFilter {
 
     static sizeof => A_PtrSize
     /**

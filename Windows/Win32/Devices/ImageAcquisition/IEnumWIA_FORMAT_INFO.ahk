@@ -1,7 +1,6 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
-#Include .\IEnumWIA_FORMAT_INFO.ahk
 #Include ..\..\System\Com\IUnknown.ahk
 
 /**
@@ -39,9 +38,8 @@
  * </table>
  * @see https://learn.microsoft.com/windows/win32/api/wia_xp/nn-wia_xp-ienumwia_format_info
  * @namespace Windows.Win32.Devices.ImageAcquisition
- * @version v4.0.30319
  */
-class IEnumWIA_FORMAT_INFO extends IUnknown{
+class IEnumWIA_FORMAT_INFO extends IUnknown {
 
     static sizeof => A_PtrSize
     /**

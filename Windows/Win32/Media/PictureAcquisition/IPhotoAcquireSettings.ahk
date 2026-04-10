@@ -1,17 +1,16 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
+#Include ..\..\System\Com\IUnknown.ahk
 #Include ..\..\Foundation\BSTR.ahk
 #Include ..\..\Foundation\FILETIME.ahk
-#Include ..\..\System\Com\IUnknown.ahk
 
 /**
  * The IPhotoAcquireSettings interface is used to work with image acquisition settings, such as file name format.
  * @see https://learn.microsoft.com/windows/win32/api/photoacquire/nn-photoacquire-iphotoacquiresettings
  * @namespace Windows.Win32.Media.PictureAcquisition
- * @version v4.0.30319
  */
-class IPhotoAcquireSettings extends IUnknown{
+class IPhotoAcquireSettings extends IUnknown {
 
     static sizeof => A_PtrSize
     /**

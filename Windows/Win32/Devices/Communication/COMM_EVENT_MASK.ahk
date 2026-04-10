@@ -3,9 +3,8 @@
 
 /**
  * @namespace Windows.Win32.Devices.Communication
- * @version v4.0.30319
  */
-class COMM_EVENT_MASK extends Win32BitflagEnum{
+class COMM_EVENT_MASK extends Win32BitflagEnum {
 
     /**
      * @type {Integer (UInt32)}

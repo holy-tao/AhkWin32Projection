@@ -2,14 +2,14 @@
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
 #Include ..\Com\IUnknown.ahk
+#Include ..\..\..\..\Guid.ahk
 
 /**
  * Represents a change to the registration of a synchronization provider or a synchronization provider configuration UI. The changes are reported as registration events.
  * @see https://learn.microsoft.com/windows/win32/api/syncregistration/nn-syncregistration-isyncregistrationchange
  * @namespace Windows.Win32.System.WindowsSync
- * @version v4.0.30319
  */
-class ISyncRegistrationChange extends IUnknown{
+class ISyncRegistrationChange extends IUnknown {
 
     static sizeof => A_PtrSize
     /**
@@ -32,7 +32,7 @@ class ISyncRegistrationChange extends IUnknown{
 
     /**
      * Gets the next pending registration event.
-     * @returns {Integer} The registration event.
+     * @returns {SYNC_REGISTRATION_EVENT} The registration event.
      * @see https://learn.microsoft.com/windows/win32/api/syncregistration/nf-syncregistration-isyncregistrationchange-getevent
      */
     GetEvent() {

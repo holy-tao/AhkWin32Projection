@@ -5,9 +5,8 @@
 
 /**
  * @namespace Windows.Win32.System.Diagnostics.Debug.ActiveScript
- * @version v4.0.30319
  */
-class IActiveScriptProfilerCallback extends IUnknown{
+class IActiveScriptProfilerCallback extends IUnknown {
 
     static sizeof => A_PtrSize
     /**
@@ -79,7 +78,7 @@ class IActiveScriptProfilerCallback extends IUnknown{
     /**
      * 
      * @param {Integer} scriptId 
-     * @param {Integer} type 
+     * @param {PROFILER_SCRIPT_TYPE} type 
      * @param {IUnknown} pIDebugDocumentContext 
      * @returns {HRESULT} 
      */

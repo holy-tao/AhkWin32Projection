@@ -5,10 +5,8 @@
  * WCN_VENDOR_EXTENSION_SPEC structure contains data that defines a vendor extension.
  * @see https://learn.microsoft.com/windows/win32/api/wcndevice/ns-wcndevice-wcn_vendor_extension_spec
  * @namespace Windows.Win32.NetworkManagement.WindowsConnectNow
- * @version v4.0.30319
  */
-class WCN_VENDOR_EXTENSION_SPEC extends Win32Struct
-{
+class WCN_VENDOR_EXTENSION_SPEC extends Win32Struct {
     static sizeof => 16
 
     static packingSize => 4

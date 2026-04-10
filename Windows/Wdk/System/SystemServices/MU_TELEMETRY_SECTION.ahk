@@ -3,16 +3,14 @@
 
 /**
  * @namespace Windows.Wdk.System.SystemServices
- * @version v4.0.30319
  */
-class MU_TELEMETRY_SECTION extends Win32Struct
-{
+class MU_TELEMETRY_SECTION extends Win32Struct {
     static sizeof => 40
 
     static packingSize => 8
 
     /**
-     * @type {Pointer<Guid>}
+     * @type {Pointer}
      */
     ComponentID {
         get => NumGet(this, 0, "ptr")
@@ -20,7 +18,7 @@ class MU_TELEMETRY_SECTION extends Win32Struct
     }
 
     /**
-     * @type {Pointer<Guid>}
+     * @type {Pointer}
      */
     SubComponentID {
         get => NumGet(this, 8, "ptr")

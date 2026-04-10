@@ -5,10 +5,8 @@
  * Used to contain information about a key data BLOB.
  * @see https://learn.microsoft.com/windows/win32/api/bcrypt/ns-bcrypt-bcrypt_key_data_blob_header
  * @namespace Windows.Win32.Security.Cryptography
- * @version v4.0.30319
  */
-class BCRYPT_KEY_DATA_BLOB_HEADER extends Win32Struct
-{
+class BCRYPT_KEY_DATA_BLOB_HEADER extends Win32Struct {
     static sizeof => 12
 
     static packingSize => 4

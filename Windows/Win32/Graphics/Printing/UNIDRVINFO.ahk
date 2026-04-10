@@ -4,10 +4,8 @@
 
 /**
  * @namespace Windows.Win32.Graphics.Printing
- * @version v4.0.30319
  */
-class UNIDRVINFO extends Win32Struct
-{
+class UNIDRVINFO extends Win32Struct {
     static sizeof => 48
 
     static packingSize => 4
@@ -95,7 +93,7 @@ class UNIDRVINFO extends Win32Struct
     /**
      * @type {INVOC}
      */
-    SelectFont{
+    SelectFont {
         get {
             if(!this.HasProp("__SelectFont"))
                 this.__SelectFont := INVOC(24, this)
@@ -106,7 +104,7 @@ class UNIDRVINFO extends Win32Struct
     /**
      * @type {INVOC}
      */
-    UnSelectFont{
+    UnSelectFont {
         get {
             if(!this.HasProp("__UnSelectFont"))
                 this.__UnSelectFont := INVOC(32, this)
@@ -115,9 +113,9 @@ class UNIDRVINFO extends Win32Struct
     }
 
     /**
-     * @type {Array<UInt16>}
+     * @type {Array<Integer>}
      */
-    wReserved{
+    wReserved {
         get {
             if(!this.HasProp("__wReservedProxyArray"))
                 this.__wReservedProxyArray := Win32FixedArray(this.ptr + 40, 4, Primitive, "ushort")

@@ -1,6 +1,8 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
 #Include .\ISCSI_LOGIN_OPTIONS.ahk
+#Include .\ISCSI_AUTH_TYPES.ahk
+#Include .\ISCSI_DIGEST_TYPES.ahk
 
 /**
  * The ISCSI_TARGET_PORTAL_INFO_EX structure contains information about login credentials to a target portal. (Unicode)
@@ -9,11 +11,9 @@
  * > The iscsidsc.h header defines ISCSI_TARGET_PORTAL_INFO_EX as an alias which automatically selects the ANSI or Unicode version of this function based on the definition of the UNICODE preprocessor constant. Mixing usage of the encoding-neutral alias with code that not encoding-neutral can lead to mismatches that result in compilation or runtime errors. For more information, see [Conventions for Function Prototypes](/windows/win32/intl/conventions-for-function-prototypes).
  * @see https://learn.microsoft.com/windows/win32/api/iscsidsc/ns-iscsidsc-iscsi_target_portal_info_exw
  * @namespace Windows.Win32.Storage.IscsiDisc
- * @version v4.0.30319
  * @charset Unicode
  */
-class ISCSI_TARGET_PORTAL_INFO_EXW extends Win32Struct
-{
+class ISCSI_TARGET_PORTAL_INFO_EXW extends Win32Struct {
     static sizeof => 1616
 
     static packingSize => 8
@@ -157,7 +157,7 @@ class ISCSI_TARGET_PORTAL_INFO_EXW extends Win32Struct
      * A pointer to an <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/iscsidsc/ns-iscsidsc-iscsi_login_options">ISCSI_LOGIN_OPTIONS</a> structure that defines the login data.
      * @type {ISCSI_LOGIN_OPTIONS}
      */
-    LoginOptions{
+    LoginOptions {
         get {
             if(!this.HasProp("__LoginOptions"))
                 this.__LoginOptions := ISCSI_LOGIN_OPTIONS(1552, this)

@@ -1,5 +1,7 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\..\Win32Struct.ahk
+#Include .\DML_TENSOR_DESC.ahk
+#Include .\DML_SCALE_BIAS.ahk
 
 /**
  * Raises each element of *InputTensor* to the power of *Exponent*, placing the result into the corresponding element of *OutputTensor*.
@@ -7,10 +9,8 @@
  * Also see the POW operator [DML_ELEMENT_WISE_POW_OPERATOR_DESC](/windows/win32/api/directml/ns-directml-dml_element_wise_pow_operator_desc), which accepts a second tensor as exponents.
  * @see https://learn.microsoft.com/windows/win32/api/directml/ns-directml-dml_element_wise_constant_pow_operator_desc
  * @namespace Windows.Win32.AI.MachineLearning.DirectML
- * @version v4.0.30319
  */
-class DML_ELEMENT_WISE_CONSTANT_POW_OPERATOR_DESC extends Win32Struct
-{
+class DML_ELEMENT_WISE_CONSTANT_POW_OPERATOR_DESC extends Win32Struct {
     static sizeof => 32
 
     static packingSize => 8

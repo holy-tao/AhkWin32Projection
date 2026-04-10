@@ -4,10 +4,8 @@
 
 /**
  * @namespace Windows.Win32.Devices.Usb
- * @version v4.0.30319
  */
-class USB_PORT_CONNECTOR_PROPERTIES extends Win32Struct
-{
+class USB_PORT_CONNECTOR_PROPERTIES extends Win32Struct {
     static sizeof => 24
 
     static packingSize => 4
@@ -31,7 +29,7 @@ class USB_PORT_CONNECTOR_PROPERTIES extends Win32Struct
     /**
      * @type {USB_PORT_PROPERTIES}
      */
-    UsbPortProperties{
+    UsbPortProperties {
         get {
             if(!this.HasProp("__UsbPortProperties"))
                 this.__UsbPortProperties := USB_PORT_PROPERTIES(8, this)

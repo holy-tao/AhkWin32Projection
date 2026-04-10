@@ -7,9 +7,8 @@
  * Defines the interface for callbacks from IReferenceTracker::FindTrackerTargets. The implementation of this interface must pass any IReferenceTrackerTarget instances it finds to the FoundTrackerTarget method.
  * @see https://learn.microsoft.com/windows/win32/api/windows.ui.xaml.hosting.referencetracker/nn-windows-ui-xaml-hosting-referencetracker-ifindreferencetargetscallback
  * @namespace Windows.Win32.System.WinRT.Xaml
- * @version v4.0.30319
  */
-class IFindReferenceTargetsCallback extends IUnknown{
+class IFindReferenceTargetsCallback extends IUnknown {
 
     static sizeof => A_PtrSize
     /**

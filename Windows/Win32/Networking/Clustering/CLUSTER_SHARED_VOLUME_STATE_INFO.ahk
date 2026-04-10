@@ -1,14 +1,13 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
+#Include .\CLUSTER_SHARED_VOLUME_STATE.ahk
 
 /**
  * Represents information about the state of a Cluster Shared Volume (CSV). (CLUSTER_SHARED_VOLUME_STATE_INFO)
  * @see https://learn.microsoft.com/windows/win32/api/clusapi/ns-clusapi-cluster_shared_volume_state_info
  * @namespace Windows.Win32.Networking.Clustering
- * @version v4.0.30319
  */
-class CLUSTER_SHARED_VOLUME_STATE_INFO extends Win32Struct
-{
+class CLUSTER_SHARED_VOLUME_STATE_INFO extends Win32Struct {
     static sizeof => 1044
 
     static packingSize => 4
@@ -33,7 +32,7 @@ class CLUSTER_SHARED_VOLUME_STATE_INFO extends Win32Struct
 
     /**
      * A <a href="https://docs.microsoft.com/windows/desktop/api/clusapi/ne-clusapi-cluster_shared_volume_state">CLUSTER_SHARED_VOLUME_STATE</a> enumeration value that specifies the state of the CSV.
-     * @type {Integer}
+     * @type {CLUSTER_SHARED_VOLUME_STATE}
      */
     VolumeState {
         get => NumGet(this, 1040, "int")

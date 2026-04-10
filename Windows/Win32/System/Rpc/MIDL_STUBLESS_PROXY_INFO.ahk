@@ -1,12 +1,13 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
+#Include .\MIDL_STUB_DESC.ahk
+#Include .\RPC_SYNTAX_IDENTIFIER.ahk
+#Include .\MIDL_SYNTAX_INFO.ahk
 
 /**
  * @namespace Windows.Win32.System.Rpc
- * @version v4.0.30319
  */
-class MIDL_STUBLESS_PROXY_INFO extends Win32Struct
-{
+class MIDL_STUBLESS_PROXY_INFO extends Win32Struct {
     static sizeof => 48
 
     static packingSize => 8

@@ -3,16 +3,14 @@
 
 /**
  * @namespace Windows.Win32.Media.MediaFoundation
- * @version v4.0.30319
  */
-class DXVA_COPPStatusOutput extends Win32Struct
-{
+class DXVA_COPPStatusOutput extends Win32Struct {
     static sizeof => 4088
 
     static packingSize => 8
 
     /**
-     * @type {Pointer<Guid>}
+     * @type {Pointer}
      */
     macKDI {
         get => NumGet(this, 0, "ptr")
@@ -28,9 +26,9 @@ class DXVA_COPPStatusOutput extends Win32Struct
     }
 
     /**
-     * @type {Array<Byte>}
+     * @type {Array<Integer>}
      */
-    COPPStatus{
+    COPPStatus {
         get {
             if(!this.HasProp("__COPPStatusProxyArray"))
                 this.__COPPStatusProxyArray := Win32FixedArray(this.ptr + 12, 4076, Primitive, "char")

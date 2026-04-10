@@ -7,10 +7,8 @@
  * The header file Vfw.h defines a <b>MainAVIHeader</b> structure that is equivalent to this structure, but omits the <b>fcc</b> and <b>cb</b> members.
  * @see https://learn.microsoft.com/windows/win32/api/aviriff/ns-aviriff-avimainheader
  * @namespace Windows.Win32.Media.DirectShow
- * @version v4.0.30319
  */
-class AVIMAINHEADER extends Win32Struct
-{
+class AVIMAINHEADER extends Win32Struct {
     static sizeof => 64
 
     static packingSize => 4
@@ -185,9 +183,9 @@ class AVIMAINHEADER extends Win32Struct
 
     /**
      * Reserved. Set this array to zero.
-     * @type {Array<UInt32>}
+     * @type {Array<Integer>}
      */
-    dwReserved{
+    dwReserved {
         get {
             if(!this.HasProp("__dwReservedProxyArray"))
                 this.__dwReservedProxyArray := Win32FixedArray(this.ptr + 48, 4, Primitive, "uint")

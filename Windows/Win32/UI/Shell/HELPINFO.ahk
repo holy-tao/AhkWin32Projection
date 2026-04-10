@@ -1,5 +1,6 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
+#Include .\HELP_INFO_TYPE.ahk
 #Include ..\..\Foundation\HANDLE.ahk
 #Include ..\..\Foundation\POINT.ahk
 
@@ -7,10 +8,8 @@
  * Contains information about an item for which context-sensitive help has been requested.
  * @see https://learn.microsoft.com/windows/win32/api/winuser/ns-winuser-helpinfo
  * @namespace Windows.Win32.UI.Shell
- * @version v4.0.30319
  */
-class HELPINFO extends Win32Struct
-{
+class HELPINFO extends Win32Struct {
     static sizeof => 40
 
     static packingSize => 8
@@ -28,7 +27,7 @@ class HELPINFO extends Win32Struct
 
     /**
      * Type: <b>int</b>
-     * @type {Integer}
+     * @type {HELP_INFO_TYPE}
      */
     iContextType {
         get => NumGet(this, 4, "int")
@@ -52,7 +51,7 @@ class HELPINFO extends Win32Struct
      * The identifier of the child window or control if <b>iContextType</b> is <b>HELPINFO_WINDOW</b>, or identifier of the associated menu if <b>iContextType</b> is <b>HELPINFO_MENUITEM</b>.
      * @type {HANDLE}
      */
-    hItemHandle{
+    hItemHandle {
         get {
             if(!this.HasProp("__hItemHandle"))
                 this.__hItemHandle := HANDLE(16, this)
@@ -77,7 +76,7 @@ class HELPINFO extends Win32Struct
      * The <a href="https://docs.microsoft.com/windows/win32/api/windef/ns-windef-point">POINT</a> structure that contains the screen coordinates of the mouse cursor. This is useful for providing help based on the position of the mouse cursor.
      * @type {POINT}
      */
-    MousePos{
+    MousePos {
         get {
             if(!this.HasProp("__MousePos"))
                 this.__MousePos := POINT(32, this)

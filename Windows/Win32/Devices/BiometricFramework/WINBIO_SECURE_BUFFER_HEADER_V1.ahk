@@ -3,10 +3,8 @@
 
 /**
  * @namespace Windows.Win32.Devices.BiometricFramework
- * @version v4.0.30319
  */
-class WINBIO_SECURE_BUFFER_HEADER_V1 extends Win32Struct
-{
+class WINBIO_SECURE_BUFFER_HEADER_V1 extends Win32Struct {
     static sizeof => 24
 
     static packingSize => 8

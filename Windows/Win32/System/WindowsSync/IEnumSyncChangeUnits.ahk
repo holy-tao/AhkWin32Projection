@@ -1,17 +1,15 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
-#Include .\ISyncChangeUnit.ahk
-#Include .\IEnumSyncChangeUnits.ahk
 #Include ..\Com\IUnknown.ahk
+#Include .\ISyncChangeUnit.ahk
 
 /**
  * Enumerates a list of change units.
  * @see https://learn.microsoft.com/windows/win32/api/winsync/nn-winsync-ienumsyncchangeunits
  * @namespace Windows.Win32.System.WindowsSync
- * @version v4.0.30319
  */
-class IEnumSyncChangeUnits extends IUnknown{
+class IEnumSyncChangeUnits extends IUnknown {
 
     static sizeof => A_PtrSize
     /**

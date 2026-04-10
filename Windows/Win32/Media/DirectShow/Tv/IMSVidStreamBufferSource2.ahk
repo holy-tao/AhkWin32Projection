@@ -1,8 +1,8 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\..\Guid.ahk
-#Include ..\..\..\System\Com\IUnknown.ahk
 #Include .\IMSVidStreamBufferSource.ahk
+#Include ..\..\..\System\Com\IUnknown.ahk
 
 /**
  * The IMSVidStreamBufferSource2 interface represents the Stream Buffer Source filter within the Video Control.
@@ -10,9 +10,8 @@
  * To declare the interface identifier (IID) for this interface, use the <b>__uuidof</b> operator: <c>__uuidof(IMSVidStreamBufferSource2)</c>.
  * @see https://learn.microsoft.com/windows/win32/api/segment/nn-segment-imsvidstreambuffersource2
  * @namespace Windows.Win32.Media.DirectShow.Tv
- * @version v4.0.30319
  */
-class IMSVidStreamBufferSource2 extends IMSVidStreamBufferSource{
+class IMSVidStreamBufferSource2 extends IMSVidStreamBufferSource {
 
     static sizeof => A_PtrSize
     /**

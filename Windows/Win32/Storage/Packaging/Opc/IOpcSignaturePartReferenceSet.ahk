@@ -1,9 +1,9 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\..\Guid.ahk
+#Include ..\..\..\System\Com\IUnknown.ahk
 #Include .\IOpcSignaturePartReference.ahk
 #Include .\IOpcSignaturePartReferenceEnumerator.ahk
-#Include ..\..\..\System\Com\IUnknown.ahk
 
 /**
  * An unordered set of IOpcSignaturePartReference interface pointers that represent references to parts to be signed.
@@ -17,9 +17,8 @@
  * To create an <b>IOpcSignaturePartReferenceSet</b> interface pointer, call the <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/msopc/nf-msopc-iopcsigningoptions-getsignaturepartreferenceset">IOpcSigningOptions::GetSignaturePartReferenceSet</a> method.
  * @see https://learn.microsoft.com/windows/win32/api/msopc/nn-msopc-iopcsignaturepartreferenceset
  * @namespace Windows.Win32.Storage.Packaging.Opc
- * @version v4.0.30319
  */
-class IOpcSignaturePartReferenceSet extends IUnknown{
+class IOpcSignaturePartReferenceSet extends IUnknown {
 
     static sizeof => A_PtrSize
     /**
@@ -49,7 +48,7 @@ class IOpcSignaturePartReferenceSet extends IUnknown{
      * @param {IOpcPartUri} partUri An <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/msopc/nn-msopc-iopcparturi">IOpcPartUri</a> that represents the part name of the part to be referenced.
      * @param {PWSTR} digestMethod The digest method to be used for part content of the part to be referenced. To use the default digest method, pass <b>NULL</b> to this parameter. <div class="alert"><b>Important</b>  The default digest method must be set by calling the <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/msopc/nf-msopc-iopcsigningoptions-setdefaultdigestmethod">IOpcSigningOptions::SetDefaultDigestMethod</a> method before <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/msopc/nf-msopc-iopcdigitalsignaturemanager-sign">IOpcDigitalSignatureManager::Sign</a> is called.</div>
      * <div> </div>
-     * @param {Integer} transformMethod The canonicalization method  used for part content of the part to be referenced.
+     * @param {OPC_CANONICALIZATION_METHOD} transformMethod The canonicalization method  used for part content of the part to be referenced.
      * @returns {IOpcSignaturePartReference} A new <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/msopc/nn-msopc-iopcsignaturepartreference">IOpcSignaturePartReference</a> interface pointer that represents the reference to  the part to be signed.
      * 
      * This parameter can be <b>NULL</b> if a pointer to the  new interface is not needed.

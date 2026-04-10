@@ -5,9 +5,8 @@
 
 /**
  * @namespace Windows.Win32.System.WinRT.Composition
- * @version v4.0.30319
  */
-class IVisualInteractionSourceInterop extends IUnknown{
+class IVisualInteractionSourceInterop extends IUnknown {
 
     static sizeof => A_PtrSize
     /**

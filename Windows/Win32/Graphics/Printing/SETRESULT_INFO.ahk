@@ -4,10 +4,8 @@
 
 /**
  * @namespace Windows.Win32.Graphics.Printing
- * @version v4.0.30319
  */
-class SETRESULT_INFO extends Win32Struct
-{
+class SETRESULT_INFO extends Win32Struct {
     static sizeof => 24
 
     static packingSize => 8
@@ -31,7 +29,7 @@ class SETRESULT_INFO extends Win32Struct
     /**
      * @type {HANDLE}
      */
-    hSetResult{
+    hSetResult {
         get {
             if(!this.HasProp("__hSetResult"))
                 this.__hSetResult := HANDLE(8, this)

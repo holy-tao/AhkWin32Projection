@@ -9,9 +9,8 @@
  * To declare the interface identifier (IID) for this interface, use the <b>__uuidof</b> operator: <c>__uuidof(IMSVidStreamBufferSourceEvent)</c>.
  * @see https://learn.microsoft.com/windows/win32/api/segment/nn-segment-imsvidstreambuffersourceevent
  * @namespace Windows.Win32.Media.DirectShow.Tv
- * @version v4.0.30319
  */
-class IMSVidStreamBufferSourceEvent extends IMSVidFilePlaybackEvent{
+class IMSVidStreamBufferSourceEvent extends IMSVidFilePlaybackEvent {
 
     static sizeof => A_PtrSize
     /**

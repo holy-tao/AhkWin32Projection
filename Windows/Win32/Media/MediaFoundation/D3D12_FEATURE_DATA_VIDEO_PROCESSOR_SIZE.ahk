@@ -1,16 +1,14 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
+#Include .\D3D12_VIDEO_PROCESS_OUTPUT_STREAM_DESC.ahk
+#Include .\D3D12_VIDEO_PROCESS_INPUT_STREAM_DESC.ahk
 
 /**
  * Describes the allocation size of a video decoder heap. (D3D12_FEATURE_DATA_VIDEO_PROCESSOR_SIZE)
- * @remarks
- * 
  * @see https://learn.microsoft.com/windows/win32/api/d3d12video/ns-d3d12video-d3d12_feature_data_video_processor_size
  * @namespace Windows.Win32.Media.MediaFoundation
- * @version v4.0.30319
  */
-class D3D12_FEATURE_DATA_VIDEO_PROCESSOR_SIZE extends Win32Struct
-{
+class D3D12_FEATURE_DATA_VIDEO_PROCESSOR_SIZE extends Win32Struct {
     static sizeof => 48
 
     static packingSize => 8

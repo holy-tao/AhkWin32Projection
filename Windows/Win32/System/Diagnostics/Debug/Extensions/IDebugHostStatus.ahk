@@ -5,9 +5,8 @@
 
 /**
  * @namespace Windows.Win32.System.Diagnostics.Debug.Extensions
- * @version v4.0.30319
  */
-class IDebugHostStatus extends IUnknown{
+class IDebugHostStatus extends IUnknown {
 
     static sizeof => A_PtrSize
     /**

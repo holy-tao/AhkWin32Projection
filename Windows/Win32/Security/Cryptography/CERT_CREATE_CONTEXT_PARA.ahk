@@ -5,10 +5,8 @@
  * Defines additional values that can be used when calling the CertCreateContext function.
  * @see https://learn.microsoft.com/windows/win32/api/wincrypt/ns-wincrypt-cert_create_context_para
  * @namespace Windows.Win32.Security.Cryptography
- * @version v4.0.30319
  */
-class CERT_CREATE_CONTEXT_PARA extends Win32Struct
-{
+class CERT_CREATE_CONTEXT_PARA extends Win32Struct {
     static sizeof => 40
 
     static packingSize => 8

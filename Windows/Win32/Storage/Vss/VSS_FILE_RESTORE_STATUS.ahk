@@ -30,9 +30,8 @@
  *     this method is called for a component that was not selected, the value returned is undefined.
  * @see https://learn.microsoft.com/windows/win32/api/vswriter/ne-vswriter-vss_file_restore_status
  * @namespace Windows.Win32.Storage.Vss
- * @version v4.0.30319
  */
-class VSS_FILE_RESTORE_STATUS extends Win32Enum{
+class VSS_FILE_RESTORE_STATUS extends Win32Enum {
 
     /**
      * The restore state is undefined. 

@@ -5,10 +5,8 @@
  * Describes subresource data. (D3D12_SUBRESOURCE_INFO)
  * @see https://learn.microsoft.com/windows/win32/api/d3d12/ns-d3d12-d3d12_subresource_info
  * @namespace Windows.Win32.Graphics.Direct3D12
- * @version v4.0.30319
  */
-class D3D12_SUBRESOURCE_INFO extends Win32Struct
-{
+class D3D12_SUBRESOURCE_INFO extends Win32Struct {
     static sizeof => 16
 
     static packingSize => 8

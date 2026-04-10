@@ -1,8 +1,8 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\..\Guid.ahk
-#Include .\IAppxManifestPackageDependency.ahk
 #Include ..\..\..\System\Com\IUnknown.ahk
+#Include .\IAppxManifestPackageDependency.ahk
 
 /**
  * Enumerates the package dependencies defined in the package manifest.
@@ -10,9 +10,8 @@
  * This object can be retrieved using the <a href="https://docs.microsoft.com/windows/desktop/api/appxpackaging/nf-appxpackaging-iappxmanifestreader-getpackagedependencies">IAppxManifestReader::GetPackageDependencies</a> method.
  * @see https://learn.microsoft.com/windows/win32/api/appxpackaging/nn-appxpackaging-iappxmanifestpackagedependenciesenumerator
  * @namespace Windows.Win32.Storage.Packaging.Appx
- * @version v4.0.30319
  */
-class IAppxManifestPackageDependenciesEnumerator extends IUnknown{
+class IAppxManifestPackageDependenciesEnumerator extends IUnknown {
 
     static sizeof => A_PtrSize
     /**

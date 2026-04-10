@@ -1,16 +1,15 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
-#Include .\DMO_MEDIA_TYPE.ahk
 #Include ..\..\System\Com\IUnknown.ahk
+#Include .\DMO_MEDIA_TYPE.ahk
 
 /**
  * The IMediaObject interface provides methods for manipulating a Microsoft DirectX Media Object (DMO).
  * @see https://learn.microsoft.com/windows/win32/api/mediaobj/nn-mediaobj-imediaobject
  * @namespace Windows.Win32.Media.DxMediaObjects
- * @version v4.0.30319
  */
-class IMediaObject extends IUnknown{
+class IMediaObject extends IUnknown {
 
     static sizeof => A_PtrSize
     /**

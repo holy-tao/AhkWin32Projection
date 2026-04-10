@@ -18,10 +18,8 @@
  *     possible.
  * @see https://learn.microsoft.com/windows/win32/api/winioctl/ns-winioctl-reassign_blocks
  * @namespace Windows.Win32.System.Ioctl
- * @version v4.0.30319
  */
-class REASSIGN_BLOCKS extends Win32Struct
-{
+class REASSIGN_BLOCKS extends Win32Struct {
     static sizeof => 8
 
     static packingSize => 4
@@ -49,9 +47,9 @@ class REASSIGN_BLOCKS extends Win32Struct
 
     /**
      * An array of <b>Count</b> block numbers, one for each block to be reassigned.
-     * @type {Array<UInt32>}
+     * @type {Array<Integer>}
      */
-    BlockNumber{
+    BlockNumber {
         get {
             if(!this.HasProp("__BlockNumberProxyArray"))
                 this.__BlockNumberProxyArray := Win32FixedArray(this.ptr + 4, 1, Primitive, "uint")

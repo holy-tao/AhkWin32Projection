@@ -4,10 +4,8 @@
 
 /**
  * @namespace Windows.Win32.Media.KernelStreaming
- * @version v4.0.30319
  */
-class KSDATARANGE_AUDIO extends Win32Struct
-{
+class KSDATARANGE_AUDIO extends Win32Struct {
     static sizeof => 72
 
     static packingSize => 8
@@ -15,7 +13,7 @@ class KSDATARANGE_AUDIO extends Win32Struct
     /**
      * @type {KSDATAFORMAT}
      */
-    DataRange{
+    DataRange {
         get {
             if(!this.HasProp("__DataRange"))
                 this.__DataRange := KSDATAFORMAT(0, this)

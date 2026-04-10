@@ -1,14 +1,13 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
+#Include .\DXCoreSegmentGroup.ahk
 
 /**
  * Describes a memory segment group for an adapter.
  * @see https://learn.microsoft.com/windows/win32/api/dxcore_interface/ns-dxcore_interface-dxcoreadaptermemorybudgetnodesegmentgroup
  * @namespace Windows.Win32.Graphics.DXCore
- * @version v4.0.30319
  */
-class DXCoreAdapterMemoryBudgetNodeSegmentGroup extends Win32Struct
-{
+class DXCoreAdapterMemoryBudgetNodeSegmentGroup extends Win32Struct {
     static sizeof => 8
 
     static packingSize => 4
@@ -28,7 +27,7 @@ class DXCoreAdapterMemoryBudgetNodeSegmentGroup extends Win32Struct
      * Type: **[DXCoreSegmentGroup](/windows/win32/api/dxcore_interface/ne-dxcore_interface-dxcoresegmentgroup)**
      * 
      * Specifies the adapter memory segment grouping that you want to query about.
-     * @type {Integer}
+     * @type {DXCoreSegmentGroup}
      */
     segmentGroup {
         get => NumGet(this, 4, "uint")

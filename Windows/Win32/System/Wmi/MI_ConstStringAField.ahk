@@ -6,10 +6,8 @@
  * Represents a property inside an MI_Instance structure. (MI_ConstStringAField)
  * @see https://learn.microsoft.com/windows/win32/api/mi/ns-mi-mi_conststringafield
  * @namespace Windows.Win32.System.Wmi
- * @version v4.0.30319
  */
-class MI_ConstStringAField extends Win32Struct
-{
+class MI_ConstStringAField extends Win32Struct {
     static sizeof => 24
 
     static packingSize => 8
@@ -18,7 +16,7 @@ class MI_ConstStringAField extends Win32Struct
      * A field of type <a href="https://docs.microsoft.com/windows/desktop/api/mi/ns-mi-mi_conststringa">MI_ConstStringA</a>.
      * @type {MI_ConstStringA}
      */
-    value{
+    value {
         get {
             if(!this.HasProp("__value"))
                 this.__value := MI_ConstStringA(0, this)

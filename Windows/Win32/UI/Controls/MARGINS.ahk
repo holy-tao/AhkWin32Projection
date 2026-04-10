@@ -5,10 +5,8 @@
  * Returned by the GetThemeMargins function to define the margins of windows that have visual styles applied.
  * @see https://learn.microsoft.com/windows/win32/api/uxtheme/ns-uxtheme-margins
  * @namespace Windows.Win32.UI.Controls
- * @version v4.0.30319
  */
-class MARGINS extends Win32Struct
-{
+class MARGINS extends Win32Struct {
     static sizeof => 16
 
     static packingSize => 4

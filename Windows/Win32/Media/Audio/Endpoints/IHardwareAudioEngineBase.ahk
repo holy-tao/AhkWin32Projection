@@ -7,9 +7,8 @@
  * The IHardwareAudioEngineBase interface is implemented by audio endpoints for the audio stack to use to configure and retrieve information about the hardware audio engine.
  * @see https://learn.microsoft.com/windows/win32/api/audioengineendpoint/nn-audioengineendpoint-ihardwareaudioenginebase
  * @namespace Windows.Win32.Media.Audio.Endpoints
- * @version v4.0.30319
  */
-class IHardwareAudioEngineBase extends IUnknown{
+class IHardwareAudioEngineBase extends IUnknown {
 
     static sizeof => A_PtrSize
     /**

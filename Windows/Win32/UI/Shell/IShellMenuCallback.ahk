@@ -9,9 +9,8 @@
  * Once you have created the menu band object, pass a pointer to this interface to the menu band object by calling <a href="https://docs.microsoft.com/windows/desktop/api/shobjidl_core/nf-shobjidl_core-ishellmenu-initialize">IShellMenu::Initialize</a>. You receive messages from the menu band through the <a href="https://docs.microsoft.com/windows/desktop/api/shobjidl_core/nf-shobjidl_core-ishellmenucallback-callbacksm">IShellMenuCallback::CallbackSM</a> method.
  * @see https://learn.microsoft.com/windows/win32/api/shobjidl_core/nn-shobjidl_core-ishellmenucallback
  * @namespace Windows.Win32.UI.Shell
- * @version v4.0.30319
  */
-class IShellMenuCallback extends IUnknown{
+class IShellMenuCallback extends IUnknown {
 
     static sizeof => A_PtrSize
     /**
@@ -40,8 +39,12 @@ class IShellMenuCallback extends IUnknown{
      * @param {Integer} uMsg Type: <b>UINT</b>
      * 
      * A message ID. This will be one of the SMC_XXX values. See <a href="https://docs.microsoft.com/windows/desktop/shell/control-panel-applications">Shell Messages and Notifications</a> for a complete list.
-     * @param {WPARAM} _wParam 
-     * @param {LPARAM} _lParam 
+     * @param {WPARAM} _wParam Type: <b>WPARAM</b>
+     * 
+     * A WPARAM value that contains additional information. See the specific SMC_XXX message reference for details.
+     * @param {LPARAM} _lParam Type: <b>LPARAM</b>
+     * 
+     * An LPARAM value that contains additional information. See the specific SMC_XXX message reference for details.
      * @returns {HRESULT} Type: <b>HRESULT</b>
      * 
      * If this method succeeds, it returns <b>S_OK</b>. Otherwise, it returns an <b>HRESULT</b> error code.

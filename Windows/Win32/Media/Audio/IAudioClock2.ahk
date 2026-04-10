@@ -7,9 +7,8 @@
  * The IAudioClock2 interface is used to get the current device position.
  * @see https://learn.microsoft.com/windows/win32/api/audioclient/nn-audioclient-iaudioclock2
  * @namespace Windows.Win32.Media.Audio
- * @version v4.0.30319
  */
-class IAudioClock2 extends IUnknown{
+class IAudioClock2 extends IUnknown {
 
     static sizeof => A_PtrSize
     /**

@@ -1,9 +1,9 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
+#Include ..\..\System\Com\IUnknown.ahk
 #Include .\IDXGISwapChain1.ahk
 #Include .\IDXGIDecodeSwapChain.ahk
-#Include ..\..\System\Com\IUnknown.ahk
 
 /**
  * Creates swap chains for desktop media apps that use DirectComposition surfaces to decode and display video.
@@ -29,9 +29,8 @@
  * ```
  * @see https://learn.microsoft.com/windows/win32/api/dxgi1_3/nn-dxgi1_3-idxgifactorymedia
  * @namespace Windows.Win32.Graphics.Dxgi
- * @version v4.0.30319
  */
-class IDXGIFactoryMedia extends IUnknown{
+class IDXGIFactoryMedia extends IUnknown {
 
     static sizeof => A_PtrSize
     /**

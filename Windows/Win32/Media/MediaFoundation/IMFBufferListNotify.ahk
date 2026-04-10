@@ -7,9 +7,8 @@
  * Enables IMFSourceBufferList object to notify its clients of important state changes.
  * @see https://learn.microsoft.com/windows/win32/api/mfmediaengine/nn-mfmediaengine-imfbufferlistnotify
  * @namespace Windows.Win32.Media.MediaFoundation
- * @version v4.0.30319
  */
-class IMFBufferListNotify extends IUnknown{
+class IMFBufferListNotify extends IUnknown {
 
     static sizeof => A_PtrSize
     /**

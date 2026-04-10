@@ -1,16 +1,15 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
-#Include ..\..\Graphics\Gdi\HMONITOR.ahk
 #Include ..\..\System\Com\IUnknown.ahk
+#Include ..\..\Graphics\Gdi\HMONITOR.ahk
 
 /**
  * . (ILaunchTargetMonitor)
  * @see https://learn.microsoft.com/windows/win32/api/shobjidl_core/nn-shobjidl_core-ilaunchtargetmonitor
  * @namespace Windows.Win32.UI.Shell
- * @version v4.0.30319
  */
-class ILaunchTargetMonitor extends IUnknown{
+class ILaunchTargetMonitor extends IUnknown {
 
     static sizeof => A_PtrSize
     /**
@@ -33,7 +32,9 @@ class ILaunchTargetMonitor extends IUnknown{
 
     /**
      * Retrieves the target monitor for the application being launched.
-     * @returns {HMONITOR} 
+     * @returns {HMONITOR} Type: <b>HMONITOR*</b>
+     * 
+     * Contains the address of a pointer to the target  monitor's handle.
      * @see https://learn.microsoft.com/windows/win32/api/shobjidl_core/nf-shobjidl_core-ilaunchtargetmonitor-getmonitor
      */
     GetMonitor() {

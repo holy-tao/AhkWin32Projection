@@ -5,9 +5,8 @@
 
 /**
  * @namespace Windows.Win32.Web.MsHtml
- * @version v4.0.30319
  */
-class DispCanvasPattern extends IDispatch{
+class DispCanvasPattern extends IDispatch {
 
     static sizeof => A_PtrSize
     /**

@@ -10,9 +10,8 @@
  *  state of the analysis sink, therefore, a Set method call on a range overwrites the previously set analysis result of the same range.
  * @see https://learn.microsoft.com/windows/win32/api/dwrite/nn-dwrite-idwritetextanalysissink
  * @namespace Windows.Win32.Graphics.DirectWrite
- * @version v4.0.30319
  */
-class IDWriteTextAnalysisSink extends IUnknown{
+class IDWriteTextAnalysisSink extends IUnknown {
 
     static sizeof => A_PtrSize
     /**

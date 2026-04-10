@@ -5,9 +5,8 @@
 
 /**
  * @namespace Windows.Win32.Web.MsHtml
- * @version v4.0.30319
  */
-class ISequenceNumber extends IUnknown{
+class ISequenceNumber extends IUnknown {
 
     static sizeof => A_PtrSize
     /**

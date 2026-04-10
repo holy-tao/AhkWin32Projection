@@ -5,9 +5,8 @@
  * The memory <a href="https://docs.microsoft.com/windows/desktop/SecGloss/b-gly">BLOB</a> specified by the <b>pSignBlobInfo</b> member is to be signed.
  * @see https://learn.microsoft.com/windows/win32/api/cryptuiapi/ns-cryptuiapi-cryptui_wiz_digital_sign_info
  * @namespace Windows.Win32.Security.Cryptography.UI
- * @version v4.0.30319
  */
-class CRYPTUI_WIZ_DIGITAL_SIGN_SUBJECT extends Win32Enum{
+class CRYPTUI_WIZ_DIGITAL_SIGN_SUBJECT extends Win32Enum {
 
     /**
      * @type {Integer (UInt32)}

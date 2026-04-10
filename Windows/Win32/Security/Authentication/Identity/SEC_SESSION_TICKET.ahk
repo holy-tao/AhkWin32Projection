@@ -3,10 +3,8 @@
 
 /**
  * @namespace Windows.Win32.Security.Authentication.Identity
- * @version v4.0.30319
  */
-class SEC_SESSION_TICKET extends Win32Struct
-{
+class SEC_SESSION_TICKET extends Win32Struct {
     static sizeof => 4
 
     static packingSize => 2
@@ -20,9 +18,9 @@ class SEC_SESSION_TICKET extends Win32Struct
     }
 
     /**
-     * @type {Array<Byte>}
+     * @type {Array<Integer>}
      */
-    SessionTicket{
+    SessionTicket {
         get {
             if(!this.HasProp("__SessionTicketProxyArray"))
                 this.__SessionTicketProxyArray := Win32FixedArray(this.ptr + 2, 1, Primitive, "char")

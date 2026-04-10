@@ -1,14 +1,13 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
+#Include ..\..\System\Variant\VARIANT.ahk
 
 /**
  * The DS_SELECTION structure contains data about an object the user selected from an object picker dialog box. The DS_SELECTION_LIST structure contains an array of DS_SELECTION structures.
  * @see https://learn.microsoft.com/windows/win32/api/objsel/ns-objsel-ds_selection
  * @namespace Windows.Win32.Networking.ActiveDirectory
- * @version v4.0.30319
  */
-class DS_SELECTION extends Win32Struct
-{
+class DS_SELECTION extends Win32Struct {
     static sizeof => 48
 
     static packingSize => 8

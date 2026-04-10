@@ -3,10 +3,8 @@
 
 /**
  * @namespace Windows.Win32.Media.DirectShow
- * @version v4.0.30319
  */
-class BDA_ISDBCAS_RESPONSEDATA extends Win32Struct
-{
+class BDA_ISDBCAS_RESPONSEDATA extends Win32Struct {
     static sizeof => 20
 
     static packingSize => 4
@@ -44,9 +42,9 @@ class BDA_ISDBCAS_RESPONSEDATA extends Win32Struct
     }
 
     /**
-     * @type {Array<Byte>}
+     * @type {Array<Integer>}
      */
-    argbIsdbCommandData{
+    argbIsdbCommandData {
         get {
             if(!this.HasProp("__argbIsdbCommandDataProxyArray"))
                 this.__argbIsdbCommandDataProxyArray := Win32FixedArray(this.ptr + 16, 1, Primitive, "char")

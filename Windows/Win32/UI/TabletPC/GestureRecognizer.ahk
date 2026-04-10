@@ -5,10 +5,8 @@
  * Implements the IGestureRecognizer Interface.
  * @see https://learn.microsoft.com/windows/win32/tablet/gesturerecognizer-class
  * @namespace Windows.Win32.UI.TabletPC
- * @version v4.0.30319
  */
-class GestureRecognizer extends Win32Struct
-{
+class GestureRecognizer extends Win32Struct {
     static sizeof => 0
 
     static packingSize => 1

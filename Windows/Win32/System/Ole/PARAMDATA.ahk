@@ -1,14 +1,13 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
+#Include ..\Variant\VARENUM.ahk
 
 /**
  * Describes a parameter accepted by a method or property.
  * @see https://learn.microsoft.com/windows/win32/api/oleauto/ns-oleauto-paramdata
  * @namespace Windows.Win32.System.Ole
- * @version v4.0.30319
  */
-class PARAMDATA extends Win32Struct
-{
+class PARAMDATA extends Win32Struct {
     static sizeof => 16
 
     static packingSize => 8
@@ -24,7 +23,7 @@ class PARAMDATA extends Win32Struct
 
     /**
      * The parameter type. If more than one parameter type is accepted, VT_VARIANT should be specified.
-     * @type {Integer}
+     * @type {VARENUM}
      */
     vt {
         get => NumGet(this, 8, "ushort")

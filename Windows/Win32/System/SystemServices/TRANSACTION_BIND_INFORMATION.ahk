@@ -4,10 +4,8 @@
 
 /**
  * @namespace Windows.Win32.System.SystemServices
- * @version v4.0.30319
  */
-class TRANSACTION_BIND_INFORMATION extends Win32Struct
-{
+class TRANSACTION_BIND_INFORMATION extends Win32Struct {
     static sizeof => 8
 
     static packingSize => 8
@@ -15,7 +13,7 @@ class TRANSACTION_BIND_INFORMATION extends Win32Struct
     /**
      * @type {HANDLE}
      */
-    TmHandle{
+    TmHandle {
         get {
             if(!this.HasProp("__TmHandle"))
                 this.__TmHandle := HANDLE(0, this)

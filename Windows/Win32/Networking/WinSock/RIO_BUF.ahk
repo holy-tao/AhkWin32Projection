@@ -13,10 +13,8 @@
  * The <b>RIO_BUF</b> structure is defined in the <i>Mswsockdef.h</i> header file which is automatically included in the <i>Mswsock.h</i> header file. The <i>Mswsockdef.h</i> header file should never be used directly.
  * @see https://learn.microsoft.com/windows/win32/api/mswsockdef/ns-mswsockdef-rio_buf
  * @namespace Windows.Win32.Networking.WinSock
- * @version v4.0.30319
  */
-class RIO_BUF extends Win32Struct
-{
+class RIO_BUF extends Win32Struct {
     static sizeof => 16
 
     static packingSize => 8

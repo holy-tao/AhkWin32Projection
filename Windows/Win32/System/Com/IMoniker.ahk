@@ -1,10 +1,9 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
-#Include .\IMoniker.ahk
+#Include .\IPersistStream.ahk
 #Include .\IEnumMoniker.ahk
 #Include ..\..\Foundation\FILETIME.ahk
-#Include .\IPersistStream.ahk
 
 /**
  * Enables you to use a moniker object, which contains information that uniquely identifies a COM object.
@@ -119,9 +118,8 @@
  * The most common example of moniker providers are COM applications that support linking. If your COM application supports linking to objects smaller than a file-based documents, you need to use item monikers. For a server application that allows linking to a selection within a document, you use the item monikers to identify those objects. For a container application that allows linking to embedded objects, you use the item monikers to identify the embedded objects.
  * @see https://learn.microsoft.com/windows/win32/api/objidl/nn-objidl-imoniker
  * @namespace Windows.Win32.System.Com
- * @version v4.0.30319
  */
-class IMoniker extends IPersistStream{
+class IMoniker extends IPersistStream {
 
     static sizeof => A_PtrSize
     /**

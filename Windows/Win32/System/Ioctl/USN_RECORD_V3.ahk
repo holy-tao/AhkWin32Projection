@@ -35,10 +35,8 @@
  *     <a href="https://docs.microsoft.com/windows/desktop/FileIO/creating-modifying-and-deleting-a-change-journal">Creating, Modifying, and Deleting a Change Journal</a>.
  * @see https://learn.microsoft.com/windows/win32/api/winioctl/ns-winioctl-usn_record_v3
  * @namespace Windows.Win32.System.Ioctl
- * @version v4.0.30319
  */
-class USN_RECORD_V3 extends Win32Struct
-{
+class USN_RECORD_V3 extends Win32Struct {
     static sizeof => 80
 
     static packingSize => 8
@@ -152,7 +150,7 @@ class USN_RECORD_V3 extends Win32Struct
      * This is an arbitrarily assigned value that associates a journal record with a file.
      * @type {FILE_ID_128}
      */
-    FileReferenceNumber{
+    FileReferenceNumber {
         get {
             if(!this.HasProp("__FileReferenceNumber"))
                 this.__FileReferenceNumber := FILE_ID_128(8, this)
@@ -167,7 +165,7 @@ class USN_RECORD_V3 extends Win32Struct
      * This is an arbitrarily assigned value that associates a journal record with a parent directory.
      * @type {FILE_ID_128}
      */
-    ParentFileReferenceNumber{
+    ParentFileReferenceNumber {
         get {
             if(!this.HasProp("__ParentFileReferenceNumber"))
                 this.__ParentFileReferenceNumber := FILE_ID_128(24, this)

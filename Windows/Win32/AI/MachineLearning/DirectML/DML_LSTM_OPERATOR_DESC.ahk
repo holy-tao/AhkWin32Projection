@@ -1,14 +1,15 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\..\Win32Struct.ahk
+#Include .\DML_TENSOR_DESC.ahk
+#Include .\DML_OPERATOR_DESC.ahk
+#Include .\DML_RECURRENT_NETWORK_DIRECTION.ahk
 
 /**
  * Performs a one-layer long short term memory (LSTM) function on the input. This operator uses multiple gates to perform this layer. These gates are performed multiple times in a loop, dictated by the sequence length dimension and the *SequenceLengthsTensor*.
  * @see https://learn.microsoft.com/windows/win32/api/directml/ns-directml-dml_lstm_operator_desc
  * @namespace Windows.Win32.AI.MachineLearning.DirectML
- * @version v4.0.30319
  */
-class DML_LSTM_OPERATOR_DESC extends Win32Struct
-{
+class DML_LSTM_OPERATOR_DESC extends Win32Struct {
     static sizeof => 120
 
     static packingSize => 8
@@ -160,7 +161,7 @@ class DML_LSTM_OPERATOR_DESC extends Win32Struct
      * Type: **const [DML_RECURRENT_NETWORK_DIRECTION](/windows/win32/api/directml/ne-directml-dml_recurrent_network_direction)\***
      * 
      * The direction of the operator: forward, backward, or bidirectional.
-     * @type {Integer}
+     * @type {DML_RECURRENT_NETWORK_DIRECTION}
      */
     Direction {
         get => NumGet(this, 104, "int")

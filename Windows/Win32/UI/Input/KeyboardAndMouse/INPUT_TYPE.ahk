@@ -3,9 +3,8 @@
 
 /**
  * @namespace Windows.Win32.UI.Input.KeyboardAndMouse
- * @version v4.0.30319
  */
-class INPUT_TYPE extends Win32Enum{
+class INPUT_TYPE extends Win32Enum {
 
     /**
      * @type {Integer (UInt32)}

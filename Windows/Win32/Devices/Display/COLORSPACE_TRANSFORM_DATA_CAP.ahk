@@ -1,18 +1,17 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
+#Include .\COLORSPACE_TRANSFORM_DATA_TYPE.ahk
 
 /**
  * @namespace Windows.Win32.Devices.Display
- * @version v4.0.30319
  */
-class COLORSPACE_TRANSFORM_DATA_CAP extends Win32Struct
-{
+class COLORSPACE_TRANSFORM_DATA_CAP extends Win32Struct {
     static sizeof => 16
 
     static packingSize => 4
 
     /**
-     * @type {Integer}
+     * @type {COLORSPACE_TRANSFORM_DATA_TYPE}
      */
     DataType {
         get => NumGet(this, 0, "int")

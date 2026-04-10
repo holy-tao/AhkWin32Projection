@@ -5,17 +5,15 @@
  * Defines the counter that is sent to a provider's callback when the consumer adds or removes a counter from the query.
  * @see https://learn.microsoft.com/windows/win32/api/perflib/ns-perflib-perf_counter_identity
  * @namespace Windows.Win32.System.Performance
- * @version v4.0.30319
  */
-class PERF_COUNTER_IDENTITY extends Win32Struct
-{
+class PERF_COUNTER_IDENTITY extends Win32Struct {
     static sizeof => 32
 
     static packingSize => 8
 
     /**
      * GUID that uniquely identifies the counter set that this counter belongs to.
-     * @type {Pointer<Guid>}
+     * @type {Pointer}
      */
     CounterSetGuid {
         get => NumGet(this, 0, "ptr")

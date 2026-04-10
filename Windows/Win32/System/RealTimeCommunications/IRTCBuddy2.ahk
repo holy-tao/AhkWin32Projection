@@ -1,18 +1,17 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
+#Include .\IRTCBuddy.ahk
 #Include .\IRTCProfile2.ahk
 #Include .\IRTCEnumGroups.ahk
 #Include .\IRTCCollection.ahk
 #Include ..\..\Foundation\BSTR.ahk
 #Include .\IRTCEnumPresenceDevices.ahk
-#Include .\IRTCBuddy.ahk
 
 /**
  * @namespace Windows.Win32.System.RealTimeCommunications
- * @version v4.0.30319
  */
-class IRTCBuddy2 extends IRTCBuddy{
+class IRTCBuddy2 extends IRTCBuddy {
 
     static sizeof => A_PtrSize
     /**
@@ -55,7 +54,7 @@ class IRTCBuddy2 extends IRTCBuddy{
     }
 
     /**
-     * @type {Integer} 
+     * @type {RTC_BUDDY_SUBSCRIPTION_TYPE} 
      */
     SubscriptionType {
         get => this.get_SubscriptionType()
@@ -103,7 +102,7 @@ class IRTCBuddy2 extends IRTCBuddy{
 
     /**
      * 
-     * @param {Integer} enProperty 
+     * @param {RTC_PRESENCE_PROPERTY} enProperty 
      * @returns {BSTR} 
      */
     get_PresenceProperty(enProperty) {
@@ -132,7 +131,7 @@ class IRTCBuddy2 extends IRTCBuddy{
 
     /**
      * 
-     * @returns {Integer} 
+     * @returns {RTC_BUDDY_SUBSCRIPTION_TYPE} 
      */
     get_SubscriptionType() {
         result := ComCall(20, this, "int*", &penSubscriptionType := 0, "HRESULT")

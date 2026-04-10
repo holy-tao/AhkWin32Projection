@@ -1,14 +1,14 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
+#Include ..\..\Security\SID.ahk
+#Include .\EFS_HASH_BLOB.ahk
 
 /**
  * Contains a certificate hash and display information for the certificate.
  * @see https://learn.microsoft.com/windows/win32/api/winefs/ns-winefs-encryption_certificate_hash
  * @namespace Windows.Win32.Storage.FileSystem
- * @version v4.0.30319
  */
-class ENCRYPTION_CERTIFICATE_HASH extends Win32Struct
-{
+class ENCRYPTION_CERTIFICATE_HASH extends Win32Struct {
     static sizeof => 32
 
     static packingSize => 8

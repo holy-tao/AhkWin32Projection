@@ -1,13 +1,12 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
+#Include .\NFC_SNEP_REQUEST_TYPE.ahk
 #Include .\NFC_DATA_BUFFER.ahk
 
 /**
  * @namespace Windows.Win32.Devices.Nfc
- * @version v4.0.30319
  */
-class NFC_SNEP_SERVER_REQUEST extends Win32Struct
-{
+class NFC_SNEP_SERVER_REQUEST extends Win32Struct {
     static sizeof => 24
 
     static packingSize => 8
@@ -29,7 +28,7 @@ class NFC_SNEP_SERVER_REQUEST extends Win32Struct
     }
 
     /**
-     * @type {Integer}
+     * @type {NFC_SNEP_REQUEST_TYPE}
      */
     eRequestType {
         get => NumGet(this, 16, "int")
@@ -39,7 +38,7 @@ class NFC_SNEP_SERVER_REQUEST extends Win32Struct
     /**
      * @type {NFC_DATA_BUFFER}
      */
-    sRequestPayload{
+    sRequestPayload {
         get {
             if(!this.HasProp("__sRequestPayload"))
                 this.__sRequestPayload := NFC_DATA_BUFFER(20, this)

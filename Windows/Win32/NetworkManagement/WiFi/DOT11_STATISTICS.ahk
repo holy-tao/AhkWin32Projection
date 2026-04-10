@@ -6,18 +6,16 @@
 
 /**
  * @namespace Windows.Win32.NetworkManagement.WiFi
- * @version v4.0.30319
  */
-class DOT11_STATISTICS extends Win32Struct
-{
-    static sizeof => 264
+class DOT11_STATISTICS extends Win32Struct {
+    static sizeof => 400
 
     static packingSize => 8
 
     /**
      * @type {NDIS_OBJECT_HEADER}
      */
-    Header{
+    Header {
         get {
             if(!this.HasProp("__Header"))
                 this.__Header := NDIS_OBJECT_HEADER(0, this)
@@ -52,7 +50,7 @@ class DOT11_STATISTICS extends Win32Struct
     /**
      * @type {DOT11_MAC_FRAME_STATISTICS}
      */
-    MacUcastCounters{
+    MacUcastCounters {
         get {
             if(!this.HasProp("__MacUcastCounters"))
                 this.__MacUcastCounters := DOT11_MAC_FRAME_STATISTICS(32, this)
@@ -63,7 +61,7 @@ class DOT11_STATISTICS extends Win32Struct
     /**
      * @type {DOT11_MAC_FRAME_STATISTICS}
      */
-    MacMcastCounters{
+    MacMcastCounters {
         get {
             if(!this.HasProp("__MacMcastCounters"))
                 this.__MacMcastCounters := DOT11_MAC_FRAME_STATISTICS(144, this)
@@ -72,9 +70,9 @@ class DOT11_STATISTICS extends Win32Struct
     }
 
     /**
-     * @type {Array<DOT11_PHY_FRAME_STATISTICS>}
+     * @type {DOT11_PHY_FRAME_STATISTICS}
      */
-    PhyCounters{
+    PhyCounters {
         get {
             if(!this.HasProp("__PhyCountersProxyArray"))
                 this.__PhyCountersProxyArray := Win32FixedArray(this.ptr + 256, 1, DOT11_PHY_FRAME_STATISTICS, "")

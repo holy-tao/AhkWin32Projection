@@ -5,10 +5,8 @@
  * Contains type and vendor identification information for an EAP method.
  * @see https://learn.microsoft.com/windows/win32/api/eaptypes/ns-eaptypes-eap_type
  * @namespace Windows.Win32.Security.ExtensibleAuthenticationProtocol
- * @version v4.0.30319
  */
-class EAP_TYPE extends Win32Struct
-{
+class EAP_TYPE extends Win32Struct {
     static sizeof => 12
 
     static packingSize => 4

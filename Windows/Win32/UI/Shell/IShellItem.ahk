@@ -1,7 +1,6 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
-#Include .\IShellItem.ahk
 #Include ..\..\System\Com\IUnknown.ahk
 
 /**
@@ -11,9 +10,8 @@
  * Third parties do not implement this interface; only use the implementation provided with the system.
  * @see https://learn.microsoft.com/windows/win32/api/shobjidl_core/nn-shobjidl_core-ishellitem
  * @namespace Windows.Win32.UI.Shell
- * @version v4.0.30319
  */
-class IShellItem extends IUnknown{
+class IShellItem extends IUnknown {
 
     static sizeof => A_PtrSize
     /**
@@ -75,7 +73,7 @@ class IShellItem extends IUnknown{
      * Gets the display name of the IShellItem object.
      * @remarks
      * It is the responsibility of the caller to free the string pointed to by <i>ppszName</i> when it is no longer needed. Call <a href="https://docs.microsoft.com/windows/desktop/api/combaseapi/nf-combaseapi-cotaskmemfree">CoTaskMemFree</a> on *<i>ppszName</i> to free the memory.
-     * @param {Integer} sigdnName Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/shobjidl_core/ne-shobjidl_core-sigdn">SIGDN</a></b>
+     * @param {SIGDN} sigdnName Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/shobjidl_core/ne-shobjidl_core-sigdn">SIGDN</a></b>
      * 
      * One of the <a href="https://docs.microsoft.com/windows/desktop/api/shobjidl_core/ne-shobjidl_core-sigdn">SIGDN</a> values that indicates how the name should look.
      * @returns {PWSTR} Type: <b>LPWSTR*</b>
@@ -90,10 +88,10 @@ class IShellItem extends IUnknown{
 
     /**
      * Gets a requested set of attributes of the IShellItem object.
-     * @param {Integer} sfgaoMask Type: <b>SFGAOF</b>
+     * @param {SFGAO_FLAGS} sfgaoMask Type: <b>SFGAOF</b>
      * 
      * Specifies the attributes to retrieve. One or more of the <a href="https://docs.microsoft.com/windows/desktop/shell/sfgao">SFGAO</a> values. Use a bitwise OR operator to determine the attributes to retrieve.
-     * @returns {Integer} Type: <b>SFGAOF*</b>
+     * @returns {SFGAO_FLAGS} Type: <b>SFGAOF*</b>
      * 
      * A pointer to a value that, when this method returns successfully, contains the requested attributes. One or more of the <a href="https://docs.microsoft.com/windows/desktop/shell/sfgao">SFGAO</a> values. Only those attributes specified by <i>sfgaoMask</i> are returned; other attribute values are undefined.
      * @see https://learn.microsoft.com/windows/win32/api/shobjidl_core/nf-shobjidl_core-ishellitem-getattributes

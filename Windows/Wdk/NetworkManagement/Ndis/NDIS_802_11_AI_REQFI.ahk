@@ -3,10 +3,8 @@
 
 /**
  * @namespace Windows.Wdk.NetworkManagement.Ndis
- * @version v4.0.30319
  */
-class NDIS_802_11_AI_REQFI extends Win32Struct
-{
+class NDIS_802_11_AI_REQFI extends Win32Struct {
     static sizeof => 10
 
     static packingSize => 2
@@ -28,9 +26,9 @@ class NDIS_802_11_AI_REQFI extends Win32Struct
     }
 
     /**
-     * @type {Array<Byte>}
+     * @type {Array<Integer>}
      */
-    CurrentAPAddress{
+    CurrentAPAddress {
         get {
             if(!this.HasProp("__CurrentAPAddressProxyArray"))
                 this.__CurrentAPAddressProxyArray := Win32FixedArray(this.ptr + 4, 6, Primitive, "char")

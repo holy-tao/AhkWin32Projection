@@ -7,9 +7,8 @@
  * In C++, explicit casting is required when trying to set more than one flag at a time using the bitwise <b>OR</b> operator. A compilation error occurs if explicit casting is not used.
  * @see https://learn.microsoft.com/windows/win32/api/msinkaut/ne-msinkaut-inkrecognitionmodes
  * @namespace Windows.Win32.UI.TabletPC
- * @version v4.0.30319
  */
-class InkRecognitionModes extends Win32Enum{
+class InkRecognitionModes extends Win32Enum {
 
     /**
      * The recognizer applies no recognition modes.

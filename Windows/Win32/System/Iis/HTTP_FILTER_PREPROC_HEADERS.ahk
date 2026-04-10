@@ -3,10 +3,8 @@
 
 /**
  * @namespace Windows.Win32.System.Iis
- * @version v4.0.30319
  */
-class HTTP_FILTER_PREPROC_HEADERS extends Win32Struct
-{
+class HTTP_FILTER_PREPROC_HEADERS extends Win32Struct {
     static sizeof => 32
 
     static packingSize => 8

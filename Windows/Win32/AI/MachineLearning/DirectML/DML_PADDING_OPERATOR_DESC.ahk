@@ -1,14 +1,14 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\..\Win32Struct.ahk
+#Include .\DML_TENSOR_DESC.ahk
+#Include .\DML_PADDING_MODE.ahk
 
 /**
  * The DML_PADDING_OPERATOR_DESC structure (directml.h) inflates the input tensor with constant or mirrored values on the edges, and writes the result to the output.
  * @see https://learn.microsoft.com/windows/win32/api/directml/ns-directml-dml_padding_operator_desc
  * @namespace Windows.Win32.AI.MachineLearning.DirectML
- * @version v4.0.30319
  */
-class DML_PADDING_OPERATOR_DESC extends Win32Struct
-{
+class DML_PADDING_OPERATOR_DESC extends Win32Struct {
     static sizeof => 48
 
     static packingSize => 8
@@ -44,7 +44,7 @@ class DML_PADDING_OPERATOR_DESC extends Win32Struct
      * - **DML_PADDING_MODE_EDGE**. For each dimension, use the edge values of that dimension for all padding values (see **Example 2**).
      * - **DML_PADDING_MODE_REFLECTION**. Mirror the values of the tensor as if we folded it right on the edges, which means that edges are not mirrored. Note that `StartPadding[i] >= InputTensor.Sizes[i]`, and `EndPadding[i] >= InputTensor.Sizes[i]` is valid, which means that we can mirror new padding regions periodically by folding them over previous padding regions (see **Example 3**).
      * - **DML_PADDING_MODE_SYMMETRIC**. Similar to **DML_PADDING_MODE_REFLECTION**, but edges are also mirrored. Note that `StartPadding[i] > InputTensor.Sizes[i]`, and `EndPadding[i] > InputTensor.Sizes[i]` is valid, which means that we can mirror new padding regions periodically by folding them over previous padding regions (see **Example 4**). **This mode was introduced in feature level `DML_FEATURE_LEVEL_3_0`**.
-     * @type {Integer}
+     * @type {DML_PADDING_MODE}
      */
     PaddingMode {
         get => NumGet(this, 16, "int")

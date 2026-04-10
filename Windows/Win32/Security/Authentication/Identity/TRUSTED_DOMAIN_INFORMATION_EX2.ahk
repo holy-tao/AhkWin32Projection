@@ -4,10 +4,8 @@
 
 /**
  * @namespace Windows.Win32.Security.Authentication.Identity
- * @version v4.0.30319
  */
-class TRUSTED_DOMAIN_INFORMATION_EX2 extends Win32Struct
-{
+class TRUSTED_DOMAIN_INFORMATION_EX2 extends Win32Struct {
     static sizeof => 64
 
     static packingSize => 8
@@ -15,7 +13,7 @@ class TRUSTED_DOMAIN_INFORMATION_EX2 extends Win32Struct
     /**
      * @type {LSA_UNICODE_STRING}
      */
-    Name{
+    Name {
         get {
             if(!this.HasProp("__Name"))
                 this.__Name := LSA_UNICODE_STRING(0, this)
@@ -26,7 +24,7 @@ class TRUSTED_DOMAIN_INFORMATION_EX2 extends Win32Struct
     /**
      * @type {LSA_UNICODE_STRING}
      */
-    FlatName{
+    FlatName {
         get {
             if(!this.HasProp("__FlatName"))
                 this.__FlatName := LSA_UNICODE_STRING(16, this)

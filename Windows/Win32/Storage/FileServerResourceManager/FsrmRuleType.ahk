@@ -5,9 +5,8 @@
  * Defines the types of rules that you can define.
  * @see https://learn.microsoft.com/windows/win32/api/fsrmenums/ne-fsrmenums-fsrmruletype
  * @namespace Windows.Win32.Storage.FileServerResourceManager
- * @version v4.0.30319
  */
-class FsrmRuleType extends Win32Enum{
+class FsrmRuleType extends Win32Enum {
 
     /**
      * The rule is unknown. Do not use this type.

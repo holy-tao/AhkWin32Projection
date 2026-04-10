@@ -9,10 +9,8 @@
  * Only HID joysticks have a "Calibration" value.
  * @see https://learn.microsoft.com/windows/win32/api/dinputd/ns-dinputd-diobjectcalibration
  * @namespace Windows.Win32.Devices.HumanInterfaceDevice
- * @version v4.0.30319
  */
-class DIOBJECTCALIBRATION extends Win32Struct
-{
+class DIOBJECTCALIBRATION extends Win32Struct {
     static sizeof => 12
 
     static packingSize => 4

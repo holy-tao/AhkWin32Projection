@@ -3,10 +3,8 @@
 
 /**
  * @namespace Windows.Win32.Media.DirectShow
- * @version v4.0.30319
  */
-class DXVA2SW_CALLBACKS extends Win32Struct
-{
+class DXVA2SW_CALLBACKS extends Win32Struct {
     static sizeof => 112
 
     static packingSize => 8

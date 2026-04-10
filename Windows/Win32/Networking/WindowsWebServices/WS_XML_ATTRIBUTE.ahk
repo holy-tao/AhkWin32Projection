@@ -1,14 +1,14 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
+#Include .\WS_XML_STRING.ahk
+#Include .\WS_XML_TEXT.ahk
 
 /**
  * Represents an attribute (for example, &lt;a:purchaseOrder xmlns:a=&quot;http://tempuri.org&quot; id=&quot;5&quot;&gt;)
  * @see https://learn.microsoft.com/windows/win32/api/webservices/ns-webservices-ws_xml_attribute
  * @namespace Windows.Win32.Networking.WindowsWebServices
- * @version v4.0.30319
  */
-class WS_XML_ATTRIBUTE extends Win32Struct
-{
+class WS_XML_ATTRIBUTE extends Win32Struct {
     static sizeof => 40
 
     static packingSize => 8

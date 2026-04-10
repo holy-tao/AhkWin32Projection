@@ -1,15 +1,15 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
 #Include .\WS_SAML_AUTHENTICATOR.ahk
+#Include .\WS_SAML_AUTHENTICATOR_TYPE.ahk
+#Include ..\..\Security\Cryptography\CERT_CONTEXT.ahk
 
 /**
  * The type for specifying a SAML token authenticator based on an array of expected issuer certificates.
  * @see https://learn.microsoft.com/windows/win32/api/webservices/ns-webservices-ws_cert_signed_saml_authenticator
  * @namespace Windows.Win32.Networking.WindowsWebServices
- * @version v4.0.30319
  */
-class WS_CERT_SIGNED_SAML_AUTHENTICATOR extends Win32Struct
-{
+class WS_CERT_SIGNED_SAML_AUTHENTICATOR extends Win32Struct {
     static sizeof => 48
 
     static packingSize => 8
@@ -19,7 +19,7 @@ class WS_CERT_SIGNED_SAML_AUTHENTICATOR extends Win32Struct
      * types derive.
      * @type {WS_SAML_AUTHENTICATOR}
      */
-    authenticator{
+    authenticator {
         get {
             if(!this.HasProp("__authenticator"))
                 this.__authenticator := WS_SAML_AUTHENTICATOR(0, this)

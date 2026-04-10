@@ -1,14 +1,13 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\..\Guid.ahk
-#Include .\DSFXI3DL2Reverb.ahk
 #Include ..\..\..\System\Com\IUnknown.ahk
+#Include .\DSFXI3DL2Reverb.ahk
 
 /**
  * @namespace Windows.Win32.Media.Audio.DirectSound
- * @version v4.0.30319
  */
-class IDirectSoundFXI3DL2Reverb extends IUnknown{
+class IDirectSoundFXI3DL2Reverb extends IUnknown {
 
     static sizeof => A_PtrSize
     /**

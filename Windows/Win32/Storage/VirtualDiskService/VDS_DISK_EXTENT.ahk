@@ -1,5 +1,6 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
+#Include .\VDS_DISK_EXTENT_TYPE.ahk
 
 /**
  * Defines the properties of a disk extent.
@@ -20,17 +21,15 @@
  *     extent is not required to be a contiguous set of blocks.
  * @see https://learn.microsoft.com/windows/win32/api/vds/ns-vds-vds_disk_extent
  * @namespace Windows.Win32.Storage.VirtualDiskService
- * @version v4.0.30319
  */
-class VDS_DISK_EXTENT extends Win32Struct
-{
+class VDS_DISK_EXTENT extends Win32Struct {
     static sizeof => 56
 
     static packingSize => 8
 
     /**
      * The GUID of the disk.
-     * @type {Pointer<Guid>}
+     * @type {Pointer}
      */
     diskId {
         get => NumGet(this, 0, "ptr")
@@ -39,7 +38,7 @@ class VDS_DISK_EXTENT extends Win32Struct
 
     /**
      * A <a href="https://docs.microsoft.com/windows/desktop/api/vds/ne-vds-vds_disk_extent_type">VDS_DISK_EXTENT_TYPE</a> enumeration value that specifies the type of the disk extent.
-     * @type {Integer}
+     * @type {VDS_DISK_EXTENT_TYPE}
      */
     type {
         get => NumGet(this, 8, "int")
@@ -66,7 +65,7 @@ class VDS_DISK_EXTENT extends Win32Struct
 
     /**
      * The GUID of the volume to which the extent belongs.
-     * @type {Pointer<Guid>}
+     * @type {Pointer}
      */
     volumeId {
         get => NumGet(this, 32, "ptr")
@@ -75,7 +74,7 @@ class VDS_DISK_EXTENT extends Win32Struct
 
     /**
      * If the extent is from a volume, this member is the GUID of the plex to which the extent belongs.
-     * @type {Pointer<Guid>}
+     * @type {Pointer}
      */
     plexId {
         get => NumGet(this, 40, "ptr")

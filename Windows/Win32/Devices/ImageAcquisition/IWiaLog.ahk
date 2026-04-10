@@ -1,16 +1,14 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
-#Include ..\..\Foundation\BSTR.ahk
 #Include ..\..\System\Com\IUnknown.ahk
 
 /**
  * This interface is not supported. (IWiaLog)
  * @see https://learn.microsoft.com/windows/win32/api/wia_xp/nn-wia_xp-iwialog
  * @namespace Windows.Win32.Devices.ImageAcquisition
- * @version v4.0.30319
  */
-class IWiaLog extends IUnknown{
+class IWiaLog extends IUnknown {
 
     static sizeof => A_PtrSize
     /**
@@ -39,7 +37,7 @@ class IWiaLog extends IUnknown{
 
     /**
      * This method is not supported. (IWiaLog.InitializeLog)
-     * @param {Integer} _hInstance 
+     * @param {Integer} _hInstance Type: <b>LONG</b>
      * @returns {HRESULT} Type: <b>HRESULT</b>
      * 
      * If this method succeeds, it returns <b>S_OK</b>. Otherwise, it returns an <b>HRESULT</b> error code.
@@ -52,7 +50,7 @@ class IWiaLog extends IUnknown{
 
     /**
      * This method is not supported. (IWiaLog.hResult)
-     * @param {HRESULT} _hResult 
+     * @param {HRESULT} _hResult Type: <b>HRESULT</b>
      * @returns {HRESULT} Type: <b>HRESULT</b>
      * 
      * If this method succeeds, it returns <b>S_OK</b>. Otherwise, it returns an <b>HRESULT</b> error code.

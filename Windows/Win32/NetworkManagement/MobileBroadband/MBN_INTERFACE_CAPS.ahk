@@ -1,22 +1,22 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
+#Include .\MBN_CELLULAR_CLASS.ahk
+#Include .\MBN_VOICE_CLASS.ahk
 #Include ..\..\Foundation\BSTR.ahk
 
 /**
  * The MBN_INTERFACE_CAPS structure represents the interface capabilities.
  * @see https://learn.microsoft.com/windows/win32/api/mbnapi/ns-mbnapi-mbn_interface_caps
  * @namespace Windows.Win32.NetworkManagement.MobileBroadband
- * @version v4.0.30319
  */
-class MBN_INTERFACE_CAPS extends Win32Struct
-{
+class MBN_INTERFACE_CAPS extends Win32Struct {
     static sizeof => 80
 
     static packingSize => 8
 
     /**
      * An <a href="https://docs.microsoft.com/windows/desktop/api/mbnapi/ne-mbnapi-mbn_cellular_class">MBN_CELLULAR_CLASS</a> value that specifies the cellular technology used by the device.
-     * @type {Integer}
+     * @type {MBN_CELLULAR_CLASS}
      */
     cellularClass {
         get => NumGet(this, 0, "int")
@@ -25,7 +25,7 @@ class MBN_INTERFACE_CAPS extends Win32Struct
 
     /**
      * An <a href="https://docs.microsoft.com/windows/desktop/api/mbnapi/ne-mbnapi-mbn_voice_class">MBN_VOICE_CLASS</a> value that specifies   how voice calls are handled.
-     * @type {Integer}
+     * @type {MBN_VOICE_CLASS}
      */
     voiceClass {
         get => NumGet(this, 4, "int")
@@ -49,7 +49,7 @@ class MBN_INTERFACE_CAPS extends Win32Struct
      * Contains the name of the custom data class.  If the <b>MBN_DATA_CLASS_CUSTOM</b> bit  of <b>dataClass</b> is not set, then the string is <b>NULL</b>.  Otherwise, the caller must free this string by calling <a href="https://docs.microsoft.com/windows/win32/api/oleauto/nf-oleauto-sysfreestring">SysFreeString</a>.
      * @type {BSTR}
      */
-    customDataClass{
+    customDataClass {
         get {
             if(!this.HasProp("__customDataClass"))
                 this.__customDataClass := BSTR(16, this)
@@ -291,7 +291,7 @@ class MBN_INTERFACE_CAPS extends Win32Struct
      * Contains the name of the custom band class.  If the <b>MBN_BAND_CLASS_CUSTOM</b> bit  of <b>cdmaBandClass</b> and <b>gsmBandClass</b> is not set, then the string is <b>NULL</b>.  Otherwise, the caller must free this string by calling <a href="https://docs.microsoft.com/windows/win32/api/oleauto/nf-oleauto-sysfreestring">SysFreeString</a>.
      * @type {BSTR}
      */
-    customBandClass{
+    customBandClass {
         get {
             if(!this.HasProp("__customBandClass"))
                 this.__customBandClass := BSTR(32, this)
@@ -321,7 +321,7 @@ class MBN_INTERFACE_CAPS extends Win32Struct
      * Contains the device ID.  For GSM devices, this must be the IMEI (up to 15 digits).  For CDMA devices, this must be the ESN (11 digits) / MEID (17 digits).  The maximum length of the string is <b>MBN_DEVICEID_LEN</b>.  For the definition of <b>MBN_DEVICEID_LEN</b>, see <a href="https://docs.microsoft.com/windows/desktop/api/mbnapi/ne-mbnapi-mbn_interface_caps_constants">MBN_INTERFACE_CAPS_CONSTANTS</a>.  The caller must free this string by calling <a href="https://docs.microsoft.com/windows/win32/api/oleauto/nf-oleauto-sysfreestring">SysFreeString</a>.
      * @type {BSTR}
      */
-    deviceID{
+    deviceID {
         get {
             if(!this.HasProp("__deviceID"))
                 this.__deviceID := BSTR(48, this)
@@ -333,7 +333,7 @@ class MBN_INTERFACE_CAPS extends Win32Struct
      * Contains the name of the device manufacturer.  This string can be empty.  The maximum length of the string is <b>MBN_MANUFACTURER_LEN</b>.  For the definition of <b>MBN_MANUFACTURER_LEN</b>, see <a href="https://docs.microsoft.com/windows/desktop/api/mbnapi/ne-mbnapi-mbn_interface_caps_constants">MBN_INTERFACE_CAPS_CONSTANTS</a>.  The caller must free this string by calling <a href="https://docs.microsoft.com/windows/win32/api/oleauto/nf-oleauto-sysfreestring">SysFreeString</a>.
      * @type {BSTR}
      */
-    manufacturer{
+    manufacturer {
         get {
             if(!this.HasProp("__manufacturer"))
                 this.__manufacturer := BSTR(56, this)
@@ -345,7 +345,7 @@ class MBN_INTERFACE_CAPS extends Win32Struct
      * Contains the device model.  This string can be empty.  The maximum length of this string is <b>MBN_MODEL_LEN</b>.  For the definition of <b>MBN_MODEL_LEN</b>, see <a href="https://docs.microsoft.com/windows/desktop/api/mbnapi/ne-mbnapi-mbn_interface_caps_constants">MBN_INTERFACE_CAPS_CONSTANTS</a>.  The caller must free this string by calling <a href="https://docs.microsoft.com/windows/win32/api/oleauto/nf-oleauto-sysfreestring">SysFreeString</a>.
      * @type {BSTR}
      */
-    model{
+    model {
         get {
             if(!this.HasProp("__model"))
                 this.__model := BSTR(64, this)
@@ -357,7 +357,7 @@ class MBN_INTERFACE_CAPS extends Win32Struct
      * Contains the firmware-specific information for this device.  This string can be empty.  The maximum length of the string is <b>MBN_FIRMWARE_LEN</b>.  For the definition of <b>MBN_FIRMWARE_LEN</b>, see <a href="https://docs.microsoft.com/windows/desktop/api/mbnapi/ne-mbnapi-mbn_interface_caps_constants">MBN_INTERFACE_CAPS_CONSTANTS</a>.  The caller must free this string by calling <a href=" http://msdn.microsoft.com/en-us/library/ms221481.aspx">SysFreeString</a>.
      * @type {BSTR}
      */
-    firmwareInfo{
+    firmwareInfo {
         get {
             if(!this.HasProp("__firmwareInfo"))
                 this.__firmwareInfo := BSTR(72, this)

@@ -3,10 +3,8 @@
 
 /**
  * @namespace Windows.Wdk.System.SystemServices
- * @version v4.0.30319
  */
-class WHEA_ARM_PROCESSOR_ERROR_INFORMATION extends Win32Struct
-{
+class WHEA_ARM_PROCESSOR_ERROR_INFORMATION extends Win32Struct {
     static sizeof => 48
 
     static packingSize => 8
@@ -28,7 +26,7 @@ class WHEA_ARM_PROCESSOR_ERROR_INFORMATION extends Win32Struct
     }
 
     /**
-     * @type {Pointer<WHEA_ARM_PROCESSOR_ERROR_INFORMATION_VALID_BITS>}
+     * @type {Pointer}
      */
     ValidationBit {
         get => NumGet(this, 8, "ptr")

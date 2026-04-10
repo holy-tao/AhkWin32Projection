@@ -1,15 +1,14 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
+#Include .\ALG_ID.ahk
 #Include .\CRYPT_INTEGER_BLOB.ahk
 
 /**
  * Contains information about an object identifier (OID).
  * @see https://learn.microsoft.com/windows/win32/api/wincrypt/ns-wincrypt-crypt_oid_info
  * @namespace Windows.Win32.Security.Cryptography
- * @version v4.0.30319
  */
-class CRYPT_OID_INFO extends Win32Struct
-{
+class CRYPT_OID_INFO extends Win32Struct {
     static sizeof => 48
 
     static packingSize => 8
@@ -151,7 +150,7 @@ class CRYPT_OID_INFO extends Win32Struct
     }
 
     /**
-     * @type {Integer}
+     * @type {ALG_ID}
      */
     Algid {
         get => NumGet(this, 28, "uint")
@@ -259,7 +258,7 @@ class CRYPT_OID_INFO extends Win32Struct
      * </table>
      * @type {CRYPT_INTEGER_BLOB}
      */
-    ExtraInfo{
+    ExtraInfo {
         get {
             if(!this.HasProp("__ExtraInfo"))
                 this.__ExtraInfo := CRYPT_INTEGER_BLOB(32, this)

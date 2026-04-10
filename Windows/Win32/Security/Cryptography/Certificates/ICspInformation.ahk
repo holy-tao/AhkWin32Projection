@@ -1,18 +1,17 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\..\Guid.ahk
-#Include ..\..\..\Foundation\BSTR.ahk
-#Include .\ICspAlgorithms.ahk
-#Include .\ICspStatus.ahk
 #Include ..\..\..\System\Com\IDispatch.ahk
+#Include .\ICspAlgorithms.ahk
+#Include ..\..\..\Foundation\BSTR.ahk
+#Include .\ICspStatus.ahk
 
 /**
  * Provides access to general information about a cryptographic provider.
  * @see https://learn.microsoft.com/windows/win32/api/certenroll/nn-certenroll-icspinformation
  * @namespace Windows.Win32.Security.Cryptography.Certificates
- * @version v4.0.30319
  */
-class ICspInformation extends IDispatch{
+class ICspInformation extends IDispatch {
 
     static sizeof => A_PtrSize
     /**
@@ -90,7 +89,7 @@ class ICspInformation extends IDispatch{
     }
 
     /**
-     * @type {Integer} 
+     * @type {X509ProviderType} 
      */
     Type {
         get => this.get_Type()
@@ -104,7 +103,7 @@ class ICspInformation extends IDispatch{
     }
 
     /**
-     * @type {Integer} 
+     * @type {X509KeySpec} 
      */
     KeySpec {
         get => this.get_KeySpec()
@@ -247,7 +246,7 @@ class ICspInformation extends IDispatch{
      * 
      * 
      * The method adds the available algorithms to the <a href="https://docs.microsoft.com/windows/desktop/api/certenroll/nn-certenroll-icspalgorithms">ICspAlgorithms</a> collection returned by the <a href="https://docs.microsoft.com/windows/desktop/api/certenroll/nf-certenroll-icspinformation-get_cspalgorithms">CspAlgorithms</a> property. Call the <a href="https://docs.microsoft.com/windows/desktop/api/certenroll/nf-certenroll-icspinformation-initializefromname">InitializeFromName</a> method to initialize the object from a CSP name.
-     * @param {Integer} Type An <a href="https://docs.microsoft.com/windows/desktop/api/certenroll/ne-certenroll-x509providertype">X509ProviderType</a> enumeration value that defines the provider type.
+     * @param {X509ProviderType} Type An <a href="https://docs.microsoft.com/windows/desktop/api/certenroll/ne-certenroll-x509providertype">X509ProviderType</a> enumeration value that defines the provider type.
      * 
      * <ul>
      * <li>If you specify XCN_PROV_NONE and set the <i>pAlgorithm</i> parameter to a value other than <b>NULL</b>, the default  Cryptography API: Next Generation (CNG) provider is used.</li>
@@ -536,7 +535,7 @@ class ICspInformation extends IDispatch{
      * <td>CN_PROV_RSA_FULL (1)</td>
      * </tr>
      * </table>
-     * @returns {Integer} 
+     * @returns {X509ProviderType} 
      * @see https://learn.microsoft.com/windows/win32/api/certenroll/nf-certenroll-icspinformation-get_type
      */
     get_Type() {
@@ -683,7 +682,7 @@ class ICspInformation extends IDispatch{
      * </td>
      * </tr>
      * </table>
-     * @returns {Integer} 
+     * @returns {X509KeySpec} 
      * @see https://learn.microsoft.com/windows/win32/api/certenroll/nf-certenroll-icspinformation-get_keyspec
      */
     get_KeySpec() {
@@ -748,7 +747,7 @@ class ICspInformation extends IDispatch{
      * <li>If you specify an OID but do not set the  <i>Operations</i>  parameter to <b>XCN_NCRYPT_SIGNATURE_OPERATION</b>, or you set <b>XCN_NCRYPT_SIGNATURE_OPERATION</b> but do not combine it with either XCN_NCRYPT_EXACT_MATCH_OPERATION or XCN_NCRYPT_PREFER_SIGNATURE_ONLY_OPERATION, the first algorithm that can be used for signing or encryption is used.</li>
      * <li>If you do not specify an OID, the first supported algorithm consistent with the flags specified in the  <i>Operations</i> parameter is used.</li>
      * </ul>
-     * @param {Integer} Operations 
+     * @param {AlgorithmOperationFlags} Operations 
      * @returns {ICspStatus} Address of a variable that receives a pointer to an  <a href="https://docs.microsoft.com/windows/desktop/api/certenroll/nn-certenroll-icspstatus">ICspStatus</a> interface.
      * @see https://learn.microsoft.com/windows/win32/api/certenroll/nf-certenroll-icspinformation-getcspstatusfromoperations
      */

@@ -15,10 +15,8 @@
  * <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/winldap/nf-winldap-ldap_set_option">ldap_set_option</a> to access or change the values associated with the LDAP connection handle (this structure). Using these two functions also expose settings not directly accessible from the <b>LDAP</b> structure. For more information about session options, see <a href="https://docs.microsoft.com/previous-versions/windows/desktop/ldap/session-options">Session Options</a>.
  * @see https://learn.microsoft.com/windows/win32/api/winldap/ns-winldap-ldap
  * @namespace Windows.Win32.Networking.Ldap
- * @version v4.0.30319
  */
-class LDAP extends Win32Struct
-{
+class LDAP extends Win32Struct {
     static sizeof => 192
 
     static packingSize => 8
@@ -34,18 +32,18 @@ class LDAP extends Win32Struct
             get => NumGet(this, 0, "ptr")
             set => NumPut("ptr", value, this, 0)
         }
-    
+
         /**
-         * @type {Array<Byte>}
+         * @type {Array<Integer>}
          */
-        Reserved1{
+        Reserved1 {
             get {
                 if(!this.HasProp("__Reserved1ProxyArray"))
                     this.__Reserved1ProxyArray := Win32FixedArray(this.ptr + 8, 41, Primitive, "char")
                 return this.__Reserved1ProxyArray
             }
         }
-    
+
         /**
          * @type {Pointer}
          */
@@ -53,27 +51,26 @@ class LDAP extends Win32Struct
             get => NumGet(this, 56, "ptr")
             set => NumPut("ptr", value, this, 56)
         }
-    
+
         /**
-         * @type {Array<Byte>}
+         * @type {Array<Integer>}
          */
-        Reserved2{
+        Reserved2 {
             get {
                 if(!this.HasProp("__Reserved2ProxyArray"))
                     this.__Reserved2ProxyArray := Win32FixedArray(this.ptr + 64, 24, Primitive, "char")
                 return this.__Reserved2ProxyArray
             }
         }
-    
     }
 
     /**
      * @type {_ld_sb}
      */
-    ld_sb{
+    ld_sb {
         get {
             if(!this.HasProp("__ld_sb"))
-                this.__ld_sb := %this.__Class%._ld_sb(0, this)
+                this.__ld_sb := LDAP._ld_sb(0, this)
             return this.__ld_sb
         }
     }
@@ -159,9 +156,9 @@ class LDAP extends Win32Struct
     }
 
     /**
-     * @type {Array<Byte>}
+     * @type {Array<Integer>}
      */
-    Reserved3{
+    Reserved3 {
         get {
             if(!this.HasProp("__Reserved3ProxyArray"))
                 this.__Reserved3ProxyArray := Win32FixedArray(this.ptr + 140, 25, Primitive, "char")

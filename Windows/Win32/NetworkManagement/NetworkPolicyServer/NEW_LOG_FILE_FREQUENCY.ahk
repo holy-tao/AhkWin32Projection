@@ -5,9 +5,8 @@
  * The values of the NEW_LOG_FILE_FREQUENCY enumeration type specify how frequently new log files are created.
  * @see https://learn.microsoft.com/windows/win32/api/sdoias/ne-sdoias-new_log_file_frequency
  * @namespace Windows.Win32.NetworkManagement.NetworkPolicyServer
- * @version v4.0.30319
  */
-class NEW_LOG_FILE_FREQUENCY extends Win32Enum{
+class NEW_LOG_FILE_FREQUENCY extends Win32Enum {
 
     /**
      * Allows the log file to grow without limit. Do not create new log files periodically.

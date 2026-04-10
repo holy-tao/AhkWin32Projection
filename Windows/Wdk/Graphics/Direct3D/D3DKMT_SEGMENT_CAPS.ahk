@@ -1,12 +1,11 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
+#Include .\D3DKMT_MEMORY_SEGMENT_GROUP.ahk
 
 /**
  * @namespace Windows.Wdk.Graphics.Direct3D
- * @version v4.0.30319
  */
-class D3DKMT_SEGMENT_CAPS extends Win32Struct
-{
+class D3DKMT_SEGMENT_CAPS extends Win32Struct {
     static sizeof => 24
 
     static packingSize => 8
@@ -52,7 +51,7 @@ class D3DKMT_SEGMENT_CAPS extends Win32Struct
     }
 
     /**
-     * @type {Integer}
+     * @type {D3DKMT_MEMORY_SEGMENT_GROUP}
      */
     BudgetGroup {
         get => NumGet(this, 20, "int")

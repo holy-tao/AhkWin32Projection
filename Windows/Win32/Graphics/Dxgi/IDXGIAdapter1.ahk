@@ -1,8 +1,8 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
-#Include .\DXGI_ADAPTER_DESC1.ahk
 #Include .\IDXGIAdapter.ahk
+#Include .\DXGI_ADAPTER_DESC1.ahk
 
 /**
  * The IDXGIAdapter1 interface represents a display sub-system (including one or more GPU's, DACs and video memory).
@@ -21,9 +21,8 @@
  *         </b> This API is supported.
  * @see https://learn.microsoft.com/windows/win32/api/dxgi/nn-dxgi-idxgiadapter1
  * @namespace Windows.Win32.Graphics.Dxgi
- * @version v4.0.30319
  */
-class IDXGIAdapter1 extends IDXGIAdapter{
+class IDXGIAdapter1 extends IDXGIAdapter {
 
     static sizeof => A_PtrSize
     /**

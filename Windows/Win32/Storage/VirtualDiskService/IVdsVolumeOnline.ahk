@@ -7,9 +7,8 @@
  * Provides a method to repair single volumes.
  * @see https://learn.microsoft.com/windows/win32/api/vds/nn-vds-ivdsvolumeonline
  * @namespace Windows.Win32.Storage.VirtualDiskService
- * @version v4.0.30319
  */
-class IVdsVolumeOnline extends IUnknown{
+class IVdsVolumeOnline extends IUnknown {
 
     static sizeof => A_PtrSize
     /**

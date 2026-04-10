@@ -7,9 +7,8 @@
  * . (IThumbnailCachePrimer)
  * @see https://learn.microsoft.com/windows/win32/api/thumbcache/nn-thumbcache-ithumbnailcacheprimer
  * @namespace Windows.Win32.UI.Shell
- * @version v4.0.30319
  */
-class IThumbnailCachePrimer extends IUnknown{
+class IThumbnailCachePrimer extends IUnknown {
 
     static sizeof => A_PtrSize
     /**
@@ -33,7 +32,7 @@ class IThumbnailCachePrimer extends IUnknown{
     /**
      * . (IThumbnailCachePrimer.PageInThumbnail)
      * @param {IShellItem} psi 
-     * @param {Integer} wtsFlags 
+     * @param {WTS_FLAGS} wtsFlags 
      * @param {Integer} cxyRequestedThumbSize 
      * @returns {HRESULT} If this method succeeds, it returns <b>S_OK</b>. Otherwise, it returns an <b>HRESULT</b> error code.
      * @see https://learn.microsoft.com/windows/win32/api/thumbcache/nf-thumbcache-ithumbnailcacheprimer-pageinthumbnail

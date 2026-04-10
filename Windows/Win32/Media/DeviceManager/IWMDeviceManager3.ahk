@@ -7,9 +7,8 @@
  * The IWMDeviceManager3 interface extends the IWMDeviceManager2 interface by providing a method that sets the device enumeration preferences.
  * @see https://learn.microsoft.com/windows/win32/api/mswmdm/nn-mswmdm-iwmdevicemanager3
  * @namespace Windows.Win32.Media.DeviceManager
- * @version v4.0.30319
  */
-class IWMDeviceManager3 extends IWMDeviceManager2{
+class IWMDeviceManager3 extends IWMDeviceManager2 {
 
     static sizeof => A_PtrSize
     /**

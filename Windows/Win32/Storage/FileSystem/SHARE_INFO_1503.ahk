@@ -3,16 +3,14 @@
 
 /**
  * @namespace Windows.Win32.Storage.FileSystem
- * @version v4.0.30319
  */
-class SHARE_INFO_1503 extends Win32Struct
-{
+class SHARE_INFO_1503 extends Win32Struct {
     static sizeof => 8
 
     static packingSize => 8
 
     /**
-     * @type {Pointer<Guid>}
+     * @type {Pointer}
      */
     shi1503_sharefilter {
         get => NumGet(this, 0, "ptr")

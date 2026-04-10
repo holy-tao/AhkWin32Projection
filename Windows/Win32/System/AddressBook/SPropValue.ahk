@@ -1,5 +1,6 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
+#Include .\__UPV.ahk
 #Include ..\Com\CY.ahk
 #Include ..\..\Foundation\FILETIME.ahk
 #Include .\SBinary.ahk
@@ -15,7 +16,6 @@
 #Include .\SWStringArray.ahk
 #Include .\SGuidArray.ahk
 #Include .\SLargeIntegerArray.ahk
-#Include .\__UPV.ahk
 
 /**
  * Describes a MAPI property for Outlook 2013 and Outlook 2016.
@@ -38,10 +38,8 @@
  * When the property type of an SPropValue indicates PT_LONG, the active member of the UPV union is generally ``l``, and accessing ``ul`` constitutes undefined behavior per the C standard.
  * @see https://learn.microsoft.com/office/client-developer/outlook/mapi/spropvalue
  * @namespace Windows.Win32.System.AddressBook
- * @version v4.0.30319
  */
-class SPropValue extends Win32Struct
-{
+class SPropValue extends Win32Struct {
     static sizeof => 320
 
     static packingSize => 8
@@ -100,7 +98,7 @@ class SPropValue extends Win32Struct
      * |PT_PTR or PT_FILE_HANDLE  <br/> |**lpv** <br/> |VOID \*  <br/> |
      * @type {__UPV}
      */
-    Value{
+    Value {
         get {
             if(!this.HasProp("__Value"))
                 this.__Value := __UPV(8, this)

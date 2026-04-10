@@ -4,10 +4,8 @@
 
 /**
  * @namespace Windows.Win32.Media.Multimedia
- * @version v4.0.30319
  */
-class EXBMINFOHEADER extends Win32Struct
-{
+class EXBMINFOHEADER extends Win32Struct {
     static sizeof => 44
 
     static packingSize => 4
@@ -15,7 +13,7 @@ class EXBMINFOHEADER extends Win32Struct
     /**
      * @type {BITMAPINFOHEADER}
      */
-    bmi{
+    bmi {
         get {
             if(!this.HasProp("__bmi"))
                 this.__bmi := BITMAPINFOHEADER(0, this)

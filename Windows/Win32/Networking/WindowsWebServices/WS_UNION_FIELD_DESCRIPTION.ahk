@@ -1,15 +1,18 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
 #Include .\WS_FIELD_DESCRIPTION.ahk
+#Include .\WS_FIELD_MAPPING.ahk
+#Include .\WS_XML_STRING.ahk
+#Include .\WS_TYPE.ahk
+#Include .\WS_DEFAULT_VALUE.ahk
+#Include .\WS_ITEM_RANGE.ahk
 
 /**
  * Represents serialization information about a field within a union. See WS_UNION_DESCRIPTION.
  * @see https://learn.microsoft.com/windows/win32/api/webservices/ns-webservices-ws_union_field_description
  * @namespace Windows.Win32.Networking.WindowsWebServices
- * @version v4.0.30319
  */
-class WS_UNION_FIELD_DESCRIPTION extends Win32Struct
-{
+class WS_UNION_FIELD_DESCRIPTION extends Win32Struct {
     static sizeof => 96
 
     static packingSize => 8
@@ -28,7 +31,7 @@ class WS_UNION_FIELD_DESCRIPTION extends Win32Struct
      * Information about the field.  See <a href="https://docs.microsoft.com/windows/desktop/api/webservices/ns-webservices-ws_field_description">WS_FIELD_DESCRIPTION</a> and <a href="https://docs.microsoft.com/windows/desktop/api/webservices/ns-webservices-ws_union_description">WS_UNION_DESCRIPTION</a>.
      * @type {WS_FIELD_DESCRIPTION}
      */
-    field{
+    field {
         get {
             if(!this.HasProp("__field"))
                 this.__field := WS_FIELD_DESCRIPTION(8, this)

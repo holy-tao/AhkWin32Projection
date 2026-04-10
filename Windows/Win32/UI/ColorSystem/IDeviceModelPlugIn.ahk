@@ -1,18 +1,16 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
-#Include ..\..\Foundation\BSTR.ahk
+#Include ..\..\System\Com\IUnknown.ahk
 #Include .\XYZColorF.ahk
 #Include .\PrimaryXYZColors.ahk
-#Include ..\..\System\Com\IUnknown.ahk
 
 /**
  * Describes the methods that are defined for the IDeviceModelPlugIn Component Object Model (COM) interface.
  * @see https://learn.microsoft.com/windows/win32/api/wcsplugin/nn-wcsplugin-idevicemodelplugin
  * @namespace Windows.Win32.UI.ColorSystem
- * @version v4.0.30319
  */
-class IDeviceModelPlugIn extends IUnknown{
+class IDeviceModelPlugIn extends IUnknown {
 
     static sizeof => A_PtrSize
     /**

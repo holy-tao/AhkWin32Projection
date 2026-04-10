@@ -5,9 +5,8 @@
  * Specifies which ICC rendering intent the Color management effect should use.
  * @see https://learn.microsoft.com/windows/win32/api/d2d1effects/ne-d2d1effects-d2d1_colormanagement_rendering_intent
  * @namespace Windows.Win32.Graphics.Direct2D
- * @version v4.0.30319
  */
-class D2D1_COLORMANAGEMENT_RENDERING_INTENT extends Win32Enum{
+class D2D1_COLORMANAGEMENT_RENDERING_INTENT extends Win32Enum {
 
     /**
      * The effect compresses or expands the full color gamut of the image to fill the color gamut of the device, 

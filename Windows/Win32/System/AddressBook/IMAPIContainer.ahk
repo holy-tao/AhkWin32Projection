@@ -1,16 +1,15 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
-#Include .\IMAPITable.ahk
 #Include .\IMAPIProp.ahk
+#Include .\IMAPITable.ahk
 
 /**
  * IMAPIContainerIMAPIProp manages high-level operations on container objects such as address books, distribution lists, and folders.
  * @see https://learn.microsoft.com/office/client-developer/outlook/mapi/imapicontainerimapiprop
  * @namespace Windows.Win32.System.AddressBook
- * @version v4.0.30319
  */
-class IMAPIContainer extends IMAPIProp{
+class IMAPIContainer extends IMAPIProp {
 
     static sizeof => A_PtrSize
 
@@ -103,7 +102,7 @@ class IMAPIContainer extends IMAPIProp{
      * @remarks
      * The **IMAPIContainer::OpenEntry** method opens an object throughout a container and returns a pointer to an interface implementation to use for further access.
      * @param {Integer} cbEntryID > [in] The byte count in the entry identifier pointed to by the  _lpEntryID_ parameter.
-     * @param {Pointer} lpEntryID > [in] A pointer to the entry identifier of the object to open. If  _lpEntryID_ is set to NULL, the top-level container in the container's hierarchy is opened.
+     * @param {Integer} lpEntryID > [in] A pointer to the entry identifier of the object to open. If  _lpEntryID_ is set to NULL, the top-level container in the container's hierarchy is opened.
      * @param {Pointer<Guid>} lpInterface > [in] A pointer to the interface identifier (IID) that represents the interface to be used to access the object. Passing NULL results in the identifier for the object's standard interface being returned. For messages, the standard interface is [IMAPIMessageSite : IUnknown](imapimessagesiteiunknown.md); for folders, it is [IMAPIFolder : IMAPIContainer](imapifolderimapicontainer.md). The standard interfaces for address book objects are [IDistList : IMAPIContainer](idistlistimapicontainer.md) for a distribution list and [IMailUser : IMAPIProp](imailuserimapiprop.md) for a messaging user.
      * @param {Integer} ulFlags > [in] A bitmask of flags that controls how the object is opened. The following flags can be set:
      *     

@@ -79,10 +79,8 @@
  * ```
  * @see https://learn.microsoft.com/windows/win32/api/winnt/ns-winnt-activation_context_assembly_detailed_information
  * @namespace Windows.Win32.System.ApplicationInstallationAndServicing
- * @version v4.0.30319
  */
-class ACTIVATION_CONTEXT_ASSEMBLY_DETAILED_INFORMATION extends Win32Struct
-{
+class ACTIVATION_CONTEXT_ASSEMBLY_DETAILED_INFORMATION extends Win32Struct {
     static sizeof => 104
 
     static packingSize => 8
@@ -256,7 +254,6 @@ class ACTIVATION_CONTEXT_ASSEMBLY_DETAILED_INFORMATION extends Win32Struct
     }
 
     /**
-     * 
      * @type {Integer}
      */
     ulFileCount {

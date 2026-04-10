@@ -5,10 +5,8 @@
 
 /**
  * @namespace Windows.Win32.Media.KernelStreaming
- * @version v4.0.30319
  */
-class KSPROPERTY_VIDEOCONTROL_FRAME_RATES_S extends Win32Struct
-{
+class KSPROPERTY_VIDEOCONTROL_FRAME_RATES_S extends Win32Struct {
     static sizeof => 32
 
     static packingSize => 8
@@ -16,7 +14,7 @@ class KSPROPERTY_VIDEOCONTROL_FRAME_RATES_S extends Win32Struct
     /**
      * @type {KSIDENTIFIER}
      */
-    Property{
+    Property {
         get {
             if(!this.HasProp("__Property"))
                 this.__Property := KSIDENTIFIER(0, this)
@@ -43,7 +41,7 @@ class KSPROPERTY_VIDEOCONTROL_FRAME_RATES_S extends Win32Struct
     /**
      * @type {SIZE}
      */
-    Dimensions{
+    Dimensions {
         get {
             if(!this.HasProp("__Dimensions"))
                 this.__Dimensions := SIZE(24, this)

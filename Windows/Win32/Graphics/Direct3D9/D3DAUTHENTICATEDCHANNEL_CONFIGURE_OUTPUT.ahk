@@ -9,10 +9,8 @@
  * For the **ConfigureType**, **hChannel**, and **SequenceNumber** members, the driver uses the same values that the application provided in the [**D3DAUTHENTICATEDCHANNEL\_CONFIGURE\_INPUT**](d3dauthenticatedchannel-configure-input.md) structure. The application should verify that these values match.
  * @see https://learn.microsoft.com/windows/win32/medfound/d3dauthenticatedchannel-configure-output
  * @namespace Windows.Win32.Graphics.Direct3D9
- * @version v4.0.30319
  */
-class D3DAUTHENTICATEDCHANNEL_CONFIGURE_OUTPUT extends Win32Struct
-{
+class D3DAUTHENTICATEDCHANNEL_CONFIGURE_OUTPUT extends Win32Struct {
     static sizeof => 40
 
     static packingSize => 8
@@ -21,7 +19,7 @@ class D3DAUTHENTICATEDCHANNEL_CONFIGURE_OUTPUT extends Win32Struct
      * A [**D3D\_OMAC**](d3d-omac.md) structure that contains a Message Authentication Code (MAC) of the data. The driver uses AES-based one-key CBC MAC (OMAC) to calculate this value for the block of data that appears after this structure member.
      * @type {D3D_OMAC}
      */
-    omac{
+    omac {
         get {
             if(!this.HasProp("__omac"))
                 this.__omac := D3D_OMAC(0, this)
@@ -31,7 +29,7 @@ class D3DAUTHENTICATEDCHANNEL_CONFIGURE_OUTPUT extends Win32Struct
 
     /**
      * A GUID that specifies the command. For a list of values, see [Content Protection Commands](content-protection-commands.md).
-     * @type {Pointer<Guid>}
+     * @type {Pointer}
      */
     ConfigureType {
         get => NumGet(this, 16, "ptr")
@@ -42,7 +40,7 @@ class D3DAUTHENTICATEDCHANNEL_CONFIGURE_OUTPUT extends Win32Struct
      * A handle to the authenticated channel.
      * @type {HANDLE}
      */
-    hChannel{
+    hChannel {
         get {
             if(!this.HasProp("__hChannel"))
                 this.__hChannel := HANDLE(24, this)

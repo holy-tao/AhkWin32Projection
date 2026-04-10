@@ -1,9 +1,9 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
+#Include ..\..\System\Com\IUnknown.ahk
 #Include .\IMFMediaSource.ahk
 #Include .\IMFActivate.ahk
-#Include ..\..\System\Com\IUnknown.ahk
 #Include .\IMFMediaType.ahk
 
 /**
@@ -12,9 +12,8 @@
  * To get a pointer to the capture source, call <a href="https://docs.microsoft.com/windows/desktop/api/mfcaptureengine/nf-mfcaptureengine-imfcaptureengine-getsource">IMFCaptureEngine::GetSource</a>.
  * @see https://learn.microsoft.com/windows/win32/api/mfcaptureengine/nn-mfcaptureengine-imfcapturesource
  * @namespace Windows.Win32.Media.MediaFoundation
- * @version v4.0.30319
  */
-class IMFCaptureSource extends IUnknown{
+class IMFCaptureSource extends IUnknown {
 
     static sizeof => A_PtrSize
     /**
@@ -37,7 +36,7 @@ class IMFCaptureSource extends IUnknown{
 
     /**
      * Gets the current capture device's IMFMediaSource object pointer.
-     * @param {Integer} mfCaptureEngineDeviceType The capture engine device type.
+     * @param {MF_CAPTURE_ENGINE_DEVICE_TYPE} mfCaptureEngineDeviceType The capture engine device type.
      * @returns {IMFMediaSource} Receives a pointer to the <a href="https://docs.microsoft.com/windows/desktop/api/mfidl/nn-mfidl-imfmediasource">IMFMediaSource</a> that represent the device.
      * @see https://learn.microsoft.com/windows/win32/api/mfcaptureengine/nf-mfcaptureengine-imfcapturesource-getcapturedevicesource
      */
@@ -48,7 +47,7 @@ class IMFCaptureSource extends IUnknown{
 
     /**
      * Gets the current capture device's IMFActivate object pointer.
-     * @param {Integer} mfCaptureEngineDeviceType The capture engine device type.
+     * @param {MF_CAPTURE_ENGINE_DEVICE_TYPE} mfCaptureEngineDeviceType The capture engine device type.
      * @returns {IMFActivate} Receives the pointer to a <a href="https://docs.microsoft.com/windows/desktop/api/mfobjects/nn-mfobjects-imfactivate">IMFActivate</a> that represents a device.
      * @see https://learn.microsoft.com/windows/win32/api/mfcaptureengine/nf-mfcaptureengine-imfcapturesource-getcapturedeviceactivate
      */
@@ -615,7 +614,7 @@ class IMFCaptureSource extends IUnknown{
     /**
      * Gets the stream category for the specified source stream index.
      * @param {Integer} dwSourceStreamIndex The index of the source stream.
-     * @returns {Integer} Receives the MF_CAPTURE_ENGINE_STREAM_CATEGORY of the specified source stream.
+     * @returns {MF_CAPTURE_ENGINE_STREAM_CATEGORY} Receives the MF_CAPTURE_ENGINE_STREAM_CATEGORY of the specified source stream.
      * @see https://learn.microsoft.com/windows/win32/api/mfcaptureengine/nf-mfcaptureengine-imfcapturesource-getdevicestreamcategory
      */
     GetDeviceStreamCategory(dwSourceStreamIndex) {

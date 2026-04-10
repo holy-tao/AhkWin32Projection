@@ -1,14 +1,13 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\..\Guid.ahk
-#Include ..\..\..\Graphics\Direct3D12\ID3D12Resource.ahk
 #Include ..\..\Com\IUnknown.ahk
+#Include ..\..\..\Graphics\Direct3D12\ID3D12Resource.ahk
 
 /**
  * @namespace Windows.Win32.System.WinRT.ML
- * @version v4.0.30319
  */
-class ITensorNative extends IUnknown{
+class ITensorNative extends IUnknown {
 
     static sizeof => A_PtrSize
     /**

@@ -2,16 +2,17 @@
 #Include ..\..\..\..\Win32Struct.ahk
 #Include ..\..\Foundation\HWND.ahk
 #Include ..\..\Foundation\HINSTANCE.ahk
+#Include .\TASKDIALOG_FLAGS.ahk
+#Include .\TASKDIALOG_COMMON_BUTTON_FLAGS.ahk
 #Include ..\WindowsAndMessaging\HICON.ahk
+#Include .\TASKDIALOG_BUTTON.ahk
 
 /**
  * The TASKDIALOGCONFIG structure contains information used to display a task dialog. The TaskDialogIndirect function uses this structure.
  * @see https://learn.microsoft.com/windows/win32/api/commctrl/ns-commctrl-taskdialogconfig
  * @namespace Windows.Win32.UI.Controls
- * @version v4.0.30319
  */
-class TASKDIALOGCONFIG extends Win32Struct
-{
+class TASKDIALOGCONFIG extends Win32Struct {
     static sizeof => 176
 
     static packingSize => 8
@@ -33,7 +34,7 @@ class TASKDIALOGCONFIG extends Win32Struct
      * Handle to the parent window. This member can be <b>NULL</b>.
      * @type {HWND}
      */
-    hwndParent{
+    hwndParent {
         get {
             if(!this.HasProp("__hwndParent"))
                 this.__hwndParent := HWND(8, this)
@@ -47,7 +48,7 @@ class TASKDIALOGCONFIG extends Win32Struct
      * Handle to the module that contains the icon resource identified by the <b>pszMainIcon</b> or <b>pszFooterIcon</b> members, and the string resources identified by the <b>pszWindowTitle</b>, <b>pszMainInstruction</b>, <b>pszContent</b>, <b>pszVerificationText</b>, <b>pszExpandedInformation</b>, <b>pszExpandedControlText</b>, <b>pszCollapsedControlText</b> or <b>pszFooter</b> members.
      * @type {HINSTANCE}
      */
-    hInstance{
+    hInstance {
         get {
             if(!this.HasProp("__hInstance"))
                 this.__hInstance := HINSTANCE(16, this)
@@ -257,7 +258,7 @@ class TASKDIALOGCONFIG extends Win32Struct
      * </td>
      * </tr>
      * </table>
-     * @type {Integer}
+     * @type {TASKDIALOG_FLAGS}
      */
     dwFlags {
         get => NumGet(this, 24, "int")
@@ -335,7 +336,7 @@ class TASKDIALOGCONFIG extends Win32Struct
      * </td>
      * </tr>
      * </table>
-     * @type {Integer}
+     * @type {TASKDIALOG_COMMON_BUTTON_FLAGS}
      */
     dwCommonButtons {
         get => NumGet(this, 28, "int")
@@ -356,7 +357,7 @@ class TASKDIALOGCONFIG extends Win32Struct
     /**
      * @type {HICON}
      */
-    hMainIcon{
+    hMainIcon {
         get {
             if(!this.HasProp("__hMainIcon"))
                 this.__hMainIcon := HICON(40, this)
@@ -537,7 +538,7 @@ class TASKDIALOGCONFIG extends Win32Struct
     /**
      * @type {HICON}
      */
-    hFooterIcon{
+    hFooterIcon {
         get {
             if(!this.HasProp("__hFooterIcon"))
                 this.__hFooterIcon := HICON(136, this)

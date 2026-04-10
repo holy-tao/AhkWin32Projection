@@ -1,20 +1,17 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
-#Include ..\..\..\Win32\Foundation\LUID.ahk
-#Include ..\..\..\Win32\Foundation\UNICODE_STRING.ahk
+#Include ..\..\..\Win32\Security\Authentication\Identity\MSV1_0_PROTOCOL_MESSAGE_TYPE.ahk
 
 /**
  * @namespace Windows.Wdk.Storage.FileSystem
- * @version v4.0.30319
  */
-class MSV1_0_GETCHALLENRESP_REQUEST extends Win32Struct
-{
-    static sizeof => 88
+class MSV1_0_GETCHALLENRESP_REQUEST extends Win32Struct {
+    static sizeof => 56
 
     static packingSize => 8
 
     /**
-     * @type {Integer}
+     * @type {MSV1_0_PROTOCOL_MESSAGE_TYPE}
      */
     MessageType {
         get => NumGet(this, 0, "int")
@@ -30,68 +27,53 @@ class MSV1_0_GETCHALLENRESP_REQUEST extends Win32Struct
     }
 
     /**
-     * @type {LUID}
+     * @type {Pointer}
      */
-    LogonId{
-        get {
-            if(!this.HasProp("__LogonId"))
-                this.__LogonId := LUID(8, this)
-            return this.__LogonId
-        }
+    LogonId {
+        get => NumGet(this, 8, "ptr")
+        set => NumPut("ptr", value, this, 8)
     }
 
     /**
-     * @type {UNICODE_STRING}
+     * @type {Pointer}
      */
-    Password{
-        get {
-            if(!this.HasProp("__Password"))
-                this.__Password := UNICODE_STRING(16, this)
-            return this.__Password
-        }
+    Password {
+        get => NumGet(this, 16, "ptr")
+        set => NumPut("ptr", value, this, 16)
     }
 
     /**
-     * @type {Array<Byte>}
+     * @type {Array<Integer>}
      */
-    ChallengeToClient{
+    ChallengeToClient {
         get {
             if(!this.HasProp("__ChallengeToClientProxyArray"))
-                this.__ChallengeToClientProxyArray := Win32FixedArray(this.ptr + 32, 8, Primitive, "char")
+                this.__ChallengeToClientProxyArray := Win32FixedArray(this.ptr + 24, 8, Primitive, "char")
             return this.__ChallengeToClientProxyArray
         }
     }
 
     /**
-     * @type {UNICODE_STRING}
+     * @type {Pointer}
      */
-    UserName{
-        get {
-            if(!this.HasProp("__UserName"))
-                this.__UserName := UNICODE_STRING(40, this)
-            return this.__UserName
-        }
+    UserName {
+        get => NumGet(this, 32, "ptr")
+        set => NumPut("ptr", value, this, 32)
     }
 
     /**
-     * @type {UNICODE_STRING}
+     * @type {Pointer}
      */
-    LogonDomainName{
-        get {
-            if(!this.HasProp("__LogonDomainName"))
-                this.__LogonDomainName := UNICODE_STRING(56, this)
-            return this.__LogonDomainName
-        }
+    LogonDomainName {
+        get => NumGet(this, 40, "ptr")
+        set => NumPut("ptr", value, this, 40)
     }
 
     /**
-     * @type {UNICODE_STRING}
+     * @type {Pointer}
      */
-    ServerName{
-        get {
-            if(!this.HasProp("__ServerName"))
-                this.__ServerName := UNICODE_STRING(72, this)
-            return this.__ServerName
-        }
+    ServerName {
+        get => NumGet(this, 48, "ptr")
+        set => NumPut("ptr", value, this, 48)
     }
 }

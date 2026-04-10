@@ -112,9 +112,8 @@
  * </ul>
  * @see https://learn.microsoft.com/windows/win32/api/d3d11/ne-d3d11-d3d11_usage
  * @namespace Windows.Win32.Graphics.Direct3D11
- * @version v4.0.30319
  */
-class D3D11_USAGE extends Win32Enum{
+class D3D11_USAGE extends Win32Enum {
 
     /**
      * A resource that requires read and write access by the GPU. This is likely to be the most common usage choice.

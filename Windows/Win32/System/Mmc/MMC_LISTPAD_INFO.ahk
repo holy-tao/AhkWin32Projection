@@ -7,10 +7,8 @@
  * Allocate the <b>szTitle</b> and <b>szButtonText</b> strings with the COM API function <a href="https://docs.microsoft.com/windows/desktop/api/combaseapi/nf-combaseapi-cotaskmemalloc">CoTaskMemAlloc</a> (or the equivalent) and MMC will release it.
  * @see https://learn.microsoft.com/windows/win32/api/mmc/ns-mmc-mmc_listpad_info
  * @namespace Windows.Win32.System.Mmc
- * @version v4.0.30319
  */
-class MMC_LISTPAD_INFO extends Win32Struct
-{
+class MMC_LISTPAD_INFO extends Win32Struct {
     static sizeof => 24
 
     static packingSize => 8

@@ -5,10 +5,8 @@
  * Contains pointers to all Resource API version 2.0 entry points except StartupEx.
  * @see https://learn.microsoft.com/windows/win32/api/resapi/ns-resapi-clres_v2_functions
  * @namespace Windows.Win32.Networking.Clustering
- * @version v4.0.30319
  */
-class CLRES_V2_FUNCTIONS extends Win32Struct
-{
+class CLRES_V2_FUNCTIONS extends Win32Struct {
     static sizeof => 96
 
     static packingSize => 8

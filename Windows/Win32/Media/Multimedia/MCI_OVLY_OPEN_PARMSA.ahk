@@ -4,11 +4,9 @@
 
 /**
  * @namespace Windows.Win32.Media.Multimedia
- * @version v4.0.30319
  * @charset ANSI
  */
-class MCI_OVLY_OPEN_PARMSA extends Win32Struct
-{
+class MCI_OVLY_OPEN_PARMSA extends Win32Struct {
     static sizeof => 56
 
     static packingSize => 8
@@ -64,7 +62,7 @@ class MCI_OVLY_OPEN_PARMSA extends Win32Struct
     /**
      * @type {HWND}
      */
-    hWndParent{
+    hWndParent {
         get {
             if(!this.HasProp("__hWndParent"))
                 this.__hWndParent := HWND(48, this)

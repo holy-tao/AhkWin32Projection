@@ -5,9 +5,8 @@
  * Specifies the type of encoding applied to a byte array for display purposes.
  * @see https://learn.microsoft.com/windows/win32/api/certenroll/ne-certenroll-encodingtype
  * @namespace Windows.Win32.Security.Cryptography.Certificates
- * @version v4.0.30319
  */
-class EncodingType extends Win32Enum{
+class EncodingType extends Win32Enum {
 
     /**
      * The string is base64 encoded with beginning and ending certificate headers. Base64 is an encoding scheme  used to transmit binary data. The data to be encoded is examined three bytes at a time. Every six bits in the 24-bit buffer is used as an index into a text string. The strings used vary depending on the type of data being encoded. The following string is commonly used for Multipurpose Internet Mail Extensions (MIME) email base64 encoding.
@@ -206,43 +205,36 @@ class EncodingType extends Win32Enum{
     static XCN_CRYPT_STRING_HEXRAW => 12
 
     /**
-     * 
      * @type {Integer (Int32)}
      */
     static XCN_CRYPT_STRING_BASE64URI => 13
 
     /**
-     * 
      * @type {Integer (Int32)}
      */
     static XCN_CRYPT_STRING_ENCODEMASK => 255
 
     /**
-     * 
      * @type {Integer (Int32)}
      */
     static XCN_CRYPT_STRING_CHAIN => 256
 
     /**
-     * 
      * @type {Integer (Int32)}
      */
     static XCN_CRYPT_STRING_TEXT => 512
 
     /**
-     * 
      * @type {Integer (Int32)}
      */
     static XCN_CRYPT_STRING_PERCENTESCAPE => 134217728
 
     /**
-     * 
      * @type {Integer (Int32)}
      */
     static XCN_CRYPT_STRING_HASHDATA => 268435456
 
     /**
-     * 
      * @type {Integer (Int32)}
      */
     static XCN_CRYPT_STRING_STRICT => 536870912

@@ -1,13 +1,12 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
 #Include .\PF_FILTER_DESCRIPTOR.ahk
+#Include .\PFADDRESSTYPE.ahk
 
 /**
  * @namespace Windows.Win32.NetworkManagement.IpHelper
- * @version v4.0.30319
  */
-class PF_FILTER_STATS extends Win32Struct
-{
+class PF_FILTER_STATS extends Win32Struct {
     static sizeof => 72
 
     static packingSize => 8
@@ -23,7 +22,7 @@ class PF_FILTER_STATS extends Win32Struct
     /**
      * @type {PF_FILTER_DESCRIPTOR}
      */
-    info{
+    info {
         get {
             if(!this.HasProp("__info"))
                 this.__info := PF_FILTER_DESCRIPTOR(8, this)

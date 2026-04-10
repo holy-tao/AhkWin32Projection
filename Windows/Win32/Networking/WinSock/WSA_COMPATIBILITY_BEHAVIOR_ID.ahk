@@ -3,9 +3,8 @@
 
 /**
  * @namespace Windows.Win32.Networking.WinSock
- * @version v4.0.30319
  */
-class WSA_COMPATIBILITY_BEHAVIOR_ID extends Win32Enum{
+class WSA_COMPATIBILITY_BEHAVIOR_ID extends Win32Enum {
 
     /**
      * @type {Integer (Int32)}

@@ -13,10 +13,8 @@
  *     control code.
  * @see https://learn.microsoft.com/windows/win32/api/clusapi/ns-clusapi-clus_maintenance_mode_info
  * @namespace Windows.Win32.Networking.Clustering
- * @version v4.0.30319
  */
-class CLUS_MAINTENANCE_MODE_INFO extends Win32Struct
-{
+class CLUS_MAINTENANCE_MODE_INFO extends Win32Struct {
     static sizeof => 4
 
     static packingSize => 4

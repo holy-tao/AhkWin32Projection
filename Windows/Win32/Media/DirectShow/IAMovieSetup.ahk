@@ -7,9 +7,8 @@
  * Note  This interface has been deprecated. (IAMovieSetup)
  * @see https://learn.microsoft.com/windows/win32/api/strmif/nn-strmif-iamoviesetup
  * @namespace Windows.Win32.Media.DirectShow
- * @version v4.0.30319
  */
-class IAMovieSetup extends IUnknown{
+class IAMovieSetup extends IUnknown {
 
     static sizeof => A_PtrSize
     /**

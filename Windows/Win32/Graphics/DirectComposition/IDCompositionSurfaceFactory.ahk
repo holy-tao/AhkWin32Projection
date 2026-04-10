@@ -1,17 +1,16 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
+#Include ..\..\System\Com\IUnknown.ahk
 #Include .\IDCompositionSurface.ahk
 #Include .\IDCompositionVirtualSurface.ahk
-#Include ..\..\System\Com\IUnknown.ahk
 
 /**
  * Creates surface and virtual surface objects associated with an application-provided rendering device.
  * @see https://learn.microsoft.com/windows/win32/api/dcomp/nn-dcomp-idcompositionsurfacefactory
  * @namespace Windows.Win32.Graphics.DirectComposition
- * @version v4.0.30319
  */
-class IDCompositionSurfaceFactory extends IUnknown{
+class IDCompositionSurfaceFactory extends IUnknown {
 
     static sizeof => A_PtrSize
     /**
@@ -59,8 +58,8 @@ class IDCompositionSurfaceFactory extends IUnknown{
      * </ul>
      * @param {Integer} width The width of the surface, in pixels.
      * @param {Integer} height The height of the surface, in pixels.
-     * @param {Integer} pixelFormat The pixel format of the surface.
-     * @param {Integer} alphaMode The format of the alpha channel, if an alpha channel is included in the pixel format. This can be one of DXGI_ALPHA_MODE_PREMULTIPLIED or DXGI_ALPHA_MODE_IGNORE. It can also be DXGI_ALPHA_MODE_UNSPECIFIED, which is interpreted as DXGI_ALPHA_MODE_IGNORE.
+     * @param {DXGI_FORMAT} pixelFormat The pixel format of the surface.
+     * @param {DXGI_ALPHA_MODE} alphaMode The format of the alpha channel, if an alpha channel is included in the pixel format. This can be one of DXGI_ALPHA_MODE_PREMULTIPLIED or DXGI_ALPHA_MODE_IGNORE. It can also be DXGI_ALPHA_MODE_UNSPECIFIED, which is interpreted as DXGI_ALPHA_MODE_IGNORE.
      * @returns {IDCompositionSurface} The newly created surface object. This parameter must not be NULL.
      * @see https://learn.microsoft.com/windows/win32/api/dcomp/nf-dcomp-idcompositionsurfacefactory-createsurface
      */
@@ -91,8 +90,8 @@ class IDCompositionSurfaceFactory extends IUnknown{
      * @param {Integer} initialWidth The width of the surface, in pixels. The maximum width is 16,777,216 pixels.
      * @param {Integer} initialHeight The height of the surface, in pixels.
      * The maximum height is 16,777,216 pixels.
-     * @param {Integer} pixelFormat The pixel format of the surface.
-     * @param {Integer} alphaMode The format of the alpha channel, if an alpha channel is included in the pixel format. This can be one of DXGI_ALPHA_MODE_PREMULTIPLIED or DXGI_ALPHA_MODE_IGNORE. It can also be DXGI_ALPHA_MODE_UNSPECIFIED, which is interpreted as DXGI_ALPHA_MODE_IGNORE.
+     * @param {DXGI_FORMAT} pixelFormat The pixel format of the surface.
+     * @param {DXGI_ALPHA_MODE} alphaMode The format of the alpha channel, if an alpha channel is included in the pixel format. This can be one of DXGI_ALPHA_MODE_PREMULTIPLIED or DXGI_ALPHA_MODE_IGNORE. It can also be DXGI_ALPHA_MODE_UNSPECIFIED, which is interpreted as DXGI_ALPHA_MODE_IGNORE.
      * @returns {IDCompositionVirtualSurface} The newly created virtual surface object. This parameter must not be NULL.
      * @see https://learn.microsoft.com/windows/win32/api/dcomp/nf-dcomp-idcompositionsurfacefactory-createvirtualsurface
      */

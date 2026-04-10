@@ -5,10 +5,8 @@
  * Represents the COFF symbols header.
  * @see https://learn.microsoft.com/windows/win32/api/winnt/ns-winnt-image_coff_symbols_header
  * @namespace Windows.Win32.System.Diagnostics.Debug
- * @version v4.0.30319
  */
-class IMAGE_COFF_SYMBOLS_HEADER extends Win32Struct
-{
+class IMAGE_COFF_SYMBOLS_HEADER extends Win32Struct {
     static sizeof => 32
 
     static packingSize => 4

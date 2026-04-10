@@ -1,21 +1,20 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
+#Include .\WS_CHANNEL_PROPERTY_ID.ahk
 
 /**
  * Specifies a channel specific setting.
  * @see https://learn.microsoft.com/windows/win32/api/webservices/ns-webservices-ws_channel_property
  * @namespace Windows.Win32.Networking.WindowsWebServices
- * @version v4.0.30319
  */
-class WS_CHANNEL_PROPERTY extends Win32Struct
-{
+class WS_CHANNEL_PROPERTY extends Win32Struct {
     static sizeof => 24
 
     static packingSize => 8
 
     /**
      * The <a href="https://docs.microsoft.com/windows/desktop/api/webservices/ne-webservices-ws_channel_property_id">WS_CHANNEL_PROPERTY_ID</a>.
-     * @type {Integer}
+     * @type {WS_CHANNEL_PROPERTY_ID}
      */
     id {
         get => NumGet(this, 0, "int")

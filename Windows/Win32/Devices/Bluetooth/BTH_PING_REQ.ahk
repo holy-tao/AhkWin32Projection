@@ -3,10 +3,8 @@
 
 /**
  * @namespace Windows.Win32.Devices.Bluetooth
- * @version v4.0.30319
  */
-class BTH_PING_REQ extends Win32Struct
-{
+class BTH_PING_REQ extends Win32Struct {
     static sizeof => 56
 
     static packingSize => 8
@@ -28,9 +26,9 @@ class BTH_PING_REQ extends Win32Struct
     }
 
     /**
-     * @type {Array<Byte>}
+     * @type {Array<Integer>}
      */
-    data{
+    data {
         get {
             if(!this.HasProp("__dataProxyArray"))
                 this.__dataProxyArray := Win32FixedArray(this.ptr + 9, 44, Primitive, "char")

@@ -3,9 +3,8 @@
 
 /**
  * @namespace Windows.Win32.Web.MsHtml
- * @version v4.0.30319
  */
-class DEV_CONSOLE_MESSAGE_LEVEL extends Win32Enum{
+class DEV_CONSOLE_MESSAGE_LEVEL extends Win32Enum {
 
     /**
      * @type {Integer (Int32)}

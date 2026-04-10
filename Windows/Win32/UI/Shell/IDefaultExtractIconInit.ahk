@@ -7,9 +7,8 @@
  * Exposes methods to set default icons associated with an object.
  * @see https://learn.microsoft.com/windows/win32/api/shobjidl_core/nn-shobjidl_core-idefaultextracticoninit
  * @namespace Windows.Win32.UI.Shell
- * @version v4.0.30319
  */
-class IDefaultExtractIconInit extends IUnknown{
+class IDefaultExtractIconInit extends IUnknown {
 
     static sizeof => A_PtrSize
     /**
@@ -49,7 +48,9 @@ class IDefaultExtractIconInit extends IUnknown{
      * Sets the registry key from which to load the &quot;DefaultIcon&quot; value.
      * @remarks
      * It is recommended that any call to <b>IDefaultExtractIconInit::SetKey</b> come before any calls to the SetXxxIcon methods.
-     * @param {HKEY} _hkey 
+     * @param {HKEY} _hkey Type: <b>HKEY</b>
+     * 
+     * A handle to the registry key.
      * @returns {HRESULT} Type: <b>HRESULT</b>
      * 
      * If this method succeeds, it returns <b>S_OK</b>. Otherwise, it returns an <b>HRESULT</b> error code.

@@ -3,10 +3,8 @@
 
 /**
  * @namespace Windows.Win32.UI.Input.KeyboardAndMouse
- * @version v4.0.30319
  */
-class VK_FPARAM extends Win32Struct
-{
+class VK_FPARAM extends Win32Struct {
     static sizeof => 8
 
     static packingSize => 4

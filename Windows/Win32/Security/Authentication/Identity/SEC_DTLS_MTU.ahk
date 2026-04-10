@@ -3,14 +3,10 @@
 
 /**
  * Stores the DTLS MTU.
- * @remarks
- * 
  * @see https://learn.microsoft.com/windows/win32/api/sspi/ns-sspi-sec_dtls_mtu
  * @namespace Windows.Win32.Security.Authentication.Identity
- * @version v4.0.30319
  */
-class SEC_DTLS_MTU extends Win32Struct
-{
+class SEC_DTLS_MTU extends Win32Struct {
     static sizeof => 2
 
     static packingSize => 2

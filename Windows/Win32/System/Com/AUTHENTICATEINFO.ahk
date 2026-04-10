@@ -3,10 +3,8 @@
 
 /**
  * @namespace Windows.Win32.System.Com
- * @version v4.0.30319
  */
-class AUTHENTICATEINFO extends Win32Struct
-{
+class AUTHENTICATEINFO extends Win32Struct {
     static sizeof => 8
 
     static packingSize => 4

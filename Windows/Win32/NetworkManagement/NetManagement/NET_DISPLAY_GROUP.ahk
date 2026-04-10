@@ -5,10 +5,8 @@
  * The NET_DISPLAY_GROUP structure contains information that an account manager can access to determine information about group accounts.
  * @see https://learn.microsoft.com/windows/win32/api/lmaccess/ns-lmaccess-net_display_group
  * @namespace Windows.Win32.NetworkManagement.NetManagement
- * @version v4.0.30319
  */
-class NET_DISPLAY_GROUP extends Win32Struct
-{
+class NET_DISPLAY_GROUP extends Win32Struct {
     static sizeof => 32
 
     static packingSize => 8

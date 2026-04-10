@@ -3,9 +3,8 @@
 
 /**
  * @namespace Windows.Win32.UI.Controls.RichEdit
- * @version v4.0.30319
  */
-class RICH_EDIT_GET_OBJECT_FLAGS extends Win32BitflagEnum{
+class RICH_EDIT_GET_OBJECT_FLAGS extends Win32BitflagEnum {
 
     /**
      * @type {Integer (UInt32)}

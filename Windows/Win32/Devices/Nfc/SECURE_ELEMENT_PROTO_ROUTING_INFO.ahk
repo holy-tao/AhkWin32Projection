@@ -3,16 +3,14 @@
 
 /**
  * @namespace Windows.Win32.Devices.Nfc
- * @version v4.0.30319
  */
-class SECURE_ELEMENT_PROTO_ROUTING_INFO extends Win32Struct
-{
+class SECURE_ELEMENT_PROTO_ROUTING_INFO extends Win32Struct {
     static sizeof => 16
 
     static packingSize => 8
 
     /**
-     * @type {Pointer<Guid>}
+     * @type {Pointer}
      */
     guidSecureElementId {
         get => NumGet(this, 0, "ptr")

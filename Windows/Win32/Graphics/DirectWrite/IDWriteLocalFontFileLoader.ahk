@@ -1,16 +1,15 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
-#Include ..\..\Foundation\FILETIME.ahk
 #Include .\IDWriteFontFileLoader.ahk
+#Include ..\..\Foundation\FILETIME.ahk
 
 /**
  * A built-in implementation of the IDWriteFontFileLoader interface, that operates on local font files and exposes local font file information from the font file reference key.
  * @see https://learn.microsoft.com/windows/win32/DirectWrite/idwritelocalfontfileloader
  * @namespace Windows.Win32.Graphics.DirectWrite
- * @version v4.0.30319
  */
-class IDWriteLocalFontFileLoader extends IDWriteFontFileLoader{
+class IDWriteLocalFontFileLoader extends IDWriteFontFileLoader {
 
     static sizeof => A_PtrSize
     /**
@@ -33,7 +32,7 @@ class IDWriteLocalFontFileLoader extends IDWriteFontFileLoader{
 
     /**
      * Obtains the length of the absolute file path from the font file reference key.
-     * @param {Pointer} fontFileReferenceKey Type: **const void\***
+     * @param {Integer} fontFileReferenceKey Type: **const void\***
      * 
      * Font file reference key that uniquely identifies the local font file within the scope of the font loader being used.
      * @param {Integer} fontFileReferenceKeySize Type: **UINT32**
@@ -51,7 +50,7 @@ class IDWriteLocalFontFileLoader extends IDWriteFontFileLoader{
 
     /**
      * Obtains the absolute font file path from the font file reference key.
-     * @param {Pointer} fontFileReferenceKey Type: **const void\***
+     * @param {Integer} fontFileReferenceKey Type: **const void\***
      * 
      * The font file reference key that uniquely identifies the local font file within the scope of the font loader being used.
      * @param {Integer} fontFileReferenceKeySize Type: **UINT32**
@@ -77,7 +76,7 @@ class IDWriteLocalFontFileLoader extends IDWriteFontFileLoader{
 
     /**
      * Obtains the last write time of the file from the font file reference key.
-     * @param {Pointer} fontFileReferenceKey Type: **const void\***
+     * @param {Integer} fontFileReferenceKey Type: **const void\***
      * 
      * The font file reference key that uniquely identifies the local font file within the scope of the font loader being used.
      * @param {Integer} fontFileReferenceKeySize Type: **UINT32**

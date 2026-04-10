@@ -5,10 +5,8 @@
  * Learn more about: JET_SETCOLUMN constructor
  * @see https://learn.microsoft.com/windows/win32/extensible-storage-engine/jet-setcolumn-constructor
  * @namespace Windows.Win32.Storage.Jet
- * @version v4.0.30319
  */
-class JET_SETCOLUMN extends Win32Struct
-{
+class JET_SETCOLUMN extends Win32Struct {
     static sizeof => 40
 
     static packingSize => 8

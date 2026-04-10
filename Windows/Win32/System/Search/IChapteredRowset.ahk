@@ -5,9 +5,8 @@
 
 /**
  * @namespace Windows.Win32.System.Search
- * @version v4.0.30319
  */
-class IChapteredRowset extends IUnknown{
+class IChapteredRowset extends IUnknown {
 
     static sizeof => A_PtrSize
     /**

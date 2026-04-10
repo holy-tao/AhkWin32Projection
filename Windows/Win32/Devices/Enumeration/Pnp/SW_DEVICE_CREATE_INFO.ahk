@@ -1,5 +1,6 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\..\Win32Struct.ahk
+#Include ..\..\..\Security\SECURITY_DESCRIPTOR.ahk
 
 /**
  * Describes info that PnP uses to create the software device.
@@ -7,10 +8,8 @@
  * You can only specify this info at creation time, and you can't later call the Software Device API to modify this info, by setting properties, for example.
  * @see https://learn.microsoft.com/windows/win32/api/swdevicedef/ns-swdevicedef-sw_device_create_info
  * @namespace Windows.Win32.Devices.Enumeration.Pnp
- * @version v4.0.30319
  */
-class SW_DEVICE_CREATE_INFO extends Win32Struct
-{
+class SW_DEVICE_CREATE_INFO extends Win32Struct {
     static sizeof => 72
 
     static packingSize => 8

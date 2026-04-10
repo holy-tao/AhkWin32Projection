@@ -5,9 +5,8 @@
  * Specifies whether to allow credential prompts to the user for authentication.
  * @see https://learn.microsoft.com/windows/win32/api/msxml6/ne-msxml6-xhr_cred_prompt
  * @namespace Windows.Win32.Data.Xml.MsXml
- * @version v4.0.30319
  */
-class XHR_CRED_PROMPT extends Win32Enum{
+class XHR_CRED_PROMPT extends Win32Enum {
 
     /**
      * Allow all credential prompts for authentication. 

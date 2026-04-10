@@ -9,9 +9,8 @@
  * You can retrieve events only in a forward direction from Debug and Analytic channels and from .evt and .etl log files.
  * @see https://learn.microsoft.com/windows/win32/api/winevt/ne-winevt-evt_query_flags
  * @namespace Windows.Win32.System.EventLog
- * @version v4.0.30319
  */
-class EVT_QUERY_FLAGS extends Win32Enum{
+class EVT_QUERY_FLAGS extends Win32Enum {
 
     /**
      * Specifies that the query is against one or more channels. The <i>Path</i> parameter of the <a href="https://docs.microsoft.com/windows/desktop/api/winevt/nf-winevt-evtquery">EvtQuery</a> function must specify the name of a  channel or <b>NULL</b>.

@@ -1,5 +1,6 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
+#Include .\SOCKADDR.ahk
 #Include .\WSABUF.ahk
 
 /**
@@ -16,10 +17,8 @@
  * <a href="https://docs.microsoft.com/windows/desktop/api/winsock/nf-winsock-wsagetlasterror">WSAGetLastError</a> function returns WSAEMSGSIZE. It is up to the application to determine what was truncated by checking for MSG_TRUNC and/or MSG_CTRUNC flags.
  * @see https://learn.microsoft.com/windows/win32/api/ws2def/ns-ws2def-wsamsg
  * @namespace Windows.Win32.Networking.WinSock
- * @version v4.0.30319
  */
-class WSAMSG extends Win32Struct
-{
+class WSAMSG extends Win32Struct {
     static sizeof => 56
 
     static packingSize => 8
@@ -78,7 +77,7 @@ class WSAMSG extends Win32Struct
      * <a href="https://docs.microsoft.com/windows/desktop/api/ws2def/ns-ws2def-wsabuf">WSABUF</a> type used to specify optional control data. See Remarks.
      * @type {WSABUF}
      */
-    Control{
+    Control {
         get {
             if(!this.HasProp("__Control"))
                 this.__Control := WSABUF(32, this)

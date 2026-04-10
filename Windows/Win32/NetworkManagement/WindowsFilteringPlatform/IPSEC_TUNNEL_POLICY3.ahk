@@ -1,14 +1,17 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
+#Include .\IPSEC_PROPOSAL0.ahk
 #Include .\IPSEC_TUNNEL_ENDPOINTS2.ahk
+#Include .\FWP_IP_VERSION.ahk
+#Include .\IPSEC_TUNNEL_ENDPOINT0.ahk
 #Include .\IPSEC_SA_IDLE_TIMEOUT0.ahk
+#Include .\IKEEXT_EM_POLICY2.ahk
+#Include .\IPSEC_TRAFFIC_SELECTOR_POLICY0.ahk
 
 /**
  * @namespace Windows.Win32.NetworkManagement.WindowsFilteringPlatform
- * @version v4.0.30319
  */
-class IPSEC_TUNNEL_POLICY3 extends Win32Struct
-{
+class IPSEC_TUNNEL_POLICY3 extends Win32Struct {
     static sizeof => 128
 
     static packingSize => 8
@@ -40,7 +43,7 @@ class IPSEC_TUNNEL_POLICY3 extends Win32Struct
     /**
      * @type {IPSEC_TUNNEL_ENDPOINTS2}
      */
-    tunnelEndpoints{
+    tunnelEndpoints {
         get {
             if(!this.HasProp("__tunnelEndpoints"))
                 this.__tunnelEndpoints := IPSEC_TUNNEL_ENDPOINTS2(16, this)
@@ -51,7 +54,7 @@ class IPSEC_TUNNEL_POLICY3 extends Win32Struct
     /**
      * @type {IPSEC_SA_IDLE_TIMEOUT0}
      */
-    saIdleTimeout{
+    saIdleTimeout {
         get {
             if(!this.HasProp("__saIdleTimeout"))
                 this.__saIdleTimeout := IPSEC_SA_IDLE_TIMEOUT0(88, this)

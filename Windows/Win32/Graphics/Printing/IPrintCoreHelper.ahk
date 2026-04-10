@@ -5,9 +5,8 @@
 
 /**
  * @namespace Windows.Win32.Graphics.Printing
- * @version v4.0.30319
  */
-class IPrintCoreHelper extends IUnknown{
+class IPrintCoreHelper extends IUnknown {
 
     static sizeof => A_PtrSize
     /**
@@ -30,7 +29,7 @@ class IPrintCoreHelper extends IUnknown{
 
     /**
      * 
-     * @param {Pointer} pDevmode 
+     * @param {Integer} pDevmode 
      * @param {Integer} cbSize 
      * @param {PSTR} pszFeatureRequested 
      * @returns {PSTR} 
@@ -82,7 +81,7 @@ class IPrintCoreHelper extends IUnknown{
 
     /**
      * 
-     * @param {Pointer} pDevmode 
+     * @param {Integer} pDevmode 
      * @param {Integer} cbSize 
      * @param {PSTR} pszFeatureKeyword 
      * @param {PSTR} pszOptionKeyword 

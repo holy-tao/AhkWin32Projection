@@ -3,14 +3,10 @@
 
 /**
  * Description of the CMYKCOLOR structure.
- * @remarks
- * 
  * @see https://learn.microsoft.com/windows/win32/api/icm/ns-icm-cmykcolor
  * @namespace Windows.Win32.UI.ColorSystem
- * @version v4.0.30319
  */
-class CMYKCOLOR extends Win32Struct
-{
+class CMYKCOLOR extends Win32Struct {
     static sizeof => 8
 
     static packingSize => 2

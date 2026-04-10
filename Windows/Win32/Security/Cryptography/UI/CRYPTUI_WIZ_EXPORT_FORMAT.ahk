@@ -5,9 +5,8 @@
  * Export in base 64 format.
  * @see https://learn.microsoft.com/windows/win32/api/cryptuiapi/ns-cryptuiapi-cryptui_wiz_export_certcontext_info
  * @namespace Windows.Win32.Security.Cryptography.UI
- * @version v4.0.30319
  */
-class CRYPTUI_WIZ_EXPORT_FORMAT extends Win32Enum{
+class CRYPTUI_WIZ_EXPORT_FORMAT extends Win32Enum {
 
     /**
      * @type {Integer (UInt32)}

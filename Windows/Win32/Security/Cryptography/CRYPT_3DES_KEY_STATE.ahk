@@ -3,18 +3,16 @@
 
 /**
  * @namespace Windows.Win32.Security.Cryptography
- * @version v4.0.30319
  */
-class CRYPT_3DES_KEY_STATE extends Win32Struct
-{
+class CRYPT_3DES_KEY_STATE extends Win32Struct {
     static sizeof => 40
 
     static packingSize => 1
 
     /**
-     * @type {Array<Byte>}
+     * @type {Array<Integer>}
      */
-    Key{
+    Key {
         get {
             if(!this.HasProp("__KeyProxyArray"))
                 this.__KeyProxyArray := Win32FixedArray(this.ptr + 0, 24, Primitive, "char")
@@ -23,9 +21,9 @@ class CRYPT_3DES_KEY_STATE extends Win32Struct
     }
 
     /**
-     * @type {Array<Byte>}
+     * @type {Array<Integer>}
      */
-    IV{
+    IV {
         get {
             if(!this.HasProp("__IVProxyArray"))
                 this.__IVProxyArray := Win32FixedArray(this.ptr + 24, 8, Primitive, "char")
@@ -34,9 +32,9 @@ class CRYPT_3DES_KEY_STATE extends Win32Struct
     }
 
     /**
-     * @type {Array<Byte>}
+     * @type {Array<Integer>}
      */
-    Feedback{
+    Feedback {
         get {
             if(!this.HasProp("__FeedbackProxyArray"))
                 this.__FeedbackProxyArray := Win32FixedArray(this.ptr + 32, 8, Primitive, "char")

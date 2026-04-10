@@ -1,20 +1,20 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
+#Include .\DOT11_CIPHER_ALGORITHM.ahk
+#Include .\DOT11_DIRECTION.ahk
 
 /**
  * @namespace Windows.Win32.NetworkManagement.WiFi
- * @version v4.0.30319
  */
-class DOT11_CIPHER_KEY_MAPPING_KEY_VALUE extends Win32Struct
-{
+class DOT11_CIPHER_KEY_MAPPING_KEY_VALUE extends Win32Struct {
     static sizeof => 24
 
     static packingSize => 4
 
     /**
-     * @type {Array<Byte>}
+     * @type {Array<Integer>}
      */
-    PeerMacAddr{
+    PeerMacAddr {
         get {
             if(!this.HasProp("__PeerMacAddrProxyArray"))
                 this.__PeerMacAddrProxyArray := Win32FixedArray(this.ptr + 0, 6, Primitive, "char")
@@ -23,7 +23,7 @@ class DOT11_CIPHER_KEY_MAPPING_KEY_VALUE extends Win32Struct
     }
 
     /**
-     * @type {Integer}
+     * @type {DOT11_CIPHER_ALGORITHM}
      */
     AlgorithmId {
         get => NumGet(this, 8, "int")
@@ -31,7 +31,7 @@ class DOT11_CIPHER_KEY_MAPPING_KEY_VALUE extends Win32Struct
     }
 
     /**
-     * @type {Integer}
+     * @type {DOT11_DIRECTION}
      */
     Direction {
         get => NumGet(this, 12, "int")
@@ -63,9 +63,9 @@ class DOT11_CIPHER_KEY_MAPPING_KEY_VALUE extends Win32Struct
     }
 
     /**
-     * @type {Array<Byte>}
+     * @type {Array<Integer>}
      */
-    ucKey{
+    ucKey {
         get {
             if(!this.HasProp("__ucKeyProxyArray"))
                 this.__ucKeyProxyArray := Win32FixedArray(this.ptr + 20, 1, Primitive, "char")

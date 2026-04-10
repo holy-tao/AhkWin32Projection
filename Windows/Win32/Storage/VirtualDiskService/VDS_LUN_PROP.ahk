@@ -1,5 +1,9 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
+#Include .\VDS_LUN_TYPE.ahk
+#Include .\VDS_LUN_STATUS.ahk
+#Include .\VDS_HEALTH.ahk
+#Include .\VDS_TRANSITION_STATE.ahk
 
 /**
  * The VDS_LUN_PROP structure (vdshwprv.h) defines the properties of a LUN object.
@@ -8,17 +12,15 @@
  *     this structure to report the properties of a <a href="https://docs.microsoft.com/windows/desktop/VDS/lun-object">LUN object</a>.
  * @see https://learn.microsoft.com/windows/win32/api/vdshwprv/ns-vdshwprv-vds_lun_prop
  * @namespace Windows.Win32.Storage.VirtualDiskService
- * @version v4.0.30319
  */
-class VDS_LUN_PROP extends Win32Struct
-{
+class VDS_LUN_PROP extends Win32Struct {
     static sizeof => 64
 
     static packingSize => 8
 
     /**
      * The GUID of the LUN object.
-     * @type {Pointer<Guid>}
+     * @type {Pointer}
      */
     id {
         get => NumGet(this, 0, "ptr")
@@ -90,7 +92,7 @@ class VDS_LUN_PROP extends Win32Struct
 
     /**
      * The LUN type enumerated by <a href="https://docs.microsoft.com/windows/desktop/api/vdshwprv/ne-vdshwprv-vds_lun_type">VDS_LUN_TYPE</a>.
-     * @type {Integer}
+     * @type {VDS_LUN_TYPE}
      */
     type {
         get => NumGet(this, 44, "int")
@@ -100,7 +102,7 @@ class VDS_LUN_PROP extends Win32Struct
     /**
      * The status of the LUN object enumerated by 
      *       <a href="https://docs.microsoft.com/windows/desktop/api/vdshwprv/ne-vdshwprv-vds_lun_status">VDS_LUN_STATUS</a>.
-     * @type {Integer}
+     * @type {VDS_LUN_STATUS}
      */
     status {
         get => NumGet(this, 48, "int")
@@ -110,7 +112,7 @@ class VDS_LUN_PROP extends Win32Struct
     /**
      * A 
      *       <a href="https://docs.microsoft.com/windows/desktop/api/vdshwprv/ne-vdshwprv-vds_health">VDS_HEALTH</a> enumeration value that specifies the health state of the LUN. The following are the valid values for this member.
-     * @type {Integer}
+     * @type {VDS_HEALTH}
      */
     health {
         get => NumGet(this, 52, "int")
@@ -120,7 +122,7 @@ class VDS_LUN_PROP extends Win32Struct
     /**
      * The transition state of the LUN enumerated by
      *       <a href="https://docs.microsoft.com/windows/desktop/api/vdshwprv/ne-vdshwprv-vds_transition_state">VDS_TRANSITION_STATE</a>.
-     * @type {Integer}
+     * @type {VDS_TRANSITION_STATE}
      */
     TransitionState {
         get => NumGet(this, 56, "int")

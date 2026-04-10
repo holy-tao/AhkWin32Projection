@@ -49,9 +49,8 @@
  * ```
  * @see https://learn.microsoft.com/windows/win32/api/bits/nn-bits-ibackgroundcopycallback
  * @namespace Windows.Win32.Networking.BackgroundIntelligentTransferService
- * @version v4.0.30319
  */
-class IBackgroundCopyCallback extends IUnknown{
+class IBackgroundCopyCallback extends IUnknown {
 
     static sizeof => A_PtrSize
     /**

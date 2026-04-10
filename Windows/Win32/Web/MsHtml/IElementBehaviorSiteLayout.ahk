@@ -1,14 +1,13 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
-#Include ..\..\Foundation\SIZE.ahk
 #Include ..\..\System\Com\IUnknown.ahk
+#Include ..\..\Foundation\SIZE.ahk
 
 /**
  * @namespace Windows.Win32.Web.MsHtml
- * @version v4.0.30319
  */
-class IElementBehaviorSiteLayout extends IUnknown{
+class IElementBehaviorSiteLayout extends IUnknown {
 
     static sizeof => A_PtrSize
     /**

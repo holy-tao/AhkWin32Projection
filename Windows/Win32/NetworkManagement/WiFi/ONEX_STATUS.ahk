@@ -1,5 +1,6 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
+#Include .\ONEX_AUTH_STATUS.ahk
 
 /**
  * Contains the current 802.1X authentication status.
@@ -11,17 +12,15 @@
  * The <b>oneXStatus</b> member of the <a href="https://docs.microsoft.com/windows/desktop/api/dot1x/ns-dot1x-onex_result_update_data">ONEX_RESULT_UPDATE_DATA</a> structure contains an <b>ONEX_STATUS</b> structure.
  * @see https://learn.microsoft.com/windows/win32/api/dot1x/ns-dot1x-onex_status
  * @namespace Windows.Win32.NetworkManagement.WiFi
- * @version v4.0.30319
  */
-class ONEX_STATUS extends Win32Struct
-{
+class ONEX_STATUS extends Win32Struct {
     static sizeof => 12
 
     static packingSize => 4
 
     /**
      * The current status of the 802.1X authentication process. Any error that may have occurred during authentication is indicated below by the value of the <b>dwReason</b> and <b>dwError</b> members of the <b>ONEX_STATUS</b> structure. For more information, see the <a href="https://docs.microsoft.com/windows/desktop/api/dot1x/ne-dot1x-onex_auth_status">ONEX_AUTH_STATUS</a> enumeration.
-     * @type {Integer}
+     * @type {ONEX_AUTH_STATUS}
      */
     authStatus {
         get => NumGet(this, 0, "int")

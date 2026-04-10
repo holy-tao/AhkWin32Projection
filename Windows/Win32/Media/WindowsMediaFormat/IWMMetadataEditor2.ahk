@@ -7,9 +7,8 @@
  * The IWMMetadataEditor2 interface provides an improved method for opening files for metadata operations.This interface is implemented as part of the metadata editor object.
  * @see https://learn.microsoft.com/windows/win32/api/wmsdkidl/nn-wmsdkidl-iwmmetadataeditor2
  * @namespace Windows.Win32.Media.WindowsMediaFormat
- * @version v4.0.30319
  */
-class IWMMetadataEditor2 extends IWMMetadataEditor{
+class IWMMetadataEditor2 extends IWMMetadataEditor {
 
     static sizeof => A_PtrSize
     /**

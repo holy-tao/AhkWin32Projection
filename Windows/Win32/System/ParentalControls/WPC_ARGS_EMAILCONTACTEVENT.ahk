@@ -5,9 +5,8 @@
  * Indicates information about contacting someone by using email.
  * @see https://learn.microsoft.com/windows/win32/api/wpcevent/ne-wpcevent-wpc_args_emailcontactevent
  * @namespace Windows.Win32.System.ParentalControls
- * @version v4.0.30319
  */
-class WPC_ARGS_EMAILCONTACTEVENT extends Win32Enum{
+class WPC_ARGS_EMAILCONTACTEVENT extends Win32Enum {
 
     /**
      * The name of the application used for the email contact.

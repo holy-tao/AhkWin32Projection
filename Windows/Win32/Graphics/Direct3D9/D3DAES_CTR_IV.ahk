@@ -9,10 +9,9 @@
  * For details, see [**DXVA2\_AES\_CTR\_IV**](/windows/desktop/api/dxva2api/ns-dxva2api-dxva2_aes_ctr_iv).
  * @see https://learn.microsoft.com/windows/win32/medfound/d3daes-ctr-iv
  * @namespace Windows.Win32.Graphics.Direct3D9
- * @version v4.0.30319
+ * @architecture X64, Arm64
  */
-class D3DAES_CTR_IV extends Win32Struct
-{
+class D3DAES_CTR_IV extends Win32Struct {
     static sizeof => 16
 
     static packingSize => 8

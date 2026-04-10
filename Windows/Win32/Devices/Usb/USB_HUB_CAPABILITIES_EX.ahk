@@ -4,10 +4,8 @@
 
 /**
  * @namespace Windows.Win32.Devices.Usb
- * @version v4.0.30319
  */
-class USB_HUB_CAPABILITIES_EX extends Win32Struct
-{
+class USB_HUB_CAPABILITIES_EX extends Win32Struct {
     static sizeof => 8
 
     static packingSize => 1
@@ -15,7 +13,7 @@ class USB_HUB_CAPABILITIES_EX extends Win32Struct
     /**
      * @type {USB_HUB_CAP_FLAGS}
      */
-    CapabilityFlags{
+    CapabilityFlags {
         get {
             if(!this.HasProp("__CapabilityFlags"))
                 this.__CapabilityFlags := USB_HUB_CAP_FLAGS(0, this)

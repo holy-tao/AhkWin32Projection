@@ -5,10 +5,8 @@
  * Receives information about the version of the Active Directory Rights Management Services (AD RMS) client and the hierarchy, such as Production or Pre-production.
  * @see https://learn.microsoft.com/windows/win32/api/msdrmdefs/ns-msdrmdefs-drm_client_version_info
  * @namespace Windows.Win32.Data.RightsManagement
- * @version v4.0.30319
  */
-class DRM_CLIENT_VERSION_INFO extends Win32Struct
-{
+class DRM_CLIENT_VERSION_INFO extends Win32Struct {
     static sizeof => 1556
 
     static packingSize => 4
@@ -24,9 +22,9 @@ class DRM_CLIENT_VERSION_INFO extends Win32Struct
 
     /**
      * Array of type <b>DWORD</b> that receives the version number of the Active Directory Rights Management Services client software. The version number consists of the following parts.
-     * @type {Array<UInt32>}
+     * @type {Array<Integer>}
      */
-    dwVersion{
+    dwVersion {
         get {
             if(!this.HasProp("__dwVersionProxyArray"))
                 this.__dwVersionProxyArray := Win32FixedArray(this.ptr + 4, 4, Primitive, "uint")

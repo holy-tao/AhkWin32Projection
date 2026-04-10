@@ -1,16 +1,14 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
-#Include .\JOYPOS.ahk
 #Include .\JOYRANGE.ahk
+#Include .\JOYPOS.ahk
 
 /**
  * The JOYREGHWVALUES (dinputd.h) structure contains the range of values returned by the hardware (filled in by calibration).
  * @see https://learn.microsoft.com/windows/win32/api/dinputd/ns-dinputd-joyreghwvalues
  * @namespace Windows.Win32.Devices.HumanInterfaceDevice
- * @version v4.0.30319
  */
-class JOYREGHWVALUES extends Win32Struct
-{
+class JOYREGHWVALUES extends Win32Struct {
     static sizeof => 92
 
     static packingSize => 4
@@ -19,7 +17,7 @@ class JOYREGHWVALUES extends Win32Struct
      * The values returned by the hardware.
      * @type {JOYRANGE}
      */
-    jrvHardware{
+    jrvHardware {
         get {
             if(!this.HasProp("__jrvHardware"))
                 this.__jrvHardware := JOYRANGE(0, this)
@@ -29,9 +27,9 @@ class JOYREGHWVALUES extends Win32Struct
 
     /**
      * The point-of-view (POV) values returned by the hardware.
-     * @type {Array<UInt32>}
+     * @type {Array<Integer>}
      */
-    dwPOVValues{
+    dwPOVValues {
         get {
             if(!this.HasProp("__dwPOVValuesProxyArray"))
                 this.__dwPOVValuesProxyArray := Win32FixedArray(this.ptr + 72, 4, Primitive, "uint")

@@ -5,9 +5,8 @@
 
 /**
  * @namespace Windows.Win32.System.Diagnostics.Debug.Extensions
- * @version v4.0.30319
  */
-class IDataModelScriptClient extends IUnknown{
+class IDataModelScriptClient extends IUnknown {
 
     static sizeof => A_PtrSize
     /**
@@ -30,7 +29,7 @@ class IDataModelScriptClient extends IUnknown{
 
     /**
      * 
-     * @param {Integer} errClass 
+     * @param {ErrorClass} errClass 
      * @param {HRESULT} hrFail 
      * @param {PWSTR} message 
      * @param {Integer} line 

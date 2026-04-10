@@ -3,9 +3,8 @@
 
 /**
  * @namespace Windows.Win32.System.StationsAndDesktops
- * @version v4.0.30319
  */
-class BROADCAST_SYSTEM_MESSAGE_FLAGS extends Win32BitflagEnum{
+class BROADCAST_SYSTEM_MESSAGE_FLAGS extends Win32BitflagEnum {
 
     /**
      * @type {Integer (UInt32)}

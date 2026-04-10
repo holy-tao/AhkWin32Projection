@@ -1,5 +1,6 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\..\Win32Struct.ahk
+#Include .\APO_BUFFER_FLAGS.ahk
 
 /**
  * Contains the dynamically changing connection properties.
@@ -7,10 +8,8 @@
  * The Remote Desktop Services AudioEndpoint API is for use in Remote Desktop scenarios; it is not for client applications.
  * @see https://learn.microsoft.com/windows/win32/api/audioapotypes/ns-audioapotypes-apo_connection_property
  * @namespace Windows.Win32.Media.Audio.Apo
- * @version v4.0.30319
  */
-class APO_CONNECTION_PROPERTY extends Win32Struct
-{
+class APO_CONNECTION_PROPERTY extends Win32Struct {
     static sizeof => 24
 
     static packingSize => 8
@@ -37,7 +36,7 @@ class APO_CONNECTION_PROPERTY extends Win32Struct
 
     /**
      * The connection flags for this buffer. This indicates the validity status of the APOs. For more information about these flags, see <a href="https://docs.microsoft.com/windows/desktop/api/audioapotypes/ne-audioapotypes-apo_buffer_flags">APO_BUFFER_FLAGS</a>.
-     * @type {Integer}
+     * @type {APO_BUFFER_FLAGS}
      */
     u32BufferFlags {
         get => NumGet(this, 12, "int")

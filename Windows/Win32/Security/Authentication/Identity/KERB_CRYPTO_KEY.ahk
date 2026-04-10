@@ -1,21 +1,19 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\..\Win32Struct.ahk
+#Include .\KERB_CRYPTO_KEY_TYPE.ahk
 
 /**
  * Contains information about a Kerberos cryptographic session key.
  * @see https://learn.microsoft.com/windows/win32/api/ntsecapi/ns-ntsecapi-kerb_crypto_key
  * @namespace Windows.Win32.Security.Authentication.Identity
- * @version v4.0.30319
  */
-class KERB_CRYPTO_KEY extends Win32Struct
-{
+class KERB_CRYPTO_KEY extends Win32Struct {
     static sizeof => 16
 
     static packingSize => 8
 
     /**
-     * 
-     * @type {Integer}
+     * @type {KERB_CRYPTO_KEY_TYPE}
      */
     KeyType {
         get => NumGet(this, 0, "int")

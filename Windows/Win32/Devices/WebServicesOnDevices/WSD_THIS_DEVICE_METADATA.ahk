@@ -1,5 +1,7 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
+#Include .\WSD_LOCALIZED_STRING_LIST.ahk
+#Include .\WSDXML_ELEMENT.ahk
 
 /**
  * Specifies metadata that is unique to a specific device.
@@ -24,10 +26,8 @@
  * ```
  * @see https://learn.microsoft.com/windows/win32/api/wsdtypes/ns-wsdtypes-wsd_this_device_metadata
  * @namespace Windows.Win32.Devices.WebServicesOnDevices
- * @version v4.0.30319
  */
-class WSD_THIS_DEVICE_METADATA extends Win32Struct
-{
+class WSD_THIS_DEVICE_METADATA extends Win32Struct {
     static sizeof => 32
 
     static packingSize => 8

@@ -7,9 +7,8 @@
  * If you implement this interface in your component, the COM+ run-time environment automatically calls its methods on your objects at the appropriate times.
  * @see https://learn.microsoft.com/windows/win32/api/comsvcs/nn-comsvcs-objectcontrol
  * @namespace Windows.Win32.System.ComponentServices
- * @version v4.0.30319
  */
-class ObjectControl extends IUnknown{
+class ObjectControl extends IUnknown {
 
     static sizeof => A_PtrSize
     /**

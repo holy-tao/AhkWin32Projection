@@ -3,10 +3,8 @@
 
 /**
  * @namespace Windows.Wdk.NetworkManagement.Ndis
- * @version v4.0.30319
  */
-class NDIS_802_11_CONFIGURATION extends Win32Struct
-{
+class NDIS_802_11_CONFIGURATION extends Win32Struct {
     static sizeof => 24
 
     static packingSize => 8
@@ -44,7 +42,7 @@ class NDIS_802_11_CONFIGURATION extends Win32Struct
     }
 
     /**
-     * @type {Pointer<NDIS_802_11_CONFIGURATION_FH>}
+     * @type {Pointer}
      */
     FHConfig {
         get => NumGet(this, 16, "ptr")

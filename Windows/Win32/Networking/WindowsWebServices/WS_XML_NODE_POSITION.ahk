@@ -5,10 +5,8 @@
  * Represents a position within an XML buffer.
  * @see https://learn.microsoft.com/windows/win32/api/webservices/ns-webservices-ws_xml_node_position
  * @namespace Windows.Win32.Networking.WindowsWebServices
- * @version v4.0.30319
  */
-class WS_XML_NODE_POSITION extends Win32Struct
-{
+class WS_XML_NODE_POSITION extends Win32Struct {
     static sizeof => 16
 
     static packingSize => 8

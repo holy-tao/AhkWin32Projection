@@ -9,10 +9,8 @@
  * An application constructs a <a href="https://docs.microsoft.com/windows/win32/rpc/rpcdce/ns-rpcdce-uuid">UUID</a> vector to contain object <b>UUID</b>s to be exported or unexported from the name service.
  * @see https://learn.microsoft.com/windows/win32/api/rpcdce/ns-rpcdce-uuid_vector
  * @namespace Windows.Win32.System.Rpc
- * @version v4.0.30319
  */
-class UUID_VECTOR extends Win32Struct
-{
+class UUID_VECTOR extends Win32Struct {
     static sizeof => 16
 
     static packingSize => 8
@@ -28,9 +26,9 @@ class UUID_VECTOR extends Win32Struct
 
     /**
      * Array of pointers to <a href="https://docs.microsoft.com/windows/win32/rpc/rpcdce/ns-rpcdce-uuid">UUID</a>s that contains <b>Count</b> elements.
-     * @type {Array<Guid>}
+     * @type {Array<Pointer<Guid>>}
      */
-    Uuid{
+    Uuid {
         get {
             if(!this.HasProp("__UuidProxyArray"))
                 this.__UuidProxyArray := Win32FixedArray(this.ptr + 8, 1, Primitive, "ptr")

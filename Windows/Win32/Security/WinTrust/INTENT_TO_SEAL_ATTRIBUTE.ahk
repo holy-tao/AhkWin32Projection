@@ -3,10 +3,8 @@
 
 /**
  * @namespace Windows.Win32.Security.WinTrust
- * @version v4.0.30319
  */
-class INTENT_TO_SEAL_ATTRIBUTE extends Win32Struct
-{
+class INTENT_TO_SEAL_ATTRIBUTE extends Win32Struct {
     static sizeof => 8
 
     static packingSize => 4

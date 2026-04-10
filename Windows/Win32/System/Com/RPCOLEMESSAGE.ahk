@@ -5,10 +5,8 @@
  * The RPCOLEMESSAGE (objidlbase.h) structure contains marshaling invocation arguments and return values between COM components.
  * @see https://learn.microsoft.com/windows/win32/api/objidlbase/ns-objidlbase-rpcolemessage
  * @namespace Windows.Win32.System.Com
- * @version v4.0.30319
  */
-class RPCOLEMESSAGE extends Win32Struct
-{
+class RPCOLEMESSAGE extends Win32Struct {
     static sizeof => 80
 
     static packingSize => 8
@@ -60,9 +58,9 @@ class RPCOLEMESSAGE extends Win32Struct
 
     /**
      * This member is reserved.
-     * @type {Array<Void>}
+     * @type {Array<Pointer<Void>>}
      */
-    reserved2{
+    reserved2 {
         get {
             if(!this.HasProp("__reserved2ProxyArray"))
                 this.__reserved2ProxyArray := Win32FixedArray(this.ptr + 32, 5, Primitive, "ptr")

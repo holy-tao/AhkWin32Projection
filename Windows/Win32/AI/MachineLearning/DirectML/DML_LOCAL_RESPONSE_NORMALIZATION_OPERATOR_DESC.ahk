@@ -1,14 +1,13 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\..\Win32Struct.ahk
+#Include .\DML_TENSOR_DESC.ahk
 
 /**
  * Performs a local response normalization (LRN) function on the input.
  * @see https://learn.microsoft.com/windows/win32/api/directml/ns-directml-dml_local_response_normalization_operator_desc
  * @namespace Windows.Win32.AI.MachineLearning.DirectML
- * @version v4.0.30319
  */
-class DML_LOCAL_RESPONSE_NORMALIZATION_OPERATOR_DESC extends Win32Struct
-{
+class DML_LOCAL_RESPONSE_NORMALIZATION_OPERATOR_DESC extends Win32Struct {
     static sizeof => 40
 
     static packingSize => 8

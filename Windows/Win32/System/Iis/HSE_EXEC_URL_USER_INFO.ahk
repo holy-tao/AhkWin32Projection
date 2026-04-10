@@ -4,10 +4,8 @@
 
 /**
  * @namespace Windows.Win32.System.Iis
- * @version v4.0.30319
  */
-class HSE_EXEC_URL_USER_INFO extends Win32Struct
-{
+class HSE_EXEC_URL_USER_INFO extends Win32Struct {
     static sizeof => 24
 
     static packingSize => 8
@@ -15,7 +13,7 @@ class HSE_EXEC_URL_USER_INFO extends Win32Struct
     /**
      * @type {HANDLE}
      */
-    hImpersonationToken{
+    hImpersonationToken {
         get {
             if(!this.HasProp("__hImpersonationToken"))
                 this.__hImpersonationToken := HANDLE(0, this)

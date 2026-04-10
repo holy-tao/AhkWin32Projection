@@ -54,9 +54,8 @@
  * </table>
  * @see https://learn.microsoft.com/windows/win32/api/tapi3cc/ne-tapi3cc-agent_session_state
  * @namespace Windows.Win32.Devices.Tapi
- * @version v4.0.30319
  */
-class AGENT_SESSION_STATE extends Win32Enum{
+class AGENT_SESSION_STATE extends Win32Enum {
 
     /**
      * The agent is unable to handle calls for this session.

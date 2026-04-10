@@ -7,10 +7,8 @@
  * For information about the DIEFFECT, DICONSTANTFORCE, DIRAMPFORCE, DIPERIODIC, DICONDITION, DICUSTOMFORCE, and DIENVELOPE structures, see the DirectInput section of the DirectX SDK.
  * @see https://learn.microsoft.com/windows/win32/api/dinputd/ns-dinputd-dieffectattributes
  * @namespace Windows.Win32.Devices.HumanInterfaceDevice
- * @version v4.0.30319
  */
-class DIEFFECTATTRIBUTES extends Win32Struct
-{
+class DIEFFECTATTRIBUTES extends Win32Struct {
     static sizeof => 20
 
     static packingSize => 4
@@ -25,7 +23,6 @@ class DIEFFECTATTRIBUTES extends Win32Struct
     }
 
     /**
-     * 
      * @type {Integer}
      */
     dwEffType {

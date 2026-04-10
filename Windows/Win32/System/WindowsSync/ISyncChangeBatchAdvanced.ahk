@@ -1,9 +1,9 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
+#Include ..\Com\IUnknown.ahk
 #Include .\ISyncFilterInfo.ahk
 #Include .\ISyncChangeBatch.ahk
-#Include ..\Com\IUnknown.ahk
 
 /**
  * Represents additional information about a set of changes.
@@ -11,9 +11,8 @@
  * An <b>ISyncChangeBatchAdvanced</b> object can be obtained by passing <b>IID_ISyncChangeBatchAdvanced</b> to the <b>QueryInterface</b> method of a change batch object, such as an <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/winsync/nn-winsync-isyncchangebatch">ISyncChangeBatch</a> or <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/winsync/nn-winsync-isyncfullenumerationchangebatch">ISyncFullEnumerationChangeBatch</a> object.
  * @see https://learn.microsoft.com/windows/win32/api/winsync/nn-winsync-isyncchangebatchadvanced
  * @namespace Windows.Win32.System.WindowsSync
- * @version v4.0.30319
  */
-class ISyncChangeBatchAdvanced extends IUnknown{
+class ISyncChangeBatchAdvanced extends IUnknown {
 
     static sizeof => A_PtrSize
     /**

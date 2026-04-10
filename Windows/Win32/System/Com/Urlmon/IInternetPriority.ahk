@@ -5,9 +5,8 @@
 
 /**
  * @namespace Windows.Win32.System.Com.Urlmon
- * @version v4.0.30319
  */
-class IInternetPriority extends IUnknown{
+class IInternetPriority extends IUnknown {
 
     static sizeof => A_PtrSize
     /**

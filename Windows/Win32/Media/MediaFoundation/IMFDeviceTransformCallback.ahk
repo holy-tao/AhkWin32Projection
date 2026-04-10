@@ -7,9 +7,8 @@
  * Implement this callback to receive notifications when system-allocated frame buffers are sent to the device driver.
  * @see https://learn.microsoft.com/windows/win32/api/mftransform/nn-mftransform-imfdevicetransformcallback
  * @namespace Windows.Win32.Media.MediaFoundation
- * @version v4.0.30319
  */
-class IMFDeviceTransformCallback extends IUnknown{
+class IMFDeviceTransformCallback extends IUnknown {
 
     static sizeof => A_PtrSize
     /**

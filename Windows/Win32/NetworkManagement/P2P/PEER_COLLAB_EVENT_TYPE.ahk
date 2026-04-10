@@ -5,9 +5,8 @@
  * The PEER_COLLAB_EVENT_TYPE enumeration defines the set of events that can be raised on a peer by the peer collaboration network event infrastructure.
  * @see https://learn.microsoft.com/windows/win32/api/p2p/ne-p2p-peer_collab_event_type
  * @namespace Windows.Win32.NetworkManagement.P2P
- * @version v4.0.30319
  */
-class PEER_COLLAB_EVENT_TYPE extends Win32Enum{
+class PEER_COLLAB_EVENT_TYPE extends Win32Enum {
 
     /**
      * The peer's list of watched contacts has changed.

@@ -3,6 +3,7 @@
 #Include ..\..\Foundation\SYSTEMTIME.ahk
 #Include .\NTMS_DRIVEINFORMATIONA.ahk
 #Include .\NTMS_DRIVETYPEINFORMATIONA.ahk
+#Include .\FILE_DEVICE_TYPE.ahk
 #Include .\NTMS_I1_LIBRARYINFORMATION.ahk
 #Include .\NTMS_CHANGERINFORMATIONA.ahk
 #Include .\NTMS_CHANGERTYPEINFORMATIONA.ahk
@@ -19,11 +20,9 @@
 
 /**
  * @namespace Windows.Win32.Storage.FileSystem
- * @version v4.0.30319
  * @charset ANSI
  */
-class NTMS_I1_OBJECTINFORMATIONA extends Win32Struct
-{
+class NTMS_I1_OBJECTINFORMATIONA extends Win32Struct {
     static sizeof => 864
 
     static packingSize => 8
@@ -35,168 +34,167 @@ class NTMS_I1_OBJECTINFORMATIONA extends Win32Struct
         /**
          * @type {NTMS_DRIVEINFORMATIONA}
          */
-        Drive{
+        Drive {
             get {
                 if(!this.HasProp("__Drive"))
                     this.__Drive := NTMS_DRIVEINFORMATIONA(0, this)
                 return this.__Drive
             }
         }
-    
+
         /**
          * @type {NTMS_DRIVETYPEINFORMATIONA}
          */
-        DriveType{
+        DriveType {
             get {
                 if(!this.HasProp("__DriveType"))
                     this.__DriveType := NTMS_DRIVETYPEINFORMATIONA(0, this)
                 return this.__DriveType
             }
         }
-    
+
         /**
          * @type {NTMS_I1_LIBRARYINFORMATION}
          */
-        Library{
+        Library {
             get {
                 if(!this.HasProp("__Library"))
                     this.__Library := NTMS_I1_LIBRARYINFORMATION(0, this)
                 return this.__Library
             }
         }
-    
+
         /**
          * @type {NTMS_CHANGERINFORMATIONA}
          */
-        Changer{
+        Changer {
             get {
                 if(!this.HasProp("__Changer"))
                     this.__Changer := NTMS_CHANGERINFORMATIONA(0, this)
                 return this.__Changer
             }
         }
-    
+
         /**
          * @type {NTMS_CHANGERTYPEINFORMATIONA}
          */
-        ChangerType{
+        ChangerType {
             get {
                 if(!this.HasProp("__ChangerType"))
                     this.__ChangerType := NTMS_CHANGERTYPEINFORMATIONA(0, this)
                 return this.__ChangerType
             }
         }
-    
+
         /**
          * @type {NTMS_STORAGESLOTINFORMATION}
          */
-        StorageSlot{
+        StorageSlot {
             get {
                 if(!this.HasProp("__StorageSlot"))
                     this.__StorageSlot := NTMS_STORAGESLOTINFORMATION(0, this)
                 return this.__StorageSlot
             }
         }
-    
+
         /**
          * @type {NTMS_IEDOORINFORMATION}
          */
-        IEDoor{
+        IEDoor {
             get {
                 if(!this.HasProp("__IEDoor"))
                     this.__IEDoor := NTMS_IEDOORINFORMATION(0, this)
                 return this.__IEDoor
             }
         }
-    
+
         /**
          * @type {NTMS_IEPORTINFORMATION}
          */
-        IEPort{
+        IEPort {
             get {
                 if(!this.HasProp("__IEPort"))
                     this.__IEPort := NTMS_IEPORTINFORMATION(0, this)
                 return this.__IEPort
             }
         }
-    
+
         /**
          * @type {NTMS_I1_PMIDINFORMATIONA}
          */
-        PhysicalMedia{
+        PhysicalMedia {
             get {
                 if(!this.HasProp("__PhysicalMedia"))
                     this.__PhysicalMedia := NTMS_I1_PMIDINFORMATIONA(0, this)
                 return this.__PhysicalMedia
             }
         }
-    
+
         /**
          * @type {NTMS_LMIDINFORMATION}
          */
-        LogicalMedia{
+        LogicalMedia {
             get {
                 if(!this.HasProp("__LogicalMedia"))
                     this.__LogicalMedia := NTMS_LMIDINFORMATION(0, this)
                 return this.__LogicalMedia
             }
         }
-    
+
         /**
          * @type {NTMS_I1_PARTITIONINFORMATIONA}
          */
-        Partition{
+        Partition {
             get {
                 if(!this.HasProp("__Partition"))
                     this.__Partition := NTMS_I1_PARTITIONINFORMATIONA(0, this)
                 return this.__Partition
             }
         }
-    
+
         /**
          * @type {NTMS_MEDIAPOOLINFORMATION}
          */
-        MediaPool{
+        MediaPool {
             get {
                 if(!this.HasProp("__MediaPool"))
                     this.__MediaPool := NTMS_MEDIAPOOLINFORMATION(0, this)
                 return this.__MediaPool
             }
         }
-    
+
         /**
          * @type {NTMS_MEDIATYPEINFORMATION}
          */
-        MediaType{
+        MediaType {
             get {
                 if(!this.HasProp("__MediaType"))
                     this.__MediaType := NTMS_MEDIATYPEINFORMATION(0, this)
                 return this.__MediaType
             }
         }
-    
+
         /**
          * @type {NTMS_I1_LIBREQUESTINFORMATIONA}
          */
-        LibRequest{
+        LibRequest {
             get {
                 if(!this.HasProp("__LibRequest"))
                     this.__LibRequest := NTMS_I1_LIBREQUESTINFORMATIONA(0, this)
                 return this.__LibRequest
             }
         }
-    
+
         /**
          * @type {NTMS_I1_OPREQUESTINFORMATIONA}
          */
-        OpRequest{
+        OpRequest {
             get {
                 if(!this.HasProp("__OpRequest"))
                     this.__OpRequest := NTMS_I1_OPREQUESTINFORMATIONA(0, this)
                 return this.__OpRequest
             }
         }
-    
     }
 
     /**
@@ -218,7 +216,7 @@ class NTMS_I1_OBJECTINFORMATIONA extends Win32Struct
     /**
      * @type {SYSTEMTIME}
      */
-    Created{
+    Created {
         get {
             if(!this.HasProp("__Created"))
                 this.__Created := SYSTEMTIME(8, this)
@@ -229,7 +227,7 @@ class NTMS_I1_OBJECTINFORMATIONA extends Win32Struct
     /**
      * @type {SYSTEMTIME}
      */
-    Modified{
+    Modified {
         get {
             if(!this.HasProp("__Modified"))
                 this.__Modified := SYSTEMTIME(24, this)
@@ -238,7 +236,7 @@ class NTMS_I1_OBJECTINFORMATIONA extends Win32Struct
     }
 
     /**
-     * @type {Pointer<Guid>}
+     * @type {Pointer}
      */
     ObjectGuid {
         get => NumGet(this, 40, "ptr")
@@ -280,10 +278,10 @@ class NTMS_I1_OBJECTINFORMATIONA extends Win32Struct
     /**
      * @type {_Info_e__Union}
      */
-    Info{
+    Info {
         get {
             if(!this.HasProp("__Info"))
-                this.__Info := %this.__Class%._Info_e__Union(248, this)
+                this.__Info := NTMS_I1_OBJECTINFORMATIONA._Info_e__Union(248, this)
             return this.__Info
         }
     }

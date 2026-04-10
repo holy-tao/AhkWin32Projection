@@ -5,9 +5,8 @@
  * Event identifier codes describing events to be received or excluded by an event sink.
  * @see https://learn.microsoft.com/windows/win32/api/cscobj/ne-cscobj-offlinefiles_events
  * @namespace Windows.Win32.Storage.OfflineFiles
- * @version v4.0.30319
  */
-class OFFLINEFILES_EVENTS extends Win32Enum{
+class OFFLINEFILES_EVENTS extends Win32Enum {
 
     /**
      * This value is reserved for future use.
@@ -238,19 +237,16 @@ class OFFLINEFILES_EVENTS extends Win32Enum{
     static OFFLINEFILES_EVENT_PREFETCHFILEEND => 36
 
     /**
-     * 
      * @type {Integer (Int32)}
      */
     static OFFLINEFILES_EVENT_PREFETCHCLOSEHANDLEBEGIN => 37
 
     /**
-     * 
      * @type {Integer (Int32)}
      */
     static OFFLINEFILES_EVENT_PREFETCHCLOSEHANDLEEND => 38
 
     /**
-     * 
      * @type {Integer (Int32)}
      */
     static OFFLINEFILES_NUM_EVENTS => 39

@@ -4,7 +4,6 @@
 
 /**
  * @namespace Windows.Win32.Graphics.Direct3D12
- * @version v4.0.30319
  */
 class Direct3D12 {
 
@@ -2443,7 +2442,9 @@ class Direct3D12 {
      * @param {Pointer<D3D12_ROOT_SIGNATURE_DESC>} pRootSignature Type: <b>const <a href="https://docs.microsoft.com/windows/desktop/api/d3d12/ns-d3d12-d3d12_root_signature_desc">D3D12_ROOT_SIGNATURE_DESC</a>*</b>
      * 
      * The description of the root signature, as a pointer to a <a href="https://docs.microsoft.com/windows/desktop/api/d3d12/ns-d3d12-d3d12_root_signature_desc">D3D12_ROOT_SIGNATURE_DESC</a> structure.
-     * @param {Integer} _Version 
+     * @param {D3D_ROOT_SIGNATURE_VERSION} _Version Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/d3d12/ne-d3d12-d3d_root_signature_version">D3D_ROOT_SIGNATURE_VERSION</a></b>
+     * 
+     * A <a href="https://docs.microsoft.com/windows/desktop/api/d3d12/ne-d3d12-d3d_root_signature_version">D3D_ROOT_SIGNATURE_VERSION</a>-typed value that specifies the version of root signature.
      * @param {Pointer<ID3DBlob>} ppBlob Type: <b><a href="https://docs.microsoft.com/previous-versions/windows/desktop/legacy/ff728743(v=vs.85)">ID3DBlob</a>**</b>
      * 
      * A pointer to a memory block that receives a pointer to the <a href="https://docs.microsoft.com/previous-versions/windows/desktop/legacy/ff728743(v=vs.85)">ID3DBlob</a> interface that you can use to access the serialized root signature.
@@ -2474,7 +2475,7 @@ class Direct3D12 {
      *       
      * 
      * The function signature PFN_D3D12_CREATE_ROOT_SIGNATURE_DESERIALIZER is provided as a typedef, so that you can use dynamic linking techniques (<a href="https://docs.microsoft.com/windows/desktop/api/libloaderapi/nf-libloaderapi-getprocaddress">GetProcAddress</a>) instead of statically linking.
-     * @param {Pointer} pSrcData Type: <b>LPCVOID</b>
+     * @param {Integer} pSrcData Type: <b>LPCVOID</b>
      * 
      * A pointer to the source data for the serialized root signature.
      * @param {Pointer} SrcDataSizeInBytes Type: <b><a href="https://docs.microsoft.com/windows/desktop/WinProg/windows-data-types">SIZE_T</a></b>
@@ -2543,7 +2544,7 @@ class Direct3D12 {
      *       
      * 
      * This function supercedes <a href="https://docs.microsoft.com/windows/desktop/api/d3d12/nf-d3d12-d3d12createrootsignaturedeserializer">D3D12CreateRootSignatureDeserializer</a>.
-     * @param {Pointer} pSrcData Type: <b>LPCVOID</b>
+     * @param {Integer} pSrcData Type: <b>LPCVOID</b>
      * 
      * A pointer to the source data for the serialized root signature.
      * @param {Pointer} SrcDataSizeInBytes Type: <b>SIZE_T</b>
@@ -2611,7 +2612,7 @@ class Direct3D12 {
      *               Use <b>IDXGIFactory</b> or <b>IDXGIFactory1</b>, but not both in an application.
      *             </div>
      * <div> </div>
-     * @param {Integer} MinimumFeatureLevel Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/d3dcommon/ne-d3dcommon-d3d_feature_level">D3D_FEATURE_LEVEL</a></b>
+     * @param {D3D_FEATURE_LEVEL} MinimumFeatureLevel Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/d3dcommon/ne-d3dcommon-d3d_feature_level">D3D_FEATURE_LEVEL</a></b>
      * 
      * The minimum <a href="https://docs.microsoft.com/windows/desktop/api/d3dcommon/ne-d3dcommon-d3d_feature_level">D3D_FEATURE_LEVEL</a> required for successful device creation.
      * @param {Pointer<Guid>} riid Type: <b><b>REFIID</b></b>

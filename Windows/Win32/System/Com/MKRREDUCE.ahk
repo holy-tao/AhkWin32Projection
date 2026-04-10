@@ -5,9 +5,8 @@
  * Specifies how far a moniker should be reduced.
  * @see https://learn.microsoft.com/windows/win32/api/objidl/ne-objidl-mkrreduce
  * @namespace Windows.Win32.System.Com
- * @version v4.0.30319
  */
-class MKRREDUCE extends Win32Enum{
+class MKRREDUCE extends Win32Enum {
 
     /**
      * Performs only one step of reducing the moniker. In general, the caller must have specific knowledge about the particular kind of moniker to take advantage of this option.

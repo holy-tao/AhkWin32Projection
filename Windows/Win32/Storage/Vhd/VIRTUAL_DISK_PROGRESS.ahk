@@ -28,10 +28,8 @@
  *     <b>ERROR_IO_PENDING</b> status code, the I/O operation is not yet complete.
  * @see https://learn.microsoft.com/windows/win32/api/virtdisk/ns-virtdisk-virtual_disk_progress
  * @namespace Windows.Win32.Storage.Vhd
- * @version v4.0.30319
  */
-class VIRTUAL_DISK_PROGRESS extends Win32Struct
-{
+class VIRTUAL_DISK_PROGRESS extends Win32Struct {
     static sizeof => 24
 
     static packingSize => 8

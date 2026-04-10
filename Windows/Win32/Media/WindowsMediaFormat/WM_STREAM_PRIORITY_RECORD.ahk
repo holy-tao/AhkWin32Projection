@@ -7,10 +7,8 @@
  * <b>WM_STREAM_PRIORITY_RECORD</b> is used in an array by the <b>IWMStreamPrioritization</b> interface. Each member of the array specifies a stream; the lower the element number in the array, the higher the priority of the stream.
  * @see https://learn.microsoft.com/windows/win32/api/wmsdkidl/ns-wmsdkidl-wm_stream_priority_record
  * @namespace Windows.Win32.Media.WindowsMediaFormat
- * @version v4.0.30319
  */
-class WM_STREAM_PRIORITY_RECORD extends Win32Struct
-{
+class WM_STREAM_PRIORITY_RECORD extends Win32Struct {
     static sizeof => 8
 
     static packingSize => 4

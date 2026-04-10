@@ -1,18 +1,17 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\..\Guid.ahk
-#Include ..\..\..\Foundation\BSTR.ahk
-#Include .\IX500DistinguishedName.ahk
-#Include .\ISignerCertificate.ahk
 #Include .\IX509CertificateRequestPkcs10.ahk
+#Include .\IX500DistinguishedName.ahk
+#Include ..\..\..\Foundation\BSTR.ahk
+#Include .\ISignerCertificate.ahk
 
 /**
  * The IX509CertificateRequestCertificate interface represents a request object for a self-generated certificate, enabling you to create a certificate directly without going through a registration or certification authority.
  * @see https://learn.microsoft.com/windows/win32/api/certenroll/nn-certenroll-ix509certificaterequestcertificate
  * @namespace Windows.Win32.Security.Cryptography.Certificates
- * @version v4.0.30319
  */
-class IX509CertificateRequestCertificate extends IX509CertificateRequestPkcs10{
+class IX509CertificateRequestCertificate extends IX509CertificateRequestPkcs10 {
 
     static sizeof => A_PtrSize
     /**
@@ -384,7 +383,7 @@ class IX509CertificateRequestCertificate extends IX509CertificateRequestPkcs10{
      * <a href="https://docs.microsoft.com/windows/desktop/api/certenroll/nf-certenroll-ix509certificaterequestpkcs10-initializefromtemplatename">InitializeFromTemplateName</a>
      * </li>
      * </ul>
-     * @param {Integer} Encoding 
+     * @param {EncodingType} Encoding 
      * @returns {BSTR} 
      * @see https://learn.microsoft.com/windows/win32/api/certenroll/nf-certenroll-ix509certificaterequestcertificate-get_serialnumber
      */
@@ -417,7 +416,7 @@ class IX509CertificateRequestCertificate extends IX509CertificateRequestPkcs10{
      * <a href="https://docs.microsoft.com/windows/desktop/api/certenroll/nf-certenroll-ix509certificaterequestpkcs10-initializefromtemplatename">InitializeFromTemplateName</a>
      * </li>
      * </ul>
-     * @param {Integer} Encoding 
+     * @param {EncodingType} Encoding 
      * @param {BSTR} Value 
      * @returns {HRESULT} 
      * @see https://learn.microsoft.com/windows/win32/api/certenroll/nf-certenroll-ix509certificaterequestcertificate-put_serialnumber

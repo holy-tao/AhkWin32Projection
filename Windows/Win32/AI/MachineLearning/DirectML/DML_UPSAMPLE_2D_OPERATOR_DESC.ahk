@@ -1,15 +1,15 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\..\Win32Struct.ahk
+#Include .\DML_TENSOR_DESC.ahk
 #Include .\DML_SIZE_2D.ahk
+#Include .\DML_INTERPOLATION_MODE.ahk
 
 /**
  * Upsamples the input image, writing the result into the output tensor. The order of the dimensions should be NCHW (BatchSize, ChannelCount, Height, Width) or NCDHW (BatchSize, ChannelCount, Depth, Height, Width), but strides can be used if the data is stored in a different format.
  * @see https://learn.microsoft.com/windows/win32/api/directml/ns-directml-dml_upsample_2d_operator_desc
  * @namespace Windows.Win32.AI.MachineLearning.DirectML
- * @version v4.0.30319
  */
-class DML_UPSAMPLE_2D_OPERATOR_DESC extends Win32Struct
-{
+class DML_UPSAMPLE_2D_OPERATOR_DESC extends Win32Struct {
     static sizeof => 32
 
     static packingSize => 8
@@ -42,7 +42,7 @@ class DML_UPSAMPLE_2D_OPERATOR_DESC extends Win32Struct
      * The width and height scales of type UINT to apply when upsampling the input. `0 < ScaleSize.Height <= UINT_MAX / InputHeight` and `0 < ScaleSize.Width <= UINT_MAX / InputWidth`.
      * @type {DML_SIZE_2D}
      */
-    ScaleSize{
+    ScaleSize {
         get {
             if(!this.HasProp("__ScaleSize"))
                 this.__ScaleSize := DML_SIZE_2D(16, this)
@@ -57,7 +57,7 @@ class DML_UPSAMPLE_2D_OPERATOR_DESC extends Win32Struct
      * 
      * - [DML_INTERPOLATION_MODE_NEAREST_NEIGHBOR](/windows/win32/api/directml/ne-directml-dml_interpolation_mode). Uses the *Nearest Neighbor* algorithm, which chooses the input element nearest to the corresponding pixel center for each output element.
      * - **DML_INTERPOLATION_MODE_LINEAR**. Uses the *Bilinear* algorithm, which computes the output element by doing the weighted average of the 2 nearest neighboring input elements in the height dimension, and the 2 nearest neighboring input elements in the width dimension, for a total of 4 elements. This is true even if the input/output DimensionCount is 5. That is, samples are only ever averaged along the width and height dimensions, and never along the batch, channel, or depth.
-     * @type {Integer}
+     * @type {DML_INTERPOLATION_MODE}
      */
     InterpolationMode {
         get => NumGet(this, 24, "int")

@@ -3,13 +3,10 @@
 
 /**
  * The WLAN_OPCODE_VALUE_TYPE enumeration specifies the origin of automatic configuration (auto config) settings.
- * @remarks
- * 
  * @see https://learn.microsoft.com/windows/win32/api/wlanapi/ne-wlanapi-wlan_opcode_value_type~r1
  * @namespace Windows.Win32.NetworkManagement.WiFi
- * @version v4.0.30319
  */
-class WLAN_OPCODE_VALUE_TYPE extends Win32Enum{
+class WLAN_OPCODE_VALUE_TYPE extends Win32Enum {
 
     /**
      * The auto config settings were queried, but the origin of the settings was not determined.

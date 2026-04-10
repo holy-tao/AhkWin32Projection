@@ -7,9 +7,8 @@
  * A developer implemented interface that allows a metafile to be replayed.
  * @see https://learn.microsoft.com/windows/win32/api/d2d1_1/nn-d2d1_1-id2d1gdimetafilesink
  * @namespace Windows.Win32.Graphics.Direct2D
- * @version v4.0.30319
  */
-class ID2D1GdiMetafileSink extends IUnknown{
+class ID2D1GdiMetafileSink extends IUnknown {
 
     static sizeof => A_PtrSize
     /**

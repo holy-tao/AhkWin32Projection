@@ -1,24 +1,23 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
+#Include ..\..\Graphics\Dxgi\Common\DXGI_FORMAT.ahk
+#Include ..\..\Graphics\Dxgi\Common\DXGI_COLOR_SPACE_TYPE.ahk
+#Include .\D3D12_VIDEO_PROCESS_ALPHA_FILL_MODE.ahk
 #Include ..\..\Graphics\Dxgi\Common\DXGI_RATIONAL.ahk
 
 /**
  * Specifies output stream arguments for the output passed to ID3D12VideoProcessCommandList::ProcessFrames.
- * @remarks
- * 
  * @see https://learn.microsoft.com/windows/win32/api/d3d12video/ns-d3d12video-d3d12_video_process_output_stream_desc
  * @namespace Windows.Win32.Media.MediaFoundation
- * @version v4.0.30319
  */
-class D3D12_VIDEO_PROCESS_OUTPUT_STREAM_DESC extends Win32Struct
-{
+class D3D12_VIDEO_PROCESS_OUTPUT_STREAM_DESC extends Win32Struct {
     static sizeof => 44
 
     static packingSize => 4
 
     /**
      * A [DXGI_FORMAT](/windows/desktop/api/dxgiformat/ne-dxgiformat-dxgi_format) structure specifying the format of the output resources.
-     * @type {Integer}
+     * @type {DXGI_FORMAT}
      */
     Format {
         get => NumGet(this, 0, "int")
@@ -27,7 +26,7 @@ class D3D12_VIDEO_PROCESS_OUTPUT_STREAM_DESC extends Win32Struct
 
     /**
      * A [DXGI_COLOR_SPACE_TYPE](/windows/desktop/api/dxgicommon/ne-dxgicommon-dxgi_color_space_type) value that specifies the colorspace for the video processor output surface.
-     * @type {Integer}
+     * @type {DXGI_COLOR_SPACE_TYPE}
      */
     ColorSpace {
         get => NumGet(this, 4, "int")
@@ -36,7 +35,7 @@ class D3D12_VIDEO_PROCESS_OUTPUT_STREAM_DESC extends Win32Struct
 
     /**
      * A value from the [D3D12_VIDEO_PROCESS_ALPHA_FILL_MODE](ne-d3d12video-d3d12_video_process_alpha_fill_mode.md) enumeration specifying the alpha fill mode for data that the video processor writes to the render target.
-     * @type {Integer}
+     * @type {D3D12_VIDEO_PROCESS_ALPHA_FILL_MODE}
      */
     AlphaFillMode {
         get => NumGet(this, 8, "int")
@@ -61,9 +60,9 @@ class D3D12_VIDEO_PROCESS_OUTPUT_STREAM_DESC extends Win32Struct
      * | BackgroundColor[1]| Cb       | G       |
      * | BackgroundColor[2]| Cr       | B       |
      * | BackgroundColor[3]| A        | A       |
-     * @type {Array<Single>}
+     * @type {Array<Float>}
      */
-    BackgroundColor{
+    BackgroundColor {
         get {
             if(!this.HasProp("__BackgroundColorProxyArray"))
                 this.__BackgroundColorProxyArray := Win32FixedArray(this.ptr + 16, 4, Primitive, "float")
@@ -75,7 +74,7 @@ class D3D12_VIDEO_PROCESS_OUTPUT_STREAM_DESC extends Win32Struct
      * A [DXGI_RATIONAL](/windows/desktop/api/dxgicommon/ns-dxgicommon-dxgi_rational) structure specifying the frame rate of the output video stream.
      * @type {DXGI_RATIONAL}
      */
-    FrameRate{
+    FrameRate {
         get {
             if(!this.HasProp("__FrameRate"))
                 this.__FrameRate := DXGI_RATIONAL(32, this)

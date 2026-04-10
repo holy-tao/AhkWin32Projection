@@ -1,17 +1,17 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
-#Include .\CRYPT_INTEGER_BLOB.ahk
 #Include .\CRYPT_ALGORITHM_IDENTIFIER.ahk
+#Include .\CRYPT_INTEGER_BLOB.ahk
 #Include ..\..\Foundation\FILETIME.ahk
+#Include .\CRYPT_TIMESTAMP_ACCURACY.ahk
+#Include .\CERT_EXTENSION.ahk
 
 /**
  * Contains a signed data content type in Cryptographic Message Syntax (CMS) format.
  * @see https://learn.microsoft.com/windows/win32/api/wincrypt/ns-wincrypt-crypt_timestamp_info
  * @namespace Windows.Win32.Security.Cryptography
- * @version v4.0.30319
  */
-class CRYPT_TIMESTAMP_INFO extends Win32Struct
-{
+class CRYPT_TIMESTAMP_INFO extends Win32Struct {
     static sizeof => 144
 
     static packingSize => 8
@@ -56,7 +56,7 @@ class CRYPT_TIMESTAMP_INFO extends Win32Struct
      * A <a href="https://docs.microsoft.com/windows/desktop/api/wincrypt/ns-wincrypt-crypt_algorithm_identifier">CRYPT_ALGORITHM_IDENTIFIER</a> structure that contains information about the algorithm used to calculate the hash. This value must correspond with the value passed  in the <a href="https://docs.microsoft.com/windows/desktop/api/wincrypt/ns-wincrypt-crypt_timestamp_request">CRYPT_TIMESTAMP_REQUEST</a> structure.
      * @type {CRYPT_ALGORITHM_IDENTIFIER}
      */
-    HashAlgorithm{
+    HashAlgorithm {
         get {
             if(!this.HasProp("__HashAlgorithm"))
                 this.__HashAlgorithm := CRYPT_ALGORITHM_IDENTIFIER(16, this)
@@ -68,7 +68,7 @@ class CRYPT_TIMESTAMP_INFO extends Win32Struct
      * A <a href="https://docs.microsoft.com/windows/win32/api/dpapi/ns-dpapi-crypt_integer_blob">CRYPT_DER_BLOB</a> structure that specifies the hash values to be time stamped.
      * @type {CRYPT_INTEGER_BLOB}
      */
-    HashedMessage{
+    HashedMessage {
         get {
             if(!this.HasProp("__HashedMessage"))
                 this.__HashedMessage := CRYPT_INTEGER_BLOB(40, this)
@@ -80,7 +80,7 @@ class CRYPT_TIMESTAMP_INFO extends Win32Struct
      * A <a href="https://docs.microsoft.com/previous-versions/windows/desktop/legacy/aa381414(v=vs.85)">CRYPT_INTEGER_BLOB</a> structure that contains the serial number assigned by the TSA to each time stamp token.
      * @type {CRYPT_INTEGER_BLOB}
      */
-    SerialNumber{
+    SerialNumber {
         get {
             if(!this.HasProp("__SerialNumber"))
                 this.__SerialNumber := CRYPT_INTEGER_BLOB(56, this)
@@ -92,7 +92,7 @@ class CRYPT_TIMESTAMP_INFO extends Win32Struct
      * A <a href="https://docs.microsoft.com/windows/desktop/api/minwinbase/ns-minwinbase-filetime">FILETIME</a> value that specifies the time at which the time stamp token was produced by the TSA.
      * @type {FILETIME}
      */
-    ftTime{
+    ftTime {
         get {
             if(!this.HasProp("__ftTime"))
                 this.__ftTime := FILETIME(72, this)
@@ -123,7 +123,7 @@ class CRYPT_TIMESTAMP_INFO extends Win32Struct
      * timeliness of the response when no local clock is available. This value must correspond with the value passed  in the <a href="https://docs.microsoft.com/windows/desktop/api/wincrypt/ns-wincrypt-crypt_timestamp_request">CRYPT_TIMESTAMP_REQUEST</a> structure.
      * @type {CRYPT_INTEGER_BLOB}
      */
-    Nonce{
+    Nonce {
         get {
             if(!this.HasProp("__Nonce"))
                 this.__Nonce := CRYPT_INTEGER_BLOB(96, this)
@@ -135,7 +135,7 @@ class CRYPT_TIMESTAMP_INFO extends Win32Struct
      * Optional. A <a href="https://docs.microsoft.com/previous-versions/windows/desktop/legacy/aa381414(v=vs.85)">CRYPT_DER_BLOB</a> structure that contains the subject name of the TSA certificate.
      * @type {CRYPT_INTEGER_BLOB}
      */
-    Tsa{
+    Tsa {
         get {
             if(!this.HasProp("__Tsa"))
                 this.__Tsa := CRYPT_INTEGER_BLOB(112, this)

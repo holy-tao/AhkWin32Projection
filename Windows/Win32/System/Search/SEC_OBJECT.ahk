@@ -1,12 +1,12 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
+#Include .\SEC_OBJECT_ELEMENT.ahk
 
 /**
  * @namespace Windows.Win32.System.Search
- * @version v4.0.30319
+ * @architecture X64, Arm64
  */
-class SEC_OBJECT extends Win32Struct
-{
+class SEC_OBJECT extends Win32Struct {
     static sizeof => 16
 
     static packingSize => 8

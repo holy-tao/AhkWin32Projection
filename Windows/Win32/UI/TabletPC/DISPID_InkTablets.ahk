@@ -3,9 +3,8 @@
 
 /**
  * @namespace Windows.Win32.UI.TabletPC
- * @version v4.0.30319
  */
-class DISPID_InkTablets extends Win32Enum{
+class DISPID_InkTablets extends Win32Enum {
 
     /**
      * @type {Integer (Int32)}

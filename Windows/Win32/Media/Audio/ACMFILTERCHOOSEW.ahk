@@ -1,15 +1,14 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
 #Include ..\..\Foundation\HWND.ahk
+#Include .\WAVEFILTER.ahk
 #Include ..\..\Foundation\HINSTANCE.ahk
 
 /**
  * @namespace Windows.Win32.Media.Audio
- * @version v4.0.30319
  * @charset Unicode
  */
-class ACMFILTERCHOOSEW extends Win32Struct
-{
+class ACMFILTERCHOOSEW extends Win32Struct {
     static sizeof => 448
 
     static packingSize => 8
@@ -33,7 +32,7 @@ class ACMFILTERCHOOSEW extends Win32Struct
     /**
      * @type {HWND}
      */
-    hwndOwner{
+    hwndOwner {
         get {
             if(!this.HasProp("__hwndOwner"))
                 this.__hwndOwner := HWND(8, this)
@@ -116,7 +115,7 @@ class ACMFILTERCHOOSEW extends Win32Struct
     /**
      * @type {HINSTANCE}
      */
-    hInstance{
+    hInstance {
         get {
             if(!this.HasProp("__hInstance"))
                 this.__hInstance := HINSTANCE(416, this)

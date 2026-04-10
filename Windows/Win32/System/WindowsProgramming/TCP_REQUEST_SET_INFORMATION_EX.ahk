@@ -1,14 +1,13 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
-#Include .\TDIEntityID.ahk
 #Include .\TDIObjectID.ahk
+#Include .\TDIEntityID.ahk
+#Include .\TDIENTITY_ENTITY_TYPE.ahk
 
 /**
  * @namespace Windows.Win32.System.WindowsProgramming
- * @version v4.0.30319
  */
-class TCP_REQUEST_SET_INFORMATION_EX extends Win32Struct
-{
+class TCP_REQUEST_SET_INFORMATION_EX extends Win32Struct {
     static sizeof => 28
 
     static packingSize => 4
@@ -16,7 +15,7 @@ class TCP_REQUEST_SET_INFORMATION_EX extends Win32Struct
     /**
      * @type {TDIObjectID}
      */
-    ID{
+    ID {
         get {
             if(!this.HasProp("__ID"))
                 this.__ID := TDIObjectID(0, this)
@@ -33,9 +32,9 @@ class TCP_REQUEST_SET_INFORMATION_EX extends Win32Struct
     }
 
     /**
-     * @type {Array<Byte>}
+     * @type {Array<Integer>}
      */
-    Buffer{
+    Buffer {
         get {
             if(!this.HasProp("__BufferProxyArray"))
                 this.__BufferProxyArray := Win32FixedArray(this.ptr + 24, 1, Primitive, "char")

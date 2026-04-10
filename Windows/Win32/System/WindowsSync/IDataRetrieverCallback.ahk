@@ -7,9 +7,8 @@
  * Represents methods that an IAsynchronousDataRetriever object can call to indicate that processing has been completed on an IAsynchronousDataRetriever method.
  * @see https://learn.microsoft.com/windows/win32/api/winsync/nn-winsync-idataretrievercallback
  * @namespace Windows.Win32.System.WindowsSync
- * @version v4.0.30319
  */
-class IDataRetrieverCallback extends IUnknown{
+class IDataRetrieverCallback extends IUnknown {
 
     static sizeof => A_PtrSize
     /**

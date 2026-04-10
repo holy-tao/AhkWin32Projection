@@ -1,7 +1,6 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
-#Include .\IEnumSyncProviderInfos.ahk
 #Include ..\Com\IUnknown.ahk
 
 /**
@@ -10,9 +9,8 @@
  * This interface is obtained from the  <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/syncregistration/nf-syncregistration-isyncproviderregistration-enumeratesyncproviders">ISyncProviderRegistration::EnumerateSyncProviders</a> method. The method will return an  <b>IEnumSyncProviderInfos</b> enumerator for all registered <b>ISyncProviderInfo</b> objects or for just the registered <b>ISyncProviderInfo</b> objects that match the particular filter criteria.
  * @see https://learn.microsoft.com/windows/win32/api/syncregistration/nn-syncregistration-ienumsyncproviderinfos
  * @namespace Windows.Win32.System.WindowsSync
- * @version v4.0.30319
  */
-class IEnumSyncProviderInfos extends IUnknown{
+class IEnumSyncProviderInfos extends IUnknown {
 
     static sizeof => A_PtrSize
     /**

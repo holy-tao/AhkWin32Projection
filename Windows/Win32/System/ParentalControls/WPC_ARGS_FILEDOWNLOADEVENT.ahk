@@ -5,9 +5,8 @@
  * Indicates information about a file that has been downloaded.
  * @see https://learn.microsoft.com/windows/win32/api/wpcevent/ne-wpcevent-wpc_args_filedownloadevent
  * @namespace Windows.Win32.System.ParentalControls
- * @version v4.0.30319
  */
-class WPC_ARGS_FILEDOWNLOADEVENT extends Win32Enum{
+class WPC_ARGS_FILEDOWNLOADEVENT extends Win32Enum {
 
     /**
      * The URL or web address of the downloaded file.

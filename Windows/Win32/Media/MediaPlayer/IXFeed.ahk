@@ -1,16 +1,16 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
+#Include ..\..\System\Com\IUnknown.ahk
 #Include ..\..\System\Com\IStream.ahk
+#Include ..\..\..\..\Guid.ahk
 #Include ..\..\Foundation\SYSTEMTIME.ahk
 #Include .\IXFeedsEnum.ahk
-#Include ..\..\System\Com\IUnknown.ahk
 
 /**
  * @namespace Windows.Win32.Media.MediaPlayer
- * @version v4.0.30319
  */
-class IXFeed extends IUnknown{
+class IXFeed extends IUnknown {
 
     static sizeof => A_PtrSize
     /**
@@ -34,10 +34,10 @@ class IXFeed extends IUnknown{
     /**
      * Resource string ids set by caller to be returned in xml data for visualizing objects.
      * @param {Integer} uiItemCount 
-     * @param {Integer} sortProperty 
-     * @param {Integer} sortOrder 
-     * @param {Integer} filterFlags 
-     * @param {Integer} includeFlags 
+     * @param {FEEDS_XML_SORT_PROPERTY} sortProperty 
+     * @param {FEEDS_XML_SORT_ORDER} sortOrder 
+     * @param {FEEDS_XML_FILTER_FLAGS} filterFlags 
+     * @param {FEEDS_XML_INCLUDE_FLAGS} includeFlags 
      * @returns {IStream} 
      * @see https://learn.microsoft.com/windows/win32/direct3dtools/xml-resource-ids
      */
@@ -247,7 +247,7 @@ class IXFeed extends IUnknown{
 
     /**
      * 
-     * @returns {Integer} 
+     * @returns {FEEDS_SYNC_SETTING} 
      */
     SyncSetting() {
         result := ComCall(17, this, "int*", &pfss := 0, "HRESULT")
@@ -256,7 +256,7 @@ class IXFeed extends IUnknown{
 
     /**
      * 
-     * @param {Integer} fss 
+     * @param {FEEDS_SYNC_SETTING} fss 
      * @returns {HRESULT} 
      */
     SetSyncSetting(fss) {
@@ -380,7 +380,7 @@ class IXFeed extends IUnknown{
      * Note This section describes functionality designed for use by online stores. | DownloadStatus Element (Msfeeds.h)
      * @remarks
      * Windows Media Player displays a message to users when a download is in progress. If the current active services defines a download status URL, the user can click the message text. When the user clicks the message, the Player navigates to the URL specified by the **DownloadStatus** element so the current active store can provide details about downloads in progress.
-     * @returns {Integer} 
+     * @returns {FEEDS_DOWNLOAD_STATUS} 
      * @see https://learn.microsoft.com/windows/win32/WMP/downloadstatus-element
      */
     DownloadStatus() {
@@ -390,7 +390,7 @@ class IXFeed extends IUnknown{
 
     /**
      * 
-     * @returns {Integer} 
+     * @returns {FEEDS_DOWNLOAD_ERROR} 
      */
     LastDownloadError() {
         result := ComCall(31, this, "int*", &pfde := 0, "HRESULT")
@@ -537,8 +537,8 @@ class IXFeed extends IUnknown{
 
     /**
      * 
-     * @param {Integer} scope 
-     * @param {Integer} mask 
+     * @param {FEEDS_EVENTS_SCOPE} scope 
+     * @param {FEEDS_EVENTS_MASK} mask 
      * @param {Pointer<Guid>} riid 
      * @returns {Pointer<Void>} 
      */

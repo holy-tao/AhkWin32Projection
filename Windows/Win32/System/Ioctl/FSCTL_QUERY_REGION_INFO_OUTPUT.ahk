@@ -6,11 +6,9 @@
  * Contains information for one or more regions.
  * @see https://learn.microsoft.com/windows/win32/api/winioctl/ns-winioctl-fsctl_query_region_info_output
  * @namespace Windows.Win32.System.Ioctl
- * @version v4.0.30319
  */
-class FSCTL_QUERY_REGION_INFO_OUTPUT extends Win32Struct
-{
-    static sizeof => 40
+class FSCTL_QUERY_REGION_INFO_OUTPUT extends Win32Struct {
+    static sizeof => 56
 
     static packingSize => 8
 
@@ -79,9 +77,9 @@ class FSCTL_QUERY_REGION_INFO_OUTPUT extends Win32Struct
 
     /**
      * <a href="https://docs.microsoft.com/windows/desktop/api/winioctl/ns-winioctl-file_storage_tier_region">FILE_STORAGE_TIER_REGION</a> struct that contains detailed information for each region.
-     * @type {Array<FILE_STORAGE_TIER_REGION>}
+     * @type {FILE_STORAGE_TIER_REGION}
      */
-    Regions{
+    Regions {
         get {
             if(!this.HasProp("__RegionsProxyArray"))
                 this.__RegionsProxyArray := Win32FixedArray(this.ptr + 32, 1, FILE_STORAGE_TIER_REGION, "")

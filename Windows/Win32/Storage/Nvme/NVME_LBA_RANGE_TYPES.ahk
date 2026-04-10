@@ -7,9 +7,8 @@
  * LBA range information ise used by a driver to determine if it may utilize a particular LBA range. The information is not exposed to higher level software.
  * @see https://learn.microsoft.com/windows/win32/api/nvme/ne-nvme-nvme_lba_range_types
  * @namespace Windows.Win32.Storage.Nvme
- * @version v4.0.30319
  */
-class NVME_LBA_RANGE_TYPES extends Win32Enum{
+class NVME_LBA_RANGE_TYPES extends Win32Enum {
 
     /**
      * The reserved LBA range.

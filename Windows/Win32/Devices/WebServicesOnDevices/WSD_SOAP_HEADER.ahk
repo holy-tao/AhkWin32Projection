@@ -1,15 +1,17 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
 #Include .\WSD_HEADER_RELATESTO.ahk
+#Include .\WSDXML_NAME.ahk
+#Include .\WSD_ENDPOINT_REFERENCE.ahk
+#Include .\WSD_APP_SEQUENCE.ahk
+#Include .\WSDXML_ELEMENT.ahk
 
 /**
  * Provides SOAP header data for the WSD_SOAP_MESSAGE structure.
  * @see https://learn.microsoft.com/windows/win32/api/wsdtypes/ns-wsdtypes-wsd_soap_header
  * @namespace Windows.Win32.Devices.WebServicesOnDevices
- * @version v4.0.30319
  */
-class WSD_SOAP_HEADER extends Win32Struct
-{
+class WSD_SOAP_HEADER extends Win32Struct {
     static sizeof => 80
 
     static packingSize => 8
@@ -45,7 +47,7 @@ class WSD_SOAP_HEADER extends Win32Struct
      * In response messages, specifies the message ID of the matching request message.
      * @type {WSD_HEADER_RELATESTO}
      */
-    RelatesTo{
+    RelatesTo {
         get {
             if(!this.HasProp("__RelatesTo"))
                 this.__RelatesTo := WSD_HEADER_RELATESTO(24, this)

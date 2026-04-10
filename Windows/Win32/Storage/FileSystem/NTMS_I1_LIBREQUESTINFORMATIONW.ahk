@@ -4,11 +4,9 @@
 
 /**
  * @namespace Windows.Win32.Storage.FileSystem
- * @version v4.0.30319
  * @charset Unicode
  */
-class NTMS_I1_LIBREQUESTINFORMATIONW extends Win32Struct
-{
+class NTMS_I1_LIBREQUESTINFORMATIONW extends Win32Struct {
     static sizeof => 472
 
     static packingSize => 8
@@ -38,7 +36,7 @@ class NTMS_I1_LIBREQUESTINFORMATIONW extends Win32Struct
     }
 
     /**
-     * @type {Pointer<Guid>}
+     * @type {Pointer}
      */
     PartitionId {
         get => NumGet(this, 16, "ptr")
@@ -46,7 +44,7 @@ class NTMS_I1_LIBREQUESTINFORMATIONW extends Win32Struct
     }
 
     /**
-     * @type {Pointer<Guid>}
+     * @type {Pointer}
      */
     DriveId {
         get => NumGet(this, 24, "ptr")
@@ -54,7 +52,7 @@ class NTMS_I1_LIBREQUESTINFORMATIONW extends Win32Struct
     }
 
     /**
-     * @type {Pointer<Guid>}
+     * @type {Pointer}
      */
     PhysMediaId {
         get => NumGet(this, 32, "ptr")
@@ -62,7 +60,7 @@ class NTMS_I1_LIBREQUESTINFORMATIONW extends Win32Struct
     }
 
     /**
-     * @type {Pointer<Guid>}
+     * @type {Pointer}
      */
     Library {
         get => NumGet(this, 40, "ptr")
@@ -70,7 +68,7 @@ class NTMS_I1_LIBREQUESTINFORMATIONW extends Win32Struct
     }
 
     /**
-     * @type {Pointer<Guid>}
+     * @type {Pointer}
      */
     SlotId {
         get => NumGet(this, 48, "ptr")
@@ -80,7 +78,7 @@ class NTMS_I1_LIBREQUESTINFORMATIONW extends Win32Struct
     /**
      * @type {SYSTEMTIME}
      */
-    TimeQueued{
+    TimeQueued {
         get {
             if(!this.HasProp("__TimeQueued"))
                 this.__TimeQueued := SYSTEMTIME(56, this)
@@ -91,7 +89,7 @@ class NTMS_I1_LIBREQUESTINFORMATIONW extends Win32Struct
     /**
      * @type {SYSTEMTIME}
      */
-    TimeCompleted{
+    TimeCompleted {
         get {
             if(!this.HasProp("__TimeCompleted"))
                 this.__TimeCompleted := SYSTEMTIME(72, this)

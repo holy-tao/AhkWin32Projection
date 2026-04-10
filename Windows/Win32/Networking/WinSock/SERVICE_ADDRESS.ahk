@@ -5,10 +5,8 @@
  * Contains address information for a service. The structure can accommodate many types of interprocess communications (IPC) mechanisms and their address forms, including remote procedure calls (RPC), named pipes, and sockets.
  * @see https://learn.microsoft.com/windows/win32/api/nspapi/ns-nspapi-service_address
  * @namespace Windows.Win32.Networking.WinSock
- * @version v4.0.30319
  */
-class SERVICE_ADDRESS extends Win32Struct
-{
+class SERVICE_ADDRESS extends Win32Struct {
     static sizeof => 32
 
     static packingSize => 8

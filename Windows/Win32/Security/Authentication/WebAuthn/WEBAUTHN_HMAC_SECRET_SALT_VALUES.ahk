@@ -1,16 +1,14 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\..\Win32Struct.ahk
+#Include .\WEBAUTHN_HMAC_SECRET_SALT.ahk
+#Include .\WEBAUTHN_CRED_WITH_HMAC_SECRET_SALT.ahk
 
 /**
  * Contains the SALT values for the HMAC secret.
- * @remarks
- * 
  * @see https://learn.microsoft.com/windows/win32/api/webauthn/ns-webauthn-webauthn_hmac_secret_salt_values
  * @namespace Windows.Win32.Security.Authentication.WebAuthn
- * @version v4.0.30319
  */
-class WEBAUTHN_HMAC_SECRET_SALT_VALUES extends Win32Struct
-{
+class WEBAUTHN_HMAC_SECRET_SALT_VALUES extends Win32Struct {
     static sizeof => 24
 
     static packingSize => 8

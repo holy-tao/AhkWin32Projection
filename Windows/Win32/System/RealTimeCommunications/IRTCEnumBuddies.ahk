@@ -1,15 +1,13 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
-#Include .\IRTCBuddy.ahk
-#Include .\IRTCEnumBuddies.ahk
 #Include ..\Com\IUnknown.ahk
+#Include .\IRTCBuddy.ahk
 
 /**
  * @namespace Windows.Win32.System.RealTimeCommunications
- * @version v4.0.30319
  */
-class IRTCEnumBuddies extends IUnknown{
+class IRTCEnumBuddies extends IUnknown {
 
     static sizeof => A_PtrSize
     /**

@@ -3,16 +3,14 @@
 
 /**
  * @namespace Windows.Wdk.System.SystemServices
- * @version v4.0.30319
  */
-class PCI_EXPRESS_CXL_DVSEC_CAPABILITY extends Win32Struct
-{
+class PCI_EXPRESS_CXL_DVSEC_CAPABILITY extends Win32Struct {
     static sizeof => 72
 
     static packingSize => 8
 
     /**
-     * @type {Pointer<PCI_EXPRESS_ENHANCED_CAPABILITY_HEADER>}
+     * @type {Pointer}
      */
     Header {
         get => NumGet(this, 0, "ptr")
@@ -20,7 +18,7 @@ class PCI_EXPRESS_CXL_DVSEC_CAPABILITY extends Win32Struct
     }
 
     /**
-     * @type {Pointer<PCI_EXPRESS_DESIGNATED_VENDOR_SPECIFIC_HEADER_1>}
+     * @type {Pointer}
      */
     DvsecHeader1 {
         get => NumGet(this, 8, "ptr")
@@ -28,7 +26,7 @@ class PCI_EXPRESS_CXL_DVSEC_CAPABILITY extends Win32Struct
     }
 
     /**
-     * @type {Pointer<PCI_EXPRESS_DESIGNATED_VENDOR_SPECIFIC_HEADER_2>}
+     * @type {Pointer}
      */
     DvsecHeader2 {
         get => NumGet(this, 16, "ptr")
@@ -36,9 +34,9 @@ class PCI_EXPRESS_CXL_DVSEC_CAPABILITY extends Win32Struct
     }
 
     /**
-     * @type {Array<Byte>}
+     * @type {Array<Integer>}
      */
-    Reserved{
+    Reserved {
         get {
             if(!this.HasProp("__ReservedProxyArray"))
                 this.__ReservedProxyArray := Win32FixedArray(this.ptr + 24, 46, Primitive, "char")

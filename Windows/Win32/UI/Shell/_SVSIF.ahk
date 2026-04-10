@@ -16,9 +16,8 @@
  * ```
  * @see https://learn.microsoft.com/windows/win32/api/shobjidl_core/ne-shobjidl_core-_svsif
  * @namespace Windows.Win32.UI.Shell
- * @version v4.0.30319
  */
-class _SVSIF extends Win32Enum{
+class _SVSIF extends Win32Enum {
 
     /**
      * 0x00000000. Deselect the item.

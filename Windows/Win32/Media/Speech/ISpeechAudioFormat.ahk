@@ -1,15 +1,14 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
+#Include ..\..\System\Com\IDispatch.ahk
 #Include ..\..\Foundation\BSTR.ahk
 #Include .\ISpeechWaveFormatEx.ahk
-#Include ..\..\System\Com\IDispatch.ahk
 
 /**
  * @namespace Windows.Win32.Media.Speech
- * @version v4.0.30319
  */
-class ISpeechAudioFormat extends IDispatch{
+class ISpeechAudioFormat extends IDispatch {
 
     static sizeof => A_PtrSize
     /**
@@ -31,7 +30,7 @@ class ISpeechAudioFormat extends IDispatch{
     static VTableNames => ["get_Type", "put_Type", "get_Guid", "put_Guid", "GetWaveFormatEx", "SetWaveFormatEx"]
 
     /**
-     * @type {Integer} 
+     * @type {SpeechAudioFormatType} 
      */
     Type {
         get => this.get_Type()
@@ -48,7 +47,7 @@ class ISpeechAudioFormat extends IDispatch{
 
     /**
      * 
-     * @returns {Integer} 
+     * @returns {SpeechAudioFormatType} 
      */
     get_Type() {
         result := ComCall(7, this, "int*", &AudioFormat := 0, "HRESULT")
@@ -57,7 +56,7 @@ class ISpeechAudioFormat extends IDispatch{
 
     /**
      * 
-     * @param {Integer} AudioFormat 
+     * @param {SpeechAudioFormatType} AudioFormat 
      * @returns {HRESULT} 
      */
     put_Type(AudioFormat) {

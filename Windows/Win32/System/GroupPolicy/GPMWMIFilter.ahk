@@ -9,10 +9,8 @@
  * <a href="https://docs.microsoft.com/windows/desktop/api/wbemcli/nf-wbemcli-imofcompiler-compilebuffer">IMofCompiler::CompileBuffer</a> methods in the WMI SDK.
  * @see https://learn.microsoft.com/windows/win32/api/gpmgmt/nn-gpmgmt-igpmwmifilter
  * @namespace Windows.Win32.System.GroupPolicy
- * @version v4.0.30319
  */
-class GPMWMIFilter extends Win32Struct
-{
+class GPMWMIFilter extends Win32Struct {
     static sizeof => 0
 
     static packingSize => 1

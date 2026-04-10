@@ -5,10 +5,8 @@
  * Describes the memory budget for an adapter.
  * @see https://learn.microsoft.com/windows/win32/api/dxcore_interface/ns-dxcore_interface-dxcoreadaptermemorybudget
  * @namespace Windows.Win32.Graphics.DXCore
- * @version v4.0.30319
  */
-class DXCoreAdapterMemoryBudget extends Win32Struct
-{
+class DXCoreAdapterMemoryBudget extends Win32Struct {
     static sizeof => 32
 
     static packingSize => 8

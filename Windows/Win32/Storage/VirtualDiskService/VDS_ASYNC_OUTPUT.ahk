@@ -1,5 +1,7 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
+#Include .\VDS_ASYNC_OUTPUT_TYPE.ahk
+#Include ..\..\System\Com\IUnknown.ahk
 
 /**
  * The VDS_ASYNC_OUTPUT structure (vdshwprv.h) defines the output of an async object. Output elements vary depending on the operation type.
@@ -9,10 +11,8 @@
  *     Callers must release the reference to the contained object.
  * @see https://learn.microsoft.com/windows/win32/api/vdshwprv/ns-vdshwprv-vds_async_output
  * @namespace Windows.Win32.Storage.VirtualDiskService
- * @version v4.0.30319
  */
-class VDS_ASYNC_OUTPUT extends Win32Struct
-{
+class VDS_ASYNC_OUTPUT extends Win32Struct {
     static sizeof => 24
 
     static packingSize => 8
@@ -104,7 +104,7 @@ class VDS_ASYNC_OUTPUT extends Win32Struct
      * </td>
      * </tr>
      * </table>
-     * @type {Integer}
+     * @type {VDS_ASYNC_OUTPUT_TYPE}
      */
     type {
         get => NumGet(this, 0, "int")
@@ -122,15 +122,14 @@ class VDS_ASYNC_OUTPUT extends Win32Struct
             get => NumGet(this, 0, "uint")
             set => NumPut("uint", value, this, 0)
         }
-    
+
         /**
-         * @type {Pointer<Guid>}
+         * @type {Pointer}
          */
         volumeId {
             get => NumGet(this, 8, "ptr")
             set => NumPut("ptr", value, this, 8)
         }
-    
     }
 
     class _cv extends Win32Struct {
@@ -144,7 +143,6 @@ class VDS_ASYNC_OUTPUT extends Win32Struct
             get => NumGet(this, 0, "ptr")
             set => NumPut("ptr", value, this, 0)
         }
-    
     }
 
     class _bvp extends Win32Struct {
@@ -158,7 +156,6 @@ class VDS_ASYNC_OUTPUT extends Win32Struct
             get => NumGet(this, 0, "ptr")
             set => NumPut("ptr", value, this, 0)
         }
-    
     }
 
     class _sv extends Win32Struct {
@@ -172,7 +169,6 @@ class VDS_ASYNC_OUTPUT extends Win32Struct
             get => NumGet(this, 0, "uint")
             set => NumPut("uint", value, this, 0)
         }
-    
     }
 
     class _cl extends Win32Struct {
@@ -186,7 +182,6 @@ class VDS_ASYNC_OUTPUT extends Win32Struct
             get => NumGet(this, 0, "ptr")
             set => NumPut("ptr", value, this, 0)
         }
-    
     }
 
     class _ct extends Win32Struct {
@@ -200,7 +195,6 @@ class VDS_ASYNC_OUTPUT extends Win32Struct
             get => NumGet(this, 0, "ptr")
             set => NumPut("ptr", value, this, 0)
         }
-    
     }
 
     class _cpg extends Win32Struct {
@@ -214,7 +208,6 @@ class VDS_ASYNC_OUTPUT extends Win32Struct
             get => NumGet(this, 0, "ptr")
             set => NumPut("ptr", value, this, 0)
         }
-    
     }
 
     class _cvd extends Win32Struct {
@@ -228,16 +221,15 @@ class VDS_ASYNC_OUTPUT extends Win32Struct
             get => NumGet(this, 0, "ptr")
             set => NumPut("ptr", value, this, 0)
         }
-    
     }
 
     /**
      * @type {_cp}
      */
-    cp{
+    cp {
         get {
             if(!this.HasProp("__cp"))
-                this.__cp := %this.__Class%._cp(8, this)
+                this.__cp := VDS_ASYNC_OUTPUT._cp(8, this)
             return this.__cp
         }
     }
@@ -245,10 +237,10 @@ class VDS_ASYNC_OUTPUT extends Win32Struct
     /**
      * @type {_cv}
      */
-    cv{
+    cv {
         get {
             if(!this.HasProp("__cv"))
-                this.__cv := %this.__Class%._cv(8, this)
+                this.__cv := VDS_ASYNC_OUTPUT._cv(8, this)
             return this.__cv
         }
     }
@@ -256,10 +248,10 @@ class VDS_ASYNC_OUTPUT extends Win32Struct
     /**
      * @type {_bvp}
      */
-    bvp{
+    bvp {
         get {
             if(!this.HasProp("__bvp"))
-                this.__bvp := %this.__Class%._bvp(8, this)
+                this.__bvp := VDS_ASYNC_OUTPUT._bvp(8, this)
             return this.__bvp
         }
     }
@@ -267,10 +259,10 @@ class VDS_ASYNC_OUTPUT extends Win32Struct
     /**
      * @type {_sv}
      */
-    sv{
+    sv {
         get {
             if(!this.HasProp("__sv"))
-                this.__sv := %this.__Class%._sv(8, this)
+                this.__sv := VDS_ASYNC_OUTPUT._sv(8, this)
             return this.__sv
         }
     }
@@ -278,10 +270,10 @@ class VDS_ASYNC_OUTPUT extends Win32Struct
     /**
      * @type {_cl}
      */
-    cl{
+    cl {
         get {
             if(!this.HasProp("__cl"))
-                this.__cl := %this.__Class%._cl(8, this)
+                this.__cl := VDS_ASYNC_OUTPUT._cl(8, this)
             return this.__cl
         }
     }
@@ -289,10 +281,10 @@ class VDS_ASYNC_OUTPUT extends Win32Struct
     /**
      * @type {_ct}
      */
-    ct{
+    ct {
         get {
             if(!this.HasProp("__ct"))
-                this.__ct := %this.__Class%._ct(8, this)
+                this.__ct := VDS_ASYNC_OUTPUT._ct(8, this)
             return this.__ct
         }
     }
@@ -300,10 +292,10 @@ class VDS_ASYNC_OUTPUT extends Win32Struct
     /**
      * @type {_cpg}
      */
-    cpg{
+    cpg {
         get {
             if(!this.HasProp("__cpg"))
-                this.__cpg := %this.__Class%._cpg(8, this)
+                this.__cpg := VDS_ASYNC_OUTPUT._cpg(8, this)
             return this.__cpg
         }
     }
@@ -311,10 +303,10 @@ class VDS_ASYNC_OUTPUT extends Win32Struct
     /**
      * @type {_cvd}
      */
-    cvd{
+    cvd {
         get {
             if(!this.HasProp("__cvd"))
-                this.__cvd := %this.__Class%._cvd(8, this)
+                this.__cvd := VDS_ASYNC_OUTPUT._cvd(8, this)
             return this.__cvd
         }
     }

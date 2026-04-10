@@ -7,10 +7,8 @@
  * Represents a union of MI_Timestamp and MI_Interval.
  * @see https://learn.microsoft.com/windows/win32/api/mi/ns-mi-mi_datetime
  * @namespace Windows.Win32.System.Wmi
- * @version v4.0.30319
  */
-class MI_Datetime extends Win32Struct
-{
+class MI_Datetime extends Win32Struct {
     static sizeof => 36
 
     static packingSize => 4
@@ -22,25 +20,24 @@ class MI_Datetime extends Win32Struct
         /**
          * @type {MI_Timestamp}
          */
-        timestamp{
+        timestamp {
             get {
                 if(!this.HasProp("__timestamp"))
                     this.__timestamp := MI_Timestamp(0, this)
                 return this.__timestamp
             }
         }
-    
+
         /**
          * @type {MI_Interval}
          */
-        interval{
+        interval {
             get {
                 if(!this.HasProp("__interval"))
                     this.__interval := MI_Interval(0, this)
                 return this.__interval
             }
         }
-    
     }
 
     /**
@@ -53,13 +50,12 @@ class MI_Datetime extends Win32Struct
     }
 
     /**
-     * 
      * @type {_u_e__Union}
      */
-    u{
+    u {
         get {
             if(!this.HasProp("__u"))
-                this.__u := %this.__Class%._u_e__Union(4, this)
+                this.__u := MI_Datetime._u_e__Union(4, this)
             return this.__u
         }
     }

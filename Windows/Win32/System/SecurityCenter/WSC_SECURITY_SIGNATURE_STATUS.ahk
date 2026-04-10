@@ -5,9 +5,8 @@
  * Reports the current version status of the security product to Windows Security Center.
  * @see https://learn.microsoft.com/windows/win32/api/iwscapi/ne-iwscapi-wsc_security_signature_status
  * @namespace Windows.Win32.System.SecurityCenter
- * @version v4.0.30319
  */
-class WSC_SECURITY_SIGNATURE_STATUS extends Win32Enum{
+class WSC_SECURITY_SIGNATURE_STATUS extends Win32Enum {
 
     /**
      * The security software reports that it is not the most recent version.

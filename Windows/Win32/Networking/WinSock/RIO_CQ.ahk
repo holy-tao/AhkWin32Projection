@@ -28,10 +28,8 @@
  * The **RIO\_CQ** typedef is defined in the *Mswsockdef.h* header file which is automatically included in the *Mswsock.h* header file. The *Mswsockdef.h* header file should never be used directly.
  * @see https://learn.microsoft.com/windows/win32/WinSock/riocqueue
  * @namespace Windows.Win32.Networking.WinSock
- * @version v4.0.30319
  */
-class RIO_CQ extends Win32Struct
-{
+class RIO_CQ extends Win32Struct {
     static sizeof => 8
 
     static packingSize => 8

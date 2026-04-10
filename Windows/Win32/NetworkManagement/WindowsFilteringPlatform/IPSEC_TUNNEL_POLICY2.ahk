@@ -1,23 +1,26 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
+#Include .\IPSEC_POLICY_FLAG.ahk
+#Include .\IPSEC_PROPOSAL0.ahk
 #Include .\IPSEC_TUNNEL_ENDPOINTS2.ahk
+#Include .\FWP_IP_VERSION.ahk
+#Include .\IPSEC_TUNNEL_ENDPOINT0.ahk
 #Include .\IPSEC_SA_IDLE_TIMEOUT0.ahk
+#Include .\IKEEXT_EM_POLICY2.ahk
 
 /**
  * Stores the quick mode negotiation policy for tunnel mode IPsec. (IPSEC_TUNNEL_POLICY2)
  * @see https://learn.microsoft.com/windows/win32/api/ipsectypes/ns-ipsectypes-ipsec_tunnel_policy2
  * @namespace Windows.Win32.NetworkManagement.WindowsFilteringPlatform
- * @version v4.0.30319
  */
-class IPSEC_TUNNEL_POLICY2 extends Win32Struct
-{
+class IPSEC_TUNNEL_POLICY2 extends Win32Struct {
     static sizeof => 112
 
     static packingSize => 8
 
     /**
      * Type: <b>UINT32</b>
-     * @type {Integer}
+     * @type {IPSEC_POLICY_FLAG}
      */
     flags {
         get => NumGet(this, 0, "uint")
@@ -52,7 +55,7 @@ class IPSEC_TUNNEL_POLICY2 extends Win32Struct
      * Tunnel endpoints of the IPsec security association (SA) generated from this policy.
      * @type {IPSEC_TUNNEL_ENDPOINTS2}
      */
-    tunnelEndpoints{
+    tunnelEndpoints {
         get {
             if(!this.HasProp("__tunnelEndpoints"))
                 this.__tunnelEndpoints := IPSEC_TUNNEL_ENDPOINTS2(16, this)
@@ -66,7 +69,7 @@ class IPSEC_TUNNEL_POLICY2 extends Win32Struct
      * Specifies the SA idle timeout in IPsec policy.
      * @type {IPSEC_SA_IDLE_TIMEOUT0}
      */
-    saIdleTimeout{
+    saIdleTimeout {
         get {
             if(!this.HasProp("__saIdleTimeout"))
                 this.__saIdleTimeout := IPSEC_SA_IDLE_TIMEOUT0(88, this)

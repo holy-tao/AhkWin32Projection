@@ -1,5 +1,8 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
+#Include ..\Direct3D\D3D_NAME.ahk
+#Include ..\Direct3D\D3D_REGISTER_COMPONENT_TYPE.ahk
+#Include ..\Direct3D\D3D_MIN_PRECISION.ahk
 
 /**
  * Describes a shader signature. (D3D11_SIGNATURE_PARAMETER_DESC)
@@ -11,10 +14,8 @@
  * Get a shader-signature from a shader or an effect by calling APIs such as <a href="https://docs.microsoft.com/windows/desktop/api/d3d11shader/nf-d3d11shader-id3d11shaderreflection-getinputparameterdesc">ID3D11ShaderReflection::GetInputParameterDesc</a>.
  * @see https://learn.microsoft.com/windows/win32/api/d3d11shader/ns-d3d11shader-d3d11_signature_parameter_desc
  * @namespace Windows.Win32.Graphics.Direct3D11
- * @version v4.0.30319
  */
-class D3D11_SIGNATURE_PARAMETER_DESC extends Win32Struct
-{
+class D3D11_SIGNATURE_PARAMETER_DESC extends Win32Struct {
     static sizeof => 40
 
     static packingSize => 8
@@ -56,7 +57,7 @@ class D3D11_SIGNATURE_PARAMETER_DESC extends Win32Struct
      * Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/d3dcommon/ne-d3dcommon-d3d_name">D3D_NAME</a></b>
      * 
      * A <a href="https://docs.microsoft.com/windows/desktop/api/d3dcommon/ne-d3dcommon-d3d_name">D3D_NAME</a>-typed value that identifies a predefined string that determines the functionality of certain pipeline stages.
-     * @type {Integer}
+     * @type {D3D_NAME}
      */
     SystemValueType {
         get => NumGet(this, 16, "int")
@@ -67,7 +68,7 @@ class D3D11_SIGNATURE_PARAMETER_DESC extends Win32Struct
      * Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/d3dcommon/ne-d3dcommon-d3d_register_component_type">D3D_REGISTER_COMPONENT_TYPE</a></b>
      * 
      * A <a href="https://docs.microsoft.com/windows/desktop/api/d3dcommon/ne-d3dcommon-d3d_register_component_type">D3D_REGISTER_COMPONENT_TYPE</a>-typed value that identifies the per-component-data type that is stored in a register.  Each register can store up to four-components of data.
-     * @type {Integer}
+     * @type {D3D_REGISTER_COMPONENT_TYPE}
      */
     ComponentType {
         get => NumGet(this, 20, "int")
@@ -111,7 +112,7 @@ class D3D11_SIGNATURE_PARAMETER_DESC extends Win32Struct
      * Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/d3dcommon/ne-d3dcommon-d3d_min_precision">D3D_MIN_PRECISION</a></b>
      * 
      * A <a href="https://docs.microsoft.com/windows/desktop/api/d3dcommon/ne-d3dcommon-d3d_min_precision">D3D_MIN_PRECISION</a>-typed value that indicates the minimum desired interpolation precision. For more info, see <a href="https://docs.microsoft.com/windows/desktop/direct3dhlsl/using-hlsl-minimum-precision">Using HLSL minimum precision</a>.
-     * @type {Integer}
+     * @type {D3D_MIN_PRECISION}
      */
     MinPrecision {
         get => NumGet(this, 32, "int")

@@ -7,9 +7,8 @@
  * The IWMIndexer interface is used to create an index for ASF files to enable seeking.
  * @see https://learn.microsoft.com/windows/win32/api/wmsdkidl/nn-wmsdkidl-iwmindexer
  * @namespace Windows.Win32.Media.WindowsMediaFormat
- * @version v4.0.30319
  */
-class IWMIndexer extends IUnknown{
+class IWMIndexer extends IUnknown {
 
     static sizeof => A_PtrSize
     /**

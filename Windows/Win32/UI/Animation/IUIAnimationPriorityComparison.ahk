@@ -13,9 +13,8 @@
  * To determine which storyboard has priority, the animation manager can call <a href="https://docs.microsoft.com/windows/desktop/api/uianimation/nf-uianimation-iuianimationprioritycomparison-haspriority">HasPriority</a> on one or more  priority comparison handlers provided by the application.
  * @see https://learn.microsoft.com/windows/win32/api/uianimation/nn-uianimation-iuianimationprioritycomparison
  * @namespace Windows.Win32.UI.Animation
- * @version v4.0.30319
  */
-class IUIAnimationPriorityComparison extends IUnknown{
+class IUIAnimationPriorityComparison extends IUnknown {
 
     static sizeof => A_PtrSize
     /**
@@ -84,7 +83,7 @@ class IUIAnimationPriorityComparison extends IUnknown{
      * When <a href="https://docs.microsoft.com/windows/win32/api/uianimation/ne-uianimation-ui_animation_priority_effect">UI_ANIMATION_PRIORITY_EFFECT_DELAY</a> is passed to <b>HasPriority</b>, the animation manager has already determined that it can schedule the new storyboard such that it will begin before its longest acceptable delay has elapsed, but it is in effect asking the application if the storyboard should begin even earlier.  In some scenarios, it might be best to reduce the latency of an animation by returning S_OK.  In others, it might be preferable to let scheduled animations complete whenever possible, in which case S_FALSE should be returned.  <b>UI_ANIMATION_PRIORITY_EFFECT_DELAY</b> is only passed to <b>HasPriority</b> when the animation manager is considering canceling or trimming a storyboard.
      * @param {IUIAnimationStoryboard} scheduledStoryboard The currently scheduled storyboard.
      * @param {IUIAnimationStoryboard} newStoryboard The new storyboard that is interrupting the scheduled storyboard specified in <i>scheduledStoryboard</i>.
-     * @param {Integer} priorityEffect The potential effect on <i>newStoryboard</i> if <i>scheduledStoryboard</i> has a higher priority.
+     * @param {UI_ANIMATION_PRIORITY_EFFECT} priorityEffect The potential effect on <i>newStoryboard</i> if <i>scheduledStoryboard</i> has a higher priority.
      * @returns {HRESULT} This method can return one of these values.
      * 
      * <table>

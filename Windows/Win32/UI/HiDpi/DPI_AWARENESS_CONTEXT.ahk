@@ -4,10 +4,8 @@
 
 /**
  * @namespace Windows.Win32.UI.HiDpi
- * @version v4.0.30319
  */
-class DPI_AWARENESS_CONTEXT extends Win32Handle
-{
+class DPI_AWARENESS_CONTEXT extends Win32Handle {
     static sizeof => 8
 
     static packingSize => 8

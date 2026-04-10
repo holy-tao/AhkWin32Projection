@@ -5,10 +5,8 @@
  * Files exempted from Windows app package encryption.
  * @see https://learn.microsoft.com/windows/win32/api/appxpackaging/ns-appxpackaging-appx_encrypted_exemptions
  * @namespace Windows.Win32.Storage.Packaging.Appx
- * @version v4.0.30319
  */
-class APPX_ENCRYPTED_EXEMPTIONS extends Win32Struct
-{
+class APPX_ENCRYPTED_EXEMPTIONS extends Win32Struct {
     static sizeof => 16
 
     static packingSize => 8

@@ -5,9 +5,8 @@
  * Specifies how to rotate a video image.
  * @see https://learn.microsoft.com/windows/win32/api/mfidl/ne-mfidl-mf_video_processor_rotation
  * @namespace Windows.Win32.Media.MediaFoundation
- * @version v4.0.30319
  */
-class MF_VIDEO_PROCESSOR_ROTATION extends Win32Enum{
+class MF_VIDEO_PROCESSOR_ROTATION extends Win32Enum {
 
     /**
      * Do not rotate the image.

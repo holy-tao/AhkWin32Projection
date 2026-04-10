@@ -7,9 +7,8 @@
  * The IResourceManager interface resolves contentions for system resources.The filter graph manager exposes this interface.
  * @see https://learn.microsoft.com/windows/win32/api/strmif/nn-strmif-iresourcemanager
  * @namespace Windows.Win32.Media.DirectShow
- * @version v4.0.30319
  */
-class IResourceManager extends IUnknown{
+class IResourceManager extends IUnknown {
 
     static sizeof => A_PtrSize
     /**

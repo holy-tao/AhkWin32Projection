@@ -1,8 +1,8 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
-#Include .\CAUUID.ahk
 #Include ..\Com\IUnknown.ahk
+#Include .\CAUUID.ahk
 
 /**
  * Indicates that an object supports property pages.
@@ -12,9 +12,8 @@
  * An object specifies its support for property pages by implementing <b>ISpecifyPropertyPages</b>. Through this interface the caller can obtain a list of CLSIDs identifying the specific property pages that the object supports. If the object specifies a property page CLSID, the object must be able to receive property changes from the property page.
  * @see https://learn.microsoft.com/windows/win32/api/ocidl/nn-ocidl-ispecifypropertypages
  * @namespace Windows.Win32.System.Ole
- * @version v4.0.30319
  */
-class ISpecifyPropertyPages extends IUnknown{
+class ISpecifyPropertyPages extends IUnknown {
 
     static sizeof => A_PtrSize
     /**

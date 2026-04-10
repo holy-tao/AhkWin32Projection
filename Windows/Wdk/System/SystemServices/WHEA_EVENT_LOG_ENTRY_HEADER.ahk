@@ -1,12 +1,12 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
+#Include .\WHEA_EVENT_LOG_ENTRY_TYPE.ahk
+#Include .\WHEA_EVENT_LOG_ENTRY_ID.ahk
 
 /**
  * @namespace Windows.Wdk.System.SystemServices
- * @version v4.0.30319
  */
-class WHEA_EVENT_LOG_ENTRY_HEADER extends Win32Struct
-{
+class WHEA_EVENT_LOG_ENTRY_HEADER extends Win32Struct {
     static sizeof => 40
 
     static packingSize => 8
@@ -36,7 +36,7 @@ class WHEA_EVENT_LOG_ENTRY_HEADER extends Win32Struct
     }
 
     /**
-     * @type {Integer}
+     * @type {WHEA_EVENT_LOG_ENTRY_TYPE}
      */
     Type {
         get => NumGet(this, 12, "int")
@@ -52,7 +52,7 @@ class WHEA_EVENT_LOG_ENTRY_HEADER extends Win32Struct
     }
 
     /**
-     * @type {Integer}
+     * @type {WHEA_EVENT_LOG_ENTRY_ID}
      */
     Id {
         get => NumGet(this, 20, "int")
@@ -60,7 +60,7 @@ class WHEA_EVENT_LOG_ENTRY_HEADER extends Win32Struct
     }
 
     /**
-     * @type {Pointer<WHEA_EVENT_LOG_ENTRY_FLAGS>}
+     * @type {Pointer}
      */
     Flags {
         get => NumGet(this, 24, "ptr")

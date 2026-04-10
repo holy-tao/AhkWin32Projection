@@ -8,16 +8,13 @@
  * <b>DFS_INFO_300</b> structure to enumerate DFS namespaces hosted on a machine.
  * @see https://learn.microsoft.com/windows/win32/api/lmdfs/ns-lmdfs-dfs_info_300
  * @namespace Windows.Win32.Storage.DistributedFileSystem
- * @version v4.0.30319
  */
-class DFS_INFO_300 extends Win32Struct
-{
+class DFS_INFO_300 extends Win32Struct {
     static sizeof => 16
 
     static packingSize => 8
 
     /**
-     * 
      * @type {Integer}
      */
     Flags {

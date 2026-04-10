@@ -4,10 +4,8 @@
 
 /**
  * @namespace Windows.Win32.Media.DirectShow.Tv
- * @version v4.0.30319
  */
-class KS_DATARANGE_BDA_ANTENNA extends Win32Struct
-{
+class KS_DATARANGE_BDA_ANTENNA extends Win32Struct {
     static sizeof => 48
 
     static packingSize => 8
@@ -15,7 +13,7 @@ class KS_DATARANGE_BDA_ANTENNA extends Win32Struct
     /**
      * @type {KSDATAFORMAT}
      */
-    DataRange{
+    DataRange {
         get {
             if(!this.HasProp("__DataRange"))
                 this.__DataRange := KSDATAFORMAT(0, this)

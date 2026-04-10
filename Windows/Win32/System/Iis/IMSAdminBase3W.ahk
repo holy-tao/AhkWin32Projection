@@ -5,9 +5,8 @@
 
 /**
  * @namespace Windows.Win32.System.Iis
- * @version v4.0.30319
  */
-class IMSAdminBase3W extends IMSAdminBase2W{
+class IMSAdminBase3W extends IMSAdminBase2W {
 
     static sizeof => A_PtrSize
     /**

@@ -3,9 +3,8 @@
 
 /**
  * @namespace Windows.Win32.UI.Controls
- * @version v4.0.30319
  */
-class SYSTEMCLOSEHCHOTSTATES extends Win32Enum{
+class SYSTEMCLOSEHCHOTSTATES extends Win32Enum {
 
     /**
      * @type {Integer (Int32)}

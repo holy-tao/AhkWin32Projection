@@ -16,12 +16,10 @@
  * </ul>
  * @see https://learn.microsoft.com/windows/win32/api/fsrmenums/ne-fsrmenums-fsrmpropertyflags
  * @namespace Windows.Win32.Storage.FileServerResourceManager
- * @version v4.0.30319
  */
-class FsrmPropertyFlags extends Win32Enum{
+class FsrmPropertyFlags extends Win32Enum {
 
     /**
-     * 
      * @type {Integer (Int32)}
      */
     static FsrmPropertyFlags_None => 0

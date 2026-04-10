@@ -7,10 +7,8 @@
  * This structure is one member of a shader-resource-view description, <a href="https://docs.microsoft.com/windows/desktop/api/d3d12/ns-d3d12-d3d12_shader_resource_view_desc">D3D12_SHADER_RESOURCE_VIEW_DESC</a>.
  * @see https://learn.microsoft.com/windows/win32/api/d3d12/ns-d3d12-d3d12_tex2d_srv
  * @namespace Windows.Win32.Graphics.Direct3D12
- * @version v4.0.30319
  */
-class D3D12_TEX2D_SRV extends Win32Struct
-{
+class D3D12_TEX2D_SRV extends Win32Struct {
     static sizeof => 16
 
     static packingSize => 4

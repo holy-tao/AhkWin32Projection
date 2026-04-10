@@ -7,9 +7,8 @@
  * If user defaults are not available when using kUserDefaultDevmode, queue defaults will be used.
  * @see https://learn.microsoft.com/windows/win32/api/prntvpt/ne-prntvpt-edefaultdevmodetype
  * @namespace Windows.Win32.Graphics.Printing.PrintTicket
- * @version v4.0.30319
  */
-class EDefaultDevmodeType extends Win32Enum{
+class EDefaultDevmodeType extends Win32Enum {
 
     /**
      * The user's default preferences.

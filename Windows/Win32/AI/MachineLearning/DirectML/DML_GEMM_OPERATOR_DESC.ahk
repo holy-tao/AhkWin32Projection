@@ -1,14 +1,15 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\..\Win32Struct.ahk
+#Include .\DML_TENSOR_DESC.ahk
+#Include .\DML_MATRIX_TRANSFORM.ahk
+#Include .\DML_OPERATOR_DESC.ahk
 
 /**
  * Performs a general matrix multiplication function of the form `Output = FusedActivation(Alpha * TransA(A) x TransB(B) + Beta * C)`, where `x` denotes matrix multiplication, and `*` denotes multiplication with a scalar.
  * @see https://learn.microsoft.com/windows/win32/api/directml/ns-directml-dml_gemm_operator_desc
  * @namespace Windows.Win32.AI.MachineLearning.DirectML
- * @version v4.0.30319
  */
-class DML_GEMM_OPERATOR_DESC extends Win32Struct
-{
+class DML_GEMM_OPERATOR_DESC extends Win32Struct {
     static sizeof => 56
 
     static packingSize => 8
@@ -61,7 +62,7 @@ class DML_GEMM_OPERATOR_DESC extends Win32Struct
      * Type: [**DML_MATRIX_TRANSFORM**](/windows/win32/api/directml/ne-directml-dml_matrix_transform)
      * 
      * The transform to be applied to *ATensor*; either a transpose, or no transform.
-     * @type {Integer}
+     * @type {DML_MATRIX_TRANSFORM}
      */
     TransA {
         get => NumGet(this, 32, "int")
@@ -72,7 +73,7 @@ class DML_GEMM_OPERATOR_DESC extends Win32Struct
      * Type: [**DML_MATRIX_TRANSFORM**](/windows/win32/api/directml/ne-directml-dml_matrix_transform)
      * 
      * The transform to be applied to *BTensor*; either a transpose, or no transform.
-     * @type {Integer}
+     * @type {DML_MATRIX_TRANSFORM}
      */
     TransB {
         get => NumGet(this, 36, "int")

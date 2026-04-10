@@ -5,10 +5,8 @@
  * The WMDMMetadataView structure defines the metadata view. Content is organized based on this definition.
  * @see https://learn.microsoft.com/windows/win32/WMDM/wmdmmetadataview
  * @namespace Windows.Win32.Media.DeviceManager
- * @version v4.0.30319
  */
-class WMDMMetadataView extends Win32Struct
-{
+class WMDMMetadataView extends Win32Struct {
     static sizeof => 24
 
     static packingSize => 8

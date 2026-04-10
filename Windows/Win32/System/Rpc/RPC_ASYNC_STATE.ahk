@@ -1,8 +1,11 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
-#Include ..\..\Foundation\HANDLE.ahk
-#Include ..\..\Foundation\HWND.ahk
+#Include .\RPC_ASYNC_EVENT.ahk
+#Include .\RPC_NOTIFICATION_TYPES.ahk
 #Include .\RPC_ASYNC_NOTIFICATION_INFO.ahk
+#Include ..\..\Foundation\HANDLE.ahk
+#Include ..\IO\OVERLAPPED.ahk
+#Include ..\..\Foundation\HWND.ahk
 
 /**
  * The RPC_ASYNC_STATE structure holds the state of an asynchronous remote procedure call. RPC_ASYNC_STATE is a handle to this structure, used to wait for, query, reply to, or cancel asynchronous calls.
@@ -12,10 +15,8 @@
  * <a href="https://docs.microsoft.com/windows/desktop/api/rpcasync/nf-rpcasync-rpcasyncinitializehandle">RpcAsyncInitializeHandle</a> to initialize the structure. After the run-time environment has successfully initialized the structure, the client initializes the <b>NotificationType</b>, and exactly one of the following structures in the <a href="https://docs.microsoft.com/windows/desktop/api/rpcasync/ns-rpcasync-rpc_async_notification_info">RPC_ASYNC_NOTIFICATION_INFO</a> union: <b>APC</b> for a Windows asynchronous procedure call, <b>IOC</b> for an I/O completion port, <b>HWND</b> for a Windows system message, or <b>hEvent</b> for a Windows event. If the chosen notification method is <b>RpcNotificationTypeNone</b>, no field of the union needs to be initialized. The RPC client may optionally initialize the <b>UserInfo</b> field as well.
  * @see https://learn.microsoft.com/windows/win32/api/rpcasync/ns-rpcasync-rpc_async_state
  * @namespace Windows.Win32.System.Rpc
- * @version v4.0.30319
  */
-class RPC_ASYNC_STATE extends Win32Struct
-{
+class RPC_ASYNC_STATE extends Win32Struct {
     static sizeof => 160
 
     static packingSize => 8
@@ -112,7 +113,7 @@ class RPC_ASYNC_STATE extends Win32Struct
     /**
      * Type of event that occurred. The RPC run-time environment sets this field to a member of the 
      * <a href="https://docs.microsoft.com/windows/desktop/api/rpcasync/ne-rpcasync-rpc_async_event">RPC_ASYNC_EVENT</a> enumeration.
-     * @type {Integer}
+     * @type {RPC_ASYNC_EVENT}
      */
     Event {
         get => NumGet(this, 40, "int")
@@ -190,7 +191,7 @@ class RPC_ASYNC_STATE extends Win32Struct
      * </td>
      * </tr>
      * </table>
-     * @type {Integer}
+     * @type {RPC_NOTIFICATION_TYPES}
      */
     NotificationType {
         get => NumGet(this, 44, "int")
@@ -204,7 +205,7 @@ class RPC_ASYNC_STATE extends Win32Struct
      * <div> </div>
      * @type {RPC_ASYNC_NOTIFICATION_INFO}
      */
-    u{
+    u {
         get {
             if(!this.HasProp("__u"))
                 this.__u := RPC_ASYNC_NOTIFICATION_INFO(48, this)
@@ -214,9 +215,9 @@ class RPC_ASYNC_STATE extends Win32Struct
 
     /**
      * Reserved for compatibility with future versions, if any. Do not use this member.
-     * @type {Array<IntPtr>}
+     * @type {Array<Pointer>}
      */
-    Reserved{
+    Reserved {
         get {
             if(!this.HasProp("__ReservedProxyArray"))
                 this.__ReservedProxyArray := Win32FixedArray(this.ptr + 128, 4, Primitive, "ptr")

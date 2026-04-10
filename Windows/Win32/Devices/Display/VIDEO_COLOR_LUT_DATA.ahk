@@ -3,10 +3,8 @@
 
 /**
  * @namespace Windows.Win32.Devices.Display
- * @version v4.0.30319
  */
-class VIDEO_COLOR_LUT_DATA extends Win32Struct
-{
+class VIDEO_COLOR_LUT_DATA extends Win32Struct {
     static sizeof => 12
 
     static packingSize => 4
@@ -28,9 +26,9 @@ class VIDEO_COLOR_LUT_DATA extends Win32Struct
     }
 
     /**
-     * @type {Array<Byte>}
+     * @type {Array<Integer>}
      */
-    LutData{
+    LutData {
         get {
             if(!this.HasProp("__LutDataProxyArray"))
                 this.__LutDataProxyArray := Win32FixedArray(this.ptr + 8, 1, Primitive, "char")

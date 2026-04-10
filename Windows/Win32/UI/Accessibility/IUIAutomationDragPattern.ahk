@@ -1,9 +1,9 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
+#Include ..\..\System\Com\IUnknown.ahk
 #Include ..\..\Foundation\BSTR.ahk
 #Include .\IUIAutomationElementArray.ahk
-#Include ..\..\System\Com\IUnknown.ahk
 
 /**
  * Provides access to information exposed by a UI Automation provider for an element that can be dragged as part of a drag-and-drop operation.
@@ -11,9 +11,8 @@
  * Microsoft UI Automation clients use this interface to access the dragging properties and functionality of a control or UI element that the user can drag-and-drop on a drop target.
  * @see https://learn.microsoft.com/windows/win32/api/uiautomationclient/nn-uiautomationclient-iuiautomationdragpattern
  * @namespace Windows.Win32.UI.Accessibility
- * @version v4.0.30319
  */
-class IUIAutomationDragPattern extends IUnknown{
+class IUIAutomationDragPattern extends IUnknown {
 
     static sizeof => A_PtrSize
     /**

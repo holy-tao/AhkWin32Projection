@@ -3,9 +3,8 @@
 
 /**
  * @namespace Windows.Wdk.Graphics.Direct3D
- * @version v4.0.30319
  */
-class DXGKMDT_OPM_IMAGE_ASPECT_RATIO_EN300294 extends Win32Enum{
+class DXGKMDT_OPM_IMAGE_ASPECT_RATIO_EN300294 extends Win32Enum {
 
     /**
      * @type {Integer (Int32)}

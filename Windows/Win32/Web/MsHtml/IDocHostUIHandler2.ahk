@@ -5,9 +5,8 @@
 
 /**
  * @namespace Windows.Win32.Web.MsHtml
- * @version v4.0.30319
  */
-class IDocHostUIHandler2 extends IDocHostUIHandler{
+class IDocHostUIHandler2 extends IDocHostUIHandler {
 
     static sizeof => A_PtrSize
     /**

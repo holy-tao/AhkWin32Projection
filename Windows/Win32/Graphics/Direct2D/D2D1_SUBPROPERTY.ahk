@@ -5,9 +5,8 @@
  * Specifies the indices of the system sub-properties that may be present in any property.
  * @see https://learn.microsoft.com/windows/win32/api/d2d1_1/ne-d2d1_1-d2d1_subproperty
  * @namespace Windows.Win32.Graphics.Direct2D
- * @version v4.0.30319
  */
-class D2D1_SUBPROPERTY extends Win32Enum{
+class D2D1_SUBPROPERTY extends Win32Enum {
 
     /**
      * The name for the parent property.

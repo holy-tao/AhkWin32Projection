@@ -5,9 +5,8 @@
  * The AGENT_STATE enumeration (tapi3cc.h) is used by the ITAgent::put_State and ITAgent::get_State methods to describe the agent state.
  * @see https://learn.microsoft.com/windows/win32/api/tapi3cc/ne-tapi3cc-agent_state
  * @namespace Windows.Win32.Devices.Tapi
- * @version v4.0.30319
  */
-class AGENT_STATE extends Win32Enum{
+class AGENT_STATE extends Win32Enum {
 
     /**
      * Agent is not ready

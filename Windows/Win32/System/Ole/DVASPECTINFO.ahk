@@ -5,10 +5,8 @@
  * Contains information that is used by the IViewObject::Draw method to optimize rendering of an inactive object by making more efficient use of the GDI.
  * @see https://learn.microsoft.com/windows/win32/api/ocidl/ns-ocidl-dvaspectinfo
  * @namespace Windows.Win32.System.Ole
- * @version v4.0.30319
  */
-class DVASPECTINFO extends Win32Struct
-{
+class DVASPECTINFO extends Win32Struct {
     static sizeof => 8
 
     static packingSize => 4

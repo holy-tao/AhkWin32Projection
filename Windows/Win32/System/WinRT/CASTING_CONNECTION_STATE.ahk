@@ -3,9 +3,8 @@
 
 /**
  * @namespace Windows.Win32.System.WinRT
- * @version v4.0.30319
  */
-class CASTING_CONNECTION_STATE extends Win32Enum{
+class CASTING_CONNECTION_STATE extends Win32Enum {
 
     /**
      * @type {Integer (Int32)}

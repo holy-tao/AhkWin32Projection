@@ -7,9 +7,8 @@
  * Exposes methods that are implemented by the WebBrowser control (Microsoft ActiveX control) or implemented by an instance of the InternetExplorer application (OLE Automation).
  * @see https://learn.microsoft.com/windows/win32/api/exdisp/nn-exdisp-iwebbrowser2
  * @namespace Windows.Win32.UI.Shell
- * @version v4.0.30319
  */
-class IWebBrowser2 extends IWebBrowserApp{
+class IWebBrowser2 extends IWebBrowserApp {
 
     static sizeof => A_PtrSize
     /**
@@ -31,7 +30,7 @@ class IWebBrowser2 extends IWebBrowserApp{
     static VTableNames => ["Navigate2", "QueryStatusWB", "ExecWB", "ShowBrowserBar", "get_ReadyState", "get_Offline", "put_Offline", "get_Silent", "put_Silent", "get_RegisterAsBrowser", "put_RegisterAsBrowser", "get_RegisterAsDropTarget", "put_RegisterAsDropTarget", "get_TheaterMode", "put_TheaterMode", "get_AddressBar", "put_AddressBar", "get_Resizable", "put_Resizable"]
 
     /**
-     * @type {Integer} 
+     * @type {READYSTATE} 
      */
     ReadyState {
         get => this.get_ReadyState()
@@ -109,8 +108,8 @@ class IWebBrowser2 extends IWebBrowserApp{
 
     /**
      * 
-     * @param {Integer} cmdID 
-     * @returns {Integer} 
+     * @param {OLECMDID} cmdID 
+     * @returns {OLECMDF} 
      */
     QueryStatusWB(cmdID) {
         result := ComCall(53, this, "int", cmdID, "int*", &pcmdf := 0, "HRESULT")
@@ -119,8 +118,8 @@ class IWebBrowser2 extends IWebBrowserApp{
 
     /**
      * 
-     * @param {Integer} cmdID 
-     * @param {Integer} cmdexecopt 
+     * @param {OLECMDID} cmdID 
+     * @param {OLECMDEXECOPT} cmdexecopt 
      * @param {Pointer<VARIANT>} pvaIn 
      * @param {Pointer<VARIANT>} pvaOut 
      * @returns {HRESULT} 
@@ -144,7 +143,7 @@ class IWebBrowser2 extends IWebBrowserApp{
 
     /**
      * 
-     * @returns {Integer} 
+     * @returns {READYSTATE} 
      */
     get_ReadyState() {
         result := ComCall(56, this, "int*", &plReadyState := 0, "HRESULT")

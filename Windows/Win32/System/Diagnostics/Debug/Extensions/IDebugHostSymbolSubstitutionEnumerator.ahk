@@ -5,9 +5,8 @@
 
 /**
  * @namespace Windows.Win32.System.Diagnostics.Debug.Extensions
- * @version v4.0.30319
  */
-class IDebugHostSymbolSubstitutionEnumerator extends IDebugHostSymbolEnumerator{
+class IDebugHostSymbolSubstitutionEnumerator extends IDebugHostSymbolEnumerator {
 
     static sizeof => A_PtrSize
     /**

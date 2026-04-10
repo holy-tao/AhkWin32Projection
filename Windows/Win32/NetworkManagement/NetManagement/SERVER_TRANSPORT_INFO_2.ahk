@@ -22,10 +22,8 @@
  * Scoped endpoints are generally used by the cluster namespace.
  * @see https://learn.microsoft.com/windows/win32/api/lmserver/ns-lmserver-server_transport_info_2
  * @namespace Windows.Win32.NetworkManagement.NetManagement
- * @version v4.0.30319
  */
-class SERVER_TRANSPORT_INFO_2 extends Win32Struct
-{
+class SERVER_TRANSPORT_INFO_2 extends Win32Struct {
     static sizeof => 56
 
     static packingSize => 8
@@ -74,7 +72,6 @@ class SERVER_TRANSPORT_INFO_2 extends Win32Struct
     }
 
     /**
-     * 
      * @type {Integer}
      */
     svti2_transportaddresslength {

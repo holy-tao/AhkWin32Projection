@@ -1,12 +1,11 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
+#Include ..\..\System\Com\IUnknown.ahk
 
 /**
  * @namespace Windows.Win32.Graphics.Direct3D9on12
- * @version v4.0.30319
  */
-class D3D9ON12_ARGS extends Win32Struct
-{
+class D3D9ON12_ARGS extends Win32Struct {
     static sizeof => 40
 
     static packingSize => 8
@@ -30,7 +29,7 @@ class D3D9ON12_ARGS extends Win32Struct
     /**
      * @type {Array<IUnknown>}
      */
-    ppD3D12Queues{
+    ppD3D12Queues {
         get {
             if(!this.HasProp("__ppD3D12QueuesProxyArray"))
                 this.__ppD3D12QueuesProxyArray := Win32FixedArray(this.ptr + 16, 2, Primitive, "ptr")

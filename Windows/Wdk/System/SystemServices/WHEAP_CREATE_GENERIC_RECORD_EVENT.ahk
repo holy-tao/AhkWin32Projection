@@ -3,16 +3,14 @@
 
 /**
  * @namespace Windows.Wdk.System.SystemServices
- * @version v4.0.30319
  */
-class WHEAP_CREATE_GENERIC_RECORD_EVENT extends Win32Struct
-{
-    static sizeof => 80
+class WHEAP_CREATE_GENERIC_RECORD_EVENT extends Win32Struct {
+    static sizeof => 48
 
     static packingSize => 8
 
     /**
-     * @type {Pointer<WHEA_EVENT_LOG_ENTRY>}
+     * @type {Pointer}
      */
     WheaEventLogEntry {
         get => NumGet(this, 0, "ptr")
@@ -23,23 +21,23 @@ class WHEAP_CREATE_GENERIC_RECORD_EVENT extends Win32Struct
      * @type {String}
      */
     Error {
-        get => StrGet(this.ptr + 8, 31, "UTF-16")
-        set => StrPut(value, this.ptr + 8, 31, "UTF-16")
+        get => StrGet(this.ptr + 8, 31, "UTF-8")
+        set => StrPut(value, this.ptr + 8, 31, "UTF-8")
     }
 
     /**
      * @type {Integer}
      */
     EntryCount {
-        get => NumGet(this, 72, "uint")
-        set => NumPut("uint", value, this, 72)
+        get => NumGet(this, 40, "uint")
+        set => NumPut("uint", value, this, 40)
     }
 
     /**
      * @type {NTSTATUS}
      */
     Status {
-        get => NumGet(this, 76, "int")
-        set => NumPut("int", value, this, 76)
+        get => NumGet(this, 44, "int")
+        set => NumPut("int", value, this, 44)
     }
 }

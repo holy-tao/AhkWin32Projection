@@ -5,9 +5,8 @@
  * Defines values for the compression modes that are used to save the InkDisp object to a serialized format.
  * @see https://learn.microsoft.com/windows/win32/api/msinkaut/ne-msinkaut-inkpersistencecompressionmode
  * @namespace Windows.Win32.UI.TabletPC
- * @version v4.0.30319
  */
-class InkPersistenceCompressionMode extends Win32Enum{
+class InkPersistenceCompressionMode extends Win32Enum {
 
     /**
      * The default. Provides the best tradeoff between save-time and storage for the typical application.

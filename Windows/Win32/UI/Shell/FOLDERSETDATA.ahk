@@ -6,10 +6,8 @@
  * Deprecated. Data used in IBrowserService2::GetFolderSetData.
  * @see https://learn.microsoft.com/windows/win32/api/shdeprecated/ns-shdeprecated-foldersetdata
  * @namespace Windows.Win32.UI.Shell
- * @version v4.0.30319
  */
-class FOLDERSETDATA extends Win32Struct
-{
+class FOLDERSETDATA extends Win32Struct {
     static sizeof => 24
 
     static packingSize => 8
@@ -20,7 +18,7 @@ class FOLDERSETDATA extends Win32Struct
      * The <a href="https://docs.microsoft.com/windows/desktop/api/shobjidl_core/ns-shobjidl_core-foldersettings">FOLDERSETTINGS</a> structure containing folder view information.
      * @type {FOLDERSETTINGS}
      */
-    _fs{
+    _fs {
         get {
             if(!this.HasProp("___fs"))
                 this.___fs := FOLDERSETTINGS(0, this)
@@ -32,7 +30,7 @@ class FOLDERSETDATA extends Win32Struct
      * Type: <b>SHELLVIEWID</b>
      * 
      * The last view used for this folder, used as a suggestion for this visit.
-     * @type {Pointer<Guid>}
+     * @type {Pointer}
      */
     _vidRestore {
         get => NumGet(this, 8, "ptr")

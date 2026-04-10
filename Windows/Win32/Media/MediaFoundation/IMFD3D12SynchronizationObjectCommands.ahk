@@ -5,13 +5,10 @@
 
 /**
  * Provides commands that allow a producer or a consumer of D3D12 resource to signal down-stream components when the resource is ready for use or can be released.
- * @remarks
- * 
  * @see https://learn.microsoft.com/windows/win32/api/mfd3d12/nn-mfd3d12-imfd3d12synchronizationobjectcommands
  * @namespace Windows.Win32.Media.MediaFoundation
- * @version v4.0.30319
  */
-class IMFD3D12SynchronizationObjectCommands extends IUnknown{
+class IMFD3D12SynchronizationObjectCommands extends IUnknown {
 
     static sizeof => A_PtrSize
     /**

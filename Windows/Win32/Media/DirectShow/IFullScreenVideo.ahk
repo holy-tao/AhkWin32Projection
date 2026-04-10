@@ -1,17 +1,16 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
-#Include ..\..\Foundation\BSTR.ahk
-#Include ..\..\Foundation\HWND.ahk
 #Include ..\..\System\Com\IUnknown.ahk
+#Include ..\..\Foundation\HWND.ahk
+#Include ..\..\Foundation\BSTR.ahk
 
 /**
  * The IFullScreenVideoEx interface is implemented on the Full Screen Renderer filter, which provides full-screen video rendering on older hardware.
  * @see https://learn.microsoft.com/windows/win32/api/amvideo/nn-amvideo-ifullscreenvideoex
  * @namespace Windows.Win32.Media.DirectShow
- * @version v4.0.30319
  */
-class IFullScreenVideo extends IUnknown{
+class IFullScreenVideo extends IUnknown {
 
     static sizeof => A_PtrSize
     /**

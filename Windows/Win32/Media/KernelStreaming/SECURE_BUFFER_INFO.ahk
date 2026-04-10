@@ -3,16 +3,14 @@
 
 /**
  * @namespace Windows.Win32.Media.KernelStreaming
- * @version v4.0.30319
  */
-class SECURE_BUFFER_INFO extends Win32Struct
-{
+class SECURE_BUFFER_INFO extends Win32Struct {
     static sizeof => 144
 
     static packingSize => 8
 
     /**
-     * @type {Pointer<Guid>}
+     * @type {Pointer}
      */
     guidBufferIdentifier {
         get => NumGet(this, 0, "ptr")
@@ -36,9 +34,9 @@ class SECURE_BUFFER_INFO extends Win32Struct
     }
 
     /**
-     * @type {Array<UInt64>}
+     * @type {Array<Integer>}
      */
-    ullReserved{
+    ullReserved {
         get {
             if(!this.HasProp("__ullReservedProxyArray"))
                 this.__ullReservedProxyArray := Win32FixedArray(this.ptr + 16, 16, Primitive, "uint")

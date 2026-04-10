@@ -6,10 +6,8 @@
  * The CRYPT_SMIME_CAPABILITY structure specifies a single capability and its associated parameters. Single capabilities are grouped together into a list of CRYPT_SMIME_CAPABILITIES which can specify a prioritized list of capability preferences.
  * @see https://learn.microsoft.com/windows/win32/api/wincrypt/ns-wincrypt-crypt_smime_capability
  * @namespace Windows.Win32.Security.Cryptography
- * @version v4.0.30319
  */
-class CRYPT_SMIME_CAPABILITY extends Win32Struct
-{
+class CRYPT_SMIME_CAPABILITY extends Win32Struct {
     static sizeof => 24
 
     static packingSize => 8
@@ -36,7 +34,7 @@ class CRYPT_SMIME_CAPABILITY extends Win32Struct
      * <div> </div>
      * @type {CRYPT_INTEGER_BLOB}
      */
-    Parameters{
+    Parameters {
         get {
             if(!this.HasProp("__Parameters"))
                 this.__Parameters := CRYPT_INTEGER_BLOB(8, this)

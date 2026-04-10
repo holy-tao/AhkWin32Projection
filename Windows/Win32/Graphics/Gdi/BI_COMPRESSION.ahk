@@ -3,9 +3,8 @@
 
 /**
  * @namespace Windows.Win32.Graphics.Gdi
- * @version v4.0.30319
  */
-class BI_COMPRESSION extends Win32Enum{
+class BI_COMPRESSION extends Win32Enum {
 
     /**
      * @type {Integer (UInt32)}

@@ -5,10 +5,8 @@
  * The DHCPCAPI_CLASSID structure defines a client Class ID.
  * @see https://learn.microsoft.com/windows/win32/api/dhcpcsdk/ns-dhcpcsdk-dhcpcapi_classid
  * @namespace Windows.Win32.NetworkManagement.Dhcp
- * @version v4.0.30319
  */
-class DHCPCAPI_CLASSID extends Win32Struct
-{
+class DHCPCAPI_CLASSID extends Win32Struct {
     static sizeof => 24
 
     static packingSize => 8
@@ -32,7 +30,6 @@ class DHCPCAPI_CLASSID extends Win32Struct
     }
 
     /**
-     * 
      * @type {Integer}
      */
     nBytesData {

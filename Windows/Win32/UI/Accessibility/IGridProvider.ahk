@@ -1,8 +1,8 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
-#Include .\IRawElementProviderSimple.ahk
 #Include ..\..\System\Com\IUnknown.ahk
+#Include .\IRawElementProviderSimple.ahk
 
 /**
  * Provides access to controls that act as containers for a collection of child elements organized in a two-dimensional logical coordinate system that can be traversed (that is, a Microsoft UI Automation client can move to adjacent controls) by using the keyboard.
@@ -18,9 +18,8 @@
  *         <a href="https://docs.microsoft.com/windows/desktop/api/uiautomationcore/nn-uiautomationcore-itransformprovider">ITransformProvider</a> must be implemented for this.
  * @see https://learn.microsoft.com/windows/win32/api/uiautomationcore/nn-uiautomationcore-igridprovider
  * @namespace Windows.Win32.UI.Accessibility
- * @version v4.0.30319
  */
-class IGridProvider extends IUnknown{
+class IGridProvider extends IUnknown {
 
     static sizeof => A_PtrSize
     /**
@@ -73,7 +72,9 @@ class IGridProvider extends IUnknown{
      * @param {Integer} row Type: <b>int</b>
      * 
      * The ordinal number of the row of interest.
-     * @param {Integer} _column 
+     * @param {Integer} _column Type: <b>int</b>
+     * 
+     * The ordinal number of the column of interest.
      * @returns {IRawElementProviderSimple} Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/uiautomationcore/nn-uiautomationcore-irawelementprovidersimple">IRawElementProviderSimple</a>**</b>
      * 
      * Receives a pointer to a UI Automation provider for the specified cell or a null reference 

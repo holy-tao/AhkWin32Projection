@@ -4,10 +4,8 @@
 
 /**
  * @namespace Windows.Win32.Graphics.Direct3D12
- * @version v4.0.30319
  */
-class D3D12_MULTI_NODE_GPU_INPUT extends Win32Struct
-{
+class D3D12_MULTI_NODE_GPU_INPUT extends Win32Struct {
     static sizeof => 24
 
     static packingSize => 8
@@ -23,7 +21,7 @@ class D3D12_MULTI_NODE_GPU_INPUT extends Win32Struct
     /**
      * @type {D3D12_GPU_VIRTUAL_ADDRESS_AND_STRIDE}
      */
-    NodeInputs{
+    NodeInputs {
         get {
             if(!this.HasProp("__NodeInputs"))
                 this.__NodeInputs := D3D12_GPU_VIRTUAL_ADDRESS_AND_STRIDE(8, this)

@@ -33,9 +33,8 @@
  * Many content enablers send machine-specific data to the network, which can have privacy implications. One of the purposes of the <b>IMFContentProtectionManager</b> interface is to give applications an opportunity to display information to the user and enable users to opt in or out of the process.
  * @see https://learn.microsoft.com/windows/win32/api/mfidl/nn-mfidl-imfcontentprotectionmanager
  * @namespace Windows.Win32.Media.MediaFoundation
- * @version v4.0.30319
  */
-class IMFContentProtectionManager extends IUnknown{
+class IMFContentProtectionManager extends IUnknown {
 
     static sizeof => A_PtrSize
     /**

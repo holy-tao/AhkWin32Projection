@@ -3,9 +3,8 @@
 
 /**
  * @namespace Windows.Win32.UI.Controls
- * @version v4.0.30319
  */
-class NMPGSCROLL_KEYS extends Win32BitflagEnum{
+class NMPGSCROLL_KEYS extends Win32BitflagEnum {
 
     /**
      * @type {Integer (UInt16)}

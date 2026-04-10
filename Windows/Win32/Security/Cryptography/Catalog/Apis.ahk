@@ -4,7 +4,6 @@
 
 /**
  * @namespace Windows.Win32.Security.Cryptography.Catalog
- * @version v4.0.30319
  */
 class Catalog {
 
@@ -115,9 +114,9 @@ class Catalog {
     /**
      * Opens a catalog and returns a context handle to the open catalog.
      * @param {PWSTR} pwszFileName A pointer to a null-terminated string for the catalog file name.
-     * @param {Integer} fdwOpenFlags 
+     * @param {CRYPTCAT_OPEN_FLAGS} fdwOpenFlags 
      * @param {Pointer} hProv A handle to a cryptographic service provider (CSP).
-     * @param {Integer} dwPublicVersion 
+     * @param {CRYPTCAT_VERSION} dwPublicVersion 
      * @param {Integer} dwEncodingType Encoding type used for the file. If this value is 0, then the encoding type is set to PKCS_7_ASN_ENCODING | X509_ASN_ENCODING.
      * @returns {HANDLE} Upon success, this function returns a handle to the open catalog. When you have finished using the handle, close it by calling the <a href="https://docs.microsoft.com/windows/desktop/api/mscat/nf-mscat-cryptcatclose">CryptCATClose</a> function. The <b>CryptCATOpen</b> function returns INVALID_HANDLE_VALUE if it fails.
      * @see https://learn.microsoft.com/windows/win32/api/mscat/nf-mscat-cryptcatopen
@@ -1086,7 +1085,7 @@ class Catalog {
     /**
      * Enumerates the catalogs that contain a specified hash.
      * @param {Pointer} hCatAdmin A handle to a catalog administrator context previously assigned by the <a href="https://docs.microsoft.com/windows/desktop/api/mscat/nf-mscat-cryptcatadminacquirecontext">CryptCATAdminAcquireContext</a> function.
-     * @param {Pointer} pbHash A pointer to the buffer that contains the hash retrieved by calling <a href="https://docs.microsoft.com/windows/desktop/api/mscat/nf-mscat-cryptcatadmincalchashfromfilehandle">CryptCATAdminCalcHashFromFileHandle</a>.
+     * @param {Integer} pbHash A pointer to the buffer that contains the hash retrieved by calling <a href="https://docs.microsoft.com/windows/desktop/api/mscat/nf-mscat-cryptcatadmincalchashfromfilehandle">CryptCATAdminCalcHashFromFileHandle</a>.
      * @param {Integer} cbHash Number of bytes in the buffer allocated for <i>pbHash</i>.
      * @param {Pointer<Pointer>} phPrevCatInfo A pointer to the handle to the previous catalog context or <b>NULL</b>. To get the first catalog that contains the hash, or to start an enumeration of all catalogs, pass <b>NULL</b> for this parameter. To continue the enumeration, pass the previous call's return value until no more catalogs are found.
      * @returns {Pointer} The return value is a handle to the catalog context, or <b>NULL</b> if there are no more catalogs to enumerate. 
@@ -1125,7 +1124,7 @@ class Catalog {
      * Calculates the hash for a file.
      * @param {HANDLE} hFile A handle to the file whose hash is being calculated. This parameter cannot be <b>NULL</b> and must be a valid file handle.
      * @param {Pointer<Integer>} pcbHash A pointer to a <b>DWORD</b> variable that contains the number of bytes in <i>pbHash</i>. Upon input, set <i>pcbHash</i>  to the number of bytes allocated for <i>pbHash</i>. Upon return, <i>pcbHash</i> contains the number of returned bytes in  <i>pbHash</i>. If <i>pbHash</i> is passed as <b>NULL</b>, then <i>pcbHash</i> contains the number of bytes to allocate for  <i>pbHash</i>.
-     * @param {Pointer} pbHash A pointer to a <b>BYTE</b> buffer that receives the hash. If this parameter is passed in as <b>NULL</b>, then <i>pcbHash</i> contains the number of bytes to allocate for  <i>pbHash</i>, and a subsequent call can be made to retrieve the hash.
+     * @param {Integer} pbHash A pointer to a <b>BYTE</b> buffer that receives the hash. If this parameter is passed in as <b>NULL</b>, then <i>pcbHash</i> contains the number of bytes to allocate for  <i>pbHash</i>, and a subsequent call can be made to retrieve the hash.
      * @returns {BOOL} The return value is <b>TRUE</b> if the function succeeds; <b>FALSE</b> if the function fails. If <b>FALSE</b> is returned, call the <b>GetLastError</b> function to determine the reason for failure. If not enough memory has been allocated for <i>pbHash</i>, the <b>CryptCATAdminCalcHashFromFileHandle</b> function will set the last error to ERROR_INSUFFICIENT_BUFFER.
      * @see https://learn.microsoft.com/windows/win32/api/mscat/nf-mscat-cryptcatadmincalchashfromfilehandle
      * @since windows5.1.2600
@@ -1148,7 +1147,7 @@ class Catalog {
      * @param {Pointer} hCatAdmin Handle of an open catalog administrator context. For more information, see <a href="https://docs.microsoft.com/windows/desktop/api/mscat/nf-mscat-cryptcatadminacquirecontext2">CryptCATAdminAcquireContext2</a>.
      * @param {HANDLE} hFile A handle to the file whose hash is being calculated. This parameter cannot be <b>NULL</b> and must be a valid file handle.
      * @param {Pointer<Integer>} pcbHash Pointer to a <b>DWORD</b> variable that contains the number of bytes in the <i>pbHash</i> parameter. Upon input, set <i>pcbHash</i>  to the number of bytes allocated for <i>pbHash</i>. Upon return, <i>pcbHash</i> contains the number of returned bytes in  <i>pbHash</i>. If <i>pbHash</i> is set to <b>NULL</b>, then <i>pcbHash</i> contains the number of bytes to allocate for  <i>pbHash</i>.
-     * @param {Pointer} pbHash Pointer to a <b>BYTE</b> buffer that receives the hash. If you set this parameter  to <b>NULL</b>, then <i>pcbHash</i> will contain the number of bytes to allocate for  <i>pbHash</i>, and a subsequent call can be made to retrieve the hash.
+     * @param {Integer} pbHash Pointer to a <b>BYTE</b> buffer that receives the hash. If you set this parameter  to <b>NULL</b>, then <i>pcbHash</i> will contain the number of bytes to allocate for  <i>pbHash</i>, and a subsequent call can be made to retrieve the hash.
      * @returns {BOOL} If the function succeeds, the return value is nonzero (<b>TRUE</b>).
      * 
      * If the function fails, the return value is zero (<b>FALSE</b>). For extended error information, call 

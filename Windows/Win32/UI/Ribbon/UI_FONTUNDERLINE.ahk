@@ -14,9 +14,8 @@
  * A solid single line is the only underline style supported by the <a href="https://docs.microsoft.com/windows/desktop/windowsribbon/windowsribbon-element-fontcontrol">FontControl</a>.
  * @see https://learn.microsoft.com/windows/win32/api/uiribbon/ne-uiribbon-ui_fontunderline
  * @namespace Windows.Win32.UI.Ribbon
- * @version v4.0.30319
  */
-class UI_FONTUNDERLINE extends Win32Enum{
+class UI_FONTUNDERLINE extends Win32Enum {
 
     /**
      * Underlining is not enabled.

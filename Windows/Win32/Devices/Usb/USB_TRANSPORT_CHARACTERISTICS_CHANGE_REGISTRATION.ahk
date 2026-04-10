@@ -4,10 +4,8 @@
 
 /**
  * @namespace Windows.Win32.Devices.Usb
- * @version v4.0.30319
  */
-class USB_TRANSPORT_CHARACTERISTICS_CHANGE_REGISTRATION extends Win32Struct
-{
+class USB_TRANSPORT_CHARACTERISTICS_CHANGE_REGISTRATION extends Win32Struct {
     static sizeof => 40
 
     static packingSize => 8
@@ -31,7 +29,7 @@ class USB_TRANSPORT_CHARACTERISTICS_CHANGE_REGISTRATION extends Win32Struct
     /**
      * @type {USB_TRANSPORT_CHARACTERISTICS}
      */
-    UsbTransportCharacteristics{
+    UsbTransportCharacteristics {
         get {
             if(!this.HasProp("__UsbTransportCharacteristics"))
                 this.__UsbTransportCharacteristics := USB_TRANSPORT_CHARACTERISTICS(16, this)

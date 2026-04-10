@@ -1,18 +1,20 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
+#Include .\D3D12_FILTER.ahk
+#Include .\D3D12_TEXTURE_ADDRESS_MODE.ahk
+#Include .\D3D12_COMPARISON_FUNC.ahk
+#Include .\D3D12_SAMPLER_FLAGS.ahk
 
 /**
  * @namespace Windows.Win32.Graphics.Direct3D12
- * @version v4.0.30319
  */
-class D3D12_SAMPLER_DESC2 extends Win32Struct
-{
+class D3D12_SAMPLER_DESC2 extends Win32Struct {
     static sizeof => 56
 
     static packingSize => 4
 
     /**
-     * @type {Integer}
+     * @type {D3D12_FILTER}
      */
     Filter {
         get => NumGet(this, 0, "int")
@@ -20,7 +22,7 @@ class D3D12_SAMPLER_DESC2 extends Win32Struct
     }
 
     /**
-     * @type {Integer}
+     * @type {D3D12_TEXTURE_ADDRESS_MODE}
      */
     AddressU {
         get => NumGet(this, 4, "int")
@@ -28,7 +30,7 @@ class D3D12_SAMPLER_DESC2 extends Win32Struct
     }
 
     /**
-     * @type {Integer}
+     * @type {D3D12_TEXTURE_ADDRESS_MODE}
      */
     AddressV {
         get => NumGet(this, 8, "int")
@@ -36,7 +38,7 @@ class D3D12_SAMPLER_DESC2 extends Win32Struct
     }
 
     /**
-     * @type {Integer}
+     * @type {D3D12_TEXTURE_ADDRESS_MODE}
      */
     AddressW {
         get => NumGet(this, 12, "int")
@@ -60,7 +62,7 @@ class D3D12_SAMPLER_DESC2 extends Win32Struct
     }
 
     /**
-     * @type {Integer}
+     * @type {D3D12_COMPARISON_FUNC}
      */
     ComparisonFunc {
         get => NumGet(this, 24, "int")
@@ -68,9 +70,9 @@ class D3D12_SAMPLER_DESC2 extends Win32Struct
     }
 
     /**
-     * @type {Array<Single>}
+     * @type {Array<Float>}
      */
-    FloatBorderColor{
+    FloatBorderColor {
         get {
             if(!this.HasProp("__FloatBorderColorProxyArray"))
                 this.__FloatBorderColorProxyArray := Win32FixedArray(this.ptr + 28, 4, Primitive, "float")
@@ -79,9 +81,9 @@ class D3D12_SAMPLER_DESC2 extends Win32Struct
     }
 
     /**
-     * @type {Array<UInt32>}
+     * @type {Array<Integer>}
      */
-    UintBorderColor{
+    UintBorderColor {
         get {
             if(!this.HasProp("__UintBorderColorProxyArray"))
                 this.__UintBorderColorProxyArray := Win32FixedArray(this.ptr + 28, 4, Primitive, "uint")
@@ -106,7 +108,7 @@ class D3D12_SAMPLER_DESC2 extends Win32Struct
     }
 
     /**
-     * @type {Integer}
+     * @type {D3D12_SAMPLER_FLAGS}
      */
     Flags {
         get => NumGet(this, 52, "int")

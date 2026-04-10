@@ -3,9 +3,8 @@
 
 /**
  * @namespace Windows.Win32.Security.Authentication.Identity.Provider
- * @version v4.0.30319
  */
-class ACCOUNT_STATE extends Win32Enum{
+class ACCOUNT_STATE extends Win32Enum {
 
     /**
      * @type {Integer (Int32)}

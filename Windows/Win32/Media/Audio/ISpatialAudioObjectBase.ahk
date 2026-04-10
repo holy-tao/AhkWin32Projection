@@ -7,9 +7,8 @@
  * Base interface that represents an object that provides audio data to be rendered from a position in 3D space, relative to the user.
  * @see https://learn.microsoft.com/windows/win32/api/spatialaudioclient/nn-spatialaudioclient-ispatialaudioobjectbase
  * @namespace Windows.Win32.Media.Audio
- * @version v4.0.30319
  */
-class ISpatialAudioObjectBase extends IUnknown{
+class ISpatialAudioObjectBase extends IUnknown {
 
     static sizeof => A_PtrSize
     /**
@@ -39,7 +38,7 @@ class ISpatialAudioObjectBase extends IUnknown{
      * 
      * The pointers retrieved by <b>GetBuffer</b> should not be used after   
      *     <a href="https://docs.microsoft.com/windows/desktop/api/spatialaudioclient/nf-spatialaudioclient-ispatialaudioobjectrenderstreambase-endupdatingaudioobjects">ISpatialAudioObjectRenderStream::EndUpdatingAudioObjects</a> has been called.
-     * @param {Pointer<Pointer<Integer>>} _buffer 
+     * @param {Pointer<Pointer<Integer>>} _buffer The buffer into which audio data is written.
      * @param {Pointer<Integer>} bufferLength The length of the buffer in bytes. This length will be the value returned in the   <i>frameCountPerBuffer</i> parameter to <a href="https://docs.microsoft.com/windows/desktop/api/spatialaudioclient/nf-spatialaudioclient-ispatialaudioobjectrenderstreambase-beginupdatingaudioobjects">ISpatialAudioObjectRenderStream::BeginUpdatingAudioObjects</a> multiplied by the value of the <b>nBlockAlign</b> field of the <a href="https://docs.microsoft.com/windows/win32/api/mmreg/ns-mmreg-waveformatex">WAVEFORMATEX</a> structure passed in the     <a href="https://docs.microsoft.com/windows/desktop/api/spatialaudioclient/ns-spatialaudioclient-spatialaudioobjectrenderstreamactivationparams">SpatialAudioObjectRenderStreamActivationParams</a>  
      *     parameter to  <a href="https://docs.microsoft.com/windows/desktop/api/spatialaudioclient/nf-spatialaudioclient-ispatialaudioclient-activatespatialaudiostream">ISpatialAudioClient::ActivateSpatialAudioStream</a>.
      * @returns {HRESULT} If the method succeeds, it returns S_OK. If it fails, possible return codes include, but are not limited to, the values shown in the following table.
@@ -148,7 +147,7 @@ class ISpatialAudioObjectBase extends IUnknown{
      * Gets a value specifying the type of audio object that is represented by the ISpatialAudioObject.
      * @remarks
      * Set the type of the audio object with the <i>type</i> parameter to the  <a href="https://docs.microsoft.com/windows/desktop/api/spatialaudioclient/nf-spatialaudioclient-ispatialaudioobjectrenderstream-activatespatialaudioobject">ISpatialAudioObjectRenderStream::ActivateSpatialAudioObject</a> method.
-     * @returns {Integer} 
+     * @returns {AudioObjectType} A value specifying the type of audio object that is represented
      * @see https://learn.microsoft.com/windows/win32/api/spatialaudioclient/nf-spatialaudioclient-ispatialaudioobjectbase-getaudioobjecttype
      */
     GetAudioObjectType() {

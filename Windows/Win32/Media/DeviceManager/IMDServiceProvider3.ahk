@@ -7,9 +7,8 @@
  * The IMDServiceProvider3 interface extends the IMDServiceProvider2 interface by providing a method for setting the device enumeration preferences.
  * @see https://learn.microsoft.com/windows/win32/api/mswmdm/nn-mswmdm-imdserviceprovider3
  * @namespace Windows.Win32.Media.DeviceManager
- * @version v4.0.30319
  */
-class IMDServiceProvider3 extends IMDServiceProvider2{
+class IMDServiceProvider3 extends IMDServiceProvider2 {
 
     static sizeof => A_PtrSize
     /**

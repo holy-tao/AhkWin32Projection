@@ -1,14 +1,13 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
-#Include .\ISpObjectTokenCategory.ahk
 #Include .\ISpDataKey.ahk
+#Include .\ISpObjectTokenCategory.ahk
 
 /**
  * @namespace Windows.Win32.Media.Speech
- * @version v4.0.30319
  */
-class ISpObjectToken extends ISpDataKey{
+class ISpObjectToken extends ISpDataKey {
 
     static sizeof => A_PtrSize
     /**

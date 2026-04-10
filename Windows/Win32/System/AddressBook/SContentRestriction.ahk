@@ -1,5 +1,6 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
+#Include .\SPropValue.ahk
 
 /**
  * Describes a content restriction, which is used to limit a table view to only those rows that include a column with contents matching a search string.
@@ -15,10 +16,8 @@
  * For more information about the **SContentRestriction** structure and restrictions in general, see [About Restrictions](about-restrictions.md).
  * @see https://learn.microsoft.com/office/client-developer/outlook/mapi/scontentrestriction
  * @namespace Windows.Win32.System.AddressBook
- * @version v4.0.30319
  */
-class SContentRestriction extends Win32Struct
-{
+class SContentRestriction extends Win32Struct {
     static sizeof => 16
 
     static packingSize => 8

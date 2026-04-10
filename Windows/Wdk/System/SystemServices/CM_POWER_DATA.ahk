@@ -1,12 +1,13 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
+#Include ..\..\..\Win32\System\Power\DEVICE_POWER_STATE.ahk
+#Include ..\..\..\Win32\System\Power\DEVICE_POWER_CAPABILITIES.ahk
+#Include ..\..\..\Win32\System\Power\SYSTEM_POWER_STATE.ahk
 
 /**
  * @namespace Windows.Wdk.System.SystemServices
- * @version v4.0.30319
  */
-class CM_POWER_DATA extends Win32Struct
-{
+class CM_POWER_DATA extends Win32Struct {
     static sizeof => 56
 
     static packingSize => 4
@@ -20,7 +21,7 @@ class CM_POWER_DATA extends Win32Struct
     }
 
     /**
-     * @type {Integer}
+     * @type {DEVICE_POWER_STATE}
      */
     PD_MostRecentPowerState {
         get => NumGet(this, 4, "int")
@@ -28,7 +29,7 @@ class CM_POWER_DATA extends Win32Struct
     }
 
     /**
-     * @type {Integer}
+     * @type {DEVICE_POWER_CAPABILITIES}
      */
     PD_Capabilities {
         get => NumGet(this, 8, "uint")
@@ -60,9 +61,9 @@ class CM_POWER_DATA extends Win32Struct
     }
 
     /**
-     * @type {Array<Int32>}
+     * @type {Array<DEVICE_POWER_STATE>}
      */
-    PD_PowerStateMapping{
+    PD_PowerStateMapping {
         get {
             if(!this.HasProp("__PD_PowerStateMappingProxyArray"))
                 this.__PD_PowerStateMappingProxyArray := Win32FixedArray(this.ptr + 24, 7, Primitive, "int")
@@ -71,7 +72,7 @@ class CM_POWER_DATA extends Win32Struct
     }
 
     /**
-     * @type {Integer}
+     * @type {SYSTEM_POWER_STATE}
      */
     PD_DeepestSystemWake {
         get => NumGet(this, 52, "int")

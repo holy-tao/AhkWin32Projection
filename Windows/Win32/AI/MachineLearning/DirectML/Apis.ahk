@@ -3,7 +3,6 @@
 
 /**
  * @namespace Windows.Win32.AI.MachineLearning.DirectML
- * @version v4.0.30319
  */
 class DirectML {
 
@@ -50,7 +49,7 @@ class DirectML {
      * A pointer to an [ID3D12Device](/windows/win32/api/d3d12/nn-d3d12-id3d12device) representing the Direct3D 12 device to create the DirectML device over. DirectML supports any D3D feature level, and Direct3D 12 devices created on any adapter, including WARP. However, not all features in DirectML may be available depending on the capabilities of the Direct3D 12 device. See [IDMLDevice::CheckFeatureSupport](/windows/win32/api/directml/nf-directml-idmldevice-checkfeaturesupport) for more info.
      * 
      * If the call to **DMLCreateDevice** is successful, then the DirectML device maintains a strong reference to the supplied Direct3D 12 device.
-     * @param {Integer} flags Type: <b>DML_CREATE_DEVICE_FLAGS</b>
+     * @param {DML_CREATE_DEVICE_FLAGS} flags Type: <b>DML_CREATE_DEVICE_FLAGS</b>
      * 
      * A [DML_CREATE_DEVICE_FLAGS](/windows/win32/api/directml/ne-directml-dml_create_device_flags) value specifying additional device creation options.
      * @param {Pointer<Guid>} riid Type: <b>REFIID</b>
@@ -76,10 +75,10 @@ class DirectML {
      * A pointer to an [ID3D12Device](/windows/win32/api/d3d12/nn-d3d12-id3d12device) representing the Direct3D 12 device to create the DirectML device over. DirectML supports any D3D feature level, and Direct3D 12 devices created on any adapter, including WARP. However, not all features in DirectML may be available depending on the capabilities of the Direct3D 12 device. See [IDMLDevice::CheckFeatureSupport](/windows/win32/api/directml/nf-directml-idmldevice-checkfeaturesupport) for more info.
      * 
      * If the call to **DMLCreateDevice1** is successful, then the DirectML device maintains a strong reference to the supplied Direct3D 12 device.
-     * @param {Integer} flags Type: <b>DML_CREATE_DEVICE_FLAGS</b>
+     * @param {DML_CREATE_DEVICE_FLAGS} flags Type: <b>DML_CREATE_DEVICE_FLAGS</b>
      * 
      * A [DML_CREATE_DEVICE_FLAGS](/windows/win32/api/directml/ne-directml-dml_create_device_flags) value specifying additional device creation options.
-     * @param {Integer} minimumFeatureLevel Type: <b>DML_FEATURE_LEVEL</b>
+     * @param {DML_FEATURE_LEVEL} minimumFeatureLevel Type: <b>DML_FEATURE_LEVEL</b>
      * 
      * A [DML_FEATURE_LEVEL](/windows/win32/api/directml/ne-directml-dml_feature_level) value specifying the minimum feature level support required.
      * 

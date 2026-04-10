@@ -6,7 +6,6 @@
 
 /**
  * @namespace Windows.Win32.System.Hypervisor
- * @version v4.0.30319
  */
 class Hypervisor {
 
@@ -141,8 +140,8 @@ class Hypervisor {
 ;@region Methods
     /**
      * 
-     * @param {Integer} CapabilityCode 
-     * @param {Pointer} CapabilityBuffer 
+     * @param {WHV_CAPABILITY_CODE} CapabilityCode 
+     * @param {Integer} CapabilityBuffer 
      * @param {Integer} CapabilityBufferSizeInBytes 
      * @returns {Integer} 
      */
@@ -200,8 +199,8 @@ class Hypervisor {
     /**
      * 
      * @param {WHV_PARTITION_HANDLE} Partition 
-     * @param {Integer} PropertyCode 
-     * @param {Pointer} PropertyBuffer 
+     * @param {WHV_PARTITION_PROPERTY_CODE} PropertyCode 
+     * @param {Integer} PropertyBuffer 
      * @param {Integer} PropertyBufferSizeInBytes 
      * @returns {Integer} 
      */
@@ -215,8 +214,8 @@ class Hypervisor {
     /**
      * 
      * @param {WHV_PARTITION_HANDLE} Partition 
-     * @param {Integer} PropertyCode 
-     * @param {Pointer} PropertyBuffer 
+     * @param {WHV_PARTITION_PROPERTY_CODE} PropertyCode 
+     * @param {Integer} PropertyBuffer 
      * @param {Integer} PropertyBufferSizeInBytes 
      * @returns {HRESULT} 
      */
@@ -257,7 +256,7 @@ class Hypervisor {
      * @param {Pointer<Void>} SourceAddress 
      * @param {Integer} GuestAddress 
      * @param {Integer} SizeInBytes 
-     * @param {Integer} Flags 
+     * @param {WHV_MAP_GPA_RANGE_FLAGS} Flags 
      * @returns {HRESULT} 
      */
     static WHvMapGpaRange(Partition, SourceAddress, GuestAddress, SizeInBytes, Flags) {
@@ -276,7 +275,7 @@ class Hypervisor {
      * @param {Pointer<Void>} SourceAddress 
      * @param {Integer} GuestAddress 
      * @param {Integer} SizeInBytes 
-     * @param {Integer} Flags 
+     * @param {WHV_MAP_GPA_RANGE_FLAGS} Flags 
      * @returns {HRESULT} 
      */
     static WHvMapGpaRange2(Partition, Process, SourceAddress, GuestAddress, SizeInBytes, Flags) {
@@ -308,7 +307,7 @@ class Hypervisor {
      * @param {WHV_PARTITION_HANDLE} Partition 
      * @param {Integer} VpIndex 
      * @param {Integer} Gva 
-     * @param {Integer} TranslateFlags 
+     * @param {WHV_TRANSLATE_GVA_FLAGS} TranslateFlags 
      * @param {Pointer<WHV_TRANSLATE_GVA_RESULT>} TranslationResult 
      * @returns {Integer} 
      */
@@ -365,7 +364,7 @@ class Hypervisor {
      * 
      * @param {WHV_PARTITION_HANDLE} Partition 
      * @param {Integer} VpIndex 
-     * @param {Pointer} ExitContext 
+     * @param {Integer} ExitContext 
      * @param {Integer} ExitContextSizeInBytes 
      * @returns {HRESULT} 
      */
@@ -394,7 +393,7 @@ class Hypervisor {
      * 
      * @param {WHV_PARTITION_HANDLE} Partition 
      * @param {Integer} VpIndex 
-     * @param {Pointer<Integer>} RegisterNames 
+     * @param {Pointer<WHV_REGISTER_NAME>} RegisterNames 
      * @param {Integer} RegisterCount 
      * @param {Pointer<WHV_REGISTER_VALUE>} RegisterValues 
      * @returns {HRESULT} 
@@ -412,7 +411,7 @@ class Hypervisor {
      * 
      * @param {WHV_PARTITION_HANDLE} Partition 
      * @param {Integer} VpIndex 
-     * @param {Pointer<Integer>} RegisterNames 
+     * @param {Pointer<WHV_REGISTER_NAME>} RegisterNames 
      * @param {Integer} RegisterCount 
      * @param {Pointer<WHV_REGISTER_VALUE>} RegisterValues 
      * @returns {HRESULT} 
@@ -430,7 +429,7 @@ class Hypervisor {
      * 
      * @param {WHV_PARTITION_HANDLE} Partition 
      * @param {Integer} VpIndex 
-     * @param {Pointer} State 
+     * @param {Integer} State 
      * @param {Integer} StateSize 
      * @returns {Integer} 
      */
@@ -445,7 +444,7 @@ class Hypervisor {
      * 
      * @param {WHV_PARTITION_HANDLE} Partition 
      * @param {Integer} VpIndex 
-     * @param {Pointer} State 
+     * @param {Integer} State 
      * @param {Integer} StateSize 
      * @returns {HRESULT} 
      */
@@ -474,7 +473,7 @@ class Hypervisor {
      * 
      * @param {WHV_PARTITION_HANDLE} Partition 
      * @param {Integer} VpIndex 
-     * @param {Pointer} _Buffer 
+     * @param {Integer} _Buffer 
      * @param {Integer} BufferSizeInBytes 
      * @returns {Integer} 
      */
@@ -489,7 +488,7 @@ class Hypervisor {
      * 
      * @param {WHV_PARTITION_HANDLE} Partition 
      * @param {Integer} VpIndex 
-     * @param {Pointer} _Buffer 
+     * @param {Integer} _Buffer 
      * @param {Integer} BufferSizeInBytes 
      * @returns {HRESULT} 
      */
@@ -505,7 +504,7 @@ class Hypervisor {
      * @param {WHV_PARTITION_HANDLE} Partition 
      * @param {Integer} GuestAddress 
      * @param {Integer} RangeSizeInBytes 
-     * @param {Pointer} _Bitmap 
+     * @param {Integer} _Bitmap 
      * @param {Integer} BitmapSizeInBytes 
      * @returns {HRESULT} 
      */
@@ -519,8 +518,8 @@ class Hypervisor {
     /**
      * 
      * @param {WHV_PARTITION_HANDLE} Partition 
-     * @param {Integer} CounterSet 
-     * @param {Pointer} _Buffer 
+     * @param {WHV_PARTITION_COUNTER_SET} CounterSet 
+     * @param {Integer} _Buffer 
      * @param {Integer} BufferSizeInBytes 
      * @returns {Integer} 
      */
@@ -535,8 +534,8 @@ class Hypervisor {
      * 
      * @param {WHV_PARTITION_HANDLE} Partition 
      * @param {Integer} VpIndex 
-     * @param {Integer} CounterSet 
-     * @param {Pointer} _Buffer 
+     * @param {WHV_PROCESSOR_COUNTER_SET} CounterSet 
+     * @param {Integer} _Buffer 
      * @param {Integer} BufferSizeInBytes 
      * @returns {Integer} 
      */
@@ -551,7 +550,7 @@ class Hypervisor {
      * 
      * @param {WHV_PARTITION_HANDLE} Partition 
      * @param {Integer} VpIndex 
-     * @param {Pointer} State 
+     * @param {Integer} State 
      * @param {Integer} StateSize 
      * @returns {Integer} 
      */
@@ -566,7 +565,7 @@ class Hypervisor {
      * 
      * @param {WHV_PARTITION_HANDLE} Partition 
      * @param {Integer} VpIndex 
-     * @param {Pointer} State 
+     * @param {Integer} State 
      * @param {Integer} StateSize 
      * @returns {HRESULT} 
      */
@@ -610,8 +609,8 @@ class Hypervisor {
      * @param {WHV_PARTITION_HANDLE} Partition 
      * @param {Pointer<WHV_MEMORY_RANGE_ENTRY>} GpaRanges 
      * @param {Integer} GpaRangesCount 
-     * @param {Integer} Advice 
-     * @param {Pointer} AdviceBuffer 
+     * @param {WHV_ADVISE_GPA_RANGE_CODE} Advice 
+     * @param {Integer} AdviceBuffer 
      * @param {Integer} AdviceBufferSizeInBytes 
      * @returns {HRESULT} 
      */
@@ -628,7 +627,7 @@ class Hypervisor {
      * @param {Integer} VpIndex 
      * @param {Integer} GuestAddress 
      * @param {WHV_ACCESS_GPA_CONTROLS} Controls 
-     * @param {Pointer} Data 
+     * @param {Integer} Data 
      * @param {Integer} DataSizeInBytes 
      * @returns {HRESULT} 
      */
@@ -645,7 +644,7 @@ class Hypervisor {
      * @param {Integer} VpIndex 
      * @param {Integer} GuestAddress 
      * @param {WHV_ACCESS_GPA_CONTROLS} Controls 
-     * @param {Pointer} Data 
+     * @param {Integer} Data 
      * @param {Integer} DataSizeInBytes 
      * @returns {HRESULT} 
      */
@@ -673,8 +672,8 @@ class Hypervisor {
      * 
      * @param {WHV_PARTITION_HANDLE} Partition 
      * @param {Integer} VpIndex 
-     * @param {Integer} StateType 
-     * @param {Pointer} _Buffer 
+     * @param {WHV_VIRTUAL_PROCESSOR_STATE_TYPE} StateType 
+     * @param {Integer} _Buffer 
      * @param {Integer} BufferSizeInBytes 
      * @returns {Integer} 
      */
@@ -689,8 +688,8 @@ class Hypervisor {
      * 
      * @param {WHV_PARTITION_HANDLE} Partition 
      * @param {Integer} VpIndex 
-     * @param {Integer} StateType 
-     * @param {Pointer} _Buffer 
+     * @param {WHV_VIRTUAL_PROCESSOR_STATE_TYPE} StateType 
+     * @param {Integer} _Buffer 
      * @param {Integer} BufferSizeInBytes 
      * @returns {HRESULT} 
      */
@@ -704,7 +703,7 @@ class Hypervisor {
     /**
      * 
      * @param {Pointer<Guid>} ProviderId 
-     * @param {Integer} Flags 
+     * @param {WHV_ALLOCATE_VPCI_RESOURCE_FLAGS} Flags 
      * @param {Pointer<Void>} ResourceDescriptor 
      * @param {Integer} ResourceDescriptorSizeInBytes 
      * @returns {HANDLE} 
@@ -722,7 +721,7 @@ class Hypervisor {
      * @param {WHV_PARTITION_HANDLE} Partition 
      * @param {Integer} LogicalDeviceId 
      * @param {HANDLE} VpciResource 
-     * @param {Integer} Flags 
+     * @param {WHV_CREATE_VPCI_DEVICE_FLAGS} Flags 
      * @param {HANDLE} NotificationEventHandle 
      * @returns {HRESULT} 
      */
@@ -752,8 +751,8 @@ class Hypervisor {
      * 
      * @param {WHV_PARTITION_HANDLE} Partition 
      * @param {Integer} LogicalDeviceId 
-     * @param {Integer} PropertyCode 
-     * @param {Pointer} PropertyBuffer 
+     * @param {WHV_VPCI_DEVICE_PROPERTY_CODE} PropertyCode 
+     * @param {Integer} PropertyBuffer 
      * @param {Integer} PropertyBufferSizeInBytes 
      * @returns {Integer} 
      */
@@ -768,7 +767,7 @@ class Hypervisor {
      * 
      * @param {WHV_PARTITION_HANDLE} Partition 
      * @param {Integer} LogicalDeviceId 
-     * @param {Pointer} _Notification 
+     * @param {Integer} _Notification 
      * @param {Integer} NotificationSizeInBytes 
      * @returns {HRESULT} 
      */
@@ -814,7 +813,7 @@ class Hypervisor {
      * 
      * @param {WHV_PARTITION_HANDLE} Partition 
      * @param {Integer} LogicalDeviceId 
-     * @param {Integer} PowerState 
+     * @param {DEVICE_POWER_STATE} PowerState 
      * @returns {HRESULT} 
      */
     static WHvSetVpciDevicePowerState(Partition, LogicalDeviceId, PowerState) {
@@ -927,7 +926,7 @@ class Hypervisor {
      * @param {Integer} LogicalDeviceId 
      * @param {Integer} Index 
      * @param {Integer} MultiMessageNumber 
-     * @param {Pointer} Target 
+     * @param {Integer} Target 
      * @param {Integer} TargetSizeInBytes 
      * @returns {Integer} 
      */
@@ -1005,7 +1004,7 @@ class Hypervisor {
      * 
      * @param {WHV_PARTITION_HANDLE} Partition 
      * @param {Pointer<Void>} PortHandle 
-     * @param {Integer} PropertyCode 
+     * @param {WHV_NOTIFICATION_PORT_PROPERTY_CODE} PropertyCode 
      * @param {Integer} _PropertyValue 
      * @returns {HRESULT} 
      */
@@ -1038,7 +1037,7 @@ class Hypervisor {
      * @param {WHV_PARTITION_HANDLE} Partition 
      * @param {Integer} VpIndex 
      * @param {Integer} SintIndex 
-     * @param {Pointer} Message 
+     * @param {Integer} Message 
      * @param {Integer} MessageSizeInBytes 
      * @returns {HRESULT} 
      */
@@ -1069,7 +1068,7 @@ class Hypervisor {
      * 
      * @param {WHV_PARTITION_HANDLE} Partition 
      * @param {Integer} Destination 
-     * @param {Integer} DestinationMode 
+     * @param {WHV_INTERRUPT_DESTINATION_MODE} DestinationMode 
      * @param {Pointer<Integer>} TargetVps 
      * @param {Integer} VpCount 
      * @param {Pointer<Integer>} TargetVpCount 
@@ -1207,7 +1206,7 @@ class Hypervisor {
     /**
      * 
      * @param {HCS_SYSTEM} computeSystem 
-     * @param {Integer} flags 
+     * @param {HDV_DEVICE_HOST_FLAGS} flags 
      * @returns {Pointer<Void>} 
      */
     static HdvInitializeDeviceHostEx(computeSystem, flags) {
@@ -1243,7 +1242,7 @@ class Hypervisor {
     /**
      * HdvCreateDeviceInstance
      * @param {Pointer<Void>} deviceHostHandle 
-     * @param {Integer} deviceType 
+     * @param {HDV_DEVICE_TYPE} deviceType 
      * @param {Pointer<Guid>} deviceClassId 
      * @param {Pointer<Guid>} deviceInstanceId 
      * @param {Pointer<Void>} deviceInterface 
@@ -1364,7 +1363,7 @@ class Hypervisor {
     /**
      * 
      * @param {Pointer<Void>} requestor 
-     * @param {Integer} BarIndex 
+     * @param {HDV_PCI_BAR_SELECTOR} BarIndex 
      * @param {Integer} BarOffset 
      * @param {Integer} TriggerValue 
      * @param {Integer} Flags 
@@ -1383,7 +1382,7 @@ class Hypervisor {
     /**
      * 
      * @param {Pointer<Void>} requestor 
-     * @param {Integer} BarIndex 
+     * @param {HDV_PCI_BAR_SELECTOR} BarIndex 
      * @param {Integer} BarOffset 
      * @param {Integer} TriggerValue 
      * @param {Integer} Flags 
@@ -1399,10 +1398,10 @@ class Hypervisor {
     /**
      * 
      * @param {Pointer<Void>} requestor 
-     * @param {Integer} barIndex 
+     * @param {HDV_PCI_BAR_SELECTOR} barIndex 
      * @param {Integer} offsetInPages 
      * @param {Integer} lengthInPages 
-     * @param {Integer} MappingFlags 
+     * @param {HDV_MMIO_MAPPING_FLAGS} MappingFlags 
      * @param {HANDLE} sectionHandle 
      * @param {Integer} sectionOffsetInPages 
      * @returns {HRESULT} 
@@ -1419,7 +1418,7 @@ class Hypervisor {
     /**
      * 
      * @param {Pointer<Void>} requestor 
-     * @param {Integer} barIndex 
+     * @param {HDV_PCI_BAR_SELECTOR} barIndex 
      * @param {Integer} offsetInPages 
      * @returns {HRESULT} 
      */
@@ -1543,7 +1542,7 @@ class Hypervisor {
      * 
      * @param {Pointer<Void>} vmSavedStateDumpHandle 
      * @param {Integer} vpId 
-     * @returns {Integer} 
+     * @returns {VIRTUAL_PROCESSOR_ARCH} 
      */
     static GetArchitecture(vmSavedStateDumpHandle, vpId) {
         vmSavedStateDumpHandleMarshal := vmSavedStateDumpHandle is VarRef ? "ptr" : "ptr"
@@ -1556,7 +1555,7 @@ class Hypervisor {
      * 
      * @param {Pointer<Void>} vmSavedStateDumpHandle 
      * @param {Integer} vpId 
-     * @param {Integer} _architecture 
+     * @param {VIRTUAL_PROCESSOR_ARCH} _architecture 
      * @returns {HRESULT} 
      */
     static ForceArchitecture(vmSavedStateDumpHandle, vpId, _architecture) {
@@ -1692,7 +1691,7 @@ class Hypervisor {
      * 
      * @param {Pointer<Void>} vmSavedStateDumpHandle 
      * @param {Integer} vpId 
-     * @returns {Integer} 
+     * @returns {PAGING_MODE} 
      */
     static GetPagingMode(vmSavedStateDumpHandle, vpId) {
         vmSavedStateDumpHandleMarshal := vmSavedStateDumpHandle is VarRef ? "ptr" : "ptr"
@@ -1705,7 +1704,7 @@ class Hypervisor {
      * 
      * @param {Pointer<Void>} vmSavedStateDumpHandle 
      * @param {Integer} vpId 
-     * @param {Integer} pagingMode 
+     * @param {PAGING_MODE} pagingMode 
      * @returns {HRESULT} 
      */
     static ForcePagingMode(vmSavedStateDumpHandle, vpId, pagingMode) {
@@ -1719,7 +1718,7 @@ class Hypervisor {
      * 
      * @param {Pointer<Void>} vmSavedStateDumpHandle 
      * @param {Integer} physicalAddress 
-     * @param {Pointer} _buffer 
+     * @param {Integer} _buffer 
      * @param {Integer} bufferSize 
      * @returns {Integer} 
      */
@@ -1780,7 +1779,7 @@ class Hypervisor {
      * 
      * @param {Pointer<Void>} vmSavedStateDumpHandle 
      * @param {Integer} rawSavedMemoryOffset 
-     * @param {Pointer} _buffer 
+     * @param {Integer} _buffer 
      * @param {Integer} bufferSize 
      * @returns {Integer} 
      */

@@ -3,33 +3,31 @@
 
 /**
  * @namespace Windows.Wdk.System.SystemServices
- * @version v4.0.30319
  */
-class PCI_COMMON_HEADER extends Win32Struct
-{
-    static sizeof => 72
+class PCI_COMMON_HEADER extends Win32Struct {
+    static sizeof => 64
 
-    static packingSize => 8
+    static packingSize => 4
 
     class _u_e__Union extends Win32Struct {
-        static sizeof => 56
-        static packingSize => 8
+        static sizeof => 48
+        static packingSize => 4
 
         class _PCI_HEADER_TYPE_0 extends Win32Struct {
             static sizeof => 48
             static packingSize => 4
-    
+
             /**
-             * @type {Array<UInt32>}
+             * @type {Array<Integer>}
              */
-            BaseAddresses{
+            BaseAddresses {
                 get {
                     if(!this.HasProp("__BaseAddressesProxyArray"))
                         this.__BaseAddressesProxyArray := Win32FixedArray(this.ptr + 0, 6, Primitive, "uint")
                     return this.__BaseAddressesProxyArray
                 }
             }
-        
+
             /**
              * @type {Integer}
              */
@@ -37,7 +35,7 @@ class PCI_COMMON_HEADER extends Win32Struct
                 get => NumGet(this, 24, "uint")
                 set => NumPut("uint", value, this, 24)
             }
-        
+
             /**
              * @type {Integer}
              */
@@ -45,7 +43,7 @@ class PCI_COMMON_HEADER extends Win32Struct
                 get => NumGet(this, 28, "ushort")
                 set => NumPut("ushort", value, this, 28)
             }
-        
+
             /**
              * @type {Integer}
              */
@@ -53,7 +51,7 @@ class PCI_COMMON_HEADER extends Win32Struct
                 get => NumGet(this, 30, "ushort")
                 set => NumPut("ushort", value, this, 30)
             }
-        
+
             /**
              * @type {Integer}
              */
@@ -61,7 +59,7 @@ class PCI_COMMON_HEADER extends Win32Struct
                 get => NumGet(this, 32, "uint")
                 set => NumPut("uint", value, this, 32)
             }
-        
+
             /**
              * @type {Integer}
              */
@@ -69,18 +67,18 @@ class PCI_COMMON_HEADER extends Win32Struct
                 get => NumGet(this, 36, "char")
                 set => NumPut("char", value, this, 36)
             }
-        
+
             /**
-             * @type {Array<Byte>}
+             * @type {Array<Integer>}
              */
-            Reserved1{
+            Reserved1 {
                 get {
                     if(!this.HasProp("__Reserved1ProxyArray"))
                         this.__Reserved1ProxyArray := Win32FixedArray(this.ptr + 37, 3, Primitive, "char")
                     return this.__Reserved1ProxyArray
                 }
             }
-        
+
             /**
              * @type {Integer}
              */
@@ -88,7 +86,7 @@ class PCI_COMMON_HEADER extends Win32Struct
                 get => NumGet(this, 40, "uint")
                 set => NumPut("uint", value, this, 40)
             }
-        
+
             /**
              * @type {Integer}
              */
@@ -96,7 +94,7 @@ class PCI_COMMON_HEADER extends Win32Struct
                 get => NumGet(this, 44, "char")
                 set => NumPut("char", value, this, 44)
             }
-        
+
             /**
              * @type {Integer}
              */
@@ -104,7 +102,7 @@ class PCI_COMMON_HEADER extends Win32Struct
                 get => NumGet(this, 45, "char")
                 set => NumPut("char", value, this, 45)
             }
-        
+
             /**
              * @type {Integer}
              */
@@ -112,7 +110,7 @@ class PCI_COMMON_HEADER extends Win32Struct
                 get => NumGet(this, 46, "char")
                 set => NumPut("char", value, this, 46)
             }
-        
+
             /**
              * @type {Integer}
              */
@@ -120,24 +118,23 @@ class PCI_COMMON_HEADER extends Win32Struct
                 get => NumGet(this, 47, "char")
                 set => NumPut("char", value, this, 47)
             }
-        
         }
-    
+
         class _PCI_HEADER_TYPE_1 extends Win32Struct {
             static sizeof => 48
             static packingSize => 4
-    
+
             /**
-             * @type {Array<UInt32>}
+             * @type {Array<Integer>}
              */
-            BaseAddresses{
+            BaseAddresses {
                 get {
                     if(!this.HasProp("__BaseAddressesProxyArray"))
                         this.__BaseAddressesProxyArray := Win32FixedArray(this.ptr + 0, 2, Primitive, "uint")
                     return this.__BaseAddressesProxyArray
                 }
             }
-        
+
             /**
              * @type {Integer}
              */
@@ -145,7 +142,7 @@ class PCI_COMMON_HEADER extends Win32Struct
                 get => NumGet(this, 8, "char")
                 set => NumPut("char", value, this, 8)
             }
-        
+
             /**
              * @type {Integer}
              */
@@ -153,7 +150,7 @@ class PCI_COMMON_HEADER extends Win32Struct
                 get => NumGet(this, 9, "char")
                 set => NumPut("char", value, this, 9)
             }
-        
+
             /**
              * @type {Integer}
              */
@@ -161,7 +158,7 @@ class PCI_COMMON_HEADER extends Win32Struct
                 get => NumGet(this, 10, "char")
                 set => NumPut("char", value, this, 10)
             }
-        
+
             /**
              * @type {Integer}
              */
@@ -169,7 +166,7 @@ class PCI_COMMON_HEADER extends Win32Struct
                 get => NumGet(this, 11, "char")
                 set => NumPut("char", value, this, 11)
             }
-        
+
             /**
              * @type {Integer}
              */
@@ -177,7 +174,7 @@ class PCI_COMMON_HEADER extends Win32Struct
                 get => NumGet(this, 12, "char")
                 set => NumPut("char", value, this, 12)
             }
-        
+
             /**
              * @type {Integer}
              */
@@ -185,7 +182,7 @@ class PCI_COMMON_HEADER extends Win32Struct
                 get => NumGet(this, 13, "char")
                 set => NumPut("char", value, this, 13)
             }
-        
+
             /**
              * @type {Integer}
              */
@@ -193,7 +190,7 @@ class PCI_COMMON_HEADER extends Win32Struct
                 get => NumGet(this, 14, "ushort")
                 set => NumPut("ushort", value, this, 14)
             }
-        
+
             /**
              * @type {Integer}
              */
@@ -201,7 +198,7 @@ class PCI_COMMON_HEADER extends Win32Struct
                 get => NumGet(this, 16, "ushort")
                 set => NumPut("ushort", value, this, 16)
             }
-        
+
             /**
              * @type {Integer}
              */
@@ -209,7 +206,7 @@ class PCI_COMMON_HEADER extends Win32Struct
                 get => NumGet(this, 18, "ushort")
                 set => NumPut("ushort", value, this, 18)
             }
-        
+
             /**
              * @type {Integer}
              */
@@ -217,7 +214,7 @@ class PCI_COMMON_HEADER extends Win32Struct
                 get => NumGet(this, 20, "ushort")
                 set => NumPut("ushort", value, this, 20)
             }
-        
+
             /**
              * @type {Integer}
              */
@@ -225,7 +222,7 @@ class PCI_COMMON_HEADER extends Win32Struct
                 get => NumGet(this, 22, "ushort")
                 set => NumPut("ushort", value, this, 22)
             }
-        
+
             /**
              * @type {Integer}
              */
@@ -233,7 +230,7 @@ class PCI_COMMON_HEADER extends Win32Struct
                 get => NumGet(this, 24, "uint")
                 set => NumPut("uint", value, this, 24)
             }
-        
+
             /**
              * @type {Integer}
              */
@@ -241,7 +238,7 @@ class PCI_COMMON_HEADER extends Win32Struct
                 get => NumGet(this, 28, "uint")
                 set => NumPut("uint", value, this, 28)
             }
-        
+
             /**
              * @type {Integer}
              */
@@ -249,7 +246,7 @@ class PCI_COMMON_HEADER extends Win32Struct
                 get => NumGet(this, 32, "ushort")
                 set => NumPut("ushort", value, this, 32)
             }
-        
+
             /**
              * @type {Integer}
              */
@@ -257,7 +254,7 @@ class PCI_COMMON_HEADER extends Win32Struct
                 get => NumGet(this, 34, "ushort")
                 set => NumPut("ushort", value, this, 34)
             }
-        
+
             /**
              * @type {Integer}
              */
@@ -265,18 +262,18 @@ class PCI_COMMON_HEADER extends Win32Struct
                 get => NumGet(this, 36, "char")
                 set => NumPut("char", value, this, 36)
             }
-        
+
             /**
-             * @type {Array<Byte>}
+             * @type {Array<Integer>}
              */
-            Reserved1{
+            Reserved1 {
                 get {
                     if(!this.HasProp("__Reserved1ProxyArray"))
                         this.__Reserved1ProxyArray := Win32FixedArray(this.ptr + 37, 3, Primitive, "char")
                     return this.__Reserved1ProxyArray
                 }
             }
-        
+
             /**
              * @type {Integer}
              */
@@ -284,7 +281,7 @@ class PCI_COMMON_HEADER extends Win32Struct
                 get => NumGet(this, 40, "uint")
                 set => NumPut("uint", value, this, 40)
             }
-        
+
             /**
              * @type {Integer}
              */
@@ -292,7 +289,7 @@ class PCI_COMMON_HEADER extends Win32Struct
                 get => NumGet(this, 44, "char")
                 set => NumPut("char", value, this, 44)
             }
-        
+
             /**
              * @type {Integer}
              */
@@ -300,7 +297,7 @@ class PCI_COMMON_HEADER extends Win32Struct
                 get => NumGet(this, 45, "char")
                 set => NumPut("char", value, this, 45)
             }
-        
+
             /**
              * @type {Integer}
              */
@@ -308,13 +305,12 @@ class PCI_COMMON_HEADER extends Win32Struct
                 get => NumGet(this, 46, "ushort")
                 set => NumPut("ushort", value, this, 46)
             }
-        
         }
-    
+
         class _PCI_HEADER_TYPE_2 extends Win32Struct {
-            static sizeof => 56
-            static packingSize => 8
-    
+            static sizeof => 48
+            static packingSize => 4
+
             /**
              * @type {Integer}
              */
@@ -322,7 +318,7 @@ class PCI_COMMON_HEADER extends Win32Struct
                 get => NumGet(this, 0, "uint")
                 set => NumPut("uint", value, this, 0)
             }
-        
+
             /**
              * @type {Integer}
              */
@@ -330,7 +326,7 @@ class PCI_COMMON_HEADER extends Win32Struct
                 get => NumGet(this, 4, "char")
                 set => NumPut("char", value, this, 4)
             }
-        
+
             /**
              * @type {Integer}
              */
@@ -338,7 +334,7 @@ class PCI_COMMON_HEADER extends Win32Struct
                 get => NumGet(this, 5, "char")
                 set => NumPut("char", value, this, 5)
             }
-        
+
             /**
              * @type {Integer}
              */
@@ -346,7 +342,7 @@ class PCI_COMMON_HEADER extends Win32Struct
                 get => NumGet(this, 6, "ushort")
                 set => NumPut("ushort", value, this, 6)
             }
-        
+
             /**
              * @type {Integer}
              */
@@ -354,7 +350,7 @@ class PCI_COMMON_HEADER extends Win32Struct
                 get => NumGet(this, 8, "char")
                 set => NumPut("char", value, this, 8)
             }
-        
+
             /**
              * @type {Integer}
              */
@@ -362,7 +358,7 @@ class PCI_COMMON_HEADER extends Win32Struct
                 get => NumGet(this, 9, "char")
                 set => NumPut("char", value, this, 9)
             }
-        
+
             /**
              * @type {Integer}
              */
@@ -370,7 +366,7 @@ class PCI_COMMON_HEADER extends Win32Struct
                 get => NumGet(this, 10, "char")
                 set => NumPut("char", value, this, 10)
             }
-        
+
             /**
              * @type {Integer}
              */
@@ -378,82 +374,80 @@ class PCI_COMMON_HEADER extends Win32Struct
                 get => NumGet(this, 11, "char")
                 set => NumPut("char", value, this, 11)
             }
-        
+
             /**
              * @type {Integer}
              */
             Base {
-                get => NumGet(this, 16, "uint")
-                set => NumPut("uint", value, this, 16)
+                get => NumGet(this, 12, "uint")
+                set => NumPut("uint", value, this, 12)
             }
-        
+
             /**
              * @type {Integer}
              */
             Limit {
-                get => NumGet(this, 20, "uint")
-                set => NumPut("uint", value, this, 20)
+                get => NumGet(this, 16, "uint")
+                set => NumPut("uint", value, this, 16)
             }
-        
+
             /**
              * @type {Integer}
              */
             InterruptLine {
-                get => NumGet(this, 48, "char")
-                set => NumPut("char", value, this, 48)
+                get => NumGet(this, 44, "char")
+                set => NumPut("char", value, this, 44)
             }
-        
+
             /**
              * @type {Integer}
              */
             InterruptPin {
-                get => NumGet(this, 49, "char")
-                set => NumPut("char", value, this, 49)
+                get => NumGet(this, 45, "char")
+                set => NumPut("char", value, this, 45)
             }
-        
+
             /**
              * @type {Integer}
              */
             BridgeControl {
-                get => NumGet(this, 50, "ushort")
-                set => NumPut("ushort", value, this, 50)
+                get => NumGet(this, 46, "ushort")
+                set => NumPut("ushort", value, this, 46)
             }
-        
         }
-    
+
         /**
          * @type {_PCI_HEADER_TYPE_0}
          */
-        type0{
+        type0 {
             get {
                 if(!this.HasProp("__type0"))
-                    this.__type0 := %this.__Class%._PCI_HEADER_TYPE_0(0, this)
+                    this.__type0 := PCI_COMMON_HEADER._u_e__Union._PCI_HEADER_TYPE_0(0, this)
                 return this.__type0
             }
         }
-    
+
         /**
          * @type {_PCI_HEADER_TYPE_1}
          */
-        type1{
+        type1 {
             get {
                 if(!this.HasProp("__type1"))
-                    this.__type1 := %this.__Class%._PCI_HEADER_TYPE_1(0, this)
+                    this.__type1 := PCI_COMMON_HEADER._u_e__Union._PCI_HEADER_TYPE_1(0, this)
                 return this.__type1
             }
         }
-    
+
         /**
          * @type {_PCI_HEADER_TYPE_2}
          */
-        type2{
+        type2 {
             get {
                 if(!this.HasProp("__type2"))
-                    this.__type2 := %this.__Class%._PCI_HEADER_TYPE_2(0, this)
+                    this.__type2 := PCI_COMMON_HEADER._u_e__Union._PCI_HEADER_TYPE_2(0, this)
                 return this.__type2
             }
         }
-    
     }
 
     /**
@@ -555,10 +549,10 @@ class PCI_COMMON_HEADER extends Win32Struct
     /**
      * @type {_u_e__Union}
      */
-    u{
+    u {
         get {
             if(!this.HasProp("__u"))
-                this.__u := %this.__Class%._u_e__Union(16, this)
+                this.__u := PCI_COMMON_HEADER._u_e__Union(16, this)
             return this.__u
         }
     }

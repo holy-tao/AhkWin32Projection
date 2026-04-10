@@ -3,10 +3,8 @@
 
 /**
  * @namespace Windows.Win32.Networking.RemoteDifferentialCompression
- * @version v4.0.30319
  */
-class SimilarityReportProgress extends Win32Struct
-{
+class SimilarityReportProgress extends Win32Struct {
     static sizeof => 0
 
     static packingSize => 1

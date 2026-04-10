@@ -1,11 +1,11 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\..\Guid.ahk
+#Include ..\..\..\System\Com\IUnknown.ahk
 #Include .\IAppxBlockMapReader.ahk
 #Include .\IAppxFile.ahk
 #Include .\IAppxFilesEnumerator.ahk
 #Include .\IAppxManifestReader.ahk
-#Include ..\..\..\System\Com\IUnknown.ahk
 
 /**
  * Provides a read-only object model for app packages.
@@ -15,9 +15,8 @@
  * This object can be retrieved using the <a href="https://docs.microsoft.com/windows/desktop/api/appxpackaging/nf-appxpackaging-iappxfactory-createpackagereader">CreatePackageReader</a> method of the <a href="https://docs.microsoft.com/windows/desktop/api/appxpackaging/nn-appxpackaging-iappxfactory">IAppxFactory</a> interface.
  * @see https://learn.microsoft.com/windows/win32/api/appxpackaging/nn-appxpackaging-iappxpackagereader
  * @namespace Windows.Win32.Storage.Packaging.Appx
- * @version v4.0.30319
  */
-class IAppxPackageReader extends IUnknown{
+class IAppxPackageReader extends IUnknown {
 
     static sizeof => A_PtrSize
     /**
@@ -54,10 +53,12 @@ class IAppxPackageReader extends IUnknown{
 
     /**
      * Retrieves a footprint file from the package.
-     * @param {Integer} type Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/appxpackaging/ne-appxpackaging-appx_footprint_file_type">APPX_FOOTPRINT_FILE_TYPE</a></b>
+     * @param {APPX_FOOTPRINT_FILE_TYPE} type Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/appxpackaging/ne-appxpackaging-appx_footprint_file_type">APPX_FOOTPRINT_FILE_TYPE</a></b>
      * 
      * The type of footprint file to be retrieved.
-     * @returns {IAppxFile} 
+     * @returns {IAppxFile} Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/appxpackaging/nn-appxpackaging-iappxfile">IAppxFile</a>**</b>
+     * 
+     * The file object that corresponds to the footprint file of <i>type</i>.
      * @see https://learn.microsoft.com/windows/win32/api/appxpackaging/nf-appxpackaging-iappxpackagereader-getfootprintfile
      */
     GetFootprintFile(type) {
@@ -72,7 +73,9 @@ class IAppxPackageReader extends IUnknown{
      * @param {PWSTR} fileName Type: <b><a href="https://docs.microsoft.com/windows/desktop/WinProg/windows-data-types">LPCWSTR</a></b>
      * 
      * The name of the payload file to be retrieved.
-     * @returns {IAppxFile} 
+     * @returns {IAppxFile} Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/appxpackaging/nn-appxpackaging-iappxfile">IAppxFile</a>**</b>
+     * 
+     * The file object that corresponds to <i>fileName</i>.
      * @see https://learn.microsoft.com/windows/win32/api/appxpackaging/nf-appxpackaging-iappxpackagereader-getpayloadfile
      */
     GetPayloadFile(fileName) {

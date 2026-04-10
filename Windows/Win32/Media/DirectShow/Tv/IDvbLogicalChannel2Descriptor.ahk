@@ -1,16 +1,15 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\..\Guid.ahk
-#Include ..\..\..\Foundation\BSTR.ahk
 #Include .\IDvbLogicalChannelDescriptor2.ahk
+#Include ..\..\..\Foundation\BSTR.ahk
 
 /**
  * Implements methods that get data from a logical channel descriptor (LCD) in a Digital Video Broadcast (DVB) MPEG-2 stream that uses the format defined in the Nordig specification used in Scandinavian countries.
  * @see https://learn.microsoft.com/windows/win32/api/dvbsiparser/nn-dvbsiparser-idvblogicalchannel2descriptor
  * @namespace Windows.Win32.Media.DirectShow.Tv
- * @version v4.0.30319
  */
-class IDvbLogicalChannel2Descriptor extends IDvbLogicalChannelDescriptor2{
+class IDvbLogicalChannel2Descriptor extends IDvbLogicalChannelDescriptor2 {
 
     static sizeof => A_PtrSize
     /**
@@ -57,7 +56,7 @@ class IDvbLogicalChannel2Descriptor extends IDvbLogicalChannelDescriptor2{
      * Gets the name of a channel list from a Digital Video Broadcast (DVB) logical channel descriptor.
      * @param {Integer} bListIndex Specifies the channel list record number,
      *   indexed from zero. Call the <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/dvbsiparser/nf-dvbsiparser-idvblogicalchannel2descriptor-getlistcountofrecords">IDvbLogicalChannel2Descriptor::GetListCountOfRecords</a> method to get the number of channel list records in the logical channel descriptor.
-     * @param {Integer} convMode 
+     * @param {DVB_STRCONV_MODE} convMode 
      * @returns {BSTR} Pointer to the memory block that receives the channel name. The caller is responsible for freeing this memory.
      * @see https://learn.microsoft.com/windows/win32/api/dvbsiparser/nf-dvbsiparser-idvblogicalchannel2descriptor-getlistnamew
      */

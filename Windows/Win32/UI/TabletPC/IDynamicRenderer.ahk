@@ -1,9 +1,9 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
+#Include ..\..\System\Com\IUnknown.ahk
 #Include ..\..\Foundation\RECT.ahk
 #Include .\IInkDrawingAttributes.ahk
-#Include ..\..\System\Com\IUnknown.ahk
 
 /**
  * Displays the tablet pen data in real-time as that data is being handled by the RealTimeStylus Class object.
@@ -40,9 +40,8 @@
  * <a href="https://docs.microsoft.com/windows/desktop/api/rtscom/nf-rtscom-idynamicrenderer-get_drawingattributes">IDynamicRenderer::DrawingAttributes Property</a>
  * @see https://learn.microsoft.com/windows/win32/api/rtscom/nn-rtscom-idynamicrenderer
  * @namespace Windows.Win32.UI.TabletPC
- * @version v4.0.30319
  */
-class IDynamicRenderer extends IUnknown{
+class IDynamicRenderer extends IUnknown {
 
     static sizeof => A_PtrSize
     /**
@@ -450,7 +449,7 @@ class IDynamicRenderer extends IUnknown{
      * 
      * <div class="alert"><b>Note</b>  Drawing cached data cannot be used on Microsoft&lt;entity type="reg"/&gt; Windows&lt;entity type="reg"/&gt; XP Tablet PC Edition 2005 systems.</div>
      * <div> </div>
-     * @param {HANDLE_PTR} _hDC 
+     * @param {HANDLE_PTR} _hDC The handle of the device context on which to draw.
      * @returns {HRESULT} For a description of the return values, see <a href="https://docs.microsoft.com/windows/desktop/tablet/realtimestylus-classes-and-interfaces">RealTimeStylus Classes and Interfaces</a>.
      * @see https://learn.microsoft.com/windows/win32/api/rtscom/nf-rtscom-idynamicrenderer-draw
      */

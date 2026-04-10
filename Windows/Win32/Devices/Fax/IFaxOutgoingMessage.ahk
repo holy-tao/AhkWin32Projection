@@ -1,10 +1,10 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
+#Include ..\..\System\Com\IDispatch.ahk
 #Include ..\..\Foundation\BSTR.ahk
 #Include .\IFaxSender.ahk
 #Include .\IFaxRecipient.ahk
-#Include ..\..\System\Com\IDispatch.ahk
 
 /**
  * The IFaxOutgoingMessage interface describes an object that is used by a fax client application to retrieve information about a fax message in the archive of outbound faxes.
@@ -12,9 +12,8 @@
  * A default implementation of <b>IFaxOutgoingMessage</b> is provided as the <a href="https://docs.microsoft.com/previous-versions/windows/desktop/fax/-mfax-faxoutgoingmessage">FaxOutgoingMessage</a> object.
  * @see https://learn.microsoft.com/windows/win32/api/faxcomex/nn-faxcomex-ifaxoutgoingmessage
  * @namespace Windows.Win32.Devices.Fax
- * @version v4.0.30319
  */
-class IFaxOutgoingMessage extends IDispatch{
+class IFaxOutgoingMessage extends IDispatch {
 
     static sizeof => A_PtrSize
     /**
@@ -105,7 +104,7 @@ class IFaxOutgoingMessage extends IDispatch{
     }
 
     /**
-     * @type {Integer} 
+     * @type {FAX_PRIORITY_TYPE_ENUM} 
      */
     Priority {
         get => this.get_Priority()
@@ -256,7 +255,7 @@ class IFaxOutgoingMessage extends IDispatch{
 
     /**
      * The IFaxOutgoingMessage::get_Priority property specifies the priority used when sending the fax; for example, normal, low, or high priority.
-     * @returns {Integer} 
+     * @returns {FAX_PRIORITY_TYPE_ENUM} 
      * @see https://learn.microsoft.com/windows/win32/api/faxcomex/nf-faxcomex-ifaxoutgoingmessage-get_priority
      */
     get_Priority() {

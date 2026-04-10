@@ -3,16 +3,14 @@
 
 /**
  * @namespace Windows.Wdk.System.SystemServices
- * @version v4.0.30319
  */
-class WHEA_PROCESSOR_GENERIC_ERROR_SECTION extends Win32Struct
-{
+class WHEA_PROCESSOR_GENERIC_ERROR_SECTION extends Win32Struct {
     static sizeof => 192
 
     static packingSize => 8
 
     /**
-     * @type {Pointer<WHEA_PROCESSOR_GENERIC_ERROR_SECTION_VALIDBITS>}
+     * @type {Pointer}
      */
     ValidBits {
         get => NumGet(this, 0, "ptr")
@@ -84,9 +82,9 @@ class WHEA_PROCESSOR_GENERIC_ERROR_SECTION extends Win32Struct
     }
 
     /**
-     * @type {Array<Byte>}
+     * @type {Array<Integer>}
      */
-    CPUBrandString{
+    CPUBrandString {
         get {
             if(!this.HasProp("__CPUBrandStringProxyArray"))
                 this.__CPUBrandStringProxyArray := Win32FixedArray(this.ptr + 24, 128, Primitive, "char")

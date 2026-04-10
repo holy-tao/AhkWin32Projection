@@ -7,9 +7,8 @@
  * Exposes a method that creates an object of a specified class.
  * @see https://learn.microsoft.com/windows/win32/api/propsys/nn-propsys-icreateobject
  * @namespace Windows.Win32.UI.Shell.PropertiesSystem
- * @version v4.0.30319
  */
-class ICreateObject extends IUnknown{
+class ICreateObject extends IUnknown {
 
     static sizeof => A_PtrSize
     /**

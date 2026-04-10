@@ -7,9 +7,8 @@
  * Enables applications and other objects to receive notifications of changes in the progress of a downloading operation.
  * @see https://learn.microsoft.com/windows/win32/api/objidl/nn-objidl-iprogressnotify
  * @namespace Windows.Win32.System.Com
- * @version v4.0.30319
  */
-class IProgressNotify extends IUnknown{
+class IProgressNotify extends IUnknown {
 
     static sizeof => A_PtrSize
     /**

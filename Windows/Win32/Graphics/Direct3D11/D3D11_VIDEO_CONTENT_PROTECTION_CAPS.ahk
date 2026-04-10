@@ -5,10 +5,8 @@
  * Describes the content-protection capabilities of a graphics driver.
  * @see https://learn.microsoft.com/windows/win32/api/d3d11/ns-d3d11-d3d11_video_content_protection_caps
  * @namespace Windows.Win32.Graphics.Direct3D11
- * @version v4.0.30319
  */
-class D3D11_VIDEO_CONTENT_PROTECTION_CAPS extends Win32Struct
-{
+class D3D11_VIDEO_CONTENT_PROTECTION_CAPS extends Win32Struct {
     static sizeof => 24
 
     static packingSize => 8

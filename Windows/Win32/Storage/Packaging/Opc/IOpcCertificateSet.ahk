@@ -1,8 +1,8 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\..\Guid.ahk
-#Include .\IOpcCertificateEnumerator.ahk
 #Include ..\..\..\System\Com\IUnknown.ahk
+#Include .\IOpcCertificateEnumerator.ahk
 
 /**
  * An unordered set of certificates to be used with a signature.
@@ -16,9 +16,8 @@
  * When a signature is generated, certificates that were added to the package by calling <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/msopc/nf-msopc-iopccertificateset-add">Add</a> are associated  with the signature.
  * @see https://learn.microsoft.com/windows/win32/api/msopc/nn-msopc-iopccertificateset
  * @namespace Windows.Win32.Storage.Packaging.Opc
- * @version v4.0.30319
  */
-class IOpcCertificateSet extends IUnknown{
+class IOpcCertificateSet extends IUnknown {
 
     static sizeof => A_PtrSize
     /**

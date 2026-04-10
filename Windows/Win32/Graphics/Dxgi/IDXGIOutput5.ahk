@@ -1,16 +1,15 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
-#Include .\IDXGIOutputDuplication.ahk
 #Include .\IDXGIOutput4.ahk
+#Include .\IDXGIOutputDuplication.ahk
 
 /**
  * Represents an adapter output (such as a monitor). The IDXGIOutput5 interface exposes a single method to specify a list of supported formats for fullscreen surfaces.
  * @see https://learn.microsoft.com/windows/win32/api/dxgi1_5/nn-dxgi1_5-idxgioutput5
  * @namespace Windows.Win32.Graphics.Dxgi
- * @version v4.0.30319
  */
-class IDXGIOutput5 extends IDXGIOutput4{
+class IDXGIOutput5 extends IDXGIOutput4 {
 
     static sizeof => A_PtrSize
     /**
@@ -48,7 +47,7 @@ class IDXGIOutput5 extends IDXGIOutput4{
      * @param {Integer} SupportedFormatsCount Type: <b>UINT</b>
      * 
      * Specifies the number of supported formats.
-     * @param {Pointer<Integer>} pSupportedFormats Type: <b>const <a href="https://docs.microsoft.com/windows/desktop/api/dxgiformat/ne-dxgiformat-dxgi_format">DXGI_FORMAT</a>*</b>
+     * @param {Pointer<DXGI_FORMAT>} pSupportedFormats Type: <b>const <a href="https://docs.microsoft.com/windows/desktop/api/dxgiformat/ne-dxgiformat-dxgi_format">DXGI_FORMAT</a>*</b>
      * 
      * Specifies an array, of length  <i>SupportedFormatsCount</i> of  <a href="https://docs.microsoft.com/windows/desktop/api/dxgiformat/ne-dxgiformat-dxgi_format">DXGI_FORMAT</a> entries.
      * @returns {IDXGIOutputDuplication} Type: <b>IDXGIOutputDuplication**</b>

@@ -13,10 +13,8 @@
  *     method.
  * @see https://learn.microsoft.com/windows/win32/api/vdshwprv/ns-vdshwprv-vds_drive_letter_notification
  * @namespace Windows.Win32.Storage.VirtualDiskService
- * @version v4.0.30319
  */
-class VDS_DRIVE_LETTER_NOTIFICATION extends Win32Struct
-{
+class VDS_DRIVE_LETTER_NOTIFICATION extends Win32Struct {
     static sizeof => 16
 
     static packingSize => 8
@@ -72,7 +70,7 @@ class VDS_DRIVE_LETTER_NOTIFICATION extends Win32Struct
     /**
      * The GUID of the volume to which the drive letter is assigned. If the drive letter is freed, the volume 
      *       identifier is GUID_NULL.
-     * @type {Pointer<Guid>}
+     * @type {Pointer}
      */
     volumeId {
         get => NumGet(this, 8, "ptr")

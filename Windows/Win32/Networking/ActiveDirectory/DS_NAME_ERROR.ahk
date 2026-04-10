@@ -5,9 +5,8 @@
  * The DS_NAME_ERROR enumeration defines the errors returned by the status member of the DS_NAME_RESULT_ITEM structure. These are potential errors that may be encountered while a name is converted by the DsCrackNames function.
  * @see https://learn.microsoft.com/windows/win32/api/ntdsapi/ne-ntdsapi-ds_name_error
  * @namespace Windows.Win32.Networking.ActiveDirectory
- * @version v4.0.30319
  */
-class DS_NAME_ERROR extends Win32Enum{
+class DS_NAME_ERROR extends Win32Enum {
 
     /**
      * The conversion was successful.

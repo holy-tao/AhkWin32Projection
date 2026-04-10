@@ -5,9 +5,8 @@
 
 /**
  * @namespace Windows.Win32.Devices.ImageAcquisition
- * @version v4.0.30319
  */
-class IWiaMiniDrvCallBack extends IUnknown{
+class IWiaMiniDrvCallBack extends IUnknown {
 
     static sizeof => A_PtrSize
     /**

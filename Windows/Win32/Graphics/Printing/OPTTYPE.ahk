@@ -1,12 +1,11 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
+#Include .\OPTPARAM.ahk
 
 /**
  * @namespace Windows.Win32.Graphics.Printing
- * @version v4.0.30319
  */
-class OPTTYPE extends Win32Struct
-{
+class OPTTYPE extends Win32Struct {
     static sizeof => 48
 
     static packingSize => 8
@@ -68,9 +67,9 @@ class OPTTYPE extends Win32Struct
     }
 
     /**
-     * @type {Array<UInt16>}
+     * @type {Array<Integer>}
      */
-    wReserved{
+    wReserved {
         get {
             if(!this.HasProp("__wReservedProxyArray"))
                 this.__wReservedProxyArray := Win32FixedArray(this.ptr + 18, 3, Primitive, "ushort")
@@ -79,9 +78,9 @@ class OPTTYPE extends Win32Struct
     }
 
     /**
-     * @type {Array<UIntPtr>}
+     * @type {Array<Pointer>}
      */
-    dwReserved{
+    dwReserved {
         get {
             if(!this.HasProp("__dwReservedProxyArray"))
                 this.__dwReservedProxyArray := Win32FixedArray(this.ptr + 24, 3, Primitive, "ptr")

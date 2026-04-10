@@ -8,10 +8,8 @@
  *     <a href="https://docs.microsoft.com/windows/desktop/api/lmshare/nf-lmshare-netsharegetinfo">NetShareGetInfo</a> function. It can be set by calling the <a href="https://docs.microsoft.com/windows/desktop/api/lmshare/nf-lmshare-netsharesetinfo">NetShareSetInfo</a> function.
  * @see https://learn.microsoft.com/windows/win32/api/lmshare/ns-lmshare-share_info_1005
  * @namespace Windows.Win32.Storage.FileSystem
- * @version v4.0.30319
  */
-class SHARE_INFO_1005 extends Win32Struct
-{
+class SHARE_INFO_1005 extends Win32Struct {
     static sizeof => 4
 
     static packingSize => 4

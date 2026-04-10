@@ -14,9 +14,8 @@
  * For more information on the Windows 11 APIs for the Audio Processing Objects (APOs) that can ship with audio drivers, see [Windows 11 APIs for Audio Processing Objects](/windows-hardware/drivers/audio/windows-11-apis-for-audio-processing-objects).
  * @see https://learn.microsoft.com/windows/win32/api/audioengineextensionapo/nn-audioengineextensionapo-iaudioprocessingobjectloggingservice
  * @namespace Windows.Win32.Media.Audio.Apo
- * @version v4.0.30319
  */
-class IAudioProcessingObjectLoggingService extends IUnknown{
+class IAudioProcessingObjectLoggingService extends IUnknown {
 
     static sizeof => A_PtrSize
     /**
@@ -44,7 +43,7 @@ class IAudioProcessingObjectLoggingService extends IUnknown{
      * > This method should never be called from a real-time priority thread. For more information on thread priorities, see [Scheduling Priorities](/windows/win32/procthread/scheduling-priorities).
      * 
      * For more information on the Windows 11 APIs for the Audio Processing Objects (APOs) that can ship with audio drivers, see [Windows 11 APIs for Audio Processing Objects](/windows-hardware/drivers/audio/windows-11-apis-for-audio-processing-objects).
-     * @param {Integer} level A value from the [APO_LOG_LEVEL](ne-audioengineextensionapo-apo_log_level.md) enumeration specifying the level of the event being logged.
+     * @param {APO_LOG_LEVEL} level A value from the [APO_LOG_LEVEL](ne-audioengineextensionapo-apo_log_level.md) enumeration specifying the level of the event being logged.
      * @param {PWSTR} format The format-control string for the log message.
      * @returns {String} Nothing - always returns an empty string
      * @see https://learn.microsoft.com/windows/win32/api/audioengineextensionapo/nf-audioengineextensionapo-iaudioprocessingobjectloggingservice-apolog

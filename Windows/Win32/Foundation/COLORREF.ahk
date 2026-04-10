@@ -13,10 +13,8 @@
  * To create a **COLORREF** color value, use the [RGB](/windows/desktop/api/Wingdi/nf-wingdi-rgb) macro. To extract the individual values for the red, green, and blue components of a color value, use the [**GetRValue**](/windows/desktop/api/Wingdi/nf-wingdi-getrvalue), [GetGValue](/windows/desktop/api/Wingdi/nf-wingdi-getgvalue), and [GetBValue](/windows/desktop/api/Wingdi/nf-wingdi-getbvalue) macros, respectively.
  * @see https://learn.microsoft.com/windows/win32/gdi/colorref
  * @namespace Windows.Win32.Foundation
- * @version v4.0.30319
  */
-class COLORREF extends Win32Struct
-{
+class COLORREF extends Win32Struct {
     static sizeof => 4
 
     static packingSize => 4
@@ -28,7 +26,6 @@ class COLORREF extends Win32Struct
         get => NumGet(this, 0, "uint")
         set => NumPut("uint", value, this, 0)
     }
-
     static GetRed(color) => color & 0xFF
     static GetGreen(color) => (color >> 8) & 0xFF
     static GetBlue(color) => (color >> 16) & 0xFF

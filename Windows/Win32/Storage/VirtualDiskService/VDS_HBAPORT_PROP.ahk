@@ -1,15 +1,15 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
 #Include .\VDS_WWN.ahk
+#Include .\VDS_HBAPORT_TYPE.ahk
+#Include .\VDS_HBAPORT_STATUS.ahk
 
 /**
  * The VDS_HBAPORT_PROP structure (vdshwprv.h) defines the properties of an HBA port.
  * @see https://learn.microsoft.com/windows/win32/api/vdshwprv/ns-vdshwprv-vds_hbaport_prop
  * @namespace Windows.Win32.Storage.VirtualDiskService
- * @version v4.0.30319
  */
-class VDS_HBAPORT_PROP extends Win32Struct
-{
+class VDS_HBAPORT_PROP extends Win32Struct {
     static sizeof => 40
 
     static packingSize => 8
@@ -17,7 +17,7 @@ class VDS_HBAPORT_PROP extends Win32Struct
     /**
      * The GUID assigned to the HBA port. This ID is used by the VDS service only; hardware providers should 
      *       ignore this field.
-     * @type {Pointer<Guid>}
+     * @type {Pointer}
      */
     id {
         get => NumGet(this, 0, "ptr")
@@ -28,7 +28,7 @@ class VDS_HBAPORT_PROP extends Win32Struct
      * The node WWN of the HBA port.
      * @type {VDS_WWN}
      */
-    wwnNode{
+    wwnNode {
         get {
             if(!this.HasProp("__wwnNode"))
                 this.__wwnNode := VDS_WWN(8, this)
@@ -40,7 +40,7 @@ class VDS_HBAPORT_PROP extends Win32Struct
      * The port WWN of the HBA port.
      * @type {VDS_WWN}
      */
-    wwnPort{
+    wwnPort {
         get {
             if(!this.HasProp("__wwnPort"))
                 this.__wwnPort := VDS_WWN(16, this)
@@ -51,7 +51,7 @@ class VDS_HBAPORT_PROP extends Win32Struct
     /**
      * The type of the HBA port enumerated by 
      *       <a href="https://docs.microsoft.com/windows/desktop/api/vdshwprv/ne-vdshwprv-vds_hbaport_type">VDS_HBAPORT_TYPE</a>.
-     * @type {Integer}
+     * @type {VDS_HBAPORT_TYPE}
      */
     type {
         get => NumGet(this, 24, "int")
@@ -61,7 +61,7 @@ class VDS_HBAPORT_PROP extends Win32Struct
     /**
      * The status of the HBA port enumerated by 
      *       <a href="https://docs.microsoft.com/windows/desktop/api/vdshwprv/ne-vdshwprv-vds_hbaport_status">VDS_HBAPORT_STATUS</a>.
-     * @type {Integer}
+     * @type {VDS_HBAPORT_STATUS}
      */
     status {
         get => NumGet(this, 28, "int")

@@ -1,16 +1,15 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
-#Include .\WMDMID.ahk
 #Include ..\..\System\Com\IUnknown.ahk
+#Include .\WMDMID.ahk
 
 /**
  * The IWMDMStorageGlobals interface provides methods for retrieving global information about a storage medium (such as a flash ROM card) on a device.
  * @see https://learn.microsoft.com/windows/win32/api/mswmdm/nn-mswmdm-iwmdmstorageglobals
  * @namespace Windows.Win32.Media.DeviceManager
- * @version v4.0.30319
  */
-class IWMDMStorageGlobals extends IUnknown{
+class IWMDMStorageGlobals extends IUnknown {
 
     static sizeof => A_PtrSize
     /**

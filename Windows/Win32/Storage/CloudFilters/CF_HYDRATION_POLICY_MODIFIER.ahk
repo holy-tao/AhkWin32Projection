@@ -9,9 +9,8 @@
  * The `CF_HYDRATION_POLICY_MODIFIER_ALLOW_FULL_RESTART_HYDRATION` flag is added to avoid the Restart Hydration feature from encountering deadlocks caused by Anti-Virus and Malware detectors (AV). All Sync Providers that intend to update the file size of a dehydrated file during the course of a hydration request should opt-in for this feature or restart hydration may run into deadlock when an AV attempts to scan a file being opened by creating a memory mapped section of the file and that leads to hydration. Note that providers that maintain snapshots or versions of a file and satisfy a user's request by supplying the requested version of the file even though the file has been updated in the backend/server need not opt in for this policy. Similarly, providers that fail the hydration request in case the file has changed in the backend may not opt-in for this policy.
  * @see https://learn.microsoft.com/windows/win32/api/cfapi/ne-cfapi-cf_hydration_policy_modifier
  * @namespace Windows.Win32.Storage.CloudFilters
- * @version v4.0.30319
  */
-class CF_HYDRATION_POLICY_MODIFIER extends Win32BitflagEnum{
+class CF_HYDRATION_POLICY_MODIFIER extends Win32BitflagEnum {
 
     /**
      * `0x0000`

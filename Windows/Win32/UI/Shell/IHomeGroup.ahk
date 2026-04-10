@@ -17,9 +17,8 @@
  * To create an instance of <b>IHomeGroup</b>, call <a href="https://docs.microsoft.com/windows/desktop/api/combaseapi/nf-combaseapi-cocreateinstance">CoCreateInstance</a> and specify <b>CLSID_HomeGroup</b> as the CLSID. <b>CLSID_HomeGroup</b> is defined in Shobjidl.h and Shobjidl.idl.
  * @see https://learn.microsoft.com/windows/win32/api/shobjidl_core/nn-shobjidl_core-ihomegroup
  * @namespace Windows.Win32.UI.Shell
- * @version v4.0.30319
  */
-class IHomeGroup extends IUnknown{
+class IHomeGroup extends IUnknown {
 
     static sizeof => A_PtrSize
     /**
@@ -72,7 +71,7 @@ class IHomeGroup extends IUnknown{
      * @param {HWND} owner Type: <b>HWND</b>
      * 
      * Handle of the owner window of the wizard, used for notifications. This value can be <b>NULL</b>.
-     * @returns {Integer} Type: <b>HOMEGROUPSHARINGCHOICES*</b>
+     * @returns {HOMEGROUPSHARINGCHOICES} Type: <b>HOMEGROUPSHARINGCHOICES*</b>
      * @see https://learn.microsoft.com/windows/win32/api/shobjidl_core/nf-shobjidl_core-ihomegroup-showsharingwizard
      */
     ShowSharingWizard(owner) {

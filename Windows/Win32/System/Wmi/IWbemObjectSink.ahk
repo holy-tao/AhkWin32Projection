@@ -1,7 +1,6 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
-#Include ..\..\Foundation\BSTR.ahk
 #Include ..\Com\IUnknown.ahk
 
 /**
@@ -12,9 +11,8 @@
  * Sink implementations should process the event notification within 100 MSEC because the WMI thread that delivers the event notification cannot do other work until the sink object has completed processing. If the notification requires a large amount of processing, the sink can use an internal queue for another thread to handle the processing.
  * @see https://learn.microsoft.com/windows/win32/api/wbemcli/nn-wbemcli-iwbemobjectsink
  * @namespace Windows.Win32.System.Wmi
- * @version v4.0.30319
  */
-class IWbemObjectSink extends IUnknown{
+class IWbemObjectSink extends IUnknown {
 
     static sizeof => A_PtrSize
     /**
@@ -71,7 +69,7 @@ class IWbemObjectSink extends IUnknown{
      * If you do not specify <b>WBEM_FLAG_SEND_STATUS</b> when calling your provider or service method, you are guaranteed to receive one and only one call to 
      * <b>SetStatus</b>.
      * @param {Integer} lFlags Bitmask of status information. The status of the operation can be obtained by examining the <i>hResult</i> parameter.
-     * @param {HRESULT} _hResult 
+     * @param {HRESULT} _hResult This parameter is set to the <b>HRESULT</b> of the asynchronous operation or notification. This is either an error code, if an error occurred, or the amount of progress that has been made on an asynchronous call.
      * @param {BSTR} strParam Receives a pointer to a read-only <b>BSTR</b>, if the original asynchronous operation returns a string. For example, when using 
      * <a href="https://docs.microsoft.com/windows/desktop/api/wbemcli/nf-wbemcli-iwbemservices-putinstanceasync">PutInstanceAsync</a>, 
      * <b>SetStatus</b> is called with this parameter set to the object path of the newly created instance.

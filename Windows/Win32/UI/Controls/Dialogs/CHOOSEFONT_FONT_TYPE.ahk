@@ -3,9 +3,8 @@
 
 /**
  * @namespace Windows.Win32.UI.Controls.Dialogs
- * @version v4.0.30319
  */
-class CHOOSEFONT_FONT_TYPE extends Win32BitflagEnum{
+class CHOOSEFONT_FONT_TYPE extends Win32BitflagEnum {
 
     /**
      * @type {Integer (UInt16)}

@@ -5,9 +5,8 @@
  * Specifies the sharing mode of an IMFSensorDevice.
  * @see https://learn.microsoft.com/windows/win32/api/mfidl/ne-mfidl-mfsensordevicemode
  * @namespace Windows.Win32.Media.MediaFoundation
- * @version v4.0.30319
  */
-class MFSensorDeviceMode extends Win32Enum{
+class MFSensorDeviceMode extends Win32Enum {
 
     /**
      * The device is in controller mode, which means its settings can be modified.

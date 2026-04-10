@@ -3,9 +3,8 @@
 
 /**
  * @namespace Windows.Win32.UI.Shell
- * @version v4.0.30319
  */
-class SYNCMGR_UPDATE_REASON extends Win32Enum{
+class SYNCMGR_UPDATE_REASON extends Win32Enum {
 
     /**
      * @type {Integer (Int32)}

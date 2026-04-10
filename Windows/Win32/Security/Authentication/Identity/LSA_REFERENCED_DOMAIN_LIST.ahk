@@ -1,14 +1,13 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\..\Win32Struct.ahk
+#Include .\LSA_TRUST_INFORMATION.ahk
 
 /**
  * The LSA_REFERENCED_DOMAIN_LIST structure contains information about the domains referenced in a lookup operation.
  * @see https://learn.microsoft.com/windows/win32/api/lsalookup/ns-lsalookup-lsa_referenced_domain_list
  * @namespace Windows.Win32.Security.Authentication.Identity
- * @version v4.0.30319
  */
-class LSA_REFERENCED_DOMAIN_LIST extends Win32Struct
-{
+class LSA_REFERENCED_DOMAIN_LIST extends Win32Struct {
     static sizeof => 16
 
     static packingSize => 8

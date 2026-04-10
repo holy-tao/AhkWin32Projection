@@ -7,9 +7,8 @@
  * For more information, see [System store locations](/windows/desktop/SecCrypto/system-store-locations).
  * @see https://learn.microsoft.com/windows/win32/api/bits2_5/ne-bits2_5-bg_cert_store_location
  * @namespace Windows.Win32.Networking.BackgroundIntelligentTransferService
- * @version v4.0.30319
  */
-class BG_CERT_STORE_LOCATION extends Win32Enum{
+class BG_CERT_STORE_LOCATION extends Win32Enum {
 
     /**
      * Use the current user's certificate store.

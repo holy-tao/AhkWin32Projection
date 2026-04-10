@@ -5,9 +5,8 @@
 
 /**
  * @namespace Windows.Win32.Networking.Clustering
- * @version v4.0.30319
  */
-class ISClusRefObject extends IDispatch{
+class ISClusRefObject extends IDispatch {
 
     static sizeof => A_PtrSize
     /**

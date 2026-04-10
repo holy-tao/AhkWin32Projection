@@ -1,14 +1,14 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
+#Include .\PEER_ADDRESS.ahk
+#Include .\PEER_CREDENTIAL_INFO.ahk
 
 /**
  * The PEER_MEMBER structure contains information that describes a member of a peer group.
  * @see https://learn.microsoft.com/windows/win32/api/p2p/ns-p2p-peer_member
  * @namespace Windows.Win32.NetworkManagement.P2P
- * @version v4.0.30319
  */
-class PEER_MEMBER extends Win32Struct
-{
+class PEER_MEMBER extends Win32Struct {
     static sizeof => 56
 
     static packingSize => 8

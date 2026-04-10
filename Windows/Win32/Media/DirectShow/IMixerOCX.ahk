@@ -7,9 +7,8 @@
  * The IMixerOCX interface is implemented on the Overlay Mixer.
  * @see https://learn.microsoft.com/windows/win32/api/mixerocx/nn-mixerocx-imixerocx
  * @namespace Windows.Win32.Media.DirectShow
- * @version v4.0.30319
  */
-class IMixerOCX extends IUnknown{
+class IMixerOCX extends IUnknown {
 
     static sizeof => A_PtrSize
     /**

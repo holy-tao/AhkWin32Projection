@@ -6,7 +6,6 @@
 
 /**
  * @namespace Windows.Win32.Graphics.Direct2D
- * @version v4.0.30319
  */
 class Direct2D {
 
@@ -363,7 +362,7 @@ class Direct2D {
      * D2D1CreateFactory(D2D1_FACTORY_TYPE,REFIID,D2D1_FACTORY_OPTIONS*,void**) creates a factory object that can be used to create Direct2D resources.
      * @remarks
      * The <a href="https://docs.microsoft.com/windows/win32/api/d2d1/nn-d2d1-id2d1factory">ID2D1Factory</a> interface provides the starting point for Direct2D. In general, an object created from a single instance of a factory object can be used with other resources created from that instance, but not with resources created by other factory instances.
-     * @param {Integer} factoryType Type: <b><a href="https://docs.microsoft.com/windows/win32/api/d2d1/ne-d2d1-d2d1_factory_type">D2D1_FACTORY_TYPE</a></b>
+     * @param {D2D1_FACTORY_TYPE} factoryType Type: <b><a href="https://docs.microsoft.com/windows/win32/api/d2d1/ne-d2d1-d2d1_factory_type">D2D1_FACTORY_TYPE</a></b>
      * 
      * The threading model of the factory and the resources it creates.
      * @param {Pointer<Guid>} riid Type: <b>REFIID</b>
@@ -393,7 +392,9 @@ class Direct2D {
      * @param {D2D_POINT_2F} center Type: <b><a href="https://docs.microsoft.com/windows/win32/Direct2D/d2d1-point-2f">D2D1_POINT_2F</a></b>
      * 
      * The point about which to rotate.
-     * @param {Pointer<D2D_MATRIX_3X2_F>} _matrix 
+     * @param {Pointer<D2D_MATRIX_3X2_F>} _matrix Type: <b><a href="https://docs.microsoft.com/windows/win32/Direct2D/d2d1-matrix-3x2-f">D2D1_MATRIX_3X2_F</a>*</b>
+     * 
+     * When this method returns, contains the new rotation transformation. You must allocate storage for this parameter.
      * @returns {String} Nothing - always returns an empty string
      * @see https://learn.microsoft.com/windows/win32/api/d2d1/nf-d2d1-d2d1makerotatematrix
      * @since windows6.1
@@ -413,7 +414,9 @@ class Direct2D {
      * @param {D2D_POINT_2F} center Type: <b><a href="https://docs.microsoft.com/windows/win32/Direct2D/d2d1-point-2f">D2D1_POINT_2F</a></b>
      * 
      * The center point of the skew operation.
-     * @param {Pointer<D2D_MATRIX_3X2_F>} _matrix 
+     * @param {Pointer<D2D_MATRIX_3X2_F>} _matrix Type: <b><a href="https://docs.microsoft.com/windows/win32/Direct2D/d2d1-matrix-3x2-f">D2D1_MATRIX_3X2_F</a>*</b>
+     * 
+     * When this method returns, contains the rotation transformation. You must allocate storage for this parameter.
      * @returns {String} Nothing - always returns an empty string
      * @see https://learn.microsoft.com/windows/win32/api/d2d1/nf-d2d1-d2d1makeskewmatrix
      * @since windows6.1
@@ -424,7 +427,9 @@ class Direct2D {
 
     /**
      * Indicates whether the specified matrix is invertible.
-     * @param {Pointer<D2D_MATRIX_3X2_F>} _matrix 
+     * @param {Pointer<D2D_MATRIX_3X2_F>} _matrix Type: <b>const <a href="https://docs.microsoft.com/windows/win32/Direct2D/d2d1-matrix-3x2-f">D2D1_MATRIX_3X2_F</a>*</b>
+     * 
+     * The matrix to test.
      * @returns {BOOL} Type: <b>BOOL</b>
      * 
      * <b>true</b> if the matrix was inverted; otherwise, <b>false</b>.
@@ -438,7 +443,9 @@ class Direct2D {
 
     /**
      * Tries to invert the specified matrix.
-     * @param {Pointer<D2D_MATRIX_3X2_F>} _matrix 
+     * @param {Pointer<D2D_MATRIX_3X2_F>} _matrix Type: <b><a href="https://docs.microsoft.com/windows/win32/Direct2D/d2d1-matrix-3x2-f">D2D1_MATRIX_3X2_F</a>*</b>
+     * 
+     * The matrix to invert.
      * @returns {BOOL} Type: <b>BOOL</b>
      * 
      * <b>true</b> if the matrix was inverted; otherwise, <b>false</b>.
@@ -490,13 +497,15 @@ class Direct2D {
 
     /**
      * Converts the given color from one colorspace to another.
-     * @param {Integer} sourceColorSpace Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/d2d1_1/ne-d2d1_1-d2d1_color_space">D2D1_COLOR_SPACE</a></b>
+     * @param {D2D1_COLOR_SPACE} sourceColorSpace Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/d2d1_1/ne-d2d1_1-d2d1_color_space">D2D1_COLOR_SPACE</a></b>
      * 
      * The source color space.
-     * @param {Integer} destinationColorSpace Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/d2d1_1/ne-d2d1_1-d2d1_color_space">D2D1_COLOR_SPACE</a></b>
+     * @param {D2D1_COLOR_SPACE} destinationColorSpace Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/d2d1_1/ne-d2d1_1-d2d1_color_space">D2D1_COLOR_SPACE</a></b>
      * 
      * The destination color space.
-     * @param {Pointer<D2D1_COLOR_F>} _color 
+     * @param {Pointer<D2D1_COLOR_F>} _color Type: <b>const <a href="https://docs.microsoft.com/windows/desktop/Direct2D/d2d1-color-f">D2D1_COLOR_F</a>*</b>
+     * 
+     * The source color.
      * @returns {D2D1_COLOR_F} Type: <b><a href="https://docs.microsoft.com/windows/desktop/Direct2D/d2d1-color-f">D2D1_COLOR_F</a></b>
      * 
      * The converted color.
@@ -573,7 +582,7 @@ class Direct2D {
      * 
      * <div class="alert"><b>Note</b>  Since this describes how M affects vectors (rather than points), the translation components (_31 and _32) of M are ignored.</div>
      * <div> </div>
-     * @param {Pointer<D2D_MATRIX_3X2_F>} _matrix 
+     * @param {Pointer<D2D_MATRIX_3X2_F>} _matrix The input transform matrix.
      * @returns {Float} The scale factor.
      * @see https://learn.microsoft.com/windows/win32/api/d2d1_2/nf-d2d1_2-d2d1computemaximumscalefactor
      * @since windows8.1

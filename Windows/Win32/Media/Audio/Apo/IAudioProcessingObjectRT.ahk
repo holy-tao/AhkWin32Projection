@@ -7,9 +7,8 @@
  * This interface can operate in real-time mode and its methods can be called form real-time processing threads.
  * @see https://learn.microsoft.com/windows/win32/api/audioenginebaseapo/nn-audioenginebaseapo-iaudioprocessingobjectrt
  * @namespace Windows.Win32.Media.Audio.Apo
- * @version v4.0.30319
  */
-class IAudioProcessingObjectRT extends IUnknown{
+class IAudioProcessingObjectRT extends IUnknown {
 
     static sizeof => A_PtrSize
     /**

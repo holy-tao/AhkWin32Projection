@@ -7,9 +7,8 @@
  * Exposes methods that enable the user to draw a custom namespace tree control and its items.
  * @see https://learn.microsoft.com/windows/win32/api/shobjidl/nn-shobjidl-inamespacetreecontrolcustomdraw
  * @namespace Windows.Win32.UI.Shell
- * @version v4.0.30319
  */
-class INameSpaceTreeControlCustomDraw extends IUnknown{
+class INameSpaceTreeControlCustomDraw extends IUnknown {
 
     static sizeof => A_PtrSize
     /**
@@ -32,7 +31,9 @@ class INameSpaceTreeControlCustomDraw extends IUnknown{
 
     /**
      * Called before the namespace tree control is drawn.
-     * @param {HDC} _hdc 
+     * @param {HDC} _hdc Type: <b>HDC</b>
+     * 
+     * A handle to the control's device context. Use this HDC to perform any GDI functions.
      * @param {Pointer<RECT>} prc Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/windef/ns-windef-rect">RECT</a>*</b>
      * 
      * A pointer to the <a href="https://docs.microsoft.com/windows/desktop/api/windef/ns-windef-rect">RECT</a> structure that describes the bounding rectangle of the area being drawn.
@@ -50,7 +51,9 @@ class INameSpaceTreeControlCustomDraw extends IUnknown{
 
     /**
      * Called after the namespace tree control is drawn.
-     * @param {HDC} _hdc 
+     * @param {HDC} _hdc Type: <b>HDC</b>
+     * 
+     * A handle to the control's device context. Use this HDC to perform any GDI functions.
      * @param {Pointer<RECT>} prc Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/windef/ns-windef-rect">RECT</a>*</b>
      * 
      * A pointer to the <a href="https://docs.microsoft.com/windows/desktop/api/windef/ns-windef-rect">RECT</a> structure that describes the bounding rectangle of the area being drawn.
@@ -68,7 +71,9 @@ class INameSpaceTreeControlCustomDraw extends IUnknown{
 
     /**
      * Called before an item in the namespace tree control is drawn.
-     * @param {HDC} _hdc 
+     * @param {HDC} _hdc Type: <b>HDC</b>
+     * 
+     * A handle to the control's device context. Use this HDC to perform any GDI functions.
      * @param {Pointer<RECT>} prc Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/windef/ns-windef-rect">RECT</a>*</b>
      * 
      * A pointer to the <a href="https://docs.microsoft.com/windows/desktop/api/windef/ns-windef-rect">RECT</a> structure that describes the bounding rectangle of the area being drawn.
@@ -98,7 +103,9 @@ class INameSpaceTreeControlCustomDraw extends IUnknown{
 
     /**
      * Called after an item in the namespace tree control is drawn.
-     * @param {HDC} _hdc 
+     * @param {HDC} _hdc Type: <b>HDC</b>
+     * 
+     * A handle to the control's device context. Use this HDC to perform any GDI functions.
      * @param {Pointer<RECT>} prc Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/windef/ns-windef-rect">RECT</a>*</b>
      * 
      * A pointer to the <a href="https://docs.microsoft.com/windows/desktop/api/windef/ns-windef-rect">RECT</a> structure that describes the bounding rectangle of the area being drawn.

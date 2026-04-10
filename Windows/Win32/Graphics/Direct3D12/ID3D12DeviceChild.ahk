@@ -7,9 +7,8 @@
  * An interface from which other core interfaces inherit from, including (but not limited to) ID3D12PipelineLibrary, ID3D12CommandList, ID3D12Pageable, and ID3D12RootSignature. It provides a method to get back to the device object it was created against.
  * @see https://learn.microsoft.com/windows/win32/api/d3d12/nn-d3d12-id3d12devicechild
  * @namespace Windows.Win32.Graphics.Direct3D12
- * @version v4.0.30319
  */
-class ID3D12DeviceChild extends ID3D12Object{
+class ID3D12DeviceChild extends ID3D12Object {
 
     static sizeof => A_PtrSize
     /**

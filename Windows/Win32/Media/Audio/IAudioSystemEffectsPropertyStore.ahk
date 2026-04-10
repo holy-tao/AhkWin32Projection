@@ -1,8 +1,8 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
-#Include ..\..\UI\Shell\PropertiesSystem\IPropertyStore.ahk
 #Include ..\..\System\Com\IUnknown.ahk
+#Include ..\..\UI\Shell\PropertiesSystem\IPropertyStore.ahk
 
 /**
  * Provides access to manage audio system effects audio stores and to register for notifications when audio system effect properties change.
@@ -12,9 +12,8 @@
  * For more information on the Windows 11 APIs for the Audio Processing Objects (APOs) that can ship with audio drivers, see [Windows 11 APIs for Audio Processing Objects](/windows-hardware/drivers/audio/windows-11-apis-for-audio-processing-objects).
  * @see https://learn.microsoft.com/windows/win32/api/mmdeviceapi/nn-mmdeviceapi-iaudiosystemeffectspropertystore
  * @namespace Windows.Win32.Media.Audio
- * @version v4.0.30319
  */
-class IAudioSystemEffectsPropertyStore extends IUnknown{
+class IAudioSystemEffectsPropertyStore extends IUnknown {
 
     static sizeof => A_PtrSize
     /**

@@ -15,10 +15,8 @@
  * For a discussion of the use of the **NOTIFKEY** structure to manage the connections between the advise sinks and the objects that generate the notifications, see [Supporting Event Notification](supporting-event-notification.md).
  * @see https://learn.microsoft.com/office/client-developer/outlook/mapi/notifkey
  * @namespace Windows.Win32.System.AddressBook
- * @version v4.0.30319
  */
-class NOTIFKEY extends Win32Struct
-{
+class NOTIFKEY extends Win32Struct {
     static sizeof => 8
 
     static packingSize => 4
@@ -34,9 +32,9 @@ class NOTIFKEY extends Win32Struct
 
     /**
      * > Array of bytes describing the notification key.
-     * @type {Array<Byte>}
+     * @type {Array<Integer>}
      */
-    ab{
+    ab {
         get {
             if(!this.HasProp("__abProxyArray"))
                 this.__abProxyArray := Win32FixedArray(this.ptr + 4, 1, Primitive, "char")

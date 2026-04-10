@@ -7,9 +7,8 @@
  * Represents the data content of a timed-text object.
  * @see https://learn.microsoft.com/windows/win32/api/mfmediaengine/nn-mfmediaengine-imftimedtextbinary
  * @namespace Windows.Win32.Media.MediaFoundation
- * @version v4.0.30319
  */
-class IMFTimedTextBinary extends IUnknown{
+class IMFTimedTextBinary extends IUnknown {
 
     static sizeof => A_PtrSize
     /**

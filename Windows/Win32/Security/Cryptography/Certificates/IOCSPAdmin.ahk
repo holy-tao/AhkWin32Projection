@@ -1,11 +1,11 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\..\Guid.ahk
-#Include ..\..\..\Foundation\BSTR.ahk
+#Include ..\..\..\System\Com\IDispatch.ahk
 #Include .\IOCSPPropertyCollection.ahk
 #Include .\IOCSPCAConfigurationCollection.ahk
+#Include ..\..\..\Foundation\BSTR.ahk
 #Include ..\..\..\System\Variant\VARIANT.ahk
-#Include ..\..\..\System\Com\IDispatch.ahk
 
 /**
  * Provides functionality to manage an Online Certificate Status Protocol (OCSP) responder server.
@@ -60,9 +60,8 @@
  * </table>
  * @see https://learn.microsoft.com/windows/win32/api/certadm/nn-certadm-iocspadmin
  * @namespace Windows.Win32.Security.Cryptography.Certificates
- * @version v4.0.30319
  */
-class IOCSPAdmin extends IDispatch{
+class IOCSPAdmin extends IDispatch {
 
     static sizeof => A_PtrSize
     /**

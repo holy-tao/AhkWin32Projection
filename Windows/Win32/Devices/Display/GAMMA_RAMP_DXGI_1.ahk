@@ -4,18 +4,16 @@
 
 /**
  * @namespace Windows.Win32.Devices.Display
- * @version v4.0.30319
  */
-class GAMMA_RAMP_DXGI_1 extends Win32Struct
-{
-    static sizeof => 8224
+class GAMMA_RAMP_DXGI_1 extends Win32Struct {
+    static sizeof => 12324
 
-    static packingSize => 8
+    static packingSize => 4
 
     /**
      * @type {GAMMA_RAMP_RGB}
      */
-    Scale{
+    Scale {
         get {
             if(!this.HasProp("__Scale"))
                 this.__Scale := GAMMA_RAMP_RGB(0, this)
@@ -26,7 +24,7 @@ class GAMMA_RAMP_DXGI_1 extends Win32Struct
     /**
      * @type {GAMMA_RAMP_RGB}
      */
-    Offset{
+    Offset {
         get {
             if(!this.HasProp("__Offset"))
                 this.__Offset := GAMMA_RAMP_RGB(12, this)
@@ -35,9 +33,9 @@ class GAMMA_RAMP_DXGI_1 extends Win32Struct
     }
 
     /**
-     * @type {Array<GAMMA_RAMP_RGB>}
+     * @type {GAMMA_RAMP_RGB}
      */
-    GammaCurve{
+    GammaCurve {
         get {
             if(!this.HasProp("__GammaCurveProxyArray"))
                 this.__GammaCurveProxyArray := Win32FixedArray(this.ptr + 24, 1025, GAMMA_RAMP_RGB, "")

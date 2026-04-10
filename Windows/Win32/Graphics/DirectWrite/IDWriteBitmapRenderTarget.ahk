@@ -1,11 +1,11 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
+#Include ..\..\System\Com\IUnknown.ahk
 #Include ..\..\Foundation\RECT.ahk
 #Include ..\Gdi\HDC.ahk
 #Include .\DWRITE_MATRIX.ahk
 #Include ..\..\Foundation\SIZE.ahk
-#Include ..\..\System\Com\IUnknown.ahk
 
 /**
  * Encapsulates a 32-bit device independent bitmap and device context, which can be used for rendering glyphs.
@@ -65,9 +65,8 @@
  * The <b>IDWriteBitmapRenderTarget</b> encapsulates and renders to a bitmap in memory.  The  <a href="https://docs.microsoft.com/windows/win32/api/dwrite/nf-dwrite-idwritebitmaprendertarget-getmemorydc">GetMemoryDC</a> function returns a handle to the device context of this bitmap.
  * @see https://learn.microsoft.com/windows/win32/api/dwrite/nn-dwrite-idwritebitmaprendertarget
  * @namespace Windows.Win32.Graphics.DirectWrite
- * @version v4.0.30319
  */
-class IDWriteBitmapRenderTarget extends IUnknown{
+class IDWriteBitmapRenderTarget extends IUnknown {
 
     static sizeof => A_PtrSize
     /**
@@ -136,10 +135,12 @@ class IDWriteBitmapRenderTarget extends IUnknown{
      * @param {Float} baselineOriginY Type: <b>FLOAT</b>
      * 
      * The vertical position of the baseline origin, in DIPs, relative to the upper-left corner of the DIB.
-     * @param {Integer} measuringMode Type: <b><a href="https://docs.microsoft.com/windows/win32/api/dcommon/ne-dcommon-dwrite_measuring_mode">DWRITE_MEASURING_MODE</a></b>
+     * @param {DWRITE_MEASURING_MODE} measuringMode Type: <b><a href="https://docs.microsoft.com/windows/win32/api/dcommon/ne-dcommon-dwrite_measuring_mode">DWRITE_MEASURING_MODE</a></b>
      * 
      * The measuring method for glyphs in the run, used with the other properties to determine the rendering mode.
-     * @param {Pointer<DWRITE_GLYPH_RUN>} _glyphRun 
+     * @param {Pointer<DWRITE_GLYPH_RUN>} _glyphRun Type: <b>const <a href="https://docs.microsoft.com/windows/win32/api/dwrite/ns-dwrite-dwrite_glyph_run">DWRITE_GLYPH_RUN</a>*</b>
+     * 
+     * The structure containing the properties of the glyph run.
      * @param {IDWriteRenderingParams} renderingParams Type: <b><a href="https://docs.microsoft.com/windows/win32/api/dwrite/nn-dwrite-idwriterenderingparams">IDWriteRenderingParams</a>*</b>
      * 
      * The object that controls rendering behavior.
@@ -248,7 +249,9 @@ class IDWriteBitmapRenderTarget extends IUnknown{
 
     /**
      * Gets the dimensions of the target bitmap.
-     * @returns {SIZE} 
+     * @returns {SIZE} Type: <b>SIZE*</b>
+     * 
+     * Returns  the width and height of the bitmap in pixels.
      * @see https://learn.microsoft.com/windows/win32/api/dwrite/nf-dwrite-idwritebitmaprendertarget-getsize
      */
     GetSize() {

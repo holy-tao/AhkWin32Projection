@@ -30,10 +30,8 @@
  * </ol>
  * @see https://learn.microsoft.com/windows/win32/api/dxvahd/ns-dxvahd-dxvahd_stream_state_private_ivtc_data
  * @namespace Windows.Win32.Media.MediaFoundation
- * @version v4.0.30319
  */
-class DXVAHD_STREAM_STATE_PRIVATE_IVTC_DATA extends Win32Struct
-{
+class DXVAHD_STREAM_STATE_PRIVATE_IVTC_DATA extends Win32Struct {
     static sizeof => 16
 
     static packingSize => 4

@@ -1,17 +1,15 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
-#Include .\IClockVectorElement.ahk
-#Include .\IEnumClockVector.ahk
 #Include ..\Com\IUnknown.ahk
+#Include .\IClockVectorElement.ahk
 
 /**
  * Enumerates the clock vector elements that are stored in a clock vector.
  * @see https://learn.microsoft.com/windows/win32/api/winsync/nn-winsync-ienumclockvector
  * @namespace Windows.Win32.System.WindowsSync
- * @version v4.0.30319
  */
-class IEnumClockVector extends IUnknown{
+class IEnumClockVector extends IUnknown {
 
     static sizeof => A_PtrSize
     /**

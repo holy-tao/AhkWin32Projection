@@ -1,13 +1,13 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
 #Include ..\..\Foundation\BSTR.ahk
+#Include .\PM_APPLICATION_INSTALL_TYPE.ahk
+#Include .\PM_APPLICATION_STATE.ahk
 
 /**
  * @namespace Windows.Win32.System.ApplicationInstallationAndServicing
- * @version v4.0.30319
  */
-class PM_STARTAPPBLOB extends Win32Struct
-{
+class PM_STARTAPPBLOB extends Win32Struct {
     static sizeof => 64
 
     static packingSize => 8
@@ -21,7 +21,7 @@ class PM_STARTAPPBLOB extends Win32Struct
     }
 
     /**
-     * @type {Pointer<Guid>}
+     * @type {Pointer}
      */
     ProductID {
         get => NumGet(this, 8, "ptr")
@@ -31,7 +31,7 @@ class PM_STARTAPPBLOB extends Win32Struct
     /**
      * @type {BSTR}
      */
-    AppTitle{
+    AppTitle {
         get {
             if(!this.HasProp("__AppTitle"))
                 this.__AppTitle := BSTR(16, this)
@@ -42,7 +42,7 @@ class PM_STARTAPPBLOB extends Win32Struct
     /**
      * @type {BSTR}
      */
-    IconPath{
+    IconPath {
         get {
             if(!this.HasProp("__IconPath"))
                 this.__IconPath := BSTR(24, this)
@@ -59,7 +59,7 @@ class PM_STARTAPPBLOB extends Win32Struct
     }
 
     /**
-     * @type {Integer}
+     * @type {PM_APPLICATION_INSTALL_TYPE}
      */
     AppInstallType {
         get => NumGet(this, 36, "int")
@@ -67,7 +67,7 @@ class PM_STARTAPPBLOB extends Win32Struct
     }
 
     /**
-     * @type {Pointer<Guid>}
+     * @type {Pointer}
      */
     InstanceID {
         get => NumGet(this, 40, "ptr")
@@ -75,7 +75,7 @@ class PM_STARTAPPBLOB extends Win32Struct
     }
 
     /**
-     * @type {Integer}
+     * @type {PM_APPLICATION_STATE}
      */
     State {
         get => NumGet(this, 48, "int")

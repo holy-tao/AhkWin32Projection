@@ -15,10 +15,8 @@
  * This is a static API, which means the application won t change this while the encoder is running.
  * @see https://learn.microsoft.com/windows/win32/medfound/codecapi-avencslicecontrolmode
  * @namespace Windows.Win32.Media.MediaFoundation
- * @version v4.0.30319
  */
-class CODECAPI_AVEncSliceControlMode extends Win32Struct
-{
+class CODECAPI_AVEncSliceControlMode extends Win32Struct {
     static sizeof => 0
 
     static packingSize => 1

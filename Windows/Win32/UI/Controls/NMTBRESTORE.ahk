@@ -1,17 +1,15 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
-#Include ..\..\Foundation\HWND.ahk
 #Include .\NMHDR.ahk
+#Include ..\..\Foundation\HWND.ahk
 #Include .\TBBUTTON.ahk
 
 /**
  * Allows applications to extract the information that was placed in NMTBSAVE when the toolbar state was saved. This structure is passed to applications when they receive a TBN_RESTORE notification code.
  * @see https://learn.microsoft.com/windows/win32/api/commctrl/ns-commctrl-nmtbrestore
  * @namespace Windows.Win32.UI.Controls
- * @version v4.0.30319
  */
-class NMTBRESTORE extends Win32Struct
-{
+class NMTBRESTORE extends Win32Struct {
     static sizeof => 88
 
     static packingSize => 8
@@ -22,7 +20,7 @@ class NMTBRESTORE extends Win32Struct
      * <a href="https://docs.microsoft.com/windows/desktop/api/richedit/ns-richedit-nmhdr">NMHDR</a> structure that contains additional information about the notification.
      * @type {NMHDR}
      */
-    hdr{
+    hdr {
         get {
             if(!this.HasProp("__hdr"))
                 this.__hdr := NMHDR(0, this)
@@ -108,7 +106,7 @@ class NMTBRESTORE extends Win32Struct
      * <a href="https://docs.microsoft.com/windows/desktop/api/commctrl/ns-commctrl-tbbutton">TBBUTTON</a> structure that contains information about the button currently being restored. Applications must modify this structure as necessary before returning.
      * @type {TBBUTTON}
      */
-    tbButton{
+    tbButton {
         get {
             if(!this.HasProp("__tbButton"))
                 this.__tbButton := TBBUTTON(56, this)

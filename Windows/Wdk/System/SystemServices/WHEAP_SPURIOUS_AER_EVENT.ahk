@@ -1,18 +1,17 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
+#Include .\WHEA_ERROR_SEVERITY.ahk
 
 /**
  * @namespace Windows.Wdk.System.SystemServices
- * @version v4.0.30319
  */
-class WHEAP_SPURIOUS_AER_EVENT extends Win32Struct
-{
+class WHEAP_SPURIOUS_AER_EVENT extends Win32Struct {
     static sizeof => 32
 
     static packingSize => 8
 
     /**
-     * @type {Pointer<WHEA_EVENT_LOG_ENTRY>}
+     * @type {Pointer}
      */
     WheaEventLogEntry {
         get => NumGet(this, 0, "ptr")
@@ -20,7 +19,7 @@ class WHEAP_SPURIOUS_AER_EVENT extends Win32Struct
     }
 
     /**
-     * @type {Integer}
+     * @type {WHEA_ERROR_SEVERITY}
      */
     ErrorSeverity {
         get => NumGet(this, 8, "int")

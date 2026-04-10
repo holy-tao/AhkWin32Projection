@@ -13,10 +13,9 @@
  * The values for <b>rc</b> and <b>rcPage</b> can be obtained by using <a href="https://docs.microsoft.com/windows/desktop/api/wingdi/nf-wingdi-getdevicecaps">GetDeviceCaps</a>.
  * @see https://learn.microsoft.com/windows/win32/api/richedit/ns-richedit-formatrange
  * @namespace Windows.Win32.UI.Controls.RichEdit
- * @version v4.0.30319
+ * @architecture X64, Arm64
  */
-class FORMATRANGE extends Win32Struct
-{
+class FORMATRANGE extends Win32Struct {
     static sizeof => 56
 
     static packingSize => 8
@@ -27,7 +26,7 @@ class FORMATRANGE extends Win32Struct
      * A HDC for the device to render to, if <a href="https://msdn.microsoft.com/6d1e562b-d741-4d4a-a395-554083cb0dbb">EM_FORMATRANGE</a> is being used to send the output to a device.
      * @type {HDC}
      */
-    hdc{
+    hdc {
         get {
             if(!this.HasProp("__hdc"))
                 this.__hdc := HDC(0, this)
@@ -41,7 +40,7 @@ class FORMATRANGE extends Win32Struct
      * An HDC for the target device to format for.
      * @type {HDC}
      */
-    hdcTarget{
+    hdcTarget {
         get {
             if(!this.HasProp("__hdcTarget"))
                 this.__hdcTarget := HDC(8, this)
@@ -55,7 +54,7 @@ class FORMATRANGE extends Win32Struct
      * The area within the <i>rcPage</i> rectangle to render to. Units are measured in twips.
      * @type {RECT}
      */
-    rc{
+    rc {
         get {
             if(!this.HasProp("__rc"))
                 this.__rc := RECT(16, this)
@@ -69,7 +68,7 @@ class FORMATRANGE extends Win32Struct
      * The entire area of a page on the rendering device. Units are measured in twips.
      * @type {RECT}
      */
-    rcPage{
+    rcPage {
         get {
             if(!this.HasProp("__rcPage"))
                 this.__rcPage := RECT(32, this)
@@ -83,7 +82,7 @@ class FORMATRANGE extends Win32Struct
      * The range of characters to format.
      * @type {CHARRANGE}
      */
-    chrg{
+    chrg {
         get {
             if(!this.HasProp("__chrg"))
                 this.__chrg := CHARRANGE(48, this)

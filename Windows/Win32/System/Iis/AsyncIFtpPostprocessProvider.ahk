@@ -5,9 +5,8 @@
 
 /**
  * @namespace Windows.Win32.System.Iis
- * @version v4.0.30319
  */
-class AsyncIFtpPostprocessProvider extends IUnknown{
+class AsyncIFtpPostprocessProvider extends IUnknown {
 
     static sizeof => A_PtrSize
     /**
@@ -46,7 +45,7 @@ class AsyncIFtpPostprocessProvider extends IUnknown{
 
     /**
      * 
-     * @returns {Integer} 
+     * @returns {FTP_PROCESS_STATUS} 
      */
     Finish_HandlePostprocess() {
         result := ComCall(4, this, "int*", &pFtpProcessStatus := 0, "HRESULT")

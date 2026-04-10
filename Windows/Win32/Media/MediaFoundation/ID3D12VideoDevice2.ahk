@@ -5,13 +5,10 @@
 
 /**
  * Adds support for protected resources.
- * @remarks
- * 
  * @see https://learn.microsoft.com/windows/win32/api/d3d12video/nn-d3d12video-id3d12videodevice2
  * @namespace Windows.Win32.Media.MediaFoundation
- * @version v4.0.30319
  */
-class ID3D12VideoDevice2 extends ID3D12VideoDevice1{
+class ID3D12VideoDevice2 extends ID3D12VideoDevice1 {
 
     static sizeof => A_PtrSize
     /**
@@ -81,7 +78,7 @@ class ID3D12VideoDevice2 extends ID3D12VideoDevice1{
     /**
      * Creates a video extension command.
      * @param {Pointer<D3D12_VIDEO_EXTENSION_COMMAND_DESC>} pDesc The [D3D12_VIDEO_EXTENSION_COMMAND_DESC](ns-d3d12video-d3d12_video_extension_command_desc.md) describing the command to be created.
-     * @param {Pointer} pCreationParameters A pointer to the creation parameters structure, which is defined by the command.  The parameters structure must match the parameters enumerated by a call to [ID3D12VideoDevice::CheckFeatureSupport](nf-d3d12video-id3d12videodevice-checkfeaturesupport.md) with the feature value of [D3D12_FEATURE_VIDEO_EXTENSION_COMMAND_PARAMETERS](ne-d3d12video-d3d12_feature_video.md) and a parameter stage value of [D3D12_VIDEO_EXTENSION_COMMAND_PARAMETER_STAGE_CREATION](ne-d3d12video-d3d12_video_extension_command_parameter_stage.md).
+     * @param {Integer} pCreationParameters A pointer to the creation parameters structure, which is defined by the command.  The parameters structure must match the parameters enumerated by a call to [ID3D12VideoDevice::CheckFeatureSupport](nf-d3d12video-id3d12videodevice-checkfeaturesupport.md) with the feature value of [D3D12_FEATURE_VIDEO_EXTENSION_COMMAND_PARAMETERS](ne-d3d12video-d3d12_feature_video.md) and a parameter stage value of [D3D12_VIDEO_EXTENSION_COMMAND_PARAMETER_STAGE_CREATION](ne-d3d12video-d3d12_video_extension_command_parameter_stage.md).
      * @param {Pointer} CreationParametersDataSizeInBytes The size of the *pCreationParameters* parameter structure, in bytes.
      * @param {ID3D12ProtectedResourceSession} pProtectedResourceSession A [ID3D12ProtectedResourceSession](../d3d12/nn-d3d12-id3d12protectedresourcesession.md) for managing access to protected resources.
      * @param {Pointer<Guid>} riid The globally unique identifier (GUID) for the [ID3D12VideoExtensionCommand](nn-d3d12video-id3d12videoextensioncommand.md) interface.
@@ -102,9 +99,9 @@ class ID3D12VideoDevice2 extends ID3D12VideoDevice1{
      * - [ID3D12VideoEncodeComandlist1::ExecuteExtensionCommand](/windows/win32/api/d3d12video/nf-d3d12video-id3d12videodevice2-executeextensioncommand)
      * - [ID3D12VideoProcessComandlist2::ExecuteExtensionCommand](nf-d3d12video-id3d12videoprocesscommandlist2-executeextensioncommand.md)
      * @param {ID3D12VideoExtensionCommand} pExtensionCommand Pointer to an [ID3D12VideoExtensionCommand](nn-d3d12video-id3d12videoextensioncommand.md) representing the video extension command to execute.  The caller is responsible for maintaining object lifetime until command execution is complete.
-     * @param {Pointer} pExecutionParameters A pointer to the execution input parameters structure, which is defined by the command.  The parameters structure must match the parameters enumerated by a call to [ID3D12VideoDevice::CheckFeatureSupport](nf-d3d12video-id3d12videodevice-checkfeaturesupport.md) with the feature value of [D3D12_FEATURE_VIDEO_EXTENSION_COMMAND_PARAMETERS](ne-d3d12video-d3d12_feature_video.md) and a parameter stage value of [D3D12_VIDEO_EXTENSION_COMMAND_PARAMETER_STAGE_EXECUTION](ne-d3d12video-d3d12_video_extension_command_parameter_stage.md).
+     * @param {Integer} pExecutionParameters A pointer to the execution input parameters structure, which is defined by the command.  The parameters structure must match the parameters enumerated by a call to [ID3D12VideoDevice::CheckFeatureSupport](nf-d3d12video-id3d12videodevice-checkfeaturesupport.md) with the feature value of [D3D12_FEATURE_VIDEO_EXTENSION_COMMAND_PARAMETERS](ne-d3d12video-d3d12_feature_video.md) and a parameter stage value of [D3D12_VIDEO_EXTENSION_COMMAND_PARAMETER_STAGE_EXECUTION](ne-d3d12video-d3d12_video_extension_command_parameter_stage.md).
      * @param {Pointer} ExecutionParametersSizeInBytes The size of the *pExecutionParameters* parameter structure, in bytes.
-     * @param {Pointer} pOutputData A pointer to the execution output parameters structure, which is defined by the command.
+     * @param {Integer} pOutputData A pointer to the execution output parameters structure, which is defined by the command.
      * @param {Pointer} OutputDataSizeInBytes Receives the size of the *pExecutionParameters* parameter structure, in bytes.
      * @returns {HRESULT} This method returns HRESULT.
      * @see https://learn.microsoft.com/windows/win32/api/d3d12video/nf-d3d12video-id3d12videodevice2-executeextensioncommand

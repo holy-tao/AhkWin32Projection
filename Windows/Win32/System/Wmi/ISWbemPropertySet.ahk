@@ -1,16 +1,14 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
-#Include ..\..\Foundation\BSTR.ahk
+#Include ..\Com\IDispatch.ahk
 #Include ..\Com\IUnknown.ahk
 #Include .\ISWbemProperty.ahk
-#Include ..\Com\IDispatch.ahk
 
 /**
  * @namespace Windows.Win32.System.Wmi
- * @version v4.0.30319
  */
-class ISWbemPropertySet extends IDispatch{
+class ISWbemPropertySet extends IDispatch {
 
     static sizeof => A_PtrSize
     /**
@@ -98,7 +96,7 @@ class ISWbemPropertySet extends IDispatch{
      * The 
      * <a href="https://docs.microsoft.com/windows/desktop/api/winnt/ns-winnt-ace_header">ACE_HEADER</a> structure placed in the ACE by the <b>AddAccessAllowedAce</b> function specifies a type and size, but provides no inheritance and no ACE flags.
      * @param {BSTR} strName 
-     * @param {Integer} iCIMType 
+     * @param {WbemCimtypeEnum} iCIMType 
      * @param {VARIANT_BOOL} bIsArray 
      * @param {Integer} iFlags 
      * @returns {ISWbemProperty} 

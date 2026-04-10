@@ -1,13 +1,13 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
+#Include .\DDRAWI_DIRECTDRAW_LCL.ahk
+#Include ..\Gdi\PALETTEENTRY.ahk
 #Include ..\Gdi\HPALETTE.ahk
 
 /**
  * @namespace Windows.Win32.Graphics.DirectDraw
- * @version v4.0.30319
  */
-class DDRAWI_DDRAWPALETTE_GBL extends Win32Struct
-{
+class DDRAWI_DDRAWPALETTE_GBL extends Win32Struct {
     static sizeof => 56
 
     static packingSize => 8
@@ -63,7 +63,7 @@ class DDRAWI_DDRAWPALETTE_GBL extends Win32Struct
     /**
      * @type {HPALETTE}
      */
-    hHELGDIPalette{
+    hHELGDIPalette {
         get {
             if(!this.HasProp("__hHELGDIPalette"))
                 this.__hHELGDIPalette := HPALETTE(32, this)

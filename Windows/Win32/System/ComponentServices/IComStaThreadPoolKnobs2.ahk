@@ -5,9 +5,8 @@
 
 /**
  * @namespace Windows.Win32.System.ComponentServices
- * @version v4.0.30319
  */
-class IComStaThreadPoolKnobs2 extends IComStaThreadPoolKnobs{
+class IComStaThreadPoolKnobs2 extends IComStaThreadPoolKnobs {
 
     static sizeof => A_PtrSize
     /**

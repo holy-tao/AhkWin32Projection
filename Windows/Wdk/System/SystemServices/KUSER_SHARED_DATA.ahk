@@ -1,15 +1,13 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
-#Include ..\..\..\Win32\System\Diagnostics\Debug\XSTATE_FEATURE.ahk
-#Include ..\..\..\Win32\System\Diagnostics\Debug\XSTATE_CONFIGURATION.ahk
+#Include ..\..\..\Win32\System\Kernel\NT_PRODUCT_TYPE.ahk
+#Include .\ALTERNATIVE_ARCHITECTURE_TYPE.ahk
 
 /**
  * @namespace Windows.Wdk.System.SystemServices
- * @version v4.0.30319
  */
-class KUSER_SHARED_DATA extends Win32Struct
-{
-    static sizeof => 1840
+class KUSER_SHARED_DATA extends Win32Struct {
+    static sizeof => 1008
 
     static packingSize => 8
 
@@ -30,7 +28,7 @@ class KUSER_SHARED_DATA extends Win32Struct
     }
 
     /**
-     * @type {Pointer<KSYSTEM_TIME>}
+     * @type {Pointer}
      */
     InterruptTime {
         get => NumGet(this, 8, "ptr")
@@ -38,7 +36,7 @@ class KUSER_SHARED_DATA extends Win32Struct
     }
 
     /**
-     * @type {Pointer<KSYSTEM_TIME>}
+     * @type {Pointer}
      */
     SystemTime {
         get => NumGet(this, 16, "ptr")
@@ -46,7 +44,7 @@ class KUSER_SHARED_DATA extends Win32Struct
     }
 
     /**
-     * @type {Pointer<KSYSTEM_TIME>}
+     * @type {Pointer}
      */
     TimeZoneBias {
         get => NumGet(this, 24, "ptr")
@@ -158,7 +156,7 @@ class KUSER_SHARED_DATA extends Win32Struct
     }
 
     /**
-     * @type {Integer}
+     * @type {NT_PRODUCT_TYPE}
      */
     NtProductType {
         get => NumGet(this, 604, "int")
@@ -176,7 +174,7 @@ class KUSER_SHARED_DATA extends Win32Struct
     /**
      * @type {Array<BOOLEAN>}
      */
-    Reserved0{
+    Reserved0 {
         get {
             if(!this.HasProp("__Reserved0ProxyArray"))
                 this.__Reserved0ProxyArray := Win32FixedArray(this.ptr + 609, 1, Primitive, "char")
@@ -211,7 +209,7 @@ class KUSER_SHARED_DATA extends Win32Struct
     /**
      * @type {Array<BOOLEAN>}
      */
-    ProcessorFeatures{
+    ProcessorFeatures {
         get {
             if(!this.HasProp("__ProcessorFeaturesProxyArray"))
                 this.__ProcessorFeaturesProxyArray := Win32FixedArray(this.ptr + 620, 64, Primitive, "char")
@@ -244,7 +242,7 @@ class KUSER_SHARED_DATA extends Win32Struct
     }
 
     /**
-     * @type {Integer}
+     * @type {ALTERNATIVE_ARCHITECTURE_TYPE}
      */
     AlternativeArchitecture {
         get => NumGet(this, 696, "int")
@@ -393,9 +391,9 @@ class KUSER_SHARED_DATA extends Win32Struct
     }
 
     /**
-     * @type {Array<Byte>}
+     * @type {Array<Integer>}
      */
-    Reserved12{
+    Reserved12 {
         get {
             if(!this.HasProp("__Reserved12ProxyArray"))
                 this.__Reserved12ProxyArray := Win32FixedArray(this.ptr + 742, 2, Primitive, "char")
@@ -529,9 +527,9 @@ class KUSER_SHARED_DATA extends Win32Struct
     }
 
     /**
-     * @type {Array<UInt32>}
+     * @type {Array<Integer>}
      */
-    DataFlagsPad{
+    DataFlagsPad {
         get {
             if(!this.HasProp("__DataFlagsPadProxyArray"))
                 this.__DataFlagsPadProxyArray := Win32FixedArray(this.ptr + 748, 1, Primitive, "uint")
@@ -572,9 +570,9 @@ class KUSER_SHARED_DATA extends Win32Struct
     }
 
     /**
-     * @type {Array<UInt64>}
+     * @type {Array<Integer>}
      */
-    SystemCallPad{
+    SystemCallPad {
         get {
             if(!this.HasProp("__SystemCallPadProxyArray"))
                 this.__SystemCallPadProxyArray := Win32FixedArray(this.ptr + 776, 2, Primitive, "uint")
@@ -583,7 +581,7 @@ class KUSER_SHARED_DATA extends Win32Struct
     }
 
     /**
-     * @type {Pointer<KSYSTEM_TIME>}
+     * @type {Pointer}
      */
     TickCount {
         get => NumGet(this, 792, "ptr")
@@ -599,9 +597,9 @@ class KUSER_SHARED_DATA extends Win32Struct
     }
 
     /**
-     * @type {Array<UInt32>}
+     * @type {Array<Integer>}
      */
-    ReservedTickCountOverlay{
+    ReservedTickCountOverlay {
         get {
             if(!this.HasProp("__ReservedTickCountOverlayProxyArray"))
                 this.__ReservedTickCountOverlayProxyArray := Win32FixedArray(this.ptr + 792, 3, Primitive, "uint")
@@ -610,9 +608,9 @@ class KUSER_SHARED_DATA extends Win32Struct
     }
 
     /**
-     * @type {Array<UInt32>}
+     * @type {Array<Integer>}
      */
-    TickCountPad{
+    TickCountPad {
         get {
             if(!this.HasProp("__TickCountPadProxyArray"))
                 this.__TickCountPadProxyArray := Win32FixedArray(this.ptr + 804, 1, Primitive, "uint")
@@ -629,9 +627,9 @@ class KUSER_SHARED_DATA extends Win32Struct
     }
 
     /**
-     * @type {Array<UInt32>}
+     * @type {Array<Integer>}
      */
-    CookiePad{
+    CookiePad {
         get {
             if(!this.HasProp("__CookiePadProxyArray"))
                 this.__CookiePadProxyArray := Win32FixedArray(this.ptr + 812, 1, Primitive, "uint")
@@ -712,9 +710,9 @@ class KUSER_SHARED_DATA extends Win32Struct
     }
 
     /**
-     * @type {Array<UInt32>}
+     * @type {Array<Integer>}
      */
-    EnclaveFeatureMask{
+    EnclaveFeatureMask {
         get {
             if(!this.HasProp("__EnclaveFeatureMaskProxyArray"))
                 this.__EnclaveFeatureMaskProxyArray := Win32FixedArray(this.ptr + 868, 4, Primitive, "uint")
@@ -731,9 +729,9 @@ class KUSER_SHARED_DATA extends Win32Struct
     }
 
     /**
-     * @type {Array<UInt16>}
+     * @type {Array<Integer>}
      */
-    UserModeGlobalLogger{
+    UserModeGlobalLogger {
         get {
             if(!this.HasProp("__UserModeGlobalLoggerProxyArray"))
                 this.__UserModeGlobalLoggerProxyArray := Win32FixedArray(this.ptr + 888, 16, Primitive, "ushort")
@@ -846,37 +844,34 @@ class KUSER_SHARED_DATA extends Win32Struct
     }
 
     /**
-     * @type {XSTATE_CONFIGURATION}
+     * @type {Pointer}
      */
-    XState{
-        get {
-            if(!this.HasProp("__XState"))
-                this.__XState := XSTATE_CONFIGURATION(976, this)
-            return this.__XState
-        }
+    XState {
+        get => NumGet(this, 976, "ptr")
+        set => NumPut("ptr", value, this, 976)
     }
 
     /**
-     * @type {Pointer<KSYSTEM_TIME>}
+     * @type {Pointer}
      */
     FeatureConfigurationChangeStamp {
-        get => NumGet(this, 1816, "ptr")
-        set => NumPut("ptr", value, this, 1816)
+        get => NumGet(this, 984, "ptr")
+        set => NumPut("ptr", value, this, 984)
     }
 
     /**
      * @type {Integer}
      */
     Spare {
-        get => NumGet(this, 1824, "uint")
-        set => NumPut("uint", value, this, 1824)
+        get => NumGet(this, 992, "uint")
+        set => NumPut("uint", value, this, 992)
     }
 
     /**
      * @type {Integer}
      */
     UserPointerAuthMask {
-        get => NumGet(this, 1832, "uint")
-        set => NumPut("uint", value, this, 1832)
+        get => NumGet(this, 1000, "uint")
+        set => NumPut("uint", value, this, 1000)
     }
 }

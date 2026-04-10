@@ -1,22 +1,22 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
+#Include .\ASSOCCLASS.ahk
 #Include ..\..\System\Registry\HKEY.ahk
 
 /**
  * Defines information used by AssocCreateForClasses to retrieve an IQueryAssociations interface for a given file association.
  * @see https://learn.microsoft.com/windows/win32/api/shellapi/ns-shellapi-associationelement
  * @namespace Windows.Win32.UI.Shell
- * @version v4.0.30319
+ * @architecture X64, Arm64
  */
-class ASSOCIATIONELEMENT extends Win32Struct
-{
+class ASSOCIATIONELEMENT extends Win32Struct {
     static sizeof => 24
 
     static packingSize => 8
 
     /**
      * Type: <b>ASSOCCLASS</b>
-     * @type {Integer}
+     * @type {ASSOCCLASS}
      */
     ac {
         get => NumGet(this, 0, "int")
@@ -29,7 +29,7 @@ class ASSOCIATIONELEMENT extends Win32Struct
      * A registry key that specifies a class that contains association information.
      * @type {HKEY}
      */
-    hkClass{
+    hkClass {
         get {
             if(!this.HasProp("__hkClass"))
                 this.__hkClass := HKEY(8, this)

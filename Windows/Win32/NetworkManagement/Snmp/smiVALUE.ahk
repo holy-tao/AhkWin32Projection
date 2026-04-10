@@ -23,16 +23,14 @@
  * <a href="https://docs.microsoft.com/windows/desktop/SNMP/winsnmp-data-management-concepts">WinSNMP Data Management Concepts</a>.
  * @see https://learn.microsoft.com/windows/win32/api/winsnmp/ns-winsnmp-smivalue
  * @namespace Windows.Win32.NetworkManagement.Snmp
- * @version v4.0.30319
  */
-class smiVALUE extends Win32Struct
-{
-    static sizeof => 32
+class smiVALUE extends Win32Struct {
+    static sizeof => 24
 
     static packingSize => 8
 
     class _value_e__Union extends Win32Struct {
-        static sizeof => 23
+        static sizeof => 16
         static packingSize => 8
 
         /**
@@ -42,7 +40,7 @@ class smiVALUE extends Win32Struct
             get => NumGet(this, 0, "int")
             set => NumPut("int", value, this, 0)
         }
-    
+
         /**
          * @type {Integer}
          */
@@ -50,40 +48,40 @@ class smiVALUE extends Win32Struct
             get => NumGet(this, 0, "uint")
             set => NumPut("uint", value, this, 0)
         }
-    
+
         /**
          * @type {smiCNTR64}
          */
-        hNumber{
+        hNumber {
             get {
                 if(!this.HasProp("__hNumber"))
                     this.__hNumber := smiCNTR64(0, this)
                 return this.__hNumber
             }
         }
-    
+
         /**
          * @type {smiOCTETS}
          */
-        string{
+        string {
             get {
                 if(!this.HasProp("__string"))
                     this.__string := smiOCTETS(0, this)
                 return this.__string
             }
         }
-    
+
         /**
          * @type {smiOID}
          */
-        oid{
+        oid {
             get {
                 if(!this.HasProp("__oid"))
                     this.__oid := smiOID(0, this)
                 return this.__oid
             }
         }
-    
+
         /**
          * @type {Integer}
          */
@@ -91,7 +89,6 @@ class smiVALUE extends Win32Struct
             get => NumGet(this, 0, "char")
             set => NumPut("char", value, this, 0)
         }
-    
     }
 
     /**
@@ -272,10 +269,10 @@ class smiVALUE extends Win32Struct
      * <a href="https://docs.microsoft.com/windows/desktop/api/winsnmp/ns-winsnmp-smioctets">smiOCTETS</a> descriptor types.
      * @type {_value_e__Union}
      */
-    value{
+    value {
         get {
             if(!this.HasProp("__value"))
-                this.__value := %this.__Class%._value_e__Union(8, this)
+                this.__value := smiVALUE._value_e__Union(8, this)
             return this.__value
         }
     }

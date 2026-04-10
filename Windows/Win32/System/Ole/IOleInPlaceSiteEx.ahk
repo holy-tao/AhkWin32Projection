@@ -7,9 +7,8 @@
  * Provides an additional set of activation and deactivation notification methods that enable an object to avoid unnecessary flashing on the screen when the object is activated and deactivated.
  * @see https://learn.microsoft.com/windows/win32/api/ocidl/nn-ocidl-ioleinplacesiteex
  * @namespace Windows.Win32.System.Ole
- * @version v4.0.30319
  */
-class IOleInPlaceSiteEx extends IOleInPlaceSite{
+class IOleInPlaceSiteEx extends IOleInPlaceSite {
 
     static sizeof => A_PtrSize
     /**

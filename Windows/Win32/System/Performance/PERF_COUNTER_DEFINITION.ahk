@@ -9,10 +9,9 @@
  * Providers should provide their counters in the same order each time their counters are queried. If the counter uses a base counter in its calculation (the counter type includes the <b>PERF_COUNTER_FRACTION</b> flag), the base counter must follow this counter in the list of counters. If the counter type includes the <b>PERF_MULTI_COUNTER</b> flag, the second counter value must follow this counter's value in the <a href="https://docs.microsoft.com/windows/desktop/api/winperf/ns-winperf-perf_counter_block">PERF_COUNTER_BLOCK</a> block.
  * @see https://learn.microsoft.com/windows/win32/api/winperf/ns-winperf-perf_counter_definition
  * @namespace Windows.Win32.System.Performance
- * @version v4.0.30319
+ * @architecture X64, Arm64
  */
-class PERF_COUNTER_DEFINITION extends Win32Struct
-{
+class PERF_COUNTER_DEFINITION extends Win32Struct {
     static sizeof => 40
 
     static packingSize => 4
@@ -80,7 +79,6 @@ class PERF_COUNTER_DEFINITION extends Win32Struct
     }
 
     /**
-     * 
      * @type {Integer}
      */
     DetailLevel {

@@ -7,9 +7,8 @@
  * Enables an application to track video samples allocated by the enhanced video renderer (EVR).
  * @see https://learn.microsoft.com/windows/win32/api/mfidl/nn-mfidl-imfvideosampleallocatorcallback
  * @namespace Windows.Win32.Media.MediaFoundation
- * @version v4.0.30319
  */
-class IMFVideoSampleAllocatorCallback extends IUnknown{
+class IMFVideoSampleAllocatorCallback extends IUnknown {
 
     static sizeof => A_PtrSize
     /**

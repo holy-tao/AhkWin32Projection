@@ -9,9 +9,8 @@
  * This interface also provides the methods of the <a href="https://docs.microsoft.com/windows/desktop/api/shobjidl_core/nn-shobjidl_core-inamespacewalkcb">INamespaceWalkCB</a> interface, from which it inherits.
  * @see https://learn.microsoft.com/windows/win32/api/shobjidl_core/nn-shobjidl_core-inamespacewalkcb2
  * @namespace Windows.Win32.UI.Shell
- * @version v4.0.30319
  */
-class INamespaceWalkCB2 extends INamespaceWalkCB{
+class INamespaceWalkCB2 extends INamespaceWalkCB {
 
     static sizeof => A_PtrSize
     /**

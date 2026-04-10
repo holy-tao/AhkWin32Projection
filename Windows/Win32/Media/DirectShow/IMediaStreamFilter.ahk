@@ -1,16 +1,15 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
-#Include .\IMediaStream.ahk
 #Include .\IBaseFilter.ahk
+#Include .\IMediaStream.ahk
 
 /**
  * Note  This interface is deprecated. New applications should not use it. The IMediaStreamFilter interface is supported by the Media Stream filter, which is used internally by the multimedia stream object. Applications should not use this interface.
  * @see https://learn.microsoft.com/windows/win32/api/amstream/nn-amstream-imediastreamfilter
  * @namespace Windows.Win32.Media.DirectShow
- * @version v4.0.30319
  */
-class IMediaStreamFilter extends IBaseFilter{
+class IMediaStreamFilter extends IBaseFilter {
 
     static sizeof => A_PtrSize
     /**

@@ -5,10 +5,8 @@
  * Identifies the existing and target drive letter for a disk drive on a node.
  * @see https://learn.microsoft.com/windows/win32/api/clusapi/ns-clusapi-clus_storage_remap_driveletter
  * @namespace Windows.Win32.Networking.Clustering
- * @version v4.0.30319
  */
-class CLUS_STORAGE_REMAP_DRIVELETTER extends Win32Struct
-{
+class CLUS_STORAGE_REMAP_DRIVELETTER extends Win32Struct {
     static sizeof => 8
 
     static packingSize => 4

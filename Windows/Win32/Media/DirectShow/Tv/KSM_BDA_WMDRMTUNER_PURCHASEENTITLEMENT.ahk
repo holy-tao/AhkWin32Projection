@@ -1,22 +1,20 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\..\Win32Struct.ahk
-#Include ..\..\KernelStreaming\KSIDENTIFIER.ahk
 #Include ..\..\KernelStreaming\KSM_NODE.ahk
+#Include ..\..\KernelStreaming\KSIDENTIFIER.ahk
 
 /**
  * @namespace Windows.Win32.Media.DirectShow.Tv
- * @version v4.0.30319
  */
-class KSM_BDA_WMDRMTUNER_PURCHASEENTITLEMENT extends Win32Struct
-{
-    static sizeof => 64
+class KSM_BDA_WMDRMTUNER_PURCHASEENTITLEMENT extends Win32Struct {
+    static sizeof => 48
 
     static packingSize => 8
 
     /**
      * @type {KSM_NODE}
      */
-    NodeMethod{
+    NodeMethod {
         get {
             if(!this.HasProp("__NodeMethod"))
                 this.__NodeMethod := KSM_NODE(0, this)
@@ -36,25 +34,25 @@ class KSM_BDA_WMDRMTUNER_PURCHASEENTITLEMENT extends Win32Struct
      * @type {String}
      */
     cLanguage {
-        get => StrGet(this.ptr + 28, 11, "UTF-16")
-        set => StrPut(value, this.ptr + 28, 11, "UTF-16")
+        get => StrGet(this.ptr + 28, 11, "UTF-8")
+        set => StrPut(value, this.ptr + 28, 11, "UTF-8")
     }
 
     /**
      * @type {Integer}
      */
     ulPurchaseTokenLength {
-        get => NumGet(this, 52, "uint")
-        set => NumPut("uint", value, this, 52)
+        get => NumGet(this, 40, "uint")
+        set => NumPut("uint", value, this, 40)
     }
 
     /**
-     * @type {Array<Byte>}
+     * @type {Array<Integer>}
      */
-    argbDataBuffer{
+    argbDataBuffer {
         get {
             if(!this.HasProp("__argbDataBufferProxyArray"))
-                this.__argbDataBufferProxyArray := Win32FixedArray(this.ptr + 56, 1, Primitive, "char")
+                this.__argbDataBufferProxyArray := Win32FixedArray(this.ptr + 44, 1, Primitive, "char")
             return this.__argbDataBufferProxyArray
         }
     }

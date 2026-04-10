@@ -1,15 +1,14 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\..\Win32Struct.ahk
 #Include ..\HCERTSTORE.ahk
+#Include ..\CERT_CHAIN_CONTEXT.ahk
 
 /**
  * Used by the CertSelectionGetSerializedBlob function to serialize the certificates contained in a store or an array of certificate chains. The returned serialized BLOB can be passed to the CredUIPromptForWindowsCredentials function.
  * @see https://learn.microsoft.com/windows/win32/api/cryptuiapi/ns-cryptuiapi-cert_selectui_input
  * @namespace Windows.Win32.Security.Cryptography.UI
- * @version v4.0.30319
  */
-class CERT_SELECTUI_INPUT extends Win32Struct
-{
+class CERT_SELECTUI_INPUT extends Win32Struct {
     static sizeof => 24
 
     static packingSize => 8
@@ -18,7 +17,7 @@ class CERT_SELECTUI_INPUT extends Win32Struct
      * The  handle of a certificate store created by the caller. The store contains the set of  application preselected certificates.
      * @type {HCERTSTORE}
      */
-    hStore{
+    hStore {
         get {
             if(!this.HasProp("__hStore"))
                 this.__hStore := HCERTSTORE(0, this)

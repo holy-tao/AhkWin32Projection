@@ -5,10 +5,8 @@
 
 /**
  * @namespace Windows.Win32.Storage.FileHistory
- * @version v4.0.30319
  */
-class FH_SERVICE_PIPE_HANDLE extends Win32Handle
-{
+class FH_SERVICE_PIPE_HANDLE extends Win32Handle {
     static sizeof => 8
 
     static packingSize => 8

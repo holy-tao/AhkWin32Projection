@@ -1,14 +1,13 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
+#Include .\VDS_IPADDRESS_TYPE.ahk
 
 /**
  * The VDS_IPADDRESS structure (vdshwprv.h) defines an IP address and port.
  * @see https://learn.microsoft.com/windows/win32/api/vdshwprv/ns-vdshwprv-vds_ipaddress
  * @namespace Windows.Win32.Storage.VirtualDiskService
- * @version v4.0.30319
  */
-class VDS_IPADDRESS extends Win32Struct
-{
+class VDS_IPADDRESS extends Win32Struct {
     static sizeof => 552
 
     static packingSize => 4
@@ -16,7 +15,7 @@ class VDS_IPADDRESS extends Win32Struct
     /**
      * The type of address as enumerated by 
      *      <a href="https://docs.microsoft.com/windows/desktop/api/vds/ne-vds-vds_ipaddress_type">VDS_IPADDRESS_TYPE</a>.
-     * @type {Integer}
+     * @type {VDS_IPADDRESS_TYPE}
      */
     type {
         get => NumGet(this, 0, "int")
@@ -38,9 +37,9 @@ class VDS_IPADDRESS extends Win32Struct
     /**
      * If the <b>type</b> member is <b>VDS_IPT_IPV6</b>, then this contains 
      *      the binary IPv6 address in network byte order.
-     * @type {Array<Byte>}
+     * @type {Array<Integer>}
      */
-    ipv6Address{
+    ipv6Address {
         get {
             if(!this.HasProp("__ipv6AddressProxyArray"))
                 this.__ipv6AddressProxyArray := Win32FixedArray(this.ptr + 8, 16, Primitive, "char")

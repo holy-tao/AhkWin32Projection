@@ -3,10 +3,8 @@
 
 /**
  * @namespace Windows.Win32.Security.Authentication.Identity
- * @version v4.0.30319
  */
-class SecPkgCred_SessionTicketKey extends Win32Struct
-{
+class SecPkgCred_SessionTicketKey extends Win32Struct {
     static sizeof => 88
 
     static packingSize => 4
@@ -20,9 +18,9 @@ class SecPkgCred_SessionTicketKey extends Win32Struct
     }
 
     /**
-     * @type {Array<Byte>}
+     * @type {Array<Integer>}
      */
-    KeyId{
+    KeyId {
         get {
             if(!this.HasProp("__KeyIdProxyArray"))
                 this.__KeyIdProxyArray := Win32FixedArray(this.ptr + 4, 16, Primitive, "char")
@@ -31,9 +29,9 @@ class SecPkgCred_SessionTicketKey extends Win32Struct
     }
 
     /**
-     * @type {Array<Byte>}
+     * @type {Array<Integer>}
      */
-    KeyingMaterial{
+    KeyingMaterial {
         get {
             if(!this.HasProp("__KeyingMaterialProxyArray"))
                 this.__KeyingMaterialProxyArray := Win32FixedArray(this.ptr + 20, 64, Primitive, "char")

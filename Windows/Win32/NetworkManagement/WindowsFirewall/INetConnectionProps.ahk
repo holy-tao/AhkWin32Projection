@@ -1,16 +1,15 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
-#Include ..\..\Foundation\BSTR.ahk
 #Include ..\..\System\Com\IDispatch.ahk
+#Include ..\..\Foundation\BSTR.ahk
 
 /**
  * Use the INetConnectionProps interface to retrieve the properties for a connection.
  * @see https://learn.microsoft.com/windows/win32/api/netcon/nn-netcon-inetconnectionprops
  * @namespace Windows.Win32.NetworkManagement.WindowsFirewall
- * @version v4.0.30319
  */
-class INetConnectionProps extends IDispatch{
+class INetConnectionProps extends IDispatch {
 
     static sizeof => A_PtrSize
     /**
@@ -53,14 +52,14 @@ class INetConnectionProps extends IDispatch{
     }
 
     /**
-     * @type {Integer} 
+     * @type {NETCON_STATUS} 
      */
     Status {
         get => this.get_Status()
     }
 
     /**
-     * @type {Integer} 
+     * @type {NETCON_MEDIATYPE} 
      */
     MediaType {
         get => this.get_MediaType()
@@ -111,7 +110,7 @@ class INetConnectionProps extends IDispatch{
 
     /**
      * The get_Status method retrieves the status of the connection.
-     * @returns {Integer} Pointer to a variable of type 
+     * @returns {NETCON_STATUS} Pointer to a variable of type 
      * <a href="https://docs.microsoft.com/windows/desktop/api/netcon/ne-netcon-netcon_status">NETCON_STATUS</a> that, on successful return, receives a code that specifies the status of the connection.
      * @see https://learn.microsoft.com/windows/win32/api/netcon/nf-netcon-inetconnectionprops-get_status
      */
@@ -122,7 +121,7 @@ class INetConnectionProps extends IDispatch{
 
     /**
      * The get_MediaType method retrieves the media type for the connection.
-     * @returns {Integer} Pointer to a variable of type 
+     * @returns {NETCON_MEDIATYPE} Pointer to a variable of type 
      * <a href="https://docs.microsoft.com/windows/desktop/api/netcon/ne-netcon-netcon_mediatype">NETCON_MEDIATYPE</a> that, on successful return, receives a code that specifies the media type for the connection.
      * @see https://learn.microsoft.com/windows/win32/api/netcon/nf-netcon-inetconnectionprops-get_mediatype
      */

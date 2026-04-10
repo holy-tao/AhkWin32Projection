@@ -3,10 +3,8 @@
 
 /**
  * @namespace Windows.Wdk.Storage.FileSystem
- * @version v4.0.30319
  */
-class FILE_OBJECTID_INFORMATION extends Win32Struct
-{
+class FILE_OBJECTID_INFORMATION extends Win32Struct {
     static sizeof => 72
 
     static packingSize => 8
@@ -20,9 +18,9 @@ class FILE_OBJECTID_INFORMATION extends Win32Struct
     }
 
     /**
-     * @type {Array<Byte>}
+     * @type {Array<Integer>}
      */
-    ObjectId{
+    ObjectId {
         get {
             if(!this.HasProp("__ObjectIdProxyArray"))
                 this.__ObjectIdProxyArray := Win32FixedArray(this.ptr + 8, 16, Primitive, "char")
@@ -31,9 +29,9 @@ class FILE_OBJECTID_INFORMATION extends Win32Struct
     }
 
     /**
-     * @type {Array<Byte>}
+     * @type {Array<Integer>}
      */
-    BirthVolumeId{
+    BirthVolumeId {
         get {
             if(!this.HasProp("__BirthVolumeIdProxyArray"))
                 this.__BirthVolumeIdProxyArray := Win32FixedArray(this.ptr + 24, 16, Primitive, "char")
@@ -42,9 +40,9 @@ class FILE_OBJECTID_INFORMATION extends Win32Struct
     }
 
     /**
-     * @type {Array<Byte>}
+     * @type {Array<Integer>}
      */
-    BirthObjectId{
+    BirthObjectId {
         get {
             if(!this.HasProp("__BirthObjectIdProxyArray"))
                 this.__BirthObjectIdProxyArray := Win32FixedArray(this.ptr + 40, 16, Primitive, "char")
@@ -53,9 +51,9 @@ class FILE_OBJECTID_INFORMATION extends Win32Struct
     }
 
     /**
-     * @type {Array<Byte>}
+     * @type {Array<Integer>}
      */
-    DomainId{
+    DomainId {
         get {
             if(!this.HasProp("__DomainIdProxyArray"))
                 this.__DomainIdProxyArray := Win32FixedArray(this.ptr + 56, 16, Primitive, "char")
@@ -64,9 +62,9 @@ class FILE_OBJECTID_INFORMATION extends Win32Struct
     }
 
     /**
-     * @type {Array<Byte>}
+     * @type {Array<Integer>}
      */
-    ExtendedInfo{
+    ExtendedInfo {
         get {
             if(!this.HasProp("__ExtendedInfoProxyArray"))
                 this.__ExtendedInfoProxyArray := Win32FixedArray(this.ptr + 24, 48, Primitive, "char")

@@ -3,10 +3,8 @@
 
 /**
  * @namespace Windows.Win32.Media.KernelStreaming
- * @version v4.0.30319
  */
-class KS_DVDCOPY_SET_COPY_STATE extends Win32Struct
-{
+class KS_DVDCOPY_SET_COPY_STATE extends Win32Struct {
     static sizeof => 4
 
     static packingSize => 4

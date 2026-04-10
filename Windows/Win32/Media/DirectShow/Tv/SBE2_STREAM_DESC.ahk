@@ -5,10 +5,8 @@
  * Describes a stream produced by the stream buffer engine.
  * @see https://learn.microsoft.com/windows/win32/api/sbe/ns-sbe-sbe2_stream_desc
  * @namespace Windows.Win32.Media.DirectShow.Tv
- * @version v4.0.30319
  */
-class SBE2_STREAM_DESC extends Win32Struct
-{
+class SBE2_STREAM_DESC extends Win32Struct {
     static sizeof => 16
 
     static packingSize => 4

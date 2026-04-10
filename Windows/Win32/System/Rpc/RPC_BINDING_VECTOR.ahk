@@ -25,10 +25,8 @@
  * <a href="https://docs.microsoft.com/windows/desktop/api/rpcdce/nf-rpcdce-rpcbindingfree">RpcBindingFree</a> allows an application to free all binding handles in the vector.
  * @see https://learn.microsoft.com/windows/win32/api/rpcdce/ns-rpcdce-rpc_binding_vector
  * @namespace Windows.Win32.System.Rpc
- * @version v4.0.30319
  */
-class RPC_BINDING_VECTOR extends Win32Struct
-{
+class RPC_BINDING_VECTOR extends Win32Struct {
     static sizeof => 16
 
     static packingSize => 8
@@ -44,9 +42,9 @@ class RPC_BINDING_VECTOR extends Win32Struct
 
     /**
      * Array of binding handles that contains <b>Count</b> elements.
-     * @type {Array<Void>}
+     * @type {Array<Pointer<Void>>}
      */
-    BindingH{
+    BindingH {
         get {
             if(!this.HasProp("__BindingHProxyArray"))
                 this.__BindingHProxyArray := Win32FixedArray(this.ptr + 8, 1, Primitive, "ptr")

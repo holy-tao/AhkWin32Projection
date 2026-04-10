@@ -5,9 +5,8 @@
  * The types of fixed-size primitives.
  * @see https://learn.microsoft.com/windows/win32/api/webservices/ne-webservices-ws_value_type
  * @namespace Windows.Win32.Networking.WindowsWebServices
- * @version v4.0.30319
  */
-class WS_VALUE_TYPE extends Win32Enum{
+class WS_VALUE_TYPE extends Win32Enum {
 
     /**
      * Used to indicate a BOOL value.

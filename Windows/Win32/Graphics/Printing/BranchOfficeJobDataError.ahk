@@ -3,10 +3,8 @@
 
 /**
  * @namespace Windows.Win32.Graphics.Printing
- * @version v4.0.30319
  */
-class BranchOfficeJobDataError extends Win32Struct
-{
+class BranchOfficeJobDataError extends Win32Struct {
     static sizeof => 88
 
     static packingSize => 8

@@ -3,10 +3,8 @@
 
 /**
  * @namespace Windows.Wdk.System.SystemServices
- * @version v4.0.30319
  */
-class PHYSICAL_COUNTER_EVENT_BUFFER_CONFIGURATION extends Win32Struct
-{
+class PHYSICAL_COUNTER_EVENT_BUFFER_CONFIGURATION extends Win32Struct {
     static sizeof => 16
 
     static packingSize => 8

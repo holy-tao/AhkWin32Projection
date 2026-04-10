@@ -3,9 +3,8 @@
 
 /**
  * @namespace Windows.Win32.System.MessageQueuing
- * @version v4.0.30319
  */
-class MQMSGSENDERIDTYPE extends Win32Enum{
+class MQMSGSENDERIDTYPE extends Win32Enum {
 
     /**
      * @type {Integer (Int32)}

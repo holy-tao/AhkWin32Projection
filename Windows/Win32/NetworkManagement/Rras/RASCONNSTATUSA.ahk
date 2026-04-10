@@ -1,16 +1,16 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
+#Include .\RASCONNSTATE.ahk
+#Include .\RASTUNNELENDPOINT.ahk
 #Include ..\..\Networking\WinSock\IN_ADDR.ahk
 #Include ..\..\Networking\WinSock\IN6_ADDR.ahk
-#Include .\RASTUNNELENDPOINT.ahk
+#Include .\RASCONNSUBSTATE.ahk
 
 /**
  * @namespace Windows.Win32.NetworkManagement.Rras
- * @version v4.0.30319
  * @charset ANSI
  */
-class RASCONNSTATUSA extends Win32Struct
-{
+class RASCONNSTATUSA extends Win32Struct {
     static sizeof => 332
 
     static packingSize => 4
@@ -24,7 +24,7 @@ class RASCONNSTATUSA extends Win32Struct
     }
 
     /**
-     * @type {Integer}
+     * @type {RASCONNSTATE}
      */
     rasconnstate {
         get => NumGet(this, 4, "int")
@@ -66,7 +66,7 @@ class RASCONNSTATUSA extends Win32Struct
     /**
      * @type {RASTUNNELENDPOINT}
      */
-    localEndPoint{
+    localEndPoint {
         get {
             if(!this.HasProp("__localEndPoint"))
                 this.__localEndPoint := RASTUNNELENDPOINT(288, this)
@@ -77,7 +77,7 @@ class RASCONNSTATUSA extends Win32Struct
     /**
      * @type {RASTUNNELENDPOINT}
      */
-    remoteEndPoint{
+    remoteEndPoint {
         get {
             if(!this.HasProp("__remoteEndPoint"))
                 this.__remoteEndPoint := RASTUNNELENDPOINT(308, this)
@@ -86,7 +86,7 @@ class RASCONNSTATUSA extends Win32Struct
     }
 
     /**
-     * @type {Integer}
+     * @type {RASCONNSUBSTATE}
      */
     rasconnsubstate {
         get => NumGet(this, 328, "int")

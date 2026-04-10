@@ -1,15 +1,17 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
+#Include .\IShellView.ahk
+#Include .\FOLDERSETTINGS.ahk
+#Include .\IShellBrowser.ahk
+#Include ..\..\Foundation\RECT.ahk
 #Include ..\..\Foundation\HWND.ahk
 
 /**
  * Holds the parameters for the IShellView2::CreateViewWindow2 method.
  * @see https://learn.microsoft.com/windows/win32/api/shobjidl_core/ns-shobjidl_core-sv2cvw2_params
  * @namespace Windows.Win32.UI.Shell
- * @version v4.0.30319
  */
-class SV2CVW2_PARAMS extends Win32Struct
-{
+class SV2CVW2_PARAMS extends Win32Struct {
     static sizeof => 56
 
     static packingSize => 8
@@ -86,7 +88,7 @@ class SV2CVW2_PARAMS extends Win32Struct
      * A window handle to the new Shell view.
      * @type {HWND}
      */
-    hwndView{
+    hwndView {
         get {
             if(!this.HasProp("__hwndView"))
                 this.__hwndView := HWND(48, this)

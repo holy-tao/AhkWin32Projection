@@ -15,9 +15,8 @@
  * However, if none of these flags is set, then attempting to create a leaf condition with VT_VECTOR set in the PROPVARIANT results in failure.
  * @see https://learn.microsoft.com/windows/win32/api/structuredquery/ne-structuredquery-condition_creation_options
  * @namespace Windows.Win32.System.Search
- * @version v4.0.30319
  */
-class CONDITION_CREATION_OPTIONS extends Win32BitflagEnum{
+class CONDITION_CREATION_OPTIONS extends Win32BitflagEnum {
 
     /**
      * Indicates that the condition is set to the default value.

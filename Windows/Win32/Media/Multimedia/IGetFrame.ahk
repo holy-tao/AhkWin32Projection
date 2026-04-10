@@ -7,9 +7,8 @@
  * The IGetFrame interface supports extracting, decompressing, and displaying individual frames from an open stream.
  * @see https://learn.microsoft.com/windows/win32/api/vfw/nn-vfw-igetframe
  * @namespace Windows.Win32.Media.Multimedia
- * @version v4.0.30319
  */
-class IGetFrame extends IUnknown{
+class IGetFrame extends IUnknown {
 
     static sizeof => A_PtrSize
     /**

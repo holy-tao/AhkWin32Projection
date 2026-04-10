@@ -5,10 +5,8 @@
  * The FIND_NAME_BUFFER structure contains information about a local network session.
  * @see https://learn.microsoft.com/windows/win32/api/nb30/ns-nb30-find_name_buffer
  * @namespace Windows.Win32.NetworkManagement.NetBios
- * @version v4.0.30319
  */
-class FIND_NAME_BUFFER extends Win32Struct
-{
+class FIND_NAME_BUFFER extends Win32Struct {
     static sizeof => 33
 
     static packingSize => 1
@@ -42,9 +40,9 @@ class FIND_NAME_BUFFER extends Win32Struct
 
     /**
      * Specifies the destination address of the remote node where the name was found.
-     * @type {Array<Byte>}
+     * @type {Array<Integer>}
      */
-    destination_addr{
+    destination_addr {
         get {
             if(!this.HasProp("__destination_addrProxyArray"))
                 this.__destination_addrProxyArray := Win32FixedArray(this.ptr + 3, 6, Primitive, "char")
@@ -54,9 +52,9 @@ class FIND_NAME_BUFFER extends Win32Struct
 
     /**
      * Specifies the source address for the remote node where the name was found.
-     * @type {Array<Byte>}
+     * @type {Array<Integer>}
      */
-    source_addr{
+    source_addr {
         get {
             if(!this.HasProp("__source_addrProxyArray"))
                 this.__source_addrProxyArray := Win32FixedArray(this.ptr + 9, 6, Primitive, "char")
@@ -66,9 +64,9 @@ class FIND_NAME_BUFFER extends Win32Struct
 
     /**
      * Specifies additional routing information.
-     * @type {Array<Byte>}
+     * @type {Array<Integer>}
      */
-    routing_info{
+    routing_info {
         get {
             if(!this.HasProp("__routing_infoProxyArray"))
                 this.__routing_infoProxyArray := Win32FixedArray(this.ptr + 15, 18, Primitive, "char")

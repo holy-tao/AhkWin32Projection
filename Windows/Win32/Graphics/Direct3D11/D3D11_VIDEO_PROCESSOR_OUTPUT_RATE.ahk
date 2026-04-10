@@ -5,9 +5,8 @@
  * Specifies the rate at which the video processor produces output frames from an input stream.
  * @see https://learn.microsoft.com/windows/win32/api/d3d11/ne-d3d11-d3d11_video_processor_output_rate
  * @namespace Windows.Win32.Graphics.Direct3D11
- * @version v4.0.30319
  */
-class D3D11_VIDEO_PROCESSOR_OUTPUT_RATE extends Win32Enum{
+class D3D11_VIDEO_PROCESSOR_OUTPUT_RATE extends Win32Enum {
 
     /**
      * The output is the normal frame rate.

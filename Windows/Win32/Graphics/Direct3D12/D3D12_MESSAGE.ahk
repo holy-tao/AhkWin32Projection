@@ -1,5 +1,8 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
+#Include .\D3D12_MESSAGE_CATEGORY.ahk
+#Include .\D3D12_MESSAGE_SEVERITY.ahk
+#Include .\D3D12_MESSAGE_ID.ahk
 
 /**
  * A debug message in the Information Queue. (D3D12_MESSAGE)
@@ -7,17 +10,15 @@
  * This structure is returned from <a href="https://docs.microsoft.com/windows/desktop/api/d3d12sdklayers/nf-d3d12sdklayers-id3d12infoqueue-getmessage">ID3D12InfoQueue::GetMessage</a> as part of the Information Queue feature (see <a href="https://docs.microsoft.com/windows/desktop/api/d3d12sdklayers/nn-d3d12sdklayers-id3d12infoqueue">ID3D12InfoQueue</a>).
  * @see https://learn.microsoft.com/windows/win32/api/d3d12sdklayers/ns-d3d12sdklayers-d3d12_message
  * @namespace Windows.Win32.Graphics.Direct3D12
- * @version v4.0.30319
  */
-class D3D12_MESSAGE extends Win32Struct
-{
+class D3D12_MESSAGE extends Win32Struct {
     static sizeof => 32
 
     static packingSize => 8
 
     /**
      * The category of the message. See <a href="https://docs.microsoft.com/windows/desktop/api/d3d12sdklayers/ne-d3d12sdklayers-d3d12_message_category">D3D12_MESSAGE_CATEGORY</a>.
-     * @type {Integer}
+     * @type {D3D12_MESSAGE_CATEGORY}
      */
     Category {
         get => NumGet(this, 0, "int")
@@ -26,7 +27,7 @@ class D3D12_MESSAGE extends Win32Struct
 
     /**
      * The severity of the message. See  <a href="https://docs.microsoft.com/windows/desktop/api/d3d12sdklayers/ne-d3d12sdklayers-d3d12_message_severity">D3D12_MESSAGE_SEVERITY</a>.
-     * @type {Integer}
+     * @type {D3D12_MESSAGE_SEVERITY}
      */
     Severity {
         get => NumGet(this, 4, "int")
@@ -35,7 +36,7 @@ class D3D12_MESSAGE extends Win32Struct
 
     /**
      * The ID of the message. See <a href="https://docs.microsoft.com/windows/desktop/api/d3d12sdklayers/ne-d3d12sdklayers-d3d12_message_id">D3D12_MESSAGE_ID</a>.
-     * @type {Integer}
+     * @type {D3D12_MESSAGE_ID}
      */
     ID {
         get => NumGet(this, 8, "int")

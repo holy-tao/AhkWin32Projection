@@ -1,5 +1,6 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
+#Include .\KF_CATEGORY.ahk
 
 /**
  * Defines the specifics of a known folder.
@@ -7,10 +8,8 @@
  * The <b>fidParent</b> and <b>pszRelativePath</b> values work together. For example, suppose you are defining a folder called MyNewFolder and want to create that folder as ...\&lt;Username&gt;\AppData\Local\MyApp\MyNewFolder. Provide <a href="https://docs.microsoft.com/windows/desktop/shell/knownfolderid">FOLDERID_LocalAppData</a> in <b>fidParent</b> to represent ...\&lt;Username&gt;\AppData\Local. Provide "\MyApp\MyNewFolder" in <b>pszRelativePath</b>.
  * @see https://learn.microsoft.com/windows/win32/api/shobjidl_core/ns-shobjidl_core-knownfolder_definition
  * @namespace Windows.Win32.UI.Shell
- * @version v4.0.30319
  */
-class KNOWNFOLDER_DEFINITION extends Win32Struct
-{
+class KNOWNFOLDER_DEFINITION extends Win32Struct {
     static sizeof => 96
 
     static packingSize => 8
@@ -19,7 +18,7 @@ class KNOWNFOLDER_DEFINITION extends Win32Struct
      * Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/shobjidl_core/ne-shobjidl_core-kf_category">KF_CATEGORY</a></b>
      * 
      * A single value from the <a href="https://docs.microsoft.com/windows/desktop/api/shobjidl_core/ne-shobjidl_core-kf_category">KF_CATEGORY</a> constants that classifies the folder as virtual, fixed, common, or per-user.
-     * @type {Integer}
+     * @type {KF_CATEGORY}
      */
     category {
         get => NumGet(this, 0, "int")
@@ -56,7 +55,7 @@ class KNOWNFOLDER_DEFINITION extends Win32Struct
      *                         
      * 
      * This value is optional if no value is provided for <b>pszRelativePath</b>.
-     * @type {Pointer<Guid>}
+     * @type {Pointer}
      */
     fidParent {
         get => NumGet(this, 24, "ptr")
@@ -179,7 +178,7 @@ class KNOWNFOLDER_DEFINITION extends Win32Struct
      * Type: <b><a href="https://docs.microsoft.com/windows/desktop/shell/foldertypeid">FOLDERTYPEID</a></b>
      * 
      * One of the <a href="https://docs.microsoft.com/windows/desktop/shell/foldertypeid">FOLDERTYPEID</a> values that identifies the known folder type based on its contents (such as documents, music, or photographs). This value is a GUID.
-     * @type {Pointer<Guid>}
+     * @type {Pointer}
      */
     ftidType {
         get => NumGet(this, 88, "ptr")

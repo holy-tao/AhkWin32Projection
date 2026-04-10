@@ -12,10 +12,8 @@
  * When a <b>SYSTEM_AUDIT_ACE</b> structure is created, sufficient memory must be allocated to accommodate the complete SID of the trustee in the <b>SidStart</b> member and the contiguous memory that follows it.
  * @see https://learn.microsoft.com/windows/win32/api/winnt/ns-winnt-system_audit_ace
  * @namespace Windows.Win32.Security
- * @version v4.0.30319
  */
-class SYSTEM_AUDIT_ACE extends Win32Struct
-{
+class SYSTEM_AUDIT_ACE extends Win32Struct {
     static sizeof => 12
 
     static packingSize => 4
@@ -24,7 +22,7 @@ class SYSTEM_AUDIT_ACE extends Win32Struct
      * <a href="https://docs.microsoft.com/windows/desktop/api/winnt/ns-winnt-ace_header">ACE_HEADER</a> structure that specifies the size and type of ACE. It also contains flags that control inheritance of the ACE by child objects. The <b>AceType</b> member of the <b>ACE_HEADER</b> structure should be set to SYSTEM_AUDIT_ACE_TYPE, and the <b>AceSize</b> member should be set to the total number of bytes allocated for the <b>SYSTEM_AUDIT_ACE</b> structure.
      * @type {ACE_HEADER}
      */
-    Header{
+    Header {
         get {
             if(!this.HasProp("__Header"))
                 this.__Header := ACE_HEADER(0, this)

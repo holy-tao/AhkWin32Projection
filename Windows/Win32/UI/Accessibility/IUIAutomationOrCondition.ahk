@@ -7,9 +7,8 @@
  * Represents a condition made up of multiple conditions, at least one of which must be true.
  * @see https://learn.microsoft.com/windows/win32/api/uiautomationclient/nn-uiautomationclient-iuiautomationorcondition
  * @namespace Windows.Win32.UI.Accessibility
- * @version v4.0.30319
  */
-class IUIAutomationOrCondition extends IUIAutomationCondition{
+class IUIAutomationOrCondition extends IUIAutomationCondition {
 
     static sizeof => A_PtrSize
     /**

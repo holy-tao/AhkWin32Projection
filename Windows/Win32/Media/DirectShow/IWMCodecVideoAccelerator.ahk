@@ -5,9 +5,8 @@
 
 /**
  * @namespace Windows.Win32.Media.DirectShow
- * @version v4.0.30319
  */
-class IWMCodecVideoAccelerator extends IUnknown{
+class IWMCodecVideoAccelerator extends IUnknown {
 
     static sizeof => A_PtrSize
     /**

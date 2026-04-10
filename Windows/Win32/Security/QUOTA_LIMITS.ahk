@@ -5,10 +5,8 @@
  * Describes the amount of system resources available to a user.
  * @see https://learn.microsoft.com/windows/win32/api/winnt/ns-winnt-quota_limits
  * @namespace Windows.Win32.Security
- * @version v4.0.30319
  */
-class QUOTA_LIMITS extends Win32Struct
-{
+class QUOTA_LIMITS extends Win32Struct {
     static sizeof => 48
 
     static packingSize => 8

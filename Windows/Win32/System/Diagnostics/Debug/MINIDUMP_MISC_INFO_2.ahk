@@ -5,10 +5,8 @@
  * Represents information in the miscellaneous information stream.
  * @see https://learn.microsoft.com/windows/win32/api/minidumpapiset/ns-minidumpapiset-minidump_misc_info_2
  * @namespace Windows.Win32.System.Diagnostics.Debug
- * @version v4.0.30319
  */
-class MINIDUMP_MISC_INFO_2 extends Win32Struct
-{
+class MINIDUMP_MISC_INFO_2 extends Win32Struct {
     static sizeof => 44
 
     static packingSize => 4

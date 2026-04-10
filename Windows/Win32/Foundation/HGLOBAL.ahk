@@ -5,14 +5,10 @@
 
 /**
  * The HGLOBAL_UserFree function (oleidl.h) frees resources on the server side when called by RPC stub files.
- * @remarks
- * 
  * @see https://learn.microsoft.com/windows/win32/api/oleidl/nf-oleidl-hglobal_userfree
  * @namespace Windows.Win32.Foundation
- * @version v4.0.30319
  */
-class HGLOBAL extends Win32Handle
-{
+class HGLOBAL extends Win32Handle {
     static sizeof => 8
 
     static packingSize => 8

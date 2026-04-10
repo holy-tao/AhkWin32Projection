@@ -5,9 +5,8 @@
 
 /**
  * @namespace Windows.Win32.Web.MsHtml
- * @version v4.0.30319
  */
-class IElementBehaviorLayout2 extends IUnknown{
+class IElementBehaviorLayout2 extends IUnknown {
 
     static sizeof => A_PtrSize
     /**

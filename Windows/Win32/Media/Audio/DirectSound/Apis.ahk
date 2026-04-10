@@ -7,7 +7,6 @@
 
 /**
  * @namespace Windows.Win32.Media.Audio.DirectSound
- * @version v4.0.30319
  */
 class DirectSound {
 

@@ -13,10 +13,8 @@
  * <div> </div>
  * @see https://learn.microsoft.com/windows/win32/api/wininet/ns-wininet-internet_cache_timestamps
  * @namespace Windows.Win32.Networking.WinInet
- * @version v4.0.30319
  */
-class INTERNET_CACHE_TIMESTAMPS extends Win32Struct
-{
+class INTERNET_CACHE_TIMESTAMPS extends Win32Struct {
     static sizeof => 16
 
     static packingSize => 4
@@ -25,7 +23,7 @@ class INTERNET_CACHE_TIMESTAMPS extends Win32Struct
      * <a href="https://docs.microsoft.com/windows/desktop/api/minwinbase/ns-minwinbase-filetime">FILETIME</a> structure that contains the Expires time.
      * @type {FILETIME}
      */
-    ftExpires{
+    ftExpires {
         get {
             if(!this.HasProp("__ftExpires"))
                 this.__ftExpires := FILETIME(0, this)
@@ -37,7 +35,7 @@ class INTERNET_CACHE_TIMESTAMPS extends Win32Struct
      * <a href="https://docs.microsoft.com/windows/desktop/api/minwinbase/ns-minwinbase-filetime">FILETIME</a> structure that contains the LastModified time.
      * @type {FILETIME}
      */
-    ftLastModified{
+    ftLastModified {
         get {
             if(!this.HasProp("__ftLastModified"))
                 this.__ftLastModified := FILETIME(8, this)

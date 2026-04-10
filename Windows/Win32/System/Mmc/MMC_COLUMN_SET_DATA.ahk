@@ -1,14 +1,13 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
+#Include .\MMC_COLUMN_DATA.ahk
 
 /**
  * The MMC_COLUMN_SET_DATA structure is introduced in MMC 1.2.
  * @see https://learn.microsoft.com/windows/win32/api/mmc/ns-mmc-mmc_column_set_data
  * @namespace Windows.Win32.System.Mmc
- * @version v4.0.30319
  */
-class MMC_COLUMN_SET_DATA extends Win32Struct
-{
+class MMC_COLUMN_SET_DATA extends Win32Struct {
     static sizeof => 16
 
     static packingSize => 8

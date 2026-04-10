@@ -1,14 +1,13 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
+#Include .\FILE_INFO_FLAGS_PERMISSIONS.ahk
 
 /**
  * Contains the identification number and other pertinent information about files, devices, and pipes.
  * @see https://learn.microsoft.com/windows/win32/api/lmshare/ns-lmshare-file_info_3
  * @namespace Windows.Win32.Storage.FileSystem
- * @version v4.0.30319
  */
-class FILE_INFO_3 extends Win32Struct
-{
+class FILE_INFO_3 extends Win32Struct {
     static sizeof => 32
 
     static packingSize => 8
@@ -23,8 +22,7 @@ class FILE_INFO_3 extends Win32Struct
     }
 
     /**
-     * 
-     * @type {Integer}
+     * @type {FILE_INFO_FLAGS_PERMISSIONS}
      */
     fi3_permissions {
         get => NumGet(this, 4, "uint")

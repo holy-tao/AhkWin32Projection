@@ -9,9 +9,8 @@
  * Refer to the remarks and examples for <a href="https://docs.microsoft.com/windows/desktop/api/d3d12/nf-d3d12-id3d12device1-createpipelinelibrary">CreatePipelineLibrary</a>.
  * @see https://learn.microsoft.com/windows/win32/api/d3d12/nn-d3d12-id3d12pipelinelibrary
  * @namespace Windows.Win32.Graphics.Direct3D12
- * @version v4.0.30319
  */
-class ID3D12PipelineLibrary extends ID3D12DeviceChild{
+class ID3D12PipelineLibrary extends ID3D12DeviceChild {
 
     static sizeof => A_PtrSize
     /**

@@ -1,16 +1,15 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
-#Include ..\..\Foundation\BSTR.ahk
 #Include .\INetFwRule2.ahk
+#Include ..\..\Foundation\BSTR.ahk
 
 /**
  * Allows an application or service to access all the properties of INetFwRule2 and to provide access to the requirements of app containers.
  * @see https://learn.microsoft.com/windows/win32/api/netfw/nn-netfw-inetfwrule3
  * @namespace Windows.Win32.NetworkManagement.WindowsFirewall
- * @version v4.0.30319
  */
-class INetFwRule3 extends INetFwRule2{
+class INetFwRule3 extends INetFwRule2 {
 
     static sizeof => A_PtrSize
     /**

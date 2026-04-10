@@ -3,11 +3,9 @@
 
 /**
  * @namespace Windows.Win32.NetworkManagement.Rras
- * @version v4.0.30319
  * @charset Unicode
  */
-class RASENTRYNAMEW extends Win32Struct
-{
+class RASENTRYNAMEW extends Win32Struct {
     static sizeof => 1048
 
     static packingSize => 4

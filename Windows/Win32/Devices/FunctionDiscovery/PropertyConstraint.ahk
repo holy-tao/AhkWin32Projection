@@ -5,9 +5,8 @@
  * Qualifies the filter conditions used for searching for function instances.
  * @see https://learn.microsoft.com/windows/win32/api/functiondiscoveryconstraints/ne-functiondiscoveryconstraints-propertyconstraint
  * @namespace Windows.Win32.Devices.FunctionDiscovery
- * @version v4.0.30319
  */
-class PropertyConstraint extends Win32Enum{
+class PropertyConstraint extends Win32Enum {
 
     /**
      * The constraint's PKEY and the function instance's  PKEY must be equal.

@@ -1,12 +1,12 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
+#Include .\PNP_REPLACE_PROCESSOR_LIST.ahk
+#Include .\PNP_REPLACE_MEMORY_LIST.ahk
 
 /**
  * @namespace Windows.Wdk.System.SystemServices
- * @version v4.0.30319
  */
-class PNP_REPLACE_PARAMETERS extends Win32Struct
-{
+class PNP_REPLACE_PARAMETERS extends Win32Struct {
     static sizeof => 64
 
     static packingSize => 8

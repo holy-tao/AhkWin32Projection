@@ -1,12 +1,11 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
+#Include .\STORAGE_ZONE_TYPES.ahk
 
 /**
  * @namespace Windows.Win32.System.Ioctl
- * @version v4.0.30319
  */
-class STORAGE_ZONE_GROUP extends Win32Struct
-{
+class STORAGE_ZONE_GROUP extends Win32Struct {
     static sizeof => 16
 
     static packingSize => 8
@@ -20,7 +19,7 @@ class STORAGE_ZONE_GROUP extends Win32Struct
     }
 
     /**
-     * @type {Integer}
+     * @type {STORAGE_ZONE_TYPES}
      */
     ZoneType {
         get => NumGet(this, 4, "int")

@@ -1,12 +1,12 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
-#Include ..\..\Foundation\BSTR.ahk
+#Include ..\Com\IDispatch.ahk
 #Include .\IDataCollectorCollection.ahk
+#Include ..\..\Foundation\BSTR.ahk
 #Include .\IScheduleCollection.ahk
 #Include .\IDataManager.ahk
 #Include .\IValueMap.ahk
-#Include ..\Com\IDispatch.ahk
 
 /**
  * Manages the configuration information that is common to all data collector objects in the set; adds and removes data collectors from the set; and starts data collection. This is the primary PLA interface that you use.
@@ -140,9 +140,8 @@
  *     for the set.
  * @see https://learn.microsoft.com/windows/win32/api/pla/nn-pla-idatacollectorset
  * @namespace Windows.Win32.System.Performance
- * @version v4.0.30319
  */
-class IDataCollectorSet extends IDispatch{
+class IDataCollectorSet extends IDispatch {
 
     static sizeof => A_PtrSize
     /**
@@ -292,7 +291,7 @@ class IDataCollectorSet extends IDispatch{
     }
 
     /**
-     * @type {Integer} 
+     * @type {DataCollectorSetStatus} 
      */
     Status {
         get => this.get_Status()
@@ -307,7 +306,7 @@ class IDataCollectorSet extends IDispatch{
     }
 
     /**
-     * @type {Integer} 
+     * @type {AutoPathFormat} 
      */
     SubdirectoryFormat {
         get => this.get_SubdirectoryFormat()
@@ -777,7 +776,7 @@ class IDataCollectorSet extends IDispatch{
 
     /**
      * Retrieves the status of the data collector set.
-     * @returns {Integer} 
+     * @returns {DataCollectorSetStatus} 
      * @see https://learn.microsoft.com/windows/win32/api/pla/nf-pla-idatacollectorset-get_status
      */
     get_Status() {
@@ -825,7 +824,7 @@ class IDataCollectorSet extends IDispatch{
      * Retrieves or sets flags that describe how to decorate the subdirectory name. (Get)
      * @remarks
      * PLA appends the decoration to the folder name. For example, if you specify <b>plaMonthDayHour</b>, PLA appends the current month, day, and hour values to the folder name. If the folder name is MyFile, the result could be MyFile110816.
-     * @returns {Integer} 
+     * @returns {AutoPathFormat} 
      * @see https://learn.microsoft.com/windows/win32/api/pla/nf-pla-idatacollectorset-get_subdirectoryformat
      */
     get_SubdirectoryFormat() {
@@ -837,7 +836,7 @@ class IDataCollectorSet extends IDispatch{
      * Retrieves or sets flags that describe how to decorate the subdirectory name. (Put)
      * @remarks
      * PLA appends the decoration to the folder name. For example, if you specify <b>plaMonthDayHour</b>, PLA appends the current month, day, and hour values to the folder name. If the folder name is MyFile, the result could be MyFile110816.
-     * @param {Integer} format 
+     * @param {AutoPathFormat} format 
      * @returns {HRESULT} 
      * @see https://learn.microsoft.com/windows/win32/api/pla/nf-pla-idatacollectorset-put_subdirectoryformat
      */
@@ -1737,7 +1736,7 @@ class IDataCollectorSet extends IDispatch{
      * </table>
      * @param {BSTR} name A unique name used to save the data collector set. The name is of the form  <b>[</b><i>Namespace</i><b>\]</b><i>Name</i>. For details, see Remarks.
      * @param {BSTR} server The computer on which you want to save the set. You can specify a computer name, a fully qualified domain name, or an IP address (IPv4 or IPv6 format). If <b>NULL</b>, the set is saved to the local computer.
-     * @param {Integer} _mode 
+     * @param {CommitMode} _mode Indicates whether you want to save, update, flush, or validate the data collector set. For possible values, see the <a href="https://docs.microsoft.com/windows/win32/api/pla/ne-pla-commitmode">CommitMode</a> enumeration.
      * @returns {IValueMap} An <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/pla/nn-pla-ivaluemap">IValueMap</a> interface that you use to retrieve the validation error of each property whose value is not valid or is ignored. The <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/pla/nf-pla-ivaluemap-get_count">IValueMap::Count</a> property is zero if there were no errors or warnings.
      * @see https://learn.microsoft.com/windows/win32/api/pla/nf-pla-idatacollectorset-commit
      */

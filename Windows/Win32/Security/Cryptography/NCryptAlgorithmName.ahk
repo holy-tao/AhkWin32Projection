@@ -1,14 +1,14 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
+#Include .\NCRYPT_ALGORITHM_NAME_CLASS.ahk
+#Include .\NCRYPT_OPERATION.ahk
 
 /**
  * Used to contain information about a CNG algorithm.
  * @see https://learn.microsoft.com/windows/win32/api/ncrypt/ns-ncrypt-ncryptalgorithmname
  * @namespace Windows.Win32.Security.Cryptography
- * @version v4.0.30319
  */
-class NCryptAlgorithmName extends Win32Struct
-{
+class NCryptAlgorithmName extends Win32Struct {
     static sizeof => 24
 
     static packingSize => 8
@@ -23,8 +23,7 @@ class NCryptAlgorithmName extends Win32Struct
     }
 
     /**
-     * 
-     * @type {Integer}
+     * @type {NCRYPT_ALGORITHM_NAME_CLASS}
      */
     dwClass {
         get => NumGet(this, 8, "uint")
@@ -32,8 +31,7 @@ class NCryptAlgorithmName extends Win32Struct
     }
 
     /**
-     * 
-     * @type {Integer}
+     * @type {NCRYPT_OPERATION}
      */
     dwAlgOperations {
         get => NumGet(this, 12, "uint")

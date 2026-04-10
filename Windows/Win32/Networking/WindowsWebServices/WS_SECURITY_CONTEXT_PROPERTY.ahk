@@ -1,21 +1,20 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
+#Include .\WS_SECURITY_CONTEXT_PROPERTY_ID.ahk
 
 /**
  * Defines a property of a WS_SECURITY_CONTEXT
  * @see https://learn.microsoft.com/windows/win32/api/webservices/ns-webservices-ws_security_context_property
  * @namespace Windows.Win32.Networking.WindowsWebServices
- * @version v4.0.30319
  */
-class WS_SECURITY_CONTEXT_PROPERTY extends Win32Struct
-{
+class WS_SECURITY_CONTEXT_PROPERTY extends Win32Struct {
     static sizeof => 24
 
     static packingSize => 8
 
     /**
      * The identifier of the property.
-     * @type {Integer}
+     * @type {WS_SECURITY_CONTEXT_PROPERTY_ID}
      */
     id {
         get => NumGet(this, 0, "int")

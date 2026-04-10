@@ -4,10 +4,8 @@
 
 /**
  * @namespace Windows.Win32.Devices.Display
- * @version v4.0.30319
  */
-class VIDEO_WIN32K_CALLBACKS extends Win32Struct
-{
+class VIDEO_WIN32K_CALLBACKS extends Win32Struct {
     static sizeof => 40
 
     static packingSize => 8
@@ -39,7 +37,7 @@ class VIDEO_WIN32K_CALLBACKS extends Win32Struct
     /**
      * @type {HANDLE}
      */
-    pPhysDeviceObject{
+    pPhysDeviceObject {
         get {
             if(!this.HasProp("__pPhysDeviceObject"))
                 this.__pPhysDeviceObject := HANDLE(24, this)

@@ -8,10 +8,8 @@
  * 			<a href="https://docs.microsoft.com/windows/desktop/api/iphlpapi/nf-iphlpapi-getudpstatisticsex2">GetUdpStatisticsEx2</a> function returns a pointer to a <b>MIB_UDPSTATS2</b> structure.
  * @see https://learn.microsoft.com/windows/win32/api/udpmib/ns-udpmib-mib_udpstats2
  * @namespace Windows.Win32.NetworkManagement.IpHelper
- * @version v4.0.30319
  */
-class MIB_UDPSTATS2 extends Win32Struct
-{
+class MIB_UDPSTATS2 extends Win32Struct {
     static sizeof => 32
 
     static packingSize => 8

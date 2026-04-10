@@ -7,9 +7,8 @@
  * The IInertiaProcessor interface handles calculations regarding object motion for Windows Touch.
  * @see https://learn.microsoft.com/windows/win32/api/manipulations/nn-manipulations-iinertiaprocessor
  * @namespace Windows.Win32.UI.Input.Touch
- * @version v4.0.30319
  */
-class IInertiaProcessor extends IUnknown{
+class IInertiaProcessor extends IUnknown {
 
     static sizeof => A_PtrSize
     /**
@@ -896,7 +895,7 @@ class IInertiaProcessor extends IUnknown{
 
     /**
      * The ProcessTime method performs calculations for the given tick and can raise the Started, Delta, or Completed event depending on whether extrapolation is completed or not. If extrapolation finished at the previous tick, the method is no-op.
-     * @param {Integer} _timestamp 
+     * @param {Integer} _timestamp A parameter that contains a timestamp (in millisecs) to process.
      * @returns {BOOL} Indicates whether an operation was performed. A value of false indicates extrapolation was finished at a previous tick and the operation was a no-op.
      * @see https://learn.microsoft.com/windows/win32/api/manipulations/nf-manipulations-iinertiaprocessor-processtime
      */
@@ -921,7 +920,7 @@ class IInertiaProcessor extends IUnknown{
      * Finishes the current manipulation at the given tick, stops inertia on the inertia processor, and raises the ManipulationCompleted event.
      * @remarks
      * The <b>CompleteTime</b> method raises the <a href="https://docs.microsoft.com/windows/win32/api/manipulations/nf-manipulations-_imanipulationevents-manipulationcompleted">ManipulationCompleted</a> event on an <a href="https://docs.microsoft.com/windows/win32/api/manipulations/nn-manipulations-_imanipulationevents">_IManipulationEvents</a> interface implementation.
-     * @param {Integer} _timestamp 
+     * @param {Integer} _timestamp A parameter containing a timestamp (in milliseconds) to process.
      * @returns {HRESULT} Returns <b>S_OK</b> on success, otherwise returns an error code such as <b>E_FAIL</b>.
      * @see https://learn.microsoft.com/windows/win32/api/manipulations/nf-manipulations-iinertiaprocessor-completetime
      */

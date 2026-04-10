@@ -7,11 +7,9 @@
  * Assorted statistics about an interface.
  * @see https://learn.microsoft.com/windows/win32/api/wlanapi/ns-wlanapi-wlan_statistics
  * @namespace Windows.Win32.NetworkManagement.WiFi
- * @version v4.0.30319
  */
-class WLAN_STATISTICS extends Win32Struct
-{
-    static sizeof => 232
+class WLAN_STATISTICS extends Win32Struct {
+    static sizeof => 368
 
     static packingSize => 8
 
@@ -46,7 +44,7 @@ class WLAN_STATISTICS extends Win32Struct
      * A <a href="https://docs.microsoft.com/windows/desktop/api/wlanapi/ns-wlanapi-wlan_mac_frame_statistics">WLAN_MAC_FRAME_STATISTICS</a> structure that contains MAC layer counters for unicast packets directed to the receiver of the NIC.
      * @type {WLAN_MAC_FRAME_STATISTICS}
      */
-    MacUcastCounters{
+    MacUcastCounters {
         get {
             if(!this.HasProp("__MacUcastCounters"))
                 this.__MacUcastCounters := WLAN_MAC_FRAME_STATISTICS(24, this)
@@ -58,7 +56,7 @@ class WLAN_STATISTICS extends Win32Struct
      * A <a href="https://docs.microsoft.com/windows/desktop/api/wlanapi/ns-wlanapi-wlan_mac_frame_statistics">WLAN_MAC_FRAME_STATISTICS</a> structure that contains MAC layer counters for multicast packets directed to the current multicast address.
      * @type {WLAN_MAC_FRAME_STATISTICS}
      */
-    MacMcastCounters{
+    MacMcastCounters {
         get {
             if(!this.HasProp("__MacMcastCounters"))
                 this.__MacMcastCounters := WLAN_MAC_FRAME_STATISTICS(120, this)
@@ -77,9 +75,9 @@ class WLAN_STATISTICS extends Win32Struct
 
     /**
      * An array of <a href="https://docs.microsoft.com/windows/desktop/api/wlanapi/ns-wlanapi-wlan_phy_frame_statistics">WLAN_PHY_FRAME_STATISTICS</a> structures that contain PHY layer counters.
-     * @type {Array<WLAN_PHY_FRAME_STATISTICS>}
+     * @type {WLAN_PHY_FRAME_STATISTICS}
      */
-    PhyCounters{
+    PhyCounters {
         get {
             if(!this.HasProp("__PhyCountersProxyArray"))
                 this.__PhyCountersProxyArray := Win32FixedArray(this.ptr + 224, 1, WLAN_PHY_FRAME_STATISTICS, "")

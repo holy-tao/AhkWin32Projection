@@ -5,9 +5,8 @@
 
 /**
  * @namespace Windows.Win32.System.Search
- * @version v4.0.30319
  */
-class IRowsetScroll extends IRowsetLocate{
+class IRowsetScroll extends IRowsetLocate {
 
     static sizeof => A_PtrSize
     /**

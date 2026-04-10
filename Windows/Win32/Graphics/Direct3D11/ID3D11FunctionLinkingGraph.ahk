@@ -1,9 +1,9 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
+#Include ..\..\System\Com\IUnknown.ahk
 #Include .\ID3D11LinkingNode.ahk
 #Include ..\Direct3D\ID3DBlob.ahk
-#Include ..\..\System\Com\IUnknown.ahk
 
 /**
  * A function-linking-graph interface is used for constructing shaders that consist of a sequence of precompiled function calls that pass values to each other.
@@ -16,9 +16,8 @@
  * <div> </div>
  * @see https://learn.microsoft.com/windows/win32/api/d3d11shader/nn-d3d11shader-id3d11functionlinkinggraph
  * @namespace Windows.Win32.Graphics.Direct3D11
- * @version v4.0.30319
  */
-class ID3D11FunctionLinkingGraph extends IUnknown{
+class ID3D11FunctionLinkingGraph extends IUnknown {
 
     static sizeof => A_PtrSize
     /**

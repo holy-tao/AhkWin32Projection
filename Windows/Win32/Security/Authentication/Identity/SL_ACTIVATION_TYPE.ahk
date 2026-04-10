@@ -5,9 +5,8 @@
  * Represents the type of offline activation for a license.
  * @see https://learn.microsoft.com/windows/win32/api/slpublic/ne-slpublic-sl_activation_type
  * @namespace Windows.Win32.Security.Authentication.Identity
- * @version v4.0.30319
  */
-class SL_ACTIVATION_TYPE extends Win32Enum{
+class SL_ACTIVATION_TYPE extends Win32Enum {
 
     /**
      * Retail phone activation.

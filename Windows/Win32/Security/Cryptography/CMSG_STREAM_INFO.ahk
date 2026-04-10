@@ -15,10 +15,8 @@
  * The size of the output block is passed to the callback function in its <i>cbData</i> parameter. The use of output data is determined in the calling application. Typically, output from stream processing will not be persisted in memory as a whole due to memory limitations; rather, it will be serialized to a disk or server file.
  * @see https://learn.microsoft.com/windows/win32/api/wincrypt/ns-wincrypt-cmsg_stream_info
  * @namespace Windows.Win32.Security.Cryptography
- * @version v4.0.30319
  */
-class CMSG_STREAM_INFO extends Win32Struct
-{
+class CMSG_STREAM_INFO extends Win32Struct {
     static sizeof => 24
 
     static packingSize => 8

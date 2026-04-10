@@ -5,10 +5,8 @@
  * The AM_ExactRateChange structure is not supported. Use AM_SimpleRateChange.
  * @see https://learn.microsoft.com/windows/win32/api/dvdmedia/ns-dvdmedia-am_exactratechange
  * @namespace Windows.Win32.Media.DirectShow
- * @version v4.0.30319
  */
-class AM_ExactRateChange extends Win32Struct
-{
+class AM_ExactRateChange extends Win32Struct {
     static sizeof => 16
 
     static packingSize => 8

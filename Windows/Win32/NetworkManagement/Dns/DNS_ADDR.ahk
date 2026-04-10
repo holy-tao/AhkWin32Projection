@@ -5,11 +5,9 @@
  * A DNS_ADDR structure stores an IPv4 or IPv6 address.
  * @see https://learn.microsoft.com/windows/win32/api/windns/ns-windns-dns_addr
  * @namespace Windows.Win32.NetworkManagement.Dns
- * @version v4.0.30319
  */
-class DNS_ADDR extends Win32Struct
-{
-    static sizeof => 96
+class DNS_ADDR extends Win32Struct {
+    static sizeof => 64
 
     static packingSize => 2
 
@@ -18,16 +16,15 @@ class DNS_ADDR extends Win32Struct
         static packingSize => 1
 
         /**
-         * @type {Array<UInt32>}
+         * @type {Array<Integer>}
          */
-        DnsAddrUserDword{
+        DnsAddrUserDword {
             get {
                 if(!this.HasProp("__DnsAddrUserDwordProxyArray"))
                     this.__DnsAddrUserDwordProxyArray := Win32FixedArray(this.ptr + 0, 8, Primitive, "uint")
                 return this.__DnsAddrUserDwordProxyArray
             }
         }
-    
     }
 
     /**
@@ -35,17 +32,17 @@ class DNS_ADDR extends Win32Struct
      * @type {String}
      */
     MaxSa {
-        get => StrGet(this.ptr + 0, 31, "UTF-16")
-        set => StrPut(value, this.ptr + 0, 31, "UTF-16")
+        get => StrGet(this.ptr + 0, 31, "UTF-8")
+        set => StrPut(value, this.ptr + 0, 31, "UTF-8")
     }
 
     /**
      * @type {_Data_e__Union}
      */
-    Data{
+    Data {
         get {
             if(!this.HasProp("__Data"))
-                this.__Data := %this.__Class%._Data_e__Union(64, this)
+                this.__Data := DNS_ADDR._Data_e__Union(32, this)
             return this.__Data
         }
     }

@@ -1,14 +1,13 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\..\..\Guid.ahk
-#Include .\IScriptInvocationContext.ahk
 #Include .\IDebugStackFrame.ahk
+#Include .\IScriptInvocationContext.ahk
 
 /**
  * @namespace Windows.Win32.System.Diagnostics.Debug.ActiveScript
- * @version v4.0.30319
  */
-class IDebugStackFrame110 extends IDebugStackFrame{
+class IDebugStackFrame110 extends IDebugStackFrame {
 
     static sizeof => A_PtrSize
     /**
@@ -31,7 +30,7 @@ class IDebugStackFrame110 extends IDebugStackFrame{
 
     /**
      * 
-     * @returns {Integer} 
+     * @returns {DEBUG_STACKFRAME_TYPE} 
      */
     GetStackFrameType() {
         result := ComCall(8, this, "int*", &pStackFrameKind := 0, "HRESULT")

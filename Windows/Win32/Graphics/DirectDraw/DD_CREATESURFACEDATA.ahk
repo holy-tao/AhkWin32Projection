@@ -1,14 +1,15 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
+#Include .\DD_DIRECTDRAW_GLOBAL.ahk
+#Include .\DDSURFACEDESC.ahk
+#Include .\DD_SURFACE_LOCAL.ahk
 
 /**
  * The DD_CREATESURFACEDATA structure contains information necessary to create a surface--in the case of CreateD3DBuffer, a command or vertex buffer.
  * @see https://learn.microsoft.com/windows/win32/api/ddrawint/ns-ddrawint-dd_createsurfacedata
  * @namespace Windows.Win32.Graphics.DirectDraw
- * @version v4.0.30319
  */
-class DD_CREATESURFACEDATA extends Win32Struct
-{
+class DD_CREATESURFACEDATA extends Win32Struct {
     static sizeof => 40
 
     static packingSize => 8

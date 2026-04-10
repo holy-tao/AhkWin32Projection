@@ -1,8 +1,8 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
-#Include ..\..\Foundation\BSTR.ahk
 #Include .\IADs.ahk
+#Include ..\..\Foundation\BSTR.ahk
 
 /**
  * The IADsFileShare interface is a dual interface that inherits from IADs. It is designed for representing a published file share across the network. Call the methods on IADsFileShare to access or publish data about a file share point.
@@ -12,9 +12,8 @@
  * To bind to a file share, using the WinNT system provider, you can explicitly bind to the file service "LanmanServer" on the host machine, and then enumerate the container to reach the file share of interest, or bind directly to the file share.
  * @see https://learn.microsoft.com/windows/win32/api/iads/nn-iads-iadsfileshare
  * @namespace Windows.Win32.Networking.ActiveDirectory
- * @version v4.0.30319
  */
-class IADsFileShare extends IADs{
+class IADsFileShare extends IADs {
 
     static sizeof => A_PtrSize
     /**

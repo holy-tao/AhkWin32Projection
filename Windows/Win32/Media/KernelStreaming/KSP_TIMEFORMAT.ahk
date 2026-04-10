@@ -4,10 +4,8 @@
 
 /**
  * @namespace Windows.Win32.Media.KernelStreaming
- * @version v4.0.30319
  */
-class KSP_TIMEFORMAT extends Win32Struct
-{
+class KSP_TIMEFORMAT extends Win32Struct {
     static sizeof => 40
 
     static packingSize => 8
@@ -15,7 +13,7 @@ class KSP_TIMEFORMAT extends Win32Struct
     /**
      * @type {KSIDENTIFIER}
      */
-    Property{
+    Property {
         get {
             if(!this.HasProp("__Property"))
                 this.__Property := KSIDENTIFIER(0, this)
@@ -24,7 +22,7 @@ class KSP_TIMEFORMAT extends Win32Struct
     }
 
     /**
-     * @type {Pointer<Guid>}
+     * @type {Pointer}
      */
     SourceFormat {
         get => NumGet(this, 16, "ptr")
@@ -32,7 +30,7 @@ class KSP_TIMEFORMAT extends Win32Struct
     }
 
     /**
-     * @type {Pointer<Guid>}
+     * @type {Pointer}
      */
     TargetFormat {
         get => NumGet(this, 24, "ptr")

@@ -5,10 +5,8 @@
  * Describes an entry from a list of the threads executing in the system when a snapshot was taken.
  * @see https://learn.microsoft.com/windows/win32/api/tlhelp32/ns-tlhelp32-threadentry32
  * @namespace Windows.Win32.System.Diagnostics.ToolHelp
- * @version v4.0.30319
  */
-class THREADENTRY32 extends Win32Struct
-{
+class THREADENTRY32 extends Win32Struct {
     static sizeof => 28
 
     static packingSize => 4

@@ -1,13 +1,13 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
+#Include .\OEMUIOBJ.ahk
 #Include ..\..\Foundation\HANDLE.ahk
+#Include ..\Gdi\DEVMODEA.ahk
 
 /**
  * @namespace Windows.Win32.Graphics.Printing
- * @version v4.0.30319
  */
-class OEMUIPSPARAM extends Win32Struct
-{
+class OEMUIPSPARAM extends Win32Struct {
     static sizeof => 88
 
     static packingSize => 8
@@ -31,7 +31,7 @@ class OEMUIPSPARAM extends Win32Struct
     /**
      * @type {HANDLE}
      */
-    hPrinter{
+    hPrinter {
         get {
             if(!this.HasProp("__hPrinter"))
                 this.__hPrinter := HANDLE(16, this)
@@ -50,7 +50,7 @@ class OEMUIPSPARAM extends Win32Struct
     /**
      * @type {HANDLE}
      */
-    hModule{
+    hModule {
         get {
             if(!this.HasProp("__hModule"))
                 this.__hModule := HANDLE(32, this)
@@ -61,7 +61,7 @@ class OEMUIPSPARAM extends Win32Struct
     /**
      * @type {HANDLE}
      */
-    hOEMHeap{
+    hOEMHeap {
         get {
             if(!this.HasProp("__hOEMHeap"))
                 this.__hOEMHeap := HANDLE(40, this)

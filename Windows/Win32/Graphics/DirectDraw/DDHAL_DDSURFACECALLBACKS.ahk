@@ -3,10 +3,8 @@
 
 /**
  * @namespace Windows.Win32.Graphics.DirectDraw
- * @version v4.0.30319
  */
-class DDHAL_DDSURFACECALLBACKS extends Win32Struct
-{
+class DDHAL_DDSURFACECALLBACKS extends Win32Struct {
     static sizeof => 120
 
     static packingSize => 8

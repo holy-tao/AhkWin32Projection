@@ -5,10 +5,8 @@
  * Is used by the NCryptStreamOpenToProtect and NCryptStreamOpenToUnprotect functions to pass blocks of processed data to your application.
  * @see https://learn.microsoft.com/windows/win32/api/ncryptprotect/ns-ncryptprotect-ncrypt_protect_stream_info
  * @namespace Windows.Win32.Security.Cryptography
- * @version v4.0.30319
  */
-class NCRYPT_PROTECT_STREAM_INFO extends Win32Struct
-{
+class NCRYPT_PROTECT_STREAM_INFO extends Win32Struct {
     static sizeof => 16
 
     static packingSize => 8

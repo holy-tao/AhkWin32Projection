@@ -5,9 +5,8 @@
  * Specifies metadata creation options.
  * @see https://learn.microsoft.com/windows/win32/api/wincodecsdk/ne-wincodecsdk-wicmetadatacreationoptions
  * @namespace Windows.Win32.Graphics.Imaging
- * @version v4.0.30319
  */
-class WICMetadataCreationOptions extends Win32Enum{
+class WICMetadataCreationOptions extends Win32Enum {
 
     /**
      * The default metadata creation options. The default value is <b>WICMetadataCreationAllowUnknown</b>.

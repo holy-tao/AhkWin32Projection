@@ -3,6 +3,16 @@
 #Include ..\..\Foundation\POINTL.ahk
 #Include ..\..\Foundation\RECTL.ahk
 #Include ..\..\Graphics\Gdi\PANOSE.ahk
+#Include ..\..\Graphics\Gdi\PAN_FAMILY_TYPE.ahk
+#Include ..\..\Graphics\Gdi\PAN_SERIF_STYLE.ahk
+#Include ..\..\Graphics\Gdi\PAN_WEIGHT.ahk
+#Include ..\..\Graphics\Gdi\PAN_PROPORTION.ahk
+#Include ..\..\Graphics\Gdi\PAN_CONTRAST.ahk
+#Include ..\..\Graphics\Gdi\PAN_STROKE_VARIATION.ahk
+#Include ..\..\Graphics\Gdi\PAN_ARM_STYLE.ahk
+#Include ..\..\Graphics\Gdi\PAN_LETT_FORM.ahk
+#Include ..\..\Graphics\Gdi\PAN_MIDLINE.ahk
+#Include ..\..\Graphics\Gdi\PAN_XHEIGHT.ahk
 
 /**
  * The IFIMETRICS structure defines information for a given typeface that GDI can use.
@@ -18,10 +28,9 @@
  * The IFIMETRICS structure's <b>Align</b> member causes it to be larger for x64 machines than for x32 machines, which has ramifications for binary font format files formatted according to this structure. Starting with Windows Server 2003 SP1, an additional, fixed-size structure has been added to Prntfont.h: <a href="https://docs.microsoft.com/windows-hardware/drivers/ddi/content/prntfont/ns-prntfont-_printifi32">PRINTIFI32</a>. The PRINTIFI32 structure is identical to the IFIMETRICS structure, except that it does not contain an <b>Align</b> member.
  * @see https://learn.microsoft.com/windows/win32/api/winddi/ns-winddi-ifimetrics
  * @namespace Windows.Win32.Devices.Display
- * @version v4.0.30319
+ * @architecture X64, Arm64
  */
-class IFIMETRICS extends Win32Struct
-{
+class IFIMETRICS extends Win32Struct {
     static sizeof => 192
 
     static packingSize => 8
@@ -132,7 +141,6 @@ class IFIMETRICS extends Win32Struct
     }
 
     /**
-     * 
      * @type {Integer}
      */
     jWinCharSet {
@@ -141,7 +149,6 @@ class IFIMETRICS extends Win32Struct
     }
 
     /**
-     * 
      * @type {Integer}
      */
     jWinPitchAndFamily {
@@ -625,7 +632,7 @@ class IFIMETRICS extends Win32Struct
      * Specifies a <a href="https://docs.microsoft.com/windows/desktop/api/windef/ns-windef-pointl">POINTL</a> structure that contains the intended writing direction of this font. For example, a typical Latin font specifies a value of (1,0).
      * @type {POINTL}
      */
-    ptlBaseline{
+    ptlBaseline {
         get {
             if(!this.HasProp("__ptlBaseline"))
                 this.__ptlBaseline := POINTL(120, this)
@@ -637,7 +644,7 @@ class IFIMETRICS extends Win32Struct
      * Specifies a POINTL structure that contains the aspect ratio of the pixel centers for which the bitmap font was designed. This value is used only by bitmap fonts.
      * @type {POINTL}
      */
-    ptlAspect{
+    ptlAspect {
         get {
             if(!this.HasProp("__ptlAspect"))
                 this.__ptlAspect := POINTL(128, this)
@@ -649,7 +656,7 @@ class IFIMETRICS extends Win32Struct
      * Specifies a POINTL structure that contains the direction of the ascender direction of the font. For example, the value for a nonitalicized Latin font is (0,1) while an italicized Latin font might specify a value of (2,5).
      * @type {POINTL}
      */
-    ptlCaret{
+    ptlCaret {
         get {
             if(!this.HasProp("__ptlCaret"))
                 this.__ptlCaret := POINTL(136, this)
@@ -661,7 +668,7 @@ class IFIMETRICS extends Win32Struct
      * Specifies a <a href="https://docs.microsoft.com/windows/desktop/api/windef/ns-windef-rectl">RECTL</a> structure that describes the bounding box of all glyphs in the font in design space.
      * @type {RECTL}
      */
-    rclFontBox{
+    rclFontBox {
         get {
             if(!this.HasProp("__rclFontBox"))
                 this.__rclFontBox := RECTL(144, this)
@@ -671,9 +678,9 @@ class IFIMETRICS extends Win32Struct
 
     /**
      * Specifies a four character identifier for the font vendor. Identifiers are documented in the Microsoft TrueType specification.
-     * @type {Array<Byte>}
+     * @type {Array<Integer>}
      */
-    achVendId{
+    achVendId {
         get {
             if(!this.HasProp("__achVendIdProxyArray"))
                 this.__achVendIdProxyArray := Win32FixedArray(this.ptr + 160, 4, Primitive, "char")
@@ -703,7 +710,7 @@ class IFIMETRICS extends Win32Struct
      * Is an array of 10 bytes used to describe the visual characteristics of a given typeface. These characteristics are then used to associate the font with other fonts of similar appearance having different names. See the Window SDK documentation for information about the PANOSE structure.
      * @type {PANOSE}
      */
-    panose{
+    panose {
         get {
             if(!this.HasProp("__panose"))
                 this.__panose := PANOSE(172, this)

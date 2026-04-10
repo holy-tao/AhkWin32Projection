@@ -9,9 +9,8 @@
  * Implement this interface if your object needs to be provided with an owner window, generally to display UI. Most third-party applications will not need to implement this interface.
  * @see https://learn.microsoft.com/windows/win32/api/shobjidl_core/nn-shobjidl_core-iinitializewithwindow
  * @namespace Windows.Win32.UI.Shell
- * @version v4.0.30319
  */
-class IInitializeWithWindow extends IUnknown{
+class IInitializeWithWindow extends IUnknown {
 
     static sizeof => A_PtrSize
     /**
@@ -34,7 +33,7 @@ class IInitializeWithWindow extends IUnknown{
 
     /**
      * Specifies an owner window to be used by a Windows Runtime object that is used in a desktop app.
-     * @param {HWND} _hwnd 
+     * @param {HWND} _hwnd The handle of the window to be used as the owner window.
      * @returns {HRESULT} If this method succeeds, it returns <b>S_OK</b>. Otherwise, it returns an <b>HRESULT</b> error code.
      * @see https://learn.microsoft.com/windows/win32/api/shobjidl_core/nf-shobjidl_core-iinitializewithwindow-initialize
      */

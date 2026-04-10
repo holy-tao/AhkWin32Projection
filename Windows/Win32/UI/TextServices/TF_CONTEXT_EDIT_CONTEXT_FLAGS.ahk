@@ -3,9 +3,8 @@
 
 /**
  * @namespace Windows.Win32.UI.TextServices
- * @version v4.0.30319
  */
-class TF_CONTEXT_EDIT_CONTEXT_FLAGS extends Win32BitflagEnum{
+class TF_CONTEXT_EDIT_CONTEXT_FLAGS extends Win32BitflagEnum {
 
     /**
      * @type {Integer (UInt32)}

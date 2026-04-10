@@ -4,11 +4,9 @@
 
 /**
  * @namespace Windows.Win32.Storage.Jet
- * @version v4.0.30319
  * @charset Unicode
  */
-class JET_SETSYSPARAM_W extends Win32Struct
-{
+class JET_SETSYSPARAM_W extends Win32Struct {
     static sizeof => 32
 
     static packingSize => 8
@@ -24,7 +22,7 @@ class JET_SETSYSPARAM_W extends Win32Struct
     /**
      * @type {JET_API_PTR}
      */
-    lParam{
+    lParam {
         get {
             if(!this.HasProp("__lParam"))
                 this.__lParam := JET_API_PTR(8, this)

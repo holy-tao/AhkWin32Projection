@@ -1,5 +1,8 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
+#Include .\ENUM_SERVICE_TYPE.ahk
+#Include .\SERVICE_START_TYPE.ahk
+#Include .\SERVICE_ERROR.ahk
 
 /**
  * Contains configuration information for an installed service. It is used by the QueryServiceConfig function. (ANSI)
@@ -9,18 +12,15 @@
  * <a href="https://docs.microsoft.com/windows/desktop/api/winsvc/nf-winsvc-changeserviceconfiga">ChangeServiceConfig</a> function.
  * @see https://learn.microsoft.com/windows/win32/api/winsvc/ns-winsvc-query_service_configa
  * @namespace Windows.Win32.System.Services
- * @version v4.0.30319
  * @charset ANSI
  */
-class QUERY_SERVICE_CONFIGA extends Win32Struct
-{
+class QUERY_SERVICE_CONFIGA extends Win32Struct {
     static sizeof => 64
 
     static packingSize => 8
 
     /**
-     * 
-     * @type {Integer}
+     * @type {ENUM_SERVICE_TYPE}
      */
     dwServiceType {
         get => NumGet(this, 0, "uint")
@@ -28,8 +28,7 @@ class QUERY_SERVICE_CONFIGA extends Win32Struct
     }
 
     /**
-     * 
-     * @type {Integer}
+     * @type {SERVICE_START_TYPE}
      */
     dwStartType {
         get => NumGet(this, 4, "uint")
@@ -37,8 +36,7 @@ class QUERY_SERVICE_CONFIGA extends Win32Struct
     }
 
     /**
-     * 
-     * @type {Integer}
+     * @type {SERVICE_ERROR}
      */
     dwErrorControl {
         get => NumGet(this, 8, "uint")

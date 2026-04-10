@@ -5,10 +5,8 @@
  * The ADS_POSTALADDRESS structure is an ADSI representation of the Postal Address attribute.
  * @see https://learn.microsoft.com/windows/win32/api/iads/ns-iads-ads_postaladdress
  * @namespace Windows.Win32.Networking.ActiveDirectory
- * @version v4.0.30319
  */
-class ADS_POSTALADDRESS extends Win32Struct
-{
+class ADS_POSTALADDRESS extends Win32Struct {
     static sizeof => 48
 
     static packingSize => 8
@@ -17,10 +15,10 @@ class ADS_POSTALADDRESS extends Win32Struct
      * An array of six null-terminated Unicode strings that represent the postal address.
      * @type {Array<PWSTR>}
      */
-    PostalAddress{
+    PostalAddress {
         get {
             if(!this.HasProp("__PostalAddressProxyArray"))
-                this.__PostalAddressProxyArray := Win32FixedArray(this.ptr + 0, 6, Primitive, "char*")
+                this.__PostalAddressProxyArray := Win32FixedArray(this.ptr + 0, 6, Primitive, "ptr")
             return this.__PostalAddressProxyArray
         }
     }

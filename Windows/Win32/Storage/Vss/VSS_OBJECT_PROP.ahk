@@ -1,8 +1,11 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
-#Include .\VSS_SNAPSHOT_PROP.ahk
-#Include .\VSS_PROVIDER_PROP.ahk
+#Include .\VSS_OBJECT_TYPE.ahk
 #Include .\VSS_OBJECT_UNION.ahk
+#Include .\VSS_SNAPSHOT_PROP.ahk
+#Include .\VSS_SNAPSHOT_STATE.ahk
+#Include .\VSS_PROVIDER_PROP.ahk
+#Include .\VSS_PROVIDER_TYPE.ahk
 
 /**
  * Defines the properties of a provider, volume, shadow copy, or shadow copy set.
@@ -23,17 +26,15 @@
  *     <a href="https://docs.microsoft.com/windows/desktop/api/vsbackup/nf-vsbackup-vssfreesnapshotproperties">VssFreeSnapshotProperties</a> can be used.
  * @see https://learn.microsoft.com/windows/win32/api/vss/ns-vss-vss_object_prop
  * @namespace Windows.Win32.Storage.Vss
- * @version v4.0.30319
  */
-class VSS_OBJECT_PROP extends Win32Struct
-{
+class VSS_OBJECT_PROP extends Win32Struct {
     static sizeof => 160
 
     static packingSize => 8
 
     /**
      * Object type. Refer to <a href="https://docs.microsoft.com/windows/desktop/api/vss/ne-vss-vss_object_type">VSS_OBJECT_TYPE</a>.
-     * @type {Integer}
+     * @type {VSS_OBJECT_TYPE}
      */
     Type {
         get => NumGet(this, 0, "int")
@@ -51,7 +52,7 @@ class VSS_OBJECT_PROP extends Win32Struct
      *       providers, volumes, shadow copies, or shadow copy sets.
      * @type {VSS_OBJECT_UNION}
      */
-    Obj{
+    Obj {
         get {
             if(!this.HasProp("__Obj"))
                 this.__Obj := VSS_OBJECT_UNION(8, this)

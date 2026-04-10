@@ -3,9 +3,8 @@
 
 /**
  * @namespace Windows.Win32.Media.MediaPlayer
- * @version v4.0.30319
  */
-class FEEDS_DOWNLOAD_STATUS extends Win32Enum{
+class FEEDS_DOWNLOAD_STATUS extends Win32Enum {
 
     /**
      * @type {Integer (Int32)}

@@ -14,9 +14,8 @@
  * </ul>
  * @see https://learn.microsoft.com/windows/win32/api/tabflicks/ne-tabflicks-flickaction_commandcode
  * @namespace Windows.Win32.UI.TabletPC
- * @version v4.0.30319
  */
-class FLICKACTION_COMMANDCODE extends Win32Enum{
+class FLICKACTION_COMMANDCODE extends Win32Enum {
 
     /**
      * No action is assigned to the pen flick.

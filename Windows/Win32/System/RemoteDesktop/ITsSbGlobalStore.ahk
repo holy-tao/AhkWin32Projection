@@ -1,18 +1,16 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
-#Include ..\..\Foundation\BSTR.ahk
+#Include ..\Com\IUnknown.ahk
 #Include .\ITsSbTarget.ahk
 #Include .\ITsSbSession.ahk
-#Include ..\Com\IUnknown.ahk
 
 /**
  * Exposes methods that query for target computers, sessions, environments, and farms that have been added to the Remote Desktop Connection Broker (RD Connection Broker) store.
  * @see https://learn.microsoft.com/windows/win32/api/sbtsv/nn-sbtsv-itssbglobalstore
  * @namespace Windows.Win32.System.RemoteDesktop
- * @version v4.0.30319
  */
-class ITsSbGlobalStore extends IUnknown{
+class ITsSbGlobalStore extends IUnknown {
 
     static sizeof => A_PtrSize
     /**
@@ -134,7 +132,7 @@ class ITsSbGlobalStore extends IUnknown{
      * @param {BSTR} userDomain The domain name of the user account.
      * @param {BSTR} poolName The name of the pool.
      * @param {BSTR} initialProgram The name of the published remote application.
-     * @param {Pointer<Integer>} pSessionState A pointer to the  <a href="https://docs.microsoft.com/windows/win32/api/sessdirpublictypes/ne-sessdirpublictypes-tssession_state">TSSESSION_STATE</a> value of the sessions to enumerate.
+     * @param {Pointer<TSSESSION_STATE>} pSessionState A pointer to the  <a href="https://docs.microsoft.com/windows/win32/api/sessdirpublictypes/ne-sessdirpublictypes-tssession_state">TSSESSION_STATE</a> value of the sessions to enumerate.
      * @param {Pointer<Integer>} pdwCount Returns a pointer to the number of sessions returned.
      * @returns {Pointer<ITsSbSession>} Returns the list of sessions requested.
      * @see https://learn.microsoft.com/windows/win32/api/sbtsv/nf-sbtsv-itssbglobalstore-enumeratesessions

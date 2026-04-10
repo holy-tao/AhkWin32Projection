@@ -1,14 +1,13 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
-#Include .\IHTMLRuleStyle.ahk
 #Include ..\..\System\Com\IDispatch.ahk
+#Include .\IHTMLRuleStyle.ahk
 
 /**
  * @namespace Windows.Win32.Web.MsHtml
- * @version v4.0.30319
  */
-class IHTMLStyleFontFace2 extends IDispatch{
+class IHTMLStyleFontFace2 extends IDispatch {
 
     static sizeof => A_PtrSize
     /**

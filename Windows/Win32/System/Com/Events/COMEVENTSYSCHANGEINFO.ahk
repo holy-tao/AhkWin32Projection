@@ -1,15 +1,14 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\..\Win32Struct.ahk
+#Include .\EOC_ChangeType.ahk
 #Include ..\..\..\Foundation\BSTR.ahk
 
 /**
  * Represents a system event structure, which contains the partition and application ID from which an event originated.
  * @see https://learn.microsoft.com/windows/win32/api/eventsys/ns-eventsys-comeventsyschangeinfo
  * @namespace Windows.Win32.System.Com.Events
- * @version v4.0.30319
  */
-class COMEVENTSYSCHANGEINFO extends Win32Struct
-{
+class COMEVENTSYSCHANGEINFO extends Win32Struct {
     static sizeof => 112
 
     static packingSize => 8
@@ -25,7 +24,7 @@ class COMEVENTSYSCHANGEINFO extends Win32Struct
 
     /**
      * The type of change that has been made to the subscription. For a list of values, see <a href="https://docs.microsoft.com/windows/desktop/api/eventsys/ne-eventsys-eoc_changetype">EOC_ChangeType</a>.
-     * @type {Integer}
+     * @type {EOC_ChangeType}
      */
     changeType {
         get => NumGet(this, 4, "int")
@@ -36,7 +35,7 @@ class COMEVENTSYSCHANGEINFO extends Win32Struct
      * The EventClass ID or subscription ID from which the change impacts.
      * @type {BSTR}
      */
-    objectId{
+    objectId {
         get {
             if(!this.HasProp("__objectId"))
                 this.__objectId := BSTR(8, this)
@@ -48,7 +47,7 @@ class COMEVENTSYSCHANGEINFO extends Win32Struct
      * The EventClass partition ID or the subscriber partition ID affected.
      * @type {BSTR}
      */
-    partitionId{
+    partitionId {
         get {
             if(!this.HasProp("__partitionId"))
                 this.__partitionId := BSTR(16, this)
@@ -60,7 +59,7 @@ class COMEVENTSYSCHANGEINFO extends Win32Struct
      * The EventClass application ID or subscriber application ID affected.
      * @type {BSTR}
      */
-    applicationId{
+    applicationId {
         get {
             if(!this.HasProp("__applicationId"))
                 this.__applicationId := BSTR(24, this)
@@ -70,9 +69,9 @@ class COMEVENTSYSCHANGEINFO extends Win32Struct
 
     /**
      * This member is reserved.
-     * @type {Array<Guid>}
+     * @type {Array<Pointer>}
      */
-    reserved{
+    reserved {
         get {
             if(!this.HasProp("__reservedProxyArray"))
                 this.__reservedProxyArray := Win32FixedArray(this.ptr + 32, 10, Primitive, "ptr")

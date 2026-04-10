@@ -159,10 +159,8 @@
  * <a href="https://docs.microsoft.com/windows/desktop/api/certview/nf-certview-icertview-openconnection">ICertView2::OpenConnection</a> method accepts <b>#</b><i>YourName</i> as the parameter's certification authority portion.
  * @see https://learn.microsoft.com/windows/win32/api/certcli/nf-certcli-icertconfig-getconfig
  * @namespace Windows.Win32.Security.Cryptography.Certificates
- * @version v4.0.30319
  */
-class CCertConfig extends Win32Struct
-{
+class CCertConfig extends Win32Struct {
     static sizeof => 0
 
     static packingSize => 1

@@ -5,10 +5,8 @@
  * Contains the size and visibility information about the about the console cursor.
  * @see https://learn.microsoft.com/windows/console/console-cursor-info-str
  * @namespace Windows.Win32.System.Console
- * @version v4.0.30319
  */
-class CONSOLE_CURSOR_INFO extends Win32Struct
-{
+class CONSOLE_CURSOR_INFO extends Win32Struct {
     static sizeof => 8
 
     static packingSize => 4

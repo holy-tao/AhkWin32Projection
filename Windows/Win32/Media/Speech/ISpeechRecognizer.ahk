@@ -1,20 +1,18 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
-#Include ..\..\Foundation\BSTR.ahk
+#Include ..\..\System\Com\IDispatch.ahk
 #Include .\ISpeechObjectToken.ahk
 #Include .\ISpeechBaseStream.ahk
 #Include .\ISpeechRecognizerStatus.ahk
 #Include .\ISpeechRecoContext.ahk
 #Include .\ISpeechAudioFormat.ahk
 #Include .\ISpeechObjectTokens.ahk
-#Include ..\..\System\Com\IDispatch.ahk
 
 /**
  * @namespace Windows.Win32.Media.Speech
- * @version v4.0.30319
  */
-class ISpeechRecognizer extends IDispatch{
+class ISpeechRecognizer extends IDispatch {
 
     static sizeof => A_PtrSize
     /**
@@ -72,7 +70,7 @@ class ISpeechRecognizer extends IDispatch{
     }
 
     /**
-     * @type {Integer} 
+     * @type {SpeechRecognizerState} 
      */
     State {
         get => this.get_State()
@@ -180,7 +178,7 @@ class ISpeechRecognizer extends IDispatch{
 
     /**
      * 
-     * @param {Integer} State 
+     * @param {SpeechRecognizerState} State 
      * @returns {HRESULT} 
      */
     put_State(State) {
@@ -190,7 +188,7 @@ class ISpeechRecognizer extends IDispatch{
 
     /**
      * 
-     * @returns {Integer} 
+     * @returns {SpeechRecognizerState} 
      */
     get_State() {
         result := ComCall(17, this, "int*", &State := 0, "HRESULT")
@@ -248,7 +246,7 @@ class ISpeechRecognizer extends IDispatch{
 
     /**
      * For current documentation on Windows Media codecs and digital signal processors, see Windows Media Audio and Video Codec and DSP APIs. | GetFormatProp
-     * @param {Integer} Type 
+     * @param {SpeechFormatType} Type 
      * @returns {ISpeechAudioFormat} 
      * @see https://learn.microsoft.com/windows/win32/wmformat/iwmcodecprops-getformatprop
      */

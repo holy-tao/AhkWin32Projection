@@ -5,9 +5,8 @@
 
 /**
  * @namespace Windows.Win32.Web.InternetExplorer
- * @version v4.0.30319
  */
-class IImageDecodeEventSink2 extends IImageDecodeEventSink{
+class IImageDecodeEventSink2 extends IImageDecodeEventSink {
 
     static sizeof => A_PtrSize
     /**

@@ -1,16 +1,15 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
 #Include .\WS_XML_WRITER_ENCODING.ahk
+#Include .\WS_XML_WRITER_ENCODING_TYPE.ahk
 #Include .\WS_STRING.ahk
 
 /**
  * Used to indicate that the reader should emit bytes in MTOM format. The MTOM format will represent bytes written to it as binary mime parts rather than embedded base64 encoded text.
  * @see https://learn.microsoft.com/windows/win32/api/webservices/ns-webservices-ws_xml_writer_mtom_encoding
  * @namespace Windows.Win32.Networking.WindowsWebServices
- * @version v4.0.30319
  */
-class WS_XML_WRITER_MTOM_ENCODING extends Win32Struct
-{
+class WS_XML_WRITER_MTOM_ENCODING extends Win32Struct {
     static sizeof => 80
 
     static packingSize => 8
@@ -19,7 +18,7 @@ class WS_XML_WRITER_MTOM_ENCODING extends Win32Struct
      * The base type for all types that derive from <a href="https://docs.microsoft.com/windows/desktop/api/webservices/ns-webservices-ws_xml_writer_encoding">WS_XML_WRITER_ENCODING</a>.
      * @type {WS_XML_WRITER_ENCODING}
      */
-    encoding{
+    encoding {
         get {
             if(!this.HasProp("__encoding"))
                 this.__encoding := WS_XML_WRITER_ENCODING(0, this)
@@ -49,7 +48,7 @@ class WS_XML_WRITER_MTOM_ENCODING extends Win32Struct
      * Specifies the character sequence that should be used to delimit the mime parts.  This corresponds to the "boundary" parameter of the MIME Content-Type.
      * @type {WS_STRING}
      */
-    boundary{
+    boundary {
         get {
             if(!this.HasProp("__boundary"))
                 this.__boundary := WS_STRING(24, this)
@@ -61,7 +60,7 @@ class WS_XML_WRITER_MTOM_ENCODING extends Win32Struct
      * Specifies the type used by the mime part that contains the xml.  This corresponds to the "start-info" parameter in the of the MIME Content-Type.
      * @type {WS_STRING}
      */
-    startInfo{
+    startInfo {
         get {
             if(!this.HasProp("__startInfo"))
                 this.__startInfo := WS_STRING(40, this)
@@ -73,7 +72,7 @@ class WS_XML_WRITER_MTOM_ENCODING extends Win32Struct
      * Specifies the mime part that contains the xml.  This corresponds to the "start" parameter of the MIME Content-Type.
      * @type {WS_STRING}
      */
-    startUri{
+    startUri {
         get {
             if(!this.HasProp("__startUri"))
                 this.__startUri := WS_STRING(56, this)

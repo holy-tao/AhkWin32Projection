@@ -1,15 +1,14 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
 #Include ..\..\Foundation\HWND.ahk
+#Include ..\Com\IUnknown.ahk
 
 /**
  * Contains parameters used to invoke a property sheet dialog box through the OleCreatePropertyFrameIndirect function.
  * @see https://learn.microsoft.com/windows/win32/api/olectl/ns-olectl-ocpfiparams
  * @namespace Windows.Win32.System.Ole
- * @version v4.0.30319
  */
-class OCPFIPARAMS extends Win32Struct
-{
+class OCPFIPARAMS extends Win32Struct {
     static sizeof => 72
 
     static packingSize => 8
@@ -27,7 +26,7 @@ class OCPFIPARAMS extends Win32Struct
      * Handle to the parent window of the resulting property sheet dialog box.
      * @type {HWND}
      */
-    hWndOwner{
+    hWndOwner {
         get {
             if(!this.HasProp("__hWndOwner"))
                 this.__hWndOwner := HWND(8, this)

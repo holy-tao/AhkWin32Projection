@@ -5,10 +5,8 @@
  * The MCAST_CLIENT_UID structure describes the unique client identifier for each multicast request.
  * @see https://learn.microsoft.com/windows/win32/api/madcapcl/ns-madcapcl-mcast_client_uid
  * @namespace Windows.Win32.NetworkManagement.Multicast
- * @version v4.0.30319
  */
-class MCAST_CLIENT_UID extends Win32Struct
-{
+class MCAST_CLIENT_UID extends Win32Struct {
     static sizeof => 16
 
     static packingSize => 8

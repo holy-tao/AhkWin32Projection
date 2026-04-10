@@ -6,10 +6,8 @@
 
 /**
  * @namespace Windows.Win32.Graphics.Printing
- * @version v4.0.30319
  */
-class PROPSHEETUI_INFO_HEADER extends Win32Struct
-{
+class PROPSHEETUI_INFO_HEADER extends Win32Struct {
     static sizeof => 40
 
     static packingSize => 8
@@ -41,7 +39,7 @@ class PROPSHEETUI_INFO_HEADER extends Win32Struct
     /**
      * @type {HWND}
      */
-    hWndParent{
+    hWndParent {
         get {
             if(!this.HasProp("__hWndParent"))
                 this.__hWndParent := HWND(16, this)
@@ -52,7 +50,7 @@ class PROPSHEETUI_INFO_HEADER extends Win32Struct
     /**
      * @type {HINSTANCE}
      */
-    hInst{
+    hInst {
         get {
             if(!this.HasProp("__hInst"))
                 this.__hInst := HINSTANCE(24, this)
@@ -63,7 +61,7 @@ class PROPSHEETUI_INFO_HEADER extends Win32Struct
     /**
      * @type {HICON}
      */
-    hIcon{
+    hIcon {
         get {
             if(!this.HasProp("__hIcon"))
                 this.__hIcon := HICON(32, this)

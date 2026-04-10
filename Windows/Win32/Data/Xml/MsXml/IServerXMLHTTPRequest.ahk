@@ -1,14 +1,13 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\..\Guid.ahk
-#Include ..\..\..\System\Variant\VARIANT.ahk
 #Include .\IXMLHTTPRequest.ahk
+#Include ..\..\..\System\Variant\VARIANT.ahk
 
 /**
  * @namespace Windows.Win32.Data.Xml.MsXml
- * @version v4.0.30319
  */
-class IServerXMLHTTPRequest extends IXMLHTTPRequest{
+class IServerXMLHTTPRequest extends IXMLHTTPRequest {
 
     static sizeof => A_PtrSize
     /**
@@ -54,7 +53,7 @@ class IServerXMLHTTPRequest extends IXMLHTTPRequest{
 
     /**
      * 
-     * @param {Integer} option 
+     * @param {SERVERXMLHTTP_OPTION} option 
      * @returns {VARIANT} 
      */
     getOption(option) {
@@ -65,7 +64,7 @@ class IServerXMLHTTPRequest extends IXMLHTTPRequest{
 
     /**
      * 
-     * @param {Integer} option 
+     * @param {SERVERXMLHTTP_OPTION} option 
      * @param {VARIANT} value 
      * @returns {HRESULT} 
      */

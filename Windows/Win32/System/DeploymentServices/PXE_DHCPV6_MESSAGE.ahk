@@ -6,13 +6,11 @@
  * A DHCPV6 message.
  * @see https://learn.microsoft.com/windows/win32/api/wdspxe/ns-wdspxe-pxe_dhcpv6_message
  * @namespace Windows.Win32.System.DeploymentServices
- * @version v4.0.30319
  */
-class PXE_DHCPV6_MESSAGE extends Win32Struct
-{
-    static sizeof => 16
+class PXE_DHCPV6_MESSAGE extends Win32Struct {
+    static sizeof => 10
 
-    static packingSize => 8
+    static packingSize => 2
 
     /**
      * The DHCPv6 message type.
@@ -52,12 +50,12 @@ class PXE_DHCPV6_MESSAGE extends Win32Struct
 
     /**
      * A <a href="https://docs.microsoft.com/windows/desktop/api/wdspxe/ns-wdspxe-pxe_dhcpv6_option">PXE_DHCPV6_OPTION</a> structure that specifies the DHCPV6 option.
-     * @type {Array<PXE_DHCPV6_OPTION>}
+     * @type {PXE_DHCPV6_OPTION}
      */
-    Options{
+    Options {
         get {
             if(!this.HasProp("__OptionsProxyArray"))
-                this.__OptionsProxyArray := Win32FixedArray(this.ptr + 8, 1, PXE_DHCPV6_OPTION, "")
+                this.__OptionsProxyArray := Win32FixedArray(this.ptr + 4, 1, PXE_DHCPV6_OPTION, "")
             return this.__OptionsProxyArray
         }
     }

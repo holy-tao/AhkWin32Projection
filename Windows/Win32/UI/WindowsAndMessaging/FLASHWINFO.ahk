@@ -1,15 +1,14 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
 #Include ..\..\Foundation\HWND.ahk
+#Include .\FLASHWINFO_FLAGS.ahk
 
 /**
  * Contains the flash status for a window and the number of times the system should flash the window.
  * @see https://learn.microsoft.com/windows/win32/api/winuser/ns-winuser-flashwinfo
  * @namespace Windows.Win32.UI.WindowsAndMessaging
- * @version v4.0.30319
  */
-class FLASHWINFO extends Win32Struct
-{
+class FLASHWINFO extends Win32Struct {
     static sizeof => 32
 
     static packingSize => 8
@@ -27,7 +26,7 @@ class FLASHWINFO extends Win32Struct
      * A handle to the window to be flashed. The window can be either opened or minimized.
      * @type {HWND}
      */
-    hwnd{
+    hwnd {
         get {
             if(!this.HasProp("__hwnd"))
                 this.__hwnd := HWND(8, this)
@@ -36,8 +35,7 @@ class FLASHWINFO extends Win32Struct
     }
 
     /**
-     * 
-     * @type {Integer}
+     * @type {FLASHWINFO_FLAGS}
      */
     dwFlags {
         get => NumGet(this, 16, "uint")

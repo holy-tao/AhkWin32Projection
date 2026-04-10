@@ -5,10 +5,8 @@
  * The USER_INFO_1011 structure contains the full name of a network user. This information level is valid only when you call the NetUserSetInfo function.
  * @see https://learn.microsoft.com/windows/win32/api/lmaccess/ns-lmaccess-user_info_1011
  * @namespace Windows.Win32.NetworkManagement.NetManagement
- * @version v4.0.30319
  */
-class USER_INFO_1011 extends Win32Struct
-{
+class USER_INFO_1011 extends Win32Struct {
     static sizeof => 8
 
     static packingSize => 8

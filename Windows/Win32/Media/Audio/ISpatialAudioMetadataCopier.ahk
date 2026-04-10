@@ -7,9 +7,8 @@
  * Provides methods for copying all or subsets of metadata items from a source SpatialAudioMetadataItems into a destination SpatialAudioMetadataItems.
  * @see https://learn.microsoft.com/windows/win32/api/spatialaudiometadata/nn-spatialaudiometadata-ispatialaudiometadatacopier
  * @namespace Windows.Win32.Media.Audio
- * @version v4.0.30319
  */
-class ISpatialAudioMetadataCopier extends IUnknown{
+class ISpatialAudioMetadataCopier extends IUnknown {
 
     static sizeof => A_PtrSize
     /**
@@ -73,7 +72,7 @@ class ISpatialAudioMetadataCopier extends IUnknown{
     /**
      * Copies metadata items from the source ISpatialAudioMetadataItems, provided to the Open method, object to the destination ISpatialAudioMetadataItems object, specified with the dstMetadataItems parameter.
      * @param {Integer} copyFrameCount The number of frames from the current copy position for which metadata items are copied. After the copy, the internal copy position within the source <b>SpatialAudioMetadataItems</b> is advanced the value specified in this parameter. Set this value to 0 to copy the entire frame range contained in the  source <b>SpatialAudioMetadataItems</b>.
-     * @param {Integer} copyMode A value that specifies the copy mode for the operation.
+     * @param {SpatialAudioMetadataCopyMode} copyMode A value that specifies the copy mode for the operation.
      * @param {ISpatialAudioMetadataItems} dstMetadataItems A pointer to the  destination <b>SpatialAudioMetadataItems</b> for the copy operation.
      * @returns {Integer} Receives number of metadata items copied in the operation.
      * @see https://learn.microsoft.com/windows/win32/api/spatialaudiometadata/nf-spatialaudiometadata-ispatialaudiometadatacopier-copymetadataforframes

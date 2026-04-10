@@ -18,9 +18,8 @@
  * To view some code that registers for COM notifications, see the Client section of the <a href="https://docs.microsoft.com/archive/msdn-magazine/2007/september/clr-inside-out-com-connection-points">COM Connection Points</a> article.
  * @see https://learn.microsoft.com/windows/win32/api/mbnapi/nn-mbnapi-imbnsmsevents
  * @namespace Windows.Win32.NetworkManagement.MobileBroadband
- * @version v4.0.30319
  */
-class IMbnSmsEvents extends IUnknown{
+class IMbnSmsEvents extends IUnknown {
 
     static sizeof => A_PtrSize
     /**
@@ -60,7 +59,7 @@ class IMbnSmsEvents extends IUnknown{
      * This method is used to notify an application of the completion of a set SMS configuration operation. The application can use the passed <a href="https://docs.microsoft.com/windows/desktop/api/mbnapi/nn-mbnapi-imbnsms">IMbnSms</a> interface to get the new configuration information. It is also used by the device to indicate the readiness of the device's SMS subsystem. Upon system startup or device insertion, this method will be called to notify applications that the device SMS subsystem is ready for operation.
      * @param {IMbnSms} sms A pointer to an <a href="https://docs.microsoft.com/windows/desktop/api/mbnapi/nn-mbnapi-imbnsms">IMbnSms</a> interface representing the Mobile Broadband device for which the SMS configuration has been updated.
      * @param {Integer} requestID A request ID assigned by the Mobile Broadband service to identify the operation.
-     * @param {HRESULT} _status 
+     * @param {HRESULT} _status A status code that indicates the outcome of the operation.
      * @returns {HRESULT} This method must return <b>S_OK</b>.
      * @see https://learn.microsoft.com/windows/win32/api/mbnapi/nf-mbnapi-imbnsmsevents-onsetsmsconfigurationcomplete
      */
@@ -75,7 +74,7 @@ class IMbnSmsEvents extends IUnknown{
      * A send operation should be tried only after the device is successfully registered to the network.
      * @param {IMbnSms} sms An <a href="https://docs.microsoft.com/windows/desktop/api/mbnapi/nn-mbnapi-imbnsms">IMbnSms</a> interface representing the Mobile Broadband device from which the operation completed.
      * @param {Integer} requestID A  request ID assigned by the Mobile Broadband service to identify the operation.
-     * @param {HRESULT} _status 
+     * @param {HRESULT} _status A status code that indicates the outcome of the operation.
      * @returns {HRESULT} This method must return <b>S_OK</b>.
      * @see https://learn.microsoft.com/windows/win32/api/mbnapi/nf-mbnapi-imbnsmsevents-onsmssendcomplete
      */
@@ -93,11 +92,11 @@ class IMbnSmsEvents extends IUnknown{
      * 
      * If a read request results in a large amount of messages being read, then <b>OnSmsReadComplete</b> may be called repeatedly until <i>moreMsgs</i> indicates there are no more messages to be read.
      * @param {IMbnSms} sms An <a href="https://docs.microsoft.com/windows/desktop/api/mbnapi/nn-mbnapi-imbnsms">IMbnSms</a> interface representing the message store that completed the operation.
-     * @param {Integer} smsFormat An <a href="https://docs.microsoft.com/windows/desktop/api/mbnapi/ne-mbnapi-mbn_sms_format">MBN_SMS_FORMAT</a> value that defines the format of the SMS message.
+     * @param {MBN_SMS_FORMAT} smsFormat An <a href="https://docs.microsoft.com/windows/desktop/api/mbnapi/ne-mbnapi-mbn_sms_format">MBN_SMS_FORMAT</a> value that defines the format of the SMS message.
      * @param {Pointer<SAFEARRAY>} readMsgs An array of messages read from the device.
      * @param {VARIANT_BOOL} moreMsgs A Boolean value that indicates whether there are more messages still being processed.  If this is <b>TRUE</b>, then <b>OnSmsReadComplete</b> will be called repeatedly until there are not more messages and <i>moreMsgs</i> is <b>FALSE</b>.
      * @param {Integer} requestID A request ID assigned by the Mobile Broadband service to identify the message read operation.
-     * @param {HRESULT} _status 
+     * @param {HRESULT} _status A status code that indicates the outcome of the operation.
      * @returns {HRESULT} This method must return <b>S_OK</b>.
      * @see https://learn.microsoft.com/windows/win32/api/mbnapi/nf-mbnapi-imbnsmsevents-onsmsreadcomplete
      */
@@ -113,7 +112,7 @@ class IMbnSmsEvents extends IUnknown{
      * 
      * For CDMA devices, if <i>smsFormat</i> is <b>MBN_SMS_FORMAT_TEXT</b>, then the calling application should call <a href="https://docs.microsoft.com/windows/desktop/api/unknwn/nf-unknwn-iunknown-queryinterface(q)">QueryInterface</a> for a <a href="https://docs.microsoft.com/windows/desktop/api/mbnapi/nn-mbnapi-imbnsmsreadmsgtextcdma">IMbnSmsReadMsgTextCdma</a> interface. If <i>smsFormat</i> is <b>MBN_SMS_FORMAT_PDU</b>, then the calling application should call <b>QueryInterface</b> for a <a href="https://docs.microsoft.com/windows/desktop/api/mbnapi/nn-mbnapi-imbnsmsreadmsgpdu">IMbnSmsReadMsgPdu</a> interface.
      * @param {IMbnSms} sms An <a href="https://docs.microsoft.com/windows/desktop/api/mbnapi/nn-mbnapi-imbnsms">IMbnSms</a> interface representing the Mobile Broadband device that received the new message(s).
-     * @param {Integer} smsFormat An <a href="https://docs.microsoft.com/windows/desktop/api/mbnapi/ne-mbnapi-mbn_sms_format">MBN_SMS_FORMAT</a> value that defines the format of the new SMS message.
+     * @param {MBN_SMS_FORMAT} smsFormat An <a href="https://docs.microsoft.com/windows/desktop/api/mbnapi/ne-mbnapi-mbn_sms_format">MBN_SMS_FORMAT</a> value that defines the format of the new SMS message.
      * @param {Pointer<SAFEARRAY>} readMsgs An array of new messages.
      * @returns {HRESULT} This method must return <b>S_OK</b>.
      * @see https://learn.microsoft.com/windows/win32/api/mbnapi/nf-mbnapi-imbnsmsevents-onsmsnewclass0message
@@ -127,7 +126,7 @@ class IMbnSmsEvents extends IUnknown{
      * Notification method that signals the completion of an SMS deletion operation.
      * @param {IMbnSms} sms An <a href="https://docs.microsoft.com/windows/desktop/api/mbnapi/nn-mbnapi-imbnsms">IMbnSms</a> interface representing the Mobile Broadband device from which the messages were deleted.
      * @param {Integer} requestID A request ID assigned by the Mobile Broadband service to identify the operation.
-     * @param {HRESULT} _status 
+     * @param {HRESULT} _status A status code that indicates the outcome of the operation.
      * @returns {HRESULT} This method must return <b>S_OK</b>.
      * @see https://learn.microsoft.com/windows/win32/api/mbnapi/nf-mbnapi-imbnsmsevents-onsmsdeletecomplete
      */

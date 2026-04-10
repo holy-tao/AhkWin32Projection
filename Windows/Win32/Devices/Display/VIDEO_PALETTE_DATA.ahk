@@ -3,10 +3,8 @@
 
 /**
  * @namespace Windows.Win32.Devices.Display
- * @version v4.0.30319
  */
-class VIDEO_PALETTE_DATA extends Win32Struct
-{
+class VIDEO_PALETTE_DATA extends Win32Struct {
     static sizeof => 6
 
     static packingSize => 2
@@ -28,9 +26,9 @@ class VIDEO_PALETTE_DATA extends Win32Struct
     }
 
     /**
-     * @type {Array<UInt16>}
+     * @type {Array<Integer>}
      */
-    Colors{
+    Colors {
         get {
             if(!this.HasProp("__ColorsProxyArray"))
                 this.__ColorsProxyArray := Win32FixedArray(this.ptr + 4, 1, Primitive, "ushort")

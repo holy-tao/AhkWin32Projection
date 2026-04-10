@@ -5,9 +5,8 @@
  * Defines constants that specify the nature of the resource(s) referred to by a binding description (a DML_BINDING_DESC structure).
  * @see https://learn.microsoft.com/windows/win32/api/directml/ne-directml-dml_binding_type
  * @namespace Windows.Win32.AI.MachineLearning.DirectML
- * @version v4.0.30319
  */
-class DML_BINDING_TYPE extends Win32Enum{
+class DML_BINDING_TYPE extends Win32Enum {
 
     /**
      * Indicates that no resources are to be bound.

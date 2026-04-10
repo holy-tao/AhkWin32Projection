@@ -1,8 +1,8 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
-#Include ..\..\Foundation\BSTR.ahk
 #Include ..\Com\IDispatch.ahk
+#Include ..\..\Foundation\BSTR.ahk
 
 /**
  * Represents the unique identifier of an update.
@@ -10,9 +10,8 @@
  * You can create an instance of this interface by using the UpdateIdentity coclass.
  * @see https://learn.microsoft.com/windows/win32/api/wuapi/nn-wuapi-iupdateidentity
  * @namespace Windows.Win32.System.UpdateAgent
- * @version v4.0.30319
  */
-class IUpdateIdentity extends IDispatch{
+class IUpdateIdentity extends IDispatch {
 
     static sizeof => A_PtrSize
     /**

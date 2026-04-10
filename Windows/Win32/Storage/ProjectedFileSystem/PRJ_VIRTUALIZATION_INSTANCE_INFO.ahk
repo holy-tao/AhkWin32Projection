@@ -5,17 +5,15 @@
  * Information about a virtualization instance.
  * @see https://learn.microsoft.com/windows/win32/api/projectedfslib/ns-projectedfslib-prj_virtualization_instance_info
  * @namespace Windows.Win32.Storage.ProjectedFileSystem
- * @version v4.0.30319
  */
-class PRJ_VIRTUALIZATION_INSTANCE_INFO extends Win32Struct
-{
+class PRJ_VIRTUALIZATION_INSTANCE_INFO extends Win32Struct {
     static sizeof => 16
 
     static packingSize => 8
 
     /**
      * An ID corresponding to a specific virtualization instance.
-     * @type {Pointer<Guid>}
+     * @type {Pointer}
      */
     InstanceID {
         get => NumGet(this, 0, "ptr")

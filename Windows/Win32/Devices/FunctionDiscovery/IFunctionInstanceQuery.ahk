@@ -1,8 +1,8 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
-#Include .\IFunctionInstance.ahk
 #Include ..\..\System\Com\IUnknown.ahk
+#Include .\IFunctionInstance.ahk
 
 /**
  * Implements the asynchronous query for a function instance based on category and subcategory.
@@ -10,9 +10,8 @@
  * The <a href="https://docs.microsoft.com/windows/desktop/api/functiondiscoveryapi/nf-functiondiscoveryapi-ifunctioninstancequery-execute">Execute</a> method must be invoked by the client program before any data can be retrieved from the query object.
  * @see https://learn.microsoft.com/windows/win32/api/functiondiscoveryapi/nn-functiondiscoveryapi-ifunctioninstancequery
  * @namespace Windows.Win32.Devices.FunctionDiscovery
- * @version v4.0.30319
  */
-class IFunctionInstanceQuery extends IUnknown{
+class IFunctionInstanceQuery extends IUnknown {
 
     static sizeof => A_PtrSize
     /**

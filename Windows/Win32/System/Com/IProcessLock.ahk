@@ -7,9 +7,8 @@
  * Used by ISurrogateService to prevent the process from terminating due to a time-out.
  * @see https://learn.microsoft.com/windows/win32/api/objidl/nn-objidl-iprocesslock
  * @namespace Windows.Win32.System.Com
- * @version v4.0.30319
  */
-class IProcessLock extends IUnknown{
+class IProcessLock extends IUnknown {
 
     static sizeof => A_PtrSize
     /**

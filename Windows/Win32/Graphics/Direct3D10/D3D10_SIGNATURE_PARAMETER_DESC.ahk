@@ -1,5 +1,7 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
+#Include ..\Direct3D\D3D_NAME.ahk
+#Include ..\Direct3D\D3D_REGISTER_COMPONENT_TYPE.ahk
 
 /**
  * Describes a shader signature. (D3D10_SIGNATURE_PARAMETER_DESC)
@@ -11,10 +13,8 @@
  * Get a shader-signature from a shader or an effect by calling APIs such as <a href="https://docs.microsoft.com/windows/desktop/api/d3d10shader/nf-d3d10shader-id3d10shaderreflection-getinputparameterdesc">ID3D10ShaderReflection::GetInputParameterDesc</a> or <a href="https://docs.microsoft.com/windows/desktop/api/d3d10effect/nf-d3d10effect-id3d10effectshadervariable-getinputsignatureelementdesc">ID3D10EffectShaderVariable::GetInputSignatureElementDesc</a>.
  * @see https://learn.microsoft.com/windows/win32/api/d3d10shader/ns-d3d10shader-d3d10_signature_parameter_desc
  * @namespace Windows.Win32.Graphics.Direct3D10
- * @version v4.0.30319
  */
-class D3D10_SIGNATURE_PARAMETER_DESC extends Win32Struct
-{
+class D3D10_SIGNATURE_PARAMETER_DESC extends Win32Struct {
     static sizeof => 32
 
     static packingSize => 8
@@ -56,7 +56,7 @@ class D3D10_SIGNATURE_PARAMETER_DESC extends Win32Struct
      * Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/d3dcommon/ne-d3dcommon-d3d_name">D3D10_NAME</a></b>
      * 
      * A predefined string that determines the functionality of certain pipeline stages. See <a href="https://docs.microsoft.com/windows/desktop/api/d3dcommon/ne-d3dcommon-d3d_name">D3D10_NAME</a>.
-     * @type {Integer}
+     * @type {D3D_NAME}
      */
     SystemValueType {
         get => NumGet(this, 16, "int")
@@ -67,7 +67,7 @@ class D3D10_SIGNATURE_PARAMETER_DESC extends Win32Struct
      * Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/d3dcommon/ne-d3dcommon-d3d_register_component_type">D3D10_REGISTER_COMPONENT_TYPE</a></b>
      * 
      * The per-component-data type that is stored in a register. See <a href="https://docs.microsoft.com/windows/desktop/api/d3dcommon/ne-d3dcommon-d3d_register_component_type">D3D10_REGISTER_COMPONENT_TYPE</a>. Each register can store up to four-components of data.
-     * @type {Integer}
+     * @type {D3D_REGISTER_COMPONENT_TYPE}
      */
     ComponentType {
         get => NumGet(this, 20, "int")

@@ -7,9 +7,8 @@
  * Represents a set of application-defined callbacks that perform rendering of text, inline objects, and decorations such as underlines. (IDWriteTextRenderer)
  * @see https://learn.microsoft.com/windows/win32/api/dwrite/nn-dwrite-idwritetextrenderer
  * @namespace Windows.Win32.Graphics.DirectWrite
- * @version v4.0.30319
  */
-class IDWriteTextRenderer extends IDWritePixelSnapping{
+class IDWriteTextRenderer extends IDWritePixelSnapping {
 
     static sizeof => A_PtrSize
     /**
@@ -44,10 +43,12 @@ class IDWriteTextRenderer extends IDWritePixelSnapping{
      * @param {Float} baselineOriginY Type: <b>FLOAT</b>
      * 
      * The pixel location (Y-coordinate) at the baseline origin of the glyph run.
-     * @param {Integer} measuringMode Type: <b><a href="https://docs.microsoft.com/windows/win32/api/dcommon/ne-dcommon-dwrite_measuring_mode">DWRITE_MEASURING_MODE</a></b>
+     * @param {DWRITE_MEASURING_MODE} measuringMode Type: <b><a href="https://docs.microsoft.com/windows/win32/api/dcommon/ne-dcommon-dwrite_measuring_mode">DWRITE_MEASURING_MODE</a></b>
      * 
      * The measuring method for glyphs in the run, used with the other properties to determine the rendering mode.
-     * @param {Pointer<DWRITE_GLYPH_RUN>} _glyphRun 
+     * @param {Pointer<DWRITE_GLYPH_RUN>} _glyphRun Type: <b>const <a href="https://docs.microsoft.com/windows/win32/api/dwrite/ns-dwrite-dwrite_glyph_run">DWRITE_GLYPH_RUN</a>*</b>
+     * 
+     * Pointer to the glyph run instance to render.
      * @param {Pointer<DWRITE_GLYPH_RUN_DESCRIPTION>} glyphRunDescription Type: <b>const <a href="https://docs.microsoft.com/windows/win32/api/dwrite/ns-dwrite-dwrite_glyph_run_description">DWRITE_GLYPH_RUN_DESCRIPTION</a>*</b>
      * 
      * A pointer to the glyph run description instance which contains properties of the characters 

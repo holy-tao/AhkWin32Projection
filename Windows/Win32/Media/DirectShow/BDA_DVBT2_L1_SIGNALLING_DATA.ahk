@@ -3,10 +3,8 @@
 
 /**
  * @namespace Windows.Win32.Media.DirectShow
- * @version v4.0.30319
  */
-class BDA_DVBT2_L1_SIGNALLING_DATA extends Win32Struct
-{
+class BDA_DVBT2_L1_SIGNALLING_DATA extends Win32Struct {
     static sizeof => 26
 
     static packingSize => 1
@@ -44,9 +42,9 @@ class BDA_DVBT2_L1_SIGNALLING_DATA extends Win32Struct
     }
 
     /**
-     * @type {Array<Byte>}
+     * @type {Array<Integer>}
      */
-    L1Pre_POSTSIZE_INFO_PILOT{
+    L1Pre_POSTSIZE_INFO_PILOT {
         get {
             if(!this.HasProp("__L1Pre_POSTSIZE_INFO_PILOTProxyArray"))
                 this.__L1Pre_POSTSIZE_INFO_PILOTProxyArray := Win32FixedArray(this.ptr + 4, 5, Primitive, "char")
@@ -63,9 +61,9 @@ class BDA_DVBT2_L1_SIGNALLING_DATA extends Win32Struct
     }
 
     /**
-     * @type {Array<Byte>}
+     * @type {Array<Integer>}
      */
-    L1Pre_CELL_ID{
+    L1Pre_CELL_ID {
         get {
             if(!this.HasProp("__L1Pre_CELL_IDProxyArray"))
                 this.__L1Pre_CELL_IDProxyArray := Win32FixedArray(this.ptr + 10, 2, Primitive, "char")
@@ -74,9 +72,9 @@ class BDA_DVBT2_L1_SIGNALLING_DATA extends Win32Struct
     }
 
     /**
-     * @type {Array<Byte>}
+     * @type {Array<Integer>}
      */
-    L1Pre_NETWORK_ID{
+    L1Pre_NETWORK_ID {
         get {
             if(!this.HasProp("__L1Pre_NETWORK_IDProxyArray"))
                 this.__L1Pre_NETWORK_IDProxyArray := Win32FixedArray(this.ptr + 12, 2, Primitive, "char")
@@ -85,9 +83,9 @@ class BDA_DVBT2_L1_SIGNALLING_DATA extends Win32Struct
     }
 
     /**
-     * @type {Array<Byte>}
+     * @type {Array<Integer>}
      */
-    L1Pre_T2SYSTEM_ID{
+    L1Pre_T2SYSTEM_ID {
         get {
             if(!this.HasProp("__L1Pre_T2SYSTEM_IDProxyArray"))
                 this.__L1Pre_T2SYSTEM_IDProxyArray := Win32FixedArray(this.ptr + 14, 2, Primitive, "char")
@@ -104,9 +102,9 @@ class BDA_DVBT2_L1_SIGNALLING_DATA extends Win32Struct
     }
 
     /**
-     * @type {Array<Byte>}
+     * @type {Array<Integer>}
      */
-    L1Pre_NUM_DATA_REGENFLAG_L1POSTEXT{
+    L1Pre_NUM_DATA_REGENFLAG_L1POSTEXT {
         get {
             if(!this.HasProp("__L1Pre_NUM_DATA_REGENFLAG_L1POSTEXTProxyArray"))
                 this.__L1Pre_NUM_DATA_REGENFLAG_L1POSTEXTProxyArray := Win32FixedArray(this.ptr + 17, 2, Primitive, "char")
@@ -115,9 +113,9 @@ class BDA_DVBT2_L1_SIGNALLING_DATA extends Win32Struct
     }
 
     /**
-     * @type {Array<Byte>}
+     * @type {Array<Integer>}
      */
-    L1Pre_NUMRF_CURRENTRF_RESERVED{
+    L1Pre_NUMRF_CURRENTRF_RESERVED {
         get {
             if(!this.HasProp("__L1Pre_NUMRF_CURRENTRF_RESERVEDProxyArray"))
                 this.__L1Pre_NUMRF_CURRENTRF_RESERVEDProxyArray := Win32FixedArray(this.ptr + 19, 2, Primitive, "char")
@@ -126,9 +124,9 @@ class BDA_DVBT2_L1_SIGNALLING_DATA extends Win32Struct
     }
 
     /**
-     * @type {Array<Byte>}
+     * @type {Array<Integer>}
      */
-    L1Pre_CRC32{
+    L1Pre_CRC32 {
         get {
             if(!this.HasProp("__L1Pre_CRC32ProxyArray"))
                 this.__L1Pre_CRC32ProxyArray := Win32FixedArray(this.ptr + 21, 4, Primitive, "char")
@@ -137,9 +135,9 @@ class BDA_DVBT2_L1_SIGNALLING_DATA extends Win32Struct
     }
 
     /**
-     * @type {Array<Byte>}
+     * @type {Array<Integer>}
      */
-    L1PostData{
+    L1PostData {
         get {
             if(!this.HasProp("__L1PostDataProxyArray"))
                 this.__L1PostDataProxyArray := Win32FixedArray(this.ptr + 25, 1, Primitive, "char")

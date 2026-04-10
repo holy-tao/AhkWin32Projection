@@ -7,9 +7,8 @@
  * The IUIEventLogger interface is implemented by the application and defines the ribbon events callback method.
  * @see https://learn.microsoft.com/windows/win32/api/uiribbon/nn-uiribbon-iuieventlogger
  * @namespace Windows.Win32.UI.Ribbon
- * @version v4.0.30319
  */
-class IUIEventLogger extends IUnknown{
+class IUIEventLogger extends IUnknown {
 
     static sizeof => A_PtrSize
     /**

@@ -1,18 +1,17 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
+#Include ..\..\System\Com\IConnectionPointContainer.ahk
 #Include .\IDiskQuotaUser.ahk
 #Include .\IEnumDiskQuotaUsers.ahk
 #Include .\IDiskQuotaUserBatch.ahk
-#Include ..\..\System\Com\IConnectionPointContainer.ahk
 
 /**
  * Controls the disk quota facilities of a single NTFS file system volume.
  * @see https://learn.microsoft.com/windows/win32/api/dskquota/nn-dskquota-idiskquotacontrol
  * @namespace Windows.Win32.Storage.FileSystem
- * @version v4.0.30319
  */
-class IDiskQuotaControl extends IConnectionPointContainer{
+class IDiskQuotaControl extends IConnectionPointContainer {
 
     static sizeof => A_PtrSize
     /**
@@ -1200,7 +1199,7 @@ class IDiskQuotaControl extends IConnectionPointContainer{
      * @remarks
      * The NTFS file system automatically creates a user quota entry when a user first writes to the volume. Entries that are created automatically are assigned the default warning threshold and hard quota limit values for the volume. This method allows you to create a user quota entry before a user has written information to the volume. Therefore, you can pre-assign a warning threshold or hard quota limit value different than the volume default settings.
      * @param {PSID} pUserSid The user's SID.
-     * @param {Integer} fNameResolution 
+     * @param {DISKQUOTA_USERNAME_RESOLVE} fNameResolution 
      * @returns {IDiskQuotaUser} A pointer to the 
      * <a href="https://docs.microsoft.com/windows/desktop/api/dskquota/nn-dskquota-idiskquotauser">IDiskQuotaUser</a> interface pointer to the newly created quota user object.
      * @see https://learn.microsoft.com/windows/win32/api/dskquota/nf-dskquota-idiskquotacontrol-addusersid
@@ -1215,7 +1214,7 @@ class IDiskQuotaControl extends IConnectionPointContainer{
      * @remarks
      * The NTFS file system automatically creates a user quota entry when a user first writes to the volume. Entries that are created automatically are assigned the default warning threshold and hard quota limit values for the volume. This method allows you to create a user quota entry before a user has written information to the volume. Therefore, you can pre-assign a warning threshold or hard quota limit value different than the volume default settings.
      * @param {PWSTR} pszLogonName The user's account logon name string.
-     * @param {Integer} fNameResolution 
+     * @param {DISKQUOTA_USERNAME_RESOLVE} fNameResolution 
      * @returns {IDiskQuotaUser} A pointer to the 
      * <a href="https://docs.microsoft.com/windows/desktop/api/dskquota/nn-dskquota-idiskquotauser">IDiskQuotaUser</a> interface pointer to the newly created quota user object.
      * @see https://learn.microsoft.com/windows/win32/api/dskquota/nf-dskquota-idiskquotacontrol-addusername
@@ -1342,7 +1341,7 @@ class IDiskQuotaControl extends IConnectionPointContainer{
      * @remarks
      * This method will return a user object even if there is no quota record for the user in the quota file. This is consistent with the idea of automatic user addition and default quota settings. If there is currently no quota entry for the requested user, and the user would be added to the quota file if he were to request disk space, the returned user object will have warning threshold and hard quota limits equal to the volume default settings.
      * @param {PSID} pUserSid A pointer to the user's SID.
-     * @param {Integer} fNameResolution 
+     * @param {DISKQUOTA_USERNAME_RESOLVE} fNameResolution 
      * @returns {IDiskQuotaUser} Pointer to receive the 
      * <a href="https://docs.microsoft.com/windows/desktop/api/dskquota/nn-dskquota-idiskquotauser">IDiskQuotaUser</a> interface pointer to the quota user object.
      * @see https://learn.microsoft.com/windows/win32/api/dskquota/nf-dskquota-idiskquotacontrol-findusersid
@@ -1372,7 +1371,7 @@ class IDiskQuotaControl extends IConnectionPointContainer{
      * Creates an enumerator object for enumerating quota users on the volume.
      * @param {Pointer<PSID>} rgpUserSids An array of security identifier (SID) pointers representing the user objects to be included in the enumeration. If this value is <b>NULL</b>, all user entries are enumerated.
      * @param {Integer} cpSids The number of items in the <i>rgpUserSids</i> array. Ignored if <i>rgpUserSids</i> is <b>NULL</b>.
-     * @param {Integer} fNameResolution 
+     * @param {DISKQUOTA_USERNAME_RESOLVE} fNameResolution 
      * @returns {IEnumDiskQuotaUsers} A pointer to a pointer to the 
      * <a href="https://docs.microsoft.com/windows/desktop/api/dskquota/nn-dskquota-ienumdiskquotausers">IEnumDiskQuotaUsers</a> enumerator.
      * @see https://learn.microsoft.com/windows/win32/api/dskquota/nf-dskquota-idiskquotacontrol-createenumusers

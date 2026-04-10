@@ -5,9 +5,8 @@
  * Indicates the user options that are available to the user when pasting this format, and within which group or list of choices (Paste, Paste Link, etc.).
  * @see https://learn.microsoft.com/windows/win32/api/oledlg/ne-oledlg-oleuipasteflag
  * @namespace Windows.Win32.System.Ole
- * @version v4.0.30319
  */
-class OLEUIPASTEFLAG extends Win32Enum{
+class OLEUIPASTEFLAG extends Win32Enum {
 
     /**
      * If the container does not specify this flag for the entry in the <a href="https://docs.microsoft.com/windows/desktop/api/oledlg/ns-oledlg-oleuipasteentrya">OLEUIPASTEENTRY</a> array passed as input to <a href="https://docs.microsoft.com/windows/desktop/api/oledlg/nf-oledlg-oleuipastespeciala">OleUIPasteSpecial</a>, the DisplayAsIcon button will be unchecked and disabled when the user selects the format that corresponds to the entry.

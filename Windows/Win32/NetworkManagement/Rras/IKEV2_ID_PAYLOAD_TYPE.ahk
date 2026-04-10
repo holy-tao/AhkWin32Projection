@@ -3,9 +3,8 @@
 
 /**
  * @namespace Windows.Win32.NetworkManagement.Rras
- * @version v4.0.30319
  */
-class IKEV2_ID_PAYLOAD_TYPE extends Win32Enum{
+class IKEV2_ID_PAYLOAD_TYPE extends Win32Enum {
 
     /**
      * @type {Integer (Int32)}

@@ -8,11 +8,9 @@
  * > The dbghelp.h header defines SYMSRV_INDEX_INFO as an alias which automatically selects the ANSI or Unicode version of this function based on the definition of the UNICODE preprocessor constant. Mixing usage of the encoding-neutral alias with code that not encoding-neutral can lead to mismatches that result in compilation or runtime errors. For more information, see [Conventions for Function Prototypes](/windows/win32/intl/conventions-for-function-prototypes).
  * @see https://learn.microsoft.com/windows/win32/api/dbghelp/ns-dbghelp-symsrv_index_infow
  * @namespace Windows.Win32.System.Diagnostics.Debug
- * @version v4.0.30319
  * @charset Unicode
  */
-class SYMSRV_INDEX_INFOW extends Win32Struct
-{
+class SYMSRV_INDEX_INFOW extends Win32Struct {
     static sizeof => 1600
 
     static packingSize => 8
@@ -82,7 +80,7 @@ class SYMSRV_INDEX_INFOW extends Win32Struct
 
     /**
      * The GUID of the .pdb file. If there is no GUID available, the signature of the .pdb file is copied into first <b>DWORD</b> of the GUID.
-     * @type {Pointer<Guid>}
+     * @type {Pointer}
      */
     guid {
         get => NumGet(this, 1584, "ptr")

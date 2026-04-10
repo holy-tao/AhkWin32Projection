@@ -5,9 +5,8 @@
  * Exchange key
  * @see https://learn.microsoft.com/windows/win32/api/xenroll/nf-xenroll-icenroll4-getkeylenex
  * @namespace Windows.Win32.Security.Cryptography.Certificates
- * @version v4.0.30319
  */
-class XEKL_KEYSPEC extends Win32Enum{
+class XEKL_KEYSPEC extends Win32Enum {
 
     /**
      * @type {Integer (Int32)}

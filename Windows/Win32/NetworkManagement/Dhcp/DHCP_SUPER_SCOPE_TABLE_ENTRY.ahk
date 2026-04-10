@@ -5,10 +5,8 @@
  * Defines a subnet entry within the superscope table.
  * @see https://learn.microsoft.com/windows/win32/api/dhcpsapi/ns-dhcpsapi-dhcp_super_scope_table_entry
  * @namespace Windows.Win32.NetworkManagement.Dhcp
- * @version v4.0.30319
  */
-class DHCP_SUPER_SCOPE_TABLE_ENTRY extends Win32Struct
-{
+class DHCP_SUPER_SCOPE_TABLE_ENTRY extends Win32Struct {
     static sizeof => 24
 
     static packingSize => 8

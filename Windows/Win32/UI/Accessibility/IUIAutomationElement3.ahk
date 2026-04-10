@@ -7,9 +7,8 @@
  * Extends the IUIAutomationElement2 interface.
  * @see https://learn.microsoft.com/windows/win32/api/uiautomationclient/nn-uiautomationclient-iuiautomationelement3
  * @namespace Windows.Win32.UI.Accessibility
- * @version v4.0.30319
  */
-class IUIAutomationElement3 extends IUIAutomationElement2{
+class IUIAutomationElement3 extends IUIAutomationElement2 {
 
     static sizeof => A_PtrSize
     /**

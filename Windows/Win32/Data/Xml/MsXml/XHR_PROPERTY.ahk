@@ -5,9 +5,8 @@
  * Defines properties that you can assign to an outgoing HTTP request by calling the SetProperty method.
  * @see https://learn.microsoft.com/windows/win32/api/msxml6/ne-msxml6-xhr_property
  * @namespace Windows.Win32.Data.Xml.MsXml
- * @version v4.0.30319
  */
-class XHR_PROPERTY extends Win32Enum{
+class XHR_PROPERTY extends Win32Enum {
 
     /**
      * Sets a flag in the HTTP request that suppresses automatic prompts for credentials.
@@ -67,19 +66,16 @@ class XHR_PROPERTY extends Win32Enum{
     static XHR_PROP_IGNORE_CERT_ERRORS => 8
 
     /**
-     * 
      * @type {Integer (Int32)}
      */
     static XHR_PROP_ONDATA_THRESHOLD => 9
 
     /**
-     * 
      * @type {Integer (Int32)}
      */
     static XHR_PROP_SET_ENTERPRISEID => 10
 
     /**
-     * 
      * @type {Integer (Int32)}
      */
     static XHR_PROP_MAX_CONNECTIONS => 11

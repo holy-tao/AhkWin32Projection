@@ -1,14 +1,13 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\..\Guid.ahk
-#Include .\IDirectMusicInstrument.ahk
 #Include ..\..\..\System\Com\IUnknown.ahk
+#Include .\IDirectMusicInstrument.ahk
 
 /**
  * @namespace Windows.Win32.Media.Audio.DirectMusic
- * @version v4.0.30319
  */
-class IDirectMusicCollection extends IUnknown{
+class IDirectMusicCollection extends IUnknown {
 
     static sizeof => A_PtrSize
     /**

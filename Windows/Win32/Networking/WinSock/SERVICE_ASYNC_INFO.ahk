@@ -4,10 +4,8 @@
 
 /**
  * @namespace Windows.Win32.Networking.WinSock
- * @version v4.0.30319
  */
-class SERVICE_ASYNC_INFO extends Win32Struct
-{
+class SERVICE_ASYNC_INFO extends Win32Struct {
     static sizeof => 24
 
     static packingSize => 8
@@ -31,7 +29,7 @@ class SERVICE_ASYNC_INFO extends Win32Struct
     /**
      * @type {HANDLE}
      */
-    hAsyncTaskHandle{
+    hAsyncTaskHandle {
         get {
             if(!this.HasProp("__hAsyncTaskHandle"))
                 this.__hAsyncTaskHandle := HANDLE(16, this)

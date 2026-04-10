@@ -5,10 +5,8 @@
  * Represents the static information that characterizes a Pulse Width Modulation (PWM) controller.
  * @see https://learn.microsoft.com/windows/win32/api/pwm/ns-pwm-pwm_controller_info
  * @namespace Windows.Win32.Devices.Pwm
- * @version v4.0.30319
  */
-class PWM_CONTROLLER_INFO extends Win32Struct
-{
+class PWM_CONTROLLER_INFO extends Win32Struct {
     static sizeof => 32
 
     static packingSize => 8

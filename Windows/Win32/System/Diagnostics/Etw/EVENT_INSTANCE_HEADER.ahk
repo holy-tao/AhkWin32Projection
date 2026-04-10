@@ -8,10 +8,8 @@
  * members.
  * @see https://learn.microsoft.com/windows/win32/api/evntrace/ns-evntrace-event_instance_header
  * @namespace Windows.Win32.System.Diagnostics.Etw
- * @version v4.0.30319
  */
-class EVENT_INSTANCE_HEADER extends Win32Struct
-{
+class EVENT_INSTANCE_HEADER extends Win32Struct {
     static sizeof => 56
 
     static packingSize => 8
@@ -63,7 +61,7 @@ class EVENT_INSTANCE_HEADER extends Win32Struct
             get => NumGet(this, 0, "char")
             set => NumPut("char", value, this, 0)
         }
-    
+
         /**
          * @type {Integer}
          */
@@ -71,7 +69,7 @@ class EVENT_INSTANCE_HEADER extends Win32Struct
             get => NumGet(this, 1, "char")
             set => NumPut("char", value, this, 1)
         }
-    
+
         /**
          * @type {Integer}
          */
@@ -79,7 +77,6 @@ class EVENT_INSTANCE_HEADER extends Win32Struct
             get => NumGet(this, 2, "ushort")
             set => NumPut("ushort", value, this, 2)
         }
-    
     }
 
     /**
@@ -93,10 +90,10 @@ class EVENT_INSTANCE_HEADER extends Win32Struct
     /**
      * @type {_Class}
      */
-    Class{
+    Class {
         get {
             if(!this.HasProp("__Class"))
-                this.__Class := %this.__Class%._Class(4, this)
+                this.__Class := EVENT_INSTANCE_HEADER._Class(4, this)
             return this.__Class
         }
     }

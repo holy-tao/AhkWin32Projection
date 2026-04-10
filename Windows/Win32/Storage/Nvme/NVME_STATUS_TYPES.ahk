@@ -7,9 +7,8 @@
  * When a command is completed, a value from this enumeration is posted by the controller in the **SCT** field of a [NVME_COMMAND_STATUS](ns-nvme-nvme_command_status.md) structure in the **Status** field of a [Completion Queue entry](ns-nvme-nvme_completion_entry.md).
  * @see https://learn.microsoft.com/windows/win32/api/nvme/ne-nvme-nvme_status_types
  * @namespace Windows.Win32.Storage.Nvme
- * @version v4.0.30319
  */
-class NVME_STATUS_TYPES extends Win32Enum{
+class NVME_STATUS_TYPES extends Win32Enum {
 
     /**
      * Indicates that the command specified by the Command and Submission Queue identifiers in the completion queue entry has completed. These status values are generic across all command types, and include such conditions as success, opcode not supported, and invalid field.

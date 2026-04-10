@@ -5,9 +5,8 @@
  * The WMT_PLAY_MODE enumeration type defines the playback options of the reader.
  * @see https://learn.microsoft.com/windows/win32/api/wmsdkidl/ne-wmsdkidl-wmt_play_mode
  * @namespace Windows.Win32.Media.WindowsMediaFormat
- * @version v4.0.30319
  */
-class WMT_PLAY_MODE extends Win32Enum{
+class WMT_PLAY_MODE extends Win32Enum {
 
     /**
      * The reader will select the most appropriate play mode based on the location of the content.

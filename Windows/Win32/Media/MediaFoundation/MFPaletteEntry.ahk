@@ -9,10 +9,8 @@
  * This union can be used to represent both RGB palettes and Y'Cb'Cr' palettes. The video format that defines the palette determines which union member should be used.
  * @see https://learn.microsoft.com/windows/win32/api/mfobjects/ns-mfobjects-mfpaletteentry
  * @namespace Windows.Win32.Media.MediaFoundation
- * @version v4.0.30319
  */
-class MFPaletteEntry extends Win32Struct
-{
+class MFPaletteEntry extends Win32Struct {
     static sizeof => 8
 
     static packingSize => 1
@@ -21,7 +19,7 @@ class MFPaletteEntry extends Win32Struct
      * [MFARGB](./ns-mfobjects-mfargb.md) structure that contains an RGB color.
      * @type {MFARGB}
      */
-    ARGB{
+    ARGB {
         get {
             if(!this.HasProp("__ARGB"))
                 this.__ARGB := MFARGB(0, this)
@@ -33,7 +31,7 @@ class MFPaletteEntry extends Win32Struct
      * [MFAYUVSample](./ns-mfobjects-mfayuvsample.md) structure that contains a Y'Cb'Cr' color.
      * @type {MFAYUVSample}
      */
-    AYCbCr{
+    AYCbCr {
         get {
             if(!this.HasProp("__AYCbCr"))
                 this.__AYCbCr := MFAYUVSample(0, this)

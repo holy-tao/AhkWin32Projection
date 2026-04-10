@@ -3,10 +3,8 @@
 
 /**
  * @namespace Windows.Win32.System.Ioctl
- * @version v4.0.30319
  */
-class DEVICEDUMP_STORAGESTACK_PUBLIC_STATE_RECORD extends Win32Struct
-{
+class DEVICEDUMP_STORAGESTACK_PUBLIC_STATE_RECORD extends Win32Struct {
     static sizeof => 64
 
     static packingSize => 8
@@ -18,7 +16,7 @@ class DEVICEDUMP_STORAGESTACK_PUBLIC_STATE_RECORD extends Win32Struct
         class _ExternalStack extends Win32Struct {
             static sizeof => 4
             static packingSize => 4
-    
+
             /**
              * @type {Integer}
              */
@@ -26,13 +24,12 @@ class DEVICEDUMP_STORAGESTACK_PUBLIC_STATE_RECORD extends Win32Struct
                 get => NumGet(this, 0, "uint")
                 set => NumPut("uint", value, this, 0)
             }
-        
         }
-    
+
         class _AtaPort extends Win32Struct {
             static sizeof => 4
             static packingSize => 4
-    
+
             /**
              * @type {Integer}
              */
@@ -40,13 +37,12 @@ class DEVICEDUMP_STORAGESTACK_PUBLIC_STATE_RECORD extends Win32Struct
                 get => NumGet(this, 0, "uint")
                 set => NumPut("uint", value, this, 0)
             }
-        
         }
-    
+
         class _StorPort extends Win32Struct {
             static sizeof => 4
             static packingSize => 4
-    
+
             /**
              * @type {Integer}
              */
@@ -54,48 +50,46 @@ class DEVICEDUMP_STORAGESTACK_PUBLIC_STATE_RECORD extends Win32Struct
                 get => NumGet(this, 0, "uint")
                 set => NumPut("uint", value, this, 0)
             }
-        
         }
-    
+
         /**
          * @type {_ExternalStack}
          */
-        ExternalStack{
+        ExternalStack {
             get {
                 if(!this.HasProp("__ExternalStack"))
-                    this.__ExternalStack := %this.__Class%._ExternalStack(0, this)
+                    this.__ExternalStack := DEVICEDUMP_STORAGESTACK_PUBLIC_STATE_RECORD._StackSpecific_e__Union._ExternalStack(0, this)
                 return this.__ExternalStack
             }
         }
-    
+
         /**
          * @type {_AtaPort}
          */
-        AtaPort{
+        AtaPort {
             get {
                 if(!this.HasProp("__AtaPort"))
-                    this.__AtaPort := %this.__Class%._AtaPort(0, this)
+                    this.__AtaPort := DEVICEDUMP_STORAGESTACK_PUBLIC_STATE_RECORD._StackSpecific_e__Union._AtaPort(0, this)
                 return this.__AtaPort
             }
         }
-    
+
         /**
          * @type {_StorPort}
          */
-        StorPort{
+        StorPort {
             get {
                 if(!this.HasProp("__StorPort"))
-                    this.__StorPort := %this.__Class%._StorPort(0, this)
+                    this.__StorPort := DEVICEDUMP_STORAGESTACK_PUBLIC_STATE_RECORD._StackSpecific_e__Union._StorPort(0, this)
                 return this.__StorPort
             }
         }
-    
     }
 
     /**
-     * @type {Array<Byte>}
+     * @type {Array<Integer>}
      */
-    Cdb{
+    Cdb {
         get {
             if(!this.HasProp("__CdbProxyArray"))
                 this.__CdbProxyArray := Win32FixedArray(this.ptr + 0, 16, Primitive, "char")
@@ -104,9 +98,9 @@ class DEVICEDUMP_STORAGESTACK_PUBLIC_STATE_RECORD extends Win32Struct
     }
 
     /**
-     * @type {Array<Byte>}
+     * @type {Array<Integer>}
      */
-    Command{
+    Command {
         get {
             if(!this.HasProp("__CommandProxyArray"))
                 this.__CommandProxyArray := Win32FixedArray(this.ptr + 16, 16, Primitive, "char")
@@ -149,10 +143,10 @@ class DEVICEDUMP_STORAGESTACK_PUBLIC_STATE_RECORD extends Win32Struct
     /**
      * @type {_StackSpecific_e__Union}
      */
-    StackSpecific{
+    StackSpecific {
         get {
             if(!this.HasProp("__StackSpecific"))
-                this.__StackSpecific := %this.__Class%._StackSpecific_e__Union(56, this)
+                this.__StackSpecific := DEVICEDUMP_STORAGESTACK_PUBLIC_STATE_RECORD._StackSpecific_e__Union(56, this)
             return this.__StackSpecific
         }
     }

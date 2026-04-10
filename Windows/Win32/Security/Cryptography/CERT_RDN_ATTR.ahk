@@ -6,10 +6,8 @@
  * Contains a single attribute of a relative distinguished name (RDN). A whole RDN is expressed in a CERT_RDN structure that contains an array of CERT_RDN_ATTR structures.
  * @see https://learn.microsoft.com/windows/win32/api/wincrypt/ns-wincrypt-cert_rdn_attr
  * @namespace Windows.Win32.Security.Cryptography
- * @version v4.0.30319
  */
-class CERT_RDN_ATTR extends Win32Struct
-{
+class CERT_RDN_ATTR extends Win32Struct {
     static sizeof => 32
 
     static packingSize => 8
@@ -510,7 +508,7 @@ class CERT_RDN_ATTR extends Win32Struct
      * The <b>pbData</b> member of <b>Value</b> can be a null-terminated array of 8-bit or 16-bit characters or a fixed-length array of elements. If <b>dwValueType</b> is set to CERT_RDN_ENCODED_BLOB, <b>pbData</b> is encoded.
      * @type {CRYPT_INTEGER_BLOB}
      */
-    Value{
+    Value {
         get {
             if(!this.HasProp("__Value"))
                 this.__Value := CRYPT_INTEGER_BLOB(16, this)

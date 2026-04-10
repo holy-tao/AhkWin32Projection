@@ -3,10 +3,8 @@
 
 /**
  * @namespace Windows.Wdk.System.SystemServices
- * @version v4.0.30319
  */
-class WHEA_X86_REGISTER_STATE extends Win32Struct
-{
+class WHEA_X86_REGISTER_STATE extends Win32Struct {
     static sizeof => 96
 
     static packingSize => 8

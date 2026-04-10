@@ -3,11 +3,9 @@
 
 /**
  * Documentation varies per use. Refer to each: <see href="https://learn.microsoft.com/windows/win32/api/commctrl/nf-commctrl-flatsb_getscrollprop">FlatSB_GetScrollProp</see>, <see href="https://learn.microsoft.com/windows/win32/api/commctrl/nf-commctrl-flatsb_getscrollpropptr">FlatSB_GetScrollPropPtr</see>, <see href="https://learn.microsoft.com/windows/win32/api/commctrl/nf-commctrl-flatsb_setscrollprop">FlatSB_SetScrollProp</see>.
- * @see 
  * @namespace Windows.Win32.UI.Controls
- * @version v4.0.30319
  */
-class WSB_PROP extends Win32Enum{
+class WSB_PROP extends Win32Enum {
 
     /**
      * @type {Integer (Int32)}

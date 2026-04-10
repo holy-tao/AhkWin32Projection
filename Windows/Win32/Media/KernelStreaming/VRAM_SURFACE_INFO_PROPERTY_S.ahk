@@ -1,13 +1,12 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
 #Include .\KSIDENTIFIER.ahk
+#Include .\VRAM_SURFACE_INFO.ahk
 
 /**
  * @namespace Windows.Win32.Media.KernelStreaming
- * @version v4.0.30319
  */
-class VRAM_SURFACE_INFO_PROPERTY_S extends Win32Struct
-{
+class VRAM_SURFACE_INFO_PROPERTY_S extends Win32Struct {
     static sizeof => 24
 
     static packingSize => 8
@@ -15,7 +14,7 @@ class VRAM_SURFACE_INFO_PROPERTY_S extends Win32Struct
     /**
      * @type {KSIDENTIFIER}
      */
-    Property{
+    Property {
         get {
             if(!this.HasProp("__Property"))
                 this.__Property := KSIDENTIFIER(0, this)

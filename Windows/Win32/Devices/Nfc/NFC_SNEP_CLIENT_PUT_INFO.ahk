@@ -4,10 +4,8 @@
 
 /**
  * @namespace Windows.Win32.Devices.Nfc
- * @version v4.0.30319
  */
-class NFC_SNEP_CLIENT_PUT_INFO extends Win32Struct
-{
+class NFC_SNEP_CLIENT_PUT_INFO extends Win32Struct {
     static sizeof => 16
 
     static packingSize => 8
@@ -23,7 +21,7 @@ class NFC_SNEP_CLIENT_PUT_INFO extends Win32Struct
     /**
      * @type {NFC_DATA_BUFFER}
      */
-    sPutPayload{
+    sPutPayload {
         get {
             if(!this.HasProp("__sPutPayload"))
                 this.__sPutPayload := NFC_DATA_BUFFER(8, this)

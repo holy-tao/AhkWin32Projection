@@ -5,9 +5,8 @@
 
 /**
  * @namespace Windows.Win32.Media.PictureAcquisition
- * @version v4.0.30319
  */
-class IPhotoProgressActionCB extends IUnknown{
+class IPhotoProgressActionCB extends IUnknown {
 
     static sizeof => A_PtrSize
     /**

@@ -5,9 +5,8 @@
  * Identifiers for properties of the Turbulence effect.
  * @see https://learn.microsoft.com/windows/win32/api/d2d1effects/ne-d2d1effects-d2d1_turbulence_prop
  * @namespace Windows.Win32.Graphics.Direct2D
- * @version v4.0.30319
  */
-class D2D1_TURBULENCE_PROP extends Win32Enum{
+class D2D1_TURBULENCE_PROP extends Win32Enum {
 
     /**
      * The coordinates where the turbulence output is generated.
@@ -28,7 +27,6 @@ class D2D1_TURBULENCE_PROP extends Win32Enum{
     static D2D1_TURBULENCE_PROP_OFFSET => 0
 
     /**
-     * 
      * @type {Integer (Int32)}
      */
     static D2D1_TURBULENCE_PROP_SIZE => 1

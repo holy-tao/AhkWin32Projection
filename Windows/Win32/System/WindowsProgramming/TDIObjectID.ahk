@@ -1,15 +1,14 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
 #Include .\TDIEntityID.ahk
+#Include .\TDIENTITY_ENTITY_TYPE.ahk
 
 /**
  * Contains a part of the TCP_REQUEST_QUERY_INFORMATION_EX structure that is used with the IOCTL_TCP_QUERY_INFORMATION_EX control code to specify the kind of information being requested from the TCP driver.
  * @see https://learn.microsoft.com/windows/win32/api/tdiinfo/ns-tdiinfo-tdiobjectid
  * @namespace Windows.Win32.System.WindowsProgramming
- * @version v4.0.30319
  */
-class TDIObjectID extends Win32Struct
-{
+class TDIObjectID extends Win32Struct {
     static sizeof => 20
 
     static packingSize => 4
@@ -18,7 +17,7 @@ class TDIObjectID extends Win32Struct
      * This is a <a href="https://docs.microsoft.com/windows/desktop/api/tdiinfo/ns-tdiinfo-tdientityid">TDIEntityID</a> structure.
      * @type {TDIEntityID}
      */
-    toi_entity{
+    toi_entity {
         get {
             if(!this.HasProp("__toi_entity"))
                 this.__toi_entity := TDIEntityID(0, this)

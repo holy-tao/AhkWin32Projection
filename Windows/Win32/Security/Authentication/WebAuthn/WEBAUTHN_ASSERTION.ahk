@@ -2,17 +2,15 @@
 #Include ..\..\..\..\..\Win32Struct.ahk
 #Include .\WEBAUTHN_CREDENTIAL.ahk
 #Include .\WEBAUTHN_EXTENSIONS.ahk
+#Include .\WEBAUTHN_EXTENSION.ahk
+#Include .\WEBAUTHN_HMAC_SECRET_SALT.ahk
 
 /**
  * A structure that contains the data necessary to verify an assertion.
- * @remarks
- * 
  * @see https://learn.microsoft.com/windows/win32/api/webauthn/ns-webauthn-webauthn_assertion
  * @namespace Windows.Win32.Security.Authentication.WebAuthn
- * @version v4.0.30319
  */
-class WEBAUTHN_ASSERTION extends Win32Struct
-{
+class WEBAUTHN_ASSERTION extends Win32Struct {
     static sizeof => 168
 
     static packingSize => 8
@@ -66,7 +64,7 @@ class WEBAUTHN_ASSERTION extends Win32Struct
      * The credential that was used for this assertion.
      * @type {WEBAUTHN_CREDENTIAL}
      */
-    Credential{
+    Credential {
         get {
             if(!this.HasProp("__Credential"))
                 this.__Credential := WEBAUTHN_CREDENTIAL(32, this)
@@ -96,7 +94,7 @@ class WEBAUTHN_ASSERTION extends Win32Struct
      * A CBOR map from extension identifiers to their authenticator extension inputs, created by the client based on the extensions requested by the Relying Party, if any.
      * @type {WEBAUTHN_EXTENSIONS}
      */
-    Extensions{
+    Extensions {
         get {
             if(!this.HasProp("__Extensions"))
                 this.__Extensions := WEBAUTHN_EXTENSIONS(72, this)

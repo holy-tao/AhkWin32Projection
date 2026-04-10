@@ -3,10 +3,8 @@
 
 /**
  * @namespace Windows.Win32.UI.Input.GameInput
- * @version v4.0.30319
  */
-class GameInputForceFeedbackEnvelope extends Win32Struct
-{
+class GameInputForceFeedbackEnvelope extends Win32Struct {
     static sizeof => 48
 
     static packingSize => 8

@@ -1,9 +1,9 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
+#Include ..\..\System\Com\IDispatch.ahk
 #Include .\IAzNameResolver.ahk
 #Include .\IAzObjectPicker.ahk
-#Include ..\..\System\Com\IDispatch.ahk
 
 /**
  * Locates and chooses ADAM principals in Authorization Manager.
@@ -13,9 +13,8 @@
  * The <b>IAzPrincipalLocator</b> interface must be registered under the following key. <b>HKEY_LOCAL_MACHINE</b>&#92;<b>Software</b>&#92;<b>Microsoft</b>&#92;<b>AzMan</b>&#92;<b>ObjectPicker</b></p>Under this registry key, create a subkey with a value of the COM class ID of the <b>IAzPrincipalLocator</b> interface. Authorization Manager supports only one registered principal locator.
  * @see https://learn.microsoft.com/windows/win32/api/azroles/nn-azroles-iazprincipallocator
  * @namespace Windows.Win32.Security.Authorization
- * @version v4.0.30319
  */
-class IAzPrincipalLocator extends IDispatch{
+class IAzPrincipalLocator extends IDispatch {
 
     static sizeof => A_PtrSize
     /**

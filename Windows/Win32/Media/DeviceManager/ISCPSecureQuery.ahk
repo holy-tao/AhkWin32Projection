@@ -1,16 +1,15 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
-#Include .\ISCPSecureExchange.ahk
 #Include ..\..\System\Com\IUnknown.ahk
+#Include .\ISCPSecureExchange.ahk
 
 /**
  * The ISCPSecureQuery interface is queried by Windows Media Device Manager to determine ownership of secured content.
  * @see https://learn.microsoft.com/windows/win32/api/mswmdm/nn-mswmdm-iscpsecurequery
  * @namespace Windows.Win32.Media.DeviceManager
- * @version v4.0.30319
  */
-class ISCPSecureQuery extends IUnknown{
+class ISCPSecureQuery extends IUnknown {
 
     static sizeof => A_PtrSize
     /**

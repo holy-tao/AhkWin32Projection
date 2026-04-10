@@ -3,11 +3,9 @@
 
 /**
  * @namespace Windows.Win32.NetworkManagement.Rras
- * @version v4.0.30319
  * @charset ANSI
  */
-class RASPPPLCPA extends Win32Struct
-{
+class RASPPPLCPA extends Win32Struct {
     static sizeof => 1080
 
     static packingSize => 4

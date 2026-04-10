@@ -1,14 +1,13 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\..\Guid.ahk
-#Include .\CERTTRANSBLOB.ahk
 #Include .\ICertRequestD.ahk
+#Include .\CERTTRANSBLOB.ahk
 
 /**
  * @namespace Windows.Win32.Security.Cryptography.Certificates
- * @version v4.0.30319
  */
-class ICertRequestD2 extends ICertRequestD{
+class ICertRequestD2 extends ICertRequestD {
 
     static sizeof => A_PtrSize
     /**

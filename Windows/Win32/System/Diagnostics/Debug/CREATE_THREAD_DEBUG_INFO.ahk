@@ -6,10 +6,8 @@
  * Contains thread-creation information that can be used by a debugger.
  * @see https://learn.microsoft.com/windows/win32/api/minwinbase/ns-minwinbase-create_thread_debug_info
  * @namespace Windows.Win32.System.Diagnostics.Debug
- * @version v4.0.30319
  */
-class CREATE_THREAD_DEBUG_INFO extends Win32Struct
-{
+class CREATE_THREAD_DEBUG_INFO extends Win32Struct {
     static sizeof => 24
 
     static packingSize => 8
@@ -18,7 +16,7 @@ class CREATE_THREAD_DEBUG_INFO extends Win32Struct
      * A handle to the thread whose creation caused the debugging event. If this member is <b>NULL</b>, the handle is not valid. Otherwise, the debugger has THREAD_GET_CONTEXT, THREAD_SET_CONTEXT, and THREAD_SUSPEND_RESUME access to the thread, allowing the debugger to read from and write to the registers of the thread and control execution of the thread.
      * @type {HANDLE}
      */
-    hThread{
+    hThread {
         get {
             if(!this.HasProp("__hThread"))
                 this.__hThread := HANDLE(0, this)

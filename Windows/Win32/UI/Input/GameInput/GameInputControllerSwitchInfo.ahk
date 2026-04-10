@@ -1,18 +1,21 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\..\Win32Struct.ahk
+#Include .\GameInputKind.ahk
+#Include .\GameInputLabel.ahk
+#Include .\GameInputSwitchKind.ahk
+#Include .\GameInputRawDeviceReportInfo.ahk
+#Include .\GameInputRawDeviceReportItemInfo.ahk
 
 /**
  * @namespace Windows.Win32.UI.Input.GameInput
- * @version v4.0.30319
  */
-class GameInputControllerSwitchInfo extends Win32Struct
-{
+class GameInputControllerSwitchInfo extends Win32Struct {
     static sizeof => 72
 
     static packingSize => 8
 
     /**
-     * @type {Integer}
+     * @type {GameInputKind}
      */
     mappedInputKinds {
         get => NumGet(this, 0, "int")
@@ -20,7 +23,7 @@ class GameInputControllerSwitchInfo extends Win32Struct
     }
 
     /**
-     * @type {Integer}
+     * @type {GameInputLabel}
      */
     label {
         get => NumGet(this, 4, "int")
@@ -28,9 +31,9 @@ class GameInputControllerSwitchInfo extends Win32Struct
     }
 
     /**
-     * @type {Array<Int32>}
+     * @type {Array<GameInputLabel>}
      */
-    positionLabels{
+    positionLabels {
         get {
             if(!this.HasProp("__positionLabelsProxyArray"))
                 this.__positionLabelsProxyArray := Win32FixedArray(this.ptr + 8, 9, Primitive, "int")
@@ -39,7 +42,7 @@ class GameInputControllerSwitchInfo extends Win32Struct
     }
 
     /**
-     * @type {Integer}
+     * @type {GameInputSwitchKind}
      */
     kind {
         get => NumGet(this, 44, "int")

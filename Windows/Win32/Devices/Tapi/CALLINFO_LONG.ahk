@@ -5,9 +5,8 @@
  * The CALLINFO_LONG enum is used by ITCallInfo methods that set and get call information of type LONG.
  * @see https://learn.microsoft.com/windows/win32/api/tapi3if/ne-tapi3if-callinfo_long
  * @namespace Windows.Win32.Devices.Tapi
- * @version v4.0.30319
  */
-class CALLINFO_LONG extends Win32Enum{
+class CALLINFO_LONG extends Win32Enum {
 
     /**
      * The 
@@ -153,19 +152,16 @@ class CALLINFO_LONG extends Win32Enum{
     static CIL_RATE => 21
 
     /**
-     * 
      * @type {Integer (Int32)}
      */
     static CIL_GENERATEDIGITDURATION => 22
 
     /**
-     * 
      * @type {Integer (Int32)}
      */
     static CIL_MONITORDIGITMODES => 23
 
     /**
-     * 
      * @type {Integer (Int32)}
      */
     static CIL_MONITORMEDIAMODES => 24

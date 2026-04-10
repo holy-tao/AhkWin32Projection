@@ -3,14 +3,10 @@
 
 /**
  * Contains fields that specify information for setting an attribute.
- * @remarks
- * 
  * @see https://learn.microsoft.com/windows/win32/api/nvme/ns-nvme-nvme_set_attributes_entry
  * @namespace Windows.Win32.Storage.Nvme
- * @version v4.0.30319
  */
-class NVME_SET_ATTRIBUTES_ENTRY extends Win32Struct
-{
+class NVME_SET_ATTRIBUTES_ENTRY extends Win32Struct {
     static sizeof => 128
 
     static packingSize => 4
@@ -25,7 +21,6 @@ class NVME_SET_ATTRIBUTES_ENTRY extends Win32Struct
     }
 
     /**
-     * 
      * @type {Integer}
      */
     ENDGID {
@@ -43,7 +38,6 @@ class NVME_SET_ATTRIBUTES_ENTRY extends Win32Struct
     }
 
     /**
-     * 
      * @type {Integer}
      */
     Random4KBReadTypical {
@@ -62,9 +56,9 @@ class NVME_SET_ATTRIBUTES_ENTRY extends Win32Struct
 
     /**
      * Indicates the total capacity.
-     * @type {Array<Byte>}
+     * @type {Array<Integer>}
      */
-    TotalCapacity{
+    TotalCapacity {
         get {
             if(!this.HasProp("__TotalCapacityProxyArray"))
                 this.__TotalCapacityProxyArray := Win32FixedArray(this.ptr + 16, 16, Primitive, "char")
@@ -74,9 +68,9 @@ class NVME_SET_ATTRIBUTES_ENTRY extends Win32Struct
 
     /**
      * Indicates the unallocated capacity.
-     * @type {Array<Byte>}
+     * @type {Array<Integer>}
      */
-    UnallocatedCapacity{
+    UnallocatedCapacity {
         get {
             if(!this.HasProp("__UnallocatedCapacityProxyArray"))
                 this.__UnallocatedCapacityProxyArray := Win32FixedArray(this.ptr + 32, 16, Primitive, "char")
@@ -85,10 +79,9 @@ class NVME_SET_ATTRIBUTES_ENTRY extends Win32Struct
     }
 
     /**
-     * 
-     * @type {Array<Byte>}
+     * @type {Array<Integer>}
      */
-    Reserved2{
+    Reserved2 {
         get {
             if(!this.HasProp("__Reserved2ProxyArray"))
                 this.__Reserved2ProxyArray := Win32FixedArray(this.ptr + 48, 80, Primitive, "char")

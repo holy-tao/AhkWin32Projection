@@ -3,10 +3,8 @@
 
 /**
  * @namespace Windows.Win32.Devices
- * @version v4.0.30319
  */
-class IEEE1394_VDEV_PNP_REQUEST extends Win32Struct
-{
+class IEEE1394_VDEV_PNP_REQUEST extends Win32Struct {
     static sizeof => 24
 
     static packingSize => 8

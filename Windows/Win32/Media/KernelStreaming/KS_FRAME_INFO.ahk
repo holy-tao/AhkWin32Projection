@@ -5,10 +5,8 @@
 
 /**
  * @namespace Windows.Win32.Media.KernelStreaming
- * @version v4.0.30319
  */
-class KS_FRAME_INFO extends Win32Struct
-{
+class KS_FRAME_INFO extends Win32Struct {
     static sizeof => 72
 
     static packingSize => 8
@@ -48,7 +46,7 @@ class KS_FRAME_INFO extends Win32Struct
     /**
      * @type {HANDLE}
      */
-    hDirectDraw{
+    hDirectDraw {
         get {
             if(!this.HasProp("__hDirectDraw"))
                 this.__hDirectDraw := HANDLE(24, this)
@@ -59,7 +57,7 @@ class KS_FRAME_INFO extends Win32Struct
     /**
      * @type {HANDLE}
      */
-    hSurfaceHandle{
+    hSurfaceHandle {
         get {
             if(!this.HasProp("__hSurfaceHandle"))
                 this.__hSurfaceHandle := HANDLE(32, this)
@@ -70,7 +68,7 @@ class KS_FRAME_INFO extends Win32Struct
     /**
      * @type {RECT}
      */
-    DirectDrawRect{
+    DirectDrawRect {
         get {
             if(!this.HasProp("__DirectDrawRect"))
                 this.__DirectDrawRect := RECT(40, this)

@@ -1,6 +1,8 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
+#Include .\CERT_CONTEXT.ahk
 #Include .\HCERTSTORE.ahk
+#Include ..\..\Foundation\FILETIME.ahk
 
 /**
  * Is passed in calls to the CertVerifyRevocation function to assist in finding the issuer of the context to be verified.
@@ -10,10 +12,8 @@
  *  If your application must check the freshness of the CRL or resynchronize the CRL cache, you can provide extra structure members to assist  the <a href="https://docs.microsoft.com/windows/desktop/api/wincrypt/nf-wincrypt-certverifyrevocation">CertVerifyRevocation</a> function with this.  To include the additional structure members, define the constant <b>CERT_REVOCATION_PARA_HAS_EXTRA_FIELDS</b> in your application before including Wincrypt.h
  * @see https://learn.microsoft.com/windows/win32/api/wincrypt/ns-wincrypt-cert_revocation_para
  * @namespace Windows.Win32.Security.Cryptography
- * @version v4.0.30319
  */
-class CERT_REVOCATION_PARA extends Win32Struct
-{
+class CERT_REVOCATION_PARA extends Win32Struct {
     static sizeof => 48
 
     static packingSize => 8
@@ -60,7 +60,7 @@ class CERT_REVOCATION_PARA extends Win32Struct
      * Optional store handle. When specified, a handler that uses <a href="https://docs.microsoft.com/windows/desktop/SecGloss/c-gly">certificate revocation lists</a> (CRLs) can search this store for CRLs.
      * @type {HCERTSTORE}
      */
-    hCrlStore{
+    hCrlStore {
         get {
             if(!this.HasProp("__hCrlStore"))
                 this.__hCrlStore := HCERTSTORE(32, this)

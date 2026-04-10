@@ -19,17 +19,14 @@
  * > The ntmsapi.h header defines NTMS_LIBREQUESTINFORMATION as an alias which automatically selects the ANSI or Unicode version of this function based on the definition of the UNICODE preprocessor constant. Mixing usage of the encoding-neutral alias with code that not encoding-neutral can lead to mismatches that result in compilation or runtime errors. For more information, see [Conventions for Function Prototypes](/windows/win32/intl/conventions-for-function-prototypes).
  * @see https://learn.microsoft.com/windows/win32/api/ntmsapi/ns-ntmsapi-ntms_librequestinformationa
  * @namespace Windows.Win32.Storage.FileSystem
- * @version v4.0.30319
  * @charset ANSI
  */
-class NTMS_LIBREQUESTINFORMATIONA extends Win32Struct
-{
+class NTMS_LIBREQUESTINFORMATIONA extends Win32Struct {
     static sizeof => 304
 
     static packingSize => 8
 
     /**
-     * 
      * @type {Integer}
      */
     OperationCode {
@@ -47,7 +44,6 @@ class NTMS_LIBREQUESTINFORMATIONA extends Win32Struct
     }
 
     /**
-     * 
      * @type {Integer}
      */
     State {
@@ -57,7 +53,7 @@ class NTMS_LIBREQUESTINFORMATIONA extends Win32Struct
 
     /**
      * Unique identifier of a side being serviced.
-     * @type {Pointer<Guid>}
+     * @type {Pointer}
      */
     PartitionId {
         get => NumGet(this, 16, "ptr")
@@ -66,7 +62,7 @@ class NTMS_LIBREQUESTINFORMATIONA extends Win32Struct
 
     /**
      * Unique identifier of a drive being serviced.
-     * @type {Pointer<Guid>}
+     * @type {Pointer}
      */
     DriveId {
         get => NumGet(this, 24, "ptr")
@@ -75,7 +71,7 @@ class NTMS_LIBREQUESTINFORMATIONA extends Win32Struct
 
     /**
      * Unique identifier of a piece of physical media being serviced.
-     * @type {Pointer<Guid>}
+     * @type {Pointer}
      */
     PhysMediaId {
         get => NumGet(this, 32, "ptr")
@@ -84,7 +80,7 @@ class NTMS_LIBREQUESTINFORMATIONA extends Win32Struct
 
     /**
      * Library for this request.
-     * @type {Pointer<Guid>}
+     * @type {Pointer}
      */
     Library {
         get => NumGet(this, 40, "ptr")
@@ -93,7 +89,7 @@ class NTMS_LIBREQUESTINFORMATIONA extends Win32Struct
 
     /**
      * Unique identifier of a slot of the piece of physical media being serviced.
-     * @type {Pointer<Guid>}
+     * @type {Pointer}
      */
     SlotId {
         get => NumGet(this, 48, "ptr")
@@ -104,7 +100,7 @@ class NTMS_LIBREQUESTINFORMATIONA extends Win32Struct
      * System time that this request was queued to RSM.
      * @type {SYSTEMTIME}
      */
-    TimeQueued{
+    TimeQueued {
         get {
             if(!this.HasProp("__TimeQueued"))
                 this.__TimeQueued := SYSTEMTIME(56, this)
@@ -116,7 +112,7 @@ class NTMS_LIBREQUESTINFORMATIONA extends Win32Struct
      * System time that this request was completed by RSM.
      * @type {SYSTEMTIME}
      */
-    TimeCompleted{
+    TimeCompleted {
         get {
             if(!this.HasProp("__TimeCompleted"))
                 this.__TimeCompleted := SYSTEMTIME(72, this)
@@ -163,7 +159,7 @@ class NTMS_LIBREQUESTINFORMATIONA extends Win32Struct
 
     /**
      * Associated work item ID for this request. This is currently used to contain the work item ID to be canceled on an NTMS_LM_REMOVE request.
-     * @type {Pointer<Guid>}
+     * @type {Pointer}
      */
     WorkItemId {
         get => NumGet(this, 288, "ptr")

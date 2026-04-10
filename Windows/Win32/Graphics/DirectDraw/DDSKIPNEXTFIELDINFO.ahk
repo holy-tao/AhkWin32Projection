@@ -1,14 +1,13 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
+#Include .\DDVIDEOPORTDATA.ahk
 
 /**
  * The DDSKIPNEXTFIELDINFO structure contains the skip information for the video port extensions (VPE) object.
  * @see https://learn.microsoft.com/windows/win32/api/dxmini/ns-dxmini-ddskipnextfieldinfo
  * @namespace Windows.Win32.Graphics.DirectDraw
- * @version v4.0.30319
  */
-class DDSKIPNEXTFIELDINFO extends Win32Struct
-{
+class DDSKIPNEXTFIELDINFO extends Win32Struct {
     static sizeof => 16
 
     static packingSize => 8

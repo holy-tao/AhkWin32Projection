@@ -1,16 +1,14 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
-#Include .\ID2D1SvgAttribute.ahk
 #Include .\ID2D1Resource.ahk
 
 /**
  * Interface describing an SVG attribute.
  * @see https://learn.microsoft.com/windows/win32/api/d2d1svg/nn-d2d1svg-id2d1svgattribute
  * @namespace Windows.Win32.Graphics.Direct2D
- * @version v4.0.30319
  */
-class ID2D1SvgAttribute extends ID2D1Resource{
+class ID2D1SvgAttribute extends ID2D1Resource {
 
     static sizeof => A_PtrSize
     /**

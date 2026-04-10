@@ -11,9 +11,8 @@
  * <pre class="syntax" xml:space="preserve"><code>#include &lt;dshow.h&gt;
  * @see https://learn.microsoft.com/windows/win32/api/qnetwork/nn-qnetwork-iamnetworkstatus
  * @namespace Windows.Win32.Media.DirectShow
- * @version v4.0.30319
  */
-class IAMNetworkStatus extends IDispatch{
+class IAMNetworkStatus extends IDispatch {
 
     static sizeof => A_PtrSize
     /**

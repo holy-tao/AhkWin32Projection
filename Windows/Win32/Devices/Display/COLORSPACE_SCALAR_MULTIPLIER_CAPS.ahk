@@ -3,10 +3,8 @@
 
 /**
  * @namespace Windows.Win32.Devices.Display
- * @version v4.0.30319
  */
-class COLORSPACE_SCALAR_MULTIPLIER_CAPS extends Win32Struct
-{
+class COLORSPACE_SCALAR_MULTIPLIER_CAPS extends Win32Struct {
     static sizeof => 12
 
     static packingSize => 4

@@ -1,14 +1,13 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
-#Include ..\..\Foundation\LUID.ahk
 #Include .\DISPLAYCONFIG_DEVICE_INFO_HEADER.ahk
+#Include .\DISPLAYCONFIG_DEVICE_INFO_TYPE.ahk
+#Include ..\..\Foundation\LUID.ahk
 
 /**
  * @namespace Windows.Win32.Devices.Display
- * @version v4.0.30319
  */
-class DISPLAYCONFIG_SET_WCG_STATE extends Win32Struct
-{
+class DISPLAYCONFIG_SET_WCG_STATE extends Win32Struct {
     static sizeof => 24
 
     static packingSize => 4
@@ -16,7 +15,7 @@ class DISPLAYCONFIG_SET_WCG_STATE extends Win32Struct
     /**
      * @type {DISPLAYCONFIG_DEVICE_INFO_HEADER}
      */
-    header{
+    header {
         get {
             if(!this.HasProp("__header"))
                 this.__header := DISPLAYCONFIG_DEVICE_INFO_HEADER(0, this)

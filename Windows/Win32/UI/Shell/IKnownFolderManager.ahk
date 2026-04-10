@@ -1,16 +1,16 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
-#Include .\IKnownFolder.ahk
 #Include ..\..\System\Com\IUnknown.ahk
+#Include ..\..\..\..\Guid.ahk
+#Include .\IKnownFolder.ahk
 
 /**
  * Exposes methods that create, enumerate or manage existing known folders.
  * @see https://learn.microsoft.com/windows/win32/api/shobjidl_core/nn-shobjidl_core-iknownfoldermanager
  * @namespace Windows.Win32.UI.Shell
- * @version v4.0.30319
  */
-class IKnownFolderManager extends IUnknown{
+class IKnownFolderManager extends IUnknown {
 
     static sizeof => A_PtrSize
     /**
@@ -211,7 +211,7 @@ class IKnownFolderManager extends IUnknown{
      * @param {PWSTR} pszPath Type: <b>LPCWSTR</b>
      * 
      * Pointer to a null-terminated Unicode string of length MAX_PATH that contains a path to a known folder.
-     * @param {Integer} _mode 
+     * @param {FFFP_MODE} _mode Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/shobjidl_core/ne-shobjidl_core-fffp_mode">FFFP_MODE</a></b>
      * @returns {IKnownFolder} Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/shobjidl_core/nn-shobjidl_core-iknownfolder">IKnownFolder</a>**</b>
      * 
      * When this method returns, contains the address of a pointer to the <a href="https://docs.microsoft.com/windows/desktop/api/shobjidl_core/nn-shobjidl_core-iknownfolder">IKnownFolder</a> object that represents the known folder.
@@ -244,7 +244,9 @@ class IKnownFolderManager extends IUnknown{
      * @param {Pointer<Guid>} rfid Type: <b>REFKNOWNFOLDERID</b>
      * 
      * A reference to the <a href="https://docs.microsoft.com/windows/desktop/shell/knownfolderid">KNOWNFOLDERID</a> of the folder to be redirected.
-     * @param {HWND} _hwnd 
+     * @param {HWND} _hwnd Type: <b>HWND</b>
+     * 
+     * The handle of the parent window used to display copy engine progress UI dialogs when <a href="https://docs.microsoft.com/windows/win32/api/shobjidl_core/ne-shobjidl_core-_kf_redirect_flags">KF_REDIRECT_WITH_UI</a> is passed in the <i>flags</i> parameter. If no progress dialog is needed, this value can be <b>NULL</b>.
      * @param {Integer} flags Type: <b><a href="https://docs.microsoft.com/windows/win32/api/shobjidl_core/ne-shobjidl_core-_kf_redirect_flags">KF_REDIRECT_FLAGS</a></b>
      * 
      * The <a href="https://docs.microsoft.com/windows/win32/api/shobjidl_core/ne-shobjidl_core-_kf_redirect_flags">KF_REDIRECT_FLAGS</a> options for redirection.

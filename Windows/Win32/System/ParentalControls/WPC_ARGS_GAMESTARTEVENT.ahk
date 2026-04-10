@@ -5,9 +5,8 @@
  * Indicates information about the start of a computer game.
  * @see https://learn.microsoft.com/windows/win32/api/wpcevent/ne-wpcevent-wpc_args_gamestartevent
  * @namespace Windows.Win32.System.ParentalControls
- * @version v4.0.30319
  */
-class WPC_ARGS_GAMESTARTEVENT extends Win32Enum{
+class WPC_ARGS_GAMESTARTEVENT extends Win32Enum {
 
     /**
      * The application identifier of the computer game.

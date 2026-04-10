@@ -1,14 +1,13 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
-#Include .\Node.ahk
 #Include ..\Com\IDispatch.ahk
+#Include .\Node.ahk
 
 /**
  * @namespace Windows.Win32.System.Mmc
- * @version v4.0.30319
  */
-class ScopeNamespace extends IDispatch{
+class ScopeNamespace extends IDispatch {
 
     static sizeof => A_PtrSize
     /**

@@ -3,16 +3,14 @@
 
 /**
  * @namespace Windows.Wdk.NetworkManagement.Ndis
- * @version v4.0.30319
  */
-class NDIS_WMI_OFFLOAD extends Win32Struct
-{
+class NDIS_WMI_OFFLOAD extends Win32Struct {
     static sizeof => 48
 
     static packingSize => 8
 
     /**
-     * @type {Pointer<NDIS_OBJECT_HEADER>}
+     * @type {Pointer}
      */
     Header {
         get => NumGet(this, 0, "ptr")
@@ -20,7 +18,7 @@ class NDIS_WMI_OFFLOAD extends Win32Struct
     }
 
     /**
-     * @type {Pointer<NDIS_WMI_TCP_IP_CHECKSUM_OFFLOAD>}
+     * @type {Pointer}
      */
     Checksum {
         get => NumGet(this, 8, "ptr")
@@ -28,7 +26,7 @@ class NDIS_WMI_OFFLOAD extends Win32Struct
     }
 
     /**
-     * @type {Pointer<NDIS_WMI_TCP_LARGE_SEND_OFFLOAD_V1>}
+     * @type {Pointer}
      */
     LsoV1 {
         get => NumGet(this, 16, "ptr")
@@ -36,7 +34,7 @@ class NDIS_WMI_OFFLOAD extends Win32Struct
     }
 
     /**
-     * @type {Pointer<NDIS_WMI_IPSEC_OFFLOAD_V1>}
+     * @type {Pointer}
      */
     IPsecV1 {
         get => NumGet(this, 24, "ptr")
@@ -44,7 +42,7 @@ class NDIS_WMI_OFFLOAD extends Win32Struct
     }
 
     /**
-     * @type {Pointer<NDIS_WMI_TCP_LARGE_SEND_OFFLOAD_V2>}
+     * @type {Pointer}
      */
     LsoV2 {
         get => NumGet(this, 32, "ptr")

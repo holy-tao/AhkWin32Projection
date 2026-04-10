@@ -3,10 +3,8 @@
 
 /**
  * @namespace Windows.Win32.System.RemoteAssistance
- * @version v4.0.30319
  */
-class RendezvousApplication extends Win32Struct
-{
+class RendezvousApplication extends Win32Struct {
     static sizeof => 0
 
     static packingSize => 1

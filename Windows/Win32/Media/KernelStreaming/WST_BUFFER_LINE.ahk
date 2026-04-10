@@ -3,10 +3,8 @@
 
 /**
  * @namespace Windows.Win32.Media.KernelStreaming
- * @version v4.0.30319
  */
-class WST_BUFFER_LINE extends Win32Struct
-{
+class WST_BUFFER_LINE extends Win32Struct {
     static sizeof => 43
 
     static packingSize => 1
@@ -20,9 +18,9 @@ class WST_BUFFER_LINE extends Win32Struct
     }
 
     /**
-     * @type {Array<Byte>}
+     * @type {Array<Integer>}
      */
-    Bytes{
+    Bytes {
         get {
             if(!this.HasProp("__BytesProxyArray"))
                 this.__BytesProxyArray := Win32FixedArray(this.ptr + 1, 42, Primitive, "char")

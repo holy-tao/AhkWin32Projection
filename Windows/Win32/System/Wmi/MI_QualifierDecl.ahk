@@ -5,10 +5,8 @@
  * Represents a CIM qualifier declaration.
  * @see https://learn.microsoft.com/windows/win32/api/mi/ns-mi-mi_qualifierdecl
  * @namespace Windows.Win32.System.Wmi
- * @version v4.0.30319
  */
-class MI_QualifierDecl extends Win32Struct
-{
+class MI_QualifierDecl extends Win32Struct {
     static sizeof => 32
 
     static packingSize => 8

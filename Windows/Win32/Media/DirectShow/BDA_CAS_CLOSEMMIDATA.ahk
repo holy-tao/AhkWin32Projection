@@ -3,10 +3,8 @@
 
 /**
  * @namespace Windows.Win32.Media.DirectShow
- * @version v4.0.30319
  */
-class BDA_CAS_CLOSEMMIDATA extends Win32Struct
-{
+class BDA_CAS_CLOSEMMIDATA extends Win32Struct {
     static sizeof => 4
 
     static packingSize => 4

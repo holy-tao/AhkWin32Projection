@@ -1,14 +1,13 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
+#Include .\DD_FLAGS.ahk
 
 /**
  * The DMA_RANGE structure specifies a resource requirements list that describes DMA channel usage for a device instance. For more information about resource requirements lists, see Hardware Resources.
  * @see https://learn.microsoft.com/windows/win32/api/cfgmgr32/ns-cfgmgr32-dma_range
  * @namespace Windows.Win32.Devices.DeviceAndDriverInstallation
- * @version v4.0.30319
  */
-class DMA_RANGE extends Win32Struct
-{
+class DMA_RANGE extends Win32Struct {
     static sizeof => 12
 
     static packingSize => 4
@@ -33,7 +32,7 @@ class DMA_RANGE extends Win32Struct
 
     /**
      * One bit flag from [DMA_DES](/windows/desktop/api/cfgmgr32/ns-cfgmgr32-dma_des) structure.
-     * @type {Integer}
+     * @type {DD_FLAGS}
      */
     DR_Flags {
         get => NumGet(this, 8, "uint")

@@ -1,8 +1,8 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
-#Include .\IFaxOutgoingMessage.ahk
 #Include ..\..\System\Com\IDispatch.ahk
+#Include .\IFaxOutgoingMessage.ahk
 
 /**
  * The IFaxOutgoingMessageIterator interface describes an object that is used by a fax client application to move through the archive of fax messages that the fax service has successfully transmitted, represented by FaxOutgoingMessage objects.
@@ -10,9 +10,8 @@
  * A default implementation of <b>IFaxOutgoingMessageIterator</b> is provided as the <a href="https://docs.microsoft.com/previous-versions/windows/desktop/fax/-mfax-faxoutgoingmessageiterator">FaxOutgoingMessageIterator</a> object.
  * @see https://learn.microsoft.com/windows/win32/api/faxcomex/nn-faxcomex-ifaxoutgoingmessageiterator
  * @namespace Windows.Win32.Devices.Fax
- * @version v4.0.30319
  */
-class IFaxOutgoingMessageIterator extends IDispatch{
+class IFaxOutgoingMessageIterator extends IDispatch {
 
     static sizeof => A_PtrSize
     /**

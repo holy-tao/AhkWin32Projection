@@ -6,10 +6,8 @@
  * Contains information required to collect handle trace information.
  * @see https://learn.microsoft.com/windows/win32/api/avrfsdk/ns-avrfsdk-avrf_handle_operation
  * @namespace Windows.Win32.System.ApplicationVerifier
- * @version v4.0.30319
  */
-class AVRF_HANDLE_OPERATION extends Win32Struct
-{
+class AVRF_HANDLE_OPERATION extends Win32Struct {
     static sizeof => 288
 
     static packingSize => 8
@@ -63,7 +61,7 @@ class AVRF_HANDLE_OPERATION extends Win32Struct
      * Identifies the <a href="https://docs.microsoft.com/windows/desktop/api/avrfsdk/ns-avrfsdk-avrf_backtrace_information">AVRF_BACKTRACE_INFORMATION</a> structure containing information required for completing the enumeration of handles.
      * @type {AVRF_BACKTRACE_INFORMATION}
      */
-    BackTraceInformation{
+    BackTraceInformation {
         get {
             if(!this.HasProp("__BackTraceInformation"))
                 this.__BackTraceInformation := AVRF_BACKTRACE_INFORMATION(24, this)

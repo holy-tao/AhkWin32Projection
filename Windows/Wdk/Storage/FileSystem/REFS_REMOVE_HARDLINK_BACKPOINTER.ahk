@@ -3,10 +3,8 @@
 
 /**
  * @namespace Windows.Wdk.Storage.FileSystem
- * @version v4.0.30319
  */
-class REFS_REMOVE_HARDLINK_BACKPOINTER extends Win32Struct
-{
+class REFS_REMOVE_HARDLINK_BACKPOINTER extends Win32Struct {
     static sizeof => 24
 
     static packingSize => 8

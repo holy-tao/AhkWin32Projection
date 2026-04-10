@@ -5,9 +5,8 @@
  * Contains virtual disk detach request flags.
  * @see https://learn.microsoft.com/windows/win32/api/virtdisk/ne-virtdisk-detach_virtual_disk_flag
  * @namespace Windows.Win32.Storage.Vhd
- * @version v4.0.30319
  */
-class DETACH_VIRTUAL_DISK_FLAG extends Win32BitflagEnum{
+class DETACH_VIRTUAL_DISK_FLAG extends Win32BitflagEnum {
 
     /**
      * No flags. Use system defaults.

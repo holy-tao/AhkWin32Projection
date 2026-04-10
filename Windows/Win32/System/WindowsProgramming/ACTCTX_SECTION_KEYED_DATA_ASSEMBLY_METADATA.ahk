@@ -3,10 +3,8 @@
 
 /**
  * @namespace Windows.Win32.System.WindowsProgramming
- * @version v4.0.30319
  */
-class ACTCTX_SECTION_KEYED_DATA_ASSEMBLY_METADATA extends Win32Struct
-{
+class ACTCTX_SECTION_KEYED_DATA_ASSEMBLY_METADATA extends Win32Struct {
     static sizeof => 40
 
     static packingSize => 8

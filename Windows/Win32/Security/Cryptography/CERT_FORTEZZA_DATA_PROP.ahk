@@ -3,18 +3,16 @@
 
 /**
  * @namespace Windows.Win32.Security.Cryptography
- * @version v4.0.30319
  */
-class CERT_FORTEZZA_DATA_PROP extends Win32Struct
-{
+class CERT_FORTEZZA_DATA_PROP extends Win32Struct {
     static sizeof => 48
 
     static packingSize => 4
 
     /**
-     * @type {Array<Byte>}
+     * @type {Array<Integer>}
      */
-    SerialNumber{
+    SerialNumber {
         get {
             if(!this.HasProp("__SerialNumberProxyArray"))
                 this.__SerialNumberProxyArray := Win32FixedArray(this.ptr + 0, 8, Primitive, "char")
@@ -31,9 +29,9 @@ class CERT_FORTEZZA_DATA_PROP extends Win32Struct
     }
 
     /**
-     * @type {Array<Byte>}
+     * @type {Array<Integer>}
      */
-    CertLabel{
+    CertLabel {
         get {
             if(!this.HasProp("__CertLabelProxyArray"))
                 this.__CertLabelProxyArray := Win32FixedArray(this.ptr + 12, 36, Primitive, "char")

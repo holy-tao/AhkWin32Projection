@@ -9,9 +9,8 @@
  * To declare the interface identifier (IID) for this interface, use the <b>__uuidof</b> operator: <c>__uuidof(IMSVidAnalogTuner2)</c>.
  * @see https://learn.microsoft.com/windows/win32/api/segment/nn-segment-imsvidanalogtuner2
  * @namespace Windows.Win32.Media.DirectShow.Tv
- * @version v4.0.30319
  */
-class IMSVidAnalogTuner2 extends IMSVidAnalogTuner{
+class IMSVidAnalogTuner2 extends IMSVidAnalogTuner {
 
     static sizeof => A_PtrSize
     /**

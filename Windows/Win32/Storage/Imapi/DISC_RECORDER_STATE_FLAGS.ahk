@@ -3,9 +3,8 @@
 
 /**
  * @namespace Windows.Win32.Storage.Imapi
- * @version v4.0.30319
  */
-class DISC_RECORDER_STATE_FLAGS extends Win32Enum{
+class DISC_RECORDER_STATE_FLAGS extends Win32Enum {
 
     /**
      * @type {Integer (UInt32)}

@@ -4,13 +4,11 @@
 
 /**
  * @namespace Windows.Win32.Media.MediaFoundation
- * @version v4.0.30319
  */
-class DIRTYRECT_INFO extends Win32Struct
-{
-    static sizeof => 16
+class DIRTYRECT_INFO extends Win32Struct {
+    static sizeof => 24
 
-    static packingSize => 8
+    static packingSize => 4
 
     /**
      * @type {Integer}
@@ -29,9 +27,9 @@ class DIRTYRECT_INFO extends Win32Struct
     }
 
     /**
-     * @type {Array<RECT>}
+     * @type {RECT}
      */
-    DirtyRects{
+    DirtyRects {
         get {
             if(!this.HasProp("__DirtyRectsProxyArray"))
                 this.__DirtyRectsProxyArray := Win32FixedArray(this.ptr + 8, 1, RECT, "")

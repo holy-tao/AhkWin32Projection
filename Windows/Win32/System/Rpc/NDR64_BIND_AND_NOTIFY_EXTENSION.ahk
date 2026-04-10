@@ -4,10 +4,8 @@
 
 /**
  * @namespace Windows.Win32.System.Rpc
- * @version v4.0.30319
  */
-class NDR64_BIND_AND_NOTIFY_EXTENSION extends Win32Struct
-{
+class NDR64_BIND_AND_NOTIFY_EXTENSION extends Win32Struct {
     static sizeof => 8
 
     static packingSize => 2
@@ -15,7 +13,7 @@ class NDR64_BIND_AND_NOTIFY_EXTENSION extends Win32Struct
     /**
      * @type {NDR64_BIND_CONTEXT}
      */
-    Binding{
+    Binding {
         get {
             if(!this.HasProp("__Binding"))
                 this.__Binding := NDR64_BIND_CONTEXT(0, this)

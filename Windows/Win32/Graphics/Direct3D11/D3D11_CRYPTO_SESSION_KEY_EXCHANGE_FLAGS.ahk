@@ -3,9 +3,8 @@
 
 /**
  * @namespace Windows.Win32.Graphics.Direct3D11
- * @version v4.0.30319
  */
-class D3D11_CRYPTO_SESSION_KEY_EXCHANGE_FLAGS extends Win32BitflagEnum{
+class D3D11_CRYPTO_SESSION_KEY_EXCHANGE_FLAGS extends Win32BitflagEnum {
 
     /**
      * @type {Integer (Int32)}

@@ -7,9 +7,8 @@
  * The callback interface you must implement if you want to receive sensor events.
  * @see https://learn.microsoft.com/windows/win32/api/sensorsapi/nn-sensorsapi-isensorevents
  * @namespace Windows.Win32.Devices.Sensors
- * @version v4.0.30319
  */
-class ISensorEvents extends IUnknown{
+class ISensorEvents extends IUnknown {
 
     static sizeof => A_PtrSize
     /**
@@ -33,7 +32,7 @@ class ISensorEvents extends IUnknown{
     /**
      * Provides a notification that a sensor state has changed.
      * @param {ISensor} pSensor Pointer to the <a href="https://docs.microsoft.com/windows/desktop/api/sensorsapi/nn-sensorsapi-isensor">ISensor</a> interface of the sensor that raised the event.
-     * @param {Integer} state <a href="https://docs.microsoft.com/windows/win32/api/sensorsapi/ne-sensorsapi-sensorstate">SensorState</a> containing the new state.
+     * @param {SensorState} state <a href="https://docs.microsoft.com/windows/win32/api/sensorsapi/ne-sensorsapi-sensorstate">SensorState</a> containing the new state.
      * @returns {HRESULT} The method returns an <b>HRESULT</b>. Possible values include, but are not limited to, those in the following table.
      * 
      * <table>

@@ -1,14 +1,15 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
+#Include .\IWABObject.ahk
+#Include .\IAddrBook.ahk
+#Include .\IMAPIProp.ahk
 
 /**
  * Do not use. Used by the Windows Address Book (WAB) to initialize user's IContextMenu Interface and IShellPropSheetExt Interface implementations.
  * @see https://learn.microsoft.com/windows/win32/api/wabapi/ns-wabapi-wabextdisplay
  * @namespace Windows.Win32.System.AddressBook
- * @version v4.0.30319
  */
-class WABEXTDISPLAY extends Win32Struct
-{
+class WABEXTDISPLAY extends Win32Struct {
     static sizeof => 64
 
     static packingSize => 8

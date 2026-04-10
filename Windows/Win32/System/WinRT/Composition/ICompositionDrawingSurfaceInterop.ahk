@@ -7,9 +7,8 @@
  * Native interoperation interface that allows drawing on a surface object using a RECT to define the area to draw into. This interface is available in C++ only.
  * @see https://learn.microsoft.com/windows/win32/api/windows.ui.composition.interop/nn-windows-ui-composition-interop-icompositiondrawingsurfaceinterop
  * @namespace Windows.Win32.System.WinRT.Composition
- * @version v4.0.30319
  */
-class ICompositionDrawingSurfaceInterop extends IUnknown{
+class ICompositionDrawingSurfaceInterop extends IUnknown {
 
     static sizeof => A_PtrSize
     /**

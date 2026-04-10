@@ -5,10 +5,8 @@
  * Contains statistical information from the exFAT file system.
  * @see https://learn.microsoft.com/windows/win32/api/winioctl/ns-winioctl-exfat_statistics
  * @namespace Windows.Win32.System.Ioctl
- * @version v4.0.30319
  */
-class EXFAT_STATISTICS extends Win32Struct
-{
+class EXFAT_STATISTICS extends Win32Struct {
     static sizeof => 36
 
     static packingSize => 4

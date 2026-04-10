@@ -5,9 +5,8 @@
  * Specifies when the progress notification callback should be called.
  * @see https://learn.microsoft.com/windows/win32/api/wincodec/ne-wincodec-wicprogressnotification
  * @namespace Windows.Win32.Graphics.Imaging
- * @version v4.0.30319
  */
-class WICProgressNotification extends Win32Enum{
+class WICProgressNotification extends Win32Enum {
 
     /**
      * The callback should be called when codec operations begin.

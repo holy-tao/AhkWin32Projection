@@ -7,9 +7,8 @@
  * The IBasicVideo2 interface extends the IBasicVideo interface.
  * @see https://learn.microsoft.com/windows/win32/api/control/nn-control-ibasicvideo2
  * @namespace Windows.Win32.Media.DirectShow
- * @version v4.0.30319
  */
-class IBasicVideo2 extends IBasicVideo{
+class IBasicVideo2 extends IBasicVideo {
 
     static sizeof => A_PtrSize
     /**

@@ -1,10 +1,11 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
+#Include ..\..\System\Com\IUnknown.ahk
 #Include ..\..\System\Com\StructuredStorage\PROPVARIANT.ahk
 #Include ..\..\System\Com\StructuredStorage\IEnumSTATPROPSTG.ahk
 #Include ..\..\System\Com\StructuredStorage\STATPROPSETSTG.ahk
-#Include ..\..\System\Com\IUnknown.ahk
+#Include ..\..\System\Com\IStream.ahk
 
 /**
  * The IWiaPropertyStorage interface is used to access information about the IWiaItem object's properties. Applications must query an item to obtain its IWiaPropertyStorage interface.
@@ -122,9 +123,8 @@
  * </table>
  * @see https://learn.microsoft.com/windows/win32/api/wia_xp/nn-wia_xp-iwiapropertystorage
  * @namespace Windows.Win32.Devices.ImageAcquisition
- * @version v4.0.30319
  */
-class IWiaPropertyStorage extends IUnknown{
+class IWiaPropertyStorage extends IUnknown {
 
     static sizeof => A_PtrSize
     /**

@@ -3,10 +3,8 @@
 
 /**
  * @namespace Windows.Win32.Media.Speech
- * @version v4.0.30319
  */
-class SPRULE extends Win32Struct
-{
+class SPRULE extends Win32Struct {
     static sizeof => 16
 
     static packingSize => 8

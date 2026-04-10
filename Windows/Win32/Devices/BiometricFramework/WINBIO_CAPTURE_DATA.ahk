@@ -4,10 +4,8 @@
 
 /**
  * @namespace Windows.Win32.Devices.BiometricFramework
- * @version v4.0.30319
  */
-class WINBIO_CAPTURE_DATA extends Win32Struct
-{
+class WINBIO_CAPTURE_DATA extends Win32Struct {
     static sizeof => 24
 
     static packingSize => 4
@@ -47,7 +45,7 @@ class WINBIO_CAPTURE_DATA extends Win32Struct
     /**
      * @type {WINBIO_DATA}
      */
-    CaptureData{
+    CaptureData {
         get {
             if(!this.HasProp("__CaptureData"))
                 this.__CaptureData := WINBIO_DATA(16, this)

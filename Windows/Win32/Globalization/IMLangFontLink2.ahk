@@ -1,16 +1,15 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\Guid.ahk
+#Include .\IMLangCodePages.ahk
 #Include ..\Graphics\Gdi\HFONT.ahk
 #Include .\UNICODERANGE.ahk
 #Include .\SCRIPTFONTINFO.ahk
-#Include .\IMLangCodePages.ahk
 
 /**
  * @namespace Windows.Win32.Globalization
- * @version v4.0.30319
  */
-class IMLangFontLink2 extends IMLangCodePages{
+class IMLangFontLink2 extends IMLangCodePages {
 
     static sizeof => A_PtrSize
     /**

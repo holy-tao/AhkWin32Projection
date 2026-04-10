@@ -16,10 +16,8 @@
  * </ul>
  * @see https://learn.microsoft.com/windows/win32/api/wtsdefs/ns-wtsdefs-wts_policy_data
  * @namespace Windows.Win32.System.RemoteDesktop
- * @version v4.0.30319
  */
-class WTS_POLICY_DATA extends Win32Struct
-{
+class WTS_POLICY_DATA extends Win32Struct {
     static sizeof => 16
 
     static packingSize => 4
@@ -43,7 +41,6 @@ class WTS_POLICY_DATA extends Win32Struct
     }
 
     /**
-     * 
      * @type {Integer}
      */
     ColorDepth {

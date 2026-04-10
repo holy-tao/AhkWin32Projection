@@ -1,12 +1,43 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
+#Include .\D3D12_VIDEO_ENCODER_CODEC.ahk
+#Include ..\..\Graphics\Dxgi\Common\DXGI_FORMAT.ahk
 #Include .\D3D12_VIDEO_ENCODER_CODEC_CONFIGURATION.ahk
+#Include .\D3D12_VIDEO_ENCODER_CODEC_CONFIGURATION_H264.ahk
+#Include .\D3D12_VIDEO_ENCODER_CODEC_CONFIGURATION_HEVC.ahk
+#Include .\D3D12_VIDEO_ENCODER_AV1_CODEC_CONFIGURATION.ahk
 #Include .\D3D12_VIDEO_ENCODER_SEQUENCE_GOP_STRUCTURE.ahk
-#Include .\D3D12_VIDEO_ENCODER_RATE_CONTROL_CONFIGURATION_PARAMS.ahk
-#Include ..\..\Graphics\Dxgi\Common\DXGI_RATIONAL.ahk
+#Include .\D3D12_VIDEO_ENCODER_SEQUENCE_GOP_STRUCTURE_H264.ahk
+#Include .\D3D12_VIDEO_ENCODER_SEQUENCE_GOP_STRUCTURE_HEVC.ahk
+#Include .\D3D12_VIDEO_ENCODER_AV1_SEQUENCE_STRUCTURE.ahk
 #Include .\D3D12_VIDEO_ENCODER_RATE_CONTROL.ahk
+#Include .\D3D12_VIDEO_ENCODER_RATE_CONTROL_MODE.ahk
+#Include .\D3D12_VIDEO_ENCODER_RATE_CONTROL_FLAGS.ahk
+#Include .\D3D12_VIDEO_ENCODER_RATE_CONTROL_CONFIGURATION_PARAMS.ahk
+#Include .\D3D12_VIDEO_ENCODER_RATE_CONTROL_CQP.ahk
+#Include .\D3D12_VIDEO_ENCODER_RATE_CONTROL_CBR.ahk
+#Include .\D3D12_VIDEO_ENCODER_RATE_CONTROL_VBR.ahk
+#Include .\D3D12_VIDEO_ENCODER_RATE_CONTROL_QVBR.ahk
+#Include .\D3D12_VIDEO_ENCODER_RATE_CONTROL_CQP1.ahk
+#Include .\D3D12_VIDEO_ENCODER_RATE_CONTROL_CBR1.ahk
+#Include .\D3D12_VIDEO_ENCODER_RATE_CONTROL_VBR1.ahk
+#Include .\D3D12_VIDEO_ENCODER_RATE_CONTROL_QVBR1.ahk
+#Include .\D3D12_VIDEO_ENCODER_RATE_CONTROL_ABSOLUTE_QP_MAP.ahk
+#Include ..\..\Graphics\Dxgi\Common\DXGI_RATIONAL.ahk
+#Include .\D3D12_VIDEO_ENCODER_INTRA_REFRESH_MODE.ahk
+#Include .\D3D12_VIDEO_ENCODER_FRAME_SUBREGION_LAYOUT_MODE.ahk
+#Include .\D3D12_VIDEO_ENCODER_PICTURE_RESOLUTION_DESC.ahk
+#Include .\D3D12_VIDEO_ENCODER_VALIDATION_FLAGS.ahk
+#Include .\D3D12_VIDEO_ENCODER_SUPPORT_FLAGS.ahk
 #Include .\D3D12_VIDEO_ENCODER_PROFILE_DESC.ahk
+#Include .\D3D12_VIDEO_ENCODER_PROFILE_H264.ahk
+#Include .\D3D12_VIDEO_ENCODER_PROFILE_HEVC.ahk
+#Include .\D3D12_VIDEO_ENCODER_AV1_PROFILE.ahk
 #Include .\D3D12_VIDEO_ENCODER_LEVEL_SETTING.ahk
+#Include .\D3D12_VIDEO_ENCODER_LEVELS_H264.ahk
+#Include .\D3D12_VIDEO_ENCODER_LEVEL_TIER_CONSTRAINTS_HEVC.ahk
+#Include .\D3D12_VIDEO_ENCODER_AV1_LEVEL_TIER_CONSTRAINTS.ahk
+#Include .\D3D12_FEATURE_DATA_VIDEO_ENCODER_RESOLUTION_SUPPORT_LIMITS.ahk
 
 /**
  * Retrieves values indicating support for the specified video encoding features and configuration values.
@@ -16,10 +47,8 @@
  * For example, there can be support for intra refresh when checking [D3D12_FEATURE_VIDEO_ENCODER_INTRA_REFRESH_MODE](ne-d3d12video-d3d12_feature_video.md) and there can be support for B frames when checking [D3D12_VIDEO_ENCODER_CODEC_PICTURE_CONTROL_SUPPORT_H264.MaxL1ReferencesForB](ns-d3d12video-d3d12_video_encoder_codec_picture_control_support_h264.md) > 0. But it can be the case that intra refresh and B frames are not supported simultaneously. In this case, querying **D3D12_FEATURE_DATA_VIDEO_ENCODER_SUPPORT** with CodecGopSequence containing B frames and intra refresh row-based mode, the **D3D12_VIDEO_ENCODER_SUPPORT_FLAG_GENERAL_SUPPORT_OK** flag will be set off.
  * @see https://learn.microsoft.com/windows/win32/api/d3d12video/ns-d3d12video-d3d12_feature_data_video_encoder_support
  * @namespace Windows.Win32.Media.MediaFoundation
- * @version v4.0.30319
  */
-class D3D12_FEATURE_DATA_VIDEO_ENCODER_SUPPORT extends Win32Struct
-{
+class D3D12_FEATURE_DATA_VIDEO_ENCODER_SUPPORT extends Win32Struct {
     static sizeof => 160
 
     static packingSize => 8
@@ -35,7 +64,7 @@ class D3D12_FEATURE_DATA_VIDEO_ENCODER_SUPPORT extends Win32Struct
 
     /**
      * A member of the [D3D12_VIDEO_ENCODER_CODEC](ne-d3d12video-d3d12_video_encoder_codec.md) enumeration specifying the codec for which support is being queried.
-     * @type {Integer}
+     * @type {D3D12_VIDEO_ENCODER_CODEC}
      */
     Codec {
         get => NumGet(this, 4, "int")
@@ -44,7 +73,7 @@ class D3D12_FEATURE_DATA_VIDEO_ENCODER_SUPPORT extends Win32Struct
 
     /**
      * A [D3D12_VIDEO_ENCODER_PROFILE_DESC](ns-d3d12video-d3d12_video_encoder_profile_desc.md) structure specifying the profile for which support is being queried.
-     * @type {Integer}
+     * @type {DXGI_FORMAT}
      */
     InputFormat {
         get => NumGet(this, 8, "int")
@@ -55,7 +84,7 @@ class D3D12_FEATURE_DATA_VIDEO_ENCODER_SUPPORT extends Win32Struct
      * A [D3D12_VIDEO_ENCODER_CODEC_CONFIGURATION](ns-d3d12video-d3d12_video_encoder_codec_configuration.md) structure representing the codec configuration for which support is being queried.
      * @type {D3D12_VIDEO_ENCODER_CODEC_CONFIGURATION}
      */
-    CodecConfiguration{
+    CodecConfiguration {
         get {
             if(!this.HasProp("__CodecConfiguration"))
                 this.__CodecConfiguration := D3D12_VIDEO_ENCODER_CODEC_CONFIGURATION(16, this)
@@ -67,7 +96,7 @@ class D3D12_FEATURE_DATA_VIDEO_ENCODER_SUPPORT extends Win32Struct
      * A [D3D12_VIDEO_ENCODER_SEQUENCE_GOP_STRUCTURE](ns-d3d12video-d3d12_video_encoder_sequence_gop_structure.md) structure representing the GOP structure for which support is being queried.
      * @type {D3D12_VIDEO_ENCODER_SEQUENCE_GOP_STRUCTURE}
      */
-    CodecGopSequence{
+    CodecGopSequence {
         get {
             if(!this.HasProp("__CodecGopSequence"))
                 this.__CodecGopSequence := D3D12_VIDEO_ENCODER_SEQUENCE_GOP_STRUCTURE(32, this)
@@ -79,7 +108,7 @@ class D3D12_FEATURE_DATA_VIDEO_ENCODER_SUPPORT extends Win32Struct
      * A [D3D12_VIDEO_ENCODER_RATE_CONTROL](ns-d3d12video-d3d12_video_encoder_rate_control.md) representing the rate control settings for which support is being queried.
      * @type {D3D12_VIDEO_ENCODER_RATE_CONTROL}
      */
-    RateControl{
+    RateControl {
         get {
             if(!this.HasProp("__RateControl"))
                 this.__RateControl := D3D12_VIDEO_ENCODER_RATE_CONTROL(48, this)
@@ -89,7 +118,7 @@ class D3D12_FEATURE_DATA_VIDEO_ENCODER_SUPPORT extends Win32Struct
 
     /**
      * A member of the [D3D12_VIDEO_ENCODER_INTRA_REFRESH_MODE](ne-d3d12video-d3d12_video_encoder_intra_refresh_mode.md) enumeration specifying the intra refresh mode for which support is being queried.
-     * @type {Integer}
+     * @type {D3D12_VIDEO_ENCODER_INTRA_REFRESH_MODE}
      */
     IntraRefresh {
         get => NumGet(this, 80, "int")
@@ -98,7 +127,7 @@ class D3D12_FEATURE_DATA_VIDEO_ENCODER_SUPPORT extends Win32Struct
 
     /**
      * A member of the [D3D12_VIDEO_ENCODER_FRAME_SUBREGION_LAYOUT_MODE](ne-d3d12video-d3d12_video_encoder_frame_subregion_layout_mode.md) enumeration, specifying the subregion layout mode for which support is being queried.
-     * @type {Integer}
+     * @type {D3D12_VIDEO_ENCODER_FRAME_SUBREGION_LAYOUT_MODE}
      */
     SubregionFrameEncoding {
         get => NumGet(this, 84, "int")
@@ -134,7 +163,7 @@ class D3D12_FEATURE_DATA_VIDEO_ENCODER_SUPPORT extends Win32Struct
 
     /**
      * Receives a bitwise OR combination of flags from the [D3D12_VIDEO_ENCODER_VALIDATION_FLAGS](ne-d3d12video-d3d12_video_encoder_validation_flags.md) enumeration that provide additional details if the [D3D12_VIDEO_ENCODER_SUPPORT_FLAG_GENERAL_SUPPORT_OK](ne-d3d12video-d3d12_video_encoder_support_flags.md) flag is not set in the *SupportFlags* field. See **Remarks** for more information.
-     * @type {Integer}
+     * @type {D3D12_VIDEO_ENCODER_VALIDATION_FLAGS}
      */
     ValidationFlags {
         get => NumGet(this, 108, "int")
@@ -143,7 +172,7 @@ class D3D12_FEATURE_DATA_VIDEO_ENCODER_SUPPORT extends Win32Struct
 
     /**
      * Receives a bitwise OR combination of flags from the [D3D12_VIDEO_ENCODER_SUPPORT_FLAGS](ne-d3d12video-d3d12_video_encoder_support_flags.md) enumeration specifying support details for the specified encoder features and configuration values.
-     * @type {Integer}
+     * @type {D3D12_VIDEO_ENCODER_SUPPORT_FLAGS}
      */
     SupportFlags {
         get => NumGet(this, 112, "int")
@@ -154,7 +183,7 @@ class D3D12_FEATURE_DATA_VIDEO_ENCODER_SUPPORT extends Win32Struct
      * Receives a [D3D12_VIDEO_ENCODER_PROFILE_DESC](ns-d3d12video-d3d12_video_encoder_profile_desc.md) specifying the recommended profile for the specified encoder features and configuration values.
      * @type {D3D12_VIDEO_ENCODER_PROFILE_DESC}
      */
-    SuggestedProfile{
+    SuggestedProfile {
         get {
             if(!this.HasProp("__SuggestedProfile"))
                 this.__SuggestedProfile := D3D12_VIDEO_ENCODER_PROFILE_DESC(120, this)
@@ -166,7 +195,7 @@ class D3D12_FEATURE_DATA_VIDEO_ENCODER_SUPPORT extends Win32Struct
      * Receives a [D3D12_VIDEO_ENCODER_LEVEL_SETTING](ns-d3d12video-d3d12_video_encoder_level_setting.md) specifying the recommended profile for the specified encoder features and configuration values. The recommended level assumes the maximum resolution from the list provided in *pResolutionList*.
      * @type {D3D12_VIDEO_ENCODER_LEVEL_SETTING}
      */
-    SuggestedLevel{
+    SuggestedLevel {
         get {
             if(!this.HasProp("__SuggestedLevel"))
                 this.__SuggestedLevel := D3D12_VIDEO_ENCODER_LEVEL_SETTING(136, this)

@@ -1,17 +1,15 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
-#Include .\ITLocationInfo.ahk
-#Include .\IEnumLocation.ahk
 #Include ..\..\System\Com\IUnknown.ahk
+#Include .\ITLocationInfo.ahk
 
 /**
  * The IEnumLocation interface provides COM-standard enumeration methods for the ITLocationInfo interface. The ITAddressTranslation::EnumerateLocations method returns a pointer to IEnumLocation.
  * @see https://learn.microsoft.com/windows/win32/api/tapi3if/nn-tapi3if-ienumlocation
  * @namespace Windows.Win32.Devices.Tapi
- * @version v4.0.30319
  */
-class IEnumLocation extends IUnknown{
+class IEnumLocation extends IUnknown {
 
     static sizeof => A_PtrSize
     /**

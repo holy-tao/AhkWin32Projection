@@ -3,7 +3,6 @@
 
 /**
  * @namespace Windows.Win32.Security.Cryptography.Sip
- * @version v4.0.30319
  */
 class Sip {
 
@@ -101,7 +100,7 @@ class Sip {
      * @remarks
      * Subjects include, but are not limited to, portable executable images (.exe), cabinet (.cab) images, flat files, and catalog files. Each subject type uses a different subset of its data for hash calculation and requires a different procedure for storage and retrieval. Therefore, each subject type has a unique SIP specification.
      * @param {Pointer<SIP_SUBJECTINFO>} pSubjectInfo A pointer to a [SIP_SUBJECTINFO](/windows/desktop/api/mssip/ns-mssip-sip_subjectinfo) structure that contains information about the message subject.
-     * @param {Pointer<Integer>} pdwEncodingType The encoding type of the Authenticode signature.
+     * @param {Pointer<CERT_QUERY_ENCODING_TYPE>} pdwEncodingType The encoding type of the Authenticode signature.
      * @param {Integer} dwIndex This parameter is reserved and should be set to zero.
      * @param {Pointer<Integer>} pcbSignedDataMsg The length, in bytes, of the buffer pointed to by the <i>pbSignedDataMsg</i> parameter.
      * @param {Pointer<Integer>} pbSignedDataMsg A pointer to a buffer to receive the returned Authenticode signature. 
@@ -198,7 +197,7 @@ class Sip {
      * @remarks
      * Each subject type uses a different subset of its data for hash calculation and requires a different procedure for storage and retrieval. Therefore, each subject type has a unique SIP specification.
      * @param {Pointer<SIP_SUBJECTINFO>} pSubjectInfo Pointer to a [SIP_SUBJECTINFO](/windows/desktop/api/mssip/ns-mssip-sip_subjectinfo) structure that contains information about the message subject.
-     * @param {Integer} dwEncodingType 
+     * @param {CERT_QUERY_ENCODING_TYPE} dwEncodingType 
      * @param {Pointer<Integer>} pdwIndex Pointer to the message index.
      * @param {Integer} cbSignedDataMsg Length, in bytes, of the buffer pointed to by the <i>pbSignedDataMsg</i> parameter.
      * @param {Pointer<Integer>} pbSignedDataMsg Pointer to the buffer that contains the message.

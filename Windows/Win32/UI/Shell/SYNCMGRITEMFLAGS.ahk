@@ -5,9 +5,8 @@
  * Specifies information for the current item in the SYNCMGRITEM structure.
  * @see https://learn.microsoft.com/windows/win32/api/mobsync/ne-mobsync-syncmgritemflags
  * @namespace Windows.Win32.UI.Shell
- * @version v4.0.30319
  */
-class SYNCMGRITEMFLAGS extends Win32Enum{
+class SYNCMGRITEMFLAGS extends Win32Enum {
 
     /**
      * The item has a properties dialog.

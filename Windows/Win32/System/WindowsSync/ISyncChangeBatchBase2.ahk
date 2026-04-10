@@ -9,9 +9,8 @@
  * An <b>ISyncChangeBatchBase2</b> object can be obtained by passing <b>IID_ISyncChangeBatchBase2</b> to the <b>QueryInterface</b> method of an <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/winsync/nn-winsync-isyncchangebatchbase">ISyncChangeBatchBase</a> object.
  * @see https://learn.microsoft.com/windows/win32/api/winsync/nn-winsync-isyncchangebatchbase2
  * @namespace Windows.Win32.System.WindowsSync
- * @version v4.0.30319
  */
-class ISyncChangeBatchBase2 extends ISyncChangeBatchBase{
+class ISyncChangeBatchBase2 extends ISyncChangeBatchBase {
 
     static sizeof => A_PtrSize
     /**
@@ -55,7 +54,7 @@ class ISyncChangeBatchBase2 extends ISyncChangeBatchBase{
      * </td>
      * </tr>
      * </table>
-     * @param {Integer} targetFormatVersion The serialized change batch is compatible with this version.
+     * @param {SYNC_SERIALIZATION_VERSION} targetFormatVersion The serialized change batch is compatible with this version.
      * @param {Integer} dwFlags Reserved. Must be zero.
      * @param {Pointer<Integer>} pbBuffer The serialized change batch object data is serialized to this buffer.
      * @param {Pointer<Integer>} pdwSerializedSize The number of bytes in <i>pbBuffer</i>. Returns either the number of bytes that are required to serialize the change batch data when <i>pbBuffer</i> is too small, or the number of bytes written.

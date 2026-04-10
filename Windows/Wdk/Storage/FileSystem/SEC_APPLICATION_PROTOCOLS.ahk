@@ -1,17 +1,12 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
-#Include ..\..\..\Win32\Security\Authentication\Identity\SEC_APPLICATION_PROTOCOL_LIST.ahk
 
 /**
  * Stores an array of application protocol lists.
- * @remarks
- * 
  * @see https://learn.microsoft.com/windows/win32/api/sspi/ns-sspi-sec_application_protocols
  * @namespace Windows.Wdk.Storage.FileSystem
- * @version v4.0.30319
  */
-class SEC_APPLICATION_PROTOCOLS extends Win32Struct
-{
+class SEC_APPLICATION_PROTOCOLS extends Win32Struct {
     static sizeof => 16
 
     static packingSize => 8
@@ -27,12 +22,12 @@ class SEC_APPLICATION_PROTOCOLS extends Win32Struct
 
     /**
      * The array of protocol ID lists.
-     * @type {Array<SEC_APPLICATION_PROTOCOL_LIST>}
+     * @type {Array<Pointer>}
      */
-    ProtocolLists{
+    ProtocolLists {
         get {
             if(!this.HasProp("__ProtocolListsProxyArray"))
-                this.__ProtocolListsProxyArray := Win32FixedArray(this.ptr + 8, 1, SEC_APPLICATION_PROTOCOL_LIST, "")
+                this.__ProtocolListsProxyArray := Win32FixedArray(this.ptr + 8, 1, Primitive, "ptr")
             return this.__ProtocolListsProxyArray
         }
     }

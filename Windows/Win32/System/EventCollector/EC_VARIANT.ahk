@@ -5,10 +5,8 @@
  * Contains event collector data (subscription data) or property values.
  * @see https://learn.microsoft.com/windows/win32/api/evcoll/ns-evcoll-ec_variant
  * @namespace Windows.Win32.System.EventCollector
- * @version v4.0.30319
  */
-class EC_VARIANT extends Win32Struct
-{
+class EC_VARIANT extends Win32Struct {
     static sizeof => 16
 
     static packingSize => 8

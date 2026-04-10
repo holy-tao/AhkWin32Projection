@@ -4,11 +4,9 @@
 
 /**
  * @namespace Windows.Win32.System.Ioctl
- * @version v4.0.30319
  */
-class PHYSICAL_ELEMENT_STATUS extends Win32Struct
-{
-    static sizeof => 32
+class PHYSICAL_ELEMENT_STATUS extends Win32Struct {
+    static sizeof => 64
 
     static packingSize => 8
 
@@ -61,9 +59,9 @@ class PHYSICAL_ELEMENT_STATUS extends Win32Struct
     }
 
     /**
-     * @type {Array<PHYSICAL_ELEMENT_STATUS_DESCRIPTOR>}
+     * @type {PHYSICAL_ELEMENT_STATUS_DESCRIPTOR}
      */
-    Descriptors{
+    Descriptors {
         get {
             if(!this.HasProp("__DescriptorsProxyArray"))
                 this.__DescriptorsProxyArray := Win32FixedArray(this.ptr + 24, 1, PHYSICAL_ELEMENT_STATUS_DESCRIPTOR, "")

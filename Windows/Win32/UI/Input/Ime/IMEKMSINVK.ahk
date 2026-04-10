@@ -4,10 +4,8 @@
 
 /**
  * @namespace Windows.Win32.UI.Input.Ime
- * @version v4.0.30319
  */
-class IMEKMSINVK extends Win32Struct
-{
+class IMEKMSINVK extends Win32Struct {
     static sizeof => 24
 
     static packingSize => 8
@@ -23,7 +21,7 @@ class IMEKMSINVK extends Win32Struct
     /**
      * @type {HIMC}
      */
-    hIMC{
+    hIMC {
         get {
             if(!this.HasProp("__hIMC"))
                 this.__hIMC := HIMC(8, this)

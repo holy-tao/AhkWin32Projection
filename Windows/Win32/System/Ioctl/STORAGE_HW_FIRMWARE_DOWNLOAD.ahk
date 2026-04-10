@@ -5,10 +5,8 @@
  * This structure contains a firmware image payload to be downloaded to the target.
  * @see https://learn.microsoft.com/windows/win32/api/winioctl/ns-winioctl-storage_hw_firmware_download
  * @namespace Windows.Win32.System.Ioctl
- * @version v4.0.30319
  */
-class STORAGE_HW_FIRMWARE_DOWNLOAD extends Win32Struct
-{
+class STORAGE_HW_FIRMWARE_DOWNLOAD extends Win32Struct {
     static sizeof => 40
 
     static packingSize => 8
@@ -66,9 +64,9 @@ class STORAGE_HW_FIRMWARE_DOWNLOAD extends Win32Struct
 
     /**
      * Reserved for future use.
-     * @type {Array<Byte>}
+     * @type {Array<Integer>}
      */
-    Reserved{
+    Reserved {
         get {
             if(!this.HasProp("__ReservedProxyArray"))
                 this.__ReservedProxyArray := Win32FixedArray(this.ptr + 13, 3, Primitive, "char")
@@ -96,9 +94,9 @@ class STORAGE_HW_FIRMWARE_DOWNLOAD extends Win32Struct
 
     /**
      * The firmware image file.
-     * @type {Array<Byte>}
+     * @type {Array<Integer>}
      */
-    ImageBuffer{
+    ImageBuffer {
         get {
             if(!this.HasProp("__ImageBufferProxyArray"))
                 this.__ImageBufferProxyArray := Win32FixedArray(this.ptr + 32, 1, Primitive, "char")

@@ -1,5 +1,8 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
+#Include ..\..\Foundation\FILETIME.ahk
+#Include .\CERT_REVOCATION_CHAIN_PARA.ahk
+#Include .\CRYPT_INTEGER_BLOB.ahk
 
 /**
  * Contains optional extra information that can be passed to the CryptGetTimeValidObject function in the pExtraInfo parameter.
@@ -7,10 +10,8 @@
  * All members of the <b>CRYPT_GET_TIME_VALID_OBJECT_EXTRA_INFO</b> structure that do not have a value must be set to zero.
  * @see https://learn.microsoft.com/windows/win32/api/wincrypt/ns-wincrypt-crypt_get_time_valid_object_extra_info
  * @namespace Windows.Win32.Security.Cryptography
- * @version v4.0.30319
  */
-class CRYPT_GET_TIME_VALID_OBJECT_EXTRA_INFO extends Win32Struct
-{
+class CRYPT_GET_TIME_VALID_OBJECT_EXTRA_INFO extends Win32Struct {
     static sizeof => 48
 
     static packingSize => 8

@@ -1,14 +1,14 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
+#Include .\CMD_ENTRY.ahk
+#Include .\CMD_GROUP_ENTRY.ahk
 
 /**
  * Defines attributes of a context.
  * @see https://learn.microsoft.com/windows/win32/api/netsh/ns-netsh-ns_context_attributes
  * @namespace Windows.Win32.NetworkManagement.NetShell
- * @version v4.0.30319
  */
-class NS_CONTEXT_ATTRIBUTES extends Win32Struct
-{
+class NS_CONTEXT_ATTRIBUTES extends Win32Struct {
     static sizeof => 104
 
     static packingSize => 8
@@ -50,7 +50,7 @@ class NS_CONTEXT_ATTRIBUTES extends Win32Struct
      * A pointer to the GUID of this helper. Identical to the value passed to the 
      * <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/netsh/nf-netsh-registerhelper">RegisterHelper</a> function as the <b>pguidHelper</b> member of the 
      * <a href="https://docs.microsoft.com/windows/desktop/api/netsh/ns-netsh-ns_helper_attributes">NS_HELPER_ATTRIBUTES</a> structure.
-     * @type {Pointer<Guid>}
+     * @type {Pointer}
      */
     guidHelper {
         get => NumGet(this, 16, "ptr")
@@ -199,7 +199,6 @@ class NS_CONTEXT_ATTRIBUTES extends Win32Struct
     }
 
     /**
-     * 
      * @type {Pointer<PNS_OSVERSIONCHECK>}
      */
     pfnOsVersionCheck {

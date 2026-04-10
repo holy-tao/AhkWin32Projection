@@ -3,9 +3,8 @@
 
 /**
  * @namespace Windows.Win32.Security.Cryptography
- * @version v4.0.30319
  */
-class CERT_LOGOTYPE_CHOICE extends Win32Enum{
+class CERT_LOGOTYPE_CHOICE extends Win32Enum {
 
     /**
      * @type {Integer (UInt32)}

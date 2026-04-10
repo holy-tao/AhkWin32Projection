@@ -26,9 +26,8 @@
  * An <b>IWSDDeviceHost</b> object can provide an object for a service on demand (using a notification callback) when calling the host receives a request message directed at that service.
  * @see https://learn.microsoft.com/windows/win32/api/wsdhost/nn-wsdhost-iwsddevicehost
  * @namespace Windows.Win32.Devices.WebServicesOnDevices
- * @version v4.0.30319
  */
-class IWSDDeviceHost extends IUnknown{
+class IWSDDeviceHost extends IUnknown {
 
     static sizeof => A_PtrSize
     /**

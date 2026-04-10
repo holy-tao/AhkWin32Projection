@@ -7,9 +7,8 @@
  * The IAudioTreble interface provides access to a hardware treble-level control.
  * @see https://learn.microsoft.com/windows/win32/api/devicetopology/nn-devicetopology-iaudiotreble
  * @namespace Windows.Win32.Media.Audio
- * @version v4.0.30319
  */
-class IAudioTreble extends IPerChannelDbLevel{
+class IAudioTreble extends IPerChannelDbLevel {
 
     static sizeof => A_PtrSize
     /**

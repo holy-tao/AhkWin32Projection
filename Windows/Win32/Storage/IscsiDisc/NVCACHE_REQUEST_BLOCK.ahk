@@ -3,10 +3,8 @@
 
 /**
  * @namespace Windows.Win32.Storage.IscsiDisc
- * @version v4.0.30319
  */
-class NVCACHE_REQUEST_BLOCK extends Win32Struct
-{
+class NVCACHE_REQUEST_BLOCK extends Win32Struct {
     static sizeof => 48
 
     static packingSize => 8

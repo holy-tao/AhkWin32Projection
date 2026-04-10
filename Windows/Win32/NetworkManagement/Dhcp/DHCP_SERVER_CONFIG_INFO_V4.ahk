@@ -5,10 +5,8 @@
  * Defines the data used to configure the DHCP server.
  * @see https://learn.microsoft.com/windows/win32/api/dhcpsapi/ns-dhcpsapi-dhcp_server_config_info_v4
  * @namespace Windows.Win32.NetworkManagement.Dhcp
- * @version v4.0.30319
  */
-class DHCP_SERVER_CONFIG_INFO_V4 extends Win32Struct
-{
+class DHCP_SERVER_CONFIG_INFO_V4 extends Win32Struct {
     static sizeof => 80
 
     static packingSize => 8

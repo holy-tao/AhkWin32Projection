@@ -27,9 +27,8 @@
  * - [IPropData](ipropdataimapiprop.md)
  * @see https://learn.microsoft.com/office/client-developer/outlook/mapi/imapipropiunknown
  * @namespace Windows.Win32.System.AddressBook
- * @version v4.0.30319
  */
-class IMAPIProp extends IUnknown{
+class IMAPIProp extends IUnknown {
 
     static sizeof => A_PtrSize
 
@@ -51,7 +50,7 @@ class IMAPIProp extends IUnknown{
      * The **IMAPIProp::GetLastError** method supplies information about a prior method call that failed. Clients can provide their users with detailed information about the error by including the data from the **MAPIERROR** structure in a dialog box. 
      *   
      * All of the implementations of **GetLastError** provided by MAPI are ANSI implementations, except for the [IAddrBook](iaddrbookimapiprop.md) implementation. The **GetLastError** method included with **IAddrBook** supports Unicode.
-     * @param {HRESULT} _hResult 
+     * @param {HRESULT} _hResult > [in] A handle to the error code generated in the previous method call.
      * @param {Integer} ulFlags > [in] A bitmask of flags that indicates the format for the text returned in the **MAPIERROR** structure pointed to by  _lppMAPIError_. The following flag can be set:
      *     
      * MAPI_UNICODE 

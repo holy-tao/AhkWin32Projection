@@ -1,16 +1,15 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
-#Include .\DEVICE_INFO.ahk
 #Include .\IMFMediaEngine.ahk
+#Include .\DEVICE_INFO.ahk
 
 /**
  * Enables media sharing.
  * @see https://learn.microsoft.com/windows/win32/api/mfsharingengine/nn-mfsharingengine-imfmediasharingengine
  * @namespace Windows.Win32.Media.MediaFoundation
- * @version v4.0.30319
  */
-class IMFMediaSharingEngine extends IMFMediaEngine{
+class IMFMediaSharingEngine extends IMFMediaEngine {
 
     static sizeof => A_PtrSize
     /**

@@ -7,10 +7,8 @@
 
 /**
  * @namespace Windows.Win32.System.Diagnostics.Debug
- * @version v4.0.30319
  */
-class MINIDUMP_SYSTEM_MEMORY_INFO_1 extends Win32Struct
-{
+class MINIDUMP_SYSTEM_MEMORY_INFO_1 extends Win32Struct {
     static sizeof => 504
 
     static packingSize => 8
@@ -34,7 +32,7 @@ class MINIDUMP_SYSTEM_MEMORY_INFO_1 extends Win32Struct
     /**
      * @type {MINIDUMP_SYSTEM_BASIC_INFORMATION}
      */
-    BasicInfo{
+    BasicInfo {
         get {
             if(!this.HasProp("__BasicInfo"))
                 this.__BasicInfo := MINIDUMP_SYSTEM_BASIC_INFORMATION(8, this)
@@ -45,7 +43,7 @@ class MINIDUMP_SYSTEM_MEMORY_INFO_1 extends Win32Struct
     /**
      * @type {MINIDUMP_SYSTEM_FILECACHE_INFORMATION}
      */
-    FileCacheInfo{
+    FileCacheInfo {
         get {
             if(!this.HasProp("__FileCacheInfo"))
                 this.__FileCacheInfo := MINIDUMP_SYSTEM_FILECACHE_INFORMATION(64, this)
@@ -56,7 +54,7 @@ class MINIDUMP_SYSTEM_MEMORY_INFO_1 extends Win32Struct
     /**
      * @type {MINIDUMP_SYSTEM_BASIC_PERFORMANCE_INFORMATION}
      */
-    BasicPerfInfo{
+    BasicPerfInfo {
         get {
             if(!this.HasProp("__BasicPerfInfo"))
                 this.__BasicPerfInfo := MINIDUMP_SYSTEM_BASIC_PERFORMANCE_INFORMATION(128, this)
@@ -67,7 +65,7 @@ class MINIDUMP_SYSTEM_MEMORY_INFO_1 extends Win32Struct
     /**
      * @type {MINIDUMP_SYSTEM_PERFORMANCE_INFORMATION}
      */
-    PerfInfo{
+    PerfInfo {
         get {
             if(!this.HasProp("__PerfInfo"))
                 this.__PerfInfo := MINIDUMP_SYSTEM_PERFORMANCE_INFORMATION(160, this)

@@ -5,9 +5,8 @@
  * The FWP_AF enumerated type.
  * @see https://learn.microsoft.com/windows/win32/api/fwptypes/ne-fwptypes-fwp_af
  * @namespace Windows.Win32.NetworkManagement.WindowsFilteringPlatform
- * @version v4.0.30319
  */
-class FWP_AF extends Win32Enum{
+class FWP_AF extends Win32Enum {
 
     /**
      * Specifies an address as an IPv4 address.

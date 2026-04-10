@@ -37,10 +37,8 @@
  * | [**SetWordList**](/windows/desktop/api/recapis/nf-recapis-setwordlist)                                  | Sets the word list for the current recognizer context to recognize.<br/>                                                                                                                                                                              |
  * @see https://learn.microsoft.com/windows/win32/tablet/hrecocontext-handle
  * @namespace Windows.Win32.UI.TabletPC
- * @version v4.0.30319
  */
-class HRECOCONTEXT extends Win32Handle
-{
+class HRECOCONTEXT extends Win32Handle {
     static sizeof => 8
 
     static packingSize => 8

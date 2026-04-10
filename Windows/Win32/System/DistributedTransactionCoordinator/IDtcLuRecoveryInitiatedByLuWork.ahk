@@ -5,9 +5,8 @@
 
 /**
  * @namespace Windows.Win32.System.DistributedTransactionCoordinator
- * @version v4.0.30319
  */
-class IDtcLuRecoveryInitiatedByLuWork extends IUnknown{
+class IDtcLuRecoveryInitiatedByLuWork extends IUnknown {
 
     static sizeof => A_PtrSize
     /**
@@ -31,13 +30,13 @@ class IDtcLuRecoveryInitiatedByLuWork extends IUnknown{
     /**
      * 
      * @param {Integer} lRecoverySeqNum 
-     * @param {Integer} Xln 
+     * @param {DTCLUXLN} Xln 
      * @param {Pointer<Integer>} pRemoteLogName 
      * @param {Integer} cbRemoteLogName 
      * @param {Pointer<Integer>} pOurLogName 
      * @param {Integer} cbOurLogName 
      * @param {Integer} dwProtocol 
-     * @param {Pointer<Integer>} pResponse 
+     * @param {Pointer<DTCLUXLNRESPONSE>} pResponse 
      * @returns {HRESULT} 
      */
     HandleTheirXln(lRecoverySeqNum, Xln, pRemoteLogName, cbRemoteLogName, pOurLogName, cbOurLogName, dwProtocol, pResponse) {
@@ -63,7 +62,7 @@ class IDtcLuRecoveryInitiatedByLuWork extends IUnknown{
 
     /**
      * 
-     * @param {Pointer<Integer>} pXln 
+     * @param {Pointer<DTCLUXLN>} pXln 
      * @param {Pointer<Integer>} pOurLogName 
      * @param {Pointer<Integer>} pdwProtocol 
      * @returns {HRESULT} 
@@ -79,7 +78,7 @@ class IDtcLuRecoveryInitiatedByLuWork extends IUnknown{
 
     /**
      * 
-     * @param {Integer} Confirmation 
+     * @param {DTCLUXLNCONFIRMATION} Confirmation 
      * @returns {HRESULT} 
      */
     HandleConfirmationOfOurXln(Confirmation) {
@@ -91,9 +90,9 @@ class IDtcLuRecoveryInitiatedByLuWork extends IUnknown{
      * 
      * @param {Pointer<Integer>} pRemoteTransId 
      * @param {Integer} cbRemoteTransId 
-     * @param {Integer} CompareState 
-     * @param {Pointer<Integer>} pResponse 
-     * @param {Pointer<Integer>} pCompareState 
+     * @param {DTCLUCOMPARESTATE} CompareState 
+     * @param {Pointer<DTCLUCOMPARESTATESRESPONSE>} pResponse 
+     * @param {Pointer<DTCLUCOMPARESTATE>} pCompareState 
      * @returns {HRESULT} 
      */
     HandleTheirCompareStates(pRemoteTransId, cbRemoteTransId, CompareState, pResponse, pCompareState) {
@@ -107,7 +106,7 @@ class IDtcLuRecoveryInitiatedByLuWork extends IUnknown{
 
     /**
      * 
-     * @param {Integer} Confirmation 
+     * @param {DTCLUCOMPARESTATESCONFIRMATION} Confirmation 
      * @returns {HRESULT} 
      */
     HandleConfirmationOfOurCompareStates(Confirmation) {
@@ -117,11 +116,11 @@ class IDtcLuRecoveryInitiatedByLuWork extends IUnknown{
 
     /**
      * 
-     * @param {Integer} Error 
+     * @param {DTCLUCOMPARESTATESERROR} _Error 
      * @returns {HRESULT} 
      */
-    HandleErrorFromOurCompareStates(Error) {
-        result := ComCall(9, this, "int", Error, "HRESULT")
+    HandleErrorFromOurCompareStates(_Error) {
+        result := ComCall(9, this, "int", _Error, "HRESULT")
         return result
     }
 

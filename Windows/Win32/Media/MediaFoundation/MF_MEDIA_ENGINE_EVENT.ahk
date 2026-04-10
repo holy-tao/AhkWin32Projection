@@ -9,9 +9,8 @@
  * Values below 1000 correspond to events defined in HTML 5 for media elements.
  * @see https://learn.microsoft.com/windows/win32/api/mfmediaengine/ne-mfmediaengine-mf_media_engine_event
  * @namespace Windows.Win32.Media.MediaFoundation
- * @version v4.0.30319
  */
-class MF_MEDIA_ENGINE_EVENT extends Win32Enum{
+class MF_MEDIA_ENGINE_EVENT extends Win32Enum {
 
     /**
      * The Media Engine has started to load the source. See <a href="https://docs.microsoft.com/windows/desktop/api/mfmediaengine/nf-mfmediaengine-imfmediaengine-load">IMFMediaEngine::Load</a>.
@@ -276,13 +275,11 @@ class MF_MEDIA_ENGINE_EVENT extends Win32Enum{
     static MF_MEDIA_ENGINE_EVENT_OPMINFO => 1011
 
     /**
-     * 
      * @type {Integer (Int32)}
      */
     static MF_MEDIA_ENGINE_EVENT_RESOURCELOST => 1012
 
     /**
-     * 
      * @type {Integer (Int32)}
      */
     static MF_MEDIA_ENGINE_EVENT_DELAYLOADEVENT_CHANGED => 1013
@@ -294,13 +291,11 @@ class MF_MEDIA_ENGINE_EVENT extends Win32Enum{
     static MF_MEDIA_ENGINE_EVENT_STREAMRENDERINGERROR => 1014
 
     /**
-     * 
      * @type {Integer (Int32)}
      */
     static MF_MEDIA_ENGINE_EVENT_SUPPORTEDRATES_CHANGED => 1015
 
     /**
-     * 
      * @type {Integer (Int32)}
      */
     static MF_MEDIA_ENGINE_EVENT_AUDIOENDPOINTCHANGE => 1016

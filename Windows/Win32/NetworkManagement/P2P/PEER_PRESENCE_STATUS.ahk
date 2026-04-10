@@ -5,9 +5,8 @@
  * The PEER_PRESENCE_STATUS enumeration defines the set of possible presence status settings available to a peer that participates in a peer collaboration network.
  * @see https://learn.microsoft.com/windows/win32/api/p2p/ne-p2p-peer_presence_status
  * @namespace Windows.Win32.NetworkManagement.P2P
- * @version v4.0.30319
  */
-class PEER_PRESENCE_STATUS extends Win32Enum{
+class PEER_PRESENCE_STATUS extends Win32Enum {
 
     /**
      * The user is offline.

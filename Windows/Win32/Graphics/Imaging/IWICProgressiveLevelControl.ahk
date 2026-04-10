@@ -11,9 +11,8 @@
  * E_NOTIMPL is returned if the codec does not support progressive level decoding.
  * @see https://learn.microsoft.com/windows/win32/api/wincodec/nn-wincodec-iwicprogressivelevelcontrol
  * @namespace Windows.Win32.Graphics.Imaging
- * @version v4.0.30319
  */
-class IWICProgressiveLevelControl extends IUnknown{
+class IWICProgressiveLevelControl extends IUnknown {
 
     static sizeof => A_PtrSize
     /**

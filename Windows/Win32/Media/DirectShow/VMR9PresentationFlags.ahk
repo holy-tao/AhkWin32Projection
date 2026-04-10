@@ -5,9 +5,8 @@
  * The VMR9PresentationFlags enumeration type contains flags that describe the status of a video sample. These flags are used in the VMR9PresentationInfo structure.
  * @see https://learn.microsoft.com/windows/win32/api/vmr9/ne-vmr9-vmr9presentationflags
  * @namespace Windows.Win32.Media.DirectShow
- * @version v4.0.30319
  */
-class VMR9PresentationFlags extends Win32Enum{
+class VMR9PresentationFlags extends Win32Enum {
 
     /**
      * Indicates that the sample is a sync point.
@@ -34,7 +33,6 @@ class VMR9PresentationFlags extends Win32Enum{
     static VMR9Sample_TimeValid => 8
 
     /**
-     * 
      * @type {Integer (Int32)}
      */
     static VMR9Sample_SrcDstRectsValid => 16

@@ -9,9 +9,8 @@
  * To declare the interface identifier (IID) for this interface, use the <b>__uuidof</b> operator: <c>__uuidof(IAttributeSet)</c>.
  * @see https://learn.microsoft.com/windows/win32/api/dsattrib/nn-dsattrib-iattributeset
  * @namespace Windows.Win32.Media.DirectShow.Tv
- * @version v4.0.30319
  */
-class IAttributeSet extends IUnknown{
+class IAttributeSet extends IUnknown {
 
     static sizeof => A_PtrSize
     /**
@@ -34,7 +33,7 @@ class IAttributeSet extends IUnknown{
 
     /**
      * This topic applies to Update Rollup 2 for Microsoft Windows XP Media Center Edition 2005 and later.
-     * @param {Guid} _guidAttribute 
+     * @param {Guid} _guidAttribute <b>GUID</b> that identifies the attribute.
      * @param {Pointer<Integer>} pbAttribute Pointer to a buffer that contains the attribute value.
      * @param {Integer} dwAttributeLength Size of the <i>pbAttribute</i> buffer, in bytes.
      * @returns {HRESULT} The method returns an <b>HRESULT</b>. Possible values include, but are not limited to, those in the following table.

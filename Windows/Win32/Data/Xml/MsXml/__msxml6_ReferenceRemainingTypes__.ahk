@@ -1,18 +1,27 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\..\Win32Struct.ahk
+#Include .\DOMNodeType.ahk
+#Include .\SERVERXMLHTTP_OPTION.ahk
+#Include .\SXH_SERVER_CERT_OPTION.ahk
+#Include .\SXH_PROXY_SETTING.ahk
+#Include .\SOMITEMTYPE.ahk
+#Include .\SCHEMAUSE.ahk
+#Include .\SCHEMADERIVATIONMETHOD.ahk
+#Include .\SCHEMACONTENTTYPE.ahk
+#Include .\SCHEMAPROCESSCONTENTS.ahk
+#Include .\SCHEMAWHITESPACE.ahk
+#Include .\SCHEMATYPEVARIETY.ahk
 
 /**
  * @namespace Windows.Win32.Data.Xml.MsXml
- * @version v4.0.30319
  */
-class __msxml6_ReferenceRemainingTypes__ extends Win32Struct
-{
+class __msxml6_ReferenceRemainingTypes__ extends Win32Struct {
     static sizeof => 88
 
     static packingSize => 4
 
     /**
-     * @type {Integer}
+     * @type {DOMNodeType}
      */
     __tagDomNodeType__ {
         get => NumGet(this, 0, "int")
@@ -20,7 +29,7 @@ class __msxml6_ReferenceRemainingTypes__ extends Win32Struct
     }
 
     /**
-     * @type {Integer}
+     * @type {DOMNodeType}
      */
     __domNodeType__ {
         get => NumGet(this, 4, "int")
@@ -28,7 +37,7 @@ class __msxml6_ReferenceRemainingTypes__ extends Win32Struct
     }
 
     /**
-     * @type {Integer}
+     * @type {SERVERXMLHTTP_OPTION}
      */
     __serverXmlHttpOptionEnum__ {
         get => NumGet(this, 8, "int")
@@ -36,7 +45,7 @@ class __msxml6_ReferenceRemainingTypes__ extends Win32Struct
     }
 
     /**
-     * @type {Integer}
+     * @type {SERVERXMLHTTP_OPTION}
      */
     __serverXmlHttpOption__ {
         get => NumGet(this, 12, "int")
@@ -44,7 +53,7 @@ class __msxml6_ReferenceRemainingTypes__ extends Win32Struct
     }
 
     /**
-     * @type {Integer}
+     * @type {SXH_SERVER_CERT_OPTION}
      */
     __serverCertOptionEnum__ {
         get => NumGet(this, 16, "int")
@@ -52,7 +61,7 @@ class __msxml6_ReferenceRemainingTypes__ extends Win32Struct
     }
 
     /**
-     * @type {Integer}
+     * @type {SXH_SERVER_CERT_OPTION}
      */
     __serverCertOption__ {
         get => NumGet(this, 20, "int")
@@ -60,7 +69,7 @@ class __msxml6_ReferenceRemainingTypes__ extends Win32Struct
     }
 
     /**
-     * @type {Integer}
+     * @type {SXH_PROXY_SETTING}
      */
     __proxySettingEnum__ {
         get => NumGet(this, 24, "int")
@@ -68,7 +77,7 @@ class __msxml6_ReferenceRemainingTypes__ extends Win32Struct
     }
 
     /**
-     * @type {Integer}
+     * @type {SXH_PROXY_SETTING}
      */
     __proxySetting__ {
         get => NumGet(this, 28, "int")
@@ -76,7 +85,7 @@ class __msxml6_ReferenceRemainingTypes__ extends Win32Struct
     }
 
     /**
-     * @type {Integer}
+     * @type {SOMITEMTYPE}
      */
     __somItemTypeEnum__ {
         get => NumGet(this, 32, "int")
@@ -84,7 +93,7 @@ class __msxml6_ReferenceRemainingTypes__ extends Win32Struct
     }
 
     /**
-     * @type {Integer}
+     * @type {SOMITEMTYPE}
      */
     __somItemType__ {
         get => NumGet(this, 36, "int")
@@ -92,7 +101,7 @@ class __msxml6_ReferenceRemainingTypes__ extends Win32Struct
     }
 
     /**
-     * @type {Integer}
+     * @type {SCHEMAUSE}
      */
     __schemaUseEnum__ {
         get => NumGet(this, 40, "int")
@@ -100,7 +109,7 @@ class __msxml6_ReferenceRemainingTypes__ extends Win32Struct
     }
 
     /**
-     * @type {Integer}
+     * @type {SCHEMAUSE}
      */
     __schemaUse__ {
         get => NumGet(this, 44, "int")
@@ -108,7 +117,7 @@ class __msxml6_ReferenceRemainingTypes__ extends Win32Struct
     }
 
     /**
-     * @type {Integer}
+     * @type {SCHEMADERIVATIONMETHOD}
      */
     __schemaDerivationMethodEnum__ {
         get => NumGet(this, 48, "int")
@@ -116,7 +125,7 @@ class __msxml6_ReferenceRemainingTypes__ extends Win32Struct
     }
 
     /**
-     * @type {Integer}
+     * @type {SCHEMADERIVATIONMETHOD}
      */
     __schemaDerivationMethod__ {
         get => NumGet(this, 52, "int")
@@ -124,7 +133,7 @@ class __msxml6_ReferenceRemainingTypes__ extends Win32Struct
     }
 
     /**
-     * @type {Integer}
+     * @type {SCHEMACONTENTTYPE}
      */
     __schemaContentTypeEnum__ {
         get => NumGet(this, 56, "int")
@@ -132,7 +141,7 @@ class __msxml6_ReferenceRemainingTypes__ extends Win32Struct
     }
 
     /**
-     * @type {Integer}
+     * @type {SCHEMACONTENTTYPE}
      */
     __schemaContentType__ {
         get => NumGet(this, 60, "int")
@@ -140,7 +149,7 @@ class __msxml6_ReferenceRemainingTypes__ extends Win32Struct
     }
 
     /**
-     * @type {Integer}
+     * @type {SCHEMAPROCESSCONTENTS}
      */
     __schemaProcessContentsEnum__ {
         get => NumGet(this, 64, "int")
@@ -148,7 +157,7 @@ class __msxml6_ReferenceRemainingTypes__ extends Win32Struct
     }
 
     /**
-     * @type {Integer}
+     * @type {SCHEMAPROCESSCONTENTS}
      */
     __schemaProcessContents__ {
         get => NumGet(this, 68, "int")
@@ -156,7 +165,7 @@ class __msxml6_ReferenceRemainingTypes__ extends Win32Struct
     }
 
     /**
-     * @type {Integer}
+     * @type {SCHEMAWHITESPACE}
      */
     __schemaWhitespaceEnum__ {
         get => NumGet(this, 72, "int")
@@ -164,7 +173,7 @@ class __msxml6_ReferenceRemainingTypes__ extends Win32Struct
     }
 
     /**
-     * @type {Integer}
+     * @type {SCHEMAWHITESPACE}
      */
     __schemaWhitespace__ {
         get => NumGet(this, 76, "int")
@@ -172,7 +181,7 @@ class __msxml6_ReferenceRemainingTypes__ extends Win32Struct
     }
 
     /**
-     * @type {Integer}
+     * @type {SCHEMATYPEVARIETY}
      */
     __schemaTypeVarietyEnum__ {
         get => NumGet(this, 80, "int")
@@ -180,7 +189,7 @@ class __msxml6_ReferenceRemainingTypes__ extends Win32Struct
     }
 
     /**
-     * @type {Integer}
+     * @type {SCHEMATYPEVARIETY}
      */
     __schemaTypeVariety__ {
         get => NumGet(this, 84, "int")

@@ -1,17 +1,16 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
+#Include .\IUnknown.ahk
 #Include .\IEnumCATEGORYINFO.ahk
 #Include .\IEnumGUID.ahk
-#Include .\IUnknown.ahk
 
 /**
  * Obtains information about the categories implemented or required by a certain class, as well as information about the categories registered on the specified computer.
  * @see https://learn.microsoft.com/windows/win32/api/comcat/nn-comcat-icatinformation
  * @namespace Windows.Win32.System.Com
- * @version v4.0.30319
  */
-class ICatInformation extends IUnknown{
+class ICatInformation extends IUnknown {
 
     static sizeof => A_PtrSize
     /**

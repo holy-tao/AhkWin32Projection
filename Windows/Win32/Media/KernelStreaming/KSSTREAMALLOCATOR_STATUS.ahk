@@ -4,10 +4,8 @@
 
 /**
  * @namespace Windows.Win32.Media.KernelStreaming
- * @version v4.0.30319
  */
-class KSSTREAMALLOCATOR_STATUS extends Win32Struct
-{
+class KSSTREAMALLOCATOR_STATUS extends Win32Struct {
     static sizeof => 32
 
     static packingSize => 4
@@ -15,7 +13,7 @@ class KSSTREAMALLOCATOR_STATUS extends Win32Struct
     /**
      * @type {KSALLOCATOR_FRAMING}
      */
-    Framing{
+    Framing {
         get {
             if(!this.HasProp("__Framing"))
                 this.__Framing := KSALLOCATOR_FRAMING(0, this)

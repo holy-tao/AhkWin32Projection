@@ -9,9 +9,8 @@
  * To declare the interface identifier (IID) for this interface, use the <b>__uuidof</b> operator: <c>__uuidof(IDVBTuneRequest)</c>.
  * @see https://learn.microsoft.com/windows/win32/api/tuner/nn-tuner-idvbtunerequest
  * @namespace Windows.Win32.Media.DirectShow.Tv
- * @version v4.0.30319
  */
-class IDVBTuneRequest extends ITuneRequest{
+class IDVBTuneRequest extends ITuneRequest {
 
     static sizeof => A_PtrSize
     /**
@@ -106,7 +105,7 @@ class IDVBTuneRequest extends ITuneRequest{
 
     /**
      * The get_SID method retrieves the service ID for the network.
-     * @returns {Integer} 
+     * @returns {Integer} Receives the service ID.
      * @see https://learn.microsoft.com/windows/win32/api/tuner/nf-tuner-idvbtunerequest-get_sid
      */
     get_SID() {
@@ -116,7 +115,7 @@ class IDVBTuneRequest extends ITuneRequest{
 
     /**
      * The put_SID method sets the service ID.
-     * @param {Integer} _SID 
+     * @param {Integer} _SID The service ID.
      * @returns {HRESULT} Returns S_OK if successful. If the method fails, error information can be retrieved using the standard COM <b>IErrorInfo</b> interface.
      * @see https://learn.microsoft.com/windows/win32/api/tuner/nf-tuner-idvbtunerequest-put_sid
      */

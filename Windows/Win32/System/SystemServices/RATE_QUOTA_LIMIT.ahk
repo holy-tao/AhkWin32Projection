@@ -3,10 +3,8 @@
 
 /**
  * @namespace Windows.Win32.System.SystemServices
- * @version v4.0.30319
  */
-class RATE_QUOTA_LIMIT extends Win32Struct
-{
+class RATE_QUOTA_LIMIT extends Win32Struct {
     static sizeof => 8
 
     static packingSize => 4

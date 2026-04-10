@@ -2,6 +2,12 @@
 #Include ..\..\..\..\Win32Struct.ahk
 #Include .\FWPM_DISPLAY_DATA0.ahk
 #Include .\FWP_BYTE_BLOB.ahk
+#Include .\FWPM_PROVIDER_CONTEXT_TYPE.ahk
+#Include .\IPSEC_KEYING_POLICY0.ahk
+#Include .\IPSEC_TRANSPORT_POLICY0.ahk
+#Include .\IPSEC_TUNNEL_POLICY0.ahk
+#Include .\IKEEXT_POLICY0.ahk
+#Include .\FWPM_CLASSIFY_OPTIONS0.ahk
 
 /**
  * Stores the state associated with a provider context. (FWPM_PROVIDER_CONTEXT0)
@@ -11,17 +17,15 @@
  * The last element is additional information returned when getting/enumerating objects.
  * @see https://learn.microsoft.com/windows/win32/api/fwpmtypes/ns-fwpmtypes-fwpm_provider_context0
  * @namespace Windows.Win32.NetworkManagement.WindowsFilteringPlatform
- * @version v4.0.30319
  */
-class FWPM_PROVIDER_CONTEXT0 extends Win32Struct
-{
+class FWPM_PROVIDER_CONTEXT0 extends Win32Struct {
     static sizeof => 80
 
     static packingSize => 8
 
     /**
      * Uniquely identifies the provider context. If the GUID is zero-initialized in the call to [FwpmProviderContextAdd0](../fwpmu/nf-fwpmu-fwpmprovidercontextadd0.md), Base Filtering Engine (BFE) will generate one.
-     * @type {Pointer<Guid>}
+     * @type {Pointer}
      */
     providerContextKey {
         get => NumGet(this, 0, "ptr")
@@ -32,7 +36,7 @@ class FWPM_PROVIDER_CONTEXT0 extends Win32Struct
      * Allows provider contexts to be annotated in a human-readable form. The [FWPM_DISPLAY_DATA0](../fwptypes/ns-fwptypes-fwpm_display_data0.md) structure is required.
      * @type {FWPM_DISPLAY_DATA0}
      */
-    displayData{
+    displayData {
         get {
             if(!this.HasProp("__displayData"))
                 this.__displayData := FWPM_DISPLAY_DATA0(8, this)
@@ -66,7 +70,7 @@ class FWPM_PROVIDER_CONTEXT0 extends Win32Struct
      * An [FWP_BYTE_BLOB](../fwptypes/ns-fwptypes-fwp_byte_blob.md) structure that contains optional provider-specific data that allows providers to store additional context info with the object.
      * @type {FWP_BYTE_BLOB}
      */
-    providerData{
+    providerData {
         get {
             if(!this.HasProp("__providerData"))
                 this.__providerData := FWP_BYTE_BLOB(40, this)
@@ -76,7 +80,7 @@ class FWPM_PROVIDER_CONTEXT0 extends Win32Struct
 
     /**
      * A [FWPM_PROVIDER_CONTEXT_TYPE](ne-fwpmtypes-fwpm_provider_context_type.md) value specifying the type of provider context..
-     * @type {Integer}
+     * @type {FWPM_PROVIDER_CONTEXT_TYPE}
      */
     type {
         get => NumGet(this, 56, "int")

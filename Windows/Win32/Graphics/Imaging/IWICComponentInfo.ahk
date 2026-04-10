@@ -2,14 +2,14 @@
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
 #Include ..\..\System\Com\IUnknown.ahk
+#Include ..\..\..\..\Guid.ahk
 
 /**
  * Exposes methods that provide component information.
  * @see https://learn.microsoft.com/windows/win32/api/wincodec/nn-wincodec-iwiccomponentinfo
  * @namespace Windows.Win32.Graphics.Imaging
- * @version v4.0.30319
  */
-class IWICComponentInfo extends IUnknown{
+class IWICComponentInfo extends IUnknown {
 
     static sizeof => A_PtrSize
     /**
@@ -32,7 +32,7 @@ class IWICComponentInfo extends IUnknown{
 
     /**
      * Retrieves the component's WICComponentType.
-     * @returns {Integer} Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/wincodec/ne-wincodec-wiccomponenttype">WICComponentType</a>*</b>
+     * @returns {WICComponentType} Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/wincodec/ne-wincodec-wiccomponenttype">WICComponentType</a>*</b>
      * 
      * A pointer that receives the <a href="https://docs.microsoft.com/windows/desktop/api/wincodec/ne-wincodec-wiccomponenttype">WICComponentType</a>.
      * @see https://learn.microsoft.com/windows/win32/api/wincodec/nf-wincodec-iwiccomponentinfo-getcomponenttype

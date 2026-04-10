@@ -3,10 +3,8 @@
 
 /**
  * @namespace Windows.Win32.Security.Authentication.Identity
- * @version v4.0.30319
  */
-class MSV1_0_IUM_SUPPLEMENTAL_CREDENTIAL extends Win32Struct
-{
+class MSV1_0_IUM_SUPPLEMENTAL_CREDENTIAL extends Win32Struct {
     static sizeof => 12
 
     static packingSize => 4
@@ -28,9 +26,9 @@ class MSV1_0_IUM_SUPPLEMENTAL_CREDENTIAL extends Win32Struct
     }
 
     /**
-     * @type {Array<Byte>}
+     * @type {Array<Integer>}
      */
-    EncryptedCreds{
+    EncryptedCreds {
         get {
             if(!this.HasProp("__EncryptedCredsProxyArray"))
                 this.__EncryptedCredsProxyArray := Win32FixedArray(this.ptr + 8, 1, Primitive, "char")

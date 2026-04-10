@@ -14,9 +14,8 @@
  * ```
  * @see https://learn.microsoft.com/windows/win32/api/shobjidl_core/ne-shobjidl_core-_kf_redirect_flags
  * @namespace Windows.Win32.UI.Shell
- * @version v4.0.30319
  */
-class _KF_REDIRECT_FLAGS extends Win32Enum{
+class _KF_REDIRECT_FLAGS extends Win32Enum {
 
     /**
      * Ensure that only the user has permission to access the redirected folder.

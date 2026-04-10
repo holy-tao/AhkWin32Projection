@@ -5,9 +5,8 @@
  * Defines the different states that a registered task can be in.
  * @see https://learn.microsoft.com/windows/win32/api/taskschd/ne-taskschd-task_state
  * @namespace Windows.Win32.System.TaskScheduler
- * @version v4.0.30319
  */
-class TASK_STATE extends Win32Enum{
+class TASK_STATE extends Win32Enum {
 
     /**
      * The state of the task is unknown.

@@ -5,19 +5,17 @@
  * BLUETOOTH_PIN_INFO structure contains information used for authentication via PIN.
  * @see https://learn.microsoft.com/windows/win32/api/bluetoothapis/ns-bluetoothapis-bluetooth_pin_info
  * @namespace Windows.Win32.Devices.Bluetooth
- * @version v4.0.30319
  */
-class BLUETOOTH_PIN_INFO extends Win32Struct
-{
+class BLUETOOTH_PIN_INFO extends Win32Struct {
     static sizeof => 17
 
     static packingSize => 1
 
     /**
      * The PIN  used for authentication.
-     * @type {Array<Byte>}
+     * @type {Array<Integer>}
      */
-    pin{
+    pin {
         get {
             if(!this.HasProp("__pinProxyArray"))
                 this.__pinProxyArray := Win32FixedArray(this.ptr + 0, 16, Primitive, "char")

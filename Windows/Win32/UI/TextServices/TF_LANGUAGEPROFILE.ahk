@@ -5,17 +5,15 @@
  * The TF_LANGUAGEPROFILE structure contains information about a language profile.
  * @see https://learn.microsoft.com/windows/win32/api/msctf/ns-msctf-tf_languageprofile
  * @namespace Windows.Win32.UI.TextServices
- * @version v4.0.30319
  */
-class TF_LANGUAGEPROFILE extends Win32Struct
-{
+class TF_LANGUAGEPROFILE extends Win32Struct {
     static sizeof => 40
 
     static packingSize => 8
 
     /**
      * Specifies the class identifier of the text service within the language profile.
-     * @type {Pointer<Guid>}
+     * @type {Pointer}
      */
     clsid {
         get => NumGet(this, 0, "ptr")
@@ -33,7 +31,7 @@ class TF_LANGUAGEPROFILE extends Win32Struct
 
     /**
      * Specifies the identifier of the category that the text service belongs to.
-     * @type {Pointer<Guid>}
+     * @type {Pointer}
      */
     catid {
         get => NumGet(this, 16, "ptr")
@@ -51,7 +49,7 @@ class TF_LANGUAGEPROFILE extends Win32Struct
 
     /**
      * Specifies the identifier of the language profile.
-     * @type {Pointer<Guid>}
+     * @type {Pointer}
      */
     guidProfile {
         get => NumGet(this, 32, "ptr")

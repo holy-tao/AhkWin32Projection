@@ -7,9 +7,8 @@
  * Exposes methods that provide the briefcase reconciler with the means to notify the initiator of its progress, to set a termination object, and to request a given version of a document. The initiator is responsible for implementing this interface.
  * @see https://learn.microsoft.com/windows/win32/lwef/ireconcileinitiator
  * @namespace Windows.Win32.UI.LegacyWindowsEnvironmentFeatures
- * @version v4.0.30319
  */
-class IReconcileInitiator extends IUnknown{
+class IReconcileInitiator extends IUnknown {
 
     static sizeof => A_PtrSize
     /**

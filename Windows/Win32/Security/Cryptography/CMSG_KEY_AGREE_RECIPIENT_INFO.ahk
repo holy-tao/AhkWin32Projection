@@ -1,20 +1,21 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
-#Include .\CRYPT_INTEGER_BLOB.ahk
-#Include .\CERT_ISSUER_SERIAL_NUMBER.ahk
+#Include .\CMSG_KEY_AGREE_ORIGINATOR.ahk
 #Include .\CERT_ID.ahk
+#Include .\CERT_ID_OPTION.ahk
+#Include .\CERT_ISSUER_SERIAL_NUMBER.ahk
+#Include .\CRYPT_INTEGER_BLOB.ahk
+#Include .\CERT_PUBLIC_KEY_INFO.ahk
 #Include .\CRYPT_ALGORITHM_IDENTIFIER.ahk
 #Include .\CRYPT_BIT_BLOB.ahk
-#Include .\CERT_PUBLIC_KEY_INFO.ahk
+#Include .\CMSG_RECIPIENT_ENCRYPTED_KEY_INFO.ahk
 
 /**
  * Contains information used for key agreement algorithms.
  * @see https://learn.microsoft.com/windows/win32/api/wincrypt/ns-wincrypt-cmsg_key_agree_recipient_info
  * @namespace Windows.Win32.Security.Cryptography
- * @version v4.0.30319
  */
-class CMSG_KEY_AGREE_RECIPIENT_INFO extends Win32Struct
-{
+class CMSG_KEY_AGREE_RECIPIENT_INFO extends Win32Struct {
     static sizeof => 112
 
     static packingSize => 8
@@ -30,7 +31,7 @@ class CMSG_KEY_AGREE_RECIPIENT_INFO extends Win32Struct
 
     /**
      * A <b>DWORD</b> that indicates the key identifier to use.
-     * @type {Integer}
+     * @type {CMSG_KEY_AGREE_ORIGINATOR}
      */
     dwOriginatorChoice {
         get => NumGet(this, 4, "uint")
@@ -40,7 +41,7 @@ class CMSG_KEY_AGREE_RECIPIENT_INFO extends Win32Struct
     /**
      * @type {CERT_ID}
      */
-    OriginatorCertId{
+    OriginatorCertId {
         get {
             if(!this.HasProp("__OriginatorCertId"))
                 this.__OriginatorCertId := CERT_ID(8, this)
@@ -51,7 +52,7 @@ class CMSG_KEY_AGREE_RECIPIENT_INFO extends Win32Struct
     /**
      * @type {CERT_PUBLIC_KEY_INFO}
      */
-    OriginatorPublicKeyInfo{
+    OriginatorPublicKeyInfo {
         get {
             if(!this.HasProp("__OriginatorPublicKeyInfo"))
                 this.__OriginatorPublicKeyInfo := CERT_PUBLIC_KEY_INFO(8, this)
@@ -63,7 +64,7 @@ class CMSG_KEY_AGREE_RECIPIENT_INFO extends Win32Struct
      * A <a href="https://docs.microsoft.com/previous-versions/windows/desktop/legacy/aa381414(v=vs.85)">CRYPT_DATA_BLOB</a> that indicates that a different key is generated each time the same two parties generate a pair of keys. The sender provides the bits of this <a href="https://docs.microsoft.com/windows/desktop/SecGloss/b-gly">BLOB</a> with some key agreement algorithms. This member can be <b>NULL</b>.
      * @type {CRYPT_INTEGER_BLOB}
      */
-    UserKeyingMaterial{
+    UserKeyingMaterial {
         get {
             if(!this.HasProp("__UserKeyingMaterial"))
                 this.__UserKeyingMaterial := CRYPT_INTEGER_BLOB(56, this)
@@ -76,7 +77,7 @@ class CMSG_KEY_AGREE_RECIPIENT_INFO extends Win32Struct
      * 						<a href="https://docs.microsoft.com/windows/desktop/api/wincrypt/ns-wincrypt-crypt_algorithm_identifier">CRYPT_ALGORITHM_IDENTIFIER</a> that identifies the key-encryption algorithm and any associated parameters used to encrypt the content encryption key.
      * @type {CRYPT_ALGORITHM_IDENTIFIER}
      */
-    KeyEncryptionAlgorithm{
+    KeyEncryptionAlgorithm {
         get {
             if(!this.HasProp("__KeyEncryptionAlgorithm"))
                 this.__KeyEncryptionAlgorithm := CRYPT_ALGORITHM_IDENTIFIER(72, this)

@@ -1,18 +1,17 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
+#Include .\OFFLOAD_OPERATION_E.ahk
 
 /**
  * @namespace Windows.Wdk.NetworkManagement.Ndis
- * @version v4.0.30319
  */
-class OFFLOAD_SECURITY_ASSOCIATION extends Win32Struct
-{
+class OFFLOAD_SECURITY_ASSOCIATION extends Win32Struct {
     static sizeof => 32
 
     static packingSize => 8
 
     /**
-     * @type {Integer}
+     * @type {OFFLOAD_OPERATION_E}
      */
     Operation {
         get => NumGet(this, 0, "int")
@@ -28,7 +27,7 @@ class OFFLOAD_SECURITY_ASSOCIATION extends Win32Struct
     }
 
     /**
-     * @type {Pointer<OFFLOAD_ALGO_INFO>}
+     * @type {Pointer}
      */
     IntegrityAlgo {
         get => NumGet(this, 8, "ptr")
@@ -36,7 +35,7 @@ class OFFLOAD_SECURITY_ASSOCIATION extends Win32Struct
     }
 
     /**
-     * @type {Pointer<OFFLOAD_ALGO_INFO>}
+     * @type {Pointer}
      */
     ConfAlgo {
         get => NumGet(this, 16, "ptr")
@@ -44,7 +43,7 @@ class OFFLOAD_SECURITY_ASSOCIATION extends Win32Struct
     }
 
     /**
-     * @type {Pointer<OFFLOAD_ALGO_INFO>}
+     * @type {Pointer}
      */
     Reserved {
         get => NumGet(this, 24, "ptr")

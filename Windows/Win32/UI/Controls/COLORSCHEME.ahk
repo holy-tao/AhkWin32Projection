@@ -5,10 +5,8 @@
  * Contains information for the drawing of buttons in a toolbar or rebar.
  * @see https://learn.microsoft.com/windows/win32/api/commctrl/ns-commctrl-colorscheme
  * @namespace Windows.Win32.UI.Controls
- * @version v4.0.30319
  */
-class COLORSCHEME extends Win32Struct
-{
+class COLORSCHEME extends Win32Struct {
     static sizeof => 12
 
     static packingSize => 4

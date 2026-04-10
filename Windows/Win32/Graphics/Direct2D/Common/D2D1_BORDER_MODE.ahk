@@ -5,9 +5,8 @@
  * Specifies how the Crop effect handles the crop rectangle falling on fractional pixel coordinates.
  * @see https://learn.microsoft.com/windows/win32/api/d2d1effects/ne-d2d1effects-d2d1_border_mode
  * @namespace Windows.Win32.Graphics.Direct2D.Common
- * @version v4.0.30319
  */
-class D2D1_BORDER_MODE extends Win32Enum{
+class D2D1_BORDER_MODE extends Win32Enum {
 
     /**
      * If the crop rectangle falls on fractional pixel coordinates, the effect applies antialiasing which results in a soft edge.

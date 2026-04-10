@@ -5,9 +5,8 @@
  * Contains flags affecting the behavior of the ApplySnapshotVhdSet function.
  * @see https://learn.microsoft.com/windows/win32/api/virtdisk/ne-virtdisk-apply_snapshot_vhdset_flag
  * @namespace Windows.Win32.Storage.Vhd
- * @version v4.0.30319
  */
-class APPLY_SNAPSHOT_VHDSET_FLAG extends Win32BitflagEnum{
+class APPLY_SNAPSHOT_VHDSET_FLAG extends Win32BitflagEnum {
 
     /**
      * No flag specified.

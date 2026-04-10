@@ -1,12 +1,13 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
+#Include .\D3DKMT_MULTIPLANE_OVERLAY3.ahk
+#Include .\D3DKMT_MULTIPLANE_OVERLAY_POST_COMPOSITION.ahk
+#Include .\D3DDDI_HDR_METADATA_TYPE.ahk
 
 /**
  * @namespace Windows.Wdk.Graphics.Direct3D
- * @version v4.0.30319
  */
-class D3DKMT_PRESENT_MULTIPLANE_OVERLAY3 extends Win32Struct
-{
+class D3DKMT_PRESENT_MULTIPLANE_OVERLAY3 extends Win32Struct {
     static sizeof => 88
 
     static packingSize => 8
@@ -52,7 +53,7 @@ class D3DKMT_PRESENT_MULTIPLANE_OVERLAY3 extends Win32Struct
     }
 
     /**
-     * @type {Pointer<D3DKMT_PRESENT_MULTIPLANE_OVERLAY_FLAGS>}
+     * @type {Pointer}
      */
     Flags {
         get => NumGet(this, 24, "ptr")
@@ -92,7 +93,7 @@ class D3DKMT_PRESENT_MULTIPLANE_OVERLAY3 extends Win32Struct
     }
 
     /**
-     * @type {Integer}
+     * @type {D3DDDI_HDR_METADATA_TYPE}
      */
     HDRMetaDataType {
         get => NumGet(this, 60, "int")

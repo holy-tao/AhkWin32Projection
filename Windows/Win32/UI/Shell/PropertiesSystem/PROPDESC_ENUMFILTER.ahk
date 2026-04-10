@@ -7,9 +7,8 @@
  * These values are defined in propsys.h and propsys.idl.
  * @see https://learn.microsoft.com/windows/win32/api/propsys/ne-propsys-propdesc_enumfilter
  * @namespace Windows.Win32.UI.Shell.PropertiesSystem
- * @version v4.0.30319
  */
-class PROPDESC_ENUMFILTER extends Win32Enum{
+class PROPDESC_ENUMFILTER extends Win32Enum {
 
     /**
      * The list contains all property descriptions in the system.

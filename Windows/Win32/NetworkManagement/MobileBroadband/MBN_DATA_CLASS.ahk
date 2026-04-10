@@ -5,9 +5,8 @@
  * The MBN_DATA_CLASS enumerated type specifies the data classes that a provider supports.
  * @see https://learn.microsoft.com/windows/win32/api/mbnapi/ne-mbnapi-mbn_data_class
  * @namespace Windows.Win32.NetworkManagement.MobileBroadband
- * @version v4.0.30319
  */
-class MBN_DATA_CLASS extends Win32Enum{
+class MBN_DATA_CLASS extends Win32Enum {
 
     /**
      * No data class.

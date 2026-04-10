@@ -3,10 +3,8 @@
 
 /**
  * @namespace Windows.Win32.System.WindowsProgramming
- * @version v4.0.30319
  */
-class PROCESS_CREATION_SVE_VECTOR_LENGTH extends Win32Struct
-{
+class PROCESS_CREATION_SVE_VECTOR_LENGTH extends Win32Struct {
     static sizeof => 8
 
     static packingSize => 4

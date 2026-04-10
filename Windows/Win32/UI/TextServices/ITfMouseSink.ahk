@@ -7,9 +7,8 @@
  * The ITfMouseSink interface is implemented by a text service to receive mouse event notifications. A mouse event sink is installed with the ITfMouseTracker::AdviseMouseSink method of one of the ITfMouseTracker interfaces.
  * @see https://learn.microsoft.com/windows/win32/api/msctf/nn-msctf-itfmousesink
  * @namespace Windows.Win32.UI.TextServices
- * @version v4.0.30319
  */
-class ITfMouseSink extends IUnknown{
+class ITfMouseSink extends IUnknown {
 
     static sizeof => A_PtrSize
     /**

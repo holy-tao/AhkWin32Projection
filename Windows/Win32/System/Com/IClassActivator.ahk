@@ -7,9 +7,8 @@
  * Specifies a method that retrieves a class object.
  * @see https://learn.microsoft.com/windows/win32/api/objidl/nn-objidl-iclassactivator
  * @namespace Windows.Win32.System.Com
- * @version v4.0.30319
  */
-class IClassActivator extends IUnknown{
+class IClassActivator extends IUnknown {
 
     static sizeof => A_PtrSize
     /**

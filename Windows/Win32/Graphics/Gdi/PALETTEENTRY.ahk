@@ -5,10 +5,8 @@
  * Specifies the color and usage of an entry in a logical palette.
  * @see https://learn.microsoft.com/windows/win32/api/wingdi/ns-wingdi-paletteentry
  * @namespace Windows.Win32.Graphics.Gdi
- * @version v4.0.30319
  */
-class PALETTEENTRY extends Win32Struct
-{
+class PALETTEENTRY extends Win32Struct {
     static sizeof => 4
 
     static packingSize => 1

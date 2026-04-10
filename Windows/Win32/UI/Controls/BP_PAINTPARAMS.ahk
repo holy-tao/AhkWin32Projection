@@ -1,14 +1,15 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
+#Include .\BP_PAINTPARAMS_FLAGS.ahk
+#Include ..\..\Foundation\RECT.ahk
+#Include ..\..\Graphics\Gdi\BLENDFUNCTION.ahk
 
 /**
  * Defines paint operation parameters for BeginBufferedPaint.
  * @see https://learn.microsoft.com/windows/win32/api/uxtheme/ns-uxtheme-bp_paintparams
  * @namespace Windows.Win32.UI.Controls
- * @version v4.0.30319
  */
-class BP_PAINTPARAMS extends Win32Struct
-{
+class BP_PAINTPARAMS extends Win32Struct {
     static sizeof => 24
 
     static packingSize => 8
@@ -26,7 +27,7 @@ class BP_PAINTPARAMS extends Win32Struct
 
     /**
      * Type: <b><a href="https://docs.microsoft.com/windows/desktop/WinProg/windows-data-types">DWORD</a></b>
-     * @type {Integer}
+     * @type {BP_PAINTPARAMS_FLAGS}
      */
     dwFlags {
         get => NumGet(this, 4, "uint")

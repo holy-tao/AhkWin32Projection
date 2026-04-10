@@ -5,9 +5,8 @@
 
 /**
  * @namespace Windows.Win32.System.Com.UI
- * @version v4.0.30319
  */
-class IDummyHICONIncluder extends IUnknown{
+class IDummyHICONIncluder extends IUnknown {
 
     static sizeof => A_PtrSize
     /**

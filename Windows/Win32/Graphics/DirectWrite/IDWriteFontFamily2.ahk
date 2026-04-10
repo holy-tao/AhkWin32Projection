@@ -1,17 +1,16 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
+#Include .\IDWriteFontFamily1.ahk
 #Include .\IDWriteFontList2.ahk
 #Include .\IDWriteFontSet1.ahk
-#Include .\IDWriteFontFamily1.ahk
 
 /**
  * Represents a family of related fonts. **IDWriteFontFamily2** adds new facilities, including retrieving fonts by font axis values.
  * @see https://learn.microsoft.com/windows/win32/api/dwrite_3/nn-dwrite_3-idwritefontfamily2
  * @namespace Windows.Win32.Graphics.DirectWrite
- * @version v4.0.30319
  */
-class IDWriteFontFamily2 extends IDWriteFontFamily1{
+class IDWriteFontFamily2 extends IDWriteFontFamily1 {
 
     static sizeof => A_PtrSize
     /**

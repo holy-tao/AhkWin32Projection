@@ -20,9 +20,8 @@
  * The <c>ISelector</c> interface is available if the selector node supports the PROPSETID_VIDCAP_SELECTOR property set. For more information, see the Windows DDK documentation.
  * @see https://learn.microsoft.com/windows/win32/api/vidcap/nn-vidcap-iselector
  * @namespace Windows.Win32.Media.DirectShow
- * @version v4.0.30319
  */
-class ISelector extends IUnknown{
+class ISelector extends IUnknown {
 
     static sizeof => A_PtrSize
     /**

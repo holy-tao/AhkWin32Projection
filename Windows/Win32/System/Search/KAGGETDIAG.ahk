@@ -1,16 +1,19 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
+#Include ..\Variant\VARIANT.ahk
+#Include ..\Variant\VARENUM.ahk
 #Include ..\Com\CY.ahk
 #Include ..\..\Foundation\BSTR.ahk
+#Include ..\Com\IUnknown.ahk
+#Include ..\Com\IDispatch.ahk
+#Include ..\Com\SAFEARRAY.ahk
 #Include ..\..\Foundation\DECIMAL.ahk
-#Include ..\Variant\VARIANT.ahk
+#Include ..\Ole\IRecordInfo.ahk
 
 /**
  * @namespace Windows.Win32.System.Search
- * @version v4.0.30319
  */
-class KAGGETDIAG extends Win32Struct
-{
+class KAGGETDIAG extends Win32Struct {
     static sizeof => 40
 
     static packingSize => 8
@@ -26,7 +29,7 @@ class KAGGETDIAG extends Win32Struct
     /**
      * @type {VARIANT}
      */
-    vDiagInfo{
+    vDiagInfo {
         get {
             if(!this.HasProp("__vDiagInfo"))
                 this.__vDiagInfo := VARIANT(8, this)

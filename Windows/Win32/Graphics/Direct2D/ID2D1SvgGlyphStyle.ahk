@@ -7,9 +7,8 @@
  * This object supplies the values for context-fill, context-stroke, and context-value that are used when rendering SVG glyphs.
  * @see https://learn.microsoft.com/windows/win32/api/d2d1_3/nn-d2d1_3-id2d1svgglyphstyle
  * @namespace Windows.Win32.Graphics.Direct2D
- * @version v4.0.30319
  */
-class ID2D1SvgGlyphStyle extends ID2D1Resource{
+class ID2D1SvgGlyphStyle extends ID2D1Resource {
 
     static sizeof => A_PtrSize
     /**

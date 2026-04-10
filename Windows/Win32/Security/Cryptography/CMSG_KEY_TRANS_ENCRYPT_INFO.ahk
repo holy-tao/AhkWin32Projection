@@ -1,7 +1,7 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
-#Include .\CRYPT_INTEGER_BLOB.ahk
 #Include .\CRYPT_ALGORITHM_IDENTIFIER.ahk
+#Include .\CRYPT_INTEGER_BLOB.ahk
 
 /**
  * Contains encryption information for a key transport recipient of enveloped data.
@@ -19,10 +19,8 @@
  * The other members are read-only.
  * @see https://learn.microsoft.com/windows/win32/api/wincrypt/ns-wincrypt-cmsg_key_trans_encrypt_info
  * @namespace Windows.Win32.Security.Cryptography
- * @version v4.0.30319
  */
-class CMSG_KEY_TRANS_ENCRYPT_INFO extends Win32Struct
-{
+class CMSG_KEY_TRANS_ENCRYPT_INFO extends Win32Struct {
     static sizeof => 56
 
     static packingSize => 8
@@ -49,7 +47,7 @@ class CMSG_KEY_TRANS_ENCRYPT_INFO extends Win32Struct
      * A <a href="https://docs.microsoft.com/windows/desktop/api/wincrypt/ns-wincrypt-crypt_algorithm_identifier">CRYPT_ALGORITHM_IDENTIFIER</a> structure that specifies the algorithm of the recipient public key. The <a href="https://docs.microsoft.com/windows/desktop/api/wincrypt/nf-wincrypt-cryptmsgopentoencode">CryptMsgOpenToEncode</a> function uses the <b>pszObjId</b> member of the <b>CRYPT_ALGORITHM_IDENTIFIER</b> structure to get the address of the function used to export the key. The function can be installed by using a Cryptography API: Next Generation (CNG) <a href="https://docs.microsoft.com/windows/desktop/SecGloss/o-gly">object identifier</a> (OID).
      * @type {CRYPT_ALGORITHM_IDENTIFIER}
      */
-    KeyEncryptionAlgorithm{
+    KeyEncryptionAlgorithm {
         get {
             if(!this.HasProp("__KeyEncryptionAlgorithm"))
                 this.__KeyEncryptionAlgorithm := CRYPT_ALGORITHM_IDENTIFIER(8, this)
@@ -61,7 +59,7 @@ class CMSG_KEY_TRANS_ENCRYPT_INFO extends Win32Struct
      * A <a href="https://docs.microsoft.com/previous-versions/windows/desktop/legacy/aa381414(v=vs.85)">CRYPT_DATA_BLOB</a> structure that contains the session key encrypted by the public key of the recipient.
      * @type {CRYPT_INTEGER_BLOB}
      */
-    EncryptedKey{
+    EncryptedKey {
         get {
             if(!this.HasProp("__EncryptedKey"))
                 this.__EncryptedKey := CRYPT_INTEGER_BLOB(32, this)

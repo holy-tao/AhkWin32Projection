@@ -1,16 +1,15 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
-#Include .\ITocEntryList.ahk
 #Include ..\..\System\Com\IUnknown.ahk
+#Include .\ITocEntryList.ahk
 
 /**
  * The IToc interface represents an individual table of contents. It provides methods for adding entries to, and removing entries from the table of contents.
  * @see https://learn.microsoft.com/windows/win32/api/wmcodecdsp/nn-wmcodecdsp-itoc
  * @namespace Windows.Win32.Media.MediaFoundation
- * @version v4.0.30319
  */
-class IToc extends IUnknown{
+class IToc extends IUnknown {
 
     static sizeof => A_PtrSize
     /**

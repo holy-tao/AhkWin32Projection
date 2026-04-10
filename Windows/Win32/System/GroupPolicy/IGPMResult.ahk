@@ -1,17 +1,16 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
+#Include ..\Com\IDispatch.ahk
 #Include .\IGPMStatusMsgCollection.ahk
 #Include ..\Variant\VARIANT.ahk
-#Include ..\Com\IDispatch.ahk
 
 /**
  * The IGPMResult interface contains methods to retrieve status message information while performing various types of GPO processing operations such as restore, import, copy and backup.
  * @see https://learn.microsoft.com/windows/win32/api/gpmgmt/nn-gpmgmt-igpmresult
  * @namespace Windows.Win32.System.GroupPolicy
- * @version v4.0.30319
  */
-class IGPMResult extends IDispatch{
+class IGPMResult extends IDispatch {
 
     static sizeof => A_PtrSize
     /**

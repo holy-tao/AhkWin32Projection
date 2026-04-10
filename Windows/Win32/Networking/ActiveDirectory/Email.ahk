@@ -5,10 +5,8 @@
  * The IADsEmail interface provides methods for an ADSI client to access the Email Address attribute.
  * @see https://learn.microsoft.com/windows/win32/api/iads/nn-iads-iadsemail
  * @namespace Windows.Win32.Networking.ActiveDirectory
- * @version v4.0.30319
  */
-class Email extends Win32Struct
-{
+class Email extends Win32Struct {
     static sizeof => 0
 
     static packingSize => 1

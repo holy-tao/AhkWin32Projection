@@ -4,10 +4,8 @@
 
 /**
  * @namespace Windows.Win32.UI.Shell
- * @version v4.0.30319
  */
-class HLTBINFO extends Win32Struct
-{
+class HLTBINFO extends Win32Struct {
     static sizeof => 20
 
     static packingSize => 4
@@ -23,7 +21,7 @@ class HLTBINFO extends Win32Struct
     /**
      * @type {RECT}
      */
-    rcTbPos{
+    rcTbPos {
         get {
             if(!this.HasProp("__rcTbPos"))
                 this.__rcTbPos := RECT(4, this)

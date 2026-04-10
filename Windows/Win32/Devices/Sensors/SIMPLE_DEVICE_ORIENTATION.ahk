@@ -3,9 +3,8 @@
 
 /**
  * @namespace Windows.Win32.Devices.Sensors
- * @version v4.0.30319
  */
-class SIMPLE_DEVICE_ORIENTATION extends Win32Enum{
+class SIMPLE_DEVICE_ORIENTATION extends Win32Enum {
 
     /**
      * @type {Integer (Int32)}

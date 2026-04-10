@@ -20,9 +20,8 @@
  * <div> </div>
  * @see https://learn.microsoft.com/windows/win32/api/shobjidl_core/nn-shobjidl_core-idroptargethelper
  * @namespace Windows.Win32.UI.Shell
- * @version v4.0.30319
  */
-class IDropTargetHelper extends IUnknown{
+class IDropTargetHelper extends IUnknown {
 
     static sizeof => A_PtrSize
     /**
@@ -57,7 +56,7 @@ class IDropTargetHelper extends IUnknown{
      * 
      * The <a href="https://docs.microsoft.com/windows/win32/api/windef/ns-windef-point">POINT</a> structure pointer that was received in the <a href="https://docs.microsoft.com/windows/desktop/api/oleidl/nf-oleidl-idroptarget-dragenter">IDropTarget::DragEnter</a> method's 
      * 					<i>pt</i> parameter.
-     * @param {Integer} dwEffect Type: <b>DWORD</b>
+     * @param {DROPEFFECT} dwEffect Type: <b>DWORD</b>
      * 
      * The value pointed to by the <a href="https://docs.microsoft.com/windows/desktop/api/oleidl/nf-oleidl-idroptarget-dragenter">IDropTarget::DragEnter</a> method's 
      * 					<i>pdwEffect</i> parameter.
@@ -95,7 +94,7 @@ class IDropTargetHelper extends IUnknown{
      * 
      * The <a href="https://docs.microsoft.com/windows/win32/api/windef/ns-windef-point">POINT</a> structure pointer that was received in the <a href="https://docs.microsoft.com/windows/desktop/api/oleidl/nf-oleidl-idroptarget-dragover">IDropTarget::DragOver</a> method's 
      * 					<i>pt</i> parameter.
-     * @param {Integer} dwEffect Type: <b>DWORD</b>
+     * @param {DROPEFFECT} dwEffect Type: <b>DWORD</b>
      * 
      * The value pointed to by the <a href="https://docs.microsoft.com/windows/desktop/api/oleidl/nf-oleidl-idroptarget-dragover">IDropTarget::DragOver</a> method's 
      * 					<i>pdwEffect</i> parameter.
@@ -120,7 +119,7 @@ class IDropTargetHelper extends IUnknown{
      * 
      * A <a href="https://docs.microsoft.com/windows/win32/api/windef/ns-windef-point">POINT</a> structure pointer that was received in the <a href="https://docs.microsoft.com/windows/desktop/api/oleidl/nf-oleidl-idroptarget-drop">IDropTarget::Drop</a> method's 
      * 					<i>pt</i> parameter.
-     * @param {Integer} dwEffect Type: <b>DWORD</b>
+     * @param {DROPEFFECT} dwEffect Type: <b>DWORD</b>
      * 
      * The value pointed to by the <a href="https://docs.microsoft.com/windows/desktop/api/oleidl/nf-oleidl-idroptarget-drop">IDropTarget::Drop</a> method's 
      * 					<i>pdwEffect</i> parameter.

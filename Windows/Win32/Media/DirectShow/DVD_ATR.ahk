@@ -3,10 +3,8 @@
 
 /**
  * @namespace Windows.Win32.Media.DirectShow
- * @version v4.0.30319
  */
-class DVD_ATR extends Win32Struct
-{
+class DVD_ATR extends Win32Struct {
     static sizeof => 772
 
     static packingSize => 4
@@ -20,9 +18,9 @@ class DVD_ATR extends Win32Struct
     }
 
     /**
-     * @type {Array<Byte>}
+     * @type {Array<Integer>}
      */
-    pbATRI{
+    pbATRI {
         get {
             if(!this.HasProp("__pbATRIProxyArray"))
                 this.__pbATRIProxyArray := Win32FixedArray(this.ptr + 4, 768, Primitive, "char")

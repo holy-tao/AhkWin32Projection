@@ -3,10 +3,8 @@
 
 /**
  * @namespace Windows.Win32.NetworkManagement.Dns
- * @version v4.0.30319
  */
-class DNS_NSEC3PARAM_DATA extends Win32Struct
-{
+class DNS_NSEC3PARAM_DATA extends Win32Struct {
     static sizeof => 10
 
     static packingSize => 2
@@ -44,9 +42,9 @@ class DNS_NSEC3PARAM_DATA extends Win32Struct
     }
 
     /**
-     * @type {Array<Byte>}
+     * @type {Array<Integer>}
      */
-    bPad{
+    bPad {
         get {
             if(!this.HasProp("__bPadProxyArray"))
                 this.__bPadProxyArray := Win32FixedArray(this.ptr + 5, 3, Primitive, "char")
@@ -55,9 +53,9 @@ class DNS_NSEC3PARAM_DATA extends Win32Struct
     }
 
     /**
-     * @type {Array<Byte>}
+     * @type {Array<Integer>}
      */
-    pbSalt{
+    pbSalt {
         get {
             if(!this.HasProp("__pbSaltProxyArray"))
                 this.__pbSaltProxyArray := Win32FixedArray(this.ptr + 8, 1, Primitive, "char")

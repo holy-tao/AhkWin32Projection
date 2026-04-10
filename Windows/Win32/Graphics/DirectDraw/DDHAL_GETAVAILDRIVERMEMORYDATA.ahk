@@ -1,14 +1,13 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
+#Include .\DDRAWI_DIRECTDRAW_GBL.ahk
 #Include .\DDSCAPS.ahk
 #Include .\DDSCAPSEX.ahk
 
 /**
  * @namespace Windows.Win32.Graphics.DirectDraw
- * @version v4.0.30319
  */
-class DDHAL_GETAVAILDRIVERMEMORYDATA extends Win32Struct
-{
+class DDHAL_GETAVAILDRIVERMEMORYDATA extends Win32Struct {
     static sizeof => 48
 
     static packingSize => 8
@@ -24,7 +23,7 @@ class DDHAL_GETAVAILDRIVERMEMORYDATA extends Win32Struct
     /**
      * @type {DDSCAPS}
      */
-    DDSCaps{
+    DDSCaps {
         get {
             if(!this.HasProp("__DDSCaps"))
                 this.__DDSCaps := DDSCAPS(8, this)
@@ -67,7 +66,7 @@ class DDHAL_GETAVAILDRIVERMEMORYDATA extends Win32Struct
     /**
      * @type {DDSCAPSEX}
      */
-    ddsCapsEx{
+    ddsCapsEx {
         get {
             if(!this.HasProp("__ddsCapsEx"))
                 this.__ddsCapsEx := DDSCAPSEX(32, this)

@@ -13,10 +13,8 @@
  * A tone with all frequencies set to zero corresponds to silence. An application can thus monitor the call's information stream for silence.
  * @see https://learn.microsoft.com/windows/win32/api/tapi/ns-tapi-linemediacontroltone
  * @namespace Windows.Win32.Devices.Tapi
- * @version v4.0.30319
  */
-class LINEMEDIACONTROLTONE extends Win32Struct
-{
+class LINEMEDIACONTROLTONE extends Win32Struct {
     static sizeof => 24
 
     static packingSize => 4

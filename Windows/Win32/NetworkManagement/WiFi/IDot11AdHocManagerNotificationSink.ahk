@@ -7,9 +7,8 @@
  * Defines the notifications supported by the IDot11AdHocManager interface.
  * @see https://learn.microsoft.com/windows/win32/api/adhoc/nn-adhoc-idot11adhocmanagernotificationsink
  * @namespace Windows.Win32.NetworkManagement.WiFi
- * @version v4.0.30319
  */
-class IDot11AdHocManagerNotificationSink extends IUnknown{
+class IDot11AdHocManagerNotificationSink extends IUnknown {
 
     static sizeof => A_PtrSize
     /**

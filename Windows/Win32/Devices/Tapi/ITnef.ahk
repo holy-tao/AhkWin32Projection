@@ -1,16 +1,15 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
-#Include ..\..\System\Com\IStream.ahk
 #Include ..\..\System\Com\IUnknown.ahk
+#Include ..\..\System\Com\IStream.ahk
 
 /**
  * Provides methods for encapsulating MAPI properties that are not supported by a messaging system into binary streams that can be attached to messages.
  * @see https://learn.microsoft.com/office/client-developer/outlook/mapi/itnefiunknown
  * @namespace Windows.Win32.Devices.Tapi
- * @version v4.0.30319
  */
-class ITnef extends IUnknown{
+class ITnef extends IUnknown {
 
     static sizeof => A_PtrSize
 

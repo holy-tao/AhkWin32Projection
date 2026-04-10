@@ -5,9 +5,8 @@
 
 /**
  * @namespace Windows.Win32.System.DistributedTransactionCoordinator
- * @version v4.0.30319
  */
-class IGetDispenser extends IUnknown{
+class IGetDispenser extends IUnknown {
 
     static sizeof => A_PtrSize
     /**

@@ -7,9 +7,8 @@
  * The IWMReaderStreamClock interface provides access to the clock used by the reader.This interface exists for every reader object.
  * @see https://learn.microsoft.com/windows/win32/api/wmsdkidl/nn-wmsdkidl-iwmreaderstreamclock
  * @namespace Windows.Win32.Media.WindowsMediaFormat
- * @version v4.0.30319
  */
-class IWMReaderStreamClock extends IUnknown{
+class IWMReaderStreamClock extends IUnknown {
 
     static sizeof => A_PtrSize
     /**

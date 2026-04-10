@@ -3,10 +3,8 @@
 
 /**
  * @namespace Windows.Win32.System.ClrHosting
- * @version v4.0.30319
  */
-class COR_GC_STATS extends Win32Struct
-{
+class COR_GC_STATS extends Win32Struct {
     static sizeof => 104
 
     static packingSize => 8
@@ -28,9 +26,9 @@ class COR_GC_STATS extends Win32Struct
     }
 
     /**
-     * @type {Array<UIntPtr>}
+     * @type {Array<Pointer>}
      */
-    GenCollectionsTaken{
+    GenCollectionsTaken {
         get {
             if(!this.HasProp("__GenCollectionsTakenProxyArray"))
                 this.__GenCollectionsTakenProxyArray := Win32FixedArray(this.ptr + 16, 3, Primitive, "ptr")

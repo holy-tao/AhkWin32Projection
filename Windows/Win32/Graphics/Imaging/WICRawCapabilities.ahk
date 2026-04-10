@@ -5,9 +5,8 @@
  * Specifies the capability support of a raw image.
  * @see https://learn.microsoft.com/windows/win32/api/wincodec/ne-wincodec-wicrawcapabilities
  * @namespace Windows.Win32.Graphics.Imaging
- * @version v4.0.30319
  */
-class WICRawCapabilities extends Win32Enum{
+class WICRawCapabilities extends Win32Enum {
 
     /**
      * The capability is not supported.

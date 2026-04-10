@@ -9,9 +9,8 @@
  * See the [IInkD2DRenderer::Draw](nf-inkrenderer-iinkd2drenderer-draw.md) method if you need to support Windows 11 contrast theme settings.
  * @see https://learn.microsoft.com/windows/win32/api/inkrenderer/nn-inkrenderer-iinkd2drenderer
  * @namespace Windows.Win32.UI.Input.Ink
- * @version v4.0.30319
  */
-class IInkD2DRenderer extends IUnknown{
+class IInkD2DRenderer extends IUnknown {
 
     static sizeof => A_PtrSize
     /**

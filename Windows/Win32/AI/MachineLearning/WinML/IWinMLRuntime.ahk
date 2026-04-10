@@ -1,17 +1,16 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\..\Guid.ahk
+#Include ..\..\..\System\Com\IUnknown.ahk
 #Include .\IWinMLModel.ahk
 #Include .\IWinMLEvaluationContext.ahk
-#Include ..\..\..\System\Com\IUnknown.ahk
 
 /**
  * Represents the runtime to load and evaluate a WinML model.
  * @see https://learn.microsoft.com/windows/win32/api/winml/nn-winml-iwinmlruntime
  * @namespace Windows.Win32.AI.MachineLearning.WinML
- * @version v4.0.30319
  */
-class IWinMLRuntime extends IUnknown{
+class IWinMLRuntime extends IUnknown {
 
     static sizeof => A_PtrSize
     /**
@@ -34,7 +33,7 @@ class IWinMLRuntime extends IUnknown{
 
     /**
      * Loads a WinML model.
-     * @param {PWSTR} _Path 
+     * @param {PWSTR} _Path Path name for the model.
      * @returns {IWinMLModel} A double pointer to an <a href="https://docs.microsoft.com/windows/desktop/api/winml/nn-winml-iwinmlmodel">IWinMLModel</a> describing a WinML model.
      * @see https://learn.microsoft.com/windows/win32/api/winml/nf-winml-iwinmlruntime-loadmodel
      */

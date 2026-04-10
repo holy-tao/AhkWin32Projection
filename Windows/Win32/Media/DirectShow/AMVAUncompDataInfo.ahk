@@ -6,10 +6,8 @@
  * The AMVAUncompDataInfo structure specifies the dimensions and pixel format of the uncompressed surfaces for DirectX Video Acceleration (DXVA) video decoding.
  * @see https://learn.microsoft.com/windows/win32/api/amva/ns-amva-amvauncompdatainfo
  * @namespace Windows.Win32.Media.DirectShow
- * @version v4.0.30319
  */
-class AMVAUncompDataInfo extends Win32Struct
-{
+class AMVAUncompDataInfo extends Win32Struct {
     static sizeof => 40
 
     static packingSize => 4
@@ -36,7 +34,7 @@ class AMVAUncompDataInfo extends Win32Struct
      * A <b>DDPIXELFORMAT</b> structure that specifies the pixel format of the uncompressed data.
      * @type {DDPIXELFORMAT}
      */
-    ddUncompPixelFormat{
+    ddUncompPixelFormat {
         get {
             if(!this.HasProp("__ddUncompPixelFormat"))
                 this.__ddUncompPixelFormat := DDPIXELFORMAT(8, this)

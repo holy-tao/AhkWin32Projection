@@ -7,9 +7,8 @@
  * Gets credentials from the credential cache.
  * @see https://learn.microsoft.com/windows/win32/api/mfidl/nn-mfidl-imfnetcredentialcache
  * @namespace Windows.Win32.Media.MediaFoundation
- * @version v4.0.30319
  */
-class IMFNetCredentialCache extends IUnknown{
+class IMFNetCredentialCache extends IUnknown {
 
     static sizeof => A_PtrSize
     /**

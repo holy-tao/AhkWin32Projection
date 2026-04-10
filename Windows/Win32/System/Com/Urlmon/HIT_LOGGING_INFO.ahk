@@ -4,10 +4,8 @@
 
 /**
  * @namespace Windows.Win32.System.Com.Urlmon
- * @version v4.0.30319
  */
-class HIT_LOGGING_INFO extends Win32Struct
-{
+class HIT_LOGGING_INFO extends Win32Struct {
     static sizeof => 56
 
     static packingSize => 8
@@ -31,7 +29,7 @@ class HIT_LOGGING_INFO extends Win32Struct
     /**
      * @type {SYSTEMTIME}
      */
-    StartTime{
+    StartTime {
         get {
             if(!this.HasProp("__StartTime"))
                 this.__StartTime := SYSTEMTIME(16, this)
@@ -42,7 +40,7 @@ class HIT_LOGGING_INFO extends Win32Struct
     /**
      * @type {SYSTEMTIME}
      */
-    EndTime{
+    EndTime {
         get {
             if(!this.HasProp("__EndTime"))
                 this.__EndTime := SYSTEMTIME(32, this)

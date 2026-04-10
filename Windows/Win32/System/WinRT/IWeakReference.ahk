@@ -7,9 +7,8 @@
  * Represents a weak reference to an object.
  * @see https://learn.microsoft.com/windows/win32/api/weakreference/nn-weakreference-iweakreference
  * @namespace Windows.Win32.System.WinRT
- * @version v4.0.30319
  */
-class IWeakReference extends IUnknown{
+class IWeakReference extends IUnknown {
 
     static sizeof => A_PtrSize
     /**

@@ -9,10 +9,8 @@
  * To insure consistent usage across different encoders, you should assume encoders will only look at the default QP and can ignore QP values for I/P/B pictures.
  * @see https://learn.microsoft.com/windows/win32/medfound/codecapi-avencvideoencodeqp
  * @namespace Windows.Win32.Media.MediaFoundation
- * @version v4.0.30319
  */
-class CODECAPI_AVEncVideoEncodeQP extends Win32Struct
-{
+class CODECAPI_AVEncVideoEncodeQP extends Win32Struct {
     static sizeof => 0
 
     static packingSize => 1

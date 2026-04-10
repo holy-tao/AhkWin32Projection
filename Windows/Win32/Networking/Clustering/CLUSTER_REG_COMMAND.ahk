@@ -7,9 +7,8 @@
  * The <b>CLUSREG_VALUE_DELETED</b> command precedes every <b>CLUSREG_SET_VALUE</b> and <b>CLUSREG_DELETE_VALUE</b> command in the returned notification data, if the value had existing data.
  * @see https://learn.microsoft.com/windows/win32/api/msclus/ne-msclus-cluster_reg_command
  * @namespace Windows.Win32.Networking.Clustering
- * @version v4.0.30319
  */
-class CLUSTER_REG_COMMAND extends Win32Enum{
+class CLUSTER_REG_COMMAND extends Win32Enum {
 
     /**
      * This constant is not a valid command. It and the <b>CLUSREG_LAST_COMMAND</b> constant act as brackets  that contain the valid commands.
@@ -54,7 +53,6 @@ class CLUSTER_REG_COMMAND extends Win32Enum{
     static CLUSREG_VALUE_DELETED => 6
 
     /**
-     * 
      * @type {Integer (Int32)}
      */
     static CLUSREG_READ_KEY => 7
@@ -136,7 +134,6 @@ class CLUSTER_REG_COMMAND extends Win32Enum{
     static CLUSREG_CONDITION_KEY_EXISTS => 17
 
     /**
-     * 
      * @type {Integer (Int32)}
      */
     static CLUSREG_CONDITION_KEY_NOT_EXISTS => 18

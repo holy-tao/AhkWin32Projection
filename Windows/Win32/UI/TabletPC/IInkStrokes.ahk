@@ -1,21 +1,20 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
+#Include ..\..\System\Com\IDispatch.ahk
 #Include ..\..\System\Com\IUnknown.ahk
 #Include .\IInkDisp.ahk
 #Include .\IInkRecognitionResult.ahk
 #Include ..\..\Foundation\BSTR.ahk
 #Include .\IInkStrokeDisp.ahk
 #Include .\IInkRectangle.ahk
-#Include ..\..\System\Com\IDispatch.ahk
 
 /**
  * . (IInkStrokes)
  * @see https://learn.microsoft.com/windows/win32/api/msinkaut/nn-msinkaut-iinkstrokes
  * @namespace Windows.Win32.UI.TabletPC
- * @version v4.0.30319
  */
-class IInkStrokes extends IDispatch{
+class IInkStrokes extends IDispatch {
 
     static sizeof => A_PtrSize
     /**
@@ -234,7 +233,7 @@ class IInkStrokes extends IDispatch{
      * @remarks
      * <div class="alert"><b>Note</b>  This collection must already exist within the <a href="https://docs.microsoft.com/windows/desktop/tablet/inkdisp-class">InkDisp</a> object and cannot belong to another <b>InkDisp</b> object. Also, this does not copy or otherwise alter the <b>InkDisp</b> object, but merely adds this collection of strokes to the collection.</div>
      * <div> </div>
-     * @param {IInkStrokes} _InkStrokes 
+     * @param {IInkStrokes} _InkStrokes The collection of strokes to add to the collection of strokes.
      * @returns {HRESULT} This method can return one of these values.
      * 
      * <table>
@@ -428,7 +427,7 @@ class IInkStrokes extends IDispatch{
 
     /**
      * Removes strokes from the collection.
-     * @param {IInkStrokes} _InkStrokes 
+     * @param {IInkStrokes} _InkStrokes The strokes to remove from the collection.
      * @returns {HRESULT} This method can return one of these values.
      * 
      * <table>
@@ -592,7 +591,7 @@ class IInkStrokes extends IDispatch{
      * <div> </div>
      * <div class="alert"><b>Note</b>  If you have not set the pen width explicitly, it is 53 by default. You must multiply the pen width by the square root of the determinant to yield the correct bounding box. The height and width of the bounding box are expanded by half this amount in each direction. For example, consider that the pen width is 53, the square root of the determinant is 50, and the bounding box is (0, 0, 1000, 1000). The pen width adjustment to the bounding box in each direction is calculated as (53 * 50) / 2, and the right and bottom sides are incremented by one. This results in a rendered bounding box of (-1325, -1325, 2326, 2326).</div>
      * <div> </div>
-     * @param {Integer} BoundingBoxMode Optional. Specifies the stroke characteristics to use to calculate the bounding box. For more details about the use of stroke characteristics to calculate a bounding box, see the <a href="https://docs.microsoft.com/windows/desktop/api/msinkaut/ne-msinkaut-inkboundingboxmode">BoundingBoxMode</a> enumeration type.
+     * @param {InkBoundingBoxMode} BoundingBoxMode Optional. Specifies the stroke characteristics to use to calculate the bounding box. For more details about the use of stroke characteristics to calculate a bounding box, see the <a href="https://docs.microsoft.com/windows/desktop/api/msinkaut/ne-msinkaut-inkboundingboxmode">BoundingBoxMode</a> enumeration type.
      * 
      * The <i>BoundingBoxMode</i> parameter of the <a href="https://docs.microsoft.com/windows/desktop/api/msinkaut/nf-msinkaut-iinkstrokedisp-getboundingbox">GetBoundingBox</a> method has a default value of -1, which means that all characteristics of a stroke are used to specify the bounding box.
      * @returns {IInkRectangle} When this method returns, contains a pointer to the rectangle that defines the bounding box of an <a href="https://docs.microsoft.com/windows/desktop/tablet/inkdisp-class">InkDisp</a> object, an <a href="https://docs.microsoft.com/windows/desktop/api/msinkaut/nn-msinkaut-iinkstrokedisp">IInkStrokeDisp</a> object, or an <a href="https://docs.microsoft.com/previous-versions/windows/desktop/legacy/ms703293(v=vs.85)">InkStrokes</a> collection.

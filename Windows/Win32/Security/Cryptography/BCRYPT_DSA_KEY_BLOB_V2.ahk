@@ -1,5 +1,8 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
+#Include .\BCRYPT_DSA_MAGIC.ahk
+#Include .\HASHALGORITHM_ENUM.ahk
+#Include .\DSAFIPSVERSION_ENUM.ahk
 
 /**
  * Used as a header for a Digital Signature Algorithm (DSA) public key or private key BLOB in memory. (BCRYPT_DSA_KEY_BLOB_V2)
@@ -36,17 +39,14 @@
  * ```
  * @see https://learn.microsoft.com/windows/win32/api/bcrypt/ns-bcrypt-bcrypt_dsa_key_blob_v2
  * @namespace Windows.Win32.Security.Cryptography
- * @version v4.0.30319
  */
-class BCRYPT_DSA_KEY_BLOB_V2 extends Win32Struct
-{
+class BCRYPT_DSA_KEY_BLOB_V2 extends Win32Struct {
     static sizeof => 28
 
     static packingSize => 4
 
     /**
-     * 
-     * @type {Integer}
+     * @type {BCRYPT_DSA_MAGIC}
      */
     dwMagic {
         get => NumGet(this, 0, "uint")
@@ -64,7 +64,7 @@ class BCRYPT_DSA_KEY_BLOB_V2 extends Win32Struct
 
     /**
      * A <a href="https://docs.microsoft.com/windows/desktop/api/bcrypt/ne-bcrypt-hashalgorithm_enum">HASHALGORITHM_ENUM</a> enumeration value that specifies the hashing algorithm to use.
-     * @type {Integer}
+     * @type {HASHALGORITHM_ENUM}
      */
     hashAlgorithm {
         get => NumGet(this, 8, "int")
@@ -73,7 +73,7 @@ class BCRYPT_DSA_KEY_BLOB_V2 extends Win32Struct
 
     /**
      * A <a href="https://docs.microsoft.com/windows/desktop/api/bcrypt/ne-bcrypt-dsafipsversion_enum">DSAFIPSVERSION_ENUM</a> enumeration value that specifies the Federal Information Processing Standard (FIPS) to apply.
-     * @type {Integer}
+     * @type {DSAFIPSVERSION_ENUM}
      */
     standardVersion {
         get => NumGet(this, 12, "int")
@@ -100,9 +100,9 @@ class BCRYPT_DSA_KEY_BLOB_V2 extends Win32Struct
 
     /**
      * The number of iterations performed to generate the prime number <i>q</i> from the seed. For more information, see NIST standard FIPS186-3.
-     * @type {Array<Byte>}
+     * @type {Array<Integer>}
      */
-    Count{
+    Count {
         get {
             if(!this.HasProp("__CountProxyArray"))
                 this.__CountProxyArray := Win32FixedArray(this.ptr + 24, 4, Primitive, "char")

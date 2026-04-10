@@ -1,16 +1,14 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\..\Guid.ahk
-#Include ..\..\..\Foundation\BSTR.ahk
+#Include .\IXMLDOMSchemaCollection.ahk
 #Include .\ISchema.ahk
 #Include .\ISchemaItem.ahk
-#Include .\IXMLDOMSchemaCollection.ahk
 
 /**
  * @namespace Windows.Win32.Data.Xml.MsXml
- * @version v4.0.30319
  */
-class IXMLDOMSchemaCollection2 extends IXMLDOMSchemaCollection{
+class IXMLDOMSchemaCollection2 extends IXMLDOMSchemaCollection {
 
     static sizeof => A_PtrSize
     /**

@@ -5,10 +5,8 @@
  * Specifies the version of the TBS context implementation. You must use this structure if your application works with both versions of TPM.
  * @see https://learn.microsoft.com/windows/win32/api/tbs/ns-tbs-tbs_context_params2
  * @namespace Windows.Win32.System.TpmBaseServices
- * @version v4.0.30319
  */
-class TBS_CONTEXT_PARAMS2 extends Win32Struct
-{
+class TBS_CONTEXT_PARAMS2 extends Win32Struct {
     static sizeof => 8
 
     static packingSize => 4

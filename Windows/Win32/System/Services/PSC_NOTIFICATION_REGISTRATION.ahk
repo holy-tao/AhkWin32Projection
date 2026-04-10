@@ -3,10 +3,8 @@
 
 /**
  * @namespace Windows.Win32.System.Services
- * @version v4.0.30319
  */
-class PSC_NOTIFICATION_REGISTRATION extends Win32Struct
-{
+class PSC_NOTIFICATION_REGISTRATION extends Win32Struct {
     static sizeof => 8
 
     static packingSize => 8

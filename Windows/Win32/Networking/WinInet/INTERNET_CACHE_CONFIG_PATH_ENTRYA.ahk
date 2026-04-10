@@ -3,11 +3,9 @@
 
 /**
  * @namespace Windows.Win32.Networking.WinInet
- * @version v4.0.30319
  * @charset ANSI
  */
-class INTERNET_CACHE_CONFIG_PATH_ENTRYA extends Win32Struct
-{
+class INTERNET_CACHE_CONFIG_PATH_ENTRYA extends Win32Struct {
     static sizeof => 264
 
     static packingSize => 4

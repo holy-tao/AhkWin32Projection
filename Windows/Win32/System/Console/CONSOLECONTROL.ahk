@@ -3,9 +3,8 @@
 
 /**
  * @namespace Windows.Win32.System.Console
- * @version v4.0.30319
  */
-class CONSOLECONTROL extends Win32Enum{
+class CONSOLECONTROL extends Win32Enum {
 
     /**
      * @type {Integer (Int32)}

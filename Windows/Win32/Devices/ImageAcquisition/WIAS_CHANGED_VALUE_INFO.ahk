@@ -4,10 +4,8 @@
 
 /**
  * @namespace Windows.Win32.Devices.ImageAcquisition
- * @version v4.0.30319
  */
-class WIAS_CHANGED_VALUE_INFO extends Win32Struct
-{
+class WIAS_CHANGED_VALUE_INFO extends Win32Struct {
     static sizeof => 24
 
     static packingSize => 8
@@ -23,7 +21,7 @@ class WIAS_CHANGED_VALUE_INFO extends Win32Struct
             get => NumGet(this, 0, "int")
             set => NumPut("int", value, this, 0)
         }
-    
+
         /**
          * @type {Float}
          */
@@ -31,26 +29,25 @@ class WIAS_CHANGED_VALUE_INFO extends Win32Struct
             get => NumGet(this, 0, "float")
             set => NumPut("float", value, this, 0)
         }
-    
+
         /**
          * @type {BSTR}
          */
-        bstrVal{
+        bstrVal {
             get {
                 if(!this.HasProp("__bstrVal"))
                     this.__bstrVal := BSTR(0, this)
                 return this.__bstrVal
             }
         }
-    
+
         /**
-         * @type {Pointer<Guid>}
+         * @type {Pointer}
          */
         guidVal {
             get => NumGet(this, 0, "ptr")
             set => NumPut("ptr", value, this, 0)
         }
-    
     }
 
     class _Current_e__Union extends Win32Struct {
@@ -64,7 +61,7 @@ class WIAS_CHANGED_VALUE_INFO extends Win32Struct
             get => NumGet(this, 0, "int")
             set => NumPut("int", value, this, 0)
         }
-    
+
         /**
          * @type {Float}
          */
@@ -72,26 +69,25 @@ class WIAS_CHANGED_VALUE_INFO extends Win32Struct
             get => NumGet(this, 0, "float")
             set => NumPut("float", value, this, 0)
         }
-    
+
         /**
          * @type {BSTR}
          */
-        bstrVal{
+        bstrVal {
             get {
                 if(!this.HasProp("__bstrVal"))
                     this.__bstrVal := BSTR(0, this)
                 return this.__bstrVal
             }
         }
-    
+
         /**
-         * @type {Pointer<Guid>}
+         * @type {Pointer}
          */
         guidVal {
             get => NumGet(this, 0, "ptr")
             set => NumPut("ptr", value, this, 0)
         }
-    
     }
 
     /**
@@ -113,10 +109,10 @@ class WIAS_CHANGED_VALUE_INFO extends Win32Struct
     /**
      * @type {_Old_e__Union}
      */
-    Old{
+    Old {
         get {
             if(!this.HasProp("__Old"))
-                this.__Old := %this.__Class%._Old_e__Union(8, this)
+                this.__Old := WIAS_CHANGED_VALUE_INFO._Old_e__Union(8, this)
             return this.__Old
         }
     }
@@ -124,10 +120,10 @@ class WIAS_CHANGED_VALUE_INFO extends Win32Struct
     /**
      * @type {_Current_e__Union}
      */
-    Current{
+    Current {
         get {
             if(!this.HasProp("__Current"))
-                this.__Current := %this.__Class%._Current_e__Union(16, this)
+                this.__Current := WIAS_CHANGED_VALUE_INFO._Current_e__Union(16, this)
             return this.__Current
         }
     }

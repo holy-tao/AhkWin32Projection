@@ -5,10 +5,8 @@
 
 /**
  * @namespace Windows.Win32.Media.MediaFoundation
- * @version v4.0.30319
  */
-class D3D12_VIDEO_ENCODER_MOVE_RECT extends Win32Struct
-{
+class D3D12_VIDEO_ENCODER_MOVE_RECT extends Win32Struct {
     static sizeof => 24
 
     static packingSize => 4
@@ -16,7 +14,7 @@ class D3D12_VIDEO_ENCODER_MOVE_RECT extends Win32Struct
     /**
      * @type {POINT}
      */
-    SourcePoint{
+    SourcePoint {
         get {
             if(!this.HasProp("__SourcePoint"))
                 this.__SourcePoint := POINT(0, this)
@@ -27,7 +25,7 @@ class D3D12_VIDEO_ENCODER_MOVE_RECT extends Win32Struct
     /**
      * @type {RECT}
      */
-    DestRect{
+    DestRect {
         get {
             if(!this.HasProp("__DestRect"))
                 this.__DestRect := RECT(8, this)

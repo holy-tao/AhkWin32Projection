@@ -5,10 +5,8 @@
  * The PEER_DATA structure contains binary data.
  * @see https://learn.microsoft.com/windows/win32/api/p2p/ns-p2p-peer_data
  * @namespace Windows.Win32.NetworkManagement.P2P
- * @version v4.0.30319
  */
-class PEER_DATA extends Win32Struct
-{
+class PEER_DATA extends Win32Struct {
     static sizeof => 16
 
     static packingSize => 8

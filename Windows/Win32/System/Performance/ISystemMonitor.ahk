@@ -1,18 +1,17 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
-#Include ..\..\Foundation\BSTR.ahk
+#Include ..\Com\IUnknown.ahk
 #Include ..\Ole\IFontDisp.ahk
 #Include .\ICounters.ahk
+#Include ..\..\Foundation\BSTR.ahk
 #Include .\ICounterItem.ahk
 #Include .\ILogFiles.ahk
-#Include ..\Com\IUnknown.ahk
 
 /**
  * @namespace Windows.Win32.System.Performance
- * @version v4.0.30319
  */
-class ISystemMonitor extends IUnknown{
+class ISystemMonitor extends IUnknown {
 
     static sizeof => A_PtrSize
     /**
@@ -150,7 +149,7 @@ class ISystemMonitor extends IUnknown{
     }
 
     /**
-     * @type {Integer} 
+     * @type {DisplayTypeConstants} 
      */
     DisplayType {
         get => this.get_DisplayType()
@@ -254,7 +253,7 @@ class ISystemMonitor extends IUnknown{
     }
 
     /**
-     * @type {Integer} 
+     * @type {ReportValueTypeConstants} 
      */
     ReportValueType {
         get => this.get_ReportValueType()
@@ -285,7 +284,7 @@ class ISystemMonitor extends IUnknown{
     }
 
     /**
-     * @type {Integer} 
+     * @type {DataSourceTypeConstants} 
      */
     DataSourceType {
         get => this.get_DataSourceType()
@@ -566,7 +565,7 @@ class ISystemMonitor extends IUnknown{
 
     /**
      * 
-     * @param {Integer} eDisplayType 
+     * @param {DisplayTypeConstants} eDisplayType 
      * @returns {HRESULT} 
      */
     put_DisplayType(eDisplayType) {
@@ -576,7 +575,7 @@ class ISystemMonitor extends IUnknown{
 
     /**
      * 
-     * @returns {Integer} 
+     * @returns {DisplayTypeConstants} 
      */
     get_DisplayType() {
         result := ComCall(31, this, "int*", &peDisplayType := 0, "HRESULT")
@@ -945,7 +944,7 @@ class ISystemMonitor extends IUnknown{
 
     /**
      * 
-     * @param {Integer} eReportValueType 
+     * @param {ReportValueTypeConstants} eReportValueType 
      * @returns {HRESULT} 
      */
     put_ReportValueType(eReportValueType) {
@@ -955,7 +954,7 @@ class ISystemMonitor extends IUnknown{
 
     /**
      * 
-     * @returns {Integer} 
+     * @returns {ReportValueTypeConstants} 
      */
     get_ReportValueType() {
         result := ComCall(67, this, "int*", &peReportValueType := 0, "HRESULT")
@@ -1011,7 +1010,7 @@ class ISystemMonitor extends IUnknown{
 
     /**
      * 
-     * @param {Integer} eDataSourceType 
+     * @param {DataSourceTypeConstants} eDataSourceType 
      * @returns {HRESULT} 
      */
     put_DataSourceType(eDataSourceType) {
@@ -1021,7 +1020,7 @@ class ISystemMonitor extends IUnknown{
 
     /**
      * 
-     * @returns {Integer} 
+     * @returns {DataSourceTypeConstants} 
      */
     get_DataSourceType() {
         result := ComCall(74, this, "int*", &peDataSourceType := 0, "HRESULT")

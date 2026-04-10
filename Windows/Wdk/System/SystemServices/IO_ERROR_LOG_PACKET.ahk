@@ -3,10 +3,8 @@
 
 /**
  * @namespace Windows.Wdk.System.SystemServices
- * @version v4.0.30319
  */
-class IO_ERROR_LOG_PACKET extends Win32Struct
-{
+class IO_ERROR_LOG_PACKET extends Win32Struct {
     static sizeof => 48
 
     static packingSize => 8
@@ -108,9 +106,9 @@ class IO_ERROR_LOG_PACKET extends Win32Struct
     }
 
     /**
-     * @type {Array<UInt32>}
+     * @type {Array<Integer>}
      */
-    DumpData{
+    DumpData {
         get {
             if(!this.HasProp("__DumpDataProxyArray"))
                 this.__DumpDataProxyArray := Win32FixedArray(this.ptr + 40, 1, Primitive, "uint")

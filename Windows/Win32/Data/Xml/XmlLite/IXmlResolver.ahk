@@ -5,9 +5,8 @@
 
 /**
  * @namespace Windows.Win32.Data.Xml.XmlLite
- * @version v4.0.30319
  */
-class IXmlResolver extends IUnknown{
+class IXmlResolver extends IUnknown {
 
     static sizeof => A_PtrSize
     /**

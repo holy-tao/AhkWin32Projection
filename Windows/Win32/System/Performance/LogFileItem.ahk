@@ -5,10 +5,8 @@
  * Use this class to retrieve the path of a log file accessed by the System Monitor control. To retrieve this object, call LogFiles.Item.
  * @see https://learn.microsoft.com/windows/win32/SysMon/logfileitem
  * @namespace Windows.Win32.System.Performance
- * @version v4.0.30319
  */
-class LogFileItem extends Win32Struct
-{
+class LogFileItem extends Win32Struct {
     static sizeof => 0
 
     static packingSize => 1

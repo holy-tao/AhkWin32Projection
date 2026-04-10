@@ -50,9 +50,8 @@
  * </ul>
  * @see https://learn.microsoft.com/windows/win32/api/mfobjects/nn-mfobjects-imfbytestream
  * @namespace Windows.Win32.Media.MediaFoundation
- * @version v4.0.30319
  */
-class IMFByteStream extends IUnknown{
+class IMFByteStream extends IUnknown {
 
     static sizeof => A_PtrSize
     /**
@@ -392,7 +391,7 @@ class IMFByteStream extends IUnknown{
      * <li>Windows XP with Service Pack 2 (SP2) and later.</li>
      * <li>Windows XP Media Center Edition 2005 with KB900325 (Windows XP Media Center Edition 2005) and KB925766 (October 2006 Update Rollup for Windows XP Media Center Edition) installed.</li>
      * </ul>
-     * @param {Pointer} pb Pointer to a buffer that receives the data. The caller must allocate the buffer.
+     * @param {Integer} pb Pointer to a buffer that receives the data. The caller must allocate the buffer.
      * @param {Integer} cb Size of the buffer in bytes.
      * @param {IMFAsyncCallback} pCallback Pointer to the <a href="https://docs.microsoft.com/windows/desktop/api/mfobjects/nn-mfobjects-imfasynccallback">IMFAsyncCallback</a> interface of a callback object. The caller must implement this interface.
      * @param {IUnknown} punkState Pointer to the <b>IUnknown</b> interface of a state object, defined by the caller. This parameter can be <b>NULL</b>. You can use this object to hold state information. The object is returned to the caller when the callback is invoked.
@@ -475,7 +474,7 @@ class IMFByteStream extends IUnknown{
      * <li>Windows XP with Service Pack 2 (SP2) and later.</li>
      * <li>Windows XP Media Center Edition 2005 with KB900325 (Windows XP Media Center Edition 2005) and KB925766 (October 2006 Update Rollup for Windows XP Media Center Edition) installed.</li>
      * </ul>
-     * @param {Pointer} pb Pointer to a buffer containing the data to write.
+     * @param {Integer} pb Pointer to a buffer containing the data to write.
      * @param {Integer} cb Size of the buffer in bytes.
      * @param {IMFAsyncCallback} pCallback Pointer to the <a href="https://docs.microsoft.com/windows/desktop/api/mfobjects/nn-mfobjects-imfasynccallback">IMFAsyncCallback</a> interface of a callback object. The caller must implement this interface.
      * @param {IUnknown} punkState Pointer to the <b>IUnknown</b> interface of a state object, defined by the caller. This parameter can be <b>NULL</b>. You can use this object to hold state information. The object is returned to the caller when the callback is invoked.
@@ -519,7 +518,7 @@ class IMFByteStream extends IUnknown{
      * </ul>
      * <b> Implementation notes:</b> This method should update the current position in the stream by adding the <i>qwSeekOffset</i> to the seek <i>SeekOrigin</i> position. This should be the same value passed back in the <i>pqwCurrentPosition</i> parameter. 
      * Other methods that can update the current position are <a href="https://docs.microsoft.com/windows/desktop/api/mfobjects/nf-mfobjects-imfbytestream-read">Read</a>, <a href="https://docs.microsoft.com/windows/desktop/api/mfobjects/nf-mfobjects-imfbytestream-beginread">BeginRead</a>, <a href="https://docs.microsoft.com/windows/desktop/api/mfobjects/nf-mfobjects-imfbytestream-write">Write</a>, <a href="https://docs.microsoft.com/windows/desktop/api/mfobjects/nf-mfobjects-imfbytestream-beginwrite">BeginWrite</a>, and <a href="https://docs.microsoft.com/windows/desktop/api/mfobjects/nf-mfobjects-imfbytestream-setcurrentposition">SetCurrentPosition</a>.
-     * @param {Integer} SeekOrigin Specifies the origin of the seek as a member of the <a href="https://docs.microsoft.com/windows/desktop/api/mfobjects/ne-mfobjects-mfbytestream_seek_origin">MFBYTESTREAM_SEEK_ORIGIN</a> enumeration. The offset is calculated relative to this position.
+     * @param {MFBYTESTREAM_SEEK_ORIGIN} SeekOrigin Specifies the origin of the seek as a member of the <a href="https://docs.microsoft.com/windows/desktop/api/mfobjects/ne-mfobjects-mfbytestream_seek_origin">MFBYTESTREAM_SEEK_ORIGIN</a> enumeration. The offset is calculated relative to this position.
      * @param {Integer} llSeekOffset Specifies the new position, as a byte offset from the seek origin.
      * @param {Integer} dwSeekFlags Specifies zero or more flags. The following flags are defined.
      *           

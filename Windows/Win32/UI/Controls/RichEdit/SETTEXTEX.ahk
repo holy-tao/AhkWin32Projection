@@ -5,10 +5,8 @@
  * Specifies which code page (if any) to use in setting text, whether the text replaces all the text in the control or just the selection, and whether the undo state is to be preserved. This structure is used with the EM_SETTEXTEX message.
  * @see https://learn.microsoft.com/windows/win32/api/richedit/ns-richedit-settextex
  * @namespace Windows.Win32.UI.Controls.RichEdit
- * @version v4.0.30319
  */
-class SETTEXTEX extends Win32Struct
-{
+class SETTEXTEX extends Win32Struct {
     static sizeof => 8
 
     static packingSize => 4

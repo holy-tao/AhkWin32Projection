@@ -1,14 +1,13 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
+#Include .\SQLINTERVAL.ahk
 #Include .\SQL_YEAR_MONTH_STRUCT.ahk
 #Include .\SQL_DAY_SECOND_STRUCT.ahk
 
 /**
  * @namespace Windows.Win32.System.Search
- * @version v4.0.30319
  */
-class SQL_INTERVAL_STRUCT extends Win32Struct
-{
+class SQL_INTERVAL_STRUCT extends Win32Struct {
     static sizeof => 28
 
     static packingSize => 4
@@ -20,29 +19,28 @@ class SQL_INTERVAL_STRUCT extends Win32Struct
         /**
          * @type {SQL_YEAR_MONTH_STRUCT}
          */
-        year_month{
+        year_month {
             get {
                 if(!this.HasProp("__year_month"))
                     this.__year_month := SQL_YEAR_MONTH_STRUCT(0, this)
                 return this.__year_month
             }
         }
-    
+
         /**
          * @type {SQL_DAY_SECOND_STRUCT}
          */
-        day_second{
+        day_second {
             get {
                 if(!this.HasProp("__day_second"))
                     this.__day_second := SQL_DAY_SECOND_STRUCT(0, this)
                 return this.__day_second
             }
         }
-    
     }
 
     /**
-     * @type {Integer}
+     * @type {SQLINTERVAL}
      */
     interval_type {
         get => NumGet(this, 0, "int")
@@ -60,10 +58,10 @@ class SQL_INTERVAL_STRUCT extends Win32Struct
     /**
      * @type {_intval_e__Union}
      */
-    intval{
+    intval {
         get {
             if(!this.HasProp("__intval"))
-                this.__intval := %this.__Class%._intval_e__Union(8, this)
+                this.__intval := SQL_INTERVAL_STRUCT._intval_e__Union(8, this)
             return this.__intval
         }
     }

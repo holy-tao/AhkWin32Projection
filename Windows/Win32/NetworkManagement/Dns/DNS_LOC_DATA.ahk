@@ -9,10 +9,8 @@
  * <a href="https://docs.microsoft.com/windows/win32/api/windns/ns-windns-dns_recorda">DNS_RECORD</a> structure to programmatically manage DNS entries.
  * @see https://learn.microsoft.com/windows/win32/api/windns/ns-windns-dns_loc_data
  * @namespace Windows.Win32.NetworkManagement.Dns
- * @version v4.0.30319
  */
-class DNS_LOC_DATA extends Win32Struct
-{
+class DNS_LOC_DATA extends Win32Struct {
     static sizeof => 20
 
     static packingSize => 4

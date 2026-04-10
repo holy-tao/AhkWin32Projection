@@ -1,5 +1,6 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
+#Include .\VDS_NF_DISK.ahk
 
 /**
  * The VDS_DISK_NOTIFICATION structure (vdshwprv.h) defines the details of disk events.
@@ -15,17 +16,14 @@
  * To get the disk object, use the <a href="https://docs.microsoft.com/windows/desktop/api/vds/nf-vds-ivdsservice-getobject">IVdsService::GetObject</a> method. You can then use the <a href="https://docs.microsoft.com/windows/desktop/api/vds/nf-vds-ivdsdisk-getproperties">IVdsDisk::GetProperties</a> method or the <a href="https://docs.microsoft.com/windows/desktop/api/vds/nf-vds-ivdsdisk3-getproperties2">IVdsDisk3::GetProperties2</a> method to get the disk properties.
  * @see https://learn.microsoft.com/windows/win32/api/vdshwprv/ns-vdshwprv-vds_disk_notification
  * @namespace Windows.Win32.Storage.VirtualDiskService
- * @version v4.0.30319
  */
-class VDS_DISK_NOTIFICATION extends Win32Struct
-{
+class VDS_DISK_NOTIFICATION extends Win32Struct {
     static sizeof => 16
 
     static packingSize => 8
 
     /**
-     * 
-     * @type {Integer}
+     * @type {VDS_NF_DISK}
      */
     ulEvent {
         get => NumGet(this, 0, "uint")
@@ -34,7 +32,7 @@ class VDS_DISK_NOTIFICATION extends Win32Struct
 
     /**
      * The GUID of the disk object that triggered the event.
-     * @type {Pointer<Guid>}
+     * @type {Pointer}
      */
     diskId {
         get => NumGet(this, 8, "ptr")

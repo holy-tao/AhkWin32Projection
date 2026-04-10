@@ -18,9 +18,8 @@
  * </ul>
  * @see https://learn.microsoft.com/windows/win32/api/d3d10/nn-d3d10-id3d10asynchronous
  * @namespace Windows.Win32.Graphics.Direct3D10
- * @version v4.0.30319
  */
-class ID3D10Asynchronous extends ID3D10DeviceChild{
+class ID3D10Asynchronous extends ID3D10DeviceChild {
 
     static sizeof => A_PtrSize
     /**
@@ -231,7 +230,7 @@ class ID3D10Asynchronous extends ID3D10DeviceChild{
      * <img alt="Equation to interpret the number of parallel counters" src="./images/parallelUnits.jpg"/>
      * 
      * The number of parallel counters that a video card has is available from <b>NumDetectableParallelUnits</b> in <a href="https://docs.microsoft.com/windows/desktop/api/d3d10/ns-d3d10-d3d10_counter_info">D3D10_COUNTER_INFO</a>, and it can be retrieved by calling <a href="https://docs.microsoft.com/windows/desktop/api/d3d10/nf-d3d10-id3d10device-checkcounterinfo">ID3D10Device::CheckCounterInfo</a>.
-     * @param {Pointer} pData Type: <b>void*</b>
+     * @param {Integer} pData Type: <b>void*</b>
      * 
      * Address of memory that will receive the data. If <b>NULL</b>, <b>GetData</b> will be used only to check status. The type of data output depends on the type of asynchronous interface. See Remarks.
      * @param {Integer} DataSize Type: <b><a href="https://docs.microsoft.com/windows/desktop/WinProg/windows-data-types">UINT</a></b>

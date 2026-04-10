@@ -1,23 +1,25 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
 #Include ..\Ndis\NDIS_OBJECT_HEADER.ahk
-#Include .\DOT11_PEER_STATISTICS.ahk
 #Include .\DOT11_PEER_INFO.ahk
+#Include .\DOT11_AUTH_ALGORITHM.ahk
+#Include .\DOT11_CIPHER_ALGORITHM.ahk
+#Include .\DOT11_ASSOCIATION_STATE.ahk
+#Include .\DOT11_POWER_MODE.ahk
+#Include .\DOT11_PEER_STATISTICS.ahk
 
 /**
  * @namespace Windows.Win32.NetworkManagement.WiFi
- * @version v4.0.30319
  */
-class DOT11_PEER_INFO_LIST extends Win32Struct
-{
-    static sizeof => 24
+class DOT11_PEER_INFO_LIST extends Win32Struct {
+    static sizeof => 368
 
     static packingSize => 8
 
     /**
      * @type {NDIS_OBJECT_HEADER}
      */
-    Header{
+    Header {
         get {
             if(!this.HasProp("__Header"))
                 this.__Header := NDIS_OBJECT_HEADER(0, this)
@@ -42,9 +44,9 @@ class DOT11_PEER_INFO_LIST extends Win32Struct
     }
 
     /**
-     * @type {Array<DOT11_PEER_INFO>}
+     * @type {DOT11_PEER_INFO}
      */
-    PeerInfo{
+    PeerInfo {
         get {
             if(!this.HasProp("__PeerInfoProxyArray"))
                 this.__PeerInfoProxyArray := Win32FixedArray(this.ptr + 16, 1, DOT11_PEER_INFO, "")

@@ -7,10 +7,8 @@
  * Specifies the supplied credentials.
  * @see https://learn.microsoft.com/windows/win32/api/ntsecpkg/ns-ntsecpkg-secpkg_supplied_credential
  * @namespace Windows.Win32.Security.Authentication.Identity
- * @version v4.0.30319
  */
-class SECPKG_SUPPLIED_CREDENTIAL extends Win32Struct
-{
+class SECPKG_SUPPLIED_CREDENTIAL extends Win32Struct {
     static sizeof => 32
 
     static packingSize => 4
@@ -37,7 +35,7 @@ class SECPKG_SUPPLIED_CREDENTIAL extends Win32Struct
      * The user name for Unicode only.
      * @type {SECPKG_SHORT_VECTOR}
      */
-    UserName{
+    UserName {
         get {
             if(!this.HasProp("__UserName"))
                 this.__UserName := SECPKG_SHORT_VECTOR(4, this)
@@ -49,7 +47,7 @@ class SECPKG_SUPPLIED_CREDENTIAL extends Win32Struct
      * The domain name for Unicode only.
      * @type {SECPKG_SHORT_VECTOR}
      */
-    DomainName{
+    DomainName {
         get {
             if(!this.HasProp("__DomainName"))
                 this.__DomainName := SECPKG_SHORT_VECTOR(12, this)
@@ -61,7 +59,7 @@ class SECPKG_SUPPLIED_CREDENTIAL extends Win32Struct
      * The credentials in the <a href="https://docs.microsoft.com/windows/desktop/api/sspi/ns-sspi-sec_winnt_auth_packed_credentials">SEC_WINNT_AUTH_PACKED_CREDENTIALS</a> structure.
      * @type {SECPKG_BYTE_VECTOR}
      */
-    PackedCredentials{
+    PackedCredentials {
         get {
             if(!this.HasProp("__PackedCredentials"))
                 this.__PackedCredentials := SECPKG_BYTE_VECTOR(20, this)

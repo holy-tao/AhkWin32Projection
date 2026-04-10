@@ -13,9 +13,8 @@
  * - [IAppxFactory3](nn-appxpackaging-iappxfactory3.md)
  * @see https://learn.microsoft.com/windows/win32/api/appxpackaging/nn-appxpackaging-iappxdigestprovider
  * @namespace Windows.Win32.Storage.Packaging.Appx
- * @version v4.0.30319
  */
-class IAppxDigestProvider extends IUnknown{
+class IAppxDigestProvider extends IUnknown {
 
     static sizeof => A_PtrSize
     /**

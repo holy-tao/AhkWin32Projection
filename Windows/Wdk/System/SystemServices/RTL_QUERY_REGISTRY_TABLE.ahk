@@ -3,10 +3,8 @@
 
 /**
  * @namespace Windows.Wdk.System.SystemServices
- * @version v4.0.30319
  */
-class RTL_QUERY_REGISTRY_TABLE extends Win32Struct
-{
+class RTL_QUERY_REGISTRY_TABLE extends Win32Struct {
     static sizeof => 56
 
     static packingSize => 8

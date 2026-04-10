@@ -3,10 +3,8 @@
 
 /**
  * @namespace Windows.Win32.Storage.FileSystem
- * @version v4.0.30319
  */
-class TRANSACTION_NOTIFICATION_SAVEPOINT_ARGUMENT extends Win32Struct
-{
+class TRANSACTION_NOTIFICATION_SAVEPOINT_ARGUMENT extends Win32Struct {
     static sizeof => 4
 
     static packingSize => 4

@@ -8,10 +8,8 @@
  * The <b>DXGI_ADAPTER_DESC1</b> structure provides a DXGI 1.1 description of an adapter.  This structure is initialized by using the <a href="https://docs.microsoft.com/windows/desktop/api/dxgi/nf-dxgi-idxgiadapter1-getdesc1">IDXGIAdapter1::GetDesc1</a> method.
  * @see https://learn.microsoft.com/windows/win32/api/dxgi/ns-dxgi-dxgi_adapter_desc1
  * @namespace Windows.Win32.Graphics.Dxgi
- * @version v4.0.30319
  */
-class DXGI_ADAPTER_DESC1 extends Win32Struct
-{
+class DXGI_ADAPTER_DESC1 extends Win32Struct {
     static sizeof => 312
 
     static packingSize => 8
@@ -110,7 +108,7 @@ class DXGI_ADAPTER_DESC1 extends Win32Struct
      * A unique value that identifies the adapter. See <a href="https://docs.microsoft.com/previous-versions/windows/hardware/drivers/ff549708(v=vs.85)">LUID</a> for a definition of the structure. <b>LUID</b> is defined in dxgi.h.
      * @type {LUID}
      */
-    AdapterLuid{
+    AdapterLuid {
         get {
             if(!this.HasProp("__AdapterLuid"))
                 this.__AdapterLuid := LUID(296, this)

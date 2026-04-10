@@ -10,9 +10,8 @@
  * ``` syntax
  * @see https://learn.microsoft.com/windows/win32/api/strmif/ne-strmif-videoprocampflags
  * @namespace Windows.Win32.Media.DirectShow
- * @version v4.0.30319
  */
-class VideoProcAmpFlags extends Win32Enum{
+class VideoProcAmpFlags extends Win32Enum {
 
     /**
      * The setting is controlled automatically.

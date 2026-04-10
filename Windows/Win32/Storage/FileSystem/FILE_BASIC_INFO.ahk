@@ -5,10 +5,8 @@
  * Contains the basic information for a file. Used for file handles.
  * @see https://learn.microsoft.com/windows/win32/api/winbase/ns-winbase-file_basic_info
  * @namespace Windows.Win32.Storage.FileSystem
- * @version v4.0.30319
  */
-class FILE_BASIC_INFO extends Win32Struct
-{
+class FILE_BASIC_INFO extends Win32Struct {
     static sizeof => 40
 
     static packingSize => 8

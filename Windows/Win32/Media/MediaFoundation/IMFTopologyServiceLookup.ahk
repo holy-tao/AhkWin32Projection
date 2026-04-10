@@ -7,9 +7,8 @@
  * Enables a custom video mixer or video presenter to get interface pointers from the Enhanced Video Renderer (EVR).
  * @see https://learn.microsoft.com/windows/win32/api/evr/nn-evr-imftopologyservicelookup
  * @namespace Windows.Win32.Media.MediaFoundation
- * @version v4.0.30319
  */
-class IMFTopologyServiceLookup extends IUnknown{
+class IMFTopologyServiceLookup extends IUnknown {
 
     static sizeof => A_PtrSize
     /**
@@ -103,7 +102,7 @@ class IMFTopologyServiceLookup extends IUnknown{
      * 
      * </li>
      * </ul>
-     * @param {Integer} Type Specifies the scope of the search. Currently this parameter is ignored. Use the value MF_SERVICE_LOOKUP_GLOBAL.
+     * @param {MF_SERVICE_LOOKUP_TYPE} Type Specifies the scope of the search. Currently this parameter is ignored. Use the value MF_SERVICE_LOOKUP_GLOBAL.
      * @param {Integer} dwIndex Reserved, must be zero.
      * @param {Pointer<Guid>} guidService Service GUID of the requested interface.
      * @param {Pointer<Guid>} riid Interface identifier of the requested interface.

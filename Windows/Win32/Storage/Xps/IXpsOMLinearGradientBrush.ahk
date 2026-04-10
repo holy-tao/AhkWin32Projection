@@ -1,9 +1,8 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
-#Include .\XPS_POINT.ahk
-#Include .\IXpsOMLinearGradientBrush.ahk
 #Include .\IXpsOMGradientBrush.ahk
+#Include .\XPS_POINT.ahk
 
 /**
  * Specifies a linear gradient, which is the color gradient along a vector.
@@ -62,9 +61,8 @@
  * ```
  * @see https://learn.microsoft.com/windows/win32/api/xpsobjectmodel/nn-xpsobjectmodel-ixpsomlineargradientbrush
  * @namespace Windows.Win32.Storage.Xps
- * @version v4.0.30319
  */
-class IXpsOMLinearGradientBrush extends IXpsOMGradientBrush{
+class IXpsOMLinearGradientBrush extends IXpsOMGradientBrush {
 
     static sizeof => A_PtrSize
     /**

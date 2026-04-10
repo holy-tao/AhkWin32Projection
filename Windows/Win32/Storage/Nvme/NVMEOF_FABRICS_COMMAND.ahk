@@ -3,10 +3,8 @@
 
 /**
  * @namespace Windows.Win32.Storage.Nvme
- * @version v4.0.30319
  */
-class NVMEOF_FABRICS_COMMAND extends Win32Struct
-{
+class NVMEOF_FABRICS_COMMAND extends Win32Struct {
     static sizeof => 64
 
     static packingSize => 2
@@ -44,9 +42,9 @@ class NVMEOF_FABRICS_COMMAND extends Win32Struct
     }
 
     /**
-     * @type {Array<Byte>}
+     * @type {Array<Integer>}
      */
-    Reserved{
+    Reserved {
         get {
             if(!this.HasProp("__ReservedProxyArray"))
                 this.__ReservedProxyArray := Win32FixedArray(this.ptr + 5, 35, Primitive, "char")
@@ -55,9 +53,9 @@ class NVMEOF_FABRICS_COMMAND extends Win32Struct
     }
 
     /**
-     * @type {Array<Byte>}
+     * @type {Array<Integer>}
      */
-    Specific{
+    Specific {
         get {
             if(!this.HasProp("__SpecificProxyArray"))
                 this.__SpecificProxyArray := Win32FixedArray(this.ptr + 40, 24, Primitive, "char")

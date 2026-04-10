@@ -5,9 +5,8 @@
  * Defines values that indicate how events are delivered in a subscription.
  * @see https://learn.microsoft.com/windows/win32/api/evcoll/ne-evcoll-ec_subscription_delivery_mode
  * @namespace Windows.Win32.System.EventCollector
- * @version v4.0.30319
  */
-class EC_SUBSCRIPTION_DELIVERY_MODE extends Win32Enum{
+class EC_SUBSCRIPTION_DELIVERY_MODE extends Win32Enum {
 
     /**
      * Events are delivered through the subscription using the pull model.

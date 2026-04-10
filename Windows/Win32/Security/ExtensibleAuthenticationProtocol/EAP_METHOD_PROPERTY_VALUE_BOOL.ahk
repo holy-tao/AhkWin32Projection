@@ -5,10 +5,8 @@
  * Contains a Boolean value of an EAP method property.
  * @see https://learn.microsoft.com/windows/win32/api/eaptypes/ns-eaptypes-eap_method_property_value_bool
  * @namespace Windows.Win32.Security.ExtensibleAuthenticationProtocol
- * @version v4.0.30319
  */
-class EAP_METHOD_PROPERTY_VALUE_BOOL extends Win32Struct
-{
+class EAP_METHOD_PROPERTY_VALUE_BOOL extends Win32Struct {
     static sizeof => 8
 
     static packingSize => 4

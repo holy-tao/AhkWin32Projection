@@ -1,20 +1,19 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
+#Include .\IDWriteFactory1.ahk
 #Include .\IDWriteFontFallback.ahk
 #Include .\IDWriteFontFallbackBuilder.ahk
 #Include .\IDWriteColorGlyphRunEnumerator.ahk
 #Include .\IDWriteRenderingParams2.ahk
 #Include .\IDWriteGlyphRunAnalysis.ahk
-#Include .\IDWriteFactory1.ahk
 
 /**
  * The root factory interface for all DirectWrite objects.
  * @see https://learn.microsoft.com/windows/win32/DirectWrite/idwritefactory2
  * @namespace Windows.Win32.Graphics.DirectWrite
- * @version v4.0.30319
  */
-class IDWriteFactory2 extends IDWriteFactory1{
+class IDWriteFactory2 extends IDWriteFactory1 {
 
     static sizeof => A_PtrSize
     /**
@@ -72,11 +71,13 @@ class IDWriteFactory2 extends IDWriteFactory1{
      * @param {Float} baselineOriginY Type: <b>FLOAT</b>
      * 
      * The vertical baseline origin of the original glyph run.
-     * @param {Pointer<DWRITE_GLYPH_RUN>} _glyphRun 
+     * @param {Pointer<DWRITE_GLYPH_RUN>} _glyphRun Type: <b>const <a href="https://docs.microsoft.com/windows/win32/api/dwrite/ns-dwrite-dwrite_glyph_run">DWRITE_GLYPH_RUN</a>*</b>
+     * 
+     * Original glyph run containing monochrome glyph IDs.
      * @param {Pointer<DWRITE_GLYPH_RUN_DESCRIPTION>} glyphRunDescription Type: <b>const <a href="https://docs.microsoft.com/windows/win32/api/dwrite/ns-dwrite-dwrite_glyph_run_description">DWRITE_GLYPH_RUN_DESCRIPTION</a>*</b>
      * 
      * Optional glyph run description.
-     * @param {Integer} measuringMode Type: <b><a href="https://docs.microsoft.com/windows/win32/api/dcommon/ne-dcommon-dwrite_measuring_mode">DWRITE_MEASURING_MODE</a></b>
+     * @param {DWRITE_MEASURING_MODE} measuringMode Type: <b><a href="https://docs.microsoft.com/windows/win32/api/dcommon/ne-dcommon-dwrite_measuring_mode">DWRITE_MEASURING_MODE</a></b>
      * 
      * Measuring mode used to compute glyph positions if the run contains color glyphs.
      * @param {Pointer<DWRITE_MATRIX>} worldToDeviceTransform Type: <b>const <a href="https://docs.microsoft.com/windows/win32/api/dwrite/ns-dwrite-dwrite_matrix">DWRITE_MATRIX</a>*</b>
@@ -115,13 +116,13 @@ class IDWriteFactory2 extends IDWriteFactory1{
      * @param {Float} clearTypeLevel Type: **FLOAT**
      * 
      * The degree of ClearType level, from 0.0f (no ClearType) to 1.0f (full ClearType).
-     * @param {Integer} pixelGeometry Type: **[**DWRITE\_PIXEL\_GEOMETRY**](/windows/win32/api/dwrite/ne-dwrite-dwrite_pixel_geometry)**
+     * @param {DWRITE_PIXEL_GEOMETRY} pixelGeometry Type: **[**DWRITE\_PIXEL\_GEOMETRY**](/windows/win32/api/dwrite/ne-dwrite-dwrite_pixel_geometry)**
      * 
      * The geometry of a device pixel.
-     * @param {Integer} renderingMode Type: **[**DWRITE\_RENDERING\_MODE**](/windows/win32/api/dwrite/ne-dwrite-dwrite_rendering_mode)**
+     * @param {DWRITE_RENDERING_MODE} renderingMode Type: **[**DWRITE\_RENDERING\_MODE**](/windows/win32/api/dwrite/ne-dwrite-dwrite_rendering_mode)**
      * 
      * Method of rendering glyphs. In most cases, this should be DWRITE\_RENDERING\_MODE\_DEFAULT to automatically use an appropriate mode.
-     * @param {Integer} gridFitMode Type: **[**DWRITE\_GRID\_FIT\_MODE**](/windows/win32/api/dwrite_2/ne-dwrite_2-dwrite_grid_fit_mode)**
+     * @param {DWRITE_GRID_FIT_MODE} gridFitMode Type: **[**DWRITE\_GRID\_FIT\_MODE**](/windows/win32/api/dwrite_2/ne-dwrite_2-dwrite_grid_fit_mode)**
      * 
      * How to grid fit glyph outlines. In most cases, this should be DWRITE\_GRID\_FIT\_DEFAULT to automatically choose an appropriate mode.
      * @returns {IDWriteRenderingParams2} Type: **[**IDWriteRenderingParams2**](/windows/win32/api/dwrite_2/nn-dwrite_2-idwriterenderingparams2)\*\***
@@ -136,20 +137,22 @@ class IDWriteFactory2 extends IDWriteFactory1{
 
     /**
      * Creates a glyph run analysis object, which encapsulates information used to render a glyph run.
-     * @param {Pointer<DWRITE_GLYPH_RUN>} _glyphRun 
+     * @param {Pointer<DWRITE_GLYPH_RUN>} _glyphRun Type: **const [**DWRITE\_GLYPH\_RUN**](/windows/win32/api/dwrite/ns-dwrite-dwrite_glyph_run)\***
+     * 
+     * Structure specifying the properties of the glyph run.
      * @param {Pointer<DWRITE_MATRIX>} transform Type: **const [**DWRITE\_MATRIX**](/windows/win32/api/dwrite/ns-dwrite-dwrite_matrix)\***
      * 
      * Optional transform applied to the glyphs and their positions. This transform is applied after the scaling specified by the emSize and pixelsPerDip.
-     * @param {Integer} renderingMode Type: **DWRITE\_RENDERING\_MODE**
+     * @param {DWRITE_RENDERING_MODE} renderingMode Type: **DWRITE\_RENDERING\_MODE**
      * 
      * Specifies the rendering mode, which must be one of the raster rendering modes (i.e., not default and not outline).
-     * @param {Integer} measuringMode Type: **[**DWRITE\_MEASURING\_MODE**](/windows/win32/api/dcommon/ne-dcommon-dwrite_measuring_mode)**
+     * @param {DWRITE_MEASURING_MODE} measuringMode Type: **[**DWRITE\_MEASURING\_MODE**](/windows/win32/api/dcommon/ne-dcommon-dwrite_measuring_mode)**
      * 
      * Specifies the method to measure glyphs.
-     * @param {Integer} gridFitMode Type: **[**DWRITE\_GRID\_FIT\_MODE**](/windows/win32/api/dwrite_2/ne-dwrite_2-dwrite_grid_fit_mode)**
+     * @param {DWRITE_GRID_FIT_MODE} gridFitMode Type: **[**DWRITE\_GRID\_FIT\_MODE**](/windows/win32/api/dwrite_2/ne-dwrite_2-dwrite_grid_fit_mode)**
      * 
      * How to grid-fit glyph outlines. This must be non-default.
-     * @param {Integer} antialiasMode Type: **[**DWRITE\_TEXT\_ANTIALIAS\_MODE**](/windows/win32/api/Dwrite_1/ne-dwrite_1-dwrite_text_antialias_mode)**
+     * @param {DWRITE_TEXT_ANTIALIAS_MODE} antialiasMode Type: **[**DWRITE\_TEXT\_ANTIALIAS\_MODE**](/windows/win32/api/Dwrite_1/ne-dwrite_1-dwrite_text_antialias_mode)**
      * 
      * Specifies the antialias mode.
      * @param {Float} baselineOriginX Type: **FLOAT**

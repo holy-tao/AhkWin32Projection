@@ -7,9 +7,8 @@
  * Defines a method that determines whether the Shell will be allowed to move, copy, delete, or rename a folder in a cloud provider's sync root.
  * @see https://learn.microsoft.com/windows/win32/shell/nn-shobjidl-istorageprovidercopyhook
  * @namespace Windows.Win32.UI.Shell
- * @version v4.0.30319
  */
-class IStorageProviderCopyHook extends IUnknown{
+class IStorageProviderCopyHook extends IUnknown {
 
     static sizeof => A_PtrSize
     /**
@@ -36,7 +35,7 @@ class IStorageProviderCopyHook extends IUnknown{
      * The Shell calls the cloud provider's copy hook handler for every folder under the registered sync root. To register a copy hook handler for cloud folders, set the **CopyHook** value under the **HKEY_LOCAL_MACHINE/Software/Microsoft/Windows/CurrentVersion/Explorer/SyncRootManager/{SyncRootId}** key to the CLSID of the copy hook object.
      * 
      * When the **CopyCallback** method is called, the Shell initializes the [IStorageProviderCopyHook](nn-shobjidl-istorageprovidercopyhook.md) interface directly without using an [IShellExtInit](/windows/win32/api/shobjidl_core/nn-shobjidl_core-ishellextinit) interface first.
-     * @param {HWND} _hwnd 
+     * @param {HWND} _hwnd A handle to the window that the copy hook handler should use as the parent for any user interface elements the handler may need to display. If **FOF_SILENT** is specified in *operation*, the method should ignore this parameter.
      * @param {Integer} operation The operation to perform. This parameter can be one of the values listed under the **wFunc** member of the [SHFILEOPSTRUCT](/windows/win32/api/shellapi/ns-shellapi-shfileopstructa) structure.
      * @param {Integer} flags The flags that control the operation. This parameter can be one or more of the values listed under the *fFlags* member of the [SHFILEOPSTRUCT](/windows/desktop/api/shellapi/ns-shellapi-shfileopstructa) structure.
      * 

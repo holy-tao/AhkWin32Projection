@@ -4,10 +4,8 @@
 
 /**
  * @namespace Windows.Win32.System.Ioctl
- * @version v4.0.30319
  */
-class WOF_EXTERNAL_FILE_ID extends Win32Struct
-{
+class WOF_EXTERNAL_FILE_ID extends Win32Struct {
     static sizeof => 16
 
     static packingSize => 1
@@ -15,7 +13,7 @@ class WOF_EXTERNAL_FILE_ID extends Win32Struct
     /**
      * @type {FILE_ID_128}
      */
-    FileId{
+    FileId {
         get {
             if(!this.HasProp("__FileId"))
                 this.__FileId := FILE_ID_128(0, this)

@@ -1,16 +1,13 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
+#Include .\STORAGE_RPMB_FRAME_TYPE.ahk
 
 /**
  * The STORAGE_RPMB_DESCRIPTOR structure (winioctl.h) describes whether the device contains an RPMB and the max payload size the RPMB supports.
- * @remarks
- * 
  * @see https://learn.microsoft.com/windows/win32/api/winioctl/ns-winioctl-storage_rpmb_descriptor
  * @namespace Windows.Win32.System.Ioctl
- * @version v4.0.30319
  */
-class STORAGE_RPMB_DESCRIPTOR extends Win32Struct
-{
+class STORAGE_RPMB_DESCRIPTOR extends Win32Struct {
     static sizeof => 20
 
     static packingSize => 4
@@ -53,7 +50,7 @@ class STORAGE_RPMB_DESCRIPTOR extends Win32Struct
 
     /**
      * To support different RPMB frame formats, specifies which frame format the payload will be in so the port driver can take the appropriate action.
-     * @type {Integer}
+     * @type {STORAGE_RPMB_FRAME_TYPE}
      */
     FrameFormat {
         get => NumGet(this, 16, "int")

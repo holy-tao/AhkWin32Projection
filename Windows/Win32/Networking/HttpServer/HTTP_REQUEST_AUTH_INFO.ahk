@@ -1,5 +1,7 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
+#Include .\HTTP_AUTH_STATUS.ahk
+#Include .\HTTP_REQUEST_AUTH_TYPE.ahk
 #Include ..\..\Foundation\HANDLE.ahk
 
 /**
@@ -24,10 +26,8 @@
  * The mutual authentication data provided in the <b>pMutualAuthData</b> member contains the exact value of WWW-Authenticate header without the header name. For example, <b>pMutualAuthData</b> points to "Negotiate ade02938481eca". The application builds the WWW-Authenticate header by appending the provided <b>pMutualAuthData</b> as a response header value.
  * @see https://learn.microsoft.com/windows/win32/api/http/ns-http-http_request_auth_info
  * @namespace Windows.Win32.Networking.HttpServer
- * @version v4.0.30319
  */
-class HTTP_REQUEST_AUTH_INFO extends Win32Struct
-{
+class HTTP_REQUEST_AUTH_INFO extends Win32Struct {
     static sizeof => 80
 
     static packingSize => 8
@@ -36,7 +36,7 @@ class HTTP_REQUEST_AUTH_INFO extends Win32Struct
      * A member of the <a href="https://docs.microsoft.com/windows/desktop/api/http/ne-http-http_auth_status">HTTP_AUTH_STATUS</a> enumeration that indicates the final authentication status of the request.
      * 
      * If the authentication status is not <b>HttpAuthStatusSuccess</b>, applications should disregard members of this structure except <b>AuthStatus</b>, <b>SecStatus</b>, and <b>AuthType</b>.
-     * @type {Integer}
+     * @type {HTTP_AUTH_STATUS}
      */
     AuthStatus {
         get => NumGet(this, 0, "int")
@@ -80,7 +80,7 @@ class HTTP_REQUEST_AUTH_INFO extends Win32Struct
 
     /**
      * A member of the <a href="https://docs.microsoft.com/windows/desktop/api/http/ne-http-http_request_auth_type">HTTP_REQUEST_AUTH_TYPE</a> enumeration that indicates the authentication scheme attempted or established  for the request.
-     * @type {Integer}
+     * @type {HTTP_REQUEST_AUTH_TYPE}
      */
     AuthType {
         get => NumGet(this, 12, "int")
@@ -93,7 +93,7 @@ class HTTP_REQUEST_AUTH_INFO extends Win32Struct
      * The handle to the token should be closed by calling <a href="https://docs.microsoft.com/windows/desktop/api/handleapi/nf-handleapi-closehandle">CloseHandle</a> when it is no longer required. This token is valid only for the lifetime of the request. Applications can regenerate the initial 401 challenge to reauthenticate when the token expires.
      * @type {HANDLE}
      */
-    AccessToken{
+    AccessToken {
         get {
             if(!this.HasProp("__AccessToken"))
                 this.__AccessToken := HANDLE(16, this)
@@ -160,7 +160,6 @@ class HTTP_REQUEST_AUTH_INFO extends Win32Struct
     }
 
     /**
-     * 
      * @type {Integer}
      */
     PackageNameLength {
@@ -169,7 +168,6 @@ class HTTP_REQUEST_AUTH_INFO extends Win32Struct
     }
 
     /**
-     * 
      * @type {PWSTR}
      */
     pPackageName {

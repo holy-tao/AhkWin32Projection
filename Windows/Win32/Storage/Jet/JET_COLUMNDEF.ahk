@@ -5,10 +5,8 @@
  * Learn more about: JET_COLUMNDEF constructor
  * @see https://learn.microsoft.com/windows/win32/extensible-storage-engine/jet-columndef-constructor
  * @namespace Windows.Win32.Storage.Jet
- * @version v4.0.30319
  */
-class JET_COLUMNDEF extends Win32Struct
-{
+class JET_COLUMNDEF extends Win32Struct {
     static sizeof => 28
 
     static packingSize => 4

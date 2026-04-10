@@ -1,8 +1,8 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
-#Include .\ISyncKnowledge.ahk
 #Include .\ISyncProvider.ahk
+#Include .\ISyncKnowledge.ahk
 
 /**
  * Represents a synchronization provider that uses knowledge to perform synchronization.
@@ -12,9 +12,8 @@
  * For an overview of what a synchronization session is see the topic <a href="https://docs.microsoft.com/previous-versions/windows/desktop/winsync/windows-sync-overview">Windows Sync Overview</a>.
  * @see https://learn.microsoft.com/windows/win32/api/winsync/nn-winsync-iknowledgesyncprovider
  * @namespace Windows.Win32.System.WindowsSync
- * @version v4.0.30319
  */
-class IKnowledgeSyncProvider extends ISyncProvider{
+class IKnowledgeSyncProvider extends ISyncProvider {
 
     static sizeof => A_PtrSize
     /**
@@ -39,7 +38,7 @@ class IKnowledgeSyncProvider extends ISyncProvider{
      * Notifies the provider that it is joining a synchronization session.
      * @remarks
      * The provider must return an error if it cannot begin a session. This can occur when the provider has not been initialized, has an invalid configuration, or is already enlisted in an active session.
-     * @param {Integer} role The role of this provider, relative to the other provider in the session.
+     * @param {SYNC_PROVIDER_ROLE} role The role of this provider, relative to the other provider in the session.
      * @param {ISyncSessionState} pSessionState The current status of the corresponding session.
      * @returns {HRESULT} The possible return codes include, but are not limited to, the values shown in the following table.
      * 
@@ -188,7 +187,7 @@ class IKnowledgeSyncProvider extends ISyncProvider{
      * Processes a set of changes by detecting conflicts and applying changes to the item store.
      * @remarks
      * When a source change contains change unit changes, the destination provider must determine which, if any, change unit versions to include in the batch of destination versions that is sent to the change applier. This decision depends on the kind of change from the source provider and whether the item is marked as deleted on the destination replica.
-     * @param {Integer} resolutionPolicy The conflict resolution policy to use when this method applies changes.
+     * @param {CONFLICT_RESOLUTION_POLICY} resolutionPolicy The conflict resolution policy to use when this method applies changes.
      * @param {ISyncChangeBatch} pSourceChangeBatch A batch of changes from the source provider to be applied locally.
      * @param {IUnknown} pUnkDataRetriever An object that can be used to retrieve change data. It can be an <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/winsync/nn-winsync-isynchronousdataretriever">ISynchronousDataRetriever</a> object or a provider-specific object.
      * @param {ISyncCallback} pCallback An object that receives event notifications during change application.
@@ -231,7 +230,7 @@ class IKnowledgeSyncProvider extends ISyncProvider{
      * Processes a set of changes for a full enumeration by applying changes to the item store.
      * @remarks
      * This method is called during forgotten knowledge recovery.
-     * @param {Integer} resolutionPolicy The conflict resolution policy to use when this method applies changes.
+     * @param {CONFLICT_RESOLUTION_POLICY} resolutionPolicy The conflict resolution policy to use when this method applies changes.
      * @param {ISyncFullEnumerationChangeBatch} pSourceChangeBatch A batch of changes from the source provider to be applied locally.
      * @param {IUnknown} pUnkDataRetriever An object that can be used to retrieve change data. It can be an <b>ISynchronousDataRetriever</b> object or a provider-specific object.
      * @param {ISyncCallback} pCallback An object that receives event notifications during change application.

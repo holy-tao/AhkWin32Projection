@@ -5,9 +5,8 @@
  * Specifies a firmware type.
  * @see https://learn.microsoft.com/windows/win32/api/winnt/ne-winnt-firmware_type
  * @namespace Windows.Win32.System.SystemInformation
- * @version v4.0.30319
  */
-class FIRMWARE_TYPE extends Win32Enum{
+class FIRMWARE_TYPE extends Win32Enum {
 
     /**
      * The firmware type is unknown.

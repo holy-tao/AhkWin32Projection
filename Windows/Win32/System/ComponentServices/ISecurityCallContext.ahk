@@ -1,18 +1,16 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
-#Include ..\..\Foundation\BSTR.ahk
+#Include ..\Com\IDispatch.ahk
 #Include ..\Variant\VARIANT.ahk
 #Include ..\Com\IUnknown.ahk
-#Include ..\Com\IDispatch.ahk
 
 /**
  * Provides access to security methods and information about the security call context of the current call.
  * @see https://learn.microsoft.com/windows/win32/api/comsvcs/nn-comsvcs-isecuritycallcontext
  * @namespace Windows.Win32.System.ComponentServices
- * @version v4.0.30319
  */
-class ISecurityCallContext extends IDispatch{
+class ISecurityCallContext extends IDispatch {
 
     static sizeof => A_PtrSize
     /**

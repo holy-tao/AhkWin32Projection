@@ -1,14 +1,13 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
+#Include .\USB_HUB_TYPE.ahk
 #Include .\USB_HUB_DESCRIPTOR.ahk
 #Include .\USB_30_HUB_DESCRIPTOR.ahk
 
 /**
  * @namespace Windows.Win32.Devices.Usb
- * @version v4.0.30319
  */
-class USB_HUB_INFORMATION_EX extends Win32Struct
-{
+class USB_HUB_INFORMATION_EX extends Win32Struct {
     static sizeof => 80
 
     static packingSize => 4
@@ -20,29 +19,28 @@ class USB_HUB_INFORMATION_EX extends Win32Struct
         /**
          * @type {USB_HUB_DESCRIPTOR}
          */
-        UsbHubDescriptor{
+        UsbHubDescriptor {
             get {
                 if(!this.HasProp("__UsbHubDescriptor"))
                     this.__UsbHubDescriptor := USB_HUB_DESCRIPTOR(0, this)
                 return this.__UsbHubDescriptor
             }
         }
-    
+
         /**
          * @type {USB_30_HUB_DESCRIPTOR}
          */
-        Usb30HubDescriptor{
+        Usb30HubDescriptor {
             get {
                 if(!this.HasProp("__Usb30HubDescriptor"))
                     this.__Usb30HubDescriptor := USB_30_HUB_DESCRIPTOR(0, this)
                 return this.__Usb30HubDescriptor
             }
         }
-    
     }
 
     /**
-     * @type {Integer}
+     * @type {USB_HUB_TYPE}
      */
     HubType {
         get => NumGet(this, 0, "int")
@@ -60,10 +58,10 @@ class USB_HUB_INFORMATION_EX extends Win32Struct
     /**
      * @type {_u_e__Union}
      */
-    u{
+    u {
         get {
             if(!this.HasProp("__u"))
-                this.__u := %this.__Class%._u_e__Union(6, this)
+                this.__u := USB_HUB_INFORMATION_EX._u_e__Union(6, this)
             return this.__u
         }
     }

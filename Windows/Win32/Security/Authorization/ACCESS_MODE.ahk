@@ -5,9 +5,8 @@
  * Contains values that indicate how the access rights in an EXPLICIT_ACCESS structure apply to the trustee.
  * @see https://learn.microsoft.com/windows/win32/api/accctrl/ne-accctrl-access_mode
  * @namespace Windows.Win32.Security.Authorization
- * @version v4.0.30319
  */
-class ACCESS_MODE extends Win32Enum{
+class ACCESS_MODE extends Win32Enum {
 
     /**
      * Value not used.

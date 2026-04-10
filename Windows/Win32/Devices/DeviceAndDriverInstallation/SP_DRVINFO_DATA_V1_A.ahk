@@ -10,11 +10,10 @@
  * ```
  * @see https://learn.microsoft.com/windows/win32/api/setupapi/ns-setupapi-sp_drvinfo_data_v1_a
  * @namespace Windows.Win32.Devices.DeviceAndDriverInstallation
- * @version v4.0.30319
  * @charset ANSI
+ * @architecture X64, Arm64
  */
-class SP_DRVINFO_DATA_V1_A extends Win32Struct
-{
+class SP_DRVINFO_DATA_V1_A extends Win32Struct {
     static sizeof => 784
 
     static packingSize => 8
@@ -29,7 +28,6 @@ class SP_DRVINFO_DATA_V1_A extends Win32Struct
     }
 
     /**
-     * 
      * @type {Integer}
      */
     DriverType {

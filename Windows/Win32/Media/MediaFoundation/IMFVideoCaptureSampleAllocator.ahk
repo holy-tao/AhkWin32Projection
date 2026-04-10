@@ -9,9 +9,8 @@
  * This interface inherits from [IMFVideoSampleAllocator](nn-mfidl-imfvideosampleallocator.md) and provides the [InitializeCaptureSampleAllocator](nf-mfidl-imfvideocapturesampleallocator-initializecapturesampleallocator.md) method with parameters relevant to video capture scenarios.
  * @see https://learn.microsoft.com/windows/win32/api/mfidl/nn-mfidl-imfvideocapturesampleallocator
  * @namespace Windows.Win32.Media.MediaFoundation
- * @version v4.0.30319
  */
-class IMFVideoCaptureSampleAllocator extends IMFVideoSampleAllocator{
+class IMFVideoCaptureSampleAllocator extends IMFVideoSampleAllocator {
 
     static sizeof => A_PtrSize
     /**

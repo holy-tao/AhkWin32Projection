@@ -8,10 +8,8 @@
  * <a href="https://docs.microsoft.com/windows/desktop/Tapi/line-device-messages">Line Device Messages</a>.
  * @see https://learn.microsoft.com/windows/win32/api/tapi/ns-tapi-linemessage
  * @namespace Windows.Win32.Devices.Tapi
- * @version v4.0.30319
  */
-class LINEMESSAGE extends Win32Struct
-{
+class LINEMESSAGE extends Win32Struct {
     static sizeof => 40
 
     static packingSize => 8

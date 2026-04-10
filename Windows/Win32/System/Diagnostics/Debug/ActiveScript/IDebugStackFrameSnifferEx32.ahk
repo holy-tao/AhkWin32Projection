@@ -1,14 +1,13 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\..\..\Guid.ahk
-#Include .\IEnumDebugStackFrames.ahk
 #Include .\IDebugStackFrameSniffer.ahk
+#Include .\IEnumDebugStackFrames.ahk
 
 /**
  * @namespace Windows.Win32.System.Diagnostics.Debug.ActiveScript
- * @version v4.0.30319
  */
-class IDebugStackFrameSnifferEx32 extends IDebugStackFrameSniffer{
+class IDebugStackFrameSnifferEx32 extends IDebugStackFrameSniffer {
 
     static sizeof => A_PtrSize
     /**

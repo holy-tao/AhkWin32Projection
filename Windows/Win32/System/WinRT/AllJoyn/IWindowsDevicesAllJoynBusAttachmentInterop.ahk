@@ -7,9 +7,8 @@
  * This interface allows for retrieval of the underlying alljoyn_busattachment object.
  * @see https://learn.microsoft.com/windows/win32/api/windows.devices.alljoyn.interop/nn-windows-devices-alljoyn-interop-iwindowsdevicesalljoynbusattachmentinterop
  * @namespace Windows.Win32.System.WinRT.AllJoyn
- * @version v4.0.30319
  */
-class IWindowsDevicesAllJoynBusAttachmentInterop extends IInspectable{
+class IWindowsDevicesAllJoynBusAttachmentInterop extends IInspectable {
 
     static sizeof => A_PtrSize
     /**

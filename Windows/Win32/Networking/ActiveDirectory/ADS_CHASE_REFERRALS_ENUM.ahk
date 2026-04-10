@@ -14,9 +14,8 @@
  * <div> </div>
  * @see https://learn.microsoft.com/windows/win32/api/iads/ne-iads-ads_chase_referrals_enum
  * @namespace Windows.Win32.Networking.ActiveDirectory
- * @version v4.0.30319
  */
-class ADS_CHASE_REFERRALS_ENUM extends Win32Enum{
+class ADS_CHASE_REFERRALS_ENUM extends Win32Enum {
 
     /**
      * The client should never chase the referred-to server. Setting this option prevents a client from contacting other servers in a referral process.

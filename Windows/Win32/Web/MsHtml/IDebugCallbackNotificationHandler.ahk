@@ -1,14 +1,12 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
-#Include ..\..\Foundation\BSTR.ahk
 #Include ..\..\System\Com\IUnknown.ahk
 
 /**
  * @namespace Windows.Win32.Web.MsHtml
- * @version v4.0.30319
  */
-class IDebugCallbackNotificationHandler extends IUnknown{
+class IDebugCallbackNotificationHandler extends IUnknown {
 
     static sizeof => A_PtrSize
     /**
@@ -63,7 +61,7 @@ class IDebugCallbackNotificationHandler extends IUnknown{
      * 
      * @param {IUnknown} pEvent 
      * @param {IScriptEventHandler} pCallback 
-     * @param {Integer} eStage 
+     * @param {DOM_EVENT_PHASE} eStage 
      * @param {Integer} propagationStatus 
      * @returns {HRESULT} 
      */
@@ -76,7 +74,7 @@ class IDebugCallbackNotificationHandler extends IUnknown{
      * 
      * @param {IUnknown} pEvent 
      * @param {IScriptEventHandler} pCallback 
-     * @param {Integer} eStage 
+     * @param {DOM_EVENT_PHASE} eStage 
      * @param {Integer} propagationStatus 
      * @returns {HRESULT} 
      */
@@ -87,7 +85,7 @@ class IDebugCallbackNotificationHandler extends IUnknown{
 
     /**
      * 
-     * @param {Integer} eCallbackType 
+     * @param {SCRIPT_TIMER_TYPE} eCallbackType 
      * @param {Integer} callbackCookie 
      * @param {IDispatch} pDispHandler 
      * @param {Integer} ullHandlerCookie 
@@ -107,7 +105,7 @@ class IDebugCallbackNotificationHandler extends IUnknown{
 
     /**
      * 
-     * @param {Integer} eCallbackType 
+     * @param {SCRIPT_TIMER_TYPE} eCallbackType 
      * @param {Integer} callbackCookie 
      * @param {IDispatch} pDispHandler 
      * @param {Integer} ullHandlerCookie 

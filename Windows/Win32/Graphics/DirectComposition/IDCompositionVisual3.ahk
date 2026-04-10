@@ -7,9 +7,8 @@
  * Represents one DirectComposition visual in a visual tree. (IDCompositionVisual3)
  * @see https://learn.microsoft.com/windows/win32/api/dcomp/nn-dcomp-idcompositionvisual3
  * @namespace Windows.Win32.Graphics.DirectComposition
- * @version v4.0.30319
  */
-class IDCompositionVisual3 extends IDCompositionVisualDebug{
+class IDCompositionVisual3 extends IDCompositionVisualDebug {
 
     static sizeof => A_PtrSize
     /**
@@ -32,7 +31,9 @@ class IDCompositionVisual3 extends IDCompositionVisualDebug{
 
     /**
      * Sets the depth mode property associated with this visual.
-     * @param {Integer} _mode 
+     * @param {DCOMPOSITION_DEPTH_MODE} _mode Type: <b>DCOMPOSITION_DEPTH_MODE</b>
+     * 
+     * The new depth mode.
      * @returns {HRESULT} Type: <b><a href="https://docs.microsoft.com/windows/win32/com/structure-of-com-error-codes">HRESULT</a></b>
      * 
      * If this method succeeds, it returns <b>S_OK</b>. Otherwise, it returns an <b>HRESULT</b> error code.
@@ -126,7 +127,9 @@ class IDCompositionVisual3 extends IDCompositionVisualDebug{
      * 
      * 
      * If the Transform property previously specified a transform object, the newly specified transform matrix replaces the transform object.
-     * @param {Pointer<D2D_MATRIX_4X4_F>} _matrix 
+     * @param {Pointer<D2D_MATRIX_4X4_F>} _matrix Type: <b>const <a href="https://docs.microsoft.com/windows/desktop/api/dcommon/ns-dcommon-d2d_matrix_3x2_f">D2D_MATRIX_4X4_F</a></b>
+     * 
+     * The 4-by-4 transform matrix that is used to modify  the coordinate system of this visual.
      * @returns {HRESULT} Type: <b><a href="https://docs.microsoft.com/windows/desktop/WinProg/windows-data-types">HRESULT</a></b>
      * 
      * If the function succeeds, it returns S_OK. Otherwise, it returns an <b>HRESULT</b> error code. See <a href="https://docs.microsoft.com/windows/desktop/directcomp/directcomposition-error-codes">DirectComposition Error Codes</a>  for a list of error codes.

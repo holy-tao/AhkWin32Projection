@@ -5,9 +5,8 @@
 
 /**
  * @namespace Windows.Win32.Media.DirectShow
- * @version v4.0.30319
  */
-class IVPVBINotify extends IVPBaseNotify{
+class IVPVBINotify extends IVPBaseNotify {
 
     static sizeof => A_PtrSize
     /**

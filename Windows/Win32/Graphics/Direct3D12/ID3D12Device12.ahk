@@ -5,9 +5,8 @@
 
 /**
  * @namespace Windows.Win32.Graphics.Direct3D12
- * @version v4.0.30319
  */
-class ID3D12Device12 extends ID3D12Device11{
+class ID3D12Device12 extends ID3D12Device11 {
 
     static sizeof => A_PtrSize
     /**
@@ -34,7 +33,7 @@ class ID3D12Device12 extends ID3D12Device11{
      * @param {Integer} numResourceDescs 
      * @param {Pointer<D3D12_RESOURCE_DESC1>} pResourceDescs 
      * @param {Pointer<Integer>} pNumCastableFormats 
-     * @param {Pointer<Pointer<Integer>>} ppCastableFormats 
+     * @param {Pointer<Pointer<DXGI_FORMAT>>} ppCastableFormats 
      * @param {Pointer<D3D12_RESOURCE_ALLOCATION_INFO1>} pResourceAllocationInfo1 
      * @returns {D3D12_RESOURCE_ALLOCATION_INFO} 
      */

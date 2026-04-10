@@ -1,12 +1,11 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
+#Include ..\..\Graphics\Gdi\PALETTEENTRY.ahk
 
 /**
  * @namespace Windows.Win32.Media.Multimedia
- * @version v4.0.30319
  */
-class ICPALETTE extends Win32Struct
-{
+class ICPALETTE extends Win32Struct {
     static sizeof => 24
 
     static packingSize => 8

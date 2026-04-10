@@ -7,9 +7,8 @@
  * Provides methods to query and configure the default VSS import target for the subsystem.
  * @see https://learn.microsoft.com/windows/win32/api/vds/nn-vds-ivdssubsystemimporttarget
  * @namespace Windows.Win32.Storage.VirtualDiskService
- * @version v4.0.30319
  */
-class IVdsSubSystemImportTarget extends IUnknown{
+class IVdsSubSystemImportTarget extends IUnknown {
 
     static sizeof => A_PtrSize
     /**

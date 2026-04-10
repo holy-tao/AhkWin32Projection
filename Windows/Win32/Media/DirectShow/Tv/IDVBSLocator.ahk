@@ -9,9 +9,8 @@
  * To declare the interface identifier (IID) for this interface, use the <b>__uuidof</b> operator: <c>__uuidof(IDVBSLocator)</c>.
  * @see https://learn.microsoft.com/windows/win32/api/tuner/nn-tuner-idvbslocator
  * @namespace Windows.Win32.Media.DirectShow.Tv
- * @version v4.0.30319
  */
-class IDVBSLocator extends IDigitalLocator{
+class IDVBSLocator extends IDigitalLocator {
 
     static sizeof => A_PtrSize
     /**
@@ -39,7 +38,7 @@ class IDVBSLocator extends IDigitalLocator{
     static VTableNames => ["get_SignalPolarisation", "put_SignalPolarisation", "get_WestPosition", "put_WestPosition", "get_OrbitalPosition", "put_OrbitalPosition", "get_Azimuth", "put_Azimuth", "get_Elevation", "put_Elevation"]
 
     /**
-     * @type {Integer} 
+     * @type {Polarisation} 
      */
     SignalPolarisation {
         get => this.get_SignalPolarisation()
@@ -82,7 +81,7 @@ class IDVBSLocator extends IDigitalLocator{
      * The get_SignalPolarisation method retrieves the signal polarisation.
      * @remarks
      * This method and the associated enumeration type use the British spelling for "polarisation" to maintain consistency with standards documentation.
-     * @returns {Integer} Pointer to a variable of type <a href="https://docs.microsoft.com/previous-versions/windows/desktop/mstv/polarisation">Polarisation</a> that receives the polarisation value.
+     * @returns {Polarisation} Pointer to a variable of type <a href="https://docs.microsoft.com/previous-versions/windows/desktop/mstv/polarisation">Polarisation</a> that receives the polarisation value.
      * @see https://learn.microsoft.com/windows/win32/api/tuner/nf-tuner-idvbslocator-get_signalpolarisation
      */
     get_SignalPolarisation() {
@@ -94,7 +93,7 @@ class IDVBSLocator extends IDigitalLocator{
      * The put_SignalPolarisation method sets the signal polarisation.
      * @remarks
      * This method and the associated enumeration type use the British spelling for "polarisation" to maintain consistency with standards documentation.
-     * @param {Integer} PolarisationVal Variable of type <a href="https://docs.microsoft.com/previous-versions/windows/desktop/mstv/polarisation">Polarisation</a> that specifies the signal polarisation value.
+     * @param {Polarisation} PolarisationVal Variable of type <a href="https://docs.microsoft.com/previous-versions/windows/desktop/mstv/polarisation">Polarisation</a> that specifies the signal polarisation value.
      * @returns {HRESULT} Returns S_OK if successful. If the method fails, error information can be retrieved using the standard COM <b>IErrorInfo</b> interface.
      * @see https://learn.microsoft.com/windows/win32/api/tuner/nf-tuner-idvbslocator-put_signalpolarisation
      */

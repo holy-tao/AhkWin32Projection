@@ -1,12 +1,11 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\..\Win32Struct.ahk
+#Include .\VK_TO_BIT.ahk
 
 /**
  * @namespace Windows.Win32.UI.Input.KeyboardAndMouse
- * @version v4.0.30319
  */
-class MODIFIERS extends Win32Struct
-{
+class MODIFIERS extends Win32Struct {
     static sizeof => 16
 
     static packingSize => 8
@@ -28,9 +27,9 @@ class MODIFIERS extends Win32Struct
     }
 
     /**
-     * @type {Array<Byte>}
+     * @type {Array<Integer>}
      */
-    ModNumber{
+    ModNumber {
         get {
             if(!this.HasProp("__ModNumberProxyArray"))
                 this.__ModNumberProxyArray := Win32FixedArray(this.ptr + 10, 1, Primitive, "char")

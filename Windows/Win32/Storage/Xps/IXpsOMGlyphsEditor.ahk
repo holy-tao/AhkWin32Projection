@@ -1,17 +1,16 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
+#Include ..\..\System\Com\IUnknown.ahk
 #Include .\XPS_GLYPH_INDEX.ahk
 #Include .\XPS_GLYPH_MAPPING.ahk
-#Include ..\..\System\Com\IUnknown.ahk
 
 /**
  * Allows batch modification of properties that affect the text content in an IXpsOMGlyphs interface.
  * @see https://learn.microsoft.com/windows/win32/api/xpsobjectmodel/nn-xpsobjectmodel-ixpsomglyphseditor
  * @namespace Windows.Win32.Storage.Xps
- * @version v4.0.30319
  */
-class IXpsOMGlyphsEditor extends IUnknown{
+class IXpsOMGlyphsEditor extends IUnknown {
 
     static sizeof => A_PtrSize
     /**

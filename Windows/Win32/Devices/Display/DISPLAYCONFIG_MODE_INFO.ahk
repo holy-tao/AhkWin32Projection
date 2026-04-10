@@ -1,30 +1,31 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
+#Include .\DISPLAYCONFIG_MODE_INFO_TYPE.ahk
 #Include ..\..\Foundation\LUID.ahk
+#Include .\DISPLAYCONFIG_TARGET_MODE.ahk
+#Include .\DISPLAYCONFIG_VIDEO_SIGNAL_INFO.ahk
 #Include .\DISPLAYCONFIG_RATIONAL.ahk
 #Include .\DISPLAYCONFIG_2DREGION.ahk
-#Include .\DISPLAYCONFIG_VIDEO_SIGNAL_INFO.ahk
-#Include .\DISPLAYCONFIG_TARGET_MODE.ahk
-#Include ..\..\Foundation\POINTL.ahk
+#Include .\DISPLAYCONFIG_SCANLINE_ORDERING.ahk
 #Include .\DISPLAYCONFIG_SOURCE_MODE.ahk
-#Include ..\..\Foundation\RECTL.ahk
+#Include .\DISPLAYCONFIG_PIXELFORMAT.ahk
+#Include ..\..\Foundation\POINTL.ahk
 #Include .\DISPLAYCONFIG_DESKTOP_IMAGE_INFO.ahk
+#Include ..\..\Foundation\RECTL.ahk
 
 /**
  * The DISPLAYCONFIG_MODE_INFO structure contains either source mode or target mode information.
  * @see https://learn.microsoft.com/windows/win32/api/wingdi/ns-wingdi-displayconfig_mode_info
  * @namespace Windows.Win32.Devices.Display
- * @version v4.0.30319
  */
-class DISPLAYCONFIG_MODE_INFO extends Win32Struct
-{
-    static sizeof => 72
+class DISPLAYCONFIG_MODE_INFO extends Win32Struct {
+    static sizeof => 64
 
     static packingSize => 8
 
     /**
      * A value that indicates whether the <b>DISPLAYCONFIG_MODE_INFO</b> structure represents source or target mode information. If <b>infoType</b> is DISPLAYCONFIG_MODE_INFO_TYPE_TARGET, the <i>targetMode</i> parameter value contains a valid DISPLAYCONFIG_TARGET_MODE structure describing the specified target. If <b>infoType</b> is DISPLAYCONFIG_MODE_INFO_TYPE_SOURCE, the <i>sourceMode</i> parameter value contains a valid DISPLAYCONFIG_SOURCE_MODE structure describing the specified source.
-     * @type {Integer}
+     * @type {DISPLAYCONFIG_MODE_INFO_TYPE}
      */
     infoType {
         get => NumGet(this, 0, "int")
@@ -44,7 +45,7 @@ class DISPLAYCONFIG_MODE_INFO extends Win32Struct
      * The identifier of the adapter that this source or target mode information relates to.
      * @type {LUID}
      */
-    adapterId{
+    adapterId {
         get {
             if(!this.HasProp("__adapterId"))
                 this.__adapterId := LUID(8, this)
@@ -55,7 +56,7 @@ class DISPLAYCONFIG_MODE_INFO extends Win32Struct
     /**
      * @type {DISPLAYCONFIG_TARGET_MODE}
      */
-    targetMode{
+    targetMode {
         get {
             if(!this.HasProp("__targetMode"))
                 this.__targetMode := DISPLAYCONFIG_TARGET_MODE(16, this)
@@ -66,7 +67,7 @@ class DISPLAYCONFIG_MODE_INFO extends Win32Struct
     /**
      * @type {DISPLAYCONFIG_SOURCE_MODE}
      */
-    sourceMode{
+    sourceMode {
         get {
             if(!this.HasProp("__sourceMode"))
                 this.__sourceMode := DISPLAYCONFIG_SOURCE_MODE(16, this)
@@ -77,7 +78,7 @@ class DISPLAYCONFIG_MODE_INFO extends Win32Struct
     /**
      * @type {DISPLAYCONFIG_DESKTOP_IMAGE_INFO}
      */
-    desktopImageInfo{
+    desktopImageInfo {
         get {
             if(!this.HasProp("__desktopImageInfo"))
                 this.__desktopImageInfo := DISPLAYCONFIG_DESKTOP_IMAGE_INFO(16, this)

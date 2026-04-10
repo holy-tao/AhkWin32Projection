@@ -7,9 +7,8 @@
  * Notifies a pipeline object to register itself with the Multimedia Class Scheduler Service (MMCSS). (IMFRealTimeClientEx)
  * @see https://learn.microsoft.com/windows/win32/api/mfidl/nn-mfidl-imfrealtimeclientex
  * @namespace Windows.Win32.Media.MediaFoundation
- * @version v4.0.30319
  */
-class IMFRealTimeClientEx extends IUnknown{
+class IMFRealTimeClientEx extends IUnknown {
 
     static sizeof => A_PtrSize
     /**

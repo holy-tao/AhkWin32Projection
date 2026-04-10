@@ -1,14 +1,14 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\..\Win32Struct.ahk
+#Include .\DML_REDUCE_FUNCTION.ahk
+#Include .\DML_TENSOR_DESC.ahk
 
 /**
  * Outputs the reduction of elements (sum, product, minimum, and so on) within one or more dimensions of the input tensor.
  * @see https://learn.microsoft.com/windows/win32/api/directml/ns-directml-dml_reduce_operator_desc
  * @namespace Windows.Win32.AI.MachineLearning.DirectML
- * @version v4.0.30319
  */
-class DML_REDUCE_OPERATOR_DESC extends Win32Struct
-{
+class DML_REDUCE_OPERATOR_DESC extends Win32Struct {
     static sizeof => 40
 
     static packingSize => 8
@@ -17,7 +17,7 @@ class DML_REDUCE_OPERATOR_DESC extends Win32Struct
      * Type: [**DML_REDUCE_FUNCTION**](/windows/win32/api/directml/ne-directml-dml_reduce_function)
      * 
      * Specifies the reduction function to apply to the input.
-     * @type {Integer}
+     * @type {DML_REDUCE_FUNCTION}
      */
     Function {
         get => NumGet(this, 0, "int")

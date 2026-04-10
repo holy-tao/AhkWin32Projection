@@ -1,14 +1,13 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
-#Include .\KSIDENTIFIER.ahk
 #Include .\KSNODEPROPERTY.ahk
+#Include .\KSIDENTIFIER.ahk
 
 /**
  * @namespace Windows.Win32.Media.KernelStreaming
- * @version v4.0.30319
+ * @architecture X64, Arm64
  */
-class KSNODEPROPERTY_AUDIO_PROPERTY extends Win32Struct
-{
+class KSNODEPROPERTY_AUDIO_PROPERTY extends Win32Struct {
     static sizeof => 40
 
     static packingSize => 8
@@ -16,7 +15,7 @@ class KSNODEPROPERTY_AUDIO_PROPERTY extends Win32Struct
     /**
      * @type {KSNODEPROPERTY}
      */
-    NodeProperty{
+    NodeProperty {
         get {
             if(!this.HasProp("__NodeProperty"))
                 this.__NodeProperty := KSNODEPROPERTY(0, this)

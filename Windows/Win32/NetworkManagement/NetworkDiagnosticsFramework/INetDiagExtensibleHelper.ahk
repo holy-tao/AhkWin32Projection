@@ -5,9 +5,8 @@
 
 /**
  * @namespace Windows.Win32.NetworkManagement.NetworkDiagnosticsFramework
- * @version v4.0.30319
  */
-class INetDiagExtensibleHelper extends IUnknown{
+class INetDiagExtensibleHelper extends IUnknown {
 
     static sizeof => A_PtrSize
     /**

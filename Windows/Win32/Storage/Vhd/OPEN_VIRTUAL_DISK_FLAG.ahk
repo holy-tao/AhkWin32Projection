@@ -5,9 +5,8 @@
  * Contains virtual hard disk (VHD) or CD or DVD image file (ISO) open request flags.
  * @see https://learn.microsoft.com/windows/win32/api/virtdisk/ne-virtdisk-open_virtual_disk_flag
  * @namespace Windows.Win32.Storage.Vhd
- * @version v4.0.30319
  */
-class OPEN_VIRTUAL_DISK_FLAG extends Win32BitflagEnum{
+class OPEN_VIRTUAL_DISK_FLAG extends Win32BitflagEnum {
 
     /**
      * No flag specified.
@@ -61,25 +60,21 @@ class OPEN_VIRTUAL_DISK_FLAG extends Win32BitflagEnum{
     static OPEN_VIRTUAL_DISK_FLAG_CUSTOM_DIFF_CHAIN => 16
 
     /**
-     * 
      * @type {Integer (Int32)}
      */
     static OPEN_VIRTUAL_DISK_FLAG_PARENT_CACHED_IO => 32
 
     /**
-     * 
      * @type {Integer (Int32)}
      */
     static OPEN_VIRTUAL_DISK_FLAG_VHDSET_FILE_ONLY => 64
 
     /**
-     * 
      * @type {Integer (Int32)}
      */
     static OPEN_VIRTUAL_DISK_FLAG_IGNORE_RELATIVE_PARENT_LOCATOR => 128
 
     /**
-     * 
      * @type {Integer (Int32)}
      */
     static OPEN_VIRTUAL_DISK_FLAG_NO_WRITE_HARDENING => 256

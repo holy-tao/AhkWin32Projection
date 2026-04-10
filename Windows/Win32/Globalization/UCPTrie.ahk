@@ -4,10 +4,8 @@
 
 /**
  * @namespace Windows.Win32.Globalization
- * @version v4.0.30319
  */
-class UCPTrie extends Win32Struct
-{
+class UCPTrie extends Win32Struct {
     static sizeof => 72
 
     static packingSize => 8
@@ -23,7 +21,7 @@ class UCPTrie extends Win32Struct
     /**
      * @type {UCPTrieData}
      */
-    data{
+    data {
         get {
             if(!this.HasProp("__data"))
                 this.__data := UCPTrieData(8, this)

@@ -3,11 +3,9 @@
 
 /**
  * @namespace Windows.Win32.NetworkManagement.Rras
- * @version v4.0.30319
  * @charset Unicode
  */
-class RASAMBW extends Win32Struct
-{
+class RASAMBW extends Win32Struct {
     static sizeof => 44
 
     static packingSize => 4

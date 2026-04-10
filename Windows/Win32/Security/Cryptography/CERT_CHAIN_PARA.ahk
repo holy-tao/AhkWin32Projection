@@ -1,7 +1,9 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
-#Include .\CTL_USAGE.ahk
 #Include .\CERT_USAGE_MATCH.ahk
+#Include .\CTL_USAGE.ahk
+#Include ..\..\Foundation\FILETIME.ahk
+#Include .\CERT_STRONG_SIGN_PARA.ahk
 
 /**
  * The CERT_CHAIN_PARA structure establishes the searching and matching criteria to be used in building a certificate chain.
@@ -28,10 +30,8 @@
  * </ul>
  * @see https://learn.microsoft.com/windows/win32/api/wincrypt/ns-wincrypt-cert_chain_para
  * @namespace Windows.Win32.Security.Cryptography
- * @version v4.0.30319
  */
-class CERT_CHAIN_PARA extends Win32Struct
-{
+class CERT_CHAIN_PARA extends Win32Struct {
     static sizeof => 96
 
     static packingSize => 8
@@ -49,7 +49,7 @@ class CERT_CHAIN_PARA extends Win32Struct
      * Structure indicating the kind of matching necessary to find issuer certificates for building a certificate chain. The structure pointed to indicates whether AND or OR logic is to be used in the matching process. The structure also includes an array of OIDs to be matched.
      * @type {CERT_USAGE_MATCH}
      */
-    RequestedUsage{
+    RequestedUsage {
         get {
             if(!this.HasProp("__RequestedUsage"))
                 this.__RequestedUsage := CERT_USAGE_MATCH(8, this)
@@ -64,7 +64,7 @@ class CERT_CHAIN_PARA extends Win32Struct
      * <div> </div>
      * @type {CERT_USAGE_MATCH}
      */
-    RequestedIssuancePolicy{
+    RequestedIssuancePolicy {
         get {
             if(!this.HasProp("__RequestedIssuancePolicy"))
                 this.__RequestedIssuancePolicy := CERT_USAGE_MATCH(32, this)

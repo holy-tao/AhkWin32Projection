@@ -4,7 +4,6 @@
 
 /**
  * @namespace Windows.Win32.Security.Authorization.UI
- * @version v4.0.30319
  */
 class UI {
 
@@ -223,7 +222,7 @@ class UI {
      * @param {HWND} hwndOwner A handle to the window that owns the property sheet. This parameter can be <b>NULL</b>.
      * @param {ISecurityInformation} psi A pointer to your implementation of the 
      * <a href="https://docs.microsoft.com/windows/desktop/api/aclui/nn-aclui-isecurityinformation">ISecurityInformation</a> interface. The system calls the interface methods to retrieve information about the object being edited and to return the user's input.
-     * @param {Integer} uSIPage A value of the 
+     * @param {SI_PAGE_TYPE} uSIPage A value of the 
      * <a href="https://docs.microsoft.com/windows/desktop/api/aclui/ne-aclui-si_page_type">SI_PAGE_TYPE</a> enumeration that indicates the page type on which to display the elevated access control editor.
      * @returns {HRESULT} If the function succeeds, the return value is S_OK.
      * 

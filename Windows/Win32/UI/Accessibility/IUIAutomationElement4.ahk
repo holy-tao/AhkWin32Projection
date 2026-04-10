@@ -1,16 +1,15 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
-#Include .\IUIAutomationElementArray.ahk
 #Include .\IUIAutomationElement3.ahk
+#Include .\IUIAutomationElementArray.ahk
 
 /**
  * Extends the IUIAutomationElement3 interface.
  * @see https://learn.microsoft.com/windows/win32/api/uiautomationclient/nn-uiautomationclient-iuiautomationelement4
  * @namespace Windows.Win32.UI.Accessibility
- * @version v4.0.30319
  */
-class IUIAutomationElement4 extends IUIAutomationElement3{
+class IUIAutomationElement4 extends IUIAutomationElement3 {
 
     static sizeof => A_PtrSize
     /**

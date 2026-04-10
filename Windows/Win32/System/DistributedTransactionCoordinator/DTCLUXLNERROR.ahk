@@ -3,9 +3,8 @@
 
 /**
  * @namespace Windows.Win32.System.DistributedTransactionCoordinator
- * @version v4.0.30319
  */
-class DTCLUXLNERROR extends Win32Enum{
+class DTCLUXLNERROR extends Win32Enum {
 
     /**
      * @type {Integer (Int32)}

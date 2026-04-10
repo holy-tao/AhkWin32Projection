@@ -1,8 +1,8 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
-#Include ..\..\Foundation\BSTR.ahk
 #Include ..\..\System\Com\IDispatch.ahk
+#Include ..\..\Foundation\BSTR.ahk
 
 /**
  * Use this interface to retrieve block information for one segment of the result file image.
@@ -10,9 +10,8 @@
  * This is a <b>ProgressItem</b> object in script.
  * @see https://learn.microsoft.com/windows/win32/api/imapi2fs/nn-imapi2fs-iprogressitem
  * @namespace Windows.Win32.Storage.Imapi
- * @version v4.0.30319
  */
-class IProgressItem extends IDispatch{
+class IProgressItem extends IDispatch {
 
     static sizeof => A_PtrSize
     /**

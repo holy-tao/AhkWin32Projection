@@ -1,9 +1,9 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\..\Guid.ahk
+#Include ..\..\..\System\Com\IUnknown.ahk
 #Include .\ISectionList.ahk
 #Include .\IMpeg2Stream.ahk
-#Include ..\..\..\System\Com\IUnknown.ahk
 
 /**
  * IMpeg2Data is no longer available for use as of Windows 7.
@@ -11,9 +11,8 @@
  * To declare the interface identifier (IID) for this interface, use the <b>__uuidof</b> operator: <c>__uuidof(IMpeg2Data)</c>.
  * @see https://learn.microsoft.com/windows/win32/api/mpeg2data/nn-mpeg2data-impeg2data
  * @namespace Windows.Win32.Media.DirectShow.Tv
- * @version v4.0.30319
  */
-class IMpeg2Data extends IUnknown{
+class IMpeg2Data extends IUnknown {
 
     static sizeof => A_PtrSize
     /**

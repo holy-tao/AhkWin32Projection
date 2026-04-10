@@ -13,9 +13,8 @@
  * During activation of a class, the Windows Runtime calls the <a href="https://docs.microsoft.com/previous-versions/br205771(v=vs.85)">DllGetActivationFactory</a> function to get an <b>IActivationFactory</b> pointer that corresponds to the requested class.
  * @see https://learn.microsoft.com/windows/win32/api/activation/nn-activation-iactivationfactory
  * @namespace Windows.Win32.System.WinRT
- * @version v4.0.30319
  */
-class IActivationFactory extends IInspectable{
+class IActivationFactory extends IInspectable {
 
     static sizeof => A_PtrSize
     /**

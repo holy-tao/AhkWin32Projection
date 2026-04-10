@@ -5,9 +5,8 @@
  * Specifies the Portable Network Graphics (PNG) iTXT chunk metadata properties.
  * @see https://learn.microsoft.com/windows/win32/api/wincodec/ne-wincodec-wicpngitxtproperties
  * @namespace Windows.Win32.Graphics.Imaging
- * @version v4.0.30319
  */
-class WICPngItxtProperties extends Win32Enum{
+class WICPngItxtProperties extends Win32Enum {
 
     /**
      * [VT_LPSTR] Indicates the keywords in the iTXT metadata chunk.

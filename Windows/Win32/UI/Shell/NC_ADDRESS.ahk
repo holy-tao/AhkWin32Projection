@@ -1,5 +1,6 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
+#Include ..\..\NetworkManagement\IpHelper\NET_ADDRESS_INFO.ahk
 
 /**
  * Contains information that describes a network address.
@@ -7,10 +8,8 @@
  * This structure is sent with the <a href="https://docs.microsoft.com/windows/desktop/api/shellapi/nf-shellapi-netaddr_getaddress">NetAddr_GetAddress</a> macro.
  * @see https://learn.microsoft.com/windows/win32/api/shellapi/ns-shellapi-nc_address
  * @namespace Windows.Win32.UI.Shell
- * @version v4.0.30319
  */
-class NC_ADDRESS extends Win32Struct
-{
+class NC_ADDRESS extends Win32Struct {
     static sizeof => 16
 
     static packingSize => 8

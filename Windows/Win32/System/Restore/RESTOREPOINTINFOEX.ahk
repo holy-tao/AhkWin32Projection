@@ -4,10 +4,8 @@
 
 /**
  * @namespace Windows.Win32.System.Restore
- * @version v4.0.30319
  */
-class RESTOREPOINTINFOEX extends Win32Struct
-{
+class RESTOREPOINTINFOEX extends Win32Struct {
     static sizeof => 532
 
     static packingSize => 4
@@ -15,7 +13,7 @@ class RESTOREPOINTINFOEX extends Win32Struct
     /**
      * @type {FILETIME}
      */
-    ftCreation{
+    ftCreation {
         get {
             if(!this.HasProp("__ftCreation"))
                 this.__ftCreation := FILETIME(0, this)

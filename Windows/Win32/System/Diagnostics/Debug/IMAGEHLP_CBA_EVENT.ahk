@@ -1,22 +1,20 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\..\Win32Struct.ahk
+#Include .\IMAGEHLP_CBA_EVENT_SEVERITY.ahk
 
 /**
  * The IMAGEHLP_CBA_EVENT structure (dbghelp.h) contains information about a debugging event.
  * @see https://learn.microsoft.com/windows/win32/api/dbghelp/ns-dbghelp-imagehlp_cba_event
  * @namespace Windows.Win32.System.Diagnostics.Debug
- * @version v4.0.30319
  * @charset ANSI
  */
-class IMAGEHLP_CBA_EVENT extends Win32Struct
-{
+class IMAGEHLP_CBA_EVENT extends Win32Struct {
     static sizeof => 24
 
     static packingSize => 8
 
     /**
-     * 
-     * @type {Integer}
+     * @type {IMAGEHLP_CBA_EVENT_SEVERITY}
      */
     severity {
         get => NumGet(this, 0, "uint")

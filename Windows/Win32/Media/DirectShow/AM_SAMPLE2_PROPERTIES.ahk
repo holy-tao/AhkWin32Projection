@@ -1,14 +1,13 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
+#Include ..\MediaFoundation\AM_MEDIA_TYPE.ahk
 
 /**
  * The AM_SAMPLE2_PROPERTIES structure describes the properties of a media sample. The IMediaSample2 interface uses this structure.
  * @see https://learn.microsoft.com/windows/win32/api/strmif/ns-strmif-am_sample2_properties
  * @namespace Windows.Win32.Media.DirectShow
- * @version v4.0.30319
  */
-class AM_SAMPLE2_PROPERTIES extends Win32Struct
-{
+class AM_SAMPLE2_PROPERTIES extends Win32Struct {
     static sizeof => 64
 
     static packingSize => 8

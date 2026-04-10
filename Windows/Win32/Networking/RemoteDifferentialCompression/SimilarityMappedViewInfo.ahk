@@ -5,10 +5,8 @@
  * Contains information about a similarity mapped view.
  * @see https://learn.microsoft.com/windows/win32/api/msrdc/ns-msrdc-similaritymappedviewinfo
  * @namespace Windows.Win32.Networking.RemoteDifferentialCompression
- * @version v4.0.30319
  */
-class SimilarityMappedViewInfo extends Win32Struct
-{
+class SimilarityMappedViewInfo extends Win32Struct {
     static sizeof => 16
 
     static packingSize => 8

@@ -7,9 +7,8 @@
  * This interface is implemented to create and initialize objects to provide a specified access interface to a resource represented by the function instance. After the object is created, the Initialize method is called to initialize the object.
  * @see https://learn.microsoft.com/windows/win32/api/functiondiscoveryprovider/nn-functiondiscoveryprovider-ifunctiondiscoveryserviceprovider
  * @namespace Windows.Win32.Devices.FunctionDiscovery
- * @version v4.0.30319
  */
-class IFunctionDiscoveryServiceProvider extends IUnknown{
+class IFunctionDiscoveryServiceProvider extends IUnknown {
 
     static sizeof => A_PtrSize
     /**

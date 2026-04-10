@@ -7,9 +7,8 @@
  * The INSSBuffer4 interface provides methods to enumerate buffer properties.
  * @see https://learn.microsoft.com/windows/win32/api/wmsbuffer/nn-wmsbuffer-inssbuffer4
  * @namespace Windows.Win32.Media.WindowsMediaFormat
- * @version v4.0.30319
  */
-class INSSBuffer4 extends INSSBuffer3{
+class INSSBuffer4 extends INSSBuffer3 {
 
     static sizeof => A_PtrSize
     /**

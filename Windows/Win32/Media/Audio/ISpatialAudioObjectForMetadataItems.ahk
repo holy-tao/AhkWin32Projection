@@ -1,8 +1,8 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
-#Include .\ISpatialAudioMetadataItems.ahk
 #Include .\ISpatialAudioObjectBase.ahk
+#Include .\ISpatialAudioMetadataItems.ahk
 
 /**
  * Used to write spatial audio metadata for applications that require multiple metadata items per buffer with frame-accurate placement.
@@ -11,9 +11,8 @@
  * <div> </div>
  * @see https://learn.microsoft.com/windows/win32/api/spatialaudiometadata/nn-spatialaudiometadata-ispatialaudioobjectformetadataitems
  * @namespace Windows.Win32.Media.Audio
- * @version v4.0.30319
  */
-class ISpatialAudioObjectForMetadataItems extends ISpatialAudioObjectBase{
+class ISpatialAudioObjectForMetadataItems extends ISpatialAudioObjectBase {
 
     static sizeof => A_PtrSize
     /**

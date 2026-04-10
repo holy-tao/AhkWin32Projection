@@ -5,9 +5,8 @@
  * Specifies the protocol of a storage device.
  * @see https://learn.microsoft.com/windows/win32/api/winioctl/ne-winioctl-storage_protocol_type
  * @namespace Windows.Win32.System.Ioctl
- * @version v4.0.30319
  */
-class STORAGE_PROTOCOL_TYPE extends Win32Enum{
+class STORAGE_PROTOCOL_TYPE extends Win32Enum {
 
     /**
      * Unknown protocol type.
@@ -40,7 +39,6 @@ class STORAGE_PROTOCOL_TYPE extends Win32Enum{
     static ProtocolTypeSd => 4
 
     /**
-     * 
      * @type {Integer (Int32)}
      */
     static ProtocolTypeUfs => 5

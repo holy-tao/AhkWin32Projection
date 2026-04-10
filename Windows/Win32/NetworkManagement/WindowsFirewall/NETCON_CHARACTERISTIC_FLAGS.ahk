@@ -5,9 +5,8 @@
  * The NETCON_CHARACTERISTIC_FLAGS enumeration type specifies possible characteristics for a network connection.
  * @see https://learn.microsoft.com/windows/win32/api/netcon/ne-netcon-netcon_characteristic_flags
  * @namespace Windows.Win32.NetworkManagement.WindowsFirewall
- * @version v4.0.30319
  */
-class NETCON_CHARACTERISTIC_FLAGS extends Win32Enum{
+class NETCON_CHARACTERISTIC_FLAGS extends Win32Enum {
 
     /**
      * No special characteristics.
@@ -106,19 +105,16 @@ class NETCON_CHARACTERISTIC_FLAGS extends Win32Enum{
     static NCCF_RESERVED => 32768
 
     /**
-     * 
      * @type {Integer (Int32)}
      */
     static NCCF_HOSTED_NETWORK => 65536
 
     /**
-     * 
      * @type {Integer (Int32)}
      */
     static NCCF_VIRTUAL_STATION => 131072
 
     /**
-     * 
      * @type {Integer (Int32)}
      */
     static NCCF_WIFI_DIRECT => 262144

@@ -3,10 +3,8 @@
 
 /**
  * @namespace Windows.Win32.System.SystemServices
- * @version v4.0.30319
  */
-class RemHMETAFILEPICT extends Win32Struct
-{
+class RemHMETAFILEPICT extends Win32Struct {
     static sizeof => 20
 
     static packingSize => 4
@@ -44,9 +42,9 @@ class RemHMETAFILEPICT extends Win32Struct
     }
 
     /**
-     * @type {Array<Byte>}
+     * @type {Array<Integer>}
      */
-    data{
+    data {
         get {
             if(!this.HasProp("__dataProxyArray"))
                 this.__dataProxyArray := Win32FixedArray(this.ptr + 16, 1, Primitive, "char")

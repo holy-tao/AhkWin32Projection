@@ -13,10 +13,8 @@
  * Note that the progress values will be set back to zero if the time stamp of the URL changes.
  * @see https://learn.microsoft.com/windows/win32/api/bits/ns-bits-bg_file_progress
  * @namespace Windows.Win32.Networking.BackgroundIntelligentTransferService
- * @version v4.0.30319
  */
-class BG_FILE_PROGRESS extends Win32Struct
-{
+class BG_FILE_PROGRESS extends Win32Struct {
     static sizeof => 24
 
     static packingSize => 8

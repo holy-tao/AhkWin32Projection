@@ -3,14 +3,10 @@
 
 /**
  * Checks the allocation size of a video extension command.
- * @remarks
- * 
  * @see https://learn.microsoft.com/windows/win32/api/d3d12video/ns-d3d12video-d3d12_feature_data_video_extension_command_size
  * @namespace Windows.Win32.Media.MediaFoundation
- * @version v4.0.30319
  */
-class D3D12_FEATURE_DATA_VIDEO_EXTENSION_COMMAND_SIZE extends Win32Struct
-{
+class D3D12_FEATURE_DATA_VIDEO_EXTENSION_COMMAND_SIZE extends Win32Struct {
     static sizeof => 48
 
     static packingSize => 8
@@ -26,7 +22,7 @@ class D3D12_FEATURE_DATA_VIDEO_EXTENSION_COMMAND_SIZE extends Win32Struct
 
     /**
      * The unique identifier for the video extension command for which size is queried.
-     * @type {Pointer<Guid>}
+     * @type {Pointer}
      */
     CommandId {
         get => NumGet(this, 8, "ptr")

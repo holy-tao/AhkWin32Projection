@@ -3,10 +3,8 @@
 
 /**
  * @namespace Windows.Win32.System.Com.Urlmon
- * @version v4.0.30319
  */
-class REMSECURITY_ATTRIBUTES extends Win32Struct
-{
+class REMSECURITY_ATTRIBUTES extends Win32Struct {
     static sizeof => 12
 
     static packingSize => 4

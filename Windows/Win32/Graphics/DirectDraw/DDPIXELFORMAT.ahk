@@ -22,10 +22,8 @@
  * The unions in <b>DDPIXELFORMAT</b> have been updated to work with compilers that do not support nameless unions. If your compiler does not support nameless unions, define the NONAMELESSUNION token before including the Ddraw.h header file.
  * @see https://learn.microsoft.com/windows/win32/api/ddraw/ns-ddraw-ddpixelformat
  * @namespace Windows.Win32.Graphics.DirectDraw
- * @version v4.0.30319
  */
-class DDPIXELFORMAT extends Win32Struct
-{
+class DDPIXELFORMAT extends Win32Struct {
     static sizeof => 32
 
     static packingSize => 4
@@ -172,7 +170,7 @@ class DDPIXELFORMAT extends Win32Struct
             get => NumGet(this, 0, "ushort")
             set => NumPut("ushort", value, this, 0)
         }
-    
+
         /**
          * @type {Integer}
          */
@@ -180,7 +178,6 @@ class DDPIXELFORMAT extends Win32Struct
             get => NumGet(this, 2, "ushort")
             set => NumPut("ushort", value, this, 2)
         }
-    
     }
 
     /**
@@ -218,10 +215,10 @@ class DDPIXELFORMAT extends Win32Struct
     /**
      * @type {_MultiSampleCaps}
      */
-    MultiSampleCaps{
+    MultiSampleCaps {
         get {
             if(!this.HasProp("__MultiSampleCaps"))
-                this.__MultiSampleCaps := %this.__Class%._MultiSampleCaps(20, this)
+                this.__MultiSampleCaps := DDPIXELFORMAT._MultiSampleCaps(20, this)
             return this.__MultiSampleCaps
         }
     }

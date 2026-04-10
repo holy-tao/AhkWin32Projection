@@ -1,18 +1,21 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
 #Include .\CF_HYDRATION_POLICY.ahk
+#Include .\CF_HYDRATION_POLICY_PRIMARY.ahk
+#Include .\CF_HYDRATION_POLICY_MODIFIER.ahk
 #Include .\CF_POPULATION_POLICY.ahk
+#Include .\CF_POPULATION_POLICY_PRIMARY.ahk
+#Include .\CF_POPULATION_POLICY_MODIFIER.ahk
+#Include .\CF_INSYNC_POLICY.ahk
+#Include .\CF_HARDLINK_POLICY.ahk
+#Include .\CF_SYNC_PROVIDER_STATUS.ahk
 
 /**
  * Standard sync root information.
- * @remarks
- * 
  * @see https://learn.microsoft.com/windows/win32/api/cfapi/ns-cfapi-cf_sync_root_standard_info
  * @namespace Windows.Win32.Storage.CloudFilters
- * @version v4.0.30319
  */
-class CF_SYNC_ROOT_STANDARD_INFO extends Win32Struct
-{
+class CF_SYNC_ROOT_STANDARD_INFO extends Win32Struct {
     static sizeof => 1064
 
     static packingSize => 8
@@ -30,7 +33,7 @@ class CF_SYNC_ROOT_STANDARD_INFO extends Win32Struct
      * Hydration policy of the sync root. See [CF_HYDRATION_POLICY_PRIMARY](ne-cfapi-cf_hydration_policy_primary.md) for more information.
      * @type {CF_HYDRATION_POLICY}
      */
-    HydrationPolicy{
+    HydrationPolicy {
         get {
             if(!this.HasProp("__HydrationPolicy"))
                 this.__HydrationPolicy := CF_HYDRATION_POLICY(8, this)
@@ -42,7 +45,7 @@ class CF_SYNC_ROOT_STANDARD_INFO extends Win32Struct
      * Population policy of the sync root. See [CF_POPULATION_POLICY_PRIMARY](ne-cfapi-cf_population_policy_primary.md) for more information.
      * @type {CF_POPULATION_POLICY}
      */
-    PopulationPolicy{
+    PopulationPolicy {
         get {
             if(!this.HasProp("__PopulationPolicy"))
                 this.__PopulationPolicy := CF_POPULATION_POLICY(12, this)
@@ -52,7 +55,7 @@ class CF_SYNC_ROOT_STANDARD_INFO extends Win32Struct
 
     /**
      * In-sync policy of the sync root. See [CF_INSYNC_POLICY](ne-cfapi-cf_insync_policy.md) for possible values.
-     * @type {Integer}
+     * @type {CF_INSYNC_POLICY}
      */
     InSyncPolicy {
         get => NumGet(this, 16, "uint")
@@ -61,7 +64,7 @@ class CF_SYNC_ROOT_STANDARD_INFO extends Win32Struct
 
     /**
      * Sync root hard linking policy. See [CF_HARDLINK_POLICY](ne-cfapi-cf_hardlink_policy.md) for possible values.
-     * @type {Integer}
+     * @type {CF_HARDLINK_POLICY}
      */
     HardLinkPolicy {
         get => NumGet(this, 20, "int")
@@ -70,7 +73,7 @@ class CF_SYNC_ROOT_STANDARD_INFO extends Win32Struct
 
     /**
      * Status of the sync root provider. See [CF_SYNC_PROVIDER_STATUS](ne-cfapi-cf_sync_provider_status.md) for possible values.
-     * @type {Integer}
+     * @type {CF_SYNC_PROVIDER_STATUS}
      */
     ProviderStatus {
         get => NumGet(this, 24, "uint")
@@ -106,9 +109,9 @@ class CF_SYNC_ROOT_STANDARD_INFO extends Win32Struct
 
     /**
      * The identity of the sync root directory.
-     * @type {Array<Byte>}
+     * @type {Array<Integer>}
      */
-    SyncRootIdentity{
+    SyncRootIdentity {
         get {
             if(!this.HasProp("__SyncRootIdentityProxyArray"))
                 this.__SyncRootIdentityProxyArray := Win32FixedArray(this.ptr + 1056, 1, Primitive, "char")

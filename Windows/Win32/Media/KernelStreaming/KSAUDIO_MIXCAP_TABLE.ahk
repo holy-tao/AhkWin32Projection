@@ -4,13 +4,11 @@
 
 /**
  * @namespace Windows.Win32.Media.KernelStreaming
- * @version v4.0.30319
  */
-class KSAUDIO_MIXCAP_TABLE extends Win32Struct
-{
-    static sizeof => 16
+class KSAUDIO_MIXCAP_TABLE extends Win32Struct {
+    static sizeof => 24
 
-    static packingSize => 8
+    static packingSize => 4
 
     /**
      * @type {Integer}
@@ -29,9 +27,9 @@ class KSAUDIO_MIXCAP_TABLE extends Win32Struct
     }
 
     /**
-     * @type {Array<KSAUDIO_MIX_CAPS>}
+     * @type {KSAUDIO_MIX_CAPS}
      */
-    Capabilities{
+    Capabilities {
         get {
             if(!this.HasProp("__CapabilitiesProxyArray"))
                 this.__CapabilitiesProxyArray := Win32FixedArray(this.ptr + 8, 1, KSAUDIO_MIX_CAPS, "")

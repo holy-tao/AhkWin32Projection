@@ -11,9 +11,8 @@
  * By default, the DSP gets the frame rates from the media types. Optionally, you can specify the frame rates by setting the MFPKEY\_CONV\_INPUTFRAMERATE and MFPKEY\_CONV\_OUTPUTFRAMERATE properties. These values override the frame rate given in the media type. However, if you are using this DSP within the Media Foundation pipeline, you should not set these properties.
  * @see https://learn.microsoft.com/windows/win32/medfound/framerateconverter
  * @namespace Windows.Win32.System.Mmc
- * @version v4.0.30319
  */
-class Frame extends IDispatch{
+class Frame extends IDispatch {
 
     static sizeof => A_PtrSize
     /**

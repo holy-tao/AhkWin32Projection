@@ -1,14 +1,14 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
+#Include .\POWER_ACTION.ahk
+#Include .\POWER_ACTION_POLICY_EVENT_CODE.ahk
 
 /**
  * Contains information used to set the system power state.
  * @see https://learn.microsoft.com/windows/win32/api/winnt/ns-winnt-power_action_policy
  * @namespace Windows.Win32.System.Power
- * @version v4.0.30319
  */
-class POWER_ACTION_POLICY extends Win32Struct
-{
+class POWER_ACTION_POLICY extends Win32Struct {
     static sizeof => 12
 
     static packingSize => 4
@@ -16,7 +16,7 @@ class POWER_ACTION_POLICY extends Win32Struct
     /**
      * The requested system power state. This member must be one of the 
      *       <a href="https://docs.microsoft.com/windows/desktop/api/winnt/ne-winnt-power_action">POWER_ACTION</a> enumeration type values.
-     * @type {Integer}
+     * @type {POWER_ACTION}
      */
     Action {
         get => NumGet(this, 0, "int")
@@ -124,8 +124,7 @@ class POWER_ACTION_POLICY extends Win32Struct
     }
 
     /**
-     * 
-     * @type {Integer}
+     * @type {POWER_ACTION_POLICY_EVENT_CODE}
      */
     EventCode {
         get => NumGet(this, 8, "uint")

@@ -1,14 +1,12 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\..\Win32Struct.ahk
-#Include .\LSA_UNICODE_STRING.ahk
 #Include .\NETLOGON_LOGON_IDENTITY_INFO.ahk
+#Include .\LSA_UNICODE_STRING.ahk
 
 /**
  * @namespace Windows.Win32.Security.Authentication.Identity
- * @version v4.0.30319
  */
-class NETLOGON_GENERIC_INFO extends Win32Struct
-{
+class NETLOGON_GENERIC_INFO extends Win32Struct {
     static sizeof => 96
 
     static packingSize => 8
@@ -16,7 +14,7 @@ class NETLOGON_GENERIC_INFO extends Win32Struct
     /**
      * @type {NETLOGON_LOGON_IDENTITY_INFO}
      */
-    Identity{
+    Identity {
         get {
             if(!this.HasProp("__Identity"))
                 this.__Identity := NETLOGON_LOGON_IDENTITY_INFO(0, this)
@@ -27,7 +25,7 @@ class NETLOGON_GENERIC_INFO extends Win32Struct
     /**
      * @type {LSA_UNICODE_STRING}
      */
-    PackageName{
+    PackageName {
         get {
             if(!this.HasProp("__PackageName"))
                 this.__PackageName := LSA_UNICODE_STRING(64, this)

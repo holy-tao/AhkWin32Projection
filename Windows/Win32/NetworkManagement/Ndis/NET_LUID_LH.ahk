@@ -11,10 +11,8 @@
  * The values for the <b>IfType</b> bitfield are defined in the <i>Ipifcons.h</i> include file. Only the possible values listed in the description of the <b>IfType</b> member are currently supported.
  * @see https://learn.microsoft.com/windows/win32/api/ifdef/ns-ifdef-net_luid_lh
  * @namespace Windows.Win32.NetworkManagement.Ndis
- * @version v4.0.30319
  */
-class NET_LUID_LH extends Win32Struct
-{
+class NET_LUID_LH extends Win32Struct {
     static sizeof => 16
 
     static packingSize => 8
@@ -34,7 +32,7 @@ class NET_LUID_LH extends Win32Struct
             get => NumGet(this, 0, "uint")
             set => NumPut("uint", value, this, 0)
         }
-    
+
         /**
          * @type {Integer}
          */
@@ -42,7 +40,7 @@ class NET_LUID_LH extends Win32Struct
             get => (this._bitfield >> 24) & 0xFFFFFF
             set => this._bitfield := ((value & 0xFFFFFF) << 24) | (this._bitfield & ~(0xFFFFFF << 24))
         }
-    
+
         /**
          * @type {Integer}
          */
@@ -50,7 +48,6 @@ class NET_LUID_LH extends Win32Struct
             get => (this._bitfield >> 48) & 0xFFFF
             set => this._bitfield := ((value & 0xFFFF) << 48) | (this._bitfield & ~(0xFFFF << 48))
         }
-    
     }
 
     /**
@@ -68,10 +65,10 @@ class NET_LUID_LH extends Win32Struct
      * A named union containing the component fields in the 64-bit LUID  <b>Value</b> member.
      * @type {_Info}
      */
-    Info{
+    Info {
         get {
             if(!this.HasProp("__Info"))
-                this.__Info := %this.__Class%._Info(0, this)
+                this.__Info := NET_LUID_LH._Info(0, this)
             return this.__Info
         }
     }

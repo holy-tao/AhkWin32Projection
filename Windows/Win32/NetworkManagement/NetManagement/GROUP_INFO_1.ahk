@@ -7,10 +7,8 @@
  * User account names are limited to 20 characters and group names are limited to 256 characters. In addition, account names cannot be terminated by a period and they cannot include commas or any of the following printable characters: ", /, \, [, ], :, |, &lt;, &gt;, +, =, ;, ?, *. Names also cannot include characters in the range 1-31, which are nonprintable.
  * @see https://learn.microsoft.com/windows/win32/api/lmaccess/ns-lmaccess-group_info_1
  * @namespace Windows.Win32.NetworkManagement.NetManagement
- * @version v4.0.30319
  */
-class GROUP_INFO_1 extends Win32Struct
-{
+class GROUP_INFO_1 extends Win32Struct {
     static sizeof => 16
 
     static packingSize => 8

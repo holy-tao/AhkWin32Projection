@@ -7,9 +7,8 @@
  * Provides Microsoft UI Automation accessibility information about a windowless rich edit control.
  * @see https://learn.microsoft.com/windows/win32/api/textserv/nn-textserv-irichedituiainformation
  * @namespace Windows.Win32.UI.Accessibility
- * @version v4.0.30319
  */
-class IRichEditUiaInformation extends IUnknown{
+class IRichEditUiaInformation extends IUnknown {
 
     static sizeof => A_PtrSize
     /**

@@ -4,10 +4,8 @@
 
 /**
  * @namespace Windows.Win32.Devices.PortableDevices
- * @version v4.0.30319
  */
-class WPD_COMMAND_ACCESS_LOOKUP_ENTRY extends Win32Struct
-{
+class WPD_COMMAND_ACCESS_LOOKUP_ENTRY extends Win32Struct {
     static sizeof => 40
 
     static packingSize => 8
@@ -15,7 +13,7 @@ class WPD_COMMAND_ACCESS_LOOKUP_ENTRY extends Win32Struct
     /**
      * @type {PROPERTYKEY}
      */
-    Command{
+    Command {
         get {
             if(!this.HasProp("__Command"))
                 this.__Command := PROPERTYKEY(0, this)
@@ -34,7 +32,7 @@ class WPD_COMMAND_ACCESS_LOOKUP_ENTRY extends Win32Struct
     /**
      * @type {PROPERTYKEY}
      */
-    AccessProperty{
+    AccessProperty {
         get {
             if(!this.HasProp("__AccessProperty"))
                 this.__AccessProperty := PROPERTYKEY(24, this)

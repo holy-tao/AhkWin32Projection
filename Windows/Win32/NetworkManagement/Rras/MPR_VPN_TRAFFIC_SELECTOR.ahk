@@ -1,21 +1,20 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
+#Include .\MPR_VPN_TS_TYPE.ahk
+#Include .\VPN_TS_IP_ADDRESS.ahk
 #Include ..\..\Networking\WinSock\IN_ADDR.ahk
 #Include ..\..\Networking\WinSock\IN6_ADDR.ahk
-#Include .\VPN_TS_IP_ADDRESS.ahk
 
 /**
  * @namespace Windows.Win32.NetworkManagement.Rras
- * @version v4.0.30319
  */
-class MPR_VPN_TRAFFIC_SELECTOR extends Win32Struct
-{
+class MPR_VPN_TRAFFIC_SELECTOR extends Win32Struct {
     static sizeof => 52
 
     static packingSize => 4
 
     /**
-     * @type {Integer}
+     * @type {MPR_VPN_TS_TYPE}
      */
     type {
         get => NumGet(this, 0, "int")
@@ -57,7 +56,7 @@ class MPR_VPN_TRAFFIC_SELECTOR extends Win32Struct
     /**
      * @type {VPN_TS_IP_ADDRESS}
      */
-    addrStart{
+    addrStart {
         get {
             if(!this.HasProp("__addrStart"))
                 this.__addrStart := VPN_TS_IP_ADDRESS(12, this)
@@ -68,7 +67,7 @@ class MPR_VPN_TRAFFIC_SELECTOR extends Win32Struct
     /**
      * @type {VPN_TS_IP_ADDRESS}
      */
-    addrEnd{
+    addrEnd {
         get {
             if(!this.HasProp("__addrEnd"))
                 this.__addrEnd := VPN_TS_IP_ADDRESS(32, this)

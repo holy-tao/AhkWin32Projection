@@ -7,9 +7,8 @@
  * IWICProgressCallback interface is documented only for compliance; its use is not recommended and may be altered or unavailable in the future. Instead, and use RegisterProgressNotification.
  * @see https://learn.microsoft.com/windows/win32/api/wincodec/nn-wincodec-iwicprogresscallback
  * @namespace Windows.Win32.Graphics.Imaging
- * @version v4.0.30319
  */
-class IWICProgressCallback extends IUnknown{
+class IWICProgressCallback extends IUnknown {
 
     static sizeof => A_PtrSize
     /**
@@ -35,7 +34,7 @@ class IWICProgressCallback extends IUnknown{
      * @param {Integer} uFrameNum Type: <b>ULONG</b>
      * 
      * The current frame number.
-     * @param {Integer} operation Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/wincodec/ne-wincodec-wicprogressoperation">WICProgressOperation</a></b>
+     * @param {WICProgressOperation} operation Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/wincodec/ne-wincodec-wicprogressoperation">WICProgressOperation</a></b>
      * 
      * The operation on which progress is being reported.
      * @param {Float} dblProgress Type: <b>double</b>

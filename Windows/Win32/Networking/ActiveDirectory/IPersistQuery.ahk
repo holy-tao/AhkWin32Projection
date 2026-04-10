@@ -7,9 +7,8 @@
  * Used to store and retrieve query parameters to and from persistent storage.
  * @see https://learn.microsoft.com/windows/win32/api/cmnquery/nn-cmnquery-ipersistquery
  * @namespace Windows.Win32.Networking.ActiveDirectory
- * @version v4.0.30319
  */
-class IPersistQuery extends IPersist{
+class IPersistQuery extends IPersist {
 
     static sizeof => A_PtrSize
     /**

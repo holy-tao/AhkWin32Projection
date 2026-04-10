@@ -1,16 +1,15 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\..\Guid.ahk
-#Include ..\..\..\Foundation\BSTR.ahk
 #Include ..\..\..\System\Com\IDispatch.ahk
+#Include ..\..\..\Foundation\BSTR.ahk
 
 /**
  * The IX509EnrollmentStatus interface can be used to specify or retrieve detailed error information about a certificate enrollment transaction.
  * @see https://learn.microsoft.com/windows/win32/api/certenroll/nn-certenroll-ix509enrollmentstatus
  * @namespace Windows.Win32.Security.Cryptography.Certificates
- * @version v4.0.30319
  */
-class IX509EnrollmentStatus extends IDispatch{
+class IX509EnrollmentStatus extends IDispatch {
 
     static sizeof => A_PtrSize
     /**
@@ -40,7 +39,7 @@ class IX509EnrollmentStatus extends IDispatch{
     }
 
     /**
-     * @type {Integer} 
+     * @type {EnrollmentSelectionStatus} 
      */
     Selected {
         get => this.get_Selected()
@@ -48,7 +47,7 @@ class IX509EnrollmentStatus extends IDispatch{
     }
 
     /**
-     * @type {Integer} 
+     * @type {EnrollmentDisplayStatus} 
      */
     Display {
         get => this.get_Display()
@@ -56,7 +55,7 @@ class IX509EnrollmentStatus extends IDispatch{
     }
 
     /**
-     * @type {Integer} 
+     * @type {EnrollmentEnrollStatus} 
      */
     Status {
         get => this.get_Status()
@@ -125,7 +124,7 @@ class IX509EnrollmentStatus extends IDispatch{
      * Specifies or retrieves a value that indicates whether an item can be used during the enrollment process. (Get)
      * @remarks
      * This property is currently used only to identify which cryptographic provider/algorithm pairs can be used to create a key. For more information, see the <a href="https://docs.microsoft.com/windows/desktop/api/certenroll/nf-certenroll-ix509certificaterequestpkcs10-getcspstatuses">GetCspStatuses</a> method on the <a href="https://docs.microsoft.com/windows/desktop/api/certenroll/nn-certenroll-ix509certificaterequestpkcs10">IX509CertificateRequestPkcs10</a> interface.
-     * @returns {Integer} 
+     * @returns {EnrollmentSelectionStatus} 
      * @see https://learn.microsoft.com/windows/win32/api/certenroll/nf-certenroll-ix509enrollmentstatus-get_selected
      */
     get_Selected() {
@@ -137,7 +136,7 @@ class IX509EnrollmentStatus extends IDispatch{
      * Specifies or retrieves a value that indicates whether an item can be used during the enrollment process. (Put)
      * @remarks
      * This property is currently used only to identify which cryptographic provider/algorithm pairs can be used to create a key. For more information, see the <a href="https://docs.microsoft.com/windows/desktop/api/certenroll/nf-certenroll-ix509certificaterequestpkcs10-getcspstatuses">GetCspStatuses</a> method on the <a href="https://docs.microsoft.com/windows/desktop/api/certenroll/nn-certenroll-ix509certificaterequestpkcs10">IX509CertificateRequestPkcs10</a> interface.
-     * @param {Integer} Value 
+     * @param {EnrollmentSelectionStatus} Value 
      * @returns {HRESULT} 
      * @see https://learn.microsoft.com/windows/win32/api/certenroll/nf-certenroll-ix509enrollmentstatus-put_selected
      */
@@ -150,7 +149,7 @@ class IX509EnrollmentStatus extends IDispatch{
      * Specifies or retrieves a value that indicates whether to display the status information in a user interface. (Get)
      * @remarks
      * This property is used by the Certificate Enrollment wizard to determine whether to display the item with which it is associated. Currently, setting this value does not affect enrollment behavior.
-     * @returns {Integer} 
+     * @returns {EnrollmentDisplayStatus} 
      * @see https://learn.microsoft.com/windows/win32/api/certenroll/nf-certenroll-ix509enrollmentstatus-get_display
      */
     get_Display() {
@@ -162,7 +161,7 @@ class IX509EnrollmentStatus extends IDispatch{
      * Specifies or retrieves a value that indicates whether to display the status information in a user interface. (Put)
      * @remarks
      * This property is used by the Certificate Enrollment wizard to determine whether to display the item with which it is associated. Currently, setting this value does not affect enrollment behavior.
-     * @param {Integer} Value 
+     * @param {EnrollmentDisplayStatus} Value 
      * @returns {HRESULT} 
      * @see https://learn.microsoft.com/windows/win32/api/certenroll/nf-certenroll-ix509enrollmentstatus-put_display
      */
@@ -173,7 +172,7 @@ class IX509EnrollmentStatus extends IDispatch{
 
     /**
      * Specifies or retrieves a value that indicates the status of the enrollment process. (Get)
-     * @returns {Integer} 
+     * @returns {EnrollmentEnrollStatus} 
      * @see https://learn.microsoft.com/windows/win32/api/certenroll/nf-certenroll-ix509enrollmentstatus-get_status
      */
     get_Status() {
@@ -183,7 +182,7 @@ class IX509EnrollmentStatus extends IDispatch{
 
     /**
      * Specifies or retrieves a value that indicates the status of the enrollment process. (Put)
-     * @param {Integer} Value 
+     * @param {EnrollmentEnrollStatus} Value 
      * @returns {HRESULT} 
      * @see https://learn.microsoft.com/windows/win32/api/certenroll/nf-certenroll-ix509enrollmentstatus-put_status
      */

@@ -1,14 +1,14 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
+#Include .\DHCP_POL_ATTR_TYPE.ahk
+#Include .\DHCP_POL_COMPARATOR.ahk
 
 /**
  * The DHCP_POL_COND structure defines the DHCP server policy condition.
  * @see https://learn.microsoft.com/windows/win32/api/dhcpsapi/ns-dhcpsapi-dhcp_pol_cond
  * @namespace Windows.Win32.NetworkManagement.Dhcp
- * @version v4.0.30319
  */
-class DHCP_POL_COND extends Win32Struct
-{
+class DHCP_POL_COND extends Win32Struct {
     static sizeof => 48
 
     static packingSize => 8
@@ -24,7 +24,7 @@ class DHCP_POL_COND extends Win32Struct
 
     /**
      * <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/dhcpsapi/ne-dhcpsapi-dhcp_pol_attr_type">DHCP_POL_ATTR_TYPE</a> enumeration that specifies the attribute type for this condition.
-     * @type {Integer}
+     * @type {DHCP_POL_ATTR_TYPE}
      */
     Type {
         get => NumGet(this, 4, "int")
@@ -60,7 +60,7 @@ class DHCP_POL_COND extends Win32Struct
 
     /**
      * <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/dhcpsapi/ne-dhcpsapi-dhcp_pol_comparator">DHCP_POL_COMPARATOR</a> enumeration that specifies the comparison operator for the condition.
-     * @type {Integer}
+     * @type {DHCP_POL_COMPARATOR}
      */
     Operator {
         get => NumGet(this, 24, "int")
@@ -77,7 +77,6 @@ class DHCP_POL_COND extends Win32Struct
     }
 
     /**
-     * 
      * @type {Integer}
      */
     ValueLength {

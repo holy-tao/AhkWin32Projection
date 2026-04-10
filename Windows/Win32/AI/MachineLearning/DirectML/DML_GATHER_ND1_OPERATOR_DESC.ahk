@@ -1,5 +1,6 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\..\Win32Struct.ahk
+#Include .\DML_TENSOR_DESC.ahk
 
 /**
  * Gathers elements from the input tensor, using the indices tensor to remap indices to entire subblocks of the input. (DML_GATHER_ND1_OPERATOR_DESC)
@@ -7,10 +8,8 @@
  * **DML_GATHER_ND1_OPERATOR_DESC** adds *BatchDimensionCount*, and is equivalent to [DML_GATHER_ND_OPERATOR_DESC](/windows/win32/api/directml/ns-directml-dml_gather_nd_operator_desc) when *BatchDimensionCount* = 0.
  * @see https://learn.microsoft.com/windows/win32/api/directml/ns-directml-dml_gather_nd1_operator_desc
  * @namespace Windows.Win32.AI.MachineLearning.DirectML
- * @version v4.0.30319
  */
-class DML_GATHER_ND1_OPERATOR_DESC extends Win32Struct
-{
+class DML_GATHER_ND1_OPERATOR_DESC extends Win32Struct {
     static sizeof => 40
 
     static packingSize => 8

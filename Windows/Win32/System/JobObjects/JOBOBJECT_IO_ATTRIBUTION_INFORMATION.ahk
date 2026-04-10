@@ -4,10 +4,8 @@
 
 /**
  * @namespace Windows.Win32.System.JobObjects
- * @version v4.0.30319
  */
-class JOBOBJECT_IO_ATTRIBUTION_INFORMATION extends Win32Struct
-{
+class JOBOBJECT_IO_ATTRIBUTION_INFORMATION extends Win32Struct {
     static sizeof => 72
 
     static packingSize => 8
@@ -23,7 +21,7 @@ class JOBOBJECT_IO_ATTRIBUTION_INFORMATION extends Win32Struct
     /**
      * @type {JOBOBJECT_IO_ATTRIBUTION_STATS}
      */
-    ReadStats{
+    ReadStats {
         get {
             if(!this.HasProp("__ReadStats"))
                 this.__ReadStats := JOBOBJECT_IO_ATTRIBUTION_STATS(8, this)
@@ -34,7 +32,7 @@ class JOBOBJECT_IO_ATTRIBUTION_INFORMATION extends Win32Struct
     /**
      * @type {JOBOBJECT_IO_ATTRIBUTION_STATS}
      */
-    WriteStats{
+    WriteStats {
         get {
             if(!this.HasProp("__WriteStats"))
                 this.__WriteStats := JOBOBJECT_IO_ATTRIBUTION_STATS(40, this)

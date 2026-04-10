@@ -3,10 +3,8 @@
 
 /**
  * @namespace Windows.Win32.Security.Isolation
- * @version v4.0.30319
  */
-class IsolatedAppLauncher extends Win32Struct
-{
+class IsolatedAppLauncher extends Win32Struct {
     static sizeof => 0
 
     static packingSize => 1

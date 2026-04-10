@@ -3,10 +3,8 @@
 
 /**
  * @namespace Windows.Win32.Devices.ImageAcquisition
- * @version v4.0.30319
  */
-class TWAIN_CAPABILITY extends Win32Struct
-{
+class TWAIN_CAPABILITY extends Win32Struct {
     static sizeof => 32
 
     static packingSize => 4
@@ -68,9 +66,9 @@ class TWAIN_CAPABILITY extends Win32Struct
     }
 
     /**
-     * @type {Array<Byte>}
+     * @type {Array<Integer>}
      */
-    Data{
+    Data {
         get {
             if(!this.HasProp("__DataProxyArray"))
                 this.__DataProxyArray := Win32FixedArray(this.ptr + 28, 1, Primitive, "char")

@@ -7,9 +7,8 @@
  * This interface is implemented by a text service that has a candidate list UI and its UI can be controlled by the application. The application QI this interface from ITfUIElement and controls the candidate list behavior.
  * @see https://learn.microsoft.com/windows/win32/api/msctf/nn-msctf-itfcandidatelistuielementbehavior
  * @namespace Windows.Win32.UI.TextServices
- * @version v4.0.30319
  */
-class ITfCandidateListUIElementBehavior extends ITfCandidateListUIElement{
+class ITfCandidateListUIElementBehavior extends ITfCandidateListUIElement {
 
     static sizeof => A_PtrSize
     /**

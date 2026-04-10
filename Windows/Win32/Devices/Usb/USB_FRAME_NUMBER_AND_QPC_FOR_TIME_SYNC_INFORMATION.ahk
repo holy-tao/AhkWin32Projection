@@ -4,10 +4,8 @@
 
 /**
  * @namespace Windows.Win32.Devices.Usb
- * @version v4.0.30319
  */
-class USB_FRAME_NUMBER_AND_QPC_FOR_TIME_SYNC_INFORMATION extends Win32Struct
-{
+class USB_FRAME_NUMBER_AND_QPC_FOR_TIME_SYNC_INFORMATION extends Win32Struct {
     static sizeof => 64
 
     static packingSize => 8
@@ -15,7 +13,7 @@ class USB_FRAME_NUMBER_AND_QPC_FOR_TIME_SYNC_INFORMATION extends Win32Struct
     /**
      * @type {HANDLE}
      */
-    TimeTrackingHandle{
+    TimeTrackingHandle {
         get {
             if(!this.HasProp("__TimeTrackingHandle"))
                 this.__TimeTrackingHandle := HANDLE(0, this)

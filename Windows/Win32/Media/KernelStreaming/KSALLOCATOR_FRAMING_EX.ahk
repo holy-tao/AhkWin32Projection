@@ -1,17 +1,15 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
 #Include .\KS_COMPRESSION.ahk
+#Include .\KS_FRAMING_ITEM.ahk
 #Include .\KS_FRAMING_RANGE.ahk
 #Include .\KS_FRAMING_RANGE_WEIGHTED.ahk
-#Include .\KS_FRAMING_ITEM.ahk
 
 /**
  * @namespace Windows.Win32.Media.KernelStreaming
- * @version v4.0.30319
  */
-class KSALLOCATOR_FRAMING_EX extends Win32Struct
-{
-    static sizeof => 32
+class KSALLOCATOR_FRAMING_EX extends Win32Struct {
+    static sizeof => 96
 
     static packingSize => 8
 
@@ -34,7 +32,7 @@ class KSALLOCATOR_FRAMING_EX extends Win32Struct
     /**
      * @type {KS_COMPRESSION}
      */
-    OutputCompression{
+    OutputCompression {
         get {
             if(!this.HasProp("__OutputCompression"))
                 this.__OutputCompression := KS_COMPRESSION(8, this)
@@ -51,9 +49,9 @@ class KSALLOCATOR_FRAMING_EX extends Win32Struct
     }
 
     /**
-     * @type {Array<KS_FRAMING_ITEM>}
+     * @type {KS_FRAMING_ITEM}
      */
-    FramingItem{
+    FramingItem {
         get {
             if(!this.HasProp("__FramingItemProxyArray"))
                 this.__FramingItemProxyArray := Win32FixedArray(this.ptr + 24, 1, KS_FRAMING_ITEM, "")

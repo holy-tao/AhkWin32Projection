@@ -5,10 +5,8 @@
  * Specifies a section within a Digital Video Broadcast (DVB) Event Information Table (EIT) section header. Because the EIT can be quite large, these options allow applications to reduce load time by filtering specific segments from the EIT section header.
  * @see https://learn.microsoft.com/windows/win32/api/mpeg2structs/ns-mpeg2structs-dvb_eit_filter_options
  * @namespace Windows.Win32.Media.DirectShow.Tv
- * @version v4.0.30319
  */
-class DVB_EIT_FILTER_OPTIONS extends Win32Struct
-{
+class DVB_EIT_FILTER_OPTIONS extends Win32Struct {
     static sizeof => 8
 
     static packingSize => 4

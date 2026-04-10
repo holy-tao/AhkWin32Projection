@@ -1,15 +1,14 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
 #Include ..\..\Foundation\HWND.ahk
+#Include .\IWiaItem.ahk
 
 /**
  * DEVICEDIALOGDATA structure - Defines the data needed to call a device dialog.
  * @see https://learn.microsoft.com/windows/win32/wia/-wia-devicedialogdata
  * @namespace Windows.Win32.Devices.ImageAcquisition
- * @version v4.0.30319
  */
-class DEVICEDIALOGDATA extends Win32Struct
-{
+class DEVICEDIALOGDATA extends Win32Struct {
     static sizeof => 48
 
     static packingSize => 8
@@ -33,7 +32,7 @@ class DEVICEDIALOGDATA extends Win32Struct
      * Specifies the handle to the parent window of the dialog.
      * @type {HWND}
      */
-    hwndParent{
+    hwndParent {
         get {
             if(!this.HasProp("__hwndParent"))
                 this.__hwndParent := HWND(8, this)

@@ -1,16 +1,14 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\..\Guid.ahk
-#Include .\ITextFont2.ahk
 #Include .\ITextFont.ahk
 
 /**
  * In the Text Object Model (TOM), applications access text-range attributes by using a pair of dual interfaces, ITextFont and ITextPara.
  * @see https://learn.microsoft.com/windows/win32/api/tom/nn-tom-itextfont2
  * @namespace Windows.Win32.UI.Controls.RichEdit
- * @version v4.0.30319
  */
-class ITextFont2 extends ITextFont{
+class ITextFont2 extends ITextFont {
 
     static sizeof => A_PtrSize
     /**

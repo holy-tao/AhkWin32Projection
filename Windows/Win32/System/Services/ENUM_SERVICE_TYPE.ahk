@@ -3,9 +3,8 @@
 
 /**
  * @namespace Windows.Win32.System.Services
- * @version v4.0.30319
  */
-class ENUM_SERVICE_TYPE extends Win32BitflagEnum{
+class ENUM_SERVICE_TYPE extends Win32BitflagEnum {
 
     /**
      * @type {Integer (UInt32)}

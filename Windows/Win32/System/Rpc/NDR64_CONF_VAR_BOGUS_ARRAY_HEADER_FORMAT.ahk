@@ -1,14 +1,12 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
-#Include .\NDR64_ARRAY_FLAGS.ahk
 #Include .\NDR64_BOGUS_ARRAY_HEADER_FORMAT.ahk
+#Include .\NDR64_ARRAY_FLAGS.ahk
 
 /**
  * @namespace Windows.Win32.System.Rpc
- * @version v4.0.30319
  */
-class NDR64_CONF_VAR_BOGUS_ARRAY_HEADER_FORMAT extends Win32Struct
-{
+class NDR64_CONF_VAR_BOGUS_ARRAY_HEADER_FORMAT extends Win32Struct {
     static sizeof => 40
 
     static packingSize => 8
@@ -16,7 +14,7 @@ class NDR64_CONF_VAR_BOGUS_ARRAY_HEADER_FORMAT extends Win32Struct
     /**
      * @type {NDR64_BOGUS_ARRAY_HEADER_FORMAT}
      */
-    FixedArrayFormat{
+    FixedArrayFormat {
         get {
             if(!this.HasProp("__FixedArrayFormat"))
                 this.__FixedArrayFormat := NDR64_BOGUS_ARRAY_HEADER_FORMAT(0, this)

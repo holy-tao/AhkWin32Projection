@@ -1,16 +1,15 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
-#Include .\IUIImage.ahk
 #Include ..\..\System\Com\IUnknown.ahk
+#Include .\IUIImage.ahk
 
 /**
  * IUIImageFromBitmap is a factory interface implemented by the Windows Ribbon framework that defines the method for creating an IUIImage object.
  * @see https://learn.microsoft.com/windows/win32/api/uiribbon/nn-uiribbon-iuiimagefrombitmap
  * @namespace Windows.Win32.UI.Ribbon
- * @version v4.0.30319
  */
-class IUIImageFromBitmap extends IUnknown{
+class IUIImageFromBitmap extends IUnknown {
 
     static sizeof => A_PtrSize
     /**
@@ -52,8 +51,10 @@ class IUIImageFromBitmap extends IUnknown{
      * 			
      * 
      * Specify <b>UI_OWNERSHIP_TRANSFER</b> as the value for <i>options</i> to minimize memory usage.
-     * @param {HBITMAP} _bitmap 
-     * @param {Integer} options Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/uiribbon/ne-uiribbon-ui_ownership">UI_OWNERSHIP</a></b>
+     * @param {HBITMAP} _bitmap Type: <b>HBITMAP</b>
+     * 
+     * A handle to the bitmap that contains the image.
+     * @param {UI_OWNERSHIP} options Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/uiribbon/ne-uiribbon-ui_ownership">UI_OWNERSHIP</a></b>
      * 
      * The <a href="https://docs.microsoft.com/windows/desktop/api/uiribbon/ne-uiribbon-ui_ownership">ownership conditions</a> under which 
      * 					an image is created.
@@ -89,7 +90,9 @@ class IUIImageFromBitmap extends IUnknown{
      * </td>
      * </tr>
      * </table>
-     * @returns {IUIImage} 
+     * @returns {IUIImage} Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/uiribbon/nn-uiribbon-iuiimage">IUIImage</a>**</b>
+     * 
+     * When this method returns, contains the address of a pointer variable that receives the <a href="https://docs.microsoft.com/windows/desktop/api/uiribbon/nn-uiribbon-iuiimage">IUIImage</a> object.
      * @see https://learn.microsoft.com/windows/win32/api/uiribbon/nf-uiribbon-iuiimagefrombitmap-createimage
      */
     CreateImage(_bitmap, options) {

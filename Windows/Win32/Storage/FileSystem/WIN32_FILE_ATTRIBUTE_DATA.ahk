@@ -12,10 +12,8 @@
  *     <a href="https://docs.microsoft.com/windows/desktop/SysInfo/file-times">File Times</a>.
  * @see https://learn.microsoft.com/windows/win32/api/fileapi/ns-fileapi-win32_file_attribute_data
  * @namespace Windows.Win32.Storage.FileSystem
- * @version v4.0.30319
  */
-class WIN32_FILE_ATTRIBUTE_DATA extends Win32Struct
-{
+class WIN32_FILE_ATTRIBUTE_DATA extends Win32Struct {
     static sizeof => 36
 
     static packingSize => 4
@@ -40,7 +38,7 @@ class WIN32_FILE_ATTRIBUTE_DATA extends Win32Struct
      * If the underlying file system does not support creation time, this member is zero.
      * @type {FILETIME}
      */
-    ftCreationTime{
+    ftCreationTime {
         get {
             if(!this.HasProp("__ftCreationTime"))
                 this.__ftCreationTime := FILETIME(4, this)
@@ -60,7 +58,7 @@ class WIN32_FILE_ATTRIBUTE_DATA extends Win32Struct
      *        If the underlying file system does not support last access time, this member is zero.
      * @type {FILETIME}
      */
-    ftLastAccessTime{
+    ftLastAccessTime {
         get {
             if(!this.HasProp("__ftLastAccessTime"))
                 this.__ftLastAccessTime := FILETIME(12, this)
@@ -79,7 +77,7 @@ class WIN32_FILE_ATTRIBUTE_DATA extends Win32Struct
      * If the underlying file system does not support last write time, this member is zero.
      * @type {FILETIME}
      */
-    ftLastWriteTime{
+    ftLastWriteTime {
         get {
             if(!this.HasProp("__ftLastWriteTime"))
                 this.__ftLastWriteTime := FILETIME(20, this)

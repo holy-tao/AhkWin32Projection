@@ -5,9 +5,8 @@
  * Specifies the requested access mode for opening a file.
  * @see https://learn.microsoft.com/windows/win32/api/mfobjects/ne-mfobjects-mf_file_accessmode
  * @namespace Windows.Win32.Media.MediaFoundation
- * @version v4.0.30319
  */
-class MF_FILE_ACCESSMODE extends Win32Enum{
+class MF_FILE_ACCESSMODE extends Win32Enum {
 
     /**
      * Read mode.

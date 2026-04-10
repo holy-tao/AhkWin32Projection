@@ -1,14 +1,13 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
-#Include .\ID2D1DeviceContext7.ahk
 #Include .\ID2D1Device6.ahk
+#Include .\ID2D1DeviceContext7.ahk
 
 /**
  * @namespace Windows.Win32.Graphics.Direct2D
- * @version v4.0.30319
  */
-class ID2D1Device7 extends ID2D1Device6{
+class ID2D1Device7 extends ID2D1Device6 {
 
     static sizeof => A_PtrSize
     /**
@@ -31,7 +30,7 @@ class ID2D1Device7 extends ID2D1Device6{
 
     /**
      * 
-     * @param {Integer} options 
+     * @param {D2D1_DEVICE_CONTEXT_OPTIONS} options 
      * @returns {ID2D1DeviceContext7} 
      */
     CreateDeviceContext(options) {

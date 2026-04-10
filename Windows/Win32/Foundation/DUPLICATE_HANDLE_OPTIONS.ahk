@@ -3,9 +3,8 @@
 
 /**
  * @namespace Windows.Win32.Foundation
- * @version v4.0.30319
  */
-class DUPLICATE_HANDLE_OPTIONS extends Win32BitflagEnum{
+class DUPLICATE_HANDLE_OPTIONS extends Win32BitflagEnum {
 
     /**
      * @type {Integer (UInt32)}

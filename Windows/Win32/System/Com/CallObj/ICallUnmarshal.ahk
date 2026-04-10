@@ -7,9 +7,8 @@
  * Is used on the server (receiving) side of a remote invocation.
  * @see https://learn.microsoft.com/windows/win32/api/callobj/nn-callobj-icallunmarshal
  * @namespace Windows.Win32.System.Com.CallObj
- * @version v4.0.30319
  */
-class ICallUnmarshal extends IUnknown{
+class ICallUnmarshal extends IUnknown {
 
     static sizeof => A_PtrSize
     /**

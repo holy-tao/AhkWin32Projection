@@ -7,9 +7,8 @@
  * The IResourceConsumer interface provides a callback mechanism for objects using the IResourceManager interface.An object must implement IResourceConsumer if it uses the IResourceManager interface to request resources from the filter graph manager.
  * @see https://learn.microsoft.com/windows/win32/api/strmif/nn-strmif-iresourceconsumer
  * @namespace Windows.Win32.Media.DirectShow
- * @version v4.0.30319
  */
-class IResourceConsumer extends IUnknown{
+class IResourceConsumer extends IUnknown {
 
     static sizeof => A_PtrSize
     /**

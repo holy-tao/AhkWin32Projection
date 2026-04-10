@@ -5,9 +5,8 @@
  * Specifies the different types of WinML bindings.
  * @see https://learn.microsoft.com/windows/win32/api/winml/ne-winml-winml_binding_type
  * @namespace Windows.Win32.AI.MachineLearning.WinML
- * @version v4.0.30319
  */
-class WINML_BINDING_TYPE extends Win32Enum{
+class WINML_BINDING_TYPE extends Win32Enum {
 
     /**
      * Binding type undefined.

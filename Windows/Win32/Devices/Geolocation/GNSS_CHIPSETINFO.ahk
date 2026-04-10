@@ -3,10 +3,8 @@
 
 /**
  * @namespace Windows.Win32.Devices.Geolocation
- * @version v4.0.30319
  */
-class GNSS_CHIPSETINFO extends Win32Struct
-{
+class GNSS_CHIPSETINFO extends Win32Struct {
     static sizeof => 660
 
     static packingSize => 4
@@ -52,9 +50,9 @@ class GNSS_CHIPSETINFO extends Win32Struct
     }
 
     /**
-     * @type {Array<Byte>}
+     * @type {Array<Integer>}
      */
-    Unused{
+    Unused {
         get {
             if(!this.HasProp("__UnusedProxyArray"))
                 this.__UnusedProxyArray := Win32FixedArray(this.ptr + 148, 512, Primitive, "char")

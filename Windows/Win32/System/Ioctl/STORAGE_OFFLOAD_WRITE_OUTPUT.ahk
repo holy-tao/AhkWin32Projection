@@ -5,10 +5,8 @@
  * Output structure for the DeviceDsmAction_OffloadWrite action of the IOCTL_STORAGE_MANAGE_DATA_SET_ATTRIBUTES control code.
  * @see https://learn.microsoft.com/windows/win32/api/winioctl/ns-winioctl-storage_offload_write_output
  * @namespace Windows.Win32.System.Ioctl
- * @version v4.0.30319
  */
-class STORAGE_OFFLOAD_WRITE_OUTPUT extends Win32Struct
-{
+class STORAGE_OFFLOAD_WRITE_OUTPUT extends Win32Struct {
     static sizeof => 16
 
     static packingSize => 8

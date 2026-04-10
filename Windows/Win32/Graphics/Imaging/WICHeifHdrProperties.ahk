@@ -44,9 +44,8 @@
  * ```
  * @see https://learn.microsoft.com/windows/win32/api/wincodec/ne-wincodec-wicheifhdrproperties
  * @namespace Windows.Win32.Graphics.Imaging
- * @version v4.0.30319
  */
-class WICHeifHdrProperties extends Win32Enum{
+class WICHeifHdrProperties extends Win32Enum {
 
     /**
      * [VT_UI2] Specifies the maximum luminance level of the content in Nits.

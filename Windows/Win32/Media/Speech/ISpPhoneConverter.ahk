@@ -5,9 +5,8 @@
 
 /**
  * @namespace Windows.Win32.Media.Speech
- * @version v4.0.30319
  */
-class ISpPhoneConverter extends ISpObjectWithToken{
+class ISpPhoneConverter extends ISpObjectWithToken {
 
     static sizeof => A_PtrSize
     /**

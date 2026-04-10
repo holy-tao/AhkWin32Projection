@@ -3,10 +3,8 @@
 
 /**
  * @namespace Windows.Win32.System.Diagnostics.Debug
- * @version v4.0.30319
  */
-class SYMSRV_EXTENDED_OUTPUT_DATA extends Win32Struct
-{
+class SYMSRV_EXTENDED_OUTPUT_DATA extends Win32Struct {
     static sizeof => 532
 
     static packingSize => 4

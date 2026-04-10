@@ -7,9 +7,8 @@
  * The IAMWstDecoder interface sets and retrieves information about World Standard Teletext (WST). The WST Decoder filter implements this interface.
  * @see https://learn.microsoft.com/windows/win32/api/iwstdec/nn-iwstdec-iamwstdecoder
  * @namespace Windows.Win32.Media.DirectShow
- * @version v4.0.30319
  */
-class IAMWstDecoder extends IUnknown{
+class IAMWstDecoder extends IUnknown {
 
     static sizeof => A_PtrSize
     /**
@@ -32,7 +31,7 @@ class IAMWstDecoder extends IUnknown{
 
     /**
      * Applications use the GetDecoderLevel method to retrieve the WST decoder level. This method is not implemented and always returns AM_WST_LEVEL_1_5.
-     * @param {Pointer<Integer>} lpLevel Receives a member of the <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/iwstdec/ne-iwstdec-am_wst_level">AM_WST_LEVEL</a> enumeration, indicating the decoder level.
+     * @param {Pointer<AM_WST_LEVEL>} lpLevel Receives a member of the <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/iwstdec/ne-iwstdec-am_wst_level">AM_WST_LEVEL</a> enumeration, indicating the decoder level.
      * @returns {HRESULT} When the method succeeds, it returns S_OK. Otherwise, it returns an <b>HRESULT</b> error code.
      * @see https://learn.microsoft.com/windows/win32/api/iwstdec/nf-iwstdec-iamwstdecoder-getdecoderlevel
      */
@@ -45,7 +44,7 @@ class IAMWstDecoder extends IUnknown{
 
     /**
      * Applications use the GetCurrentService method to retrieve the current WST service.
-     * @param {Pointer<Integer>} lpService Specifies a pointer to an <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/iwstdec/ne-iwstdec-am_wst_service">AM_WST_SERVICE</a> enumeration to receive the service currently being used.
+     * @param {Pointer<AM_WST_SERVICE>} lpService Specifies a pointer to an <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/iwstdec/ne-iwstdec-am_wst_service">AM_WST_SERVICE</a> enumeration to receive the service currently being used.
      * 
      * <table>
      * <tr>
@@ -83,7 +82,7 @@ class IAMWstDecoder extends IUnknown{
 
     /**
      * Applications use the GetServiceState method to retrieve the current service state.
-     * @param {Pointer<Integer>} lpState Pointer to a variable that receives the state, specified as a member of the <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/iwstdec/ne-iwstdec-am_wst_state">AM_WST_STATE</a> enumeration. The following values are possible.
+     * @param {Pointer<AM_WST_STATE>} lpState Pointer to a variable that receives the state, specified as a member of the <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/iwstdec/ne-iwstdec-am_wst_state">AM_WST_STATE</a> enumeration. The following values are possible.
      * 
      * <table>
      * <tr>
@@ -113,7 +112,7 @@ class IAMWstDecoder extends IUnknown{
 
     /**
      * Applications use the SetServiceState method to assign the service state.
-     * @param {Integer} State Specifies a member of an <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/iwstdec/ne-iwstdec-am_wst_state">AM_WST_STATE</a> enumeration to assign the service state.
+     * @param {AM_WST_STATE} State Specifies a member of an <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/iwstdec/ne-iwstdec-am_wst_state">AM_WST_STATE</a> enumeration to assign the service state.
      * 
      * <table>
      * <tr>
@@ -274,7 +273,7 @@ class IAMWstDecoder extends IUnknown{
 
     /**
      * Downstream filters use the GetDrawBackgroundMode method to determine whether the caption text background is opaque or transparent.
-     * @param {Pointer<Integer>} lpMode 
+     * @param {Pointer<AM_WST_DRAWBGMODE>} lpMode 
      * @returns {HRESULT} When the method succeeds, it returns S_OK. Otherwise, it returns an <b>HRESULT</b> error code.
      * @see https://learn.microsoft.com/windows/win32/api/iwstdec/nf-iwstdec-iamwstdecoder-getdrawbackgroundmode
      */
@@ -287,7 +286,24 @@ class IAMWstDecoder extends IUnknown{
 
     /**
      * Downstream filters use the SetDrawBackgroundMode method to assign whether the caption text background is to be opaque or transparent.
-     * @param {Integer} _Mode 
+     * @param {AM_WST_DRAWBGMODE} _Mode A member of the <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/iwstdec/ne-iwstdec-am_wst_drawbgmode">AM_WST_DRAWBGMODE</a> enumeration that specifies whether the caption text background is to be opaque or transparent.
+     * 
+     * <table>
+     * <tr>
+     * <th>Value
+     *                 </th>
+     * <th>Description
+     *                 </th>
+     * </tr>
+     * <tr>
+     * <td>AM_WST_DRAWBGMODE_Opaque</td>
+     * <td>Caption text background is opaque.</td>
+     * </tr>
+     * <tr>
+     * <td>AM_WST_DRAWBGMODE_Transparent</td>
+     * <td>Caption text background is transparent.</td>
+     * </tr>
+     * </table>
      * @returns {HRESULT} When the method succeeds, it returns S_OK. Otherwise, it returns an <b>HRESULT</b> error code.
      * @see https://learn.microsoft.com/windows/win32/api/iwstdec/nf-iwstdec-iamwstdecoder-setdrawbackgroundmode
      */

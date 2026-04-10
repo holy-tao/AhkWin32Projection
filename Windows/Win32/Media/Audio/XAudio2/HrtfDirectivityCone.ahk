@@ -1,6 +1,7 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\..\Win32Struct.ahk
 #Include .\HrtfDirectivity.ahk
+#Include .\HrtfDirectivityType.ahk
 
 /**
  * Describes a cone directivity.
@@ -8,10 +9,8 @@
  * Attenuation is 0 inside the inner cone.   Attenuation is linearly interpolated between the inner cone, which is defined by <i>innerAngle</i>, and the outer cone, which is defined by <i>outerAngle.</i>
  * @see https://learn.microsoft.com/windows/win32/api/hrtfapoapi/ns-hrtfapoapi-hrtfdirectivitycone
  * @namespace Windows.Win32.Media.Audio.XAudio2
- * @version v4.0.30319
  */
-class HrtfDirectivityCone extends Win32Struct
-{
+class HrtfDirectivityCone extends Win32Struct {
     static sizeof => 16
 
     static packingSize => 4
@@ -20,7 +19,7 @@ class HrtfDirectivityCone extends Win32Struct
      * Descriptor for the cone pattern. The type parameter must be set to HrtfDirectivityType.Cone.
      * @type {HrtfDirectivity}
      */
-    directivity{
+    directivity {
         get {
             if(!this.HasProp("__directivity"))
                 this.__directivity := HrtfDirectivity(0, this)

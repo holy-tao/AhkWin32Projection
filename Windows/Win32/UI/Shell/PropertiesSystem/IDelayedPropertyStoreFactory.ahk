@@ -7,9 +7,8 @@
  * Exposes a method to create a specified IPropertyStore object in circumstances where property access is potentially slow.
  * @see https://learn.microsoft.com/windows/win32/api/propsys/nn-propsys-idelayedpropertystorefactory
  * @namespace Windows.Win32.UI.Shell.PropertiesSystem
- * @version v4.0.30319
  */
-class IDelayedPropertyStoreFactory extends IPropertyStoreFactory{
+class IDelayedPropertyStoreFactory extends IPropertyStoreFactory {
 
     static sizeof => A_PtrSize
     /**
@@ -32,7 +31,7 @@ class IDelayedPropertyStoreFactory extends IPropertyStoreFactory{
 
     /**
      * Gets an IPropertyStore interface object, as specified.
-     * @param {Integer} flags Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/propsys/ne-propsys-getpropertystoreflags">GETPROPERTYSTOREFLAGS</a></b>
+     * @param {GETPROPERTYSTOREFLAGS} flags Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/propsys/ne-propsys-getpropertystoreflags">GETPROPERTYSTOREFLAGS</a></b>
      * 
      * The GPS_XXX flags that modify the store that is returned. See <a href="https://docs.microsoft.com/windows/desktop/api/propsys/ne-propsys-getpropertystoreflags">GETPROPERTYSTOREFLAGS</a>.
      * @param {Integer} dwStoreId Type: <b>DWORD</b>

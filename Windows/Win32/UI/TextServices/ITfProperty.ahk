@@ -1,8 +1,8 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
-#Include .\ITfRange.ahk
 #Include .\ITfReadOnlyProperty.ahk
+#Include .\ITfRange.ahk
 
 /**
  * The ITfProperty interface is implemented by the TSF manager and used by a client (application or text service) to modify a property value.
@@ -10,9 +10,8 @@
  * An instance of this interface is obtained in various ways, such as <a href="https://docs.microsoft.com/windows/desktop/api/msctf/nf-msctf-itfcontext-getproperty">ITfContext::GetProperty</a> or <a href="https://docs.microsoft.com/windows/desktop/api/msctf/nf-msctf-ienumtfproperties-next">IEnumTfProperties::Next</a>.
  * @see https://learn.microsoft.com/windows/win32/api/msctf/nn-msctf-itfproperty
  * @namespace Windows.Win32.UI.TextServices
- * @version v4.0.30319
  */
-class ITfProperty extends ITfReadOnlyProperty{
+class ITfProperty extends ITfReadOnlyProperty {
 
     static sizeof => A_PtrSize
     /**
@@ -57,7 +56,7 @@ class ITfProperty extends ITfReadOnlyProperty{
      * ```
      * @param {Integer} ec Contains an edit cookie that identifies the edit context. This is obtained from <a href="https://docs.microsoft.com/windows/desktop/api/msctf/nf-msctf-itfdocumentmgr-createcontext">ITfDocumentMgr::CreateContext</a> or <a href="https://docs.microsoft.com/windows/desktop/api/msctf/nf-msctf-itfeditsession-doeditsession">ITfEditSession::DoEditSession</a>.
      * @param {ITfRange} pRange Pointer to an <a href="https://docs.microsoft.com/windows/desktop/api/msctf/nn-msctf-itfrange">ITfRange</a> interface that contains the point to obtain the property range for. The point will either be the start anchor or end anchor of this range, based upon the value of <i>aPos</i>.
-     * @param {Integer} aPos Contains one of the <a href="https://docs.microsoft.com/windows/win32/api/msctf/ne-msctf-tfanchor">TfAnchor</a> values which specifies which anchor of <i>pRange</i> is used as the point to obtain the property range for.
+     * @param {TfAnchor} aPos Contains one of the <a href="https://docs.microsoft.com/windows/win32/api/msctf/ne-msctf-tfanchor">TfAnchor</a> values which specifies which anchor of <i>pRange</i> is used as the point to obtain the property range for.
      * @returns {ITfRange} Pointer to an <b>ITfRange</b> interface pointer that receives the requested range object.
      * @see https://learn.microsoft.com/windows/win32/api/msctf/nf-msctf-itfproperty-findrange
      */

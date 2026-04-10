@@ -1,19 +1,18 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
-#Include ..\..\Foundation\BSTR.ahk
+#Include ..\..\System\Com\IDispatch.ahk
 #Include .\ISpeechRecognizer.ahk
+#Include ..\..\Foundation\BSTR.ahk
 #Include .\ISpeechVoice.ahk
 #Include .\ISpeechAudioFormat.ahk
 #Include .\ISpeechRecoGrammar.ahk
 #Include .\ISpeechRecoResult.ahk
-#Include ..\..\System\Com\IDispatch.ahk
 
 /**
  * @namespace Windows.Win32.Media.Speech
- * @version v4.0.30319
  */
-class ISpeechRecoContext extends IDispatch{
+class ISpeechRecoContext extends IDispatch {
 
     static sizeof => A_PtrSize
     /**
@@ -42,7 +41,7 @@ class ISpeechRecoContext extends IDispatch{
     }
 
     /**
-     * @type {Integer} 
+     * @type {SpeechInterference} 
      */
     AudioInputInterferenceStatus {
         get => this.get_AudioInputInterferenceStatus()
@@ -71,7 +70,7 @@ class ISpeechRecoContext extends IDispatch{
     }
 
     /**
-     * @type {Integer} 
+     * @type {SpeechRecoEvents} 
      */
     VoicePurgeEvent {
         get => this.get_VoicePurgeEvent()
@@ -79,7 +78,7 @@ class ISpeechRecoContext extends IDispatch{
     }
 
     /**
-     * @type {Integer} 
+     * @type {SpeechRecoEvents} 
      */
     EventInterests {
         get => this.get_EventInterests()
@@ -95,7 +94,7 @@ class ISpeechRecoContext extends IDispatch{
     }
 
     /**
-     * @type {Integer} 
+     * @type {SpeechRecoContextState} 
      */
     State {
         get => this.get_State()
@@ -103,7 +102,7 @@ class ISpeechRecoContext extends IDispatch{
     }
 
     /**
-     * @type {Integer} 
+     * @type {SpeechRetainedAudioOptions} 
      */
     RetainedAudio {
         get => this.get_RetainedAudio()
@@ -128,7 +127,7 @@ class ISpeechRecoContext extends IDispatch{
 
     /**
      * 
-     * @returns {Integer} 
+     * @returns {SpeechInterference} 
      */
     get_AudioInputInterferenceStatus() {
         result := ComCall(8, this, "int*", &Interference := 0, "HRESULT")
@@ -185,7 +184,7 @@ class ISpeechRecoContext extends IDispatch{
 
     /**
      * 
-     * @param {Integer} EventInterest 
+     * @param {SpeechRecoEvents} EventInterest 
      * @returns {HRESULT} 
      */
     put_VoicePurgeEvent(EventInterest) {
@@ -195,7 +194,7 @@ class ISpeechRecoContext extends IDispatch{
 
     /**
      * 
-     * @returns {Integer} 
+     * @returns {SpeechRecoEvents} 
      */
     get_VoicePurgeEvent() {
         result := ComCall(15, this, "int*", &EventInterest := 0, "HRESULT")
@@ -204,7 +203,7 @@ class ISpeechRecoContext extends IDispatch{
 
     /**
      * 
-     * @param {Integer} EventInterest 
+     * @param {SpeechRecoEvents} EventInterest 
      * @returns {HRESULT} 
      */
     put_EventInterests(EventInterest) {
@@ -214,7 +213,7 @@ class ISpeechRecoContext extends IDispatch{
 
     /**
      * 
-     * @returns {Integer} 
+     * @returns {SpeechRecoEvents} 
      */
     get_EventInterests() {
         result := ComCall(17, this, "int*", &EventInterest := 0, "HRESULT")
@@ -242,7 +241,7 @@ class ISpeechRecoContext extends IDispatch{
 
     /**
      * 
-     * @param {Integer} State 
+     * @param {SpeechRecoContextState} State 
      * @returns {HRESULT} 
      */
     put_State(State) {
@@ -252,7 +251,7 @@ class ISpeechRecoContext extends IDispatch{
 
     /**
      * 
-     * @returns {Integer} 
+     * @returns {SpeechRecoContextState} 
      */
     get_State() {
         result := ComCall(21, this, "int*", &State := 0, "HRESULT")
@@ -261,7 +260,7 @@ class ISpeechRecoContext extends IDispatch{
 
     /**
      * 
-     * @param {Integer} Option 
+     * @param {SpeechRetainedAudioOptions} Option 
      * @returns {HRESULT} 
      */
     put_RetainedAudio(Option) {
@@ -271,7 +270,7 @@ class ISpeechRecoContext extends IDispatch{
 
     /**
      * 
-     * @returns {Integer} 
+     * @returns {SpeechRetainedAudioOptions} 
      */
     get_RetainedAudio() {
         result := ComCall(23, this, "int*", &Option := 0, "HRESULT")
@@ -343,7 +342,7 @@ class ISpeechRecoContext extends IDispatch{
      * The DVDAdm.BookmarkOnClose property sets or retrieves a value that tells the MSDVDAdm object whether to automatically save a bookmark of the current location and settings when the user closes the application.
      * @remarks
      * This property is read/write with a default value of true.
-     * @param {Integer} Options 
+     * @param {SpeechBookmarkOptions} Options 
      * @param {VARIANT} StreamPos 
      * @param {VARIANT} BookmarkId 
      * @returns {HRESULT} Returns a Boolean value, which if true, indicates that the MSDVDAdm control will save a bookmark of all DVD settings, including position on disc, parental level, and parental country/region when the user closes the DVD player application.

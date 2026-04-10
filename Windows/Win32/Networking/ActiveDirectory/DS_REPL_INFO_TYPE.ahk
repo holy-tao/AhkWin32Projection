@@ -5,9 +5,8 @@
  * The DS_REPL_INFO_TYPE enumeration is used with the DsReplicaGetInfo and DsReplicaGetInfo2 functions to specify the type of replication data to retrieve.
  * @see https://learn.microsoft.com/windows/win32/api/ntdsapi/ne-ntdsapi-ds_repl_info_type
  * @namespace Windows.Win32.Networking.ActiveDirectory
- * @version v4.0.30319
  */
-class DS_REPL_INFO_TYPE extends Win32Enum{
+class DS_REPL_INFO_TYPE extends Win32Enum {
 
     /**
      * Requests replication state data for naming context and source server pairs. Returns a pointer to a 
@@ -87,13 +86,11 @@ class DS_REPL_INFO_TYPE extends Win32Enum{
     static DS_REPL_INFO_METADATA_2_FOR_ATTR_VALUE => 10
 
     /**
-     * 
      * @type {Integer (Int32)}
      */
     static DS_REPL_INFO_METADATA_EXT_FOR_ATTR_VALUE => 11
 
     /**
-     * 
      * @type {Integer (Int32)}
      */
     static DS_REPL_INFO_TYPE_MAX => 12

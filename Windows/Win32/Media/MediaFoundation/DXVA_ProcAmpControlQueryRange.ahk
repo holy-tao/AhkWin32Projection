@@ -1,14 +1,14 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
-#Include .\DXVA_Frequency.ahk
+#Include .\DXVA_ProcAmpControlProp.ahk
 #Include .\DXVA_VideoDesc.ahk
+#Include ..\..\Graphics\Direct3D9\D3DFORMAT.ahk
+#Include .\DXVA_Frequency.ahk
 
 /**
  * @namespace Windows.Win32.Media.MediaFoundation
- * @version v4.0.30319
  */
-class DXVA_ProcAmpControlQueryRange extends Win32Struct
-{
+class DXVA_ProcAmpControlQueryRange extends Win32Struct {
     static sizeof => 44
 
     static packingSize => 4
@@ -22,7 +22,7 @@ class DXVA_ProcAmpControlQueryRange extends Win32Struct
     }
 
     /**
-     * @type {Integer}
+     * @type {DXVA_ProcAmpControlProp}
      */
     ProcAmpControlProp {
         get => NumGet(this, 4, "int")
@@ -32,7 +32,7 @@ class DXVA_ProcAmpControlQueryRange extends Win32Struct
     /**
      * @type {DXVA_VideoDesc}
      */
-    VideoDesc{
+    VideoDesc {
         get {
             if(!this.HasProp("__VideoDesc"))
                 this.__VideoDesc := DXVA_VideoDesc(8, this)

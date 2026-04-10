@@ -26,10 +26,8 @@
  *      header file. The Ipexport.h header file should never be used directly.
  * @see https://learn.microsoft.com/windows/win32/api/ipexport/ns-ipexport-ipv6_address_ex
  * @namespace Windows.Win32.NetworkManagement.IpHelper
- * @version v4.0.30319
  */
-class IPV6_ADDRESS_EX extends Win32Struct
-{
+class IPV6_ADDRESS_EX extends Win32Struct {
     static sizeof => 28
 
     static packingSize => 4
@@ -54,9 +52,9 @@ class IPV6_ADDRESS_EX extends Win32Struct
 
     /**
      * The IPv6 address in network byte order.
-     * @type {Array<UInt16>}
+     * @type {Array<Integer>}
      */
-    sin6_addr{
+    sin6_addr {
         get {
             if(!this.HasProp("__sin6_addrProxyArray"))
                 this.__sin6_addrProxyArray := Win32FixedArray(this.ptr + 8, 8, Primitive, "ushort")

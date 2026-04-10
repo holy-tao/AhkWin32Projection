@@ -3,10 +3,8 @@
 
 /**
  * @namespace Windows.Win32.System.Memory
- * @version v4.0.30319
  */
-class WIN32_MEMORY_PARTITION_INFORMATION extends Win32Struct
-{
+class WIN32_MEMORY_PARTITION_INFORMATION extends Win32Struct {
     static sizeof => 240
 
     static packingSize => 8
@@ -116,9 +114,9 @@ class WIN32_MEMORY_PARTITION_INFORMATION extends Win32Struct
     }
 
     /**
-     * @type {Array<UInt64>}
+     * @type {Array<Integer>}
      */
-    Reserved{
+    Reserved {
         get {
             if(!this.HasProp("__ReservedProxyArray"))
                 this.__ReservedProxyArray := Win32FixedArray(this.ptr + 88, 16, Primitive, "uint")

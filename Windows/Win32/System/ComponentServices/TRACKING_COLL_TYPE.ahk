@@ -5,9 +5,8 @@
  * Indicates the type of objects in a tracking information collection.
  * @see https://learn.microsoft.com/windows/win32/api/comsvcs/ne-comsvcs-tracking_coll_type
  * @namespace Windows.Win32.System.ComponentServices
- * @version v4.0.30319
  */
-class TRACKING_COLL_TYPE extends Win32Enum{
+class TRACKING_COLL_TYPE extends Win32Enum {
 
     /**
      * The objects in the referenced tracking information collections are processes.

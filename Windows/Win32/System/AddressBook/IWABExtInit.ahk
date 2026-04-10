@@ -7,9 +7,8 @@
  * Do not use. This interface ndicates which Windows Address Book (WAB) object is being displayed (for example, a property sheet or context menu).
  * @see https://learn.microsoft.com/windows/win32/api/wabapi/nn-wabapi-iwabextinit
  * @namespace Windows.Win32.System.AddressBook
- * @version v4.0.30319
  */
-class IWABExtInit extends IUnknown{
+class IWABExtInit extends IUnknown {
 
     static sizeof => A_PtrSize
     /**

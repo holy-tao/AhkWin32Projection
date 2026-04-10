@@ -3,16 +3,14 @@
 
 /**
  * @namespace Windows.Win32.System.SystemServices
- * @version v4.0.30319
  */
-class TRANSACTIONMANAGER_BASIC_INFORMATION extends Win32Struct
-{
+class TRANSACTIONMANAGER_BASIC_INFORMATION extends Win32Struct {
     static sizeof => 16
 
     static packingSize => 8
 
     /**
-     * @type {Pointer<Guid>}
+     * @type {Pointer}
      */
     TmIdentity {
         get => NumGet(this, 0, "ptr")

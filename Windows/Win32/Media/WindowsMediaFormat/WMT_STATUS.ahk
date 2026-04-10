@@ -7,9 +7,8 @@
  * For more information on how this enumeration type is used, see the Remarks section for the <a href="https://docs.microsoft.com/windows/desktop/api/wmsdkidl/nf-wmsdkidl-iwmstatuscallback-onstatus">IWMStatusCallback::OnStatus</a> method.
  * @see https://learn.microsoft.com/windows/win32/api/wmsdkidl/ne-wmsdkidl-wmt_status
  * @namespace Windows.Win32.Media.WindowsMediaFormat
- * @version v4.0.30319
  */
-class WMT_STATUS extends Win32Enum{
+class WMT_STATUS extends Win32Enum {
 
     /**
      * An error occurred.

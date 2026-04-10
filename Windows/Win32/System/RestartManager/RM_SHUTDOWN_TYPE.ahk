@@ -11,9 +11,8 @@
  * The time to wait before initiating a forced shutdown of services is specified by the following registry key. <b>HKLM</b>&#92;<b>System</b>&#92;<b>CurrentControlSet</b>&#92;<b>Control</b>&#92;<b>WaitToKillServiceTimeout</b>
  * @see https://learn.microsoft.com/windows/win32/api/restartmanager/ne-restartmanager-rm_shutdown_type
  * @namespace Windows.Win32.System.RestartManager
- * @version v4.0.30319
  */
-class RM_SHUTDOWN_TYPE extends Win32Enum{
+class RM_SHUTDOWN_TYPE extends Win32Enum {
 
     /**
      * Forces unresponsive applications and services to shut down after the timeout period. An application that does not respond to a shutdown request by the Restart Manager is forced to shut down after 30 seconds. A service that does not respond to a shutdown request is forced to shut down after 20 seconds. These default times can be changed by modifying the registry keys described in the Remarks section.

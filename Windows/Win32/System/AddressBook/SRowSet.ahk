@@ -1,6 +1,7 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
 #Include .\SRow.ahk
+#Include .\SPropValue.ahk
 
 /**
  * Contains an array of SRow structures. Each SRow structure describes a row from a table.
@@ -20,11 +21,9 @@
  * For more information about how the memory for **SRowSet** structures should be allocated, see [Managing Memory for ADRLIST and SRowSet Structures](managing-memory-for-adrlist-and-srowset-structures.md).
  * @see https://learn.microsoft.com/office/client-developer/outlook/mapi/srowset
  * @namespace Windows.Win32.System.AddressBook
- * @version v4.0.30319
  */
-class SRowSet extends Win32Struct
-{
-    static sizeof => 16
+class SRowSet extends Win32Struct {
+    static sizeof => 24
 
     static packingSize => 8
 
@@ -39,9 +38,9 @@ class SRowSet extends Win32Struct
 
     /**
      * > Array of **SRow** structures. There is one structure for each row in the table.
-     * @type {Array<SRow>}
+     * @type {SRow}
      */
-    aRow{
+    aRow {
         get {
             if(!this.HasProp("__aRowProxyArray"))
                 this.__aRowProxyArray := Win32FixedArray(this.ptr + 8, 1, SRow, "")

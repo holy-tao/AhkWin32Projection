@@ -3,10 +3,8 @@
 
 /**
  * @namespace Windows.Win32.Networking.WinSock
- * @version v4.0.30319
  */
-class SOCKADDR_VNS extends Win32Struct
-{
+class SOCKADDR_VNS extends Win32Struct {
     static sizeof => 16
 
     static packingSize => 2
@@ -20,9 +18,9 @@ class SOCKADDR_VNS extends Win32Struct
     }
 
     /**
-     * @type {Array<Byte>}
+     * @type {Array<Integer>}
      */
-    net_address{
+    net_address {
         get {
             if(!this.HasProp("__net_addressProxyArray"))
                 this.__net_addressProxyArray := Win32FixedArray(this.ptr + 2, 4, Primitive, "char")
@@ -31,9 +29,9 @@ class SOCKADDR_VNS extends Win32Struct
     }
 
     /**
-     * @type {Array<Byte>}
+     * @type {Array<Integer>}
      */
-    subnet_addr{
+    subnet_addr {
         get {
             if(!this.HasProp("__subnet_addrProxyArray"))
                 this.__subnet_addrProxyArray := Win32FixedArray(this.ptr + 6, 2, Primitive, "char")
@@ -42,9 +40,9 @@ class SOCKADDR_VNS extends Win32Struct
     }
 
     /**
-     * @type {Array<Byte>}
+     * @type {Array<Integer>}
      */
-    port{
+    port {
         get {
             if(!this.HasProp("__portProxyArray"))
                 this.__portProxyArray := Win32FixedArray(this.ptr + 8, 2, Primitive, "char")
@@ -61,9 +59,9 @@ class SOCKADDR_VNS extends Win32Struct
     }
 
     /**
-     * @type {Array<Byte>}
+     * @type {Array<Integer>}
      */
-    filler{
+    filler {
         get {
             if(!this.HasProp("__fillerProxyArray"))
                 this.__fillerProxyArray := Win32FixedArray(this.ptr + 11, 5, Primitive, "char")

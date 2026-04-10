@@ -4,7 +4,6 @@
 
 /**
  * @namespace Windows.Win32.Security.Authentication.Identity.Provider
- * @version v4.0.30319
  */
 class Provider {
 

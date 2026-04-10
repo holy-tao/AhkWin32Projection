@@ -7,10 +7,8 @@
  * This structure is used with the <a href="https://docs.microsoft.com/windows/desktop/medfound/mf-mt-custom-video-primaries-attribute">MF_MT_CUSTOM_VIDEO_PRIMARIES</a> attribute.
  * @see https://learn.microsoft.com/windows/win32/api/mfapi/ns-mfapi-mt_custom_video_primaries
  * @namespace Windows.Win32.Media.MediaFoundation
- * @version v4.0.30319
  */
-class MT_CUSTOM_VIDEO_PRIMARIES extends Win32Struct
-{
+class MT_CUSTOM_VIDEO_PRIMARIES extends Win32Struct {
     static sizeof => 32
 
     static packingSize => 4

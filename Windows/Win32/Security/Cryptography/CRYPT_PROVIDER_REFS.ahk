@@ -1,14 +1,13 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
+#Include .\CRYPT_PROVIDER_REF.ahk
 
 /**
  * Contains a collection of provider references.
  * @see https://learn.microsoft.com/windows/win32/api/bcrypt/ns-bcrypt-crypt_provider_refs
  * @namespace Windows.Win32.Security.Cryptography
- * @version v4.0.30319
  */
-class CRYPT_PROVIDER_REFS extends Win32Struct
-{
+class CRYPT_PROVIDER_REFS extends Win32Struct {
     static sizeof => 16
 
     static packingSize => 8

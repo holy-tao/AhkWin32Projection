@@ -5,9 +5,8 @@
 
 /**
  * @namespace Windows.Win32.System.WinRT.Metadata
- * @version v4.0.30319
  */
-class ICeeGen extends IUnknown{
+class ICeeGen extends IUnknown {
 
     static sizeof => A_PtrSize
     /**
@@ -129,7 +128,7 @@ class ICeeGen extends IUnknown{
      * @param {Pointer<Void>} _section 
      * @param {Integer} offset 
      * @param {Pointer<Void>} relativeTo 
-     * @param {Integer} relocType 
+     * @param {CeeSectionRelocType} relocType 
      * @returns {HRESULT} 
      */
     AddSectionReloc(_section, offset, relativeTo, relocType) {

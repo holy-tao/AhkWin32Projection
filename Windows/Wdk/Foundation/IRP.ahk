@@ -1,15 +1,17 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\Win32Struct.ahk
-#Include ..\..\Win32\System\Kernel\LIST_ENTRY.ahk
+#Include .\MDL.ahk
+#Include .\IRP.ahk
 #Include ..\..\Win32\System\IO\IO_STATUS_BLOCK.ahk
+#Include .\KEVENT.ahk
+#Include .\IO_STACK_LOCATION.ahk
+#Include .\FILE_OBJECT.ahk
 
 /**
  * @namespace Windows.Wdk.Foundation
- * @version v4.0.30319
  */
-class IRP extends Win32Struct
-{
-    static sizeof => 208
+class IRP extends Win32Struct {
+    static sizeof => 176
 
     static packingSize => 8
 
@@ -24,7 +26,7 @@ class IRP extends Win32Struct
             get => NumGet(this, 0, "ptr")
             set => NumPut("ptr", value, this, 0)
         }
-    
+
         /**
          * @type {Integer}
          */
@@ -32,7 +34,7 @@ class IRP extends Win32Struct
             get => NumGet(this, 0, "int")
             set => NumPut("int", value, this, 0)
         }
-    
+
         /**
          * @type {Pointer<Void>}
          */
@@ -40,7 +42,6 @@ class IRP extends Win32Struct
             get => NumGet(this, 0, "ptr")
             set => NumPut("ptr", value, this, 0)
         }
-    
     }
 
     class _Overlay_e__Union extends Win32Struct {
@@ -50,7 +51,7 @@ class IRP extends Win32Struct
         class _AsynchronousParameters extends Win32Struct {
             static sizeof => 16
             static packingSize => 8
-    
+
             /**
              * @type {Pointer<PIO_APC_ROUTINE>}
              */
@@ -58,7 +59,7 @@ class IRP extends Win32Struct
                 get => NumGet(this, 0, "ptr")
                 set => NumPut("ptr", value, this, 0)
             }
-        
+
             /**
              * @type {Pointer<Void>}
              */
@@ -66,7 +67,7 @@ class IRP extends Win32Struct
                 get => NumGet(this, 0, "ptr")
                 set => NumPut("ptr", value, this, 0)
             }
-        
+
             /**
              * @type {Pointer<Void>}
              */
@@ -74,7 +75,7 @@ class IRP extends Win32Struct
                 get => NumGet(this, 8, "ptr")
                 set => NumPut("ptr", value, this, 8)
             }
-        
+
             /**
              * @type {Pointer<_IORING_OBJECT>}
              */
@@ -82,20 +83,19 @@ class IRP extends Win32Struct
                 get => NumGet(this, 8, "ptr")
                 set => NumPut("ptr", value, this, 8)
             }
-        
         }
-    
+
         /**
          * @type {_AsynchronousParameters}
          */
-        AsynchronousParameters{
+        AsynchronousParameters {
             get {
                 if(!this.HasProp("__AsynchronousParameters"))
-                    this.__AsynchronousParameters := %this.__Class%._AsynchronousParameters(0, this)
+                    this.__AsynchronousParameters := IRP._Overlay_e__Union._AsynchronousParameters(0, this)
                 return this.__AsynchronousParameters
             }
         }
-    
+
         /**
          * @type {Integer}
          */
@@ -103,36 +103,35 @@ class IRP extends Win32Struct
             get => NumGet(this, 0, "int64")
             set => NumPut("int64", value, this, 0)
         }
-    
     }
 
     class _Tail_e__Union extends Win32Struct {
-        static sizeof => 88
+        static sizeof => 72
         static packingSize => 8
 
         class _Overlay extends Win32Struct {
-            static sizeof => 88
+            static sizeof => 72
             static packingSize => 8
-    
+
             /**
-             * @type {Pointer<KDEVICE_QUEUE_ENTRY>}
+             * @type {Pointer}
              */
             DeviceQueueEntry {
                 get => NumGet(this, 0, "ptr")
                 set => NumPut("ptr", value, this, 0)
             }
-        
+
             /**
-             * @type {Array<Void>}
+             * @type {Array<Pointer<Void>>}
              */
-            DriverContext{
+            DriverContext {
                 get {
                     if(!this.HasProp("__DriverContextProxyArray"))
                         this.__DriverContextProxyArray := Win32FixedArray(this.ptr + 0, 4, Primitive, "ptr")
                     return this.__DriverContextProxyArray
                 }
             }
-        
+
             /**
              * @type {PETHREAD}
              */
@@ -140,7 +139,7 @@ class IRP extends Win32Struct
                 get => NumGet(this, 32, "ptr")
                 set => NumPut("ptr", value, this, 32)
             }
-        
+
             /**
              * @type {PSTR}
              */
@@ -148,63 +147,59 @@ class IRP extends Win32Struct
                 get => NumGet(this, 40, "ptr")
                 set => NumPut("ptr", value, this, 40)
             }
-        
+
             /**
-             * @type {LIST_ENTRY}
+             * @type {Pointer}
              */
-            ListEntry{
-                get {
-                    if(!this.HasProp("__ListEntry"))
-                        this.__ListEntry := LIST_ENTRY(48, this)
-                    return this.__ListEntry
-                }
+            ListEntry {
+                get => NumGet(this, 48, "ptr")
+                set => NumPut("ptr", value, this, 48)
             }
-        
+
             /**
              * @type {Pointer<IO_STACK_LOCATION>}
              */
             CurrentStackLocation {
-                get => NumGet(this, 64, "ptr")
-                set => NumPut("ptr", value, this, 64)
+                get => NumGet(this, 56, "ptr")
+                set => NumPut("ptr", value, this, 56)
             }
-        
+
             /**
              * @type {Integer}
              */
             PacketType {
-                get => NumGet(this, 64, "uint")
-                set => NumPut("uint", value, this, 64)
+                get => NumGet(this, 56, "uint")
+                set => NumPut("uint", value, this, 56)
             }
-        
+
             /**
              * @type {Pointer<FILE_OBJECT>}
              */
             OriginalFileObject {
-                get => NumGet(this, 80, "ptr")
-                set => NumPut("ptr", value, this, 80)
+                get => NumGet(this, 64, "ptr")
+                set => NumPut("ptr", value, this, 64)
             }
-        
         }
-    
+
         /**
          * @type {_Overlay}
          */
-        Overlay{
+        Overlay {
             get {
                 if(!this.HasProp("__Overlay"))
-                    this.__Overlay := %this.__Class%._Overlay(0, this)
+                    this.__Overlay := IRP._Tail_e__Union._Overlay(0, this)
                 return this.__Overlay
             }
         }
-    
+
         /**
-         * @type {Pointer<KAPC>}
+         * @type {Pointer}
          */
         Apc {
             get => NumGet(this, 0, "ptr")
             set => NumPut("ptr", value, this, 0)
         }
-    
+
         /**
          * @type {Pointer<Void>}
          */
@@ -212,7 +207,6 @@ class IRP extends Win32Struct
             get => NumGet(this, 0, "ptr")
             set => NumPut("ptr", value, this, 0)
         }
-    
     }
 
     /**
@@ -250,131 +244,125 @@ class IRP extends Win32Struct
     /**
      * @type {_AssociatedIrp_e__Union}
      */
-    AssociatedIrp{
+    AssociatedIrp {
         get {
             if(!this.HasProp("__AssociatedIrp"))
-                this.__AssociatedIrp := %this.__Class%._AssociatedIrp_e__Union(24, this)
+                this.__AssociatedIrp := IRP._AssociatedIrp_e__Union(24, this)
             return this.__AssociatedIrp
         }
     }
 
     /**
-     * @type {LIST_ENTRY}
+     * @type {Pointer}
      */
-    ThreadListEntry{
-        get {
-            if(!this.HasProp("__ThreadListEntry"))
-                this.__ThreadListEntry := LIST_ENTRY(32, this)
-            return this.__ThreadListEntry
-        }
+    ThreadListEntry {
+        get => NumGet(this, 32, "ptr")
+        set => NumPut("ptr", value, this, 32)
     }
 
     /**
-     * @type {IO_STATUS_BLOCK}
+     * @type {Pointer}
      */
-    IoStatus{
-        get {
-            if(!this.HasProp("__IoStatus"))
-                this.__IoStatus := IO_STATUS_BLOCK(48, this)
-            return this.__IoStatus
-        }
+    IoStatus {
+        get => NumGet(this, 40, "ptr")
+        set => NumPut("ptr", value, this, 40)
     }
 
     /**
      * @type {Integer}
      */
     RequestorMode {
-        get => NumGet(this, 64, "char")
-        set => NumPut("char", value, this, 64)
+        get => NumGet(this, 48, "char")
+        set => NumPut("char", value, this, 48)
     }
 
     /**
      * @type {BOOLEAN}
      */
     PendingReturned {
-        get => NumGet(this, 65, "char")
-        set => NumPut("char", value, this, 65)
+        get => NumGet(this, 49, "char")
+        set => NumPut("char", value, this, 49)
     }
 
     /**
      * @type {CHAR}
      */
     StackCount {
-        get => NumGet(this, 66, "char")
-        set => NumPut("char", value, this, 66)
+        get => NumGet(this, 50, "char")
+        set => NumPut("char", value, this, 50)
     }
 
     /**
      * @type {CHAR}
      */
     CurrentLocation {
-        get => NumGet(this, 67, "char")
-        set => NumPut("char", value, this, 67)
+        get => NumGet(this, 51, "char")
+        set => NumPut("char", value, this, 51)
     }
 
     /**
      * @type {BOOLEAN}
      */
     Cancel {
-        get => NumGet(this, 68, "char")
-        set => NumPut("char", value, this, 68)
+        get => NumGet(this, 52, "char")
+        set => NumPut("char", value, this, 52)
     }
 
     /**
      * @type {Integer}
      */
     CancelIrql {
-        get => NumGet(this, 69, "char")
-        set => NumPut("char", value, this, 69)
+        get => NumGet(this, 53, "char")
+        set => NumPut("char", value, this, 53)
     }
 
     /**
      * @type {Integer}
      */
     ApcEnvironment {
-        get => NumGet(this, 70, "char")
-        set => NumPut("char", value, this, 70)
+        get => NumGet(this, 54, "char")
+        set => NumPut("char", value, this, 54)
     }
 
     /**
      * @type {Integer}
      */
     AllocationFlags {
-        get => NumGet(this, 71, "char")
-        set => NumPut("char", value, this, 71)
+        get => NumGet(this, 55, "char")
+        set => NumPut("char", value, this, 55)
     }
 
     /**
      * @type {Pointer<IO_STATUS_BLOCK>}
      */
     UserIosb {
-        get => NumGet(this, 72, "ptr")
-        set => NumPut("ptr", value, this, 72)
+        get => NumGet(this, 56, "ptr")
+        set => NumPut("ptr", value, this, 56)
     }
 
     /**
      * @type {Pointer<Void>}
      */
     IoRingContext {
-        get => NumGet(this, 72, "ptr")
-        set => NumPut("ptr", value, this, 72)
+        get => NumGet(this, 56, "ptr")
+        set => NumPut("ptr", value, this, 56)
     }
 
     /**
      * @type {Pointer<KEVENT>}
      */
     UserEvent {
-        get => NumGet(this, 80, "ptr")
-        set => NumPut("ptr", value, this, 80)
+        get => NumGet(this, 64, "ptr")
+        set => NumPut("ptr", value, this, 64)
     }
 
     /**
      * @type {_Overlay_e__Union}
      */
-    Overlay{
+    Overlay {
         get {
             if(!this.HasProp("__Overlay"))
-                this.__Overlay := %this.__Class%._Overlay_e__Union(88, this)
+                this.__Overlay := IRP._Overlay_e__Union(72, this)
             return this.__Overlay
         }
     }
@@ -383,25 +371,25 @@ class IRP extends Win32Struct
      * @type {Pointer<DRIVER_CANCEL>}
      */
     CancelRoutine {
-        get => NumGet(this, 104, "ptr")
-        set => NumPut("ptr", value, this, 104)
+        get => NumGet(this, 88, "ptr")
+        set => NumPut("ptr", value, this, 88)
     }
 
     /**
      * @type {Pointer<Void>}
      */
     UserBuffer {
-        get => NumGet(this, 112, "ptr")
-        set => NumPut("ptr", value, this, 112)
+        get => NumGet(this, 96, "ptr")
+        set => NumPut("ptr", value, this, 96)
     }
 
     /**
      * @type {_Tail_e__Union}
      */
-    Tail{
+    Tail {
         get {
             if(!this.HasProp("__Tail"))
-                this.__Tail := %this.__Class%._Tail_e__Union(120, this)
+                this.__Tail := IRP._Tail_e__Union(104, this)
             return this.__Tail
         }
     }

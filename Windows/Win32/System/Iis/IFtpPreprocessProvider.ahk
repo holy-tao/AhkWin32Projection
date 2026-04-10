@@ -5,9 +5,8 @@
 
 /**
  * @namespace Windows.Win32.System.Iis
- * @version v4.0.30319
  */
-class IFtpPreprocessProvider extends IUnknown{
+class IFtpPreprocessProvider extends IUnknown {
 
     static sizeof => A_PtrSize
     /**
@@ -31,7 +30,7 @@ class IFtpPreprocessProvider extends IUnknown{
     /**
      * 
      * @param {Pointer<PRE_PROCESS_PARAMETERS>} pPreProcessParameters 
-     * @returns {Integer} 
+     * @returns {FTP_PROCESS_STATUS} 
      */
     HandlePreprocess(pPreProcessParameters) {
         result := ComCall(3, this, "ptr", pPreProcessParameters, "int*", &pFtpProcessStatus := 0, "HRESULT")

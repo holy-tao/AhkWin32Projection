@@ -7,9 +7,8 @@
  * The IWbemProviderIdentity interface is implemented by an event provider if the provider registers itself using more than one Name (multiple instances of __Win32Provider) with the same CLSID value.
  * @see https://learn.microsoft.com/windows/win32/api/wbemprov/nn-wbemprov-iwbemprovideridentity
  * @namespace Windows.Win32.System.Wmi
- * @version v4.0.30319
  */
-class IWbemProviderIdentity extends IUnknown{
+class IWbemProviderIdentity extends IUnknown {
 
     static sizeof => A_PtrSize
     /**

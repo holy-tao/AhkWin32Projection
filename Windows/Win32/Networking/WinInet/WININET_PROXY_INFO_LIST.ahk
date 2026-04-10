@@ -1,12 +1,11 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
+#Include .\WININET_PROXY_INFO.ahk
 
 /**
  * @namespace Windows.Win32.Networking.WinInet
- * @version v4.0.30319
  */
-class WININET_PROXY_INFO_LIST extends Win32Struct
-{
+class WININET_PROXY_INFO_LIST extends Win32Struct {
     static sizeof => 16
 
     static packingSize => 8

@@ -3,10 +3,8 @@
 
 /**
  * @namespace Windows.Win32.System.Ioctl
- * @version v4.0.30319
  */
-class STORAGE_DEVICE_NUMBER_EX extends Win32Struct
-{
+class STORAGE_DEVICE_NUMBER_EX extends Win32Struct {
     static sizeof => 40
 
     static packingSize => 8
@@ -52,7 +50,7 @@ class STORAGE_DEVICE_NUMBER_EX extends Win32Struct
     }
 
     /**
-     * @type {Pointer<Guid>}
+     * @type {Pointer}
      */
     DeviceGuid {
         get => NumGet(this, 24, "ptr")

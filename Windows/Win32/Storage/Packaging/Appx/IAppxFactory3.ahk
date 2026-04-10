@@ -1,20 +1,17 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\..\Guid.ahk
+#Include ..\..\..\System\Com\IUnknown.ahk
 #Include .\IAppxPackageReader.ahk
 #Include .\IAppxManifestReader.ahk
 #Include .\IAppxAppInstallerReader.ahk
-#Include ..\..\..\System\Com\IUnknown.ahk
 
 /**
  * Creates objects for reading and writing app packages, manifests, and app installer files.
- * @remarks
- * 
  * @see https://learn.microsoft.com/windows/win32/api/appxpackaging/nn-appxpackaging-iappxfactory3
  * @namespace Windows.Win32.Storage.Packaging.Appx
- * @version v4.0.30319
  */
-class IAppxFactory3 extends IUnknown{
+class IAppxFactory3 extends IUnknown {
 
     static sizeof => A_PtrSize
     /**

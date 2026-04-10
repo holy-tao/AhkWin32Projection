@@ -5,9 +5,8 @@
  * Specifies the way in which ink is erased from the InkOverlay object and the InkPicture control.This mode is used when the InkOverlayEditingMode is set to Delete.
  * @see https://learn.microsoft.com/windows/win32/api/msinkaut/ne-msinkaut-inkoverlayerasermode
  * @namespace Windows.Win32.UI.TabletPC
- * @version v4.0.30319
  */
-class InkOverlayEraserMode extends Win32Enum{
+class InkOverlayEraserMode extends Win32Enum {
 
     /**
      * Ink is erased by stroke.

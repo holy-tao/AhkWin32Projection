@@ -7,9 +7,8 @@
  * Exposes methods called by the protocol to notify the Remote Desktop Services service to start or stop the target side of a shadow.
  * @see https://learn.microsoft.com/windows/win32/api/wtsprotocol/nn-wtsprotocol-iwrdsprotocolshadowcallback
  * @namespace Windows.Win32.System.RemoteDesktop
- * @version v4.0.30319
  */
-class IWRdsProtocolShadowCallback extends IUnknown{
+class IWRdsProtocolShadowCallback extends IUnknown {
 
     static sizeof => A_PtrSize
     /**

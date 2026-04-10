@@ -1,16 +1,14 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
-#Include ..\..\Foundation\BSTR.ahk
 #Include .\IWMPSyncDevice.ahk
 
 /**
  * The IWMPSyncDevice2 interface provides a method that supplements the IWMPSyncDevice interface.To use this interface, you must create a remoted instance of the Windows Media Player 10 or later control.
  * @see https://learn.microsoft.com/windows/win32/api/wmp/nn-wmp-iwmpsyncdevice2
  * @namespace Windows.Win32.Media.MediaPlayer
- * @version v4.0.30319
  */
-class IWMPSyncDevice2 extends IWMPSyncDevice{
+class IWMPSyncDevice2 extends IWMPSyncDevice {
 
     static sizeof => A_PtrSize
     /**

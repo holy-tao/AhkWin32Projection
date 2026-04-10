@@ -1,44 +1,35 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
-#Include ..\..\..\Win32\Networking\WinSock\FLOWSPEC.ahk
 
 /**
  * @namespace Windows.Wdk.NetworkManagement.Ndis
- * @version v4.0.30319
  */
-class CO_CALL_MANAGER_PARAMETERS extends Win32Struct
-{
-    static sizeof => 72
+class CO_CALL_MANAGER_PARAMETERS extends Win32Struct {
+    static sizeof => 24
 
     static packingSize => 8
 
     /**
-     * @type {FLOWSPEC}
+     * @type {Pointer}
      */
-    Transmit{
-        get {
-            if(!this.HasProp("__Transmit"))
-                this.__Transmit := FLOWSPEC(0, this)
-            return this.__Transmit
-        }
+    Transmit {
+        get => NumGet(this, 0, "ptr")
+        set => NumPut("ptr", value, this, 0)
     }
 
     /**
-     * @type {FLOWSPEC}
+     * @type {Pointer}
      */
-    Receive{
-        get {
-            if(!this.HasProp("__Receive"))
-                this.__Receive := FLOWSPEC(32, this)
-            return this.__Receive
-        }
+    Receive {
+        get => NumGet(this, 8, "ptr")
+        set => NumPut("ptr", value, this, 8)
     }
 
     /**
-     * @type {Pointer<CO_SPECIFIC_PARAMETERS>}
+     * @type {Pointer}
      */
     CallMgrSpecific {
-        get => NumGet(this, 64, "ptr")
-        set => NumPut("ptr", value, this, 64)
+        get => NumGet(this, 16, "ptr")
+        set => NumPut("ptr", value, this, 16)
     }
 }

@@ -5,10 +5,8 @@
  * Specifies the fully qualified binary name.
  * @see https://learn.microsoft.com/windows/win32/api/winnt/ns-winnt-claim_security_attribute_fqbn_value
  * @namespace Windows.Win32.Security
- * @version v4.0.30319
  */
-class CLAIM_SECURITY_ATTRIBUTE_FQBN_VALUE extends Win32Struct
-{
+class CLAIM_SECURITY_ATTRIBUTE_FQBN_VALUE extends Win32Struct {
     static sizeof => 16
 
     static packingSize => 8

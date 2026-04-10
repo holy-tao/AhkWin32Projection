@@ -7,10 +7,8 @@
  * The <b>USB_DRIVER_VERSION_PARAMETERS</b> structure is used with the USBUSER_GET_USB_DRIVER_VERSION user-mode request. For a description of this request, see <a href="https://docs.microsoft.com/windows/desktop/api/usbuser/ni-usbuser-ioctl_usb_user_request">IOCTL_USB_USER_REQUEST</a>.
  * @see https://learn.microsoft.com/windows/win32/api/usbuser/ns-usbuser-usb_driver_version_parameters
  * @namespace Windows.Win32.Devices.Usb
- * @version v4.0.30319
  */
-class USB_DRIVER_VERSION_PARAMETERS extends Win32Struct
-{
+class USB_DRIVER_VERSION_PARAMETERS extends Win32Struct {
     static sizeof => 16
 
     static packingSize => 4

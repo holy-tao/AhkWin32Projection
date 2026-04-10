@@ -5,10 +5,8 @@
  * Represents the bounds of one dimension of the array.
  * @see https://learn.microsoft.com/windows/win32/api/oaidl/ns-oaidl-safearraybound
  * @namespace Windows.Win32.System.Com
- * @version v4.0.30319
  */
-class SAFEARRAYBOUND extends Win32Struct
-{
+class SAFEARRAYBOUND extends Win32Struct {
     static sizeof => 8
 
     static packingSize => 4

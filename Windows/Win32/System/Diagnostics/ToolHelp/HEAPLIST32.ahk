@@ -5,10 +5,8 @@
  * Describes an entry from a list that enumerates the heaps used by a specified process.
  * @see https://learn.microsoft.com/windows/win32/api/tlhelp32/ns-tlhelp32-heaplist32
  * @namespace Windows.Win32.System.Diagnostics.ToolHelp
- * @version v4.0.30319
  */
-class HEAPLIST32 extends Win32Struct
-{
+class HEAPLIST32 extends Win32Struct {
     static sizeof => 32
 
     static packingSize => 8

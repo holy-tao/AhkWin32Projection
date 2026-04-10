@@ -3,10 +3,8 @@
 
 /**
  * @namespace Windows.Win32.Security.Cryptography
- * @version v4.0.30319
  */
-class KEY_TYPE_SUBTYPE extends Win32Struct
-{
+class KEY_TYPE_SUBTYPE extends Win32Struct {
     static sizeof => 24
 
     static packingSize => 8
@@ -20,7 +18,7 @@ class KEY_TYPE_SUBTYPE extends Win32Struct
     }
 
     /**
-     * @type {Pointer<Guid>}
+     * @type {Pointer}
      */
     Type {
         get => NumGet(this, 8, "ptr")
@@ -28,7 +26,7 @@ class KEY_TYPE_SUBTYPE extends Win32Struct
     }
 
     /**
-     * @type {Pointer<Guid>}
+     * @type {Pointer}
      */
     Subtype {
         get => NumGet(this, 16, "ptr")

@@ -9,10 +9,8 @@
  * <a href="https://docs.microsoft.com/windows/win32/api/windns/ns-windns-dns_recorda">DNS_RECORD</a> structure to programmatically manage DNS entries.
  * @see https://learn.microsoft.com/windows/win32/api/windns/ns-windns-dns_wks_data
  * @namespace Windows.Win32.NetworkManagement.Dns
- * @version v4.0.30319
  */
-class DNS_WKS_DATA extends Win32Struct
-{
+class DNS_WKS_DATA extends Win32Struct {
     static sizeof => 8
 
     static packingSize => 4
@@ -37,9 +35,9 @@ class DNS_WKS_DATA extends Win32Struct
 
     /**
      * A variable-length bitmask whose bits correspond to the port number of well known services offered by the protocol specified in <b>chProtocol</b>. The bitmask has one bit for every port of the supported protocol, but must be a multiple of a <b>BYTE</b>. Bit 0 corresponds to port 1, bit 1 corresponds to port 2, and so forth for a maximum of 1024 bits.
-     * @type {Array<Byte>}
+     * @type {Array<Integer>}
      */
-    BitMask{
+    BitMask {
         get {
             if(!this.HasProp("__BitMaskProxyArray"))
                 this.__BitMaskProxyArray := Win32FixedArray(this.ptr + 5, 1, Primitive, "char")

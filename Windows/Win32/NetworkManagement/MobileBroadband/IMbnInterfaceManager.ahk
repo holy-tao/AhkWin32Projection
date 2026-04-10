@@ -1,8 +1,8 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
-#Include .\IMbnInterface.ahk
 #Include ..\..\System\Com\IUnknown.ahk
+#Include .\IMbnInterface.ahk
 
 /**
  * Provides access to IMbnInterface objects and notifications.
@@ -92,9 +92,8 @@
  * To view some code that registers for COM notifications, see the Client section of the <a href="https://docs.microsoft.com/archive/msdn-magazine/2007/september/clr-inside-out-com-connection-points">COM Connection Points</a> article.
  * @see https://learn.microsoft.com/windows/win32/api/mbnapi/nn-mbnapi-imbninterfacemanager
  * @namespace Windows.Win32.NetworkManagement.MobileBroadband
- * @version v4.0.30319
  */
-class IMbnInterfaceManager extends IUnknown{
+class IMbnInterfaceManager extends IUnknown {
 
     static sizeof => A_PtrSize
     /**

@@ -3,10 +3,8 @@
 
 /**
  * @namespace Windows.Win32.NetworkManagement.MobileBroadband
- * @version v4.0.30319
  */
-class __DummyPinType__ extends Win32Struct
-{
+class __DummyPinType__ extends Win32Struct {
     static sizeof => 4
 
     static packingSize => 4

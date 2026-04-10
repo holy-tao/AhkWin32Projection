@@ -5,10 +5,8 @@
  * Provides information about a pen flick.
  * @see https://learn.microsoft.com/windows/win32/api/tabflicks/ns-tabflicks-flick_point
  * @namespace Windows.Win32.UI.TabletPC
- * @version v4.0.30319
  */
-class FLICK_POINT extends Win32Struct
-{
+class FLICK_POINT extends Win32Struct {
     static sizeof => 4
 
     static packingSize => 4
@@ -25,7 +23,6 @@ class FLICK_POINT extends Win32Struct
     }
 
     /**
-     * The x-coordinate where the pen flick took place.
      * @type {Integer}
      */
     x {
@@ -34,7 +31,6 @@ class FLICK_POINT extends Win32Struct
     }
 
     /**
-     * The y-coordinate where the pen flick took place.
      * @type {Integer}
      */
     y {

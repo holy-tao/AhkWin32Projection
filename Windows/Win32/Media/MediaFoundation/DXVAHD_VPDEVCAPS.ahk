@@ -1,5 +1,7 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
+#Include .\DXVAHD_DEVICE_TYPE.ahk
+#Include ..\..\Graphics\Direct3D9\D3DPOOL.ahk
 
 /**
  * Specifies the capabilities of a Microsoft DirectX Video Acceleration High Definition (DXVA-HD) device.
@@ -13,17 +15,15 @@
  * To set the state data for a stream, call <a href="https://docs.microsoft.com/windows/desktop/api/dxvahd/nf-dxvahd-idxvahd_videoprocessor-setvideoprocessstreamstate">IDXVAHD_VideoProcessor::SetVideoProcessStreamState</a>.
  * @see https://learn.microsoft.com/windows/win32/api/dxvahd/ns-dxvahd-dxvahd_vpdevcaps
  * @namespace Windows.Win32.Media.MediaFoundation
- * @version v4.0.30319
  */
-class DXVAHD_VPDEVCAPS extends Win32Struct
-{
+class DXVAHD_VPDEVCAPS extends Win32Struct {
     static sizeof => 44
 
     static packingSize => 4
 
     /**
      * Specifies the device type, as a member of the <a href="https://docs.microsoft.com/windows/desktop/api/dxvahd/ne-dxvahd-dxvahd_device_type">DXVAHD_DEVICE_TYPE</a> enumeration.
-     * @type {Integer}
+     * @type {DXVAHD_DEVICE_TYPE}
      */
     DeviceType {
         get => NumGet(this, 0, "int")
@@ -68,7 +68,7 @@ class DXVAHD_VPDEVCAPS extends Win32Struct
 
     /**
      * The memory pool that is required for the input video surfaces.
-     * @type {Integer}
+     * @type {D3DPOOL}
      */
     InputPool {
         get => NumGet(this, 20, "int")

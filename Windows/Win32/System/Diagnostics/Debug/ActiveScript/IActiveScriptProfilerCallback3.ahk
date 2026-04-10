@@ -5,9 +5,8 @@
 
 /**
  * @namespace Windows.Win32.System.Diagnostics.Debug.ActiveScript
- * @version v4.0.30319
  */
-class IActiveScriptProfilerCallback3 extends IActiveScriptProfilerCallback2{
+class IActiveScriptProfilerCallback3 extends IActiveScriptProfilerCallback2 {
 
     static sizeof => A_PtrSize
     /**

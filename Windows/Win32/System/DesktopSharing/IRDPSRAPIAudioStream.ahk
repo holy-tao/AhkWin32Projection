@@ -7,9 +7,8 @@
  * Enables sending an audio stream from the collaboration sharer Microsoft ActiveX control to collaboration viewer controls.
  * @see https://learn.microsoft.com/windows/win32/api/rdpencomapi/nn-rdpencomapi-irdpsrapiaudiostream
  * @namespace Windows.Win32.System.DesktopSharing
- * @version v4.0.30319
  */
-class IRDPSRAPIAudioStream extends IUnknown{
+class IRDPSRAPIAudioStream extends IUnknown {
 
     static sizeof => A_PtrSize
     /**

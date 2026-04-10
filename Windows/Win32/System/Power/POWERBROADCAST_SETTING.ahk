@@ -5,10 +5,8 @@
  * Sent with a power setting event and contains data about the specific change.
  * @see https://learn.microsoft.com/windows/win32/api/winuser/ns-winuser-powerbroadcast_setting
  * @namespace Windows.Win32.System.Power
- * @version v4.0.30319
  */
-class POWERBROADCAST_SETTING extends Win32Struct
-{
+class POWERBROADCAST_SETTING extends Win32Struct {
     static sizeof => 16
 
     static packingSize => 8
@@ -16,7 +14,7 @@ class POWERBROADCAST_SETTING extends Win32Struct
     /**
      * Indicates the power setting for which this notification is being delivered. For more 
      *     info, see <a href="https://docs.microsoft.com/windows/desktop/Power/power-setting-guids">Power Setting GUIDs</a>.
-     * @type {Pointer<Guid>}
+     * @type {Pointer}
      */
     PowerSetting {
         get => NumGet(this, 0, "ptr")
@@ -34,9 +32,9 @@ class POWERBROADCAST_SETTING extends Win32Struct
 
     /**
      * The new value of the power setting. The type and possible values for this member depend on <i>PowerSettng.</i>
-     * @type {Array<Byte>}
+     * @type {Array<Integer>}
      */
-    Data{
+    Data {
         get {
             if(!this.HasProp("__DataProxyArray"))
                 this.__DataProxyArray := Win32FixedArray(this.ptr + 12, 1, Primitive, "char")

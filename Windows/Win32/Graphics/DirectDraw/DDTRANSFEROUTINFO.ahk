@@ -5,10 +5,8 @@
  * The DDTRANSFEROUTINFO structure returns the polarity of the field being captured.
  * @see https://learn.microsoft.com/windows/win32/api/dxmini/ns-dxmini-ddtransferoutinfo
  * @namespace Windows.Win32.Graphics.DirectDraw
- * @version v4.0.30319
  */
-class DDTRANSFEROUTINFO extends Win32Struct
-{
+class DDTRANSFEROUTINFO extends Win32Struct {
     static sizeof => 4
 
     static packingSize => 4

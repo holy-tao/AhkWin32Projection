@@ -1,21 +1,20 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
+#Include .\SR_REPLICATED_DISK_TYPE.ahk
 
 /**
  * Represents a replicated disk.
  * @see https://learn.microsoft.com/windows/win32/api/clusapi/ns-clusapi-sr_resource_type_replicated_disk
  * @namespace Windows.Win32.Networking.Clustering
- * @version v4.0.30319
  */
-class SR_RESOURCE_TYPE_REPLICATED_DISK extends Win32Struct
-{
+class SR_RESOURCE_TYPE_REPLICATED_DISK extends Win32Struct {
     static sizeof => 544
 
     static packingSize => 8
 
     /**
      * The type of the replicated disk.
-     * @type {Integer}
+     * @type {SR_REPLICATED_DISK_TYPE}
      */
     Type {
         get => NumGet(this, 0, "int")
@@ -24,7 +23,7 @@ class SR_RESOURCE_TYPE_REPLICATED_DISK extends Win32Struct
 
     /**
      * The cluster resource identifier of the disk.
-     * @type {Pointer<Guid>}
+     * @type {Pointer}
      */
     ClusterDiskResourceGuid {
         get => NumGet(this, 8, "ptr")
@@ -33,7 +32,7 @@ class SR_RESOURCE_TYPE_REPLICATED_DISK extends Win32Struct
 
     /**
      * The replication group identifier of the disk.
-     * @type {Pointer<Guid>}
+     * @type {Pointer}
      */
     ReplicationGroupId {
         get => NumGet(this, 16, "ptr")

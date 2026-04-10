@@ -7,9 +7,8 @@
  * Windows Media Player 10 Mobile: This enumeration is not supported.
  * @see https://learn.microsoft.com/windows/win32/api/wmp/ne-wmp-wmpburnstate
  * @namespace Windows.Win32.Media.MediaPlayer
- * @version v4.0.30319
  */
-class WMPBurnState extends Win32Enum{
+class WMPBurnState extends Win32Enum {
 
     /**
      * Not a valid state.
@@ -66,7 +65,6 @@ class WMPBurnState extends Win32Enum{
     static wmpbsErasing => 8
 
     /**
-     * 
      * @type {Integer (Int32)}
      */
     static wmpbsDownloading => 9

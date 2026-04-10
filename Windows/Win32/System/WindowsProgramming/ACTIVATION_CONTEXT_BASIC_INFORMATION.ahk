@@ -4,10 +4,8 @@
 
 /**
  * @namespace Windows.Win32.System.WindowsProgramming
- * @version v4.0.30319
  */
-class ACTIVATION_CONTEXT_BASIC_INFORMATION extends Win32Struct
-{
+class ACTIVATION_CONTEXT_BASIC_INFORMATION extends Win32Struct {
     static sizeof => 16
 
     static packingSize => 8
@@ -15,7 +13,7 @@ class ACTIVATION_CONTEXT_BASIC_INFORMATION extends Win32Struct
     /**
      * @type {HANDLE}
      */
-    hActCtx{
+    hActCtx {
         get {
             if(!this.HasProp("__hActCtx"))
                 this.__hActCtx := HANDLE(0, this)

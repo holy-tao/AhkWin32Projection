@@ -3,16 +3,14 @@
 
 /**
  * @namespace Windows.Win32.Storage.FileSystem
- * @version v4.0.30319
  */
-class KCRM_TRANSACTION_BLOB extends Win32Struct
-{
+class KCRM_TRANSACTION_BLOB extends Win32Struct {
     static sizeof => 160
 
     static packingSize => 8
 
     /**
-     * @type {Pointer<Guid>}
+     * @type {Pointer}
      */
     UOW {
         get => NumGet(this, 0, "ptr")
@@ -20,7 +18,7 @@ class KCRM_TRANSACTION_BLOB extends Win32Struct
     }
 
     /**
-     * @type {Pointer<Guid>}
+     * @type {Pointer}
      */
     TmIdentity {
         get => NumGet(this, 8, "ptr")

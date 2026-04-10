@@ -1,8 +1,8 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
-#Include ..\TIMECODE_SAMPLE.ahk
 #Include ..\..\System\Com\IUnknown.ahk
+#Include ..\TIMECODE_SAMPLE.ahk
 
 /**
  * The IAMTimecodeReader interface reads SMPTE or MIDI timecode from an external device. The MSDV and MSTape drivers support this interface for reading timecode from an external DV or MPEG-2 camcorder.
@@ -35,9 +35,8 @@
  * The external device must be able to read timecode and send it to the computer over its control interface. If this is not the case, you must either have a timecode reader card in your computer, or you can write a software decoder that converts VITC (Vertical Interval Timecode) in captured video frames or LTC (Linear Timecode) captured as an audio signal into DirectShow timecode samples.
  * @see https://learn.microsoft.com/windows/win32/api/strmif/nn-strmif-iamtimecodereader
  * @namespace Windows.Win32.Media.DirectShow
- * @version v4.0.30319
  */
-class IAMTimecodeReader extends IUnknown{
+class IAMTimecodeReader extends IUnknown {
 
     static sizeof => A_PtrSize
     /**

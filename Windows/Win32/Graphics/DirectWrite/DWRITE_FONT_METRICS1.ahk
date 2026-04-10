@@ -17,10 +17,8 @@
  * ```
  * @see https://learn.microsoft.com/windows/win32/api/dwrite_1/ns-dwrite_1-dwrite_font_metrics1
  * @namespace Windows.Win32.Graphics.DirectWrite
- * @version v4.0.30319
  */
-class DWRITE_FONT_METRICS1 extends Win32Struct
-{
+class DWRITE_FONT_METRICS1 extends Win32Struct {
     static sizeof => 48
 
     static packingSize => 4
@@ -28,7 +26,7 @@ class DWRITE_FONT_METRICS1 extends Win32Struct
     /**
      * @type {DWRITE_FONT_METRICS}
      */
-    Base{
+    Base {
         get {
             if(!this.HasProp("__Base"))
                 this.__Base := DWRITE_FONT_METRICS(0, this)

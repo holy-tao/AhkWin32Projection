@@ -9,9 +9,8 @@
  * An instance of this interface for the current context can be obtained using <a href="https://docs.microsoft.com/windows/desktop/api/combaseapi/nf-combaseapi-cogetobjectcontext">CoGetObjectContext</a>.
  * @see https://learn.microsoft.com/windows/win32/api/ctxtcall/nn-ctxtcall-icontextcallback
  * @namespace Windows.Win32.System.Com
- * @version v4.0.30319
  */
-class IContextCallback extends IUnknown{
+class IContextCallback extends IUnknown {
 
     static sizeof => A_PtrSize
     /**
@@ -42,7 +41,7 @@ class IContextCallback extends IUnknown{
      * If <i>riid</i> is set to IID_IEnterActivityWithNoLock, the function is executed without an activity lock.
      * 
      * If <i>riid</i> is set to IID_ICallbackWithNoReentrancyToApplicationSTA, the function does not reenter an ASTA arbitrarily. Most apps should set <i>riid</i> to this values for general purpose use.
-     * @param {Pointer<PFNCONTEXTCALL>} _pfnCallback 
+     * @param {Pointer<PFNCONTEXTCALL>} _pfnCallback The function to be called inside the object context.
      * @param {Pointer<ComCallData>} pParam The data to be passed to the function when it is called in the context.
      * @param {Pointer<Guid>} riid The IID of the call that is being simulated. See Remarks for more information.
      * @param {Integer} iMethod The method number of the call that is being simulated. See Remarks for more information.

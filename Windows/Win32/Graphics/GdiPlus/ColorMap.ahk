@@ -4,10 +4,8 @@
 
 /**
  * @namespace Windows.Win32.Graphics.GdiPlus
- * @version v4.0.30319
  */
-class ColorMap extends Win32Struct
-{
+class ColorMap extends Win32Struct {
     static sizeof => 1200
 
     static packingSize => 4
@@ -15,7 +13,7 @@ class ColorMap extends Win32Struct
     /**
      * @type {Color}
      */
-    oldColor{
+    oldColor {
         get {
             if(!this.HasProp("__oldColor"))
                 this.__oldColor := Color(0, this)
@@ -26,7 +24,7 @@ class ColorMap extends Win32Struct
     /**
      * @type {Color}
      */
-    newColor{
+    newColor {
         get {
             if(!this.HasProp("__newColor"))
                 this.__newColor := Color(600, this)

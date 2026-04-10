@@ -5,9 +5,8 @@
  * The CLUSCTL_GROUP_CODES enumeration (msclus.h) enumerates group control codes.
  * @see https://learn.microsoft.com/windows/win32/api/msclus/ne-msclus-clusctl_group_codes
  * @namespace Windows.Win32.Networking.Clustering
- * @version v4.0.30319
  */
-class CLUSCTL_GROUP_CODES extends Win32Enum{
+class CLUSCTL_GROUP_CODES extends Win32Enum {
 
     /**
      * See <a href="https://docs.microsoft.com/previous-versions/windows/desktop/mscs/clusctl-group-unknown">CLUSCTL_GROUP_UNKNOWN</a>.
@@ -145,7 +144,6 @@ class CLUSCTL_GROUP_CODES extends Win32Enum{
     static CLUSCTL_GROUP_GET_LAST_MOVE_TIME => 50332377
 
     /**
-     * 
      * @type {Integer (Int32)}
      */
     static CLUSCTL_GROUP_SET_CCF_FROM_MASTER => 54537606

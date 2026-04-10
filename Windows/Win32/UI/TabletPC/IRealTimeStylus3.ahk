@@ -7,9 +7,8 @@
  * The IRealTimeStylus3 interface enables multitouch for the realtime stylus.
  * @see https://learn.microsoft.com/windows/win32/api/rtscom/nn-rtscom-irealtimestylus3
  * @namespace Windows.Win32.UI.TabletPC
- * @version v4.0.30319
  */
-class IRealTimeStylus3 extends IUnknown{
+class IRealTimeStylus3 extends IUnknown {
 
     static sizeof => A_PtrSize
     /**

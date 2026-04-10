@@ -1,5 +1,7 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
+#Include .\WSMAN_SENDER_DETAILS.ahk
+#Include .\WSMAN_OPERATION_INFO.ahk
 #Include ..\..\Foundation\HANDLE.ahk
 
 /**
@@ -10,10 +12,8 @@
  * asynchronous in nature, the <b>shutdownNotificationHandle</b> can be used when queuing asynchronous notification threads.
  * @see https://learn.microsoft.com/windows/win32/api/wsman/ns-wsman-wsman_plugin_request
  * @namespace Windows.Win32.System.RemoteManagement
- * @version v4.0.30319
  */
-class WSMAN_PLUGIN_REQUEST extends Win32Struct
-{
+class WSMAN_PLUGIN_REQUEST extends Win32Struct {
     static sizeof => 56
 
     static packingSize => 8
@@ -73,7 +73,7 @@ class WSMAN_PLUGIN_REQUEST extends Win32Struct
      * If the operation is canceled, <b>shutdownNotification</b> is signaled.
      * @type {HANDLE}
      */
-    shutdownNotificationHandle{
+    shutdownNotificationHandle {
         get {
             if(!this.HasProp("__shutdownNotificationHandle"))
                 this.__shutdownNotificationHandle := HANDLE(40, this)
@@ -82,7 +82,6 @@ class WSMAN_PLUGIN_REQUEST extends Win32Struct
     }
 
     /**
-     * 
      * @type {PWSTR}
      */
     dataLocale {

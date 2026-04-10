@@ -15,9 +15,8 @@
  * For a list of common RFC 1766-compliant language identifiers, see <a href="https://docs.microsoft.com/windows/desktop/wmformat/language-strings">Language Strings</a>.
  * @see https://learn.microsoft.com/windows/win32/api/wmsdkidl/nn-wmsdkidl-iwmlanguagelist
  * @namespace Windows.Win32.Media.WindowsMediaFormat
- * @version v4.0.30319
  */
-class IWMLanguageList extends IUnknown{
+class IWMLanguageList extends IUnknown {
 
     static sizeof => A_PtrSize
     /**

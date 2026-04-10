@@ -1,11 +1,11 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
+#Include ..\..\System\Com\IUnknown.ahk
 #Include .\IXpsOMDocumentSequence.ahk
 #Include .\IXpsOMCoreProperties.ahk
 #Include ..\Packaging\Opc\IOpcPartUri.ahk
 #Include .\IXpsOMImageResource.ahk
-#Include ..\..\System\Com\IUnknown.ahk
 
 /**
  * Provides the top-level entry into the XPS object model tree.
@@ -51,9 +51,8 @@
  * For information about using this interface in a program, see <a href="https://docs.microsoft.com/previous-versions/windows/desktop/dd316970(v=vs.85)">Create a Blank XPS OM</a>.
  * @see https://learn.microsoft.com/windows/win32/api/xpsobjectmodel/nn-xpsobjectmodel-ixpsompackage
  * @namespace Windows.Win32.Storage.Xps
- * @version v4.0.30319
  */
-class IXpsOMPackage extends IUnknown{
+class IXpsOMPackage extends IUnknown {
 
     static sizeof => A_PtrSize
     /**

@@ -1,5 +1,6 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
+#Include .\FixupState.ahk
 #Include .\ResultCodes.ahk
 
 /**
@@ -12,17 +13,15 @@
  * If the SHA cannot update the fix-up information, then <b>state</b> must be set to <b>fixupStateCouldNotUpdate</b>.
  * @see https://learn.microsoft.com/windows/win32/api/naptypes/ns-naptypes-fixupinfo
  * @namespace Windows.Win32.Security.NetworkAccessProtection
- * @version v4.0.30319
  */
-class FixupInfo extends Win32Struct
-{
+class FixupInfo extends Win32Struct {
     static sizeof => 32
 
     static packingSize => 8
 
     /**
      * A <a href="https://docs.microsoft.com/windows/desktop/api/naptypes/ne-naptypes-fixupstate">FixupState</a> value that defines the fix-up state of the SHA.
-     * @type {Integer}
+     * @type {FixupState}
      */
     state {
         get => NumGet(this, 0, "int")
@@ -45,7 +44,7 @@ class FixupInfo extends Win32Struct
      * A <a href="https://docs.microsoft.com/windows/desktop/api/naptypes/ns-naptypes-resultcodes">ResultCodes</a> structure that contains the SHA defined HRESULT values returned to the NAP Agent in a call to <a href="https://docs.microsoft.com/windows/desktop/NAP/inapsystemhealthagentcallback-getfixupinfo-method">GetFixupInfo</a>.
      * @type {ResultCodes}
      */
-    resultCodes{
+    resultCodes {
         get {
             if(!this.HasProp("__resultCodes"))
                 this.__resultCodes := ResultCodes(8, this)

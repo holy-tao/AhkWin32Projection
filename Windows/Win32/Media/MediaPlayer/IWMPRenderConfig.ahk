@@ -7,9 +7,8 @@
  * The IWMPRenderConfig interface provides methods to specify or retrieve a value indicating whether Media Foundation&#8211;based playback is restricted to the current process.Note  Using this interface with protected content is not supported. .
  * @see https://learn.microsoft.com/windows/win32/api/wmprealestate/nn-wmprealestate-iwmprenderconfig
  * @namespace Windows.Win32.Media.MediaPlayer
- * @version v4.0.30319
  */
-class IWMPRenderConfig extends IUnknown{
+class IWMPRenderConfig extends IUnknown {
 
     static sizeof => A_PtrSize
     /**
@@ -31,6 +30,7 @@ class IWMPRenderConfig extends IUnknown{
     static VTableNames => ["put_inProcOnly", "get_inProcOnly"]
 
     /**
+     * @type {BOOL} 
      */
     inProcOnly {
         get => this.get_inProcOnly()

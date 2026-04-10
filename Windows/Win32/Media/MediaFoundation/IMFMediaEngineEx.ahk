@@ -1,10 +1,9 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
-#Include ..\..\Foundation\BSTR.ahk
+#Include .\IMFMediaEngine.ahk
 #Include ..\..\System\Com\StructuredStorage\PROPVARIANT.ahk
 #Include ..\..\Foundation\HANDLE.ahk
-#Include .\IMFMediaEngine.ahk
 
 /**
  * Extends the IMFMediaEngine interface.
@@ -12,9 +11,8 @@
  * The <a href="https://docs.microsoft.com/windows/desktop/api/mfmediaengine/nn-mfmediaengine-imfmediaengine">IMFMediaEngine</a> interface contains methods that map to the HTML5 media elements. The <b>IMFMediaEngineEx</b> provides additional functionality that does not correspond directly to HTML5.
  * @see https://learn.microsoft.com/windows/win32/api/mfmediaengine/nn-mfmediaengine-imfmediaengineex
  * @namespace Windows.Win32.Media.MediaFoundation
- * @version v4.0.30319
  */
-class IMFMediaEngineEx extends IMFMediaEngine{
+class IMFMediaEngineEx extends IMFMediaEngine {
 
     static sizeof => A_PtrSize
     /**
@@ -51,7 +49,7 @@ class IMFMediaEngineEx extends IMFMediaEngine{
 
     /**
      * Gets a playback statistic from the Media Engine.
-     * @param {Integer} StatisticID A member of the <a href="https://docs.microsoft.com/windows/desktop/api/mfmediaengine/ne-mfmediaengine-mf_media_engine_statistic">MF_MEDIA_ENGINE_STATISTIC</a> enumeration that identifies the statistic to get.
+     * @param {MF_MEDIA_ENGINE_STATISTIC} StatisticID A member of the <a href="https://docs.microsoft.com/windows/desktop/api/mfmediaengine/ne-mfmediaengine-mf_media_engine_statistic">MF_MEDIA_ENGINE_STATISTIC</a> enumeration that identifies the statistic to get.
      * @returns {PROPVARIANT} A pointer to a <a href="https://docs.microsoft.com/windows/desktop/api/propidl/ns-propidl-propvariant">PROPVARIANT</a> that receives the statistic. The data type and meaning of this value depends on the value of <i>StatisticID</i>. The caller must free the <b>PROPVARIANT</b> by calling <a href="https://docs.microsoft.com/windows/desktop/api/propidl/nf-propidl-propvariantclear">PropVariantClear</a>.
      * @see https://learn.microsoft.com/windows/win32/api/mfmediaengine/nf-mfmediaengine-imfmediaengineex-getstatistics
      */
@@ -575,7 +573,7 @@ class IMFMediaEngineEx extends IMFMediaEngine{
 
     /**
      * For stereoscopic 3D video, gets the layout of the two views within a video frame.
-     * @returns {Integer} Receives a member of the <a href="https://docs.microsoft.com/windows/desktop/api/mfmediaengine/ne-mfmediaengine-mf_media_engine_s3d_packing_mode">MF_MEDIA_ENGINE_S3D_PACKING_MODE</a> enumeration.
+     * @returns {MF_MEDIA_ENGINE_S3D_PACKING_MODE} Receives a member of the <a href="https://docs.microsoft.com/windows/desktop/api/mfmediaengine/ne-mfmediaengine-mf_media_engine_s3d_packing_mode">MF_MEDIA_ENGINE_S3D_PACKING_MODE</a> enumeration.
      * @see https://learn.microsoft.com/windows/win32/api/mfmediaengine/nf-mfmediaengine-imfmediaengineex-getstereo3dframepackingmode
      */
     GetStereo3DFramePackingMode() {
@@ -585,7 +583,7 @@ class IMFMediaEngineEx extends IMFMediaEngine{
 
     /**
      * For stereoscopic 3D video, sets the layout of the two views within a video frame.
-     * @param {Integer} packMode A member of the <a href="https://docs.microsoft.com/windows/desktop/api/mfmediaengine/ne-mfmediaengine-mf_media_engine_s3d_packing_mode">MF_MEDIA_ENGINE_S3D_PACKING_MODE</a> enumeration that specifies the layout. The two views can be arranged side-by-side, or top-to-bottom.
+     * @param {MF_MEDIA_ENGINE_S3D_PACKING_MODE} packMode A member of the <a href="https://docs.microsoft.com/windows/desktop/api/mfmediaengine/ne-mfmediaengine-mf_media_engine_s3d_packing_mode">MF_MEDIA_ENGINE_S3D_PACKING_MODE</a> enumeration that specifies the layout. The two views can be arranged side-by-side, or top-to-bottom.
      * @returns {HRESULT} If this method succeeds, it returns <b>S_OK</b>. Otherwise, it returns an <b>HRESULT</b> error code.
      * @see https://learn.microsoft.com/windows/win32/api/mfmediaengine/nf-mfmediaengine-imfmediaengineex-setstereo3dframepackingmode
      */
@@ -596,7 +594,7 @@ class IMFMediaEngineEx extends IMFMediaEngine{
 
     /**
      * For stereoscopic 3D video, queries how the Media Engine renders the 3D video content.
-     * @returns {Integer} Receives a member of the <a href="https://docs.microsoft.com/windows/desktop/api/mftransform/ne-mftransform-mf3dvideooutputtype">MF3DVideoOutputType</a> enumeration.
+     * @returns {MF3DVideoOutputType} Receives a member of the <a href="https://docs.microsoft.com/windows/desktop/api/mftransform/ne-mftransform-mf3dvideooutputtype">MF3DVideoOutputType</a> enumeration.
      * @see https://learn.microsoft.com/windows/win32/api/mfmediaengine/nf-mfmediaengine-imfmediaengineex-getstereo3drendermode
      */
     GetStereo3DRenderMode() {
@@ -606,7 +604,7 @@ class IMFMediaEngineEx extends IMFMediaEngine{
 
     /**
      * For stereoscopic 3D video, specifies how the Media Engine renders the 3D video content.
-     * @param {Integer} outputType A member of the <a href="https://docs.microsoft.com/windows/desktop/api/mftransform/ne-mftransform-mf3dvideooutputtype">MF3DVideoOutputType</a> enumeration that specifies the 3D video rendering mode.
+     * @param {MF3DVideoOutputType} outputType A member of the <a href="https://docs.microsoft.com/windows/desktop/api/mftransform/ne-mftransform-mf3dvideooutputtype">MF3DVideoOutputType</a> enumeration that specifies the 3D video rendering mode.
      * @returns {HRESULT} If this method succeeds, it returns <b>S_OK</b>. Otherwise, it returns an <b>HRESULT</b> error code.
      * @see https://learn.microsoft.com/windows/win32/api/mfmediaengine/nf-mfmediaengine-imfmediaengineex-setstereo3drendermode
      */
@@ -726,7 +724,7 @@ class IMFMediaEngineEx extends IMFMediaEngine{
     /**
      * Seeks to a new playback position using the specified MF_MEDIA_ENGINE_SEEK_MODE.
      * @param {Float} seekTime The new playback position, in seconds.
-     * @param {Integer} seekMode Specifies if the seek is a normal seek or an approximate seek.
+     * @param {MF_MEDIA_ENGINE_SEEK_MODE} seekMode Specifies if the seek is a normal seek or an approximate seek.
      * @returns {HRESULT} If this method succeeds, it returns <b>S_OK</b>. Otherwise, it returns an <b>HRESULT</b> error code.
      * @see https://learn.microsoft.com/windows/win32/api/mfmediaengine/nf-mfmediaengine-imfmediaengineex-setcurrenttimeex
      */

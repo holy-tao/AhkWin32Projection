@@ -4,10 +4,8 @@
 
 /**
  * @namespace Windows.Win32.Networking.WinSock
- * @version v4.0.30319
  */
-class ICMPV4_ROUTER_ADVERT_ENTRY extends Win32Struct
-{
+class ICMPV4_ROUTER_ADVERT_ENTRY extends Win32Struct {
     static sizeof => 8
 
     static packingSize => 4
@@ -15,7 +13,7 @@ class ICMPV4_ROUTER_ADVERT_ENTRY extends Win32Struct
     /**
      * @type {IN_ADDR}
      */
-    RouterAdvertAddr{
+    RouterAdvertAddr {
         get {
             if(!this.HasProp("__RouterAdvertAddr"))
                 this.__RouterAdvertAddr := IN_ADDR(0, this)

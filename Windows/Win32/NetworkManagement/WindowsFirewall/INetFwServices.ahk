@@ -1,9 +1,9 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
+#Include ..\..\System\Com\IDispatch.ahk
 #Include .\INetFwService.ahk
 #Include ..\..\System\Com\IUnknown.ahk
-#Include ..\..\System\Com\IDispatch.ahk
 
 /**
  * The INetFwServices interface is a standard Automation interface which provides access to a collection of services that may be authorized to listen through the firewall.
@@ -15,9 +15,8 @@
  * changes take effect immediately.
  * @see https://learn.microsoft.com/windows/win32/api/netfw/nn-netfw-inetfwservices
  * @namespace Windows.Win32.NetworkManagement.WindowsFirewall
- * @version v4.0.30319
  */
-class INetFwServices extends IDispatch{
+class INetFwServices extends IDispatch {
 
     static sizeof => A_PtrSize
     /**
@@ -64,7 +63,7 @@ class INetFwServices extends IDispatch{
 
     /**
      * Returns the specified service if it is in the collection.
-     * @param {Integer} svcType <table>
+     * @param {NET_FW_SERVICE_TYPE} svcType <table>
      * <tr>
      * <td><strong>C++</strong></td>
      * <td>

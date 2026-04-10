@@ -1,15 +1,14 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
 #Include ..\..\Foundation\POINT.ahk
+#Include .\LVHITTESTINFO_FLAGS.ahk
 
 /**
  * Contains information about a hit test.
  * @see https://learn.microsoft.com/windows/win32/api/commctrl/ns-commctrl-lvhittestinfo
  * @namespace Windows.Win32.UI.Controls
- * @version v4.0.30319
  */
-class LVHITTESTINFO extends Win32Struct
-{
+class LVHITTESTINFO extends Win32Struct {
     static sizeof => 24
 
     static packingSize => 4
@@ -20,7 +19,7 @@ class LVHITTESTINFO extends Win32Struct
      * The position to hit test, in client coordinates.
      * @type {POINT}
      */
-    pt{
+    pt {
         get {
             if(!this.HasProp("__pt"))
                 this.__pt := POINT(0, this)
@@ -30,7 +29,7 @@ class LVHITTESTINFO extends Win32Struct
 
     /**
      * Type: <b><a href="https://docs.microsoft.com/windows/desktop/WinProg/windows-data-types">UINT</a></b>
-     * @type {Integer}
+     * @type {LVHITTESTINFO_FLAGS}
      */
     flags {
         get => NumGet(this, 8, "uint")

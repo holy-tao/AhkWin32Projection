@@ -1,16 +1,15 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\..\Guid.ahk
-#Include ..\..\..\Foundation\BSTR.ahk
 #Include ..\..\..\System\Com\IDispatch.ahk
+#Include ..\..\..\Foundation\BSTR.ahk
 
 /**
  * Provides methods for handling string arrays used in certificate extensions.
  * @see https://learn.microsoft.com/windows/win32/api/certenc/nn-certenc-icertencodestringarray
  * @namespace Windows.Win32.Security.Cryptography.Certificates
- * @version v4.0.30319
  */
-class ICertEncodeStringArray extends IDispatch{
+class ICertEncodeStringArray extends IDispatch {
 
     static sizeof => A_PtrSize
     /**
@@ -125,7 +124,7 @@ class ICertEncodeStringArray extends IDispatch{
     /**
      * Returns the specified string from the string array.
      * @param {Integer} Index The zero-based index that specifies the string to retrieve.
-     * @returns {BSTR} 
+     * @returns {BSTR} A pointer to a <b>BSTR</b> that represents the string value. When you have finished using the <b>BSTR</b>, free it by calling the <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/oleauto/nf-oleauto-sysfreestring">SysFreeString</a> function.
      * @see https://learn.microsoft.com/windows/win32/api/certenc/nf-certenc-icertencodestringarray-getvalue
      */
     GetValue(Index) {
@@ -137,7 +136,7 @@ class ICertEncodeStringArray extends IDispatch{
     /**
      * Specifies the size of the string array and the type of strings the array will contain.
      * @param {Integer} Count Specifies the number of elements in the string array.
-     * @param {Integer} StringType 
+     * @param {CERT_RDN_ATTR_VALUE_TYPE} StringType 
      * @returns {HRESULT} <h3>VB</h3>
      *  If the method succeeds, the method returns S_OK.
      * 

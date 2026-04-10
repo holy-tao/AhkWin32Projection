@@ -3,10 +3,8 @@
 
 /**
  * @namespace Windows.Win32.Devices.ImageAcquisition
- * @version v4.0.30319
  */
-class RANGEVALUE extends Win32Struct
-{
+class RANGEVALUE extends Win32Struct {
     static sizeof => 12
 
     static packingSize => 4

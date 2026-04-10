@@ -1,14 +1,13 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
+#Include .\DHCP_SCAN_ITEM.ahk
 
 /**
  * Defines a list of all desynchronized client lease IP address on a DHCPv4 server that must be fixed.
  * @see https://learn.microsoft.com/windows/win32/api/dhcpsapi/ns-dhcpsapi-dhcp_scan_list
  * @namespace Windows.Win32.NetworkManagement.Dhcp
- * @version v4.0.30319
  */
-class DHCP_SCAN_LIST extends Win32Struct
-{
+class DHCP_SCAN_LIST extends Win32Struct {
     static sizeof => 16
 
     static packingSize => 8

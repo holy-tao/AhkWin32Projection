@@ -3,10 +3,8 @@
 
 /**
  * @namespace Windows.Win32.System.Power
- * @version v4.0.30319
  */
-class THERMAL_INFORMATION extends Win32Struct
-{
+class THERMAL_INFORMATION extends Win32Struct {
     static sizeof => 88
 
     static packingSize => 8
@@ -84,9 +82,9 @@ class THERMAL_INFORMATION extends Win32Struct
     }
 
     /**
-     * @type {Array<UInt32>}
+     * @type {Array<Integer>}
      */
-    ActiveTripPoint{
+    ActiveTripPoint {
         get {
             if(!this.HasProp("__ActiveTripPointProxyArray"))
                 this.__ActiveTripPointProxyArray := Win32FixedArray(this.ptr + 44, 10, Primitive, "uint")

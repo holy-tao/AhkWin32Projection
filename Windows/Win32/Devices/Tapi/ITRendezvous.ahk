@@ -1,20 +1,18 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
-#Include ..\..\Foundation\BSTR.ahk
+#Include ..\..\System\Com\IDispatch.ahk
 #Include ..\..\System\Variant\VARIANT.ahk
 #Include .\IEnumDirectory.ahk
 #Include .\ITDirectory.ahk
 #Include .\ITDirectoryObject.ahk
-#Include ..\..\System\Com\IDispatch.ahk
 
 /**
  * The ITRendezvous interface is the main interface for the Rendezvous control. An application calls the COM CoCreateInstance function on this interface to create the Rendezvous object.
  * @see https://learn.microsoft.com/windows/win32/api/rend/nn-rend-itrendezvous
  * @namespace Windows.Win32.Devices.Tapi
- * @version v4.0.30319
  */
-class ITRendezvous extends IDispatch{
+class ITRendezvous extends IDispatch {
 
     static sizeof => A_PtrSize
     /**
@@ -88,7 +86,7 @@ class ITRendezvous extends IDispatch{
      * <b>ITDirectory</b> interface to free resources associated with it.
      * 
      * This function may send data over the wire in unencrypted form; therefore, someone eavesdropping on the network may be able to read the data. The security risk of sending the data in clear text should be considered before using this method.
-     * @param {Integer} DirectoryType The type of the directory. See 
+     * @param {DIRECTORY_TYPE} DirectoryType The type of the directory. See 
      * <a href="https://docs.microsoft.com/windows/desktop/api/rend/ne-rend-directory_type">DIRECTORY_TYPE</a>.
      * @param {BSTR} pName Pointer to a <b>BSTR</b> containing the name of the directory to be created.
      * @returns {ITDirectory} Pointer to receive an 
@@ -114,7 +112,7 @@ class ITRendezvous extends IDispatch{
      * <b>ITDirectoryObject</b> interface to free resources associated with it.
      * 
      * This function may send data over the wire in unencrypted form; therefore, someone eavesdropping on the network may be able to read the data. The security risk of sending the data in clear text should be considered before using this method.
-     * @param {Integer} DirectoryObjectType The type of the object. See 
+     * @param {DIRECTORY_OBJECT_TYPE} DirectoryObjectType The type of the object. See 
      * <a href="https://docs.microsoft.com/windows/desktop/api/rend/ne-rend-directory_object_type">DIRECTORY_OBJECT_TYPE</a>.
      * @param {BSTR} pName Pointer to a <b>BSTR</b> containing the name of the object.
      * @returns {ITDirectoryObject} Pointer to receive the interface pointer for the newly created 

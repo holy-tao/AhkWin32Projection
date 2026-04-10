@@ -1,12 +1,12 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
+#Include .\ISpPhrase.ahk
+#Include .\ISpRecoContext.ahk
 
 /**
  * @namespace Windows.Win32.Media.Speech
- * @version v4.0.30319
  */
-class SPPHRASEALTREQUEST extends Win32Struct
-{
+class SPPHRASEALTREQUEST extends Win32Struct {
     static sizeof => 48
 
     static packingSize => 8

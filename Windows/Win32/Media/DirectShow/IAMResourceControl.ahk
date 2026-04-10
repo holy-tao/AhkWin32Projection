@@ -7,9 +7,8 @@
  * The IAMResourceControl interface opens and holds an audio device resource before the device is actually needed, so that playback can be guaranteed or the application can learn in advance that a device is not available.The following filters implement this interface:Audio Capture filter.DirectSound Renderer filter.Audio Renderer (WaveOut) filter.
  * @see https://learn.microsoft.com/windows/win32/api/strmif/nn-strmif-iamresourcecontrol
  * @namespace Windows.Win32.Media.DirectShow
- * @version v4.0.30319
  */
-class IAMResourceControl extends IUnknown{
+class IAMResourceControl extends IUnknown {
 
     static sizeof => A_PtrSize
     /**

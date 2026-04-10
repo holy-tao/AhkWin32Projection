@@ -1,17 +1,16 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
+#Include ..\..\System\Com\IUnknown.ahk
 #Include .\IRawElementProviderSimple.ahk
 #Include ..\..\Foundation\BSTR.ahk
-#Include ..\..\System\Com\IUnknown.ahk
 
 /**
  * Exposes properties and methods of an object that creates a Microsoft UI Automation provider for UI elements that do not have native support for UI Automation. This interface is implemented by proxies.
  * @see https://learn.microsoft.com/windows/win32/api/uiautomationclient/nn-uiautomationclient-iuiautomationproxyfactory
  * @namespace Windows.Win32.UI.Accessibility
- * @version v4.0.30319
  */
-class IUIAutomationProxyFactory extends IUnknown{
+class IUIAutomationProxyFactory extends IUnknown {
 
     static sizeof => A_PtrSize
     /**
@@ -43,7 +42,9 @@ class IUIAutomationProxyFactory extends IUnknown{
      * Creates a proxy object that provides Microsoft UI Automation support for a UI element.
      * @remarks
      * The <i>idObject</i> parameter is normally <a href="https://docs.microsoft.com/windows/desktop/WinAuto/object-identifiers">OBJID_CLIENT</a>, and <i>idChild</i> is normally CHILDID_SELF. However, when the method is called in response to a registered WinEvent, these values are from the event, specifying the subelement that raised the event.
-     * @param {HWND} _hwnd 
+     * @param {HWND} _hwnd Type: <b>UIA_HWND</b>
+     * 
+     * The window handle of the UI element.
      * @param {Integer} idObject Type: <b><a href="https://docs.microsoft.com/windows/desktop/WinProg/windows-data-types">LONG</a></b>
      * 
      * The object ID. See Remarks.

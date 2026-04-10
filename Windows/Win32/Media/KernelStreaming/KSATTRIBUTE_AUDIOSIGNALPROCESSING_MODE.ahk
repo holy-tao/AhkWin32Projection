@@ -4,10 +4,8 @@
 
 /**
  * @namespace Windows.Win32.Media.KernelStreaming
- * @version v4.0.30319
  */
-class KSATTRIBUTE_AUDIOSIGNALPROCESSING_MODE extends Win32Struct
-{
+class KSATTRIBUTE_AUDIOSIGNALPROCESSING_MODE extends Win32Struct {
     static sizeof => 24
 
     static packingSize => 8
@@ -15,7 +13,7 @@ class KSATTRIBUTE_AUDIOSIGNALPROCESSING_MODE extends Win32Struct
     /**
      * @type {KSATTRIBUTE}
      */
-    AttributeHeader{
+    AttributeHeader {
         get {
             if(!this.HasProp("__AttributeHeader"))
                 this.__AttributeHeader := KSATTRIBUTE(0, this)
@@ -24,7 +22,7 @@ class KSATTRIBUTE_AUDIOSIGNALPROCESSING_MODE extends Win32Struct
     }
 
     /**
-     * @type {Pointer<Guid>}
+     * @type {Pointer}
      */
     SignalProcessingMode {
         get => NumGet(this, 16, "ptr")

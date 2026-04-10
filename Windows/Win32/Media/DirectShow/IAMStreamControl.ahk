@@ -1,16 +1,15 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
-#Include .\AM_STREAM_INFO.ahk
 #Include ..\..\System\Com\IUnknown.ahk
+#Include .\AM_STREAM_INFO.ahk
 
 /**
  * The IAMStreamControl interface controls individual streams on a filter.
  * @see https://learn.microsoft.com/windows/win32/api/strmif/nn-strmif-iamstreamcontrol
  * @namespace Windows.Win32.Media.DirectShow
- * @version v4.0.30319
  */
-class IAMStreamControl extends IUnknown{
+class IAMStreamControl extends IUnknown {
 
     static sizeof => A_PtrSize
     /**

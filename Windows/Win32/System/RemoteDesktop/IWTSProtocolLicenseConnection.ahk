@@ -1,16 +1,15 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
-#Include .\WTS_LICENSE_CAPABILITIES.ahk
 #Include ..\Com\IUnknown.ahk
+#Include .\WTS_LICENSE_CAPABILITIES.ahk
 
 /**
  * IWTSProtocolLicenseConnection is no longer available. Instead, use IWRdsProtocolLicenseConnection.
  * @see https://learn.microsoft.com/windows/win32/api/wtsprotocol/nn-wtsprotocol-iwtsprotocollicenseconnection
  * @namespace Windows.Win32.System.RemoteDesktop
- * @version v4.0.30319
  */
-class IWTSProtocolLicenseConnection extends IUnknown{
+class IWTSProtocolLicenseConnection extends IUnknown {
 
     static sizeof => A_PtrSize
     /**

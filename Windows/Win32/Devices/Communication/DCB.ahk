@@ -1,5 +1,7 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
+#Include .\DCB_PARITY.ahk
+#Include .\DCB_STOP_BITS.ahk
 
 /**
  * Defines the control setting for a serial communications device.
@@ -15,10 +17,8 @@
  * </ul>
  * @see https://learn.microsoft.com/windows/win32/api/winbase/ns-winbase-dcb
  * @namespace Windows.Win32.Devices.Communication
- * @version v4.0.30319
  */
-class DCB extends Win32Struct
-{
+class DCB extends Win32Struct {
     static sizeof => 28
 
     static packingSize => 4
@@ -228,8 +228,6 @@ class DCB extends Win32Struct
     }
 
     /**
-     * If this member is <b>TRUE</b>, binary mode is enabled. Windows does not support 
-     *       nonbinary mode transfers, so this member must be <b>TRUE</b>.
      * @type {Integer}
      */
     fBinary {
@@ -238,8 +236,6 @@ class DCB extends Win32Struct
     }
 
     /**
-     * If this member is <b>TRUE</b>, parity checking is performed and errors are 
-     *       reported.
      * @type {Integer}
      */
     fParity {
@@ -248,9 +244,6 @@ class DCB extends Win32Struct
     }
 
     /**
-     * If this member is <b>TRUE</b>, the CTS (clear-to-send) signal is monitored for output 
-     *       flow control. If this member is <b>TRUE</b> and CTS is turned off, output is suspended until 
-     *       CTS is sent again.
      * @type {Integer}
      */
     fOutxCtsFlow {
@@ -259,9 +252,6 @@ class DCB extends Win32Struct
     }
 
     /**
-     * If this member is <b>TRUE</b>, the DSR (data-set-ready) signal is monitored for output 
-     *       flow control. If this member is <b>TRUE</b> and DSR is turned off, output is suspended until 
-     *       DSR is sent again.
      * @type {Integer}
      */
     fOutxDsrFlow {
@@ -270,7 +260,6 @@ class DCB extends Win32Struct
     }
 
     /**
-     * 
      * @type {Integer}
      */
     fDtrControl {
@@ -279,8 +268,6 @@ class DCB extends Win32Struct
     }
 
     /**
-     * If this member is <b>TRUE</b>, the communications driver is sensitive to the state of 
-     *       the DSR signal. The driver ignores any bytes received, unless the DSR modem input line is high.
      * @type {Integer}
      */
     fDsrSensitivity {
@@ -289,12 +276,6 @@ class DCB extends Win32Struct
     }
 
     /**
-     * If this member is <b>TRUE</b>, transmission continues after the input buffer has come 
-     *       within <b>XoffLim</b> bytes of being full and the driver has transmitted the 
-     *       <b>XoffChar</b> character to stop receiving bytes. If this member is 
-     *       <b>FALSE</b>, transmission does not continue until the input buffer is within 
-     *       <b>XonLim</b> bytes of being empty and the driver has transmitted 
-     *       the <b>XonChar</b> character to resume reception.
      * @type {Integer}
      */
     fTXContinueOnXoff {
@@ -303,9 +284,6 @@ class DCB extends Win32Struct
     }
 
     /**
-     * Indicates whether XON/XOFF flow control is used during transmission. If this member is 
-     *       <b>TRUE</b>, transmission stops when the <b>XoffChar</b> character is 
-     *       received and starts again when the <b>XonChar</b> character is received.
      * @type {Integer}
      */
     fOutX {
@@ -314,11 +292,6 @@ class DCB extends Win32Struct
     }
 
     /**
-     * Indicates whether XON/XOFF flow control is used during reception. If this member is 
-     *       <b>TRUE</b>, the <b>XoffChar</b> character is sent when the input buffer 
-     *       comes within <b>XoffLim</b> bytes of being full, and the <b>XonChar</b> 
-     *       character is sent when the input buffer comes within <b>XonLim</b> bytes of being 
-     *       empty.
      * @type {Integer}
      */
     fInX {
@@ -327,9 +300,6 @@ class DCB extends Win32Struct
     }
 
     /**
-     * Indicates whether bytes received with parity errors are replaced with the character specified by the 
-     *       <b>ErrorChar</b> member. If this member is <b>TRUE</b> and the 
-     *       <b>fParity</b> member is <b>TRUE</b>, replacement occurs.
      * @type {Integer}
      */
     fErrorChar {
@@ -338,7 +308,6 @@ class DCB extends Win32Struct
     }
 
     /**
-     * If this member is <b>TRUE</b>, null bytes are discarded when received.
      * @type {Integer}
      */
     fNull {
@@ -347,7 +316,6 @@ class DCB extends Win32Struct
     }
 
     /**
-     * 
      * @type {Integer}
      */
     fRtsControl {
@@ -356,10 +324,6 @@ class DCB extends Win32Struct
     }
 
     /**
-     * If this member is <b>TRUE</b>, the driver terminates all read and write operations with 
-     *       an error status if an error occurs. The driver will not accept any further communications operations until the 
-     *       application has acknowledged the error by calling the 
-     *       <a href="https://docs.microsoft.com/windows/desktop/api/winbase/nf-winbase-clearcommerror">ClearCommError</a> function.
      * @type {Integer}
      */
     fAbortOnError {
@@ -368,7 +332,6 @@ class DCB extends Win32Struct
     }
 
     /**
-     * Reserved; do not use.
      * @type {Integer}
      */
     fDummy2 {
@@ -421,8 +384,7 @@ class DCB extends Win32Struct
     }
 
     /**
-     * 
-     * @type {Integer}
+     * @type {DCB_PARITY}
      */
     Parity {
         get => NumGet(this, 19, "char")
@@ -430,8 +392,7 @@ class DCB extends Win32Struct
     }
 
     /**
-     * 
-     * @type {Integer}
+     * @type {DCB_STOP_BITS}
      */
     StopBits {
         get => NumGet(this, 20, "char")

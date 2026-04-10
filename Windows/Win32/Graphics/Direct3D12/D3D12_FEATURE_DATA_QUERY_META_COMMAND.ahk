@@ -3,14 +3,10 @@
 
 /**
  * Indicates the level of support that the adapter provides for metacommands.
- * @remarks
- * 
  * @see https://learn.microsoft.com/windows/win32/api/d3d12/ns-d3d12-d3d12_feature_data_query_meta_command
  * @namespace Windows.Win32.Graphics.Direct3D12
- * @version v4.0.30319
  */
-class D3D12_FEATURE_DATA_QUERY_META_COMMAND extends Win32Struct
-{
+class D3D12_FEATURE_DATA_QUERY_META_COMMAND extends Win32Struct {
     static sizeof => 48
 
     static packingSize => 8
@@ -19,7 +15,7 @@ class D3D12_FEATURE_DATA_QUERY_META_COMMAND extends Win32Struct
      * Type: <b>[GUID](../guiddef/ns-guiddef-guid.md)</b>
      * 
      * The fixed GUID that identifies the metacommand to query about.
-     * @type {Pointer<Guid>}
+     * @type {Pointer}
      */
     CommandId {
         get => NumGet(this, 0, "ptr")

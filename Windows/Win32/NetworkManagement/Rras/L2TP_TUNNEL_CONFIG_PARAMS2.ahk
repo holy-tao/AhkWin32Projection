@@ -1,12 +1,11 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
+#Include .\ROUTER_CUSTOM_IKEv2_POLICY0.ahk
 
 /**
  * @namespace Windows.Win32.NetworkManagement.Rras
- * @version v4.0.30319
  */
-class L2TP_TUNNEL_CONFIG_PARAMS2 extends Win32Struct
-{
+class L2TP_TUNNEL_CONFIG_PARAMS2 extends Win32Struct {
     static sizeof => 32
 
     static packingSize => 8

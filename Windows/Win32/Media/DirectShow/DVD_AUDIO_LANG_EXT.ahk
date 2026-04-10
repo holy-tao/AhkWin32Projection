@@ -7,9 +7,8 @@
  * This enumeration is used in the <a href="https://docs.microsoft.com/windows/desktop/api/strmif/nf-strmif-idvdinfo2-getaudioattributes">IDvdInfo2::GetAudioAttributes</a> and <a href="https://docs.microsoft.com/windows/desktop/api/strmif/nf-strmif-idvdinfo2-getdefaultaudiolanguage">IDvdInfo2::GetDefaultAudioLanguage</a> methods.
  * @see https://learn.microsoft.com/windows/win32/api/strmif/ne-strmif-dvd_audio_lang_ext
  * @namespace Windows.Win32.Media.DirectShow
- * @version v4.0.30319
  */
-class DVD_AUDIO_LANG_EXT extends Win32Enum{
+class DVD_AUDIO_LANG_EXT extends Win32Enum {
 
     /**
      * The DVD doesn't specify an audio language extension for this audio stream.

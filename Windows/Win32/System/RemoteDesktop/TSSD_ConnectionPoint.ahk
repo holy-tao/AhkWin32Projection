@@ -1,23 +1,22 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
+#Include .\TSSD_AddrV46Type.ahk
 
 /**
  * Defines the IP address of a target.
  * @see https://learn.microsoft.com/windows/win32/api/sessdirpublictypes/ns-sessdirpublictypes-tssd_connectionpoint
  * @namespace Windows.Win32.System.RemoteDesktop
- * @version v4.0.30319
  */
-class TSSD_ConnectionPoint extends Win32Struct
-{
+class TSSD_ConnectionPoint extends Win32Struct {
     static sizeof => 28
 
     static packingSize => 4
 
     /**
      * The server address.
-     * @type {Array<Byte>}
+     * @type {Array<Integer>}
      */
-    ServerAddressB{
+    ServerAddressB {
         get {
             if(!this.HasProp("__ServerAddressBProxyArray"))
                 this.__ServerAddressBProxyArray := Win32FixedArray(this.ptr + 0, 16, Primitive, "char")
@@ -27,7 +26,7 @@ class TSSD_ConnectionPoint extends Win32Struct
 
     /**
      * A value of the <a href="https://docs.microsoft.com/windows/win32/api/sessdirpublictypes/ne-sessdirpublictypes-tssd_addrv46type">TSSD_AddrV46Type</a> enumeration  that indicates the IP address type.
-     * @type {Integer}
+     * @type {TSSD_AddrV46Type}
      */
     AddressType {
         get => NumGet(this, 16, "int")

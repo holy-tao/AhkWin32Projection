@@ -11,10 +11,8 @@
  *         IOCTL is used to determine the association between a socket and an RSS processor core and NUMA node. This IOCTL returns a <b>SOCKET_PROCESSOR_AFFINITY</b> structure that contains the processor number and the NUMA node ID.
  * @see https://learn.microsoft.com/windows/win32/api/ws2def/ns-ws2def-socket_processor_affinity
  * @namespace Windows.Win32.Networking.WinSock
- * @version v4.0.30319
  */
-class SOCKET_PROCESSOR_AFFINITY extends Win32Struct
-{
+class SOCKET_PROCESSOR_AFFINITY extends Win32Struct {
     static sizeof => 8
 
     static packingSize => 2
@@ -24,7 +22,7 @@ class SOCKET_PROCESSOR_AFFINITY extends Win32Struct
      * group number and relative processor number within the group.
      * @type {PROCESSOR_NUMBER}
      */
-    Processor{
+    Processor {
         get {
             if(!this.HasProp("__Processor"))
                 this.__Processor := PROCESSOR_NUMBER(0, this)

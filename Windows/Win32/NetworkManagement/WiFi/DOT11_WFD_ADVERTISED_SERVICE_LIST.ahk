@@ -4,13 +4,11 @@
 
 /**
  * @namespace Windows.Win32.NetworkManagement.WiFi
- * @version v4.0.30319
  */
-class DOT11_WFD_ADVERTISED_SERVICE_LIST extends Win32Struct
-{
-    static sizeof => 16
+class DOT11_WFD_ADVERTISED_SERVICE_LIST extends Win32Struct {
+    static sizeof => 268
 
-    static packingSize => 8
+    static packingSize => 4
 
     /**
      * @type {Integer}
@@ -21,12 +19,12 @@ class DOT11_WFD_ADVERTISED_SERVICE_LIST extends Win32Struct
     }
 
     /**
-     * @type {Array<DOT11_WFD_ADVERTISED_SERVICE_DESCRIPTOR>}
+     * @type {DOT11_WFD_ADVERTISED_SERVICE_DESCRIPTOR}
      */
-    AdvertisedService{
+    AdvertisedService {
         get {
             if(!this.HasProp("__AdvertisedServiceProxyArray"))
-                this.__AdvertisedServiceProxyArray := Win32FixedArray(this.ptr + 8, 1, DOT11_WFD_ADVERTISED_SERVICE_DESCRIPTOR, "")
+                this.__AdvertisedServiceProxyArray := Win32FixedArray(this.ptr + 4, 1, DOT11_WFD_ADVERTISED_SERVICE_DESCRIPTOR, "")
             return this.__AdvertisedServiceProxyArray
         }
     }

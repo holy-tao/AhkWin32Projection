@@ -1,15 +1,14 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
+#Include .\DD_DIRECTDRAW_LOCAL.ahk
 #Include .\DDPIXELFORMAT.ahk
 
 /**
  * The DD_MOTIONCOMP_LOCAL structure contains local data for each individual Microsoft DirectDraw motion compensation object.
  * @see https://learn.microsoft.com/windows/win32/api/ddrawint/ns-ddrawint-dd_motioncomp_local
  * @namespace Windows.Win32.Graphics.DirectDraw
- * @version v4.0.30319
  */
-class DD_MOTIONCOMP_LOCAL extends Win32Struct
-{
+class DD_MOTIONCOMP_LOCAL extends Win32Struct {
     static sizeof => 96
 
     static packingSize => 8
@@ -25,7 +24,7 @@ class DD_MOTIONCOMP_LOCAL extends Win32Struct
 
     /**
      * Specifies a GUID that describes the motion compensation process being used.
-     * @type {Pointer<Guid>}
+     * @type {Pointer}
      */
     guid {
         get => NumGet(this, 8, "ptr")
@@ -54,7 +53,7 @@ class DD_MOTIONCOMP_LOCAL extends Win32Struct
      * Specifies a <a href="https://docs.microsoft.com/windows-hardware/drivers/ddi/content/ksmedia/ns-ksmedia-_ddpixelformat">DDPIXELFORMAT</a> structure that contains the pixel format of the uncompressed output frame.
      * @type {DDPIXELFORMAT}
      */
-    ddUncompPixelFormat{
+    ddUncompPixelFormat {
         get {
             if(!this.HasProp("__ddUncompPixelFormat"))
                 this.__ddUncompPixelFormat := DDPIXELFORMAT(24, this)
@@ -63,7 +62,6 @@ class DD_MOTIONCOMP_LOCAL extends Win32Struct
     }
 
     /**
-     * 
      * @type {Integer}
      */
     dwDriverReserved1 {
@@ -72,7 +70,6 @@ class DD_MOTIONCOMP_LOCAL extends Win32Struct
     }
 
     /**
-     * 
      * @type {Integer}
      */
     dwDriverReserved2 {
@@ -90,7 +87,6 @@ class DD_MOTIONCOMP_LOCAL extends Win32Struct
     }
 
     /**
-     * 
      * @type {Pointer<Void>}
      */
     lpDriverReserved1 {
@@ -99,7 +95,6 @@ class DD_MOTIONCOMP_LOCAL extends Win32Struct
     }
 
     /**
-     * 
      * @type {Pointer<Void>}
      */
     lpDriverReserved2 {

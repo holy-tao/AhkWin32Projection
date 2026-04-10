@@ -7,9 +7,8 @@
  * The IPortableDevicePropVariantCollection interface holds a collection of indexed PROPVARIANT values of the same VARTYPE.
  * @see https://learn.microsoft.com/windows/win32/wpd_sdk/iportabledevicepropvariantcollection
  * @namespace Windows.Win32.Devices.PortableDevices
- * @version v4.0.30319
  */
-class IPortableDevicePropVariantCollection extends IUnknown{
+class IPortableDevicePropVariantCollection extends IUnknown {
 
     static sizeof => A_PtrSize
     /**

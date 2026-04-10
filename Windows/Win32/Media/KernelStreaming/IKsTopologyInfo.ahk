@@ -1,8 +1,9 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
-#Include .\KSTOPOLOGY_CONNECTION.ahk
 #Include ..\..\System\Com\IUnknown.ahk
+#Include ..\..\..\..\Guid.ahk
+#Include .\KSTOPOLOGY_CONNECTION.ahk
 
 /**
  * The IKsTopologyInfo interface enumerates the nodes in a stream class driver. The KsProxy filter exposes this interface. Applications can use this interface to examine the internal topology of a kernel-mode filter.
@@ -16,9 +17,8 @@
  * Include Vidcap.h from the Windows SDK or from the DirectX 9.0 SDK Update (Summer 2004) or later.
  * @see https://learn.microsoft.com/windows/win32/api/vidcap/nn-vidcap-ikstopologyinfo
  * @namespace Windows.Win32.Media.KernelStreaming
- * @version v4.0.30319
  */
-class IKsTopologyInfo extends IUnknown{
+class IKsTopologyInfo extends IUnknown {
 
     static sizeof => A_PtrSize
     /**
@@ -111,7 +111,7 @@ class IKsTopologyInfo extends IUnknown{
      * @remarks
      * To find the buffer size for the name, call the method once with <b>NULL</b> for the <i>pwchNodeName</i> parameter and zero for the <i>dwBufSize</i> parameter. The method returns the buffer size in <i>pdwNameLen</i>. The method's return value, in this case, is HRESULT_FROM_WIN32(ERROR_MORE_DATA). Then allocate the array and call the method again.
      * @param {Integer} dwNodeId Index of the node. To find the number of nodes, call the <a href="https://docs.microsoft.com/windows/desktop/api/vidcap/nf-vidcap-ikstopologyinfo-get_numnodes">IKsTopologyInfo::get_NumNodes</a> method.
-     * @param {Pointer} pwchNodeName Pointer to a wide-character array that receives the name. To find the required buffer size, set this parameter to <b>NULL</b>. The size is returned in the <i>pdwNameLen</i> parameter.
+     * @param {Integer} pwchNodeName Pointer to a wide-character array that receives the name. To find the required buffer size, set this parameter to <b>NULL</b>. The size is returned in the <i>pdwNameLen</i> parameter.
      * @param {Integer} dwBufSize Size of the <i>pwchNodeName</i> array, in bytes.
      * @returns {Integer} Receives the buffer size required to hold the name, in bytes. This parameter cannot be <b>NULL</b>.
      * @see https://learn.microsoft.com/windows/win32/api/vidcap/nf-vidcap-ikstopologyinfo-get_nodename

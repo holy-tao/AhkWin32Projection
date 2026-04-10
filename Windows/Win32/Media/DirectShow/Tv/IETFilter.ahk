@@ -9,9 +9,8 @@
  * To declare the interface identifier (IID) for this interface, use the <b>__uuidof</b> operator: <c>__uuidof(IETFilter)</c>.
  * @see https://learn.microsoft.com/windows/win32/api/encdec/nn-encdec-ietfilter
  * @namespace Windows.Win32.Media.DirectShow.Tv
- * @version v4.0.30319
  */
-class IETFilter extends IUnknown{
+class IETFilter extends IUnknown {
 
     static sizeof => A_PtrSize
     /**
@@ -57,8 +56,8 @@ class IETFilter extends IUnknown{
 
     /**
      * The GetCurrRating method retrieves the current rating, based on the most recent media sample.
-     * @param {Pointer<Integer>} pEnSystem Receives the rating system, as an <a href="https://docs.microsoft.com/previous-versions/dd375612(v=vs.85)">EnTvRat_System</a> enumeration type.
-     * @param {Pointer<Integer>} pEnRating Receives the rating level, as an <a href="https://docs.microsoft.com/previous-versions/dd375610(v=vs.85)">EnTvRat_GenericLevel</a> enumeration type. The meaning of this value depends on the rating system.
+     * @param {Pointer<EnTvRat_System>} pEnSystem Receives the rating system, as an <a href="https://docs.microsoft.com/previous-versions/dd375612(v=vs.85)">EnTvRat_System</a> enumeration type.
+     * @param {Pointer<EnTvRat_GenericLevel>} pEnRating Receives the rating level, as an <a href="https://docs.microsoft.com/previous-versions/dd375610(v=vs.85)">EnTvRat_GenericLevel</a> enumeration type. The meaning of this value depends on the rating system.
      * @param {Pointer<Integer>} plbfEnAttr Receives a bitwise combination of flags from the <a href="https://docs.microsoft.com/previous-versions/dd318226(v=vs.85)">BfEnTvRat_GenericAttributes</a> enumeration. The flags specify content attributes, such as violence or adult language. Content attributes do not apply to all rating systems.
      * @returns {HRESULT} Returns S_OK if successful, or an error code otherwise.
      * @see https://learn.microsoft.com/windows/win32/api/encdec/nf-encdec-ietfilter-getcurrrating
@@ -74,7 +73,7 @@ class IETFilter extends IUnknown{
 
     /**
      * This method is currently not supported.
-     * @param {Pointer<Integer>} _protType 
+     * @param {Pointer<ProtType>} _protType Reserved.
      * @returns {Integer} Reserved.
      * @see https://learn.microsoft.com/windows/win32/api/encdec/nf-encdec-ietfilter-getcurrlicenseexpdate
      */

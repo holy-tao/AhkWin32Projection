@@ -5,13 +5,10 @@
 
 /**
  * Represents a single entry in the present statistics queue.
- * @remarks
- * 
  * @see https://learn.microsoft.com/windows/win32/api/presentation/nn-presentation-ipresentstatistics
  * @namespace Windows.Win32.Graphics.CompositionSwapchain
- * @version v4.0.30319
  */
-class IPresentStatistics extends IUnknown{
+class IPresentStatistics extends IUnknown {
 
     static sizeof => A_PtrSize
     /**
@@ -46,7 +43,7 @@ class IPresentStatistics extends IUnknown{
 
     /**
      * Gets the specific kind of present statistics to which this data corresponds.
-     * @returns {Integer} Type: **[PresentStatisticsKind](../presentationtypes/ne-presentationtypes-presentstatisticskind.md)**
+     * @returns {PresentStatisticsKind} Type: **[PresentStatisticsKind](../presentationtypes/ne-presentationtypes-presentstatisticskind.md)**
      * 
      * The specific kind of present statistics to which this data corresponds.
      * @see https://learn.microsoft.com/windows/win32/api/presentation/nf-presentation-ipresentstatistics-getkind

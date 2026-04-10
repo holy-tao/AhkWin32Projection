@@ -14,9 +14,8 @@
  * The effect is to offset the blending position of the visual's subtree by <i>x</i>, <i>y</i>, and <i>z</i>.
  * @see https://learn.microsoft.com/windows/win32/api/dcomp/nn-dcomp-idcompositiontranslatetransform3d
  * @namespace Windows.Win32.Graphics.DirectComposition
- * @version v4.0.30319
  */
-class IDCompositionTranslateTransform3D extends IDCompositionTransform3D{
+class IDCompositionTranslateTransform3D extends IDCompositionTransform3D {
 
     static sizeof => A_PtrSize
     /**

@@ -3,10 +3,8 @@
 
 /**
  * @namespace Windows.Win32.UI.Input.Ime
- * @version v4.0.30319
  */
-class IMEFAREASTINFO extends Win32Struct
-{
+class IMEFAREASTINFO extends Win32Struct {
     static sizeof => 12
 
     static packingSize => 4
@@ -28,9 +26,9 @@ class IMEFAREASTINFO extends Win32Struct
     }
 
     /**
-     * @type {Array<UInt32>}
+     * @type {Array<Integer>}
      */
-    dwData{
+    dwData {
         get {
             if(!this.HasProp("__dwDataProxyArray"))
                 this.__dwDataProxyArray := Win32FixedArray(this.ptr + 8, 1, Primitive, "uint")

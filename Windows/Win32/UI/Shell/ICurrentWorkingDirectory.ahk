@@ -11,9 +11,8 @@
  * Use this interface to retrieve or set the working directory of the object that exports it.
  * @see https://learn.microsoft.com/windows/win32/api/shlobj/nn-shlobj-icurrentworkingdirectory
  * @namespace Windows.Win32.UI.Shell
- * @version v4.0.30319
  */
-class ICurrentWorkingDirectory extends IUnknown{
+class ICurrentWorkingDirectory extends IUnknown {
 
     static sizeof => A_PtrSize
     /**

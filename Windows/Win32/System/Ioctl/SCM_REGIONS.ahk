@@ -4,11 +4,9 @@
 
 /**
  * @namespace Windows.Win32.System.Ioctl
- * @version v4.0.30319
  */
-class SCM_REGIONS extends Win32Struct
-{
-    static sizeof => 24
+class SCM_REGIONS extends Win32Struct {
+    static sizeof => 96
 
     static packingSize => 8
 
@@ -37,9 +35,9 @@ class SCM_REGIONS extends Win32Struct
     }
 
     /**
-     * @type {Array<SCM_REGION>}
+     * @type {SCM_REGION}
      */
-    Regions{
+    Regions {
         get {
             if(!this.HasProp("__RegionsProxyArray"))
                 this.__RegionsProxyArray := Win32FixedArray(this.ptr + 16, 1, SCM_REGION, "")

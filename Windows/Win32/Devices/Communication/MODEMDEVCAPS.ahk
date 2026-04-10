@@ -1,14 +1,15 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
+#Include .\MODEMDEVCAPS_DIAL_OPTIONS.ahk
+#Include .\MODEMDEVCAPS_SPEAKER_VOLUME.ahk
+#Include .\MODEMDEVCAPS_SPEAKER_MODE.ahk
 
 /**
  * Contains information about the capabilities of a modem.
  * @see https://learn.microsoft.com/windows/win32/api/mcx/ns-mcx-modemdevcaps
  * @namespace Windows.Win32.Devices.Communication
- * @version v4.0.30319
  */
-class MODEMDEVCAPS extends Win32Struct
-{
+class MODEMDEVCAPS extends Win32Struct {
     static sizeof => 80
 
     static packingSize => 4
@@ -114,8 +115,7 @@ class MODEMDEVCAPS extends Win32Struct
     }
 
     /**
-     * 
-     * @type {Integer}
+     * @type {MODEMDEVCAPS_DIAL_OPTIONS}
      */
     dwDialOptions {
         get => NumGet(this, 44, "uint")
@@ -143,8 +143,7 @@ class MODEMDEVCAPS extends Win32Struct
     }
 
     /**
-     * 
-     * @type {Integer}
+     * @type {MODEMDEVCAPS_SPEAKER_VOLUME}
      */
     dwSpeakerVolume {
         get => NumGet(this, 56, "uint")
@@ -152,8 +151,7 @@ class MODEMDEVCAPS extends Win32Struct
     }
 
     /**
-     * 
-     * @type {Integer}
+     * @type {MODEMDEVCAPS_SPEAKER_MODE}
      */
     dwSpeakerMode {
         get => NumGet(this, 60, "uint")
@@ -161,7 +159,6 @@ class MODEMDEVCAPS extends Win32Struct
     }
 
     /**
-     * 
      * @type {Integer}
      */
     dwModemOptions {
@@ -189,9 +186,9 @@ class MODEMDEVCAPS extends Win32Struct
 
     /**
      * Variable-length information, including strings and any provider-defined information.
-     * @type {Array<Byte>}
+     * @type {Array<Integer>}
      */
-    abVariablePortion{
+    abVariablePortion {
         get {
             if(!this.HasProp("__abVariablePortionProxyArray"))
                 this.__abVariablePortionProxyArray := Win32FixedArray(this.ptr + 76, 1, Primitive, "char")

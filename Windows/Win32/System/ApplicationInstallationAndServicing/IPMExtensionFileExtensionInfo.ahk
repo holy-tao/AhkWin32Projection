@@ -1,14 +1,12 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
-#Include ..\..\Foundation\BSTR.ahk
 #Include ..\Com\IUnknown.ahk
 
 /**
  * @namespace Windows.Win32.System.ApplicationInstallationAndServicing
- * @version v4.0.30319
  */
-class IPMExtensionFileExtensionInfo extends IUnknown{
+class IPMExtensionFileExtensionInfo extends IUnknown {
 
     static sizeof => A_PtrSize
     /**
@@ -63,7 +61,7 @@ class IPMExtensionFileExtensionInfo extends IUnknown{
 
     /**
      * 
-     * @param {Integer} LogoSize 
+     * @param {PM_LOGO_SIZE} LogoSize 
      * @param {Pointer<BSTR>} pLogo 
      * @returns {HRESULT} 
      */

@@ -5,9 +5,8 @@
  * Each value from the ATTRIBUTESYNTAX enumeration type specifies a possible attribute syntax.
  * @see https://learn.microsoft.com/windows/win32/api/sdoias/ne-sdoias-attributesyntax
  * @namespace Windows.Win32.NetworkManagement.NetworkPolicyServer
- * @version v4.0.30319
  */
-class ATTRIBUTESYNTAX extends Win32Enum{
+class ATTRIBUTESYNTAX extends Win32Enum {
 
     /**
      * The attribute is of type Boolean.

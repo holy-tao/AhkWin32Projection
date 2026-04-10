@@ -5,9 +5,8 @@
 
 /**
  * @namespace Windows.Win32.Graphics.Direct3D.Dxc
- * @version v4.0.30319
  */
-class IDxcBlobUtf8 extends IDxcBlobEncoding{
+class IDxcBlobUtf8 extends IDxcBlobEncoding {
 
     static sizeof => A_PtrSize
     /**

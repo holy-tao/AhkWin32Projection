@@ -43,9 +43,8 @@
  * </ul>
  * @see https://learn.microsoft.com/windows/win32/api/webservices/ne-webservices-ws_read_option
  * @namespace Windows.Win32.Networking.WindowsWebServices
- * @version v4.0.30319
  */
-class WS_READ_OPTION extends Win32Enum{
+class WS_READ_OPTION extends Win32Enum {
 
     /**
      * The option specifies that the value must exist in the XML content.

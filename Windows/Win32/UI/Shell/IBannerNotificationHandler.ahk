@@ -5,9 +5,8 @@
 
 /**
  * @namespace Windows.Win32.UI.Shell
- * @version v4.0.30319
  */
-class IBannerNotificationHandler extends IUnknown{
+class IBannerNotificationHandler extends IUnknown {
 
     static sizeof => A_PtrSize
     /**

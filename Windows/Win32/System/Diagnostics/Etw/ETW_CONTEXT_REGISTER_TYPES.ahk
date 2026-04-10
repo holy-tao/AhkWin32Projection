@@ -3,9 +3,8 @@
 
 /**
  * @namespace Windows.Win32.System.Diagnostics.Etw
- * @version v4.0.30319
  */
-class ETW_CONTEXT_REGISTER_TYPES extends Win32BitflagEnum{
+class ETW_CONTEXT_REGISTER_TYPES extends Win32BitflagEnum {
 
     /**
      * @type {Integer (Int32)}

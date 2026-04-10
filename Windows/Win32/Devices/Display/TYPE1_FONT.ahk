@@ -10,10 +10,8 @@
  * Each PostScript Type1 font comes with two separate files: a .<i>pfm</i> file and a .<i>pfb</i> file. The .<i>pfm</i> file contains font metrics information; the .<i>pfb</i> file contains the PostScript Type1 binary font data.
  * @see https://learn.microsoft.com/windows/win32/api/winddi/ns-winddi-type1_font
  * @namespace Windows.Win32.Devices.Display
- * @version v4.0.30319
  */
-class TYPE1_FONT extends Win32Struct
-{
+class TYPE1_FONT extends Win32Struct {
     static sizeof => 24
 
     static packingSize => 8
@@ -22,7 +20,7 @@ class TYPE1_FONT extends Win32Struct
      * Handle to the PostScript Type1 .<a href="https://docs.microsoft.com/windows-hardware/drivers/">pfm</a> file.
      * @type {HANDLE}
      */
-    hPFM{
+    hPFM {
         get {
             if(!this.HasProp("__hPFM"))
                 this.__hPFM := HANDLE(0, this)
@@ -34,7 +32,7 @@ class TYPE1_FONT extends Win32Struct
      * Handle to the PostScript Type1 .<i>pfb</i> file.
      * @type {HANDLE}
      */
-    hPFB{
+    hPFB {
         get {
             if(!this.HasProp("__hPFB"))
                 this.__hPFB := HANDLE(8, this)

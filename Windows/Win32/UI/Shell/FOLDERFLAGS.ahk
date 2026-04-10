@@ -5,9 +5,8 @@
  * A set of flags that specify folder view options. The flags are independent of each other and can be used in any combination.
  * @see https://learn.microsoft.com/windows/win32/api/shobjidl_core/ne-shobjidl_core-folderflags
  * @namespace Windows.Win32.UI.Shell
- * @version v4.0.30319
  */
-class FOLDERFLAGS extends Win32BitflagEnum{
+class FOLDERFLAGS extends Win32BitflagEnum {
 
     /**
      * 0x00000000. <b>Windows 7 and later</b>. No special view options.

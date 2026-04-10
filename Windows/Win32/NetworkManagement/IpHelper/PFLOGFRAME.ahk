@@ -1,12 +1,11 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
+#Include .\PFFRAMETYPE.ahk
 
 /**
  * @namespace Windows.Win32.NetworkManagement.IpHelper
- * @version v4.0.30319
  */
-class PFLOGFRAME extends Win32Struct
-{
+class PFLOGFRAME extends Win32Struct {
     static sizeof => 40
 
     static packingSize => 8
@@ -20,7 +19,7 @@ class PFLOGFRAME extends Win32Struct
     }
 
     /**
-     * @type {Integer}
+     * @type {PFFRAMETYPE}
      */
     pfeTypeOfFrame {
         get => NumGet(this, 8, "int")
@@ -76,9 +75,9 @@ class PFLOGFRAME extends Win32Struct
     }
 
     /**
-     * @type {Array<Byte>}
+     * @type {Array<Integer>}
      */
-    bPacketData{
+    bPacketData {
         get {
             if(!this.HasProp("__bPacketDataProxyArray"))
                 this.__bPacketDataProxyArray := Win32FixedArray(this.ptr + 32, 1, Primitive, "char")

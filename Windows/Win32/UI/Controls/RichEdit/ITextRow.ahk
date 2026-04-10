@@ -24,9 +24,8 @@
  * For example, the count of rows in a table can be obtained by calling <a href="https://docs.microsoft.com/windows/desktop/api/tom/nf-tom-itextrange-startof">ITextRange::StartOf</a> (<b>tomTable</b>, <b>tomFalse</b>, <b>NULL</b>) to move to the start of the current table and then calling <a href="https://docs.microsoft.com/windows/desktop/api/tom/nf-tom-itextrange-move">ITextRange::Move</a> (<b>tomRow</b>, <b>tomForward</b>, <i>&amp;dcRow</i>). The quantity <i>&amp;dcRow</i> + 1 then contains the count of rows in the table, because moving by <b>tomRow</b> increments doesn't move beyond the last table row.
  * @see https://learn.microsoft.com/windows/win32/api/tom/nn-tom-itextrow
  * @namespace Windows.Win32.UI.Controls.RichEdit
- * @version v4.0.30319
  */
-class ITextRow extends IDispatch{
+class ITextRow extends IDispatch {
 
     static sizeof => A_PtrSize
     /**
@@ -698,7 +697,7 @@ class ITextRow extends IDispatch{
      * @param {Integer} cRow Type: <b>long</b>
      * 
      * The number of rows to apply this text row object to.
-     * @param {Integer} Flags Type: <b>long</b>
+     * @param {tomConstants} Flags Type: <b>long</b>
      * @returns {HRESULT} Type: <b><a href="https://docs.microsoft.com/windows/desktop/WinProg/windows-data-types">HRESULT</a></b>
      * 
      * If the method succeeds, it returns <b>NOERROR</b>. Otherwise, it returns an <b>HRESULT</b> error code.

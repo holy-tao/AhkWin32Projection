@@ -3,10 +3,8 @@
 
 /**
  * @namespace Windows.Win32.System.Environment
- * @version v4.0.30319
  */
-class VBS_BASIC_ENCLAVE_EXCEPTION_AMD64 extends Win32Struct
-{
+class VBS_BASIC_ENCLAVE_EXCEPTION_AMD64 extends Win32Struct {
     static sizeof => 72
 
     static packingSize => 8
@@ -28,9 +26,9 @@ class VBS_BASIC_ENCLAVE_EXCEPTION_AMD64 extends Win32Struct
     }
 
     /**
-     * @type {Array<UIntPtr>}
+     * @type {Array<Pointer>}
      */
-    ExceptionInformation{
+    ExceptionInformation {
         get {
             if(!this.HasProp("__ExceptionInformationProxyArray"))
                 this.__ExceptionInformationProxyArray := Win32FixedArray(this.ptr + 8, 3, Primitive, "ptr")

@@ -7,9 +7,8 @@
  * Represents an item to exclude from a knowledge object.
  * @see https://learn.microsoft.com/windows/win32/api/winsync/nn-winsync-isingleitemexception
  * @namespace Windows.Win32.System.WindowsSync
- * @version v4.0.30319
  */
-class ISingleItemException extends IUnknown{
+class ISingleItemException extends IUnknown {
 
     static sizeof => A_PtrSize
     /**

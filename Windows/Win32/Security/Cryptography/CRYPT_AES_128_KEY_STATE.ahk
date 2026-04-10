@@ -9,19 +9,17 @@
  *    The Microsoft AES Cryptographic Provider only supports this structure in the context of the <a href="https://docs.microsoft.com/windows/desktop/SecGloss/s-gly">Secure Sockets Layer protocol</a> (SSL), where the caller specified <b>PROV_DH_SCHANNEL</b> as the value for the <i>dwProvType</i> parameter of the <a href="https://docs.microsoft.com/windows/desktop/api/wincrypt/nf-wincrypt-cryptacquirecontexta">CryptAcquireContext</a> function.
  * @see https://learn.microsoft.com/windows/win32/api/wincrypt/ns-wincrypt-crypt_aes_128_key_state
  * @namespace Windows.Win32.Security.Cryptography
- * @version v4.0.30319
  */
-class CRYPT_AES_128_KEY_STATE extends Win32Struct
-{
+class CRYPT_AES_128_KEY_STATE extends Win32Struct {
     static sizeof => 400
 
     static packingSize => 1
 
     /**
      * An array of hexadecimal values that specify a 128-bit <a href="https://docs.microsoft.com/windows/desktop/SecGloss/c-gly">cipher</a> key.
-     * @type {Array<Byte>}
+     * @type {Array<Integer>}
      */
-    Key{
+    Key {
         get {
             if(!this.HasProp("__KeyProxyArray"))
                 this.__KeyProxyArray := Win32FixedArray(this.ptr + 0, 16, Primitive, "char")
@@ -31,9 +29,9 @@ class CRYPT_AES_128_KEY_STATE extends Win32Struct
 
     /**
      * An array of hexadecimal values that specify an <a href="https://docs.microsoft.com/windows/desktop/SecGloss/i-gly">initialization vector</a> (IV) for the <a href="https://docs.microsoft.com/windows/desktop/SecGloss/c-gly">cipher</a>.
-     * @type {Array<Byte>}
+     * @type {Array<Integer>}
      */
-    IV{
+    IV {
         get {
             if(!this.HasProp("__IVProxyArray"))
                 this.__IVProxyArray := Win32FixedArray(this.ptr + 16, 16, Primitive, "char")
@@ -43,9 +41,9 @@ class CRYPT_AES_128_KEY_STATE extends Win32Struct
 
     /**
      * An array of hexadecimal values that specify an 11-round encryption key schedule.
-     * @type {Array<Byte>}
+     * @type {Array<Integer>}
      */
-    EncryptionState{
+    EncryptionState {
         get {
             if(!this.HasProp("__EncryptionStateProxyArray"))
                 this.__EncryptionStateProxyArray := Win32FixedArray(this.ptr + 32, 176, Primitive, "char")
@@ -55,9 +53,9 @@ class CRYPT_AES_128_KEY_STATE extends Win32Struct
 
     /**
      * An array of hexadecimal values that specify an 11-round decryption key schedule.
-     * @type {Array<Byte>}
+     * @type {Array<Integer>}
      */
-    DecryptionState{
+    DecryptionState {
         get {
             if(!this.HasProp("__DecryptionStateProxyArray"))
                 this.__DecryptionStateProxyArray := Win32FixedArray(this.ptr + 208, 176, Primitive, "char")
@@ -67,9 +65,9 @@ class CRYPT_AES_128_KEY_STATE extends Win32Struct
 
     /**
      * An array of hexadecimal values that specify the feedback vector for a stage in the encryption or decryption process.
-     * @type {Array<Byte>}
+     * @type {Array<Integer>}
      */
-    Feedback{
+    Feedback {
         get {
             if(!this.HasProp("__FeedbackProxyArray"))
                 this.__FeedbackProxyArray := Win32FixedArray(this.ptr + 384, 16, Primitive, "char")

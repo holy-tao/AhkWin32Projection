@@ -14,10 +14,8 @@
  *                 <a href="https://docs.microsoft.com/windows/desktop/api/webservices/ne-webservices-ws_listener_state">WS_LISTENER_STATE</a>.
  * @see https://learn.microsoft.com/windows/win32/api/webservices/ns-webservices-ws_custom_listener_callbacks
  * @namespace Windows.Win32.Networking.WindowsWebServices
- * @version v4.0.30319
  */
-class WS_CUSTOM_LISTENER_CALLBACKS extends Win32Struct
-{
+class WS_CUSTOM_LISTENER_CALLBACKS extends Win32Struct {
     static sizeof => 80
 
     static packingSize => 8

@@ -3,9 +3,8 @@
 
 /**
  * @namespace Windows.Win32.Graphics.Gdi
- * @version v4.0.30319
  */
-class SYSTEM_PALETTE_USE extends Win32Enum{
+class SYSTEM_PALETTE_USE extends Win32Enum {
 
     /**
      * @type {Integer (UInt32)}

@@ -7,9 +7,8 @@
  * Represents a virtual adapter. This interface extends [ID3D12Device5](../d3d12/nn-d3d12-id3d12device5.md).
  * @see https://learn.microsoft.com/windows/win32/api/d3d12/nn-d3d12-id3d12device6
  * @namespace Windows.Win32.Graphics.Direct3D12
- * @version v4.0.30319
  */
-class ID3D12Device6 extends ID3D12Device5{
+class ID3D12Device6 extends ID3D12Device5 {
 
     static sizeof => A_PtrSize
     /**
@@ -56,8 +55,10 @@ class ID3D12Device6 extends ID3D12Device5{
      * ```
      * 
      * [PIX](https://devblogs.microsoft.com/pix/) automatically uses **SetBackgroundProcessingMode**&mdash;first to prime the system,and then to prevent any further changes from taking place in the middle of its analysis. PIX waits on an event (to make sure all background shader recompiles have finished) before it starts taking measurements.
-     * @param {Integer} _Mode 
-     * @param {Integer} MeasurementsAction Type: **[D3D12_MEASUREMENTS_ACTION](./ne-d3d12-d3d12_measurements_action.md)**
+     * @param {D3D12_BACKGROUND_PROCESSING_MODE} _Mode Type: **[D3D12_BACKGROUND_PROCESSING_MODE](./ne-d3d12-d3d12_background_processing_mode.md)**
+     * 
+     * The level of dynamic optimization to apply to GPU work that's subsequently submitted.
+     * @param {D3D12_MEASUREMENTS_ACTION} MeasurementsAction Type: **[D3D12_MEASUREMENTS_ACTION](./ne-d3d12-d3d12_measurements_action.md)**
      * 
      * The action to take with the results of earlier workload instrumentation.
      * @param {HANDLE} hEventToSignalUponCompletion Type: **[HANDLE](/windows/win32/winprog/windows-data-types)**

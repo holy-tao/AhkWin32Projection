@@ -1,17 +1,16 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
+#Include .\IDWriteFontCollection.ahk
 #Include .\IDWriteFontSet.ahk
 #Include .\IDWriteFontFamily1.ahk
-#Include .\IDWriteFontCollection.ahk
 
 /**
  * An object that encapsulates a set of fonts, such as the set of fonts installed on the system, or the set of fonts in a particular directory. (IDWriteFontCollection1)
  * @see https://learn.microsoft.com/windows/win32/api/dwrite_3/nn-dwrite_3-idwritefontcollection1
  * @namespace Windows.Win32.Graphics.DirectWrite
- * @version v4.0.30319
  */
-class IDWriteFontCollection1 extends IDWriteFontCollection{
+class IDWriteFontCollection1 extends IDWriteFontCollection {
 
     static sizeof => A_PtrSize
     /**

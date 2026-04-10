@@ -3,10 +3,8 @@
 
 /**
  * @namespace Windows.Win32.Storage.IscsiDisc
- * @version v4.0.30319
  */
-class NV_FEATURE_PARAMETER extends Win32Struct
-{
+class NV_FEATURE_PARAMETER extends Win32Struct {
     static sizeof => 24
 
     static packingSize => 4

@@ -5,7 +5,6 @@
 
 /**
  * @namespace Windows.Win32.UI.Input.KeyboardAndMouse
- * @version v4.0.30319
  */
 class KeyboardAndMouse {
 
@@ -714,7 +713,7 @@ class KeyboardAndMouse {
      * The name of the input locale identifier to load. This name is a string composed of the hexadecimal value of the <a href="https://docs.microsoft.com/windows/desktop/Intl/language-identifiers">Language Identifier</a> (low word) and a device identifier (high word). For example, U.S. English has a language identifier of 0x0409, so the primary U.S. English layout is named "00000409". Variants of U.S. English layout (such as the Dvorak layout) are named "00010409", "00020409", and so on. 
      * 
      * For a list of the input layouts that are supplied with Windows, see [Keyboard Identifiers and Input Method Editors for Windows](/windows-hardware/manufacture/desktop/windows-language-pack-default-values).
-     * @param {Integer} Flags Type: <b>UINT</b>
+     * @param {ACTIVATE_KEYBOARD_LAYOUT_FLAGS} Flags Type: <b>UINT</b>
      * @returns {HKL} Type: <b>HKL</b>
      * 
      * If the function succeeds, the return value is the input locale identifier corresponding to the name specified in <i>pwszKLID</i>. If no matching locale is available, the return value is the default language of the system.
@@ -757,7 +756,7 @@ class KeyboardAndMouse {
      * The name of the input locale identifier to load. This name is a string composed of the hexadecimal value of the <a href="https://docs.microsoft.com/windows/desktop/Intl/language-identifiers">Language Identifier</a> (low word) and a device identifier (high word). For example, U.S. English has a language identifier of 0x0409, so the primary U.S. English layout is named "00000409". Variants of U.S. English layout (such as the Dvorak layout) are named "00010409", "00020409", and so on. 
      * 
      * For a list of the input layouts that are supplied with Windows, see [Keyboard Identifiers and Input Method Editors for Windows](/windows-hardware/manufacture/desktop/windows-language-pack-default-values).
-     * @param {Integer} Flags Type: <b>UINT</b>
+     * @param {ACTIVATE_KEYBOARD_LAYOUT_FLAGS} Flags Type: <b>UINT</b>
      * @returns {HKL} Type: <b>HKL</b>
      * 
      * If the function succeeds, the return value is the input locale identifier corresponding to the name specified in <i>pwszKLID</i>. If no matching locale is available, the return value is the default language of the system.
@@ -793,8 +792,10 @@ class KeyboardAndMouse {
      * When multiple IMEs are allowed for each locale, passing an input locale identifier in which the high word (the device handle) is zero activates the first IME in the list belonging to the locale.
      * 
      * The <b>KLF_RESET</b> and <b>KLF_SHIFTLOCK</b> flags alter the method by which the Caps Lock state is turned off. By default, the Caps Lock state is turned off by hitting the Caps Lock key again. If only <b>KLF_RESET</b> is set, the default state is reestablished. If <b>KLF_RESET</b> and <b>KLF_SHIFTLOCK</b> are set, the Caps Lock state is turned off by pressing either Caps Lock key. This feature is used to conform to local keyboard behavior standards as well as for personal preferences.
-     * @param {HKL} _hkl 
-     * @param {Integer} Flags Type: <b>UINT</b>
+     * @param {HKL} _hkl Type: <b>HKL</b>
+     * 
+     * Input locale identifier to be activated.
+     * @param {ACTIVATE_KEYBOARD_LAYOUT_FLAGS} Flags Type: <b>UINT</b>
      * @returns {HKL} Type: <b>HKL</b>
      * 
      * The return value is of type 
@@ -923,7 +924,9 @@ class KeyboardAndMouse {
      * The input locale identifier is a broader concept than a keyboard layout, since it can also encompass a speech-to-text converter, an Input Method Editor (IME), or any other form of input. 
      * 
      * <b>UnloadKeyboardLayout</b> cannot unload the system default input locale identifier if it is the only keyboard layout loaded. You must first load another input locale identifier before unloading the default input locale identifier.
-     * @param {HKL} _hkl 
+     * @param {HKL} _hkl Type: <b>HKL</b>
+     * 
+     * The input locale identifier to be unloaded.
      * @returns {BOOL} Type: <b>BOOL</b>
      * 
      * If the function succeeds, the return value is nonzero.
@@ -1166,7 +1169,7 @@ class KeyboardAndMouse {
      * @param {Integer} nBufPoints Type: <b>int</b>
      * 
      * The number of points to be retrieved.
-     * @param {Integer} resolution Type: <b>DWORD</b>
+     * @param {GET_MOUSE_MOVE_POINTS_EX_RESOLUTION} resolution Type: <b>DWORD</b>
      * @returns {Integer} Type: <b>int</b>
      * 
      * If the function succeeds, the return value is the number of points in the buffer. Otherwise, the function returns 
@@ -1254,11 +1257,13 @@ class KeyboardAndMouse {
      * The F12 key is reserved for use by the debugger at all times, so it should not be registered as a hot key. Even when you are not debugging an application, F12 is reserved in case a kernel-mode debugger or a just-in-time debugger is resident.
      * 
      * An application must specify an id value in the range 0x0000 through 0xBFFF. A shared DLL must specify a value in the range 0xC000 through 0xFFFF (the range returned by the <a href="https://docs.microsoft.com/windows/desktop/api/winbase/nf-winbase-globaladdatoma">GlobalAddAtom</a> function). To avoid conflicts with hot-key identifiers defined by other shared DLLs, a DLL should use the <b>GlobalAddAtom</b> function to obtain the hot-key identifier.
-     * @param {HWND} _hWnd 
+     * @param {HWND} _hWnd Type: <b>HWND</b>
+     * 
+     * A handle to the window that will receive <a href="https://docs.microsoft.com/windows/desktop/inputdev/wm-hotkey">WM_HOTKEY</a> messages generated by the hot key. If this parameter is <b>NULL</b>, <b>WM_HOTKEY</b> messages are posted to the message queue of the calling thread and must be processed in the message loop.
      * @param {Integer} id Type: <b>int</b>
      * 
      * The identifier of the hot key.  If the <i>hWnd</i> parameter is NULL, then the hot key is associated with the current thread rather than with a particular window. If a hot key already exists with the same <i>hWnd</i> and <i>id</i> parameters, see Remarks for the action taken.
-     * @param {Integer} fsModifiers Type: <b>UINT</b>
+     * @param {HOT_KEY_MODIFIERS} fsModifiers Type: <b>UINT</b>
      * 
      * The keys that must be pressed in combination with the key specified by the
      * @param {Integer} vk Type: <b>UINT</b>
@@ -1287,7 +1292,9 @@ class KeyboardAndMouse {
 
     /**
      * Frees a hot key previously registered by the calling thread.
-     * @param {HWND} _hWnd 
+     * @param {HWND} _hWnd Type: <b>HWND</b>
+     * 
+     * A handle to the window associated with the hot key to be freed. This parameter should be <b>NULL</b> if the hot key is not associated with a window.
      * @param {Integer} id Type: <b>int</b>
      * 
      * The identifier of the hot key to be freed.
@@ -1377,7 +1384,9 @@ class KeyboardAndMouse {
      * If a window is active but does not have the focus, any key pressed produces the [WM_SYSCHAR](/windows/desktop/menurc/wm-syschar), [WM_SYSKEYDOWN](/windows/desktop/inputdev/wm-syskeydown), or [WM_SYSKEYUP](/windows/desktop/inputdev/wm-syskeyup) message. If the VK_MENU key is also pressed, bit 30 of the *lParam* parameter of the message is set. Otherwise, the messages produced do not have this bit set.
      * 
      * By using the [AttachThreadInput function](nf-winuser-attachthreadinput.md), a thread can attach its input processing to another thread. This allows a thread to call SetFocus to set the keyboard focus to a window attached to another thread's message queue.
-     * @param {HWND} _hWnd 
+     * @param {HWND} _hWnd Type: **HWND**
+     * 
+     * A handle to the window that will receive the keyboard input. If this parameter is NULL, keystrokes are ignored.
      * @returns {HWND} Type: **HWND**
      * 
      * If the function succeeds, the return value is the handle to the window that previously had the keyboard focus. If the *hWnd* parameter is invalid or the window is not attached to the calling thread's message queue, the return value is NULL. To get extended error information, call [GetLastError function](../errhandlingapi/nf-errhandlingapi-getlasterror.md).
@@ -1682,7 +1691,17 @@ class KeyboardAndMouse {
      * 
      * > [!NOTE]
      * > The winuser.h header defines GetKeyNameText as an alias which automatically selects the ANSI or Unicode version of this function based on the definition of the UNICODE preprocessor constant. Mixing usage of the encoding-neutral alias with code that not encoding-neutral can lead to mismatches that result in compilation or runtime errors. For more information, see [Conventions for Function Prototypes](/windows/win32/intl/conventions-for-function-prototypes).
-     * @param {Integer} _lParam 
+     * @param {Integer} _lParam Type: <b>LONG</b>
+     * 
+     * The second parameter of the keyboard message (such as <a href="https://docs.microsoft.com/windows/desktop/inputdev/wm-keydown">WM_KEYDOWN</a>) to be processed. The function interprets the following bit positions in the <i>lParam</i>.
+     * 
+     * | Bits  | Meaning |
+     * |-------|---------|
+     * | 16-23 | The scan code. The value depends on the OEM. |
+     * | 24    | Indicates whether the key is an extended key, such as the right-hand ALT and CTRL keys that appear on an enhanced 101- or 102-key keyboard. The value is 1 if it is an extended key; otherwise, it is 0. |
+     * | 25    | "Do not care" bit. The application calling this function sets this bit to indicate that the function should not distinguish between left and right CTRL and SHIFT keys, for example. |
+     * 
+     * For more detail, see [Keystroke Message Flags](/windows/win32/inputdev/about-keyboard-input#keystroke-message-flags).
      * @param {PSTR} lpString Type: <b>LPTSTR</b>
      * 
      * The buffer that will receive the key name.
@@ -1720,7 +1739,17 @@ class KeyboardAndMouse {
      * 
      * > [!NOTE]
      * > The winuser.h header defines GetKeyNameText as an alias which automatically selects the ANSI or Unicode version of this function based on the definition of the UNICODE preprocessor constant. Mixing usage of the encoding-neutral alias with code that not encoding-neutral can lead to mismatches that result in compilation or runtime errors. For more information, see [Conventions for Function Prototypes](/windows/win32/intl/conventions-for-function-prototypes).
-     * @param {Integer} _lParam 
+     * @param {Integer} _lParam Type: <b>LONG</b>
+     * 
+     * The second parameter of the keyboard message (such as <a href="https://docs.microsoft.com/windows/desktop/inputdev/wm-keydown">WM_KEYDOWN</a>) to be processed. The function interprets the following bit positions in the <i>lParam</i>.
+     * 
+     * | Bits  | Meaning |
+     * |-------|---------|
+     * | 16-23 | The scan code. The value depends on the OEM. |
+     * | 24    | Indicates whether the key is an extended key, such as the right-hand ALT and CTRL keys that appear on an enhanced 101- or 102-key keyboard. The value is 1 if it is an extended key; otherwise, it is 0. |
+     * | 25    | "Do not care" bit. The application calling this function sets this bit to indicate that the function should not distinguish between left and right CTRL and SHIFT keys, for example. |
+     * 
+     * For more detail, see [Keystroke Message Flags](/windows/win32/inputdev/about-keyboard-input#keystroke-message-flags).
      * @param {PWSTR} lpString Type: <b>LPTSTR</b>
      * 
      * The buffer that will receive the key name.
@@ -2598,7 +2627,7 @@ class KeyboardAndMouse {
      * @param {Integer} bScan Type: <b>BYTE</b>
      * 
      * A hardware scan code for the key.
-     * @param {Integer} dwFlags Type: <b>DWORD</b>
+     * @param {KEYBD_EVENT_FLAGS} dwFlags Type: <b>DWORD</b>
      * @param {Pointer} dwExtraInfo Type: <b>ULONG_PTR</b>
      * 
      * An additional value associated with the key stroke.
@@ -2633,7 +2662,7 @@ class KeyboardAndMouse {
      * 
      * The <b>mouse_event</b> function is used to synthesize mouse events by applications that need to do so. It is also used by applications that need to obtain more information from the mouse than its position and button state. For example, if a tablet manufacturer wants to pass pen-based information to its own applications, it can write a DLL that communicates directly to the tablet hardware, obtains the extra information, and saves it in a queue. The DLL then calls <b>mouse_event</b> with the standard button and x/y position data, along with, in the <i>dwExtraInfo</i> parameter, some pointer or index to the queued extra information. When the application needs the extra information, it calls the DLL with the pointer or index stored in 
      * 				<i>dwExtraInfo</i>, and the DLL returns the extra information.
-     * @param {Integer} dwFlags Type: <b>DWORD</b>
+     * @param {MOUSE_EVENT_FLAGS} dwFlags Type: <b>DWORD</b>
      * @param {Integer} dx Type: <b>DWORD</b>
      * 
      * The mouse's absolute position along the x-axis or its amount of motion since the last mouse event was generated, depending on the setting of <b>MOUSEEVENTF_ABSOLUTE</b>. Absolute data is specified as the mouse's actual x-coordinate; relative data is specified as the number of mickeys moved. A 
@@ -2786,7 +2815,7 @@ class KeyboardAndMouse {
      * The [virtual key code](/windows/desktop/inputdev/virtual-key-codes) or scan code for a key. How this value is interpreted depends on the value of the *uMapType* parameter.
      * 
      * **Starting with Windows Vista**, the high byte of the *uCode* value can contain either 0xe0 or 0xe1 to specify the extended scan code.
-     * @param {Integer} uMapType Type: **UINT**
+     * @param {MAP_VIRTUAL_KEY_TYPE} uMapType Type: **UINT**
      * 
      * The translation to be performed. The value of this parameter depends on the value of the *uCode* parameter.
      * 
@@ -2835,7 +2864,7 @@ class KeyboardAndMouse {
      * The [virtual key code](/windows/desktop/inputdev/virtual-key-codes) or scan code for a key. How this value is interpreted depends on the value of the *uMapType* parameter.
      * 
      * **Starting with Windows Vista**, the high byte of the *uCode* value can contain either 0xe0 or 0xe1 to specify the extended scan code.
-     * @param {Integer} uMapType Type: **UINT**
+     * @param {MAP_VIRTUAL_KEY_TYPE} uMapType Type: **UINT**
      * 
      * The translation to be performed. The value of this parameter depends on the value of the *uCode* parameter.
      * 
@@ -2884,7 +2913,7 @@ class KeyboardAndMouse {
      * The [virtual key code](/windows/desktop/inputdev/virtual-key-codes) or scan code for a key. How this value is interpreted depends on the value of the *uMapType* parameter.
      * 
      * **Starting with Windows Vista**, the high byte of the *uCode* value can contain either 0xe0 or 0xe1 to specify the extended scan code.
-     * @param {Integer} uMapType Type: **UINT**
+     * @param {MAP_VIRTUAL_KEY_TYPE} uMapType Type: **UINT**
      * 
      * The translation to perform. The value of this parameter depends on the value of the <i>uCode</i> parameter.
      * 
@@ -2938,7 +2967,7 @@ class KeyboardAndMouse {
      * The [virtual key code](/windows/desktop/inputdev/virtual-key-codes) or scan code for a key. How this value is interpreted depends on the value of the *uMapType* parameter.
      * 
      * **Starting with Windows Vista**, the high byte of the *uCode* value can contain either 0xe0 or 0xe1 to specify the extended scan code.
-     * @param {Integer} uMapType Type: **UINT**
+     * @param {MAP_VIRTUAL_KEY_TYPE} uMapType Type: **UINT**
      * 
      * The translation to perform. The value of this parameter depends on the value of the <i>uCode</i> parameter.
      * 
@@ -2993,7 +3022,9 @@ class KeyboardAndMouse {
      * This function cannot be used to capture mouse input meant for another process. 
      * 
      * When the mouse is captured, menu hotkeys and other keyboard accelerators do not work.
-     * @param {HWND} _hWnd 
+     * @param {HWND} _hWnd Type: <b>HWND</b>
+     * 
+     * A handle to the window in the current thread that is to capture the mouse.
      * @returns {HWND} Type: <b>HWND</b>
      * 
      * The return value is a handle to the window that had previously captured the mouse. If there is no such window, the return value is <b>NULL</b>.
@@ -3041,7 +3072,9 @@ class KeyboardAndMouse {
      * By default, a window is enabled when it is created. To create a window that is initially disabled, an application can specify the <b>WS_DISABLED</b> style in the <a href="https://docs.microsoft.com/windows/desktop/api/winuser/nf-winuser-createwindowa">CreateWindow</a> or <a href="https://docs.microsoft.com/windows/desktop/api/winuser/nf-winuser-createwindowexa">CreateWindowEx</a> function. After a window has been created, an application can use <b>EnableWindow</b> to enable or disable the window.
      * 
      * An application can use this function to enable or disable a control in a dialog box. A disabled control cannot receive the keyboard focus, nor can a user gain access to it.
-     * @param {HWND} _hWnd 
+     * @param {HWND} _hWnd Type: <b>HWND</b>
+     * 
+     * A handle to the window to be enabled or disabled.
      * @param {BOOL} bEnable Type: <b>BOOL</b>
      * 
      * Indicates whether to enable or disable the window. If this parameter is <b>TRUE</b>, the window is enabled. If the parameter is <b>FALSE</b>, the window is disabled.
@@ -3064,7 +3097,9 @@ class KeyboardAndMouse {
      * Determines whether the specified window is enabled for mouse and keyboard input.
      * @remarks
      * A child window receives input only if it is both enabled and visible.
-     * @param {HWND} _hWnd 
+     * @param {HWND} _hWnd Type: <b>HWND</b>
+     * 
+     * A handle to the window to be tested.
      * @returns {BOOL} Type: <b>BOOL</b>
      * 
      * If the window is enabled, the return value is nonzero.
@@ -3084,7 +3119,9 @@ class KeyboardAndMouse {
      * Captures the mouse and tracks its movement until the user releases the left button, presses the ESC key, or moves the mouse outside the drag rectangle around the specified point.
      * @remarks
      * The system metrics for the drag rectangle are configurable, allowing for larger or smaller drag rectangles.
-     * @param {HWND} _hwnd 
+     * @param {HWND} _hwnd Type: <b>HWND</b>
+     * 
+     * A handle to the window receiving mouse input.
      * @param {POINT} pt Type: <b><a href="https://docs.microsoft.com/windows/win32/api/windef/ns-windef-point">POINT</a></b>
      * 
      * Initial position of the mouse, in screen coordinates. The function determines the coordinates of the drag rectangle by using this point.
@@ -3111,7 +3148,9 @@ class KeyboardAndMouse {
      * If the window identified by the 
      *     <i>hWnd</i> parameter was created by the calling thread, the active window status of the calling thread is set to 
      *     <i>hWnd</i>. Otherwise, the active window status of the calling thread is set to <b>NULL</b>.
-     * @param {HWND} _hWnd 
+     * @param {HWND} _hWnd Type: <b>HWND</b>
+     * 
+     * A handle to the top-level window to be activated.
      * @returns {HWND} Type: <b>HWND</b>
      * 
      * If the function succeeds, the return value is the handle to the window that was previously active.

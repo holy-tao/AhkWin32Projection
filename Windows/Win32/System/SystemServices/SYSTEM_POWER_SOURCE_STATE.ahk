@@ -4,10 +4,8 @@
 
 /**
  * @namespace Windows.Win32.System.SystemServices
- * @version v4.0.30319
  */
-class SYSTEM_POWER_SOURCE_STATE extends Win32Struct
-{
+class SYSTEM_POWER_SOURCE_STATE extends Win32Struct {
     static sizeof => 68
 
     static packingSize => 4
@@ -15,7 +13,7 @@ class SYSTEM_POWER_SOURCE_STATE extends Win32Struct
     /**
      * @type {SYSTEM_BATTERY_STATE}
      */
-    BatteryState{
+    BatteryState {
         get {
             if(!this.HasProp("__BatteryState"))
                 this.__BatteryState := SYSTEM_BATTERY_STATE(0, this)

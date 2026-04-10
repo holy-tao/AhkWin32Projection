@@ -5,10 +5,8 @@
  * The ADS_EMAIL structure is an ADSI representation of the EMail Address attribute syntax.
  * @see https://learn.microsoft.com/windows/win32/api/iads/ns-iads-ads_email
  * @namespace Windows.Win32.Networking.ActiveDirectory
- * @version v4.0.30319
  */
-class ADS_EMAIL extends Win32Struct
-{
+class ADS_EMAIL extends Win32Struct {
     static sizeof => 16
 
     static packingSize => 8

@@ -6,19 +6,17 @@
  * Contains process parameter information.
  * @see https://learn.microsoft.com/windows/win32/api/winternl/ns-winternl-rtl_user_process_parameters
  * @namespace Windows.Win32.System.Threading
- * @version v4.0.30319
  */
-class RTL_USER_PROCESS_PARAMETERS extends Win32Struct
-{
+class RTL_USER_PROCESS_PARAMETERS extends Win32Struct {
     static sizeof => 128
 
     static packingSize => 8
 
     /**
      * Reserved for internal use by the operating system.
-     * @type {Array<Byte>}
+     * @type {Array<Integer>}
      */
-    Reserved1{
+    Reserved1 {
         get {
             if(!this.HasProp("__Reserved1ProxyArray"))
                 this.__Reserved1ProxyArray := Win32FixedArray(this.ptr + 0, 16, Primitive, "char")
@@ -28,9 +26,9 @@ class RTL_USER_PROCESS_PARAMETERS extends Win32Struct
 
     /**
      * Reserved for internal use by the operating system.
-     * @type {Array<Void>}
+     * @type {Array<Pointer<Void>>}
      */
-    Reserved2{
+    Reserved2 {
         get {
             if(!this.HasProp("__Reserved2ProxyArray"))
                 this.__Reserved2ProxyArray := Win32FixedArray(this.ptr + 16, 10, Primitive, "ptr")
@@ -42,7 +40,7 @@ class RTL_USER_PROCESS_PARAMETERS extends Win32Struct
      * The path of the image file for the process.
      * @type {UNICODE_STRING}
      */
-    ImagePathName{
+    ImagePathName {
         get {
             if(!this.HasProp("__ImagePathName"))
                 this.__ImagePathName := UNICODE_STRING(96, this)
@@ -54,7 +52,7 @@ class RTL_USER_PROCESS_PARAMETERS extends Win32Struct
      * The command-line string passed to the process.
      * @type {UNICODE_STRING}
      */
-    CommandLine{
+    CommandLine {
         get {
             if(!this.HasProp("__CommandLine"))
                 this.__CommandLine := UNICODE_STRING(112, this)

@@ -3,9 +3,8 @@
 
 /**
  * @namespace Windows.Win32.UI.Controls.Dialogs
- * @version v4.0.30319
  */
-class OPEN_FILENAME_FLAGS_EX extends Win32BitflagEnum{
+class OPEN_FILENAME_FLAGS_EX extends Win32BitflagEnum {
 
     /**
      * @type {Integer (UInt32)}

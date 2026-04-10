@@ -15,9 +15,8 @@
  * In some circumstances, such as when large numbers of gestures are subscribed to, the response time in the gesture recognizer becomes excessively slow. To avoid this problem, the gesture recognizer also implements the <a href="https://docs.microsoft.com/windows/desktop/api/rtscom/nn-rtscom-istylusasyncplugin">IStylusAsyncPlugin</a> interface so it can be placed on the UI thread.
  * @see https://learn.microsoft.com/windows/win32/api/rtscom/nn-rtscom-istylussyncplugin
  * @namespace Windows.Win32.UI.TabletPC
- * @version v4.0.30319
  */
-class IStylusSyncPlugin extends IStylusPlugin{
+class IStylusSyncPlugin extends IStylusPlugin {
 
     static sizeof => A_PtrSize
     /**

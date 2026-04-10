@@ -1,14 +1,15 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
+#Include ..\..\System\Diagnostics\Debug\VER_PLATFORM.ahk
+#Include ..\..\System\SystemInformation\PROCESSOR_ARCHITECTURE.ahk
 
 /**
  * The SP_ALTPLATFORM_INFO_V2 structure is used to pass information for an alternate platform to SetupQueryInfOriginalFileInformation.
  * @see https://learn.microsoft.com/windows/win32/api/setupapi/ns-setupapi-sp_altplatform_info_v2
  * @namespace Windows.Win32.Devices.DeviceAndDriverInstallation
- * @version v4.0.30319
+ * @architecture X64, Arm64
  */
-class SP_ALTPLATFORM_INFO_V2 extends Win32Struct
-{
+class SP_ALTPLATFORM_INFO_V2 extends Win32Struct {
     static sizeof => 28
 
     static packingSize => 4
@@ -23,8 +24,7 @@ class SP_ALTPLATFORM_INFO_V2 extends Win32Struct
     }
 
     /**
-     * 
-     * @type {Integer}
+     * @type {VER_PLATFORM}
      */
     Platform {
         get => NumGet(this, 4, "uint")
@@ -51,7 +51,7 @@ class SP_ALTPLATFORM_INFO_V2 extends Win32Struct
 
     /**
      * Processor architecture. This must be PROCESSOR_ARCHITECTURE_INTEL, PROCESSOR_ARCHITECTURE_ALPHA, PROCESSOR_ARCHITECTURE_IA64, PROCESSOR_ARCHITECTURE_ALPHA64.
-     * @type {Integer}
+     * @type {PROCESSOR_ARCHITECTURE}
      */
     ProcessorArchitecture {
         get => NumGet(this, 16, "ushort")

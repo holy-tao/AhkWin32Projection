@@ -3,10 +3,8 @@
 
 /**
  * @namespace Windows.Win32.System.Ioctl
- * @version v4.0.30319
  */
-class FILE_INITIATE_REPAIR_OUTPUT_BUFFER extends Win32Struct
-{
+class FILE_INITIATE_REPAIR_OUTPUT_BUFFER extends Win32Struct {
     static sizeof => 32
 
     static packingSize => 8

@@ -1,15 +1,14 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
 #Include .\RECO_LATTICE_PROPERTIES.ahk
+#Include .\RECO_LATTICE_PROPERTY.ahk
 
 /**
  * Corresponds to one word or one East Asian character, typically; however, an element may also correspond to a gesture, a shape, or some other code.
  * @see https://learn.microsoft.com/windows/win32/api/rectypes/ns-rectypes-reco_lattice_element
  * @namespace Windows.Win32.UI.TabletPC
- * @version v4.0.30319
  */
-class RECO_LATTICE_ELEMENT extends Win32Struct
-{
+class RECO_LATTICE_ELEMENT extends Win32Struct {
     static sizeof => 40
 
     static packingSize => 8
@@ -69,7 +68,7 @@ class RECO_LATTICE_ELEMENT extends Win32Struct
      * For details about properties, see the <a href="https://docs.microsoft.com/windows/desktop/api/rectypes/ns-rectypes-reco_lattice_properties">RECO_LATTICE_PROPERTIES</a> structure.
      * @type {RECO_LATTICE_PROPERTIES}
      */
-    epProp{
+    epProp {
         get {
             if(!this.HasProp("__epProp"))
                 this.__epProp := RECO_LATTICE_PROPERTIES(24, this)

@@ -3,10 +3,8 @@
 
 /**
  * @namespace Windows.Win32.Graphics.OpenGL
- * @version v4.0.30319
  */
-class GLUquadric extends Win32Struct
-{
+class GLUquadric extends Win32Struct {
     static sizeof => 8
 
     static packingSize => 8

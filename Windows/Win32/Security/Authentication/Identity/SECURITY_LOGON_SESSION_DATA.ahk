@@ -11,10 +11,8 @@
  * <a href="https://docs.microsoft.com/windows/desktop/api/ntsecapi/nf-ntsecapi-lsafreereturnbuffer">LSAFreeReturnBuffer</a> function.
  * @see https://learn.microsoft.com/windows/win32/api/ntsecapi/ns-ntsecapi-security_logon_session_data
  * @namespace Windows.Win32.Security.Authentication.Identity
- * @version v4.0.30319
  */
-class SECURITY_LOGON_SESSION_DATA extends Win32Struct
-{
+class SECURITY_LOGON_SESSION_DATA extends Win32Struct {
     static sizeof => 272
 
     static packingSize => 8
@@ -32,7 +30,7 @@ class SECURITY_LOGON_SESSION_DATA extends Win32Struct
      * A <a href="https://docs.microsoft.com/windows/desktop/SecGloss/l-gly">locally unique identifier</a> (LUID) that identifies a logon session.
      * @type {LUID}
      */
-    LogonId{
+    LogonId {
         get {
             if(!this.HasProp("__LogonId"))
                 this.__LogonId := LUID(4, this)
@@ -45,7 +43,7 @@ class SECURITY_LOGON_SESSION_DATA extends Win32Struct
      * <a href="https://docs.microsoft.com/windows/desktop/api/lsalookup/ns-lsalookup-lsa_unicode_string">LSA_UNICODE_STRING</a> structure that contains the account name of the <a href="https://docs.microsoft.com/windows/desktop/SecGloss/s-gly">security principal</a> that owns the logon session.
      * @type {LSA_UNICODE_STRING}
      */
-    UserName{
+    UserName {
         get {
             if(!this.HasProp("__UserName"))
                 this.__UserName := LSA_UNICODE_STRING(16, this)
@@ -57,7 +55,7 @@ class SECURITY_LOGON_SESSION_DATA extends Win32Struct
      * An <a href="https://docs.microsoft.com/windows/desktop/api/lsalookup/ns-lsalookup-lsa_unicode_string">LSA_UNICODE_STRING</a> structure that contains the name of the domain used to authenticate the owner of the logon session.
      * @type {LSA_UNICODE_STRING}
      */
-    LogonDomain{
+    LogonDomain {
         get {
             if(!this.HasProp("__LogonDomain"))
                 this.__LogonDomain := LSA_UNICODE_STRING(32, this)
@@ -69,7 +67,7 @@ class SECURITY_LOGON_SESSION_DATA extends Win32Struct
      * An <a href="https://docs.microsoft.com/windows/desktop/api/lsalookup/ns-lsalookup-lsa_unicode_string">LSA_UNICODE_STRING</a> structure that contains the name of the <a href="https://docs.microsoft.com/windows/desktop/SecGloss/a-gly">authentication package</a> used to authenticate the owner of the logon session.
      * @type {LSA_UNICODE_STRING}
      */
-    AuthenticationPackage{
+    AuthenticationPackage {
         get {
             if(!this.HasProp("__AuthenticationPackage"))
                 this.__AuthenticationPackage := LSA_UNICODE_STRING(48, this)
@@ -118,7 +116,7 @@ class SECURITY_LOGON_SESSION_DATA extends Win32Struct
      * An <a href="https://docs.microsoft.com/windows/desktop/api/lsalookup/ns-lsalookup-lsa_unicode_string">LSA_UNICODE_STRING</a> structure  that contains the name of the server used to authenticate the owner of the logon session.
      * @type {LSA_UNICODE_STRING}
      */
-    LogonServer{
+    LogonServer {
         get {
             if(!this.HasProp("__LogonServer"))
                 this.__LogonServer := LSA_UNICODE_STRING(88, this)
@@ -130,7 +128,7 @@ class SECURITY_LOGON_SESSION_DATA extends Win32Struct
      * An <a href="https://docs.microsoft.com/windows/desktop/api/lsalookup/ns-lsalookup-lsa_unicode_string">LSA_UNICODE_STRING</a> structure  that contains the DNS name for the owner of the logon session.
      * @type {LSA_UNICODE_STRING}
      */
-    DnsDomainName{
+    DnsDomainName {
         get {
             if(!this.HasProp("__DnsDomainName"))
                 this.__DnsDomainName := LSA_UNICODE_STRING(104, this)
@@ -142,7 +140,7 @@ class SECURITY_LOGON_SESSION_DATA extends Win32Struct
      * An <a href="https://docs.microsoft.com/windows/desktop/api/lsalookup/ns-lsalookup-lsa_unicode_string">LSA_UNICODE_STRING</a> structure  that contains the <a href="https://docs.microsoft.com/windows/desktop/SecGloss/u-gly">user principal name</a> (UPN) for the owner of the logon session.
      * @type {LSA_UNICODE_STRING}
      */
-    Upn{
+    Upn {
         get {
             if(!this.HasProp("__Upn"))
                 this.__Upn := LSA_UNICODE_STRING(120, this)
@@ -218,7 +216,7 @@ class SECURITY_LOGON_SESSION_DATA extends Win32Struct
      * <b>Windows Server 2003 R2, Windows XP with SP1 and earlier, Windows Server 2003 and Windows XP:  </b>This member is not supported.
      * @type {LSA_LAST_INTER_LOGON_INFO}
      */
-    LastLogonInfo{
+    LastLogonInfo {
         get {
             if(!this.HasProp("__LastLogonInfo"))
                 this.__LastLogonInfo := LSA_LAST_INTER_LOGON_INFO(144, this)
@@ -232,7 +230,7 @@ class SECURITY_LOGON_SESSION_DATA extends Win32Struct
      * <b>Windows Server 2003 R2, Windows XP with SP1 and earlier, Windows Server 2003 and Windows XP:  </b>This member is not supported.
      * @type {LSA_UNICODE_STRING}
      */
-    LogonScript{
+    LogonScript {
         get {
             if(!this.HasProp("__LogonScript"))
                 this.__LogonScript := LSA_UNICODE_STRING(168, this)
@@ -246,7 +244,7 @@ class SECURITY_LOGON_SESSION_DATA extends Win32Struct
      * <b>Windows Server 2003 R2, Windows XP with SP1 and earlier, Windows Server 2003 and Windows XP:  </b>This member is not supported.
      * @type {LSA_UNICODE_STRING}
      */
-    ProfilePath{
+    ProfilePath {
         get {
             if(!this.HasProp("__ProfilePath"))
                 this.__ProfilePath := LSA_UNICODE_STRING(184, this)
@@ -260,7 +258,7 @@ class SECURITY_LOGON_SESSION_DATA extends Win32Struct
      * <b>Windows Server 2003 R2, Windows XP with SP1 and earlier, Windows Server 2003 and Windows XP:  </b>This member is not supported.
      * @type {LSA_UNICODE_STRING}
      */
-    HomeDirectory{
+    HomeDirectory {
         get {
             if(!this.HasProp("__HomeDirectory"))
                 this.__HomeDirectory := LSA_UNICODE_STRING(200, this)
@@ -274,7 +272,7 @@ class SECURITY_LOGON_SESSION_DATA extends Win32Struct
      * <b>Windows Server 2003 R2, Windows XP with SP1 and earlier, Windows Server 2003 and Windows XP:  </b>This member is not supported.
      * @type {LSA_UNICODE_STRING}
      */
-    HomeDirectoryDrive{
+    HomeDirectoryDrive {
         get {
             if(!this.HasProp("__HomeDirectoryDrive"))
                 this.__HomeDirectoryDrive := LSA_UNICODE_STRING(216, this)

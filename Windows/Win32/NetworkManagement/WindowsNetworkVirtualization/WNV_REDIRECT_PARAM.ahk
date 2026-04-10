@@ -1,8 +1,9 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
+#Include ..\..\Networking\WinSock\ADDRESS_FAMILY.ahk
+#Include .\WNV_IP_ADDRESS.ahk
 #Include ..\..\Networking\WinSock\IN_ADDR.ahk
 #Include ..\..\Networking\WinSock\IN6_ADDR.ahk
-#Include .\WNV_IP_ADDRESS.ahk
 
 /**
  * Specifies the parameters of the event (receiving an incoming Internet Control Message Protocol redirect packet) that causes the Windows Network Virtualization (WNV) driver to generate a WnvRedirectType notification.
@@ -13,10 +14,8 @@
  * For a detailed description of network virtualization concepts and terminology, refer to <a href="https://docs.microsoft.com/previous-versions/windows/it-pro/windows-server-2012-R2-and-2012/jj134230(v=ws.11)">Hyper-V Network Virtualization Overview</a>.
  * @see https://learn.microsoft.com/windows/win32/api/wnvapi/ns-wnvapi-wnv_redirect_param
  * @namespace Windows.Win32.NetworkManagement.WindowsNetworkVirtualization
- * @version v4.0.30319
  */
-class WNV_REDIRECT_PARAM extends Win32Struct
-{
+class WNV_REDIRECT_PARAM extends Win32Struct {
     static sizeof => 60
 
     static packingSize => 4
@@ -25,7 +24,7 @@ class WNV_REDIRECT_PARAM extends Win32Struct
      * Type: <b>ADDRESS_FAMILY</b>
      * 
      * The address family (<b>AF_INET</b> or <b>AF_INET6</b>) for the customer address.
-     * @type {Integer}
+     * @type {ADDRESS_FAMILY}
      */
     CAFamily {
         get => NumGet(this, 0, "ushort")
@@ -36,7 +35,7 @@ class WNV_REDIRECT_PARAM extends Win32Struct
      * Type: <b>ADDRESS_FAMILY</b>
      * 
      * The address family (<b>AF_INET</b> or <b>AF_INET6</b>) for the original provider address.
-     * @type {Integer}
+     * @type {ADDRESS_FAMILY}
      */
     PAFamily {
         get => NumGet(this, 2, "ushort")
@@ -47,7 +46,7 @@ class WNV_REDIRECT_PARAM extends Win32Struct
      * Type: <b>ADDRESS_FAMILY</b>
      * 
      * The address family (<b>AF_INET</b> or <b>AF_INET6</b>) for the new provider address.
-     * @type {Integer}
+     * @type {ADDRESS_FAMILY}
      */
     NewPAFamily {
         get => NumGet(this, 4, "ushort")
@@ -71,7 +70,7 @@ class WNV_REDIRECT_PARAM extends Win32Struct
      * The IP address object for the customer address, which is the IP address configured on the virtual machine for network virtualization.
      * @type {WNV_IP_ADDRESS}
      */
-    CA{
+    CA {
         get {
             if(!this.HasProp("__CA"))
                 this.__CA := WNV_IP_ADDRESS(12, this)
@@ -85,7 +84,7 @@ class WNV_REDIRECT_PARAM extends Win32Struct
      * The IP address object for the provider address, which is the matching IP address used on the physical network for the customer address.
      * @type {WNV_IP_ADDRESS}
      */
-    PA{
+    PA {
         get {
             if(!this.HasProp("__PA"))
                 this.__PA := WNV_IP_ADDRESS(28, this)
@@ -99,7 +98,7 @@ class WNV_REDIRECT_PARAM extends Win32Struct
      * The updated provider address when a virtual machine is migrated from one host to another.
      * @type {WNV_IP_ADDRESS}
      */
-    NewPA{
+    NewPA {
         get {
             if(!this.HasProp("__NewPA"))
                 this.__NewPA := WNV_IP_ADDRESS(44, this)

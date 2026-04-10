@@ -11,10 +11,8 @@
  * <a href="https://docs.microsoft.com/windows/desktop/api/ntsecapi/nf-ntsecapi-lsaquerytrusteddomaininfo">LsaQueryTrustedDomainInfo</a> function when its <i>InformationClass</i> parameter is set to <b>TrustedDomainInformationBasic</b>.
  * @see https://learn.microsoft.com/windows/win32/api/lsalookup/ns-lsalookup-lsa_trust_information
  * @namespace Windows.Win32.Security.Authentication.Identity
- * @version v4.0.30319
  */
-class LSA_TRUST_INFORMATION extends Win32Struct
-{
+class LSA_TRUST_INFORMATION extends Win32Struct {
     static sizeof => 24
 
     static packingSize => 8
@@ -24,7 +22,7 @@ class LSA_TRUST_INFORMATION extends Win32Struct
      * <a href="https://docs.microsoft.com/windows/desktop/api/lsalookup/ns-lsalookup-lsa_unicode_string">LSA_UNICODE_STRING</a> structure that contains the name of the domain.
      * @type {LSA_UNICODE_STRING}
      */
-    Name{
+    Name {
         get {
             if(!this.HasProp("__Name"))
                 this.__Name := LSA_UNICODE_STRING(0, this)

@@ -7,10 +7,8 @@
  * The region for a DVD drive can be changed only five times.
  * @see https://learn.microsoft.com/windows/win32/DirectShow/regionchange-method
  * @namespace Windows.Win32.Graphics.GdiPlus
- * @version v4.0.30319
  */
-class Region extends Win32Struct
-{
+class Region extends Win32Struct {
     static sizeof => 8
 
     static packingSize => 8

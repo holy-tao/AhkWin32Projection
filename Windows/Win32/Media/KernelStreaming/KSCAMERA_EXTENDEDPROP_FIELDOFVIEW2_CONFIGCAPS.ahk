@@ -3,10 +3,8 @@
 
 /**
  * @namespace Windows.Win32.Media.KernelStreaming
- * @version v4.0.30319
  */
-class KSCAMERA_EXTENDEDPROP_FIELDOFVIEW2_CONFIGCAPS extends Win32Struct
-{
+class KSCAMERA_EXTENDEDPROP_FIELDOFVIEW2_CONFIGCAPS extends Win32Struct {
     static sizeof => 728
 
     static packingSize => 4
@@ -28,9 +26,9 @@ class KSCAMERA_EXTENDEDPROP_FIELDOFVIEW2_CONFIGCAPS extends Win32Struct
     }
 
     /**
-     * @type {Array<UInt16>}
+     * @type {Array<Integer>}
      */
-    DiscreteFoVStops{
+    DiscreteFoVStops {
         get {
             if(!this.HasProp("__DiscreteFoVStopsProxyArray"))
                 this.__DiscreteFoVStopsProxyArray := Win32FixedArray(this.ptr + 4, 360, Primitive, "ushort")

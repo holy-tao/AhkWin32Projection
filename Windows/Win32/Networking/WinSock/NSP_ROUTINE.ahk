@@ -11,10 +11,8 @@
  * The version of the **NSP_ROUTINE** structure on Windows XP and later has the following new member added: **NSPIoctl**.
  * @see https://learn.microsoft.com/windows/win32/api/ws2spi/ns-ws2spi-nsp_routine
  * @namespace Windows.Win32.Networking.WinSock
- * @version v4.0.30319
  */
-class NSP_ROUTINE extends Win32Struct
-{
+class NSP_ROUTINE extends Win32Struct {
     static sizeof => 88
 
     static packingSize => 8

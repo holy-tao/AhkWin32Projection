@@ -7,10 +7,8 @@
  * Contains information about a date and time picker (DTP) control.
  * @see https://learn.microsoft.com/windows/win32/api/commctrl/ns-commctrl-datetimepickerinfo
  * @namespace Windows.Win32.UI.Controls
- * @version v4.0.30319
  */
-class DATETIMEPICKERINFO extends Win32Struct
-{
+class DATETIMEPICKERINFO extends Win32Struct {
     static sizeof => 72
 
     static packingSize => 8
@@ -32,7 +30,7 @@ class DATETIMEPICKERINFO extends Win32Struct
      * A <a href="https://docs.microsoft.com/windows/desktop/api/windef/ns-windef-rect">RECT</a> structure describing location of checkbox. If a checkbox is displayed and checked, an edit control should be available to update the selected date-time value.
      * @type {RECT}
      */
-    rcCheck{
+    rcCheck {
         get {
             if(!this.HasProp("__rcCheck"))
                 this.__rcCheck := RECT(4, this)
@@ -57,7 +55,7 @@ class DATETIMEPICKERINFO extends Win32Struct
      * A <a href="https://docs.microsoft.com/windows/desktop/api/windef/ns-windef-rect">RECT</a> structure describing the location of a drop-down grid or up/down control.
      * @type {RECT}
      */
-    rcButton{
+    rcButton {
         get {
             if(!this.HasProp("__rcButton"))
                 this.__rcButton := RECT(24, this)
@@ -82,7 +80,7 @@ class DATETIMEPICKERINFO extends Win32Struct
      * A handle to the edit control. For information see, <a href="https://docs.microsoft.com/windows/desktop/Controls/edit-controls">Edit Controls</a>.
      * @type {HWND}
      */
-    hwndEdit{
+    hwndEdit {
         get {
             if(!this.HasProp("__hwndEdit"))
                 this.__hwndEdit := HWND(48, this)
@@ -96,7 +94,7 @@ class DATETIMEPICKERINFO extends Win32Struct
      * A handle to the up/down control—an alternative to using the drop-down grid (looks like month calendar control). For more information, see <a href="https://docs.microsoft.com/windows/desktop/Controls/up-down-controls">Up-Down Controls</a>.
      * @type {HWND}
      */
-    hwndUD{
+    hwndUD {
         get {
             if(!this.HasProp("__hwndUD"))
                 this.__hwndUD := HWND(56, this)
@@ -110,7 +108,7 @@ class DATETIMEPICKERINFO extends Win32Struct
      * A handle to the drop-down grid.
      * @type {HWND}
      */
-    hwndDropDown{
+    hwndDropDown {
         get {
             if(!this.HasProp("__hwndDropDown"))
                 this.__hwndDropDown := HWND(64, this)

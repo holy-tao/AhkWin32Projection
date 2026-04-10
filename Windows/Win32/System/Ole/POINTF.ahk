@@ -5,10 +5,8 @@
  * Contains information that is used to convert between container units, expressed in floating point, and control units, expressed in HIMETRIC.
  * @see https://learn.microsoft.com/windows/win32/api/ocidl/ns-ocidl-pointf
  * @namespace Windows.Win32.System.Ole
- * @version v4.0.30319
  */
-class POINTF extends Win32Struct
-{
+class POINTF extends Win32Struct {
     static sizeof => 8
 
     static packingSize => 4

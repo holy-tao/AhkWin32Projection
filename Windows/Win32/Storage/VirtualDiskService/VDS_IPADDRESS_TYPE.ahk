@@ -8,9 +8,8 @@
  * <div> </div>
  * @see https://learn.microsoft.com/windows/win32/api/vdshwprv/ne-vdshwprv-vds_ipaddress_type
  * @namespace Windows.Win32.Storage.VirtualDiskService
- * @version v4.0.30319
  */
-class VDS_IPADDRESS_TYPE extends Win32Enum{
+class VDS_IPADDRESS_TYPE extends Win32Enum {
 
     /**
      * The address is a text address that is either a DNS address, an IPv4 dotted address, or an IPv6 hex 

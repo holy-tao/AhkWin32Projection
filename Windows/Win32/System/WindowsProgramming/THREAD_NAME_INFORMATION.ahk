@@ -4,10 +4,8 @@
 
 /**
  * @namespace Windows.Win32.System.WindowsProgramming
- * @version v4.0.30319
  */
-class THREAD_NAME_INFORMATION extends Win32Struct
-{
+class THREAD_NAME_INFORMATION extends Win32Struct {
     static sizeof => 16
 
     static packingSize => 8
@@ -15,7 +13,7 @@ class THREAD_NAME_INFORMATION extends Win32Struct
     /**
      * @type {UNICODE_STRING}
      */
-    ThreadName{
+    ThreadName {
         get {
             if(!this.HasProp("__ThreadName"))
                 this.__ThreadName := UNICODE_STRING(0, this)

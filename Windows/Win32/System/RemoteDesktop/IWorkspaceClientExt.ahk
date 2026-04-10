@@ -1,16 +1,15 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
-#Include ..\..\Foundation\BSTR.ahk
 #Include ..\Com\IUnknown.ahk
+#Include ..\..\Foundation\BSTR.ahk
 
 /**
  * Exposes methods that allow the runtime to disconnect a custom client in RemoteApp and Desktop Connection.
  * @see https://learn.microsoft.com/windows/win32/api/workspaceruntimeclientext/nn-workspaceruntimeclientext-iworkspaceclientext
  * @namespace Windows.Win32.System.RemoteDesktop
- * @version v4.0.30319
  */
-class IWorkspaceClientExt extends IUnknown{
+class IWorkspaceClientExt extends IUnknown {
 
     static sizeof => A_PtrSize
     /**

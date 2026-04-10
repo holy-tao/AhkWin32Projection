@@ -18,9 +18,8 @@
  * </ul>
  * @see https://learn.microsoft.com/windows/win32/api/ctffunc/nn-ctffunc-itffngetpreferredtouchkeyboardlayout
  * @namespace Windows.Win32.UI.TextServices
- * @version v4.0.30319
  */
-class ITfFnGetPreferredTouchKeyboardLayout extends ITfFunction{
+class ITfFnGetPreferredTouchKeyboardLayout extends ITfFunction {
 
     static sizeof => A_PtrSize
     /**
@@ -124,7 +123,7 @@ class ITfFnGetPreferredTouchKeyboardLayout extends ITfFunction{
      * </tr>
      * </table>
      * @param {Pointer<Integer>} pwPreferredLayoutId Pointer to a <b>WORD</b> value that receives the layout identifier.
-     * @returns {Integer} Pointer to a <a href="https://docs.microsoft.com/windows/win32/api/ctffunc/ne-ctffunc-tkblayouttype">TKBLayoutType</a> enumeration that receives the layout type.
+     * @returns {TKBLayoutType} Pointer to a <a href="https://docs.microsoft.com/windows/win32/api/ctffunc/ne-ctffunc-tkblayouttype">TKBLayoutType</a> enumeration that receives the layout type.
      * @see https://learn.microsoft.com/windows/win32/api/ctffunc/nf-ctffunc-itffngetpreferredtouchkeyboardlayout-getlayout
      */
     GetLayout(pwPreferredLayoutId) {

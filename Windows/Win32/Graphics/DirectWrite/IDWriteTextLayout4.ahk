@@ -5,13 +5,10 @@
 
 /**
  * Represents a block of text after it has been fully analyzed and formatted.
- * @remarks
- * 
  * @see https://learn.microsoft.com/windows/win32/api/dwrite_3/nn-dwrite_3-idwritetextlayout4
  * @namespace Windows.Win32.Graphics.DirectWrite
- * @version v4.0.30319
  */
-class IDWriteTextLayout4 extends IDWriteTextLayout3{
+class IDWriteTextLayout4 extends IDWriteTextLayout3 {
 
     static sizeof => A_PtrSize
     /**
@@ -69,7 +66,7 @@ class IDWriteTextLayout4 extends IDWriteTextLayout3{
 
     /**
      * 
-     * @returns {Integer} 
+     * @returns {DWRITE_AUTOMATIC_FONT_AXES} 
      */
     GetAutomaticFontAxes() {
         result := ComCall(87, this, "int")
@@ -78,7 +75,7 @@ class IDWriteTextLayout4 extends IDWriteTextLayout3{
 
     /**
      * 
-     * @param {Integer} automaticFontAxes 
+     * @param {DWRITE_AUTOMATIC_FONT_AXES} automaticFontAxes 
      * @returns {HRESULT} 
      */
     SetAutomaticFontAxes(automaticFontAxes) {

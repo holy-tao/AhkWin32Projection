@@ -1,9 +1,9 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
+#Include .\IMFAttributes.ahk
 #Include .\IMFMediaSource.ahk
 #Include .\IMFCameraSyncObject.ahk
-#Include .\IMFAttributes.ahk
 
 /**
  * Represents a virtual camera that can be plugged into the Media Foundation frame server pipeline.
@@ -11,9 +11,8 @@
  * Create an instance of **IMFVirtualCamera** by calling [MFCreateVirtualCamera](nf-mfvirtualcamera-mfcreatevirtualcamera.md). When this interface is returned from **MFCreateVirtualCamera** for the first time, the interface represents a set of configuration options.  The caller is responsible for configuring the different settings on the virtual camera before starting the camera. Calling the [IMFVirtualCamera::Start](nf-mfvirtualcamera-imfvirtualcamera-start.md) method allows the camera to be discoverable and activatable on the device.
  * @see https://learn.microsoft.com/windows/win32/api/mfvirtualcamera/nn-mfvirtualcamera-imfvirtualcamera
  * @namespace Windows.Win32.Media.MediaFoundation
- * @version v4.0.30319
  */
-class IMFVirtualCamera extends IMFAttributes{
+class IMFVirtualCamera extends IMFAttributes {
 
     static sizeof => A_PtrSize
     /**
@@ -66,8 +65,8 @@ class IMFVirtualCamera extends IMFAttributes{
      * 
      * Callers should use caution when adding known Windows device properties as this may have unintended effects.
      * @param {Pointer<DEVPROPKEY>} pKey Pointer to a [DEVPROPKEY](/windows-hardware/drivers/install/devpropkey) to add to the virtual camera device interface. For more information, see [Unified Device Property Model](/windows-hardware/drivers/install/unified-device-property-model--windows-vista-and-later-).
-     * @param {Integer} Type Property type for the specified *pKey*.  The [DEVPROP_TYPE_NULL](/windows-hardware/drivers/install/devprop-type-null) and [DEVPROP_TYPE_EMPTY](/windows-hardware/drivers/install/devprop-type-empty) types are not supported.
-     * @param {Pointer} pbData Pointer to the property data.
+     * @param {DEVPROPTYPE} Type Property type for the specified *pKey*.  The [DEVPROP_TYPE_NULL](/windows-hardware/drivers/install/devprop-type-null) and [DEVPROP_TYPE_EMPTY](/windows-hardware/drivers/install/devprop-type-empty) types are not supported.
+     * @param {Integer} pbData Pointer to the property data.
      * @param {Integer} cbData Size in bytes contained in the buffer pointed to by *data*.
      * @returns {HRESULT} Returns an HRESULT value, including but not limited to the following values:
      * 
@@ -90,7 +89,7 @@ class IMFVirtualCamera extends IMFAttributes{
      * @param {PWSTR} EntryName A null-terminated Unicode string representing the registry entry name.
      * @param {PWSTR} SubkeyPath Optional null-terminated Unicode string representing a subkey under the device interface registry node.
      * @param {Integer} dwRegType The data type of the registry entry. The **REG_NONE** type is not supported. For more information, see [Registry Value Types](/windows/win32/sysinfo/registry-value-types).
-     * @param {Pointer} pbData Pointer to the data for the registry entry.
+     * @param {Integer} pbData Pointer to the data for the registry entry.
      * @param {Integer} cbData Size of the data in the buffer pointed to by *pbData*, in bytes.
      * @returns {HRESULT} Returns an HRESULT value, including but not limited to the following values:
      * 
@@ -198,9 +197,9 @@ class IMFVirtualCamera extends IMFAttributes{
      * @param {Pointer<Guid>} propertySet A GUID representing the [KSPROPERTY.Set](/windows-hardware/drivers/stream/ksmethod-structure) field.
      * @param {Integer} propertyId A ULONG representing the **KSPROPERTY.Id** field.
      * @param {Integer} propertyFlags A set of bit-wise or-ed flags representing the **KSPROPERTY.Flags** field.
-     * @param {Pointer} propertyPayload Extended data added to the end of the **KSPROPERTY** structure. Any property payload provided will be added to the end of the **KSPROPERTY** structure before being sent to the virtual camera’s custom media source
+     * @param {Integer} propertyPayload Extended data added to the end of the **KSPROPERTY** structure. Any property payload provided will be added to the end of the **KSPROPERTY** structure before being sent to the virtual camera’s custom media source
      * @param {Integer} propertyPayloadLength The size in bytes of the buffer pointed to by *propertyPayload*.
-     * @param {Pointer} data The byte buffer for the payload of the property.
+     * @param {Integer} data The byte buffer for the payload of the property.
      * @param {Integer} dataLength The size in bytes of the buffer pointed to by *data*.
      * @returns {Integer} An output parameter indicating the amount of data written to the data buffer.  This value is only valid when *commandFlags* contains a GET or query operation.
      * @see https://learn.microsoft.com/windows/win32/api/mfvirtualcamera/nf-mfvirtualcamera-imfvirtualcamera-sendcameraproperty

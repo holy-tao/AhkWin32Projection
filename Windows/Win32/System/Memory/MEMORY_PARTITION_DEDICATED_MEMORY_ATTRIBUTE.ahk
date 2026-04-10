@@ -1,18 +1,17 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
+#Include .\MEM_DEDICATED_ATTRIBUTE_TYPE.ahk
 
 /**
  * @namespace Windows.Win32.System.Memory
- * @version v4.0.30319
  */
-class MEMORY_PARTITION_DEDICATED_MEMORY_ATTRIBUTE extends Win32Struct
-{
+class MEMORY_PARTITION_DEDICATED_MEMORY_ATTRIBUTE extends Win32Struct {
     static sizeof => 16
 
     static packingSize => 8
 
     /**
-     * @type {Integer}
+     * @type {MEM_DEDICATED_ATTRIBUTE_TYPE}
      */
     Type {
         get => NumGet(this, 0, "int")

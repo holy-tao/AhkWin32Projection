@@ -5,10 +5,8 @@
  * Contains information about a DER-encoded object identifier (OID).
  * @see https://learn.microsoft.com/windows/win32/api/bcrypt/ns-bcrypt-bcrypt_oid
  * @namespace Windows.Win32.Security.Cryptography
- * @version v4.0.30319
  */
-class BCRYPT_OID extends Win32Struct
-{
+class BCRYPT_OID extends Win32Struct {
     static sizeof => 16
 
     static packingSize => 8

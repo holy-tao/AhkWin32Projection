@@ -3,10 +3,8 @@
 
 /**
  * @namespace Windows.Win32.NetworkManagement.Rras
- * @version v4.0.30319
  */
-class MPR_IPINIP_INTERFACE_0 extends Win32Struct
-{
+class MPR_IPINIP_INTERFACE_0 extends Win32Struct {
     static sizeof => 528
 
     static packingSize => 8
@@ -20,7 +18,7 @@ class MPR_IPINIP_INTERFACE_0 extends Win32Struct
     }
 
     /**
-     * @type {Pointer<Guid>}
+     * @type {Pointer}
      */
     Guid {
         get => NumGet(this, 520, "ptr")

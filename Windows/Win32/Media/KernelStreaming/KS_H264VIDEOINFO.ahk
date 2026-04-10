@@ -3,10 +3,8 @@
 
 /**
  * @namespace Windows.Win32.Media.KernelStreaming
- * @version v4.0.30319
  */
-class KS_H264VIDEOINFO extends Win32Struct
-{
+class KS_H264VIDEOINFO extends Win32Struct {
     static sizeof => 84
 
     static packingSize => 4

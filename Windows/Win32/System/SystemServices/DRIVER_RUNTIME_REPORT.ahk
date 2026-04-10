@@ -5,13 +5,11 @@
 
 /**
  * @namespace Windows.Win32.System.SystemServices
- * @version v4.0.30319
  */
-class DRIVER_RUNTIME_REPORT extends Win32Struct
-{
-    static sizeof => 24
+class DRIVER_RUNTIME_REPORT extends Win32Struct {
+    static sizeof => 68
 
-    static packingSize => 8
+    static packingSize => 4
 
     class _Flags_e__Union extends Win32Struct {
         static sizeof => 2
@@ -29,7 +27,7 @@ class DRIVER_RUNTIME_REPORT extends Win32Struct
             get => NumGet(this, 0, "ushort")
             set => NumPut("ushort", value, this, 0)
         }
-    
+
         /**
          * @type {Integer}
          */
@@ -37,7 +35,7 @@ class DRIVER_RUNTIME_REPORT extends Win32Struct
             get => (this._bitfield >> 0) & 0x1
             set => this._bitfield := ((value & 0x1) << 0) | (this._bitfield & ~(0x1 << 0))
         }
-    
+
         /**
          * @type {Integer}
          */
@@ -45,7 +43,7 @@ class DRIVER_RUNTIME_REPORT extends Win32Struct
             get => (this._bitfield >> 1) & 0x1
             set => this._bitfield := ((value & 0x1) << 1) | (this._bitfield & ~(0x1 << 1))
         }
-    
+
         /**
          * @type {Integer}
          */
@@ -53,7 +51,7 @@ class DRIVER_RUNTIME_REPORT extends Win32Struct
             get => (this._bitfield >> 2) & 0x1
             set => this._bitfield := ((value & 0x1) << 2) | (this._bitfield & ~(0x1 << 2))
         }
-    
+
         /**
          * @type {Integer}
          */
@@ -61,13 +59,12 @@ class DRIVER_RUNTIME_REPORT extends Win32Struct
             get => NumGet(this, 0, "ushort")
             set => NumPut("ushort", value, this, 0)
         }
-    
     }
 
     /**
      * @type {RUNTIME_REPORT_HEADER}
      */
-    Header{
+    Header {
         get {
             if(!this.HasProp("__Header"))
                 this.__Header := RUNTIME_REPORT_HEADER(0, this)
@@ -86,21 +83,21 @@ class DRIVER_RUNTIME_REPORT extends Win32Struct
     /**
      * @type {_Flags_e__Union}
      */
-    Flags{
+    Flags {
         get {
             if(!this.HasProp("__Flags"))
-                this.__Flags := %this.__Class%._Flags_e__Union(10, this)
+                this.__Flags := DRIVER_RUNTIME_REPORT._Flags_e__Union(10, this)
             return this.__Flags
         }
     }
 
     /**
-     * @type {Array<DRIVER_INFO_ENTRY>}
+     * @type {DRIVER_INFO_ENTRY}
      */
-    DriverEntries{
+    DriverEntries {
         get {
             if(!this.HasProp("__DriverEntriesProxyArray"))
-                this.__DriverEntriesProxyArray := Win32FixedArray(this.ptr + 16, 1, DRIVER_INFO_ENTRY, "")
+                this.__DriverEntriesProxyArray := Win32FixedArray(this.ptr + 12, 1, DRIVER_INFO_ENTRY, "")
             return this.__DriverEntriesProxyArray
         }
     }

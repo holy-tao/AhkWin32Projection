@@ -5,17 +5,15 @@
  * The video miniport driver receives a pointer to a VIDEOPARAMETERS structure in the InputBuffer member of a VIDEO_REQUEST_PACKET when the IOCTL request is IOCTL_VIDEO_HANDLE_VIDEOPARAMETERS.
  * @see https://learn.microsoft.com/windows/win32/api/tvout/ns-tvout-videoparameters
  * @namespace Windows.Win32.Devices.Display
- * @version v4.0.30319
  */
-class VIDEOPARAMETERS extends Win32Struct
-{
+class VIDEOPARAMETERS extends Win32Struct {
     static sizeof => 352
 
     static packingSize => 8
 
     /**
      * Specifies the globally unique identifier (GUID) for this structure {02C62061-1097-11d1-920F-00A024DF156E}. A video miniport driver must verify the GUID at the start of the structure before processing the structure.
-     * @type {Pointer<Guid>}
+     * @type {Pointer}
      */
     Guid {
         get => NumGet(this, 0, "ptr")
@@ -32,7 +30,6 @@ class VIDEOPARAMETERS extends Win32Struct
     }
 
     /**
-     * 
      * @type {Integer}
      */
     dwCommand {
@@ -224,7 +221,6 @@ class VIDEOPARAMETERS extends Win32Struct
     }
 
     /**
-     * 
      * @type {Integer}
      */
     dwMode {
@@ -233,7 +229,6 @@ class VIDEOPARAMETERS extends Win32Struct
     }
 
     /**
-     * 
      * @type {Integer}
      */
     dwTVStandard {
@@ -242,7 +237,6 @@ class VIDEOPARAMETERS extends Win32Struct
     }
 
     /**
-     * 
      * @type {Integer}
      */
     dwAvailableModes {
@@ -251,7 +245,6 @@ class VIDEOPARAMETERS extends Win32Struct
     }
 
     /**
-     * 
      * @type {Integer}
      */
     dwAvailableTVStandard {
@@ -350,7 +343,6 @@ class VIDEOPARAMETERS extends Win32Struct
     }
 
     /**
-     * 
      * @type {Integer}
      */
     dwCPCommand {
@@ -359,7 +351,6 @@ class VIDEOPARAMETERS extends Win32Struct
     }
 
     /**
-     * 
      * @type {Integer}
      */
     dwCPStandard {
@@ -387,9 +378,9 @@ class VIDEOPARAMETERS extends Win32Struct
 
     /**
      * OEM-specific copy protection data. This member is valid for both the VP_COMMAND_SET and VP_COMMAND_GET commands.
-     * @type {Array<Byte>}
+     * @type {Array<Integer>}
      */
-    bOEMCopyProtection{
+    bOEMCopyProtection {
         get {
             if(!this.HasProp("__bOEMCopyProtectionProxyArray"))
                 this.__bOEMCopyProtectionProxyArray := Win32FixedArray(this.ptr + 92, 256, Primitive, "char")

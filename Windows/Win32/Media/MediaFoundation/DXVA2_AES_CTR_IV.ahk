@@ -16,10 +16,8 @@
  * When the <b>D3DCPCAPS_SEQUENTIAL_CTR_IV</b> capability is present, it is recommended to submit data in 128-bit blocks.
  * @see https://learn.microsoft.com/windows/win32/api/dxva2api/ns-dxva2api-dxva2_aes_ctr_iv
  * @namespace Windows.Win32.Media.MediaFoundation
- * @version v4.0.30319
  */
-class DXVA2_AES_CTR_IV extends Win32Struct
-{
+class DXVA2_AES_CTR_IV extends Win32Struct {
     static sizeof => 16
 
     static packingSize => 8

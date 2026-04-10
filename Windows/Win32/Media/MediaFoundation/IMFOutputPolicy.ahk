@@ -1,16 +1,16 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
-#Include .\IMFCollection.ahk
 #Include .\IMFAttributes.ahk
+#Include .\IMFCollection.ahk
+#Include ..\..\..\..\Guid.ahk
 
 /**
  * Encapsulates a usage policy from an input trust authority (ITA).
  * @see https://learn.microsoft.com/windows/win32/api/mfidl/nn-mfidl-imfoutputpolicy
  * @namespace Windows.Win32.Media.MediaFoundation
- * @version v4.0.30319
  */
-class IMFOutputPolicy extends IMFAttributes{
+class IMFOutputPolicy extends IMFAttributes {
 
     static sizeof => A_PtrSize
     /**

@@ -3,10 +3,8 @@
 
 /**
  * @namespace Windows.Win32.NetworkManagement.Dns
- * @version v4.0.30319
  */
-class DNS_UNKNOWN_DATA extends Win32Struct
-{
+class DNS_UNKNOWN_DATA extends Win32Struct {
     static sizeof => 8
 
     static packingSize => 4
@@ -20,9 +18,9 @@ class DNS_UNKNOWN_DATA extends Win32Struct
     }
 
     /**
-     * @type {Array<Byte>}
+     * @type {Array<Integer>}
      */
-    bData{
+    bData {
         get {
             if(!this.HasProp("__bDataProxyArray"))
                 this.__bDataProxyArray := Win32FixedArray(this.ptr + 4, 1, Primitive, "char")

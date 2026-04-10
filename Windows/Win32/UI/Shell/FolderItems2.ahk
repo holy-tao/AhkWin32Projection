@@ -7,9 +7,8 @@
  * Extends the FolderItems object. It supports one additional method.
  * @see https://learn.microsoft.com/windows/win32/shell/folderitems2-object
  * @namespace Windows.Win32.UI.Shell
- * @version v4.0.30319
  */
-class FolderItems2 extends FolderItems{
+class FolderItems2 extends FolderItems {
 
     static sizeof => A_PtrSize
     /**

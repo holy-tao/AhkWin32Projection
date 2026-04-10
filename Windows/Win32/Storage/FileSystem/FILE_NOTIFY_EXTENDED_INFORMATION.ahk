@@ -1,14 +1,13 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
+#Include .\FILE_ACTION.ahk
 
 /**
  * Describes the changes found by the ReadDirectoryChangesExW function.
  * @see https://learn.microsoft.com/windows/win32/api/winnt/ns-winnt-file_notify_extended_information
  * @namespace Windows.Win32.Storage.FileSystem
- * @version v4.0.30319
  */
-class FILE_NOTIFY_EXTENDED_INFORMATION extends Win32Struct
-{
+class FILE_NOTIFY_EXTENDED_INFORMATION extends Win32Struct {
     static sizeof => 88
 
     static packingSize => 8
@@ -24,8 +23,7 @@ class FILE_NOTIFY_EXTENDED_INFORMATION extends Win32Struct
     }
 
     /**
-     * 
-     * @type {Integer}
+     * @type {FILE_ACTION}
      */
     Action {
         get => NumGet(this, 4, "uint")

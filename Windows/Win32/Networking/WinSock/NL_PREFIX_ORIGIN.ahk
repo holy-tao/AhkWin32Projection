@@ -9,9 +9,8 @@
  * On the Microsoft Windows Software Development Kit (SDK) released for Windows Vista and later, the organization of header files has changed and the <b>IP_PREFIX_ORIGIN</b> enumeration is defined in the <i>Nldef.h</i> header file which is automatically included by the <i>Iptypes.h</i> header file. In order to use the <b>IP_PREFIX_ORIGIN</b> enumeration, the <i>Winsock2.h</i> header file must be included before the <i>Iptypes.h</i> header file.
  * @see https://learn.microsoft.com/windows/win32/api/nldef/ne-nldef-nl_prefix_origin
  * @namespace Windows.Win32.Networking.WinSock
- * @version v4.0.30319
  */
-class NL_PREFIX_ORIGIN extends Win32Enum{
+class NL_PREFIX_ORIGIN extends Win32Enum {
 
     /**
      * The IP prefix was provided by a source other than those defined in this enumeration.

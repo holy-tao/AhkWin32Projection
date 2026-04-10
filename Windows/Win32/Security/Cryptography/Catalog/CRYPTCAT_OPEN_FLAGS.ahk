@@ -5,9 +5,8 @@
  * For all flags with a value in the upper word, set or clear the flag.
  * @see https://learn.microsoft.com/windows/win32/api/mscat/ns-mscat-cryptcatstore
  * @namespace Windows.Win32.Security.Cryptography.Catalog
- * @version v4.0.30319
  */
-class CRYPTCAT_OPEN_FLAGS extends Win32BitflagEnum{
+class CRYPTCAT_OPEN_FLAGS extends Win32BitflagEnum {
 
     /**
      * @type {Integer (UInt32)}

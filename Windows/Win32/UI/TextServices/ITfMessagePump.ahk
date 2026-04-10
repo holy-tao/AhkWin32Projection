@@ -9,9 +9,8 @@
  * If the application is Unicode, it should use the PeekMessageW and GetMessageW methods. Otherwise, the application should use the PeekMessageA and GetMessageA methods.
  * @see https://learn.microsoft.com/windows/win32/api/msctf/nn-msctf-itfmessagepump
  * @namespace Windows.Win32.UI.TextServices
- * @version v4.0.30319
  */
-class ITfMessagePump extends IUnknown{
+class ITfMessagePump extends IUnknown {
 
     static sizeof => A_PtrSize
     /**
@@ -37,7 +36,7 @@ class ITfMessagePump extends IUnknown{
      * @remarks
      * If <i>wMsgFilterMin</i> and <i>wMsgFilterMax</i> are both zero, this method returns all available messages; that is, no range filtering is performed.
      * @param {Pointer<MSG>} pMsg Pointer to a <a href="https://docs.microsoft.com/windows/desktop/api/winuser/ns-winuser-msg">MSG</a> structure that receives message data.
-     * @param {HWND} _hwnd 
+     * @param {HWND} _hwnd Handle to the window whose messages are obtained. The window must belong to the current thread. If this value is <b>NULL</b>, this method obtains messages for any window owned by the calling thread.
      * @param {Integer} wMsgFilterMin Specifies the lowest message value to obtain.
      * @param {Integer} wMsgFilterMax Specifies the highest message value to obtain.
      * @param {Integer} wRemoveMsg Specifies how messages are handled. For more information, see the <b>PeekMessage</b> function.
@@ -88,7 +87,7 @@ class ITfMessagePump extends IUnknown{
      * @remarks
      * If <i>wMsgFilterMin</i> and <i>wMsgFilterMax</i> are both zero, this method returns all available messages; that is, no range filtering is performed.
      * @param {Pointer<MSG>} pMsg Pointer to a <a href="https://docs.microsoft.com/windows/desktop/api/winuser/ns-winuser-msg">MSG</a> structure that receives message data.
-     * @param {HWND} _hwnd 
+     * @param {HWND} _hwnd Handle to the window whose messages are obtained. The window must belong to the current thread. If this value is <b>NULL</b>, this method obtains messages for any window that belongs to the calling thread.
      * @param {Integer} wMsgFilterMin Specifies the lowest message value obtained.
      * @param {Integer} wMsgFilterMax Specifies the highest message value obtained.
      * @param {Pointer<BOOL>} pfResult Pointer to a BOOL value that receives the return value from the <b>GetMessage</b> function.
@@ -138,7 +137,7 @@ class ITfMessagePump extends IUnknown{
      * @remarks
      * If <i>wMsgFilterMin</i> and <i>wMsgFilterMax</i> are both zero, this method returns all available messages; that is, no range filtering is performed.
      * @param {Pointer<MSG>} pMsg Pointer to a <a href="https://docs.microsoft.com/windows/desktop/api/winuser/ns-winuser-msg">MSG</a> structure that receives message data.
-     * @param {HWND} _hwnd 
+     * @param {HWND} _hwnd Handle to the window whose messages are obtained. The window must belong to the current thread. If this value is <b>NULL</b>, this method obtains messages for any window that belongs to the calling thread.
      * @param {Integer} wMsgFilterMin Specifies the lowest message value to obtain.
      * @param {Integer} wMsgFilterMax Specifies the highest message value to obtain.
      * @param {Integer} wRemoveMsg Specifies how messages are handled. For more information, see the <b>PeekMessage</b> function.
@@ -189,7 +188,7 @@ class ITfMessagePump extends IUnknown{
      * @remarks
      * If <i>wMsgFilterMin</i> and <i>wMsgFilterMax</i> are both zero, this method returns all available messages; that is, no range filtering is performed.
      * @param {Pointer<MSG>} pMsg Pointer to a <a href="https://docs.microsoft.com/windows/desktop/api/winuser/ns-winuser-msg">MSG</a> structure that receives message data.
-     * @param {HWND} _hwnd 
+     * @param {HWND} _hwnd Handle to the window whose messages are obtained. The window must belong to the current thread. If this value is <b>NULL</b>, this method obtains messages for any window owned by the calling thread.
      * @param {Integer} wMsgFilterMin Specifies the lowest message value to obtain.
      * @param {Integer} wMsgFilterMax Specifies the highest message value to obtain.
      * @param {Pointer<BOOL>} pfResult Pointer to a BOOL that receives the return value from the <b>GetMessage</b> function.

@@ -5,10 +5,8 @@
  * The CLUSTER_MEMBERSHIP_INFO structure represents membership information for a cluster. (CLUSTER_MEMBERSHIP_INFO)
  * @see https://learn.microsoft.com/windows/win32/api/msclus/ns-msclus-cluster_membership_info
  * @namespace Windows.Win32.Networking.Clustering
- * @version v4.0.30319
  */
-class CLUSTER_MEMBERSHIP_INFO extends Win32Struct
-{
+class CLUSTER_MEMBERSHIP_INFO extends Win32Struct {
     static sizeof => 12
 
     static packingSize => 4
@@ -33,9 +31,9 @@ class CLUSTER_MEMBERSHIP_INFO extends Win32Struct
 
     /**
      * A byte array that specifies the nodes in the cluster that are online.
-     * @type {Array<Byte>}
+     * @type {Array<Integer>}
      */
-    Upnodes{
+    Upnodes {
         get {
             if(!this.HasProp("__UpnodesProxyArray"))
                 this.__UpnodesProxyArray := Win32FixedArray(this.ptr + 8, 1, Primitive, "char")

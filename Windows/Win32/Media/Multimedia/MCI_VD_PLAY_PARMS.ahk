@@ -9,10 +9,8 @@
  * You can use the [**MCI\_PLAY\_PARMS**](mci-play-parms.md) structure instead of **MCI\_VD\_PLAY\_PARMS** if you are not using the extended data members.
  * @see https://learn.microsoft.com/windows/win32/Multimedia/mci-vd-play-parms
  * @namespace Windows.Win32.Media.Multimedia
- * @version v4.0.30319
  */
-class MCI_VD_PLAY_PARMS extends Win32Struct
-{
+class MCI_VD_PLAY_PARMS extends Win32Struct {
     static sizeof => 24
 
     static packingSize => 8

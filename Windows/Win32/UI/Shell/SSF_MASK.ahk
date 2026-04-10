@@ -3,9 +3,8 @@
 
 /**
  * @namespace Windows.Win32.UI.Shell
- * @version v4.0.30319
  */
-class SSF_MASK extends Win32BitflagEnum{
+class SSF_MASK extends Win32BitflagEnum {
 
     /**
      * @type {Integer (UInt32)}

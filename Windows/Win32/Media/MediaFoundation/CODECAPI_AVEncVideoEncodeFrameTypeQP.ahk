@@ -28,10 +28,8 @@
  * [CODECAPI\_AVEncVideoMaxQP](codecapi-avencvideomaxqp.md) and [CODECAPI\_AVEncVideoMinQP](codecapi-avencvideominqp.md) shall be used to define and limit the QP range for QPs of all picture types, I, P and B.
  * @see https://learn.microsoft.com/windows/win32/medfound/codecapi-avencvideoencodeframetypeqp
  * @namespace Windows.Win32.Media.MediaFoundation
- * @version v4.0.30319
  */
-class CODECAPI_AVEncVideoEncodeFrameTypeQP extends Win32Struct
-{
+class CODECAPI_AVEncVideoEncodeFrameTypeQP extends Win32Struct {
     static sizeof => 0
 
     static packingSize => 1

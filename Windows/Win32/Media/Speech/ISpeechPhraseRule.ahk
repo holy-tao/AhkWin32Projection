@@ -1,16 +1,14 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
-#Include ..\..\Foundation\BSTR.ahk
-#Include .\ISpeechPhraseRule.ahk
-#Include .\ISpeechPhraseRules.ahk
 #Include ..\..\System\Com\IDispatch.ahk
+#Include ..\..\Foundation\BSTR.ahk
+#Include .\ISpeechPhraseRules.ahk
 
 /**
  * @namespace Windows.Win32.Media.Speech
- * @version v4.0.30319
  */
-class ISpeechPhraseRule extends IDispatch{
+class ISpeechPhraseRule extends IDispatch {
 
     static sizeof => A_PtrSize
     /**
@@ -74,7 +72,7 @@ class ISpeechPhraseRule extends IDispatch{
     }
 
     /**
-     * @type {Integer} 
+     * @type {SpeechEngineConfidence} 
      */
     Confidence {
         get => this.get_Confidence()
@@ -144,7 +142,7 @@ class ISpeechPhraseRule extends IDispatch{
 
     /**
      * 
-     * @returns {Integer} 
+     * @returns {SpeechEngineConfidence} 
      */
     get_Confidence() {
         result := ComCall(13, this, "int*", &ActualConfidence := 0, "HRESULT")

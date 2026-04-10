@@ -1,18 +1,17 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\..\Guid.ahk
+#Include ..\..\..\System\Com\IUnknown.ahk
 #Include .\IAppxContentGroupMapReader.ahk
 #Include .\IAppxSourceContentGroupMapReader.ahk
 #Include .\IAppxContentGroupMapWriter.ahk
-#Include ..\..\..\System\Com\IUnknown.ahk
 
 /**
  * Creates objects for reading and writing app packages. (IAppxFactory2)
  * @see https://learn.microsoft.com/windows/win32/api/appxpackaging/nn-appxpackaging-iappxfactory2
  * @namespace Windows.Win32.Storage.Packaging.Appx
- * @version v4.0.30319
  */
-class IAppxFactory2 extends IUnknown{
+class IAppxFactory2 extends IUnknown {
 
     static sizeof => A_PtrSize
     /**

@@ -9,17 +9,15 @@
  * <a href="https://docs.microsoft.com/windows/desktop/api/ntmsapi/ns-ntmsapi-ntms_objectinformationa">NTMS_OBJECTINFORMATION</a> structure.
  * @see https://learn.microsoft.com/windows/win32/api/ntmsapi/ns-ntmsapi-ntms_lmidinformation
  * @namespace Windows.Win32.Storage.FileSystem
- * @version v4.0.30319
  */
-class NTMS_LMIDINFORMATION extends Win32Struct
-{
+class NTMS_LMIDINFORMATION extends Win32Struct {
     static sizeof => 16
 
     static packingSize => 8
 
     /**
      * Unique identifier of the media pool that contains the logical media.
-     * @type {Pointer<Guid>}
+     * @type {Pointer}
      */
     MediaPool {
         get => NumGet(this, 0, "ptr")

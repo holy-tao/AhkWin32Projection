@@ -5,9 +5,8 @@
  * Represents the Pulse Width Modulation (PWM) signal level polarity with respect to the duty cycle.
  * @see https://learn.microsoft.com/windows/win32/api/pwm/ne-pwm-pwm_polarity
  * @namespace Windows.Win32.Devices.Pwm
- * @version v4.0.30319
  */
-class PWM_POLARITY extends Win32Enum{
+class PWM_POLARITY extends Win32Enum {
 
     /**
      * Active High.

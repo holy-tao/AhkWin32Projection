@@ -9,9 +9,8 @@
  * To declare the interface identifier (IID) for this interface, use the <b>__uuidof</b> operator: <c>__uuidof(IMSVidXDSEvent)</c>.
  * @see https://learn.microsoft.com/windows/win32/api/segment/nn-segment-imsvidxdsevent
  * @namespace Windows.Win32.Media.DirectShow.Tv
- * @version v4.0.30319
  */
-class IMSVidXDSEvent extends IMSVidFeatureEvent{
+class IMSVidXDSEvent extends IMSVidFeatureEvent {
 
     static sizeof => A_PtrSize
     /**
@@ -34,12 +33,12 @@ class IMSVidXDSEvent extends IMSVidFeatureEvent{
 
     /**
      * The RatingChange method is called when the current rating changes.
-     * @param {Integer} PrevRatingSystem The previous rating system, as an <a href="https://docs.microsoft.com/previous-versions/dd375612(v=vs.85)">EnTvRat_System</a> enumeration type.
-     * @param {Integer} PrevLevel The previous rating level, as an <a href="https://docs.microsoft.com/previous-versions/dd375610(v=vs.85)">EnTvRat_GenericLevel</a> enumeration type. The meaning of this value depends on the rating system.
-     * @param {Integer} PrevAttributes The previous rating attributes. This value is a bitwise OR of flags from the <a href="https://docs.microsoft.com/previous-versions/dd318226(v=vs.85)">BfEnTvRat_GenericAttributes</a> enumeration. These flags specify content attributes, such as violence or adult language. Content attributes do not apply to all rating systems.
-     * @param {Integer} NewRatingSystem The new rating system, as an <b>EnTvRat_System</b> enumeration type.
-     * @param {Integer} NewLevel The new rating level, as an <b>EnTvRat_GenericLevel</b> enumeration type.
-     * @param {Integer} NewAttributes Specifies the new rating attributes. This value is a bitwise OR of flags from the <b>BfEnTvRat_GenericAttributes</b> enumeration.
+     * @param {EnTvRat_System} PrevRatingSystem The previous rating system, as an <a href="https://docs.microsoft.com/previous-versions/dd375612(v=vs.85)">EnTvRat_System</a> enumeration type.
+     * @param {EnTvRat_GenericLevel} PrevLevel The previous rating level, as an <a href="https://docs.microsoft.com/previous-versions/dd375610(v=vs.85)">EnTvRat_GenericLevel</a> enumeration type. The meaning of this value depends on the rating system.
+     * @param {BfEnTvRat_GenericAttributes} PrevAttributes The previous rating attributes. This value is a bitwise OR of flags from the <a href="https://docs.microsoft.com/previous-versions/dd318226(v=vs.85)">BfEnTvRat_GenericAttributes</a> enumeration. These flags specify content attributes, such as violence or adult language. Content attributes do not apply to all rating systems.
+     * @param {EnTvRat_System} NewRatingSystem The new rating system, as an <b>EnTvRat_System</b> enumeration type.
+     * @param {EnTvRat_GenericLevel} NewLevel The new rating level, as an <b>EnTvRat_GenericLevel</b> enumeration type.
+     * @param {BfEnTvRat_GenericAttributes} NewAttributes Specifies the new rating attributes. This value is a bitwise OR of flags from the <b>BfEnTvRat_GenericAttributes</b> enumeration.
      * @returns {HRESULT} Return S_OK or an error code.
      * @see https://learn.microsoft.com/windows/win32/api/segment/nf-segment-imsvidxdsevent-ratingchange
      */

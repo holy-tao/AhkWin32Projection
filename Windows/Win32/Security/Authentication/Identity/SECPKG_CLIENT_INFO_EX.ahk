@@ -1,14 +1,13 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\..\Win32Struct.ahk
 #Include ..\..\..\Foundation\LUID.ahk
+#Include ..\..\SECURITY_IMPERSONATION_LEVEL.ahk
 #Include ..\..\..\Foundation\HANDLE.ahk
 
 /**
  * @namespace Windows.Win32.Security.Authentication.Identity
- * @version v4.0.30319
  */
-class SECPKG_CLIENT_INFO_EX extends Win32Struct
-{
+class SECPKG_CLIENT_INFO_EX extends Win32Struct {
     static sizeof => 48
 
     static packingSize => 8
@@ -16,7 +15,7 @@ class SECPKG_CLIENT_INFO_EX extends Win32Struct
     /**
      * @type {LUID}
      */
-    LogonId{
+    LogonId {
         get {
             if(!this.HasProp("__LogonId"))
                 this.__LogonId := LUID(0, this)
@@ -73,7 +72,7 @@ class SECPKG_CLIENT_INFO_EX extends Win32Struct
     }
 
     /**
-     * @type {Integer}
+     * @type {SECURITY_IMPERSONATION_LEVEL}
      */
     ImpersonationLevel {
         get => NumGet(this, 20, "int")
@@ -83,7 +82,7 @@ class SECPKG_CLIENT_INFO_EX extends Win32Struct
     /**
      * @type {HANDLE}
      */
-    ClientToken{
+    ClientToken {
         get {
             if(!this.HasProp("__ClientToken"))
                 this.__ClientToken := HANDLE(24, this)
@@ -94,7 +93,7 @@ class SECPKG_CLIENT_INFO_EX extends Win32Struct
     /**
      * @type {LUID}
      */
-    IdentificationLogonId{
+    IdentificationLogonId {
         get {
             if(!this.HasProp("__IdentificationLogonId"))
                 this.__IdentificationLogonId := LUID(32, this)
@@ -105,7 +104,7 @@ class SECPKG_CLIENT_INFO_EX extends Win32Struct
     /**
      * @type {HANDLE}
      */
-    IdentificationToken{
+    IdentificationToken {
         get {
             if(!this.HasProp("__IdentificationToken"))
                 this.__IdentificationToken := HANDLE(40, this)

@@ -6,10 +6,8 @@
  * Defines a regions of interest.
  * @see https://learn.microsoft.com/windows/win32/api/mfapi/ns-mfapi-roi_area
  * @namespace Windows.Win32.Media.MediaFoundation
- * @version v4.0.30319
  */
-class ROI_AREA extends Win32Struct
-{
+class ROI_AREA extends Win32Struct {
     static sizeof => 20
 
     static packingSize => 4
@@ -18,7 +16,7 @@ class ROI_AREA extends Win32Struct
      * The bounds of the region.
      * @type {RECT}
      */
-    rect{
+    rect {
         get {
             if(!this.HasProp("__rect"))
                 this.__rect := RECT(0, this)

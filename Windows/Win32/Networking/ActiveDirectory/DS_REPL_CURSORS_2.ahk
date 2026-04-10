@@ -1,17 +1,15 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
-#Include ..\..\Foundation\FILETIME.ahk
 #Include .\DS_REPL_CURSOR_2.ahk
+#Include ..\..\Foundation\FILETIME.ahk
 
 /**
  * The DS_REPL_CURSORS_2 structure is used with the DsReplicaGetInfo2 function to provide replication state data with respect to all replicas of a given naming context.
  * @see https://learn.microsoft.com/windows/win32/api/ntdsapi/ns-ntdsapi-ds_repl_cursors_2
  * @namespace Windows.Win32.Networking.ActiveDirectory
- * @version v4.0.30319
  */
-class DS_REPL_CURSORS_2 extends Win32Struct
-{
-    static sizeof => 16
+class DS_REPL_CURSORS_2 extends Win32Struct {
+    static sizeof => 32
 
     static packingSize => 8
 
@@ -35,9 +33,9 @@ class DS_REPL_CURSORS_2 extends Win32Struct
 
     /**
      * Contains an array of <a href="https://docs.microsoft.com/windows/desktop/api/ntdsapi/ns-ntdsapi-ds_repl_cursor_2">DS_REPL_CURSOR_2</a> structures that contain the requested replication data. The <b>cNumCursors</b> member contains the number of elements in this array.
-     * @type {Array<DS_REPL_CURSOR_2>}
+     * @type {DS_REPL_CURSOR_2}
      */
-    rgCursor{
+    rgCursor {
         get {
             if(!this.HasProp("__rgCursorProxyArray"))
                 this.__rgCursorProxyArray := Win32FixedArray(this.ptr + 8, 1, DS_REPL_CURSOR_2, "")

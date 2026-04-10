@@ -5,9 +5,8 @@
 
 /**
  * @namespace Windows.Win32.System.Wmi
- * @version v4.0.30319
  */
-class IWbemConnectorLogin extends IUnknown{
+class IWbemConnectorLogin extends IUnknown {
 
     static sizeof => A_PtrSize
     /**

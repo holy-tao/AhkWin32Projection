@@ -1,12 +1,11 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\..\Win32Struct.ahk
+#Include .\DMUS_CLOCKTYPE.ahk
 
 /**
  * @namespace Windows.Win32.Media.Audio.DirectMusic
- * @version v4.0.30319
  */
-class DMUS_CLOCKINFO8 extends Win32Struct
-{
+class DMUS_CLOCKINFO8 extends Win32Struct {
     static sizeof => 280
 
     static packingSize => 8
@@ -20,7 +19,7 @@ class DMUS_CLOCKINFO8 extends Win32Struct
     }
 
     /**
-     * @type {Integer}
+     * @type {DMUS_CLOCKTYPE}
      */
     ctType {
         get => NumGet(this, 4, "int")
@@ -28,7 +27,7 @@ class DMUS_CLOCKINFO8 extends Win32Struct
     }
 
     /**
-     * @type {Pointer<Guid>}
+     * @type {Pointer}
      */
     guidClock {
         get => NumGet(this, 8, "ptr")

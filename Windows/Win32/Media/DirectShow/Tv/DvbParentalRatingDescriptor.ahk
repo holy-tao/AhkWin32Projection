@@ -4,13 +4,11 @@
 
 /**
  * @namespace Windows.Win32.Media.DirectShow.Tv
- * @version v4.0.30319
  */
-class DvbParentalRatingDescriptor extends Win32Struct
-{
-    static sizeof => 16
+class DvbParentalRatingDescriptor extends Win32Struct {
+    static sizeof => 12
 
-    static packingSize => 8
+    static packingSize => 4
 
     /**
      * @type {Integer}
@@ -21,12 +19,12 @@ class DvbParentalRatingDescriptor extends Win32Struct
     }
 
     /**
-     * @type {Array<DvbParentalRatingParam>}
+     * @type {DvbParentalRatingParam}
      */
-    pParams{
+    pParams {
         get {
             if(!this.HasProp("__pParamsProxyArray"))
-                this.__pParamsProxyArray := Win32FixedArray(this.ptr + 8, 1, DvbParentalRatingParam, "")
+                this.__pParamsProxyArray := Win32FixedArray(this.ptr + 4, 1, DvbParentalRatingParam, "")
             return this.__pParamsProxyArray
         }
     }

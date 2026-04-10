@@ -5,9 +5,8 @@
 
 /**
  * @namespace Windows.Win32.System.Diagnostics.Debug.Extensions
- * @version v4.0.30319
  */
-class IDebugHostEvaluator2 extends IDebugHostEvaluator{
+class IDebugHostEvaluator2 extends IDebugHostEvaluator {
 
     static sizeof => A_PtrSize
     /**

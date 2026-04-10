@@ -5,9 +5,8 @@
  * Defines values that are used to specify system power action types.
  * @see https://learn.microsoft.com/windows/win32/api/winnt/ne-winnt-power_action
  * @namespace Windows.Win32.System.Power
- * @version v4.0.30319
  */
-class POWER_ACTION extends Win32Enum{
+class POWER_ACTION extends Win32Enum {
 
     /**
      * No system power action.
@@ -58,7 +57,6 @@ class POWER_ACTION extends Win32Enum{
     static PowerActionWarmEject => 7
 
     /**
-     * 
      * @type {Integer (Int32)}
      */
     static PowerActionDisplayOff => 8

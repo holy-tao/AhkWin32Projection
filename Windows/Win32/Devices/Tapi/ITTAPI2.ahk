@@ -1,18 +1,17 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
+#Include .\ITTAPI.ahk
 #Include ..\..\System\Variant\VARIANT.ahk
 #Include .\IEnumPhone.ahk
 #Include .\ITCollection2.ahk
-#Include .\ITTAPI.ahk
 
 /**
  * The ITTAPI2 interface derives from the ITTAPI interface. It adds additional methods on the TAPI object to support phone devices.
  * @see https://learn.microsoft.com/windows/win32/api/tapi3if/nn-tapi3if-ittapi2
  * @namespace Windows.Win32.Devices.Tapi
- * @version v4.0.30319
  */
-class ITTAPI2 extends ITTAPI{
+class ITTAPI2 extends ITTAPI {
 
     static sizeof => A_PtrSize
     /**

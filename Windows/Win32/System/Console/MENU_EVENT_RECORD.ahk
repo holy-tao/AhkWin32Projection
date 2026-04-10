@@ -5,10 +5,8 @@
  * Describes a menu event in a console INPUT\_RECORD structure. These events are used internally and should be ignored.
  * @see https://learn.microsoft.com/windows/console/menu-event-record-str
  * @namespace Windows.Win32.System.Console
- * @version v4.0.30319
  */
-class MENU_EVENT_RECORD extends Win32Struct
-{
+class MENU_EVENT_RECORD extends Win32Struct {
     static sizeof => 4
 
     static packingSize => 4

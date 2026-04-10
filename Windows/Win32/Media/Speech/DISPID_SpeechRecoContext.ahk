@@ -3,9 +3,8 @@
 
 /**
  * @namespace Windows.Win32.Media.Speech
- * @version v4.0.30319
  */
-class DISPID_SpeechRecoContext extends Win32Enum{
+class DISPID_SpeechRecoContext extends Win32Enum {
 
     /**
      * @type {Integer (Int32)}

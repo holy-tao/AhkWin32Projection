@@ -3,9 +3,8 @@
 
 /**
  * @namespace Windows.Win32.Graphics.OpenGL
- * @version v4.0.30319
  */
-class PFD_LAYER_TYPE extends Win32Enum{
+class PFD_LAYER_TYPE extends Win32Enum {
 
     /**
      * @type {Integer (SByte)}

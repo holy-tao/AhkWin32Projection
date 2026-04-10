@@ -5,7 +5,6 @@
 
 /**
  * @namespace Windows.Wdk.Graphics.Direct3D
- * @version v4.0.30319
  */
 class Direct3D {
 
@@ -3309,7 +3308,7 @@ class Direct3D {
     /**
      * 
      * @param {HANDLE} param0 
-     * @param {Integer} param1 
+     * @param {D3DKMT_SCHEDULINGPRIORITYCLASS} param1 
      * @returns {NTSTATUS} 
      */
     static D3DKMTSetProcessSchedulingPriorityClass(param0, param1) {
@@ -3323,7 +3322,7 @@ class Direct3D {
     /**
      * 
      * @param {HANDLE} param0 
-     * @param {Pointer<Integer>} param1 
+     * @param {Pointer<D3DKMT_SCHEDULINGPRIORITYCLASS>} param1 
      * @returns {NTSTATUS} 
      */
     static D3DKMTGetProcessSchedulingPriorityClass(param0, param1) {

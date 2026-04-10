@@ -3,10 +3,8 @@
 
 /**
  * @namespace Windows.Win32.Devices.Nfc
- * @version v4.0.30319
  */
-class SECURE_ELEMENT_HCE_DATA_PACKET extends Win32Struct
-{
+class SECURE_ELEMENT_HCE_DATA_PACKET extends Win32Struct {
     static sizeof => 6
 
     static packingSize => 2
@@ -28,9 +26,9 @@ class SECURE_ELEMENT_HCE_DATA_PACKET extends Win32Struct
     }
 
     /**
-     * @type {Array<Byte>}
+     * @type {Array<Integer>}
      */
-    pbPayload{
+    pbPayload {
         get {
             if(!this.HasProp("__pbPayloadProxyArray"))
                 this.__pbPayloadProxyArray := Win32FixedArray(this.ptr + 4, 1, Primitive, "char")

@@ -4,10 +4,8 @@
 
 /**
  * @namespace Windows.Win32.System.VirtualDosMachines
- * @version v4.0.30319
  */
-class VDMCONTEXT_WITHOUT_XSAVE extends Win32Struct
-{
+class VDMCONTEXT_WITHOUT_XSAVE extends Win32Struct {
     static sizeof => 204
 
     static packingSize => 4
@@ -71,7 +69,7 @@ class VDMCONTEXT_WITHOUT_XSAVE extends Win32Struct
     /**
      * @type {FLOATING_SAVE_AREA}
      */
-    FloatSave{
+    FloatSave {
         get {
             if(!this.HasProp("__FloatSave"))
                 this.__FloatSave := FLOATING_SAVE_AREA(28, this)

@@ -3,10 +3,8 @@
 
 /**
  * @namespace Windows.Win32.System.ClrHosting
- * @version v4.0.30319
  */
-class AssemblyBindInfo extends Win32Struct
-{
+class AssemblyBindInfo extends Win32Struct {
     static sizeof => 32
 
     static packingSize => 8

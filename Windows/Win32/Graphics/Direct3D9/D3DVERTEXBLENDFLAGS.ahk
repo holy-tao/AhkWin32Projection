@@ -9,9 +9,8 @@
  * Geometry blending (multimatrix vertex blending) requires that your application use a vertex format that has blending (beta) weights for each vertex.
  * @see https://learn.microsoft.com/windows/win32/direct3d9/d3dvertexblendflags
  * @namespace Windows.Win32.Graphics.Direct3D9
- * @version v4.0.30319
  */
-class D3DVERTEXBLENDFLAGS extends Win32Enum{
+class D3DVERTEXBLENDFLAGS extends Win32Enum {
 
     /**
      * @type {Integer (Int32)}

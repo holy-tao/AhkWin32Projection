@@ -1,16 +1,15 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
-#Include ..\..\Foundation\BSTR.ahk
 #Include ..\..\System\Com\IDispatch.ahk
+#Include ..\..\Foundation\BSTR.ahk
 
 /**
  * The IADsEmail interface provides methods for an ADSI client to access the Email Address attribute.
  * @see https://learn.microsoft.com/windows/win32/api/iads/nn-iads-iadsemail
  * @namespace Windows.Win32.Networking.ActiveDirectory
- * @version v4.0.30319
  */
-class IADsEmail extends IDispatch{
+class IADsEmail extends IDispatch {
 
     static sizeof => A_PtrSize
     /**

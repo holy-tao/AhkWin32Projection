@@ -1,18 +1,17 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
+#Include ..\..\..\Win32\NetworkManagement\Ndis\NET_IF_OPER_STATUS.ahk
 
 /**
  * @namespace Windows.Wdk.NetworkManagement.Ndis
- * @version v4.0.30319
  */
-class NDIS_OPER_STATE extends Win32Struct
-{
+class NDIS_OPER_STATE extends Win32Struct {
     static sizeof => 16
 
     static packingSize => 8
 
     /**
-     * @type {Pointer<NDIS_OBJECT_HEADER>}
+     * @type {Pointer}
      */
     Header {
         get => NumGet(this, 0, "ptr")
@@ -20,7 +19,7 @@ class NDIS_OPER_STATE extends Win32Struct
     }
 
     /**
-     * @type {Integer}
+     * @type {NET_IF_OPER_STATUS}
      */
     OperationalStatus {
         get => NumGet(this, 8, "int")

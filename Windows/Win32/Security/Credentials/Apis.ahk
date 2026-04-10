@@ -5,7 +5,6 @@
 
 /**
  * @namespace Windows.Win32.Security.Credentials
- * @version v4.0.30319
  */
 class Credentials {
 
@@ -885,9 +884,9 @@ class Credentials {
 ;@region Methods
     /**
      * Prerequisite API to call to determine if the operation will be successful prior.
-     * @param {Integer} _keyCredentialManagerOperationType 
+     * @param {KeyCredentialManagerOperationType} _keyCredentialManagerOperationType The intended operation from the <a href="../keycredmgr/ne-keycredmgr-keycredentialmanageroperationtype.md">KeyCredentialManagerOperationType</a>.
      * @param {Pointer<BOOL>} isReady If the operational prerequisite will succeed (True) or (False).
-     * @param {Pointer<Integer>} _keyCredentialManagerOperationErrorStates 
+     * @param {Pointer<KeyCredentialManagerOperationErrorStates>} _keyCredentialManagerOperationErrorStates Additional feedback about isReady represented by <a href="../keycredmgr/ne-keycredmgr-keycredentialmanageroperationerrorstates.md">KeyCredentialManagerOperationErrorStates</a>.
      * @returns {HRESULT} Returns an HRESULT.
      * @see https://learn.microsoft.com/windows/win32/api/keycredmgr/nf-keycredmgr-keycredentialmanagergetoperationerrorstates
      */
@@ -902,7 +901,7 @@ class Credentials {
     /**
      * API to perform the requested WHFB operation.
      * @param {HWND} hWndOwner Window handle of the calling app.
-     * @param {Integer} _keyCredentialManagerOperationType 
+     * @param {KeyCredentialManagerOperationType} _keyCredentialManagerOperationType The intended operation from the <a href="https://docs.microsoft.com/windows/win32/api/keycredmgr/ne-keycredmgr-keycredentialmanageroperationtype">KeyCredentialManagerOperationType</a>.
      * @returns {HRESULT} Returns an HRESULT
      * @see https://learn.microsoft.com/windows/win32/api/keycredmgr/nf-keycredmgr-keycredentialmanagershowuioperation
      */
@@ -915,7 +914,7 @@ class Credentials {
 
     /**
      * API to get a unique identifier of the users enrollment.
-     * @returns {Pointer<KeyCredentialManagerInfo>} 
+     * @returns {Pointer<KeyCredentialManagerInfo>} Pointer to a pointer variable that receives a <a href="../keycredmgr/nf-keycredmgr-keycredentialmanagerfreeinformation.md">KeyCredentialManagerFreeInformation</a> function.
      * @see https://learn.microsoft.com/windows/win32/api/keycredmgr/nf-keycredmgr-keycredentialmanagergetinformation
      */
     static KeyCredentialManagerGetInformation() {
@@ -925,7 +924,7 @@ class Credentials {
 
     /**
      * API to free the KeyCredentialManagerInfo pointer variable from the KeyCredentialManagerGetInformation call.
-     * @param {Pointer<KeyCredentialManagerInfo>} _keyCredentialManagerInfo 
+     * @param {Pointer<KeyCredentialManagerInfo>} _keyCredentialManagerInfo Pointer variable to <a href="../keycredmgr/ns-keycredmgr-keycredentialmanagerinfo.md">KeyCredentialManagerInfo</a> data structure returned by the <a href="../keycredmgr/nf-keycredmgr-keycredentialmanagergetinformation.md">KeyCredentialManagerGetInformation</a> API.
      * @returns {String} Nothing - always returns an empty string
      * @see https://learn.microsoft.com/windows/win32/api/keycredmgr/nf-keycredmgr-keycredentialmanagerfreeinformation
      */
@@ -1258,7 +1257,7 @@ class Credentials {
      * > [!NOTE]
      * > The wincred.h header defines CredRead as an alias which automatically selects the ANSI or Unicode version of this function based on the definition of the UNICODE preprocessor constant. Mixing usage of the encoding-neutral alias with code that not encoding-neutral can lead to mismatches that result in compilation or runtime errors. For more information, see [Conventions for Function Prototypes](/windows/win32/intl/conventions-for-function-prototypes).
      * @param {PWSTR} TargetName Pointer to a null-terminated string that contains the name of the credential to read.
-     * @param {Integer} Type Type of the credential to read. <i>Type</i> must be one of the CRED_TYPE_* defined types.
+     * @param {CRED_TYPE} Type Type of the credential to read. <i>Type</i> must be one of the CRED_TYPE_* defined types.
      * @param {Pointer<Pointer<CREDENTIALW>>} Credential Pointer to a single allocated block buffer to return the credential.
      * Any pointers contained within the buffer are pointers to locations within this single allocated block. The single returned buffer must be freed by calling <a href="https://docs.microsoft.com/windows/desktop/api/wincred/nf-wincred-credfree">CredFree</a>.
      * @returns {BOOL} The function returns <b>TRUE</b> on success and <b>FALSE</b> on failure. The <a href="https://docs.microsoft.com/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a> function can be called to get a more specific status code. The following status codes can be returned:
@@ -1315,7 +1314,7 @@ class Credentials {
      * > [!NOTE]
      * > The wincred.h header defines CredRead as an alias which automatically selects the ANSI or Unicode version of this function based on the definition of the UNICODE preprocessor constant. Mixing usage of the encoding-neutral alias with code that not encoding-neutral can lead to mismatches that result in compilation or runtime errors. For more information, see [Conventions for Function Prototypes](/windows/win32/intl/conventions-for-function-prototypes).
      * @param {PSTR} TargetName Pointer to a null-terminated string that contains the name of the credential to read.
-     * @param {Integer} Type Type of the credential to read. <i>Type</i> must be one of the CRED_TYPE_* defined types.
+     * @param {CRED_TYPE} Type Type of the credential to read. <i>Type</i> must be one of the CRED_TYPE_* defined types.
      * @param {Pointer<Pointer<CREDENTIALA>>} Credential Pointer to a single allocated block buffer to return the credential.
      * Any pointers contained within the buffer are pointers to locations within this single allocated block. The single returned buffer must be freed by calling <a href="https://docs.microsoft.com/windows/desktop/api/wincred/nf-wincred-credfree">CredFree</a>.
      * @returns {BOOL} The function returns <b>TRUE</b> on success and <b>FALSE</b> on failure. The <a href="https://docs.microsoft.com/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a> function can be called to get a more specific status code. The following status codes can be returned:
@@ -2029,7 +2028,7 @@ class Credentials {
      * > [!NOTE]
      * > The wincred.h header defines CredDelete as an alias which automatically selects the ANSI or Unicode version of this function based on the definition of the UNICODE preprocessor constant. Mixing usage of the encoding-neutral alias with code that not encoding-neutral can lead to mismatches that result in compilation or runtime errors. For more information, see [Conventions for Function Prototypes](/windows/win32/intl/conventions-for-function-prototypes).
      * @param {PWSTR} TargetName Pointer to a null-terminated string that contains the name of the credential to delete.
-     * @param {Integer} Type Type of the credential to delete. Must be one of the CRED_TYPE_* defined types. For a list of the defined types, see the <b>Type</b> member of the <a href="https://docs.microsoft.com/windows/desktop/api/wincred/ns-wincred-credentiala">CREDENTIAL</a> structure.
+     * @param {CRED_TYPE} Type Type of the credential to delete. Must be one of the CRED_TYPE_* defined types. For a list of the defined types, see the <b>Type</b> member of the <a href="https://docs.microsoft.com/windows/desktop/api/wincred/ns-wincred-credentiala">CREDENTIAL</a> structure.
      * 
      * If the value of this parameter is <b>CRED_TYPE_DOMAIN_EXTENDED</b>, this function can delete a credential that specifies a user name when there are multiple credentials for the same target. The value of the <i>TargetName</i> parameter must specify the user name as <i>Target</i><b>|</b><i>UserName</i>.
      * @returns {BOOL} The function returns <b>TRUE</b> on success and <b>FALSE</b> on failure. The <a href="https://docs.microsoft.com/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a> function can be called to get a more specific status code. The following status codes can be returned:
@@ -2080,7 +2079,7 @@ class Credentials {
      * > [!NOTE]
      * > The wincred.h header defines CredDelete as an alias which automatically selects the ANSI or Unicode version of this function based on the definition of the UNICODE preprocessor constant. Mixing usage of the encoding-neutral alias with code that not encoding-neutral can lead to mismatches that result in compilation or runtime errors. For more information, see [Conventions for Function Prototypes](/windows/win32/intl/conventions-for-function-prototypes).
      * @param {PSTR} TargetName Pointer to a null-terminated string that contains the name of the credential to delete.
-     * @param {Integer} Type Type of the credential to delete. Must be one of the CRED_TYPE_* defined types. For a list of the defined types, see the <b>Type</b> member of the <a href="https://docs.microsoft.com/windows/desktop/api/wincred/ns-wincred-credentiala">CREDENTIAL</a> structure.
+     * @param {CRED_TYPE} Type Type of the credential to delete. Must be one of the CRED_TYPE_* defined types. For a list of the defined types, see the <b>Type</b> member of the <a href="https://docs.microsoft.com/windows/desktop/api/wincred/ns-wincred-credentiala">CREDENTIAL</a> structure.
      * 
      * If the value of this parameter is <b>CRED_TYPE_DOMAIN_EXTENDED</b>, this function can delete a credential that specifies a user name when there are multiple credentials for the same target. The value of the <i>TargetName</i> parameter must specify the user name as <i>Target</i><b>|</b><i>UserName</i>.
      * @returns {BOOL} The function returns <b>TRUE</b> on success and <b>FALSE</b> on failure. The <a href="https://docs.microsoft.com/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a> function can be called to get a more specific status code. The following status codes can be returned:
@@ -2132,7 +2131,7 @@ class Credentials {
      * > The wincred.h header defines CredRename as an alias which automatically selects the ANSI or Unicode version of this function based on the definition of the UNICODE preprocessor constant. Mixing usage of the encoding-neutral alias with code that not encoding-neutral can lead to mismatches that result in compilation or runtime errors. For more information, see [Conventions for Function Prototypes](/windows/win32/intl/conventions-for-function-prototypes).
      * @param {PWSTR} OldTargetName Pointer to a null-terminated string that contains the current name of the credential to be renamed.
      * @param {PWSTR} NewTargetName Pointer to a null-terminated string that contains the new name for the credential.
-     * @param {Integer} Type Type of the credential to rename. Must be one of the CRED_TYPE_* defines.
+     * @param {CRED_TYPE} Type Type of the credential to rename. Must be one of the CRED_TYPE_* defines.
      * @returns {BOOL} The function returns <b>TRUE</b> on success and <b>FALSE</b> on failure. The <a href="https://docs.microsoft.com/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a> function can be called to get a more specific status code. The following status codes can be returned:
      * 
      * <ul>
@@ -2187,7 +2186,7 @@ class Credentials {
      * > The wincred.h header defines CredRename as an alias which automatically selects the ANSI or Unicode version of this function based on the definition of the UNICODE preprocessor constant. Mixing usage of the encoding-neutral alias with code that not encoding-neutral can lead to mismatches that result in compilation or runtime errors. For more information, see [Conventions for Function Prototypes](/windows/win32/intl/conventions-for-function-prototypes).
      * @param {PSTR} OldTargetName Pointer to a null-terminated string that contains the current name of the credential to be renamed.
      * @param {PSTR} NewTargetName Pointer to a null-terminated string that contains the new name for the credential.
-     * @param {Integer} Type Type of the credential to rename. Must be one of the CRED_TYPE_* defines.
+     * @param {CRED_TYPE} Type Type of the credential to rename. Must be one of the CRED_TYPE_* defines.
      * @returns {BOOL} The function returns <b>TRUE</b> on success and <b>FALSE</b> on failure. The <a href="https://docs.microsoft.com/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a> function can be called to get a more specific status code. The following status codes can be returned:
      * 
      * <ul>
@@ -2330,7 +2329,7 @@ class Credentials {
      * @remarks
      * > [!NOTE]
      * > The wincred.h header defines CredMarshalCredential as an alias which automatically selects the ANSI or Unicode version of this function based on the definition of the UNICODE preprocessor constant. Mixing usage of the encoding-neutral alias with code that not encoding-neutral can lead to mismatches that result in compilation or runtime errors. For more information, see [Conventions for Function Prototypes](/windows/win32/intl/conventions-for-function-prototypes).
-     * @param {Integer} CredType Type of the credential to marshal.
+     * @param {CRED_MARSHAL_TYPE} CredType Type of the credential to marshal.
      * @param {Pointer<Void>} Credential Credential to marshal. 
      * 
      * 
@@ -2368,7 +2367,7 @@ class Credentials {
      * @remarks
      * > [!NOTE]
      * > The wincred.h header defines CredMarshalCredential as an alias which automatically selects the ANSI or Unicode version of this function based on the definition of the UNICODE preprocessor constant. Mixing usage of the encoding-neutral alias with code that not encoding-neutral can lead to mismatches that result in compilation or runtime errors. For more information, see [Conventions for Function Prototypes](/windows/win32/intl/conventions-for-function-prototypes).
-     * @param {Integer} CredType Type of the credential to marshal.
+     * @param {CRED_MARSHAL_TYPE} CredType Type of the credential to marshal.
      * @param {Pointer<Void>} Credential Credential to marshal. 
      * 
      * 
@@ -2407,7 +2406,7 @@ class Credentials {
      * > [!NOTE]
      * > The wincred.h header defines CredUnmarshalCredential as an alias which automatically selects the ANSI or Unicode version of this function based on the definition of the UNICODE preprocessor constant. Mixing usage of the encoding-neutral alias with code that not encoding-neutral can lead to mismatches that result in compilation or runtime errors. For more information, see [Conventions for Function Prototypes](/windows/win32/intl/conventions-for-function-prototypes).
      * @param {PWSTR} MarshaledCredential Pointer to a null-terminated string that contains the marshaled credential.
-     * @param {Pointer<Integer>} CredType Type of credential specified by <i>MarshaledCredential</i>. 
+     * @param {Pointer<CRED_MARSHAL_TYPE>} CredType Type of credential specified by <i>MarshaledCredential</i>. 
      * 
      * 
      * This is one of the <a href="https://docs.microsoft.com/windows/desktop/api/wincred/ne-wincred-cred_marshal_type">CRED_MARSHAL_TYPE</a> values.
@@ -2444,7 +2443,7 @@ class Credentials {
      * > [!NOTE]
      * > The wincred.h header defines CredUnmarshalCredential as an alias which automatically selects the ANSI or Unicode version of this function based on the definition of the UNICODE preprocessor constant. Mixing usage of the encoding-neutral alias with code that not encoding-neutral can lead to mismatches that result in compilation or runtime errors. For more information, see [Conventions for Function Prototypes](/windows/win32/intl/conventions-for-function-prototypes).
      * @param {PSTR} MarshaledCredential Pointer to a null-terminated string that contains the marshaled credential.
-     * @param {Pointer<Integer>} CredType Type of credential specified by <i>MarshaledCredential</i>. 
+     * @param {Pointer<CRED_MARSHAL_TYPE>} CredType Type of credential specified by <i>MarshaledCredential</i>. 
      * 
      * 
      * This is one of the <a href="https://docs.microsoft.com/windows/desktop/api/wincred/ne-wincred-cred_marshal_type">CRED_MARSHAL_TYPE</a> values.
@@ -2521,14 +2520,14 @@ class Credentials {
      * 
      * > [!NOTE]
      * > The wincred.h header defines CredUnPackAuthenticationBuffer as an alias which automatically selects the ANSI or Unicode version of this function based on the definition of the UNICODE preprocessor constant. Mixing usage of the encoding-neutral alias with code that not encoding-neutral can lead to mismatches that result in compilation or runtime errors. For more information, see [Conventions for Function Prototypes](/windows/win32/intl/conventions-for-function-prototypes).
-     * @param {Integer} dwFlags Setting the value of this parameter to <b>CRED_PACK_PROTECTED_CREDENTIALS</b> specifies that the function attempts to decrypt the credentials in the authentication buffer. If the credential  cannot be decrypted, the function returns <b>FALSE</b>, and a call to the <a href="https://docs.microsoft.com/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a> function will return the value <b>ERROR_NOT_CAPABLE</b>.
+     * @param {CRED_PACK_FLAGS} dwFlags Setting the value of this parameter to <b>CRED_PACK_PROTECTED_CREDENTIALS</b> specifies that the function attempts to decrypt the credentials in the authentication buffer. If the credential  cannot be decrypted, the function returns <b>FALSE</b>, and a call to the <a href="https://docs.microsoft.com/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a> function will return the value <b>ERROR_NOT_CAPABLE</b>.
      * 
      * How the decryption is done depends on the format of the authentication buffer.
      * 
      * If the authentication buffer is a <a href="https://docs.microsoft.com/windows/desktop/api/sspi/ns-sspi-sec_winnt_auth_identity_ex2">SEC_WINNT_AUTH_IDENTITY_EX2</a> structure, the function can decrypt the buffer if it is encrypted by using <a href="https://docs.microsoft.com/windows/desktop/api/sspi/nf-sspi-sspiencryptauthidentityex">SspiEncryptAuthIdentityEx</a> with the SEC_WINNT_AUTH_IDENTITY_ENCRYPT_SAME_LOGON option.
      * 
      * If the authentication buffer is one of the marshaled KERB_*_LOGON structures, the function decrypts the password before returning it in the <i>pszPassword</i> buffer.
-     * @param {Pointer} pAuthBuffer A pointer to the authentication buffer to be converted.
+     * @param {Integer} pAuthBuffer A pointer to the authentication buffer to be converted.
      * 
      * This buffer is typically the output of the <a href="https://docs.microsoft.com/windows/desktop/api/wincred/nf-wincred-creduipromptforwindowscredentialsa">CredUIPromptForWindowsCredentials</a> or <a href="https://docs.microsoft.com/windows/desktop/api/wincred/nf-wincred-credpackauthenticationbuffera">CredPackAuthenticationBuffer</a> function. This must be one of the following types:<ul>
      * <li>A <a href="https://docs.microsoft.com/windows/desktop/api/sspi/ns-sspi-sec_winnt_auth_identity_ex2">SEC_WINNT_AUTH_IDENTITY_EX2</a> structure for identity credentials. The function does not accept other <a href="https://docs.microsoft.com/windows/desktop/api/sspi/ns-sspi-sec_winnt_auth_identity_a">SEC_WINNT_AUTH_IDENTITY</a> structures.</li>
@@ -2628,14 +2627,14 @@ class Credentials {
      * 
      * > [!NOTE]
      * > The wincred.h header defines CredUnPackAuthenticationBuffer as an alias which automatically selects the ANSI or Unicode version of this function based on the definition of the UNICODE preprocessor constant. Mixing usage of the encoding-neutral alias with code that not encoding-neutral can lead to mismatches that result in compilation or runtime errors. For more information, see [Conventions for Function Prototypes](/windows/win32/intl/conventions-for-function-prototypes).
-     * @param {Integer} dwFlags Setting the value of this parameter to <b>CRED_PACK_PROTECTED_CREDENTIALS</b> specifies that the function attempts to decrypt the credentials in the authentication buffer. If the credential  cannot be decrypted, the function returns <b>FALSE</b>, and a call to the <a href="https://docs.microsoft.com/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a> function will return the value <b>ERROR_NOT_CAPABLE</b>.
+     * @param {CRED_PACK_FLAGS} dwFlags Setting the value of this parameter to <b>CRED_PACK_PROTECTED_CREDENTIALS</b> specifies that the function attempts to decrypt the credentials in the authentication buffer. If the credential  cannot be decrypted, the function returns <b>FALSE</b>, and a call to the <a href="https://docs.microsoft.com/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a> function will return the value <b>ERROR_NOT_CAPABLE</b>.
      * 
      * How the decryption is done depends on the format of the authentication buffer.
      * 
      * If the authentication buffer is a <a href="https://docs.microsoft.com/windows/desktop/api/sspi/ns-sspi-sec_winnt_auth_identity_ex2">SEC_WINNT_AUTH_IDENTITY_EX2</a> structure, the function can decrypt the buffer if it is encrypted by using <a href="https://docs.microsoft.com/windows/desktop/api/sspi/nf-sspi-sspiencryptauthidentityex">SspiEncryptAuthIdentityEx</a> with the SEC_WINNT_AUTH_IDENTITY_ENCRYPT_SAME_LOGON option.
      * 
      * If the authentication buffer is one of the marshaled KERB_*_LOGON structures, the function decrypts the password before returning it in the <i>pszPassword</i> buffer.
-     * @param {Pointer} pAuthBuffer A pointer to the authentication buffer to be converted.
+     * @param {Integer} pAuthBuffer A pointer to the authentication buffer to be converted.
      * 
      * This buffer is typically the output of the <a href="https://docs.microsoft.com/windows/desktop/api/wincred/nf-wincred-creduipromptforwindowscredentialsa">CredUIPromptForWindowsCredentials</a> or <a href="https://docs.microsoft.com/windows/desktop/api/wincred/nf-wincred-credpackauthenticationbuffera">CredPackAuthenticationBuffer</a> function. This must be one of the following types:<ul>
      * <li>A <a href="https://docs.microsoft.com/windows/desktop/api/sspi/ns-sspi-sec_winnt_auth_identity_ex2">SEC_WINNT_AUTH_IDENTITY_EX2</a> structure for identity credentials. The function does not accept other <a href="https://docs.microsoft.com/windows/desktop/api/sspi/ns-sspi-sec_winnt_auth_identity_a">SEC_WINNT_AUTH_IDENTITY</a> structures.</li>
@@ -2728,7 +2727,7 @@ class Credentials {
      * @remarks
      * > [!NOTE]
      * > The wincred.h header defines CredPackAuthenticationBuffer as an alias which automatically selects the ANSI or Unicode version of this function based on the definition of the UNICODE preprocessor constant. Mixing usage of the encoding-neutral alias with code that not encoding-neutral can lead to mismatches that result in compilation or runtime errors. For more information, see [Conventions for Function Prototypes](/windows/win32/intl/conventions-for-function-prototypes).
-     * @param {Integer} dwFlags Specifies how the credential should be packed. This can be a combination of the following flags. 
+     * @param {CRED_PACK_FLAGS} dwFlags Specifies how the credential should be packed. This can be a combination of the following flags. 
      * 
      * <table>
      * <tr>
@@ -2794,7 +2793,7 @@ class Credentials {
      * For <a href="https://docs.microsoft.com/windows/desktop/SecGloss/s-gly">smart card</a>  credentials, this is the <i>smart card</i> PIN.
      * 
      * <b>Windows Server 2008 R2, Windows 7, Windows Server 2008 and Windows Vista:  </b>Online identities are not supported.
-     * @param {Pointer} pPackedCredentials A pointer to an array of bytes that, on output, receives the packed authentication buffer. This parameter can be <b>NULL</b> to receive the required buffer size in the <i>pcbPackedCredentials</i> parameter.
+     * @param {Integer} pPackedCredentials A pointer to an array of bytes that, on output, receives the packed authentication buffer. This parameter can be <b>NULL</b> to receive the required buffer size in the <i>pcbPackedCredentials</i> parameter.
      * @param {Pointer<Integer>} pcbPackedCredentials A pointer to a <b>DWORD</b> value that specifies the size, in bytes, of the <i>pPackedCredentials</i> buffer. On output, if the buffer is not of sufficient size, specifies the required size, in bytes, of the  <i>pPackedCredentials</i> buffer.
      * @returns {BOOL} <b>TRUE</b> if the function succeeds; otherwise, <b>FALSE</b>.
      * 
@@ -2842,7 +2841,7 @@ class Credentials {
      * @remarks
      * > [!NOTE]
      * > The wincred.h header defines CredPackAuthenticationBuffer as an alias which automatically selects the ANSI or Unicode version of this function based on the definition of the UNICODE preprocessor constant. Mixing usage of the encoding-neutral alias with code that not encoding-neutral can lead to mismatches that result in compilation or runtime errors. For more information, see [Conventions for Function Prototypes](/windows/win32/intl/conventions-for-function-prototypes).
-     * @param {Integer} dwFlags Specifies how the credential should be packed. This can be a combination of the following flags. 
+     * @param {CRED_PACK_FLAGS} dwFlags Specifies how the credential should be packed. This can be a combination of the following flags. 
      * 
      * <table>
      * <tr>
@@ -2908,7 +2907,7 @@ class Credentials {
      * For <a href="https://docs.microsoft.com/windows/desktop/SecGloss/s-gly">smart card</a>  credentials, this is the <i>smart card</i> PIN.
      * 
      * <b>Windows Server 2008 R2, Windows 7, Windows Server 2008 and Windows Vista:  </b>Online identities are not supported.
-     * @param {Pointer} pPackedCredentials A pointer to an array of bytes that, on output, receives the packed authentication buffer. This parameter can be <b>NULL</b> to receive the required buffer size in the <i>pcbPackedCredentials</i> parameter.
+     * @param {Integer} pPackedCredentials A pointer to an array of bytes that, on output, receives the packed authentication buffer. This parameter can be <b>NULL</b> to receive the required buffer size in the <i>pcbPackedCredentials</i> parameter.
      * @param {Pointer<Integer>} pcbPackedCredentials A pointer to a <b>DWORD</b> value that specifies the size, in bytes, of the <i>pPackedCredentials</i> buffer. On output, if the buffer is not of sufficient size, specifies the required size, in bytes, of the  <i>pPackedCredentials</i> buffer.
      * @returns {BOOL} <b>TRUE</b> if the function succeeds; otherwise, <b>FALSE</b>.
      * 
@@ -2966,7 +2965,7 @@ class Credentials {
      * @param {Integer} cchCredentials The size, in characters, of the <i>pszCredentials</i> buffer.
      * @param {PWSTR} pszProtectedCredentials A pointer to a string that, on output, receives the encrypted credentials.
      * @param {Pointer<Integer>} pcchMaxChars The size, in characters of the <i>pszProtectedCredentials</i> buffer. On output, if the <i>pszProtectedCredentials</i> is not of sufficient size to receive the encrypted credentials, this parameter specifies the required size, in characters, of the <i>pszProtectedCredentials</i> buffer.
-     * @param {Pointer<Integer>} ProtectionType A pointer to a <a href="https://docs.microsoft.com/windows/desktop/api/wincred/ne-wincred-cred_protection_type">CRED_PROTECTION_TYPE</a> enumeration type that, on output, specifies the type of protection provided.
+     * @param {Pointer<CRED_PROTECTION_TYPE>} ProtectionType A pointer to a <a href="https://docs.microsoft.com/windows/desktop/api/wincred/ne-wincred-cred_protection_type">CRED_PROTECTION_TYPE</a> enumeration type that, on output, specifies the type of protection provided.
      * @returns {BOOL} <b>TRUE</b> if the function succeeds; otherwise, <b>FALSE</b>.
      * 
      * For extended error information, call the 
@@ -3006,7 +3005,7 @@ class Credentials {
      * @param {Integer} cchCredentials The size, in characters, of the <i>pszCredentials</i> buffer.
      * @param {PSTR} pszProtectedCredentials A pointer to a string that, on output, receives the encrypted credentials.
      * @param {Pointer<Integer>} pcchMaxChars The size, in characters of the <i>pszProtectedCredentials</i> buffer. On output, if the <i>pszProtectedCredentials</i> is not of sufficient size to receive the encrypted credentials, this parameter specifies the required size, in characters, of the <i>pszProtectedCredentials</i> buffer.
-     * @param {Pointer<Integer>} ProtectionType A pointer to a <a href="https://docs.microsoft.com/windows/desktop/api/wincred/ne-wincred-cred_protection_type">CRED_PROTECTION_TYPE</a> enumeration type that, on output, specifies the type of protection provided.
+     * @param {Pointer<CRED_PROTECTION_TYPE>} ProtectionType A pointer to a <a href="https://docs.microsoft.com/windows/desktop/api/wincred/ne-wincred-cred_protection_type">CRED_PROTECTION_TYPE</a> enumeration type that, on output, specifies the type of protection provided.
      * @returns {BOOL} <b>TRUE</b> if the function succeeds; otherwise, <b>FALSE</b>.
      * 
      * For extended error information, call the 
@@ -3165,7 +3164,7 @@ class Credentials {
      * > [!NOTE]
      * > The wincred.h header defines CredIsProtected as an alias which automatically selects the ANSI or Unicode version of this function based on the definition of the UNICODE preprocessor constant. Mixing usage of the encoding-neutral alias with code that not encoding-neutral can lead to mismatches that result in compilation or runtime errors. For more information, see [Conventions for Function Prototypes](/windows/win32/intl/conventions-for-function-prototypes).
      * @param {PWSTR} pszProtectedCredentials A pointer to a null-terminated string that specifies the credentials to test.
-     * @param {Pointer<Integer>} pProtectionType A pointer to a value from the <a href="https://docs.microsoft.com/windows/desktop/api/wincred/ne-wincred-cred_protection_type">CRED_PROTECTION_TYPE</a> enumeration that specifies whether the credentials specified in the <i>pszProtectedCredentials</i> parameter are protected.
+     * @param {Pointer<CRED_PROTECTION_TYPE>} pProtectionType A pointer to a value from the <a href="https://docs.microsoft.com/windows/desktop/api/wincred/ne-wincred-cred_protection_type">CRED_PROTECTION_TYPE</a> enumeration that specifies whether the credentials specified in the <i>pszProtectedCredentials</i> parameter are protected.
      * @returns {BOOL} <b>TRUE</b> if the function succeeds; otherwise, <b>FALSE</b>.
      * 
      * For extended error information, call the 
@@ -3194,7 +3193,7 @@ class Credentials {
      * > [!NOTE]
      * > The wincred.h header defines CredIsProtected as an alias which automatically selects the ANSI or Unicode version of this function based on the definition of the UNICODE preprocessor constant. Mixing usage of the encoding-neutral alias with code that not encoding-neutral can lead to mismatches that result in compilation or runtime errors. For more information, see [Conventions for Function Prototypes](/windows/win32/intl/conventions-for-function-prototypes).
      * @param {PSTR} pszProtectedCredentials A pointer to a null-terminated string that specifies the credentials to test.
-     * @param {Pointer<Integer>} pProtectionType A pointer to a value from the <a href="https://docs.microsoft.com/windows/desktop/api/wincred/ne-wincred-cred_protection_type">CRED_PROTECTION_TYPE</a> enumeration that specifies whether the credentials specified in the <i>pszProtectedCredentials</i> parameter are protected.
+     * @param {Pointer<CRED_PROTECTION_TYPE>} pProtectionType A pointer to a value from the <a href="https://docs.microsoft.com/windows/desktop/api/wincred/ne-wincred-cred_protection_type">CRED_PROTECTION_TYPE</a> enumeration that specifies whether the credentials specified in the <i>pszProtectedCredentials</i> parameter are protected.
      * @returns {BOOL} <b>TRUE</b> if the function succeeds; otherwise, <b>FALSE</b>.
      * 
      * For extended error information, call the 
@@ -3381,7 +3380,7 @@ class Credentials {
 
     /**
      * The CredFree function frees a buffer returned by any of the credentials management functions.
-     * @param {Pointer<Void>} _Buffer 
+     * @param {Pointer<Void>} _Buffer Pointer to the buffer to be freed.
      * @returns {String} Nothing - always returns an empty string
      * @see https://learn.microsoft.com/windows/win32/api/wincred/nf-wincred-credfree
      * @since windows5.1.2600
@@ -3470,8 +3469,8 @@ class Credentials {
      * If the CREDUI_FLAGS_DO_NOT_PERSIST flag is specified and CREDUI_FLAGS_SHOW_SAVE_CHECK_BOX is not specified, the <b>Save</b> check box is not displayed, but is considered to be cleared.
      * 
      * An application that needs to use CredUI to prompt the user for credentials, but does not need the credential management services provided by the credential manager, can use <i>pfSave</i> to receive the state of the <b>Save</b> check box after the user closes the dialog box. To do this, the caller must specify CREDUI_FLAGS_DO_NOT_PERSIST and  CREDUI_FLAGS_SHOW_SAVE_CHECK_BOX in <i>dwFlags</i>. When CREDUI_FLAGS_DO_NOT_PERSIST and  CREDUI_FLAGS_SHOW_SAVE_CHECK_BOX are set, the application is responsible for examining *<i>pfSave</i> after the function returns, and if *<i>pfSave</i> is <b>TRUE</b>,  then the application must take the appropriate action to save the user credentials within the resources of the application.
-     * @param {Integer} dwFlags 
-     * @returns {Integer} The return value is a <b>DWORD</b> and can be one of the following values.
+     * @param {CREDUI_FLAGS} dwFlags 
+     * @returns {WIN32_ERROR} The return value is a <b>DWORD</b> and can be one of the following values.
      * 
      * <table>
      * <tr>
@@ -3641,8 +3640,8 @@ class Credentials {
      * If the CREDUI_FLAGS_DO_NOT_PERSIST flag is specified and CREDUI_FLAGS_SHOW_SAVE_CHECK_BOX is not specified, the <b>Save</b> check box is not displayed, but is considered to be cleared.
      * 
      * An application that needs to use CredUI to prompt the user for credentials, but does not need the credential management services provided by the credential manager, can use <i>pfSave</i> to receive the state of the <b>Save</b> check box after the user closes the dialog box. To do this, the caller must specify CREDUI_FLAGS_DO_NOT_PERSIST and  CREDUI_FLAGS_SHOW_SAVE_CHECK_BOX in <i>dwFlags</i>. When CREDUI_FLAGS_DO_NOT_PERSIST and  CREDUI_FLAGS_SHOW_SAVE_CHECK_BOX are set, the application is responsible for examining *<i>pfSave</i> after the function returns, and if *<i>pfSave</i> is <b>TRUE</b>,  then the application must take the appropriate action to save the user credentials within the resources of the application.
-     * @param {Integer} dwFlags 
-     * @returns {Integer} The return value is a <b>DWORD</b> and can be one of the following values.
+     * @param {CREDUI_FLAGS} dwFlags 
+     * @returns {WIN32_ERROR} The return value is a <b>DWORD</b> and can be one of the following values.
      * 
      * <table>
      * <tr>
@@ -3756,7 +3755,7 @@ class Credentials {
      * To get the appropriate value to use for this parameter on input, call the <a href="https://docs.microsoft.com/windows/desktop/api/ntsecapi/nf-ntsecapi-lsalookupauthenticationpackage">LsaLookupAuthenticationPackage</a> function and use the value of the <i>AuthenticationPackage</i> parameter  of that function.
      * 
      * On output, this parameter specifies the authentication package for which the credentials in the <i>ppvOutAuthBuffer</i> buffer are serialized.
-     * @param {Pointer} pvInAuthBuffer A pointer to a credential BLOB that is used to populate the credential fields in the dialog box. Set the value of this parameter to <b>NULL</b> to leave the credential fields empty.
+     * @param {Integer} pvInAuthBuffer A pointer to a credential BLOB that is used to populate the credential fields in the dialog box. Set the value of this parameter to <b>NULL</b> to leave the credential fields empty.
      * @param {Integer} ulInAuthBufferSize The size, in bytes, of the <i>pvInAuthBuffer</i> buffer.
      * @param {Pointer<Pointer<Void>>} ppvOutAuthBuffer The address of a pointer that, on output, specifies the credential BLOB. For Kerberos, NTLM, or Negotiate credentials, call the <a href="https://docs.microsoft.com/windows/desktop/api/wincred/nf-wincred-credunpackauthenticationbuffera">CredUnPackAuthenticationBuffer</a> function to convert this BLOB to string representations of the credentials.  
      * 
@@ -3765,7 +3764,7 @@ class Credentials {
      * @param {Pointer<BOOL>} pfSave A pointer to a Boolean value that, on input, specifies whether the <b>Save</b> check box is selected in the dialog box that this function displays. On output, the value of this parameter specifies whether the <b>Save</b> check box was selected when the user clicks the <b>Submit</b> button in the dialog box. Set this parameter to <b>NULL</b> to ignore the <b>Save</b> check box.
      * 
      * This parameter is ignored if the <b>CREDUIWIN_CHECKBOX</b> flag is not set in the <i>dwFlags</i> parameter.
-     * @param {Integer} dwFlags 
+     * @param {CREDUIWIN_FLAGS} dwFlags 
      * @returns {Integer} If the function succeeds, the function returns <b>ERROR_SUCCESS</b>. If the function is canceled by the user, it returns <b>ERROR_CANCELLED</b>. Any other return value indicates that the function failed to load.
      * @see https://learn.microsoft.com/windows/win32/api/wincred/nf-wincred-creduipromptforwindowscredentialsw
      * @since windows6.0.6000
@@ -3809,7 +3808,7 @@ class Credentials {
      * To get the appropriate value to use for this parameter on input, call the <a href="https://docs.microsoft.com/windows/desktop/api/ntsecapi/nf-ntsecapi-lsalookupauthenticationpackage">LsaLookupAuthenticationPackage</a> function and use the value of the <i>AuthenticationPackage</i> parameter  of that function.
      * 
      * On output, this parameter specifies the authentication package for which the credentials in the <i>ppvOutAuthBuffer</i> buffer are serialized.
-     * @param {Pointer} pvInAuthBuffer A pointer to a credential BLOB that is used to populate the credential fields in the dialog box. Set the value of this parameter to <b>NULL</b> to leave the credential fields empty.
+     * @param {Integer} pvInAuthBuffer A pointer to a credential BLOB that is used to populate the credential fields in the dialog box. Set the value of this parameter to <b>NULL</b> to leave the credential fields empty.
      * @param {Integer} ulInAuthBufferSize The size, in bytes, of the <i>pvInAuthBuffer</i> buffer.
      * @param {Pointer<Pointer<Void>>} ppvOutAuthBuffer The address of a pointer that, on output, specifies the credential BLOB. For Kerberos, NTLM, or Negotiate credentials, call the <a href="https://docs.microsoft.com/windows/desktop/api/wincred/nf-wincred-credunpackauthenticationbuffera">CredUnPackAuthenticationBuffer</a> function to convert this BLOB to string representations of the credentials.  
      * 
@@ -3818,7 +3817,7 @@ class Credentials {
      * @param {Pointer<BOOL>} pfSave A pointer to a Boolean value that, on input, specifies whether the <b>Save</b> check box is selected in the dialog box that this function displays. On output, the value of this parameter specifies whether the <b>Save</b> check box was selected when the user clicks the <b>Submit</b> button in the dialog box. Set this parameter to <b>NULL</b> to ignore the <b>Save</b> check box.
      * 
      * This parameter is ignored if the <b>CREDUIWIN_CHECKBOX</b> flag is not set in the <i>dwFlags</i> parameter.
-     * @param {Integer} dwFlags 
+     * @param {CREDUIWIN_FLAGS} dwFlags 
      * @returns {Integer} If the function succeeds, the function returns <b>ERROR_SUCCESS</b>. If the function is canceled by the user, it returns <b>ERROR_CANCELLED</b>. Any other return value indicates that the function failed to load.
      * @see https://learn.microsoft.com/windows/win32/api/wincred/nf-wincred-creduipromptforwindowscredentialsa
      * @since windows6.0.6000
@@ -3888,7 +3887,7 @@ class Credentials {
      * 
      * <div class="alert"><b>Note</b>  CREDUI_MAX_DOMAIN_TARGET_LENGTH does NOT include the terminating <b>null</b> character.</div>
      * <div> </div>
-     * @returns {Integer} This function returns the following:
+     * @returns {WIN32_ERROR} This function returns the following:
      * 
      * <ul>
      * <li>NO_ERROR 
@@ -3985,7 +3984,7 @@ class Credentials {
      * 
      * <div class="alert"><b>Note</b>  CREDUI_MAX_DOMAIN_TARGET_LENGTH does NOT include the terminating <b>null</b> character.</div>
      * <div> </div>
-     * @returns {Integer} This function returns the following:
+     * @returns {WIN32_ERROR} This function returns the following:
      * 
      * <ul>
      * <li>NO_ERROR 
@@ -4112,7 +4111,7 @@ class Credentials {
      * <div class="alert"><b>Note</b>  CREDUI_MAX_PASSWORD_LENGTH does not include the terminating <b>null</b> character.</div>
      * <div> </div>
      * @param {Pointer<BOOL>} pfSave A pointer to a <b>BOOL</b> that specifies the initial state of the <b>Save</b> message and receives the state of the <b>Save</b> message after the user has responded to the command prompt. If <i>pfSave</i> is not <b>NULL</b> and <a href="https://docs.microsoft.com/windows/desktop/api/wincred/nf-wincred-creduipromptforcredentialsa">CredUIPromptForCredentials</a> returns NO_ERROR, <i>pfSave</i> returns the state of the <b>Save</b> message. If the CREDUI_FLAGS_PERSIST flag is specified, the <b>Save</b> message is not displayed but is considered to be "y". If the CREDUI_FLAGS_DO_NOT_PERSIST flag is specified and CREDUI_FLAGS_SHOW_SAVE_CHECK_BOX is not specified, the <b>Save</b> message is not displayed but is considered to be "n".
-     * @param {Integer} dwFlags 
+     * @param {CREDUI_FLAGS} dwFlags 
      * @returns {Integer} The return value is a <b>DWORD</b> and can be one of the following values.
      * 
      * <table>
@@ -4272,7 +4271,7 @@ class Credentials {
      * <div class="alert"><b>Note</b>  CREDUI_MAX_PASSWORD_LENGTH does not include the terminating <b>null</b> character.</div>
      * <div> </div>
      * @param {Pointer<BOOL>} pfSave A pointer to a <b>BOOL</b> that specifies the initial state of the <b>Save</b> message and receives the state of the <b>Save</b> message after the user has responded to the command prompt. If <i>pfSave</i> is not <b>NULL</b> and <a href="https://docs.microsoft.com/windows/desktop/api/wincred/nf-wincred-creduipromptforcredentialsa">CredUIPromptForCredentials</a> returns NO_ERROR, <i>pfSave</i> returns the state of the <b>Save</b> message. If the CREDUI_FLAGS_PERSIST flag is specified, the <b>Save</b> message is not displayed but is considered to be "y". If the CREDUI_FLAGS_DO_NOT_PERSIST flag is specified and CREDUI_FLAGS_SHOW_SAVE_CHECK_BOX is not specified, the <b>Save</b> message is not displayed but is considered to be "n".
-     * @param {Integer} dwFlags 
+     * @param {CREDUI_FLAGS} dwFlags 
      * @returns {Integer} The return value is a <b>DWORD</b> and can be one of the following values.
      * 
      * <table>
@@ -4539,7 +4538,7 @@ class Credentials {
      * <a href="https://docs.microsoft.com/windows/desktop/api/winscard/nf-winscard-scardreleasecontext">SCardReleaseContext</a>.
      * 
      * If the client attempts a smart card operation in a remote session, such as a client session running on a terminal server, and the operating system in use does not support smart card redirection, this function returns ERROR_BROKEN_PIPE.
-     * @param {Integer} dwScope 
+     * @param {SCARD_SCOPE} dwScope 
      * @param {Pointer<Pointer>} phContext A handle to the established <a href="https://docs.microsoft.com/windows/desktop/SecGloss/r-gly">resource manager context</a>. This handle can now be supplied to other functions attempting to do work within this context.
      * @returns {Integer} If the function succeeds, the function returns SCARD_S_SUCCESS. 
      * 
@@ -8418,7 +8417,7 @@ class Credentials {
      * @param {Pointer} hCard 
      * @param {Pointer<Integer>} pdwState 
      * @param {Pointer<Integer>} pdwProtocol 
-     * @param {Pointer} pbAtr 
+     * @param {Integer} pbAtr 
      * @param {Pointer<Integer>} pcbAtrLen 
      * @returns {Integer} 
      */
@@ -8740,7 +8739,7 @@ class Credentials {
      * 
      * 
      * For the <a href="https://docs.microsoft.com/windows/desktop/SecGloss/t-gly">T=0</a>, <a href="https://docs.microsoft.com/windows/desktop/SecGloss/t-gly">T=1</a>, and Raw protocols, the PCI structure is constant. The <a href="https://docs.microsoft.com/windows/desktop/SecGloss/s-gly">smart card subsystem</a> supplies a global T=0, T=1, or Raw PCI structure, which you can reference by using the symbols SCARD_PCI_T0, SCARD_PCI_T1, and SCARD_PCI_RAW respectively.
-     * @param {Pointer} pbSendBuffer A pointer to the actual data to be written to the card. 
+     * @param {Integer} pbSendBuffer A pointer to the actual data to be written to the card. 
      * 
      * For T=0, the data parameters are placed into the address pointed to by <i>pbSendBuffer</i> according to the following structure:
      * 
@@ -8816,7 +8815,7 @@ class Credentials {
      * 
      * For T=0, in the special case where no data is sent to the card and no data expected in return, this length must reflect that the <b>bP3</b> member is not being sent; the length should be <c>sizeof(CmdBytes)  - sizeof(BYTE)</c>.
      * @param {Pointer<SCARD_IO_REQUEST>} pioRecvPci Pointer to the protocol header structure for the instruction, followed by a buffer in which to receive any returned protocol control information (PCI) specific to the protocol in use. This parameter can be <b>NULL</b> if no  PCI is returned.
-     * @param {Pointer} pbRecvBuffer Pointer to any data returned from the card. 
+     * @param {Integer} pbRecvBuffer Pointer to any data returned from the card. 
      * 
      * 
      * 
@@ -8868,9 +8867,9 @@ class Credentials {
      * @param {Pointer} hCard Reference value returned from 
      * <a href="https://docs.microsoft.com/windows/desktop/api/winscard/nf-winscard-scardconnecta">SCardConnect</a>.
      * @param {Integer} dwControlCode Control code for the operation. This value identifies the specific operation to be performed.
-     * @param {Pointer} lpInBuffer Pointer to a buffer that contains the data required to perform the operation. This parameter can be <b>NULL</b> if the <i>dwControlCode</i> parameter specifies an operation that does not require input data.
+     * @param {Integer} lpInBuffer Pointer to a buffer that contains the data required to perform the operation. This parameter can be <b>NULL</b> if the <i>dwControlCode</i> parameter specifies an operation that does not require input data.
      * @param {Integer} cbInBufferSize Size, in bytes, of the buffer pointed to by <i>lpInBuffer</i>.
-     * @param {Pointer} lpOutBuffer Pointer to a buffer that receives the operation's output data. This parameter can be <b>NULL</b> if the <i>dwControlCode</i> parameter specifies an operation that does not produce output data.
+     * @param {Integer} lpOutBuffer Pointer to a buffer that receives the operation's output data. This parameter can be <b>NULL</b> if the <i>dwControlCode</i> parameter specifies an operation that does not produce output data.
      * @param {Integer} cbOutBufferSize Size, in bytes, of the buffer pointed to by <i>lpOutBuffer</i>.
      * @param {Pointer<Integer>} lpBytesReturned Pointer to a <b>DWORD</b> that receives the size, in bytes, of the data stored into the buffer pointed to by <i>lpOutBuffer</i>.
      * @returns {Integer} This function returns different values depending on whether it succeeds or fails.
@@ -9305,7 +9304,7 @@ class Credentials {
      * </td>
      * </tr>
      * </table>
-     * @param {Pointer} pbAttr Pointer to a buffer that receives the attribute whose ID is supplied in <i>dwAttrId</i>. If this value is <b>NULL</b>, <b>SCardGetAttrib</b> ignores the buffer length supplied in <i>pcbAttrLen</i>, writes the length of the buffer that would have been returned if this parameter had not been <b>NULL</b> to <i>pcbAttrLen</i>, and returns a success code.
+     * @param {Integer} pbAttr Pointer to a buffer that receives the attribute whose ID is supplied in <i>dwAttrId</i>. If this value is <b>NULL</b>, <b>SCardGetAttrib</b> ignores the buffer length supplied in <i>pcbAttrLen</i>, writes the length of the buffer that would have been returned if this parameter had not been <b>NULL</b> to <i>pcbAttrLen</i>, and returns a success code.
      * @param {Pointer<Integer>} pcbAttrLen Length of the <i>pbAttr</i> buffer in bytes, and receives the actual length of the received attribute If the buffer length is specified as SCARD_AUTOALLOCATE, then <i>pbAttr</i> is converted to a pointer to a byte pointer, and receives the address of a block of memory containing the attribute. This block of memory must be deallocated with 
      * <a href="https://docs.microsoft.com/windows/desktop/api/winscard/nf-winscard-scardfreememory">SCardFreeMemory</a>.
      * @returns {Integer} This function returns different values depending on whether it succeeds or fails.
@@ -9390,7 +9389,7 @@ class Credentials {
      * </td>
      * </tr>
      * </table>
-     * @param {Pointer} pbAttr Pointer to a buffer that supplies the attribute whose ID is supplied in <i>dwAttrId</i>.
+     * @param {Integer} pbAttr Pointer to a buffer that supplies the attribute whose ID is supplied in <i>dwAttrId</i>.
      * @param {Integer} cbAttrLen Length (in bytes) of the attribute value in the <i>pbAttr</i> buffer.
      * @returns {Integer} This function returns different values depending on whether it succeeds or fails.
      * 
@@ -9664,7 +9663,7 @@ class Credentials {
      * @param {Pointer<Guid>} CardIdentifier A pointer to a value that uniquely identifies a smart card. The name-value pair that this function reads from the global cache is associated with this smart card.
      * @param {Integer} FreshnessCounter The current revision of the cached data.
      * @param {PSTR} LookupName A pointer to a null-terminated string that contains the name portion of the name-value pair for which to retrieve the value portion.
-     * @param {Pointer} Data A pointer to an array of byte values that contain the value portion of the name-value pair specified by the <i>LookupName</i> parameter.
+     * @param {Integer} Data A pointer to an array of byte values that contain the value portion of the name-value pair specified by the <i>LookupName</i> parameter.
      * @param {Pointer<Integer>} DataLen A pointer to the size, in bytes, of the <i>Data</i> buffer.
      * @returns {Integer} If the function succeeds, it returns <b>SCARD_S_SUCCESS</b>.
      * 
@@ -9722,7 +9721,7 @@ class Credentials {
      * @param {Pointer<Guid>} CardIdentifier A pointer to a value that uniquely identifies a smart card. The name-value pair that this function reads from the global cache is associated with this smart card.
      * @param {Integer} FreshnessCounter The current revision of the cached data.
      * @param {PWSTR} LookupName A pointer to a null-terminated string that contains the name portion of the name-value pair for which to retrieve the value portion.
-     * @param {Pointer} Data A pointer to an array of byte values that contain the value portion of the name-value pair specified by the <i>LookupName</i> parameter.
+     * @param {Integer} Data A pointer to an array of byte values that contain the value portion of the name-value pair specified by the <i>LookupName</i> parameter.
      * @param {Pointer<Integer>} DataLen A pointer to the size, in bytes, of the <i>Data</i> buffer.
      * @returns {Integer} If the function succeeds, it returns <b>SCARD_S_SUCCESS</b>.
      * 
@@ -9780,7 +9779,7 @@ class Credentials {
      * @param {Pointer<Guid>} CardIdentifier A pointer to a value that uniquely identifies the smart card from which the name-value pair was read.
      * @param {Integer} FreshnessCounter The current revision of the cached data.
      * @param {PSTR} LookupName A pointer to a null-terminated string that contains the name portion of the name-value pair to write to the global cache.
-     * @param {Pointer} Data A pointer to an array of byte values that contain the value portion of the name-value pair to write to the global cache.
+     * @param {Integer} Data A pointer to an array of byte values that contain the value portion of the name-value pair to write to the global cache.
      * @param {Integer} DataLen The size, in bytes, of the <i>Data</i> buffer.
      * @returns {Integer} If the function succeeds, it returns <b>SCARD_S_SUCCESS</b>. 
      * 
@@ -9824,7 +9823,7 @@ class Credentials {
      * @param {Pointer<Guid>} CardIdentifier A pointer to a value that uniquely identifies the smart card from which the name-value pair was read.
      * @param {Integer} FreshnessCounter The current revision of the cached data.
      * @param {PWSTR} LookupName A pointer to a null-terminated string that contains the name portion of the name-value pair to write to the global cache.
-     * @param {Pointer} Data A pointer to an array of byte values that contain the value portion of the name-value pair to write to the global cache.
+     * @param {Integer} Data A pointer to an array of byte values that contain the value portion of the name-value pair to write to the global cache.
      * @param {Integer} DataLen The size, in bytes, of the <i>Data</i> buffer.
      * @returns {Integer} If the function succeeds, it returns <b>SCARD_S_SUCCESS</b>. 
      * 
@@ -9864,7 +9863,7 @@ class Credentials {
      * The icon should be 256 × 256 pixels with no alpha channel.
      * @param {Pointer} hContext Handle that identifies the resource manager context for the query. You can set the resource manager context by a previous call to the <a href="https://docs.microsoft.com/windows/desktop/api/winscard/nf-winscard-scardestablishcontext">SCardEstablishContext</a> function. This parameter cannot be <b>NULL</b>.
      * @param {PSTR} szReaderName Reader name. You can get this value by calling the <a href="https://docs.microsoft.com/windows/desktop/api/winscard/nf-winscard-scardlistreadersa">SCardListReaders</a> function.
-     * @param {Pointer} pbIcon Pointer to a buffer that contains a BLOB of the smart card reader icon as read from the icon file. If this value is <b>NULL</b>, the function ignores the buffer length supplied in the <i>pcbIcon</i> parameter, writes the length of the buffer that would have been returned to <i>pcbIcon</i> if this parameter had not been NULL, and returns a success code.
+     * @param {Integer} pbIcon Pointer to a buffer that contains a BLOB of the smart card reader icon as read from the icon file. If this value is <b>NULL</b>, the function ignores the buffer length supplied in the <i>pcbIcon</i> parameter, writes the length of the buffer that would have been returned to <i>pcbIcon</i> if this parameter had not been NULL, and returns a success code.
      * @param {Pointer<Integer>} pcbIcon Length, in characters, of the <i>pbIcon</i> buffer. This parameter receives the actual length of the received attribute. If the buffer length is specified as SCARD_AUTOALLOCATE, then <i>pbIcon</i> is converted from a pointer to a byte pointer and receives the address of a block of memory that contains the attribute. This block of memory must be deallocated with the <a href="https://docs.microsoft.com/windows/desktop/api/winscard/nf-winscard-scardfreememory">SCardFreeMemory</a> function.
      * @returns {Integer} This function returns different values depending on whether it succeeds or fails.
      * 
@@ -9915,7 +9914,7 @@ class Credentials {
      * The icon should be 256 × 256 pixels with no alpha channel.
      * @param {Pointer} hContext Handle that identifies the resource manager context for the query. You can set the resource manager context by a previous call to the <a href="https://docs.microsoft.com/windows/desktop/api/winscard/nf-winscard-scardestablishcontext">SCardEstablishContext</a> function. This parameter cannot be <b>NULL</b>.
      * @param {PWSTR} szReaderName Reader name. You can get this value by calling the <a href="https://docs.microsoft.com/windows/desktop/api/winscard/nf-winscard-scardlistreadersa">SCardListReaders</a> function.
-     * @param {Pointer} pbIcon Pointer to a buffer that contains a BLOB of the smart card reader icon as read from the icon file. If this value is <b>NULL</b>, the function ignores the buffer length supplied in the <i>pcbIcon</i> parameter, writes the length of the buffer that would have been returned to <i>pcbIcon</i> if this parameter had not been NULL, and returns a success code.
+     * @param {Integer} pbIcon Pointer to a buffer that contains a BLOB of the smart card reader icon as read from the icon file. If this value is <b>NULL</b>, the function ignores the buffer length supplied in the <i>pcbIcon</i> parameter, writes the length of the buffer that would have been returned to <i>pcbIcon</i> if this parameter had not been NULL, and returns a success code.
      * @param {Pointer<Integer>} pcbIcon Length, in characters, of the <i>pbIcon</i> buffer. This parameter receives the actual length of the received attribute. If the buffer length is specified as SCARD_AUTOALLOCATE, then <i>pbIcon</i> is converted from a pointer to a byte pointer and receives the address of a block of memory that contains the attribute. This block of memory must be deallocated with the <a href="https://docs.microsoft.com/windows/desktop/api/winscard/nf-winscard-scardfreememory">SCardFreeMemory</a> function.
      * @returns {Integer} This function returns different values depending on whether it succeeds or fails.
      * 

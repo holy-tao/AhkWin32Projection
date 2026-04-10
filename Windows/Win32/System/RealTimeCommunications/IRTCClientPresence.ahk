@@ -1,19 +1,17 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
-#Include ..\..\Foundation\BSTR.ahk
+#Include ..\Com\IUnknown.ahk
 #Include .\IRTCEnumBuddies.ahk
 #Include .\IRTCCollection.ahk
 #Include .\IRTCBuddy.ahk
 #Include .\IRTCEnumWatchers.ahk
 #Include .\IRTCWatcher.ahk
-#Include ..\Com\IUnknown.ahk
 
 /**
  * @namespace Windows.Win32.System.RealTimeCommunications
- * @version v4.0.30319
  */
-class IRTCClientPresence extends IUnknown{
+class IRTCClientPresence extends IUnknown {
 
     static sizeof => A_PtrSize
     /**
@@ -49,7 +47,7 @@ class IRTCClientPresence extends IUnknown{
     }
 
     /**
-     * @type {Integer} 
+     * @type {RTC_OFFER_WATCHER_MODE} 
      */
     OfferWatcherMode {
         get => this.get_OfferWatcherMode()
@@ -57,7 +55,7 @@ class IRTCClientPresence extends IUnknown{
     }
 
     /**
-     * @type {Integer} 
+     * @type {RTC_PRIVACY_MODE} 
      */
     PrivacyMode {
         get => this.get_PrivacyMode()
@@ -239,7 +237,7 @@ class IRTCClientPresence extends IUnknown{
 
     /**
      * 
-     * @param {Integer} enStatus 
+     * @param {RTC_PRESENCE_STATUS} enStatus 
      * @param {BSTR} bstrNotes 
      * @returns {HRESULT} 
      */
@@ -252,7 +250,7 @@ class IRTCClientPresence extends IUnknown{
 
     /**
      * 
-     * @returns {Integer} 
+     * @returns {RTC_OFFER_WATCHER_MODE} 
      */
     get_OfferWatcherMode() {
         result := ComCall(17, this, "int*", &penMode := 0, "HRESULT")
@@ -261,7 +259,7 @@ class IRTCClientPresence extends IUnknown{
 
     /**
      * 
-     * @param {Integer} enMode 
+     * @param {RTC_OFFER_WATCHER_MODE} enMode 
      * @returns {HRESULT} 
      */
     put_OfferWatcherMode(enMode) {
@@ -271,7 +269,7 @@ class IRTCClientPresence extends IUnknown{
 
     /**
      * 
-     * @returns {Integer} 
+     * @returns {RTC_PRIVACY_MODE} 
      */
     get_PrivacyMode() {
         result := ComCall(19, this, "int*", &penMode := 0, "HRESULT")
@@ -280,7 +278,7 @@ class IRTCClientPresence extends IUnknown{
 
     /**
      * 
-     * @param {Integer} enMode 
+     * @param {RTC_PRIVACY_MODE} enMode 
      * @returns {HRESULT} 
      */
     put_PrivacyMode(enMode) {

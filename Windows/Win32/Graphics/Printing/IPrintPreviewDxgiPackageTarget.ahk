@@ -5,9 +5,8 @@
 
 /**
  * @namespace Windows.Win32.Graphics.Printing
- * @version v4.0.30319
  */
-class IPrintPreviewDxgiPackageTarget extends IUnknown{
+class IPrintPreviewDxgiPackageTarget extends IUnknown {
 
     static sizeof => A_PtrSize
     /**
@@ -30,7 +29,7 @@ class IPrintPreviewDxgiPackageTarget extends IUnknown{
 
     /**
      * 
-     * @param {Integer} countType 
+     * @param {PageCountType} countType 
      * @param {Integer} count 
      * @returns {HRESULT} 
      */

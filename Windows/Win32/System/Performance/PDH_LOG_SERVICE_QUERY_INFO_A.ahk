@@ -4,11 +4,9 @@
 
 /**
  * @namespace Windows.Win32.System.Performance
- * @version v4.0.30319
  * @charset ANSI
  */
-class PDH_LOG_SERVICE_QUERY_INFO_A extends Win32Struct
-{
+class PDH_LOG_SERVICE_QUERY_INFO_A extends Win32Struct {
     static sizeof => 96
 
     static packingSize => 8
@@ -128,7 +126,7 @@ class PDH_LOG_SERVICE_QUERY_INFO_A extends Win32Struct
     /**
      * @type {FILETIME}
      */
-    PdlLogStartTime{
+    PdlLogStartTime {
         get {
             if(!this.HasProp("__PdlLogStartTime"))
                 this.__PdlLogStartTime := FILETIME(80, this)
@@ -139,7 +137,7 @@ class PDH_LOG_SERVICE_QUERY_INFO_A extends Win32Struct
     /**
      * @type {FILETIME}
      */
-    PdlLogEndTime{
+    PdlLogEndTime {
         get {
             if(!this.HasProp("__PdlLogEndTime"))
                 this.__PdlLogEndTime := FILETIME(88, this)

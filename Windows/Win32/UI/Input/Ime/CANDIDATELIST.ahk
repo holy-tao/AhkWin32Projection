@@ -7,10 +7,8 @@
  * The candidate strings immediately follow the last offset in the <b>dwOffset</b> array.
  * @see https://learn.microsoft.com/windows/win32/api/immdev/ns-immdev-candidatelist
  * @namespace Windows.Win32.UI.Input.Ime
- * @version v4.0.30319
  */
-class CANDIDATELIST extends Win32Struct
-{
+class CANDIDATELIST extends Win32Struct {
     static sizeof => 28
 
     static packingSize => 4
@@ -25,7 +23,6 @@ class CANDIDATELIST extends Win32Struct
     }
 
     /**
-     * 
      * @type {Integer}
      */
     dwStyle {
@@ -71,9 +68,9 @@ class CANDIDATELIST extends Win32Struct
 
     /**
      * Offset to the start of the first candidate string, relative to the start of this structure. The offsets for subsequent strings immediately follow this member, forming an array of 32-bit offsets.
-     * @type {Array<UInt32>}
+     * @type {Array<Integer>}
      */
-    dwOffset{
+    dwOffset {
         get {
             if(!this.HasProp("__dwOffsetProxyArray"))
                 this.__dwOffsetProxyArray := Win32FixedArray(this.ptr + 24, 1, Primitive, "uint")

@@ -11,10 +11,8 @@
  * For an overview of display tables, see [Display Tables](display-tables.md). For information about how to implement a display table, see [Implementing a Display Table](display-table-implementation.md).
  * @see https://learn.microsoft.com/office/client-developer/outlook/mapi/dtblradiobutton
  * @namespace Windows.Win32.System.AddressBook
- * @version v4.0.30319
  */
-class DTBLRADIOBUTTON extends Win32Struct
-{
+class DTBLRADIOBUTTON extends Win32Struct {
     static sizeof => 20
 
     static packingSize => 4

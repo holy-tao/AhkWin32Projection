@@ -3,9 +3,8 @@
 
 /**
  * @namespace Windows.Win32.Networking.Clustering
- * @version v4.0.30319
  */
-class CLUS_AFFINITY_RULE_TYPE extends Win32Enum{
+class CLUS_AFFINITY_RULE_TYPE extends Win32Enum {
 
     /**
      * @type {Integer (Int32)}

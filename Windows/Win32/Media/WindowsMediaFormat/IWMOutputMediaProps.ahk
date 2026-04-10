@@ -7,9 +7,8 @@
  * The IWMOutputMediaProps interface is used to retrieve the properties of an output stream.An IWMOutputMediaProps object is created by a call to IWMReader::GetOutputFormat or IWMReader::GetOutputProps.
  * @see https://learn.microsoft.com/windows/win32/api/wmsdkidl/nn-wmsdkidl-iwmoutputmediaprops
  * @namespace Windows.Win32.Media.WindowsMediaFormat
- * @version v4.0.30319
  */
-class IWMOutputMediaProps extends IWMMediaProps{
+class IWMOutputMediaProps extends IWMMediaProps {
 
     static sizeof => A_PtrSize
     /**

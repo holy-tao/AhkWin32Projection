@@ -7,9 +7,8 @@
  * A knowledge cookie is a lightweight, read-only representation of knowledge that can be used for fast comparisons when performance is especially important.
  * @see https://learn.microsoft.com/windows/win32/api/winsync/ne-winsync-knowledge_cookie_comparison_result
  * @namespace Windows.Win32.System.WindowsSync
- * @version v4.0.30319
  */
-class KNOWLEDGE_COOKIE_COMPARISON_RESULT extends Win32Enum{
+class KNOWLEDGE_COOKIE_COMPARISON_RESULT extends Win32Enum {
 
     /**
      * The knowledge cookie is equal to the specified knowledge.

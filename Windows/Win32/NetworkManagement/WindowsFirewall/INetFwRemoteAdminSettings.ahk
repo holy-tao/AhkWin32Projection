@@ -1,8 +1,8 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
-#Include ..\..\Foundation\BSTR.ahk
 #Include ..\..\System\Com\IDispatch.ahk
+#Include ..\..\Foundation\BSTR.ahk
 
 /**
  * The INetFwRemoteAdminSettings interface provides access to the settings that control remote administration.
@@ -14,9 +14,8 @@
  *  effect immediately.
  * @see https://learn.microsoft.com/windows/win32/api/netfw/nn-netfw-inetfwremoteadminsettings
  * @namespace Windows.Win32.NetworkManagement.WindowsFirewall
- * @version v4.0.30319
  */
-class INetFwRemoteAdminSettings extends IDispatch{
+class INetFwRemoteAdminSettings extends IDispatch {
 
     static sizeof => A_PtrSize
     /**
@@ -38,7 +37,7 @@ class INetFwRemoteAdminSettings extends IDispatch{
     static VTableNames => ["get_IpVersion", "put_IpVersion", "get_Scope", "put_Scope", "get_RemoteAddresses", "put_RemoteAddresses", "get_Enabled", "put_Enabled"]
 
     /**
-     * @type {Integer} 
+     * @type {NET_FW_IP_VERSION} 
      */
     IpVersion {
         get => this.get_IpVersion()
@@ -46,7 +45,7 @@ class INetFwRemoteAdminSettings extends IDispatch{
     }
 
     /**
-     * @type {Integer} 
+     * @type {NET_FW_SCOPE} 
      */
     Scope {
         get => this.get_Scope()
@@ -76,7 +75,7 @@ class INetFwRemoteAdminSettings extends IDispatch{
      * 
      * Only
      *     <b>NET_FW_IP_VERSION_ANY</b> is supported.
-     * @returns {Integer} 
+     * @returns {NET_FW_IP_VERSION} 
      * @see https://learn.microsoft.com/windows/win32/api/netfw/nf-netfw-inetfwremoteadminsettings-get_ipversion
      */
     get_IpVersion() {
@@ -91,7 +90,7 @@ class INetFwRemoteAdminSettings extends IDispatch{
      * 
      * Only
      *     <b>NET_FW_IP_VERSION_ANY</b> is supported.
-     * @param {Integer} ipVersion 
+     * @param {NET_FW_IP_VERSION} ipVersion 
      * @returns {HRESULT} 
      * @see https://learn.microsoft.com/windows/win32/api/netfw/nf-netfw-inetfwremoteadminsettings-put_ipversion
      */
@@ -111,7 +110,7 @@ class INetFwRemoteAdminSettings extends IDispatch{
      *    <b>NET_FW_SCOPE_ALL</b> for new ports.
      * 
      * To create a custom scope, use the <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/netfw/nf-netfw-inetfwremoteadminsettings-get_remoteaddresses">RemoteAddresses</a> property of this interface.
-     * @returns {Integer} 
+     * @returns {NET_FW_SCOPE} 
      * @see https://learn.microsoft.com/windows/win32/api/netfw/nf-netfw-inetfwremoteadminsettings-get_scope
      */
     get_Scope() {
@@ -130,7 +129,7 @@ class INetFwRemoteAdminSettings extends IDispatch{
      *    <b>NET_FW_SCOPE_ALL</b> for new ports.
      * 
      * To create a custom scope, use the <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/netfw/nf-netfw-inetfwremoteadminsettings-get_remoteaddresses">RemoteAddresses</a> property of this interface.
-     * @param {Integer} scope 
+     * @param {NET_FW_SCOPE} scope 
      * @returns {HRESULT} 
      * @see https://learn.microsoft.com/windows/win32/api/netfw/nf-netfw-inetfwremoteadminsettings-put_scope
      */

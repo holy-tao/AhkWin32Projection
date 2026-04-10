@@ -1,14 +1,12 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
-#Include ..\..\..\Win32\Foundation\UNICODE_STRING.ahk
+#Include .\NDIS_WAN_QUALITY.ahk
 
 /**
  * @namespace Windows.Wdk.NetworkManagement.Ndis
- * @version v4.0.30319
  */
-class NDIS_WAN_LINE_UP extends Win32Struct
-{
-    static sizeof => 64
+class NDIS_WAN_LINE_UP extends Win32Struct {
+    static sizeof => 56
 
     static packingSize => 8
 
@@ -29,7 +27,7 @@ class NDIS_WAN_LINE_UP extends Win32Struct
     }
 
     /**
-     * @type {Integer}
+     * @type {NDIS_WAN_QUALITY}
      */
     Quality {
         get => NumGet(this, 8, "int")
@@ -45,9 +43,9 @@ class NDIS_WAN_LINE_UP extends Win32Struct
     }
 
     /**
-     * @type {Array<Byte>}
+     * @type {Array<Integer>}
      */
-    RemoteAddress{
+    RemoteAddress {
         get {
             if(!this.HasProp("__RemoteAddressProxyArray"))
                 this.__RemoteAddressProxyArray := Win32FixedArray(this.ptr + 14, 6, Primitive, "char")
@@ -56,9 +54,9 @@ class NDIS_WAN_LINE_UP extends Win32Struct
     }
 
     /**
-     * @type {Array<Byte>}
+     * @type {Array<Integer>}
      */
-    LocalAddress{
+    LocalAddress {
         get {
             if(!this.HasProp("__LocalAddressProxyArray"))
                 this.__LocalAddressProxyArray := Win32FixedArray(this.ptr + 20, 6, Primitive, "char")
@@ -91,13 +89,10 @@ class NDIS_WAN_LINE_UP extends Win32Struct
     }
 
     /**
-     * @type {UNICODE_STRING}
+     * @type {Pointer}
      */
-    DeviceName{
-        get {
-            if(!this.HasProp("__DeviceName"))
-                this.__DeviceName := UNICODE_STRING(48, this)
-            return this.__DeviceName
-        }
+    DeviceName {
+        get => NumGet(this, 48, "ptr")
+        set => NumPut("ptr", value, this, 48)
     }
 }

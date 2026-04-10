@@ -15,9 +15,8 @@
  * You do not call this interface directly. <b>IDeskBand</b> is used by the Shell or the browser to obtain display information for a band object.
  * @see https://learn.microsoft.com/windows/win32/api/shobjidl_core/nn-shobjidl_core-ideskband
  * @namespace Windows.Win32.UI.Shell
- * @version v4.0.30319
  */
-class IDeskBand extends IDockingWindow{
+class IDeskBand extends IDockingWindow {
 
     static sizeof => A_PtrSize
     /**

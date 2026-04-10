@@ -4,10 +4,8 @@
 
 /**
  * @namespace Windows.Win32.System.Services
- * @version v4.0.30319
  */
-class SERVICE_STATUS_HANDLE extends Win32Handle
-{
+class SERVICE_STATUS_HANDLE extends Win32Handle {
     static sizeof => 8
 
     static packingSize => 8

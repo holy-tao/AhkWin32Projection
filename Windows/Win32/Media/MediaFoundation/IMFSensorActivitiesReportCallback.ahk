@@ -9,9 +9,8 @@
  * Register the callback by passing an implementation of this interface into <a href="https://docs.microsoft.com/windows/desktop/api/mfidl/nf-mfidl-mfcreatesensoractivitymonitor">MFCreateSensorActivityMonitor</a>.
  * @see https://learn.microsoft.com/windows/win32/api/mfidl/nn-mfidl-imfsensoractivitiesreportcallback
  * @namespace Windows.Win32.Media.MediaFoundation
- * @version v4.0.30319
  */
-class IMFSensorActivitiesReportCallback extends IUnknown{
+class IMFSensorActivitiesReportCallback extends IUnknown {
 
     static sizeof => A_PtrSize
     /**

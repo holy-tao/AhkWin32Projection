@@ -1,17 +1,15 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\..\Guid.ahk
-#Include .\IGenericDescriptor.ahk
-#Include .\IPMT.ahk
 #Include ..\..\..\System\Com\IUnknown.ahk
+#Include .\IGenericDescriptor.ahk
 
 /**
  * The IPMT interface enables the client to get information from a program map table (PMT).
  * @see https://learn.microsoft.com/windows/win32/api/mpeg2psiparser/nn-mpeg2psiparser-ipmt
  * @namespace Windows.Win32.Media.DirectShow.Tv
- * @version v4.0.30319
  */
-class IPMT extends IUnknown{
+class IPMT extends IUnknown {
 
     static sizeof => A_PtrSize
     /**

@@ -7,9 +7,8 @@
  * This enumeration was introduced in Windows 8.
  * @see https://learn.microsoft.com/windows/win32/api/winbio/ne-winbio-winbio_async_notification_method
  * @namespace Windows.Win32.Devices.BiometricFramework
- * @version v4.0.30319
  */
-class WINBIO_ASYNC_NOTIFICATION_METHOD extends Win32Enum{
+class WINBIO_ASYNC_NOTIFICATION_METHOD extends Win32Enum {
 
     /**
      * The operation is synchronous.

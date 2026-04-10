@@ -3,14 +3,10 @@
 
 /**
  * Information about the Relying Party.
- * @remarks
- * 
  * @see https://learn.microsoft.com/windows/win32/api/webauthn/ns-webauthn-webauthn_rp_entity_information
  * @namespace Windows.Win32.Security.Authentication.WebAuthn
- * @version v4.0.30319
  */
-class WEBAUTHN_RP_ENTITY_INFORMATION extends Win32Struct
-{
+class WEBAUTHN_RP_ENTITY_INFORMATION extends Win32Struct {
     static sizeof => 32
 
     static packingSize => 8

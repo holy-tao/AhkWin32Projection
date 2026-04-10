@@ -1,5 +1,6 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
+#Include ..\..\System\Com\IUnknown.ahk
 
 /**
  * The AM_MEDIA_TYPE structure describes the format of a media sample.
@@ -36,17 +37,15 @@
  * To obtain detailed information about a specified media type for debugging purposes, use the <a href="https://docs.microsoft.com/windows/desktop/DirectShow/displaytype">DisplayType</a> method.
  * @see https://learn.microsoft.com/windows/win32/api/strmif/ns-strmif-am_media_type
  * @namespace Windows.Win32.Media.MediaFoundation
- * @version v4.0.30319
  */
-class AM_MEDIA_TYPE extends Win32Struct
-{
+class AM_MEDIA_TYPE extends Win32Struct {
     static sizeof => 64
 
     static packingSize => 8
 
     /**
      * Globally unique identifier (GUID) that specifies the major type of the media sample. For a list of possible major types, see <a href="https://docs.microsoft.com/windows/desktop/DirectShow/media-types">Media Types</a>.
-     * @type {Pointer<Guid>}
+     * @type {Pointer}
      */
     majortype {
         get => NumGet(this, 0, "ptr")
@@ -55,7 +54,7 @@ class AM_MEDIA_TYPE extends Win32Struct
 
     /**
      * GUID that specifies the subtype of the media sample. For a list of possible subtypes, see <a href="https://docs.microsoft.com/windows/desktop/DirectShow/media-types">Media Types</a>. For some formats, the value might be MEDIASUBTYPE_None, which means the format does not require a subtype.
-     * @type {Pointer<Guid>}
+     * @type {Pointer}
      */
     subtype {
         get => NumGet(this, 8, "ptr")
@@ -202,7 +201,7 @@ class AM_MEDIA_TYPE extends Win32Struct
      * </td>
      * </tr>
      * </table>
-     * @type {Pointer<Guid>}
+     * @type {Pointer}
      */
     formattype {
         get => NumGet(this, 32, "ptr")

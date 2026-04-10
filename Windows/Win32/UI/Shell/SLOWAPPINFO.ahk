@@ -8,10 +8,8 @@
  * This structure is used by the <a href="https://docs.microsoft.com/windows/desktop/api/shappmgr/nf-shappmgr-ishellapp-getslowappinfo">IShellApp::GetSlowAppInfo</a> and <a href="https://docs.microsoft.com/windows/desktop/api/shappmgr/nf-shappmgr-ishellapp-getcachedslowappinfo">IShellApp::GetCachedSlowAppInfo</a> interfaces, neither of which are applicable to published applications. Therefore, this structure is also not applicable to published applications.
  * @see https://learn.microsoft.com/windows/win32/api/shappmgr/ns-shappmgr-slowappinfo
  * @namespace Windows.Win32.UI.Shell
- * @version v4.0.30319
  */
-class SLOWAPPINFO extends Win32Struct
-{
+class SLOWAPPINFO extends Win32Struct {
     static sizeof => 32
 
     static packingSize => 8
@@ -33,7 +31,7 @@ class SLOWAPPINFO extends Win32Struct
      * The time the application was last used.
      * @type {FILETIME}
      */
-    ftLastUsed{
+    ftLastUsed {
         get {
             if(!this.HasProp("__ftLastUsed"))
                 this.__ftLastUsed := FILETIME(8, this)

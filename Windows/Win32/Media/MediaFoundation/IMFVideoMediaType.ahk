@@ -11,9 +11,8 @@
  * Applications should avoid using this interface except when a method or function requires an <b>IMFVideoMediaType</b> pointer as a parameter. You can get all of the format information from a video media type through the <a href="https://docs.microsoft.com/windows/desktop/api/mfobjects/nn-mfobjects-imfattributes">IMFAttributes</a> interface, which <a href="https://docs.microsoft.com/windows/desktop/api/mfobjects/nn-mfobjects-imfmediatype">IMFMediaType</a> inherits.
  * @see https://learn.microsoft.com/windows/win32/api/mfobjects/nn-mfobjects-imfvideomediatype
  * @namespace Windows.Win32.Media.MediaFoundation
- * @version v4.0.30319
  */
-class IMFVideoMediaType extends IMFMediaType{
+class IMFVideoMediaType extends IMFMediaType {
 
     static sizeof => A_PtrSize
     /**

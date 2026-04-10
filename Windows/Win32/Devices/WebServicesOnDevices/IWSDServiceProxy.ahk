@@ -1,9 +1,9 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
+#Include .\IWSDMetadataExchange.ahk
 #Include .\IWSDAsyncResult.ahk
 #Include .\IWSDEndpointProxy.ahk
-#Include .\IWSDMetadataExchange.ahk
 
 /**
  * Represents a remote WSD service for client applications and middleware.
@@ -13,9 +13,8 @@
  * <b>IWSDServiceProxy</b> objects are employed to obtain service metadata, send messages to the service through a service proxy, subscribe to events on the service, and bind to proxies that provide type-specific semantics.
  * @see https://learn.microsoft.com/windows/win32/api/wsdclient/nn-wsdclient-iwsdserviceproxy
  * @namespace Windows.Win32.Devices.WebServicesOnDevices
- * @version v4.0.30319
  */
-class IWSDServiceProxy extends IWSDMetadataExchange{
+class IWSDServiceProxy extends IWSDMetadataExchange {
 
     static sizeof => A_PtrSize
     /**

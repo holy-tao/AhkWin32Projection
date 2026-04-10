@@ -3,10 +3,8 @@
 
 /**
  * @namespace Windows.Win32.Graphics.Gdi
- * @version v4.0.30319
  */
-class PELARRAY extends Win32Struct
-{
+class PELARRAY extends Win32Struct {
     static sizeof => 20
 
     static packingSize => 4

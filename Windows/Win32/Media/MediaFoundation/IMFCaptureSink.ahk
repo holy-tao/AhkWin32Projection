@@ -1,8 +1,8 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
-#Include .\IMFMediaType.ahk
 #Include ..\..\System\Com\IUnknown.ahk
+#Include .\IMFMediaType.ahk
 
 /**
  * Controls a capture sink, which is an object that receives one or more streams from a capture device.
@@ -53,9 +53,8 @@
  * Record streams that expose H.264 do not  expose any other type. H.264 record streams cannot be used in conjunction with effects. To add effects, instead connect the preview stream to the recordsink using <a href="https://docs.microsoft.com/windows/desktop/api/mfcaptureengine/nf-mfcaptureengine-imfcapturesink-addstream">AddStream</a>.
  * @see https://learn.microsoft.com/windows/win32/api/mfcaptureengine/nn-mfcaptureengine-imfcapturesink
  * @namespace Windows.Win32.Media.MediaFoundation
- * @version v4.0.30319
  */
-class IMFCaptureSink extends IUnknown{
+class IMFCaptureSink extends IUnknown {
 
     static sizeof => A_PtrSize
     /**

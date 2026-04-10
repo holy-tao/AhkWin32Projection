@@ -2,6 +2,7 @@
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
 #Include .\IUnknown.ahk
+#Include ..\..\..\..\Guid.ahk
 
 /**
  * The IStdMarshalInfo (objidlbase.h) interface retrieves the CLSID identifying the handler to be used in the destination process during standard marshaling.
@@ -11,9 +12,8 @@
  * To create an instance of an object in some client process, COM must first determine whether the object uses default marshaling or its own implementation. If the object uses default marshaling, COM then queries the object to determine whether it uses a special handler or, simply, OLE's default proxy. To get the CLSID of the handler to be loaded, COM queries the object for <b>IStdMarshalInfo</b> and then the <a href="https://docs.microsoft.com/windows/desktop/api/objidl/nn-objidl-ipersist">IPersist</a> interface. If neither interface is supported, a standard handler is used.
  * @see https://learn.microsoft.com/windows/win32/api/objidlbase/nn-objidlbase-istdmarshalinfo
  * @namespace Windows.Win32.System.Com
- * @version v4.0.30319
  */
-class IStdMarshalInfo extends IUnknown{
+class IStdMarshalInfo extends IUnknown {
 
     static sizeof => A_PtrSize
     /**

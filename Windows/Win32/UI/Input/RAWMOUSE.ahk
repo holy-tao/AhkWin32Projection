@@ -1,5 +1,6 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
+#Include .\MOUSE_STATE.ahk
 
 /**
  * Contains information about the state of the mouse.
@@ -75,10 +76,8 @@
  * ```
  * @see https://learn.microsoft.com/windows/win32/api/winuser/ns-winuser-rawmouse
  * @namespace Windows.Win32.UI.Input
- * @version v4.0.30319
  */
-class RAWMOUSE extends Win32Struct
-{
+class RAWMOUSE extends Win32Struct {
     static sizeof => 24
 
     static packingSize => 4
@@ -95,7 +94,7 @@ class RAWMOUSE extends Win32Struct
      * | **MOUSE_VIRTUAL_DESKTOP**</br>0x02 | Mouse coordinates are mapped to the virtual desktop (for a multiple monitor system). For further information about mouse motion, see the following Remarks section. |
      * | **MOUSE_ATTRIBUTES_CHANGED**</br>0x04 | Mouse attributes changed; application needs to query the mouse attributes. |
      * | **MOUSE_MOVE_NOCOALESCE**</br>0x08 | This mouse movement event was not coalesced. Mouse movement events can be coalesced by default.<br/>Windows XP/2000: This value is not supported. |
-     * @type {Integer}
+     * @type {MOUSE_STATE}
      */
     usFlags {
         get => NumGet(this, 0, "ushort")

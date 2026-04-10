@@ -9,10 +9,8 @@
  * On the Microsoft Windows Software Development Kit (SDK) released for Windows Vista and later, the organization of header files has changed and the <b>in_addr</b> structure is defined in the <i>Inaddr.h</i> header file which is automatically included by the <i>Ipexport.h</i> header file. On the Platform Software Development Kit (SDK) released for Windows Server 2003 and Windows XP, the <b>in_addr</b> structure is declared in the <i>Ipexport.h</i> header file.
  * @see https://learn.microsoft.com/windows/win32/api/inaddr/ns-inaddr-in_addr
  * @namespace Windows.Win32.Networking.WinSock
- * @version v4.0.30319
  */
-class IN_ADDR extends Win32Struct
-{
+class IN_ADDR extends Win32Struct {
     static sizeof => 4
 
     static packingSize => 4
@@ -24,7 +22,7 @@ class IN_ADDR extends Win32Struct
         class _S_un_b extends Win32Struct {
             static sizeof => 4
             static packingSize => 1
-    
+
             /**
              * @type {Integer}
              */
@@ -32,7 +30,7 @@ class IN_ADDR extends Win32Struct
                 get => NumGet(this, 0, "char")
                 set => NumPut("char", value, this, 0)
             }
-        
+
             /**
              * @type {Integer}
              */
@@ -40,7 +38,7 @@ class IN_ADDR extends Win32Struct
                 get => NumGet(this, 1, "char")
                 set => NumPut("char", value, this, 1)
             }
-        
+
             /**
              * @type {Integer}
              */
@@ -48,7 +46,7 @@ class IN_ADDR extends Win32Struct
                 get => NumGet(this, 2, "char")
                 set => NumPut("char", value, this, 2)
             }
-        
+
             /**
              * @type {Integer}
              */
@@ -56,13 +54,12 @@ class IN_ADDR extends Win32Struct
                 get => NumGet(this, 3, "char")
                 set => NumPut("char", value, this, 3)
             }
-        
         }
-    
+
         class _S_un_w extends Win32Struct {
             static sizeof => 4
             static packingSize => 2
-    
+
             /**
              * @type {Integer}
              */
@@ -70,7 +67,7 @@ class IN_ADDR extends Win32Struct
                 get => NumGet(this, 0, "ushort")
                 set => NumPut("ushort", value, this, 0)
             }
-        
+
             /**
              * @type {Integer}
              */
@@ -78,31 +75,30 @@ class IN_ADDR extends Win32Struct
                 get => NumGet(this, 2, "ushort")
                 set => NumPut("ushort", value, this, 2)
             }
-        
         }
-    
+
         /**
          * @type {_S_un_b}
          */
-        S_un_b{
+        S_un_b {
             get {
                 if(!this.HasProp("__S_un_b"))
-                    this.__S_un_b := %this.__Class%._S_un_b(0, this)
+                    this.__S_un_b := IN_ADDR._S_un_e__Union._S_un_b(0, this)
                 return this.__S_un_b
             }
         }
-    
+
         /**
          * @type {_S_un_w}
          */
-        S_un_w{
+        S_un_w {
             get {
                 if(!this.HasProp("__S_un_w"))
-                    this.__S_un_w := %this.__Class%._S_un_w(0, this)
+                    this.__S_un_w := IN_ADDR._S_un_e__Union._S_un_w(0, this)
                 return this.__S_un_w
             }
         }
-    
+
         /**
          * @type {Integer}
          */
@@ -110,17 +106,15 @@ class IN_ADDR extends Win32Struct
             get => NumGet(this, 0, "uint")
             set => NumPut("uint", value, this, 0)
         }
-    
     }
 
     /**
-     * 
      * @type {_S_un_e__Union}
      */
-    S_un{
+    S_un {
         get {
             if(!this.HasProp("__S_un"))
-                this.__S_un := %this.__Class%._S_un_e__Union(0, this)
+                this.__S_un := IN_ADDR._S_un_e__Union(0, this)
             return this.__S_un
         }
     }

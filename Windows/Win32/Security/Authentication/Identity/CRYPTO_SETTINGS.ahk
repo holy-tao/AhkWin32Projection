@@ -1,17 +1,14 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\..\Win32Struct.ahk
+#Include .\eTlsAlgorithmUsage.ahk
 #Include .\LSA_UNICODE_STRING.ahk
 
 /**
  * Indicates disabled cryptographic settings.
- * @remarks
- * 
  * @see https://learn.microsoft.com/windows/win32/api/schannel/ns-schannel-crypto_settings
  * @namespace Windows.Win32.Security.Authentication.Identity
- * @version v4.0.30319
  */
-class CRYPTO_SETTINGS extends Win32Struct
-{
+class CRYPTO_SETTINGS extends Win32Struct {
     static sizeof => 48
 
     static packingSize => 8
@@ -26,7 +23,7 @@ class CRYPTO_SETTINGS extends Win32Struct
      * |TlsParametersCngAlgUsageCipher      |Encryption algorithm. <br>(*e.g. AES, DES, RC4*)|
      * |TlsParametersCngAlgUsageDigest      |Digest of cipher suite. <br> (*e.g. SHA1, SHA256, SHA384*)|
      * |TlsParametersCngAlgUsageCertSig     |Signature and/or hash used to sign certificate. <br>(*e.g. RSA, DSA, ECDSA, SHA1, SHA256*)|
-     * @type {Integer}
+     * @type {eTlsAlgorithmUsage}
      */
     eAlgorithmUsage {
         get => NumGet(this, 0, "int")
@@ -39,7 +36,7 @@ class CRYPTO_SETTINGS extends Win32Struct
      * Cryptographic settings are ignored if the specified algorithm is not used by a supported, enabled cipher suite or an available credential.
      * @type {LSA_UNICODE_STRING}
      */
-    strCngAlgId{
+    strCngAlgId {
         get {
             if(!this.HasProp("__strCngAlgId"))
                 this.__strCngAlgId := LSA_UNICODE_STRING(8, this)

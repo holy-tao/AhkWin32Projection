@@ -1,5 +1,6 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
+#Include .\COPYFILE_FLAGS.ahk
 
 /**
  * Contains extended parameters for the CopyFile2 function.
@@ -9,10 +10,8 @@
  *     <a href="https://docs.microsoft.com/windows/desktop/WinProg/using-the-windows-headers">Using the Windows Headers</a>.
  * @see https://learn.microsoft.com/windows/win32/api/winbase/ns-winbase-copyfile2_extended_parameters
  * @namespace Windows.Win32.Storage.FileSystem
- * @version v4.0.30319
  */
-class COPYFILE2_EXTENDED_PARAMETERS extends Win32Struct
-{
+class COPYFILE2_EXTENDED_PARAMETERS extends Win32Struct {
     static sizeof => 32
 
     static packingSize => 8
@@ -163,7 +162,7 @@ class COPYFILE2_EXTENDED_PARAMETERS extends Win32Struct
      * </td>
      * </tr>
      * </table>
-     * @type {Integer}
+     * @type {COPYFILE_FLAGS}
      */
     dwCopyFlags {
         get => NumGet(this, 4, "uint")

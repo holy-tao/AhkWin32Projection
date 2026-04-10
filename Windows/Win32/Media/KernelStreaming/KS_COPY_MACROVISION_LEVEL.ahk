@@ -3,9 +3,8 @@
 
 /**
  * @namespace Windows.Win32.Media.KernelStreaming
- * @version v4.0.30319
  */
-class KS_COPY_MACROVISION_LEVEL extends Win32Enum{
+class KS_COPY_MACROVISION_LEVEL extends Win32Enum {
 
     /**
      * @type {Integer (Int32)}

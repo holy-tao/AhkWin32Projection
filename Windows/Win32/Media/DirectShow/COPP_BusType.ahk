@@ -5,9 +5,8 @@
  * Specifies the type of I/O bus used by the graphics adapter.
  * @see https://learn.microsoft.com/windows/win32/api/dxva9typ/ne-dxva9typ-copp_bustype
  * @namespace Windows.Win32.Media.DirectShow
- * @version v4.0.30319
  */
-class COPP_BusType extends Win32Enum{
+class COPP_BusType extends Win32Enum {
 
     /**
      * Unknown bus type.

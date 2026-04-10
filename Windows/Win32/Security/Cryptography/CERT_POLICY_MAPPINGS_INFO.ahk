@@ -1,14 +1,13 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
+#Include .\CERT_POLICY_MAPPING.ahk
 
 /**
  * The CERT_POLICY_MAPPINGS_INFO structure provides mapping between the policy OIDs of two domains.
  * @see https://learn.microsoft.com/windows/win32/api/wincrypt/ns-wincrypt-cert_policy_mappings_info
  * @namespace Windows.Win32.Security.Cryptography
- * @version v4.0.30319
  */
-class CERT_POLICY_MAPPINGS_INFO extends Win32Struct
-{
+class CERT_POLICY_MAPPINGS_INFO extends Win32Struct {
     static sizeof => 16
 
     static packingSize => 8

@@ -1,16 +1,15 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
-#Include ..\..\System\Com\Apis.ahk
 #Include .\IBackgroundCopyFile.ahk
+#Include ..\..\System\Com\Apis.ahk
 
 /**
  * Use the IBackgroundCopyFile2 interface to specify a new remote name for the file and retrieve the list of ranges to download.
  * @see https://learn.microsoft.com/windows/win32/api/bits2_0/nn-bits2_0-ibackgroundcopyfile2
  * @namespace Windows.Win32.Networking.BackgroundIntelligentTransferService
- * @version v4.0.30319
  */
-class IBackgroundCopyFile2 extends IBackgroundCopyFile{
+class IBackgroundCopyFile2 extends IBackgroundCopyFile {
 
     static sizeof => A_PtrSize
     /**
@@ -78,7 +77,7 @@ class IBackgroundCopyFile2 extends IBackgroundCopyFile{
      * <td>The user does not have access to the file specified in <i>Val</i>.</td>
      * </tr>
      * </table>
-     * @param {PWSTR} _Val 
+     * @param {PWSTR} _Val Null-terminated string that contains the name of the file on the server. For information on specifying the remote name, see the <b>RemoteName</b> member and Remarks section of the <a href="https://docs.microsoft.com/windows/desktop/api/bits/ns-bits-bg_file_info">BG_FILE_INFO</a> structure.
      * @returns {HRESULT} This method returns the following return values, as well as others.
      * 
      * <table>

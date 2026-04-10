@@ -5,9 +5,8 @@
 
 /**
  * @namespace Windows.Win32.Media.Audio.DirectSound
- * @version v4.0.30319
  */
-class IDirectSoundCaptureBuffer8 extends IDirectSoundCaptureBuffer{
+class IDirectSoundCaptureBuffer8 extends IDirectSoundCaptureBuffer {
 
     static sizeof => A_PtrSize
     /**

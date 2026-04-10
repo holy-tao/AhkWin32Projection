@@ -1,17 +1,16 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
+#Include ..\..\System\Com\IDispatch.ahk
 #Include ..\..\Foundation\BSTR.ahk
 #Include ..\..\System\Variant\VARIANT.ahk
-#Include ..\..\System\Com\IDispatch.ahk
 
 /**
  * The IADsNameTranslateinterface translates distinguished names (DNs) among various formats as defined in the ADS_NAME_TYPE_ENUM enumeration. The feature is available to objects in Active Directory.
  * @see https://learn.microsoft.com/windows/win32/api/iads/nn-iads-iadsnametranslate
  * @namespace Windows.Win32.Networking.ActiveDirectory
- * @version v4.0.30319
  */
-class IADsNameTranslate extends IDispatch{
+class IADsNameTranslate extends IDispatch {
 
     static sizeof => A_PtrSize
     /**
@@ -33,7 +32,7 @@ class IADsNameTranslate extends IDispatch{
     static VTableNames => ["put_ChaseReferral", "Init", "InitEx", "Set", "Get", "SetEx", "GetEx"]
 
     /**
-     * @type {HRESULT} 
+     * @type {Integer} 
      */
     ChaseReferral {
         set => this.put_ChaseReferral(value)

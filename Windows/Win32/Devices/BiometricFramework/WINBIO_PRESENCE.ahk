@@ -1,9 +1,9 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
 #Include .\WINBIO_IDENTITY.ahk
+#Include .\WINBIO_PRESENCE_PROPERTIES.ahk
 #Include ..\..\Foundation\RECT.ahk
 #Include ..\..\Foundation\POINT.ahk
-#Include .\WINBIO_PRESENCE_PROPERTIES.ahk
 
 /**
  * Contains information about the presence of an individual whose presence is being monitored.
@@ -88,10 +88,8 @@
  * When an individual that the engine adapter associates with a particular tracking identifier leaves the camera frame and stops appearing in the values that the [**EngineAdapterIdentifyAll**](/windows/desktop/api/Winbio_adapter/nc-winbio_adapter-pibio_engine_identify_all_fn) function returns, the tracking identifier eventually expires. When the tracking identifier expires, the biometric service generates a client-side [**WINBIO\_ASYNC\_RESULT**](/windows/desktop/api/Winbio/ns-winbio-winbio_async_result) structure where the **WINBIO\_ASYNC\_RESULT.Parameters.MonitorPresence.ChangeType** member is **WINBIO\_CHANGE\_TYPE\_DEPART**. The engine adapter can prevent the biometric service from generating this structure with the **WINBIO\_CHANGE\_TYPE\_DEPART** value by including a **WINBIO\_PRESENCE** structure in the array that **EngineAdapterIdentifyAll** returns, where the **WINBIO\_PRESENCE.Status** member is **S\_OK** and the **WINBIO\_PRESENCE.Identity.Type** member is **WINBIO\_ID\_TYPE\_NULL** as described earlier in these Remarks. This action extends the expiry time for the tracking identifier without causing any client-side activity.
  * @see https://learn.microsoft.com/windows/win32/SecBioMet/winbio-presence
  * @namespace Windows.Win32.Devices.BiometricFramework
- * @version v4.0.30319
  */
-class WINBIO_PRESENCE extends Win32Struct
-{
+class WINBIO_PRESENCE extends Win32Struct {
     static sizeof => 552
 
     static packingSize => 8
@@ -107,18 +105,17 @@ class WINBIO_PRESENCE extends Win32Struct
             get => NumGet(this, 0, "uint")
             set => NumPut("uint", value, this, 0)
         }
-    
+
         /**
-         * @type {Array<Byte>}
+         * @type {Array<Integer>}
          */
-        Data{
+        Data {
             get {
                 if(!this.HasProp("__DataProxyArray"))
                     this.__DataProxyArray := Win32FixedArray(this.ptr + 4, 32, Primitive, "char")
                 return this.__DataProxyArray
             }
         }
-    
     }
 
     /**
@@ -161,7 +158,7 @@ class WINBIO_PRESENCE extends Win32Struct
      * The identity of the individual whose presence is being monitored, once that individual has been identified.
      * @type {WINBIO_IDENTITY}
      */
-    Identity{
+    Identity {
         get {
             if(!this.HasProp("__Identity"))
                 this.__Identity := WINBIO_IDENTITY(16, this)
@@ -191,7 +188,7 @@ class WINBIO_PRESENCE extends Win32Struct
      * Factor-specific information about the position of an individual.
      * @type {WINBIO_PRESENCE_PROPERTIES}
      */
-    Properties{
+    Properties {
         get {
             if(!this.HasProp("__Properties"))
                 this.__Properties := WINBIO_PRESENCE_PROPERTIES(112, this)
@@ -202,10 +199,10 @@ class WINBIO_PRESENCE extends Win32Struct
     /**
      * @type {_Authorization}
      */
-    Authorization{
+    Authorization {
         get {
             if(!this.HasProp("__Authorization"))
-                this.__Authorization := %this.__Class%._Authorization(512, this)
+                this.__Authorization := WINBIO_PRESENCE._Authorization(512, this)
             return this.__Authorization
         }
     }

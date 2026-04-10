@@ -1,12 +1,12 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\..\Guid.ahk
+#Include ..\..\..\System\Com\IUnknown.ahk
 #Include .\IOpcUri.ahk
 #Include .\IOpcPartUri.ahk
 #Include ..\..\..\System\Com\IStream.ahk
 #Include .\IOpcPackage.ahk
 #Include .\IOpcDigitalSignatureManager.ahk
-#Include ..\..\..\System\Com\IUnknown.ahk
 
 /**
  * Creates Packaging API objects and provides support for saving and loading packages.
@@ -21,9 +21,8 @@
  * If an application attempts to an unsupported <b>IOpcFactory</b> method, the E_NOTIMPL error code will be returned. For more information, see <a href="https://docs.microsoft.com/previous-versions/windows/desktop/opc/packaging-api-overview">Getting Started with the Packaging API</a>, and <a href="https://docs.microsoft.com/windows/desktop/win7ip/platform-update-for-windows-vista-portal">Platform Update for Windows Vista</a>.
  * @see https://learn.microsoft.com/windows/win32/api/msopc/nn-msopc-iopcfactory
  * @namespace Windows.Win32.Storage.Packaging.Opc
- * @version v4.0.30319
  */
-class IOpcFactory extends IUnknown{
+class IOpcFactory extends IUnknown {
 
     static sizeof => A_PtrSize
     /**
@@ -93,7 +92,7 @@ class IOpcFactory extends IUnknown{
      * <h3><a id="Support_on__Previous_Windows_Versions"></a><a id="support_on__previous_windows_versions"></a><a id="SUPPORT_ON__PREVIOUS_WINDOWS_VERSIONS"></a>Support on  Previous Windows Versions</h3>
      * The behavior and performance of this method is the same on all supported Windows versions. For more information, see <a href="https://docs.microsoft.com/previous-versions/windows/desktop/opc/packaging-api-overview">Getting Started with the Packaging API</a>, and <a href="https://docs.microsoft.com/windows/desktop/win7ip/platform-update-for-windows-vista-portal">Platform Update for Windows Vista</a>.
      * @param {PWSTR} filename The name of the file over which the stream is created.
-     * @param {Integer} ioMode The value that describes the read/write status of the stream to be created.
+     * @param {OPC_STREAM_IO_MODE} ioMode The value that describes the read/write status of the stream to be created.
      * @param {Pointer<SECURITY_ATTRIBUTES>} securityAttributes For information about the <a href="https://docs.microsoft.com/previous-versions/windows/desktop/legacy/aa379560(v=vs.85)">SECURITY_ATTRIBUTES</a> structure in this parameter, see the <a href="https://docs.microsoft.com/windows/desktop/api/fileapi/nf-fileapi-createfilea">CreateFile</a> function.
      * @param {Integer} dwFlagsAndAttributes The settings and attributes of the file. For most files, <b>FILE_ATTRIBUTE_NORMAL</b> can be used.
      * 
@@ -135,7 +134,7 @@ class IOpcFactory extends IUnknown{
      * @param {IStream} stream A pointer to the <a href="https://docs.microsoft.com/windows/desktop/api/objidl/nn-objidl-istream">IStream</a> interface of the stream.
      * 
      * The stream must be readable, seekable, have size,   and must contain package data. Additionally, if the stream is not cloneable, it will be buffered and read sequentially, incurring overhead.
-     * @param {Integer} flags The value that specifies the read settings for caching package components and validating them against <i>OPC</i> conformance requirements.
+     * @param {OPC_READ_FLAGS} flags The value that specifies the read settings for caching package components and validating them against <i>OPC</i> conformance requirements.
      * @returns {IOpcPackage} A pointer to the  <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/msopc/nn-msopc-iopcpackage">IOpcPackage</a> interface of the package object that represents the package being read through the stream.
      * @see https://learn.microsoft.com/windows/win32/api/msopc/nf-msopc-iopcfactory-readpackagefromstream
      */
@@ -154,7 +153,7 @@ class IOpcFactory extends IUnknown{
      * <h3><a id="Support_on_Previous_Versions_of_Windows"></a><a id="support_on_previous_versions_of_windows"></a><a id="SUPPORT_ON_PREVIOUS_VERSIONS_OF_WINDOWS"></a>Support on Previous Versions of Windows</h3>
      * This method is not supported on versions of Windows prior to Windows 7. For more information, see <a href="https://docs.microsoft.com/previous-versions/windows/desktop/opc/packaging-api-overview">Getting Started with the Packaging API</a>, and <a href="https://docs.microsoft.com/windows/desktop/win7ip/platform-update-for-windows-vista-portal">Platform Update for Windows Vista</a>.
      * @param {IOpcPackage} package A pointer to the <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/msopc/nn-msopc-iopcpackage">IOpcPackage</a> interface  of the package object that contains data to be serialized.
-     * @param {Integer} flags The value that describes the encoding method  used in serialization.
+     * @param {OPC_WRITE_FLAGS} flags The value that describes the encoding method  used in serialization.
      * @param {IStream} stream A pointer to the <a href="https://docs.microsoft.com/windows/desktop/api/objidl/nn-objidl-istream">IStream</a> interface of the stream where the package object  data will be written.
      * @returns {HRESULT} The method returns an <b>HRESULT</b>. Possible values include, but are not limited to, those in the following table.
      * 

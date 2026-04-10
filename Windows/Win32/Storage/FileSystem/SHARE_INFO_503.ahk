@@ -1,5 +1,7 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
+#Include .\SHARE_TYPE.ahk
+#Include .\SHARE_INFO_PERMISSIONS.ahk
 #Include ..\..\Security\PSECURITY_DESCRIPTOR.ahk
 
 /**
@@ -8,10 +10,8 @@
  * The remote server specified in the <b>shi503_servername</b> member must have been bound to a transport protocol using the <a href="https://docs.microsoft.com/windows/desktop/api/lmserver/nf-lmserver-netservertransportaddex">NetServerTransportAddEx</a> function. In the call to  <b>NetServerTransportAddEx</b>, either 2 or 3 must have been specified for the <i>level</i> parameter, and the <b>SVTI2_SCOPED_NAME</b> value must have been specified in the <a href="https://docs.microsoft.com/windows/desktop/api/lmserver/ns-lmserver-server_transport_info_2">SERVER_TRANSPORT_INFO_2</a> structure for the transport protocol.
  * @see https://learn.microsoft.com/windows/win32/api/lmshare/ns-lmshare-share_info_503
  * @namespace Windows.Win32.Storage.FileSystem
- * @version v4.0.30319
  */
-class SHARE_INFO_503 extends Win32Struct
-{
+class SHARE_INFO_503 extends Win32Struct {
     static sizeof => 80
 
     static packingSize => 8
@@ -29,7 +29,7 @@ class SHARE_INFO_503 extends Win32Struct
     /**
      * A combination of values that specify the type of share. Calls to the 
      * <a href="https://docs.microsoft.com/windows/desktop/api/lmshare/nf-lmshare-netsharesetinfo">NetShareSetInfo</a> function ignore this member.
-     * @type {Integer}
+     * @type {SHARE_TYPE}
      */
     shi503_type {
         get => NumGet(this, 8, "uint")
@@ -55,7 +55,7 @@ class SHARE_INFO_503 extends Win32Struct
      * 
      * Calls to the 
      * <a href="https://docs.microsoft.com/windows/desktop/api/lmshare/nf-lmshare-netsharesetinfo">NetShareSetInfo</a> function ignore this member.
-     * @type {Integer}
+     * @type {SHARE_INFO_PERMISSIONS}
      */
     shi503_permissions {
         get => NumGet(this, 24, "uint")
@@ -130,7 +130,7 @@ class SHARE_INFO_503 extends Win32Struct
      * <a href="https://docs.microsoft.com/windows/desktop/api/winnt/ns-winnt-security_descriptor">SECURITY_DESCRIPTOR</a> associated with this share.
      * @type {PSECURITY_DESCRIPTOR}
      */
-    shi503_security_descriptor{
+    shi503_security_descriptor {
         get {
             if(!this.HasProp("__shi503_security_descriptor"))
                 this.__shi503_security_descriptor := PSECURITY_DESCRIPTOR(72, this)

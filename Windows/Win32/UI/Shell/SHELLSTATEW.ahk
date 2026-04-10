@@ -8,11 +8,9 @@
  * > The shlobj_core.h header defines SHELLSTATE as an alias which automatically selects the ANSI or Unicode version of this function based on the definition of the UNICODE preprocessor constant. Mixing usage of the encoding-neutral alias with code that not encoding-neutral can lead to mismatches that result in compilation or runtime errors. For more information, see [Conventions for Function Prototypes](/windows/win32/intl/conventions-for-function-prototypes).
  * @see https://learn.microsoft.com/windows/win32/api/shlobj_core/ns-shlobj_core-shellstatew
  * @namespace Windows.Win32.UI.Shell
- * @version v4.0.30319
  * @charset Unicode
  */
-class SHELLSTATEW extends Win32Struct
-{
+class SHELLSTATEW extends Win32Struct {
     static sizeof => 32
 
     static packingSize => 4
@@ -44,9 +42,6 @@ class SHELLSTATEW extends Win32Struct
     }
 
     /**
-     * Type: <b>BOOL</b>
-     * 
-     * <b>TRUE</b> to show all objects, including hidden files and folders. <b>FALSE</b> to hide hidden files and folders.
      * @type {Integer}
      */
     fShowAllObjects {
@@ -55,9 +50,6 @@ class SHELLSTATEW extends Win32Struct
     }
 
     /**
-     * Type: <b>BOOL</b>
-     * 
-     * <b>TRUE</b> to show file name extensions, <b>FALSE</b> to hide them.
      * @type {Integer}
      */
     fShowExtensions {
@@ -66,9 +58,6 @@ class SHELLSTATEW extends Win32Struct
     }
 
     /**
-     * Type: <b>BOOL</b>
-     * 
-     * <b>TRUE</b> to show no confirmation dialog box when deleting items to the Recycle Bin, <b>FALSE</b> to display the confirmation dialog box.
      * @type {Integer}
      */
     fNoConfirmRecycle {
@@ -77,9 +66,6 @@ class SHELLSTATEW extends Win32Struct
     }
 
     /**
-     * Type: <b>BOOL</b>
-     * 
-     * <b>TRUE</b> to show system files, <b>FALSE</b> to hide them.
      * @type {Integer}
      */
     fShowSysFiles {
@@ -88,9 +74,6 @@ class SHELLSTATEW extends Win32Struct
     }
 
     /**
-     * Type: <b>BOOL</b>
-     * 
-     * <b>TRUE</b> to show encrypted or compressed NTFS files in color.
      * @type {Integer}
      */
     fShowCompColor {
@@ -99,9 +82,6 @@ class SHELLSTATEW extends Win32Struct
     }
 
     /**
-     * Type: <b>BOOL</b>
-     * 
-     * <b>TRUE</b> to require a double-click to open an item when in web view.
      * @type {Integer}
      */
     fDoubleClickInWebView {
@@ -110,9 +90,6 @@ class SHELLSTATEW extends Win32Struct
     }
 
     /**
-     * Type: <b>BOOL</b>
-     * 
-     * <b>TRUE</b> to use Active Desktop, <b>FALSE</b> otherwise.
      * @type {Integer}
      */
     fDesktopHTML {
@@ -121,9 +98,6 @@ class SHELLSTATEW extends Win32Struct
     }
 
     /**
-     * Type: <b>BOOL</b>
-     * 
-     * <b>TRUE</b> to enforce Windows 95 Shell behavior and restrictions.
      * @type {Integer}
      */
     fWin95Classic {
@@ -132,9 +106,6 @@ class SHELLSTATEW extends Win32Struct
     }
 
     /**
-     * Type: <b>BOOL</b>
-     * 
-     * <b>TRUE</b> to prevent the conversion of the path to all lowercase characters.
      * @type {Integer}
      */
     fDontPrettyPath {
@@ -143,9 +114,6 @@ class SHELLSTATEW extends Win32Struct
     }
 
     /**
-     * Type: <b>BOOL</b>
-     * 
-     * Not used.
      * @type {Integer}
      */
     fShowAttribCol {
@@ -154,9 +122,6 @@ class SHELLSTATEW extends Win32Struct
     }
 
     /**
-     * Type: <b>BOOL</b>
-     * 
-     * <b>TRUE</b> to display a <b>Map Network Drive</b> button.
      * @type {Integer}
      */
     fMapNetDrvBtn {
@@ -165,9 +130,6 @@ class SHELLSTATEW extends Win32Struct
     }
 
     /**
-     * Type: <b>BOOL</b>
-     * 
-     * <b>TRUE</b> to show a pop-up description for folders and files.
      * @type {Integer}
      */
     fShowInfoTip {
@@ -176,9 +138,6 @@ class SHELLSTATEW extends Win32Struct
     }
 
     /**
-     * Type: <b>BOOL</b>
-     * 
-     * <b>TRUE</b> to hide desktop icons, <b>FALSE</b> to show them.
      * @type {Integer}
      */
     fHideIcons {
@@ -187,9 +146,6 @@ class SHELLSTATEW extends Win32Struct
     }
 
     /**
-     * Type: <b>BOOL</b>
-     * 
-     * <b>TRUE</b> to display as a web view.
      * @type {Integer}
      */
     fWebView {
@@ -198,9 +154,6 @@ class SHELLSTATEW extends Win32Struct
     }
 
     /**
-     * Type: <b>BOOL</b>
-     * 
-     * Not used.
      * @type {Integer}
      */
     fFilter {
@@ -209,9 +162,6 @@ class SHELLSTATEW extends Win32Struct
     }
 
     /**
-     * Type: <b>BOOL</b>
-     * 
-     * <b>TRUE</b> to show operating system files.
      * @type {Integer}
      */
     fShowSuperHidden {
@@ -220,9 +170,6 @@ class SHELLSTATEW extends Win32Struct
     }
 
     /**
-     * Type: <b>BOOL</b>
-     * 
-     * <b>TRUE</b> to disable automatic searching for network folders and printers.
      * @type {Integer}
      */
     fNoNetCrawling {
@@ -314,9 +261,6 @@ class SHELLSTATEW extends Win32Struct
     }
 
     /**
-     * Type: <b>BOOL</b>
-     * 
-     * <b>TRUE</b> to launch folder windows in separate processes, <b>FALSE</b> to launch in the same process.
      * @type {Integer}
      */
     fSepProcess {
@@ -325,9 +269,6 @@ class SHELLSTATEW extends Win32Struct
     }
 
     /**
-     * Type: <b>BOOL</b>
-     * 
-     * <b>Windows XP only</b>. <b>TRUE</b> to use the Windows XP-style Start menu, <b>FALSE</b> to use the classic Start menu.
      * @type {Integer}
      */
     fStartPanelOn {
@@ -336,9 +277,6 @@ class SHELLSTATEW extends Win32Struct
     }
 
     /**
-     * Type: <b>BOOL</b>
-     * 
-     * Not used.
      * @type {Integer}
      */
     fShowStartPage {
@@ -347,9 +285,6 @@ class SHELLSTATEW extends Win32Struct
     }
 
     /**
-     * Type: <b>BOOL</b>
-     * 
-     * <b>Introduced in Windows Vista</b>. <b>TRUE</b> to use the Windows Vista-style checkbox folder views, <b>FALSE</b> to use the classic views.
      * @type {Integer}
      */
     fAutoCheckSelect {
@@ -358,9 +293,6 @@ class SHELLSTATEW extends Win32Struct
     }
 
     /**
-     * Type: <b>BOOL</b>
-     * 
-     * <b>Introduced in Windows Vista</b>. <b>TRUE</b> to show generic icons only, <b>FALSE</b> to show thumbnail-style icons in folders.
      * @type {Integer}
      */
     fIconsOnly {
@@ -369,9 +301,6 @@ class SHELLSTATEW extends Win32Struct
     }
 
     /**
-     * Type: <b>BOOL</b>
-     * 
-     * <b>Introduced in Windows Vista</b>. <b>TRUE</b> indicates a thumbnail should show the application that would be invoked when opening the item, <b>FALSE</b> indicates that no application will be shown.
      * @type {Integer}
      */
     fShowTypeOverlay {
@@ -380,9 +309,6 @@ class SHELLSTATEW extends Win32Struct
     }
 
     /**
-     * Type: <b>BOOL</b>
-     * 
-     * <b>Introduced in Windows 8</b>. <b>TRUE</b> to show the status bar; otherwise, <b>FALSE</b>.
      * @type {Integer}
      */
     fShowStatusBar {
@@ -391,9 +317,6 @@ class SHELLSTATEW extends Win32Struct
     }
 
     /**
-     * Type: <b>UINT</b>
-     * 
-     * Not used.
      * @type {Integer}
      */
     fSpareFlags {

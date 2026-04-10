@@ -126,9 +126,8 @@
  * </table>
  * @see https://learn.microsoft.com/windows/win32/api/http/ne-http-http_logging_rollover_type
  * @namespace Windows.Win32.Networking.HttpServer
- * @version v4.0.30319
  */
-class HTTP_LOGGING_ROLLOVER_TYPE extends Win32Enum{
+class HTTP_LOGGING_ROLLOVER_TYPE extends Win32Enum {
 
     /**
      * The log files are rolled over when they reach a specified size.

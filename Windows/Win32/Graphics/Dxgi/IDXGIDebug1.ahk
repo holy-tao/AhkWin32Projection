@@ -11,9 +11,8 @@
  * The <b>IDXGIDebug1</b> interface can be used only if the debug layer is turned on. For more info, see <a href="https://docs.microsoft.com/windows/desktop/direct3d11/overviews-direct3d-11-devices-layers">Debug Layer</a>.
  * @see https://learn.microsoft.com/windows/win32/api/dxgidebug/nn-dxgidebug-idxgidebug1
  * @namespace Windows.Win32.Graphics.Dxgi
- * @version v4.0.30319
  */
-class IDXGIDebug1 extends IDXGIDebug{
+class IDXGIDebug1 extends IDXGIDebug {
 
     static sizeof => A_PtrSize
     /**

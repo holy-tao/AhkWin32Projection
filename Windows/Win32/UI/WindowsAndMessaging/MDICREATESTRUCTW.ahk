@@ -1,6 +1,7 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
 #Include ..\..\Foundation\HANDLE.ahk
+#Include .\WINDOW_STYLE.ahk
 
 /**
  * Contains information about the class, title, owner, location, and size of a multiple-document interface (MDI) child window. (Unicode)
@@ -17,11 +18,9 @@
  * > The winuser.h header defines MDICREATESTRUCT as an alias which automatically selects the ANSI or Unicode version of this function based on the definition of the UNICODE preprocessor constant. Mixing usage of the encoding-neutral alias with code that not encoding-neutral can lead to mismatches that result in compilation or runtime errors. For more information, see [Conventions for Function Prototypes](/windows/win32/intl/conventions-for-function-prototypes).
  * @see https://learn.microsoft.com/windows/win32/api/winuser/ns-winuser-mdicreatestructw
  * @namespace Windows.Win32.UI.WindowsAndMessaging
- * @version v4.0.30319
  * @charset Unicode
  */
-class MDICREATESTRUCTW extends Win32Struct
-{
+class MDICREATESTRUCTW extends Win32Struct {
     static sizeof => 56
 
     static packingSize => 8
@@ -54,7 +53,7 @@ class MDICREATESTRUCTW extends Win32Struct
      * A handle to the instance of the application creating the MDI client window.
      * @type {HANDLE}
      */
-    hOwner{
+    hOwner {
         get {
             if(!this.HasProp("__hOwner"))
                 this.__hOwner := HANDLE(16, this)
@@ -108,7 +107,7 @@ class MDICREATESTRUCTW extends Win32Struct
 
     /**
      * Type: <b>DWORD</b>
-     * @type {Integer}
+     * @type {WINDOW_STYLE}
      */
     style {
         get => NumGet(this, 40, "uint")

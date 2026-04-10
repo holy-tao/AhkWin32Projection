@@ -3,10 +3,8 @@
 
 /**
  * @namespace Windows.Wdk.System.SystemServices
- * @version v4.0.30319
  */
-class PNP_LOCATION_INTERFACE extends Win32Struct
-{
+class PNP_LOCATION_INTERFACE extends Win32Struct {
     static sizeof => 40
 
     static packingSize => 8

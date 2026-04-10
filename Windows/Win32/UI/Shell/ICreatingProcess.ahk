@@ -11,9 +11,8 @@
  * After performing the desired operations, the object should forward the <a href="https://docs.microsoft.com/windows/desktop/api/shobjidl_core/nf-shobjidl_core-icreatingprocess-oncreating">ICreatingProcess::OnCreating</a> call up the site chain to allow other members of the site chain to participate.
  * @see https://learn.microsoft.com/windows/win32/api/shobjidl_core/nn-shobjidl_core-icreatingprocess
  * @namespace Windows.Win32.UI.Shell
- * @version v4.0.30319
  */
-class ICreatingProcess extends IUnknown{
+class ICreatingProcess extends IUnknown {
 
     static sizeof => A_PtrSize
     /**

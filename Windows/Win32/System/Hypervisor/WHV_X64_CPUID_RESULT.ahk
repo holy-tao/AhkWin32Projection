@@ -3,10 +3,8 @@
 
 /**
  * @namespace Windows.Win32.System.Hypervisor
- * @version v4.0.30319
  */
-class WHV_X64_CPUID_RESULT extends Win32Struct
-{
+class WHV_X64_CPUID_RESULT extends Win32Struct {
     static sizeof => 32
 
     static packingSize => 4
@@ -20,9 +18,9 @@ class WHV_X64_CPUID_RESULT extends Win32Struct
     }
 
     /**
-     * @type {Array<UInt32>}
+     * @type {Array<Integer>}
      */
-    Reserved{
+    Reserved {
         get {
             if(!this.HasProp("__ReservedProxyArray"))
                 this.__ReservedProxyArray := Win32FixedArray(this.ptr + 4, 3, Primitive, "uint")

@@ -1,9 +1,9 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\..\Guid.ahk
+#Include ..\..\..\System\Com\IDispatch.ahk
 #Include ..\..\..\System\Ole\IEnumVARIANT.ahk
 #Include .\IMSVidOutputDevice.ahk
-#Include ..\..\..\System\Com\IDispatch.ahk
 
 /**
  * The IMSVidOutputDevices interface represents a collection of output devices.Output devices include video and audio renderers, and the Stream Buffer Sink object.
@@ -11,9 +11,8 @@
  * To declare the interface identifier (IID) for this interface, use the <b>__uuidof</b> operator: <c>__uuidof(IMSVidOutputDevices)</c>.
  * @see https://learn.microsoft.com/windows/win32/api/segment/nn-segment-imsvidoutputdevices
  * @namespace Windows.Win32.Media.DirectShow.Tv
- * @version v4.0.30319
  */
-class IMSVidOutputDevices extends IDispatch{
+class IMSVidOutputDevices extends IDispatch {
 
     static sizeof => A_PtrSize
     /**

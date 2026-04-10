@@ -7,9 +7,8 @@
  * <b>EapPeerMethodResultReason</b> includes <a href="https://docs.microsoft.com/windows/desktop/NLA/portal">network awareness</a> information for wireless devices.
  * @see https://learn.microsoft.com/windows/win32/api/eapauthenticatoractiondefine/ne-eapauthenticatoractiondefine-eappeermethodresultreason
  * @namespace Windows.Win32.Security.ExtensibleAuthenticationProtocol
- * @version v4.0.30319
  */
-class EapPeerMethodResultReason extends Win32Enum{
+class EapPeerMethodResultReason extends Win32Enum {
 
     /**
      * The success or failure of the authentication session is unknown or indeterminate.

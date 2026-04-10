@@ -1,6 +1,7 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
 #Include .\ISCSI_UNIQUE_SESSION_ID.ahk
+#Include .\ISCSI_CONNECTION_INFOW.ahk
 
 /**
  * ISCSI_SESSION_INFO. (Unicode)
@@ -9,11 +10,9 @@
  * > The iscsidsc.h header defines ISCSI_SESSION_INFO as an alias which automatically selects the ANSI or Unicode version of this function based on the definition of the UNICODE preprocessor constant. Mixing usage of the encoding-neutral alias with code that not encoding-neutral can lead to mismatches that result in compilation or runtime errors. For more information, see [Conventions for Function Prototypes](/windows/win32/intl/conventions-for-function-prototypes).
  * @see https://learn.microsoft.com/windows/win32/api/iscsidsc/ns-iscsidsc-iscsi_session_infow
  * @namespace Windows.Win32.Storage.IscsiDisc
- * @version v4.0.30319
  * @charset Unicode
  */
-class ISCSI_SESSION_INFOW extends Win32Struct
-{
+class ISCSI_SESSION_INFOW extends Win32Struct {
     static sizeof => 64
 
     static packingSize => 8
@@ -22,7 +21,7 @@ class ISCSI_SESSION_INFOW extends Win32Struct
      * A <a href="https://docs.microsoft.com/windows/desktop/api/iscsidsc/ns-iscsidsc-iscsi_unique_session_id">ISCSI_UNIQUE_SESSION_ID</a> structure containing a unique identifier that represents the session.
      * @type {ISCSI_UNIQUE_SESSION_ID}
      */
-    SessionId{
+    SessionId {
         get {
             if(!this.HasProp("__SessionId"))
                 this.__SessionId := ISCSI_UNIQUE_SESSION_ID(0, this)
@@ -59,9 +58,9 @@ class ISCSI_SESSION_INFOW extends Win32Struct
 
     /**
      * The initiator-side identifier (ISID) used in the iSCSI protocol.
-     * @type {Array<Byte>}
+     * @type {Array<Integer>}
      */
-    ISID{
+    ISID {
         get {
             if(!this.HasProp("__ISIDProxyArray"))
                 this.__ISIDProxyArray := Win32FixedArray(this.ptr + 40, 6, Primitive, "char")
@@ -71,9 +70,9 @@ class ISCSI_SESSION_INFOW extends Win32Struct
 
     /**
      * The target-side identifier (TSID) used in the iSCSI protocol.
-     * @type {Array<Byte>}
+     * @type {Array<Integer>}
      */
-    TSID{
+    TSID {
         get {
             if(!this.HasProp("__TSIDProxyArray"))
                 this.__TSIDProxyArray := Win32FixedArray(this.ptr + 46, 2, Primitive, "char")

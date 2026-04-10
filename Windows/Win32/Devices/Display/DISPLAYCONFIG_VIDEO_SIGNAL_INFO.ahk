@@ -2,15 +2,14 @@
 #Include ..\..\..\..\Win32Struct.ahk
 #Include .\DISPLAYCONFIG_RATIONAL.ahk
 #Include .\DISPLAYCONFIG_2DREGION.ahk
+#Include .\DISPLAYCONFIG_SCANLINE_ORDERING.ahk
 
 /**
  * The DISPLAYCONFIG_VIDEO_SIGNAL_INFO structure contains information about the video signal for a display.
  * @see https://learn.microsoft.com/windows/win32/api/wingdi/ns-wingdi-displayconfig_video_signal_info
  * @namespace Windows.Win32.Devices.Display
- * @version v4.0.30319
  */
-class DISPLAYCONFIG_VIDEO_SIGNAL_INFO extends Win32Struct
-{
+class DISPLAYCONFIG_VIDEO_SIGNAL_INFO extends Win32Struct {
     static sizeof => 48
 
     static packingSize => 8
@@ -28,7 +27,7 @@ class DISPLAYCONFIG_VIDEO_SIGNAL_INFO extends Win32Struct
      * A <a href="https://docs.microsoft.com/windows/desktop/api/wingdi/ns-wingdi-displayconfig_rational">DISPLAYCONFIG_RATIONAL</a> structure that represents horizontal sync.
      * @type {DISPLAYCONFIG_RATIONAL}
      */
-    hSyncFreq{
+    hSyncFreq {
         get {
             if(!this.HasProp("__hSyncFreq"))
                 this.__hSyncFreq := DISPLAYCONFIG_RATIONAL(8, this)
@@ -40,7 +39,7 @@ class DISPLAYCONFIG_VIDEO_SIGNAL_INFO extends Win32Struct
      * A <a href="https://docs.microsoft.com/windows/desktop/api/wingdi/ns-wingdi-displayconfig_rational">DISPLAYCONFIG_RATIONAL</a> structure that represents vertical sync.
      * @type {DISPLAYCONFIG_RATIONAL}
      */
-    vSyncFreq{
+    vSyncFreq {
         get {
             if(!this.HasProp("__vSyncFreq"))
                 this.__vSyncFreq := DISPLAYCONFIG_RATIONAL(16, this)
@@ -52,7 +51,7 @@ class DISPLAYCONFIG_VIDEO_SIGNAL_INFO extends Win32Struct
      * A <a href="https://docs.microsoft.com/windows/desktop/api/wingdi/ns-wingdi-displayconfig_2dregion">DISPLAYCONFIG_2DREGION</a> structure that specifies the width and height (in pixels) of the active portion of the video signal.
      * @type {DISPLAYCONFIG_2DREGION}
      */
-    activeSize{
+    activeSize {
         get {
             if(!this.HasProp("__activeSize"))
                 this.__activeSize := DISPLAYCONFIG_2DREGION(24, this)
@@ -64,7 +63,7 @@ class DISPLAYCONFIG_VIDEO_SIGNAL_INFO extends Win32Struct
      * A <a href="https://docs.microsoft.com/windows/desktop/api/wingdi/ns-wingdi-displayconfig_2dregion">DISPLAYCONFIG_2DREGION</a> structure that specifies the width and height (in pixels) of the entire video signal.
      * @type {DISPLAYCONFIG_2DREGION}
      */
-    totalSize{
+    totalSize {
         get {
             if(!this.HasProp("__totalSize"))
                 this.__totalSize := DISPLAYCONFIG_2DREGION(32, this)
@@ -87,7 +86,7 @@ class DISPLAYCONFIG_VIDEO_SIGNAL_INFO extends Win32Struct
             get => NumGet(this, 0, "uint")
             set => NumPut("uint", value, this, 0)
         }
-    
+
         /**
          * @type {Integer}
          */
@@ -95,7 +94,7 @@ class DISPLAYCONFIG_VIDEO_SIGNAL_INFO extends Win32Struct
             get => (this._bitfield >> 0) & 0xFFFF
             set => this._bitfield := ((value & 0xFFFF) << 0) | (this._bitfield & ~(0xFFFF << 0))
         }
-    
+
         /**
          * @type {Integer}
          */
@@ -103,7 +102,7 @@ class DISPLAYCONFIG_VIDEO_SIGNAL_INFO extends Win32Struct
             get => (this._bitfield >> 16) & 0x3F
             set => this._bitfield := ((value & 0x3F) << 16) | (this._bitfield & ~(0x3F << 16))
         }
-    
+
         /**
          * @type {Integer}
          */
@@ -111,16 +110,15 @@ class DISPLAYCONFIG_VIDEO_SIGNAL_INFO extends Win32Struct
             get => (this._bitfield >> 22) & 0x3FF
             set => this._bitfield := ((value & 0x3FF) << 22) | (this._bitfield & ~(0x3FF << 22))
         }
-    
     }
 
     /**
      * @type {_AdditionalSignalInfo}
      */
-    AdditionalSignalInfo{
+    AdditionalSignalInfo {
         get {
             if(!this.HasProp("__AdditionalSignalInfo"))
-                this.__AdditionalSignalInfo := %this.__Class%._AdditionalSignalInfo(40, this)
+                this.__AdditionalSignalInfo := DISPLAYCONFIG_VIDEO_SIGNAL_INFO._AdditionalSignalInfo(40, this)
             return this.__AdditionalSignalInfo
         }
     }
@@ -135,7 +133,7 @@ class DISPLAYCONFIG_VIDEO_SIGNAL_INFO extends Win32Struct
 
     /**
      * The scan-line ordering (for example, progressive or interlaced) of the video signal. For a list of possible values, see the <a href="https://docs.microsoft.com/windows/desktop/api/wingdi/ne-wingdi-displayconfig_scanline_ordering">DISPLAYCONFIG_SCANLINE_ORDERING</a> enumerated type.
-     * @type {Integer}
+     * @type {DISPLAYCONFIG_SCANLINE_ORDERING}
      */
     scanLineOrdering {
         get => NumGet(this, 44, "int")

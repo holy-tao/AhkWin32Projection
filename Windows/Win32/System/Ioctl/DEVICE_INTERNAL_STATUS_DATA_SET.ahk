@@ -3,9 +3,8 @@
 
 /**
  * @namespace Windows.Win32.System.Ioctl
- * @version v4.0.30319
  */
-class DEVICE_INTERNAL_STATUS_DATA_SET extends Win32Enum{
+class DEVICE_INTERNAL_STATUS_DATA_SET extends Win32Enum {
 
     /**
      * @type {Integer (Int32)}

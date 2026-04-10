@@ -3,9 +3,8 @@
 
 /**
  * @namespace Windows.Win32.Graphics.Gdi
- * @version v4.0.30319
  */
-class ROP_CODE extends Win32BitflagEnum{
+class ROP_CODE extends Win32BitflagEnum {
 
     /**
      * @type {Integer (UInt32)}

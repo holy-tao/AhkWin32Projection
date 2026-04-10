@@ -10,19 +10,17 @@
  * A certificate context can include an array of multiple <b>CRYPT_SMART_CARD_ROOT_INFO</b> structures, one for each <a href="https://docs.microsoft.com/windows/desktop/SecGloss/l-gly">locally unique identifier</a> (<a href="https://docs.microsoft.com/windows/desktop/api/winnt/ns-winnt-luid">LUID</a>) that the certificate propagation service has added to a root certificate.
  * @see https://learn.microsoft.com/windows/win32/api/wincrypt/ns-wincrypt-crypt_smart_card_root_info
  * @namespace Windows.Win32.Security.Cryptography
- * @version v4.0.30319
  */
-class CRYPT_SMART_CARD_ROOT_INFO extends Win32Struct
-{
+class CRYPT_SMART_CARD_ROOT_INFO extends Win32Struct {
     static sizeof => 24
 
     static packingSize => 4
 
     /**
      * An array of bytes that specify the smart card IDs retrieved by using the <a href="https://docs.microsoft.com/windows/desktop/api/wincrypt/nf-wincrypt-cryptgetprovparam">CryptGetProvParam</a> function with the <i>dwParam</i> parameter set to <b>PP_SMARTCARD_GUID</b>.
-     * @type {Array<Byte>}
+     * @type {Array<Integer>}
      */
-    rgbCardID{
+    rgbCardID {
         get {
             if(!this.HasProp("__rgbCardIDProxyArray"))
                 this.__rgbCardIDProxyArray := Win32FixedArray(this.ptr + 0, 16, Primitive, "char")
@@ -34,7 +32,7 @@ class CRYPT_SMART_CARD_ROOT_INFO extends Win32Struct
      * A <a href="https://docs.microsoft.com/windows/desktop/api/wincrypt/ns-wincrypt-root_info_luid">ROOT_INFO_LUID</a> structure that specifies a session authentication ID from an access token.
      * @type {ROOT_INFO_LUID}
      */
-    luid{
+    luid {
         get {
             if(!this.HasProp("__luid"))
                 this.__luid := ROOT_INFO_LUID(16, this)

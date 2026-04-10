@@ -1,21 +1,20 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
+#Include .\EapPeerMethodResponseAction.ahk
 
 /**
  * Contains the action information returned by an EAP peer method.
  * @see https://learn.microsoft.com/windows/win32/api/eapauthenticatoractiondefine/ns-eapauthenticatoractiondefine-eappeermethodoutput
  * @namespace Windows.Win32.Security.ExtensibleAuthenticationProtocol
- * @version v4.0.30319
  */
-class EapPeerMethodOutput extends Win32Struct
-{
+class EapPeerMethodOutput extends Win32Struct {
     static sizeof => 8
 
     static packingSize => 4
 
     /**
      * <a href="https://docs.microsoft.com/windows/win32/api/eapauthenticatoractiondefine/ne-eapauthenticatoractiondefine-eappeermethodresponseaction">EapPeerMethodResponseAction</a> enumeration value that indicates the response EAPHost should take as a result of the EAP peer method operation.
-     * @type {Integer}
+     * @type {EapPeerMethodResponseAction}
      */
     action {
         get => NumGet(this, 0, "int")

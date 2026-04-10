@@ -1,16 +1,14 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
-#Include .\IEnumOfflineFilesSettings.ahk
 #Include ..\..\System\Com\IUnknown.ahk
 
 /**
  * Enumerates setting objects associated with the Offline Files service.
  * @see https://learn.microsoft.com/windows/win32/api/cscobj/nn-cscobj-ienumofflinefilessettings
  * @namespace Windows.Win32.Storage.OfflineFiles
- * @version v4.0.30319
  */
-class IEnumOfflineFilesSettings extends IUnknown{
+class IEnumOfflineFilesSettings extends IUnknown {
 
     static sizeof => A_PtrSize
     /**

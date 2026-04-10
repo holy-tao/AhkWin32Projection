@@ -5,9 +5,8 @@
  * Specifies command flags available in NetShell.
  * @see https://learn.microsoft.com/windows/win32/api/netsh/ne-netsh-ns_cmd_flags
  * @namespace Windows.Win32.NetworkManagement.NetShell
- * @version v4.0.30319
  */
-class NS_CMD_FLAGS extends Win32Enum{
+class NS_CMD_FLAGS extends Win32Enum {
 
     /**
      * Indicates a private command. This command is not valid in subcontexts.

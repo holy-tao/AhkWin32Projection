@@ -1,16 +1,15 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
-#Include .\IDWriteFontSet.ahk
 #Include ..\..\System\Com\IUnknown.ahk
+#Include .\IDWriteFontSet.ahk
 
 /**
  * Contains methods for building a font set. (IDWriteFontSetBuilder)
  * @see https://learn.microsoft.com/windows/win32/api/dwrite_3/nn-dwrite_3-idwritefontsetbuilder
  * @namespace Windows.Win32.Graphics.DirectWrite
- * @version v4.0.30319
  */
-class IDWriteFontSetBuilder extends IUnknown{
+class IDWriteFontSetBuilder extends IUnknown {
 
     static sizeof => A_PtrSize
     /**

@@ -5,9 +5,8 @@
 
 /**
  * @namespace Windows.Win32.System.Diagnostics.Debug.Extensions
- * @version v4.0.30319
  */
-class IDebugHostContext2 extends IDebugHostContext{
+class IDebugHostContext2 extends IDebugHostContext {
 
     static sizeof => A_PtrSize
     /**
@@ -31,7 +30,7 @@ class IDebugHostContext2 extends IDebugHostContext{
     /**
      * 
      * @param {IDebugHostContext2} pContext 
-     * @returns {Integer} 
+     * @returns {AddressSpaceRelation} 
      */
     GetAddressSpaceRelation(pContext) {
         result := ComCall(4, this, "ptr", pContext, "int*", &pAddressSpaceRelation := 0, "HRESULT")

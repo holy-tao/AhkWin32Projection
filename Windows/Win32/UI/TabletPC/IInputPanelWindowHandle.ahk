@@ -5,9 +5,8 @@
 
 /**
  * @namespace Windows.Win32.UI.TabletPC
- * @version v4.0.30319
  */
-class IInputPanelWindowHandle extends IUnknown{
+class IInputPanelWindowHandle extends IUnknown {
 
     static sizeof => A_PtrSize
     /**

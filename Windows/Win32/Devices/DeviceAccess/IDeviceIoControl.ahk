@@ -7,9 +7,8 @@
  * Sends a control code to a device driver.This action causes the device to perform the corresponding operation.
  * @see https://learn.microsoft.com/windows/win32/api/deviceaccess/nn-deviceaccess-ideviceiocontrol
  * @namespace Windows.Win32.Devices.DeviceAccess
- * @version v4.0.30319
  */
-class IDeviceIoControl extends IUnknown{
+class IDeviceIoControl extends IUnknown {
 
     static sizeof => A_PtrSize
     /**

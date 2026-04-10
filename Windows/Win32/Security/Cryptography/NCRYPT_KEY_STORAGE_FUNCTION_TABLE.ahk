@@ -4,10 +4,8 @@
 
 /**
  * @namespace Windows.Win32.Security.Cryptography
- * @version v4.0.30319
  */
-class NCRYPT_KEY_STORAGE_FUNCTION_TABLE extends Win32Struct
-{
+class NCRYPT_KEY_STORAGE_FUNCTION_TABLE extends Win32Struct {
     static sizeof => 240
 
     static packingSize => 8
@@ -15,7 +13,7 @@ class NCRYPT_KEY_STORAGE_FUNCTION_TABLE extends Win32Struct
     /**
      * @type {BCRYPT_INTERFACE_VERSION}
      */
-    Version{
+    Version {
         get {
             if(!this.HasProp("__Version"))
                 this.__Version := BCRYPT_INTERFACE_VERSION(0, this)

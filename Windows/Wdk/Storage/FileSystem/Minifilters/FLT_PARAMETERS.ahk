@@ -1,14 +1,35 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\..\Win32Struct.ahk
+#Include ..\..\..\Foundation\IO_SECURITY_CONTEXT.ahk
+#Include ..\..\..\Foundation\MDL.ahk
+#Include ..\FILE_INFORMATION_CLASS.ahk
+#Include ..\..\..\Foundation\FILE_OBJECT.ahk
 #Include ..\..\..\..\Win32\Foundation\HANDLE.ahk
+#Include ..\FS_INFORMATION_CLASS.ahk
+#Include ..\..\..\..\Win32\Foundation\UNICODE_STRING.ahk
+#Include ..\..\..\System\SystemServices\DIRECTORY_NOTIFY_INFORMATION_CLASS.ahk
+#Include ..\..\..\Foundation\VPB.ahk
+#Include ..\..\..\Foundation\DEVICE_OBJECT.ahk
 #Include ..\..\..\..\Win32\Security\PSECURITY_DESCRIPTOR.ahk
+#Include ..\FILE_GET_QUOTA_INFORMATION.ahk
+#Include ..\..\..\System\SystemServices\CM_RESOURCE_LIST.ahk
+#Include ..\..\..\System\SystemServices\DEVICE_RELATION_TYPE.ahk
+#Include ..\..\..\System\SystemServices\INTERFACE.ahk
+#Include ..\..\..\System\SystemServices\DEVICE_CAPABILITIES.ahk
+#Include ..\..\..\System\SystemServices\IO_RESOURCE_REQUIREMENTS_LIST.ahk
+#Include ..\..\..\System\SystemServices\BUS_QUERY_ID_TYPE.ahk
+#Include ..\..\..\System\SystemServices\DEVICE_TEXT_TYPE.ahk
+#Include ..\..\..\System\SystemServices\DEVICE_USAGE_NOTIFICATION_TYPE.ahk
+#Include ..\FS_FILTER_SECTION_SYNC_TYPE.ahk
+#Include ..\FS_FILTER_SECTION_SYNC_OUTPUT.ahk
+#Include ..\..\..\Foundation\ERESOURCE.ahk
+#Include ..\..\..\Foundation\IRP.ahk
+#Include ..\FILE_NETWORK_OPEN_INFORMATION.ahk
 
 /**
  * @namespace Windows.Wdk.Storage.FileSystem.Minifilters
- * @version v4.0.30319
  */
-class FLT_PARAMETERS extends Win32Struct
-{
+class FLT_PARAMETERS extends Win32Struct {
     static sizeof => 880
 
     static packingSize => 8
@@ -24,7 +45,7 @@ class FLT_PARAMETERS extends Win32Struct
             get => NumGet(this, 0, "ptr")
             set => NumPut("ptr", value, this, 0)
         }
-    
+
         /**
          * @type {Integer}
          */
@@ -32,7 +53,7 @@ class FLT_PARAMETERS extends Win32Struct
             get => NumGet(this, 8, "uint")
             set => NumPut("uint", value, this, 8)
         }
-    
+
         /**
          * @type {Integer}
          */
@@ -40,7 +61,7 @@ class FLT_PARAMETERS extends Win32Struct
             get => NumGet(this, 12, "ushort")
             set => NumPut("ushort", value, this, 12)
         }
-    
+
         /**
          * @type {Integer}
          */
@@ -48,7 +69,7 @@ class FLT_PARAMETERS extends Win32Struct
             get => NumGet(this, 14, "ushort")
             set => NumPut("ushort", value, this, 14)
         }
-    
+
         /**
          * @type {Integer}
          */
@@ -56,7 +77,7 @@ class FLT_PARAMETERS extends Win32Struct
             get => NumGet(this, 16, "uint")
             set => NumPut("uint", value, this, 16)
         }
-    
+
         /**
          * @type {Pointer<Void>}
          */
@@ -64,7 +85,7 @@ class FLT_PARAMETERS extends Win32Struct
             get => NumGet(this, 24, "ptr")
             set => NumPut("ptr", value, this, 24)
         }
-    
+
         /**
          * @type {Integer}
          */
@@ -72,7 +93,6 @@ class FLT_PARAMETERS extends Win32Struct
             get => NumGet(this, 32, "int64")
             set => NumPut("int64", value, this, 32)
         }
-    
     }
 
     class _CreatePipe extends Win32Struct {
@@ -86,7 +106,7 @@ class FLT_PARAMETERS extends Win32Struct
             get => NumGet(this, 0, "ptr")
             set => NumPut("ptr", value, this, 0)
         }
-    
+
         /**
          * @type {Integer}
          */
@@ -94,7 +114,7 @@ class FLT_PARAMETERS extends Win32Struct
             get => NumGet(this, 8, "uint")
             set => NumPut("uint", value, this, 8)
         }
-    
+
         /**
          * @type {Integer}
          */
@@ -102,7 +122,7 @@ class FLT_PARAMETERS extends Win32Struct
             get => NumGet(this, 12, "ushort")
             set => NumPut("ushort", value, this, 12)
         }
-    
+
         /**
          * @type {Integer}
          */
@@ -110,7 +130,7 @@ class FLT_PARAMETERS extends Win32Struct
             get => NumGet(this, 14, "ushort")
             set => NumPut("ushort", value, this, 14)
         }
-    
+
         /**
          * @type {Pointer<Void>}
          */
@@ -118,7 +138,6 @@ class FLT_PARAMETERS extends Win32Struct
             get => NumGet(this, 16, "ptr")
             set => NumPut("ptr", value, this, 16)
         }
-    
     }
 
     class _CreateMailslot extends Win32Struct {
@@ -132,7 +151,7 @@ class FLT_PARAMETERS extends Win32Struct
             get => NumGet(this, 0, "ptr")
             set => NumPut("ptr", value, this, 0)
         }
-    
+
         /**
          * @type {Integer}
          */
@@ -140,7 +159,7 @@ class FLT_PARAMETERS extends Win32Struct
             get => NumGet(this, 8, "uint")
             set => NumPut("uint", value, this, 8)
         }
-    
+
         /**
          * @type {Integer}
          */
@@ -148,7 +167,7 @@ class FLT_PARAMETERS extends Win32Struct
             get => NumGet(this, 12, "ushort")
             set => NumPut("ushort", value, this, 12)
         }
-    
+
         /**
          * @type {Integer}
          */
@@ -156,7 +175,7 @@ class FLT_PARAMETERS extends Win32Struct
             get => NumGet(this, 14, "ushort")
             set => NumPut("ushort", value, this, 14)
         }
-    
+
         /**
          * @type {Pointer<Void>}
          */
@@ -164,7 +183,6 @@ class FLT_PARAMETERS extends Win32Struct
             get => NumGet(this, 16, "ptr")
             set => NumPut("ptr", value, this, 16)
         }
-    
     }
 
     class _Read extends Win32Struct {
@@ -178,7 +196,7 @@ class FLT_PARAMETERS extends Win32Struct
             get => NumGet(this, 0, "uint")
             set => NumPut("uint", value, this, 0)
         }
-    
+
         /**
          * @type {Integer}
          */
@@ -186,7 +204,7 @@ class FLT_PARAMETERS extends Win32Struct
             get => NumGet(this, 4, "uint")
             set => NumPut("uint", value, this, 4)
         }
-    
+
         /**
          * @type {Integer}
          */
@@ -194,7 +212,7 @@ class FLT_PARAMETERS extends Win32Struct
             get => NumGet(this, 8, "int64")
             set => NumPut("int64", value, this, 8)
         }
-    
+
         /**
          * @type {Pointer<Void>}
          */
@@ -202,7 +220,7 @@ class FLT_PARAMETERS extends Win32Struct
             get => NumGet(this, 16, "ptr")
             set => NumPut("ptr", value, this, 16)
         }
-    
+
         /**
          * @type {Pointer<MDL>}
          */
@@ -210,7 +228,6 @@ class FLT_PARAMETERS extends Win32Struct
             get => NumGet(this, 24, "ptr")
             set => NumPut("ptr", value, this, 24)
         }
-    
     }
 
     class _Write extends Win32Struct {
@@ -224,7 +241,7 @@ class FLT_PARAMETERS extends Win32Struct
             get => NumGet(this, 0, "uint")
             set => NumPut("uint", value, this, 0)
         }
-    
+
         /**
          * @type {Integer}
          */
@@ -232,7 +249,7 @@ class FLT_PARAMETERS extends Win32Struct
             get => NumGet(this, 4, "uint")
             set => NumPut("uint", value, this, 4)
         }
-    
+
         /**
          * @type {Integer}
          */
@@ -240,7 +257,7 @@ class FLT_PARAMETERS extends Win32Struct
             get => NumGet(this, 8, "int64")
             set => NumPut("int64", value, this, 8)
         }
-    
+
         /**
          * @type {Pointer<Void>}
          */
@@ -248,7 +265,7 @@ class FLT_PARAMETERS extends Win32Struct
             get => NumGet(this, 16, "ptr")
             set => NumPut("ptr", value, this, 16)
         }
-    
+
         /**
          * @type {Pointer<MDL>}
          */
@@ -256,7 +273,6 @@ class FLT_PARAMETERS extends Win32Struct
             get => NumGet(this, 24, "ptr")
             set => NumPut("ptr", value, this, 24)
         }
-    
     }
 
     class _QueryFileInformation extends Win32Struct {
@@ -270,15 +286,15 @@ class FLT_PARAMETERS extends Win32Struct
             get => NumGet(this, 0, "uint")
             set => NumPut("uint", value, this, 0)
         }
-    
+
         /**
-         * @type {Integer}
+         * @type {FILE_INFORMATION_CLASS}
          */
         FileInformationClass {
             get => NumGet(this, 4, "int")
             set => NumPut("int", value, this, 4)
         }
-    
+
         /**
          * @type {Pointer<Void>}
          */
@@ -286,7 +302,6 @@ class FLT_PARAMETERS extends Win32Struct
             get => NumGet(this, 8, "ptr")
             set => NumPut("ptr", value, this, 8)
         }
-    
     }
 
     class _SetFileInformation extends Win32Struct {
@@ -300,15 +315,15 @@ class FLT_PARAMETERS extends Win32Struct
             get => NumGet(this, 0, "uint")
             set => NumPut("uint", value, this, 0)
         }
-    
+
         /**
-         * @type {Integer}
+         * @type {FILE_INFORMATION_CLASS}
          */
         FileInformationClass {
             get => NumGet(this, 4, "int")
             set => NumPut("int", value, this, 4)
         }
-    
+
         /**
          * @type {Pointer<FILE_OBJECT>}
          */
@@ -316,7 +331,7 @@ class FLT_PARAMETERS extends Win32Struct
             get => NumGet(this, 8, "ptr")
             set => NumPut("ptr", value, this, 8)
         }
-    
+
         /**
          * @type {BOOLEAN}
          */
@@ -324,7 +339,7 @@ class FLT_PARAMETERS extends Win32Struct
             get => NumGet(this, 16, "char")
             set => NumPut("char", value, this, 16)
         }
-    
+
         /**
          * @type {BOOLEAN}
          */
@@ -332,7 +347,7 @@ class FLT_PARAMETERS extends Win32Struct
             get => NumGet(this, 17, "char")
             set => NumPut("char", value, this, 17)
         }
-    
+
         /**
          * @type {Integer}
          */
@@ -340,18 +355,18 @@ class FLT_PARAMETERS extends Win32Struct
             get => NumGet(this, 16, "uint")
             set => NumPut("uint", value, this, 16)
         }
-    
+
         /**
          * @type {HANDLE}
          */
-        DeleteHandle{
+        DeleteHandle {
             get {
                 if(!this.HasProp("__DeleteHandle"))
                     this.__DeleteHandle := HANDLE(16, this)
                 return this.__DeleteHandle
             }
         }
-    
+
         /**
          * @type {Pointer<Void>}
          */
@@ -359,7 +374,6 @@ class FLT_PARAMETERS extends Win32Struct
             get => NumGet(this, 24, "ptr")
             set => NumPut("ptr", value, this, 24)
         }
-    
     }
 
     class _QueryEa extends Win32Struct {
@@ -373,7 +387,7 @@ class FLT_PARAMETERS extends Win32Struct
             get => NumGet(this, 0, "uint")
             set => NumPut("uint", value, this, 0)
         }
-    
+
         /**
          * @type {Pointer<Void>}
          */
@@ -381,7 +395,7 @@ class FLT_PARAMETERS extends Win32Struct
             get => NumGet(this, 8, "ptr")
             set => NumPut("ptr", value, this, 8)
         }
-    
+
         /**
          * @type {Integer}
          */
@@ -389,7 +403,7 @@ class FLT_PARAMETERS extends Win32Struct
             get => NumGet(this, 16, "uint")
             set => NumPut("uint", value, this, 16)
         }
-    
+
         /**
          * @type {Integer}
          */
@@ -397,7 +411,7 @@ class FLT_PARAMETERS extends Win32Struct
             get => NumGet(this, 20, "uint")
             set => NumPut("uint", value, this, 20)
         }
-    
+
         /**
          * @type {Pointer<Void>}
          */
@@ -405,7 +419,7 @@ class FLT_PARAMETERS extends Win32Struct
             get => NumGet(this, 24, "ptr")
             set => NumPut("ptr", value, this, 24)
         }
-    
+
         /**
          * @type {Pointer<MDL>}
          */
@@ -413,7 +427,6 @@ class FLT_PARAMETERS extends Win32Struct
             get => NumGet(this, 32, "ptr")
             set => NumPut("ptr", value, this, 32)
         }
-    
     }
 
     class _SetEa extends Win32Struct {
@@ -427,7 +440,7 @@ class FLT_PARAMETERS extends Win32Struct
             get => NumGet(this, 0, "uint")
             set => NumPut("uint", value, this, 0)
         }
-    
+
         /**
          * @type {Pointer<Void>}
          */
@@ -435,7 +448,7 @@ class FLT_PARAMETERS extends Win32Struct
             get => NumGet(this, 8, "ptr")
             set => NumPut("ptr", value, this, 8)
         }
-    
+
         /**
          * @type {Pointer<MDL>}
          */
@@ -443,7 +456,6 @@ class FLT_PARAMETERS extends Win32Struct
             get => NumGet(this, 16, "ptr")
             set => NumPut("ptr", value, this, 16)
         }
-    
     }
 
     class _QueryVolumeInformation extends Win32Struct {
@@ -457,15 +469,15 @@ class FLT_PARAMETERS extends Win32Struct
             get => NumGet(this, 0, "uint")
             set => NumPut("uint", value, this, 0)
         }
-    
+
         /**
-         * @type {Integer}
+         * @type {FS_INFORMATION_CLASS}
          */
         FsInformationClass {
             get => NumGet(this, 4, "int")
             set => NumPut("int", value, this, 4)
         }
-    
+
         /**
          * @type {Pointer<Void>}
          */
@@ -473,7 +485,6 @@ class FLT_PARAMETERS extends Win32Struct
             get => NumGet(this, 8, "ptr")
             set => NumPut("ptr", value, this, 8)
         }
-    
     }
 
     class _SetVolumeInformation extends Win32Struct {
@@ -487,15 +498,15 @@ class FLT_PARAMETERS extends Win32Struct
             get => NumGet(this, 0, "uint")
             set => NumPut("uint", value, this, 0)
         }
-    
+
         /**
-         * @type {Integer}
+         * @type {FS_INFORMATION_CLASS}
          */
         FsInformationClass {
             get => NumGet(this, 4, "int")
             set => NumPut("int", value, this, 4)
         }
-    
+
         /**
          * @type {Pointer<Void>}
          */
@@ -503,7 +514,6 @@ class FLT_PARAMETERS extends Win32Struct
             get => NumGet(this, 8, "ptr")
             set => NumPut("ptr", value, this, 8)
         }
-    
     }
 
     class _DirectoryControl_e__Union extends Win32Struct {
@@ -513,7 +523,7 @@ class FLT_PARAMETERS extends Win32Struct
         class _QueryDirectory extends Win32Struct {
             static sizeof => 40
             static packingSize => 8
-    
+
             /**
              * @type {Integer}
              */
@@ -521,7 +531,7 @@ class FLT_PARAMETERS extends Win32Struct
                 get => NumGet(this, 0, "uint")
                 set => NumPut("uint", value, this, 0)
             }
-        
+
             /**
              * @type {Pointer<UNICODE_STRING>}
              */
@@ -529,15 +539,15 @@ class FLT_PARAMETERS extends Win32Struct
                 get => NumGet(this, 8, "ptr")
                 set => NumPut("ptr", value, this, 8)
             }
-        
+
             /**
-             * @type {Integer}
+             * @type {FILE_INFORMATION_CLASS}
              */
             FileInformationClass {
                 get => NumGet(this, 16, "int")
                 set => NumPut("int", value, this, 16)
             }
-        
+
             /**
              * @type {Integer}
              */
@@ -545,7 +555,7 @@ class FLT_PARAMETERS extends Win32Struct
                 get => NumGet(this, 20, "uint")
                 set => NumPut("uint", value, this, 20)
             }
-        
+
             /**
              * @type {Pointer<Void>}
              */
@@ -553,7 +563,7 @@ class FLT_PARAMETERS extends Win32Struct
                 get => NumGet(this, 24, "ptr")
                 set => NumPut("ptr", value, this, 24)
             }
-        
+
             /**
              * @type {Pointer<MDL>}
              */
@@ -561,13 +571,12 @@ class FLT_PARAMETERS extends Win32Struct
                 get => NumGet(this, 32, "ptr")
                 set => NumPut("ptr", value, this, 32)
             }
-        
         }
-    
+
         class _NotifyDirectory extends Win32Struct {
             static sizeof => 32
             static packingSize => 8
-    
+
             /**
              * @type {Integer}
              */
@@ -575,7 +584,7 @@ class FLT_PARAMETERS extends Win32Struct
                 get => NumGet(this, 0, "uint")
                 set => NumPut("uint", value, this, 0)
             }
-        
+
             /**
              * @type {Integer}
              */
@@ -583,7 +592,7 @@ class FLT_PARAMETERS extends Win32Struct
                 get => NumGet(this, 4, "uint")
                 set => NumPut("uint", value, this, 4)
             }
-        
+
             /**
              * @type {Integer}
              */
@@ -591,7 +600,7 @@ class FLT_PARAMETERS extends Win32Struct
                 get => NumGet(this, 8, "uint")
                 set => NumPut("uint", value, this, 8)
             }
-        
+
             /**
              * @type {Integer}
              */
@@ -599,7 +608,7 @@ class FLT_PARAMETERS extends Win32Struct
                 get => NumGet(this, 12, "uint")
                 set => NumPut("uint", value, this, 12)
             }
-        
+
             /**
              * @type {Pointer<Void>}
              */
@@ -607,7 +616,7 @@ class FLT_PARAMETERS extends Win32Struct
                 get => NumGet(this, 16, "ptr")
                 set => NumPut("ptr", value, this, 16)
             }
-        
+
             /**
              * @type {Pointer<MDL>}
              */
@@ -615,13 +624,12 @@ class FLT_PARAMETERS extends Win32Struct
                 get => NumGet(this, 24, "ptr")
                 set => NumPut("ptr", value, this, 24)
             }
-        
         }
-    
+
         class _NotifyDirectoryEx extends Win32Struct {
             static sizeof => 32
             static packingSize => 8
-    
+
             /**
              * @type {Integer}
              */
@@ -629,7 +637,7 @@ class FLT_PARAMETERS extends Win32Struct
                 get => NumGet(this, 0, "uint")
                 set => NumPut("uint", value, this, 0)
             }
-        
+
             /**
              * @type {Integer}
              */
@@ -637,15 +645,15 @@ class FLT_PARAMETERS extends Win32Struct
                 get => NumGet(this, 4, "uint")
                 set => NumPut("uint", value, this, 4)
             }
-        
+
             /**
-             * @type {Integer}
+             * @type {DIRECTORY_NOTIFY_INFORMATION_CLASS}
              */
             DirectoryNotifyInformationClass {
                 get => NumGet(this, 8, "int")
                 set => NumPut("int", value, this, 8)
             }
-        
+
             /**
              * @type {Integer}
              */
@@ -653,7 +661,7 @@ class FLT_PARAMETERS extends Win32Struct
                 get => NumGet(this, 12, "uint")
                 set => NumPut("uint", value, this, 12)
             }
-        
+
             /**
              * @type {Pointer<Void>}
              */
@@ -661,7 +669,7 @@ class FLT_PARAMETERS extends Win32Struct
                 get => NumGet(this, 16, "ptr")
                 set => NumPut("ptr", value, this, 16)
             }
-        
+
             /**
              * @type {Pointer<MDL>}
              */
@@ -669,42 +677,40 @@ class FLT_PARAMETERS extends Win32Struct
                 get => NumGet(this, 24, "ptr")
                 set => NumPut("ptr", value, this, 24)
             }
-        
         }
-    
+
         /**
          * @type {_QueryDirectory}
          */
-        QueryDirectory{
+        QueryDirectory {
             get {
                 if(!this.HasProp("__QueryDirectory"))
-                    this.__QueryDirectory := %this.__Class%._QueryDirectory(0, this)
+                    this.__QueryDirectory := FLT_PARAMETERS._DirectoryControl_e__Union._QueryDirectory(0, this)
                 return this.__QueryDirectory
             }
         }
-    
+
         /**
          * @type {_NotifyDirectory}
          */
-        NotifyDirectory{
+        NotifyDirectory {
             get {
                 if(!this.HasProp("__NotifyDirectory"))
-                    this.__NotifyDirectory := %this.__Class%._NotifyDirectory(0, this)
+                    this.__NotifyDirectory := FLT_PARAMETERS._DirectoryControl_e__Union._NotifyDirectory(0, this)
                 return this.__NotifyDirectory
             }
         }
-    
+
         /**
          * @type {_NotifyDirectoryEx}
          */
-        NotifyDirectoryEx{
+        NotifyDirectoryEx {
             get {
                 if(!this.HasProp("__NotifyDirectoryEx"))
-                    this.__NotifyDirectoryEx := %this.__Class%._NotifyDirectoryEx(0, this)
+                    this.__NotifyDirectoryEx := FLT_PARAMETERS._DirectoryControl_e__Union._NotifyDirectoryEx(0, this)
                 return this.__NotifyDirectoryEx
             }
         }
-    
     }
 
     class _FileSystemControl_e__Union extends Win32Struct {
@@ -714,7 +720,7 @@ class FLT_PARAMETERS extends Win32Struct
         class _VerifyVolume extends Win32Struct {
             static sizeof => 16
             static packingSize => 8
-    
+
             /**
              * @type {Pointer<VPB>}
              */
@@ -722,7 +728,7 @@ class FLT_PARAMETERS extends Win32Struct
                 get => NumGet(this, 0, "ptr")
                 set => NumPut("ptr", value, this, 0)
             }
-        
+
             /**
              * @type {Pointer<DEVICE_OBJECT>}
              */
@@ -730,13 +736,12 @@ class FLT_PARAMETERS extends Win32Struct
                 get => NumGet(this, 8, "ptr")
                 set => NumPut("ptr", value, this, 8)
             }
-        
         }
-    
+
         class _Common extends Win32Struct {
             static sizeof => 12
             static packingSize => 4
-    
+
             /**
              * @type {Integer}
              */
@@ -744,7 +749,7 @@ class FLT_PARAMETERS extends Win32Struct
                 get => NumGet(this, 0, "uint")
                 set => NumPut("uint", value, this, 0)
             }
-        
+
             /**
              * @type {Integer}
              */
@@ -752,7 +757,7 @@ class FLT_PARAMETERS extends Win32Struct
                 get => NumGet(this, 4, "uint")
                 set => NumPut("uint", value, this, 4)
             }
-        
+
             /**
              * @type {Integer}
              */
@@ -760,13 +765,12 @@ class FLT_PARAMETERS extends Win32Struct
                 get => NumGet(this, 8, "uint")
                 set => NumPut("uint", value, this, 8)
             }
-        
         }
-    
+
         class _Neither extends Win32Struct {
             static sizeof => 40
             static packingSize => 8
-    
+
             /**
              * @type {Integer}
              */
@@ -774,7 +778,7 @@ class FLT_PARAMETERS extends Win32Struct
                 get => NumGet(this, 0, "uint")
                 set => NumPut("uint", value, this, 0)
             }
-        
+
             /**
              * @type {Integer}
              */
@@ -782,7 +786,7 @@ class FLT_PARAMETERS extends Win32Struct
                 get => NumGet(this, 4, "uint")
                 set => NumPut("uint", value, this, 4)
             }
-        
+
             /**
              * @type {Integer}
              */
@@ -790,7 +794,7 @@ class FLT_PARAMETERS extends Win32Struct
                 get => NumGet(this, 8, "uint")
                 set => NumPut("uint", value, this, 8)
             }
-        
+
             /**
              * @type {Pointer<Void>}
              */
@@ -798,7 +802,7 @@ class FLT_PARAMETERS extends Win32Struct
                 get => NumGet(this, 16, "ptr")
                 set => NumPut("ptr", value, this, 16)
             }
-        
+
             /**
              * @type {Pointer<Void>}
              */
@@ -806,7 +810,7 @@ class FLT_PARAMETERS extends Win32Struct
                 get => NumGet(this, 24, "ptr")
                 set => NumPut("ptr", value, this, 24)
             }
-        
+
             /**
              * @type {Pointer<MDL>}
              */
@@ -814,13 +818,12 @@ class FLT_PARAMETERS extends Win32Struct
                 get => NumGet(this, 32, "ptr")
                 set => NumPut("ptr", value, this, 32)
             }
-        
         }
-    
+
         class _Buffered extends Win32Struct {
             static sizeof => 24
             static packingSize => 8
-    
+
             /**
              * @type {Integer}
              */
@@ -828,7 +831,7 @@ class FLT_PARAMETERS extends Win32Struct
                 get => NumGet(this, 0, "uint")
                 set => NumPut("uint", value, this, 0)
             }
-        
+
             /**
              * @type {Integer}
              */
@@ -836,7 +839,7 @@ class FLT_PARAMETERS extends Win32Struct
                 get => NumGet(this, 4, "uint")
                 set => NumPut("uint", value, this, 4)
             }
-        
+
             /**
              * @type {Integer}
              */
@@ -844,7 +847,7 @@ class FLT_PARAMETERS extends Win32Struct
                 get => NumGet(this, 8, "uint")
                 set => NumPut("uint", value, this, 8)
             }
-        
+
             /**
              * @type {Pointer<Void>}
              */
@@ -852,13 +855,12 @@ class FLT_PARAMETERS extends Win32Struct
                 get => NumGet(this, 16, "ptr")
                 set => NumPut("ptr", value, this, 16)
             }
-        
         }
-    
+
         class _Direct extends Win32Struct {
             static sizeof => 40
             static packingSize => 8
-    
+
             /**
              * @type {Integer}
              */
@@ -866,7 +868,7 @@ class FLT_PARAMETERS extends Win32Struct
                 get => NumGet(this, 0, "uint")
                 set => NumPut("uint", value, this, 0)
             }
-        
+
             /**
              * @type {Integer}
              */
@@ -874,7 +876,7 @@ class FLT_PARAMETERS extends Win32Struct
                 get => NumGet(this, 4, "uint")
                 set => NumPut("uint", value, this, 4)
             }
-        
+
             /**
              * @type {Integer}
              */
@@ -882,7 +884,7 @@ class FLT_PARAMETERS extends Win32Struct
                 get => NumGet(this, 8, "uint")
                 set => NumPut("uint", value, this, 8)
             }
-        
+
             /**
              * @type {Pointer<Void>}
              */
@@ -890,7 +892,7 @@ class FLT_PARAMETERS extends Win32Struct
                 get => NumGet(this, 16, "ptr")
                 set => NumPut("ptr", value, this, 16)
             }
-        
+
             /**
              * @type {Pointer<Void>}
              */
@@ -898,7 +900,7 @@ class FLT_PARAMETERS extends Win32Struct
                 get => NumGet(this, 24, "ptr")
                 set => NumPut("ptr", value, this, 24)
             }
-        
+
             /**
              * @type {Pointer<MDL>}
              */
@@ -906,64 +908,62 @@ class FLT_PARAMETERS extends Win32Struct
                 get => NumGet(this, 32, "ptr")
                 set => NumPut("ptr", value, this, 32)
             }
-        
         }
-    
+
         /**
          * @type {_VerifyVolume}
          */
-        VerifyVolume{
+        VerifyVolume {
             get {
                 if(!this.HasProp("__VerifyVolume"))
-                    this.__VerifyVolume := %this.__Class%._VerifyVolume(0, this)
+                    this.__VerifyVolume := FLT_PARAMETERS._FileSystemControl_e__Union._VerifyVolume(0, this)
                 return this.__VerifyVolume
             }
         }
-    
+
         /**
          * @type {_Common}
          */
-        Common{
+        Common {
             get {
                 if(!this.HasProp("__Common"))
-                    this.__Common := %this.__Class%._Common(0, this)
+                    this.__Common := FLT_PARAMETERS._FileSystemControl_e__Union._Common(0, this)
                 return this.__Common
             }
         }
-    
+
         /**
          * @type {_Neither}
          */
-        Neither{
+        Neither {
             get {
                 if(!this.HasProp("__Neither"))
-                    this.__Neither := %this.__Class%._Neither(0, this)
+                    this.__Neither := FLT_PARAMETERS._FileSystemControl_e__Union._Neither(0, this)
                 return this.__Neither
             }
         }
-    
+
         /**
          * @type {_Buffered}
          */
-        Buffered{
+        Buffered {
             get {
                 if(!this.HasProp("__Buffered"))
-                    this.__Buffered := %this.__Class%._Buffered(0, this)
+                    this.__Buffered := FLT_PARAMETERS._FileSystemControl_e__Union._Buffered(0, this)
                 return this.__Buffered
             }
         }
-    
+
         /**
          * @type {_Direct}
          */
-        Direct{
+        Direct {
             get {
                 if(!this.HasProp("__Direct"))
-                    this.__Direct := %this.__Class%._Direct(0, this)
+                    this.__Direct := FLT_PARAMETERS._FileSystemControl_e__Union._Direct(0, this)
                 return this.__Direct
             }
         }
-    
     }
 
     class _DeviceIoControl_e__Union extends Win32Struct {
@@ -973,7 +973,7 @@ class FLT_PARAMETERS extends Win32Struct
         class _Common extends Win32Struct {
             static sizeof => 12
             static packingSize => 4
-    
+
             /**
              * @type {Integer}
              */
@@ -981,7 +981,7 @@ class FLT_PARAMETERS extends Win32Struct
                 get => NumGet(this, 0, "uint")
                 set => NumPut("uint", value, this, 0)
             }
-        
+
             /**
              * @type {Integer}
              */
@@ -989,7 +989,7 @@ class FLT_PARAMETERS extends Win32Struct
                 get => NumGet(this, 4, "uint")
                 set => NumPut("uint", value, this, 4)
             }
-        
+
             /**
              * @type {Integer}
              */
@@ -997,13 +997,12 @@ class FLT_PARAMETERS extends Win32Struct
                 get => NumGet(this, 8, "uint")
                 set => NumPut("uint", value, this, 8)
             }
-        
         }
-    
+
         class _Neither extends Win32Struct {
             static sizeof => 40
             static packingSize => 8
-    
+
             /**
              * @type {Integer}
              */
@@ -1011,7 +1010,7 @@ class FLT_PARAMETERS extends Win32Struct
                 get => NumGet(this, 0, "uint")
                 set => NumPut("uint", value, this, 0)
             }
-        
+
             /**
              * @type {Integer}
              */
@@ -1019,7 +1018,7 @@ class FLT_PARAMETERS extends Win32Struct
                 get => NumGet(this, 4, "uint")
                 set => NumPut("uint", value, this, 4)
             }
-        
+
             /**
              * @type {Integer}
              */
@@ -1027,7 +1026,7 @@ class FLT_PARAMETERS extends Win32Struct
                 get => NumGet(this, 8, "uint")
                 set => NumPut("uint", value, this, 8)
             }
-        
+
             /**
              * @type {Pointer<Void>}
              */
@@ -1035,7 +1034,7 @@ class FLT_PARAMETERS extends Win32Struct
                 get => NumGet(this, 16, "ptr")
                 set => NumPut("ptr", value, this, 16)
             }
-        
+
             /**
              * @type {Pointer<Void>}
              */
@@ -1043,7 +1042,7 @@ class FLT_PARAMETERS extends Win32Struct
                 get => NumGet(this, 24, "ptr")
                 set => NumPut("ptr", value, this, 24)
             }
-        
+
             /**
              * @type {Pointer<MDL>}
              */
@@ -1051,13 +1050,12 @@ class FLT_PARAMETERS extends Win32Struct
                 get => NumGet(this, 32, "ptr")
                 set => NumPut("ptr", value, this, 32)
             }
-        
         }
-    
+
         class _Buffered extends Win32Struct {
             static sizeof => 24
             static packingSize => 8
-    
+
             /**
              * @type {Integer}
              */
@@ -1065,7 +1063,7 @@ class FLT_PARAMETERS extends Win32Struct
                 get => NumGet(this, 0, "uint")
                 set => NumPut("uint", value, this, 0)
             }
-        
+
             /**
              * @type {Integer}
              */
@@ -1073,7 +1071,7 @@ class FLT_PARAMETERS extends Win32Struct
                 get => NumGet(this, 4, "uint")
                 set => NumPut("uint", value, this, 4)
             }
-        
+
             /**
              * @type {Integer}
              */
@@ -1081,7 +1079,7 @@ class FLT_PARAMETERS extends Win32Struct
                 get => NumGet(this, 8, "uint")
                 set => NumPut("uint", value, this, 8)
             }
-        
+
             /**
              * @type {Pointer<Void>}
              */
@@ -1089,13 +1087,12 @@ class FLT_PARAMETERS extends Win32Struct
                 get => NumGet(this, 16, "ptr")
                 set => NumPut("ptr", value, this, 16)
             }
-        
         }
-    
+
         class _Direct extends Win32Struct {
             static sizeof => 40
             static packingSize => 8
-    
+
             /**
              * @type {Integer}
              */
@@ -1103,7 +1100,7 @@ class FLT_PARAMETERS extends Win32Struct
                 get => NumGet(this, 0, "uint")
                 set => NumPut("uint", value, this, 0)
             }
-        
+
             /**
              * @type {Integer}
              */
@@ -1111,7 +1108,7 @@ class FLT_PARAMETERS extends Win32Struct
                 get => NumGet(this, 4, "uint")
                 set => NumPut("uint", value, this, 4)
             }
-        
+
             /**
              * @type {Integer}
              */
@@ -1119,7 +1116,7 @@ class FLT_PARAMETERS extends Win32Struct
                 get => NumGet(this, 8, "uint")
                 set => NumPut("uint", value, this, 8)
             }
-        
+
             /**
              * @type {Pointer<Void>}
              */
@@ -1127,7 +1124,7 @@ class FLT_PARAMETERS extends Win32Struct
                 get => NumGet(this, 16, "ptr")
                 set => NumPut("ptr", value, this, 16)
             }
-        
+
             /**
              * @type {Pointer<Void>}
              */
@@ -1135,7 +1132,7 @@ class FLT_PARAMETERS extends Win32Struct
                 get => NumGet(this, 24, "ptr")
                 set => NumPut("ptr", value, this, 24)
             }
-        
+
             /**
              * @type {Pointer<MDL>}
              */
@@ -1143,13 +1140,12 @@ class FLT_PARAMETERS extends Win32Struct
                 get => NumGet(this, 32, "ptr")
                 set => NumPut("ptr", value, this, 32)
             }
-        
         }
-    
+
         class _FastIo extends Win32Struct {
             static sizeof => 32
             static packingSize => 8
-    
+
             /**
              * @type {Integer}
              */
@@ -1157,7 +1153,7 @@ class FLT_PARAMETERS extends Win32Struct
                 get => NumGet(this, 0, "uint")
                 set => NumPut("uint", value, this, 0)
             }
-        
+
             /**
              * @type {Integer}
              */
@@ -1165,7 +1161,7 @@ class FLT_PARAMETERS extends Win32Struct
                 get => NumGet(this, 4, "uint")
                 set => NumPut("uint", value, this, 4)
             }
-        
+
             /**
              * @type {Integer}
              */
@@ -1173,7 +1169,7 @@ class FLT_PARAMETERS extends Win32Struct
                 get => NumGet(this, 8, "uint")
                 set => NumPut("uint", value, this, 8)
             }
-        
+
             /**
              * @type {Pointer<Void>}
              */
@@ -1181,7 +1177,7 @@ class FLT_PARAMETERS extends Win32Struct
                 get => NumGet(this, 16, "ptr")
                 set => NumPut("ptr", value, this, 16)
             }
-        
+
             /**
              * @type {Pointer<Void>}
              */
@@ -1189,64 +1185,62 @@ class FLT_PARAMETERS extends Win32Struct
                 get => NumGet(this, 24, "ptr")
                 set => NumPut("ptr", value, this, 24)
             }
-        
         }
-    
+
         /**
          * @type {_Common}
          */
-        Common{
+        Common {
             get {
                 if(!this.HasProp("__Common"))
-                    this.__Common := %this.__Class%._Common(0, this)
+                    this.__Common := FLT_PARAMETERS._DeviceIoControl_e__Union._Common(0, this)
                 return this.__Common
             }
         }
-    
+
         /**
          * @type {_Neither}
          */
-        Neither{
+        Neither {
             get {
                 if(!this.HasProp("__Neither"))
-                    this.__Neither := %this.__Class%._Neither(0, this)
+                    this.__Neither := FLT_PARAMETERS._DeviceIoControl_e__Union._Neither(0, this)
                 return this.__Neither
             }
         }
-    
+
         /**
          * @type {_Buffered}
          */
-        Buffered{
+        Buffered {
             get {
                 if(!this.HasProp("__Buffered"))
-                    this.__Buffered := %this.__Class%._Buffered(0, this)
+                    this.__Buffered := FLT_PARAMETERS._DeviceIoControl_e__Union._Buffered(0, this)
                 return this.__Buffered
             }
         }
-    
+
         /**
          * @type {_Direct}
          */
-        Direct{
+        Direct {
             get {
                 if(!this.HasProp("__Direct"))
-                    this.__Direct := %this.__Class%._Direct(0, this)
+                    this.__Direct := FLT_PARAMETERS._DeviceIoControl_e__Union._Direct(0, this)
                 return this.__Direct
             }
         }
-    
+
         /**
          * @type {_FastIo}
          */
-        FastIo{
+        FastIo {
             get {
                 if(!this.HasProp("__FastIo"))
-                    this.__FastIo := %this.__Class%._FastIo(0, this)
+                    this.__FastIo := FLT_PARAMETERS._DeviceIoControl_e__Union._FastIo(0, this)
                 return this.__FastIo
             }
         }
-    
     }
 
     class _LockControl extends Win32Struct {
@@ -1260,7 +1254,7 @@ class FLT_PARAMETERS extends Win32Struct
             get => NumGet(this, 0, "ptr")
             set => NumPut("ptr", value, this, 0)
         }
-    
+
         /**
          * @type {Integer}
          */
@@ -1268,7 +1262,7 @@ class FLT_PARAMETERS extends Win32Struct
             get => NumGet(this, 8, "uint")
             set => NumPut("uint", value, this, 8)
         }
-    
+
         /**
          * @type {Integer}
          */
@@ -1276,7 +1270,7 @@ class FLT_PARAMETERS extends Win32Struct
             get => NumGet(this, 16, "int64")
             set => NumPut("int64", value, this, 16)
         }
-    
+
         /**
          * @type {PEPROCESS}
          */
@@ -1284,7 +1278,7 @@ class FLT_PARAMETERS extends Win32Struct
             get => NumGet(this, 24, "ptr")
             set => NumPut("ptr", value, this, 24)
         }
-    
+
         /**
          * @type {BOOLEAN}
          */
@@ -1292,7 +1286,7 @@ class FLT_PARAMETERS extends Win32Struct
             get => NumGet(this, 32, "char")
             set => NumPut("char", value, this, 32)
         }
-    
+
         /**
          * @type {BOOLEAN}
          */
@@ -1300,7 +1294,6 @@ class FLT_PARAMETERS extends Win32Struct
             get => NumGet(this, 33, "char")
             set => NumPut("char", value, this, 33)
         }
-    
     }
 
     class _QuerySecurity extends Win32Struct {
@@ -1314,7 +1307,7 @@ class FLT_PARAMETERS extends Win32Struct
             get => NumGet(this, 0, "uint")
             set => NumPut("uint", value, this, 0)
         }
-    
+
         /**
          * @type {Integer}
          */
@@ -1322,7 +1315,7 @@ class FLT_PARAMETERS extends Win32Struct
             get => NumGet(this, 4, "uint")
             set => NumPut("uint", value, this, 4)
         }
-    
+
         /**
          * @type {Pointer<Void>}
          */
@@ -1330,7 +1323,7 @@ class FLT_PARAMETERS extends Win32Struct
             get => NumGet(this, 8, "ptr")
             set => NumPut("ptr", value, this, 8)
         }
-    
+
         /**
          * @type {Pointer<MDL>}
          */
@@ -1338,7 +1331,6 @@ class FLT_PARAMETERS extends Win32Struct
             get => NumGet(this, 16, "ptr")
             set => NumPut("ptr", value, this, 16)
         }
-    
     }
 
     class _SetSecurity extends Win32Struct {
@@ -1352,18 +1344,17 @@ class FLT_PARAMETERS extends Win32Struct
             get => NumGet(this, 0, "uint")
             set => NumPut("uint", value, this, 0)
         }
-    
+
         /**
          * @type {PSECURITY_DESCRIPTOR}
          */
-        SecurityDescriptor{
+        SecurityDescriptor {
             get {
                 if(!this.HasProp("__SecurityDescriptor"))
                     this.__SecurityDescriptor := PSECURITY_DESCRIPTOR(8, this)
                 return this.__SecurityDescriptor
             }
         }
-    
     }
 
     class _WMI extends Win32Struct {
@@ -1377,7 +1368,7 @@ class FLT_PARAMETERS extends Win32Struct
             get => NumGet(this, 0, "ptr")
             set => NumPut("ptr", value, this, 0)
         }
-    
+
         /**
          * @type {Pointer<Void>}
          */
@@ -1385,7 +1376,7 @@ class FLT_PARAMETERS extends Win32Struct
             get => NumGet(this, 8, "ptr")
             set => NumPut("ptr", value, this, 8)
         }
-    
+
         /**
          * @type {Integer}
          */
@@ -1393,7 +1384,7 @@ class FLT_PARAMETERS extends Win32Struct
             get => NumGet(this, 16, "uint")
             set => NumPut("uint", value, this, 16)
         }
-    
+
         /**
          * @type {Pointer<Void>}
          */
@@ -1401,7 +1392,6 @@ class FLT_PARAMETERS extends Win32Struct
             get => NumGet(this, 24, "ptr")
             set => NumPut("ptr", value, this, 24)
         }
-    
     }
 
     class _QueryQuota extends Win32Struct {
@@ -1415,7 +1405,7 @@ class FLT_PARAMETERS extends Win32Struct
             get => NumGet(this, 0, "uint")
             set => NumPut("uint", value, this, 0)
         }
-    
+
         /**
          * @type {PSID}
          */
@@ -1423,7 +1413,7 @@ class FLT_PARAMETERS extends Win32Struct
             get => NumGet(this, 8, "ptr")
             set => NumPut("ptr", value, this, 8)
         }
-    
+
         /**
          * @type {Pointer<FILE_GET_QUOTA_INFORMATION>}
          */
@@ -1431,7 +1421,7 @@ class FLT_PARAMETERS extends Win32Struct
             get => NumGet(this, 16, "ptr")
             set => NumPut("ptr", value, this, 16)
         }
-    
+
         /**
          * @type {Integer}
          */
@@ -1439,7 +1429,7 @@ class FLT_PARAMETERS extends Win32Struct
             get => NumGet(this, 24, "uint")
             set => NumPut("uint", value, this, 24)
         }
-    
+
         /**
          * @type {Pointer<Void>}
          */
@@ -1447,7 +1437,7 @@ class FLT_PARAMETERS extends Win32Struct
             get => NumGet(this, 32, "ptr")
             set => NumPut("ptr", value, this, 32)
         }
-    
+
         /**
          * @type {Pointer<MDL>}
          */
@@ -1455,7 +1445,6 @@ class FLT_PARAMETERS extends Win32Struct
             get => NumGet(this, 40, "ptr")
             set => NumPut("ptr", value, this, 40)
         }
-    
     }
 
     class _SetQuota extends Win32Struct {
@@ -1469,7 +1458,7 @@ class FLT_PARAMETERS extends Win32Struct
             get => NumGet(this, 0, "uint")
             set => NumPut("uint", value, this, 0)
         }
-    
+
         /**
          * @type {Pointer<Void>}
          */
@@ -1477,7 +1466,7 @@ class FLT_PARAMETERS extends Win32Struct
             get => NumGet(this, 8, "ptr")
             set => NumPut("ptr", value, this, 8)
         }
-    
+
         /**
          * @type {Pointer<MDL>}
          */
@@ -1485,7 +1474,6 @@ class FLT_PARAMETERS extends Win32Struct
             get => NumGet(this, 16, "ptr")
             set => NumPut("ptr", value, this, 16)
         }
-    
     }
 
     class _Pnp_e__Union extends Win32Struct {
@@ -1495,7 +1483,7 @@ class FLT_PARAMETERS extends Win32Struct
         class _StartDevice extends Win32Struct {
             static sizeof => 16
             static packingSize => 8
-    
+
             /**
              * @type {Pointer<CM_RESOURCE_LIST>}
              */
@@ -1503,7 +1491,7 @@ class FLT_PARAMETERS extends Win32Struct
                 get => NumGet(this, 0, "ptr")
                 set => NumPut("ptr", value, this, 0)
             }
-        
+
             /**
              * @type {Pointer<CM_RESOURCE_LIST>}
              */
@@ -1511,27 +1499,25 @@ class FLT_PARAMETERS extends Win32Struct
                 get => NumGet(this, 8, "ptr")
                 set => NumPut("ptr", value, this, 8)
             }
-        
         }
-    
+
         class _QueryDeviceRelations extends Win32Struct {
             static sizeof => 4
             static packingSize => 4
-    
+
             /**
-             * @type {Integer}
+             * @type {DEVICE_RELATION_TYPE}
              */
             Type {
                 get => NumGet(this, 0, "int")
                 set => NumPut("int", value, this, 0)
             }
-        
         }
-    
+
         class _QueryInterface extends Win32Struct {
             static sizeof => 32
             static packingSize => 8
-    
+
             /**
              * @type {Pointer<Guid>}
              */
@@ -1539,7 +1525,7 @@ class FLT_PARAMETERS extends Win32Struct
                 get => NumGet(this, 0, "ptr")
                 set => NumPut("ptr", value, this, 0)
             }
-        
+
             /**
              * @type {Integer}
              */
@@ -1547,7 +1533,7 @@ class FLT_PARAMETERS extends Win32Struct
                 get => NumGet(this, 8, "ushort")
                 set => NumPut("ushort", value, this, 8)
             }
-        
+
             /**
              * @type {Integer}
              */
@@ -1555,7 +1541,7 @@ class FLT_PARAMETERS extends Win32Struct
                 get => NumGet(this, 10, "ushort")
                 set => NumPut("ushort", value, this, 10)
             }
-        
+
             /**
              * @type {Pointer<INTERFACE>}
              */
@@ -1563,7 +1549,7 @@ class FLT_PARAMETERS extends Win32Struct
                 get => NumGet(this, 16, "ptr")
                 set => NumPut("ptr", value, this, 16)
             }
-        
+
             /**
              * @type {Pointer<Void>}
              */
@@ -1571,13 +1557,12 @@ class FLT_PARAMETERS extends Win32Struct
                 get => NumGet(this, 24, "ptr")
                 set => NumPut("ptr", value, this, 24)
             }
-        
         }
-    
+
         class _DeviceCapabilities extends Win32Struct {
             static sizeof => 8
             static packingSize => 8
-    
+
             /**
              * @type {Pointer<DEVICE_CAPABILITIES>}
              */
@@ -1585,13 +1570,12 @@ class FLT_PARAMETERS extends Win32Struct
                 get => NumGet(this, 0, "ptr")
                 set => NumPut("ptr", value, this, 0)
             }
-        
         }
-    
+
         class _FilterResourceRequirements extends Win32Struct {
             static sizeof => 8
             static packingSize => 8
-    
+
             /**
              * @type {Pointer<IO_RESOURCE_REQUIREMENTS_LIST>}
              */
@@ -1599,13 +1583,12 @@ class FLT_PARAMETERS extends Win32Struct
                 get => NumGet(this, 0, "ptr")
                 set => NumPut("ptr", value, this, 0)
             }
-        
         }
-    
+
         class _ReadWriteConfig extends Win32Struct {
             static sizeof => 24
             static packingSize => 8
-    
+
             /**
              * @type {Integer}
              */
@@ -1613,7 +1596,7 @@ class FLT_PARAMETERS extends Win32Struct
                 get => NumGet(this, 0, "uint")
                 set => NumPut("uint", value, this, 0)
             }
-        
+
             /**
              * @type {Pointer<Void>}
              */
@@ -1621,7 +1604,7 @@ class FLT_PARAMETERS extends Win32Struct
                 get => NumGet(this, 8, "ptr")
                 set => NumPut("ptr", value, this, 8)
             }
-        
+
             /**
              * @type {Integer}
              */
@@ -1629,7 +1612,7 @@ class FLT_PARAMETERS extends Win32Struct
                 get => NumGet(this, 16, "uint")
                 set => NumPut("uint", value, this, 16)
             }
-        
+
             /**
              * @type {Integer}
              */
@@ -1637,13 +1620,12 @@ class FLT_PARAMETERS extends Win32Struct
                 get => NumGet(this, 20, "uint")
                 set => NumPut("uint", value, this, 20)
             }
-        
         }
-    
+
         class _SetLock extends Win32Struct {
             static sizeof => 1
             static packingSize => 1
-    
+
             /**
              * @type {BOOLEAN}
              */
@@ -1651,35 +1633,33 @@ class FLT_PARAMETERS extends Win32Struct
                 get => NumGet(this, 0, "char")
                 set => NumPut("char", value, this, 0)
             }
-        
         }
-    
+
         class _QueryId extends Win32Struct {
             static sizeof => 4
             static packingSize => 4
-    
+
             /**
-             * @type {Integer}
+             * @type {BUS_QUERY_ID_TYPE}
              */
             IdType {
                 get => NumGet(this, 0, "int")
                 set => NumPut("int", value, this, 0)
             }
-        
         }
-    
+
         class _QueryDeviceText extends Win32Struct {
             static sizeof => 8
             static packingSize => 4
-    
+
             /**
-             * @type {Integer}
+             * @type {DEVICE_TEXT_TYPE}
              */
             DeviceTextType {
                 get => NumGet(this, 0, "int")
                 set => NumPut("int", value, this, 0)
             }
-        
+
             /**
              * @type {Integer}
              */
@@ -1687,13 +1667,12 @@ class FLT_PARAMETERS extends Win32Struct
                 get => NumGet(this, 4, "uint")
                 set => NumPut("uint", value, this, 4)
             }
-        
         }
-    
+
         class _UsageNotification extends Win32Struct {
             static sizeof => 8
             static packingSize => 4
-    
+
             /**
              * @type {BOOLEAN}
              */
@@ -1701,138 +1680,136 @@ class FLT_PARAMETERS extends Win32Struct
                 get => NumGet(this, 0, "char")
                 set => NumPut("char", value, this, 0)
             }
-        
+
             /**
              * @type {Array<BOOLEAN>}
              */
-            Reserved{
+            Reserved {
                 get {
                     if(!this.HasProp("__ReservedProxyArray"))
                         this.__ReservedProxyArray := Win32FixedArray(this.ptr + 1, 3, Primitive, "char")
                     return this.__ReservedProxyArray
                 }
             }
-        
+
             /**
-             * @type {Integer}
+             * @type {DEVICE_USAGE_NOTIFICATION_TYPE}
              */
             Type {
                 get => NumGet(this, 4, "int")
                 set => NumPut("int", value, this, 4)
             }
-        
         }
-    
+
         /**
          * @type {_StartDevice}
          */
-        StartDevice{
+        StartDevice {
             get {
                 if(!this.HasProp("__StartDevice"))
-                    this.__StartDevice := %this.__Class%._StartDevice(0, this)
+                    this.__StartDevice := FLT_PARAMETERS._Pnp_e__Union._StartDevice(0, this)
                 return this.__StartDevice
             }
         }
-    
+
         /**
          * @type {_QueryDeviceRelations}
          */
-        QueryDeviceRelations{
+        QueryDeviceRelations {
             get {
                 if(!this.HasProp("__QueryDeviceRelations"))
-                    this.__QueryDeviceRelations := %this.__Class%._QueryDeviceRelations(0, this)
+                    this.__QueryDeviceRelations := FLT_PARAMETERS._Pnp_e__Union._QueryDeviceRelations(0, this)
                 return this.__QueryDeviceRelations
             }
         }
-    
+
         /**
          * @type {_QueryInterface}
          */
-        QueryInterface{
+        QueryInterface {
             get {
                 if(!this.HasProp("__QueryInterface"))
-                    this.__QueryInterface := %this.__Class%._QueryInterface(0, this)
+                    this.__QueryInterface := FLT_PARAMETERS._Pnp_e__Union._QueryInterface(0, this)
                 return this.__QueryInterface
             }
         }
-    
+
         /**
          * @type {_DeviceCapabilities}
          */
-        DeviceCapabilities{
+        DeviceCapabilities {
             get {
                 if(!this.HasProp("__DeviceCapabilities"))
-                    this.__DeviceCapabilities := %this.__Class%._DeviceCapabilities(0, this)
+                    this.__DeviceCapabilities := FLT_PARAMETERS._Pnp_e__Union._DeviceCapabilities(0, this)
                 return this.__DeviceCapabilities
             }
         }
-    
+
         /**
          * @type {_FilterResourceRequirements}
          */
-        FilterResourceRequirements{
+        FilterResourceRequirements {
             get {
                 if(!this.HasProp("__FilterResourceRequirements"))
-                    this.__FilterResourceRequirements := %this.__Class%._FilterResourceRequirements(0, this)
+                    this.__FilterResourceRequirements := FLT_PARAMETERS._Pnp_e__Union._FilterResourceRequirements(0, this)
                 return this.__FilterResourceRequirements
             }
         }
-    
+
         /**
          * @type {_ReadWriteConfig}
          */
-        ReadWriteConfig{
+        ReadWriteConfig {
             get {
                 if(!this.HasProp("__ReadWriteConfig"))
-                    this.__ReadWriteConfig := %this.__Class%._ReadWriteConfig(0, this)
+                    this.__ReadWriteConfig := FLT_PARAMETERS._Pnp_e__Union._ReadWriteConfig(0, this)
                 return this.__ReadWriteConfig
             }
         }
-    
+
         /**
          * @type {_SetLock}
          */
-        SetLock{
+        SetLock {
             get {
                 if(!this.HasProp("__SetLock"))
-                    this.__SetLock := %this.__Class%._SetLock(0, this)
+                    this.__SetLock := FLT_PARAMETERS._Pnp_e__Union._SetLock(0, this)
                 return this.__SetLock
             }
         }
-    
+
         /**
          * @type {_QueryId}
          */
-        QueryId{
+        QueryId {
             get {
                 if(!this.HasProp("__QueryId"))
-                    this.__QueryId := %this.__Class%._QueryId(0, this)
+                    this.__QueryId := FLT_PARAMETERS._Pnp_e__Union._QueryId(0, this)
                 return this.__QueryId
             }
         }
-    
+
         /**
          * @type {_QueryDeviceText}
          */
-        QueryDeviceText{
+        QueryDeviceText {
             get {
                 if(!this.HasProp("__QueryDeviceText"))
-                    this.__QueryDeviceText := %this.__Class%._QueryDeviceText(0, this)
+                    this.__QueryDeviceText := FLT_PARAMETERS._Pnp_e__Union._QueryDeviceText(0, this)
                 return this.__QueryDeviceText
             }
         }
-    
+
         /**
          * @type {_UsageNotification}
          */
-        UsageNotification{
+        UsageNotification {
             get {
                 if(!this.HasProp("__UsageNotification"))
-                    this.__UsageNotification := %this.__Class%._UsageNotification(0, this)
+                    this.__UsageNotification := FLT_PARAMETERS._Pnp_e__Union._UsageNotification(0, this)
                 return this.__UsageNotification
             }
         }
-    
     }
 
     class _AcquireForSectionSynchronization extends Win32Struct {
@@ -1840,13 +1817,13 @@ class FLT_PARAMETERS extends Win32Struct
         static packingSize => 8
 
         /**
-         * @type {Integer}
+         * @type {FS_FILTER_SECTION_SYNC_TYPE}
          */
         SyncType {
             get => NumGet(this, 0, "int")
             set => NumPut("int", value, this, 0)
         }
-    
+
         /**
          * @type {Integer}
          */
@@ -1854,7 +1831,7 @@ class FLT_PARAMETERS extends Win32Struct
             get => NumGet(this, 4, "uint")
             set => NumPut("uint", value, this, 4)
         }
-    
+
         /**
          * @type {Pointer<FS_FILTER_SECTION_SYNC_OUTPUT>}
          */
@@ -1862,7 +1839,7 @@ class FLT_PARAMETERS extends Win32Struct
             get => NumGet(this, 8, "ptr")
             set => NumPut("ptr", value, this, 8)
         }
-    
+
         /**
          * @type {Integer}
          */
@@ -1870,7 +1847,7 @@ class FLT_PARAMETERS extends Win32Struct
             get => NumGet(this, 16, "uint")
             set => NumPut("uint", value, this, 16)
         }
-    
+
         /**
          * @type {Integer}
          */
@@ -1878,7 +1855,6 @@ class FLT_PARAMETERS extends Win32Struct
             get => NumGet(this, 20, "uint")
             set => NumPut("uint", value, this, 20)
         }
-    
     }
 
     class _AcquireForModifiedPageWriter extends Win32Struct {
@@ -1892,7 +1868,7 @@ class FLT_PARAMETERS extends Win32Struct
             get => NumGet(this, 0, "ptr")
             set => NumPut("ptr", value, this, 0)
         }
-    
+
         /**
          * @type {Pointer<Pointer<ERESOURCE>>}
          */
@@ -1900,7 +1876,6 @@ class FLT_PARAMETERS extends Win32Struct
             get => NumGet(this, 8, "ptr")
             set => NumPut("ptr", value, this, 8)
         }
-    
     }
 
     class _ReleaseForModifiedPageWriter extends Win32Struct {
@@ -1914,7 +1889,6 @@ class FLT_PARAMETERS extends Win32Struct
             get => NumGet(this, 0, "ptr")
             set => NumPut("ptr", value, this, 0)
         }
-    
     }
 
     class _QueryOpen extends Win32Struct {
@@ -1928,7 +1902,7 @@ class FLT_PARAMETERS extends Win32Struct
             get => NumGet(this, 0, "ptr")
             set => NumPut("ptr", value, this, 0)
         }
-    
+
         /**
          * @type {Pointer<Void>}
          */
@@ -1936,7 +1910,7 @@ class FLT_PARAMETERS extends Win32Struct
             get => NumGet(this, 8, "ptr")
             set => NumPut("ptr", value, this, 8)
         }
-    
+
         /**
          * @type {Pointer<Integer>}
          */
@@ -1944,15 +1918,14 @@ class FLT_PARAMETERS extends Win32Struct
             get => NumGet(this, 16, "ptr")
             set => NumPut("ptr", value, this, 16)
         }
-    
+
         /**
-         * @type {Integer}
+         * @type {FILE_INFORMATION_CLASS}
          */
         FileInformationClass {
             get => NumGet(this, 24, "int")
             set => NumPut("int", value, this, 24)
         }
-    
     }
 
     class _FastIoCheckIfPossible extends Win32Struct {
@@ -1966,7 +1939,7 @@ class FLT_PARAMETERS extends Win32Struct
             get => NumGet(this, 0, "int64")
             set => NumPut("int64", value, this, 0)
         }
-    
+
         /**
          * @type {Integer}
          */
@@ -1974,7 +1947,7 @@ class FLT_PARAMETERS extends Win32Struct
             get => NumGet(this, 8, "uint")
             set => NumPut("uint", value, this, 8)
         }
-    
+
         /**
          * @type {Integer}
          */
@@ -1982,7 +1955,7 @@ class FLT_PARAMETERS extends Win32Struct
             get => NumGet(this, 12, "uint")
             set => NumPut("uint", value, this, 12)
         }
-    
+
         /**
          * @type {BOOLEAN}
          */
@@ -1990,7 +1963,6 @@ class FLT_PARAMETERS extends Win32Struct
             get => NumGet(this, 16, "char")
             set => NumPut("char", value, this, 16)
         }
-    
     }
 
     class _NetworkQueryOpen extends Win32Struct {
@@ -2004,7 +1976,7 @@ class FLT_PARAMETERS extends Win32Struct
             get => NumGet(this, 0, "ptr")
             set => NumPut("ptr", value, this, 0)
         }
-    
+
         /**
          * @type {Pointer<FILE_NETWORK_OPEN_INFORMATION>}
          */
@@ -2012,7 +1984,6 @@ class FLT_PARAMETERS extends Win32Struct
             get => NumGet(this, 8, "ptr")
             set => NumPut("ptr", value, this, 8)
         }
-    
     }
 
     class _MdlRead extends Win32Struct {
@@ -2026,7 +1997,7 @@ class FLT_PARAMETERS extends Win32Struct
             get => NumGet(this, 0, "int64")
             set => NumPut("int64", value, this, 0)
         }
-    
+
         /**
          * @type {Integer}
          */
@@ -2034,7 +2005,7 @@ class FLT_PARAMETERS extends Win32Struct
             get => NumGet(this, 8, "uint")
             set => NumPut("uint", value, this, 8)
         }
-    
+
         /**
          * @type {Integer}
          */
@@ -2042,7 +2013,7 @@ class FLT_PARAMETERS extends Win32Struct
             get => NumGet(this, 12, "uint")
             set => NumPut("uint", value, this, 12)
         }
-    
+
         /**
          * @type {Pointer<Pointer<MDL>>}
          */
@@ -2050,7 +2021,6 @@ class FLT_PARAMETERS extends Win32Struct
             get => NumGet(this, 16, "ptr")
             set => NumPut("ptr", value, this, 16)
         }
-    
     }
 
     class _MdlReadComplete extends Win32Struct {
@@ -2064,7 +2034,6 @@ class FLT_PARAMETERS extends Win32Struct
             get => NumGet(this, 0, "ptr")
             set => NumPut("ptr", value, this, 0)
         }
-    
     }
 
     class _PrepareMdlWrite extends Win32Struct {
@@ -2078,7 +2047,7 @@ class FLT_PARAMETERS extends Win32Struct
             get => NumGet(this, 0, "int64")
             set => NumPut("int64", value, this, 0)
         }
-    
+
         /**
          * @type {Integer}
          */
@@ -2086,7 +2055,7 @@ class FLT_PARAMETERS extends Win32Struct
             get => NumGet(this, 8, "uint")
             set => NumPut("uint", value, this, 8)
         }
-    
+
         /**
          * @type {Integer}
          */
@@ -2094,7 +2063,7 @@ class FLT_PARAMETERS extends Win32Struct
             get => NumGet(this, 12, "uint")
             set => NumPut("uint", value, this, 12)
         }
-    
+
         /**
          * @type {Pointer<Pointer<MDL>>}
          */
@@ -2102,7 +2071,6 @@ class FLT_PARAMETERS extends Win32Struct
             get => NumGet(this, 16, "ptr")
             set => NumPut("ptr", value, this, 16)
         }
-    
     }
 
     class _MdlWriteComplete extends Win32Struct {
@@ -2116,7 +2084,7 @@ class FLT_PARAMETERS extends Win32Struct
             get => NumGet(this, 0, "int64")
             set => NumPut("int64", value, this, 0)
         }
-    
+
         /**
          * @type {Pointer<MDL>}
          */
@@ -2124,7 +2092,6 @@ class FLT_PARAMETERS extends Win32Struct
             get => NumGet(this, 8, "ptr")
             set => NumPut("ptr", value, this, 8)
         }
-    
     }
 
     class _MountVolume extends Win32Struct {
@@ -2138,7 +2105,6 @@ class FLT_PARAMETERS extends Win32Struct
             get => NumGet(this, 0, "uint")
             set => NumPut("uint", value, this, 0)
         }
-    
     }
 
     class _Others extends Win32Struct {
@@ -2152,7 +2118,7 @@ class FLT_PARAMETERS extends Win32Struct
             get => NumGet(this, 0, "ptr")
             set => NumPut("ptr", value, this, 0)
         }
-    
+
         /**
          * @type {Pointer<Void>}
          */
@@ -2160,7 +2126,7 @@ class FLT_PARAMETERS extends Win32Struct
             get => NumGet(this, 8, "ptr")
             set => NumPut("ptr", value, this, 8)
         }
-    
+
         /**
          * @type {Pointer<Void>}
          */
@@ -2168,7 +2134,7 @@ class FLT_PARAMETERS extends Win32Struct
             get => NumGet(this, 16, "ptr")
             set => NumPut("ptr", value, this, 16)
         }
-    
+
         /**
          * @type {Pointer<Void>}
          */
@@ -2176,7 +2142,7 @@ class FLT_PARAMETERS extends Win32Struct
             get => NumGet(this, 24, "ptr")
             set => NumPut("ptr", value, this, 24)
         }
-    
+
         /**
          * @type {Pointer<Void>}
          */
@@ -2184,7 +2150,7 @@ class FLT_PARAMETERS extends Win32Struct
             get => NumGet(this, 32, "ptr")
             set => NumPut("ptr", value, this, 32)
         }
-    
+
         /**
          * @type {Integer}
          */
@@ -2192,16 +2158,15 @@ class FLT_PARAMETERS extends Win32Struct
             get => NumGet(this, 40, "int64")
             set => NumPut("int64", value, this, 40)
         }
-    
     }
 
     /**
      * @type {_Create}
      */
-    Create{
+    Create {
         get {
             if(!this.HasProp("__Create"))
-                this.__Create := %this.__Class%._Create(0, this)
+                this.__Create := FLT_PARAMETERS._Create(0, this)
             return this.__Create
         }
     }
@@ -2209,10 +2174,10 @@ class FLT_PARAMETERS extends Win32Struct
     /**
      * @type {_CreatePipe}
      */
-    CreatePipe{
+    CreatePipe {
         get {
             if(!this.HasProp("__CreatePipe"))
-                this.__CreatePipe := %this.__Class%._CreatePipe(0, this)
+                this.__CreatePipe := FLT_PARAMETERS._CreatePipe(0, this)
             return this.__CreatePipe
         }
     }
@@ -2220,10 +2185,10 @@ class FLT_PARAMETERS extends Win32Struct
     /**
      * @type {_CreateMailslot}
      */
-    CreateMailslot{
+    CreateMailslot {
         get {
             if(!this.HasProp("__CreateMailslot"))
-                this.__CreateMailslot := %this.__Class%._CreateMailslot(0, this)
+                this.__CreateMailslot := FLT_PARAMETERS._CreateMailslot(0, this)
             return this.__CreateMailslot
         }
     }
@@ -2231,10 +2196,10 @@ class FLT_PARAMETERS extends Win32Struct
     /**
      * @type {_Read}
      */
-    Read{
+    Read {
         get {
             if(!this.HasProp("__Read"))
-                this.__Read := %this.__Class%._Read(0, this)
+                this.__Read := FLT_PARAMETERS._Read(0, this)
             return this.__Read
         }
     }
@@ -2242,10 +2207,10 @@ class FLT_PARAMETERS extends Win32Struct
     /**
      * @type {_Write}
      */
-    Write{
+    Write {
         get {
             if(!this.HasProp("__Write"))
-                this.__Write := %this.__Class%._Write(0, this)
+                this.__Write := FLT_PARAMETERS._Write(0, this)
             return this.__Write
         }
     }
@@ -2253,10 +2218,10 @@ class FLT_PARAMETERS extends Win32Struct
     /**
      * @type {_QueryFileInformation}
      */
-    QueryFileInformation{
+    QueryFileInformation {
         get {
             if(!this.HasProp("__QueryFileInformation"))
-                this.__QueryFileInformation := %this.__Class%._QueryFileInformation(0, this)
+                this.__QueryFileInformation := FLT_PARAMETERS._QueryFileInformation(0, this)
             return this.__QueryFileInformation
         }
     }
@@ -2264,10 +2229,10 @@ class FLT_PARAMETERS extends Win32Struct
     /**
      * @type {_SetFileInformation}
      */
-    SetFileInformation{
+    SetFileInformation {
         get {
             if(!this.HasProp("__SetFileInformation"))
-                this.__SetFileInformation := %this.__Class%._SetFileInformation(0, this)
+                this.__SetFileInformation := FLT_PARAMETERS._SetFileInformation(0, this)
             return this.__SetFileInformation
         }
     }
@@ -2275,10 +2240,10 @@ class FLT_PARAMETERS extends Win32Struct
     /**
      * @type {_QueryEa}
      */
-    QueryEa{
+    QueryEa {
         get {
             if(!this.HasProp("__QueryEa"))
-                this.__QueryEa := %this.__Class%._QueryEa(0, this)
+                this.__QueryEa := FLT_PARAMETERS._QueryEa(0, this)
             return this.__QueryEa
         }
     }
@@ -2286,10 +2251,10 @@ class FLT_PARAMETERS extends Win32Struct
     /**
      * @type {_SetEa}
      */
-    SetEa{
+    SetEa {
         get {
             if(!this.HasProp("__SetEa"))
-                this.__SetEa := %this.__Class%._SetEa(0, this)
+                this.__SetEa := FLT_PARAMETERS._SetEa(0, this)
             return this.__SetEa
         }
     }
@@ -2297,10 +2262,10 @@ class FLT_PARAMETERS extends Win32Struct
     /**
      * @type {_QueryVolumeInformation}
      */
-    QueryVolumeInformation{
+    QueryVolumeInformation {
         get {
             if(!this.HasProp("__QueryVolumeInformation"))
-                this.__QueryVolumeInformation := %this.__Class%._QueryVolumeInformation(0, this)
+                this.__QueryVolumeInformation := FLT_PARAMETERS._QueryVolumeInformation(0, this)
             return this.__QueryVolumeInformation
         }
     }
@@ -2308,10 +2273,10 @@ class FLT_PARAMETERS extends Win32Struct
     /**
      * @type {_SetVolumeInformation}
      */
-    SetVolumeInformation{
+    SetVolumeInformation {
         get {
             if(!this.HasProp("__SetVolumeInformation"))
-                this.__SetVolumeInformation := %this.__Class%._SetVolumeInformation(0, this)
+                this.__SetVolumeInformation := FLT_PARAMETERS._SetVolumeInformation(0, this)
             return this.__SetVolumeInformation
         }
     }
@@ -2319,10 +2284,10 @@ class FLT_PARAMETERS extends Win32Struct
     /**
      * @type {_DirectoryControl_e__Union}
      */
-    DirectoryControl{
+    DirectoryControl {
         get {
             if(!this.HasProp("__DirectoryControl"))
-                this.__DirectoryControl := %this.__Class%._DirectoryControl_e__Union(0, this)
+                this.__DirectoryControl := FLT_PARAMETERS._DirectoryControl_e__Union(0, this)
             return this.__DirectoryControl
         }
     }
@@ -2330,10 +2295,10 @@ class FLT_PARAMETERS extends Win32Struct
     /**
      * @type {_FileSystemControl_e__Union}
      */
-    FileSystemControl{
+    FileSystemControl {
         get {
             if(!this.HasProp("__FileSystemControl"))
-                this.__FileSystemControl := %this.__Class%._FileSystemControl_e__Union(0, this)
+                this.__FileSystemControl := FLT_PARAMETERS._FileSystemControl_e__Union(0, this)
             return this.__FileSystemControl
         }
     }
@@ -2341,10 +2306,10 @@ class FLT_PARAMETERS extends Win32Struct
     /**
      * @type {_DeviceIoControl_e__Union}
      */
-    DeviceIoControl{
+    DeviceIoControl {
         get {
             if(!this.HasProp("__DeviceIoControl"))
-                this.__DeviceIoControl := %this.__Class%._DeviceIoControl_e__Union(0, this)
+                this.__DeviceIoControl := FLT_PARAMETERS._DeviceIoControl_e__Union(0, this)
             return this.__DeviceIoControl
         }
     }
@@ -2352,10 +2317,10 @@ class FLT_PARAMETERS extends Win32Struct
     /**
      * @type {_LockControl}
      */
-    LockControl{
+    LockControl {
         get {
             if(!this.HasProp("__LockControl"))
-                this.__LockControl := %this.__Class%._LockControl(0, this)
+                this.__LockControl := FLT_PARAMETERS._LockControl(0, this)
             return this.__LockControl
         }
     }
@@ -2363,10 +2328,10 @@ class FLT_PARAMETERS extends Win32Struct
     /**
      * @type {_QuerySecurity}
      */
-    QuerySecurity{
+    QuerySecurity {
         get {
             if(!this.HasProp("__QuerySecurity"))
-                this.__QuerySecurity := %this.__Class%._QuerySecurity(0, this)
+                this.__QuerySecurity := FLT_PARAMETERS._QuerySecurity(0, this)
             return this.__QuerySecurity
         }
     }
@@ -2374,10 +2339,10 @@ class FLT_PARAMETERS extends Win32Struct
     /**
      * @type {_SetSecurity}
      */
-    SetSecurity{
+    SetSecurity {
         get {
             if(!this.HasProp("__SetSecurity"))
-                this.__SetSecurity := %this.__Class%._SetSecurity(0, this)
+                this.__SetSecurity := FLT_PARAMETERS._SetSecurity(0, this)
             return this.__SetSecurity
         }
     }
@@ -2385,10 +2350,10 @@ class FLT_PARAMETERS extends Win32Struct
     /**
      * @type {_WMI}
      */
-    WMI{
+    WMI {
         get {
             if(!this.HasProp("__WMI"))
-                this.__WMI := %this.__Class%._WMI(0, this)
+                this.__WMI := FLT_PARAMETERS._WMI(0, this)
             return this.__WMI
         }
     }
@@ -2396,10 +2361,10 @@ class FLT_PARAMETERS extends Win32Struct
     /**
      * @type {_QueryQuota}
      */
-    QueryQuota{
+    QueryQuota {
         get {
             if(!this.HasProp("__QueryQuota"))
-                this.__QueryQuota := %this.__Class%._QueryQuota(0, this)
+                this.__QueryQuota := FLT_PARAMETERS._QueryQuota(0, this)
             return this.__QueryQuota
         }
     }
@@ -2407,10 +2372,10 @@ class FLT_PARAMETERS extends Win32Struct
     /**
      * @type {_SetQuota}
      */
-    SetQuota{
+    SetQuota {
         get {
             if(!this.HasProp("__SetQuota"))
-                this.__SetQuota := %this.__Class%._SetQuota(0, this)
+                this.__SetQuota := FLT_PARAMETERS._SetQuota(0, this)
             return this.__SetQuota
         }
     }
@@ -2418,10 +2383,10 @@ class FLT_PARAMETERS extends Win32Struct
     /**
      * @type {_Pnp_e__Union}
      */
-    Pnp{
+    Pnp {
         get {
             if(!this.HasProp("__Pnp"))
-                this.__Pnp := %this.__Class%._Pnp_e__Union(0, this)
+                this.__Pnp := FLT_PARAMETERS._Pnp_e__Union(0, this)
             return this.__Pnp
         }
     }
@@ -2429,10 +2394,10 @@ class FLT_PARAMETERS extends Win32Struct
     /**
      * @type {_AcquireForSectionSynchronization}
      */
-    AcquireForSectionSynchronization{
+    AcquireForSectionSynchronization {
         get {
             if(!this.HasProp("__AcquireForSectionSynchronization"))
-                this.__AcquireForSectionSynchronization := %this.__Class%._AcquireForSectionSynchronization(0, this)
+                this.__AcquireForSectionSynchronization := FLT_PARAMETERS._AcquireForSectionSynchronization(0, this)
             return this.__AcquireForSectionSynchronization
         }
     }
@@ -2440,10 +2405,10 @@ class FLT_PARAMETERS extends Win32Struct
     /**
      * @type {_AcquireForModifiedPageWriter}
      */
-    AcquireForModifiedPageWriter{
+    AcquireForModifiedPageWriter {
         get {
             if(!this.HasProp("__AcquireForModifiedPageWriter"))
-                this.__AcquireForModifiedPageWriter := %this.__Class%._AcquireForModifiedPageWriter(0, this)
+                this.__AcquireForModifiedPageWriter := FLT_PARAMETERS._AcquireForModifiedPageWriter(0, this)
             return this.__AcquireForModifiedPageWriter
         }
     }
@@ -2451,10 +2416,10 @@ class FLT_PARAMETERS extends Win32Struct
     /**
      * @type {_ReleaseForModifiedPageWriter}
      */
-    ReleaseForModifiedPageWriter{
+    ReleaseForModifiedPageWriter {
         get {
             if(!this.HasProp("__ReleaseForModifiedPageWriter"))
-                this.__ReleaseForModifiedPageWriter := %this.__Class%._ReleaseForModifiedPageWriter(0, this)
+                this.__ReleaseForModifiedPageWriter := FLT_PARAMETERS._ReleaseForModifiedPageWriter(0, this)
             return this.__ReleaseForModifiedPageWriter
         }
     }
@@ -2462,10 +2427,10 @@ class FLT_PARAMETERS extends Win32Struct
     /**
      * @type {_QueryOpen}
      */
-    QueryOpen{
+    QueryOpen {
         get {
             if(!this.HasProp("__QueryOpen"))
-                this.__QueryOpen := %this.__Class%._QueryOpen(0, this)
+                this.__QueryOpen := FLT_PARAMETERS._QueryOpen(0, this)
             return this.__QueryOpen
         }
     }
@@ -2473,10 +2438,10 @@ class FLT_PARAMETERS extends Win32Struct
     /**
      * @type {_FastIoCheckIfPossible}
      */
-    FastIoCheckIfPossible{
+    FastIoCheckIfPossible {
         get {
             if(!this.HasProp("__FastIoCheckIfPossible"))
-                this.__FastIoCheckIfPossible := %this.__Class%._FastIoCheckIfPossible(0, this)
+                this.__FastIoCheckIfPossible := FLT_PARAMETERS._FastIoCheckIfPossible(0, this)
             return this.__FastIoCheckIfPossible
         }
     }
@@ -2484,10 +2449,10 @@ class FLT_PARAMETERS extends Win32Struct
     /**
      * @type {_NetworkQueryOpen}
      */
-    NetworkQueryOpen{
+    NetworkQueryOpen {
         get {
             if(!this.HasProp("__NetworkQueryOpen"))
-                this.__NetworkQueryOpen := %this.__Class%._NetworkQueryOpen(0, this)
+                this.__NetworkQueryOpen := FLT_PARAMETERS._NetworkQueryOpen(0, this)
             return this.__NetworkQueryOpen
         }
     }
@@ -2495,10 +2460,10 @@ class FLT_PARAMETERS extends Win32Struct
     /**
      * @type {_MdlRead}
      */
-    MdlRead{
+    MdlRead {
         get {
             if(!this.HasProp("__MdlRead"))
-                this.__MdlRead := %this.__Class%._MdlRead(0, this)
+                this.__MdlRead := FLT_PARAMETERS._MdlRead(0, this)
             return this.__MdlRead
         }
     }
@@ -2506,10 +2471,10 @@ class FLT_PARAMETERS extends Win32Struct
     /**
      * @type {_MdlReadComplete}
      */
-    MdlReadComplete{
+    MdlReadComplete {
         get {
             if(!this.HasProp("__MdlReadComplete"))
-                this.__MdlReadComplete := %this.__Class%._MdlReadComplete(0, this)
+                this.__MdlReadComplete := FLT_PARAMETERS._MdlReadComplete(0, this)
             return this.__MdlReadComplete
         }
     }
@@ -2517,10 +2482,10 @@ class FLT_PARAMETERS extends Win32Struct
     /**
      * @type {_PrepareMdlWrite}
      */
-    PrepareMdlWrite{
+    PrepareMdlWrite {
         get {
             if(!this.HasProp("__PrepareMdlWrite"))
-                this.__PrepareMdlWrite := %this.__Class%._PrepareMdlWrite(0, this)
+                this.__PrepareMdlWrite := FLT_PARAMETERS._PrepareMdlWrite(0, this)
             return this.__PrepareMdlWrite
         }
     }
@@ -2528,10 +2493,10 @@ class FLT_PARAMETERS extends Win32Struct
     /**
      * @type {_MdlWriteComplete}
      */
-    MdlWriteComplete{
+    MdlWriteComplete {
         get {
             if(!this.HasProp("__MdlWriteComplete"))
-                this.__MdlWriteComplete := %this.__Class%._MdlWriteComplete(0, this)
+                this.__MdlWriteComplete := FLT_PARAMETERS._MdlWriteComplete(0, this)
             return this.__MdlWriteComplete
         }
     }
@@ -2539,10 +2504,10 @@ class FLT_PARAMETERS extends Win32Struct
     /**
      * @type {_MountVolume}
      */
-    MountVolume{
+    MountVolume {
         get {
             if(!this.HasProp("__MountVolume"))
-                this.__MountVolume := %this.__Class%._MountVolume(0, this)
+                this.__MountVolume := FLT_PARAMETERS._MountVolume(0, this)
             return this.__MountVolume
         }
     }
@@ -2550,10 +2515,10 @@ class FLT_PARAMETERS extends Win32Struct
     /**
      * @type {_Others}
      */
-    Others{
+    Others {
         get {
             if(!this.HasProp("__Others"))
-                this.__Others := %this.__Class%._Others(0, this)
+                this.__Others := FLT_PARAMETERS._Others(0, this)
             return this.__Others
         }
     }

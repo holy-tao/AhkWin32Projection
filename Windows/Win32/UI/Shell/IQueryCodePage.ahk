@@ -7,9 +7,8 @@
  * Gets and sets the numeric value (Code Page identifier) of the ANSI code page.
  * @see https://learn.microsoft.com/windows/win32/api/shobjidl/nn-shobjidl-iquerycodepage
  * @namespace Windows.Win32.UI.Shell
- * @version v4.0.30319
  */
-class IQueryCodePage extends IUnknown{
+class IQueryCodePage extends IUnknown {
 
     static sizeof => A_PtrSize
     /**

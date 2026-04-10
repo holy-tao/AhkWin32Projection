@@ -4,10 +4,8 @@
 
 /**
  * @namespace Windows.Win32.Security.Authentication.Identity
- * @version v4.0.30319
  */
-class KSEC_LIST_ENTRY extends Win32Struct
-{
+class KSEC_LIST_ENTRY extends Win32Struct {
     static sizeof => 40
 
     static packingSize => 8
@@ -15,7 +13,7 @@ class KSEC_LIST_ENTRY extends Win32Struct
     /**
      * @type {LIST_ENTRY}
      */
-    List{
+    List {
         get {
             if(!this.HasProp("__List"))
                 this.__List := LIST_ENTRY(0, this)

@@ -10,10 +10,8 @@
  * The <a href="https://docs.microsoft.com/windows/desktop/api/mfapi/ns-mfapi-facerectinfoblobheader">FaceRectInfoBlobHeader</a> and <b>FaceRectInfo</b> structures only describe the blob format for the <b>MF_CAPTURE_METADATA_FACEROIS</b> attribute.  The metadata item structure for face ROIs (<a href="https://docs.microsoft.com/windows-hardware/drivers/ddi/content/ksmedia/ns-ksmedia-tagkscamera_metadata_itemheader">KSCAMERA_METADATA_ITEMHEADER</a> + face ROIs metadata payload) is up to driver and must be 8-byte aligned.
  * @see https://learn.microsoft.com/windows/win32/api/mfapi/ns-mfapi-facerectinfo
  * @namespace Windows.Win32.Media.Streaming
- * @version v4.0.30319
  */
-class FaceRectInfo extends Win32Struct
-{
+class FaceRectInfo extends Win32Struct {
     static sizeof => 20
 
     static packingSize => 4
@@ -22,7 +20,7 @@ class FaceRectInfo extends Win32Struct
      * Relative coordinates on the frame that face detection is running (Q31 format).
      * @type {RECT}
      */
-    Region{
+    Region {
         get {
             if(!this.HasProp("__Region"))
                 this.__Region := RECT(0, this)

@@ -7,9 +7,8 @@
  * Provides events related platform work queue.
  * @see https://learn.microsoft.com/windows/win32/api/rtworkq/nn-rtworkq-irtwqplatformevents
  * @namespace Windows.Win32.System.Threading
- * @version v4.0.30319
  */
-class IRtwqPlatformEvents extends IUnknown{
+class IRtwqPlatformEvents extends IUnknown {
 
     static sizeof => A_PtrSize
     /**

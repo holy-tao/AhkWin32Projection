@@ -7,10 +7,8 @@
  * Contains message information from a thread's message queue.
  * @see https://learn.microsoft.com/windows/win32/api/winuser/ns-winuser-msg
  * @namespace Windows.Win32.UI.WindowsAndMessaging
- * @version v4.0.30319
  */
-class MSG extends Win32Struct
-{
+class MSG extends Win32Struct {
     static sizeof => 48
 
     static packingSize => 8
@@ -21,7 +19,7 @@ class MSG extends Win32Struct
      * A handle to the window whose window procedure receives the message. This member is <b>NULL</b> when the message is a thread message.
      * @type {HWND}
      */
-    hwnd{
+    hwnd {
         get {
             if(!this.HasProp("__hwnd"))
                 this.__hwnd := HWND(0, this)
@@ -81,7 +79,7 @@ class MSG extends Win32Struct
      * The cursor position, in screen coordinates, when the message was posted.
      * @type {POINT}
      */
-    pt{
+    pt {
         get {
             if(!this.HasProp("__pt"))
                 this.__pt := POINT(36, this)

@@ -1,5 +1,6 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
+#Include .\BCRYPT_DSA_MAGIC.ahk
 
 /**
  * Used as a header for a Digital Signature Algorithm (DSA) public key or private key BLOB in memory. (BCRYPT_DSA_KEY_BLOB)
@@ -32,17 +33,14 @@
  * ```
  * @see https://learn.microsoft.com/windows/win32/api/bcrypt/ns-bcrypt-bcrypt_dsa_key_blob
  * @namespace Windows.Win32.Security.Cryptography
- * @version v4.0.30319
  */
-class BCRYPT_DSA_KEY_BLOB extends Win32Struct
-{
+class BCRYPT_DSA_KEY_BLOB extends Win32Struct {
     static sizeof => 52
 
     static packingSize => 4
 
     /**
-     * 
-     * @type {Integer}
+     * @type {BCRYPT_DSA_MAGIC}
      */
     dwMagic {
         get => NumGet(this, 0, "uint")
@@ -60,9 +58,9 @@ class BCRYPT_DSA_KEY_BLOB extends Win32Struct
 
     /**
      * The number of iterations, in big-endian format, used to generate <i>q</i>.
-     * @type {Array<Byte>}
+     * @type {Array<Integer>}
      */
-    Count{
+    Count {
         get {
             if(!this.HasProp("__CountProxyArray"))
                 this.__CountProxyArray := Win32FixedArray(this.ptr + 8, 4, Primitive, "char")
@@ -72,9 +70,9 @@ class BCRYPT_DSA_KEY_BLOB extends Win32Struct
 
     /**
      * The seed value, in big-endian format, used to generate <i>q</i>.
-     * @type {Array<Byte>}
+     * @type {Array<Integer>}
      */
-    Seed{
+    Seed {
         get {
             if(!this.HasProp("__SeedProxyArray"))
                 this.__SeedProxyArray := Win32FixedArray(this.ptr + 12, 20, Primitive, "char")
@@ -84,9 +82,9 @@ class BCRYPT_DSA_KEY_BLOB extends Win32Struct
 
     /**
      * The 160-bit prime factor, in big-endian format.
-     * @type {Array<Byte>}
+     * @type {Array<Integer>}
      */
-    q{
+    q {
         get {
             if(!this.HasProp("__qProxyArray"))
                 this.__qProxyArray := Win32FixedArray(this.ptr + 32, 20, Primitive, "char")

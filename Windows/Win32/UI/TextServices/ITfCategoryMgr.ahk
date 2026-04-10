@@ -1,17 +1,17 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
-#Include ..\..\System\Com\IEnumGUID.ahk
-#Include ..\..\Foundation\BSTR.ahk
 #Include ..\..\System\Com\IUnknown.ahk
+#Include ..\..\System\Com\IEnumGUID.ahk
+#Include ..\..\..\..\Guid.ahk
+#Include ..\..\Foundation\BSTR.ahk
 
 /**
  * The ITfCategoryMgr interface manages categories of objects for text services. The TSF manager implements this interface.
  * @see https://learn.microsoft.com/windows/win32/api/msctf/nn-msctf-itfcategorymgr
  * @namespace Windows.Win32.UI.TextServices
- * @version v4.0.30319
  */
-class ITfCategoryMgr extends IUnknown{
+class ITfCategoryMgr extends IUnknown {
 
     static sizeof => A_PtrSize
     /**

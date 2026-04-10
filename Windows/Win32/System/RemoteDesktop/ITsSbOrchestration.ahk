@@ -7,9 +7,8 @@
  * Exposes methods that Remote Desktop Connection Broker (RD Connection Broker) uses to ensure that the target is ready before a client is redirected to it.
  * @see https://learn.microsoft.com/windows/win32/api/sbtsv/nn-sbtsv-itssborchestration
  * @namespace Windows.Win32.System.RemoteDesktop
- * @version v4.0.30319
  */
-class ITsSbOrchestration extends ITsSbPlugin{
+class ITsSbOrchestration extends ITsSbPlugin {
 
     static sizeof => A_PtrSize
     /**

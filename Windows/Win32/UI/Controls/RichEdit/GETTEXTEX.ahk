@@ -1,5 +1,6 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\..\Win32Struct.ahk
+#Include .\GETTEXTEX_FLAGS.ahk
 
 /**
  * Contains information used in getting text from a rich edit control. This structure used with the EM_GETTEXTEX message.
@@ -7,10 +8,9 @@
  * The <a href="https://docs.microsoft.com/windows/desktop/Controls/em-gettextex">EM_GETTEXTEX</a> message is faster when both <b>lpDefaultChar</b> and <b>lpUsedDefChar</b> are <b>NULL</b>.
  * @see https://learn.microsoft.com/windows/win32/api/richedit/ns-richedit-gettextex
  * @namespace Windows.Win32.UI.Controls.RichEdit
- * @version v4.0.30319
+ * @architecture X64, Arm64
  */
-class GETTEXTEX extends Win32Struct
-{
+class GETTEXTEX extends Win32Struct {
     static sizeof => 32
 
     static packingSize => 8
@@ -28,7 +28,7 @@ class GETTEXTEX extends Win32Struct
 
     /**
      * Type: <b><a href="https://docs.microsoft.com/windows/desktop/WinProg/windows-data-types">DWORD</a></b>
-     * @type {Integer}
+     * @type {GETTEXTEX_FLAGS}
      */
     flags {
         get => NumGet(this, 4, "uint")

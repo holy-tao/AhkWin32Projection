@@ -1,17 +1,16 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
+#Include ..\..\System\Com\IUnknown.ahk
 #Include .\IXpsOMPackageWriter3D.ahk
 #Include .\IXpsOMObjectFactory.ahk
-#Include ..\..\System\Com\IUnknown.ahk
 
 /**
  * Provides methods for sending 3D content to XPS for printing.
  * @see https://learn.microsoft.com/windows/win32/api/xpsobjectmodel_2/nn-xpsobjectmodel_2-ixpsdocumentpackagetarget3d
  * @namespace Windows.Win32.Storage.Xps
- * @version v4.0.30319
  */
-class IXpsDocumentPackageTarget3D extends IUnknown{
+class IXpsDocumentPackageTarget3D extends IUnknown {
 
     static sizeof => A_PtrSize
     /**

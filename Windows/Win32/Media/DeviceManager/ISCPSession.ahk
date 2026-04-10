@@ -1,16 +1,15 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
-#Include .\ISCPSecureQuery.ahk
 #Include ..\..\System\Com\IUnknown.ahk
+#Include .\ISCPSecureQuery.ahk
 
 /**
  * The ISCPSession interface provides efficient common state management for multiple operations.A secure content provider (SCP) session is useful when transferring multiple files.
  * @see https://learn.microsoft.com/windows/win32/api/mswmdm/nn-mswmdm-iscpsession
  * @namespace Windows.Win32.Media.DeviceManager
- * @version v4.0.30319
  */
-class ISCPSession extends IUnknown{
+class ISCPSession extends IUnknown {
 
     static sizeof => A_PtrSize
     /**

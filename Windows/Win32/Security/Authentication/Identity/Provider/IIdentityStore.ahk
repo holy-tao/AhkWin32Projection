@@ -8,9 +8,8 @@
  * Provides methods to enumerate and manage identities and identity providers.
  * @see https://learn.microsoft.com/windows/win32/api/identitystore/nn-identitystore-iidentitystore
  * @namespace Windows.Win32.Security.Authentication.Identity.Provider
- * @version v4.0.30319
  */
-class IIdentityStore extends IUnknown{
+class IIdentityStore extends IUnknown {
 
     static sizeof => A_PtrSize
     /**
@@ -74,7 +73,7 @@ class IIdentityStore extends IUnknown{
      * @param {PWSTR} lpszUniqueID The identity for which to retrieve the SID.
      * @param {Pointer<Guid>} ProviderGUID The GUID of the identity provider.
      * @param {Integer} cbSid The size, in bytes, of the buffer pointed to by the <i>pSid</i> parameter.
-     * @param {Pointer<Integer>} _pSid 
+     * @param {Pointer<Integer>} _pSid A pointer to the SID this method retrieves.
      * @returns {Integer} The required length, in bytes,  of the <i>pSid</i> buffer.
      * @see https://learn.microsoft.com/windows/win32/api/identitystore/nf-identitystore-iidentitystore-converttosid
      */
@@ -89,7 +88,7 @@ class IIdentityStore extends IUnknown{
 
     /**
      * Gets a pointer to an IEnumUnknown interface pointer that can be used to enumerate identities across identity providers.
-     * @param {Integer} eIdentityType A value of the <a href="https://docs.microsoft.com/windows/win32/api/identitycommon/ne-identitycommon-identity_type">IDENTITY_TYPE</a> enumeration that indicates the type of identities to enumerate.
+     * @param {IDENTITY_TYPE} eIdentityType A value of the <a href="https://docs.microsoft.com/windows/win32/api/identitycommon/ne-identitycommon-identity_type">IDENTITY_TYPE</a> enumeration that indicates the type of identities to enumerate.
      * @param {Pointer<PROPERTYKEY>} pFilterkey A pointer to a <a href="https://docs.microsoft.com/windows/desktop/api/wtypes/ns-wtypes-propertykey">PROPERTYKEY</a> structure that specifies a property. If the value of this parameter is not <b>NULL</b>, only identities that support the property specified by this parameter are enumerated.
      * @param {Pointer<PROPVARIANT>} pFilterPropVarValue A pointer to a <a href="https://docs.microsoft.com/windows/desktop/api/propidl/ns-propidl-propvariant">PROPVARIANT</a> structure. If the values of this parameter and the <i>pFilterkey</i> parameters are not <b>NULL</b>, only identities that have the property value specified by this parameter are enumerated.
      * @returns {IEnumUnknown} A pointer to an <a href="https://docs.microsoft.com/windows/desktop/api/objidl/nn-objidl-ienumunknown">IEnumUnknown</a> interface pointer that can be used to enumerate identities.

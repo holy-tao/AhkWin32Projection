@@ -5,10 +5,8 @@
  * Used for limiting connection object enumerations.
  * @see https://learn.microsoft.com/windows/win32/api/fwpmtypes/ns-fwpmtypes-fwpm_connection_enum_template0
  * @namespace Windows.Win32.NetworkManagement.WindowsFilteringPlatform
- * @version v4.0.30319
  */
-class FWPM_CONNECTION_ENUM_TEMPLATE0 extends Win32Struct
-{
+class FWPM_CONNECTION_ENUM_TEMPLATE0 extends Win32Struct {
     static sizeof => 16
 
     static packingSize => 8

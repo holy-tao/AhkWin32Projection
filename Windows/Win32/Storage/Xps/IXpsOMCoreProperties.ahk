@@ -1,10 +1,9 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
+#Include .\IXpsOMPart.ahk
 #Include .\IXpsOMPackage.ahk
 #Include ..\..\Foundation\SYSTEMTIME.ahk
-#Include .\IXpsOMCoreProperties.ahk
-#Include .\IXpsOMPart.ahk
 
 /**
  * This interface provides access to the metadata that is stored in the Core Properties part of the XPS document.
@@ -12,9 +11,8 @@
  * The meaning and use of these properties is determined by the user or context.
  * @see https://learn.microsoft.com/windows/win32/api/xpsobjectmodel/nn-xpsobjectmodel-ixpsomcoreproperties
  * @namespace Windows.Win32.Storage.Xps
- * @version v4.0.30319
  */
-class IXpsOMCoreProperties extends IXpsOMPart{
+class IXpsOMCoreProperties extends IXpsOMPart {
 
     static sizeof => A_PtrSize
     /**
@@ -578,7 +576,7 @@ class IXpsOMCoreProperties extends IXpsOMPart{
      * The <b>version</b> property contains the resource's version number.
      * 
      * This method allocates the memory used by the string that is returned in <i>version</i>.  If <i>version</i> is not <b>NULL</b>, use the <a href="https://docs.microsoft.com/windows/desktop/api/combaseapi/nf-combaseapi-cotaskmemfree">CoTaskMemFree</a> function  to free the memory.
-     * @returns {PWSTR} 
+     * @returns {PWSTR} The string that is read from the <b>version</b> property.
      * @see https://learn.microsoft.com/windows/win32/api/xpsobjectmodel/nf-xpsobjectmodel-ixpsomcoreproperties-getversion
      */
     GetVersion() {
@@ -590,7 +588,7 @@ class IXpsOMCoreProperties extends IXpsOMPart{
      * Sets the version property.
      * @remarks
      * The <b>version</b> property contains the version number of the resource.
-     * @param {PWSTR} _version 
+     * @param {PWSTR} _version The string to be written to the <b>version</b> property. A <b>NULL</b> pointer clears the <b>version</b> property.
      * @returns {HRESULT} If the method succeeds, it returns S_OK; otherwise, it returns an <b>HRESULT</b> error code.
      * @see https://learn.microsoft.com/windows/win32/api/xpsobjectmodel/nf-xpsobjectmodel-ixpsomcoreproperties-setversion
      */

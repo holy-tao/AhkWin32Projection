@@ -3,10 +3,8 @@
 
 /**
  * @namespace Windows.Win32.Media.DirectShow
- * @version v4.0.30319
  */
-class AVITIMEDINDEX_ENTRY extends Win32Struct
-{
+class AVITIMEDINDEX_ENTRY extends Win32Struct {
     static sizeof => 12
 
     static packingSize => 4

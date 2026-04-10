@@ -11,9 +11,8 @@
  * The IM application calls the <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/rendezvoussession/nf-rendezvoussession-irendezvousapplication-setrendezvoussession">SetRendezvousSession</a> method to pass its implementation of the <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/rendezvoussession/nn-rendezvoussession-irendezvoussession">IRendezvousSession</a> interface to the Windows Remote Assistance application.
  * @see https://learn.microsoft.com/windows/win32/api/rendezvoussession/nn-rendezvoussession-irendezvousapplication
  * @namespace Windows.Win32.System.RemoteAssistance
- * @version v4.0.30319
  */
-class IRendezvousApplication extends IUnknown{
+class IRendezvousApplication extends IUnknown {
 
     static sizeof => A_PtrSize
     /**

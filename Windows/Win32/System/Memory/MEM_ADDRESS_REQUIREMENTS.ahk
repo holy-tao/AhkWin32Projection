@@ -7,10 +7,8 @@
  * Specifying a <b>MEM_ADDRESS_REQUIREMENTS</b> structure with all fields set to 0 is the same as not specifying one at all.
  * @see https://learn.microsoft.com/windows/win32/api/winnt/ns-winnt-mem_address_requirements
  * @namespace Windows.Win32.System.Memory
- * @version v4.0.30319
  */
-class MEM_ADDRESS_REQUIREMENTS extends Win32Struct
-{
+class MEM_ADDRESS_REQUIREMENTS extends Win32Struct {
     static sizeof => 24
 
     static packingSize => 8

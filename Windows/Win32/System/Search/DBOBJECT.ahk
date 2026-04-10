@@ -3,10 +3,9 @@
 
 /**
  * @namespace Windows.Win32.System.Search
- * @version v4.0.30319
+ * @architecture X64, Arm64
  */
-class DBOBJECT extends Win32Struct
-{
+class DBOBJECT extends Win32Struct {
     static sizeof => 16
 
     static packingSize => 8
@@ -20,7 +19,7 @@ class DBOBJECT extends Win32Struct
     }
 
     /**
-     * @type {Pointer<Guid>}
+     * @type {Pointer}
      */
     iid {
         get => NumGet(this, 8, "ptr")

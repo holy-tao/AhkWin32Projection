@@ -1,16 +1,14 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
-#Include ..\..\Foundation\BSTR.ahk
 #Include ..\Com\IUnknown.ahk
 
 /**
  * Provides the tools for creating and administering the type information defined through the type description. (ICreateTypeInfo)
  * @see https://learn.microsoft.com/windows/win32/api/oaidl/nn-oaidl-icreatetypeinfo
  * @namespace Windows.Win32.System.Ole
- * @version v4.0.30319
  */
-class ICreateTypeInfo extends IUnknown{
+class ICreateTypeInfo extends IUnknown {
 
     static sizeof => A_PtrSize
     /**
@@ -699,7 +697,7 @@ class ICreateTypeInfo extends IUnknown{
     /**
      * Sets the attributes for an implemented or inherited interface of a type.
      * @param {Integer} index The index of the interface for which to set type flags.
-     * @param {Integer} _implTypeFlags 
+     * @param {IMPLTYPEFLAGS} _implTypeFlags IMPLTYPE flags to be set.
      * @returns {HRESULT} This method can return one of these values.
      * 
      * <table>

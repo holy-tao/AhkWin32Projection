@@ -4,10 +4,8 @@
 
 /**
  * @namespace Windows.Win32.Devices.BiometricFramework
- * @version v4.0.30319
  */
-class WINBIO_FRAMEWORK_INTERFACE extends Win32Struct
-{
+class WINBIO_FRAMEWORK_INTERFACE extends Win32Struct {
     static sizeof => 376
 
     static packingSize => 8
@@ -15,7 +13,7 @@ class WINBIO_FRAMEWORK_INTERFACE extends Win32Struct
     /**
      * @type {WINBIO_ADAPTER_INTERFACE_VERSION}
      */
-    Version{
+    Version {
         get {
             if(!this.HasProp("__Version"))
                 this.__Version := WINBIO_ADAPTER_INTERFACE_VERSION(0, this)
@@ -40,7 +38,7 @@ class WINBIO_FRAMEWORK_INTERFACE extends Win32Struct
     }
 
     /**
-     * @type {Pointer<Guid>}
+     * @type {Pointer}
      */
     AdapterId {
         get => NumGet(this, 16, "ptr")

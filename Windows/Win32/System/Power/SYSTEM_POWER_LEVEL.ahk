@@ -1,15 +1,16 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
 #Include .\POWER_ACTION_POLICY.ahk
+#Include .\POWER_ACTION.ahk
+#Include .\POWER_ACTION_POLICY_EVENT_CODE.ahk
+#Include .\SYSTEM_POWER_STATE.ahk
 
 /**
  * Contains information about system battery drain policy settings.
  * @see https://learn.microsoft.com/windows/win32/api/winnt/ns-winnt-system_power_level
  * @namespace Windows.Win32.System.Power
- * @version v4.0.30319
  */
-class SYSTEM_POWER_LEVEL extends Win32Struct
-{
+class SYSTEM_POWER_LEVEL extends Win32Struct {
     static sizeof => 24
 
     static packingSize => 4
@@ -25,9 +26,9 @@ class SYSTEM_POWER_LEVEL extends Win32Struct
 
     /**
      * Reserved.
-     * @type {Array<Byte>}
+     * @type {Array<Integer>}
      */
-    Spare{
+    Spare {
         get {
             if(!this.HasProp("__SpareProxyArray"))
                 this.__SpareProxyArray := Win32FixedArray(this.ptr + 1, 3, Primitive, "char")
@@ -49,7 +50,7 @@ class SYSTEM_POWER_LEVEL extends Win32Struct
      * <a href="https://docs.microsoft.com/windows/desktop/api/winnt/ns-winnt-power_action_policy">POWER_ACTION_POLICY</a> structure that defines the action to take for this battery discharge policy.
      * @type {POWER_ACTION_POLICY}
      */
-    PowerPolicy{
+    PowerPolicy {
         get {
             if(!this.HasProp("__PowerPolicy"))
                 this.__PowerPolicy := POWER_ACTION_POLICY(8, this)
@@ -60,7 +61,7 @@ class SYSTEM_POWER_LEVEL extends Win32Struct
     /**
      * The minimum system sleep state to enter when the battery discharges below the value set in <b>BatteryLevel</b>. This member must be one of the 
      * <a href="https://docs.microsoft.com/windows/desktop/api/winnt/ne-winnt-system_power_state">SYSTEM_POWER_STATE</a> enumeration type values.
-     * @type {Integer}
+     * @type {SYSTEM_POWER_STATE}
      */
     MinSystemState {
         get => NumGet(this, 20, "int")

@@ -3,10 +3,8 @@
 
 /**
  * @namespace Windows.Win32.Devices.Cdrom
- * @version v4.0.30319
  */
-class CDROM_TOC_ATIP_DATA_BLOCK extends Win32Struct
-{
+class CDROM_TOC_ATIP_DATA_BLOCK extends Win32Struct {
     static sizeof => 24
 
     static packingSize => 1
@@ -164,9 +162,9 @@ class CDROM_TOC_ATIP_DATA_BLOCK extends Win32Struct
     }
 
     /**
-     * @type {Array<Byte>}
+     * @type {Array<Integer>}
      */
-    LeadInMsf{
+    LeadInMsf {
         get {
             if(!this.HasProp("__LeadInMsfProxyArray"))
                 this.__LeadInMsfProxyArray := Win32FixedArray(this.ptr + 4, 3, Primitive, "char")
@@ -183,9 +181,9 @@ class CDROM_TOC_ATIP_DATA_BLOCK extends Win32Struct
     }
 
     /**
-     * @type {Array<Byte>}
+     * @type {Array<Integer>}
      */
-    LeadOutMsf{
+    LeadOutMsf {
         get {
             if(!this.HasProp("__LeadOutMsfProxyArray"))
                 this.__LeadOutMsfProxyArray := Win32FixedArray(this.ptr + 8, 3, Primitive, "char")
@@ -202,9 +200,9 @@ class CDROM_TOC_ATIP_DATA_BLOCK extends Win32Struct
     }
 
     /**
-     * @type {Array<Byte>}
+     * @type {Array<Integer>}
      */
-    A1Values{
+    A1Values {
         get {
             if(!this.HasProp("__A1ValuesProxyArray"))
                 this.__A1ValuesProxyArray := Win32FixedArray(this.ptr + 12, 3, Primitive, "char")
@@ -221,9 +219,9 @@ class CDROM_TOC_ATIP_DATA_BLOCK extends Win32Struct
     }
 
     /**
-     * @type {Array<Byte>}
+     * @type {Array<Integer>}
      */
-    A2Values{
+    A2Values {
         get {
             if(!this.HasProp("__A2ValuesProxyArray"))
                 this.__A2ValuesProxyArray := Win32FixedArray(this.ptr + 16, 3, Primitive, "char")
@@ -240,9 +238,9 @@ class CDROM_TOC_ATIP_DATA_BLOCK extends Win32Struct
     }
 
     /**
-     * @type {Array<Byte>}
+     * @type {Array<Integer>}
      */
-    A3Values{
+    A3Values {
         get {
             if(!this.HasProp("__A3ValuesProxyArray"))
                 this.__A3ValuesProxyArray := Win32FixedArray(this.ptr + 20, 3, Primitive, "char")

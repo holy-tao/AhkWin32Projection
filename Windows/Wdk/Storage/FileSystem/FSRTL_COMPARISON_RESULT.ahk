@@ -3,9 +3,8 @@
 
 /**
  * @namespace Windows.Wdk.Storage.FileSystem
- * @version v4.0.30319
  */
-class FSRTL_COMPARISON_RESULT extends Win32Enum{
+class FSRTL_COMPARISON_RESULT extends Win32Enum {
 
     /**
      * @type {Integer (Int32)}

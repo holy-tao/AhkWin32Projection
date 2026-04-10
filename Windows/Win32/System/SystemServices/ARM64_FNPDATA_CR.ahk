@@ -3,9 +3,8 @@
 
 /**
  * @namespace Windows.Win32.System.SystemServices
- * @version v4.0.30319
  */
-class ARM64_FNPDATA_CR extends Win32Enum{
+class ARM64_FNPDATA_CR extends Win32Enum {
 
     /**
      * @type {Integer (Int32)}

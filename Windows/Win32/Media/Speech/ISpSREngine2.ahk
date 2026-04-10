@@ -5,9 +5,8 @@
 
 /**
  * @namespace Windows.Win32.Media.Speech
- * @version v4.0.30319
  */
-class ISpSREngine2 extends ISpSREngine{
+class ISpSREngine2 extends ISpSREngine {
 
     static sizeof => A_PtrSize
     /**
@@ -53,8 +52,8 @@ class ISpSREngine2 extends ISpSREngine{
      * @param {PWSTR} pAdaptationData 
      * @param {Integer} cch 
      * @param {PWSTR} pTopicName 
-     * @param {Integer} eSettings 
-     * @param {Integer} eRelevance 
+     * @param {SPADAPTATIONSETTINGS} eSettings 
+     * @param {SPADAPTATIONRELEVANCE} eRelevance 
      * @returns {HRESULT} 
      */
     SetAdaptationData2(pvEngineContext, pAdaptationData, cch, pTopicName, eSettings, eRelevance) {

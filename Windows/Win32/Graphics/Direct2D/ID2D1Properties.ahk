@@ -1,7 +1,6 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
-#Include .\ID2D1Properties.ahk
 #Include ..\..\System\Com\IUnknown.ahk
 
 /**
@@ -238,9 +237,8 @@
  * </table>
  * @see https://learn.microsoft.com/windows/win32/api/d2d1_1/nn-d2d1_1-id2d1properties
  * @namespace Windows.Win32.Graphics.Direct2D
- * @version v4.0.30319
  */
-class ID2D1Properties extends IUnknown{
+class ID2D1Properties extends IUnknown {
 
     static sizeof => A_PtrSize
     /**
@@ -350,7 +348,7 @@ class ID2D1Properties extends IUnknown{
      * @param {Integer} index Type: <b>UINT32</b>
      * 
      * The index of the property for which the type will be retrieved.
-     * @returns {Integer} Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/d2d1_1/ne-d2d1_1-d2d1_property_type">D2D1_PROPERTY_TYPE</a></b>
+     * @returns {D2D1_PROPERTY_TYPE} Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/d2d1_1/ne-d2d1_1-d2d1_property_type">D2D1_PROPERTY_TYPE</a></b>
      * 
      * This method returns a <a href="https://docs.microsoft.com/windows/desktop/api/d2d1_1/ne-d2d1_1-d2d1_property_type">D2D1_PROPERTY_TYPE</a>-typed value for the type of the selected property.
      * @see https://learn.microsoft.com/windows/win32/api/d2d1_1/nf-d2d1_1-id2d1properties-gettype(uint32)
@@ -388,7 +386,7 @@ class ID2D1Properties extends IUnknown{
      * @param {PWSTR} name Type: <b>PCWSTR</b>
      * 
      * The name of the property to set.
-     * @param {Integer} type 
+     * @param {D2D1_PROPERTY_TYPE} type 
      * @param {Pointer<Integer>} data Type: <b>const BYTE*</b>
      * 
      * The data to set.
@@ -451,7 +449,7 @@ class ID2D1Properties extends IUnknown{
      *         );
      * </pre>
      * @param {Integer} index The index of the property to set.
-     * @param {Integer} type 
+     * @param {D2D1_PROPERTY_TYPE} type 
      * @param {Pointer<Integer>} data The data to set.
      * @param {Integer} dataSize The number of bytes in the data to set.
      * @returns {HRESULT} The method returns an <b>HRESULT</b>. Possible values include, but are not limited to, those in the following table.
@@ -499,7 +497,7 @@ class ID2D1Properties extends IUnknown{
     /**
      * Gets the property value by name. This is a template overload. See Remarks. (overload 2/2)
      * @param {PWSTR} name 
-     * @param {Integer} type 
+     * @param {D2D1_PROPERTY_TYPE} type 
      * @param {Integer} dataSize 
      * @returns {Integer} 
      * @see https://learn.microsoft.com/windows/win32/api/d2d1_1/nf-d2d1_1-id2d1properties-getvaluebyname(pcwstr)
@@ -523,7 +521,7 @@ class ID2D1Properties extends IUnknown{
      * @param {Integer} index Type: <b>U</b>
      * 
      * The index of the property from which the value is to be obtained.
-     * @param {Integer} type 
+     * @param {D2D1_PROPERTY_TYPE} type 
      * @param {Integer} dataSize 
      * @returns {Integer} 
      * @see https://learn.microsoft.com/windows/win32/api/d2d1_1/nf-d2d1_1-id2d1properties-getvalue(u_t)

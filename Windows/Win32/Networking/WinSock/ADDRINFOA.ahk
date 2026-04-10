@@ -1,5 +1,7 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
+#Include .\SOCKADDR.ahk
+#Include .\ADDRINFOA.ahk
 
 /**
  * Used by the getaddrinfo function to hold host address information.
@@ -30,11 +32,9 @@
  * The <a href="https://docs.microsoft.com/windows/desktop/api/ws2tcpip/nf-ws2tcpip-getaddrinfow">GetAddrInfoW</a> function that uses the <a href="https://docs.microsoft.com/windows/desktop/api/ws2def/ns-ws2def-addrinfow">addrinfoW</a> structure is the Unicode version of the <a href="https://docs.microsoft.com/windows/desktop/api/ws2tcpip/nf-ws2tcpip-getaddrinfo">getaddrinfo</a> function and associated <b>addrinfo</b> structure.  The <b>GetAddrInfoW</b> function was added to the <i>Ws2_32.dll</i> in Windows XP with Service Pack 2 (SP2). The <b>GetAddrInfoW</b> function and the <b>addrinfoW</b> structure cannot be used on versions of Windows earlier than Windows XP with SP2.
  * @see https://learn.microsoft.com/windows/win32/api/ws2def/ns-ws2def-addrinfoa
  * @namespace Windows.Win32.Networking.WinSock
- * @version v4.0.30319
  * @charset ANSI
  */
-class ADDRINFOA extends Win32Struct
-{
+class ADDRINFOA extends Win32Struct {
     static sizeof => 48
 
     static packingSize => 8

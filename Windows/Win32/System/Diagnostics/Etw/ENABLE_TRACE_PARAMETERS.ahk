@@ -1,5 +1,6 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\..\Win32Struct.ahk
+#Include .\EVENT_FILTER_DESCRIPTOR.ahk
 
 /**
  * Contains information used to enable a provider via EnableTraceEx2.
@@ -33,10 +34,8 @@
  * memory usage of the system.
  * @see https://learn.microsoft.com/windows/win32/api/evntrace/ns-evntrace-enable_trace_parameters
  * @namespace Windows.Win32.System.Diagnostics.Etw
- * @version v4.0.30319
  */
-class ENABLE_TRACE_PARAMETERS extends Win32Struct
-{
+class ENABLE_TRACE_PARAMETERS extends Win32Struct {
     static sizeof => 40
 
     static packingSize => 8
@@ -162,7 +161,7 @@ class ENABLE_TRACE_PARAMETERS extends Win32Struct
      * provider. If the provider does not implement
      * [EnableCallback](/windows/desktop/api/evntprov/nc-evntprov-penablecallback), the
      * GUID is not used.
-     * @type {Pointer<Guid>}
+     * @type {Pointer}
      */
     SourceId {
         get => NumGet(this, 16, "ptr")

@@ -11,16 +11,13 @@
  * <a href="https://docs.microsoft.com/windows/desktop/api/ntmsapi/ns-ntmsapi-ntms_objectinformationa">NTMS_OBJECTINFORMATION</a> structure.
  * @see https://learn.microsoft.com/windows/win32/api/ntmsapi/ns-ntmsapi-ntms_libraryinformation
  * @namespace Windows.Win32.Storage.FileSystem
- * @version v4.0.30319
  */
-class NTMS_LIBRARYINFORMATION extends Win32Struct
-{
+class NTMS_LIBRARYINFORMATION extends Win32Struct {
     static sizeof => 112
 
     static packingSize => 8
 
     /**
-     * 
      * @type {Integer}
      */
     LibraryType {
@@ -30,7 +27,7 @@ class NTMS_LIBRARYINFORMATION extends Win32Struct
 
     /**
      * For each library, this represents the slot that was assigned to the cleaner cartridge. If this member is <b>NULL</b>, there is no cleaner slot defined for this library.
-     * @type {Pointer<Guid>}
+     * @type {Pointer}
      */
     CleanerSlot {
         get => NumGet(this, 8, "ptr")
@@ -39,7 +36,7 @@ class NTMS_LIBRARYINFORMATION extends Win32Struct
 
     /**
      * Represents a libraries' default or preferred cleaner slot. If <b>NULL</b>, there is not a preferred slot.
-     * @type {Pointer<Guid>}
+     * @type {Pointer}
      */
     CleanerSlotDefault {
         get => NumGet(this, 16, "ptr")
@@ -65,7 +62,6 @@ class NTMS_LIBRARYINFORMATION extends Win32Struct
     }
 
     /**
-     * 
      * @type {Integer}
      */
     InventoryMethod {
@@ -201,7 +197,7 @@ class NTMS_LIBRARYINFORMATION extends Win32Struct
 
     /**
      * Reserved.
-     * @type {Pointer<Guid>}
+     * @type {Pointer}
      */
     Reserved {
         get => NumGet(this, 96, "ptr")
@@ -218,7 +214,6 @@ class NTMS_LIBRARYINFORMATION extends Win32Struct
     }
 
     /**
-     * 
      * @type {Integer}
      */
     dwFlags {

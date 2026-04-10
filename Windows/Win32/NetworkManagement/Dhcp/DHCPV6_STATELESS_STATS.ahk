@@ -1,14 +1,13 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
+#Include .\DHCPV6_STATELESS_SCOPE_STATS.ahk
 
 /**
  * The DHCPV6_STATELESS_STATS structure defines an array of stateless IPv6 subnet statistics.
  * @see https://learn.microsoft.com/windows/win32/api/dhcpsapi/ns-dhcpsapi-dhcpv6_stateless_stats
  * @namespace Windows.Win32.NetworkManagement.Dhcp
- * @version v4.0.30319
  */
-class DHCPV6_STATELESS_STATS extends Win32Struct
-{
+class DHCPV6_STATELESS_STATS extends Win32Struct {
     static sizeof => 16
 
     static packingSize => 8

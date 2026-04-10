@@ -7,9 +7,8 @@
  * Notifies the subscriber of the specified user-defined metrics.
  * @see https://learn.microsoft.com/windows/win32/api/comsvcs/nn-comsvcs-icomuserevent
  * @namespace Windows.Win32.System.ComponentServices
- * @version v4.0.30319
  */
-class IComUserEvent extends IUnknown{
+class IComUserEvent extends IUnknown {
 
     static sizeof => A_PtrSize
     /**

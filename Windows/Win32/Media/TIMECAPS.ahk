@@ -5,10 +5,8 @@
  * The TIMECAPS structure contains information about the resolution of the timer.
  * @see https://learn.microsoft.com/windows/win32/api/timeapi/ns-timeapi-timecaps
  * @namespace Windows.Win32.Media
- * @version v4.0.30319
  */
-class TIMECAPS extends Win32Struct
-{
+class TIMECAPS extends Win32Struct {
     static sizeof => 8
 
     static packingSize => 4

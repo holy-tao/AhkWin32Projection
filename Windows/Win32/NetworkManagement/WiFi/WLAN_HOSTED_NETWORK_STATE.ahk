@@ -7,9 +7,8 @@
  * The <b>WLAN_HOSTED_NETWORK_STATE</b> enumerated type is an extension to native wireless APIs added to support the wireless Hosted Network on Windows 7 and  later.
  * @see https://learn.microsoft.com/windows/win32/api/wlanapi/ne-wlanapi-wlan_hosted_network_state
  * @namespace Windows.Win32.NetworkManagement.WiFi
- * @version v4.0.30319
  */
-class WLAN_HOSTED_NETWORK_STATE extends Win32Enum{
+class WLAN_HOSTED_NETWORK_STATE extends Win32Enum {
 
     /**
      * The wireless Hosted Network is unavailable.

@@ -3,10 +3,8 @@
 
 /**
  * @namespace Windows.Win32.System.Ioctl
- * @version v4.0.30319
  */
-class SCM_PD_DEVICE_HANDLE extends Win32Struct
-{
+class SCM_PD_DEVICE_HANDLE extends Win32Struct {
     static sizeof => 24
 
     static packingSize => 8
@@ -28,7 +26,7 @@ class SCM_PD_DEVICE_HANDLE extends Win32Struct
     }
 
     /**
-     * @type {Pointer<Guid>}
+     * @type {Pointer}
      */
     DeviceGuid {
         get => NumGet(this, 8, "ptr")

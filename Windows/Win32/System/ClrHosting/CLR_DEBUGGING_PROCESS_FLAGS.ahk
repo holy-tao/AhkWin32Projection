@@ -3,9 +3,8 @@
 
 /**
  * @namespace Windows.Win32.System.ClrHosting
- * @version v4.0.30319
  */
-class CLR_DEBUGGING_PROCESS_FLAGS extends Win32Enum{
+class CLR_DEBUGGING_PROCESS_FLAGS extends Win32Enum {
 
     /**
      * @type {Integer (Int32)}

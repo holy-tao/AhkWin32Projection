@@ -4,11 +4,9 @@
 
 /**
  * @namespace Windows.Win32.System.Ioctl
- * @version v4.0.30319
  */
-class SCM_BUS_DEDICATED_MEMORY_DEVICES_INFO extends Win32Struct
-{
-    static sizeof => 24
+class SCM_BUS_DEDICATED_MEMORY_DEVICES_INFO extends Win32Struct {
+    static sizeof => 40
 
     static packingSize => 8
 
@@ -37,9 +35,9 @@ class SCM_BUS_DEDICATED_MEMORY_DEVICES_INFO extends Win32Struct
     }
 
     /**
-     * @type {Array<SCM_BUS_DEDICATED_MEMORY_DEVICE_INFO>}
+     * @type {SCM_BUS_DEDICATED_MEMORY_DEVICE_INFO}
      */
-    Devices{
+    Devices {
         get {
             if(!this.HasProp("__DevicesProxyArray"))
                 this.__DevicesProxyArray := Win32FixedArray(this.ptr + 16, 1, SCM_BUS_DEDICATED_MEMORY_DEVICE_INFO, "")

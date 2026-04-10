@@ -5,10 +5,8 @@
  * Query information about the amount of data streamed out to the stream-output buffers in between ID3D10Asynchronous::Begin and ID3D10Asynchronous::End.
  * @see https://learn.microsoft.com/windows/win32/api/d3d10/ns-d3d10-d3d10_query_data_so_statistics
  * @namespace Windows.Win32.Graphics.Direct3D10
- * @version v4.0.30319
  */
-class D3D10_QUERY_DATA_SO_STATISTICS extends Win32Struct
-{
+class D3D10_QUERY_DATA_SO_STATISTICS extends Win32Struct {
     static sizeof => 16
 
     static packingSize => 8

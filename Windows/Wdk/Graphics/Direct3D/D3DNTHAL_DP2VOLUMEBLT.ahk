@@ -1,16 +1,13 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
-#Include ..\..\..\Win32\Graphics\Direct3D9\D3DBOX.ahk
 
 /**
  * @namespace Windows.Wdk.Graphics.Direct3D
- * @version v4.0.30319
  */
-class D3DNTHAL_DP2VOLUMEBLT extends Win32Struct
-{
-    static sizeof => 48
+class D3DNTHAL_DP2VOLUMEBLT extends Win32Struct {
+    static sizeof => 40
 
-    static packingSize => 4
+    static packingSize => 8
 
     /**
      * @type {Integer}
@@ -53,21 +50,18 @@ class D3DNTHAL_DP2VOLUMEBLT extends Win32Struct
     }
 
     /**
-     * @type {D3DBOX}
+     * @type {Pointer}
      */
-    srcBox{
-        get {
-            if(!this.HasProp("__srcBox"))
-                this.__srcBox := D3DBOX(20, this)
-            return this.__srcBox
-        }
+    srcBox {
+        get => NumGet(this, 24, "ptr")
+        set => NumPut("ptr", value, this, 24)
     }
 
     /**
      * @type {Integer}
      */
     dwFlags {
-        get => NumGet(this, 44, "uint")
-        set => NumPut("uint", value, this, 44)
+        get => NumGet(this, 32, "uint")
+        set => NumPut("uint", value, this, 32)
     }
 }

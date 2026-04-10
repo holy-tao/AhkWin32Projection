@@ -5,9 +5,8 @@
  * Defines values that indicate how to interpret track addresses for the current disc profile of a randomly-writable, hardware-defect-managed media type.
  * @see https://learn.microsoft.com/windows/win32/api/imapi2/ne-imapi2-imapi_read_track_address_type
  * @namespace Windows.Win32.Storage.Imapi
- * @version v4.0.30319
  */
-class IMAPI_READ_TRACK_ADDRESS_TYPE extends Win32Enum{
+class IMAPI_READ_TRACK_ADDRESS_TYPE extends Win32Enum {
 
     /**
      * Interpret the address field as an LBA (sector address).  The returned data should reflect the information for the track which contains the specified LBA.

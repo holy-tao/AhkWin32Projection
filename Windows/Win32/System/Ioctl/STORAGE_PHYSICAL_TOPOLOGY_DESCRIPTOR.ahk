@@ -6,13 +6,11 @@
  * The STORAGE_PHYSICAL_TOPOLOGY_DESCRIPTOR structure is one of the query result structures returned from an IOCTL_STORAGE_QUERY_PROPERTY request.
  * @see https://learn.microsoft.com/windows/win32/api/winioctl/ns-winioctl-storage_physical_topology_descriptor
  * @namespace Windows.Win32.System.Ioctl
- * @version v4.0.30319
  */
-class STORAGE_PHYSICAL_TOPOLOGY_DESCRIPTOR extends Win32Struct
-{
-    static sizeof => 24
+class STORAGE_PHYSICAL_TOPOLOGY_DESCRIPTOR extends Win32Struct {
+    static sizeof => 56
 
-    static packingSize => 8
+    static packingSize => 4
 
     /**
      * Contains the size of this structure, in bytes. Set to <c>sizeof(STORAGE_PHYSICAL_TOPOLOGY_DESCRIPTOR)</c>.
@@ -52,9 +50,9 @@ class STORAGE_PHYSICAL_TOPOLOGY_DESCRIPTOR extends Win32Struct
 
     /**
      * A node as specified by a <a href="https://docs.microsoft.com/windows/desktop/api/winioctl/ns-winioctl-storage_physical_node_data">STORAGE_PHYSICAL_NODE_DATA</a> structure.
-     * @type {Array<STORAGE_PHYSICAL_NODE_DATA>}
+     * @type {STORAGE_PHYSICAL_NODE_DATA}
      */
-    Node{
+    Node {
         get {
             if(!this.HasProp("__NodeProxyArray"))
                 this.__NodeProxyArray := Win32FixedArray(this.ptr + 16, 1, STORAGE_PHYSICAL_NODE_DATA, "")

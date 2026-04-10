@@ -7,9 +7,8 @@
  * Binds a managed object to an application domain, which is an isolated environment where applications execute.
  * @see https://learn.microsoft.com/windows/win32/api/comsvcs/nn-comsvcs-iappdomainhelper
  * @namespace Windows.Win32.System.ComponentServices
- * @version v4.0.30319
  */
-class IAppDomainHelper extends IDispatch{
+class IAppDomainHelper extends IDispatch {
 
     static sizeof => A_PtrSize
     /**

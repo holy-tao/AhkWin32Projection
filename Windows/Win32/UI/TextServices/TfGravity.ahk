@@ -7,9 +7,8 @@
  * For more information about anchor gravity, see <a href="https://docs.microsoft.com/windows/desktop/TSF/ranges">Anchor Gravity</a>.
  * @see https://learn.microsoft.com/windows/win32/api/msctf/ne-msctf-tfgravity
  * @namespace Windows.Win32.UI.TextServices
- * @version v4.0.30319
  */
-class TfGravity extends Win32Enum{
+class TfGravity extends Win32Enum {
 
     /**
      * The anchor has backward gravity.

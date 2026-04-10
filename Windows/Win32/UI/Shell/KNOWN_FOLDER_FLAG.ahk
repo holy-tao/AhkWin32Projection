@@ -7,9 +7,8 @@
  * These values, with the exception of **KF_FLAG_ALIAS_ONLY**, were defined in Windows Vista as individual constants. They're defined as an enumeration only in Windows 7 and later. However, all underlying numerical values are the same in either form.
  * @see https://learn.microsoft.com/windows/win32/api/shlobj_core/ne-shlobj_core-known_folder_flag
  * @namespace Windows.Win32.UI.Shell
- * @version v4.0.30319
  */
-class KNOWN_FOLDER_FLAG extends Win32BitflagEnum{
+class KNOWN_FOLDER_FLAG extends Win32BitflagEnum {
 
     /**
      * Specifies no special retrieval options.

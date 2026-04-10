@@ -3,10 +3,8 @@
 
 /**
  * @namespace Windows.Win32.System.ApplicationInstallationAndServicing
- * @version v4.0.30319
  */
-class PATCH_RETAIN_RANGE extends Win32Struct
-{
+class PATCH_RETAIN_RANGE extends Win32Struct {
     static sizeof => 12
 
     static packingSize => 4

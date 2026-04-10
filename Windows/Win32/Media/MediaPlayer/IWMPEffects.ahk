@@ -1,16 +1,14 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
-#Include ..\..\Foundation\BSTR.ahk
 #Include ..\..\System\Com\IUnknown.ahk
 
 /**
  * IWMPEffects interface
  * @see https://learn.microsoft.com/windows/win32/api/effects/nn-effects-iwmpeffects
  * @namespace Windows.Win32.Media.MediaPlayer
- * @version v4.0.30319
  */
-class IWMPEffects extends IUnknown{
+class IWMPEffects extends IUnknown {
 
     static sizeof => A_PtrSize
     /**
@@ -36,7 +34,7 @@ class IWMPEffects extends IUnknown{
      * @remarks
      * The device context is normalized by this method.
      * @param {Pointer<TimedLevel>} pLevels Pointer to a <b>TimedLevel</b> structure.
-     * @param {HDC} _hdc 
+     * @param {HDC} _hdc Specifies a handle to a device context.
      * @param {Pointer<RECT>} prc Specifies the rectangle the visualization is to be rendered in.
      * @returns {HRESULT} If the method succeeds, it returns S_OK. If it fails, it returns an <b>HRESULT</b> error code.
      * @see https://learn.microsoft.com/windows/win32/api/effects/nf-effects-iwmpeffects-render

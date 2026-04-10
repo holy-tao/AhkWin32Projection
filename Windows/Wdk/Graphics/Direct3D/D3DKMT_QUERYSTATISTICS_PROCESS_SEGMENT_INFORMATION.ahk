@@ -3,10 +3,8 @@
 
 /**
  * @namespace Windows.Wdk.Graphics.Direct3D
- * @version v4.0.30319
  */
-class D3DKMT_QUERYSTATISTICS_PROCESS_SEGMENT_INFORMATION extends Win32Struct
-{
+class D3DKMT_QUERYSTATISTICS_PROCESS_SEGMENT_INFORMATION extends Win32Struct {
     static sizeof => 112
 
     static packingSize => 8
@@ -52,7 +50,7 @@ class D3DKMT_QUERYSTATISTICS_PROCESS_SEGMENT_INFORMATION extends Win32Struct
     }
 
     /**
-     * @type {Pointer<D3DKMT_QUERYSTATISTICS_VIDEO_MEMORY>}
+     * @type {Pointer}
      */
     VideoMemory {
         get => NumGet(this, 32, "ptr")
@@ -60,7 +58,7 @@ class D3DKMT_QUERYSTATISTICS_PROCESS_SEGMENT_INFORMATION extends Win32Struct
     }
 
     /**
-     * @type {Pointer<D3DKMT_QUERYSTATISTICS_PROCESS_SEGMENT_POLICY>}
+     * @type {Pointer}
      */
     _Policy {
         get => NumGet(this, 40, "ptr")
@@ -68,9 +66,9 @@ class D3DKMT_QUERYSTATISTICS_PROCESS_SEGMENT_INFORMATION extends Win32Struct
     }
 
     /**
-     * @type {Array<UInt64>}
+     * @type {Array<Integer>}
      */
-    Reserved{
+    Reserved {
         get {
             if(!this.HasProp("__ReservedProxyArray"))
                 this.__ReservedProxyArray := Win32FixedArray(this.ptr + 48, 8, Primitive, "uint")

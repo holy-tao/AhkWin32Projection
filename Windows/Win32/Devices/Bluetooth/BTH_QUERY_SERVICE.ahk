@@ -1,7 +1,7 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
-#Include .\SdpQueryUuidUnion.ahk
 #Include .\SdpQueryUuid.ahk
+#Include .\SdpQueryUuidUnion.ahk
 #Include .\SdpAttributeRange.ahk
 
 /**
@@ -13,11 +13,9 @@
  * <a href="https://www.bluetooth.com/">www.bluetooth.com</a> for more information about the Bluetooth specification.
  * @see https://learn.microsoft.com/windows/win32/api/ws2bth/ns-ws2bth-bth_query_service
  * @namespace Windows.Win32.Devices.Bluetooth
- * @version v4.0.30319
  */
-class BTH_QUERY_SERVICE extends Win32Struct
-{
-    static sizeof => 120
+class BTH_QUERY_SERVICE extends Win32Struct {
+    static sizeof => 304
 
     static packingSize => 8
 
@@ -47,9 +45,9 @@ class BTH_QUERY_SERVICE extends Win32Struct
 
     /**
      * UUIDs that a record must contain to match the search. Used for service and service attribute searches. When querying less than MAX_UUIDS_IN_QUERY UUIDs, set the <b>SdpQueryUuid</b> element immediately following the last valid UUID to all zeros. Used only for attribute and service attribute searches.
-     * @type {Array<SdpQueryUuid>}
+     * @type {SdpQueryUuid}
      */
-    uuids{
+    uuids {
         get {
             if(!this.HasProp("__uuidsProxyArray"))
                 this.__uuidsProxyArray := Win32FixedArray(this.ptr + 8, 12, SdpQueryUuid, "")
@@ -62,19 +60,19 @@ class BTH_QUERY_SERVICE extends Win32Struct
      * @type {Integer}
      */
     numRange {
-        get => NumGet(this, 104, "uint")
-        set => NumPut("uint", value, this, 104)
+        get => NumGet(this, 296, "uint")
+        set => NumPut("uint", value, this, 296)
     }
 
     /**
      * Attribute values to retrieve for any matching records, in the form of an array of 
      * <b>SdpAttributeRange</b> structures. Attributes are defined in the Bluetooth specification. See Remarks.
-     * @type {Array<SdpAttributeRange>}
+     * @type {SdpAttributeRange}
      */
-    pRange{
+    pRange {
         get {
             if(!this.HasProp("__pRangeProxyArray"))
-                this.__pRangeProxyArray := Win32FixedArray(this.ptr + 112, 1, SdpAttributeRange, "")
+                this.__pRangeProxyArray := Win32FixedArray(this.ptr + 300, 1, SdpAttributeRange, "")
             return this.__pRangeProxyArray
         }
     }

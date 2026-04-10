@@ -1,16 +1,15 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\..\Guid.ahk
-#Include ..\..\..\Foundation\BSTR.ahk
 #Include ..\..\..\System\Com\IDispatch.ahk
+#Include ..\..\..\Foundation\BSTR.ahk
 
 /**
  * The IX509EnrollmentHelper interface defines methods that enable a web application to enroll a certificate, store policy server credentials in the credential cache, and register policy servers and enrollment servers.
  * @see https://learn.microsoft.com/windows/win32/api/certenroll/nn-certenroll-ix509enrollmenthelper
  * @namespace Windows.Win32.Security.Cryptography.Certificates
- * @version v4.0.30319
  */
-class IX509EnrollmentHelper extends IDispatch{
+class IX509EnrollmentHelper extends IDispatch {
 
     static sizeof => A_PtrSize
     /**
@@ -65,8 +64,8 @@ class IX509EnrollmentHelper extends IDispatch{
      * </table>
      * @param {BSTR} strEnrollmentPolicyServerURI A <b>BSTR</b> that contains the certificate enrollment policy server URL.
      * @param {BSTR} strEnrollmentPolicyID A <b>BSTR</b> that contains the certificate enrollment policy server ID. The ID can be any string. It is set by the administrator who installs the CEP server.
-     * @param {Integer} EnrollmentPolicyServerFlags 
-     * @param {Integer} authFlags 
+     * @param {PolicyServerUrlFlags} EnrollmentPolicyServerFlags 
+     * @param {X509EnrollmentAuthFlags} authFlags 
      * @param {BSTR} strCredential A <b>BSTR</b> that contains the credential.
      * @param {BSTR} strPassword A <b>BSTR</b> that contains a clear text password.
      * @returns {HRESULT} If the function succeeds, the function returns <b>S_OK</b>.
@@ -146,7 +145,7 @@ class IX509EnrollmentHelper extends IDispatch{
      * </tr>
      * </table>
      * @param {BSTR} strEnrollmentServerURI A <b>BSTR</b> that contains the certificate enrollment server URL.
-     * @param {Integer} authFlags 
+     * @param {X509EnrollmentAuthFlags} authFlags 
      * @param {BSTR} strCredential A <b>BSTR</b> that contains the credential.
      * @param {BSTR} strPassword A <b>BSTR</b> that contains a clear text password.
      * @returns {HRESULT} If the function succeeds, the function returns <b>S_OK</b>.
@@ -206,8 +205,8 @@ class IX509EnrollmentHelper extends IDispatch{
      * This method does not installed the issued certificate.
      * @param {BSTR} strEnrollmentPolicyServerURI A <b>BSTR</b> that contains the certificate enrollment policy server URL.
      * @param {BSTR} strTemplateName A  <b>BSTR</b> variable that contains the Common Name (CN) of the template as it appears in Active Directory or the dotted decimal <a href="https://docs.microsoft.com/windows/desktop/SecGloss/o-gly">object identifier</a>.
-     * @param {Integer} Encoding An <a href="https://docs.microsoft.com/windows/desktop/api/certenroll/ne-certenroll-encodingtype">EncodingType</a> enumeration value that specifies the type of encoding applied to a byte array for display purposes.
-     * @param {Integer} enrollFlags A <a href="https://docs.microsoft.com/windows/desktop/api/certenroll/ne-certenroll-webenrollmentflags">WebEnrollmentFlags</a> enumeration value that specifies web enrollment behavior. This can be the following value.
+     * @param {EncodingType} Encoding An <a href="https://docs.microsoft.com/windows/desktop/api/certenroll/ne-certenroll-encodingtype">EncodingType</a> enumeration value that specifies the type of encoding applied to a byte array for display purposes.
+     * @param {WebEnrollmentFlags} enrollFlags A <a href="https://docs.microsoft.com/windows/desktop/api/certenroll/ne-certenroll-webenrollmentflags">WebEnrollmentFlags</a> enumeration value that specifies web enrollment behavior. This can be the following value.
      * 
      * <table>
      * <tr>
@@ -239,7 +238,7 @@ class IX509EnrollmentHelper extends IDispatch{
 
     /**
      * Initializes an IX509EnrollmentHelper object.
-     * @param {Integer} _Context 
+     * @param {X509CertificateEnrollmentContext} _Context 
      * @returns {HRESULT} If the function succeeds, the function returns <b>S_OK</b>.
      * 
      * If the function fails, it returns an <b>HRESULT</b> value that indicates the error. Possible values include, but are not limited to, those in the following table.  For a list of common error codes, see <a href="https://docs.microsoft.com/windows/desktop/SecCrypto/common-hresult-values">Common HRESULT Values</a>.

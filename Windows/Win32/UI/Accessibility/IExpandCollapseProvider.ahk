@@ -9,9 +9,8 @@
  * Implemented on a Microsoft UI Automation provider that must support the <a href="https://docs.microsoft.com/windows/desktop/WinAuto/uiauto-implementingexpandcollapse">ExpandCollapse</a> control pattern.
  * @see https://learn.microsoft.com/windows/win32/api/uiautomationcore/nn-uiautomationcore-iexpandcollapseprovider
  * @namespace Windows.Win32.UI.Accessibility
- * @version v4.0.30319
  */
-class IExpandCollapseProvider extends IUnknown{
+class IExpandCollapseProvider extends IUnknown {
 
     static sizeof => A_PtrSize
     /**
@@ -33,7 +32,7 @@ class IExpandCollapseProvider extends IUnknown{
     static VTableNames => ["Expand", "Collapse", "get_ExpandCollapseState"]
 
     /**
-     * @type {Integer} 
+     * @type {ExpandCollapseState} 
      */
     ExpandCollapseState {
         get => this.get_ExpandCollapseState()
@@ -69,7 +68,7 @@ class IExpandCollapseProvider extends IUnknown{
 
     /**
      * Indicates the state, expanded or collapsed, of the control.
-     * @returns {Integer} 
+     * @returns {ExpandCollapseState} 
      * @see https://learn.microsoft.com/windows/win32/api/uiautomationcore/nf-uiautomationcore-iexpandcollapseprovider-get_expandcollapsestate
      */
     get_ExpandCollapseState() {

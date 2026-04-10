@@ -1,14 +1,13 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
-#Include .\ISurfacePresenter.ahk
 #Include ..\..\System\Com\IUnknown.ahk
+#Include .\ISurfacePresenter.ahk
 
 /**
  * @namespace Windows.Win32.Web.MsHtml
- * @version v4.0.30319
  */
-class IViewObjectPresentSite extends IUnknown{
+class IViewObjectPresentSite extends IUnknown {
 
     static sizeof => A_PtrSize
     /**
@@ -35,8 +34,8 @@ class IViewObjectPresentSite extends IUnknown{
      * @param {Integer} width 
      * @param {Integer} height 
      * @param {Integer} backBufferCount 
-     * @param {Integer} format 
-     * @param {Integer} _mode 
+     * @param {DXGI_FORMAT} format 
+     * @param {VIEW_OBJECT_ALPHA_MODE} _mode 
      * @returns {ISurfacePresenter} 
      */
     CreateSurfacePresenter(pDevice, width, height, backBufferCount, format, _mode) {
@@ -55,7 +54,7 @@ class IViewObjectPresentSite extends IUnknown{
 
     /**
      * 
-     * @param {Integer} _mode 
+     * @param {VIEW_OBJECT_COMPOSITION_MODE} _mode 
      * @returns {HRESULT} 
      */
     SetCompositionMode(_mode) {

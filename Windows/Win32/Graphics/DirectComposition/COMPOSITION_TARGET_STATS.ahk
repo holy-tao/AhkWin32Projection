@@ -4,14 +4,10 @@
 
 /**
  * Contains per-target information for a composition frame and render target.
- * @remarks
- * 
  * @see https://learn.microsoft.com/windows/win32/api/dcomptypes/ns-dcomptypes-composition_target_stats
  * @namespace Windows.Win32.Graphics.DirectComposition
- * @version v4.0.30319
  */
-class COMPOSITION_TARGET_STATS extends Win32Struct
-{
+class COMPOSITION_TARGET_STATS extends Win32Struct {
     static sizeof => 72
 
     static packingSize => 8
@@ -47,7 +43,7 @@ class COMPOSITION_TARGET_STATS extends Win32Struct
      * Type: **[COMPOSITION_STATS](ns-dcomptypes-composition_stats.md)**
      * @type {COMPOSITION_STATS}
      */
-    presentedStats{
+    presentedStats {
         get {
             if(!this.HasProp("__presentedStats"))
                 this.__presentedStats := COMPOSITION_STATS(24, this)
@@ -59,7 +55,7 @@ class COMPOSITION_TARGET_STATS extends Win32Struct
      * Type: **[COMPOSITION_STATS](ns-dcomptypes-composition_stats.md)**
      * @type {COMPOSITION_STATS}
      */
-    completedStats{
+    completedStats {
         get {
             if(!this.HasProp("__completedStats"))
                 this.__completedStats := COMPOSITION_STATS(48, this)

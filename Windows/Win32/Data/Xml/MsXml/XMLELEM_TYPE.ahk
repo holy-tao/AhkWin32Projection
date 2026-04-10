@@ -3,9 +3,8 @@
 
 /**
  * @namespace Windows.Win32.Data.Xml.MsXml
- * @version v4.0.30319
  */
-class XMLELEM_TYPE extends Win32Enum{
+class XMLELEM_TYPE extends Win32Enum {
 
     /**
      * @type {Integer (Int32)}

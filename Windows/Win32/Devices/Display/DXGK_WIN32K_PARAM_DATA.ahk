@@ -3,10 +3,8 @@
 
 /**
  * @namespace Windows.Win32.Devices.Display
- * @version v4.0.30319
  */
-class DXGK_WIN32K_PARAM_DATA extends Win32Struct
-{
+class DXGK_WIN32K_PARAM_DATA extends Win32Struct {
     static sizeof => 32
 
     static packingSize => 8

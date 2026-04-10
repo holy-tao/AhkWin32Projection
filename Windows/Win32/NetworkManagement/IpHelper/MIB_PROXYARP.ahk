@@ -5,10 +5,8 @@
  * Stores information for a Proxy Address Resolution Protocol (PARP) entry.
  * @see https://learn.microsoft.com/windows/win32/api/iprtrmib/ns-iprtrmib-mib_proxyarp
  * @namespace Windows.Win32.NetworkManagement.IpHelper
- * @version v4.0.30319
  */
-class MIB_PROXYARP extends Win32Struct
-{
+class MIB_PROXYARP extends Win32Struct {
     static sizeof => 12
 
     static packingSize => 4

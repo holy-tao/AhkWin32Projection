@@ -5,9 +5,8 @@
 
 /**
  * @namespace Windows.Win32.System.DistributedTransactionCoordinator
- * @version v4.0.30319
  */
-class ILastResourceManager extends IUnknown{
+class ILastResourceManager extends IUnknown {
 
     static sizeof => A_PtrSize
     /**

@@ -9,10 +9,8 @@
  * <a href="https://docs.microsoft.com/windows/win32/api/windns/ns-windns-dns_recorda">DNS_RECORD</a> structure to programmatically manage DNS entries.
  * @see https://learn.microsoft.com/windows/win32/api/windns/ns-windns-dns_wins_data
  * @namespace Windows.Win32.NetworkManagement.Dns
- * @version v4.0.30319
  */
-class DNS_WINS_DATA extends Win32Struct
-{
+class DNS_WINS_DATA extends Win32Struct {
     static sizeof => 20
 
     static packingSize => 4
@@ -82,9 +80,9 @@ class DNS_WINS_DATA extends Win32Struct
 
     /**
      * An array of <a href="https://docs.microsoft.com/windows/desktop/api/windns/ns-windns-ip4_array">IP4_ARRAY</a> structures that contain the IPv4 address of the WINS lookup Servers.
-     * @type {Array<UInt32>}
+     * @type {Array<Integer>}
      */
-    WinsServers{
+    WinsServers {
         get {
             if(!this.HasProp("__WinsServersProxyArray"))
                 this.__WinsServersProxyArray := Win32FixedArray(this.ptr + 16, 1, Primitive, "uint")

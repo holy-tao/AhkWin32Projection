@@ -3,9 +3,8 @@
 
 /**
  * @namespace Windows.Wdk.Storage.FileSystem
- * @version v4.0.30319
  */
-class FS_FILTER_STREAM_FO_NOTIFICATION_TYPE extends Win32Enum{
+class FS_FILTER_STREAM_FO_NOTIFICATION_TYPE extends Win32Enum {
 
     /**
      * @type {Integer (Int32)}

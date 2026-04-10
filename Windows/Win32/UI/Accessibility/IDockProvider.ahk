@@ -15,9 +15,8 @@
  *         the higher their z-order placement, the farther they are placed from the specified edge of the docking container.
  * @see https://learn.microsoft.com/windows/win32/api/uiautomationcore/nn-uiautomationcore-idockprovider
  * @namespace Windows.Win32.UI.Accessibility
- * @version v4.0.30319
  */
-class IDockProvider extends IUnknown{
+class IDockProvider extends IUnknown {
 
     static sizeof => A_PtrSize
     /**
@@ -39,7 +38,7 @@ class IDockProvider extends IUnknown{
     static VTableNames => ["SetDockPosition", "get_DockPosition"]
 
     /**
-     * @type {Integer} 
+     * @type {DockPosition} 
      */
     DockPosition {
         get => this.get_DockPosition()
@@ -49,7 +48,9 @@ class IDockProvider extends IUnknown{
      * Sets the docking position of this element.
      * @remarks
      * A docking container is a control that allows the arrangement of child elements, both horizontally and vertically, relative to the boundaries of the docking container and other elements within the container.
-     * @param {Integer} _dockPosition 
+     * @param {DockPosition} _dockPosition Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/uiautomationcore/ne-uiautomationcore-dockposition">DockPosition</a></b>
+     * 
+     * The new docking position.
      * @returns {HRESULT} Type: <b><a href="https://docs.microsoft.com/windows/desktop/WinProg/windows-data-types">HRESULT</a></b>
      * 
      * If this method succeeds, it returns <b>S_OK</b>. Otherwise, it returns an <b>HRESULT</b> error code.
@@ -64,7 +65,7 @@ class IDockProvider extends IUnknown{
      * Indicates the current docking position of this element.
      * @remarks
      * A docking container is a control that allows the arrangement of child elements, both horizontally and vertically, relative to the boundaries of the docking container and other elements in the container.
-     * @returns {Integer} 
+     * @returns {DockPosition} 
      * @see https://learn.microsoft.com/windows/win32/api/uiautomationcore/nf-uiautomationcore-idockprovider-get_dockposition
      */
     get_DockPosition() {

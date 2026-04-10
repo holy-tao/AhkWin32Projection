@@ -7,9 +7,8 @@
  * Defines a method for RDC to report the current completion percentage of a similarity operation.
  * @see https://learn.microsoft.com/windows/win32/api/msrdc/nn-msrdc-isimilarityreportprogress
  * @namespace Windows.Win32.Networking.RemoteDifferentialCompression
- * @version v4.0.30319
  */
-class ISimilarityReportProgress extends IUnknown{
+class ISimilarityReportProgress extends IUnknown {
 
     static sizeof => A_PtrSize
     /**

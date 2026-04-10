@@ -1,12 +1,11 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
+#Include .\WHV_VPCI_INTERRUPT_TARGET_FLAGS.ahk
 
 /**
  * @namespace Windows.Win32.System.Hypervisor
- * @version v4.0.30319
  */
-class WHV_VPCI_INTERRUPT_TARGET extends Win32Struct
-{
+class WHV_VPCI_INTERRUPT_TARGET extends Win32Struct {
     static sizeof => 16
 
     static packingSize => 4
@@ -20,7 +19,7 @@ class WHV_VPCI_INTERRUPT_TARGET extends Win32Struct
     }
 
     /**
-     * @type {Integer}
+     * @type {WHV_VPCI_INTERRUPT_TARGET_FLAGS}
      */
     Flags {
         get => NumGet(this, 4, "int")
@@ -36,9 +35,9 @@ class WHV_VPCI_INTERRUPT_TARGET extends Win32Struct
     }
 
     /**
-     * @type {Array<UInt32>}
+     * @type {Array<Integer>}
      */
-    Processors{
+    Processors {
         get {
             if(!this.HasProp("__ProcessorsProxyArray"))
                 this.__ProcessorsProxyArray := Win32FixedArray(this.ptr + 12, 1, Primitive, "uint")

@@ -7,10 +7,8 @@
  * The <b>dwNLSVersion</b> and <b>dwDefinedVersion</b> members are completely independent. Although each member is defined for a single DWORD, actually each is composed of a major version and a minor version. See <a href="https://docs.microsoft.com/windows/desktop/Intl/handling-sorting-in-your-applications">Handling Sorting in Your Applications</a> for more information.
  * @see https://learn.microsoft.com/windows/win32/api/winnls/ns-winnls-nlsversioninfoex
  * @namespace Windows.Win32.Globalization
- * @version v4.0.30319
  */
-class NLSVERSIONINFOEX extends Win32Struct
-{
+class NLSVERSIONINFOEX extends Win32Struct {
     static sizeof => 24
 
     static packingSize => 8
@@ -57,7 +55,7 @@ class NLSVERSIONINFOEX extends Win32Struct
 
     /**
      * Unique GUID for the behavior of a custom sort used by the locale for the represented version.
-     * @type {Pointer<Guid>}
+     * @type {Pointer}
      */
     guidCustomVersion {
         get => NumGet(this, 16, "ptr")

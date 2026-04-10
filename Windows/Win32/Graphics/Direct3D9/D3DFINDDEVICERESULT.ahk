@@ -1,16 +1,14 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
+#Include .\D3DDEVICEDESC.ahk
 #Include .\D3DTRANSFORMCAPS.ahk
 #Include .\D3DLIGHTINGCAPS.ahk
 #Include .\D3DPRIMCAPS.ahk
-#Include .\D3DDEVICEDESC.ahk
 
 /**
  * @namespace Windows.Win32.Graphics.Direct3D9
- * @version v4.0.30319
  */
-class D3DFINDDEVICERESULT extends Win32Struct
-{
+class D3DFINDDEVICERESULT extends Win32Struct {
     static sizeof => 520
 
     static packingSize => 8
@@ -24,7 +22,7 @@ class D3DFINDDEVICERESULT extends Win32Struct
     }
 
     /**
-     * @type {Pointer<Guid>}
+     * @type {Pointer}
      */
     guid {
         get => NumGet(this, 8, "ptr")
@@ -34,7 +32,7 @@ class D3DFINDDEVICERESULT extends Win32Struct
     /**
      * @type {D3DDEVICEDESC}
      */
-    ddHwDesc{
+    ddHwDesc {
         get {
             if(!this.HasProp("__ddHwDesc"))
                 this.__ddHwDesc := D3DDEVICEDESC(16, this)
@@ -45,7 +43,7 @@ class D3DFINDDEVICERESULT extends Win32Struct
     /**
      * @type {D3DDEVICEDESC}
      */
-    ddSwDesc{
+    ddSwDesc {
         get {
             if(!this.HasProp("__ddSwDesc"))
                 this.__ddSwDesc := D3DDEVICEDESC(268, this)

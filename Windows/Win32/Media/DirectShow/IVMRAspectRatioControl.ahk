@@ -7,9 +7,8 @@
  * The IVMRAspectRatioControl interface controls whether the Video Mixing Renderer Filter 7 (VMR-7) preserves the aspect ratio of the source video.
  * @see https://learn.microsoft.com/windows/win32/api/strmif/nn-strmif-ivmraspectratiocontrol
  * @namespace Windows.Win32.Media.DirectShow
- * @version v4.0.30319
  */
-class IVMRAspectRatioControl extends IUnknown{
+class IVMRAspectRatioControl extends IUnknown {
 
     static sizeof => A_PtrSize
     /**

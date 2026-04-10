@@ -1,8 +1,8 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\..\Guid.ahk
-#Include ..\..\..\System\Com\StructuredStorage\PROPVARIANT.ahk
 #Include ..\..\..\System\Com\IUnknown.ahk
+#Include ..\..\..\System\Com\StructuredStorage\PROPVARIANT.ahk
 
 /**
  * Exposes methods that extract data from enumeration information. IPropertyEnumType gives access to the enum and enumRange elements in the property schema in a programmatic way at run time.
@@ -10,9 +10,8 @@
  * For additional information, see <a href="https://docs.microsoft.com/windows/desktop/properties/propdesc-schema-enumeratedlist">enumeratedList</a>.
  * @see https://learn.microsoft.com/windows/win32/api/propsys/nn-propsys-ipropertyenumtype
  * @namespace Windows.Win32.UI.Shell.PropertiesSystem
- * @version v4.0.30319
  */
-class IPropertyEnumType extends IUnknown{
+class IPropertyEnumType extends IUnknown {
 
     static sizeof => A_PtrSize
     /**
@@ -37,7 +36,7 @@ class IPropertyEnumType extends IUnknown{
      * Gets an enumeration type from an enumeration information structure.
      * @remarks
      * For additional information, see <a href="https://docs.microsoft.com/windows/desktop/properties/propdesc-schema-enumeratedlist">enumeratedList</a>.
-     * @returns {Integer} Type: <b>PROPENUMTYPE*</b>
+     * @returns {PROPENUMTYPE} Type: <b>PROPENUMTYPE*</b>
      * 
      * When this method returns, contains a pointer to one of the values listed below that indicate the enumeration type.
      * @see https://learn.microsoft.com/windows/win32/api/propsys/nf-propsys-ipropertyenumtype-getenumtype

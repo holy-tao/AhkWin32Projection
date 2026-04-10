@@ -7,9 +7,8 @@
  * The IWMDRMWriter interface provides support for applying DRM protection to content in ASF files.
  * @see https://learn.microsoft.com/windows/win32/api/wmsdkidl/nn-wmsdkidl-iwmdrmwriter
  * @namespace Windows.Win32.Media.WindowsMediaFormat
- * @version v4.0.30319
  */
-class IWMDRMWriter extends IUnknown{
+class IWMDRMWriter extends IUnknown {
 
     static sizeof => A_PtrSize
     /**
@@ -107,7 +106,7 @@ class IWMDRMWriter extends IUnknown{
      * ```
      * @param {Integer} wStreamNum <b>WORD</b> containing the stream number to which the attribute applies.
      * @param {PWSTR} pszName Pointer to a null-terminated string containing the attribute name. See Remarks for supported attributes.
-     * @param {Integer} Type A value from the <a href="https://docs.microsoft.com/windows/desktop/api/wmsdkidl/ne-wmsdkidl-wmt_attr_datatype">WMT_ATTR_DATATYPE</a> enumeration type specifying the data type of the attribute data.
+     * @param {WMT_ATTR_DATATYPE} Type A value from the <a href="https://docs.microsoft.com/windows/desktop/api/wmsdkidl/ne-wmsdkidl-wmt_attr_datatype">WMT_ATTR_DATATYPE</a> enumeration type specifying the data type of the attribute data.
      * @param {Pointer<Integer>} pValue Pointer to an array of bytes containing the attribute data.
      * @param {Integer} cbLength The size, in bytes, of the attribute data pointed to by <i>pValue</i>.
      * @returns {HRESULT} If the method succeeds, it returns S_OK. If it fails, it returns an <b>HRESULT</b> error code.

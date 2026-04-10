@@ -1,14 +1,13 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
+#Include ..\Direct3D\D3D_SHADER_VARIABLE_TYPE.ahk
 
 /**
  * Represents information about a shader source variable.
  * @see https://learn.microsoft.com/windows/win32/api/d3d10_1shader/ns-d3d10_1shader-d3d10_shader_debug_var_info
  * @namespace Windows.Win32.Graphics.Direct3D10
- * @version v4.0.30319
  */
-class D3D10_SHADER_DEBUG_VAR_INFO extends Win32Struct
-{
+class D3D10_SHADER_DEBUG_VAR_INFO extends Win32Struct {
     static sizeof => 24
 
     static packingSize => 4
@@ -28,7 +27,7 @@ class D3D10_SHADER_DEBUG_VAR_INFO extends Win32Struct
      * Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/d3dcommon/ne-d3dcommon-d3d_shader_variable_type">D3D10_SHADER_VARIABLE_TYPE</a></b>
      * 
      * The variable type. <b>Type</b> is only required for arrays.
-     * @type {Integer}
+     * @type {D3D_SHADER_VARIABLE_TYPE}
      */
     Type {
         get => NumGet(this, 4, "int")

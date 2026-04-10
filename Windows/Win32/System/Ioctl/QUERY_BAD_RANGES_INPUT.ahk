@@ -4,11 +4,9 @@
 
 /**
  * @namespace Windows.Win32.System.Ioctl
- * @version v4.0.30319
  */
-class QUERY_BAD_RANGES_INPUT extends Win32Struct
-{
-    static sizeof => 16
+class QUERY_BAD_RANGES_INPUT extends Win32Struct {
+    static sizeof => 24
 
     static packingSize => 8
 
@@ -29,9 +27,9 @@ class QUERY_BAD_RANGES_INPUT extends Win32Struct
     }
 
     /**
-     * @type {Array<QUERY_BAD_RANGES_INPUT_RANGE>}
+     * @type {QUERY_BAD_RANGES_INPUT_RANGE}
      */
-    Ranges{
+    Ranges {
         get {
             if(!this.HasProp("__RangesProxyArray"))
                 this.__RangesProxyArray := Win32FixedArray(this.ptr + 8, 1, QUERY_BAD_RANGES_INPUT_RANGE, "")

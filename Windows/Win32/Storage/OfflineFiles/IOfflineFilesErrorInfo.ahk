@@ -7,9 +7,8 @@
  * Provides a text description and raw data block associated with an error.
  * @see https://learn.microsoft.com/windows/win32/api/cscobj/nn-cscobj-iofflinefileserrorinfo
  * @namespace Windows.Win32.Storage.OfflineFiles
- * @version v4.0.30319
  */
-class IOfflineFilesErrorInfo extends IUnknown{
+class IOfflineFilesErrorInfo extends IUnknown {
 
     static sizeof => A_PtrSize
     /**

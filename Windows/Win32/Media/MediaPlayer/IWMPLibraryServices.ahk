@@ -1,16 +1,15 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
-#Include .\IWMPLibrary.ahk
 #Include ..\..\System\Com\IUnknown.ahk
+#Include .\IWMPLibrary.ahk
 
 /**
  * The IWMPLibraryServices interface provides methods to enumerate libraries.
  * @see https://learn.microsoft.com/windows/win32/api/wmp/nn-wmp-iwmplibraryservices
  * @namespace Windows.Win32.Media.MediaPlayer
- * @version v4.0.30319
  */
-class IWMPLibraryServices extends IUnknown{
+class IWMPLibraryServices extends IUnknown {
 
     static sizeof => A_PtrSize
     /**
@@ -39,7 +38,7 @@ class IWMPLibraryServices extends IUnknown{
      * You must initialize the <i>plCount</i> variable before passing in its pointer.
      * 
      * <b>Windows Media Player 10 Mobile:</b> This method is not supported.
-     * @param {Integer} wmplt <a href="https://docs.microsoft.com/windows/desktop/api/wmp/ne-wmp-wmplibrarytype">WMPLibraryType</a> enumeration value that specifies the type of library to count.
+     * @param {WMPLibraryType} wmplt <a href="https://docs.microsoft.com/windows/desktop/api/wmp/ne-wmp-wmplibrarytype">WMPLibraryType</a> enumeration value that specifies the type of library to count.
      * @param {Pointer<Integer>} plCount Pointer to a <b>long</b> that receives the library count.
      * @returns {HRESULT} The method returns an <b>HRESULT</b>. Possible values include, but are not limited to, those in the following table.
      * 
@@ -75,7 +74,7 @@ class IWMPLibraryServices extends IUnknown{
      * There is only one local library and disc libraries are available only on data CDs and DVDs that contain media content.
      * 
      * <b>Windows Media Player 10 Mobile:</b> This method is not supported.
-     * @param {Integer} wmplt <b>WMPLibraryType</b> enumeration value that specifies the type of library to retrieve.
+     * @param {WMPLibraryType} wmplt <b>WMPLibraryType</b> enumeration value that specifies the type of library to retrieve.
      * @param {Integer} lIndex A <b>long</b> containing the index of the library to retrieve.
      * @returns {IWMPLibrary} Address of a variable that receives a pointer to the retrieved <b>IWMPLibrary</b> interface.
      * @see https://learn.microsoft.com/windows/win32/api/wmp/nf-wmp-iwmplibraryservices-getlibrarybytype

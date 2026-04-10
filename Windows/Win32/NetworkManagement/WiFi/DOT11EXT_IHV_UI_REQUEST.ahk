@@ -3,10 +3,8 @@
 
 /**
  * @namespace Windows.Win32.NetworkManagement.WiFi
- * @version v4.0.30319
  */
-class DOT11EXT_IHV_UI_REQUEST extends Win32Struct
-{
+class DOT11EXT_IHV_UI_REQUEST extends Win32Struct {
     static sizeof => 40
 
     static packingSize => 8
@@ -20,7 +18,7 @@ class DOT11EXT_IHV_UI_REQUEST extends Win32Struct
     }
 
     /**
-     * @type {Pointer<Guid>}
+     * @type {Pointer}
      */
     guidUIRequest {
         get => NumGet(this, 8, "ptr")
@@ -28,7 +26,7 @@ class DOT11EXT_IHV_UI_REQUEST extends Win32Struct
     }
 
     /**
-     * @type {Pointer<Guid>}
+     * @type {Pointer}
      */
     UIPageClsid {
         get => NumGet(this, 16, "ptr")

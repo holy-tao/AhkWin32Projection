@@ -3,9 +3,8 @@
 
 /**
  * @namespace Windows.Win32.NetworkManagement.WiFi
- * @version v4.0.30319
  */
-class WLAN_NOTIFICATION_SOURCES extends Win32BitflagEnum{
+class WLAN_NOTIFICATION_SOURCES extends Win32BitflagEnum {
 
     /**
      * @type {Integer (UInt32)}

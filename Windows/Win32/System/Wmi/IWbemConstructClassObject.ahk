@@ -5,9 +5,8 @@
 
 /**
  * @namespace Windows.Win32.System.Wmi
- * @version v4.0.30319
  */
-class IWbemConstructClassObject extends IUnknown{
+class IWbemConstructClassObject extends IUnknown {
 
     static sizeof => A_PtrSize
     /**
@@ -31,7 +30,7 @@ class IWbemConstructClassObject extends IUnknown{
     /**
      * 
      * @param {Integer} lNumAntecedents 
-     * @param {Pointer} awszAntecedents 
+     * @param {Integer} awszAntecedents 
      * @returns {HRESULT} 
      */
     SetInheritanceChain(lNumAntecedents, awszAntecedents) {

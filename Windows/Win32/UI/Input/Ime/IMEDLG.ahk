@@ -6,10 +6,8 @@
  * Used when invoking the Microsoft IME's Dictionary Tool or Word Register Dialog Window from the app.
  * @see https://learn.microsoft.com/windows/win32/api/msime/ns-msime-imedlg
  * @namespace Windows.Win32.UI.Input.Ime
- * @version v4.0.30319
  */
-class IMEDLG extends Win32Struct
-{
+class IMEDLG extends Win32Struct {
     static sizeof => 32
 
     static packingSize => 8
@@ -27,7 +25,7 @@ class IMEDLG extends Win32Struct
      * The parent window handle of the Register Word Dialog.
      * @type {HWND}
      */
-    hwnd{
+    hwnd {
         get {
             if(!this.HasProp("__hwnd"))
                 this.__hwnd := HWND(8, this)

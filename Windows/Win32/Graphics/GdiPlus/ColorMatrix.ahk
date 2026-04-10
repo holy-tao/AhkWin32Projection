@@ -3,18 +3,16 @@
 
 /**
  * @namespace Windows.Win32.Graphics.GdiPlus
- * @version v4.0.30319
  */
-class ColorMatrix extends Win32Struct
-{
+class ColorMatrix extends Win32Struct {
     static sizeof => 100
 
     static packingSize => 4
 
     /**
-     * @type {Array<Single>}
+     * @type {Array<Float>}
      */
-    m{
+    m {
         get {
             if(!this.HasProp("__mProxyArray"))
                 this.__mProxyArray := Win32FixedArray(this.ptr + 0, 25, Primitive, "float")

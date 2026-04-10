@@ -7,9 +7,8 @@
  * The <b>SAFER_OBJECT_INFO_CLASS</b> enumeration type is used by the <a href="https://docs.microsoft.com/windows/desktop/api/winsafer/nf-winsafer-safergetlevelinformation">SaferGetLevelInformation</a> function.
  * @see https://learn.microsoft.com/windows/win32/api/winsafer/ne-winsafer-safer_object_info_class
  * @namespace Windows.Win32.Security.AppLocker
- * @version v4.0.30319
  */
-class SAFER_OBJECT_INFO_CLASS extends Win32Enum{
+class SAFER_OBJECT_INFO_CLASS extends Win32Enum {
 
     /**
      * Queries for the LEVELID constant.
@@ -36,55 +35,46 @@ class SAFER_OBJECT_INFO_CLASS extends Win32Enum{
     static SaferObjectDescription => 4
 
     /**
-     * 
      * @type {Integer (Int32)}
      */
     static SaferObjectBuiltin => 5
 
     /**
-     * 
      * @type {Integer (Int32)}
      */
     static SaferObjectDisallowed => 6
 
     /**
-     * 
      * @type {Integer (Int32)}
      */
     static SaferObjectDisableMaxPrivilege => 7
 
     /**
-     * 
      * @type {Integer (Int32)}
      */
     static SaferObjectInvertDeletedPrivileges => 8
 
     /**
-     * 
      * @type {Integer (Int32)}
      */
     static SaferObjectDeletedPrivileges => 9
 
     /**
-     * 
      * @type {Integer (Int32)}
      */
     static SaferObjectDefaultOwner => 10
 
     /**
-     * 
      * @type {Integer (Int32)}
      */
     static SaferObjectSidsToDisable => 11
 
     /**
-     * 
      * @type {Integer (Int32)}
      */
     static SaferObjectRestrictedSidsInverted => 12
 
     /**
-     * 
      * @type {Integer (Int32)}
      */
     static SaferObjectRestrictedSidsAdded => 13

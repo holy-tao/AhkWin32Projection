@@ -1,18 +1,17 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\..\Guid.ahk
+#Include ..\..\..\System\Com\IDispatch.ahk
 #Include ..\..\..\Foundation\BSTR.ahk
 #Include .\IX509PrivateKey.ahk
 #Include .\IX509SignatureInformation.ahk
-#Include ..\..\..\System\Com\IDispatch.ahk
 
 /**
  * Represents a signing certificate that enables you to sign a certificate request.
  * @see https://learn.microsoft.com/windows/win32/api/certenroll/nn-certenroll-isignercertificate
  * @namespace Windows.Win32.Security.Cryptography.Certificates
- * @version v4.0.30319
  */
-class ISignerCertificate extends IDispatch{
+class ISignerCertificate extends IDispatch {
 
     static sizeof => A_PtrSize
     /**
@@ -65,7 +64,7 @@ class ISignerCertificate extends IDispatch{
     }
 
     /**
-     * @type {HRESULT} 
+     * @type {BSTR} 
      */
     Pin {
         set => this.put_Pin(value)
@@ -104,8 +103,8 @@ class ISignerCertificate extends IDispatch{
      * </li>
      * </ul>
      * @param {VARIANT_BOOL} MachineContext A <b>VARIANT_BOOL</b> variable that indicates whether to search the local computer certificate store context or the user context to find the certificate identified by the <i>strCertificate</i> parameter. Specify <b>VARIANT_TRUE</b> for the computer and <b>VARIANT_FALSE</b> for the user.
-     * @param {Integer} VerifyType An <a href="https://docs.microsoft.com/windows/desktop/api/certenroll/ne-certenroll-x509privatekeyverify">X509PrivateKeyVerify</a> enumeration value that specifies whether the private key used to sign the certificate must be verified and, if so, whether the verification must be silent or allows user input.
-     * @param {Integer} Encoding An <a href="https://docs.microsoft.com/windows/desktop/api/certenroll/ne-certenroll-encodingtype">EncodingType</a> enumeration value that specifies the type of Unicode encoding applied to  the <a href="https://docs.microsoft.com/windows/desktop/SecGloss/d-gly">Distinguished Encoding Rules</a> (DER) encoded certificate string.
+     * @param {X509PrivateKeyVerify} VerifyType An <a href="https://docs.microsoft.com/windows/desktop/api/certenroll/ne-certenroll-x509privatekeyverify">X509PrivateKeyVerify</a> enumeration value that specifies whether the private key used to sign the certificate must be verified and, if so, whether the verification must be silent or allows user input.
+     * @param {EncodingType} Encoding An <a href="https://docs.microsoft.com/windows/desktop/api/certenroll/ne-certenroll-encodingtype">EncodingType</a> enumeration value that specifies the type of Unicode encoding applied to  the <a href="https://docs.microsoft.com/windows/desktop/SecGloss/d-gly">Distinguished Encoding Rules</a> (DER) encoded certificate string.
      * @param {BSTR} strCertificate A <b>BSTR</b> variable that contains the DER-encoded certificate.
      * 
      * Beginning with Windows 7 and Windows Server 2008 R2, you can specify a certificate thumb print or serial number rather than an encoded certificate. Doing so causes the function to search the appropriate local stores for the matching certificate. Keep in mind the following points:
@@ -171,7 +170,7 @@ class ISignerCertificate extends IDispatch{
      * <a href="https://docs.microsoft.com/windows/desktop/api/certenroll/nf-certenroll-isignercertificate-get_uicontextmessage">UIContextMessage</a>
      * </li>
      * </ul>
-     * @param {Integer} Encoding 
+     * @param {EncodingType} Encoding 
      * @returns {BSTR} 
      * @see https://learn.microsoft.com/windows/win32/api/certenroll/nf-certenroll-isignercertificate-get_certificate
      */

@@ -1,8 +1,8 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
-#Include .\CREDENTIAL_PROVIDER_CREDENTIAL_SERIALIZATION.ahk
 #Include ..\..\System\Com\IUnknown.ahk
+#Include .\CREDENTIAL_PROVIDER_CREDENTIAL_SERIALIZATION.ahk
 
 /**
  * Used to dynamically filter credential providers based on information available at runtime.
@@ -10,9 +10,8 @@
  * It is recommended that third party credential providers do not use this interface to filter or disable system credential providers on a desktop. If an enterprise deploys a third party credential provider and wants to disable system credential providers currently available, that is a decision that should be made by a domain administrator after careful consideration. System policies exist that enable administrators to filter out credential providers and those should be used instead of building filters directly into a third party credential provider.
  * @see https://learn.microsoft.com/windows/win32/api/credentialprovider/nn-credentialprovider-icredentialproviderfilter
  * @namespace Windows.Win32.UI.Shell
- * @version v4.0.30319
  */
-class ICredentialProviderFilter extends IUnknown{
+class ICredentialProviderFilter extends IUnknown {
 
     static sizeof => A_PtrSize
     /**
@@ -43,7 +42,7 @@ class ICredentialProviderFilter extends IUnknown{
      * Do not filter if <i>cpus</i> is CPUS_CREDUI and a <i>dwFlags</i> value of CREDUIWIN_GENERIC is passed in.
      * 
      * It is legitimate to return success from the method and not modify <i>rgbAllow</i>.
-     * @param {Integer} cpus Type: <b><a href="https://docs.microsoft.com/windows/win32/api/credentialprovider/ne-credentialprovider-credential_provider_usage_scenario">CREDENTIAL_PROVIDER_USAGE_SCENARIO</a></b>
+     * @param {CREDENTIAL_PROVIDER_USAGE_SCENARIO} cpus Type: <b><a href="https://docs.microsoft.com/windows/win32/api/credentialprovider/ne-credentialprovider-credential_provider_usage_scenario">CREDENTIAL_PROVIDER_USAGE_SCENARIO</a></b>
      * 
      * A pointer to a <a href="https://docs.microsoft.com/windows/win32/api/credentialprovider/ne-credentialprovider-credential_provider_usage_scenario">CREDENTIAL_PROVIDER_USAGE_SCENARIO</a> value that declares the scenarios in which a credential provider is supported.
      * @param {Integer} dwFlags Type: <b>DWORD</b>

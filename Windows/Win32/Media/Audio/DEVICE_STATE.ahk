@@ -33,9 +33,8 @@
  * To enable or disable an endpoint device in Mmsys.cpl, click **Playback** or **Recording**, depending on whether the device is a playback or recording device. Next, select the device and click **Properties**. In the **Properties** window, next to **Device usage**, select either **Use this device (enable)** or **Don't use this device (disable)**.
  * @see https://learn.microsoft.com/windows/win32/CoreAudio/device-state-xxx-constants
  * @namespace Windows.Win32.Media.Audio
- * @version v4.0.30319
  */
-class DEVICE_STATE extends Win32Enum{
+class DEVICE_STATE extends Win32Enum {
 
     /**
      * @type {Integer (UInt32)}

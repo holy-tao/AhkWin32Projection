@@ -152,9 +152,8 @@
  * ```
  * @see https://learn.microsoft.com/windows/win32/api/objidlbase/nn-objidlbase-iglobaloptions
  * @namespace Windows.Win32.System.Com
- * @version v4.0.30319
  */
-class IGlobalOptions extends IUnknown{
+class IGlobalOptions extends IUnknown {
 
     static sizeof => A_PtrSize
     /**
@@ -177,7 +176,7 @@ class IGlobalOptions extends IUnknown{
 
     /**
      * The IGlobalOptions::Set (objidlbase.h) method sets the specified global property of the COM runtime.
-     * @param {Integer} dwProperty The global property of the COM runtime. For a list of properties that can be set with this method, see <a href="https://docs.microsoft.com/windows/desktop/api/objidl/nn-objidl-iglobaloptions">IGlobalOptions</a>.
+     * @param {GLOBALOPT_PROPERTIES} dwProperty The global property of the COM runtime. For a list of properties that can be set with this method, see <a href="https://docs.microsoft.com/windows/desktop/api/objidl/nn-objidl-iglobaloptions">IGlobalOptions</a>.
      * @param {Pointer} dwValue The value of the property.<div class="alert"><b>Important</b>  For the COMGLB_APPID property, this parameter must specify a pointer to the APPID GUID.</div>
      * <div> </div>
      * @returns {HRESULT} The return value is S_OK if the property was set successfully.
@@ -190,7 +189,7 @@ class IGlobalOptions extends IUnknown{
 
     /**
      * The IGlobalOptions::Query (objidlbase.h) method queries the specified global property of the COM runtime.
-     * @param {Integer} dwProperty The global property of the COM runtime. For a list of properties that can be set with this method, see <a href="https://docs.microsoft.com/windows/desktop/api/objidl/nn-objidl-iglobaloptions">IGlobalOptions</a>.
+     * @param {GLOBALOPT_PROPERTIES} dwProperty The global property of the COM runtime. For a list of properties that can be set with this method, see <a href="https://docs.microsoft.com/windows/desktop/api/objidl/nn-objidl-iglobaloptions">IGlobalOptions</a>.
      * @returns {Pointer} The value of the property.<div class="alert"><b>Important</b>  For the COMGLB_APPID property, this parameter receives a pointer to the AppID GUID.</div>
      * <div> </div>
      * @see https://learn.microsoft.com/windows/win32/api/objidlbase/nf-objidlbase-iglobaloptions-query

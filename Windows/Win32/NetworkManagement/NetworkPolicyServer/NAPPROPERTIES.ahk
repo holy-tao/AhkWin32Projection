@@ -5,9 +5,8 @@
  * The values of the NAPPROPERTIES enumeration type specify properties for Network Access Policies (NAP).
  * @see https://learn.microsoft.com/windows/win32/api/sdoias/ne-sdoias-napproperties
  * @namespace Windows.Win32.NetworkManagement.NetworkPolicyServer
- * @version v4.0.30319
  */
-class NAPPROPERTIES extends Win32Enum{
+class NAPPROPERTIES extends Win32Enum {
 
     /**
      * The network access policies collection.

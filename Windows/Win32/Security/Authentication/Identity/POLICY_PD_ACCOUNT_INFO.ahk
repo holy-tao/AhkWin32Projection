@@ -4,10 +4,8 @@
 
 /**
  * @namespace Windows.Win32.Security.Authentication.Identity
- * @version v4.0.30319
  */
-class POLICY_PD_ACCOUNT_INFO extends Win32Struct
-{
+class POLICY_PD_ACCOUNT_INFO extends Win32Struct {
     static sizeof => 16
 
     static packingSize => 8
@@ -15,7 +13,7 @@ class POLICY_PD_ACCOUNT_INFO extends Win32Struct
     /**
      * @type {LSA_UNICODE_STRING}
      */
-    Name{
+    Name {
         get {
             if(!this.HasProp("__Name"))
                 this.__Name := LSA_UNICODE_STRING(0, this)

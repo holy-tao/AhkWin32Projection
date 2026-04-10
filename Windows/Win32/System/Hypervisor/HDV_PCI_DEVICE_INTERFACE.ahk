@@ -1,18 +1,17 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
+#Include .\HDV_PCI_INTERFACE_VERSION.ahk
 
 /**
  * @namespace Windows.Win32.System.Hypervisor
- * @version v4.0.30319
  */
-class HDV_PCI_DEVICE_INTERFACE extends Win32Struct
-{
+class HDV_PCI_DEVICE_INTERFACE extends Win32Struct {
     static sizeof => 88
 
     static packingSize => 8
 
     /**
-     * @type {Integer}
+     * @type {HDV_PCI_INTERFACE_VERSION}
      */
     Version {
         get => NumGet(this, 0, "int")

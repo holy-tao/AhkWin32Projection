@@ -1,6 +1,7 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
 #Include .\IN_ADDR.ahk
+#Include .\MULTICAST_MODE_TYPE.ahk
 
 /**
  * The ip_msfilter structure provides multicast filtering parameters for IPv4 addresses.
@@ -31,19 +32,17 @@
  * <div> </div>
  * @see https://learn.microsoft.com/windows/win32/api/ws2ipdef/ns-ws2ipdef-ip_msfilter
  * @namespace Windows.Win32.Networking.WinSock
- * @version v4.0.30319
  */
-class IP_MSFILTER extends Win32Struct
-{
-    static sizeof => 24
+class IP_MSFILTER extends Win32Struct {
+    static sizeof => 20
 
-    static packingSize => 8
+    static packingSize => 4
 
     /**
      * The IPv4 address of the multicast group.
      * @type {IN_ADDR}
      */
-    imsf_multiaddr{
+    imsf_multiaddr {
         get {
             if(!this.HasProp("__imsf_multiaddr"))
                 this.__imsf_multiaddr := IN_ADDR(0, this)
@@ -57,7 +56,7 @@ class IP_MSFILTER extends Win32Struct
      *  To use an interface index of 1 would be the same as an IP address of  0.0.0.1.
      * @type {IN_ADDR}
      */
-    imsf_interface{
+    imsf_interface {
         get {
             if(!this.HasProp("__imsf_interface"))
                 this.__imsf_interface := IN_ADDR(4, this)
@@ -71,7 +70,7 @@ class IP_MSFILTER extends Win32Struct
      * On Windows Server 2003 and Windows XP, these values are defined in the <i>Ws2tcpip.h</i> header file. 
      * 
      * On Windows Vista and later, these values are defined as enumeration values in the <a href="https://docs.microsoft.com/windows/desktop/api/ws2ipdef/ne-ws2ipdef-multicast_mode_type">MULTICAST_MODE_TYPE</a> enumeration defined in the <i>Ws2ipdef.h</i> header file.
-     * @type {Integer}
+     * @type {MULTICAST_MODE_TYPE}
      */
     imsf_fmode {
         get => NumGet(this, 8, "int")
@@ -89,9 +88,9 @@ class IP_MSFILTER extends Win32Struct
 
     /**
      * An array of <a href="https://docs.microsoft.com/windows/desktop/api/winsock2/ns-winsock2-in_addr">in_addr</a> structures that specify the IPv4 multicast source addresses to include or exclude.
-     * @type {Array<IN_ADDR>}
+     * @type {IN_ADDR}
      */
-    imsf_slist{
+    imsf_slist {
         get {
             if(!this.HasProp("__imsf_slistProxyArray"))
                 this.__imsf_slistProxyArray := Win32FixedArray(this.ptr + 16, 1, IN_ADDR, "")

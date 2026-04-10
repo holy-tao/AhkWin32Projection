@@ -1,21 +1,20 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
+#Include .\RdcNeedType.ahk
 
 /**
  * Contains information about a chunk that is required to synchronize two sets of data.
  * @see https://learn.microsoft.com/windows/win32/api/msrdc/ns-msrdc-rdcneed
  * @namespace Windows.Win32.Networking.RemoteDifferentialCompression
- * @version v4.0.30319
  */
-class RdcNeed extends Win32Struct
-{
+class RdcNeed extends Win32Struct {
     static sizeof => 24
 
     static packingSize => 8
 
     /**
      * Describes the type of data needed—source data or seed data.
-     * @type {Integer}
+     * @type {RdcNeedType}
      */
     m_BlockType {
         get => NumGet(this, 0, "int")

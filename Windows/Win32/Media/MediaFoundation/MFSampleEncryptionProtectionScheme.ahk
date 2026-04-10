@@ -7,9 +7,8 @@
  * The encryption scheme for a sample is specified using the <a href="https://docs.microsoft.com/windows/desktop/medfound/mfsampleextension-encryption-protectionscheme">MFSampleExtension_Encryption_ProtectionScheme</a> attribute.
  * @see https://learn.microsoft.com/windows/win32/api/mfapi/ne-mfapi-mfsampleencryptionprotectionscheme
  * @namespace Windows.Win32.Media.MediaFoundation
- * @version v4.0.30319
  */
-class MFSampleEncryptionProtectionScheme extends Win32Enum{
+class MFSampleEncryptionProtectionScheme extends Win32Enum {
 
     /**
      * No encryption scheme.

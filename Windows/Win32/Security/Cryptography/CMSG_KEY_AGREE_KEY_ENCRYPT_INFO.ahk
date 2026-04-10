@@ -6,10 +6,8 @@
  * Contains the encrypted key for a key agreement recipient of an enveloped message.
  * @see https://learn.microsoft.com/windows/win32/api/wincrypt/ns-wincrypt-cmsg_key_agree_key_encrypt_info
  * @namespace Windows.Win32.Security.Cryptography
- * @version v4.0.30319
  */
-class CMSG_KEY_AGREE_KEY_ENCRYPT_INFO extends Win32Struct
-{
+class CMSG_KEY_AGREE_KEY_ENCRYPT_INFO extends Win32Struct {
     static sizeof => 24
 
     static packingSize => 8
@@ -27,7 +25,7 @@ class CMSG_KEY_AGREE_KEY_ENCRYPT_INFO extends Win32Struct
      * A <a href="https://docs.microsoft.com/previous-versions/windows/desktop/legacy/aa381414(v=vs.85)">CRYPT_DATA_BLOB</a> structure that contains the session key encrypted by the negotiated key of the recipient.
      * @type {CRYPT_INTEGER_BLOB}
      */
-    EncryptedKey{
+    EncryptedKey {
         get {
             if(!this.HasProp("__EncryptedKey"))
                 this.__EncryptedKey := CRYPT_INTEGER_BLOB(8, this)

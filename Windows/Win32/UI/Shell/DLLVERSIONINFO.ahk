@@ -5,10 +5,8 @@
  * Receives DLL-specific version information.
  * @see https://learn.microsoft.com/windows/win32/api/shlwapi/ns-shlwapi-dllversioninfo
  * @namespace Windows.Win32.UI.Shell
- * @version v4.0.30319
  */
-class DLLVERSIONINFO extends Win32Struct
-{
+class DLLVERSIONINFO extends Win32Struct {
     static sizeof => 20
 
     static packingSize => 4

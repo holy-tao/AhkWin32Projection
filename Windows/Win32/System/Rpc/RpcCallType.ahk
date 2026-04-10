@@ -5,9 +5,8 @@
  * Specifies the set of RPC call types.
  * @see https://learn.microsoft.com/windows/win32/api/rpcasync/ne-rpcasync-rpccalltype
  * @namespace Windows.Win32.System.Rpc
- * @version v4.0.30319
  */
-class RpcCallType extends Win32Enum{
+class RpcCallType extends Win32Enum {
 
     /**
      * The remote procedure call is invalid.

@@ -5,9 +5,8 @@
  * Specifies the cross-slide behavior thresholds.
  * @see https://learn.microsoft.com/windows/win32/api/interactioncontext/ne-interactioncontext-cross_slide_threshold
  * @namespace Windows.Win32.UI.InteractionContext
- * @version v4.0.30319
  */
-class CROSS_SLIDE_THRESHOLD extends Win32Enum{
+class CROSS_SLIDE_THRESHOLD extends Win32Enum {
 
     /**
      * Selection start.

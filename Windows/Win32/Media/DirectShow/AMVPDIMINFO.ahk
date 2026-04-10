@@ -6,10 +6,8 @@
  * The AMVPDIMINFO structure specifies the dimensional characteristics of a video port (VP) input stream.
  * @see https://learn.microsoft.com/windows/win32/api/vptype/ns-vptype-amvpdiminfo
  * @namespace Windows.Win32.Media.DirectShow
- * @version v4.0.30319
  */
-class AMVPDIMINFO extends Win32Struct
-{
+class AMVPDIMINFO extends Win32Struct {
     static sizeof => 32
 
     static packingSize => 4
@@ -54,7 +52,7 @@ class AMVPDIMINFO extends Win32Struct
      * Valid rectangle, used for cropping.
      * @type {RECT}
      */
-    rcValidRegion{
+    rcValidRegion {
         get {
             if(!this.HasProp("__rcValidRegion"))
                 this.__rcValidRegion := RECT(16, this)

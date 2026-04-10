@@ -1,5 +1,6 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
+#Include .\SOCKADDR.ahk
 
 /**
  * SOCKET_ADDRESS structure stores protocol-specific address information.
@@ -9,10 +10,8 @@
  * On the Microsoft Windows Software Development Kit (SDK) released for Windows Vista and later, the organization of header files has changed and the <b>SOCKET_ADDRESS</b> structure is defined in the <i>Ws2def.h</i> header file. Note that the <i>Ws2def.h</i> header file is automatically included in <i>Winsock2.h</i>, and should never be used directly.
  * @see https://learn.microsoft.com/windows/win32/api/ws2def/ns-ws2def-socket_address
  * @namespace Windows.Win32.Networking.WinSock
- * @version v4.0.30319
  */
-class SOCKET_ADDRESS extends Win32Struct
-{
+class SOCKET_ADDRESS extends Win32Struct {
     static sizeof => 16
 
     static packingSize => 8

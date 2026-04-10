@@ -5,9 +5,8 @@
  * Contains values that indicate whether a TRUSTEE structure is an impersonation trustee.
  * @see https://learn.microsoft.com/windows/win32/api/accctrl/ne-accctrl-multiple_trustee_operation
  * @namespace Windows.Win32.Security.Authorization
- * @version v4.0.30319
  */
-class MULTIPLE_TRUSTEE_OPERATION extends Win32Enum{
+class MULTIPLE_TRUSTEE_OPERATION extends Win32Enum {
 
     /**
      * The trustee is not an impersonation trustee.

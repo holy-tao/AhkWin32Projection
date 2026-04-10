@@ -5,9 +5,8 @@
  * Defines the possible restart behaviors for an update.
  * @see https://learn.microsoft.com/windows/win32/api/wuapi/ne-wuapi-installationrebootbehavior
  * @namespace Windows.Win32.System.UpdateAgent
- * @version v4.0.30319
  */
-class InstallationRebootBehavior extends Win32Enum{
+class InstallationRebootBehavior extends Win32Enum {
 
     /**
      * The update never requires a system restart during or after an installation or an uninstallation.

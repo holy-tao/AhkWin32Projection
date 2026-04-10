@@ -3,7 +3,6 @@
 
 /**
  * @namespace Windows.Win32.System.Memory.NonVolatile
- * @version v4.0.30319
  */
 class NonVolatile {
 
@@ -13,7 +12,7 @@ class NonVolatile {
 ;@region Methods
     /**
      * 
-     * @param {Pointer} NvBuffer 
+     * @param {Integer} NvBuffer 
      * @param {Pointer} _Size 
      * @param {Pointer<Pointer<Void>>} NvToken 
      * @returns {Integer} 
@@ -40,7 +39,7 @@ class NonVolatile {
     /**
      * 
      * @param {Pointer<Void>} NvToken 
-     * @param {Pointer} NvBuffer 
+     * @param {Integer} NvBuffer 
      * @param {Pointer} _Size 
      * @param {Integer} Flags 
      * @returns {Integer} 
@@ -67,8 +66,8 @@ class NonVolatile {
     /**
      * 
      * @param {Pointer<Void>} NvToken 
-     * @param {Pointer} NvDestination 
-     * @param {Pointer} Source 
+     * @param {Integer} NvDestination 
+     * @param {Integer} Source 
      * @param {Pointer} _Size 
      * @param {Integer} Flags 
      * @returns {Integer} 
@@ -83,7 +82,7 @@ class NonVolatile {
     /**
      * 
      * @param {Pointer<Void>} NvToken 
-     * @param {Pointer} NvDestination 
+     * @param {Integer} NvDestination 
      * @param {Pointer} _Size 
      * @param {Integer} Value 
      * @param {Integer} Flags 

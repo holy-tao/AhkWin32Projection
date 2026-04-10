@@ -1,7 +1,6 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
-#Include .\IEnumIDList.ahk
 #Include ..\..\System\Com\IUnknown.ahk
 
 /**
@@ -12,9 +11,8 @@
  * Use this interface to enumerate the contents of a Shell folder object. Call the folder's <a href="https://docs.microsoft.com/windows/desktop/api/shobjidl_core/nf-shobjidl_core-ishellfolder-enumobjects">IShellFolder::EnumObjects</a> method and use the returned <b>IEnumIDList</b> pointer to enumerate the PIDLs of the items in the folder.
  * @see https://learn.microsoft.com/windows/win32/api/shobjidl_core/nn-shobjidl_core-ienumidlist
  * @namespace Windows.Win32.UI.Shell
- * @version v4.0.30319
  */
-class IEnumIDList extends IUnknown{
+class IEnumIDList extends IUnknown {
 
     static sizeof => A_PtrSize
     /**

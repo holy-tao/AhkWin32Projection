@@ -1,15 +1,15 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\..\Win32Struct.ahk
 #Include .\APOInitBaseStruct.ahk
+#Include ..\..\..\UI\Shell\PropertiesSystem\IPropertyStore.ahk
+#Include ..\IMMDeviceCollection.ahk
 
 /**
  * The APOInitSystemEffects2 structure was introduced with Windows 8.1, to make it possible to provide additional initialization context to the audio processing object (APO) for initialization.
  * @see https://learn.microsoft.com/windows/win32/api/audioenginebaseapo/ns-audioenginebaseapo-apoinitsystemeffects2
  * @namespace Windows.Win32.Media.Audio.Apo
- * @version v4.0.30319
  */
-class APOInitSystemEffects2 extends Win32Struct
-{
+class APOInitSystemEffects2 extends Win32Struct {
     static sizeof => 72
 
     static packingSize => 8
@@ -18,7 +18,7 @@ class APOInitSystemEffects2 extends Win32Struct
      * An <a href="https://docs.microsoft.com/windows/desktop/api/audioenginebaseapo/ns-audioenginebaseapo-apoinitbasestruct">APOInitBaseStruct</a> structure.
      * @type {APOInitBaseStruct}
      */
-    APOInit{
+    APOInit {
         get {
             if(!this.HasProp("__APOInit"))
                 this.__APOInit := APOInitBaseStruct(0, this)
@@ -82,7 +82,7 @@ class APOInitSystemEffects2 extends Win32Struct
 
     /**
      * Specifies the processing mode for the audio graph.
-     * @type {Pointer<Guid>}
+     * @type {Pointer}
      */
     AudioProcessingMode {
         get => NumGet(this, 56, "ptr")

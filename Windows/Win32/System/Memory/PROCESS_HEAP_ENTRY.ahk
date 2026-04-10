@@ -6,10 +6,8 @@
  * Contains information about a heap element.
  * @see https://learn.microsoft.com/windows/win32/api/minwinbase/ns-minwinbase-process_heap_entry
  * @namespace Windows.Win32.System.Memory
- * @version v4.0.30319
  */
-class PROCESS_HEAP_ENTRY extends Win32Struct
-{
+class PROCESS_HEAP_ENTRY extends Win32Struct {
     static sizeof => 40
 
     static packingSize => 8
@@ -199,25 +197,24 @@ class PROCESS_HEAP_ENTRY extends Win32Struct
         /**
          * @type {HANDLE}
          */
-        hMem{
+        hMem {
             get {
                 if(!this.HasProp("__hMem"))
                     this.__hMem := HANDLE(0, this)
                 return this.__hMem
             }
         }
-    
+
         /**
-         * @type {Array<UInt32>}
+         * @type {Array<Integer>}
          */
-        dwReserved{
+        dwReserved {
             get {
                 if(!this.HasProp("__dwReservedProxyArray"))
                     this.__dwReservedProxyArray := Win32FixedArray(this.ptr + 8, 3, Primitive, "uint")
                 return this.__dwReservedProxyArray
             }
         }
-    
     }
 
     class _Region extends Win32Struct {
@@ -231,7 +228,7 @@ class PROCESS_HEAP_ENTRY extends Win32Struct
             get => NumGet(this, 0, "uint")
             set => NumPut("uint", value, this, 0)
         }
-    
+
         /**
          * @type {Integer}
          */
@@ -239,7 +236,7 @@ class PROCESS_HEAP_ENTRY extends Win32Struct
             get => NumGet(this, 4, "uint")
             set => NumPut("uint", value, this, 4)
         }
-    
+
         /**
          * @type {Pointer<Void>}
          */
@@ -247,7 +244,7 @@ class PROCESS_HEAP_ENTRY extends Win32Struct
             get => NumGet(this, 8, "ptr")
             set => NumPut("ptr", value, this, 8)
         }
-    
+
         /**
          * @type {Pointer<Void>}
          */
@@ -255,16 +252,15 @@ class PROCESS_HEAP_ENTRY extends Win32Struct
             get => NumGet(this, 16, "ptr")
             set => NumPut("ptr", value, this, 16)
         }
-    
     }
 
     /**
      * @type {_Block}
      */
-    Block{
+    Block {
         get {
             if(!this.HasProp("__Block"))
-                this.__Block := %this.__Class%._Block(16, this)
+                this.__Block := PROCESS_HEAP_ENTRY._Block(16, this)
             return this.__Block
         }
     }
@@ -272,10 +268,10 @@ class PROCESS_HEAP_ENTRY extends Win32Struct
     /**
      * @type {_Region}
      */
-    Region{
+    Region {
         get {
             if(!this.HasProp("__Region"))
-                this.__Region := %this.__Class%._Region(16, this)
+                this.__Region := PROCESS_HEAP_ENTRY._Region(16, this)
             return this.__Region
         }
     }

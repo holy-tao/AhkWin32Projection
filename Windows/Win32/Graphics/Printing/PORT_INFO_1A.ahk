@@ -5,11 +5,9 @@
  * The PORT\_INFO\_1 structure identifies a supported printer port.
  * @see https://learn.microsoft.com/windows/win32/printdocs/port-info-1
  * @namespace Windows.Win32.Graphics.Printing
- * @version v4.0.30319
  * @charset ANSI
  */
-class PORT_INFO_1A extends Win32Struct
-{
+class PORT_INFO_1A extends Win32Struct {
     static sizeof => 8
 
     static packingSize => 8

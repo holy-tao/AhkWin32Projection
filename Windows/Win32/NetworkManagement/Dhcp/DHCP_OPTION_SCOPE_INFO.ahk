@@ -1,15 +1,14 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
+#Include .\DHCP_OPTION_SCOPE_TYPE.ahk
 #Include .\DHCP_RESERVED_SCOPE.ahk
 
 /**
  * The DHCP_OPTION_SCOPE_INFO structure defines information about the options provided for a certain DHCP scope.
  * @see https://learn.microsoft.com/windows/win32/api/dhcpsapi/ns-dhcpsapi-dhcp_option_scope_info
  * @namespace Windows.Win32.NetworkManagement.Dhcp
- * @version v4.0.30319
  */
-class DHCP_OPTION_SCOPE_INFO extends Win32Struct
-{
+class DHCP_OPTION_SCOPE_INFO extends Win32Struct {
     static sizeof => 48
 
     static packingSize => 8
@@ -25,7 +24,7 @@ class DHCP_OPTION_SCOPE_INFO extends Win32Struct
             get => NumGet(this, 0, "ptr")
             set => NumPut("ptr", value, this, 0)
         }
-    
+
         /**
          * @type {Pointer<Void>}
          */
@@ -33,7 +32,7 @@ class DHCP_OPTION_SCOPE_INFO extends Win32Struct
             get => NumGet(this, 0, "ptr")
             set => NumPut("ptr", value, this, 0)
         }
-    
+
         /**
          * @type {Integer}
          */
@@ -41,18 +40,18 @@ class DHCP_OPTION_SCOPE_INFO extends Win32Struct
             get => NumGet(this, 0, "uint")
             set => NumPut("uint", value, this, 0)
         }
-    
+
         /**
          * @type {DHCP_RESERVED_SCOPE}
          */
-        ReservedScopeInfo{
+        ReservedScopeInfo {
             get {
                 if(!this.HasProp("__ReservedScopeInfo"))
                     this.__ReservedScopeInfo := DHCP_RESERVED_SCOPE(0, this)
                 return this.__ReservedScopeInfo
             }
         }
-    
+
         /**
          * @type {PWSTR}
          */
@@ -60,12 +59,11 @@ class DHCP_OPTION_SCOPE_INFO extends Win32Struct
             get => NumGet(this, 0, "ptr")
             set => NumPut("ptr", value, this, 0)
         }
-    
     }
 
     /**
      * <a href="https://docs.microsoft.com/windows/desktop/api/dhcpsapi/ne-dhcpsapi-dhcp_option_scope_type">DHCP_OPTION_SCOPE_TYPE</a> enumeration value that defines the scope type of the associated DHCP options, and indicates which of the following fields in the union will be populated.
-     * @type {Integer}
+     * @type {DHCP_OPTION_SCOPE_TYPE}
      */
     ScopeType {
         get => NumGet(this, 0, "int")
@@ -73,13 +71,12 @@ class DHCP_OPTION_SCOPE_INFO extends Win32Struct
     }
 
     /**
-     * 
      * @type {_DHCP_OPTION_SCOPE_UNION}
      */
-    ScopeInfo{
+    ScopeInfo {
         get {
             if(!this.HasProp("__ScopeInfo"))
-                this.__ScopeInfo := %this.__Class%._DHCP_OPTION_SCOPE_UNION(8, this)
+                this.__ScopeInfo := DHCP_OPTION_SCOPE_INFO._DHCP_OPTION_SCOPE_UNION(8, this)
             return this.__ScopeInfo
         }
     }

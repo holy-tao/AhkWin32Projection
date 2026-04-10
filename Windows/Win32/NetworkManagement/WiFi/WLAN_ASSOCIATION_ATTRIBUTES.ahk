@@ -1,15 +1,15 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
 #Include .\DOT11_SSID.ahk
+#Include .\DOT11_BSS_TYPE.ahk
+#Include .\DOT11_PHY_TYPE.ahk
 
 /**
  * Contains association attributes for a connection.
  * @see https://learn.microsoft.com/windows/win32/api/wlanapi/ns-wlanapi-wlan_association_attributes
  * @namespace Windows.Win32.NetworkManagement.WiFi
- * @version v4.0.30319
  */
-class WLAN_ASSOCIATION_ATTRIBUTES extends Win32Struct
-{
+class WLAN_ASSOCIATION_ATTRIBUTES extends Win32Struct {
     static sizeof => 68
 
     static packingSize => 4
@@ -18,7 +18,7 @@ class WLAN_ASSOCIATION_ATTRIBUTES extends Win32Struct
      * A <a href="https://docs.microsoft.com/windows/desktop/NativeWiFi/dot11-ssid">DOT11_SSID</a> structure that contains the SSID of the association.
      * @type {DOT11_SSID}
      */
-    dot11Ssid{
+    dot11Ssid {
         get {
             if(!this.HasProp("__dot11Ssid"))
                 this.__dot11Ssid := DOT11_SSID(0, this)
@@ -28,7 +28,7 @@ class WLAN_ASSOCIATION_ATTRIBUTES extends Win32Struct
 
     /**
      * A <a href="https://docs.microsoft.com/windows/desktop/NativeWiFi/dot11-bss-type">DOT11_BSS_TYPE</a> value that specifies whether the network is infrastructure or ad hoc.
-     * @type {Integer}
+     * @type {DOT11_BSS_TYPE}
      */
     dot11BssType {
         get => NumGet(this, 36, "int")
@@ -37,9 +37,9 @@ class WLAN_ASSOCIATION_ATTRIBUTES extends Win32Struct
 
     /**
      * A <a href="https://docs.microsoft.com/windows/desktop/NativeWiFi/dot11-mac-address-type">DOT11_MAC_ADDRESS</a> that contains the BSSID of the association.
-     * @type {Array<Byte>}
+     * @type {Array<Integer>}
      */
-    dot11Bssid{
+    dot11Bssid {
         get {
             if(!this.HasProp("__dot11BssidProxyArray"))
                 this.__dot11BssidProxyArray := Win32FixedArray(this.ptr + 40, 6, Primitive, "char")
@@ -49,7 +49,7 @@ class WLAN_ASSOCIATION_ATTRIBUTES extends Win32Struct
 
     /**
      * A <a href="https://docs.microsoft.com/windows/desktop/NativeWiFi/dot11-phy-type">DOT11_PHY_TYPE</a> value that indicates the physical type of the association.
-     * @type {Integer}
+     * @type {DOT11_PHY_TYPE}
      */
     dot11PhyType {
         get => NumGet(this, 48, "int")

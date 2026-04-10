@@ -5,9 +5,8 @@
  * The named pipe is a byte pipe. This is the default.
  * @see https://learn.microsoft.com/windows/win32/api/namedpipeapi/nf-namedpipeapi-getnamedpipeinfo
  * @namespace Windows.Win32.Devices.Usb
- * @version v4.0.30319
  */
-class PIPE_TYPE extends Win32Enum{
+class PIPE_TYPE extends Win32Enum {
 
     /**
      * @type {Integer (Int32)}

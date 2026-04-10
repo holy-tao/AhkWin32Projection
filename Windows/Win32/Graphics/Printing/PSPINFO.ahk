@@ -4,10 +4,8 @@
 
 /**
  * @namespace Windows.Win32.Graphics.Printing
- * @version v4.0.30319
  */
-class PSPINFO extends Win32Struct
-{
+class PSPINFO extends Win32Struct {
     static sizeof => 32
 
     static packingSize => 8
@@ -31,7 +29,7 @@ class PSPINFO extends Win32Struct
     /**
      * @type {HANDLE}
      */
-    hComPropSheet{
+    hComPropSheet {
         get {
             if(!this.HasProp("__hComPropSheet"))
                 this.__hComPropSheet := HANDLE(8, this)
@@ -42,7 +40,7 @@ class PSPINFO extends Win32Struct
     /**
      * @type {HANDLE}
      */
-    hCPSUIPage{
+    hCPSUIPage {
         get {
             if(!this.HasProp("__hCPSUIPage"))
                 this.__hCPSUIPage := HANDLE(16, this)

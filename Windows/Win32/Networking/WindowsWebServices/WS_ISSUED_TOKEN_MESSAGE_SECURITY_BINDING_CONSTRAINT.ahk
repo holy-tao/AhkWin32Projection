@@ -1,6 +1,12 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
 #Include .\WS_SECURITY_BINDING_CONSTRAINT.ahk
+#Include .\WS_SECURITY_BINDING_CONSTRAINT_TYPE.ahk
+#Include .\WS_SECURITY_BINDING_PROPERTY_CONSTRAINT.ahk
+#Include .\WS_MESSAGE_SECURITY_USAGE.ahk
+#Include .\WS_XML_STRING.ahk
+#Include .\WS_REQUEST_SECURITY_TOKEN_PROPERTY_CONSTRAINT.ahk
+#Include .\WS_ENDPOINT_ADDRESS.ahk
 
 /**
  * A security binding constraint that can be used to extract information about how to obtain an issued token from an issuing party.
@@ -15,10 +21,8 @@
  *                 scenarios.
  * @see https://learn.microsoft.com/windows/win32/api/webservices/ns-webservices-ws_issued_token_message_security_binding_constraint
  * @namespace Windows.Win32.Networking.WindowsWebServices
- * @version v4.0.30319
  */
-class WS_ISSUED_TOKEN_MESSAGE_SECURITY_BINDING_CONSTRAINT extends Win32Struct
-{
+class WS_ISSUED_TOKEN_MESSAGE_SECURITY_BINDING_CONSTRAINT extends Win32Struct {
     static sizeof => 80
 
     static packingSize => 8
@@ -34,7 +38,7 @@ class WS_ISSUED_TOKEN_MESSAGE_SECURITY_BINDING_CONSTRAINT extends Win32Struct
             get => NumGet(this, 0, "ptr")
             set => NumPut("ptr", value, this, 0)
         }
-    
+
         /**
          * @type {Pointer<WS_XML_BUFFER>}
          */
@@ -42,7 +46,6 @@ class WS_ISSUED_TOKEN_MESSAGE_SECURITY_BINDING_CONSTRAINT extends Win32Struct
             get => NumGet(this, 8, "ptr")
             set => NumPut("ptr", value, this, 8)
         }
-    
     }
 
     /**
@@ -52,7 +55,7 @@ class WS_ISSUED_TOKEN_MESSAGE_SECURITY_BINDING_CONSTRAINT extends Win32Struct
      * There are currently no binding-specific properties defined for this binding constraint.
      * @type {WS_SECURITY_BINDING_CONSTRAINT}
      */
-    bindingConstraint{
+    bindingConstraint {
         get {
             if(!this.HasProp("__bindingConstraint"))
                 this.__bindingConstraint := WS_SECURITY_BINDING_CONSTRAINT(0, this)
@@ -62,7 +65,7 @@ class WS_ISSUED_TOKEN_MESSAGE_SECURITY_BINDING_CONSTRAINT extends Win32Struct
 
     /**
      * This specifies how the issued token should be attached to a message.
-     * @type {Integer}
+     * @type {WS_MESSAGE_SECURITY_USAGE}
      */
     bindingUsage {
         get => NumGet(this, 24, "int")
@@ -122,10 +125,10 @@ class WS_ISSUED_TOKEN_MESSAGE_SECURITY_BINDING_CONSTRAINT extends Win32Struct
      *                     entire contents of this structure will be filled out.
      * @type {_out}
      */
-    out{
+    out {
         get {
             if(!this.HasProp("__out"))
-                this.__out := %this.__Class%._out(64, this)
+                this.__out := WS_ISSUED_TOKEN_MESSAGE_SECURITY_BINDING_CONSTRAINT._out(64, this)
             return this.__out
         }
     }

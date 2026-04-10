@@ -8,9 +8,8 @@
  * <div> </div>
  * @see https://learn.microsoft.com/windows/win32/api/vds/ne-vds-vds_lun_reserve_mode
  * @namespace Windows.Win32.Storage.VirtualDiskService
- * @version v4.0.30319
  */
-class VDS_LUN_RESERVE_MODE extends Win32Enum{
+class VDS_LUN_RESERVE_MODE extends Win32Enum {
 
     /**
      * This value is reserved.

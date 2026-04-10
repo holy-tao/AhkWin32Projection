@@ -3,10 +3,8 @@
 
 /**
  * @namespace Windows.Win32.Devices.HumanInterfaceDevice
- * @version v4.0.30319
  */
-class DIENVELOPE extends Win32Struct
-{
+class DIENVELOPE extends Win32Struct {
     static sizeof => 20
 
     static packingSize => 4

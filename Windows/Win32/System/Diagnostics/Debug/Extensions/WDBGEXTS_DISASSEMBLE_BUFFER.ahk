@@ -3,10 +3,8 @@
 
 /**
  * @namespace Windows.Win32.System.Diagnostics.Debug.Extensions
- * @version v4.0.30319
  */
-class WDBGEXTS_DISASSEMBLE_BUFFER extends Win32Struct
-{
+class WDBGEXTS_DISASSEMBLE_BUFFER extends Win32Struct {
     static sizeof => 72
 
     static packingSize => 8
@@ -76,9 +74,9 @@ class WDBGEXTS_DISASSEMBLE_BUFFER extends Win32Struct
     }
 
     /**
-     * @type {Array<UInt64>}
+     * @type {Array<Integer>}
      */
-    Reserved0{
+    Reserved0 {
         get {
             if(!this.HasProp("__Reserved0ProxyArray"))
                 this.__Reserved0ProxyArray := Win32FixedArray(this.ptr + 48, 3, Primitive, "uint")

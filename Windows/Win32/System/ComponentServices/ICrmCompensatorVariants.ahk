@@ -9,9 +9,8 @@
  * The CRM clerk determines the CLSID of the CRM Compensator using the <a href="https://docs.microsoft.com/windows/desktop/api/comsvcs/nf-comsvcs-icrmlogcontrol-registercompensator">ICrmLogControl::RegisterCompensator</a> method. It next calls <a href="https://docs.microsoft.com/windows/desktop/api/combaseapi/nf-combaseapi-cocreateinstance">CoCreateInstance</a> specifying the CLSID of this CRM Compensator, and then it calls <a href="https://docs.microsoft.com/windows/desktop/api/unknwn/nf-unknwn-iunknown-queryinterface(q)">QueryInterface</a> for both the <a href="https://docs.microsoft.com/windows/desktop/api/comsvcs/nn-comsvcs-icrmcompensator">ICrmCompensator</a> interface and the <b>ICrmCompensatorVariants</b> interface.
  * @see https://learn.microsoft.com/windows/win32/api/comsvcs/nn-comsvcs-icrmcompensatorvariants
  * @namespace Windows.Win32.System.ComponentServices
- * @version v4.0.30319
  */
-class ICrmCompensatorVariants extends IUnknown{
+class ICrmCompensatorVariants extends IUnknown {
 
     static sizeof => A_PtrSize
     /**

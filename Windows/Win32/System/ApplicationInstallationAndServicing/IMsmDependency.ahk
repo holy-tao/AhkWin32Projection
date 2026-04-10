@@ -7,9 +7,8 @@
  * The IMsmDependency interface retrieves details for a single module dependency.
  * @see https://learn.microsoft.com/windows/win32/api/mergemod/nn-mergemod-imsmdependency
  * @namespace Windows.Win32.System.ApplicationInstallationAndServicing
- * @version v4.0.30319
  */
-class IMsmDependency extends IDispatch{
+class IMsmDependency extends IDispatch {
 
     static sizeof => A_PtrSize
     /**
@@ -136,7 +135,7 @@ class IMsmDependency extends IDispatch{
      * The get_Version method retrieves the Version property of the Dependency object. This method returns the version of the required module in the form of a BSTR.
      * @remarks
      * The client is responsible for freeing the resulting string using <b>SysFreeString</b>.
-     * @param {Pointer<BSTR>} _Version 
+     * @param {Pointer<BSTR>} _Version A pointer to a location in memory that is filled in with a <b>BSTR</b> value.
      * @returns {HRESULT} This method can return one of these values.
      * 
      * <table>

@@ -16,10 +16,8 @@
  *     <b>ERROR_SHARING_VIOLATION</b>.
  * @see https://learn.microsoft.com/windows/win32/api/winioctl/ns-winioctl-request_oplock_output_buffer
  * @namespace Windows.Win32.System.Ioctl
- * @version v4.0.30319
  */
-class REQUEST_OPLOCK_OUTPUT_BUFFER extends Win32Struct
-{
+class REQUEST_OPLOCK_OUTPUT_BUFFER extends Win32Struct {
     static sizeof => 24
 
     static packingSize => 4

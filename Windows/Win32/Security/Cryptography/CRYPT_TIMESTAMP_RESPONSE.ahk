@@ -1,5 +1,6 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
+#Include .\CRYPT_TIMESTAMP_RESPONSE_STATUS.ahk
 #Include .\CRYPT_BIT_BLOB.ahk
 #Include .\CRYPT_INTEGER_BLOB.ahk
 
@@ -7,17 +8,15 @@
  * Is used internally to encapsulate an Abstract Syntax Notation One (ASN.1) Distinguished Encoding Rules (DER) encoded response.
  * @see https://learn.microsoft.com/windows/win32/api/wincrypt/ns-wincrypt-crypt_timestamp_response
  * @namespace Windows.Win32.Security.Cryptography
- * @version v4.0.30319
  */
-class CRYPT_TIMESTAMP_RESPONSE extends Win32Struct
-{
+class CRYPT_TIMESTAMP_RESPONSE extends Win32Struct {
     static sizeof => 56
 
     static packingSize => 8
 
     /**
      * A <b>DWORD</b> value that indicates the status of the time stamp response.
-     * @type {Integer}
+     * @type {CRYPT_TIMESTAMP_RESPONSE_STATUS}
      */
     dwStatus {
         get => NumGet(this, 0, "uint")
@@ -141,7 +140,7 @@ class CRYPT_TIMESTAMP_RESPONSE extends Win32Struct
      * </table>
      * @type {CRYPT_BIT_BLOB}
      */
-    FailureInfo{
+    FailureInfo {
         get {
             if(!this.HasProp("__FailureInfo"))
                 this.__FailureInfo := CRYPT_BIT_BLOB(16, this)
@@ -153,7 +152,7 @@ class CRYPT_TIMESTAMP_RESPONSE extends Win32Struct
      * A <a href="https://docs.microsoft.com/windows/win32/api/dpapi/ns-dpapi-crypt_integer_blob">CRYPT_DER_BLOB</a> structure that encapsulates a signed data content type in Cryptographic Message Syntax (CMS) format.
      * @type {CRYPT_INTEGER_BLOB}
      */
-    ContentInfo{
+    ContentInfo {
         get {
             if(!this.HasProp("__ContentInfo"))
                 this.__ContentInfo := CRYPT_INTEGER_BLOB(40, this)

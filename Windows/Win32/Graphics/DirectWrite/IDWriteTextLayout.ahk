@@ -1,10 +1,14 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
+#Include .\IDWriteTextFormat.ahk
+#Include .\IDWriteFontCollection.ahk
 #Include .\DWRITE_TEXT_RANGE.ahk
+#Include ..\..\System\Com\IUnknown.ahk
+#Include .\IDWriteInlineObject.ahk
+#Include .\IDWriteTypography.ahk
 #Include .\DWRITE_TEXT_METRICS.ahk
 #Include .\DWRITE_OVERHANG_METRICS.ahk
-#Include .\IDWriteTextFormat.ahk
 
 /**
  * The IDWriteTextLayout interface represents a block of text after it has been fully analyzed and formatted.
@@ -84,9 +88,8 @@
  * Using a custom text renderer also enables you to render using another technology, such as GDI.
  * @see https://learn.microsoft.com/windows/win32/api/dwrite/nn-dwrite-idwritetextlayout
  * @namespace Windows.Win32.Graphics.DirectWrite
- * @version v4.0.30319
  */
-class IDWriteTextLayout extends IDWriteTextFormat{
+class IDWriteTextLayout extends IDWriteTextFormat {
 
     static sizeof => A_PtrSize
     /**
@@ -139,7 +142,9 @@ class IDWriteTextLayout extends IDWriteTextFormat{
 
     /**
      * Sets the font collection.
-     * @param {IDWriteFontCollection} _fontCollection 
+     * @param {IDWriteFontCollection} _fontCollection Type: <b><a href="https://docs.microsoft.com/windows/win32/api/dwrite/nn-dwrite-idwritefontcollection">IDWriteFontCollection</a>*</b>
+     * 
+     * The font collection to set.
      * @param {DWRITE_TEXT_RANGE} textRange Type: <b><a href="https://docs.microsoft.com/windows/win32/api/dwrite/ns-dwrite-dwrite_text_range">DWRITE_TEXT_RANGE</a></b>
      * 
      * Text range to which this change applies.
@@ -181,7 +186,7 @@ class IDWriteTextLayout extends IDWriteTextFormat{
      * The following illustration shows an example of Normal and UltraBold weights for the Palatino Linotype typeface.
      * 
      * <img alt='Illustration of the letter "W" in Normal and UltraBold weights' src="./images/FontWeight_for_Palatino.png"/>
-     * @param {Integer} fontWeight Type: <b><a href="https://docs.microsoft.com/windows/win32/api/dwrite/ne-dwrite-dwrite_font_weight">DWRITE_FONT_WEIGHT</a></b>
+     * @param {DWRITE_FONT_WEIGHT} fontWeight Type: <b><a href="https://docs.microsoft.com/windows/win32/api/dwrite/ne-dwrite-dwrite_font_weight">DWRITE_FONT_WEIGHT</a></b>
      * 
      * The font weight to be set for text within the range specified by <i>textRange</i>.
      * @param {DWRITE_TEXT_RANGE} textRange Type: <b><a href="https://docs.microsoft.com/windows/win32/api/dwrite/ns-dwrite-dwrite_text_range">DWRITE_TEXT_RANGE</a></b>
@@ -203,7 +208,9 @@ class IDWriteTextLayout extends IDWriteTextFormat{
      * The font style can be set to Normal, Italic or Oblique. The following illustration shows  three styles for the Palatino font.  For more information, see <a href="https://docs.microsoft.com/windows/win32/api/dwrite/ne-dwrite-dwrite_font_style">DWRITE_FONT_STYLE</a>.
      * 
      * <img alt="Illustration of normal, italic, and oblique font styles for the Palatino font" src="./images/FontStyle_for_Palatino.png"/>
-     * @param {Integer} _fontStyle 
+     * @param {DWRITE_FONT_STYLE} _fontStyle Type: <b><a href="https://docs.microsoft.com/windows/win32/api/dwrite/ne-dwrite-dwrite_font_style">DWRITE_FONT_STYLE</a></b>
+     * 
+     * The  font style to be set   for text within a range specified by <i>textRange</i>.
      * @param {DWRITE_TEXT_RANGE} textRange Type: <b><a href="https://docs.microsoft.com/windows/win32/api/dwrite/ns-dwrite-dwrite_text_range">DWRITE_TEXT_RANGE</a></b>
      * 
      * The text range to which this change applies.
@@ -219,7 +226,7 @@ class IDWriteTextLayout extends IDWriteTextFormat{
 
     /**
      * Sets the font stretch for text within a specified text range.
-     * @param {Integer} fontStretch Type: <b><a href="https://docs.microsoft.com/windows/win32/api/dwrite/ne-dwrite-dwrite_font_stretch">DWRITE_FONT_STRETCH</a></b>
+     * @param {DWRITE_FONT_STRETCH} fontStretch Type: <b><a href="https://docs.microsoft.com/windows/win32/api/dwrite/ne-dwrite-dwrite_font_stretch">DWRITE_FONT_STRETCH</a></b>
      * 
      * A value which indicates the type of font stretch for text within the range specified by <i>textRange</i>.
      * @param {DWRITE_TEXT_RANGE} textRange Type: <b><a href="https://docs.microsoft.com/windows/win32/api/dwrite/ns-dwrite-dwrite_text_range">DWRITE_TEXT_RANGE</a></b>
@@ -403,7 +410,9 @@ class IDWriteTextLayout extends IDWriteTextFormat{
      * @param {Integer} currentPosition Type: <b>UINT32</b>
      * 
      * The position of the text to inspect.
-     * @param {Pointer<IDWriteFontCollection>} _fontCollection 
+     * @param {Pointer<IDWriteFontCollection>} _fontCollection Type: <b><a href="https://docs.microsoft.com/windows/win32/api/dwrite/nn-dwrite-idwritefontcollection">IDWriteFontCollection</a>**</b>
+     * 
+     * Contains an address of a  pointer to the current font collection.
      * @param {Pointer<DWRITE_TEXT_RANGE>} textRange Type: <b><a href="https://docs.microsoft.com/windows/win32/api/dwrite/ns-dwrite-dwrite_text_range">DWRITE_TEXT_RANGE</a>*</b>
      * 
      * The range of text that has the same  formatting as the text at the position specified by <i>currentPosition</i>.  This means the run has the exact  formatting as the position specified, including but not limited to the underline.
@@ -469,7 +478,7 @@ class IDWriteTextLayout extends IDWriteTextFormat{
      * @param {Integer} currentPosition Type: <b>UINT32</b>
      * 
      * The position of the text to inspect.
-     * @param {Pointer<Integer>} fontWeight Type: <b><a href="https://docs.microsoft.com/windows/win32/api/dwrite/ne-dwrite-dwrite_font_weight">DWRITE_FONT_WEIGHT</a>*</b>
+     * @param {Pointer<DWRITE_FONT_WEIGHT>} fontWeight Type: <b><a href="https://docs.microsoft.com/windows/win32/api/dwrite/ne-dwrite-dwrite_font_weight">DWRITE_FONT_WEIGHT</a>*</b>
      * 
      * When this method returns, contains a value which indicates the type of font weight being applied at the specified position.
      * @param {Pointer<DWRITE_TEXT_RANGE>} textRange Type: <b><a href="https://docs.microsoft.com/windows/win32/api/dwrite/ns-dwrite-dwrite_text_range">DWRITE_TEXT_RANGE</a>*</b>
@@ -492,7 +501,9 @@ class IDWriteTextLayout extends IDWriteTextFormat{
      * @param {Integer} currentPosition Type: <b>UINT32</b>
      * 
      * The position of the text to inspect.
-     * @param {Pointer<Integer>} _fontStyle 
+     * @param {Pointer<DWRITE_FONT_STYLE>} _fontStyle Type: <b><a href="https://docs.microsoft.com/windows/win32/api/dwrite/ne-dwrite-dwrite_font_style">DWRITE_FONT_STYLE</a>*</b>
+     * 
+     * When this method returns, contains a value which indicates the type of font style (also known as slope or incline) being applied at the specified position.
      * @param {Pointer<DWRITE_TEXT_RANGE>} textRange Type: <b><a href="https://docs.microsoft.com/windows/win32/api/dwrite/ns-dwrite-dwrite_text_range">DWRITE_TEXT_RANGE</a>*</b>
      * 
      * The range of text that has the same  formatting as the text at the position specified by <i>currentPosition</i>.  This means the run has the exact  formatting as the position specified, including but not limited to the font style.
@@ -513,7 +524,7 @@ class IDWriteTextLayout extends IDWriteTextFormat{
      * @param {Integer} currentPosition Type: <b>UINT32</b>
      * 
      * The position of the text to inspect.
-     * @param {Pointer<Integer>} fontStretch Type: <b><a href="https://docs.microsoft.com/windows/win32/api/dwrite/ne-dwrite-dwrite_font_stretch">DWRITE_FONT_STRETCH</a>*</b>
+     * @param {Pointer<DWRITE_FONT_STRETCH>} fontStretch Type: <b><a href="https://docs.microsoft.com/windows/win32/api/dwrite/ne-dwrite-dwrite_font_stretch">DWRITE_FONT_STRETCH</a>*</b>
      * 
      * When this method returns, contains a value which indicates the type of font stretch (also known as width) being applied at the specified position.
      * @param {Pointer<DWRITE_TEXT_RANGE>} textRange Type: <b><a href="https://docs.microsoft.com/windows/win32/api/dwrite/ns-dwrite-dwrite_text_range">DWRITE_TEXT_RANGE</a>*</b>

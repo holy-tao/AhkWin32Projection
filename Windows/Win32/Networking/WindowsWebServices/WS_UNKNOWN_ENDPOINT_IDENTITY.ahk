@@ -1,15 +1,14 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
 #Include .\WS_ENDPOINT_IDENTITY.ahk
+#Include .\WS_ENDPOINT_IDENTITY_TYPE.ahk
 
 /**
  * Type for unknown endpoint identity. This type is only used to represent an endpoint identity type that was deserialized but was not understood.
  * @see https://learn.microsoft.com/windows/win32/api/webservices/ns-webservices-ws_unknown_endpoint_identity
  * @namespace Windows.Win32.Networking.WindowsWebServices
- * @version v4.0.30319
  */
-class WS_UNKNOWN_ENDPOINT_IDENTITY extends Win32Struct
-{
+class WS_UNKNOWN_ENDPOINT_IDENTITY extends Win32Struct {
     static sizeof => 16
 
     static packingSize => 8
@@ -18,7 +17,7 @@ class WS_UNKNOWN_ENDPOINT_IDENTITY extends Win32Struct
      * The base type from which this type and all other endpoint identity types derive.
      * @type {WS_ENDPOINT_IDENTITY}
      */
-    identity{
+    identity {
         get {
             if(!this.HasProp("__identity"))
                 this.__identity := WS_ENDPOINT_IDENTITY(0, this)

@@ -3,9 +3,8 @@
 
 /**
  * @namespace Windows.Win32.NetworkManagement.WindowsFilteringPlatform
- * @version v4.0.30319
  */
-class IKEEXT_KERBEROS_AUTHENTICATION_FLAGS extends Win32BitflagEnum{
+class IKEEXT_KERBEROS_AUTHENTICATION_FLAGS extends Win32BitflagEnum {
 
     /**
      * @type {Integer (UInt32)}

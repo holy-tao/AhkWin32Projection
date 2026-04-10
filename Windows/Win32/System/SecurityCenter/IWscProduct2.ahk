@@ -5,9 +5,8 @@
 
 /**
  * @namespace Windows.Win32.System.SecurityCenter
- * @version v4.0.30319
  */
-class IWscProduct2 extends IWscProduct{
+class IWscProduct2 extends IWscProduct {
 
     static sizeof => A_PtrSize
     /**
@@ -29,42 +28,42 @@ class IWscProduct2 extends IWscProduct{
     static VTableNames => ["get_AntivirusScanSubstatus", "get_AntivirusSettingsSubstatus", "get_AntivirusProtectionUpdateSubstatus", "get_FirewallDomainProfileSubstatus", "get_FirewallPrivateProfileSubstatus", "get_FirewallPublicProfileSubstatus"]
 
     /**
-     * @type {Integer} 
+     * @type {WSC_SECURITY_PRODUCT_SUBSTATUS} 
      */
     AntivirusScanSubstatus {
         get => this.get_AntivirusScanSubstatus()
     }
 
     /**
-     * @type {Integer} 
+     * @type {WSC_SECURITY_PRODUCT_SUBSTATUS} 
      */
     AntivirusSettingsSubstatus {
         get => this.get_AntivirusSettingsSubstatus()
     }
 
     /**
-     * @type {Integer} 
+     * @type {WSC_SECURITY_PRODUCT_SUBSTATUS} 
      */
     AntivirusProtectionUpdateSubstatus {
         get => this.get_AntivirusProtectionUpdateSubstatus()
     }
 
     /**
-     * @type {Integer} 
+     * @type {WSC_SECURITY_PRODUCT_SUBSTATUS} 
      */
     FirewallDomainProfileSubstatus {
         get => this.get_FirewallDomainProfileSubstatus()
     }
 
     /**
-     * @type {Integer} 
+     * @type {WSC_SECURITY_PRODUCT_SUBSTATUS} 
      */
     FirewallPrivateProfileSubstatus {
         get => this.get_FirewallPrivateProfileSubstatus()
     }
 
     /**
-     * @type {Integer} 
+     * @type {WSC_SECURITY_PRODUCT_SUBSTATUS} 
      */
     FirewallPublicProfileSubstatus {
         get => this.get_FirewallPublicProfileSubstatus()
@@ -72,7 +71,7 @@ class IWscProduct2 extends IWscProduct{
 
     /**
      * 
-     * @returns {Integer} 
+     * @returns {WSC_SECURITY_PRODUCT_SUBSTATUS} 
      */
     get_AntivirusScanSubstatus() {
         result := ComCall(14, this, "int*", &peStatus := 0, "HRESULT")
@@ -81,7 +80,7 @@ class IWscProduct2 extends IWscProduct{
 
     /**
      * 
-     * @returns {Integer} 
+     * @returns {WSC_SECURITY_PRODUCT_SUBSTATUS} 
      */
     get_AntivirusSettingsSubstatus() {
         result := ComCall(15, this, "int*", &peStatus := 0, "HRESULT")
@@ -90,7 +89,7 @@ class IWscProduct2 extends IWscProduct{
 
     /**
      * 
-     * @returns {Integer} 
+     * @returns {WSC_SECURITY_PRODUCT_SUBSTATUS} 
      */
     get_AntivirusProtectionUpdateSubstatus() {
         result := ComCall(16, this, "int*", &peStatus := 0, "HRESULT")
@@ -99,7 +98,7 @@ class IWscProduct2 extends IWscProduct{
 
     /**
      * 
-     * @returns {Integer} 
+     * @returns {WSC_SECURITY_PRODUCT_SUBSTATUS} 
      */
     get_FirewallDomainProfileSubstatus() {
         result := ComCall(17, this, "int*", &peStatus := 0, "HRESULT")
@@ -108,7 +107,7 @@ class IWscProduct2 extends IWscProduct{
 
     /**
      * 
-     * @returns {Integer} 
+     * @returns {WSC_SECURITY_PRODUCT_SUBSTATUS} 
      */
     get_FirewallPrivateProfileSubstatus() {
         result := ComCall(18, this, "int*", &peStatus := 0, "HRESULT")
@@ -117,7 +116,7 @@ class IWscProduct2 extends IWscProduct{
 
     /**
      * 
-     * @returns {Integer} 
+     * @returns {WSC_SECURITY_PRODUCT_SUBSTATUS} 
      */
     get_FirewallPublicProfileSubstatus() {
         result := ComCall(19, this, "int*", &peStatus := 0, "HRESULT")

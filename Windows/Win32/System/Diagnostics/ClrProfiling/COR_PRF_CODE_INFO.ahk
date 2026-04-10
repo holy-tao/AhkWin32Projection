@@ -3,10 +3,8 @@
 
 /**
  * @namespace Windows.Win32.System.Diagnostics.ClrProfiling
- * @version v4.0.30319
  */
-class COR_PRF_CODE_INFO extends Win32Struct
-{
+class COR_PRF_CODE_INFO extends Win32Struct {
     static sizeof => 16
 
     static packingSize => 8

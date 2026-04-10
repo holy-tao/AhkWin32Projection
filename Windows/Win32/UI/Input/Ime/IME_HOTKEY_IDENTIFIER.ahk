@@ -3,9 +3,8 @@
 
 /**
  * @namespace Windows.Win32.UI.Input.Ime
- * @version v4.0.30319
  */
-class IME_HOTKEY_IDENTIFIER extends Win32Enum{
+class IME_HOTKEY_IDENTIFIER extends Win32Enum {
 
     /**
      * @type {Integer (UInt32)}

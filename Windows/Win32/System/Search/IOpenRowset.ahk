@@ -5,9 +5,8 @@
 
 /**
  * @namespace Windows.Win32.System.Search
- * @version v4.0.30319
  */
-class IOpenRowset extends IUnknown{
+class IOpenRowset extends IUnknown {
 
     static sizeof => A_PtrSize
     /**

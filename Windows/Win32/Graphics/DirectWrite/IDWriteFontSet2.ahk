@@ -1,16 +1,15 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
-#Include ..\..\Foundation\HANDLE.ahk
 #Include .\IDWriteFontSet1.ahk
+#Include ..\..\Foundation\HANDLE.ahk
 
 /**
  * Represents a font set. (IDWriteFontSet2)
  * @see https://learn.microsoft.com/windows/win32/api/dwrite_3/nn-dwrite_3-idwritefontset2
  * @namespace Windows.Win32.Graphics.DirectWrite
- * @version v4.0.30319
  */
-class IDWriteFontSet2 extends IDWriteFontSet1{
+class IDWriteFontSet2 extends IDWriteFontSet1 {
 
     static sizeof => A_PtrSize
     /**

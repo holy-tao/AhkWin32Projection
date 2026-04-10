@@ -4,10 +4,8 @@
 
 /**
  * @namespace Windows.Win32.Networking.WinSock
- * @version v4.0.30319
  */
-class IGMPV3_QUERY_HEADER extends Win32Struct
-{
+class IGMPV3_QUERY_HEADER extends Win32Struct {
     static sizeof => 12
 
     static packingSize => 4
@@ -75,7 +73,7 @@ class IGMPV3_QUERY_HEADER extends Win32Struct
     /**
      * @type {IN_ADDR}
      */
-    MulticastAddress{
+    MulticastAddress {
         get {
             if(!this.HasProp("__MulticastAddress"))
                 this.__MulticastAddress := IN_ADDR(4, this)

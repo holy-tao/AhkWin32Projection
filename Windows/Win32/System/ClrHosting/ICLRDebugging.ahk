@@ -5,9 +5,8 @@
 
 /**
  * @namespace Windows.Win32.System.ClrHosting
- * @version v4.0.30319
  */
-class ICLRDebugging extends IUnknown{
+class ICLRDebugging extends IUnknown {
 
     static sizeof => A_PtrSize
     /**
@@ -37,7 +36,7 @@ class ICLRDebugging extends IUnknown{
      * @param {Pointer<Guid>} riidProcess 
      * @param {Pointer<IUnknown>} ppProcess 
      * @param {Pointer<CLR_DEBUGGING_VERSION>} pVersion 
-     * @param {Pointer<Integer>} pdwFlags 
+     * @param {Pointer<CLR_DEBUGGING_PROCESS_FLAGS>} pdwFlags 
      * @returns {HRESULT} 
      */
     OpenVirtualProcess(moduleBaseAddress, pDataTarget, pLibraryProvider, pMaxDebuggerSupportedVersion, riidProcess, ppProcess, pVersion, pdwFlags) {

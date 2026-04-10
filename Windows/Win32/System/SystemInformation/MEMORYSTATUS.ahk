@@ -12,10 +12,8 @@
  * <a href="https://docs.microsoft.com/windows/desktop/api/winbase/nf-winbase-globalmemorystatus">GlobalMemoryStatus</a> function.
  * @see https://learn.microsoft.com/windows/win32/api/winbase/ns-winbase-memorystatus
  * @namespace Windows.Win32.System.SystemInformation
- * @version v4.0.30319
  */
-class MEMORYSTATUS extends Win32Struct
-{
+class MEMORYSTATUS extends Win32Struct {
     static sizeof => 56
 
     static packingSize => 8

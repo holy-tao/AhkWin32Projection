@@ -3,10 +3,8 @@
 
 /**
  * @namespace Windows.Win32.Security.ExtensibleAuthenticationProtocol
- * @version v4.0.30319
  */
-class LEGACY_IDENTITY_UI_PARAMS extends Win32Struct
-{
+class LEGACY_IDENTITY_UI_PARAMS extends Win32Struct {
     static sizeof => 72
 
     static packingSize => 8

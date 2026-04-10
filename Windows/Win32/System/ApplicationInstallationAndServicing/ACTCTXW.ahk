@@ -21,11 +21,9 @@
  * > The winbase.h header defines ACTCTX as an alias which automatically selects the ANSI or Unicode version of this function based on the definition of the UNICODE preprocessor constant. Mixing usage of the encoding-neutral alias with code that not encoding-neutral can lead to mismatches that result in compilation or runtime errors. For more information, see [Conventions for Function Prototypes](/windows/win32/intl/conventions-for-function-prototypes).
  * @see https://learn.microsoft.com/windows/win32/api/winbase/ns-winbase-actctxw
  * @namespace Windows.Win32.System.ApplicationInstallationAndServicing
- * @version v4.0.30319
  * @charset Unicode
  */
-class ACTCTXW extends Win32Struct
-{
+class ACTCTXW extends Win32Struct {
     static sizeof => 56
 
     static packingSize => 8
@@ -206,7 +204,7 @@ class ACTCTXW extends Win32Struct
      * Use this member rather than <b>lpSource</b> if you have already loaded a DLL and wish to use it to create activation contexts rather than using a path in <b>lpSource</b>. See <b>lpResourceName</b> for the rules of looking up resources in this module.
      * @type {HMODULE}
      */
-    hModule{
+    hModule {
         get {
             if(!this.HasProp("__hModule"))
                 this.__hModule := HMODULE(48, this)

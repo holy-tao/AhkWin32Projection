@@ -1,10 +1,17 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\..\Win32Struct.ahk
+#Include .\APO_NOTIFICATION_TYPE.ahk
 #Include .\AUDIO_ENDPOINT_VOLUME_CHANGE_NOTIFICATION.ahk
-#Include ..\..\..\Foundation\PROPERTYKEY.ahk
+#Include ..\IMMDevice.ahk
+#Include ..\AUDIO_VOLUME_NOTIFICATION_DATA.ahk
 #Include .\AUDIO_ENDPOINT_PROPERTY_CHANGE_NOTIFICATION.ahk
+#Include ..\..\..\UI\Shell\PropertiesSystem\IPropertyStore.ahk
+#Include ..\..\..\Foundation\PROPERTYKEY.ahk
 #Include .\AUDIO_SYSTEMEFFECTS_PROPERTY_CHANGE_NOTIFICATION.ahk
+#Include ..\AUDIO_SYSTEMEFFECTS_PROPERTYSTORE_TYPE.ahk
 #Include .\AUDIO_ENDPOINT_VOLUME_CHANGE_NOTIFICATION2.ahk
+#Include .\AUDIO_VOLUME_NOTIFICATION_DATA2.ahk
+#Include .\DEVICE_ORIENTATION_TYPE.ahk
 #Include .\AUDIO_MICROPHONE_BOOST_NOTIFICATION.ahk
 #Include .\AUDIO_ENVIRONMENT_STATE_CHANGE_NOTIFICATION.ahk
 
@@ -17,17 +24,15 @@
  * For more information on the Windows 11 APIs for the Audio Processing Objects (APOs) that can ship with audio drivers, see [Windows 11 APIs for Audio Processing Objects](/windows-hardware/drivers/audio/windows-11-apis-for-audio-processing-objects).
  * @see https://learn.microsoft.com/windows/win32/api/audioengineextensionapo/ns-audioengineextensionapo-apo_notification
  * @namespace Windows.Win32.Media.Audio.Apo
- * @version v4.0.30319
  */
-class APO_NOTIFICATION extends Win32Struct
-{
+class APO_NOTIFICATION extends Win32Struct {
     static sizeof => 56
 
     static packingSize => 8
 
     /**
      * A value from the [APO_NOTIFICATION_TYPE](ne-audioengineextensionapo-apo_notification_type.md) enumeration specifying the type of change the notification represents.
-     * @type {Integer}
+     * @type {APO_NOTIFICATION_TYPE}
      */
     type {
         get => NumGet(this, 0, "int")
@@ -37,7 +42,7 @@ class APO_NOTIFICATION extends Win32Struct
     /**
      * @type {AUDIO_ENDPOINT_VOLUME_CHANGE_NOTIFICATION}
      */
-    audioEndpointVolumeChange{
+    audioEndpointVolumeChange {
         get {
             if(!this.HasProp("__audioEndpointVolumeChange"))
                 this.__audioEndpointVolumeChange := AUDIO_ENDPOINT_VOLUME_CHANGE_NOTIFICATION(8, this)
@@ -48,7 +53,7 @@ class APO_NOTIFICATION extends Win32Struct
     /**
      * @type {AUDIO_ENDPOINT_PROPERTY_CHANGE_NOTIFICATION}
      */
-    audioEndpointPropertyChange{
+    audioEndpointPropertyChange {
         get {
             if(!this.HasProp("__audioEndpointPropertyChange"))
                 this.__audioEndpointPropertyChange := AUDIO_ENDPOINT_PROPERTY_CHANGE_NOTIFICATION(8, this)
@@ -59,7 +64,7 @@ class APO_NOTIFICATION extends Win32Struct
     /**
      * @type {AUDIO_SYSTEMEFFECTS_PROPERTY_CHANGE_NOTIFICATION}
      */
-    audioSystemEffectsPropertyChange{
+    audioSystemEffectsPropertyChange {
         get {
             if(!this.HasProp("__audioSystemEffectsPropertyChange"))
                 this.__audioSystemEffectsPropertyChange := AUDIO_SYSTEMEFFECTS_PROPERTY_CHANGE_NOTIFICATION(8, this)
@@ -70,7 +75,7 @@ class APO_NOTIFICATION extends Win32Struct
     /**
      * @type {AUDIO_ENDPOINT_VOLUME_CHANGE_NOTIFICATION2}
      */
-    audioEndpointVolumeChange2{
+    audioEndpointVolumeChange2 {
         get {
             if(!this.HasProp("__audioEndpointVolumeChange2"))
                 this.__audioEndpointVolumeChange2 := AUDIO_ENDPOINT_VOLUME_CHANGE_NOTIFICATION2(8, this)
@@ -79,7 +84,7 @@ class APO_NOTIFICATION extends Win32Struct
     }
 
     /**
-     * @type {Integer}
+     * @type {DEVICE_ORIENTATION_TYPE}
      */
     deviceOrientation {
         get => NumGet(this, 8, "int")
@@ -89,7 +94,7 @@ class APO_NOTIFICATION extends Win32Struct
     /**
      * @type {AUDIO_MICROPHONE_BOOST_NOTIFICATION}
      */
-    audioMicrophoneBoostChange{
+    audioMicrophoneBoostChange {
         get {
             if(!this.HasProp("__audioMicrophoneBoostChange"))
                 this.__audioMicrophoneBoostChange := AUDIO_MICROPHONE_BOOST_NOTIFICATION(8, this)
@@ -100,7 +105,7 @@ class APO_NOTIFICATION extends Win32Struct
     /**
      * @type {AUDIO_ENVIRONMENT_STATE_CHANGE_NOTIFICATION}
      */
-    audioEnvironmentChange{
+    audioEnvironmentChange {
         get {
             if(!this.HasProp("__audioEnvironmentChange"))
                 this.__audioEnvironmentChange := AUDIO_ENVIRONMENT_STATE_CHANGE_NOTIFICATION(8, this)

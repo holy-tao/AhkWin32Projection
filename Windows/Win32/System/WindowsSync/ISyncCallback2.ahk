@@ -7,9 +7,8 @@
  * Represents additional application callbacks that are used to notify the application of synchronization events.
  * @see https://learn.microsoft.com/windows/win32/api/winsync/nn-winsync-isynccallback2
  * @namespace Windows.Win32.System.WindowsSync
- * @version v4.0.30319
  */
-class ISyncCallback2 extends ISyncCallback{
+class ISyncCallback2 extends ISyncCallback {
 
     static sizeof => A_PtrSize
     /**

@@ -7,9 +7,8 @@
  * Adds multiple quota user objects to a container that is then submitted for update in a single call.
  * @see https://learn.microsoft.com/windows/win32/api/dskquota/nn-dskquota-idiskquotauserbatch
  * @namespace Windows.Win32.Storage.FileSystem
- * @version v4.0.30319
  */
-class IDiskQuotaUserBatch extends IUnknown{
+class IDiskQuotaUserBatch extends IUnknown {
 
     static sizeof => A_PtrSize
     /**

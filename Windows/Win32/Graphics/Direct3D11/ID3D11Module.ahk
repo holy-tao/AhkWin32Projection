@@ -1,8 +1,8 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
-#Include .\ID3D11ModuleInstance.ahk
 #Include ..\..\System\Com\IUnknown.ahk
+#Include .\ID3D11ModuleInstance.ahk
 
 /**
  * A module interface creates an instance of a module that is used for resource rebinding.
@@ -15,9 +15,8 @@
  * <div> </div>
  * @see https://learn.microsoft.com/windows/win32/api/d3d11shader/nn-d3d11shader-id3d11module
  * @namespace Windows.Win32.Graphics.Direct3D11
- * @version v4.0.30319
  */
-class ID3D11Module extends IUnknown{
+class ID3D11Module extends IUnknown {
 
     static sizeof => A_PtrSize
     /**

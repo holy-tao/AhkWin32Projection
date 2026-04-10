@@ -5,10 +5,8 @@
  * Represents an array of MI_Sint16 types. (MI_Sint16A)
  * @see https://learn.microsoft.com/windows/win32/api/mi/ns-mi-mi_sint16a
  * @namespace Windows.Win32.System.Wmi
- * @version v4.0.30319
  */
-class MI_Sint16A extends Win32Struct
-{
+class MI_Sint16A extends Win32Struct {
     static sizeof => 16
 
     static packingSize => 8

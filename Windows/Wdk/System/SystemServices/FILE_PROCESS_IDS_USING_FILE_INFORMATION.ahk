@@ -3,10 +3,8 @@
 
 /**
  * @namespace Windows.Wdk.System.SystemServices
- * @version v4.0.30319
  */
-class FILE_PROCESS_IDS_USING_FILE_INFORMATION extends Win32Struct
-{
+class FILE_PROCESS_IDS_USING_FILE_INFORMATION extends Win32Struct {
     static sizeof => 16
 
     static packingSize => 8
@@ -20,9 +18,9 @@ class FILE_PROCESS_IDS_USING_FILE_INFORMATION extends Win32Struct
     }
 
     /**
-     * @type {Array<UIntPtr>}
+     * @type {Array<Pointer>}
      */
-    ProcessIdList{
+    ProcessIdList {
         get {
             if(!this.HasProp("__ProcessIdListProxyArray"))
                 this.__ProcessIdListProxyArray := Win32FixedArray(this.ptr + 8, 1, Primitive, "ptr")

@@ -7,9 +7,8 @@
  * The IDsAdminNewObjPrimarySite interface is implemented by the system and is used by a primary object creation extension to create a new temporary object in Active Directory Domain Services and then commit the object to persistent memory.
  * @see https://learn.microsoft.com/windows/win32/api/dsadmin/nn-dsadmin-idsadminnewobjprimarysite
  * @namespace Windows.Win32.Networking.ActiveDirectory
- * @version v4.0.30319
  */
-class IDsAdminNewObjPrimarySite extends IUnknown{
+class IDsAdminNewObjPrimarySite extends IUnknown {
 
     static sizeof => A_PtrSize
     /**

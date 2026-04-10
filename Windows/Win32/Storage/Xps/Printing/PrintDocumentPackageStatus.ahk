@@ -1,14 +1,13 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\..\Win32Struct.ahk
+#Include .\PrintDocumentPackageCompletion.ahk
 
 /**
  * Defines a payload to be used by the PackageStatusUpdated method. This structure is a generic version of XPS_JOB_STATUS.
  * @see https://learn.microsoft.com/windows/win32/api/documenttarget/ns-documenttarget-printdocumentpackagestatus
  * @namespace Windows.Win32.Storage.Xps.Printing
- * @version v4.0.30319
  */
-class PrintDocumentPackageStatus extends Win32Struct
-{
+class PrintDocumentPackageStatus extends Win32Struct {
     static sizeof => 24
 
     static packingSize => 4
@@ -51,7 +50,7 @@ class PrintDocumentPackageStatus extends Win32Struct
 
     /**
      * The completion status of the job.
-     * @type {Integer}
+     * @type {PrintDocumentPackageCompletion}
      */
     Completion {
         get => NumGet(this, 16, "int")

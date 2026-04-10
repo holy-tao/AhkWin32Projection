@@ -5,10 +5,8 @@
  * Defines metadata specific to each WIM data source hosted on a volume.
  * @see https://learn.microsoft.com/windows/win32/api/wofapi/ns-wofapi-wim_entry_info
  * @namespace Windows.Win32.Storage.FileSystem
- * @version v4.0.30319
  */
-class WIM_ENTRY_INFO extends Win32Struct
-{
+class WIM_ENTRY_INFO extends Win32Struct {
     static sizeof => 40
 
     static packingSize => 8
@@ -42,7 +40,7 @@ class WIM_ENTRY_INFO extends Win32Struct
 
     /**
      * Specifies the GUID which is stored in the WIM file’s header.
-     * @type {Pointer<Guid>}
+     * @type {Pointer}
      */
     WimGuid {
         get => NumGet(this, 16, "ptr")

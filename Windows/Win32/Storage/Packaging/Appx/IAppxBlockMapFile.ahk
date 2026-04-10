@@ -1,8 +1,8 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\..\Guid.ahk
-#Include .\IAppxBlockMapBlocksEnumerator.ahk
 #Include ..\..\..\System\Com\IUnknown.ahk
+#Include .\IAppxBlockMapBlocksEnumerator.ahk
 
 /**
  * Represents a file in the block map.
@@ -14,9 +14,8 @@
  * <div class="code"></div>
  * @see https://learn.microsoft.com/windows/win32/api/appxpackaging/nn-appxpackaging-iappxblockmapfile
  * @namespace Windows.Win32.Storage.Packaging.Appx
- * @version v4.0.30319
  */
-class IAppxBlockMapFile extends IUnknown{
+class IAppxBlockMapFile extends IUnknown {
 
     static sizeof => A_PtrSize
     /**
@@ -77,7 +76,9 @@ class IAppxBlockMapFile extends IUnknown{
 
     /**
      * Retrieves the uncompressed size of the associated zip file item.
-     * @returns {Integer} 
+     * @returns {Integer} Type: <b><a href="https://docs.microsoft.com/windows/desktop/WinProg/windows-data-types">UINT64</a>*</b>
+     * 
+     *  In a valid app package, <i>size</i> is the uncompressed size of the associated zip file item.
      * @see https://learn.microsoft.com/windows/win32/api/appxpackaging/nf-appxpackaging-iappxblockmapfile-getuncompressedsize
      */
     GetUncompressedSize() {

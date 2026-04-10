@@ -3,10 +3,8 @@
 
 /**
  * @namespace Windows.Win32.NetworkManagement.Ndis
- * @version v4.0.30319
  */
-class NETWORK_ADDRESS_IPX extends Win32Struct
-{
+class NETWORK_ADDRESS_IPX extends Win32Struct {
     static sizeof => 12
 
     static packingSize => 4
@@ -20,9 +18,9 @@ class NETWORK_ADDRESS_IPX extends Win32Struct
     }
 
     /**
-     * @type {Array<Byte>}
+     * @type {Array<Integer>}
      */
-    NodeAddress{
+    NodeAddress {
         get {
             if(!this.HasProp("__NodeAddressProxyArray"))
                 this.__NodeAddressProxyArray := Win32FixedArray(this.ptr + 4, 6, Primitive, "char")

@@ -1,5 +1,8 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
+#Include .\FWP_FILTER_ENUM_TYPE.ahk
+#Include .\FWPM_PROVIDER_CONTEXT_ENUM_TEMPLATE0.ahk
+#Include .\FWPM_FILTER_CONDITION0.ahk
 
 /**
  * Is used for enumerating filters.
@@ -7,10 +10,8 @@
  * **FWPM_FILTER_ENUM_TEMPLATE0** is a specific implementation of FWPM_FILTER_ENUM_TEMPLATE. See <a href="https://docs.microsoft.com/windows/win32/fwp/wfp-version-independent-names-and-targeting-specific-versions-of-windows">WFP Version-Independent Names and Targeting Specific Versions of Windows</a>  for more information.
  * @see https://learn.microsoft.com/windows/win32/api/fwpmtypes/ns-fwpmtypes-fwpm_filter_enum_template0
  * @namespace Windows.Win32.NetworkManagement.WindowsFilteringPlatform
- * @version v4.0.30319
  */
-class FWPM_FILTER_ENUM_TEMPLATE0 extends Win32Struct
-{
+class FWPM_FILTER_ENUM_TEMPLATE0 extends Win32Struct {
     static sizeof => 64
 
     static packingSize => 8
@@ -26,7 +27,7 @@ class FWPM_FILTER_ENUM_TEMPLATE0 extends Win32Struct
 
     /**
      * Layer whose fields are to be enumerated.
-     * @type {Pointer<Guid>}
+     * @type {Pointer}
      */
     layerKey {
         get => NumGet(this, 8, "ptr")
@@ -35,7 +36,7 @@ class FWPM_FILTER_ENUM_TEMPLATE0 extends Win32Struct
 
     /**
      * A [FWP_FILTER_ENUM_TYPE](/windows/win32/api/fwptypes/ne-fwptypes-fwp_filter_enum_type) value that determines how the filter conditions are interpreted.
-     * @type {Integer}
+     * @type {FWP_FILTER_ENUM_TYPE}
      */
     enumType {
         get => NumGet(this, 16, "int")

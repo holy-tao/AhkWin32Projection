@@ -5,10 +5,8 @@
 
 /**
  * @namespace Windows.Win32.Devices.SerialCommunication
- * @version v4.0.30319
  */
-class SERIAL_BASIC_SETTINGS extends Win32Struct
-{
+class SERIAL_BASIC_SETTINGS extends Win32Struct {
     static sizeof => 44
 
     static packingSize => 4
@@ -16,7 +14,7 @@ class SERIAL_BASIC_SETTINGS extends Win32Struct
     /**
      * @type {SERIAL_TIMEOUTS}
      */
-    Timeouts{
+    Timeouts {
         get {
             if(!this.HasProp("__Timeouts"))
                 this.__Timeouts := SERIAL_TIMEOUTS(0, this)
@@ -27,7 +25,7 @@ class SERIAL_BASIC_SETTINGS extends Win32Struct
     /**
      * @type {SERIAL_HANDFLOW}
      */
-    HandFlow{
+    HandFlow {
         get {
             if(!this.HasProp("__HandFlow"))
                 this.__HandFlow := SERIAL_HANDFLOW(20, this)

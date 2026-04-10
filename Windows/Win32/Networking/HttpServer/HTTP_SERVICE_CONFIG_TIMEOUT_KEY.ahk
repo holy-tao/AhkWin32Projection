@@ -8,9 +8,8 @@
  * <a href="https://docs.microsoft.com/windows/desktop/api/http/nf-http-httpqueryserviceconfiguration">HTTPQueryServiceConfiguration</a> function through the <i>pOutputConfigInformation</i> parameter when the <i>ConfigId</i> parameter of either function is equal to <b>HttpServiceConfigTimeout</b>.
  * @see https://learn.microsoft.com/windows/win32/api/http/ne-http-http_service_config_timeout_key
  * @namespace Windows.Win32.Networking.HttpServer
- * @version v4.0.30319
  */
-class HTTP_SERVICE_CONFIG_TIMEOUT_KEY extends Win32Enum{
+class HTTP_SERVICE_CONFIG_TIMEOUT_KEY extends Win32Enum {
 
     /**
      * The maximum time allowed for a connection to remain idle, after which, the connection is timed out and reset.

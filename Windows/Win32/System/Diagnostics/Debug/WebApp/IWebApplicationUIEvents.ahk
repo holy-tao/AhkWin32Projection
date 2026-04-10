@@ -7,9 +7,8 @@
  * Enables a debugging or authoring app to receive notification of user interface events and respond to events that require user interaction.
  * @see https://learn.microsoft.com/windows/win32/api/webapplication/nn-webapplication-iwebapplicationuievents
  * @namespace Windows.Win32.System.Diagnostics.Debug.WebApp
- * @version v4.0.30319
  */
-class IWebApplicationUIEvents extends IUnknown{
+class IWebApplicationUIEvents extends IUnknown {
 
     static sizeof => A_PtrSize
     /**

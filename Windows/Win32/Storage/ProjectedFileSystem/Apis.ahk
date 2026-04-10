@@ -4,7 +4,6 @@
 
 /**
  * @namespace Windows.Win32.Storage.ProjectedFileSystem
- * @version v4.0.30319
  */
 class ProjectedFileSystem {
 
@@ -125,7 +124,7 @@ class ProjectedFileSystem {
      * 
      * 
      * For example, if the <a href="https://docs.microsoft.com/windows/desktop/api/projectedfslib/nc-projectedfslib-prj_get_placeholder_info_cb">PRJ_GET_PLACEHOLDER_INFO_CB</a> callback specifies “dir1\dir1\FILE.TXT” in callbackData-&gt;FilePathName, and the provider’s backing store contains a file called “File.txt” in the dir1\dir2 directory, and <a href="https://docs.microsoft.com/windows/desktop/api/projectedfslib/nf-projectedfslib-prjfilenamecompare">PrjFileNameCompare</a> returns 0 when comparing the names “FILE.TXT” and “File.txt”, then the provider specifies “dir1\dir2\File.txt” as the value of this parameter.
-     * @param {Pointer} placeholderInfo A pointer to the metadata for the file or directory.
+     * @param {Integer} placeholderInfo A pointer to the metadata for the file or directory.
      * @param {Integer} placeholderInfoSize Size in bytes of the buffer pointed to by placeholderInfo.
      * @returns {HRESULT} If this function succeeds, it returns <b>S_OK</b>. Otherwise, it returns an <b>HRESULT</b> error code.
      * @see https://learn.microsoft.com/windows/win32/api/projectedfslib/nf-projectedfslib-prjwriteplaceholderinfo
@@ -152,7 +151,7 @@ class ProjectedFileSystem {
      * This must be a match to the FilePathName member of the callbackData parameter passed to the provider in the <a href="https://docs.microsoft.com/windows/desktop/api/projectedfslib/nc-projectedfslib-prj_get_placeholder_info_cb">PRJ_GET_PLACEHOLDER_INFO_CB</a> callback. The provider should use the PrjFileNameCompare function to determine whether the two names match.
      * 
      * For example, if the <a href="https://docs.microsoft.com/windows/desktop/api/projectedfslib/nc-projectedfslib-prj_get_placeholder_info_cb">PRJ_GET_PLACEHOLDER_INFO_CB</a> callback specifies “dir1\dir1\FILE.TXT” in callbackData-&gt;FilePathName, and the provider’s backing store contains a file called “File.txt” in the dir1\dir2 directory, and <a href="https://docs.microsoft.com/windows/desktop/api/projectedfslib/nf-projectedfslib-prjfilenamecompare">PrjFileNameCompare</a> returns 0 when comparing the names “FILE.TXT” and “File.txt”, then the provider specifies “dir1\dir2\File.txt” as the value of this parameter.
-     * @param {Pointer} placeholderInfo A pointer to the metadata for the file or directory.
+     * @param {Integer} placeholderInfo A pointer to the metadata for the file or directory.
      * @param {Integer} placeholderInfoSize Size in bytes of the buffer pointed to by placeholderInfo.
      * @param {Pointer<PRJ_EXTENDED_INFO>} ExtendedInfo 
      * @returns {HRESULT} If this function succeeds, it returns <b>S_OK</b>. Otherwise, it returns an <b>HRESULT</b> error code.
@@ -217,15 +216,15 @@ class ProjectedFileSystem {
      * </ul>
      * @param {PRJ_NAMESPACE_VIRTUALIZATION_CONTEXT} namespaceVirtualizationContext Opaque handle for the virtualization instance.
      * @param {PWSTR} destinationFileName A null-terminated Unicode string specifying the path, relative to the virtualization root, to the file or directory to be updated.
-     * @param {Pointer} placeholderInfo A pointer to a <a href="https://docs.microsoft.com/windows/desktop/api/projectedfslib/ns-projectedfslib-prj_placeholder_info">PRJ_PLACEHOLDER_INFO</a> buffer containing the updated metadata for the file or directory. 
+     * @param {Integer} placeholderInfo A pointer to a <a href="https://docs.microsoft.com/windows/desktop/api/projectedfslib/ns-projectedfslib-prj_placeholder_info">PRJ_PLACEHOLDER_INFO</a> buffer containing the updated metadata for the file or directory. 
      * 
      * 
      * If placeholderInfo-&gt;VersionInfo.ContentID contains a content identifier that is the same as the content identifier already on the file/directory, the call succeeds and no update takes place. Otherwise, if the call succeeds then placeholderInfo-&gt;VersionInfo.ContentID replaces the existing content identifier on the file.
      * @param {Integer} placeholderInfoSize The size in bytes of the buffer pointed to by placeholderInfo.
-     * @param {Integer} updateFlags Flags to control updates.
+     * @param {PRJ_UPDATE_TYPES} updateFlags Flags to control updates.
      * 
      * If the item is a dirty placeholder, full file, or tombstone, and the provider does not specify the appropriate flag(s), this routine will fail to update the placeholder
-     * @returns {Integer} Optional pointer to receive a code describing the reason an update failed.
+     * @returns {PRJ_UPDATE_FAILURE_CAUSES} Optional pointer to receive a code describing the reason an update failed.
      * @see https://learn.microsoft.com/windows/win32/api/projectedfslib/nf-projectedfslib-prjupdatefileifneeded
      * @since windows10.0.17763
      */
@@ -249,8 +248,8 @@ class ProjectedFileSystem {
      * If the file/directory to be deleted is in any state other than "placeholder", the provider must specify an appropriate combination of <a href="https://docs.microsoft.com/windows/desktop/api/projectedfslib/ne-projectedfslib-prj_update_types">PRJ_UPDATE_TYPES</a> values in the updateFlags parameter. This helps guard against accidental loss of data.
      * @param {PRJ_NAMESPACE_VIRTUALIZATION_CONTEXT} namespaceVirtualizationContext An opaque handle for the virtualization instance.
      * @param {PWSTR} destinationFileName A null-terminated Unicode string specifying the path, relative to the virtualization root, to the file or directory to be deleted.
-     * @param {Integer} updateFlags Flags to control the delete operation should be allowed given the state of the file.
-     * @returns {Integer} Optional pointer to receive a code describing the reason a delete failed.
+     * @param {PRJ_UPDATE_TYPES} updateFlags Flags to control the delete operation should be allowed given the state of the file.
+     * @returns {PRJ_UPDATE_FAILURE_CAUSES} Optional pointer to receive a code describing the reason a delete failed.
      * @see https://learn.microsoft.com/windows/win32/api/projectedfslib/nf-projectedfslib-prjdeletefile
      * @since windows10.0.17763
      */
@@ -286,7 +285,7 @@ class ProjectedFileSystem {
      * 
      * 
      * If the provider is servicing a <a href="https://docs.microsoft.com/windows/desktop/api/projectedfslib/nc-projectedfslib-prj_get_file_data_cb">PRJ_GET_FILE_DATA_CB</a> callback, this must be the value from the DataStreamId member of the callbackData passed to the provider in the callback.
-     * @param {Pointer} _buffer 
+     * @param {Integer} _buffer Pointer to a buffer containing the data to write. The buffer must be at least as large as the value of the length parameter in bytes. The provider should use <a href="https://docs.microsoft.com/windows/desktop/api/projectedfslib/nf-projectedfslib-prjallocatealignedbuffer">PrjAllocateAlignedBuffer</a> to ensure that the buffer meets the storage device's alignment requirements.
      * @param {Integer} byteOffset Byte offset from the beginning of the file at which to write the data.
      * @param {Integer} length The number of bytes to write to the file.
      * @returns {HRESULT} HRESULT_FROM_WIN32(ERROR_OFFSET_ALIGNMENT_VIOLATION) indicates that the user's handle was opened for unbuffered I/O and byteOffset is not aligned to the sector size of the storage device.
@@ -308,7 +307,7 @@ class ProjectedFileSystem {
      * 
      * A running provider should be cautious if using this routine on files or directories within one of its virtualization instances, as it may cause callbacks to be invoked in the provider. Depending on the design of the provider this may lead to deadlocks.
      * @param {PWSTR} destinationFileName A null-terminated Unicode string specifying the full path to the file whose state is to be queried.
-     * @returns {Integer} This is a combination of one or more PRJ_FILE_STATE values describing the file state.
+     * @returns {PRJ_FILE_STATE} This is a combination of one or more PRJ_FILE_STATE values describing the file state.
      * @see https://learn.microsoft.com/windows/win32/api/projectedfslib/nf-projectedfslib-prjgetondiskfilestate
      * @since windows10.0.17763
      */
@@ -322,7 +321,7 @@ class ProjectedFileSystem {
     /**
      * Allocates a buffer that meets the memory alignment requirements of the virtualization instance's storage device.
      * @param {PRJ_NAMESPACE_VIRTUALIZATION_CONTEXT} namespaceVirtualizationContext Opaque handle for the virtualization instance.
-     * @param {Pointer} _size 
+     * @param {Pointer} _size The size of the buffer required, in bytes.
      * @returns {Pointer<Void>} Returns NULL if the buffer could not be allocated.
      * @see https://learn.microsoft.com/windows/win32/api/projectedfslib/nf-projectedfslib-prjallocatealignedbuffer
      * @since windows10.0.17763
@@ -336,7 +335,7 @@ class ProjectedFileSystem {
 
     /**
      * Frees an allocated buffer.
-     * @param {Pointer<Void>} _buffer 
+     * @param {Pointer<Void>} _buffer The buffer to free.
      * @returns {String} Nothing - always returns an empty string
      * @see https://learn.microsoft.com/windows/win32/api/projectedfslib/nf-projectedfslib-prjfreealignedbuffer
      * @since windows10.0.17763

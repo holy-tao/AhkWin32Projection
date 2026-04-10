@@ -1,5 +1,8 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Handle.ahk
+#Include .\CONDITION_VARIABLE.ahk
+#Include .\SRWLOCK.ahk
+#Include .\INIT_ONCE.ahk
 #Include ..\..\Foundation\HANDLE.ahk
 #Include .\PTP_POOL.ahk
 #Include .\PTP_CLEANUP_GROUP.ahk
@@ -9,13 +12,9 @@
 #Include .\PTP_IO.ahk
 #Include .\AVRT_TASK_HANDLE.ahk
 #Include .\IRtwqAsyncResult.ahk
-#Include .\CONDITION_VARIABLE.ahk
-#Include .\SRWLOCK.ahk
-#Include .\INIT_ONCE.ahk
 
 /**
  * @namespace Windows.Win32.System.Threading
- * @version v4.0.30319
  */
 class Threading {
 
@@ -1525,7 +1524,7 @@ class Threading {
      * An SRW lock cannot be moved or copied while in use. The process must not modify the object, and must instead treat it as logically opaque. Only use the SRW functions to manage SRW locks. 
      * 
      * An unlocked SRW lock with no waiting threads is in its initial state and can be copied, moved, and forgotten without being explicitly destroyed.
-     * @param {Pointer<SRWLOCK>} _SRWLock 
+     * @param {Pointer<SRWLOCK>} _SRWLock A pointer to the SRW lock.
      * @returns {String} Nothing - always returns an empty string
      * @see https://learn.microsoft.com/windows/win32/api/synchapi/nf-synchapi-initializesrwlock
      * @since windows6.0.6000
@@ -1538,7 +1537,7 @@ class Threading {
      * Releases a slim reader/writer (SRW) lock that was acquired in exclusive mode.
      * @remarks
      * The SRW lock must be released by the same thread that acquired it. You can use [Application Verifier](/windows-hardware/drivers/devtest/application-verifier) to help verify that your program uses SRW locks correctly (enable Locks checker from Basic group).
-     * @param {Pointer<SRWLOCK>} _SRWLock 
+     * @param {Pointer<SRWLOCK>} _SRWLock A pointer to the SRW lock.
      * @returns {String} Nothing - always returns an empty string
      * @see https://learn.microsoft.com/windows/win32/api/synchapi/nf-synchapi-releasesrwlockexclusive
      * @since windows6.0.6000
@@ -1551,7 +1550,7 @@ class Threading {
      * Releases a slim reader/writer (SRW) lock that was acquired in shared mode.
      * @remarks
      * The SRW lock must be released by the same thread that acquired it. You can use [Application Verifier](/windows-hardware/drivers/devtest/application-verifier) to help verify that your program uses SRW locks correctly (enable Locks checker from Basic group).
-     * @param {Pointer<SRWLOCK>} _SRWLock 
+     * @param {Pointer<SRWLOCK>} _SRWLock A pointer to the SRW lock.
      * @returns {String} Nothing - always returns an empty string
      * @see https://learn.microsoft.com/windows/win32/api/synchapi/nf-synchapi-releasesrwlockshared
      * @since windows6.0.6000
@@ -1562,7 +1561,7 @@ class Threading {
 
     /**
      * Acquires a slim reader/writer (SRW) lock in exclusive mode.
-     * @param {Pointer<SRWLOCK>} _SRWLock 
+     * @param {Pointer<SRWLOCK>} _SRWLock A pointer to the SRW lock.
      * @returns {String} Nothing - always returns an empty string
      * @see https://learn.microsoft.com/windows/win32/api/synchapi/nf-synchapi-acquiresrwlockexclusive
      * @since windows6.0.6000
@@ -1573,7 +1572,7 @@ class Threading {
 
     /**
      * Acquires a slim reader/writer (SRW) lock in shared mode.
-     * @param {Pointer<SRWLOCK>} _SRWLock 
+     * @param {Pointer<SRWLOCK>} _SRWLock A pointer to the SRW lock.
      * @returns {String} Nothing - always returns an empty string
      * @see https://learn.microsoft.com/windows/win32/api/synchapi/nf-synchapi-acquiresrwlockshared
      * @since windows6.0.6000
@@ -1584,7 +1583,7 @@ class Threading {
 
     /**
      * Attempts to acquire a slim reader/writer (SRW) lock in exclusive mode. If the call is successful, the calling thread takes ownership of the lock.
-     * @param {Pointer<SRWLOCK>} _SRWLock 
+     * @param {Pointer<SRWLOCK>} _SRWLock A pointer to the SRW lock.
      * @returns {BOOLEAN} If the lock is successfully acquired, the return value is nonzero.
      * 
      * if the current thread could not acquire the lock, the return value is zero.
@@ -1598,7 +1597,7 @@ class Threading {
 
     /**
      * Attempts to acquire a slim reader/writer (SRW) lock in shared mode. If the call is successful, the calling thread takes ownership of the lock.
-     * @param {Pointer<SRWLOCK>} _SRWLock 
+     * @param {Pointer<SRWLOCK>} _SRWLock A pointer to the SRW lock.
      * @returns {BOOLEAN} If the lock is successfully acquired, the return value is nonzero.
      * 
      * if the current thread could not acquire the lock, the return value is zero.
@@ -1909,7 +1908,7 @@ class Threading {
      * @param {Pointer<INIT_ONCE>} InitOnce A pointer to the one-time initialization structure.
      * @param {Pointer<PINIT_ONCE_FN>} InitFn A pointer to an application-defined <a href="https://docs.microsoft.com/windows/desktop/api/synchapi/nc-synchapi-pinit_once_fn">InitOnceCallback</a> function.
      * @param {Pointer<Void>} Parameter A parameter to be passed to the callback function.
-     * @param {Pointer<Pointer<Void>>} _Context 
+     * @param {Pointer<Pointer<Void>>} _Context A parameter that receives data stored with the one-time initialization structure upon success. The low-order <b>INIT_ONCE_CTX_RESERVED_BITS</b> bits of the data are always zero. If <i>Context</i> points to a data structure, the data structure must be <b>DWORD</b>-aligned. <i>Context</i> must not be a code pointer on Arm32, because Arm32 code pointers always have the least significant bit set, see the <a href="https://docs.microsoft.com/cpp/build/overview-of-arm-abi-conventions?view=msvc-170#instruction-set">Arm32 ABI</a> for details.
      * @returns {BOOL} If the function succeeds, the return value is nonzero.
      * 
      * If the function fails, the return value is zero. To get extended error information, call 
@@ -2146,7 +2145,7 @@ class Threading {
      * 
      * Condition variables are subject to spurious wakeups (those not associated with an explicit wake) and stolen wakeups (another thread manages to run before the woken thread). Therefore, you should recheck a predicate (typically in a <b>while</b> loop) after a sleep operation returns.
      * @param {Pointer<CONDITION_VARIABLE>} ConditionVariable A pointer to the condition variable. This variable must be initialized using the <a href="https://docs.microsoft.com/windows/desktop/api/synchapi/nf-synchapi-initializeconditionvariable">InitializeConditionVariable</a> function.
-     * @param {Pointer<SRWLOCK>} _SRWLock 
+     * @param {Pointer<SRWLOCK>} _SRWLock A pointer to the lock. This lock must be held in the manner specified by the <i>Flags</i> parameter.
      * @param {Integer} dwMilliseconds The time-out interval, in milliseconds. The function returns if the interval elapses. If <i>dwMilliseconds</i> is zero, the function tests the states of the specified objects and returns immediately. If <i>dwMilliseconds</i> is <b>INFINITE</b>, the function's time-out interval never elapses.
      * @param {Integer} Flags If this parameter is <b>CONDITION_VARIABLE_LOCKMODE_SHARED</b>, the SRW lock is in shared mode. Otherwise, the lock is in exclusive mode.
      * @returns {BOOL} If the function succeeds, the return value is nonzero.
@@ -2270,7 +2269,12 @@ class Threading {
      * <a href="https://docs.microsoft.com/windows/desktop/api/synchapi/nf-synchapi-waitforsingleobject">WaitForSingleObject</a> function with a time-out interval of zero until the semaphore count has been reduced sufficiently. (Note that other threads can reduce the count while this loop is being executed.) To restore access, call 
      * <b>ReleaseSemaphore</b> with the release count equal to the number of times 
      * <b>WaitForSingleObject</b> was called in the loop.
-     * @param {HANDLE} _hSemaphore 
+     * @param {HANDLE} _hSemaphore A handle to the semaphore object. The 
+     * <a href="https://docs.microsoft.com/windows/desktop/api/winbase/nf-winbase-createsemaphorea">CreateSemaphore</a> or 
+     * <a href="https://docs.microsoft.com/windows/win32/api/synchapi/nf-synchapi-opensemaphorew">OpenSemaphore</a> function returns this handle.
+     * 
+     * This handle must have the <b>SEMAPHORE_MODIFY_STATE</b> access right. For more information, see 
+     * <a href="https://docs.microsoft.com/windows/desktop/Sync/synchronization-object-security-and-access-rights">Synchronization Object Security and Access Rights</a>.
      * @param {Integer} lReleaseCount The amount by which the semaphore object's current count is to be increased. The value must be greater than zero. If the specified amount would cause the semaphore's count to exceed the maximum count that was specified when the semaphore was created, the count is not changed and the function returns <b>FALSE</b>.
      * @param {Pointer<Integer>} lpPreviousCount A pointer to a variable to receive the previous count for the semaphore. This parameter can be <b>NULL</b> if the previous count is not required.
      * @returns {BOOL} If the function succeeds, the return value is nonzero.
@@ -2370,7 +2374,7 @@ class Threading {
      * <b>Windows XP, Windows Server 2003, Windows Vista, Windows 7, Windows Server 2008 and Windows Server 2008 R2:  </b>The <i>dwMilliseconds</i> value does include time spent in low-power states. For example, the timeout does keep counting down while the computer is asleep.
      * 
      * <b>Windows 8, Windows Server 2012, Windows 8.1, Windows Server 2012 R2, Windows 10 and Windows Server 2016:  </b>The <i>dwMilliseconds</i> value does not include time spent in low-power states. For example, the timeout does not keep counting down while the computer is asleep.
-     * @returns {Integer} If the function succeeds, the return value indicates the event that caused the function to return. It can be one of the following values.
+     * @returns {WAIT_EVENT} If the function succeeds, the return value indicates the event that caused the function to return. It can be one of the following values.
      * 
      * <table>
      * <tr>
@@ -2541,7 +2545,7 @@ class Threading {
      * <a href="https://docs.microsoft.com/windows/desktop/api/fileapi/nf-fileapi-readfileex">ReadFileEx</a> or 
      * <a href="https://docs.microsoft.com/windows/desktop/api/fileapi/nf-fileapi-writefileex">WriteFileEx</a> function in which it was specified has completed. The wait function returns and the completion routine is called only if <i>bAlertable</i> is <b>TRUE</b>, and the calling thread is the thread that initiated the read or write operation. An APC is queued when you call 
      * <a href="https://docs.microsoft.com/windows/desktop/api/processthreadsapi/nf-processthreadsapi-queueuserapc">QueueUserAPC</a>.
-     * @returns {Integer} If the function succeeds, the return value indicates the event that caused the function to return. It can be one of the following values.
+     * @returns {WAIT_EVENT} If the function succeeds, the return value indicates the event that caused the function to return. It can be one of the following values.
      * 
      * <table>
      * <tr>
@@ -2690,7 +2694,7 @@ class Threading {
      * <a href="https://docs.microsoft.com/windows/desktop/api/fileapi/nf-fileapi-readfileex">ReadFileEx</a> or 
      * <a href="https://docs.microsoft.com/windows/desktop/api/fileapi/nf-fileapi-writefileex">WriteFileEx</a> function in which it was specified has completed. The wait function returns and the completion routine is called only if <i>bAlertable</i> is <b>TRUE</b> and the calling thread is the thread that initiated the read or write operation. An APC is queued when you call 
      * <a href="https://docs.microsoft.com/windows/desktop/api/processthreadsapi/nf-processthreadsapi-queueuserapc">QueueUserAPC</a>.
-     * @returns {Integer} If the function succeeds, the return value indicates the event that caused the function to return. It can be one of the following values. (Note that <b>WAIT_OBJECT_0</b> is defined as 0 and <b>WAIT_ABANDONED_0</b> is defined as 0x00000080L.)
+     * @returns {WAIT_EVENT} If the function succeeds, the return value indicates the event that caused the function to return. It can be one of the following values. (Note that <b>WAIT_OBJECT_0</b> is defined as 0 and <b>WAIT_ABANDONED_0</b> is defined as 0x00000080L.)
      * 
      * <table>
      * <tr>
@@ -2952,7 +2956,7 @@ class Threading {
      * The handle can be duplicated by using the <a href="https://docs.microsoft.com/windows/desktop/api/handleapi/nf-handleapi-duplicatehandle">DuplicateHandle</a> function. Use the <a href="https://docs.microsoft.com/windows/desktop/api/handleapi/nf-handleapi-closehandle">CloseHandle</a> function to close the handle. The system closes the handle automatically when the process terminates. The mutex object is destroyed when its last handle has been closed.
      * 
      * If your multithreaded application must repeatedly create, open, and close a named mutex object, a race condition can occur. In this situation, it is better to use <a href="https://docs.microsoft.com/windows/desktop/api/synchapi/nf-synchapi-createmutexa">CreateMutex</a> instead of <b>OpenMutex</b>, because <b>CreateMutex</b> opens a mutex if it exists and creates it if it does not.
-     * @param {Integer} dwDesiredAccess The access to the mutex object. Only the <b>SYNCHRONIZE</b> access right is required to use a mutex; to change the mutex's security, specify <b>MUTEX_ALL_ACCESS</b>. The function fails if the security descriptor of the specified object does not permit the requested access for the calling process. For a list of access rights, see 
+     * @param {SYNCHRONIZATION_ACCESS_RIGHTS} dwDesiredAccess The access to the mutex object. Only the <b>SYNCHRONIZE</b> access right is required to use a mutex; to change the mutex's security, specify <b>MUTEX_ALL_ACCESS</b>. The function fails if the security descriptor of the specified object does not permit the requested access for the calling process. For a list of access rights, see 
      * <a href="https://docs.microsoft.com/windows/desktop/Sync/synchronization-object-security-and-access-rights">Synchronization Object Security and Access Rights</a>.
      * @param {BOOL} bInheritHandle If this value is <b>TRUE</b>, processes created by this process will inherit the handle. Otherwise, the processes do not inherit this handle.
      * @param {PWSTR} lpName The name of the mutex to be opened. Name comparisons are case sensitive. 
@@ -3216,7 +3220,7 @@ class Threading {
      * 
      * > [!NOTE]
      * > The synchapi.h header defines OpenEvent as an alias which automatically selects the ANSI or Unicode version of this function based on the definition of the UNICODE preprocessor constant. Mixing usage of the encoding-neutral alias with code that not encoding-neutral can lead to mismatches that result in compilation or runtime errors. For more information, see [Conventions for Function Prototypes](/windows/win32/intl/conventions-for-function-prototypes).
-     * @param {Integer} dwDesiredAccess The access to the event object. The function fails if the security descriptor of the specified object does not permit the requested access for the calling process. For a list of access rights, see 
+     * @param {SYNCHRONIZATION_ACCESS_RIGHTS} dwDesiredAccess The access to the event object. The function fails if the security descriptor of the specified object does not permit the requested access for the calling process. For a list of access rights, see 
      * <a href="https://docs.microsoft.com/windows/desktop/Sync/synchronization-object-security-and-access-rights">Synchronization Object Security and Access Rights</a>.
      * @param {BOOL} bInheritHandle If this value is <b>TRUE</b>, processes created by this process will inherit the handle. Otherwise, the processes do not inherit this handle.
      * @param {PSTR} lpName The  name of the event to be opened. Name comparisons are case sensitive.
@@ -3263,7 +3267,7 @@ class Threading {
      * 
      * > [!NOTE]
      * > The synchapi.h header defines OpenEvent as an alias which automatically selects the ANSI or Unicode version of this function based on the definition of the UNICODE preprocessor constant. Mixing usage of the encoding-neutral alias with code that not encoding-neutral can lead to mismatches that result in compilation or runtime errors. For more information, see [Conventions for Function Prototypes](/windows/win32/intl/conventions-for-function-prototypes).
-     * @param {Integer} dwDesiredAccess The access to the event object. The function fails if the security descriptor of the specified object does not permit the requested access for the calling process. For a list of access rights, see 
+     * @param {SYNCHRONIZATION_ACCESS_RIGHTS} dwDesiredAccess The access to the event object. The function fails if the security descriptor of the specified object does not permit the requested access for the calling process. For a list of access rights, see 
      * <a href="https://docs.microsoft.com/windows/desktop/Sync/synchronization-object-security-and-access-rights">Synchronization Object Security and Access Rights</a>.
      * @param {BOOL} bInheritHandle If this value is <b>TRUE</b>, processes created by this process will inherit the handle. Otherwise, the processes do not inherit this handle.
      * @param {PWSTR} lpName The  name of the event to be opened. Name comparisons are case sensitive.
@@ -3304,7 +3308,7 @@ class Threading {
      * <a href="https://docs.microsoft.com/windows/desktop/Sync/wait-functions">wait functions</a>, subject to the limitations of the access specified in the <i>dwDesiredAccess</i> parameter.
      * 
      * The handle can be duplicated by using the <a href="https://docs.microsoft.com/windows/desktop/api/handleapi/nf-handleapi-duplicatehandle">DuplicateHandle</a> function. Use the <a href="https://docs.microsoft.com/windows/desktop/api/handleapi/nf-handleapi-closehandle">CloseHandle</a> function to close the handle. The system closes the handle automatically when the process terminates. The semaphore object is destroyed when its last handle has been closed.
-     * @param {Integer} dwDesiredAccess The access to the semaphore object. The function fails if the security descriptor of the specified object does not permit the requested access for the calling process. For a list of access rights, see 
+     * @param {SYNCHRONIZATION_ACCESS_RIGHTS} dwDesiredAccess The access to the semaphore object. The function fails if the security descriptor of the specified object does not permit the requested access for the calling process. For a list of access rights, see 
      * <a href="https://docs.microsoft.com/windows/desktop/Sync/synchronization-object-security-and-access-rights">Synchronization Object Security and Access Rights</a>.
      * @param {BOOL} bInheritHandle If this value is <b>TRUE</b>, processes created by this process will inherit the handle. Otherwise, the processes do not inherit this handle.
      * @param {PWSTR} lpName The name of the semaphore to be opened. Name comparisons are case sensitive. 
@@ -3351,7 +3355,7 @@ class Threading {
      * 
      * To compile an application that uses this function, define <b>_WIN32_WINNT</b> as 0x0400 or later. For more information, see 
      * <a href="https://docs.microsoft.com/windows/desktop/WinProg/using-the-windows-headers">Using the Windows Headers</a>.
-     * @param {Integer} dwDesiredAccess The access to the timer object. The function fails if the security descriptor of the specified object does 
+     * @param {SYNCHRONIZATION_ACCESS_RIGHTS} dwDesiredAccess The access to the timer object. The function fails if the security descriptor of the specified object does 
      *       not permit the requested access for the calling process. For a list of access rights, see 
      *       <a href="https://docs.microsoft.com/windows/desktop/Sync/synchronization-object-security-and-access-rights">Synchronization Object Security and Access Rights</a>.
      * @param {BOOL} bInheritHandle If this value is <b>TRUE</b>, processes created by this process will inherit the handle. Otherwise, the processes do not inherit this handle.
@@ -3821,7 +3825,7 @@ class Threading {
      *         for Terminal Services so that applications can support multiple users.
      * 
      * The object can be created in a private namespace. For more information, see <a href="https://docs.microsoft.com/windows/desktop/Sync/object-namespaces">Object Namespaces</a>.
-     * @param {Integer} dwFlags 
+     * @param {CREATE_EVENT} dwFlags 
      * @param {Integer} dwDesiredAccess The access mask for the event object. For a list of access rights, see 
      * <a href="https://docs.microsoft.com/windows/desktop/Sync/synchronization-object-security-and-access-rights">Synchronization Object Security and Access Rights</a>.
      * @returns {HANDLE} If the function succeeds, the return value is a handle to the event object. If the named event object existed 
@@ -3922,7 +3926,7 @@ class Threading {
      *         for Terminal Services so that applications can support multiple users.
      * 
      * The object can be created in a private namespace. For more information, see <a href="https://docs.microsoft.com/windows/desktop/Sync/object-namespaces">Object Namespaces</a>.
-     * @param {Integer} dwFlags 
+     * @param {CREATE_EVENT} dwFlags 
      * @param {Integer} dwDesiredAccess The access mask for the event object. For a list of access rights, see 
      * <a href="https://docs.microsoft.com/windows/desktop/Sync/synchronization-object-security-and-access-rights">Synchronization Object Security and Access Rights</a>.
      * @returns {HANDLE} If the function succeeds, the return value is a handle to the event object. If the named event object existed 
@@ -4275,8 +4279,8 @@ class Threading {
      * </ul>
      * </div>
      * <div> </div>
-     * @param {Pointer} _Address 
-     * @param {Pointer} CompareAddress A pointer to the location of the previously observed value at <i>Address</i>. The function returns when the value at <i>Address</i> differs from the value at <i>CompareAddress</i>.
+     * @param {Integer} _Address The address on which to wait. If the value at <i>Address</i> differs from the value at <i>CompareAddress</i>, the function returns immediately. If the values are the same, the function does not return until another thread in the same process signals that the value at Address has changed by calling <a href="https://docs.microsoft.com/windows/desktop/api/synchapi/nf-synchapi-wakebyaddresssingle">WakeByAddressSingle</a> or <a href="https://docs.microsoft.com/windows/desktop/api/synchapi/nf-synchapi-wakebyaddressall">WakeByAddressAll</a> or the timeout elapses, whichever comes first.
+     * @param {Integer} CompareAddress A pointer to the location of the previously observed value at <i>Address</i>. The function returns when the value at <i>Address</i> differs from the value at <i>CompareAddress</i>.
      * @param {Pointer} AddressSize The size of the value, in bytes. This parameter can be 1, 2, 4, or 8.
      * @param {Integer} dwMilliseconds The number of milliseconds to wait before the operation times out. If this parameter is <b>INFINITE</b>, the thread waits indefinitely.
      * @returns {BOOL} TRUE if the wait succeeded. If the operation fails, the function returns FALSE. If the wait fails, call <a href="https://docs.microsoft.com/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a> to obtain extended error information. In particular, if the operation times out, <b>GetLastError</b>  returns <b>ERROR_TIMEOUT</b>.
@@ -4300,7 +4304,10 @@ class Threading {
      * Windows Store apps developers may need to obtain synchronization.lib by installing the <a href="https://developer.microsoft.com/en-us/windows/downloads/windows-8-sdk">Windows Software Development Kit (SDK) for Windows 8</a>.
      * 
      * Only a thread within the same process can be woken.
-     * @param {Pointer<Void>} _Address 
+     * @param {Pointer<Void>} _Address The address to signal. If another thread has previously called 
+     *       <a href="https://docs.microsoft.com/windows/desktop/api/synchapi/nf-synchapi-waitonaddress">WaitOnAddress</a> for this address, the system wakes the 
+     *       waiting thread. If multiple threads are waiting for this address, the system wakes the first thread to 
+     *       wait.
      * @returns {String} Nothing - always returns an empty string
      * @see https://learn.microsoft.com/windows/win32/api/synchapi/nf-synchapi-wakebyaddresssingle
      * @since windows8.0
@@ -4317,7 +4324,9 @@ class Threading {
      * Windows Store apps developers may need to obtain synchronization.lib by installing the <a href="https://developer.microsoft.com/en-us/windows/downloads/windows-8-sdk">Windows Software Development Kit (SDK) for Windows 8</a>.
      * 
      * Only threads within the same process can be woken.
-     * @param {Pointer<Void>} _Address 
+     * @param {Pointer<Void>} _Address The address to signal. If any threads have previously called 
+     *       <a href="https://docs.microsoft.com/windows/desktop/api/synchapi/nf-synchapi-waitonaddress">WaitOnAddress</a> for this address, the system wakes all 
+     *       of the waiting threads.
      * @returns {String} Nothing - always returns an empty string
      * @see https://learn.microsoft.com/windows/win32/api/synchapi/nf-synchapi-wakebyaddressall
      * @since windows8.0
@@ -4380,7 +4389,7 @@ class Threading {
      * <b>Windows XP, Windows Server 2003, Windows Vista, Windows 7, Windows Server 2008 and Windows Server 2008 R2:  </b>The <i>dwMilliseconds</i> value does include time spent in low-power states. For example, the timeout does keep counting down while the computer is asleep.
      * 
      * <b>Windows 8, Windows Server 2012, Windows 8.1, Windows Server 2012 R2, Windows 10 and Windows Server 2016:  </b>The <i>dwMilliseconds</i> value does not include time spent in low-power states. For example, the timeout does not keep counting down while the computer is asleep.
-     * @returns {Integer} If the function succeeds, the return value indicates the event that caused the function to return. It can be one of the following values. (Note that <b>WAIT_OBJECT_0</b> is defined as 0 and <b>WAIT_ABANDONED_0</b> is defined as 0x00000080L.)
+     * @returns {WAIT_EVENT} If the function succeeds, the return value indicates the event that caused the function to return. It can be one of the following values. (Note that <b>WAIT_OBJECT_0</b> is defined as 0 and <b>WAIT_ABANDONED_0</b> is defined as 0x00000080L.)
      * 
      * <table>
      * <tr>
@@ -4754,7 +4763,7 @@ class Threading {
      * For special user-mode APCs, an alertable wait is not required. See [Remarks](#remarks) for more information about special user-mode APCs.
      * @param {HANDLE} Thread A handle to the thread. The handle must have <b>THREAD_SET_CONTEXT</b> access permission. For more information, see [Synchronization Object Security and Access Rights](/windows/desktop/Sync/synchronization-object-security-and-access-rights).
      * @param {Pointer} Data A single value that is passed to the APC function pointed to by the *ApcRoutine* parameter.
-     * @param {Integer} Flags A value from [QUEUE_USER_APC_FLAGS enumeration](ne-processthreadsapi-queue_user_apc_flags.md) that modifies the behavior of the user-mode APC.
+     * @param {QUEUE_USER_APC_FLAGS} Flags A value from [QUEUE_USER_APC_FLAGS enumeration](ne-processthreadsapi-queue_user_apc_flags.md) that modifies the behavior of the user-mode APC.
      * @returns {BOOL} If the function succeeds, the return value is nonzero.
      * 
      * If the function fails, the return value is zero. To get extended error information, call [GetLastError](/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror).
@@ -5056,7 +5065,7 @@ class Threading {
      * @param {Pointer<LPTHREAD_START_ROUTINE>} lpStartAddress A pointer to the application-defined function to be executed by the thread. This pointer represents the starting address of the thread. For more information on the thread function, see 
      * <a href="https://docs.microsoft.com/previous-versions/windows/desktop/legacy/ms686736(v=vs.85)">ThreadProc</a>.
      * @param {Pointer<Void>} lpParameter A pointer to a variable to be passed to the thread.
-     * @param {Integer} dwCreationFlags The flags that control the creation of the thread.
+     * @param {THREAD_CREATION_FLAGS} dwCreationFlags The flags that control the creation of the thread.
      * 
      * <table>
      * <tr>
@@ -5308,7 +5317,7 @@ class Threading {
      * 
      * When you are finished with the handle, be sure to close it by using the 
      * <a href="https://docs.microsoft.com/windows/desktop/api/handleapi/nf-handleapi-closehandle">CloseHandle</a> function.
-     * @param {Integer} dwDesiredAccess The access to the thread object. This access right is checked against the security descriptor for the thread. This parameter can be one or more of the 
+     * @param {THREAD_ACCESS_RIGHTS} dwDesiredAccess The access to the thread object. This access right is checked against the security descriptor for the thread. This parameter can be one or more of the 
      * <a href="https://docs.microsoft.com/windows/desktop/ProcThread/thread-security-and-access-rights">thread access rights</a>.
      * 
      * If the caller has enabled the SeDebugPrivilege privilege, the requested access is  granted regardless of the contents of the security descriptor.
@@ -5367,7 +5376,7 @@ class Threading {
      * 
      * The handle must have the <b>THREAD_SET_INFORMATION</b> or <b>THREAD_SET_LIMITED_INFORMATION</b> access right. For more information, see 
      * <a href="https://docs.microsoft.com/windows/desktop/ProcThread/thread-security-and-access-rights">Thread Security and Access Rights</a>.<b>Windows Server 2003:  </b>The handle must have the <b>THREAD_SET_INFORMATION</b> access right.
-     * @param {Integer} nPriority 
+     * @param {THREAD_PRIORITY} nPriority 
      * @returns {BOOL} If the function succeeds, the return value is nonzero.
      * 
      * If the function fails, the return value is zero. To get extended error information, call 
@@ -6083,7 +6092,7 @@ class Threading {
      * <b>Terminal Services:  </b>You cannot inherit handles across sessions. Additionally, if this parameter is TRUE, you must create the process in the same session as the caller.
      * 
      * <b>Protected Process Light (PPL) processes:  </b>The generic handle inheritance is blocked when a PPL process creates a non-PPL process since PROCESS_DUP_HANDLE is not allowed from a non-PPL process to a PPL process. See <a href="https://docs.microsoft.com/windows/desktop/ProcThread/process-security-and-access-rights">Process Security and Access Rights</a>
-     * @param {Integer} dwCreationFlags The flags that control the priority class and the creation of the process. For a list of values, see 
+     * @param {PROCESS_CREATION_FLAGS} dwCreationFlags The flags that control the priority class and the creation of the process. For a list of values, see 
      * <a href="https://docs.microsoft.com/windows/desktop/ProcThread/process-creation-flags">Process Creation Flags</a>. 
      * 
      * This parameter also controls the new process's priority class, which is used to determine the scheduling priorities of the process's threads. For a list of values, see 
@@ -6276,7 +6285,7 @@ class Threading {
      * <b>Terminal Services:  </b>You cannot inherit handles across sessions. Additionally, if this parameter is TRUE, you must create the process in the same session as the caller.
      * 
      * <b>Protected Process Light (PPL) processes:  </b>The generic handle inheritance is blocked when a PPL process creates a non-PPL process since PROCESS_DUP_HANDLE is not allowed from a non-PPL process to a PPL process. See <a href="https://docs.microsoft.com/windows/desktop/ProcThread/process-security-and-access-rights">Process Security and Access Rights</a>
-     * @param {Integer} dwCreationFlags The flags that control the priority class and the creation of the process. For a list of values, see 
+     * @param {PROCESS_CREATION_FLAGS} dwCreationFlags The flags that control the priority class and the creation of the process. For a list of values, see 
      * <a href="https://docs.microsoft.com/windows/desktop/ProcThread/process-creation-flags">Process Creation Flags</a>. 
      * 
      * 
@@ -6638,7 +6647,7 @@ class Threading {
      * <b>Terminal Services:  </b>You cannot inherit handles across sessions. Additionally, if this parameter is <b>TRUE</b>, you must create the process in the same session as the caller.
      * 
      * <b>Protected Process Light (PPL) processes:  </b>The generic handle inheritance is blocked when a PPL process creates a non-PPL process since PROCESS_DUP_HANDLE is not allowed from a non-PPL process to a PPL process. See <a href="https://docs.microsoft.com/windows/desktop/ProcThread/process-security-and-access-rights">Process Security and Access Rights</a>
-     * @param {Integer} dwCreationFlags The flags that control the priority class and the creation of the process. For a list of values, see 
+     * @param {PROCESS_CREATION_FLAGS} dwCreationFlags The flags that control the priority class and the creation of the process. For a list of values, see 
      * <a href="https://docs.microsoft.com/windows/desktop/ProcThread/process-creation-flags">Process Creation Flags</a>. 
      * 
      * 
@@ -6775,7 +6784,7 @@ class Threading {
      * 
      * To close the access token handle returned through the <i>TokenHandle</i> parameter, call <a href="https://docs.microsoft.com/windows/desktop/api/handleapi/nf-handleapi-closehandle">CloseHandle</a>.
      * @param {HANDLE} ProcessHandle A handle to the process whose access token is opened. The process must have the PROCESS_QUERY_LIMITED_INFORMATION access permission. See [Process Security and Access Rights](/windows/win32/procthread/process-security-and-access-rights) for more info.
-     * @param {Integer} DesiredAccess Specifies an <a href="https://docs.microsoft.com/windows/desktop/SecGloss/a-gly">access mask</a> that specifies the requested types of access to the access token. These requested access types are compared with the <a href="https://docs.microsoft.com/windows/desktop/SecGloss/d-gly">discretionary access control list</a> (DACL) of the token to determine which accesses are granted or denied. 
+     * @param {TOKEN_ACCESS_MASK} DesiredAccess Specifies an <a href="https://docs.microsoft.com/windows/desktop/SecGloss/a-gly">access mask</a> that specifies the requested types of access to the access token. These requested access types are compared with the <a href="https://docs.microsoft.com/windows/desktop/SecGloss/d-gly">discretionary access control list</a> (DACL) of the token to determine which accesses are granted or denied. 
      * 
      * 
      * 
@@ -6811,7 +6820,7 @@ class Threading {
      * Close the access token handle returned through the <i>TokenHandle</i> parameter by calling 
      * <a href="https://docs.microsoft.com/windows/desktop/api/handleapi/nf-handleapi-closehandle">CloseHandle</a>.
      * @param {HANDLE} ThreadHandle A handle to the thread whose access token is opened.
-     * @param {Integer} DesiredAccess Specifies an <a href="https://docs.microsoft.com/windows/desktop/SecGloss/a-gly">access mask</a> that specifies the requested types of access to the access token. These requested access types are reconciled against the token's <a href="https://docs.microsoft.com/windows/desktop/SecGloss/d-gly">discretionary access control list</a> (DACL) to determine which accesses are granted or denied. 
+     * @param {TOKEN_ACCESS_MASK} DesiredAccess Specifies an <a href="https://docs.microsoft.com/windows/desktop/SecGloss/a-gly">access mask</a> that specifies the requested types of access to the access token. These requested access types are reconciled against the token's <a href="https://docs.microsoft.com/windows/desktop/SecGloss/d-gly">discretionary access control list</a> (DACL) to determine which accesses are granted or denied. 
      * 
      * 
      * 
@@ -6863,7 +6872,7 @@ class Threading {
      * 
      * The handle must have the <b>PROCESS_SET_INFORMATION</b> access right. For more information, see 
      * <a href="https://docs.microsoft.com/windows/desktop/ProcThread/process-security-and-access-rights">Process Security and Access Rights</a>.
-     * @param {Integer} dwPriorityClass 
+     * @param {PROCESS_CREATION_FLAGS} dwPriorityClass 
      * @returns {BOOL} If the function succeeds, the return value is nonzero.
      * 
      * If the function fails, the return value is zero. To get extended error information, call 
@@ -7146,7 +7155,7 @@ class Threading {
      * To add attributes to the list, call the <a href="https://docs.microsoft.com/windows/desktop/api/processthreadsapi/nf-processthreadsapi-updateprocthreadattribute">UpdateProcThreadAttribute</a> function. To specify these attributes when creating a process, specify EXTENDED_STARTUPINFO_PRESENT in the <i>dwCreationFlag</i> parameter and a <a href="https://docs.microsoft.com/windows/desktop/api/winbase/ns-winbase-startupinfoexa">STARTUPINFOEX</a> structure in the <i>lpStartupInfo</i> parameter. Note that you can specify the same <b>STARTUPINFOEX</b> structure to multiple child processes.
      * 
      * When you have finished using the list, call the <a href="https://docs.microsoft.com/windows/desktop/api/processthreadsapi/nf-processthreadsapi-deleteprocthreadattributelist">DeleteProcThreadAttributeList</a> function.
-     * @param {Pointer} lpAttributeList The attribute list. This parameter can be NULL to determine the buffer size required to support the specified number of attributes.
+     * @param {Integer} lpAttributeList The attribute list. This parameter can be NULL to determine the buffer size required to support the specified number of attributes.
      * @param {Integer} dwAttributeCount The count of attributes to be added to the list.
      * @param {Pointer<Pointer>} lpSize If <i>lpAttributeList</i> is not NULL, this parameter specifies the size in bytes of the <i>lpAttributeList</i> buffer on input. On output, this parameter receives the size in bytes of the initialized attribute list. 
      * 
@@ -7582,9 +7591,9 @@ class Threading {
      * @param {LPPROC_THREAD_ATTRIBUTE_LIST} lpAttributeList A pointer to an attribute list created by the <a href="https://docs.microsoft.com/windows/desktop/api/processthreadsapi/nf-processthreadsapi-initializeprocthreadattributelist">InitializeProcThreadAttributeList</a> function.
      * @param {Integer} dwFlags This parameter is reserved and must be zero.
      * @param {Pointer} Attribute 
-     * @param {Pointer} lpValue A pointer to the attribute value. <b>This value must persist until the attribute list is destroyed using the <a href="https://docs.microsoft.com/windows/desktop/api/processthreadsapi/nf-processthreadsapi-deleteprocthreadattributelist">DeleteProcThreadAttributeList</a> function</b>.
+     * @param {Integer} lpValue A pointer to the attribute value. <b>This value must persist until the attribute list is destroyed using the <a href="https://docs.microsoft.com/windows/desktop/api/processthreadsapi/nf-processthreadsapi-deleteprocthreadattributelist">DeleteProcThreadAttributeList</a> function</b>.
      * @param {Pointer} cbSize The size of the attribute value specified by the <i>lpValue</i> parameter.
-     * @param {Pointer} lpPreviousValue This parameter is reserved and must be NULL.
+     * @param {Integer} lpPreviousValue This parameter is reserved and must be NULL.
      * @param {Pointer<Pointer>} lpReturnSize This parameter is reserved and must be NULL.
      * @returns {BOOL} If the function succeeds, the return value is nonzero.
      * 
@@ -7682,7 +7691,7 @@ class Threading {
      * 
      * To compile an application that calls this function, define _WIN32_WINNT as 0x0600 or later. For more information, see <a href="https://docs.microsoft.com/windows/desktop/WinProg/using-the-windows-headers">Using the Windows Headers</a>.
      * @param {HANDLE} hProcess A handle to the process. This handle must be returned by the <a href="https://docs.microsoft.com/windows/desktop/api/processthreadsapi/nf-processthreadsapi-getcurrentprocess">GetCurrentProcess</a> function.
-     * @param {Integer} dwFlags 
+     * @param {PROCESS_AFFINITY_AUTO_UPDATE_FLAGS} dwFlags 
      * @returns {BOOL} If the function succeeds, the return value is nonzero.
      * 
      * If the function fails, the return value is zero. To get extended error information, call 
@@ -7709,7 +7718,7 @@ class Threading {
      * To compile an application that calls this function, define _WIN32_WINNT as 0x0600 or later. For more information, see <a href="https://docs.microsoft.com/windows/desktop/WinProg/using-the-windows-headers">Using the Windows Headers</a>.
      * @param {HANDLE} hProcess A handle to the process. The handle must have the PROCESS_QUERY_INFORMATION or PROCESS_QUERY_LIMITED_INFORMATION access right. For more information, see 
      * <a href="https://docs.microsoft.com/windows/desktop/ProcThread/process-security-and-access-rights">Process Security and Access Rights</a>.
-     * @param {Pointer<Integer>} lpdwFlags 
+     * @param {Pointer<PROCESS_AFFINITY_AUTO_UPDATE_FLAGS>} lpdwFlags 
      * @returns {BOOL} If the function succeeds, the return value is nonzero.
      * 
      * If the function fails, the return value is zero. To get extended error information, call 
@@ -7886,8 +7895,8 @@ class Threading {
      * @remarks
      * To compile an application that uses this function, set _WIN32_WINNT &gt;= 0x0602. For more information, see <a href="https://docs.microsoft.com/windows/desktop/WinProg/using-the-windows-headers">Using the Windows Headers</a>.
      * @param {HANDLE} hProcess A handle to the process. This handle must have the PROCESS_QUERY_INFORMATION access right. For more information, see <a href="https://docs.microsoft.com/windows/desktop/ProcThread/process-security-and-access-rights">Process Security and Access Rights</a>.
-     * @param {Integer} MitigationPolicy 
-     * @param {Pointer} lpBuffer If the *MitigationPolicy* parameter is **ProcessDEPPolicy**, this parameter points to a <a href="https://docs.microsoft.com/windows/desktop/api/winnt/ns-winnt-process_mitigation_dep_policy">PROCESS_MITIGATION_DEP_POLICY</a> structure that receives the DEP policy flags.
+     * @param {PROCESS_MITIGATION_POLICY} MitigationPolicy 
+     * @param {Integer} lpBuffer If the *MitigationPolicy* parameter is **ProcessDEPPolicy**, this parameter points to a <a href="https://docs.microsoft.com/windows/desktop/api/winnt/ns-winnt-process_mitigation_dep_policy">PROCESS_MITIGATION_DEP_POLICY</a> structure that receives the DEP policy flags.
      * 
      * If the *MitigationPolicy* parameter is **ProcessASLRPolicy**, this parameter points to a <a href="https://docs.microsoft.com/windows/desktop/api/winnt/ns-winnt-process_mitigation_aslr_policy">PROCESS_MITIGATION_ASLR_POLICY</a> structure that receives the ASLR policy flags.
      * 
@@ -7940,8 +7949,8 @@ class Threading {
      * ASLR mitigation policies cannot be made less restrictive after they have been applied.
      * 
      * To compile an application that uses this function, set _WIN32_WINNT &gt;= 0x0602. For more information, see <a href="https://docs.microsoft.com/windows/desktop/WinProg/using-the-windows-headers">Using the Windows Headers</a>.
-     * @param {Integer} MitigationPolicy 
-     * @param {Pointer} lpBuffer If the *MitigationPolicy* parameter is **ProcessDEPPolicy**, this parameter points to a <a href="https://docs.microsoft.com/windows/desktop/api/winnt/ns-winnt-process_mitigation_dep_policy">PROCESS_MITIGATION_DEP_POLICY</a> structure that specifies the DEP policy flags.
+     * @param {PROCESS_MITIGATION_POLICY} MitigationPolicy 
+     * @param {Integer} lpBuffer If the *MitigationPolicy* parameter is **ProcessDEPPolicy**, this parameter points to a <a href="https://docs.microsoft.com/windows/desktop/api/winnt/ns-winnt-process_mitigation_dep_policy">PROCESS_MITIGATION_DEP_POLICY</a> structure that specifies the DEP policy flags.
      * 
      * If the *MitigationPolicy* parameter is **ProcessASLRPolicy**, this parameter points to a <a href="https://docs.microsoft.com/windows/desktop/api/winnt/ns-winnt-process_mitigation_aslr_policy">PROCESS_MITIGATION_ASLR_POLICY</a> structure that specifies the ASLR policy flags.
      * 
@@ -8034,7 +8043,7 @@ class Threading {
      * <a href="https://docs.microsoft.com/windows/desktop/Sync/wait-functions">wait functions</a>, provided the appropriate access rights were requested.
      * 
      * When you are finished with the handle, be sure to close it using the <a href="https://docs.microsoft.com/windows/desktop/api/handleapi/nf-handleapi-closehandle">CloseHandle</a> function.
-     * @param {Integer} dwDesiredAccess The access to the process object. This access right is checked against the  security descriptor for the process. This parameter can be one or more of the 
+     * @param {PROCESS_ACCESS_RIGHTS} dwDesiredAccess The access to the process object. This access right is checked against the  security descriptor for the process. This parameter can be one or more of the 
      * <a href="https://docs.microsoft.com/windows/desktop/ProcThread/process-security-and-access-rights">process access rights</a>. 
      * 
      * If the caller has enabled the <a href="https://docs.microsoft.com/windows/win32/secauthz/privilege-constants#SE_DEBUG_NAME">SeDebugPrivilege privilege</a>, the requested access is granted regardless of the contents of the security descriptor.
@@ -8071,7 +8080,7 @@ class Threading {
      * Support for ``PF_ERMS_AVAILABLE``, ``PF_ARM_V82_DP_INSTRUCTIONS_AVAILABLE``, and ``PF_ARM_V83_JSCVT_INSTRUCTIONS_AVAILABLE`` were added in the Windows SDK (20348) and are supported by Windows 11 and Windows Server 2022.
      * 
      * The define ``PF_ARM_V83_LRCPC_INSTRUCTIONS_AVAILABLE`` was added in the Windows SDK (22621) and is supported by Windows 11, Version 22H2.
-     * @param {Integer} ProcessorFeature 
+     * @param {PROCESSOR_FEATURE_ID} ProcessorFeature 
      * @returns {BOOL} If the feature is supported, the return value is a nonzero value.
      * 
      * If the feature is not supported, the return value is zero.
@@ -8321,11 +8330,11 @@ class Threading {
     /**
      * Retrieves information about the specified thread. (GetThreadInformation)
      * @param {HANDLE} hThread A handle to the thread. The handle must have THREAD_QUERY_INFORMATION access rights. For more information, see [Thread Security and Access Rights](/windows/desktop/ProcThread/thread-security-and-access-rights).
-     * @param {Integer} ThreadInformationClass The class of information to retrieve. This value can be **ThreadMemoryPriority**, **ThreadAbsoluteCpuPriority** or **ThreadDynamicCodePolicy**.
+     * @param {THREAD_INFORMATION_CLASS} ThreadInformationClass The class of information to retrieve. This value can be **ThreadMemoryPriority**, **ThreadAbsoluteCpuPriority** or **ThreadDynamicCodePolicy**.
      * 
      * > [!NOTE]
      * > **ThreadDynamicCodePolicy** is supported in Windows Server 2016 and newer, Windows 10 LTSB 2016 and newer, and Windows 10 version 1607 and newer.
-     * @param {Pointer} ThreadInformation Pointer to a structure to receive the type of information specified by the *ThreadInformationClass* parameter.
+     * @param {Integer} ThreadInformation Pointer to a structure to receive the type of information specified by the *ThreadInformationClass* parameter.
      * 
      * If the *ThreadInformationClass* parameter is **ThreadMemoryPriority**, this parameter must point to a **MEMORY_PRIORITY_INFORMATION** structure.
      * 
@@ -8367,8 +8376,8 @@ class Threading {
      * 
      * **ThreadPowerThrottling** enables throttling policies on a thread, which can be used to balance out performance and power efficiency in cases where optimal performance is not required. When a thread opts into enabling <c>THREAD_POWER_THROTTLING_EXECUTION_SPEED</code>, the thread will be classified as EcoQoS. The system will try to increase power efficiency through strategies such as reducing CPU frequency or using more power efficient cores. EcoQoS should be used when the work is not contributing to the foreground user experience, which provides longer battery life, and reduced heat and fan noise. EcoQoS should not be used for performance critical or foreground user experiences. (Prior to Windows 11, the EcoQoS level did not exist and the process was instead labeled as LowQoS). If an application does not explicitly enable <code>THREAD_POWER_THROTTLING_EXECUTION_SPEED</c>, the system will use its own heuristics to automatically infer a Quality of Service level. For more information, see <a href="https://docs.microsoft.com/windows/win32/procthread/quality-of-service">Quality of Service</a>.
      * @param {HANDLE} hThread A handle to the thread. The handle must have THREAD_SET_INFORMATION access right. For more information, see  <a href="https://docs.microsoft.com/windows/desktop/ProcThread/thread-security-and-access-rights">Thread Security and Access Rights</a>.
-     * @param {Integer} ThreadInformationClass The class of information to set. The only supported values are <b>ThreadMemoryPriority</b> and <b>ThreadPowerThrottling</b>.
-     * @param {Pointer} ThreadInformation Pointer to a structure that contains the type of information specified by the <i>ThreadInformationClass</i> parameter.
+     * @param {THREAD_INFORMATION_CLASS} ThreadInformationClass The class of information to set. The only supported values are <b>ThreadMemoryPriority</b> and <b>ThreadPowerThrottling</b>.
+     * @param {Integer} ThreadInformation Pointer to a structure that contains the type of information specified by the <i>ThreadInformationClass</i> parameter.
      * 
      * If the <i>ThreadInformationClass</i> parameter is <b>ThreadMemoryPriority</b>, this parameter must point to a <b>MEMORY_PRIORITY_INFORMATION</b> structure.
      * 
@@ -8534,8 +8543,8 @@ class Threading {
      * @param {HANDLE} hProcess A handle to the process. This handle must have the <b>PROCESS_SET_INFORMATION</b> access 
      *       right. For more information, see 
      *       <a href="https://docs.microsoft.com/windows/desktop/ProcThread/process-security-and-access-rights">Process Security and Access Rights</a>.
-     * @param {Integer} ProcessInformationClass A member of the [PROCESS_INFORMATION_CLASS](./ne-processthreadsapi-process_information_class.md) enumeration specifying the kind of information to set.
-     * @param {Pointer} ProcessInformation Pointer to an object that contains the type of information specified by the 
+     * @param {PROCESS_INFORMATION_CLASS} ProcessInformationClass A member of the [PROCESS_INFORMATION_CLASS](./ne-processthreadsapi-process_information_class.md) enumeration specifying the kind of information to set.
+     * @param {Integer} ProcessInformation Pointer to an object that contains the type of information specified by the 
      *        <i>ProcessInformationClass</i> parameter.
      * 
      * If the <i>ProcessInformationClass</i> parameter is 
@@ -8585,8 +8594,8 @@ class Threading {
     /**
      * Retrieves information about the specified process. (GetProcessInformation)
      * @param {HANDLE} hProcess A handle to the process. This handle must have the **PROCESS_SET_INFORMATION** access right. For more information, see [Process Security and Access Rights](/windows/win32/procthread/process-security-and-access-rights).
-     * @param {Integer} ProcessInformationClass A member of the [PROCESS_INFORMATION_CLASS](./ne-processthreadsapi-process_information_class.md) enumeration specifying the kind of information to retrieve.
-     * @param {Pointer} ProcessInformation Pointer to an object to receive the type of information specified by the *ProcessInformationClass* parameter.
+     * @param {PROCESS_INFORMATION_CLASS} ProcessInformationClass A member of the [PROCESS_INFORMATION_CLASS](./ne-processthreadsapi-process_information_class.md) enumeration specifying the kind of information to retrieve.
+     * @param {Integer} ProcessInformation Pointer to an object to receive the type of information specified by the *ProcessInformationClass* parameter.
      * 
      * If the *ProcessInformationClass* parameter is **ProcessMemoryPriority**, this parameter must point to a [MEMORY_PRIORITY_INFORMATION structure](ns-processthreadsapi-memory_priority_information.md).
      * 
@@ -8830,7 +8839,7 @@ class Threading {
      * <b>Terminal Services:  </b>You cannot inherit handles across sessions. Additionally, if this parameter is <b>TRUE</b>, you must create the process in the same session as the caller.
      * 
      * <b>Protected Process Light (PPL) processes:  </b>The generic handle inheritance is blocked when a PPL process creates a non-PPL process since PROCESS_DUP_HANDLE is not allowed from a non-PPL process to a PPL process. See <a href="https://docs.microsoft.com/windows/desktop/ProcThread/process-security-and-access-rights">Process Security and Access Rights</a>
-     * @param {Integer} dwCreationFlags The flags that control the priority class and the creation of the process. For a list of values, see 
+     * @param {PROCESS_CREATION_FLAGS} dwCreationFlags The flags that control the priority class and the creation of the process. For a list of values, see 
      * <a href="https://docs.microsoft.com/windows/desktop/ProcThread/process-creation-flags">Process Creation Flags</a>. 
      * 
      * This parameter also controls the new process's priority class, which is used to determine the scheduling priorities of the process's threads. For a list of values, see 
@@ -9121,7 +9130,7 @@ class Threading {
     /**
      * Queries if the specified architecture is supported on the current system, either natively or by any form of compatibility or emulation layer.
      * @param {Integer} Machine An IMAGE_FILE_MACHINE_* value corresponding to the architecture of code to be tested for supportability. See the list of architecture values in [Image File Machine Constants](/windows/win32/sysinfo/image-file-machine-constants).
-     * @returns {Integer} Output parameter receives a pointer to a value from the [MACHINE_ATTRIBUTES](ne-processthreadsapi-machine_attributes.md) enumeration indicating if the specified code architecture can run in user mode, kernel mode, and/or under WOW64 on the host operating system.
+     * @returns {MACHINE_ATTRIBUTES} Output parameter receives a pointer to a value from the [MACHINE_ATTRIBUTES](ne-processthreadsapi-machine_attributes.md) enumeration indicating if the specified code architecture can run in user mode, kernel mode, and/or under WOW64 on the host operating system.
      * @see https://learn.microsoft.com/windows/win32/api/processthreadsapi/nf-processthreadsapi-getmachinetypeattributes
      */
     static GetMachineTypeAttributes(Machine) {
@@ -9198,8 +9207,8 @@ class Threading {
      * 
      * For more information, see 
      * <a href="https://docs.microsoft.com/previous-versions/windows/desktop/legacy/ms686736(v=vs.85)">ThreadProc</a>.
-     * @param {Pointer<Void>} _Context 
-     * @param {Integer} Flags 
+     * @param {Pointer<Void>} _Context A single parameter value to be passed to the thread function.
+     * @param {WORKER_THREAD_FLAGS} Flags 
      * @returns {BOOL} If the function succeeds, the return value is nonzero.
      * 
      * If the function fails, the return value is zero. To get extended error information, call 
@@ -9322,7 +9331,7 @@ class Threading {
      * @param {Pointer<Void>} Parameter A single parameter value that will be passed to the callback function.
      * @param {Integer} DueTime The amount of time in milliseconds relative to the current time that must elapse before the timer is signaled for the first time.
      * @param {Integer} Period The period of the timer, in milliseconds. If this parameter is zero, the timer is signaled once. If this parameter is greater than zero, the timer is periodic. A periodic timer automatically reactivates each time the period elapses, until the timer is canceled.
-     * @param {Integer} Flags 
+     * @param {WORKER_THREAD_FLAGS} Flags 
      * @returns {BOOL} If the function succeeds, the return value is nonzero.
      * 
      * If the function fails, the return value is zero. To get extended error information, call 
@@ -10487,8 +10496,8 @@ class Threading {
      * <li> Optionally, the architecture of the host system.</li>
      * </ul>
      * @param {HANDLE} hProcess A handle to the process. The handle must have the <b>PROCESS_QUERY_INFORMATION</b> or <b>PROCESS_QUERY_LIMITED_INFORMATION</b> access right. For more information, see <a href="https://docs.microsoft.com/windows/desktop/ProcThread/process-security-and-access-rights">Process Security and Access Rights</a>.
-     * @param {Pointer<Integer>} pProcessMachine On success, returns a pointer to an <a href="https://docs.microsoft.com/windows/desktop/SysInfo/image-file-machine-constants">IMAGE_FILE_MACHINE_*</a> value. The value will be  <b>IMAGE_FILE_MACHINE_UNKNOWN</b> if the target process is not a <a href="https://docs.microsoft.com/windows/desktop/WinProg64/running-32-bit-applications">WOW64</a> process; otherwise, it will identify the type of WoW process.
-     * @param {Pointer<Integer>} pNativeMachine On success, returns a pointer to a possible <a href="https://docs.microsoft.com/windows/desktop/SysInfo/image-file-machine-constants">IMAGE_FILE_MACHINE_*</a> value identifying the native architecture of host system.
+     * @param {Pointer<IMAGE_FILE_MACHINE>} pProcessMachine On success, returns a pointer to an <a href="https://docs.microsoft.com/windows/desktop/SysInfo/image-file-machine-constants">IMAGE_FILE_MACHINE_*</a> value. The value will be  <b>IMAGE_FILE_MACHINE_UNKNOWN</b> if the target process is not a <a href="https://docs.microsoft.com/windows/desktop/WinProg64/running-32-bit-applications">WOW64</a> process; otherwise, it will identify the type of WoW process.
+     * @param {Pointer<IMAGE_FILE_MACHINE>} pNativeMachine On success, returns a pointer to a possible <a href="https://docs.microsoft.com/windows/desktop/SysInfo/image-file-machine-constants">IMAGE_FILE_MACHINE_*</a> value identifying the native architecture of host system.
      * @returns {BOOL} If the function succeeds, the return value is a nonzero value.
      * 
      * If the function fails, the return value is zero. To get extended error information, call
@@ -10603,7 +10612,7 @@ class Threading {
      * Closes an open namespace handle.
      * @remarks
      * To compile an application that uses this function, define <b>_WIN32_WINNT</b> as 0x0600 or later.
-     * @param {HANDLE} _Handle 
+     * @param {HANDLE} _Handle The namespace handle. This handle is created by <a href="https://docs.microsoft.com/windows/desktop/api/winbase/nf-winbase-createprivatenamespacea">CreatePrivateNamespace</a> or <a href="https://docs.microsoft.com/windows/desktop/api/winbase/nf-winbase-openprivatenamespacea">OpenPrivateNamespace</a>.
      * @param {Integer} Flags If this parameter is <b>PRIVATE_NAMESPACE_FLAG_DESTROY</b> (0x00000001), the namespace is destroyed.
      * @returns {BOOLEAN} If the function succeeds, the return value is nonzero.
      * 
@@ -10736,7 +10745,7 @@ class Threading {
      * 
      * > [!NOTE]
      * > Starting with *TBD Release Iron*, the behavior of this and other NUMA functions has been modified to better support systems with nodes containing more that 64 processors. For more information about this change, including information about enabling the old behavior of this API, see [NUMA Support](/windows/win32/procthread/numa-support).
-     * @param {Integer} _Node 
+     * @param {Integer} _Node The node number.
      * @param {Pointer<GROUP_AFFINITY>} ProcessorMask A pointer to a <a href="https://docs.microsoft.com/windows/desktop/api/winnt/ns-winnt-group_affinity">GROUP_AFFINITY</a> structure that receives the processor mask for the specified node. A processor mask is a bit vector in which each bit represents a processor and whether it is in the node.
      * 
      * If the specified node has no processors configured, the <b>Mask</b> member is zero and the <b>Group</b> member is undefined.
@@ -11242,7 +11251,7 @@ class Threading {
     /**
      * Adjusts the thread priority of the calling thread relative to other threads performing the same task.
      * @param {AVRT_TASK_HANDLE} AvrtHandle A handle to the task. This handle is returned by the <a href="https://docs.microsoft.com/windows/desktop/api/avrt/nf-avrt-avsetmmthreadcharacteristicsa">AvSetMmThreadCharacteristics</a> or <a href="https://docs.microsoft.com/windows/desktop/api/avrt/nf-avrt-avsetmmmaxthreadcharacteristicsa">AvSetMmMaxThreadCharacteristics</a> function.
-     * @param {Integer} _Priority 
+     * @param {AVRT_PRIORITY} _Priority 
      * @returns {BOOL} If the function succeeds, the return value is nonzero.
      * 
      * If the function fails, the return value is zero. To get extended error information, call 
@@ -11273,7 +11282,7 @@ class Threading {
      * To delete the thread ordering group, call the <a href="https://docs.microsoft.com/windows/desktop/api/avrt/nf-avrt-avrtdeletethreadorderinggroup">AvRtDeleteThreadOrderingGroup</a> function.
      * 
      * A thread can create more than one thread ordering group and join more than one thread ordering group. However, a thread cannot join the same thread ordering group more than one time.
-     * @param {Pointer<AVRT_THREAD_ORDERING_GROUP_HANDLE>} _Context 
+     * @param {Pointer<AVRT_THREAD_ORDERING_GROUP_HANDLE>} _Context A pointer to a context handle.
      * @param {Pointer<Integer>} Period A pointer to a value, in 100-nanosecond increments, that specifies the period for the thread ordering group. Each thread in the thread ordering group runs one time during this period. If all threads complete their execution before a period ends, all threads wait until the remainder of the period elapses before any are executed again.
      * 
      * The possible values for this parameter depend on the platform, but this parameter can be as low as 500 microseconds or as high as 0x1FFFFFFFFFFFFFFF. If this parameter is less than 500 microseconds, then it is set to 500 microseconds. If this parameter is greater than the maximum, then it is set to 0x1FFFFFFFFFFFFFFF.
@@ -11324,7 +11333,7 @@ class Threading {
      * A thread can create more than one thread ordering group and join more than one thread ordering group. However, a thread cannot join the same thread ordering group more than one time.
      * 
      * The parent and client threads of a thread ordering group run at high priorities. However, the server thread that manages the thread ordering group runs at normal priority. Therefore, there can be a delay switching from one client thread to another if there are other high-priority threads running. The <i>TaskName</i> parameter of this function specifies the task to be associated with the server thread.
-     * @param {Pointer<AVRT_THREAD_ORDERING_GROUP_HANDLE>} _Context 
+     * @param {Pointer<AVRT_THREAD_ORDERING_GROUP_HANDLE>} _Context A pointer to a context handle.
      * @param {Pointer<Integer>} Period A pointer to a value, in 100-nanosecond increments, that specifies the period for the thread ordering group. Each thread in the thread ordering group runs one time during this period. If all threads complete their execution before a period ends, all threads wait until the remainder of the period elapses before any are executed again.
      * 
      * The possible values for this parameter depend on the platform, but this parameter can be as low as 500 microseconds or as high as 0x1FFFFFFFFFFFFFFF. If this parameter is less than 500 microseconds, then it is set to 500 microseconds. If this parameter is greater than the maximum, then it is set to 0x1FFFFFFFFFFFFFFF.
@@ -11378,7 +11387,7 @@ class Threading {
      * A thread can create more than one thread ordering group and join more than one thread ordering group. However, a thread cannot join the same thread ordering group more than one time.
      * 
      * The parent and client threads of a thread ordering group run at high priorities. However, the server thread that manages the thread ordering group runs at normal priority. Therefore, there can be a delay switching from one client thread to another if there are other high-priority threads running. The <i>TaskName</i> parameter of this function specifies the task to be associated with the server thread.
-     * @param {Pointer<AVRT_THREAD_ORDERING_GROUP_HANDLE>} _Context 
+     * @param {Pointer<AVRT_THREAD_ORDERING_GROUP_HANDLE>} _Context A pointer to a context handle.
      * @param {Pointer<Integer>} Period A pointer to a value, in 100-nanosecond increments, that specifies the period for the thread ordering group. Each thread in the thread ordering group runs one time during this period. If all threads complete their execution before a period ends, all threads wait until the remainder of the period elapses before any are executed again.
      * 
      * The possible values for this parameter depend on the platform, but this parameter can be as low as 500 microseconds or as high as 0x1FFFFFFFFFFFFFFF. If this parameter is less than 500 microseconds, then it is set to 500 microseconds. If this parameter is greater than the maximum, then it is set to 0x1FFFFFFFFFFFFFFF.
@@ -11428,7 +11437,7 @@ class Threading {
      * A thread can create more than one thread ordering group and join more than one thread ordering group. However, a thread cannot join the same thread ordering group more than one time.
      * 
      * The number of threads that can join a group is limited only by available system resources.
-     * @param {Pointer<AVRT_THREAD_ORDERING_GROUP_HANDLE>} _Context 
+     * @param {Pointer<AVRT_THREAD_ORDERING_GROUP_HANDLE>} _Context A pointer to a context handle.
      * @param {Pointer<Guid>} ThreadOrderingGuid A pointer to the unique identifier for the thread ordering group.
      * @param {BOOL} Before The thread order. If this parameter is <b>TRUE</b>, the thread is a predecessor thread that is scheduled to run before the parent thread. If this parameter is <b>FALSE</b>, the thread is a successor thread that is scheduled to run after the parent thread.
      * @returns {BOOL} If the function succeeds, the return value is nonzero.
@@ -11457,7 +11466,7 @@ class Threading {
      * If the thread fails to complete its processing during the time-out interval specified by the parent thread when creating the group, it is deleted from the thread ordering group. Therefore, when the thread finishes its processing loop, the next call to <b>AvRtWaitOnThreadOrderingGroup</b> fails and the last error code is set to ERROR_ACCESS_DENIED.
      * 
      * If the thread ordering group is deleted during the wait, this function eventually times out and return ERROR_ACCESS_DENIED.
-     * @param {AVRT_THREAD_ORDERING_GROUP_HANDLE} _Context 
+     * @param {AVRT_THREAD_ORDERING_GROUP_HANDLE} _Context A context handle. This handle is returned by the <a href="https://docs.microsoft.com/windows/desktop/api/avrt/nf-avrt-avrtcreatethreadorderinggroup">AvRtCreateThreadOrderingGroup</a> or <a href="https://docs.microsoft.com/windows/desktop/api/avrt/nf-avrt-avrtjointhreadorderinggroup">AvRtJoinThreadOrderingGroup</a> function.
      * @returns {BOOL} If the function succeeds, the return value is nonzero.
      * 
      * If the function fails, the return value is zero. To get extended error information, call 
@@ -11484,7 +11493,7 @@ class Threading {
      * The parent thread for a thread ordering group should not remove itself from the group.
      * 
      * If a thread times out and attempts to call this function, the function fails with a last error code of ERROR_INVALID_PARAMETER.
-     * @param {AVRT_THREAD_ORDERING_GROUP_HANDLE} _Context 
+     * @param {AVRT_THREAD_ORDERING_GROUP_HANDLE} _Context A context handle. This handle is returned by the <a href="https://docs.microsoft.com/windows/desktop/api/avrt/nf-avrt-avrtjointhreadorderinggroup">AvRtJoinThreadOrderingGroup</a> function.
      * @returns {BOOL} If the function succeeds, the return value is nonzero.
      * 
      * If the function fails, the return value is zero. To get extended error information, call 
@@ -11511,7 +11520,7 @@ class Threading {
      * This function can only be called successfully by the parent thread for the thread ordering group. If a thread other than the parent thread calls this function, the function fails with a last error code of ERROR_INVALID_FUNCTION.
      * 
      * If the parent thread times out and attempts to call this function, the function fails with a last error code of ERROR_INVALID_PARAMETER.
-     * @param {AVRT_THREAD_ORDERING_GROUP_HANDLE} _Context 
+     * @param {AVRT_THREAD_ORDERING_GROUP_HANDLE} _Context A context handle. This handle is returned by the <a href="https://docs.microsoft.com/windows/desktop/api/avrt/nf-avrt-avrtcreatethreadorderinggroup">AvRtCreateThreadOrderingGroup</a> function when creating the group.
      * @returns {BOOL} If the function succeeds, the return value is nonzero.
      * 
      * If the function fails, the return value is zero. To get extended error information, call 
@@ -11661,7 +11670,7 @@ class Threading {
      * To invoke the callback specified in <i>pCallback</i>, call the <a href="https://docs.microsoft.com/windows/desktop/api/rtworkq/nf-rtworkq-rtwqinvokecallback">RtwqInvokeCallback</a> function.
      * @param {IUnknown} appObject Pointer to the object stored in the asynchronous result. This pointer is returned by the <a href="https://docs.microsoft.com/windows/desktop/api/rtworkq/nf-rtworkq-irtwqasyncresult-getobject">IRtwqAsyncResult::GetObject</a> method. This parameter can be <b>NULL</b>.
      * @param {IRtwqAsyncCallback} callback Pointer to the <a href="https://docs.microsoft.com/windows/desktop/api/rtworkq/nn-rtworkq-irtwqasynccallback">IRtwqAsyncCallback</a> interface. This interface is implemented by the caller of the asynchronous method.
-     * @param {IUnknown} _appState 
+     * @param {IUnknown} _appState Pointer to the <b>IUnknown</b> interface of a state object. This value is provided by the caller of the asynchronous method. This parameter can be <b>NULL</b>.
      * @returns {IRtwqAsyncResult} Receives a pointer to the <a href="https://docs.microsoft.com/windows/desktop/api/rtworkq/nn-rtworkq-irtwqasyncresult">IRtwqAsyncResult</a> interface. The caller must release the interface.
      * @see https://learn.microsoft.com/windows/win32/api/rtworkq/nf-rtworkq-rtwqcreateasyncresult
      * @since windows8.1
@@ -11803,7 +11812,7 @@ class Threading {
     /**
      * Sets a callback function to be called at a fixed interval. (RtwqAddPeriodicCallback)
      * @param {Pointer<RTWQPERIODICCALLBACK>} Callback Pointer to the callback function.
-     * @param {IUnknown} _context 
+     * @param {IUnknown} _context Pointer to a caller-provided object that implements <a href="https://docs.microsoft.com/windows/desktop/api/unknwn/nn-unknwn-iunknown">IUnknown</a>, or <b>NULL</b>. This parameter is passed to the callback function.
      * @returns {Integer} Receives a key that can be used to cancel the callback. To cancel the callback, call <a href="https://docs.microsoft.com/windows/desktop/api/rtworkq/nf-rtworkq-rtwqremoveperiodiccallback">RtwqRemovePeriodicCallback</a> and pass this key as the <i>dwKey</i> parameter.
      * @see https://learn.microsoft.com/windows/win32/api/rtworkq/nf-rtworkq-rtwqaddperiodiccallback
      * @since windows8.1
@@ -11841,7 +11850,7 @@ class Threading {
 
     /**
      * Creates a new work queue. (RtwqAllocateWorkQueue)
-     * @param {Integer} WorkQueueType A member of the <a href="https://docs.microsoft.com/windows/desktop/api/rtworkq/ne-rtworkq-rtwq_workqueue_type">RTWQ_WORKQUEUE_TYPE</a> enumeration, specifying the type of work queue to create.
+     * @param {RTWQ_WORKQUEUE_TYPE} WorkQueueType A member of the <a href="https://docs.microsoft.com/windows/desktop/api/rtworkq/ne-rtworkq-rtwq_workqueue_type">RTWQ_WORKQUEUE_TYPE</a> enumeration, specifying the type of work queue to create.
      * 
      * <table>
      * <tr>
@@ -11974,7 +11983,7 @@ class Threading {
      * @remarks
      * This function returns the relative thread priority set by the <a href="https://docs.microsoft.com/windows/desktop/api/rtworkq/nf-rtworkq-rtwqbeginregisterworkqueuewithmmcss">RtwqBeginRegisterWorkQueueWithMMCSS</a> function.
      * @param {Integer} workQueueId The identifier of the work queue. For private work queues, the identifier is returned by the <a href="https://docs.microsoft.com/windows/desktop/api/rtworkq/nf-rtworkq-rtwqallocateworkqueue">RtwqAllocateWorkQueue</a> function.
-     * @returns {Integer} 
+     * @returns {Integer} Receives the relative thread priority.
      * @see https://learn.microsoft.com/windows/win32/api/rtworkq/nf-rtworkq-rtwqgetworkqueuemmcsspriority
      * @since windows8.1
      */
@@ -12080,7 +12089,9 @@ class Threading {
      * On Windows Vista, however, [**OpenProcess**](/windows/desktop/api/processthreadsapi/nf-processthreadsapi-openprocess) fails in the scenario where the caller has UIAccess, and the target process is elevated. In this case, the owner of the target process is in the Administrators group, but the calling process is running with the restricted token, so does not have membership in this group, and is denied access to the elevated process. If the caller has UIAccess, however, they can use a windows hook to inject code into the target process, and from within the target process, send a handle back to the caller.
      * 
      * **GetProcessHandleFromHwnd** is a convenience function that uses this technique to obtain the handle of the process that owns the specified HWND. Note that it only succeeds in cases where the caller and target process are running as the same user. The returned handle has the following privileges: PROCESS\_DUP\_HANDLE \| PROCESS\_VM\_OPERATION \| PROCESS\_VM\_READ \| PROCESS\_VM\_WRITE \| SYNCHRONIZE. If other privileges are required, it may be necessary to implement the hooking technique explicitly instead of using this function.
-     * @param {HWND} _hwnd 
+     * @param {HWND} _hwnd Type: **[**HWND**](/windows/desktop/WinProg/windows-data-types)**
+     * 
+     * The window handle.
      * @returns {HANDLE} Type: **[**HANDLE**](/windows/desktop/WinProg/windows-data-types)**
      * 
      * If successful, returns the handle of the process that owns the window.
@@ -12209,7 +12220,7 @@ class Threading {
      * **Windows Server 2008, Windows Vista, Windows Server 2003, and Windows XP:** The **GR_GLOBAL** value is not supported until Windows 7 and Windows Server 2008 R2.
      * 
      * **Windows Server 2003 and Windows XP:** The handle must have the **PROCESS_QUERY_INFORMATION** access right.
-     * @param {Integer} uiFlags 
+     * @param {GET_GUI_RESOURCES_FLAGS} uiFlags 
      * @returns {Integer} If the function succeeds, the return value is the count of handles to GUI objects in use by the process. If no GUI objects are in use, the return value is zero.
      * 
      * If the function fails, the return value is zero. To get extended error information, call 
@@ -12929,8 +12940,8 @@ class Threading {
      * 
      * The underlying structures for UMS worker threads are managed by the system. Information that is not exposed through <b>QueryUmsThreadInformation</b> should be considered reserved.
      * @param {Pointer<Void>} UmsThread A pointer to a UMS thread context.
-     * @param {Integer} UmsThreadInfoClass A UMS_THREAD_INFO_CLASS value that specifies the kind of information to retrieve.
-     * @param {Pointer} UmsThreadInformation A pointer to a buffer to receive the specified information. The required size of this buffer depends on the specified information class.
+     * @param {UMS_THREAD_INFO_CLASS} UmsThreadInfoClass A UMS_THREAD_INFO_CLASS value that specifies the kind of information to retrieve.
+     * @param {Integer} UmsThreadInformation A pointer to a buffer to receive the specified information. The required size of this buffer depends on the specified information class.
      * 
      * If the information class is <b>UmsThreadContext</b> or <b>UmsThreadTeb</b>, the buffer must be <c>sizeof(PVOID)</c>.
      * 
@@ -13002,7 +13013,7 @@ class Threading {
      * 
      * The <a href="https://docs.microsoft.com/windows/desktop/api/winbase/nf-winbase-queryumsthreadinformation">QueryUmsThreadInformation</a> function can be used to retrieve other exposed information about the specified thread, such as its thread execution block (<a href="https://docs.microsoft.com/windows/desktop/api/winternl/ns-winternl-teb">TEB</a>) and whether the thread is suspended or terminated. Information that is not exposed through <b>QueryUmsThreadInformation</b> should be considered reserved.
      * @param {Pointer<Void>} UmsThread A pointer to a UMS thread context.
-     * @param {Integer} UmsThreadInfoClass A <a href="https://docs.microsoft.com/windows/win32/api/winbase/nf-winbase-queryumsthreadinformation">UMS_THREAD_INFO_CLASS</a> value that specifies the kind of information to set. This parameter must be <b>UmsThreadUserContext</b>.
+     * @param {UMS_THREAD_INFO_CLASS} UmsThreadInfoClass A <a href="https://docs.microsoft.com/windows/win32/api/winbase/nf-winbase-queryumsthreadinformation">UMS_THREAD_INFO_CLASS</a> value that specifies the kind of information to set. This parameter must be <b>UmsThreadUserContext</b>.
      * @param {Pointer<Void>} UmsThreadInformation A pointer to a buffer that contains the information to set.
      * @param {Integer} UmsThreadInformationLength The size of the <i>UmsThreadInformation</i> buffer, in bytes.
      * @returns {BOOL} If the function succeeds, it returns a nonzero value.
@@ -13341,7 +13352,7 @@ class Threading {
      *  
      * 
      * To compile an application that calls this function, define <b>_WIN32_WINNT</b> as 0x0600 or later. For more information, see <a href="https://docs.microsoft.com/windows/desktop/WinProg/using-the-windows-headers">Using the Windows Headers</a>.
-     * @param {Integer} dwFlags 
+     * @param {PROCESS_DEP_FLAGS} dwFlags 
      * @returns {BOOL} If the function succeeds, it returns <b>TRUE</b>.
      * 
      * If the function fails, it returns <b>FALSE</b>. To retrieve error values defined for this function,  call <a href="https://docs.microsoft.com/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>.
@@ -13655,7 +13666,7 @@ class Threading {
      * 
      * A completion routine is queued when the 
      * function call that queued the APC has completed. This function returns and the completion routine is called only if <i>bAlertable</i> is <b>TRUE</b>, and the calling thread is the thread that queued the APC.
-     * @returns {Integer} If the function succeeds, the return value indicates the event that caused the function to return. It can be one of the following values.
+     * @returns {WAIT_EVENT} If the function succeeds, the return value indicates the event that caused the function to return. It can be one of the following values.
      * 
      * <table>
      * <tr>
@@ -14064,7 +14075,7 @@ class Threading {
      * > The winbase.h header defines QueryFullProcessImageName as an alias which automatically selects the ANSI or Unicode version of this function based on the definition of the UNICODE preprocessor constant. Mixing usage of the encoding-neutral alias with code that not encoding-neutral can lead to mismatches that result in compilation or runtime errors. For more information, see [Conventions for Function Prototypes](/windows/win32/intl/conventions-for-function-prototypes).
      * @param {HANDLE} hProcess A handle to the process. This handle must be created with the PROCESS_QUERY_INFORMATION or PROCESS_QUERY_LIMITED_INFORMATION access right. For more information, see 
      * <a href="https://docs.microsoft.com/windows/desktop/ProcThread/process-security-and-access-rights">Process Security and Access Rights</a>.
-     * @param {Integer} dwFlags 
+     * @param {PROCESS_NAME_FORMAT} dwFlags 
      * @param {PSTR} lpExeName The path to the executable image. If the function succeeds, this string is null-terminated.
      * @param {Pointer<Integer>} lpdwSize On input, specifies the size of the <i>lpExeName</i> buffer, in characters. On success, receives the number of characters written to the buffer, not including the null-terminating character.
      * @returns {BOOL} If the function succeeds, the return value is nonzero.
@@ -14103,7 +14114,7 @@ class Threading {
      * > The winbase.h header defines QueryFullProcessImageName as an alias which automatically selects the ANSI or Unicode version of this function based on the definition of the UNICODE preprocessor constant. Mixing usage of the encoding-neutral alias with code that not encoding-neutral can lead to mismatches that result in compilation or runtime errors. For more information, see [Conventions for Function Prototypes](/windows/win32/intl/conventions-for-function-prototypes).
      * @param {HANDLE} hProcess A handle to the process. This handle must be created with the PROCESS_QUERY_INFORMATION or PROCESS_QUERY_LIMITED_INFORMATION access right. For more information, see 
      * <a href="https://docs.microsoft.com/windows/desktop/ProcThread/process-security-and-access-rights">Process Security and Access Rights</a>.
-     * @param {Integer} dwFlags 
+     * @param {PROCESS_NAME_FORMAT} dwFlags 
      * @param {PWSTR} lpExeName The path to the executable image. If the function succeeds, this string is null-terminated.
      * @param {Pointer<Integer>} lpdwSize On input, specifies the size of the <i>lpExeName</i> buffer, in characters. On success, receives the number of characters written to the buffer, not including the null-terminating character.
      * @returns {BOOL} If the function succeeds, the return value is nonzero.
@@ -14209,7 +14220,7 @@ class Threading {
      * The user account must have the Log On Locally permission on the local computer. This permission is granted to all users on workstations and servers, but only to administrators on domain controllers.
      * @param {PWSTR} lpDomain The name of the domain or server whose account database contains the <i>lpUsername</i> account. If this parameter is NULL, the user name must be specified in UPN format.
      * @param {PWSTR} lpPassword The clear-text password for the <i>lpUsername</i> account.
-     * @param {Integer} dwLogonFlags 
+     * @param {CREATE_PROCESS_LOGON_FLAGS} dwLogonFlags 
      * @param {PWSTR} lpApplicationName The name of the module to be executed. This module can be a Windows-based application. It can be some other type of module (for example, MS-DOS or OS/2) if the appropriate subsystem is available on the local computer. 
      * 
      * 
@@ -14253,7 +14264,7 @@ class Threading {
      * <li>The directories that are listed in the PATH environment variable. Note that this function does not search the per-application path specified by the <b>App Paths</b> registry key. To include this per-application path in the search sequence, use the <a href="https://docs.microsoft.com/windows/win32/api/shellapi/nf-shellapi-shellexecutew">ShellExecute</a> function.</li>
      * </ol>
      * The system adds a null character to the command line string to separate the file name from the arguments. This divides the original string into two strings for internal processing.
-     * @param {Integer} dwCreationFlags The flags that control how the process is created. The <b>CREATE_DEFAULT_ERROR_MODE</b>, <b>CREATE_NEW_CONSOLE</b>, and <b>CREATE_NEW_PROCESS_GROUP</b> flags are enabled by default. For a list of values, see <a href="https://docs.microsoft.com/windows/desktop/ProcThread/process-creation-flags">Process Creation Flags</a>.
+     * @param {PROCESS_CREATION_FLAGS} dwCreationFlags The flags that control how the process is created. The <b>CREATE_DEFAULT_ERROR_MODE</b>, <b>CREATE_NEW_CONSOLE</b>, and <b>CREATE_NEW_PROCESS_GROUP</b> flags are enabled by default. For a list of values, see <a href="https://docs.microsoft.com/windows/desktop/ProcThread/process-creation-flags">Process Creation Flags</a>.
      * 
      * 
      * This parameter also controls the new process's priority class, which is used to determine the scheduling priorities of the process's threads. For a list of values, see 
@@ -14402,7 +14413,7 @@ class Threading {
      * <a href="https://docs.microsoft.com/windows/desktop/api/securitybaseapi/nf-securitybaseapi-duplicatetokenex">DuplicateTokenEx</a> function to convert an impersonation token into a primary token. This allows a server application that is impersonating a client to create a process that has the security context of the client.
      * 
      * <b>Terminal Services:  </b>The caller's process always runs in the caller's session, not in the session specified in the token. To run a process in the session specified in the token, use the CreateProcessAsUser function.
-     * @param {Integer} dwLogonFlags 
+     * @param {CREATE_PROCESS_LOGON_FLAGS} dwLogonFlags 
      * @param {PWSTR} lpApplicationName The name of the module to be executed. This module can be a Windows-based application. It can be some other type of module (for example, MS-DOS or OS/2) if the appropriate subsystem is available on the local computer. 
      * 
      * 
@@ -14441,7 +14452,7 @@ class Threading {
      * <li>The directories that are listed in the PATH environment variable. Note that this function does not search the per-application path specified by the <b>App Paths</b> registry key. To include this per-application path in the search sequence, use the <a href="https://docs.microsoft.com/previous-versions/windows/desktop/axe/shellexecute">ShellExecute</a> function.</li>
      * </ol>
      * The system adds a null character to the command line string to separate the file name from the arguments. This divides the original string into two strings for internal processing.
-     * @param {Integer} dwCreationFlags The flags that control how the process is created. The CREATE_DEFAULT_ERROR_MODE, CREATE_NEW_CONSOLE, and CREATE_NEW_PROCESS_GROUP flags are enabled by default. For a list of values, see <a href="https://docs.microsoft.com/windows/desktop/ProcThread/process-creation-flags">Process Creation Flags</a>.
+     * @param {PROCESS_CREATION_FLAGS} dwCreationFlags The flags that control how the process is created. The CREATE_DEFAULT_ERROR_MODE, CREATE_NEW_CONSOLE, and CREATE_NEW_PROCESS_GROUP flags are enabled by default. For a list of values, see <a href="https://docs.microsoft.com/windows/desktop/ProcThread/process-creation-flags">Process Creation Flags</a>.
      * 
      * 
      * This parameter also controls the new process's priority class, which is used to determine the scheduling priorities of the process's threads. For a list of values, see 
@@ -14570,9 +14581,9 @@ class Threading {
      * <a href="https://docs.microsoft.com/windows/desktop/SecAuthZ/standard-access-rights">Standard Access Rights</a>.
      * @param {Pointer<WAITORTIMERCALLBACK>} Callback A pointer to the application-defined function of type <b>WAITORTIMERCALLBACK</b> to be executed when <i>hObject</i> is in the signaled state, or <i>dwMilliseconds</i> elapses. For more information, see 
      * <a href="https://docs.microsoft.com/previous-versions/windows/desktop/legacy/ms687066(v=vs.85)">WaitOrTimerCallback</a>.
-     * @param {Pointer<Void>} _Context 
+     * @param {Pointer<Void>} _Context A single value that is passed to the callback function.
      * @param {Integer} dwMilliseconds The time-out interval, in milliseconds. The function returns if the interval elapses, even if the object's state is nonsignaled. If <i>dwMilliseconds</i> is zero, the function tests the object's state and returns immediately. If <i>dwMilliseconds</i> is <b>INFINITE</b>, the function's time-out interval never elapses.
-     * @param {Integer} dwFlags 
+     * @param {WORKER_THREAD_FLAGS} dwFlags 
      * @returns {BOOL} If the function succeeds, the return value is nonzero.
      * 
      * If the function fails, the return value is zero. To get extended error information, call  
@@ -14955,7 +14966,7 @@ class Threading {
      * 
      * > [!NOTE]
      * > Starting with *TBD Release Iron*, the behavior of this and other NUMA functions has been modified to better support systems with nodes containing more that 64 processors. For more information about this change, including information about enabling the old behavior of this API, see [NUMA Support](/windows/win32/procthread/numa-support).
-     * @param {Integer} _Node 
+     * @param {Integer} _Node The number of the node.
      * @param {Pointer<Integer>} ProcessorMask The processor mask for the node. A processor mask is a bit vector in which each bit represents a processor and whether it is in the node.
      * 
      * If the node has no processors configured, the processor mask is zero.
@@ -14985,7 +14996,7 @@ class Threading {
      * Retrieves the amount of memory available in the specified node.
      * @remarks
      * The <b>GetNumaAvailableMemoryNode</b> function returns the amount of memory consumed by free and zeroed pages on the specified node. On systems with more than one node, this memory does not include standby pages. Therefore, the sum of the available memory values for all nodes in the system is equal to the value of the Free &amp; Zero Page List Bytes memory performance counter. On systems with only one node, the value returned by <b>GetNumaAvailableMemoryNode</b>  includes standby pages and  is equal to the value of the Available Bytes memory performance counter. For more information about performance counters, see <a href="https://docs.microsoft.com/previous-versions/windows/desktop/legacy/aa965225(v=vs.85)">Memory Performance Information</a>.
-     * @param {Integer} _Node 
+     * @param {Integer} _Node The number of the node.
      * @param {Pointer<Integer>} AvailableBytes The amount of available memory for the node, in bytes.
      * @returns {BOOL} If the function succeeds, the return value is nonzero.
      * 
@@ -15015,7 +15026,7 @@ class Threading {
      * The only difference between the <b>GetNumaAvailableMemoryNodeEx</b> function and the <a href="https://docs.microsoft.com/windows/desktop/api/winbase/nf-winbase-getnumaavailablememorynode">GetNumaAvailableMemoryNode</a> function is the data type of the <i>Node</i> parameter. 
      * 
      * To compile an application that uses this function, set _WIN32_WINNT &gt;= 0x0601. For more information, see <a href="https://docs.microsoft.com/windows/desktop/WinProg/using-the-windows-headers">Using the Windows Headers</a>.
-     * @param {Integer} _Node 
+     * @param {Integer} _Node The number of the node.
      * @param {Pointer<Integer>} AvailableBytes The amount of available memory for the node, in bytes.
      * @returns {BOOL} If the function succeeds, the return value is nonzero.
      * 

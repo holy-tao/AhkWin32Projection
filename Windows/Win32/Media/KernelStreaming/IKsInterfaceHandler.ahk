@@ -5,9 +5,8 @@
 
 /**
  * @namespace Windows.Win32.Media.KernelStreaming
- * @version v4.0.30319
  */
-class IKsInterfaceHandler extends IUnknown{
+class IKsInterfaceHandler extends IUnknown {
 
     static sizeof => A_PtrSize
     /**
@@ -43,7 +42,7 @@ class IKsInterfaceHandler extends IUnknown{
      * @param {IKsDataTypeHandler} KsDataTypeHandler 
      * @param {Pointer<IMediaSample>} SampleList 
      * @param {Pointer<Integer>} SampleCount 
-     * @param {Integer} IoOperation 
+     * @param {KSIOOPERATION} IoOperation 
      * @returns {Pointer<KSSTREAM_SEGMENT>} 
      */
     KsProcessMediaSamples(KsDataTypeHandler, SampleList, SampleCount, IoOperation) {

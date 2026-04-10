@@ -5,10 +5,8 @@
  * Specifies the throttling policies and how to apply them to a target process when that process is subject to power management.
  * @see https://learn.microsoft.com/windows/win32/api/processthreadsapi/ns-processthreadsapi-process_power_throttling_state
  * @namespace Windows.Win32.System.Threading
- * @version v4.0.30319
  */
-class PROCESS_POWER_THROTTLING_STATE extends Win32Struct
-{
+class PROCESS_POWER_THROTTLING_STATE extends Win32Struct {
     static sizeof => 12
 
     static packingSize => 4

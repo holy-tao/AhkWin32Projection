@@ -3,9 +3,8 @@
 
 /**
  * @namespace Windows.Win32.Devices.DeviceAndDriverInstallation
- * @version v4.0.30319
  */
-class SP_COPY_STYLE extends Win32BitflagEnum{
+class SP_COPY_STYLE extends Win32BitflagEnum {
 
     /**
      * @type {Integer (UInt32)}

@@ -1,15 +1,14 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
 #Include .\DHCP_HOST_INFO.ahk
+#Include .\DHCP_SUBNET_STATE.ahk
 
 /**
  * The DHCP_SUBNET_INFO structure defines information describing a subnet.
  * @see https://learn.microsoft.com/windows/win32/api/dhcpsapi/ns-dhcpsapi-dhcp_subnet_info
  * @namespace Windows.Win32.NetworkManagement.Dhcp
- * @version v4.0.30319
  */
-class DHCP_SUBNET_INFO extends Win32Struct
-{
+class DHCP_SUBNET_INFO extends Win32Struct {
     static sizeof => 56
 
     static packingSize => 8
@@ -54,7 +53,7 @@ class DHCP_SUBNET_INFO extends Win32Struct
      * <a href="https://docs.microsoft.com/windows/desktop/api/dhcpsapi/ns-dhcpsapi-dhcp_host_info">DHCP_HOST_INFO</a> structure that contains information about the DHCP server servicing this subnet.
      * @type {DHCP_HOST_INFO}
      */
-    PrimaryHost{
+    PrimaryHost {
         get {
             if(!this.HasProp("__PrimaryHost"))
                 this.__PrimaryHost := DHCP_HOST_INFO(24, this)
@@ -64,7 +63,7 @@ class DHCP_SUBNET_INFO extends Win32Struct
 
     /**
      * <a href="https://docs.microsoft.com/windows/desktop/api/dhcpsapi/ne-dhcpsapi-dhcp_subnet_state">DHCP_SUBNET_STATE</a> enumeration value indicating the current state of the subnet (enabled/disabled).
-     * @type {Integer}
+     * @type {DHCP_SUBNET_STATE}
      */
     SubnetState {
         get => NumGet(this, 48, "int")

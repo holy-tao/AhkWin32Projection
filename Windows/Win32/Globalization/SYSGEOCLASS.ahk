@@ -5,9 +5,8 @@
  * Specifies the geographical location class.
  * @see https://learn.microsoft.com/windows/win32/api/winnls/ne-winnls-sysgeoclass
  * @namespace Windows.Win32.Globalization
- * @version v4.0.30319
  */
-class SYSGEOCLASS extends Win32Enum{
+class SYSGEOCLASS extends Win32Enum {
 
     /**
      * Class for nation geographical location identifiers.

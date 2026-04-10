@@ -1,16 +1,15 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
-#Include ..\..\Foundation\BSTR.ahk
 #Include .\ContextInfo.ahk
+#Include ..\..\Foundation\BSTR.ahk
 
 /**
  * Provides additional information about an object's context, supplementing the information that is available through the ContextInfo interface.
  * @see https://learn.microsoft.com/windows/win32/api/comsvcs/nn-comsvcs-contextinfo2
  * @namespace Windows.Win32.System.ComponentServices
- * @version v4.0.30319
  */
-class ContextInfo2 extends ContextInfo{
+class ContextInfo2 extends ContextInfo {
 
     static sizeof => A_PtrSize
     /**

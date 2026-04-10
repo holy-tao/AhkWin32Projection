@@ -5,9 +5,8 @@
 
 /**
  * @namespace Windows.Win32.System.Com.Urlmon
- * @version v4.0.30319
  */
-class IHttpNegotiate3 extends IHttpNegotiate2{
+class IHttpNegotiate3 extends IHttpNegotiate2 {
 
     static sizeof => A_PtrSize
     /**

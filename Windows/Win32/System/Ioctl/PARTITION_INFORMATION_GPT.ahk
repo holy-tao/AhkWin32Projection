@@ -1,5 +1,6 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
+#Include .\GPT_ATTRIBUTES.ahk
 
 /**
  * Contains GUID partition table (GPT) partition information.
@@ -13,10 +14,8 @@
  *     EFI.
  * @see https://learn.microsoft.com/windows/win32/api/winioctl/ns-winioctl-partition_information_gpt
  * @namespace Windows.Win32.System.Ioctl
- * @version v4.0.30319
  */
-class PARTITION_INFORMATION_GPT extends Win32Struct
-{
+class PARTITION_INFORMATION_GPT extends Win32Struct {
     static sizeof => 96
 
     static packingSize => 8
@@ -26,7 +25,7 @@ class PARTITION_INFORMATION_GPT extends Win32Struct
      * 
      * Each partition type that the EFI specification supports is identified by its own 
      *        <b>GUID</b>, which is published by the developer of the partition.
-     * @type {Pointer<Guid>}
+     * @type {Pointer}
      */
     PartitionType {
         get => NumGet(this, 0, "ptr")
@@ -35,7 +34,7 @@ class PARTITION_INFORMATION_GPT extends Win32Struct
 
     /**
      * The GUID of the partition.
-     * @type {Pointer<Guid>}
+     * @type {Pointer}
      */
     PartitionId {
         get => NumGet(this, 8, "ptr")
@@ -44,7 +43,7 @@ class PARTITION_INFORMATION_GPT extends Win32Struct
 
     /**
      * The Extensible Firmware Interface (EFI) attributes of the partition.
-     * @type {Integer}
+     * @type {GPT_ATTRIBUTES}
      */
     Attributes {
         get => NumGet(this, 16, "uint")

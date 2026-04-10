@@ -1,16 +1,14 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
-#Include .\IEnumPIDMap.ahk
 #Include ..\..\System\Com\IUnknown.ahk
 
 /**
  * The IEnumPIDMap interface enumerates a collection of Packet ID (PID) maps.
  * @see https://learn.microsoft.com/windows/win32/api/bdaiface/nn-bdaiface-ienumpidmap
  * @namespace Windows.Win32.Media.DirectShow
- * @version v4.0.30319
  */
-class IEnumPIDMap extends IUnknown{
+class IEnumPIDMap extends IUnknown {
 
     static sizeof => A_PtrSize
     /**

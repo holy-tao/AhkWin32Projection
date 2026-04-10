@@ -8,9 +8,8 @@
  * <div> </div>
  * @see https://learn.microsoft.com/windows/win32/api/wininet/ne-wininet-internet_scheme
  * @namespace Windows.Win32.Networking.WinInet
- * @version v4.0.30319
  */
-class INTERNET_SCHEME extends Win32Enum{
+class INTERNET_SCHEME extends Win32Enum {
 
     /**
      * Partial URL.

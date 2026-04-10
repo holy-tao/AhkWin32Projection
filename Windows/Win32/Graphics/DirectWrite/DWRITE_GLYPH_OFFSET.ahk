@@ -7,10 +7,8 @@
  * An glyph offset changes the position of a glyph without affecting the pen position. Offsets are in logical, pre-transform units.
  * @see https://learn.microsoft.com/windows/win32/api/dwrite/ns-dwrite-dwrite_glyph_offset
  * @namespace Windows.Win32.Graphics.DirectWrite
- * @version v4.0.30319
  */
-class DWRITE_GLYPH_OFFSET extends Win32Struct
-{
+class DWRITE_GLYPH_OFFSET extends Win32Struct {
     static sizeof => 8
 
     static packingSize => 4

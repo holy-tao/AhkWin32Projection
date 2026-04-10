@@ -1,16 +1,15 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
-#Include .\IWMSecureChannel.ahk
 #Include ..\..\System\Com\IUnknown.ahk
+#Include .\IWMSecureChannel.ahk
 
 /**
  * The IWMGetSecureChannel interface is used by one communication party to get the other party's IWMSecureChannel interface.
  * @see https://learn.microsoft.com/windows/win32/api/wmsecure/nn-wmsecure-iwmgetsecurechannel
  * @namespace Windows.Win32.Media.WindowsMediaFormat
- * @version v4.0.30319
  */
-class IWMGetSecureChannel extends IUnknown{
+class IWMGetSecureChannel extends IUnknown {
 
     static sizeof => A_PtrSize
     /**

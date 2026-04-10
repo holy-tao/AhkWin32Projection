@@ -3,10 +3,8 @@
 
 /**
  * @namespace Windows.Win32.Networking.WinSock
- * @version v4.0.30319
  */
-class IPV6_NEIGHBOR_ADVERTISEMENT_FLAGS extends Win32Struct
-{
+class IPV6_NEIGHBOR_ADVERTISEMENT_FLAGS extends Win32Struct {
     static sizeof => 8
 
     static packingSize => 4
@@ -57,9 +55,9 @@ class IPV6_NEIGHBOR_ADVERTISEMENT_FLAGS extends Win32Struct
     }
 
     /**
-     * @type {Array<Byte>}
+     * @type {Array<Integer>}
      */
-    Reserved2{
+    Reserved2 {
         get {
             if(!this.HasProp("__Reserved2ProxyArray"))
                 this.__Reserved2ProxyArray := Win32FixedArray(this.ptr + 1, 3, Primitive, "char")

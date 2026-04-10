@@ -1,6 +1,9 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
 #Include ..\..\Foundation\LUID.ahk
+#Include .\DXGI_ADAPTER_FLAG3.ahk
+#Include .\DXGI_GRAPHICS_PREEMPTION_GRANULARITY.ahk
+#Include .\DXGI_COMPUTE_PREEMPTION_GRANULARITY.ahk
 
 /**
  * Describes an adapter (or video card) that uses Microsoft DirectX Graphics Infrastructure (DXGI) 1.6.
@@ -8,10 +11,8 @@
  * The <b>DXGI_ADAPTER_DESC3</b> structure provides a DXGI 1.6 description of an adapter.  This structure is initialized by using the <a href="https://docs.microsoft.com/windows/desktop/api/dxgi1_6/nf-dxgi1_6-idxgiadapter4-getdesc3">IDXGIAdapter4::GetDesc3</a> method.
  * @see https://learn.microsoft.com/windows/win32/api/dxgi1_6/ns-dxgi1_6-dxgi_adapter_desc3
  * @namespace Windows.Win32.Graphics.Dxgi
- * @version v4.0.30319
  */
-class DXGI_ADAPTER_DESC3 extends Win32Struct
-{
+class DXGI_ADAPTER_DESC3 extends Win32Struct {
     static sizeof => 320
 
     static packingSize => 8
@@ -92,7 +93,7 @@ class DXGI_ADAPTER_DESC3 extends Win32Struct
      * A unique value that identifies the adapter. See <a href="https://docs.microsoft.com/previous-versions/windows/hardware/drivers/ff549708(v=vs.85)">LUID</a> for a definition of the structure. <b>LUID</b> is defined in dxgi.h.
      * @type {LUID}
      */
-    AdapterLuid{
+    AdapterLuid {
         get {
             if(!this.HasProp("__AdapterLuid"))
                 this.__AdapterLuid := LUID(296, this)
@@ -102,7 +103,7 @@ class DXGI_ADAPTER_DESC3 extends Win32Struct
 
     /**
      * A value of the <a href="https://docs.microsoft.com/windows/desktop/api/dxgi1_6/ne-dxgi1_6-dxgi_adapter_flag3">DXGI_ADAPTER_FLAG3</a> enumeration that describes the adapter type.  The <b>DXGI_ADAPTER_FLAG_REMOTE</b> flag is reserved.
-     * @type {Integer}
+     * @type {DXGI_ADAPTER_FLAG3}
      */
     Flags {
         get => NumGet(this, 304, "int")
@@ -111,7 +112,7 @@ class DXGI_ADAPTER_DESC3 extends Win32Struct
 
     /**
      * A value of the <a href="https://docs.microsoft.com/windows/desktop/api/dxgi1_2/ne-dxgi1_2-dxgi_graphics_preemption_granularity">DXGI_GRAPHICS_PREEMPTION_GRANULARITY</a> enumerated type that describes the granularity level at which the GPU can be preempted from performing its current graphics rendering task.
-     * @type {Integer}
+     * @type {DXGI_GRAPHICS_PREEMPTION_GRANULARITY}
      */
     GraphicsPreemptionGranularity {
         get => NumGet(this, 308, "int")
@@ -120,7 +121,7 @@ class DXGI_ADAPTER_DESC3 extends Win32Struct
 
     /**
      * A value of the <a href="https://docs.microsoft.com/windows/desktop/api/dxgi1_2/ne-dxgi1_2-dxgi_compute_preemption_granularity">DXGI_COMPUTE_PREEMPTION_GRANULARITY</a> enumerated type that describes the granularity level at which the GPU can be preempted from performing its current compute task.
-     * @type {Integer}
+     * @type {DXGI_COMPUTE_PREEMPTION_GRANULARITY}
      */
     ComputePreemptionGranularity {
         get => NumGet(this, 312, "int")

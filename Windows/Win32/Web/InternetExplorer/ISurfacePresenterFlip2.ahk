@@ -5,9 +5,8 @@
 
 /**
  * @namespace Windows.Win32.Web.InternetExplorer
- * @version v4.0.30319
  */
-class ISurfacePresenterFlip2 extends IUnknown{
+class ISurfacePresenterFlip2 extends IUnknown {
 
     static sizeof => A_PtrSize
     /**
@@ -30,7 +29,7 @@ class ISurfacePresenterFlip2 extends IUnknown{
 
     /**
      * 
-     * @param {Integer} dxgiRotation 
+     * @param {DXGI_MODE_ROTATION} dxgiRotation 
      * @returns {HRESULT} 
      */
     SetRotation(dxgiRotation) {

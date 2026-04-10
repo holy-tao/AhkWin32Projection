@@ -1,9 +1,9 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
+#Include .\IUpdateServiceManager.ahk
 #Include ..\..\Foundation\BSTR.ahk
 #Include .\IUpdateServiceRegistration.ahk
-#Include .\IUpdateServiceManager.ahk
 
 /**
  * Adds or removes the registration of the update service with Windows Update Agent or Automatic Updates. (IUpdateServiceManager2)
@@ -11,9 +11,8 @@
  * You can create an instance of this interface by using the UpdateServiceManager coclass. Use the Microsoft.Update.ServiceManager program identifier to create the object.
  * @see https://learn.microsoft.com/windows/win32/api/wuapi/nn-wuapi-iupdateservicemanager2
  * @namespace Windows.Win32.System.UpdateAgent
- * @version v4.0.30319
  */
-class IUpdateServiceManager2 extends IUpdateServiceManager{
+class IUpdateServiceManager2 extends IUpdateServiceManager {
 
     static sizeof => A_PtrSize
     /**

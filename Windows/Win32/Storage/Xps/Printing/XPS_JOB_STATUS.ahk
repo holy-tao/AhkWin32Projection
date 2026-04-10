@@ -1,14 +1,13 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\..\Win32Struct.ahk
+#Include .\XPS_JOB_COMPLETION.ahk
 
 /**
  * Contains a snapshot of job status.
  * @see https://learn.microsoft.com/windows/win32/api/xpsprint/ns-xpsprint-xps_job_status
  * @namespace Windows.Win32.Storage.Xps.Printing
- * @version v4.0.30319
  */
-class XPS_JOB_STATUS extends Win32Struct
-{
+class XPS_JOB_STATUS extends Win32Struct {
     static sizeof => 24
 
     static packingSize => 4
@@ -51,7 +50,7 @@ class XPS_JOB_STATUS extends Win32Struct
 
     /**
      * The <a href="https://docs.microsoft.com/windows/win32/api/xpsprint/ne-xpsprint-xps_job_completion">XPS_JOB_COMPLETION</a> value that indicates the completion status of the job.  This value will change when the event passed in the <b>completionEvent</b> parameter of <a href="https://docs.microsoft.com/windows/desktop/api/xpsprint/nf-xpsprint-startxpsprintjob">StartXpsPrintJob</a> is signaled at the end of a job. If the print job fails, this value will be <b>XPS_JOB_FAILED</b>,  with <i>jobStatus</i> containing the error code of the failure.
-     * @type {Integer}
+     * @type {XPS_JOB_COMPLETION}
      */
     completion {
         get => NumGet(this, 16, "int")

@@ -3,13 +3,13 @@
 #Include .\DHCP_BINARY_DATA.ahk
 #Include .\DATE_TIME.ahk
 #Include .\DHCP_HOST_INFO.ahk
+#Include .\QuarantineStatus.ahk
+#Include .\DHCP_PROPERTY_ARRAY.ahk
 
 /**
  * @namespace Windows.Win32.NetworkManagement.Dhcp
- * @version v4.0.30319
  */
-class DHCP_CLIENT_INFO_EX extends Win32Struct
-{
+class DHCP_CLIENT_INFO_EX extends Win32Struct {
     static sizeof => 112
 
     static packingSize => 8
@@ -33,7 +33,7 @@ class DHCP_CLIENT_INFO_EX extends Win32Struct
     /**
      * @type {DHCP_BINARY_DATA}
      */
-    ClientHardwareAddress{
+    ClientHardwareAddress {
         get {
             if(!this.HasProp("__ClientHardwareAddress"))
                 this.__ClientHardwareAddress := DHCP_BINARY_DATA(8, this)
@@ -60,7 +60,7 @@ class DHCP_CLIENT_INFO_EX extends Win32Struct
     /**
      * @type {DATE_TIME}
      */
-    ClientLeaseExpires{
+    ClientLeaseExpires {
         get {
             if(!this.HasProp("__ClientLeaseExpires"))
                 this.__ClientLeaseExpires := DATE_TIME(40, this)
@@ -71,7 +71,7 @@ class DHCP_CLIENT_INFO_EX extends Win32Struct
     /**
      * @type {DHCP_HOST_INFO}
      */
-    OwnerHost{
+    OwnerHost {
         get {
             if(!this.HasProp("__OwnerHost"))
                 this.__OwnerHost := DHCP_HOST_INFO(48, this)
@@ -96,7 +96,7 @@ class DHCP_CLIENT_INFO_EX extends Win32Struct
     }
 
     /**
-     * @type {Integer}
+     * @type {QuarantineStatus}
      */
     Status {
         get => NumGet(this, 76, "int")
@@ -106,7 +106,7 @@ class DHCP_CLIENT_INFO_EX extends Win32Struct
     /**
      * @type {DATE_TIME}
      */
-    ProbationEnds{
+    ProbationEnds {
         get {
             if(!this.HasProp("__ProbationEnds"))
                 this.__ProbationEnds := DATE_TIME(80, this)

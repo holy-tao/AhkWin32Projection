@@ -1,5 +1,6 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
+#Include .\CLUSTER_REG_COMMAND.ahk
 
 /**
  * Represents a result for a single command in a read batch.
@@ -9,17 +10,15 @@
  * Errors from read commands are independent from each other.
  * @see https://learn.microsoft.com/windows/win32/api/clusapi/ns-clusapi-cluster_read_batch_command
  * @namespace Windows.Win32.Networking.Clustering
- * @version v4.0.30319
  */
-class CLUSTER_READ_BATCH_COMMAND extends Win32Struct
-{
+class CLUSTER_READ_BATCH_COMMAND extends Win32Struct {
     static sizeof => 40
 
     static packingSize => 8
 
     /**
      * The command result status, which can be one of these values.
-     * @type {Integer}
+     * @type {CLUSTER_REG_COMMAND}
      */
     Command {
         get => NumGet(this, 0, "int")

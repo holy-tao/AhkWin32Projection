@@ -3,11 +3,9 @@
 
 /**
  * @namespace Windows.Win32.Devices.HumanInterfaceDevice
- * @version v4.0.30319
  * @charset Unicode
  */
-class DIDEVICEINSTANCEW extends Win32Struct
-{
+class DIDEVICEINSTANCEW extends Win32Struct {
     static sizeof => 1088
 
     static packingSize => 8
@@ -21,7 +19,7 @@ class DIDEVICEINSTANCEW extends Win32Struct
     }
 
     /**
-     * @type {Pointer<Guid>}
+     * @type {Pointer}
      */
     guidInstance {
         get => NumGet(this, 8, "ptr")
@@ -29,7 +27,7 @@ class DIDEVICEINSTANCEW extends Win32Struct
     }
 
     /**
-     * @type {Pointer<Guid>}
+     * @type {Pointer}
      */
     guidProduct {
         get => NumGet(this, 16, "ptr")
@@ -61,7 +59,7 @@ class DIDEVICEINSTANCEW extends Win32Struct
     }
 
     /**
-     * @type {Pointer<Guid>}
+     * @type {Pointer}
      */
     guidFFDriver {
         get => NumGet(this, 1072, "ptr")

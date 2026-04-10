@@ -7,10 +7,8 @@
  * The address is used if a configured email address contains the string "[Admin Email]".
  * @see https://learn.microsoft.com/windows/win32/api/fsrm/nf-fsrm-ifsrmsetting-put_adminemail
  * @namespace Windows.Win32.Storage.FileServerResourceManager
- * @version v4.0.30319
  */
-class FsrmSetting extends Win32Struct
-{
+class FsrmSetting extends Win32Struct {
     static sizeof => 0
 
     static packingSize => 1

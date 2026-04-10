@@ -1,7 +1,7 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
-#Include ..\..\Foundation\BSTR.ahk
+#Include ..\Com\IUnknown.ahk
 #Include .\IPMApplicationInfoEnumerator.ahk
 #Include .\IPMTileInfoEnumerator.ahk
 #Include .\IPMTaskInfoEnumerator.ahk
@@ -14,13 +14,11 @@
 #Include .\IPMBackgroundServiceAgentInfo.ahk
 #Include .\IPMLiveTileJobInfoEnumerator.ahk
 #Include .\IPMLiveTileJobInfo.ahk
-#Include ..\Com\IUnknown.ahk
 
 /**
  * @namespace Windows.Win32.System.ApplicationInstallationAndServicing
- * @version v4.0.30319
  */
-class IPMEnumerationManager extends IUnknown{
+class IPMEnumerationManager extends IUnknown {
 
     static sizeof => A_PtrSize
     /**
@@ -180,7 +178,7 @@ class IPMEnumerationManager extends IUnknown{
      * 
      * @param {Guid} ProductID 
      * @param {BSTR} TileID 
-     * @param {Integer} RecurrenceType 
+     * @param {PM_LIVETILE_RECURRENCE_TYPE} RecurrenceType 
      * @returns {IPMLiveTileJobInfo} 
      */
     get_LiveTileJob(ProductID, TileID, RecurrenceType) {
@@ -203,7 +201,7 @@ class IPMEnumerationManager extends IUnknown{
     /**
      * 
      * @param {BSTR} FileType 
-     * @param {Integer} LogoSize 
+     * @param {PM_LOGO_SIZE} LogoSize 
      * @param {Pointer<BSTR>} pLogo 
      * @returns {HRESULT} 
      */

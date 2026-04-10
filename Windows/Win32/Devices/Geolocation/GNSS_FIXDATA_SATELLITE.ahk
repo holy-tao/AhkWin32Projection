@@ -4,11 +4,9 @@
 
 /**
  * @namespace Windows.Win32.Devices.Geolocation
- * @version v4.0.30319
  */
-class GNSS_FIXDATA_SATELLITE extends Win32Struct
-{
-    static sizeof => 528
+class GNSS_FIXDATA_SATELLITE extends Win32Struct {
+    static sizeof => 2064
 
     static packingSize => 8
 
@@ -37,9 +35,9 @@ class GNSS_FIXDATA_SATELLITE extends Win32Struct
     }
 
     /**
-     * @type {Array<GNSS_SATELLITEINFO>}
+     * @type {GNSS_SATELLITEINFO}
      */
-    SatelliteArray{
+    SatelliteArray {
         get {
             if(!this.HasProp("__SatelliteArrayProxyArray"))
                 this.__SatelliteArrayProxyArray := Win32FixedArray(this.ptr + 16, 64, GNSS_SATELLITEINFO, "")

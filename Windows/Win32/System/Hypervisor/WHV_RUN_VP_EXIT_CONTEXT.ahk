@@ -1,42 +1,45 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
+#Include .\WHV_RUN_VP_EXIT_REASON.ahk
+#Include .\WHV_VP_EXIT_CONTEXT.ahk
 #Include .\WHV_X64_VP_EXECUTION_STATE.ahk
 #Include .\WHV_X64_SEGMENT_REGISTER.ahk
-#Include .\WHV_VP_EXIT_CONTEXT.ahk
-#Include .\WHV_MEMORY_ACCESS_INFO.ahk
 #Include .\WHV_MEMORY_ACCESS_CONTEXT.ahk
-#Include .\WHV_X64_IO_PORT_ACCESS_INFO.ahk
+#Include .\WHV_MEMORY_ACCESS_INFO.ahk
 #Include .\WHV_X64_IO_PORT_ACCESS_CONTEXT.ahk
-#Include .\WHV_X64_MSR_ACCESS_INFO.ahk
+#Include .\WHV_X64_IO_PORT_ACCESS_INFO.ahk
 #Include .\WHV_X64_MSR_ACCESS_CONTEXT.ahk
+#Include .\WHV_X64_MSR_ACCESS_INFO.ahk
 #Include .\WHV_X64_CPUID_ACCESS_CONTEXT.ahk
-#Include .\WHV_VP_EXCEPTION_INFO.ahk
 #Include .\WHV_VP_EXCEPTION_CONTEXT.ahk
+#Include .\WHV_VP_EXCEPTION_INFO.ahk
 #Include .\WHV_X64_INTERRUPTION_DELIVERABLE_CONTEXT.ahk
+#Include .\WHV_X64_PENDING_INTERRUPTION_TYPE.ahk
 #Include .\WHV_X64_UNSUPPORTED_FEATURE_CONTEXT.ahk
+#Include .\WHV_X64_UNSUPPORTED_FEATURE_CODE.ahk
 #Include .\WHV_RUN_VP_CANCELED_CONTEXT.ahk
+#Include .\WHV_RUN_VP_CANCEL_REASON.ahk
 #Include .\WHV_X64_APIC_EOI_CONTEXT.ahk
-#Include .\WHV_X64_RDTSC_INFO.ahk
 #Include .\WHV_X64_RDTSC_CONTEXT.ahk
+#Include .\WHV_X64_RDTSC_INFO.ahk
 #Include .\WHV_X64_APIC_SMI_CONTEXT.ahk
-#Include .\WHV_UINT128.ahk
 #Include .\WHV_HYPERCALL_CONTEXT.ahk
+#Include .\WHV_UINT128.ahk
 #Include .\WHV_X64_APIC_INIT_SIPI_CONTEXT.ahk
 #Include .\WHV_X64_APIC_WRITE_CONTEXT.ahk
+#Include .\WHV_X64_APIC_WRITE_TYPE.ahk
 #Include .\WHV_SYNIC_SINT_DELIVERABLE_CONTEXT.ahk
 
 /**
  * @namespace Windows.Win32.System.Hypervisor
- * @version v4.0.30319
  */
-class WHV_RUN_VP_EXIT_CONTEXT extends Win32Struct
-{
-    static sizeof => 184
+class WHV_RUN_VP_EXIT_CONTEXT extends Win32Struct {
+    static sizeof => 328
 
     static packingSize => 8
 
     /**
-     * @type {Integer}
+     * @type {WHV_RUN_VP_EXIT_REASON}
      */
     ExitReason {
         get => NumGet(this, 0, "int")
@@ -54,7 +57,7 @@ class WHV_RUN_VP_EXIT_CONTEXT extends Win32Struct
     /**
      * @type {WHV_VP_EXIT_CONTEXT}
      */
-    VpContext{
+    VpContext {
         get {
             if(!this.HasProp("__VpContext"))
                 this.__VpContext := WHV_VP_EXIT_CONTEXT(8, this)
@@ -65,7 +68,7 @@ class WHV_RUN_VP_EXIT_CONTEXT extends Win32Struct
     /**
      * @type {WHV_MEMORY_ACCESS_CONTEXT}
      */
-    MemoryAccess{
+    MemoryAccess {
         get {
             if(!this.HasProp("__MemoryAccess"))
                 this.__MemoryAccess := WHV_MEMORY_ACCESS_CONTEXT(56, this)
@@ -76,7 +79,7 @@ class WHV_RUN_VP_EXIT_CONTEXT extends Win32Struct
     /**
      * @type {WHV_X64_IO_PORT_ACCESS_CONTEXT}
      */
-    IoPortAccess{
+    IoPortAccess {
         get {
             if(!this.HasProp("__IoPortAccess"))
                 this.__IoPortAccess := WHV_X64_IO_PORT_ACCESS_CONTEXT(56, this)
@@ -87,7 +90,7 @@ class WHV_RUN_VP_EXIT_CONTEXT extends Win32Struct
     /**
      * @type {WHV_X64_MSR_ACCESS_CONTEXT}
      */
-    MsrAccess{
+    MsrAccess {
         get {
             if(!this.HasProp("__MsrAccess"))
                 this.__MsrAccess := WHV_X64_MSR_ACCESS_CONTEXT(56, this)
@@ -98,7 +101,7 @@ class WHV_RUN_VP_EXIT_CONTEXT extends Win32Struct
     /**
      * @type {WHV_X64_CPUID_ACCESS_CONTEXT}
      */
-    CpuidAccess{
+    CpuidAccess {
         get {
             if(!this.HasProp("__CpuidAccess"))
                 this.__CpuidAccess := WHV_X64_CPUID_ACCESS_CONTEXT(56, this)
@@ -109,7 +112,7 @@ class WHV_RUN_VP_EXIT_CONTEXT extends Win32Struct
     /**
      * @type {WHV_VP_EXCEPTION_CONTEXT}
      */
-    VpException{
+    VpException {
         get {
             if(!this.HasProp("__VpException"))
                 this.__VpException := WHV_VP_EXCEPTION_CONTEXT(56, this)
@@ -120,7 +123,7 @@ class WHV_RUN_VP_EXIT_CONTEXT extends Win32Struct
     /**
      * @type {WHV_X64_INTERRUPTION_DELIVERABLE_CONTEXT}
      */
-    InterruptWindow{
+    InterruptWindow {
         get {
             if(!this.HasProp("__InterruptWindow"))
                 this.__InterruptWindow := WHV_X64_INTERRUPTION_DELIVERABLE_CONTEXT(56, this)
@@ -131,7 +134,7 @@ class WHV_RUN_VP_EXIT_CONTEXT extends Win32Struct
     /**
      * @type {WHV_X64_UNSUPPORTED_FEATURE_CONTEXT}
      */
-    UnsupportedFeature{
+    UnsupportedFeature {
         get {
             if(!this.HasProp("__UnsupportedFeature"))
                 this.__UnsupportedFeature := WHV_X64_UNSUPPORTED_FEATURE_CONTEXT(56, this)
@@ -142,7 +145,7 @@ class WHV_RUN_VP_EXIT_CONTEXT extends Win32Struct
     /**
      * @type {WHV_RUN_VP_CANCELED_CONTEXT}
      */
-    CancelReason{
+    CancelReason {
         get {
             if(!this.HasProp("__CancelReason"))
                 this.__CancelReason := WHV_RUN_VP_CANCELED_CONTEXT(56, this)
@@ -153,7 +156,7 @@ class WHV_RUN_VP_EXIT_CONTEXT extends Win32Struct
     /**
      * @type {WHV_X64_APIC_EOI_CONTEXT}
      */
-    ApicEoi{
+    ApicEoi {
         get {
             if(!this.HasProp("__ApicEoi"))
                 this.__ApicEoi := WHV_X64_APIC_EOI_CONTEXT(56, this)
@@ -164,7 +167,7 @@ class WHV_RUN_VP_EXIT_CONTEXT extends Win32Struct
     /**
      * @type {WHV_X64_RDTSC_CONTEXT}
      */
-    ReadTsc{
+    ReadTsc {
         get {
             if(!this.HasProp("__ReadTsc"))
                 this.__ReadTsc := WHV_X64_RDTSC_CONTEXT(56, this)
@@ -175,7 +178,7 @@ class WHV_RUN_VP_EXIT_CONTEXT extends Win32Struct
     /**
      * @type {WHV_X64_APIC_SMI_CONTEXT}
      */
-    ApicSmi{
+    ApicSmi {
         get {
             if(!this.HasProp("__ApicSmi"))
                 this.__ApicSmi := WHV_X64_APIC_SMI_CONTEXT(56, this)
@@ -186,7 +189,7 @@ class WHV_RUN_VP_EXIT_CONTEXT extends Win32Struct
     /**
      * @type {WHV_HYPERCALL_CONTEXT}
      */
-    Hypercall{
+    Hypercall {
         get {
             if(!this.HasProp("__Hypercall"))
                 this.__Hypercall := WHV_HYPERCALL_CONTEXT(56, this)
@@ -197,7 +200,7 @@ class WHV_RUN_VP_EXIT_CONTEXT extends Win32Struct
     /**
      * @type {WHV_X64_APIC_INIT_SIPI_CONTEXT}
      */
-    ApicInitSipi{
+    ApicInitSipi {
         get {
             if(!this.HasProp("__ApicInitSipi"))
                 this.__ApicInitSipi := WHV_X64_APIC_INIT_SIPI_CONTEXT(56, this)
@@ -208,7 +211,7 @@ class WHV_RUN_VP_EXIT_CONTEXT extends Win32Struct
     /**
      * @type {WHV_X64_APIC_WRITE_CONTEXT}
      */
-    ApicWrite{
+    ApicWrite {
         get {
             if(!this.HasProp("__ApicWrite"))
                 this.__ApicWrite := WHV_X64_APIC_WRITE_CONTEXT(56, this)
@@ -219,7 +222,7 @@ class WHV_RUN_VP_EXIT_CONTEXT extends Win32Struct
     /**
      * @type {WHV_SYNIC_SINT_DELIVERABLE_CONTEXT}
      */
-    SynicSintDeliverable{
+    SynicSintDeliverable {
         get {
             if(!this.HasProp("__SynicSintDeliverable"))
                 this.__SynicSintDeliverable := WHV_SYNIC_SINT_DELIVERABLE_CONTEXT(56, this)

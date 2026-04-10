@@ -12,9 +12,8 @@
  * The dialog does not check the return values of this interface's methods.
  * @see https://learn.microsoft.com/windows/win32/api/shobjidl/nn-shobjidl-ifiledialogcontrolevents
  * @namespace Windows.Win32.UI.Shell
- * @version v4.0.30319
  */
-class IFileDialogControlEvents extends IUnknown{
+class IFileDialogControlEvents extends IUnknown {
 
     static sizeof => A_PtrSize
     /**

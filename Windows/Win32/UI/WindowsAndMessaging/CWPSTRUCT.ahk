@@ -6,10 +6,8 @@
  * Defines the message parameters passed to a WH_CALLWNDPROC hook procedure, CallWndProc.
  * @see https://learn.microsoft.com/windows/win32/api/winuser/ns-winuser-cwpstruct
  * @namespace Windows.Win32.UI.WindowsAndMessaging
- * @version v4.0.30319
  */
-class CWPSTRUCT extends Win32Struct
-{
+class CWPSTRUCT extends Win32Struct {
     static sizeof => 32
 
     static packingSize => 8
@@ -55,7 +53,7 @@ class CWPSTRUCT extends Win32Struct
      * A handle to the window to receive the message.
      * @type {HWND}
      */
-    hwnd{
+    hwnd {
         get {
             if(!this.HasProp("__hwnd"))
                 this.__hwnd := HWND(24, this)

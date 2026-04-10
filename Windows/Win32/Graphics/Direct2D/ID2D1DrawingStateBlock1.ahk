@@ -7,9 +7,8 @@
  * Implementation of a drawing state block that adds the functionality of primitive blend in addition to already existing antialias mode, transform, tags and text rendering mode.
  * @see https://learn.microsoft.com/windows/win32/api/d2d1_1/nn-d2d1_1-id2d1drawingstateblock1
  * @namespace Windows.Win32.Graphics.Direct2D
- * @version v4.0.30319
  */
-class ID2D1DrawingStateBlock1 extends ID2D1DrawingStateBlock{
+class ID2D1DrawingStateBlock1 extends ID2D1DrawingStateBlock {
 
     static sizeof => A_PtrSize
     /**

@@ -5,10 +5,8 @@
  * Defines an asynchronous structure to be passed to all shell operations.
  * @see https://learn.microsoft.com/windows/win32/api/wsman/ns-wsman-wsman_shell_async
  * @namespace Windows.Win32.System.RemoteManagement
- * @version v4.0.30319
  */
-class WSMAN_SHELL_ASYNC extends Win32Struct
-{
+class WSMAN_SHELL_ASYNC extends Win32Struct {
     static sizeof => 16
 
     static packingSize => 8

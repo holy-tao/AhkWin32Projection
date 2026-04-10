@@ -7,9 +7,8 @@
  * Use this interface to delay Service Control Protocol Description (SCPD) download and event subscription on the IUPnPService objects enumerated from the IUPnPServices object.
  * @see https://learn.microsoft.com/windows/win32/api/upnp/nn-upnp-iupnpserviceenumproperty
  * @namespace Windows.Win32.Devices.Enumeration.Pnp
- * @version v4.0.30319
  */
-class IUPnPServiceEnumProperty extends IUnknown{
+class IUPnPServiceEnumProperty extends IUnknown {
 
     static sizeof => A_PtrSize
     /**

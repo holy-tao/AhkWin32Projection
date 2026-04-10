@@ -1,16 +1,14 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\..\Guid.ahk
-#Include ..\..\..\Foundation\BSTR.ahk
+#Include ..\..\..\System\Com\IDispatch.ahk
 #Include .\IX509CertificateRevocationListEntry.ahk
 #Include ..\..\..\System\Com\IUnknown.ahk
-#Include ..\..\..\System\Com\IDispatch.ahk
 
 /**
  * @namespace Windows.Win32.Security.Cryptography.Certificates
- * @version v4.0.30319
  */
-class IX509CertificateRevocationListEntries extends IDispatch{
+class IX509CertificateRevocationListEntries extends IDispatch {
 
     static sizeof => A_PtrSize
     /**
@@ -209,7 +207,7 @@ class IX509CertificateRevocationListEntries extends IDispatch{
 
     /**
      * 
-     * @param {Integer} Encoding 
+     * @param {EncodingType} Encoding 
      * @param {BSTR} SerialNumber 
      * @returns {Integer} 
      */

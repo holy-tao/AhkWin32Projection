@@ -5,9 +5,8 @@
  * Specifies whether a web-enabled method or property is safe for scripting.
  * @see https://learn.microsoft.com/windows/win32/api/certenroll/ne-certenroll-websecuritylevel
  * @namespace Windows.Win32.Security.Cryptography.Certificates
- * @version v4.0.30319
  */
-class WebSecurityLevel extends Win32Enum{
+class WebSecurityLevel extends Win32Enum {
 
     /**
      * The method is not safe for scripting.

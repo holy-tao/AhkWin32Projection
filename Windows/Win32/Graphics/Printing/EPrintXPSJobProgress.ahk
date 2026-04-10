@@ -9,9 +9,8 @@
  * These values can refer to either the spooling or the rendering phase of a print job.
  * @see https://learn.microsoft.com/windows/win32/printdocs/eprintxpsjobprogress
  * @namespace Windows.Win32.Graphics.Printing
- * @version v4.0.30319
  */
-class EPrintXPSJobProgress extends Win32Enum{
+class EPrintXPSJobProgress extends Win32Enum {
 
     /**
      * @type {Integer (Int32)}

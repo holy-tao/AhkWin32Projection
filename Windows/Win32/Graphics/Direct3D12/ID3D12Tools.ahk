@@ -11,9 +11,8 @@
  * Developer Mode must be enabled for this interface to respond.
  * @see https://learn.microsoft.com/windows/win32/api/d3d12/nn-d3d12-id3d12tools
  * @namespace Windows.Win32.Graphics.Direct3D12
- * @version v4.0.30319
  */
-class ID3D12Tools extends IUnknown{
+class ID3D12Tools extends IUnknown {
 
     static sizeof => A_PtrSize
     /**

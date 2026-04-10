@@ -1,14 +1,13 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
+#Include .\CRYPT_PROVUI_FUNCS.ahk
 
 /**
  * Defines the functions used by a cryptographic service provider (CSP) for WinTrust operations.
  * @see https://learn.microsoft.com/windows/win32/api/wintrust/ns-wintrust-crypt_provider_functions
  * @namespace Windows.Win32.Security.WinTrust
- * @version v4.0.30319
  */
-class CRYPT_PROVIDER_FUNCTIONS extends Win32Struct
-{
+class CRYPT_PROVIDER_FUNCTIONS extends Win32Struct {
     static sizeof => 128
 
     static packingSize => 8

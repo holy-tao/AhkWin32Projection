@@ -10,10 +10,8 @@
  * <a href="https://docs.microsoft.com/previous-versions/aa374467(v=vs.80)">ProviderSpecific</a> buffer. However, if the application must provide information not available with standard Windows 2000 QOS parameters, the ProviderSpecific buffer allows the application to provide additional parameters for RSVP and/or traffic control.
  * @see https://learn.microsoft.com/windows/win32/api/winsock2/ns-winsock2-qos
  * @namespace Windows.Win32.Networking.WinSock
- * @version v4.0.30319
  */
-class QOS extends Win32Struct
-{
+class QOS extends Win32Struct {
     static sizeof => 80
 
     static packingSize => 8
@@ -23,7 +21,7 @@ class QOS extends Win32Struct
      * <a href="https://docs.microsoft.com/windows/desktop/api/qos/ns-qos-flowspec">FLOWSPEC</a> structure.
      * @type {FLOWSPEC}
      */
-    SendingFlowspec{
+    SendingFlowspec {
         get {
             if(!this.HasProp("__SendingFlowspec"))
                 this.__SendingFlowspec := FLOWSPEC(0, this)
@@ -36,7 +34,7 @@ class QOS extends Win32Struct
      * <a href="https://docs.microsoft.com/windows/desktop/api/qos/ns-qos-flowspec">FLOWSPEC</a> structure.
      * @type {FLOWSPEC}
      */
-    ReceivingFlowspec{
+    ReceivingFlowspec {
         get {
             if(!this.HasProp("__ReceivingFlowspec"))
                 this.__ReceivingFlowspec := FLOWSPEC(32, this)
@@ -49,7 +47,7 @@ class QOS extends Win32Struct
      * <a href="https://docs.microsoft.com/windows/desktop/api/ws2def/ns-ws2def-wsabuf">WSABUF</a> that can provide additional provider-specific quality of service parameters to the RSVP SP for a given flow.
      * @type {WSABUF}
      */
-    ProviderSpecific{
+    ProviderSpecific {
         get {
             if(!this.HasProp("__ProviderSpecific"))
                 this.__ProviderSpecific := WSABUF(64, this)

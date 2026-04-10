@@ -1,14 +1,12 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
-#Include ..\..\Foundation\BSTR.ahk
 #Include ..\Com\IUnknown.ahk
 
 /**
  * @namespace Windows.Win32.System.RealTimeCommunications
- * @version v4.0.30319
  */
-class IRTCPortManager extends IUnknown{
+class IRTCPortManager extends IUnknown {
 
     static sizeof => A_PtrSize
     /**
@@ -32,7 +30,7 @@ class IRTCPortManager extends IUnknown{
     /**
      * 
      * @param {BSTR} bstrRemoteAddress 
-     * @param {Integer} enPortType 
+     * @param {RTC_PORT_TYPE} enPortType 
      * @param {Pointer<BSTR>} pbstrInternalLocalAddress 
      * @param {Pointer<Integer>} plInternalLocalPort 
      * @param {Pointer<BSTR>} pbstrExternalLocalAddress 

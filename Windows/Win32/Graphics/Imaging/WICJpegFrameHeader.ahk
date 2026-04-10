@@ -1,5 +1,7 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
+#Include .\WICJpegTransferMatrix.ahk
+#Include .\WICJpegScanType.ahk
 
 /**
  * Represents a JPEG frame header. (WICJpegFrameHeader)
@@ -7,10 +9,8 @@
  * Get the frame header for an image by calling <a href="https://docs.microsoft.com/windows/desktop/api/wincodec/nf-wincodec-iwicjpegframedecode-getframeheader">IWICJpegFrameDecode::GetFrameHeader</a>.
  * @see https://learn.microsoft.com/windows/win32/api/wincodec/ns-wincodec-wicjpegframeheader
  * @namespace Windows.Win32.Graphics.Imaging
- * @version v4.0.30319
  */
-class WICJpegFrameHeader extends Win32Struct
-{
+class WICJpegFrameHeader extends Win32Struct {
     static sizeof => 32
 
     static packingSize => 4
@@ -35,7 +35,7 @@ class WICJpegFrameHeader extends Win32Struct
 
     /**
      * The transfer matrix of the JPEG frame.
-     * @type {Integer}
+     * @type {WICJpegTransferMatrix}
      */
     TransferMatrix {
         get => NumGet(this, 8, "int")
@@ -44,7 +44,7 @@ class WICJpegFrameHeader extends Win32Struct
 
     /**
      * The scan type of the JPEG frame.
-     * @type {Integer}
+     * @type {WICJpegScanType}
      */
     ScanType {
         get => NumGet(this, 12, "int")

@@ -5,10 +5,8 @@
  * Learn more about: JET_DBINFOUPGRADE Structure
  * @see https://learn.microsoft.com/windows/win32/extensible-storage-engine/jet-dbinfoupgrade-structure
  * @namespace Windows.Win32.Storage.Jet
- * @version v4.0.30319
  */
-class JET_DBINFOUPGRADE extends Win32Struct
-{
+class JET_DBINFOUPGRADE extends Win32Struct {
     static sizeof => 28
 
     static packingSize => 4

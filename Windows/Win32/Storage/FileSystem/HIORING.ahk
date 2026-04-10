@@ -5,10 +5,8 @@
 
 /**
  * @namespace Windows.Win32.Storage.FileSystem
- * @version v4.0.30319
  */
-class HIORING extends Win32Handle
-{
+class HIORING extends Win32Handle {
     static sizeof => 8
 
     static packingSize => 8

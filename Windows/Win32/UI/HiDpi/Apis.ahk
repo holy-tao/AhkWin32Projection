@@ -1,11 +1,10 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Handle.ahk
-#Include ..\Controls\HTHEME.ahk
 #Include .\DPI_AWARENESS_CONTEXT.ahk
+#Include ..\Controls\HTHEME.ahk
 
 /**
  * @namespace Windows.Win32.UI.HiDpi
- * @version v4.0.30319
  */
 class HiDpi {
 
@@ -46,7 +45,7 @@ class HiDpi {
      * The behavior of the returned theme handle will be undermined if the requested DPI value does not correspond to a currently connected display. The theming system only loads theme assets for the set of DPI values corresponding to the <i>currently</i> connected displays.
      * 
      * The theme handle will become invalid anytime the system reloads the theme data. Applications are required to monitor <a href="https://docs.microsoft.com/windows/desktop/winmsg/wm-themechanged">WM_THEMECHANGED</a> and close and reopen all theme handles in response. This behavior is the same regardless of whether the handles were opened via OpenThemeData or OpenThemeDataForDpi.
-     * @param {HWND} _hwnd 
+     * @param {HWND} _hwnd The handle of the window for which theme data is required.
      * @param {PWSTR} pszClassList A pointer to a string that contains a semicolon-separated list of classes.
      * @param {Integer} dpi The specified DPI value with which to associate the theme handle. The function will return an error if this value is outside of those that correspond to the set of connected monitors.
      * @returns {HTHEME} See <a href="https://docs.microsoft.com/windows/desktop/api/uxtheme/nf-uxtheme-openthemedata">OpenThemeData</a>.
@@ -70,9 +69,9 @@ class HiDpi {
      * It is valid to set these behaviors on <i>any</i> window. It does not matter if the window is currently a child of a dialog at the point in time that SetDialogControlDpiChangeBehavior is called. The behaviors are retained and will take effect only when the window is an immediate child of a dialog that has per-monitor DPI scaling enabled.
      * 
      * This API influences individual controls within dialogs. The dialog-wide per-monitor DPI scaling behavior is controlled by <a href="https://docs.microsoft.com/windows/desktop/api/winuser/nf-winuser-setdialogdpichangebehavior">SetDialogDpiChangeBehavior</a>.
-     * @param {HWND} _hWnd 
-     * @param {Integer} mask A mask specifying the subset of flags to be changed.
-     * @param {Integer} values The desired value to be set for the specified subset of flags.
+     * @param {HWND} _hWnd A handle for the window whose behavior will be modified.
+     * @param {DIALOG_CONTROL_DPI_CHANGE_BEHAVIORS} mask A mask specifying the subset of flags to be changed.
+     * @param {DIALOG_CONTROL_DPI_CHANGE_BEHAVIORS} values The desired value to be set for the specified subset of flags.
      * @returns {BOOL} This function returns TRUE if the operation was successful, and FALSE otherwise. To get extended error information, call <a href="https://docs.microsoft.com/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>.
      * 
      * Possible errors are <b>ERROR_INVALID_HANDLE</b> if passed an invalid HWND, and <b>ERROR_ACCESS_DENIED</b> if the windows belongs to another process.
@@ -94,8 +93,8 @@ class HiDpi {
 
     /**
      * Retrieves and per-monitor DPI scaling behavior overrides of a child window in a dialog.
-     * @param {HWND} _hWnd 
-     * @returns {Integer} The flags set on the given window. If passed an invalid handle, this function will return zero, and set its <a href="https://docs.microsoft.com/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">last error</a> to <b>ERROR_INVALID_HANDLE</b>.
+     * @param {HWND} _hWnd The handle for the window to examine.
+     * @returns {DIALOG_CONTROL_DPI_CHANGE_BEHAVIORS} The flags set on the given window. If passed an invalid handle, this function will return zero, and set its <a href="https://docs.microsoft.com/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">last error</a> to <b>ERROR_INVALID_HANDLE</b>.
      * @see https://learn.microsoft.com/windows/win32/api/winuser/nf-winuser-getdialogcontroldpichangebehavior
      * @since windows10.0.15063
      */
@@ -119,8 +118,8 @@ class HiDpi {
      * 
      * It is not an error to call this API outside of Per Monitor v2 contexts, though the flags will have no effect on the behavior of the specified dialog until the context is changed to Per Monitor v2.
      * @param {HWND} hDlg A handle for the dialog whose behavior will be modified.
-     * @param {Integer} mask A mask specifying the subset of flags to be changed.
-     * @param {Integer} values The desired value to be set for the specified subset of flags.
+     * @param {DIALOG_DPI_CHANGE_BEHAVIORS} mask A mask specifying the subset of flags to be changed.
+     * @param {DIALOG_DPI_CHANGE_BEHAVIORS} values The desired value to be set for the specified subset of flags.
      * @returns {BOOL} This function returns TRUE if the operation was successful, and FALSE otherwise. To get extended error information, call <a href="https://docs.microsoft.com/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>.
      * 
      * Possible errors are <b>ERROR_INVALID_HANDLE</b> if passed an invalid dialog HWND, and <b>ERROR_ACCESS_DENIED</b> if the dialog belongs to another process.
@@ -145,7 +144,7 @@ class HiDpi {
      * @remarks
      * It can be difficult to distinguish between a return value of <b>DDC_DEFAULT</b> and the error case, which is zero. To determine between the two, it is recommended that you call <a href="https://docs.microsoft.com/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError()</a> to check the error.
      * @param {HWND} hDlg The handle for the dialog to examine.
-     * @returns {Integer} The flags set on the given dialog. If passed an invalid handle, this function will return zero, and set its <a href="https://docs.microsoft.com/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">last error</a> to <b>ERROR_INVALID_HANDLE</b>.
+     * @returns {DIALOG_DPI_CHANGE_BEHAVIORS} The flags set on the given dialog. If passed an invalid handle, this function will return zero, and set its <a href="https://docs.microsoft.com/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">last error</a> to <b>ERROR_INVALID_HANDLE</b>.
      * @see https://learn.microsoft.com/windows/win32/api/winuser/nf-winuser-getdialogdpichangebehavior
      * @since windows10.0.15063
      */
@@ -166,7 +165,7 @@ class HiDpi {
      * Retrieves the specified system metric or system configuration setting taking into account a provided DPI.
      * @remarks
      * This function returns the same result as <a href="https://docs.microsoft.com/windows/desktop/api/winuser/nf-winuser-getsystemmetrics">GetSystemMetrics</a> but scales it according to an arbitrary DPI you provide if appropriate.
-     * @param {Integer} nIndex The system metric or configuration setting to be retrieved. See <a href="https://docs.microsoft.com/windows/desktop/api/winuser/nf-winuser-getsystemmetrics">GetSystemMetrics</a> for the possible values.
+     * @param {SYSTEM_METRICS_INDEX} nIndex The system metric or configuration setting to be retrieved. See <a href="https://docs.microsoft.com/windows/desktop/api/winuser/nf-winuser-getsystemmetrics">GetSystemMetrics</a> for the possible values.
      * @param {Integer} dpi The DPI to use for scaling the metric.
      * @returns {Integer} If the function succeeds, the return value is nonzero.
      * 
@@ -190,9 +189,9 @@ class HiDpi {
      * @remarks
      * This function returns the same result as <a href="https://docs.microsoft.com/windows/desktop/api/winuser/nf-winuser-adjustwindowrectex">AdjustWindowRectEx</a> but scales it according to an arbitrary DPI you provide if appropriate.
      * @param {Pointer<RECT>} lpRect A pointer to a <b>RECT</b> structure that contains the coordinates of the top-left and bottom-right corners of the desired client area. When the function returns, the structure contains the coordinates of the top-left and bottom-right corners of the window to accommodate the desired client area.
-     * @param {Integer} dwStyle The <a href="https://docs.microsoft.com/windows/desktop/winmsg/window-styles">Window Style</a> of the window whose required size is to be calculated. Note that you cannot specify the <b>WS_OVERLAPPED</b> style.
+     * @param {WINDOW_STYLE} dwStyle The <a href="https://docs.microsoft.com/windows/desktop/winmsg/window-styles">Window Style</a> of the window whose required size is to be calculated. Note that you cannot specify the <b>WS_OVERLAPPED</b> style.
      * @param {BOOL} bMenu Indicates whether the window has a menu.
-     * @param {Integer} dwExStyle The <a href="https://docs.microsoft.com/windows/desktop/winmsg/extended-window-styles">Extended Window Style</a> of the window whose required size is to be calculated.
+     * @param {WINDOW_EX_STYLE} dwExStyle The <a href="https://docs.microsoft.com/windows/desktop/winmsg/extended-window-styles">Extended Window Style</a> of the window whose required size is to be calculated.
      * @param {Integer} dpi The DPI to use for scaling.
      * @returns {BOOL} If the function succeeds, the return value is nonzero.
      * 
@@ -225,7 +224,7 @@ class HiDpi {
      * 
      * </div>
      * <div> </div>
-     * @param {HWND} _hWnd 
+     * @param {HWND} _hWnd A handle to the window whose transform is used for the conversion.
      * @param {Pointer<POINT>} lpPoint A pointer to a <a href="https://docs.microsoft.com/windows/win32/api/windef/ns-windef-point">POINT</a> structure that specifies the logical coordinates to be converted. The new physical coordinates are copied into this structure if the function succeeds.
      * @returns {BOOL} Returns <b>TRUE</b> if successful, or <b>FALSE</b> otherwise.
      * @see https://learn.microsoft.com/windows/win32/api/winuser/nf-winuser-logicaltophysicalpointforpermonitordpi
@@ -247,7 +246,7 @@ class HiDpi {
      * For example, an application might need to walk the entire window tree of another process and ask the system for DPI-dependent information about the window. By default, the system will return the information based on the DPI awareness of the caller. This is ideal for most applications. However, the caller might need the information based on the DPI awareness of the application associated with the window. This might be necessary because the two applications send DPI-dependent information between each other directly.  In this case, the application can use <a href="https://docs.microsoft.com/windows/desktop/api/winuser/nf-winuser-logicaltophysicalpointforpermonitordpi">LogicalToPhysicalPointForPerMonitorDPI</a> to get physical coordinates and then use <b>PhysicalToLogicalPointForPerMonitorDPI</b> to convert the physical coordinates into logical coordinates based on the DPI-awareness of the provided <b>HWND</b>.
      * 
      * Consider two applications, one has a <a href="https://docs.microsoft.com/windows/desktop/api/shellscalingapi/ne-shellscalingapi-process_dpi_awareness">PROCESS_DPI_AWARENESS</a> value of <b>PROCESS_DPI_UNAWARE</b> and the other has a value of <b>PROCESS_PER_MONITOR_AWARE</b>. The  <b>PROCESS_PER_MONITOR_AWARE</b> app creates a window on a single monitor where the scale factor is 200% (192 DPI). If both apps call <a href="https://docs.microsoft.com/windows/desktop/api/winuser/nf-winuser-getwindowrect">GetWindowRect</a> on this window, they will receive different values. The <b>PROCESS_DPI_UNAWARE</b> app will receive a rect based on 96 DPI coordinates, while the <b>PROCESS_PER_MONITOR_AWARE</b> app will receive coordinates matching the actual DPI of the monitor. If the <b>PROCESS_DPI_UNAWARE</b> needs the rect that the system returned to the <b>PROCESS_PER_MONITOR_AWARE</b> app, it could call <a href="https://docs.microsoft.com/windows/desktop/api/winuser/nf-winuser-logicaltophysicalpointforpermonitordpi">LogicalToPhysicalPointForPerMonitorDPI</a> for the corners of its rect and pass in a handle to the <b>PROCESS_PER_MONITOR_AWARE</b> app's window. This will return points based on the other app's awareness that can be used to create a rect. This works because since a <b>PROCESS_PER_MONITOR_AWARE</b> uses the actual DPI of the monitor, logical and physical coordinates are identical.
-     * @param {HWND} _hWnd 
+     * @param {HWND} _hWnd A handle to the window whose transform is used for the conversion.
      * @param {Pointer<POINT>} lpPoint A pointer to a <a href="https://docs.microsoft.com/windows/win32/api/windef/ns-windef-point">POINT</a> structure that specifies the physical/screen coordinates to be converted. The new logical coordinates are copied into this structure if the function succeeds.
      * @returns {BOOL} Returns <b>TRUE</b> if successful, or <b>FALSE</b> otherwise.
      * @see https://learn.microsoft.com/windows/win32/api/winuser/nf-winuser-physicaltologicalpointforpermonitordpi
@@ -328,7 +327,7 @@ class HiDpi {
      * 
      * </div>
      * <div> </div>
-     * @param {HWND} _hwnd 
+     * @param {HWND} _hwnd The window to query.
      * @returns {DPI_AWARENESS_CONTEXT} The <a href="https://docs.microsoft.com/windows/desktop/hidpi/dpi-awareness-context">DPI_AWARENESS_CONTEXT</a> for the provided window. If the window is not valid, the return value is <b>NULL</b>.
      * @see https://learn.microsoft.com/windows/win32/api/winuser/nf-winuser-getwindowdpiawarenesscontext
      * @since windows10.0.14393
@@ -346,7 +345,7 @@ class HiDpi {
      * @remarks
      * A <a href="https://docs.microsoft.com/windows/desktop/hidpi/dpi-awareness-context">DPI_AWARENESS_CONTEXT</a> contains multiple pieces of information. For example, it includes both the current and the inherited <a href="https://docs.microsoft.com/windows/desktop/api/windef/ne-windef-dpi_awareness">DPI_AWARENESS</a>. This method retrieves the <b>DPI_AWARENESS</b> from the structure.
      * @param {DPI_AWARENESS_CONTEXT} value The <b>DPI_AWARENESS_CONTEXT</b> you want to examine.
-     * @returns {Integer} The <a href="https://docs.microsoft.com/windows/desktop/api/windef/ne-windef-dpi_awareness">DPI_AWARENESS</a>. If the provided <i>value</i> is <b>null</b> or invalid, this method will return <b>DPI_AWARENESS_INVALID</b>.
+     * @returns {DPI_AWARENESS} The <a href="https://docs.microsoft.com/windows/desktop/api/windef/ne-windef-dpi_awareness">DPI_AWARENESS</a>. If the provided <i>value</i> is <b>null</b> or invalid, this method will return <b>DPI_AWARENESS_INVALID</b>.
      * @see https://learn.microsoft.com/windows/win32/api/winuser/nf-winuser-getawarenessfromdpiawarenesscontext
      * @since windows10.0.14393
      */
@@ -432,7 +431,7 @@ class HiDpi {
      * <td>The DPI of the monitor where the window is located.</td>
      * </tr>
      * </table>
-     * @param {HWND} _hwnd 
+     * @param {HWND} _hwnd The window that you want to get information about.
      * @returns {Integer} The DPI for the window, which depends on the [DPI_AWARENESS](/windows/win32/api/windef/ne-windef-dpi_awareness) of the window. See the **Remarks** section for more information. An invalid *hwnd* value will result in a return value of 0.
      * @see https://learn.microsoft.com/windows/win32/api/winuser/nf-winuser-getdpiforwindow
      * @since windows10.0.14393
@@ -496,7 +495,7 @@ class HiDpi {
      *     return (DefWindowProc(hwnd, message, wParam, lParam));
      * }
      * ```
-     * @param {HWND} _hwnd 
+     * @param {HWND} _hwnd The window that should have automatic scaling enabled.
      * @returns {BOOL} If the function succeeds, the return value is nonzero. If the function fails, the return value is zero. To get extended error information, call <a href="https://docs.microsoft.com/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>.
      * @see https://learn.microsoft.com/windows/win32/api/winuser/nf-winuser-enablenonclientdpiscaling
      * @since windows10.0.14393
@@ -573,8 +572,8 @@ class HiDpi {
      * This API is used to change the thread's <b>DPI_HOSTING_BEHAVIOR</b> from its default value. This is only necessary if your app needs to host child windows from plugins and third-party components that do not support per-monitor-aware context. This is most likely to occur if you are updating complex applications to support per-monitor  <b>DPI_AWARENESS_CONTEXT</b> behaviors.
      * 
      * Enabling mixed hosting behavior will not automatically adjust the thread's <b>DPI_AWARENESS_CONTEXT</b> to be compatible with legacy content. The thread's awareness context must still be manually changed before new windows are created to host such content.
-     * @param {Integer} value The new <a href="https://docs.microsoft.com/windows/desktop/api/windef/ne-windef-dpi_hosting_behavior">DPI_HOSTING_BEHAVIOR</a> value for the current thread.
-     * @returns {Integer} The previous <a href="https://docs.microsoft.com/windows/desktop/api/windef/ne-windef-dpi_hosting_behavior">DPI_HOSTING_BEHAVIOR</a> for the thread. If the hosting behavior passed in is invalid, the thread will not be updated and the return value will be <b>DPI_HOSTING_BEHAVIOR_INVALID</b>. You can use this value to restore the old <b>DPI_HOSTING_BEHAVIOR</b> after overriding it with a predefined value.
+     * @param {DPI_HOSTING_BEHAVIOR} value The new <a href="https://docs.microsoft.com/windows/desktop/api/windef/ne-windef-dpi_hosting_behavior">DPI_HOSTING_BEHAVIOR</a> value for the current thread.
+     * @returns {DPI_HOSTING_BEHAVIOR} The previous <a href="https://docs.microsoft.com/windows/desktop/api/windef/ne-windef-dpi_hosting_behavior">DPI_HOSTING_BEHAVIOR</a> for the thread. If the hosting behavior passed in is invalid, the thread will not be updated and the return value will be <b>DPI_HOSTING_BEHAVIOR_INVALID</b>. You can use this value to restore the old <b>DPI_HOSTING_BEHAVIOR</b> after overriding it with a predefined value.
      * @see https://learn.microsoft.com/windows/win32/api/winuser/nf-winuser-setthreaddpihostingbehavior
      * @since windows10.0.17134
      */
@@ -587,7 +586,7 @@ class HiDpi {
      * Retrieves the DPI_HOSTING_BEHAVIOR from the current thread.
      * @remarks
      * This API returns the hosting behavior set by an earlier call of  <a href="https://docs.microsoft.com/windows/desktop/api/winuser/nf-winuser-setthreaddpihostingbehavior">SetThreadDpiHostingBehavior</a>, or <b>DPI_HOSTING_BEHAVIOR_DEFAULT</b> if no earlier call has been made.
-     * @returns {Integer} The <a href="https://docs.microsoft.com/windows/desktop/api/windef/ne-windef-dpi_hosting_behavior">DPI_HOSTING_BEHAVIOR</a> of the current thread.
+     * @returns {DPI_HOSTING_BEHAVIOR} The <a href="https://docs.microsoft.com/windows/desktop/api/windef/ne-windef-dpi_hosting_behavior">DPI_HOSTING_BEHAVIOR</a> of the current thread.
      * @see https://learn.microsoft.com/windows/win32/api/winuser/nf-winuser-getthreaddpihostingbehavior
      * @since windows10.0.17134
      */
@@ -600,8 +599,8 @@ class HiDpi {
      * Returns the DPI_HOSTING_BEHAVIOR of the specified window.
      * @remarks
      * This API allows you to examine the hosting behavior of a window after it has been created. A window's hosting behavior is the hosting behavior of the thread in which the window was created, as set by a call to <a href="https://docs.microsoft.com/windows/desktop/api/winuser/nf-winuser-setthreaddpihostingbehavior">SetThreadDpiHostingBehavior</a>. This is a permanent value and cannot be changed after the window is created, even if the thread's hosting behavior is changed.
-     * @param {HWND} _hwnd 
-     * @returns {Integer} The <a href="https://docs.microsoft.com/windows/desktop/api/windef/ne-windef-dpi_hosting_behavior">DPI_HOSTING_BEHAVIOR</a> of the specified window.
+     * @param {HWND} _hwnd The handle for the window to examine.
+     * @returns {DPI_HOSTING_BEHAVIOR} The <a href="https://docs.microsoft.com/windows/desktop/api/windef/ne-windef-dpi_hosting_behavior">DPI_HOSTING_BEHAVIOR</a> of the specified window.
      * @see https://learn.microsoft.com/windows/win32/api/winuser/nf-winuser-getwindowdpihostingbehavior
      * @since windows10.0.17134
      */
@@ -626,7 +625,7 @@ class HiDpi {
      * You must call this API before you call any APIs that depend on the dpi awareness. This is part of the reason why it is recommended to use the application manifest rather than the <b>SetProcessDpiAwareness</b> API. Once API awareness is set for an app, any future calls to this API will fail. This is true regardless of whether you set the DPI awareness in the manifest or by using this API.
      * 
      * If the DPI awareness level is not set, the default value is <b>PROCESS_DPI_UNAWARE</b>.
-     * @param {Integer} value The DPI awareness value to set. Possible values are from the <a href="https://docs.microsoft.com/windows/desktop/api/shellscalingapi/ne-shellscalingapi-process_dpi_awareness">PROCESS_DPI_AWARENESS</a> enumeration.
+     * @param {PROCESS_DPI_AWARENESS} value The DPI awareness value to set. Possible values are from the <a href="https://docs.microsoft.com/windows/desktop/api/shellscalingapi/ne-shellscalingapi-process_dpi_awareness">PROCESS_DPI_AWARENESS</a> enumeration.
      * @returns {HRESULT} This function returns one of the following values.
      * 
      * <table>
@@ -683,7 +682,7 @@ class HiDpi {
      * 
      * <c>GetAwarenessFromDpiAwarenessContext(GetThreadDpiAwarenessContext());</c>
      * @param {HANDLE} hprocess Handle of the process that is being queried. If this parameter is NULL, the current process is queried.
-     * @returns {Integer} The DPI awareness of the specified process. Possible values are from the <a href="https://docs.microsoft.com/windows/desktop/api/shellscalingapi/ne-shellscalingapi-process_dpi_awareness">PROCESS_DPI_AWARENESS</a> enumeration.
+     * @returns {PROCESS_DPI_AWARENESS} The DPI awareness of the specified process. Possible values are from the <a href="https://docs.microsoft.com/windows/desktop/api/shellscalingapi/ne-shellscalingapi-process_dpi_awareness">PROCESS_DPI_AWARENESS</a> enumeration.
      * @see https://learn.microsoft.com/windows/win32/api/shellscalingapi/nf-shellscalingapi-getprocessdpiawareness
      * @since windows8.1
      */
@@ -722,8 +721,8 @@ class HiDpi {
      * When <a href="https://docs.microsoft.com/windows/desktop/api/shellscalingapi/ne-shellscalingapi-monitor_dpi_type">MONITOR_DPI_TYPE</a> is <b>MDT_ANGULAR_DPI</b> or <b>MDT_RAW_DPI</b>, the returned DPI value does not include any changes that the user made to the DPI by using the desktop scaling override slider control in Control Panel.
      * 
      * For more information about DPI settings in Control Panel, see the <a href="https://docs.microsoft.com/windows/win32/hidpi/high-dpi-desktop-application-development-on-windows">Writing DPI-Aware Desktop Applications in Windows 8.1 Preview</a> white paper.
-     * @param {HMONITOR} _hmonitor 
-     * @param {Integer} dpiType The type of DPI being queried. Possible values are from the <a href="https://docs.microsoft.com/windows/desktop/api/shellscalingapi/ne-shellscalingapi-monitor_dpi_type">MONITOR_DPI_TYPE</a> enumeration.
+     * @param {HMONITOR} _hmonitor Handle of the monitor being queried.
+     * @param {MONITOR_DPI_TYPE} dpiType The type of DPI being queried. Possible values are from the <a href="https://docs.microsoft.com/windows/desktop/api/shellscalingapi/ne-shellscalingapi-monitor_dpi_type">MONITOR_DPI_TYPE</a> enumeration.
      * @param {Pointer<Integer>} dpiX The value of the DPI along the X axis. This value always refers to the horizontal edge, even when the screen is rotated.
      * @param {Pointer<Integer>} dpiY The value of the DPI along the Y axis. This value always refers to the vertical edge, even when the screen is rotated.
      * @returns {HRESULT} This function returns one of the following values.

@@ -3,9 +3,8 @@
 
 /**
  * @namespace Windows.Win32.Web.MsHtml
- * @version v4.0.30319
  */
-class VIEW_OBJECT_ALPHA_MODE extends Win32Enum{
+class VIEW_OBJECT_ALPHA_MODE extends Win32Enum {
 
     /**
      * @type {Integer (Int32)}

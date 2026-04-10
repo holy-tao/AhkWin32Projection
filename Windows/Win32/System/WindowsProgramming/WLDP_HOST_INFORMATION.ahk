@@ -1,17 +1,14 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
+#Include .\WLDP_HOST_ID.ahk
 #Include ..\..\Foundation\HANDLE.ahk
 
 /**
  * A structure identifying the host and source file to be evaluated.
- * @remarks
- * 
  * @see https://learn.microsoft.com/windows/win32/api/wldp/ns-wldp-wldp_host_information
  * @namespace Windows.Win32.System.WindowsProgramming
- * @version v4.0.30319
  */
-class WLDP_HOST_INFORMATION extends Win32Struct
-{
+class WLDP_HOST_INFORMATION extends Win32Struct {
     static sizeof => 24
 
     static packingSize => 8
@@ -27,7 +24,7 @@ class WLDP_HOST_INFORMATION extends Win32Struct
 
     /**
      * Enumeration value from [**WLDP\_HOST\_ID**](ne-wldp-wldp_host_id.md) that describes the host ID.
-     * @type {Integer}
+     * @type {WLDP_HOST_ID}
      */
     dwHostId {
         get => NumGet(this, 4, "int")
@@ -47,7 +44,7 @@ class WLDP_HOST_INFORMATION extends Win32Struct
      * In addition to the name, the caller can specify a handle to the file used for validation.
      * @type {HANDLE}
      */
-    hSource{
+    hSource {
         get {
             if(!this.HasProp("__hSource"))
                 this.__hSource := HANDLE(16, this)

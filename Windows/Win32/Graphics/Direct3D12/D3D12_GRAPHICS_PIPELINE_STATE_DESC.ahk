@@ -1,15 +1,31 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
+#Include .\ID3D12RootSignature.ahk
 #Include .\D3D12_SHADER_BYTECODE.ahk
 #Include .\D3D12_STREAM_OUTPUT_DESC.ahk
-#Include .\D3D12_RENDER_TARGET_BLEND_DESC.ahk
+#Include .\D3D12_SO_DECLARATION_ENTRY.ahk
 #Include .\D3D12_BLEND_DESC.ahk
+#Include .\D3D12_RENDER_TARGET_BLEND_DESC.ahk
+#Include .\D3D12_BLEND.ahk
+#Include .\D3D12_BLEND_OP.ahk
+#Include .\D3D12_LOGIC_OP.ahk
 #Include .\D3D12_RASTERIZER_DESC.ahk
-#Include .\D3D12_DEPTH_STENCILOP_DESC.ahk
+#Include .\D3D12_FILL_MODE.ahk
+#Include .\D3D12_CULL_MODE.ahk
+#Include .\D3D12_CONSERVATIVE_RASTERIZATION_MODE.ahk
 #Include .\D3D12_DEPTH_STENCIL_DESC.ahk
+#Include .\D3D12_DEPTH_WRITE_MASK.ahk
+#Include .\D3D12_COMPARISON_FUNC.ahk
+#Include .\D3D12_DEPTH_STENCILOP_DESC.ahk
+#Include .\D3D12_STENCIL_OP.ahk
 #Include .\D3D12_INPUT_LAYOUT_DESC.ahk
+#Include .\D3D12_INPUT_ELEMENT_DESC.ahk
+#Include .\D3D12_INDEX_BUFFER_STRIP_CUT_VALUE.ahk
+#Include .\D3D12_PRIMITIVE_TOPOLOGY_TYPE.ahk
+#Include ..\Dxgi\Common\DXGI_FORMAT.ahk
 #Include ..\Dxgi\Common\DXGI_SAMPLE_DESC.ahk
 #Include .\D3D12_CACHED_PIPELINE_STATE.ahk
+#Include .\D3D12_PIPELINE_STATE_FLAGS.ahk
 
 /**
  * Describes a graphics pipeline state object.
@@ -53,11 +69,9 @@
  * </ul>
  * @see https://learn.microsoft.com/windows/win32/api/d3d12/ns-d3d12-d3d12_graphics_pipeline_state_desc
  * @namespace Windows.Win32.Graphics.Direct3D12
- * @version v4.0.30319
  */
-class D3D12_GRAPHICS_PIPELINE_STATE_DESC extends Win32Struct
-{
-    static sizeof => 400
+class D3D12_GRAPHICS_PIPELINE_STATE_DESC extends Win32Struct {
+    static sizeof => 656
 
     static packingSize => 8
 
@@ -74,7 +88,7 @@ class D3D12_GRAPHICS_PIPELINE_STATE_DESC extends Win32Struct
      * A <a href="https://docs.microsoft.com/windows/win32/api/d3d12/ns-d3d12-d3d12_shader_bytecode">D3D12_SHADER_BYTECODE</a> structure that describes the vertex shader.
      * @type {D3D12_SHADER_BYTECODE}
      */
-    VS{
+    VS {
         get {
             if(!this.HasProp("__VS"))
                 this.__VS := D3D12_SHADER_BYTECODE(8, this)
@@ -86,7 +100,7 @@ class D3D12_GRAPHICS_PIPELINE_STATE_DESC extends Win32Struct
      * A <a href="https://docs.microsoft.com/windows/win32/api/d3d12/ns-d3d12-d3d12_shader_bytecode">D3D12_SHADER_BYTECODE</a> structure that describes the pixel shader.
      * @type {D3D12_SHADER_BYTECODE}
      */
-    PS{
+    PS {
         get {
             if(!this.HasProp("__PS"))
                 this.__PS := D3D12_SHADER_BYTECODE(24, this)
@@ -98,7 +112,7 @@ class D3D12_GRAPHICS_PIPELINE_STATE_DESC extends Win32Struct
      * A <a href="https://docs.microsoft.com/windows/win32/api/d3d12/ns-d3d12-d3d12_shader_bytecode">D3D12_SHADER_BYTECODE</a> structure that describes the domain shader.
      * @type {D3D12_SHADER_BYTECODE}
      */
-    DS{
+    DS {
         get {
             if(!this.HasProp("__DS"))
                 this.__DS := D3D12_SHADER_BYTECODE(40, this)
@@ -110,7 +124,7 @@ class D3D12_GRAPHICS_PIPELINE_STATE_DESC extends Win32Struct
      * A <a href="https://docs.microsoft.com/windows/win32/api/d3d12/ns-d3d12-d3d12_shader_bytecode">D3D12_SHADER_BYTECODE</a> structure that describes the hull shader.
      * @type {D3D12_SHADER_BYTECODE}
      */
-    HS{
+    HS {
         get {
             if(!this.HasProp("__HS"))
                 this.__HS := D3D12_SHADER_BYTECODE(56, this)
@@ -122,7 +136,7 @@ class D3D12_GRAPHICS_PIPELINE_STATE_DESC extends Win32Struct
      * A <a href="https://docs.microsoft.com/windows/win32/api/d3d12/ns-d3d12-d3d12_shader_bytecode">D3D12_SHADER_BYTECODE</a> structure that describes the geometry shader.
      * @type {D3D12_SHADER_BYTECODE}
      */
-    GS{
+    GS {
         get {
             if(!this.HasProp("__GS"))
                 this.__GS := D3D12_SHADER_BYTECODE(72, this)
@@ -134,7 +148,7 @@ class D3D12_GRAPHICS_PIPELINE_STATE_DESC extends Win32Struct
      * A <a href="https://docs.microsoft.com/windows/win32/api/d3d12/ns-d3d12-d3d12_stream_output_desc">D3D12_STREAM_OUTPUT_DESC</a> structure that describes a streaming output buffer.
      * @type {D3D12_STREAM_OUTPUT_DESC}
      */
-    StreamOutput{
+    StreamOutput {
         get {
             if(!this.HasProp("__StreamOutput"))
                 this.__StreamOutput := D3D12_STREAM_OUTPUT_DESC(88, this)
@@ -146,7 +160,7 @@ class D3D12_GRAPHICS_PIPELINE_STATE_DESC extends Win32Struct
      * A <a href="https://docs.microsoft.com/windows/win32/api/d3d12/ns-d3d12-d3d12_blend_desc">D3D12_BLEND_DESC</a> structure that describes the blend state.
      * @type {D3D12_BLEND_DESC}
      */
-    BlendState{
+    BlendState {
         get {
             if(!this.HasProp("__BlendState"))
                 this.__BlendState := D3D12_BLEND_DESC(120, this)
@@ -159,18 +173,18 @@ class D3D12_GRAPHICS_PIPELINE_STATE_DESC extends Win32Struct
      * @type {Integer}
      */
     SampleMask {
-        get => NumGet(this, 192, "uint")
-        set => NumPut("uint", value, this, 192)
+        get => NumGet(this, 448, "uint")
+        set => NumPut("uint", value, this, 448)
     }
 
     /**
      * A <a href="https://docs.microsoft.com/windows/win32/api/d3d12/ns-d3d12-d3d12_rasterizer_desc">D3D12_RASTERIZER_DESC</a> structure that describes the rasterizer state.
      * @type {D3D12_RASTERIZER_DESC}
      */
-    RasterizerState{
+    RasterizerState {
         get {
             if(!this.HasProp("__RasterizerState"))
-                this.__RasterizerState := D3D12_RASTERIZER_DESC(196, this)
+                this.__RasterizerState := D3D12_RASTERIZER_DESC(452, this)
             return this.__RasterizerState
         }
     }
@@ -179,10 +193,10 @@ class D3D12_GRAPHICS_PIPELINE_STATE_DESC extends Win32Struct
      * A <a href="https://docs.microsoft.com/windows/win32/api/d3d12/ns-d3d12-d3d12_depth_stencil_desc">D3D12_DEPTH_STENCIL_DESC</a> structure that describes the depth-stencil state.
      * @type {D3D12_DEPTH_STENCIL_DESC}
      */
-    DepthStencilState{
+    DepthStencilState {
         get {
             if(!this.HasProp("__DepthStencilState"))
-                this.__DepthStencilState := D3D12_DEPTH_STENCIL_DESC(240, this)
+                this.__DepthStencilState := D3D12_DEPTH_STENCIL_DESC(496, this)
             return this.__DepthStencilState
         }
     }
@@ -191,30 +205,30 @@ class D3D12_GRAPHICS_PIPELINE_STATE_DESC extends Win32Struct
      * A <a href="https://docs.microsoft.com/windows/win32/api/d3d12/ns-d3d12-d3d12_input_layout_desc">D3D12_INPUT_LAYOUT_DESC</a> structure that describes the input-buffer data for the input-assembler stage.
      * @type {D3D12_INPUT_LAYOUT_DESC}
      */
-    InputLayout{
+    InputLayout {
         get {
             if(!this.HasProp("__InputLayout"))
-                this.__InputLayout := D3D12_INPUT_LAYOUT_DESC(296, this)
+                this.__InputLayout := D3D12_INPUT_LAYOUT_DESC(552, this)
             return this.__InputLayout
         }
     }
 
     /**
      * Specifies the properties of the index buffer in a  <a href="https://docs.microsoft.com/windows/win32/api/d3d12/ne-d3d12-d3d12_index_buffer_strip_cut_value">D3D12_INDEX_BUFFER_STRIP_CUT_VALUE</a> structure.
-     * @type {Integer}
+     * @type {D3D12_INDEX_BUFFER_STRIP_CUT_VALUE}
      */
     IBStripCutValue {
-        get => NumGet(this, 312, "int")
-        set => NumPut("int", value, this, 312)
+        get => NumGet(this, 568, "int")
+        set => NumPut("int", value, this, 568)
     }
 
     /**
      * A <a href="https://docs.microsoft.com/windows/win32/api/d3d12/ne-d3d12-d3d12_primitive_topology_type">D3D12_PRIMITIVE_TOPOLOGY_TYPE</a>-typed value for the type of primitive, and ordering of the primitive data.
-     * @type {Integer}
+     * @type {D3D12_PRIMITIVE_TOPOLOGY_TYPE}
      */
     PrimitiveTopologyType {
-        get => NumGet(this, 316, "int")
-        set => NumPut("int", value, this, 316)
+        get => NumGet(this, 572, "int")
+        set => NumPut("int", value, this, 572)
     }
 
     /**
@@ -222,39 +236,39 @@ class D3D12_GRAPHICS_PIPELINE_STATE_DESC extends Win32Struct
      * @type {Integer}
      */
     NumRenderTargets {
-        get => NumGet(this, 320, "uint")
-        set => NumPut("uint", value, this, 320)
+        get => NumGet(this, 576, "uint")
+        set => NumPut("uint", value, this, 576)
     }
 
     /**
      * An array of <a href="https://docs.microsoft.com/windows/win32/api/dxgiformat/ne-dxgiformat-dxgi_format">DXGI_FORMAT</a>-typed values for the render target formats.
-     * @type {Array<Int32>}
+     * @type {Array<DXGI_FORMAT>}
      */
-    RTVFormats{
+    RTVFormats {
         get {
             if(!this.HasProp("__RTVFormatsProxyArray"))
-                this.__RTVFormatsProxyArray := Win32FixedArray(this.ptr + 324, 8, Primitive, "int")
+                this.__RTVFormatsProxyArray := Win32FixedArray(this.ptr + 580, 8, Primitive, "int")
             return this.__RTVFormatsProxyArray
         }
     }
 
     /**
      * A <a href="https://docs.microsoft.com/windows/win32/api/dxgiformat/ne-dxgiformat-dxgi_format">DXGI_FORMAT</a>-typed value for the depth-stencil format.
-     * @type {Integer}
+     * @type {DXGI_FORMAT}
      */
     DSVFormat {
-        get => NumGet(this, 356, "int")
-        set => NumPut("int", value, this, 356)
+        get => NumGet(this, 612, "int")
+        set => NumPut("int", value, this, 612)
     }
 
     /**
      * A <a href="https://docs.microsoft.com/windows/win32/api/dxgicommon/ns-dxgicommon-dxgi_sample_desc">DXGI_SAMPLE_DESC</a> structure that specifies multisampling parameters.
      * @type {DXGI_SAMPLE_DESC}
      */
-    SampleDesc{
+    SampleDesc {
         get {
             if(!this.HasProp("__SampleDesc"))
-                this.__SampleDesc := DXGI_SAMPLE_DESC(360, this)
+                this.__SampleDesc := DXGI_SAMPLE_DESC(616, this)
             return this.__SampleDesc
         }
     }
@@ -266,28 +280,28 @@ class D3D12_GRAPHICS_PIPELINE_STATE_DESC extends Win32Struct
      * @type {Integer}
      */
     NodeMask {
-        get => NumGet(this, 368, "uint")
-        set => NumPut("uint", value, this, 368)
+        get => NumGet(this, 624, "uint")
+        set => NumPut("uint", value, this, 624)
     }
 
     /**
      * A cached pipeline state object, as a <a href="https://docs.microsoft.com/windows/win32/api/d3d12/ns-d3d12-d3d12_cached_pipeline_state">D3D12_CACHED_PIPELINE_STATE</a> structure. pCachedBlob and CachedBlobSizeInBytes may be set to NULL and 0 respectively.
      * @type {D3D12_CACHED_PIPELINE_STATE}
      */
-    CachedPSO{
+    CachedPSO {
         get {
             if(!this.HasProp("__CachedPSO"))
-                this.__CachedPSO := D3D12_CACHED_PIPELINE_STATE(376, this)
+                this.__CachedPSO := D3D12_CACHED_PIPELINE_STATE(632, this)
             return this.__CachedPSO
         }
     }
 
     /**
      * A <a href="https://docs.microsoft.com/windows/win32/api/d3d12/ne-d3d12-d3d12_pipeline_state_flags">D3D12_PIPELINE_STATE_FLAGS</a> enumeration constant such as for "tool debug".
-     * @type {Integer}
+     * @type {D3D12_PIPELINE_STATE_FLAGS}
      */
     Flags {
-        get => NumGet(this, 392, "int")
-        set => NumPut("int", value, this, 392)
+        get => NumGet(this, 648, "int")
+        set => NumPut("int", value, this, 648)
     }
 }

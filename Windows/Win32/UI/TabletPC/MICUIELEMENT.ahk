@@ -7,9 +7,8 @@
  * This enumeration is used in custom painting.
  * @see https://learn.microsoft.com/windows/win32/api/micaut/ne-micaut-micuielement
  * @namespace Windows.Win32.UI.TabletPC
- * @version v4.0.30319
  */
-class MICUIELEMENT extends Win32Enum{
+class MICUIELEMENT extends Win32Enum {
 
     /**
      * The <b>Write</b> button.

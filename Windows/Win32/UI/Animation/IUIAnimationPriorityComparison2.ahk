@@ -13,9 +13,8 @@
  * To determine which storyboard has priority, the animation manager can call the <a href="https://docs.microsoft.com/windows/desktop/api/uianimation/nf-uianimation-iuianimationprioritycomparison2-haspriority">HasPriority</a> method on one or more  priority comparison handlers provided by the application.
  * @see https://learn.microsoft.com/windows/win32/api/uianimation/nn-uianimation-iuianimationprioritycomparison2
  * @namespace Windows.Win32.UI.Animation
- * @version v4.0.30319
  */
-class IUIAnimationPriorityComparison2 extends IUnknown{
+class IUIAnimationPriorityComparison2 extends IUnknown {
 
     static sizeof => A_PtrSize
     /**
@@ -84,7 +83,7 @@ class IUIAnimationPriorityComparison2 extends IUnknown{
      * When <a href="https://docs.microsoft.com/windows/win32/api/uianimation/ne-uianimation-ui_animation_priority_effect">UI_ANIMATION_PRIORITY_EFFECT_DELAY</a> is passed to <b>HasPriority</b>, the animation manager has already determined that it can schedule the new storyboard to begin before its longest acceptable delay has elapsed, but it is in effect asking the application if the storyboard should begin even earlier.  In some scenarios, it might be best to reduce the latency of an animation by returning <b>S_OK</b>.  In others, it might be preferable to let scheduled animations complete whenever possible, in which case <b>HasPriority</b> should return <b>S_FALSE</b>.  <b>UI_ANIMATION_PRIORITY_EFFECT_DELAY</b> is only passed to <b>HasPriority</b> when the animation manager is considering canceling or trimming a storyboard.
      * @param {IUIAnimationStoryboard2} scheduledStoryboard The currently scheduled storyboard.
      * @param {IUIAnimationStoryboard2} newStoryboard The new storyboard that is interrupting the scheduled storyboard specified by <i>scheduledStoryboard</i>.
-     * @param {Integer} priorityEffect The potential effect on <i>newStoryboard</i> if <i>scheduledStoryboard</i> has a higher priority.
+     * @param {UI_ANIMATION_PRIORITY_EFFECT} priorityEffect The potential effect on <i>newStoryboard</i> if <i>scheduledStoryboard</i> has a higher priority.
      * @returns {HRESULT} Returns the following if successful; otherwise an <b>HRESULT</b> error code. See <a href="https://docs.microsoft.com/windows/desktop/UIAnimation/uianimation-error-codes">Windows Animation Error Codes</a> for a list of error codes.
      * 
      * <table>

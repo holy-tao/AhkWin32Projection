@@ -5,9 +5,8 @@
 
 /**
  * @namespace Windows.Win32.System.Diagnostics.Debug.Extensions
- * @version v4.0.30319
  */
-class IDebugEventCallbacksWide extends IUnknown{
+class IDebugEventCallbacksWide extends IUnknown {
 
     static sizeof => A_PtrSize
     /**
@@ -486,12 +485,12 @@ class IDebugEventCallbacksWide extends IUnknown{
 
     /**
      * 
-     * @param {Integer} Error 
+     * @param {Integer} _Error 
      * @param {Integer} Level 
      * @returns {HRESULT} 
      */
-    SystemError(Error, Level) {
-        result := ComCall(12, this, "uint", Error, "uint", Level, "HRESULT")
+    SystemError(_Error, Level) {
+        result := ComCall(12, this, "uint", _Error, "uint", Level, "HRESULT")
         return result
     }
 

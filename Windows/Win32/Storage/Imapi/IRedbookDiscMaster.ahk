@@ -7,9 +7,8 @@
  * The IRedbookDiscMaster interface enables the staging of an audio CD image. It represents one of the formats supported by MSDiscMasterObj, and it allows the creation of multi-track audio discs in Track-at-Once mode (fixed-size audio gaps).
  * @see https://learn.microsoft.com/windows/win32/api/imapi/nn-imapi-iredbookdiscmaster
  * @namespace Windows.Win32.Storage.Imapi
- * @version v4.0.30319
  */
-class IRedbookDiscMaster extends IUnknown{
+class IRedbookDiscMaster extends IUnknown {
 
     static sizeof => A_PtrSize
     /**

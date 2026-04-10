@@ -3,9 +3,8 @@
 
 /**
  * @namespace Windows.Win32.System.Diagnostics.ToolHelp
- * @version v4.0.30319
  */
-class HEAPENTRY32_FLAGS extends Win32Enum{
+class HEAPENTRY32_FLAGS extends Win32Enum {
 
     /**
      * @type {Integer (UInt32)}

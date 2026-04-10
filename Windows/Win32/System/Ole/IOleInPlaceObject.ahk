@@ -7,9 +7,8 @@
  * Manages the activation and deactivation of in-place objects, and determines how much of the in-place object should be visible.
  * @see https://learn.microsoft.com/windows/win32/api/oleidl/nn-oleidl-ioleinplaceobject
  * @namespace Windows.Win32.System.Ole
- * @version v4.0.30319
  */
-class IOleInPlaceObject extends IOleWindow{
+class IOleInPlaceObject extends IOleWindow {
 
     static sizeof => A_PtrSize
     /**

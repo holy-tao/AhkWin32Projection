@@ -1,18 +1,17 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
+#Include .\TCPSTATE.ahk
 
 /**
  * @namespace Windows.Win32.Networking.WinSock
- * @version v4.0.30319
  */
-class TCP_INFO_v2 extends Win32Struct
-{
+class TCP_INFO_v2 extends Win32Struct {
     static sizeof => 152
 
     static packingSize => 8
 
     /**
-     * @type {Integer}
+     * @type {TCPSTATE}
      */
     State {
         get => NumGet(this, 0, "int")

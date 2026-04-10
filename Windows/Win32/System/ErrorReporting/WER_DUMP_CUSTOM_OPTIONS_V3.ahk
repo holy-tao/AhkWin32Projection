@@ -4,10 +4,8 @@
 
 /**
  * @namespace Windows.Win32.System.ErrorReporting
- * @version v4.0.30319
  */
-class WER_DUMP_CUSTOM_OPTIONS_V3 extends Win32Struct
-{
+class WER_DUMP_CUSTOM_OPTIONS_V3 extends Win32Struct {
     static sizeof => 584
 
     static packingSize => 8
@@ -127,7 +125,7 @@ class WER_DUMP_CUSTOM_OPTIONS_V3 extends Win32Struct
     /**
      * @type {HANDLE}
      */
-    hSnapshot{
+    hSnapshot {
         get {
             if(!this.HasProp("__hSnapshot"))
                 this.__hSnapshot := HANDLE(568, this)

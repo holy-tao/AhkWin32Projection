@@ -3,11 +3,9 @@
 
 /**
  * @namespace Windows.Win32.Security.Authorization
- * @version v4.0.30319
  * @charset Unicode
  */
-class ACTRL_ACCESS_INFOW extends Win32Struct
-{
+class ACTRL_ACCESS_INFOW extends Win32Struct {
     static sizeof => 16
 
     static packingSize => 8

@@ -7,9 +7,8 @@
  * Provides a simple way to support communication between an object and its site in the container.
  * @see https://learn.microsoft.com/windows/win32/api/ocidl/nn-ocidl-iobjectwithsite
  * @namespace Windows.Win32.System.Ole
- * @version v4.0.30319
  */
-class IObjectWithSite extends IUnknown{
+class IObjectWithSite extends IUnknown {
 
     static sizeof => A_PtrSize
     /**

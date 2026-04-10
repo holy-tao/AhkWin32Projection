@@ -6,9 +6,8 @@
  * Provides a metadata locator with a destination for the metadata it has discovered.
  * @see https://learn.microsoft.com/windows/win32/api/roparameterizediid/ns-roparameterizediid-irosimplemetadatabuilder
  * @namespace Windows.Win32.System.WinRT.Metadata
- * @version v4.0.30319
  */
-class IRoSimpleMetaDataBuilder extends Win32ComInterface{
+class IRoSimpleMetaDataBuilder extends Win32ComInterface {
 
     static sizeof => A_PtrSize
 

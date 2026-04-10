@@ -7,10 +7,8 @@
  * The Firmware Image Download command may be submitted while other commands on the Admin Submission Queue or I/O Submission Queues are outstanding.
  * @see https://learn.microsoft.com/windows/win32/api/nvme/ns-nvme-nvme_cdw10_firmware_download
  * @namespace Windows.Win32.Storage.Nvme
- * @version v4.0.30319
  */
-class NVME_CDW10_FIRMWARE_DOWNLOAD extends Win32Struct
-{
+class NVME_CDW10_FIRMWARE_DOWNLOAD extends Win32Struct {
     static sizeof => 4
 
     static packingSize => 4

@@ -5,9 +5,8 @@
  * Contains the names of the standard cluster roles.
  * @see https://learn.microsoft.com/windows/win32/api/resapi/ne-resapi-cluster_role
  * @namespace Windows.Win32.Networking.Clustering
- * @version v4.0.30319
  */
-class CLUSTER_ROLE extends Win32Enum{
+class CLUSTER_ROLE extends Win32Enum {
 
     /**
      * The DHCP cluster role.

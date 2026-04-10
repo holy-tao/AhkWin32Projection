@@ -1,16 +1,15 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
-#Include ..\..\Foundation\BSTR.ahk
 #Include .\IADs.ahk
+#Include ..\..\Foundation\BSTR.ahk
 
 /**
  * The IADsNamespaces interface is implemented by the ADs provider and is used for managing namespace objects.
  * @see https://learn.microsoft.com/windows/win32/api/iads/nn-iads-iadsnamespaces
  * @namespace Windows.Win32.Networking.ActiveDirectory
- * @version v4.0.30319
  */
-class IADsNamespaces extends IADs{
+class IADsNamespaces extends IADs {
 
     static sizeof => A_PtrSize
     /**

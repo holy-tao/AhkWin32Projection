@@ -3,10 +3,8 @@
 
 /**
  * @namespace Windows.Win32.System.Ioctl
- * @version v4.0.30319
  */
-class CONTAINER_ROOT_INFO_OUTPUT extends Win32Struct
-{
+class CONTAINER_ROOT_INFO_OUTPUT extends Win32Struct {
     static sizeof => 4
 
     static packingSize => 2
@@ -20,9 +18,9 @@ class CONTAINER_ROOT_INFO_OUTPUT extends Win32Struct
     }
 
     /**
-     * @type {Array<Byte>}
+     * @type {Array<Integer>}
      */
-    ContainerRootId{
+    ContainerRootId {
         get {
             if(!this.HasProp("__ContainerRootIdProxyArray"))
                 this.__ContainerRootIdProxyArray := Win32FixedArray(this.ptr + 2, 1, Primitive, "char")

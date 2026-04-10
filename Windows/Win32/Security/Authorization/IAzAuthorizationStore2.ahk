@@ -1,17 +1,15 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
-#Include ..\..\Foundation\BSTR.ahk
-#Include .\IAzApplication2.ahk
 #Include .\IAzAuthorizationStore.ahk
+#Include .\IAzApplication2.ahk
 
 /**
  * Inherits from the AzAuthorizationStore object and implements methods to create and open IAzApplication2 objects.
  * @see https://learn.microsoft.com/windows/win32/api/azroles/nn-azroles-iazauthorizationstore2
  * @namespace Windows.Win32.Security.Authorization
- * @version v4.0.30319
  */
-class IAzAuthorizationStore2 extends IAzAuthorizationStore{
+class IAzAuthorizationStore2 extends IAzAuthorizationStore {
 
     static sizeof => A_PtrSize
     /**

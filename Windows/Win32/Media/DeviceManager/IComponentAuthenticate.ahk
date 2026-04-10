@@ -7,9 +7,8 @@
  * The IComponentAuthenticate interface provides secure, encrypted communication between modules of Windows Media Device Manager.
  * @see https://learn.microsoft.com/windows/win32/api/mswmdm/nn-mswmdm-icomponentauthenticate
  * @namespace Windows.Win32.Media.DeviceManager
- * @version v4.0.30319
  */
-class IComponentAuthenticate extends IUnknown{
+class IComponentAuthenticate extends IUnknown {
 
     static sizeof => A_PtrSize
     /**

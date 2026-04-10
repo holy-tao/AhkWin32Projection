@@ -1,14 +1,17 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
+#Include .\WSD_ENDPOINT_REFERENCE.ahk
+#Include .\WSD_NAME_LIST.ahk
+#Include .\WSD_SCOPES.ahk
+#Include .\WSD_URI_LIST.ahk
+#Include .\WSDXML_ELEMENT.ahk
 
 /**
  * Represents a Hello message.
  * @see https://learn.microsoft.com/windows/win32/api/wsdtypes/ns-wsdtypes-wsd_hello
  * @namespace Windows.Win32.Devices.WebServicesOnDevices
- * @version v4.0.30319
  */
-class WSD_HELLO extends Win32Struct
-{
+class WSD_HELLO extends Win32Struct {
     static sizeof => 48
 
     static packingSize => 8

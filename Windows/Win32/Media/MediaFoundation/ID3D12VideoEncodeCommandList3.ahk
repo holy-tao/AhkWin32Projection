@@ -5,13 +5,10 @@
 
 /**
  * Encapsulates a list of graphics commands for video encoding.
- * @remarks
- * 
  * @see https://learn.microsoft.com/windows/win32/api/d3d12video/nn-d3d12video-id3d12videoencodecommandlist3
  * @namespace Windows.Win32.Media.MediaFoundation
- * @version v4.0.30319
  */
-class ID3D12VideoEncodeCommandList3 extends ID3D12VideoEncodeCommandList2{
+class ID3D12VideoEncodeCommandList3 extends ID3D12VideoEncodeCommandList2 {
 
     static sizeof => A_PtrSize
     /**

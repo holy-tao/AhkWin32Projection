@@ -7,9 +7,8 @@
  * Represents a group of bitmap effects that are applied together to modify the rasterization of a visual's subtree.
  * @see https://learn.microsoft.com/windows/win32/api/dcomp/nn-dcomp-idcompositioneffectgroup
  * @namespace Windows.Win32.Graphics.DirectComposition
- * @version v4.0.30319
  */
-class IDCompositionEffectGroup extends IDCompositionEffect{
+class IDCompositionEffectGroup extends IDCompositionEffect {
 
     static sizeof => A_PtrSize
     /**

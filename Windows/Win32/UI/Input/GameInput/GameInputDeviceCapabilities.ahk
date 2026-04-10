@@ -3,9 +3,8 @@
 
 /**
  * @namespace Windows.Win32.UI.Input.GameInput
- * @version v4.0.30319
  */
-class GameInputDeviceCapabilities extends Win32BitflagEnum{
+class GameInputDeviceCapabilities extends Win32BitflagEnum {
 
     /**
      * @type {Integer (Int32)}

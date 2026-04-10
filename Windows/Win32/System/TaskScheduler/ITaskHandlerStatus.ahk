@@ -1,7 +1,6 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
-#Include ..\..\Foundation\BSTR.ahk
 #Include ..\Com\IUnknown.ahk
 
 /**
@@ -12,9 +11,8 @@
  * For information on the required interfaces that must be implemented by the handler, see the  <a href="https://docs.microsoft.com/windows/desktop/api/taskschd/nn-taskschd-itaskhandler">ITaskHandler</a> interface.
  * @see https://learn.microsoft.com/windows/win32/api/taskschd/nn-taskschd-itaskhandlerstatus
  * @namespace Windows.Win32.System.TaskScheduler
- * @version v4.0.30319
  */
-class ITaskHandlerStatus extends IUnknown{
+class ITaskHandlerStatus extends IUnknown {
 
     static sizeof => A_PtrSize
     /**

@@ -3,10 +3,8 @@
 
 /**
  * @namespace Windows.Win32.Media.KernelStreaming
- * @version v4.0.30319
  */
-class KSRTAUDIO_GETREADPACKET_INFO extends Win32Struct
-{
+class KSRTAUDIO_GETREADPACKET_INFO extends Win32Struct {
     static sizeof => 24
 
     static packingSize => 8

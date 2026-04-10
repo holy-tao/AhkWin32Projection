@@ -5,9 +5,8 @@
 
 /**
  * @namespace Windows.Win32.System.RemoteDesktop
- * @version v4.0.30319
  */
-class IWRdsWddmIddProps1 extends IUnknown{
+class IWRdsWddmIddProps1 extends IUnknown {
 
     static sizeof => A_PtrSize
     /**

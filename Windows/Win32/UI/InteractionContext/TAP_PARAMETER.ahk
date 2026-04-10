@@ -3,9 +3,8 @@
 
 /**
  * @namespace Windows.Win32.UI.InteractionContext
- * @version v4.0.30319
  */
-class TAP_PARAMETER extends Win32Enum{
+class TAP_PARAMETER extends Win32Enum {
 
     /**
      * @type {Integer (Int32)}

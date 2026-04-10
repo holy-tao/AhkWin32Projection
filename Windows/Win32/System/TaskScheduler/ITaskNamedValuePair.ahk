@@ -1,7 +1,6 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
-#Include ..\..\Foundation\BSTR.ahk
 #Include ..\Com\IDispatch.ahk
 
 /**
@@ -10,9 +9,8 @@
  * When reading or writing your own XML for a task, a name-value pair is specified using the <a href="https://docs.microsoft.com/windows/desktop/TaskSchd/taskschedulerschema-valuequeries-eventtriggertype-element">ValueQueries</a> element of the Task Scheduler schema.
  * @see https://learn.microsoft.com/windows/win32/api/taskschd/nn-taskschd-itasknamedvaluepair
  * @namespace Windows.Win32.System.TaskScheduler
- * @version v4.0.30319
  */
-class ITaskNamedValuePair extends IDispatch{
+class ITaskNamedValuePair extends IDispatch {
 
     static sizeof => A_PtrSize
     /**
@@ -34,6 +32,7 @@ class ITaskNamedValuePair extends IDispatch{
     static VTableNames => ["get_Name", "put_Name", "get_Value", "put_Value"]
 
     /**
+     * @type {BSTR} 
      */
     Name {
         get => this.get_Name()
@@ -41,6 +40,7 @@ class ITaskNamedValuePair extends IDispatch{
     }
 
     /**
+     * @type {BSTR} 
      */
     Value {
         get => this.get_Value()

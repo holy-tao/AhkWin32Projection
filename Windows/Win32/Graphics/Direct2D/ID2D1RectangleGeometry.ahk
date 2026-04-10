@@ -14,9 +14,8 @@
  * Direct2D geometries are immutable and device-independent resources created by <a href="https://docs.microsoft.com/windows/win32/api/d2d1/nn-d2d1-id2d1factory">ID2D1Factory</a>.  In general, you should create geometries once and retain them for the life of the application, or until they need to be modified. For more information about device-independent and device-dependent resources, see  the <a href="https://docs.microsoft.com/windows/win32/Direct2D/resources-and-resource-domains">Resources Overview</a>.
  * @see https://learn.microsoft.com/windows/win32/api/d2d1/nn-d2d1-id2d1rectanglegeometry
  * @namespace Windows.Win32.Graphics.Direct2D
- * @version v4.0.30319
  */
-class ID2D1RectangleGeometry extends ID2D1Geometry{
+class ID2D1RectangleGeometry extends ID2D1Geometry {
 
     static sizeof => A_PtrSize
     /**
@@ -39,7 +38,9 @@ class ID2D1RectangleGeometry extends ID2D1Geometry{
 
     /**
      * Retrieves the rectangle that describes the rectangle geometry's dimensions.
-     * @param {Pointer<D2D_RECT_F>} _rect 
+     * @param {Pointer<D2D_RECT_F>} _rect Type: <b><a href="https://docs.microsoft.com/windows/win32/Direct2D/d2d1-rect-f">D2D1_RECT_F</a>*</b>
+     * 
+     * Contains a pointer to a rectangle that describes the rectangle geometry's dimensions when this method returns. You must allocate storage for this parameter.
      * @returns {String} Nothing - always returns an empty string
      * @see https://learn.microsoft.com/windows/win32/api/d2d1/nf-d2d1-id2d1rectanglegeometry-getrect
      */

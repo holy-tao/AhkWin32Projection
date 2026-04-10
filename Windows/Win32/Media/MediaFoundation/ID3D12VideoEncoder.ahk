@@ -9,9 +9,8 @@
  * Get an instance of this class by calling [ID3D12VideoDevice3::CreateVideoEncoder](nf-d3d12video-id3d12videodevice3-createvideoencoder.md).
  * @see https://learn.microsoft.com/windows/win32/api/d3d12video/nn-d3d12video-id3d12videoencoder
  * @namespace Windows.Win32.Media.MediaFoundation
- * @version v4.0.30319
  */
-class ID3D12VideoEncoder extends ID3D12Pageable{
+class ID3D12VideoEncoder extends ID3D12Pageable {
 
     static sizeof => A_PtrSize
     /**
@@ -44,7 +43,7 @@ class ID3D12VideoEncoder extends ID3D12Pageable{
 
     /**
      * Gets the encoder flags with which the video encoder was initialized.
-     * @returns {Integer} The bitwise OR combination of values from the [D3D12_VIDEO_ENCODER_FLAGS](ne-d3d12video-d3d12_video_encoder_flags.md) enumeration specified in the [D3D12_VIDEO_ENCODER_DESC](ns-d3d12video-d3d12_video_encoder_desc.md) passed into [ID3D12VideoDevice3::CreateVideoEncoder](nf-d3d12video-id3d12videodevice3-createvideoencoder.md).
+     * @returns {D3D12_VIDEO_ENCODER_FLAGS} The bitwise OR combination of values from the [D3D12_VIDEO_ENCODER_FLAGS](ne-d3d12video-d3d12_video_encoder_flags.md) enumeration specified in the [D3D12_VIDEO_ENCODER_DESC](ns-d3d12video-d3d12_video_encoder_desc.md) passed into [ID3D12VideoDevice3::CreateVideoEncoder](nf-d3d12video-id3d12videodevice3-createvideoencoder.md).
      * @see https://learn.microsoft.com/windows/win32/api/d3d12video/nf-d3d12video-id3d12videoencoder-getencoderflags
      */
     GetEncoderFlags() {
@@ -54,7 +53,7 @@ class ID3D12VideoEncoder extends ID3D12Pageable{
 
     /**
      * Gets the codec associated with the video encoder.
-     * @returns {Integer} The value from the [D3D12_VIDEO_ENCODER_CODEC](ne-d3d12video-d3d12_video_encoder_codec.md) enumeration specified in the [D3D12_VIDEO_ENCODER_DESC](ns-d3d12video-d3d12_video_encoder_desc.md) passed into [ID3D12VideoDevice3::CreateVideoEncoder](nf-d3d12video-id3d12videodevice3-createvideoencoder.md).
+     * @returns {D3D12_VIDEO_ENCODER_CODEC} The value from the [D3D12_VIDEO_ENCODER_CODEC](ne-d3d12video-d3d12_video_encoder_codec.md) enumeration specified in the [D3D12_VIDEO_ENCODER_DESC](ns-d3d12video-d3d12_video_encoder_desc.md) passed into [ID3D12VideoDevice3::CreateVideoEncoder](nf-d3d12video-id3d12videodevice3-createvideoencoder.md).
      * @see https://learn.microsoft.com/windows/win32/api/d3d12video/nf-d3d12video-id3d12videoencoder-getcodec
      */
     GetCodec() {
@@ -86,7 +85,7 @@ class ID3D12VideoEncoder extends ID3D12Pageable{
 
     /**
      * Gets the input format of the video encoder.
-     * @returns {Integer} The [DXGI_FORMAT](../dxgiformat/ne-dxgiformat-dxgi_format.md) value specified in the [D3D12_VIDEO_ENCODER_DESC](ns-d3d12video-d3d12_video_encoder_desc.md) passed into [ID3D12VideoDevice3::CreateVideoEncoder](nf-d3d12video-id3d12videodevice3-createvideoencoder.md).
+     * @returns {DXGI_FORMAT} The [DXGI_FORMAT](../dxgiformat/ne-dxgiformat-dxgi_format.md) value specified in the [D3D12_VIDEO_ENCODER_DESC](ns-d3d12video-d3d12_video_encoder_desc.md) passed into [ID3D12VideoDevice3::CreateVideoEncoder](nf-d3d12video-id3d12videodevice3-createvideoencoder.md).
      * @see https://learn.microsoft.com/windows/win32/api/d3d12video/nf-d3d12video-id3d12videoencoder-getinputformat
      */
     GetInputFormat() {
@@ -96,7 +95,7 @@ class ID3D12VideoEncoder extends ID3D12Pageable{
 
     /**
      * Gets the maximum motion estimation precision of the video encoder.
-     * @returns {Integer} The value from the [D3D12_VIDEO_ENCODER_MOTION_ESTIMATION_PRECISION_MODE](ne-d3d12video-d3d12_video_encoder_motion_estimation_precision_mode.md) enumeration specified in the [D3D12_VIDEO_ENCODER_DESC](ns-d3d12video-d3d12_video_encoder_desc.md) passed into [ID3D12VideoDevice3::CreateVideoEncoder](nf-d3d12video-id3d12videodevice3-createvideoencoder.md).
+     * @returns {D3D12_VIDEO_ENCODER_MOTION_ESTIMATION_PRECISION_MODE} The value from the [D3D12_VIDEO_ENCODER_MOTION_ESTIMATION_PRECISION_MODE](ne-d3d12video-d3d12_video_encoder_motion_estimation_precision_mode.md) enumeration specified in the [D3D12_VIDEO_ENCODER_DESC](ns-d3d12video-d3d12_video_encoder_desc.md) passed into [ID3D12VideoDevice3::CreateVideoEncoder](nf-d3d12video-id3d12videodevice3-createvideoencoder.md).
      * @see https://learn.microsoft.com/windows/win32/api/d3d12video/nf-d3d12video-id3d12videoencoder-getmaxmotionestimationprecision
      */
     GetMaxMotionEstimationPrecision() {

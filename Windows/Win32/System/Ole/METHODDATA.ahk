@@ -1,14 +1,15 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
+#Include .\PARAMDATA.ahk
+#Include ..\Com\CALLCONV.ahk
+#Include ..\Variant\VARENUM.ahk
 
 /**
  * Describes a method or property.
  * @see https://learn.microsoft.com/windows/win32/api/oleauto/ns-oleauto-methoddata
  * @namespace Windows.Win32.System.Ole
- * @version v4.0.30319
  */
-class METHODDATA extends Win32Struct
-{
+class METHODDATA extends Win32Struct {
     static sizeof => 40
 
     static packingSize => 8
@@ -51,7 +52,7 @@ class METHODDATA extends Win32Struct
 
     /**
      * The calling convention. The CDECL and Pascal calling conventions are supported by the dispatch interface creation functions, such as <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/oleauto/nf-oleauto-createstddispatch">CreateStdDispatch</a>.
-     * @type {Integer}
+     * @type {CALLCONV}
      */
     cc {
         get => NumGet(this, 24, "int")
@@ -129,7 +130,7 @@ class METHODDATA extends Win32Struct
 
     /**
      * The return type for the method.
-     * @type {Integer}
+     * @type {VARENUM}
      */
     vtReturn {
         get => NumGet(this, 34, "ushort")

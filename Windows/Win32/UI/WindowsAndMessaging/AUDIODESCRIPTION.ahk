@@ -8,10 +8,8 @@
  * <a href="https://docs.microsoft.com/windows/desktop/WinProg/using-the-windows-headers">Using the Windows Headers</a>.
  * @see https://learn.microsoft.com/windows/win32/api/winuser/ns-winuser-audiodescription
  * @namespace Windows.Win32.UI.WindowsAndMessaging
- * @version v4.0.30319
  */
-class AUDIODESCRIPTION extends Win32Struct
-{
+class AUDIODESCRIPTION extends Win32Struct {
     static sizeof => 12
 
     static packingSize => 4

@@ -5,10 +5,8 @@
  * This structure encapsulates a signature used in verifying executable files.
  * @see https://learn.microsoft.com/windows/win32/api/wintrust/ns-wintrust-win_certificate
  * @namespace Windows.Win32.Security.WinTrust
- * @version v4.0.30319
  */
-class WIN_CERTIFICATE extends Win32Struct
-{
+class WIN_CERTIFICATE extends Win32Struct {
     static sizeof => 12
 
     static packingSize => 4
@@ -69,9 +67,9 @@ class WIN_CERTIFICATE extends Win32Struct
      * An array of certificates.
      * 
      * The format of this member depends on the value of <i>wCertificateType</i>.
-     * @type {Array<Byte>}
+     * @type {Array<Integer>}
      */
-    bCertificate{
+    bCertificate {
         get {
             if(!this.HasProp("__bCertificateProxyArray"))
                 this.__bCertificateProxyArray := Win32FixedArray(this.ptr + 8, 1, Primitive, "char")

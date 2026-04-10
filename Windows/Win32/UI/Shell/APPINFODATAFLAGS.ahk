@@ -7,9 +7,8 @@
  * Add/Remove Programs in Control Panel uses only <b>AIM_DISPLAYNAME</b> and <b>AIM_SUPPORTURL.</b>
  * @see https://learn.microsoft.com/windows/win32/api/shappmgr/ne-shappmgr-appinfodataflags
  * @namespace Windows.Win32.UI.Shell
- * @version v4.0.30319
  */
-class APPINFODATAFLAGS extends Win32Enum{
+class APPINFODATAFLAGS extends Win32Enum {
 
     /**
      * Returns the display name.

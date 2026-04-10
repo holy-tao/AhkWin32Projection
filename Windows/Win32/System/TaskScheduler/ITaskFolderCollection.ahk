@@ -1,17 +1,16 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
+#Include ..\Com\IDispatch.ahk
 #Include .\ITaskFolder.ahk
 #Include ..\Com\IUnknown.ahk
-#Include ..\Com\IDispatch.ahk
 
 /**
  * Provides information and control for a collection of folders that contain tasks.
  * @see https://learn.microsoft.com/windows/win32/api/taskschd/nn-taskschd-itaskfoldercollection
  * @namespace Windows.Win32.System.TaskScheduler
- * @version v4.0.30319
  */
-class ITaskFolderCollection extends IDispatch{
+class ITaskFolderCollection extends IDispatch {
 
     static sizeof => A_PtrSize
     /**

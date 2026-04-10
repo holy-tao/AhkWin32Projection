@@ -1,22 +1,22 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
+#Include .\HTTP_SERVICE_CONFIG_QUERY_TYPE.ahk
 #Include .\HTTP_SERVICE_CONFIG_SSL_KEY.ahk
+#Include ..\WinSock\SOCKADDR.ahk
 
 /**
  * Used to specify a particular record to query in the SSL configuration store.
  * @see https://learn.microsoft.com/windows/win32/api/http/ns-http-http_service_config_ssl_query
  * @namespace Windows.Win32.Networking.HttpServer
- * @version v4.0.30319
  */
-class HTTP_SERVICE_CONFIG_SSL_QUERY extends Win32Struct
-{
+class HTTP_SERVICE_CONFIG_SSL_QUERY extends Win32Struct {
     static sizeof => 24
 
     static packingSize => 8
 
     /**
      * One of the  following values from the <a href="https://docs.microsoft.com/windows/desktop/api/http/ne-http-http_service_config_query_type">HTTP_SERVICE_CONFIG_QUERY_TYPE</a> enumeration.
-     * @type {Integer}
+     * @type {HTTP_SERVICE_CONFIG_QUERY_TYPE}
      */
     QueryDesc {
         get => NumGet(this, 0, "int")
@@ -28,7 +28,7 @@ class HTTP_SERVICE_CONFIG_SSL_QUERY extends Win32Struct
      * <a href="https://docs.microsoft.com/windows/desktop/api/http/ns-http-http_service_config_ssl_key">HTTP_SERVICE_CONFIG_SSL_KEY</a> structure that identifies the SSL certificate record queried. If the <i>QueryDesc</i> parameter is equal to HTTPServiceConfigQueryNext, then <i>KeyDesc</i> is ignored.
      * @type {HTTP_SERVICE_CONFIG_SSL_KEY}
      */
-    KeyDesc{
+    KeyDesc {
         get {
             if(!this.HasProp("__KeyDesc"))
                 this.__KeyDesc := HTTP_SERVICE_CONFIG_SSL_KEY(8, this)

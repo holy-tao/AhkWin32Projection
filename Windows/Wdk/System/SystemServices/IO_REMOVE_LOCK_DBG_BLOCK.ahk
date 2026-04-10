@@ -1,14 +1,11 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
-#Include ..\..\..\Win32\System\Kernel\LIST_ENTRY.ahk
 
 /**
  * @namespace Windows.Wdk.System.SystemServices
- * @version v4.0.30319
  */
-class IO_REMOVE_LOCK_DBG_BLOCK extends Win32Struct
-{
-    static sizeof => 88
+class IO_REMOVE_LOCK_DBG_BLOCK extends Win32Struct {
+    static sizeof => 80
 
     static packingSize => 8
 
@@ -45,39 +42,36 @@ class IO_REMOVE_LOCK_DBG_BLOCK extends Win32Struct
     }
 
     /**
-     * @type {LIST_ENTRY}
+     * @type {Pointer}
      */
-    LockList{
-        get {
-            if(!this.HasProp("__LockList"))
-                this.__LockList := LIST_ENTRY(24, this)
-            return this.__LockList
-        }
+    LockList {
+        get => NumGet(this, 24, "ptr")
+        set => NumPut("ptr", value, this, 24)
     }
 
     /**
      * @type {Pointer}
      */
     Spin {
-        get => NumGet(this, 40, "ptr")
-        set => NumPut("ptr", value, this, 40)
+        get => NumGet(this, 32, "ptr")
+        set => NumPut("ptr", value, this, 32)
     }
 
     /**
      * @type {Integer}
      */
     LowMemoryCount {
-        get => NumGet(this, 48, "int")
-        set => NumPut("int", value, this, 48)
+        get => NumGet(this, 40, "int")
+        set => NumPut("int", value, this, 40)
     }
 
     /**
-     * @type {Array<UInt32>}
+     * @type {Array<Integer>}
      */
-    Reserved1{
+    Reserved1 {
         get {
             if(!this.HasProp("__Reserved1ProxyArray"))
-                this.__Reserved1ProxyArray := Win32FixedArray(this.ptr + 52, 4, Primitive, "uint")
+                this.__Reserved1ProxyArray := Win32FixedArray(this.ptr + 44, 4, Primitive, "uint")
             return this.__Reserved1ProxyArray
         }
     }
@@ -86,15 +80,15 @@ class IO_REMOVE_LOCK_DBG_BLOCK extends Win32Struct
      * @type {Pointer<Void>}
      */
     Reserved2 {
-        get => NumGet(this, 72, "ptr")
-        set => NumPut("ptr", value, this, 72)
+        get => NumGet(this, 64, "ptr")
+        set => NumPut("ptr", value, this, 64)
     }
 
     /**
      * @type {PIO_REMOVE_LOCK_TRACKING_BLOCK}
      */
     Blocks {
-        get => NumGet(this, 80, "ptr")
-        set => NumPut("ptr", value, this, 80)
+        get => NumGet(this, 72, "ptr")
+        set => NumPut("ptr", value, this, 72)
     }
 }

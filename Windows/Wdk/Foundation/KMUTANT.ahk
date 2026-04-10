@@ -1,19 +1,16 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\Win32Struct.ahk
-#Include ..\..\Win32\System\Kernel\LIST_ENTRY.ahk
 
 /**
  * @namespace Windows.Wdk.Foundation
- * @version v4.0.30319
  */
-class KMUTANT extends Win32Struct
-{
-    static sizeof => 40
+class KMUTANT extends Win32Struct {
+    static sizeof => 32
 
     static packingSize => 8
 
     /**
-     * @type {Pointer<DISPATCHER_HEADER>}
+     * @type {Pointer}
      */
     Header {
         get => NumGet(this, 0, "ptr")
@@ -21,30 +18,27 @@ class KMUTANT extends Win32Struct
     }
 
     /**
-     * @type {LIST_ENTRY}
+     * @type {Pointer}
      */
-    MutantListEntry{
-        get {
-            if(!this.HasProp("__MutantListEntry"))
-                this.__MutantListEntry := LIST_ENTRY(8, this)
-            return this.__MutantListEntry
-        }
+    MutantListEntry {
+        get => NumGet(this, 8, "ptr")
+        set => NumPut("ptr", value, this, 8)
     }
 
     /**
      * @type {Pointer<Pointer>}
      */
     OwnerThread {
-        get => NumGet(this, 24, "ptr")
-        set => NumPut("ptr", value, this, 24)
+        get => NumGet(this, 16, "ptr")
+        set => NumPut("ptr", value, this, 16)
     }
 
     /**
      * @type {Integer}
      */
     MutantFlags {
-        get => NumGet(this, 32, "char")
-        set => NumPut("char", value, this, 32)
+        get => NumGet(this, 24, "char")
+        set => NumPut("char", value, this, 24)
     }
 
     /**
@@ -54,8 +48,8 @@ class KMUTANT extends Win32Struct
      * @type {Integer}
      */
     _bitfield {
-        get => NumGet(this, 32, "char")
-        set => NumPut("char", value, this, 32)
+        get => NumGet(this, 24, "char")
+        set => NumPut("char", value, this, 24)
     }
 
     /**
@@ -78,7 +72,7 @@ class KMUTANT extends Win32Struct
      * @type {Integer}
      */
     ApcDisable {
-        get => NumGet(this, 33, "char")
-        set => NumPut("char", value, this, 33)
+        get => NumGet(this, 25, "char")
+        set => NumPut("char", value, this, 25)
     }
 }

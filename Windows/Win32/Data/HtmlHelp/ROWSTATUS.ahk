@@ -3,10 +3,8 @@
 
 /**
  * @namespace Windows.Win32.Data.HtmlHelp
- * @version v4.0.30319
  */
-class ROWSTATUS extends Win32Struct
-{
+class ROWSTATUS extends Win32Struct {
     static sizeof => 16
 
     static packingSize => 4

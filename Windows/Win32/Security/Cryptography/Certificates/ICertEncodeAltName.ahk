@@ -1,16 +1,15 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\..\Guid.ahk
-#Include ..\..\..\Foundation\BSTR.ahk
 #Include ..\..\..\System\Com\IDispatch.ahk
+#Include ..\..\..\Foundation\BSTR.ahk
 
 /**
  * Provides methods for handling alternate names used in certificate extensions.
  * @see https://learn.microsoft.com/windows/win32/api/certenc/nn-certenc-icertencodealtname
  * @namespace Windows.Win32.Security.Cryptography.Certificates
- * @version v4.0.30319
  */
-class ICertEncodeAltName extends IDispatch{
+class ICertEncodeAltName extends IDispatch {
 
     static sizeof => A_PtrSize
     /**
@@ -101,7 +100,7 @@ class ICertEncodeAltName extends IDispatch{
      * @param {Integer} NameIndex Zero-based index that specifies the index of the alternate name entry to set.
      * 
      * If the <i>NameChoice</i> parameter is CERT_ALT_NAME_OTHER_NAME, OR (|) the index value with EAN_NAMEOBJECTID (defined as 0x80000000) to set the OID. Otherwise, the binary value is set.
-     * @param {Integer} NameChoice 
+     * @param {CERT_ALT_NAME} NameChoice 
      * @param {BSTR} strName Specifies the alternate name.
      * @returns {HRESULT} <h3>VB</h3>
      *  If the method succeeds, the method returns S_OK.

@@ -1,12 +1,12 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
+#Include .\DXGK_RENDER_PIPELINE_STAGE.ahk
+#Include .\DXGK_PAGE_FAULT_FLAGS.ahk
 
 /**
  * @namespace Windows.Wdk.Graphics.Direct3D
- * @version v4.0.30319
  */
-class D3DKMT_DEVICEPAGEFAULT_STATE extends Win32Struct
-{
+class D3DKMT_DEVICEPAGEFAULT_STATE extends Win32Struct {
     static sizeof => 40
 
     static packingSize => 8
@@ -20,7 +20,7 @@ class D3DKMT_DEVICEPAGEFAULT_STATE extends Win32Struct
     }
 
     /**
-     * @type {Integer}
+     * @type {DXGK_RENDER_PIPELINE_STAGE}
      */
     FaultedPipelineStage {
         get => NumGet(this, 8, "int")
@@ -36,7 +36,7 @@ class D3DKMT_DEVICEPAGEFAULT_STATE extends Win32Struct
     }
 
     /**
-     * @type {Integer}
+     * @type {DXGK_PAGE_FAULT_FLAGS}
      */
     PageFaultFlags {
         get => NumGet(this, 16, "int")
@@ -44,7 +44,7 @@ class D3DKMT_DEVICEPAGEFAULT_STATE extends Win32Struct
     }
 
     /**
-     * @type {Pointer<DXGK_FAULT_ERROR_CODE>}
+     * @type {Pointer}
      */
     FaultErrorCode {
         get => NumGet(this, 24, "ptr")

@@ -5,10 +5,8 @@
  * Contains information about a locked transaction.
  * @see https://learn.microsoft.com/windows/win32/api/winioctl/ns-winioctl-txfs_list_transaction_locked_files_entry
  * @namespace Windows.Win32.System.Ioctl
- * @version v4.0.30319
  */
-class TXFS_LIST_TRANSACTION_LOCKED_FILES_ENTRY extends Win32Struct
-{
+class TXFS_LIST_TRANSACTION_LOCKED_FILES_ENTRY extends Win32Struct {
     static sizeof => 48
 
     static packingSize => 8

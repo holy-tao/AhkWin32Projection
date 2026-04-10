@@ -5,9 +5,8 @@
  * Defines the activity status of an animation manager.
  * @see https://learn.microsoft.com/windows/win32/api/uianimation/ne-uianimation-ui_animation_manager_status
  * @namespace Windows.Win32.UI.Animation
- * @version v4.0.30319
  */
-class UI_ANIMATION_MANAGER_STATUS extends Win32Enum{
+class UI_ANIMATION_MANAGER_STATUS extends Win32Enum {
 
     /**
      * The animation manager is idle; no animations are currently playing.

@@ -3,10 +3,8 @@
 
 /**
  * @namespace Windows.Wdk.System.SystemServices
- * @version v4.0.30319
  */
-class WHEA_ARM_PROCESSOR_ERROR_CONTEXT_INFORMATION_HEADER extends Win32Struct
-{
+class WHEA_ARM_PROCESSOR_ERROR_CONTEXT_INFORMATION_HEADER extends Win32Struct {
     static sizeof => 12
 
     static packingSize => 4
@@ -36,9 +34,9 @@ class WHEA_ARM_PROCESSOR_ERROR_CONTEXT_INFORMATION_HEADER extends Win32Struct
     }
 
     /**
-     * @type {Array<Byte>}
+     * @type {Array<Integer>}
      */
-    RegisterArray{
+    RegisterArray {
         get {
             if(!this.HasProp("__RegisterArrayProxyArray"))
                 this.__RegisterArrayProxyArray := Win32FixedArray(this.ptr + 8, 1, Primitive, "char")

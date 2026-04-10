@@ -1,12 +1,12 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\..\Win32Struct.ahk
+#Include ..\WAVEFORMATEX.ahk
+#Include .\DSCEFFECTDESC.ahk
 
 /**
  * @namespace Windows.Win32.Media.Audio.DirectSound
- * @version v4.0.30319
  */
-class DSCBUFFERDESC extends Win32Struct
-{
+class DSCBUFFERDESC extends Win32Struct {
     static sizeof => 40
 
     static packingSize => 8

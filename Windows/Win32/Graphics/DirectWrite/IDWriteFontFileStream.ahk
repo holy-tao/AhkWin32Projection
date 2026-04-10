@@ -7,9 +7,8 @@
  * Loads font file data from a custom font file loader.
  * @see https://learn.microsoft.com/windows/win32/api/dwrite/nn-dwrite-idwritefontfilestream
  * @namespace Windows.Win32.Graphics.DirectWrite
- * @version v4.0.30319
  */
-class IDWriteFontFileStream extends IUnknown{
+class IDWriteFontFileStream extends IUnknown {
 
     static sizeof => A_PtrSize
     /**

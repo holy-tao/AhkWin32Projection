@@ -1,7 +1,6 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\..\Guid.ahk
-#Include .\ITraceEvent.ahk
 #Include ..\..\Com\IUnknown.ahk
 
 /**
@@ -10,9 +9,8 @@
  * This interface is not supported on Windows 7 for the IA64 architecture.
  * @see https://learn.microsoft.com/windows/win32/api/relogger/nn-relogger-itraceevent
  * @namespace Windows.Win32.System.Diagnostics.Etw
- * @version v4.0.30319
  */
-class ITraceEvent extends IUnknown{
+class ITraceEvent extends IUnknown {
 
     static sizeof => A_PtrSize
     /**
@@ -180,7 +178,9 @@ class ITraceEvent extends IUnknown{
 
     /**
      * Sets the time at which an event occurred.
-     * @param {Pointer<Integer>} _TimeStamp 
+     * @param {Pointer<Integer>} _TimeStamp Type: <b>LARGE_INTEGER*</b>
+     * 
+     *  The time at which the event occurred, in system time.
      * @returns {HRESULT} Type: <b>HRESULT</b>
      * 
      * If this method succeeds, it returns <b>S_OK</b>. Otherwise, it returns an <b>HRESULT</b> error code.

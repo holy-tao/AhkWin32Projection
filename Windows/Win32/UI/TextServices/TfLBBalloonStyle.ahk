@@ -15,9 +15,8 @@
  * <img alt="TF_LB_BALLOON_MISS balloon" border="border" src="images/Balloon_MISS.gif"/>
  * @see https://learn.microsoft.com/windows/win32/api/ctfutb/ne-ctfutb-tflbballoonstyle
  * @namespace Windows.Win32.UI.TextServices
- * @version v4.0.30319
  */
-class TfLBBalloonStyle extends Win32Enum{
+class TfLBBalloonStyle extends Win32Enum {
 
     /**
      * This balloon style is used to represent a reconversion operation.

@@ -1,5 +1,6 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
+#Include ..\Dxgi\Common\DXGI_FORMAT.ahk
 
 /**
  * A description of a single element to the vertex layout.
@@ -9,10 +10,8 @@
  * If the <a href="https://docs.microsoft.com/windows/desktop/Direct2D/direct2d-constants">D2D1_APPEND_ALIGNED_ELEMENT</a> constant is used for  <b>alignedByteOffset</b>, the elements will be packed contiguously for convenience.
  * @see https://learn.microsoft.com/windows/win32/api/d2d1effectauthor/ns-d2d1effectauthor-d2d1_input_element_desc
  * @namespace Windows.Win32.Graphics.Direct2D
- * @version v4.0.30319
  */
-class D2D1_INPUT_ELEMENT_DESC extends Win32Struct
-{
+class D2D1_INPUT_ELEMENT_DESC extends Win32Struct {
     static sizeof => 24
 
     static packingSize => 8
@@ -37,7 +36,7 @@ class D2D1_INPUT_ELEMENT_DESC extends Win32Struct
 
     /**
      * The data type of the element data.
-     * @type {Integer}
+     * @type {DXGI_FORMAT}
      */
     format {
         get => NumGet(this, 12, "int")

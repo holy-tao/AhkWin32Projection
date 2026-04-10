@@ -1,5 +1,8 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
+#Include .\MENU_ITEM_MASK.ahk
+#Include .\MENU_ITEM_TYPE.ahk
+#Include .\MENU_ITEM_STATE.ahk
 #Include .\HMENU.ahk
 #Include ..\..\Graphics\Gdi\HBITMAP.ahk
 
@@ -18,11 +21,9 @@
  * > The winuser.h header defines MENUITEMINFO as an alias which automatically selects the ANSI or Unicode version of this function based on the definition of the UNICODE preprocessor constant. Mixing usage of the encoding-neutral alias with code that not encoding-neutral can lead to mismatches that result in compilation or runtime errors. For more information, see [Conventions for Function Prototypes](/windows/win32/intl/conventions-for-function-prototypes).
  * @see https://learn.microsoft.com/windows/win32/api/winuser/ns-winuser-menuiteminfow
  * @namespace Windows.Win32.UI.WindowsAndMessaging
- * @version v4.0.30319
  * @charset Unicode
  */
-class MENUITEMINFOW extends Win32Struct
-{
+class MENUITEMINFOW extends Win32Struct {
     static sizeof => 80
 
     static packingSize => 8
@@ -40,7 +41,7 @@ class MENUITEMINFOW extends Win32Struct
 
     /**
      * Type: <b>UINT</b>
-     * @type {Integer}
+     * @type {MENU_ITEM_MASK}
      */
     fMask {
         get => NumGet(this, 4, "uint")
@@ -49,7 +50,7 @@ class MENUITEMINFOW extends Win32Struct
 
     /**
      * Type: <b>UINT</b>
-     * @type {Integer}
+     * @type {MENU_ITEM_TYPE}
      */
     fType {
         get => NumGet(this, 8, "uint")
@@ -159,7 +160,7 @@ class MENUITEMINFOW extends Win32Struct
      * </td>
      * </tr>
      * </table>
-     * @type {Integer}
+     * @type {MENU_ITEM_STATE}
      */
     fState {
         get => NumGet(this, 12, "uint")
@@ -187,7 +188,7 @@ class MENUITEMINFOW extends Win32Struct
      * 					<b>hSubMenu</b>.
      * @type {HMENU}
      */
-    hSubMenu{
+    hSubMenu {
         get {
             if(!this.HasProp("__hSubMenu"))
                 this.__hSubMenu := HMENU(24, this)
@@ -203,7 +204,7 @@ class MENUITEMINFOW extends Win32Struct
      * 					<b>hbmpChecked</b>.
      * @type {HBITMAP}
      */
-    hbmpChecked{
+    hbmpChecked {
         get {
             if(!this.HasProp("__hbmpChecked"))
                 this.__hbmpChecked := HBITMAP(32, this)
@@ -219,7 +220,7 @@ class MENUITEMINFOW extends Win32Struct
      * 					<b>hbmpUnchecked</b>.
      * @type {HBITMAP}
      */
-    hbmpUnchecked{
+    hbmpUnchecked {
         get {
             if(!this.HasProp("__hbmpUnchecked"))
                 this.__hbmpUnchecked := HBITMAP(40, this)
@@ -426,7 +427,7 @@ class MENUITEMINFOW extends Win32Struct
      * </table>
      * @type {HBITMAP}
      */
-    hbmpItem{
+    hbmpItem {
         get {
             if(!this.HasProp("__hbmpItem"))
                 this.__hbmpItem := HBITMAP(72, this)

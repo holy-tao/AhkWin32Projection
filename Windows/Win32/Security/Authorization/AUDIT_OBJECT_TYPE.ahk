@@ -3,16 +3,14 @@
 
 /**
  * @namespace Windows.Win32.Security.Authorization
- * @version v4.0.30319
  */
-class AUDIT_OBJECT_TYPE extends Win32Struct
-{
+class AUDIT_OBJECT_TYPE extends Win32Struct {
     static sizeof => 16
 
     static packingSize => 8
 
     /**
-     * @type {Pointer<Guid>}
+     * @type {Pointer}
      */
     ObjectType {
         get => NumGet(this, 0, "ptr")

@@ -9,9 +9,8 @@
  * This interface is implemented by the application to handle events that it has subscribed to by using <b>AddTextEditTextChangedEventHandler</b>.
  * @see https://learn.microsoft.com/windows/win32/api/uiautomationclient/nn-uiautomationclient-iuiautomationtextedittextchangedeventhandler
  * @namespace Windows.Win32.UI.Accessibility
- * @version v4.0.30319
  */
-class IUIAutomationTextEditTextChangedEventHandler extends IUnknown{
+class IUIAutomationTextEditTextChangedEventHandler extends IUnknown {
 
     static sizeof => A_PtrSize
     /**
@@ -47,7 +46,7 @@ class IUIAutomationTextEditTextChangedEventHandler extends IUnknown{
      * @param {IUIAutomationElement} sender Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/uiautomationclient/nn-uiautomationclient-iuiautomationelement">IUIAutomationElement</a>*</b>
      * 
      * A pointer to the element that raised the event.
-     * @param {Integer} _textEditChangeType 
+     * @param {TextEditChangeType} _textEditChangeType 
      * @param {Pointer<SAFEARRAY>} eventStrings Type: <b><a href="https://docs.microsoft.com/windows/desktop/WinAuto/uiauto-workingwithsafearrays">SAFEARRAY</a>*</b>
      * 
      * Event data passed by the event.

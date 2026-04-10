@@ -7,9 +7,8 @@
  * Exposes methods that enable the view to notify the implementer when the enumeration has completed.
  * @see https://learn.microsoft.com/windows/win32/api/shobjidl/nn-shobjidl-ienumreadycallback
  * @namespace Windows.Win32.UI.Shell
- * @version v4.0.30319
  */
-class IEnumReadyCallback extends IUnknown{
+class IEnumReadyCallback extends IUnknown {
 
     static sizeof => A_PtrSize
     /**

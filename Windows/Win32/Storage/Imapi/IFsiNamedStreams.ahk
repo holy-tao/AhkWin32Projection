@@ -1,10 +1,10 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
+#Include ..\..\System\Com\IDispatch.ahk
 #Include ..\..\System\Ole\IEnumVARIANT.ahk
 #Include .\IFsiFileItem2.ahk
 #Include .\IEnumFsiItems.ahk
-#Include ..\..\System\Com\IDispatch.ahk
 
 /**
  * Use this interface to enumerate the named streams associated with a file in a file system image.
@@ -18,9 +18,8 @@
  * This interface is supported in Windows Server 2003 with Service Pack 1 (SP1), Windows XP with Service Pack 2 (SP2),  and Windows Vista  via the Windows Feature Pack for Storage. All  features provided by this  update package are supported natively in Windows 7 and Windows Server 2008 R2.
  * @see https://learn.microsoft.com/windows/win32/api/imapi2fs/nn-imapi2fs-ifsinamedstreams
  * @namespace Windows.Win32.Storage.Imapi
- * @version v4.0.30319
  */
-class IFsiNamedStreams extends IDispatch{
+class IFsiNamedStreams extends IDispatch {
 
     static sizeof => A_PtrSize
     /**

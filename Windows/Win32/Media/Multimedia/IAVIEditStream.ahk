@@ -1,16 +1,15 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
-#Include .\IAVIStream.ahk
 #Include ..\..\System\Com\IUnknown.ahk
+#Include .\IAVIStream.ahk
 
 /**
  * The IAVIEditStream interface supports manipulating and modifying editable streams. Uses IUnknown::QueryInterface, IUnknown::AddRef, IUnknown::Release in addition to the following custom methods:\_
  * @see https://learn.microsoft.com/windows/win32/api/vfw/nn-vfw-iavieditstream
  * @namespace Windows.Win32.Media.Multimedia
- * @version v4.0.30319
  */
-class IAVIEditStream extends IUnknown{
+class IAVIEditStream extends IUnknown {
 
     static sizeof => A_PtrSize
     /**
@@ -144,7 +143,7 @@ class IAVIEditStream extends IUnknown{
      *  
      * 
      * ```
-     * @param {Pointer} lpInfo Pointer to an <a href="https://docs.microsoft.com/windows/desktop/api/vfw/ns-vfw-avistreaminfoa">AVISTREAMINFO</a> structure containing the new stream characteristics.
+     * @param {Integer} lpInfo Pointer to an <a href="https://docs.microsoft.com/windows/desktop/api/vfw/ns-vfw-avistreaminfoa">AVISTREAMINFO</a> structure containing the new stream characteristics.
      * @param {Integer} cbInfo Size, in bytes, of the buffer.
      * @returns {HRESULT} Returns the HRESULT defined by OLE.
      * @see https://learn.microsoft.com/windows/win32/api/vfw/nf-vfw-iavieditstream-setinfo

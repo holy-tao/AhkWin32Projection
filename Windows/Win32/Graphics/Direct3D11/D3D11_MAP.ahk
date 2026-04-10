@@ -22,9 +22,8 @@
  * Subsequent writes to the buffer within the same frame should use <b>D3D11_MAP_WRITE_NO_OVERWRITE</b>. This will enable the CPU to access a resource that is potentially being used by the GPU as long as the restrictions described previously are respected.
  * @see https://learn.microsoft.com/windows/win32/api/d3d11/ne-d3d11-d3d11_map
  * @namespace Windows.Win32.Graphics.Direct3D11
- * @version v4.0.30319
  */
-class D3D11_MAP extends Win32Enum{
+class D3D11_MAP extends Win32Enum {
 
     /**
      * Resource is mapped for reading. The resource must have been created with read access 

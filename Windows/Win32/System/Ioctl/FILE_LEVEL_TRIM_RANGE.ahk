@@ -9,10 +9,8 @@
  *     editions of Windows).
  * @see https://learn.microsoft.com/windows/win32/api/winioctl/ns-winioctl-file_level_trim_range
  * @namespace Windows.Win32.System.Ioctl
- * @version v4.0.30319
  */
-class FILE_LEVEL_TRIM_RANGE extends Win32Struct
-{
+class FILE_LEVEL_TRIM_RANGE extends Win32Struct {
     static sizeof => 16
 
     static packingSize => 8

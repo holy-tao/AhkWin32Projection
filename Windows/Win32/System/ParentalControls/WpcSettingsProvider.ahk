@@ -3,10 +3,8 @@
 
 /**
  * @namespace Windows.Win32.System.ParentalControls
- * @version v4.0.30319
  */
-class WpcSettingsProvider extends Win32Struct
-{
+class WpcSettingsProvider extends Win32Struct {
     static sizeof => 0
 
     static packingSize => 1

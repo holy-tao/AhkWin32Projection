@@ -23,10 +23,8 @@
  * <a href="https://docs.microsoft.com/windows/desktop/SysInfo/windows-time">Windows Time</a>.
  * @see https://learn.microsoft.com/windows/win32/api/minwinbase/ns-minwinbase-systemtime
  * @namespace Windows.Win32.Foundation
- * @version v4.0.30319
  */
-class SYSTEMTIME extends Win32Struct
-{
+class SYSTEMTIME extends Win32Struct {
     static sizeof => 16
 
     static packingSize => 2
@@ -41,7 +39,6 @@ class SYSTEMTIME extends Win32Struct
     }
 
     /**
-     * 
      * @type {Integer}
      */
     wMonth {
@@ -50,7 +47,6 @@ class SYSTEMTIME extends Win32Struct
     }
 
     /**
-     * 
      * @type {Integer}
      */
     wDayOfWeek {

@@ -7,9 +7,8 @@
  * The IMDSPObjectInfo interface provides methods for getting and setting parameters that describe how playable objects on a storage medium are referenced or accessed by the IMDSPDeviceControl interface.
  * @see https://learn.microsoft.com/windows/win32/api/mswmdm/nn-mswmdm-imdspobjectinfo
  * @namespace Windows.Win32.Media.DeviceManager
- * @version v4.0.30319
  */
-class IMDSPObjectInfo extends IUnknown{
+class IMDSPObjectInfo extends IUnknown {
 
     static sizeof => A_PtrSize
     /**

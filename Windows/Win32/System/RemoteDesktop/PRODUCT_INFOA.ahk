@@ -3,11 +3,9 @@
 
 /**
  * @namespace Windows.Win32.System.RemoteDesktop
- * @version v4.0.30319
  * @charset ANSI
  */
-class PRODUCT_INFOA extends Win32Struct
-{
+class PRODUCT_INFOA extends Win32Struct {
     static sizeof => 260
 
     static packingSize => 1

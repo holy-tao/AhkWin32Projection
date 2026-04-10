@@ -1,10 +1,10 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
+#Include ..\..\System\Com\IUnknown.ahk
 #Include .\D3D12_SHADER_DESC.ahk
 #Include .\D3D12_SHADER_INPUT_BIND_DESC.ahk
 #Include .\D3D12_SIGNATURE_PARAMETER_DESC.ahk
-#Include ..\..\System\Com\IUnknown.ahk
 
 /**
  * A shader-reflection interface accesses shader information. (ID3D12ShaderReflection)
@@ -15,9 +15,8 @@
  * > This function from `d3dcompiler.dll` supports Shader Model 2 - 5.1. For Shader Model 6 shader reflection, see `dxcompiler.dll` and  [Using dxc.exe and dxcompiler.dll](https://github.com/microsoft/DirectXShaderCompiler/wiki/Using-dxc.exe-and-dxcompiler.dll).
  * @see https://learn.microsoft.com/windows/win32/api/d3d12shader/nn-d3d12shader-id3d12shaderreflection
  * @namespace Windows.Win32.Graphics.Direct3D12
- * @version v4.0.30319
  */
-class ID3D12ShaderReflection extends IUnknown{
+class ID3D12ShaderReflection extends IUnknown {
 
     static sizeof => A_PtrSize
     /**
@@ -281,7 +280,7 @@ class ID3D12ShaderReflection extends IUnknown{
      * Gets the geometry-shader input-primitive description. (ID3D12ShaderReflection.GetGSInputPrimitive)
      * @remarks
      * This method's interface is hosted in the out-of-box DLL D3DCompiler_xx.dll.
-     * @returns {Integer} Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/d3dcommon/ne-d3dcommon-d3d_primitive">D3D_PRIMITIVE</a></b>
+     * @returns {D3D_PRIMITIVE} Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/d3dcommon/ne-d3dcommon-d3d_primitive">D3D_PRIMITIVE</a></b>
      * 
      * The input-primitive description.  See
      *             <a href="https://docs.microsoft.com/windows/desktop/api/d3dcommon/ne-d3dcommon-d3d_primitive_topology">D3D_PRIMITIVE_TOPOLOGY</a>.
@@ -324,7 +323,7 @@ class ID3D12ShaderReflection extends IUnknown{
      * Gets the minimum feature level. (ID3D12ShaderReflection.GetMinFeatureLevel)
      * @remarks
      * This method's interface is hosted in the out-of-box DLL D3DCompiler_xx.dll.
-     * @returns {Integer} 
+     * @returns {D3D_FEATURE_LEVEL} 
      * @see https://learn.microsoft.com/windows/win32/api/d3d12shader/nf-d3d12shader-id3d12shaderreflection-getminfeaturelevel
      */
     GetMinFeatureLevel() {

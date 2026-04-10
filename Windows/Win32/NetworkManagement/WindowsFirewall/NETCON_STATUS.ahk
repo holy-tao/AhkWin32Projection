@@ -5,9 +5,8 @@
  * The NETCON_STATUS type enumerates possible status conditions for a network connection.
  * @see https://learn.microsoft.com/windows/win32/api/netcon/ne-netcon-netcon_status
  * @namespace Windows.Win32.NetworkManagement.WindowsFirewall
- * @version v4.0.30319
  */
-class NETCON_STATUS extends Win32Enum{
+class NETCON_STATUS extends Win32Enum {
 
     /**
      * The connection is disconnected.
@@ -88,19 +87,16 @@ class NETCON_STATUS extends Win32Enum{
     static NCS_CREDENTIALS_REQUIRED => 12
 
     /**
-     * 
      * @type {Integer (Int32)}
      */
     static NCS_ACTION_REQUIRED => 13
 
     /**
-     * 
      * @type {Integer (Int32)}
      */
     static NCS_ACTION_REQUIRED_RETRY => 14
 
     /**
-     * 
      * @type {Integer (Int32)}
      */
     static NCS_CONNECT_FAILED => 15

@@ -1,16 +1,14 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
-#Include ..\..\Foundation\BSTR.ahk
 #Include .\ITLegacyAddressMediaControl.ahk
 
 /**
  * The ITLegacyAddressMediaControl2 interface derives from the ITLegacyAddressMediaControl interface. ITLegacyAddressMediaControl2 provides additional methods that allow the configuration of parameters related to line devices.
  * @see https://learn.microsoft.com/windows/win32/api/tapi3if/nn-tapi3if-itlegacyaddressmediacontrol2
  * @namespace Windows.Win32.Devices.Tapi
- * @version v4.0.30319
  */
-class ITLegacyAddressMediaControl2 extends ITLegacyAddressMediaControl{
+class ITLegacyAddressMediaControl2 extends ITLegacyAddressMediaControl {
 
     static sizeof => A_PtrSize
     /**

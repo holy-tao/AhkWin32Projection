@@ -1,6 +1,7 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
 #Include ..\..\Foundation\RECT.ahk
+#Include .\COMBOBOXINFO_BUTTON_STATE.ahk
 #Include ..\..\Foundation\HWND.ahk
 
 /**
@@ -16,10 +17,8 @@
  * ```
  * @see https://learn.microsoft.com/windows/win32/api/winuser/ns-winuser-comboboxinfo
  * @namespace Windows.Win32.UI.Controls
- * @version v4.0.30319
  */
-class COMBOBOXINFO extends Win32Struct
-{
+class COMBOBOXINFO extends Win32Struct {
     static sizeof => 64
 
     static packingSize => 8
@@ -41,7 +40,7 @@ class COMBOBOXINFO extends Win32Struct
      * A <a href="https://docs.microsoft.com/windows/desktop/api/windef/ns-windef-rect">RECT</a> structure that specifies the coordinates of the edit box.
      * @type {RECT}
      */
-    rcItem{
+    rcItem {
         get {
             if(!this.HasProp("__rcItem"))
                 this.__rcItem := RECT(4, this)
@@ -55,7 +54,7 @@ class COMBOBOXINFO extends Win32Struct
      * A <a href="https://docs.microsoft.com/windows/desktop/api/windef/ns-windef-rect">RECT</a> structure that specifies the coordinates of the button that contains the drop-down arrow.
      * @type {RECT}
      */
-    rcButton{
+    rcButton {
         get {
             if(!this.HasProp("__rcButton"))
                 this.__rcButton := RECT(20, this)
@@ -65,7 +64,7 @@ class COMBOBOXINFO extends Win32Struct
 
     /**
      * Type: <b><a href="https://docs.microsoft.com/windows/desktop/WinProg/windows-data-types">DWORD</a></b>
-     * @type {Integer}
+     * @type {COMBOBOXINFO_BUTTON_STATE}
      */
     stateButton {
         get => NumGet(this, 36, "uint")
@@ -78,7 +77,7 @@ class COMBOBOXINFO extends Win32Struct
      * A handle to the combo box.
      * @type {HWND}
      */
-    hwndCombo{
+    hwndCombo {
         get {
             if(!this.HasProp("__hwndCombo"))
                 this.__hwndCombo := HWND(40, this)
@@ -92,7 +91,7 @@ class COMBOBOXINFO extends Win32Struct
      * A handle to the edit box.
      * @type {HWND}
      */
-    hwndItem{
+    hwndItem {
         get {
             if(!this.HasProp("__hwndItem"))
                 this.__hwndItem := HWND(48, this)
@@ -106,7 +105,7 @@ class COMBOBOXINFO extends Win32Struct
      * A handle to the drop-down list.
      * @type {HWND}
      */
-    hwndList{
+    hwndList {
         get {
             if(!this.HasProp("__hwndList"))
                 this.__hwndList := HWND(56, this)

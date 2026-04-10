@@ -1,13 +1,13 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
 #Include .\TOUCHPAD_PARAMETERS_V1.ahk
+#Include .\LEGACY_TOUCHPAD_FEATURES.ahk
+#Include .\TOUCHPAD_SENSITIVITY_LEVEL.ahk
 
 /**
  * @namespace Windows.Win32.UI.WindowsAndMessaging
- * @version v4.0.30319
  */
-class TOUCHPAD_PARAMETERS_V2 extends Win32Struct
-{
+class TOUCHPAD_PARAMETERS_V2 extends Win32Struct {
     static sizeof => 48
 
     static packingSize => 4
@@ -15,7 +15,7 @@ class TOUCHPAD_PARAMETERS_V2 extends Win32Struct
     /**
      * @type {TOUCHPAD_PARAMETERS_V1}
      */
-    Base{
+    Base {
         get {
             if(!this.HasProp("__Base"))
                 this.__Base := TOUCHPAD_PARAMETERS_V1(0, this)

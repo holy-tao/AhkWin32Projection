@@ -5,10 +5,8 @@
  * The DNS_RECORD_FLAGS structure is used to set flags for use in the DNS_RECORD structure.
  * @see https://learn.microsoft.com/windows/win32/api/windns/ns-windns-dns_record_flags
  * @namespace Windows.Win32.NetworkManagement.Dns
- * @version v4.0.30319
  */
-class DNS_RECORD_FLAGS extends Win32Struct
-{
+class DNS_RECORD_FLAGS extends Win32Struct {
     static sizeof => 4
 
     static packingSize => 4
@@ -28,8 +26,6 @@ class DNS_RECORD_FLAGS extends Win32Struct
     }
 
     /**
-     * A <a href="https://docs.microsoft.com/windows/win32/api/windns/ne-windns-dns_section">DNS_SECTION</a> value that specifies the section of interest returned from the 
-     * <a href="https://docs.microsoft.com/windows/desktop/api/windns/nf-windns-dnsquery_a">DnsQuery</a> function call.
      * @type {Integer}
      */
     Section {
@@ -38,7 +34,6 @@ class DNS_RECORD_FLAGS extends Win32Struct
     }
 
     /**
-     * Reserved. Do not use.
      * @type {Integer}
      */
     Delete {
@@ -47,7 +42,6 @@ class DNS_RECORD_FLAGS extends Win32Struct
     }
 
     /**
-     * A <a href="https://docs.microsoft.com/windows/desktop/api/windns/ne-windns-dns_charset">DNS_CHARSET</a> value that specifies the character set used in the associated function call.
      * @type {Integer}
      */
     CharSet {
@@ -56,7 +50,6 @@ class DNS_RECORD_FLAGS extends Win32Struct
     }
 
     /**
-     * Reserved. Do not use.
      * @type {Integer}
      */
     Unused {

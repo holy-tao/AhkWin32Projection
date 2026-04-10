@@ -1,8 +1,8 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
-#Include ..\..\Foundation\BSTR.ahk
 #Include ..\..\System\Com\IUnknown.ahk
+#Include ..\..\Foundation\BSTR.ahk
 
 /**
  * The ITfInputScope interface is used by the text input processors to get the InputScope value that represents a document context associated with a window.
@@ -16,9 +16,8 @@
  * </ol>
  * @see https://learn.microsoft.com/windows/win32/api/inputscope/nn-inputscope-itfinputscope
  * @namespace Windows.Win32.UI.TextServices
- * @version v4.0.30319
  */
-class ITfInputScope extends IUnknown{
+class ITfInputScope extends IUnknown {
 
     static sizeof => A_PtrSize
     /**
@@ -41,7 +40,7 @@ class ITfInputScope extends IUnknown{
 
     /**
      * ITfInputScope::GetInputScopes method
-     * @param {Pointer<Pointer<Integer>>} pprgInputScopes Pointer to an array of pointers to the input scopes. The calling function must call <b>CoTaskMemFree()</b> to free the buffer.
+     * @param {Pointer<Pointer<InputScope>>} pprgInputScopes Pointer to an array of pointers to the input scopes. The calling function must call <b>CoTaskMemFree()</b> to free the buffer.
      * @param {Pointer<Integer>} pcCount Pointer to the number of input scopes returned.
      * @returns {HRESULT} This method can return one of these values.
      * 

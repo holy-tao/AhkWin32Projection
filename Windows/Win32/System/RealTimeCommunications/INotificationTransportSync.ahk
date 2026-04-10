@@ -5,9 +5,8 @@
 
 /**
  * @namespace Windows.Win32.System.RealTimeCommunications
- * @version v4.0.30319
  */
-class INotificationTransportSync extends IUnknown{
+class INotificationTransportSync extends IUnknown {
 
     static sizeof => A_PtrSize
     /**

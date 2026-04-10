@@ -13,9 +13,8 @@
  * <div class="code"></div>
  * @see https://learn.microsoft.com/windows/win32/api/appxpackaging/nn-appxpackaging-iappxblockmapblock
  * @namespace Windows.Win32.Storage.Packaging.Appx
- * @version v4.0.30319
  */
-class IAppxBlockMapBlock extends IUnknown{
+class IAppxBlockMapBlock extends IUnknown {
 
     static sizeof => A_PtrSize
     /**
@@ -45,7 +44,9 @@ class IAppxBlockMapBlock extends IUnknown{
      * @param {Pointer<Integer>} bufferSize Type: <b><a href="https://docs.microsoft.com/windows/desktop/WinProg/windows-data-types">UINT32</a>*</b>
      * 
      * The length of  <i>buffer</i>.
-     * @returns {Pointer<Integer>} 
+     * @returns {Pointer<Integer>} Type: <b><a href="https://docs.microsoft.com/windows/desktop/WinProg/windows-data-types">BYTE</a>**</b>
+     * 
+     * The byte sequence representing the hash value of the block.
      * @see https://learn.microsoft.com/windows/win32/api/appxpackaging/nf-appxpackaging-iappxblockmapblock-gethash
      */
     GetHash(bufferSize) {
@@ -61,7 +62,9 @@ class IAppxBlockMapBlock extends IUnknown{
      * This size corresponds to the compressed size of the block. 
      * 
      * The <i>size</i> value corresponds to the <b>Size</b> attribute of the <a href="https://docs.microsoft.com/uwp/schemas/blockmapschema/element-block">Block</a> element in the block map.
-     * @returns {Integer} 
+     * @returns {Integer} Type: <b><a href="https://docs.microsoft.com/windows/desktop/WinProg/windows-data-types">UINT32</a>*</b>
+     * 
+     * The compressed size of the block, in bytes.
      * @see https://learn.microsoft.com/windows/win32/api/appxpackaging/nf-appxpackaging-iappxblockmapblock-getcompressedsize
      */
     GetCompressedSize() {

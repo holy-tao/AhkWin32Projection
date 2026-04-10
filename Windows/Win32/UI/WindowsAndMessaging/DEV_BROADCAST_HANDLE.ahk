@@ -7,10 +7,8 @@
  * Contains information about a file system handle.
  * @see https://learn.microsoft.com/windows/win32/api/dbt/ns-dbt-dev_broadcast_handle
  * @namespace Windows.Win32.UI.WindowsAndMessaging
- * @version v4.0.30319
  */
-class DEV_BROADCAST_HANDLE extends Win32Struct
-{
+class DEV_BROADCAST_HANDLE extends Win32Struct {
     static sizeof => 48
 
     static packingSize => 8
@@ -46,7 +44,7 @@ class DEV_BROADCAST_HANDLE extends Win32Struct
      * A handle to the device to be checked.
      * @type {HANDLE}
      */
-    dbch_handle{
+    dbch_handle {
         get {
             if(!this.HasProp("__dbch_handle"))
                 this.__dbch_handle := HANDLE(16, this)
@@ -59,7 +57,7 @@ class DEV_BROADCAST_HANDLE extends Win32Struct
      * <a href="https://docs.microsoft.com/windows/desktop/api/winuser/nf-winuser-registerdevicenotificationa">RegisterDeviceNotification</a>.
      * @type {HDEVNOTIFY}
      */
-    dbch_hdevnotify{
+    dbch_hdevnotify {
         get {
             if(!this.HasProp("__dbch_hdevnotify"))
                 this.__dbch_hdevnotify := HDEVNOTIFY(24, this)
@@ -70,7 +68,7 @@ class DEV_BROADCAST_HANDLE extends Win32Struct
     /**
      * The GUID for the custom event. For more information, see 
      * <a href="https://docs.microsoft.com/windows/desktop/DevIO/device-events">Device Events</a>.  Valid only for <a href="https://docs.microsoft.com/windows/desktop/DevIO/dbt-customevent">DBT_CUSTOMEVENT</a>.
-     * @type {Pointer<Guid>}
+     * @type {Pointer}
      */
     dbch_eventguid {
         get => NumGet(this, 32, "ptr")
@@ -88,9 +86,9 @@ class DEV_BROADCAST_HANDLE extends Win32Struct
 
     /**
      * Optional binary data.  This member is valid only for <a href="https://docs.microsoft.com/windows/desktop/DevIO/dbt-customevent">DBT_CUSTOMEVENT</a>.
-     * @type {Array<Byte>}
+     * @type {Array<Integer>}
      */
-    dbch_data{
+    dbch_data {
         get {
             if(!this.HasProp("__dbch_dataProxyArray"))
                 this.__dbch_dataProxyArray := Win32FixedArray(this.ptr + 44, 1, Primitive, "char")

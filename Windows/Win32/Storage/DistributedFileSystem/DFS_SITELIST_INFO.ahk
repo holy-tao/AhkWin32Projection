@@ -4,11 +4,9 @@
 
 /**
  * @namespace Windows.Win32.Storage.DistributedFileSystem
- * @version v4.0.30319
  */
-class DFS_SITELIST_INFO extends Win32Struct
-{
-    static sizeof => 16
+class DFS_SITELIST_INFO extends Win32Struct {
+    static sizeof => 24
 
     static packingSize => 8
 
@@ -21,9 +19,9 @@ class DFS_SITELIST_INFO extends Win32Struct
     }
 
     /**
-     * @type {Array<DFS_SITENAME_INFO>}
+     * @type {DFS_SITENAME_INFO}
      */
-    Site{
+    Site {
         get {
             if(!this.HasProp("__SiteProxyArray"))
                 this.__SiteProxyArray := Win32FixedArray(this.ptr + 8, 1, DFS_SITENAME_INFO, "")

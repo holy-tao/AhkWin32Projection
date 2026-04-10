@@ -21,9 +21,8 @@
  * If neither of these flags is set, the MFT never discards output data.
  * @see https://learn.microsoft.com/windows/win32/api/mftransform/ne-mftransform-_mft_output_stream_info_flags
  * @namespace Windows.Win32.Media.MediaFoundation
- * @version v4.0.30319
  */
-class _MFT_OUTPUT_STREAM_INFO_FLAGS extends Win32Enum{
+class _MFT_OUTPUT_STREAM_INFO_FLAGS extends Win32Enum {
 
     /**
      * Each media sample (<a href="https://docs.microsoft.com/windows/desktop/api/mfobjects/nn-mfobjects-imfsample">IMFSample</a> interface) of output data from the MFT contains complete, unbroken units of data. The definition of a <i>unit of data</i> depends on the media type: For uncompressed video, a video frame; for compressed data, a compressed packet; for uncompressed audio, a single audio frame.

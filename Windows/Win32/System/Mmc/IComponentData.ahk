@@ -1,17 +1,16 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
+#Include ..\Com\IUnknown.ahk
 #Include .\IComponent.ahk
 #Include ..\Com\IDataObject.ahk
-#Include ..\Com\IUnknown.ahk
 
 /**
  * The IComponentData interface enables MMC to communicate with snap-ins. Similar to the IComponent interface, IComponentData is typically implemented at the document level and is closely associated with items (folders) being displayed in the scope pane.
  * @see https://learn.microsoft.com/windows/win32/api/mmc/nn-mmc-icomponentdata
  * @namespace Windows.Win32.System.Mmc
- * @version v4.0.30319
  */
-class IComponentData extends IUnknown{
+class IComponentData extends IUnknown {
 
     static sizeof => A_PtrSize
     /**
@@ -66,7 +65,7 @@ class IComponentData extends IUnknown{
      * @remarks
      * For more information, see the individual notifications. The snap-in should return <b>S_FALSE</b> for any notification it does not handle.
      * @param {IDataObject} lpDataObject A pointer to the data object of the currently selected item.
-     * @param {Integer} event Identifies an action taken by a user. <b>IComponentData::Notify</b> can receive the following notifications:
+     * @param {MMC_NOTIFY_TYPE} event Identifies an action taken by a user. <b>IComponentData::Notify</b> can receive the following notifications:
      * 
      * 
      * <a href="https://docs.microsoft.com/previous-versions/windows/desktop/mmc/mmcn-btn-click">MMCN_BTN_CLICK</a>
@@ -134,7 +133,7 @@ class IComponentData extends IUnknown{
      * <a href="https://docs.microsoft.com/windows/desktop/api/mmc/nn-mmc-iextendpropertysheet2">IExtendPropertySheet2</a>, and 
      * <a href="https://docs.microsoft.com/windows/desktop/api/mmc/nn-mmc-ipropertysheetprovider">IPropertySheetProvider</a>.
      * @param {Pointer} cookie A value that specifies the unique identifier for which the data object is required.
-     * @param {Integer} type A value that specifies the data object as one of the following:
+     * @param {DATA_OBJECT_TYPES} type A value that specifies the data object as one of the following:
      * @returns {IDataObject} A pointer to the address of the returned data object.
      * @see https://learn.microsoft.com/windows/win32/api/mmc/nf-mmc-icomponentdata-querydataobject
      */

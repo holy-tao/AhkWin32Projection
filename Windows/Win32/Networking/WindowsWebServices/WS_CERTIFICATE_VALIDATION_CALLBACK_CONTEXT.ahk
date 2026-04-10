@@ -5,10 +5,8 @@
  * The WS_CERTIFICATE_VALIDATION_CALLBACK_CONTEXT structure contains the callback function and state for validating the certificate for an HTTP connection.
  * @see https://learn.microsoft.com/windows/win32/api/webservices/ns-webservices-ws_certificate_validation_callback_context
  * @namespace Windows.Win32.Networking.WindowsWebServices
- * @version v4.0.30319
  */
-class WS_CERTIFICATE_VALIDATION_CALLBACK_CONTEXT extends Win32Struct
-{
+class WS_CERTIFICATE_VALIDATION_CALLBACK_CONTEXT extends Win32Struct {
     static sizeof => 16
 
     static packingSize => 8

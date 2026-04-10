@@ -18,9 +18,8 @@
  *      <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/ddpbackup/nn-ddpbackup-idedupreadfilecallback">IDedupReadFileCallback</a> interface.
  * @see https://learn.microsoft.com/windows/win32/api/ddpbackup/nn-ddpbackup-idedupbackupsupport
  * @namespace Windows.Win32.Storage.DataDeduplication
- * @version v4.0.30319
  */
-class IDedupBackupSupport extends IUnknown{
+class IDedupBackupSupport extends IUnknown {
 
     static sizeof => A_PtrSize
     /**

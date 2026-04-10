@@ -5,10 +5,8 @@
  * The LINEAGENTENTRY structure describes an individual ACD agent. The LINEAGENTLIST structure can contain an array of LINEAGENTENTRY structures.
  * @see https://learn.microsoft.com/windows/win32/api/tapi/ns-tapi-lineagententry
  * @namespace Windows.Win32.Devices.Tapi
- * @version v4.0.30319
  */
-class LINEAGENTENTRY extends Win32Struct
-{
+class LINEAGENTENTRY extends Win32Struct {
     static sizeof => 28
 
     static packingSize => 4

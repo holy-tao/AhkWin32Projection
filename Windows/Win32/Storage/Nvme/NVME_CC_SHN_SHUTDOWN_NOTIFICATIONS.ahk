@@ -7,9 +7,8 @@
  * Use the CC shutdown notification values from this enumeration in the **SHN** field (offset 14h) of the [NVME_CONTROLLER_CONFIGURATION](ns-nvme-nvme_controller_configuration.md) structure.
  * @see https://learn.microsoft.com/windows/win32/api/nvme/ne-nvme-nvme_cc_shn_shutdown_notifications
  * @namespace Windows.Win32.Storage.Nvme
- * @version v4.0.30319
  */
-class NVME_CC_SHN_SHUTDOWN_NOTIFICATIONS extends Win32Enum{
+class NVME_CC_SHN_SHUTDOWN_NOTIFICATIONS extends Win32Enum {
 
     /**
      * No notification and no effect.

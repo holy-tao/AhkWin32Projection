@@ -7,9 +7,8 @@
  * Implement the IBackgroundCopyCallback1 interface to receive notification when events occur.
  * @see https://learn.microsoft.com/windows/win32/api/qmgr/nn-qmgr-ibackgroundcopycallback1
  * @namespace Windows.Win32.Networking.BackgroundIntelligentTransferService
- * @version v4.0.30319
  */
-class IBackgroundCopyCallback1 extends IUnknown{
+class IBackgroundCopyCallback1 extends IUnknown {
 
     static sizeof => A_PtrSize
     /**

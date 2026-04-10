@@ -1,17 +1,15 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
-#Include ..\..\Foundation\BSTR.ahk
-#Include .\JChColorF.ahk
 #Include ..\..\System\Com\IUnknown.ahk
+#Include .\JChColorF.ahk
 
 /**
  * Describes the methods that are defined for the IGamutMapModelPlugIn Component Object Model (COM) interface.
  * @see https://learn.microsoft.com/windows/win32/api/wcsplugin/nn-wcsplugin-igamutmapmodelplugin
  * @namespace Windows.Win32.UI.ColorSystem
- * @version v4.0.30319
  */
-class IGamutMapModelPlugIn extends IUnknown{
+class IGamutMapModelPlugIn extends IUnknown {
 
     static sizeof => A_PtrSize
     /**

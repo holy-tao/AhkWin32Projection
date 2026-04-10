@@ -5,9 +5,8 @@
  * The HTTP_HEADER_ID enumeration type lists known headers for HTTP requests and responses, and associates an array index with each such header.
  * @see https://learn.microsoft.com/windows/win32/api/http/ne-http-http_header_id
  * @namespace Windows.Win32.Networking.HttpServer
- * @version v4.0.30319
  */
-class HTTP_HEADER_ID extends Win32Enum{
+class HTTP_HEADER_ID extends Win32Enum {
 
     /**
      * Used to specify caching behavior along the request or response chain, overriding the default caching algorithm.

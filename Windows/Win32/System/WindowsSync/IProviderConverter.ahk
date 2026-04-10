@@ -9,9 +9,8 @@
  * <b>IProviderConverter</b> is typically implemented by the developer of the custom provider that it converts.
  * @see https://learn.microsoft.com/windows/win32/api/winsync/nn-winsync-iproviderconverter
  * @namespace Windows.Win32.System.WindowsSync
- * @version v4.0.30319
  */
-class IProviderConverter extends IUnknown{
+class IProviderConverter extends IUnknown {
 
     static sizeof => A_PtrSize
     /**

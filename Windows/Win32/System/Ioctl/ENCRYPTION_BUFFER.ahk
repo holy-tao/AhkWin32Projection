@@ -3,10 +3,8 @@
 
 /**
  * @namespace Windows.Win32.System.Ioctl
- * @version v4.0.30319
  */
-class ENCRYPTION_BUFFER extends Win32Struct
-{
+class ENCRYPTION_BUFFER extends Win32Struct {
     static sizeof => 8
 
     static packingSize => 4
@@ -20,9 +18,9 @@ class ENCRYPTION_BUFFER extends Win32Struct
     }
 
     /**
-     * @type {Array<Byte>}
+     * @type {Array<Integer>}
      */
-    Private{
+    Private {
         get {
             if(!this.HasProp("__PrivateProxyArray"))
                 this.__PrivateProxyArray := Win32FixedArray(this.ptr + 4, 1, Primitive, "char")

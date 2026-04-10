@@ -24,9 +24,8 @@
  * ```
  * @see https://learn.microsoft.com/windows/win32/api/webservices/ne-webservices-ws_xml_node_type
  * @namespace Windows.Win32.Networking.WindowsWebServices
- * @version v4.0.30319
  */
-class WS_XML_NODE_TYPE extends Win32Enum{
+class WS_XML_NODE_TYPE extends Win32Enum {
 
     /**
      * A start element. (e.g. &lt;a:purchaseOrder xmlns:a="http://tempuri.org" id="5"&gt;)

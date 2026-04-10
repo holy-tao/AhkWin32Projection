@@ -39,9 +39,8 @@
  * </table>
  * @see https://learn.microsoft.com/windows/win32/api/faxcomex/ne-faxcomex-fax_account_events_type_enum
  * @namespace Windows.Win32.Devices.Fax
- * @version v4.0.30319
  */
-class FAX_ACCOUNT_EVENTS_TYPE_ENUM extends Win32Enum{
+class FAX_ACCOUNT_EVENTS_TYPE_ENUM extends Win32Enum {
 
     /**
      * No notifications are sent.

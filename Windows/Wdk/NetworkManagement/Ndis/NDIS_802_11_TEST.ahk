@@ -3,11 +3,9 @@
 
 /**
  * @namespace Windows.Wdk.NetworkManagement.Ndis
- * @version v4.0.30319
  */
-class NDIS_802_11_TEST extends Win32Struct
-{
-    static sizeof => 24
+class NDIS_802_11_TEST extends Win32Struct {
+    static sizeof => 16
 
     static packingSize => 8
 
@@ -28,7 +26,7 @@ class NDIS_802_11_TEST extends Win32Struct
     }
 
     /**
-     * @type {Pointer<NDIS_802_11_AUTHENTICATION_EVENT>}
+     * @type {Pointer}
      */
     AuthenticationEvent {
         get => NumGet(this, 8, "ptr")

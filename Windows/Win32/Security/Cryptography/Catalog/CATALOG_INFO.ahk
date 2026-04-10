@@ -5,10 +5,8 @@
  * The CATALOG_INFO structure contains the name of a catalog file. This structure is used by the CryptCATCatalogInfoFromContext function.
  * @see https://learn.microsoft.com/windows/win32/api/mscat/ns-mscat-catalog_info
  * @namespace Windows.Win32.Security.Cryptography.Catalog
- * @version v4.0.30319
  */
-class CATALOG_INFO extends Win32Struct
-{
+class CATALOG_INFO extends Win32Struct {
     static sizeof => 524
 
     static packingSize => 4

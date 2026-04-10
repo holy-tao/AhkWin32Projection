@@ -25,9 +25,8 @@
  * <div> </div>
  * @see https://learn.microsoft.com/windows/win32/api/audiopolicy/nn-audiopolicy-iaudiosessionnotification
  * @namespace Windows.Win32.Media.Audio
- * @version v4.0.30319
  */
-class IAudioSessionNotification extends IUnknown{
+class IAudioSessionNotification extends IUnknown {
 
     static sizeof => A_PtrSize
     /**

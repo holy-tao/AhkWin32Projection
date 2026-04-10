@@ -5,9 +5,8 @@
  * Indicate whether the method should try to return a name in the pwcsName member of the STATSTG structure.
  * @see https://learn.microsoft.com/windows/win32/api/wtypes/ne-wtypes-statflag
  * @namespace Windows.Win32.System.Com
- * @version v4.0.30319
  */
-class STATFLAG extends Win32Enum{
+class STATFLAG extends Win32Enum {
 
     /**
      * Requests that the statistics include the <b>pwcsName</b> member of the 

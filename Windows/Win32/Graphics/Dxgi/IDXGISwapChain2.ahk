@@ -1,9 +1,9 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
+#Include .\IDXGISwapChain1.ahk
 #Include ..\..\Foundation\HANDLE.ahk
 #Include .\DXGI_MATRIX_3X2_F.ahk
-#Include .\IDXGISwapChain1.ahk
 
 /**
  * Extends IDXGISwapChain1 with methods to support swap back buffer scaling and lower-latency swap chains.
@@ -12,9 +12,8 @@
  * calling <a href="https://docs.microsoft.com/windows/desktop/api/dxgi1_2/nf-dxgi1_2-idxgifactory2-createswapchainforhwnd">IDXGIFactory2::CreateSwapChainForHwnd</a>, <a href="https://docs.microsoft.com/windows/desktop/api/dxgi1_2/nf-dxgi1_2-idxgifactory2-createswapchainforcorewindow">IDXGIFactory2::CreateSwapChainForCoreWindow</a>, or <a href="https://docs.microsoft.com/windows/desktop/api/dxgi1_2/nf-dxgi1_2-idxgifactory2-createswapchainforcomposition">IDXGIFactory2::CreateSwapChainForComposition</a>.
  * @see https://learn.microsoft.com/windows/win32/api/dxgi1_3/nn-dxgi1_3-idxgiswapchain2
  * @namespace Windows.Win32.Graphics.Dxgi
- * @version v4.0.30319
  */
-class IDXGISwapChain2 extends IDXGISwapChain1{
+class IDXGISwapChain2 extends IDXGISwapChain1 {
 
     static sizeof => A_PtrSize
     /**

@@ -7,9 +7,8 @@
  * The IUPnPAsyncResult interface is used to notify the UPnP control point of a completed asynchronous I/O operation.
  * @see https://learn.microsoft.com/windows/win32/api/upnp/nn-upnp-iupnpasyncresult
  * @namespace Windows.Win32.Devices.Enumeration.Pnp
- * @version v4.0.30319
  */
-class IUPnPAsyncResult extends IUnknown{
+class IUPnPAsyncResult extends IUnknown {
 
     static sizeof => A_PtrSize
     /**

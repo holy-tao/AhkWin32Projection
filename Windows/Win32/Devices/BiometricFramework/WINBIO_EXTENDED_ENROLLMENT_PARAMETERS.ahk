@@ -7,10 +7,8 @@
  * The Windows Biometric Framework passes this structure to the [**EngineAdapterSetEnrollmentParameters**](/windows/desktop/api/Winbio_adapter/nc-winbio_adapter-pibio_engine_set_enrollment_parameters_fn) method during an enrollment operation.
  * @see https://learn.microsoft.com/windows/win32/SecBioMet/winbio-extended-enrollment-parameters
  * @namespace Windows.Win32.Devices.BiometricFramework
- * @version v4.0.30319
  */
-class WINBIO_EXTENDED_ENROLLMENT_PARAMETERS extends Win32Struct
-{
+class WINBIO_EXTENDED_ENROLLMENT_PARAMETERS extends Win32Struct {
     static sizeof => 16
 
     static packingSize => 8

@@ -1,16 +1,15 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
-#Include ..\..\Foundation\BSTR.ahk
 #Include ..\..\System\Com\IDispatch.ahk
+#Include ..\..\Foundation\BSTR.ahk
 
 /**
  * Represents an item ID range to exclude from a knowledge object.
  * @see https://learn.microsoft.com/windows/win32/api/winsync/nn-winsync-irangeexception
  * @namespace Windows.Win32.Web.MsHtml
- * @version v4.0.30319
  */
-class IRangeException extends IDispatch{
+class IRangeException extends IDispatch {
 
     static sizeof => A_PtrSize
     /**

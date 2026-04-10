@@ -23,10 +23,8 @@
  * On the Microsoft Windows Software Development Kit (SDK) released for Windows Vista and later, the organization of header files has changed. This  structure is defined in the <i>Tcpmib.h</i> header file, not in the <i>Iprtrmib.h</i> header file. Note that the <i>Tcpmib.h</i> header file is automatically included in <i>Iprtrmib.h</i>, which is automatically included in the <i>Iphlpapi.h</i> header file. The  <i>Tcpmib.h</i> and <i>Iprtrmib.h</i> header files should never be used directly.
  * @see https://learn.microsoft.com/windows/win32/api/tcpmib/ns-tcpmib-mib_tcp6row_owner_pid
  * @namespace Windows.Win32.NetworkManagement.IpHelper
- * @version v4.0.30319
  */
-class MIB_TCP6ROW_OWNER_PID extends Win32Struct
-{
+class MIB_TCP6ROW_OWNER_PID extends Win32Struct {
     static sizeof => 56
 
     static packingSize => 4
@@ -35,9 +33,9 @@ class MIB_TCP6ROW_OWNER_PID extends Win32Struct
      * Type: <b>UCHAR[16]</b>
      * 
      * The IPv6 address for the local endpoint of the TCP connection on the local computer. A value of zero indicates the listener  can accept a connection on any interface.
-     * @type {Array<Byte>}
+     * @type {Array<Integer>}
      */
-    ucLocalAddr{
+    ucLocalAddr {
         get {
             if(!this.HasProp("__ucLocalAddrProxyArray"))
                 this.__ucLocalAddrProxyArray := Win32FixedArray(this.ptr + 0, 16, Primitive, "char")
@@ -71,9 +69,9 @@ class MIB_TCP6ROW_OWNER_PID extends Win32Struct
      * Type: <b>UCHAR[16]</b>
      * 
      * The IPv6 address of the remote endpoint of the TCP connection on the remote computer. When the <b>dwState</b> member is <b>MIB_TCP_STATE_LISTEN</b>, this value has no meaning.
-     * @type {Array<Byte>}
+     * @type {Array<Integer>}
      */
-    ucRemoteAddr{
+    ucRemoteAddr {
         get {
             if(!this.HasProp("__ucRemoteAddrProxyArray"))
                 this.__ucRemoteAddrProxyArray := Win32FixedArray(this.ptr + 24, 16, Primitive, "char")

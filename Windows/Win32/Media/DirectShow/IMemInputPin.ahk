@@ -1,17 +1,16 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
+#Include ..\..\System\Com\IUnknown.ahk
 #Include .\IMemAllocator.ahk
 #Include .\ALLOCATOR_PROPERTIES.ahk
-#Include ..\..\System\Com\IUnknown.ahk
 
 /**
  * The IMemInputPin interface delivers media data to an input pin.
  * @see https://learn.microsoft.com/windows/win32/api/strmif/nn-strmif-imeminputpin
  * @namespace Windows.Win32.Media.DirectShow
- * @version v4.0.30319
  */
-class IMemInputPin extends IUnknown{
+class IMemInputPin extends IUnknown {
 
     static sizeof => A_PtrSize
     /**

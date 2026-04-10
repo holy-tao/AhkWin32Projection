@@ -4,7 +4,6 @@
 
 /**
  * @namespace Windows.Wdk.System.IO
- * @version v4.0.30319
  */
 class IO {
 
@@ -29,9 +28,9 @@ class IO {
      * @param {Pointer<Void>} ApcContext A pointer to pass to <i>ApcRoutine</i> when the operation completes. This parameter is required if an <i>ApcRoutine</i> is specified.
      * @param {Pointer<IO_STATUS_BLOCK>} IoStatusBlock Variable to receive the final completion status and information about the operation. Service calls that return information return the length of the data that is written to the output buffer in the Information field of this variable.
      * @param {Integer} IoControlCode Code that indicates which device I/O control function is to be executed.
-     * @param {Pointer} InputBuffer A pointer to a buffer that contains the information to be given to the target device. This parameter can be <b>NULL</b>. This information is device-dependent.
+     * @param {Integer} InputBuffer A pointer to a buffer that contains the information to be given to the target device. This parameter can be <b>NULL</b>. This information is device-dependent.
      * @param {Integer} InputBufferLength Length of the <i>InputBuffer</i> in bytes. If the buffer is not supplied, then this value is ignored.
-     * @param {Pointer} OutputBuffer A pointer to a buffer that is to receive the device-dependent return information from the target device. This parameter can be <b>NULL</b>.
+     * @param {Integer} OutputBuffer A pointer to a buffer that is to receive the device-dependent return information from the target device. This parameter can be <b>NULL</b>.
      * @param {Integer} OutputBufferLength Length of the <i>OutputBuffer</i> in bytes. If the buffer is not supplied, then this value is ignored.
      * @returns {NTSTATUS} The various NTSTATUS values are defined in NTSTATUS.H, which is distributed with the Windows DDK.
      * 

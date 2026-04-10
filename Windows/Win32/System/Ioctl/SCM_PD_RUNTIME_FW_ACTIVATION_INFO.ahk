@@ -1,12 +1,12 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
+#Include .\SCM_PD_LAST_FW_ACTIVATION_STATUS.ahk
+#Include .\SCM_PD_FIRMWARE_ACTIVATION_STATE.ahk
 
 /**
  * @namespace Windows.Win32.System.Ioctl
- * @version v4.0.30319
  */
-class SCM_PD_RUNTIME_FW_ACTIVATION_INFO extends Win32Struct
-{
+class SCM_PD_RUNTIME_FW_ACTIVATION_INFO extends Win32Struct {
     static sizeof => 16
 
     static packingSize => 4
@@ -28,7 +28,7 @@ class SCM_PD_RUNTIME_FW_ACTIVATION_INFO extends Win32Struct
     }
 
     /**
-     * @type {Integer}
+     * @type {SCM_PD_LAST_FW_ACTIVATION_STATUS}
      */
     LastFirmwareActivationStatus {
         get => NumGet(this, 8, "int")
@@ -36,7 +36,7 @@ class SCM_PD_RUNTIME_FW_ACTIVATION_INFO extends Win32Struct
     }
 
     /**
-     * @type {Integer}
+     * @type {SCM_PD_FIRMWARE_ACTIVATION_STATE}
      */
     FirmwareActivationState {
         get => NumGet(this, 12, "int")

@@ -5,10 +5,8 @@
  * Represents IP information for a NetName resource.
  * @see https://learn.microsoft.com/windows/win32/api/clusapi/ns-clusapi-clus_netname_ip_info_entry
  * @namespace Windows.Win32.Networking.Clustering
- * @version v4.0.30319
  */
-class CLUS_NETNAME_IP_INFO_ENTRY extends Win32Struct
-{
+class CLUS_NETNAME_IP_INFO_ENTRY extends Win32Struct {
     static sizeof => 12
 
     static packingSize => 4
@@ -33,9 +31,9 @@ class CLUS_NETNAME_IP_INFO_ENTRY extends Win32Struct
 
     /**
      * A byte array that contains the address of the NetName.
-     * @type {Array<Byte>}
+     * @type {Array<Integer>}
      */
-    Address{
+    Address {
         get {
             if(!this.HasProp("__AddressProxyArray"))
                 this.__AddressProxyArray := Win32FixedArray(this.ptr + 8, 1, Primitive, "char")

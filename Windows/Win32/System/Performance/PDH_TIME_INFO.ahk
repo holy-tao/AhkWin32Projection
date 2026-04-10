@@ -5,10 +5,8 @@
  * The PDH_TIME_INFO structure contains information on time intervals as applied to the sampling of performance data.
  * @see https://learn.microsoft.com/windows/win32/api/pdh/ns-pdh-pdh_time_info
  * @namespace Windows.Win32.System.Performance
- * @version v4.0.30319
  */
-class PDH_TIME_INFO extends Win32Struct
-{
+class PDH_TIME_INFO extends Win32Struct {
     static sizeof => 24
 
     static packingSize => 8

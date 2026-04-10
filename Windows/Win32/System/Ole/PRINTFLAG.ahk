@@ -3,9 +3,8 @@
 
 /**
  * @namespace Windows.Win32.System.Ole
- * @version v4.0.30319
  */
-class PRINTFLAG extends Win32BitflagEnum{
+class PRINTFLAG extends Win32BitflagEnum {
 
     /**
      * @type {Integer (Int32)}

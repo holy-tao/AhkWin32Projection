@@ -5,9 +5,8 @@
  * Specifies command types.
  * @see https://learn.microsoft.com/windows/win32/api/projectedfslib/ne-projectedfslib-prj_complete_command_type
  * @namespace Windows.Win32.Storage.ProjectedFileSystem
- * @version v4.0.30319
  */
-class PRJ_COMPLETE_COMMAND_TYPE extends Win32Enum{
+class PRJ_COMPLETE_COMMAND_TYPE extends Win32Enum {
 
     /**
      * The provider is completing a call to its <a href="https://docs.microsoft.com/windows/desktop/api/projectedfslib/nc-projectedfslib-prj_notification_cb">PRJ_NOTIFICATION_CB</a> callback.

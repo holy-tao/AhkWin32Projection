@@ -7,9 +7,8 @@
  * The **IDXCoreAdapterList** interface implements methods for retrieving adapter items from a generated list, as well as details about the list.
  * @see https://learn.microsoft.com/windows/win32/api/dxcore_interface/nn-dxcore_interface-idxcoreadapterlist
  * @namespace Windows.Win32.Graphics.DXCore
- * @version v4.0.30319
  */
-class IDXCoreAdapterList extends IUnknown{
+class IDXCoreAdapterList extends IUnknown {
 
     static sizeof => A_PtrSize
     /**
@@ -106,7 +105,7 @@ class IDXCoreAdapterList extends IUnknown{
      * @param {Integer} numPreferences Type: **uint32_t**
      * 
      * The number of elements that are in the array pointed to by the *preferences* parameter.
-     * @param {Pointer<Integer>} preferences Type: **const [DXCoreAdapterPreference](/windows/win32/api/dxcore_interface/ne-dxcore_interface-dxcoreadapterpreference)\***
+     * @param {Pointer<DXCoreAdapterPreference>} preferences Type: **const [DXCoreAdapterPreference](/windows/win32/api/dxcore_interface/ne-dxcore_interface-dxcoreadapterpreference)\***
      * 
      * A pointer to a constant array of [DXCoreAdapterPreference](/windows/win32/api/dxcore_interface/ne-dxcore_interface-dxcoreadapterpreference) values, representing sort criteria.
      * @returns {HRESULT} Type: **[HRESULT](/windows/win32/com/structure-of-com-error-codes)**
@@ -127,7 +126,7 @@ class IDXCoreAdapterList extends IUnknown{
 
     /**
      * Determines whether a specified [DXCoreAdapterPreference](/windows/win32/api/dxcore_interface/ne-dxcore_interface-dxcoreadapterpreference) value is understood by the OS.
-     * @param {Integer} preference Type: **[DXCoreAdapterPreference](/windows/win32/dxcore/dxcore_interface/ne-dxcore_interface-dxcoreadapterpreference)**
+     * @param {DXCoreAdapterPreference} preference Type: **[DXCoreAdapterPreference](/windows/win32/dxcore/dxcore_interface/ne-dxcore_interface-dxcoreadapterpreference)**
      * 
      * A [DXCoreAdapterPreference](/windows/win32/dxcore/dxcore_interface/ne-dxcore_interface-dxcoreadapterpreference) value that will be checked to see whether it's supported by the OS.
      * @returns {Boolean} Type: **bool**

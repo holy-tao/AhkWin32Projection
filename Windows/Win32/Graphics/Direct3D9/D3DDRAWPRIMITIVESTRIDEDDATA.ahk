@@ -4,18 +4,16 @@
 
 /**
  * @namespace Windows.Win32.Graphics.Direct3D9
- * @version v4.0.30319
  */
-class D3DDRAWPRIMITIVESTRIDEDDATA extends Win32Struct
-{
-    static sizeof => 128
+class D3DDRAWPRIMITIVESTRIDEDDATA extends Win32Struct {
+    static sizeof => 192
 
     static packingSize => 8
 
     /**
      * @type {D3DDP_PTRSTRIDE}
      */
-    position{
+    position {
         get {
             if(!this.HasProp("__position"))
                 this.__position := D3DDP_PTRSTRIDE(0, this)
@@ -26,7 +24,7 @@ class D3DDRAWPRIMITIVESTRIDEDDATA extends Win32Struct
     /**
      * @type {D3DDP_PTRSTRIDE}
      */
-    normal{
+    normal {
         get {
             if(!this.HasProp("__normal"))
                 this.__normal := D3DDP_PTRSTRIDE(16, this)
@@ -37,7 +35,7 @@ class D3DDRAWPRIMITIVESTRIDEDDATA extends Win32Struct
     /**
      * @type {D3DDP_PTRSTRIDE}
      */
-    diffuse{
+    diffuse {
         get {
             if(!this.HasProp("__diffuse"))
                 this.__diffuse := D3DDP_PTRSTRIDE(32, this)
@@ -48,7 +46,7 @@ class D3DDRAWPRIMITIVESTRIDEDDATA extends Win32Struct
     /**
      * @type {D3DDP_PTRSTRIDE}
      */
-    specular{
+    specular {
         get {
             if(!this.HasProp("__specular"))
                 this.__specular := D3DDP_PTRSTRIDE(48, this)
@@ -57,9 +55,9 @@ class D3DDRAWPRIMITIVESTRIDEDDATA extends Win32Struct
     }
 
     /**
-     * @type {Array<D3DDP_PTRSTRIDE>}
+     * @type {D3DDP_PTRSTRIDE}
      */
-    textureCoords{
+    textureCoords {
         get {
             if(!this.HasProp("__textureCoordsProxyArray"))
                 this.__textureCoordsProxyArray := Win32FixedArray(this.ptr + 64, 8, D3DDP_PTRSTRIDE, "")

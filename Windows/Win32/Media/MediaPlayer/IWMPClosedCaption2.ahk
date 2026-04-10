@@ -7,9 +7,8 @@
  * The IWMPClosedCaption2 interface provides closed captioning methods that supplement the IWMPClosedCaption interface.
  * @see https://learn.microsoft.com/windows/win32/api/wmp/nn-wmp-iwmpclosedcaption2
  * @namespace Windows.Win32.Media.MediaPlayer
- * @version v4.0.30319
  */
-class IWMPClosedCaption2 extends IWMPClosedCaption{
+class IWMPClosedCaption2 extends IWMPClosedCaption {
 
     static sizeof => A_PtrSize
     /**

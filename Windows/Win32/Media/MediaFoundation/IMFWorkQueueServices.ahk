@@ -9,9 +9,8 @@
  * If the application is using the protected media path (PMP) session, the methods in this interface automatically marshal the calls to the PMP process.
  * @see https://learn.microsoft.com/windows/win32/api/mfidl/nn-mfidl-imfworkqueueservices
  * @namespace Windows.Win32.Media.MediaFoundation
- * @version v4.0.30319
  */
-class IMFWorkQueueServices extends IUnknown{
+class IMFWorkQueueServices extends IUnknown {
 
     static sizeof => A_PtrSize
     /**

@@ -3,10 +3,9 @@
 
 /**
  * @namespace Windows.Win32.Storage.DistributedFileSystem
- * @version v4.0.30319
+ * @architecture X64, Arm64
  */
-class DFS_INFO_4_32 extends Win32Struct
-{
+class DFS_INFO_4_32 extends Win32Struct {
     static sizeof => 32
 
     static packingSize => 8
@@ -44,7 +43,7 @@ class DFS_INFO_4_32 extends Win32Struct
     }
 
     /**
-     * @type {Pointer<Guid>}
+     * @type {Pointer}
      */
     Guid {
         get => NumGet(this, 16, "ptr")

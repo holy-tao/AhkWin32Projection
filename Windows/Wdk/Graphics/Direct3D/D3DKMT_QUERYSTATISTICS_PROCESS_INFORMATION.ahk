@@ -3,10 +3,8 @@
 
 /**
  * @namespace Windows.Wdk.Graphics.Direct3D
- * @version v4.0.30319
  */
-class D3DKMT_QUERYSTATISTICS_PROCESS_INFORMATION extends Win32Struct
-{
+class D3DKMT_QUERYSTATISTICS_PROCESS_INFORMATION extends Win32Struct {
     static sizeof => 72
 
     static packingSize => 8
@@ -28,7 +26,7 @@ class D3DKMT_QUERYSTATISTICS_PROCESS_INFORMATION extends Win32Struct
     }
 
     /**
-     * @type {Pointer<D3DKMT_QUERYSTATISTICS_SYSTEM_MEMORY>}
+     * @type {Pointer}
      */
     SystemMemory {
         get => NumGet(this, 8, "ptr")
@@ -36,9 +34,9 @@ class D3DKMT_QUERYSTATISTICS_PROCESS_INFORMATION extends Win32Struct
     }
 
     /**
-     * @type {Array<UInt64>}
+     * @type {Array<Integer>}
      */
-    Reserved{
+    Reserved {
         get {
             if(!this.HasProp("__ReservedProxyArray"))
                 this.__ReservedProxyArray := Win32FixedArray(this.ptr + 16, 7, Primitive, "uint")

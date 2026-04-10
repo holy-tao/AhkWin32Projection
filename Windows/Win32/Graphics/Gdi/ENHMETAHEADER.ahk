@@ -7,10 +7,8 @@
  * The ENHMETAHEADER structure contains enhanced-metafile data such as the dimensions of the picture stored in the enhanced metafile, the count of records in the enhanced metafile, the resolution of the device on which the picture was created, and so on.This structure is always the first record in an enhanced metafile.
  * @see https://learn.microsoft.com/windows/win32/api/wingdi/ns-wingdi-enhmetaheader
  * @namespace Windows.Win32.Graphics.Gdi
- * @version v4.0.30319
  */
-class ENHMETAHEADER extends Win32Struct
-{
+class ENHMETAHEADER extends Win32Struct {
     static sizeof => 108
 
     static packingSize => 4
@@ -38,7 +36,7 @@ class ENHMETAHEADER extends Win32Struct
      * 			 This rectangle is supplied by graphics device interface (GDI). Its dimensions include the right and bottom edges.
      * @type {RECTL}
      */
-    rclBounds{
+    rclBounds {
         get {
             if(!this.HasProp("__rclBounds"))
                 this.__rclBounds := RECTL(8, this)
@@ -51,7 +49,7 @@ class ENHMETAHEADER extends Win32Struct
      * 			 This rectangle must be supplied by the application that creates the metafile. Its dimensions include the right and bottom edges.
      * @type {RECTL}
      */
-    rclFrame{
+    rclFrame {
         get {
             if(!this.HasProp("__rclFrame"))
                 this.__rclFrame := RECTL(24, this)
@@ -146,7 +144,7 @@ class ENHMETAHEADER extends Win32Struct
      * The resolution of the reference device, in pixels.
      * @type {SIZE}
      */
-    szlDevice{
+    szlDevice {
         get {
             if(!this.HasProp("__szlDevice"))
                 this.__szlDevice := SIZE(72, this)
@@ -158,7 +156,7 @@ class ENHMETAHEADER extends Win32Struct
      * The resolution of the reference device, in millimeters.
      * @type {SIZE}
      */
-    szlMillimeters{
+    szlMillimeters {
         get {
             if(!this.HasProp("__szlMillimeters"))
                 this.__szlMillimeters := SIZE(80, this)
@@ -206,7 +204,7 @@ class ENHMETAHEADER extends Win32Struct
      * The size of the reference device, in micrometers.
      * @type {SIZE}
      */
-    szlMicrometers{
+    szlMicrometers {
         get {
             if(!this.HasProp("__szlMicrometers"))
                 this.__szlMicrometers := SIZE(100, this)

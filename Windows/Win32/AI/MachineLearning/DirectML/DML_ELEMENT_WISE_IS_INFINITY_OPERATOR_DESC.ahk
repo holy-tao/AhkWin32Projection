@@ -1,16 +1,14 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\..\Win32Struct.ahk
+#Include .\DML_TENSOR_DESC.ahk
+#Include .\DML_IS_INFINITY_MODE.ahk
 
 /**
  * Checks each element of *InputTensor* for IEEE-754 -inf, inf, or both, depending on the given *InfinityMode*, and places the result (1 for true, 0 for false) into the corresponding element of *OutputTensor*.
- * @remarks
- * 
  * @see https://learn.microsoft.com/windows/win32/api/directml/ns-directml-dml_element_wise_is_infinity_operator_desc
  * @namespace Windows.Win32.AI.MachineLearning.DirectML
- * @version v4.0.30319
  */
-class DML_ELEMENT_WISE_IS_INFINITY_OPERATOR_DESC extends Win32Struct
-{
+class DML_ELEMENT_WISE_IS_INFINITY_OPERATOR_DESC extends Win32Struct {
     static sizeof => 24
 
     static packingSize => 8
@@ -45,7 +43,7 @@ class DML_ELEMENT_WISE_IS_INFINITY_OPERATOR_DESC extends Win32Struct
      * * If **DML_IS_INFINITY_MODE_EITHER**, then 1 will be returned if the element is -inf or inf, otherwise 0.
      * * If **DML_IS_INFINITY_MODE_POSITIVE**, then 1 will be returned if the element is inf, otherwise 0.
      * * If **DML_IS_INFINITY_MODE_NEGATIVE**`, then 1 will be returned if the element is -inf, otherwise 0.
-     * @type {Integer}
+     * @type {DML_IS_INFINITY_MODE}
      */
     InfinityMode {
         get => NumGet(this, 16, "int")

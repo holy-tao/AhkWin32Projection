@@ -12,10 +12,8 @@
  * ```
  * @see https://learn.microsoft.com/windows/win32/api/winddi/ns-winddi-fd_kerningpair
  * @namespace Windows.Win32.Devices.Display
- * @version v4.0.30319
  */
-class FD_KERNINGPAIR extends Win32Struct
-{
+class FD_KERNINGPAIR extends Win32Struct {
     static sizeof => 6
 
     static packingSize => 2

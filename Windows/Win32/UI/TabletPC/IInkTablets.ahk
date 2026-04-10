@@ -1,10 +1,9 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
-#Include ..\..\Foundation\BSTR.ahk
+#Include ..\..\System\Com\IDispatch.ahk
 #Include ..\..\System\Com\IUnknown.ahk
 #Include .\IInkTablet.ahk
-#Include ..\..\System\Com\IDispatch.ahk
 
 /**
  * . (IInkTablets)
@@ -12,9 +11,8 @@
  * Creating the InkCollector control behind a transparent control (such as a GroupBox with the WS_EX_TRANSPARENT property set) will prevent InkCollector from collecting ink.
  * @see https://learn.microsoft.com/windows/win32/api/msinkaut/nn-msinkaut-iinktablets
  * @namespace Windows.Win32.UI.TabletPC
- * @version v4.0.30319
  */
-class IInkTablets extends IDispatch{
+class IInkTablets extends IDispatch {
 
     static sizeof => A_PtrSize
     /**

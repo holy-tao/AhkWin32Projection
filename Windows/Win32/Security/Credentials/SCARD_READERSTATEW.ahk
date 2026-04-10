@@ -1,5 +1,6 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
+#Include .\SCARD_STATE.ahk
 
 /**
  * Used by functions for tracking smart cards within readers. (Unicode)
@@ -8,11 +9,9 @@
  * > The winscard.h header defines SCARD_READERSTATE as an alias which automatically selects the ANSI or Unicode version of this function based on the definition of the UNICODE preprocessor constant. Mixing usage of the encoding-neutral alias with code that not encoding-neutral can lead to mismatches that result in compilation or runtime errors. For more information, see [Conventions for Function Prototypes](/windows/win32/intl/conventions-for-function-prototypes).
  * @see https://learn.microsoft.com/windows/win32/api/winscard/ns-winscard-scard_readerstatew
  * @namespace Windows.Win32.Security.Credentials
- * @version v4.0.30319
  * @charset Unicode
  */
-class SCARD_READERSTATEW extends Win32Struct
-{
+class SCARD_READERSTATEW extends Win32Struct {
     static sizeof => 64
 
     static packingSize => 8
@@ -38,8 +37,7 @@ class SCARD_READERSTATEW extends Win32Struct
     }
 
     /**
-     * 
-     * @type {Integer}
+     * @type {SCARD_STATE}
      */
     dwCurrentState {
         get => NumGet(this, 16, "uint")
@@ -47,8 +45,7 @@ class SCARD_READERSTATEW extends Win32Struct
     }
 
     /**
-     * 
-     * @type {Integer}
+     * @type {SCARD_STATE}
      */
     dwEventState {
         get => NumGet(this, 20, "uint")
@@ -66,9 +63,9 @@ class SCARD_READERSTATEW extends Win32Struct
 
     /**
      * ATR of the inserted card, with extra alignment bytes.
-     * @type {Array<Byte>}
+     * @type {Array<Integer>}
      */
-    rgbAtr{
+    rgbAtr {
         get {
             if(!this.HasProp("__rgbAtrProxyArray"))
                 this.__rgbAtrProxyArray := Win32FixedArray(this.ptr + 28, 36, Primitive, "char")

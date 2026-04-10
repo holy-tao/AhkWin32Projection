@@ -1,9 +1,9 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
+#Include .\IFsrmObject.ahk
 #Include ..\..\Foundation\BSTR.ahk
 #Include .\IFsrmMutableCollection.ahk
-#Include .\IFsrmObject.ahk
 
 /**
  * Used to define a group of files based on one or more file name patterns.
@@ -14,9 +14,8 @@
  *     "<i>examplename</i>".
  * @see https://learn.microsoft.com/windows/win32/api/fsrmscreen/nn-fsrmscreen-ifsrmfilegroup
  * @namespace Windows.Win32.Storage.FileServerResourceManager
- * @version v4.0.30319
  */
-class IFsrmFileGroup extends IFsrmObject{
+class IFsrmFileGroup extends IFsrmObject {
 
     static sizeof => A_PtrSize
     /**

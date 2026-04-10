@@ -5,9 +5,8 @@
 
 /**
  * @namespace Windows.Win32.Devices.Display
- * @version v4.0.30319
  */
-class ICloneViewHelper extends IUnknown{
+class ICloneViewHelper extends IUnknown {
 
     static sizeof => A_PtrSize
     /**

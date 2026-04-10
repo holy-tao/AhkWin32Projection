@@ -7,10 +7,8 @@
  * The driver reports the capabilities described by the DDVIDEOPORTCAPS structure when its <a href="https://docs.microsoft.com/windows/desktop/api/ddrawint/nc-ddrawint-pdd_getdriverinfo">DdGetDriverInfo</a> function is called with the GUID_VideoPortCaps GUID.
  * @see https://learn.microsoft.com/windows/win32/api/dvp/ns-dvp-ddvideoportcaps
  * @namespace Windows.Win32.Graphics.DirectDraw
- * @version v4.0.30319
  */
-class DDVIDEOPORTCAPS extends Win32Struct
-{
+class DDVIDEOPORTCAPS extends Win32Struct {
     static sizeof => 72
 
     static packingSize => 4
@@ -25,7 +23,6 @@ class DDVIDEOPORTCAPS extends Win32Struct
     }
 
     /**
-     * 
      * @type {Integer}
      */
     dwFlags {
@@ -70,7 +67,6 @@ class DDVIDEOPORTCAPS extends Win32Struct
     }
 
     /**
-     * 
      * @type {Integer}
      */
     dwCaps {
@@ -79,7 +75,6 @@ class DDVIDEOPORTCAPS extends Win32Struct
     }
 
     /**
-     * 
      * @type {Integer}
      */
     dwFX {

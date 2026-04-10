@@ -3,9 +3,8 @@
 
 /**
  * @namespace Windows.Win32.UI.WindowsAndMessaging
- * @version v4.0.30319
  */
-class GET_CLASS_LONG_INDEX extends Win32Enum{
+class GET_CLASS_LONG_INDEX extends Win32Enum {
 
     /**
      * @type {Integer (Int32)}

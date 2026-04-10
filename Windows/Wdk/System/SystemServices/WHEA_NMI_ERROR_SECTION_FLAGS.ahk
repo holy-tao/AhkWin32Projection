@@ -3,10 +3,8 @@
 
 /**
  * @namespace Windows.Wdk.System.SystemServices
- * @version v4.0.30319
  */
-class WHEA_NMI_ERROR_SECTION_FLAGS extends Win32Struct
-{
+class WHEA_NMI_ERROR_SECTION_FLAGS extends Win32Struct {
     static sizeof => 8
 
     static packingSize => 1

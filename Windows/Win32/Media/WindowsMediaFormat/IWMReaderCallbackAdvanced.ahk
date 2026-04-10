@@ -1,16 +1,15 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
-#Include .\INSSBuffer.ahk
 #Include ..\..\System\Com\IUnknown.ahk
+#Include .\INSSBuffer.ahk
 
 /**
  * The IWMReaderCallback interface is implemented by the application to handle data being read from a file.
  * @see https://learn.microsoft.com/windows/win32/api/wmsdkidl/nn-wmsdkidl-iwmreadercallbackadvanced
  * @namespace Windows.Win32.Media.WindowsMediaFormat
- * @version v4.0.30319
  */
-class IWMReaderCallbackAdvanced extends IUnknown{
+class IWMReaderCallbackAdvanced extends IUnknown {
 
     static sizeof => A_PtrSize
     /**
@@ -110,7 +109,7 @@ class IWMReaderCallbackAdvanced extends IUnknown{
      * The application can also get callbacks when stream changes due to bandwidth restrictions occur.
      * @param {Integer} wStreamCount <b>WORD</b> containing the number of entries in the <i>pStreamNumbers</i> array.
      * @param {Pointer<Integer>} pStreamNumbers Pointer to an array of stream numbers.
-     * @param {Pointer<Integer>} pSelections Pointer to an array of members of the <a href="https://docs.microsoft.com/windows/desktop/api/wmsdkidl/ne-wmsdkidl-wmt_stream_selection">WMT_STREAM_SELECTION</a> enumeration type. Each element in this array corresponds to the stream number contained in the corresponding element of the array pointed to by <i>pStreamNumbers</i>.
+     * @param {Pointer<WMT_STREAM_SELECTION>} pSelections Pointer to an array of members of the <a href="https://docs.microsoft.com/windows/desktop/api/wmsdkidl/ne-wmsdkidl-wmt_stream_selection">WMT_STREAM_SELECTION</a> enumeration type. Each element in this array corresponds to the stream number contained in the corresponding element of the array pointed to by <i>pStreamNumbers</i>.
      * @param {Pointer<Void>} pvContext Generic pointer, for use by the application. This pointer is the context pointer given to the <a href="https://docs.microsoft.com/windows/desktop/api/wmsdkidl/nf-wmsdkidl-iwmreader-start">IWMReader::Start</a> method.
      * @returns {HRESULT} To use this method, you must implement it in your application. You can return whatever <b>HRESULT</b> error codes are appropriate to your implementation. For more information about the <b>HRESULT</b> error codes included for use by the Windows Media Format SDK, see <a href="https://docs.microsoft.com/windows/desktop/wmformat/error-codes">Error Codes</a>.
      * @see https://learn.microsoft.com/windows/win32/api/wmsdkidl/nf-wmsdkidl-iwmreadercallbackadvanced-onstreamselection

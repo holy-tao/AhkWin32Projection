@@ -13,10 +13,8 @@
  * 				<b>hConvClient</b> and <b>hConvServer</b> members of the <b>MONLINKSTRUCT</b> structure do not hold the same value as would be seen by the applications engaged in the conversation. Instead, they hold a globally unique pair of values that identify the conversation.
  * @see https://learn.microsoft.com/windows/win32/api/ddeml/ns-ddeml-monlinkstruct
  * @namespace Windows.Win32.System.DataExchange
- * @version v4.0.30319
  */
-class MONLINKSTRUCT extends Win32Struct
-{
+class MONLINKSTRUCT extends Win32Struct {
     static sizeof => 72
 
     static packingSize => 8
@@ -49,7 +47,7 @@ class MONLINKSTRUCT extends Win32Struct
      * A handle to a task (application instance) that is a partner in the advise loop.
      * @type {HANDLE}
      */
-    hTask{
+    hTask {
         get {
             if(!this.HasProp("__hTask"))
                 this.__hTask := HANDLE(8, this)
@@ -85,7 +83,7 @@ class MONLINKSTRUCT extends Win32Struct
      * A handle to the service name of the server in the advise loop.
      * @type {HSZ}
      */
-    hszSvc{
+    hszSvc {
         get {
             if(!this.HasProp("__hszSvc"))
                 this.__hszSvc := HSZ(24, this)
@@ -99,7 +97,7 @@ class MONLINKSTRUCT extends Win32Struct
      * A handle to the topic name on which the advise loop is established.
      * @type {HSZ}
      */
-    hszTopic{
+    hszTopic {
         get {
             if(!this.HasProp("__hszTopic"))
                 this.__hszTopic := HSZ(32, this)
@@ -113,7 +111,7 @@ class MONLINKSTRUCT extends Win32Struct
      * A handle to the item name that is the subject of the advise loop.
      * @type {HSZ}
      */
-    hszItem{
+    hszItem {
         get {
             if(!this.HasProp("__hszItem"))
                 this.__hszItem := HSZ(40, this)
@@ -149,7 +147,7 @@ class MONLINKSTRUCT extends Win32Struct
      * A handle to the server conversation.
      * @type {HCONV}
      */
-    hConvServer{
+    hConvServer {
         get {
             if(!this.HasProp("__hConvServer"))
                 this.__hConvServer := HCONV(56, this)
@@ -163,7 +161,7 @@ class MONLINKSTRUCT extends Win32Struct
      * A handle to the client conversation.
      * @type {HCONV}
      */
-    hConvClient{
+    hConvClient {
         get {
             if(!this.HasProp("__hConvClient"))
                 this.__hConvClient := HCONV(64, this)

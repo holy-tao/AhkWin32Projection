@@ -1,13 +1,24 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
+#Include .\ADSTYPE.ahk
 #Include .\ADS_OCTET_STRING.ahk
 #Include ..\..\Foundation\SYSTEMTIME.ahk
 #Include .\ADS_PROV_SPECIFIC.ahk
+#Include .\ADS_CASEIGNORE_LIST.ahk
+#Include .\ADS_OCTET_LIST.ahk
+#Include .\ADS_PATH.ahk
+#Include .\ADS_POSTALADDRESS.ahk
 #Include .\ADS_TIMESTAMP.ahk
 #Include .\ADS_BACKLINK.ahk
+#Include .\ADS_TYPEDNAME.ahk
 #Include .\ADS_HOLD.ahk
+#Include .\ADS_NETADDRESS.ahk
+#Include .\ADS_REPLICAPOINTER.ahk
+#Include .\ADS_FAXNUMBER.ahk
 #Include .\ADS_EMAIL.ahk
 #Include .\ADS_NT_SECURITY_DESCRIPTOR.ahk
+#Include .\ADS_DN_WITH_BINARY.ahk
+#Include .\ADS_DN_WITH_STRING.ahk
 
 /**
  * Contains a value specified as an ADSI data type.
@@ -15,17 +26,15 @@
  * Members of the <b>ADSVALUE</b> structure specify the data type of attributes. For more information and a code example, see  <a href="https://docs.microsoft.com/windows/desktop/api/iads/ns-iads-ads_attr_info">ADS_ATTR_INFO</a>.
  * @see https://learn.microsoft.com/windows/win32/api/iads/ns-iads-adsvalue
  * @namespace Windows.Win32.Networking.ActiveDirectory
- * @version v4.0.30319
  */
-class ADSVALUE extends Win32Struct
-{
+class ADSVALUE extends Win32Struct {
     static sizeof => 24
 
     static packingSize => 8
 
     /**
      * Data type used to interpret the union member of the structure. Values of this member are taken from the  <a href="https://docs.microsoft.com/windows/win32/api/iads/ne-iads-adstypeenum">ADSTYPEENUM</a> enumeration.
-     * @type {Integer}
+     * @type {ADSTYPE}
      */
     dwType {
         get => NumGet(this, 0, "int")
@@ -91,7 +100,7 @@ class ADSVALUE extends Win32Struct
     /**
      * @type {ADS_OCTET_STRING}
      */
-    OctetString{
+    OctetString {
         get {
             if(!this.HasProp("__OctetString"))
                 this.__OctetString := ADS_OCTET_STRING(8, this)
@@ -102,7 +111,7 @@ class ADSVALUE extends Win32Struct
     /**
      * @type {SYSTEMTIME}
      */
-    UTCTime{
+    UTCTime {
         get {
             if(!this.HasProp("__UTCTime"))
                 this.__UTCTime := SYSTEMTIME(8, this)
@@ -129,7 +138,7 @@ class ADSVALUE extends Win32Struct
     /**
      * @type {ADS_PROV_SPECIFIC}
      */
-    ProviderSpecific{
+    ProviderSpecific {
         get {
             if(!this.HasProp("__ProviderSpecific"))
                 this.__ProviderSpecific := ADS_PROV_SPECIFIC(8, this)
@@ -172,7 +181,7 @@ class ADSVALUE extends Win32Struct
     /**
      * @type {ADS_TIMESTAMP}
      */
-    Timestamp{
+    Timestamp {
         get {
             if(!this.HasProp("__Timestamp"))
                 this.__Timestamp := ADS_TIMESTAMP(8, this)
@@ -183,7 +192,7 @@ class ADSVALUE extends Win32Struct
     /**
      * @type {ADS_BACKLINK}
      */
-    BackLink{
+    BackLink {
         get {
             if(!this.HasProp("__BackLink"))
                 this.__BackLink := ADS_BACKLINK(8, this)
@@ -202,7 +211,7 @@ class ADSVALUE extends Win32Struct
     /**
      * @type {ADS_HOLD}
      */
-    Hold{
+    Hold {
         get {
             if(!this.HasProp("__Hold"))
                 this.__Hold := ADS_HOLD(8, this)
@@ -237,7 +246,7 @@ class ADSVALUE extends Win32Struct
     /**
      * @type {ADS_EMAIL}
      */
-    Email{
+    Email {
         get {
             if(!this.HasProp("__Email"))
                 this.__Email := ADS_EMAIL(8, this)
@@ -248,7 +257,7 @@ class ADSVALUE extends Win32Struct
     /**
      * @type {ADS_NT_SECURITY_DESCRIPTOR}
      */
-    SecurityDescriptor{
+    SecurityDescriptor {
         get {
             if(!this.HasProp("__SecurityDescriptor"))
                 this.__SecurityDescriptor := ADS_NT_SECURITY_DESCRIPTOR(8, this)

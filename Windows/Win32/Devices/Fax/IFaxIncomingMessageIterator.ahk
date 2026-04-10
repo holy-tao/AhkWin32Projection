@@ -1,8 +1,8 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
-#Include .\IFaxIncomingMessage.ahk
 #Include ..\..\System\Com\IDispatch.ahk
+#Include .\IFaxIncomingMessage.ahk
 
 /**
  * The IFaxIncomingMessageIterator interface is used by a fax client application to move through the archive of inbound fax messages that the fax service has successfully received.
@@ -10,9 +10,8 @@
  * To create a <b>FaxIncomingMessageIterator</b> object in C++, call the <a href="https://docs.microsoft.com/previous-versions/windows/desktop/fax/-mfax-faxincomingarchive-getmessages-vb">IFaxIncomingArchive::GetMessages</a> method.
  * @see https://learn.microsoft.com/windows/win32/api/faxcomex/nn-faxcomex-ifaxincomingmessageiterator
  * @namespace Windows.Win32.Devices.Fax
- * @version v4.0.30319
  */
-class IFaxIncomingMessageIterator extends IDispatch{
+class IFaxIncomingMessageIterator extends IDispatch {
 
     static sizeof => A_PtrSize
     /**

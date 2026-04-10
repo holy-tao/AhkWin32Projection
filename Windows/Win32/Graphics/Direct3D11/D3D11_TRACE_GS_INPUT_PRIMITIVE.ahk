@@ -10,9 +10,8 @@
  * <div> </div>
  * @see https://learn.microsoft.com/windows/win32/api/d3d11shadertracing/ne-d3d11shadertracing-d3d11_trace_gs_input_primitive
  * @namespace Windows.Win32.Graphics.Direct3D11
- * @version v4.0.30319
  */
-class D3D11_TRACE_GS_INPUT_PRIMITIVE extends Win32Enum{
+class D3D11_TRACE_GS_INPUT_PRIMITIVE extends Win32Enum {
 
     /**
      * Identifies the geometry shader input primitive as undefined.

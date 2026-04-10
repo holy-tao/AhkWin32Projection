@@ -19,9 +19,8 @@
  * </ul>
  * @see https://learn.microsoft.com/windows/win32/api/wtsdefs/ne-wtsdefs-wts_logon_error_redirector_response
  * @namespace Windows.Win32.System.RemoteDesktop
- * @version v4.0.30319
  */
-class WTS_LOGON_ERROR_REDIRECTOR_RESPONSE extends Win32Enum{
+class WTS_LOGON_ERROR_REDIRECTOR_RESPONSE extends Win32Enum {
 
     /**
      * This value is used for safe initialization.

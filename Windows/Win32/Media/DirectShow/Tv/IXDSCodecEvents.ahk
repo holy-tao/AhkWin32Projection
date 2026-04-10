@@ -5,9 +5,8 @@
 
 /**
  * @namespace Windows.Win32.Media.DirectShow.Tv
- * @version v4.0.30319
  */
-class IXDSCodecEvents extends IDispatch{
+class IXDSCodecEvents extends IDispatch {
 
     static sizeof => A_PtrSize
     /**

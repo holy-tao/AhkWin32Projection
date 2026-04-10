@@ -1,14 +1,13 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\Guid.ahk
-#Include .\IXblIdpAuthTokenResult.ahk
 #Include ..\System\Com\IUnknown.ahk
+#Include .\IXblIdpAuthTokenResult.ahk
 
 /**
  * @namespace Windows.Win32.Gaming
- * @version v4.0.30319
  */
-class IXblIdpAuthManager2 extends IUnknown{
+class IXblIdpAuthManager2 extends IUnknown {
 
     static sizeof => A_PtrSize
     /**

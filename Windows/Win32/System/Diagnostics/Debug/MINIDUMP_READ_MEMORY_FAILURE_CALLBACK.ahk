@@ -5,10 +5,8 @@
  * Contains information about a failed memory read operation.
  * @see https://learn.microsoft.com/windows/win32/api/minidumpapiset/ns-minidumpapiset-minidump_read_memory_failure_callback
  * @namespace Windows.Win32.System.Diagnostics.Debug
- * @version v4.0.30319
  */
-class MINIDUMP_READ_MEMORY_FAILURE_CALLBACK extends Win32Struct
-{
+class MINIDUMP_READ_MEMORY_FAILURE_CALLBACK extends Win32Struct {
     static sizeof => 16
 
     static packingSize => 8

@@ -1,18 +1,17 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
+#Include .\D3DDDI_DRIVERESCAPETYPE.ahk
 
 /**
  * @namespace Windows.Wdk.Graphics.Direct3D
- * @version v4.0.30319
  */
-class D3DDDI_DRIVERESCAPE_CPUEVENTUSAGE extends Win32Struct
-{
+class D3DDDI_DRIVERESCAPE_CPUEVENTUSAGE extends Win32Struct {
     static sizeof => 48
 
     static packingSize => 8
 
     /**
-     * @type {Integer}
+     * @type {D3DDDI_DRIVERESCAPETYPE}
      */
     EscapeType {
         get => NumGet(this, 0, "int")
@@ -36,9 +35,9 @@ class D3DDDI_DRIVERESCAPE_CPUEVENTUSAGE extends Win32Struct
     }
 
     /**
-     * @type {Array<UInt32>}
+     * @type {Array<Integer>}
      */
-    Usage{
+    Usage {
         get {
             if(!this.HasProp("__UsageProxyArray"))
                 this.__UsageProxyArray := Win32FixedArray(this.ptr + 16, 8, Primitive, "uint")

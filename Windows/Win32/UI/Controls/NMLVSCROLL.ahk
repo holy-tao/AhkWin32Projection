@@ -1,16 +1,14 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
-#Include ..\..\Foundation\HWND.ahk
 #Include .\NMHDR.ahk
+#Include ..\..\Foundation\HWND.ahk
 
 /**
  * Provides information about a scrolling operation.
  * @see https://learn.microsoft.com/windows/win32/api/commctrl/ns-commctrl-nmlvscroll
  * @namespace Windows.Win32.UI.Controls
- * @version v4.0.30319
  */
-class NMLVSCROLL extends Win32Struct
-{
+class NMLVSCROLL extends Win32Struct {
     static sizeof => 32
 
     static packingSize => 8
@@ -22,7 +20,7 @@ class NMLVSCROLL extends Win32Struct
      * <a href="https://docs.microsoft.com/windows/desktop/api/richedit/ns-richedit-nmhdr">NMHDR</a> structure that contains information about a <a href="https://docs.microsoft.com/windows/desktop/Controls/lvn-endscroll">LVN_ENDSCROLL</a> or a <a href="https://docs.microsoft.com/windows/desktop/Controls/lvn-beginscroll">LVN_BEGINSCROLL</a> notification code.
      * @type {NMHDR}
      */
-    hdr{
+    hdr {
         get {
             if(!this.HasProp("__hdr"))
                 this.__hdr := NMHDR(0, this)

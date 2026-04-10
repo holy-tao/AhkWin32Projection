@@ -1,9 +1,9 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\..\Guid.ahk
+#Include ..\IUnknown.ahk
 #Include .\IPropertyStorage.ahk
 #Include .\IEnumSTATPROPSETSTG.ahk
-#Include ..\IUnknown.ahk
 
 /**
  * The IPropertySetStorage interface creates, opens, deletes, and enumerates property set storages that support instances of the IPropertyStorage interface.
@@ -18,9 +18,8 @@
  * <div> </div>
  * @see https://learn.microsoft.com/windows/win32/api/propidl/nn-propidl-ipropertysetstorage
  * @namespace Windows.Win32.System.Com.StructuredStorage
- * @version v4.0.30319
  */
-class IPropertySetStorage extends IUnknown{
+class IPropertySetStorage extends IUnknown {
 
     static sizeof => A_PtrSize
     /**

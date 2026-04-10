@@ -5,18 +5,16 @@
 
 /**
  * @namespace Windows.Win32.NetworkManagement.WiFi
- * @version v4.0.30319
  */
-class DOT11_VWIFI_ATTRIBUTES extends Win32Struct
-{
-    static sizeof => 16
+class DOT11_VWIFI_ATTRIBUTES extends Win32Struct {
+    static sizeof => 24
 
-    static packingSize => 8
+    static packingSize => 4
 
     /**
      * @type {NDIS_OBJECT_HEADER}
      */
-    Header{
+    Header {
         get {
             if(!this.HasProp("__Header"))
                 this.__Header := NDIS_OBJECT_HEADER(0, this)
@@ -33,9 +31,9 @@ class DOT11_VWIFI_ATTRIBUTES extends Win32Struct
     }
 
     /**
-     * @type {Array<DOT11_VWIFI_COMBINATION>}
+     * @type {DOT11_VWIFI_COMBINATION}
      */
-    Combinations{
+    Combinations {
         get {
             if(!this.HasProp("__CombinationsProxyArray"))
                 this.__CombinationsProxyArray := Win32FixedArray(this.ptr + 8, 1, DOT11_VWIFI_COMBINATION, "")

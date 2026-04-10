@@ -6,10 +6,8 @@
 
 /**
  * @namespace Windows.Win32.Storage.Vss
- * @version v4.0.30319
  */
-class VSS_MGMT_OBJECT_UNION extends Win32Struct
-{
+class VSS_MGMT_OBJECT_UNION extends Win32Struct {
     static sizeof => 88
 
     static packingSize => 8
@@ -17,7 +15,7 @@ class VSS_MGMT_OBJECT_UNION extends Win32Struct
     /**
      * @type {VSS_VOLUME_PROP}
      */
-    Vol{
+    Vol {
         get {
             if(!this.HasProp("__Vol"))
                 this.__Vol := VSS_VOLUME_PROP(0, this)
@@ -28,7 +26,7 @@ class VSS_MGMT_OBJECT_UNION extends Win32Struct
     /**
      * @type {VSS_DIFF_VOLUME_PROP}
      */
-    DiffVol{
+    DiffVol {
         get {
             if(!this.HasProp("__DiffVol"))
                 this.__DiffVol := VSS_DIFF_VOLUME_PROP(0, this)
@@ -39,7 +37,7 @@ class VSS_MGMT_OBJECT_UNION extends Win32Struct
     /**
      * @type {VSS_DIFF_AREA_PROP}
      */
-    DiffArea{
+    DiffArea {
         get {
             if(!this.HasProp("__DiffArea"))
                 this.__DiffArea := VSS_DIFF_AREA_PROP(0, this)

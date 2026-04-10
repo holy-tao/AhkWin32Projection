@@ -3,10 +3,8 @@
 
 /**
  * @namespace Windows.Win32.Security.Cryptography
- * @version v4.0.30319
  */
-class CARD_CAPABILITIES extends Win32Struct
-{
+class CARD_CAPABILITIES extends Win32Struct {
     static sizeof => 12
 
     static packingSize => 4

@@ -7,10 +7,8 @@
  * This structure may not be extended.
  * @see https://learn.microsoft.com/windows/win32/api/tapi/ns-tapi-linetranslatecaps
  * @namespace Windows.Win32.Devices.Tapi
- * @version v4.0.30319
  */
-class LINETRANSLATECAPS extends Win32Struct
-{
+class LINETRANSLATECAPS extends Win32Struct {
     static sizeof => 44
 
     static packingSize => 4

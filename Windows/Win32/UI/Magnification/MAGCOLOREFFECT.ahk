@@ -8,10 +8,8 @@
  * <a href="https://docs.microsoft.com/windows/desktop/gdiplus/-gdiplus-using-a-color-matrix-to-transform-a-single-color-use">Using a Color Matrix to Transform a Single Color</a> in the Windows GDI+ documentation.
  * @see https://learn.microsoft.com/windows/win32/api/magnification/ns-magnification-magcoloreffect
  * @namespace Windows.Win32.UI.Magnification
- * @version v4.0.30319
  */
-class MAGCOLOREFFECT extends Win32Struct
-{
+class MAGCOLOREFFECT extends Win32Struct {
     static sizeof => 100
 
     static packingSize => 4
@@ -20,9 +18,9 @@ class MAGCOLOREFFECT extends Win32Struct
      * Type: <b>float [5] [5]</b>
      * 
      * The color transformation matrix.
-     * @type {Array<Single>}
+     * @type {Array<Float>}
      */
-    transform{
+    transform {
         get {
             if(!this.HasProp("__transformProxyArray"))
                 this.__transformProxyArray := Win32FixedArray(this.ptr + 0, 25, Primitive, "float")

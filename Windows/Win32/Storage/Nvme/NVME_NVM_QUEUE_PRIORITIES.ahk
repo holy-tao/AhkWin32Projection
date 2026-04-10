@@ -7,9 +7,8 @@
  * Use this enumeration to specify values in the **QPRIO** field of the [NVME_CDW11_CREATE_IO_SQ](ns-nvme-nvme_cdw11_create_io_sq.md) structure that is used in the [Create IO Submission Queue (CREATEIOSQ)](ns-nvme-nvme_command.md) Admin command.
  * @see https://learn.microsoft.com/windows/win32/api/nvme/ne-nvme-nvme_nvm_queue_priorities
  * @namespace Windows.Win32.Storage.Nvme
- * @version v4.0.30319
  */
-class NVME_NVM_QUEUE_PRIORITIES extends Win32Enum{
+class NVME_NVM_QUEUE_PRIORITIES extends Win32Enum {
 
     /**
      * The queue has an urgent priority.

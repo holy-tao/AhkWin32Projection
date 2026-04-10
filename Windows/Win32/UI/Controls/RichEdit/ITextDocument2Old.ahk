@@ -1,17 +1,16 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\..\Guid.ahk
+#Include .\ITextDocument.ahk
 #Include .\ITextSelection.ahk
 #Include .\ITextFont.ahk
 #Include .\ITextPara.ahk
 #Include ..\..\..\System\Com\IUnknown.ahk
-#Include .\ITextDocument.ahk
 
 /**
  * @namespace Windows.Win32.UI.Controls.RichEdit
- * @version v4.0.30319
  */
-class ITextDocument2Old extends ITextDocument{
+class ITextDocument2Old extends ITextDocument {
 
     static sizeof => A_PtrSize
     /**

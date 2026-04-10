@@ -1,16 +1,15 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
+#Include .\ISpProperties.ahk
 #Include .\ISpObjectToken.ahk
 #Include .\ISpStreamFormat.ahk
 #Include .\ISpRecoContext.ahk
-#Include .\ISpProperties.ahk
 
 /**
  * @namespace Windows.Win32.Media.Speech
- * @version v4.0.30319
  */
-class ISpRecognizer extends ISpProperties{
+class ISpRecognizer extends ISpProperties {
 
     static sizeof => A_PtrSize
     /**
@@ -138,7 +137,7 @@ class ISpRecognizer extends ISpProperties{
 
     /**
      * 
-     * @param {Pointer<Integer>} pState 
+     * @param {Pointer<SPRECOSTATE>} pState 
      * @returns {HRESULT} 
      */
     GetRecoState(pState) {
@@ -150,7 +149,7 @@ class ISpRecognizer extends ISpProperties{
 
     /**
      * 
-     * @param {Integer} NewState 
+     * @param {SPRECOSTATE} NewState 
      * @returns {HRESULT} 
      */
     SetRecoState(NewState) {
@@ -170,7 +169,7 @@ class ISpRecognizer extends ISpProperties{
 
     /**
      * For current documentation on Windows Media codecs and digital signal processors, see Windows Media Audio and Video Codec and DSP APIs. | GetFormatProp
-     * @param {Integer} WaveFormatType 
+     * @param {SPSTREAMFORMATTYPE} WaveFormatType 
      * @param {Pointer<Guid>} pFormatId 
      * @returns {Pointer<WAVEFORMATEX>} 
      * @see https://learn.microsoft.com/windows/win32/wmformat/iwmcodecprops-getformatprop

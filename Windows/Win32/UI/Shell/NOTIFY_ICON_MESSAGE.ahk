@@ -3,9 +3,8 @@
 
 /**
  * @namespace Windows.Win32.UI.Shell
- * @version v4.0.30319
  */
-class NOTIFY_ICON_MESSAGE extends Win32Enum{
+class NOTIFY_ICON_MESSAGE extends Win32Enum {
 
     /**
      * @type {Integer (UInt32)}

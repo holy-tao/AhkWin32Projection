@@ -7,9 +7,8 @@
  * The IBasicVideo interface sets video properties such as the destination and source rectangles.
  * @see https://learn.microsoft.com/windows/win32/api/control/nn-control-ibasicvideo
  * @namespace Windows.Win32.Media.DirectShow
- * @version v4.0.30319
  */
-class IBasicVideo extends IDispatch{
+class IBasicVideo extends IDispatch {
 
     static sizeof => A_PtrSize
     /**

@@ -1,17 +1,16 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
+#Include ..\Com\IDispatch.ahk
 #Include .\IRunningTask.ahk
 #Include ..\Com\IUnknown.ahk
-#Include ..\Com\IDispatch.ahk
 
 /**
  * Provides a collection that is used to control running tasks.
  * @see https://learn.microsoft.com/windows/win32/api/taskschd/nn-taskschd-irunningtaskcollection
  * @namespace Windows.Win32.System.TaskScheduler
- * @version v4.0.30319
  */
-class IRunningTaskCollection extends IDispatch{
+class IRunningTaskCollection extends IDispatch {
 
     static sizeof => A_PtrSize
     /**

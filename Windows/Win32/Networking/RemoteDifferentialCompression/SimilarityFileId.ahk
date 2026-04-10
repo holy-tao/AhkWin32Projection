@@ -5,19 +5,17 @@
  * Contains the similarity file ID for a file.
  * @see https://learn.microsoft.com/windows/win32/api/msrdc/ns-msrdc-similarityfileid
  * @namespace Windows.Win32.Networking.RemoteDifferentialCompression
- * @version v4.0.30319
  */
-class SimilarityFileId extends Win32Struct
-{
+class SimilarityFileId extends Win32Struct {
     static sizeof => 32
 
     static packingSize => 1
 
     /**
      * The similarity file ID for the file.
-     * @type {Array<Byte>}
+     * @type {Array<Integer>}
      */
-    m_FileId{
+    m_FileId {
         get {
             if(!this.HasProp("__m_FileIdProxyArray"))
                 this.__m_FileIdProxyArray := Win32FixedArray(this.ptr + 0, 32, Primitive, "char")

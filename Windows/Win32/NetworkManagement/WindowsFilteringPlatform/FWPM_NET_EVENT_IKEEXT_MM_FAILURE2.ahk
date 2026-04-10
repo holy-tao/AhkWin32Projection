@@ -1,12 +1,15 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
+#Include .\IPSEC_FAILURE_POINT.ahk
+#Include .\IKEEXT_KEY_MODULE_TYPE.ahk
+#Include .\IKEEXT_MM_SA_STATE.ahk
+#Include .\IKEEXT_SA_ROLE.ahk
+#Include .\IKEEXT_AUTHENTICATION_METHOD_TYPE.ahk
 
 /**
  * @namespace Windows.Win32.NetworkManagement.WindowsFilteringPlatform
- * @version v4.0.30319
  */
-class FWPM_NET_EVENT_IKEEXT_MM_FAILURE2 extends Win32Struct
-{
+class FWPM_NET_EVENT_IKEEXT_MM_FAILURE2 extends Win32Struct {
     static sizeof => 120
 
     static packingSize => 8
@@ -20,7 +23,7 @@ class FWPM_NET_EVENT_IKEEXT_MM_FAILURE2 extends Win32Struct
     }
 
     /**
-     * @type {Integer}
+     * @type {IPSEC_FAILURE_POINT}
      */
     failurePoint {
         get => NumGet(this, 4, "int")
@@ -36,7 +39,7 @@ class FWPM_NET_EVENT_IKEEXT_MM_FAILURE2 extends Win32Struct
     }
 
     /**
-     * @type {Integer}
+     * @type {IKEEXT_KEY_MODULE_TYPE}
      */
     keyingModuleType {
         get => NumGet(this, 12, "int")
@@ -44,7 +47,7 @@ class FWPM_NET_EVENT_IKEEXT_MM_FAILURE2 extends Win32Struct
     }
 
     /**
-     * @type {Integer}
+     * @type {IKEEXT_MM_SA_STATE}
      */
     mmState {
         get => NumGet(this, 16, "int")
@@ -52,7 +55,7 @@ class FWPM_NET_EVENT_IKEEXT_MM_FAILURE2 extends Win32Struct
     }
 
     /**
-     * @type {Integer}
+     * @type {IKEEXT_SA_ROLE}
      */
     saRole {
         get => NumGet(this, 20, "int")
@@ -60,7 +63,7 @@ class FWPM_NET_EVENT_IKEEXT_MM_FAILURE2 extends Win32Struct
     }
 
     /**
-     * @type {Integer}
+     * @type {IKEEXT_AUTHENTICATION_METHOD_TYPE}
      */
     mmAuthMethod {
         get => NumGet(this, 24, "int")
@@ -68,9 +71,9 @@ class FWPM_NET_EVENT_IKEEXT_MM_FAILURE2 extends Win32Struct
     }
 
     /**
-     * @type {Array<Byte>}
+     * @type {Array<Integer>}
      */
-    endCertHash{
+    endCertHash {
         get {
             if(!this.HasProp("__endCertHashProxyArray"))
                 this.__endCertHashProxyArray := Win32FixedArray(this.ptr + 28, 20, Primitive, "char")

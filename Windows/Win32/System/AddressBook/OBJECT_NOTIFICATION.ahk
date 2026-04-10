@@ -1,5 +1,7 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
+#Include .\ENTRYID.ahk
+#Include .\SPropTagArray.ahk
 
 /**
  * Contains information about an object that has undergone a change, such as being copied or modified.
@@ -41,10 +43,8 @@
  * |[Supporting Event Notification](supporting-event-notification.md) <br/> |Discussion of how service providers can use the [IMAPISupport](imapisupportiunknown.md) method to generate notifications. |
  * @see https://learn.microsoft.com/office/client-developer/outlook/mapi/object_notification
  * @namespace Windows.Win32.System.AddressBook
- * @version v4.0.30319
  */
-class OBJECT_NOTIFICATION extends Win32Struct
-{
+class OBJECT_NOTIFICATION extends Win32Struct {
     static sizeof => 72
 
     static packingSize => 8

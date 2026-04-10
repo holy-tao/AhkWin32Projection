@@ -5,9 +5,8 @@
  * Provides a set of flags for use with the CATEGORY_INFO structure.
  * @see https://learn.microsoft.com/windows/win32/api/shobjidl_core/ne-shobjidl_core-categoryinfo_flags
  * @namespace Windows.Win32.UI.Shell
- * @version v4.0.30319
  */
-class CATEGORYINFO_FLAGS extends Win32BitflagEnum{
+class CATEGORYINFO_FLAGS extends Win32BitflagEnum {
 
     /**
      * 0x00000000. Applies default properties for the category.
@@ -58,13 +57,11 @@ class CATEGORYINFO_FLAGS extends Win32BitflagEnum{
     static CATINFO_SUBSETTED => 64
 
     /**
-     * 
      * @type {Integer (Int32)}
      */
     static CATINFO_SEPARATE_IMAGES => 128
 
     /**
-     * 
      * @type {Integer (Int32)}
      */
     static CATINFO_SHOWEMPTY => 256

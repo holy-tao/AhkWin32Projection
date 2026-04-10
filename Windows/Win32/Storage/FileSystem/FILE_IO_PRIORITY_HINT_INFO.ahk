@@ -1,5 +1,6 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
+#Include .\PRIORITY_HINT.ahk
 
 /**
  * Specifies the priority hint for a file I/O operation.
@@ -15,10 +16,8 @@
  * This structure must be aligned on a <b>LONGLONG</b> (8-byte) boundary.
  * @see https://learn.microsoft.com/windows/win32/api/winbase/ns-winbase-file_io_priority_hint_info
  * @namespace Windows.Win32.Storage.FileSystem
- * @version v4.0.30319
  */
-class FILE_IO_PRIORITY_HINT_INFO extends Win32Struct
-{
+class FILE_IO_PRIORITY_HINT_INFO extends Win32Struct {
     static sizeof => 4
 
     static packingSize => 4
@@ -26,7 +25,7 @@ class FILE_IO_PRIORITY_HINT_INFO extends Win32Struct
     /**
      * The priority hint. This member is a value from the 
      *       <a href="https://docs.microsoft.com/windows/desktop/api/winbase/ne-winbase-priority_hint">PRIORITY_HINT</a> enumeration.
-     * @type {Integer}
+     * @type {PRIORITY_HINT}
      */
     PriorityHint {
         get => NumGet(this, 0, "int")

@@ -1,16 +1,15 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
-#Include .\IColumnMapper.ahk
 #Include ..\Com\IUnknown.ahk
+#Include .\IColumnMapper.ahk
 
 /**
  * Contains a method to retrieves a column mapper object.
  * @see https://learn.microsoft.com/windows/win32/api/indexsrv/nn-indexsrv-icolumnmappercreator
  * @namespace Windows.Win32.System.Search
- * @version v4.0.30319
  */
-class IColumnMapperCreator extends IUnknown{
+class IColumnMapperCreator extends IUnknown {
 
     static sizeof => A_PtrSize
     /**

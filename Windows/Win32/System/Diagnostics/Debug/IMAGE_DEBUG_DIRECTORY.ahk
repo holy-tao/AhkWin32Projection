@@ -1,14 +1,13 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\..\Win32Struct.ahk
+#Include .\IMAGE_DEBUG_TYPE.ahk
 
 /**
  * Represents the debug directory format.
  * @see https://learn.microsoft.com/windows/win32/api/winnt/ns-winnt-image_debug_directory
  * @namespace Windows.Win32.System.Diagnostics.Debug
- * @version v4.0.30319
  */
-class IMAGE_DEBUG_DIRECTORY extends Win32Struct
-{
+class IMAGE_DEBUG_DIRECTORY extends Win32Struct {
     static sizeof => 28
 
     static packingSize => 4
@@ -50,8 +49,7 @@ class IMAGE_DEBUG_DIRECTORY extends Win32Struct
     }
 
     /**
-     * 
-     * @type {Integer}
+     * @type {IMAGE_DEBUG_TYPE}
      */
     Type {
         get => NumGet(this, 12, "uint")

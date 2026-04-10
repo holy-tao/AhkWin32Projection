@@ -3,10 +3,8 @@
 
 /**
  * @namespace Windows.Win32.System.Diagnostics.Debug.Extensions
- * @version v4.0.30319
  */
-class DEBUG_TYPED_DATA extends Win32Struct
-{
+class DEBUG_TYPED_DATA extends Win32Struct {
     static sizeof => 128
 
     static packingSize => 8
@@ -92,9 +90,9 @@ class DEBUG_TYPED_DATA extends Win32Struct
     }
 
     /**
-     * @type {Array<UInt64>}
+     * @type {Array<Integer>}
      */
-    Internal{
+    Internal {
         get {
             if(!this.HasProp("__InternalProxyArray"))
                 this.__InternalProxyArray := Win32FixedArray(this.ptr + 56, 9, Primitive, "uint")

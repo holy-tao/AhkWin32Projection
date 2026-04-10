@@ -2,16 +2,15 @@
 #Include ..\..\..\..\Win32Struct.ahk
 #Include ..\..\Foundation\FILETIME.ahk
 #Include .\DS_REPL_OPW.ahk
+#Include .\DS_REPL_OP_TYPE.ahk
 
 /**
  * Contains an array of DS_REPL_OP structures, which in turn describe the replication tasks currently executing and queued to execute, as returned by the DsReplicaGetInfo and DsReplicaGetInfo2 functions.
  * @see https://learn.microsoft.com/windows/win32/api/ntdsapi/ns-ntdsapi-ds_repl_pending_opsw
  * @namespace Windows.Win32.Networking.ActiveDirectory
- * @version v4.0.30319
  */
-class DS_REPL_PENDING_OPSW extends Win32Struct
-{
-    static sizeof => 24
+class DS_REPL_PENDING_OPSW extends Win32Struct {
+    static sizeof => 80
 
     static packingSize => 8
 
@@ -19,7 +18,7 @@ class DS_REPL_PENDING_OPSW extends Win32Struct
      * Contains a <a href="https://docs.microsoft.com/windows/desktop/api/minwinbase/ns-minwinbase-filetime">FILETIME</a> structure that contains the date and time at which the first operation in the queue began executing.
      * @type {FILETIME}
      */
-    ftimeCurrentOpStarted{
+    ftimeCurrentOpStarted {
         get {
             if(!this.HasProp("__ftimeCurrentOpStarted"))
                 this.__ftimeCurrentOpStarted := FILETIME(0, this)
@@ -38,9 +37,9 @@ class DS_REPL_PENDING_OPSW extends Win32Struct
 
     /**
      * Contains an array of <a href="https://docs.microsoft.com/windows/desktop/api/ntdsapi/ns-ntdsapi-ds_repl_opw">DS_REPL_OP</a> structures that contain the replication tasks currently executing and queued to execute.
-     * @type {Array<DS_REPL_OPW>}
+     * @type {DS_REPL_OPW}
      */
-    rgPendingOp{
+    rgPendingOp {
         get {
             if(!this.HasProp("__rgPendingOpProxyArray"))
                 this.__rgPendingOpProxyArray := Win32FixedArray(this.ptr + 16, 1, DS_REPL_OPW, "")

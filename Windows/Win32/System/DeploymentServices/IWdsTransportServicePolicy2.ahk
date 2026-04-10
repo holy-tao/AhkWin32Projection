@@ -7,9 +7,8 @@
  * This interface inherits from the IWdsTransportServicePolicy interface and extends it beginning with Windows Server 2012.
  * @see https://learn.microsoft.com/windows/win32/api/wdstptmgmt/nn-wdstptmgmt-iwdstransportservicepolicy2
  * @namespace Windows.Win32.System.DeploymentServices
- * @version v4.0.30319
  */
-class IWdsTransportServicePolicy2 extends IWdsTransportServicePolicy{
+class IWdsTransportServicePolicy2 extends IWdsTransportServicePolicy {
 
     static sizeof => A_PtrSize
     /**
@@ -31,7 +30,7 @@ class IWdsTransportServicePolicy2 extends IWdsTransportServicePolicy{
     static VTableNames => ["get_UdpPortPolicy", "put_UdpPortPolicy", "get_TftpMaximumBlockSize", "put_TftpMaximumBlockSize", "get_EnableTftpVariableWindowExtension", "put_EnableTftpVariableWindowExtension"]
 
     /**
-     * @type {Integer} 
+     * @type {WDSTRANSPORT_UDP_PORT_POLICY} 
      */
     UdpPortPolicy {
         get => this.get_UdpPortPolicy()
@@ -56,7 +55,7 @@ class IWdsTransportServicePolicy2 extends IWdsTransportServicePolicy{
 
     /**
      * Recieves the WDSTRANSPORT_UDP_PORT_POLICY value that specifies the UDP port allocation policy to be used by WDS transport services. The value enables a WDS client computer to configure the UDP port allocation policy. (Get)
-     * @returns {Integer} 
+     * @returns {WDSTRANSPORT_UDP_PORT_POLICY} 
      * @see https://learn.microsoft.com/windows/win32/api/wdstptmgmt/nf-wdstptmgmt-iwdstransportservicepolicy2-get_udpportpolicy
      */
     get_UdpPortPolicy() {
@@ -66,7 +65,7 @@ class IWdsTransportServicePolicy2 extends IWdsTransportServicePolicy{
 
     /**
      * Recieves the WDSTRANSPORT_UDP_PORT_POLICY value that specifies the UDP port allocation policy to be used by WDS transport services. The value enables a WDS client computer to configure the UDP port allocation policy. (Put)
-     * @param {Integer} UdpPortPolicy 
+     * @param {WDSTRANSPORT_UDP_PORT_POLICY} UdpPortPolicy 
      * @returns {HRESULT} 
      * @see https://learn.microsoft.com/windows/win32/api/wdstptmgmt/nf-wdstptmgmt-iwdstransportservicepolicy2-put_udpportpolicy
      */

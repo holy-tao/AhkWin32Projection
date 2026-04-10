@@ -4,10 +4,8 @@
 
 /**
  * @namespace Windows.Win32.Devices.BiometricFramework
- * @version v4.0.30319
  */
-class WINBIO_ENCRYPTED_CAPTURE_PARAMS extends Win32Struct
-{
+class WINBIO_ENCRYPTED_CAPTURE_PARAMS extends Win32Struct {
     static sizeof => 32
 
     static packingSize => 8
@@ -31,7 +29,7 @@ class WINBIO_ENCRYPTED_CAPTURE_PARAMS extends Win32Struct
     /**
      * @type {WINBIO_REGISTERED_FORMAT}
      */
-    Format{
+    Format {
         get {
             if(!this.HasProp("__Format"))
                 this.__Format := WINBIO_REGISTERED_FORMAT(6, this)
@@ -40,7 +38,7 @@ class WINBIO_ENCRYPTED_CAPTURE_PARAMS extends Win32Struct
     }
 
     /**
-     * @type {Pointer<Guid>}
+     * @type {Pointer}
      */
     VendorFormat {
         get => NumGet(this, 16, "ptr")

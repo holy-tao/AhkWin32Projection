@@ -9,9 +9,8 @@
  * See **Remarks** for [INetwork](nn-netlistmgr-inetwork.md).
  * @see https://learn.microsoft.com/windows/win32/api/netlistmgr/nn-netlistmgr-inetwork2
  * @namespace Windows.Win32.Networking.NetworkListManager
- * @version v4.0.30319
  */
-class INetwork2 extends INetwork{
+class INetwork2 extends INetwork {
 
     static sizeof => A_PtrSize
     /**
@@ -34,7 +33,7 @@ class INetwork2 extends INetwork{
 
     /**
      * Queries whether the specified domain authentication method succeeded for this network.
-     * @param {Integer} domainAuthenticationKind Type: \[in\] **[NLM_DOMAIN_AUTHENTICATION_KIND](ne-netlistmgr-nlm_domain_authentication_kind.md)**
+     * @param {NLM_DOMAIN_AUTHENTICATION_KIND} domainAuthenticationKind Type: \[in\] **[NLM_DOMAIN_AUTHENTICATION_KIND](ne-netlistmgr-nlm_domain_authentication_kind.md)**
      * 
      * The specific domain authentication method to query about.
      * @returns {BOOL} Type: \[out, retval\] **[BOOL](/windows/win32/winprog/windows-data-types)\***

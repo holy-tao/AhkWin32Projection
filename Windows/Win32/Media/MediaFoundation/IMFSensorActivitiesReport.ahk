@@ -1,8 +1,8 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
-#Include .\IMFSensorActivityReport.ahk
 #Include ..\..\System\Com\IUnknown.ahk
+#Include .\IMFSensorActivityReport.ahk
 
 /**
  * Provides access to IMFSensorActivityReport objects that describe the current activity of a sensor.
@@ -10,9 +10,8 @@
  * Register to receive sensor activities reports by implementing the <a href="https://docs.microsoft.com/windows/desktop/api/mfidl/nn-mfidl-imfsensoractivitiesreportcallback">IMFSensorActivitiesReportCallback</a> interface and passing the implementation into <a href="https://docs.microsoft.com/windows/desktop/api/mfidl/nf-mfidl-mfcreatesensoractivitymonitor">MFCreateSensorActivityMonitor</a>.
  * @see https://learn.microsoft.com/windows/win32/api/mfidl/nn-mfidl-imfsensoractivitiesreport
  * @namespace Windows.Win32.Media.MediaFoundation
- * @version v4.0.30319
  */
-class IMFSensorActivitiesReport extends IUnknown{
+class IMFSensorActivitiesReport extends IUnknown {
 
     static sizeof => A_PtrSize
     /**

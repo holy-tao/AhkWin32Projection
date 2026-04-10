@@ -7,9 +7,8 @@
  * Applications implement this interface to override the default implementation of the HTTP and HTTPS protocols used by Microsoft Media Foundation. (IMFHttpDownloadRequest)
  * @see https://learn.microsoft.com/windows/win32/api/mfidl/nn-mfidl-imfhttpdownloadrequest
  * @namespace Windows.Win32.Media.MediaFoundation
- * @version v4.0.30319
  */
-class IMFHttpDownloadRequest extends IUnknown{
+class IMFHttpDownloadRequest extends IUnknown {
 
     static sizeof => A_PtrSize
     /**

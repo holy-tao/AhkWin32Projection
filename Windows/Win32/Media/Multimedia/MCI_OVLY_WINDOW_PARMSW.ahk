@@ -4,11 +4,9 @@
 
 /**
  * @namespace Windows.Win32.Media.Multimedia
- * @version v4.0.30319
  * @charset Unicode
  */
-class MCI_OVLY_WINDOW_PARMSW extends Win32Struct
-{
+class MCI_OVLY_WINDOW_PARMSW extends Win32Struct {
     static sizeof => 32
 
     static packingSize => 8
@@ -24,7 +22,7 @@ class MCI_OVLY_WINDOW_PARMSW extends Win32Struct
     /**
      * @type {HWND}
      */
-    hWnd{
+    hWnd {
         get {
             if(!this.HasProp("__hWnd"))
                 this.__hWnd := HWND(8, this)

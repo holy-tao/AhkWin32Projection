@@ -3,7 +3,6 @@
 #Include ..\..\..\..\Guid.ahk
 #Include ..\..\System\Com\IUnknown.ahk
 #Include ..\..\System\Variant\VARIANT.ahk
-#Include .\IRawElementProviderSimple.ahk
 
 /**
  * Defines methods and properties that expose simple UI elements.
@@ -19,9 +18,8 @@
  * 			are root elements, <a href="https://docs.microsoft.com/windows/desktop/api/uiautomationcore/nn-uiautomationcore-irawelementproviderfragmentroot">IRawElementProviderFragmentRoot</a>.
  * @see https://learn.microsoft.com/windows/win32/api/uiautomationcore/nn-uiautomationcore-irawelementprovidersimple
  * @namespace Windows.Win32.UI.Accessibility
- * @version v4.0.30319
  */
-class IRawElementProviderSimple extends IUnknown{
+class IRawElementProviderSimple extends IUnknown {
 
     static sizeof => A_PtrSize
     /**
@@ -43,7 +41,7 @@ class IRawElementProviderSimple extends IUnknown{
     static VTableNames => ["get_ProviderOptions", "GetPatternProvider", "GetPropertyValue", "get_HostRawElementProvider"]
 
     /**
-     * @type {Integer} 
+     * @type {ProviderOptions} 
      */
     ProviderOptions {
         get => this.get_ProviderOptions()
@@ -64,7 +62,7 @@ class IRawElementProviderSimple extends IUnknown{
      * UI Automation handles the various types of providers differently. 
      * 			For example, events from a server-side provider are broadcast to all listening clients, 
      * 			but events from client-side (proxy) providers remain in the client.
-     * @returns {Integer} 
+     * @returns {ProviderOptions} 
      * @see https://learn.microsoft.com/windows/win32/api/uiautomationcore/nf-uiautomationcore-irawelementprovidersimple-get_provideroptions
      */
     get_ProviderOptions() {
@@ -74,7 +72,7 @@ class IRawElementProviderSimple extends IUnknown{
 
     /**
      * Retrieves a pointer to an object that provides support for a control pattern on a Microsoft UI Automation element.
-     * @param {Integer} patternId Type: <b>PATTERNID</b>
+     * @param {UIA_PATTERN_ID} patternId Type: <b>PATTERNID</b>
      * 
      * The identifier of the control pattern. For a list of control pattern IDs, see <a href="https://docs.microsoft.com/windows/desktop/WinAuto/uiauto-controlpattern-ids">Control Pattern Identifiers</a>.
      * @returns {IUnknown} Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/unknwn/nn-unknwn-iunknown">IUnknown</a>**</b>
@@ -119,7 +117,7 @@ class IRawElementProviderSimple extends IUnknown{
      * ```
      * numeric_limits<double>::quiet_NaN( )
      * ```
-     * @param {Integer} propertyId Type: <b>PROPERTYID</b>
+     * @param {UIA_PROPERTY_ID} propertyId Type: <b>PROPERTYID</b>
      * 
      * The property identifier. For a list of property IDs, see <a href="https://docs.microsoft.com/windows/desktop/WinAuto/uiauto-entry-propids">Property Identifiers</a>.
      * @returns {VARIANT} Type: <b><a href="https://docs.microsoft.com/windows/desktop/WinAuto/variant-structure">VARIANT</a>*</b>

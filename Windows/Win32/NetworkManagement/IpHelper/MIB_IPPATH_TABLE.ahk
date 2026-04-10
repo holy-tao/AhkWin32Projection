@@ -1,13 +1,14 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
-#Include ..\..\Networking\WinSock\IN_ADDR.ahk
+#Include .\MIB_IPPATH_ROW.ahk
+#Include ..\..\Networking\WinSock\SOCKADDR_INET.ahk
 #Include ..\..\Networking\WinSock\SOCKADDR_IN.ahk
+#Include ..\..\Networking\WinSock\ADDRESS_FAMILY.ahk
+#Include ..\..\Networking\WinSock\IN_ADDR.ahk
+#Include ..\..\Networking\WinSock\SOCKADDR_IN6.ahk
 #Include ..\..\Networking\WinSock\IN6_ADDR.ahk
 #Include ..\..\Networking\WinSock\SCOPE_ID.ahk
-#Include ..\..\Networking\WinSock\SOCKADDR_IN6.ahk
-#Include ..\..\Networking\WinSock\SOCKADDR_INET.ahk
 #Include ..\Ndis\NET_LUID_LH.ahk
-#Include .\MIB_IPPATH_ROW.ahk
 
 /**
  * Contains a table of IP path entries.
@@ -25,11 +26,9 @@
  * The <b>MIB_IPPATH_TABLE</b> structure may contain padding for alignment between the <b>NumEntries</b> member and the first <a href="https://docs.microsoft.com/windows/desktop/api/netioapi/ns-netioapi-mib_ippath_row">MIB_IPPATH_ROW</a> array entry in the <b>Table</b> member. Padding for alignment may also be present between the <b>MIB_IPPATH_ROW</b> array entries in the <b>Table</b> member. Any access to a <b>MIB_IPPATH_ROW</b> array entry should assume  padding may exist.
  * @see https://learn.microsoft.com/windows/win32/api/netioapi/ns-netioapi-mib_ippath_table
  * @namespace Windows.Win32.NetworkManagement.IpHelper
- * @version v4.0.30319
  */
-class MIB_IPPATH_TABLE extends Win32Struct
-{
-    static sizeof => 16
+class MIB_IPPATH_TABLE extends Win32Struct {
+    static sizeof => 208
 
     static packingSize => 8
 
@@ -45,9 +44,9 @@ class MIB_IPPATH_TABLE extends Win32Struct
     /**
      * An array of 
      * <a href="https://docs.microsoft.com/windows/desktop/api/netioapi/ns-netioapi-mib_ippath_row">MIB_IPPATH_ROW</a> structures containing IP path entries.
-     * @type {Array<MIB_IPPATH_ROW>}
+     * @type {MIB_IPPATH_ROW}
      */
-    Table{
+    Table {
         get {
             if(!this.HasProp("__TableProxyArray"))
                 this.__TableProxyArray := Win32FixedArray(this.ptr + 8, 1, MIB_IPPATH_ROW, "")

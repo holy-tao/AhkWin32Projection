@@ -9,9 +9,8 @@
  * Except for ChildAdded, structure-change events are always associated with the container element that holds the children. The ChildAdded event is associated with the element that was just added.
  * @see https://learn.microsoft.com/windows/win32/api/uiautomationcore/ne-uiautomationcore-structurechangetype
  * @namespace Windows.Win32.UI.Accessibility
- * @version v4.0.30319
  */
-class StructureChangeType extends Win32Enum{
+class StructureChangeType extends Win32Enum {
 
     /**
      * A child element was added to the UI Automation element tree.

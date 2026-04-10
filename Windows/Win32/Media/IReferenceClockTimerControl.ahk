@@ -15,9 +15,8 @@
  * If a DirectShow filter requires a higher timer resolution, it should call <a href="https://docs.microsoft.com/windows/desktop/api/timeapi/nf-timeapi-timebeginperiod">timeBeginPeriod</a>. Typically this requirement would apply only to renderer filters.
  * @see https://learn.microsoft.com/windows/win32/api/strmif/nn-strmif-ireferenceclocktimercontrol
  * @namespace Windows.Win32.Media
- * @version v4.0.30319
  */
-class IReferenceClockTimerControl extends IUnknown{
+class IReferenceClockTimerControl extends IUnknown {
 
     static sizeof => A_PtrSize
     /**

@@ -3,10 +3,8 @@
 
 /**
  * @namespace Windows.Win32.System.Ioctl
- * @version v4.0.30319
  */
-class DEVICE_DATA_SET_SCRUB_OUTPUT extends Win32Struct
-{
+class DEVICE_DATA_SET_SCRUB_OUTPUT extends Win32Struct {
     static sizeof => 24
 
     static packingSize => 8

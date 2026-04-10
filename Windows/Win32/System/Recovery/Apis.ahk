@@ -3,7 +3,6 @@
 
 /**
  * @namespace Windows.Win32.System.Recovery
- * @version v4.0.30319
  */
 class Recovery {
 
@@ -114,7 +113,7 @@ class Recovery {
      * @param {PWSTR} pwzCommandline A pointer to a Unicode string that specifies the command-line arguments for the application when it is restarted. The maximum size of the command line that you can specify is RESTART_MAX_CMD_LINE characters. Do not include the name of the executable in the command line; this function adds it for you.  
      * 
      * If this parameter is <b>NULL</b> or an empty string, the previously registered command line is removed. If the argument contains spaces, use quotes around the argument.
-     * @param {Integer} dwFlags 
+     * @param {REGISTER_APPLICATION_RESTART_FLAGS} dwFlags 
      * @returns {HRESULT} This function returns <b>S_OK</b> on success or one of the following error codes.
      * 
      * <table>

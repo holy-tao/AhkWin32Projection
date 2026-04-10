@@ -1,18 +1,17 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
-#Include ..\..\Foundation\BSTR.ahk
-#Include .\IMFMediaKeySession.ahk
-#Include .\IMFCdmSuspendNotify.ahk
 #Include ..\..\System\Com\IUnknown.ahk
+#Include .\IMFMediaKeySession.ahk
+#Include ..\..\Foundation\BSTR.ahk
+#Include .\IMFCdmSuspendNotify.ahk
 
 /**
  * Represents a media keys used for decrypting media data using a Digital Rights Management (DRM) key system.
  * @see https://learn.microsoft.com/windows/win32/api/mfmediaengine/nn-mfmediaengine-imfmediakeys
  * @namespace Windows.Win32.Media.MediaFoundation
- * @version v4.0.30319
  */
-class IMFMediaKeys extends IUnknown{
+class IMFMediaKeys extends IUnknown {
 
     static sizeof => A_PtrSize
     /**
@@ -43,9 +42,9 @@ class IMFMediaKeys extends IUnknown{
     /**
      * Creates a media key session object using the specified initialization data and custom data. .
      * @param {BSTR} mimeType The MIME type of the media container used for the content.
-     * @param {Pointer} initData The initialization data for the key system.
+     * @param {Integer} initData The initialization data for the key system.
      * @param {Integer} cb The count in bytes of <i>initData</i>.
-     * @param {Pointer} customData Custom data sent to the key system.
+     * @param {Integer} customData Custom data sent to the key system.
      * @param {Integer} cbCustomData The count in bytes of <i>cbCustomData</i>.
      * @param {IMFMediaKeySessionNotify} notify notify
      * @returns {IMFMediaKeySession} The media key session.

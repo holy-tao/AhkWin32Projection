@@ -7,9 +7,8 @@
  * Protocol version 2.0 servers do not support this enumeration.
  * @see https://learn.microsoft.com/windows/win32/api/msclus/ne-msclus-cluster_change_group_v2
  * @namespace Windows.Win32.Networking.Clustering
- * @version v4.0.30319
  */
-class CLUSTER_CHANGE_GROUP_V2 extends Win32Enum{
+class CLUSTER_CHANGE_GROUP_V2 extends Win32Enum {
 
     /**
      * Indicates that a group was deleted.

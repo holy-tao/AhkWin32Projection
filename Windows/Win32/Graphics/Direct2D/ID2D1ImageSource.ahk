@@ -7,9 +7,8 @@
  * Represents a producer of pixels that can fill an arbitrary 2D plane. (ID2D1ImageSource)
  * @see https://learn.microsoft.com/windows/win32/api/d2d1_3/nn-d2d1_3-id2d1imagesource
  * @namespace Windows.Win32.Graphics.Direct2D
- * @version v4.0.30319
  */
-class ID2D1ImageSource extends ID2D1Image{
+class ID2D1ImageSource extends ID2D1Image {
 
     static sizeof => A_PtrSize
     /**

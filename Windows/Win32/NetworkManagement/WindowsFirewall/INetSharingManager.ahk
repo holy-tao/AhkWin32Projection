@@ -1,12 +1,12 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
+#Include ..\..\System\Com\IDispatch.ahk
 #Include .\INetSharingPublicConnectionCollection.ahk
 #Include .\INetSharingPrivateConnectionCollection.ahk
 #Include .\INetSharingConfiguration.ahk
 #Include .\INetSharingEveryConnectionCollection.ahk
 #Include .\INetConnectionProps.ahk
-#Include ..\..\System\Com\IDispatch.ahk
 
 /**
  * The INetSharingManager interface is the primary interface for the Manager object. INetSharingManager provides methods to determine if sharing is installed, to manage port mappings, and to obtain enumeration interfaces for public and private connections.
@@ -18,9 +18,8 @@
  * <a href="https://docs.microsoft.com/windows/desktop/api/netcon/nn-netcon-ienumnetsharingportmapping">IEnumNetSharingPortMapping</a> interface.
  * @see https://learn.microsoft.com/windows/win32/api/netcon/nn-netcon-inetsharingmanager
  * @namespace Windows.Win32.NetworkManagement.WindowsFirewall
- * @version v4.0.30319
  */
-class INetSharingManager extends IDispatch{
+class INetSharingManager extends IDispatch {
 
     static sizeof => A_PtrSize
     /**
@@ -85,7 +84,7 @@ class INetSharingManager extends IDispatch{
 
     /**
      * The EnumPublicConnections method retrieves an enumeration interface for publicly-shared connections.
-     * @param {Integer} Flags This parameter must be ICSSC_DEFAULT.
+     * @param {SHARINGCONNECTION_ENUM_FLAGS} Flags This parameter must be ICSSC_DEFAULT.
      * @returns {INetSharingPublicConnectionCollection} Pointer to a pointer that, on successful return, points to an 
      * <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/netcon/nn-netcon-inetsharingpublicconnectioncollection">INetSharingPublicConnectionCollection</a> interface.
      * @see https://learn.microsoft.com/windows/win32/api/netcon/nf-netcon-inetsharingmanager-get_enumpublicconnections
@@ -97,7 +96,7 @@ class INetSharingManager extends IDispatch{
 
     /**
      * The get_EnumPrivateConnections method retrieves an enumeration interface for privately-shared connections.
-     * @param {Integer} Flags This parameter must be ICSSC_DEFAULT.
+     * @param {SHARINGCONNECTION_ENUM_FLAGS} Flags This parameter must be ICSSC_DEFAULT.
      * @returns {INetSharingPrivateConnectionCollection} Pointer to a pointer that, on successful return, points to an 
      * <a href="https://docs.microsoft.com/windows/desktop/api/netcon/nn-netcon-inetsharingprivateconnectioncollection">INetSharingPrivateConnectionCollection</a> interface.
      * @see https://learn.microsoft.com/windows/win32/api/netcon/nf-netcon-inetsharingmanager-get_enumprivateconnections

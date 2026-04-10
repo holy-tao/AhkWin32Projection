@@ -7,9 +7,8 @@
  * Contains the properties and the methods that are available to the status of an installation or uninstallation of an update.
  * @see https://learn.microsoft.com/windows/win32/api/wuapi/nn-wuapi-iupdateinstallationresult
  * @namespace Windows.Win32.System.UpdateAgent
- * @version v4.0.30319
  */
-class IUpdateInstallationResult extends IDispatch{
+class IUpdateInstallationResult extends IDispatch {
 
     static sizeof => A_PtrSize
     /**
@@ -45,7 +44,7 @@ class IUpdateInstallationResult extends IDispatch{
     }
 
     /**
-     * @type {Integer} 
+     * @type {OperationResultCode} 
      */
     ResultCode {
         get => this.get_ResultCode()
@@ -73,7 +72,7 @@ class IUpdateInstallationResult extends IDispatch{
 
     /**
      * Gets an OperationResultCode value that specifies the result of an operation on an update. (IUpdateInstallationResult.get_ResultCode)
-     * @returns {Integer} 
+     * @returns {OperationResultCode} 
      * @see https://learn.microsoft.com/windows/win32/api/wuapi/nf-wuapi-iupdateinstallationresult-get_resultcode
      */
     get_ResultCode() {

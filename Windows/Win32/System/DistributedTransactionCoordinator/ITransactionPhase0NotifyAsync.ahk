@@ -5,9 +5,8 @@
 
 /**
  * @namespace Windows.Win32.System.DistributedTransactionCoordinator
- * @version v4.0.30319
  */
-class ITransactionPhase0NotifyAsync extends IUnknown{
+class ITransactionPhase0NotifyAsync extends IUnknown {
 
     static sizeof => A_PtrSize
     /**

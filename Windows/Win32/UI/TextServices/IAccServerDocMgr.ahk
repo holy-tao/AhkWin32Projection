@@ -7,9 +7,8 @@
  * Exposes methods that make documents accessible to client applications.
  * @see https://learn.microsoft.com/windows/win32/api/msaatext/nn-msaatext-iaccserverdocmgr
  * @namespace Windows.Win32.UI.TextServices
- * @version v4.0.30319
  */
-class IAccServerDocMgr extends IUnknown{
+class IAccServerDocMgr extends IUnknown {
 
     static sizeof => A_PtrSize
     /**

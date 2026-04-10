@@ -1,16 +1,15 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\..\..\Guid.ahk
+#Include .\IRemoteDebugApplication.ahk
 #Include .\IDebugApplicationThread.ahk
 #Include .\IDebugAsyncOperation.ahk
 #Include .\IDebugApplicationNode.ahk
-#Include .\IRemoteDebugApplication.ahk
 
 /**
  * @namespace Windows.Win32.System.Diagnostics.Debug.ActiveScript
- * @version v4.0.30319
  */
-class IDebugApplication32 extends IRemoteDebugApplication{
+class IDebugApplication32 extends IRemoteDebugApplication {
 
     static sizeof => A_PtrSize
     /**
@@ -81,8 +80,8 @@ class IDebugApplication32 extends IRemoteDebugApplication{
 
     /**
      * 
-     * @param {Integer} br 
-     * @returns {Integer} 
+     * @param {BREAKREASON} br 
+     * @returns {BREAKRESUMEACTION} 
      */
     HandleBreakPoint(br) {
         result := ComCall(18, this, "int", br, "int*", &pbra := 0, "HRESULT")
@@ -219,8 +218,8 @@ class IDebugApplication32 extends IRemoteDebugApplication{
      * 
      * @param {IActiveScriptErrorDebug} pErrorDebug 
      * @param {IActiveScriptSite} pScriptSite 
-     * @param {Pointer<Integer>} pbra 
-     * @param {Pointer<Integer>} perra 
+     * @param {Pointer<BREAKRESUMEACTION>} pbra 
+     * @param {Pointer<ERRORRESUMEACTION>} perra 
      * @param {Pointer<BOOL>} pfCallOnScriptError 
      * @returns {HRESULT} 
      */

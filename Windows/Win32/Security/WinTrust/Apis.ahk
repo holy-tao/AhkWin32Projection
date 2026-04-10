@@ -4,7 +4,6 @@
 
 /**
  * @namespace Windows.Win32.Security.WinTrust
- * @version v4.0.30319
  */
 class WinTrust {
 
@@ -992,7 +991,7 @@ class WinTrust {
      * Each trust provider supports a specific set of actions that it can evaluate. Each action has a GUID that identifies it. A trust provider can support any number of action identifiers, but two trust providers cannot support the same action identifier.
      * 
      * For an example that demonstrates how to use this function to verify the signature of a portable executable (PE) file, see <a href="https://docs.microsoft.com/windows/desktop/SecCrypto/example-c-program--verifying-the-signature-of-a-pe-file">Example C Program: Verifying the Signature of a PE File</a>.
-     * @param {HWND} _hwnd 
+     * @param {HWND} _hwnd Optional handle to a caller window. A trust provider can use this value to determine whether it can interact with the user. However, trust providers typically perform verification actions without input from the user.
      * @param {Pointer<Guid>} pgActionID A pointer to a <b>GUID</b> structure that identifies an action and the <a href="https://docs.microsoft.com/windows/desktop/SecGloss/t-gly">trust provider</a> that supports that action. This value indicates the type of verification action to be performed on the structure pointed to by <i>pWinTrustData</i>.
      * 
      * The WinTrust service is designed to work with trust providers implemented by third parties. Each trust provider provides its own unique set of action identifiers. For information about the action identifiers supported by a trust provider, see the documentation for that trust provider.
@@ -1156,7 +1155,7 @@ class WinTrust {
 
     /**
      * Performs a trust verification action on a specified object and takes a pointer to a WINTRUST_DATA structure.
-     * @param {HWND} _hwnd 
+     * @param {HWND} _hwnd Optional handle to a caller window. A trust provider can use this value to determine whether it can interact with the user. However, trust providers typically perform verification actions without input from the user.
      * @param {Pointer<Guid>} pgActionID A pointer to a <b>GUID</b> structure that identifies an action and the <a href="https://docs.microsoft.com/windows/desktop/SecGloss/t-gly">trust provider</a> that supports that action. This value indicates the type of verification action to be performed on the structure pointed to by <i>pWinTrustData</i>.
      * 
      * The WinTrust service is designed to work with trust providers implemented by third parties. Each trust provider provides its own unique set of action identifiers. For information about the action identifiers supported by a trust provider, see the documentation for that trust provider.
@@ -1330,7 +1329,7 @@ class WinTrust {
 
     /**
      * Retrieves policy flags for a policy provider.
-     * @param {Pointer<Integer>} pdwPolicyFlags 
+     * @param {Pointer<WINTRUST_POLICY_FLAGS>} pdwPolicyFlags 
      * @returns {String} Nothing - always returns an empty string
      * @see https://learn.microsoft.com/windows/win32/api/wintrust/nf-wintrust-wintrustgetregpolicyflags
      * @since windows5.1.2600
@@ -1343,7 +1342,7 @@ class WinTrust {
 
     /**
      * Sets policy flags for a policy provider.
-     * @param {Integer} dwPolicyFlags 
+     * @param {WINTRUST_POLICY_FLAGS} dwPolicyFlags 
      * @returns {BOOL} Returns nonzero if the policy flags were set successfully or zero otherwise.
      * @see https://learn.microsoft.com/windows/win32/api/wintrust/nf-wintrust-wintrustsetregpolicyflags
      * @since windows5.1.2600
@@ -1554,7 +1553,7 @@ class WinTrust {
      * Call this function once with the <i>dwAction</i> parameter set to <b>DWACTION_ALLOCANDFILL</b> to allocate memory and fill a <a href="https://docs.microsoft.com/windows/desktop/api/wintrust/ns-wintrust-crypt_provider_defusage">CRYPT_PROVIDER_DEFUSAGE</a> structure with information. Call this function again with the <i>dwAction</i> parameter set to <b>DWACTION_FREE</b> to free the allocated memory.
      * 
      * The default usage and callback information for a provider is registered by calling the <a href="https://docs.microsoft.com/windows/desktop/api/wintrust/nf-wintrust-wintrustadddefaultforusage">WintrustAddDefaultForUsage</a> function.
-     * @param {Integer} dwAction 
+     * @param {WINTRUST_GET_DEFAULT_FOR_USAGE_ACTION} dwAction 
      * @param {PSTR} pszUsageOID Pointer to a string that contains the identifier.
      * @param {Pointer<CRYPT_PROVIDER_DEFUSAGE>} psUsage Pointer to a <a href="https://docs.microsoft.com/windows/desktop/api/wintrust/ns-wintrust-crypt_provider_defusage">CRYPT_PROVIDER_DEFUSAGE</a> structure that contains callback information to be retrieved.
      * @returns {BOOL} The return value is <b>TRUE</b> if the function succeeds; <b>FALSE</b>  if the function fails.   If the function fails, call the <a href="https://docs.microsoft.com/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a> function  to determine the reason for failure.

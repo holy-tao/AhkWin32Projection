@@ -11,9 +11,8 @@
  * For debug settings to take effect on Internet Explorer in the new Windows UI, use "DefaultBrowser_NOPUBLISHERID" as the <i>packageFullName</i> parameter  for  <a href="https://docs.microsoft.com/previous-versions/hh438393(v=vs.85)">IPackageDebugSettings</a> methods.
  * @see https://learn.microsoft.com/windows/win32/api/shobjidl_core/nn-shobjidl_core-ipackagedebugsettings
  * @namespace Windows.Win32.UI.Shell
- * @version v4.0.30319
  */
-class IPackageDebugSettings extends IUnknown{
+class IPackageDebugSettings extends IUnknown {
 
     static sizeof => A_PtrSize
     /**
@@ -251,7 +250,7 @@ class IPackageDebugSettings extends IUnknown{
      * @param {PWSTR} packageFullName Type: <b>LPCWSTR</b>
      * 
      * The package full name.
-     * @returns {Integer} Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/shobjidl_core/ne-shobjidl_core-package_execution_state">PACKAGE_EXECUTION_STATE</a>*</b>
+     * @returns {PACKAGE_EXECUTION_STATE} Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/shobjidl_core/ne-shobjidl_core-package_execution_state">PACKAGE_EXECUTION_STATE</a>*</b>
      * @see https://learn.microsoft.com/windows/win32/api/shobjidl_core/nf-shobjidl_core-ipackagedebugsettings-getpackageexecutionstate
      */
     GetPackageExecutionState(packageFullName) {

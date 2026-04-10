@@ -7,9 +7,8 @@
  * Represents the context to bind inputs and outputs to a WinML model.
  * @see https://learn.microsoft.com/windows/win32/api/winml/nn-winml-iwinmlevaluationcontext
  * @namespace Windows.Win32.AI.MachineLearning.WinML
- * @version v4.0.30319
  */
-class IWinMLEvaluationContext extends IUnknown{
+class IWinMLEvaluationContext extends IUnknown {
 
     static sizeof => A_PtrSize
     /**

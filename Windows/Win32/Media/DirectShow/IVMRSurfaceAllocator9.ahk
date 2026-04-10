@@ -1,8 +1,8 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
-#Include ..\..\Graphics\Direct3D9\IDirect3DSurface9.ahk
 #Include ..\..\System\Com\IUnknown.ahk
+#Include ..\..\Graphics\Direct3D9\IDirect3DSurface9.ahk
 
 /**
  * The IVMRSurfaceAllocator9 interface is implemented by the default allocator-presenter for the Video Mixing Renderer Filter 9 (VMR-9).
@@ -10,9 +10,8 @@
  * Include DShow.h and D3d9.h before Vmr9.h.
  * @see https://learn.microsoft.com/windows/win32/api/vmr9/nn-vmr9-ivmrsurfaceallocator9
  * @namespace Windows.Win32.Media.DirectShow
- * @version v4.0.30319
  */
-class IVMRSurfaceAllocator9 extends IUnknown{
+class IVMRSurfaceAllocator9 extends IUnknown {
 
     static sizeof => A_PtrSize
     /**

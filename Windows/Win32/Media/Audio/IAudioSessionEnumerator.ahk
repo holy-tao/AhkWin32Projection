@@ -1,8 +1,8 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
-#Include .\IAudioSessionControl.ahk
 #Include ..\..\System\Com\IUnknown.ahk
+#Include .\IAudioSessionControl.ahk
 
 /**
  * The IAudioSessionEnumerator interface enumerates audio sessions on an audio device.
@@ -29,9 +29,8 @@
  * A session control is valid as long as the application has a reference to the session control in the list.
  * @see https://learn.microsoft.com/windows/win32/api/audiopolicy/nn-audiopolicy-iaudiosessionenumerator
  * @namespace Windows.Win32.Media.Audio
- * @version v4.0.30319
  */
-class IAudioSessionEnumerator extends IUnknown{
+class IAudioSessionEnumerator extends IUnknown {
 
     static sizeof => A_PtrSize
     /**

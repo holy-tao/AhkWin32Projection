@@ -7,9 +7,8 @@
  * Contains the properties and methods that are available to an update. (IUpdate5)
  * @see https://learn.microsoft.com/windows/win32/api/wuapi/nn-wuapi-iupdate5
  * @namespace Windows.Win32.System.UpdateAgent
- * @version v4.0.30319
  */
-class IUpdate5 extends IUpdate4{
+class IUpdate5 extends IUpdate4 {
 
     static sizeof => A_PtrSize
     /**
@@ -31,14 +30,14 @@ class IUpdate5 extends IUpdate4{
     static VTableNames => ["get_AutoSelection", "get_AutoDownload"]
 
     /**
-     * @type {Integer} 
+     * @type {AutoSelectionMode} 
      */
     AutoSelection {
         get => this.get_AutoSelection()
     }
 
     /**
-     * @type {Integer} 
+     * @type {AutoDownloadMode} 
      */
     AutoDownload {
         get => this.get_AutoDownload()
@@ -48,7 +47,7 @@ class IUpdate5 extends IUpdate4{
      * Gets a value indicating the automatic selection mode of update in the Control Panel of Windows Update.
      * @remarks
      * The AutoSelection property indicates whether the update will be automatically selected when the user views the available updates in the Windows Update user interface.
-     * @returns {Integer} 
+     * @returns {AutoSelectionMode} 
      * @see https://learn.microsoft.com/windows/win32/api/wuapi/nf-wuapi-iupdate5-get_autoselection
      */
     get_AutoSelection() {
@@ -60,7 +59,7 @@ class IUpdate5 extends IUpdate4{
      * Gets a value indicating the automatic download mode of update.
      * @remarks
      * The AutoDownload property indicates whether the update will be automatically downloaded by Automatic Updates.
-     * @returns {Integer} 
+     * @returns {AutoDownloadMode} 
      * @see https://learn.microsoft.com/windows/win32/api/wuapi/nf-wuapi-iupdate5-get_autodownload
      */
     get_AutoDownload() {

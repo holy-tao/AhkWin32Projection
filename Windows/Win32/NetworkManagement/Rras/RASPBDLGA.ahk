@@ -4,11 +4,10 @@
 
 /**
  * @namespace Windows.Win32.NetworkManagement.Rras
- * @version v4.0.30319
  * @charset ANSI
+ * @architecture X64, Arm64
  */
-class RASPBDLGA extends Win32Struct
-{
+class RASPBDLGA extends Win32Struct {
     static sizeof => 72
 
     static packingSize => 8
@@ -24,7 +23,7 @@ class RASPBDLGA extends Win32Struct
     /**
      * @type {HWND}
      */
-    hwndOwner{
+    hwndOwner {
         get {
             if(!this.HasProp("__hwndOwner"))
                 this.__hwndOwner := HWND(8, this)

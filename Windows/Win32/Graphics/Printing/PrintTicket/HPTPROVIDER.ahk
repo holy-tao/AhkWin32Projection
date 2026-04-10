@@ -5,10 +5,8 @@
 
 /**
  * @namespace Windows.Win32.Graphics.Printing.PrintTicket
- * @version v4.0.30319
  */
-class HPTPROVIDER extends Win32Handle
-{
+class HPTPROVIDER extends Win32Handle {
     static sizeof => 8
 
     static packingSize => 8

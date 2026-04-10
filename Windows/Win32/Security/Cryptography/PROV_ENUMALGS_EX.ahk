@@ -1,21 +1,20 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
+#Include .\ALG_ID.ahk
 
 /**
  * Used with the CryptGetProvParam function when the PP_ENUMALGS_EX parameter is retrieved to contain information about an algorithm supported by a cryptographic service provider (CSP).
  * @see https://learn.microsoft.com/windows/win32/api/wincrypt/ns-wincrypt-prov_enumalgs_ex
  * @namespace Windows.Win32.Security.Cryptography
- * @version v4.0.30319
  */
-class PROV_ENUMALGS_EX extends Win32Struct
-{
-    static sizeof => 148
+class PROV_ENUMALGS_EX extends Win32Struct {
+    static sizeof => 88
 
     static packingSize => 4
 
     /**
      * One of the <a href="https://docs.microsoft.com/windows/desktop/SecCrypto/alg-id">ALG_ID</a> values that identifies the algorithm.
-     * @type {Integer}
+     * @type {ALG_ID}
      */
     aiAlgid {
         get => NumGet(this, 0, "uint")
@@ -72,8 +71,8 @@ class PROV_ENUMALGS_EX extends Win32Struct
      * @type {String}
      */
     szName {
-        get => StrGet(this.ptr + 24, 19, "UTF-16")
-        set => StrPut(value, this.ptr + 24, 19, "UTF-16")
+        get => StrGet(this.ptr + 24, 19, "UTF-8")
+        set => StrPut(value, this.ptr + 24, 19, "UTF-8")
     }
 
     /**
@@ -81,8 +80,8 @@ class PROV_ENUMALGS_EX extends Win32Struct
      * @type {Integer}
      */
     dwLongNameLen {
-        get => NumGet(this, 64, "uint")
-        set => NumPut("uint", value, this, 64)
+        get => NumGet(this, 44, "uint")
+        set => NumPut("uint", value, this, 44)
     }
 
     /**
@@ -90,7 +89,7 @@ class PROV_ENUMALGS_EX extends Win32Struct
      * @type {String}
      */
     szLongName {
-        get => StrGet(this.ptr + 68, 39, "UTF-16")
-        set => StrPut(value, this.ptr + 68, 39, "UTF-16")
+        get => StrGet(this.ptr + 48, 39, "UTF-8")
+        set => StrPut(value, this.ptr + 48, 39, "UTF-8")
     }
 }

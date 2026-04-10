@@ -5,9 +5,8 @@
  * Contains flags used for setting security access levels.
  * @see https://learn.microsoft.com/windows/win32/api/wbemcli/ne-wbemcli-wbem_security_flags
  * @namespace Windows.Win32.System.Wmi
- * @version v4.0.30319
  */
-class WBEM_SECURITY_FLAGS extends Win32Enum{
+class WBEM_SECURITY_FLAGS extends Win32Enum {
 
     /**
      * Enables the account and grants the user read permissions. This is a default access right for all users and corresponds to the Enable Account permission on the Security tab of the <a href="https://docs.microsoft.com/windows/desktop/WmiSdk/gloss-w">WMI Control</a>. For more information, see <a href="https://docs.microsoft.com/windows/desktop/WmiSdk/setting-namespace-security-with-the-wmi-control">Setting Namespace Security with the WMI Control</a>.

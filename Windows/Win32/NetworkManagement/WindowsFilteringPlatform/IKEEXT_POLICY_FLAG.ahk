@@ -7,9 +7,8 @@
   * notifications to peer.
  * @see https://learn.microsoft.com/windows/win32/api/iketypes/ns-iketypes-ikeext_policy0
  * @namespace Windows.Win32.NetworkManagement.WindowsFilteringPlatform
- * @version v4.0.30319
  */
-class IKEEXT_POLICY_FLAG extends Win32BitflagEnum{
+class IKEEXT_POLICY_FLAG extends Win32BitflagEnum {
 
     /**
      * @type {Integer (UInt32)}

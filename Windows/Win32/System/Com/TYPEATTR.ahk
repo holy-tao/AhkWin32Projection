@@ -1,23 +1,25 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
+#Include .\TYPEKIND.ahk
 #Include .\TYPEDESC.ahk
+#Include ..\Ole\ARRAYDESC.ahk
+#Include ..\Variant\VARENUM.ahk
 #Include .\IDLDESC.ahk
+#Include .\IDLFLAGS.ahk
 
 /**
  * Contains attributes of a type.
  * @see https://learn.microsoft.com/windows/win32/api/oaidl/ns-oaidl-typeattr
  * @namespace Windows.Win32.System.Com
- * @version v4.0.30319
  */
-class TYPEATTR extends Win32Struct
-{
+class TYPEATTR extends Win32Struct {
     static sizeof => 88
 
     static packingSize => 8
 
     /**
      * The GUID of the type information.
-     * @type {Pointer<Guid>}
+     * @type {Pointer}
      */
     guid {
         get => NumGet(this, 0, "ptr")
@@ -80,7 +82,7 @@ class TYPEATTR extends Win32Struct
 
     /**
      * The kind of type.
-     * @type {Integer}
+     * @type {TYPEKIND}
      */
     typekind {
         get => NumGet(this, 36, "int")
@@ -163,7 +165,7 @@ class TYPEATTR extends Win32Struct
      * If <b>typekind</b> is TKIND_ALIAS, specifies the type for which this type is an alias.
      * @type {TYPEDESC}
      */
-    tdescAlias{
+    tdescAlias {
         get {
             if(!this.HasProp("__tdescAlias"))
                 this.__tdescAlias := TYPEDESC(56, this)
@@ -175,7 +177,7 @@ class TYPEATTR extends Win32Struct
      * The IDL attributes of the described type.
      * @type {IDLDESC}
      */
-    idldescType{
+    idldescType {
         get {
             if(!this.HasProp("__idldescType"))
                 this.__idldescType := IDLDESC(72, this)

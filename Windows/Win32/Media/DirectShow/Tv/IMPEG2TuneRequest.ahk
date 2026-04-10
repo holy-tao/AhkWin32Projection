@@ -9,9 +9,8 @@
  * To declare the interface identifier (IID) for this interface, use the <b>__uuidof</b> operator: <c>__uuidof(IMPEG2TuneRequest)</c>.
  * @see https://learn.microsoft.com/windows/win32/api/tuner/nn-tuner-impeg2tunerequest
  * @namespace Windows.Win32.Media.DirectShow.Tv
- * @version v4.0.30319
  */
-class IMPEG2TuneRequest extends ITuneRequest{
+class IMPEG2TuneRequest extends ITuneRequest {
 
     static sizeof => A_PtrSize
     /**

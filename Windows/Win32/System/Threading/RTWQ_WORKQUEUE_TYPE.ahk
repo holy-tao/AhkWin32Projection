@@ -5,9 +5,8 @@
  * Specifies the type of work queue for the RtwqAllocateWorkQueue function to create.
  * @see https://learn.microsoft.com/windows/win32/api/rtworkq/ne-rtworkq-rtwq_workqueue_type
  * @namespace Windows.Win32.System.Threading
- * @version v4.0.30319
  */
-class RTWQ_WORKQUEUE_TYPE extends Win32Enum{
+class RTWQ_WORKQUEUE_TYPE extends Win32Enum {
 
     /**
      * Create a work queue without a message loop.

@@ -5,10 +5,8 @@
  * The WAVEFILTER structure defines a filter for waveform-audio data.
  * @see https://learn.microsoft.com/windows/win32/api/mmreg/ns-mmreg-wavefilter
  * @namespace Windows.Win32.Media.Audio
- * @version v4.0.30319
  */
-class WAVEFILTER extends Win32Struct
-{
+class WAVEFILTER extends Win32Struct {
     static sizeof => 32
 
     static packingSize => 4
@@ -42,9 +40,9 @@ class WAVEFILTER extends Win32Struct
 
     /**
      * Reserved for system use; should not be examined or modified by an application.
-     * @type {Array<UInt32>}
+     * @type {Array<Integer>}
      */
-    dwReserved{
+    dwReserved {
         get {
             if(!this.HasProp("__dwReservedProxyArray"))
                 this.__dwReservedProxyArray := Win32FixedArray(this.ptr + 12, 5, Primitive, "uint")

@@ -1,19 +1,20 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\..\Win32Struct.ahk
+#Include .\WINML_BINDING_TYPE.ahk
 #Include .\WINML_TENSOR_BINDING_DESC.ahk
+#Include .\WINML_TENSOR_DATA_TYPE.ahk
 #Include .\WINML_SEQUENCE_BINDING_DESC.ahk
 #Include .\WINML_MAP_BINDING_DESC.ahk
 #Include .\WINML_IMAGE_BINDING_DESC.ahk
 #Include .\WINML_RESOURCE_BINDING_DESC.ahk
+#Include ..\..\..\Graphics\Direct3D12\ID3D12Resource.ahk
 
 /**
  * Contains a description of the WinML binding.
  * @see https://learn.microsoft.com/windows/win32/api/winml/ns-winml-winml_binding_desc
  * @namespace Windows.Win32.AI.MachineLearning.WinML
- * @version v4.0.30319
  */
-class WINML_BINDING_DESC extends Win32Struct
-{
+class WINML_BINDING_DESC extends Win32Struct {
     static sizeof => 48
 
     static packingSize => 8
@@ -29,7 +30,7 @@ class WINML_BINDING_DESC extends Win32Struct
 
     /**
      * A <a href="https://docs.microsoft.com/windows/desktop/api/winml/ne-winml-winml_binding_type">WINML_BINDING_TYPE</a> containing the type of the WinML binding.
-     * @type {Integer}
+     * @type {WINML_BINDING_TYPE}
      */
     BindType {
         get => NumGet(this, 8, "int")
@@ -39,7 +40,7 @@ class WINML_BINDING_DESC extends Win32Struct
     /**
      * @type {WINML_TENSOR_BINDING_DESC}
      */
-    Tensor{
+    Tensor {
         get {
             if(!this.HasProp("__Tensor"))
                 this.__Tensor := WINML_TENSOR_BINDING_DESC(16, this)
@@ -50,7 +51,7 @@ class WINML_BINDING_DESC extends Win32Struct
     /**
      * @type {WINML_SEQUENCE_BINDING_DESC}
      */
-    Sequence{
+    Sequence {
         get {
             if(!this.HasProp("__Sequence"))
                 this.__Sequence := WINML_SEQUENCE_BINDING_DESC(16, this)
@@ -61,7 +62,7 @@ class WINML_BINDING_DESC extends Win32Struct
     /**
      * @type {WINML_MAP_BINDING_DESC}
      */
-    Map{
+    Map {
         get {
             if(!this.HasProp("__Map"))
                 this.__Map := WINML_MAP_BINDING_DESC(16, this)
@@ -72,7 +73,7 @@ class WINML_BINDING_DESC extends Win32Struct
     /**
      * @type {WINML_IMAGE_BINDING_DESC}
      */
-    Image{
+    Image {
         get {
             if(!this.HasProp("__Image"))
                 this.__Image := WINML_IMAGE_BINDING_DESC(16, this)
@@ -83,7 +84,7 @@ class WINML_BINDING_DESC extends Win32Struct
     /**
      * @type {WINML_RESOURCE_BINDING_DESC}
      */
-    Resource{
+    Resource {
         get {
             if(!this.HasProp("__Resource"))
                 this.__Resource := WINML_RESOURCE_BINDING_DESC(16, this)

@@ -5,9 +5,8 @@
  * Specifies how closely an event must match a filter.
  * @see https://learn.microsoft.com/windows/win32/api/cscobj/ne-cscobj-offlinefiles_pathfilter_match
  * @namespace Windows.Win32.Storage.OfflineFiles
- * @version v4.0.30319
  */
-class OFFLINEFILES_PATHFILTER_MATCH extends Win32Enum{
+class OFFLINEFILES_PATHFILTER_MATCH extends Win32Enum {
 
     /**
      * Event must be an exact match for the fully qualified UNC path associated with the filter.

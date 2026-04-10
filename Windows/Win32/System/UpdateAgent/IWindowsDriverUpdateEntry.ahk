@@ -1,8 +1,8 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
-#Include ..\..\Foundation\BSTR.ahk
 #Include ..\Com\IDispatch.ahk
+#Include ..\..\Foundation\BSTR.ahk
 
 /**
  * Contains the properties that are available only from a Windows driver update.
@@ -10,9 +10,8 @@
  * None of the IWindowsDriverUpdateEntry properties are expected to return any errors (other than E_POINTER if <b>NULL</b> is passed to the property).
  * @see https://learn.microsoft.com/windows/win32/api/wuapi/nn-wuapi-iwindowsdriverupdateentry
  * @namespace Windows.Win32.System.UpdateAgent
- * @version v4.0.30319
  */
-class IWindowsDriverUpdateEntry extends IDispatch{
+class IWindowsDriverUpdateEntry extends IDispatch {
 
     static sizeof => A_PtrSize
     /**

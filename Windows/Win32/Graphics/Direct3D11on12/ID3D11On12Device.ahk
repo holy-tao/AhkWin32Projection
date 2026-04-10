@@ -7,9 +7,8 @@
  * Handles the creation, wrapping, and releasing of D3D11 resources for Direct3D11on12.
  * @see https://learn.microsoft.com/windows/win32/api/d3d11on12/nn-d3d11on12-id3d11on12device
  * @namespace Windows.Win32.Graphics.Direct3D11on12
- * @version v4.0.30319
  */
-class ID3D11On12Device extends IUnknown{
+class ID3D11On12Device extends IUnknown {
 
     static sizeof => A_PtrSize
     /**
@@ -39,10 +38,10 @@ class ID3D11On12Device extends IUnknown{
      * 
      * A <a href="https://docs.microsoft.com/windows/desktop/api/d3d11on12/ns-d3d11on12-d3d11_resource_flags">D3D11_RESOURCE_FLAGS</a> structure that enables an application to override flags that would be inferred by the resource/heap properties.
      *               The D3D11_RESOURCE_FLAGS structure contains bind flags, misc flags, and CPU access flags.
-     * @param {Integer} InState Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/d3d12/ne-d3d12-d3d12_resource_states">D3D12_RESOURCE_STATES</a></b>
+     * @param {D3D12_RESOURCE_STATES} InState Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/d3d12/ne-d3d12-d3d12_resource_states">D3D12_RESOURCE_STATES</a></b>
      * 
      * The use of the resource on input, as a bitwise-OR'd combination of <a href="https://docs.microsoft.com/windows/desktop/api/d3d12/ne-d3d12-d3d12_resource_states">D3D12_RESOURCE_STATES</a> enumeration constants.
-     * @param {Integer} OutState Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/d3d12/ne-d3d12-d3d12_resource_states">D3D12_RESOURCE_STATES</a></b>
+     * @param {D3D12_RESOURCE_STATES} OutState Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/d3d12/ne-d3d12-d3d12_resource_states">D3D12_RESOURCE_STATES</a></b>
      * 
      * The use of the resource on output, as a bitwise-OR'd combination of <a href="https://docs.microsoft.com/windows/desktop/api/d3d12/ne-d3d12-d3d12_resource_states">D3D12_RESOURCE_STATES</a> enumeration constants.
      * @param {Pointer<Guid>} riid Type: <b>REFIID</b>

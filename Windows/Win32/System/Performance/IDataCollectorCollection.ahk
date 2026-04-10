@@ -1,18 +1,16 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
-#Include ..\..\Foundation\BSTR.ahk
+#Include ..\Com\IDispatch.ahk
 #Include .\IDataCollector.ahk
 #Include ..\Com\IUnknown.ahk
-#Include ..\Com\IDispatch.ahk
 
 /**
  * Manages a collection of DataCollector objects.To get this interface, access the IDataCollectorSet::DataCollectors property.
  * @see https://learn.microsoft.com/windows/win32/api/pla/nn-pla-idatacollectorcollection
  * @namespace Windows.Win32.System.Performance
- * @version v4.0.30319
  */
-class IDataCollectorCollection extends IDispatch{
+class IDataCollectorCollection extends IDispatch {
 
     static sizeof => A_PtrSize
     /**
@@ -290,7 +288,7 @@ class IDataCollectorCollection extends IDispatch{
      * <td>IID_ITraceDataCollector</td>
      * </tr>
      * </table>
-     * @param {Integer} Type The type of data collector to create. For possible data collector types, see the <a href="https://docs.microsoft.com/windows/win32/api/pla/ne-pla-datacollectortype">DataCollectorType</a> enumeration.
+     * @param {DataCollectorType} Type The type of data collector to create. For possible data collector types, see the <a href="https://docs.microsoft.com/windows/win32/api/pla/ne-pla-datacollectortype">DataCollectorType</a> enumeration.
      * @returns {IDataCollector} An <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/pla/nn-pla-idatacollector">IDataCollector</a> interface of the newly created data collector. To get the actual data collector interface requested, call the <b>QueryInterface</b> method.
      * @see https://learn.microsoft.com/windows/win32/api/pla/nf-pla-idatacollectorcollection-createdatacollector
      */

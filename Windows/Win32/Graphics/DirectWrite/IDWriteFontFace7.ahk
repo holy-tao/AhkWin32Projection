@@ -1,14 +1,13 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
-#Include .\IDWritePaintReader.ahk
 #Include .\IDWriteFontFace6.ahk
+#Include .\IDWritePaintReader.ahk
 
 /**
  * @namespace Windows.Win32.Graphics.DirectWrite
- * @version v4.0.30319
  */
-class IDWriteFontFace7 extends IDWriteFontFace6{
+class IDWriteFontFace7 extends IDWriteFontFace6 {
 
     static sizeof => A_PtrSize
     /**
@@ -31,8 +30,8 @@ class IDWriteFontFace7 extends IDWriteFontFace6{
 
     /**
      * 
-     * @param {Integer} glyphImageFormat 
-     * @returns {Integer} 
+     * @param {DWRITE_GLYPH_IMAGE_FORMATS} glyphImageFormat 
+     * @returns {DWRITE_PAINT_FEATURE_LEVEL} 
      */
     GetPaintFeatureLevel(glyphImageFormat) {
         result := ComCall(60, this, "int", glyphImageFormat, "int")
@@ -41,8 +40,8 @@ class IDWriteFontFace7 extends IDWriteFontFace6{
 
     /**
      * 
-     * @param {Integer} glyphImageFormat 
-     * @param {Integer} paintFeatureLevel 
+     * @param {DWRITE_GLYPH_IMAGE_FORMATS} glyphImageFormat 
+     * @param {DWRITE_PAINT_FEATURE_LEVEL} paintFeatureLevel 
      * @returns {IDWritePaintReader} 
      */
     CreatePaintReader(glyphImageFormat, paintFeatureLevel) {

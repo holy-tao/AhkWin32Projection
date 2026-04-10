@@ -1,7 +1,8 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\..\Win32Struct.ahk
-#Include ..\..\..\Foundation\HANDLE.ahk
 #Include .\WNODE_HEADER.ahk
+#Include ..\..\..\Foundation\HANDLE.ahk
+#Include .\EVENT_TRACE_FLAG.ahk
 
 /**
  * The EVENT_TRACE_PROPERTIES structure contains information about an event tracing session and is used with APIs such as StartTrace and ControlTrace.
@@ -44,10 +45,8 @@
  * function and set the _ControlCode_ parameter to `EVENT_TRACE_CONTROL_QUERY`.
  * @see https://learn.microsoft.com/windows/win32/api/evntrace/ns-evntrace-event_trace_properties
  * @namespace Windows.Win32.System.Diagnostics.Etw
- * @version v4.0.30319
  */
-class EVENT_TRACE_PROPERTIES extends Win32Struct
-{
+class EVENT_TRACE_PROPERTIES extends Win32Struct {
     static sizeof => 112
 
     static packingSize => 8
@@ -58,7 +57,7 @@ class EVENT_TRACE_PROPERTIES extends Win32Struct
      * the **ClientContext** member.
      * @type {WNODE_HEADER}
      */
-    Wnode{
+    Wnode {
         get {
             if(!this.HasProp("__Wnode"))
                 this.__Wnode := WNODE_HEADER(0, this)
@@ -267,7 +266,7 @@ class EVENT_TRACE_PROPERTIES extends Win32Struct
      * > that are started using the `EVENT_TRACE_SYSTEM_LOGGER_MODE` logger mode flag,
      * > the `KERNEL_LOGGER_NAME` session name, the `SystemTraceControlGuid` session
      * > GUID, or the `GlobalLoggerGuid` session GUID.
-     * @type {Integer}
+     * @type {EVENT_TRACE_FLAG}
      */
     EnableFlags {
         get => NumGet(this, 64, "uint")
@@ -351,7 +350,7 @@ class EVENT_TRACE_PROPERTIES extends Win32Struct
      * On output, the thread identifier for the event tracing session.
      * @type {HANDLE}
      */
-    LoggerThreadId{
+    LoggerThreadId {
         get {
             if(!this.HasProp("__LoggerThreadId"))
                 this.__LoggerThreadId := HANDLE(96, this)

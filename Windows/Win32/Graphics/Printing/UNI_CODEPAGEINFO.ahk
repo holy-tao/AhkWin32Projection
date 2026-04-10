@@ -4,10 +4,8 @@
 
 /**
  * @namespace Windows.Win32.Graphics.Printing
- * @version v4.0.30319
  */
-class UNI_CODEPAGEINFO extends Win32Struct
-{
+class UNI_CODEPAGEINFO extends Win32Struct {
     static sizeof => 20
 
     static packingSize => 4
@@ -23,7 +21,7 @@ class UNI_CODEPAGEINFO extends Win32Struct
     /**
      * @type {INVOC}
      */
-    SelectSymbolSet{
+    SelectSymbolSet {
         get {
             if(!this.HasProp("__SelectSymbolSet"))
                 this.__SelectSymbolSet := INVOC(4, this)
@@ -34,7 +32,7 @@ class UNI_CODEPAGEINFO extends Win32Struct
     /**
      * @type {INVOC}
      */
-    UnSelectSymbolSet{
+    UnSelectSymbolSet {
         get {
             if(!this.HasProp("__UnSelectSymbolSet"))
                 this.__UnSelectSymbolSet := INVOC(12, this)

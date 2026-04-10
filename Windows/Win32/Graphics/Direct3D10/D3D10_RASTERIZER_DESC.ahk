@@ -1,5 +1,7 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
+#Include .\D3D10_FILL_MODE.ahk
+#Include .\D3D10_CULL_MODE.ahk
 
 /**
  * Describes the rasterizer state.
@@ -43,10 +45,8 @@
  * The settings of the <b>MultisampleEnable</b> and <b>AntialiasedLineEnable</b> members apply only to multisample antialiasing (MSAA) render targets (that is, render targets with sample counts greater than 1). Because of the differences in <a href="https://docs.microsoft.com/windows/desktop/direct3d11/overviews-direct3d-11-devices-downlevel-intro">feature-level</a> behavior and as long as you aren’t performing any line drawing or don’t mind that lines render as quadrilaterals, we recommend that you always set <b>MultisampleEnable</b> to <b>TRUE</b> whenever you render on MSAA render targets.
  * @see https://learn.microsoft.com/windows/win32/api/d3d10/ns-d3d10-d3d10_rasterizer_desc
  * @namespace Windows.Win32.Graphics.Direct3D10
- * @version v4.0.30319
  */
-class D3D10_RASTERIZER_DESC extends Win32Struct
-{
+class D3D10_RASTERIZER_DESC extends Win32Struct {
     static sizeof => 40
 
     static packingSize => 4
@@ -55,7 +55,7 @@ class D3D10_RASTERIZER_DESC extends Win32Struct
      * Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/d3d10/ne-d3d10-d3d10_fill_mode">D3D10_FILL_MODE</a></b>
      * 
      * A member of the <a href="https://docs.microsoft.com/windows/desktop/api/d3d10/ne-d3d10-d3d10_fill_mode">D3D10_FILL_MODE</a> enumerated type that determines the fill mode to use when rendering.  The default value is <b>D3D10_FILL_SOLID</b>.
-     * @type {Integer}
+     * @type {D3D10_FILL_MODE}
      */
     FillMode {
         get => NumGet(this, 0, "int")
@@ -66,7 +66,7 @@ class D3D10_RASTERIZER_DESC extends Win32Struct
      * Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/d3d10/ne-d3d10-d3d10_cull_mode">D3D10_CULL_MODE</a></b>
      * 
      * A member of the <a href="https://docs.microsoft.com/windows/desktop/api/d3d10/ne-d3d10-d3d10_cull_mode">D3D10_CULL_MODE</a> enumerated type that indicates whether triangles facing the specified direction are drawn.  The default value is <b>D3D10_CULL_BACK</b>.
-     * @type {Integer}
+     * @type {D3D10_CULL_MODE}
      */
     CullMode {
         get => NumGet(this, 4, "int")

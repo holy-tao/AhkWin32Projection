@@ -7,10 +7,8 @@
  * For more information, see [**D3DCOLORVALUE**](/previous-versions/windows/desktop/legacy/dd368193(v=vs.85)).
  * @see https://learn.microsoft.com/windows/win32/Direct2D/d2d-color-f
  * @namespace Windows.Win32.Graphics.Direct2D.Common
- * @version v4.0.30319
  */
-class D2D_COLOR_F extends Win32Struct
-{
+class D2D_COLOR_F extends Win32Struct {
     static sizeof => 16
 
     static packingSize => 4

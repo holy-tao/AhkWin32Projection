@@ -15,9 +15,8 @@
  * In most cases, you do not use this interface directly. The Shell will use this interface when it requires additional information to display inside of an info tip. However, you can use <b>IQueryInfo</b> directly if you want to obtain info tip information from another object.
  * @see https://learn.microsoft.com/windows/win32/api/shlobj_core/nn-shlobj_core-iqueryinfo
  * @namespace Windows.Win32.UI.Shell
- * @version v4.0.30319
  */
-class IQueryInfo extends IUnknown{
+class IQueryInfo extends IUnknown {
 
     static sizeof => A_PtrSize
     /**

@@ -3,7 +3,6 @@
 
 /**
  * @namespace Windows.Win32.UI.Input.Radial
- * @version v4.0.30319
  */
 class Radial {
 

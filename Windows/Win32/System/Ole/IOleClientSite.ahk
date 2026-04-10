@@ -1,17 +1,16 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
+#Include ..\Com\IUnknown.ahk
 #Include ..\Com\IMoniker.ahk
 #Include .\IOleContainer.ahk
-#Include ..\Com\IUnknown.ahk
 
 /**
  * Provides the primary means by which an embedded object obtains information about the location and extent of its display site, its moniker, its user interface, and other resources provided by its container.
  * @see https://learn.microsoft.com/windows/win32/api/oleidl/nn-oleidl-ioleclientsite
  * @namespace Windows.Win32.System.Ole
- * @version v4.0.30319
  */
-class IOleClientSite extends IUnknown{
+class IOleClientSite extends IUnknown {
 
     static sizeof => A_PtrSize
     /**

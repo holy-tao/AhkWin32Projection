@@ -1,7 +1,6 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\..\Guid.ahk
-#Include .\ITextPara.ahk
 #Include ..\..\..\System\Com\IDispatch.ahk
 
 /**
@@ -40,9 +39,8 @@
  * </ul>
  * @see https://learn.microsoft.com/windows/win32/api/tom/nn-tom-itextpara
  * @namespace Windows.Win32.UI.Controls.RichEdit
- * @version v4.0.30319
  */
-class ITextPara extends IDispatch{
+class ITextPara extends IDispatch {
 
     static sizeof => A_PtrSize
     /**
@@ -735,7 +733,7 @@ class ITextPara extends IDispatch{
      * Determines whether automatic hyphenation is enabled for the range.
      * @remarks
      * This property corresponds to the PFE_DONOTHYPHEN effect described in the <a href="https://docs.microsoft.com/windows/desktop/api/richedit/ns-richedit-paraformat2">PARAFORMAT2</a> structure.
-     * @returns {Integer} Type: <b>long*</b>
+     * @returns {tomConstants} Type: <b>long*</b>
      * @see https://learn.microsoft.com/windows/win32/api/tom/nf-tom-itextpara-gethyphenation
      */
     GetHyphenation() {
@@ -881,7 +879,7 @@ class ITextPara extends IDispatch{
      * Determines whether page breaks are allowed within paragraphs.
      * @remarks
      * This property corresponds to the PFE_KEEP effect described in the <a href="https://docs.microsoft.com/windows/desktop/api/richedit/ns-richedit-paraformat2">PARAFORMAT2</a> structure.
-     * @returns {Integer} Type: <b>long*</b>
+     * @returns {tomConstants} Type: <b>long*</b>
      * @see https://learn.microsoft.com/windows/win32/api/tom/nf-tom-itextpara-getkeeptogether
      */
     GetKeepTogether() {
@@ -1012,7 +1010,7 @@ class ITextPara extends IDispatch{
      * Determines whether page breaks are allowed between paragraphs in the range.
      * @remarks
      * This property corresponds to the PFE_KEEPNEXT effect described in the <a href="https://docs.microsoft.com/windows/desktop/api/richedit/ns-richedit-paraformat2">PARAFORMAT2</a> structure.
-     * @returns {Integer} Type: <b>long*</b>
+     * @returns {tomConstants} Type: <b>long*</b>
      * @see https://learn.microsoft.com/windows/win32/api/tom/nf-tom-itextpara-getkeepwithnext
      */
     GetKeepWithNext() {

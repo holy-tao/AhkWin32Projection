@@ -5,9 +5,8 @@
 
 /**
  * @namespace Windows.Win32.System.Com
- * @version v4.0.30319
  */
-class ISynchronizeMutex extends ISynchronize{
+class ISynchronizeMutex extends ISynchronize {
 
     static sizeof => A_PtrSize
     /**

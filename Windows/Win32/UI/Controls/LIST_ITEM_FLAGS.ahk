@@ -3,9 +3,8 @@
 
 /**
  * @namespace Windows.Win32.UI.Controls
- * @version v4.0.30319
  */
-class LIST_ITEM_FLAGS extends Win32BitflagEnum{
+class LIST_ITEM_FLAGS extends Win32BitflagEnum {
 
     /**
      * @type {Integer (UInt32)}

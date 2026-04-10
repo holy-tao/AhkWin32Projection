@@ -5,9 +5,8 @@
  * The MBN_PIN_MODE enumerated type indicates if the PIN type is enabled.
  * @see https://learn.microsoft.com/windows/win32/api/mbnapi/ne-mbnapi-mbn_pin_mode
  * @namespace Windows.Win32.NetworkManagement.MobileBroadband
- * @version v4.0.30319
  */
-class MBN_PIN_MODE extends Win32Enum{
+class MBN_PIN_MODE extends Win32Enum {
 
     /**
      * The PIN type is currently enabled.

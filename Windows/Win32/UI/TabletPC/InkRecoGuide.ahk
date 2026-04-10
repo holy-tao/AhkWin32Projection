@@ -6,10 +6,8 @@
  * Deprecated. Represents information about the recognition guide. Use the WritingBox Property, DrawnBox Property, Rows Property, Columns Property, and Midline Property [InkRecognizerGuide Class] properties instead.
  * @see https://learn.microsoft.com/windows/win32/api/msinkaut/ns-msinkaut-inkrecoguide
  * @namespace Windows.Win32.UI.TabletPC
- * @version v4.0.30319
  */
-class InkRecoGuide extends Win32Struct
-{
+class InkRecoGuide extends Win32Struct {
     static sizeof => 44
 
     static packingSize => 4
@@ -18,7 +16,7 @@ class InkRecoGuide extends Win32Struct
      * Deprecated.
      * @type {RECT}
      */
-    rectWritingBox{
+    rectWritingBox {
         get {
             if(!this.HasProp("__rectWritingBox"))
                 this.__rectWritingBox := RECT(0, this)
@@ -30,7 +28,7 @@ class InkRecoGuide extends Win32Struct
      * Deprecated.
      * @type {RECT}
      */
-    rectDrawnBox{
+    rectDrawnBox {
         get {
             if(!this.HasProp("__rectDrawnBox"))
                 this.__rectDrawnBox := RECT(16, this)

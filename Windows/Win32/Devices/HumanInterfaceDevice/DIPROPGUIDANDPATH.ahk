@@ -4,10 +4,8 @@
 
 /**
  * @namespace Windows.Win32.Devices.HumanInterfaceDevice
- * @version v4.0.30319
  */
-class DIPROPGUIDANDPATH extends Win32Struct
-{
+class DIPROPGUIDANDPATH extends Win32Struct {
     static sizeof => 544
 
     static packingSize => 8
@@ -15,7 +13,7 @@ class DIPROPGUIDANDPATH extends Win32Struct
     /**
      * @type {DIPROPHEADER}
      */
-    diph{
+    diph {
         get {
             if(!this.HasProp("__diph"))
                 this.__diph := DIPROPHEADER(0, this)
@@ -24,7 +22,7 @@ class DIPROPGUIDANDPATH extends Win32Struct
     }
 
     /**
-     * @type {Pointer<Guid>}
+     * @type {Pointer}
      */
     guidClass {
         get => NumGet(this, 16, "ptr")

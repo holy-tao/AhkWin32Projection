@@ -1,13 +1,12 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
+#Include .\CCSTYLEFLAGA.ahk
 
 /**
  * @namespace Windows.Win32.UI.Controls
- * @version v4.0.30319
  * @charset ANSI
  */
-class CCINFOA extends Win32Struct
-{
+class CCINFOA extends Win32Struct {
     static sizeof => 384
 
     static packingSize => 8

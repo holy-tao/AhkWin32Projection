@@ -5,10 +5,8 @@
 
 /**
  * @namespace Windows.Win32.Security.Authentication.Identity
- * @version v4.0.30319
  */
-class SECPKG_PRIMARY_CRED_EX extends Win32Struct
-{
+class SECPKG_PRIMARY_CRED_EX extends Win32Struct {
     static sizeof => 224
 
     static packingSize => 8
@@ -16,7 +14,7 @@ class SECPKG_PRIMARY_CRED_EX extends Win32Struct
     /**
      * @type {LUID}
      */
-    LogonId{
+    LogonId {
         get {
             if(!this.HasProp("__LogonId"))
                 this.__LogonId := LUID(0, this)
@@ -27,7 +25,7 @@ class SECPKG_PRIMARY_CRED_EX extends Win32Struct
     /**
      * @type {LSA_UNICODE_STRING}
      */
-    DownlevelName{
+    DownlevelName {
         get {
             if(!this.HasProp("__DownlevelName"))
                 this.__DownlevelName := LSA_UNICODE_STRING(8, this)
@@ -38,7 +36,7 @@ class SECPKG_PRIMARY_CRED_EX extends Win32Struct
     /**
      * @type {LSA_UNICODE_STRING}
      */
-    DomainName{
+    DomainName {
         get {
             if(!this.HasProp("__DomainName"))
                 this.__DomainName := LSA_UNICODE_STRING(24, this)
@@ -49,7 +47,7 @@ class SECPKG_PRIMARY_CRED_EX extends Win32Struct
     /**
      * @type {LSA_UNICODE_STRING}
      */
-    Password{
+    Password {
         get {
             if(!this.HasProp("__Password"))
                 this.__Password := LSA_UNICODE_STRING(40, this)
@@ -60,7 +58,7 @@ class SECPKG_PRIMARY_CRED_EX extends Win32Struct
     /**
      * @type {LSA_UNICODE_STRING}
      */
-    OldPassword{
+    OldPassword {
         get {
             if(!this.HasProp("__OldPassword"))
                 this.__OldPassword := LSA_UNICODE_STRING(56, this)
@@ -87,7 +85,7 @@ class SECPKG_PRIMARY_CRED_EX extends Win32Struct
     /**
      * @type {LSA_UNICODE_STRING}
      */
-    DnsDomainName{
+    DnsDomainName {
         get {
             if(!this.HasProp("__DnsDomainName"))
                 this.__DnsDomainName := LSA_UNICODE_STRING(88, this)
@@ -98,7 +96,7 @@ class SECPKG_PRIMARY_CRED_EX extends Win32Struct
     /**
      * @type {LSA_UNICODE_STRING}
      */
-    Upn{
+    Upn {
         get {
             if(!this.HasProp("__Upn"))
                 this.__Upn := LSA_UNICODE_STRING(104, this)
@@ -109,7 +107,7 @@ class SECPKG_PRIMARY_CRED_EX extends Win32Struct
     /**
      * @type {LSA_UNICODE_STRING}
      */
-    LogonServer{
+    LogonServer {
         get {
             if(!this.HasProp("__LogonServer"))
                 this.__LogonServer := LSA_UNICODE_STRING(120, this)
@@ -120,7 +118,7 @@ class SECPKG_PRIMARY_CRED_EX extends Win32Struct
     /**
      * @type {LSA_UNICODE_STRING}
      */
-    Spare1{
+    Spare1 {
         get {
             if(!this.HasProp("__Spare1"))
                 this.__Spare1 := LSA_UNICODE_STRING(136, this)
@@ -131,7 +129,7 @@ class SECPKG_PRIMARY_CRED_EX extends Win32Struct
     /**
      * @type {LSA_UNICODE_STRING}
      */
-    Spare2{
+    Spare2 {
         get {
             if(!this.HasProp("__Spare2"))
                 this.__Spare2 := LSA_UNICODE_STRING(152, this)
@@ -142,7 +140,7 @@ class SECPKG_PRIMARY_CRED_EX extends Win32Struct
     /**
      * @type {LSA_UNICODE_STRING}
      */
-    Spare3{
+    Spare3 {
         get {
             if(!this.HasProp("__Spare3"))
                 this.__Spare3 := LSA_UNICODE_STRING(168, this)
@@ -153,7 +151,7 @@ class SECPKG_PRIMARY_CRED_EX extends Win32Struct
     /**
      * @type {LSA_UNICODE_STRING}
      */
-    Spare4{
+    Spare4 {
         get {
             if(!this.HasProp("__Spare4"))
                 this.__Spare4 := LSA_UNICODE_STRING(184, this)
@@ -172,7 +170,7 @@ class SECPKG_PRIMARY_CRED_EX extends Win32Struct
     /**
      * @type {LUID}
      */
-    PrevLogonId{
+    PrevLogonId {
         get {
             if(!this.HasProp("__PrevLogonId"))
                 this.__PrevLogonId := LUID(208, this)

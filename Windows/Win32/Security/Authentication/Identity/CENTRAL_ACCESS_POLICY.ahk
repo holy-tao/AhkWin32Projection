@@ -1,15 +1,14 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\..\Win32Struct.ahk
 #Include .\LSA_UNICODE_STRING.ahk
+#Include .\CENTRAL_ACCESS_POLICY_ENTRY.ahk
 
 /**
  * Represents a central access policy that contains a set of central access policy entries.
  * @see https://learn.microsoft.com/windows/win32/api/ntlsa/ns-ntlsa-central_access_policy
  * @namespace Windows.Win32.Security.Authentication.Identity
- * @version v4.0.30319
  */
-class CENTRAL_ACCESS_POLICY extends Win32Struct
-{
+class CENTRAL_ACCESS_POLICY extends Win32Struct {
     static sizeof => 72
 
     static packingSize => 8
@@ -27,7 +26,7 @@ class CENTRAL_ACCESS_POLICY extends Win32Struct
      * The name of the central access policy.
      * @type {LSA_UNICODE_STRING}
      */
-    Name{
+    Name {
         get {
             if(!this.HasProp("__Name"))
                 this.__Name := LSA_UNICODE_STRING(8, this)
@@ -39,7 +38,7 @@ class CENTRAL_ACCESS_POLICY extends Win32Struct
      * The description of the central access policy.
      * @type {LSA_UNICODE_STRING}
      */
-    Description{
+    Description {
         get {
             if(!this.HasProp("__Description"))
                 this.__Description := LSA_UNICODE_STRING(24, this)
@@ -51,7 +50,7 @@ class CENTRAL_ACCESS_POLICY extends Win32Struct
      * An identifier that can be used to version the central access policy.
      * @type {LSA_UNICODE_STRING}
      */
-    ChangeId{
+    ChangeId {
         get {
             if(!this.HasProp("__ChangeId"))
                 this.__ChangeId := LSA_UNICODE_STRING(40, this)

@@ -1,11 +1,11 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\..\Guid.ahk
+#Include ..\..\..\System\Com\IUnknown.ahk
 #Include .\ITuningSpace.ahk
 #Include .\IEnumTuningSpaces.ahk
 #Include .\ITuneRequest.ahk
 #Include .\IComponentTypes.ahk
-#Include ..\..\..\System\Com\IUnknown.ahk
 
 /**
  * The ITuner interface is implemented on the Microsoft BDA Network Provider filters.
@@ -13,9 +13,8 @@
  * To declare the interface identifier (IID) for this interface, use the <b>__uuidof</b> operator: <c>__uuidof(ITuner)</c>.
  * @see https://learn.microsoft.com/windows/win32/api/tuner/nn-tuner-ituner
  * @namespace Windows.Win32.Media.DirectShow.Tv
- * @version v4.0.30319
  */
-class ITuner extends IUnknown{
+class ITuner extends IUnknown {
 
     static sizeof => A_PtrSize
     /**
@@ -69,7 +68,7 @@ class ITuner extends IUnknown{
 
     /**
      * The get_TuningSpace method gets the tuning space currently in effect for the Network Provider.
-     * @returns {ITuningSpace} 
+     * @returns {ITuningSpace} Address of an <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/tuner/nn-tuner-ituningspace">ITuningSpace</a> interface pointer that will be set to the current tuning space.
      * @see https://learn.microsoft.com/windows/win32/api/tuner/nf-tuner-ituner-get_tuningspace
      */
     get_TuningSpace() {
@@ -79,7 +78,7 @@ class ITuner extends IUnknown{
 
     /**
      * The put_TuningSpace method sets the tuning space for the Network Provider.
-     * @param {ITuningSpace} _TuningSpace 
+     * @param {ITuningSpace} _TuningSpace Pointer to the tuning space that will be set in the Network Provider.
      * @returns {HRESULT} When the method is successful, it returns S_OK. Otherwise, it returns an <b>HRESULT</b> error code.
      * @see https://learn.microsoft.com/windows/win32/api/tuner/nf-tuner-ituner-put_tuningspace
      */
@@ -104,7 +103,7 @@ class ITuner extends IUnknown{
      * The get_TuneRequest method gets the tune request currently in effect for the Network Provider.
      * @remarks
      * After a tune request is submitted to the Tuner, its Components collection will be filled in. By calling <b>get_TuneRequest</b> after tuning to the program, an application can determine which components are currently available for that program, and then use the <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/tuner/nf-tuner-icomponent-put_status">IComponent::put_Status</a> method on the Component objects in the collection to activate or inactivate them. This is how an application, for example, changes from an English audio stream to a Spanish audio stream.
-     * @returns {ITuneRequest} 
+     * @returns {ITuneRequest} Address of an <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/tuner/nn-tuner-itunerequest">ITuneRequest</a> interface pointer that will be set to the returned object.
      * @see https://learn.microsoft.com/windows/win32/api/tuner/nf-tuner-ituner-get_tunerequest
      */
     get_TuneRequest() {
@@ -116,7 +115,7 @@ class ITuner extends IUnknown{
      * The put_TuneRequest method sets the tune request currently in effect for the Network Provider.
      * @remarks
      * Calling this method initiates a tuning operation based on the properties of the tune request. The tuning operation may be asynchronously attempted.
-     * @param {ITuneRequest} _TuneRequest 
+     * @param {ITuneRequest} _TuneRequest Pointer to an <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/tuner/nn-tuner-itunerequest">ITuneRequest</a> object that will be used to set the Network Provider.
      * @returns {HRESULT} When the method is successful, it returns S_OK. Otherwise, it returns an <b>HRESULT</b> error code.
      * @see https://learn.microsoft.com/windows/win32/api/tuner/nf-tuner-ituner-put_tunerequest
      */
@@ -129,7 +128,7 @@ class ITuner extends IUnknown{
      * The Validate method returns a value indicating that the tune request can be carried out.
      * @remarks
      * The Network Provider will first query for its preferred tune request interface(s). If any are found, the Network Provider will validate that the tune request could be carried out. If none are available, it will then query for its preferred tuning space interface(s). If any are found, the Network Provider will validate that it could configure itself for the given tuning space.
-     * @param {ITuneRequest} _TuneRequest 
+     * @param {ITuneRequest} _TuneRequest Pointer to the tune request object.
      * @returns {HRESULT} When the method is successful, it returns S_OK. Otherwise, it returns an <b>HRESULT</b> error code.
      * @see https://learn.microsoft.com/windows/win32/api/tuner/nf-tuner-ituner-validate
      */
@@ -142,7 +141,7 @@ class ITuner extends IUnknown{
      * The get_PreferredComponentTypes method gets the collection of ComponentType objects used for default component selection.
      * @remarks
      * When a program ends, there may be a new set of stream components available, so at that time the tuner will automatically examine the list of preferred component types and select a component based on that list. If no list is available, the tuner will make a selection based on other factors. Applications call this method simply to examine the current list.
-     * @returns {IComponentTypes} 
+     * @returns {IComponentTypes} Address of an <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/tuner/nn-tuner-icomponenttypes">IComponentTypes</a> interface pointer that receives the collection of ComponentType objects.
      * @see https://learn.microsoft.com/windows/win32/api/tuner/nf-tuner-ituner-get_preferredcomponenttypes
      */
     get_PreferredComponentTypes() {
@@ -154,7 +153,7 @@ class ITuner extends IUnknown{
      * The put_PreferredComponentTypes method sets the collection of ComponentType objects used for default component selection.
      * @remarks
      * Applications create a list of preferred component types by instantiating an empty <b>ComponentTypes</b> collection, filling it, then submitting it to the Tuner using <b>put_PreferredComponentTypes</b>.
-     * @param {IComponentTypes} _ComponentTypes 
+     * @param {IComponentTypes} _ComponentTypes Pointer to an <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/tuner/nn-tuner-icomponenttypes">IComponentTypes</a> interface that contains the collection of ComponentType objects.
      * @returns {HRESULT} When the method is successful, it returns S_OK. Otherwise, it returns an <b>HRESULT</b> error code.
      * @see https://learn.microsoft.com/windows/win32/api/tuner/nf-tuner-ituner-put_preferredcomponenttypes
      */
@@ -183,7 +182,7 @@ class ITuner extends IUnknown{
      * Each call to <b>TriggerSignalEvents</b> enables the event to be raised only one time. To raise the event multiple times in response to a series of signal-status changes requires a succession of calls to <b>TriggerSignalEvents</b>.
      * 
      * Multiple event sink objects can wait for the tuner to raise an event that occurs when the signal status changes. For more information, see <a href="https://docs.microsoft.com/previous-versions/dd376294(v=vs.85)">IBroadcastEvent Interface</a>.
-     * @param {Integer} _Interval 
+     * @param {Integer} _Interval Specifies the time-out interval in milliseconds.
      * @returns {HRESULT} When the method succeeds, it returns S_OK. Otherwise it returns an <b>HRESULT</b> error code.
      * @see https://learn.microsoft.com/windows/win32/api/tuner/nf-tuner-ituner-triggersignalevents
      */

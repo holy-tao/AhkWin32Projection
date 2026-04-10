@@ -3,9 +3,8 @@
 
 /**
  * @namespace Windows.Win32.System.Com
- * @version v4.0.30319
  */
-class IMPLTYPEFLAGS extends Win32BitflagEnum{
+class IMPLTYPEFLAGS extends Win32BitflagEnum {
 
     /**
      * @type {Integer (Int32)}

@@ -2,14 +2,14 @@
 #Include ..\..\..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\..\..\Guid.ahk
 #Include ..\..\..\Com\IUnknown.ahk
+#Include ..\..\..\..\..\..\Guid.ahk
 
 /**
  * Native interoperation interface that provides a counterpart to IGraphicsEffect and allows for metadata queries. This interface is available in C++ only.
  * @see https://learn.microsoft.com/windows/win32/api/windows.graphics.effects.interop/nn-windows-graphics-effects-interop-igraphicseffectd2d1interop
  * @namespace Windows.Win32.System.WinRT.Graphics.Direct2D
- * @version v4.0.30319
  */
-class IGraphicsEffectD2D1Interop extends IUnknown{
+class IGraphicsEffectD2D1Interop extends IUnknown {
 
     static sizeof => A_PtrSize
     /**
@@ -51,7 +51,7 @@ class IGraphicsEffectD2D1Interop extends IUnknown{
      * @param {Pointer<Integer>} index Type: <b>UINT*</b>
      * 
      * When this method returns, this parameter will contain the index of the property.
-     * @param {Pointer<Integer>} mapping Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/windows.graphics.effects.interop/ne-windows-graphics-effects-interop-graphics_effect_property_mapping">GRAPHICS_EFFECT_PROPERTY_MAPPING</a>*</b>
+     * @param {Pointer<GRAPHICS_EFFECT_PROPERTY_MAPPING>} mapping Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/windows.graphics.effects.interop/ne-windows-graphics-effects-interop-graphics_effect_property_mapping">GRAPHICS_EFFECT_PROPERTY_MAPPING</a>*</b>
      * 
      * Indicates how a strongly-typed effect property maps to an underlying Direct2D effect property.
      * @returns {HRESULT} Type: <b>HRESULT</b>
@@ -86,7 +86,7 @@ class IGraphicsEffectD2D1Interop extends IUnknown{
      * @param {Integer} index Type: <b>UINT</b>
      * 
      * The index of the property to retrieve.
-     * @returns {Pointer<IPropertyValue>} Type: <b>Windows::Foundation::IPropertyValue**</b>
+     * @returns {Pointer} Type: <b>Windows::Foundation::IPropertyValue**</b>
      * 
      * When this method returns, this parameter will contain the retrieved property.
      * @see https://learn.microsoft.com/windows/win32/api/windows.graphics.effects.interop/nf-windows-graphics-effects-interop-igraphicseffectd2d1interop-getproperty
@@ -101,7 +101,7 @@ class IGraphicsEffectD2D1Interop extends IUnknown{
      * @param {Integer} index Type: <b>UINT</b>
      * 
      * Index of the source the retrieve.
-     * @returns {Pointer<IGraphicsEffectSource>} Type: <b>IGraphicsEffectSource**</b>
+     * @returns {Pointer} Type: <b>IGraphicsEffectSource**</b>
      * 
      * When the method returns, this parameter will contain the source at the specified index.
      * @see https://learn.microsoft.com/windows/win32/api/windows.graphics.effects.interop/nf-windows-graphics-effects-interop-igraphicseffectd2d1interop-getsource

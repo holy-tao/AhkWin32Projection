@@ -1,6 +1,8 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
 #Include .\SOCKADDR_STORAGE.ahk
+#Include .\ADDRESS_FAMILY.ahk
+#Include .\MULTICAST_MODE_TYPE.ahk
 
 /**
  * Provides multicast filtering parameters for multicast IPv6 or IPv4 addresses.
@@ -18,10 +20,8 @@
  * The <b>GROUP_FILTER</b> structure is defined in the <i>Ws2ipdef.h</i> header file which is automatically included in the <i>Ws2tcpip.h</i> header file. The <i>Ws2ipdef.h</i>  header files should never be used directly.
  * @see https://learn.microsoft.com/windows/win32/api/ws2ipdef/ns-ws2ipdef-group_filter
  * @namespace Windows.Win32.Networking.WinSock
- * @version v4.0.30319
  */
-class GROUP_FILTER extends Win32Struct
-{
+class GROUP_FILTER extends Win32Struct {
     static sizeof => 272
 
     static packingSize => 8
@@ -39,7 +39,7 @@ class GROUP_FILTER extends Win32Struct
      * The multicast address group that should be filtered. This may be either an IPv6 or IPv4 multicast address.
      * @type {SOCKADDR_STORAGE}
      */
-    gf_group{
+    gf_group {
         get {
             if(!this.HasProp("__gf_group"))
                 this.__gf_group := SOCKADDR_STORAGE(8, this)
@@ -80,11 +80,11 @@ class GROUP_FILTER extends Win32Struct
      * </td>
      * </tr>
      * </table>
-     * @type {Integer}
+     * @type {MULTICAST_MODE_TYPE}
      */
     gf_fmode {
-        get => NumGet(this, 256, "int")
-        set => NumPut("int", value, this, 256)
+        get => NumGet(this, 136, "int")
+        set => NumPut("int", value, this, 136)
     }
 
     /**
@@ -92,18 +92,18 @@ class GROUP_FILTER extends Win32Struct
      * @type {Integer}
      */
     gf_numsrc {
-        get => NumGet(this, 260, "uint")
-        set => NumPut("uint", value, this, 260)
+        get => NumGet(this, 140, "uint")
+        set => NumPut("uint", value, this, 140)
     }
 
     /**
      * An array of <a href="https://docs.microsoft.com/previous-versions/windows/desktop/legacy/ms740504(v=vs.85)">SOCKADDR_STORAGE</a> structures specifying the multicast source addresses to include or exclude. These IP addresses may be either IPv6 or IPv4 addresses, but they must be the same address family (IPv6 or IPv4) as the address specified in the <b>gf_group</b> member..
-     * @type {Array<SOCKADDR_STORAGE>}
+     * @type {SOCKADDR_STORAGE}
      */
-    gf_slist{
+    gf_slist {
         get {
             if(!this.HasProp("__gf_slistProxyArray"))
-                this.__gf_slistProxyArray := Win32FixedArray(this.ptr + 264, 1, SOCKADDR_STORAGE, "")
+                this.__gf_slistProxyArray := Win32FixedArray(this.ptr + 144, 1, SOCKADDR_STORAGE, "")
             return this.__gf_slistProxyArray
         }
     }

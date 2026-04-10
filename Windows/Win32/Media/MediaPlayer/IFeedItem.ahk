@@ -1,14 +1,13 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
-#Include ..\..\Foundation\BSTR.ahk
 #Include ..\..\System\Com\IDispatch.ahk
+#Include ..\..\Foundation\BSTR.ahk
 
 /**
  * @namespace Windows.Win32.Media.MediaPlayer
- * @version v4.0.30319
  */
-class IFeedItem extends IDispatch{
+class IFeedItem extends IDispatch {
 
     static sizeof => A_PtrSize
     /**
@@ -130,7 +129,7 @@ class IFeedItem extends IDispatch{
 
     /**
      * Resource string ids set by caller to be returned in xml data for visualizing objects.
-     * @param {Integer} includeFlags 
+     * @param {FEEDS_XML_INCLUDE_FLAGS} includeFlags 
      * @returns {BSTR} 
      * @see https://learn.microsoft.com/windows/win32/direct3dtools/xml-resource-ids
      */

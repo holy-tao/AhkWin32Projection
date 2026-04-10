@@ -1,8 +1,8 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
-#Include ..\..\Foundation\BSTR.ahk
 #Include .\IADsService.ahk
+#Include ..\..\Foundation\BSTR.ahk
 
 /**
  * The IADsFileService interface is a dual interface that inherits from IADsService.
@@ -10,9 +10,8 @@
  * Under the WinNT provider, this interface is implemented on the <b>WinNTService</b> object.
  * @see https://learn.microsoft.com/windows/win32/api/iads/nn-iads-iadsfileservice
  * @namespace Windows.Win32.Networking.ActiveDirectory
- * @version v4.0.30319
  */
-class IADsFileService extends IADsService{
+class IADsFileService extends IADsService {
 
     static sizeof => A_PtrSize
     /**

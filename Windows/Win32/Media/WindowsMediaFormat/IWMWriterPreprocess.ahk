@@ -7,9 +7,8 @@
  * The IWMWriterPreprocess interface handles multi-pass encoding.
  * @see https://learn.microsoft.com/windows/win32/api/wmsdkidl/nn-wmsdkidl-iwmwriterpreprocess
  * @namespace Windows.Win32.Media.WindowsMediaFormat
- * @version v4.0.30319
  */
-class IWMWriterPreprocess extends IUnknown{
+class IWMWriterPreprocess extends IUnknown {
 
     static sizeof => A_PtrSize
     /**

@@ -1,17 +1,15 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
-#Include ..\..\Foundation\BSTR.ahk
-#Include .\FolderItemVerbs.ahk
 #Include .\FolderItems2.ahk
+#Include .\FolderItemVerbs.ahk
 
 /**
  * Extends the FolderItems2 object. This object supports an additional method and property.
  * @see https://learn.microsoft.com/windows/win32/shell/folderitems3-object
  * @namespace Windows.Win32.UI.Shell
- * @version v4.0.30319
  */
-class FolderItems3 extends FolderItems2{
+class FolderItems3 extends FolderItems2 {
 
     static sizeof => A_PtrSize
     /**

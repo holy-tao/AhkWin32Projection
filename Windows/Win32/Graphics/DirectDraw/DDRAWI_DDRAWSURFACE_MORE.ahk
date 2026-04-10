@@ -1,13 +1,20 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
+#Include .\IUNKNOWN_LIST.ahk
+#Include .\DDRAWI_DIRECTDRAW_LCL.ahk
+#Include .\DDRAWI_DIRECTDRAW_INT.ahk
+#Include .\DDRAWI_DDRAWCLIPPER_INT.ahk
+#Include .\HEAPALIASINFO.ahk
+#Include .\DDRAWI_DDVIDEOPORT_LCL.ahk
+#Include .\DDOVERLAYFX.ahk
 #Include .\DDSCAPSEX.ahk
+#Include .\DDSURFACEDESC2.ahk
+#Include .\DDRAWI_DDRAWSURFACE_LCL.ahk
 
 /**
  * @namespace Windows.Win32.Graphics.DirectDraw
- * @version v4.0.30319
  */
-class DDRAWI_DDRAWSURFACE_MORE extends Win32Struct
-{
+class DDRAWI_DDRAWSURFACE_MORE extends Win32Struct {
     static sizeof => 240
 
     static packingSize => 8
@@ -119,7 +126,7 @@ class DDRAWI_DDRAWSURFACE_MORE extends Win32Struct
     /**
      * @type {DDSCAPSEX}
      */
-    ddsCapsEx{
+    ddsCapsEx {
         get {
             if(!this.HasProp("__ddsCapsEx"))
                 this.__ddsCapsEx := DDSCAPSEX(96, this)
@@ -208,9 +215,9 @@ class DDRAWI_DDRAWSURFACE_MORE extends Win32Struct
     }
 
     /**
-     * @type {Array<UInt32>}
+     * @type {Array<Integer>}
      */
-    qwDDrawReserved8{
+    qwDDrawReserved8 {
         get {
             if(!this.HasProp("__qwDDrawReserved8ProxyArray"))
                 this.__qwDDrawReserved8ProxyArray := Win32FixedArray(this.ptr + 180, 2, Primitive, "uint")

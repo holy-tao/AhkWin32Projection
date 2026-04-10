@@ -3,10 +3,8 @@
 
 /**
  * @namespace Windows.Win32.Networking.WinSock
- * @version v4.0.30319
  */
-class TCP_OPT_WS extends Win32Struct
-{
+class TCP_OPT_WS extends Win32Struct {
     static sizeof => 3
 
     static packingSize => 1

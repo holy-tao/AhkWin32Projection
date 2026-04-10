@@ -7,9 +7,8 @@
  * Exposes methods that manage the Windows Desktop.
  * @see https://learn.microsoft.com/windows/win32/api/shlobj/nn-shlobj-iactivedesktopp
  * @namespace Windows.Win32.UI.LegacyWindowsEnvironmentFeatures
- * @version v4.0.30319
  */
-class IActiveDesktopP extends IUnknown{
+class IActiveDesktopP extends IUnknown {
 
     static sizeof => A_PtrSize
     /**

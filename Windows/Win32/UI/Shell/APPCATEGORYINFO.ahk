@@ -5,10 +5,8 @@
  * Provides application category information to Add/Remove Programs in Control Panel. The APPCATEGORYINFOLIST structure is used create a complete list of categories for an application publisher.
  * @see https://learn.microsoft.com/windows/win32/api/appmgmt/ns-appmgmt-appcategoryinfo
  * @namespace Windows.Win32.UI.Shell
- * @version v4.0.30319
  */
-class APPCATEGORYINFO extends Win32Struct
-{
+class APPCATEGORYINFO extends Win32Struct {
     static sizeof => 24
 
     static packingSize => 8
@@ -39,7 +37,7 @@ class APPCATEGORYINFO extends Win32Struct
      * Type: <b>GUID</b>
      * 
      * A GUID identifying the application category.
-     * @type {Pointer<Guid>}
+     * @type {Pointer}
      */
     AppCategoryId {
         get => NumGet(this, 16, "ptr")

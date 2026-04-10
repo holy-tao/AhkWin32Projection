@@ -1,14 +1,13 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
+#Include .\MEDIA_TYPE.ahk
 
 /**
  * Describes the geometry of disk devices and media.
  * @see https://learn.microsoft.com/windows/win32/api/winioctl/ns-winioctl-disk_geometry
  * @namespace Windows.Win32.System.Ioctl
- * @version v4.0.30319
  */
-class DISK_GEOMETRY extends Win32Struct
-{
+class DISK_GEOMETRY extends Win32Struct {
     static sizeof => 24
 
     static packingSize => 8
@@ -24,7 +23,7 @@ class DISK_GEOMETRY extends Win32Struct
 
     /**
      * The type of media. For a list of values, see [MEDIA_TYPE](ne-winioctl-media_type.md).
-     * @type {Integer}
+     * @type {MEDIA_TYPE}
      */
     MediaType {
         get => NumGet(this, 8, "int")

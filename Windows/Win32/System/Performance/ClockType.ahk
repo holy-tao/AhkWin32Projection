@@ -7,9 +7,8 @@
  * For details, see the <b>ClientContext</b> member of the <a href="https://docs.microsoft.com/windows/desktop/ETW/wnode-header">WNODE_HEADER</a> structure.
  * @see https://learn.microsoft.com/windows/win32/api/pla/ne-pla-clocktype
  * @namespace Windows.Win32.System.Performance
- * @version v4.0.30319
  */
-class ClockType extends Win32Enum{
+class ClockType extends Win32Enum {
 
     /**
      * Use the raw (unconverted) time stamp.

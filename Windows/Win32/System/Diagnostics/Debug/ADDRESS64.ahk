@@ -1,5 +1,6 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\..\Win32Struct.ahk
+#Include .\ADDRESS_MODE.ahk
 
 /**
  * Represents an address. It is used in the STACKFRAME64 structure. (ADDRESS64)
@@ -11,10 +12,8 @@
  * ```cpp
  * @see https://learn.microsoft.com/windows/win32/api/dbghelp/ns-dbghelp-address64
  * @namespace Windows.Win32.System.Diagnostics.Debug
- * @version v4.0.30319
  */
-class ADDRESS64 extends Win32Struct
-{
+class ADDRESS64 extends Win32Struct {
     static sizeof => 16
 
     static packingSize => 8
@@ -38,8 +37,7 @@ class ADDRESS64 extends Win32Struct
     }
 
     /**
-     * 
-     * @type {Integer}
+     * @type {ADDRESS_MODE}
      */
     Mode {
         get => NumGet(this, 12, "int")

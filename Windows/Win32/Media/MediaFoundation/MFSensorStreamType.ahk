@@ -5,9 +5,8 @@
  * Specifies whether a stream associated with an IMFSensorDevice is an input or an output stream.
  * @see https://learn.microsoft.com/windows/win32/api/mfidl/ne-mfidl-mfsensorstreamtype
  * @namespace Windows.Win32.Media.MediaFoundation
- * @version v4.0.30319
  */
-class MFSensorStreamType extends Win32Enum{
+class MFSensorStreamType extends Win32Enum {
 
     /**
      * The sensor stream type is unknown.

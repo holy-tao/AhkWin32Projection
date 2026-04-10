@@ -3,7 +3,6 @@
 
 /**
  * @namespace Windows.Win32.System.Js
- * @version v4.0.30319
  */
 class Js {
 
@@ -21,7 +20,7 @@ class Js {
      * @param {Pointer<Void>} runtime 
      * @param {IDebugApplication64} debugApplication 
      * @param {Pointer<Pointer<Void>>} newContext 
-     * @returns {Integer} 
+     * @returns {JsErrorCode} 
      */
     static JsCreateContext(runtime, debugApplication, newContext) {
         runtimeMarshal := runtime is VarRef ? "ptr" : "ptr"
@@ -34,7 +33,7 @@ class Js {
     /**
      * 
      * @param {IDebugApplication64} debugApplication 
-     * @returns {Integer} 
+     * @returns {JsErrorCode} 
      */
     static JsStartDebugging(debugApplication) {
         result := DllCall("chakra.dll\JsStartDebugging", "ptr", debugApplication, "uint")
@@ -43,11 +42,11 @@ class Js {
 
     /**
      * 
-     * @param {Integer} attributes 
-     * @param {Integer} runtimeVersion 
+     * @param {JsRuntimeAttributes} attributes 
+     * @param {JsRuntimeVersion} runtimeVersion 
      * @param {Pointer<JsThreadServiceCallback>} threadService 
      * @param {Pointer<Pointer<Void>>} runtime 
-     * @returns {Integer} 
+     * @returns {JsErrorCode} 
      */
     static JsCreateRuntime(attributes, runtimeVersion, threadService, runtime) {
         runtimeMarshal := runtime is VarRef ? "ptr*" : "ptr"
@@ -59,7 +58,7 @@ class Js {
     /**
      * 
      * @param {Pointer<Void>} runtime 
-     * @returns {Integer} 
+     * @returns {JsErrorCode} 
      */
     static JsCollectGarbage(runtime) {
         runtimeMarshal := runtime is VarRef ? "ptr" : "ptr"
@@ -71,7 +70,7 @@ class Js {
     /**
      * 
      * @param {Pointer<Void>} runtime 
-     * @returns {Integer} 
+     * @returns {JsErrorCode} 
      */
     static JsDisposeRuntime(runtime) {
         runtimeMarshal := runtime is VarRef ? "ptr" : "ptr"
@@ -84,7 +83,7 @@ class Js {
      * 
      * @param {Pointer<Void>} runtime 
      * @param {Pointer<Pointer>} memoryUsage 
-     * @returns {Integer} 
+     * @returns {JsErrorCode} 
      */
     static JsGetRuntimeMemoryUsage(runtime, memoryUsage) {
         runtimeMarshal := runtime is VarRef ? "ptr" : "ptr"
@@ -98,7 +97,7 @@ class Js {
      * 
      * @param {Pointer<Void>} runtime 
      * @param {Pointer<Pointer>} memoryLimit 
-     * @returns {Integer} 
+     * @returns {JsErrorCode} 
      */
     static JsGetRuntimeMemoryLimit(runtime, memoryLimit) {
         runtimeMarshal := runtime is VarRef ? "ptr" : "ptr"
@@ -112,7 +111,7 @@ class Js {
      * 
      * @param {Pointer<Void>} runtime 
      * @param {Pointer} memoryLimit 
-     * @returns {Integer} 
+     * @returns {JsErrorCode} 
      */
     static JsSetRuntimeMemoryLimit(runtime, memoryLimit) {
         runtimeMarshal := runtime is VarRef ? "ptr" : "ptr"
@@ -126,7 +125,7 @@ class Js {
      * @param {Pointer<Void>} runtime 
      * @param {Pointer<Void>} callbackState 
      * @param {Pointer<JsMemoryAllocationCallback>} allocationCallback 
-     * @returns {Integer} 
+     * @returns {JsErrorCode} 
      */
     static JsSetRuntimeMemoryAllocationCallback(runtime, callbackState, allocationCallback) {
         runtimeMarshal := runtime is VarRef ? "ptr" : "ptr"
@@ -141,7 +140,7 @@ class Js {
      * @param {Pointer<Void>} runtime 
      * @param {Pointer<Void>} callbackState 
      * @param {Pointer<JsBeforeCollectCallback>} beforeCollectCallback 
-     * @returns {Integer} 
+     * @returns {JsErrorCode} 
      */
     static JsSetRuntimeBeforeCollectCallback(runtime, callbackState, beforeCollectCallback) {
         runtimeMarshal := runtime is VarRef ? "ptr" : "ptr"
@@ -155,7 +154,7 @@ class Js {
      * 
      * @param {Pointer<Void>} ref 
      * @param {Pointer<Integer>} count 
-     * @returns {Integer} 
+     * @returns {JsErrorCode} 
      */
     static JsAddRef(ref, count) {
         refMarshal := ref is VarRef ? "ptr" : "ptr"
@@ -169,7 +168,7 @@ class Js {
      * 
      * @param {Pointer<Void>} ref 
      * @param {Pointer<Integer>} count 
-     * @returns {Integer} 
+     * @returns {JsErrorCode} 
      */
     static JsRelease(ref, count) {
         refMarshal := ref is VarRef ? "ptr" : "ptr"
@@ -182,7 +181,7 @@ class Js {
     /**
      * 
      * @param {Pointer<Pointer<Void>>} currentContext 
-     * @returns {Integer} 
+     * @returns {JsErrorCode} 
      */
     static JsGetCurrentContext(currentContext) {
         currentContextMarshal := currentContext is VarRef ? "ptr*" : "ptr"
@@ -194,7 +193,7 @@ class Js {
     /**
      * 
      * @param {Pointer<Void>} _context 
-     * @returns {Integer} 
+     * @returns {JsErrorCode} 
      */
     static JsSetCurrentContext(_context) {
         _contextMarshal := _context is VarRef ? "ptr" : "ptr"
@@ -207,7 +206,7 @@ class Js {
      * 
      * @param {Pointer<Void>} _context 
      * @param {Pointer<Pointer<Void>>} runtime 
-     * @returns {Integer} 
+     * @returns {JsErrorCode} 
      */
     static JsGetRuntime(_context, runtime) {
         _contextMarshal := _context is VarRef ? "ptr" : "ptr"
@@ -220,7 +219,7 @@ class Js {
     /**
      * 
      * @param {Pointer<Integer>} nextIdleTick 
-     * @returns {Integer} 
+     * @returns {JsErrorCode} 
      */
     static JsIdle(nextIdleTick) {
         nextIdleTickMarshal := nextIdleTick is VarRef ? "uint*" : "ptr"
@@ -235,7 +234,7 @@ class Js {
      * @param {Pointer} sourceContext 
      * @param {PWSTR} sourceUrl 
      * @param {Pointer<Pointer<Void>>} result 
-     * @returns {Integer} 
+     * @returns {JsErrorCode} 
      */
     static JsParseScript(script, sourceContext, sourceUrl, result) {
         script := script is String ? StrPtr(script) : script
@@ -253,7 +252,7 @@ class Js {
      * @param {Pointer} sourceContext 
      * @param {PWSTR} sourceUrl 
      * @param {Pointer<Pointer<Void>>} result 
-     * @returns {Integer} 
+     * @returns {JsErrorCode} 
      */
     static JsRunScript(script, sourceContext, sourceUrl, result) {
         script := script is String ? StrPtr(script) : script
@@ -270,7 +269,7 @@ class Js {
      * @param {PWSTR} script 
      * @param {Pointer<Integer>} _buffer 
      * @param {Pointer<Integer>} bufferSize 
-     * @returns {Integer} 
+     * @returns {JsErrorCode} 
      */
     static JsSerializeScript(script, _buffer, bufferSize) {
         script := script is String ? StrPtr(script) : script
@@ -289,7 +288,7 @@ class Js {
      * @param {Pointer} sourceContext 
      * @param {PWSTR} sourceUrl 
      * @param {Pointer<Pointer<Void>>} result 
-     * @returns {Integer} 
+     * @returns {JsErrorCode} 
      */
     static JsParseSerializedScript(script, _buffer, sourceContext, sourceUrl, result) {
         script := script is String ? StrPtr(script) : script
@@ -309,7 +308,7 @@ class Js {
      * @param {Pointer} sourceContext 
      * @param {PWSTR} sourceUrl 
      * @param {Pointer<Pointer<Void>>} result 
-     * @returns {Integer} 
+     * @returns {JsErrorCode} 
      */
     static JsRunSerializedScript(script, _buffer, sourceContext, sourceUrl, result) {
         script := script is String ? StrPtr(script) : script
@@ -326,7 +325,7 @@ class Js {
      * 
      * @param {PWSTR} name 
      * @param {Pointer<Pointer<Void>>} propertyId 
-     * @returns {Integer} 
+     * @returns {JsErrorCode} 
      */
     static JsGetPropertyIdFromName(name, propertyId) {
         name := name is String ? StrPtr(name) : name
@@ -341,7 +340,7 @@ class Js {
      * 
      * @param {Pointer<Void>} propertyId 
      * @param {Pointer<Pointer<Integer>>} name 
-     * @returns {Integer} 
+     * @returns {JsErrorCode} 
      */
     static JsGetPropertyNameFromId(propertyId, name) {
         propertyIdMarshal := propertyId is VarRef ? "ptr" : "ptr"
@@ -354,7 +353,7 @@ class Js {
     /**
      * 
      * @param {Pointer<Pointer<Void>>} undefinedValue 
-     * @returns {Integer} 
+     * @returns {JsErrorCode} 
      */
     static JsGetUndefinedValue(undefinedValue) {
         undefinedValueMarshal := undefinedValue is VarRef ? "ptr*" : "ptr"
@@ -366,7 +365,7 @@ class Js {
     /**
      * 
      * @param {Pointer<Pointer<Void>>} nullValue 
-     * @returns {Integer} 
+     * @returns {JsErrorCode} 
      */
     static JsGetNullValue(nullValue) {
         nullValueMarshal := nullValue is VarRef ? "ptr*" : "ptr"
@@ -378,7 +377,7 @@ class Js {
     /**
      * 
      * @param {Pointer<Pointer<Void>>} trueValue 
-     * @returns {Integer} 
+     * @returns {JsErrorCode} 
      */
     static JsGetTrueValue(trueValue) {
         trueValueMarshal := trueValue is VarRef ? "ptr*" : "ptr"
@@ -390,7 +389,7 @@ class Js {
     /**
      * 
      * @param {Pointer<Pointer<Void>>} falseValue 
-     * @returns {Integer} 
+     * @returns {JsErrorCode} 
      */
     static JsGetFalseValue(falseValue) {
         falseValueMarshal := falseValue is VarRef ? "ptr*" : "ptr"
@@ -403,7 +402,7 @@ class Js {
      * 
      * @param {Integer} value 
      * @param {Pointer<Pointer<Void>>} booleanValue 
-     * @returns {Integer} 
+     * @returns {JsErrorCode} 
      */
     static JsBoolToBoolean(value, booleanValue) {
         booleanValueMarshal := booleanValue is VarRef ? "ptr*" : "ptr"
@@ -416,7 +415,7 @@ class Js {
      * 
      * @param {Pointer<Void>} value 
      * @param {Pointer<Boolean>} boolValue 
-     * @returns {Integer} 
+     * @returns {JsErrorCode} 
      */
     static JsBooleanToBool(value, boolValue) {
         valueMarshal := value is VarRef ? "ptr" : "ptr"
@@ -430,7 +429,7 @@ class Js {
      * 
      * @param {Pointer<Void>} value 
      * @param {Pointer<Pointer<Void>>} booleanValue 
-     * @returns {Integer} 
+     * @returns {JsErrorCode} 
      */
     static JsConvertValueToBoolean(value, booleanValue) {
         valueMarshal := value is VarRef ? "ptr" : "ptr"
@@ -443,8 +442,8 @@ class Js {
     /**
      * 
      * @param {Pointer<Void>} value 
-     * @param {Pointer<Integer>} type 
-     * @returns {Integer} 
+     * @param {Pointer<JsValueType>} type 
+     * @returns {JsErrorCode} 
      */
     static JsGetValueType(value, type) {
         valueMarshal := value is VarRef ? "ptr" : "ptr"
@@ -458,7 +457,7 @@ class Js {
      * 
      * @param {Float} doubleValue 
      * @param {Pointer<Pointer<Void>>} value 
-     * @returns {Integer} 
+     * @returns {JsErrorCode} 
      */
     static JsDoubleToNumber(doubleValue, value) {
         valueMarshal := value is VarRef ? "ptr*" : "ptr"
@@ -471,7 +470,7 @@ class Js {
      * 
      * @param {Integer} intValue 
      * @param {Pointer<Pointer<Void>>} value 
-     * @returns {Integer} 
+     * @returns {JsErrorCode} 
      */
     static JsIntToNumber(intValue, value) {
         valueMarshal := value is VarRef ? "ptr*" : "ptr"
@@ -484,7 +483,7 @@ class Js {
      * 
      * @param {Pointer<Void>} value 
      * @param {Pointer<Float>} doubleValue 
-     * @returns {Integer} 
+     * @returns {JsErrorCode} 
      */
     static JsNumberToDouble(value, doubleValue) {
         valueMarshal := value is VarRef ? "ptr" : "ptr"
@@ -498,7 +497,7 @@ class Js {
      * 
      * @param {Pointer<Void>} value 
      * @param {Pointer<Pointer<Void>>} numberValue 
-     * @returns {Integer} 
+     * @returns {JsErrorCode} 
      */
     static JsConvertValueToNumber(value, numberValue) {
         valueMarshal := value is VarRef ? "ptr" : "ptr"
@@ -512,7 +511,7 @@ class Js {
      * 
      * @param {Pointer<Void>} stringValue 
      * @param {Pointer<Integer>} length 
-     * @returns {Integer} 
+     * @returns {JsErrorCode} 
      */
     static JsGetStringLength(stringValue, length) {
         stringValueMarshal := stringValue is VarRef ? "ptr" : "ptr"
@@ -527,7 +526,7 @@ class Js {
      * @param {PWSTR} stringValue 
      * @param {Pointer} stringLength 
      * @param {Pointer<Pointer<Void>>} value 
-     * @returns {Integer} 
+     * @returns {JsErrorCode} 
      */
     static JsPointerToString(stringValue, stringLength, value) {
         stringValue := stringValue is String ? StrPtr(stringValue) : stringValue
@@ -543,7 +542,7 @@ class Js {
      * @param {Pointer<Void>} value 
      * @param {Pointer<Pointer<Integer>>} stringValue 
      * @param {Pointer<Pointer>} stringLength 
-     * @returns {Integer} 
+     * @returns {JsErrorCode} 
      */
     static JsStringToPointer(value, stringValue, stringLength) {
         valueMarshal := value is VarRef ? "ptr" : "ptr"
@@ -558,7 +557,7 @@ class Js {
      * 
      * @param {Pointer<Void>} value 
      * @param {Pointer<Pointer<Void>>} stringValue 
-     * @returns {Integer} 
+     * @returns {JsErrorCode} 
      */
     static JsConvertValueToString(value, stringValue) {
         valueMarshal := value is VarRef ? "ptr" : "ptr"
@@ -572,7 +571,7 @@ class Js {
      * 
      * @param {Pointer<VARIANT>} _variant 
      * @param {Pointer<Pointer<Void>>} value 
-     * @returns {Integer} 
+     * @returns {JsErrorCode} 
      */
     static JsVariantToValue(_variant, value) {
         valueMarshal := value is VarRef ? "ptr*" : "ptr"
@@ -585,7 +584,7 @@ class Js {
      * 
      * @param {Pointer<Void>} _object 
      * @param {Pointer<VARIANT>} _variant 
-     * @returns {Integer} 
+     * @returns {JsErrorCode} 
      */
     static JsValueToVariant(_object, _variant) {
         _objectMarshal := _object is VarRef ? "ptr" : "ptr"
@@ -597,7 +596,7 @@ class Js {
     /**
      * 
      * @param {Pointer<Pointer<Void>>} globalObject 
-     * @returns {Integer} 
+     * @returns {JsErrorCode} 
      */
     static JsGetGlobalObject(globalObject) {
         globalObjectMarshal := globalObject is VarRef ? "ptr*" : "ptr"
@@ -609,7 +608,7 @@ class Js {
     /**
      * 
      * @param {Pointer<Pointer<Void>>} _object 
-     * @returns {Integer} 
+     * @returns {JsErrorCode} 
      */
     static JsCreateObject(_object) {
         _objectMarshal := _object is VarRef ? "ptr*" : "ptr"
@@ -623,7 +622,7 @@ class Js {
      * @param {Pointer<Void>} data 
      * @param {Pointer<JsFinalizeCallback>} finalizeCallback 
      * @param {Pointer<Pointer<Void>>} _object 
-     * @returns {Integer} 
+     * @returns {JsErrorCode} 
      */
     static JsCreateExternalObject(data, finalizeCallback, _object) {
         dataMarshal := data is VarRef ? "ptr" : "ptr"
@@ -637,7 +636,7 @@ class Js {
      * 
      * @param {Pointer<Void>} value 
      * @param {Pointer<Pointer<Void>>} _object 
-     * @returns {Integer} 
+     * @returns {JsErrorCode} 
      */
     static JsConvertValueToObject(value, _object) {
         valueMarshal := value is VarRef ? "ptr" : "ptr"
@@ -651,7 +650,7 @@ class Js {
      * 
      * @param {Pointer<Void>} _object 
      * @param {Pointer<Pointer<Void>>} prototypeObject 
-     * @returns {Integer} 
+     * @returns {JsErrorCode} 
      */
     static JsGetPrototype(_object, prototypeObject) {
         _objectMarshal := _object is VarRef ? "ptr" : "ptr"
@@ -665,7 +664,7 @@ class Js {
      * 
      * @param {Pointer<Void>} _object 
      * @param {Pointer<Void>} prototypeObject 
-     * @returns {Integer} 
+     * @returns {JsErrorCode} 
      */
     static JsSetPrototype(_object, prototypeObject) {
         _objectMarshal := _object is VarRef ? "ptr" : "ptr"
@@ -679,7 +678,7 @@ class Js {
      * 
      * @param {Pointer<Void>} _object 
      * @param {Pointer<Boolean>} value 
-     * @returns {Integer} 
+     * @returns {JsErrorCode} 
      */
     static JsGetExtensionAllowed(_object, value) {
         _objectMarshal := _object is VarRef ? "ptr" : "ptr"
@@ -692,7 +691,7 @@ class Js {
     /**
      * 
      * @param {Pointer<Void>} _object 
-     * @returns {Integer} 
+     * @returns {JsErrorCode} 
      */
     static JsPreventExtension(_object) {
         _objectMarshal := _object is VarRef ? "ptr" : "ptr"
@@ -706,7 +705,7 @@ class Js {
      * @param {Pointer<Void>} _object 
      * @param {Pointer<Void>} propertyId 
      * @param {Pointer<Pointer<Void>>} value 
-     * @returns {Integer} 
+     * @returns {JsErrorCode} 
      */
     static JsGetProperty(_object, propertyId, value) {
         _objectMarshal := _object is VarRef ? "ptr" : "ptr"
@@ -722,7 +721,7 @@ class Js {
      * @param {Pointer<Void>} _object 
      * @param {Pointer<Void>} propertyId 
      * @param {Pointer<Pointer<Void>>} propertyDescriptor 
-     * @returns {Integer} 
+     * @returns {JsErrorCode} 
      */
     static JsGetOwnPropertyDescriptor(_object, propertyId, propertyDescriptor) {
         _objectMarshal := _object is VarRef ? "ptr" : "ptr"
@@ -737,7 +736,7 @@ class Js {
      * 
      * @param {Pointer<Void>} _object 
      * @param {Pointer<Pointer<Void>>} propertyNames 
-     * @returns {Integer} 
+     * @returns {JsErrorCode} 
      */
     static JsGetOwnPropertyNames(_object, propertyNames) {
         _objectMarshal := _object is VarRef ? "ptr" : "ptr"
@@ -753,7 +752,7 @@ class Js {
      * @param {Pointer<Void>} propertyId 
      * @param {Pointer<Void>} value 
      * @param {Integer} useStrictRules 
-     * @returns {Integer} 
+     * @returns {JsErrorCode} 
      */
     static JsSetProperty(_object, propertyId, value, useStrictRules) {
         _objectMarshal := _object is VarRef ? "ptr" : "ptr"
@@ -769,7 +768,7 @@ class Js {
      * @param {Pointer<Void>} _object 
      * @param {Pointer<Void>} propertyId 
      * @param {Pointer<Boolean>} hasProperty 
-     * @returns {Integer} 
+     * @returns {JsErrorCode} 
      */
     static JsHasProperty(_object, propertyId, hasProperty) {
         _objectMarshal := _object is VarRef ? "ptr" : "ptr"
@@ -786,7 +785,7 @@ class Js {
      * @param {Pointer<Void>} propertyId 
      * @param {Integer} useStrictRules 
      * @param {Pointer<Pointer<Void>>} result 
-     * @returns {Integer} 
+     * @returns {JsErrorCode} 
      */
     static JsDeleteProperty(_object, propertyId, useStrictRules, result) {
         _objectMarshal := _object is VarRef ? "ptr" : "ptr"
@@ -803,7 +802,7 @@ class Js {
      * @param {Pointer<Void>} propertyId 
      * @param {Pointer<Void>} propertyDescriptor 
      * @param {Pointer<Boolean>} result 
-     * @returns {Integer} 
+     * @returns {JsErrorCode} 
      */
     static JsDefineProperty(_object, propertyId, propertyDescriptor, result) {
         _objectMarshal := _object is VarRef ? "ptr" : "ptr"
@@ -820,7 +819,7 @@ class Js {
      * @param {Pointer<Void>} _object 
      * @param {Pointer<Void>} index 
      * @param {Pointer<Boolean>} result 
-     * @returns {Integer} 
+     * @returns {JsErrorCode} 
      */
     static JsHasIndexedProperty(_object, index, result) {
         _objectMarshal := _object is VarRef ? "ptr" : "ptr"
@@ -836,7 +835,7 @@ class Js {
      * @param {Pointer<Void>} _object 
      * @param {Pointer<Void>} index 
      * @param {Pointer<Pointer<Void>>} result 
-     * @returns {Integer} 
+     * @returns {JsErrorCode} 
      */
     static JsGetIndexedProperty(_object, index, result) {
         _objectMarshal := _object is VarRef ? "ptr" : "ptr"
@@ -852,7 +851,7 @@ class Js {
      * @param {Pointer<Void>} _object 
      * @param {Pointer<Void>} index 
      * @param {Pointer<Void>} value 
-     * @returns {Integer} 
+     * @returns {JsErrorCode} 
      */
     static JsSetIndexedProperty(_object, index, value) {
         _objectMarshal := _object is VarRef ? "ptr" : "ptr"
@@ -867,7 +866,7 @@ class Js {
      * 
      * @param {Pointer<Void>} _object 
      * @param {Pointer<Void>} index 
-     * @returns {Integer} 
+     * @returns {JsErrorCode} 
      */
     static JsDeleteIndexedProperty(_object, index) {
         _objectMarshal := _object is VarRef ? "ptr" : "ptr"
@@ -882,7 +881,7 @@ class Js {
      * @param {Pointer<Void>} object1 
      * @param {Pointer<Void>} object2 
      * @param {Pointer<Boolean>} result 
-     * @returns {Integer} 
+     * @returns {JsErrorCode} 
      */
     static JsEquals(object1, object2, result) {
         object1Marshal := object1 is VarRef ? "ptr" : "ptr"
@@ -898,7 +897,7 @@ class Js {
      * @param {Pointer<Void>} object1 
      * @param {Pointer<Void>} object2 
      * @param {Pointer<Boolean>} result 
-     * @returns {Integer} 
+     * @returns {JsErrorCode} 
      */
     static JsStrictEquals(object1, object2, result) {
         object1Marshal := object1 is VarRef ? "ptr" : "ptr"
@@ -913,7 +912,7 @@ class Js {
      * 
      * @param {Pointer<Void>} _object 
      * @param {Pointer<Boolean>} value 
-     * @returns {Integer} 
+     * @returns {JsErrorCode} 
      */
     static JsHasExternalData(_object, value) {
         _objectMarshal := _object is VarRef ? "ptr" : "ptr"
@@ -927,7 +926,7 @@ class Js {
      * 
      * @param {Pointer<Void>} _object 
      * @param {Pointer<Pointer<Void>>} externalData 
-     * @returns {Integer} 
+     * @returns {JsErrorCode} 
      */
     static JsGetExternalData(_object, externalData) {
         _objectMarshal := _object is VarRef ? "ptr" : "ptr"
@@ -941,7 +940,7 @@ class Js {
      * 
      * @param {Pointer<Void>} _object 
      * @param {Pointer<Void>} externalData 
-     * @returns {Integer} 
+     * @returns {JsErrorCode} 
      */
     static JsSetExternalData(_object, externalData) {
         _objectMarshal := _object is VarRef ? "ptr" : "ptr"
@@ -955,7 +954,7 @@ class Js {
      * 
      * @param {Integer} length 
      * @param {Pointer<Pointer<Void>>} result 
-     * @returns {Integer} 
+     * @returns {JsErrorCode} 
      */
     static JsCreateArray(length, result) {
         resultMarshal := result is VarRef ? "ptr*" : "ptr"
@@ -970,7 +969,7 @@ class Js {
      * @param {Pointer<Pointer<Void>>} arguments 
      * @param {Integer} argumentCount 
      * @param {Pointer<Pointer<Void>>} result 
-     * @returns {Integer} 
+     * @returns {JsErrorCode} 
      */
     static JsCallFunction(function, arguments, argumentCount, result) {
         functionMarshal := function is VarRef ? "ptr" : "ptr"
@@ -987,7 +986,7 @@ class Js {
      * @param {Pointer<Pointer<Void>>} arguments 
      * @param {Integer} argumentCount 
      * @param {Pointer<Pointer<Void>>} result 
-     * @returns {Integer} 
+     * @returns {JsErrorCode} 
      */
     static JsConstructObject(function, arguments, argumentCount, result) {
         functionMarshal := function is VarRef ? "ptr" : "ptr"
@@ -1003,7 +1002,7 @@ class Js {
      * @param {Pointer<JsNativeFunction>} nativeFunction 
      * @param {Pointer<Void>} callbackState 
      * @param {Pointer<Pointer<Void>>} function 
-     * @returns {Integer} 
+     * @returns {JsErrorCode} 
      */
     static JsCreateFunction(nativeFunction, callbackState, function) {
         callbackStateMarshal := callbackState is VarRef ? "ptr" : "ptr"
@@ -1016,91 +1015,91 @@ class Js {
     /**
      * 
      * @param {Pointer<Void>} message 
-     * @param {Pointer<Pointer<Void>>} error 
-     * @returns {Integer} 
+     * @param {Pointer<Pointer<Void>>} _error 
+     * @returns {JsErrorCode} 
      */
-    static JsCreateError(message, error) {
+    static JsCreateError(message, _error) {
         messageMarshal := message is VarRef ? "ptr" : "ptr"
-        errorMarshal := error is VarRef ? "ptr*" : "ptr"
+        _errorMarshal := _error is VarRef ? "ptr*" : "ptr"
 
-        result := DllCall("chakra.dll\JsCreateError", messageMarshal, message, errorMarshal, error, "uint")
+        result := DllCall("chakra.dll\JsCreateError", messageMarshal, message, _errorMarshal, _error, "uint")
         return result
     }
 
     /**
      * 
      * @param {Pointer<Void>} message 
-     * @param {Pointer<Pointer<Void>>} error 
-     * @returns {Integer} 
+     * @param {Pointer<Pointer<Void>>} _error 
+     * @returns {JsErrorCode} 
      */
-    static JsCreateRangeError(message, error) {
+    static JsCreateRangeError(message, _error) {
         messageMarshal := message is VarRef ? "ptr" : "ptr"
-        errorMarshal := error is VarRef ? "ptr*" : "ptr"
+        _errorMarshal := _error is VarRef ? "ptr*" : "ptr"
 
-        result := DllCall("chakra.dll\JsCreateRangeError", messageMarshal, message, errorMarshal, error, "uint")
+        result := DllCall("chakra.dll\JsCreateRangeError", messageMarshal, message, _errorMarshal, _error, "uint")
         return result
     }
 
     /**
      * 
      * @param {Pointer<Void>} message 
-     * @param {Pointer<Pointer<Void>>} error 
-     * @returns {Integer} 
+     * @param {Pointer<Pointer<Void>>} _error 
+     * @returns {JsErrorCode} 
      */
-    static JsCreateReferenceError(message, error) {
+    static JsCreateReferenceError(message, _error) {
         messageMarshal := message is VarRef ? "ptr" : "ptr"
-        errorMarshal := error is VarRef ? "ptr*" : "ptr"
+        _errorMarshal := _error is VarRef ? "ptr*" : "ptr"
 
-        result := DllCall("chakra.dll\JsCreateReferenceError", messageMarshal, message, errorMarshal, error, "uint")
+        result := DllCall("chakra.dll\JsCreateReferenceError", messageMarshal, message, _errorMarshal, _error, "uint")
         return result
     }
 
     /**
      * 
      * @param {Pointer<Void>} message 
-     * @param {Pointer<Pointer<Void>>} error 
-     * @returns {Integer} 
+     * @param {Pointer<Pointer<Void>>} _error 
+     * @returns {JsErrorCode} 
      */
-    static JsCreateSyntaxError(message, error) {
+    static JsCreateSyntaxError(message, _error) {
         messageMarshal := message is VarRef ? "ptr" : "ptr"
-        errorMarshal := error is VarRef ? "ptr*" : "ptr"
+        _errorMarshal := _error is VarRef ? "ptr*" : "ptr"
 
-        result := DllCall("chakra.dll\JsCreateSyntaxError", messageMarshal, message, errorMarshal, error, "uint")
+        result := DllCall("chakra.dll\JsCreateSyntaxError", messageMarshal, message, _errorMarshal, _error, "uint")
         return result
     }
 
     /**
      * 
      * @param {Pointer<Void>} message 
-     * @param {Pointer<Pointer<Void>>} error 
-     * @returns {Integer} 
+     * @param {Pointer<Pointer<Void>>} _error 
+     * @returns {JsErrorCode} 
      */
-    static JsCreateTypeError(message, error) {
+    static JsCreateTypeError(message, _error) {
         messageMarshal := message is VarRef ? "ptr" : "ptr"
-        errorMarshal := error is VarRef ? "ptr*" : "ptr"
+        _errorMarshal := _error is VarRef ? "ptr*" : "ptr"
 
-        result := DllCall("chakra.dll\JsCreateTypeError", messageMarshal, message, errorMarshal, error, "uint")
+        result := DllCall("chakra.dll\JsCreateTypeError", messageMarshal, message, _errorMarshal, _error, "uint")
         return result
     }
 
     /**
      * 
      * @param {Pointer<Void>} message 
-     * @param {Pointer<Pointer<Void>>} error 
-     * @returns {Integer} 
+     * @param {Pointer<Pointer<Void>>} _error 
+     * @returns {JsErrorCode} 
      */
-    static JsCreateURIError(message, error) {
+    static JsCreateURIError(message, _error) {
         messageMarshal := message is VarRef ? "ptr" : "ptr"
-        errorMarshal := error is VarRef ? "ptr*" : "ptr"
+        _errorMarshal := _error is VarRef ? "ptr*" : "ptr"
 
-        result := DllCall("chakra.dll\JsCreateURIError", messageMarshal, message, errorMarshal, error, "uint")
+        result := DllCall("chakra.dll\JsCreateURIError", messageMarshal, message, _errorMarshal, _error, "uint")
         return result
     }
 
     /**
      * 
      * @param {Pointer<Boolean>} hasException 
-     * @returns {Integer} 
+     * @returns {JsErrorCode} 
      */
     static JsHasException(hasException) {
         hasExceptionMarshal := hasException is VarRef ? "int*" : "ptr"
@@ -1112,7 +1111,7 @@ class Js {
     /**
      * 
      * @param {Pointer<Pointer<Void>>} exception 
-     * @returns {Integer} 
+     * @returns {JsErrorCode} 
      */
     static JsGetAndClearException(exception) {
         exceptionMarshal := exception is VarRef ? "ptr*" : "ptr"
@@ -1124,7 +1123,7 @@ class Js {
     /**
      * 
      * @param {Pointer<Void>} exception 
-     * @returns {Integer} 
+     * @returns {JsErrorCode} 
      */
     static JsSetException(exception) {
         exceptionMarshal := exception is VarRef ? "ptr" : "ptr"
@@ -1136,7 +1135,7 @@ class Js {
     /**
      * 
      * @param {Pointer<Void>} runtime 
-     * @returns {Integer} 
+     * @returns {JsErrorCode} 
      */
     static JsDisableRuntimeExecution(runtime) {
         runtimeMarshal := runtime is VarRef ? "ptr" : "ptr"
@@ -1148,7 +1147,7 @@ class Js {
     /**
      * 
      * @param {Pointer<Void>} runtime 
-     * @returns {Integer} 
+     * @returns {JsErrorCode} 
      */
     static JsEnableRuntimeExecution(runtime) {
         runtimeMarshal := runtime is VarRef ? "ptr" : "ptr"
@@ -1161,7 +1160,7 @@ class Js {
      * 
      * @param {Pointer<Void>} runtime 
      * @param {Pointer<Boolean>} isDisabled 
-     * @returns {Integer} 
+     * @returns {JsErrorCode} 
      */
     static JsIsRuntimeExecutionDisabled(runtime, isDisabled) {
         runtimeMarshal := runtime is VarRef ? "ptr" : "ptr"
@@ -1174,9 +1173,9 @@ class Js {
     /**
      * 
      * @param {IActiveScriptProfilerCallback} callback 
-     * @param {Integer} _eventMask 
+     * @param {PROFILER_EVENT_MASK} _eventMask 
      * @param {Integer} _context 
-     * @returns {Integer} 
+     * @returns {JsErrorCode} 
      */
     static JsStartProfiling(callback, _eventMask, _context) {
         result := DllCall("chakra.dll\JsStartProfiling", "ptr", callback, "int", _eventMask, "uint", _context, "uint")
@@ -1186,7 +1185,7 @@ class Js {
     /**
      * 
      * @param {HRESULT} reason 
-     * @returns {Integer} 
+     * @returns {JsErrorCode} 
      */
     static JsStopProfiling(reason) {
         result := DllCall("chakra.dll\JsStopProfiling", "int", reason, "uint")
@@ -1196,7 +1195,7 @@ class Js {
     /**
      * 
      * @param {Pointer<IActiveScriptProfilerHeapEnum>} _enumerator 
-     * @returns {Integer} 
+     * @returns {JsErrorCode} 
      */
     static JsEnumerateHeap(_enumerator) {
         result := DllCall("chakra.dll\JsEnumerateHeap", "ptr*", _enumerator, "uint")
@@ -1206,7 +1205,7 @@ class Js {
     /**
      * 
      * @param {Pointer<Boolean>} isEnumeratingHeap 
-     * @returns {Integer} 
+     * @returns {JsErrorCode} 
      */
     static JsIsEnumeratingHeap(isEnumeratingHeap) {
         isEnumeratingHeapMarshal := isEnumeratingHeap is VarRef ? "int*" : "ptr"

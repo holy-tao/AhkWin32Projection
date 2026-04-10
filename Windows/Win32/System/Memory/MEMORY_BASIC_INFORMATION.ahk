@@ -1,5 +1,8 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
+#Include .\PAGE_PROTECTION_FLAGS.ahk
+#Include .\VIRTUAL_ALLOCATION_TYPE.ahk
+#Include .\PAGE_TYPE.ahk
 
 /**
  * Contains information about a range of pages in the virtual address space of a process.
@@ -32,10 +35,9 @@
  * ```
  * @see https://learn.microsoft.com/windows/win32/api/winnt/ns-winnt-memory_basic_information
  * @namespace Windows.Win32.System.Memory
- * @version v4.0.30319
+ * @architecture X64, Arm64
  */
-class MEMORY_BASIC_INFORMATION extends Win32Struct
-{
+class MEMORY_BASIC_INFORMATION extends Win32Struct {
     static sizeof => 48
 
     static packingSize => 8
@@ -62,7 +64,7 @@ class MEMORY_BASIC_INFORMATION extends Win32Struct
     /**
      * The memory protection option when the region was initially allocated. This member can be one of the 
      * <a href="https://docs.microsoft.com/windows/desktop/Memory/memory-protection-constants">memory protection constants</a> or 0 if the caller does not have access.
-     * @type {Integer}
+     * @type {PAGE_PROTECTION_FLAGS}
      */
     AllocationProtect {
         get => NumGet(this, 16, "uint")
@@ -87,8 +89,7 @@ class MEMORY_BASIC_INFORMATION extends Win32Struct
     }
 
     /**
-     * 
-     * @type {Integer}
+     * @type {VIRTUAL_ALLOCATION_TYPE}
      */
     State {
         get => NumGet(this, 32, "uint")
@@ -97,7 +98,7 @@ class MEMORY_BASIC_INFORMATION extends Win32Struct
 
     /**
      * The access protection of the pages in the region. This member is one of the values listed for the <b>AllocationProtect</b> member.
-     * @type {Integer}
+     * @type {PAGE_PROTECTION_FLAGS}
      */
     Protect {
         get => NumGet(this, 36, "uint")
@@ -148,7 +149,7 @@ class MEMORY_BASIC_INFORMATION extends Win32Struct
      * </td>
      * </tr>
      * </table>
-     * @type {Integer}
+     * @type {PAGE_TYPE}
      */
     Type {
         get => NumGet(this, 40, "uint")

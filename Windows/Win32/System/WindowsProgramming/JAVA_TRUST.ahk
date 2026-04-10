@@ -5,10 +5,8 @@
  * Contains trust information.
  * @see https://learn.microsoft.com/windows/win32/api/capi/ns-capi-java_trust
  * @namespace Windows.Win32.System.WindowsProgramming
- * @version v4.0.30319
  */
-class JAVA_TRUST extends Win32Struct
-{
+class JAVA_TRUST extends Win32Struct {
     static sizeof => 80
 
     static packingSize => 8
@@ -105,7 +103,7 @@ class JAVA_TRUST extends Win32Struct
 
     /**
      * Reserved.
-     * @type {Pointer<Guid>}
+     * @type {Pointer}
      */
     guidZone {
         get => NumGet(this, 64, "ptr")

@@ -5,10 +5,8 @@
 
 /**
  * @namespace Windows.Win32.System.WindowsProgramming
- * @version v4.0.30319
  */
-class FEATURE_STATE_CHANGE_SUBSCRIPTION extends Win32Handle
-{
+class FEATURE_STATE_CHANGE_SUBSCRIPTION extends Win32Handle {
     static sizeof => 8
 
     static packingSize => 8

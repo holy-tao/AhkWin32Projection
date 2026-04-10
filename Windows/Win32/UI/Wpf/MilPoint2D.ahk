@@ -5,10 +5,8 @@
  * Represents an x- and y-coordinate pair in two-dimensional space.M
  * @see https://learn.microsoft.com/windows/win32/api/mileffects/ns-mileffects-milpoint2d
  * @namespace Windows.Win32.UI.Wpf
- * @version v4.0.30319
  */
-class MilPoint2D extends Win32Struct
-{
+class MilPoint2D extends Win32Struct {
     static sizeof => 16
 
     static packingSize => 8

@@ -9,9 +9,8 @@
  * <a href="https://docs.microsoft.com/windows/desktop/api/authif/nc-authif-pradius_extension_process_ex">RadiusExtensionProcessEx</a> functions.
  * @see https://learn.microsoft.com/windows/win32/api/authif/ne-authif-radius_action
  * @namespace Windows.Win32.NetworkManagement.NetworkPolicyServer
- * @version v4.0.30319
  */
-class RADIUS_ACTION extends Win32Enum{
+class RADIUS_ACTION extends Win32Enum {
 
     /**
      * NPS continues to process the request. NPS also continues to call 

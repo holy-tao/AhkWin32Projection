@@ -5,10 +5,8 @@
  * The RAS_USER_1 structure contains information for a particular Remote Access Service user. The RAS_USER_1 structure is similar to the RAS_USER_0 structure, except that RAS_USER_1 supports an additional member, bfPrivilege2.
  * @see https://learn.microsoft.com/windows/win32/api/mprapi/ns-mprapi-ras_user_1
  * @namespace Windows.Win32.NetworkManagement.Rras
- * @version v4.0.30319
  */
-class RAS_USER_1 extends Win32Struct
-{
+class RAS_USER_1 extends Win32Struct {
     static sizeof => 262
 
     static packingSize => 2

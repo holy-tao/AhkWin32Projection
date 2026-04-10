@@ -5,9 +5,8 @@
  * Defines values that identify object types in the Text Object Model (TOM)  content.
  * @see https://learn.microsoft.com/windows/win32/api/tom/ne-tom-objecttype
  * @namespace Windows.Win32.UI.Controls.RichEdit
- * @version v4.0.30319
  */
-class OBJECTTYPE extends Win32Enum{
+class OBJECTTYPE extends Win32Enum {
 
     /**
      * Not an inline function.

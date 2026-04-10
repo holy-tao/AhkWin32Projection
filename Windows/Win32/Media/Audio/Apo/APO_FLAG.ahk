@@ -5,9 +5,8 @@
  * The APO_FLAG enumeration defines constants that are used as flags by an audio processing object (APO).
  * @see https://learn.microsoft.com/windows/win32/api/audioenginebaseapo/ne-audioenginebaseapo-apo_flag
  * @namespace Windows.Win32.Media.Audio.Apo
- * @version v4.0.30319
  */
-class APO_FLAG extends Win32Enum{
+class APO_FLAG extends Win32Enum {
 
     /**
      * Indicates that there are no flags enabled for this APO.
@@ -40,7 +39,6 @@ class APO_FLAG extends Win32Enum{
     static APO_FLAG_BITSPERSAMPLE_MUST_MATCH => 8
 
     /**
-     * 
      * @type {Integer (Int32)}
      */
     static APO_FLAG_MIXER => 16

@@ -9,10 +9,8 @@
  * The XLATEOBJ structure is used to translate color indices that refer to the source palette to indices for the destination palette. The resulting index identifies a color that matches the source color as closely as possible.
  * @see https://learn.microsoft.com/windows/win32/api/winddi/ns-winddi-xlateobj
  * @namespace Windows.Win32.Devices.Display
- * @version v4.0.30319
  */
-class XLATEOBJ extends Win32Struct
-{
+class XLATEOBJ extends Win32Struct {
     static sizeof => 24
 
     static packingSize => 8
@@ -27,7 +25,6 @@ class XLATEOBJ extends Win32Struct
     }
 
     /**
-     * 
      * @type {Integer}
      */
     flXlate {

@@ -1,5 +1,6 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
+#Include .\SRestriction.ahk
 
 /**
  * Describes an OR restriction which is used to apply a logical OR operation to a restriction. 
@@ -7,10 +8,8 @@
  * For more information about the **SOrRestriction** structure, see [About Restrictions](about-restrictions.md).
  * @see https://learn.microsoft.com/office/client-developer/outlook/mapi/sorrestriction
  * @namespace Windows.Win32.System.AddressBook
- * @version v4.0.30319
  */
-class SOrRestriction extends Win32Struct
-{
+class SOrRestriction extends Win32Struct {
     static sizeof => 16
 
     static packingSize => 8

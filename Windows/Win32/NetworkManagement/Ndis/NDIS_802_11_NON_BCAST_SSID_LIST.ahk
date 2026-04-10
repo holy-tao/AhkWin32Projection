@@ -4,13 +4,11 @@
 
 /**
  * @namespace Windows.Win32.NetworkManagement.Ndis
- * @version v4.0.30319
  */
-class NDIS_802_11_NON_BCAST_SSID_LIST extends Win32Struct
-{
-    static sizeof => 16
+class NDIS_802_11_NON_BCAST_SSID_LIST extends Win32Struct {
+    static sizeof => 40
 
-    static packingSize => 8
+    static packingSize => 4
 
     /**
      * @type {Integer}
@@ -21,12 +19,12 @@ class NDIS_802_11_NON_BCAST_SSID_LIST extends Win32Struct
     }
 
     /**
-     * @type {Array<NDIS_802_11_SSID>}
+     * @type {NDIS_802_11_SSID}
      */
-    Non_Bcast_Ssid{
+    Non_Bcast_Ssid {
         get {
             if(!this.HasProp("__Non_Bcast_SsidProxyArray"))
-                this.__Non_Bcast_SsidProxyArray := Win32FixedArray(this.ptr + 8, 1, NDIS_802_11_SSID, "")
+                this.__Non_Bcast_SsidProxyArray := Win32FixedArray(this.ptr + 4, 1, NDIS_802_11_SSID, "")
             return this.__Non_Bcast_SsidProxyArray
         }
     }

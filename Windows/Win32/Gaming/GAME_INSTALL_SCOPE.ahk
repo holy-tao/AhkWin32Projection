@@ -3,9 +3,8 @@
 
 /**
  * @namespace Windows.Win32.Gaming
- * @version v4.0.30319
  */
-class GAME_INSTALL_SCOPE extends Win32Enum{
+class GAME_INSTALL_SCOPE extends Win32Enum {
 
     /**
      * @type {Integer (Int32)}

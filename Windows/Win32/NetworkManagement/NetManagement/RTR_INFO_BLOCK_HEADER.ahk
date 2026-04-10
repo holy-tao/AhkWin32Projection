@@ -4,13 +4,11 @@
 
 /**
  * @namespace Windows.Win32.NetworkManagement.NetManagement
- * @version v4.0.30319
  */
-class RTR_INFO_BLOCK_HEADER extends Win32Struct
-{
-    static sizeof => 24
+class RTR_INFO_BLOCK_HEADER extends Win32Struct {
+    static sizeof => 28
 
-    static packingSize => 8
+    static packingSize => 4
 
     /**
      * @type {Integer}
@@ -37,12 +35,12 @@ class RTR_INFO_BLOCK_HEADER extends Win32Struct
     }
 
     /**
-     * @type {Array<RTR_TOC_ENTRY>}
+     * @type {RTR_TOC_ENTRY}
      */
-    TocEntry{
+    TocEntry {
         get {
             if(!this.HasProp("__TocEntryProxyArray"))
-                this.__TocEntryProxyArray := Win32FixedArray(this.ptr + 16, 1, RTR_TOC_ENTRY, "")
+                this.__TocEntryProxyArray := Win32FixedArray(this.ptr + 12, 1, RTR_TOC_ENTRY, "")
             return this.__TocEntryProxyArray
         }
     }

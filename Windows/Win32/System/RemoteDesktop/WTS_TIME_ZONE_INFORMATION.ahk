@@ -6,10 +6,8 @@
  * Contains client time zone information.
  * @see https://learn.microsoft.com/windows/win32/api/wtsdefs/ns-wtsdefs-wts_time_zone_information
  * @namespace Windows.Win32.System.RemoteDesktop
- * @version v4.0.30319
  */
-class WTS_TIME_ZONE_INFORMATION extends Win32Struct
-{
+class WTS_TIME_ZONE_INFORMATION extends Win32Struct {
     static sizeof => 172
 
     static packingSize => 4
@@ -36,7 +34,7 @@ class WTS_TIME_ZONE_INFORMATION extends Win32Struct
      * A <a href="https://docs.microsoft.com/windows/desktop/api/wtsdefs/ns-wtsdefs-wts_systemtime">WTS_SYSTEMTIME</a> structure that contains the date and local time when the transition from daylight saving time to standard time occurs on the client. If this field is specified, the <b>DaylightDate</b> member should also be specified.
      * @type {WTS_SYSTEMTIME}
      */
-    StandardDate{
+    StandardDate {
         get {
             if(!this.HasProp("__StandardDate"))
                 this.__StandardDate := WTS_SYSTEMTIME(68, this)
@@ -66,7 +64,7 @@ class WTS_TIME_ZONE_INFORMATION extends Win32Struct
      * A <a href="https://docs.microsoft.com/windows/desktop/api/wtsdefs/ns-wtsdefs-wts_systemtime">WTS_SYSTEMTIME</a> structure that contains the date and local time when the transition from standard time to daylight saving time occurs on the client. If this field is specified, the <b>StandardDate</b> member should also be specified.
      * @type {WTS_SYSTEMTIME}
      */
-    DaylightDate{
+    DaylightDate {
         get {
             if(!this.HasProp("__DaylightDate"))
                 this.__DaylightDate := WTS_SYSTEMTIME(152, this)

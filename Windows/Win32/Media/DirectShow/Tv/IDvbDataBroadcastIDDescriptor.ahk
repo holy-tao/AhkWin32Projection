@@ -7,9 +7,8 @@
  * Implements methods that get data from a Digital Video Broadcast (DVB) data broadcast ID descriptor.
  * @see https://learn.microsoft.com/windows/win32/api/dvbsiparser/nn-dvbsiparser-idvbdatabroadcastiddescriptor
  * @namespace Windows.Win32.Media.DirectShow.Tv
- * @version v4.0.30319
  */
-class IDvbDataBroadcastIDDescriptor extends IUnknown{
+class IDvbDataBroadcastIDDescriptor extends IUnknown {
 
     static sizeof => A_PtrSize
     /**

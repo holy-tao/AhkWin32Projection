@@ -1,5 +1,6 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
+#Include .\VDS_PACK_STATUS.ahk
 
 /**
  * Defines the properties of a pack object.
@@ -7,17 +8,15 @@
  * The <a href="https://docs.microsoft.com/windows/desktop/api/vds/nf-vds-ivdspack-getproperties">IVdsPack::GetProperties</a> method returns this structure to report the property details of a pack object.
  * @see https://learn.microsoft.com/windows/win32/api/vds/ns-vds-vds_pack_prop
  * @namespace Windows.Win32.Storage.VirtualDiskService
- * @version v4.0.30319
  */
-class VDS_PACK_PROP extends Win32Struct
-{
+class VDS_PACK_PROP extends Win32Struct {
     static sizeof => 24
 
     static packingSize => 8
 
     /**
      * The GUID of the pack object.
-     * @type {Pointer<Guid>}
+     * @type {Pointer}
      */
     id {
         get => NumGet(this, 0, "ptr")
@@ -35,7 +34,7 @@ class VDS_PACK_PROP extends Win32Struct
 
     /**
      * The pack status enumerated by <a href="https://docs.microsoft.com/windows/desktop/api/vds/ne-vds-vds_pack_status">VDS_PACK_STATUS</a>.
-     * @type {Integer}
+     * @type {VDS_PACK_STATUS}
      */
     status {
         get => NumGet(this, 16, "int")

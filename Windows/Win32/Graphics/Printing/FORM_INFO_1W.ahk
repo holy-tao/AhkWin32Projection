@@ -7,11 +7,9 @@
  * The FORM_INFO_1 structure contains information about a print form. The information includes the print forms origin, its name, its dimensions, and the dimensions of its printable area.
  * @see https://learn.microsoft.com/windows/win32/printdocs/form-info-1
  * @namespace Windows.Win32.Graphics.Printing
- * @version v4.0.30319
  * @charset Unicode
  */
-class FORM_INFO_1W extends Win32Struct
-{
+class FORM_INFO_1W extends Win32Struct {
     static sizeof => 40
 
     static packingSize => 8
@@ -46,7 +44,7 @@ class FORM_INFO_1W extends Win32Struct
      * The width and height, in thousandths of millimeters, of the form.
      * @type {SIZE}
      */
-    Size{
+    Size {
         get {
             if(!this.HasProp("__Size"))
                 this.__Size := SIZE(16, this)
@@ -58,7 +56,7 @@ class FORM_INFO_1W extends Win32Struct
      * The width and height, in thousandths of millimeters, of the form.
      * @type {RECTL}
      */
-    ImageableArea{
+    ImageableArea {
         get {
             if(!this.HasProp("__ImageableArea"))
                 this.__ImageableArea := RECTL(24, this)

@@ -15,9 +15,8 @@
  * Use <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/cluadmex/nn-cluadmex-iwcwizard97callback">IWCWizard97Callback</a> to add Wizard97 pages.
  * @see https://learn.microsoft.com/windows/win32/api/cluadmex/nn-cluadmex-iwcwizardcallback
  * @namespace Windows.Win32.Networking.Clustering
- * @version v4.0.30319
  */
-class IWCWizardCallback extends IUnknown{
+class IWCWizardCallback extends IUnknown {
 
     static sizeof => A_PtrSize
     /**

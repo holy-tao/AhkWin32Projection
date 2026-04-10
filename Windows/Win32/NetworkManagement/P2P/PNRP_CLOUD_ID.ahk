@@ -1,14 +1,13 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
+#Include .\PNRP_SCOPE.ahk
 
 /**
  * The PNRP_CLOUD_ID structure contains the values that define a network cloud.
  * @see https://learn.microsoft.com/windows/win32/api/pnrpdef/ns-pnrpdef-pnrp_cloud_id
  * @namespace Windows.Win32.NetworkManagement.P2P
- * @version v4.0.30319
  */
-class PNRP_CLOUD_ID extends Win32Struct
-{
+class PNRP_CLOUD_ID extends Win32Struct {
     static sizeof => 12
 
     static packingSize => 4
@@ -23,8 +22,7 @@ class PNRP_CLOUD_ID extends Win32Struct
     }
 
     /**
-     * 
-     * @type {Integer}
+     * @type {PNRP_SCOPE}
      */
     Scope {
         get => NumGet(this, 4, "int")

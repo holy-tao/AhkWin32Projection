@@ -1,7 +1,6 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
-#Include .\IMFPresentationDescriptor.ahk
 #Include .\IMFAttributes.ahk
 
 /**
@@ -17,9 +16,8 @@
  * </ul>
  * @see https://learn.microsoft.com/windows/win32/api/mfidl/nn-mfidl-imfpresentationdescriptor
  * @namespace Windows.Win32.Media.MediaFoundation
- * @version v4.0.30319
  */
-class IMFPresentationDescriptor extends IMFAttributes{
+class IMFPresentationDescriptor extends IMFAttributes {
 
     static sizeof => A_PtrSize
     /**

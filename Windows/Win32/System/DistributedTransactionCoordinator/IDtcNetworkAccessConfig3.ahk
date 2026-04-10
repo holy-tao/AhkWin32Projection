@@ -5,9 +5,8 @@
 
 /**
  * @namespace Windows.Win32.System.DistributedTransactionCoordinator
- * @version v4.0.30319
  */
-class IDtcNetworkAccessConfig3 extends IDtcNetworkAccessConfig2{
+class IDtcNetworkAccessConfig3 extends IDtcNetworkAccessConfig2 {
 
     static sizeof => A_PtrSize
     /**

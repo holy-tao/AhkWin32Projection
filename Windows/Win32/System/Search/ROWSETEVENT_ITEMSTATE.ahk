@@ -9,9 +9,8 @@
  * Check out the <a href="https://docs.microsoft.com/windows/win32/search/-search-sample-searchevents">SearchEvents code sample</a>.
  * @see https://learn.microsoft.com/windows/win32/api/searchapi/ne-searchapi-rowsetevent_itemstate
  * @namespace Windows.Win32.System.Search
- * @version v4.0.30319
  */
-class ROWSETEVENT_ITEMSTATE extends Win32Enum{
+class ROWSETEVENT_ITEMSTATE extends Win32Enum {
 
     /**
      * The item is definitely not in the rowset.

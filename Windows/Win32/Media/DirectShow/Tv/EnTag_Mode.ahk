@@ -3,9 +3,8 @@
 
 /**
  * @namespace Windows.Win32.Media.DirectShow.Tv
- * @version v4.0.30319
  */
-class EnTag_Mode extends Win32Enum{
+class EnTag_Mode extends Win32Enum {
 
     /**
      * @type {Integer (Int32)}

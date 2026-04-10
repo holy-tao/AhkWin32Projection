@@ -1,16 +1,15 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
-#Include .\D3D12_META_COMMAND_DESC.ahk
 #Include .\ID3D12Device4.ahk
+#Include .\D3D12_META_COMMAND_DESC.ahk
 
 /**
  * Represents a virtual adapter. This interface extends [ID3D12Device4](../d3d12/nn-d3d12-id3d12device4.md).
  * @see https://learn.microsoft.com/windows/win32/api/d3d12/nn-d3d12-id3d12device5
  * @namespace Windows.Win32.Graphics.Direct3D12
- * @version v4.0.30319
  */
-class ID3D12Device5 extends ID3D12Device4{
+class ID3D12Device5 extends ID3D12Device4 {
 
     static sizeof => A_PtrSize
     /**
@@ -106,7 +105,7 @@ class ID3D12Device5 extends ID3D12Device4{
      * @param {Pointer<Guid>} CommandId Type: <b>REFIID</b>
      * 
      * A reference to the globally unique identifier (GUID) of the meta command whose parameters you wish to be returned in <i>pParameterDescs</i>.
-     * @param {Integer} Stage Type: <b>D3D12_META_COMMAND_PARAMETER_STAGE</b>
+     * @param {D3D12_META_COMMAND_PARAMETER_STAGE} Stage Type: <b>D3D12_META_COMMAND_PARAMETER_STAGE</b>
      * 
      * A <a href="https://docs.microsoft.com/windows/win32/api/d3d12/ne-d3d12-d3d12_meta_command_parameter_stage">D3D12_META_COMMAND_PARAMETER_STAGE</a> specifying the stage of the parameters that you wish to be included in the query.
      * @param {Pointer<Integer>} pTotalStructureSizeInBytes Type: <b><a href="https://docs.microsoft.com/windows/desktop/WinProg/windows-data-types">UINT</a>*</b>
@@ -139,7 +138,7 @@ class ID3D12Device5 extends ID3D12Device4{
      * @param {Integer} NodeMask Type: <b><a href="https://docs.microsoft.com/windows/win32/WinProg/windows-data-types">UINT</a></b>
      * 
      * For single-adapter operation, set this to zero. If there are multiple adapter nodes, set a bit to identify the node (one of the device's physical adapters) to which the meta command applies. Each bit in the mask corresponds to a single node. Only one bit must be set. See <a href="https://docs.microsoft.com/windows/win32/direct3d12/multi-engine">Multi-adapter systems</a>.
-     * @param {Pointer} pCreationParametersData Type: <b>const <a href="https://docs.microsoft.com/windows/win32/WinProg/windows-data-types">void</a>*</b>
+     * @param {Integer} pCreationParametersData Type: <b>const <a href="https://docs.microsoft.com/windows/win32/WinProg/windows-data-types">void</a>*</b>
      * 
      * An optional pointer to a constant structure containing the values of the parameters for creating the meta command.
      * @param {Pointer} CreationParametersDataSizeInBytes Type: <b><a href="https://docs.microsoft.com/windows/win32/WinProg/windows-data-types">SIZE_T</a></b>
@@ -191,9 +190,9 @@ class ID3D12Device5 extends ID3D12Device4{
 
     /**
      * Reports the compatibility of serialized data, such as a serialized raytracing acceleration structure resulting from a call to CopyRaytracingAccelerationStructure with mode D3D12_RAYTRACING_ACCELERATION_STRUCTURE_COPY_MODE_SERIALIZE, with the current device/driver.
-     * @param {Integer} SerializedDataType The type of the serialized data. For more information, see <a href="https://docs.microsoft.com/windows/desktop/api/d3d12/ne-d3d12-d3d12_serialized_data_type">D3D12_SERIALIZED_DATA_TYPE</a>.
+     * @param {D3D12_SERIALIZED_DATA_TYPE} SerializedDataType The type of the serialized data. For more information, see <a href="https://docs.microsoft.com/windows/desktop/api/d3d12/ne-d3d12-d3d12_serialized_data_type">D3D12_SERIALIZED_DATA_TYPE</a>.
      * @param {Pointer<D3D12_SERIALIZED_DATA_DRIVER_MATCHING_IDENTIFIER>} pIdentifierToCheck Identifier from the header of the serialized data to check with the driver. For more information, see <a href="https://docs.microsoft.com/windows/desktop/api/d3d12/ns-d3d12-d3d12_serialized_data_driver_matching_identifier">D3D12_SERIALIZED_DATA_DRIVER_MATCHING_IDENTIFIER</a>.
-     * @returns {Integer} The returned compatibility status. For more information, see <a href="../d3d12/ne-d3d12-d3d12_driver_matching_identifier_status.md">D3D12_DRIVER_MATCHING_IDENTIFIER_STATUS</a>.
+     * @returns {D3D12_DRIVER_MATCHING_IDENTIFIER_STATUS} The returned compatibility status. For more information, see <a href="../d3d12/ne-d3d12-d3d12_driver_matching_identifier_status.md">D3D12_DRIVER_MATCHING_IDENTIFIER_STATUS</a>.
      * @see https://learn.microsoft.com/windows/win32/api/d3d12/nf-d3d12-id3d12device5-checkdrivermatchingidentifier
      */
     CheckDriverMatchingIdentifier(SerializedDataType, pIdentifierToCheck) {

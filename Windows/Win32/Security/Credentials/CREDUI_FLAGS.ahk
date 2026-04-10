@@ -3,11 +3,9 @@
 
 /**
  * Documentation varies per use. Refer to each: <see href="https://learn.microsoft.com/windows/win32/api/wincred/nf-wincred-creduicmdlinepromptforcredentialsa">CredUICmdLinePromptForCredentials</see>, <see href="https://learn.microsoft.com/windows/win32/api/wincred/nf-wincred-creduicmdlinepromptforcredentialsw">CredUICmdLinePromptForCredentials</see>, <see href="https://learn.microsoft.com/windows/win32/api/wincred/nf-wincred-creduicmdlinepromptforcredentialsa">CredUICmdLinePromptForCredentialsA</see>, <see href="https://learn.microsoft.com/windows/win32/api/wincred/nf-wincred-creduicmdlinepromptforcredentialsw">CredUICmdLinePromptForCredentialsA</see>, <see href="https://learn.microsoft.com/windows/win32/api/wincred/nf-wincred-creduicmdlinepromptforcredentialsa">CredUICmdLinePromptForCredentialsW</see>, <see href="https://learn.microsoft.com/windows/win32/api/wincred/nf-wincred-creduicmdlinepromptforcredentialsw">CredUICmdLinePromptForCredentialsW</see>, <see href="https://learn.microsoft.com/windows/win32/api/wincred/nf-wincred-creduipromptforcredentialsa">CredUIPromptForCredentials</see>, <see href="https://learn.microsoft.com/windows/win32/api/wincred/nf-wincred-creduipromptforcredentialsw">CredUIPromptForCredentials</see>, <see href="https://learn.microsoft.com/windows/win32/api/wincred/nf-wincred-creduipromptforcredentialsa">CredUIPromptForCredentialsA</see>, <see href="https://learn.microsoft.com/windows/win32/api/wincred/nf-wincred-creduipromptforcredentialsw">CredUIPromptForCredentialsA</see>, <see href="https://learn.microsoft.com/windows/win32/api/wincred/nf-wincred-creduipromptforcredentialsa">CredUIPromptForCredentialsW</see>, <see href="https://learn.microsoft.com/windows/win32/api/wincred/nf-wincred-creduipromptforcredentialsw">CredUIPromptForCredentialsW</see>.
- * @see 
  * @namespace Windows.Win32.Security.Credentials
- * @version v4.0.30319
  */
-class CREDUI_FLAGS extends Win32BitflagEnum{
+class CREDUI_FLAGS extends Win32BitflagEnum {
 
     /**
      * @type {Integer (UInt32)}

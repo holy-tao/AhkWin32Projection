@@ -5,10 +5,8 @@
  * DRT_DATA structure contains a data blob. This structure is used by several DRT functions.
  * @see https://learn.microsoft.com/windows/win32/api/drt/ns-drt-drt_data
  * @namespace Windows.Win32.NetworkManagement.P2P
- * @version v4.0.30319
  */
-class DRT_DATA extends Win32Struct
-{
+class DRT_DATA extends Win32Struct {
     static sizeof => 16
 
     static packingSize => 8

@@ -7,9 +7,8 @@
  * Provides methods for extracting spatial audio metadata items and item command value pairs from an ISpatialAudioMetadataItems object.
  * @see https://learn.microsoft.com/windows/win32/api/spatialaudiometadata/nn-spatialaudiometadata-ispatialaudiometadatareader
  * @namespace Windows.Win32.Media.Audio
- * @version v4.0.30319
  */
-class ISpatialAudioMetadataReader extends IUnknown{
+class ISpatialAudioMetadataReader extends IUnknown {
 
     static sizeof => A_PtrSize
     /**
@@ -140,7 +139,7 @@ class ISpatialAudioMetadataReader extends IUnknown{
      * 
      * The process for reading commands and the associated values is recursive. After each call to <b>ReadItemCountInFrames</b>, call <a href="https://docs.microsoft.com/windows/desktop/api/spatialaudiometadata/nf-spatialaudiometadata-ispatialaudiometadatareader-readnextitem">ReadNextItem</a> to get the number of commands in the next item. After every call to <b>ReadNextItem</b>, call <b>ReadNextItemCommand</b> to read each command for the  item. Repeat this process until the entire frame range of the <b>ISpatialAudioMetadataItems</b> has been read.
      * @param {Pointer<Integer>} commandID Receives the command ID for the current command.
-     * @param {Pointer} valueBuffer A pointer to a buffer which receives data specific to the command as specified by the
+     * @param {Integer} valueBuffer A pointer to a buffer which receives data specific to the command as specified by the
      * metadata format definition. The buffer must be at least <i>maxValueBufferLength</i> to ensure all commands can be successfully retrieved.
      * @param {Integer} maxValueBufferLength The maximum size of a command value.
      * @param {Pointer<Integer>} valueBufferLength The size, in bytes, of the data written to the  <i>valueBuffer</i> parameter.

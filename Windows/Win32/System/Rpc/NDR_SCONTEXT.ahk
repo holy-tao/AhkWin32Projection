@@ -3,18 +3,16 @@
 
 /**
  * @namespace Windows.Win32.System.Rpc
- * @version v4.0.30319
  */
-class NDR_SCONTEXT extends Win32Struct
-{
+class NDR_SCONTEXT extends Win32Struct {
     static sizeof => 24
 
     static packingSize => 8
 
     /**
-     * @type {Array<Void>}
+     * @type {Array<Pointer<Void>>}
      */
-    pad{
+    pad {
         get {
             if(!this.HasProp("__padProxyArray"))
                 this.__padProxyArray := Win32FixedArray(this.ptr + 0, 2, Primitive, "ptr")

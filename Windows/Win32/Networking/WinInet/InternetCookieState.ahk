@@ -8,9 +8,8 @@
  * <div> </div>
  * @see https://learn.microsoft.com/windows/win32/api/wininet/ne-wininet-internetcookiestate
  * @namespace Windows.Win32.Networking.WinInet
- * @version v4.0.30319
  */
-class InternetCookieState extends Win32Enum{
+class InternetCookieState extends Win32Enum {
 
     /**
      * Reserved.

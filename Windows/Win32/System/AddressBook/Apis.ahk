@@ -6,7 +6,6 @@
 
 /**
  * @namespace Windows.Win32.System.AddressBook
- * @version v4.0.30319
  */
 class AddressBook {
 
@@ -1109,9 +1108,9 @@ class AddressBook {
      * @remarks
      * The _lpAllocateBuffer_, _lpAllocateMore_, and _lpFreeBuffer_ input parameters point to the [MAPIAllocateBuffer](mapiallocatebuffer.md), [MAPIAllocateMore](mapiallocatemore.md), and [MAPIFreeBuffer](mapifreebuffer.md) functions, respectively. A client application calling **CreateTable** passes in pointers to the MAPI functions just named; a service provider passes the pointers to these functions that it received in its initialization call or retrieved with a call to the [IMAPISupport::GetMemAllocRoutines](imapisupport-getmemallocroutines.md) method.
      * @param {Pointer<Guid>} lpInterface > [in] Pointer to an interface identifier (IID) for the table data object. The valid interface identifier is IID_IMAPITableData. Passing NULL in the _lpInterface_ parameter also causes the table data object returned in the _lppTableData_ parameter to be cast to the standard interface for a table data object.
-     * @param {Pointer<LPALLOCATEBUFFER>} _lpAllocateBuffer 
-     * @param {Pointer<LPALLOCATEMORE>} _lpAllocateMore 
-     * @param {Pointer<LPFREEBUFFER>} _lpFreeBuffer 
+     * @param {Pointer<LPALLOCATEBUFFER>} _lpAllocateBuffer > [in] Pointer to the [MAPIAllocateBuffer](mapiallocatebuffer.md) function, to be used to allocate memory.
+     * @param {Pointer<LPALLOCATEMORE>} _lpAllocateMore > [in] Pointer to the [MAPIAllocateMore](mapiallocatemore.md) function, to be used to allocate additional memory.
+     * @param {Pointer<LPFREEBUFFER>} _lpFreeBuffer > [in] Pointer to the [MAPIFreeBuffer](mapifreebuffer.md) function, to be used to free memory.
      * @param {Pointer<Void>} lpvReserved > [in] Reserved; must be zero.
      * @param {Integer} ulTableType > [in] A table type that is available to a client application or service provider as part of the [IMAPITable::GetStatus](imapitable-getstatus.md) return data on its table views. Possible values are:
      * 
@@ -1146,9 +1145,9 @@ class AddressBook {
      * @remarks
      * The _lpAllocateBuffer_, _lpAllocateMore_, and _lpFreeBuffer_ input parameters point to the [MAPIAllocateBuffer](mapiallocatebuffer.md), [MAPIAllocateMore](mapiallocatemore.md), and [MAPIFreeBuffer](mapifreebuffer.md) functions, respectively. A client application calling **CreateIProp** passes in pointers to the MAPI functions just named; a service provider passes the pointers to these functions it received in its initialization call or retrieved with a call to the [IMAPISupport::GetMemAllocRoutines](imapisupport-getmemallocroutines.md) method.
      * @param {Pointer<Guid>} lpInterface > [in] Pointer to an interface identifier (IID) for the property data object. The valid interface identifier is IID_IMAPIPropData. Passing NULL in the _lpInterface_ parameter also causes the property data object returned in the _lppPropData_ parameter to be cast to the standard interface for a property data object.
-     * @param {Pointer<LPALLOCATEBUFFER>} _lpAllocateBuffer 
-     * @param {Pointer<LPALLOCATEMORE>} _lpAllocateMore 
-     * @param {Pointer<LPFREEBUFFER>} _lpFreeBuffer 
+     * @param {Pointer<LPALLOCATEBUFFER>} _lpAllocateBuffer > [in] Pointer to the [MAPIAllocateBuffer](mapiallocatebuffer.md) function, to be used to allocate memory.
+     * @param {Pointer<LPALLOCATEMORE>} _lpAllocateMore > [in] Pointer to the [MAPIAllocateMore](mapiallocatemore.md) function, to be used to allocate additional memory.
+     * @param {Pointer<LPFREEBUFFER>} _lpFreeBuffer > [in] Pointer to the [MAPIFreeBuffer](mapifreebuffer.md) function, to be used to free memory.
      * @param {Pointer<Void>} lpvReserved > [in] Reserved; must be zero.
      * @param {Pointer<IPropData>} lppPropData > [out] Pointer to a pointer to the returned property data object.
      * @returns {Integer} S_OK
@@ -1413,8 +1412,8 @@ class AddressBook {
      * When the calling client application or service provider is finished with the **IStream** object, it should free it by calling the OLE **IStream::Release** method.
      *   
      * MAPI uses the functions pointed to by _lpAllocateBuffer_ and _lpFreeBuffer_ for most memory allocation and deallocation, in particular to allocate memory for use by client applications when calling object interfaces such as [IMAPIProp::GetProps](imapiprop-getprops.md) and [IMAPITable::QueryRows](imapitable-queryrows.md).
-     * @param {Pointer<LPALLOCATEBUFFER>} _lpAllocateBuffer 
-     * @param {Pointer<LPFREEBUFFER>} _lpFreeBuffer 
+     * @param {Pointer<LPALLOCATEBUFFER>} _lpAllocateBuffer > [in] Pointer to the [MAPIAllocateBuffer](mapiallocatebuffer.md) function, to be used to allocate memory.
+     * @param {Pointer<LPFREEBUFFER>} _lpFreeBuffer > [in] Pointer to the [MAPIFreeBuffer](mapifreebuffer.md) function, to be used to free memory.
      * @param {Integer} ulFlags > [in] Bitmask of flags used to control the creation or opening of the file to be accessed through the OLE **IStream** object. The following flags can be set:
      * 
      * SOF_UNIQUEFILENAME
@@ -1612,8 +1611,8 @@ class AddressBook {
      * The **HrAddColumns** function is equivalent to using **HrAddColumnsEx** with  _lpfnFilterColumns_ set to NULL.
      * @param {IMAPITable} lptbl > [in] Pointer to the MAPI table affected.
      * @param {Pointer<SPropTagArray>} lpproptagColumnsNew > [in] Pointer to an **SPropTagArray** structure that contains an array of property tags for the properties to be added or moved to the beginning of the table.
-     * @param {Pointer<LPALLOCATEBUFFER>} _lpAllocateBuffer 
-     * @param {Pointer<LPFREEBUFFER>} _lpFreeBuffer 
+     * @param {Pointer<LPALLOCATEBUFFER>} _lpAllocateBuffer > [in] Pointer to the **MAPIAllocateBuffer** function. Used to allocate memory.
+     * @param {Pointer<LPFREEBUFFER>} _lpFreeBuffer > [in] Pointer to the **MAPIFreeBuffer** function. Used to free memory.
      * @returns {HRESULT} **S_OK**
      *   
      * > The call succeeded and the specified columns were moved or added.
@@ -1632,8 +1631,8 @@ class AddressBook {
      * If any table properties are undefined when **QueryRows** is called, they are returned with property type PT_NULL and property identifier PROP_ID_NULL.
      * @param {IMAPITable} lptbl > [in] Pointer to the MAPI table affected.
      * @param {Pointer<SPropTagArray>} lpproptagColumnsNew > [in] Pointer to an [SPropTagArray](sproptagarray.md) structure that contains an array of property tags for the properties to be added or moved to the beginning of the table.
-     * @param {Pointer<LPALLOCATEBUFFER>} _lpAllocateBuffer 
-     * @param {Pointer<LPFREEBUFFER>} _lpFreeBuffer 
+     * @param {Pointer<LPALLOCATEBUFFER>} _lpAllocateBuffer > [in] Pointer to the [MAPIAllocateBuffer](mapiallocatebuffer.md) function, to be used to allocate memory.
+     * @param {Pointer<LPFREEBUFFER>} _lpFreeBuffer > [in] Pointer to the [MAPIFreeBuffer](mapifreebuffer.md) function, to be used to free memory.
      * @param {Pointer} lpfnFilterColumns > [in] Pointer to a callback function furnished by the caller. If the  _lpfnFilterColumns_ parameter is set to NULL, no callback is made.
      * @returns {HRESULT} S_OK 
      *   
@@ -1718,11 +1717,11 @@ class AddressBook {
      * Creates a display table from the property page data contained in one or more DTPAGE structures.
      * @remarks
      * MAPI uses the functions pointed to by _lpAllocateBuffer_, _lpAllocateMore_, and _lpFreeBuffer_ for most memory allocation and deallocation, in particular to allocate memory for use by client applications when calling object interfaces such as [IMAPIProp::GetProps](imapiprop-getprops.md) and [IMAPITable::QueryRows](imapitable-queryrows.md).
-     * @param {Pointer<LPALLOCATEBUFFER>} _lpAllocateBuffer 
-     * @param {Pointer<LPALLOCATEMORE>} _lpAllocateMore 
-     * @param {Pointer<LPFREEBUFFER>} _lpFreeBuffer 
+     * @param {Pointer<LPALLOCATEBUFFER>} _lpAllocateBuffer > [in] Pointer to the [MAPIAllocateBuffer](mapiallocatebuffer.md) function, to be used to allocate memory.
+     * @param {Pointer<LPALLOCATEMORE>} _lpAllocateMore > [in] Pointer to the [MAPIAllocateMore](mapiallocatemore.md) function, to be used to allocate additional memory.
+     * @param {Pointer<LPFREEBUFFER>} _lpFreeBuffer > [in] Pointer to the [MAPIFreeBuffer](mapifreebuffer.md) function, to be used to free memory.
      * @param {IMalloc} lpMalloc > Unused; should be set to NULL.
-     * @param {HINSTANCE} _hInstance 
+     * @param {HINSTANCE} _hInstance > [in] An instance of a MAPI object from which **BuildDisplayTable** retrieves resources.
      * @param {Integer} cPages > [in] Count of [DTPAGE](dtpage.md) structures in the array pointed to by the _lpPage_ parameter.
      * @param {Pointer<DTPAGE>} lpPage > [in] Pointer to an array of **DTPAGE** structures that contain information about the display table pages to be built.
      * @param {Integer} ulFlags > [in] Bitmask of flags. The following flag can be set:
@@ -1925,7 +1924,7 @@ class AddressBook {
      * Duplicates a property value array in a single block of MAPI memory combining the operations of the ScCopyProps and ScCountProps functions.
      * @param {Integer} cValues 
      * @param {Pointer<SPropValue>} lpPropArray 
-     * @param {Pointer<LPALLOCATEBUFFER>} _lpAllocateBuffer 
+     * @param {Pointer<LPALLOCATEBUFFER>} _lpAllocateBuffer > [in] Pointer to the [MAPIAllocateBuffer](mapiallocatebuffer.md) function, to be used to allocate memory for the duplicated array.
      * @param {Pointer<Pointer<SPropValue>>} lppPropArray 
      * @returns {Integer} S_OK 
      *   
@@ -2331,8 +2330,8 @@ class AddressBook {
      * > The strings are in Unicode format. If the MAPI_UNICODE flag is not set, the strings are in ANSI format.
      * @param {Pointer<Integer>} lpszDLLName 
      * @param {Integer} cbOrigEntry > [in] Size, in bytes, of the original entry identifier for the message store.
-     * @param {Pointer} lpOrigEntry > [in] Pointer to an [ENTRYID](entryid.md) structure that contains the original entry identifier.
-     * @param {Pointer} lppWrappedEntry > [out] Pointer to a pointer to an **ENTRYID** structure that contains the new entry identifier.
+     * @param {Integer} lpOrigEntry > [in] Pointer to an [ENTRYID](entryid.md) structure that contains the original entry identifier.
+     * @param {Integer} lppWrappedEntry > [out] Pointer to a pointer to an **ENTRYID** structure that contains the new entry identifier.
      * @returns {Integer} > [out] Pointer to the size, in bytes, of the new entry identifier.
      * @see https://learn.microsoft.com/office/client-developer/outlook/mapi/wrapstoreentryid
      */

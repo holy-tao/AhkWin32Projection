@@ -5,9 +5,8 @@
  * The values of the RADIUSSERVERPROPERTIES enumeration type enumerate the properties of the RADIUS server, that is the SDO computer.
  * @see https://learn.microsoft.com/windows/win32/api/sdoias/ne-sdoias-radiusserverproperties
  * @namespace Windows.Win32.NetworkManagement.NetworkPolicyServer
- * @version v4.0.30319
  */
-class RADIUSSERVERPROPERTIES extends Win32Enum{
+class RADIUSSERVERPROPERTIES extends Win32Enum {
 
     /**
      * Comma separated list of the UDP ports over which RADIUS authentication packets are sent and received.
@@ -82,13 +81,11 @@ class RADIUSSERVERPROPERTIES extends Win32Enum{
     static PROPERTY_RADIUSSERVER_SEND_SIGNATURE => 1035
 
     /**
-     * 
      * @type {Integer (Int32)}
      */
     static PROPERTY_RADIUSSERVER_AUTH_SECRET_TEMPLATE_GUID => 1036
 
     /**
-     * 
      * @type {Integer (Int32)}
      */
     static PROPERTY_RADIUSSERVER_ACCT_SECRET_TEMPLATE_GUID => 1037

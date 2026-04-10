@@ -1,16 +1,15 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
-#Include .\ITypeInfo.ahk
 #Include .\IUnknown.ahk
+#Include .\ITypeInfo.ahk
 
 /**
  * Exposes objects, methods and properties to programming tools and other applications that support Automation.
  * @see https://learn.microsoft.com/windows/win32/api/oaidl/nn-oaidl-idispatch
  * @namespace Windows.Win32.System.Com
- * @version v4.0.30319
  */
-class IDispatch extends IUnknown{
+class IDispatch extends IUnknown {
 
     static sizeof => A_PtrSize
     /**
@@ -111,7 +110,7 @@ class IDispatch extends IUnknown{
      * @param {Integer} lcid The locale context in which to interpret arguments. The <i>lcid</i> is used by the <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/oaidl/nf-oaidl-idispatch-getidsofnames">GetIDsOfNames</a> function, and is also passed to <b>Invoke</b> to allow the object to interpret its arguments specific to a locale.
      * 
      * Applications that do not support multiple national languages can ignore this parameter. For more information, refer to <a href="https://docs.microsoft.com/previous-versions/windows/desktop/automat/supporting-multiple-national-languages">Supporting Multiple National Languages</a> and <a href="https://docs.microsoft.com/previous-versions/windows/desktop/automat/exposing-activex-objects">Exposing ActiveX Objects</a>.
-     * @param {Integer} wFlags Flags describing the context of the <b>Invoke</b> call.
+     * @param {DISPATCH_FLAGS} wFlags Flags describing the context of the <b>Invoke</b> call.
      * 
      * <table>
      * <tr>

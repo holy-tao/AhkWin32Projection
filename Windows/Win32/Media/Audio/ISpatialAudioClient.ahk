@@ -1,8 +1,8 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
-#Include .\IAudioFormatEnumerator.ahk
 #Include ..\..\System\Com\IUnknown.ahk
+#Include .\IAudioFormatEnumerator.ahk
 
 /**
  * The ISpatialAudioClient interface enables a client to create audio streams that emit audio from a position in 3D space.
@@ -31,9 +31,8 @@
  * To access the <b>ActivateAudioIntefaceAsync</b>, you will need to link to mmdevapi.lib.
  * @see https://learn.microsoft.com/windows/win32/api/spatialaudioclient/nn-spatialaudioclient-ispatialaudioclient
  * @namespace Windows.Win32.Media.Audio
- * @version v4.0.30319
  */
-class ISpatialAudioClient extends IUnknown{
+class ISpatialAudioClient extends IUnknown {
 
     static sizeof => A_PtrSize
     /**
@@ -58,7 +57,7 @@ class ISpatialAudioClient extends IUnknown{
      * Gets the position in 3D space of the specified static spatial audio channel.
      * @remarks
      * Position values use a right-handed Cartesian coordinate system, where each unit represents 1 meter. The coordinate system is relative to the listener where the origin (x=0.0, y=0.0, z=0.0) represents the center point between the listener's ears.
-     * @param {Integer} type A value indicating the static spatial audio channel for which the position is being queried. This method will return E_INVALIDARG  if the value does not represent a static channel, including <b>AudioObjectType_Dynamic</b> and <b>AudioObjectType_None</b>.
+     * @param {AudioObjectType} type A value indicating the static spatial audio channel for which the position is being queried. This method will return E_INVALIDARG  if the value does not represent a static channel, including <b>AudioObjectType_Dynamic</b> and <b>AudioObjectType_None</b>.
      * @param {Pointer<Float>} x The x coordinate of the static audio channel, in meters, relative to the listener. Positive values are to the right of the listener and negative values are to the left.
      * @param {Pointer<Float>} y The y coordinate of the static audio channel, in meters, relative to the listener. Positive values are above the listener and negative values are below.
      * @param {Pointer<Float>} z The z coordinate of the static audio channel, in meters, relative to the listener. Positive values are behind the listener and negative values are in front.
@@ -94,7 +93,7 @@ class ISpatialAudioClient extends IUnknown{
 
     /**
      * Gets a channel mask which represents the subset of static speaker bed channels native to current rendering engine.
-     * @returns {Integer} A bitwise combination of values from the <a href="https://docs.microsoft.com/windows/desktop/api/spatialaudioclient/ne-spatialaudioclient-audioobjecttype">AudioObjectType</a> enumeration indicating a subset of static speaker channels. The values returned will only include the static channel values and will not include <b>AudioObjectType_Dynamic</b>.
+     * @returns {AudioObjectType} A bitwise combination of values from the <a href="https://docs.microsoft.com/windows/desktop/api/spatialaudioclient/ne-spatialaudioclient-audioobjecttype">AudioObjectType</a> enumeration indicating a subset of static speaker channels. The values returned will only include the static channel values and will not include <b>AudioObjectType_Dynamic</b>.
      * @see https://learn.microsoft.com/windows/win32/api/spatialaudioclient/nf-spatialaudioclient-ispatialaudioclient-getnativestaticobjecttypemask
      */
     GetNativeStaticObjectTypeMask() {
@@ -120,7 +119,7 @@ class ISpatialAudioClient extends IUnknown{
 
     /**
      * Gets an IAudioFormatEnumerator that contains all supported audio formats for spatial audio objects, the first item in the list represents the most preferable format.
-     * @returns {IAudioFormatEnumerator} 
+     * @returns {IAudioFormatEnumerator} Pointer to the pointer that receives the <a href="https://docs.microsoft.com/windows/desktop/api/spatialaudioclient/nn-spatialaudioclient-iaudioformatenumerator">IAudioFormatEnumerator</a> interface.
      * @see https://learn.microsoft.com/windows/win32/api/spatialaudioclient/nf-spatialaudioclient-ispatialaudioclient-getsupportedaudioobjectformatenumerator
      */
     GetSupportedAudioObjectFormatEnumerator() {

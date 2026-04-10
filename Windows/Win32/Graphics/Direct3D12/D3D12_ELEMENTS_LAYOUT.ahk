@@ -5,9 +5,8 @@
  * Describes how the locations of elements are identified.
  * @see https://learn.microsoft.com/windows/win32/api/d3d12/ne-d3d12-d3d12_elements_layout
  * @namespace Windows.Win32.Graphics.Direct3D12
- * @version v4.0.30319
  */
-class D3D12_ELEMENTS_LAYOUT extends Win32Enum{
+class D3D12_ELEMENTS_LAYOUT extends Win32Enum {
 
     /**
      * For a data set of <i>n</i> elements, the pointer parameter points to the start of <i>n</i> elements in memory.

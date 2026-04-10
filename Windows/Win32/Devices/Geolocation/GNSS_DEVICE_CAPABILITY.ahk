@@ -4,10 +4,8 @@
 
 /**
  * @namespace Windows.Win32.Devices.Geolocation
- * @version v4.0.30319
  */
-class GNSS_DEVICE_CAPABILITY extends Win32Struct
-{
+class GNSS_DEVICE_CAPABILITY extends Win32Struct {
     static sizeof => 604
 
     static packingSize => 4
@@ -183,7 +181,7 @@ class GNSS_DEVICE_CAPABILITY extends Win32Struct
     /**
      * @type {GNSS_SUPL_VERSION}
      */
-    SupportedSuplVersion{
+    SupportedSuplVersion {
         get {
             if(!this.HasProp("__SupportedSuplVersion"))
                 this.__SupportedSuplVersion := GNSS_SUPL_VERSION(84, this)
@@ -224,9 +222,9 @@ class GNSS_DEVICE_CAPABILITY extends Win32Struct
     }
 
     /**
-     * @type {Array<Byte>}
+     * @type {Array<Integer>}
      */
-    Unused{
+    Unused {
         get {
             if(!this.HasProp("__UnusedProxyArray"))
                 this.__UnusedProxyArray := Win32FixedArray(this.ptr + 108, 496, Primitive, "char")

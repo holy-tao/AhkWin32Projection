@@ -1,17 +1,15 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
-#Include .\IPortableDeviceConnector.ahk
-#Include .\IEnumPortableDeviceConnectors.ahk
 #Include ..\..\System\Com\IUnknown.ahk
+#Include .\IPortableDeviceConnector.ahk
 
 /**
  * Supports the enumeration of IPortableDeviceConnector interfaces, representing MTP/Bluetooth devices that were paired with the PC.
  * @see https://learn.microsoft.com/windows/win32/wpd_sdk/ienumportabledeviceconnectors
  * @namespace Windows.Win32.Devices.PortableDevices
- * @version v4.0.30319
  */
-class IEnumPortableDeviceConnectors extends IUnknown{
+class IEnumPortableDeviceConnectors extends IUnknown {
 
     static sizeof => A_PtrSize
     /**

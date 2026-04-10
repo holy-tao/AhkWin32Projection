@@ -3,10 +3,8 @@
 
 /**
  * @namespace Windows.Win32.Networking.HttpServer
- * @version v4.0.30319
  */
-class HTTP2_SETTINGS_LIMITS_PARAM extends Win32Struct
-{
+class HTTP2_SETTINGS_LIMITS_PARAM extends Win32Struct {
     static sizeof => 8
 
     static packingSize => 4

@@ -7,9 +7,8 @@
  * The IVssProviderNotifications interface manages providers registered with VSS.
  * @see https://learn.microsoft.com/windows/win32/api/vsprov/nn-vsprov-ivssprovidernotifications
  * @namespace Windows.Win32.Storage.Vss
- * @version v4.0.30319
  */
-class IVssProviderNotifications extends IUnknown{
+class IVssProviderNotifications extends IUnknown {
 
     static sizeof => A_PtrSize
     /**

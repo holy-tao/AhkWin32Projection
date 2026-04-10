@@ -3,9 +3,8 @@
 
 /**
  * @namespace Windows.Win32.System.HostComputeSystem
- * @version v4.0.30319
  */
-class HCS_OPERATION_OPTIONS extends Win32BitflagEnum{
+class HCS_OPERATION_OPTIONS extends Win32BitflagEnum {
 
     /**
      * @type {Integer (Int32)}

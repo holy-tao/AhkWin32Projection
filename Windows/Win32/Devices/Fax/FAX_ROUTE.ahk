@@ -9,10 +9,8 @@
  * The fax routing method can use the <a href="https://docs.microsoft.com/windows/desktop/api/fileapi/nf-fileapi-filetimetolocalfiletime">FileTimeToLocalFileTime</a> function, to convert from UTC to local time, and then use the <a href="https://docs.microsoft.com/windows/desktop/api/timezoneapi/nf-timezoneapi-filetimetosystemtime">FileTimeToSystemTime</a> function to convert the local time to a <a href="https://docs.microsoft.com/windows/desktop/api/minwinbase/ns-minwinbase-systemtime">SYSTEMTIME</a> structure. SYSTEMTIME contains individual members for month, day, year, weekday, hour, minute, second, and millisecond. See MSDN for descriptions of these functions and this structure.
  * @see https://learn.microsoft.com/windows/win32/api/faxroute/ns-faxroute-fax_route
  * @namespace Windows.Win32.Devices.Fax
- * @version v4.0.30319
  */
-class FAX_ROUTE extends Win32Struct
-{
+class FAX_ROUTE extends Win32Struct {
     static sizeof => 112
 
     static packingSize => 8

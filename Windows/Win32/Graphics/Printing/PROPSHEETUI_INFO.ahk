@@ -4,10 +4,8 @@
 
 /**
  * @namespace Windows.Win32.Graphics.Printing
- * @version v4.0.30319
  */
-class PROPSHEETUI_INFO extends Win32Struct
-{
+class PROPSHEETUI_INFO extends Win32Struct {
     static sizeof => 48
 
     static packingSize => 8
@@ -47,7 +45,7 @@ class PROPSHEETUI_INFO extends Win32Struct
     /**
      * @type {HANDLE}
      */
-    hComPropSheet{
+    hComPropSheet {
         get {
             if(!this.HasProp("__hComPropSheet"))
                 this.__hComPropSheet := HANDLE(8, this)

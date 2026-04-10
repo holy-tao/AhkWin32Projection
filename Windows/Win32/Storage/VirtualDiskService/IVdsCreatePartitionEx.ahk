@@ -1,16 +1,15 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
-#Include .\IVdsAsync.ahk
 #Include ..\..\System\Com\IUnknown.ahk
+#Include .\IVdsAsync.ahk
 
 /**
  * Creates a partition on a basic disk.
  * @see https://learn.microsoft.com/windows/win32/api/vds/nn-vds-ivdscreatepartitionex
  * @namespace Windows.Win32.Storage.VirtualDiskService
- * @version v4.0.30319
  */
-class IVdsCreatePartitionEx extends IUnknown{
+class IVdsCreatePartitionEx extends IUnknown {
 
     static sizeof => A_PtrSize
     /**

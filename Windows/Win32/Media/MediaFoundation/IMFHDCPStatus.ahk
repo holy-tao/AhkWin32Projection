@@ -5,9 +5,8 @@
 
 /**
  * @namespace Windows.Win32.Media.MediaFoundation
- * @version v4.0.30319
  */
-class IMFHDCPStatus extends IUnknown{
+class IMFHDCPStatus extends IUnknown {
 
     static sizeof => A_PtrSize
     /**
@@ -30,7 +29,7 @@ class IMFHDCPStatus extends IUnknown{
 
     /**
      * The Query object represents a compound query.
-     * @param {Pointer<Integer>} pStatus 
+     * @param {Pointer<MF_HDCP_STATUS>} pStatus 
      * @param {Pointer<BOOL>} pfStatus 
      * @returns {HRESULT} 
      * @see https://learn.microsoft.com/windows/win32/WMP/query-object
@@ -48,7 +47,7 @@ class IMFHDCPStatus extends IUnknown{
      * @remarks
      * <div class="alert"><b>Note</b>  This is a blocking or synchronous function and might not return immediately. How quickly this function returns depends on run-time factors such as network status, print server configuration, and printer driver implementation—factors that are difficult to predict when writing an application. Calling this function from a thread that manages interaction with the user interface could make the application appear to be unresponsive.</div>
      * <div> </div>
-     * @param {Integer} _status 
+     * @param {MF_HDCP_STATUS} _status 
      * @returns {HRESULT} If the function succeeds, the return value is greater than zero.
      * 
      * If the function fails, the return value is SP_ERROR.

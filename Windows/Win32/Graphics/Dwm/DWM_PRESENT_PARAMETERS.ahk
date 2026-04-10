@@ -1,6 +1,7 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
 #Include .\UNSIGNED_RATIO.ahk
+#Include .\DWM_SOURCE_FRAME_SAMPLING.ahk
 
 /**
  * Specifies Desktop Window Manager (DWM) video frame parameters for frame composition. Used by the DwmSetPresentParameters function.
@@ -8,10 +9,8 @@
  * The <b>rateSource</b> member is expressed as a ratio so that content (like that using NTSC standards, which has a rate of 60000/1001) can be accurately expressed. DWM determines how long to display each frame by resampling between the source rate and the composition rate in use each time the desktop is composed.
  * @see https://learn.microsoft.com/windows/win32/api/dwmapi/ns-dwmapi-dwm_present_parameters
  * @namespace Windows.Win32.Graphics.Dwm
- * @version v4.0.30319
  */
-class DWM_PRESENT_PARAMETERS extends Win32Struct
-{
+class DWM_PRESENT_PARAMETERS extends Win32Struct {
     static sizeof => 40
 
     static packingSize => 8
@@ -65,7 +64,7 @@ class DWM_PRESENT_PARAMETERS extends Win32Struct
      * The rate, in frames per second, of the source material being displayed.
      * @type {UNSIGNED_RATIO}
      */
-    rateSource{
+    rateSource {
         get {
             if(!this.HasProp("__rateSource"))
                 this.__rateSource := UNSIGNED_RATIO(24, this)
@@ -84,7 +83,7 @@ class DWM_PRESENT_PARAMETERS extends Win32Struct
 
     /**
      * The frame sampling type to use for composition.
-     * @type {Integer}
+     * @type {DWM_SOURCE_FRAME_SAMPLING}
      */
     eSampling {
         get => NumGet(this, 36, "int")

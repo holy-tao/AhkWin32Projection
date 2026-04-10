@@ -6,7 +6,6 @@
 
 /**
  * @namespace Windows.Win32.Devices.Bluetooth
- * @version v4.0.30319
  */
 class Bluetooth {
 
@@ -4905,7 +4904,7 @@ class Bluetooth {
      * 
      * <div class="alert"><b>Note</b>  If a callback is registered using <a href="https://docs.microsoft.com/windows/desktop/api/bluetoothapis/nf-bluetoothapis-bluetoothregisterforauthenticationex">BluetoothRegisterForAuthenticationEx</a>, then a UI will not be displayed.</div>
      * <div> </div>
-     * @param {Integer} authenticationRequirement An <a href="https://docs.microsoft.com/windows/win32/api/bluetoothapis/ne-bluetoothapis-bluetooth_authentication_requirements">BLUETOOTH_AUTHENTICATION_REQUIREMENTS</a> value that specifies the protection required for authentication.
+     * @param {AUTHENTICATION_REQUIREMENTS} authenticationRequirement An <a href="https://docs.microsoft.com/windows/win32/api/bluetoothapis/ne-bluetoothapis-bluetooth_authentication_requirements">BLUETOOTH_AUTHENTICATION_REQUIREMENTS</a> value that specifies the protection required for authentication.
      * @returns {Integer} Returns ERROR_SUCCESS upon successful completion; returns the following error codes upon failure:
      * 
      * <table>
@@ -5191,7 +5190,7 @@ class Bluetooth {
      * The BluetoothRegisterForAuthentication function registers a callback function that is called when a particular Bluetooth device requests authentication.
      * @param {Pointer<BLUETOOTH_DEVICE_INFO>} pbtdi Pointer to a  <a href="https://docs.microsoft.com/windows/win32/api/bluetoothapis/ns-bluetoothapis-bluetooth_device_info_struct">BLUETOOTH_DEVICE_INFO</a> structure. The Address member is used for comparison.
      * @param {Pointer<Pointer>} phRegHandle Pointer to a structure in which the registration HANDLE is stored. Call the <a href="https://docs.microsoft.com/windows/desktop/api/bluetoothapis/nf-bluetoothapis-bluetoothunregisterauthentication">BluetoothUnregisterAuthentication</a> to close the handle.
-     * @param {Pointer<PFN_AUTHENTICATION_CALLBACK>} _pfnCallback 
+     * @param {Pointer<PFN_AUTHENTICATION_CALLBACK>} _pfnCallback Function to be called when the authentication event occurs. The function should match the prototype described in PFN_AUTHENTICATION_CALLBACK.
      * @param {Pointer<Void>} pvParam Optional parameter to be passed through the callback function.
      * @returns {Integer} Returns ERROR_SUCCESS upon successful completion, and a valid registration handle was returned in <i>phRegHandle</i>. Any other return value indicates failure.
      * 
@@ -5418,7 +5417,7 @@ class Bluetooth {
 
     /**
      * Retrieves and parses a single element from an SDP stream.
-     * @param {Pointer} pSdpStream A pointer to a valid SDP stream.
+     * @param {Integer} pSdpStream A pointer to a valid SDP stream.
      * @param {Integer} cbSdpStreamLength The length, in bytes, of <i>pSdpStream</i>.
      * @param {Pointer<SDP_ELEMENT_DATA>} pData A pointer to a buffer to be filled with the data of the SDP element found at the beginning of the <i>pSdpStream</i> SDP stream.
      * @returns {Integer} Returns <b>ERROR_SUCCESS</b> when the SDP element is parsed correctly. Returns <b>ERROR_INVALID_PARAMETER</b> if one of the required parameters is <b>NULL</b>, or if the SDP stream pointed to by <i>pSdpStream</i> is not valid.
@@ -5432,7 +5431,7 @@ class Bluetooth {
 
     /**
      * Iterates a container stream and returns each element contained within the container element.
-     * @param {Pointer} pContainerStream A pointer to valid SDP stream. The first element in the stream must be a sequence
+     * @param {Integer} pContainerStream A pointer to valid SDP stream. The first element in the stream must be a sequence
      * or an alternative.
      * @param {Integer} cbContainerLength The size, in bytes, of the <i>pContainerStream</i> parameter.
      * @param {Pointer<Pointer>} pElement A value used to track the  location in the stream.  The first
@@ -5489,7 +5488,7 @@ class Bluetooth {
      * containing attribute ID (UINT16) plus attribute value (any SDP element type) pairs.
      * 
      * The attribute identifier provided in the <i>usAttributeId</i> parameter can be one of the many SDP_ATTRIB_Xxx universal attribute identifiers provided in the bthdef.h file, or a custom attribute value defined by a Bluetooth profile. All values greater than or equal to 0x200 are profile-specific attribute identifiers, and are specific to the profile. See the bthdef.h header file for a list of universal SDP attribute identifiers.
-     * @param {Pointer} pRecordStream Pointer to a valid record stream that is formatted as a single SDP record.
+     * @param {Integer} pRecordStream Pointer to a valid record stream that is formatted as a single SDP record.
      * @param {Integer} cbRecordLength Length of <i>pRecordStream</i>, in bytes.
      * @param {Integer} usAttributeId Attribute identifier to search for. See Remarks.
      * @param {Pointer<SDP_ELEMENT_DATA>} pAttributeData Pointer to an <a href="https://docs.microsoft.com/windows/desktop/api/bluetoothapis/ns-bluetoothapis-sdp_element_data">SDP_ELEMENT_DATA</a> structure into which the attribute's identifier value is placed.
@@ -5533,7 +5532,7 @@ class Bluetooth {
 
     /**
      * Converts a raw string embedded in the SDP record into a Unicode string.
-     * @param {Pointer} pRecordStream A pointer to a valid record stream formatted as a single SDP record.
+     * @param {Integer} pRecordStream A pointer to a valid record stream formatted as a single SDP record.
      * @param {Integer} cbRecordLength The length, in bytes, of <i>pRecordStream</i>.
      * @param {Pointer<SDP_STRING_TYPE_DATA>} pStringData When set to <b>NULL</b>, the calling thread locale is used to search          for a matching string in the SDP record.  If not <b>NULL</b>, the <b>mibeNum</b> and <b>attributeId</b> members of the 
      * <a href="https://docs.microsoft.com/windows/desktop/api/bluetoothapis/ns-bluetoothapis-sdp_string_type_data">SDP_STRING_TYPE_DATA</a> structure are used to find the string to convert.
@@ -5619,9 +5618,9 @@ class Bluetooth {
      * 
      * The record stream in <i>pSDPStream</i> must be an SDP stream formatted as an SDP record, a SEQUENCE
      * containing attribute ID (UINT16) plus attribute value (any SDP element type) pairs.
-     * @param {Pointer} pSDPStream Pointer to a valid record stream that is formatted as a single SDP record.
+     * @param {Integer} pSDPStream Pointer to a valid record stream that is formatted as a single SDP record.
      * @param {Integer} cbStreamSize Size of the stream pointed to by <i>pSDPStream</i>, in bytes.
-     * @param {Pointer<PFN_BLUETOOTH_ENUM_ATTRIBUTES_CALLBACK>} _pfnCallback 
+     * @param {Pointer<PFN_BLUETOOTH_ENUM_ATTRIBUTES_CALLBACK>} _pfnCallback Pointer to the callback routine. See <a href="https://docs.microsoft.com/windows/desktop/api/bluetoothapis/nc-bluetoothapis-pfn_bluetooth_enum_attributes_callback">PFN_BLUETOOTH_ENUM_ATTRIBUTES_CALLBACK</a> for more information about the callback.
      * @param {Pointer<Void>} pvParam Optional parameter to be passed to the callback routine.
      * @returns {BOOL} Returns <b>TRUE</b> if an enumeration occurred. Returns <b>FALSE</b> upon failure. Call the <a href="https://docs.microsoft.com/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a> function for more information. The following table describes common error codes associated with the <b>BluetoothSdpEnumAttributes</b> function:
      * 
@@ -7855,7 +7854,7 @@ class Bluetooth {
     /**
      * Registers a routine to be called back during a characteristic value change event on the given characteristic identified by its characteristic handle.
      * @param {HANDLE} hService Handle to the service.
-     * @param {Integer} EventType A value from <a href="https://docs.microsoft.com/windows/desktop/api/bthledef/ne-bthledef-bth_le_gatt_event_type">BTH_LE_GATT_EVENT_TYPE</a>. Currently, only <b>CharacteristicValueChangedEvent</b> is supported.
+     * @param {BTH_LE_GATT_EVENT_TYPE} EventType A value from <a href="https://docs.microsoft.com/windows/desktop/api/bthledef/ne-bthledef-bth_le_gatt_event_type">BTH_LE_GATT_EVENT_TYPE</a>. Currently, only <b>CharacteristicValueChangedEvent</b> is supported.
      * @param {Pointer<Void>} EventParameterIn Pointer to a <a href="https://docs.microsoft.com/windows/win32/api/bthledef/ns-bthledef-bluetooth_gatt_value_changed_event_registration">BLUETOOTH_GATT_VALUE_CHANGED_EVENT_REGISTRATION</a> structure to pass when the event is triggered.
      * @param {Pointer<PFNBLUETOOTH_GATT_EVENT_CALLBACK>} Callback The routine to call when the Characteristic value changes.
      * @param {Pointer<Void>} CallbackContext Context to pass to <i>Callback</i>.

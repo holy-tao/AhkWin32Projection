@@ -7,9 +7,8 @@
  * The IAMCrossbar interface routes signals from an analog or digital source to a video capture filter.This interface is implemented by the Analog Video Crossbar Filter.
  * @see https://learn.microsoft.com/windows/win32/api/strmif/nn-strmif-iamcrossbar
  * @namespace Windows.Win32.Media.DirectShow
- * @version v4.0.30319
  */
-class IAMCrossbar extends IUnknown{
+class IAMCrossbar extends IUnknown {
 
     static sizeof => A_PtrSize
     /**

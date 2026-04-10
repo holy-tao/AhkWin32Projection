@@ -8,10 +8,8 @@
  * <a href="https://docs.microsoft.com/previous-versions/windows/desktop/legacy/ms676274(v=vs.85)">DS_REPL_QUEUE_STATISTICSW_BLOB</a> is an alias for this structure.
  * @see https://learn.microsoft.com/windows/win32/api/ntdsapi/ns-ntdsapi-ds_repl_queue_statisticsw
  * @namespace Windows.Win32.Networking.ActiveDirectory
- * @version v4.0.30319
  */
-class DS_REPL_QUEUE_STATISTICSW extends Win32Struct
-{
+class DS_REPL_QUEUE_STATISTICSW extends Win32Struct {
     static sizeof => 52
 
     static packingSize => 4
@@ -20,7 +18,7 @@ class DS_REPL_QUEUE_STATISTICSW extends Win32Struct
      * Contains a <a href="https://docs.microsoft.com/windows/desktop/api/minwinbase/ns-minwinbase-filetime">FILETIME</a> structure that contains the date and time that the currently running operation started.
      * @type {FILETIME}
      */
-    ftimeCurrentOpStarted{
+    ftimeCurrentOpStarted {
         get {
             if(!this.HasProp("__ftimeCurrentOpStarted"))
                 this.__ftimeCurrentOpStarted := FILETIME(0, this)
@@ -41,7 +39,7 @@ class DS_REPL_QUEUE_STATISTICSW extends Win32Struct
      * Contains a <a href="https://docs.microsoft.com/windows/desktop/api/minwinbase/ns-minwinbase-filetime">FILETIME</a> structure that contains the date and time of the oldest synchronization operation.
      * @type {FILETIME}
      */
-    ftimeOldestSync{
+    ftimeOldestSync {
         get {
             if(!this.HasProp("__ftimeOldestSync"))
                 this.__ftimeOldestSync := FILETIME(12, this)
@@ -53,7 +51,7 @@ class DS_REPL_QUEUE_STATISTICSW extends Win32Struct
      * Contains a <a href="https://docs.microsoft.com/windows/desktop/api/minwinbase/ns-minwinbase-filetime">FILETIME</a> structure that contains the date and time of the oldest add operation.
      * @type {FILETIME}
      */
-    ftimeOldestAdd{
+    ftimeOldestAdd {
         get {
             if(!this.HasProp("__ftimeOldestAdd"))
                 this.__ftimeOldestAdd := FILETIME(20, this)
@@ -65,7 +63,7 @@ class DS_REPL_QUEUE_STATISTICSW extends Win32Struct
      * Contains a <a href="https://docs.microsoft.com/windows/desktop/api/minwinbase/ns-minwinbase-filetime">FILETIME</a> structure that contains the date and time of the oldest modification operation.
      * @type {FILETIME}
      */
-    ftimeOldestMod{
+    ftimeOldestMod {
         get {
             if(!this.HasProp("__ftimeOldestMod"))
                 this.__ftimeOldestMod := FILETIME(28, this)
@@ -77,7 +75,7 @@ class DS_REPL_QUEUE_STATISTICSW extends Win32Struct
      * Contains a <a href="https://docs.microsoft.com/windows/desktop/api/minwinbase/ns-minwinbase-filetime">FILETIME</a> structure that contains the date and time of the oldest delete operation.
      * @type {FILETIME}
      */
-    ftimeOldestDel{
+    ftimeOldestDel {
         get {
             if(!this.HasProp("__ftimeOldestDel"))
                 this.__ftimeOldestDel := FILETIME(36, this)
@@ -89,7 +87,7 @@ class DS_REPL_QUEUE_STATISTICSW extends Win32Struct
      * Contains a <a href="https://docs.microsoft.com/windows/desktop/api/minwinbase/ns-minwinbase-filetime">FILETIME</a> structure that contains the date and time of the oldest reference update operation.
      * @type {FILETIME}
      */
-    ftimeOldestUpdRefs{
+    ftimeOldestUpdRefs {
         get {
             if(!this.HasProp("__ftimeOldestUpdRefs"))
                 this.__ftimeOldestUpdRefs := FILETIME(44, this)

@@ -1,26 +1,28 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
+#Include .\D3D12_VIDEO_ENCODER_CODEC.ahk
 #Include .\D3D12_VIDEO_ENCODER_PROFILE_DESC.ahk
+#Include .\D3D12_VIDEO_ENCODER_PROFILE_H264.ahk
+#Include .\D3D12_VIDEO_ENCODER_PROFILE_HEVC.ahk
+#Include .\D3D12_VIDEO_ENCODER_AV1_PROFILE.ahk
+#Include ..\..\Graphics\Dxgi\Common\DXGI_FORMAT.ahk
 #Include .\D3D12_VIDEO_ENCODER_PICTURE_RESOLUTION_DESC.ahk
 #Include .\D3D12_VIDEO_ENCODER_ENCODE_OPERATION_METADATA_BUFFER.ahk
+#Include ..\..\Graphics\Direct3D12\ID3D12Resource.ahk
 
 /**
  * Represents input arguments for a call to ID3D12VideoEncodeCommandList2::ResolveEncoderOutputMetadata.
- * @remarks
- * 
  * @see https://learn.microsoft.com/windows/win32/api/d3d12video/ns-d3d12video-d3d12_video_encoder_resolve_metadata_input_arguments
  * @namespace Windows.Win32.Media.MediaFoundation
- * @version v4.0.30319
  */
-class D3D12_VIDEO_ENCODER_RESOLVE_METADATA_INPUT_ARGUMENTS extends Win32Struct
-{
+class D3D12_VIDEO_ENCODER_RESOLVE_METADATA_INPUT_ARGUMENTS extends Win32Struct {
     static sizeof => 56
 
     static packingSize => 8
 
     /**
      * A [D3D12_VIDEO_ENCODER_CODEC](ne-d3d12video-d3d12_video_encoder_codec.md) specifying the codec of the associated encode operation.
-     * @type {Integer}
+     * @type {D3D12_VIDEO_ENCODER_CODEC}
      */
     EncoderCodec {
         get => NumGet(this, 0, "int")
@@ -31,7 +33,7 @@ class D3D12_VIDEO_ENCODER_RESOLVE_METADATA_INPUT_ARGUMENTS extends Win32Struct
      * A [D3D12_VIDEO_ENCODER_PROFILE_DESC](ns-d3d12video-d3d12_video_encoder_profile_desc.md) specifying the profile for the selected codec in the associated encode operation.
      * @type {D3D12_VIDEO_ENCODER_PROFILE_DESC}
      */
-    EncoderProfile{
+    EncoderProfile {
         get {
             if(!this.HasProp("__EncoderProfile"))
                 this.__EncoderProfile := D3D12_VIDEO_ENCODER_PROFILE_DESC(8, this)
@@ -41,7 +43,7 @@ class D3D12_VIDEO_ENCODER_RESOLVE_METADATA_INPUT_ARGUMENTS extends Win32Struct
 
     /**
      * A [DXGI_FORMAT](../dxgiformat/ne-dxgiformat-dxgi_format.md) specifying the input format of the associated encode operation.
-     * @type {Integer}
+     * @type {DXGI_FORMAT}
      */
     EncoderInputFormat {
         get => NumGet(this, 24, "int")
@@ -52,7 +54,7 @@ class D3D12_VIDEO_ENCODER_RESOLVE_METADATA_INPUT_ARGUMENTS extends Win32Struct
      * A [D3D12_VIDEO_ENCODER_PICTURE_RESOLUTION_DESC](ns-d3d12video-d3d12_video_encoder_picture_resolution_desc.md) structure describing the resolution used for the encoding operation.
      * @type {D3D12_VIDEO_ENCODER_PICTURE_RESOLUTION_DESC}
      */
-    EncodedPictureEffectiveResolution{
+    EncodedPictureEffectiveResolution {
         get {
             if(!this.HasProp("__EncodedPictureEffectiveResolution"))
                 this.__EncodedPictureEffectiveResolution := D3D12_VIDEO_ENCODER_PICTURE_RESOLUTION_DESC(28, this)
@@ -64,7 +66,7 @@ class D3D12_VIDEO_ENCODER_RESOLVE_METADATA_INPUT_ARGUMENTS extends Win32Struct
      * A [D3D12_VIDEO_ENCODER_ENCODE_OPERATION_METADATA_BUFFER](ns-d3d12video-d3d12_video_encoder_encode_operation_metadata_buffer.md) representing the associated opaque metadata buffer received from [EncodeFrame](nf-d3d12video-id3d12videoencodecommandlist2-encodeframe.md).
      * @type {D3D12_VIDEO_ENCODER_ENCODE_OPERATION_METADATA_BUFFER}
      */
-    HWLayoutMetadata{
+    HWLayoutMetadata {
         get {
             if(!this.HasProp("__HWLayoutMetadata"))
                 this.__HWLayoutMetadata := D3D12_VIDEO_ENCODER_ENCODE_OPERATION_METADATA_BUFFER(40, this)

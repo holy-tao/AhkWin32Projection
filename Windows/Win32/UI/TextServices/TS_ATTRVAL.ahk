@@ -1,9 +1,14 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
+#Include ..\..\System\Variant\VARIANT.ahk
+#Include ..\..\System\Variant\VARENUM.ahk
 #Include ..\..\System\Com\CY.ahk
 #Include ..\..\Foundation\BSTR.ahk
+#Include ..\..\System\Com\IUnknown.ahk
+#Include ..\..\System\Com\IDispatch.ahk
+#Include ..\..\System\Com\SAFEARRAY.ahk
 #Include ..\..\Foundation\DECIMAL.ahk
-#Include ..\..\System\Variant\VARIANT.ahk
+#Include ..\..\System\Ole\IRecordInfo.ahk
 
 /**
  * The TS_ATTRVAL structure contains document attribute values.
@@ -11,17 +16,15 @@
  * An application uses attributes to expose its data to TSF, whereas text services use properties to expose their data to TSF. <b>TS_ATTRVAL</b> is used in <a href="https://docs.microsoft.com/windows/desktop/api/textstor/nn-textstor-itextstoreacp">ITextStoreACP</a> and <a href="https://docs.microsoft.com/windows/desktop/api/textstor/nn-textstor-itextstoreanchor">ITextStoreAnchor</a> methods.
  * @see https://learn.microsoft.com/windows/win32/api/textstor/ns-textstor-ts_attrval
  * @namespace Windows.Win32.UI.TextServices
- * @version v4.0.30319
  */
-class TS_ATTRVAL extends Win32Struct
-{
+class TS_ATTRVAL extends Win32Struct {
     static sizeof => 40
 
     static packingSize => 8
 
     /**
      * GUID for the attribute type.
-     * @type {Pointer<Guid>}
+     * @type {Pointer}
      */
     idAttr {
         get => NumGet(this, 0, "ptr")
@@ -41,7 +44,7 @@ class TS_ATTRVAL extends Win32Struct
      * Value of the attribute.
      * @type {VARIANT}
      */
-    varValue{
+    varValue {
         get {
             if(!this.HasProp("__varValue"))
                 this.__varValue := VARIANT(16, this)

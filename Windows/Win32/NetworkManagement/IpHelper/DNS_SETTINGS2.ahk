@@ -3,10 +3,8 @@
 
 /**
  * @namespace Windows.Win32.NetworkManagement.IpHelper
- * @version v4.0.30319
  */
-class DNS_SETTINGS2 extends Win32Struct
-{
+class DNS_SETTINGS2 extends Win32Struct {
     static sizeof => 48
 
     static packingSize => 8

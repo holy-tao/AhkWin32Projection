@@ -1,14 +1,14 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\..\Win32Struct.ahk
+#Include ..\..\..\System\Com\IStream.ahk
 
 /**
  * Defines the attributes of an image to be inserted by the EM_INSERTIMAGE message.
  * @see https://learn.microsoft.com/windows/win32/api/richedit/ns-richedit-richedit_image_parameters
  * @namespace Windows.Win32.UI.Controls.RichEdit
- * @version v4.0.30319
+ * @architecture X64, Arm64
  */
-class RICHEDIT_IMAGE_PARAMETERS extends Win32Struct
-{
+class RICHEDIT_IMAGE_PARAMETERS extends Win32Struct {
     static sizeof => 32
 
     static packingSize => 8
@@ -23,7 +23,6 @@ class RICHEDIT_IMAGE_PARAMETERS extends Win32Struct
     }
 
     /**
-     * 
      * @type {Integer}
      */
     yHeight {
@@ -41,7 +40,6 @@ class RICHEDIT_IMAGE_PARAMETERS extends Win32Struct
     }
 
     /**
-     * 
      * @type {Integer}
      */
     Type {

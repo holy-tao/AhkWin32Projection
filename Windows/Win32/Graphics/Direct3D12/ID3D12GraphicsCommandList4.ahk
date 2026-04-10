@@ -7,9 +7,8 @@
  * Encapsulates a list of graphics commands for rendering, extending the interface to support ray tracing and render passes.
  * @see https://learn.microsoft.com/windows/win32/api/d3d12/nn-d3d12-id3d12graphicscommandlist4
  * @namespace Windows.Win32.Graphics.Direct3D12
- * @version v4.0.30319
  */
-class ID3D12GraphicsCommandList4 extends ID3D12GraphicsCommandList3{
+class ID3D12GraphicsCommandList4 extends ID3D12GraphicsCommandList3 {
 
     static sizeof => A_PtrSize
     /**
@@ -35,7 +34,7 @@ class ID3D12GraphicsCommandList4 extends ID3D12GraphicsCommandList3{
      * @param {Integer} NumRenderTargets A <b>UINT</b>. The number of render targets being bound.
      * @param {Pointer<D3D12_RENDER_PASS_RENDER_TARGET_DESC>} pRenderTargets A pointer to a constant <a href="https://docs.microsoft.com/windows/win32/api/d3d12/ns-d3d12-d3d12_render_pass_render_target_desc">D3D12_RENDER_PASS_RENDER_TARGET_DESC</a>, which describes bindings (fixed for the duration of the render pass) to one or more render target views (RTVs), as well as their beginning and ending access characteristics.
      * @param {Pointer<D3D12_RENDER_PASS_DEPTH_STENCIL_DESC>} pDepthStencil A pointer to a constant <a href="https://docs.microsoft.com/windows/win32/api/d3d12/ns-d3d12-d3d12_render_pass_depth_stencil_desc">D3D12_RENDER_PASS_DEPTH_STENCIL_DESC</a>, which describes a binding (fixed for the duration of the render pass) to a depth stencil view (DSV), as well as its beginning and ending access characteristics.
-     * @param {Integer} Flags A <a href="https://docs.microsoft.com/windows/win32/api/d3d12/ne-d3d12-d3d12_render_pass_flags">D3D12_RENDER_PASS_FLAGS</a>. The nature/requirements of the render pass; for example, whether it is a suspending or a resuming render pass, or whether it wants to write to unordered access view(s).
+     * @param {D3D12_RENDER_PASS_FLAGS} Flags A <a href="https://docs.microsoft.com/windows/win32/api/d3d12/ne-d3d12-d3d12_render_pass_flags">D3D12_RENDER_PASS_FLAGS</a>. The nature/requirements of the render pass; for example, whether it is a suspending or a resuming render pass, or whether it wants to write to unordered access view(s).
      * @returns {String} Nothing - always returns an empty string
      * @see https://learn.microsoft.com/windows/win32/api/d3d12/nf-d3d12-id3d12graphicscommandlist4-beginrenderpass
      */
@@ -55,7 +54,7 @@ class ID3D12GraphicsCommandList4 extends ID3D12GraphicsCommandList3{
     /**
      * Initializes the specified meta command.
      * @param {ID3D12MetaCommand} pMetaCommand A pointer to an <a href="https://docs.microsoft.com/windows/desktop/api/d3d12/nn-d3d12-id3d12metacommand">ID3D12MetaCommand</a> representing the meta command to initialize.
-     * @param {Pointer} pInitializationParametersData An optional pointer to a constant structure containing the values of the parameters for initializing the meta command.
+     * @param {Integer} pInitializationParametersData An optional pointer to a constant structure containing the values of the parameters for initializing the meta command.
      * @param {Pointer} InitializationParametersDataSizeInBytes A <a href="https://docs.microsoft.com/windows/desktop/WinProg/windows-data-types">SIZE_T</a> containing the size of the structure pointed to by <i>pInitializationParametersData</i>, if set, otherwise 0.
      * @returns {String} Nothing - always returns an empty string
      * @see https://learn.microsoft.com/windows/win32/api/d3d12/nf-d3d12-id3d12graphicscommandlist4-initializemetacommand
@@ -72,7 +71,7 @@ class ID3D12GraphicsCommandList4 extends ID3D12GraphicsCommandList3{
      * 
      * During an algorithm invocation, the driver may insert as many UAV barriers to output resources as are needed to synchronize the output resource usage in the algorithm implementation. From your application's point of view, you should assume that all out and in/out resources are written to by the meta command, including scratch memory.
      * @param {ID3D12MetaCommand} pMetaCommand A pointer to an <b>ID3D12MetaCommand</b> representing the meta command to initialize.
-     * @param {Pointer} pExecutionParametersData An optional pointer to a constant structure containing the values of the parameters for executing the meta command.
+     * @param {Integer} pExecutionParametersData An optional pointer to a constant structure containing the values of the parameters for executing the meta command.
      * @param {Pointer} ExecutionParametersDataSizeInBytes A <a href="https://docs.microsoft.com/windows/desktop/WinProg/windows-data-types">SIZE_T</a> containing the size of the structure pointed to by <i>pExecutionParametersData</i>, if set, otherwise 0.
      * @returns {String} Nothing - always returns an empty string
      * @see https://learn.microsoft.com/windows/win32/api/d3d12/nf-d3d12-id3d12graphicscommandlist4-executemetacommand
@@ -135,7 +134,7 @@ class ID3D12GraphicsCommandList4 extends ID3D12GraphicsCommandList3{
      * The source memory must be aligned to 256 bytes, defined as <a href="https://docs.microsoft.com/windows/desktop/direct3d12/constants">D3D12_RAYTRACING_ACCELERATION_STRUCTURE_BYTE_ALIGNMENT</a>, regardless of the specified <i>Mode</i>. 
      * 
      * The resource state that the memory pointed to must be in depends on the <i>Mode</i> parameter. For more information, see <a href="https://docs.microsoft.com/windows/desktop/api/d3d12/ne-d3d12-d3d12_raytracing_acceleration_structure_copy_mode">D3D12_RAYTRACING_ACCELERATION_STRUCTURE_COPY_MODE</a>.
-     * @param {Integer} _Mode 
+     * @param {D3D12_RAYTRACING_ACCELERATION_STRUCTURE_COPY_MODE} _Mode The type of copy operation to perform. For more information, see <a href="https://docs.microsoft.com/windows/desktop/api/d3d12/ne-d3d12-d3d12_raytracing_acceleration_structure_copy_mode">D3D12_RAYTRACING_ACCELERATION_STRUCTURE_COPY_MODE</a>.
      * @returns {String} Nothing - always returns an empty string
      * @see https://learn.microsoft.com/windows/win32/api/d3d12/nf-d3d12-id3d12graphicscommandlist4-copyraytracingaccelerationstructure
      */

@@ -5,9 +5,8 @@
  * The values of the ACCOUNTINGPROPERTIES type enumerate properties that control what types of packets are logged and characteristics of the log file.
  * @see https://learn.microsoft.com/windows/win32/api/sdoias/ne-sdoias-accountingproperties
  * @namespace Windows.Win32.NetworkManagement.NetworkPolicyServer
- * @version v4.0.30319
  */
-class ACCOUNTINGPROPERTIES extends Win32Enum{
+class ACCOUNTINGPROPERTIES extends Win32Enum {
 
     /**
      * Specifies whether accounting packets are logged.
@@ -93,13 +92,11 @@ class ACCOUNTINGPROPERTIES extends Win32Enum{
     static PROPERTY_ACCOUNTING_LOG_AUTHENTICATION_INTERIM => 1036
 
     /**
-     * 
      * @type {Integer (Int32)}
      */
     static PROPERTY_ACCOUNTING_LOG_FILE_IS_BACKUP => 1037
 
     /**
-     * 
      * @type {Integer (Int32)}
      */
     static PROPERTY_ACCOUNTING_DISCARD_REQUEST_ON_FAILURE => 1038

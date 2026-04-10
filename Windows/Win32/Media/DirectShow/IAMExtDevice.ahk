@@ -14,9 +14,8 @@
  * To control an external VCR, certain hardware requirements are recommended. VCRs with an RS-422 serial interface require a special serial port card or an external RS-232-to-RS-422 adapter. In addition, for best performance, your computer should have a serial port card built with a 16550 high-performance UART (Universal Asynchronous Receiver/Transmitter) to sustain higher baud rates, such as 38.4 baud.
  * @see https://learn.microsoft.com/windows/win32/api/strmif/nn-strmif-iamextdevice
  * @namespace Windows.Win32.Media.DirectShow
- * @version v4.0.30319
  */
-class IAMExtDevice extends IUnknown{
+class IAMExtDevice extends IUnknown {
 
     static sizeof => A_PtrSize
     /**
@@ -478,7 +477,28 @@ class IAMExtDevice extends IUnknown{
      * <h3><a id="DV_Implementation"></a><a id="dv_implementation"></a><a id="DV_IMPLEMENTATION"></a>DV Implementation</h3>
      * The <a href="https://docs.microsoft.com/windows/desktop/DirectShow/msdv-driver">MSDV</a> and UVC drivers do not support this method. The method returns E_NOTIMPL.
      * @param {Pointer} hEvent Handle to an event. The event is signaled when the action is complete.
-     * @param {Integer} _Mode 
+     * @param {Integer} _Mode Specifies a value that activates or deactivates the calibration process:
+     * 
+     * <table>
+     * <tr>
+     * <th>Value
+     *                 </th>
+     * <th>Description
+     *                 </th>
+     * </tr>
+     * <tr>
+     * <td>ED_ACTIVE</td>
+     * <td>Activates the calibration process.</td>
+     * </tr>
+     * <tr>
+     * <td>ED_INACTIVE</td>
+     * <td>Deactivates the calibration process.</td>
+     * </tr>
+     * <tr>
+     * <td><b>NULL</b></td>
+     * <td>No action; return the calibration status in <i>pStatus</i>.</td>
+     * </tr>
+     * </table>
      * @returns {Integer} 
      * @see https://learn.microsoft.com/windows/win32/api/strmif/nf-strmif-iamextdevice-calibrate
      */

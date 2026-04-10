@@ -5,9 +5,8 @@
  * Specifies why the marshaling is to be done.
  * @see https://learn.microsoft.com/windows/win32/api/wtypesbase/ne-wtypesbase-mshlflags
  * @namespace Windows.Win32.System.Com
- * @version v4.0.30319
  */
-class MSHLFLAGS extends Win32Enum{
+class MSHLFLAGS extends Win32Enum {
 
     /**
      * The marshaling is occurring because an interface pointer is being passed from one process to another. This is the normal case. The data packet produced by the marshaling process will be unmarshaled in the destination process. The marshaled data packet can be unmarshaled just once, or not at all. If the receiver unmarshals the data packet successfully, the <a href="https://docs.microsoft.com/windows/desktop/api/combaseapi/nf-combaseapi-coreleasemarshaldata">CoReleaseMarshalData</a> function is automatically called on the data packet as part of the unmarshaling process. If the receiver does not or cannot unmarshal the data packet, the sender must call <b>CoReleaseMarshalData</b> on the data packet.
@@ -38,25 +37,21 @@ class MSHLFLAGS extends Win32Enum{
     static MSHLFLAGS_NOPING => 4
 
     /**
-     * 
      * @type {Integer (Int32)}
      */
     static MSHLFLAGS_RESERVED1 => 8
 
     /**
-     * 
      * @type {Integer (Int32)}
      */
     static MSHLFLAGS_RESERVED2 => 16
 
     /**
-     * 
      * @type {Integer (Int32)}
      */
     static MSHLFLAGS_RESERVED3 => 32
 
     /**
-     * 
      * @type {Integer (Int32)}
      */
     static MSHLFLAGS_RESERVED4 => 64

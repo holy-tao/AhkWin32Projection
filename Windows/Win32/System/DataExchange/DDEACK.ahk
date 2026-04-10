@@ -5,10 +5,8 @@
  * Contains status flags that a DDE application passes to its partner as part of the WM_DDE_ACK message.
  * @see https://learn.microsoft.com/windows/win32/api/dde/ns-dde-ddeack
  * @namespace Windows.Win32.System.DataExchange
- * @version v4.0.30319
  */
-class DDEACK extends Win32Struct
-{
+class DDEACK extends Win32Struct {
     static sizeof => 2
 
     static packingSize => 2
@@ -27,9 +25,6 @@ class DDEACK extends Win32Struct
     }
 
     /**
-     * Type: <b>unsigned short</b>
-     * 
-     * An application-defined return code.
      * @type {Integer}
      */
     bAppReturnCode {
@@ -38,9 +33,6 @@ class DDEACK extends Win32Struct
     }
 
     /**
-     * Type: <b>unsigned short</b>
-     * 
-     * Reserved.
      * @type {Integer}
      */
     reserved {
@@ -49,9 +41,6 @@ class DDEACK extends Win32Struct
     }
 
     /**
-     * Type: <b>unsigned short</b>
-     * 
-     * Indicates whether the application was busy and unable to respond to the partner's message at the time the message was received. A nonzero value indicates the partner was busy and unable to respond. The <b>fBusy</b> member is defined only when the <b>fAck</b> member is zero.
      * @type {Integer}
      */
     fBusy {
@@ -60,9 +49,6 @@ class DDEACK extends Win32Struct
     }
 
     /**
-     * Type: <b>unsigned short</b>
-     * 
-     * Indicates whether the application accepted the message from its partner. A nonzero value indicates the partner accepted the message.
      * @type {Integer}
      */
     fAck {

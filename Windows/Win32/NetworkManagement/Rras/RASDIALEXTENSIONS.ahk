@@ -6,10 +6,8 @@
 
 /**
  * @namespace Windows.Win32.NetworkManagement.Rras
- * @version v4.0.30319
  */
-class RASDIALEXTENSIONS extends Win32Struct
-{
+class RASDIALEXTENSIONS extends Win32Struct {
     static sizeof => 72
 
     static packingSize => 8
@@ -33,7 +31,7 @@ class RASDIALEXTENSIONS extends Win32Struct
     /**
      * @type {HWND}
      */
-    hwndParent{
+    hwndParent {
         get {
             if(!this.HasProp("__hwndParent"))
                 this.__hwndParent := HWND(8, this)
@@ -60,7 +58,7 @@ class RASDIALEXTENSIONS extends Win32Struct
     /**
      * @type {RASEAPINFO}
      */
-    RasEapInfo{
+    RasEapInfo {
         get {
             if(!this.HasProp("__RasEapInfo"))
                 this.__RasEapInfo := RASEAPINFO(32, this)
@@ -79,7 +77,7 @@ class RASDIALEXTENSIONS extends Win32Struct
     /**
      * @type {RASDEVSPECIFICINFO}
      */
-    RasDevSpecificInfo{
+    RasDevSpecificInfo {
         get {
             if(!this.HasProp("__RasDevSpecificInfo"))
                 this.__RasDevSpecificInfo := RASDEVSPECIFICINFO(56, this)

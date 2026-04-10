@@ -1,26 +1,20 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
-#Include ..\..\..\Win32\Foundation\POINT.ahk
 
 /**
  * @namespace Windows.Wdk.Graphics.Direct3D
- * @version v4.0.30319
  */
-class D3DKMT_OUTPUTDUPL_POINTER_POSITION extends Win32Struct
-{
-    static sizeof => 12
+class D3DKMT_OUTPUTDUPL_POINTER_POSITION extends Win32Struct {
+    static sizeof => 16
 
-    static packingSize => 4
+    static packingSize => 8
 
     /**
-     * @type {POINT}
+     * @type {Pointer}
      */
-    Position{
-        get {
-            if(!this.HasProp("__Position"))
-                this.__Position := POINT(0, this)
-            return this.__Position
-        }
+    Position {
+        get => NumGet(this, 0, "ptr")
+        set => NumPut("ptr", value, this, 0)
     }
 
     /**

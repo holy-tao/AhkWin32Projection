@@ -3,11 +3,9 @@
 
 /**
  * @namespace Windows.Win32.Media.Audio
- * @version v4.0.30319
  * @charset ANSI
  */
-class AUXCAPS2A extends Win32Struct
-{
+class AUXCAPS2A extends Win32Struct {
     static sizeof => 72
 
     static packingSize => 8
@@ -69,7 +67,7 @@ class AUXCAPS2A extends Win32Struct
     }
 
     /**
-     * @type {Pointer<Guid>}
+     * @type {Pointer}
      */
     ManufacturerGuid {
         get => NumGet(this, 48, "ptr")
@@ -77,7 +75,7 @@ class AUXCAPS2A extends Win32Struct
     }
 
     /**
-     * @type {Pointer<Guid>}
+     * @type {Pointer}
      */
     ProductGuid {
         get => NumGet(this, 56, "ptr")
@@ -85,7 +83,7 @@ class AUXCAPS2A extends Win32Struct
     }
 
     /**
-     * @type {Pointer<Guid>}
+     * @type {Pointer}
      */
     NameGuid {
         get => NumGet(this, 64, "ptr")

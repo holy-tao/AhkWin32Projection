@@ -7,9 +7,8 @@
  * Note  This interface has been deprecated. (IDrawVideoImage)
  * @see https://learn.microsoft.com/windows/win32/api/strmif/nn-strmif-idrawvideoimage
  * @namespace Windows.Win32.Media.DirectShow
- * @version v4.0.30319
  */
-class IDrawVideoImage extends IUnknown{
+class IDrawVideoImage extends IUnknown {
 
     static sizeof => A_PtrSize
     /**
@@ -88,7 +87,7 @@ class IDrawVideoImage extends IUnknown{
 
     /**
      * Note  This interface has been deprecated. New applications should not use it. The DrawVideoImageDraw method draws the specified source rectangle to the specified destination rectangle in the specified GDI device context.
-     * @param {HDC} _hdc 
+     * @param {HDC} _hdc Specifies the device context.
      * @param {Pointer<RECT>} lprcSrc Pointer to a <b>RECT</b> structure that specifies the source rectangle, as a subrectangle of the current video frame.
      * @param {Pointer<RECT>} lprcDst Pointer to a <b>RECT</b> structure that specifies the destination rectangle in the device context.
      * @returns {HRESULT} The method returns an <b>HRESULT</b>. Possible values include, but are not limited to, those in the following table.

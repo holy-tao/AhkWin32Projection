@@ -1,14 +1,17 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
+#Include .\MI_ServerFT.ahk
+#Include .\MI_ContextFT.ahk
+#Include .\MI_InstanceFT.ahk
+#Include .\MI_PropertySetFT.ahk
+#Include .\MI_FilterFT.ahk
 
 /**
  * This structure defines default function tables for all types:\_Context, Instance, PropertySet, and Filter.
  * @see https://learn.microsoft.com/windows/win32/api/mi/ns-mi-mi_server
  * @namespace Windows.Win32.System.Wmi
- * @version v4.0.30319
  */
-class MI_Server extends Win32Struct
-{
+class MI_Server extends Win32Struct {
     static sizeof => 40
 
     static packingSize => 8

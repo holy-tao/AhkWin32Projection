@@ -19,10 +19,8 @@
  * <a href="http://tools.ietf.org/html/rfc2454">http://www.ietf.org/rfc/rfc2454.txt</a>. This table contains UDP  endpoints for IPv6 that have been bound to an address. It should be noted that an application can create a UDP socket and bind it to an address for the sole purpose of sending a UDP datagram, with no intention of receiving packets using this socket (functioning as a listener).
  * @see https://learn.microsoft.com/windows/win32/api/udpmib/ns-udpmib-mib_udp6row
  * @namespace Windows.Win32.NetworkManagement.IpHelper
- * @version v4.0.30319
  */
-class MIB_UDP6ROW extends Win32Struct
-{
+class MIB_UDP6ROW extends Win32Struct {
     static sizeof => 24
 
     static packingSize => 4
@@ -34,7 +32,7 @@ class MIB_UDP6ROW extends Win32Struct
      *                       with the local computer.
      * @type {IN6_ADDR}
      */
-    dwLocalAddr{
+    dwLocalAddr {
         get {
             if(!this.HasProp("__dwLocalAddr"))
                 this.__dwLocalAddr := IN6_ADDR(0, this)

@@ -7,9 +7,8 @@
  * Defines a method for handling animation variable update events. IUIAnimationVariableIntegerChangeHandler2 handles events that occur in a specified dimension.
  * @see https://learn.microsoft.com/windows/win32/api/uianimation/nn-uianimation-iuianimationvariableintegerchangehandler2
  * @namespace Windows.Win32.UI.Animation
- * @version v4.0.30319
  */
-class IUIAnimationVariableIntegerChangeHandler2 extends IUnknown{
+class IUIAnimationVariableIntegerChangeHandler2 extends IUnknown {
 
     static sizeof => A_PtrSize
     /**

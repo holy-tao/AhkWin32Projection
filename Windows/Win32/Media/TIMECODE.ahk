@@ -7,10 +7,8 @@
  * Fractional frame can be used to indicate temporal offset into frame when timecode was actually read from an external device; for example, wFrameFract=0x7ff means the timecode value was read from the device at the end of the first video field.
  * @see https://learn.microsoft.com/windows/win32/api/strmif/ns-strmif-timecode
  * @namespace Windows.Win32.Media
- * @version v4.0.30319
  */
-class TIMECODE extends Win32Struct
-{
+class TIMECODE extends Win32Struct {
     static sizeof => 16
 
     static packingSize => 8

@@ -5,9 +5,8 @@
  * Specifies that the style of the INF file is unrecognized or nonexistent.
  * @see https://learn.microsoft.com/windows/win32/api/setupapi/ns-setupapi-sp_inf_information
  * @namespace Windows.Win32.Devices.DeviceAndDriverInstallation
- * @version v4.0.30319
  */
-class INF_STYLE extends Win32BitflagEnum{
+class INF_STYLE extends Win32BitflagEnum {
 
     /**
      * @type {Integer (UInt32)}

@@ -1,21 +1,26 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
+#Include .\IKEEXT_KEY_MODULE_TYPE.ahk
+#Include .\FWP_IP_VERSION.ahk
+#Include .\IPSEC_V4_UDP_ENCAPSULATION0.ahk
 #Include .\IKEEXT_TRAFFIC0.ahk
-#Include .\IKEEXT_CIPHER_ALGORITHM0.ahk
-#Include .\IKEEXT_INTEGRITY_ALGORITHM0.ahk
 #Include .\IKEEXT_PROPOSAL0.ahk
+#Include .\IKEEXT_CIPHER_ALGORITHM0.ahk
+#Include .\IKEEXT_CIPHER_TYPE.ahk
+#Include .\IKEEXT_INTEGRITY_ALGORITHM0.ahk
+#Include .\IKEEXT_INTEGRITY_TYPE.ahk
+#Include .\IKEEXT_DH_GROUP.ahk
 #Include .\IKEEXT_COOKIE_PAIR0.ahk
 #Include .\IKEEXT_CREDENTIALS1.ahk
+#Include .\IKEEXT_CREDENTIAL_PAIR1.ahk
 #Include .\FWP_BYTE_BLOB.ahk
 
 /**
  * Is used to store information returned when enumerating IKE, AuthIP, and IKEv2 security associations (SAs). (IKEEXT_SA_DETAILS1)
  * @see https://learn.microsoft.com/windows/win32/api/iketypes/ns-iketypes-ikeext_sa_details1
  * @namespace Windows.Win32.NetworkManagement.WindowsFilteringPlatform
- * @version v4.0.30319
  */
-class IKEEXT_SA_DETAILS1 extends Win32Struct
-{
+class IKEEXT_SA_DETAILS1 extends Win32Struct {
     static sizeof => 168
 
     static packingSize => 8
@@ -33,7 +38,7 @@ class IKEEXT_SA_DETAILS1 extends Win32Struct
      * Key module type. 
      * 
      * See [IKEEXT_KEY_MODULE_TYPE](/windows/desktop/api/iketypes/ne-iketypes-ikeext_key_module_type) for more information.
-     * @type {Integer}
+     * @type {IKEEXT_KEY_MODULE_TYPE}
      */
     keyModuleType {
         get => NumGet(this, 8, "int")
@@ -42,7 +47,7 @@ class IKEEXT_SA_DETAILS1 extends Win32Struct
 
     /**
      * IP version specified by [FWP_IP_VERSION](/windows/desktop/api/fwptypes/ne-fwptypes-fwp_ip_version).
-     * @type {Integer}
+     * @type {FWP_IP_VERSION}
      */
     ipVersion {
         get => NumGet(this, 12, "int")
@@ -61,7 +66,7 @@ class IKEEXT_SA_DETAILS1 extends Win32Struct
      * The traffic corresponding to this IKE SA specified by [IKEEXT_TRAFFIC0](/windows/desktop/api/iketypes/ns-iketypes-ikeext_traffic0).
      * @type {IKEEXT_TRAFFIC0}
      */
-    ikeTraffic{
+    ikeTraffic {
         get {
             if(!this.HasProp("__ikeTraffic"))
                 this.__ikeTraffic := IKEEXT_TRAFFIC0(24, this)
@@ -73,7 +78,7 @@ class IKEEXT_SA_DETAILS1 extends Win32Struct
      * The main mode proposal corresponding to this IKE SA specified by [IKEEXT_PROPOSAL0](/windows/desktop/api/iketypes/ns-iketypes-ikeext_proposal0).
      * @type {IKEEXT_PROPOSAL0}
      */
-    ikeProposal{
+    ikeProposal {
         get {
             if(!this.HasProp("__ikeProposal"))
                 this.__ikeProposal := IKEEXT_PROPOSAL0(72, this)
@@ -85,7 +90,7 @@ class IKEEXT_SA_DETAILS1 extends Win32Struct
      * SA cookies specified by [IKEEXT_COOKIE_PAIR0](/windows/desktop/api/iketypes/ns-iketypes-ikeext_cookie_pair0).
      * @type {IKEEXT_COOKIE_PAIR0}
      */
-    cookiePair{
+    cookiePair {
         get {
             if(!this.HasProp("__cookiePair"))
                 this.__cookiePair := IKEEXT_COOKIE_PAIR0(104, this)
@@ -97,7 +102,7 @@ class IKEEXT_SA_DETAILS1 extends Win32Struct
      * Credentials information for the SA specified by [IKEEXT_CREDENTIALS1](/windows/desktop/api/iketypes/ns-iketypes-ikeext_credentials1).
      * @type {IKEEXT_CREDENTIALS1}
      */
-    ikeCredentials{
+    ikeCredentials {
         get {
             if(!this.HasProp("__ikeCredentials"))
                 this.__ikeCredentials := IKEEXT_CREDENTIALS1(120, this)
@@ -107,7 +112,7 @@ class IKEEXT_SA_DETAILS1 extends Win32Struct
 
     /**
      * GUID of the main mode policy provider context corresponding to this SA.
-     * @type {Pointer<Guid>}
+     * @type {Pointer}
      */
     ikePolicyKey {
         get => NumGet(this, 136, "ptr")
@@ -124,10 +129,9 @@ class IKEEXT_SA_DETAILS1 extends Win32Struct
     }
 
     /**
-     * 
      * @type {FWP_BYTE_BLOB}
      */
-    correlationKey{
+    correlationKey {
         get {
             if(!this.HasProp("__correlationKey"))
                 this.__correlationKey := FWP_BYTE_BLOB(152, this)

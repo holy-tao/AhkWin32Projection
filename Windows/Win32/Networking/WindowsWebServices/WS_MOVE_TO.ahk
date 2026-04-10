@@ -5,9 +5,8 @@
  * This enumeration identifies the various ways to move about an xml document.
  * @see https://learn.microsoft.com/windows/win32/api/webservices/ne-webservices-ws_move_to
  * @namespace Windows.Win32.Networking.WindowsWebServices
- * @version v4.0.30319
  */
-class WS_MOVE_TO extends Win32Enum{
+class WS_MOVE_TO extends Win32Enum {
 
     /**
      * Moves to the topmost element in the document.  If there is no root element, then the position is left unchanged.

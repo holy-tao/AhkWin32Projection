@@ -4,11 +4,9 @@
 
 /**
  * @namespace Windows.Win32.System.Memory
- * @version v4.0.30319
  */
-class WIN32_MEMORY_NUMA_PERFORMANCE_INFORMATION_OUTPUT extends Win32Struct
-{
-    static sizeof => 16
+class WIN32_MEMORY_NUMA_PERFORMANCE_INFORMATION_OUTPUT extends Win32Struct {
+    static sizeof => 40
 
     static packingSize => 8
 
@@ -21,9 +19,9 @@ class WIN32_MEMORY_NUMA_PERFORMANCE_INFORMATION_OUTPUT extends Win32Struct
     }
 
     /**
-     * @type {Array<WIN32_MEMORY_NUMA_PERFORMANCE_ENTRY>}
+     * @type {WIN32_MEMORY_NUMA_PERFORMANCE_ENTRY}
      */
-    PerformanceEntries{
+    PerformanceEntries {
         get {
             if(!this.HasProp("__PerformanceEntriesProxyArray"))
                 this.__PerformanceEntriesProxyArray := Win32FixedArray(this.ptr + 8, 1, WIN32_MEMORY_NUMA_PERFORMANCE_ENTRY, "")

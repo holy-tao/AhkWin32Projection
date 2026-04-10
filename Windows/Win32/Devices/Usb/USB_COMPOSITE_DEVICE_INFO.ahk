@@ -6,18 +6,16 @@
 
 /**
  * @namespace Windows.Win32.Devices.Usb
- * @version v4.0.30319
  */
-class USB_COMPOSITE_DEVICE_INFO extends Win32Struct
-{
-    static sizeof => 40
+class USB_COMPOSITE_DEVICE_INFO extends Win32Struct {
+    static sizeof => 34
 
-    static packingSize => 8
+    static packingSize => 2
 
     /**
      * @type {USB_DEVICE_DESCRIPTOR}
      */
-    DeviceDescriptor{
+    DeviceDescriptor {
         get {
             if(!this.HasProp("__DeviceDescriptor"))
                 this.__DeviceDescriptor := USB_DEVICE_DESCRIPTOR(0, this)
@@ -28,7 +26,7 @@ class USB_COMPOSITE_DEVICE_INFO extends Win32Struct
     /**
      * @type {USB_CONFIGURATION_DESCRIPTOR}
      */
-    CurrentConfigDescriptor{
+    CurrentConfigDescriptor {
         get {
             if(!this.HasProp("__CurrentConfigDescriptor"))
                 this.__CurrentConfigDescriptor := USB_CONFIGURATION_DESCRIPTOR(18, this)
@@ -53,12 +51,12 @@ class USB_COMPOSITE_DEVICE_INFO extends Win32Struct
     }
 
     /**
-     * @type {Array<USB_COMPOSITE_FUNCTION_INFO>}
+     * @type {USB_COMPOSITE_FUNCTION_INFO}
      */
-    FunctionInfo{
+    FunctionInfo {
         get {
             if(!this.HasProp("__FunctionInfoProxyArray"))
-                this.__FunctionInfoProxyArray := Win32FixedArray(this.ptr + 32, 1, USB_COMPOSITE_FUNCTION_INFO, "")
+                this.__FunctionInfoProxyArray := Win32FixedArray(this.ptr + 30, 1, USB_COMPOSITE_FUNCTION_INFO, "")
             return this.__FunctionInfoProxyArray
         }
     }

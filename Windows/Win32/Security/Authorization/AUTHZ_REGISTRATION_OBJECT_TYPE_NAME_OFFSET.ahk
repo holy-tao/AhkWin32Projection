@@ -5,10 +5,8 @@
  * Specifies the offset of a registration object type name.
  * @see https://learn.microsoft.com/windows/win32/api/authz/ns-authz-authz_registration_object_type_name_offset
  * @namespace Windows.Win32.Security.Authorization
- * @version v4.0.30319
  */
-class AUTHZ_REGISTRATION_OBJECT_TYPE_NAME_OFFSET extends Win32Struct
-{
+class AUTHZ_REGISTRATION_OBJECT_TYPE_NAME_OFFSET extends Win32Struct {
     static sizeof => 16
 
     static packingSize => 8

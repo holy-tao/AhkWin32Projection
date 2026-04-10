@@ -7,9 +7,8 @@
  * Notifies the subscriber if a COM+ server application is started, shut down, or forced to shut down.
  * @see https://learn.microsoft.com/windows/win32/api/comsvcs/nn-comsvcs-icomappevents
  * @namespace Windows.Win32.System.ComponentServices
- * @version v4.0.30319
  */
-class IComAppEvents extends IUnknown{
+class IComAppEvents extends IUnknown {
 
     static sizeof => A_PtrSize
     /**

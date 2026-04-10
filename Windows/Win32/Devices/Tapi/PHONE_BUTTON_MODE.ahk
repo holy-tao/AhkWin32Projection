@@ -5,9 +5,8 @@
  * The PHONE_BUTTON_MODE enum describes the mode of a phone button.
  * @see https://learn.microsoft.com/windows/win32/api/tapi3if/ne-tapi3if-phone_button_mode
  * @namespace Windows.Win32.Devices.Tapi
- * @version v4.0.30319
  */
-class PHONE_BUTTON_MODE extends Win32Enum{
+class PHONE_BUTTON_MODE extends Win32Enum {
 
     /**
      * Dummy button.

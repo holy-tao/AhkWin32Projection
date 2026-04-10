@@ -5,19 +5,17 @@
  * Contains information about the client display.
  * @see https://learn.microsoft.com/windows/win32/api/wtsdefs/ns-wtsdefs-wts_display_ioctl
  * @namespace Windows.Win32.System.RemoteDesktop
- * @version v4.0.30319
  */
-class WTS_DISPLAY_IOCTL extends Win32Struct
-{
+class WTS_DISPLAY_IOCTL extends Win32Struct {
     static sizeof => 260
 
     static packingSize => 4
 
     /**
      * A byte array that contains information about the client display.
-     * @type {Array<Byte>}
+     * @type {Array<Integer>}
      */
-    pDisplayIOCtlData{
+    pDisplayIOCtlData {
         get {
             if(!this.HasProp("__pDisplayIOCtlDataProxyArray"))
                 this.__pDisplayIOCtlDataProxyArray := Win32FixedArray(this.ptr + 0, 256, Primitive, "char")

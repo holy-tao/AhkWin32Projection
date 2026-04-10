@@ -1,12 +1,15 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
+#Include ..\..\Foundation\ERESOURCE.ahk
+#Include .\FS_FILTER_SECTION_SYNC_TYPE.ahk
+#Include .\FS_FILTER_SECTION_SYNC_OUTPUT.ahk
+#Include ..\..\Foundation\IRP.ahk
+#Include .\FILE_INFORMATION_CLASS.ahk
 
 /**
  * @namespace Windows.Wdk.Storage.FileSystem
- * @version v4.0.30319
  */
-class FS_FILTER_PARAMETERS extends Win32Struct
-{
+class FS_FILTER_PARAMETERS extends Win32Struct {
     static sizeof => 120
 
     static packingSize => 8
@@ -22,7 +25,7 @@ class FS_FILTER_PARAMETERS extends Win32Struct
             get => NumGet(this, 0, "ptr")
             set => NumPut("ptr", value, this, 0)
         }
-    
+
         /**
          * @type {Pointer<Pointer<ERESOURCE>>}
          */
@@ -30,7 +33,6 @@ class FS_FILTER_PARAMETERS extends Win32Struct
             get => NumGet(this, 8, "ptr")
             set => NumPut("ptr", value, this, 8)
         }
-    
     }
 
     class _ReleaseForModifiedPageWriter extends Win32Struct {
@@ -44,7 +46,6 @@ class FS_FILTER_PARAMETERS extends Win32Struct
             get => NumGet(this, 0, "ptr")
             set => NumPut("ptr", value, this, 0)
         }
-    
     }
 
     class _AcquireForSectionSynchronization extends Win32Struct {
@@ -52,13 +53,13 @@ class FS_FILTER_PARAMETERS extends Win32Struct
         static packingSize => 8
 
         /**
-         * @type {Integer}
+         * @type {FS_FILTER_SECTION_SYNC_TYPE}
          */
         SyncType {
             get => NumGet(this, 0, "int")
             set => NumPut("int", value, this, 0)
         }
-    
+
         /**
          * @type {Integer}
          */
@@ -66,7 +67,7 @@ class FS_FILTER_PARAMETERS extends Win32Struct
             get => NumGet(this, 4, "uint")
             set => NumPut("uint", value, this, 4)
         }
-    
+
         /**
          * @type {Pointer<FS_FILTER_SECTION_SYNC_OUTPUT>}
          */
@@ -74,7 +75,7 @@ class FS_FILTER_PARAMETERS extends Win32Struct
             get => NumGet(this, 8, "ptr")
             set => NumPut("ptr", value, this, 8)
         }
-    
+
         /**
          * @type {Integer}
          */
@@ -82,7 +83,7 @@ class FS_FILTER_PARAMETERS extends Win32Struct
             get => NumGet(this, 16, "uint")
             set => NumPut("uint", value, this, 16)
         }
-    
+
         /**
          * @type {Integer}
          */
@@ -90,7 +91,6 @@ class FS_FILTER_PARAMETERS extends Win32Struct
             get => NumGet(this, 20, "uint")
             set => NumPut("uint", value, this, 20)
         }
-    
     }
 
     class _QueryOpen extends Win32Struct {
@@ -104,7 +104,7 @@ class FS_FILTER_PARAMETERS extends Win32Struct
             get => NumGet(this, 0, "ptr")
             set => NumPut("ptr", value, this, 0)
         }
-    
+
         /**
          * @type {Pointer<Void>}
          */
@@ -112,7 +112,7 @@ class FS_FILTER_PARAMETERS extends Win32Struct
             get => NumGet(this, 8, "ptr")
             set => NumPut("ptr", value, this, 8)
         }
-    
+
         /**
          * @type {Pointer<Integer>}
          */
@@ -120,15 +120,15 @@ class FS_FILTER_PARAMETERS extends Win32Struct
             get => NumGet(this, 16, "ptr")
             set => NumPut("ptr", value, this, 16)
         }
-    
+
         /**
-         * @type {Integer}
+         * @type {FILE_INFORMATION_CLASS}
          */
         FileInformationClass {
             get => NumGet(this, 24, "int")
             set => NumPut("int", value, this, 24)
         }
-    
+
         /**
          * @type {NTSTATUS}
          */
@@ -136,7 +136,6 @@ class FS_FILTER_PARAMETERS extends Win32Struct
             get => NumGet(this, 28, "int")
             set => NumPut("int", value, this, 28)
         }
-    
     }
 
     class _Others extends Win32Struct {
@@ -150,7 +149,7 @@ class FS_FILTER_PARAMETERS extends Win32Struct
             get => NumGet(this, 0, "ptr")
             set => NumPut("ptr", value, this, 0)
         }
-    
+
         /**
          * @type {Pointer<Void>}
          */
@@ -158,7 +157,7 @@ class FS_FILTER_PARAMETERS extends Win32Struct
             get => NumGet(this, 8, "ptr")
             set => NumPut("ptr", value, this, 8)
         }
-    
+
         /**
          * @type {Pointer<Void>}
          */
@@ -166,7 +165,7 @@ class FS_FILTER_PARAMETERS extends Win32Struct
             get => NumGet(this, 16, "ptr")
             set => NumPut("ptr", value, this, 16)
         }
-    
+
         /**
          * @type {Pointer<Void>}
          */
@@ -174,7 +173,7 @@ class FS_FILTER_PARAMETERS extends Win32Struct
             get => NumGet(this, 24, "ptr")
             set => NumPut("ptr", value, this, 24)
         }
-    
+
         /**
          * @type {Pointer<Void>}
          */
@@ -182,16 +181,15 @@ class FS_FILTER_PARAMETERS extends Win32Struct
             get => NumGet(this, 32, "ptr")
             set => NumPut("ptr", value, this, 32)
         }
-    
     }
 
     /**
      * @type {_AcquireForModifiedPageWriter}
      */
-    AcquireForModifiedPageWriter{
+    AcquireForModifiedPageWriter {
         get {
             if(!this.HasProp("__AcquireForModifiedPageWriter"))
-                this.__AcquireForModifiedPageWriter := %this.__Class%._AcquireForModifiedPageWriter(0, this)
+                this.__AcquireForModifiedPageWriter := FS_FILTER_PARAMETERS._AcquireForModifiedPageWriter(0, this)
             return this.__AcquireForModifiedPageWriter
         }
     }
@@ -199,10 +197,10 @@ class FS_FILTER_PARAMETERS extends Win32Struct
     /**
      * @type {_ReleaseForModifiedPageWriter}
      */
-    ReleaseForModifiedPageWriter{
+    ReleaseForModifiedPageWriter {
         get {
             if(!this.HasProp("__ReleaseForModifiedPageWriter"))
-                this.__ReleaseForModifiedPageWriter := %this.__Class%._ReleaseForModifiedPageWriter(0, this)
+                this.__ReleaseForModifiedPageWriter := FS_FILTER_PARAMETERS._ReleaseForModifiedPageWriter(0, this)
             return this.__ReleaseForModifiedPageWriter
         }
     }
@@ -210,10 +208,10 @@ class FS_FILTER_PARAMETERS extends Win32Struct
     /**
      * @type {_AcquireForSectionSynchronization}
      */
-    AcquireForSectionSynchronization{
+    AcquireForSectionSynchronization {
         get {
             if(!this.HasProp("__AcquireForSectionSynchronization"))
-                this.__AcquireForSectionSynchronization := %this.__Class%._AcquireForSectionSynchronization(0, this)
+                this.__AcquireForSectionSynchronization := FS_FILTER_PARAMETERS._AcquireForSectionSynchronization(0, this)
             return this.__AcquireForSectionSynchronization
         }
     }
@@ -221,10 +219,10 @@ class FS_FILTER_PARAMETERS extends Win32Struct
     /**
      * @type {_QueryOpen}
      */
-    QueryOpen{
+    QueryOpen {
         get {
             if(!this.HasProp("__QueryOpen"))
-                this.__QueryOpen := %this.__Class%._QueryOpen(0, this)
+                this.__QueryOpen := FS_FILTER_PARAMETERS._QueryOpen(0, this)
             return this.__QueryOpen
         }
     }
@@ -232,10 +230,10 @@ class FS_FILTER_PARAMETERS extends Win32Struct
     /**
      * @type {_Others}
      */
-    Others{
+    Others {
         get {
             if(!this.HasProp("__Others"))
-                this.__Others := %this.__Class%._Others(0, this)
+                this.__Others := FS_FILTER_PARAMETERS._Others(0, this)
             return this.__Others
         }
     }

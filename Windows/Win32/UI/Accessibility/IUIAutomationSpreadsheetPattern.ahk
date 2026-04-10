@@ -1,17 +1,15 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
-#Include ..\..\Foundation\BSTR.ahk
-#Include .\IUIAutomationElement.ahk
 #Include ..\..\System\Com\IUnknown.ahk
+#Include .\IUIAutomationElement.ahk
 
 /**
  * Enables a client application to access the items (cells) in a spreadsheet.
  * @see https://learn.microsoft.com/windows/win32/api/uiautomationclient/nn-uiautomationclient-iuiautomationspreadsheetpattern
  * @namespace Windows.Win32.UI.Accessibility
- * @version v4.0.30319
  */
-class IUIAutomationSpreadsheetPattern extends IUnknown{
+class IUIAutomationSpreadsheetPattern extends IUnknown {
 
     static sizeof => A_PtrSize
     /**

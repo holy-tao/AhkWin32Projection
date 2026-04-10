@@ -29,9 +29,8 @@
  * The enhanced video renderer (EVR) can drop video frames before sending them to the EVR mixer.
  * @see https://learn.microsoft.com/windows/win32/api/mfidl/ne-mfidl-mf_quality_drop_mode
  * @namespace Windows.Win32.Media.MediaFoundation
- * @version v4.0.30319
  */
-class MF_QUALITY_DROP_MODE extends Win32Enum{
+class MF_QUALITY_DROP_MODE extends Win32Enum {
 
     /**
      * Normal processing of samples. Drop mode is disabled.

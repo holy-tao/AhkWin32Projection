@@ -6,10 +6,8 @@
  * Contains status information for the application-switching (ALT+TAB) window.
  * @see https://learn.microsoft.com/windows/win32/api/winuser/ns-winuser-alttabinfo
  * @namespace Windows.Win32.UI.WindowsAndMessaging
- * @version v4.0.30319
  */
-class ALTTABINFO extends Win32Struct
-{
+class ALTTABINFO extends Win32Struct {
     static sizeof => 40
 
     static packingSize => 4
@@ -108,7 +106,7 @@ class ALTTABINFO extends Win32Struct
      * The top-left corner of the first icon.
      * @type {POINT}
      */
-    ptStart{
+    ptStart {
         get {
             if(!this.HasProp("__ptStart"))
                 this.__ptStart := POINT(32, this)

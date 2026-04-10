@@ -69,9 +69,8 @@
  * COLORPROFILESUBTYPE Global default can be or?d with WCS\_DEFAULT to set this GMMP as the global default for use in OpenColorProfile or WcsOpenColorProfile where GMMP is **NULL**.<br/>
  * @see https://learn.microsoft.com/windows/win32/api/icm/ne-icm-colorprofilesubtype
  * @namespace Windows.Win32.UI.ColorSystem
- * @version v4.0.30319
  */
-class COLORPROFILESUBTYPE extends Win32Enum{
+class COLORPROFILESUBTYPE extends Win32Enum {
 
     /**
      * A perceptual rendering intent for gamut map model profiles (GMMPs) defined in WCS.

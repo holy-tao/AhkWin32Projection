@@ -5,10 +5,8 @@
  * Contains information about a tablet system event.
  * @see https://learn.microsoft.com/windows/win32/api/tpcshrd/ns-tpcshrd-system_event_data
  * @namespace Windows.Win32.UI.TabletPC
- * @version v4.0.30319
  */
-class SYSTEM_EVENT_DATA extends Win32Struct
-{
+class SYSTEM_EVENT_DATA extends Win32Struct {
     static sizeof => 20
 
     static packingSize => 4

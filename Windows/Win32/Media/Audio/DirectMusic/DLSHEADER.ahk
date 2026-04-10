@@ -3,10 +3,8 @@
 
 /**
  * @namespace Windows.Win32.Media.Audio.DirectMusic
- * @version v4.0.30319
  */
-class DLSHEADER extends Win32Struct
-{
+class DLSHEADER extends Win32Struct {
     static sizeof => 4
 
     static packingSize => 4

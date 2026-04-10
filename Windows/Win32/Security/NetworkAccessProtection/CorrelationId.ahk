@@ -11,17 +11,15 @@
  *    match <a href="https://docs.microsoft.com/windows/desktop/api/naptypes/ns-naptypes-soh">SoHRequests</a> to <b>SoHResponses</b>.
  * @see https://learn.microsoft.com/windows/win32/api/naptypes/ns-naptypes-correlationid
  * @namespace Windows.Win32.Security.NetworkAccessProtection
- * @version v4.0.30319
  */
-class CorrelationId extends Win32Struct
-{
+class CorrelationId extends Win32Struct {
     static sizeof => 16
 
     static packingSize => 8
 
     /**
      * A globally unique identifier (GUID) that identifies a SoH  exchange.
-     * @type {Pointer<Guid>}
+     * @type {Pointer}
      */
     connId {
         get => NumGet(this, 0, "ptr")
@@ -32,7 +30,7 @@ class CorrelationId extends Win32Struct
      * A  unique <a href="https://docs.microsoft.com/windows/win32/api/minwinbase/ns-minwinbase-filetime">FILETIME</a> value that contains the system time at which the <a href="https://docs.microsoft.com/windows/desktop/api/naptypes/ns-naptypes-soh">SoHRequest</a> was generated.
      * @type {FILETIME}
      */
-    timeStamp{
+    timeStamp {
         get {
             if(!this.HasProp("__timeStamp"))
                 this.__timeStamp := FILETIME(8, this)

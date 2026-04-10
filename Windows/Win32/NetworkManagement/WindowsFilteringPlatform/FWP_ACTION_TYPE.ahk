@@ -3,9 +3,8 @@
 
 /**
  * @namespace Windows.Win32.NetworkManagement.WindowsFilteringPlatform
- * @version v4.0.30319
  */
-class FWP_ACTION_TYPE extends Win32Enum{
+class FWP_ACTION_TYPE extends Win32Enum {
 
     /**
      * @type {Integer (UInt32)}

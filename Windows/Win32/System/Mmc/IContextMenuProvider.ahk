@@ -7,9 +7,8 @@
  * The IContextMenuProvider interface implements methods that create new context menus, for the purpose of adding items to those menus, to enable extensions to extend those menus, and to display the resulting context menus.
  * @see https://learn.microsoft.com/windows/win32/api/mmc/nn-mmc-icontextmenuprovider
  * @namespace Windows.Win32.System.Mmc
- * @version v4.0.30319
  */
-class IContextMenuProvider extends IContextMenuCallback{
+class IContextMenuProvider extends IContextMenuCallback {
 
     static sizeof => A_PtrSize
     /**

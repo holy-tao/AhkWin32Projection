@@ -9,9 +9,8 @@
  * To get a pointer to this interface, call <a href="https://docs.microsoft.com/windows/desktop/api/mfapi/nf-mfapi-mfgetplugincontrol">MFGetPluginControl</a>  and query the returned pointer for <b>IMFPluginControl2</b>.
  * @see https://learn.microsoft.com/windows/win32/api/mfobjects/nn-mfobjects-imfplugincontrol2
  * @namespace Windows.Win32.Media.MediaFoundation
- * @version v4.0.30319
  */
-class IMFPluginControl2 extends IMFPluginControl{
+class IMFPluginControl2 extends IMFPluginControl {
 
     static sizeof => A_PtrSize
     /**
@@ -34,7 +33,7 @@ class IMFPluginControl2 extends IMFPluginControl{
 
     /**
      * Sets the policy for which media sources and transforms are enumerated.
-     * @param {Integer} policy A value from the <a href="https://docs.microsoft.com/windows/desktop/api/mfobjects/ne-mfobjects-mf_plugin_control_policy">MF_PLUGIN_CONTROL_POLICY</a> enumeration that specifies the policy.
+     * @param {MF_PLUGIN_CONTROL_POLICY} policy A value from the <a href="https://docs.microsoft.com/windows/desktop/api/mfobjects/ne-mfobjects-mf_plugin_control_policy">MF_PLUGIN_CONTROL_POLICY</a> enumeration that specifies the policy.
      * @returns {HRESULT} If this method succeeds, it returns <b>S_OK</b>. Otherwise, it returns an <b>HRESULT</b> error code.
      * @see https://learn.microsoft.com/windows/win32/api/mfobjects/nf-mfobjects-imfplugincontrol2-setpolicy
      */

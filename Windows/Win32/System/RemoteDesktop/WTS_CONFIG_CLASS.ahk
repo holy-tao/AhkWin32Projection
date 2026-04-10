@@ -5,9 +5,8 @@
  * Contains values that indicate the type of user configuration information to set or retrieve in a call to the WTSQueryUserConfig and WTSSetUserConfig functions.
  * @see https://learn.microsoft.com/windows/win32/api/wtsapi32/ne-wtsapi32-wts_config_class
  * @namespace Windows.Win32.System.RemoteDesktop
- * @version v4.0.30319
  */
-class WTS_CONFIG_CLASS extends Win32Enum{
+class WTS_CONFIG_CLASS extends Win32Enum {
 
     /**
      * A null-terminated string that contains the path of the initial program that Remote Desktop Services runs when the 

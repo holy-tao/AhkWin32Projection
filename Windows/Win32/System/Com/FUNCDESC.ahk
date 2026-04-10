@@ -1,9 +1,18 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
-#Include .\TYPEDESC.ahk
-#Include .\IDLDESC.ahk
-#Include ..\Ole\PARAMDESC.ahk
 #Include .\ELEMDESC.ahk
+#Include .\FUNCKIND.ahk
+#Include .\INVOKEKIND.ahk
+#Include .\CALLCONV.ahk
+#Include .\TYPEDESC.ahk
+#Include ..\Ole\ARRAYDESC.ahk
+#Include ..\Variant\VARENUM.ahk
+#Include .\IDLDESC.ahk
+#Include .\IDLFLAGS.ahk
+#Include ..\Ole\PARAMDESC.ahk
+#Include ..\Ole\PARAMDESCEX.ahk
+#Include ..\Ole\PARAMFLAGS.ahk
+#Include .\FUNCFLAGS.ahk
 
 /**
  * Describes a function. (FUNCDESC)
@@ -36,10 +45,8 @@
  * </ul>
  * @see https://learn.microsoft.com/windows/win32/api/oaidl/ns-oaidl-funcdesc
  * @namespace Windows.Win32.System.Com
- * @version v4.0.30319
  */
-class FUNCDESC extends Win32Struct
-{
+class FUNCDESC extends Win32Struct {
     static sizeof => 88
 
     static packingSize => 8
@@ -73,7 +80,7 @@ class FUNCDESC extends Win32Struct
 
     /**
      * Indicates the type of function (virtual, static, or dispatch-only).
-     * @type {Integer}
+     * @type {FUNCKIND}
      */
     funckind {
         get => NumGet(this, 24, "int")
@@ -82,7 +89,7 @@ class FUNCDESC extends Win32Struct
 
     /**
      * The invocation type. Indicates whether this is a property function, and if so, which type.
-     * @type {Integer}
+     * @type {INVOKEKIND}
      */
     invkind {
         get => NumGet(this, 28, "int")
@@ -91,7 +98,7 @@ class FUNCDESC extends Win32Struct
 
     /**
      * The calling convention.
-     * @type {Integer}
+     * @type {CALLCONV}
      */
     callconv {
         get => NumGet(this, 32, "int")
@@ -138,7 +145,7 @@ class FUNCDESC extends Win32Struct
      * The function return type.
      * @type {ELEMDESC}
      */
-    elemdescFunc{
+    elemdescFunc {
         get {
             if(!this.HasProp("__elemdescFunc"))
                 this.__elemdescFunc := ELEMDESC(48, this)
@@ -148,7 +155,7 @@ class FUNCDESC extends Win32Struct
 
     /**
      * The function flags. See <a href="https://docs.microsoft.com/windows/desktop/api/oaidl/ne-oaidl-funcflags">FUNCFLAGS</a>.
-     * @type {Integer}
+     * @type {FUNCFLAGS}
      */
     wFuncFlags {
         get => NumGet(this, 80, "ushort")

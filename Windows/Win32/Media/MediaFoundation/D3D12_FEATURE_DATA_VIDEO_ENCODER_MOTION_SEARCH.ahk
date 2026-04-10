@@ -1,18 +1,34 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
+#Include .\D3D12_VIDEO_ENCODER_INPUT_MAP_SESSION_INFO.ahk
+#Include .\D3D12_VIDEO_ENCODER_CODEC.ahk
 #Include .\D3D12_VIDEO_ENCODER_PROFILE_DESC.ahk
+#Include .\D3D12_VIDEO_ENCODER_PROFILE_H264.ahk
+#Include .\D3D12_VIDEO_ENCODER_PROFILE_HEVC.ahk
+#Include .\D3D12_VIDEO_ENCODER_AV1_PROFILE.ahk
 #Include .\D3D12_VIDEO_ENCODER_LEVEL_SETTING.ahk
+#Include .\D3D12_VIDEO_ENCODER_LEVELS_H264.ahk
+#Include .\D3D12_VIDEO_ENCODER_LEVEL_TIER_CONSTRAINTS_HEVC.ahk
+#Include .\D3D12_VIDEO_ENCODER_AV1_LEVEL_TIER_CONSTRAINTS.ahk
+#Include ..\..\Graphics\Dxgi\Common\DXGI_FORMAT.ahk
 #Include .\D3D12_VIDEO_ENCODER_PICTURE_RESOLUTION_DESC.ahk
 #Include .\D3D12_VIDEO_ENCODER_CODEC_CONFIGURATION.ahk
+#Include .\D3D12_VIDEO_ENCODER_CODEC_CONFIGURATION_H264.ahk
+#Include .\D3D12_VIDEO_ENCODER_CODEC_CONFIGURATION_HEVC.ahk
+#Include .\D3D12_VIDEO_ENCODER_AV1_CODEC_CONFIGURATION.ahk
+#Include .\D3D12_VIDEO_ENCODER_FRAME_SUBREGION_LAYOUT_MODE.ahk
 #Include .\D3D12_VIDEO_ENCODER_PICTURE_CONTROL_SUBREGIONS_LAYOUT_DATA.ahk
-#Include .\D3D12_VIDEO_ENCODER_INPUT_MAP_SESSION_INFO.ahk
+#Include .\D3D12_VIDEO_ENCODER_PICTURE_CONTROL_SUBREGIONS_LAYOUT_DATA_SLICES.ahk
+#Include .\D3D12_VIDEO_ENCODER_AV1_PICTURE_CONTROL_SUBREGIONS_LAYOUT_DATA_TILES.ahk
+#Include .\D3D12_VIDEO_ENCODER_FRAME_MOTION_SEARCH_MODE.ahk
+#Include .\D3D12_VIDEO_ENCODER_INPUT_MAP_SOURCE.ahk
+#Include .\D3D12_VIDEO_ENCODER_MOTION_SEARCH_SUPPORT_FLAGS.ahk
+#Include .\D3D12_VIDEO_ENCODER_FRAME_INPUT_MOTION_UNIT_PRECISION_SUPPORT_FLAGS.ahk
 
 /**
  * @namespace Windows.Win32.Media.MediaFoundation
- * @version v4.0.30319
  */
-class D3D12_FEATURE_DATA_VIDEO_ENCODER_MOTION_SEARCH extends Win32Struct
-{
+class D3D12_FEATURE_DATA_VIDEO_ENCODER_MOTION_SEARCH extends Win32Struct {
     static sizeof => 144
 
     static packingSize => 8
@@ -28,7 +44,7 @@ class D3D12_FEATURE_DATA_VIDEO_ENCODER_MOTION_SEARCH extends Win32Struct
     /**
      * @type {D3D12_VIDEO_ENCODER_INPUT_MAP_SESSION_INFO}
      */
-    SessionInfo{
+    SessionInfo {
         get {
             if(!this.HasProp("__SessionInfo"))
                 this.__SessionInfo := D3D12_VIDEO_ENCODER_INPUT_MAP_SESSION_INFO(8, this)
@@ -37,7 +53,7 @@ class D3D12_FEATURE_DATA_VIDEO_ENCODER_MOTION_SEARCH extends Win32Struct
     }
 
     /**
-     * @type {Integer}
+     * @type {D3D12_VIDEO_ENCODER_FRAME_MOTION_SEARCH_MODE}
      */
     MotionSearchMode {
         get => NumGet(this, 104, "int")
@@ -45,7 +61,7 @@ class D3D12_FEATURE_DATA_VIDEO_ENCODER_MOTION_SEARCH extends Win32Struct
     }
 
     /**
-     * @type {Integer}
+     * @type {D3D12_VIDEO_ENCODER_INPUT_MAP_SOURCE}
      */
     MapSource {
         get => NumGet(this, 108, "int")
@@ -61,7 +77,7 @@ class D3D12_FEATURE_DATA_VIDEO_ENCODER_MOTION_SEARCH extends Win32Struct
     }
 
     /**
-     * @type {Integer}
+     * @type {D3D12_VIDEO_ENCODER_MOTION_SEARCH_SUPPORT_FLAGS}
      */
     SupportFlags {
         get => NumGet(this, 116, "int")
@@ -101,7 +117,7 @@ class D3D12_FEATURE_DATA_VIDEO_ENCODER_MOTION_SEARCH extends Win32Struct
     }
 
     /**
-     * @type {Integer}
+     * @type {D3D12_VIDEO_ENCODER_FRAME_INPUT_MOTION_UNIT_PRECISION_SUPPORT_FLAGS}
      */
     MotionUnitPrecisionSupport {
         get => NumGet(this, 136, "int")

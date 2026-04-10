@@ -1,14 +1,13 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
+#Include .\WSAECOMPARATOR.ahk
 
 /**
  * The WSAVERSION structure provides version comparison in Windows Sockets.
  * @see https://learn.microsoft.com/windows/win32/api/winsock2/ns-winsock2-wsaversion
  * @namespace Windows.Win32.Networking.WinSock
- * @version v4.0.30319
  */
-class WSAVERSION extends Win32Struct
-{
+class WSAVERSION extends Win32Struct {
     static sizeof => 8
 
     static packingSize => 4
@@ -24,7 +23,7 @@ class WSAVERSION extends Win32Struct
 
     /**
      * <a href="https://docs.microsoft.com/windows/desktop/api/winsock2/ne-winsock2-wsaecomparator">WSAECOMPARATOR</a> enumeration, used in the comparison.
-     * @type {Integer}
+     * @type {WSAECOMPARATOR}
      */
     ecHow {
         get => NumGet(this, 4, "int")

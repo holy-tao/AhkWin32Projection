@@ -7,9 +7,8 @@
  * Accesses games settings for the user.
  * @see https://learn.microsoft.com/windows/win32/api/wpcapi/nn-wpcapi-iwpcgamessettings
  * @namespace Windows.Win32.System.ParentalControls
- * @version v4.0.30319
  */
-class IWPCGamesSettings extends IWPCSettings{
+class IWPCGamesSettings extends IWPCSettings {
 
     static sizeof => A_PtrSize
     /**

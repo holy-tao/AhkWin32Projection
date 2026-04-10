@@ -4,11 +4,9 @@
 
 /**
  * @namespace Windows.Win32.Devices.Sensors
- * @version v4.0.30319
  */
-class SENSOR_PROPERTY_LIST extends Win32Struct
-{
-    static sizeof => 16
+class SENSOR_PROPERTY_LIST extends Win32Struct {
+    static sizeof => 24
 
     static packingSize => 8
 
@@ -29,9 +27,9 @@ class SENSOR_PROPERTY_LIST extends Win32Struct
     }
 
     /**
-     * @type {Array<PROPERTYKEY>}
+     * @type {PROPERTYKEY}
      */
-    List{
+    List {
         get {
             if(!this.HasProp("__ListProxyArray"))
                 this.__ListProxyArray := Win32FixedArray(this.ptr + 8, 1, PROPERTYKEY, "")

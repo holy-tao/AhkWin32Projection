@@ -3,10 +3,8 @@
 
 /**
  * @namespace Windows.Win32.Security.Cryptography
- * @version v4.0.30319
  */
-class CARD_FREE_SPACE_INFO extends Win32Struct
-{
+class CARD_FREE_SPACE_INFO extends Win32Struct {
     static sizeof => 16
 
     static packingSize => 4

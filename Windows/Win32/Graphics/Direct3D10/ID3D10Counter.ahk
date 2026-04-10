@@ -17,9 +17,8 @@
  * For a list of the types of performance counters, see <a href="https://docs.microsoft.com/windows/desktop/api/d3d10/ne-d3d10-d3d10_counter">D3D10_COUNTER</a>.
  * @see https://learn.microsoft.com/windows/win32/api/d3d10/nn-d3d10-id3d10counter
  * @namespace Windows.Win32.Graphics.Direct3D10
- * @version v4.0.30319
  */
-class ID3D10Counter extends ID3D10Asynchronous{
+class ID3D10Counter extends ID3D10Asynchronous {
 
     static sizeof => A_PtrSize
     /**

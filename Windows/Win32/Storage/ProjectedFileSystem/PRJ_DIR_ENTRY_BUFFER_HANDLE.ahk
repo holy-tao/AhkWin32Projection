@@ -4,10 +4,8 @@
 
 /**
  * @namespace Windows.Win32.Storage.ProjectedFileSystem
- * @version v4.0.30319
  */
-class PRJ_DIR_ENTRY_BUFFER_HANDLE extends Win32Handle
-{
+class PRJ_DIR_ENTRY_BUFFER_HANDLE extends Win32Handle {
     static sizeof => 8
 
     static packingSize => 8

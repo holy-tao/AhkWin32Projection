@@ -3,9 +3,8 @@
 
 /**
  * @namespace Windows.Win32.Networking.WinHttp
- * @version v4.0.30319
  */
-class WINHTTP_OPEN_REQUEST_FLAGS extends Win32BitflagEnum{
+class WINHTTP_OPEN_REQUEST_FLAGS extends Win32BitflagEnum {
 
     /**
      * @type {Integer (UInt32)}

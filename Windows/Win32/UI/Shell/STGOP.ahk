@@ -7,9 +7,8 @@
  * <b>STGOPTIONS</b> is only supported on Unicode APIs.
  * @see https://learn.microsoft.com/windows/win32/api/coml2api/ns-coml2api-stgoptions
  * @namespace Windows.Win32.UI.Shell
- * @version v4.0.30319
  */
-class STGOP extends Win32Enum{
+class STGOP extends Win32Enum {
 
     /**
      * @type {Integer (Int32)}

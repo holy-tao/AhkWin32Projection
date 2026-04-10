@@ -4,10 +4,8 @@
 
 /**
  * @namespace Windows.Win32.System.DistributedTransactionCoordinator
- * @version v4.0.30319
  */
-class XACTSTATS extends Win32Struct
-{
+class XACTSTATS extends Win32Struct {
     static sizeof => 36
 
     static packingSize => 4
@@ -71,7 +69,7 @@ class XACTSTATS extends Win32Struct
     /**
      * @type {FILETIME}
      */
-    timeTransactionsUp{
+    timeTransactionsUp {
         get {
             if(!this.HasProp("__timeTransactionsUp"))
                 this.__timeTransactionsUp := FILETIME(28, this)

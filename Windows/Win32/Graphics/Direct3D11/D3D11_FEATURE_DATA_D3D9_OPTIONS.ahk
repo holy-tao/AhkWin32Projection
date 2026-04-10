@@ -5,10 +5,8 @@
  * Describes Direct3D 9 feature options in the current graphics driver. (D3D11_FEATURE_DATA_D3D9_OPTIONS)
  * @see https://learn.microsoft.com/windows/win32/api/d3d11/ns-d3d11-d3d11_feature_data_d3d9_options
  * @namespace Windows.Win32.Graphics.Direct3D11
- * @version v4.0.30319
  */
-class D3D11_FEATURE_DATA_D3D9_OPTIONS extends Win32Struct
-{
+class D3D11_FEATURE_DATA_D3D9_OPTIONS extends Win32Struct {
     static sizeof => 4
 
     static packingSize => 4

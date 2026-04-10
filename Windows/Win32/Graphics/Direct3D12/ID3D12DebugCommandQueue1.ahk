@@ -5,9 +5,8 @@
 
 /**
  * @namespace Windows.Win32.Graphics.Direct3D12
- * @version v4.0.30319
  */
-class ID3D12DebugCommandQueue1 extends ID3D12DebugCommandQueue{
+class ID3D12DebugCommandQueue1 extends ID3D12DebugCommandQueue {
 
     static sizeof => A_PtrSize
     /**
@@ -32,7 +31,7 @@ class ID3D12DebugCommandQueue1 extends ID3D12DebugCommandQueue{
      * 
      * @param {ID3D12Resource} pResource 
      * @param {Integer} Subresource 
-     * @param {Integer} Access 
+     * @param {D3D12_BARRIER_ACCESS} Access 
      * @returns {String} Nothing - always returns an empty string
      */
     AssertResourceAccess(pResource, Subresource, Access) {
@@ -43,7 +42,7 @@ class ID3D12DebugCommandQueue1 extends ID3D12DebugCommandQueue{
      * 
      * @param {ID3D12Resource} pResource 
      * @param {Integer} Subresource 
-     * @param {Integer} Layout 
+     * @param {D3D12_BARRIER_LAYOUT} Layout 
      * @returns {String} Nothing - always returns an empty string
      */
     AssertTextureLayout(pResource, Subresource, Layout) {

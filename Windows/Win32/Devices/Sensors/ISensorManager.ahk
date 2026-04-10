@@ -1,9 +1,9 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
+#Include ..\..\System\Com\IUnknown.ahk
 #Include .\ISensorCollection.ahk
 #Include .\ISensor.ahk
-#Include ..\..\System\Com\IUnknown.ahk
 
 /**
  * Provides methods for discovering and retrieving available sensors and a method to request sensor manager events.
@@ -12,9 +12,8 @@
  * (ERROR_ACCESS_DISABLED_BY_POLICY)</b>.
  * @see https://learn.microsoft.com/windows/win32/api/sensorsapi/nn-sensorsapi-isensormanager
  * @namespace Windows.Win32.Devices.Sensors
- * @version v4.0.30319
  */
-class ISensorManager extends IUnknown{
+class ISensorManager extends IUnknown {
 
     static sizeof => A_PtrSize
     /**

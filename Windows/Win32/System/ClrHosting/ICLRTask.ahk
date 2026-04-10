@@ -1,14 +1,13 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
-#Include .\COR_GC_THREAD_STATS.ahk
 #Include ..\Com\IUnknown.ahk
+#Include .\COR_GC_THREAD_STATS.ahk
 
 /**
  * @namespace Windows.Win32.System.ClrHosting
- * @version v4.0.30319
  */
-class ICLRTask extends IUnknown{
+class ICLRTask extends IUnknown {
 
     static sizeof => A_PtrSize
     /**

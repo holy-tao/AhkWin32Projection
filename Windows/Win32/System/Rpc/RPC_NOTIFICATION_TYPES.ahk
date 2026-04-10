@@ -5,9 +5,8 @@
  * The RPC_NOTIFICATION_TYPES enumerated type contains values that specify the method of asynchronous notification that a client program will use.
  * @see https://learn.microsoft.com/windows/win32/api/rpcasync/ne-rpcasync-rpc_notification_types
  * @namespace Windows.Win32.System.Rpc
- * @version v4.0.30319
  */
-class RPC_NOTIFICATION_TYPES extends Win32Enum{
+class RPC_NOTIFICATION_TYPES extends Win32Enum {
 
     /**
      * The client does not require notification of the completion of an asynchronous remote procedure call.

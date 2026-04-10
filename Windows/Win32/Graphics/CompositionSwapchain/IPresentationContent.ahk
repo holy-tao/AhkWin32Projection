@@ -9,9 +9,8 @@
  * All types of presentation content derive from this interface.
  * @see https://learn.microsoft.com/windows/win32/api/presentation/nn-presentation-ipresentationcontent
  * @namespace Windows.Win32.Graphics.CompositionSwapchain
- * @version v4.0.30319
  */
-class IPresentationContent extends IUnknown{
+class IPresentationContent extends IUnknown {
 
     static sizeof => A_PtrSize
     /**

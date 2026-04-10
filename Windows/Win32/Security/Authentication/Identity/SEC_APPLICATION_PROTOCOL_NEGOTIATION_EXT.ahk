@@ -3,13 +3,10 @@
 
 /**
  * Indicates the application protocol extension that is negotiated.
- * @remarks
- * 
  * @see https://learn.microsoft.com/windows/win32/api/sspi/ne-sspi-sec_application_protocol_negotiation_ext
  * @namespace Windows.Win32.Security.Authentication.Identity
- * @version v4.0.30319
  */
-class SEC_APPLICATION_PROTOCOL_NEGOTIATION_EXT extends Win32Enum{
+class SEC_APPLICATION_PROTOCOL_NEGOTIATION_EXT extends Win32Enum {
 
     /**
      * No application protocol extension is used.

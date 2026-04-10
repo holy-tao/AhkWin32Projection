@@ -8,10 +8,8 @@
  * Values in the <b>GLYPHMETRICS</b> structure are specified in device units.
  * @see https://learn.microsoft.com/windows/win32/api/wingdi/ns-wingdi-glyphmetrics
  * @namespace Windows.Win32.Graphics.Gdi
- * @version v4.0.30319
  */
-class GLYPHMETRICS extends Win32Struct
-{
+class GLYPHMETRICS extends Win32Struct {
     static sizeof => 20
 
     static packingSize => 4
@@ -38,7 +36,7 @@ class GLYPHMETRICS extends Win32Struct
      * The x- and y-coordinates of the upper left corner of the smallest rectangle that completely encloses the glyph.
      * @type {POINT}
      */
-    gmptGlyphOrigin{
+    gmptGlyphOrigin {
         get {
             if(!this.HasProp("__gmptGlyphOrigin"))
                 this.__gmptGlyphOrigin := POINT(8, this)

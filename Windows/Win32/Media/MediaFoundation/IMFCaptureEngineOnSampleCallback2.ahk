@@ -7,9 +7,8 @@
  * Extensions for the IMFCaptureEngineOnSampleCallback callback interface that is used to receive data from the capture engine.
  * @see https://learn.microsoft.com/windows/win32/api/mfcaptureengine/nn-mfcaptureengine-imfcaptureengineonsamplecallback2
  * @namespace Windows.Win32.Media.MediaFoundation
- * @version v4.0.30319
  */
-class IMFCaptureEngineOnSampleCallback2 extends IMFCaptureEngineOnSampleCallback{
+class IMFCaptureEngineOnSampleCallback2 extends IMFCaptureEngineOnSampleCallback {
 
     static sizeof => A_PtrSize
     /**

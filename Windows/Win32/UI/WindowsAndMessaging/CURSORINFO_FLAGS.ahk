@@ -3,9 +3,8 @@
 
 /**
  * @namespace Windows.Win32.UI.WindowsAndMessaging
- * @version v4.0.30319
  */
-class CURSORINFO_FLAGS extends Win32Enum{
+class CURSORINFO_FLAGS extends Win32Enum {
 
     /**
      * @type {Integer (UInt32)}

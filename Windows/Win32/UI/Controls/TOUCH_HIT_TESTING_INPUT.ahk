@@ -7,10 +7,8 @@
  * Contains information about the touch contact area reported by the touch digitizer.
  * @see https://learn.microsoft.com/windows/win32/api/winuser/ns-winuser-touch_hit_testing_input
  * @namespace Windows.Win32.UI.Controls
- * @version v4.0.30319
  */
-class TOUCH_HIT_TESTING_INPUT extends Win32Struct
-{
+class TOUCH_HIT_TESTING_INPUT extends Win32Struct {
     static sizeof => 48
 
     static packingSize => 4
@@ -28,7 +26,7 @@ class TOUCH_HIT_TESTING_INPUT extends Win32Struct
      * The screen coordinates of the touch point that the touch digitizer reports.
      * @type {POINT}
      */
-    point{
+    point {
         get {
             if(!this.HasProp("__point"))
                 this.__point := POINT(4, this)
@@ -49,7 +47,7 @@ class TOUCH_HIT_TESTING_INPUT extends Win32Struct
      * <div> </div>
      * @type {RECT}
      */
-    boundingBox{
+    boundingBox {
         get {
             if(!this.HasProp("__boundingBox"))
                 this.__boundingBox := RECT(12, this)
@@ -61,7 +59,7 @@ class TOUCH_HIT_TESTING_INPUT extends Win32Struct
      * The touch contact area within a specific targeted window that's not occluded by other objects that are higher in the z-order. Any area that's occluded by another object is an invalid target.
      * @type {RECT}
      */
-    nonOccludedBoundingBox{
+    nonOccludedBoundingBox {
         get {
             if(!this.HasProp("__nonOccludedBoundingBox"))
                 this.__nonOccludedBoundingBox := RECT(28, this)

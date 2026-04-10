@@ -7,9 +7,8 @@
  * Exposes methods that provide access to the ProgID associated with an object.
  * @see https://learn.microsoft.com/windows/win32/api/shobjidl_core/nn-shobjidl_core-iobjectwithprogid
  * @namespace Windows.Win32.UI.Shell
- * @version v4.0.30319
  */
-class IObjectWithProgID extends IUnknown{
+class IObjectWithProgID extends IUnknown {
 
     static sizeof => A_PtrSize
     /**

@@ -5,9 +5,8 @@
 
 /**
  * @namespace Windows.Win32.System.WinRT
- * @version v4.0.30319
  */
-class ICoreWindowComponentInterop extends IUnknown{
+class ICoreWindowComponentInterop extends IUnknown {
 
     static sizeof => A_PtrSize
     /**

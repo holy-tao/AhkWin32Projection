@@ -9,9 +9,8 @@
  * For more information about connectors and subunits, see <a href="https://docs.microsoft.com/windows/desktop/CoreAudio/device-topologies">Device Topologies</a>.
  * @see https://learn.microsoft.com/windows/win32/api/devicetopology/ne-devicetopology-parttype
  * @namespace Windows.Win32.Media.Audio
- * @version v4.0.30319
  */
-class PartType extends Win32Enum{
+class PartType extends Win32Enum {
 
     /**
      * The part is a connector. A connector can represent an audio jack, an internal connection to an integrated endpoint device, or a software connection implemented through DMA transfers. For more information about connector types, see <a href="https://docs.microsoft.com/windows/win32/api/devicetopology/ne-devicetopology-connectortype">ConnectorType Enumeration</a>.

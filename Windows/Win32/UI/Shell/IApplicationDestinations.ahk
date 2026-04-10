@@ -29,9 +29,8 @@
  * <b>IApplicationDestinations</b> methods are used only with the automatically generated <b>Recent</b> or <b>Frequent</b> categories. They do not remove items that the user has pinned to the Jump List. Those items cannot be removed programmatically; only the user can remove them. These methods also have no effect on <a href="https://docs.microsoft.com/windows/desktop/api/shobjidl_core/nn-shobjidl_core-icustomdestinationlist">custom categories</a> or the task list.
  * @see https://learn.microsoft.com/windows/win32/api/shobjidl_core/nn-shobjidl_core-iapplicationdestinations
  * @namespace Windows.Win32.UI.Shell
- * @version v4.0.30319
  */
-class IApplicationDestinations extends IUnknown{
+class IApplicationDestinations extends IUnknown {
 
     static sizeof => A_PtrSize
     /**

@@ -1,19 +1,18 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\..\Win32Struct.ahk
+#Include .\KERB_PROTOCOL_MESSAGE_TYPE.ahk
 #Include ..\..\..\Foundation\LUID.ahk
 
 /**
  * @namespace Windows.Win32.Security.Authentication.Identity
- * @version v4.0.30319
  */
-class KERB_TRANSFER_CRED_REQUEST extends Win32Struct
-{
+class KERB_TRANSFER_CRED_REQUEST extends Win32Struct {
     static sizeof => 24
 
     static packingSize => 4
 
     /**
-     * @type {Integer}
+     * @type {KERB_PROTOCOL_MESSAGE_TYPE}
      */
     MessageType {
         get => NumGet(this, 0, "int")
@@ -23,7 +22,7 @@ class KERB_TRANSFER_CRED_REQUEST extends Win32Struct
     /**
      * @type {LUID}
      */
-    OriginLogonId{
+    OriginLogonId {
         get {
             if(!this.HasProp("__OriginLogonId"))
                 this.__OriginLogonId := LUID(4, this)
@@ -34,7 +33,7 @@ class KERB_TRANSFER_CRED_REQUEST extends Win32Struct
     /**
      * @type {LUID}
      */
-    DestinationLogonId{
+    DestinationLogonId {
         get {
             if(!this.HasProp("__DestinationLogonId"))
                 this.__DestinationLogonId := LUID(12, this)

@@ -1,6 +1,7 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
 #Include .\EMR.ahk
+#Include .\ENHANCED_METAFILE_RECORD_TYPE.ahk
 #Include ..\..\Foundation\RECTL.ahk
 #Include ..\..\Foundation\POINTL.ahk
 
@@ -8,19 +9,17 @@
  * The EMRPOLYLINE, EMRPOLYBEZIER, EMRPOLYGON, EMRPOLYBEZIERTO, and EMRPOLYLINETO structures contain members for the Polyline, PolyBezier, Polygon, PolyBezierTo, and PolylineTo enhanced metafile records.
  * @see https://learn.microsoft.com/windows/win32/api/wingdi/ns-wingdi-emrpolyline
  * @namespace Windows.Win32.Graphics.Gdi
- * @version v4.0.30319
  */
-class EMRPOLYLINE extends Win32Struct
-{
-    static sizeof => 40
+class EMRPOLYLINE extends Win32Struct {
+    static sizeof => 36
 
-    static packingSize => 8
+    static packingSize => 4
 
     /**
      * Base structure for all record types.
      * @type {EMR}
      */
-    emr{
+    emr {
         get {
             if(!this.HasProp("__emr"))
                 this.__emr := EMR(0, this)
@@ -32,7 +31,7 @@ class EMRPOLYLINE extends Win32Struct
      * Bounding rectangle, in device units.
      * @type {RECTL}
      */
-    rclBounds{
+    rclBounds {
         get {
             if(!this.HasProp("__rclBounds"))
                 this.__rclBounds := RECTL(8, this)
@@ -51,12 +50,12 @@ class EMRPOLYLINE extends Win32Struct
 
     /**
      * Array of 32-bit points, in logical units.
-     * @type {Array<POINTL>}
+     * @type {POINTL}
      */
-    aptl{
+    aptl {
         get {
             if(!this.HasProp("__aptlProxyArray"))
-                this.__aptlProxyArray := Win32FixedArray(this.ptr + 32, 1, POINTL, "")
+                this.__aptlProxyArray := Win32FixedArray(this.ptr + 28, 1, POINTL, "")
             return this.__aptlProxyArray
         }
     }

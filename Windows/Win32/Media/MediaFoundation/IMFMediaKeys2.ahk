@@ -1,14 +1,13 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
-#Include .\IMFMediaKeySession2.ahk
 #Include .\IMFMediaKeys.ahk
+#Include .\IMFMediaKeySession2.ahk
 
 /**
  * @namespace Windows.Win32.Media.MediaFoundation
- * @version v4.0.30319
  */
-class IMFMediaKeys2 extends IMFMediaKeys{
+class IMFMediaKeys2 extends IMFMediaKeys {
 
     static sizeof => A_PtrSize
     /**
@@ -31,7 +30,7 @@ class IMFMediaKeys2 extends IMFMediaKeys{
 
     /**
      * 
-     * @param {Integer} eSessionType 
+     * @param {MF_MEDIAKEYSESSION_TYPE} eSessionType 
      * @param {IMFMediaKeySessionNotify2} pMFMediaKeySessionNotify2 
      * @returns {IMFMediaKeySession2} 
      */
@@ -42,7 +41,7 @@ class IMFMediaKeys2 extends IMFMediaKeys{
 
     /**
      * 
-     * @param {Pointer} pbServerCertificate 
+     * @param {Integer} pbServerCertificate 
      * @param {Integer} cb 
      * @returns {HRESULT} 
      */

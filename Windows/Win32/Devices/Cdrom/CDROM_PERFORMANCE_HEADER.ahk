@@ -3,18 +3,16 @@
 
 /**
  * @namespace Windows.Win32.Devices.Cdrom
- * @version v4.0.30319
  */
-class CDROM_PERFORMANCE_HEADER extends Win32Struct
-{
+class CDROM_PERFORMANCE_HEADER extends Win32Struct {
     static sizeof => 9
 
     static packingSize => 1
 
     /**
-     * @type {Array<Byte>}
+     * @type {Array<Integer>}
      */
-    DataLength{
+    DataLength {
         get {
             if(!this.HasProp("__DataLengthProxyArray"))
                 this.__DataLengthProxyArray := Win32FixedArray(this.ptr + 0, 4, Primitive, "char")
@@ -59,9 +57,9 @@ class CDROM_PERFORMANCE_HEADER extends Win32Struct
     }
 
     /**
-     * @type {Array<Byte>}
+     * @type {Array<Integer>}
      */
-    Reserved2{
+    Reserved2 {
         get {
             if(!this.HasProp("__Reserved2ProxyArray"))
                 this.__Reserved2ProxyArray := Win32FixedArray(this.ptr + 5, 3, Primitive, "char")
@@ -70,9 +68,9 @@ class CDROM_PERFORMANCE_HEADER extends Win32Struct
     }
 
     /**
-     * @type {Array<Byte>}
+     * @type {Array<Integer>}
      */
-    Data{
+    Data {
         get {
             if(!this.HasProp("__DataProxyArray"))
                 this.__DataProxyArray := Win32FixedArray(this.ptr + 8, 1, Primitive, "char")

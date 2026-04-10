@@ -7,9 +7,8 @@
  * If no flags are set (the default case), the source filter is assumed to be live and not to perform any rate matching on its own.
  * @see https://learn.microsoft.com/windows/win32/api/strmif/ne-strmif-_am_pushsource_flags
  * @namespace Windows.Win32.Media.DirectShow
- * @version v4.0.30319
  */
-class _AM_PUSHSOURCE_FLAGS extends Win32Enum{
+class _AM_PUSHSOURCE_FLAGS extends Win32Enum {
 
     /**
      * The filter uses its own rate-matching mechanism; the renderer should therefore not attempt to match rates with this filter.
@@ -36,7 +35,6 @@ class _AM_PUSHSOURCE_FLAGS extends Win32Enum{
     static AM_PUSHSOURCEREQS_USE_STREAM_CLOCK => 65536
 
     /**
-     * 
      * @type {Integer (Int32)}
      */
     static AM_PUSHSOURCEREQS_USE_CLOCK_CHAIN => 131072

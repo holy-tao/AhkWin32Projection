@@ -5,10 +5,8 @@
  * Defines an IPv6 client class ID.
  * @see https://learn.microsoft.com/windows/win32/api/dhcpv6csdk/ns-dhcpv6csdk-dhcpv6capi_classid
  * @namespace Windows.Win32.NetworkManagement.Dhcp
- * @version v4.0.30319
  */
-class DHCPV6CAPI_CLASSID extends Win32Struct
-{
+class DHCPV6CAPI_CLASSID extends Win32Struct {
     static sizeof => 24
 
     static packingSize => 8
@@ -32,7 +30,6 @@ class DHCPV6CAPI_CLASSID extends Win32Struct
     }
 
     /**
-     * 
      * @type {Integer}
      */
     nBytesData {

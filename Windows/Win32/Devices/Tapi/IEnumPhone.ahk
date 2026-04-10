@@ -1,17 +1,15 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
-#Include .\ITPhone.ahk
-#Include .\IEnumPhone.ahk
 #Include ..\..\System\Com\IUnknown.ahk
+#Include .\ITPhone.ahk
 
 /**
  * The IEnumPhone interface provides COM-standard enumeration methods for the ITPhone interface. The ITAddress2::EnumeratePhones and ITTAPI2::EnumeratePhones methods return a pointer to IEnumPhone.
  * @see https://learn.microsoft.com/windows/win32/api/tapi3if/nn-tapi3if-ienumphone
  * @namespace Windows.Win32.Devices.Tapi
- * @version v4.0.30319
  */
-class IEnumPhone extends IUnknown{
+class IEnumPhone extends IUnknown {
 
     static sizeof => A_PtrSize
     /**

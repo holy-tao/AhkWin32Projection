@@ -1,14 +1,13 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
+#Include .\SYSTEM_POWER_STATE.ahk
 
 /**
  * Contains global computer power policy settings that apply to all power schemes for all users.
  * @see https://learn.microsoft.com/windows/win32/api/powrprof/ns-powrprof-global_machine_power_policy
  * @namespace Windows.Win32.System.Power
- * @version v4.0.30319
  */
-class GLOBAL_MACHINE_POWER_POLICY extends Win32Struct
-{
+class GLOBAL_MACHINE_POWER_POLICY extends Win32Struct {
     static sizeof => 16
 
     static packingSize => 4
@@ -32,7 +31,7 @@ class GLOBAL_MACHINE_POWER_POLICY extends Win32Struct
      *       <a href="https://docs.microsoft.com/windows/desktop/api/winnt/ne-winnt-system_power_state">SYSTEM_POWER_STATE</a> enumeration type values. A value 
      *       of <b>PowerSystemUnspecified</b> indicates that a lid-open event does not wake the 
      *       system.
-     * @type {Integer}
+     * @type {SYSTEM_POWER_STATE}
      */
     LidOpenWakeAc {
         get => NumGet(this, 4, "int")
@@ -45,7 +44,7 @@ class GLOBAL_MACHINE_POWER_POLICY extends Win32Struct
      *       <a href="https://docs.microsoft.com/windows/desktop/api/winnt/ne-winnt-system_power_state">SYSTEM_POWER_STATE</a> enumeration type values. A value 
      *       of <b>PowerSystemUnspecified</b> indicates that a lid-open event does not wake the 
      *       system.
-     * @type {Integer}
+     * @type {SYSTEM_POWER_STATE}
      */
     LidOpenWakeDc {
         get => NumGet(this, 8, "int")

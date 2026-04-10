@@ -2,15 +2,14 @@
 #Include ..\..\..\..\Win32Struct.ahk
 #Include .\HCERTCHAINENGINE.ahk
 #Include .\HCERTSTORE.ahk
+#Include ..\..\Foundation\FILETIME.ahk
 
 /**
  * Contains parameters used for building a chain for an independent online certificate status protocol (OCSP) response signer certificate.
  * @see https://learn.microsoft.com/windows/win32/api/wincrypt/ns-wincrypt-cert_revocation_chain_para
  * @namespace Windows.Win32.Security.Cryptography
- * @version v4.0.30319
  */
-class CERT_REVOCATION_CHAIN_PARA extends Win32Struct
-{
+class CERT_REVOCATION_CHAIN_PARA extends Win32Struct {
     static sizeof => 56
 
     static packingSize => 8
@@ -28,7 +27,7 @@ class CERT_REVOCATION_CHAIN_PARA extends Win32Struct
      * A handle to the chain engine used by the caller.
      * @type {HCERTCHAINENGINE}
      */
-    hChainEngine{
+    hChainEngine {
         get {
             if(!this.HasProp("__hChainEngine"))
                 this.__hChainEngine := HCERTCHAINENGINE(8, this)
@@ -40,7 +39,7 @@ class CERT_REVOCATION_CHAIN_PARA extends Win32Struct
      * A handle to a store that contains the certificates used to build the original chain. The handle can be <b>NULL</b>.
      * @type {HCERTSTORE}
      */
-    hAdditionalStore{
+    hAdditionalStore {
         get {
             if(!this.HasProp("__hAdditionalStore"))
                 this.__hAdditionalStore := HCERTSTORE(16, this)

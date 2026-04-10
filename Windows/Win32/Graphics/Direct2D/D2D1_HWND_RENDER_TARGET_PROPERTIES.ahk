@@ -2,6 +2,7 @@
 #Include ..\..\..\..\Win32Struct.ahk
 #Include ..\..\Foundation\HWND.ahk
 #Include Common\D2D_SIZE_U.ahk
+#Include .\D2D1_PRESENT_OPTIONS.ahk
 
 /**
  * Contains the HWND, pixel size, and presentation options for an ID2D1HwndRenderTarget.
@@ -11,10 +12,8 @@
  * For convenience, Direct2D provides the <a href="https://docs.microsoft.com/windows/win32/api/d2d1helper/nf-d2d1helper-hwndrendertargetproperties">D2D1::HwndRenderTargetProperties</a> function for creating new <b>D2D1_HWND_RENDER_TARGET_PROPERTIES</b> structures.
  * @see https://learn.microsoft.com/windows/win32/api/d2d1/ns-d2d1-d2d1_hwnd_render_target_properties
  * @namespace Windows.Win32.Graphics.Direct2D
- * @version v4.0.30319
  */
-class D2D1_HWND_RENDER_TARGET_PROPERTIES extends Win32Struct
-{
+class D2D1_HWND_RENDER_TARGET_PROPERTIES extends Win32Struct {
     static sizeof => 24
 
     static packingSize => 8
@@ -25,7 +24,7 @@ class D2D1_HWND_RENDER_TARGET_PROPERTIES extends Win32Struct
      * The HWND to which the render target issues the output from its drawing commands.
      * @type {HWND}
      */
-    hwnd{
+    hwnd {
         get {
             if(!this.HasProp("__hwnd"))
                 this.__hwnd := HWND(0, this)
@@ -39,7 +38,7 @@ class D2D1_HWND_RENDER_TARGET_PROPERTIES extends Win32Struct
      * The size of the render target, in pixels.
      * @type {D2D_SIZE_U}
      */
-    pixelSize{
+    pixelSize {
         get {
             if(!this.HasProp("__pixelSize"))
                 this.__pixelSize := D2D_SIZE_U(8, this)
@@ -51,7 +50,7 @@ class D2D1_HWND_RENDER_TARGET_PROPERTIES extends Win32Struct
      * Type: <b><a href="https://docs.microsoft.com/windows/win32/api/d2d1/ne-d2d1-d2d1_present_options">D2D1_PRESENT_OPTIONS</a></b>
      * 
      * A value that specifies whether the render target retains the frame after it is presented and whether the render target waits for the device to refresh before presenting.
-     * @type {Integer}
+     * @type {D2D1_PRESENT_OPTIONS}
      */
     presentOptions {
         get => NumGet(this, 16, "int")

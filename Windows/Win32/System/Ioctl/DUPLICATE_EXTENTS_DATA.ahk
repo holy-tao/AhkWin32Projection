@@ -6,10 +6,8 @@
  * Contains parameters for the FSCTL_DUPLICATE_EXTENTS control code that performs the Block Cloning operation.
  * @see https://learn.microsoft.com/windows/win32/api/winioctl/ns-winioctl-duplicate_extents_data
  * @namespace Windows.Win32.System.Ioctl
- * @version v4.0.30319
  */
-class DUPLICATE_EXTENTS_DATA extends Win32Struct
-{
+class DUPLICATE_EXTENTS_DATA extends Win32Struct {
     static sizeof => 32
 
     static packingSize => 8
@@ -19,7 +17,7 @@ class DUPLICATE_EXTENTS_DATA extends Win32Struct
      * To retrieve a file handle, use the <a href="https://docs.microsoft.com/windows/desktop/api/fileapi/nf-fileapi-createfilea">CreateFile</a> function.
      * @type {HANDLE}
      */
-    FileHandle{
+    FileHandle {
         get {
             if(!this.HasProp("__FileHandle"))
                 this.__FileHandle := HANDLE(0, this)

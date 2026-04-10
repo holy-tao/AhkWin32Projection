@@ -1,6 +1,7 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
 #Include .\WLAN_PHY_RADIO_STATE.ahk
+#Include .\DOT11_RADIO_STATE.ahk
 
 /**
  * Specifies the radio state on a list of physical layer (PHY) types.
@@ -12,13 +13,11 @@
  * The <a href="https://docs.microsoft.com/windows/desktop/api/wlanapi/ns-wlanapi-wlan_phy_radio_state">WLAN_PHY_RADIO_STATE</a> structure is also used for  notification by the media specific module (MSM) when the radio state changes. An application registers to receive MSM notifications by calling the <a href="https://docs.microsoft.com/windows/desktop/api/wlanapi/nf-wlanapi-wlanregisternotification">WlanRegisterNotification</a> function with the <i>dwNotifSource</i> parameter set to a value that includes <b>WLAN_NOTIFICATION_SOURCE_MSM</b>. For more information on these notifications, see the <a href="https://docs.microsoft.com/previous-versions/windows/desktop/legacy/ms706902(v=vs.85)">WLAN_NOTIFICATION_DATA</a> structure and the <a href="https://docs.microsoft.com/windows/win32/api/wlanapi/ne-wlanapi-wlan_notification_msm-r1">WLAN_NOTIFICATION_MSM</a> enumeration reference.
  * @see https://learn.microsoft.com/windows/win32/api/wlanapi/ns-wlanapi-wlan_radio_state
  * @namespace Windows.Win32.NetworkManagement.WiFi
- * @version v4.0.30319
  */
-class WLAN_RADIO_STATE extends Win32Struct
-{
-    static sizeof => 520
+class WLAN_RADIO_STATE extends Win32Struct {
+    static sizeof => 772
 
-    static packingSize => 8
+    static packingSize => 4
 
     /**
      * The number of valid PHY indices in the <b>PhyRadioState</b> member.
@@ -31,12 +30,12 @@ class WLAN_RADIO_STATE extends Win32Struct
 
     /**
      * An array of <a href="https://docs.microsoft.com/windows/desktop/api/wlanapi/ns-wlanapi-wlan_phy_radio_state">WLAN_PHY_RADIO_STATE</a> structures that specify the radio states of a number of PHY indices. Only the first <b>dwNumberOfPhys</b> entries in this array are valid.
-     * @type {Array<WLAN_PHY_RADIO_STATE>}
+     * @type {WLAN_PHY_RADIO_STATE}
      */
-    PhyRadioState{
+    PhyRadioState {
         get {
             if(!this.HasProp("__PhyRadioStateProxyArray"))
-                this.__PhyRadioStateProxyArray := Win32FixedArray(this.ptr + 8, 64, WLAN_PHY_RADIO_STATE, "")
+                this.__PhyRadioStateProxyArray := Win32FixedArray(this.ptr + 4, 64, WLAN_PHY_RADIO_STATE, "")
             return this.__PhyRadioStateProxyArray
         }
     }

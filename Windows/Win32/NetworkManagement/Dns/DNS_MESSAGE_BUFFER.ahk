@@ -12,10 +12,8 @@
  * 	 method should be used to write a DNS query into a <b>DNS_MESSAGE_BUFFER</b> structure and the <a href="https://docs.microsoft.com/windows/desktop/api/windns/nf-windns-dnsextractrecordsfrommessage_utf8">DnsExtractRecordsFromMessage</a> method should be used to read the DNS RRs from a <b>DNS_MESSAGE_BUFFER</b>.
  * @see https://learn.microsoft.com/windows/win32/api/windns/ns-windns-dns_message_buffer
  * @namespace Windows.Win32.NetworkManagement.Dns
- * @version v4.0.30319
  */
-class DNS_MESSAGE_BUFFER extends Win32Struct
-{
+class DNS_MESSAGE_BUFFER extends Win32Struct {
     static sizeof => 14
 
     static packingSize => 2
@@ -24,7 +22,7 @@ class DNS_MESSAGE_BUFFER extends Win32Struct
      * A <a href="https://docs.microsoft.com/windows/desktop/api/windns/ns-windns-dns_header">DNS_HEADER</a> structure that contains the header for the DNS message.
      * @type {DNS_HEADER}
      */
-    MessageHead{
+    MessageHead {
         get {
             if(!this.HasProp("__MessageHead"))
                 this.__MessageHead := DNS_HEADER(0, this)
@@ -37,7 +35,7 @@ class DNS_MESSAGE_BUFFER extends Win32Struct
      * @type {String}
      */
     MessageBody {
-        get => StrGet(this.ptr + 12, 0, "UTF-16")
-        set => StrPut(value, this.ptr + 12, 0, "UTF-16")
+        get => StrGet(this.ptr + 12, 0, "UTF-8")
+        set => StrPut(value, this.ptr + 12, 0, "UTF-8")
     }
 }

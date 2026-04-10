@@ -7,9 +7,8 @@
  * Provides access to attribute values of the application.
  * @see https://learn.microsoft.com/windows/win32/api/appxpackaging/nn-appxpackaging-iappxmanifestapplication
  * @namespace Windows.Win32.Storage.Packaging.Appx
- * @version v4.0.30319
  */
-class IAppxManifestApplication extends IUnknown{
+class IAppxManifestApplication extends IUnknown {
 
     static sizeof => A_PtrSize
     /**

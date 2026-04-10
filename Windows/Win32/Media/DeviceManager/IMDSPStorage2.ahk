@@ -7,9 +7,8 @@
  * The IMDSPStorage2 interface extends IMDSPStorage by providing methods for getting and setting extended attributes and making it possible to get a pointer to a storage medium from its name.
  * @see https://learn.microsoft.com/windows/win32/api/mswmdm/nn-mswmdm-imdspstorage2
  * @namespace Windows.Win32.Media.DeviceManager
- * @version v4.0.30319
  */
-class IMDSPStorage2 extends IMDSPStorage{
+class IMDSPStorage2 extends IMDSPStorage {
 
     static sizeof => A_PtrSize
     /**

@@ -3,18 +3,16 @@
 
 /**
  * @namespace Windows.Win32.Security.Cryptography
- * @version v4.0.30319
  */
-class CRYPT_RC4_KEY_STATE extends Win32Struct
-{
+class CRYPT_RC4_KEY_STATE extends Win32Struct {
     static sizeof => 274
 
     static packingSize => 1
 
     /**
-     * @type {Array<Byte>}
+     * @type {Array<Integer>}
      */
-    Key{
+    Key {
         get {
             if(!this.HasProp("__KeyProxyArray"))
                 this.__KeyProxyArray := Win32FixedArray(this.ptr + 0, 16, Primitive, "char")
@@ -23,9 +21,9 @@ class CRYPT_RC4_KEY_STATE extends Win32Struct
     }
 
     /**
-     * @type {Array<Byte>}
+     * @type {Array<Integer>}
      */
-    SBox{
+    SBox {
         get {
             if(!this.HasProp("__SBoxProxyArray"))
                 this.__SBoxProxyArray := Win32FixedArray(this.ptr + 16, 256, Primitive, "char")

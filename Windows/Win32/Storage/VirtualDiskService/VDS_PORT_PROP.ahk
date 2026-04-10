@@ -1,5 +1,6 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
+#Include .\VDS_PORT_STATUS.ahk
 
 /**
  * The VDS_PORT_PROP structure (vdshwprv.h) defines the properties of a port on a controller object.
@@ -9,17 +10,15 @@
  *     method returns this structure to report the property details of a port on a controller object.
  * @see https://learn.microsoft.com/windows/win32/api/vdshwprv/ns-vdshwprv-vds_port_prop
  * @namespace Windows.Win32.Storage.VirtualDiskService
- * @version v4.0.30319
  */
-class VDS_PORT_PROP extends Win32Struct
-{
+class VDS_PORT_PROP extends Win32Struct {
     static sizeof => 32
 
     static packingSize => 8
 
     /**
      * The <b>VDS_OBJECT_ID</b> assigned to the port.
-     * @type {Pointer<Guid>}
+     * @type {Pointer}
      */
     id {
         get => NumGet(this, 0, "ptr")
@@ -50,7 +49,7 @@ class VDS_PORT_PROP extends Win32Struct
     /**
      * The status of the port enumerated by 
      *       <a href="https://docs.microsoft.com/windows/desktop/api/vdshwprv/ne-vdshwprv-vds_port_status">VDS_PORT_STATUS</a>.
-     * @type {Integer}
+     * @type {VDS_PORT_STATUS}
      */
     status {
         get => NumGet(this, 24, "int")

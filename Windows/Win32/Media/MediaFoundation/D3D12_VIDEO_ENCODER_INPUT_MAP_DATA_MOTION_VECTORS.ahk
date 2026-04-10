@@ -1,14 +1,18 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
 #Include .\D3D12_VIDEO_ENCODER_FRAME_MOTION_SEARCH_MODE_CONFIG.ahk
+#Include .\D3D12_VIDEO_ENCODER_FRAME_MOTION_SEARCH_MODE.ahk
+#Include ..\..\Graphics\Direct3D12\ID3D12Resource.ahk
+#Include .\D3D12_VIDEO_ENCODER_FRAME_INPUT_MOTION_UNIT_PRECISION.ahk
 #Include .\D3D12_VIDEO_ENCODER_PICTURE_CONTROL_CODEC_DATA1.ahk
+#Include .\D3D12_VIDEO_ENCODER_PICTURE_CONTROL_CODEC_DATA_H264.ahk
+#Include .\D3D12_VIDEO_ENCODER_PICTURE_CONTROL_CODEC_DATA_HEVC2.ahk
+#Include .\D3D12_VIDEO_ENCODER_AV1_PICTURE_CONTROL_CODEC_DATA.ahk
 
 /**
  * @namespace Windows.Win32.Media.MediaFoundation
- * @version v4.0.30319
  */
-class D3D12_VIDEO_ENCODER_INPUT_MAP_DATA_MOTION_VECTORS extends Win32Struct
-{
+class D3D12_VIDEO_ENCODER_INPUT_MAP_DATA_MOTION_VECTORS extends Win32Struct {
     static sizeof => 72
 
     static packingSize => 8
@@ -16,7 +20,7 @@ class D3D12_VIDEO_ENCODER_INPUT_MAP_DATA_MOTION_VECTORS extends Win32Struct
     /**
      * @type {D3D12_VIDEO_ENCODER_FRAME_MOTION_SEARCH_MODE_CONFIG}
      */
-    MotionSearchModeConfiguration{
+    MotionSearchModeConfiguration {
         get {
             if(!this.HasProp("__MotionSearchModeConfiguration"))
                 this.__MotionSearchModeConfiguration := D3D12_VIDEO_ENCODER_FRAME_MOTION_SEARCH_MODE_CONFIG(0, this)
@@ -65,7 +69,7 @@ class D3D12_VIDEO_ENCODER_INPUT_MAP_DATA_MOTION_VECTORS extends Win32Struct
     }
 
     /**
-     * @type {Integer}
+     * @type {D3D12_VIDEO_ENCODER_FRAME_INPUT_MOTION_UNIT_PRECISION}
      */
     MotionUnitPrecision {
         get => NumGet(this, 48, "int")
@@ -75,7 +79,7 @@ class D3D12_VIDEO_ENCODER_INPUT_MAP_DATA_MOTION_VECTORS extends Win32Struct
     /**
      * @type {D3D12_VIDEO_ENCODER_PICTURE_CONTROL_CODEC_DATA1}
      */
-    PictureControlConfiguration{
+    PictureControlConfiguration {
         get {
             if(!this.HasProp("__PictureControlConfiguration"))
                 this.__PictureControlConfiguration := D3D12_VIDEO_ENCODER_PICTURE_CONTROL_CODEC_DATA1(56, this)

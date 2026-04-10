@@ -3,10 +3,8 @@
 
 /**
  * @namespace Windows.Win32.System.Com.Urlmon
- * @version v4.0.30319
  */
-class CODEBASEHOLD extends Win32Struct
-{
+class CODEBASEHOLD extends Win32Struct {
     static sizeof => 40
 
     static packingSize => 8

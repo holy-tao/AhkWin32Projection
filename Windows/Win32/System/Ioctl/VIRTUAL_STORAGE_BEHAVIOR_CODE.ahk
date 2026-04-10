@@ -3,9 +3,8 @@
 
 /**
  * @namespace Windows.Win32.System.Ioctl
- * @version v4.0.30319
  */
-class VIRTUAL_STORAGE_BEHAVIOR_CODE extends Win32Enum{
+class VIRTUAL_STORAGE_BEHAVIOR_CODE extends Win32Enum {
 
     /**
      * @type {Integer (Int32)}

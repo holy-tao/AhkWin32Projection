@@ -1,17 +1,15 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
-#Include .\IBitsPeerCacheRecord.ahk
-#Include .\IEnumBitsPeerCacheRecords.ahk
 #Include ..\..\System\Com\IUnknown.ahk
+#Include .\IBitsPeerCacheRecord.ahk
 
 /**
  * Use IEnumBitsPeerCacheRecords to enumerate the records of the cache.
  * @see https://learn.microsoft.com/windows/win32/api/bits3_0/nn-bits3_0-ienumbitspeercacherecords
  * @namespace Windows.Win32.Networking.BackgroundIntelligentTransferService
- * @version v4.0.30319
  */
-class IEnumBitsPeerCacheRecords extends IUnknown{
+class IEnumBitsPeerCacheRecords extends IUnknown {
 
     static sizeof => A_PtrSize
     /**

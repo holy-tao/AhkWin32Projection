@@ -1,5 +1,6 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
+#Include .\INTERNAL_IF_OPER_STATUS.ahk
 
 /**
  * Stores information about a particular interface. (MIB_IFROW)
@@ -9,10 +10,8 @@
  * On the Microsoft Windows Software Development Kit (SDK) released for Windows Vista and later, the organization of header files has changed and the <b>MIB_IFROW</b> structure is defined in the <i>Ifmib.h</i> header file not in the <i>Iprtrmib.h</i> header file. Note that the <i>Ifmib.h</i> header file is automatically included in <i>Iprtrmib.h</i> which is automatically included in the <i>Iphlpapi.h</i> header file. The  <i>Ifmib.h</i> and <i>Iprtrmib.h</i> header files should never be used directly.
  * @see https://learn.microsoft.com/windows/win32/api/ifmib/ns-ifmib-mib_ifrow
  * @namespace Windows.Win32.NetworkManagement.IpHelper
- * @version v4.0.30319
  */
-class MIB_IFROW extends Win32Struct
-{
+class MIB_IFROW extends Win32Struct {
     static sizeof => 860
 
     static packingSize => 4
@@ -245,9 +244,9 @@ class MIB_IFROW extends Win32Struct
      * Type: <b>BYTE[MAXLEN_PHYSADDR]</b>
      * 
      * The physical address of the adapter for this interface.
-     * @type {Array<Byte>}
+     * @type {Array<Integer>}
      */
-    bPhysAddr{
+    bPhysAddr {
         get {
             if(!this.HasProp("__bPhysAddrProxyArray"))
                 this.__bPhysAddrProxyArray := Win32FixedArray(this.ptr + 532, 8, Primitive, "char")
@@ -268,7 +267,7 @@ class MIB_IFROW extends Win32Struct
 
     /**
      * Type: <b>DWORD</b>
-     * @type {Integer}
+     * @type {INTERNAL_IF_OPER_STATUS}
      */
     dwOperStatus {
         get => NumGet(this, 544, "int")
@@ -435,9 +434,9 @@ class MIB_IFROW extends Win32Struct
      * Type: <b>BYTE[MAXLEN_IFDESCR]</b>
      * 
      * A description of the interface.
-     * @type {Array<Byte>}
+     * @type {Array<Integer>}
      */
-    bDescr{
+    bDescr {
         get {
             if(!this.HasProp("__bDescrProxyArray"))
                 this.__bDescrProxyArray := Win32FixedArray(this.ptr + 604, 256, Primitive, "char")

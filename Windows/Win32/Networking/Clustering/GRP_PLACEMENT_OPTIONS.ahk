@@ -3,9 +3,8 @@
 
 /**
  * @namespace Windows.Win32.Networking.Clustering
- * @version v4.0.30319
  */
-class GRP_PLACEMENT_OPTIONS extends Win32Enum{
+class GRP_PLACEMENT_OPTIONS extends Win32Enum {
 
     /**
      * @type {Integer (Int32)}

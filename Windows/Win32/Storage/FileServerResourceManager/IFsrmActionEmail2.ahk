@@ -7,9 +7,8 @@
  * Used to limit the number of expired files listed in the email notification.
  * @see https://learn.microsoft.com/windows/win32/api/fsrm/nn-fsrm-ifsrmactionemail2
  * @namespace Windows.Win32.Storage.FileServerResourceManager
- * @version v4.0.30319
  */
-class IFsrmActionEmail2 extends IFsrmActionEmail{
+class IFsrmActionEmail2 extends IFsrmActionEmail {
 
     static sizeof => A_PtrSize
     /**

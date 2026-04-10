@@ -1,5 +1,6 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
+#Include .\D2D1_INPUT_ELEMENT_DESC.ahk
 
 /**
  * Defines a vertex shader and the input element description to define the input layout.
@@ -9,10 +10,8 @@
  * This structure does not need to be specified if one of the standard vertex shaders is used.
  * @see https://learn.microsoft.com/windows/win32/api/d2d1effectauthor/ns-d2d1effectauthor-d2d1_custom_vertex_buffer_properties
  * @namespace Windows.Win32.Graphics.Direct2D
- * @version v4.0.30319
  */
-class D2D1_CUSTOM_VERTEX_BUFFER_PROPERTIES extends Win32Struct
-{
+class D2D1_CUSTOM_VERTEX_BUFFER_PROPERTIES extends Win32Struct {
     static sizeof => 32
 
     static packingSize => 8

@@ -12,9 +12,8 @@
  * <div> </div>
  * @see https://learn.microsoft.com/windows/win32/api/vdshwprv/ne-vdshwprv-vds_port_status
  * @namespace Windows.Win32.Storage.VirtualDiskService
- * @version v4.0.30319
  */
-class VDS_PORT_STATUS extends Win32Enum{
+class VDS_PORT_STATUS extends Win32Enum {
 
     /**
      * The status of the port cannot be determined.

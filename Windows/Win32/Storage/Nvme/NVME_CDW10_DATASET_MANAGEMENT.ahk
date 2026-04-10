@@ -3,14 +3,10 @@
 
 /**
  * The NVME_CDW10_DATASET_MANAGEMENT structure contains parameters for the Dataset Management command that indicates attributes for ranges of logical blocks.
- * @remarks
- * 
  * @see https://learn.microsoft.com/windows/win32/api/nvme/ns-nvme-nvme_cdw10_dataset_management
  * @namespace Windows.Win32.Storage.Nvme
- * @version v4.0.30319
  */
-class NVME_CDW10_DATASET_MANAGEMENT extends Win32Struct
-{
+class NVME_CDW10_DATASET_MANAGEMENT extends Win32Struct {
     static sizeof => 8
 
     static packingSize => 4
@@ -35,7 +31,6 @@ class NVME_CDW10_DATASET_MANAGEMENT extends Win32Struct
     }
 
     /**
-     * 
      * @type {Integer}
      */
     AsUlong {

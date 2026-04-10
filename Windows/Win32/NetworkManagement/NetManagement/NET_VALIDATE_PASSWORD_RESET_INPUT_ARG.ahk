@@ -1,17 +1,15 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
-#Include ..\..\Foundation\FILETIME.ahk
 #Include .\NET_VALIDATE_PERSISTED_FIELDS.ahk
+#Include ..\..\Foundation\FILETIME.ahk
 #Include .\NET_VALIDATE_PASSWORD_HASH.ahk
 
 /**
  * A client application passes the NET_VALIDATE_PASSWORD_RESET_INPUT_ARG structure to the NetValidatePasswordPolicy function when the application requests a password reset validation.
  * @see https://learn.microsoft.com/windows/win32/api/lmaccess/ns-lmaccess-net_validate_password_reset_input_arg
  * @namespace Windows.Win32.NetworkManagement.NetManagement
- * @version v4.0.30319
  */
-class NET_VALIDATE_PASSWORD_RESET_INPUT_ARG extends Win32Struct
-{
+class NET_VALIDATE_PASSWORD_RESET_INPUT_ARG extends Win32Struct {
     static sizeof => 88
 
     static packingSize => 8
@@ -20,7 +18,7 @@ class NET_VALIDATE_PASSWORD_RESET_INPUT_ARG extends Win32Struct
      * Specifies a <a href="https://docs.microsoft.com/windows/desktop/api/lmaccess/ns-lmaccess-net_validate_persisted_fields">NET_VALIDATE_PERSISTED_FIELDS</a> structure that contains persistent password-related information about the account being logged on.
      * @type {NET_VALIDATE_PERSISTED_FIELDS}
      */
-    InputPersistedFields{
+    InputPersistedFields {
         get {
             if(!this.HasProp("__InputPersistedFields"))
                 this.__InputPersistedFields := NET_VALIDATE_PERSISTED_FIELDS(0, this)
@@ -50,7 +48,7 @@ class NET_VALIDATE_PASSWORD_RESET_INPUT_ARG extends Win32Struct
      * Specifies a <a href="https://docs.microsoft.com/windows/desktop/api/lmaccess/ns-lmaccess-net_validate_password_hash">NET_VALIDATE_PASSWORD_HASH</a> structure that contains a hash of the new password.
      * @type {NET_VALIDATE_PASSWORD_HASH}
      */
-    HashedPassword{
+    HashedPassword {
         get {
             if(!this.HasProp("__HashedPassword"))
                 this.__HashedPassword := NET_VALIDATE_PASSWORD_HASH(64, this)

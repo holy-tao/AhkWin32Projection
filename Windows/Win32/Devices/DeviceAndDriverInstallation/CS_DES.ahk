@@ -9,10 +9,8 @@
  * The class-specific signature identified by <b>CSD_SignatureLength</b> and <b>CSD_Signature</b> can contain additional class-specific device identification information.
  * @see https://learn.microsoft.com/windows/win32/api/cfgmgr32/ns-cfgmgr32-cs_des
  * @namespace Windows.Win32.Devices.DeviceAndDriverInstallation
- * @version v4.0.30319
  */
-class CS_DES extends Win32Struct
-{
+class CS_DES extends Win32Struct {
     static sizeof => 32
 
     static packingSize => 8
@@ -55,7 +53,7 @@ class CS_DES extends Win32Struct
 
     /**
      * A globally unique identifier (GUID) identifying a <a href="https://docs.microsoft.com/windows-hardware/drivers/install/overview-of-device-setup-classes">device setup class</a>. If both <b>CSD_SignatureLength</b> and <b>CSD_LegacyDataSize</b> are zero, the GUID is null.
-     * @type {Pointer<Guid>}
+     * @type {Pointer}
      */
     CSD_ClassGuid {
         get => NumGet(this, 16, "ptr")
@@ -64,9 +62,9 @@ class CS_DES extends Win32Struct
 
     /**
      * A byte array containing a class-specific signature.
-     * @type {Array<Byte>}
+     * @type {Array<Integer>}
      */
-    CSD_Signature{
+    CSD_Signature {
         get {
             if(!this.HasProp("__CSD_SignatureProxyArray"))
                 this.__CSD_SignatureProxyArray := Win32FixedArray(this.ptr + 24, 1, Primitive, "char")

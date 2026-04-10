@@ -1,16 +1,15 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
-#Include .\IUIAutomationTextRange.ahk
 #Include ..\..\System\Com\IUnknown.ahk
+#Include .\IUIAutomationTextRange.ahk
 
 /**
  * Represents a collection of IUIAutomationTextRange objects.
  * @see https://learn.microsoft.com/windows/win32/api/uiautomationclient/nn-uiautomationclient-iuiautomationtextrangearray
  * @namespace Windows.Win32.UI.Accessibility
- * @version v4.0.30319
  */
-class IUIAutomationTextRangeArray extends IUnknown{
+class IUIAutomationTextRangeArray extends IUnknown {
 
     static sizeof => A_PtrSize
     /**

@@ -1,14 +1,13 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
+#Include .\PMF_FLAGS.ahk
 
 /**
  * The MFCARD_DES structure is used for specifying either a resource list or a resource requirements list that describes resource usage by one of the hardware functions provided by an instance of a multifunction device.
  * @see https://learn.microsoft.com/windows/win32/api/cfgmgr32/ns-cfgmgr32-mfcard_des
  * @namespace Windows.Win32.Devices.DeviceAndDriverInstallation
- * @version v4.0.30319
  */
-class MFCARD_DES extends Win32Struct
-{
+class MFCARD_DES extends Win32Struct {
     static sizeof => 20
 
     static packingSize => 4
@@ -50,7 +49,7 @@ class MFCARD_DES extends Win32Struct
      * </td>
      * </tr>
      * </table>
-     * @type {Integer}
+     * @type {PMF_FLAGS}
      */
     PMF_Flags {
         get => NumGet(this, 8, "uint")
@@ -77,9 +76,9 @@ class MFCARD_DES extends Win32Struct
 
     /**
      * <i>Not used.</i>
-     * @type {Array<Byte>}
+     * @type {Array<Integer>}
      */
-    PMF_Reserved{
+    PMF_Reserved {
         get {
             if(!this.HasProp("__PMF_ReservedProxyArray"))
                 this.__PMF_ReservedProxyArray := Win32FixedArray(this.ptr + 14, 2, Primitive, "char")

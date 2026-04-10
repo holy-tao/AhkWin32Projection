@@ -5,9 +5,8 @@
  * Identifies each policy property and its associated value.
  * @see https://learn.microsoft.com/windows/win32/api/webservices/ne-webservices-ws_policy_property_id
  * @namespace Windows.Win32.Networking.WindowsWebServices
- * @version v4.0.30319
  */
-class WS_POLICY_PROPERTY_ID extends Win32Enum{
+class WS_POLICY_PROPERTY_ID extends Win32Enum {
 
     /**
      * This property is used with <a href="https://docs.microsoft.com/windows/desktop/api/webservices/nf-webservices-wsgetpolicyproperty">WsGetPolicyProperty</a>.

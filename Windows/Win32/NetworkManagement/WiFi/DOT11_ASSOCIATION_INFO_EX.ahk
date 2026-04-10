@@ -1,20 +1,20 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
+#Include .\DOT11_ASSOCIATION_STATE.ahk
+#Include .\DOT11_POWER_MODE.ahk
 
 /**
  * @namespace Windows.Win32.NetworkManagement.WiFi
- * @version v4.0.30319
  */
-class DOT11_ASSOCIATION_INFO_EX extends Win32Struct
-{
+class DOT11_ASSOCIATION_INFO_EX extends Win32Struct {
     static sizeof => 328
 
     static packingSize => 8
 
     /**
-     * @type {Array<Byte>}
+     * @type {Array<Integer>}
      */
-    PeerMacAddress{
+    PeerMacAddress {
         get {
             if(!this.HasProp("__PeerMacAddressProxyArray"))
                 this.__PeerMacAddressProxyArray := Win32FixedArray(this.ptr + 0, 6, Primitive, "char")
@@ -23,9 +23,9 @@ class DOT11_ASSOCIATION_INFO_EX extends Win32Struct
     }
 
     /**
-     * @type {Array<Byte>}
+     * @type {Array<Integer>}
      */
-    BSSID{
+    BSSID {
         get {
             if(!this.HasProp("__BSSIDProxyArray"))
                 this.__BSSIDProxyArray := Win32FixedArray(this.ptr + 6, 6, Primitive, "char")
@@ -50,9 +50,9 @@ class DOT11_ASSOCIATION_INFO_EX extends Win32Struct
     }
 
     /**
-     * @type {Array<Byte>}
+     * @type {Array<Integer>}
      */
-    ucPeerSupportedRates{
+    ucPeerSupportedRates {
         get {
             if(!this.HasProp("__ucPeerSupportedRatesProxyArray"))
                 this.__ucPeerSupportedRatesProxyArray := Win32FixedArray(this.ptr + 16, 255, Primitive, "char")
@@ -69,7 +69,7 @@ class DOT11_ASSOCIATION_INFO_EX extends Win32Struct
     }
 
     /**
-     * @type {Integer}
+     * @type {DOT11_ASSOCIATION_STATE}
      */
     dot11AssociationState {
         get => NumGet(this, 276, "int")
@@ -77,7 +77,7 @@ class DOT11_ASSOCIATION_INFO_EX extends Win32Struct
     }
 
     /**
-     * @type {Integer}
+     * @type {DOT11_POWER_MODE}
      */
     dot11PowerMode {
         get => NumGet(this, 280, "int")

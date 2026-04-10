@@ -1,17 +1,15 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
 #Include .\HCRYPTPROV_LEGACY.ahk
-#Include .\CRYPT_INTEGER_BLOB.ahk
 #Include .\CRYPT_ALGORITHM_IDENTIFIER.ahk
+#Include .\CRYPT_INTEGER_BLOB.ahk
 
 /**
  * Contains information used to encrypt messages.
  * @see https://learn.microsoft.com/windows/win32/api/wincrypt/ns-wincrypt-crypt_encrypt_message_para
  * @namespace Windows.Win32.Security.Cryptography
- * @version v4.0.30319
  */
-class CRYPT_ENCRYPT_MESSAGE_PARA extends Win32Struct
-{
+class CRYPT_ENCRYPT_MESSAGE_PARA extends Win32Struct {
     static sizeof => 56
 
     static packingSize => 8
@@ -54,7 +52,7 @@ class CRYPT_ENCRYPT_MESSAGE_PARA extends Win32Struct
      * This member's data type is <b>HCRYPTPROV</b>.
      * @type {HCRYPTPROV_LEGACY}
      */
-    hCryptProv{
+    hCryptProv {
         get {
             if(!this.HasProp("__hCryptProv"))
                 this.__hCryptProv := HCRYPTPROV_LEGACY(8, this)
@@ -80,7 +78,7 @@ class CRYPT_ENCRYPT_MESSAGE_PARA extends Win32Struct
      * <div> </div>
      * @type {CRYPT_ALGORITHM_IDENTIFIER}
      */
-    ContentEncryptionAlgorithm{
+    ContentEncryptionAlgorithm {
         get {
             if(!this.HasProp("__ContentEncryptionAlgorithm"))
                 this.__ContentEncryptionAlgorithm := CRYPT_ALGORITHM_IDENTIFIER(16, this)

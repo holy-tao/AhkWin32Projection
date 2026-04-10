@@ -6,10 +6,8 @@
  * Identifies the algorithm and (optionally) the value of the label for an RSAES-OAEP key encryption.
  * @see https://learn.microsoft.com/windows/win32/api/wincrypt/ns-wincrypt-crypt_psource_algorithm
  * @namespace Windows.Win32.Security.Cryptography
- * @version v4.0.30319
  */
-class CRYPT_PSOURCE_ALGORITHM extends Win32Struct
-{
+class CRYPT_PSOURCE_ALGORITHM extends Win32Struct {
     static sizeof => 24
 
     static packingSize => 8
@@ -45,7 +43,7 @@ class CRYPT_PSOURCE_ALGORITHM extends Win32Struct
      * A <a href="https://docs.microsoft.com/previous-versions/windows/desktop/legacy/aa381414(v=vs.85)">CRYPT_DATA_BLOB</a> that contains the label. This member is optional and may contain an empty BLOB.
      * @type {CRYPT_INTEGER_BLOB}
      */
-    EncodingParameters{
+    EncodingParameters {
         get {
             if(!this.HasProp("__EncodingParameters"))
                 this.__EncodingParameters := CRYPT_INTEGER_BLOB(8, this)

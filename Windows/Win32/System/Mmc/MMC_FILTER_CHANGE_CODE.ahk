@@ -5,9 +5,8 @@
  * The MMC_FILTER_CHANGE_CODE enumeration is introduced in MMC 1.2.
  * @see https://learn.microsoft.com/windows/win32/api/mmc/ne-mmc-mmc_filter_change_code
  * @namespace Windows.Win32.System.Mmc
- * @version v4.0.30319
  */
-class MMC_FILTER_CHANGE_CODE extends Win32Enum{
+class MMC_FILTER_CHANGE_CODE extends Win32Enum {
 
     /**
      * The filter view has been turned off.

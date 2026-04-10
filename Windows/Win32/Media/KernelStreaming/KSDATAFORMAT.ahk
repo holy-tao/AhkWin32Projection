@@ -3,10 +3,8 @@
 
 /**
  * @namespace Windows.Win32.Media.KernelStreaming
- * @version v4.0.30319
  */
-class KSDATAFORMAT extends Win32Struct
-{
+class KSDATAFORMAT extends Win32Struct {
     static sizeof => 48
 
     static packingSize => 8
@@ -44,7 +42,7 @@ class KSDATAFORMAT extends Win32Struct
     }
 
     /**
-     * @type {Pointer<Guid>}
+     * @type {Pointer}
      */
     MajorFormat {
         get => NumGet(this, 16, "ptr")
@@ -52,7 +50,7 @@ class KSDATAFORMAT extends Win32Struct
     }
 
     /**
-     * @type {Pointer<Guid>}
+     * @type {Pointer}
      */
     SubFormat {
         get => NumGet(this, 24, "ptr")
@@ -60,7 +58,7 @@ class KSDATAFORMAT extends Win32Struct
     }
 
     /**
-     * @type {Pointer<Guid>}
+     * @type {Pointer}
      */
     Specifier {
         get => NumGet(this, 32, "ptr")

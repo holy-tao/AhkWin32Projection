@@ -1,13 +1,12 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
 #Include .\KSIDENTIFIER.ahk
+#Include .\TunerLockType.ahk
 
 /**
  * @namespace Windows.Win32.Media.KernelStreaming
- * @version v4.0.30319
  */
-class KSPROPERTY_TUNER_SCAN_STATUS_S extends Win32Struct
-{
+class KSPROPERTY_TUNER_SCAN_STATUS_S extends Win32Struct {
     static sizeof => 24
 
     static packingSize => 8
@@ -15,7 +14,7 @@ class KSPROPERTY_TUNER_SCAN_STATUS_S extends Win32Struct
     /**
      * @type {KSIDENTIFIER}
      */
-    Property{
+    Property {
         get {
             if(!this.HasProp("__Property"))
                 this.__Property := KSIDENTIFIER(0, this)
@@ -24,7 +23,7 @@ class KSPROPERTY_TUNER_SCAN_STATUS_S extends Win32Struct
     }
 
     /**
-     * @type {Integer}
+     * @type {TunerLockType}
      */
     LockStatus {
         get => NumGet(this, 16, "int")

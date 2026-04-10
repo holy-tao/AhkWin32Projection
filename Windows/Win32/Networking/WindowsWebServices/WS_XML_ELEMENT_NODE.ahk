@@ -1,15 +1,16 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
 #Include .\WS_XML_NODE.ahk
+#Include .\WS_XML_NODE_TYPE.ahk
+#Include .\WS_XML_STRING.ahk
+#Include .\WS_XML_ATTRIBUTE.ahk
 
 /**
  * Represents a start element in xml (e.g.
  * @see https://learn.microsoft.com/windows/win32/api/webservices/ns-webservices-ws_xml_element_node
  * @namespace Windows.Win32.Networking.WindowsWebServices
- * @version v4.0.30319
  */
-class WS_XML_ELEMENT_NODE extends Win32Struct
-{
+class WS_XML_ELEMENT_NODE extends Win32Struct {
     static sizeof => 56
 
     static packingSize => 8
@@ -18,7 +19,7 @@ class WS_XML_ELEMENT_NODE extends Win32Struct
      * The base type for all types that derive from <a href="https://docs.microsoft.com/windows/desktop/api/webservices/ns-webservices-ws_xml_node">WS_XML_NODE</a>.
      * @type {WS_XML_NODE}
      */
-    node{
+    node {
         get {
             if(!this.HasProp("__node"))
                 this.__node := WS_XML_NODE(0, this)

@@ -5,9 +5,8 @@
  * Lists the type of logon profile returned.
  * @see https://learn.microsoft.com/windows/win32/api/ntsecapi/ne-ntsecapi-kerb_profile_buffer_type
  * @namespace Windows.Win32.Security.Authentication.Identity
- * @version v4.0.30319
  */
-class KERB_PROFILE_BUFFER_TYPE extends Win32Enum{
+class KERB_PROFILE_BUFFER_TYPE extends Win32Enum {
 
     /**
      * The buffer contains information about an interactive <a href="https://docs.microsoft.com/windows/desktop/SecGloss/l-gly">logon session</a>.
@@ -16,7 +15,6 @@ class KERB_PROFILE_BUFFER_TYPE extends Win32Enum{
     static KerbInteractiveProfile => 2
 
     /**
-     * 
      * @type {Integer (Int32)}
      */
     static KerbSmartCardProfile => 4

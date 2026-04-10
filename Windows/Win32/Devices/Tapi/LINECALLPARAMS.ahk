@@ -18,10 +18,8 @@
  * The members <b>dwPredictiveAutoTransferStates</b> through <b>dwCallingPartyIDOffset</b> are available only to applications that open the line device with an API version of 2.0 or later.
  * @see https://learn.microsoft.com/windows/win32/api/tapi/ns-tapi-linecallparams
  * @namespace Windows.Win32.Devices.Tapi
- * @version v4.0.30319
  */
-class LINECALLPARAMS extends Win32Struct
-{
+class LINECALLPARAMS extends Win32Struct {
     static sizeof => 176
 
     static packingSize => 4
@@ -124,7 +122,7 @@ class LINECALLPARAMS extends Win32Struct
      * <b>LINEDEVCAPS</b> structure, the nearest value within the valid range is used instead.
      * @type {LINEDIALPARAMS}
      */
-    DialParams{
+    DialParams {
         get {
             if(!this.HasProp("__DialParams"))
                 this.__DialParams := LINEDIALPARAMS(32, this)

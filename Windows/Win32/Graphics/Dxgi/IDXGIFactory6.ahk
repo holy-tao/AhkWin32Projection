@@ -7,9 +7,8 @@
  * This interface enables a single method that enumerates graphics adapters based on a given GPU preference.
  * @see https://learn.microsoft.com/windows/win32/api/dxgi1_6/nn-dxgi1_6-idxgifactory6
  * @namespace Windows.Win32.Graphics.Dxgi
- * @version v4.0.30319
  */
-class IDXGIFactory6 extends IDXGIFactory5{
+class IDXGIFactory6 extends IDXGIFactory5 {
 
     static sizeof => A_PtrSize
     /**
@@ -51,8 +50,10 @@ class IDXGIFactory6 extends IDXGIFactory5{
      * <dd>2. dGPUs</dd>
      * <dd>3. iGPUs</dd>
      * </dl>
-     * @param {Integer} _Adapter 
-     * @param {Integer} GpuPreference Type: <b><a href="https://docs.microsoft.com/windows/win32/api/dxgi1_6/ne-dxgi1_6-dxgi_gpu_preference">DXGI_GPU_PREFERENCE</a></b>
+     * @param {Integer} _Adapter Type: <b>UINT</b>
+     * 
+     * The index of the adapter to enumerate. The indices are in order of the preference specified in <i>GpuPreference</i>—for example, if <b>DXGI_GPU_PREFERENCE_HIGH_PERFORMANCE</b> is specified, then the highest-performing adapter is at index 0, the second-highest is at index 1, and so on.
+     * @param {DXGI_GPU_PREFERENCE} GpuPreference Type: <b><a href="https://docs.microsoft.com/windows/win32/api/dxgi1_6/ne-dxgi1_6-dxgi_gpu_preference">DXGI_GPU_PREFERENCE</a></b>
      * 
      * The GPU preference for the app.
      * @param {Pointer<Guid>} riid Type: <b>REFIID</b>

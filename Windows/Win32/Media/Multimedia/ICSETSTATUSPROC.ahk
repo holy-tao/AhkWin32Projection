@@ -5,10 +5,8 @@
  * The ICSETSTATUSPROC structure contains status information used with the ICM_SET_STATUS_PROC message.
  * @see https://learn.microsoft.com/windows/win32/api/vfw/ns-vfw-icsetstatusproc
  * @namespace Windows.Win32.Media.Multimedia
- * @version v4.0.30319
  */
-class ICSETSTATUSPROC extends Win32Struct
-{
+class ICSETSTATUSPROC extends Win32Struct {
     static sizeof => 24
 
     static packingSize => 8
@@ -32,7 +30,6 @@ class ICSETSTATUSPROC extends Win32Struct
     }
 
     /**
-     * 
      * @type {Pointer}
      */
     Status {

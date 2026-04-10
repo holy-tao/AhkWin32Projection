@@ -1,16 +1,15 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
-#Include .\IWSDAsyncResult.ahk
 #Include .\IWSDServiceProxy.ahk
+#Include .\IWSDAsyncResult.ahk
 
 /**
  * Represents a remote WSD service for client applications and middleware. This interface allows for the implementation of multiple asynchronous operations.
  * @see https://learn.microsoft.com/windows/win32/api/wsdclient/nn-wsdclient-iwsdserviceproxyeventing
  * @namespace Windows.Win32.Devices.WebServicesOnDevices
- * @version v4.0.30319
  */
-class IWSDServiceProxyEventing extends IWSDServiceProxy{
+class IWSDServiceProxyEventing extends IWSDServiceProxy {
 
     static sizeof => A_PtrSize
     /**

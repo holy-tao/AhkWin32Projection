@@ -3,9 +3,8 @@
 
 /**
  * @namespace Windows.Win32.Security.EnterpriseData
- * @version v4.0.30319
  */
-class SRPHOSTING_VERSION extends Win32Enum{
+class SRPHOSTING_VERSION extends Win32Enum {
 
     /**
      * @type {Integer (Int32)}

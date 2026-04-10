@@ -3,10 +3,8 @@
 
 /**
  * @namespace Windows.Win32.Networking.Clustering
- * @version v4.0.30319
  */
-class SR_RESOURCE_TYPE_ADD_REPLICATION_GROUP_RESULT extends Win32Struct
-{
+class SR_RESOURCE_TYPE_ADD_REPLICATION_GROUP_RESULT extends Win32Struct {
     static sizeof => 524
 
     static packingSize => 4

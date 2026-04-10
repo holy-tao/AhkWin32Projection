@@ -7,9 +7,8 @@
  * This interface is exposed by the Windows Media Decoder DMO and is called by a media player source filter to set up the various connections required to enable DirectX&#174; video acceleration (VA) for decoding of Windows Media-based video content.
  * @see https://learn.microsoft.com/windows/win32/api/wmdxva/nn-wmdxva-iwmcodecamvideoaccelerator
  * @namespace Windows.Win32.Media.DirectShow
- * @version v4.0.30319
  */
-class IWMCodecAMVideoAccelerator extends IUnknown{
+class IWMCodecAMVideoAccelerator extends IUnknown {
 
     static sizeof => A_PtrSize
     /**

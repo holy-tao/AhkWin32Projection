@@ -7,9 +7,8 @@
  * Extends IMetaDataTables to include methods for working with metadata streams.
  * @see https://learn.microsoft.com/windows/win32/api/rometadataapi/nn-rometadataapi-imetadatatables2
  * @namespace Windows.Win32.System.WinRT.Metadata
- * @version v4.0.30319
  */
-class IMetaDataTables2 extends IMetaDataTables{
+class IMetaDataTables2 extends IMetaDataTables {
 
     static sizeof => A_PtrSize
     /**

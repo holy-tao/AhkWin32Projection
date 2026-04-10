@@ -3,9 +3,8 @@
 
 /**
  * @namespace Windows.Win32.UI.Controls.Dialogs
- * @version v4.0.30319
  */
-class PAGESETUPDLG_FLAGS extends Win32BitflagEnum{
+class PAGESETUPDLG_FLAGS extends Win32BitflagEnum {
 
     /**
      * @type {Integer (UInt32)}

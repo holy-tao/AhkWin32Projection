@@ -1,13 +1,12 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
 #Include .\SPRULEHANDLE.ahk
+#Include .\SPPATHENTRY.ahk
 
 /**
  * @namespace Windows.Win32.Media.Speech
- * @version v4.0.30319
  */
-class SPPARSEINFO extends Win32Struct
-{
+class SPPARSEINFO extends Win32Struct {
     static sizeof => 72
 
     static packingSize => 8
@@ -23,7 +22,7 @@ class SPPARSEINFO extends Win32Struct
     /**
      * @type {SPRULEHANDLE}
      */
-    hRule{
+    hRule {
         get {
             if(!this.HasProp("__hRule"))
                 this.__hRule := SPRULEHANDLE(8, this)
@@ -64,7 +63,7 @@ class SPPARSEINFO extends Win32Struct
     }
 
     /**
-     * @type {Pointer<Guid>}
+     * @type {Pointer}
      */
     SREngineID {
         get => NumGet(this, 40, "ptr")

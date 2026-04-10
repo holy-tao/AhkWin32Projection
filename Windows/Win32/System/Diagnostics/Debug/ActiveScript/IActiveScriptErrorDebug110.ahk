@@ -5,9 +5,8 @@
 
 /**
  * @namespace Windows.Win32.System.Diagnostics.Debug.ActiveScript
- * @version v4.0.30319
  */
-class IActiveScriptErrorDebug110 extends IUnknown{
+class IActiveScriptErrorDebug110 extends IUnknown {
 
     static sizeof => A_PtrSize
     /**
@@ -30,7 +29,7 @@ class IActiveScriptErrorDebug110 extends IUnknown{
 
     /**
      * 
-     * @returns {Integer} 
+     * @returns {SCRIPT_ERROR_DEBUG_EXCEPTION_THROWN_KIND} 
      */
     GetExceptionThrownKind() {
         result := ComCall(3, this, "int*", &pExceptionKind := 0, "HRESULT")

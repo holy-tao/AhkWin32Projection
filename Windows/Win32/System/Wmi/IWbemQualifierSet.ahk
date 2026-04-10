@@ -13,9 +13,8 @@
  * <a href="https://docs.microsoft.com/windows/desktop/api/wbemcli/nn-wbemcli-iwbemservices">IWbemServices</a> interface.
  * @see https://learn.microsoft.com/windows/win32/api/wbemcli/nn-wbemcli-iwbemqualifierset
  * @namespace Windows.Win32.System.Wmi
- * @version v4.0.30319
  */
-class IWbemQualifierSet extends IUnknown{
+class IWbemQualifierSet extends IUnknown {
 
     static sizeof => A_PtrSize
     /**

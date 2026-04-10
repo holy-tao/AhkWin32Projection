@@ -1,21 +1,20 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
+#Include .\MFT_REGISTER_TYPE_INFO.ahk
 
 /**
  * Contains parameters for the IMFLocalMFTRegistration::RegisterMFTs method.
  * @see https://learn.microsoft.com/windows/win32/api/mfidl/ns-mfidl-mft_registration_info
  * @namespace Windows.Win32.Media.MediaFoundation
- * @version v4.0.30319
  */
-class MFT_REGISTRATION_INFO extends Win32Struct
-{
+class MFT_REGISTRATION_INFO extends Win32Struct {
     static sizeof => 64
 
     static packingSize => 8
 
     /**
      * CLSID of the Media Foundation transform (MFT) to register.
-     * @type {Pointer<Guid>}
+     * @type {Pointer}
      */
     clsid {
         get => NumGet(this, 0, "ptr")
@@ -24,7 +23,7 @@ class MFT_REGISTRATION_INFO extends Win32Struct
 
     /**
      * GUID that specifies the category of the MFT. For a list of MFT categories, see <a href="https://docs.microsoft.com/windows/desktop/medfound/mft-category">MFT_CATEGORY</a>.
-     * @type {Pointer<Guid>}
+     * @type {Pointer}
      */
     guidCategory {
         get => NumGet(this, 8, "ptr")

@@ -7,10 +7,8 @@
  * Describes the properties of a ray dispatch operation initiated with a call to ID3D12GraphicsCommandList4::DispatchRays.
  * @see https://learn.microsoft.com/windows/win32/api/d3d12/ns-d3d12-d3d12_dispatch_rays_desc
  * @namespace Windows.Win32.Graphics.Direct3D12
- * @version v4.0.30319
  */
-class D3D12_DISPATCH_RAYS_DESC extends Win32Struct
-{
+class D3D12_DISPATCH_RAYS_DESC extends Win32Struct {
     static sizeof => 104
 
     static packingSize => 8
@@ -23,7 +21,7 @@ class D3D12_DISPATCH_RAYS_DESC extends Win32Struct
      * The address must be aligned to 64 bytes, defined as <a href="https://docs.microsoft.com/windows/desktop/direct3d12/constants">D3D12_RAYTRACING_SHADER_TABLE_BYTE_ALIGNMENT</a>, and in the range [0...4096] bytes.
      * @type {D3D12_GPU_VIRTUAL_ADDRESS_RANGE}
      */
-    RayGenerationShaderRecord{
+    RayGenerationShaderRecord {
         get {
             if(!this.HasProp("__RayGenerationShaderRecord"))
                 this.__RayGenerationShaderRecord := D3D12_GPU_VIRTUAL_ADDRESS_RANGE(0, this)
@@ -41,7 +39,7 @@ class D3D12_DISPATCH_RAYS_DESC extends Win32Struct
      * The address must be aligned to 64 bytes, defined as <a href="https://docs.microsoft.com/windows/desktop/direct3d12/constants">D3D12_RAYTRACING_SHADER_TABLE_BYTE_ALIGNMENT</a>.
      * @type {D3D12_GPU_VIRTUAL_ADDRESS_RANGE_AND_STRIDE}
      */
-    MissShaderTable{
+    MissShaderTable {
         get {
             if(!this.HasProp("__MissShaderTable"))
                 this.__MissShaderTable := D3D12_GPU_VIRTUAL_ADDRESS_RANGE_AND_STRIDE(16, this)
@@ -59,7 +57,7 @@ class D3D12_DISPATCH_RAYS_DESC extends Win32Struct
      * The address must be aligned to 64 bytes, defined as <a href="https://docs.microsoft.com/windows/desktop/direct3d12/constants">D3D12_RAYTRACING_SHADER_TABLE_BYTE_ALIGNMENT</a>.
      * @type {D3D12_GPU_VIRTUAL_ADDRESS_RANGE_AND_STRIDE}
      */
-    HitGroupTable{
+    HitGroupTable {
         get {
             if(!this.HasProp("__HitGroupTable"))
                 this.__HitGroupTable := D3D12_GPU_VIRTUAL_ADDRESS_RANGE_AND_STRIDE(40, this)
@@ -77,7 +75,7 @@ class D3D12_DISPATCH_RAYS_DESC extends Win32Struct
      * The address must be aligned to 64 bytes, defined as <a href="https://docs.microsoft.com/windows/desktop/direct3d12/constants">D3D12_RAYTRACING_SHADER_TABLE_BYTE_ALIGNMENT</a>.
      * @type {D3D12_GPU_VIRTUAL_ADDRESS_RANGE_AND_STRIDE}
      */
-    CallableShaderTable{
+    CallableShaderTable {
         get {
             if(!this.HasProp("__CallableShaderTable"))
                 this.__CallableShaderTable := D3D12_GPU_VIRTUAL_ADDRESS_RANGE_AND_STRIDE(64, this)

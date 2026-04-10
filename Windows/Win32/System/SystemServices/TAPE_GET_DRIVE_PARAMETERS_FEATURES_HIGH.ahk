@@ -3,9 +3,8 @@
 
 /**
  * @namespace Windows.Win32.System.SystemServices
- * @version v4.0.30319
  */
-class TAPE_GET_DRIVE_PARAMETERS_FEATURES_HIGH extends Win32BitflagEnum{
+class TAPE_GET_DRIVE_PARAMETERS_FEATURES_HIGH extends Win32BitflagEnum {
 
     /**
      * @type {Integer (UInt32)}

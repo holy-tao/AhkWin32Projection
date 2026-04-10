@@ -1,16 +1,15 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
-#Include .\IEnumTfRanges.ahk
 #Include ..\..\System\Com\IUnknown.ahk
+#Include .\IEnumTfRanges.ahk
 
 /**
  * The ITfEditRecord interface is implemented by the TSF manager and is used by a text edit sink to determine what was changed during an edit session.
  * @see https://learn.microsoft.com/windows/win32/api/msctf/nn-msctf-itfeditrecord
  * @namespace Windows.Win32.UI.TextServices
- * @version v4.0.30319
  */
-class ITfEditRecord extends IUnknown{
+class ITfEditRecord extends IUnknown {
 
     static sizeof => A_PtrSize
     /**
@@ -43,7 +42,7 @@ class ITfEditRecord extends IUnknown{
 
     /**
      * ITfEditRecord::GetTextAndPropertyUpdates method
-     * @param {Integer} dwFlags 
+     * @param {GET_TEXT_AND_PROPERTY_UPDATES_FLAGS} dwFlags 
      * @param {Pointer<Pointer<Guid>>} prgProperties Pointer to an array of <b>GUID</b> values that identify the properties to search for changes for. This method searches the properties that changed during the edit session and, if the property is contained in this array, a range object that covers the property that changed is added to <i>ppEnum</i>.
      * 
      * This array must be at least <i>cProperties</i> elements in size.

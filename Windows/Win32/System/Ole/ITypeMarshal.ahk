@@ -5,9 +5,8 @@
 
 /**
  * @namespace Windows.Win32.System.Ole
- * @version v4.0.30319
  */
-class ITypeMarshal extends IUnknown{
+class ITypeMarshal extends IUnknown {
 
     static sizeof => A_PtrSize
     /**
@@ -50,7 +49,7 @@ class ITypeMarshal extends IUnknown{
      * @param {Integer} dwDestContext 
      * @param {Pointer<Void>} pvDestContext 
      * @param {Integer} cbBufferLength 
-     * @param {Pointer} pBuffer 
+     * @param {Integer} pBuffer 
      * @returns {Integer} 
      */
     Marshal(pvType, dwDestContext, pvDestContext, cbBufferLength, pBuffer) {

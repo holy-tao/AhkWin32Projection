@@ -1,16 +1,15 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
-#Include ..\..\System\Com\IUnknown.ahk
 #Include .\IWSDMessageParameters.ahk
+#Include ..\..\System\Com\IUnknown.ahk
 
 /**
  * Provides access to the HTTP headers used when transmitting messages via SOAP-over-HTTP.
  * @see https://learn.microsoft.com/windows/win32/api/wsdbase/nn-wsdbase-iwsdhttpmessageparameters
  * @namespace Windows.Win32.Devices.WebServicesOnDevices
- * @version v4.0.30319
  */
-class IWSDHttpMessageParameters extends IWSDMessageParameters{
+class IWSDHttpMessageParameters extends IWSDMessageParameters {
 
     static sizeof => A_PtrSize
     /**

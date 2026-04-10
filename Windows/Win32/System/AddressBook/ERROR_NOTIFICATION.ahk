@@ -1,5 +1,7 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
+#Include .\ENTRYID.ahk
+#Include .\MAPIERROR.ahk
 
 /**
  * Describes information that relate to a critical error. This causes an error notification to be generated.
@@ -17,10 +19,8 @@
  * |[Supporting Event Notification](supporting-event-notification.md) <br/> |Discussion of how service providers can use the **IMAPISupport** method to generate notifications. |
  * @see https://learn.microsoft.com/office/client-developer/outlook/mapi/error_notification
  * @namespace Windows.Win32.System.AddressBook
- * @version v4.0.30319
  */
-class ERROR_NOTIFICATION extends Win32Struct
-{
+class ERROR_NOTIFICATION extends Win32Struct {
     static sizeof => 32
 
     static packingSize => 8

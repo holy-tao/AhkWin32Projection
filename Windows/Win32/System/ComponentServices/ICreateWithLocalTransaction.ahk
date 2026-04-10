@@ -7,9 +7,8 @@
  * Creates a COM+ object that executes within the scope of the specified local transaction. (ICreateWithLocalTransaction)
  * @see https://learn.microsoft.com/windows/win32/api/comsvcs/nn-comsvcs-icreatewithlocaltransaction
  * @namespace Windows.Win32.System.ComponentServices
- * @version v4.0.30319
  */
-class ICreateWithLocalTransaction extends IUnknown{
+class ICreateWithLocalTransaction extends IUnknown {
 
     static sizeof => A_PtrSize
     /**

@@ -9,9 +9,8 @@
  * This interface must be implemented if an effect also implements <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/mileffects/nn-mileffects-imilbitmapeffectoutputconnector">IMILBitmapEffectOutputConnector</a>.
  * @see https://learn.microsoft.com/windows/win32/api/mileffects/nn-mileffects-imilbitmapeffectoutputconnectorimpl
  * @namespace Windows.Win32.UI.Wpf
- * @version v4.0.30319
  */
-class IMILBitmapEffectOutputConnectorImpl extends IUnknown{
+class IMILBitmapEffectOutputConnectorImpl extends IUnknown {
 
     static sizeof => A_PtrSize
     /**

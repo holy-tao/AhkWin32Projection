@@ -7,9 +7,8 @@
  * The INoMarshal (objidlbase.h) interface marks an object that doesn't support being marshaled or stored in the Global Interface Table.
  * @see https://learn.microsoft.com/windows/win32/api/objidlbase/nn-objidlbase-inomarshal
  * @namespace Windows.Win32.System.Com
- * @version v4.0.30319
  */
-class INoMarshal extends IUnknown{
+class INoMarshal extends IUnknown {
 
     static sizeof => A_PtrSize
     /**

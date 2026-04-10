@@ -1,8 +1,8 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
-#Include ..\..\Foundation\BSTR.ahk
 #Include .\IFaxIncomingMessage.ahk
+#Include ..\..\Foundation\BSTR.ahk
 
 /**
  * Used by a fax client application to retrieve information about a received fax message in the archive of inbound faxes. (IFaxIncomingMessage2)
@@ -12,9 +12,8 @@
  * A default implementation of this interface is provided by the <a href="https://docs.microsoft.com/previous-versions/windows/desktop/fax/-mfax-faxincomingmessage">FaxIncomingMessage</a> object.
  * @see https://learn.microsoft.com/windows/win32/api/faxcomex/nn-faxcomex-ifaxincomingmessage2
  * @namespace Windows.Win32.Devices.Fax
- * @version v4.0.30319
  */
-class IFaxIncomingMessage2 extends IFaxIncomingMessage{
+class IFaxIncomingMessage2 extends IFaxIncomingMessage {
 
     static sizeof => A_PtrSize
     /**

@@ -3,10 +3,8 @@
 
 /**
  * @namespace Windows.Win32.Storage.Nvme
- * @version v4.0.30319
  */
-class NVMEOF_AUTH_DHCHAP_DESCRIPTOR extends Win32Struct
-{
+class NVMEOF_AUTH_DHCHAP_DESCRIPTOR extends Win32Struct {
     static sizeof => 64
 
     static packingSize => 1
@@ -44,9 +42,9 @@ class NVMEOF_AUTH_DHCHAP_DESCRIPTOR extends Win32Struct
     }
 
     /**
-     * @type {Array<Byte>}
+     * @type {Array<Integer>}
      */
-    IdList{
+    IdList {
         get {
             if(!this.HasProp("__IdListProxyArray"))
                 this.__IdListProxyArray := Win32FixedArray(this.ptr + 4, 60, Primitive, "char")

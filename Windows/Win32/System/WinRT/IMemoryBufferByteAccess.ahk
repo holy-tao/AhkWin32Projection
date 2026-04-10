@@ -9,9 +9,8 @@
  * When <a href="https://docs.microsoft.com/uwp/api/windows.foundation.memorybuffer.close">MemoryBuffer::Close</a> is called, the code using this buffer should set the <i>value</i> pointer to null.
  * @see https://learn.microsoft.com/windows/win32/api/memorybuffer/nf-memorybuffer-imemorybufferbyteaccess-getbuffer
  * @namespace Windows.Win32.System.WinRT
- * @version v4.0.30319
  */
-class IMemoryBufferByteAccess extends IUnknown{
+class IMemoryBufferByteAccess extends IUnknown {
 
     static sizeof => A_PtrSize
     /**

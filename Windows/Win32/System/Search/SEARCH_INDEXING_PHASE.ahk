@@ -5,9 +5,8 @@
  * Specifies the status of the current search indexing phase.
  * @see https://learn.microsoft.com/windows/win32/api/searchapi/ne-searchapi-search_indexing_phase
  * @namespace Windows.Win32.System.Search
- * @version v4.0.30319
  */
-class SEARCH_INDEXING_PHASE extends Win32Enum{
+class SEARCH_INDEXING_PHASE extends Win32Enum {
 
     /**
      * Sent in the event that an error occurs while a notification is in the gatherer. For instance, if the notification fails the exclusion-rule tests, a status update will be sent with the error.

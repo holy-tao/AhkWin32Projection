@@ -1,12 +1,12 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
+#Include .\MP_STORAGE_DIAGNOSTIC_TARGET_TYPE.ahk
+#Include .\MP_STORAGE_DIAGNOSTIC_LEVEL.ahk
 
 /**
  * @namespace Windows.Win32.Storage.IscsiDisc
- * @version v4.0.30319
  */
-class STORAGE_DIAGNOSTIC_MP_REQUEST extends Win32Struct
-{
+class STORAGE_DIAGNOSTIC_MP_REQUEST extends Win32Struct {
     static sizeof => 40
 
     static packingSize => 8
@@ -28,7 +28,7 @@ class STORAGE_DIAGNOSTIC_MP_REQUEST extends Win32Struct
     }
 
     /**
-     * @type {Integer}
+     * @type {MP_STORAGE_DIAGNOSTIC_TARGET_TYPE}
      */
     TargetType {
         get => NumGet(this, 8, "int")
@@ -36,7 +36,7 @@ class STORAGE_DIAGNOSTIC_MP_REQUEST extends Win32Struct
     }
 
     /**
-     * @type {Integer}
+     * @type {MP_STORAGE_DIAGNOSTIC_LEVEL}
      */
     Level {
         get => NumGet(this, 12, "int")
@@ -44,7 +44,7 @@ class STORAGE_DIAGNOSTIC_MP_REQUEST extends Win32Struct
     }
 
     /**
-     * @type {Pointer<Guid>}
+     * @type {Pointer}
      */
     ProviderId {
         get => NumGet(this, 16, "ptr")
@@ -68,9 +68,9 @@ class STORAGE_DIAGNOSTIC_MP_REQUEST extends Win32Struct
     }
 
     /**
-     * @type {Array<Byte>}
+     * @type {Array<Integer>}
      */
-    DataBuffer{
+    DataBuffer {
         get {
             if(!this.HasProp("__DataBufferProxyArray"))
                 this.__DataBufferProxyArray := Win32FixedArray(this.ptr + 32, 1, Primitive, "char")

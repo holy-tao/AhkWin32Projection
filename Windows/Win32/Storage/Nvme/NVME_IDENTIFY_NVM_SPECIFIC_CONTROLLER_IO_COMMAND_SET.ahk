@@ -3,10 +3,8 @@
 
 /**
  * @namespace Windows.Win32.Storage.Nvme
- * @version v4.0.30319
  */
-class NVME_IDENTIFY_NVM_SPECIFIC_CONTROLLER_IO_COMMAND_SET extends Win32Struct
-{
+class NVME_IDENTIFY_NVM_SPECIFIC_CONTROLLER_IO_COMMAND_SET extends Win32Struct {
     static sizeof => 4096
 
     static packingSize => 8
@@ -60,9 +58,9 @@ class NVME_IDENTIFY_NVM_SPECIFIC_CONTROLLER_IO_COMMAND_SET extends Win32Struct
     }
 
     /**
-     * @type {Array<Byte>}
+     * @type {Array<Integer>}
      */
-    Reserved{
+    Reserved {
         get {
             if(!this.HasProp("__ReservedProxyArray"))
                 this.__ReservedProxyArray := Win32FixedArray(this.ptr + 16, 4080, Primitive, "char")

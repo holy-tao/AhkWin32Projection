@@ -1,14 +1,13 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
+#Include .\DDRAWI_DIRECTDRAW_GBL.ahk
 
 /**
  * The DD_WAITFORVERTICALBLANKDATA structure contains information necessary to obtain the monitor's vertical blank information. (DDHAL_WAITFORVERTICALBLANKDATA)
  * @see https://learn.microsoft.com/windows/win32/api/ddrawi/ns-ddrawi-ddhal_waitforverticalblankdata
  * @namespace Windows.Win32.Graphics.DirectDraw
- * @version v4.0.30319
  */
-class DDHAL_WAITFORVERTICALBLANKDATA extends Win32Struct
-{
+class DDHAL_WAITFORVERTICALBLANKDATA extends Win32Struct {
     static sizeof => 40
 
     static packingSize => 8
@@ -23,7 +22,6 @@ class DDHAL_WAITFORVERTICALBLANKDATA extends Win32Struct
     }
 
     /**
-     * 
      * @type {Integer}
      */
     dwFlags {

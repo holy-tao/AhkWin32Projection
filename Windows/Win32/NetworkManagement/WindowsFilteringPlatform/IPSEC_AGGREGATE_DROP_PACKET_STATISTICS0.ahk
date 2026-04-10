@@ -5,10 +5,8 @@
  * Stores aggregate IPsec kernel packet drop statistics.Note  IPSEC_AGGREGATE_DROP_PACKET_STATISTICS0 is the specific implementation of IPSEC_AGGREGATE_DROP_PACKET_STATISTICS used in Windows Vista.
  * @see https://learn.microsoft.com/windows/win32/api/ipsectypes/ns-ipsectypes-ipsec_aggregate_drop_packet_statistics0
  * @namespace Windows.Win32.NetworkManagement.WindowsFilteringPlatform
- * @version v4.0.30319
  */
-class IPSEC_AGGREGATE_DROP_PACKET_STATISTICS0 extends Win32Struct
-{
+class IPSEC_AGGREGATE_DROP_PACKET_STATISTICS0 extends Win32Struct {
     static sizeof => 36
 
     static packingSize => 4

@@ -3,10 +3,8 @@
 
 /**
  * @namespace Windows.Win32.Graphics.Printing
- * @version v4.0.30319
  */
-class PRINTER_EVENT_ATTRIBUTES_INFO extends Win32Struct
-{
+class PRINTER_EVENT_ATTRIBUTES_INFO extends Win32Struct {
     static sizeof => 12
 
     static packingSize => 4

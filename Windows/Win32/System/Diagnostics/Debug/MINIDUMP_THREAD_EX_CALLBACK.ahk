@@ -1,18 +1,18 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\..\Win32Struct.ahk
 #Include ..\..\..\Foundation\HANDLE.ahk
-#Include .\ARM64_NT_NEON128.ahk
 #Include .\CONTEXT.ahk
+#Include .\CONTEXT_FLAGS.ahk
+#Include .\ARM64_NT_NEON128.ahk
 
 /**
  * Contains extended thread information for the MiniDumpCallback function when the callback type is ThreadExCallback.
  * @see https://learn.microsoft.com/windows/win32/api/minidumpapiset/ns-minidumpapiset-minidump_thread_ex_callback
  * @namespace Windows.Win32.System.Diagnostics.Debug
- * @version v4.0.30319
+ * @architecture X86, X64
  */
-class MINIDUMP_THREAD_EX_CALLBACK extends Win32Struct
-{
-    static sizeof => 712
+class MINIDUMP_THREAD_EX_CALLBACK extends Win32Struct {
+    static sizeof => 3016
 
     static packingSize => 8
 
@@ -29,7 +29,7 @@ class MINIDUMP_THREAD_EX_CALLBACK extends Win32Struct
      * A handle to the thread
      * @type {HANDLE}
      */
-    ThreadHandle{
+    ThreadHandle {
         get {
             if(!this.HasProp("__ThreadHandle"))
                 this.__ThreadHandle := HANDLE(8, this)
@@ -42,7 +42,7 @@ class MINIDUMP_THREAD_EX_CALLBACK extends Win32Struct
      * <a href="https://docs.microsoft.com/windows/desktop/api/winnt/ns-winnt-arm64_nt_context">CONTEXT</a> structure that contains the processor-specific data.
      * @type {CONTEXT}
      */
-    Context{
+    Context {
         get {
             if(!this.HasProp("__Context"))
                 this.__Context := CONTEXT(16, this)
@@ -55,8 +55,8 @@ class MINIDUMP_THREAD_EX_CALLBACK extends Win32Struct
      * @type {Integer}
      */
     SizeOfContext {
-        get => NumGet(this, 672, "uint")
-        set => NumPut("uint", value, this, 672)
+        get => NumGet(this, 2976, "uint")
+        set => NumPut("uint", value, this, 2976)
     }
 
     /**
@@ -64,8 +64,8 @@ class MINIDUMP_THREAD_EX_CALLBACK extends Win32Struct
      * @type {Integer}
      */
     StackBase {
-        get => NumGet(this, 680, "uint")
-        set => NumPut("uint", value, this, 680)
+        get => NumGet(this, 2984, "uint")
+        set => NumPut("uint", value, this, 2984)
     }
 
     /**
@@ -73,8 +73,8 @@ class MINIDUMP_THREAD_EX_CALLBACK extends Win32Struct
      * @type {Integer}
      */
     StackEnd {
-        get => NumGet(this, 688, "uint")
-        set => NumPut("uint", value, this, 688)
+        get => NumGet(this, 2992, "uint")
+        set => NumPut("uint", value, this, 2992)
     }
 
     /**
@@ -82,8 +82,8 @@ class MINIDUMP_THREAD_EX_CALLBACK extends Win32Struct
      * @type {Integer}
      */
     BackingStoreBase {
-        get => NumGet(this, 696, "uint")
-        set => NumPut("uint", value, this, 696)
+        get => NumGet(this, 3000, "uint")
+        set => NumPut("uint", value, this, 3000)
     }
 
     /**
@@ -91,7 +91,7 @@ class MINIDUMP_THREAD_EX_CALLBACK extends Win32Struct
      * @type {Integer}
      */
     BackingStoreEnd {
-        get => NumGet(this, 704, "uint")
-        set => NumPut("uint", value, this, 704)
+        get => NumGet(this, 3008, "uint")
+        set => NumPut("uint", value, this, 3008)
     }
 }

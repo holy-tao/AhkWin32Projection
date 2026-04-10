@@ -1,18 +1,16 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\..\Guid.ahk
-#Include ..\..\..\Foundation\BSTR.ahk
+#Include ..\..\..\System\Com\IDispatch.ahk
 #Include .\ICspStatus.ahk
 #Include ..\..\..\System\Com\IUnknown.ahk
-#Include ..\..\..\System\Com\IDispatch.ahk
 
 /**
  * Contains information about a cryptographic provider/algorithm pair. (ICspStatuses)
  * @see https://learn.microsoft.com/windows/win32/api/certenroll/nn-certenroll-icspstatuses
  * @namespace Windows.Win32.Security.Cryptography.Certificates
- * @version v4.0.30319
  */
-class ICspStatuses extends IDispatch{
+class ICspStatuses extends IDispatch {
 
     static sizeof => A_PtrSize
     /**
@@ -169,7 +167,7 @@ class ICspStatuses extends IDispatch{
      * Retrieves an ICspStatus object that has the same name as the provider specified on input and the same algorithm but identifies a different cryptographic operation.
      * @param {BSTR} strCspName 
      * @param {BSTR} strAlgorithmName 
-     * @param {Integer} Operations 
+     * @param {AlgorithmOperationFlags} Operations 
      * @returns {ICspStatus} 
      * @see https://learn.microsoft.com/windows/win32/api/certenroll/nf-certenroll-icspstatuses-get_itembyoperations
      */

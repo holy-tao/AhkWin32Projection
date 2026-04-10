@@ -1,16 +1,15 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
-#Include .\IWMOutputMediaProps.ahk
 #Include ..\..\System\Com\IUnknown.ahk
+#Include .\IWMOutputMediaProps.ahk
 
 /**
  * The IWMReader interface is used to open, close, start, pause, resume, and unlock the WMReader object.
  * @see https://learn.microsoft.com/windows/win32/api/wmsdkidl/nn-wmsdkidl-iwmreader
  * @namespace Windows.Win32.Media.WindowsMediaFormat
- * @version v4.0.30319
  */
-class IWMReader extends IUnknown{
+class IWMReader extends IUnknown {
 
     static sizeof => A_PtrSize
     /**

@@ -1,50 +1,47 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
-#Include ..\..\..\Win32\Foundation\UNICODE_STRING.ahk
+#Include .\PO_FX_PERF_STATE_UNIT.ahk
+#Include .\PO_FX_PERF_STATE_TYPE.ahk
+#Include .\PO_FX_PERF_STATE.ahk
 
 /**
  * @namespace Windows.Wdk.System.SystemServices
- * @version v4.0.30319
  */
-class PO_FX_COMPONENT_PERF_SET extends Win32Struct
-{
-    static sizeof => 48
+class PO_FX_COMPONENT_PERF_SET extends Win32Struct {
+    static sizeof => 40
 
     static packingSize => 8
 
     /**
-     * @type {UNICODE_STRING}
+     * @type {Pointer}
      */
-    Name{
-        get {
-            if(!this.HasProp("__Name"))
-                this.__Name := UNICODE_STRING(0, this)
-            return this.__Name
-        }
+    Name {
+        get => NumGet(this, 0, "ptr")
+        set => NumPut("ptr", value, this, 0)
     }
 
     /**
      * @type {Integer}
      */
     Flags {
-        get => NumGet(this, 16, "uint")
-        set => NumPut("uint", value, this, 16)
+        get => NumGet(this, 8, "uint")
+        set => NumPut("uint", value, this, 8)
     }
 
     /**
-     * @type {Integer}
+     * @type {PO_FX_PERF_STATE_UNIT}
      */
     Unit {
-        get => NumGet(this, 24, "int")
-        set => NumPut("int", value, this, 24)
+        get => NumGet(this, 16, "int")
+        set => NumPut("int", value, this, 16)
     }
 
     /**
-     * @type {Integer}
+     * @type {PO_FX_PERF_STATE_TYPE}
      */
     Type {
-        get => NumGet(this, 28, "int")
-        set => NumPut("int", value, this, 28)
+        get => NumGet(this, 20, "int")
+        set => NumPut("int", value, this, 20)
     }
 
     class _Discrete extends Win32Struct {
@@ -58,7 +55,7 @@ class PO_FX_COMPONENT_PERF_SET extends Win32Struct
             get => NumGet(this, 0, "uint")
             set => NumPut("uint", value, this, 0)
         }
-    
+
         /**
          * @type {Pointer<PO_FX_PERF_STATE>}
          */
@@ -66,7 +63,6 @@ class PO_FX_COMPONENT_PERF_SET extends Win32Struct
             get => NumGet(this, 8, "ptr")
             set => NumPut("ptr", value, this, 8)
         }
-    
     }
 
     class _Range extends Win32Struct {
@@ -80,7 +76,7 @@ class PO_FX_COMPONENT_PERF_SET extends Win32Struct
             get => NumGet(this, 0, "uint")
             set => NumPut("uint", value, this, 0)
         }
-    
+
         /**
          * @type {Integer}
          */
@@ -88,16 +84,15 @@ class PO_FX_COMPONENT_PERF_SET extends Win32Struct
             get => NumGet(this, 8, "uint")
             set => NumPut("uint", value, this, 8)
         }
-    
     }
 
     /**
      * @type {_Discrete}
      */
-    Discrete{
+    Discrete {
         get {
             if(!this.HasProp("__Discrete"))
-                this.__Discrete := %this.__Class%._Discrete(32, this)
+                this.__Discrete := PO_FX_COMPONENT_PERF_SET._Discrete(24, this)
             return this.__Discrete
         }
     }
@@ -105,10 +100,10 @@ class PO_FX_COMPONENT_PERF_SET extends Win32Struct
     /**
      * @type {_Range}
      */
-    Range{
+    Range {
         get {
             if(!this.HasProp("__Range"))
-                this.__Range := %this.__Class%._Range(32, this)
+                this.__Range := PO_FX_COMPONENT_PERF_SET._Range(24, this)
             return this.__Range
         }
     }

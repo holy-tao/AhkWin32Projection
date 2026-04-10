@@ -179,9 +179,8 @@
  * <b>PreferredServerBitness</b>
  * @see https://learn.microsoft.com/windows/win32/api/wtypesbase/ne-wtypesbase-clsctx
  * @namespace Windows.Win32.System.Com
- * @version v4.0.30319
  */
-class CLSCTX extends Win32BitflagEnum{
+class CLSCTX extends Win32BitflagEnum {
 
     /**
      * The code that creates and manages objects of this class is a DLL that runs in the same process as the caller of the function specifying the class context.
@@ -305,7 +304,6 @@ class CLSCTX extends Win32BitflagEnum{
     static CLSCTX_FROM_DEFAULT_CONTEXT => 131072
 
     /**
-     * 
      * @type {Integer (UInt32)}
      */
     static CLSCTX_ACTIVATE_X86_SERVER => 262144
@@ -360,13 +358,11 @@ class CLSCTX extends Win32BitflagEnum{
     static CLSCTX_ACTIVATE_AAA_AS_IU => 8388608
 
     /**
-     * 
      * @type {Integer (UInt32)}
      */
     static CLSCTX_RESERVED6 => 16777216
 
     /**
-     * 
      * @type {Integer (UInt32)}
      */
     static CLSCTX_ACTIVATE_ARM32_SERVER => 33554432

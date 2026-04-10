@@ -9,10 +9,8 @@
  * <b>FWPM_SUBLAYER0</b> is a specific implementation of FWPM_SUBLAYER. See <a href="https://docs.microsoft.com/windows/desktop/FWP/wfp-version-independent-names-and-targeting-specific-versions-of-windows">WFP Version-Independent Names and Targeting Specific Versions of Windows</a>  for more information.
  * @see https://learn.microsoft.com/windows/win32/api/fwpmtypes/ns-fwpmtypes-fwpm_sublayer0
  * @namespace Windows.Win32.NetworkManagement.WindowsFilteringPlatform
- * @version v4.0.30319
  */
-class FWPM_SUBLAYER0 extends Win32Struct
-{
+class FWPM_SUBLAYER0 extends Win32Struct {
     static sizeof => 64
 
     static packingSize => 8
@@ -21,7 +19,7 @@ class FWPM_SUBLAYER0 extends Win32Struct
      * Uniquely identifies the sublayer. See <a href="https://docs.microsoft.com/windows/desktop/FWP/management-filtering-sublayer-identifiers">Filtering Sublayer Identifiers</a> for a list of built-in sublayers.
      * 
      * If the GUID is zero-initialized in the call to <a href="https://docs.microsoft.com/windows/desktop/api/fwpmu/nf-fwpmu-fwpmsublayeradd0">FwpmSubLayerAdd0</a>, the Base Filtering Engine (BFE) will generate one.
-     * @type {Pointer<Guid>}
+     * @type {Pointer}
      */
     subLayerKey {
         get => NumGet(this, 0, "ptr")
@@ -32,7 +30,7 @@ class FWPM_SUBLAYER0 extends Win32Struct
      * Allows sublayers to be annotated in human-readable form.   The [FWPM_DISPLAY_DATA0](/windows/desktop/api/fwptypes/ns-fwptypes-fwpm_display_data0) structure is required.
      * @type {FWPM_DISPLAY_DATA0}
      */
-    displayData{
+    displayData {
         get {
             if(!this.HasProp("__displayData"))
                 this.__displayData := FWPM_DISPLAY_DATA0(8, this)
@@ -79,7 +77,7 @@ class FWPM_SUBLAYER0 extends Win32Struct
      * An [FWP_BYTE_BLOB](/windows/desktop/api/fwptypes/ns-fwptypes-fwp_byte_blob) structure that contains optional provider-specific data that allows providers to store additional context info with the object.
      * @type {FWP_BYTE_BLOB}
      */
-    providerData{
+    providerData {
         get {
             if(!this.HasProp("__providerData"))
                 this.__providerData := FWP_BYTE_BLOB(40, this)

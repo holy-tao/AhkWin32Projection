@@ -1,18 +1,18 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
+#Include ..\..\..\Win32\System\Ioctl\FS_BPIO_OPERATIONS.ahk
+#Include ..\..\..\Win32\System\Ioctl\FS_BPIO_INFLAGS.ahk
 
 /**
  * @namespace Windows.Wdk.Storage.FileSystem
- * @version v4.0.30319
  */
-class FS_BPIO_INPUT extends Win32Struct
-{
+class FS_BPIO_INPUT extends Win32Struct {
     static sizeof => 24
 
     static packingSize => 8
 
     /**
-     * @type {Integer}
+     * @type {FS_BPIO_OPERATIONS}
      */
     Operation {
         get => NumGet(this, 0, "int")
@@ -20,7 +20,7 @@ class FS_BPIO_INPUT extends Win32Struct
     }
 
     /**
-     * @type {Integer}
+     * @type {FS_BPIO_INFLAGS}
      */
     InFlags {
         get => NumGet(this, 4, "int")

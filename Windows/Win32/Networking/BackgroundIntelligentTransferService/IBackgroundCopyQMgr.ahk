@@ -1,17 +1,16 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
+#Include ..\..\System\Com\IUnknown.ahk
 #Include .\IBackgroundCopyGroup.ahk
 #Include .\IEnumBackgroundCopyGroups.ahk
-#Include ..\..\System\Com\IUnknown.ahk
 
 /**
  * Use the IBackgroundCopyQMgr interface to create a new group, retrieve an existing group, or enumerate all groups in the queue. A group contains a download job.
  * @see https://learn.microsoft.com/windows/win32/api/qmgr/nn-qmgr-ibackgroundcopyqmgr
  * @namespace Windows.Win32.Networking.BackgroundIntelligentTransferService
- * @version v4.0.30319
  */
-class IBackgroundCopyQMgr extends IUnknown{
+class IBackgroundCopyQMgr extends IUnknown {
 
     static sizeof => A_PtrSize
     /**

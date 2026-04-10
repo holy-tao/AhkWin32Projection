@@ -1,12 +1,12 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
+#Include .\DEVICE_INTERNAL_STATUS_DATA_REQUEST_TYPE.ahk
+#Include .\DEVICE_INTERNAL_STATUS_DATA_SET.ahk
 
 /**
  * @namespace Windows.Win32.System.Ioctl
- * @version v4.0.30319
  */
-class GET_DEVICE_INTERNAL_STATUS_DATA_REQUEST extends Win32Struct
-{
+class GET_DEVICE_INTERNAL_STATUS_DATA_REQUEST extends Win32Struct {
     static sizeof => 16
 
     static packingSize => 4
@@ -28,7 +28,7 @@ class GET_DEVICE_INTERNAL_STATUS_DATA_REQUEST extends Win32Struct
     }
 
     /**
-     * @type {Integer}
+     * @type {DEVICE_INTERNAL_STATUS_DATA_REQUEST_TYPE}
      */
     RequestDataType {
         get => NumGet(this, 8, "int")
@@ -36,7 +36,7 @@ class GET_DEVICE_INTERNAL_STATUS_DATA_REQUEST extends Win32Struct
     }
 
     /**
-     * @type {Integer}
+     * @type {DEVICE_INTERNAL_STATUS_DATA_SET}
      */
     RequestDataSet {
         get => NumGet(this, 12, "int")

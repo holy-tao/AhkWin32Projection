@@ -1,12 +1,12 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
+#Include .\STORAGE_CRYPTO_ALGORITHM_ID.ahk
+#Include .\STORAGE_CRYPTO_KEY_SIZE.ahk
 
 /**
  * @namespace Windows.Win32.System.Ioctl
- * @version v4.0.30319
  */
-class STORAGE_CRYPTO_CAPABILITY extends Win32Struct
-{
+class STORAGE_CRYPTO_CAPABILITY extends Win32Struct {
     static sizeof => 24
 
     static packingSize => 4
@@ -36,7 +36,7 @@ class STORAGE_CRYPTO_CAPABILITY extends Win32Struct
     }
 
     /**
-     * @type {Integer}
+     * @type {STORAGE_CRYPTO_ALGORITHM_ID}
      */
     AlgorithmId {
         get => NumGet(this, 12, "int")
@@ -44,7 +44,7 @@ class STORAGE_CRYPTO_CAPABILITY extends Win32Struct
     }
 
     /**
-     * @type {Integer}
+     * @type {STORAGE_CRYPTO_KEY_SIZE}
      */
     KeySize {
         get => NumGet(this, 16, "int")

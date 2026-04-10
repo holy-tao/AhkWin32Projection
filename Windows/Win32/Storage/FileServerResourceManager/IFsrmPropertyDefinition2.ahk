@@ -1,17 +1,16 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
+#Include .\IFsrmPropertyDefinition.ahk
 #Include ..\..\Foundation\BSTR.ahk
 #Include .\IFsrmCollection.ahk
-#Include .\IFsrmPropertyDefinition.ahk
 
 /**
  * Defines a property that you want to use to classify files. (IFsrmPropertyDefinition2)
  * @see https://learn.microsoft.com/windows/win32/api/fsrmpipeline/nn-fsrmpipeline-ifsrmpropertydefinition2
  * @namespace Windows.Win32.Storage.FileServerResourceManager
- * @version v4.0.30319
  */
-class IFsrmPropertyDefinition2 extends IFsrmPropertyDefinition{
+class IFsrmPropertyDefinition2 extends IFsrmPropertyDefinition {
 
     static sizeof => A_PtrSize
     /**

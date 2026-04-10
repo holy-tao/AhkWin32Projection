@@ -3,7 +3,6 @@
 
 /**
  * @namespace Windows.Win32.System.Diagnostics.Debug.WebApp
- * @version v4.0.30319
  */
 class WebApp {
 

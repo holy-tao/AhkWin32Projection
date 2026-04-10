@@ -4,13 +4,11 @@
 
 /**
  * @namespace Windows.Win32.NetworkManagement.Ndis
- * @version v4.0.30319
  */
-class NDIS_802_11_PMKID_CANDIDATE_LIST extends Win32Struct
-{
-    static sizeof => 16
+class NDIS_802_11_PMKID_CANDIDATE_LIST extends Win32Struct {
+    static sizeof => 20
 
-    static packingSize => 8
+    static packingSize => 4
 
     /**
      * @type {Integer}
@@ -29,9 +27,9 @@ class NDIS_802_11_PMKID_CANDIDATE_LIST extends Win32Struct
     }
 
     /**
-     * @type {Array<PMKID_CANDIDATE>}
+     * @type {PMKID_CANDIDATE}
      */
-    CandidateList{
+    CandidateList {
         get {
             if(!this.HasProp("__CandidateListProxyArray"))
                 this.__CandidateListProxyArray := Win32FixedArray(this.ptr + 8, 1, PMKID_CANDIDATE, "")

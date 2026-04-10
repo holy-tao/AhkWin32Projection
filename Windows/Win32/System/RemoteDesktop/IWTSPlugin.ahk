@@ -9,9 +9,8 @@
  * The **IWTSPlugin** interface is implemented by %System32%\webauthn.dll to enable the Remote Desktop WebAuthn redirection functionality. Get an instance of this interface by calling [VirtualChannelGetInstance]( ../termserv/virtualchannelgetinstance.md), which is also provided by webauthn.dll.
  * @see https://learn.microsoft.com/windows/win32/api/tsvirtualchannels/nn-tsvirtualchannels-iwtsplugin
  * @namespace Windows.Win32.System.RemoteDesktop
- * @version v4.0.30319
  */
-class IWTSPlugin extends IUnknown{
+class IWTSPlugin extends IUnknown {
 
     static sizeof => A_PtrSize
     /**

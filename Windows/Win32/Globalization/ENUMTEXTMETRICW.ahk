@@ -1,10 +1,11 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\Win32Struct.ahk
-#Include ..\Graphics\Gdi\NEWTEXTMETRICW.ahk
-#Include .\FONTSIGNATURE.ahk
 #Include .\NEWTEXTMETRICEXW.ahk
-#Include ..\Graphics\Gdi\AXISINFOW.ahk
+#Include ..\Graphics\Gdi\NEWTEXTMETRICW.ahk
+#Include ..\Graphics\Gdi\TMPF_FLAGS.ahk
+#Include .\FONTSIGNATURE.ahk
 #Include ..\Graphics\Gdi\AXESLISTW.ahk
+#Include ..\Graphics\Gdi\AXISINFOW.ahk
 
 /**
  * The ENUMTEXTMETRIC structure contains information about a physical font. (Unicode)
@@ -21,20 +22,18 @@
  * > The wingdi.h header defines ENUMTEXTMETRIC as an alias which automatically selects the ANSI or Unicode version of this function based on the definition of the UNICODE preprocessor constant. Mixing usage of the encoding-neutral alias with code that not encoding-neutral can lead to mismatches that result in compilation or runtime errors. For more information, see [Conventions for Function Prototypes](/windows/win32/intl/conventions-for-function-prototypes).
  * @see https://learn.microsoft.com/windows/win32/api/wingdi/ns-wingdi-enumtextmetricw
  * @namespace Windows.Win32.Globalization
- * @version v4.0.30319
  * @charset Unicode
  */
-class ENUMTEXTMETRICW extends Win32Struct
-{
-    static sizeof => 240
+class ENUMTEXTMETRICW extends Win32Struct {
+    static sizeof => 748
 
-    static packingSize => 8
+    static packingSize => 4
 
     /**
      * A <a href="https://docs.microsoft.com/windows/desktop/api/wingdi/ns-wingdi-newtextmetricexa">NEWTEXTMETRICEX</a> structure, containing information about a physical font.
      * @type {NEWTEXTMETRICEXW}
      */
-    etmNewTextMetricEx{
+    etmNewTextMetricEx {
         get {
             if(!this.HasProp("__etmNewTextMetricEx"))
                 this.__etmNewTextMetricEx := NEWTEXTMETRICEXW(0, this)
@@ -46,10 +45,10 @@ class ENUMTEXTMETRICW extends Win32Struct
      * An <a href="https://docs.microsoft.com/windows/desktop/api/wingdi/ns-wingdi-axeslista">AXESLIST</a> structure, containing information about the axes for the font. This is only used for multiple master fonts.
      * @type {AXESLISTW}
      */
-    etmAxesList{
+    etmAxesList {
         get {
             if(!this.HasProp("__etmAxesList"))
-                this.__etmAxesList := AXESLISTW(104, this)
+                this.__etmAxesList := AXESLISTW(100, this)
             return this.__etmAxesList
         }
     }

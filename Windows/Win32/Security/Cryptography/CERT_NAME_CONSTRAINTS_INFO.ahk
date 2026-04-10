@@ -1,14 +1,13 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
+#Include .\CERT_GENERAL_SUBTREE.ahk
 
 /**
  * The CERT_NAME_CONSTRAINTS_INFO structure contains information about certificates that are specifically permitted or excluded from trust.
  * @see https://learn.microsoft.com/windows/win32/api/wincrypt/ns-wincrypt-cert_name_constraints_info
  * @namespace Windows.Win32.Security.Cryptography
- * @version v4.0.30319
  */
-class CERT_NAME_CONSTRAINTS_INFO extends Win32Struct
-{
+class CERT_NAME_CONSTRAINTS_INFO extends Win32Struct {
     static sizeof => 32
 
     static packingSize => 8

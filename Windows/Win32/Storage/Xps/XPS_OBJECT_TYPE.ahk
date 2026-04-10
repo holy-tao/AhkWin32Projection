@@ -5,9 +5,8 @@
  * Describes the type of an object that is derived from IXpsOMShareable.
  * @see https://learn.microsoft.com/windows/win32/api/xpsobjectmodel/ne-xpsobjectmodel-xps_object_type
  * @namespace Windows.Win32.Storage.Xps
- * @version v4.0.30319
  */
-class XPS_OBJECT_TYPE extends Win32Enum{
+class XPS_OBJECT_TYPE extends Win32Enum {
 
     /**
      * The object is an <a href="https://docs.microsoft.com/windows/desktop/api/xpsobjectmodel/nn-xpsobjectmodel-ixpsomcanvas">IXpsOMCanvas</a> interface.

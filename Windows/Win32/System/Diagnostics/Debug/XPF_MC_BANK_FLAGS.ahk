@@ -3,10 +3,8 @@
 
 /**
  * @namespace Windows.Win32.System.Diagnostics.Debug
- * @version v4.0.30319
  */
-class XPF_MC_BANK_FLAGS extends Win32Struct
-{
+class XPF_MC_BANK_FLAGS extends Win32Struct {
     static sizeof => 2
 
     static packingSize => 1

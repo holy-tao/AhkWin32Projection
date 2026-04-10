@@ -5,10 +5,8 @@
  * ACT_AUTHORIZATION_STATE structure contains data that describes the current authorization state of a Addressable Command Target (ACT).
  * @see https://learn.microsoft.com/windows/win32/api/ehstorapi/ns-ehstorapi-act_authorization_state
  * @namespace Windows.Win32.Storage.EnhancedStorage
- * @version v4.0.30319
  */
-class ACT_AUTHORIZATION_STATE extends Win32Struct
-{
+class ACT_AUTHORIZATION_STATE extends Win32Struct {
     static sizeof => 4
 
     static packingSize => 4

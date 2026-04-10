@@ -5,9 +5,8 @@
 
 /**
  * @namespace Windows.Win32.System.Ole
- * @version v4.0.30319
  */
-class IPersistPropertyBag2 extends IPersist{
+class IPersistPropertyBag2 extends IPersist {
 
     static sizeof => A_PtrSize
     /**

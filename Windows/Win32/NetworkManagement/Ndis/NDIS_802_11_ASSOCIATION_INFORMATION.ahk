@@ -5,10 +5,8 @@
 
 /**
  * @namespace Windows.Win32.NetworkManagement.Ndis
- * @version v4.0.30319
  */
-class NDIS_802_11_ASSOCIATION_INFORMATION extends Win32Struct
-{
+class NDIS_802_11_ASSOCIATION_INFORMATION extends Win32Struct {
     static sizeof => 40
 
     static packingSize => 4
@@ -32,7 +30,7 @@ class NDIS_802_11_ASSOCIATION_INFORMATION extends Win32Struct
     /**
      * @type {NDIS_802_11_AI_REQFI}
      */
-    RequestFixedIEs{
+    RequestFixedIEs {
         get {
             if(!this.HasProp("__RequestFixedIEs"))
                 this.__RequestFixedIEs := NDIS_802_11_AI_REQFI(6, this)
@@ -67,7 +65,7 @@ class NDIS_802_11_ASSOCIATION_INFORMATION extends Win32Struct
     /**
      * @type {NDIS_802_11_AI_RESFI}
      */
-    ResponseFixedIEs{
+    ResponseFixedIEs {
         get {
             if(!this.HasProp("__ResponseFixedIEs"))
                 this.__ResponseFixedIEs := NDIS_802_11_AI_RESFI(26, this)

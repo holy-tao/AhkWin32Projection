@@ -5,10 +5,8 @@
  * Contains an encoded OCSP response.
  * @see https://learn.microsoft.com/windows/win32/api/wincrypt/ns-wincrypt-cert_server_ocsp_response_context
  * @namespace Windows.Win32.Security.Cryptography
- * @version v4.0.30319
  */
-class CERT_SERVER_OCSP_RESPONSE_CONTEXT extends Win32Struct
-{
+class CERT_SERVER_OCSP_RESPONSE_CONTEXT extends Win32Struct {
     static sizeof => 24
 
     static packingSize => 8

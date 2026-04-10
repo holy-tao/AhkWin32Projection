@@ -1,12 +1,13 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
+#Include ..\..\..\Win32\Foundation\UNICODE_STRING.ahk
+#Include .\PCW_COUNTER_DESCRIPTOR.ahk
+#Include .\PCW_REGISTRATION_FLAGS.ahk
 
 /**
  * @namespace Windows.Wdk.System.SystemServices
- * @version v4.0.30319
  */
-class PCW_REGISTRATION_INFORMATION extends Win32Struct
-{
+class PCW_REGISTRATION_INFORMATION extends Win32Struct {
     static sizeof => 56
 
     static packingSize => 8
@@ -60,7 +61,7 @@ class PCW_REGISTRATION_INFORMATION extends Win32Struct
     }
 
     /**
-     * @type {Integer}
+     * @type {PCW_REGISTRATION_FLAGS}
      */
     Flags {
         get => NumGet(this, 48, "int")

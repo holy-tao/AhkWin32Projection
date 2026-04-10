@@ -1,17 +1,16 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\..\Win32Struct.ahk
-#Include ..\..\..\Foundation\HWND.ahk
 #Include ..\NMHDR.ahk
+#Include ..\..\..\Foundation\HWND.ahk
 #Include .\CHARRANGE.ahk
 
 /**
  * Contains information about an EN_LINK notification code from a rich edit control.
  * @see https://learn.microsoft.com/windows/win32/api/richedit/ns-richedit-enlink
  * @namespace Windows.Win32.UI.Controls.RichEdit
- * @version v4.0.30319
+ * @architecture X64, Arm64
  */
-class ENLINK extends Win32Struct
-{
+class ENLINK extends Win32Struct {
     static sizeof => 56
 
     static packingSize => 8
@@ -22,7 +21,7 @@ class ENLINK extends Win32Struct
      * The code member of this structure identifies the notification code being sent.
      * @type {NMHDR}
      */
-    nmhdr{
+    nmhdr {
         get {
             if(!this.HasProp("__nmhdr"))
                 this.__nmhdr := NMHDR(0, this)
@@ -69,7 +68,7 @@ class ENLINK extends Win32Struct
      * The range of consecutive characters in the rich edit control that have the CFE_LINK effect.
      * @type {CHARRANGE}
      */
-    chrg{
+    chrg {
         get {
             if(!this.HasProp("__chrg"))
                 this.__chrg := CHARRANGE(48, this)

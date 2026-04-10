@@ -7,9 +7,8 @@
  * Returns a client API wrapper object and to unmarshal property and method requests to an actual provider instance.
  * @see https://learn.microsoft.com/windows/win32/api/uiautomationcore/nn-uiautomationcore-iuiautomationpatternhandler
  * @namespace Windows.Win32.UI.Accessibility
- * @version v4.0.30319
  */
-class IUIAutomationPatternHandler extends IUnknown{
+class IUIAutomationPatternHandler extends IUnknown {
 
     static sizeof => A_PtrSize
     /**

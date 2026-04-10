@@ -9,9 +9,8 @@
  * <b>Windows 8:  </b>When installing a provider the <b>IMofCompiler</b> interface treats the [Key] and [Static] qualifiers as true if they are present, regardless of their actual values. Other qualifiers are treated as false if they are present but not explicitly set to true.
  * @see https://learn.microsoft.com/windows/win32/api/wbemcli/nn-wbemcli-imofcompiler
  * @namespace Windows.Win32.System.Wmi
- * @version v4.0.30319
  */
-class IMofCompiler extends IUnknown{
+class IMofCompiler extends IUnknown {
 
     static sizeof => A_PtrSize
     /**
@@ -92,7 +91,7 @@ class IMofCompiler extends IUnknown{
      * <a href="https://docs.microsoft.com/windows/desktop/api/wbemcli/nf-wbemcli-imofcompiler-createbmof">CreateBMOF</a> method, which stores the binary MOF data into a file that can be read before calling the 
      * <b>CompileBuffer</b> method.
      * @param {Integer} BuffSize Size of the data pointed to by the <i>pBuffer</i> parameter.
-     * @param {Pointer} pBuffer Pointer to the binary MOF file data or a text buffer in ASCII format.
+     * @param {Integer} pBuffer Pointer to the binary MOF file data or a text buffer in ASCII format.
      * @param {PWSTR} ServerAndNamespace Name of the server and namespace.
      * 
      * This parameter is ignored unless the <i>pBuffer</i> parameter points to a text buffer.  If the text MOF is passed without a <a href="https://docs.microsoft.com/windows/desktop/WmiSdk/-pragma">#pragma</a> statement, then the MOF file is compiled into the default namespace. If <i>pBuffer</i> points to a binary MOF file, then the <i>ServerAndNamespace</i> parameter must be <b>NULL</b>.

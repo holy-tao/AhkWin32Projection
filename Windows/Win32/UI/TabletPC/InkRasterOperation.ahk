@@ -11,9 +11,8 @@
  * When the <b>RasterOperation</b> value is set to anything other than CopyPen, all drawing attributes (anti-aliasing, smoothing, transparency, and pressure) are ignored.
  * @see https://learn.microsoft.com/windows/win32/api/msinkaut/ne-msinkaut-inkrasteroperation
  * @namespace Windows.Win32.UI.TabletPC
- * @version v4.0.30319
  */
-class InkRasterOperation extends Win32Enum{
+class InkRasterOperation extends Win32Enum {
 
     /**
      * Black pen color.

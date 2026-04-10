@@ -1,16 +1,16 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
 #Include .\UpdateAssessment.ahk
+#Include .\UpdateAssessmentStatus.ahk
+#Include .\UpdateImpactLevel.ahk
 #Include ..\..\Foundation\FILETIME.ahk
 
 /**
  * The OSUpdateAssessment structure defines how up-to-date the OS on a targeted device is.
  * @see https://learn.microsoft.com/windows/win32/api/waasapitypes/ns-waasapitypes-osupdateassessment
  * @namespace Windows.Win32.System.UpdateAssessment
- * @version v4.0.30319
  */
-class OSUpdateAssessment extends Win32Struct
-{
+class OSUpdateAssessment extends Win32Struct {
     static sizeof => 80
 
     static packingSize => 8
@@ -28,7 +28,7 @@ class OSUpdateAssessment extends Win32Struct
      * An <a href="https://docs.microsoft.com/windows/desktop/api/waasapitypes/ns-waasapitypes-updateassessment">UpdateAssessment</a> structure containing an assessment against the latest update Microsoft has released.
      * @type {UpdateAssessment}
      */
-    assessmentForCurrent{
+    assessmentForCurrent {
         get {
             if(!this.HasProp("__assessmentForCurrent"))
                 this.__assessmentForCurrent := UpdateAssessment(4, this)
@@ -40,7 +40,7 @@ class OSUpdateAssessment extends Win32Struct
      * An <a href="https://docs.microsoft.com/windows/desktop/api/waasapitypes/ns-waasapitypes-updateassessment">UpdateAssessment</a> structure containing an assessment against the latest applicable quality update for the device.
      * @type {UpdateAssessment}
      */
-    assessmentForUpToDate{
+    assessmentForUpToDate {
         get {
             if(!this.HasProp("__assessmentForUpToDate"))
                 this.__assessmentForUpToDate := UpdateAssessment(16, this)
@@ -50,7 +50,7 @@ class OSUpdateAssessment extends Win32Struct
 
     /**
      * An <a href="https://docs.microsoft.com/windows/desktop/SysInfo/updateassessmentstatus">UpdateAssessmentStatus</a> enumeration that details whether the device is on the latest applicable security update.
-     * @type {Integer}
+     * @type {UpdateAssessmentStatus}
      */
     securityStatus {
         get => NumGet(this, 28, "int")
@@ -61,7 +61,7 @@ class OSUpdateAssessment extends Win32Struct
      * Timestamp when the assessment was done.
      * @type {FILETIME}
      */
-    assessmentTime{
+    assessmentTime {
         get {
             if(!this.HasProp("__assessmentTime"))
                 this.__assessmentTime := FILETIME(32, this)
@@ -73,7 +73,7 @@ class OSUpdateAssessment extends Win32Struct
      * Timestamp when the release information was updated.
      * @type {FILETIME}
      */
-    releaseInfoTime{
+    releaseInfoTime {
         get {
             if(!this.HasProp("__releaseInfoTime"))
                 this.__releaseInfoTime := FILETIME(40, this)
@@ -94,7 +94,7 @@ class OSUpdateAssessment extends Win32Struct
      * The published timestamp of the release date for current OS build.
      * @type {FILETIME}
      */
-    currentOSReleaseTime{
+    currentOSReleaseTime {
         get {
             if(!this.HasProp("__currentOSReleaseTime"))
                 this.__currentOSReleaseTime := FILETIME(56, this)
@@ -115,7 +115,7 @@ class OSUpdateAssessment extends Win32Struct
      * The published timestamp of the release date for the up-to-date OS build.
      * @type {FILETIME}
      */
-    upToDateOSReleaseTime{
+    upToDateOSReleaseTime {
         get {
             if(!this.HasProp("__upToDateOSReleaseTime"))
                 this.__upToDateOSReleaseTime := FILETIME(72, this)

@@ -5,9 +5,8 @@
  * Note  This section describes functionality designed for use by online stores. Use of this functionality outside the context of an online store is not supported. The WMPTemplateSize enumeration represents HTML template sizes.
  * @see https://learn.microsoft.com/windows/win32/api/contentpartner/ne-contentpartner-wmptemplatesize
  * @namespace Windows.Win32.Media.MediaPlayer
- * @version v4.0.30319
  */
-class WMPTemplateSize extends Win32Enum{
+class WMPTemplateSize extends Win32Enum {
 
     /**
      * Small template; height is fixed at 100 pixels.

@@ -7,9 +7,8 @@
  * An IInkHostWorkItem object represents an ink operation to be executed on an IInkDesktopHost object thread.
  * @see https://learn.microsoft.com/windows/win32/api/inkpresenterdesktop/nn-inkpresenterdesktop-iinkhostworkitem
  * @namespace Windows.Win32.UI.Input.Ink
- * @version v4.0.30319
  */
-class IInkHostWorkItem extends IUnknown{
+class IInkHostWorkItem extends IUnknown {
 
     static sizeof => A_PtrSize
     /**

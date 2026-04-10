@@ -3,9 +3,8 @@
 
 /**
  * @namespace Windows.Win32.Graphics.Gdi
- * @version v4.0.30319
  */
-class DFCS_STATE extends Win32BitflagEnum{
+class DFCS_STATE extends Win32BitflagEnum {
 
     /**
      * @type {Integer (UInt32)}

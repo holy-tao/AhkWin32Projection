@@ -1,12 +1,13 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
+#Include .\DOT11EXT_IHV_SSID_LIST.ahk
+#Include .\DOT11_BSS_TYPE.ahk
+#Include .\DOT11_MSSECURITY_SETTINGS.ahk
 
 /**
  * @namespace Windows.Win32.NetworkManagement.WiFi
- * @version v4.0.30319
  */
-class DOT11EXT_IHV_PROFILE_PARAMS extends Win32Struct
-{
+class DOT11EXT_IHV_PROFILE_PARAMS extends Win32Struct {
     static sizeof => 24
 
     static packingSize => 8
@@ -20,7 +21,7 @@ class DOT11EXT_IHV_PROFILE_PARAMS extends Win32Struct
     }
 
     /**
-     * @type {Integer}
+     * @type {DOT11_BSS_TYPE}
      */
     BssType {
         get => NumGet(this, 8, "int")

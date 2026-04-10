@@ -1,13 +1,12 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
 #Include ..\..\Foundation\HANDLE.ahk
+#Include ..\Gdi\DEVMODEA.ahk
 
 /**
  * @namespace Windows.Win32.Graphics.Printing
- * @version v4.0.30319
  */
-class DEVQUERYPRINT_INFO extends Win32Struct
-{
+class DEVQUERYPRINT_INFO extends Win32Struct {
     static sizeof => 40
 
     static packingSize => 8
@@ -31,7 +30,7 @@ class DEVQUERYPRINT_INFO extends Win32Struct
     /**
      * @type {HANDLE}
      */
-    hPrinter{
+    hPrinter {
         get {
             if(!this.HasProp("__hPrinter"))
                 this.__hPrinter := HANDLE(8, this)

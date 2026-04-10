@@ -3,15 +3,14 @@
 #Include ..\..\Graphics\Gdi\HPALETTE.ahk
 #Include ..\..\Foundation\HWND.ahk
 #Include ..\..\Graphics\Gdi\HDC.ahk
+#Include ..\..\Graphics\Gdi\BITMAPINFOHEADER.ahk
 
 /**
  * The ICDRAWBEGIN structure contains decompression parameters used with the ICM_DRAW_BEGIN message.
  * @see https://learn.microsoft.com/windows/win32/api/vfw/ns-vfw-icdrawbegin
  * @namespace Windows.Win32.Media.Multimedia
- * @version v4.0.30319
  */
-class ICDRAWBEGIN extends Win32Struct
-{
+class ICDRAWBEGIN extends Win32Struct {
     static sizeof => 80
 
     static packingSize => 8
@@ -135,7 +134,7 @@ class ICDRAWBEGIN extends Win32Struct
      * Handle to the palette used for drawing.
      * @type {HPALETTE}
      */
-    hpal{
+    hpal {
         get {
             if(!this.HasProp("__hpal"))
                 this.__hpal := HPALETTE(8, this)
@@ -147,7 +146,7 @@ class ICDRAWBEGIN extends Win32Struct
      * Handle to the window used for drawing.
      * @type {HWND}
      */
-    hwnd{
+    hwnd {
         get {
             if(!this.HasProp("__hwnd"))
                 this.__hwnd := HWND(16, this)
@@ -159,7 +158,7 @@ class ICDRAWBEGIN extends Win32Struct
      * Handle to the DC used for drawing. Specify <b>NULL</b> to use a DC associated with the specified window.
      * @type {HDC}
      */
-    hdc{
+    hdc {
         get {
             if(!this.HasProp("__hdc"))
                 this.__hdc := HDC(24, this)

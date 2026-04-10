@@ -5,9 +5,8 @@
  * Defines values that describe the characteristics of an audio stream.
  * @see https://learn.microsoft.com/windows/win32/api/audioclient/ne-audioclient-audclnt_streamoptions
  * @namespace Windows.Win32.Media.Audio
- * @version v4.0.30319
  */
-class AUDCLNT_STREAMOPTIONS extends Win32BitflagEnum{
+class AUDCLNT_STREAMOPTIONS extends Win32BitflagEnum {
 
     /**
      * No stream options.
@@ -35,7 +34,6 @@ class AUDCLNT_STREAMOPTIONS extends Win32BitflagEnum{
     static AUDCLNT_STREAMOPTIONS_MATCH_FORMAT => 2
 
     /**
-     * 
      * @type {Integer (Int32)}
      */
     static AUDCLNT_STREAMOPTIONS_AMBISONICS => 4

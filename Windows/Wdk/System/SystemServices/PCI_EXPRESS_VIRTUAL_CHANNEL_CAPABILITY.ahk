@@ -1,19 +1,16 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
-#Include .\VIRTUAL_RESOURCE.ahk
 
 /**
  * @namespace Windows.Wdk.System.SystemServices
- * @version v4.0.30319
  */
-class PCI_EXPRESS_VIRTUAL_CHANNEL_CAPABILITY extends Win32Struct
-{
+class PCI_EXPRESS_VIRTUAL_CHANNEL_CAPABILITY extends Win32Struct {
     static sizeof => 104
 
     static packingSize => 8
 
     /**
-     * @type {Pointer<PCI_EXPRESS_ENHANCED_CAPABILITY_HEADER>}
+     * @type {Pointer}
      */
     Header {
         get => NumGet(this, 0, "ptr")
@@ -21,7 +18,7 @@ class PCI_EXPRESS_VIRTUAL_CHANNEL_CAPABILITY extends Win32Struct
     }
 
     /**
-     * @type {Pointer<VIRTUAL_CHANNEL_CAPABILITIES1>}
+     * @type {Pointer}
      */
     Capabilities1 {
         get => NumGet(this, 8, "ptr")
@@ -29,7 +26,7 @@ class PCI_EXPRESS_VIRTUAL_CHANNEL_CAPABILITY extends Win32Struct
     }
 
     /**
-     * @type {Pointer<VIRTUAL_CHANNEL_CAPABILITIES2>}
+     * @type {Pointer}
      */
     Capabilities2 {
         get => NumGet(this, 16, "ptr")
@@ -37,7 +34,7 @@ class PCI_EXPRESS_VIRTUAL_CHANNEL_CAPABILITY extends Win32Struct
     }
 
     /**
-     * @type {Pointer<VIRTUAL_CHANNEL_CONTROL>}
+     * @type {Pointer}
      */
     Control {
         get => NumGet(this, 24, "ptr")
@@ -45,7 +42,7 @@ class PCI_EXPRESS_VIRTUAL_CHANNEL_CAPABILITY extends Win32Struct
     }
 
     /**
-     * @type {Pointer<VIRTUAL_CHANNEL_STATUS>}
+     * @type {Pointer}
      */
     Status {
         get => NumGet(this, 32, "ptr")
@@ -53,9 +50,9 @@ class PCI_EXPRESS_VIRTUAL_CHANNEL_CAPABILITY extends Win32Struct
     }
 
     /**
-     * @type {Array<VIRTUAL_RESOURCE>}
+     * @type {Array<Pointer>}
      */
-    Resource{
+    Resource {
         get {
             if(!this.HasProp("__ResourceProxyArray"))
                 this.__ResourceProxyArray := Win32FixedArray(this.ptr + 40, 8, Primitive, "ptr")

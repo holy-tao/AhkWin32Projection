@@ -1,16 +1,14 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
-#Include .\IMFASFStreamPrioritization.ahk
 #Include ..\..\System\Com\IUnknown.ahk
 
 /**
  * Not implemented. (IMFASFStreamPrioritization)
  * @see https://learn.microsoft.com/windows/win32/api/wmcontainer/nn-wmcontainer-imfasfstreamprioritization
  * @namespace Windows.Win32.Media.MediaFoundation
- * @version v4.0.30319
  */
-class IMFASFStreamPrioritization extends IUnknown{
+class IMFASFStreamPrioritization extends IUnknown {
 
     static sizeof => A_PtrSize
     /**

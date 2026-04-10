@@ -5,9 +5,8 @@
  * Indicates the state of a target.
  * @see https://learn.microsoft.com/windows/win32/api/sessdirpublictypes/ne-sessdirpublictypes-target_state
  * @namespace Windows.Win32.System.RemoteDesktop
- * @version v4.0.30319
  */
-class TARGET_STATE extends Win32Enum{
+class TARGET_STATE extends Win32Enum {
 
     /**
      * The target state is unknown.
@@ -52,25 +51,21 @@ class TARGET_STATE extends Win32Enum{
     static TARGET_STOPPED => 7
 
     /**
-     * 
      * @type {Integer (Int32)}
      */
     static TARGET_INVALID => 8
 
     /**
-     * 
      * @type {Integer (Int32)}
      */
     static TARGET_STARTING => 9
 
     /**
-     * 
      * @type {Integer (Int32)}
      */
     static TARGET_STOPPING => 10
 
     /**
-     * 
      * @type {Integer (Int32)}
      */
     static TARGET_MAXSTATE => 11

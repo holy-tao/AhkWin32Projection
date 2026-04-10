@@ -1,8 +1,8 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
-#Include Common\SHELLDETAILS.ahk
 #Include ..\..\System\Com\IUnknown.ahk
+#Include Common\SHELLDETAILS.ahk
 
 /**
  * Exposed by Shell folders to provide detailed information about the items in a folder.
@@ -10,9 +10,8 @@
  * For Windows 2000 and later systems, folder objects should implement <a href="https://docs.microsoft.com/windows/desktop/api/shobjidl_core/nn-shobjidl_core-ishellfolder2">IShellFolder2</a> instead of this interface. However, if your application needs to function on earlier systems, <b>IShellDetails</b> should also be exposed.
  * @see https://learn.microsoft.com/windows/win32/api/shlobj_core/nn-shlobj_core-ishelldetails
  * @namespace Windows.Win32.UI.Shell
- * @version v4.0.30319
  */
-class IShellDetails extends IUnknown{
+class IShellDetails extends IUnknown {
 
     static sizeof => A_PtrSize
     /**

@@ -1,19 +1,16 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\Win32Struct.ahk
-#Include ..\..\Win32\System\Kernel\LIST_ENTRY.ahk
 
 /**
  * @namespace Windows.Wdk.Foundation
- * @version v4.0.30319
  */
-class KQUEUE extends Win32Struct
-{
-    static sizeof => 48
+class KQUEUE extends Win32Struct {
+    static sizeof => 32
 
     static packingSize => 8
 
     /**
-     * @type {Pointer<DISPATCHER_HEADER>}
+     * @type {Pointer}
      */
     Header {
         get => NumGet(this, 0, "ptr")
@@ -21,40 +18,34 @@ class KQUEUE extends Win32Struct
     }
 
     /**
-     * @type {LIST_ENTRY}
+     * @type {Pointer}
      */
-    EntryListHead{
-        get {
-            if(!this.HasProp("__EntryListHead"))
-                this.__EntryListHead := LIST_ENTRY(8, this)
-            return this.__EntryListHead
-        }
+    EntryListHead {
+        get => NumGet(this, 8, "ptr")
+        set => NumPut("ptr", value, this, 8)
     }
 
     /**
      * @type {Integer}
      */
     CurrentCount {
-        get => NumGet(this, 24, "uint")
-        set => NumPut("uint", value, this, 24)
+        get => NumGet(this, 16, "uint")
+        set => NumPut("uint", value, this, 16)
     }
 
     /**
      * @type {Integer}
      */
     MaximumCount {
-        get => NumGet(this, 28, "uint")
-        set => NumPut("uint", value, this, 28)
+        get => NumGet(this, 20, "uint")
+        set => NumPut("uint", value, this, 20)
     }
 
     /**
-     * @type {LIST_ENTRY}
+     * @type {Pointer}
      */
-    ThreadListHead{
-        get {
-            if(!this.HasProp("__ThreadListHead"))
-                this.__ThreadListHead := LIST_ENTRY(32, this)
-            return this.__ThreadListHead
-        }
+    ThreadListHead {
+        get => NumGet(this, 24, "ptr")
+        set => NumPut("ptr", value, this, 24)
     }
 }

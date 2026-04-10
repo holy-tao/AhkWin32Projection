@@ -12,9 +12,8 @@
  * A drawing state block is a device-independent resource; you can create it once and retain it for the life of your application. For more information about resources, see the <a href="https://docs.microsoft.com/windows/win32/Direct2D/resources-and-resource-domains">Resources Overview</a>.
  * @see https://learn.microsoft.com/windows/win32/api/d2d1/nn-d2d1-id2d1drawingstateblock
  * @namespace Windows.Win32.Graphics.Direct2D
- * @version v4.0.30319
  */
-class ID2D1DrawingStateBlock extends ID2D1Resource{
+class ID2D1DrawingStateBlock extends ID2D1Resource {
 
     static sizeof => A_PtrSize
     /**

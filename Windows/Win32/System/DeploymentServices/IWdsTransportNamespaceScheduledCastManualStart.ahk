@@ -7,9 +7,8 @@
  * An administrator must start transmission on an object of an IWdsTransportNamespaceScheduledCastManualStart interface. Applications can continue to join sessions of the namespace until the administrator starts transmission.
  * @see https://learn.microsoft.com/windows/win32/api/wdstptmgmt/nn-wdstptmgmt-iwdstransportnamespacescheduledcastmanualstart
  * @namespace Windows.Win32.System.DeploymentServices
- * @version v4.0.30319
  */
-class IWdsTransportNamespaceScheduledCastManualStart extends IWdsTransportNamespaceScheduledCast{
+class IWdsTransportNamespaceScheduledCastManualStart extends IWdsTransportNamespaceScheduledCast {
 
     static sizeof => A_PtrSize
     /**

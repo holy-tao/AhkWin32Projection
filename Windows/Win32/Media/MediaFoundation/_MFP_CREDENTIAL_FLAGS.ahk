@@ -5,9 +5,8 @@
  * Contains flags for the MFP_ACQUIRE_USER_CREDENTIAL_EVENT structure.
  * @see https://learn.microsoft.com/windows/win32/api/mfplay/ne-mfplay-_mfp_credential_flags
  * @namespace Windows.Win32.Media.MediaFoundation
- * @version v4.0.30319
  */
-class _MFP_CREDENTIAL_FLAGS extends Win32Enum{
+class _MFP_CREDENTIAL_FLAGS extends Win32Enum {
 
     /**
      * The player object does not have any stored credentials and requires them from the application. If the player object can provide cached or stored credentials to the server, it does not set this flag.

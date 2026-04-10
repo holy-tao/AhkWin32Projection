@@ -1,12 +1,11 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
+#Include .\USB_DEVICE_SPEED.ahk
 
 /**
  * @namespace Windows.Win32.Devices.Usb
- * @version v4.0.30319
  */
-class USB_DEVICE_PERFORMANCE_INFO extends Win32Struct
-{
+class USB_DEVICE_PERFORMANCE_INFO extends Win32Struct {
     static sizeof => 228
 
     static packingSize => 4
@@ -76,9 +75,9 @@ class USB_DEVICE_PERFORMANCE_INFO extends Win32Struct
     }
 
     /**
-     * @type {Array<UInt32>}
+     * @type {Array<Integer>}
      */
-    AllocedInterrupt{
+    AllocedInterrupt {
         get {
             if(!this.HasProp("__AllocedInterruptProxyArray"))
                 this.__AllocedInterruptProxyArray := Win32FixedArray(this.ptr + 32, 6, Primitive, "uint")
@@ -119,7 +118,7 @@ class USB_DEVICE_PERFORMANCE_INFO extends Win32Struct
     }
 
     /**
-     * @type {Integer}
+     * @type {USB_DEVICE_SPEED}
      */
     DeviceSpeed {
         get => NumGet(this, 188, "int")

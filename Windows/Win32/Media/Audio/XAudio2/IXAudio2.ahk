@@ -1,10 +1,10 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\..\Guid.ahk
+#Include ..\..\..\System\Com\IUnknown.ahk
 #Include .\IXAudio2SourceVoice.ahk
 #Include .\IXAudio2SubmixVoice.ahk
 #Include .\IXAudio2MasteringVoice.ahk
-#Include ..\..\..\System\Com\IUnknown.ahk
 
 /**
  * IXAudio2 is the interface for the XAudio2 object that manages all audio engine states, the audio processing thread, the voice graph, and so forth.
@@ -15,9 +15,8 @@
  * Windows 8, Windows Phone 8 (XAudio 2.8); DirectX SDK (XAudio 2.7)
  * @see https://learn.microsoft.com/windows/win32/api/xaudio2/nn-xaudio2-ixaudio2
  * @namespace Windows.Win32.Media.Audio.XAudio2
- * @version v4.0.30319
  */
-class IXAudio2 extends IUnknown{
+class IXAudio2 extends IUnknown {
 
     static sizeof => A_PtrSize
     /**
@@ -369,7 +368,7 @@ class IXAudio2 extends IUnknown{
      * @param {Integer} Flags Flags that specify the behavior of the mastering voice. This can be 0 or ``XAUDIO2_NO_VIRTUAL_AUDIO_CLIENT``.
      * @param {PWSTR} szDeviceId Identifier of the device to receive the output audio. Specifying the default value of NULL causes XAudio2 to select the global default audio device. On Windows 10 or later, NULL will also opt-in to the WASAPI virtualized client unless `XAUDIO2_NO_VIRTUAL_AUDIO_CLIENT` is passed in Flags.
      * @param {Pointer<XAUDIO2_EFFECT_CHAIN>} pEffectChain Pointer to an <a href="https://docs.microsoft.com/windows/desktop/api/xaudio2/ns-xaudio2-xaudio2_effect_chain">XAUDIO2_EFFECT_CHAIN</a> structure that describes an effect chain to use in the mastering voice, or NULL to use no effects.
-     * @param {Integer} StreamCategory The audio stream category to use for this mastering voice.
+     * @param {AUDIO_STREAM_CATEGORY} StreamCategory The audio stream category to use for this mastering voice.
      * @returns {IXAudio2MasteringVoice} If successful, returns a pointer to the new <a href="https://docs.microsoft.com/windows/desktop/api/xaudio2/nn-xaudio2-ixaudio2masteringvoice">IXAudio2MasteringVoice</a> object.
      * @see https://learn.microsoft.com/windows/win32/api/xaudio2/nf-xaudio2-ixaudio2-createmasteringvoice
      */

@@ -4,10 +4,8 @@
 
 /**
  * @namespace Windows.Win32.Security.Authorization
- * @version v4.0.30319
  */
-class ACTRL_OVERLAPPED extends Win32Struct
-{
+class ACTRL_OVERLAPPED extends Win32Struct {
     static sizeof => 24
 
     static packingSize => 8
@@ -32,14 +30,14 @@ class ACTRL_OVERLAPPED extends Win32Struct
      * @type {Integer}
      */
     Reserved2 {
-        get => NumGet(this, 12, "uint")
-        set => NumPut("uint", value, this, 12)
+        get => NumGet(this, 8, "uint")
+        set => NumPut("uint", value, this, 8)
     }
 
     /**
      * @type {HANDLE}
      */
-    hEvent{
+    hEvent {
         get {
             if(!this.HasProp("__hEvent"))
                 this.__hEvent := HANDLE(16, this)

@@ -1,16 +1,15 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\..\..\Guid.ahk
-#Include ..\..\..\..\UI\Shell\PropertiesSystem\IPropertyStore.ahk
 #Include ..\..\..\..\System\Com\IUnknown.ahk
+#Include ..\..\..\..\UI\Shell\PropertiesSystem\IPropertyStore.ahk
 
 /**
  * Allows an identity provider to associate identities with local user accounts.
  * @see https://learn.microsoft.com/windows/win32/api/identityprovider/nn-identityprovider-iassociatedidentityprovider
  * @namespace Windows.Win32.Security.Authentication.Identity.Provider
- * @version v4.0.30319
  */
-class IAssociatedIdentityProvider extends IUnknown{
+class IAssociatedIdentityProvider extends IUnknown {
 
     static sizeof => A_PtrSize
     /**

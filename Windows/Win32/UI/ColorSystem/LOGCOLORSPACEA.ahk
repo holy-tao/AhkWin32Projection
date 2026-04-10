@@ -1,7 +1,8 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
-#Include ..\..\Graphics\Gdi\CIEXYZ.ahk
+#Include .\LCSCSTYPE.ahk
 #Include ..\..\Graphics\Gdi\CIEXYZTRIPLE.ahk
+#Include ..\..\Graphics\Gdi\CIEXYZ.ahk
 
 /**
  * The LOGCOLORSPACE structure contains information that defines a logical color space. (ANSI)
@@ -34,11 +35,9 @@
  * > The wingdi.h header defines LOGCOLORSPACE as an alias which automatically selects the ANSI or Unicode version of this function based on the definition of the UNICODE preprocessor constant. Mixing usage of the encoding-neutral alias with code that not encoding-neutral can lead to mismatches that result in compilation or runtime errors. For more information, see [Conventions for Function Prototypes](/windows/win32/intl/conventions-for-function-prototypes).
  * @see https://learn.microsoft.com/windows/win32/api/wingdi/ns-wingdi-logcolorspacea
  * @namespace Windows.Win32.UI.ColorSystem
- * @version v4.0.30319
  * @charset ANSI
  */
-class LOGCOLORSPACEA extends Win32Struct
-{
+class LOGCOLORSPACEA extends Win32Struct {
     static sizeof => 328
 
     static packingSize => 4
@@ -71,8 +70,7 @@ class LOGCOLORSPACEA extends Win32Struct
     }
 
     /**
-     * 
-     * @type {Integer}
+     * @type {LCSCSTYPE}
      */
     lcsCSType {
         get => NumGet(this, 12, "int")
@@ -80,7 +78,6 @@ class LOGCOLORSPACEA extends Win32Struct
     }
 
     /**
-     * 
      * @type {Integer}
      */
     lcsIntent {
@@ -92,7 +89,7 @@ class LOGCOLORSPACEA extends Win32Struct
      * Red, green, blue endpoints.
      * @type {CIEXYZTRIPLE}
      */
-    lcsEndpoints{
+    lcsEndpoints {
         get {
             if(!this.HasProp("__lcsEndpoints"))
                 this.__lcsEndpoints := CIEXYZTRIPLE(20, this)

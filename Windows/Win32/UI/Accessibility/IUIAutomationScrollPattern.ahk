@@ -7,9 +7,8 @@
  * Provides access to a control that acts as a scrollable container for a collection of child elements.
  * @see https://learn.microsoft.com/windows/win32/api/uiautomationclient/nn-uiautomationclient-iuiautomationscrollpattern
  * @namespace Windows.Win32.UI.Accessibility
- * @version v4.0.30319
  */
-class IUIAutomationScrollPattern extends IUnknown{
+class IUIAutomationScrollPattern extends IUnknown {
 
     static sizeof => A_PtrSize
     /**
@@ -116,8 +115,8 @@ class IUIAutomationScrollPattern extends IUnknown{
 
     /**
      * Scrolls the visible region of the content area horizontally and vertically. (IUIAutomationScrollPattern.Scroll)
-     * @param {Integer} horizontalAmount 
-     * @param {Integer} verticalAmount 
+     * @param {ScrollAmount} horizontalAmount 
+     * @param {ScrollAmount} verticalAmount 
      * @returns {HRESULT} Type: <b><a href="https://docs.microsoft.com/windows/desktop/WinProg/windows-data-types">HRESULT</a></b>
      * 
      * If this method succeeds, it returns <b>S_OK</b>. Otherwise, it returns an <b>HRESULT</b> error code.

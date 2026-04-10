@@ -19,9 +19,8 @@
  * <img alt="Diagram that shows how the animation manager schedules the storyboard and manages the animation." src="images/StateDiagram.png"/>
  * @see https://learn.microsoft.com/windows/win32/api/uianimation/ne-uianimation-ui_animation_storyboard_status
  * @namespace Windows.Win32.UI.Animation
- * @version v4.0.30319
  */
-class UI_ANIMATION_STORYBOARD_STATUS extends Win32Enum{
+class UI_ANIMATION_STORYBOARD_STATUS extends Win32Enum {
 
     /**
      * The storyboard has never been scheduled.

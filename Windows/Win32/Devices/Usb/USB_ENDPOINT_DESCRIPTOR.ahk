@@ -3,10 +3,8 @@
 
 /**
  * @namespace Windows.Win32.Devices.Usb
- * @version v4.0.30319
  */
-class USB_ENDPOINT_DESCRIPTOR extends Win32Struct
-{
+class USB_ENDPOINT_DESCRIPTOR extends Win32Struct {
     static sizeof => 8
 
     static packingSize => 2

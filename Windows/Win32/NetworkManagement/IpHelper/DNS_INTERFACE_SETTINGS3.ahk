@@ -1,16 +1,13 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
+#Include .\DNS_SERVER_PROPERTY.ahk
 
 /**
  * Represents the DNS settings that can be configured on a given interface by calling the [**SetInterfaceDnsSettings**](/windows/win32/api/netioapi/nf-netioapi-setinterfacednssettings) function. (DNS_INTERFACE_SETTINGS3)
- * @remarks
- * 
  * @see https://learn.microsoft.com/windows/win32/api/netioapi/ns-netioapi-dns_interface_settings3
  * @namespace Windows.Win32.NetworkManagement.IpHelper
- * @version v4.0.30319
  */
-class DNS_INTERFACE_SETTINGS3 extends Win32Struct
-{
+class DNS_INTERFACE_SETTINGS3 extends Win32Struct {
     static sizeof => 112
 
     static packingSize => 8

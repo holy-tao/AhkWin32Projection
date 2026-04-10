@@ -1,16 +1,14 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
-#Include .\IEnumCATEGORYINFO.ahk
 #Include .\IUnknown.ahk
 
 /**
  * Enumerates component categories registered in the system.
  * @see https://learn.microsoft.com/windows/win32/api/comcat/nn-comcat-ienumcategoryinfo
  * @namespace Windows.Win32.System.Com
- * @version v4.0.30319
  */
-class IEnumCATEGORYINFO extends IUnknown{
+class IEnumCATEGORYINFO extends IUnknown {
 
     static sizeof => A_PtrSize
     /**

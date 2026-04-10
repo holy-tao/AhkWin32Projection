@@ -1,8 +1,8 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
-#Include .\IMFAttributes.ahk
 #Include .\IMFMediaSource.ahk
+#Include .\IMFAttributes.ahk
 
 /**
  * Extends the IMFMediaSource interface to provide additional capabilities for a media source.
@@ -10,9 +10,8 @@
  * Implementations of this interface can return <b>E_NOTIMPL</b> for any methods that are not required by the media source.
  * @see https://learn.microsoft.com/windows/win32/api/mfidl/nn-mfidl-imfmediasourceex
  * @namespace Windows.Win32.Media.MediaFoundation
- * @version v4.0.30319
  */
-class IMFMediaSourceEx extends IMFMediaSource{
+class IMFMediaSourceEx extends IMFMediaSource {
 
     static sizeof => A_PtrSize
     /**

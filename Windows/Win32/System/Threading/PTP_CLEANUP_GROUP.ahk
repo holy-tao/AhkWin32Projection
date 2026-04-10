@@ -7,10 +7,8 @@
  * Applications implement this callback if they call the SetThreadpoolCallbackCleanupGroup function to specify the callback to use when CloseThreadpoolCleanupGroup is called.
  * @see https://learn.microsoft.com/windows/win32/api/winnt/nc-winnt-ptp_cleanup_group_cancel_callback
  * @namespace Windows.Win32.System.Threading
- * @version v4.0.30319
  */
-class PTP_CLEANUP_GROUP extends Win32Handle
-{
+class PTP_CLEANUP_GROUP extends Win32Handle {
     static sizeof => 8
 
     static packingSize => 8

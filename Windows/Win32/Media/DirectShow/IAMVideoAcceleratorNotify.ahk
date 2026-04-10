@@ -7,9 +7,8 @@
  * The IAMVideoAcceleratorNotify interface is a callback interface used in conjunction with the IAMVideoAccelerator interface.
  * @see https://learn.microsoft.com/windows/win32/api/videoacc/nn-videoacc-iamvideoacceleratornotify
  * @namespace Windows.Win32.Media.DirectShow
- * @version v4.0.30319
  */
-class IAMVideoAcceleratorNotify extends IUnknown{
+class IAMVideoAcceleratorNotify extends IUnknown {
 
     static sizeof => A_PtrSize
     /**

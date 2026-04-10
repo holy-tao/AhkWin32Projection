@@ -4,10 +4,8 @@
 
 /**
  * @namespace Windows.Win32.System.Diagnostics.Debug
- * @version v4.0.30319
  */
-class MINIDUMP_USER_RECORD extends Win32Struct
-{
+class MINIDUMP_USER_RECORD extends Win32Struct {
     static sizeof => 12
 
     static packingSize => 4
@@ -23,7 +21,7 @@ class MINIDUMP_USER_RECORD extends Win32Struct
     /**
      * @type {MINIDUMP_LOCATION_DESCRIPTOR}
      */
-    Memory{
+    Memory {
         get {
             if(!this.HasProp("__Memory"))
                 this.__Memory := MINIDUMP_LOCATION_DESCRIPTOR(4, this)

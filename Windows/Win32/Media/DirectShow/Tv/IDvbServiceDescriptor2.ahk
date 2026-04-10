@@ -1,16 +1,15 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\..\Guid.ahk
-#Include ..\..\..\Foundation\BSTR.ahk
 #Include .\IDvbServiceDescriptor.ahk
+#Include ..\..\..\Foundation\BSTR.ahk
 
 /**
  * Implements methods that get the string values from fields in a Digital Video Broadcast (DVB) service descriptor. The service descriptor describes the service type, and provides the names of the service provider and the service in text form.
  * @see https://learn.microsoft.com/windows/win32/api/dvbsiparser/nn-dvbsiparser-idvbservicedescriptor2
  * @namespace Windows.Win32.Media.DirectShow.Tv
- * @version v4.0.30319
  */
-class IDvbServiceDescriptor2 extends IDvbServiceDescriptor{
+class IDvbServiceDescriptor2 extends IDvbServiceDescriptor {
 
     static sizeof => A_PtrSize
     /**
@@ -33,7 +32,7 @@ class IDvbServiceDescriptor2 extends IDvbServiceDescriptor{
 
     /**
      * Gets a string containing the service provider name from a Digital Video Broadcast (DVB) service descriptor.
-     * @param {Integer} convMode 
+     * @param {DVB_STRCONV_MODE} convMode 
      * @returns {BSTR} Receives the service provider name string as a <b>BSTR</b>. The caller must free the string by calling <b>SysFreeString</b>.
      * @see https://learn.microsoft.com/windows/win32/api/dvbsiparser/nf-dvbsiparser-idvbservicedescriptor2-getserviceprovidernamew
      */
@@ -45,7 +44,7 @@ class IDvbServiceDescriptor2 extends IDvbServiceDescriptor{
 
     /**
      * Gets a string containing the service name from a Digital Video Broadcast (DVB) service descriptor.
-     * @param {Integer} convMode 
+     * @param {DVB_STRCONV_MODE} convMode 
      * @returns {BSTR} Receives the service name string as a <b>BSTR</b>. The caller must free the string by calling <b>SysFreeString</b>.
      * @see https://learn.microsoft.com/windows/win32/api/dvbsiparser/nf-dvbsiparser-idvbservicedescriptor2-getservicenamew
      */

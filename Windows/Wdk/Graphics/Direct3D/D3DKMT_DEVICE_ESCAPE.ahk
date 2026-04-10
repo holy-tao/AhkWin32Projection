@@ -1,18 +1,17 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
+#Include .\D3DKMT_DEVICEESCAPE_TYPE.ahk
 
 /**
  * @namespace Windows.Wdk.Graphics.Direct3D
- * @version v4.0.30319
  */
-class D3DKMT_DEVICE_ESCAPE extends Win32Struct
-{
+class D3DKMT_DEVICE_ESCAPE extends Win32Struct {
     static sizeof => 12
 
     static packingSize => 4
 
     /**
-     * @type {Integer}
+     * @type {D3DKMT_DEVICEESCAPE_TYPE}
      */
     Type {
         get => NumGet(this, 0, "int")
@@ -30,7 +29,7 @@ class D3DKMT_DEVICE_ESCAPE extends Win32Struct
             get => NumGet(this, 0, "uint")
             set => NumPut("uint", value, this, 0)
         }
-    
+
         /**
          * @type {Integer}
          */
@@ -38,16 +37,15 @@ class D3DKMT_DEVICE_ESCAPE extends Win32Struct
             get => NumGet(this, 4, "uint")
             set => NumPut("uint", value, this, 4)
         }
-    
     }
 
     /**
      * @type {_VidPnFromAllocation}
      */
-    VidPnFromAllocation{
+    VidPnFromAllocation {
         get {
             if(!this.HasProp("__VidPnFromAllocation"))
-                this.__VidPnFromAllocation := %this.__Class%._VidPnFromAllocation(4, this)
+                this.__VidPnFromAllocation := D3DKMT_DEVICE_ESCAPE._VidPnFromAllocation(4, this)
             return this.__VidPnFromAllocation
         }
     }

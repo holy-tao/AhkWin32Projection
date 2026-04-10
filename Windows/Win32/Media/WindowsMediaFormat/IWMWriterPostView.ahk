@@ -1,16 +1,15 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
-#Include .\IWMMediaProps.ahk
 #Include ..\..\System\Com\IUnknown.ahk
+#Include .\IWMMediaProps.ahk
 
 /**
  * The IWMWriterPostView interface manages advanced writing functionality related to the postviewing of samples.
  * @see https://learn.microsoft.com/windows/win32/api/wmsdkidl/nn-wmsdkidl-iwmwriterpostview
  * @namespace Windows.Win32.Media.WindowsMediaFormat
- * @version v4.0.30319
  */
-class IWMWriterPostView extends IUnknown{
+class IWMWriterPostView extends IUnknown {
 
     static sizeof => A_PtrSize
     /**

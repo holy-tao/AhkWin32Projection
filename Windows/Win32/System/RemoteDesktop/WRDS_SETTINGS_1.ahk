@@ -1,21 +1,20 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
+#Include .\WRDS_SETTING_STATUS.ahk
 
 /**
  * Contains policy-related settings for a remote session.
  * @see https://learn.microsoft.com/windows/win32/api/wtsdefs/ns-wtsdefs-wrds_settings_1
  * @namespace Windows.Win32.System.RemoteDesktop
- * @version v4.0.30319
  */
-class WRDS_SETTINGS_1 extends Win32Struct
-{
+class WRDS_SETTINGS_1 extends Win32Struct {
     static sizeof => 124
 
     static packingSize => 4
 
     /**
      * The clipboard redirection state (not applicable, disabled, enabled, or not configured). For more information, see the group policy node topic for <a href="https://docs.microsoft.com/previous-versions/windows/it-pro/windows-server-2008-R2-and-2008/ee791794(v=ws.10)">Device and Resource Redirection</a>.
-     * @type {Integer}
+     * @type {WRDS_SETTING_STATUS}
      */
     WRdsDisableClipStatus {
         get => NumGet(this, 0, "int")
@@ -33,7 +32,7 @@ class WRDS_SETTINGS_1 extends Win32Struct
 
     /**
      * The LPT printer redirection state (not applicable, disabled, enabled, or not configured). For more information, see the group policy node topic for <a href="https://docs.microsoft.com/previous-versions/windows/it-pro/windows-server-2008-R2-and-2008/ee791794(v=ws.10)">Device and Resource Redirection</a>.
-     * @type {Integer}
+     * @type {WRDS_SETTING_STATUS}
      */
     WRdsDisableLPTStatus {
         get => NumGet(this, 8, "int")
@@ -51,7 +50,7 @@ class WRDS_SETTINGS_1 extends Win32Struct
 
     /**
      * The COM port mapping state (not applicable, disabled, enabled, or not configured). For more information, see the group policy node topic for <a href="https://docs.microsoft.com/previous-versions/windows/it-pro/windows-server-2008-R2-and-2008/ee791794(v=ws.10)">Device and Resource Redirection</a>.
-     * @type {Integer}
+     * @type {WRDS_SETTING_STATUS}
      */
     WRdsDisableCcmStatus {
         get => NumGet(this, 16, "int")
@@ -69,7 +68,7 @@ class WRDS_SETTINGS_1 extends Win32Struct
 
     /**
      * The drive mapping state (not applicable, disabled, enabled, or not configured). For more information, see the group policy node topic for <a href="https://docs.microsoft.com/previous-versions/windows/it-pro/windows-server-2008-R2-and-2008/ee791794(v=ws.10)">Device and Resource Redirection</a>.
-     * @type {Integer}
+     * @type {WRDS_SETTING_STATUS}
      */
     WRdsDisableCdmStatus {
         get => NumGet(this, 24, "int")
@@ -87,7 +86,7 @@ class WRDS_SETTINGS_1 extends Win32Struct
 
     /**
      * The printer mapping state (not applicable, disabled, enabled, or not configured). For more information, see the group policy node topic for <a href="https://docs.microsoft.com/previous-versions/windows/it-pro/windows-server-2008-R2-and-2008/ee791784(v=ws.10)">Printer Redirection</a>.
-     * @type {Integer}
+     * @type {WRDS_SETTING_STATUS}
      */
     WRdsDisableCpmStatus {
         get => NumGet(this, 32, "int")
@@ -105,7 +104,7 @@ class WRDS_SETTINGS_1 extends Win32Struct
 
     /**
      * The state of the setting that controls Plug and Play (PNP) redirection (not applicable, disabled, enabled, or not configured). For more information, see the group policy node topic for <a href="https://docs.microsoft.com/previous-versions/windows/it-pro/windows-server-2008-R2-and-2008/ee791794(v=ws.10)">Device and Resource Redirection</a>.
-     * @type {Integer}
+     * @type {WRDS_SETTING_STATUS}
      */
     WRdsDisablePnpStatus {
         get => NumGet(this, 40, "int")
@@ -123,7 +122,7 @@ class WRDS_SETTINGS_1 extends Win32Struct
 
     /**
      * The encryption level state (not applicable, disabled, enabled, or not configured). For more information, see the group policy node topic for <a href="https://docs.microsoft.com/previous-versions/windows/it-pro/windows-server-2008-R2-and-2008/ee791904(v=ws.10)">Security</a>.
-     * @type {Integer}
+     * @type {WRDS_SETTING_STATUS}
      */
     WRdsEncryptionLevelStatus {
         get => NumGet(this, 48, "int")
@@ -141,7 +140,7 @@ class WRDS_SETTINGS_1 extends Win32Struct
 
     /**
      * The color depth state (not applicable, disabled, enabled, or not configured). For more information, see the group policy node topic for <a href="https://docs.microsoft.com/previous-versions/windows/it-pro/windows-server-2008-R2-and-2008/ee791847(v=ws.10)">Remote Session Environment</a>.
-     * @type {Integer}
+     * @type {WRDS_SETTING_STATUS}
      */
     WRdsColorDepthStatus {
         get => NumGet(this, 56, "int")
@@ -159,7 +158,7 @@ class WRDS_SETTINGS_1 extends Win32Struct
 
     /**
      * The automatic client reconnection state (not applicable, disabled, enabled, or not configured). For more information, see the group policy node topic for <a href="https://docs.microsoft.com/previous-versions/windows/it-pro/windows-server-2008-R2-and-2008/ee791922(v=ws.10)">Connections</a>.
-     * @type {Integer}
+     * @type {WRDS_SETTING_STATUS}
      */
     WRdsDisableAutoReconnecetStatus {
         get => NumGet(this, 64, "int")
@@ -177,7 +176,7 @@ class WRDS_SETTINGS_1 extends Win32Struct
 
     /**
      * The state (not applicable, disabled, enabled, or not configured) of the setting that controls whether to disable encryption for communication between the client and the server. For more information, see the group policy node topic for <a href="https://docs.microsoft.com/previous-versions/windows/it-pro/windows-server-2008-R2-and-2008/ee791904(v=ws.10)">Security</a>.
-     * @type {Integer}
+     * @type {WRDS_SETTING_STATUS}
      */
     WRdsDisableEncryptionStatus {
         get => NumGet(this, 72, "int")
@@ -195,7 +194,7 @@ class WRDS_SETTINGS_1 extends Win32Struct
 
     /**
      * The state (not applicable, disabled, enabled, or not configured) of the setting that controls how the server reacts when the connection or idle timers expire, or when a connection is lost due to a connection error. For more information, see the group policy node topic for <a href="https://docs.microsoft.com/previous-versions/windows/it-pro/windows-server-2008-R2-and-2008/ee791741(v=ws.10)">Session Time Limits</a>.
-     * @type {Integer}
+     * @type {WRDS_SETTING_STATUS}
      */
     WRdsResetBrokenStatus {
         get => NumGet(this, 80, "int")
@@ -213,7 +212,7 @@ class WRDS_SETTINGS_1 extends Win32Struct
 
     /**
      * The maximum idle time state (not applicable, disabled, enabled, or not configured). For more information, see the group policy node topic for <a href="https://docs.microsoft.com/previous-versions/windows/it-pro/windows-server-2008-R2-and-2008/ee791741(v=ws.10)">Session Time Limits</a>.
-     * @type {Integer}
+     * @type {WRDS_SETTING_STATUS}
      */
     WRdsMaxIdleTimeStatus {
         get => NumGet(this, 88, "int")
@@ -231,7 +230,7 @@ class WRDS_SETTINGS_1 extends Win32Struct
 
     /**
      * The maximum disconnection time state (not applicable, disabled, enabled, or not configured). For more information, see the group policy node topic for <a href="https://docs.microsoft.com/previous-versions/windows/it-pro/windows-server-2008-R2-and-2008/ee791741(v=ws.10)">Session Time Limits</a>.
-     * @type {Integer}
+     * @type {WRDS_SETTING_STATUS}
      */
     WRdsMaxDisconnectTimeStatus {
         get => NumGet(this, 96, "int")
@@ -251,7 +250,7 @@ class WRDS_SETTINGS_1 extends Win32Struct
 
     /**
      * The maximum connection time state (not applicable, disabled, enabled, or not configured). For more information, see the group policy node topic for <a href="https://docs.microsoft.com/previous-versions/windows/it-pro/windows-server-2008-R2-and-2008/ee791741(v=ws.10)">Session Time Limits</a>.
-     * @type {Integer}
+     * @type {WRDS_SETTING_STATUS}
      */
     WRdsMaxConnectTimeStatus {
         get => NumGet(this, 104, "int")
@@ -269,7 +268,7 @@ class WRDS_SETTINGS_1 extends Win32Struct
 
     /**
      * The state (not applicable, disabled, enabled, or not configured) of the <i>keep alive</i> setting.  The keep alive setting controls whether to check to keep a Remote Desktop Services session active. For more information, see the group policy node topic for <a href="https://docs.microsoft.com/previous-versions/windows/it-pro/windows-server-2008-R2-and-2008/ee791922(v=ws.10)">Connections</a>.
-     * @type {Integer}
+     * @type {WRDS_SETTING_STATUS}
      */
     WRdsKeepAliveStatus {
         get => NumGet(this, 112, "int")

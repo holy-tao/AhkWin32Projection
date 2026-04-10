@@ -3,10 +3,8 @@
 
 /**
  * @namespace Windows.Win32.Media.DirectShow
- * @version v4.0.30319
  */
-class BDA_PROGRAM_PID_LIST extends Win32Struct
-{
+class BDA_PROGRAM_PID_LIST extends Win32Struct {
     static sizeof => 12
 
     static packingSize => 4
@@ -28,9 +26,9 @@ class BDA_PROGRAM_PID_LIST extends Win32Struct
     }
 
     /**
-     * @type {Array<UInt32>}
+     * @type {Array<Integer>}
      */
-    ulPID{
+    ulPID {
         get {
             if(!this.HasProp("__ulPIDProxyArray"))
                 this.__ulPIDProxyArray := Win32FixedArray(this.ptr + 8, 1, Primitive, "uint")

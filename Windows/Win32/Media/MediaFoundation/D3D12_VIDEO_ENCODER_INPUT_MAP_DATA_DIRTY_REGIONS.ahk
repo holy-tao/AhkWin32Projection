@@ -1,12 +1,12 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
+#Include .\D3D12_VIDEO_ENCODER_DIRTY_REGIONS_MAP_VALUES_MODE.ahk
+#Include ..\..\Graphics\Direct3D12\ID3D12Resource.ahk
 
 /**
  * @namespace Windows.Win32.Media.MediaFoundation
- * @version v4.0.30319
  */
-class D3D12_VIDEO_ENCODER_INPUT_MAP_DATA_DIRTY_REGIONS extends Win32Struct
-{
+class D3D12_VIDEO_ENCODER_INPUT_MAP_DATA_DIRTY_REGIONS extends Win32Struct {
     static sizeof => 24
 
     static packingSize => 8
@@ -20,7 +20,7 @@ class D3D12_VIDEO_ENCODER_INPUT_MAP_DATA_DIRTY_REGIONS extends Win32Struct
     }
 
     /**
-     * @type {Integer}
+     * @type {D3D12_VIDEO_ENCODER_DIRTY_REGIONS_MAP_VALUES_MODE}
      */
     MapValuesType {
         get => NumGet(this, 4, "int")

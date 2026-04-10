@@ -1,19 +1,18 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
+#Include ..\..\System\Com\IUnknown.ahk
 #Include .\IDWriteFont.ahk
 #Include ..\Gdi\LOGFONTW.ahk
 #Include .\IDWriteFontFace.ahk
 #Include .\IDWriteBitmapRenderTarget.ahk
-#Include ..\..\System\Com\IUnknown.ahk
 
 /**
  * Provides interoperability with GDI, such as methods to convert a font face to a LOGFONT structure, or to convert a GDI font description into a font face. It is also used to create bitmap render target objects. (IDWriteGdiInterop)
  * @see https://learn.microsoft.com/windows/win32/api/dwrite/nn-dwrite-idwritegdiinterop
  * @namespace Windows.Win32.Graphics.DirectWrite
- * @version v4.0.30319
  */
-class IDWriteGdiInterop extends IUnknown{
+class IDWriteGdiInterop extends IUnknown {
 
     static sizeof => A_PtrSize
     /**
@@ -39,7 +38,9 @@ class IDWriteGdiInterop extends IUnknown{
      * @param {Pointer<LOGFONTW>} logFont Type: <b>const LOGFONTW*</b>
      * 
      * A structure containing a GDI-compatible font description.
-     * @returns {IDWriteFont} 
+     * @returns {IDWriteFont} Type: <b><a href="https://docs.microsoft.com/windows/win32/api/dwrite/nn-dwrite-idwritefont">IDWriteFont</a>**</b>
+     * 
+     * When this method returns, contains an address of a  pointer to a newly created <a href="https://docs.microsoft.com/windows/win32/api/dwrite/nn-dwrite-idwritefont">IDWriteFont</a>  object if successful; otherwise, <b>NULL</b>.
      * @see https://learn.microsoft.com/windows/win32/api/dwrite/nf-dwrite-idwritegdiinterop-createfontfromlogfont
      */
     CreateFontFromLOGFONT(logFont) {
@@ -51,7 +52,9 @@ class IDWriteGdiInterop extends IUnknown{
      * Initializes a LOGFONT structure based on the GDI-compatible properties of the specified font. (IDWriteGdiInterop.ConvertFontToLOGFONT)
      * @remarks
      * The conversion to a  <b>LOGFONT</b> by using <b>ConvertFontToLOGFONT</b> operates at the logical font level and does not guarantee that it will map to a specific physical font. It is not guaranteed that GDI will select the same physical font for displaying  text formatted by a <b>LOGFONT</b> as the <a href="https://docs.microsoft.com/windows/win32/api/dwrite/nn-dwrite-idwritefont">IDWriteFont</a> object that was converted.
-     * @param {IDWriteFont} _font 
+     * @param {IDWriteFont} _font Type: <b><a href="https://docs.microsoft.com/windows/win32/api/dwrite/nn-dwrite-idwritefont">IDWriteFont</a>*</b>
+     * 
+     * An <a href="https://docs.microsoft.com/windows/win32/api/dwrite/nn-dwrite-idwritefont">IDWriteFont</a> object to be converted into a GDI-compatible <b>LOGFONT</b> structure.
      * @param {Pointer<LOGFONTW>} logFont Type: <b>LOGFONTW*</b>
      * 
      * When this method returns, contains a structure that receives a GDI-compatible font description.
@@ -74,7 +77,9 @@ class IDWriteGdiInterop extends IUnknown{
      * Initializes a LOGFONT structure based on the GDI-compatible properties of the specified font. (IDWriteGdiInterop.ConvertFontFaceToLOGFONT)
      * @remarks
      * The conversion to a  LOGFONT by using <b>ConvertFontFaceToLOGFONT</b> operates at the logical font level and does not guarantee that it will map to a specific physical font. It is not guaranteed that GDI will select the same physical font for displaying  text formatted by a LOGFONT as the <a href="https://docs.microsoft.com/windows/win32/api/dwrite/nn-dwrite-idwritefont">IDWriteFont</a> object that was converted.
-     * @param {IDWriteFontFace} _font 
+     * @param {IDWriteFontFace} _font Type: <b><a href="https://docs.microsoft.com/windows/win32/api/dwrite/nn-dwrite-idwritefontface">IDWriteFontFace</a>*</b>
+     * 
+     * An <a href="https://docs.microsoft.com/windows/win32/api/dwrite/nn-dwrite-idwritefontface">IDWriteFontFace</a> object to be converted into a GDI-compatible LOGFONT structure.
      * @returns {LOGFONTW} Type: <b>LOGFONTW*</b>
      * 
      * When this method returns, contains a pointer to a structure that receives a GDI-compatible font description.
@@ -90,7 +95,11 @@ class IDWriteGdiInterop extends IUnknown{
      * Creates an IDWriteFontFace object that corresponds to the currently selected HFONT of the specified HDC.
      * @remarks
      * This function is intended for scenarios in which an application wants to use GDI and Uniscribe 1.x for text layout and shaping, but  DirectWrite for final rendering. This function assumes the client is performing text output using glyph indexes.
-     * @param {HDC} _hdc 
+     * @param {HDC} _hdc Type: <b>HDC</b>
+     * 
+     * A handle to a device context into which a font has been selected. It is assumed that the client
+     *      has already performed font mapping and that the font selected into the device context is the actual font to be used 
+     *      for rendering glyphs.
      * @returns {IDWriteFontFace} Type: <b><a href="https://docs.microsoft.com/windows/win32/api/dwrite/nn-dwrite-idwritefontface">IDWriteFontFace</a>**</b>
      * 
      * Contains an address of a pointer to  the newly created font face object, or <b>NULL</b> in case of failure. The font face returned is guaranteed to reference the same physical typeface that would be used for drawing glyphs (but not necessarily characters) using ExtTextOut.
@@ -105,7 +114,9 @@ class IDWriteGdiInterop extends IUnknown{
 
     /**
      * Creates an object that encapsulates a bitmap and memory DC (device context) which can be used for rendering glyphs.
-     * @param {HDC} _hdc 
+     * @param {HDC} _hdc Type: <b>HDC</b>
+     * 
+     * A handle to the optional device context used to create a compatible memory DC (device context).
      * @param {Integer} width Type: <b>UINT32</b>
      * 
      * The width of the bitmap render target.

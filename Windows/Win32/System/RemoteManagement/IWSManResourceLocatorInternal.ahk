@@ -5,9 +5,8 @@
 
 /**
  * @namespace Windows.Win32.System.RemoteManagement
- * @version v4.0.30319
  */
-class IWSManResourceLocatorInternal extends IUnknown{
+class IWSManResourceLocatorInternal extends IUnknown {
 
     static sizeof => A_PtrSize
     /**

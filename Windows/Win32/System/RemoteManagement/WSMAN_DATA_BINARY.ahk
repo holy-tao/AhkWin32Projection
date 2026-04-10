@@ -5,10 +5,8 @@
  * Holds binary data for use with various Windows Remote Management functions.
  * @see https://learn.microsoft.com/windows/win32/api/wsman/ns-wsman-wsman_data_binary
  * @namespace Windows.Win32.System.RemoteManagement
- * @version v4.0.30319
  */
-class WSMAN_DATA_BINARY extends Win32Struct
-{
+class WSMAN_DATA_BINARY extends Win32Struct {
     static sizeof => 16
 
     static packingSize => 8

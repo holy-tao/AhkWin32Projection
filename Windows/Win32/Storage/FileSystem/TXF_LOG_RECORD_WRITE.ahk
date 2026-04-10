@@ -8,10 +8,8 @@
  * If the write operation goes beyond the end of the file, the file is being extended.
  * @see https://learn.microsoft.com/windows/win32/api/txfw32/ns-txfw32-txf_log_record_write
  * @namespace Windows.Win32.Storage.FileSystem
- * @version v4.0.30319
  */
-class TXF_LOG_RECORD_WRITE extends Win32Struct
-{
+class TXF_LOG_RECORD_WRITE extends Win32Struct {
     static sizeof => 64
 
     static packingSize => 8
@@ -56,7 +54,7 @@ class TXF_LOG_RECORD_WRITE extends Win32Struct
      * The TxF file identifier for the file associated with this record. For more information, see <a href="https://docs.microsoft.com/windows/desktop/api/txfw32/ns-txfw32-txf_id">TXF_ID</a>.
      * @type {TXF_ID}
      */
-    TxfFileId{
+    TxfFileId {
         get {
             if(!this.HasProp("__TxfFileId"))
                 this.__TxfFileId := TXF_ID(16, this)
@@ -66,7 +64,7 @@ class TXF_LOG_RECORD_WRITE extends Win32Struct
 
     /**
      * The KTM transaction <b>GUID</b> for this update.
-     * @type {Pointer<Guid>}
+     * @type {Pointer}
      */
     KtmGuid {
         get => NumGet(this, 32, "ptr")

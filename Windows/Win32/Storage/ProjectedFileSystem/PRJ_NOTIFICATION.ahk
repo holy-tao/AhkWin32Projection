@@ -5,9 +5,8 @@
  * A notification value specified when sending the notification in a callback.
  * @see https://learn.microsoft.com/windows/win32/api/projectedfslib/ne-projectedfslib-prj_notification
  * @namespace Windows.Win32.Storage.ProjectedFileSystem
- * @version v4.0.30319
  */
-class PRJ_NOTIFICATION extends Win32Enum{
+class PRJ_NOTIFICATION extends Win32Enum {
 
     /**
      * - Indicates that a handle has been created to an existing file or folder.

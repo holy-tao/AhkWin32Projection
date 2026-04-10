@@ -3,16 +3,14 @@
 
 /**
  * @namespace Windows.Wdk.System.SystemServices
- * @version v4.0.30319
  */
-class EISA_DMA_CONFIGURATION extends Win32Struct
-{
+class EISA_DMA_CONFIGURATION extends Win32Struct {
     static sizeof => 16
 
     static packingSize => 8
 
     /**
-     * @type {Pointer<DMA_CONFIGURATION_BYTE0>}
+     * @type {Pointer}
      */
     ConfigurationByte0 {
         get => NumGet(this, 0, "ptr")
@@ -20,7 +18,7 @@ class EISA_DMA_CONFIGURATION extends Win32Struct
     }
 
     /**
-     * @type {Pointer<DMA_CONFIGURATION_BYTE1>}
+     * @type {Pointer}
      */
     ConfigurationByte1 {
         get => NumGet(this, 8, "ptr")

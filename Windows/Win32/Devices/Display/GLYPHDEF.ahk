@@ -1,14 +1,14 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
+#Include .\GLYPHBITS.ahk
+#Include .\PATHOBJ.ahk
 
 /**
  * The GLYPHDEF union identifies individual glyphs and provides either a pointer to a GLYPHBITS structure or a pointer to a PATHOBJ structure.
  * @see https://learn.microsoft.com/windows/win32/api/winddi/ns-winddi-glyphdef
  * @namespace Windows.Win32.Devices.Display
- * @version v4.0.30319
  */
-class GLYPHDEF extends Win32Struct
-{
+class GLYPHDEF extends Win32Struct {
     static sizeof => 16
 
     static packingSize => 8

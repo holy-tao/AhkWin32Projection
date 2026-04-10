@@ -1,15 +1,14 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\..\Guid.ahk
+#Include .\ICorProfilerInfo3.ahk
 #Include .\ICorProfilerThreadEnum.ahk
 #Include .\ICorProfilerFunctionEnum.ahk
-#Include .\ICorProfilerInfo3.ahk
 
 /**
  * @namespace Windows.Win32.System.Diagnostics.ClrProfiling
- * @version v4.0.30319
  */
-class ICorProfilerInfo4 extends ICorProfilerInfo3{
+class ICorProfilerInfo4 extends ICorProfilerInfo3 {
 
     static sizeof => A_PtrSize
     /**
@@ -132,13 +131,13 @@ class ICorProfilerInfo4 extends ICorProfilerInfo3{
      * @param {Pointer} reJitId 
      * @param {Integer} cMap 
      * @param {Pointer<Integer>} pcMap 
-     * @param {Pointer<COR_DEBUG_IL_TO_NATIVE_MAP>} map 
+     * @param {Pointer<COR_DEBUG_IL_TO_NATIVE_MAP>} _map 
      * @returns {HRESULT} 
      */
-    GetILToNativeMapping2(functionId, reJitId, cMap, pcMap, map) {
+    GetILToNativeMapping2(functionId, reJitId, cMap, pcMap, _map) {
         pcMapMarshal := pcMap is VarRef ? "uint*" : "ptr"
 
-        result := ComCall(78, this, "ptr", functionId, "ptr", reJitId, "uint", cMap, pcMapMarshal, pcMap, "ptr", map, "HRESULT")
+        result := ComCall(78, this, "ptr", functionId, "ptr", reJitId, "uint", cMap, pcMapMarshal, pcMap, "ptr", _map, "HRESULT")
         return result
     }
 

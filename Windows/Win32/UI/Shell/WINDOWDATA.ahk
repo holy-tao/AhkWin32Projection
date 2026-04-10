@@ -1,14 +1,13 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
+#Include Common\ITEMIDLIST.ahk
 
 /**
  * Stores window data.
  * @see https://learn.microsoft.com/windows/win32/api/tlogstg/ns-tlogstg-windowdata
  * @namespace Windows.Win32.UI.Shell
- * @version v4.0.30319
  */
-class WINDOWDATA extends Win32Struct
-{
+class WINDOWDATA extends Win32Struct {
     static sizeof => 40
 
     static packingSize => 8

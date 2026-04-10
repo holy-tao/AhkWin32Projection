@@ -1,7 +1,7 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
-#Include .\IP_ADDRESS_STRING.ahk
 #Include .\IP_ADDR_STRING.ahk
+#Include .\IP_ADDRESS_STRING.ahk
 
 /**
  * The FIXED_INFO structure contains information that is the same across all the interfaces on a computer.
@@ -20,11 +20,9 @@
  *      <b>FIXED_INFO</b> structure are supported on  Windows 98and later. But to build an application for a target platform earlier than Windows 2000 with Service Pack 1 (SP1), an earlier version of the Platform Software Development Kit (SDK)  must be used.
  * @see https://learn.microsoft.com/windows/win32/api/iptypes/ns-iptypes-fixed_info_w2ksp1
  * @namespace Windows.Win32.NetworkManagement.IpHelper
- * @version v4.0.30319
  */
-class FIXED_INFO_W2KSP1 extends Win32Struct
-{
-    static sizeof => 1152
+class FIXED_INFO_W2KSP1 extends Win32Struct {
+    static sizeof => 600
 
     static packingSize => 8
 
@@ -35,8 +33,8 @@ class FIXED_INFO_W2KSP1 extends Win32Struct
      * @type {String}
      */
     HostName {
-        get => StrGet(this.ptr + 0, 131, "UTF-16")
-        set => StrPut(value, this.ptr + 0, 131, "UTF-16")
+        get => StrGet(this.ptr + 0, 131, "UTF-8")
+        set => StrPut(value, this.ptr + 0, 131, "UTF-8")
     }
 
     /**
@@ -46,8 +44,8 @@ class FIXED_INFO_W2KSP1 extends Win32Struct
      * @type {String}
      */
     DomainName {
-        get => StrGet(this.ptr + 264, 131, "UTF-16")
-        set => StrPut(value, this.ptr + 264, 131, "UTF-16")
+        get => StrGet(this.ptr + 132, 131, "UTF-8")
+        set => StrPut(value, this.ptr + 132, 131, "UTF-8")
     }
 
     /**
@@ -57,8 +55,8 @@ class FIXED_INFO_W2KSP1 extends Win32Struct
      * @type {Pointer<IP_ADDR_STRING>}
      */
     CurrentDnsServer {
-        get => NumGet(this, 528, "ptr")
-        set => NumPut("ptr", value, this, 528)
+        get => NumGet(this, 264, "ptr")
+        set => NumPut("ptr", value, this, 264)
     }
 
     /**
@@ -68,10 +66,10 @@ class FIXED_INFO_W2KSP1 extends Win32Struct
      * <a href="https://docs.microsoft.com/windows/desktop/api/iptypes/ns-iptypes-ip_addr_string">IP_ADDR_STRING</a> structures that specify the set of DNS servers used by the local computer.
      * @type {IP_ADDR_STRING}
      */
-    DnsServerList{
+    DnsServerList {
         get {
             if(!this.HasProp("__DnsServerList"))
-                this.__DnsServerList := IP_ADDR_STRING(536, this)
+                this.__DnsServerList := IP_ADDR_STRING(272, this)
             return this.__DnsServerList
         }
     }
@@ -143,8 +141,8 @@ class FIXED_INFO_W2KSP1 extends Win32Struct
      * @type {Integer}
      */
     NodeType {
-        get => NumGet(this, 616, "uint")
-        set => NumPut("uint", value, this, 616)
+        get => NumGet(this, 320, "uint")
+        set => NumPut("uint", value, this, 320)
     }
 
     /**
@@ -154,8 +152,8 @@ class FIXED_INFO_W2KSP1 extends Win32Struct
      * @type {String}
      */
     ScopeId {
-        get => StrGet(this.ptr + 620, 259, "UTF-16")
-        set => StrPut(value, this.ptr + 620, 259, "UTF-16")
+        get => StrGet(this.ptr + 324, 259, "UTF-8")
+        set => StrPut(value, this.ptr + 324, 259, "UTF-8")
     }
 
     /**
@@ -165,8 +163,8 @@ class FIXED_INFO_W2KSP1 extends Win32Struct
      * @type {Integer}
      */
     EnableRouting {
-        get => NumGet(this, 1140, "uint")
-        set => NumPut("uint", value, this, 1140)
+        get => NumGet(this, 584, "uint")
+        set => NumPut("uint", value, this, 584)
     }
 
     /**
@@ -176,8 +174,8 @@ class FIXED_INFO_W2KSP1 extends Win32Struct
      * @type {Integer}
      */
     EnableProxy {
-        get => NumGet(this, 1144, "uint")
-        set => NumPut("uint", value, this, 1144)
+        get => NumGet(this, 588, "uint")
+        set => NumPut("uint", value, this, 588)
     }
 
     /**
@@ -187,7 +185,7 @@ class FIXED_INFO_W2KSP1 extends Win32Struct
      * @type {Integer}
      */
     EnableDns {
-        get => NumGet(this, 1148, "uint")
-        set => NumPut("uint", value, this, 1148)
+        get => NumGet(this, 592, "uint")
+        set => NumPut("uint", value, this, 592)
     }
 }

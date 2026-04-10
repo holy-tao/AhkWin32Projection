@@ -1,15 +1,15 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\..\Win32Struct.ahk
+#Include .\CRYPTUI_WIZ_DIGITAL_SIGN_SIG_TYPE.ahk
 #Include ..\HCERTSTORE.ahk
+#Include ..\CRYPT_ATTRIBUTES.ahk
 
 /**
  * Used with the CRYPTUI_WIZ_DIGITAL_SIGN_INFO structure to contain extended information about a signature.
  * @see https://learn.microsoft.com/windows/win32/api/cryptuiapi/ns-cryptuiapi-cryptui_wiz_digital_sign_extended_info
  * @namespace Windows.Win32.Security.Cryptography.UI
- * @version v4.0.30319
  */
-class CRYPTUI_WIZ_DIGITAL_SIGN_EXTENDED_INFO extends Win32Struct
-{
+class CRYPTUI_WIZ_DIGITAL_SIGN_EXTENDED_INFO extends Win32Struct {
     static sizeof => 64
 
     static packingSize => 8
@@ -24,8 +24,7 @@ class CRYPTUI_WIZ_DIGITAL_SIGN_EXTENDED_INFO extends Win32Struct
     }
 
     /**
-     * 
-     * @type {Integer}
+     * @type {CRYPTUI_WIZ_DIGITAL_SIGN_SIG_TYPE}
      */
     dwAttrFlags {
         get => NumGet(this, 4, "uint")
@@ -72,7 +71,7 @@ class CRYPTUI_WIZ_DIGITAL_SIGN_EXTENDED_INFO extends Win32Struct
      * A handle to an additional certificate store that will be added to the signature.
      * @type {HCERTSTORE}
      */
-    hAdditionalCertStore{
+    hAdditionalCertStore {
         get {
             if(!this.HasProp("__hAdditionalCertStore"))
                 this.__hAdditionalCertStore := HCERTSTORE(40, this)

@@ -3,10 +3,8 @@
 
 /**
  * @namespace Windows.Win32.Media.DirectShow
- * @version v4.0.30319
  */
-class BDA_BUFFER extends Win32Struct
-{
+class BDA_BUFFER extends Win32Struct {
     static sizeof => 12
 
     static packingSize => 4
@@ -28,9 +26,9 @@ class BDA_BUFFER extends Win32Struct
     }
 
     /**
-     * @type {Array<Byte>}
+     * @type {Array<Integer>}
      */
-    argbBuffer{
+    argbBuffer {
         get {
             if(!this.HasProp("__argbBufferProxyArray"))
                 this.__argbBufferProxyArray := Win32FixedArray(this.ptr + 8, 1, Primitive, "char")

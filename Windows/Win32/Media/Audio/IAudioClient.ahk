@@ -10,9 +10,8 @@
  * <div> </div>
  * @see https://learn.microsoft.com/windows/win32/api/audioclient/nn-audioclient-iaudioclient
  * @namespace Windows.Win32.Media.Audio
- * @version v4.0.30319
  */
-class IAudioClient extends IUnknown{
+class IAudioClient extends IUnknown {
 
     static sizeof => A_PtrSize
     /**
@@ -161,7 +160,7 @@ class IAudioClient extends IUnknown{
      * 
      * 
      * Starting with Windows 10, hardware-offloaded audio streams must be event driven. This means that if you call <a href="https://docs.microsoft.com/windows/desktop/api/audioclient/nf-audioclient-iaudioclient2-setclientproperties">IAudioClient2::SetClientProperties</a> and set the <i>bIsOffload</i> parameter of the <a href="https://docs.microsoft.com/windows/win32/api/audioclient/ns-audioclient-audioclientproperties-r1">AudioClientProperties</a> to TRUE, you must specify the <b>AUDCLNT_STREAMFLAGS_EVENTCALLBACK</b> flag in the <i>StreamFlags</i> parameter to <b>IAudioClient::Initialize</b>.
-     * @param {Integer} ShareMode The sharing mode for the connection. Through this parameter, the client tells the audio engine whether it wants to share the audio endpoint device with other clients. The client should set this parameter to one of the following <a href="https://docs.microsoft.com/windows/win32/api/audiosessiontypes/ne-audiosessiontypes-audclnt_sharemode">AUDCLNT_SHAREMODE</a> enumeration values:
+     * @param {AUDCLNT_SHAREMODE} ShareMode The sharing mode for the connection. Through this parameter, the client tells the audio engine whether it wants to share the audio endpoint device with other clients. The client should set this parameter to one of the following <a href="https://docs.microsoft.com/windows/win32/api/audiosessiontypes/ne-audiosessiontypes-audclnt_sharemode">AUDCLNT_SHAREMODE</a> enumeration values:
      * 
      * AUDCLNT_SHAREMODE_EXCLUSIVE
      * 
@@ -466,7 +465,7 @@ class IAudioClient extends IUnknown{
      * For example, a particular LFX APO might accept a 6-channel surround sound stream from a client and convert the stream to a stereo format that can be played through headphones. Typically, an LFX APO supports only client formats with sample rates that match the sample rate of the mix format.
      * 
      * For more information about APOs, see the white papers titled "Custom Audio Effects in Windows Vista" and "Reusing the Windows Vista Audio System Effects" at the <a href="https://www.microsoft.com/whdc/device/audio/default.mspx">Audio Device Technologies for Windows</a> website. For more information about the <b>IsFormatSupported</b> method, see <a href="https://docs.microsoft.com/windows/desktop/CoreAudio/device-formats">Device Formats</a>.
-     * @param {Integer} ShareMode The sharing mode for the stream format. Through this parameter, the client indicates whether it wants to use the specified format in exclusive mode or shared mode. The client should set this parameter to one of the following <a href="https://docs.microsoft.com/windows/win32/api/audiosessiontypes/ne-audiosessiontypes-audclnt_sharemode">AUDCLNT_SHAREMODE</a> enumeration values:
+     * @param {AUDCLNT_SHAREMODE} ShareMode The sharing mode for the stream format. Through this parameter, the client indicates whether it wants to use the specified format in exclusive mode or shared mode. The client should set this parameter to one of the following <a href="https://docs.microsoft.com/windows/win32/api/audiosessiontypes/ne-audiosessiontypes-audclnt_sharemode">AUDCLNT_SHAREMODE</a> enumeration values:
      * 
      * AUDCLNT_SHAREMODE_EXCLUSIVE
      * 

@@ -11,10 +11,8 @@
  * If the computer associated with the <a href="https://docs.microsoft.com/windows/desktop/SecMgmt/policy-object">Policy</a> object is not a member of a domain, all structure members except <b>Name</b> are <b>NULL</b> or zero.
  * @see https://learn.microsoft.com/windows/win32/api/lsalookup/ns-lsalookup-policy_dns_domain_info
  * @namespace Windows.Win32.Security.Authentication.Identity
- * @version v4.0.30319
  */
-class POLICY_DNS_DOMAIN_INFO extends Win32Struct
-{
+class POLICY_DNS_DOMAIN_INFO extends Win32Struct {
     static sizeof => 64
 
     static packingSize => 8
@@ -25,7 +23,7 @@ class POLICY_DNS_DOMAIN_INFO extends Win32Struct
      * <a href="https://docs.microsoft.com/windows/desktop/api/ntsecapi/ns-ntsecapi-policy_primary_domain_info">POLICY_PRIMARY_DOMAIN_INFO</a> structure.
      * @type {LSA_UNICODE_STRING}
      */
-    Name{
+    Name {
         get {
             if(!this.HasProp("__Name"))
                 this.__Name := LSA_UNICODE_STRING(0, this)
@@ -37,7 +35,7 @@ class POLICY_DNS_DOMAIN_INFO extends Win32Struct
      * An <a href="https://docs.microsoft.com/windows/desktop/api/lsalookup/ns-lsalookup-lsa_unicode_string">LSA_UNICODE_STRING</a> structure that specifies the DNS name of the primary domain.
      * @type {LSA_UNICODE_STRING}
      */
-    DnsDomainName{
+    DnsDomainName {
         get {
             if(!this.HasProp("__DnsDomainName"))
                 this.__DnsDomainName := LSA_UNICODE_STRING(16, this)
@@ -49,7 +47,7 @@ class POLICY_DNS_DOMAIN_INFO extends Win32Struct
      * An <a href="https://docs.microsoft.com/windows/desktop/api/lsalookup/ns-lsalookup-lsa_unicode_string">LSA_UNICODE_STRING</a> structure that specifies the DNS forest name of the primary domain. This is the DNS name of the domain at the root of the enterprise.
      * @type {LSA_UNICODE_STRING}
      */
-    DnsForestName{
+    DnsForestName {
         get {
             if(!this.HasProp("__DnsForestName"))
                 this.__DnsForestName := LSA_UNICODE_STRING(32, this)
@@ -60,7 +58,7 @@ class POLICY_DNS_DOMAIN_INFO extends Win32Struct
     /**
      * A 
      * <a href="https://docs.microsoft.com/windows/win32/api/guiddef/ns-guiddef-guid">GUID</a> structure that contains the GUID of the primary domain.
-     * @type {Pointer<Guid>}
+     * @type {Pointer}
      */
     DomainGuid {
         get => NumGet(this, 48, "ptr")

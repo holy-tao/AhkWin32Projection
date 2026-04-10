@@ -6,10 +6,8 @@
  * Represents details about the recycling of a process hosting COM+ applications.
  * @see https://learn.microsoft.com/windows/win32/api/comsvcs/ns-comsvcs-applicationprocessrecycleinfo
  * @namespace Windows.Win32.System.ComponentServices
- * @version v4.0.30319
  */
-class ApplicationProcessRecycleInfo extends Win32Struct
-{
+class ApplicationProcessRecycleInfo extends Win32Struct {
     static sizeof => 68
 
     static packingSize => 4
@@ -36,7 +34,7 @@ class ApplicationProcessRecycleInfo extends Win32Struct
      * The time at which the process was recycled. This member is meaningful only if <b>IsRecycled</b> is <b>TRUE</b>.
      * @type {FILETIME}
      */
-    TimeRecycled{
+    TimeRecycled {
         get {
             if(!this.HasProp("__TimeRecycled"))
                 this.__TimeRecycled := FILETIME(8, this)
@@ -48,7 +46,7 @@ class ApplicationProcessRecycleInfo extends Win32Struct
      * The time at which a recycled process will be forcibly terminated if it does not shut down on its own before this time. This member is meaningful only if <b>IsRecycled</b> is <b>TRUE</b>.
      * @type {FILETIME}
      */
-    TimeToTerminate{
+    TimeToTerminate {
         get {
             if(!this.HasProp("__TimeToTerminate"))
                 this.__TimeToTerminate := FILETIME(16, this)
@@ -87,7 +85,7 @@ class ApplicationProcessRecycleInfo extends Win32Struct
      * The time at which the process will be automatically recycled. This member is meaningful only if <b>HasAutomaticLifetimeRecycling</b> is <b>TRUE</b>.
      * @type {FILETIME}
      */
-    TimeForAutomaticRecycling{
+    TimeForAutomaticRecycling {
         get {
             if(!this.HasProp("__TimeForAutomaticRecycling"))
                 this.__TimeForAutomaticRecycling := FILETIME(36, this)

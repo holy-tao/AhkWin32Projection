@@ -5,10 +5,8 @@
 
 /**
  * @namespace Windows.Win32.UI.Accessibility
- * @version v4.0.30319
  */
-class HUIANODE extends Win32Handle
-{
+class HUIANODE extends Win32Handle {
     static sizeof => 8
 
     static packingSize => 8

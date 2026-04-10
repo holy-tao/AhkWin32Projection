@@ -1,16 +1,14 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
-#Include ..\..\Foundation\BSTR.ahk
+#Include ..\..\System\Com\IDispatch.ahk
 #Include ..\..\System\Com\IUnknown.ahk
 #Include .\ISClusResource.ahk
-#Include ..\..\System\Com\IDispatch.ahk
 
 /**
  * @namespace Windows.Win32.Networking.Clustering
- * @version v4.0.30319
  */
-class ISClusResources extends IDispatch{
+class ISClusResources extends IDispatch {
 
     static sizeof => A_PtrSize
     /**
@@ -103,7 +101,7 @@ class ISClusResources extends IDispatch{
      * @param {BSTR} bstrResourceName 
      * @param {BSTR} bstrResourceType 
      * @param {BSTR} bstrGroupName 
-     * @param {Integer} dwFlags 
+     * @param {CLUSTER_RESOURCE_CREATE_FLAGS} dwFlags 
      * @returns {ISClusResource} 
      * @see https://learn.microsoft.com/windows/win32/api/objbase/nf-objbase-createitemmoniker
      */

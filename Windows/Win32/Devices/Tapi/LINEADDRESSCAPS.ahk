@@ -19,10 +19,8 @@
  * <a href="https://docs.microsoft.com/windows/desktop/api/tapi/nf-tapi-linegetaddresscaps">lineGetAddressCaps</a>.
  * @see https://learn.microsoft.com/windows/win32/api/tapi/ns-tapi-lineaddresscaps
  * @namespace Windows.Win32.Devices.Tapi
- * @version v4.0.30319
  */
-class LINEADDRESSCAPS extends Win32Struct
-{
+class LINEADDRESSCAPS extends Win32Struct {
     static sizeof => 228
 
     static packingSize => 4

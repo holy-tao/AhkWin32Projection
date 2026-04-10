@@ -1,8 +1,8 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
-#Include .\IInkRectangle.ahk
 #Include ..\..\System\Com\IDispatch.ahk
+#Include .\IInkRectangle.ahk
 
 /**
  * . (IInkRenderer)
@@ -12,9 +12,8 @@
  * This object can be instantiated by calling the [CoCreateInstance](../combaseapi/nf-combaseapi-cocreateinstance.md) method in C++.
  * @see https://learn.microsoft.com/windows/win32/api/msinkaut/nn-msinkaut-iinkrenderer
  * @namespace Windows.Win32.UI.TabletPC
- * @version v4.0.30319
  */
-class IInkRenderer extends IDispatch{
+class IInkRenderer extends IDispatch {
 
     static sizeof => A_PtrSize
     /**
@@ -301,7 +300,7 @@ class IInkRenderer extends IDispatch{
      * <div class="alert"><b>Note</b>  Use the <a href="https://docs.microsoft.com/windows/desktop/api/msinkaut/nf-msinkaut-iinkrenderer-drawstroke">DrawStroke</a> method to draw a single stroke.</div>
      * <div> </div>
      * The <a href="https://docs.microsoft.com/windows/desktop/tablet/inkrenderer-class">InkRenderer</a> forces the viewport and window origins to 0, 0. Any existing settings are saved and restored, but is not used by the <b>InkRenderer</b>. To perform scrolling, use the <b>InkRenderer</b> object's view and object transform methods.
-     * @param {Pointer} _hDC 
+     * @param {Pointer} _hDC Specifies the <a href="https://docs.microsoft.com/windows/desktop/api/msinkaut/nf-msinkaut-iinkcollector-get_hwnd">hWnd</a> of the device context on which to draw.
      * @param {IInkStrokes} Strokes Specifies the strokes to draw.
      * @returns {HRESULT} This method can return one of these values.
      * 
@@ -405,7 +404,7 @@ class IInkRenderer extends IDispatch{
      * For example, consider that the pen width is 53, the square root of the determinant is 50, and the bounding box is (0,0,1000,1000). The pen width adjustment to the bounding box in each direction is calculated as (53*50)/2, and the right and bottom sides are incremented by one. This results in a rendered bounding box of (-1325,-1325,2326,2326).
      * 
      * The <a href="https://docs.microsoft.com/windows/desktop/tablet/inkrenderer-class">InkRenderer</a> forces the viewport and window origins to 0, 0. Any existing settings are saved and restored, but are not used by the <b>InkRenderer</b>. To perform scrolling, use the <b>InkRenderer</b> object's view and object transform methods.
-     * @param {Pointer} _hDC 
+     * @param {Pointer} _hDC The <a href="https://docs.microsoft.com/windows/desktop/api/msinkaut/nf-msinkaut-iinkcollector-get_hwnd">hWnd</a> of the device context on which to draw.
      * @param {IInkStrokeDisp} Stroke The stroke to draw.
      * @param {IInkDrawingAttributes} DrawingAttributes Optional. Specifies the <a href="https://docs.microsoft.com/windows/desktop/tablet/inkdrawingattributes-class">InkDrawingAttributes</a> to use on the drawing. The default value is <b>NULL</b>. If <b>InkDrawingAttributes</b> is specified, they override the <a href="https://docs.microsoft.com/windows/desktop/api/msinkaut/nf-msinkaut-iinkcursor-get_drawingattributes">DrawingAttributes</a> on the <a href="https://docs.microsoft.com/windows/desktop/api/msinkaut/nn-msinkaut-iinkstrokedisp">IInkStrokeDisp</a>.
      * @returns {HRESULT} This method can return one of these values.
@@ -504,7 +503,7 @@ class IInkRenderer extends IDispatch{
      * Converts a location in pixel space coordinates to be a location in ink space coordinates.
      * @remarks
      * <b>PixelToInkSpace</b> converts from pixel to ink space (1 HIMETRIC unit = .01mm), applies the inverse of the view transform, and then applies the object transform.
-     * @param {Pointer} _hDC 
+     * @param {Pointer} _hDC The handle of the device context for the containing control or form.
      * @param {Pointer<Integer>} x The x coordinate of the point to convert into an ink location.
      * @param {Pointer<Integer>} y The y coordinate of the point to convert into an ink location.
      * @returns {HRESULT} This method can return one of these values.
@@ -653,8 +652,10 @@ class IInkRenderer extends IDispatch{
      * Converts an array of locations in pixel space coordinates to an array of locations in ink space coordinates.
      * @remarks
      * <c>PixelToInkSpaceFromPoints</c> converts from pixel to ink space (1 ink unit = .01mm), applies the inverse of the view transform, and then applies the inverse of the object transform.
-     * @param {Pointer} _hDC 
-     * @param {Pointer<VARIANT>} _Points 
+     * @param {Pointer} _hDC The handle of the device context for the containing control or form.
+     * @param {Pointer<VARIANT>} _Points The Variant array of points, as alternating Long x and y values of the form x0, y0, x1, y1, x2, y2, and so on, to convert from a pixel location to ink space coordinates.
+     * 
+     * For more information about the VARIANT structure, see <a href="https://docs.microsoft.com/windows/desktop/tablet/using-the-com-library">Using the COM Library</a>.
      * @returns {HRESULT} This method can return one of these values.
      * 
      * <table>
@@ -718,8 +719,10 @@ class IInkRenderer extends IDispatch{
      * Converts an array of points in ink space coordinates to an array of points in pixel space.
      * @remarks
      * <b>InkSpaceToPixelFromPoints</b> applies the object transform, applies the view transform of the <a href="https://docs.microsoft.com/windows/desktop/tablet/inkrenderer-class">InkRenderer</a> object, and then converts from inkspace to pixel units (1 ink unit = .01mm).
-     * @param {Pointer} _hDC 
-     * @param {Pointer<VARIANT>} _Points 
+     * @param {Pointer} _hDC The handle of the device context on which to draw.
+     * @param {Pointer<VARIANT>} _Points The array of points in ink space coordinates to convert into pixel locations. This should be an array of 32-bit integer values, passed within a VARIANT.
+     * 
+     * For more information about the VARIANT structure, see <a href="https://docs.microsoft.com/windows/desktop/tablet/using-the-com-library">Using the COM Library</a>.
      * @returns {HRESULT} <table>
      * <tr>
      * <th>Return code</th>

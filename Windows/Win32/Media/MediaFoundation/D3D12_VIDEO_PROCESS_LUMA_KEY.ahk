@@ -15,10 +15,8 @@
  * Note that the value is clamped to the range [0...1] before multiplying by 255.
  * @see https://learn.microsoft.com/windows/win32/api/d3d12video/ns-d3d12video-d3d12_video_process_luma_key
  * @namespace Windows.Win32.Media.MediaFoundation
- * @version v4.0.30319
  */
-class D3D12_VIDEO_PROCESS_LUMA_KEY extends Win32Struct
-{
+class D3D12_VIDEO_PROCESS_LUMA_KEY extends Win32Struct {
     static sizeof => 12
 
     static packingSize => 4

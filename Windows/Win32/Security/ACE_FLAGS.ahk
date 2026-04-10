@@ -3,9 +3,8 @@
 
 /**
  * @namespace Windows.Win32.Security
- * @version v4.0.30319
  */
-class ACE_FLAGS extends Win32BitflagEnum{
+class ACE_FLAGS extends Win32BitflagEnum {
 
     /**
      * @type {Integer (UInt32)}

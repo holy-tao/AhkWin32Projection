@@ -1,10 +1,11 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\..\Guid.ahk
+#Include ..\..\..\System\Com\IPersist.ahk
 #Include ..\..\..\System\Com\IUnknown.ahk
 #Include ..\IEnumFilters.ahk
 #Include .\IMSVidGraphSegmentContainer.ahk
-#Include ..\..\..\System\Com\IPersist.ahk
+#Include ..\..\..\..\..\Guid.ahk
 
 /**
  * The IMSVidGraphSegmentContainer interface is exposed by the Video Control and contains one supported method, get_Graph, which obtains a pointer to the Filter Graph Manager.
@@ -14,9 +15,8 @@
  * To declare the interface identifier (IID) for this interface, use the <b>__uuidof</b> operator: <c>__uuidof(IMSVidGraphSegmentContainer)</c>.
  * @see https://learn.microsoft.com/windows/win32/api/segment/nn-segment-imsvidgraphsegmentcontainer
  * @namespace Windows.Win32.Media.DirectShow.Tv
- * @version v4.0.30319
  */
-class IMSVidGraphSegment extends IPersist{
+class IMSVidGraphSegment extends IPersist {
 
     static sizeof => A_PtrSize
     /**
@@ -54,7 +54,7 @@ class IMSVidGraphSegment extends IPersist{
     }
 
     /**
-     * @type {Integer} 
+     * @type {MSVidSegmentType} 
      */
     Type {
         get => this.get_Type()
@@ -116,7 +116,7 @@ class IMSVidGraphSegment extends IPersist{
 
     /**
      * 
-     * @returns {Integer} 
+     * @returns {MSVidSegmentType} 
      */
     get_Type() {
         result := ComCall(9, this, "int*", &pType := 0, "HRESULT")

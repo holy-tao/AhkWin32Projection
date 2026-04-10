@@ -5,9 +5,8 @@
  * Specifies the intended use for a video processor.
  * @see https://learn.microsoft.com/windows/win32/api/d3d11/ne-d3d11-d3d11_video_usage
  * @namespace Windows.Win32.Graphics.Direct3D11
- * @version v4.0.30319
  */
-class D3D11_VIDEO_USAGE extends Win32Enum{
+class D3D11_VIDEO_USAGE extends Win32Enum {
 
     /**
      * Normal video playback. The graphics driver should expose a set of capabilities that are appropriate for real-time video playback.

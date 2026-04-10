@@ -1,5 +1,6 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
+#Include .\WINDOWPLACEMENT_FLAGS.ahk
 #Include ..\..\Foundation\POINT.ahk
 #Include ..\..\Foundation\RECT.ahk
 
@@ -13,10 +14,8 @@
  * The coordinates used in a <b>WINDOWPLACEMENT</b> structure should be used only by the <a href="https://docs.microsoft.com/windows/desktop/api/winuser/nf-winuser-getwindowplacement">GetWindowPlacement</a> and <a href="https://docs.microsoft.com/windows/desktop/api/winuser/nf-winuser-setwindowplacement">SetWindowPlacement</a> functions. Passing workspace coordinates to functions which expect screen coordinates (such as <a href="https://docs.microsoft.com/windows/desktop/api/winuser/nf-winuser-setwindowpos">SetWindowPos</a>) will result in the window appearing in the wrong location. For example, if the taskbar is at the top of the screen, saving window coordinates using <b>GetWindowPlacement</b> and restoring them using <b>SetWindowPos</b> causes the window to appear to "creep" up the screen.
  * @see https://learn.microsoft.com/windows/win32/api/winuser/ns-winuser-windowplacement
  * @namespace Windows.Win32.UI.WindowsAndMessaging
- * @version v4.0.30319
  */
-class WINDOWPLACEMENT extends Win32Struct
-{
+class WINDOWPLACEMENT extends Win32Struct {
     static sizeof => 44
 
     static packingSize => 4
@@ -38,7 +37,7 @@ class WINDOWPLACEMENT extends Win32Struct
 
     /**
      * Type: <b>UINT</b>
-     * @type {Integer}
+     * @type {WINDOWPLACEMENT_FLAGS}
      */
     flags {
         get => NumGet(this, 4, "uint")
@@ -62,7 +61,7 @@ class WINDOWPLACEMENT extends Win32Struct
      * The coordinates of the window's upper-left corner when the window is minimized.
      * @type {POINT}
      */
-    ptMinPosition{
+    ptMinPosition {
         get {
             if(!this.HasProp("__ptMinPosition"))
                 this.__ptMinPosition := POINT(12, this)
@@ -76,7 +75,7 @@ class WINDOWPLACEMENT extends Win32Struct
      * The coordinates of the window's upper-left corner when the window is maximized.
      * @type {POINT}
      */
-    ptMaxPosition{
+    ptMaxPosition {
         get {
             if(!this.HasProp("__ptMaxPosition"))
                 this.__ptMaxPosition := POINT(20, this)
@@ -90,7 +89,7 @@ class WINDOWPLACEMENT extends Win32Struct
      * The window's coordinates when the window is in the restored position.
      * @type {RECT}
      */
-    rcNormalPosition{
+    rcNormalPosition {
         get {
             if(!this.HasProp("__rcNormalPosition"))
                 this.__rcNormalPosition := RECT(28, this)

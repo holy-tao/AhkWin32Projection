@@ -7,9 +7,8 @@
  * This enumeration is used with the <a href="https://docs.microsoft.com/windows/desktop/medfound/mf-mt-video-3d-format">MF_MT_VIDEO_3D_FORMAT</a> attribute.
  * @see https://learn.microsoft.com/windows/win32/api/mfapi/ne-mfapi-mfvideo3dformat
  * @namespace Windows.Win32.Media.MediaFoundation
- * @version v4.0.30319
  */
-class MFVideo3DFormat extends Win32Enum{
+class MFVideo3DFormat extends Win32Enum {
 
     /**
      * The base view is stored in a single buffer. The other view is discarded.

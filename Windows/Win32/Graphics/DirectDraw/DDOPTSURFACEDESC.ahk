@@ -5,10 +5,8 @@
 
 /**
  * @namespace Windows.Win32.Graphics.DirectDraw
- * @version v4.0.30319
  */
-class DDOPTSURFACEDESC extends Win32Struct
-{
+class DDOPTSURFACEDESC extends Win32Struct {
     static sizeof => 48
 
     static packingSize => 8
@@ -32,7 +30,7 @@ class DDOPTSURFACEDESC extends Win32Struct
     /**
      * @type {DDSCAPS2}
      */
-    ddSCaps{
+    ddSCaps {
         get {
             if(!this.HasProp("__ddSCaps"))
                 this.__ddSCaps := DDSCAPS2(8, this)
@@ -43,7 +41,7 @@ class DDOPTSURFACEDESC extends Win32Struct
     /**
      * @type {DDOSCAPS}
      */
-    ddOSCaps{
+    ddOSCaps {
         get {
             if(!this.HasProp("__ddOSCaps"))
                 this.__ddOSCaps := DDOSCAPS(24, this)
@@ -52,7 +50,7 @@ class DDOPTSURFACEDESC extends Win32Struct
     }
 
     /**
-     * @type {Pointer<Guid>}
+     * @type {Pointer}
      */
     guid {
         get => NumGet(this, 32, "ptr")

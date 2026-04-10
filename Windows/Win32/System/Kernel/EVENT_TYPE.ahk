@@ -3,9 +3,8 @@
 
 /**
  * @namespace Windows.Win32.System.Kernel
- * @version v4.0.30319
  */
-class EVENT_TYPE extends Win32Enum{
+class EVENT_TYPE extends Win32Enum {
 
     /**
      * @type {Integer (Int32)}

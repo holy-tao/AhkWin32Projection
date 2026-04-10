@@ -1,15 +1,15 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
+#Include ..\Gdi\DEVMODEA.ahk
+#Include .\PRINTER_ACCESS_RIGHTS.ahk
 
 /**
  * The PRINTER\_DEFAULTS structure specifies the default data type, environment, initialization data, and access rights for a printer.
  * @see https://learn.microsoft.com/windows/win32/printdocs/printer-defaults
  * @namespace Windows.Win32.Graphics.Printing
- * @version v4.0.30319
  * @charset ANSI
  */
-class PRINTER_DEFAULTSA extends Win32Struct
-{
+class PRINTER_DEFAULTSA extends Win32Struct {
     static sizeof => 24
 
     static packingSize => 8
@@ -44,7 +44,7 @@ class PRINTER_DEFAULTSA extends Win32Struct
      * | PRINTER\_ACCESS\_MANAGE\_LIMITED            | To perform administrative tasks, such as those provided by [**SetPrinter**](setprinter.md) and [**SetPrinterData**](setprinterdata.md). This value is available starting from Windows 8.1. |
      * | PRINTER\_ALL\_ACCESS                        | To perform all administrative tasks and basic printing operations except for SYNCHRONIZE (see [Standard Access Rights](/windows/desktop/SecAuthZ/standard-access-rights) ).                                   |
      * | generic security values, such as WRITE\_DAC | To allow specific control access rights. See [Standard Access Rights](/windows/desktop/SecAuthZ/standard-access-rights).                                                                                      |
-     * @type {Integer}
+     * @type {PRINTER_ACCESS_RIGHTS}
      */
     DesiredAccess {
         get => NumGet(this, 16, "uint")

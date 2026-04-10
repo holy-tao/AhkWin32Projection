@@ -5,10 +5,8 @@
  * Contains listener settings for a remote session.
  * @see https://learn.microsoft.com/windows/win32/api/wtsdefs/ns-wtsdefs-wrds_listener_settings_1
  * @namespace Windows.Win32.System.RemoteDesktop
- * @version v4.0.30319
  */
-class WRDS_LISTENER_SETTINGS_1 extends Win32Struct
-{
+class WRDS_LISTENER_SETTINGS_1 extends Win32Struct {
     static sizeof => 16
 
     static packingSize => 8
@@ -23,7 +21,6 @@ class WRDS_LISTENER_SETTINGS_1 extends Win32Struct
     }
 
     /**
-     * 
      * @type {Integer}
      */
     SecurityDescriptorSize {

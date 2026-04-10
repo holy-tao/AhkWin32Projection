@@ -1,16 +1,15 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
-#Include .\IToc.ahk
 #Include ..\..\System\Com\IUnknown.ahk
+#Include .\IToc.ahk
 
 /**
  * The ITocCollection represents a collection of tables of contents. It provides methods for adding, retrieving, and removing, tables of contents from the collection.
  * @see https://learn.microsoft.com/windows/win32/api/wmcodecdsp/nn-wmcodecdsp-itoccollection
  * @namespace Windows.Win32.Media.MediaFoundation
- * @version v4.0.30319
  */
-class ITocCollection extends IUnknown{
+class ITocCollection extends IUnknown {
 
     static sizeof => A_PtrSize
     /**

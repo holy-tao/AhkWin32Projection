@@ -1,18 +1,16 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
 #Include ..\..\Foundation\LUID.ahk
+#Include .\CompositionFrameInstanceKind.ahk
 #Include .\PresentationTransform.ahk
+#Include ..\Dxgi\Common\DXGI_COLOR_SPACE_TYPE.ahk
 
 /**
  * Represents a single instance of the content shown on a single output.
- * @remarks
- * 
  * @see https://learn.microsoft.com/windows/win32/api/presentation/ns-presentation-compositionframedisplayinstance
  * @namespace Windows.Win32.Graphics.CompositionSwapchain
- * @version v4.0.30319
  */
-class CompositionFrameDisplayInstance extends Win32Struct
-{
+class CompositionFrameDisplayInstance extends Win32Struct {
     static sizeof => 60
 
     static packingSize => 4
@@ -20,7 +18,7 @@ class CompositionFrameDisplayInstance extends Win32Struct
     /**
      * @type {LUID}
      */
-    displayAdapterLUID{
+    displayAdapterLUID {
         get {
             if(!this.HasProp("__displayAdapterLUID"))
                 this.__displayAdapterLUID := LUID(0, this)
@@ -47,7 +45,7 @@ class CompositionFrameDisplayInstance extends Win32Struct
     /**
      * @type {LUID}
      */
-    renderAdapterLUID{
+    renderAdapterLUID {
         get {
             if(!this.HasProp("__renderAdapterLUID"))
                 this.__renderAdapterLUID := LUID(16, this)
@@ -59,7 +57,7 @@ class CompositionFrameDisplayInstance extends Win32Struct
      * Type: **[CompositionFrameInstanceKind](ne-presentation-compositionframeinstancekind.md)**
      * 
      * The kind of instance.
-     * @type {Integer}
+     * @type {CompositionFrameInstanceKind}
      */
     instanceKind {
         get => NumGet(this, 24, "int")
@@ -72,7 +70,7 @@ class CompositionFrameDisplayInstance extends Win32Struct
      * The accumulated transform on screen of displayed content, including all transforms of ancestor visuals, if applicable.
      * @type {PresentationTransform}
      */
-    finalTransform{
+    finalTransform {
         get {
             if(!this.HasProp("__finalTransform"))
                 this.__finalTransform := PresentationTransform(28, this)
@@ -95,7 +93,7 @@ class CompositionFrameDisplayInstance extends Win32Struct
      * Type: **[DXGI_COLOR_SPACE_TYPE](/windows/win32/api/dxgicommon/ne-dxgicommon-dxgi_color_space_type)**
      * 
      * The color space type of the output this instance was shown on.
-     * @type {Integer}
+     * @type {DXGI_COLOR_SPACE_TYPE}
      */
     colorSpace {
         get => NumGet(this, 56, "int")

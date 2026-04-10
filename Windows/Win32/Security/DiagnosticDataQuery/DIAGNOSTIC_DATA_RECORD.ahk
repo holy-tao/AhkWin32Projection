@@ -11,10 +11,8 @@
  * - For more details on what is core data, see our [**privacy statement**](/windows/privacy/windows-diagnostic-data).
  * @see https://learn.microsoft.com/windows/win32/api/diagnosticdataquerytypes/ns-diagnosticdataquerytypes-diagnostic_data_record
  * @namespace Windows.Win32.Security.DiagnosticDataQuery
- * @version v4.0.30319
  */
-class DIAGNOSTIC_DATA_RECORD extends Win32Struct
-{
+class DIAGNOSTIC_DATA_RECORD extends Win32Struct {
     static sizeof => 104
 
     static packingSize => 8
@@ -130,7 +128,6 @@ class DIAGNOSTIC_DATA_RECORD extends Win32Struct
     }
 
     /**
-     * 
      * @type {PWSTR}
      */
     extra1 {
@@ -139,7 +136,6 @@ class DIAGNOSTIC_DATA_RECORD extends Win32Struct
     }
 
     /**
-     * 
      * @type {PWSTR}
      */
     extra2 {
@@ -148,7 +144,6 @@ class DIAGNOSTIC_DATA_RECORD extends Win32Struct
     }
 
     /**
-     * 
      * @type {PWSTR}
      */
     extra3 {

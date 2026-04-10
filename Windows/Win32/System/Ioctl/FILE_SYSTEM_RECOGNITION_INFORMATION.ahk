@@ -5,11 +5,9 @@
  * Contains file system recognition information retrieved by the FSCTL_QUERY_FILE_SYSTEM_RECOGNITION control code.
  * @see https://learn.microsoft.com/windows/win32/api/winioctl/ns-winioctl-file_system_recognition_information
  * @namespace Windows.Win32.System.Ioctl
- * @version v4.0.30319
  */
-class FILE_SYSTEM_RECOGNITION_INFORMATION extends Win32Struct
-{
-    static sizeof => 18
+class FILE_SYSTEM_RECOGNITION_INFORMATION extends Win32Struct {
+    static sizeof => 10
 
     static packingSize => 2
 
@@ -19,7 +17,7 @@ class FILE_SYSTEM_RECOGNITION_INFORMATION extends Win32Struct
      * @type {String}
      */
     FileSystem {
-        get => StrGet(this.ptr + 0, 8, "UTF-16")
-        set => StrPut(value, this.ptr + 0, 8, "UTF-16")
+        get => StrGet(this.ptr + 0, 8, "UTF-8")
+        set => StrPut(value, this.ptr + 0, 8, "UTF-8")
     }
 }

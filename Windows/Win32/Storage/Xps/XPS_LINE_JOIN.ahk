@@ -9,9 +9,8 @@
  * <img alt="A diagram that shows examples of the different XPS_LINE_JOIN values" src="./images/XPS_LINE_JOIN.png"/>
  * @see https://learn.microsoft.com/windows/win32/api/xpsobjectmodel/ne-xpsobjectmodel-xps_line_join
  * @namespace Windows.Win32.Storage.Xps
- * @version v4.0.30319
  */
-class XPS_LINE_JOIN extends Win32Enum{
+class XPS_LINE_JOIN extends Win32Enum {
 
     /**
      * Produces a sharp or clipped corner, depending on whether the length of the miter exceeds the miter limit.

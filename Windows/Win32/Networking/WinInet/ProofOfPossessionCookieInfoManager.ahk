@@ -3,10 +3,8 @@
 
 /**
  * @namespace Windows.Win32.Networking.WinInet
- * @version v4.0.30319
  */
-class ProofOfPossessionCookieInfoManager extends Win32Struct
-{
+class ProofOfPossessionCookieInfoManager extends Win32Struct {
     static sizeof => 0
 
     static packingSize => 1

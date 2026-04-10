@@ -1,17 +1,15 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
-#Include .\IBackgroundCopyFile.ahk
-#Include .\IEnumBackgroundCopyFiles.ahk
 #Include ..\..\System\Com\IUnknown.ahk
+#Include .\IBackgroundCopyFile.ahk
 
 /**
  * Use the IEnumBackgroundCopyFiles interface to enumerate the files that a job contains. To get an IEnumBackgroundCopyFiles interface pointer, call the IBackgroundCopyJob::EnumFiles method.
  * @see https://learn.microsoft.com/windows/win32/api/bits/nn-bits-ienumbackgroundcopyfiles
  * @namespace Windows.Win32.Networking.BackgroundIntelligentTransferService
- * @version v4.0.30319
  */
-class IEnumBackgroundCopyFiles extends IUnknown{
+class IEnumBackgroundCopyFiles extends IUnknown {
 
     static sizeof => A_PtrSize
     /**

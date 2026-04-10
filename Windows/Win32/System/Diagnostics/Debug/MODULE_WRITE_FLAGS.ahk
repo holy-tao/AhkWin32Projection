@@ -5,9 +5,8 @@
  * Identifies the type of module information that will be written to the minidump file by the MiniDumpWriteDump function.
  * @see https://learn.microsoft.com/windows/win32/api/minidumpapiset/ne-minidumpapiset-module_write_flags
  * @namespace Windows.Win32.System.Diagnostics.Debug
- * @version v4.0.30319
  */
-class MODULE_WRITE_FLAGS extends Win32Enum{
+class MODULE_WRITE_FLAGS extends Win32Enum {
 
     /**
      * Only module information will be written to the minidump file.

@@ -7,9 +7,8 @@
  * Allows an app to get an instance of the ISystemMediaTransportControls interface.
  * @see https://learn.microsoft.com/windows/win32/api/systemmediatransportcontrolsinterop/nn-systemmediatransportcontrolsinterop-isystemmediatransportcontrolsinterop
  * @namespace Windows.Win32.System.WinRT
- * @version v4.0.30319
  */
-class ISystemMediaTransportControlsInterop extends IInspectable{
+class ISystemMediaTransportControlsInterop extends IInspectable {
 
     static sizeof => A_PtrSize
     /**

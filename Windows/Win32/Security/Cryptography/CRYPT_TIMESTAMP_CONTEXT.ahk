@@ -1,14 +1,13 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
+#Include .\CRYPT_TIMESTAMP_INFO.ahk
 
 /**
  * Contains both the encoded and decoded representations of a time stamp token.
  * @see https://learn.microsoft.com/windows/win32/api/wincrypt/ns-wincrypt-crypt_timestamp_context
  * @namespace Windows.Win32.Security.Cryptography
- * @version v4.0.30319
  */
-class CRYPT_TIMESTAMP_CONTEXT extends Win32Struct
-{
+class CRYPT_TIMESTAMP_CONTEXT extends Win32Struct {
     static sizeof => 24
 
     static packingSize => 8

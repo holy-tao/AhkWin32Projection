@@ -1,10 +1,9 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
-#Include ..\..\Foundation\BSTR.ahk
+#Include ..\..\System\Com\IUnknown.ahk
 #Include ..\..\UI\WindowsAndMessaging\HICON.ahk
 #Include ..\..\Graphics\Gdi\HBITMAP.ahk
-#Include ..\..\System\Com\IUnknown.ahk
 
 /**
  * The IWiaUIExtension interface provides methods that replace the default system user interface, provide a custom device bitmap logo, and provide a custom device icon.
@@ -23,9 +22,8 @@
  * | [IUnknown::Release](/windows/win32/api/unknwn/nf-unknwn-iunknown-release)               | Decrements reference count.               |
  * @see https://learn.microsoft.com/windows/win32/wia/-wia-iwiauiextension
  * @namespace Windows.Win32.Devices.ImageAcquisition
- * @version v4.0.30319
  */
-class IWiaUIExtension extends IUnknown{
+class IWiaUIExtension extends IUnknown {
 
     static sizeof => A_PtrSize
     /**

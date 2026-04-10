@@ -1,14 +1,15 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
+#Include .\UiaCondition.ahk
+#Include .\TreeScope.ahk
+#Include .\AutomationElementMode.ahk
 
 /**
  * Note  This structure is deprecated.  Contains information about a request to cache data about UI Automation elements.
  * @see https://learn.microsoft.com/windows/win32/api/uiautomationcoreapi/ns-uiautomationcoreapi-uiacacherequest
  * @namespace Windows.Win32.UI.Accessibility
- * @version v4.0.30319
  */
-class UiaCacheRequest extends Win32Struct
-{
+class UiaCacheRequest extends Win32Struct {
     static sizeof => 48
 
     static packingSize => 8
@@ -28,7 +29,7 @@ class UiaCacheRequest extends Win32Struct
      * Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/uiautomationclient/ne-uiautomationclient-treescope">TreeScope</a></b>
      * 
      * A value from the <a href="https://docs.microsoft.com/windows/desktop/api/uiautomationclient/ne-uiautomationclient-treescope">TreeScope</a> enumerated type indicating the scope of the cache request; for example, whether it includes children of the root element.
-     * @type {Integer}
+     * @type {TreeScope}
      */
     Scope {
         get => NumGet(this, 8, "int")
@@ -83,7 +84,7 @@ class UiaCacheRequest extends Win32Struct
      * Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/uiautomationclient/ne-uiautomationclient-automationelementmode">AutomationElementMode</a></b>
      * 
      * A value from the <a href="https://docs.microsoft.com/windows/desktop/api/uiautomationclient/ne-uiautomationclient-automationelementmode">AutomationElementMode</a> enumerated type indicating the type of reference to cached UI Automation elements that is to be returned.
-     * @type {Integer}
+     * @type {AutomationElementMode}
      */
     automationElementMode {
         get => NumGet(this, 44, "int")

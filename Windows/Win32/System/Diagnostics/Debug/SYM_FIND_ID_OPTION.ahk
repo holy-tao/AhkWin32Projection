@@ -3,9 +3,8 @@
 
 /**
  * @namespace Windows.Win32.System.Diagnostics.Debug
- * @version v4.0.30319
  */
-class SYM_FIND_ID_OPTION extends Win32Enum{
+class SYM_FIND_ID_OPTION extends Win32Enum {
 
     /**
      * @type {Integer (UInt32)}

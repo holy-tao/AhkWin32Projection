@@ -1,13 +1,12 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
 #Include .\DWRITE_COLOR_F.ahk
+#Include .\DWRITE_PAINT_ATTRIBUTES.ahk
 
 /**
  * @namespace Windows.Win32.Graphics.DirectWrite
- * @version v4.0.30319
  */
-class DWRITE_PAINT_COLOR extends Win32Struct
-{
+class DWRITE_PAINT_COLOR extends Win32Struct {
     static sizeof => 28
 
     static packingSize => 4
@@ -15,7 +14,7 @@ class DWRITE_PAINT_COLOR extends Win32Struct
     /**
      * @type {DWRITE_COLOR_F}
      */
-    value{
+    value {
         get {
             if(!this.HasProp("__value"))
                 this.__value := DWRITE_COLOR_F(0, this)
@@ -40,7 +39,7 @@ class DWRITE_PAINT_COLOR extends Win32Struct
     }
 
     /**
-     * @type {Integer}
+     * @type {DWRITE_PAINT_ATTRIBUTES}
      */
     colorAttributes {
         get => NumGet(this, 24, "int")

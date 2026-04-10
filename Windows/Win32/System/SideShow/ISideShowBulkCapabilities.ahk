@@ -5,9 +5,8 @@
 
 /**
  * @namespace Windows.Win32.System.SideShow
- * @version v4.0.30319
  */
-class ISideShowBulkCapabilities extends ISideShowCapabilities{
+class ISideShowBulkCapabilities extends ISideShowCapabilities {
 
     static sizeof => A_PtrSize
     /**

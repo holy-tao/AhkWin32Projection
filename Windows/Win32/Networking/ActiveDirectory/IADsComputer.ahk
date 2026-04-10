@@ -1,17 +1,16 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
+#Include .\IADs.ahk
 #Include ..\..\Foundation\BSTR.ahk
 #Include ..\..\System\Variant\VARIANT.ahk
-#Include .\IADs.ahk
 
 /**
  * The IADsComputer interface is a dual interface that inherits from IADs.
  * @see https://learn.microsoft.com/windows/win32/api/iads/nn-iads-iadscomputer
  * @namespace Windows.Win32.Networking.ActiveDirectory
- * @version v4.0.30319
  */
-class IADsComputer extends IADs{
+class IADsComputer extends IADs {
 
     static sizeof => A_PtrSize
     /**

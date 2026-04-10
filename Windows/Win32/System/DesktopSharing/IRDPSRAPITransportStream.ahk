@@ -1,16 +1,15 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
-#Include .\IRDPSRAPITransportStreamBuffer.ahk
 #Include ..\Com\IUnknown.ahk
+#Include .\IRDPSRAPITransportStreamBuffer.ahk
 
 /**
  * Exposes methods that perform operations with streams.
  * @see https://learn.microsoft.com/windows/win32/api/rdpencomapi/nn-rdpencomapi-irdpsrapitransportstream
  * @namespace Windows.Win32.System.DesktopSharing
- * @version v4.0.30319
  */
-class IRDPSRAPITransportStream extends IUnknown{
+class IRDPSRAPITransportStream extends IUnknown {
 
     static sizeof => A_PtrSize
     /**

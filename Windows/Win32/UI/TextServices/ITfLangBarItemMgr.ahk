@@ -1,18 +1,17 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
+#Include ..\..\System\Com\IUnknown.ahk
 #Include .\IEnumTfLangBarItems.ahk
 #Include .\ITfLangBarItem.ahk
 #Include ..\..\Foundation\RECT.ahk
-#Include ..\..\System\Com\IUnknown.ahk
 
 /**
  * The ITfLangBarItemMgr interface is implemented by the language bar and used by a text service to manage items in the language bar.
  * @see https://learn.microsoft.com/windows/win32/api/ctfutb/nn-ctfutb-itflangbaritemmgr
  * @namespace Windows.Win32.UI.TextServices
- * @version v4.0.30319
  */
-class ITfLangBarItemMgr extends IUnknown{
+class ITfLangBarItemMgr extends IUnknown {
 
     static sizeof => A_PtrSize
     /**

@@ -1,5 +1,6 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
+#Include .\LDAP_BERVAL.ahk
 
 /**
  * Used to set up the search parameters for a virtual list view (VLV) request control (LDAP_CONTROL_VLVREQUEST).
@@ -27,10 +28,8 @@
  * Be aware that a sort control must accompany a VLV search request to specify the ordered list of entries against which the VLV search is performed. Servers can reject VLV searches performed against lists for which they do not have indexes.
  * @see https://learn.microsoft.com/windows/win32/api/winldap/ns-winldap-ldapvlvinfo
  * @namespace Windows.Win32.Networking.Ldap
- * @version v4.0.30319
  */
-class LDAPVLVInfo extends Win32Struct
-{
+class LDAPVLVInfo extends Win32Struct {
     static sizeof => 48
 
     static packingSize => 8

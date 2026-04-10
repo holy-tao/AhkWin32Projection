@@ -3,16 +3,14 @@
 
 /**
  * @namespace Windows.Win32.System.ComponentServices
- * @version v4.0.30319
  */
-class CLSIDDATA extends Win32Struct
-{
+class CLSIDDATA extends Win32Struct {
     static sizeof => 40
 
     static packingSize => 8
 
     /**
-     * @type {Pointer<Guid>}
+     * @type {Pointer}
      */
     m_clsid {
         get => NumGet(this, 0, "ptr")

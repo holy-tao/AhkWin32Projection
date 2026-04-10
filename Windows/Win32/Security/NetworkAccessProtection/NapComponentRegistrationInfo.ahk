@@ -14,10 +14,8 @@
  *    components is retrieved, if there is no valid <i>infoClsid</i>,  <i>configClsid</i>, or <i>registrationDate</i>, they are set to 0.
  * @see https://learn.microsoft.com/windows/win32/api/naptypes/ns-naptypes-napcomponentregistrationinfo
  * @namespace Windows.Win32.Security.NetworkAccessProtection
- * @version v4.0.30319
  */
-class NapComponentRegistrationInfo extends Win32Struct
-{
+class NapComponentRegistrationInfo extends Win32Struct {
     static sizeof => 104
 
     static packingSize => 8
@@ -35,7 +33,7 @@ class NapComponentRegistrationInfo extends Win32Struct
      * A <a href="https://docs.microsoft.com/windows/desktop/api/naptypes/ns-naptypes-countedstring">CountedString</a> structure that contains the friendly (human-readable) name of the component.
      * @type {CountedString}
      */
-    friendlyName{
+    friendlyName {
         get {
             if(!this.HasProp("__friendlyName"))
                 this.__friendlyName := CountedString(8, this)
@@ -47,7 +45,7 @@ class NapComponentRegistrationInfo extends Win32Struct
      * A <a href="https://docs.microsoft.com/windows/desktop/api/naptypes/ns-naptypes-countedstring">CountedString</a> structure that contains a description of the component.
      * @type {CountedString}
      */
-    description{
+    description {
         get {
             if(!this.HasProp("__description"))
                 this.__description := CountedString(24, this)
@@ -59,7 +57,7 @@ class NapComponentRegistrationInfo extends Win32Struct
      * A <a href="https://docs.microsoft.com/windows/desktop/api/naptypes/ns-naptypes-countedstring">CountedString</a> structure that contains the version of the component.
      * @type {CountedString}
      */
-    version{
+    version {
         get {
             if(!this.HasProp("__version"))
                 this.__version := CountedString(40, this)
@@ -71,7 +69,7 @@ class NapComponentRegistrationInfo extends Win32Struct
      * A <a href="https://docs.microsoft.com/windows/desktop/api/naptypes/ns-naptypes-countedstring">CountedString</a> structure that contains the vendor name for the component.
      * @type {CountedString}
      */
-    vendorName{
+    vendorName {
         get {
             if(!this.HasProp("__vendorName"))
                 this.__vendorName := CountedString(56, this)
@@ -87,7 +85,7 @@ class NapComponentRegistrationInfo extends Win32Struct
      * 
      * Currently, enforcement clients do not need to
      *    provide a valid <i>infoClsid</i>.
-     * @type {Pointer<Guid>}
+     * @type {Pointer}
      */
     infoClsid {
         get => NumGet(this, 72, "ptr")
@@ -100,7 +98,7 @@ class NapComponentRegistrationInfo extends Win32Struct
      * 
      * Currently, SHAs and enforcement clients do not need to
      *    provide a valid <i>configClsid</i>.
-     * @type {Pointer<Guid>}
+     * @type {Pointer}
      */
     configClsid {
         get => NumGet(this, 80, "ptr")
@@ -111,7 +109,7 @@ class NapComponentRegistrationInfo extends Win32Struct
      * A <a href="https://docs.microsoft.com/windows/win32/api/minwinbase/ns-minwinbase-filetime">FILETIME</a> structure that contains the registration information date.
      * @type {FILETIME}
      */
-    registrationDate{
+    registrationDate {
         get {
             if(!this.HasProp("__registrationDate"))
                 this.__registrationDate := FILETIME(88, this)

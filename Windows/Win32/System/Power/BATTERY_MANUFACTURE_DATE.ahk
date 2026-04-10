@@ -7,10 +7,8 @@
  * The date is encoded in the Gregorian or western calendar format.
  * @see https://learn.microsoft.com/windows/win32/Power/battery-manufacture-date-str
  * @namespace Windows.Win32.System.Power
- * @version v4.0.30319
  */
-class BATTERY_MANUFACTURE_DATE extends Win32Struct
-{
+class BATTERY_MANUFACTURE_DATE extends Win32Struct {
     static sizeof => 4
 
     static packingSize => 2

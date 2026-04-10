@@ -4,10 +4,8 @@
 
 /**
  * @namespace Windows.Win32.Devices.Usb
- * @version v4.0.30319
  */
-class HCD_STAT_INFORMATION_1 extends Win32Struct
-{
+class HCD_STAT_INFORMATION_1 extends Win32Struct {
     static sizeof => 48
 
     static packingSize => 8
@@ -47,7 +45,7 @@ class HCD_STAT_INFORMATION_1 extends Win32Struct
     /**
      * @type {HCD_STAT_COUNTERS}
      */
-    Counters{
+    Counters {
         get {
             if(!this.HasProp("__Counters"))
                 this.__Counters := HCD_STAT_COUNTERS(24, this)

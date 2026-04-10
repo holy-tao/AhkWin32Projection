@@ -1,17 +1,16 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
+#Include .\IFsrmFileScreenBase.ahk
 #Include ..\..\Foundation\BSTR.ahk
 #Include .\IFsrmDerivedObjectsResult.ahk
-#Include .\IFsrmFileScreenBase.ahk
 
 /**
  * Used to configure templates from which new file screens can be derived.
  * @see https://learn.microsoft.com/windows/win32/api/fsrmscreen/nn-fsrmscreen-ifsrmfilescreentemplate
  * @namespace Windows.Win32.Storage.FileServerResourceManager
- * @version v4.0.30319
  */
-class IFsrmFileScreenTemplate extends IFsrmFileScreenBase{
+class IFsrmFileScreenTemplate extends IFsrmFileScreenBase {
 
     static sizeof => A_PtrSize
     /**
@@ -87,9 +86,9 @@ class IFsrmFileScreenTemplate extends IFsrmFileScreenBase{
 
     /**
      * Saves the file screen template and then applies any changes to the derived file screen objects.
-     * @param {Integer} commitOptions The options for saving the template. For possible values, see the 
+     * @param {FsrmCommitOptions} commitOptions The options for saving the template. For possible values, see the 
      *       <a href="https://docs.microsoft.com/windows/desktop/api/fsrmenums/ne-fsrmenums-fsrmcommitoptions">FsrmCommitOptions</a> enumeration.
-     * @param {Integer} applyOptions The options used to choose the derived objects to which the changes are applied. For possible values, see 
+     * @param {FsrmTemplateApplyOptions} applyOptions The options used to choose the derived objects to which the changes are applied. For possible values, see 
      *       the <a href="https://docs.microsoft.com/windows/desktop/api/fsrmenums/ne-fsrmenums-fsrmtemplateapplyoptions">FsrmTemplateApplyOptions</a> enumeration.
      * @returns {IFsrmDerivedObjectsResult} An <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/fsrm/nn-fsrm-ifsrmderivedobjectsresult">IFsrmDerivedObjectsResult</a> interface 
      *       that you use to determine the list of derived objects that were updated and whether the update was 

@@ -6,10 +6,8 @@
  * The BTH_LE_GATT_CHARACTERISTIC structure describes a Bluetooth Low Energy (LE) generic attribute (GATT) profile characteristic.
  * @see https://learn.microsoft.com/windows/win32/api/bthledef/ns-bthledef-bth_le_gatt_characteristic
  * @namespace Windows.Win32.Devices.Bluetooth
- * @version v4.0.30319
  */
-class BTH_LE_GATT_CHARACTERISTIC extends Win32Struct
-{
+class BTH_LE_GATT_CHARACTERISTIC extends Win32Struct {
     static sizeof => 40
 
     static packingSize => 8
@@ -27,7 +25,7 @@ class BTH_LE_GATT_CHARACTERISTIC extends Win32Struct
      * The Universally Unique ID (UUID) of the characteristic.
      * @type {BTH_LE_UUID}
      */
-    CharacteristicUuid{
+    CharacteristicUuid {
         get {
             if(!this.HasProp("__CharacteristicUuid"))
                 this.__CharacteristicUuid := BTH_LE_UUID(8, this)

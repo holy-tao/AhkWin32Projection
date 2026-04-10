@@ -3,18 +3,16 @@
 
 /**
  * @namespace Windows.Win32.Media.MediaFoundation
- * @version v4.0.30319
  */
-class D3D12_VIDEO_ENCODER_CODEC_AV1_LOOP_FILTER_CONFIG extends Win32Struct
-{
+class D3D12_VIDEO_ENCODER_CODEC_AV1_LOOP_FILTER_CONFIG extends Win32Struct {
     static sizeof => 144
 
     static packingSize => 8
 
     /**
-     * @type {Array<UInt64>}
+     * @type {Array<Integer>}
      */
-    LoopFilterLevel{
+    LoopFilterLevel {
         get {
             if(!this.HasProp("__LoopFilterLevelProxyArray"))
                 this.__LoopFilterLevelProxyArray := Win32FixedArray(this.ptr + 0, 2, Primitive, "uint")
@@ -63,9 +61,9 @@ class D3D12_VIDEO_ENCODER_CODEC_AV1_LOOP_FILTER_CONFIG extends Win32Struct
     }
 
     /**
-     * @type {Array<Int64>}
+     * @type {Array<Integer>}
      */
-    RefDeltas{
+    RefDeltas {
         get {
             if(!this.HasProp("__RefDeltasProxyArray"))
                 this.__RefDeltasProxyArray := Win32FixedArray(this.ptr + 56, 8, Primitive, "int64")
@@ -82,9 +80,9 @@ class D3D12_VIDEO_ENCODER_CODEC_AV1_LOOP_FILTER_CONFIG extends Win32Struct
     }
 
     /**
-     * @type {Array<Int64>}
+     * @type {Array<Integer>}
      */
-    ModeDeltas{
+    ModeDeltas {
         get {
             if(!this.HasProp("__ModeDeltasProxyArray"))
                 this.__ModeDeltasProxyArray := Win32FixedArray(this.ptr + 128, 2, Primitive, "int64")

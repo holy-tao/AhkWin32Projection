@@ -3,10 +3,8 @@
 
 /**
  * @namespace Windows.Win32.System.Hypervisor
- * @version v4.0.30319
  */
-class WHV_X64_CPUID_ACCESS_CONTEXT extends Win32Struct
-{
+class WHV_X64_CPUID_ACCESS_CONTEXT extends Win32Struct {
     static sizeof => 64
 
     static packingSize => 8

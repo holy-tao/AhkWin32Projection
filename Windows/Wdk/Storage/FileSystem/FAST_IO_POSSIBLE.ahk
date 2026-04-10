@@ -3,9 +3,8 @@
 
 /**
  * @namespace Windows.Wdk.Storage.FileSystem
- * @version v4.0.30319
  */
-class FAST_IO_POSSIBLE extends Win32Enum{
+class FAST_IO_POSSIBLE extends Win32Enum {
 
     /**
      * @type {Integer (Int32)}

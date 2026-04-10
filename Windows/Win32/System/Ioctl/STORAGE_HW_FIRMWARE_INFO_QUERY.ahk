@@ -5,10 +5,8 @@
  * STORAGE_HW_FIRMWARE_INFO_QUERY structure - This structure contains information about the device firmware.
  * @see https://learn.microsoft.com/windows/win32/FileIO/storage-hw-firmware-info-query
  * @namespace Windows.Win32.System.Ioctl
- * @version v4.0.30319
  */
-class STORAGE_HW_FIRMWARE_INFO_QUERY extends Win32Struct
-{
+class STORAGE_HW_FIRMWARE_INFO_QUERY extends Win32Struct {
     static sizeof => 16
 
     static packingSize => 4

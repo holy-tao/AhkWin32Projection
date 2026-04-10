@@ -3,10 +3,8 @@
 
 /**
  * @namespace Windows.Win32.Media.MediaFoundation
- * @version v4.0.30319
  */
-class DXVA_DeinterlaceQueryAvailableModes extends Win32Struct
-{
+class DXVA_DeinterlaceQueryAvailableModes extends Win32Struct {
     static sizeof => 264
 
     static packingSize => 8
@@ -28,9 +26,9 @@ class DXVA_DeinterlaceQueryAvailableModes extends Win32Struct
     }
 
     /**
-     * @type {Array<Guid>}
+     * @type {Array<Pointer>}
      */
-    Guids{
+    Guids {
         get {
             if(!this.HasProp("__GuidsProxyArray"))
                 this.__GuidsProxyArray := Win32FixedArray(this.ptr + 8, 32, Primitive, "ptr")

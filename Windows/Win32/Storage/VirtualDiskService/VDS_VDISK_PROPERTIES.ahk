@@ -1,22 +1,22 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
+#Include .\VDS_VDISK_STATE.ahk
 #Include ..\Vhd\VIRTUAL_STORAGE_TYPE.ahk
+#Include ..\Vhd\DEPENDENT_DISK_FLAG.ahk
 
 /**
  * Defines the properties of a virtual disk.
  * @see https://learn.microsoft.com/windows/win32/api/vds/ns-vds-vds_vdisk_properties
  * @namespace Windows.Win32.Storage.VirtualDiskService
- * @version v4.0.30319
  */
-class VDS_VDISK_PROPERTIES extends Win32Struct
-{
+class VDS_VDISK_PROPERTIES extends Win32Struct {
     static sizeof => 80
 
     static packingSize => 8
 
     /**
      * Unique VDS-specific session identifier of the disk.
-     * @type {Pointer<Guid>}
+     * @type {Pointer}
      */
     Id {
         get => NumGet(this, 0, "ptr")
@@ -25,7 +25,7 @@ class VDS_VDISK_PROPERTIES extends Win32Struct
 
     /**
      * A <a href="https://docs.microsoft.com/windows/desktop/api/vds/ne-vds-vds_vdisk_state">VDS_VDISK_STATE</a> enumeration value that specifies the virtual disk state.
-     * @type {Integer}
+     * @type {VDS_VDISK_STATE}
      */
     State {
         get => NumGet(this, 8, "int")
@@ -36,7 +36,7 @@ class VDS_VDISK_PROPERTIES extends Win32Struct
      * A pointer to a <a href="https://docs.microsoft.com/windows/win32/api/virtdisk/ns-virtdisk-virtual_storage_type">VIRTUAL_STORAGE_TYPE</a> structure that specifies the storage device type of the virtual disk.
      * @type {VIRTUAL_STORAGE_TYPE}
      */
-    VirtualDeviceType{
+    VirtualDeviceType {
         get {
             if(!this.HasProp("__VirtualDeviceType"))
                 this.__VirtualDeviceType := VIRTUAL_STORAGE_TYPE(16, this)
@@ -82,7 +82,7 @@ class VDS_VDISK_PROPERTIES extends Win32Struct
 
     /**
      * A bitmask of <a href="https://docs.microsoft.com/windows/win32/api/virtdisk/ne-virtdisk-dependent_disk_flag">DEPENDENT_DISK_FLAG</a> enumeration values that specify disk dependency information.
-     * @type {Integer}
+     * @type {DEPENDENT_DISK_FLAG}
      */
     DiskFlag {
         get => NumGet(this, 64, "int")

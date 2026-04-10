@@ -1,16 +1,15 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
-#Include .\ITocEntry.ahk
 #Include ..\..\System\Com\IUnknown.ahk
+#Include .\ITocEntry.ahk
 
 /**
  * The ITocEntryList interface represents a list of entries in a table of contents. It provides methods for adding entries to, and removing entries from the list.
  * @see https://learn.microsoft.com/windows/win32/api/wmcodecdsp/nn-wmcodecdsp-itocentrylist
  * @namespace Windows.Win32.Media.MediaFoundation
- * @version v4.0.30319
  */
-class ITocEntryList extends IUnknown{
+class ITocEntryList extends IUnknown {
 
     static sizeof => A_PtrSize
     /**

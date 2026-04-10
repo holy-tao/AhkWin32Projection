@@ -4,11 +4,9 @@
 
 /**
  * @namespace Windows.Win32.Storage.FileSystem
- * @version v4.0.30319
  * @charset Unicode
  */
-class NTMS_I1_OPREQUESTINFORMATIONW extends Win32Struct
-{
+class NTMS_I1_OPREQUESTINFORMATIONW extends Win32Struct {
     static sizeof => 696
 
     static packingSize => 8
@@ -24,7 +22,7 @@ class NTMS_I1_OPREQUESTINFORMATIONW extends Win32Struct
     /**
      * @type {SYSTEMTIME}
      */
-    Submitted{
+    Submitted {
         get {
             if(!this.HasProp("__Submitted"))
                 this.__Submitted := SYSTEMTIME(4, this)
@@ -57,7 +55,7 @@ class NTMS_I1_OPREQUESTINFORMATIONW extends Win32Struct
     }
 
     /**
-     * @type {Pointer<Guid>}
+     * @type {Pointer}
      */
     Arg1 {
         get => NumGet(this, 288, "ptr")
@@ -73,7 +71,7 @@ class NTMS_I1_OPREQUESTINFORMATIONW extends Win32Struct
     }
 
     /**
-     * @type {Pointer<Guid>}
+     * @type {Pointer}
      */
     Arg2 {
         get => NumGet(this, 304, "ptr")

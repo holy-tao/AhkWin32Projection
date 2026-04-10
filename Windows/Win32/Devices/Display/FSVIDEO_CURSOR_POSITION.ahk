@@ -4,10 +4,8 @@
 
 /**
  * @namespace Windows.Win32.Devices.Display
- * @version v4.0.30319
  */
-class FSVIDEO_CURSOR_POSITION extends Win32Struct
-{
+class FSVIDEO_CURSOR_POSITION extends Win32Struct {
     static sizeof => 8
 
     static packingSize => 4
@@ -15,7 +13,7 @@ class FSVIDEO_CURSOR_POSITION extends Win32Struct
     /**
      * @type {VIDEO_CURSOR_POSITION}
      */
-    Coord{
+    Coord {
         get {
             if(!this.HasProp("__Coord"))
                 this.__Coord := VIDEO_CURSOR_POSITION(0, this)

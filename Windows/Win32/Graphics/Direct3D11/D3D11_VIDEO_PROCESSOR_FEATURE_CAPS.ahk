@@ -5,9 +5,8 @@
  * Defines features that a Microsoft Direct3D 11 video processor can support.
  * @see https://learn.microsoft.com/windows/win32/api/d3d11/ne-d3d11-d3d11_video_processor_feature_caps
  * @namespace Windows.Win32.Graphics.Direct3D11
- * @version v4.0.30319
  */
-class D3D11_VIDEO_PROCESSOR_FEATURE_CAPS extends Win32Enum{
+class D3D11_VIDEO_PROCESSOR_FEATURE_CAPS extends Win32Enum {
 
     /**
      * The video processor can set alpha values on the output pixels. For more information, see <a href="https://docs.microsoft.com/windows/desktop/api/d3d11/nf-d3d11-id3d11videocontext-videoprocessorsetoutputalphafillmode">ID3D11VideoContext::VideoProcessorSetOutputAlphaFillMode</a>.
@@ -76,19 +75,16 @@ class D3D11_VIDEO_PROCESSOR_FEATURE_CAPS extends Win32Enum{
     static D3D11_VIDEO_PROCESSOR_FEATURE_CAPS_PIXEL_ASPECT_RATIO => 256
 
     /**
-     * 
      * @type {Integer (Int32)}
      */
     static D3D11_VIDEO_PROCESSOR_FEATURE_CAPS_MIRROR => 512
 
     /**
-     * 
      * @type {Integer (Int32)}
      */
     static D3D11_VIDEO_PROCESSOR_FEATURE_CAPS_SHADER_USAGE => 1024
 
     /**
-     * 
      * @type {Integer (Int32)}
      */
     static D3D11_VIDEO_PROCESSOR_FEATURE_CAPS_METADATA_HDR10 => 2048

@@ -1,16 +1,16 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
-#Include .\RPC_VERSION.ahk
 #Include .\RPC_SYNTAX_IDENTIFIER.ahk
+#Include .\RPC_VERSION.ahk
+#Include .\RPC_DISPATCH_TABLE.ahk
+#Include .\RPC_PROTSEQ_ENDPOINT.ahk
 
 /**
  * The RPC_CLIENT_INTERFACE structure is part of the private interface between the run-time libraries and the stubs. Most distributed applications that use Microsoft RPC do not need this structure.
  * @see https://learn.microsoft.com/windows/win32/api/rpcdcep/ns-rpcdcep-rpc_client_interface
  * @namespace Windows.Win32.System.Rpc
- * @version v4.0.30319
  */
-class RPC_CLIENT_INTERFACE extends Win32Struct
-{
+class RPC_CLIENT_INTERFACE extends Win32Struct {
     static sizeof => 88
 
     static packingSize => 8
@@ -26,7 +26,7 @@ class RPC_CLIENT_INTERFACE extends Win32Struct
     /**
      * @type {RPC_SYNTAX_IDENTIFIER}
      */
-    InterfaceId{
+    InterfaceId {
         get {
             if(!this.HasProp("__InterfaceId"))
                 this.__InterfaceId := RPC_SYNTAX_IDENTIFIER(8, this)
@@ -37,7 +37,7 @@ class RPC_CLIENT_INTERFACE extends Win32Struct
     /**
      * @type {RPC_SYNTAX_IDENTIFIER}
      */
-    TransferSyntax{
+    TransferSyntax {
         get {
             if(!this.HasProp("__TransferSyntax"))
                 this.__TransferSyntax := RPC_SYNTAX_IDENTIFIER(24, this)

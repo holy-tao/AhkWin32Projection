@@ -5,12 +5,10 @@
  * The PROBLEM_TYPE enumeration describes the type of problem a helper class indicates is present.
  * @see https://learn.microsoft.com/windows/win32/api/ndhelper/ne-ndhelper-problem_type
  * @namespace Windows.Win32.NetworkManagement.NetworkDiagnosticsFramework
- * @version v4.0.30319
  */
-class PROBLEM_TYPE extends Win32Enum{
+class PROBLEM_TYPE extends Win32Enum {
 
     /**
-     * 
      * @type {Integer (Int32)}
      */
     static PT_INVALID => 0

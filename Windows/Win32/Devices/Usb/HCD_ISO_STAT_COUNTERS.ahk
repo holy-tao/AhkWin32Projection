@@ -3,10 +3,8 @@
 
 /**
  * @namespace Windows.Win32.Devices.Usb
- * @version v4.0.30319
  */
-class HCD_ISO_STAT_COUNTERS extends Win32Struct
-{
+class HCD_ISO_STAT_COUNTERS extends Win32Struct {
     static sizeof => 72
 
     static packingSize => 4
@@ -164,9 +162,9 @@ class HCD_ISO_STAT_COUNTERS extends Win32Struct
     }
 
     /**
-     * @type {Array<UInt32>}
+     * @type {Array<Integer>}
      */
-    Reserved7{
+    Reserved7 {
         get {
             if(!this.HasProp("__Reserved7ProxyArray"))
                 this.__Reserved7ProxyArray := Win32FixedArray(this.ptr + 40, 8, Primitive, "uint")

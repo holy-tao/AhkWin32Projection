@@ -7,9 +7,8 @@
  * The graphics driver uses one of these enumeration constants as a hint when it creates the DXVA-HD device.
  * @see https://learn.microsoft.com/windows/win32/api/dxvahd/ne-dxvahd-dxvahd_device_usage
  * @namespace Windows.Win32.Media.MediaFoundation
- * @version v4.0.30319
  */
-class DXVAHD_DEVICE_USAGE extends Win32Enum{
+class DXVAHD_DEVICE_USAGE extends Win32Enum {
 
     /**
      * Normal video playback. The graphics driver should expose a set of capabilities that are appropriate for real-time video playback.

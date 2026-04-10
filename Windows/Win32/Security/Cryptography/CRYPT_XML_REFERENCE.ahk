@@ -1,17 +1,16 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
-#Include .\CRYPT_XML_BLOB.ahk
 #Include .\CRYPT_XML_ALGORITHM.ahk
+#Include .\CRYPT_XML_BLOB.ahk
+#Include .\CRYPT_XML_CHARSET.ahk
 #Include .\CRYPT_INTEGER_BLOB.ahk
 
 /**
  * Contains information used to populate the Reference element.
  * @see https://learn.microsoft.com/windows/win32/api/cryptxml/ns-cryptxml-crypt_xml_reference
  * @namespace Windows.Win32.Security.Cryptography
- * @version v4.0.30319
  */
-class CRYPT_XML_REFERENCE extends Win32Struct
-{
+class CRYPT_XML_REFERENCE extends Win32Struct {
     static sizeof => 104
 
     static packingSize => 8
@@ -65,7 +64,7 @@ class CRYPT_XML_REFERENCE extends Win32Struct
      * A <a href="https://docs.microsoft.com/windows/desktop/api/cryptxml/ns-cryptxml-crypt_xml_algorithm">CRYPT_XML_ALGORITHM</a> structure that specifies the digest method.
      * @type {CRYPT_XML_ALGORITHM}
      */
-    DigestMethod{
+    DigestMethod {
         get {
             if(!this.HasProp("__DigestMethod"))
                 this.__DigestMethod := CRYPT_XML_ALGORITHM(40, this)
@@ -77,7 +76,7 @@ class CRYPT_XML_REFERENCE extends Win32Struct
      * A <a href="https://docs.microsoft.com/windows/win32/api/dpapi/ns-dpapi-crypt_integer_blob">CRYPT_DATA_BLOB</a> structure that specifies the hash value.
      * @type {CRYPT_INTEGER_BLOB}
      */
-    DigestValue{
+    DigestValue {
         get {
             if(!this.HasProp("__DigestValue"))
                 this.__DigestValue := CRYPT_INTEGER_BLOB(72, this)

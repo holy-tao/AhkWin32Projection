@@ -1,5 +1,6 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
+#Include .\D3D10_SHADER_DEBUG_REGTYPE.ahk
 
 /**
  * Describes a shader input.
@@ -7,10 +8,8 @@
  * The <b>D3D10_SHADER_DEBUG_INPUT_INFO</b> structure is used with the <a href="https://docs.microsoft.com/windows/win32/api/d3d10_1shader/ns-d3d10_1shader-d3d10_shader_debug_info">D3D10_SHADER_DEBUG_INFO</a> structure.
  * @see https://learn.microsoft.com/windows/win32/api/d3d10_1shader/ns-d3d10_1shader-d3d10_shader_debug_input_info
  * @namespace Windows.Win32.Graphics.Direct3D10
- * @version v4.0.30319
  */
-class D3D10_SHADER_DEBUG_INPUT_INFO extends Win32Struct
-{
+class D3D10_SHADER_DEBUG_INPUT_INFO extends Win32Struct {
     static sizeof => 24
 
     static packingSize => 4
@@ -30,7 +29,7 @@ class D3D10_SHADER_DEBUG_INPUT_INFO extends Win32Struct
      * Type: <b><a href="https://docs.microsoft.com/windows/win32/api/d3d10_1shader/ne-d3d10_1shader-d3d10_shader_debug_regtype">D3D10_SHADER_DEBUG_REGTYPE</a></b>
      * 
      * Must be D3D10_SHADER_DEBUG_REG_INPUT, D3D10_SHADER_DEBUG_REG_CBUFFER or D3D10_SHADER_DEBUG_REG_TBUFFER.
-     * @type {Integer}
+     * @type {D3D10_SHADER_DEBUG_REGTYPE}
      */
     InitialRegisterSet {
         get => NumGet(this, 4, "int")

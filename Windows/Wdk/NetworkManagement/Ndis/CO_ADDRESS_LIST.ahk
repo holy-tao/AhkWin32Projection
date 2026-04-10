@@ -3,10 +3,8 @@
 
 /**
  * @namespace Windows.Wdk.NetworkManagement.Ndis
- * @version v4.0.30319
  */
-class CO_ADDRESS_LIST extends Win32Struct
-{
+class CO_ADDRESS_LIST extends Win32Struct {
     static sizeof => 16
 
     static packingSize => 8
@@ -28,7 +26,7 @@ class CO_ADDRESS_LIST extends Win32Struct
     }
 
     /**
-     * @type {Pointer<CO_ADDRESS>}
+     * @type {Pointer}
      */
     AddressList {
         get => NumGet(this, 8, "ptr")

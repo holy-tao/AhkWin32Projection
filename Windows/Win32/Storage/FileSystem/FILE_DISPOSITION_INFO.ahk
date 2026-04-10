@@ -5,10 +5,8 @@
  * Indicates whether a file should be deleted. Used for any handles.
  * @see https://learn.microsoft.com/windows/win32/api/winbase/ns-winbase-file_disposition_info
  * @namespace Windows.Win32.Storage.FileSystem
- * @version v4.0.30319
  */
-class FILE_DISPOSITION_INFO extends Win32Struct
-{
+class FILE_DISPOSITION_INFO extends Win32Struct {
     static sizeof => 1
 
     static packingSize => 1

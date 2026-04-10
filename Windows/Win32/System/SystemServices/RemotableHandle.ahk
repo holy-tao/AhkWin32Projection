@@ -3,10 +3,8 @@
 
 /**
  * @namespace Windows.Win32.System.SystemServices
- * @version v4.0.30319
  */
-class RemotableHandle extends Win32Struct
-{
+class RemotableHandle extends Win32Struct {
     static sizeof => 12
 
     static packingSize => 4
@@ -22,7 +20,7 @@ class RemotableHandle extends Win32Struct
             get => NumGet(this, 0, "int")
             set => NumPut("int", value, this, 0)
         }
-    
+
         /**
          * @type {Integer}
          */
@@ -30,7 +28,6 @@ class RemotableHandle extends Win32Struct
             get => NumGet(this, 0, "int")
             set => NumPut("int", value, this, 0)
         }
-    
     }
 
     /**
@@ -44,10 +41,10 @@ class RemotableHandle extends Win32Struct
     /**
      * @type {_u}
      */
-    u{
+    u {
         get {
             if(!this.HasProp("__u"))
-                this.__u := %this.__Class%._u(4, this)
+                this.__u := RemotableHandle._u(4, this)
             return this.__u
         }
     }

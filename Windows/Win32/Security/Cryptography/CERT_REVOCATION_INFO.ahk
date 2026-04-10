@@ -1,14 +1,13 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
+#Include .\CERT_REVOCATION_CRL_INFO.ahk
 
 /**
  * Indicates the revocation status of a certificate in a CERT_CHAIN_ELEMENT.
  * @see https://learn.microsoft.com/windows/win32/api/wincrypt/ns-wincrypt-cert_revocation_info
  * @namespace Windows.Win32.Security.Cryptography
- * @version v4.0.30319
  */
-class CERT_REVOCATION_INFO extends Win32Struct
-{
+class CERT_REVOCATION_INFO extends Win32Struct {
     static sizeof => 40
 
     static packingSize => 8

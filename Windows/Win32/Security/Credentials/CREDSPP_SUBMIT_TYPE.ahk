@@ -5,9 +5,8 @@
  * Specifies the type of credentials specified by a CREDSSP_CRED structure.
  * @see https://learn.microsoft.com/windows/win32/api/credssp/ne-credssp-credspp_submit_type
  * @namespace Windows.Win32.Security.Credentials
- * @version v4.0.30319
  */
-class CREDSPP_SUBMIT_TYPE extends Win32Enum{
+class CREDSPP_SUBMIT_TYPE extends Win32Enum {
 
     /**
      * The credentials are a user name and password.
@@ -34,13 +33,11 @@ class CREDSPP_SUBMIT_TYPE extends Win32Enum{
     static CredsspSubmitBufferBoth => 50
 
     /**
-     * 
      * @type {Integer (Int32)}
      */
     static CredsspSubmitBufferBothOld => 51
 
     /**
-     * 
      * @type {Integer (Int32)}
      */
     static CredsspCredEx => 100

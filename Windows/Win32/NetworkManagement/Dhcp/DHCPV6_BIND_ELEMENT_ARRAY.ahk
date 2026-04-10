@@ -1,14 +1,13 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
+#Include .\DHCPV6_BIND_ELEMENT.ahk
 
 /**
  * Specifies an array of DHCPV6_BIND_ELEMENT structures that contain DHCPv6 interface bindings.
  * @see https://learn.microsoft.com/windows/win32/api/dhcpsapi/ns-dhcpsapi-dhcpv6_bind_element_array
  * @namespace Windows.Win32.NetworkManagement.Dhcp
- * @version v4.0.30319
  */
-class DHCPV6_BIND_ELEMENT_ARRAY extends Win32Struct
-{
+class DHCPV6_BIND_ELEMENT_ARRAY extends Win32Struct {
     static sizeof => 16
 
     static packingSize => 8

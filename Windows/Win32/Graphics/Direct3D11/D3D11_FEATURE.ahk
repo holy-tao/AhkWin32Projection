@@ -7,9 +7,8 @@
  * This enumeration is used when querying a driver about support for these features by calling <a href="https://docs.microsoft.com/windows/win32/api/d3d11/nf-d3d11-id3d11device-checkfeaturesupport">ID3D11Device::CheckFeatureSupport</a>. Each value in this enumeration has a corresponding data structure that is required to be passed to the <i>pFeatureSupportData</i> parameter of <b>ID3D11Device::CheckFeatureSupport</b>.
  * @see https://learn.microsoft.com/windows/win32/api/d3d11/ne-d3d11-d3d11_feature
  * @namespace Windows.Win32.Graphics.Direct3D11
- * @version v4.0.30319
  */
-class D3D11_FEATURE extends Win32Enum{
+class D3D11_FEATURE extends Win32Enum {
 
     /**
      * The driver supports <a href="https://docs.microsoft.com/windows/win32/direct3d11/overviews-direct3d-11-render-multi-thread-intro">multithreading</a>. To see an example of testing a driver for multithread support, see <a href="https://docs.microsoft.com/windows/win32/direct3d11/overviews-direct3d-11-render-multi-thread-support">How To: Check for Driver Support</a>. Refer to <a href="https://docs.microsoft.com/windows/win32/api/d3d11/ns-d3d11-d3d11_feature_data_threading">D3D11_FEATURE_DATA_THREADING</a>.

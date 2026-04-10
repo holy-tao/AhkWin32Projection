@@ -3,9 +3,8 @@
 
 /**
  * @namespace Windows.Win32.Security.Cryptography.Certificates
- * @version v4.0.30319
  */
-class X509SCEPMessageType extends Win32Enum{
+class X509SCEPMessageType extends Win32Enum {
 
     /**
      * @type {Integer (Int32)}

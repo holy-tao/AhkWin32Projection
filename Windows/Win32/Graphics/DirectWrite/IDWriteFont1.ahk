@@ -7,9 +7,8 @@
  * Represents a physical font in a font collection. (IDWriteFont1)
  * @see https://learn.microsoft.com/windows/win32/api/dwrite_1/nn-dwrite_1-idwritefont1
  * @namespace Windows.Win32.Graphics.DirectWrite
- * @version v4.0.30319
  */
-class IDWriteFont1 extends IDWriteFont{
+class IDWriteFont1 extends IDWriteFont {
 
     static sizeof => A_PtrSize
     /**
@@ -47,7 +46,9 @@ class IDWriteFont1 extends IDWriteFont{
      * @remarks
      * If the font has no PANOSE values,
      *     they are set to 'any' (0) and <a href="https://docs.microsoft.com/windows/win32/DirectWrite/direct-write-portal">DirectWrite</a> doesn't simulate those values.
-     * @param {Pointer<DWRITE_PANOSE>} _panose 
+     * @param {Pointer<DWRITE_PANOSE>} _panose Type: <b><a href="https://docs.microsoft.com/windows/win32/api/dwrite_1/ns-dwrite_1-dwrite_panose">DWRITE_PANOSE</a>*</b>
+     * 
+     * A pointer to the <a href="https://docs.microsoft.com/windows/win32/api/dwrite_1/ns-dwrite_1-dwrite_panose">DWRITE_PANOSE</a> structure to fill in.
      * @returns {String} Nothing - always returns an empty string
      * @see https://learn.microsoft.com/windows/win32/api/dwrite_1/nf-dwrite_1-idwritefont1-getpanose
      */

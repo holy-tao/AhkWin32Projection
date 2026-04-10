@@ -3,9 +3,8 @@
 
 /**
  * @namespace Windows.Win32.System.Com.Urlmon
- * @version v4.0.30319
  */
-class URL_ENCODING extends Win32Enum{
+class URL_ENCODING extends Win32Enum {
 
     /**
      * @type {Integer (Int32)}

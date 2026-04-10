@@ -28,7 +28,6 @@
 
 /**
  * @namespace Windows.Win32.UI.Shell
- * @version v4.0.30319
  */
 class Shell {
 
@@ -8979,7 +8978,9 @@ class Shell {
      * 
      * <div class="alert"><b>Warning</b>  You cannot use the subclassing helper functions to subclass a window across threads.</div>
      * <div> </div>
-     * @param {HWND} _hWnd 
+     * @param {HWND} _hWnd Type: <b>HWND</b>
+     * 
+     * The handle of the window being subclassed.
      * @param {Pointer<SUBCLASSPROC>} pfnSubclass Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/commctrl/nc-commctrl-subclassproc">SUBCLASSPROC</a></b>
      * 
      * A pointer to a window procedure. This pointer and the subclass ID uniquely identify this subclass callback. For the callback function prototype, see <a href="https://docs.microsoft.com/windows/desktop/api/commctrl/nc-commctrl-subclassproc">SUBCLASSPROC</a>.
@@ -9006,7 +9007,9 @@ class Shell {
      * Retrieves the reference data for the specified window subclass callback.
      * @remarks
      * To use <b>GetWindowSubclass</b>, specify Comctl32.dll version 6 in the manifest. For more information on manifests, see <a href="https://docs.microsoft.com/windows/desktop/Controls/cookbook-overview">Enabling Visual Styles</a>.
-     * @param {HWND} _hWnd 
+     * @param {HWND} _hWnd Type: <b>HWND</b>
+     * 
+     * The handle of the window being subclassed.
      * @param {Pointer<SUBCLASSPROC>} pfnSubclass Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/commctrl/nc-commctrl-subclassproc">SUBCLASSPROC</a></b>
      * 
      * A pointer to a window procedure. This pointer and the subclass ID uniquely identify this subclass callback.
@@ -9069,7 +9072,9 @@ class Shell {
      * 
      * <div class="alert"><b>Warning</b>  You cannot use the subclassing helper functions to subclass a window across threads.</div>
      * <div> </div>
-     * @param {HWND} _hWnd 
+     * @param {HWND} _hWnd Type: <b>HWND</b>
+     * 
+     * The handle of the window being subclassed.
      * @param {Pointer<SUBCLASSPROC>} pfnSubclass Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/commctrl/nc-commctrl-subclassproc">SUBCLASSPROC</a></b>
      * 
      * A pointer to a window procedure. This pointer and the subclass ID uniquely identify this subclass callback. For the callback function prototype, see <a href="https://docs.microsoft.com/windows/desktop/api/commctrl/nc-commctrl-subclassproc">SUBCLASSPROC</a>.
@@ -9100,12 +9105,18 @@ class Shell {
      * 
      * <div class="alert"><b>Warning</b>  You cannot use the subclassing helper functions to subclass a window across threads.</div>
      * <div> </div>
-     * @param {HWND} _hWnd 
+     * @param {HWND} _hWnd Type: <b>HWND</b>
+     * 
+     * A handle to the window being subclassed.
      * @param {Integer} uMsg Type: <b>UINT</b>
      * 
      * A value of type unsigned <b>int</b> that specifies a window message.
-     * @param {WPARAM} _wParam 
-     * @param {LPARAM} _lParam 
+     * @param {WPARAM} _wParam Type: <b>WPARAM</b>
+     * 
+     * Specifies additional message information. The contents of this parameter depend on the value of the window message.
+     * @param {LPARAM} _lParam Type: <b>LPARAM</b>
+     * 
+     * Specifies additional message information. The contents of this parameter depend on the value of the window message. Note: On 64-bit versions of Windows LPARAM is a 64-bit value.
      * @returns {LRESULT} Type: <b>LRESULT</b>
      * 
      * The returned value is specific to the message sent. This value should be ignored.
@@ -9715,7 +9726,7 @@ class Shell {
      * @param {Pointer<ITEMIDLIST>} pidl Type: <b>PCIDLIST_ABSOLUTE</b>
      * 
      * A PIDL that identifies the item.
-     * @param {Integer} sigdnName Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/shobjidl_core/ne-shobjidl_core-sigdn">SIGDN</a></b>
+     * @param {SIGDN} sigdnName Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/shobjidl_core/ne-shobjidl_core-sigdn">SIGDN</a></b>
      * 
      * A value from the <a href="https://docs.microsoft.com/windows/desktop/api/shobjidl_core/ne-shobjidl_core-sigdn">SIGDN</a> enumeration that specifies the type of display name to retrieve.
      * @returns {PWSTR} Type: <b>PWSTR*</b>
@@ -9736,7 +9747,7 @@ class Shell {
      * @param {IDataObject} pdtobj Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/objidl/nn-objidl-idataobject">IDataObject</a>*</b>
      * 
      * A pointer to the source <a href="https://docs.microsoft.com/windows/desktop/api/objidl/nn-objidl-idataobject">IDataObject</a> instance.
-     * @param {Integer} dwFlags Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/shobjidl_core/ne-shobjidl_core-dataobj_get_item_flags">DATAOBJ_GET_ITEM_FLAGS</a></b>
+     * @param {DATAOBJ_GET_ITEM_FLAGS} dwFlags Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/shobjidl_core/ne-shobjidl_core-dataobj_get_item_flags">DATAOBJ_GET_ITEM_FLAGS</a></b>
      * 
      * One or more values from the <a href="https://docs.microsoft.com/windows/desktop/api/shobjidl_core/ne-shobjidl_core-dataobj_get_item_flags">DATAOBJ_GET_ITEM_FLAGS</a> enumeration to specify options regarding the target object. This value can be 0.
      * @param {Pointer<Guid>} riid Type: <b>REFIID</b>
@@ -10017,7 +10028,7 @@ class Shell {
      * @param {PWSTR} pszInstruction Type: <b>LPCWSTR</b>
      * 
      * A pointer to a help string to display below the title string in the library management dialog box. To display the generic help string, set the value of this parameter to <b>NULL</b>.
-     * @param {Integer} lmdOptions Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/shobjidl_core/ne-shobjidl_core-librarymanagedialogoptions">LIBRARYMANAGEDIALOGOPTIONS</a></b>
+     * @param {LIBRARYMANAGEDIALOGOPTIONS} lmdOptions Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/shobjidl_core/ne-shobjidl_core-librarymanagedialogoptions">LIBRARYMANAGEDIALOGOPTIONS</a></b>
      * 
      * A value from the <a href="https://docs.microsoft.com/windows/desktop/api/shobjidl_core/ne-shobjidl_core-librarymanagedialogoptions">LIBRARYMANAGEDIALOGOPTIONS</a> enumeration that specifies the behavior of the management dialog box.
      * @returns {HRESULT} Type: <b>HRESULT</b>
@@ -10060,7 +10071,7 @@ class Shell {
      * @param {PWSTR} pszExtra Type: <b>PCWSTR</b>
      * 
      * A pointer to a null-terminated buffer that contains a single file type extension, for instance ".jpg". Only handlers associated with the given extension are enumerated. This parameter may not be **NULL**.
-     * @param {Integer} afFilter Type: <b>ASSOC_FILTER</b>
+     * @param {ASSOC_FILTER} afFilter Type: <b>ASSOC_FILTER</b>
      * @returns {IEnumAssocHandlers} Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/shobjidl_core/nn-shobjidl_core-ienumassochandlers">IEnumAssocHandlers</a>**</b>
      * 
      * When this method returns, contains the address of a pointer to an <a href="https://docs.microsoft.com/windows/desktop/api/shobjidl_core/nn-shobjidl_core-ienumassochandlers">IEnumAssocHandlers</a> object.
@@ -10231,7 +10242,9 @@ class Shell {
      * Applies the default set of properties on a Shell item.
      * @remarks
      * The list of properties to set a default value comes from the <b>SetDefaultsFor</b> registry entry under the ProgID for the file association of the item. The list is prefixed by "<c>prop:</code>" and contains the canonical names of the properties to set the default value, for example, "<code>prop:System.Author;System.Document.DateCreated</c>". The possible properties for this list are <a href="https://docs.microsoft.com/windows/desktop/properties/props-system-author">System.Author</a>, <a href="https://docs.microsoft.com/windows/desktop/properties/props-system-document-datecreated">System.Document.DateCreated</a>, and <a href="https://docs.microsoft.com/windows/desktop/properties/props-system-photo-datetaken">System.Photo.DateTaken</a>. If the <b>SetDefaultsFor</b> entry does not exist on the ProgID, this function uses the default found on the <b>SetDefaultsFor</b> entry of <b>HKEY_CLASSES_ROOT</b>&#92;<b>*</b>.
-     * @param {HWND} _hwnd 
+     * @param {HWND} _hwnd Type: <b>HWND</b>
+     * 
+     * A handle to the item's parent window, which receives error notifications. This value can be <b>NULL</b>.
      * @param {IShellItem} psi Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/shobjidl_core/nn-shobjidl_core-ishellitem">IShellItem</a>*</b>
      * 
      * A pointer to the <a href="https://docs.microsoft.com/windows/desktop/api/shobjidl_core/nn-shobjidl_core-ishellitem">IShellItem</a> object that represents the item.
@@ -10726,7 +10739,7 @@ class Shell {
      * @param {Integer} cchPath Type: <b>DWORD</b>
      * 
      * The size of the buffer pointed to by <i>pszPath</i>, in characters.
-     * @param {Integer} uOpts Type: <b>GPFIDL_FLAGS</b>
+     * @param {GPFIDL_FLAGS} uOpts Type: <b>GPFIDL_FLAGS</b>
      * 
      * These flags determine the type of path returned.
      * @returns {BOOL} Type: <b>BOOL</b>
@@ -10812,7 +10825,9 @@ class Shell {
      * This function creates a file system folder whose fully qualified path is given by <i>pszPath</i>. If one or more of the intermediate folders do not exist, it creates them.
      * 
      * To set security attributes on a new folder, use <a href="https://docs.microsoft.com/windows/desktop/api/shlobj_core/nf-shlobj_core-shcreatedirectoryexa">SHCreateDirectoryEx</a>.
-     * @param {HWND} _hwnd 
+     * @param {HWND} _hwnd Type: <b>HWND</b>
+     * 
+     * A handle to a parent window. This parameter can be set to <b>NULL</b> if no user interface is displayed.
      * @param {PWSTR} pszPath Type: <b>PCWSTR</b>
      * 
      * A pointer to a null-terminated Unicode string that contains the fully qualified path of the directory. This string should have no more than MAX_PATH characters, including the terminating null character.
@@ -10909,7 +10924,9 @@ class Shell {
      * 
      * > [!NOTE]
      * > The shlobj_core.h header defines SHCreateDirectoryEx as an alias which automatically selects the ANSI or Unicode version of this function based on the definition of the UNICODE preprocessor constant. Mixing usage of the encoding-neutral alias with code that not encoding-neutral can lead to mismatches that result in compilation or runtime errors. For more information, see [Conventions for Function Prototypes](/windows/win32/intl/conventions-for-function-prototypes).
-     * @param {HWND} _hwnd 
+     * @param {HWND} _hwnd Type: <b>HWND</b>
+     * 
+     * A handle to a parent window. This parameter can be set to <b>NULL</b> if no user interface will be displayed.
      * @param {PSTR} pszPath Type: <b>LPCTSTR</b>
      * 
      * A pointer to a null-terminated string specifying the fully qualified path of the directory. This string is of maximum length of 248 characters, including the terminating null character.
@@ -11020,7 +11037,9 @@ class Shell {
      * 
      * > [!NOTE]
      * > The shlobj_core.h header defines SHCreateDirectoryEx as an alias which automatically selects the ANSI or Unicode version of this function based on the definition of the UNICODE preprocessor constant. Mixing usage of the encoding-neutral alias with code that not encoding-neutral can lead to mismatches that result in compilation or runtime errors. For more information, see [Conventions for Function Prototypes](/windows/win32/intl/conventions-for-function-prototypes).
-     * @param {HWND} _hwnd 
+     * @param {HWND} _hwnd Type: <b>HWND</b>
+     * 
+     * A handle to a parent window. This parameter can be set to <b>NULL</b> if no user interface will be displayed.
      * @param {PWSTR} pszPath Type: <b>LPCTSTR</b>
      * 
      * A pointer to a null-terminated string specifying the fully qualified path of the directory. This string is of maximum length of 248 characters, including the terminating null character.
@@ -11975,7 +11994,7 @@ class Shell {
      * @param {Pointer<Guid>} rfid Type: <b>REFKNOWNFOLDERID</b>
      * 
      * A reference to the <a href="https://docs.microsoft.com/windows/desktop/shell/knownfolderid">KNOWNFOLDERID</a>, a <b>GUID</b> that identifies the folder that contains the item.
-     * @param {Integer} flags Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/shlobj_core/ne-shlobj_core-known_folder_flag">KNOWN_FOLDER_FLAG</a></b>
+     * @param {KNOWN_FOLDER_FLAG} flags Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/shlobj_core/ne-shlobj_core-known_folder_flag">KNOWN_FOLDER_FLAG</a></b>
      * 
      * Flags that specify special options used in the retrieval of the known folder <a href="https://docs.microsoft.com/windows/desktop/api/shobjidl_core/nn-shobjidl_core-ishellitem">IShellItem</a>. This value can be <b>KF_FLAG_DEFAULT</b>; otherwise, one or more of the <a href="https://docs.microsoft.com/windows/desktop/api/shlobj_core/ne-shlobj_core-known_folder_flag">KNOWN_FOLDER_FLAG</a> values.
      * @param {HANDLE} hToken Type: <b>HANDLE</b>
@@ -12179,7 +12198,7 @@ class Shell {
      * 
      * The strings pointed to by <i>dwItem1</i> and <i>dwItem2</i> can be either ANSI or Unicode.
      * @param {Integer} wEventId Type: <b>LONG</b>
-     * @param {Integer} uFlags Type: <b>UINT</b>
+     * @param {SHCNF_FLAGS} uFlags Type: <b>UINT</b>
      * @param {Pointer<Void>} dwItem1 Type: <b>LPCVOID</b>
      * 
      * Optional. First event-dependent value.
@@ -12426,8 +12445,10 @@ class Shell {
      * For performance reasons, multiple notifications can be combined into a single notification. For example, if a large number of <a href="https://docs.microsoft.com/windows/desktop/api/shlobj_core/nf-shlobj_core-shchangenotify">SHCNE_UPDATEITEM</a> notifications are generated for files in the same folder, they can be joined into a single <a href="https://docs.microsoft.com/windows/desktop/api/shlobj_core/nf-shlobj_core-shchangenotify">SHCNE_UPDATEDIR</a> notification.
      * 
      * The <b>NTSHChangeNotifyRegister</b> function, which is no longer available as of Windows Vista, was equivalent to <b>SHChangeNotifyRegister</b> with the SHCNRF_NewDelivery flag.
-     * @param {HWND} _hwnd 
-     * @param {Integer} fSources Type: <b>int</b>
+     * @param {HWND} _hwnd Type: <b>HWND</b>
+     * 
+     * A handle to the window that receives the change or notification messages.
+     * @param {SHCNRF_SOURCE} fSources Type: <b>int</b>
      * @param {Integer} fEvents Type: <b>LONG</b>
      * 
      * Change notification events for which to receive notification. See the SHCNE flags listed in <a href="https://docs.microsoft.com/windows/desktop/api/shlobj_core/nf-shlobj_core-shchangenotify">SHChangeNotify</a> for possible values.
@@ -12475,7 +12496,9 @@ class Shell {
 
     /**
      * Locks the shared memory associated with a Shell change notification event.
-     * @param {HANDLE} _hChange 
+     * @param {HANDLE} _hChange Type: <b>HANDLE</b>
+     * 
+     * A handle to a window received as a <i>wParam</i> in the specified Shell change notification message.
      * @param {Integer} dwProcId Type: <b>DWORD</b>
      * 
      * The process ID (<i>lParam</i> in the message callback).
@@ -12579,8 +12602,8 @@ class Shell {
      * @param {Pointer<ITEMIDLIST>} pidl Type: <b>PCUITEMID_CHILD</b>
      * 
      * A pointer to an <a href="https://docs.microsoft.com/windows/desktop/api/shtypes/ns-shtypes-itemidlist">ITEMIDLIST</a> structure that identifies the object relative to the folder specified in <i>psf</i>.
-     * @param {Integer} nFormat Type: <b>int</b>
-     * @param {Pointer} pv Type: <b>void*</b>
+     * @param {SHGDFIL_FORMAT} nFormat Type: <b>int</b>
+     * @param {Integer} pv Type: <b>void*</b>
      * 
      * A pointer to a buffer that, when this function returns successfully, receives the requested data. The format of this buffer is determined by <i>nFormat</i>.
      * 
@@ -12617,8 +12640,8 @@ class Shell {
      * @param {Pointer<ITEMIDLIST>} pidl Type: <b>PCUITEMID_CHILD</b>
      * 
      * A pointer to an <a href="https://docs.microsoft.com/windows/desktop/api/shtypes/ns-shtypes-itemidlist">ITEMIDLIST</a> structure that identifies the object relative to the folder specified in <i>psf</i>.
-     * @param {Integer} nFormat Type: <b>int</b>
-     * @param {Pointer} pv Type: <b>void*</b>
+     * @param {SHGDFIL_FORMAT} nFormat Type: <b>int</b>
+     * @param {Integer} pv Type: <b>void*</b>
      * 
      * A pointer to a buffer that, when this function returns successfully, receives the requested data. The format of this buffer is determined by <i>nFormat</i>.
      * 
@@ -12639,7 +12662,9 @@ class Shell {
 
     /**
      * Displays a dialog box that prompts the user to restart Windows. When the user clicks the button, the function calls ExitWindowsEx to attempt to restart Windows.
-     * @param {HWND} _hwnd 
+     * @param {HWND} _hwnd Type: <b>HWND</b>
+     * 
+     * A handle to the parent window.
      * @param {PWSTR} pszPrompt Type: <b>PCWSTR</b>
      * 
      * A null-terminated Unicode string that contains the text that displays in the dialog box which prompts the user.
@@ -12662,7 +12687,9 @@ class Shell {
 
     /**
      * Displays a dialog box that asks the user to restart Windows. When the user clicks the button, the function calls ExitWindowsEx to attempt to restart Windows.
-     * @param {HWND} _hwnd 
+     * @param {HWND} _hwnd Type: <b>HWND</b>
+     * 
+     * A handle to the parent window.
      * @param {PWSTR} pszPrompt Type: <b>PCWSTR</b>
      * 
      * A null-terminated string that contains the text that displays in the dialog box to prompt the user.
@@ -12806,7 +12833,9 @@ class Shell {
      * Executes a drag-and-drop operation. Supports drag source creation on demand, as well as drag images.
      * @remarks
      * As of Windows Vista, if a drag image is not already stored in the data object <i>pdtobj</i> and a drag image cannot be obtained from the window specified by <i>hwnd</i>, the Shell provides a generic drag image. A drag image can fail to be obtained from the specified window either because <i>hwnd</i> is <b>NULL</b> or the specified window does not support the DI_GETDRAGIMAGE message.
-     * @param {HWND} _hwnd 
+     * @param {HWND} _hwnd Type: <b>HWND</b>
+     * 
+     * The handle of the window used to obtain the drag image. This value can be <b>NULL</b>. See Remarks for more details.
      * @param {IDataObject} pdata Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/objidl/nn-objidl-idataobject">IDataObject</a>*</b>
      * 
      * A pointer to the <a href="https://docs.microsoft.com/windows/desktop/api/objidl/nn-objidl-idataobject">IDataObject</a> interface on a data object that contains the data being dragged.
@@ -12817,10 +12846,10 @@ class Shell {
      *                         
      * 
      * As of Windows Vista, if this value is <b>NULL</b>, the Shell creates a drop source object for you.
-     * @param {Integer} dwEffect Type: <b>DWORD</b>
+     * @param {DROPEFFECT} dwEffect Type: <b>DWORD</b>
      * 
      * The effects that the source allows in the drag-and-drop operation. The most significant effect is whether the drag-and-drop operation permits a move. For a list of possible values, see <a href="https://docs.microsoft.com/windows/desktop/com/dropeffect-constants">DROPEFFECT</a>.
-     * @returns {Integer} Type: <b>DWORD*</b>
+     * @returns {DROPEFFECT} Type: <b>DWORD*</b>
      * 
      * A pointer to a value that indicates how the drag-and-drop operation affected the source data. The <i>pdwEffect</i> parameter is set only if the operation is not canceled. For a list of possible values, see <a href="https://docs.microsoft.com/windows/desktop/com/dropeffect-constants">DROPEFFECT</a>.
      * @see https://learn.microsoft.com/windows/win32/api/shlobj_core/nf-shlobj_core-shdodragdrop
@@ -12952,7 +12981,9 @@ class Shell {
      * Scrolls the window while an image is being dragged.
      * @remarks
      * The function is successful and the window scrolls only when the <b>bFull</b> parameter of the <a href="https://docs.microsoft.com/windows/desktop/api/shlobj_core/ns-shlobj_core-auto_scroll_data">AUTO_SCROLL_DATA</a> structure is <b>TRUE</b>. Each time this function is called, as long as <b>bFull</b> is <b>FALSE</b>, the <b>iNextSample</b> parameter is incremented by 1 and the current scroll coordinates and time are returned in the <b>AUTO_SCROLL_DATA</b> structure. When <b>iNextSample</b> is equal to NUM_POINTS, <b>bFull</b> is set to <b>TRUE</b>, the function succeeds, and the window scrolls.
-     * @param {HWND} _hwnd 
+     * @param {HWND} _hwnd Type: <b>HWND</b>
+     * 
+     * A handle to the window being scrolled.
      * @param {Pointer<AUTO_SCROLL_DATA>} pad Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/shlobj_core/ns-shlobj_core-auto_scroll_data">AUTO_SCROLL_DATA</a>*</b>
      * 
      * A pointer to the <a href="https://docs.microsoft.com/windows/desktop/api/shlobj_core/ns-shlobj_core-auto_scroll_data">AUTO_SCROLL_DATA</a> structure.
@@ -12974,7 +13005,7 @@ class Shell {
 
     /**
      * ReadCabinetState may be altered or unavailable.
-     * @param {Pointer} pcs Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/shlobj_core/ns-shlobj_core-cabinetstate">CABINETSTATE</a>*</b>
+     * @param {Integer} pcs Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/shlobj_core/ns-shlobj_core-cabinetstate">CABINETSTATE</a>*</b>
      * 
      * When this function returns, contains a pointer to a <a href="https://docs.microsoft.com/windows/desktop/api/shlobj_core/ns-shlobj_core-cabinetstate">CABINETSTATE</a> structure that contains either information pulled from the registry or default information.
      * @param {Integer} cLength Type: <b>int</b>
@@ -13208,7 +13239,9 @@ class Shell {
 
     /**
      * The GetFileNameFromBrowse function creates an Open dialog box so that the user can specify the drive, directory, and name of a file to open.
-     * @param {HWND} _hwnd 
+     * @param {HWND} _hwnd Type: <b>HWND</b>
+     * 
+     * A handle to the window that owns the dialog box. This member can be any valid window handle, or it can be <b>NULL</b> if the dialog box has no owner.
      * @param {PWSTR} pszFilePath Type: <b>PWSTR</b>
      * 
      * A null-terminated Unicode string that contains a file name used to initialize the File Name edit control. This string corresponds to the <a href="https://docs.microsoft.com/windows/win32/api/commdlg/ns-commdlg-openfilenamea">OPENFILENAME</a> structure's <b>lpstrFile</b> member and is used in exactly the same way.
@@ -13523,7 +13556,7 @@ class Shell {
      * @param {Integer} uIDAdjustMax Type: <b>UINT</b>
      * 
      * The maximum adjusted ID to add to the menu. Any adjusted ID greater than this value is not added. To allow all IDs, set this parameter to 0xFFFF.
-     * @param {Integer} uFlags Type: <b>ULONG</b>
+     * @param {MM_FLAGS} uFlags Type: <b>ULONG</b>
      * 
      * One or more of the following flags.
      * @returns {Integer} Type: <b>UINT</b>
@@ -13542,7 +13575,9 @@ class Shell {
 
     /**
      * SHObjectProperties may be altered or unavailable.
-     * @param {HWND} _hwnd 
+     * @param {HWND} _hwnd Type: <b>HWND</b>
+     * 
+     * The handle of the parent window of the dialog box. This value can be <b>NULL</b>.
      * @param {Integer} shopObjectType Type: <b>DWORD</b>
      * 
      * A flag value that specifies the type of object.
@@ -13571,11 +13606,13 @@ class Shell {
      * SHFormatDrive may be altered or unavailable.
      * @remarks
      * The format is controlled by the dialog box interface. That is, the user must click the <b>OK</b> button to actually begin the format—the format cannot be started programmatically.
-     * @param {HWND} _hwnd 
+     * @param {HWND} _hwnd Type: <b>HWND</b>
+     * 
+     * The handle of the parent window of the dialog box. The <b>Format</b> dialog box must have a parent window; therefore, this parameter cannot be <b>NULL</b>.
      * @param {Integer} drive Type: <b>UINT</b>
      * 
      * The drive to format. The value of this parameter represents a letter drive starting at 0 for the A: drive. For example, a value of 2 stands for the C: drive.
-     * @param {Integer} fmtID Type: <b>UINT</b>
+     * @param {SHFMT_ID} fmtID Type: <b>UINT</b>
      * 
      * The ID of the physical format. Only the following flag is currently defined.
      * @param {Integer} options Type: <b>UINT</b>
@@ -13634,7 +13671,9 @@ class Shell {
 
     /**
      * Frees property sheet handlers that are pointed to an array created by SHCreatePropSheetExtArray.
-     * @param {HPSXA} _hpsxa 
+     * @param {HPSXA} _hpsxa Type: <b>HPSXA</b>
+     * 
+     * The handle of the array that contains pointers to the property sheet handlers to destroy.
      * @returns {String} Nothing - always returns an empty string
      * @see https://learn.microsoft.com/windows/win32/api/shlobj_core/nf-shlobj_core-shdestroypropsheetextarray
      * @since windows5.1.2600
@@ -13651,11 +13690,15 @@ class Shell {
      * This function should be called only once for the property sheet extension array named in <i>hpsxa</i>.
      * 
      * This function calls each extension's <a href="https://docs.microsoft.com/windows/desktop/api/shobjidl_core/nf-shobjidl_core-ishellpropsheetext-addpages">IShellPropSheetExt::AddPages</a> method. See that page for further details.
-     * @param {HPSXA} _hpsxa 
+     * @param {HPSXA} _hpsxa Type: <b>HPSXA</b>
+     * 
+     * The array of property sheet handlers returned by <a href="https://docs.microsoft.com/windows/desktop/api/shlobj/nf-shlobj-shcreatepropsheetextarray">SHCreatePropSheetExtArray</a>.
      * @param {Pointer<LPFNSVADDPROPSHEETPAGE>} lpfnAddPage Type: <b>LPFNADDPROPSHEETPAGE</b>
      * 
      * A pointer to an <a href="https://docs.microsoft.com/windows/desktop/api/prsht/nc-prsht-lpfnaddpropsheetpage">AddPropSheetPageProc</a> callback function. It is called once for each property sheet handler. The callback function then returns the information needed to add a page to the handler's property sheet.
-     * @param {LPARAM} _lParam 
+     * @param {LPARAM} _lParam Type: <b>LPARAM</b>
+     * 
+     * A pointer to application-defined data. This data is passed to the callback function specified by <i>lpfnAddPage</i>.
      * @returns {Integer} Type: <b>UINT</b>
      * 
      * Returns the number of pages actually added.
@@ -13671,14 +13714,18 @@ class Shell {
 
     /**
      * Requests each property sheet in a property sheet extension array to replace pages. Each page is allowed up to one replacement.
-     * @param {HPSXA} _hpsxa 
+     * @param {HPSXA} _hpsxa Type: <b>HPSXA</b>
+     * 
+     * A property sheet array handle (HPSXA) returned from a call to <a href="https://docs.microsoft.com/windows/desktop/api/shlobj/nf-shlobj-shcreatepropsheetextarray">SHCreatePropSheetExtArray</a>.
      * @param {Integer} uPageID Type: <b>UINT</b>
      * 
      * The ID of the page to replace.
      * @param {Pointer<LPFNSVADDPROPSHEETPAGE>} lpfnReplaceWith Type: <b>LPFNADDPROPSHEETPAGE</b>
      * 
      * A pointer to an <a href="https://docs.microsoft.com/windows/desktop/api/prsht/nc-prsht-lpfnaddpropsheetpage">AddPropSheetPageProc</a> function used by the property sheet extension to add a page to a property sheet.
-     * @param {LPARAM} _lParam 
+     * @param {LPARAM} _lParam Type: <b>LPARAM</b>
+     * 
+     * An application-defined value.
      * @returns {Integer} Type: <b>UINT</b>
      * 
      * The number of replacements actually performed.
@@ -13694,7 +13741,9 @@ class Shell {
 
     /**
      * OpenRegStream may be altered or unavailable. Instead, use SHOpenRegStream2 or SHOpenRegStream.
-     * @param {HKEY} _hkey 
+     * @param {HKEY} _hkey Type: <b>HKEY</b>
+     * 
+     * A handle to the key that is currently open.
      * @param {PWSTR} pszSubkey Type: <b>PCWSTR</b>
      * 
      * A null-terminated Unicode string that specifies the name of the subkey.
@@ -13805,7 +13854,7 @@ class Shell {
 
     /**
      * SHRestricted may be altered or unavailable.
-     * @param {Integer} rest Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/shlobj_core/ne-shlobj_core-restrictions">RESTRICTIONS</a></b>
+     * @param {RESTRICTIONS} rest Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/shlobj_core/ne-shlobj_core-restrictions">RESTRICTIONS</a></b>
      * 
      * Specifies one of the flags described in the <a href="https://docs.microsoft.com/windows/desktop/api/shlobj_core/ne-shlobj_core-restrictions">RESTRICTIONS</a> enumerated type.
      * @returns {Integer} Type: <b>DWORD</b>
@@ -13896,7 +13945,9 @@ class Shell {
      * @remarks
      * > [!NOTE]
      * > The shlobj_core.h header defines SHStartNetConnectionDialog as an alias which automatically selects the ANSI or Unicode version of this function based on the definition of the UNICODE preprocessor constant. Mixing usage of the encoding-neutral alias with code that not encoding-neutral can lead to mismatches that result in compilation or runtime errors. For more information, see [Conventions for Function Prototypes](/windows/win32/intl/conventions-for-function-prototypes).
-     * @param {HWND} _hwnd 
+     * @param {HWND} _hwnd Type: <b>HWND</b>
+     * 
+     * A handle to the parent window.
      * @param {PWSTR} pszRemoteName Type: <b>LPCTSTR</b>
      * 
      * A pointer to a null-terminated character string that specifies the remote network name. This value can be set to <b>NULL</b>.
@@ -14344,7 +14395,9 @@ class Shell {
      * <td>Updates an object by passing a pointer to an array of two PIDLs.</td>
      * </tr>
      * </table>
-     * @param {LPARAM} _lParam 
+     * @param {LPARAM} _lParam Type: <b>LPARAM</b>
+     * 
+     * Contents of this value depend on the message passed in <i>uMsg</i>. See individual message topics for more information.
      * @returns {LRESULT} Type: <b>LRESULT</b>
      * 
      * The return value depends on the message passed in <i>uMsg</i>. See individual message topics for more information.
@@ -14403,7 +14456,9 @@ class Shell {
      * @param {Pointer<ITEMIDLIST>} pidlFolder Type: <b>PCIDLIST_ABSOLUTE</b>
      * 
      * An <a href="https://docs.microsoft.com/windows/desktop/api/shtypes/ns-shtypes-itemidlist">ITEMIDLIST</a> structure for the parent folder. This value can be <b>NULL</b>.
-     * @param {HWND} _hwnd 
+     * @param {HWND} _hwnd Type: <b>HWND</b>
+     * 
+     * A handle to the parent window. This value can be <b>NULL</b>.
      * @param {Integer} cidl Type: <b>UINT</b>
      * 
      * The number of <a href="https://docs.microsoft.com/windows/desktop/api/shtypes/ns-shtypes-itemidlist">ITEMIDLIST</a> structures in the array pointed to by <i>apidl</i>.
@@ -14413,7 +14468,9 @@ class Shell {
      * @param {IShellFolder} psf Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/shobjidl_core/nn-shobjidl_core-ishellfolder">IShellFolder</a>*</b>
      * 
      * A pointer to the parent folder's <a href="https://docs.microsoft.com/windows/desktop/api/shobjidl_core/nn-shobjidl_core-ishellfolder">IShellFolder</a> interface. This <b>IShellFolder</b> must support the <a href="https://docs.microsoft.com/windows/desktop/api/objidl/nn-objidl-idataobject">IDataObject</a> interface. If it does not, <b>CDefFolderMenu_Create2</b> fails and returns E_NOINTERFACE. This value can be <b>NULL</b>.
-     * @param {Pointer<LPFNDFMCALLBACK>} _pfn 
+     * @param {Pointer<LPFNDFMCALLBACK>} _pfn Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/shlobj_core/nc-shlobj_core-lpfndfmcallback">LPFNDFMCALLBACK</a></b>
+     * 
+     * The <a href="https://docs.microsoft.com/windows/desktop/api/shlobj_core/nc-shlobj_core-lpfndfmcallback">LPFNDFMCALLBACK</a> callback object. This value can be <b>NULL</b> if the callback object is not needed.
      * @param {Integer} nKeys Type: <b>UINT</b>
      * 
      * The number of registry keys in the array pointed to by <i>ahkeys</i>.
@@ -14465,7 +14522,9 @@ class Shell {
 
     /**
      * SHFind_InitMenuPopup may be altered or unavailable.
-     * @param {HMENU} _hmenu 
+     * @param {HMENU} _hmenu Type: <b>HMENU</b>
+     * 
+     * The handle of the popup menu.
      * @param {HWND} hwndOwner Type: <b>HWND</b>
      * 
      * The handle of the popup menu's owner window. This value can be <b>NULL</b>.
@@ -14514,7 +14573,7 @@ class Shell {
      * @param {Pointer<SHELLSTATEA>} lpss Type: <b>LPSHELLSTATE</b>
      * 
      * A pointer to a <a href="https://docs.microsoft.com/windows/desktop/api/shlobj_core/ns-shlobj_core-shellstatea">SHELLSTATE</a> structure that provides or receives the Shell state settings.
-     * @param {Integer} dwMask Type: <b>DWORD</b>
+     * @param {SSF_MASK} dwMask Type: <b>DWORD</b>
      * 
      * One or more of the <a href="https://docs.microsoft.com/windows/desktop/shell/ssf-constants">SSF</a> flags that indicate which settings should be set or retrieved.
      * @param {BOOL} bSet Type: <b>BOOL</b>
@@ -14717,7 +14776,9 @@ class Shell {
      * 
      * > [!NOTE]
      * > The shlobj_core.h header defines SHPathPrepareForWrite as an alias which automatically selects the ANSI or Unicode version of this function based on the definition of the UNICODE preprocessor constant. Mixing usage of the encoding-neutral alias with code that not encoding-neutral can lead to mismatches that result in compilation or runtime errors. For more information, see [Conventions for Function Prototypes](/windows/win32/intl/conventions-for-function-prototypes).
-     * @param {HWND} _hwnd 
+     * @param {HWND} _hwnd Type: <b>HWND</b>
+     * 
+     * A handle to a window that specifies the parent window to be used for any user interface windows that must be created. If set to <b>NULL</b>, user interface windows are not created.
      * @param {IUnknown} punkEnableModless Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/unknwn/nn-unknwn-iunknown">IUnknown</a>*</b>
      * 
      * A pointer to an <a href="https://docs.microsoft.com/windows/desktop/api/unknwn/nn-unknwn-iunknown">IUnknown</a> interface that specifies the <a href="https://docs.microsoft.com/windows/desktop/api/oleidl/nn-oleidl-ioleinplaceactiveobject">IOleInPlaceActiveObject</a> object that implements the <a href="https://docs.microsoft.com/windows/desktop/api/shobjidl_core/nf-shobjidl_core-ishellview-enablemodeless">EnableModeless</a> method.
@@ -14749,7 +14810,9 @@ class Shell {
      * 
      * > [!NOTE]
      * > The shlobj_core.h header defines SHPathPrepareForWrite as an alias which automatically selects the ANSI or Unicode version of this function based on the definition of the UNICODE preprocessor constant. Mixing usage of the encoding-neutral alias with code that not encoding-neutral can lead to mismatches that result in compilation or runtime errors. For more information, see [Conventions for Function Prototypes](/windows/win32/intl/conventions-for-function-prototypes).
-     * @param {HWND} _hwnd 
+     * @param {HWND} _hwnd Type: <b>HWND</b>
+     * 
+     * A handle to a window that specifies the parent window to be used for any user interface windows that must be created. If set to <b>NULL</b>, user interface windows are not created.
      * @param {IUnknown} punkEnableModless Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/unknwn/nn-unknwn-iunknown">IUnknown</a>*</b>
      * 
      * A pointer to an <a href="https://docs.microsoft.com/windows/desktop/api/unknwn/nn-unknwn-iunknown">IUnknown</a> interface that specifies the <a href="https://docs.microsoft.com/windows/desktop/api/oleidl/nn-oleidl-ioleinplaceactiveobject">IOleInPlaceActiveObject</a> object that implements the <a href="https://docs.microsoft.com/windows/desktop/api/shobjidl_core/nf-shobjidl_core-ishellview-enablemodeless">EnableModeless</a> method.
@@ -14920,7 +14983,9 @@ class Shell {
 
     /**
      * PickIconDlg may be altered or unavailable.
-     * @param {HWND} _hwnd 
+     * @param {HWND} _hwnd Type: <b>HWND</b>
+     * 
+     * The handle of the parent window. This value can be <b>NULL</b>.
      * @param {PWSTR} pszIconPath Type: <b>PWSTR</b>
      * 
      * A pointer to a string that contains the null-terminated, fully qualified path of the default resource that contains the icons. If the user chooses a different resource in the dialog, this buffer contains the path of that file when the function returns. This buffer should be at least MAX_PATH characters in length, or the returned path may be truncated. You should verify that the path is valid before using it.
@@ -14977,7 +15042,9 @@ class Shell {
 
     /**
      * Enables asynchronous register and deregister of a thread.
-     * @param {Integer} _status 
+     * @param {SCNRT_STATUS} _status Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/shlobj_core/ne-shlobj_core-scnrt_status">SCNRT_STATUS</a></b>
+     * 
+     * Indicates whether the function is being used to register or deregister the thread. One of the values of <a href="https://docs.microsoft.com/windows/desktop/api/shlobj_core/ne-shlobj_core-scnrt_status">SCNRT_STATUS</a>.
      * @returns {String} Nothing - always returns an empty string
      * @see https://learn.microsoft.com/windows/win32/api/shlobj/nf-shlobj-shchangenotifyregisterthread
      * @since windows6.0.6000
@@ -15065,7 +15132,9 @@ class Shell {
      * When you are finished with the returned HPSXA handle, destroy it by calling <a href="https://docs.microsoft.com/windows/desktop/api/shlobj_core/nf-shlobj_core-shdestroypropsheetextarray">SHDestroyPropSheetExtArray</a>.
      * 
      * This function loads up to <i>max_iface</i> property sheet extensions into an array that is then passed to <a href="https://docs.microsoft.com/windows/desktop/api/shlobj_core/nf-shlobj_core-shaddfrompropsheetextarray">SHAddFromPropSheetExtArray</a>.
-     * @param {HKEY} _hKey 
+     * @param {HKEY} _hKey Type: <b>HKEY</b>
+     * 
+     * The registry root key that contains the subkey with the property sheet extension handlers. For instance, <b>HKEY_LOCAL_MACHINE</b>.
      * @param {PWSTR} pszSubKey Type: <b>PCWSTR</b>
      * 
      * A pointer to a null-terminated string specifying the name of the subkey that contains <b>shellex</b>&#92;<b>PropertySheetHandlers</b>.
@@ -15146,7 +15215,9 @@ class Shell {
      * The preferred way to handle updates is to author a Channel Definition Format (CDF) with an Open Software Description (OSD) vocabulary and make the shortcut OSD-aware. Refer to the <a href="https://docs.microsoft.com/previous-versions/windows/internet-explorer/ie-developer/platform-apis/aa768023(v=vs.85)">Channel Definition Format</a> documentation for details.
      * 
      * The <b>SoftwareUpdateMessageBox</b> function is intended to be used in the case where Shell shortcut hooks do not work. One example is an application that was not installed on the start menu. If that application needs to do its own software update check, it should use this function.
-     * @param {HWND} _hWnd 
+     * @param {HWND} _hWnd Type: <b>HWND</b>
+     * 
+     * A handle to the parent window.
      * @param {PWSTR} pszDistUnit Type: <b>PCWSTR</b>
      * 
      * The string value containing the identifier for the code distribution unit. For ActiveX controls, <i>pszDistUnit</i> is typically a GUID.
@@ -15278,10 +15349,10 @@ class Shell {
      * The default <a href="https://docs.microsoft.com/windows/desktop/api/shtypes/ne-shtypes-device_scale_factor">DEVICE_SCALE_FACTOR</a> is <a href="https://docs.microsoft.com/windows/desktop/api/shtypes/ne-shtypes-device_scale_factor">SCALE_100_PERCENT</a>.
      * 
      * Use the scale factor that is returned to scale point values for fonts and pixel values.
-     * @param {Integer} deviceType Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/shellscalingapi/ne-shellscalingapi-display_device_type">DISPLAY_DEVICE_TYPE</a></b>
+     * @param {DISPLAY_DEVICE_TYPE} deviceType Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/shellscalingapi/ne-shellscalingapi-display_device_type">DISPLAY_DEVICE_TYPE</a></b>
      * 
      * The value that indicates the type of the display device.
-     * @returns {Integer} Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/shtypes/ne-shtypes-device_scale_factor">DEVICE_SCALE_FACTOR</a></b>
+     * @returns {DEVICE_SCALE_FACTOR} Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/shtypes/ne-shtypes-device_scale_factor">DEVICE_SCALE_FACTOR</a></b>
      * 
      * A value that indicates the scale factor that should be used with the specified <a href="https://docs.microsoft.com/windows/desktop/api/shellscalingapi/ne-shellscalingapi-display_device_type">DISPLAY_DEVICE_TYPE</a>.
      * 
@@ -15339,7 +15410,7 @@ class Shell {
      * Registers a window to receive callbacks when scaling information changes.
      * @remarks
      * This message specified by <i>uMsgNotify</i> is posted to the registered window through <a href="https://docs.microsoft.com/windows/desktop/api/winuser/nf-winuser-postmessagea">PostMessage</a>. The <i>wParam</i> of the message can contain a combination of <a href="https://docs.microsoft.com/windows/desktop/api/shellscalingapi/ne-shellscalingapi-scale_change_flags">SCALE_CHANGE_FLAGS</a> that describe  the change that occurred.
-     * @param {Integer} displayDevice Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/shellscalingapi/ne-shellscalingapi-display_device_type">DISPLAY_DEVICE_TYPE</a></b>
+     * @param {DISPLAY_DEVICE_TYPE} displayDevice Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/shellscalingapi/ne-shellscalingapi-display_device_type">DISPLAY_DEVICE_TYPE</a></b>
      * 
      * The enum value that indicates which display device to receive notifications about.
      * @param {HWND} hwndNotify Type: <b>HWND</b>
@@ -15363,7 +15434,7 @@ class Shell {
 
     /**
      * Revokes the registration of a window, preventing it from receiving callbacks when scaling information changes.
-     * @param {Integer} displayDevice Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/shellscalingapi/ne-shellscalingapi-display_device_type">DISPLAY_DEVICE_TYPE</a></b>
+     * @param {DISPLAY_DEVICE_TYPE} displayDevice Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/shellscalingapi/ne-shellscalingapi-display_device_type">DISPLAY_DEVICE_TYPE</a></b>
      * 
      * The enum value that indicates which display device to receive notifications about.
      * @param {Integer} dwCookie Type: <b>DWORD</b>
@@ -15385,7 +15456,7 @@ class Shell {
      * @remarks
      * Your code needs to handle the <a href="https://docs.microsoft.com/windows/desktop/winmsg/wm-windowposchanged">WM_WINDOWPOSCHANGED</a> message in addition to the scale change event registered through <a href="https://docs.microsoft.com/windows/desktop/api/shellscalingapi/nf-shellscalingapi-registerscalechangeevent">RegisterScaleChangeEvent</a>, because the app window can be moved between monitors. In response to the <b>WM_WINDOWPOSCHANGED</b> message, call <a href="https://docs.microsoft.com/windows/desktop/api/winuser/nf-winuser-monitorfromwindow">MonitorFromWindow</a>, followed by <b>GetScaleFactorForMonitor</b> to get the scale factor of the monitor which the app window is on. Your code can then react to any dots per inch (dpi) change by reloading assets and changing layout.
      * @param {HMONITOR} hMon The monitor's handle.
-     * @returns {Integer} When this function returns successfully, this value points to one of the <a href="https://docs.microsoft.com/windows/desktop/api/shtypes/ne-shtypes-device_scale_factor">DEVICE_SCALE_FACTOR</a> values that specify the scale factor of the specified monitor.
+     * @returns {DEVICE_SCALE_FACTOR} When this function returns successfully, this value points to one of the <a href="https://docs.microsoft.com/windows/desktop/api/shtypes/ne-shtypes-device_scale_factor">DEVICE_SCALE_FACTOR</a> values that specify the scale factor of the specified monitor.
      *                         
      * 
      * If the function call fails, this value points to a valid scale factor so that apps can opt to continue on with incorrectly sized resources.
@@ -15429,7 +15500,7 @@ class Shell {
 
     /**
      * Retrieves the dots per inch (dpi) occupied by a SHELL_UI_COMPONENT based on the current scale factor and PROCESS_DPI_AWARENESS.
-     * @param {Integer} param0 
+     * @param {SHELL_UI_COMPONENT} param0 
      * @returns {Integer} The DPI required for an icon of this type.
      * @see https://learn.microsoft.com/windows/win32/api/shellscalingapi/nf-shellscalingapi-getdpiforshelluicomponent
      * @since windows8.1
@@ -15503,7 +15574,9 @@ class Shell {
      * @remarks
      * > [!NOTE]
      * > The shellapi.h header defines DragQueryFile as an alias which automatically selects the ANSI or Unicode version of this function based on the definition of the UNICODE preprocessor constant. Mixing usage of the encoding-neutral alias with code that not encoding-neutral can lead to mismatches that result in compilation or runtime errors. For more information, see [Conventions for Function Prototypes](/windows/win32/intl/conventions-for-function-prototypes).
-     * @param {HDROP} _hDrop 
+     * @param {HDROP} _hDrop Type: <b>HDROP</b>
+     * 
+     * Identifier of the structure that contains the file names of the dropped files.
      * @param {Integer} iFile Type: <b>UINT</b>
      * 
      * Index of the file to query. If the value of this parameter is 0xFFFFFFFF, <b>DragQueryFile</b> returns a count of the files dropped. If the value of this parameter is between zero and the total number of files dropped, <b>DragQueryFile</b> copies the file name with the corresponding value to the buffer pointed to by the <i>lpszFile</i> parameter.
@@ -15538,7 +15611,9 @@ class Shell {
      * @remarks
      * > [!NOTE]
      * > The shellapi.h header defines DragQueryFile as an alias which automatically selects the ANSI or Unicode version of this function based on the definition of the UNICODE preprocessor constant. Mixing usage of the encoding-neutral alias with code that not encoding-neutral can lead to mismatches that result in compilation or runtime errors. For more information, see [Conventions for Function Prototypes](/windows/win32/intl/conventions-for-function-prototypes).
-     * @param {HDROP} _hDrop 
+     * @param {HDROP} _hDrop Type: <b>HDROP</b>
+     * 
+     * Identifier of the structure that contains the file names of the dropped files.
      * @param {Integer} iFile Type: <b>UINT</b>
      * 
      * Index of the file to query. If the value of this parameter is 0xFFFFFFFF, <b>DragQueryFile</b> returns a count of the files dropped. If the value of this parameter is between zero and the total number of files dropped, <b>DragQueryFile</b> copies the file name with the corresponding value to the buffer pointed to by the <i>lpszFile</i> parameter.
@@ -15572,7 +15647,9 @@ class Shell {
      * Retrieves the position of the mouse pointer at the time a file was dropped during a drag-and-drop operation.
      * @remarks
      * The window for which coordinates are returned is the window that received the <a href="https://docs.microsoft.com/windows/desktop/shell/wm-dropfiles">WM_DROPFILES</a> message.
-     * @param {HDROP} _hDrop 
+     * @param {HDROP} _hDrop Type: <b>HDROP</b>
+     * 
+     * Handle of the drop structure that describes the dropped file.
      * @param {Pointer<POINT>} ppt Type: <b><a href="https://docs.microsoft.com/windows/win32/api/windef/ns-windef-point">POINT</a>*</b>
      * 
      * Pointer to a <a href="https://docs.microsoft.com/windows/win32/api/windef/ns-windef-point">POINT</a> structure that, when this function returns successfully, receives the coordinates of the mouse pointer at the time the file was dropped.
@@ -15591,7 +15668,9 @@ class Shell {
 
     /**
      * Releases memory that the system allocated for use in transferring file names to the application.
-     * @param {HDROP} _hDrop 
+     * @param {HDROP} _hDrop Type: <b>HDROP</b>
+     * 
+     * Identifier of the structure that describes dropped files. This handle is retrieved from the <i>wParam</i> parameter of the <a href="https://docs.microsoft.com/windows/desktop/shell/wm-dropfiles">WM_DROPFILES</a> message.
      * @returns {String} Nothing - always returns an empty string
      * @see https://learn.microsoft.com/windows/win32/api/shellapi/nf-shellapi-dragfinish
      * @since windows5.1.2600
@@ -15606,7 +15685,9 @@ class Shell {
      * Registers whether a window accepts dropped files.
      * @remarks
      * An application that calls <b>DragAcceptFiles</b> with the <i>fAccept</i> parameter set to <b>TRUE</b> has identified itself as able to process the <a href="https://docs.microsoft.com/windows/desktop/shell/wm-dropfiles">WM_DROPFILES</a> message from File Manager.
-     * @param {HWND} _hWnd 
+     * @param {HWND} _hWnd Type: <b>HWND</b>
+     * 
+     * The identifier of the window that is registering whether it will accept dropped files.
      * @param {BOOL} fAccept Type: <b>BOOL</b>
      * 
      * A value that indicates if the window identified by the <i>hWnd</i> parameter accepts dropped files. This value is <b>TRUE</b> to accept dropped files or <b>FALSE</b> to discontinue accepting dropped files.
@@ -15685,7 +15766,9 @@ class Shell {
      * 
      * > [!NOTE]
      * > The shellapi.h header defines ShellExecute as an alias which automatically selects the ANSI or Unicode version of this function based on the definition of the UNICODE preprocessor constant. Mixing usage of the encoding-neutral alias with code that not encoding-neutral can lead to mismatches that result in compilation or runtime errors. For more information, see [Conventions for Function Prototypes](/windows/win32/intl/conventions-for-function-prototypes).
-     * @param {HWND} _hwnd 
+     * @param {HWND} _hwnd Type: <b>HWND</b>
+     * 
+     * A handle to the parent window used for displaying a UI or error messages. This value can be <b>NULL</b> if the operation is not associated with a window.
      * @param {PSTR} lpOperation Type: <b>LPCTSTR</b>
      * 
      * A pointer to a <b>null</b>-terminated string, referred to in this case as a <i>verb</i>, that specifies the action to be performed. The set of available verbs depends on the particular file or folder. Generally, the actions available from an object's shortcut menu are available verbs. The following verbs are commonly used:
@@ -15698,7 +15781,7 @@ class Shell {
      * @param {PSTR} lpDirectory Type: <b>LPCTSTR</b>
      * 
      * A pointer to a <b>null</b>-terminated string that specifies the default (working) directory for the action. If this value is <b>NULL</b>, the current working directory is used. If a relative path is provided at <i>lpFile</i>, do not use a relative path for <i>lpDirectory</i>.
-     * @param {Integer} nShowCmd Type: <b>INT</b>
+     * @param {SHOW_WINDOW_CMD} nShowCmd Type: <b>INT</b>
      * 
      * The flags that specify how an application is to be displayed when it is opened. If <i>lpFile</i> specifies a document file, the flag is simply passed to the associated application. It is up to the application to decide how to handle it. It can be any of the values that can be specified in the <i>nCmdShow</i> parameter for the <a href="https://docs.microsoft.com/windows/desktop/api/winuser/nf-winuser-showwindow">ShowWindow</a> function.
      * @returns {HINSTANCE} Type: <b>HINSTANCE</b>
@@ -15958,7 +16041,9 @@ class Shell {
      * 
      * > [!NOTE]
      * > The shellapi.h header defines ShellExecute as an alias which automatically selects the ANSI or Unicode version of this function based on the definition of the UNICODE preprocessor constant. Mixing usage of the encoding-neutral alias with code that not encoding-neutral can lead to mismatches that result in compilation or runtime errors. For more information, see [Conventions for Function Prototypes](/windows/win32/intl/conventions-for-function-prototypes).
-     * @param {HWND} _hwnd 
+     * @param {HWND} _hwnd Type: <b>HWND</b>
+     * 
+     * A handle to the parent window used for displaying a UI or error messages. This value can be <b>NULL</b> if the operation is not associated with a window.
      * @param {PWSTR} lpOperation Type: <b>LPCTSTR</b>
      * 
      * A pointer to a <b>null</b>-terminated string, referred to in this case as a <i>verb</i>, that specifies the action to be performed. The set of available verbs depends on the particular file or folder. Generally, the actions available from an object's shortcut menu are available verbs. The following verbs are commonly used:
@@ -15971,7 +16056,7 @@ class Shell {
      * @param {PWSTR} lpDirectory Type: <b>LPCTSTR</b>
      * 
      * A pointer to a <b>null</b>-terminated string that specifies the default (working) directory for the action. If this value is <b>NULL</b>, the current working directory is used. If a relative path is provided at <i>lpFile</i>, do not use a relative path for <i>lpDirectory</i>.
-     * @param {Integer} nShowCmd Type: <b>INT</b>
+     * @param {SHOW_WINDOW_CMD} nShowCmd Type: <b>INT</b>
      * 
      * The flags that specify how an application is to be displayed when it is opened. If <i>lpFile</i> specifies a document file, the flag is simply passed to the associated application. It is up to the application to decide how to handle it. It can be any of the values that can be specified in the <i>nCmdShow</i> parameter for the <a href="https://docs.microsoft.com/windows/desktop/api/winuser/nf-winuser-showwindow">ShowWindow</a> function.
      * @returns {HINSTANCE} Type: <b>HINSTANCE</b>
@@ -16426,7 +16511,9 @@ class Shell {
      * 
      * > [!NOTE]
      * > The shellapi.h header defines ShellAbout as an alias which automatically selects the ANSI or Unicode version of this function based on the definition of the UNICODE preprocessor constant. Mixing usage of the encoding-neutral alias with code that not encoding-neutral can lead to mismatches that result in compilation or runtime errors. For more information, see [Conventions for Function Prototypes](/windows/win32/intl/conventions-for-function-prototypes).
-     * @param {HWND} _hWnd 
+     * @param {HWND} _hWnd Type: <b>HWND</b>
+     * 
+     * A window handle to a parent window. This parameter can be <b>NULL</b>.
      * @param {PSTR} szApp Type: <b>LPCTSTR</b>
      * 
      * A pointer to a null-terminated string that contains text to be displayed in the title bar of the <b>ShellAbout</b> dialog box and on the first line of the dialog box after the text "Microsoft". If the text contains a separator (#) that divides it into two parts, the function displays the first part in the title bar and the second part on the first line after the text "Microsoft".
@@ -16439,7 +16526,9 @@ class Shell {
      * @param {PSTR} szOtherStuff Type: <b>LPCTSTR</b>
      * 
      * A pointer to a null-terminated string that contains text to be displayed in the dialog box after the version and copyright information. This parameter can be <b>NULL</b>.
-     * @param {HICON} _hIcon 
+     * @param {HICON} _hIcon Type: <b>HICON</b>
+     * 
+     * The handle of an icon that the function displays in the dialog box. This parameter can be <b>NULL</b>, in which case the function displays the Windows icon.
      * @returns {Integer} Type: <b>int</b>
      * 
      * <b>TRUE</b> if successful; otherwise, <b>FALSE</b>.
@@ -16468,7 +16557,9 @@ class Shell {
      * 
      * > [!NOTE]
      * > The shellapi.h header defines ShellAbout as an alias which automatically selects the ANSI or Unicode version of this function based on the definition of the UNICODE preprocessor constant. Mixing usage of the encoding-neutral alias with code that not encoding-neutral can lead to mismatches that result in compilation or runtime errors. For more information, see [Conventions for Function Prototypes](/windows/win32/intl/conventions-for-function-prototypes).
-     * @param {HWND} _hWnd 
+     * @param {HWND} _hWnd Type: <b>HWND</b>
+     * 
+     * A window handle to a parent window. This parameter can be <b>NULL</b>.
      * @param {PWSTR} szApp Type: <b>LPCTSTR</b>
      * 
      * A pointer to a null-terminated string that contains text to be displayed in the title bar of the <b>ShellAbout</b> dialog box and on the first line of the dialog box after the text "Microsoft". If the text contains a separator (#) that divides it into two parts, the function displays the first part in the title bar and the second part on the first line after the text "Microsoft".
@@ -16481,7 +16572,9 @@ class Shell {
      * @param {PWSTR} szOtherStuff Type: <b>LPCTSTR</b>
      * 
      * A pointer to a null-terminated string that contains text to be displayed in the dialog box after the version and copyright information. This parameter can be <b>NULL</b>.
-     * @param {HICON} _hIcon 
+     * @param {HICON} _hIcon Type: <b>HICON</b>
+     * 
+     * The handle of an icon that the function displays in the dialog box. This parameter can be <b>NULL</b>, in which case the function displays the Windows icon.
      * @returns {Integer} Type: <b>int</b>
      * 
      * <b>TRUE</b> if successful; otherwise, <b>FALSE</b>.
@@ -16502,7 +16595,9 @@ class Shell {
      * Creates a duplicate of a specified icon.
      * @remarks
      * When it is no longer needed, the caller is responsible for freeing the icon handle returned by <b>DuplicateIcon</b> by calling the <a href="https://docs.microsoft.com/windows/desktop/api/winuser/nf-winuser-destroyicon">DestroyIcon</a> function.
-     * @param {HICON} _hIcon 
+     * @param {HICON} _hIcon Type: <b>HICON</b>
+     * 
+     * Handle to the icon to be duplicated.
      * @returns {HICON} Type: <b>HICON</b>
      * 
      * If successful, the function returns the handle to the new icon that was created; otherwise, <b>NULL</b>.
@@ -17897,7 +17992,9 @@ class Shell {
      * @remarks
      * > [!NOTE]
      * > The shellapi.h header defines SHEmptyRecycleBin as an alias which automatically selects the ANSI or Unicode version of this function based on the definition of the UNICODE preprocessor constant. Mixing usage of the encoding-neutral alias with code that not encoding-neutral can lead to mismatches that result in compilation or runtime errors. For more information, see [Conventions for Function Prototypes](/windows/win32/intl/conventions-for-function-prototypes).
-     * @param {HWND} _hwnd 
+     * @param {HWND} _hwnd Type: <b>HWND</b>
+     * 
+     * A handle to the parent window of any dialog boxes that might be displayed during the operation. This parameter can be <b>NULL</b>.
      * @param {PSTR} pszRootPath Type: <b>LPCTSTR</b>
      * 
      * The address of a null-terminated string of maximum length MAX_PATH that contains the path of the root drive on which the Recycle Bin is located. This parameter can contain the address of a string formatted with the drive, folder, and subfolder names, for example c:\windows\system\. It can also contain an empty string or <b>NULL</b>. If this value is an empty string or <b>NULL</b>, all Recycle Bins on all drives will be emptied.
@@ -17921,7 +18018,9 @@ class Shell {
      * @remarks
      * > [!NOTE]
      * > The shellapi.h header defines SHEmptyRecycleBin as an alias which automatically selects the ANSI or Unicode version of this function based on the definition of the UNICODE preprocessor constant. Mixing usage of the encoding-neutral alias with code that not encoding-neutral can lead to mismatches that result in compilation or runtime errors. For more information, see [Conventions for Function Prototypes](/windows/win32/intl/conventions-for-function-prototypes).
-     * @param {HWND} _hwnd 
+     * @param {HWND} _hwnd Type: <b>HWND</b>
+     * 
+     * A handle to the parent window of any dialog boxes that might be displayed during the operation. This parameter can be <b>NULL</b>.
      * @param {PWSTR} pszRootPath Type: <b>LPCTSTR</b>
      * 
      * The address of a null-terminated string of maximum length MAX_PATH that contains the path of the root drive on which the Recycle Bin is located. This parameter can contain the address of a string formatted with the drive, folder, and subfolder names, for example c:\windows\system\. It can also contain an empty string or <b>NULL</b>. If this value is an empty string or <b>NULL</b>, all Recycle Bins on all drives will be emptied.
@@ -17946,7 +18045,7 @@ class Shell {
      * Applications should call <b>SHQueryUserNotificationState</b> and test the return value before displaying any notification UI that is similar to the balloon notifications generated by <a href="https://docs.microsoft.com/windows/desktop/api/shellapi/nf-shellapi-shell_notifyicona">Shell_NotifyIcon</a>. Notifications should only be displayed if this API returns <a href="https://docs.microsoft.com/windows/desktop/api/shellapi/ne-shellapi-query_user_notification_state">QNS_ACCEPTS_NOTIFICATIONS</a>. This informs the application whether the user is running processes that should not be interrupted. Top-level windows receive a <a href="https://docs.microsoft.com/windows/desktop/winmsg/wm-settingchange">WM_SETTINGCHANGE</a> message when the user turns presentation settings on or off, and also when the user's session is locked or unlocked. Note that there are no notifications sent when the user starts or stops a full-screen application.
      * 
      * If this function returns <a href="https://docs.microsoft.com/windows/desktop/api/shellapi/ne-shellapi-query_user_notification_state">QUNS_QUIET_TIME</a>, notifications should be displayed only if critical.
-     * @returns {Integer} Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/shellapi/ne-shellapi-query_user_notification_state">QUERY_USER_NOTIFICATION_STATE</a>*</b>
+     * @returns {QUERY_USER_NOTIFICATION_STATE} Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/shellapi/ne-shellapi-query_user_notification_state">QUERY_USER_NOTIFICATION_STATE</a>*</b>
      * 
      * When this function returns, contains a pointer to one of the values of the <a href="https://docs.microsoft.com/windows/desktop/api/shellapi/ne-shellapi-query_user_notification_state">QUERY_USER_NOTIFICATION_STATE</a> enumeration.
      * @see https://learn.microsoft.com/windows/win32/api/shellapi/nf-shellapi-shqueryusernotificationstate
@@ -17998,7 +18097,7 @@ class Shell {
      * 
      * > [!NOTE]
      * > The shellapi.h header defines Shell_NotifyIcon as an alias which automatically selects the ANSI or Unicode version of this function based on the definition of the UNICODE preprocessor constant. Mixing usage of the encoding-neutral alias with code that not encoding-neutral can lead to mismatches that result in compilation or runtime errors. For more information, see [Conventions for Function Prototypes](/windows/win32/intl/conventions-for-function-prototypes).
-     * @param {Integer} dwMessage Type: <b>DWORD</b>
+     * @param {NOTIFY_ICON_MESSAGE} dwMessage Type: <b>DWORD</b>
      * @param {Pointer<NOTIFYICONDATAA>} lpData Type: <b>PNOTIFYICONDATA</b>
      * 
      * A pointer to a <a href="https://docs.microsoft.com/windows/desktop/api/shellapi/ns-shellapi-notifyicondataa">NOTIFYICONDATA</a> structure. The content of the structure depends on the value of <i>dwMessage</i>. It can define an icon to add to the notification area, cause that icon to display a notification, or identify an icon to modify or delete.
@@ -18054,7 +18153,7 @@ class Shell {
      * 
      * > [!NOTE]
      * > The shellapi.h header defines Shell_NotifyIcon as an alias which automatically selects the ANSI or Unicode version of this function based on the definition of the UNICODE preprocessor constant. Mixing usage of the encoding-neutral alias with code that not encoding-neutral can lead to mismatches that result in compilation or runtime errors. For more information, see [Conventions for Function Prototypes](/windows/win32/intl/conventions-for-function-prototypes).
-     * @param {Integer} dwMessage Type: <b>DWORD</b>
+     * @param {NOTIFY_ICON_MESSAGE} dwMessage Type: <b>DWORD</b>
      * @param {Pointer<NOTIFYICONDATAW>} lpData Type: <b>PNOTIFYICONDATA</b>
      * 
      * A pointer to a <a href="https://docs.microsoft.com/windows/desktop/api/shellapi/ns-shellapi-notifyicondataa">NOTIFYICONDATA</a> structure. The content of the structure depends on the value of <i>dwMessage</i>. It can define an icon to add to the notification area, cause that icon to display a notification, or identify an icon to modify or delete.
@@ -18111,16 +18210,16 @@ class Shell {
      * If the <i>uFlags</i> parameter includes the <b>SHGFI_USEFILEATTRIBUTES</b> flag, this parameter does not have to be a valid file name. The function will proceed as if the file exists with the specified name and with the file attributes passed in the <i>dwFileAttributes</i> parameter. This allows you to obtain information about a file type by passing just the extension for <i>pszPath</i> and passing <b>FILE_ATTRIBUTE_NORMAL</b> in <i>dwFileAttributes</i>.
      * 
      * This string can use either short (the 8.3 form) or long file names.
-     * @param {Integer} dwFileAttributes Type: <b>DWORD</b>
+     * @param {FILE_FLAGS_AND_ATTRIBUTES} dwFileAttributes Type: <b>DWORD</b>
      * 
      * A combination of one or more <a href="https://docs.microsoft.com/windows/desktop/FileIO/retrieving-and-changing-file-attributes">file attribute flags</a> (FILE_ATTRIBUTE_ values as defined in Winnt.h). If <i>uFlags</i> does not include the <b>SHGFI_USEFILEATTRIBUTES</b> flag, this parameter is ignored.
-     * @param {Pointer} psfi Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/shellapi/ns-shellapi-shfileinfoa">SHFILEINFO</a>*</b>
+     * @param {Integer} psfi Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/shellapi/ns-shellapi-shfileinfoa">SHFILEINFO</a>*</b>
      * 
      * Pointer to a <a href="https://docs.microsoft.com/windows/desktop/api/shellapi/ns-shellapi-shfileinfoa">SHFILEINFO</a> structure to receive the file information.
      * @param {Integer} cbFileInfo Type: <b>UINT</b>
      * 
      * The size, in bytes, of the <a href="https://docs.microsoft.com/windows/desktop/api/shellapi/ns-shellapi-shfileinfoa">SHFILEINFO</a> structure pointed to by the <i>psfi</i> parameter.
-     * @param {Integer} uFlags Type: <b>UINT</b>
+     * @param {SHGFI_FLAGS} uFlags Type: <b>UINT</b>
      * @returns {Pointer} Type: <b>DWORD_PTR</b>
      * 
      * Returns a value whose meaning depends on the <i>uFlags</i> parameter. 
@@ -18214,16 +18313,16 @@ class Shell {
      * If the <i>uFlags</i> parameter includes the <b>SHGFI_USEFILEATTRIBUTES</b> flag, this parameter does not have to be a valid file name. The function will proceed as if the file exists with the specified name and with the file attributes passed in the <i>dwFileAttributes</i> parameter. This allows you to obtain information about a file type by passing just the extension for <i>pszPath</i> and passing <b>FILE_ATTRIBUTE_NORMAL</b> in <i>dwFileAttributes</i>.
      * 
      * This string can use either short (the 8.3 form) or long file names.
-     * @param {Integer} dwFileAttributes Type: <b>DWORD</b>
+     * @param {FILE_FLAGS_AND_ATTRIBUTES} dwFileAttributes Type: <b>DWORD</b>
      * 
      * A combination of one or more <a href="https://docs.microsoft.com/windows/desktop/FileIO/retrieving-and-changing-file-attributes">file attribute flags</a> (FILE_ATTRIBUTE_ values as defined in Winnt.h). If <i>uFlags</i> does not include the <b>SHGFI_USEFILEATTRIBUTES</b> flag, this parameter is ignored.
-     * @param {Pointer} psfi Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/shellapi/ns-shellapi-shfileinfoa">SHFILEINFO</a>*</b>
+     * @param {Integer} psfi Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/shellapi/ns-shellapi-shfileinfoa">SHFILEINFO</a>*</b>
      * 
      * Pointer to a <a href="https://docs.microsoft.com/windows/desktop/api/shellapi/ns-shellapi-shfileinfoa">SHFILEINFO</a> structure to receive the file information.
      * @param {Integer} cbFileInfo Type: <b>UINT</b>
      * 
      * The size, in bytes, of the <a href="https://docs.microsoft.com/windows/desktop/api/shellapi/ns-shellapi-shfileinfoa">SHFILEINFO</a> structure pointed to by the <i>psfi</i> parameter.
-     * @param {Integer} uFlags Type: <b>UINT</b>
+     * @param {SHGFI_FLAGS} uFlags Type: <b>UINT</b>
      * @returns {Pointer} Type: <b>DWORD_PTR</b>
      * 
      * Returns a value whose meaning depends on the <i>uFlags</i> parameter. 
@@ -18298,10 +18397,10 @@ class Shell {
      * Retrieves information about system-defined Shell icons.
      * @remarks
      * If this function returns an icon handle in the <b>hIcon</b> member of the <a href="https://docs.microsoft.com/windows/desktop/api/shellapi/ns-shellapi-shstockiconinfo">SHSTOCKICONINFO</a>  structure pointed to by <i>psii</i>, you are responsible for freeing the icon with <a href="https://docs.microsoft.com/windows/desktop/api/winuser/nf-winuser-destroyicon">DestroyIcon</a> when you no longer need it.
-     * @param {Integer} siid Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/shellapi/ne-shellapi-shstockiconid">SHSTOCKICONID</a></b>
+     * @param {SHSTOCKICONID} siid Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/shellapi/ne-shellapi-shstockiconid">SHSTOCKICONID</a></b>
      * 
      * One of the values from the <a href="https://docs.microsoft.com/windows/desktop/api/shellapi/ne-shellapi-shstockiconid">SHSTOCKICONID</a> enumeration that specifies which icon should be retrieved.
-     * @param {Integer} uFlags Type: <b>UINT</b>
+     * @param {SHGSI_FLAGS} uFlags Type: <b>UINT</b>
      * 
      * A combination of zero or more of the following flags that specify which information is requested.
      * @param {Pointer<SHSTOCKICONINFO>} psii Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/shellapi/ns-shellapi-shstockiconinfo">SHSTOCKICONINFO</a>*</b>
@@ -18500,7 +18599,9 @@ class Shell {
      * 
      * > [!NOTE]
      * > The shellapi.h header defines SHInvokePrinterCommand as an alias which automatically selects the ANSI or Unicode version of this function based on the definition of the UNICODE preprocessor constant. Mixing usage of the encoding-neutral alias with code that not encoding-neutral can lead to mismatches that result in compilation or runtime errors. For more information, see [Conventions for Function Prototypes](/windows/win32/intl/conventions-for-function-prototypes).
-     * @param {HWND} _hwnd 
+     * @param {HWND} _hwnd Type: <b>HWND</b>
+     * 
+     * The handle of the parent window of any windows or dialog boxes that are created during the operation.
      * @param {Integer} uAction Type: <b>UINT</b>
      * @param {PSTR} lpBuf1 Type: <b>LPCTSTR</b>
      * 
@@ -18544,7 +18645,9 @@ class Shell {
      * 
      * > [!NOTE]
      * > The shellapi.h header defines SHInvokePrinterCommand as an alias which automatically selects the ANSI or Unicode version of this function based on the definition of the UNICODE preprocessor constant. Mixing usage of the encoding-neutral alias with code that not encoding-neutral can lead to mismatches that result in compilation or runtime errors. For more information, see [Conventions for Function Prototypes](/windows/win32/intl/conventions-for-function-prototypes).
-     * @param {HWND} _hwnd 
+     * @param {HWND} _hwnd Type: <b>HWND</b>
+     * 
+     * The handle of the parent window of any windows or dialog boxes that are created during the operation.
      * @param {Integer} uAction Type: <b>UINT</b>
      * @param {PWSTR} lpBuf1 Type: <b>LPCTSTR</b>
      * 
@@ -18699,14 +18802,16 @@ class Shell {
      * @param {HINSTANCE} hAppInst Type: <b>HINSTANCE</b>
      * 
      * The handle of the module from which to load a string resource named in <i>pszTitle</i>. If <i>pszTitle</i> does not name a string resource, this parameter is ignored. This value must be valid if <i>pszMsg</i> or <i>pszTitle</i> is a resource ID.
-     * @param {HWND} _hWnd 
+     * @param {HWND} _hWnd Type: <b>HWND</b>
+     * 
+     * A handle to the owner window of the message box to be created. If this variable is not <b>NULL</b>, the title of the owner window is used as the title of the message box.
      * @param {PSTR} lpcText Type: <b>LPCTSTR</b>
      * 
      * A pointer to a null-terminated string that contains either the message to be displayed or a resource ID specifying where the message is to be retrieved from.
      * @param {PSTR} lpcTitle Type: <b>LPCTSTR</b>
      * 
      * A pointer to a null-terminated string that contains the dialog box title or a resource ID specifying where the title is to be retrieved. If both this parameter and <i>hWnd</i> are <b>NULL</b>, no title is displayed. If this parameter points to a loadable resource formed with the <a href="https://docs.microsoft.com/windows/desktop/api/winuser/nf-winuser-makeintresourcea">MAKEINTRESOURCE</a> macro, it overrides <i>hWnd</i> as the title.
-     * @param {Integer} fuStyle Type: <b>UINT</b>
+     * @param {MESSAGEBOX_STYLE} fuStyle Type: <b>UINT</b>
      * 
      * Specifies the contents and behavior of the dialog box. For possible values, see <a href="https://docs.microsoft.com/windows/desktop/api/winuser/nf-winuser-messagebox">MessageBox</a>.
      * @returns {Integer} Type: <b>int</b>
@@ -18743,14 +18848,16 @@ class Shell {
      * @param {HINSTANCE} hAppInst Type: <b>HINSTANCE</b>
      * 
      * The handle of the module from which to load a string resource named in <i>pszTitle</i>. If <i>pszTitle</i> does not name a string resource, this parameter is ignored. This value must be valid if <i>pszMsg</i> or <i>pszTitle</i> is a resource ID.
-     * @param {HWND} _hWnd 
+     * @param {HWND} _hWnd Type: <b>HWND</b>
+     * 
+     * A handle to the owner window of the message box to be created. If this variable is not <b>NULL</b>, the title of the owner window is used as the title of the message box.
      * @param {PWSTR} lpcText Type: <b>LPCTSTR</b>
      * 
      * A pointer to a null-terminated string that contains either the message to be displayed or a resource ID specifying where the message is to be retrieved from.
      * @param {PWSTR} lpcTitle Type: <b>LPCTSTR</b>
      * 
      * A pointer to a null-terminated string that contains the dialog box title or a resource ID specifying where the title is to be retrieved. If both this parameter and <i>hWnd</i> are <b>NULL</b>, no title is displayed. If this parameter points to a loadable resource formed with the <a href="https://docs.microsoft.com/windows/desktop/api/winuser/nf-winuser-makeintresourcea">MAKEINTRESOURCE</a> macro, it overrides <i>hWnd</i> as the title.
-     * @param {Integer} fuStyle Type: <b>UINT</b>
+     * @param {MESSAGEBOX_STYLE} fuStyle Type: <b>UINT</b>
      * 
      * Specifies the contents and behavior of the dialog box. For possible values, see <a href="https://docs.microsoft.com/windows/desktop/api/winuser/nf-winuser-messagebox">MessageBox</a>.
      * @returns {Integer} Type: <b>int</b>
@@ -18975,7 +19082,7 @@ class Shell {
      * The <a href="https://docs.microsoft.com/windows/desktop/api/commoncontrols/nn-commoncontrols-iimagelist">IImageList</a> pointer type, such as that returned in the <i>ppv</i> parameter, can be cast as an <b>HIMAGELIST</b> as needed; for example, for use in a list view. Conversely, an <b>HIMAGELIST</b> can be cast as a pointer to an <b>IImageList</b>.
      * 
      * As of Windows Vista, <b>SHIL_SMALL</b>, <b>SHIL_LARGE</b>, and <b>SHIL_EXTRALARGE</b> scale with dots per inch (dpi) if the process is marked as dpi-aware. To set these types to be dpi-aware, call <a href="https://docs.microsoft.com/windows/desktop/api/winuser/nf-winuser-setprocessdpiaware">SetProcessDPIAware</a>. <b>SHIL_JUMBO</b> is fixed at 256 pixels regardless of the dpi-aware setting.
-     * @param {Integer} _iImageList 
+     * @param {Integer} _iImageList Type: <b>int</b>
      * @param {Pointer<Guid>} riid Type: <b>REFIID</b>
      * 
      * Reference to the image list interface identifier, normally IID_IImageList.
@@ -19501,7 +19608,7 @@ class Shell {
      * @param {Integer} ull Type: <b>ULONGLONG</b>
      * 
      * The numeric value to be converted.
-     * @param {Integer} flags Type: <b><a href="https://docs.microsoft.com/windows/win32/api/shlwapi/ne-shlwapi-tagsfbs_flags">SFBS_FLAGS</a></b>
+     * @param {SFBS_FLAGS} flags Type: <b><a href="https://docs.microsoft.com/windows/win32/api/shlwapi/ne-shlwapi-tagsfbs_flags">SFBS_FLAGS</a></b>
      * 
      * One of the <a href="https://docs.microsoft.com/windows/win32/api/shlwapi/ne-shlwapi-tagsfbs_flags">SFBS_FLAGS</a> enumeration values that specifies whether to round or truncate undisplayed digits. This value cannot be NULL.
      * @param {PWSTR} pszBuf Type: <b>PWSTR</b>
@@ -21266,7 +21373,9 @@ class Shell {
      * @remarks
      * > [!NOTE]
      * > The shlwapi.h header defines StrRetToStr as an alias which automatically selects the ANSI or Unicode version of this function based on the definition of the UNICODE preprocessor constant. Mixing usage of the encoding-neutral alias with code that not encoding-neutral can lead to mismatches that result in compilation or runtime errors. For more information, see [Conventions for Function Prototypes](/windows/win32/intl/conventions-for-function-prototypes).
-     * @param {Pointer<STRRET>} _pstr 
+     * @param {Pointer<STRRET>} _pstr Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/shtypes/ns-shtypes-strret">STRRET</a>*</b>
+     * 
+     * A pointer to the <a href="https://docs.microsoft.com/windows/desktop/api/shtypes/ns-shtypes-strret">STRRET</a> structure. When the function returns, this pointer will no longer be valid.
      * @param {Pointer<ITEMIDLIST>} pidl Type: <b>PCUITEMID_CHILD</b>
      * 
      * A pointer to the item's <a href="https://docs.microsoft.com/windows/desktop/api/shtypes/ns-shtypes-itemidlist">ITEMIDLIST</a> structure. This value can be <b>NULL</b>.
@@ -21286,7 +21395,9 @@ class Shell {
      * @remarks
      * > [!NOTE]
      * > The shlwapi.h header defines StrRetToStr as an alias which automatically selects the ANSI or Unicode version of this function based on the definition of the UNICODE preprocessor constant. Mixing usage of the encoding-neutral alias with code that not encoding-neutral can lead to mismatches that result in compilation or runtime errors. For more information, see [Conventions for Function Prototypes](/windows/win32/intl/conventions-for-function-prototypes).
-     * @param {Pointer<STRRET>} _pstr 
+     * @param {Pointer<STRRET>} _pstr Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/shtypes/ns-shtypes-strret">STRRET</a>*</b>
+     * 
+     * A pointer to the <a href="https://docs.microsoft.com/windows/desktop/api/shtypes/ns-shtypes-strret">STRRET</a> structure. When the function returns, this pointer will no longer be valid.
      * @param {Pointer<ITEMIDLIST>} pidl Type: <b>PCUITEMID_CHILD</b>
      * 
      * A pointer to the item's <a href="https://docs.microsoft.com/windows/desktop/api/shtypes/ns-shtypes-itemidlist">ITEMIDLIST</a> structure. This value can be <b>NULL</b>.
@@ -21312,7 +21423,9 @@ class Shell {
      * 
      * > [!NOTE]
      * > The shlwapi.h header defines StrRetToBuf as an alias which automatically selects the ANSI or Unicode version of this function based on the definition of the UNICODE preprocessor constant. Mixing usage of the encoding-neutral alias with code that not encoding-neutral can lead to mismatches that result in compilation or runtime errors. For more information, see [Conventions for Function Prototypes](/windows/win32/intl/conventions-for-function-prototypes).
-     * @param {Pointer<STRRET>} _pstr 
+     * @param {Pointer<STRRET>} _pstr Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/shtypes/ns-shtypes-strret">STRRET</a>*</b>
+     * 
+     * A pointer to the <a href="https://docs.microsoft.com/windows/desktop/api/shtypes/ns-shtypes-strret">STRRET</a> structure. When the function returns, this pointer will no longer be valid.
      * @param {Pointer<ITEMIDLIST>} pidl Type: <b>PCUITEMID_CHILD</b>
      * 
      * A pointer to the item's <a href="https://docs.microsoft.com/windows/desktop/api/shtypes/ns-shtypes-itemidlist">ITEMIDLIST</a> structure.
@@ -21346,7 +21459,9 @@ class Shell {
      * 
      * > [!NOTE]
      * > The shlwapi.h header defines StrRetToBuf as an alias which automatically selects the ANSI or Unicode version of this function based on the definition of the UNICODE preprocessor constant. Mixing usage of the encoding-neutral alias with code that not encoding-neutral can lead to mismatches that result in compilation or runtime errors. For more information, see [Conventions for Function Prototypes](/windows/win32/intl/conventions-for-function-prototypes).
-     * @param {Pointer<STRRET>} _pstr 
+     * @param {Pointer<STRRET>} _pstr Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/shtypes/ns-shtypes-strret">STRRET</a>*</b>
+     * 
+     * A pointer to the <a href="https://docs.microsoft.com/windows/desktop/api/shtypes/ns-shtypes-strret">STRRET</a> structure. When the function returns, this pointer will no longer be valid.
      * @param {Pointer<ITEMIDLIST>} pidl Type: <b>PCUITEMID_CHILD</b>
      * 
      * A pointer to the item's <a href="https://docs.microsoft.com/windows/desktop/api/shtypes/ns-shtypes-itemidlist">ITEMIDLIST</a> structure.
@@ -21534,7 +21649,9 @@ class Shell {
      * Accepts a STRRET structure returned by IShellFolder::GetDisplayNameOf that contains or points to a string, and returns that string as a BSTR.
      * @remarks
      * If the <i>uType</i> member of the <a href="https://docs.microsoft.com/windows/desktop/api/shtypes/ns-shtypes-strret">STRRET</a> structure pointed to by <i>pstr</i> is set to <b>STRRET_WSTR</b>, the <i>pOleStr</i> member of that structure is freed on return.
-     * @param {Pointer<STRRET>} _pstr 
+     * @param {Pointer<STRRET>} _pstr Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/shtypes/ns-shtypes-strret">STRRET</a>*</b>
+     * 
+     * A pointer to a <a href="https://docs.microsoft.com/windows/desktop/api/shtypes/ns-shtypes-strret">STRRET</a> structure. When the function returns, this pointer is longer valid.
      * @param {Pointer<ITEMIDLIST>} pidl Type: <b>PCUITEMID_CHILD</b>
      * 
      * A pointer to an <a href="https://docs.microsoft.com/windows/desktop/api/shtypes/ns-shtypes-itemidlist">ITEMIDLIST</a> that uniquely identifies a file object or subfolder relative to the parent folder. This value can be <b>NULL</b>.
@@ -22370,7 +22487,9 @@ class Shell {
      * Truncates a file path to fit within a given pixel width by replacing path components with ellipses. (ANSI)
      * @remarks
      * This function uses the font currently selected in <i>hDC</i> to calculate the width of the text. This function will not compact the path beyond the base file name preceded by ellipses.
-     * @param {HDC} _hDC 
+     * @param {HDC} _hDC Type: <b>HDC</b>
+     * 
+     * A handle to the device context used for font metrics. This value can be <b>NULL</b>.
      * @param {PSTR} pszPath Type: <b>LPTSTR</b>
      * 
      * A pointer to a null-terminated string of length MAX_PATH that contains the path to be modified. On return, this buffer will contain the modified string.
@@ -22395,7 +22514,9 @@ class Shell {
      * Truncates a file path to fit within a given pixel width by replacing path components with ellipses. (Unicode)
      * @remarks
      * This function uses the font currently selected in <i>hDC</i> to calculate the width of the text. This function will not compact the path beyond the base file name preceded by ellipses.
-     * @param {HDC} _hDC 
+     * @param {HDC} _hDC Type: <b>HDC</b>
+     * 
+     * A handle to the device context used for font metrics. This value can be <b>NULL</b>.
      * @param {PWSTR} pszPath Type: <b>LPTSTR</b>
      * 
      * A pointer to a null-terminated string of length MAX_PATH that contains the path to be modified. On return, this buffer will contain the modified string.
@@ -25436,7 +25557,7 @@ class Shell {
      * @param {PSTR} pszUrl Type: <b>PCTSTR</b>
      * 
      * A null-terminated string of maximum length INTERNET_MAX_URL_LENGTH that contains the URL.
-     * @param {Integer} _UrlIs 
+     * @param {URLIS} _UrlIs Type: <b>URLIS</b>
      * @returns {BOOL} Type: <b>BOOL</b>
      * 
      * For all but one of the URL types, <b>UrlIs</b> returns <b>TRUE</b> if the URL is the specified type, or <b>FALSE</b> if not. 
@@ -25462,7 +25583,7 @@ class Shell {
      * @param {PWSTR} pszUrl Type: <b>PCTSTR</b>
      * 
      * A null-terminated string of maximum length INTERNET_MAX_URL_LENGTH that contains the URL.
-     * @param {Integer} _UrlIs 
+     * @param {URLIS} _UrlIs Type: <b>URLIS</b>
      * @returns {BOOL} Type: <b>BOOL</b>
      * 
      * For all but one of the URL types, <b>UrlIs</b> returns <b>TRUE</b> if the URL is the specified type, or <b>FALSE</b> if not. 
@@ -26015,7 +26136,7 @@ class Shell {
      * @param {PSTR} pszUrl Type: <b>PCTSTR</b>
      * 
      * A null-terminated string of maximum length INTERNET_MAX_URL_LENGTH that contains the URL.
-     * @param {Pointer} pbHash Type: <b>BYTE*</b>
+     * @param {Integer} pbHash Type: <b>BYTE*</b>
      * 
      * A pointer to a buffer that, when this function returns successfully, receives the hashed array.
      * @param {Integer} cbHash Type: <b>DWORD</b>
@@ -26048,7 +26169,7 @@ class Shell {
      * @param {PWSTR} pszUrl Type: <b>PCTSTR</b>
      * 
      * A null-terminated string of maximum length INTERNET_MAX_URL_LENGTH that contains the URL.
-     * @param {Pointer} pbHash Type: <b>BYTE*</b>
+     * @param {Integer} pbHash Type: <b>BYTE*</b>
      * 
      * A pointer to a buffer that, when this function returns successfully, receives the hashed array.
      * @param {Integer} cbHash Type: <b>DWORD</b>
@@ -26293,13 +26414,13 @@ class Shell {
 
     /**
      * Hashes an array of data.
-     * @param {Pointer} pbData Type: <b>BYTE*</b>
+     * @param {Integer} pbData Type: <b>BYTE*</b>
      * 
      * A pointer to the data array.
      * @param {Integer} cbData Type: <b>DWORD</b>
      * 
      * The number of elements in the array at <i>pbData</i>.
-     * @param {Pointer} pbHash Type: <b>BYTE*</b>
+     * @param {Integer} pbHash Type: <b>BYTE*</b>
      * 
      * A pointer to a value that, when this function returns successfully, receives the hashed array.
      * @param {Integer} cbHash Type: <b>DWORD</b>
@@ -26407,11 +26528,16 @@ class Shell {
      * 
      * > [!NOTE]
      * > The shlwapi.h header defines SHDeleteEmptyKey as an alias which automatically selects the ANSI or Unicode version of this function based on the definition of the UNICODE preprocessor constant. Mixing usage of the encoding-neutral alias with code that not encoding-neutral can lead to mismatches that result in compilation or runtime errors. For more information, see [Conventions for Function Prototypes](/windows/win32/intl/conventions-for-function-prototypes).
-     * @param {HKEY} _hkey 
+     * @param {HKEY} _hkey Type: <b>HKEY</b>
+     * 
+     * A handle to an open registry key, or one of the following <a href="https://docs.microsoft.com/windows/desktop/SysInfo/predefined-keys">predefined keys</a>:
+     * 
+     * <a id="HKEY_CLASSES_ROOT"></a>
+     * <a id="hkey_classes_root"></a>
      * @param {PSTR} pszSubKey Type: <b>LPCTSTR</b>
      * 
      * The address of a null-terminated string specifying the name of the key to delete.
-     * @returns {Integer} Type: <b>LSTATUS</b>
+     * @returns {WIN32_ERROR} Type: <b>LSTATUS</b>
      * 
      * Returns <b>ERROR_SUCCESS</b> if successful, or a nonzero error code defined in Winerror.h otherwise. You can use the <a href="https://docs.microsoft.com/windows/desktop/api/winbase/nf-winbase-formatmessage">FormatMessage</a> function with the <b>FORMAT_MESSAGE_FROM_SYSTEM</b> flag to retrieve a generic description of the error.
      * @see https://learn.microsoft.com/windows/win32/api/shlwapi/nf-shlwapi-shdeleteemptykeya
@@ -26437,11 +26563,16 @@ class Shell {
      * 
      * > [!NOTE]
      * > The shlwapi.h header defines SHDeleteEmptyKey as an alias which automatically selects the ANSI or Unicode version of this function based on the definition of the UNICODE preprocessor constant. Mixing usage of the encoding-neutral alias with code that not encoding-neutral can lead to mismatches that result in compilation or runtime errors. For more information, see [Conventions for Function Prototypes](/windows/win32/intl/conventions-for-function-prototypes).
-     * @param {HKEY} _hkey 
+     * @param {HKEY} _hkey Type: <b>HKEY</b>
+     * 
+     * A handle to an open registry key, or one of the following <a href="https://docs.microsoft.com/windows/desktop/SysInfo/predefined-keys">predefined keys</a>:
+     * 
+     * <a id="HKEY_CLASSES_ROOT"></a>
+     * <a id="hkey_classes_root"></a>
      * @param {PWSTR} pszSubKey Type: <b>LPCTSTR</b>
      * 
      * The address of a null-terminated string specifying the name of the key to delete.
-     * @returns {Integer} Type: <b>LSTATUS</b>
+     * @returns {WIN32_ERROR} Type: <b>LSTATUS</b>
      * 
      * Returns <b>ERROR_SUCCESS</b> if successful, or a nonzero error code defined in Winerror.h otherwise. You can use the <a href="https://docs.microsoft.com/windows/desktop/api/winbase/nf-winbase-formatmessage">FormatMessage</a> function with the <b>FORMAT_MESSAGE_FROM_SYSTEM</b> flag to retrieve a generic description of the error.
      * @see https://learn.microsoft.com/windows/win32/api/shlwapi/nf-shlwapi-shdeleteemptykeyw
@@ -26465,11 +26596,16 @@ class Shell {
      * 
      * > [!NOTE]
      * > The shlwapi.h header defines SHDeleteKey as an alias which automatically selects the ANSI or Unicode version of this function based on the definition of the UNICODE preprocessor constant. Mixing usage of the encoding-neutral alias with code that not encoding-neutral can lead to mismatches that result in compilation or runtime errors. For more information, see [Conventions for Function Prototypes](/windows/win32/intl/conventions-for-function-prototypes).
-     * @param {HKEY} _hkey 
+     * @param {HKEY} _hkey Type: <b>HKEY</b>
+     * 
+     * A handle to an open registry key, or one of the following <a href="https://docs.microsoft.com/windows/desktop/SysInfo/predefined-keys">predefined keys</a>:
+     * 
+     * <a id="HKEY_CLASSES_ROOT"></a>
+     * <a id="hkey_classes_root"></a>
      * @param {PSTR} pszSubKey Type: <b>LPCTSTR</b>
      * 
      * The address of a null-terminated string specifying the name of the key to delete.
-     * @returns {Integer} Type: <b>LSTATUS</b>
+     * @returns {WIN32_ERROR} Type: <b>LSTATUS</b>
      * 
      * Returns <b>ERROR_SUCCESS</b> if successful, or a nonzero error code defined in Winerror.h otherwise. You can use the <a href="https://docs.microsoft.com/windows/desktop/api/winbase/nf-winbase-formatmessage">FormatMessage</a> function with the <b>FORMAT_MESSAGE_FROM_SYSTEM</b> flag to retrieve a generic description of the error.
      * @see https://learn.microsoft.com/windows/win32/api/shlwapi/nf-shlwapi-shdeletekeya
@@ -26493,11 +26629,16 @@ class Shell {
      * 
      * > [!NOTE]
      * > The shlwapi.h header defines SHDeleteKey as an alias which automatically selects the ANSI or Unicode version of this function based on the definition of the UNICODE preprocessor constant. Mixing usage of the encoding-neutral alias with code that not encoding-neutral can lead to mismatches that result in compilation or runtime errors. For more information, see [Conventions for Function Prototypes](/windows/win32/intl/conventions-for-function-prototypes).
-     * @param {HKEY} _hkey 
+     * @param {HKEY} _hkey Type: <b>HKEY</b>
+     * 
+     * A handle to an open registry key, or one of the following <a href="https://docs.microsoft.com/windows/desktop/SysInfo/predefined-keys">predefined keys</a>:
+     * 
+     * <a id="HKEY_CLASSES_ROOT"></a>
+     * <a id="hkey_classes_root"></a>
      * @param {PWSTR} pszSubKey Type: <b>LPCTSTR</b>
      * 
      * The address of a null-terminated string specifying the name of the key to delete.
-     * @returns {Integer} Type: <b>LSTATUS</b>
+     * @returns {WIN32_ERROR} Type: <b>LSTATUS</b>
      * 
      * Returns <b>ERROR_SUCCESS</b> if successful, or a nonzero error code defined in Winerror.h otherwise. You can use the <a href="https://docs.microsoft.com/windows/desktop/api/winbase/nf-winbase-formatmessage">FormatMessage</a> function with the <b>FORMAT_MESSAGE_FROM_SYSTEM</b> flag to retrieve a generic description of the error.
      * @see https://learn.microsoft.com/windows/win32/api/shlwapi/nf-shlwapi-shdeletekeyw
@@ -26513,7 +26654,9 @@ class Shell {
 
     /**
      * Duplicates a registry key's HKEY handle.
-     * @param {HKEY} _hkey 
+     * @param {HKEY} _hkey Type: <b>HKEY</b>
+     * 
+     * The HKEY handle to be duplicated.
      * @returns {HKEY} Type: <b>HKEY</b>
      * 
      * Returns a duplicate of the handle specified in <i>hkey</i>.
@@ -26533,14 +26676,16 @@ class Shell {
      * @remarks
      * > [!NOTE]
      * > The shlwapi.h header defines SHDeleteValue as an alias which automatically selects the ANSI or Unicode version of this function based on the definition of the UNICODE preprocessor constant. Mixing usage of the encoding-neutral alias with code that not encoding-neutral can lead to mismatches that result in compilation or runtime errors. For more information, see [Conventions for Function Prototypes](/windows/win32/intl/conventions-for-function-prototypes).
-     * @param {HKEY} _hkey 
+     * @param {HKEY} _hkey Type: <b>HKEY</b>
+     * 
+     * A handle to the currently open key, or any of the following predefined values.
      * @param {PSTR} pszSubKey Type: <b>LPCTSTR</b>
      * 
      * The address of a null-terminated string specifying the name of the subkey for which to change the value.
      * @param {PSTR} pszValue Type: <b>LPCTSTR</b>
      * 
      * The address of the value to be deleted.
-     * @returns {Integer} Type: <b>LSTATUS</b>
+     * @returns {WIN32_ERROR} Type: <b>LSTATUS</b>
      * 
      * Returns ERROR_SUCCESS if successful, or a nonzero error code defined in Winerror.h otherwise. You can use the <a href="https://docs.microsoft.com/windows/desktop/api/winbase/nf-winbase-formatmessage">FormatMessage</a> function with the FORMAT_MESSAGE_FROM_SYSTEM flag to retrieve a generic description of the error.
      * @see https://learn.microsoft.com/windows/win32/api/shlwapi/nf-shlwapi-shdeletevaluea
@@ -26560,14 +26705,16 @@ class Shell {
      * @remarks
      * > [!NOTE]
      * > The shlwapi.h header defines SHDeleteValue as an alias which automatically selects the ANSI or Unicode version of this function based on the definition of the UNICODE preprocessor constant. Mixing usage of the encoding-neutral alias with code that not encoding-neutral can lead to mismatches that result in compilation or runtime errors. For more information, see [Conventions for Function Prototypes](/windows/win32/intl/conventions-for-function-prototypes).
-     * @param {HKEY} _hkey 
+     * @param {HKEY} _hkey Type: <b>HKEY</b>
+     * 
+     * A handle to the currently open key, or any of the following predefined values.
      * @param {PWSTR} pszSubKey Type: <b>LPCTSTR</b>
      * 
      * The address of a null-terminated string specifying the name of the subkey for which to change the value.
      * @param {PWSTR} pszValue Type: <b>LPCTSTR</b>
      * 
      * The address of the value to be deleted.
-     * @returns {Integer} Type: <b>LSTATUS</b>
+     * @returns {WIN32_ERROR} Type: <b>LSTATUS</b>
      * 
      * Returns ERROR_SUCCESS if successful, or a nonzero error code defined in Winerror.h otherwise. You can use the <a href="https://docs.microsoft.com/windows/desktop/api/winbase/nf-winbase-formatmessage">FormatMessage</a> function with the FORMAT_MESSAGE_FROM_SYSTEM flag to retrieve a generic description of the error.
      * @see https://learn.microsoft.com/windows/win32/api/shlwapi/nf-shlwapi-shdeletevaluew
@@ -26592,7 +26739,9 @@ class Shell {
      * 
      * > [!NOTE]
      * > The shlwapi.h header defines SHGetValue as an alias which automatically selects the ANSI or Unicode version of this function based on the definition of the UNICODE preprocessor constant. Mixing usage of the encoding-neutral alias with code that not encoding-neutral can lead to mismatches that result in compilation or runtime errors. For more information, see [Conventions for Function Prototypes](/windows/win32/intl/conventions-for-function-prototypes).
-     * @param {HKEY} _hkey 
+     * @param {HKEY} _hkey Type: <b>HKEY</b>
+     * 
+     * A handle to the currently open key, or any of the following predefined values.
      * @param {PSTR} pszSubKey Type: <b>LPCTSTR</b>
      * 
      * The address of a null-terminated string that specifies the name of the subkey from which to retrieve the value.
@@ -26602,13 +26751,13 @@ class Shell {
      * @param {Pointer<Integer>} pdwType Type: <b>LPDWORD</b>
      * 
      * The type of value. For more information, see <a href="https://docs.microsoft.com/windows/desktop/shell/hkey-type">Registry Data Types</a>.
-     * @param {Pointer} pvData Type: <b>LPVOID</b>
+     * @param {Integer} pvData Type: <b>LPVOID</b>
      * 
      * The address of the destination data buffer.
      * @param {Pointer<Integer>} pcbData Type: <b>LPDWORD</b>
      * 
      * The size of the destination data buffer.
-     * @returns {Integer} Type: <b>LSTATUS</b>
+     * @returns {WIN32_ERROR} Type: <b>LSTATUS</b>
      * 
      * Returns ERROR_SUCCESS if successful, or a nonzero error code defined in Winerror.h otherwise. You can use the <a href="https://docs.microsoft.com/windows/desktop/api/winbase/nf-winbase-formatmessage">FormatMessage</a> function with the FORMAT_MESSAGE_FROM_SYSTEM flag to retrieve a generic description of the error.
      * @see https://learn.microsoft.com/windows/win32/api/shlwapi/nf-shlwapi-shgetvaluea
@@ -26636,7 +26785,9 @@ class Shell {
      * 
      * > [!NOTE]
      * > The shlwapi.h header defines SHGetValue as an alias which automatically selects the ANSI or Unicode version of this function based on the definition of the UNICODE preprocessor constant. Mixing usage of the encoding-neutral alias with code that not encoding-neutral can lead to mismatches that result in compilation or runtime errors. For more information, see [Conventions for Function Prototypes](/windows/win32/intl/conventions-for-function-prototypes).
-     * @param {HKEY} _hkey 
+     * @param {HKEY} _hkey Type: <b>HKEY</b>
+     * 
+     * A handle to the currently open key, or any of the following predefined values.
      * @param {PWSTR} pszSubKey Type: <b>LPCTSTR</b>
      * 
      * The address of a null-terminated string that specifies the name of the subkey from which to retrieve the value.
@@ -26646,13 +26797,13 @@ class Shell {
      * @param {Pointer<Integer>} pdwType Type: <b>LPDWORD</b>
      * 
      * The type of value. For more information, see <a href="https://docs.microsoft.com/windows/desktop/shell/hkey-type">Registry Data Types</a>.
-     * @param {Pointer} pvData Type: <b>LPVOID</b>
+     * @param {Integer} pvData Type: <b>LPVOID</b>
      * 
      * The address of the destination data buffer.
      * @param {Pointer<Integer>} pcbData Type: <b>LPDWORD</b>
      * 
      * The size of the destination data buffer.
-     * @returns {Integer} Type: <b>LSTATUS</b>
+     * @returns {WIN32_ERROR} Type: <b>LSTATUS</b>
      * 
      * Returns ERROR_SUCCESS if successful, or a nonzero error code defined in Winerror.h otherwise. You can use the <a href="https://docs.microsoft.com/windows/desktop/api/winbase/nf-winbase-formatmessage">FormatMessage</a> function with the FORMAT_MESSAGE_FROM_SYSTEM flag to retrieve a generic description of the error.
      * @see https://learn.microsoft.com/windows/win32/api/shlwapi/nf-shlwapi-shgetvaluew
@@ -26675,7 +26826,9 @@ class Shell {
      * @remarks
      * > [!NOTE]
      * > The shlwapi.h header defines SHSetValue as an alias which automatically selects the ANSI or Unicode version of this function based on the definition of the UNICODE preprocessor constant. Mixing usage of the encoding-neutral alias with code that not encoding-neutral can lead to mismatches that result in compilation or runtime errors. For more information, see [Conventions for Function Prototypes](/windows/win32/intl/conventions-for-function-prototypes).
-     * @param {HKEY} _hkey 
+     * @param {HKEY} _hkey Type: <b>HKEY</b>
+     * 
+     * A handle to the currently open key, or any of the following predefined values.
      * @param {PSTR} pszSubKey Type: <b>LPCTSTR</b>
      * 
      * The address of a null-terminated string that specifies the name of the subkey with which a value is associated. This can be <b>NULL</b> or a pointer to an empty string. In this case, the value is added to the key identified by the <i>hkey</i> parameter.
@@ -26685,7 +26838,7 @@ class Shell {
      * @param {Integer} dwType Type: <b>DWORD</b>
      * 
      * Type of data to be stored. This parameter must be the <b>REG_SZ</b> type. For more information, see <a href="https://docs.microsoft.com/windows/desktop/shell/hkey-type">Registry Data Types</a>.
-     * @param {Pointer} pvData Type: <b>LPCVOID</b>
+     * @param {Integer} pvData Type: <b>LPCVOID</b>
      * 
      * Pointer to a buffer that contains the data to set for the specified value. This value can be <b>NULL</b>.
      * @param {Integer} cbData Type: <b>DWORD</b>
@@ -26711,7 +26864,9 @@ class Shell {
      * @remarks
      * > [!NOTE]
      * > The shlwapi.h header defines SHSetValue as an alias which automatically selects the ANSI or Unicode version of this function based on the definition of the UNICODE preprocessor constant. Mixing usage of the encoding-neutral alias with code that not encoding-neutral can lead to mismatches that result in compilation or runtime errors. For more information, see [Conventions for Function Prototypes](/windows/win32/intl/conventions-for-function-prototypes).
-     * @param {HKEY} _hkey 
+     * @param {HKEY} _hkey Type: <b>HKEY</b>
+     * 
+     * A handle to the currently open key, or any of the following predefined values.
      * @param {PWSTR} pszSubKey Type: <b>LPCTSTR</b>
      * 
      * The address of a null-terminated string that specifies the name of the subkey with which a value is associated. This can be <b>NULL</b> or a pointer to an empty string. In this case, the value is added to the key identified by the <i>hkey</i> parameter.
@@ -26721,7 +26876,7 @@ class Shell {
      * @param {Integer} dwType Type: <b>DWORD</b>
      * 
      * Type of data to be stored. This parameter must be the <b>REG_SZ</b> type. For more information, see <a href="https://docs.microsoft.com/windows/desktop/shell/hkey-type">Registry Data Types</a>.
-     * @param {Pointer} pvData Type: <b>LPCVOID</b>
+     * @param {Integer} pvData Type: <b>LPCVOID</b>
      * 
      * Pointer to a buffer that contains the data to set for the specified value. This value can be <b>NULL</b>.
      * @param {Integer} cbData Type: <b>DWORD</b>
@@ -26769,7 +26924,12 @@ class Shell {
      * 
      * > [!NOTE]
      * > The shlwapi.h header defines SHRegGetValue as an alias which automatically selects the ANSI or Unicode version of this function based on the definition of the UNICODE preprocessor constant. Mixing usage of the encoding-neutral alias with code that not encoding-neutral can lead to mismatches that result in compilation or runtime errors. For more information, see [Conventions for Function Prototypes](/windows/win32/intl/conventions-for-function-prototypes).
-     * @param {HKEY} _hkey 
+     * @param {HKEY} _hkey Type: <b>HKEY</b>
+     * 
+     * A handle to the currently open key, or any of the following predefined values.
+     * 
+     * <a id="HKEY_CLASSES_ROOT"></a>
+     * <a id="hkey_classes_root"></a>
      * @param {PSTR} pszSubKey Type: <b>LPCTSTR</b>
      * 
      * A pointer to a <b>null</b>-terminated string that specifies the relative path from <i>hkey</i> to the subkey to retrieve the value from. This parameter can be <b>NULL</b> or an empty string, in which case the data is retrieved from the <i>hkey</i> location.
@@ -26782,7 +26942,7 @@ class Shell {
      * @param {Pointer<Integer>} pdwType Type: <b>LPDWORD</b>
      * 
      * A pointer to a <b>DWORD</b> that receives the type of data stored in the retrieved value. When using default values, the input <i>pdwType</i> is the type of the default value. For possible values, see <a href="https://docs.microsoft.com/windows/desktop/shell/hkey-type">Registry Data Types</a>. If the SRRF_NOEXPAND flag is not set, REG_EXPAND_SZ types are automatically expanded and returned as REG_SZ. If type information is not required, this parameter can be <b>NULL</b>.
-     * @param {Pointer} pvData Type: <b>LPVOID</b>
+     * @param {Integer} pvData Type: <b>LPVOID</b>
      * 
      * A pointer to a buffer that receives the value's data. This parameter can be <b>NULL</b> if the data is not needed. For example, if you were testing only for a value's existence, the specific value data would be superfluous.
      * @param {Pointer<Integer>} pcbData Type: <b>LPDWORD</b>
@@ -26812,7 +26972,7 @@ class Shell {
      * <td>Size in bytes needed to hold the entire data. Note that this is not guaranteed to be the precise size, but only a sufficient size.</td>
      * </tr>
      * </table>
-     * @returns {Integer} Type: <b>LSTATUS</b>
+     * @returns {WIN32_ERROR} Type: <b>LSTATUS</b>
      * 
      * Returns <b>ERROR_SUCCESS</b> if successful, or a nonzero error code defined in Winerror.h otherwise. You can use the <a href="https://docs.microsoft.com/windows/desktop/api/winbase/nf-winbase-formatmessage">FormatMessage</a> function with the <b>FORMAT_MESSAGE_FROM_SYSTEM</b> flag to retrieve a generic description of the error.
      * @see https://learn.microsoft.com/windows/win32/api/shlwapi/nf-shlwapi-shreggetvaluea
@@ -26857,7 +27017,12 @@ class Shell {
      * 
      * > [!NOTE]
      * > The shlwapi.h header defines SHRegGetValue as an alias which automatically selects the ANSI or Unicode version of this function based on the definition of the UNICODE preprocessor constant. Mixing usage of the encoding-neutral alias with code that not encoding-neutral can lead to mismatches that result in compilation or runtime errors. For more information, see [Conventions for Function Prototypes](/windows/win32/intl/conventions-for-function-prototypes).
-     * @param {HKEY} _hkey 
+     * @param {HKEY} _hkey Type: <b>HKEY</b>
+     * 
+     * A handle to the currently open key, or any of the following predefined values.
+     * 
+     * <a id="HKEY_CLASSES_ROOT"></a>
+     * <a id="hkey_classes_root"></a>
      * @param {PWSTR} pszSubKey Type: <b>LPCTSTR</b>
      * 
      * A pointer to a <b>null</b>-terminated string that specifies the relative path from <i>hkey</i> to the subkey to retrieve the value from. This parameter can be <b>NULL</b> or an empty string, in which case the data is retrieved from the <i>hkey</i> location.
@@ -26870,7 +27035,7 @@ class Shell {
      * @param {Pointer<Integer>} pdwType Type: <b>LPDWORD</b>
      * 
      * A pointer to a <b>DWORD</b> that receives the type of data stored in the retrieved value. When using default values, the input <i>pdwType</i> is the type of the default value. For possible values, see <a href="https://docs.microsoft.com/windows/desktop/shell/hkey-type">Registry Data Types</a>. If the SRRF_NOEXPAND flag is not set, REG_EXPAND_SZ types are automatically expanded and returned as REG_SZ. If type information is not required, this parameter can be <b>NULL</b>.
-     * @param {Pointer} pvData Type: <b>LPVOID</b>
+     * @param {Integer} pvData Type: <b>LPVOID</b>
      * 
      * A pointer to a buffer that receives the value's data. This parameter can be <b>NULL</b> if the data is not needed. For example, if you were testing only for a value's existence, the specific value data would be superfluous.
      * @param {Pointer<Integer>} pcbData Type: <b>LPDWORD</b>
@@ -26900,7 +27065,7 @@ class Shell {
      * <td>Size in bytes needed to hold the entire data. Note that this is not guaranteed to be the precise size, but only a sufficient size.</td>
      * </tr>
      * </table>
-     * @returns {Integer} Type: <b>LSTATUS</b>
+     * @returns {WIN32_ERROR} Type: <b>LSTATUS</b>
      * 
      * Returns <b>ERROR_SUCCESS</b> if successful, or a nonzero error code defined in Winerror.h otherwise. You can use the <a href="https://docs.microsoft.com/windows/desktop/api/winbase/nf-winbase-formatmessage">FormatMessage</a> function with the <b>FORMAT_MESSAGE_FROM_SYSTEM</b> flag to retrieve a generic description of the error.
      * @see https://learn.microsoft.com/windows/win32/api/shlwapi/nf-shlwapi-shreggetvaluew
@@ -26932,13 +27097,13 @@ class Shell {
      * @param {Pointer<Integer>} pdwType Type: <b>DWORD*</b>
      * 
      * When this function returns, contains a pointer to a <b>DWORD</b> which receives a code that indicates the type of data stored in the specified value.  This can be set to <b>NULL</b> if no type information is wanted. If this value is not <b>NULL</b>, and the SRRF_NOEXPAND flag has not been set, data types of REG_EXPAND_SZ will be returned as REG_SZ since they are automatically expanded in this method.
-     * @param {Pointer} pvData Type: <b>LPCVOID</b>
+     * @param {Integer} pvData Type: <b>LPCVOID</b>
      * 
      * A pointer to a buffer that contains the value's data. This parameter can be <b>NULL</b> if the data is not needed. This value must contain the size of the <i>pvData</i> buffer on entry.  If <i>pvData</i> is <b>NULL</b> (or if <i>pvData</i> is not <b>NULL</b>, but too small of a buffer to hold the registry data), then on exit it will contain the size required to hold the registry data.
      * @param {Pointer<Integer>} pcbData Type: <b>DWORD*</b>
      * 
      * When this function returns, contains a pointer to the size of the data, in bytes.
-     * @returns {Integer} Type: <b>LONG</b>
+     * @returns {WIN32_ERROR} Type: <b>LONG</b>
      * 
      * If successful, this function returns ERROR_SUCCESS and all out parameters requested. Returns ERROR_MORE_DATA if the function fails due to insufficient space in a provided non-<b>NULL</b> pvData. In this case  only <i>pdwType</i> and <i>pcbData</i> may contain valid data, <i>pvData</i> will be undefined. Otherwise, returns a nonzero error code defined in Winerror.h . You can use the <a href="https://docs.microsoft.com/windows/desktop/api/winbase/nf-winbase-formatmessage">FormatMessage</a> function with the FORMAT_MESSAGE_FROM_SYSTEM flag to retrieve a generic description of the error.
      * @see https://learn.microsoft.com/windows/win32/api/shlwapi/nf-shlwapi-shreggetvaluefromhkcuhklm
@@ -26960,20 +27125,22 @@ class Shell {
      * @remarks
      * > [!NOTE]
      * > The shlwapi.h header defines SHQueryValueEx as an alias which automatically selects the ANSI or Unicode version of this function based on the definition of the UNICODE preprocessor constant. Mixing usage of the encoding-neutral alias with code that not encoding-neutral can lead to mismatches that result in compilation or runtime errors. For more information, see [Conventions for Function Prototypes](/windows/win32/intl/conventions-for-function-prototypes).
-     * @param {HKEY} _hkey 
+     * @param {HKEY} _hkey Type: <b>HKEY</b>
+     * 
+     * A handle to the currently open key, or any of the following predefined values.
      * @param {PSTR} pszValue Type: <b>LPCTSTR</b>
      * 
      * The address of the <b>null</b>-terminated string that contains the name of the value to be queried.
      * @param {Pointer<Integer>} pdwType Type: <b>LPDWORD</b>
      * 
      * The address of the variable that receives the key's value type. For more information, see <a href="https://docs.microsoft.com/windows/desktop/shell/hkey-type">Registry Data Types</a>.
-     * @param {Pointer} pvData Type: <b>LPVOID</b>
+     * @param {Integer} pvData Type: <b>LPVOID</b>
      * 
      * The address of the buffer that receives the value's data. This parameter can be <b>NULL</b> if the data is not required.
      * @param {Pointer<Integer>} pcbData Type: <b>LPDWORD</b>
      * 
      * The address of the variable that specifies the size, in bytes, of the buffer pointed to by the <i>pvData</i> parameter. When the function returns, this variable contains the size of the data copied to <i>pvData</i>.
-     * @returns {Integer} Type: <b>DWORD</b>
+     * @returns {WIN32_ERROR} Type: <b>DWORD</b>
      * 
      * Returns ERROR_SUCCESS if successful, or a nonzero error code defined in Winerror.h otherwise. You can use the <a href="https://docs.microsoft.com/windows/desktop/api/winbase/nf-winbase-formatmessage">FormatMessage</a> function with the FORMAT_MESSAGE_FROM_SYSTEM flag to retrieve a generic description of the error.
      * @see https://learn.microsoft.com/windows/win32/api/shlwapi/nf-shlwapi-shqueryvalueexa
@@ -26997,20 +27164,22 @@ class Shell {
      * @remarks
      * > [!NOTE]
      * > The shlwapi.h header defines SHQueryValueEx as an alias which automatically selects the ANSI or Unicode version of this function based on the definition of the UNICODE preprocessor constant. Mixing usage of the encoding-neutral alias with code that not encoding-neutral can lead to mismatches that result in compilation or runtime errors. For more information, see [Conventions for Function Prototypes](/windows/win32/intl/conventions-for-function-prototypes).
-     * @param {HKEY} _hkey 
+     * @param {HKEY} _hkey Type: <b>HKEY</b>
+     * 
+     * A handle to the currently open key, or any of the following predefined values.
      * @param {PWSTR} pszValue Type: <b>LPCTSTR</b>
      * 
      * The address of the <b>null</b>-terminated string that contains the name of the value to be queried.
      * @param {Pointer<Integer>} pdwType Type: <b>LPDWORD</b>
      * 
      * The address of the variable that receives the key's value type. For more information, see <a href="https://docs.microsoft.com/windows/desktop/shell/hkey-type">Registry Data Types</a>.
-     * @param {Pointer} pvData Type: <b>LPVOID</b>
+     * @param {Integer} pvData Type: <b>LPVOID</b>
      * 
      * The address of the buffer that receives the value's data. This parameter can be <b>NULL</b> if the data is not required.
      * @param {Pointer<Integer>} pcbData Type: <b>LPDWORD</b>
      * 
      * The address of the variable that specifies the size, in bytes, of the buffer pointed to by the <i>pvData</i> parameter. When the function returns, this variable contains the size of the data copied to <i>pvData</i>.
-     * @returns {Integer} Type: <b>DWORD</b>
+     * @returns {WIN32_ERROR} Type: <b>DWORD</b>
      * 
      * Returns ERROR_SUCCESS if successful, or a nonzero error code defined in Winerror.h otherwise. You can use the <a href="https://docs.microsoft.com/windows/desktop/api/winbase/nf-winbase-formatmessage">FormatMessage</a> function with the FORMAT_MESSAGE_FROM_SYSTEM flag to retrieve a generic description of the error.
      * @see https://learn.microsoft.com/windows/win32/api/shlwapi/nf-shlwapi-shqueryvalueexw
@@ -27034,7 +27203,9 @@ class Shell {
      * @remarks
      * > [!NOTE]
      * > The shlwapi.h header defines SHEnumKeyEx as an alias which automatically selects the ANSI or Unicode version of this function based on the definition of the UNICODE preprocessor constant. Mixing usage of the encoding-neutral alias with code that not encoding-neutral can lead to mismatches that result in compilation or runtime errors. For more information, see [Conventions for Function Prototypes](/windows/win32/intl/conventions-for-function-prototypes).
-     * @param {HKEY} _hkey 
+     * @param {HKEY} _hkey Type: <b>HKEY</b>
+     * 
+     * A handle to the currently open key, or any of the following predefined values.
      * @param {Integer} dwIndex Type: <b>DWORD</b>
      * 
      * The index of the subkey to retrieve. This parameter should be zero for the first call and incremented for subsequent calls.
@@ -27044,7 +27215,7 @@ class Shell {
      * @param {Pointer<Integer>} pcchName Type: <b>LPDWORD</b>
      * 
      * The address of a <b>DWORD</b> that, on entry, contains the size of the buffer at <i>pszName</i>, in characters. On exit, this contains the number of characters that were copied to <i>pszName</i>.
-     * @returns {Integer} Type: <b>LSTATUS</b>
+     * @returns {WIN32_ERROR} Type: <b>LSTATUS</b>
      * 
      * Returns ERROR_SUCCESS if successful, or a nonzero error code defined in Winerror.h otherwise. You can use the <a href="https://docs.microsoft.com/windows/desktop/api/winbase/nf-winbase-formatmessage">FormatMessage</a> function with the FORMAT_MESSAGE_FROM_SYSTEM flag to retrieve a textual description of the error.
      * @see https://learn.microsoft.com/windows/win32/api/shlwapi/nf-shlwapi-shenumkeyexa
@@ -27065,7 +27236,9 @@ class Shell {
      * @remarks
      * > [!NOTE]
      * > The shlwapi.h header defines SHEnumKeyEx as an alias which automatically selects the ANSI or Unicode version of this function based on the definition of the UNICODE preprocessor constant. Mixing usage of the encoding-neutral alias with code that not encoding-neutral can lead to mismatches that result in compilation or runtime errors. For more information, see [Conventions for Function Prototypes](/windows/win32/intl/conventions-for-function-prototypes).
-     * @param {HKEY} _hkey 
+     * @param {HKEY} _hkey Type: <b>HKEY</b>
+     * 
+     * A handle to the currently open key, or any of the following predefined values.
      * @param {Integer} dwIndex Type: <b>DWORD</b>
      * 
      * The index of the subkey to retrieve. This parameter should be zero for the first call and incremented for subsequent calls.
@@ -27075,7 +27248,7 @@ class Shell {
      * @param {Pointer<Integer>} pcchName Type: <b>LPDWORD</b>
      * 
      * The address of a <b>DWORD</b> that, on entry, contains the size of the buffer at <i>pszName</i>, in characters. On exit, this contains the number of characters that were copied to <i>pszName</i>.
-     * @returns {Integer} Type: <b>LSTATUS</b>
+     * @returns {WIN32_ERROR} Type: <b>LSTATUS</b>
      * 
      * Returns ERROR_SUCCESS if successful, or a nonzero error code defined in Winerror.h otherwise. You can use the <a href="https://docs.microsoft.com/windows/desktop/api/winbase/nf-winbase-formatmessage">FormatMessage</a> function with the FORMAT_MESSAGE_FROM_SYSTEM flag to retrieve a textual description of the error.
      * @see https://learn.microsoft.com/windows/win32/api/shlwapi/nf-shlwapi-shenumkeyexw
@@ -27096,7 +27269,9 @@ class Shell {
      * @remarks
      * > [!NOTE]
      * > The shlwapi.h header defines SHEnumValue as an alias which automatically selects the ANSI or Unicode version of this function based on the definition of the UNICODE preprocessor constant. Mixing usage of the encoding-neutral alias with code that not encoding-neutral can lead to mismatches that result in compilation or runtime errors. For more information, see [Conventions for Function Prototypes](/windows/win32/intl/conventions-for-function-prototypes).
-     * @param {HKEY} _hkey 
+     * @param {HKEY} _hkey Type: <b>HKEY</b>
+     * 
+     * A handle to the currently open key, or any of the following predefined values.
      * @param {Integer} dwIndex Type: <b>DWORD</b>
      * 
      * The index of the value to retrieve. This parameter should be zero for the first call and incremented for subsequent calls.
@@ -27109,13 +27284,13 @@ class Shell {
      * @param {Pointer<Integer>} pdwType Type: <b>LPDWORD</b>
      * 
      * The address of a <b>DWORD</b> that receives the data type of the value. These are the same values as those described under the <i>lpType</i> parameter of <a href="https://docs.microsoft.com/windows/desktop/api/winreg/nf-winreg-regenumvaluea">RegEnumValue</a>.
-     * @param {Pointer} pvData Type: <b>LPVOID</b>
+     * @param {Integer} pvData Type: <b>LPVOID</b>
      * 
      * The address of a buffer that receives the data for the value entry. The size of this buffer is specified in <i>pcbData</i>. This parameter can be <b>NULL</b> if the data is not required.
      * @param {Pointer<Integer>} pcbData Type: <b>LPDWORD</b>
      * 
      * The address of a <b>DWORD</b> that, on entry, contains the size of the buffer at <i>pvData</i>, in bytes. On exit, this contains the number of bytes that were copied to <i>pvData</i>.
-     * @returns {Integer} Type: <b>LSTATUS</b>
+     * @returns {WIN32_ERROR} Type: <b>LSTATUS</b>
      * 
      * Returns ERROR_SUCCESS if successful, or a nonzero error code defined in Winerror.h otherwise. You can use the <a href="https://docs.microsoft.com/windows/desktop/api/winbase/nf-winbase-formatmessage">FormatMessage</a> function with the FORMAT_MESSAGE_FROM_SYSTEM flag to retrieve a textual description of the error.
      * @see https://learn.microsoft.com/windows/win32/api/shlwapi/nf-shlwapi-shenumvaluea
@@ -27138,7 +27313,9 @@ class Shell {
      * @remarks
      * > [!NOTE]
      * > The shlwapi.h header defines SHEnumValue as an alias which automatically selects the ANSI or Unicode version of this function based on the definition of the UNICODE preprocessor constant. Mixing usage of the encoding-neutral alias with code that not encoding-neutral can lead to mismatches that result in compilation or runtime errors. For more information, see [Conventions for Function Prototypes](/windows/win32/intl/conventions-for-function-prototypes).
-     * @param {HKEY} _hkey 
+     * @param {HKEY} _hkey Type: <b>HKEY</b>
+     * 
+     * A handle to the currently open key, or any of the following predefined values.
      * @param {Integer} dwIndex Type: <b>DWORD</b>
      * 
      * The index of the value to retrieve. This parameter should be zero for the first call and incremented for subsequent calls.
@@ -27151,13 +27328,13 @@ class Shell {
      * @param {Pointer<Integer>} pdwType Type: <b>LPDWORD</b>
      * 
      * The address of a <b>DWORD</b> that receives the data type of the value. These are the same values as those described under the <i>lpType</i> parameter of <a href="https://docs.microsoft.com/windows/desktop/api/winreg/nf-winreg-regenumvaluea">RegEnumValue</a>.
-     * @param {Pointer} pvData Type: <b>LPVOID</b>
+     * @param {Integer} pvData Type: <b>LPVOID</b>
      * 
      * The address of a buffer that receives the data for the value entry. The size of this buffer is specified in <i>pcbData</i>. This parameter can be <b>NULL</b> if the data is not required.
      * @param {Pointer<Integer>} pcbData Type: <b>LPDWORD</b>
      * 
      * The address of a <b>DWORD</b> that, on entry, contains the size of the buffer at <i>pvData</i>, in bytes. On exit, this contains the number of bytes that were copied to <i>pvData</i>.
-     * @returns {Integer} Type: <b>LSTATUS</b>
+     * @returns {WIN32_ERROR} Type: <b>LSTATUS</b>
      * 
      * Returns ERROR_SUCCESS if successful, or a nonzero error code defined in Winerror.h otherwise. You can use the <a href="https://docs.microsoft.com/windows/desktop/api/winbase/nf-winbase-formatmessage">FormatMessage</a> function with the FORMAT_MESSAGE_FROM_SYSTEM flag to retrieve a textual description of the error.
      * @see https://learn.microsoft.com/windows/win32/api/shlwapi/nf-shlwapi-shenumvaluew
@@ -27180,7 +27357,9 @@ class Shell {
      * @remarks
      * > [!NOTE]
      * > The shlwapi.h header defines SHQueryInfoKey as an alias which automatically selects the ANSI or Unicode version of this function based on the definition of the UNICODE preprocessor constant. Mixing usage of the encoding-neutral alias with code that not encoding-neutral can lead to mismatches that result in compilation or runtime errors. For more information, see [Conventions for Function Prototypes](/windows/win32/intl/conventions-for-function-prototypes).
-     * @param {HKEY} _hkey 
+     * @param {HKEY} _hkey Type: <b>HKEY</b>
+     * 
+     * A handle to the currently open key, or any of the following predefined values.
      * @param {Pointer<Integer>} pcSubKeys Type: <b>LPDWORD</b>
      * 
      * The address of a <b>DWORD</b> that receives the number of subkeys under the specified key.
@@ -27193,7 +27372,7 @@ class Shell {
      * @param {Pointer<Integer>} pcchMaxValueNameLen Type: <b>LPDWORD</b>
      * 
      * The address of a <b>DWORD</b> that receives the number of characters in the name of the value with the largest name.
-     * @returns {Integer} Type: <b>LSTATUS</b>
+     * @returns {WIN32_ERROR} Type: <b>LSTATUS</b>
      * 
      * Returns ERROR_SUCCESS if successful, or a nonzero error code defined in Winerror.h otherwise. You can use the <a href="https://docs.microsoft.com/windows/desktop/api/winbase/nf-winbase-formatmessage">FormatMessage</a> function with the FORMAT_MESSAGE_FROM_SYSTEM flag to retrieve a textual description of the error.
      * @see https://learn.microsoft.com/windows/win32/api/shlwapi/nf-shlwapi-shqueryinfokeya
@@ -27216,7 +27395,9 @@ class Shell {
      * @remarks
      * > [!NOTE]
      * > The shlwapi.h header defines SHQueryInfoKey as an alias which automatically selects the ANSI or Unicode version of this function based on the definition of the UNICODE preprocessor constant. Mixing usage of the encoding-neutral alias with code that not encoding-neutral can lead to mismatches that result in compilation or runtime errors. For more information, see [Conventions for Function Prototypes](/windows/win32/intl/conventions-for-function-prototypes).
-     * @param {HKEY} _hkey 
+     * @param {HKEY} _hkey Type: <b>HKEY</b>
+     * 
+     * A handle to the currently open key, or any of the following predefined values.
      * @param {Pointer<Integer>} pcSubKeys Type: <b>LPDWORD</b>
      * 
      * The address of a <b>DWORD</b> that receives the number of subkeys under the specified key.
@@ -27229,7 +27410,7 @@ class Shell {
      * @param {Pointer<Integer>} pcchMaxValueNameLen Type: <b>LPDWORD</b>
      * 
      * The address of a <b>DWORD</b> that receives the number of characters in the name of the value with the largest name.
-     * @returns {Integer} Type: <b>LSTATUS</b>
+     * @returns {WIN32_ERROR} Type: <b>LSTATUS</b>
      * 
      * Returns ERROR_SUCCESS if successful, or a nonzero error code defined in Winerror.h otherwise. You can use the <a href="https://docs.microsoft.com/windows/desktop/api/winbase/nf-winbase-formatmessage">FormatMessage</a> function with the FORMAT_MESSAGE_FROM_SYSTEM flag to retrieve a textual description of the error.
      * @see https://learn.microsoft.com/windows/win32/api/shlwapi/nf-shlwapi-shqueryinfokeyw
@@ -27266,7 +27447,7 @@ class Shell {
      * @param {HKEY} hkeyDest Type: <b>HKEY</b>
      * 
      * The destination key.
-     * @returns {Integer} Type: <b>LSTATUS</b>
+     * @returns {WIN32_ERROR} Type: <b>LSTATUS</b>
      * 
      * Returns ERROR_SUCCESS if successful, or one of the nonzero error codes defined in Winerror.h otherwise. Use <a href="https://docs.microsoft.com/windows/desktop/api/winbase/nf-winbase-formatmessage">FormatMessage</a> with the FORMAT_MESSAGE_FROM_SYSTEM flag to retrieve a generic description of the error.
      * @see https://learn.microsoft.com/windows/win32/api/shlwapi/nf-shlwapi-shcopykeya
@@ -27302,7 +27483,7 @@ class Shell {
      * @param {HKEY} hkeyDest Type: <b>HKEY</b>
      * 
      * The destination key.
-     * @returns {Integer} Type: <b>LSTATUS</b>
+     * @returns {WIN32_ERROR} Type: <b>LSTATUS</b>
      * 
      * Returns ERROR_SUCCESS if successful, or one of the nonzero error codes defined in Winerror.h otherwise. Use <a href="https://docs.microsoft.com/windows/desktop/api/winbase/nf-winbase-formatmessage">FormatMessage</a> with the FORMAT_MESSAGE_FROM_SYSTEM flag to retrieve a generic description of the error.
      * @see https://learn.microsoft.com/windows/win32/api/shlwapi/nf-shlwapi-shcopykeyw
@@ -27366,7 +27547,9 @@ class Shell {
      * 
      * > [!NOTE]
      * > The shlwapi.h header defines SHRegGetPath as an alias which automatically selects the ANSI or Unicode version of this function based on the definition of the UNICODE preprocessor constant. Mixing usage of the encoding-neutral alias with code that not encoding-neutral can lead to mismatches that result in compilation or runtime errors. For more information, see [Conventions for Function Prototypes](/windows/win32/intl/conventions-for-function-prototypes).
-     * @param {HKEY} _hKey 
+     * @param {HKEY} _hKey Type: <b>HKEY</b>
+     * 
+     * A handle to a key that is currently open, or a registry root key.
      * @param {PSTR} pcszSubKey Type: <b>LPCTSTR</b>
      * 
      * A pointer to a null-terminated string that contains the name of the subkey.
@@ -27379,7 +27562,7 @@ class Shell {
      * @param {Integer} dwFlags Type: <b>DWORD</b>
      * 
      * Reserved.
-     * @returns {Integer} Type: <b>LSTATUS</b>
+     * @returns {WIN32_ERROR} Type: <b>LSTATUS</b>
      * 
      * Returns <b>ERROR_SUCCESS</b> if successful, or a Windows error code otherwise.
      * @see https://learn.microsoft.com/windows/win32/api/shlwapi/nf-shlwapi-shreggetpatha
@@ -27442,7 +27625,9 @@ class Shell {
      * 
      * > [!NOTE]
      * > The shlwapi.h header defines SHRegGetPath as an alias which automatically selects the ANSI or Unicode version of this function based on the definition of the UNICODE preprocessor constant. Mixing usage of the encoding-neutral alias with code that not encoding-neutral can lead to mismatches that result in compilation or runtime errors. For more information, see [Conventions for Function Prototypes](/windows/win32/intl/conventions-for-function-prototypes).
-     * @param {HKEY} _hKey 
+     * @param {HKEY} _hKey Type: <b>HKEY</b>
+     * 
+     * A handle to a key that is currently open, or a registry root key.
      * @param {PWSTR} pcszSubKey Type: <b>LPCTSTR</b>
      * 
      * A pointer to a null-terminated string that contains the name of the subkey.
@@ -27455,7 +27640,7 @@ class Shell {
      * @param {Integer} dwFlags Type: <b>DWORD</b>
      * 
      * Reserved.
-     * @returns {Integer} Type: <b>LSTATUS</b>
+     * @returns {WIN32_ERROR} Type: <b>LSTATUS</b>
      * 
      * Returns <b>ERROR_SUCCESS</b> if successful, or a Windows error code otherwise.
      * @see https://learn.microsoft.com/windows/win32/api/shlwapi/nf-shlwapi-shreggetpathw
@@ -27520,7 +27705,9 @@ class Shell {
      * 
      * > [!NOTE]
      * > The shlwapi.h header defines SHRegSetPath as an alias which automatically selects the ANSI or Unicode version of this function based on the definition of the UNICODE preprocessor constant. Mixing usage of the encoding-neutral alias with code that not encoding-neutral can lead to mismatches that result in compilation or runtime errors. For more information, see [Conventions for Function Prototypes](/windows/win32/intl/conventions-for-function-prototypes).
-     * @param {HKEY} _hKey 
+     * @param {HKEY} _hKey Type: <b>HKEY</b>
+     * 
+     * A handle to a key that is currently open, or a registry root key.
      * @param {PSTR} pcszSubKey Type: <b>LPCTSTR</b>
      * 
      * A pointer to a null-terminated string containing the name of an existing subkey. If the subkey does not exist, <b>SHRegSetPath</b> will fail.
@@ -27533,7 +27720,7 @@ class Shell {
      * @param {Integer} dwFlags Type: <b>DWORD</b>
      * 
      * Reserved.
-     * @returns {Integer} Type: <b>LSTATUS</b>
+     * @returns {WIN32_ERROR} Type: <b>LSTATUS</b>
      * 
      * Returns ERROR_SUCCESS if successful, or a Windows error code otherwise.
      * @see https://learn.microsoft.com/windows/win32/api/shlwapi/nf-shlwapi-shregsetpatha
@@ -27598,7 +27785,9 @@ class Shell {
      * 
      * > [!NOTE]
      * > The shlwapi.h header defines SHRegSetPath as an alias which automatically selects the ANSI or Unicode version of this function based on the definition of the UNICODE preprocessor constant. Mixing usage of the encoding-neutral alias with code that not encoding-neutral can lead to mismatches that result in compilation or runtime errors. For more information, see [Conventions for Function Prototypes](/windows/win32/intl/conventions-for-function-prototypes).
-     * @param {HKEY} _hKey 
+     * @param {HKEY} _hKey Type: <b>HKEY</b>
+     * 
+     * A handle to a key that is currently open, or a registry root key.
      * @param {PWSTR} pcszSubKey Type: <b>LPCTSTR</b>
      * 
      * A pointer to a null-terminated string containing the name of an existing subkey. If the subkey does not exist, <b>SHRegSetPath</b> will fail.
@@ -27611,7 +27800,7 @@ class Shell {
      * @param {Integer} dwFlags Type: <b>DWORD</b>
      * 
      * Reserved.
-     * @returns {Integer} Type: <b>LSTATUS</b>
+     * @returns {WIN32_ERROR} Type: <b>LSTATUS</b>
      * 
      * Returns ERROR_SUCCESS if successful, or a Windows error code otherwise.
      * @see https://learn.microsoft.com/windows/win32/api/shlwapi/nf-shlwapi-shregsetpathw
@@ -27650,7 +27839,7 @@ class Shell {
      * 
      * A pointer to an <b>HUSKEY</b> that will receive the handle to the new key.
      * @param {Integer} dwFlags Type: <b>DWORD</b>
-     * @returns {Integer} Type: <b>LSTATUS</b>
+     * @returns {WIN32_ERROR} Type: <b>LSTATUS</b>
      * 
      * Returns ERROR_SUCCESS if successful, or a nonzero error code defined in Winerror.h otherwise. You can use the <a href="https://docs.microsoft.com/windows/desktop/api/winbase/nf-winbase-formatmessage">FormatMessage</a> function with the FORMAT_MESSAGE_FROM_SYSTEM flag to retrieve a generic description of the error.
      * @see https://learn.microsoft.com/windows/win32/api/shlwapi/nf-shlwapi-shregcreateuskeya
@@ -27686,7 +27875,7 @@ class Shell {
      * 
      * A pointer to an <b>HUSKEY</b> that will receive the handle to the new key.
      * @param {Integer} dwFlags Type: <b>DWORD</b>
-     * @returns {Integer} Type: <b>LSTATUS</b>
+     * @returns {WIN32_ERROR} Type: <b>LSTATUS</b>
      * 
      * Returns ERROR_SUCCESS if successful, or a nonzero error code defined in Winerror.h otherwise. You can use the <a href="https://docs.microsoft.com/windows/desktop/api/winbase/nf-winbase-formatmessage">FormatMessage</a> function with the FORMAT_MESSAGE_FROM_SYSTEM flag to retrieve a generic description of the error.
      * @see https://learn.microsoft.com/windows/win32/api/shlwapi/nf-shlwapi-shregcreateuskeyw
@@ -27721,7 +27910,7 @@ class Shell {
      * @param {BOOL} fIgnoreHKCU Type: <b>BOOL</b>
      * 
      * The variable that specifies which key to look under. When set to <b>TRUE</b>, <b>SHRegOpenUSKey</b> ignores <b>HKEY_CURRENT_USER</b> and returns a value from <b>HKEY_LOCAL_MACHINE</b>.
-     * @returns {Integer} Type: <b>LSTATUS</b>
+     * @returns {WIN32_ERROR} Type: <b>LSTATUS</b>
      * 
      * Returns ERROR_SUCCESS if successful, or a nonzero error code defined in Winerror.h otherwise. You can use the <a href="https://docs.microsoft.com/windows/desktop/api/winbase/nf-winbase-formatmessage">FormatMessage</a> function with the FORMAT_MESSAGE_FROM_SYSTEM flag to retrieve a generic description of the error.
      * @see https://learn.microsoft.com/windows/win32/api/shlwapi/nf-shlwapi-shregopenuskeya
@@ -27754,7 +27943,7 @@ class Shell {
      * @param {BOOL} fIgnoreHKCU Type: <b>BOOL</b>
      * 
      * The variable that specifies which key to look under. When set to <b>TRUE</b>, <b>SHRegOpenUSKey</b> ignores <b>HKEY_CURRENT_USER</b> and returns a value from <b>HKEY_LOCAL_MACHINE</b>.
-     * @returns {Integer} Type: <b>LSTATUS</b>
+     * @returns {WIN32_ERROR} Type: <b>LSTATUS</b>
      * 
      * Returns ERROR_SUCCESS if successful, or a nonzero error code defined in Winerror.h otherwise. You can use the <a href="https://docs.microsoft.com/windows/desktop/api/winbase/nf-winbase-formatmessage">FormatMessage</a> function with the FORMAT_MESSAGE_FROM_SYSTEM flag to retrieve a generic description of the error.
      * @see https://learn.microsoft.com/windows/win32/api/shlwapi/nf-shlwapi-shregopenuskeyw
@@ -27794,7 +27983,7 @@ class Shell {
      * @param {Pointer<Integer>} pdwType Type: <b>LPDWORD*</b>
      * 
      * A pointer to the variable that sets or receives the key's value type. For more information, see <a href="https://docs.microsoft.com/windows/desktop/shell/hkey-type">Registry Data Types</a>. This parameter can be <b>NULL</b>.
-     * @param {Pointer} pvData Type: <b>LPVOID*</b>
+     * @param {Integer} pvData Type: <b>LPVOID*</b>
      * 
      * A pointer to the buffer that receives the value's data. This parameter can be <b>NULL</b> if the data is not required.
      * @param {Pointer<Integer>} pcbData Type: <b>LPDWORD*</b>
@@ -27803,13 +27992,13 @@ class Shell {
      * @param {BOOL} fIgnoreHKCU Type: <b>BOOL</b>
      * 
      * The variable that specifies which key to look under. When set to <b>TRUE</b>, <b>SHRegQueryUSValue</b> ignores <b>HKEY_CURRENT_USER</b> and returns the value from the key under <b>HKEY_LOCAL_MACHINE</b>.
-     * @param {Pointer} pvDefaultData Type: <b>LPVOID*</b>
+     * @param {Integer} pvDefaultData Type: <b>LPVOID*</b>
      * 
      * A pointer to the default data.
      * @param {Integer} dwDefaultDataSize Type: <b>DWORD</b>
      * 
      * The length, in bytes, of the default data.
-     * @returns {Integer} Type: <b>LSTATUS</b>
+     * @returns {WIN32_ERROR} Type: <b>LSTATUS</b>
      * 
      * Returns ERROR_SUCCESS if successful, or a nonzero error code defined in Winerror.h otherwise. You can use the <a href="https://docs.microsoft.com/windows/desktop/api/winbase/nf-winbase-formatmessage">FormatMessage</a> function with the FORMAT_MESSAGE_FROM_SYSTEM flag to retrieve a generic description of the error.
      * @see https://learn.microsoft.com/windows/win32/api/shlwapi/nf-shlwapi-shregqueryusvaluea
@@ -27850,7 +28039,7 @@ class Shell {
      * @param {Pointer<Integer>} pdwType Type: <b>LPDWORD*</b>
      * 
      * A pointer to the variable that sets or receives the key's value type. For more information, see <a href="https://docs.microsoft.com/windows/desktop/shell/hkey-type">Registry Data Types</a>. This parameter can be <b>NULL</b>.
-     * @param {Pointer} pvData Type: <b>LPVOID*</b>
+     * @param {Integer} pvData Type: <b>LPVOID*</b>
      * 
      * A pointer to the buffer that receives the value's data. This parameter can be <b>NULL</b> if the data is not required.
      * @param {Pointer<Integer>} pcbData Type: <b>LPDWORD*</b>
@@ -27859,13 +28048,13 @@ class Shell {
      * @param {BOOL} fIgnoreHKCU Type: <b>BOOL</b>
      * 
      * The variable that specifies which key to look under. When set to <b>TRUE</b>, <b>SHRegQueryUSValue</b> ignores <b>HKEY_CURRENT_USER</b> and returns the value from the key under <b>HKEY_LOCAL_MACHINE</b>.
-     * @param {Pointer} pvDefaultData Type: <b>LPVOID*</b>
+     * @param {Integer} pvDefaultData Type: <b>LPVOID*</b>
      * 
      * A pointer to the default data.
      * @param {Integer} dwDefaultDataSize Type: <b>DWORD</b>
      * 
      * The length, in bytes, of the default data.
-     * @returns {Integer} Type: <b>LSTATUS</b>
+     * @returns {WIN32_ERROR} Type: <b>LSTATUS</b>
      * 
      * Returns ERROR_SUCCESS if successful, or a nonzero error code defined in Winerror.h otherwise. You can use the <a href="https://docs.microsoft.com/windows/desktop/api/winbase/nf-winbase-formatmessage">FormatMessage</a> function with the FORMAT_MESSAGE_FROM_SYSTEM flag to retrieve a generic description of the error.
      * @see https://learn.microsoft.com/windows/win32/api/shlwapi/nf-shlwapi-shregqueryusvaluew
@@ -27913,14 +28102,14 @@ class Shell {
      * @param {Integer} dwType Type: <b>DWORD</b>
      * 
      * The type of the data to be stored in the value specified by <i>pszValue</i>. One of the following registry value types defined in Winnt.h and Wdm.h.
-     * @param {Pointer} pvData Type: <b>const void*</b>
+     * @param {Integer} pvData Type: <b>const void*</b>
      * 
      * A pointer to the data to be set for the value specified by <i>pszValue</i>. For string-based types, such as REG_SZ, the string must be null-terminated. With the REG_MULTI_SZ data type, the string must be terminated with two null characters. A backslash in a path must be preceded by another backslash as an escape character. For example, specify "C:\\mydir\\myfile" to store the string "C:\mydir\myfile".
      * @param {Integer} cbData Type: <b>DWORD</b>
      * 
      * The size, in bytes, of the data pointed to by the <i>pvData</i> parameter. If the data is of type REG_SZ, REG_EXPAND_SZ, or REG_MULTI_SZ, <i>cbData</i> must include the size of the terminating null character or characters.
      * @param {Integer} dwFlags Type: <b>DWORD</b>
-     * @returns {Integer} Type: <b>LSTATUS</b>
+     * @returns {WIN32_ERROR} Type: <b>LSTATUS</b>
      * 
      * Returns ERROR_SUCCESS if successful; otherwise, a nonzero error code defined in Winerror.h. You can use the <a href="https://docs.microsoft.com/windows/desktop/api/winbase/nf-winbase-formatmessage">FormatMessage</a> function with the FORMAT_MESSAGE_FROM_SYSTEM flag to retrieve a generic description of the error.
      * @see https://learn.microsoft.com/windows/win32/api/shlwapi/nf-shlwapi-shregwriteusvaluea
@@ -27959,14 +28148,14 @@ class Shell {
      * @param {Integer} dwType Type: <b>DWORD</b>
      * 
      * The type of the data to be stored in the value specified by <i>pszValue</i>. One of the following registry value types defined in Winnt.h and Wdm.h.
-     * @param {Pointer} pvData Type: <b>const void*</b>
+     * @param {Integer} pvData Type: <b>const void*</b>
      * 
      * A pointer to the data to be set for the value specified by <i>pszValue</i>. For string-based types, such as REG_SZ, the string must be null-terminated. With the REG_MULTI_SZ data type, the string must be terminated with two null characters. A backslash in a path must be preceded by another backslash as an escape character. For example, specify "C:\\mydir\\myfile" to store the string "C:\mydir\myfile".
      * @param {Integer} cbData Type: <b>DWORD</b>
      * 
      * The size, in bytes, of the data pointed to by the <i>pvData</i> parameter. If the data is of type REG_SZ, REG_EXPAND_SZ, or REG_MULTI_SZ, <i>cbData</i> must include the size of the terminating null character or characters.
      * @param {Integer} dwFlags Type: <b>DWORD</b>
-     * @returns {Integer} Type: <b>LSTATUS</b>
+     * @returns {WIN32_ERROR} Type: <b>LSTATUS</b>
      * 
      * Returns ERROR_SUCCESS if successful; otherwise, a nonzero error code defined in Winerror.h. You can use the <a href="https://docs.microsoft.com/windows/desktop/api/winbase/nf-winbase-formatmessage">FormatMessage</a> function with the FORMAT_MESSAGE_FROM_SYSTEM flag to retrieve a generic description of the error.
      * @see https://learn.microsoft.com/windows/win32/api/shlwapi/nf-shlwapi-shregwriteusvaluew
@@ -27994,10 +28183,10 @@ class Shell {
      * @param {PSTR} pszValue Type: <b>LPCTSTR</b>
      * 
      * A pointer to the null-terminated string that names the value to remove.
-     * @param {Integer} delRegFlags Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/shlwapi/ne-shlwapi-shregdel_flags">SHREGDEL_FLAGS</a></b>
+     * @param {SHREGDEL_FLAGS} delRegFlags Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/shlwapi/ne-shlwapi-shregdel_flags">SHREGDEL_FLAGS</a></b>
      * 
      * One of the <a href="https://docs.microsoft.com/windows/desktop/api/shlwapi/ne-shlwapi-shregdel_flags">SHREGDEL_FLAGS</a> that specifies from which base key the value will be deleted.
-     * @returns {Integer} Type: <b>LSTATUS</b>
+     * @returns {WIN32_ERROR} Type: <b>LSTATUS</b>
      * 
      * Returns ERROR_SUCCESS if successful, or a nonzero error code defined in Winerror.h otherwise. You can use the <a href="https://docs.microsoft.com/windows/desktop/api/winbase/nf-winbase-formatmessage">FormatMessage</a> function with the FORMAT_MESSAGE_FROM_SYSTEM flag to retrieve a generic description of the error.
      * @see https://learn.microsoft.com/windows/win32/api/shlwapi/nf-shlwapi-shregdeleteusvaluea
@@ -28023,10 +28212,10 @@ class Shell {
      * 
      * This handle can be obtained through the <a href="https://docs.microsoft.com/windows/desktop/api/shlwapi/nf-shlwapi-shregopenuskeya">SHRegOpenUSKey</a> function.
      * @param {PWSTR} pwzValue TBD
-     * @param {Integer} delRegFlags Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/shlwapi/ne-shlwapi-shregdel_flags">SHREGDEL_FLAGS</a></b>
+     * @param {SHREGDEL_FLAGS} delRegFlags Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/shlwapi/ne-shlwapi-shregdel_flags">SHREGDEL_FLAGS</a></b>
      * 
      * One of the <a href="https://docs.microsoft.com/windows/desktop/api/shlwapi/ne-shlwapi-shregdel_flags">SHREGDEL_FLAGS</a> that specifies from which base key the value will be deleted.
-     * @returns {Integer} Type: <b>LSTATUS</b>
+     * @returns {WIN32_ERROR} Type: <b>LSTATUS</b>
      * 
      * Returns ERROR_SUCCESS if successful, or a nonzero error code defined in Winerror.h otherwise. You can use the <a href="https://docs.microsoft.com/windows/desktop/api/winbase/nf-winbase-formatmessage">FormatMessage</a> function with the FORMAT_MESSAGE_FROM_SYSTEM flag to retrieve a generic description of the error.
      * @see https://learn.microsoft.com/windows/win32/api/shlwapi/nf-shlwapi-shregdeleteusvaluew
@@ -28052,10 +28241,10 @@ class Shell {
      * 
      * This handle can be obtained through the <a href="https://docs.microsoft.com/windows/desktop/api/shlwapi/nf-shlwapi-shregopenuskeya">SHRegOpenUSKey</a> function.
      * @param {PWSTR} pwzSubKey TBD
-     * @param {Integer} delRegFlags Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/shlwapi/ne-shlwapi-shregdel_flags">SHREGDEL_FLAGS</a></b>
+     * @param {SHREGDEL_FLAGS} delRegFlags Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/shlwapi/ne-shlwapi-shregdel_flags">SHREGDEL_FLAGS</a></b>
      * 
      * One of the <a href="https://docs.microsoft.com/windows/desktop/api/shlwapi/ne-shlwapi-shregdel_flags">SHREGDEL_FLAGS</a> that specifies from which base key the subkey will be deleted.
-     * @returns {Integer} Type: <b>LSTATUS</b>
+     * @returns {WIN32_ERROR} Type: <b>LSTATUS</b>
      * 
      * Returns ERROR_SUCCESS if successful, or a nonzero error code defined in Winerror.h otherwise. You can use the <a href="https://docs.microsoft.com/windows/desktop/api/winbase/nf-winbase-formatmessage">FormatMessage</a> function with the FORMAT_MESSAGE_FROM_SYSTEM flag to retrieve a generic description of the error.
      * @see https://learn.microsoft.com/windows/win32/api/shlwapi/nf-shlwapi-shregdeleteemptyuskeyw
@@ -28083,10 +28272,10 @@ class Shell {
      * @param {PSTR} pszSubKey Type: <b>LPCSTR</b>
      * 
      * A pointer to  the null-terminated string that specifies the empty user-defined registry subkey to be deleted.
-     * @param {Integer} delRegFlags Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/shlwapi/ne-shlwapi-shregdel_flags">SHREGDEL_FLAGS</a></b>
+     * @param {SHREGDEL_FLAGS} delRegFlags Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/shlwapi/ne-shlwapi-shregdel_flags">SHREGDEL_FLAGS</a></b>
      * 
      * One of the <a href="https://docs.microsoft.com/windows/desktop/api/shlwapi/ne-shlwapi-shregdel_flags">SHREGDEL_FLAGS</a> that specifies from which base key the subkey will be deleted.
-     * @returns {Integer} Type: <b>LSTATUS</b>
+     * @returns {WIN32_ERROR} Type: <b>LSTATUS</b>
      * 
      * Returns ERROR_SUCCESS if successful, or a nonzero error code defined in Winerror.h otherwise. You can use the <a href="https://docs.microsoft.com/windows/desktop/api/winbase/nf-winbase-formatmessage">FormatMessage</a> function with the FORMAT_MESSAGE_FROM_SYSTEM flag to retrieve a generic description of the error.
      * @see https://learn.microsoft.com/windows/win32/api/shlwapi/nf-shlwapi-shregdeleteemptyuskeya
@@ -28120,10 +28309,10 @@ class Shell {
      * @param {Pointer<Integer>} pcchName Type: <b>LPDWORD</b>
      * 
      * A pointer to  a DWORD that, on entry, contains the size of the buffer at <i>pszName</i>, in characters. On exit, this contains the number of characters that were copied to <i>pszName</i>.
-     * @param {Integer} enumRegFlags Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/shlwapi/ne-shlwapi-shregenum_flags">SHREGENUM_FLAGS</a></b>
+     * @param {SHREGENUM_FLAGS} enumRegFlags Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/shlwapi/ne-shlwapi-shregenum_flags">SHREGENUM_FLAGS</a></b>
      * 
      * A <a href="https://docs.microsoft.com/windows/desktop/api/shlwapi/ne-shlwapi-shregenum_flags">SHREGENUM_FLAGS</a> that specifies the base key in which the enumeration should take place.
-     * @returns {Integer} Type: <b>LSTATUS</b>
+     * @returns {WIN32_ERROR} Type: <b>LSTATUS</b>
      * 
      * Returns ERROR_SUCCESS if successful, or a nonzero error code defined in Winerror.h otherwise. You can use the <a href="https://docs.microsoft.com/windows/desktop/api/winbase/nf-winbase-formatmessage">FormatMessage</a> function with the FORMAT_MESSAGE_FROM_SYSTEM flag to retrieve a textual description of the error.
      * @see https://learn.microsoft.com/windows/win32/api/shlwapi/nf-shlwapi-shregenumuskeya
@@ -28157,10 +28346,10 @@ class Shell {
      * @param {Pointer<Integer>} pcchName Type: <b>LPDWORD</b>
      * 
      * A pointer to  a DWORD that, on entry, contains the size of the buffer at <i>pszName</i>, in characters. On exit, this contains the number of characters that were copied to <i>pszName</i>.
-     * @param {Integer} enumRegFlags Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/shlwapi/ne-shlwapi-shregenum_flags">SHREGENUM_FLAGS</a></b>
+     * @param {SHREGENUM_FLAGS} enumRegFlags Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/shlwapi/ne-shlwapi-shregenum_flags">SHREGENUM_FLAGS</a></b>
      * 
      * A <a href="https://docs.microsoft.com/windows/desktop/api/shlwapi/ne-shlwapi-shregenum_flags">SHREGENUM_FLAGS</a> that specifies the base key in which the enumeration should take place.
-     * @returns {Integer} Type: <b>LSTATUS</b>
+     * @returns {WIN32_ERROR} Type: <b>LSTATUS</b>
      * 
      * Returns ERROR_SUCCESS if successful, or a nonzero error code defined in Winerror.h otherwise. You can use the <a href="https://docs.microsoft.com/windows/desktop/api/winbase/nf-winbase-formatmessage">FormatMessage</a> function with the FORMAT_MESSAGE_FROM_SYSTEM flag to retrieve a textual description of the error.
      * @see https://learn.microsoft.com/windows/win32/api/shlwapi/nf-shlwapi-shregenumuskeyw
@@ -28199,16 +28388,16 @@ class Shell {
      * @param {Pointer<Integer>} pdwType Type: <b>LPDWORD</b>
      * 
      * A pointer to a <b>DWORD</b> that receives the data type of the value. These are the same values as those described under the <i>lpType</i> parameter of <a href="https://docs.microsoft.com/windows/desktop/api/winreg/nf-winreg-regenumvaluea">RegEnumValue</a>.
-     * @param {Pointer} pvData Type: <b>void*</b>
+     * @param {Integer} pvData Type: <b>void*</b>
      * 
      * A pointer to a buffer that receives the data for the value entry. The size of this buffer is specified in <i>pcbData</i>. This parameter can be <b>NULL</b> if the data is not required.
      * @param {Pointer<Integer>} pcbData Type: <b>LPDWORD</b>
      * 
      * A pointer to a <b>DWORD</b> that, on entry, contains the size of the buffer at <i>pvData</i>. On exit, this contains the number of bytes that were copied to <i>pvData</i>.
-     * @param {Integer} enumRegFlags Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/shlwapi/ne-shlwapi-shregenum_flags">SHREGENUM_FLAGS</a></b>
+     * @param {SHREGENUM_FLAGS} enumRegFlags Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/shlwapi/ne-shlwapi-shregenum_flags">SHREGENUM_FLAGS</a></b>
      * 
      * One of the <a href="https://docs.microsoft.com/windows/desktop/api/shlwapi/ne-shlwapi-shregenum_flags">SHREGENUM_FLAGS</a> that specifies the base key in which the enumeration should take place.
-     * @returns {Integer} Type: <b>LSTATUS</b>
+     * @returns {WIN32_ERROR} Type: <b>LSTATUS</b>
      * 
      * Returns <b>ERROR_SUCCESS</b> if successful, or a nonzero error code defined in Winerror.h otherwise. You can use the <a href="https://docs.microsoft.com/windows/desktop/api/winbase/nf-winbase-formatmessage">FormatMessage</a> function with the <b>FORMAT_MESSAGE_FROM_SYSTEM</b> flag to retrieve a textual description of the error.
      * @see https://learn.microsoft.com/windows/win32/api/shlwapi/nf-shlwapi-shregenumusvaluea
@@ -28249,16 +28438,16 @@ class Shell {
      * @param {Pointer<Integer>} pdwType Type: <b>LPDWORD</b>
      * 
      * A pointer to a <b>DWORD</b> that receives the data type of the value. These are the same values as those described under the <i>lpType</i> parameter of <a href="https://docs.microsoft.com/windows/desktop/api/winreg/nf-winreg-regenumvaluea">RegEnumValue</a>.
-     * @param {Pointer} pvData Type: <b>void*</b>
+     * @param {Integer} pvData Type: <b>void*</b>
      * 
      * A pointer to a buffer that receives the data for the value entry. The size of this buffer is specified in <i>pcbData</i>. This parameter can be <b>NULL</b> if the data is not required.
      * @param {Pointer<Integer>} pcbData Type: <b>LPDWORD</b>
      * 
      * A pointer to a <b>DWORD</b> that, on entry, contains the size of the buffer at <i>pvData</i>. On exit, this contains the number of bytes that were copied to <i>pvData</i>.
-     * @param {Integer} enumRegFlags Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/shlwapi/ne-shlwapi-shregenum_flags">SHREGENUM_FLAGS</a></b>
+     * @param {SHREGENUM_FLAGS} enumRegFlags Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/shlwapi/ne-shlwapi-shregenum_flags">SHREGENUM_FLAGS</a></b>
      * 
      * One of the <a href="https://docs.microsoft.com/windows/desktop/api/shlwapi/ne-shlwapi-shregenum_flags">SHREGENUM_FLAGS</a> that specifies the base key in which the enumeration should take place.
-     * @returns {Integer} Type: <b>LSTATUS</b>
+     * @returns {WIN32_ERROR} Type: <b>LSTATUS</b>
      * 
      * Returns <b>ERROR_SUCCESS</b> if successful, or a nonzero error code defined in Winerror.h otherwise. You can use the <a href="https://docs.microsoft.com/windows/desktop/api/winbase/nf-winbase-formatmessage">FormatMessage</a> function with the <b>FORMAT_MESSAGE_FROM_SYSTEM</b> flag to retrieve a textual description of the error.
      * @see https://learn.microsoft.com/windows/win32/api/shlwapi/nf-shlwapi-shregenumusvaluew
@@ -28299,10 +28488,10 @@ class Shell {
      * @param {Pointer<Integer>} pcchMaxValueNameLen Type: <b>LPDWORD</b>
      * 
      * A pointer to a <b>DWORD</b> that receives the number of characters in the largest value name.
-     * @param {Integer} enumRegFlags Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/shlwapi/ne-shlwapi-shregenum_flags">SHREGENUM_FLAGS</a></b>
+     * @param {SHREGENUM_FLAGS} enumRegFlags Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/shlwapi/ne-shlwapi-shregenum_flags">SHREGENUM_FLAGS</a></b>
      * 
      * One of the <a href="https://docs.microsoft.com/windows/desktop/api/shlwapi/ne-shlwapi-shregenum_flags">SHREGENUM_FLAGS</a> that specifies the base key in which the query should take place.
-     * @returns {Integer} Type: <b>LSTATUS</b>
+     * @returns {WIN32_ERROR} Type: <b>LSTATUS</b>
      * 
      * Returns ERROR_SUCCESS if successful, or a nonzero error code defined in Winerror.h otherwise. You can use the <a href="https://docs.microsoft.com/windows/desktop/api/winbase/nf-winbase-formatmessage">FormatMessage</a> function with the FORMAT_MESSAGE_FROM_SYSTEM flag to retrieve a textual description of the error.
      * @see https://learn.microsoft.com/windows/win32/api/shlwapi/nf-shlwapi-shregqueryinfouskeya
@@ -28342,10 +28531,10 @@ class Shell {
      * @param {Pointer<Integer>} pcchMaxValueNameLen Type: <b>LPDWORD</b>
      * 
      * A pointer to a <b>DWORD</b> that receives the number of characters in the largest value name.
-     * @param {Integer} enumRegFlags Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/shlwapi/ne-shlwapi-shregenum_flags">SHREGENUM_FLAGS</a></b>
+     * @param {SHREGENUM_FLAGS} enumRegFlags Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/shlwapi/ne-shlwapi-shregenum_flags">SHREGENUM_FLAGS</a></b>
      * 
      * One of the <a href="https://docs.microsoft.com/windows/desktop/api/shlwapi/ne-shlwapi-shregenum_flags">SHREGENUM_FLAGS</a> that specifies the base key in which the query should take place.
-     * @returns {Integer} Type: <b>LSTATUS</b>
+     * @returns {WIN32_ERROR} Type: <b>LSTATUS</b>
      * 
      * Returns ERROR_SUCCESS if successful, or a nonzero error code defined in Winerror.h otherwise. You can use the <a href="https://docs.microsoft.com/windows/desktop/api/winbase/nf-winbase-formatmessage">FormatMessage</a> function with the FORMAT_MESSAGE_FROM_SYSTEM flag to retrieve a textual description of the error.
      * @see https://learn.microsoft.com/windows/win32/api/shlwapi/nf-shlwapi-shregqueryinfouskeyw
@@ -28370,7 +28559,7 @@ class Shell {
      *                         
      * 
      * This handle can be obtained through the <a href="https://docs.microsoft.com/windows/desktop/api/shlwapi/nf-shlwapi-shregopenuskeya">SHRegOpenUSKey</a> function.
-     * @returns {Integer} Type: <b>LSTATUS</b>
+     * @returns {WIN32_ERROR} Type: <b>LSTATUS</b>
      * 
      * Returns ERROR_SUCCESS if successful, or a nonzero error code defined in Winerror.h otherwise. Use <a href="https://docs.microsoft.com/windows/desktop/api/winbase/nf-winbase-formatmessage">FormatMessage</a> with the FORMAT_MESSAGE_FROM_SYSTEM flag to retrieve a generic description of the error.
      * @see https://learn.microsoft.com/windows/win32/api/shlwapi/nf-shlwapi-shregcloseuskey
@@ -28402,7 +28591,7 @@ class Shell {
      * @param {Pointer<Integer>} pdwType Type: <b>DWORD*</b>
      * 
      * A pointer to a <b>DWORD</b> that receives the type of data stored in the retrieved value. When using default values, the input <i>pdwType</i> is the type of the default value. For possible values, see <a href="https://docs.microsoft.com/windows/desktop/shell/hkey-type">Registry Data Types</a>. If type information is not required, this parameter can be <b>NULL</b>.
-     * @param {Pointer} pvData Type: <b>void*</b>
+     * @param {Integer} pvData Type: <b>void*</b>
      * 
      * A pointer to a buffer that receives the value's data.
      * @param {Pointer<Integer>} pcbData Type: <b>DWORD*</b>
@@ -28411,13 +28600,13 @@ class Shell {
      * @param {BOOL} fIgnoreHKCU Type: <b>BOOL</b>
      * 
      * A variable that specifies which key to look under. When set to <b>TRUE</b>, <b>SHRegGetUSValue</b> ignores <b>HKEY_CURRENT_USER</b> and returns the value from the key under <b>HKEY_LOCAL_MACHINE</b>.
-     * @param {Pointer} pvDefaultData Type: <b>void*</b>
+     * @param {Integer} pvDefaultData Type: <b>void*</b>
      * 
      * A pointer to a buffer that receives the value's default data.
      * @param {Integer} dwDefaultDataSize Type: <b>DWORD</b>
      * 
      * The length, in bytes, of the buffer pointed to by <i>pvDefaultData</i>.
-     * @returns {Integer} Type: <b>LSTATUS</b>
+     * @returns {WIN32_ERROR} Type: <b>LSTATUS</b>
      * 
      * Returns ERROR_SUCCESS if successful, or a nonzero error code defined in Winerror.h otherwise. You can use the <a href="https://docs.microsoft.com/windows/desktop/api/winbase/nf-winbase-formatmessage">FormatMessage</a> function with the FORMAT_MESSAGE_FROM_SYSTEM flag to retrieve a generic description of the error.
      * @see https://learn.microsoft.com/windows/win32/api/shlwapi/nf-shlwapi-shreggetusvaluea
@@ -28455,7 +28644,7 @@ class Shell {
      * @param {Pointer<Integer>} pdwType Type: <b>DWORD*</b>
      * 
      * A pointer to a <b>DWORD</b> that receives the type of data stored in the retrieved value. When using default values, the input <i>pdwType</i> is the type of the default value. For possible values, see <a href="https://docs.microsoft.com/windows/desktop/shell/hkey-type">Registry Data Types</a>. If type information is not required, this parameter can be <b>NULL</b>.
-     * @param {Pointer} pvData Type: <b>void*</b>
+     * @param {Integer} pvData Type: <b>void*</b>
      * 
      * A pointer to a buffer that receives the value's data.
      * @param {Pointer<Integer>} pcbData Type: <b>DWORD*</b>
@@ -28464,13 +28653,13 @@ class Shell {
      * @param {BOOL} fIgnoreHKCU Type: <b>BOOL</b>
      * 
      * A variable that specifies which key to look under. When set to <b>TRUE</b>, <b>SHRegGetUSValue</b> ignores <b>HKEY_CURRENT_USER</b> and returns the value from the key under <b>HKEY_LOCAL_MACHINE</b>.
-     * @param {Pointer} pvDefaultData Type: <b>void*</b>
+     * @param {Integer} pvDefaultData Type: <b>void*</b>
      * 
      * A pointer to a buffer that receives the value's default data.
      * @param {Integer} dwDefaultDataSize Type: <b>DWORD</b>
      * 
      * The length, in bytes, of the buffer pointed to by <i>pvDefaultData</i>.
-     * @returns {Integer} Type: <b>LSTATUS</b>
+     * @returns {WIN32_ERROR} Type: <b>LSTATUS</b>
      * 
      * Returns ERROR_SUCCESS if successful, or a nonzero error code defined in Winerror.h otherwise. You can use the <a href="https://docs.microsoft.com/windows/desktop/api/winbase/nf-winbase-formatmessage">FormatMessage</a> function with the FORMAT_MESSAGE_FROM_SYSTEM flag to retrieve a generic description of the error.
      * @see https://learn.microsoft.com/windows/win32/api/shlwapi/nf-shlwapi-shreggetusvaluew
@@ -28506,7 +28695,7 @@ class Shell {
      * @param {Integer} dwType Type: <b>DWORD</b>
      * 
      * Type of data to be stored. This parameter must be the <b>REG_SZ</b> type. For more information, see <a href="https://docs.microsoft.com/windows/desktop/shell/hkey-type">Registry Data Types</a>.
-     * @param {Pointer} pvData Type: <b>LPVOID*</b>
+     * @param {Integer} pvData Type: <b>LPVOID*</b>
      * 
      *  Apointer to a null-terminated string that contains the value to be set for the specified key.
      * @param {Integer} cbData Type: <b>DWORD</b>
@@ -28515,7 +28704,7 @@ class Shell {
      * @param {Integer} dwFlags Type: <b>DWORD</b>
      * 
      * Flags indicating where the data should be written.
-     * @returns {Integer} Type: <b>LSTATUS</b>
+     * @returns {WIN32_ERROR} Type: <b>LSTATUS</b>
      * 
      * Returns ERROR_SUCCESS if successful, or a nonzero error code defined in Winerror.h otherwise. You can use the <a href="https://docs.microsoft.com/windows/desktop/api/winbase/nf-winbase-formatmessage">FormatMessage</a> function with the FORMAT_MESSAGE_FROM_SYSTEM flag to retrieve a generic description of the error.
      * @see https://learn.microsoft.com/windows/win32/api/shlwapi/nf-shlwapi-shregsetusvaluea
@@ -28544,7 +28733,7 @@ class Shell {
      * @param {Integer} dwType Type: <b>DWORD</b>
      * 
      * Type of data to be stored. This parameter must be the <b>REG_SZ</b> type. For more information, see <a href="https://docs.microsoft.com/windows/desktop/shell/hkey-type">Registry Data Types</a>.
-     * @param {Pointer} pvData Type: <b>LPVOID*</b>
+     * @param {Integer} pvData Type: <b>LPVOID*</b>
      * 
      *  Apointer to a null-terminated string that contains the value to be set for the specified key.
      * @param {Integer} cbData Type: <b>DWORD</b>
@@ -28553,7 +28742,7 @@ class Shell {
      * @param {Integer} dwFlags Type: <b>DWORD</b>
      * 
      * Flags indicating where the data should be written.
-     * @returns {Integer} Type: <b>LSTATUS</b>
+     * @returns {WIN32_ERROR} Type: <b>LSTATUS</b>
      * 
      * Returns ERROR_SUCCESS if successful, or a nonzero error code defined in Winerror.h otherwise. You can use the <a href="https://docs.microsoft.com/windows/desktop/api/winbase/nf-winbase-formatmessage">FormatMessage</a> function with the FORMAT_MESSAGE_FROM_SYSTEM flag to retrieve a generic description of the error.
      * @see https://learn.microsoft.com/windows/win32/api/shlwapi/nf-shlwapi-shregsetusvaluew
@@ -28691,10 +28880,10 @@ class Shell {
      * 
      * > [!NOTE]
      * > The shlwapi.h header defines AssocQueryString as an alias which automatically selects the ANSI or Unicode version of this function based on the definition of the UNICODE preprocessor constant. Mixing usage of the encoding-neutral alias with code that not encoding-neutral can lead to mismatches that result in compilation or runtime errors. For more information, see [Conventions for Function Prototypes](/windows/win32/intl/conventions-for-function-prototypes).
-     * @param {Integer} flags Type: <b><a href="https://docs.microsoft.com/windows/win32/shell/assocf_str">ASSOCF</a></b>
+     * @param {ASSOCF} flags Type: <b><a href="https://docs.microsoft.com/windows/win32/shell/assocf_str">ASSOCF</a></b>
      * 
      * The flags that can be used to control the search. It can be any combination of <a href="https://docs.microsoft.com/windows/win32/shell/assocf_str">ASSOCF</a> values, except that only one ASSOCF_INIT value can be included.
-     * @param {Integer} str Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/shlwapi/ne-shlwapi-assocstr">ASSOCSTR</a></b>
+     * @param {ASSOCSTR} str Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/shlwapi/ne-shlwapi-assocstr">ASSOCSTR</a></b>
      * 
      * The <a href="https://docs.microsoft.com/windows/desktop/api/shlwapi/ne-shlwapi-assocstr">ASSOCSTR</a> value that specifies the type of string that is to be returned.
      * @param {PSTR} pszAssoc Type: <b>LPCTSTR</b>
@@ -28763,10 +28952,10 @@ class Shell {
      * 
      * > [!NOTE]
      * > The shlwapi.h header defines AssocQueryString as an alias which automatically selects the ANSI or Unicode version of this function based on the definition of the UNICODE preprocessor constant. Mixing usage of the encoding-neutral alias with code that not encoding-neutral can lead to mismatches that result in compilation or runtime errors. For more information, see [Conventions for Function Prototypes](/windows/win32/intl/conventions-for-function-prototypes).
-     * @param {Integer} flags Type: <b><a href="https://docs.microsoft.com/windows/win32/shell/assocf_str">ASSOCF</a></b>
+     * @param {ASSOCF} flags Type: <b><a href="https://docs.microsoft.com/windows/win32/shell/assocf_str">ASSOCF</a></b>
      * 
      * The flags that can be used to control the search. It can be any combination of <a href="https://docs.microsoft.com/windows/win32/shell/assocf_str">ASSOCF</a> values, except that only one ASSOCF_INIT value can be included.
-     * @param {Integer} str Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/shlwapi/ne-shlwapi-assocstr">ASSOCSTR</a></b>
+     * @param {ASSOCSTR} str Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/shlwapi/ne-shlwapi-assocstr">ASSOCSTR</a></b>
      * 
      * The <a href="https://docs.microsoft.com/windows/desktop/api/shlwapi/ne-shlwapi-assocstr">ASSOCSTR</a> value that specifies the type of string that is to be returned.
      * @param {PWSTR} pszAssoc Type: <b>LPCTSTR</b>
@@ -28833,10 +29022,10 @@ class Shell {
      * 
      * > [!NOTE]
      * > The shlwapi.h header defines AssocQueryStringByKey as an alias which automatically selects the ANSI or Unicode version of this function based on the definition of the UNICODE preprocessor constant. Mixing usage of the encoding-neutral alias with code that not encoding-neutral can lead to mismatches that result in compilation or runtime errors. For more information, see [Conventions for Function Prototypes](/windows/win32/intl/conventions-for-function-prototypes).
-     * @param {Integer} flags Type: <b><a href="https://docs.microsoft.com/windows/win32/shell/assocf_str">ASSOCF</a></b>
+     * @param {ASSOCF} flags Type: <b><a href="https://docs.microsoft.com/windows/win32/shell/assocf_str">ASSOCF</a></b>
      * 
      * The flags that can be used to control the search. It can be any combination of <a href="https://docs.microsoft.com/windows/win32/shell/assocf_str">ASSOCF</a> values, except that only one ASSOCF_INIT value can be included.
-     * @param {Integer} str Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/shlwapi/ne-shlwapi-assocstr">ASSOCSTR</a></b>
+     * @param {ASSOCSTR} str Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/shlwapi/ne-shlwapi-assocstr">ASSOCSTR</a></b>
      * 
      * The <a href="https://docs.microsoft.com/windows/desktop/api/shlwapi/ne-shlwapi-assocstr">ASSOCSTR</a> value that specifies the type of string that is to be returned.
      * @param {HKEY} hkAssoc Type: <b>HKEY</b>
@@ -28905,10 +29094,10 @@ class Shell {
      * 
      * > [!NOTE]
      * > The shlwapi.h header defines AssocQueryStringByKey as an alias which automatically selects the ANSI or Unicode version of this function based on the definition of the UNICODE preprocessor constant. Mixing usage of the encoding-neutral alias with code that not encoding-neutral can lead to mismatches that result in compilation or runtime errors. For more information, see [Conventions for Function Prototypes](/windows/win32/intl/conventions-for-function-prototypes).
-     * @param {Integer} flags Type: <b><a href="https://docs.microsoft.com/windows/win32/shell/assocf_str">ASSOCF</a></b>
+     * @param {ASSOCF} flags Type: <b><a href="https://docs.microsoft.com/windows/win32/shell/assocf_str">ASSOCF</a></b>
      * 
      * The flags that can be used to control the search. It can be any combination of <a href="https://docs.microsoft.com/windows/win32/shell/assocf_str">ASSOCF</a> values, except that only one ASSOCF_INIT value can be included.
-     * @param {Integer} str Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/shlwapi/ne-shlwapi-assocstr">ASSOCSTR</a></b>
+     * @param {ASSOCSTR} str Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/shlwapi/ne-shlwapi-assocstr">ASSOCSTR</a></b>
      * 
      * The <a href="https://docs.microsoft.com/windows/desktop/api/shlwapi/ne-shlwapi-assocstr">ASSOCSTR</a> value that specifies the type of string that is to be returned.
      * @param {HKEY} hkAssoc Type: <b>HKEY</b>
@@ -28977,10 +29166,10 @@ class Shell {
      * 
      * > [!NOTE]
      * > The shlwapi.h header defines AssocQueryKey as an alias which automatically selects the ANSI or Unicode version of this function based on the definition of the UNICODE preprocessor constant. Mixing usage of the encoding-neutral alias with code that not encoding-neutral can lead to mismatches that result in compilation or runtime errors. For more information, see [Conventions for Function Prototypes](/windows/win32/intl/conventions-for-function-prototypes).
-     * @param {Integer} flags Type: <b><a href="https://docs.microsoft.com/windows/win32/shell/assocf_str">ASSOCF</a></b>
+     * @param {ASSOCF} flags Type: <b><a href="https://docs.microsoft.com/windows/win32/shell/assocf_str">ASSOCF</a></b>
      * 
      * The flags that can be used to control the search. It can be any combination of <a href="https://docs.microsoft.com/windows/win32/shell/assocf_str">ASSOCF</a> values, except that only one ASSOCF_INIT value can be included.
-     * @param {Integer} key Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/shlwapi/ne-shlwapi-assockey">ASSOCKEY</a></b>
+     * @param {ASSOCKEY} key Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/shlwapi/ne-shlwapi-assockey">ASSOCKEY</a></b>
      * 
      * The <a href="https://docs.microsoft.com/windows/desktop/api/shlwapi/ne-shlwapi-assockey">ASSOCKEY</a> value that specifies the type of key that is to be returned.
      * @param {PSTR} pszAssoc Type: <b>LPCTSTR</b>
@@ -29014,10 +29203,10 @@ class Shell {
      * 
      * > [!NOTE]
      * > The shlwapi.h header defines AssocQueryKey as an alias which automatically selects the ANSI or Unicode version of this function based on the definition of the UNICODE preprocessor constant. Mixing usage of the encoding-neutral alias with code that not encoding-neutral can lead to mismatches that result in compilation or runtime errors. For more information, see [Conventions for Function Prototypes](/windows/win32/intl/conventions-for-function-prototypes).
-     * @param {Integer} flags Type: <b><a href="https://docs.microsoft.com/windows/win32/shell/assocf_str">ASSOCF</a></b>
+     * @param {ASSOCF} flags Type: <b><a href="https://docs.microsoft.com/windows/win32/shell/assocf_str">ASSOCF</a></b>
      * 
      * The flags that can be used to control the search. It can be any combination of <a href="https://docs.microsoft.com/windows/win32/shell/assocf_str">ASSOCF</a> values, except that only one ASSOCF_INIT value can be included.
-     * @param {Integer} key Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/shlwapi/ne-shlwapi-assockey">ASSOCKEY</a></b>
+     * @param {ASSOCKEY} key Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/shlwapi/ne-shlwapi-assockey">ASSOCKEY</a></b>
      * 
      * The <a href="https://docs.microsoft.com/windows/desktop/api/shlwapi/ne-shlwapi-assockey">ASSOCKEY</a> value that specifies the type of key that is to be returned.
      * @param {PWSTR} pszAssoc Type: <b>LPCTSTR</b>
@@ -29072,7 +29261,7 @@ class Shell {
      * @param {PWSTR} pszExt Type: <b>PCWSTR</b>
      * 
      * A pointer to a buffer that contains the file's extension. This should include the leading period, for example ".txt".
-     * @param {Pointer<Integer>} ptype Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/shtypes/ne-shtypes-perceived">PERCEIVED</a>*</b>
+     * @param {Pointer<PERCEIVED>} ptype Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/shtypes/ne-shtypes-perceived">PERCEIVED</a>*</b>
      * 
      * A pointer to a <a href="https://docs.microsoft.com/windows/desktop/api/shtypes/ne-shtypes-perceived">PERCEIVED</a> value that indicates the perceived type.
      * @param {Pointer<Integer>} pflag Type: <b>PERCEIVEDFLAG*</b>
@@ -29106,7 +29295,9 @@ class Shell {
      * 
      * > [!NOTE]
      * > The shlwapi.h header defines SHOpenRegStream as an alias which automatically selects the ANSI or Unicode version of this function based on the definition of the UNICODE preprocessor constant. Mixing usage of the encoding-neutral alias with code that not encoding-neutral can lead to mismatches that result in compilation or runtime errors. For more information, see [Conventions for Function Prototypes](/windows/win32/intl/conventions-for-function-prototypes).
-     * @param {HKEY} _hkey 
+     * @param {HKEY} _hkey Type: <b>HKEY</b>
+     * 
+     * Required. The subtree, such as HKEY_LOCAL_MACHINE, that contains the value.
      * @param {PSTR} pszSubkey Type: <b>LPCTSTR</b>
      * 
      * Optional. Pointer to a null-terminated string that specifies the subkey that contains the value. This value can be <b>NULL</b>.
@@ -29144,7 +29335,9 @@ class Shell {
      * 
      * > [!NOTE]
      * > The shlwapi.h header defines SHOpenRegStream as an alias which automatically selects the ANSI or Unicode version of this function based on the definition of the UNICODE preprocessor constant. Mixing usage of the encoding-neutral alias with code that not encoding-neutral can lead to mismatches that result in compilation or runtime errors. For more information, see [Conventions for Function Prototypes](/windows/win32/intl/conventions-for-function-prototypes).
-     * @param {HKEY} _hkey 
+     * @param {HKEY} _hkey Type: <b>HKEY</b>
+     * 
+     * Required. The subtree, such as HKEY_LOCAL_MACHINE, that contains the value.
      * @param {PWSTR} pszSubkey Type: <b>LPCTSTR</b>
      * 
      * Optional. Pointer to a null-terminated string that specifies the subkey that contains the value. This value can be <b>NULL</b>.
@@ -29182,7 +29375,9 @@ class Shell {
      * 
      * > [!NOTE]
      * > The shlwapi.h header defines SHOpenRegStream2 as an alias which automatically selects the ANSI or Unicode version of this function based on the definition of the UNICODE preprocessor constant. Mixing usage of the encoding-neutral alias with code that not encoding-neutral can lead to mismatches that result in compilation or runtime errors. For more information, see [Conventions for Function Prototypes](/windows/win32/intl/conventions-for-function-prototypes).
-     * @param {HKEY} _hkey 
+     * @param {HKEY} _hkey Type: <b>HKEY</b>
+     * 
+     * Required. The subtree, such as HKEY_LOCAL_MACHINE, that contains the value.
      * @param {PSTR} pszSubkey Type: <b>LPCTSTR</b>
      * 
      * Optional. Pointer to a null-terminated string that specifies the subkey that contains the value. This value can be <b>NULL</b>.
@@ -29215,7 +29410,9 @@ class Shell {
      * 
      * > [!NOTE]
      * > The shlwapi.h header defines SHOpenRegStream2 as an alias which automatically selects the ANSI or Unicode version of this function based on the definition of the UNICODE preprocessor constant. Mixing usage of the encoding-neutral alias with code that not encoding-neutral can lead to mismatches that result in compilation or runtime errors. For more information, see [Conventions for Function Prototypes](/windows/win32/intl/conventions-for-function-prototypes).
-     * @param {HKEY} _hkey 
+     * @param {HKEY} _hkey Type: <b>HKEY</b>
+     * 
+     * Required. The subtree, such as HKEY_LOCAL_MACHINE, that contains the value.
      * @param {PWSTR} pszSubkey Type: <b>LPCTSTR</b>
      * 
      * Optional. Pointer to a null-terminated string that specifies the subkey that contains the value. This value can be <b>NULL</b>.
@@ -29394,7 +29591,7 @@ class Shell {
      * <li>Support for <a href="https://docs.microsoft.com/windows/desktop/api/objidl/nf-objidl-istream-clone">IStream::Clone</a>. Prior to Windows 8, the stream created by <b>SHCreateMemStream</b> does not support <b>IStream::Clone</b>. The stream created by <a href="https://docs.microsoft.com/windows/desktop/api/combaseapi/nf-combaseapi-createstreamonhglobal">CreateStreamOnHGlobal</a> does. As of Windows 8, the stream created by <b>SHCreateMemStream</b> does support <b>IStream::Clone</b>.</li>
      * <li>The stream returned by <b>SHCreateMemStream</b> returns S_FALSE from <a href="https://docs.microsoft.com/windows/desktop/api/objidl/nf-objidl-isequentialstream-read">IStream::Read</a> if you attempt to read past the end of the buffer. The stream returned by <a href="https://docs.microsoft.com/windows/desktop/api/combaseapi/nf-combaseapi-createstreamonhglobal">CreateStreamOnHGlobal</a> returns S_OK and sets *pcbRead to 0 if you attempt to read past the end of the buffer.</li>
      * </ul>
-     * @param {Pointer} pInit Type: <b>const BYTE*</b>
+     * @param {Integer} pInit Type: <b>const BYTE*</b>
      * 
      * A pointer to a buffer of size <i>cbInit</i>. The contents of this buffer are used to set the initial contents of the memory stream. If this parameter is <b>NULL</b>, the returned memory stream does not have any initial content.
      * @param {Integer} cbInit Type: <b>UINT</b>
@@ -29633,7 +29830,7 @@ class Shell {
      * @param {IStream} pstm Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/objidl/nn-objidl-istream">IStream</a>*</b>
      * 
      * A pointer to the <a href="https://docs.microsoft.com/windows/desktop/api/objidl/nn-objidl-istream">IStream</a> interface of the stream from which to read.
-     * @param {Pointer} pv Type: <b>VOID*</b>
+     * @param {Integer} pv Type: <b>VOID*</b>
      * 
      * A pointer to a buffer to receive the stream data from <i>pstm</i>. This buffer must be at least <i>cb</i> bytes in size.
      * @param {Integer} cb Type: <b>ULONG</b>
@@ -29655,7 +29852,7 @@ class Shell {
      * @param {IStream} pstm Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/objidl/nn-objidl-istream">IStream</a>*</b>
      * 
      * An <a href="https://docs.microsoft.com/windows/desktop/api/objidl/nn-objidl-istream">IStream</a> pointer that specifies the target stream.
-     * @param {Pointer} pv Type: <b>const void*</b>
+     * @param {Integer} pv Type: <b>const void*</b>
      * 
      * Pointer to a buffer that holds the data to send to the target stream. This buffer must be at least <i>cb</i> bytes in size.
      * @param {Integer} cb Type: <b>ULONG</b>
@@ -30125,7 +30322,9 @@ class Shell {
      * 
      * > [!NOTE]
      * > The shlwapi.h header defines SHMessageBoxCheck as an alias which automatically selects the ANSI or Unicode version of this function based on the definition of the UNICODE preprocessor constant. Mixing usage of the encoding-neutral alias with code that not encoding-neutral can lead to mismatches that result in compilation or runtime errors. For more information, see [Conventions for Function Prototypes](/windows/win32/intl/conventions-for-function-prototypes).
-     * @param {HWND} _hwnd 
+     * @param {HWND} _hwnd Type: <b>HWND</b>
+     * 
+     * The window handle to the message box's owner. This value can be <b>NULL</b>.
      * @param {PSTR} pszText Type: <b>LPCTSTR</b>
      * 
      * A pointer to a null-terminated string that contains the message to be displayed.
@@ -30208,7 +30407,9 @@ class Shell {
      * 
      * > [!NOTE]
      * > The shlwapi.h header defines SHMessageBoxCheck as an alias which automatically selects the ANSI or Unicode version of this function based on the definition of the UNICODE preprocessor constant. Mixing usage of the encoding-neutral alias with code that not encoding-neutral can lead to mismatches that result in compilation or runtime errors. For more information, see [Conventions for Function Prototypes](/windows/win32/intl/conventions-for-function-prototypes).
-     * @param {HWND} _hwnd 
+     * @param {HWND} _hwnd Type: <b>HWND</b>
+     * 
+     * The window handle to the message box's owner. This value can be <b>NULL</b>.
      * @param {PWSTR} pszText Type: <b>LPCTSTR</b>
      * 
      * A pointer to a null-terminated string that contains the message to be displayed.
@@ -30264,8 +30465,12 @@ class Shell {
      * @param {Integer} uMsg Type: <b>UINT</b>
      * 
      * The message to send.
-     * @param {WPARAM} _wParam 
-     * @param {LPARAM} _lParam 
+     * @param {WPARAM} _wParam Type: <b>WPARAM</b>
+     * 
+     * Additional message-specific information.
+     * @param {LPARAM} _lParam Type: <b>LPARAM</b>
+     * 
+     * Additional message-specific information.
      * @returns {LRESULT} Type: <b>LRESULT</b>
      * 
      * The return value is not meaningful.
@@ -30292,8 +30497,12 @@ class Shell {
      * @param {Integer} uMsg Type: <b>UINT</b>
      * 
      * The message to send.
-     * @param {WPARAM} _wParam 
-     * @param {LPARAM} _lParam 
+     * @param {WPARAM} _wParam Type: <b>WPARAM</b>
+     * 
+     * Additional message-specific information.
+     * @param {LPARAM} _lParam Type: <b>LPARAM</b>
+     * 
+     * Additional message-specific information.
      * @returns {LRESULT} Type: <b>LRESULT</b>
      * 
      * The return value is not meaningful.
@@ -30419,7 +30628,7 @@ class Shell {
      * In Windows versions earlier than Windows Vista, <b>IsOS</b> was not exported by name or declared in a public header file. To use it in those cases, you must use <a href="https://docs.microsoft.com/windows/desktop/api/libloaderapi/nf-libloaderapi-getprocaddress">GetProcAddress</a> and request ordinal 437 from Shlwapi.dll to obtain a function pointer. Under Windows Vista, <b>IsOS</b> is included in Shlwapi.h and this is not necessary.
      * 
      * When referring to server products, "Windows Server" refers only to the Standard Edition server. If all server products are covered by a particular flag, it is called out explicitly in the table.
-     * @param {Integer} dwOS Type: <b>DWORD</b>
+     * @param {OS} dwOS Type: <b>DWORD</b>
      * @returns {BOOL} Type: <b>BOOL</b>
      * 
      * Returns a nonzero value if the specified operating system or operating system feature is detected, otherwise <b>FALSE</b>.
@@ -30433,7 +30642,7 @@ class Shell {
 
     /**
      * Gets the current value of a global counter.
-     * @param {Integer} id Type: <b>const <a href="https://docs.microsoft.com/windows/desktop/api/shlwapi/ne-shlwapi-shglobalcounter">SHGLOBALCOUNTER</a></b>
+     * @param {SHGLOBALCOUNTER} id Type: <b>const <a href="https://docs.microsoft.com/windows/desktop/api/shlwapi/ne-shlwapi-shglobalcounter">SHGLOBALCOUNTER</a></b>
      * 
      * The <a href="https://docs.microsoft.com/windows/desktop/api/shlwapi/ne-shlwapi-shglobalcounter">SHGLOBALCOUNTER</a> for which to retrieve the current value.
      * @returns {Integer} Type: <b>long</b>
@@ -30449,7 +30658,7 @@ class Shell {
 
     /**
      * Increments a global counter.
-     * @param {Integer} id Type: <b>const <a href="https://docs.microsoft.com/windows/desktop/api/shlwapi/ne-shlwapi-shglobalcounter">SHGLOBALCOUNTER</a></b>
+     * @param {SHGLOBALCOUNTER} id Type: <b>const <a href="https://docs.microsoft.com/windows/desktop/api/shlwapi/ne-shlwapi-shglobalcounter">SHGLOBALCOUNTER</a></b>
      * 
      * The <a href="https://docs.microsoft.com/windows/desktop/api/shlwapi/ne-shlwapi-shglobalcounter">SHGLOBALCOUNTER</a> to increment.
      * @returns {Integer} Type: <b>long</b>
@@ -30465,7 +30674,7 @@ class Shell {
 
     /**
      * Decrements a global counter.
-     * @param {Integer} id Type: <b>const <a href="https://docs.microsoft.com/windows/desktop/api/shlwapi/ne-shlwapi-shglobalcounter">SHGLOBALCOUNTER</a></b>
+     * @param {SHGLOBALCOUNTER} id Type: <b>const <a href="https://docs.microsoft.com/windows/desktop/api/shlwapi/ne-shlwapi-shglobalcounter">SHGLOBALCOUNTER</a></b>
      * 
      * The <a href="https://docs.microsoft.com/windows/desktop/api/shlwapi/ne-shlwapi-shglobalcounter">SHGLOBALCOUNTER</a> to decrement.
      * @returns {Integer} Type: <b>long</b>
@@ -30483,7 +30692,7 @@ class Shell {
      * SHAllocShared may be altered or unavailable.
      * @remarks
      * Use <a href="https://docs.microsoft.com/windows/desktop/api/shlwapi/nf-shlwapi-shfreeshared">SHFreeShared</a> to free the handle when you are finished.
-     * @param {Pointer} pvData Type: <b>const void*</b>
+     * @param {Integer} pvData Type: <b>const void*</b>
      * 
      * A pointer to the memory block in the calling process that is to be copied. You can set this parameter to <b>NULL</b> if you want to share a block of memory without copying any data to it.
      * @param {Integer} dwSize Type: <b>DWORD</b>
@@ -30704,7 +30913,9 @@ class Shell {
      * Beginning with Windows Vista, this function is declared in Shlwapi.h.
      * 
      * <b>Windows XP:  </b>This function is declared in Shlwapi.dll.
-     * @param {HMENU} _hmenu 
+     * @param {HMENU} _hmenu Type: <b>HMENU</b>
+     * 
+     * The handle of the menu.
      * @param {Integer} id Type: <b>UINT</b>
      * 
      * An application-defined 16-bit value that identifies the menu item.
@@ -30747,7 +30958,7 @@ class Shell {
      * </li>
      * <li>The index value stored in position 6536 in the inverse color map table is the index of the color in the halftone palette that is a reasonable approximation to the color #306040.</li>
      * </ol>
-     * @param {Pointer} pbMap Type: <b>BYTE*</b>
+     * @param {Integer} pbMap Type: <b>BYTE*</b>
      * 
      * A pointer to an array of <b>BYTE</b><b>s</b> that receives the inverse color table mapping, or a pointer to an <b>LPBYTE</b> which receives a pointer to a cached copy of the inverse color table mapping, depending on the value of the <i>cbMap</i> parameter.
      * @param {Integer} cbMap Type: <b>ULONG</b>
@@ -30777,7 +30988,7 @@ class Shell {
      * @param {HWND} hwndEdit Type: <b>HWND</b>
      * 
      * The window handle of a system edit control. Typically, this parameter is the handle of an edit control or the edit control embedded in a <a href="https://docs.microsoft.com/windows/desktop/Controls/comboboxex-control-reference">ComboBoxEx</a> control.
-     * @param {Integer} dwFlags Type: <b>DWORD</b>
+     * @param {SHELL_AUTOCOMPLETE_FLAGS} dwFlags Type: <b>DWORD</b>
      * 
      * The flags to control the operation of <b>SHAutoComplete</b>. The first four flags are used to override the Internet Explorer registry settings. The user can change these settings manually by launching the <b>Internet Options</b> property sheet from the <b>Tools</b> menu and clicking the <b>Advanced</b> tab.
      * @returns {HRESULT} Type: <b>HRESULT</b>
@@ -30891,7 +31102,15 @@ class Shell {
      * @param {Integer} flags Type: <b>SHCT_FLAGS</b>
      * 
      * The flags that control the behavior of the function. One or more of the <a href="https://docs.microsoft.com/windows/desktop/shell/ctf">CTF</a> constants.
-     * @param {Pointer<LPTHREAD_START_ROUTINE>} _pfnCallback 
+     * @param {Pointer<LPTHREAD_START_ROUTINE>} _pfnCallback Type: <b>LPTHREAD_START_ROUTINE</b>
+     * 
+     * A pointer to an optional application-defined function of the 
+     * 				 <a href="https://docs.microsoft.com/previous-versions/windows/desktop/legacy/ms686736(v=vs.85)">LPTHREAD_START_ROUTINE</a> type. This function is called 
+     * 				 in the context of the created thread before the function pointed to by 
+     * 				 <i>pfnThreadProc</i> is called. It will also receive <i>pData</i> as 
+     * 				 its argument. <b>SHCreateThread</b> will wait for the 
+     * 				 function pointed to by <i>pfnCallback</i> to return before returning to its caller. The 
+     * 				 return value of the function pointed to by <i>pfnCallback</i> is ignored.
      * @returns {BOOL} Type: <b>BOOL</b>
      * 
      * Returns <b>TRUE</b> if the thread is successfully created, or <b>FALSE</b> otherwise. On failure, use <a href="https://docs.microsoft.com/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a> to retrieve the specific error value as shown here.
@@ -30953,7 +31172,9 @@ class Shell {
      * @param {Integer} flags Type: <b>SHCT_FLAGS</b>
      * 
      * Flags that control the behavior of the function; one or more of the <a href="https://docs.microsoft.com/windows/desktop/shell/ctf">CTF</a> constants.
-     * @param {Pointer<LPTHREAD_START_ROUTINE>} _pfnCallback 
+     * @param {Pointer<LPTHREAD_START_ROUTINE>} _pfnCallback Type: <b>LPTHREAD_START_ROUTINE</b>
+     * 
+     * A pointer to an optional application-defined function of type <a href="https://docs.microsoft.com/previous-versions/windows/desktop/legacy/ms686736(v=vs.85)">LPTHREAD_START_ROUTINE</a>. This function is called in the context of the created thread before the function pointed to by <i>pfnThreadProc</i> is called. It will also receive <i>pData</i> as its argument. <b>SHCreateThreadWithHandle</b> waits for the function pointed to by <i>pfnCallback</i> to complete before returning to its caller. The return value for the function specified by <i>pfnCallback</i> is ignored.
      * @param {Pointer<HANDLE>} pHandle Type: <b>HANDLE*</b>
      * 
      * A pointer to the <b>HANDLE</b> of the created thread. When it is no longer needed, this handle should be closed by calling the <a href="https://docs.microsoft.com/windows/desktop/api/handleapi/nf-handleapi-closehandle">CloseHandle</a> function. This value can be <b>NULL</b>.
@@ -31001,7 +31222,9 @@ class Shell {
      * <li>If the device context is indexed, a full palette is returned.</li>
      * <li>If the device context is not indexed, a default palette (VGA colors) is returned.</li>
      * </ul>
-     * @param {HDC} _hdc 
+     * @param {HDC} _hdc Type: <b>HDC</b>
+     * 
+     * The device context.
      * @returns {HPALETTE} Type: <b>HPALETTE</b>
      * 
      * Returns the palette if successful; otherwise 0.
@@ -32020,7 +32243,7 @@ class Shell {
      * @param {PWSTR} pszPathOut A pointer to a buffer that, when this function returns successfully, receives the edited path string.
      * @param {Pointer} cchPathOut The size of the buffer pointed to by <i>pszPathOut</i>, in characters.
      * @param {PWSTR} pszPathIn A pointer to the original path string. If this value is <b>NULL</b>, points to an empty string, or results in an empty string once the "." and ".." elements are removed, a single backslash is copied to the buffer pointed to by <i>pszPathOut</i>.
-     * @param {Integer} dwFlags One or more of the following flags:
+     * @param {PATHCCH_OPTIONS} dwFlags One or more of the following flags:
      * 
      * <table>
      * <tr>
@@ -32258,7 +32481,7 @@ class Shell {
      * @param {Pointer} cchPathOut The size of the buffer pointed to by <i>pszPathOut</i>, in characters.
      * @param {PWSTR} pszPathIn A pointer to the first path string. This value can be <b>NULL</b>.
      * @param {PWSTR} pszMore A pointer to the second path string. If this path begins with a single backslash, it is combined with only the root of the path pointed to by <i>pszPathIn</i>. If this path is fully qualified, it is copied directly to the output buffer without being combined with the other path. This value can be <b>NULL</b>.
-     * @param {Integer} dwFlags One or more of the following flags:
+     * @param {PATHCCH_OPTIONS} dwFlags One or more of the following flags:
      * 
      * <table>
      * <tr>
@@ -32465,7 +32688,7 @@ class Shell {
      * @param {PWSTR} pszPath A pointer to a buffer that, on entry, contains the original path. When this function returns successfully, the buffer contains the original path plus the appended path.
      * @param {Pointer} cchPath The size of the buffer pointed to by <i>pszPath</i>, in characters.
      * @param {PWSTR} pszMore A pointer the path to append to the end of the path pointed to by <i>pszPath</i>. UNC paths and paths that begin with the sequence \\?\ are accepted and recognized as fully-qualified paths. These paths replace the string pointed to by <i>pszPath</i> instead of being appended to it.
-     * @param {Integer} dwFlags One or more of the following flags:
+     * @param {PATHCCH_OPTIONS} dwFlags One or more of the following flags:
      * 
      * <table>
      * <tr>
@@ -32669,7 +32892,7 @@ class Shell {
      * </ul>
      * @param {PWSTR} pszPathIn A pointer to the first path string.
      * @param {PWSTR} pszMore A pointer to the second path string. If this path begins with a single backslash, it is combined with only the root of the path pointed to by <i>pszPathIn</i>. If this path is fully qualified, it is copied directly to the output buffer without being combined with the other path.
-     * @param {Integer} dwFlags One or more of the following flags:
+     * @param {PATHCCH_OPTIONS} dwFlags One or more of the following flags:
      * 
      * <table>
      * <tr>
@@ -32775,7 +32998,7 @@ class Shell {
      * 
      * This function does not convert forward slashes (/) into back slashes (\\). With untrusted input, this function by itself, cannot be used to convert paths into a form that can be compared with other paths for sub-path or identity. Callers that need that ability should convert forward to back slashes before using this function.
      * @param {PWSTR} pszPathIn A pointer to a buffer that contains the original string. This value cannot be <b>NULL</b>.
-     * @param {Integer} dwFlags One or more of the following flags:
+     * @param {PATHCCH_OPTIONS} dwFlags One or more of the following flags:
      * 
      * <table>
      * <tr>
@@ -32870,7 +33093,7 @@ class Shell {
     /**
      * Enables an app to register a callback function through which it can be notified that its library is going into or coming out of a suspended state.
      * @param {Pointer<PAPPSTATE_CHANGE_ROUTINE>} Routine A pointer to a callback function that is called when the app enters or leaves the suspended state. See <a href="https://docs.microsoft.com/windows/desktop/api/appnotify/nc-appnotify-pappstate_change_routine">PAPPSTATE_CHANGE_ROUTINE</a> for more detail on this function.
-     * @param {Pointer<Void>} _Context 
+     * @param {Pointer<Void>} _Context App-specific context information that the app uses when going into or out of a suspended state. This is commonly a "this" pointer.
      * @param {Pointer<PAPPSTATE_REGISTRATION>} Registration When this function returns successfully, this parameter receives the address of a pointer to a value that can be used to identify the registration. Store this value to use with <a href="https://docs.microsoft.com/windows/desktop/api/appnotify/nf-appnotify-unregisterappstatechangenotification">UnregisterAppStateChangeNotification</a>.
      * @returns {Integer} A standard Win32 status code.
      * @see https://learn.microsoft.com/windows/win32/api/appnotify/nf-appnotify-registerappstatechangenotification

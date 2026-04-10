@@ -1,5 +1,8 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
+#Include .\NET_IF_OPER_STATUS.ahk
+#Include .\NET_IF_MEDIA_CONNECT_STATE.ahk
+#Include .\NET_IF_MEDIA_DUPLEX_STATE.ahk
 
 /**
  * The NDIS_INTERFACE_INFORMATION structure provides information about a network interface for the OID_GEN_INTERFACE_INFO OID.
@@ -13,10 +16,8 @@
  *     <a href="https://docs.microsoft.com/windows-hardware/drivers/ddi/content/ndis/nf-ndis-ndisifregisterprovider">NdisIfRegisterProvider</a> function.
  * @see https://learn.microsoft.com/windows/win32/api/ifdef/ns-ifdef-ndis_interface_information
  * @namespace Windows.Win32.NetworkManagement.Ndis
- * @version v4.0.30319
  */
-class NDIS_INTERFACE_INFORMATION extends Win32Struct
-{
+class NDIS_INTERFACE_INFORMATION extends Win32Struct {
     static sizeof => 216
 
     static packingSize => 8
@@ -25,7 +26,7 @@ class NDIS_INTERFACE_INFORMATION extends Win32Struct
      * The operational status of the interface. This status is the same as the value that the 
      *      <a href="https://docs.microsoft.com/windows-hardware/drivers/network/oid-gen-operational-status">OID_GEN_OPERATIONAL_STATUS</a> OID
      *      returns.
-     * @type {Integer}
+     * @type {NET_IF_OPER_STATUS}
      */
     ifOperStatus {
         get => NumGet(this, 0, "int")
@@ -45,7 +46,7 @@ class NDIS_INTERFACE_INFORMATION extends Win32Struct
     /**
      * The 
      *      <a href="https://docs.microsoft.com/windows/desktop/api/ifdef/ne-ifdef-net_if_media_connect_state">NET_IF_MEDIA_CONNECT_STATE</a> connection state type.
-     * @type {Integer}
+     * @type {NET_IF_MEDIA_CONNECT_STATE}
      */
     MediaConnectState {
         get => NumGet(this, 8, "int")
@@ -56,7 +57,7 @@ class NDIS_INTERFACE_INFORMATION extends Win32Struct
      * The media duplex state of the interface. This state is the same as the value that the 
      *      <a href="https://docs.microsoft.com/windows-hardware/drivers/network/oid-gen-media-duplex-state">OID_GEN_MEDIA_DUPLEX_STATE</a> OID
      *      returns.
-     * @type {Integer}
+     * @type {NET_IF_MEDIA_DUPLEX_STATE}
      */
     MediaDuplexState {
         get => NumGet(this, 12, "int")

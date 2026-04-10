@@ -3,18 +3,16 @@
 
 /**
  * @namespace Windows.Win32.System.Hypervisor
- * @version v4.0.30319
  */
-class WHV_X64_TABLE_REGISTER extends Win32Struct
-{
+class WHV_X64_TABLE_REGISTER extends Win32Struct {
     static sizeof => 16
 
     static packingSize => 8
 
     /**
-     * @type {Array<UInt16>}
+     * @type {Array<Integer>}
      */
-    Pad{
+    Pad {
         get {
             if(!this.HasProp("__PadProxyArray"))
                 this.__PadProxyArray := Win32FixedArray(this.ptr + 0, 3, Primitive, "ushort")

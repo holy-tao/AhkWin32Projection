@@ -1,21 +1,20 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
+#Include .\MBN_SMS_FLAG.ahk
 
 /**
  * The MBN_SMS_FILTER structure contains the values that describe a set of SMS messages.
  * @see https://learn.microsoft.com/windows/win32/api/mbnapi/ns-mbnapi-mbn_sms_filter
  * @namespace Windows.Win32.NetworkManagement.MobileBroadband
- * @version v4.0.30319
  */
-class MBN_SMS_FILTER extends Win32Struct
-{
+class MBN_SMS_FILTER extends Win32Struct {
     static sizeof => 8
 
     static packingSize => 4
 
     /**
      * An <a href="https://docs.microsoft.com/windows/desktop/api/mbnapi/ne-mbnapi-mbn_sms_flag">MBN_SMS_FLAG</a> value that 	specifies the message class.
-     * @type {Integer}
+     * @type {MBN_SMS_FLAG}
      */
     flag {
         get => NumGet(this, 0, "int")

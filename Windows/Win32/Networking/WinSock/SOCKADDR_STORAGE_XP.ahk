@@ -10,11 +10,9 @@
  *     to the specific SOCKADDR structure type that corresponds to a particular address family.
  * @see https://learn.microsoft.com/windows/win32/api/ws2def/ns-ws2def-sockaddr_storage_xp
  * @namespace Windows.Win32.Networking.WinSock
- * @version v4.0.30319
  */
-class SOCKADDR_STORAGE_XP extends Win32Struct
-{
-    static sizeof => 248
+class SOCKADDR_STORAGE_XP extends Win32Struct {
+    static sizeof => 128
 
     static packingSize => 8
 
@@ -35,8 +33,8 @@ class SOCKADDR_STORAGE_XP extends Win32Struct
      * @type {String}
      */
     __ss_pad1 {
-        get => StrGet(this.ptr + 2, 5, "UTF-16")
-        set => StrPut(value, this.ptr + 2, 5, "UTF-16")
+        get => StrGet(this.ptr + 2, 5, "UTF-8")
+        set => StrPut(value, this.ptr + 2, 5, "UTF-8")
     }
 
     /**
@@ -44,8 +42,8 @@ class SOCKADDR_STORAGE_XP extends Win32Struct
      * @type {Integer}
      */
     __ss_align {
-        get => NumGet(this, 16, "int64")
-        set => NumPut("int64", value, this, 16)
+        get => NumGet(this, 8, "int64")
+        set => NumPut("int64", value, this, 8)
     }
 
     /**
@@ -54,7 +52,7 @@ class SOCKADDR_STORAGE_XP extends Win32Struct
      * @type {String}
      */
     __ss_pad2 {
-        get => StrGet(this.ptr + 24, 111, "UTF-16")
-        set => StrPut(value, this.ptr + 24, 111, "UTF-16")
+        get => StrGet(this.ptr + 16, 111, "UTF-8")
+        set => StrPut(value, this.ptr + 16, 111, "UTF-8")
     }
 }

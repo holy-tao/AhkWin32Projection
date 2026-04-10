@@ -2,6 +2,7 @@
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
 #Include ..\..\System\Com\IUnknown.ahk
+#Include ..\..\..\..\Guid.ahk
 
 /**
  * Exposes methods that enable an application to interact with groups of windows that form virtual workspaces.
@@ -14,9 +15,8 @@
  * In the above image, the user has two virtual desktops and <b>VD2</b> is the currently active virtual desktop. If the user clicks a link in an outlook message, there's a URI activation that should open the link in an Internet Explorer window. If the user has configured IE to open links in the current window, it would normally use the currently open window. However, in this case, IE is on an inactive virtual desktop. In this scenario, IE should create a new window in the currently active virtual desktop.
  * @see https://learn.microsoft.com/windows/win32/api/shobjidl_core/nn-shobjidl_core-ivirtualdesktopmanager
  * @namespace Windows.Win32.UI.Shell
- * @version v4.0.30319
  */
-class IVirtualDesktopManager extends IUnknown{
+class IVirtualDesktopManager extends IUnknown {
 
     static sizeof => A_PtrSize
     /**

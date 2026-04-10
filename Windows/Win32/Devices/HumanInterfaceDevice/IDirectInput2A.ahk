@@ -5,10 +5,9 @@
 
 /**
  * @namespace Windows.Win32.Devices.HumanInterfaceDevice
- * @version v4.0.30319
  * @charset ANSI
  */
-class IDirectInput2A extends IDirectInputA{
+class IDirectInput2A extends IDirectInputA {
 
     static sizeof => A_PtrSize
     /**

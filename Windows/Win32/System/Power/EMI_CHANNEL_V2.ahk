@@ -1,14 +1,13 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
+#Include .\EMI_MEASUREMENT_UNIT.ahk
 
 /**
  * The EMI_CHANNEL_V2 structure provides data about an EMI V2 channel.
  * @see https://learn.microsoft.com/windows/win32/api/emi/ns-emi-emi_channel_v2
  * @namespace Windows.Win32.System.Power
- * @version v4.0.30319
  */
-class EMI_CHANNEL_V2 extends Win32Struct
-{
+class EMI_CHANNEL_V2 extends Win32Struct {
     static sizeof => 8
 
     static packingSize => 4
@@ -18,7 +17,7 @@ class EMI_CHANNEL_V2 extends Win32Struct
      *                           measurements that can be obtained from the device from an
      *                           IOCTL_EMI_GET_MEASUREMENT. In EMI_VERSION_V2, the only
      *                           supported unit is picowatt-hours.
-     * @type {Integer}
+     * @type {EMI_MEASUREMENT_UNIT}
      */
     MeasurementUnit {
         get => NumGet(this, 0, "int")

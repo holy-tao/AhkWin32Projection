@@ -1,17 +1,17 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
+#Include ..\..\System\Com\IUnknown.ahk
+#Include ..\..\..\..\Guid.ahk
 #Include ..\..\Graphics\DirectDraw\DDPIXELFORMAT.ahk
 #Include .\AMVACompBufferInfo.ahk
-#Include ..\..\System\Com\IUnknown.ahk
 
 /**
  * The IAMVideoAccelerator interface enables a video decoder filter to access DirectX Video Acceleration (DXVA) 1.0 functionality.
  * @see https://learn.microsoft.com/windows/win32/api/videoacc/nn-videoacc-iamvideoaccelerator
  * @namespace Windows.Win32.Media.DirectShow
- * @version v4.0.30319
  */
-class IAMVideoAccelerator extends IUnknown{
+class IAMVideoAccelerator extends IUnknown {
 
     static sizeof => A_PtrSize
     /**
@@ -208,7 +208,7 @@ class IAMVideoAccelerator extends IUnknown{
      * This method might block if no frame buffer is available.
      * 
      * For each call to <b>BeginFrame</b>, the decoder must make a corresponding call to <a href="https://docs.microsoft.com/windows/desktop/api/videoacc/nf-videoacc-iamvideoaccelerator-endframe">IAMVideoAccelerator::EndFrame</a>.
-     * @param {Pointer<AMVABeginFrameInfo>} _amvaBeginFrameInfo 
+     * @param {Pointer<AMVABeginFrameInfo>} _amvaBeginFrameInfo Pointer to an <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/amva/ns-amva-amvabeginframeinfo">AMVABeginFrameInfo</a> structure that contains information needed to begin processing the frame.
      * @returns {HRESULT} Returns an <b>HRESULT</b> value that depends on the implementation of the interface. <b>HRESULT</b> can include one of the following standard constants, or other values not listed.
      * 
      * <table>

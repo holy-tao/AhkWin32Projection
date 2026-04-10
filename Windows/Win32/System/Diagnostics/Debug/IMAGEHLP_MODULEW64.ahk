@@ -1,5 +1,6 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\..\Win32Struct.ahk
+#Include .\SYM_TYPE.ahk
 
 /**
  * Contains module information. (IMAGEHLP_MODULEW64)
@@ -11,10 +12,8 @@
  * ```cpp
  * @see https://learn.microsoft.com/windows/win32/api/dbghelp/ns-dbghelp-imagehlp_modulew64
  * @namespace Windows.Win32.System.Diagnostics.Debug
- * @version v4.0.30319
  */
-class IMAGEHLP_MODULEW64 extends Win32Struct
-{
+class IMAGEHLP_MODULEW64 extends Win32Struct {
     static sizeof => 3256
 
     static packingSize => 8
@@ -74,8 +73,7 @@ class IMAGEHLP_MODULEW64 extends Win32Struct
     }
 
     /**
-     * 
-     * @type {Integer}
+     * @type {SYM_TYPE}
      */
     SymType {
         get => NumGet(this, 32, "int")
@@ -147,7 +145,7 @@ class IMAGEHLP_MODULEW64 extends Win32Struct
 
     /**
      * The PDB signature (Visual C/C++ 7.0 and later)
-     * @type {Pointer<Guid>}
+     * @type {Pointer}
      */
     PdbSig70 {
         get => NumGet(this, 3208, "ptr")

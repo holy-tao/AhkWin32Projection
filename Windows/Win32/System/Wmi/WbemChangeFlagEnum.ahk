@@ -5,9 +5,8 @@
  * Define how a write operation to a class or an instance is carried out.
  * @see https://learn.microsoft.com/windows/win32/api/wbemdisp/ne-wbemdisp-wbemchangeflagenum
  * @namespace Windows.Win32.System.Wmi
- * @version v4.0.30319
  */
-class WbemChangeFlagEnum extends Win32Enum{
+class WbemChangeFlagEnum extends Win32Enum {
 
     /**
      * Causes the class or instance to be created, if it does not exist, or overwritten if it already exists.
@@ -56,7 +55,6 @@ class WbemChangeFlagEnum extends Win32Enum{
     static wbemChangeFlagStrongValidation => 128
 
     /**
-     * 
      * @type {Integer (Int32)}
      */
     static wbemChangeFlagAdvisory => 65536

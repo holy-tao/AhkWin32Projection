@@ -18,9 +18,8 @@
  * To view some code that registers for COM notifications, see the Client section of the <a href="https://docs.microsoft.com/archive/msdn-magazine/2007/september/clr-inside-out-com-connection-points">COM Connection Points</a> article.
  * @see https://learn.microsoft.com/windows/win32/api/mbnapi/nn-mbnapi-imbnconnectioncontextevents
  * @namespace Windows.Win32.NetworkManagement.MobileBroadband
- * @version v4.0.30319
  */
-class IMbnConnectionContextEvents extends IUnknown{
+class IMbnConnectionContextEvents extends IUnknown {
 
     static sizeof => A_PtrSize
     /**
@@ -65,7 +64,7 @@ class IMbnConnectionContextEvents extends IUnknown{
      * If there are multiple applications registered to receive notifications then all of them will receive this notification even though only one of them could have initiated this operation.
      * @param {IMbnConnectionContext} newInterface An <a href="https://docs.microsoft.com/windows/desktop/api/mbnapi/nn-mbnapi-imbnconnectioncontext">IMbnConnectionContext</a> interface that represents the device for which the context has been set.
      * @param {Integer} requestID A request ID set by the Mobile Broadband service to identify the operation that set the context.
-     * @param {HRESULT} _status 
+     * @param {HRESULT} _status A status code that indicates the outcome of the operation.
      * @returns {HRESULT} This method must return <b>S_OK</b>.
      * @see https://learn.microsoft.com/windows/win32/api/mbnapi/nf-mbnapi-imbnconnectioncontextevents-onsetprovisionedcontextcomplete
      */

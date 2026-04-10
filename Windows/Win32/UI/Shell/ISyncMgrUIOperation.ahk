@@ -35,9 +35,8 @@
  * If the user requests an action, then requests that same action again before the first has completed, the UI for the initial action is activated and brought to the foreground.
  * @see https://learn.microsoft.com/windows/win32/api/syncmgr/nn-syncmgr-isyncmgruioperation
  * @namespace Windows.Win32.UI.Shell
- * @version v4.0.30319
  */
-class ISyncMgrUIOperation extends IUnknown{
+class ISyncMgrUIOperation extends IUnknown {
 
     static sizeof => A_PtrSize
     /**

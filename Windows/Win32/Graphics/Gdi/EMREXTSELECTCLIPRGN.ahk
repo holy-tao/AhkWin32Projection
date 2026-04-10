@@ -1,15 +1,14 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
 #Include .\EMR.ahk
+#Include .\ENHANCED_METAFILE_RECORD_TYPE.ahk
 
 /**
  * The EMREXTSELECTCLIPRGN structure contains members for the ExtSelectClipRgn enhanced metafile record.
  * @see https://learn.microsoft.com/windows/win32/api/wingdi/ns-wingdi-emrextselectcliprgn
  * @namespace Windows.Win32.Graphics.Gdi
- * @version v4.0.30319
  */
-class EMREXTSELECTCLIPRGN extends Win32Struct
-{
+class EMREXTSELECTCLIPRGN extends Win32Struct {
     static sizeof => 20
 
     static packingSize => 4
@@ -18,7 +17,7 @@ class EMREXTSELECTCLIPRGN extends Win32Struct
      * The base structure for all record types.
      * @type {EMR}
      */
-    emr{
+    emr {
         get {
             if(!this.HasProp("__emr"))
                 this.__emr := EMR(0, this)
@@ -36,7 +35,6 @@ class EMREXTSELECTCLIPRGN extends Win32Struct
     }
 
     /**
-     * 
      * @type {Integer}
      */
     iMode {
@@ -46,9 +44,9 @@ class EMREXTSELECTCLIPRGN extends Win32Struct
 
     /**
      * Buffer containing a <a href="https://docs.microsoft.com/windows/desktop/api/wingdi/ns-wingdi-rgndata">RGNDATA</a> structure.
-     * @type {Array<Byte>}
+     * @type {Array<Integer>}
      */
-    RgnData{
+    RgnData {
         get {
             if(!this.HasProp("__RgnDataProxyArray"))
                 this.__RgnDataProxyArray := Win32FixedArray(this.ptr + 16, 1, Primitive, "char")

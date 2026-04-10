@@ -3,9 +3,8 @@
 
 /**
  * @namespace Windows.Win32.System.Ioctl
- * @version v4.0.30319
  */
-class TXFS_RMF_LAGS extends Win32BitflagEnum{
+class TXFS_RMF_LAGS extends Win32BitflagEnum {
 
     /**
      * @type {Integer (UInt32)}

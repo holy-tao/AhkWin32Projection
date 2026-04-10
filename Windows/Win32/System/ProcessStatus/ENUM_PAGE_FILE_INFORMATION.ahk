@@ -5,10 +5,8 @@
  * Contains information about a pagefile.
  * @see https://learn.microsoft.com/windows/win32/api/psapi/ns-psapi-enum_page_file_information
  * @namespace Windows.Win32.System.ProcessStatus
- * @version v4.0.30319
  */
-class ENUM_PAGE_FILE_INFORMATION extends Win32Struct
-{
+class ENUM_PAGE_FILE_INFORMATION extends Win32Struct {
     static sizeof => 32
 
     static packingSize => 8

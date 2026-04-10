@@ -14,19 +14,16 @@
  * Any values in the COLORINFO structure that are out of the specified range default to the NTSC values.
  * @see https://learn.microsoft.com/windows/win32/api/winddi/ns-winddi-colorinfo
  * @namespace Windows.Win32.Devices.Display
- * @version v4.0.30319
  */
-class COLORINFO extends Win32Struct
-{
+class COLORINFO extends Win32Struct {
     static sizeof => 120
 
     static packingSize => 4
 
     /**
-     * 
      * @type {CIECHROMA}
      */
-    Red{
+    Red {
         get {
             if(!this.HasProp("__Red"))
                 this.__Red := CIECHROMA(0, this)
@@ -35,10 +32,9 @@ class COLORINFO extends Win32Struct
     }
 
     /**
-     * 
      * @type {CIECHROMA}
      */
-    Green{
+    Green {
         get {
             if(!this.HasProp("__Green"))
                 this.__Green := CIECHROMA(12, this)
@@ -47,10 +43,9 @@ class COLORINFO extends Win32Struct
     }
 
     /**
-     * 
      * @type {CIECHROMA}
      */
-    Blue{
+    Blue {
         get {
             if(!this.HasProp("__Blue"))
                 this.__Blue := CIECHROMA(24, this)
@@ -59,10 +54,9 @@ class COLORINFO extends Win32Struct
     }
 
     /**
-     * 
      * @type {CIECHROMA}
      */
-    Cyan{
+    Cyan {
         get {
             if(!this.HasProp("__Cyan"))
                 this.__Cyan := CIECHROMA(36, this)
@@ -71,10 +65,9 @@ class COLORINFO extends Win32Struct
     }
 
     /**
-     * 
      * @type {CIECHROMA}
      */
-    Magenta{
+    Magenta {
         get {
             if(!this.HasProp("__Magenta"))
                 this.__Magenta := CIECHROMA(48, this)
@@ -83,10 +76,9 @@ class COLORINFO extends Win32Struct
     }
 
     /**
-     * 
      * @type {CIECHROMA}
      */
-    Yellow{
+    Yellow {
         get {
             if(!this.HasProp("__Yellow"))
                 this.__Yellow := CIECHROMA(60, this)
@@ -100,7 +92,7 @@ class COLORINFO extends Win32Struct
      * The <b>Cyan</b> member can have a special meaning for monochrome printers. <b>Cyan.Y</b> must be set to 65534 (0xFFFE) to enable all of the grayscale halftone pattern sizes. For more information, see the following Remarks section.
      * @type {CIECHROMA}
      */
-    AlignmentWhite{
+    AlignmentWhite {
         get {
             if(!this.HasProp("__AlignmentWhite"))
                 this.__AlignmentWhite := CIECHROMA(72, this)
@@ -109,7 +101,6 @@ class COLORINFO extends Win32Struct
     }
 
     /**
-     * 
      * @type {Integer}
      */
     RedGamma {
@@ -118,7 +109,6 @@ class COLORINFO extends Win32Struct
     }
 
     /**
-     * 
      * @type {Integer}
      */
     GreenGamma {
@@ -136,7 +126,6 @@ class COLORINFO extends Win32Struct
     }
 
     /**
-     * 
      * @type {Integer}
      */
     MagentaInCyanDye {
@@ -145,7 +134,6 @@ class COLORINFO extends Win32Struct
     }
 
     /**
-     * 
      * @type {Integer}
      */
     YellowInCyanDye {
@@ -154,7 +142,6 @@ class COLORINFO extends Win32Struct
     }
 
     /**
-     * 
      * @type {Integer}
      */
     CyanInMagentaDye {
@@ -163,7 +150,6 @@ class COLORINFO extends Win32Struct
     }
 
     /**
-     * 
      * @type {Integer}
      */
     YellowInMagentaDye {
@@ -172,7 +158,6 @@ class COLORINFO extends Win32Struct
     }
 
     /**
-     * 
      * @type {Integer}
      */
     CyanInYellowDye {

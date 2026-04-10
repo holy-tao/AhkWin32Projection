@@ -3,18 +3,16 @@
 
 /**
  * @namespace Windows.Win32.Networking.HttpServer
- * @version v4.0.30319
  */
-class HTTP_CERT_CONFIG_ENTRY extends Win32Struct
-{
+class HTTP_CERT_CONFIG_ENTRY extends Win32Struct {
     static sizeof => 276
 
     static packingSize => 2
 
     /**
-     * @type {Array<Byte>}
+     * @type {Array<Integer>}
      */
-    CertHash{
+    CertHash {
         get {
             if(!this.HasProp("__CertHashProxyArray"))
                 this.__CertHashProxyArray := Win32FixedArray(this.ptr + 0, 20, Primitive, "char")

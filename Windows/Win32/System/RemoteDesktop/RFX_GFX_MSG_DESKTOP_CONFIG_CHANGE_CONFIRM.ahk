@@ -4,10 +4,8 @@
 
 /**
  * @namespace Windows.Win32.System.RemoteDesktop
- * @version v4.0.30319
  */
-class RFX_GFX_MSG_DESKTOP_CONFIG_CHANGE_CONFIRM extends Win32Struct
-{
+class RFX_GFX_MSG_DESKTOP_CONFIG_CHANGE_CONFIRM extends Win32Struct {
     static sizeof => 4
 
     static packingSize => 2
@@ -15,7 +13,7 @@ class RFX_GFX_MSG_DESKTOP_CONFIG_CHANGE_CONFIRM extends Win32Struct
     /**
      * @type {RFX_GFX_MSG_HEADER}
      */
-    channelHdr{
+    channelHdr {
         get {
             if(!this.HasProp("__channelHdr"))
                 this.__channelHdr := RFX_GFX_MSG_HEADER(0, this)

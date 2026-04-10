@@ -1,5 +1,7 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
+#Include .\VDS_STORAGE_IDENTIFIER_CODE_SET.ahk
+#Include .\VDS_STORAGE_IDENTIFIER_TYPE.ahk
 
 /**
  * Defines a storage device using a particular code set and type.
@@ -8,10 +10,8 @@
  *     structure includes this structure as a member to specify a particular storage device identifier for a LUN.
  * @see https://learn.microsoft.com/windows/win32/api/vdslun/ns-vdslun-vds_storage_identifier
  * @namespace Windows.Win32.Storage.VirtualDiskService
- * @version v4.0.30319
  */
-class VDS_STORAGE_IDENTIFIER extends Win32Struct
-{
+class VDS_STORAGE_IDENTIFIER extends Win32Struct {
     static sizeof => 24
 
     static packingSize => 8
@@ -19,7 +19,7 @@ class VDS_STORAGE_IDENTIFIER extends Win32Struct
     /**
      * The encoding type of <b>m_rgbIdentifier</b> enumerated by 
      *       <a href="https://docs.microsoft.com/windows/desktop/api/vdslun/ne-vdslun-vds_storage_identifier_code_set">VDS_STORAGE_IDENTIFIER_CODE_SET</a>.
-     * @type {Integer}
+     * @type {VDS_STORAGE_IDENTIFIER_CODE_SET}
      */
     m_CodeSet {
         get => NumGet(this, 0, "int")
@@ -29,7 +29,7 @@ class VDS_STORAGE_IDENTIFIER extends Win32Struct
     /**
      * The type of <b>m_rgbIdentifier</b> enumerated by 
      *       <a href="https://docs.microsoft.com/windows/desktop/api/vdslun/ne-vdslun-vds_storage_identifier_type">VDS_STORAGE_IDENTIFIER_TYPE</a>.
-     * @type {Integer}
+     * @type {VDS_STORAGE_IDENTIFIER_TYPE}
      */
     m_Type {
         get => NumGet(this, 4, "int")

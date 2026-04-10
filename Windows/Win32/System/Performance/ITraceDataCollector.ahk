@@ -1,9 +1,10 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
+#Include .\IDataCollector.ahk
+#Include ..\..\..\..\Guid.ahk
 #Include ..\..\Foundation\BSTR.ahk
 #Include .\ITraceDataProviderCollection.ahk
-#Include .\IDataCollector.ahk
 
 /**
  * Collects trace events from registered providers.This interface defines the trace session.
@@ -64,9 +65,8 @@
  * When you specify the XML to create the collector, you can specify only the elements for the properties that you want to set. If you do not specify a property, PLA provides a default value. When you retrieve the XML for the collector, the XML provides all elements, including those from <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/pla/nn-pla-idatacollector">IDataCollector</a>.
  * @see https://learn.microsoft.com/windows/win32/api/pla/nn-pla-itracedatacollector
  * @namespace Windows.Win32.System.Performance
- * @version v4.0.30319
  */
-class ITraceDataCollector extends IDataCollector{
+class ITraceDataCollector extends IDataCollector {
 
     static sizeof => A_PtrSize
     /**
@@ -112,7 +112,7 @@ class ITraceDataCollector extends IDataCollector{
     }
 
     /**
-     * @type {Integer} 
+     * @type {ClockType} 
      */
     ClockType {
         get => this.get_ClockType()
@@ -239,7 +239,7 @@ class ITraceDataCollector extends IDataCollector{
     }
 
     /**
-     * @type {Integer} 
+     * @type {StreamMode} 
      */
     StreamMode {
         get => this.get_StreamMode()
@@ -316,7 +316,7 @@ class ITraceDataCollector extends IDataCollector{
 
     /**
      * Retrieves or sets the clock resolution to use when logging the time stamp for each event. (Get)
-     * @returns {Integer} 
+     * @returns {ClockType} 
      * @see https://learn.microsoft.com/windows/win32/api/pla/nf-pla-itracedatacollector-get_clocktype
      */
     get_ClockType() {
@@ -326,7 +326,7 @@ class ITraceDataCollector extends IDataCollector{
 
     /**
      * Retrieves or sets the clock resolution to use when logging the time stamp for each event. (Put)
-     * @param {Integer} clock 
+     * @param {ClockType} clock 
      * @returns {HRESULT} 
      * @see https://learn.microsoft.com/windows/win32/api/pla/nf-pla-itracedatacollector-put_clocktype
      */
@@ -758,7 +758,7 @@ class ITraceDataCollector extends IDataCollector{
 
     /**
      * Retrieves or sets the logging mode of the trace session. (Get)
-     * @returns {Integer} 
+     * @returns {StreamMode} 
      * @see https://learn.microsoft.com/windows/win32/api/pla/nf-pla-itracedatacollector-get_streammode
      */
     get_StreamMode() {
@@ -768,7 +768,7 @@ class ITraceDataCollector extends IDataCollector{
 
     /**
      * Retrieves or sets the logging mode of the trace session. (Put)
-     * @param {Integer} _mode 
+     * @param {StreamMode} _mode 
      * @returns {HRESULT} 
      * @see https://learn.microsoft.com/windows/win32/api/pla/nf-pla-itracedatacollector-put_streammode
      */

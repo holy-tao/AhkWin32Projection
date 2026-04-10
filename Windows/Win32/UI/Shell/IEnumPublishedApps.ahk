@@ -1,8 +1,8 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
-#Include .\IPublishedApp.ahk
 #Include ..\..\System\Com\IUnknown.ahk
+#Include .\IPublishedApp.ahk
 
 /**
  * Exposes methods that enumerate published applications to Add/Remove Programs in the Control Panel. The object exposing this interface is requested through IAppPublisher::EnumApps.
@@ -10,9 +10,8 @@
  * To publish applications to Add/Remove Programs in the Control Panel, you must support <b>IEnumPublishedApps</b>, <a href="https://docs.microsoft.com/windows/desktop/api/shappmgr/nn-shappmgr-iapppublisher">IAppPublisher</a> and <a href="https://docs.microsoft.com/windows/desktop/api/shappmgr/nn-shappmgr-ipublishedapp">IPublishedApp</a>.
  * @see https://learn.microsoft.com/windows/win32/api/shappmgr/nn-shappmgr-ienumpublishedapps
  * @namespace Windows.Win32.UI.Shell
- * @version v4.0.30319
  */
-class IEnumPublishedApps extends IUnknown{
+class IEnumPublishedApps extends IUnknown {
 
     static sizeof => A_PtrSize
     /**

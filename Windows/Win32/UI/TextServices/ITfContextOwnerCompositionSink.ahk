@@ -7,9 +7,8 @@
  * The ITfContextOwnerCompositionSink interface is implemented by an application to receive composition-related notifications.
  * @see https://learn.microsoft.com/windows/win32/api/msctf/nn-msctf-itfcontextownercompositionsink
  * @namespace Windows.Win32.UI.TextServices
- * @version v4.0.30319
  */
-class ITfContextOwnerCompositionSink extends IUnknown{
+class ITfContextOwnerCompositionSink extends IUnknown {
 
     static sizeof => A_PtrSize
     /**

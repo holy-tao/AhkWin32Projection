@@ -8,10 +8,8 @@
  * Both DWM_FRAME_COUNT and QPC_TIME are defined in Dwmapi.h as <b>ULONGLONG</b>.
  * @see https://learn.microsoft.com/windows/win32/api/dwmapi/ns-dwmapi-dwm_timing_info
  * @namespace Windows.Win32.Graphics.Dwm
- * @version v4.0.30319
  */
-class DWM_TIMING_INFO extends Win32Struct
-{
+class DWM_TIMING_INFO extends Win32Struct {
     static sizeof => 320
 
     static packingSize => 8
@@ -29,7 +27,7 @@ class DWM_TIMING_INFO extends Win32Struct
      * The monitor refresh rate.
      * @type {UNSIGNED_RATIO}
      */
-    rateRefresh{
+    rateRefresh {
         get {
             if(!this.HasProp("__rateRefresh"))
                 this.__rateRefresh := UNSIGNED_RATIO(4, this)
@@ -50,7 +48,7 @@ class DWM_TIMING_INFO extends Win32Struct
      * The composition rate.
      * @type {UNSIGNED_RATIO}
      */
-    rateCompose{
+    rateCompose {
         get {
             if(!this.HasProp("__rateCompose"))
                 this.__rateCompose := UNSIGNED_RATIO(24, this)

@@ -1,9 +1,9 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
+#Include ..\..\System\Com\IDispatch.ahk
 #Include ..\..\System\Com\IUnknown.ahk
 #Include .\IInkCursor.ahk
-#Include ..\..\System\Com\IDispatch.ahk
 
 /**
  * Represents a collection of IInkCursor objects.
@@ -19,9 +19,8 @@
  * If you define a class that implements this interface, the new class will not interact correctly with the Tablet PC application programming interfaces (APIs).
  * @see https://learn.microsoft.com/windows/win32/api/msinkaut/nn-msinkaut-iinkcursors
  * @namespace Windows.Win32.UI.TabletPC
- * @version v4.0.30319
  */
-class IInkCursors extends IDispatch{
+class IInkCursors extends IDispatch {
 
     static sizeof => A_PtrSize
     /**

@@ -7,9 +7,8 @@
  * Audio channels are zero-based, so channels 2 through 4 are the three auxiliary karaoke channels. Use bitwise <b>OR</b> operations to set the appropriate bit to send a channel to the left speaker (0), right speaker (1), both speakers, or to no speakers by turning both bits off. These bits are all off by default whenever the <a href="https://docs.microsoft.com/windows/desktop/DirectShow/dvd-navigator-filter">DVD Navigator Filter</a> filter enters karaoke mode.
  * @see https://learn.microsoft.com/windows/win32/api/strmif/ne-strmif-dvd_karaoke_downmix
  * @namespace Windows.Win32.Media.DirectShow
- * @version v4.0.30319
  */
-class DVD_KARAOKE_DOWNMIX extends Win32Enum{
+class DVD_KARAOKE_DOWNMIX extends Win32Enum {
 
     /**
      * Reserved.

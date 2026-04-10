@@ -13,9 +13,8 @@
  * Use this interface to access generic objects in an array.
  * @see https://learn.microsoft.com/windows/win32/api/objectarray/nn-objectarray-iobjectarray
  * @namespace Windows.Win32.UI.Shell.Common
- * @version v4.0.30319
  */
-class IObjectArray extends IUnknown{
+class IObjectArray extends IUnknown {
 
     static sizeof => A_PtrSize
     /**

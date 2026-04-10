@@ -1,7 +1,6 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
-#Include ..\..\Foundation\BSTR.ahk
 #Include ..\..\System\Com\IDispatch.ahk
 
 /**
@@ -10,9 +9,8 @@
  * This interface supports import notifications for ISO9660, Joliet and UDF file systems.
  * @see https://learn.microsoft.com/windows/win32/api/imapi2fs/nn-imapi2fs-dfilesystemimageimportevents
  * @namespace Windows.Win32.Storage.Imapi
- * @version v4.0.30319
  */
-class DFileSystemImageImportEvents extends IDispatch{
+class DFileSystemImageImportEvents extends IDispatch {
 
     static sizeof => A_PtrSize
     /**
@@ -63,8 +61,8 @@ class DFileSystemImageImportEvents extends IDispatch{
      * Import notifications are generated only for files and directories, and not for associated named streams.
      * 
      * If the <i>currentItem</i> is a directory, it contains a back slash '\' at the end.
-     * @param {IDispatch} _object 
-     * @param {Integer} fileSystem Type of the file system currently being imported. For possible values, see the <a href="https://docs.microsoft.com/windows/desktop/api/imapi2fs/ne-imapi2fs-fsifilesystems">FsiFileSystems</a> enumeration type.
+     * @param {IDispatch} _object Pointer to an <a href="https://docs.microsoft.com/windows/desktop/api/imapi2fs/nn-imapi2fs-ifilesystemimage3">IFilesystemImage3</a> interface of a file system image object to which data is being imported.
+     * @param {FsiFileSystems} fileSystem Type of the file system currently being imported. For possible values, see the <a href="https://docs.microsoft.com/windows/desktop/api/imapi2fs/ne-imapi2fs-fsifilesystems">FsiFileSystems</a> enumeration type.
      * @param {BSTR} currentItem A string containing the name of the file or directory being imported at the moment.
      * @param {Integer} importedDirectoryItems The number of directories imported so far.
      * @param {Integer} totalDirectoryItems The total number of directories to be imported from the optical medium.

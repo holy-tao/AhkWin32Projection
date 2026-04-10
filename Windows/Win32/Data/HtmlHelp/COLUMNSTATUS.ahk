@@ -3,10 +3,8 @@
 
 /**
  * @namespace Windows.Win32.Data.HtmlHelp
- * @version v4.0.30319
  */
-class COLUMNSTATUS extends Win32Struct
-{
+class COLUMNSTATUS extends Win32Struct {
     static sizeof => 8
 
     static packingSize => 4

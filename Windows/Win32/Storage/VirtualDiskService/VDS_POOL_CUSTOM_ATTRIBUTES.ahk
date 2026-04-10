@@ -12,10 +12,8 @@
  * </ul>
  * @see https://learn.microsoft.com/windows/win32/api/vdshwprv/ns-vdshwprv-vds_pool_custom_attributes
  * @namespace Windows.Win32.Storage.VirtualDiskService
- * @version v4.0.30319
  */
-class VDS_POOL_CUSTOM_ATTRIBUTES extends Win32Struct
-{
+class VDS_POOL_CUSTOM_ATTRIBUTES extends Win32Struct {
     static sizeof => 16
 
     static packingSize => 8

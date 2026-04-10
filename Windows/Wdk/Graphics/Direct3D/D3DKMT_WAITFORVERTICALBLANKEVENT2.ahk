@@ -3,10 +3,8 @@
 
 /**
  * @namespace Windows.Wdk.Graphics.Direct3D
- * @version v4.0.30319
  */
-class D3DKMT_WAITFORVERTICALBLANKEVENT2 extends Win32Struct
-{
+class D3DKMT_WAITFORVERTICALBLANKEVENT2 extends Win32Struct {
     static sizeof => 80
 
     static packingSize => 8
@@ -44,9 +42,9 @@ class D3DKMT_WAITFORVERTICALBLANKEVENT2 extends Win32Struct
     }
 
     /**
-     * @type {Array<IntPtr>}
+     * @type {Array<Pointer>}
      */
-    ObjectHandleArray{
+    ObjectHandleArray {
         get {
             if(!this.HasProp("__ObjectHandleArrayProxyArray"))
                 this.__ObjectHandleArrayProxyArray := Win32FixedArray(this.ptr + 16, 8, Primitive, "ptr")

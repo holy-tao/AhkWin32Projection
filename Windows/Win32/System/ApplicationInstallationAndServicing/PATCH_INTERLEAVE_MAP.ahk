@@ -3,13 +3,11 @@
 
 /**
  * @namespace Windows.Win32.System.ApplicationInstallationAndServicing
- * @version v4.0.30319
  */
-class PATCH_INTERLEAVE_MAP extends Win32Struct
-{
+class PATCH_INTERLEAVE_MAP extends Win32Struct {
     static sizeof => 16
 
-    static packingSize => 8
+    static packingSize => 4
 
     /**
      * @type {Integer}
@@ -23,6 +21,14 @@ class PATCH_INTERLEAVE_MAP extends Win32Struct
      * @type {Integer}
      */
     OldOffset {
+        get => NumGet(this, 4, "uint")
+        set => NumPut("uint", value, this, 4)
+    }
+
+    /**
+     * @type {Integer}
+     */
+    OldLength {
         get => NumGet(this, 8, "uint")
         set => NumPut("uint", value, this, 8)
     }
@@ -30,16 +36,8 @@ class PATCH_INTERLEAVE_MAP extends Win32Struct
     /**
      * @type {Integer}
      */
-    OldLength {
+    NewLength {
         get => NumGet(this, 12, "uint")
         set => NumPut("uint", value, this, 12)
-    }
-
-    /**
-     * @type {Integer}
-     */
-    NewLength {
-        get => NumGet(this, 16, "uint")
-        set => NumPut("uint", value, this, 16)
     }
 }

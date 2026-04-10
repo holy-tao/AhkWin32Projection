@@ -7,10 +7,9 @@
  * The <b>iString</b> member can return either a string pointer or an index. You can use the <a href="https://docs.microsoft.com/windows/desktop/api/winuser/nf-winuser-is_intresource">IS_INTRESOURCE</a> macro to determine which is returned.
  * @see https://learn.microsoft.com/windows/win32/api/commctrl/ns-commctrl-tbbutton
  * @namespace Windows.Win32.UI.Controls
- * @version v4.0.30319
+ * @architecture X64, Arm64
  */
-class TBBUTTON extends Win32Struct
-{
+class TBBUTTON extends Win32Struct {
     static sizeof => 32
 
     static packingSize => 8
@@ -67,9 +66,9 @@ class TBBUTTON extends Win32Struct
      * Type: <b><a href="https://docs.microsoft.com/windows/desktop/WinProg/windows-data-types">BYTE</a></b>
      * 
      * Reserved.
-     * @type {Array<Byte>}
+     * @type {Array<Integer>}
      */
-    bReserved{
+    bReserved {
         get {
             if(!this.HasProp("__bReservedProxyArray"))
                 this.__bReservedProxyArray := Win32FixedArray(this.ptr + 10, 6, Primitive, "char")

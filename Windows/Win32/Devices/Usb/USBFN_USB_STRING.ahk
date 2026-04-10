@@ -3,10 +3,8 @@
 
 /**
  * @namespace Windows.Win32.Devices.Usb
- * @version v4.0.30319
  */
-class USBFN_USB_STRING extends Win32Struct
-{
+class USBFN_USB_STRING extends Win32Struct {
     static sizeof => 512
 
     static packingSize => 2

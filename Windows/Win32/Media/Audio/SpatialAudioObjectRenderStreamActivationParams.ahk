@@ -1,15 +1,17 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
+#Include .\WAVEFORMATEX.ahk
+#Include .\AudioObjectType.ahk
+#Include .\AUDIO_STREAM_CATEGORY.ahk
 #Include ..\..\Foundation\HANDLE.ahk
+#Include .\ISpatialAudioObjectRenderStreamNotify.ahk
 
 /**
  * Represents activation parameters for a spatial audio render stream. Pass this structure to ISpatialAudioClient::ActivateSpatialAudioStream when activating a stream.
  * @see https://learn.microsoft.com/windows/win32/api/spatialaudioclient/ns-spatialaudioclient-spatialaudioobjectrenderstreamactivationparams
  * @namespace Windows.Win32.Media.Audio
- * @version v4.0.30319
  */
-class SpatialAudioObjectRenderStreamActivationParams extends Win32Struct
-{
+class SpatialAudioObjectRenderStreamActivationParams extends Win32Struct {
     static sizeof => 40
 
     static packingSize => 8
@@ -25,7 +27,7 @@ class SpatialAudioObjectRenderStreamActivationParams extends Win32Struct
 
     /**
      * A bitwise combination of <b>AudioObjectType</b> values indicating the set of static spatial audio channels that will be allowed by the activated stream.
-     * @type {Integer}
+     * @type {AudioObjectType}
      */
     StaticObjectTypeMask {
         get => NumGet(this, 8, "int")
@@ -52,7 +54,7 @@ class SpatialAudioObjectRenderStreamActivationParams extends Win32Struct
 
     /**
      * The category of the audio stream and its spatial audio objects.
-     * @type {Integer}
+     * @type {AUDIO_STREAM_CATEGORY}
      */
     Category {
         get => NumGet(this, 20, "int")
@@ -63,7 +65,7 @@ class SpatialAudioObjectRenderStreamActivationParams extends Win32Struct
      * The event that will signal the client to provide more audio data. This handle will be duplicated internally before it is used.
      * @type {HANDLE}
      */
-    EventHandle{
+    EventHandle {
         get {
             if(!this.HasProp("__EventHandle"))
                 this.__EventHandle := HANDLE(24, this)

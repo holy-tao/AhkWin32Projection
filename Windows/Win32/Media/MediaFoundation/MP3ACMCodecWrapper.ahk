@@ -3,10 +3,8 @@
 
 /**
  * @namespace Windows.Win32.Media.MediaFoundation
- * @version v4.0.30319
  */
-class MP3ACMCodecWrapper extends Win32Struct
-{
+class MP3ACMCodecWrapper extends Win32Struct {
     static sizeof => 0
 
     static packingSize => 1

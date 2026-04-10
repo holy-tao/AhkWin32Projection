@@ -1,9 +1,9 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
+#Include ..\Com\IDispatch.ahk
 #Include ..\..\Foundation\BSTR.ahk
 #Include .\IUpdateService2.ahk
-#Include ..\Com\IDispatch.ahk
 
 /**
  * Contains information about the registration state of a service.
@@ -11,9 +11,8 @@
  * You can create an instance of this interface by using the UpdateServiceRegistration coclass. Use the Microsoft.Update.ServiceRegistration program identifier to create the object.
  * @see https://learn.microsoft.com/windows/win32/api/wuapi/nn-wuapi-iupdateserviceregistration
  * @namespace Windows.Win32.System.UpdateAgent
- * @version v4.0.30319
  */
-class IUpdateServiceRegistration extends IDispatch{
+class IUpdateServiceRegistration extends IDispatch {
 
     static sizeof => A_PtrSize
     /**
@@ -35,7 +34,7 @@ class IUpdateServiceRegistration extends IDispatch{
     static VTableNames => ["get_RegistrationState", "get_ServiceID", "get_IsPendingRegistrationWithAU", "get_Service"]
 
     /**
-     * @type {Integer} 
+     * @type {UpdateServiceRegistrationState} 
      */
     RegistrationState {
         get => this.get_RegistrationState()
@@ -64,7 +63,7 @@ class IUpdateServiceRegistration extends IDispatch{
 
     /**
      * Gets an UpdateServiceRegistrationState value that indicates the current state of the service registration.
-     * @returns {Integer} 
+     * @returns {UpdateServiceRegistrationState} 
      * @see https://learn.microsoft.com/windows/win32/api/wuapi/nf-wuapi-iupdateserviceregistration-get_registrationstate
      */
     get_RegistrationState() {

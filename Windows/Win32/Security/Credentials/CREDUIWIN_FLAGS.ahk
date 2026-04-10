@@ -3,9 +3,8 @@
 
 /**
  * @namespace Windows.Win32.Security.Credentials
- * @version v4.0.30319
  */
-class CREDUIWIN_FLAGS extends Win32BitflagEnum{
+class CREDUIWIN_FLAGS extends Win32BitflagEnum {
 
     /**
      * @type {Integer (UInt32)}

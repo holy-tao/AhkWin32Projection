@@ -5,9 +5,8 @@
  * Used by IFolderViewSettings::GetViewMode and ISearchFolderItemFactory::SetFolderLogicalViewMode to describe the view mode.
  * @see https://learn.microsoft.com/windows/win32/api/shobjidl_core/ne-shobjidl_core-folderlogicalviewmode
  * @namespace Windows.Win32.UI.Shell
- * @version v4.0.30319
  */
-class FOLDERLOGICALVIEWMODE extends Win32Enum{
+class FOLDERLOGICALVIEWMODE extends Win32Enum {
 
     /**
      * The view is not specified.

@@ -1,18 +1,17 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
+#Include ..\..\System\Com\IDispatch.ahk
 #Include ..\..\Foundation\BSTR.ahk
 #Include ..\..\System\Variant\VARIANT.ahk
 #Include .\IEnumDialableAddrs.ahk
-#Include ..\..\System\Com\IDispatch.ahk
 
 /**
  * The ITDirectoryObject interface is the common interface supported by all objects that can be added and deleted by using the ITDirectory interface.
  * @see https://learn.microsoft.com/windows/win32/api/rend/nn-rend-itdirectoryobject
  * @namespace Windows.Win32.Devices.Tapi
- * @version v4.0.30319
  */
-class ITDirectoryObject extends IDispatch{
+class ITDirectoryObject extends IDispatch {
 
     static sizeof => A_PtrSize
     /**
@@ -34,7 +33,7 @@ class ITDirectoryObject extends IDispatch{
     static VTableNames => ["get_ObjectType", "get_Name", "put_Name", "get_DialableAddrs", "EnumerateDialableAddrs", "get_SecurityDescriptor", "put_SecurityDescriptor"]
 
     /**
-     * @type {Integer} 
+     * @type {DIRECTORY_OBJECT_TYPE} 
      */
     ObjectType {
         get => this.get_ObjectType()
@@ -58,7 +57,7 @@ class ITDirectoryObject extends IDispatch{
 
     /**
      * The get_ObjectType method gets a DIRECTORY_OBJECT_TYPE descriptor of the object.
-     * @returns {Integer} Pointer to descriptor of directory object type.
+     * @returns {DIRECTORY_OBJECT_TYPE} Pointer to descriptor of directory object type.
      * @see https://learn.microsoft.com/windows/win32/api/rend/nf-rend-itdirectoryobject-get_objecttype
      */
     get_ObjectType() {

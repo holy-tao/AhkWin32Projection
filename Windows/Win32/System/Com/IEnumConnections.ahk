@@ -1,7 +1,6 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
-#Include .\IEnumConnections.ahk
 #Include .\IUnknown.ahk
 
 /**
@@ -23,9 +22,8 @@
  * </ul>
  * @see https://learn.microsoft.com/windows/win32/api/ocidl/nn-ocidl-ienumconnections
  * @namespace Windows.Win32.System.Com
- * @version v4.0.30319
  */
-class IEnumConnections extends IUnknown{
+class IEnumConnections extends IUnknown {
 
     static sizeof => A_PtrSize
     /**

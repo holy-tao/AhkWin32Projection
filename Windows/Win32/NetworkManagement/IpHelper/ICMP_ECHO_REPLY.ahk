@@ -15,10 +15,8 @@
  * The <b>ICMP_ECHO_REPLY</b> structure is defined in the <i>Ipexport.h</i> header file which is automatically included in the <i>Iphlpapi.h</i> header file. The <i>Ipexport.h</i> header file should never be used directly.
  * @see https://learn.microsoft.com/windows/win32/api/ipexport/ns-ipexport-icmp_echo_reply
  * @namespace Windows.Win32.NetworkManagement.IpHelper
- * @version v4.0.30319
  */
-class ICMP_ECHO_REPLY extends Win32Struct
-{
+class ICMP_ECHO_REPLY extends Win32Struct {
     static sizeof => 40
 
     static packingSize => 8
@@ -322,7 +320,7 @@ class ICMP_ECHO_REPLY extends Win32Struct
      * The IP options in the IP header of the reply, in the form of an <a href="https://docs.microsoft.com/windows/desktop/api/ipexport/ns-ipexport-ip_option_information">IP_OPTION_INFORMATION</a> structure.
      * @type {IP_OPTION_INFORMATION}
      */
-    Options{
+    Options {
         get {
             if(!this.HasProp("__Options"))
                 this.__Options := IP_OPTION_INFORMATION(24, this)

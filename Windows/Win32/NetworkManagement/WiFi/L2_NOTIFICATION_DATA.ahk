@@ -1,5 +1,6 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
+#Include .\WLAN_NOTIFICATION_SOURCES.ahk
 
 /**
  * Important  The Native 802.11 Wireless LAN interface is deprecated in Windows 10 and later.
@@ -13,10 +14,8 @@
  *     notifications from a source of L2_NOTIFICATION_SOURCE_WLAN_IHV.
  * @see https://learn.microsoft.com/windows/win32/api/l2cmn/ns-l2cmn-l2_notification_data
  * @namespace Windows.Win32.NetworkManagement.WiFi
- * @version v4.0.30319
  */
-class L2_NOTIFICATION_DATA extends Win32Struct
-{
+class L2_NOTIFICATION_DATA extends Win32Struct {
     static sizeof => 32
 
     static packingSize => 8
@@ -24,7 +23,7 @@ class L2_NOTIFICATION_DATA extends Win32Struct
     /**
      * This member specifies where the notification comes from. The IHV Extensions DLL must set this
      *      member to L2_NOTIFICATION_SOURCE_WLAN_IHV.
-     * @type {Integer}
+     * @type {WLAN_NOTIFICATION_SOURCES}
      */
     NotificationSource {
         get => NumGet(this, 0, "uint")
@@ -50,7 +49,7 @@ class L2_NOTIFICATION_DATA extends Win32Struct
      *      the WLAN adapter. For more information about this operation, see 
      *      <a href="https://docs.microsoft.com/windows/desktop/api/l2cmn/ns-l2cmn-l2_notification_data">802.11 WLAN Adapter
      *      Arrival</a>.
-     * @type {Pointer<Guid>}
+     * @type {Pointer}
      */
     InterfaceGuid {
         get => NumGet(this, 8, "ptr")

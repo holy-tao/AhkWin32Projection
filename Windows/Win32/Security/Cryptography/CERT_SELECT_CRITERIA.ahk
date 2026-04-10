@@ -1,21 +1,19 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
+#Include .\CERT_SELECT_CRITERIA_TYPE.ahk
 
 /**
  * Specifies selection criteria that is passed to the CertSelectCertificateChains function.
  * @see https://learn.microsoft.com/windows/win32/api/wincrypt/ns-wincrypt-cert_select_criteria
  * @namespace Windows.Win32.Security.Cryptography
- * @version v4.0.30319
  */
-class CERT_SELECT_CRITERIA extends Win32Struct
-{
+class CERT_SELECT_CRITERIA extends Win32Struct {
     static sizeof => 16
 
     static packingSize => 8
 
     /**
-     * 
-     * @type {Integer}
+     * @type {CERT_SELECT_CRITERIA_TYPE}
      */
     dwType {
         get => NumGet(this, 0, "uint")

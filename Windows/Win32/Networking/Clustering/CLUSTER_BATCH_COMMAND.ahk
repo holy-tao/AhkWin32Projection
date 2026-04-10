@@ -1,5 +1,6 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
+#Include .\CLUSTER_REG_COMMAND.ahk
 
 /**
  * Represents the order in which current batch command data is sent to the ClusterRegBatchReadCommand function.
@@ -10,10 +11,8 @@
  *      function.
  * @see https://learn.microsoft.com/windows/win32/api/clusapi/ns-clusapi-cluster_batch_command
  * @namespace Windows.Win32.Networking.Clustering
- * @version v4.0.30319
  */
-class CLUSTER_BATCH_COMMAND extends Win32Struct
-{
+class CLUSTER_BATCH_COMMAND extends Win32Struct {
     static sizeof => 32
 
     static packingSize => 8
@@ -22,7 +21,7 @@ class CLUSTER_BATCH_COMMAND extends Win32Struct
      * A command that is supported by this API and taken from the 
      *        <a href="https://docs.microsoft.com/windows/desktop/api/clusapi/ne-clusapi-cluster_reg_command">CLUSTER_REG_COMMAND</a> enumeration. The possible 
      *        commands are as follows.
-     * @type {Integer}
+     * @type {CLUSTER_REG_COMMAND}
      */
     Command {
         get => NumGet(this, 0, "int")

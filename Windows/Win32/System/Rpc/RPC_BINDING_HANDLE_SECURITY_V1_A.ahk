@@ -1,5 +1,7 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
+#Include .\SEC_WINNT_AUTH_IDENTITY_A.ahk
+#Include .\RPC_SECURITY_QOS.ahk
 
 /**
  * Contains the basic security options with which to create an RPC binding handle. (ANSI)
@@ -90,11 +92,9 @@
  * <div> </div>
  * @see https://learn.microsoft.com/windows/win32/api/rpcdce/ns-rpcdce-rpc_binding_handle_security_v1_a
  * @namespace Windows.Win32.System.Rpc
- * @version v4.0.30319
  * @charset ANSI
  */
-class RPC_BINDING_HANDLE_SECURITY_V1_A extends Win32Struct
-{
+class RPC_BINDING_HANDLE_SECURITY_V1_A extends Win32Struct {
     static sizeof => 40
 
     static packingSize => 8

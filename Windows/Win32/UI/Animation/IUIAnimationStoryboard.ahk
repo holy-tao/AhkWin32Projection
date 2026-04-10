@@ -12,9 +12,8 @@
  *          <a href="https://docs.microsoft.com/windows/desktop/api/uianimation/nn-uianimation-iuianimationtransition">IUIAnimationTransition</a>.
  * @see https://learn.microsoft.com/windows/win32/api/uianimation/nn-uianimation-iuianimationstoryboard
  * @namespace Windows.Win32.UI.Animation
- * @version v4.0.30319
  */
-class IUIAnimationStoryboard extends IUnknown{
+class IUIAnimationStoryboard extends IUnknown {
 
     static sizeof => A_PtrSize
     /**
@@ -309,7 +308,7 @@ class IUIAnimationStoryboard extends IUnknown{
      * 
      * It is possible reuse a storyboard by calling <b>Schedule</b> again after its status has reached <b>UI_ANIMATION_STORYBOARD_READY</b>.  An attempt to schedule a storyboard when it is in any state other than <b>UI_ANIMATION_STORYBOARD_BUILDING</b> or <b>UI_ANIMATION_STORYBOARD_READY</b> fails, and  <i>schedulingResult</i> is set to <b>UI_ANIMATION_SCHEDULING_ALREADY_SCHEDULED</b>.
      * @param {Float} timeNow The current time.
-     * @returns {Integer} The result of the scheduling request.
+     * @returns {UI_ANIMATION_SCHEDULING_RESULT} The result of the scheduling request.
      *             This parameter can be omitted from calls to this method.
      * @see https://learn.microsoft.com/windows/win32/api/uianimation/nf-uianimation-iuianimationstoryboard-schedule
      */
@@ -365,7 +364,8 @@ class IUIAnimationStoryboard extends IUnknown{
      * Sets the tag for the storyboard. (IUIAnimationStoryboard.SetTag)
      * @remarks
      * A tag is a pairing of an integer identifier (<i>id</i>) with a COM object (<i>object</i>); it can be used by an application to identify a storyboard.
-     * @param {IUnknown} _object 
+     * @param {IUnknown} _object The object portion of the tag.        
+     *             This parameter can be <b>NULL</b>.
      * @param {Integer} id The identifier portion of the tag.
      * @returns {HRESULT} If the method succeeds, it returns S_OK. Otherwise, it returns an <b>HRESULT</b> error code. See <a href="https://docs.microsoft.com/windows/desktop/UIAnimation/uianimation-error-codes">Windows Animation Error Codes</a> for a list of error codes.
      * 
@@ -399,7 +399,7 @@ class IUIAnimationStoryboard extends IUnknown{
      * A tag is a pairing of an integer identifier (<i>id</i>) with a COM object (<i>object</i>); it can be used by an application to identify a storyboard.
      * 
      * The parameters are optional so that the method can return both portions of the tag, or just the identifier or object portion.
-     * @param {Pointer<IUnknown>} _object 
+     * @param {Pointer<IUnknown>} _object The object portion of the tag.
      * @param {Pointer<Integer>} id The identifier portion of the tag.
      * @returns {HRESULT} If the method succeeds, it returns S_OK. Otherwise, it returns an <b>HRESULT</b> error code. See <a href="https://docs.microsoft.com/windows/desktop/UIAnimation/uianimation-error-codes">Windows Animation Error Codes</a> for a list of error codes.
      * 
@@ -434,7 +434,7 @@ class IUIAnimationStoryboard extends IUnknown{
      * @remarks
      * Unless this method is called from a handler for <a href="https://docs.microsoft.com/windows/desktop/api/uianimation/nf-uianimation-iuianimationstoryboardeventhandler-onstoryboardstatuschanged">OnStoryboardStatusChanged</a> events, the only values it returns are <b>UI_ANIMATION_STORYBOARD_BUILDING</b>, <b>UI_ANIMATION_STORYBOARD_SCHEDULED</b>,
      * <b>UI_ANIMATION_STORYBOARD_PLAYING</b>, and <b>UI_ANIMATION_STORYBOARD_READY</b>.
-     * @returns {Integer} 
+     * @returns {UI_ANIMATION_STORYBOARD_STATUS} The storyboard status.
      * @see https://learn.microsoft.com/windows/win32/api/uianimation/nf-uianimation-iuianimationstoryboard-getstatus
      */
     GetStatus() {

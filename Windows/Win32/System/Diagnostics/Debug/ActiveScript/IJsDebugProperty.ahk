@@ -1,15 +1,14 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\..\..\Guid.ahk
+#Include ..\..\..\Com\IUnknown.ahk
 #Include .\JsDebugPropertyInfo.ahk
 #Include .\IJsEnumDebugProperty.ahk
-#Include ..\..\..\Com\IUnknown.ahk
 
 /**
  * @namespace Windows.Win32.System.Diagnostics.Debug.ActiveScript
- * @version v4.0.30319
  */
-class IJsDebugProperty extends IUnknown{
+class IJsDebugProperty extends IUnknown {
 
     static sizeof => A_PtrSize
     /**
@@ -46,7 +45,7 @@ class IJsDebugProperty extends IUnknown{
 
     /**
      * 
-     * @param {Integer} members 
+     * @param {JS_PROPERTY_MEMBERS} members 
      * @returns {IJsEnumDebugProperty} 
      */
     GetMembers(members) {

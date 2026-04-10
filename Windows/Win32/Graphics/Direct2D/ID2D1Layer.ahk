@@ -20,9 +20,8 @@
  * A layer is a device-dependent resource: your application should create layers after it initializes the render target with which the layers will be used, and recreate the layers whenever the render target needs recreated. (For more information about resources, see <a href="https://docs.microsoft.com/windows/win32/Direct2D/resources-and-resource-domains">Resources Overview</a>.)
  * @see https://learn.microsoft.com/windows/win32/api/d2d1/nn-d2d1-id2d1layer
  * @namespace Windows.Win32.Graphics.Direct2D
- * @version v4.0.30319
  */
-class ID2D1Layer extends ID2D1Resource{
+class ID2D1Layer extends ID2D1Resource {
 
     static sizeof => A_PtrSize
     /**

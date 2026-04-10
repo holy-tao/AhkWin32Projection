@@ -3,16 +3,14 @@
 
 /**
  * @namespace Windows.Wdk.System.SystemServices
- * @version v4.0.30319
  */
-class WHEAP_DEVICE_DRV_EVENT extends Win32Struct
-{
-    static sizeof => 72
+class WHEAP_DEVICE_DRV_EVENT extends Win32Struct {
+    static sizeof => 40
 
     static packingSize => 8
 
     /**
-     * @type {Pointer<WHEA_EVENT_LOG_ENTRY>}
+     * @type {Pointer}
      */
     WheaEventLogEntry {
         get => NumGet(this, 0, "ptr")
@@ -23,7 +21,7 @@ class WHEAP_DEVICE_DRV_EVENT extends Win32Struct
      * @type {String}
      */
     Function {
-        get => StrGet(this.ptr + 8, 31, "UTF-16")
-        set => StrPut(value, this.ptr + 8, 31, "UTF-16")
+        get => StrGet(this.ptr + 8, 31, "UTF-8")
+        set => StrPut(value, this.ptr + 8, 31, "UTF-8")
     }
 }

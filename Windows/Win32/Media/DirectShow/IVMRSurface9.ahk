@@ -1,8 +1,8 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
-#Include ..\..\Graphics\Direct3D9\IDirect3DSurface9.ahk
 #Include ..\..\System\Com\IUnknown.ahk
+#Include ..\..\Graphics\Direct3D9\IDirect3DSurface9.ahk
 
 /**
  * The IVMRSurface9 interface is implemented on the media samples used by the Video Mixing Renderer Filter 9.
@@ -10,9 +10,8 @@
  * Include DShow.h and D3d9.h before Vmr9.h.
  * @see https://learn.microsoft.com/windows/win32/api/vmr9/nn-vmr9-ivmrsurface9
  * @namespace Windows.Win32.Media.DirectShow
- * @version v4.0.30319
  */
-class IVMRSurface9 extends IUnknown{
+class IVMRSurface9 extends IUnknown {
 
     static sizeof => A_PtrSize
     /**

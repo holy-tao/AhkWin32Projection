@@ -7,9 +7,8 @@
  * The ITMSPAddress (msp.h) interface is implemented by the MSP and represents a media service provider to the TAPI DLL.
  * @see https://learn.microsoft.com/windows/win32/api/msp/nn-msp-itmspaddress
  * @namespace Windows.Win32.Devices.Tapi
- * @version v4.0.30319
  */
-class ITMSPAddress extends IUnknown{
+class ITMSPAddress extends IUnknown {
 
     static sizeof => A_PtrSize
     /**

@@ -1,19 +1,17 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
+#Include .\IMFAttributes.ahk
 #Include .\IMFASFStreamConfig.ahk
 #Include .\IMFASFMutualExclusion.ahk
 #Include .\IMFASFStreamPrioritization.ahk
-#Include .\IMFASFProfile.ahk
-#Include .\IMFAttributes.ahk
 
 /**
  * Manages an Advanced Systems Format (ASF) profile.
  * @see https://learn.microsoft.com/windows/win32/api/wmcontainer/nn-wmcontainer-imfasfprofile
  * @namespace Windows.Win32.Media.MediaFoundation
- * @version v4.0.30319
  */
-class IMFASFProfile extends IMFAttributes{
+class IMFASFProfile extends IMFAttributes {
 
     static sizeof => A_PtrSize
     /**

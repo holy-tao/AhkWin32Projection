@@ -5,9 +5,8 @@
  * Allows a caller to control the channel depth of a stage in the rendering pipeline.
  * @see https://learn.microsoft.com/windows/win32/api/d2d1effectauthor/ne-d2d1effectauthor-d2d1_channel_depth
  * @namespace Windows.Win32.Graphics.Direct2D
- * @version v4.0.30319
  */
-class D2D1_CHANNEL_DEPTH extends Win32Enum{
+class D2D1_CHANNEL_DEPTH extends Win32Enum {
 
     /**
      * The channel depth is the default. It is inherited from the inputs.

@@ -1,5 +1,6 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
+#Include .\WS_HTTP_HEADER_MAPPING.ahk
 
 /**
  * How an HTTP request or response should be represented in a message object.
@@ -54,10 +55,8 @@
  *                 for information about what information can be mapped into message headers.
  * @see https://learn.microsoft.com/windows/win32/api/webservices/ns-webservices-ws_http_message_mapping
  * @namespace Windows.Win32.Networking.WindowsWebServices
- * @version v4.0.30319
  */
-class WS_HTTP_MESSAGE_MAPPING extends Win32Struct
-{
+class WS_HTTP_MESSAGE_MAPPING extends Win32Struct {
     static sizeof => 40
 
     static packingSize => 8

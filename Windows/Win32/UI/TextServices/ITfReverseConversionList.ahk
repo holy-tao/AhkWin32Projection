@@ -1,8 +1,8 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
-#Include ..\..\Foundation\BSTR.ahk
 #Include ..\..\System\Com\IUnknown.ahk
+#Include ..\..\Foundation\BSTR.ahk
 
 /**
  * Represents a list of the keystroke sequences required to create a specified string.
@@ -10,9 +10,8 @@
  * This interface is used to store the results of the <a href="https://docs.microsoft.com/windows/desktop/api/msctf/nf-msctf-itfreverseconversion-doreverseconversion">ITfReverseConversionList::DoReverseConversion</a> method.
  * @see https://learn.microsoft.com/windows/win32/api/msctf/nn-msctf-itfreverseconversionlist
  * @namespace Windows.Win32.UI.TextServices
- * @version v4.0.30319
  */
-class ITfReverseConversionList extends IUnknown{
+class ITfReverseConversionList extends IUnknown {
 
     static sizeof => A_PtrSize
     /**

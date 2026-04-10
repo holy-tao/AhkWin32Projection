@@ -1,5 +1,8 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
+#Include .\WSDXML_ELEMENT.ahk
+#Include .\WSDXML_ATTRIBUTE.ahk
+#Include .\WSDXML_NAME.ahk
 
 /**
  * Describes an XML attribute.
@@ -7,10 +10,8 @@
  * <b>WSDXML_ATTRIBUTE</b> is used to describe attribute values in an XML element.
  * @see https://learn.microsoft.com/windows/win32/api/wsdxmldom/ns-wsdxmldom-wsdxml_attribute
  * @namespace Windows.Win32.Devices.WebServicesOnDevices
- * @version v4.0.30319
  */
-class WSDXML_ATTRIBUTE extends Win32Struct
-{
+class WSDXML_ATTRIBUTE extends Win32Struct {
     static sizeof => 32
 
     static packingSize => 8

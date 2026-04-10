@@ -3,9 +3,8 @@
 
 /**
  * @namespace Windows.Win32.UI.Input.Ime
- * @version v4.0.30319
  */
-class IME_PAD_REQUEST_FLAGS extends Win32Enum{
+class IME_PAD_REQUEST_FLAGS extends Win32Enum {
 
     /**
      * @type {Integer (UInt32)}

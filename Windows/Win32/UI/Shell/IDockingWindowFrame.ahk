@@ -32,9 +32,8 @@
  * You use <b>IDockingWindowFrame</b> to add, find, and remove docking window objects in a browser frame.
  * @see https://learn.microsoft.com/windows/win32/api/shlobj/nn-shlobj-idockingwindowframe
  * @namespace Windows.Win32.UI.Shell
- * @version v4.0.30319
  */
-class IDockingWindowFrame extends IOleWindow{
+class IDockingWindowFrame extends IOleWindow {
 
     static sizeof => A_PtrSize
     /**

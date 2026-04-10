@@ -10,9 +10,8 @@
  * <div> </div>
  * @see https://learn.microsoft.com/windows/win32/api/xpsprint/nn-xpsprint-ixpsprintjobstream
  * @namespace Windows.Win32.Storage.Xps.Printing
- * @version v4.0.30319
  */
-class IXpsPrintJobStream extends ISequentialStream{
+class IXpsPrintJobStream extends ISequentialStream {
 
     static sizeof => A_PtrSize
     /**

@@ -3,10 +3,8 @@
 
 /**
  * @namespace Windows.Win32.Storage.Nvme
- * @version v4.0.30319
  */
-class NVME_LATENCY_MONITORING_ENTRY extends Win32Struct
-{
+class NVME_LATENCY_MONITORING_ENTRY extends Win32Struct {
     static sizeof => 4098
 
     static packingSize => 2
@@ -92,9 +90,9 @@ class NVME_LATENCY_MONITORING_ENTRY extends Win32Struct
     }
 
     /**
-     * @type {Array<Byte>}
+     * @type {Array<Integer>}
      */
-    Reserved0{
+    Reserved0 {
         get {
             if(!this.HasProp("__Reserved0ProxyArray"))
                 this.__Reserved0ProxyArray := Win32FixedArray(this.ptr + 14, 4083, Primitive, "char")

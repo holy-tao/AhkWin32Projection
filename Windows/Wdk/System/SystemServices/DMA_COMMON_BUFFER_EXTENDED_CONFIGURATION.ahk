@@ -1,18 +1,18 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
+#Include .\DMA_COMMON_BUFFER_EXTENDED_CONFIGURATION_TYPE.ahk
+#Include .\DMA_COMMON_BUFFER_EXTENDED_CONFIGURATION_ACCESS_TYPE.ahk
 
 /**
  * @namespace Windows.Wdk.System.SystemServices
- * @version v4.0.30319
  */
-class DMA_COMMON_BUFFER_EXTENDED_CONFIGURATION extends Win32Struct
-{
+class DMA_COMMON_BUFFER_EXTENDED_CONFIGURATION extends Win32Struct {
     static sizeof => 40
 
     static packingSize => 8
 
     /**
-     * @type {Integer}
+     * @type {DMA_COMMON_BUFFER_EXTENDED_CONFIGURATION_TYPE}
      */
     ConfigType {
         get => NumGet(this, 0, "int")
@@ -30,7 +30,7 @@ class DMA_COMMON_BUFFER_EXTENDED_CONFIGURATION extends Win32Struct
             get => NumGet(this, 0, "int64")
             set => NumPut("int64", value, this, 0)
         }
-    
+
         /**
          * @type {Integer}
          */
@@ -38,7 +38,6 @@ class DMA_COMMON_BUFFER_EXTENDED_CONFIGURATION extends Win32Struct
             get => NumGet(this, 8, "int64")
             set => NumPut("int64", value, this, 8)
         }
-    
     }
 
     class _SubSection extends Win32Struct {
@@ -52,7 +51,7 @@ class DMA_COMMON_BUFFER_EXTENDED_CONFIGURATION extends Win32Struct
             get => NumGet(this, 0, "uint")
             set => NumPut("uint", value, this, 0)
         }
-    
+
         /**
          * @type {Integer}
          */
@@ -60,16 +59,15 @@ class DMA_COMMON_BUFFER_EXTENDED_CONFIGURATION extends Win32Struct
             get => NumGet(this, 8, "uint")
             set => NumPut("uint", value, this, 8)
         }
-    
     }
 
     /**
      * @type {_LogicalAddressLimits}
      */
-    LogicalAddressLimits{
+    LogicalAddressLimits {
         get {
             if(!this.HasProp("__LogicalAddressLimits"))
-                this.__LogicalAddressLimits := %this.__Class%._LogicalAddressLimits(8, this)
+                this.__LogicalAddressLimits := DMA_COMMON_BUFFER_EXTENDED_CONFIGURATION._LogicalAddressLimits(8, this)
             return this.__LogicalAddressLimits
         }
     }
@@ -77,16 +75,16 @@ class DMA_COMMON_BUFFER_EXTENDED_CONFIGURATION extends Win32Struct
     /**
      * @type {_SubSection}
      */
-    SubSection{
+    SubSection {
         get {
             if(!this.HasProp("__SubSection"))
-                this.__SubSection := %this.__Class%._SubSection(8, this)
+                this.__SubSection := DMA_COMMON_BUFFER_EXTENDED_CONFIGURATION._SubSection(8, this)
             return this.__SubSection
         }
     }
 
     /**
-     * @type {Integer}
+     * @type {DMA_COMMON_BUFFER_EXTENDED_CONFIGURATION_ACCESS_TYPE}
      */
     HardwareAccessType {
         get => NumGet(this, 8, "int")
@@ -94,9 +92,9 @@ class DMA_COMMON_BUFFER_EXTENDED_CONFIGURATION extends Win32Struct
     }
 
     /**
-     * @type {Array<UInt64>}
+     * @type {Array<Integer>}
      */
-    Reserved{
+    Reserved {
         get {
             if(!this.HasProp("__ReservedProxyArray"))
                 this.__ReservedProxyArray := Win32FixedArray(this.ptr + 8, 4, Primitive, "uint")

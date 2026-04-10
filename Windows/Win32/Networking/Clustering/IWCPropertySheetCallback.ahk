@@ -13,9 +13,8 @@
  *      interface.
  * @see https://learn.microsoft.com/windows/win32/api/cluadmex/nn-cluadmex-iwcpropertysheetcallback
  * @namespace Windows.Win32.Networking.Clustering
- * @version v4.0.30319
  */
-class IWCPropertySheetCallback extends IUnknown{
+class IWCPropertySheetCallback extends IUnknown {
 
     static sizeof => A_PtrSize
     /**

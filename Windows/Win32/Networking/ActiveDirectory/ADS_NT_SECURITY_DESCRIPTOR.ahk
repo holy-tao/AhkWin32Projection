@@ -7,10 +7,8 @@
  * The <b>ADS_NT_SECURITY_DESCRIPTOR</b> structure is normally used as a member of the <a href="https://docs.microsoft.com/windows/desktop/api/iads/ns-iads-adsvalue">ADSVALUE</a> structure definition.
  * @see https://learn.microsoft.com/windows/win32/api/iads/ns-iads-ads_nt_security_descriptor
  * @namespace Windows.Win32.Networking.ActiveDirectory
- * @version v4.0.30319
  */
-class ADS_NT_SECURITY_DESCRIPTOR extends Win32Struct
-{
+class ADS_NT_SECURITY_DESCRIPTOR extends Win32Struct {
     static sizeof => 16
 
     static packingSize => 8

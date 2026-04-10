@@ -5,18 +5,16 @@
 
 /**
  * @namespace Windows.Win32.System.Ioctl
- * @version v4.0.30319
  */
-class DEVICEDUMP_STORAGESTACK_PUBLIC_DUMP extends Win32Struct
-{
-    static sizeof => 48
+class DEVICEDUMP_STORAGESTACK_PUBLIC_DUMP extends Win32Struct {
+    static sizeof => 104
 
     static packingSize => 8
 
     /**
      * @type {DEVICEDUMP_STRUCTURE_VERSION}
      */
-    Descriptor{
+    Descriptor {
         get {
             if(!this.HasProp("__Descriptor"))
                 this.__Descriptor := DEVICEDUMP_STRUCTURE_VERSION(0, this)
@@ -33,9 +31,9 @@ class DEVICEDUMP_STORAGESTACK_PUBLIC_DUMP extends Win32Struct
     }
 
     /**
-     * @type {Array<Byte>}
+     * @type {Array<Integer>}
      */
-    cDriverName{
+    cDriverName {
         get {
             if(!this.HasProp("__cDriverNameProxyArray"))
                 this.__cDriverNameProxyArray := Win32FixedArray(this.ptr + 16, 16, Primitive, "char")
@@ -52,9 +50,9 @@ class DEVICEDUMP_STORAGESTACK_PUBLIC_DUMP extends Win32Struct
     }
 
     /**
-     * @type {Array<DEVICEDUMP_STORAGESTACK_PUBLIC_STATE_RECORD>}
+     * @type {DEVICEDUMP_STORAGESTACK_PUBLIC_STATE_RECORD}
      */
-    RecordArray{
+    RecordArray {
         get {
             if(!this.HasProp("__RecordArrayProxyArray"))
                 this.__RecordArrayProxyArray := Win32FixedArray(this.ptr + 40, 1, DEVICEDUMP_STORAGESTACK_PUBLIC_STATE_RECORD, "")

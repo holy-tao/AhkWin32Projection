@@ -4,10 +4,8 @@
 
 /**
  * @namespace Windows.Win32.System.JobObjects
- * @version v4.0.30319
  */
-class JOB_SET_ARRAY extends Win32Struct
-{
+class JOB_SET_ARRAY extends Win32Struct {
     static sizeof => 16
 
     static packingSize => 8
@@ -15,7 +13,7 @@ class JOB_SET_ARRAY extends Win32Struct
     /**
      * @type {HANDLE}
      */
-    JobHandle{
+    JobHandle {
         get {
             if(!this.HasProp("__JobHandle"))
                 this.__JobHandle := HANDLE(0, this)

@@ -5,10 +5,8 @@
  * The DWRITE_JUSTIFICATION_OPPORTUNITY structure specifies justification info per glyph.
  * @see https://learn.microsoft.com/windows/win32/api/dwrite_1/ns-dwrite_1-dwrite_justification_opportunity
  * @namespace Windows.Win32.Graphics.DirectWrite
- * @version v4.0.30319
  */
-class DWRITE_JUSTIFICATION_OPPORTUNITY extends Win32Struct
-{
+class DWRITE_JUSTIFICATION_OPPORTUNITY extends Win32Struct {
     static sizeof => 16
 
     static packingSize => 4
@@ -57,7 +55,6 @@ class DWRITE_JUSTIFICATION_OPPORTUNITY extends Win32Struct
     }
 
     /**
-     * Priority of this expansion point. Larger priorities are applied later, while priority zero does nothing.
      * @type {Integer}
      */
     expansionPriority {
@@ -66,7 +63,6 @@ class DWRITE_JUSTIFICATION_OPPORTUNITY extends Win32Struct
     }
 
     /**
-     * Priority of this compression point. Larger priorities are applied later, while priority zero does nothing.
      * @type {Integer}
      */
     compressionPriority {
@@ -75,7 +71,6 @@ class DWRITE_JUSTIFICATION_OPPORTUNITY extends Win32Struct
     }
 
     /**
-     * Allow this expansion point to use up any remaining slack space even after all expansion priorities have been used up.
      * @type {Integer}
      */
     allowResidualExpansion {
@@ -84,7 +79,6 @@ class DWRITE_JUSTIFICATION_OPPORTUNITY extends Win32Struct
     }
 
     /**
-     * Allow this compression point to use up any remaining space even after all compression priorities have been used up.
      * @type {Integer}
      */
     allowResidualCompression {
@@ -93,7 +87,6 @@ class DWRITE_JUSTIFICATION_OPPORTUNITY extends Win32Struct
     }
 
     /**
-     * Apply expansion and compression to the leading edge of the glyph. This bit is <b>FALSE</b> (0) for connected scripts, fixed-size characters, and diacritics. It is generally <b>FALSE</b> within a multi-glyph cluster, unless the script allows expansion of glyphs within a cluster, like Thai.
      * @type {Integer}
      */
     applyToLeadingEdge {
@@ -102,7 +95,6 @@ class DWRITE_JUSTIFICATION_OPPORTUNITY extends Win32Struct
     }
 
     /**
-     * Apply expansion and compression to the trailing edge of the glyph. This bit is <b>FALSE</b> (0) for connected scripts, fixed-size characters, and diacritics. It is generally <b>FALSE</b> within a multi-glyph cluster, unless the script allows expansion of glyphs within a cluster, like Thai.
      * @type {Integer}
      */
     applyToTrailingEdge {
@@ -111,7 +103,6 @@ class DWRITE_JUSTIFICATION_OPPORTUNITY extends Win32Struct
     }
 
     /**
-     * Reserved
      * @type {Integer}
      */
     reserved {

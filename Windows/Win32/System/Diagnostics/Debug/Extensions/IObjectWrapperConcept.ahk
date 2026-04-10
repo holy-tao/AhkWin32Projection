@@ -5,9 +5,8 @@
 
 /**
  * @namespace Windows.Win32.System.Diagnostics.Debug.Extensions
- * @version v4.0.30319
  */
-class IObjectWrapperConcept extends IUnknown{
+class IObjectWrapperConcept extends IUnknown {
 
     static sizeof => A_PtrSize
     /**
@@ -32,7 +31,7 @@ class IObjectWrapperConcept extends IUnknown{
      * 
      * @param {IModelObject} pContextObject 
      * @param {Pointer<IModelObject>} wrappedObject 
-     * @param {Pointer<Integer>} pUsagePreference 
+     * @param {Pointer<WrappedObjectPreference>} pUsagePreference 
      * @returns {HRESULT} 
      */
     GetWrappedObject(pContextObject, wrappedObject, pUsagePreference) {

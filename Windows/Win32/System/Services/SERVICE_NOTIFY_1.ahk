@@ -1,13 +1,14 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
 #Include .\SERVICE_STATUS_PROCESS.ahk
+#Include .\ENUM_SERVICE_TYPE.ahk
+#Include .\SERVICE_STATUS_CURRENT_STATE.ahk
+#Include .\SERVICE_RUNS_IN_PROCESS.ahk
 
 /**
  * @namespace Windows.Win32.System.Services
- * @version v4.0.30319
  */
-class SERVICE_NOTIFY_1 extends Win32Struct
-{
+class SERVICE_NOTIFY_1 extends Win32Struct {
     static sizeof => 64
 
     static packingSize => 8
@@ -47,7 +48,7 @@ class SERVICE_NOTIFY_1 extends Win32Struct
     /**
      * @type {SERVICE_STATUS_PROCESS}
      */
-    ServiceStatus{
+    ServiceStatus {
         get {
             if(!this.HasProp("__ServiceStatus"))
                 this.__ServiceStatus := SERVICE_STATUS_PROCESS(28, this)

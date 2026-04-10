@@ -4,10 +4,8 @@
 
 /**
  * @namespace Windows.Win32.System.Ioctl
- * @version v4.0.30319
  */
-class MOVE_FILE_RECORD_DATA extends Win32Struct
-{
+class MOVE_FILE_RECORD_DATA extends Win32Struct {
     static sizeof => 24
 
     static packingSize => 8
@@ -15,7 +13,7 @@ class MOVE_FILE_RECORD_DATA extends Win32Struct
     /**
      * @type {HANDLE}
      */
-    FileHandle{
+    FileHandle {
         get {
             if(!this.HasProp("__FileHandle"))
                 this.__FileHandle := HANDLE(0, this)

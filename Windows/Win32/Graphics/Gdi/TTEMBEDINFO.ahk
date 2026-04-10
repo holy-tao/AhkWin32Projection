@@ -5,10 +5,8 @@
  * The TTEMBEDINFO structure contains a list of URLs from which the embedded font object may be legitimately referenced.
  * @see https://learn.microsoft.com/windows/win32/api/t2embapi/ns-t2embapi-ttembedinfo
  * @namespace Windows.Win32.Graphics.Gdi
- * @version v4.0.30319
  */
-class TTEMBEDINFO extends Win32Struct
-{
+class TTEMBEDINFO extends Win32Struct {
     static sizeof => 16
 
     static packingSize => 8

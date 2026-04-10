@@ -4,10 +4,8 @@
 
 /**
  * @namespace Windows.Wdk.System.SystemServices
- * @version v4.0.30319
  */
-class POOL_EXTENDED_PARAMS_SECURE_POOL extends Win32Struct
-{
+class POOL_EXTENDED_PARAMS_SECURE_POOL extends Win32Struct {
     static sizeof => 32
 
     static packingSize => 8
@@ -15,7 +13,7 @@ class POOL_EXTENDED_PARAMS_SECURE_POOL extends Win32Struct
     /**
      * @type {HANDLE}
      */
-    SecurePoolHandle{
+    SecurePoolHandle {
         get {
             if(!this.HasProp("__SecurePoolHandle"))
                 this.__SecurePoolHandle := HANDLE(0, this)

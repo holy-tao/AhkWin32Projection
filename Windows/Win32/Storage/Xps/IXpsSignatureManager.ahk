@@ -1,13 +1,13 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
+#Include ..\..\System\Com\IUnknown.ahk
 #Include .\IXpsSignature.ahk
 #Include ..\Packaging\Opc\IOpcPartUri.ahk
 #Include .\IXpsSignatureCollection.ahk
 #Include .\IXpsSignatureBlock.ahk
 #Include .\IXpsSignatureBlockCollection.ahk
 #Include .\IXpsSigningOptions.ahk
-#Include ..\..\System\Com\IUnknown.ahk
 
 /**
  * Manages the digital signatures and digital signature requests of an XPS document.
@@ -51,9 +51,8 @@
  * After the <b>IXpsSignatureManager</b> interface has been instantiated and an XPS document has been loaded, the signature manager is ready for use.
  * @see https://learn.microsoft.com/windows/win32/api/xpsdigitalsignature/nn-xpsdigitalsignature-ixpssignaturemanager
  * @namespace Windows.Win32.Storage.Xps
- * @version v4.0.30319
  */
-class IXpsSignatureManager extends IUnknown{
+class IXpsSignatureManager extends IUnknown {
 
     static sizeof => A_PtrSize
     /**
@@ -223,7 +222,7 @@ class IXpsSignatureManager extends IUnknown{
      * 
      * </div>
      * <div> </div>
-     * @param {Pointer<CERT_CONTEXT>} _x509Certificate 
+     * @param {Pointer<CERT_CONTEXT>} _x509Certificate A pointer to the <a href="https://docs.microsoft.com/windows/desktop/api/wincrypt/ns-wincrypt-cert_context">CERT_CONTEXT</a> structure that contains the X.509 certificate to be used for signing.
      * @returns {IXpsSignature} A pointer to the  <a href="https://docs.microsoft.com/windows/desktop/api/xpsdigitalsignature/nn-xpsdigitalsignature-ixpssignature">IXpsSignature</a> interface that contains the new digital signature.
      * 
      * If successful, this method creates the signature part, adds it to the package, and in <i>signature</i> returns a pointer to the interface of that signature part.

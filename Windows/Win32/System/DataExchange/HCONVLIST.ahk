@@ -5,10 +5,8 @@
 
 /**
  * @namespace Windows.Win32.System.DataExchange
- * @version v4.0.30319
  */
-class HCONVLIST extends Win32Handle
-{
+class HCONVLIST extends Win32Handle {
     static sizeof => 8
 
     static packingSize => 8

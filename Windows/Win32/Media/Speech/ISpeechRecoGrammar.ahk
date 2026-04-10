@@ -1,17 +1,15 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
-#Include ..\..\Foundation\BSTR.ahk
+#Include ..\..\System\Com\IDispatch.ahk
 #Include ..\..\System\Variant\VARIANT.ahk
 #Include .\ISpeechRecoContext.ahk
 #Include .\ISpeechGrammarRules.ahk
-#Include ..\..\System\Com\IDispatch.ahk
 
 /**
  * @namespace Windows.Win32.Media.Speech
- * @version v4.0.30319
  */
-class ISpeechRecoGrammar extends IDispatch{
+class ISpeechRecoGrammar extends IDispatch {
 
     static sizeof => A_PtrSize
     /**
@@ -47,7 +45,7 @@ class ISpeechRecoGrammar extends IDispatch{
     }
 
     /**
-     * @type {Integer} 
+     * @type {SpeechGrammarState} 
      */
     State {
         get => this.get_State()
@@ -82,7 +80,7 @@ class ISpeechRecoGrammar extends IDispatch{
 
     /**
      * 
-     * @param {Integer} State 
+     * @param {SpeechGrammarState} State 
      * @returns {HRESULT} 
      */
     put_State(State) {
@@ -92,7 +90,7 @@ class ISpeechRecoGrammar extends IDispatch{
 
     /**
      * 
-     * @returns {Integer} 
+     * @returns {SpeechGrammarState} 
      */
     get_State() {
         result := ComCall(10, this, "int*", &State := 0, "HRESULT")
@@ -137,7 +135,7 @@ class ISpeechRecoGrammar extends IDispatch{
     /**
      * 
      * @param {BSTR} FileName 
-     * @param {Integer} LoadOption 
+     * @param {SpeechLoadOption} LoadOption 
      * @returns {HRESULT} 
      */
     CmdLoadFromFile(FileName, LoadOption) {
@@ -151,7 +149,7 @@ class ISpeechRecoGrammar extends IDispatch{
      * 
      * @param {BSTR} ClassId 
      * @param {BSTR} GrammarName 
-     * @param {Integer} LoadOption 
+     * @param {SpeechLoadOption} LoadOption 
      * @returns {HRESULT} 
      */
     CmdLoadFromObject(ClassId, GrammarName, LoadOption) {
@@ -168,7 +166,7 @@ class ISpeechRecoGrammar extends IDispatch{
      * @param {VARIANT} ResourceName 
      * @param {VARIANT} _ResourceType 
      * @param {Integer} LanguageId 
-     * @param {Integer} LoadOption 
+     * @param {SpeechLoadOption} LoadOption 
      * @returns {HRESULT} 
      */
     CmdLoadFromResource(_hModule, ResourceName, _ResourceType, LanguageId, LoadOption) {
@@ -179,7 +177,7 @@ class ISpeechRecoGrammar extends IDispatch{
     /**
      * 
      * @param {VARIANT} GrammarData 
-     * @param {Integer} LoadOption 
+     * @param {SpeechLoadOption} LoadOption 
      * @returns {HRESULT} 
      */
     CmdLoadFromMemory(GrammarData, LoadOption) {
@@ -192,7 +190,7 @@ class ISpeechRecoGrammar extends IDispatch{
      * @param {BSTR} ProprietaryGuid 
      * @param {BSTR} ProprietaryString 
      * @param {VARIANT} ProprietaryData 
-     * @param {Integer} LoadOption 
+     * @param {SpeechLoadOption} LoadOption 
      * @returns {HRESULT} 
      */
     CmdLoadFromProprietaryGrammar(ProprietaryGuid, ProprietaryString, ProprietaryData, LoadOption) {
@@ -206,7 +204,7 @@ class ISpeechRecoGrammar extends IDispatch{
     /**
      * 
      * @param {BSTR} Name 
-     * @param {Integer} State 
+     * @param {SpeechRuleState} State 
      * @returns {HRESULT} 
      */
     CmdSetRuleState(Name, State) {
@@ -219,7 +217,7 @@ class ISpeechRecoGrammar extends IDispatch{
     /**
      * 
      * @param {Integer} RuleId 
-     * @param {Integer} State 
+     * @param {SpeechRuleState} State 
      * @returns {HRESULT} 
      */
     CmdSetRuleIdState(RuleId, State) {
@@ -230,7 +228,7 @@ class ISpeechRecoGrammar extends IDispatch{
     /**
      * 
      * @param {BSTR} TopicName 
-     * @param {Integer} LoadOption 
+     * @param {SpeechLoadOption} LoadOption 
      * @returns {HRESULT} 
      */
     DictationLoad(TopicName, LoadOption) {
@@ -251,7 +249,7 @@ class ISpeechRecoGrammar extends IDispatch{
 
     /**
      * 
-     * @param {Integer} State 
+     * @param {SpeechRuleState} State 
      * @returns {HRESULT} 
      */
     DictationSetState(State) {
@@ -286,7 +284,7 @@ class ISpeechRecoGrammar extends IDispatch{
     /**
      * 
      * @param {BSTR} Word 
-     * @returns {Integer} 
+     * @returns {SpeechWordPronounceable} 
      */
     IsPronounceable(Word) {
         Word := Word is String ? BSTR.Alloc(Word).Value : Word

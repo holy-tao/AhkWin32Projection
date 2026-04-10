@@ -1,17 +1,15 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
-#Include ..\..\Foundation\BSTR.ahk
-#Include .\ITTerminal.ahk
 #Include .\ITBasicCallControl.ahk
+#Include .\ITTerminal.ahk
 
 /**
  * The ITBasicCallControl2 interface is an extension of the ITBasicCallControl interface.
  * @see https://learn.microsoft.com/windows/win32/api/tapi3if/nn-tapi3if-itbasiccallcontrol2
  * @namespace Windows.Win32.Devices.Tapi
- * @version v4.0.30319
  */
-class ITBasicCallControl2 extends ITBasicCallControl{
+class ITBasicCallControl2 extends ITBasicCallControl {
 
     static sizeof => A_PtrSize
     /**
@@ -41,7 +39,8 @@ class ITBasicCallControl2 extends ITBasicCallControl{
      * @param {BSTR} bstrTerminalClassGUID The terminal class required for the call.
      * @param {Integer} lMediaType Bitwise ORed list of 
      * <a href="https://docs.microsoft.com/windows/desktop/Tapi/tapimediatype--constants">media types</a> required for the call.
-     * @param {Integer} _Direction 
+     * @param {TERMINAL_DIRECTION} _Direction The 
+     * <a href="https://docs.microsoft.com/windows/desktop/api/tapi3if/ne-tapi3if-terminal_direction">TERMINAL_DIRECTION</a> descriptor for the terminal.
      * @returns {ITTerminal} Pointer to 
      * <a href="https://docs.microsoft.com/windows/desktop/api/tapi3if/nn-tapi3if-itterminal">ITTerminal</a> interface.
      * @see https://learn.microsoft.com/windows/win32/api/tapi3if/nf-tapi3if-itbasiccallcontrol2-requestterminal

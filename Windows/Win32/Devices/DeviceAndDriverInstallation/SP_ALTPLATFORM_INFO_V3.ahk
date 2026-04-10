@@ -3,10 +3,9 @@
 
 /**
  * @namespace Windows.Win32.Devices.DeviceAndDriverInstallation
- * @version v4.0.30319
+ * @architecture X64, Arm64
  */
-class SP_ALTPLATFORM_INFO_V3 extends Win32Struct
-{
+class SP_ALTPLATFORM_INFO_V3 extends Win32Struct {
     static sizeof => 36
 
     static packingSize => 4

@@ -8,11 +8,10 @@
  * > The setupapi.h header defines FILEPATHS_SIGNERINFO as an alias which automatically selects the ANSI or Unicode version of this function based on the definition of the UNICODE preprocessor constant. Mixing usage of the encoding-neutral alias with code that not encoding-neutral can lead to mismatches that result in compilation or runtime errors. For more information, see [Conventions for Function Prototypes](/windows/win32/intl/conventions-for-function-prototypes).
  * @see https://learn.microsoft.com/windows/win32/api/setupapi/ns-setupapi-filepaths_signerinfo_a
  * @namespace Windows.Win32.Devices.DeviceAndDriverInstallation
- * @version v4.0.30319
  * @charset ANSI
+ * @architecture X64, Arm64
  */
-class FILEPATHS_SIGNERINFO_A extends Win32Struct
-{
+class FILEPATHS_SIGNERINFO_A extends Win32Struct {
     static sizeof => 48
 
     static packingSize => 8

@@ -7,10 +7,8 @@
  * The <b>FIXED</b> structure is used to describe the elements of the <a href="https://docs.microsoft.com/windows/desktop/api/wingdi/ns-wingdi-mat2">MAT2</a> structure.
  * @see https://learn.microsoft.com/windows/win32/api/wingdi/ns-wingdi-fixed
  * @namespace Windows.Win32.Graphics.Gdi
- * @version v4.0.30319
  */
-class FIXED extends Win32Struct
-{
+class FIXED extends Win32Struct {
     static sizeof => 4
 
     static packingSize => 2

@@ -4,18 +4,16 @@
 
 /**
  * @namespace Windows.Win32.System.Console
- * @version v4.0.30319
  */
-class ExtKeyDef extends Win32Struct
-{
-    static sizeof => 24
+class ExtKeyDef extends Win32Struct {
+    static sizeof => 18
 
-    static packingSize => 8
+    static packingSize => 2
 
     /**
-     * @type {Array<ExtKeySubst>}
+     * @type {ExtKeySubst}
      */
-    keys{
+    keys {
         get {
             if(!this.HasProp("__keysProxyArray"))
                 this.__keysProxyArray := Win32FixedArray(this.ptr + 0, 3, ExtKeySubst, "")

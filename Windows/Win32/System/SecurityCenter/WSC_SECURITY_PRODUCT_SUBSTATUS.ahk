@@ -3,9 +3,8 @@
 
 /**
  * @namespace Windows.Win32.System.SecurityCenter
- * @version v4.0.30319
  */
-class WSC_SECURITY_PRODUCT_SUBSTATUS extends Win32Enum{
+class WSC_SECURITY_PRODUCT_SUBSTATUS extends Win32Enum {
 
     /**
      * @type {Integer (Int32)}

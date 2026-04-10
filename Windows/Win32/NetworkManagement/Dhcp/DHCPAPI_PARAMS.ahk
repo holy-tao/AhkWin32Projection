@@ -5,10 +5,8 @@
  * The DHCPAPI_PARAMS structure is used to request DHCP parameters.
  * @see https://learn.microsoft.com/windows/win32/api/dhcpcsdk/ns-dhcpcsdk-dhcpapi_params
  * @namespace Windows.Win32.NetworkManagement.Dhcp
- * @version v4.0.30319
  */
-class DHCPAPI_PARAMS extends Win32Struct
-{
+class DHCPAPI_PARAMS extends Win32Struct {
     static sizeof => 32
 
     static packingSize => 8
@@ -50,7 +48,6 @@ class DHCPAPI_PARAMS extends Win32Struct
     }
 
     /**
-     * 
      * @type {Integer}
      */
     nBytesData {

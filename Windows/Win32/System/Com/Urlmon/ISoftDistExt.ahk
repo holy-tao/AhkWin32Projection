@@ -5,9 +5,8 @@
 
 /**
  * @namespace Windows.Win32.System.Com.Urlmon
- * @version v4.0.30319
  */
-class ISoftDistExt extends IUnknown{
+class ISoftDistExt extends IUnknown {
 
     static sizeof => A_PtrSize
     /**

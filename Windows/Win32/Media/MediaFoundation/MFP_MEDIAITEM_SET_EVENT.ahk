@@ -1,6 +1,11 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
 #Include .\MFP_EVENT_HEADER.ahk
+#Include .\MFP_EVENT_TYPE.ahk
+#Include .\IMFPMediaPlayer.ahk
+#Include .\MFP_MEDIAPLAYER_STATE.ahk
+#Include ..\..\UI\Shell\PropertiesSystem\IPropertyStore.ahk
+#Include .\IMFPMediaItem.ahk
 
 /**
  * Event structure for the MFP_EVENT_TYPE_MEDIAITEM_SET event.
@@ -10,10 +15,8 @@
  * If one or more streams could not be connected to a media sink, the event property store contains the <a href="https://docs.microsoft.com/windows/desktop/medfound/mfp-pkey-streamrenderingresults">MFP_PKEY_StreamRenderingResults</a> property. The value of the property is an array of <b>HRESULT</b> values, indicating which streams were connected successfully.  The event property store can be accessed through the <b>header.pPropertyStore</b> member.
  * @see https://learn.microsoft.com/windows/win32/api/mfplay/ns-mfplay-mfp_mediaitem_set_event
  * @namespace Windows.Win32.Media.MediaFoundation
- * @version v4.0.30319
  */
-class MFP_MEDIAITEM_SET_EVENT extends Win32Struct
-{
+class MFP_MEDIAITEM_SET_EVENT extends Win32Struct {
     static sizeof => 40
 
     static packingSize => 8
@@ -22,7 +25,7 @@ class MFP_MEDIAITEM_SET_EVENT extends Win32Struct
      * <a href="https://docs.microsoft.com/windows/desktop/api/mfplay/ns-mfplay-mfp_event_header">MFP_EVENT_HEADER</a> structure that contains data common to all <a href="https://docs.microsoft.com/windows/desktop/api/mfplay/nn-mfplay-imfpmediaplayer">IMFPMediaPlayer</a> events.
      * @type {MFP_EVENT_HEADER}
      */
-    header{
+    header {
         get {
             if(!this.HasProp("__header"))
                 this.__header := MFP_EVENT_HEADER(0, this)

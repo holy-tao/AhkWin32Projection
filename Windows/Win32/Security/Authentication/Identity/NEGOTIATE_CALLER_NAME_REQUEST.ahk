@@ -4,10 +4,8 @@
 
 /**
  * @namespace Windows.Win32.Security.Authentication.Identity
- * @version v4.0.30319
  */
-class NEGOTIATE_CALLER_NAME_REQUEST extends Win32Struct
-{
+class NEGOTIATE_CALLER_NAME_REQUEST extends Win32Struct {
     static sizeof => 12
 
     static packingSize => 4
@@ -23,7 +21,7 @@ class NEGOTIATE_CALLER_NAME_REQUEST extends Win32Struct
     /**
      * @type {LUID}
      */
-    LogonId{
+    LogonId {
         get {
             if(!this.HasProp("__LogonId"))
                 this.__LogonId := LUID(4, this)

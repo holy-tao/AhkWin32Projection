@@ -1,16 +1,15 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
-#Include .\ISyncChange.ahk
 #Include ..\Com\IUnknown.ahk
+#Include .\ISyncChange.ahk
 
 /**
  * Represents a conflict between two items.
  * @see https://learn.microsoft.com/windows/win32/api/winsync/nn-winsync-ichangeconflict
  * @namespace Windows.Win32.System.WindowsSync
- * @version v4.0.30319
  */
-class IChangeConflict extends IUnknown{
+class IChangeConflict extends IUnknown {
 
     static sizeof => A_PtrSize
     /**
@@ -77,7 +76,7 @@ class IChangeConflict extends IUnknown{
 
     /**
      * Gets the conflict resolution action for the conflict.
-     * @param {Pointer<Integer>} pResolveAction Returns the conflict resolution action for the conflict.
+     * @param {Pointer<SYNC_RESOLVE_ACTION>} pResolveAction Returns the conflict resolution action for the conflict.
      * @returns {HRESULT} The possible return codes include, but are not limited to, the values shown in the following table.
      * 
      * <table>
@@ -121,7 +120,7 @@ class IChangeConflict extends IUnknown{
      * Sets a conflict resolution action for the conflict.
      * @remarks
      * By setting this action in an event handler for <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/winsync/nf-winsync-isynccallback-onconflict">ISyncCallback::OnConflict</a>, the event handler specifies how a change applier should handle the conflict.
-     * @param {Integer} resolveAction The conflict resolution action for the conflict.
+     * @param {SYNC_RESOLVE_ACTION} resolveAction The conflict resolution action for the conflict.
      * @returns {HRESULT} The possible return codes include, but are not limited to, the values shown in the following table.
      * 
      * <table>
@@ -173,7 +172,7 @@ class IChangeConflict extends IUnknown{
     /**
      * Gets the conflict resolution action for the conflicting change unit change.
      * @param {ISyncChangeUnit} pChangeUnit The change unit for which to retrieve the conflict resolution action.
-     * @param {Pointer<Integer>} pResolveAction The conflict resolution action that is specified for <i>pChangeUnit</i>.
+     * @param {Pointer<SYNC_RESOLVE_ACTION>} pResolveAction The conflict resolution action that is specified for <i>pChangeUnit</i>.
      * @returns {HRESULT} The possible return codes include, but are not limited to, the values shown in the following table.
      * 
      * <table>
@@ -220,7 +219,7 @@ class IChangeConflict extends IUnknown{
      * 
      * By setting this action in an event handler for <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/winsync/nf-winsync-isynccallback-onconflict">ISyncCallback::OnConflict</a>, the event handler specifies how the change applier should handle the conflict.
      * @param {ISyncChangeUnit} pChangeUnit The change unit for which to set the conflict resolution action.
-     * @param {Integer} resolveAction The conflict resolution action to set for <i>pChangeUnit</i>.
+     * @param {SYNC_RESOLVE_ACTION} resolveAction The conflict resolution action to set for <i>pChangeUnit</i>.
      * @returns {HRESULT} The possible return codes include, but are not limited to, the values shown in the following table.
      * 
      * <table>

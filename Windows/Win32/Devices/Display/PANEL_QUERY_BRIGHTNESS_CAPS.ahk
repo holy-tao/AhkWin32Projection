@@ -1,18 +1,17 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
+#Include .\BRIGHTNESS_INTERFACE_VERSION.ahk
 
 /**
  * @namespace Windows.Win32.Devices.Display
- * @version v4.0.30319
  */
-class PANEL_QUERY_BRIGHTNESS_CAPS extends Win32Struct
-{
+class PANEL_QUERY_BRIGHTNESS_CAPS extends Win32Struct {
     static sizeof => 8
 
     static packingSize => 4
 
     /**
-     * @type {Integer}
+     * @type {BRIGHTNESS_INTERFACE_VERSION}
      */
     Version {
         get => NumGet(this, 0, "int")

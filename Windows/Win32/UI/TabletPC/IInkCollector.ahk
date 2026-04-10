@@ -1,6 +1,7 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
+#Include ..\..\System\Com\IDispatch.ahk
 #Include .\IInkDrawingAttributes.ahk
 #Include .\IInkRenderer.ahk
 #Include .\IInkDisp.ahk
@@ -8,7 +9,6 @@
 #Include ..\..\System\Ole\IPictureDisp.ahk
 #Include .\IInkCursors.ahk
 #Include .\IInkTablet.ahk
-#Include ..\..\System\Com\IDispatch.ahk
 
 /**
  * . (IInkCollector)
@@ -16,9 +16,8 @@
  * Creating the InkCollector control behind a transparent control (such as a GroupBox with the WS_EX_TRANSPARENT property set) will prevent InkCollector from collecting ink.
  * @see https://learn.microsoft.com/windows/win32/api/msinkaut/nn-msinkaut-iinkcollector
  * @namespace Windows.Win32.UI.TabletPC
- * @version v4.0.30319
  */
-class IInkCollector extends IDispatch{
+class IInkCollector extends IDispatch {
 
     static sizeof => A_PtrSize
     /**
@@ -92,7 +91,7 @@ class IInkCollector extends IDispatch{
     }
 
     /**
-     * @type {Integer} 
+     * @type {InkCollectionMode} 
      */
     CollectionMode {
         get => this.get_CollectionMode()
@@ -124,7 +123,7 @@ class IInkCollector extends IDispatch{
     }
 
     /**
-     * @type {Integer} 
+     * @type {InkMousePointer} 
      */
     MousePointer {
         get => this.get_MousePointer()
@@ -631,7 +630,7 @@ class IInkCollector extends IDispatch{
      * <li>In the <a href="https://docs.microsoft.com/windows/desktop/tablet/inkcollector-gesture">Gesture</a> event, process the gesture.</li>
      * <li>Set <a href="https://docs.microsoft.com/windows/desktop/api/msinkaut/nf-msinkaut-iinkoverlay-get_dynamicrendering">DynamicRendering</a> to <b>FALSE</b> to prevent the flow of ink while gesturing.</li>
      * </ol>
-     * @returns {Integer} 
+     * @returns {InkCollectionMode} 
      * @see https://learn.microsoft.com/windows/win32/api/msinkaut/nf-msinkaut-iinkcollector-get_collectionmode
      */
     get_CollectionMode() {
@@ -686,7 +685,7 @@ class IInkCollector extends IDispatch{
      * <li>In the <a href="https://docs.microsoft.com/windows/desktop/tablet/inkcollector-gesture">Gesture</a> event, process the gesture.</li>
      * <li>Set <a href="https://docs.microsoft.com/windows/desktop/api/msinkaut/nf-msinkaut-iinkoverlay-get_dynamicrendering">DynamicRendering</a> to <b>FALSE</b> to prevent the flow of ink while gesturing.</li>
      * </ol>
-     * @param {Integer} _Mode 
+     * @param {InkCollectionMode} _Mode 
      * @returns {HRESULT} 
      * @see https://learn.microsoft.com/windows/win32/api/msinkaut/nf-msinkaut-iinkcollector-put_collectionmode
      */
@@ -807,7 +806,7 @@ class IInkCollector extends IDispatch{
      * If you set the <b>MousePointer</b> property to <a href="https://docs.microsoft.com/windows/desktop/api/msinkaut/ne-msinkaut-inkmousepointer">IMP_Default</a>, the mouse cursor setting is based on the current cursor's drawing attributes. If the ink collector is disabled, the mouse cursor setting is based on the underlying windows mouse cursor <a href="https://docs.microsoft.com/windows/desktop/api/msinkaut/nf-msinkaut-iinkcursor-get_drawingattributes">DrawingAttributes</a> property. If the <b>MousePointer</b> property is set to <b>IMP_Custom</b> and the <a href="https://docs.microsoft.com/windows/desktop/api/msinkaut/nf-msinkaut-iinkcollector-get_mouseicon">MouseIcon</a> property is <b>NULL</b>, then the ink collector no longer handles mouse cursor settings. Setting the mouse cursor to any other setting (other than the <b>MousePointer</b> property set to <b>IMP_Default</b> and the <b>MouseIcon</b> property set to <b>NULL</b>) forces the mouse cursor to use the current setting.
      * 
      * You can use this property when you want to indicate changes in functionality as the mouse pointer passes over controls on a form or dialog box. The <a href="https://docs.microsoft.com/windows/desktop/api/msinkaut/ne-msinkaut-inkmousepointer">IMP_Hourglass</a> setting is useful for indicating that the user should wait for a process or operation to finish.
-     * @returns {Integer} 
+     * @returns {InkMousePointer} 
      * @see https://learn.microsoft.com/windows/win32/api/msinkaut/nf-msinkaut-iinkcollector-get_mousepointer
      */
     get_MousePointer() {
@@ -821,7 +820,7 @@ class IInkCollector extends IDispatch{
      * If you set the <b>MousePointer</b> property to <a href="https://docs.microsoft.com/windows/desktop/api/msinkaut/ne-msinkaut-inkmousepointer">IMP_Default</a>, the mouse cursor setting is based on the current cursor's drawing attributes. If the ink collector is disabled, the mouse cursor setting is based on the underlying windows mouse cursor <a href="https://docs.microsoft.com/windows/desktop/api/msinkaut/nf-msinkaut-iinkcursor-get_drawingattributes">DrawingAttributes</a> property. If the <b>MousePointer</b> property is set to <b>IMP_Custom</b> and the <a href="https://docs.microsoft.com/windows/desktop/api/msinkaut/nf-msinkaut-iinkcollector-get_mouseicon">MouseIcon</a> property is <b>NULL</b>, then the ink collector no longer handles mouse cursor settings. Setting the mouse cursor to any other setting (other than the <b>MousePointer</b> property set to <b>IMP_Default</b> and the <b>MouseIcon</b> property set to <b>NULL</b>) forces the mouse cursor to use the current setting.
      * 
      * You can use this property when you want to indicate changes in functionality as the mouse pointer passes over controls on a form or dialog box. The <a href="https://docs.microsoft.com/windows/desktop/api/msinkaut/ne-msinkaut-inkmousepointer">IMP_Hourglass</a> setting is useful for indicating that the user should wait for a process or operation to finish.
-     * @param {Integer} MousePointer 
+     * @param {InkMousePointer} MousePointer 
      * @returns {HRESULT} 
      * @see https://learn.microsoft.com/windows/win32/api/msinkaut/nf-msinkaut-iinkcollector-put_mousepointer
      */
@@ -984,7 +983,7 @@ class IInkCollector extends IDispatch{
      * The <a href="https://docs.microsoft.com/windows/desktop/api/msinkaut/ne-msinkaut-inkapplicationgesture">IAG_AllGestures</a> gesture ID is not supported by the <a href="https://docs.microsoft.com/windows/desktop/tablet/inkedit-control-reference">InkEdit</a> control and returns an error. Passing invalid Gesture IDs does not return an error for InkEdit, but fails for <a href="https://docs.microsoft.com/windows/desktop/tablet/inkcollector-class">InkCollector</a>, <a href="https://docs.microsoft.com/windows/desktop/tablet/inkoverlay-class">InkOverlay</a>, and <a href="https://docs.microsoft.com/windows/desktop/tablet/inkpicture-control-reference">InkPicture</a>.
      * 
      * For the <a href="https://docs.microsoft.com/windows/desktop/tablet/inkedit-control-reference">InkEdit</a> control, this method should only be called if the <a href="https://docs.microsoft.com/windows/desktop/api/inked/nf-inked-iinkedit-get_status">Status</a> property returns <a href="https://docs.microsoft.com/windows/desktop/api/inked/ne-inked-inkeditstatus">IES_Idle</a>.
-     * @param {Integer} Gesture The gesture that you want to set the status of.
+     * @param {InkApplicationGesture} Gesture The gesture that you want to set the status of.
      * @param {VARIANT_BOOL} Listen <b>VARIANT_TRUE</b> to indicate that the gesture is being used or <b>VARIANT_FALSE</b> if it is being ignored.
      * @returns {HRESULT} This method can return one of these values.
      * 
@@ -1087,7 +1086,7 @@ class IInkCollector extends IDispatch{
      * 
      * <div class="alert"><b>Note</b>  By default, the <a href="https://docs.microsoft.com/windows/desktop/tablet/inkcollector-class">InkCollector</a> and <a href="https://docs.microsoft.com/windows/desktop/tablet/inkoverlay-class">InkOverlay</a> objects do not have interest in any of the application gestures.</div>
      * <div> </div>
-     * @param {Integer} Gesture Sets the gesture that you want the status of.
+     * @param {InkApplicationGesture} Gesture Sets the gesture that you want the status of.
      * @returns {VARIANT_BOOL} <b>VARIANT_TRUE</b> if the InkCollector control has interest in a particular application gesture; otherwise, <b>VARIANT_VALSE</b>.
      * @see https://learn.microsoft.com/windows/win32/api/msinkaut/nf-msinkaut-iinkcollector-getgesturestatus
      */
@@ -1415,7 +1414,7 @@ class IInkCollector extends IDispatch{
 
     /**
      * Retrieves the interest an object has in a particular event for the InkCollector class, InkOverlay class, or InkPicture class. (IInkCollector.GetEventInterest)
-     * @param {Integer} EventId The event this method checks the interest of.
+     * @param {InkCollectorEventInterest} EventId The event this method checks the interest of.
      * @returns {VARIANT_BOOL} <b>VARIANT_BOOL</b> if interest in the specified event has been set; otherwise, <b>VARIANT_FALSE</b>.
      * @see https://learn.microsoft.com/windows/win32/api/msinkaut/nf-msinkaut-iinkcollector-geteventinterest
      */
@@ -1430,7 +1429,7 @@ class IInkCollector extends IDispatch{
      * All ink collector events can be toggled by using this method. Most of these events are turned off by default for performance reasons. The only events that are on by default are <a href="https://docs.microsoft.com/windows/desktop/tablet/inkcollector-stroke">Stroke</a>, <a href="https://docs.microsoft.com/windows/desktop/tablet/inkcollector-cursorinrange">CursorInRange</a>, and <a href="https://docs.microsoft.com/windows/desktop/tablet/inkcollector-cursoroutofrange">CursorOutOfRange</a>.
      * 
      * Use the <a href="https://docs.microsoft.com/windows/desktop/tablet/inkcollector-newpackets">NewPackets</a>, <a href="https://docs.microsoft.com/windows/desktop/tablet/inkcollector-newinairpackets">NewInAirPackets</a> and <a href="https://docs.microsoft.com/windows/desktop/tablet/inkcollector-cursordown">CursorDown</a> events carefully, in particular because they may have an adverse effect on ink performance if too much code is executed in the event handlers.
-     * @param {Integer} EventId The event to be listened for.
+     * @param {InkCollectorEventInterest} EventId The event to be listened for.
      * @param {VARIANT_BOOL} Listen <b>VARIANT_TRUE</b> to indicate that the event is being used; <b>VARIANT_FALSE</b> if it is being ignored.
      * @returns {HRESULT} This method can return one of these values.
      * 

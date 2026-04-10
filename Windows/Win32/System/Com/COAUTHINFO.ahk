@@ -1,5 +1,6 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
+#Include .\COAUTHIDENTITY.ahk
 
 /**
  * Contains the authentication settings used while making a remote activation request from the client computer to the server computer.
@@ -20,10 +21,8 @@
  * If you set <b>dwAuthzSvc</b>, <b>pwszServerPrincName</b>, <b>dwImpersonationLevel</b>, or <b>dwCapabilities</b> to incorrect values and call either <a href="https://docs.microsoft.com/windows/desktop/api/combaseapi/nf-combaseapi-cogetclassobject">CoGetClassObject</a> or <a href="https://docs.microsoft.com/windows/desktop/api/combaseapi/nf-combaseapi-cocreateinstanceex">CoCreateInstanceEx</a>, these functions do not return E_INVALIDARG or a similar error. Default values are used instead of the incorrect values.
  * @see https://learn.microsoft.com/windows/win32/api/wtypesbase/ns-wtypesbase-coauthinfo
  * @namespace Windows.Win32.System.Com
- * @version v4.0.30319
  */
-class COAUTHINFO extends Win32Struct
-{
+class COAUTHINFO extends Win32Struct {
     static sizeof => 40
 
     static packingSize => 8

@@ -1,16 +1,16 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
 #Include .\CRYPT_XML_REFERENCES.ahk
+#Include .\CRYPT_XML_REFERENCE.ahk
 #Include .\CRYPT_XML_BLOB.ahk
+#Include .\CRYPT_XML_CHARSET.ahk
 
 /**
  * Describes an Object element in the signature.
  * @see https://learn.microsoft.com/windows/win32/api/cryptxml/ns-cryptxml-crypt_xml_object
  * @namespace Windows.Win32.Security.Cryptography
- * @version v4.0.30319
  */
-class CRYPT_XML_OBJECT extends Win32Struct
-{
+class CRYPT_XML_OBJECT extends Win32Struct {
     static sizeof => 72
 
     static packingSize => 8
@@ -64,7 +64,7 @@ class CRYPT_XML_OBJECT extends Win32Struct
      * Optional. A <a href="https://docs.microsoft.com/windows/desktop/api/cryptxml/ns-cryptxml-crypt_xml_references">CRYPT_XML_REFERENCES</a> structure that specifies an array of references.
      * @type {CRYPT_XML_REFERENCES}
      */
-    Manifest{
+    Manifest {
         get {
             if(!this.HasProp("__Manifest"))
                 this.__Manifest := CRYPT_XML_REFERENCES(40, this)
@@ -82,7 +82,7 @@ class CRYPT_XML_OBJECT extends Win32Struct
      * <div> </div>
      * @type {CRYPT_XML_BLOB}
      */
-    Encoded{
+    Encoded {
         get {
             if(!this.HasProp("__Encoded"))
                 this.__Encoded := CRYPT_XML_BLOB(56, this)

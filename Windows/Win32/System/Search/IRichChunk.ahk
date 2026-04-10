@@ -9,9 +9,8 @@
  * In Windows 7, this interface is defined in structuredquerycondition.idl and structuredquerycondition.h. Prior to Windows 7 this interface was declared in structuredquery.h and structuredquery.idl.
  * @see https://learn.microsoft.com/windows/win32/api/structuredquerycondition/nn-structuredquerycondition-irichchunk
  * @namespace Windows.Win32.System.Search
- * @version v4.0.30319
  */
-class IRichChunk extends IUnknown{
+class IRichChunk extends IUnknown {
 
     static sizeof => A_PtrSize
     /**

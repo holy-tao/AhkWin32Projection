@@ -4,18 +4,16 @@
 
 /**
  * @namespace Windows.Win32.Storage.Nvme
- * @version v4.0.30319
  */
-class NVME_SUPPORTED_LOG_PAGES_LOG extends Win32Struct
-{
-    static sizeof => 2048
+class NVME_SUPPORTED_LOG_PAGES_LOG extends Win32Struct {
+    static sizeof => 1024
 
-    static packingSize => 8
+    static packingSize => 4
 
     /**
-     * @type {Array<NVME_LID_SUPPORTED_AND_EFFECTS>}
+     * @type {NVME_LID_SUPPORTED_AND_EFFECTS}
      */
-    LogPageIdentifierSupported{
+    LogPageIdentifierSupported {
         get {
             if(!this.HasProp("__LogPageIdentifierSupportedProxyArray"))
                 this.__LogPageIdentifierSupportedProxyArray := Win32FixedArray(this.ptr + 0, 256, NVME_LID_SUPPORTED_AND_EFFECTS, "")

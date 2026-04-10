@@ -7,9 +7,8 @@
  * Notifies the subscriber when an unhandled exception occurs in the user's code.
  * @see https://learn.microsoft.com/windows/win32/api/comsvcs/nn-comsvcs-icomexceptionevents
  * @namespace Windows.Win32.System.ComponentServices
- * @version v4.0.30319
  */
-class IComExceptionEvents extends IUnknown{
+class IComExceptionEvents extends IUnknown {
 
     static sizeof => A_PtrSize
     /**
@@ -34,7 +33,7 @@ class IComExceptionEvents extends IUnknown{
      * Generated for transactional components when an unhandled exception occurs in the user's code.
      * @param {Pointer<COMSVCSEVENTINFO>} pInfo A pointer to a <a href="https://docs.microsoft.com/windows/win32/api/comsvcs/ns-comsvcs-comsvcseventinfo">COMSVCSEVENTINFO</a> structure.
      * @param {Integer} code The exception code.
-     * @param {Integer} _address 
+     * @param {Integer} _address The address of the exception.
      * @param {PWSTR} pszStackTrace The stack trace.
      * @returns {HRESULT} The user verifies the return values from this method.
      * @see https://learn.microsoft.com/windows/win32/api/comsvcs/nf-comsvcs-icomexceptionevents-onexceptionuser

@@ -24,10 +24,8 @@
  *  Although the intersection of the EKUs in the chain is an empty set, the use of the EE certificate is valid for EKU A because the request to the cryptography API specifies that the certificate is valid if each certificate of the path supports either EKU A OR EKU B.
  * @see https://learn.microsoft.com/windows/win32/api/wincrypt/ns-wincrypt-cert_usage_match
  * @namespace Windows.Win32.Security.Cryptography
- * @version v4.0.30319
  */
-class CERT_USAGE_MATCH extends Win32Struct
-{
+class CERT_USAGE_MATCH extends Win32Struct {
     static sizeof => 24
 
     static packingSize => 8
@@ -75,7 +73,7 @@ class CERT_USAGE_MATCH extends Win32Struct
      * <a href="https://docs.microsoft.com/windows/desktop/api/wincrypt/ns-wincrypt-ctl_usage">CERT_ENHKEY_USAGE</a> structure (<b>CERT_ENHKEY_USAGE</b> is an alternate typedef name for the <b>CTL_USAGE</b> structure) that includes an array of certificate <a href="https://docs.microsoft.com/windows/desktop/SecGloss/o-gly">object identifiers</a> (OIDs) that a certificate must match in order to be valid.
      * @type {CTL_USAGE}
      */
-    Usage{
+    Usage {
         get {
             if(!this.HasProp("__Usage"))
                 this.__Usage := CTL_USAGE(8, this)

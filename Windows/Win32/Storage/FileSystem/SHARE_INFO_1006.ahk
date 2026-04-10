@@ -5,10 +5,8 @@
  * Specifies the maximum number of concurrent connections that the shared resource can accommodate.
  * @see https://learn.microsoft.com/windows/win32/api/lmshare/ns-lmshare-share_info_1006
  * @namespace Windows.Win32.Storage.FileSystem
- * @version v4.0.30319
  */
-class SHARE_INFO_1006 extends Win32Struct
-{
+class SHARE_INFO_1006 extends Win32Struct {
     static sizeof => 4
 
     static packingSize => 4

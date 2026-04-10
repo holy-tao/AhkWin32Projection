@@ -1,19 +1,20 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
+#Include ..\..\Networking\WinSock\ADDRESS_FAMILY.ahk
 #Include ..\Ndis\NET_LUID_LH.ahk
+#Include .\NET_FL_ISOLATION_MODE.ahk
+#Include .\NET_FL_VIRTUAL_INTERFACE_ORIGIN.ahk
 
 /**
  * @namespace Windows.Win32.NetworkManagement.IpHelper
- * @version v4.0.30319
  */
-class MIB_FL_VIRTUAL_INTERFACE_ROW extends Win32Struct
-{
+class MIB_FL_VIRTUAL_INTERFACE_ROW extends Win32Struct {
     static sizeof => 200
 
     static packingSize => 8
 
     /**
-     * @type {Integer}
+     * @type {ADDRESS_FAMILY}
      */
     Family {
         get => NumGet(this, 0, "ushort")
@@ -23,7 +24,7 @@ class MIB_FL_VIRTUAL_INTERFACE_ROW extends Win32Struct
     /**
      * @type {NET_LUID_LH}
      */
-    IfLuid{
+    IfLuid {
         get {
             if(!this.HasProp("__IfLuid"))
                 this.__IfLuid := NET_LUID_LH(8, this)
@@ -40,7 +41,7 @@ class MIB_FL_VIRTUAL_INTERFACE_ROW extends Win32Struct
     }
 
     /**
-     * @type {Pointer<Guid>}
+     * @type {Pointer}
      */
     CompartmentGuid {
         get => NumGet(this, 32, "ptr")
@@ -48,7 +49,7 @@ class MIB_FL_VIRTUAL_INTERFACE_ROW extends Win32Struct
     }
 
     /**
-     * @type {Integer}
+     * @type {NET_FL_ISOLATION_MODE}
      */
     IsolationMode {
         get => NumGet(this, 40, "int")
@@ -56,7 +57,7 @@ class MIB_FL_VIRTUAL_INTERFACE_ROW extends Win32Struct
     }
 
     /**
-     * @type {Integer}
+     * @type {NET_FL_VIRTUAL_INTERFACE_ORIGIN}
      */
     Origin {
         get => NumGet(this, 44, "int")
@@ -66,7 +67,7 @@ class MIB_FL_VIRTUAL_INTERFACE_ROW extends Win32Struct
     /**
      * @type {NET_LUID_LH}
      */
-    VirtualIfLuid{
+    VirtualIfLuid {
         get {
             if(!this.HasProp("__VirtualIfLuid"))
                 this.__VirtualIfLuid := NET_LUID_LH(48, this)

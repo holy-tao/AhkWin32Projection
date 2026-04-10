@@ -1,16 +1,15 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
-#Include ..\IReferenceClock.ahk
 #Include ..\..\System\Com\IPersist.ahk
+#Include ..\IReferenceClock.ahk
 
 /**
  * The IMediaFilter interface controls the streaming state of a filter.All DirectShow filters implement this interface.
  * @see https://learn.microsoft.com/windows/win32/api/strmif/nn-strmif-imediafilter
  * @namespace Windows.Win32.Media.DirectShow
- * @version v4.0.30319
  */
-class IMediaFilter extends IPersist{
+class IMediaFilter extends IPersist {
 
     static sizeof => A_PtrSize
     /**
@@ -180,7 +179,7 @@ class IMediaFilter extends IPersist{
      * 
      * For more information, see <a href="https://docs.microsoft.com/windows/desktop/DirectShow/data-flow-in-the-filter-graph">Data Flow in the Filter Graph</a>.
      * @param {Integer} dwMilliSecsTimeout Time-out interval, in milliseconds. To block indefinitely, use the value <b>INFINITE</b>.
-     * @returns {Integer} Receives a member of the [FILTER_STATE](/windows/desktop/api/strmif/ne-strmif-filter_state) enumerated type, indicating the filter's state.
+     * @returns {FILTER_STATE} Receives a member of the [FILTER_STATE](/windows/desktop/api/strmif/ne-strmif-filter_state) enumerated type, indicating the filter's state.
      * @see https://learn.microsoft.com/windows/win32/api/strmif/nf-strmif-imediafilter-getstate
      */
     GetState(dwMilliSecsTimeout) {

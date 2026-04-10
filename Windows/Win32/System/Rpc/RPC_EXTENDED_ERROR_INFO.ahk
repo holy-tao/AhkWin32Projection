@@ -2,8 +2,9 @@
 #Include ..\..\..\..\Win32Struct.ahk
 #Include ..\..\Foundation\SYSTEMTIME.ahk
 #Include ..\..\Foundation\FILETIME.ahk
-#Include .\BinaryParam.ahk
 #Include .\RPC_EE_INFO_PARAM.ahk
+#Include .\ExtendedErrorParamTypes.ahk
+#Include .\BinaryParam.ahk
 
 /**
  * The RPC_EXTENDED_ERROR_INFO structure is used to store extended error information.
@@ -15,11 +16,9 @@
  * <b>RPC_EXTENDED_ERROR_INFO</b> structure is used in conjunction with the <b>RpcError</b>* functions to investigate and create extended RPC error information.
  * @see https://learn.microsoft.com/windows/win32/api/rpcasync/ns-rpcasync-rpc_extended_error_info
  * @namespace Windows.Win32.System.Rpc
- * @version v4.0.30319
  */
-class RPC_EXTENDED_ERROR_INFO extends Win32Struct
-{
-    static sizeof => 88
+class RPC_EXTENDED_ERROR_INFO extends Win32Struct {
+    static sizeof => 152
 
     static packingSize => 8
 
@@ -30,25 +29,24 @@ class RPC_EXTENDED_ERROR_INFO extends Win32Struct
         /**
          * @type {SYSTEMTIME}
          */
-        SystemTime{
+        SystemTime {
             get {
                 if(!this.HasProp("__SystemTime"))
                     this.__SystemTime := SYSTEMTIME(0, this)
                 return this.__SystemTime
             }
         }
-    
+
         /**
          * @type {FILETIME}
          */
-        FileTime{
+        FileTime {
             get {
                 if(!this.HasProp("__FileTime"))
                     this.__FileTime := FILETIME(0, this)
                 return this.__FileTime
             }
         }
-    
     }
 
     /**
@@ -79,13 +77,12 @@ class RPC_EXTENDED_ERROR_INFO extends Win32Struct
     }
 
     /**
-     * 
      * @type {_u_e__Union}
      */
-    u{
+    u {
         get {
             if(!this.HasProp("__u"))
-                this.__u := %this.__Class%._u_e__Union(20, this)
+                this.__u := RPC_EXTENDED_ERROR_INFO._u_e__Union(20, this)
             return this.__u
         }
     }
@@ -144,9 +141,9 @@ class RPC_EXTENDED_ERROR_INFO extends Win32Struct
     /**
      * Array of 
      * <a href="https://docs.microsoft.com/windows/desktop/api/rpcasync/ns-rpcasync-rpc_ee_info_param">RPC_EE_INFO_PARAM</a> structures containing the extended error information.
-     * @type {Array<RPC_EE_INFO_PARAM>}
+     * @type {RPC_EE_INFO_PARAM}
      */
-    Parameters{
+    Parameters {
         get {
             if(!this.HasProp("__ParametersProxyArray"))
                 this.__ParametersProxyArray := Win32FixedArray(this.ptr + 56, 4, RPC_EE_INFO_PARAM, "")

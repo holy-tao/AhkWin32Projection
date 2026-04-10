@@ -5,9 +5,8 @@
  * Specifies command execution options.
  * @see https://learn.microsoft.com/windows/win32/api/docobj/ne-docobj-olecmdexecopt
  * @namespace Windows.Win32.System.Ole
- * @version v4.0.30319
  */
-class OLECMDEXECOPT extends Win32Enum{
+class OLECMDEXECOPT extends Win32Enum {
 
     /**
      * Prompt the user for input or not, whichever is the default behavior.

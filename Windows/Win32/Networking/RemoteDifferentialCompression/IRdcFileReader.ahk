@@ -7,9 +7,8 @@
  * The IRdcFileReader interface is used to provide the equivalent of a file handle, because the data being synchronized may not exist as a file on disk.
  * @see https://learn.microsoft.com/windows/win32/api/msrdc/nn-msrdc-irdcfilereader
  * @namespace Windows.Win32.Networking.RemoteDifferentialCompression
- * @version v4.0.30319
  */
-class IRdcFileReader extends IUnknown{
+class IRdcFileReader extends IUnknown {
 
     static sizeof => A_PtrSize
     /**
@@ -61,7 +60,8 @@ class IRdcFileReader extends IUnknown{
      * @param {Integer} offsetFileStart Offset from the start of the data at which to start the read.
      * @param {Integer} bytesToRead Number of bytes to be read.
      * @param {Pointer<Integer>} bytesActuallyRead Address of a <b>ULONG</b> that will receive the number of bytes read.
-     * @param {Pointer<Integer>} _buffer 
+     * @param {Pointer<Integer>} _buffer Address of the buffer that receives the data read. This buffer must be at least 
+     *       <i>bytesToRead</i> bytes in size.
      * @param {Pointer<BOOL>} eof Address of a <b>BOOL</b> that is set to <b>TRUE</b> if the end of 
      *       the file has been read.
      * @returns {HRESULT} If this method succeeds, it returns <b>S_OK</b>. Otherwise, it returns an <b>HRESULT</b> error code.

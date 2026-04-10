@@ -5,10 +5,8 @@
  * A vector with three components.
  * @see https://learn.microsoft.com/windows/win32/api/mfapi/ns-mfapi-mf_float3
  * @namespace Windows.Win32.Media.MediaFoundation
- * @version v4.0.30319
  */
-class MF_FLOAT3 extends Win32Struct
-{
+class MF_FLOAT3 extends Win32Struct {
     static sizeof => 12
 
     static packingSize => 4

@@ -7,10 +7,8 @@
  * Contains information used by the WerReportCreate function.
  * @see https://learn.microsoft.com/windows/win32/api/werapi/ns-werapi-wer_report_information
  * @namespace Windows.Win32.System.ErrorReporting
- * @version v4.0.30319
  */
-class WER_REPORT_INFORMATION extends Win32Struct
-{
+class WER_REPORT_INFORMATION extends Win32Struct {
     static sizeof => 2208
 
     static packingSize => 8
@@ -28,7 +26,7 @@ class WER_REPORT_INFORMATION extends Win32Struct
      * A handle to the process for which the report is being generated. If this member is <b>NULL</b>, this is the calling process.
      * @type {HANDLE}
      */
-    hProcess{
+    hProcess {
         get {
             if(!this.HasProp("__hProcess"))
                 this.__hProcess := HANDLE(8, this)
@@ -85,7 +83,7 @@ class WER_REPORT_INFORMATION extends Win32Struct
      * A handle to the parent window.
      * @type {HWND}
      */
-    hwndParent{
+    hwndParent {
         get {
             if(!this.HasProp("__hwndParent"))
                 this.__hwndParent := HWND(2200, this)

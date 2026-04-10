@@ -5,9 +5,8 @@
 
 /**
  * @namespace Windows.Win32.Web.MsHtml
- * @version v4.0.30319
  */
-class DispHTMLW3CComputedStyle extends IDispatch{
+class DispHTMLW3CComputedStyle extends IDispatch {
 
     static sizeof => A_PtrSize
     /**

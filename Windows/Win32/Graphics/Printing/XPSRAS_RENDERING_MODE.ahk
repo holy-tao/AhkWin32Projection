@@ -3,9 +3,8 @@
 
 /**
  * @namespace Windows.Win32.Graphics.Printing
- * @version v4.0.30319
  */
-class XPSRAS_RENDERING_MODE extends Win32Enum{
+class XPSRAS_RENDERING_MODE extends Win32Enum {
 
     /**
      * @type {Integer (Int32)}

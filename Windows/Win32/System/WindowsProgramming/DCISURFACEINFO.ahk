@@ -3,10 +3,8 @@
 
 /**
  * @namespace Windows.Win32.System.WindowsProgramming
- * @version v4.0.30319
  */
-class DCISURFACEINFO extends Win32Struct
-{
+class DCISURFACEINFO extends Win32Struct {
     static sizeof => 88
 
     static packingSize => 8
@@ -36,9 +34,9 @@ class DCISURFACEINFO extends Win32Struct
     }
 
     /**
-     * @type {Array<UInt32>}
+     * @type {Array<Integer>}
      */
-    dwMask{
+    dwMask {
         get {
             if(!this.HasProp("__dwMaskProxyArray"))
                 this.__dwMaskProxyArray := Win32FixedArray(this.ptr + 12, 3, Primitive, "uint")

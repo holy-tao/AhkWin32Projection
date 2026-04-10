@@ -1,14 +1,13 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\..\Win32Struct.ahk
+#Include .\TDH_CONTEXT_TYPE.ahk
 
 /**
  * Defines the additional information required to parse an event.
  * @see https://learn.microsoft.com/windows/win32/api/tdh/ns-tdh-tdh_context
  * @namespace Windows.Win32.System.Diagnostics.Etw
- * @version v4.0.30319
  */
-class TDH_CONTEXT extends Win32Struct
-{
+class TDH_CONTEXT extends Win32Struct {
     static sizeof => 16
 
     static packingSize => 8
@@ -24,7 +23,7 @@ class TDH_CONTEXT extends Win32Struct
 
     /**
      * Context type. For a list of types, see the <a href="https://docs.microsoft.com/windows/desktop/api/tdh/ne-tdh-tdh_context_type">TDH_CONTEXT_TYPE</a> enumeration.
-     * @type {Integer}
+     * @type {TDH_CONTEXT_TYPE}
      */
     ParameterType {
         get => NumGet(this, 8, "int")

@@ -8,10 +8,8 @@
  * <a href="https://docs.microsoft.com/windows/desktop/Dlls/dllmain">DllMain</a> function, it should be close enough for most purposes.
  * @see https://learn.microsoft.com/windows/win32/api/psapi/ns-psapi-moduleinfo
  * @namespace Windows.Win32.System.ProcessStatus
- * @version v4.0.30319
  */
-class MODULEINFO extends Win32Struct
-{
+class MODULEINFO extends Win32Struct {
     static sizeof => 24
 
     static packingSize => 8

@@ -1,21 +1,20 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
+#Include .\ENUM_SERVICE_TYPE.ahk
+#Include .\SERVICE_STATUS_CURRENT_STATE.ahk
 
 /**
  * Contains status information for a service.
  * @see https://learn.microsoft.com/windows/win32/api/winsvc/ns-winsvc-service_status
  * @namespace Windows.Win32.System.Services
- * @version v4.0.30319
  */
-class SERVICE_STATUS extends Win32Struct
-{
+class SERVICE_STATUS extends Win32Struct {
     static sizeof => 28
 
     static packingSize => 4
 
     /**
-     * 
-     * @type {Integer}
+     * @type {ENUM_SERVICE_TYPE}
      */
     dwServiceType {
         get => NumGet(this, 0, "uint")
@@ -23,8 +22,7 @@ class SERVICE_STATUS extends Win32Struct
     }
 
     /**
-     * 
-     * @type {Integer}
+     * @type {SERVICE_STATUS_CURRENT_STATE}
      */
     dwCurrentState {
         get => NumGet(this, 4, "uint")

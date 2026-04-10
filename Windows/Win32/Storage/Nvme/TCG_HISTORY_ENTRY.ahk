@@ -3,10 +3,8 @@
 
 /**
  * @namespace Windows.Win32.Storage.Nvme
- * @version v4.0.30319
  */
-class TCG_HISTORY_ENTRY extends Win32Struct
-{
+class TCG_HISTORY_ENTRY extends Win32Struct {
     static sizeof => 48
 
     static packingSize => 8
@@ -100,9 +98,9 @@ class TCG_HISTORY_ENTRY extends Win32Struct
     }
 
     /**
-     * @type {Array<Byte>}
+     * @type {Array<Integer>}
      */
-    CommandSpecific{
+    CommandSpecific {
         get {
             if(!this.HasProp("__CommandSpecificProxyArray"))
                 this.__CommandSpecificProxyArray := Win32FixedArray(this.ptr + 38, 10, Primitive, "char")

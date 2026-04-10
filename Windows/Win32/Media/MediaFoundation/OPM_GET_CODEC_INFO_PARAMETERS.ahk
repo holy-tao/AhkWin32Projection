@@ -5,10 +5,8 @@
  * OPM_GET_CODEC_INFO_PARAMETERS (opmapi.h) contains information for the OPM_GET_CODEC_INFO command.
  * @see https://learn.microsoft.com/windows/win32/api/opmapi/ns-opmapi-opm_get_codec_info_parameters
  * @namespace Windows.Win32.Media.MediaFoundation
- * @version v4.0.30319
  */
-class OPM_GET_CODEC_INFO_PARAMETERS extends Win32Struct
-{
+class OPM_GET_CODEC_INFO_PARAMETERS extends Win32Struct {
     static sizeof => 4056
 
     static packingSize => 4
@@ -29,9 +27,9 @@ class OPM_GET_CODEC_INFO_PARAMETERS extends Win32Struct
      * <li>The CLSID of the Media Foundation transform (MFT) that represents the hardware codec.</li>
      * <li>A null-terminated, wide-character string that contains the symbolic link for the hardware codec. Include the size of the terminating null in the value of the <b>cbVerifier</b> member. </li>
      * </ul>
-     * @type {Array<Byte>}
+     * @type {Array<Integer>}
      */
-    Verifier{
+    Verifier {
         get {
             if(!this.HasProp("__VerifierProxyArray"))
                 this.__VerifierProxyArray := Win32FixedArray(this.ptr + 4, 4052, Primitive, "char")

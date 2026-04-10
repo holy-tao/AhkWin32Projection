@@ -3,9 +3,8 @@
 
 /**
  * @namespace Windows.Win32.Devices.DeviceAndDriverInstallation
- * @version v4.0.30319
  */
-class PCD_FLAGS extends Win32BitflagEnum{
+class PCD_FLAGS extends Win32BitflagEnum {
 
     /**
      * @type {Integer (UInt32)}

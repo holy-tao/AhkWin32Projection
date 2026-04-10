@@ -12,10 +12,8 @@
  * </ul>
  * @see https://learn.microsoft.com/windows/win32/api/winsync/ns-winsync-sync_version
  * @namespace Windows.Win32.System.WindowsSync
- * @version v4.0.30319
  */
-class SYNC_VERSION extends Win32Struct
-{
+class SYNC_VERSION extends Win32Struct {
     static sizeof => 16
 
     static packingSize => 8

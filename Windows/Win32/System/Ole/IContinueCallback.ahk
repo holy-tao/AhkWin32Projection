@@ -7,9 +7,8 @@
  * Provides a generic callback mechanism for interruptible processes that should periodically ask an object whether to continue.
  * @see https://learn.microsoft.com/windows/win32/api/docobj/nn-docobj-icontinuecallback
  * @namespace Windows.Win32.System.Ole
- * @version v4.0.30319
  */
-class IContinueCallback extends IUnknown{
+class IContinueCallback extends IUnknown {
 
     static sizeof => A_PtrSize
     /**

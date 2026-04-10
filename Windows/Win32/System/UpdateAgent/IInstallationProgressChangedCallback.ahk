@@ -7,9 +7,8 @@
  * Defines the Invoke method that handles the notification about the on-going progress of an asynchronous installation or uninstallation.
  * @see https://learn.microsoft.com/windows/win32/api/wuapi/nn-wuapi-iinstallationprogresschangedcallback
  * @namespace Windows.Win32.System.UpdateAgent
- * @version v4.0.30319
  */
-class IInstallationProgressChangedCallback extends IUnknown{
+class IInstallationProgressChangedCallback extends IUnknown {
 
     static sizeof => A_PtrSize
     /**

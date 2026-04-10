@@ -7,9 +7,8 @@
  * The IWMReaderAccelerator interface is implemented on the reader object only when it is in decoding mode. It is called by a player or a player source filter to obtain interfaces from the decoder DMO.
  * @see https://learn.microsoft.com/windows/win32/api/wmsdkidl/nn-wmsdkidl-iwmreaderaccelerator
  * @namespace Windows.Win32.Media.WindowsMediaFormat
- * @version v4.0.30319
  */
-class IWMReaderAccelerator extends IUnknown{
+class IWMReaderAccelerator extends IUnknown {
 
     static sizeof => A_PtrSize
     /**

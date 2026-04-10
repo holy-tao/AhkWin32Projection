@@ -5,9 +5,8 @@
  * Specifies the collection mode for drawn ink-whether ink collection is disabled, ink is collected, or ink and gestures are collected.
  * @see https://learn.microsoft.com/windows/win32/api/inked/ne-inked-inkmode
  * @namespace Windows.Win32.UI.TabletPC
- * @version v4.0.30319
  */
-class InkMode extends Win32Enum{
+class InkMode extends Win32Enum {
 
     /**
      * Ink collection is disabled. No strokes are created when in this mode.

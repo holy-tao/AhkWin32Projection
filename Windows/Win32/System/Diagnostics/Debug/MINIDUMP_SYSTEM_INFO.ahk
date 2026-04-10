@@ -1,22 +1,21 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\..\Win32Struct.ahk
+#Include ..\..\SystemInformation\PROCESSOR_ARCHITECTURE.ahk
+#Include .\VER_PLATFORM.ahk
 #Include .\CPU_INFORMATION.ahk
 
 /**
  * Contains processor and operating system information.
  * @see https://learn.microsoft.com/windows/win32/api/minidumpapiset/ns-minidumpapiset-minidump_system_info
  * @namespace Windows.Win32.System.Diagnostics.Debug
- * @version v4.0.30319
  */
-class MINIDUMP_SYSTEM_INFO extends Win32Struct
-{
+class MINIDUMP_SYSTEM_INFO extends Win32Struct {
     static sizeof => 72
 
     static packingSize => 8
 
     /**
-     * 
-     * @type {Integer}
+     * @type {PROCESSOR_ARCHITECTURE}
      */
     ProcessorArchitecture {
         get => NumGet(this, 0, "ushort")
@@ -127,8 +126,7 @@ class MINIDUMP_SYSTEM_INFO extends Win32Struct
     }
 
     /**
-     * 
-     * @type {Integer}
+     * @type {VER_PLATFORM}
      */
     PlatformId {
         get => NumGet(this, 20, "uint")
@@ -171,10 +169,9 @@ class MINIDUMP_SYSTEM_INFO extends Win32Struct
     }
 
     /**
-     * 
      * @type {CPU_INFORMATION}
      */
-    Cpu{
+    Cpu {
         get {
             if(!this.HasProp("__Cpu"))
                 this.__Cpu := CPU_INFORMATION(32, this)

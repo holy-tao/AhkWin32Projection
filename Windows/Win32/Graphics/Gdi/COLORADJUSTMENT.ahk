@@ -5,10 +5,8 @@
  * The COLORADJUSTMENT structure defines the color adjustment values used by the StretchBlt and StretchDIBits functions when the stretch mode is HALFTONE. You can set the color adjustment values by calling the SetColorAdjustment function.
  * @see https://learn.microsoft.com/windows/win32/api/wingdi/ns-wingdi-coloradjustment
  * @namespace Windows.Win32.Graphics.Gdi
- * @version v4.0.30319
  */
-class COLORADJUSTMENT extends Win32Struct
-{
+class COLORADJUSTMENT extends Win32Struct {
     static sizeof => 24
 
     static packingSize => 2
@@ -23,7 +21,6 @@ class COLORADJUSTMENT extends Win32Struct
     }
 
     /**
-     * 
      * @type {Integer}
      */
     caFlags {
@@ -32,7 +29,6 @@ class COLORADJUSTMENT extends Win32Struct
     }
 
     /**
-     * 
      * @type {Integer}
      */
     caIlluminantIndex {

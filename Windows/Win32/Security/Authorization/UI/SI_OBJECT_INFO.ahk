@@ -1,22 +1,20 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\..\Win32Struct.ahk
+#Include .\SI_OBJECT_INFO_FLAGS.ahk
 #Include ..\..\..\Foundation\HINSTANCE.ahk
 
 /**
  * Used to initialize the access control editor.
  * @see https://learn.microsoft.com/windows/win32/api/aclui/ns-aclui-si_object_info
  * @namespace Windows.Win32.Security.Authorization.UI
- * @version v4.0.30319
  */
-class SI_OBJECT_INFO extends Win32Struct
-{
+class SI_OBJECT_INFO extends Win32Struct {
     static sizeof => 48
 
     static packingSize => 8
 
     /**
-     * 
-     * @type {Integer}
+     * @type {SI_OBJECT_INFO_FLAGS}
      */
     dwFlags {
         get => NumGet(this, 0, "uint")
@@ -29,7 +27,7 @@ class SI_OBJECT_INFO extends Win32Struct
      * <a href="https://docs.microsoft.com/windows/desktop/api/aclui/nf-aclui-isecurityinformation-getinherittypes">ISecurityInformation::GetInheritTypes</a> methods can specify string resource identifiers for display names.
      * @type {HINSTANCE}
      */
-    hInstance{
+    hInstance {
         get {
             if(!this.HasProp("__hInstance"))
                 this.__hInstance := HINSTANCE(8, this)
@@ -67,7 +65,7 @@ class SI_OBJECT_INFO extends Win32Struct
     /**
      * A 
      * GUID for the object. This member is ignored unless the SI_OBJECT_GUID flag is set in <b>dwFlags</b>.
-     * @type {Pointer<Guid>}
+     * @type {Pointer}
      */
     guidObjectType {
         get => NumGet(this, 40, "ptr")

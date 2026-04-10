@@ -1,16 +1,14 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
-#Include .\IConnector.ahk
 #Include ..\..\System\Com\IUnknown.ahk
 
 /**
  * The IConnector interface represents a point of connection between components.
  * @see https://learn.microsoft.com/windows/win32/api/devicetopology/nn-devicetopology-iconnector
  * @namespace Windows.Win32.Media.Audio
- * @version v4.0.30319
  */
-class IConnector extends IUnknown{
+class IConnector extends IUnknown {
 
     static sizeof => A_PtrSize
     /**
@@ -45,7 +43,7 @@ class IConnector extends IUnknown{
      * For more information about KS pins, see the Windows DDK documentation.
      * 
      * For a code example that calls the <b>GetType</b> method, see the implementation of the SelectCaptureDevice function in <a href="https://docs.microsoft.com/windows/desktop/CoreAudio/device-topologies">Device Topologies</a>.
-     * @returns {Integer} Pointer to a variable into which the method writes the connector type. The connector type is one of the following <a href="https://docs.microsoft.com/windows/win32/api/devicetopology/ne-devicetopology-connectortype">ConnectorType</a> enumeration constants:
+     * @returns {ConnectorType} Pointer to a variable into which the method writes the connector type. The connector type is one of the following <a href="https://docs.microsoft.com/windows/win32/api/devicetopology/ne-devicetopology-connectortype">ConnectorType</a> enumeration constants:
      * 
      * Unknown_Connector
      * 
@@ -69,7 +67,7 @@ class IConnector extends IUnknown{
      * The GetDataFlow method gets the direction of data flow through this connector.
      * @remarks
      * For a code example that calls this method, see the implementation of the SelectCaptureDevice function in <a href="https://docs.microsoft.com/windows/desktop/CoreAudio/device-topologies">Device Topologies</a>.
-     * @returns {Integer} Pointer to a variable into which the method writes the data-flow direction. The direction is one of the following <a href="https://docs.microsoft.com/windows/win32/api/devicetopology/ne-devicetopology-dataflow">DataFlow</a> enumeration values:
+     * @returns {DataFlow} Pointer to a variable into which the method writes the data-flow direction. The direction is one of the following <a href="https://docs.microsoft.com/windows/win32/api/devicetopology/ne-devicetopology-dataflow">DataFlow</a> enumeration values:
      * 
      * In
      * 

@@ -3,10 +3,8 @@
 
 /**
  * @namespace Windows.Win32.Security.Credentials
- * @version v4.0.30319
  */
-class SCARD_T0_COMMAND extends Win32Struct
-{
+class SCARD_T0_COMMAND extends Win32Struct {
     static sizeof => 5
 
     static packingSize => 1

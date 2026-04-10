@@ -5,9 +5,8 @@
 
 /**
  * @namespace Windows.Win32.Web.MsHtml
- * @version v4.0.30319
  */
-class IDocHostShowUI extends IUnknown{
+class IDocHostShowUI extends IUnknown {
 
     static sizeof => A_PtrSize
     /**

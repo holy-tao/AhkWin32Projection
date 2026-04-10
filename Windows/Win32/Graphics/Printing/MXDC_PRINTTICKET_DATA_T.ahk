@@ -9,10 +9,8 @@
  * If the **opCode** is set to **MXDCOP\_PRINTTICKET\_FIXED\_PAGE**, the call to [**ExtEscape**](/windows/desktop/api/Wingdi/nf-wingdi-extescape) must occur between a call to [**StartPage**](/windows/desktop/api/Wingdi/nf-wingdi-startpage) and a call to [**EndPage**](/windows/desktop/api/Wingdi/nf-wingdi-endpage). If the **opCode** set to either **MXDCOP\_PRINTTICKET\_FIXED\_DOC** or **MXDCOP\_PRINTTICKET\_FIXED\_DOC\_SEQ**, the call to **ExtEscape** must occur between a call to [**StartDoc**](/windows/desktop/api/Wingdi/nf-wingdi-startdoca) and a call to [**EndDoc**](/windows/desktop/api/Wingdi/nf-wingdi-enddoc).
  * @see https://learn.microsoft.com/windows/win32/printdocs/mxdcprintticketpassthrough
  * @namespace Windows.Win32.Graphics.Printing
- * @version v4.0.30319
  */
-class MXDC_PRINTTICKET_DATA_T extends Win32Struct
-{
+class MXDC_PRINTTICKET_DATA_T extends Win32Struct {
     static sizeof => 8
 
     static packingSize => 4
@@ -28,9 +26,9 @@ class MXDC_PRINTTICKET_DATA_T extends Win32Struct
 
     /**
      * The XPS document print ticket.
-     * @type {Array<Byte>}
+     * @type {Array<Integer>}
      */
-    bData{
+    bData {
         get {
             if(!this.HasProp("__bDataProxyArray"))
                 this.__bDataProxyArray := Win32FixedArray(this.ptr + 4, 1, Primitive, "char")

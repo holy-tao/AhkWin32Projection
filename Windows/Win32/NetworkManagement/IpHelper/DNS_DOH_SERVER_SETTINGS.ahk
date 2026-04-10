@@ -3,14 +3,10 @@
 
 /**
  * Describes a DNS-over-HTTPS server.
- * @remarks
- * 
  * @see https://learn.microsoft.com/windows/win32/api/netioapi/ns-netioapi-dns_doh_server_settings
  * @namespace Windows.Win32.NetworkManagement.IpHelper
- * @version v4.0.30319
  */
-class DNS_DOH_SERVER_SETTINGS extends Win32Struct
-{
+class DNS_DOH_SERVER_SETTINGS extends Win32Struct {
     static sizeof => 16
 
     static packingSize => 8

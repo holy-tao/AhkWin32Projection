@@ -4,18 +4,16 @@
 
 /**
  * @namespace Windows.Win32.Graphics.Dxgi.Common
- * @version v4.0.30319
  */
-class DXGI_GAMMA_CONTROL extends Win32Struct
-{
-    static sizeof => 8224
+class DXGI_GAMMA_CONTROL extends Win32Struct {
+    static sizeof => 12324
 
-    static packingSize => 8
+    static packingSize => 4
 
     /**
      * @type {DXGI_RGB}
      */
-    Scale{
+    Scale {
         get {
             if(!this.HasProp("__Scale"))
                 this.__Scale := DXGI_RGB(0, this)
@@ -26,7 +24,7 @@ class DXGI_GAMMA_CONTROL extends Win32Struct
     /**
      * @type {DXGI_RGB}
      */
-    Offset{
+    Offset {
         get {
             if(!this.HasProp("__Offset"))
                 this.__Offset := DXGI_RGB(12, this)
@@ -35,9 +33,9 @@ class DXGI_GAMMA_CONTROL extends Win32Struct
     }
 
     /**
-     * @type {Array<DXGI_RGB>}
+     * @type {DXGI_RGB}
      */
-    GammaCurve{
+    GammaCurve {
         get {
             if(!this.HasProp("__GammaCurveProxyArray"))
                 this.__GammaCurveProxyArray := Win32FixedArray(this.ptr + 24, 1025, DXGI_RGB, "")

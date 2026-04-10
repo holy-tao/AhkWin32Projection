@@ -3,10 +3,8 @@
 
 /**
  * @namespace Windows.Win32.Devices.Display
- * @version v4.0.30319
  */
-class BRIGHTNESS_LEVEL extends Win32Struct
-{
+class BRIGHTNESS_LEVEL extends Win32Struct {
     static sizeof => 104
 
     static packingSize => 1
@@ -20,9 +18,9 @@ class BRIGHTNESS_LEVEL extends Win32Struct
     }
 
     /**
-     * @type {Array<Byte>}
+     * @type {Array<Integer>}
      */
-    Level{
+    Level {
         get {
             if(!this.HasProp("__LevelProxyArray"))
                 this.__LevelProxyArray := Win32FixedArray(this.ptr + 1, 103, Primitive, "char")

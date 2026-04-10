@@ -6,9 +6,8 @@
  * Enables clients to get pointers to other interfaces on a given object through the QueryInterface method, and manage the existence of the object through the AddRef and Release methods.
  * @see https://learn.microsoft.com/windows/win32/api/unknwn/nn-unknwn-iunknown
  * @namespace Windows.Win32.System.Com
- * @version v4.0.30319
  */
-class IUnknown extends Win32ComInterface{
+class IUnknown extends Win32ComInterface {
 
     static sizeof => A_PtrSize
     /**
@@ -83,7 +82,6 @@ class IUnknown extends Win32ComInterface{
         result := ComCall(2, this, "uint")
         return result
     }
-
     /**
      * Determines whether or not this interface and some other interface refer to the
      * same underlying object by comparing the pointers retrieved from QueryInterface

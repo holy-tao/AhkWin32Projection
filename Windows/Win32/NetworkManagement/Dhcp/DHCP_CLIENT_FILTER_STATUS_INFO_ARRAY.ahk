@@ -1,14 +1,13 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
+#Include .\DHCP_CLIENT_FILTER_STATUS_INFO.ahk
 
 /**
  * Contains an array of information elements for DHCPv4 clients.
  * @see https://learn.microsoft.com/windows/win32/api/dhcpsapi/ns-dhcpsapi-dhcp_client_filter_status_info_array
  * @namespace Windows.Win32.NetworkManagement.Dhcp
- * @version v4.0.30319
  */
-class DHCP_CLIENT_FILTER_STATUS_INFO_ARRAY extends Win32Struct
-{
+class DHCP_CLIENT_FILTER_STATUS_INFO_ARRAY extends Win32Struct {
     static sizeof => 16
 
     static packingSize => 8

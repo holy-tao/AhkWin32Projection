@@ -1,16 +1,15 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
-#Include ..\..\UI\WindowsAndMessaging\HICON.ahk
 #Include ..\..\System\Com\IUnknown.ahk
+#Include ..\..\UI\WindowsAndMessaging\HICON.ahk
 
 /**
  * Provides access to Active Directory Domain Service objects of the displaySpecifier class.
  * @see https://learn.microsoft.com/windows/win32/api/dsclient/nn-dsclient-idsdisplayspecifier
  * @namespace Windows.Win32.Networking.ActiveDirectory
- * @version v4.0.30319
  */
-class IDsDisplaySpecifier extends IUnknown{
+class IDsDisplaySpecifier extends IUnknown {
 
     static sizeof => A_PtrSize
     /**
@@ -198,7 +197,7 @@ class IDsDisplaySpecifier extends IUnknown{
      * Enumerates the attributes for a given object class.
      * @param {PWSTR} pszObjectClass Pointer to a null-terminated Unicode string that contains the name of the object class to enumerate the attributes for. Examples of the object class name are "user" and "container".
      * @param {Pointer<LPDSENUMATTRIBUTES>} pcbEnum Pointer to an application-supplied <a href="https://docs.microsoft.com/windows/desktop/api/dsclient/nc-dsclient-lpdsenumattributes">DSEnumAttributesCallback</a> function that is called once for each enumerated attribute.
-     * @param {LPARAM} _lParam 
+     * @param {LPARAM} _lParam Contains an application-defined  parameter passed as the <i>lParam</i> parameter in the <a href="https://docs.microsoft.com/windows/desktop/api/dsclient/nc-dsclient-lpdsenumattributes">DSEnumAttributesCallback</a> function.
      * @returns {HRESULT} Returns a standard <b>HRESULT</b> value including the following.
      * @see https://learn.microsoft.com/windows/win32/api/dsclient/nf-dsclient-idsdisplayspecifier-enumclassattributes
      */
@@ -212,7 +211,7 @@ class IDsDisplaySpecifier extends IUnknown{
     /**
      * Retrieves the attribute type for a given attribute.
      * @param {PWSTR} pszAttributeName Pointer to a null-terminated Unicode string that contains the name of the attribute to obtain the type  for.
-     * @returns {Integer} Returns one of the <a href="https://docs.microsoft.com/windows/win32/api/iads/ne-iads-adstypeenum">ADSTYPEENUM</a> values that indicate the type of the attribute.
+     * @returns {ADSTYPE} Returns one of the <a href="https://docs.microsoft.com/windows/win32/api/iads/ne-iads-adstypeenum">ADSTYPEENUM</a> values that indicate the type of the attribute.
      * @see https://learn.microsoft.com/windows/win32/api/dsclient/nf-dsclient-idsdisplayspecifier-getattributeadstype
      */
     GetAttributeADsType(pszAttributeName) {

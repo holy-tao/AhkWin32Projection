@@ -3,9 +3,8 @@
 
 /**
  * @namespace Windows.Win32.Security
- * @version v4.0.30319
  */
-class TOKEN_MANDATORY_POLICY_ID extends Win32Enum{
+class TOKEN_MANDATORY_POLICY_ID extends Win32Enum {
 
     /**
      * @type {Integer (UInt32)}

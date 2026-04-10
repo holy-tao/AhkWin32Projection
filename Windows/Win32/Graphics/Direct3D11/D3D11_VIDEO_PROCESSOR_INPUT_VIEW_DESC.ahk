@@ -1,15 +1,14 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
+#Include .\D3D11_VPIV_DIMENSION.ahk
 #Include .\D3D11_TEX2D_VPIV.ahk
 
 /**
  * Describes a video processor input view.
  * @see https://learn.microsoft.com/windows/win32/api/d3d11/ns-d3d11-d3d11_video_processor_input_view_desc
  * @namespace Windows.Win32.Graphics.Direct3D11
- * @version v4.0.30319
  */
-class D3D11_VIDEO_PROCESSOR_INPUT_VIEW_DESC extends Win32Struct
-{
+class D3D11_VIDEO_PROCESSOR_INPUT_VIEW_DESC extends Win32Struct {
     static sizeof => 16
 
     static packingSize => 4
@@ -25,7 +24,7 @@ class D3D11_VIDEO_PROCESSOR_INPUT_VIEW_DESC extends Win32Struct
 
     /**
      * The resource type of the view, specified as a member of the <a href="https://docs.microsoft.com/windows/desktop/api/d3d11/ne-d3d11-d3d11_vpiv_dimension">D3D11_VPIV_DIMENSION</a> enumeration.
-     * @type {Integer}
+     * @type {D3D11_VPIV_DIMENSION}
      */
     ViewDimension {
         get => NumGet(this, 4, "int")
@@ -35,7 +34,7 @@ class D3D11_VIDEO_PROCESSOR_INPUT_VIEW_DESC extends Win32Struct
     /**
      * @type {D3D11_TEX2D_VPIV}
      */
-    Texture2D{
+    Texture2D {
         get {
             if(!this.HasProp("__Texture2D"))
                 this.__Texture2D := D3D11_TEX2D_VPIV(8, this)

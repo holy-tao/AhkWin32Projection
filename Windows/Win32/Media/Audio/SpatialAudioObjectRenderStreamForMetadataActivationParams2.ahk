@@ -1,6 +1,12 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
+#Include .\WAVEFORMATEX.ahk
+#Include .\AudioObjectType.ahk
+#Include .\AUDIO_STREAM_CATEGORY.ahk
 #Include ..\..\Foundation\HANDLE.ahk
+#Include ..\..\System\Com\StructuredStorage\PROPVARIANT.ahk
+#Include .\ISpatialAudioObjectRenderStreamNotify.ahk
+#Include .\SPATIAL_AUDIO_STREAM_OPTIONS.ahk
 
 /**
  * Represents activation parameters for a spatial audio render stream for metadata, extending SpatialAudioObjectRenderStreamForMetadataActivationParams with the ability to specify stream options.
@@ -50,10 +56,8 @@
  * ```
  * @see https://learn.microsoft.com/windows/win32/api/spatialaudiometadata/ns-spatialaudiometadata-spatialaudioobjectrenderstreamformetadataactivationparams2
  * @namespace Windows.Win32.Media.Audio
- * @version v4.0.30319
  */
-class SpatialAudioObjectRenderStreamForMetadataActivationParams2 extends Win32Struct
-{
+class SpatialAudioObjectRenderStreamForMetadataActivationParams2 extends Win32Struct {
     static sizeof => 72
 
     static packingSize => 8
@@ -69,7 +73,7 @@ class SpatialAudioObjectRenderStreamForMetadataActivationParams2 extends Win32St
 
     /**
      * A bitwise combination of <b>AudioObjectType</b> values indicating the set of static spatial audio channels that will be allowed by the activated stream.
-     * @type {Integer}
+     * @type {AudioObjectType}
      */
     StaticObjectTypeMask {
         get => NumGet(this, 8, "int")
@@ -96,7 +100,7 @@ class SpatialAudioObjectRenderStreamForMetadataActivationParams2 extends Win32St
 
     /**
      * The category of the audio stream and its spatial audio objects.
-     * @type {Integer}
+     * @type {AUDIO_STREAM_CATEGORY}
      */
     Category {
         get => NumGet(this, 20, "int")
@@ -107,7 +111,7 @@ class SpatialAudioObjectRenderStreamForMetadataActivationParams2 extends Win32St
      * The event that will signal the client to provide more audio data. This handle will be duplicated internally before it is used.
      * @type {HANDLE}
      */
-    EventHandle{
+    EventHandle {
         get {
             if(!this.HasProp("__EventHandle"))
                 this.__EventHandle := HANDLE(24, this)
@@ -117,7 +121,7 @@ class SpatialAudioObjectRenderStreamForMetadataActivationParams2 extends Win32St
 
     /**
      * The identifier of  the metadata format for the currently active spatial rendering engine.
-     * @type {Pointer<Guid>}
+     * @type {Pointer}
      */
     MetadataFormatId {
         get => NumGet(this, 32, "ptr")
@@ -153,7 +157,7 @@ class SpatialAudioObjectRenderStreamForMetadataActivationParams2 extends Win32St
 
     /**
      * A member of the <xref:NE:spatialaudioclient.SPATIAL_AUDIO_STREAM_OPTIONS> emumeration, specifying options for the activated audio stream.
-     * @type {Integer}
+     * @type {SPATIAL_AUDIO_STREAM_OPTIONS}
      */
     Options {
         get => NumGet(this, 64, "int")

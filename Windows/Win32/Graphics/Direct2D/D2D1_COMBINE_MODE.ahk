@@ -10,9 +10,8 @@
  * <img alt="Illustration of two geometries and the resulting shapes after various geometry combine modes" src="./images/geometry_combine_modes.png"/>
  * @see https://learn.microsoft.com/windows/win32/api/d2d1/ne-d2d1-d2d1_combine_mode
  * @namespace Windows.Win32.Graphics.Direct2D
- * @version v4.0.30319
  */
-class D2D1_COMBINE_MODE extends Win32Enum{
+class D2D1_COMBINE_MODE extends Win32Enum {
 
     /**
      * The two regions are combined by taking the union of both. Given two geometries, <i>A</i> and <i>B</i>, the resulting geometry is geometry <i>A</i> + geometry <i>B</i>.

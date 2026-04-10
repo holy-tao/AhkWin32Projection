@@ -1,11 +1,12 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
-#Include ..\..\Networking\WinSock\IN_ADDR.ahk
+#Include ..\..\Networking\WinSock\SOCKADDR_INET.ahk
 #Include ..\..\Networking\WinSock\SOCKADDR_IN.ahk
+#Include ..\..\Networking\WinSock\ADDRESS_FAMILY.ahk
+#Include ..\..\Networking\WinSock\IN_ADDR.ahk
+#Include ..\..\Networking\WinSock\SOCKADDR_IN6.ahk
 #Include ..\..\Networking\WinSock\IN6_ADDR.ahk
 #Include ..\..\Networking\WinSock\SCOPE_ID.ahk
-#Include ..\..\Networking\WinSock\SOCKADDR_IN6.ahk
-#Include ..\..\Networking\WinSock\SOCKADDR_INET.ahk
 #Include ..\Ndis\NET_LUID_LH.ahk
 
 /**
@@ -18,11 +19,9 @@
  * Note that the <i>Netioapi.h</i> header file is automatically included in the <i>Iphlpapi.h</i> header file. The  <i>Netioapi.h</i> header file should never be used directly.
  * @see https://learn.microsoft.com/windows/win32/api/netioapi/ns-netioapi-mib_multicastipaddress_row
  * @namespace Windows.Win32.NetworkManagement.IpHelper
- * @version v4.0.30319
  */
-class MIB_MULTICASTIPADDRESS_ROW extends Win32Struct
-{
-    static sizeof => 88
+class MIB_MULTICASTIPADDRESS_ROW extends Win32Struct {
+    static sizeof => 80
 
     static packingSize => 8
 
@@ -30,7 +29,7 @@ class MIB_MULTICASTIPADDRESS_ROW extends Win32Struct
      * The multicast IP address. This member can be an IPv6 address or an IPv4 address.
      * @type {SOCKADDR_INET}
      */
-    Address{
+    Address {
         get {
             if(!this.HasProp("__Address"))
                 this.__Address := SOCKADDR_INET(0, this)
@@ -43,18 +42,18 @@ class MIB_MULTICASTIPADDRESS_ROW extends Win32Struct
      * @type {Integer}
      */
     InterfaceIndex {
-        get => NumGet(this, 56, "uint")
-        set => NumPut("uint", value, this, 56)
+        get => NumGet(this, 48, "uint")
+        set => NumPut("uint", value, this, 48)
     }
 
     /**
      * The locally unique identifier (LUID) for the network interface associated with this IP address.
      * @type {NET_LUID_LH}
      */
-    InterfaceLuid{
+    InterfaceLuid {
         get {
             if(!this.HasProp("__InterfaceLuid"))
-                this.__InterfaceLuid := NET_LUID_LH(64, this)
+                this.__InterfaceLuid := NET_LUID_LH(56, this)
             return this.__InterfaceLuid
         }
     }
@@ -63,10 +62,10 @@ class MIB_MULTICASTIPADDRESS_ROW extends Win32Struct
      * The scope ID of the multicast IP address. This member is applicable only to an IPv6 address. This member cannot be set. It is automatically determined by the interface on which the address was added.
      * @type {SCOPE_ID}
      */
-    ScopeId{
+    ScopeId {
         get {
             if(!this.HasProp("__ScopeId"))
-                this.__ScopeId := SCOPE_ID(80, this)
+                this.__ScopeId := SCOPE_ID(72, this)
             return this.__ScopeId
         }
     }

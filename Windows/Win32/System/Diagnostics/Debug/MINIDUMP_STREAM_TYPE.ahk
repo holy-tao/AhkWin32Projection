@@ -10,9 +10,8 @@
  * <a href="https://docs.microsoft.com/windows/desktop/api/minidumpapiset/ns-minidumpapiset-minidump_directory">MINIDUMP_DIRECTORY</a> structure can be one of these types. Additional types may be added in the future, so if a program reading the minidump header encounters a stream type it does not recognize, it should ignore the stream altogether.
  * @see https://learn.microsoft.com/windows/win32/api/minidumpapiset/ne-minidumpapiset-minidump_stream_type
  * @namespace Windows.Win32.System.Diagnostics.Debug
- * @version v4.0.30319
  */
-class MINIDUMP_STREAM_TYPE extends Win32Enum{
+class MINIDUMP_STREAM_TYPE extends Win32Enum {
 
     /**
      * Reserved. Do not use this enumeration value.
@@ -150,115 +149,96 @@ class MINIDUMP_STREAM_TYPE extends Win32Enum{
     static HandleOperationListStream => 18
 
     /**
-     * 
      * @type {Integer (Int32)}
      */
     static TokenStream => 19
 
     /**
-     * 
      * @type {Integer (Int32)}
      */
     static JavaScriptDataStream => 20
 
     /**
-     * 
      * @type {Integer (Int32)}
      */
     static SystemMemoryInfoStream => 21
 
     /**
-     * 
      * @type {Integer (Int32)}
      */
     static ProcessVmCountersStream => 22
 
     /**
-     * 
      * @type {Integer (Int32)}
      */
     static IptTraceStream => 23
 
     /**
-     * 
      * @type {Integer (Int32)}
      */
     static ThreadNamesStream => 24
 
     /**
-     * 
      * @type {Integer (Int32)}
      */
     static ceStreamNull => 32768
 
     /**
-     * 
      * @type {Integer (Int32)}
      */
     static ceStreamSystemInfo => 32769
 
     /**
-     * 
      * @type {Integer (Int32)}
      */
     static ceStreamException => 32770
 
     /**
-     * 
      * @type {Integer (Int32)}
      */
     static ceStreamModuleList => 32771
 
     /**
-     * 
      * @type {Integer (Int32)}
      */
     static ceStreamProcessList => 32772
 
     /**
-     * 
      * @type {Integer (Int32)}
      */
     static ceStreamThreadList => 32773
 
     /**
-     * 
      * @type {Integer (Int32)}
      */
     static ceStreamThreadContextList => 32774
 
     /**
-     * 
      * @type {Integer (Int32)}
      */
     static ceStreamThreadCallStackList => 32775
 
     /**
-     * 
      * @type {Integer (Int32)}
      */
     static ceStreamMemoryVirtualList => 32776
 
     /**
-     * 
      * @type {Integer (Int32)}
      */
     static ceStreamMemoryPhysicalList => 32777
 
     /**
-     * 
      * @type {Integer (Int32)}
      */
     static ceStreamBucketParameters => 32778
 
     /**
-     * 
      * @type {Integer (Int32)}
      */
     static ceStreamProcessModuleMap => 32779
 
     /**
-     * 
      * @type {Integer (Int32)}
      */
     static ceStreamDiagnosisList => 32780

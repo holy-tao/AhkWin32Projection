@@ -2,19 +2,25 @@
 #Include ..\..\..\..\Win32Struct.ahk
 #Include .\FWPM_DISPLAY_DATA0.ahk
 #Include .\FWP_BYTE_BLOB.ahk
+#Include .\FWPM_PROVIDER_CONTEXT_TYPE.ahk
+#Include .\IPSEC_KEYING_POLICY1.ahk
+#Include .\IPSEC_TRANSPORT_POLICY2.ahk
+#Include .\IPSEC_TUNNEL_POLICY3.ahk
+#Include .\IKEEXT_POLICY2.ahk
+#Include .\FWPM_CLASSIFY_OPTIONS0.ahk
+#Include .\IPSEC_DOSP_OPTIONS0.ahk
+#Include .\FWPM_NETWORK_CONNECTION_POLICY_SETTINGS0.ahk
 
 /**
  * @namespace Windows.Win32.NetworkManagement.WindowsFilteringPlatform
- * @version v4.0.30319
  */
-class FWPM_PROVIDER_CONTEXT3 extends Win32Struct
-{
+class FWPM_PROVIDER_CONTEXT3 extends Win32Struct {
     static sizeof => 80
 
     static packingSize => 8
 
     /**
-     * @type {Pointer<Guid>}
+     * @type {Pointer}
      */
     providerContextKey {
         get => NumGet(this, 0, "ptr")
@@ -24,7 +30,7 @@ class FWPM_PROVIDER_CONTEXT3 extends Win32Struct
     /**
      * @type {FWPM_DISPLAY_DATA0}
      */
-    displayData{
+    displayData {
         get {
             if(!this.HasProp("__displayData"))
                 this.__displayData := FWPM_DISPLAY_DATA0(8, this)
@@ -51,7 +57,7 @@ class FWPM_PROVIDER_CONTEXT3 extends Win32Struct
     /**
      * @type {FWP_BYTE_BLOB}
      */
-    providerData{
+    providerData {
         get {
             if(!this.HasProp("__providerData"))
                 this.__providerData := FWP_BYTE_BLOB(40, this)
@@ -60,7 +66,7 @@ class FWPM_PROVIDER_CONTEXT3 extends Win32Struct
     }
 
     /**
-     * @type {Integer}
+     * @type {FWPM_PROVIDER_CONTEXT_TYPE}
      */
     type {
         get => NumGet(this, 56, "int")

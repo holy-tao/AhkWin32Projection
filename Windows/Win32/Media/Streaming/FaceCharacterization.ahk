@@ -12,10 +12,8 @@
  * ```
  * @see https://learn.microsoft.com/windows/win32/api/mfapi/ns-mfapi-facecharacterization
  * @namespace Windows.Win32.Media.Streaming
- * @version v4.0.30319
  */
-class FaceCharacterization extends Win32Struct
-{
+class FaceCharacterization extends Win32Struct {
     static sizeof => 16
 
     static packingSize => 4

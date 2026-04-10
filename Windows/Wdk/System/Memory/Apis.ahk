@@ -4,7 +4,6 @@
 
 /**
  * @namespace Windows.Wdk.System.Memory
- * @version v4.0.30319
  */
 class Memory {
 
@@ -34,7 +33,7 @@ class Memory {
      * @param {Pointer} CommitSize 
      * @param {Pointer<Integer>} SectionOffset 
      * @param {Pointer<Pointer>} ViewSize 
-     * @param {Integer} InheritDisposition 
+     * @param {SECTION_INHERIT} InheritDisposition 
      * @param {Integer} AllocationType 
      * @param {Integer} Win32Protect 
      * @returns {NTSTATUS} 
@@ -90,7 +89,7 @@ class Memory {
      * @param {Pointer} CommitSize 
      * @param {Pointer<Integer>} SectionOffset 
      * @param {Pointer<Pointer>} ViewSize 
-     * @param {Integer} InheritDisposition 
+     * @param {SECTION_INHERIT} InheritDisposition 
      * @param {Integer} AllocationType 
      * @param {Integer} Win32Protect 
      * @returns {NTSTATUS} 

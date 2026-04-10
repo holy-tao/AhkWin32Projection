@@ -7,9 +7,8 @@
  * Walks a stack frame looking for interesting values.
  * @see https://learn.microsoft.com/windows/win32/api/callobj/nn-callobj-icallframewalker
  * @namespace Windows.Win32.System.Com.CallObj
- * @version v4.0.30319
  */
-class ICallFrameWalker extends IUnknown{
+class ICallFrameWalker extends IUnknown {
 
     static sizeof => A_PtrSize
     /**

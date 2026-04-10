@@ -1,12 +1,11 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
+#Include .\WHEA_ERROR_SEVERITY.ahk
 
 /**
  * @namespace Windows.Wdk.System.SystemServices
- * @version v4.0.30319
  */
-class WHEA_ERROR_RECORD_HEADER extends Win32Struct
-{
+class WHEA_ERROR_RECORD_HEADER extends Win32Struct {
     static sizeof => 128
 
     static packingSize => 8
@@ -20,7 +19,7 @@ class WHEA_ERROR_RECORD_HEADER extends Win32Struct
     }
 
     /**
-     * @type {Pointer<WHEA_REVISION>}
+     * @type {Pointer}
      */
     Revision {
         get => NumGet(this, 8, "ptr")
@@ -44,7 +43,7 @@ class WHEA_ERROR_RECORD_HEADER extends Win32Struct
     }
 
     /**
-     * @type {Integer}
+     * @type {WHEA_ERROR_SEVERITY}
      */
     Severity {
         get => NumGet(this, 24, "int")
@@ -52,7 +51,7 @@ class WHEA_ERROR_RECORD_HEADER extends Win32Struct
     }
 
     /**
-     * @type {Pointer<WHEA_ERROR_RECORD_HEADER_VALIDBITS>}
+     * @type {Pointer}
      */
     ValidBits {
         get => NumGet(this, 32, "ptr")
@@ -68,7 +67,7 @@ class WHEA_ERROR_RECORD_HEADER extends Win32Struct
     }
 
     /**
-     * @type {Pointer<WHEA_TIMESTAMP>}
+     * @type {Pointer}
      */
     Timestamp {
         get => NumGet(this, 48, "ptr")
@@ -76,7 +75,7 @@ class WHEA_ERROR_RECORD_HEADER extends Win32Struct
     }
 
     /**
-     * @type {Pointer<Guid>}
+     * @type {Pointer}
      */
     PlatformId {
         get => NumGet(this, 56, "ptr")
@@ -84,7 +83,7 @@ class WHEA_ERROR_RECORD_HEADER extends Win32Struct
     }
 
     /**
-     * @type {Pointer<Guid>}
+     * @type {Pointer}
      */
     PartitionId {
         get => NumGet(this, 64, "ptr")
@@ -92,7 +91,7 @@ class WHEA_ERROR_RECORD_HEADER extends Win32Struct
     }
 
     /**
-     * @type {Pointer<Guid>}
+     * @type {Pointer}
      */
     CreatorId {
         get => NumGet(this, 72, "ptr")
@@ -100,7 +99,7 @@ class WHEA_ERROR_RECORD_HEADER extends Win32Struct
     }
 
     /**
-     * @type {Pointer<Guid>}
+     * @type {Pointer}
      */
     NotifyType {
         get => NumGet(this, 80, "ptr")
@@ -116,7 +115,7 @@ class WHEA_ERROR_RECORD_HEADER extends Win32Struct
     }
 
     /**
-     * @type {Pointer<WHEA_ERROR_RECORD_HEADER_FLAGS>}
+     * @type {Pointer}
      */
     Flags {
         get => NumGet(this, 96, "ptr")
@@ -124,7 +123,7 @@ class WHEA_ERROR_RECORD_HEADER extends Win32Struct
     }
 
     /**
-     * @type {Pointer<WHEA_PERSISTENCE_INFO>}
+     * @type {Pointer}
      */
     PersistenceInfo {
         get => NumGet(this, 104, "ptr")
@@ -140,9 +139,9 @@ class WHEA_ERROR_RECORD_HEADER extends Win32Struct
     }
 
     /**
-     * @type {Array<Byte>}
+     * @type {Array<Integer>}
      */
-    Reserved2{
+    Reserved2 {
         get {
             if(!this.HasProp("__Reserved2ProxyArray"))
                 this.__Reserved2ProxyArray := Win32FixedArray(this.ptr + 116, 8, Primitive, "char")
@@ -151,9 +150,9 @@ class WHEA_ERROR_RECORD_HEADER extends Win32Struct
     }
 
     /**
-     * @type {Array<Byte>}
+     * @type {Array<Integer>}
      */
-    Reserved{
+    Reserved {
         get {
             if(!this.HasProp("__ReservedProxyArray"))
                 this.__ReservedProxyArray := Win32FixedArray(this.ptr + 112, 12, Primitive, "char")

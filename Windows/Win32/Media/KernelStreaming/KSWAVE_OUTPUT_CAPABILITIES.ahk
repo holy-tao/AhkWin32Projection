@@ -3,10 +3,8 @@
 
 /**
  * @namespace Windows.Win32.Media.KernelStreaming
- * @version v4.0.30319
  */
-class KSWAVE_OUTPUT_CAPABILITIES extends Win32Struct
-{
+class KSWAVE_OUTPUT_CAPABILITIES extends Win32Struct {
     static sizeof => 80
 
     static packingSize => 4

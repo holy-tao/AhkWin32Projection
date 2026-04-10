@@ -1,5 +1,6 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
+#Include .\LIST_ENTRY.ahk
 
 /**
  * A LIST_ENTRY structure describes an entry in a doubly linked list or serves as the header for such a list.
@@ -11,10 +12,8 @@
  * For more information about how to use <b>LIST_ENTRY</b> structures to implement a doubly linked list, see <a href="https://docs.microsoft.com/windows-hardware/drivers/kernel/singly-and-doubly-linked-lists">Singly and Doubly Linked Lists</a>.
  * @see https://learn.microsoft.com/windows/win32/api/ntdef/ns-ntdef-list_entry
  * @namespace Windows.Win32.System.Kernel
- * @version v4.0.30319
  */
-class LIST_ENTRY extends Win32Struct
-{
+class LIST_ENTRY extends Win32Struct {
     static sizeof => 16
 
     static packingSize => 8

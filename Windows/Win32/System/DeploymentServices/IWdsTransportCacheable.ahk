@@ -7,9 +7,8 @@
  * Provides caching for objects that handle persistent data. This interface can be inherited by other interfaces that represent persisted objects.
  * @see https://learn.microsoft.com/windows/win32/api/wdstptmgmt/nn-wdstptmgmt-iwdstransportcacheable
  * @namespace Windows.Win32.System.DeploymentServices
- * @version v4.0.30319
  */
-class IWdsTransportCacheable extends IDispatch{
+class IWdsTransportCacheable extends IDispatch {
 
     static sizeof => A_PtrSize
     /**

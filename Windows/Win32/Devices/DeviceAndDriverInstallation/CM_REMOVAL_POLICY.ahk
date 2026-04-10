@@ -3,9 +3,8 @@
 
 /**
  * @namespace Windows.Win32.Devices.DeviceAndDriverInstallation
- * @version v4.0.30319
  */
-class CM_REMOVAL_POLICY extends Win32Enum{
+class CM_REMOVAL_POLICY extends Win32Enum {
 
     /**
      * @type {Integer (UInt32)}

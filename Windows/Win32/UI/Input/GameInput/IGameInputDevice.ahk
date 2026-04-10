@@ -1,15 +1,14 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\..\Guid.ahk
+#Include ..\..\..\System\Com\IUnknown.ahk
 #Include .\IGameInputForceFeedbackEffect.ahk
 #Include .\IGameInputRawDeviceReport.ahk
-#Include ..\..\..\System\Com\IUnknown.ahk
 
 /**
  * @namespace Windows.Win32.UI.Input.GameInput
- * @version v4.0.30319
  */
-class IGameInputDevice extends IUnknown{
+class IGameInputDevice extends IUnknown {
 
     static sizeof => A_PtrSize
     /**
@@ -41,7 +40,7 @@ class IGameInputDevice extends IUnknown{
 
     /**
      * 
-     * @returns {Integer} 
+     * @returns {GameInputDeviceStatus} 
      */
     GetDeviceStatus() {
         result := ComCall(4, this, "int")
@@ -136,7 +135,7 @@ class IGameInputDevice extends IUnknown{
     /**
      * 
      * @param {Integer} reportId 
-     * @param {Integer} reportKind 
+     * @param {GameInputRawDeviceReportKind} reportKind 
      * @returns {IGameInputRawDeviceReport} 
      */
     CreateRawDeviceReport(reportId, reportKind) {
@@ -188,9 +187,9 @@ class IGameInputDevice extends IUnknown{
      * 
      * @param {Integer} controlCode 
      * @param {Pointer} inputBufferSize 
-     * @param {Pointer} inputBuffer 
+     * @param {Integer} inputBuffer 
      * @param {Pointer} outputBufferSize 
-     * @param {Pointer} outputBuffer 
+     * @param {Integer} outputBuffer 
      * @returns {Pointer} 
      */
     ExecuteRawDeviceIoControl(controlCode, inputBufferSize, inputBuffer, outputBufferSize, outputBuffer) {

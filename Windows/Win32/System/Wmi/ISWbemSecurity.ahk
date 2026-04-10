@@ -1,14 +1,13 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
-#Include .\ISWbemPrivilegeSet.ahk
 #Include ..\Com\IDispatch.ahk
+#Include .\ISWbemPrivilegeSet.ahk
 
 /**
  * @namespace Windows.Win32.System.Wmi
- * @version v4.0.30319
  */
-class ISWbemSecurity extends IDispatch{
+class ISWbemSecurity extends IDispatch {
 
     static sizeof => A_PtrSize
     /**
@@ -36,7 +35,7 @@ class ISWbemSecurity extends IDispatch{
     static VTableNames => ["get_ImpersonationLevel", "put_ImpersonationLevel", "get_AuthenticationLevel", "put_AuthenticationLevel", "get_Privileges"]
 
     /**
-     * @type {Integer} 
+     * @type {WbemImpersonationLevelEnum} 
      */
     ImpersonationLevel {
         get => this.get_ImpersonationLevel()
@@ -44,7 +43,7 @@ class ISWbemSecurity extends IDispatch{
     }
 
     /**
-     * @type {Integer} 
+     * @type {WbemAuthenticationLevelEnum} 
      */
     AuthenticationLevel {
         get => this.get_AuthenticationLevel()
@@ -60,7 +59,7 @@ class ISWbemSecurity extends IDispatch{
 
     /**
      * 
-     * @returns {Integer} 
+     * @returns {WbemImpersonationLevelEnum} 
      */
     get_ImpersonationLevel() {
         result := ComCall(7, this, "int*", &iImpersonationLevel := 0, "HRESULT")
@@ -69,7 +68,7 @@ class ISWbemSecurity extends IDispatch{
 
     /**
      * 
-     * @param {Integer} iImpersonationLevel 
+     * @param {WbemImpersonationLevelEnum} iImpersonationLevel 
      * @returns {HRESULT} 
      */
     put_ImpersonationLevel(iImpersonationLevel) {
@@ -79,7 +78,7 @@ class ISWbemSecurity extends IDispatch{
 
     /**
      * 
-     * @returns {Integer} 
+     * @returns {WbemAuthenticationLevelEnum} 
      */
     get_AuthenticationLevel() {
         result := ComCall(9, this, "int*", &iAuthenticationLevel := 0, "HRESULT")
@@ -88,7 +87,7 @@ class ISWbemSecurity extends IDispatch{
 
     /**
      * 
-     * @param {Integer} iAuthenticationLevel 
+     * @param {WbemAuthenticationLevelEnum} iAuthenticationLevel 
      * @returns {HRESULT} 
      */
     put_AuthenticationLevel(iAuthenticationLevel) {

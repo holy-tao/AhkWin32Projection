@@ -12,9 +12,8 @@
  * When implementing a Shell namespace extension, specifically the <a href="https://docs.microsoft.com/windows/desktop/api/shobjidl_core/nn-shobjidl_core-ishellfolder">IShellFolder</a> interface, you need to implement this interface so that the Shell folder object's <a href="https://docs.microsoft.com/windows/desktop/api/shtypes/ns-shtypes-itemidlist">ITEMIDLIST</a> can be retrieved.
  * @see https://learn.microsoft.com/windows/win32/api/shobjidl_core/nn-shobjidl_core-ipersistfolder2
  * @namespace Windows.Win32.UI.Shell
- * @version v4.0.30319
  */
-class IPersistFolder2 extends IPersistFolder{
+class IPersistFolder2 extends IPersistFolder {
 
     static sizeof => A_PtrSize
     /**

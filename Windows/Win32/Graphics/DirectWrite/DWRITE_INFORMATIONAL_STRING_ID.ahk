@@ -5,9 +5,8 @@
  * The informational string enumeration which identifies a string embedded in a font file.
  * @see https://learn.microsoft.com/windows/win32/api/dwrite/ne-dwrite-dwrite_informational_string_id
  * @namespace Windows.Win32.Graphics.DirectWrite
- * @version v4.0.30319
  */
-class DWRITE_INFORMATIONAL_STRING_ID extends Win32Enum{
+class DWRITE_INFORMATIONAL_STRING_ID extends Win32Enum {
 
     /**
      * Indicates the string containing the unspecified name ID.
@@ -88,13 +87,11 @@ class DWRITE_INFORMATIONAL_STRING_ID extends Win32Enum{
     static DWRITE_INFORMATIONAL_STRING_WIN32_SUBFAMILY_NAMES => 12
 
     /**
-     * 
      * @type {Integer (Int32)}
      */
     static DWRITE_INFORMATIONAL_STRING_TYPOGRAPHIC_FAMILY_NAMES => 13
 
     /**
-     * 
      * @type {Integer (Int32)}
      */
     static DWRITE_INFORMATIONAL_STRING_TYPOGRAPHIC_SUBFAMILY_NAMES => 14
@@ -126,19 +123,16 @@ class DWRITE_INFORMATIONAL_STRING_ID extends Win32Enum{
     static DWRITE_INFORMATIONAL_STRING_POSTSCRIPT_CID_NAME => 18
 
     /**
-     * 
      * @type {Integer (Int32)}
      */
     static DWRITE_INFORMATIONAL_STRING_WEIGHT_STRETCH_STYLE_FAMILY_NAME => 19
 
     /**
-     * 
      * @type {Integer (Int32)}
      */
     static DWRITE_INFORMATIONAL_STRING_DESIGN_SCRIPT_LANGUAGE_TAG => 20
 
     /**
-     * 
      * @type {Integer (Int32)}
      */
     static DWRITE_INFORMATIONAL_STRING_SUPPORTED_SCRIPT_LANGUAGE_TAG => 21
@@ -156,7 +150,6 @@ class DWRITE_INFORMATIONAL_STRING_ID extends Win32Enum{
     static DWRITE_INFORMATIONAL_STRING_PREFERRED_SUBFAMILY_NAMES => 14
 
     /**
-     * 
      * @type {Integer (Int32)}
      */
     static DWRITE_INFORMATIONAL_STRING_WWS_FAMILY_NAME => 19

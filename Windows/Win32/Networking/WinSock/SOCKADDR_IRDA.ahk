@@ -13,11 +13,9 @@
  * <a href="https://docs.microsoft.com/windows/desktop/api/winsock/nf-winsock-bind">bind</a> function call.
  * @see https://learn.microsoft.com/windows/win32/api/af_irda/ns-af_irda-sockaddr_irda
  * @namespace Windows.Win32.Networking.WinSock
- * @version v4.0.30319
  */
-class SOCKADDR_IRDA extends Win32Struct
-{
-    static sizeof => 56
+class SOCKADDR_IRDA extends Win32Struct {
+    static sizeof => 32
 
     static packingSize => 2
 
@@ -33,9 +31,9 @@ class SOCKADDR_IRDA extends Win32Struct
     /**
      * Device identifier (ID) of the IrDA device to which the client wants to issue the 
      * <a href="https://docs.microsoft.com/windows/desktop/api/winsock2/nf-winsock2-connect">connect</a> function call. Ignored by server applications.
-     * @type {Array<Byte>}
+     * @type {Array<Integer>}
      */
-    irdaDeviceID{
+    irdaDeviceID {
         get {
             if(!this.HasProp("__irdaDeviceIDProxyArray"))
                 this.__irdaDeviceIDProxyArray := Win32FixedArray(this.ptr + 2, 4, Primitive, "char")
@@ -49,7 +47,7 @@ class SOCKADDR_IRDA extends Win32Struct
      * @type {String}
      */
     irdaServiceName {
-        get => StrGet(this.ptr + 6, 24, "UTF-16")
-        set => StrPut(value, this.ptr + 6, 24, "UTF-16")
+        get => StrGet(this.ptr + 6, 24, "UTF-8")
+        set => StrPut(value, this.ptr + 6, 24, "UTF-8")
     }
 }

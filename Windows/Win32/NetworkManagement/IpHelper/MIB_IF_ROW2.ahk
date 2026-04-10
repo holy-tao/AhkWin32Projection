@@ -1,6 +1,15 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
 #Include ..\Ndis\NET_LUID_LH.ahk
+#Include ..\Ndis\TUNNEL_TYPE.ahk
+#Include ..\Ndis\NDIS_MEDIUM.ahk
+#Include ..\Ndis\NDIS_PHYSICAL_MEDIUM.ahk
+#Include ..\Ndis\NET_IF_ACCESS_TYPE.ahk
+#Include ..\Ndis\NET_IF_DIRECTION_TYPE.ahk
+#Include ..\Ndis\IF_OPER_STATUS.ahk
+#Include ..\Ndis\NET_IF_ADMIN_STATUS.ahk
+#Include ..\Ndis\NET_IF_MEDIA_CONNECT_STATE.ahk
+#Include ..\Ndis\NET_IF_CONNECTION_TYPE.ahk
 
 /**
  * Stores information about a particular interface. (MIB_IF_ROW2)
@@ -12,10 +21,8 @@
  * Note that the <i>Netioapi.h</i> header file is automatically included in the <i>Iphlpapi.h</i> header file. The  <i>Netioapi.h</i> header file should never be used directly.
  * @see https://learn.microsoft.com/windows/win32/api/netioapi/ns-netioapi-mib_if_row2
  * @namespace Windows.Win32.NetworkManagement.IpHelper
- * @version v4.0.30319
  */
-class MIB_IF_ROW2 extends Win32Struct
-{
+class MIB_IF_ROW2 extends Win32Struct {
     static sizeof => 1352
 
     static packingSize => 8
@@ -40,7 +47,7 @@ class MIB_IF_ROW2 extends Win32Struct
             get => NumGet(this, 0, "char")
             set => NumPut("char", value, this, 0)
         }
-    
+
         /**
          * @type {Integer}
          */
@@ -48,7 +55,7 @@ class MIB_IF_ROW2 extends Win32Struct
             get => (this._bitfield >> 0) & 0x1
             set => this._bitfield := ((value & 0x1) << 0) | (this._bitfield & ~(0x1 << 0))
         }
-    
+
         /**
          * @type {Integer}
          */
@@ -56,7 +63,7 @@ class MIB_IF_ROW2 extends Win32Struct
             get => (this._bitfield >> 1) & 0x1
             set => this._bitfield := ((value & 0x1) << 1) | (this._bitfield & ~(0x1 << 1))
         }
-    
+
         /**
          * @type {Integer}
          */
@@ -64,7 +71,7 @@ class MIB_IF_ROW2 extends Win32Struct
             get => (this._bitfield >> 2) & 0x1
             set => this._bitfield := ((value & 0x1) << 2) | (this._bitfield & ~(0x1 << 2))
         }
-    
+
         /**
          * @type {Integer}
          */
@@ -72,7 +79,7 @@ class MIB_IF_ROW2 extends Win32Struct
             get => (this._bitfield >> 3) & 0x1
             set => this._bitfield := ((value & 0x1) << 3) | (this._bitfield & ~(0x1 << 3))
         }
-    
+
         /**
          * @type {Integer}
          */
@@ -80,7 +87,7 @@ class MIB_IF_ROW2 extends Win32Struct
             get => (this._bitfield >> 4) & 0x1
             set => this._bitfield := ((value & 0x1) << 4) | (this._bitfield & ~(0x1 << 4))
         }
-    
+
         /**
          * @type {Integer}
          */
@@ -88,7 +95,7 @@ class MIB_IF_ROW2 extends Win32Struct
             get => (this._bitfield >> 5) & 0x1
             set => this._bitfield := ((value & 0x1) << 5) | (this._bitfield & ~(0x1 << 5))
         }
-    
+
         /**
          * @type {Integer}
          */
@@ -96,7 +103,7 @@ class MIB_IF_ROW2 extends Win32Struct
             get => (this._bitfield >> 6) & 0x1
             set => this._bitfield := ((value & 0x1) << 6) | (this._bitfield & ~(0x1 << 6))
         }
-    
+
         /**
          * @type {Integer}
          */
@@ -104,7 +111,6 @@ class MIB_IF_ROW2 extends Win32Struct
             get => (this._bitfield >> 7) & 0x1
             set => this._bitfield := ((value & 0x1) << 7) | (this._bitfield & ~(0x1 << 7))
         }
-    
     }
 
     /**
@@ -113,7 +119,7 @@ class MIB_IF_ROW2 extends Win32Struct
      * The locally unique identifier (LUID) for the network interface.
      * @type {NET_LUID_LH}
      */
-    InterfaceLuid{
+    InterfaceLuid {
         get {
             if(!this.HasProp("__InterfaceLuid"))
                 this.__InterfaceLuid := NET_LUID_LH(0, this)
@@ -136,7 +142,7 @@ class MIB_IF_ROW2 extends Win32Struct
      * Type: <b>GUID</b>
      * 
      * The GUID for the network interface.
-     * @type {Pointer<Guid>}
+     * @type {Pointer}
      */
     InterfaceGuid {
         get => NumGet(this, 24, "ptr")
@@ -180,9 +186,9 @@ class MIB_IF_ROW2 extends Win32Struct
      * Type: <b> UCHAR[IF_MAX_PHYS_ADDRESS_LENGTH]</b>
      * 
      * The physical hardware address of the adapter for this network interface.
-     * @type {Array<Byte>}
+     * @type {Array<Integer>}
      */
-    PhysicalAddress{
+    PhysicalAddress {
         get {
             if(!this.HasProp("__PhysicalAddressProxyArray"))
                 this.__PhysicalAddressProxyArray := Win32FixedArray(this.ptr + 1064, 32, Primitive, "char")
@@ -194,9 +200,9 @@ class MIB_IF_ROW2 extends Win32Struct
      * Type: <b> UCHAR[IF_MAX_PHYS_ADDRESS_LENGTH]</b>
      * 
      * The permanent physical hardware address of the adapter for this network interface.
-     * @type {Array<Byte>}
+     * @type {Array<Integer>}
      */
-    PermanentPhysicalAddress{
+    PermanentPhysicalAddress {
         get {
             if(!this.HasProp("__PermanentPhysicalAddressProxyArray"))
                 this.__PermanentPhysicalAddressProxyArray := Win32FixedArray(this.ptr + 1096, 32, Primitive, "char")
@@ -469,7 +475,7 @@ class MIB_IF_ROW2 extends Win32Struct
      * </td>
      * </tr>
      * </table>
-     * @type {Integer}
+     * @type {TUNNEL_TYPE}
      */
     TunnelType {
         get => NumGet(this, 1136, "int")
@@ -706,7 +712,7 @@ class MIB_IF_ROW2 extends Win32Struct
      * </td>
      * </tr>
      * </table>
-     * @type {Integer}
+     * @type {NDIS_MEDIUM}
      */
     MediaType {
         get => NumGet(this, 1140, "int")
@@ -946,7 +952,7 @@ class MIB_IF_ROW2 extends Win32Struct
      * </td>
      * </tr>
      * </table>
-     * @type {Integer}
+     * @type {NDIS_PHYSICAL_MEDIUM}
      */
     PhysicalMediumType {
         get => NumGet(this, 1144, "int")
@@ -1023,7 +1029,7 @@ class MIB_IF_ROW2 extends Win32Struct
      * </td>
      * </tr>
      * </table>
-     * @type {Integer}
+     * @type {NET_IF_ACCESS_TYPE}
      */
     AccessType {
         get => NumGet(this, 1148, "int")
@@ -1086,7 +1092,7 @@ class MIB_IF_ROW2 extends Win32Struct
      * </td>
      * </tr>
      * </table>
-     * @type {Integer}
+     * @type {NET_IF_DIRECTION_TYPE}
      */
     DirectionType {
         get => NumGet(this, 1152, "int")
@@ -1097,10 +1103,10 @@ class MIB_IF_ROW2 extends Win32Struct
      * A set of flags that provide information about the interface. These flags are combined with a bitwise OR operation. If none of the flags applies, then this member is set to zero.
      * @type {_InterfaceAndOperStatusFlags}
      */
-    InterfaceAndOperStatusFlags{
+    InterfaceAndOperStatusFlags {
         get {
             if(!this.HasProp("__InterfaceAndOperStatusFlags"))
-                this.__InterfaceAndOperStatusFlags := %this.__Class%._InterfaceAndOperStatusFlags(1156, this)
+                this.__InterfaceAndOperStatusFlags := MIB_IF_ROW2._InterfaceAndOperStatusFlags(1156, this)
             return this.__InterfaceAndOperStatusFlags
         }
     }
@@ -1212,7 +1218,7 @@ class MIB_IF_ROW2 extends Win32Struct
      * </td>
      * </tr>
      * </table>
-     * @type {Integer}
+     * @type {IF_OPER_STATUS}
      */
     OperStatus {
         get => NumGet(this, 1160, "int")
@@ -1263,7 +1269,7 @@ class MIB_IF_ROW2 extends Win32Struct
      * </td>
      * </tr>
      * </table>
-     * @type {Integer}
+     * @type {NET_IF_ADMIN_STATUS}
      */
     AdminStatus {
         get => NumGet(this, 1164, "int")
@@ -1314,7 +1320,7 @@ class MIB_IF_ROW2 extends Win32Struct
      * </td>
      * </tr>
      * </table>
-     * @type {Integer}
+     * @type {NET_IF_MEDIA_CONNECT_STATE}
      */
     MediaConnectState {
         get => NumGet(this, 1168, "int")
@@ -1325,7 +1331,7 @@ class MIB_IF_ROW2 extends Win32Struct
      * Type: <b>NET_IF_NETWORK_GUID</b>
      * 
      * The GUID that is associated with the network that the interface belongs to.
-     * @type {Pointer<Guid>}
+     * @type {Pointer}
      */
     NetworkGuid {
         get => NumGet(this, 1176, "ptr")
@@ -1389,7 +1395,7 @@ class MIB_IF_ROW2 extends Win32Struct
      * </td>
      * </tr>
      * </table>
-     * @type {Integer}
+     * @type {NET_IF_CONNECTION_TYPE}
      */
     ConnectionType {
         get => NumGet(this, 1184, "int")

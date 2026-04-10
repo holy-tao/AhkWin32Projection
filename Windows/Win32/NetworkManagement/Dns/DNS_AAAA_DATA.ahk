@@ -10,10 +10,8 @@
  * <a href="https://docs.microsoft.com/windows/win32/api/windns/ns-windns-dns_recorda">DNS_RECORD</a> structure to programmatically manage DNS entries.
  * @see https://learn.microsoft.com/windows/win32/api/windns/ns-windns-dns_aaaa_data
  * @namespace Windows.Win32.NetworkManagement.Dns
- * @version v4.0.30319
  */
-class DNS_AAAA_DATA extends Win32Struct
-{
+class DNS_AAAA_DATA extends Win32Struct {
     static sizeof => 64
 
     static packingSize => 8
@@ -22,7 +20,7 @@ class DNS_AAAA_DATA extends Win32Struct
      * An <a href="https://docs.microsoft.com/windows/win32/api/windns/ns-windns-ip6_address">IP6_ADDRESS</a> data type that contains an IPv6 address.
      * @type {IP6_ADDRESS}
      */
-    Ip6Address{
+    Ip6Address {
         get {
             if(!this.HasProp("__Ip6Address"))
                 this.__Ip6Address := IP6_ADDRESS(0, this)

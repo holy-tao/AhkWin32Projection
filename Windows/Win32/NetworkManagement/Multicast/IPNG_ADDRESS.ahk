@@ -5,10 +5,8 @@
  * The IPNG_ADDRESS union provides Internet Protocol version 4 (IPv4) and Internet Protocol version 6 (IPv6) addresses.
  * @see https://learn.microsoft.com/windows/win32/api/madcapcl/ns-madcapcl-ipng_address
  * @namespace Windows.Win32.NetworkManagement.Multicast
- * @version v4.0.30319
  */
-class IPNG_ADDRESS extends Win32Struct
-{
+class IPNG_ADDRESS extends Win32Struct {
     static sizeof => 20
 
     static packingSize => 4
@@ -24,9 +22,9 @@ class IPNG_ADDRESS extends Win32Struct
 
     /**
      * Internet Protocol (IP) address, in version 6 format (IPv6).
-     * @type {Array<Byte>}
+     * @type {Array<Integer>}
      */
-    IpAddrV6{
+    IpAddrV6 {
         get {
             if(!this.HasProp("__IpAddrV6ProxyArray"))
                 this.__IpAddrV6ProxyArray := Win32FixedArray(this.ptr + 0, 16, Primitive, "char")

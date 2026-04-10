@@ -5,7 +5,6 @@
 
 /**
  * @namespace Windows.Wdk.Storage.FileSystem
- * @version v4.0.30319
  */
 class FileSystem {
 
@@ -3361,7 +3360,7 @@ class FileSystem {
      * @param {Pointer<IO_STATUS_BLOCK>} IoStatusBlock 
      * @param {Integer} CompletionFilter 
      * @param {BOOLEAN} WatchTree 
-     * @param {Pointer} _Buffer 
+     * @param {Integer} _Buffer 
      * @param {Integer} BufferSize 
      * @param {BOOLEAN} Asynchronous 
      * @returns {NTSTATUS} 
@@ -3382,7 +3381,7 @@ class FileSystem {
      * @param {Pointer<HANDLE>} EventHandle 
      * @param {Integer} DesiredAccess 
      * @param {Pointer<OBJECT_ATTRIBUTES>} ObjectAttributes 
-     * @param {Integer} EventType 
+     * @param {EVENT_TYPE} EventType 
      * @param {BOOLEAN} InitialState 
      * @returns {NTSTATUS} 
      */
@@ -3410,9 +3409,9 @@ class FileSystem {
      * @param {Pointer<PIO_APC_ROUTINE>} ApcRoutine 
      * @param {Pointer<Void>} ApcContext 
      * @param {Pointer<IO_STATUS_BLOCK>} IoStatusBlock 
-     * @param {Pointer} FileInformation 
+     * @param {Integer} FileInformation 
      * @param {Integer} Length 
-     * @param {Integer} FileInformationClass 
+     * @param {FILE_INFORMATION_CLASS} FileInformationClass 
      * @param {BOOLEAN} ReturnSingleEntry 
      * @param {Pointer<UNICODE_STRING>} FileName 
      * @param {BOOLEAN} RestartScan 
@@ -3436,9 +3435,9 @@ class FileSystem {
      * @param {Pointer<PIO_APC_ROUTINE>} ApcRoutine 
      * @param {Pointer<Void>} ApcContext 
      * @param {Pointer<IO_STATUS_BLOCK>} IoStatusBlock 
-     * @param {Pointer} FileInformation 
+     * @param {Integer} FileInformation 
      * @param {Integer} Length 
-     * @param {Integer} FileInformationClass 
+     * @param {FILE_INFORMATION_CLASS} FileInformationClass 
      * @param {Integer} QueryFlags 
      * @param {Pointer<UNICODE_STRING>} FileName 
      * @returns {NTSTATUS} 
@@ -3458,9 +3457,9 @@ class FileSystem {
      * 
      * @param {HANDLE} FileHandle 
      * @param {Pointer<IO_STATUS_BLOCK>} IoStatusBlock 
-     * @param {Pointer} FsInformation 
+     * @param {Integer} FsInformation 
      * @param {Integer} Length 
-     * @param {Integer} FsInformationClass 
+     * @param {FS_INFORMATION_CLASS} FsInformationClass 
      * @returns {NTSTATUS} 
      */
     static NtQueryVolumeInformationFile(FileHandle, IoStatusBlock, FsInformation, Length, FsInformationClass) {
@@ -3475,9 +3474,9 @@ class FileSystem {
      * 
      * @param {HANDLE} FileHandle 
      * @param {Pointer<IO_STATUS_BLOCK>} IoStatusBlock 
-     * @param {Pointer} FsInformation 
+     * @param {Integer} FsInformation 
      * @param {Integer} Length 
-     * @param {Integer} FsInformationClass 
+     * @param {FS_INFORMATION_CLASS} FsInformationClass 
      * @returns {NTSTATUS} 
      */
     static NtSetVolumeInformationFile(FileHandle, IoStatusBlock, FsInformation, Length, FsInformationClass) {
@@ -3496,9 +3495,9 @@ class FileSystem {
      * @param {Pointer<Void>} ApcContext 
      * @param {Pointer<IO_STATUS_BLOCK>} IoStatusBlock 
      * @param {Integer} FsControlCode 
-     * @param {Pointer} InputBuffer 
+     * @param {Integer} InputBuffer 
      * @param {Integer} InputBufferLength 
-     * @param {Pointer} OutputBuffer 
+     * @param {Integer} OutputBuffer 
      * @param {Integer} OutputBufferLength 
      * @returns {NTSTATUS} 
      */
@@ -3574,7 +3573,7 @@ class FileSystem {
     /**
      * 
      * @param {HANDLE} ProcessHandle 
-     * @param {Pointer} BaseAddress 
+     * @param {Integer} BaseAddress 
      * @param {Pointer<Pointer>} RegionSize 
      * @param {Integer} AllocationType 
      * @param {Integer} PageProtection 
@@ -3615,8 +3614,8 @@ class FileSystem {
      * 
      * @param {HANDLE} ProcessHandle 
      * @param {Pointer<Void>} BaseAddress 
-     * @param {Integer} MemoryInformationClass 
-     * @param {Pointer} MemoryInformation 
+     * @param {MEMORY_INFORMATION_CLASS} MemoryInformationClass 
+     * @param {Integer} MemoryInformation 
      * @param {Pointer} MemoryInformationLength 
      * @param {Pointer<Pointer>} ReturnLength 
      * @returns {NTSTATUS} 
@@ -3635,10 +3634,10 @@ class FileSystem {
     /**
      * 
      * @param {HANDLE} ProcessHandle 
-     * @param {Integer} VmInformationClass 
+     * @param {VIRTUAL_MEMORY_INFORMATION_CLASS} VmInformationClass 
      * @param {Pointer} NumberOfEntries 
      * @param {Pointer<MEMORY_RANGE_ENTRY>} VirtualAddresses 
-     * @param {Pointer} VmInformation 
+     * @param {Integer} VmInformation 
      * @param {Integer} VmInformationLength 
      * @returns {NTSTATUS} 
      */
@@ -3752,8 +3751,8 @@ class FileSystem {
     /**
      * 
      * @param {HANDLE} TokenHandle 
-     * @param {Integer} TokenInformationClass 
-     * @param {Pointer} TokenInformation 
+     * @param {TOKEN_INFORMATION_CLASS} TokenInformationClass 
+     * @param {Integer} TokenInformation 
      * @param {Integer} TokenInformationLength 
      * @param {Pointer<Integer>} ReturnLength 
      * @returns {NTSTATUS} 
@@ -3771,8 +3770,8 @@ class FileSystem {
     /**
      * 
      * @param {HANDLE} TokenHandle 
-     * @param {Integer} TokenInformationClass 
-     * @param {Pointer} TokenInformation 
+     * @param {TOKEN_INFORMATION_CLASS} TokenInformationClass 
+     * @param {Integer} TokenInformation 
      * @param {Integer} TokenInformationLength 
      * @returns {NTSTATUS} 
      */
@@ -3851,10 +3850,10 @@ class FileSystem {
      * 
      * @param {HANDLE} FileHandle 
      * @param {Pointer<IO_STATUS_BLOCK>} IoStatusBlock 
-     * @param {Pointer} _Buffer 
+     * @param {Integer} _Buffer 
      * @param {Integer} Length 
      * @param {BOOLEAN} ReturnSingleEntry 
-     * @param {Pointer} SidList 
+     * @param {Integer} SidList 
      * @param {Integer} SidListLength 
      * @param {PSID} StartSid 
      * @param {BOOLEAN} RestartScan 
@@ -3872,7 +3871,7 @@ class FileSystem {
      * 
      * @param {HANDLE} FileHandle 
      * @param {Pointer<IO_STATUS_BLOCK>} IoStatusBlock 
-     * @param {Pointer} _Buffer 
+     * @param {Integer} _Buffer 
      * @param {Integer} Length 
      * @returns {NTSTATUS} 
      */
@@ -3902,10 +3901,10 @@ class FileSystem {
      * 
      * @param {HANDLE} FileHandle 
      * @param {Pointer<IO_STATUS_BLOCK>} IoStatusBlock 
-     * @param {Pointer} _Buffer 
+     * @param {Integer} _Buffer 
      * @param {Integer} Length 
      * @param {BOOLEAN} ReturnSingleEntry 
-     * @param {Pointer} EaList 
+     * @param {Integer} EaList 
      * @param {Integer} EaListLength 
      * @param {Pointer<Integer>} EaIndex 
      * @param {BOOLEAN} RestartScan 
@@ -3925,7 +3924,7 @@ class FileSystem {
      * 
      * @param {HANDLE} FileHandle 
      * @param {Pointer<IO_STATUS_BLOCK>} IoStatusBlock 
-     * @param {Pointer} _Buffer 
+     * @param {Integer} _Buffer 
      * @param {Integer} Length 
      * @returns {NTSTATUS} 
      */
@@ -3943,7 +3942,7 @@ class FileSystem {
      * @param {Integer} DesiredAccess 
      * @param {Pointer<OBJECT_ATTRIBUTES>} ObjectAttributes 
      * @param {BOOLEAN} EffectiveOnly 
-     * @param {Integer} TokenType 
+     * @param {TOKEN_TYPE} TokenType 
      * @param {Pointer<HANDLE>} NewTokenHandle 
      * @returns {NTSTATUS} 
      */
@@ -4030,11 +4029,11 @@ class FileSystem {
      * 
      * This function has no associated import library or header file; you must call it using the [**LoadLibrary**](/windows/win32/api/libloaderapi/nf-libloaderapi-loadlibrarya) and [**GetProcAddress**](/windows/win32/api/libloaderapi/nf-libloaderapi-getprocaddress) functions.
      * @param {HANDLE} DirectoryHandle A handle to the directory object.
-     * @param {Pointer<Void>} _Buffer 
+     * @param {Pointer<Void>} _Buffer A pointer to a buffer that receives the directory information. This buffer receives one or more **OBJECT\_DIRECTORY\_INFORMATION** structures, the last one being **NULL**, followed by strings that contain the names of the directory entries. For more information, see Remarks.
      * @param {Integer} Length The size of the user-supplied output buffer, in bytes.
      * @param {BOOLEAN} ReturnSingleEntry Indicates whether the function should return only a single entry.
      * @param {BOOLEAN} RestartScan Indicates whether to restart the scan or continue the enumeration using the information passed in the *Context* parameter.
-     * @param {Pointer<Integer>} _Context 
+     * @param {Pointer<Integer>} _Context The enumeration context.
      * @param {Pointer<Integer>} ReturnLength A pointer to a variable that receives the length of the directory information returned in the output buffer, in bytes.
      * @returns {NTSTATUS} The function returns **STATUS\_SUCCESS** or an error status.
      * @see https://learn.microsoft.com/windows/win32/DevNotes/ntquerydirectoryobject
@@ -4080,7 +4079,7 @@ class FileSystem {
      * @param {BOOLEAN} DisableAllPrivileges 
      * @param {Pointer<TOKEN_PRIVILEGES>} NewState 
      * @param {Integer} BufferLength 
-     * @param {Pointer} PreviousState 
+     * @param {Integer} PreviousState 
      * @param {Pointer<Integer>} ReturnLength 
      * @returns {NTSTATUS} 
      */
@@ -4100,7 +4099,7 @@ class FileSystem {
      * @param {BOOLEAN} ResetToDefault 
      * @param {Pointer<TOKEN_GROUPS>} NewState 
      * @param {Integer} BufferLength 
-     * @param {Pointer} PreviousState 
+     * @param {Integer} PreviousState 
      * @param {Pointer<Integer>} ReturnLength 
      * @returns {NTSTATUS} 
      */
@@ -4168,7 +4167,7 @@ class FileSystem {
      * @param {PSECURITY_DESCRIPTOR} _SecurityDescriptor 
      * @param {PSID} PrincipalSelfSid 
      * @param {Integer} DesiredAccess 
-     * @param {Integer} AuditType 
+     * @param {AUDIT_EVENT_TYPE} AuditType 
      * @param {Integer} Flags 
      * @param {Pointer<OBJECT_TYPE_LIST>} ObjectTypeList 
      * @param {Integer} ObjectTypeListLength 
@@ -4201,7 +4200,7 @@ class FileSystem {
      * @param {PSECURITY_DESCRIPTOR} _SecurityDescriptor 
      * @param {PSID} PrincipalSelfSid 
      * @param {Integer} DesiredAccess 
-     * @param {Integer} AuditType 
+     * @param {AUDIT_EVENT_TYPE} AuditType 
      * @param {Integer} Flags 
      * @param {Pointer<OBJECT_TYPE_LIST>} ObjectTypeList 
      * @param {Integer} ObjectTypeListLength 
@@ -4235,7 +4234,7 @@ class FileSystem {
      * @param {PSECURITY_DESCRIPTOR} _SecurityDescriptor 
      * @param {PSID} PrincipalSelfSid 
      * @param {Integer} DesiredAccess 
-     * @param {Integer} AuditType 
+     * @param {AUDIT_EVENT_TYPE} AuditType 
      * @param {Integer} Flags 
      * @param {Pointer<OBJECT_TYPE_LIST>} ObjectTypeList 
      * @param {Integer} ObjectTypeListLength 
@@ -4477,7 +4476,7 @@ class FileSystem {
      * @param {BOOLEAN} DisableAllPrivileges 
      * @param {Pointer<TOKEN_PRIVILEGES>} NewState 
      * @param {Integer} BufferLength 
-     * @param {Pointer} PreviousState 
+     * @param {Integer} PreviousState 
      * @param {Pointer<Integer>} ReturnLength 
      * @returns {NTSTATUS} 
      */
@@ -4497,7 +4496,7 @@ class FileSystem {
      * @param {BOOLEAN} ResetToDefault 
      * @param {Pointer<TOKEN_GROUPS>} NewState 
      * @param {Integer} BufferLength 
-     * @param {Pointer} PreviousState 
+     * @param {Integer} PreviousState 
      * @param {Pointer<Integer>} ReturnLength 
      * @returns {NTSTATUS} 
      */
@@ -4565,7 +4564,7 @@ class FileSystem {
      * @param {PSECURITY_DESCRIPTOR} _SecurityDescriptor 
      * @param {PSID} PrincipalSelfSid 
      * @param {Integer} DesiredAccess 
-     * @param {Integer} AuditType 
+     * @param {AUDIT_EVENT_TYPE} AuditType 
      * @param {Integer} Flags 
      * @param {Pointer<OBJECT_TYPE_LIST>} ObjectTypeList 
      * @param {Integer} ObjectTypeListLength 
@@ -4598,7 +4597,7 @@ class FileSystem {
      * @param {PSECURITY_DESCRIPTOR} _SecurityDescriptor 
      * @param {PSID} PrincipalSelfSid 
      * @param {Integer} DesiredAccess 
-     * @param {Integer} AuditType 
+     * @param {AUDIT_EVENT_TYPE} AuditType 
      * @param {Integer} Flags 
      * @param {Pointer<OBJECT_TYPE_LIST>} ObjectTypeList 
      * @param {Integer} ObjectTypeListLength 
@@ -4632,7 +4631,7 @@ class FileSystem {
      * @param {PSECURITY_DESCRIPTOR} _SecurityDescriptor 
      * @param {PSID} PrincipalSelfSid 
      * @param {Integer} DesiredAccess 
-     * @param {Integer} AuditType 
+     * @param {AUDIT_EVENT_TYPE} AuditType 
      * @param {Integer} Flags 
      * @param {Pointer<OBJECT_TYPE_LIST>} ObjectTypeList 
      * @param {Integer} ObjectTypeListLength 
@@ -5022,10 +5021,10 @@ class FileSystem {
 
     /**
      * 
-     * @param {Pointer} UnicodeString 
+     * @param {Integer} UnicodeString 
      * @param {Integer} MaxBytesInUnicodeString 
      * @param {Pointer<Integer>} BytesInUnicodeString 
-     * @param {Pointer} MultiByteString 
+     * @param {Integer} MultiByteString 
      * @param {Integer} BytesInMultiByteString 
      * @returns {NTSTATUS} 
      */
@@ -5040,7 +5039,7 @@ class FileSystem {
     /**
      * 
      * @param {Pointer<Integer>} BytesInUnicodeString 
-     * @param {Pointer} MultiByteString 
+     * @param {Integer} MultiByteString 
      * @param {Integer} BytesInMultiByteString 
      * @returns {NTSTATUS} 
      */
@@ -5054,10 +5053,10 @@ class FileSystem {
 
     /**
      * 
-     * @param {Pointer} MultiByteString 
+     * @param {Integer} MultiByteString 
      * @param {Integer} MaxBytesInMultiByteString 
      * @param {Pointer<Integer>} BytesInMultiByteString 
-     * @param {Pointer} UnicodeString 
+     * @param {Integer} UnicodeString 
      * @param {Integer} BytesInUnicodeString 
      * @returns {NTSTATUS} 
      */
@@ -5071,10 +5070,10 @@ class FileSystem {
 
     /**
      * 
-     * @param {Pointer} MultiByteString 
+     * @param {Integer} MultiByteString 
      * @param {Integer} MaxBytesInMultiByteString 
      * @param {Pointer<Integer>} BytesInMultiByteString 
-     * @param {Pointer} UnicodeString 
+     * @param {Integer} UnicodeString 
      * @param {Integer} BytesInUnicodeString 
      * @returns {NTSTATUS} 
      */
@@ -5088,10 +5087,10 @@ class FileSystem {
 
     /**
      * 
-     * @param {Pointer} UnicodeString 
+     * @param {Integer} UnicodeString 
      * @param {Integer} MaxBytesInUnicodeString 
      * @param {Pointer<Integer>} BytesInUnicodeString 
-     * @param {Pointer} OemString 
+     * @param {Integer} OemString 
      * @param {Integer} BytesInOemString 
      * @returns {NTSTATUS} 
      */
@@ -5105,10 +5104,10 @@ class FileSystem {
 
     /**
      * 
-     * @param {Pointer} OemString 
+     * @param {Integer} OemString 
      * @param {Integer} MaxBytesInOemString 
      * @param {Pointer<Integer>} BytesInOemString 
-     * @param {Pointer} UnicodeString 
+     * @param {Integer} UnicodeString 
      * @param {Integer} BytesInUnicodeString 
      * @returns {NTSTATUS} 
      */
@@ -5122,10 +5121,10 @@ class FileSystem {
 
     /**
      * 
-     * @param {Pointer} OemString 
+     * @param {Integer} OemString 
      * @param {Integer} MaxBytesInOemString 
      * @param {Pointer<Integer>} BytesInOemString 
-     * @param {Pointer} UnicodeString 
+     * @param {Integer} UnicodeString 
      * @param {Integer} BytesInUnicodeString 
      * @returns {NTSTATUS} 
      */
@@ -5376,9 +5375,9 @@ class FileSystem {
     /**
      * 
      * @param {Integer} CompressionFormatAndEngine 
-     * @param {Pointer} UncompressedBuffer 
+     * @param {Integer} UncompressedBuffer 
      * @param {Integer} UncompressedBufferSize 
-     * @param {Pointer} CompressedBuffer 
+     * @param {Integer} CompressedBuffer 
      * @param {Integer} CompressedBufferSize 
      * @param {Integer} UncompressedChunkSize 
      * @param {Pointer<Integer>} FinalCompressedSize 
@@ -5397,9 +5396,9 @@ class FileSystem {
     /**
      * 
      * @param {Integer} CompressionFormat 
-     * @param {Pointer} UncompressedBuffer 
+     * @param {Integer} UncompressedBuffer 
      * @param {Integer} UncompressedBufferSize 
-     * @param {Pointer} CompressedBuffer 
+     * @param {Integer} CompressedBuffer 
      * @param {Integer} CompressedBufferSize 
      * @param {Pointer<Integer>} FinalUncompressedSize 
      * @returns {NTSTATUS} 
@@ -5415,9 +5414,9 @@ class FileSystem {
     /**
      * 
      * @param {Integer} CompressionFormat 
-     * @param {Pointer} UncompressedBuffer 
+     * @param {Integer} UncompressedBuffer 
      * @param {Integer} UncompressedBufferSize 
-     * @param {Pointer} CompressedBuffer 
+     * @param {Integer} CompressedBuffer 
      * @param {Integer} CompressedBufferSize 
      * @param {Pointer<Integer>} FinalUncompressedSize 
      * @param {Pointer<Void>} _WorkSpace 
@@ -5435,9 +5434,9 @@ class FileSystem {
     /**
      * 
      * @param {Integer} CompressionFormat 
-     * @param {Pointer} UncompressedBuffer 
+     * @param {Integer} UncompressedBuffer 
      * @param {Integer} UncompressedBufferSize 
-     * @param {Pointer} CompressedBuffer 
+     * @param {Integer} CompressedBuffer 
      * @param {Integer} CompressedBufferSize 
      * @param {Integer} UncompressedChunkSize 
      * @param {Pointer<Integer>} FinalUncompressedSize 
@@ -5456,9 +5455,9 @@ class FileSystem {
     /**
      * 
      * @param {Integer} CompressionFormat 
-     * @param {Pointer} UncompressedFragment 
+     * @param {Integer} UncompressedFragment 
      * @param {Integer} UncompressedFragmentSize 
-     * @param {Pointer} CompressedBuffer 
+     * @param {Integer} CompressedBuffer 
      * @param {Integer} CompressedBufferSize 
      * @param {Integer} FragmentOffset 
      * @param {Pointer<Integer>} FinalUncompressedSize 
@@ -5477,9 +5476,9 @@ class FileSystem {
     /**
      * 
      * @param {Integer} CompressionFormat 
-     * @param {Pointer} UncompressedFragment 
+     * @param {Integer} UncompressedFragment 
      * @param {Integer} UncompressedFragmentSize 
-     * @param {Pointer} CompressedBuffer 
+     * @param {Integer} CompressedBuffer 
      * @param {Integer} CompressedBufferSize 
      * @param {Integer} FragmentOffset 
      * @param {Integer} UncompressedChunkSize 
@@ -5537,11 +5536,11 @@ class FileSystem {
 
     /**
      * 
-     * @param {Pointer} UncompressedBuffer 
+     * @param {Integer} UncompressedBuffer 
      * @param {Integer} UncompressedBufferSize 
-     * @param {Pointer} CompressedBuffer 
+     * @param {Integer} CompressedBuffer 
      * @param {Integer} CompressedBufferSize 
-     * @param {Pointer} CompressedTail 
+     * @param {Integer} CompressedTail 
      * @param {Integer} CompressedTailSize 
      * @param {Pointer<COMPRESSED_DATA_INFO>} CompressedDataInfo 
      * @returns {NTSTATUS} 
@@ -5554,11 +5553,11 @@ class FileSystem {
 
     /**
      * 
-     * @param {Pointer} UncompressedBuffer 
+     * @param {Integer} UncompressedBuffer 
      * @param {Integer} UncompressedBufferSize 
-     * @param {Pointer} CompressedBuffer 
+     * @param {Integer} CompressedBuffer 
      * @param {Integer} CompressedBufferSize 
-     * @param {Pointer} CompressedDataInfo 
+     * @param {Integer} CompressedDataInfo 
      * @param {Integer} CompressedDataInfoLength 
      * @param {Pointer<Void>} _WorkSpace 
      * @returns {NTSTATUS} 
@@ -5573,7 +5572,7 @@ class FileSystem {
 
     /**
      * 
-     * @param {Pointer} Source 
+     * @param {Integer} Source 
      * @param {Pointer} Length 
      * @param {Integer} Pattern 
      * @returns {Pointer} 
@@ -5783,7 +5782,7 @@ class FileSystem {
     /**
      * 
      * @param {Integer} DestinationSidLength 
-     * @param {Pointer} DestinationSid 
+     * @param {Integer} DestinationSid 
      * @param {PSID} SourceSid 
      * @returns {NTSTATUS} 
      */
@@ -5796,7 +5795,7 @@ class FileSystem {
     /**
      * 
      * @param {Pointer<UNICODE_STRING>} ServiceName 
-     * @param {Pointer} ServiceSid 
+     * @param {Integer} ServiceSid 
      * @param {Pointer<Integer>} ServiceSidLength 
      * @returns {NTSTATUS} 
      */
@@ -5850,7 +5849,7 @@ class FileSystem {
      * 
      * @param {Pointer<UNICODE_STRING>} Name 
      * @param {Integer} BaseSubAuthority 
-     * @param {Pointer} _Sid 
+     * @param {Integer} _Sid 
      * @param {Pointer<Integer>} SidLength 
      * @returns {NTSTATUS} 
      */
@@ -5874,7 +5873,7 @@ class FileSystem {
 
     /**
      * 
-     * @param {Pointer} _Acl 
+     * @param {Integer} _Acl 
      * @param {Integer} AclLength 
      * @param {Integer} AclRevision 
      * @returns {NTSTATUS} 
@@ -5890,7 +5889,7 @@ class FileSystem {
      * @param {Pointer<ACL>} _Acl 
      * @param {Integer} AceRevision 
      * @param {Integer} StartingAceIndex 
-     * @param {Pointer} AceList 
+     * @param {Integer} AceList 
      * @param {Integer} AceListLength 
      * @returns {NTSTATUS} 
      */
@@ -6027,7 +6026,7 @@ class FileSystem {
     /**
      * 
      * @param {PSECURITY_DESCRIPTOR} AbsoluteSecurityDescriptor 
-     * @param {Pointer} SelfRelativeSecurityDescriptor 
+     * @param {Integer} SelfRelativeSecurityDescriptor 
      * @param {Pointer<Integer>} BufferLength 
      * @returns {NTSTATUS} 
      */
@@ -6044,15 +6043,15 @@ class FileSystem {
     /**
      * 
      * @param {PSECURITY_DESCRIPTOR} SelfRelativeSecurityDescriptor 
-     * @param {Pointer} AbsoluteSecurityDescriptor 
+     * @param {Integer} AbsoluteSecurityDescriptor 
      * @param {Pointer<Integer>} AbsoluteSecurityDescriptorSize 
-     * @param {Pointer} Dacl 
+     * @param {Integer} Dacl 
      * @param {Pointer<Integer>} DaclSize 
-     * @param {Pointer} Sacl 
+     * @param {Integer} Sacl 
      * @param {Pointer<Integer>} SaclSize 
-     * @param {Pointer} Owner 
+     * @param {Integer} Owner 
      * @param {Pointer<Integer>} OwnerSize 
-     * @param {Pointer} PrimaryGroup 
+     * @param {Integer} PrimaryGroup 
      * @param {Pointer<Integer>} PrimaryGroupSize 
      * @returns {NTSTATUS} 
      */
@@ -6101,10 +6100,10 @@ class FileSystem {
     /**
      * 
      * @param {Pointer<CPTABLEINFO>} CustomCP 
-     * @param {Pointer} UnicodeString 
+     * @param {Integer} UnicodeString 
      * @param {Integer} MaxBytesInUnicodeString 
      * @param {Pointer<Integer>} BytesInUnicodeString 
-     * @param {Pointer} CustomCPString 
+     * @param {Integer} CustomCPString 
      * @param {Integer} BytesInCustomCPString 
      * @returns {NTSTATUS} 
      */
@@ -6119,10 +6118,10 @@ class FileSystem {
     /**
      * 
      * @param {Pointer<CPTABLEINFO>} CustomCP 
-     * @param {Pointer} CustomCPString 
+     * @param {Integer} CustomCPString 
      * @param {Integer} MaxBytesInCustomCPString 
      * @param {Pointer<Integer>} BytesInCustomCPString 
-     * @param {Pointer} UnicodeString 
+     * @param {Integer} UnicodeString 
      * @param {Integer} BytesInUnicodeString 
      * @returns {NTSTATUS} 
      */
@@ -6137,10 +6136,10 @@ class FileSystem {
     /**
      * 
      * @param {Pointer<CPTABLEINFO>} CustomCP 
-     * @param {Pointer} CustomCPString 
+     * @param {Integer} CustomCPString 
      * @param {Integer} MaxBytesInCustomCPString 
      * @param {Pointer<Integer>} BytesInCustomCPString 
-     * @param {Pointer} UnicodeString 
+     * @param {Integer} UnicodeString 
      * @param {Integer} BytesInUnicodeString 
      * @returns {NTSTATUS} 
      */
@@ -6189,9 +6188,9 @@ class FileSystem {
     /**
      * 
      * @param {Pointer<Void>} TokenObject 
-     * @param {Pointer} PackageFullName 
+     * @param {Integer} PackageFullName 
      * @param {Pointer<Pointer>} PackageSize 
-     * @param {Pointer} AppId 
+     * @param {Integer} AppId 
      * @param {Pointer<Pointer>} AppIdSize 
      * @param {Pointer<BOOLEAN>} Packaged 
      * @returns {NTSTATUS} 
@@ -6210,9 +6209,9 @@ class FileSystem {
     /**
      * 
      * @param {Pointer<Void>} TokenObject 
-     * @param {Pointer} PackageFullName 
+     * @param {Integer} PackageFullName 
      * @param {Pointer<Pointer>} PackageSize 
-     * @param {Pointer} AppId 
+     * @param {Integer} AppId 
      * @param {Pointer<Pointer>} AppIdSize 
      * @param {Pointer<Guid>} DynamicId 
      * @param {Pointer<Integer>} Flags 
@@ -6280,7 +6279,7 @@ class FileSystem {
     /**
      * 
      * @param {Pointer<Void>} InfoBuffer 
-     * @param {Integer} InfoClass 
+     * @param {FILE_INFORMATION_CLASS} InfoClass 
      * @param {Pointer<BOOLEAN>} IsPartialPlaceholder 
      * @returns {NTSTATUS} 
      */
@@ -6488,7 +6487,7 @@ class FileSystem {
      *     <a href="https://docs.microsoft.com/windows/desktop/api/libloaderapi/nf-libloaderapi-getprocaddress">GetProcAddress</a> functions to dynamically link to 
      *     NtDll.dll.
      * @param {Pointer<HANDLE>} FileHandle A pointer to a variable that receives the file handle if the call is successful.
-     * @param {Integer} DesiredAccess The <b>ACCESS_MASK</b> value that expresses the type of access that the caller 
+     * @param {FILE_ACCESS_RIGHTS} DesiredAccess The <b>ACCESS_MASK</b> value that expresses the type of access that the caller 
      *       requires to the file or directory. The set of system-defined <i>DesiredAccess</i> flags 
      *       determines the following specific access rights for file objects.
      * 
@@ -6812,16 +6811,16 @@ class FileSystem {
      *       operation. On return from <b>NtCreateFile</b>, the
      * @param {Pointer<Integer>} AllocationSize The initial allocation size in bytes for the file. A nonzero value has no effect unless the file is being 
      *       created, overwritten, or superseded.
-     * @param {Integer} FileAttributes The file attributes. Explicitly specified attributes are applied only when the file is created, superseded, 
+     * @param {FILE_FLAGS_AND_ATTRIBUTES} FileAttributes The file attributes. Explicitly specified attributes are applied only when the file is created, superseded, 
      *       or, in some cases, overwritten. By default, this value is a <b>FILE_ATTRIBUTE_NORMAL</b>, 
      *       which can be overridden by an ORed combination of one or more 
      *       <b>FILE_ATTRIBUTE_</b><i>xxxx</i> flags, which are defined in Wdm.h and 
      *       NtDdk.h. For a list of flags that can be used with 
      *       <b>NtCreateFile</b>, see 
      *       <b>CreateFile</b>.
-     * @param {Integer} ShareAccess The type of share access that the caller would like to use in  the file, as zero, or as one or a
-     * @param {Integer} CreateDisposition 
-     * @param {Integer} CreateOptions The options to be applied when creating or opening the file, as a compatible combination of the following 
+     * @param {FILE_SHARE_MODE} ShareAccess The type of share access that the caller would like to use in  the file, as zero, or as one or a
+     * @param {NTCREATEFILE_CREATE_DISPOSITION} CreateDisposition 
+     * @param {NTCREATEFILE_CREATE_OPTIONS} CreateOptions The options to be applied when creating or opening the file, as a compatible combination of the following 
      *       flags.
      * 
      * <table>
@@ -7021,7 +7020,7 @@ class FileSystem {
      * </td>
      * </tr>
      * </table>
-     * @param {Pointer} EaBuffer Pointer to an EA buffer used to pass extended attributes.
+     * @param {Integer} EaBuffer Pointer to an EA buffer used to pass extended attributes.
      *       
      * 
      * <div class="alert"><b>Note</b>  Some file systems may not support EA buffers.</div>
@@ -7097,9 +7096,9 @@ class FileSystem {
      * 
      * @param {Pointer<OBJECT_ATTRIBUTES>} ObjectAttributes 
      * @param {Pointer<IO_STATUS_BLOCK>} IoStatusBlock 
-     * @param {Pointer} FileInformation 
+     * @param {Integer} FileInformation 
      * @param {Integer} Length 
-     * @param {Integer} FileInformationClass 
+     * @param {FILE_INFORMATION_CLASS} FileInformationClass 
      * @returns {NTSTATUS} 
      */
     static NtQueryInformationByName(ObjectAttributes, IoStatusBlock, FileInformation, Length, FileInformationClass) {
@@ -7112,9 +7111,9 @@ class FileSystem {
      * 
      * @param {HANDLE} FileHandle 
      * @param {Pointer<IO_STATUS_BLOCK>} IoStatusBlock 
-     * @param {Pointer} FileInformation 
+     * @param {Integer} FileInformation 
      * @param {Integer} Length 
-     * @param {Integer} FileInformationClass 
+     * @param {FILE_INFORMATION_CLASS} FileInformationClass 
      * @returns {NTSTATUS} 
      */
     static NtQueryInformationFile(FileHandle, IoStatusBlock, FileInformation, Length, FileInformationClass) {
@@ -7166,7 +7165,7 @@ class FileSystem {
      * @param {Pointer<PIO_APC_ROUTINE>} ApcRoutine This parameter is reserved. Device and intermediate drivers should set this pointer to **NULL**.
      * @param {Pointer<Void>} ApcContext This parameter is reserved. Device and intermediate drivers should set this pointer to **NULL**.
      * @param {Pointer<IO_STATUS_BLOCK>} IoStatusBlock Pointer to an [**IO\_STATUS\_BLOCK**](/windows-hardware/drivers/ddi/wdm/ns-wdm-_io_status_block) structure that receives the final completion status and information about the requested read operation. The **Information** member receives the number of bytes actually read from the file.
-     * @param {Pointer} _Buffer 
+     * @param {Integer} _Buffer Pointer to a caller-allocated buffer that receives the data read from the file.
      * @param {Integer} Length The size, in bytes, of the buffer pointed to by *Buffer*.
      * @param {Pointer<Integer>} ByteOffset Pointer to a variable that specifies the starting byte offset in the file where the read operation will begin. If an attempt is made to read beyond the end of the file, **NtReadFile** returns an error.
      * 
@@ -7196,9 +7195,9 @@ class FileSystem {
      * 
      * @param {HANDLE} FileHandle 
      * @param {Pointer<IO_STATUS_BLOCK>} IoStatusBlock 
-     * @param {Pointer} FileInformation 
+     * @param {Integer} FileInformation 
      * @param {Integer} Length 
-     * @param {Integer} FileInformationClass 
+     * @param {FILE_INFORMATION_CLASS} FileInformationClass 
      * @returns {NTSTATUS} 
      */
     static NtSetInformationFile(FileHandle, IoStatusBlock, FileInformation, Length, FileInformationClass) {
@@ -7216,7 +7215,7 @@ class FileSystem {
      * @param {Pointer<PIO_APC_ROUTINE>} ApcRoutine 
      * @param {Pointer<Void>} ApcContext 
      * @param {Pointer<IO_STATUS_BLOCK>} IoStatusBlock 
-     * @param {Pointer} _Buffer 
+     * @param {Integer} _Buffer 
      * @param {Integer} Length 
      * @param {Pointer<Integer>} ByteOffset 
      * @param {Pointer<Integer>} Key 
@@ -7239,7 +7238,7 @@ class FileSystem {
      * 
      * @param {HANDLE} FileHandle 
      * @param {Integer} Flags 
-     * @param {Pointer} Parameters 
+     * @param {Integer} Parameters 
      * @param {Integer} ParametersSize 
      * @param {Pointer<IO_STATUS_BLOCK>} IoStatusBlock 
      * @returns {NTSTATUS} 
@@ -7256,7 +7255,7 @@ class FileSystem {
      * 
      * @param {HANDLE} _Handle 
      * @param {Integer} SecurityInformation 
-     * @param {Pointer} _SecurityDescriptor 
+     * @param {Integer} _SecurityDescriptor 
      * @param {Integer} Length 
      * @param {Pointer<Integer>} LengthNeeded 
      * @returns {NTSTATUS} 
@@ -7318,7 +7317,7 @@ class FileSystem {
     /**
      * 
      * @param {HANDLE} ProcessHandle 
-     * @param {Pointer} BaseAddress 
+     * @param {Integer} BaseAddress 
      * @param {Pointer} ZeroBits 
      * @param {Pointer<Pointer>} RegionSize 
      * @param {Integer} AllocationType 
@@ -7511,7 +7510,7 @@ class FileSystem {
 
     /**
      * 
-     * @param {Integer} _Number 
+     * @param {KSPIN_LOCK_QUEUE_NUMBER} _Number 
      * @returns {Integer} 
      */
     static KeAcquireQueuedSpinLock(_Number) {
@@ -7521,7 +7520,7 @@ class FileSystem {
 
     /**
      * 
-     * @param {Integer} _Number 
+     * @param {KSPIN_LOCK_QUEUE_NUMBER} _Number 
      * @param {Integer} OldIrql 
      * @returns {String} Nothing - always returns an empty string
      */
@@ -7531,7 +7530,7 @@ class FileSystem {
 
     /**
      * 
-     * @param {Integer} _Number 
+     * @param {KSPIN_LOCK_QUEUE_NUMBER} _Number 
      * @param {Pointer<Integer>} OldIrql 
      * @returns {Integer} 
      */
@@ -7843,7 +7842,7 @@ class FileSystem {
     /**
      * 
      * @param {Pointer<Void>} Token 
-     * @returns {Integer} 
+     * @returns {TOKEN_TYPE} 
      */
     static SeTokenType(Token) {
         TokenMarshal := Token is VarRef ? "ptr" : "ptr"
@@ -8021,7 +8020,7 @@ class FileSystem {
     /**
      * 
      * @param {Pointer<Integer>} SecurityInformation 
-     * @param {Pointer} _SecurityDescriptor 
+     * @param {Integer} _SecurityDescriptor 
      * @param {Pointer<Integer>} Length 
      * @param {Pointer<PSECURITY_DESCRIPTOR>} ObjectsSecurityDescriptor 
      * @returns {NTSTATUS} 
@@ -8041,7 +8040,7 @@ class FileSystem {
      * @param {Pointer<Integer>} SecurityInformation 
      * @param {PSECURITY_DESCRIPTOR} ModificationDescriptor 
      * @param {Pointer<PSECURITY_DESCRIPTOR>} ObjectsSecurityDescriptor 
-     * @param {Integer} PoolType 
+     * @param {POOL_TYPE} PoolType 
      * @param {Pointer<GENERIC_MAPPING>} GenericMapping 
      * @returns {NTSTATUS} 
      */
@@ -8063,7 +8062,7 @@ class FileSystem {
      * @param {PSECURITY_DESCRIPTOR} ModificationDescriptor 
      * @param {Pointer<PSECURITY_DESCRIPTOR>} ObjectsSecurityDescriptor 
      * @param {Integer} AutoInheritFlags 
-     * @param {Integer} PoolType 
+     * @param {POOL_TYPE} PoolType 
      * @param {Pointer<GENERIC_MAPPING>} GenericMapping 
      * @returns {NTSTATUS} 
      */
@@ -8380,7 +8379,7 @@ class FileSystem {
     /**
      * 
      * @param {Pointer<Void>} Token 
-     * @param {Integer} TokenInformationClass 
+     * @param {TOKEN_INFORMATION_CLASS} TokenInformationClass 
      * @param {Pointer<Pointer<Void>>} TokenInformation 
      * @returns {NTSTATUS} 
      */
@@ -8507,7 +8506,7 @@ class FileSystem {
      * @param {PETHREAD} Thread 
      * @param {Pointer<BOOLEAN>} CopyOnOpen 
      * @param {Pointer<BOOLEAN>} EffectiveOnly 
-     * @param {Pointer<Integer>} ImpersonationLevel 
+     * @param {Pointer<SECURITY_IMPERSONATION_LEVEL>} ImpersonationLevel 
      * @returns {Pointer<Void>} 
      */
     static PsReferenceImpersonationToken(Thread, CopyOnOpen, EffectiveOnly, ImpersonationLevel) {
@@ -8544,7 +8543,7 @@ class FileSystem {
      * @param {Pointer<Void>} Token 
      * @param {BOOLEAN} CopyOnOpen 
      * @param {BOOLEAN} EffectiveOnly 
-     * @param {Integer} ImpersonationLevel 
+     * @param {SECURITY_IMPERSONATION_LEVEL} ImpersonationLevel 
      * @returns {NTSTATUS} 
      */
     static PsImpersonateClient(Thread, Token, CopyOnOpen, EffectiveOnly, ImpersonationLevel) {
@@ -8619,7 +8618,7 @@ class FileSystem {
     /**
      * 
      * @param {PEPROCESS} Process 
-     * @param {Integer} PoolType 
+     * @param {POOL_TYPE} PoolType 
      * @param {Pointer} Amount 
      * @returns {String} Nothing - always returns an empty string
      */
@@ -8630,7 +8629,7 @@ class FileSystem {
     /**
      * 
      * @param {PEPROCESS} Process 
-     * @param {Integer} PoolType 
+     * @param {POOL_TYPE} PoolType 
      * @param {Pointer} Amount 
      * @returns {NTSTATUS} 
      */
@@ -8643,7 +8642,7 @@ class FileSystem {
     /**
      * 
      * @param {PEPROCESS} Process 
-     * @param {Integer} PoolType 
+     * @param {POOL_TYPE} PoolType 
      * @param {Pointer} Amount 
      * @returns {String} Nothing - always returns an empty string
      */
@@ -8767,7 +8766,7 @@ class FileSystem {
 
     /**
      * 
-     * @param {Integer} FileInformationClass 
+     * @param {FILE_INFORMATION_CLASS} FileInformationClass 
      * @param {Integer} Length 
      * @param {BOOLEAN} SetOperation 
      * @returns {NTSTATUS} 
@@ -8780,7 +8779,7 @@ class FileSystem {
 
     /**
      * 
-     * @param {Integer} FsInformationClass 
+     * @param {FS_INFORMATION_CLASS} FsInformationClass 
      * @param {Integer} Length 
      * @param {BOOLEAN} SetOperation 
      * @returns {NTSTATUS} 
@@ -8986,7 +8985,7 @@ class FileSystem {
     /**
      * 
      * @param {Pointer<FILE_OBJECT>} FileObject 
-     * @param {Integer} FileInformationClass 
+     * @param {FILE_INFORMATION_CLASS} FileInformationClass 
      * @param {Integer} Length 
      * @param {Pointer<Void>} FileInformation 
      * @param {Pointer<Integer>} ReturnedLength 
@@ -9004,7 +9003,7 @@ class FileSystem {
     /**
      * 
      * @param {Pointer<FILE_OBJECT>} FileObject 
-     * @param {Integer} FsInformationClass 
+     * @param {FS_INFORMATION_CLASS} FsInformationClass 
      * @param {Integer} Length 
      * @param {Pointer<Void>} FsInformation 
      * @param {Pointer<Integer>} ReturnedLength 
@@ -9064,7 +9063,7 @@ class FileSystem {
 
     /**
      * 
-     * @param {Pointer} DriverObjectList 
+     * @param {Integer} DriverObjectList 
      * @param {Integer} DriverObjectListSize 
      * @param {Pointer<Integer>} ActualNumberDriverObjects 
      * @returns {NTSTATUS} 
@@ -9080,7 +9079,7 @@ class FileSystem {
     /**
      * 
      * @param {Pointer<FILE_OBJECT>} FileObject 
-     * @param {Pointer} NewFileName 
+     * @param {Integer} NewFileName 
      * @param {Integer} FileNameLength 
      * @returns {NTSTATUS} 
      */
@@ -9112,7 +9111,7 @@ class FileSystem {
     /**
      * 
      * @param {Pointer<FILE_OBJECT>} FileObject 
-     * @param {Integer} FileInformationClass 
+     * @param {FILE_INFORMATION_CLASS} FileInformationClass 
      * @param {Integer} Length 
      * @param {Pointer<Void>} FileInformation 
      * @returns {NTSTATUS} 
@@ -9200,7 +9199,7 @@ class FileSystem {
     /**
      * 
      * @param {Pointer<DRIVER_OBJECT>} DriverObject 
-     * @param {Pointer} DeviceObjectList 
+     * @param {Integer} DeviceObjectList 
      * @param {Integer} DeviceObjectListSize 
      * @param {Pointer<Integer>} ActualNumberDeviceObjects 
      * @returns {NTSTATUS} 
@@ -9378,7 +9377,7 @@ class FileSystem {
     /**
      * 
      * @param {Pointer<SECTION_OBJECT_POINTERS>} SectionObjectPointer 
-     * @param {Integer} FlushType 
+     * @param {MMFLUSH_TYPE} FlushType 
      * @returns {BOOLEAN} 
      */
     static MmFlushImageSection(SectionObjectPointer, FlushType) {
@@ -9401,7 +9400,7 @@ class FileSystem {
 
     /**
      * 
-     * @param {Pointer} _Address 
+     * @param {Integer} _Address 
      * @param {Pointer} Length 
      * @returns {BOOLEAN} 
      */
@@ -9531,7 +9530,7 @@ class FileSystem {
     /**
      * 
      * @param {Pointer<Void>} _Object 
-     * @param {Pointer} ObjectNameInfo 
+     * @param {Integer} ObjectNameInfo 
      * @param {Integer} Length 
      * @param {Pointer<Integer>} ReturnLength 
      * @returns {NTSTATUS} 
@@ -9592,7 +9591,7 @@ class FileSystem {
      * @param {Integer} Length 
      * @param {BOOLEAN} Wait 
      * @param {Integer} LockKey 
-     * @param {Pointer} _Buffer 
+     * @param {Integer} _Buffer 
      * @param {Pointer<IO_STATUS_BLOCK>} IoStatus 
      * @param {Pointer<DEVICE_OBJECT>} DeviceObject 
      * @returns {BOOLEAN} 
@@ -9611,7 +9610,7 @@ class FileSystem {
      * @param {Integer} Length 
      * @param {BOOLEAN} Wait 
      * @param {Integer} LockKey 
-     * @param {Pointer} _Buffer 
+     * @param {Integer} _Buffer 
      * @param {Pointer<IO_STATUS_BLOCK>} IoStatus 
      * @param {Pointer<DEVICE_OBJECT>} DeviceObject 
      * @returns {BOOLEAN} 
@@ -10015,7 +10014,7 @@ class FileSystem {
      * @param {Pointer<UNICODE_STRING>} LongName 
      * @param {BOOLEAN} KeyByShortName 
      * @param {Integer} DataLength 
-     * @param {Pointer} Data 
+     * @param {Integer} Data 
      * @returns {String} Nothing - always returns an empty string
      */
     static FsRtlAddToTunnelCache(Cache, DirectoryKey, ShortName, LongName, KeyByShortName, DataLength, Data) {
@@ -10030,7 +10029,7 @@ class FileSystem {
      * @param {Pointer<UNICODE_STRING>} ShortName 
      * @param {Pointer<UNICODE_STRING>} LongName 
      * @param {Pointer<Integer>} DataLength 
-     * @param {Pointer} Data 
+     * @param {Integer} Data 
      * @returns {BOOLEAN} 
      */
     static FsRtlFindInTunnelCache(Cache, DirectoryKey, Name, ShortName, LongName, DataLength, Data) {
@@ -10048,7 +10047,7 @@ class FileSystem {
      * @param {Pointer<UNICODE_STRING>} LongName 
      * @param {Integer} Flags 
      * @param {Integer} DataLength 
-     * @param {Pointer} Data 
+     * @param {Integer} Data 
      * @returns {String} Nothing - always returns an empty string
      */
     static FsRtlAddToTunnelCacheEx(Cache, DirectoryKey, ShortName, LongName, Flags, DataLength, Data) {
@@ -10064,7 +10063,7 @@ class FileSystem {
      * @param {Pointer<UNICODE_STRING>} LongName 
      * @param {Integer} Flags 
      * @param {Pointer<Integer>} DataLength 
-     * @param {Pointer} Data 
+     * @param {Integer} Data 
      * @returns {BOOLEAN} 
      */
     static FsRtlFindInTunnelCacheEx(Cache, DirectoryKey, Name, ShortName, LongName, Flags, DataLength, Data) {
@@ -10185,7 +10184,7 @@ class FileSystem {
     /**
      * 
      * @param {Pointer<LARGE_MCB>} _Mcb 
-     * @param {Integer} PoolType 
+     * @param {POOL_TYPE} PoolType 
      * @returns {String} Nothing - always returns an empty string
      */
     static FsRtlInitializeLargeMcb(_Mcb, PoolType) {
@@ -10342,7 +10341,7 @@ class FileSystem {
     /**
      * 
      * @param {Pointer<BASE_MCB>} _Mcb 
-     * @param {Integer} PoolType 
+     * @param {POOL_TYPE} PoolType 
      * @returns {String} Nothing - always returns an empty string
      */
     static FsRtlInitializeBaseMcb(_Mcb, PoolType) {
@@ -10352,7 +10351,7 @@ class FileSystem {
     /**
      * 
      * @param {Pointer<BASE_MCB>} _Mcb 
-     * @param {Integer} PoolType 
+     * @param {POOL_TYPE} PoolType 
      * @param {Integer} Flags 
      * @returns {BOOLEAN} 
      */
@@ -10525,7 +10524,7 @@ class FileSystem {
     /**
      * 
      * @param {Pointer<MCB>} _Mcb 
-     * @param {Integer} PoolType 
+     * @param {POOL_TYPE} PoolType 
      * @returns {String} Nothing - always returns an empty string
      */
     static FsRtlInitializeMcb(_Mcb, PoolType) {
@@ -11237,7 +11236,7 @@ class FileSystem {
      * 
      * @param {Integer} Count 
      * @param {Pointer<Pointer<Void>>} ObjectArray 
-     * @param {Integer} WaitType 
+     * @param {WAIT_TYPE} WaitType 
      * @param {Pointer<Integer>} Timeout 
      * @param {Pointer<KWAIT_BLOCK>} WaitBlockArray 
      * @param {Pointer<IRP>} _Irp 
@@ -11256,7 +11255,7 @@ class FileSystem {
      * 
      * @param {Pointer<FILE_OBJECT>} pFileObject 
      * @param {Integer} Level 
-     * @param {Pointer} pBuffer 
+     * @param {Integer} pBuffer 
      * @param {Pointer<Integer>} pBufferSize 
      * @returns {NTSTATUS} 
      */
@@ -11383,7 +11382,7 @@ class FileSystem {
 
     /**
      * 
-     * @param {Integer} PoolType 
+     * @param {POOL_TYPE} PoolType 
      * @param {Integer} Tag 
      * @returns {Pointer<Void>} 
      */
@@ -11541,7 +11540,7 @@ class FileSystem {
     /**
      * 
      * @param {Integer} BufferLength 
-     * @param {Pointer} ReparseBuffer 
+     * @param {Integer} ReparseBuffer 
      * @returns {NTSTATUS} 
      */
     static FsRtlValidateReparsePointBuffer(BufferLength, ReparseBuffer) {
@@ -11552,7 +11551,7 @@ class FileSystem {
 
     /**
      * 
-     * @param {Pointer} OriginalString 
+     * @param {Integer} OriginalString 
      * @param {Integer} PathLength 
      * @param {Pointer<Integer>} NewLength 
      * @returns {NTSTATUS} 
@@ -11908,7 +11907,7 @@ class FileSystem {
      * 
      * @param {Pointer<FILE_OBJECT>} CurrentFileObject 
      * @param {Pointer<FILE_OBJECT>} NewFileObject 
-     * @param {Integer} ChangeBackingType 
+     * @param {FSRTL_CHANGE_BACKING_TYPE} ChangeBackingType 
      * @param {Integer} Flags 
      * @returns {NTSTATUS} 
      */
@@ -12031,9 +12030,9 @@ class FileSystem {
      * 
      * @param {Pointer<FILE_OBJECT>} FileObject 
      * @param {Integer} FsControlCode 
-     * @param {Pointer} InputBuffer 
+     * @param {Integer} InputBuffer 
      * @param {Integer} InputBufferLength 
-     * @param {Pointer} OutputBuffer 
+     * @param {Integer} OutputBuffer 
      * @param {Integer} OutputBufferLength 
      * @param {Pointer<Integer>} RetOutputBufferSize 
      * @returns {NTSTATUS} 
@@ -12049,10 +12048,10 @@ class FileSystem {
     /**
      * 
      * @param {Pointer<FILE_OBJECT>} FileObject 
-     * @param {Pointer} ReturnedEaData 
+     * @param {Integer} ReturnedEaData 
      * @param {Integer} Length 
      * @param {BOOLEAN} ReturnSingleEntry 
-     * @param {Pointer} EaList 
+     * @param {Integer} EaList 
      * @param {Integer} EaListLength 
      * @param {Pointer<Integer>} EaIndex 
      * @param {BOOLEAN} RestartScan 
@@ -12071,7 +12070,7 @@ class FileSystem {
     /**
      * 
      * @param {Pointer<FILE_OBJECT>} FileObject 
-     * @param {Pointer} EaBuffer 
+     * @param {Integer} EaBuffer 
      * @param {Integer} Length 
      * @returns {NTSTATUS} 
      */
@@ -12084,9 +12083,9 @@ class FileSystem {
     /**
      * 
      * @param {Pointer<FILE_OBJECT>} FileObject 
-     * @param {Pointer} FileInformation 
+     * @param {Integer} FileInformation 
      * @param {Integer} Length 
-     * @param {Integer} FileInformationClass 
+     * @param {FILE_INFORMATION_CLASS} FileInformationClass 
      * @param {Pointer<Integer>} RetFileInformationSize 
      * @returns {NTSTATUS} 
      */
@@ -12425,7 +12424,7 @@ class FileSystem {
      * @param {Pointer<Integer>} FileOffset 
      * @param {Integer} Length 
      * @param {BOOLEAN} Wait 
-     * @param {Pointer} _Buffer 
+     * @param {Integer} _Buffer 
      * @param {Pointer<IO_STATUS_BLOCK>} IoStatus 
      * @returns {BOOLEAN} 
      */
@@ -12442,7 +12441,7 @@ class FileSystem {
      * @param {Integer} FileOffset 
      * @param {Integer} Length 
      * @param {Integer} PageCount 
-     * @param {Pointer} _Buffer 
+     * @param {Integer} _Buffer 
      * @param {Pointer<IO_STATUS_BLOCK>} IoStatus 
      * @returns {String} Nothing - always returns an empty string
      */
@@ -12456,7 +12455,7 @@ class FileSystem {
      * @param {Pointer<Integer>} FileOffset 
      * @param {Integer} Length 
      * @param {BOOLEAN} Wait 
-     * @param {Pointer} _Buffer 
+     * @param {Integer} _Buffer 
      * @returns {BOOLEAN} 
      */
     static CcCopyWrite(FileObject, FileOffset, Length, Wait, _Buffer) {
@@ -12471,7 +12470,7 @@ class FileSystem {
      * @param {Pointer<FILE_OBJECT>} FileObject 
      * @param {Integer} FileOffset 
      * @param {Integer} Length 
-     * @param {Pointer} _Buffer 
+     * @param {Integer} _Buffer 
      * @returns {String} Nothing - always returns an empty string
      */
     static CcFastCopyWrite(FileObject, FileOffset, Length, _Buffer) {
@@ -12582,7 +12581,7 @@ class FileSystem {
      * @param {Pointer<Integer>} FileOffset 
      * @param {Integer} Length 
      * @param {BOOLEAN} Wait 
-     * @param {Pointer} _Buffer 
+     * @param {Integer} _Buffer 
      * @param {PETHREAD} IoIssuerThread 
      * @returns {BOOLEAN} 
      */
@@ -12599,7 +12598,7 @@ class FileSystem {
      * @param {Pointer<Integer>} FileOffset 
      * @param {Integer} Length 
      * @param {BOOLEAN} Wait 
-     * @param {Pointer} _Buffer 
+     * @param {Integer} _Buffer 
      * @param {Pointer<IO_STATUS_BLOCK>} IoStatus 
      * @param {PETHREAD} IoIssuerThread 
      * @returns {BOOLEAN} 
@@ -12617,7 +12616,7 @@ class FileSystem {
      * @param {Pointer<Integer>} FileOffset 
      * @param {Integer} Length 
      * @param {BOOLEAN} Wait 
-     * @param {Pointer} _Buffer 
+     * @param {Integer} _Buffer 
      * @param {Pointer<IO_STATUS_BLOCK>} IoStatus 
      * @param {PETHREAD} IoIssuerThread 
      * @param {Pointer<CC_ASYNC_READ_CONTEXT>} AsyncReadContext 
@@ -12907,7 +12906,7 @@ class FileSystem {
      * Frees up a context created in the call to the SspiCreateAsyncContext function.
      * @remarks
      * For all operations that require notification of completion, SspiFreeAsyncContext must not be called until the async operation is complete and the callback has been invoked. Calling [SspiGetAsyncCallStatus](nf-sspi-sspigetasynccallstatus.md) will return status != SEC_I_ASYNC_CALL_PENDING to indicate the async operation has not completed.
-     * @param {Pointer<SspiAsyncContext>} _Handle 
+     * @param {Pointer<SspiAsyncContext>} _Handle The async call context to free.
      * @returns {String} Nothing - always returns an empty string
      * @see https://learn.microsoft.com/windows/win32/api/sspi/nf-sspi-sspifreeasynccontext
      */
@@ -12921,7 +12920,7 @@ class FileSystem {
      * Marks an async context for reuse.
      * @remarks
      * Only the context state is altered. Client notification info, such as callback, is left alone.
-     * @param {Pointer<SspiAsyncContext>} _Handle 
+     * @param {Pointer<SspiAsyncContext>} _Handle The async context handle.
      * @returns {NTSTATUS} If the context is invalid or currently in use, an error will be returned.
      * @see https://learn.microsoft.com/windows/win32/api/sspi/nf-sspi-sspireinitasynccontext
      */
@@ -12940,7 +12939,7 @@ class FileSystem {
      * 
      * > [!NOTE]
      * > Setting the callback to null is only supported for [SspiDeleteSecurityContextAsync](nf-sspi-sspideletesecuritycontextasync.md)
-     * @param {Pointer<SspiAsyncContext>} _Context 
+     * @param {Pointer<SspiAsyncContext>} _Context The async call context.
      * @param {Pointer<SspiAsyncNotifyCallback>} Callback The SspiAsyncNotifyCallback that will be notified on call completion.
      * @param {Pointer<Void>} CallbackData An opaque pointer that is passed to [SspiAsyncNotifyCallback](nc-sspi-sspiasyncnotifycallback.md).
      * @returns {HRESULT} 
@@ -12956,7 +12955,7 @@ class FileSystem {
 
     /**
      * Gets the current status of an async call associated with the provided context.
-     * @param {Pointer<SspiAsyncContext>} _Handle 
+     * @param {Pointer<SspiAsyncContext>} _Handle The async call context to get status for.
      * @returns {HRESULT} When complete, returns the status of the async request. If the function succeeded, SspiGetAsyncCallStatus will return **SEC_E_OK**. Otherwise, refer to the respective API called to see return error codes and their respective descriptions.
      * 
      * Until the call is completed, status is **SEC_I_ASYNC_CALL_PENDING**.
@@ -13426,7 +13425,7 @@ class FileSystem {
      * > The sspi.h header defines SetContextAttributes as an alias which automatically selects the ANSI or Unicode version of this function based on the definition of the UNICODE preprocessor constant. Mixing usage of the encoding-neutral alias with code that not encoding-neutral can lead to mismatches that result in compilation or runtime errors. For more information, see [Conventions for Function Prototypes](/windows/win32/intl/conventions-for-function-prototypes).
      * @param {Pointer<SecHandle>} phContext A handle to the security context to be set.
      * @param {Integer} ulAttribute 
-     * @param {Pointer} pBuffer A pointer to a structure that contains  values to set  the attributes to. The type of structure pointed to depends on the value specified in the <i>ulAttribute</i> parameter.
+     * @param {Integer} pBuffer A pointer to a structure that contains  values to set  the attributes to. The type of structure pointed to depends on the value specified in the <i>ulAttribute</i> parameter.
      * @param {Integer} cbBuffer The size, in bytes, of the <i>pBuffer</i> parameter.
      * @returns {HRESULT} If the function succeeds, the function returns SEC_E_OK.
      * 
@@ -13790,7 +13789,7 @@ class FileSystem {
      * @param {Pointer<UNICODE_STRING>} NameBuffer 
      * @param {Pointer<Integer>} DomainSize 
      * @param {Pointer<UNICODE_STRING>} DomainBuffer 
-     * @param {Pointer<Integer>} NameUse 
+     * @param {Pointer<SID_NAME_USE>} NameUse 
      * @returns {NTSTATUS} 
      */
     static SecLookupAccountSid(_Sid, NameSize, NameBuffer, DomainSize, DomainBuffer, NameUse) {
@@ -13808,7 +13807,7 @@ class FileSystem {
      * @param {Pointer<UNICODE_STRING>} Name 
      * @param {Pointer<Integer>} SidSize 
      * @param {PSID} _Sid 
-     * @param {Pointer<Integer>} NameUse 
+     * @param {Pointer<SID_NAME_USE>} NameUse 
      * @param {Pointer<Integer>} DomainSize 
      * @param {Pointer<UNICODE_STRING>} ReferencedDomain 
      * @returns {NTSTATUS} 
@@ -13825,7 +13824,7 @@ class FileSystem {
 
     /**
      * 
-     * @param {Integer} SidType 
+     * @param {WELL_KNOWN_SID_TYPE} SidType 
      * @param {PSID} _Sid 
      * @param {Integer} SidBufferSize 
      * @param {Pointer<Integer>} SidSize 
@@ -13868,8 +13867,8 @@ class FileSystem {
     /**
      * 
      * @param {HANDLE} _Handle 
-     * @param {Integer} ObjectInformationClass 
-     * @param {Pointer} ObjectInformation 
+     * @param {OBJECT_INFORMATION_CLASS} ObjectInformationClass 
+     * @param {Integer} ObjectInformation 
      * @param {Integer} ObjectInformationLength 
      * @param {Pointer<Integer>} ReturnLength 
      * @returns {NTSTATUS} 
@@ -13893,7 +13892,7 @@ class FileSystem {
      * @param {Pointer<IO_STATUS_BLOCK>} IoStatusBlock 
      * @param {Integer} CompletionFilter 
      * @param {BOOLEAN} WatchTree 
-     * @param {Pointer} _Buffer 
+     * @param {Integer} _Buffer 
      * @param {Integer} BufferSize 
      * @param {BOOLEAN} Asynchronous 
      * @returns {NTSTATUS} 
@@ -13914,7 +13913,7 @@ class FileSystem {
      * @param {Pointer<HANDLE>} EventHandle 
      * @param {Integer} DesiredAccess 
      * @param {Pointer<OBJECT_ATTRIBUTES>} ObjectAttributes 
-     * @param {Integer} EventType 
+     * @param {EVENT_TYPE} EventType 
      * @param {BOOLEAN} InitialState 
      * @returns {NTSTATUS} 
      */
@@ -13942,9 +13941,9 @@ class FileSystem {
      * @param {Pointer<PIO_APC_ROUTINE>} ApcRoutine 
      * @param {Pointer<Void>} ApcContext 
      * @param {Pointer<IO_STATUS_BLOCK>} IoStatusBlock 
-     * @param {Pointer} FileInformation 
+     * @param {Integer} FileInformation 
      * @param {Integer} Length 
-     * @param {Integer} FileInformationClass 
+     * @param {FILE_INFORMATION_CLASS} FileInformationClass 
      * @param {BOOLEAN} ReturnSingleEntry 
      * @param {Pointer<UNICODE_STRING>} FileName 
      * @param {BOOLEAN} RestartScan 
@@ -13968,9 +13967,9 @@ class FileSystem {
      * @param {Pointer<PIO_APC_ROUTINE>} ApcRoutine 
      * @param {Pointer<Void>} ApcContext 
      * @param {Pointer<IO_STATUS_BLOCK>} IoStatusBlock 
-     * @param {Pointer} FileInformation 
+     * @param {Integer} FileInformation 
      * @param {Integer} Length 
-     * @param {Integer} FileInformationClass 
+     * @param {FILE_INFORMATION_CLASS} FileInformationClass 
      * @param {Integer} QueryFlags 
      * @param {Pointer<UNICODE_STRING>} FileName 
      * @returns {NTSTATUS} 
@@ -13990,9 +13989,9 @@ class FileSystem {
      * 
      * @param {HANDLE} FileHandle 
      * @param {Pointer<IO_STATUS_BLOCK>} IoStatusBlock 
-     * @param {Pointer} FsInformation 
+     * @param {Integer} FsInformation 
      * @param {Integer} Length 
-     * @param {Integer} FsInformationClass 
+     * @param {FS_INFORMATION_CLASS} FsInformationClass 
      * @returns {NTSTATUS} 
      */
     static ZwQueryVolumeInformationFile(FileHandle, IoStatusBlock, FsInformation, Length, FsInformationClass) {
@@ -14007,9 +14006,9 @@ class FileSystem {
      * 
      * @param {HANDLE} FileHandle 
      * @param {Pointer<IO_STATUS_BLOCK>} IoStatusBlock 
-     * @param {Pointer} FsInformation 
+     * @param {Integer} FsInformation 
      * @param {Integer} Length 
-     * @param {Integer} FsInformationClass 
+     * @param {FS_INFORMATION_CLASS} FsInformationClass 
      * @returns {NTSTATUS} 
      */
     static ZwSetVolumeInformationFile(FileHandle, IoStatusBlock, FsInformation, Length, FsInformationClass) {
@@ -14028,9 +14027,9 @@ class FileSystem {
      * @param {Pointer<Void>} ApcContext 
      * @param {Pointer<IO_STATUS_BLOCK>} IoStatusBlock 
      * @param {Integer} FsControlCode 
-     * @param {Pointer} InputBuffer 
+     * @param {Integer} InputBuffer 
      * @param {Integer} InputBufferLength 
-     * @param {Pointer} OutputBuffer 
+     * @param {Integer} OutputBuffer 
      * @param {Integer} OutputBufferLength 
      * @returns {NTSTATUS} 
      */
@@ -14103,7 +14102,7 @@ class FileSystem {
     /**
      * 
      * @param {HANDLE} ProcessHandle 
-     * @param {Pointer} BaseAddress 
+     * @param {Integer} BaseAddress 
      * @param {Pointer<Pointer>} RegionSize 
      * @param {Integer} AllocationType 
      * @param {Integer} PageProtection 
@@ -14144,8 +14143,8 @@ class FileSystem {
      * 
      * @param {HANDLE} ProcessHandle 
      * @param {Pointer<Void>} BaseAddress 
-     * @param {Integer} MemoryInformationClass 
-     * @param {Pointer} MemoryInformation 
+     * @param {MEMORY_INFORMATION_CLASS} MemoryInformationClass 
+     * @param {Integer} MemoryInformation 
      * @param {Pointer} MemoryInformationLength 
      * @param {Pointer<Pointer>} ReturnLength 
      * @returns {NTSTATUS} 
@@ -14164,10 +14163,10 @@ class FileSystem {
     /**
      * 
      * @param {HANDLE} ProcessHandle 
-     * @param {Integer} VmInformationClass 
+     * @param {VIRTUAL_MEMORY_INFORMATION_CLASS} VmInformationClass 
      * @param {Pointer} NumberOfEntries 
      * @param {Pointer<MEMORY_RANGE_ENTRY>} VirtualAddresses 
-     * @param {Pointer} VmInformation 
+     * @param {Integer} VmInformation 
      * @param {Integer} VmInformationLength 
      * @returns {NTSTATUS} 
      */
@@ -14250,8 +14249,8 @@ class FileSystem {
     /**
      * 
      * @param {HANDLE} TokenHandle 
-     * @param {Integer} TokenInformationClass 
-     * @param {Pointer} TokenInformation 
+     * @param {TOKEN_INFORMATION_CLASS} TokenInformationClass 
+     * @param {Integer} TokenInformation 
      * @param {Integer} TokenInformationLength 
      * @param {Pointer<Integer>} ReturnLength 
      * @returns {NTSTATUS} 
@@ -14269,8 +14268,8 @@ class FileSystem {
     /**
      * 
      * @param {HANDLE} TokenHandle 
-     * @param {Integer} TokenInformationClass 
-     * @param {Pointer} TokenInformation 
+     * @param {TOKEN_INFORMATION_CLASS} TokenInformationClass 
+     * @param {Integer} TokenInformation 
      * @param {Integer} TokenInformationLength 
      * @returns {NTSTATUS} 
      */
@@ -14302,7 +14301,7 @@ class FileSystem {
      * 
      * @param {HANDLE} _Handle 
      * @param {Integer} SecurityInformation 
-     * @param {Pointer} _SecurityDescriptor 
+     * @param {Integer} _SecurityDescriptor 
      * @param {Integer} Length 
      * @param {Pointer<Integer>} LengthNeeded 
      * @returns {NTSTATUS} 
@@ -14368,10 +14367,10 @@ class FileSystem {
      * 
      * @param {HANDLE} FileHandle 
      * @param {Pointer<IO_STATUS_BLOCK>} IoStatusBlock 
-     * @param {Pointer} _Buffer 
+     * @param {Integer} _Buffer 
      * @param {Integer} Length 
      * @param {BOOLEAN} ReturnSingleEntry 
-     * @param {Pointer} SidList 
+     * @param {Integer} SidList 
      * @param {Integer} SidListLength 
      * @param {PSID} StartSid 
      * @param {BOOLEAN} RestartScan 
@@ -14389,7 +14388,7 @@ class FileSystem {
      * 
      * @param {HANDLE} FileHandle 
      * @param {Pointer<IO_STATUS_BLOCK>} IoStatusBlock 
-     * @param {Pointer} _Buffer 
+     * @param {Integer} _Buffer 
      * @param {Integer} Length 
      * @returns {NTSTATUS} 
      */
@@ -14419,7 +14418,7 @@ class FileSystem {
      * 
      * @param {HANDLE} FileHandle 
      * @param {Integer} FLags 
-     * @param {Pointer} Parameters 
+     * @param {Integer} Parameters 
      * @param {Integer} ParametersSize 
      * @param {Pointer<IO_STATUS_BLOCK>} IoStatusBlock 
      * @returns {NTSTATUS} 
@@ -14436,10 +14435,10 @@ class FileSystem {
      * 
      * @param {HANDLE} FileHandle 
      * @param {Pointer<IO_STATUS_BLOCK>} IoStatusBlock 
-     * @param {Pointer} _Buffer 
+     * @param {Integer} _Buffer 
      * @param {Integer} Length 
      * @param {BOOLEAN} ReturnSingleEntry 
-     * @param {Pointer} EaList 
+     * @param {Integer} EaList 
      * @param {Integer} EaListLength 
      * @param {Pointer<Integer>} EaIndex 
      * @param {BOOLEAN} RestartScan 
@@ -14459,7 +14458,7 @@ class FileSystem {
      * 
      * @param {HANDLE} FileHandle 
      * @param {Pointer<IO_STATUS_BLOCK>} IoStatusBlock 
-     * @param {Pointer} _Buffer 
+     * @param {Integer} _Buffer 
      * @param {Integer} Length 
      * @returns {NTSTATUS} 
      */
@@ -14477,7 +14476,7 @@ class FileSystem {
      * @param {Integer} DesiredAccess 
      * @param {Pointer<OBJECT_ATTRIBUTES>} ObjectAttributes 
      * @param {BOOLEAN} EffectiveOnly 
-     * @param {Integer} TokenType 
+     * @param {TOKEN_TYPE} TokenType 
      * @param {Pointer<HANDLE>} NewTokenHandle 
      * @returns {NTSTATUS} 
      */

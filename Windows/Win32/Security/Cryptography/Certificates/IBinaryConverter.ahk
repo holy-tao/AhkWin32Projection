@@ -1,17 +1,16 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\..\Guid.ahk
+#Include ..\..\..\System\Com\IDispatch.ahk
 #Include ..\..\..\Foundation\BSTR.ahk
 #Include ..\..\..\System\Variant\VARIANT.ahk
-#Include ..\..\..\System\Com\IDispatch.ahk
 
 /**
  * Contains general methods that enable you to create a Unicode-encoded string from a byte array, create a byte array from a Unicode-encoded string, and modify the type of Unicode encoding applied to a string.
  * @see https://learn.microsoft.com/windows/win32/api/certenroll/nn-certenroll-ibinaryconverter
  * @namespace Windows.Win32.Security.Cryptography.Certificates
- * @version v4.0.30319
  */
-class IBinaryConverter extends IDispatch{
+class IBinaryConverter extends IDispatch {
 
     static sizeof => A_PtrSize
     /**
@@ -35,8 +34,8 @@ class IBinaryConverter extends IDispatch{
     /**
      * Modifies the type of Unicode encoding applied to a string.
      * @param {BSTR} strEncodedIn A <b>BSTR</b> variable that contains the string to modify.
-     * @param {Integer} EncodingIn An <a href="https://docs.microsoft.com/windows/desktop/api/certenroll/ne-certenroll-encodingtype">EncodingType</a> enumeration value that specifies the Unicode encoding applied to  the input string.
-     * @param {Integer} Encoding An  <a href="https://docs.microsoft.com/windows/desktop/api/certenroll/ne-certenroll-encodingtype">EncodingType</a> enumeration value that specifies the type of Unicode encoding to apply to the output string. The default value is <b>XCN_CRYPT_STRING_BASE64</b>.
+     * @param {EncodingType} EncodingIn An <a href="https://docs.microsoft.com/windows/desktop/api/certenroll/ne-certenroll-encodingtype">EncodingType</a> enumeration value that specifies the Unicode encoding applied to  the input string.
+     * @param {EncodingType} Encoding An  <a href="https://docs.microsoft.com/windows/desktop/api/certenroll/ne-certenroll-encodingtype">EncodingType</a> enumeration value that specifies the type of Unicode encoding to apply to the output string. The default value is <b>XCN_CRYPT_STRING_BASE64</b>.
      * @returns {BSTR} Pointer to a <b>BSTR</b> variable that contains the encoded output string.
      * @see https://learn.microsoft.com/windows/win32/api/certenroll/nf-certenroll-ibinaryconverter-stringtostring
      */
@@ -51,7 +50,7 @@ class IBinaryConverter extends IDispatch{
     /**
      * Creates a Unicode encoded string from a byte array.
      * @param {Pointer<VARIANT>} pvarByteArray Pointer to a  <b>VARIANT</b> array of bytes to be encoded. Each byte in the array must be an unsigned integer. That is, the VARTYPE enumeration value must equal <b>VT_ARRAY</b> | <b>VT_UI1</b>.
-     * @param {Integer} Encoding An <a href="https://docs.microsoft.com/windows/desktop/api/certenroll/ne-certenroll-encodingtype">EncodingType</a> enumeration value that specifies the Unicode encoding applied to the input string. The default value is <b>XCN_CRYPT_STRING_BASE64</b>.
+     * @param {EncodingType} Encoding An <a href="https://docs.microsoft.com/windows/desktop/api/certenroll/ne-certenroll-encodingtype">EncodingType</a> enumeration value that specifies the Unicode encoding applied to the input string. The default value is <b>XCN_CRYPT_STRING_BASE64</b>.
      * @returns {BSTR} Pointer to a  <b>BSTR</b> variable that contains the Unicode-encoded certificate.
      * @see https://learn.microsoft.com/windows/win32/api/certenroll/nf-certenroll-ibinaryconverter-variantbytearraytostring
      */
@@ -64,7 +63,7 @@ class IBinaryConverter extends IDispatch{
     /**
      * Creates a byte array from a Unicode encoded string.
      * @param {BSTR} strEncoded A <b>BSTR</b> variable that contains the Unicode encoded string.
-     * @param {Integer} Encoding An <a href="https://docs.microsoft.com/windows/desktop/api/certenroll/ne-certenroll-encodingtype">EncodingType</a> enumeration value that specifies the Unicode encoding applied to the input string. The default value is <b>XCN_CRYPT_STRING_BASE64</b>.
+     * @param {EncodingType} Encoding An <a href="https://docs.microsoft.com/windows/desktop/api/certenroll/ne-certenroll-encodingtype">EncodingType</a> enumeration value that specifies the Unicode encoding applied to the input string. The default value is <b>XCN_CRYPT_STRING_BASE64</b>.
      * @returns {VARIANT} Pointer to a  <b>VARIANT</b> array of bytes. The VARTYPE enumeration value equals <b>VT_ARRAY</b> | <b>VT_UI1</b>.
      * @see https://learn.microsoft.com/windows/win32/api/certenroll/nf-certenroll-ibinaryconverter-stringtovariantbytearray
      */

@@ -16,11 +16,9 @@
  * > The windns.h header defines DNS_SIG_DATA as an alias which automatically selects the ANSI or Unicode version of this function based on the definition of the UNICODE preprocessor constant. Mixing usage of the encoding-neutral alias with code that not encoding-neutral can lead to mismatches that result in compilation or runtime errors. For more information, see [Conventions for Function Prototypes](/windows/win32/intl/conventions-for-function-prototypes).
  * @see https://learn.microsoft.com/windows/win32/api/windns/ns-windns-dns_sig_dataa
  * @namespace Windows.Win32.NetworkManagement.Dns
- * @version v4.0.30319
  * @charset ANSI
  */
-class DNS_SIG_DATAA extends Win32Struct
-{
+class DNS_SIG_DATAA extends Win32Struct {
     static sizeof => 40
 
     static packingSize => 8
@@ -146,7 +144,6 @@ class DNS_SIG_DATAA extends Win32Struct
     }
 
     /**
-     * 
      * @type {Integer}
      */
     wSignatureLength {
@@ -165,9 +162,9 @@ class DNS_SIG_DATAA extends Win32Struct
 
     /**
      * A <b>BYTE</b> array that contains the RR set signature as specified in section 3.1.8 of <a href="https://www.ietf.org/rfc/rfc4034.txt">RFC 4034</a>.
-     * @type {Array<Byte>}
+     * @type {Array<Integer>}
      */
-    Signature{
+    Signature {
         get {
             if(!this.HasProp("__SignatureProxyArray"))
                 this.__SignatureProxyArray := Win32FixedArray(this.ptr + 32, 1, Primitive, "char")

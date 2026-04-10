@@ -1,6 +1,8 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
 #Include .\HTTP_PROPERTY_FLAGS.ahk
+#Include .\HTTP_LOGGING_TYPE.ahk
+#Include .\HTTP_LOGGING_ROLLOVER_TYPE.ahk
 #Include ..\..\Security\PSECURITY_DESCRIPTOR.ahk
 
 /**
@@ -116,10 +118,8 @@
  * For information on the log file formats, see the <a href="https://docs.microsoft.com/previous-versions/iis/6.0-sdk/ms525807(v=vs.90)">IIS Log File Formats</a> topic.
  * @see https://learn.microsoft.com/windows/win32/api/http/ns-http-http_logging_info
  * @namespace Windows.Win32.Networking.HttpServer
- * @version v4.0.30319
  */
-class HTTP_LOGGING_INFO extends Win32Struct
-{
+class HTTP_LOGGING_INFO extends Win32Struct {
     static sizeof => 72
 
     static packingSize => 8
@@ -128,7 +128,7 @@ class HTTP_LOGGING_INFO extends Win32Struct
      * The <a href="https://docs.microsoft.com/windows/desktop/api/http/ns-http-http_property_flags">HTTP_PROPERTY_FLAGS</a> structure that specifies whether the property is present.
      * @type {HTTP_PROPERTY_FLAGS}
      */
-    Flags{
+    Flags {
         get {
             if(!this.HasProp("__Flags"))
                 this.__Flags := HTTP_PROPERTY_FLAGS(0, this)
@@ -287,7 +287,7 @@ class HTTP_LOGGING_INFO extends Win32Struct
      * </td>
      * </tr>
      * </table>
-     * @type {Integer}
+     * @type {HTTP_LOGGING_TYPE}
      */
     Format {
         get => NumGet(this, 32, "int")
@@ -391,7 +391,7 @@ class HTTP_LOGGING_INFO extends Win32Struct
      * </td>
      * </tr>
      * </table>
-     * @type {Integer}
+     * @type {HTTP_LOGGING_ROLLOVER_TYPE}
      */
     RolloverType {
         get => NumGet(this, 52, "int")
@@ -415,7 +415,7 @@ class HTTP_LOGGING_INFO extends Win32Struct
      * The security descriptor that is applied to the log files directory and all sub-directories. If this member is <b>NULL</b>, either the system default ACL is used or the ACL is inherited from the parent directory.
      * @type {PSECURITY_DESCRIPTOR}
      */
-    pSecurityDescriptor{
+    pSecurityDescriptor {
         get {
             if(!this.HasProp("__pSecurityDescriptor"))
                 this.__pSecurityDescriptor := PSECURITY_DESCRIPTOR(64, this)

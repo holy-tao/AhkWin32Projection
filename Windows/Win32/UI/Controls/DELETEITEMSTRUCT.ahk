@@ -1,22 +1,21 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
+#Include .\DRAWITEMSTRUCT_CTL_TYPE.ahk
 #Include ..\..\Foundation\HWND.ahk
 
 /**
  * Describes a deleted list box or combo box item.
  * @see https://learn.microsoft.com/windows/win32/api/winuser/ns-winuser-deleteitemstruct
  * @namespace Windows.Win32.UI.Controls
- * @version v4.0.30319
  */
-class DELETEITEMSTRUCT extends Win32Struct
-{
+class DELETEITEMSTRUCT extends Win32Struct {
     static sizeof => 32
 
     static packingSize => 8
 
     /**
      * Type: <b><a href="https://docs.microsoft.com/windows/desktop/WinProg/windows-data-types">UINT</a></b>
-     * @type {Integer}
+     * @type {DRAWITEMSTRUCT_CTL_TYPE}
      */
     CtlType {
         get => NumGet(this, 0, "uint")
@@ -51,7 +50,7 @@ class DELETEITEMSTRUCT extends Win32Struct
      * A handle to the control.
      * @type {HWND}
      */
-    hwndItem{
+    hwndItem {
         get {
             if(!this.HasProp("__hwndItem"))
                 this.__hwndItem := HWND(16, this)

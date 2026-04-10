@@ -3,10 +3,8 @@
 
 /**
  * @namespace Windows.Win32.UI.Input.Ime
- * @version v4.0.30319
  */
-class IMEINFO extends Win32Struct
-{
+class IMEINFO extends Win32Struct {
     static sizeof => 28
 
     static packingSize => 4

@@ -7,9 +7,8 @@
  * Determines whether an item is suspended or not and, if so, if it is a suspended root or not.
  * @see https://learn.microsoft.com/windows/win32/api/cscobj/nn-cscobj-iofflinefilessuspendinfo
  * @namespace Windows.Win32.Storage.OfflineFiles
- * @version v4.0.30319
  */
-class IOfflineFilesSuspendInfo extends IUnknown{
+class IOfflineFilesSuspendInfo extends IUnknown {
 
     static sizeof => A_PtrSize
     /**

@@ -8,10 +8,8 @@
  * When working with IPv4 addresses, use <a href="https://docs.microsoft.com/windows/desktop/api/qossp/ns-qossp-rsvp_filterspec_v4">RSVP_FILTERSPEC_V4</a>.
  * @see https://learn.microsoft.com/windows/win32/api/qossp/ns-qossp-rsvp_filterspec_v6
  * @namespace Windows.Win32.NetworkManagement.QoS
- * @version v4.0.30319
  */
-class RSVP_FILTERSPEC_V6 extends Win32Struct
-{
+class RSVP_FILTERSPEC_V6 extends Win32Struct {
     static sizeof => 20
 
     static packingSize => 2
@@ -20,7 +18,7 @@ class RSVP_FILTERSPEC_V6 extends Win32Struct
      * IPv4 address for which the FILTERSPEC applies, expressed as an <a href="https://docs.microsoft.com/windows/desktop/api/qossp/ns-qossp-in_addr_ipv6">IN_ADDR_IPV6</a> structure.
      * @type {IN_ADDR_IPV6}
      */
-    Address{
+    Address {
         get {
             if(!this.HasProp("__Address"))
                 this.__Address := IN_ADDR_IPV6(0, this)
@@ -29,7 +27,6 @@ class RSVP_FILTERSPEC_V6 extends Win32Struct
     }
 
     /**
-     * 
      * @type {Integer}
      */
     UnUsed {

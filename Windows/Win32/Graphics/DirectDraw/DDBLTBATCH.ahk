@@ -1,14 +1,15 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
+#Include ..\..\Foundation\RECT.ahk
+#Include .\IDirectDrawSurface.ahk
+#Include .\DDBLTFX.ahk
 
 /**
  * The DDBLTBATCH structure passes bit block transfer (bitblt) operations to the IDirectDrawSurface7::BltBatch method.
  * @see https://learn.microsoft.com/windows/win32/api/ddraw/ns-ddraw-ddbltbatch
  * @namespace Windows.Win32.Graphics.DirectDraw
- * @version v4.0.30319
  */
-class DDBLTBATCH extends Win32Struct
-{
+class DDBLTBATCH extends Win32Struct {
     static sizeof => 40
 
     static packingSize => 8

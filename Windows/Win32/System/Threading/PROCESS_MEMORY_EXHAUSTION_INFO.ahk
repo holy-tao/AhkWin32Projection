@@ -1,14 +1,13 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
+#Include .\PROCESS_MEMORY_EXHAUSTION_TYPE.ahk
 
 /**
  * Allows applications to configure a process to terminate if an allocation fails to commit memory. This structure is used by the PROCESS_INFORMATION_CLASS class.
  * @see https://learn.microsoft.com/windows/win32/api/processthreadsapi/ns-processthreadsapi-process_memory_exhaustion_info
  * @namespace Windows.Win32.System.Threading
- * @version v4.0.30319
  */
-class PROCESS_MEMORY_EXHAUSTION_INFO extends Win32Struct
-{
+class PROCESS_MEMORY_EXHAUSTION_INFO extends Win32Struct {
     static sizeof => 16
 
     static packingSize => 8
@@ -35,7 +34,7 @@ class PROCESS_MEMORY_EXHAUSTION_INFO extends Win32Struct
      * Type of failure.
      * 
      * Type should be set to <b>PMETypeFailFastOnCommitFailure</b> (this is the only type available).
-     * @type {Integer}
+     * @type {PROCESS_MEMORY_EXHAUSTION_TYPE}
      */
     Type {
         get => NumGet(this, 4, "int")

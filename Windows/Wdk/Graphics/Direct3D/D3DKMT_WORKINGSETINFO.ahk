@@ -3,16 +3,14 @@
 
 /**
  * @namespace Windows.Wdk.Graphics.Direct3D
- * @version v4.0.30319
  */
-class D3DKMT_WORKINGSETINFO extends Win32Struct
-{
+class D3DKMT_WORKINGSETINFO extends Win32Struct {
     static sizeof => 16
 
     static packingSize => 8
 
     /**
-     * @type {Pointer<D3DKMT_WORKINGSETFLAGS>}
+     * @type {Pointer}
      */
     Flags {
         get => NumGet(this, 0, "ptr")

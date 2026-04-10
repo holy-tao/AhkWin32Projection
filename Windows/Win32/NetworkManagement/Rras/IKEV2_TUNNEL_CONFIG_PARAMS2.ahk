@@ -1,15 +1,14 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
 #Include ..\..\Security\Cryptography\CRYPT_INTEGER_BLOB.ahk
+#Include .\ROUTER_CUSTOM_IKEv2_POLICY0.ahk
 
 /**
  * Gets or sets tunnel parameters for Internet Key Exchange version 2 (IKEv2) devices.
  * @see https://learn.microsoft.com/windows/win32/api/mprapi/ns-mprapi-ikev2_tunnel_config_params2
  * @namespace Windows.Win32.NetworkManagement.Rras
- * @version v4.0.30319
  */
-class IKEV2_TUNNEL_CONFIG_PARAMS2 extends Win32Struct
-{
+class IKEV2_TUNNEL_CONFIG_PARAMS2 extends Win32Struct {
     static sizeof => 64
 
     static packingSize => 8
@@ -81,7 +80,7 @@ class IKEV2_TUNNEL_CONFIG_PARAMS2 extends Win32Struct
      * The encryption type to be used for IKEv2.
      * @type {CRYPT_INTEGER_BLOB}
      */
-    machineCertificateName{
+    machineCertificateName {
         get {
             if(!this.HasProp("__machineCertificateName"))
                 this.__machineCertificateName := CRYPT_INTEGER_BLOB(32, this)
@@ -90,7 +89,6 @@ class IKEV2_TUNNEL_CONFIG_PARAMS2 extends Win32Struct
     }
 
     /**
-     * 
      * @type {Integer}
      */
     dwEncryptionType {

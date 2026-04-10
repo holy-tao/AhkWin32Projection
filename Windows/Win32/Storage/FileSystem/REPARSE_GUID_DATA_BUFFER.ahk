@@ -10,10 +10,8 @@
  *     structure.
  * @see https://learn.microsoft.com/windows/win32/api/winnt/ns-winnt-reparse_guid_data_buffer
  * @namespace Windows.Win32.Storage.FileSystem
- * @version v4.0.30319
  */
-class REPARSE_GUID_DATA_BUFFER extends Win32Struct
-{
+class REPARSE_GUID_DATA_BUFFER extends Win32Struct {
     static sizeof => 24
 
     static packingSize => 8
@@ -23,16 +21,15 @@ class REPARSE_GUID_DATA_BUFFER extends Win32Struct
         static packingSize => 1
 
         /**
-         * @type {Array<Byte>}
+         * @type {Array<Integer>}
          */
-        DataBuffer{
+        DataBuffer {
             get {
                 if(!this.HasProp("__DataBufferProxyArray"))
                     this.__DataBufferProxyArray := Win32FixedArray(this.ptr + 0, 1, Primitive, "char")
                 return this.__DataBufferProxyArray
             }
         }
-    
     }
 
     /**
@@ -70,7 +67,7 @@ class REPARSE_GUID_DATA_BUFFER extends Win32Struct
      *       <b>ReparseGuid</b> member. When retrieving a reparse point from the file system, 
      *       <b>ReparseGuid</b> is the <b>GUID</b> assigned when the reparse point 
      *       was set.
-     * @type {Pointer<Guid>}
+     * @type {Pointer}
      */
     ReparseGuid {
         get => NumGet(this, 8, "ptr")
@@ -78,13 +75,12 @@ class REPARSE_GUID_DATA_BUFFER extends Win32Struct
     }
 
     /**
-     * 
      * @type {_GenericReparseBuffer}
      */
-    GenericReparseBuffer{
+    GenericReparseBuffer {
         get {
             if(!this.HasProp("__GenericReparseBuffer"))
-                this.__GenericReparseBuffer := %this.__Class%._GenericReparseBuffer(16, this)
+                this.__GenericReparseBuffer := REPARSE_GUID_DATA_BUFFER._GenericReparseBuffer(16, this)
             return this.__GenericReparseBuffer
         }
     }

@@ -9,9 +9,8 @@
  * The values returned by the <a href="https://docs.microsoft.com/windows/desktop/api/imapi2/nf-imapi2-iblockrange-get_startlba">IBlockRange::get_StartLba</a> and <a href="https://docs.microsoft.com/windows/desktop/api/imapi2/nf-imapi2-iblockrange-get_endlba">IBlockRange::get_EndLba</a> methods define an inclusive range, i.e. both the start and end sectors belong to the range.
  * @see https://learn.microsoft.com/windows/win32/api/imapi2/nn-imapi2-iblockrange
  * @namespace Windows.Win32.Storage.Imapi
- * @version v4.0.30319
  */
-class IBlockRange extends IDispatch{
+class IBlockRange extends IDispatch {
 
     static sizeof => A_PtrSize
     /**

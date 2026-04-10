@@ -1,15 +1,14 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
+#Include .\ISpNotifySink.ahk
 #Include ..\..\Foundation\HWND.ahk
 #Include ..\..\Foundation\HANDLE.ahk
-#Include .\ISpNotifySink.ahk
 
 /**
  * @namespace Windows.Win32.Media.Speech
- * @version v4.0.30319
  */
-class ISpThreadControl extends ISpNotifySink{
+class ISpThreadControl extends ISpNotifySink {
 
     static sizeof => A_PtrSize
     /**

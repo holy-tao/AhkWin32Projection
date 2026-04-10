@@ -3,9 +3,8 @@
 
 /**
  * @namespace Windows.Win32.System.Ole
- * @version v4.0.30319
  */
-class KEYMODIFIERS extends Win32BitflagEnum{
+class KEYMODIFIERS extends Win32BitflagEnum {
 
     /**
      * @type {Integer (UInt32)}

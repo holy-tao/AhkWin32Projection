@@ -3,10 +3,8 @@
 
 /**
  * @namespace Windows.Win32.System.Ioctl
- * @version v4.0.30319
  */
-class FSCTL_OFFLOAD_READ_INPUT extends Win32Struct
-{
+class FSCTL_OFFLOAD_READ_INPUT extends Win32Struct {
     static sizeof => 32
 
     static packingSize => 8

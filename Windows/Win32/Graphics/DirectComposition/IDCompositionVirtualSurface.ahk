@@ -7,9 +7,8 @@
  * Represents a sparsely allocated bitmap that can be associated with a visual for composition in a visual tree.
  * @see https://learn.microsoft.com/windows/win32/api/dcomp/nn-dcomp-idcompositionvirtualsurface
  * @namespace Windows.Win32.Graphics.DirectComposition
- * @version v4.0.30319
  */
-class IDCompositionVirtualSurface extends IDCompositionSurface{
+class IDCompositionVirtualSurface extends IDCompositionSurface {
 
     static sizeof => A_PtrSize
     /**

@@ -3,16 +3,14 @@
 
 /**
  * @namespace Windows.Wdk.Storage.FileSystem
- * @version v4.0.30319
  */
-class SYSTEM_PROCESS_TRUST_LABEL_ACE extends Win32Struct
-{
+class SYSTEM_PROCESS_TRUST_LABEL_ACE extends Win32Struct {
     static sizeof => 16
 
     static packingSize => 8
 
     /**
-     * @type {Pointer<ACE_HEADER>}
+     * @type {Pointer}
      */
     Header {
         get => NumGet(this, 0, "ptr")

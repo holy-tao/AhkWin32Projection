@@ -1,18 +1,17 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
+#Include .\NDIS_INTERRUPT_MODERATION.ahk
 
 /**
  * @namespace Windows.Wdk.NetworkManagement.Ndis
- * @version v4.0.30319
  */
-class NDIS_INTERRUPT_MODERATION_PARAMETERS extends Win32Struct
-{
+class NDIS_INTERRUPT_MODERATION_PARAMETERS extends Win32Struct {
     static sizeof => 16
 
     static packingSize => 8
 
     /**
-     * @type {Pointer<NDIS_OBJECT_HEADER>}
+     * @type {Pointer}
      */
     Header {
         get => NumGet(this, 0, "ptr")
@@ -28,7 +27,7 @@ class NDIS_INTERRUPT_MODERATION_PARAMETERS extends Win32Struct
     }
 
     /**
-     * @type {Integer}
+     * @type {NDIS_INTERRUPT_MODERATION}
      */
     InterruptModeration {
         get => NumGet(this, 12, "int")

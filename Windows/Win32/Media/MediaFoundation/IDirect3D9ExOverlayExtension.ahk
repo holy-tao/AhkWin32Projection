@@ -7,9 +7,8 @@
  * Queries the overlay hardware capabilities of a Direct3D device. (IDirect3D9ExOverlayExtension)
  * @see https://learn.microsoft.com/windows/win32/api/d3d9/nn-d3d9-idirect3d9exoverlayextension
  * @namespace Windows.Win32.Media.MediaFoundation
- * @version v4.0.30319
  */
-class IDirect3D9ExOverlayExtension extends IUnknown{
+class IDirect3D9ExOverlayExtension extends IUnknown {
 
     static sizeof => A_PtrSize
     /**
@@ -32,13 +31,13 @@ class IDirect3D9ExOverlayExtension extends IUnknown{
 
     /**
      * Queries the overlay hardware capabilities of a Direct3D device. (IDirect3D9ExOverlayExtension.CheckDeviceOverlayType)
-     * @param {Integer} _Adapter 
-     * @param {Integer} DevType Specifies the Direct3D device type as a member of the <b>D3DDEVTYPE</b> enumerated type.
+     * @param {Integer} _Adapter An ordinal number that denotes the display adapter. <b>D3DADAPTER_DEFAULT</b> is always the primary display adapter.
+     * @param {D3DDEVTYPE} DevType Specifies the Direct3D device type as a member of the <b>D3DDEVTYPE</b> enumerated type.
      * @param {Integer} OverlayWidth The width of the overlay to create, in pixels.
      * @param {Integer} OverlayHeight The height of the overlay to create, in pixels.
-     * @param {Integer} OverlayFormat The surface format of the overlay.
+     * @param {D3DFORMAT} OverlayFormat The surface format of the overlay.
      * @param {Pointer<D3DDISPLAYMODEEX>} pDisplayMode A pointer to a <b>D3DDISPLAYMODEEX</b> structure that specifies the display mode that will be used. If this parameter is <b>NULL</b>, the current display mode is assumed.
-     * @param {Integer} DisplayRotation Specifies the display rotation mode as a member of the <b>D3DDISPLAYROTATION</b> enumerated type.
+     * @param {D3DDISPLAYROTATION} DisplayRotation Specifies the display rotation mode as a member of the <b>D3DDISPLAYROTATION</b> enumerated type.
      * @param {Pointer<D3DOVERLAYCAPS>} pOverlayCaps A pointer to a <a href="https://docs.microsoft.com/windows/desktop/api/d3d9caps/ns-d3d9caps-d3doverlaycaps">D3DOVERLAYCAPS</a> structure. If the driver supports the overlay settings specified in the input parameters, the method fills this structure with the capabilities of the overlay hardware.
      * @returns {HRESULT} This method can return one of these values.
      * 

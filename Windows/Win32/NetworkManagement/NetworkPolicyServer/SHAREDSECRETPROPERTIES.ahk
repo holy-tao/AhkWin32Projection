@@ -3,9 +3,8 @@
 
 /**
  * @namespace Windows.Win32.NetworkManagement.NetworkPolicyServer
- * @version v4.0.30319
  */
-class SHAREDSECRETPROPERTIES extends Win32Enum{
+class SHAREDSECRETPROPERTIES extends Win32Enum {
 
     /**
      * @type {Integer (Int32)}

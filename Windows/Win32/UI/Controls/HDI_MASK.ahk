@@ -3,9 +3,8 @@
 
 /**
  * @namespace Windows.Win32.UI.Controls
- * @version v4.0.30319
  */
-class HDI_MASK extends Win32BitflagEnum{
+class HDI_MASK extends Win32BitflagEnum {
 
     /**
      * @type {Integer (UInt32)}

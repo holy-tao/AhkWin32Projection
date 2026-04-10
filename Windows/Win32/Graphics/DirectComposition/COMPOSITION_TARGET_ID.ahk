@@ -4,14 +4,10 @@
 
 /**
  * Contains information about a composition render target.
- * @remarks
- * 
  * @see https://learn.microsoft.com/windows/win32/api/dcomptypes/ns-dcomptypes-composition_target_id
  * @namespace Windows.Win32.Graphics.DirectComposition
- * @version v4.0.30319
  */
-class COMPOSITION_TARGET_ID extends Win32Struct
-{
+class COMPOSITION_TARGET_ID extends Win32Struct {
     static sizeof => 28
 
     static packingSize => 4
@@ -22,7 +18,7 @@ class COMPOSITION_TARGET_ID extends Win32Struct
      * The locally unique identifier (LUID) of the display adapter to which the monitor is connected.
      * @type {LUID}
      */
-    displayAdapterLuid{
+    displayAdapterLuid {
         get {
             if(!this.HasProp("__displayAdapterLuid"))
                 this.__displayAdapterLuid := LUID(0, this)
@@ -36,7 +32,7 @@ class COMPOSITION_TARGET_ID extends Win32Struct
      * The locally unique identifier (LUID) of the render adapter.
      * @type {LUID}
      */
-    renderAdapterLuid{
+    renderAdapterLuid {
         get {
             if(!this.HasProp("__renderAdapterLuid"))
                 this.__renderAdapterLuid := LUID(8, this)

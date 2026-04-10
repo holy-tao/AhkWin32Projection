@@ -1,19 +1,24 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
-#Include .\D3D12_VIDEO_ENCODER_PROFILE_DESC.ahk
-#Include .\D3D12_VIDEO_ENCODER_LEVEL_SETTING.ahk
 #Include .\D3D12_VIDEO_ENCODER_HEAP_DESC.ahk
+#Include .\D3D12_VIDEO_ENCODER_HEAP_FLAGS.ahk
+#Include .\D3D12_VIDEO_ENCODER_CODEC.ahk
+#Include .\D3D12_VIDEO_ENCODER_PROFILE_DESC.ahk
+#Include .\D3D12_VIDEO_ENCODER_PROFILE_H264.ahk
+#Include .\D3D12_VIDEO_ENCODER_PROFILE_HEVC.ahk
+#Include .\D3D12_VIDEO_ENCODER_AV1_PROFILE.ahk
+#Include .\D3D12_VIDEO_ENCODER_LEVEL_SETTING.ahk
+#Include .\D3D12_VIDEO_ENCODER_LEVELS_H264.ahk
+#Include .\D3D12_VIDEO_ENCODER_LEVEL_TIER_CONSTRAINTS_HEVC.ahk
+#Include .\D3D12_VIDEO_ENCODER_AV1_LEVEL_TIER_CONSTRAINTS.ahk
+#Include .\D3D12_VIDEO_ENCODER_PICTURE_RESOLUTION_DESC.ahk
 
 /**
  * Retrieves a value indicating if the specified codec is supported for video encoding as well as the L0 and L1 sizes of the heap object.
- * @remarks
- * 
  * @see https://learn.microsoft.com/windows/win32/api/d3d12video/ns-d3d12video-d3d12_feature_data_video_encoder_heap_size
  * @namespace Windows.Win32.Media.MediaFoundation
- * @version v4.0.30319
  */
-class D3D12_FEATURE_DATA_VIDEO_ENCODER_HEAP_SIZE extends Win32Struct
-{
+class D3D12_FEATURE_DATA_VIDEO_ENCODER_HEAP_SIZE extends Win32Struct {
     static sizeof => 88
 
     static packingSize => 8
@@ -22,7 +27,7 @@ class D3D12_FEATURE_DATA_VIDEO_ENCODER_HEAP_SIZE extends Win32Struct
      * A [D3D12_VIDEO_ENCODER_PICTURE_RESOLUTION_DESC](ns-d3d12video-d3d12_video_encoder_heap_desc.md) structure specifying the creation properties for a video encoder heap. The driver should map these creation properties to size and assume the maximum resolution allowed for such heap.
      * @type {D3D12_VIDEO_ENCODER_HEAP_DESC}
      */
-    HeapDesc{
+    HeapDesc {
         get {
             if(!this.HasProp("__HeapDesc"))
                 this.__HeapDesc := D3D12_VIDEO_ENCODER_HEAP_DESC(0, this)

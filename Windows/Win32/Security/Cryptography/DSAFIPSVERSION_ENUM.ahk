@@ -5,9 +5,8 @@
  * Contains FIPS version information.
  * @see https://learn.microsoft.com/windows/win32/api/bcrypt/ne-bcrypt-dsafipsversion_enum
  * @namespace Windows.Win32.Security.Cryptography
- * @version v4.0.30319
  */
-class DSAFIPSVERSION_ENUM extends Win32Enum{
+class DSAFIPSVERSION_ENUM extends Win32Enum {
 
     /**
      * Federal Information Processing Standard (FIPS) 2.

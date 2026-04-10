@@ -1,16 +1,15 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
-#Include .\IEnumOfflineFilesItems.ahk
 #Include ..\..\System\Com\IUnknown.ahk
+#Include .\IEnumOfflineFilesItems.ahk
 
 /**
  * Used to access item enumeration functionality in the Offline Files cache.
  * @see https://learn.microsoft.com/windows/win32/api/cscobj/nn-cscobj-iofflinefilesitemcontainer
  * @namespace Windows.Win32.Storage.OfflineFiles
- * @version v4.0.30319
  */
-class IOfflineFilesItemContainer extends IUnknown{
+class IOfflineFilesItemContainer extends IUnknown {
 
     static sizeof => A_PtrSize
     /**

@@ -1,5 +1,9 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
+#Include .\SOUNDSENTRY_FLAGS.ahk
+#Include .\SOUNDSENTRY_TEXT_EFFECT.ahk
+#Include .\SOUND_SENTRY_GRAPHICS_EFFECT.ahk
+#Include .\SOUNDSENTRY_WINDOWS_EFFECT.ahk
 
 /**
  * Contains information about the SoundSentry accessibility feature. When the SoundSentry feature is on, the computer displays a visual indication only when a sound is generated. (Unicode)
@@ -14,11 +18,9 @@
  * > The winuser.h header defines SOUNDSENTRY as an alias which automatically selects the ANSI or Unicode version of this function based on the definition of the UNICODE preprocessor constant. Mixing usage of the encoding-neutral alias with code that not encoding-neutral can lead to mismatches that result in compilation or runtime errors. For more information, see [Conventions for Function Prototypes](/windows/win32/intl/conventions-for-function-prototypes).
  * @see https://learn.microsoft.com/windows/win32/api/winuser/ns-winuser-soundsentryw
  * @namespace Windows.Win32.UI.Accessibility
- * @version v4.0.30319
  * @charset Unicode
  */
-class SOUNDSENTRYW extends Win32Struct
-{
+class SOUNDSENTRYW extends Win32Struct {
     static sizeof => 56
 
     static packingSize => 8
@@ -81,7 +83,7 @@ class SOUNDSENTRYW extends Win32Struct
      * </td>
      * </tr>
      * </table>
-     * @type {Integer}
+     * @type {SOUNDSENTRY_FLAGS}
      */
     dwFlags {
         get => NumGet(this, 4, "uint")
@@ -90,7 +92,7 @@ class SOUNDSENTRYW extends Win32Struct
 
     /**
      * Type: <b><a href="https://docs.microsoft.com/windows/desktop/WinProg/windows-data-types">DWORD</a></b>
-     * @type {Integer}
+     * @type {SOUNDSENTRY_TEXT_EFFECT}
      */
     iFSTextEffect {
         get => NumGet(this, 8, "uint")
@@ -125,7 +127,7 @@ class SOUNDSENTRYW extends Win32Struct
 
     /**
      * Type: <b><a href="https://docs.microsoft.com/windows/desktop/WinProg/windows-data-types">DWORD</a></b>
-     * @type {Integer}
+     * @type {SOUND_SENTRY_GRAPHICS_EFFECT}
      */
     iFSGrafEffect {
         get => NumGet(this, 20, "uint")
@@ -160,7 +162,7 @@ class SOUNDSENTRYW extends Win32Struct
 
     /**
      * Type: <b><a href="https://docs.microsoft.com/windows/desktop/WinProg/windows-data-types">DWORD</a></b>
-     * @type {Integer}
+     * @type {SOUNDSENTRY_WINDOWS_EFFECT}
      */
     iWindowsEffect {
         get => NumGet(this, 32, "uint")

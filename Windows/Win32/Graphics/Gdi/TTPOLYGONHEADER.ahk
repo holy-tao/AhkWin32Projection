@@ -1,7 +1,7 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
-#Include .\FIXED.ahk
 #Include .\POINTFX.ahk
+#Include .\FIXED.ahk
 
 /**
  * The TTPOLYGONHEADER structure specifies the starting position and type of a contour in a TrueType character outline.
@@ -9,10 +9,8 @@
  * Each <b>TTPOLYGONHEADER</b> structure is followed by one or more <a href="https://docs.microsoft.com/windows/desktop/api/wingdi/ns-wingdi-ttpolycurve">TTPOLYCURVE</a> structures.
  * @see https://learn.microsoft.com/windows/win32/api/wingdi/ns-wingdi-ttpolygonheader
  * @namespace Windows.Win32.Graphics.Gdi
- * @version v4.0.30319
  */
-class TTPOLYGONHEADER extends Win32Struct
-{
+class TTPOLYGONHEADER extends Win32Struct {
     static sizeof => 16
 
     static packingSize => 4
@@ -39,7 +37,7 @@ class TTPOLYGONHEADER extends Win32Struct
      * The starting point of the contour in the character outline.
      * @type {POINTFX}
      */
-    pfxStart{
+    pfxStart {
         get {
             if(!this.HasProp("__pfxStart"))
                 this.__pfxStart := POINTFX(8, this)

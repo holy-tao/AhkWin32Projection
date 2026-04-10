@@ -7,9 +7,8 @@
  * ILocationEvents provides callback methods that you must implement if you want to receive event notifications.
  * @see https://learn.microsoft.com/windows/win32/api/locationapi/nn-locationapi-ilocationevents
  * @namespace Windows.Win32.Devices.Geolocation
- * @version v4.0.30319
  */
-class ILocationEvents extends IUnknown{
+class ILocationEvents extends IUnknown {
 
     static sizeof => A_PtrSize
     /**
@@ -54,7 +53,7 @@ class ILocationEvents extends IUnknown{
      * @remarks
      * This event provides report status for new reports. The most recent reports remain available through <a href="https://docs.microsoft.com/windows/desktop/api/locationapi/nf-locationapi-ilocation-getreport">ILocation::GetReport</a>, regardless of the status reported by this event.
      * @param {Pointer<Guid>} reportType <b>REFIID</b> that specifies the interface ID of the report type for which the status has changed.
-     * @param {Integer} newStatus A constant from the <a href="https://docs.microsoft.com/windows/desktop/api/locationapi/ne-locationapi-location_report_status">LOCATION_REPORT_STATUS</a> enumeration that contains the new status.
+     * @param {LOCATION_REPORT_STATUS} newStatus A constant from the <a href="https://docs.microsoft.com/windows/desktop/api/locationapi/ne-locationapi-location_report_status">LOCATION_REPORT_STATUS</a> enumeration that contains the new status.
      * @returns {HRESULT} If this method succeeds, it returns <b>S_OK</b>. Otherwise, it returns an <b>HRESULT</b> error code.
      * @see https://learn.microsoft.com/windows/win32/api/locationapi/nf-locationapi-ilocationevents-onstatuschanged
      */

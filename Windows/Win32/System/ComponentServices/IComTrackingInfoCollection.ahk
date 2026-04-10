@@ -7,9 +7,8 @@
  * Retrieves information about a tracking information collection.
  * @see https://learn.microsoft.com/windows/win32/api/comsvcs/nn-comsvcs-icomtrackinginfocollection
  * @namespace Windows.Win32.System.ComponentServices
- * @version v4.0.30319
  */
-class IComTrackingInfoCollection extends IUnknown{
+class IComTrackingInfoCollection extends IUnknown {
 
     static sizeof => A_PtrSize
     /**
@@ -32,7 +31,7 @@ class IComTrackingInfoCollection extends IUnknown{
 
     /**
      * Retrieves the type of a tracking information collection.
-     * @returns {Integer} The type of tracking information. For a list of values, see the <a href="https://docs.microsoft.com/windows/win32/api/comsvcs/ne-comsvcs-tracking_coll_type">TRACKING_COLL_TYPE</a> enumeration.
+     * @returns {TRACKING_COLL_TYPE} The type of tracking information. For a list of values, see the <a href="https://docs.microsoft.com/windows/win32/api/comsvcs/ne-comsvcs-tracking_coll_type">TRACKING_COLL_TYPE</a> enumeration.
      * @see https://learn.microsoft.com/windows/win32/api/comsvcs/nf-comsvcs-icomtrackinginfocollection-type
      */
     Type() {

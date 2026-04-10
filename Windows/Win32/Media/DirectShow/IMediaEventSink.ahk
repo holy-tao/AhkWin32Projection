@@ -7,9 +7,8 @@
  * Notifies the Filter Graph Manager of events that occur within the filter graph.
  * @see https://learn.microsoft.com/windows/win32/api/strmif/nn-strmif-imediaeventsink
  * @namespace Windows.Win32.Media.DirectShow
- * @version v4.0.30319
  */
-class IMediaEventSink extends IUnknown{
+class IMediaEventSink extends IUnknown {
 
     static sizeof => A_PtrSize
     /**

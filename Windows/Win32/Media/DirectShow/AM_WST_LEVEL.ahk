@@ -5,9 +5,8 @@
  * The AM_WST_LEVEL enumeration is not supported.
  * @see https://learn.microsoft.com/windows/win32/api/iwstdec/ne-iwstdec-am_wst_level
  * @namespace Windows.Win32.Media.DirectShow
- * @version v4.0.30319
  */
-class AM_WST_LEVEL extends Win32Enum{
+class AM_WST_LEVEL extends Win32Enum {
 
     /**
      * Not implemented.

@@ -7,9 +7,8 @@
  * The IUIEventingManager interface is implemented by the Ribbon framework and provides the notification functionality for applications that register for ribbon events.
  * @see https://learn.microsoft.com/windows/win32/api/uiribbon/nn-uiribbon-iuieventingmanager
  * @namespace Windows.Win32.UI.Ribbon
- * @version v4.0.30319
  */
-class IUIEventingManager extends IUnknown{
+class IUIEventingManager extends IUnknown {
 
     static sizeof => A_PtrSize
     /**

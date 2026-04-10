@@ -7,9 +7,8 @@
  * The IADsDeleteOps interface specifies a method an object can use to delete itself from the underlying directory. For a container object, the method deletes its children and the entire subtree.
  * @see https://learn.microsoft.com/windows/win32/api/iads/nn-iads-iadsdeleteops
  * @namespace Windows.Win32.Networking.ActiveDirectory
- * @version v4.0.30319
  */
-class IADsDeleteOps extends IDispatch{
+class IADsDeleteOps extends IDispatch {
 
     static sizeof => A_PtrSize
     /**

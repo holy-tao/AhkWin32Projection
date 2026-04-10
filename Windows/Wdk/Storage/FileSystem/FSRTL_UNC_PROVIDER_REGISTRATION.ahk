@@ -3,10 +3,8 @@
 
 /**
  * @namespace Windows.Wdk.Storage.FileSystem
- * @version v4.0.30319
  */
-class FSRTL_UNC_PROVIDER_REGISTRATION extends Win32Struct
-{
+class FSRTL_UNC_PROVIDER_REGISTRATION extends Win32Struct {
     static sizeof => 12
 
     static packingSize => 4

@@ -68,9 +68,8 @@
  * </table>
  * @see https://learn.microsoft.com/windows/win32/api/strmif/ne-strmif-dvd_option_flag
  * @namespace Windows.Win32.Media.DirectShow
- * @version v4.0.30319
  */
-class DVD_OPTION_FLAG extends Win32Enum{
+class DVD_OPTION_FLAG extends Win32Enum {
 
     /**
      * Specifies whether the DVD Navigator returns to the start of the disc when the graph stops. 
@@ -456,13 +455,11 @@ class DVD_OPTION_FLAG extends Win32Enum{
     static DVD_ReadBurstPeriodInMS => 17
 
     /**
-     * 
      * @type {Integer (Int32)}
      */
     static DVD_RestartDisc => 18
 
     /**
-     * 
      * @type {Integer (Int32)}
      */
     static DVD_EnableCC => 19

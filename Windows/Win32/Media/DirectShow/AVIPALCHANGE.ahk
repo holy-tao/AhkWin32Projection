@@ -6,13 +6,11 @@
  * The AVIPALCHANGE structure defines a palette change in an AVI file.
  * @see https://learn.microsoft.com/windows/win32/api/avifmt/ns-avifmt-avipalchange
  * @namespace Windows.Win32.Media.DirectShow
- * @version v4.0.30319
  */
-class AVIPALCHANGE extends Win32Struct
-{
-    static sizeof => 16
+class AVIPALCHANGE extends Win32Struct {
+    static sizeof => 8
 
-    static packingSize => 8
+    static packingSize => 2
 
     /**
      * Specifies the index of the first palette entry to change.
@@ -43,12 +41,12 @@ class AVIPALCHANGE extends Win32Struct
 
     /**
      * Specifies an array of <a href="https://docs.microsoft.com/previous-versions/dd162769(v=vs.85)">PALETTEENTRY</a> structures, of size <b>bNumEntries</b>.
-     * @type {Array<PALETTEENTRY>}
+     * @type {PALETTEENTRY}
      */
-    peNew{
+    peNew {
         get {
             if(!this.HasProp("__peNewProxyArray"))
-                this.__peNewProxyArray := Win32FixedArray(this.ptr + 8, 1, PALETTEENTRY, "")
+                this.__peNewProxyArray := Win32FixedArray(this.ptr + 4, 1, PALETTEENTRY, "")
             return this.__peNewProxyArray
         }
     }

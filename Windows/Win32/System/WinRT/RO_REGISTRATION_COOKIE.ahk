@@ -7,10 +7,8 @@
  * The [**RoRegisterActivationFactories**](/windows/win32/api/roapi/nf-roapi-roregisteractivationfactories) function returns a **RO\_REGISTRATION\_COOKIE** when a activatable class factories are registered with the Windows Runtime. The [**RoRevokeActivationFactories**](/windows/win32/api/roapi/nf-roapi-rorevokeactivationfactories) function uses the cookie to remove the class factories.
  * @see https://learn.microsoft.com/windows/win32/WinRT/ro-registration-cookie
  * @namespace Windows.Win32.System.WinRT
- * @version v4.0.30319
  */
-class RO_REGISTRATION_COOKIE extends Win32Struct
-{
+class RO_REGISTRATION_COOKIE extends Win32Struct {
     static sizeof => 8
 
     static packingSize => 8

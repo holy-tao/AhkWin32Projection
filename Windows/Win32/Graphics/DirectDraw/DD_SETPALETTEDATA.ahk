@@ -1,14 +1,15 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
+#Include .\DD_DIRECTDRAW_GLOBAL.ahk
+#Include .\DD_SURFACE_LOCAL.ahk
+#Include .\DD_PALETTE_GLOBAL.ahk
 
 /**
  * The DD_SETPALETTEDATA structure contains information necessary to set a palette for a specific surface.
  * @see https://learn.microsoft.com/windows/win32/api/ddrawint/ns-ddrawint-dd_setpalettedata
  * @namespace Windows.Win32.Graphics.DirectDraw
- * @version v4.0.30319
  */
-class DD_SETPALETTEDATA extends Win32Struct
-{
+class DD_SETPALETTEDATA extends Win32Struct {
     static sizeof => 48
 
     static packingSize => 8

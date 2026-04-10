@@ -7,9 +7,8 @@
  * Exposes methods that create and destroy bands and specify their availability.
  * @see https://learn.microsoft.com/windows/win32/api/shobjidl/nn-shobjidl-ibandhost
  * @namespace Windows.Win32.UI.Shell
- * @version v4.0.30319
  */
-class IBandHost extends IUnknown{
+class IBandHost extends IUnknown {
 
     static sizeof => A_PtrSize
     /**

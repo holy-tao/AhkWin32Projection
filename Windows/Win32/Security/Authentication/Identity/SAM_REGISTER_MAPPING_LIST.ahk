@@ -1,12 +1,11 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\..\Win32Struct.ahk
+#Include .\SAM_REGISTER_MAPPING_ELEMENT.ahk
 
 /**
  * @namespace Windows.Win32.Security.Authentication.Identity
- * @version v4.0.30319
  */
-class SAM_REGISTER_MAPPING_LIST extends Win32Struct
-{
+class SAM_REGISTER_MAPPING_LIST extends Win32Struct {
     static sizeof => 16
 
     static packingSize => 8

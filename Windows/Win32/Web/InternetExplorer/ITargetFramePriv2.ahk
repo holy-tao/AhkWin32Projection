@@ -5,9 +5,8 @@
 
 /**
  * @namespace Windows.Win32.Web.InternetExplorer
- * @version v4.0.30319
  */
-class ITargetFramePriv2 extends ITargetFramePriv{
+class ITargetFramePriv2 extends ITargetFramePriv {
 
     static sizeof => A_PtrSize
     /**

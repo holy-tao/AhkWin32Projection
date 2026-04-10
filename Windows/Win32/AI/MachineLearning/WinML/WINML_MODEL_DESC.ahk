@@ -5,10 +5,8 @@
  * Contains description properties of the model.
  * @see https://learn.microsoft.com/windows/win32/api/winml/ns-winml-winml_model_desc
  * @namespace Windows.Win32.AI.MachineLearning.WinML
- * @version v4.0.30319
  */
-class WINML_MODEL_DESC extends Win32Struct
-{
+class WINML_MODEL_DESC extends Win32Struct {
     static sizeof => 40
 
     static packingSize => 8

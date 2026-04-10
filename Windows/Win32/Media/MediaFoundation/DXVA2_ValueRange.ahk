@@ -8,10 +8,8 @@
  * All values in this structure are specified as <a href="https://docs.microsoft.com/windows/desktop/api/dxva2api/ns-dxva2api-dxva2_fixed32">DXVA2_Fixed32</a> structures.
  * @see https://learn.microsoft.com/windows/win32/api/dxva2api/ns-dxva2api-dxva2_valuerange
  * @namespace Windows.Win32.Media.MediaFoundation
- * @version v4.0.30319
  */
-class DXVA2_ValueRange extends Win32Struct
-{
+class DXVA2_ValueRange extends Win32Struct {
     static sizeof => 16
 
     static packingSize => 4
@@ -20,7 +18,7 @@ class DXVA2_ValueRange extends Win32Struct
      * Minimum supported value.
      * @type {DXVA2_Fixed32}
      */
-    MinValue{
+    MinValue {
         get {
             if(!this.HasProp("__MinValue"))
                 this.__MinValue := DXVA2_Fixed32(0, this)
@@ -32,7 +30,7 @@ class DXVA2_ValueRange extends Win32Struct
      * Maximum supported value.
      * @type {DXVA2_Fixed32}
      */
-    MaxValue{
+    MaxValue {
         get {
             if(!this.HasProp("__MaxValue"))
                 this.__MaxValue := DXVA2_Fixed32(4, this)
@@ -44,7 +42,7 @@ class DXVA2_ValueRange extends Win32Struct
      * Default value.
      * @type {DXVA2_Fixed32}
      */
-    DefaultValue{
+    DefaultValue {
         get {
             if(!this.HasProp("__DefaultValue"))
                 this.__DefaultValue := DXVA2_Fixed32(8, this)
@@ -56,7 +54,7 @@ class DXVA2_ValueRange extends Win32Struct
      * Minimum increment between values.
      * @type {DXVA2_Fixed32}
      */
-    StepSize{
+    StepSize {
         get {
             if(!this.HasProp("__StepSize"))
                 this.__StepSize := DXVA2_Fixed32(12, this)

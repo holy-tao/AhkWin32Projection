@@ -1,18 +1,17 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\..\Guid.ahk
+#Include ..\IUnknown.ahk
 #Include .\PROPVARIANT.ahk
 #Include .\IEnumSTATPROPSTG.ahk
 #Include .\STATPROPSETSTG.ahk
-#Include ..\IUnknown.ahk
 
 /**
  * The IPropertyStorage interface manages the persistent properties of a single property set. (IPropertyStorage interface)
  * @see https://learn.microsoft.com/windows/win32/api/propidlbase/nn-propidlbase-ipropertystorage
  * @namespace Windows.Win32.System.Com.StructuredStorage
- * @version v4.0.30319
  */
-class IPropertyStorage extends IUnknown{
+class IPropertyStorage extends IUnknown {
 
     static sizeof => A_PtrSize
     /**

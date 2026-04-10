@@ -7,9 +7,8 @@
  * Notifies the subscriber of events that relate to COM+ transactions.
  * @see https://learn.microsoft.com/windows/win32/api/comsvcs/nn-comsvcs-icomltxevents
  * @namespace Windows.Win32.System.ComponentServices
- * @version v4.0.30319
  */
-class IComLTxEvents extends IUnknown{
+class IComLTxEvents extends IUnknown {
 
     static sizeof => A_PtrSize
     /**

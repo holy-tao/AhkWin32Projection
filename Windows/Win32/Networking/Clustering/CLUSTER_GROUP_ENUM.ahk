@@ -9,9 +9,8 @@
  *      <a href="https://docs.microsoft.com/windows/desktop/api/clusapi/nf-clusapi-clustergroupenum">ClusterGroupEnum</a> function.
  * @see https://learn.microsoft.com/windows/win32/api/msclus/ne-msclus-cluster_group_enum
  * @namespace Windows.Win32.Networking.Clustering
- * @version v4.0.30319
  */
-class CLUSTER_GROUP_ENUM extends Win32Enum{
+class CLUSTER_GROUP_ENUM extends Win32Enum {
 
     /**
      * The resources in the group.

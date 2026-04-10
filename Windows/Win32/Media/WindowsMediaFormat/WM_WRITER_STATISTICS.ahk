@@ -7,10 +7,8 @@
  * Sample rates are specified in kilohertz. For instance, a sample rate of 8 indicates 8000 samples per second.
  * @see https://learn.microsoft.com/windows/win32/api/wmsdkidl/ns-wmsdkidl-wm_writer_statistics
  * @namespace Windows.Win32.Media.WindowsMediaFormat
- * @version v4.0.30319
  */
-class WM_WRITER_STATISTICS extends Win32Struct
-{
+class WM_WRITER_STATISTICS extends Win32Struct {
     static sizeof => 56
 
     static packingSize => 8

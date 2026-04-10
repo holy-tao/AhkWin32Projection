@@ -3,18 +3,16 @@
 
 /**
  * @namespace Windows.Win32.NetworkManagement.Ndis
- * @version v4.0.30319
  */
-class BSSID_INFO extends Win32Struct
-{
+class BSSID_INFO extends Win32Struct {
     static sizeof => 22
 
     static packingSize => 1
 
     /**
-     * @type {Array<Byte>}
+     * @type {Array<Integer>}
      */
-    BSSID{
+    BSSID {
         get {
             if(!this.HasProp("__BSSIDProxyArray"))
                 this.__BSSIDProxyArray := Win32FixedArray(this.ptr + 0, 6, Primitive, "char")
@@ -23,9 +21,9 @@ class BSSID_INFO extends Win32Struct
     }
 
     /**
-     * @type {Array<Byte>}
+     * @type {Array<Integer>}
      */
-    PMKID{
+    PMKID {
         get {
             if(!this.HasProp("__PMKIDProxyArray"))
                 this.__PMKIDProxyArray := Win32FixedArray(this.ptr + 6, 16, Primitive, "char")

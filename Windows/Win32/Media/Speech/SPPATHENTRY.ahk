@@ -5,10 +5,8 @@
 
 /**
  * @namespace Windows.Win32.Media.Speech
- * @version v4.0.30319
  */
-class SPPATHENTRY extends Win32Struct
-{
+class SPPATHENTRY extends Win32Struct {
     static sizeof => 64
 
     static packingSize => 8
@@ -16,7 +14,7 @@ class SPPATHENTRY extends Win32Struct
     /**
      * @type {SPTRANSITIONID}
      */
-    hTransition{
+    hTransition {
         get {
             if(!this.HasProp("__hTransition"))
                 this.__hTransition := SPTRANSITIONID(0, this)
@@ -27,7 +25,7 @@ class SPPATHENTRY extends Win32Struct
     /**
      * @type {SPPHRASEELEMENT}
      */
-    elem{
+    elem {
         get {
             if(!this.HasProp("__elem"))
                 this.__elem := SPPHRASEELEMENT(8, this)

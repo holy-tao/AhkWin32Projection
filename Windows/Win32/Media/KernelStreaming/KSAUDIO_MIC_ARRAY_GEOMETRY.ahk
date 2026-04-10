@@ -4,13 +4,11 @@
 
 /**
  * @namespace Windows.Win32.Media.KernelStreaming
- * @version v4.0.30319
  */
-class KSAUDIO_MIC_ARRAY_GEOMETRY extends Win32Struct
-{
-    static sizeof => 32
+class KSAUDIO_MIC_ARRAY_GEOMETRY extends Win32Struct {
+    static sizeof => 30
 
-    static packingSize => 8
+    static packingSize => 2
 
     /**
      * @type {Integer}
@@ -85,12 +83,12 @@ class KSAUDIO_MIC_ARRAY_GEOMETRY extends Win32Struct
     }
 
     /**
-     * @type {Array<KSAUDIO_MICROPHONE_COORDINATES>}
+     * @type {KSAUDIO_MICROPHONE_COORDINATES}
      */
-    KsMicCoord{
+    KsMicCoord {
         get {
             if(!this.HasProp("__KsMicCoordProxyArray"))
-                this.__KsMicCoordProxyArray := Win32FixedArray(this.ptr + 24, 1, KSAUDIO_MICROPHONE_COORDINATES, "")
+                this.__KsMicCoordProxyArray := Win32FixedArray(this.ptr + 18, 1, KSAUDIO_MICROPHONE_COORDINATES, "")
             return this.__KsMicCoordProxyArray
         }
     }

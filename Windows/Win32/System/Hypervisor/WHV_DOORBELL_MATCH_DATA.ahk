@@ -3,10 +3,8 @@
 
 /**
  * @namespace Windows.Win32.System.Hypervisor
- * @version v4.0.30319
  */
-class WHV_DOORBELL_MATCH_DATA extends Win32Struct
-{
+class WHV_DOORBELL_MATCH_DATA extends Win32Struct {
     static sizeof => 24
 
     static packingSize => 8

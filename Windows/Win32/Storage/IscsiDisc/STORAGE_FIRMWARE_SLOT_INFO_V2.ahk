@@ -3,10 +3,8 @@
 
 /**
  * @namespace Windows.Win32.Storage.IscsiDisc
- * @version v4.0.30319
  */
-class STORAGE_FIRMWARE_SLOT_INFO_V2 extends Win32Struct
-{
+class STORAGE_FIRMWARE_SLOT_INFO_V2 extends Win32Struct {
     static sizeof => 24
 
     static packingSize => 1
@@ -28,9 +26,9 @@ class STORAGE_FIRMWARE_SLOT_INFO_V2 extends Win32Struct
     }
 
     /**
-     * @type {Array<Byte>}
+     * @type {Array<Integer>}
      */
-    Reserved{
+    Reserved {
         get {
             if(!this.HasProp("__ReservedProxyArray"))
                 this.__ReservedProxyArray := Win32FixedArray(this.ptr + 2, 6, Primitive, "char")
@@ -39,9 +37,9 @@ class STORAGE_FIRMWARE_SLOT_INFO_V2 extends Win32Struct
     }
 
     /**
-     * @type {Array<Byte>}
+     * @type {Array<Integer>}
      */
-    Revision{
+    Revision {
         get {
             if(!this.HasProp("__RevisionProxyArray"))
                 this.__RevisionProxyArray := Win32FixedArray(this.ptr + 8, 16, Primitive, "char")

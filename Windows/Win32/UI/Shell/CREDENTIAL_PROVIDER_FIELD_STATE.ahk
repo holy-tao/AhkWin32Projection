@@ -5,9 +5,8 @@
  * Specifies the state of a single field in the Credential UI.
  * @see https://learn.microsoft.com/windows/win32/api/credentialprovider/ne-credentialprovider-credential_provider_field_state
  * @namespace Windows.Win32.UI.Shell
- * @version v4.0.30319
  */
-class CREDENTIAL_PROVIDER_FIELD_STATE extends Win32Enum{
+class CREDENTIAL_PROVIDER_FIELD_STATE extends Win32Enum {
 
     /**
      * Do not show the field in any state. One example of this would be a password edit control that should not be displayed until the user authenticates a thumb print. Until the thumb print has been authenticated, the state of the password field would be <b>CPFS_HIDDEN</b>.

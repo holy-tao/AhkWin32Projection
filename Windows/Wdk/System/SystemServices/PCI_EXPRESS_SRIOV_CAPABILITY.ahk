@@ -3,16 +3,14 @@
 
 /**
  * @namespace Windows.Wdk.System.SystemServices
- * @version v4.0.30319
  */
-class PCI_EXPRESS_SRIOV_CAPABILITY extends Win32Struct
-{
+class PCI_EXPRESS_SRIOV_CAPABILITY extends Win32Struct {
     static sizeof => 88
 
     static packingSize => 8
 
     /**
-     * @type {Pointer<PCI_EXPRESS_ENHANCED_CAPABILITY_HEADER>}
+     * @type {Pointer}
      */
     Header {
         get => NumGet(this, 0, "ptr")
@@ -20,7 +18,7 @@ class PCI_EXPRESS_SRIOV_CAPABILITY extends Win32Struct
     }
 
     /**
-     * @type {Pointer<PCI_EXPRESS_SRIOV_CAPS>}
+     * @type {Pointer}
      */
     SRIOVCapabilities {
         get => NumGet(this, 8, "ptr")
@@ -28,7 +26,7 @@ class PCI_EXPRESS_SRIOV_CAPABILITY extends Win32Struct
     }
 
     /**
-     * @type {Pointer<PCI_EXPRESS_SRIOV_CONTROL>}
+     * @type {Pointer}
      */
     SRIOVControl {
         get => NumGet(this, 16, "ptr")
@@ -36,7 +34,7 @@ class PCI_EXPRESS_SRIOV_CAPABILITY extends Win32Struct
     }
 
     /**
-     * @type {Pointer<PCI_EXPRESS_SRIOV_STATUS>}
+     * @type {Pointer}
      */
     SRIOVStatus {
         get => NumGet(this, 24, "ptr")
@@ -132,9 +130,9 @@ class PCI_EXPRESS_SRIOV_CAPABILITY extends Win32Struct
     }
 
     /**
-     * @type {Array<UInt32>}
+     * @type {Array<Integer>}
      */
-    BaseAddresses{
+    BaseAddresses {
         get {
             if(!this.HasProp("__BaseAddressesProxyArray"))
                 this.__BaseAddressesProxyArray := Win32FixedArray(this.ptr + 56, 6, Primitive, "uint")
@@ -143,7 +141,7 @@ class PCI_EXPRESS_SRIOV_CAPABILITY extends Win32Struct
     }
 
     /**
-     * @type {Pointer<PCI_EXPRESS_SRIOV_MIGRATION_STATE_ARRAY>}
+     * @type {Pointer}
      */
     VFMigrationStateArrayOffset {
         get => NumGet(this, 80, "ptr")

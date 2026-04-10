@@ -1,5 +1,6 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
+#Include .\D3DDEVTYPE.ahk
 #Include .\D3DVSHADERCAPS2_0.ahk
 #Include .\D3DPSHADERCAPS2_0.ahk
 
@@ -23,10 +24,8 @@
  * </ul>
  * @see https://learn.microsoft.com/windows/win32/api/d3d9caps/ns-d3d9caps-d3dcaps9
  * @namespace Windows.Win32.Graphics.Direct3D9
- * @version v4.0.30319
  */
-class D3DCAPS9 extends Win32Struct
-{
+class D3DCAPS9 extends Win32Struct {
     static sizeof => 304
 
     static packingSize => 4
@@ -35,7 +34,7 @@ class D3DCAPS9 extends Win32Struct
      * Type: <b><a href="https://docs.microsoft.com/windows/desktop/direct3d9/d3ddevtype">D3DDEVTYPE</a></b>
      * 
      * Member of the <a href="https://docs.microsoft.com/windows/desktop/direct3d9/d3ddevtype">D3DDEVTYPE</a> enumerated type, which identifies what type of resources are used for processing vertices.
-     * @type {Integer}
+     * @type {D3DDEVTYPE}
      */
     DeviceType {
         get => NumGet(this, 0, "int")
@@ -2260,7 +2259,7 @@ class D3DCAPS9 extends Win32Struct
      * Device supports vertex shader version 2_0 extended capability. See <a href="https://docs.microsoft.com/windows/desktop/api/d3d9caps/ns-d3d9caps-d3dvshadercaps2_0">D3DVSHADERCAPS2_0</a>.
      * @type {D3DVSHADERCAPS2_0}
      */
-    VS20Caps{
+    VS20Caps {
         get {
             if(!this.HasProp("__VS20Caps"))
                 this.__VS20Caps := D3DVSHADERCAPS2_0(248, this)
@@ -2274,7 +2273,7 @@ class D3DCAPS9 extends Win32Struct
      * Device supports pixel shader version 2_0 extended capability. See <a href="https://docs.microsoft.com/windows/desktop/api/d3d9caps/ns-d3d9caps-d3dpshadercaps2_0">D3DPSHADERCAPS2_0</a>.
      * @type {D3DPSHADERCAPS2_0}
      */
-    PS20Caps{
+    PS20Caps {
         get {
             if(!this.HasProp("__PS20Caps"))
                 this.__PS20Caps := D3DPSHADERCAPS2_0(264, this)

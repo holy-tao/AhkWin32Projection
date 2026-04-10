@@ -1,15 +1,15 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
+#Include .\CERT_QUERY_ENCODING_TYPE.ahk
+#Include .\CERT_INFO.ahk
 #Include .\HCERTSTORE.ahk
 
 /**
  * Contains both the encoded and decoded representations of a certificate.
  * @see https://learn.microsoft.com/windows/win32/api/wincrypt/ns-wincrypt-cert_context
  * @namespace Windows.Win32.Security.Cryptography
- * @version v4.0.30319
  */
-class CERT_CONTEXT extends Win32Struct
-{
+class CERT_CONTEXT extends Win32Struct {
     static sizeof => 40
 
     static packingSize => 8
@@ -23,7 +23,7 @@ class CERT_CONTEXT extends Win32Struct
      * <li>X509_ASN_ENCODING</li>
      * <li>PKCS_7_ASN_ENCODING</li>
      * </ul>
-     * @type {Integer}
+     * @type {CERT_QUERY_ENCODING_TYPE}
      */
     dwCertEncodingType {
         get => NumGet(this, 0, "uint")
@@ -61,7 +61,7 @@ class CERT_CONTEXT extends Win32Struct
      * A handle to the <a href="https://docs.microsoft.com/windows/desktop/SecGloss/c-gly">certificate store</a> that contains the certificate <a href="https://docs.microsoft.com/windows/desktop/SecGloss/c-gly">context</a>.
      * @type {HCERTSTORE}
      */
-    hCertStore{
+    hCertStore {
         get {
             if(!this.HasProp("__hCertStore"))
                 this.__hCertStore := HCERTSTORE(32, this)

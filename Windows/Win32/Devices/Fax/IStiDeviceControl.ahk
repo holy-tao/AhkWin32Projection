@@ -5,9 +5,8 @@
 
 /**
  * @namespace Windows.Win32.Devices.Fax
- * @version v4.0.30319
  */
-class IStiDeviceControl extends IUnknown{
+class IStiDeviceControl extends IUnknown {
 
     static sizeof => A_PtrSize
     /**

@@ -1,18 +1,17 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
+#Include ..\..\System\Com\IDispatch.ahk
 #Include ..\..\Foundation\BSTR.ahk
 #Include ..\..\System\Variant\VARIANT.ahk
 #Include .\IEnumDirectoryObject.ahk
-#Include ..\..\System\Com\IDispatch.ahk
 
 /**
  * The ITDirectory interface is exposed by the Directory object, which corresponds to a particular directory.
  * @see https://learn.microsoft.com/windows/win32/api/rend/nn-rend-itdirectory
  * @namespace Windows.Win32.Devices.Tapi
- * @version v4.0.30319
  */
-class ITDirectory extends IDispatch{
+class ITDirectory extends IDispatch {
 
     static sizeof => A_PtrSize
     /**
@@ -34,7 +33,7 @@ class ITDirectory extends IDispatch{
     static VTableNames => ["get_DirectoryType", "get_DisplayName", "get_IsDynamic", "get_DefaultObjectTTL", "put_DefaultObjectTTL", "EnableAutoRefresh", "Connect", "Bind", "AddDirectoryObject", "ModifyDirectoryObject", "RefreshDirectoryObject", "DeleteDirectoryObject", "get_DirectoryObjects", "EnumerateDirectoryObjects"]
 
     /**
-     * @type {Integer} 
+     * @type {DIRECTORY_TYPE} 
      */
     DirectoryType {
         get => this.get_DirectoryType()
@@ -64,7 +63,7 @@ class ITDirectory extends IDispatch{
 
     /**
      * The get_DirectoryType method gets DIRECTORY_TYPE indicator of the type of the directory.
-     * @returns {Integer} Pointer to type of the directory.
+     * @returns {DIRECTORY_TYPE} Pointer to type of the directory.
      * @see https://learn.microsoft.com/windows/win32/api/rend/nf-rend-itdirectory-get_directorytype
      */
     get_DirectoryType() {
@@ -649,7 +648,7 @@ class ITDirectory extends IDispatch{
      * TAPI calls the <b>AddRef</b> method on the 
      * <a href="https://docs.microsoft.com/windows/desktop/api/rend/nn-rend-itdirectoryobject">ITDirectoryObject</a> interface returned by <b>ITDirectory::get_DirectoryObjects</b>. The application must call <b>Release</b> on the 
      * <b>ITDirectoryObject</b> interface to free resources associated with it.
-     * @param {Integer} DirectoryObjectType The 
+     * @param {DIRECTORY_OBJECT_TYPE} DirectoryObjectType The 
      * <a href="https://docs.microsoft.com/windows/desktop/api/rend/ne-rend-directory_object_type">DIRECTORY_OBJECT_TYPE</a> criteria for object desired.
      * @param {BSTR} pName Pointer to a <b>BSTR</b> containing the full or partial name of the object. The "*" wildcard is supported.
      * @returns {VARIANT} Pointer to a <b>VARIANT</b> that receives an 
@@ -675,7 +674,7 @@ class ITDirectory extends IDispatch{
      * TAPI calls the <b>AddRef</b> method on the 
      * <a href="https://docs.microsoft.com/windows/desktop/api/rend/nn-rend-ienumdirectoryobject">IEnumDirectoryObject</a> interface returned by <b>ITDirectory::EnumerateDirectoryObjects</b>. The application must call <b>Release</b> on the 
      * <b>IEnumDirectoryObject</b> interface to free resources associated with it.
-     * @param {Integer} DirectoryObjectType The 
+     * @param {DIRECTORY_OBJECT_TYPE} DirectoryObjectType The 
      * <a href="https://docs.microsoft.com/windows/desktop/api/rend/ne-rend-directory_object_type">DIRECTORY_OBJECT_TYPE</a> criteria for object desired.
      * @param {BSTR} pName Pointer to a <b>BSTR</b> containing the full or partial name of the object. The "*" wildcard is supported.
      * @returns {IEnumDirectoryObject} Pointer to receive 

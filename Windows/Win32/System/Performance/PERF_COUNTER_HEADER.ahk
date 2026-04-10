@@ -1,5 +1,6 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
+#Include .\PerfCounterDataType.ahk
 
 /**
  * Contains information about the PERF_COUNTER_HEADER block that contains the structure.
@@ -8,10 +9,8 @@
  * contains a sequence of <b>PERF_COUNTER_HEADER</b> blocks.
  * @see https://learn.microsoft.com/windows/win32/api/perflib/ns-perflib-perf_counter_header
  * @namespace Windows.Win32.System.Performance
- * @version v4.0.30319
  */
-class PERF_COUNTER_HEADER extends Win32Struct
-{
+class PERF_COUNTER_HEADER extends Win32Struct {
     static sizeof => 16
 
     static packingSize => 4
@@ -95,7 +94,7 @@ class PERF_COUNTER_HEADER extends Win32Struct
      * </td>
      * </tr>
      * </table>
-     * @type {Integer}
+     * @type {PerfCounterDataType}
      */
     dwType {
         get => NumGet(this, 4, "int")

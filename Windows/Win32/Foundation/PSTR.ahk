@@ -3,10 +3,8 @@
 
 /**
  * @namespace Windows.Win32.Foundation
- * @version v4.0.30319
  */
-class PSTR extends Win32Struct
-{
+class PSTR extends Win32Struct {
     static sizeof => 8
 
     static packingSize => 8
@@ -18,7 +16,6 @@ class PSTR extends Win32Struct
         get => NumGet(this, 0, "ptr")
         set => NumPut("ptr", value, this, 0)
     }
-
     /**
      * Creates and returns a `Buffer` containing a copy of `str` in ANSI encoding which can be passed
      * as an argument to functins requiring `PSTR`s.

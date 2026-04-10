@@ -3,9 +3,8 @@
 
 /**
  * @namespace Windows.Win32.Storage.OperationRecorder
- * @version v4.0.30319
  */
-class OPERATION_END_PARAMETERS_FLAGS extends Win32BitflagEnum{
+class OPERATION_END_PARAMETERS_FLAGS extends Win32BitflagEnum {
 
     /**
      * @type {Integer (UInt32)}

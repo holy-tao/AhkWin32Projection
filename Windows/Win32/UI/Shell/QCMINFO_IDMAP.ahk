@@ -4,13 +4,11 @@
 
 /**
  * @namespace Windows.Win32.UI.Shell
- * @version v4.0.30319
  */
-class QCMINFO_IDMAP extends Win32Struct
-{
-    static sizeof => 16
+class QCMINFO_IDMAP extends Win32Struct {
+    static sizeof => 12
 
-    static packingSize => 8
+    static packingSize => 4
 
     /**
      * @type {Integer}
@@ -21,12 +19,12 @@ class QCMINFO_IDMAP extends Win32Struct
     }
 
     /**
-     * @type {Array<QCMINFO_IDMAP_PLACEMENT>}
+     * @type {QCMINFO_IDMAP_PLACEMENT}
      */
-    pIdList{
+    pIdList {
         get {
             if(!this.HasProp("__pIdListProxyArray"))
-                this.__pIdListProxyArray := Win32FixedArray(this.ptr + 8, 1, QCMINFO_IDMAP_PLACEMENT, "")
+                this.__pIdListProxyArray := Win32FixedArray(this.ptr + 4, 1, QCMINFO_IDMAP_PLACEMENT, "")
             return this.__pIdListProxyArray
         }
     }

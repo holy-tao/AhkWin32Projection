@@ -1,14 +1,13 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
+#Include .\AUTH_TYPE.ahk
 
 /**
  * Describes security authentication information for content access.
  * @see https://learn.microsoft.com/windows/win32/api/searchapi/ns-searchapi-authentication_info
  * @namespace Windows.Win32.System.Search
- * @version v4.0.30319
  */
-class AUTHENTICATION_INFO extends Win32Struct
-{
+class AUTHENTICATION_INFO extends Win32Struct {
     static sizeof => 24
 
     static packingSize => 8
@@ -28,7 +27,7 @@ class AUTHENTICATION_INFO extends Win32Struct
      * Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/searchapi/ne-searchapi-auth_type">AUTH_TYPE</a></b>
      * 
      * Flag to describe the type of authentication. For a list of possible values, see the <a href="https://docs.microsoft.com/windows/desktop/api/searchapi/ne-searchapi-auth_type">AUTH_TYPE</a> enumerated type.
-     * @type {Integer}
+     * @type {AUTH_TYPE}
      */
     atAuthenticationType {
         get => NumGet(this, 4, "int")

@@ -1,7 +1,7 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
-#Include .\FIXED.ahk
 #Include .\POINTFX.ahk
+#Include .\FIXED.ahk
 
 /**
  * The TTPOLYCURVE structure contains information about a curve in the outline of a TrueType character.
@@ -11,16 +11,13 @@
  * Polyline records are a series of points; lines drawn between the points describe the outline of the character. Spline records represent the quadratic curves (that is, quadratic b-splines) used by TrueType.
  * @see https://learn.microsoft.com/windows/win32/api/wingdi/ns-wingdi-ttpolycurve
  * @namespace Windows.Win32.Graphics.Gdi
- * @version v4.0.30319
  */
-class TTPOLYCURVE extends Win32Struct
-{
-    static sizeof => 16
+class TTPOLYCURVE extends Win32Struct {
+    static sizeof => 12
 
-    static packingSize => 8
+    static packingSize => 2
 
     /**
-     * 
      * @type {Integer}
      */
     wType {
@@ -39,12 +36,12 @@ class TTPOLYCURVE extends Win32Struct
 
     /**
      * Specifies an array of <a href="https://docs.microsoft.com/windows/desktop/api/wingdi/ns-wingdi-pointfx">POINTFX</a> structures that define the polyline or Bézier spline.
-     * @type {Array<POINTFX>}
+     * @type {POINTFX}
      */
-    apfx{
+    apfx {
         get {
             if(!this.HasProp("__apfxProxyArray"))
-                this.__apfxProxyArray := Win32FixedArray(this.ptr + 8, 1, POINTFX, "")
+                this.__apfxProxyArray := Win32FixedArray(this.ptr + 4, 1, POINTFX, "")
             return this.__apfxProxyArray
         }
     }

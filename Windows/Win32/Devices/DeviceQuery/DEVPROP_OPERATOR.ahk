@@ -3,9 +3,8 @@
 
 /**
  * @namespace Windows.Win32.Devices.DeviceQuery
- * @version v4.0.30319
  */
-class DEVPROP_OPERATOR extends Win32BitflagEnum{
+class DEVPROP_OPERATOR extends Win32BitflagEnum {
 
     /**
      * @type {Integer (UInt32)}

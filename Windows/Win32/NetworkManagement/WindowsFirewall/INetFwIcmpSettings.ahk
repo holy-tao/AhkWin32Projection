@@ -15,9 +15,8 @@
  * effect immediately.
  * @see https://learn.microsoft.com/windows/win32/api/netfw/nn-netfw-inetfwicmpsettings
  * @namespace Windows.Win32.NetworkManagement.WindowsFirewall
- * @version v4.0.30319
  */
-class INetFwIcmpSettings extends IDispatch{
+class INetFwIcmpSettings extends IDispatch {
 
     static sizeof => A_PtrSize
     /**

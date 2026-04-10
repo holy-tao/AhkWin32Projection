@@ -3,10 +3,8 @@
 
 /**
  * @namespace Windows.Win32.NetworkManagement.WindowsFilteringPlatform
- * @version v4.0.30319
  */
-class FWPM_NET_EVENT_LPM_PACKET_ARRIVAL0 extends Win32Struct
-{
+class FWPM_NET_EVENT_LPM_PACKET_ARRIVAL0 extends Win32Struct {
     static sizeof => 4
 
     static packingSize => 4

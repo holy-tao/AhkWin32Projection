@@ -9,10 +9,8 @@
  * ADSI may also return attributes as <b>ADS_PROV_SPECIFIC</b> if unable to determine the correct attribute syntax type as would occur if, for example, the schema was unavailable.
  * @see https://learn.microsoft.com/windows/win32/api/iads/ns-iads-ads_prov_specific
  * @namespace Windows.Win32.Networking.ActiveDirectory
- * @version v4.0.30319
  */
-class ADS_PROV_SPECIFIC extends Win32Struct
-{
+class ADS_PROV_SPECIFIC extends Win32Struct {
     static sizeof => 16
 
     static packingSize => 8

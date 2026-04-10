@@ -5,9 +5,8 @@
  * The TAPI_GATHERTERM enum is used to describe the reasons why the TAPI Server terminated the gathering of digits on the call.
  * @see https://learn.microsoft.com/windows/win32/api/tapi3if/ne-tapi3if-tapi_gatherterm
  * @namespace Windows.Win32.Devices.Tapi
- * @version v4.0.30319
  */
-class TAPI_GATHERTERM extends Win32Enum{
+class TAPI_GATHERTERM extends Win32Enum {
 
     /**
      * The requested number of digits has been gathered. The buffer is full.

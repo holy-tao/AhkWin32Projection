@@ -3,10 +3,8 @@
 
 /**
  * @namespace Windows.Wdk.Graphics.Direct3D
- * @version v4.0.30319
  */
-class D3DKMT_DEBUG_SNAPSHOT_ESCAPE extends Win32Struct
-{
+class D3DKMT_DEBUG_SNAPSHOT_ESCAPE extends Win32Struct {
     static sizeof => 8
 
     static packingSize => 4
@@ -20,9 +18,9 @@ class D3DKMT_DEBUG_SNAPSHOT_ESCAPE extends Win32Struct
     }
 
     /**
-     * @type {Array<Byte>}
+     * @type {Array<Integer>}
      */
-    Buffer{
+    Buffer {
         get {
             if(!this.HasProp("__BufferProxyArray"))
                 this.__BufferProxyArray := Win32FixedArray(this.ptr + 4, 1, Primitive, "char")

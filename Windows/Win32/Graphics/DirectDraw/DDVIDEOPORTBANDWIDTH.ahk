@@ -5,10 +5,8 @@
  * The DDVIDEOPORTBANDWIDTH structure describes the bandwidth characteristics of an overlay when used with a particular video port extensions (VPE) object/pixel format configuration.
  * @see https://learn.microsoft.com/windows/win32/api/dvp/ns-dvp-ddvideoportbandwidth
  * @namespace Windows.Win32.Graphics.DirectDraw
- * @version v4.0.30319
  */
-class DDVIDEOPORTBANDWIDTH extends Win32Struct
-{
+class DDVIDEOPORTBANDWIDTH extends Win32Struct {
     static sizeof => 40
 
     static packingSize => 8
@@ -23,7 +21,6 @@ class DDVIDEOPORTBANDWIDTH extends Win32Struct
     }
 
     /**
-     * 
      * @type {Integer}
      */
     dwCaps {

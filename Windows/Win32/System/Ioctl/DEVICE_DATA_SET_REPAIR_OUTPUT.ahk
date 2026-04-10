@@ -4,10 +4,8 @@
 
 /**
  * @namespace Windows.Win32.System.Ioctl
- * @version v4.0.30319
  */
-class DEVICE_DATA_SET_REPAIR_OUTPUT extends Win32Struct
-{
+class DEVICE_DATA_SET_REPAIR_OUTPUT extends Win32Struct {
     static sizeof => 16
 
     static packingSize => 8
@@ -15,7 +13,7 @@ class DEVICE_DATA_SET_REPAIR_OUTPUT extends Win32Struct
     /**
      * @type {DEVICE_DATA_SET_RANGE}
      */
-    ParityExtent{
+    ParityExtent {
         get {
             if(!this.HasProp("__ParityExtent"))
                 this.__ParityExtent := DEVICE_DATA_SET_RANGE(0, this)

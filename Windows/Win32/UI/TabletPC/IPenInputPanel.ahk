@@ -1,16 +1,15 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
-#Include ..\..\Foundation\BSTR.ahk
 #Include ..\..\System\Com\IDispatch.ahk
+#Include ..\..\Foundation\BSTR.ahk
 
 /**
  * . (IPenInputPanel)
  * @see https://learn.microsoft.com/windows/win32/api/peninputpanel/nn-peninputpanel-ipeninputpanel
  * @namespace Windows.Win32.UI.TabletPC
- * @version v4.0.30319
  */
-class IPenInputPanel extends IDispatch{
+class IPenInputPanel extends IDispatch {
 
     static sizeof => A_PtrSize
     /**
@@ -61,7 +60,7 @@ class IPenInputPanel extends IDispatch{
     }
 
     /**
-     * @type {Integer} 
+     * @type {PanelType} 
      */
     CurrentPanel {
         get => this.get_CurrentPanel()
@@ -69,7 +68,7 @@ class IPenInputPanel extends IDispatch{
     }
 
     /**
-     * @type {Integer} 
+     * @type {PanelType} 
      */
     DefaultPanel {
         get => this.get_DefaultPanel()
@@ -247,7 +246,7 @@ class IPenInputPanel extends IDispatch{
      * If you change the panel by setting the <b>CurrentPanel</b> property before the <a href="https://docs.microsoft.com/windows/desktop/tablet/peninputpanel-class">PenInputPanel</a> object becomes active for the first time, a <a href="https://docs.microsoft.com/windows/desktop/tablet/peninputpanel-panelchanged">PanelChanged</a> event occurs.
      * 
      * <b>CurrentPanel</b> returns the <a href="https://docs.microsoft.com/windows/desktop/api/peninputpanel/ne-peninputpanel-paneltype">Inactive</a> enumeration value if the panel window is associated with another instance of the <a href="https://docs.microsoft.com/windows/desktop/tablet/peninputpanel-class">PenInputPanel</a> object. Setting the <b>CurrentPanel</b> property raises an exception if the panel is inactive or if the panel type is invalid.
-     * @returns {Integer} 
+     * @returns {PanelType} 
      * @see https://learn.microsoft.com/windows/win32/api/peninputpanel/nf-peninputpanel-ipeninputpanel-get_currentpanel
      */
     get_CurrentPanel() {
@@ -265,7 +264,7 @@ class IPenInputPanel extends IDispatch{
      * If you change the panel by setting the <b>CurrentPanel</b> property before the <a href="https://docs.microsoft.com/windows/desktop/tablet/peninputpanel-class">PenInputPanel</a> object becomes active for the first time, a <a href="https://docs.microsoft.com/windows/desktop/tablet/peninputpanel-panelchanged">PanelChanged</a> event occurs.
      * 
      * <b>CurrentPanel</b> returns the <a href="https://docs.microsoft.com/windows/desktop/api/peninputpanel/ne-peninputpanel-paneltype">Inactive</a> enumeration value if the panel window is associated with another instance of the <a href="https://docs.microsoft.com/windows/desktop/tablet/peninputpanel-class">PenInputPanel</a> object. Setting the <b>CurrentPanel</b> property raises an exception if the panel is inactive or if the panel type is invalid.
-     * @param {Integer} CurrentPanel 
+     * @param {PanelType} CurrentPanel 
      * @returns {HRESULT} 
      * @see https://learn.microsoft.com/windows/win32/api/peninputpanel/nf-peninputpanel-ipeninputpanel-put_currentpanel
      */
@@ -288,7 +287,7 @@ class IPenInputPanel extends IDispatch{
      * Setting the <b>DefaultPanel</b> property enables you to specify which type of panel shows by default in that instance of the <a href="https://docs.microsoft.com/windows/desktop/tablet/peninputpanel-class">PenInputPanel</a> object. If the value of this property is <a href="https://docs.microsoft.com/windows/desktop/api/peninputpanel/ne-peninputpanel-paneltype">Handwriting</a> or <b>Keyboard</b>, then each time the panel is made visible, it uses the handwriting or keyboard panel type, respectively.
      * 
      * If you re-attach the <a href="https://docs.microsoft.com/windows/desktop/tablet/peninputpanel-class">PenInputPanel</a> to a different control and change the <b>DefaultPanel</b> property when the focus changes to the new control, be sure to set the <b>DefaultPanel</b> property before setting the <a href="https://docs.microsoft.com/windows/desktop/api/peninputpanel/nf-peninputpanel-ipeninputpanel-get_attachededitwindow">AttachedEditWindow</a> property to ensure that the correct panel is displayed.
-     * @returns {Integer} 
+     * @returns {PanelType} 
      * @see https://learn.microsoft.com/windows/win32/api/peninputpanel/nf-peninputpanel-ipeninputpanel-get_defaultpanel
      */
     get_DefaultPanel() {
@@ -310,7 +309,7 @@ class IPenInputPanel extends IDispatch{
      * Setting the <b>DefaultPanel</b> property enables you to specify which type of panel shows by default in that instance of the <a href="https://docs.microsoft.com/windows/desktop/tablet/peninputpanel-class">PenInputPanel</a> object. If the value of this property is <a href="https://docs.microsoft.com/windows/desktop/api/peninputpanel/ne-peninputpanel-paneltype">Handwriting</a> or <b>Keyboard</b>, then each time the panel is made visible, it uses the handwriting or keyboard panel type, respectively.
      * 
      * If you re-attach the <a href="https://docs.microsoft.com/windows/desktop/tablet/peninputpanel-class">PenInputPanel</a> to a different control and change the <b>DefaultPanel</b> property when the focus changes to the new control, be sure to set the <b>DefaultPanel</b> property before setting the <a href="https://docs.microsoft.com/windows/desktop/api/peninputpanel/nf-peninputpanel-ipeninputpanel-get_attachededitwindow">AttachedEditWindow</a> property to ensure that the correct panel is displayed.
-     * @param {Integer} DefaultPanel 
+     * @param {PanelType} DefaultPanel 
      * @returns {HRESULT} 
      * @see https://learn.microsoft.com/windows/win32/api/peninputpanel/nf-peninputpanel-ipeninputpanel-put_defaultpanel
      */

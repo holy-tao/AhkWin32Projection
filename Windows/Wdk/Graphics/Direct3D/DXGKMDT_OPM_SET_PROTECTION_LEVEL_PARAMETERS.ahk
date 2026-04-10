@@ -3,10 +3,8 @@
 
 /**
  * @namespace Windows.Wdk.Graphics.Direct3D
- * @version v4.0.30319
  */
-class DXGKMDT_OPM_SET_PROTECTION_LEVEL_PARAMETERS extends Win32Struct
-{
+class DXGKMDT_OPM_SET_PROTECTION_LEVEL_PARAMETERS extends Win32Struct {
     static sizeof => 16
 
     static packingSize => 4

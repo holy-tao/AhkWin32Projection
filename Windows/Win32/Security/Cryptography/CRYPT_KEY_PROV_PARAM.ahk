@@ -5,10 +5,8 @@
  * Contains information about a key container parameter.
  * @see https://learn.microsoft.com/windows/win32/api/wincrypt/ns-wincrypt-crypt_key_prov_param
  * @namespace Windows.Win32.Security.Cryptography
- * @version v4.0.30319
  */
-class CRYPT_KEY_PROV_PARAM extends Win32Struct
-{
+class CRYPT_KEY_PROV_PARAM extends Win32Struct {
     static sizeof => 24
 
     static packingSize => 8

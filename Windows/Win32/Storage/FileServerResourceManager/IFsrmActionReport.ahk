@@ -1,8 +1,8 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
-#Include ..\..\Foundation\BSTR.ahk
 #Include .\IFsrmAction.ahk
+#Include ..\..\Foundation\BSTR.ahk
 
 /**
  * Used to generate a report in response to a quota or file screen event.
@@ -11,9 +11,8 @@
  *     the other property is optional.
  * @see https://learn.microsoft.com/windows/win32/api/fsrm/nn-fsrm-ifsrmactionreport
  * @namespace Windows.Win32.Storage.FileServerResourceManager
- * @version v4.0.30319
  */
-class IFsrmActionReport extends IFsrmAction{
+class IFsrmActionReport extends IFsrmAction {
 
     static sizeof => A_PtrSize
     /**

@@ -1,11 +1,11 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\..\Guid.ahk
+#Include ..\..\..\System\Com\IUnknown.ahk
 #Include .\IOpcPartUri.ahk
 #Include .\IOpcDigitalSignatureEnumerator.ahk
 #Include .\IOpcSigningOptions.ahk
 #Include .\IOpcDigitalSignature.ahk
-#Include ..\..\..\System\Com\IUnknown.ahk
 
 /**
  * Provides access to Packaging Digital Signature Interfaces for a package that is represented by Packaging API objects.
@@ -20,9 +20,8 @@
  * <div> </div>
  * @see https://learn.microsoft.com/windows/win32/api/msopc/nn-msopc-iopcdigitalsignaturemanager
  * @namespace Windows.Win32.Storage.Packaging.Opc
- * @version v4.0.30319
  */
-class IOpcDigitalSignatureManager extends IUnknown{
+class IOpcDigitalSignatureManager extends IUnknown {
 
     static sizeof => A_PtrSize
     /**
@@ -204,7 +203,7 @@ class IOpcDigitalSignatureManager extends IUnknown{
      * If there are errors in a package signature, some of these errors may not be exposed until this method is called.
      * @param {IOpcDigitalSignature} signature An <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/msopc/nn-msopc-iopcdigitalsignature">IOpcDigitalSignature</a> interface pointer that represents  the signature to be validated.
      * @param {Pointer<CERT_CONTEXT>} certificate A pointer to a <a href="https://docs.microsoft.com/windows/desktop/api/wincrypt/ns-wincrypt-cert_context">CERT_CONTEXT</a> structure that contains a certificate that is used to validate the signature.
-     * @returns {Integer} A value that describes the result of the validation check.
+     * @returns {OPC_SIGNATURE_VALIDATION_RESULT} A value that describes the result of the validation check.
      * @see https://learn.microsoft.com/windows/win32/api/msopc/nf-msopc-iopcdigitalsignaturemanager-validate
      */
     Validate(signature, certificate) {

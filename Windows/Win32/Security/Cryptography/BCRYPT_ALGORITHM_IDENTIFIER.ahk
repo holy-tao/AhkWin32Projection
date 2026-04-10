@@ -5,10 +5,8 @@
  * Is used with the BCryptEnumAlgorithms function to contain a cryptographic algorithm identifier.
  * @see https://learn.microsoft.com/windows/win32/api/bcrypt/ns-bcrypt-bcrypt_algorithm_identifier
  * @namespace Windows.Win32.Security.Cryptography
- * @version v4.0.30319
  */
-class BCRYPT_ALGORITHM_IDENTIFIER extends Win32Struct
-{
+class BCRYPT_ALGORITHM_IDENTIFIER extends Win32Struct {
     static sizeof => 16
 
     static packingSize => 8

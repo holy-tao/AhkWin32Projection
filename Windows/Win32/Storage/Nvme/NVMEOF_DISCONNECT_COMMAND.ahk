@@ -4,10 +4,8 @@
 
 /**
  * @namespace Windows.Win32.Storage.Nvme
- * @version v4.0.30319
  */
-class NVMEOF_DISCONNECT_COMMAND extends Win32Struct
-{
+class NVMEOF_DISCONNECT_COMMAND extends Win32Struct {
     static sizeof => 64
 
     static packingSize => 8
@@ -45,9 +43,9 @@ class NVMEOF_DISCONNECT_COMMAND extends Win32Struct
     }
 
     /**
-     * @type {Array<Byte>}
+     * @type {Array<Integer>}
      */
-    Reserved1{
+    Reserved1 {
         get {
             if(!this.HasProp("__Reserved1ProxyArray"))
                 this.__Reserved1ProxyArray := Win32FixedArray(this.ptr + 5, 19, Primitive, "char")
@@ -58,7 +56,7 @@ class NVMEOF_DISCONNECT_COMMAND extends Win32Struct
     /**
      * @type {NVME_SGL_DATABLOCK_DESC}
      */
-    SGL1{
+    SGL1 {
         get {
             if(!this.HasProp("__SGL1"))
                 this.__SGL1 := NVME_SGL_DATABLOCK_DESC(24, this)
@@ -75,9 +73,9 @@ class NVMEOF_DISCONNECT_COMMAND extends Win32Struct
     }
 
     /**
-     * @type {Array<Byte>}
+     * @type {Array<Integer>}
      */
-    Reserved2{
+    Reserved2 {
         get {
             if(!this.HasProp("__Reserved2ProxyArray"))
                 this.__Reserved2ProxyArray := Win32FixedArray(this.ptr + 42, 22, Primitive, "char")

@@ -16,9 +16,8 @@
  * </ul>
  * @see https://learn.microsoft.com/windows/win32/api/directmanipulation/ne-directmanipulation-directmanipulation_drag_drop_status
  * @namespace Windows.Win32.Graphics.DirectManipulation
- * @version v4.0.30319
  */
-class DIRECTMANIPULATION_DRAG_DROP_STATUS extends Win32Enum{
+class DIRECTMANIPULATION_DRAG_DROP_STATUS extends Win32Enum {
 
     /**
      * The viewport is at rest and ready for input.

@@ -3,10 +3,8 @@
 
 /**
  * @namespace Windows.Win32.NetworkManagement.Ndis
- * @version v4.0.30319
  */
-class NDIS_IPSEC_OFFLOAD_V1 extends Win32Struct
-{
+class NDIS_IPSEC_OFFLOAD_V1 extends Win32Struct {
     static sizeof => 28
 
     static packingSize => 4
@@ -22,7 +20,7 @@ class NDIS_IPSEC_OFFLOAD_V1 extends Win32Struct
             get => NumGet(this, 0, "uint")
             set => NumPut("uint", value, this, 0)
         }
-    
+
         /**
          * @type {Integer}
          */
@@ -30,7 +28,7 @@ class NDIS_IPSEC_OFFLOAD_V1 extends Win32Struct
             get => NumGet(this, 4, "uint")
             set => NumPut("uint", value, this, 4)
         }
-    
+
         /**
          * @type {Integer}
          */
@@ -38,7 +36,7 @@ class NDIS_IPSEC_OFFLOAD_V1 extends Win32Struct
             get => NumGet(this, 8, "uint")
             set => NumPut("uint", value, this, 8)
         }
-    
+
         /**
          * @type {Integer}
          */
@@ -46,7 +44,7 @@ class NDIS_IPSEC_OFFLOAD_V1 extends Win32Struct
             get => NumGet(this, 12, "uint")
             set => NumPut("uint", value, this, 12)
         }
-    
+
         /**
          * @type {Integer}
          */
@@ -54,7 +52,6 @@ class NDIS_IPSEC_OFFLOAD_V1 extends Win32Struct
             get => NumGet(this, 16, "uint")
             set => NumPut("uint", value, this, 16)
         }
-    
     }
 
     class _IPv4AH extends Win32Struct {
@@ -75,7 +72,7 @@ class NDIS_IPSEC_OFFLOAD_V1 extends Win32Struct
             get => NumGet(this, 0, "uint")
             set => NumPut("uint", value, this, 0)
         }
-    
+
         /**
          * @type {Integer}
          */
@@ -83,7 +80,7 @@ class NDIS_IPSEC_OFFLOAD_V1 extends Win32Struct
             get => (this._bitfield >> 0) & 0x3
             set => this._bitfield := ((value & 0x3) << 0) | (this._bitfield & ~(0x3 << 0))
         }
-    
+
         /**
          * @type {Integer}
          */
@@ -91,7 +88,7 @@ class NDIS_IPSEC_OFFLOAD_V1 extends Win32Struct
             get => (this._bitfield >> 2) & 0x3
             set => this._bitfield := ((value & 0x3) << 2) | (this._bitfield & ~(0x3 << 2))
         }
-    
+
         /**
          * @type {Integer}
          */
@@ -99,7 +96,7 @@ class NDIS_IPSEC_OFFLOAD_V1 extends Win32Struct
             get => (this._bitfield >> 4) & 0x3
             set => this._bitfield := ((value & 0x3) << 4) | (this._bitfield & ~(0x3 << 4))
         }
-    
+
         /**
          * @type {Integer}
          */
@@ -107,7 +104,7 @@ class NDIS_IPSEC_OFFLOAD_V1 extends Win32Struct
             get => (this._bitfield >> 6) & 0x3
             set => this._bitfield := ((value & 0x3) << 6) | (this._bitfield & ~(0x3 << 6))
         }
-    
+
         /**
          * @type {Integer}
          */
@@ -115,7 +112,7 @@ class NDIS_IPSEC_OFFLOAD_V1 extends Win32Struct
             get => (this._bitfield >> 8) & 0x3
             set => this._bitfield := ((value & 0x3) << 8) | (this._bitfield & ~(0x3 << 8))
         }
-    
+
         /**
          * @type {Integer}
          */
@@ -123,7 +120,6 @@ class NDIS_IPSEC_OFFLOAD_V1 extends Win32Struct
             get => (this._bitfield >> 10) & 0x3
             set => this._bitfield := ((value & 0x3) << 10) | (this._bitfield & ~(0x3 << 10))
         }
-    
     }
 
     class _IPv4ESP extends Win32Struct {
@@ -146,7 +142,7 @@ class NDIS_IPSEC_OFFLOAD_V1 extends Win32Struct
             get => NumGet(this, 0, "uint")
             set => NumPut("uint", value, this, 0)
         }
-    
+
         /**
          * @type {Integer}
          */
@@ -154,7 +150,7 @@ class NDIS_IPSEC_OFFLOAD_V1 extends Win32Struct
             get => (this._bitfield >> 0) & 0x3
             set => this._bitfield := ((value & 0x3) << 0) | (this._bitfield & ~(0x3 << 0))
         }
-    
+
         /**
          * @type {Integer}
          */
@@ -162,7 +158,7 @@ class NDIS_IPSEC_OFFLOAD_V1 extends Win32Struct
             get => (this._bitfield >> 4) & 0x3
             set => this._bitfield := ((value & 0x3) << 4) | (this._bitfield & ~(0x3 << 4))
         }
-    
+
         /**
          * @type {Integer}
          */
@@ -170,7 +166,7 @@ class NDIS_IPSEC_OFFLOAD_V1 extends Win32Struct
             get => (this._bitfield >> 6) & 0x3
             set => this._bitfield := ((value & 0x3) << 6) | (this._bitfield & ~(0x3 << 6))
         }
-    
+
         /**
          * @type {Integer}
          */
@@ -178,7 +174,7 @@ class NDIS_IPSEC_OFFLOAD_V1 extends Win32Struct
             get => (this._bitfield >> 8) & 0x3
             set => this._bitfield := ((value & 0x3) << 8) | (this._bitfield & ~(0x3 << 8))
         }
-    
+
         /**
          * @type {Integer}
          */
@@ -186,7 +182,7 @@ class NDIS_IPSEC_OFFLOAD_V1 extends Win32Struct
             get => (this._bitfield >> 10) & 0x3
             set => this._bitfield := ((value & 0x3) << 10) | (this._bitfield & ~(0x3 << 10))
         }
-    
+
         /**
          * @type {Integer}
          */
@@ -194,7 +190,7 @@ class NDIS_IPSEC_OFFLOAD_V1 extends Win32Struct
             get => (this._bitfield >> 12) & 0x3
             set => this._bitfield := ((value & 0x3) << 12) | (this._bitfield & ~(0x3 << 12))
         }
-    
+
         /**
          * @type {Integer}
          */
@@ -202,16 +198,15 @@ class NDIS_IPSEC_OFFLOAD_V1 extends Win32Struct
             get => (this._bitfield >> 14) & 0x3
             set => this._bitfield := ((value & 0x3) << 14) | (this._bitfield & ~(0x3 << 14))
         }
-    
     }
 
     /**
      * @type {_Supported}
      */
-    Supported{
+    Supported {
         get {
             if(!this.HasProp("__Supported"))
-                this.__Supported := %this.__Class%._Supported(0, this)
+                this.__Supported := NDIS_IPSEC_OFFLOAD_V1._Supported(0, this)
             return this.__Supported
         }
     }
@@ -219,10 +214,10 @@ class NDIS_IPSEC_OFFLOAD_V1 extends Win32Struct
     /**
      * @type {_IPv4AH}
      */
-    IPv4AH{
+    IPv4AH {
         get {
             if(!this.HasProp("__IPv4AH"))
-                this.__IPv4AH := %this.__Class%._IPv4AH(20, this)
+                this.__IPv4AH := NDIS_IPSEC_OFFLOAD_V1._IPv4AH(20, this)
             return this.__IPv4AH
         }
     }
@@ -230,10 +225,10 @@ class NDIS_IPSEC_OFFLOAD_V1 extends Win32Struct
     /**
      * @type {_IPv4ESP}
      */
-    IPv4ESP{
+    IPv4ESP {
         get {
             if(!this.HasProp("__IPv4ESP"))
-                this.__IPv4ESP := %this.__Class%._IPv4ESP(24, this)
+                this.__IPv4ESP := NDIS_IPSEC_OFFLOAD_V1._IPv4ESP(24, this)
             return this.__IPv4ESP
         }
     }

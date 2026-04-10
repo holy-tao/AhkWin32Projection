@@ -11,10 +11,8 @@
  * <a href="https://docs.microsoft.com/windows/desktop/api/tapi/nf-tapi-linesetmediacontrol">lineSetMediaControl</a> function to set the media control actions triggered by digits detected on a given call. When a listed digit is detected, then the corresponding action on the media stream is invoked.
  * @see https://learn.microsoft.com/windows/win32/api/tapi/ns-tapi-linemediacontroldigit
  * @namespace Windows.Win32.Devices.Tapi
- * @version v4.0.30319
  */
-class LINEMEDIACONTROLDIGIT extends Win32Struct
-{
+class LINEMEDIACONTROLDIGIT extends Win32Struct {
     static sizeof => 12
 
     static packingSize => 4

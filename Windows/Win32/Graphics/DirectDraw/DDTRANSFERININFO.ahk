@@ -1,14 +1,14 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
+#Include .\DDSURFACEDATA.ahk
+#Include .\DDMDL.ahk
 
 /**
  * The DDTRANSFERININFO structure contains the transfer information for the surface
  * @see https://learn.microsoft.com/windows/win32/api/dxmini/ns-dxmini-ddtransferininfo
  * @namespace Windows.Win32.Graphics.DirectDraw
- * @version v4.0.30319
  */
-class DDTRANSFERININFO extends Win32Struct
-{
+class DDTRANSFERININFO extends Win32Struct {
     static sizeof => 40
 
     static packingSize => 8

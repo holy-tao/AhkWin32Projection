@@ -5,9 +5,8 @@
  * The name is a directory name.
  * @see https://learn.microsoft.com/windows/win32/api/certenc/nf-certenc-icertencodealtname-setnameentry
  * @namespace Windows.Win32.Security.Cryptography.Certificates
- * @version v4.0.30319
  */
-class CERT_ALT_NAME extends Win32Enum{
+class CERT_ALT_NAME extends Win32Enum {
 
     /**
      * @type {Integer (Int32)}

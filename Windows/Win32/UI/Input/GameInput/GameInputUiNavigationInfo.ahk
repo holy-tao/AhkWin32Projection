@@ -1,18 +1,17 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\..\Win32Struct.ahk
+#Include .\GameInputLabel.ahk
 
 /**
  * @namespace Windows.Win32.UI.Input.GameInput
- * @version v4.0.30319
  */
-class GameInputUiNavigationInfo extends Win32Struct
-{
+class GameInputUiNavigationInfo extends Win32Struct {
     static sizeof => 84
 
     static packingSize => 4
 
     /**
-     * @type {Integer}
+     * @type {GameInputLabel}
      */
     menuButtonLabel {
         get => NumGet(this, 0, "int")
@@ -20,7 +19,7 @@ class GameInputUiNavigationInfo extends Win32Struct
     }
 
     /**
-     * @type {Integer}
+     * @type {GameInputLabel}
      */
     viewButtonLabel {
         get => NumGet(this, 4, "int")
@@ -28,7 +27,7 @@ class GameInputUiNavigationInfo extends Win32Struct
     }
 
     /**
-     * @type {Integer}
+     * @type {GameInputLabel}
      */
     acceptButtonLabel {
         get => NumGet(this, 8, "int")
@@ -36,7 +35,7 @@ class GameInputUiNavigationInfo extends Win32Struct
     }
 
     /**
-     * @type {Integer}
+     * @type {GameInputLabel}
      */
     cancelButtonLabel {
         get => NumGet(this, 12, "int")
@@ -44,7 +43,7 @@ class GameInputUiNavigationInfo extends Win32Struct
     }
 
     /**
-     * @type {Integer}
+     * @type {GameInputLabel}
      */
     upButtonLabel {
         get => NumGet(this, 16, "int")
@@ -52,7 +51,7 @@ class GameInputUiNavigationInfo extends Win32Struct
     }
 
     /**
-     * @type {Integer}
+     * @type {GameInputLabel}
      */
     downButtonLabel {
         get => NumGet(this, 20, "int")
@@ -60,7 +59,7 @@ class GameInputUiNavigationInfo extends Win32Struct
     }
 
     /**
-     * @type {Integer}
+     * @type {GameInputLabel}
      */
     leftButtonLabel {
         get => NumGet(this, 24, "int")
@@ -68,7 +67,7 @@ class GameInputUiNavigationInfo extends Win32Struct
     }
 
     /**
-     * @type {Integer}
+     * @type {GameInputLabel}
      */
     rightButtonLabel {
         get => NumGet(this, 28, "int")
@@ -76,7 +75,7 @@ class GameInputUiNavigationInfo extends Win32Struct
     }
 
     /**
-     * @type {Integer}
+     * @type {GameInputLabel}
      */
     contextButton1Label {
         get => NumGet(this, 32, "int")
@@ -84,7 +83,7 @@ class GameInputUiNavigationInfo extends Win32Struct
     }
 
     /**
-     * @type {Integer}
+     * @type {GameInputLabel}
      */
     contextButton2Label {
         get => NumGet(this, 36, "int")
@@ -92,7 +91,7 @@ class GameInputUiNavigationInfo extends Win32Struct
     }
 
     /**
-     * @type {Integer}
+     * @type {GameInputLabel}
      */
     contextButton3Label {
         get => NumGet(this, 40, "int")
@@ -100,7 +99,7 @@ class GameInputUiNavigationInfo extends Win32Struct
     }
 
     /**
-     * @type {Integer}
+     * @type {GameInputLabel}
      */
     contextButton4Label {
         get => NumGet(this, 44, "int")
@@ -108,7 +107,7 @@ class GameInputUiNavigationInfo extends Win32Struct
     }
 
     /**
-     * @type {Integer}
+     * @type {GameInputLabel}
      */
     pageUpButtonLabel {
         get => NumGet(this, 48, "int")
@@ -116,7 +115,7 @@ class GameInputUiNavigationInfo extends Win32Struct
     }
 
     /**
-     * @type {Integer}
+     * @type {GameInputLabel}
      */
     pageDownButtonLabel {
         get => NumGet(this, 52, "int")
@@ -124,7 +123,7 @@ class GameInputUiNavigationInfo extends Win32Struct
     }
 
     /**
-     * @type {Integer}
+     * @type {GameInputLabel}
      */
     pageLeftButtonLabel {
         get => NumGet(this, 56, "int")
@@ -132,7 +131,7 @@ class GameInputUiNavigationInfo extends Win32Struct
     }
 
     /**
-     * @type {Integer}
+     * @type {GameInputLabel}
      */
     pageRightButtonLabel {
         get => NumGet(this, 60, "int")
@@ -140,7 +139,7 @@ class GameInputUiNavigationInfo extends Win32Struct
     }
 
     /**
-     * @type {Integer}
+     * @type {GameInputLabel}
      */
     scrollUpButtonLabel {
         get => NumGet(this, 64, "int")
@@ -148,7 +147,7 @@ class GameInputUiNavigationInfo extends Win32Struct
     }
 
     /**
-     * @type {Integer}
+     * @type {GameInputLabel}
      */
     scrollDownButtonLabel {
         get => NumGet(this, 68, "int")
@@ -156,7 +155,7 @@ class GameInputUiNavigationInfo extends Win32Struct
     }
 
     /**
-     * @type {Integer}
+     * @type {GameInputLabel}
      */
     scrollLeftButtonLabel {
         get => NumGet(this, 72, "int")
@@ -164,7 +163,7 @@ class GameInputUiNavigationInfo extends Win32Struct
     }
 
     /**
-     * @type {Integer}
+     * @type {GameInputLabel}
      */
     scrollRightButtonLabel {
         get => NumGet(this, 76, "int")
@@ -172,7 +171,7 @@ class GameInputUiNavigationInfo extends Win32Struct
     }
 
     /**
-     * @type {Integer}
+     * @type {GameInputLabel}
      */
     guideButtonLabel {
         get => NumGet(this, 80, "int")

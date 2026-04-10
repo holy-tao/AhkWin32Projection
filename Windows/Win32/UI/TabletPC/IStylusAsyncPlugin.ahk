@@ -13,9 +13,8 @@
  * The <a href="https://docs.microsoft.com/windows/desktop/tablet/gesturerecognizer-class">GestureRecognizer Class</a> is an example of a plug-in that implements the <b>IStylusAsyncPlugin</b> interface in order to respond in a timely fashion to the stylus. In some circumstances, such as when large numbers of gestures are subscribed to, the response time in the gesture recognizer becomes excessively slow. To avoid this problem, the <b>GestureRecognizer Class</b> implements the <b>IStylusAsyncPlugin</b> interface so that it can be called asynchronously.
  * @see https://learn.microsoft.com/windows/win32/api/rtscom/nn-rtscom-istylusasyncplugin
  * @namespace Windows.Win32.UI.TabletPC
- * @version v4.0.30319
  */
-class IStylusAsyncPlugin extends IStylusPlugin{
+class IStylusAsyncPlugin extends IStylusPlugin {
 
     static sizeof => A_PtrSize
     /**

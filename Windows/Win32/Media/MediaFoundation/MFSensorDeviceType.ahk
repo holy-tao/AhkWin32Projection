@@ -5,9 +5,8 @@
  * Specifies the type of a sensor device. A value from this enumeration is returned by IMFSensorDevice::GetDeviceType.
  * @see https://learn.microsoft.com/windows/win32/api/mfidl/ne-mfidl-mfsensordevicetype
  * @namespace Windows.Win32.Media.MediaFoundation
- * @version v4.0.30319
  */
-class MFSensorDeviceType extends Win32Enum{
+class MFSensorDeviceType extends Win32Enum {
 
     /**
      * The sensor device type is unknown.
@@ -34,7 +33,6 @@ class MFSensorDeviceType extends Win32Enum{
     static MFSensorDeviceType_FrameProvider => 3
 
     /**
-     * 
      * @type {Integer (Int32)}
      */
     static MFSensorDeviceType_SensorTransform => 4

@@ -6,10 +6,8 @@
  * Contains information that describes rebar control characteristics.
  * @see https://learn.microsoft.com/windows/win32/api/commctrl/ns-commctrl-rebarinfo
  * @namespace Windows.Win32.UI.Controls
- * @version v4.0.30319
  */
-class REBARINFO extends Win32Struct
-{
+class REBARINFO extends Win32Struct {
     static sizeof => 16
 
     static packingSize => 8
@@ -60,7 +58,7 @@ class REBARINFO extends Win32Struct
      * Handle to an image list. The rebar control will use the specified image list to obtain images.
      * @type {HIMAGELIST}
      */
-    himl{
+    himl {
         get {
             if(!this.HasProp("__himl"))
                 this.__himl := HIMAGELIST(8, this)

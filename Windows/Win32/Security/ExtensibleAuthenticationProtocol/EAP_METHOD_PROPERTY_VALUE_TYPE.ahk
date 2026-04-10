@@ -5,9 +5,8 @@
  * Defines the set of possible data types for an EAP method property value.
  * @see https://learn.microsoft.com/windows/win32/api/eaptypes/ne-eaptypes-eap_method_property_value_type
  * @namespace Windows.Win32.Security.ExtensibleAuthenticationProtocol
- * @version v4.0.30319
  */
-class EAP_METHOD_PROPERTY_VALUE_TYPE extends Win32Enum{
+class EAP_METHOD_PROPERTY_VALUE_TYPE extends Win32Enum {
 
     /**
      * The method property value is of type <b>BOOL</b>.

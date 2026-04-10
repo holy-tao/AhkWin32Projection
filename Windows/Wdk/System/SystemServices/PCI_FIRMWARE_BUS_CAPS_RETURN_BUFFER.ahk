@@ -3,10 +3,8 @@
 
 /**
  * @namespace Windows.Wdk.System.SystemServices
- * @version v4.0.30319
  */
-class PCI_FIRMWARE_BUS_CAPS_RETURN_BUFFER extends Win32Struct
-{
+class PCI_FIRMWARE_BUS_CAPS_RETURN_BUFFER extends Win32Struct {
     static sizeof => 16
 
     static packingSize => 8
@@ -36,7 +34,7 @@ class PCI_FIRMWARE_BUS_CAPS_RETURN_BUFFER extends Win32Struct
     }
 
     /**
-     * @type {Pointer<PCI_FIRMWARE_BUS_CAPS>}
+     * @type {Pointer}
      */
     Caps {
         get => NumGet(this, 8, "ptr")

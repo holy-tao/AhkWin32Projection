@@ -1,13 +1,12 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
+#Include .\DNS_CUSTOM_SERVER.ahk
 
 /**
  * @namespace Windows.Win32.NetworkManagement.Dns
- * @version v4.0.30319
  */
-class DNS_QUERY_RAW_REQUEST extends Win32Struct
-{
-    static sizeof => 168
+class DNS_QUERY_RAW_REQUEST extends Win32Struct {
+    static sizeof => 136
 
     static packingSize => 8
 
@@ -127,7 +126,7 @@ class DNS_QUERY_RAW_REQUEST extends Win32Struct
      * @type {String}
      */
     maxSa {
-        get => StrGet(this.ptr + 100, 31, "UTF-16")
-        set => StrPut(value, this.ptr + 100, 31, "UTF-16")
+        get => StrGet(this.ptr + 100, 31, "UTF-8")
+        set => StrPut(value, this.ptr + 100, 31, "UTF-8")
     }
 }

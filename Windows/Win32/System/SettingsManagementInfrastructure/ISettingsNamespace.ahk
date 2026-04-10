@@ -1,20 +1,19 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
+#Include ..\Com\IUnknown.ahk
 #Include .\ISettingsIdentity.ahk
 #Include .\IItemEnumerator.ahk
 #Include .\ISettingsResult.ahk
 #Include .\ISettingsItem.ahk
 #Include ..\Variant\VARIANT.ahk
-#Include ..\Com\IUnknown.ahk
 
 /**
  * Performs operations to set, retrieve, and validate settings, and save changes for a namespace instance.
  * @see https://learn.microsoft.com/windows/win32/api/wcmconfig/nn-wcmconfig-isettingsnamespace
  * @namespace Windows.Win32.System.SettingsManagementInfrastructure
- * @version v4.0.30319
  */
-class ISettingsNamespace extends IUnknown{
+class ISettingsNamespace extends IUnknown {
 
     static sizeof => A_PtrSize
     /**
@@ -68,7 +67,7 @@ class ISettingsNamespace extends IUnknown{
 
     /**
      * Gets the setting object specified by a path.
-     * @param {PWSTR} _Path 
+     * @param {PWSTR} _Path The path of the object.
      * @returns {ISettingsItem} A pointer to an <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/wcmconfig/nn-wcmconfig-isettingsitem">ISettingsItem</a> object that represents the retrieved object.
      * @see https://learn.microsoft.com/windows/win32/api/wcmconfig/nf-wcmconfig-isettingsnamespace-getsettingbypath
      */
@@ -81,7 +80,7 @@ class ISettingsNamespace extends IUnknown{
 
     /**
      * Creates a setting object specified by its path.
-     * @param {PWSTR} _Path 
+     * @param {PWSTR} _Path The path of the setting object.
      * @returns {ISettingsItem} A pointer to an <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/wcmconfig/nn-wcmconfig-isettingsitem">ISettingsItem</a> object that represents 
      *       the created setting.
      * @see https://learn.microsoft.com/windows/win32/api/wcmconfig/nf-wcmconfig-isettingsnamespace-createsettingbypath
@@ -95,7 +94,7 @@ class ISettingsNamespace extends IUnknown{
 
     /**
      * Removes the setting object specified by a path.
-     * @param {PWSTR} _Path 
+     * @param {PWSTR} _Path The path of the setting object.
      * @returns {HRESULT} This method can return one of these values.
      * 
      * <table>

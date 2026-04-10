@@ -5,10 +5,8 @@
 
 /**
  * @namespace Windows.Win32.System.Console
- * @version v4.0.30319
  */
-class CONSOLEENDTASK extends Win32Struct
-{
+class CONSOLEENDTASK extends Win32Struct {
     static sizeof => 24
 
     static packingSize => 8
@@ -16,7 +14,7 @@ class CONSOLEENDTASK extends Win32Struct
     /**
      * @type {HANDLE}
      */
-    ProcessId{
+    ProcessId {
         get {
             if(!this.HasProp("__ProcessId"))
                 this.__ProcessId := HANDLE(0, this)
@@ -27,7 +25,7 @@ class CONSOLEENDTASK extends Win32Struct
     /**
      * @type {HWND}
      */
-    hwnd{
+    hwnd {
         get {
             if(!this.HasProp("__hwnd"))
                 this.__hwnd := HWND(8, this)

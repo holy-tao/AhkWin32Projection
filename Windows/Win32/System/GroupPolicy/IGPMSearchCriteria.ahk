@@ -7,9 +7,8 @@
  * The IGPMSearchCriteria interface allows you to define the criteria to use for search operations when using the Group Policy Management Console (GPMC) interfaces. To create a GPMSearchCriteria object, call the IGPM::CreateSearchCriteria method.
  * @see https://learn.microsoft.com/windows/win32/api/gpmgmt/nn-gpmgmt-igpmsearchcriteria
  * @namespace Windows.Win32.System.GroupPolicy
- * @version v4.0.30319
  */
-class IGPMSearchCriteria extends IDispatch{
+class IGPMSearchCriteria extends IDispatch {
 
     static sizeof => A_PtrSize
     /**
@@ -298,8 +297,8 @@ class IGPMSearchCriteria extends IDispatch{
      * </td>
      * </tr>
      * </table>
-     * @param {Integer} searchProperty The search property to evaluate. For a valid combination of search properties, search operations, and values, see the  Remarks section.
-     * @param {Integer} searchOperation The operation to use to evaluate <i>searchProperty</i> using the value specified by <i>varValue</i>.
+     * @param {GPMSearchProperty} searchProperty The search property to evaluate. For a valid combination of search properties, search operations, and values, see the  Remarks section.
+     * @param {GPMSearchOperation} searchOperation The operation to use to evaluate <i>searchProperty</i> using the value specified by <i>varValue</i>.
      * @param {VARIANT} varValue The value to evaluate <i>searchProperty</i> against.
      * @returns {HRESULT} <h3>JScript</h3>
      * Returns <b>S_OK</b> if successful. Returns a failure code if an error occurs.

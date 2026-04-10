@@ -3,9 +3,8 @@
 
 /**
  * @namespace Windows.Win32.Security.AppLocker
- * @version v4.0.30319
  */
-class SAFER_COMPUTE_TOKEN_FROM_LEVEL_FLAGS extends Win32BitflagEnum{
+class SAFER_COMPUTE_TOKEN_FROM_LEVEL_FLAGS extends Win32BitflagEnum {
 
     /**
      * @type {Integer (UInt32)}

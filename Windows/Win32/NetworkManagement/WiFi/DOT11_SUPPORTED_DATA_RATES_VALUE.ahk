@@ -3,18 +3,16 @@
 
 /**
  * @namespace Windows.Win32.NetworkManagement.WiFi
- * @version v4.0.30319
  */
-class DOT11_SUPPORTED_DATA_RATES_VALUE extends Win32Struct
-{
+class DOT11_SUPPORTED_DATA_RATES_VALUE extends Win32Struct {
     static sizeof => 16
 
     static packingSize => 1
 
     /**
-     * @type {Array<Byte>}
+     * @type {Array<Integer>}
      */
-    ucSupportedTxDataRatesValue{
+    ucSupportedTxDataRatesValue {
         get {
             if(!this.HasProp("__ucSupportedTxDataRatesValueProxyArray"))
                 this.__ucSupportedTxDataRatesValueProxyArray := Win32FixedArray(this.ptr + 0, 8, Primitive, "char")
@@ -23,9 +21,9 @@ class DOT11_SUPPORTED_DATA_RATES_VALUE extends Win32Struct
     }
 
     /**
-     * @type {Array<Byte>}
+     * @type {Array<Integer>}
      */
-    ucSupportedRxDataRatesValue{
+    ucSupportedRxDataRatesValue {
         get {
             if(!this.HasProp("__ucSupportedRxDataRatesValueProxyArray"))
                 this.__ucSupportedRxDataRatesValueProxyArray := Win32FixedArray(this.ptr + 8, 8, Primitive, "char")

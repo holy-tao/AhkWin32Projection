@@ -10,10 +10,8 @@
  * When the band is scaled, the graphics engine anchors the smaller band to the upper-left corner of the original band.
  * @see https://learn.microsoft.com/windows/win32/api/winddi/ns-winddi-perbandinfo
  * @namespace Windows.Win32.Devices.Display
- * @version v4.0.30319
  */
-class PERBANDINFO extends Win32Struct
-{
+class PERBANDINFO extends Win32Struct {
     static sizeof => 20
 
     static packingSize => 4
@@ -31,7 +29,7 @@ class PERBANDINFO extends Win32Struct
      * Specifies a SIZEL structure that contains the width and height, in pixels, of the rectangle in which GDI can draw the band. A SIZEL structure is identical to a <a href="https://docs.microsoft.com/windows/desktop/api/windef/ns-windef-size">SIZE</a> structure.
      * @type {SIZE}
      */
-    szlBand{
+    szlBand {
         get {
             if(!this.HasProp("__szlBand"))
                 this.__szlBand := SIZE(4, this)

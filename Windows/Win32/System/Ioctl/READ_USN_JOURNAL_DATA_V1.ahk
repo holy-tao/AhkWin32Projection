@@ -5,10 +5,8 @@
  * Contains information defining a set of update sequence number (USN) change journal records to return to the calling process.R
  * @see https://learn.microsoft.com/windows/win32/api/winioctl/ns-winioctl-read_usn_journal_data_v1
  * @namespace Windows.Win32.System.Ioctl
- * @version v4.0.30319
  */
-class READ_USN_JOURNAL_DATA_V1 extends Win32Struct
-{
+class READ_USN_JOURNAL_DATA_V1 extends Win32Struct {
     static sizeof => 48
 
     static packingSize => 8
@@ -424,7 +422,6 @@ class READ_USN_JOURNAL_DATA_V1 extends Win32Struct
     }
 
     /**
-     * 
      * @type {Integer}
      */
     MinMajorVersion {
@@ -433,7 +430,6 @@ class READ_USN_JOURNAL_DATA_V1 extends Win32Struct
     }
 
     /**
-     * 
      * @type {Integer}
      */
     MaxMajorVersion {

@@ -6,10 +6,8 @@
  * The QOS object QOS_SHAPING_RATE specifies the uniform traffic shaping rate be applied to a given flow.
  * @see https://learn.microsoft.com/windows/win32/api/qos/ns-qos-qos_shaping_rate
  * @namespace Windows.Win32.NetworkManagement.QoS
- * @version v4.0.30319
  */
-class QOS_SHAPING_RATE extends Win32Struct
-{
+class QOS_SHAPING_RATE extends Win32Struct {
     static sizeof => 12
 
     static packingSize => 4
@@ -20,7 +18,7 @@ class QOS_SHAPING_RATE extends Win32Struct
      * <b>QOS_SHAPING_RATE</b>.
      * @type {QOS_OBJECT_HDR}
      */
-    ObjectHdr{
+    ObjectHdr {
         get {
             if(!this.HasProp("__ObjectHdr"))
                 this.__ObjectHdr := QOS_OBJECT_HDR(0, this)

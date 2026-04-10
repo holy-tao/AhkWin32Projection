@@ -16,9 +16,8 @@
  *         instead of the general-purpose DrawImage method.
  * @see https://learn.microsoft.com/windows/win32/api/d2d1_3/nn-d2d1_3-id2d1spritebatch
  * @namespace Windows.Win32.Graphics.Direct2D
- * @version v4.0.30319
  */
-class ID2D1SpriteBatch extends ID2D1Resource{
+class ID2D1SpriteBatch extends ID2D1Resource {
 
     static sizeof => A_PtrSize
     /**

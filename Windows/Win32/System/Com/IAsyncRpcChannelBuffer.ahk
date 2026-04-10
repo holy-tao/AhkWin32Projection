@@ -5,9 +5,8 @@
 
 /**
  * @namespace Windows.Win32.System.Com
- * @version v4.0.30319
  */
-class IAsyncRpcChannelBuffer extends IRpcChannelBuffer2{
+class IAsyncRpcChannelBuffer extends IRpcChannelBuffer2 {
 
     static sizeof => A_PtrSize
     /**

@@ -7,9 +7,8 @@
  * The optional, application-implemented IWMDMOperation2 interface extends IWMDMOperation by providing methods to get and set extended attributes.
  * @see https://learn.microsoft.com/windows/win32/api/mswmdm/nn-mswmdm-iwmdmoperation2
  * @namespace Windows.Win32.Media.DeviceManager
- * @version v4.0.30319
  */
-class IWMDMOperation2 extends IWMDMOperation{
+class IWMDMOperation2 extends IWMDMOperation {
 
     static sizeof => A_PtrSize
     /**

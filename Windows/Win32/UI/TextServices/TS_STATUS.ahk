@@ -72,16 +72,13 @@
  * </table>
  * @see https://learn.microsoft.com/windows/win32/api/textstor/ns-textstor-ts_status
  * @namespace Windows.Win32.UI.TextServices
- * @version v4.0.30319
  */
-class TS_STATUS extends Win32Struct
-{
+class TS_STATUS extends Win32Struct {
     static sizeof => 8
 
     static packingSize => 4
 
     /**
-     * 
      * @type {Integer}
      */
     dwDynamicFlags {
@@ -90,7 +87,6 @@ class TS_STATUS extends Win32Struct
     }
 
     /**
-     * 
      * @type {Integer}
      */
     dwStaticFlags {

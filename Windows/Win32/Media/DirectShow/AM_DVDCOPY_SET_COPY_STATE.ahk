@@ -11,10 +11,8 @@
  * The AM_PROPERTY_DVDCOPY_SET_COPY_STATE property uses this structure.
  * @see https://learn.microsoft.com/windows/win32/api/dvdmedia/ns-dvdmedia-am_dvdcopy_set_copy_state
  * @namespace Windows.Win32.Media.DirectShow
- * @version v4.0.30319
  */
-class AM_DVDCOPY_SET_COPY_STATE extends Win32Struct
-{
+class AM_DVDCOPY_SET_COPY_STATE extends Win32Struct {
     static sizeof => 4
 
     static packingSize => 4

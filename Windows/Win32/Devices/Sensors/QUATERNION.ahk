@@ -3,10 +3,8 @@
 
 /**
  * @namespace Windows.Win32.Devices.Sensors
- * @version v4.0.30319
  */
-class QUATERNION extends Win32Struct
-{
+class QUATERNION extends Win32Struct {
     static sizeof => 16
 
     static packingSize => 4

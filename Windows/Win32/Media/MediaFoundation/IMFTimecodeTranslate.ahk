@@ -1,8 +1,8 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
-#Include ..\..\System\Com\StructuredStorage\PROPVARIANT.ahk
 #Include ..\..\System\Com\IUnknown.ahk
+#Include ..\..\System\Com\StructuredStorage\PROPVARIANT.ahk
 
 /**
  * Converts between Society of Motion Picture and Television Engineers (SMPTE) time codes and 100-nanosecond time units.
@@ -12,9 +12,8 @@
  * The Advanced Streaming Format (ASF) media source exposes this interface.
  * @see https://learn.microsoft.com/windows/win32/api/mfidl/nn-mfidl-imftimecodetranslate
  * @namespace Windows.Win32.Media.MediaFoundation
- * @version v4.0.30319
  */
-class IMFTimecodeTranslate extends IUnknown{
+class IMFTimecodeTranslate extends IUnknown {
 
     static sizeof => A_PtrSize
     /**

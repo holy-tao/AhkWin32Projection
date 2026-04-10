@@ -1,12 +1,11 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\..\Win32Struct.ahk
+#Include .\FLT_FILE_NAME_INFORMATION.ahk
 
 /**
  * @namespace Windows.Wdk.Storage.FileSystem.Minifilters
- * @version v4.0.30319
  */
-class FLT_CREATEFILE_TARGET_ECP_CONTEXT extends Win32Struct
-{
+class FLT_CREATEFILE_TARGET_ECP_CONTEXT extends Win32Struct {
     static sizeof => 32
 
     static packingSize => 8

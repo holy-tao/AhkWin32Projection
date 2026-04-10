@@ -1,11 +1,20 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
 #Include ..\..\Foundation\PROPERTYKEY.ahk
+#Include ..\..\System\Com\StructuredStorage\PROPVARIANT.ahk
+#Include ..\..\System\Variant\VARENUM.ahk
 #Include ..\..\System\Com\CY.ahk
 #Include ..\..\Foundation\FILETIME.ahk
+#Include ..\..\System\Com\StructuredStorage\CLIPDATA.ahk
 #Include ..\..\Foundation\BSTR.ahk
 #Include ..\..\System\Com\StructuredStorage\BSTRBLOB.ahk
 #Include ..\..\System\Com\BLOB.ahk
+#Include ..\..\System\Com\IUnknown.ahk
+#Include ..\..\System\Com\IDispatch.ahk
+#Include ..\..\System\Com\IStream.ahk
+#Include ..\..\System\Com\StructuredStorage\IStorage.ahk
+#Include ..\..\System\Com\StructuredStorage\VERSIONEDSTREAM.ahk
+#Include ..\..\System\Com\SAFEARRAY.ahk
 #Include ..\..\System\Com\StructuredStorage\CAC.ahk
 #Include ..\..\System\Com\StructuredStorage\CAUB.ahk
 #Include ..\..\System\Com\StructuredStorage\CAI.ahk
@@ -29,14 +38,11 @@
 #Include ..\..\System\Com\StructuredStorage\CALPWSTR.ahk
 #Include ..\..\System\Com\StructuredStorage\CAPROPVARIANT.ahk
 #Include ..\..\Foundation\DECIMAL.ahk
-#Include ..\..\System\Com\StructuredStorage\PROPVARIANT.ahk
 
 /**
  * @namespace Windows.Win32.Devices.Sensors
- * @version v4.0.30319
  */
-class SENSOR_VALUE_PAIR extends Win32Struct
-{
+class SENSOR_VALUE_PAIR extends Win32Struct {
     static sizeof => 40
 
     static packingSize => 8
@@ -44,7 +50,7 @@ class SENSOR_VALUE_PAIR extends Win32Struct
     /**
      * @type {PROPERTYKEY}
      */
-    Key{
+    Key {
         get {
             if(!this.HasProp("__Key"))
                 this.__Key := PROPERTYKEY(0, this)
@@ -55,7 +61,7 @@ class SENSOR_VALUE_PAIR extends Win32Struct
     /**
      * @type {PROPVARIANT}
      */
-    Value{
+    Value {
         get {
             if(!this.HasProp("__Value"))
                 this.__Value := PROPVARIANT(16, this)

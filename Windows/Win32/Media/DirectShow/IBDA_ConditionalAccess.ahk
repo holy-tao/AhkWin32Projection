@@ -1,8 +1,8 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
-#Include ..\..\Foundation\BSTR.ahk
 #Include ..\..\System\Com\IUnknown.ahk
+#Include ..\..\Foundation\BSTR.ahk
 
 /**
  * The IBDA_ConditionalAccess interface provides conditional access to program content.
@@ -10,9 +10,8 @@
  * To declare the interface identifier (IID) for this interface, use the <b>__uuidof</b> operator: <c>__uuidof()</c>.
  * @see https://learn.microsoft.com/windows/win32/api/bdaiface/nn-bdaiface-ibda_conditionalaccess
  * @namespace Windows.Win32.Media.DirectShow
- * @version v4.0.30319
  */
-class IBDA_ConditionalAccess extends IUnknown{
+class IBDA_ConditionalAccess extends IUnknown {
 
     static sizeof => A_PtrSize
     /**
@@ -37,8 +36,8 @@ class IBDA_ConditionalAccess extends IUnknown{
      * The get_SmartCardStatus method retrieves the status of the smart card.
      * @remarks
      * All three parameters must be non-NULL or the method fails and returns <b>E_POINTER</b>.
-     * @param {Pointer<Integer>} pCardStatus Pointer to a variable of type <a href="https://docs.microsoft.com/windows/desktop/api/bdaiface/ne-bdaiface-smartcardstatustype">SmartCardStatusType</a> that receives the card status type.
-     * @param {Pointer<Integer>} pCardAssociation Pointer to a variable of type <a href="https://docs.microsoft.com/windows/desktop/api/bdaiface/ne-bdaiface-smartcardassociationtype">SmartCardAssociationType</a> that receives the card association type.
+     * @param {Pointer<SmartCardStatusType>} pCardStatus Pointer to a variable of type <a href="https://docs.microsoft.com/windows/desktop/api/bdaiface/ne-bdaiface-smartcardstatustype">SmartCardStatusType</a> that receives the card status type.
+     * @param {Pointer<SmartCardAssociationType>} pCardAssociation Pointer to a variable of type <a href="https://docs.microsoft.com/windows/desktop/api/bdaiface/ne-bdaiface-smartcardassociationtype">SmartCardAssociationType</a> that receives the card association type.
      * @param {Pointer<BSTR>} pbstrCardError Receives a string containing the card error. When the string is no longer required, call the <b>SysFreeString</b> function to free it.
      * @param {Pointer<VARIANT_BOOL>} pfOOBLocked Receives a value indicating if the operation is blocked.
      * @returns {HRESULT} If the method succeeds, it returns S_OK. If it fails, it returns an error code.
@@ -95,7 +94,7 @@ class IBDA_ConditionalAccess extends IUnknown{
     /**
      * The get_Entitlement method retrieves the entitlement type for a virtual channel.
      * @param {Integer} usVirtualChannel Specifies the virtual channel number.
-     * @returns {Integer} Receives the entitlement type.
+     * @returns {EntitlementType} Receives the entitlement type.
      * @see https://learn.microsoft.com/windows/win32/api/bdaiface/nf-bdaiface-ibda_conditionalaccess-get_entitlement
      */
     get_Entitlement(usVirtualChannel) {
@@ -162,7 +161,7 @@ class IBDA_ConditionalAccess extends IUnknown{
     /**
      * The InformUIClosed method informs the device that the user-interface dialog is closed.
      * @param {Integer} byDialogNumber Specifies the dialog number.
-     * @param {Integer} CloseReason Specifies the reason for closing the dialog, as a member of the <a href="https://docs.microsoft.com/windows/desktop/api/bdaiface/ne-bdaiface-uiclosereasontype">UICloseReasonType</a> enumeration.
+     * @param {UICloseReasonType} CloseReason Specifies the reason for closing the dialog, as a member of the <a href="https://docs.microsoft.com/windows/desktop/api/bdaiface/ne-bdaiface-uiclosereasontype">UICloseReasonType</a> enumeration.
      * @returns {HRESULT} If the method succeeds, it returns <b>S_OK</b>. It returns <b>S_FALSE</b> if a dialog with the specified dialog number cannot be found. If the method fails, it returns an error code.
      * @see https://learn.microsoft.com/windows/win32/api/bdaiface/nf-bdaiface-ibda_conditionalaccess-informuiclosed
      */

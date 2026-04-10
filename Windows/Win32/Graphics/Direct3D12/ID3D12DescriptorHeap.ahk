@@ -7,9 +7,8 @@
  * A descriptor heap is a collection of contiguous allocations of descriptors, one allocation for every descriptor.
  * @see https://learn.microsoft.com/windows/win32/api/d3d12/nn-d3d12-id3d12descriptorheap
  * @namespace Windows.Win32.Graphics.Direct3D12
- * @version v4.0.30319
  */
-class ID3D12DescriptorHeap extends ID3D12Pageable{
+class ID3D12DescriptorHeap extends ID3D12Pageable {
 
     static sizeof => A_PtrSize
     /**

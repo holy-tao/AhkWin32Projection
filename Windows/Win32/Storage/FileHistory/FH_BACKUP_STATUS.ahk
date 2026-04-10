@@ -9,9 +9,8 @@
  * The <b>FH_STATUS_DISABLED_BY_GP</b> status can be queried by calling the <a href="https://docs.microsoft.com/windows/desktop/api/fhcfg/nf-fhcfg-ifhconfigmgr-getbackupstatus">IFhConfigMgr::GetBackupStatus</a> method, but it cannot be set by calling the <a href="https://docs.microsoft.com/windows/desktop/api/fhcfg/nf-fhcfg-ifhconfigmgr-setbackupstatus">IFhConfigMgr::SetBackupStatus</a> method. This is because it can only be set by Group Policy.
  * @see https://learn.microsoft.com/windows/win32/api/fhcfg/ne-fhcfg-fh_backup_status
  * @namespace Windows.Win32.Storage.FileHistory
- * @version v4.0.30319
  */
-class FH_BACKUP_STATUS extends Win32Enum{
+class FH_BACKUP_STATUS extends Win32Enum {
 
     /**
      * File History backups are not enabled by the user.
@@ -32,7 +31,6 @@ class FH_BACKUP_STATUS extends Win32Enum{
     static FH_STATUS_ENABLED => 2
 
     /**
-     * 
      * @type {Integer (Int32)}
      */
     static FH_STATUS_REHYDRATING => 3

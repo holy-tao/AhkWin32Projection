@@ -3,18 +3,16 @@
 
 /**
  * @namespace Windows.Wdk.System.SystemServices
- * @version v4.0.30319
  */
-class CM_PNP_BIOS_INSTALLATION_CHECK extends Win32Struct
-{
+class CM_PNP_BIOS_INSTALLATION_CHECK extends Win32Struct {
     static sizeof => 40
 
     static packingSize => 4
 
     /**
-     * @type {Array<Byte>}
+     * @type {Array<Integer>}
      */
-    Signature{
+    Signature {
         get {
             if(!this.HasProp("__SignatureProxyArray"))
                 this.__SignatureProxyArray := Win32FixedArray(this.ptr + 0, 4, Primitive, "char")

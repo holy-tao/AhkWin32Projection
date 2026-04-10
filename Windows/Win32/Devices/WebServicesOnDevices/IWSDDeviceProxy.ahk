@@ -1,10 +1,10 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
+#Include ..\..\System\Com\IUnknown.ahk
 #Include .\IWSDAsyncResult.ahk
 #Include .\IWSDServiceProxy.ahk
 #Include .\IWSDEndpointProxy.ahk
-#Include ..\..\System\Com\IUnknown.ahk
 
 /**
  * Represents a remote Devices Profile for Web Services (DPWS) device for client applications and middleware.
@@ -24,9 +24,8 @@
  * </ol>
  * @see https://learn.microsoft.com/windows/win32/api/wsdclient/nn-wsdclient-iwsddeviceproxy
  * @namespace Windows.Win32.Devices.WebServicesOnDevices
- * @version v4.0.30319
  */
-class IWSDDeviceProxy extends IUnknown{
+class IWSDDeviceProxy extends IUnknown {
 
     static sizeof => A_PtrSize
     /**

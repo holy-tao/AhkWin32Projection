@@ -8,10 +8,8 @@
  *     between versions, then the CLSID may also be used for version management.  In the case where the CLSID is used for version management, a previous version may still be supported by the APO.
  * @see https://learn.microsoft.com/windows/win32/api/audioenginebaseapo/ns-audioenginebaseapo-apoinitbasestruct
  * @namespace Windows.Win32.Media.Audio.Apo
- * @version v4.0.30319
  */
-class APOInitBaseStruct extends Win32Struct
-{
+class APOInitBaseStruct extends Win32Struct {
     static sizeof => 16
 
     static packingSize => 8
@@ -27,7 +25,7 @@ class APOInitBaseStruct extends Win32Struct
 
     /**
      * The Class ID (CLSID) of the APO.
-     * @type {Pointer<Guid>}
+     * @type {Pointer}
      */
     clsid {
         get => NumGet(this, 8, "ptr")

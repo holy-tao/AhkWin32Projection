@@ -21,10 +21,8 @@
  * structures.
  * @see https://learn.microsoft.com/windows/win32/api/evntprov/ns-evntprov-event_filter_descriptor
  * @namespace Windows.Win32.System.Diagnostics.Etw
- * @version v4.0.30319
  */
-class EVENT_FILTER_DESCRIPTOR extends Win32Struct
-{
+class EVENT_FILTER_DESCRIPTOR extends Win32Struct {
     static sizeof => 16
 
     static packingSize => 8

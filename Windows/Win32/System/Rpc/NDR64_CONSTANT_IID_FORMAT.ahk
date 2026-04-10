@@ -3,10 +3,8 @@
 
 /**
  * @namespace Windows.Win32.System.Rpc
- * @version v4.0.30319
  */
-class NDR64_CONSTANT_IID_FORMAT extends Win32Struct
-{
+class NDR64_CONSTANT_IID_FORMAT extends Win32Struct {
     static sizeof => 16
 
     static packingSize => 8
@@ -36,7 +34,7 @@ class NDR64_CONSTANT_IID_FORMAT extends Win32Struct
     }
 
     /**
-     * @type {Pointer<Guid>}
+     * @type {Pointer}
      */
     Guid {
         get => NumGet(this, 8, "ptr")

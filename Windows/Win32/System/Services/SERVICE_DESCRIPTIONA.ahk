@@ -13,11 +13,9 @@
  * <a href="https://docs.microsoft.com/windows/desktop/api/winsvc/nf-winsvc-queryserviceconfig2a">QueryServiceConfig2</a> function. The description is also displayed by the Services snap-in.
  * @see https://learn.microsoft.com/windows/win32/api/winsvc/ns-winsvc-service_descriptiona
  * @namespace Windows.Win32.System.Services
- * @version v4.0.30319
  * @charset ANSI
  */
-class SERVICE_DESCRIPTIONA extends Win32Struct
-{
+class SERVICE_DESCRIPTIONA extends Win32Struct {
     static sizeof => 8
 
     static packingSize => 8

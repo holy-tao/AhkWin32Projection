@@ -5,9 +5,8 @@
  * Specifies the connection state of a Remote Desktop Services session.
  * @see https://learn.microsoft.com/windows/win32/api/wtsapi32/ne-wtsapi32-wts_connectstate_class
  * @namespace Windows.Win32.System.RemoteDesktop
- * @version v4.0.30319
  */
-class WTS_CONNECTSTATE_CLASS extends Win32Enum{
+class WTS_CONNECTSTATE_CLASS extends Win32Enum {
 
     /**
      * A user is logged on to the WinStation. This state occurs when a user is signed in and actively connected to the device.

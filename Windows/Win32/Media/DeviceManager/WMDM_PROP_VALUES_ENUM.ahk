@@ -1,5 +1,6 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
+#Include ..\..\System\Com\StructuredStorage\PROPVARIANT.ahk
 
 /**
  * The WMDM\_PROP\_VALUES\_ENUM structure contains an enumerated set of valid values for a particular property in a particular property configuration.
@@ -9,10 +10,8 @@
  * The caller is required to free the memory used by **pValues**. For an example of how to do this, see [**WMDM\_FORMAT\_CAPABILITY**](wmdm-format-capability.md).
  * @see https://learn.microsoft.com/windows/win32/WMDM/wmdm-prop-values-enum
  * @namespace Windows.Win32.Media.DeviceManager
- * @version v4.0.30319
  */
-class WMDM_PROP_VALUES_ENUM extends Win32Struct
-{
+class WMDM_PROP_VALUES_ENUM extends Win32Struct {
     static sizeof => 16
 
     static packingSize => 8

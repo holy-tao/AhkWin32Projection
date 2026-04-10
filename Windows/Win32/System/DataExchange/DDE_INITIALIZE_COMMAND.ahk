@@ -3,9 +3,8 @@
 
 /**
  * @namespace Windows.Win32.System.DataExchange
- * @version v4.0.30319
  */
-class DDE_INITIALIZE_COMMAND extends Win32BitflagEnum{
+class DDE_INITIALIZE_COMMAND extends Win32BitflagEnum {
 
     /**
      * @type {Integer (UInt32)}

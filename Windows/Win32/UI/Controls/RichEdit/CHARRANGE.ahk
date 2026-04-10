@@ -5,10 +5,8 @@
  * Specifies a range of characters in a rich edit control.If the cpMin and cpMax members are equal, the range is empty. The range includes everything if cpMin is 0 and cpMax is �1.
  * @see https://learn.microsoft.com/windows/win32/api/richedit/ns-richedit-charrange
  * @namespace Windows.Win32.UI.Controls.RichEdit
- * @version v4.0.30319
  */
-class CHARRANGE extends Win32Struct
-{
+class CHARRANGE extends Win32Struct {
     static sizeof => 8
 
     static packingSize => 4

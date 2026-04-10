@@ -5,10 +5,8 @@
  * Contains basic accounting information for a job object.
  * @see https://learn.microsoft.com/windows/win32/api/winnt/ns-winnt-jobobject_basic_accounting_information
  * @namespace Windows.Win32.System.JobObjects
- * @version v4.0.30319
  */
-class JOBOBJECT_BASIC_ACCOUNTING_INFORMATION extends Win32Struct
-{
+class JOBOBJECT_BASIC_ACCOUNTING_INFORMATION extends Win32Struct {
     static sizeof => 48
 
     static packingSize => 8

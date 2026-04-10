@@ -1,7 +1,6 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
-#Include ..\..\Foundation\BSTR.ahk
 #Include .\ITrigger.ahk
 
 /**
@@ -12,9 +11,8 @@
  * When reading or writing XML for a task, a logon trigger is specified using the <a href="https://docs.microsoft.com/windows/desktop/TaskSchd/taskschedulerschema-logontrigger-triggergroup-element">LogonTrigger</a> element of the Task Scheduler schema.
  * @see https://learn.microsoft.com/windows/win32/api/taskschd/nn-taskschd-ilogontrigger
  * @namespace Windows.Win32.System.TaskScheduler
- * @version v4.0.30319
  */
-class ILogonTrigger extends ITrigger{
+class ILogonTrigger extends ITrigger {
 
     static sizeof => A_PtrSize
     /**
@@ -36,6 +34,7 @@ class ILogonTrigger extends ITrigger{
     static VTableNames => ["get_Delay", "put_Delay", "get_UserId", "put_UserId"]
 
     /**
+     * @type {BSTR} 
      */
     Delay {
         get => this.get_Delay()
@@ -43,6 +42,7 @@ class ILogonTrigger extends ITrigger{
     }
 
     /**
+     * @type {BSTR} 
      */
     UserId {
         get => this.get_UserId()

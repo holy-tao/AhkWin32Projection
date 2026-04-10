@@ -3,10 +3,8 @@
 
 /**
  * @namespace Windows.Wdk.Storage.FileSystem
- * @version v4.0.30319
  */
-class CSV_QUERY_FILE_REVISION_ECP_CONTEXT extends Win32Struct
-{
+class CSV_QUERY_FILE_REVISION_ECP_CONTEXT extends Win32Struct {
     static sizeof => 32
 
     static packingSize => 8
@@ -20,9 +18,9 @@ class CSV_QUERY_FILE_REVISION_ECP_CONTEXT extends Win32Struct
     }
 
     /**
-     * @type {Array<Int64>}
+     * @type {Array<Integer>}
      */
-    FileRevision{
+    FileRevision {
         get {
             if(!this.HasProp("__FileRevisionProxyArray"))
                 this.__FileRevisionProxyArray := Win32FixedArray(this.ptr + 8, 3, Primitive, "int64")

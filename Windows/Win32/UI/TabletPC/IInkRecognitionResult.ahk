@@ -1,11 +1,11 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
+#Include ..\..\System\Com\IDispatch.ahk
 #Include ..\..\Foundation\BSTR.ahk
 #Include .\IInkRecognitionAlternate.ahk
 #Include .\IInkStrokes.ahk
 #Include .\IInkRecognitionAlternates.ahk
-#Include ..\..\System\Com\IDispatch.ahk
 
 /**
  * Represents the result of the recognition. The results of recognizing handwritten ink are returned in an IInkRecognitionResult object.
@@ -24,9 +24,8 @@
  * <div> </div>
  * @see https://learn.microsoft.com/windows/win32/api/msinkaut/nn-msinkaut-iinkrecognitionresult
  * @namespace Windows.Win32.UI.TabletPC
- * @version v4.0.30319
  */
-class IInkRecognitionResult extends IDispatch{
+class IInkRecognitionResult extends IDispatch {
 
     static sizeof => A_PtrSize
     /**
@@ -62,7 +61,7 @@ class IInkRecognitionResult extends IDispatch{
     }
 
     /**
-     * @type {Integer} 
+     * @type {InkRecognitionConfidence} 
      */
     TopConfidence {
         get => this.get_TopConfidence()
@@ -110,7 +109,7 @@ class IInkRecognitionResult extends IDispatch{
      * 
      * <div class="alert"><b>Note</b>  The <b>TopConfidence</b> property may change if a call to the <a href="https://docs.microsoft.com/windows/desktop/api/msinkaut/nf-msinkaut-iinkrecognitionresult-modifytopalternate">ModifyTopAlternate</a> method causes a change to the <a href="https://docs.microsoft.com/windows/desktop/api/msinkaut/nf-msinkaut-iinkrecognitionresult-get_topalternate">TopAlternate</a> property.</div>
      * <div> </div>
-     * @returns {Integer} 
+     * @returns {InkRecognitionConfidence} 
      * @see https://learn.microsoft.com/windows/win32/api/msinkaut/nf-msinkaut-iinkrecognitionresult-get_topconfidence
      */
     get_TopConfidence() {

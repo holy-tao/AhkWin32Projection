@@ -5,9 +5,8 @@
 
 /**
  * @namespace Windows.Win32.Graphics.Printing
- * @version v4.0.30319
  */
-class IPrintOemCommon extends IUnknown{
+class IPrintOemCommon extends IUnknown {
 
     static sizeof => A_PtrSize
     /**
@@ -31,7 +30,7 @@ class IPrintOemCommon extends IUnknown{
     /**
      * 
      * @param {Integer} dwMode 
-     * @param {Pointer} pBuffer 
+     * @param {Integer} pBuffer 
      * @param {Integer} cbSize 
      * @returns {Integer} 
      */

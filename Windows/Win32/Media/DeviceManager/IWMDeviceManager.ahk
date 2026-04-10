@@ -1,16 +1,15 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
-#Include .\IWMDMEnumDevice.ahk
 #Include ..\..\System\Com\IUnknown.ahk
+#Include .\IWMDMEnumDevice.ahk
 
 /**
  * The IWMDeviceManager interface is the top level Windows Media Device Manager interface for applications.
  * @see https://learn.microsoft.com/windows/win32/api/mswmdm/nn-mswmdm-iwmdevicemanager
  * @namespace Windows.Win32.Media.DeviceManager
- * @version v4.0.30319
  */
-class IWMDeviceManager extends IUnknown{
+class IWMDeviceManager extends IUnknown {
 
     static sizeof => A_PtrSize
     /**

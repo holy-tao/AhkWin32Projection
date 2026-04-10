@@ -3,10 +3,8 @@
 
 /**
  * @namespace Windows.Win32.System.Ioctl
- * @version v4.0.30319
  */
-class BULK_SECURITY_TEST_DATA extends Win32Struct
-{
+class BULK_SECURITY_TEST_DATA extends Win32Struct {
     static sizeof => 8
 
     static packingSize => 4
@@ -20,9 +18,9 @@ class BULK_SECURITY_TEST_DATA extends Win32Struct
     }
 
     /**
-     * @type {Array<UInt32>}
+     * @type {Array<Integer>}
      */
-    SecurityIds{
+    SecurityIds {
         get {
             if(!this.HasProp("__SecurityIdsProxyArray"))
                 this.__SecurityIdsProxyArray := Win32FixedArray(this.ptr + 4, 1, Primitive, "uint")

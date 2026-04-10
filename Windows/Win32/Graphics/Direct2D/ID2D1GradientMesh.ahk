@@ -1,16 +1,15 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
-#Include .\D2D1_GRADIENT_MESH_PATCH.ahk
 #Include .\ID2D1Resource.ahk
+#Include .\D2D1_GRADIENT_MESH_PATCH.ahk
 
 /**
  * Represents a device-dependent representation of a gradient mesh composed of patches. Use the ID2D1DeviceContext2::CreateGradientMesh method to create an instance of ID2D1GradientMesh.
  * @see https://learn.microsoft.com/windows/win32/api/d2d1_3/nn-d2d1_3-id2d1gradientmesh
  * @namespace Windows.Win32.Graphics.Direct2D
- * @version v4.0.30319
  */
-class ID2D1GradientMesh extends ID2D1Resource{
+class ID2D1GradientMesh extends ID2D1Resource {
 
     static sizeof => A_PtrSize
     /**

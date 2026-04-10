@@ -5,9 +5,8 @@
 
 /**
  * @namespace Windows.Win32.System.RealTimeCommunications
- * @version v4.0.30319
  */
-class IRTCWatcher extends IRTCPresenceContact{
+class IRTCWatcher extends IRTCPresenceContact {
 
     static sizeof => A_PtrSize
     /**
@@ -29,7 +28,7 @@ class IRTCWatcher extends IRTCPresenceContact{
     static VTableNames => ["get_State", "put_State"]
 
     /**
-     * @type {Integer} 
+     * @type {RTC_WATCHER_STATE} 
      */
     State {
         get => this.get_State()
@@ -38,7 +37,7 @@ class IRTCWatcher extends IRTCPresenceContact{
 
     /**
      * 
-     * @returns {Integer} 
+     * @returns {RTC_WATCHER_STATE} 
      */
     get_State() {
         result := ComCall(11, this, "int*", &penState := 0, "HRESULT")
@@ -47,7 +46,7 @@ class IRTCWatcher extends IRTCPresenceContact{
 
     /**
      * 
-     * @param {Integer} enState 
+     * @param {RTC_WATCHER_STATE} enState 
      * @returns {HRESULT} 
      */
     put_State(enState) {

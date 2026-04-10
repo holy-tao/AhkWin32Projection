@@ -1,17 +1,15 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\..\Guid.ahk
+#Include ..\..\Com\IUnknown.ahk
 #Include .\DebugPropertyInfo.ahk
 #Include ..\..\Variant\VARIANT.ahk
 #Include .\IEnumDebugPropertyInfo.ahk
-#Include .\IDebugProperty.ahk
-#Include ..\..\Com\IUnknown.ahk
 
 /**
  * @namespace Windows.Win32.System.Diagnostics.Debug
- * @version v4.0.30319
  */
-class IDebugProperty extends IUnknown{
+class IDebugProperty extends IUnknown {
 
     static sizeof => A_PtrSize
     /**

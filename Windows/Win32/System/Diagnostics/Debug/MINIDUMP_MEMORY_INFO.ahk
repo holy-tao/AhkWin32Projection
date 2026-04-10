@@ -1,14 +1,13 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\..\Win32Struct.ahk
+#Include ..\..\Memory\VIRTUAL_ALLOCATION_TYPE.ahk
 
 /**
  * Describes a region of memory.
  * @see https://learn.microsoft.com/windows/win32/api/minidumpapiset/ns-minidumpapiset-minidump_memory_info
  * @namespace Windows.Win32.System.Diagnostics.Debug
- * @version v4.0.30319
  */
-class MINIDUMP_MEMORY_INFO extends Win32Struct
-{
+class MINIDUMP_MEMORY_INFO extends Win32Struct {
     static sizeof => 48
 
     static packingSize => 8
@@ -60,8 +59,7 @@ class MINIDUMP_MEMORY_INFO extends Win32Struct
     }
 
     /**
-     * 
-     * @type {Integer}
+     * @type {VIRTUAL_ALLOCATION_TYPE}
      */
     State {
         get => NumGet(this, 32, "uint")

@@ -6,10 +6,8 @@
  * Represents the sizing data used in IViewObjectEx::GetNaturalExtent.
  * @see https://learn.microsoft.com/windows/win32/api/ocidl/ns-ocidl-dvextentinfo
  * @namespace Windows.Win32.System.Ole
- * @version v4.0.30319
  */
-class DVEXTENTINFO extends Win32Struct
-{
+class DVEXTENTINFO extends Win32Struct {
     static sizeof => 16
 
     static packingSize => 4
@@ -36,7 +34,7 @@ class DVEXTENTINFO extends Win32Struct
      * The proposed size in content sizing or the preferred size in integral sizing.
      * @type {SIZE}
      */
-    sizelProposed{
+    sizelProposed {
         get {
             if(!this.HasProp("__sizelProposed"))
                 this.__sizelProposed := SIZE(8, this)

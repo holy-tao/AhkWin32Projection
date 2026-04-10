@@ -1,14 +1,13 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
+#Include .\DOT11_OFFLOAD_TYPE.ahk
 #Include ..\..\Foundation\HANDLE.ahk
 #Include .\DOT11_IV48_COUNTER.ahk
 
 /**
  * @namespace Windows.Win32.NetworkManagement.WiFi
- * @version v4.0.30319
  */
-class DOT11_WPA_TSC extends Win32Struct
-{
+class DOT11_WPA_TSC extends Win32Struct {
     static sizeof => 24
 
     static packingSize => 8
@@ -22,7 +21,7 @@ class DOT11_WPA_TSC extends Win32Struct
     }
 
     /**
-     * @type {Integer}
+     * @type {DOT11_OFFLOAD_TYPE}
      */
     dot11OffloadType {
         get => NumGet(this, 4, "int")
@@ -32,7 +31,7 @@ class DOT11_WPA_TSC extends Win32Struct
     /**
      * @type {HANDLE}
      */
-    hOffload{
+    hOffload {
         get {
             if(!this.HasProp("__hOffload"))
                 this.__hOffload := HANDLE(8, this)
@@ -43,7 +42,7 @@ class DOT11_WPA_TSC extends Win32Struct
     /**
      * @type {DOT11_IV48_COUNTER}
      */
-    dot11IV48Counter{
+    dot11IV48Counter {
         get {
             if(!this.HasProp("__dot11IV48Counter"))
                 this.__dot11IV48Counter := DOT11_IV48_COUNTER(16, this)

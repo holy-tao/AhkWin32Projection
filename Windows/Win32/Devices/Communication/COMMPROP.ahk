@@ -1,5 +1,6 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
+#Include .\COMMPROP_STOP_PARITY.ahk
 
 /**
  * Contains information about a communications driver.
@@ -30,10 +31,8 @@
  * </table>
  * @see https://learn.microsoft.com/windows/win32/api/winbase/ns-winbase-commprop
  * @namespace Windows.Win32.Devices.Communication
- * @version v4.0.30319
  */
-class COMMPROP extends Win32Struct
-{
+class COMMPROP extends Win32Struct {
     static sizeof => 64
 
     static packingSize => 4
@@ -807,7 +806,7 @@ class COMMPROP extends Win32Struct
 
     /**
      * A bitmask indicating the stop bit and parity settings that can be selected. This member can be a
-     * @type {Integer}
+     * @type {COMMPROP_STOP_PARITY}
      */
     wSettableStopParity {
         get => NumGet(this, 42, "ushort")

@@ -7,9 +7,8 @@
  * Enables better interoperability with a component that might be handed a Direct3D 11 device, but which wants to leverage Direct3D 12 instead.
  * @see https://learn.microsoft.com/windows/win32/api/d3d11on12/nn-d3d11on12-id3d11on12device1
  * @namespace Windows.Win32.Graphics.Direct3D11on12
- * @version v4.0.30319
  */
-class ID3D11On12Device1 extends ID3D11On12Device{
+class ID3D11On12Device1 extends ID3D11On12Device {
 
     static sizeof => A_PtrSize
     /**

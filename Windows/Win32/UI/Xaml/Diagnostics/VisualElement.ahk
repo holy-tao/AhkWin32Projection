@@ -1,16 +1,14 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\..\Win32Struct.ahk
-#Include ..\..\..\Foundation\BSTR.ahk
 #Include .\SourceInfo.ahk
+#Include ..\..\..\Foundation\BSTR.ahk
 
 /**
  * Represents a XAML element in the Live Visual Tree in Microsoft Visual Studio.
  * @see https://learn.microsoft.com/windows/win32/api/xamlom/ns-xamlom-visualelement
  * @namespace Windows.Win32.UI.Xaml.Diagnostics
- * @version v4.0.30319
  */
-class VisualElement extends Win32Struct
-{
+class VisualElement extends Win32Struct {
     static sizeof => 64
 
     static packingSize => 8
@@ -28,7 +26,7 @@ class VisualElement extends Win32Struct
      * Information about the XAML source document.
      * @type {SourceInfo}
      */
-    SrcInfo{
+    SrcInfo {
         get {
             if(!this.HasProp("__SrcInfo"))
                 this.__SrcInfo := SourceInfo(8, this)
@@ -40,7 +38,7 @@ class VisualElement extends Win32Struct
      * The type of the object.
      * @type {BSTR}
      */
-    Type{
+    Type {
         get {
             if(!this.HasProp("__Type"))
                 this.__Type := BSTR(40, this)
@@ -52,7 +50,7 @@ class VisualElement extends Win32Struct
      * The name of the XAML element, if it has an <a href="https://docs.microsoft.com/windows/uwp/xaml-platform/x-name-attribute">x:Name</a> defined in markup.
      * @type {BSTR}
      */
-    Name{
+    Name {
         get {
             if(!this.HasProp("__Name"))
                 this.__Name := BSTR(48, this)

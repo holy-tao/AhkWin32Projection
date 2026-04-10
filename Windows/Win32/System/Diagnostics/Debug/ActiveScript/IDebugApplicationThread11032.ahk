@@ -5,9 +5,8 @@
 
 /**
  * @namespace Windows.Win32.System.Diagnostics.Debug.ActiveScript
- * @version v4.0.30319
  */
-class IDebugApplicationThread11032 extends IUnknown{
+class IDebugApplicationThread11032 extends IUnknown {
 
     static sizeof => A_PtrSize
     /**

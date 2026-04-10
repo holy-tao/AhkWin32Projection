@@ -3,10 +3,8 @@
 
 /**
  * @namespace Windows.Wdk.System.SystemServices
- * @version v4.0.30319
  */
-class PLUGPLAY_NOTIFICATION_HEADER extends Win32Struct
-{
+class PLUGPLAY_NOTIFICATION_HEADER extends Win32Struct {
     static sizeof => 16
 
     static packingSize => 8
@@ -28,7 +26,7 @@ class PLUGPLAY_NOTIFICATION_HEADER extends Win32Struct
     }
 
     /**
-     * @type {Pointer<Guid>}
+     * @type {Pointer}
      */
     Event {
         get => NumGet(this, 8, "ptr")

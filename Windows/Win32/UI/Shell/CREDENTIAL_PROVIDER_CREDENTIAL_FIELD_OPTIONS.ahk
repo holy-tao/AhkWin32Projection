@@ -5,9 +5,8 @@
  * Provides customization options for a single field in a logon or credential UI.
  * @see https://learn.microsoft.com/windows/win32/api/credentialprovider/ne-credentialprovider-credential_provider_credential_field_options
  * @namespace Windows.Win32.UI.Shell
- * @version v4.0.30319
  */
-class CREDENTIAL_PROVIDER_CREDENTIAL_FIELD_OPTIONS extends Win32BitflagEnum{
+class CREDENTIAL_PROVIDER_CREDENTIAL_FIELD_OPTIONS extends Win32BitflagEnum {
 
     /**
      * Default. Don't show the "password reveal" glyph, and use the standard on-screen keyboard layout.

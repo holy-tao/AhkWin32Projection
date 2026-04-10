@@ -1,19 +1,17 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\..\Guid.ahk
+#Include ..\IUnknown.ahk
 #Include .\CALLFRAMEINFO.ahk
 #Include .\CALLFRAMEPARAMINFO.ahk
 #Include ..\..\Variant\VARIANT.ahk
-#Include .\ICallFrame.ahk
-#Include ..\IUnknown.ahk
 
 /**
  * Enables manipulation of call frames such as stack frames.
  * @see https://learn.microsoft.com/windows/win32/api/callobj/nn-callobj-icallframe
  * @namespace Windows.Win32.System.Com.CallObj
- * @version v4.0.30319
  */
-class ICallFrame extends IUnknown{
+class ICallFrame extends IUnknown {
 
     static sizeof => A_PtrSize
     /**
@@ -243,7 +241,7 @@ class ICallFrame extends IUnknown{
      * Creates a copy of this call frame and all of its associated data.
      * @remarks
      * Copying a frame is like unmarshalling a marshaled frame. The call frame can only be copied if it has in-parameters. If the call frame is invoked, it cannot be copied. The copy method copies interface pointers as binary values and no referenced count adjustments are performed. But if this behavior is desired, then a pointer to <a href="https://docs.microsoft.com/windows/desktop/api/callobj/nn-callobj-icallframewalker">ICallFrameWalker</a> can be used.
-     * @param {Integer} copyControl Determines whether the copied call frame data can be shared with data in the parent frame by determining its lifetime dependency on the parent frame. For a list of values, see the <a href="https://docs.microsoft.com/windows/win32/api/callobj/ne-callobj-callframe_copy">CALLFRAME_COPY</a> enumeration. If the CALLFRAME_COPY_NESTED flag is set, then the client will be responsible for using the copied call frame in a manner that its lifetime is nested in the lifetime of its parent frame making the data sharable. If the CALLFRAME_COPY_INDEPENDENT is set, then the lifetime of the copied frame will be independent of the parents.
+     * @param {CALLFRAME_COPY} copyControl Determines whether the copied call frame data can be shared with data in the parent frame by determining its lifetime dependency on the parent frame. For a list of values, see the <a href="https://docs.microsoft.com/windows/win32/api/callobj/ne-callobj-callframe_copy">CALLFRAME_COPY</a> enumeration. If the CALLFRAME_COPY_NESTED flag is set, then the client will be responsible for using the copied call frame in a manner that its lifetime is nested in the lifetime of its parent frame making the data sharable. If the CALLFRAME_COPY_INDEPENDENT is set, then the lifetime of the copied frame will be independent of the parents.
      * @param {ICallFrameWalker} pWalker A pointer to an instance of the <a href="https://docs.microsoft.com/windows/desktop/api/callobj/nn-callobj-icallframewalker">ICallFrameWalker</a> interface. The <a href="https://docs.microsoft.com/windows/desktop/api/callobj/nf-callobj-icallframewalker-onwalkinterface">OnWalkInterface</a> method will be called for each interface pointer that is copied. If this parameter is not provided, then any interface pointer that is copied will be passed to <a href="https://docs.microsoft.com/windows/desktop/api/unknwn/nf-unknwn-iunknown-addref">AddRef</a>.
      * @returns {ICallFrame} A pointer to an <a href="https://docs.microsoft.com/windows/desktop/api/callobj/nn-callobj-icallframe">ICallFrame</a> pointer to a copy of the call frame.
      * @see https://learn.microsoft.com/windows/win32/api/callobj/nf-callobj-icallframe-copy
@@ -387,7 +385,7 @@ class ICallFrame extends IUnknown{
     /**
      * Retrieves an upper bound on the number of bytes needed to marshal the call frame.
      * @param {Pointer<CALLFRAME_MARSHALCONTEXT>} pmshlContext A pointer to the <a href="https://docs.microsoft.com/windows/win32/api/callobj/ns-callobj-callframe_marshalcontext">CALLFRAME_MARSHALCONTEXT</a> structure containing context information about how marshalling is carried out.
-     * @param {Integer} _mshlflags 
+     * @param {MSHLFLAGS} _mshlflags Indicates whether the data to be marshaled is to be transmitted back to the client process - the normal case - or written to a global table, where it can be retrieved by multiple clients. For a list of values, see the <a href="https://docs.microsoft.com/windows/desktop/api/wtypesbase/ne-wtypesbase-mshlflags">MSHLFLAGS</a> enumeration.
      * @returns {Integer} A pointer to the size of the buffer, in bytes, that will be needed to marshal the call frame.
      * @see https://learn.microsoft.com/windows/win32/api/callobj/nf-callobj-icallframe-getmarshalsizemax
      */
@@ -403,7 +401,7 @@ class ICallFrame extends IUnknown{
      * 
      * If this method returns an error, the caller will not be able to clean it up. Resources such as memory transiently allocated during the attempted marshalling have been freed.
      * @param {Pointer<CALLFRAME_MARSHALCONTEXT>} pmshlContext A pointer to the <a href="https://docs.microsoft.com/windows/win32/api/callobj/ns-callobj-callframe_marshalcontext">CALLFRAME_MARSHALCONTEXT</a> structure containing context information about how marshalling is carried out.
-     * @param {Integer} _mshlflags 
+     * @param {MSHLFLAGS} _mshlflags Flag indicating whether the data to be marshaled is to be transmitted back to the client process - the normal case - or written to a global table, where it can be retrieved by multiple clients. The possible values are from the <a href="https://docs.microsoft.com/windows/desktop/api/wtypesbase/ne-wtypesbase-mshlflags">MSHLFLAGS</a> enumeration.
      * @param {Pointer<Void>} pBuffer A pointer to the buffer into which the marshaled data is to be placed.
      * @param {Integer} cbBuffer The size of the buffer, in bytes.
      * @param {Pointer<Integer>} pcbBufferUsed Receives the size of the buffer that was actually used. This parameter is optional.

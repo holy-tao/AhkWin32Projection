@@ -1,15 +1,14 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
 #Include .\EMR.ahk
+#Include .\ENHANCED_METAFILE_RECORD_TYPE.ahk
 
 /**
  * The EMREOF structure contains data for the enhanced metafile record that indicates the end of the metafile.
  * @see https://learn.microsoft.com/windows/win32/api/wingdi/ns-wingdi-emreof
  * @namespace Windows.Win32.Graphics.Gdi
- * @version v4.0.30319
  */
-class EMREOF extends Win32Struct
-{
+class EMREOF extends Win32Struct {
     static sizeof => 20
 
     static packingSize => 4
@@ -18,7 +17,7 @@ class EMREOF extends Win32Struct
      * The base structure for all record types.
      * @type {EMR}
      */
-    emr{
+    emr {
         get {
             if(!this.HasProp("__emr"))
                 this.__emr := EMR(0, this)

@@ -7,9 +7,8 @@
  * The IWMPCdromRip interface provides methods to manage copying, or ripping, tracks from an audio CD.Ripping a CD by using the IWMPCdromRip interface has the same effect as ripping music by using the Windows Media Player user interface.
  * @see https://learn.microsoft.com/windows/win32/api/wmp/nn-wmp-iwmpcdromrip
  * @namespace Windows.Win32.Media.MediaPlayer
- * @version v4.0.30319
  */
-class IWMPCdromRip extends IUnknown{
+class IWMPCdromRip extends IUnknown {
 
     static sizeof => A_PtrSize
     /**
@@ -46,7 +45,7 @@ class IWMPCdromRip extends IUnknown{
      * The get_ripState method retrieves an enumeration value that indicates the current state of the ripping process.
      * @remarks
      * <b>Windows Media Player 10 Mobile: </b>This method is not supported.
-     * @param {Pointer<Integer>} pwmprs Pointer to a variable that receives a value from the <b>WMPRipState</b> enumeration that indicates the current state.
+     * @param {Pointer<WMPRipState>} pwmprs Pointer to a variable that receives a value from the <b>WMPRipState</b> enumeration that indicates the current state.
      * @returns {HRESULT} The method returns an <b>HRESULT</b>. Possible values include, but are not limited to, those in the following table.
      * 
      * <table>

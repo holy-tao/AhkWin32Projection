@@ -1,16 +1,15 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\..\Guid.ahk
-#Include ..\..\..\Foundation\BSTR.ahk
 #Include ..\..\..\System\Com\IDispatch.ahk
+#Include ..\..\..\Foundation\BSTR.ahk
 
 /**
  * Provides functionality for retrieving the public configuration data (specified during client setup) for a Certificate Services server.
  * @see https://learn.microsoft.com/windows/win32/api/certcli/nn-certcli-icertgetconfig
  * @namespace Windows.Win32.Security.Cryptography.Certificates
- * @version v4.0.30319
  */
-class ICertGetConfig extends IDispatch{
+class ICertGetConfig extends IDispatch {
 
     static sizeof => A_PtrSize
     /**
@@ -112,7 +111,7 @@ class ICertGetConfig extends IDispatch{
      * 
      * The CA name portion of the configuration string returned by this method is the original text entered during setup. Note that Certificate Services methods that require a CA name as a parameter accept the originally entered CA name. For example, for the CA name <b>#</b><i>YourName</i>, the  
      * <a href="https://docs.microsoft.com/windows/desktop/api/certview/nf-certview-icertview-openconnection">ICertView2::OpenConnection</a> method accepts <b>#</b><i>YourName</i> as the parameter's CA portion.
-     * @param {Integer} Flags 
+     * @param {CERT_GET_CONFIG_FLAGS} Flags 
      * @returns {BSTR} A pointer to a <b>BSTR</b> that contains the configuration. When you have finished using the configuration, call the <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/oleauto/nf-oleauto-sysfreestring">SysFreeString</a> function to free <i>pbstrOut</i>.
      * @see https://learn.microsoft.com/windows/win32/api/certcli/nf-certcli-icertgetconfig-getconfig
      */

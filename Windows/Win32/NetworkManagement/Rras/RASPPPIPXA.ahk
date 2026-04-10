@@ -3,11 +3,9 @@
 
 /**
  * @namespace Windows.Win32.NetworkManagement.Rras
- * @version v4.0.30319
  */
-class RASPPPIPXA extends Win32Struct
-{
-    static sizeof => 52
+class RASPPPIPXA extends Win32Struct {
+    static sizeof => 32
 
     static packingSize => 4
 
@@ -31,7 +29,7 @@ class RASPPPIPXA extends Win32Struct
      * @type {String}
      */
     szIpxAddress {
-        get => StrGet(this.ptr + 8, 21, "UTF-16")
-        set => StrPut(value, this.ptr + 8, 21, "UTF-16")
+        get => StrGet(this.ptr + 8, 21, "UTF-8")
+        set => StrPut(value, this.ptr + 8, 21, "UTF-8")
     }
 }

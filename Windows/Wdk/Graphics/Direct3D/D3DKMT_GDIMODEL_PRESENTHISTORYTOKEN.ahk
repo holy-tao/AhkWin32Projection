@@ -1,15 +1,11 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
-#Include ..\..\..\Win32\Foundation\RECT.ahk
-#Include ..\..\..\Win32\Foundation\POINT.ahk
 
 /**
  * @namespace Windows.Wdk.Graphics.Direct3D
- * @version v4.0.30319
  */
-class D3DKMT_GDIMODEL_PRESENTHISTORYTOKEN extends Win32Struct
-{
-    static sizeof => 48
+class D3DKMT_GDIMODEL_PRESENTHISTORYTOKEN extends Win32Struct {
+    static sizeof => 40
 
     static packingSize => 8
 
@@ -30,32 +26,26 @@ class D3DKMT_GDIMODEL_PRESENTHISTORYTOKEN extends Win32Struct
     }
 
     /**
-     * @type {RECT}
+     * @type {Pointer}
      */
-    ScrollRect{
-        get {
-            if(!this.HasProp("__ScrollRect"))
-                this.__ScrollRect := RECT(16, this)
-            return this.__ScrollRect
-        }
+    ScrollRect {
+        get => NumGet(this, 16, "ptr")
+        set => NumPut("ptr", value, this, 16)
     }
 
     /**
-     * @type {POINT}
+     * @type {Pointer}
      */
-    ScrollOffset{
-        get {
-            if(!this.HasProp("__ScrollOffset"))
-                this.__ScrollOffset := POINT(32, this)
-            return this.__ScrollOffset
-        }
+    ScrollOffset {
+        get => NumGet(this, 24, "ptr")
+        set => NumPut("ptr", value, this, 24)
     }
 
     /**
-     * @type {Pointer<D3DKMT_DIRTYREGIONS>}
+     * @type {Pointer}
      */
     DirtyRegions {
-        get => NumGet(this, 40, "ptr")
-        set => NumPut("ptr", value, this, 40)
+        get => NumGet(this, 32, "ptr")
+        set => NumPut("ptr", value, this, 32)
     }
 }

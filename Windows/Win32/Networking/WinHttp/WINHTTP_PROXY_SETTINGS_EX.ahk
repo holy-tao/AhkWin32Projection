@@ -3,14 +3,11 @@
 
 /**
  * The WINHTTP_PROXY_SETTINGS_EX structure represents extended proxy settings.
- * @remarks
- * 
  * @see https://learn.microsoft.com/windows/win32/api/winhttp/ns-winhttp-winhttp_proxy_settings_ex
  * @namespace Windows.Win32.Networking.WinHttp
- * @version v4.0.30319
+ * @architecture X64, Arm64
  */
-class WINHTTP_PROXY_SETTINGS_EX extends Win32Struct
-{
+class WINHTTP_PROXY_SETTINGS_EX extends Win32Struct {
     static sizeof => 72
 
     static packingSize => 8

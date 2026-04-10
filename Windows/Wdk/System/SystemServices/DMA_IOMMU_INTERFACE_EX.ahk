@@ -3,10 +3,8 @@
 
 /**
  * @namespace Windows.Wdk.System.SystemServices
- * @version v4.0.30319
  */
-class DMA_IOMMU_INTERFACE_EX extends Win32Struct
-{
+class DMA_IOMMU_INTERFACE_EX extends Win32Struct {
     static sizeof => 24
 
     static packingSize => 8
@@ -28,7 +26,7 @@ class DMA_IOMMU_INTERFACE_EX extends Win32Struct
     }
 
     /**
-     * @type {Pointer<DMA_IOMMU_INTERFACE_V1>}
+     * @type {Pointer}
      */
     V1 {
         get => NumGet(this, 16, "ptr")
@@ -36,7 +34,7 @@ class DMA_IOMMU_INTERFACE_EX extends Win32Struct
     }
 
     /**
-     * @type {Pointer<DMA_IOMMU_INTERFACE_V2>}
+     * @type {Pointer}
      */
     V2 {
         get => NumGet(this, 16, "ptr")

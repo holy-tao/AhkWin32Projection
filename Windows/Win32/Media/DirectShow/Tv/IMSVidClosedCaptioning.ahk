@@ -9,9 +9,8 @@
  * To declare the interface identifier (IID) for this interface, use the <b>__uuidof</b> operator: <c>__uuidof(IMSVidClosedCaptioning)</c>.
  * @see https://learn.microsoft.com/windows/win32/api/segment/nn-segment-imsvidclosedcaptioning
  * @namespace Windows.Win32.Media.DirectShow.Tv
- * @version v4.0.30319
  */
-class IMSVidClosedCaptioning extends IMSVidFeature{
+class IMSVidClosedCaptioning extends IMSVidFeature {
 
     static sizeof => A_PtrSize
     /**

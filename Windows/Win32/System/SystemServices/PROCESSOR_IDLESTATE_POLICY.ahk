@@ -4,13 +4,11 @@
 
 /**
  * @namespace Windows.Win32.System.SystemServices
- * @version v4.0.30319
  */
-class PROCESSOR_IDLESTATE_POLICY extends Win32Struct
-{
+class PROCESSOR_IDLESTATE_POLICY extends Win32Struct {
     static sizeof => 32
 
-    static packingSize => 8
+    static packingSize => 4
 
     class _Flags_e__Union extends Win32Struct {
         static sizeof => 2
@@ -23,7 +21,7 @@ class PROCESSOR_IDLESTATE_POLICY extends Win32Struct
             get => NumGet(this, 0, "ushort")
             set => NumPut("ushort", value, this, 0)
         }
-    
+
         /**
          * This bitfield backs the following members:
          * - AllowScaling
@@ -35,7 +33,7 @@ class PROCESSOR_IDLESTATE_POLICY extends Win32Struct
             get => NumGet(this, 0, "ushort")
             set => NumPut("ushort", value, this, 0)
         }
-    
+
         /**
          * @type {Integer}
          */
@@ -43,7 +41,7 @@ class PROCESSOR_IDLESTATE_POLICY extends Win32Struct
             get => (this._bitfield >> 0) & 0x1
             set => this._bitfield := ((value & 0x1) << 0) | (this._bitfield & ~(0x1 << 0))
         }
-    
+
         /**
          * @type {Integer}
          */
@@ -51,7 +49,6 @@ class PROCESSOR_IDLESTATE_POLICY extends Win32Struct
             get => (this._bitfield >> 1) & 0x1
             set => this._bitfield := ((value & 0x1) << 1) | (this._bitfield & ~(0x1 << 1))
         }
-    
     }
 
     /**
@@ -65,10 +62,10 @@ class PROCESSOR_IDLESTATE_POLICY extends Win32Struct
     /**
      * @type {_Flags_e__Union}
      */
-    Flags{
+    Flags {
         get {
             if(!this.HasProp("__Flags"))
-                this.__Flags := %this.__Class%._Flags_e__Union(2, this)
+                this.__Flags := PROCESSOR_IDLESTATE_POLICY._Flags_e__Union(2, this)
             return this.__Flags
         }
     }
@@ -82,9 +79,9 @@ class PROCESSOR_IDLESTATE_POLICY extends Win32Struct
     }
 
     /**
-     * @type {Array<PROCESSOR_IDLESTATE_INFO>}
+     * @type {PROCESSOR_IDLESTATE_INFO}
      */
-    Policy{
+    Policy {
         get {
             if(!this.HasProp("__PolicyProxyArray"))
                 this.__PolicyProxyArray := Win32FixedArray(this.ptr + 8, 3, PROCESSOR_IDLESTATE_INFO, "")

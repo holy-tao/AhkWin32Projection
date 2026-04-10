@@ -7,9 +7,8 @@
  * Creates instances of IVideoFrameNative.
  * @see https://learn.microsoft.com/windows/win32/api/windows.media.core.interop/nn-windows-media-core-interop-ivideoframenativefactory
  * @namespace Windows.Win32.System.WinRT.Media
- * @version v4.0.30319
  */
-class IVideoFrameNativeFactory extends IInspectable{
+class IVideoFrameNativeFactory extends IInspectable {
 
     static sizeof => A_PtrSize
     /**

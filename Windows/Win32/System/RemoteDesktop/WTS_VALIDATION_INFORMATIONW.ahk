@@ -4,11 +4,9 @@
 
 /**
  * @namespace Windows.Win32.System.RemoteDesktop
- * @version v4.0.30319
  * @charset Unicode
  */
-class WTS_VALIDATION_INFORMATIONW extends Win32Struct
-{
+class WTS_VALIDATION_INFORMATIONW extends Win32Struct {
     static sizeof => 16932
 
     static packingSize => 4
@@ -16,7 +14,7 @@ class WTS_VALIDATION_INFORMATIONW extends Win32Struct
     /**
      * @type {PRODUCT_INFOW}
      */
-    ProductInfo{
+    ProductInfo {
         get {
             if(!this.HasProp("__ProductInfo"))
                 this.__ProductInfo := PRODUCT_INFOW(0, this)
@@ -25,9 +23,9 @@ class WTS_VALIDATION_INFORMATIONW extends Win32Struct
     }
 
     /**
-     * @type {Array<Byte>}
+     * @type {Array<Integer>}
      */
-    License{
+    License {
         get {
             if(!this.HasProp("__LicenseProxyArray"))
                 this.__LicenseProxyArray := Win32FixedArray(this.ptr + 520, 16384, Primitive, "char")
@@ -44,9 +42,9 @@ class WTS_VALIDATION_INFORMATIONW extends Win32Struct
     }
 
     /**
-     * @type {Array<Byte>}
+     * @type {Array<Integer>}
      */
-    HardwareID{
+    HardwareID {
         get {
             if(!this.HasProp("__HardwareIDProxyArray"))
                 this.__HardwareIDProxyArray := Win32FixedArray(this.ptr + 16908, 20, Primitive, "char")

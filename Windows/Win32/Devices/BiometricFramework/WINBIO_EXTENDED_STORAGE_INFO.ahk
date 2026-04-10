@@ -5,10 +5,8 @@
  * Contains information about the capabilities and enrollment requirements of the storage adapter for a biometric unit.
  * @see https://learn.microsoft.com/windows/win32/SecBioMet/winbio-extended-storage-info
  * @namespace Windows.Win32.Devices.BiometricFramework
- * @version v4.0.30319
  */
-class WINBIO_EXTENDED_STORAGE_INFO extends Win32Struct
-{
+class WINBIO_EXTENDED_STORAGE_INFO extends Win32Struct {
     static sizeof => 12
 
     static packingSize => 4
@@ -20,7 +18,7 @@ class WINBIO_EXTENDED_STORAGE_INFO extends Win32Struct
         class _FacialFeatures extends Win32Struct {
             static sizeof => 4
             static packingSize => 4
-    
+
             /**
              * @type {Integer}
              */
@@ -28,13 +26,12 @@ class WINBIO_EXTENDED_STORAGE_INFO extends Win32Struct
                 get => NumGet(this, 0, "uint")
                 set => NumPut("uint", value, this, 0)
             }
-        
         }
-    
+
         class _Fingerprint extends Win32Struct {
             static sizeof => 4
             static packingSize => 4
-    
+
             /**
              * @type {Integer}
              */
@@ -42,13 +39,12 @@ class WINBIO_EXTENDED_STORAGE_INFO extends Win32Struct
                 get => NumGet(this, 0, "uint")
                 set => NumPut("uint", value, this, 0)
             }
-        
         }
-    
+
         class _Iris extends Win32Struct {
             static sizeof => 4
             static packingSize => 4
-    
+
             /**
              * @type {Integer}
              */
@@ -56,13 +52,12 @@ class WINBIO_EXTENDED_STORAGE_INFO extends Win32Struct
                 get => NumGet(this, 0, "uint")
                 set => NumPut("uint", value, this, 0)
             }
-        
         }
-    
+
         class _Voice extends Win32Struct {
             static sizeof => 4
             static packingSize => 4
-    
+
             /**
              * @type {Integer}
              */
@@ -70,9 +65,8 @@ class WINBIO_EXTENDED_STORAGE_INFO extends Win32Struct
                 get => NumGet(this, 0, "uint")
                 set => NumPut("uint", value, this, 0)
             }
-        
         }
-    
+
         /**
          * @type {Integer}
          */
@@ -80,51 +74,50 @@ class WINBIO_EXTENDED_STORAGE_INFO extends Win32Struct
             get => NumGet(this, 0, "uint")
             set => NumPut("uint", value, this, 0)
         }
-    
+
         /**
          * @type {_FacialFeatures}
          */
-        FacialFeatures{
+        FacialFeatures {
             get {
                 if(!this.HasProp("__FacialFeatures"))
-                    this.__FacialFeatures := %this.__Class%._FacialFeatures(0, this)
+                    this.__FacialFeatures := WINBIO_EXTENDED_STORAGE_INFO._Specific_e__Union._FacialFeatures(0, this)
                 return this.__FacialFeatures
             }
         }
-    
+
         /**
          * @type {_Fingerprint}
          */
-        Fingerprint{
+        Fingerprint {
             get {
                 if(!this.HasProp("__Fingerprint"))
-                    this.__Fingerprint := %this.__Class%._Fingerprint(0, this)
+                    this.__Fingerprint := WINBIO_EXTENDED_STORAGE_INFO._Specific_e__Union._Fingerprint(0, this)
                 return this.__Fingerprint
             }
         }
-    
+
         /**
          * @type {_Iris}
          */
-        Iris{
+        Iris {
             get {
                 if(!this.HasProp("__Iris"))
-                    this.__Iris := %this.__Class%._Iris(0, this)
+                    this.__Iris := WINBIO_EXTENDED_STORAGE_INFO._Specific_e__Union._Iris(0, this)
                 return this.__Iris
             }
         }
-    
+
         /**
          * @type {_Voice}
          */
-        Voice{
+        Voice {
             get {
                 if(!this.HasProp("__Voice"))
-                    this.__Voice := %this.__Class%._Voice(0, this)
+                    this.__Voice := WINBIO_EXTENDED_STORAGE_INFO._Specific_e__Union._Voice(0, this)
                 return this.__Voice
             }
         }
-    
     }
 
     /**
@@ -149,10 +142,10 @@ class WINBIO_EXTENDED_STORAGE_INFO extends Win32Struct
      * Information about the capabilities and enrollment requirements of the storage adapter for a biometric unit related to a specific biometric factor.
      * @type {_Specific_e__Union}
      */
-    Specific{
+    Specific {
         get {
             if(!this.HasProp("__Specific"))
-                this.__Specific := %this.__Class%._Specific_e__Union(8, this)
+                this.__Specific := WINBIO_EXTENDED_STORAGE_INFO._Specific_e__Union(8, this)
             return this.__Specific
         }
     }

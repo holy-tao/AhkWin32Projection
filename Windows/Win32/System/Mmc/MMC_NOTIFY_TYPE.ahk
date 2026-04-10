@@ -5,9 +5,8 @@
  * The MMC_NOTIFY_TYPE enumeration defines the notifications of user actions that can be sent to a snap-in by the console's Node Manager when it calls IComponentData::Notify, IComponent::Notify, or IExtendControlbar::ControlbarNotify.
  * @see https://learn.microsoft.com/windows/win32/api/mmc/ne-mmc-mmc_notify_type
  * @namespace Windows.Win32.System.Mmc
- * @version v4.0.30319
  */
-class MMC_NOTIFY_TYPE extends Win32Enum{
+class MMC_NOTIFY_TYPE extends Win32Enum {
 
     /**
      * A window for which the snap-in owns the result view is being activated or deactivated.

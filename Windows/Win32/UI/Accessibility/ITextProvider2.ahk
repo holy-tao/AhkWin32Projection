@@ -1,16 +1,15 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
-#Include .\ITextRangeProvider.ahk
 #Include .\ITextProvider.ahk
+#Include .\ITextRangeProvider.ahk
 
 /**
  * Extends the ITextProvider interface to enable Microsoft UI Automation providers to expose textual content that is the target of an annotation, and information about a caret that belongs to the provider.
  * @see https://learn.microsoft.com/windows/win32/api/uiautomationcore/nn-uiautomationcore-itextprovider2
  * @namespace Windows.Win32.UI.Accessibility
- * @version v4.0.30319
  */
-class ITextProvider2 extends ITextProvider{
+class ITextProvider2 extends ITextProvider {
 
     static sizeof => A_PtrSize
     /**

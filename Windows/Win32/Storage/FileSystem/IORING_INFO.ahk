@@ -1,24 +1,23 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
+#Include .\IORING_VERSION.ahk
 #Include .\IORING_CREATE_FLAGS.ahk
+#Include .\IORING_CREATE_REQUIRED_FLAGS.ahk
+#Include .\IORING_CREATE_ADVISORY_FLAGS.ahk
 
 /**
  * Represents the shape and version information for the specified I/O ring.
- * @remarks
- * 
  * @see https://learn.microsoft.com/windows/win32/api/ioringapi/ns-ioringapi-ioring_info
  * @namespace Windows.Win32.Storage.FileSystem
- * @version v4.0.30319
  */
-class IORING_INFO extends Win32Struct
-{
+class IORING_INFO extends Win32Struct {
     static sizeof => 20
 
     static packingSize => 4
 
     /**
      * A [IORING_VERSION](../ntioring_x/ne-ntioring_x-ioring_version.md) structure representing the API version of the associated I/O ring.
-     * @type {Integer}
+     * @type {IORING_VERSION}
      */
     IoRingVersion {
         get => NumGet(this, 0, "int")
@@ -29,7 +28,7 @@ class IORING_INFO extends Win32Struct
      * A [IORING_CREATE_FLAGS](ns-ioringapi-ioring_create_flags.md) structure containing the creation flags with which the associated I/O ring.
      * @type {IORING_CREATE_FLAGS}
      */
-    Flags{
+    Flags {
         get {
             if(!this.HasProp("__Flags"))
                 this.__Flags := IORING_CREATE_FLAGS(4, this)

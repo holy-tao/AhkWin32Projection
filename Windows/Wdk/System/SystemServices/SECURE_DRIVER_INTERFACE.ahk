@@ -3,16 +3,14 @@
 
 /**
  * @namespace Windows.Wdk.System.SystemServices
- * @version v4.0.30319
  */
-class SECURE_DRIVER_INTERFACE extends Win32Struct
-{
+class SECURE_DRIVER_INTERFACE extends Win32Struct {
     static sizeof => 32
 
     static packingSize => 8
 
     /**
-     * @type {Pointer<INTERFACE>}
+     * @type {Pointer}
      */
     InterfaceHeader {
         get => NumGet(this, 0, "ptr")

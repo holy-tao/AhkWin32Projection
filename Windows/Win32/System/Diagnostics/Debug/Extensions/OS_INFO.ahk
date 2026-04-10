@@ -3,11 +3,9 @@
 
 /**
  * @namespace Windows.Win32.System.Diagnostics.Debug.Extensions
- * @version v4.0.30319
  */
-class OS_INFO extends Win32Struct
-{
-    static sizeof => 1004
+class OS_INFO extends Win32Struct {
+    static sizeof => 528
 
     static packingSize => 4
 
@@ -27,7 +25,7 @@ class OS_INFO extends Win32Struct
             get => NumGet(this, 0, "uint")
             set => NumPut("uint", value, this, 0)
         }
-    
+
         /**
          * @type {Integer}
          */
@@ -35,7 +33,7 @@ class OS_INFO extends Win32Struct
             get => (this._bitfield >> 0) & 0x1
             set => this._bitfield := ((value & 0x1) << 0) | (this._bitfield & ~(0x1 << 0))
         }
-    
+
         /**
          * @type {Integer}
          */
@@ -43,7 +41,7 @@ class OS_INFO extends Win32Struct
             get => (this._bitfield >> 1) & 0x1
             set => this._bitfield := ((value & 0x1) << 1) | (this._bitfield & ~(0x1 << 1))
         }
-    
+
         /**
          * @type {Integer}
          */
@@ -51,7 +49,6 @@ class OS_INFO extends Win32Struct
             get => (this._bitfield >> 2) & 0x1
             set => this._bitfield := ((value & 0x1) << 2) | (this._bitfield & ~(0x1 << 2))
         }
-    
     }
 
     /**
@@ -113,10 +110,10 @@ class OS_INFO extends Win32Struct
     /**
      * @type {_s}
      */
-    s{
+    s {
         get {
             if(!this.HasProp("__s"))
-                this.__s := %this.__Class%._s(28, this)
+                this.__s := OS_INFO._s(28, this)
             return this.__s
         }
     }
@@ -157,39 +154,39 @@ class OS_INFO extends Win32Struct
      * @type {String}
      */
     Name {
-        get => StrGet(this.ptr + 48, 63, "UTF-16")
-        set => StrPut(value, this.ptr + 48, 63, "UTF-16")
+        get => StrGet(this.ptr + 48, 63, "UTF-8")
+        set => StrPut(value, this.ptr + 48, 63, "UTF-8")
     }
 
     /**
      * @type {String}
      */
     FullName {
-        get => StrGet(this.ptr + 176, 255, "UTF-16")
-        set => StrPut(value, this.ptr + 176, 255, "UTF-16")
+        get => StrGet(this.ptr + 112, 255, "UTF-8")
+        set => StrPut(value, this.ptr + 112, 255, "UTF-8")
     }
 
     /**
      * @type {String}
      */
     Language {
-        get => StrGet(this.ptr + 688, 29, "UTF-16")
-        set => StrPut(value, this.ptr + 688, 29, "UTF-16")
+        get => StrGet(this.ptr + 368, 29, "UTF-8")
+        set => StrPut(value, this.ptr + 368, 29, "UTF-8")
     }
 
     /**
      * @type {String}
      */
     BuildVersion {
-        get => StrGet(this.ptr + 748, 63, "UTF-16")
-        set => StrPut(value, this.ptr + 748, 63, "UTF-16")
+        get => StrGet(this.ptr + 398, 63, "UTF-8")
+        set => StrPut(value, this.ptr + 398, 63, "UTF-8")
     }
 
     /**
      * @type {String}
      */
     ServicePackString {
-        get => StrGet(this.ptr + 876, 63, "UTF-16")
-        set => StrPut(value, this.ptr + 876, 63, "UTF-16")
+        get => StrGet(this.ptr + 462, 63, "UTF-8")
+        set => StrPut(value, this.ptr + 462, 63, "UTF-8")
     }
 }

@@ -5,9 +5,8 @@
  * An enumeration used to specify how to handle HTTP cookies.
  * @see https://learn.microsoft.com/windows/win32/api/webservices/ne-webservices-ws_cookie_mode
  * @namespace Windows.Win32.Networking.WindowsWebServices
- * @version v4.0.30319
  */
-class WS_COOKIE_MODE extends Win32Enum{
+class WS_COOKIE_MODE extends Win32Enum {
 
     /**
      * In this mode, cookies are not processed by the client channel.

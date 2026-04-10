@@ -5,9 +5,8 @@
  * Describes the text editing change being performed by controls when text-edit events are raised or handled.
  * @see https://learn.microsoft.com/windows/win32/api/uiautomationcore/ne-uiautomationcore-texteditchangetype
  * @namespace Windows.Win32.UI.Accessibility
- * @version v4.0.30319
  */
-class TextEditChangeType extends Win32Enum{
+class TextEditChangeType extends Win32Enum {
 
     /**
      * Not related to a specific change type.
@@ -37,7 +36,6 @@ class TextEditChangeType extends Win32Enum{
     static TextEditChangeType_CompositionFinalized => 3
 
     /**
-     * 
      * @type {Integer (Int32)}
      */
     static TextEditChangeType_AutoComplete => 4

@@ -3,7 +3,6 @@
 
 /**
  * @namespace Windows.Win32.Security.Authentication.WebAuthn
- * @version v4.0.30319
  */
 class WebAuthn {
 
@@ -873,7 +872,7 @@ class WebAuthn {
 
     /**
      * Creates a public key credential source bound to a managing authenticator and returns the credential public key associated with its credential private key.
-     * @param {HWND} _hWnd 
+     * @param {HWND} _hWnd The handle for the window that will be used to display the UI.
      * @param {Pointer<WEBAUTHN_RP_ENTITY_INFORMATION>} pRpInformation The Relying Party's **WEBAUTHN_RP_ENTITY_INFORMATION**.
      * @param {Pointer<WEBAUTHN_USER_ENTITY_INFORMATION>} pUserInformation The user account’s **WEBAUTHN_USER_ENTITY_INFORMATION**, containing the user handle given by the Relying Party.
      * @param {Pointer<WEBAUTHN_COSE_CREDENTIAL_PARAMETERS>} pPubKeyCredParams A sequence of pairs of public key credential type and public key algorithms requested by the Relying Party. This sequence is ordered from most preferred to least preferred. The authenticator makes a best-effort to create the most preferred credential that it can.
@@ -896,7 +895,7 @@ class WebAuthn {
      * > Before performing this operation, all other operations in progress in the authenticator session MUST be aborted by running the [WebAuthNCancelCurrentOperation](./nf-webauthn-webauthncancelcurrentoperation.md) operation.
      * 
      * If the authenticator cannot find any credential corresponding to the specified Relying Party that matches the specified criteria, it terminates the operation and returns an error.
-     * @param {HWND} _hWnd 
+     * @param {HWND} _hWnd The handle for the window that will be used to display the UI.
      * @param {PWSTR} pwszRpId The ID of the Relying Party.
      * @param {Pointer<WEBAUTHN_CLIENT_DATA>} pWebAuthNClientData The client data to be sent to the authenticator for the Relying Party.
      * @param {Pointer<WEBAUTHN_AUTHENTICATOR_GET_ASSERTION_OPTIONS>} pWebAuthNGetAssertionOptions The options for the **WebAuthNAuthenticatorGetAssertion** operation.
@@ -979,7 +978,7 @@ class WebAuthn {
     /**
      * Removes a credential source stored on an authenticator.
      * @param {Integer} cbCredentialId The ID of the credential to be removed.
-     * @param {Pointer} pbCredentialId A pointer to the credential ID to be removed.
+     * @param {Integer} pbCredentialId A pointer to the credential ID to be removed.
      * @returns {HRESULT} Returns an **HRESULT** indicating success or failure.
      * @see https://learn.microsoft.com/windows/win32/api/webauthn/nf-webauthn-webauthndeleteplatformcredential
      */

@@ -7,10 +7,8 @@
  * The temperature reported by a temperature sensor may be used to trigger an asynchronous event. For more information, see [NVME_CDW11_FEATURE_TEMPERATURE_THRESHOLD](ns-nvme-nvme_cdw11_feature_temperature_threshold.md).
  * @see https://learn.microsoft.com/windows/win32/api/nvme/ns-nvme-nvme_health_info_log
  * @namespace Windows.Win32.Storage.Nvme
- * @version v4.0.30319
  */
-class NVME_HEALTH_INFO_LOG extends Win32Struct
-{
+class NVME_HEALTH_INFO_LOG extends Win32Struct {
     static sizeof => 512
 
     static packingSize => 4
@@ -33,7 +31,7 @@ class NVME_HEALTH_INFO_LOG extends Win32Struct
             get => NumGet(this, 0, "char")
             set => NumPut("char", value, this, 0)
         }
-    
+
         /**
          * @type {Integer}
          */
@@ -41,7 +39,7 @@ class NVME_HEALTH_INFO_LOG extends Win32Struct
             get => (this._bitfield >> 0) & 0x1
             set => this._bitfield := ((value & 0x1) << 0) | (this._bitfield & ~(0x1 << 0))
         }
-    
+
         /**
          * @type {Integer}
          */
@@ -49,7 +47,7 @@ class NVME_HEALTH_INFO_LOG extends Win32Struct
             get => (this._bitfield >> 1) & 0x1
             set => this._bitfield := ((value & 0x1) << 1) | (this._bitfield & ~(0x1 << 1))
         }
-    
+
         /**
          * @type {Integer}
          */
@@ -57,7 +55,7 @@ class NVME_HEALTH_INFO_LOG extends Win32Struct
             get => (this._bitfield >> 2) & 0x1
             set => this._bitfield := ((value & 0x1) << 2) | (this._bitfield & ~(0x1 << 2))
         }
-    
+
         /**
          * @type {Integer}
          */
@@ -65,7 +63,7 @@ class NVME_HEALTH_INFO_LOG extends Win32Struct
             get => (this._bitfield >> 3) & 0x1
             set => this._bitfield := ((value & 0x1) << 3) | (this._bitfield & ~(0x1 << 3))
         }
-    
+
         /**
          * @type {Integer}
          */
@@ -73,7 +71,7 @@ class NVME_HEALTH_INFO_LOG extends Win32Struct
             get => (this._bitfield >> 4) & 0x1
             set => this._bitfield := ((value & 0x1) << 4) | (this._bitfield & ~(0x1 << 4))
         }
-    
+
         /**
          * @type {Integer}
          */
@@ -81,7 +79,6 @@ class NVME_HEALTH_INFO_LOG extends Win32Struct
             get => NumGet(this, 0, "char")
             set => NumPut("char", value, this, 0)
         }
-    
     }
 
     /**
@@ -92,10 +89,10 @@ class NVME_HEALTH_INFO_LOG extends Win32Struct
      * Critical warnings may result in an asynchronous event notification to the host.
      * @type {_CriticalWarning_e__Union}
      */
-    CriticalWarning{
+    CriticalWarning {
         get {
             if(!this.HasProp("__CriticalWarning"))
-                this.__CriticalWarning := %this.__Class%._CriticalWarning_e__Union(0, this)
+                this.__CriticalWarning := NVME_HEALTH_INFO_LOG._CriticalWarning_e__Union(0, this)
             return this.__CriticalWarning
         }
     }
@@ -106,9 +103,9 @@ class NVME_HEALTH_INFO_LOG extends Win32Struct
      * If the temperature in this field exceeds the temperature threshold, an asynchronous event completion may occur. For more information, see [NVME_CDW11_FEATURE_TEMPERATURE_THRESHOLD](ns-nvme-nvme_cdw11_feature_temperature_threshold.md).
      * 
      * Warning and critical overheating composite temperature threshold values are reported by the **WCTEMP** and **CCTEMP** fields in the [Identify Controller](ns-nvme-nvme_identify_controller_data.md) data structure.
-     * @type {Array<Byte>}
+     * @type {Array<Integer>}
      */
-    Temperature{
+    Temperature {
         get {
             if(!this.HasProp("__TemperatureProxyArray"))
                 this.__TemperatureProxyArray := Win32FixedArray(this.ptr + 1, 2, Primitive, "char")
@@ -149,9 +146,9 @@ class NVME_HEALTH_INFO_LOG extends Win32Struct
 
     /**
      * A reserved field.
-     * @type {Array<Byte>}
+     * @type {Array<Integer>}
      */
-    Reserved0{
+    Reserved0 {
         get {
             if(!this.HasProp("__Reserved0ProxyArray"))
                 this.__Reserved0ProxyArray := Win32FixedArray(this.ptr + 6, 26, Primitive, "char")
@@ -165,9 +162,9 @@ class NVME_HEALTH_INFO_LOG extends Win32Struct
      * The value of this field is reported in thousands and is rounded up. For example, a value of 1 corresponds to 1000 units of 512 bytes read. When the Logical Block Access (LBA) size is a value other than 512 bytes, the controller converts the amount of data read to 512 byte units.
      * 
      * For the NVM command set, logical blocks read as part of Compare and Read operations are included in this value.
-     * @type {Array<Byte>}
+     * @type {Array<Integer>}
      */
-    DataUnitRead{
+    DataUnitRead {
         get {
             if(!this.HasProp("__DataUnitReadProxyArray"))
                 this.__DataUnitReadProxyArray := Win32FixedArray(this.ptr + 32, 16, Primitive, "char")
@@ -181,9 +178,9 @@ class NVME_HEALTH_INFO_LOG extends Win32Struct
      * The value of this field is reported in thousands and is rounded up. For example, a value of 1 corresponds to 1000 units of 512 bytes read. When the Logical Block Access (LBA) size is a value other than 512 bytes, the controller converts the amount of data written to 512 byte units.
      * 
      * For the NVM command set, logical blocks written as part of Write operations are included in this value. Write Uncorrectable commands do not impact this value.
-     * @type {Array<Byte>}
+     * @type {Array<Integer>}
      */
-    DataUnitWritten{
+    DataUnitWritten {
         get {
             if(!this.HasProp("__DataUnitWrittenProxyArray"))
                 this.__DataUnitWrittenProxyArray := Win32FixedArray(this.ptr + 48, 16, Primitive, "char")
@@ -195,9 +192,9 @@ class NVME_HEALTH_INFO_LOG extends Win32Struct
      * Indicates the number of Read commands completed by the controller.
      * 
      * For the NVM command set, this is the number of Compare and Read commands.
-     * @type {Array<Byte>}
+     * @type {Array<Integer>}
      */
-    HostReadCommands{
+    HostReadCommands {
         get {
             if(!this.HasProp("__HostReadCommandsProxyArray"))
                 this.__HostReadCommandsProxyArray := Win32FixedArray(this.ptr + 64, 16, Primitive, "char")
@@ -209,9 +206,9 @@ class NVME_HEALTH_INFO_LOG extends Win32Struct
      * Indicates the number of Write commands completed by the controller.
      * 
      * For the NVM command set, this is the number of Write commands.
-     * @type {Array<Byte>}
+     * @type {Array<Integer>}
      */
-    HostWrittenCommands{
+    HostWrittenCommands {
         get {
             if(!this.HasProp("__HostWrittenCommandsProxyArray"))
                 this.__HostWrittenCommandsProxyArray := Win32FixedArray(this.ptr + 80, 16, Primitive, "char")
@@ -223,9 +220,9 @@ class NVME_HEALTH_INFO_LOG extends Win32Struct
      * Indicates the amount of time, in minutes, that the controller is busy with I/O commands.
      * 
      * The controller is busy when there is a command outstanding to an I/O Queue. Specifically, when a command was issued via an I/O [Submission Queue Tail doorbell](ns-nvme-nvme_submission_queue_tail_doorbell.md) write and the corresponding completion queue entry has not been posted yet to the associated I/O Completion Queue.
-     * @type {Array<Byte>}
+     * @type {Array<Integer>}
      */
-    ControllerBusyTime{
+    ControllerBusyTime {
         get {
             if(!this.HasProp("__ControllerBusyTimeProxyArray"))
                 this.__ControllerBusyTimeProxyArray := Win32FixedArray(this.ptr + 96, 16, Primitive, "char")
@@ -235,9 +232,9 @@ class NVME_HEALTH_INFO_LOG extends Win32Struct
 
     /**
      * Indicates the number of power cycles.
-     * @type {Array<Byte>}
+     * @type {Array<Integer>}
      */
-    PowerCycle{
+    PowerCycle {
         get {
             if(!this.HasProp("__PowerCycleProxyArray"))
                 this.__PowerCycleProxyArray := Win32FixedArray(this.ptr + 112, 16, Primitive, "char")
@@ -247,9 +244,9 @@ class NVME_HEALTH_INFO_LOG extends Win32Struct
 
     /**
      * Indicates the number of power-on hours. This does not include time that the controller was powered and in a low power state condition.
-     * @type {Array<Byte>}
+     * @type {Array<Integer>}
      */
-    PowerOnHours{
+    PowerOnHours {
         get {
             if(!this.HasProp("__PowerOnHoursProxyArray"))
                 this.__PowerOnHoursProxyArray := Win32FixedArray(this.ptr + 128, 16, Primitive, "char")
@@ -259,9 +256,9 @@ class NVME_HEALTH_INFO_LOG extends Win32Struct
 
     /**
      * Indicates the number of unsafe shutdowns. This count is incremented when a shutdown notification, indicated in the **SHN** filed of [Controller Configuration](ns-nvme-nvme_controller_configuration.md), is not received prior to loss of power.
-     * @type {Array<Byte>}
+     * @type {Array<Integer>}
      */
-    UnsafeShutdowns{
+    UnsafeShutdowns {
         get {
             if(!this.HasProp("__UnsafeShutdownsProxyArray"))
                 this.__UnsafeShutdownsProxyArray := Win32FixedArray(this.ptr + 144, 16, Primitive, "char")
@@ -273,9 +270,9 @@ class NVME_HEALTH_INFO_LOG extends Win32Struct
      * Indicates the number of occurrences where the controller detected an unrecovered data integrity error.
      * 
      * [Media Errors](ne-nvme-nvme_status_media_error_codes.md) such as uncorrectable ECC, CRC checksum failure, or LBA tag mismatch are included in this field.
-     * @type {Array<Byte>}
+     * @type {Array<Integer>}
      */
-    MediaErrors{
+    MediaErrors {
         get {
             if(!this.HasProp("__MediaErrorsProxyArray"))
                 this.__MediaErrorsProxyArray := Win32FixedArray(this.ptr + 160, 16, Primitive, "char")
@@ -285,9 +282,9 @@ class NVME_HEALTH_INFO_LOG extends Win32Struct
 
     /**
      * Indicates the number of [Error Information](ns-nvme-nvme_error_info_log.md) log entries over the life of the controller.
-     * @type {Array<Byte>}
+     * @type {Array<Integer>}
      */
-    ErrorInfoLogEntryCount{
+    ErrorInfoLogEntryCount {
         get {
             if(!this.HasProp("__ErrorInfoLogEntryCountProxyArray"))
                 this.__ErrorInfoLogEntryCountProxyArray := Win32FixedArray(this.ptr + 176, 16, Primitive, "char")
@@ -391,9 +388,9 @@ class NVME_HEALTH_INFO_LOG extends Win32Struct
 
     /**
      * A reserved field.
-     * @type {Array<Byte>}
+     * @type {Array<Integer>}
      */
-    Reserved1{
+    Reserved1 {
         get {
             if(!this.HasProp("__Reserved1ProxyArray"))
                 this.__Reserved1ProxyArray := Win32FixedArray(this.ptr + 216, 296, Primitive, "char")

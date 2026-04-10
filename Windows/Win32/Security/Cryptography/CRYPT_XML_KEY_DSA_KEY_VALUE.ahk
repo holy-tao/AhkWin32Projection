@@ -6,10 +6,8 @@
  * Defines a Digital Signature Algorithm (DSA) key value. The CRYPT_XML_KEY_DSA_KEY_VALUE structure is used as an element of the key value union in the CRYPT_XML_KEY_VALUE structure.
  * @see https://learn.microsoft.com/windows/win32/api/cryptxml/ns-cryptxml-crypt_xml_key_dsa_key_value
  * @namespace Windows.Win32.Security.Cryptography
- * @version v4.0.30319
  */
-class CRYPT_XML_KEY_DSA_KEY_VALUE extends Win32Struct
-{
+class CRYPT_XML_KEY_DSA_KEY_VALUE extends Win32Struct {
     static sizeof => 112
 
     static packingSize => 8
@@ -18,7 +16,7 @@ class CRYPT_XML_KEY_DSA_KEY_VALUE extends Win32Struct
      * Defines the  P part of the DSA key.
      * @type {CRYPT_XML_DATA_BLOB}
      */
-    P{
+    P {
         get {
             if(!this.HasProp("__P"))
                 this.__P := CRYPT_XML_DATA_BLOB(0, this)
@@ -30,7 +28,7 @@ class CRYPT_XML_KEY_DSA_KEY_VALUE extends Win32Struct
      * Defines the  Q part of the DSA key.
      * @type {CRYPT_XML_DATA_BLOB}
      */
-    Q{
+    Q {
         get {
             if(!this.HasProp("__Q"))
                 this.__Q := CRYPT_XML_DATA_BLOB(16, this)
@@ -42,7 +40,7 @@ class CRYPT_XML_KEY_DSA_KEY_VALUE extends Win32Struct
      * Defines the  G part of the DSA key.
      * @type {CRYPT_XML_DATA_BLOB}
      */
-    G{
+    G {
         get {
             if(!this.HasProp("__G"))
                 this.__G := CRYPT_XML_DATA_BLOB(32, this)
@@ -54,7 +52,7 @@ class CRYPT_XML_KEY_DSA_KEY_VALUE extends Win32Struct
      * Defines the Y  part of the DSA key.
      * @type {CRYPT_XML_DATA_BLOB}
      */
-    Y{
+    Y {
         get {
             if(!this.HasProp("__Y"))
                 this.__Y := CRYPT_XML_DATA_BLOB(48, this)
@@ -66,7 +64,7 @@ class CRYPT_XML_KEY_DSA_KEY_VALUE extends Win32Struct
      * Defines the J part of the DSA key.
      * @type {CRYPT_XML_DATA_BLOB}
      */
-    J{
+    J {
         get {
             if(!this.HasProp("__J"))
                 this.__J := CRYPT_XML_DATA_BLOB(64, this)
@@ -78,7 +76,7 @@ class CRYPT_XML_KEY_DSA_KEY_VALUE extends Win32Struct
      * The seed value, in big-endian format.
      * @type {CRYPT_XML_DATA_BLOB}
      */
-    Seed{
+    Seed {
         get {
             if(!this.HasProp("__Seed"))
                 this.__Seed := CRYPT_XML_DATA_BLOB(80, this)
@@ -90,7 +88,7 @@ class CRYPT_XML_KEY_DSA_KEY_VALUE extends Win32Struct
      * The count value, in big-endian format.
      * @type {CRYPT_XML_DATA_BLOB}
      */
-    Counter{
+    Counter {
         get {
             if(!this.HasProp("__Counter"))
                 this.__Counter := CRYPT_XML_DATA_BLOB(96, this)

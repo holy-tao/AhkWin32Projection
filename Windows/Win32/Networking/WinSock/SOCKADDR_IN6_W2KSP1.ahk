@@ -14,10 +14,8 @@
  *     [SOCKADDR_STORAGE](../ws2def/ns-ws2def-sockaddr_storage_lh.md).
  * @see https://learn.microsoft.com/windows/win32/api/ws2ipdef/ns-ws2ipdef-sockaddr_in6_w2ksp1
  * @namespace Windows.Win32.Networking.WinSock
- * @version v4.0.30319
  */
-class SOCKADDR_IN6_W2KSP1 extends Win32Struct
-{
+class SOCKADDR_IN6_W2KSP1 extends Win32Struct {
     static sizeof => 28
 
     static packingSize => 4
@@ -55,7 +53,7 @@ class SOCKADDR_IN6_W2KSP1 extends Win32Struct
      *      address.
      * @type {IN6_ADDR}
      */
-    sin6_addr{
+    sin6_addr {
         get {
             if(!this.HasProp("__sin6_addr"))
                 this.__sin6_addr := IN6_ADDR(8, this)

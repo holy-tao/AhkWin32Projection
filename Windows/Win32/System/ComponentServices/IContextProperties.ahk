@@ -1,17 +1,15 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
-#Include ..\..\Foundation\BSTR.ahk
-#Include .\IEnumNames.ahk
 #Include ..\Com\IUnknown.ahk
+#Include .\IEnumNames.ahk
 
 /**
  * Provides access to context object properties.
  * @see https://learn.microsoft.com/windows/win32/api/comsvcs/nn-comsvcs-icontextproperties
  * @namespace Windows.Win32.System.ComponentServices
- * @version v4.0.30319
  */
-class IContextProperties extends IUnknown{
+class IContextProperties extends IUnknown {
 
     static sizeof => A_PtrSize
     /**
@@ -91,7 +89,7 @@ class IContextProperties extends IUnknown{
     /**
      * Sets a context object property.
      * @param {BSTR} name The name of the context object property to be set. See <a href="https://docs.microsoft.com/windows/desktop/api/comsvcs/nf-comsvcs-icontextproperties-getproperty">GetProperty</a> for a list of valid property names.
-     * @param {VARIANT} _property 
+     * @param {VARIANT} _property The context object property value.
      * @returns {HRESULT} This method can return the standard return values E_INVALIDARG, E_OUTOFMEMORY, E_UNEXPECTED, E_FAIL, and S_OK.
      * @see https://learn.microsoft.com/windows/win32/api/comsvcs/nf-comsvcs-icontextproperties-setproperty
      */

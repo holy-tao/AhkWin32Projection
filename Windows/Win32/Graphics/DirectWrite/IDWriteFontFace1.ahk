@@ -1,16 +1,15 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
-#Include .\DWRITE_FONT_METRICS1.ahk
 #Include .\IDWriteFontFace.ahk
+#Include .\DWRITE_FONT_METRICS1.ahk
 
 /**
  * Contains font face type, appropriate file references, and face identification data. (IDWriteFontFace1)
  * @see https://learn.microsoft.com/windows/win32/api/dwrite_1/nn-dwrite_1-idwritefontface1
  * @namespace Windows.Win32.Graphics.DirectWrite
- * @version v4.0.30319
  */
-class IDWriteFontFace1 extends IDWriteFontFace{
+class IDWriteFontFace1 extends IDWriteFontFace {
 
     static sizeof => A_PtrSize
     /**
@@ -309,11 +308,11 @@ class IDWriteFontFace1 extends IDWriteFontFace{
      * @param {BOOL} isSideways Type: <b>BOOL</b>
      * 
      * Whether the glyphs in the run are sideways or not.
-     * @param {Integer} outlineThreshold Type: <b><a href="https://docs.microsoft.com/windows/win32/api/dwrite_1/ne-dwrite_1-dwrite_outline_threshold">DWRITE_OUTLINE_THRESHOLD</a></b>
+     * @param {DWRITE_OUTLINE_THRESHOLD} outlineThreshold Type: <b><a href="https://docs.microsoft.com/windows/win32/api/dwrite_1/ne-dwrite_1-dwrite_outline_threshold">DWRITE_OUTLINE_THRESHOLD</a></b>
      * 
      * A <a href="https://docs.microsoft.com/windows/win32/api/dwrite_1/ne-dwrite_1-dwrite_outline_threshold">DWRITE_OUTLINE_THRESHOLD</a>-typed value that specifies the quality of the graphics system's outline rendering,
      *     affects the size threshold above which outline rendering is used.
-     * @param {Integer} measuringMode Type: <b><a href="https://docs.microsoft.com/windows/win32/api/dcommon/ne-dcommon-dwrite_measuring_mode">DWRITE_MEASURING_MODE</a></b>
+     * @param {DWRITE_MEASURING_MODE} measuringMode Type: <b><a href="https://docs.microsoft.com/windows/win32/api/dcommon/ne-dcommon-dwrite_measuring_mode">DWRITE_MEASURING_MODE</a></b>
      * 
      * The measuring method that will be used for glyphs in the font.
      *      Renderer implementations may choose different rendering modes for different measuring methods, for example:
@@ -327,7 +326,7 @@ class IDWriteFontFace1 extends IDWriteFontFace{
      * <li>DWRITE_RENDERING_MODE_CLEARTYPE_GDI_NATURAL for <a href="https://docs.microsoft.com/windows/win32/api/dcommon/ne-dcommon-dwrite_measuring_mode">DWRITE_MEASURING_MODE_GDI_NATURAL</a>
      * </li>
      * </ul>
-     * @returns {Integer} Type: <b><a href="https://docs.microsoft.com/windows/win32/api/dwrite/ne-dwrite-dwrite_rendering_mode">DWRITE_RENDERING_MODE</a>*</b>
+     * @returns {DWRITE_RENDERING_MODE} Type: <b><a href="https://docs.microsoft.com/windows/win32/api/dwrite/ne-dwrite-dwrite_rendering_mode">DWRITE_RENDERING_MODE</a>*</b>
      * 
      * When this method returns, contains a value that indicates the recommended rendering mode to use.
      * @see https://learn.microsoft.com/windows/win32/api/dwrite_1/nf-dwrite_1-idwritefontface1-getrecommendedrenderingmode

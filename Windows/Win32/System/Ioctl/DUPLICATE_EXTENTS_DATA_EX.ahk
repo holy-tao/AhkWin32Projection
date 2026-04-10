@@ -4,10 +4,8 @@
 
 /**
  * @namespace Windows.Win32.System.Ioctl
- * @version v4.0.30319
  */
-class DUPLICATE_EXTENTS_DATA_EX extends Win32Struct
-{
+class DUPLICATE_EXTENTS_DATA_EX extends Win32Struct {
     static sizeof => 48
 
     static packingSize => 8
@@ -23,7 +21,7 @@ class DUPLICATE_EXTENTS_DATA_EX extends Win32Struct
     /**
      * @type {HANDLE}
      */
-    FileHandle{
+    FileHandle {
         get {
             if(!this.HasProp("__FileHandle"))
                 this.__FileHandle := HANDLE(8, this)

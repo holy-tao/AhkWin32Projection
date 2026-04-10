@@ -4,10 +4,8 @@
 
 /**
  * @namespace Windows.Win32.System.Ioctl
- * @version v4.0.30319
  */
-class DEVICEDUMP_PRIVATE_SUBSECTION extends Win32Struct
-{
+class DEVICEDUMP_PRIVATE_SUBSECTION extends Win32Struct {
     static sizeof => 12
 
     static packingSize => 4
@@ -23,7 +21,7 @@ class DEVICEDUMP_PRIVATE_SUBSECTION extends Win32Struct
     /**
      * @type {GP_LOG_PAGE_DESCRIPTOR}
      */
-    GPLogId{
+    GPLogId {
         get {
             if(!this.HasProp("__GPLogId"))
                 this.__GPLogId := GP_LOG_PAGE_DESCRIPTOR(4, this)
@@ -32,9 +30,9 @@ class DEVICEDUMP_PRIVATE_SUBSECTION extends Win32Struct
     }
 
     /**
-     * @type {Array<Byte>}
+     * @type {Array<Integer>}
      */
-    bData{
+    bData {
         get {
             if(!this.HasProp("__bDataProxyArray"))
                 this.__bDataProxyArray := Win32FixedArray(this.ptr + 8, 1, Primitive, "char")

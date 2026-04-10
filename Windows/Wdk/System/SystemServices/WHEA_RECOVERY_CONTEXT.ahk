@@ -1,12 +1,11 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
+#Include .\WHEA_RECOVERY_CONTEXT_ERROR_TYPE.ahk
 
 /**
  * @namespace Windows.Wdk.System.SystemServices
- * @version v4.0.30319
  */
-class WHEA_RECOVERY_CONTEXT extends Win32Struct
-{
+class WHEA_RECOVERY_CONTEXT extends Win32Struct {
     static sizeof => 32
 
     static packingSize => 8
@@ -22,7 +21,7 @@ class WHEA_RECOVERY_CONTEXT extends Win32Struct
             get => NumGet(this, 0, "ptr")
             set => NumPut("ptr", value, this, 0)
         }
-    
+
         /**
          * @type {BOOLEAN}
          */
@@ -30,7 +29,7 @@ class WHEA_RECOVERY_CONTEXT extends Win32Struct
             get => NumGet(this, 8, "char")
             set => NumPut("char", value, this, 8)
         }
-    
+
         /**
          * @type {Integer}
          */
@@ -38,7 +37,7 @@ class WHEA_RECOVERY_CONTEXT extends Win32Struct
             get => NumGet(this, 10, "ushort")
             set => NumPut("ushort", value, this, 10)
         }
-    
+
         /**
          * @type {BOOLEAN}
          */
@@ -46,7 +45,7 @@ class WHEA_RECOVERY_CONTEXT extends Win32Struct
             get => NumGet(this, 12, "char")
             set => NumPut("char", value, this, 12)
         }
-    
+
         /**
          * @type {BOOLEAN}
          */
@@ -54,7 +53,7 @@ class WHEA_RECOVERY_CONTEXT extends Win32Struct
             get => NumGet(this, 13, "char")
             set => NumPut("char", value, this, 13)
         }
-    
+
         /**
          * @type {BOOLEAN}
          */
@@ -62,7 +61,6 @@ class WHEA_RECOVERY_CONTEXT extends Win32Struct
             get => NumGet(this, 14, "char")
             set => NumPut("char", value, this, 14)
         }
-    
     }
 
     class _PmemError extends Win32Struct {
@@ -76,16 +74,15 @@ class WHEA_RECOVERY_CONTEXT extends Win32Struct
             get => NumGet(this, 0, "ptr")
             set => NumPut("ptr", value, this, 0)
         }
-    
     }
 
     /**
      * @type {_MemoryError}
      */
-    MemoryError{
+    MemoryError {
         get {
             if(!this.HasProp("__MemoryError"))
-                this.__MemoryError := %this.__Class%._MemoryError(0, this)
+                this.__MemoryError := WHEA_RECOVERY_CONTEXT._MemoryError(0, this)
             return this.__MemoryError
         }
     }
@@ -93,10 +90,10 @@ class WHEA_RECOVERY_CONTEXT extends Win32Struct
     /**
      * @type {_PmemError}
      */
-    PmemError{
+    PmemError {
         get {
             if(!this.HasProp("__PmemError"))
-                this.__PmemError := %this.__Class%._PmemError(0, this)
+                this.__PmemError := WHEA_RECOVERY_CONTEXT._PmemError(0, this)
             return this.__PmemError
         }
     }
@@ -118,7 +115,7 @@ class WHEA_RECOVERY_CONTEXT extends Win32Struct
     }
 
     /**
-     * @type {Integer}
+     * @type {WHEA_RECOVERY_CONTEXT_ERROR_TYPE}
      */
     ErrorType {
         get => NumGet(this, 28, "int")

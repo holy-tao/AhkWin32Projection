@@ -9,9 +9,8 @@
  * To declare the interface identifier (IID) for this interface, use the <b>__uuidof</b> operator: <c>__uuidof(IDVBTuningSpace)</c>.
  * @see https://learn.microsoft.com/windows/win32/api/tuner/nn-tuner-idvbtuningspace
  * @namespace Windows.Win32.Media.DirectShow.Tv
- * @version v4.0.30319
  */
-class IDVBTuningSpace extends ITuningSpace{
+class IDVBTuningSpace extends ITuningSpace {
 
     static sizeof => A_PtrSize
     /**
@@ -39,7 +38,7 @@ class IDVBTuningSpace extends ITuningSpace{
     static VTableNames => ["get_SystemType", "put_SystemType"]
 
     /**
-     * @type {Integer} 
+     * @type {DVBSystemType} 
      */
     SystemType {
         get => this.get_SystemType()
@@ -48,7 +47,7 @@ class IDVBTuningSpace extends ITuningSpace{
 
     /**
      * The get_SystemType method retrieves the system type.
-     * @returns {Integer} Pointer to a variable of type <a href="https://docs.microsoft.com/previous-versions/windows/desktop/mstv/dvbsystemtype">DVBSystemType</a> that receives the system type.
+     * @returns {DVBSystemType} Pointer to a variable of type <a href="https://docs.microsoft.com/previous-versions/windows/desktop/mstv/dvbsystemtype">DVBSystemType</a> that receives the system type.
      * @see https://learn.microsoft.com/windows/win32/api/tuner/nf-tuner-idvbtuningspace-get_systemtype
      */
     get_SystemType() {
@@ -58,7 +57,7 @@ class IDVBTuningSpace extends ITuningSpace{
 
     /**
      * The put_SystemType method sets the system type.
-     * @param {Integer} SysType Variable of type <a href="https://docs.microsoft.com/previous-versions/windows/desktop/mstv/dvbsystemtype">DVBSystemType</a> that specifies the system type.
+     * @param {DVBSystemType} SysType Variable of type <a href="https://docs.microsoft.com/previous-versions/windows/desktop/mstv/dvbsystemtype">DVBSystemType</a> that specifies the system type.
      * @returns {HRESULT} Returns S_OK if successful. If the method fails, error information can be retrieved using the standard COM <b>IErrorInfo</b> interface.
      * @see https://learn.microsoft.com/windows/win32/api/tuner/nf-tuner-idvbtuningspace-put_systemtype
      */

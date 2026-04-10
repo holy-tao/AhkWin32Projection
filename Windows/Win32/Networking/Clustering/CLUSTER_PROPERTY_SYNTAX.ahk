@@ -21,9 +21,8 @@
  *      stored on the server.
  * @see https://learn.microsoft.com/windows/win32/api/msclus/ne-msclus-cluster_property_syntax
  * @namespace Windows.Win32.Networking.Clustering
- * @version v4.0.30319
  */
-class CLUSTER_PROPERTY_SYNTAX extends Win32Enum{
+class CLUSTER_PROPERTY_SYNTAX extends Win32Enum {
 
     /**
      * Marks the end of a value list.

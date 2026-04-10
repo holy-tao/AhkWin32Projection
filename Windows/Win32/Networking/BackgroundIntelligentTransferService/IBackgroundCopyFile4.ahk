@@ -7,9 +7,8 @@
  * Use this interface to retrieve download statistics for peers and origin servers.
  * @see https://learn.microsoft.com/windows/win32/api/bits4_0/nn-bits4_0-ibackgroundcopyfile4
  * @namespace Windows.Win32.Networking.BackgroundIntelligentTransferService
- * @version v4.0.30319
  */
-class IBackgroundCopyFile4 extends IBackgroundCopyFile3{
+class IBackgroundCopyFile4 extends IBackgroundCopyFile3 {
 
     static sizeof => A_PtrSize
     /**

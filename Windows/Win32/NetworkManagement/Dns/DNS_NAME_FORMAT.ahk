@@ -5,9 +5,8 @@
  * The DNS_NAME_FORMAT enumeration specifies name format information for DNS.
  * @see https://learn.microsoft.com/windows/win32/api/windns/ne-windns-dns_name_format
  * @namespace Windows.Win32.NetworkManagement.Dns
- * @version v4.0.30319
  */
-class DNS_NAME_FORMAT extends Win32Enum{
+class DNS_NAME_FORMAT extends Win32Enum {
 
     /**
      * The name format is a DNS domain.

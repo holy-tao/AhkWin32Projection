@@ -1,12 +1,13 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
+#Include ..\..\Foundation\DEVICE_OBJECT.ahk
+#Include .\IO_RESOURCE_DESCRIPTOR.ahk
+#Include .\ARBITER_CONFLICT_INFO.ahk
 
 /**
  * @namespace Windows.Wdk.System.SystemServices
- * @version v4.0.30319
  */
-class ARBITER_QUERY_CONFLICT_PARAMETERS extends Win32Struct
-{
+class ARBITER_QUERY_CONFLICT_PARAMETERS extends Win32Struct {
     static sizeof => 32
 
     static packingSize => 8

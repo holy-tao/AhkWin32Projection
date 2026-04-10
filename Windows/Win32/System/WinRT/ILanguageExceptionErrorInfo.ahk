@@ -7,9 +7,8 @@
  * Enables retrieving the IUnknown pointer stored in the error info with the call to RoOriginateLanguageException.
  * @see https://learn.microsoft.com/windows/win32/api/restrictederrorinfo/nn-restrictederrorinfo-ilanguageexceptionerrorinfo
  * @namespace Windows.Win32.System.WinRT
- * @version v4.0.30319
  */
-class ILanguageExceptionErrorInfo extends IUnknown{
+class ILanguageExceptionErrorInfo extends IUnknown {
 
     static sizeof => A_PtrSize
     /**

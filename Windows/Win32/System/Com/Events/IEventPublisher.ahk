@@ -1,18 +1,17 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\..\Guid.ahk
+#Include ..\IDispatch.ahk
 #Include ..\..\..\Foundation\BSTR.ahk
 #Include ..\..\Variant\VARIANT.ahk
 #Include .\IEventObjectCollection.ahk
-#Include ..\IDispatch.ahk
 
 /**
  * Registers, modifies, removes, and provides information about an event publisher.
  * @see https://learn.microsoft.com/windows/win32/api/eventsys/nn-eventsys-ieventpublisher
  * @namespace Windows.Win32.System.Com.Events
- * @version v4.0.30319
  */
-class IEventPublisher extends IDispatch{
+class IEventPublisher extends IDispatch {
 
     static sizeof => A_PtrSize
     /**
@@ -197,7 +196,7 @@ class IEventPublisher extends IDispatch{
      * @remarks
      * An <a href="https://docs.microsoft.com/windows/desktop/api/eventsys/nn-eventsys-ieventpublisher">EventPublisher</a> object includes a property bag that can contain name and value pairs. Objects in the event system, including subscribers, can add, modify, and read these properties.
      * @param {BSTR} bstrPropertyName The name of the property whose value is to be retrieved.
-     * @returns {VARIANT} 
+     * @returns {VARIANT} A pointer to the variable that receives the property.
      * @see https://learn.microsoft.com/windows/win32/api/eventsys/nf-eventsys-ieventpublisher-getdefaultproperty
      */
     GetDefaultProperty(bstrPropertyName) {
@@ -213,7 +212,7 @@ class IEventPublisher extends IDispatch{
      * @remarks
      * An <a href="https://docs.microsoft.com/windows/desktop/api/eventsys/nn-eventsys-ieventpublisher">EventPublisher</a> object includes a property bag that can contain name and value pairs. Objects in the event system, including subscribers, can add, modify, and read these properties.
      * @param {BSTR} bstrPropertyName The name of the property whose value is to be set.
-     * @param {Pointer<VARIANT>} _propertyValue 
+     * @param {Pointer<VARIANT>} _propertyValue The new value for the property.
      * @returns {HRESULT} The possible return values include E_INVALIDARG, E_OUTOFMEMORY, E_UNEXPECTED, E_FAIL, and S_OK.
      * @see https://learn.microsoft.com/windows/win32/api/eventsys/nf-eventsys-ieventpublisher-putdefaultproperty
      */

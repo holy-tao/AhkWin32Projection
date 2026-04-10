@@ -7,9 +7,8 @@
  * Provides methods for importing and manipulating existing metadata from a portable executable (PE) file or other source, such as a type library or a stand-alone, run-time metadata binary.
  * @see https://learn.microsoft.com/windows/win32/api/rometadataapi/nn-rometadataapi-imetadataimport
  * @namespace Windows.Win32.System.WinRT.Metadata
- * @version v4.0.30319
  */
-class IMetaDataImport extends IUnknown{
+class IMetaDataImport extends IUnknown {
 
     static sizeof => A_PtrSize
     /**

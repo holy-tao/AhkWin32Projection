@@ -1,14 +1,14 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
+#Include .\IDWriteFontFace.ahk
+#Include .\DWRITE_GLYPH_OFFSET.ahk
 
 /**
  * Contains the information needed by renderers to draw glyph runs.
  * @see https://learn.microsoft.com/windows/win32/api/dwrite/ns-dwrite-dwrite_glyph_run
  * @namespace Windows.Win32.Graphics.DirectWrite
- * @version v4.0.30319
  */
-class DWRITE_GLYPH_RUN extends Win32Struct
-{
+class DWRITE_GLYPH_RUN extends Win32Struct {
     static sizeof => 48
 
     static packingSize => 8

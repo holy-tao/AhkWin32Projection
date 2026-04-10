@@ -5,9 +5,8 @@
  * Specifies the scope of addresses from which a port can listen.
  * @see https://learn.microsoft.com/windows/win32/api/icftypes/ne-icftypes-net_fw_scope
  * @namespace Windows.Win32.NetworkManagement.WindowsFirewall
- * @version v4.0.30319
  */
-class NET_FW_SCOPE extends Win32Enum{
+class NET_FW_SCOPE extends Win32Enum {
 
     /**
      * Scope is all.

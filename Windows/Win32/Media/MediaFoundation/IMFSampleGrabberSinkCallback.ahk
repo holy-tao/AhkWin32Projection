@@ -31,9 +31,8 @@
  * You cannot use the sample-grabber sink to get protected content.
  * @see https://learn.microsoft.com/windows/win32/api/mfidl/nn-mfidl-imfsamplegrabbersinkcallback
  * @namespace Windows.Win32.Media.MediaFoundation
- * @version v4.0.30319
  */
-class IMFSampleGrabberSinkCallback extends IMFClockStateSink{
+class IMFSampleGrabberSinkCallback extends IMFClockStateSink {
 
     static sizeof => A_PtrSize
     /**
@@ -95,7 +94,7 @@ class IMFSampleGrabberSinkCallback extends IMFClockStateSink{
      *           If the sample does not have a presentation time, the value of this parameter is <b>_I64_MAX</b>.
      * @param {Integer} llSampleDuration The duration of the sample, in 100-nanosecond units.
      *           If the sample does not have a duration, the value of this parameter is <b>_I64_MAX</b>.
-     * @param {Pointer} pSampleBuffer A pointer to a buffer that contains the sample data.
+     * @param {Integer} pSampleBuffer A pointer to a buffer that contains the sample data.
      * @param {Integer} dwSampleSize Size of the <i>pSampleBuffer</i> buffer, in bytes.
      * @returns {HRESULT} If this method succeeds, it returns <b>S_OK</b>. Otherwise, it returns an <b>HRESULT</b> error code.
      * @see https://learn.microsoft.com/windows/win32/api/mfidl/nf-mfidl-imfsamplegrabbersinkcallback-onprocesssample

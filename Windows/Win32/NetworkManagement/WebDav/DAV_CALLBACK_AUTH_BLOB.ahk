@@ -9,10 +9,8 @@
  * The <a href="https://docs.microsoft.com/windows/desktop/api/davclnt/nc-davclnt-pfndavauthcallback_freecred">DavFreeCredCallback</a> callback function should free only the buffer that the <b>pBuffer</b> member points to, not the entire structure.
  * @see https://learn.microsoft.com/windows/win32/api/davclnt/ns-davclnt-dav_callback_auth_blob
  * @namespace Windows.Win32.NetworkManagement.WebDav
- * @version v4.0.30319
  */
-class DAV_CALLBACK_AUTH_BLOB extends Win32Struct
-{
+class DAV_CALLBACK_AUTH_BLOB extends Win32Struct {
     static sizeof => 16
 
     static packingSize => 8

@@ -15,9 +15,8 @@
  *                 See <b>WS_STRUCT_DESCRIPTION</b> for more information on the ordering.
  * @see https://learn.microsoft.com/windows/win32/api/webservices/ne-webservices-ws_field_mapping
  * @namespace Windows.Win32.Networking.WindowsWebServices
- * @version v4.0.30319
  */
-class WS_FIELD_MAPPING extends Win32Enum{
+class WS_FIELD_MAPPING extends Win32Enum {
 
     /**
      * The field corresponds to the XML type attribute (xsi:type).  This
@@ -517,7 +516,6 @@ class WS_FIELD_MAPPING extends Win32Enum{
     static WS_REPEATING_ELEMENT_CHOICE_FIELD_MAPPING => 8
 
     /**
-     * 
      * @type {Integer (Int32)}
      */
     static WS_ANY_ELEMENT_FIELD_MAPPING => 9

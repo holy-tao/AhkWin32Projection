@@ -9,9 +9,8 @@
  * For information about using the writer for metadata editing, see <a href="https://docs.microsoft.com/windows/desktop/wmformat/to-edit-metadata-with-the-writer">To Edit Metadata with the Writer</a>.
  * @see https://learn.microsoft.com/windows/win32/api/wmsdkidl/nn-wmsdkidl-iwmheaderinfo2
  * @namespace Windows.Win32.Media.WindowsMediaFormat
- * @version v4.0.30319
  */
-class IWMHeaderInfo2 extends IWMHeaderInfo{
+class IWMHeaderInfo2 extends IWMHeaderInfo {
 
     static sizeof => A_PtrSize
     /**
@@ -55,7 +54,7 @@ class IWMHeaderInfo2 extends IWMHeaderInfo{
      * @param {PWSTR} pwszName Pointer to a wide-character <b>null</b>-terminated string buffer into which the name of the codec is copied.
      * @param {Pointer<Integer>} pcchDescription On input, pointer to the length of <i>pwszDescription</i> in wide characters. On output, pointer to a count of the characters that are used in <i>pwszDescription</i>. This includes the terminating <b>null</b> character.
      * @param {PWSTR} pwszDescription Pointer to a wide-character <b>null</b>-terminated string buffer into which the description of the codec is copied.
-     * @param {Pointer<Integer>} pCodecType Pointer to one member of the <a href="https://docs.microsoft.com/windows/desktop/api/wmsdkidl/ne-wmsdkidl-wmt_codec_info_type">WMT_CODEC_INFO_TYPE</a> enumeration type.
+     * @param {Pointer<WMT_CODEC_INFO_TYPE>} pCodecType Pointer to one member of the <a href="https://docs.microsoft.com/windows/desktop/api/wmsdkidl/ne-wmsdkidl-wmt_codec_info_type">WMT_CODEC_INFO_TYPE</a> enumeration type.
      * @param {Pointer<Integer>} pcbCodecInfo On input, pointer to the length of <i>pbCodecInfo</i>, in bytes. On output, pointer to a count of the bytes used in <i>pbCodecInfo</i>.
      * @param {Pointer<Integer>} pbCodecInfo Pointer to a byte array.
      * @returns {HRESULT} If the method succeeds, it returns S_OK. If it fails, it returns an <b>HRESULT</b> error code.

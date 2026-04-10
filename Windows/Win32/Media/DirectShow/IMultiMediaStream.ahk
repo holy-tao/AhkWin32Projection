@@ -1,17 +1,16 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
+#Include ..\..\System\Com\IUnknown.ahk
 #Include .\IMediaStream.ahk
 #Include ..\..\Foundation\HANDLE.ahk
-#Include ..\..\System\Com\IUnknown.ahk
 
 /**
  * Note  This interface is deprecated.
  * @see https://learn.microsoft.com/windows/win32/api/mmstream/nn-mmstream-imultimediastream
  * @namespace Windows.Win32.Media.DirectShow
- * @version v4.0.30319
  */
-class IMultiMediaStream extends IUnknown{
+class IMultiMediaStream extends IUnknown {
 
     static sizeof => A_PtrSize
     /**
@@ -34,7 +33,7 @@ class IMultiMediaStream extends IUnknown{
 
     /**
      * Note  This interface is deprecated. New applications should not use it. The GetInformation method retrieves the capabilities of the multimedia stream object.
-     * @param {Pointer<Integer>} pdwFlags Pointer to a variable that receives a bitwise combination of the following flags.
+     * @param {Pointer<MMSSF_GET_INFORMATION_FLAGS>} pdwFlags Pointer to a variable that receives a bitwise combination of the following flags.
      * 
      * <table>
      * <tr>
@@ -59,7 +58,7 @@ class IMultiMediaStream extends IUnknown{
      *  
      * 
      * This parameter can be <b>NULL</b>.
-     * @param {Pointer<Integer>} pStreamType Pointer to a variable that receives a member of the <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/mmstream/ne-mmstream-stream_type">STREAM_TYPE</a> enumeration. This value indicates whether the multimedia stream is read-only, write-only, or read/write. This parameter can be <b>NULL</b>.
+     * @param {Pointer<STREAM_TYPE>} pStreamType Pointer to a variable that receives a member of the <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/mmstream/ne-mmstream-stream_type">STREAM_TYPE</a> enumeration. This value indicates whether the multimedia stream is read-only, write-only, or read/write. This parameter can be <b>NULL</b>.
      * @returns {HRESULT} Returns an <b>HRESULT</b> value. Possible values include the following.
      * 
      * <table>
@@ -128,7 +127,7 @@ class IMultiMediaStream extends IUnknown{
 
     /**
      * Note  This interface is deprecated. New applications should not use it. The GetState method retrieves the current state of the multimedia stream object.
-     * @returns {Integer} Pointer to a variable that receives a member of the <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/mmstream/ne-mmstream-stream_state">STREAM_STATE</a> enumeration.
+     * @returns {STREAM_STATE} Pointer to a variable that receives a member of the <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/mmstream/ne-mmstream-stream_state">STREAM_STATE</a> enumeration.
      * @see https://learn.microsoft.com/windows/win32/api/mmstream/nf-mmstream-imultimediastream-getstate
      */
     GetState() {
@@ -140,7 +139,7 @@ class IMultiMediaStream extends IUnknown{
      * Note  This interface is deprecated. New applications should not use it. The SetState method runs or stops the multimedia stream object.
      * @remarks
      * Stopping the multimedia stream object deletes any data that is pending.
-     * @param {Integer} NewState A member of the <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/mmstream/ne-mmstream-stream_state">STREAM_STATE</a> enumeration, specifying the new state (running or stopped).
+     * @param {STREAM_STATE} NewState A member of the <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/mmstream/ne-mmstream-stream_state">STREAM_STATE</a> enumeration, specifying the new state (running or stopped).
      * @returns {HRESULT} Returns an <b>HRESULT</b> value. Possible values include the following.
      * 
      * <table>

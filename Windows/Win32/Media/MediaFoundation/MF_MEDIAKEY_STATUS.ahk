@@ -10,9 +10,8 @@
  * **MF_MEDIAKEY_STATUS** is based on the Encrypted Media Extension specification's [MediaKeyStatus](https://www.w3.org/TR/2017/REC-encrypted-media-20170918/#dom-mediakeystatus) enumeration.
  * @see https://learn.microsoft.com/windows/win32/api/mfidl/ne-mfidl-mf_mediakey_status
  * @namespace Windows.Win32.Media.MediaFoundation
- * @version v4.0.30319
  */
-class MF_MEDIAKEY_STATUS extends Win32Enum{
+class MF_MEDIAKEY_STATUS extends Win32Enum {
 
     /**
      * The CDM is certain the key is currently usable for decryption.

@@ -4,10 +4,8 @@
 
 /**
  * @namespace Windows.Wdk.Graphics.Direct3D
- * @version v4.0.30319
  */
-class D3DKMT_CONFIGURESHAREDRESOURCE extends Win32Struct
-{
+class D3DKMT_CONFIGURESHAREDRESOURCE extends Win32Struct {
     static sizeof => 32
 
     static packingSize => 8
@@ -39,7 +37,7 @@ class D3DKMT_CONFIGURESHAREDRESOURCE extends Win32Struct
     /**
      * @type {HANDLE}
      */
-    hProcess{
+    hProcess {
         get {
             if(!this.HasProp("__hProcess"))
                 this.__hProcess := HANDLE(16, this)

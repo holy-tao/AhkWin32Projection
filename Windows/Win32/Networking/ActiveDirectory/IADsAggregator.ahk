@@ -5,9 +5,8 @@
 
 /**
  * @namespace Windows.Win32.Networking.ActiveDirectory
- * @version v4.0.30319
  */
-class IADsAggregator extends IUnknown{
+class IADsAggregator extends IUnknown {
 
     static sizeof => A_PtrSize
     /**

@@ -3,7 +3,6 @@
 
 /**
  * @namespace Windows.Win32.UI.Input.Pointer
- * @version v4.0.30319
  */
 class Pointer {
 
@@ -35,7 +34,7 @@ class Pointer {
      * @param {Integer} maxCount The maximum number of touch contacts. 
      * 
      * The <i>maxCount</i> parameter must be greater than 0 and less than or equal to MAX_TOUCH_COUNT (256) as  defined in winuser.h.
-     * @param {Integer} dwMode The contact visualization mode. 
+     * @param {TOUCH_FEEDBACK_MODE} dwMode The contact visualization mode. 
      * 
      * The <i>dwMode</i> parameter must be   <a href="https://docs.microsoft.com/previous-versions/windows/desktop/input_touchinjection/constants">TOUCH_FEEDBACK_DEFAULT</a>, <b>TOUCH_FEEDBACK_INDIRECT</b>, or <b>TOUCH_FEEDBACK_NONE</b>.
      * @returns {BOOL} If the function succeeds, the return value is TRUE.
@@ -152,7 +151,7 @@ class Pointer {
      * <div class="alert"><b>Note</b>  This function will never return with the generic <a href="https://docs.microsoft.com/windows/win32/api/winuser/ne-winuser-tagpointer_input_type">PT_POINTER </a> type.</div>
      * <div> </div>
      * @param {Integer} pointerId An identifier of the pointer for which to retrieve pointer type.
-     * @param {Pointer<Integer>} pointerType An address of a <a href="https://docs.microsoft.com/windows/win32/api/winuser/ne-winuser-tagpointer_input_type">POINTER_INPUT_TYPE</a> type to receive a pointer input type.
+     * @param {Pointer<POINTER_INPUT_TYPE>} pointerType An address of a <a href="https://docs.microsoft.com/windows/win32/api/winuser/ne-winuser-tagpointer_input_type">POINTER_INPUT_TYPE</a> type to receive a pointer input type.
      * @returns {BOOL} If the function succeeds, the return value is non-zero.
      * 
      * If the function fails, the return value is zero. To get extended error information, call <a href="https://docs.microsoft.com/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>.

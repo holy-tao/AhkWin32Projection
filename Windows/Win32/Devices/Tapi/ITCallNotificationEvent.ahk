@@ -1,16 +1,15 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
-#Include .\ITCallInfo.ahk
 #Include ..\..\System\Com\IDispatch.ahk
+#Include .\ITCallInfo.ahk
 
 /**
  * The ITCallNotificationEvent interface contains methods that retrieve the description of call notification events.
  * @see https://learn.microsoft.com/windows/win32/api/tapi3if/nn-tapi3if-itcallnotificationevent
  * @namespace Windows.Win32.Devices.Tapi
- * @version v4.0.30319
  */
-class ITCallNotificationEvent extends IDispatch{
+class ITCallNotificationEvent extends IDispatch {
 
     static sizeof => A_PtrSize
     /**
@@ -39,7 +38,7 @@ class ITCallNotificationEvent extends IDispatch{
     }
 
     /**
-     * @type {Integer} 
+     * @type {CALL_NOTIFICATION_EVENT} 
      */
     Event {
         get => this.get_Event()
@@ -69,7 +68,7 @@ class ITCallNotificationEvent extends IDispatch{
 
     /**
      * The get_Event method returns a CALL_NOTIFICATION_EVENT description of whether the application owns or is monitoring the call on which the event has occurred.
-     * @returns {Integer} Pointer to the 
+     * @returns {CALL_NOTIFICATION_EVENT} Pointer to the 
      * <a href="https://docs.microsoft.com/windows/desktop/api/tapi3if/ne-tapi3if-call_notification_event">CALL_NOTIFICATION_EVENT</a> description of the application's privilege on the call returned by 
      * <a href="https://docs.microsoft.com/windows/desktop/api/tapi3if/nf-tapi3if-itcallnotificationevent-get_call">ITCallNotificationEvent::get_Call</a>.
      * @see https://learn.microsoft.com/windows/win32/api/tapi3if/nf-tapi3if-itcallnotificationevent-get_event

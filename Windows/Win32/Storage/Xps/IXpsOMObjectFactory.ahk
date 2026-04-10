@@ -1,6 +1,7 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
+#Include ..\..\System\Com\IUnknown.ahk
 #Include .\IXpsOMPackage.ahk
 #Include .\IXpsOMStoryFragmentsResource.ahk
 #Include .\IXpsOMDocumentStructureResource.ahk
@@ -33,15 +34,13 @@
 #Include .\IXpsOMPackageWriter.ahk
 #Include ..\Packaging\Opc\IOpcPartUri.ahk
 #Include ..\..\System\Com\IStream.ahk
-#Include ..\..\System\Com\IUnknown.ahk
 
 /**
  * Creates objects in the XPS document object model.
  * @see https://learn.microsoft.com/windows/win32/api/xpsobjectmodel/nn-xpsobjectmodel-ixpsomobjectfactory
  * @namespace Windows.Win32.Storage.Xps
- * @version v4.0.30319
  */
-class IXpsOMObjectFactory extends IUnknown{
+class IXpsOMObjectFactory extends IUnknown {
 
     static sizeof => A_PtrSize
     /**
@@ -566,7 +565,7 @@ class IXpsOMObjectFactory extends IUnknown{
      * 
      * ```
      * @param {IOpcPartUri} partUri The  <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/msopc/nn-msopc-iopcparturi">IOpcPartUri</a> interface that contains the part name to be assigned to this resource. This parameter must not be <b>NULL</b>.
-     * @returns {IXpsOMDocument} 
+     * @returns {IXpsOMDocument} A pointer to the new <a href="https://docs.microsoft.com/windows/desktop/api/xpsobjectmodel/nn-xpsobjectmodel-ixpsomdocument">IXpsOMDocument</a> interface.
      * @see https://learn.microsoft.com/windows/win32/api/xpsobjectmodel/nf-xpsobjectmodel-ixpsomobjectfactory-createdocument
      */
     CreateDocument(partUri) {
@@ -880,7 +879,7 @@ class IXpsOMObjectFactory extends IUnknown{
      * }
      * 
      * ```
-     * @returns {IXpsOMPath} 
+     * @returns {IXpsOMPath} A pointer to the new <a href="https://docs.microsoft.com/windows/desktop/api/xpsobjectmodel/nn-xpsobjectmodel-ixpsompath">IXpsOMPath</a> interface.
      * @see https://learn.microsoft.com/windows/win32/api/xpsobjectmodel/nf-xpsobjectmodel-ixpsomobjectfactory-createpath
      */
     CreatePath() {
@@ -1030,7 +1029,7 @@ class IXpsOMObjectFactory extends IUnknown{
      * }
      * 
      * ```
-     * @param {Pointer<XPS_MATRIX>} _matrix 
+     * @param {Pointer<XPS_MATRIX>} _matrix The initial matrix to be assigned to the transform.
      * @returns {IXpsOMMatrixTransform} A pointer to the new <a href="https://docs.microsoft.com/windows/desktop/api/xpsobjectmodel/nn-xpsobjectmodel-ixpsommatrixtransform">IXpsOMMatrixTransform</a> interface.
      * @see https://learn.microsoft.com/windows/win32/api/xpsobjectmodel/nf-xpsobjectmodel-ixpsomobjectfactory-creatematrixtransform
      */
@@ -1085,7 +1084,7 @@ class IXpsOMObjectFactory extends IUnknown{
      * }
      * 
      * ```
-     * @param {Pointer<XPS_COLOR>} _color 
+     * @param {Pointer<XPS_COLOR>} _color The <a href="https://docs.microsoft.com/previous-versions/windows/desktop/dd372939(v=vs.85)">XPS_COLOR</a> structure that specifies  the brush color.
      * @param {IXpsOMColorProfileResource} colorProfile The <a href="https://docs.microsoft.com/windows/desktop/api/xpsobjectmodel/nn-xpsobjectmodel-ixpsomcolorprofileresource">IXpsOMColorProfileResource</a> interface. Unless the color type is <a href="https://docs.microsoft.com/windows/win32/api/xpsobjectmodel/ne-xpsobjectmodel-xps_color_type">XPS_COLOR_TYPE_CONTEXT</a>, this value must be <b>NULL</b>.
      * @returns {IXpsOMSolidColorBrush} A pointer to the new <a href="https://docs.microsoft.com/windows/desktop/api/xpsobjectmodel/nn-xpsobjectmodel-ixpsomsolidcolorbrush">IXpsOMSolidColorBrush</a> interface.
      * @see https://learn.microsoft.com/windows/win32/api/xpsobjectmodel/nf-xpsobjectmodel-ixpsomobjectfactory-createsolidcolorbrush
@@ -1231,7 +1230,7 @@ class IXpsOMObjectFactory extends IUnknown{
      * }
      * 
      * ```
-     * @param {IXpsOMImageResource} _image 
+     * @param {IXpsOMImageResource} _image The  <a href="https://docs.microsoft.com/windows/desktop/api/xpsobjectmodel/nn-xpsobjectmodel-ixpsomimageresource">IXpsOMImageResource</a> interface that contains the image to be used as the source image of the brush.
      * @param {Pointer<XPS_RECT>} viewBox The <a href="https://docs.microsoft.com/windows/win32/api/xpsobjectmodel/ns-xpsobjectmodel-xps_rect">XPS_RECT</a> structure that defines the <i>viewbox</i>, which is the area  of the source image that is used by the brush.
      * @param {Pointer<XPS_RECT>} viewPort The <a href="https://docs.microsoft.com/windows/win32/api/xpsobjectmodel/ns-xpsobjectmodel-xps_rect">XPS_RECT</a> structure that defines the <i>viewport</i>, which is the area covered by the first    tile in the output area.
      * @returns {IXpsOMImageBrush} A pointer to the new  <a href="https://docs.microsoft.com/windows/desktop/api/xpsobjectmodel/nn-xpsobjectmodel-ixpsomimagebrush">IXpsOMImageBrush</a>  interface.
@@ -1361,7 +1360,7 @@ class IXpsOMObjectFactory extends IUnknown{
      * 
      * <div class="alert"><b>Important</b>  Treat this stream as a Single-Threaded Apartment (STA) object; do not re-enter it.</div>
      * <div> </div>
-     * @param {Integer} contentType The <a href="https://docs.microsoft.com/windows/win32/api/xpsobjectmodel/ne-xpsobjectmodel-xps_image_type">XPS_IMAGE_TYPE</a> value that describes the image type of the stream that is referenced by <i>acquiredStream</i>.
+     * @param {XPS_IMAGE_TYPE} contentType The <a href="https://docs.microsoft.com/windows/win32/api/xpsobjectmodel/ne-xpsobjectmodel-xps_image_type">XPS_IMAGE_TYPE</a> value that describes the image type of the stream that is referenced by <i>acquiredStream</i>.
      * @param {IOpcPartUri} partUri The <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/msopc/nn-msopc-iopcparturi">IOpcPartUri</a> interface that contains the part name to be assigned to this resource. This parameter must not be <b>NULL</b>.
      * @returns {IXpsOMImageResource} A pointer to the new <a href="https://docs.microsoft.com/windows/desktop/api/xpsobjectmodel/nn-xpsobjectmodel-ixpsomimageresource">IXpsOMImageResource</a> interface.
      * @see https://learn.microsoft.com/windows/win32/api/xpsobjectmodel/nf-xpsobjectmodel-ixpsomobjectfactory-createimageresource
@@ -1447,7 +1446,7 @@ class IXpsOMObjectFactory extends IUnknown{
      * <div> </div>
      * <div class="alert"><b>Caution</b>  This stream is not to be obfuscated.</div>
      * <div> </div>
-     * @param {Integer} fontEmbedding The <a href="https://docs.microsoft.com/windows/win32/api/xpsobjectmodel/ne-xpsobjectmodel-xps_font_embedding">XPS_FONT_EMBEDDING</a> value that specifies the stream's embedding option.
+     * @param {XPS_FONT_EMBEDDING} fontEmbedding The <a href="https://docs.microsoft.com/windows/win32/api/xpsobjectmodel/ne-xpsobjectmodel-xps_font_embedding">XPS_FONT_EMBEDDING</a> value that specifies the stream's embedding option.
      * @param {IOpcPartUri} partUri The <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/msopc/nn-msopc-iopcparturi">IOpcPartUri</a> interface that contains the part name to be assigned    to this resource. This parameter must not  be <b>NULL</b>.
      * @param {BOOL} isObfSourceStream A Boolean value that indicates whether the stream referenced by <i>acquiredStream</i> is obfuscated.
      * 
@@ -1543,7 +1542,7 @@ class IXpsOMObjectFactory extends IUnknown{
      * }
      * 
      * ```
-     * @param {Pointer<XPS_COLOR>} _color 
+     * @param {Pointer<XPS_COLOR>} _color The color value.
      * @param {IXpsOMColorProfileResource} colorProfile A pointer to the <a href="https://docs.microsoft.com/windows/desktop/api/xpsobjectmodel/nn-xpsobjectmodel-ixpsomcolorprofileresource">IXpsOMColorProfileResource</a> interface that contains the color profile to be used. If the color type is not <a href="https://docs.microsoft.com/windows/win32/api/xpsobjectmodel/ne-xpsobjectmodel-xps_color_type">XPS_COLOR_TYPE_CONTEXT</a>, this parameter must be <b>NULL</b>.
      * @param {Float} offset The offset value.
      * 
@@ -1803,7 +1802,7 @@ class IXpsOMObjectFactory extends IUnknown{
      * </td>
      * </tr>
      * </table>
-     * @param {Integer} interleaving Specifies whether the content of the XPS OM will be interleaved when it is written to the file.
+     * @param {XPS_INTERLEAVING} interleaving Specifies whether the content of the XPS OM will be interleaved when it is written to the file.
      * @param {IOpcPartUri} documentSequencePartName The <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/msopc/nn-msopc-iopcparturi">IOpcPartUri</a> interface that contains the part name of the document sequence in the new file.
      * @param {IXpsOMCoreProperties} coreProperties The <a href="https://docs.microsoft.com/windows/desktop/api/xpsobjectmodel/nn-xpsobjectmodel-ixpsomcoreproperties">IXpsOMCoreProperties</a> interface that contains the core document properties to be given to the new file. This parameter can be set to <b>NULL</b>.
      * @param {IXpsOMImageResource} packageThumbnail The <a href="https://docs.microsoft.com/windows/desktop/api/xpsobjectmodel/nn-xpsobjectmodel-ixpsomimageresource">IXpsOMImageResource</a> interface that contains the thumbnail image to be assigned to the new file. This parameter can be set to <b>NULL</b>.
@@ -1856,7 +1855,7 @@ class IXpsOMObjectFactory extends IUnknown{
      * </td>
      * </tr>
      * </table>
-     * @param {Integer} interleaving Specifies whether the content of the XPS OM will be interleaved when it is written to the stream.
+     * @param {XPS_INTERLEAVING} interleaving Specifies whether the content of the XPS OM will be interleaved when it is written to the stream.
      * @param {IOpcPartUri} documentSequencePartName The <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/msopc/nn-msopc-iopcparturi">IOpcPartUri</a> interface that contains the part name of the document sequence in the new file.
      * @param {IXpsOMCoreProperties} coreProperties The <a href="https://docs.microsoft.com/windows/desktop/api/xpsobjectmodel/nn-xpsobjectmodel-ixpsomcoreproperties">IXpsOMCoreProperties</a> interface that contains the core document properties to be given to the new file. This parameter can be set to <b>NULL</b>.
      * @param {IXpsOMImageResource} packageThumbnail The <a href="https://docs.microsoft.com/windows/desktop/api/xpsobjectmodel/nn-xpsobjectmodel-ixpsomimageresource">IXpsOMImageResource</a> interface that contains the thumbnail image to be assigned to the new file.  This parameter can be set to <b>NULL</b>.

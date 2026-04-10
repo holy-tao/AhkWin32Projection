@@ -3,9 +3,8 @@
 
 /**
  * @namespace Windows.Win32.System.Ioctl
- * @version v4.0.30319
  */
-class FS_BPIO_INFLAGS extends Win32BitflagEnum{
+class FS_BPIO_INFLAGS extends Win32BitflagEnum {
 
     /**
      * @type {Integer (Int32)}

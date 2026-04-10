@@ -1,5 +1,6 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
+#Include .\FWP_DIRECTION.ahk
 
 /**
  * Contains information that describes an IPsec kernel drop event.
@@ -7,10 +8,8 @@
  * <b>FWPM_NET_EVENT_IPSEC_KERNEL_DROP0</b> is a specific implementation of FWPM_NET_EVENT_IPSEC_KERNEL_DROP. See <a href="https://docs.microsoft.com/windows/desktop/FWP/wfp-version-independent-names-and-targeting-specific-versions-of-windows">WFP Version-Independent Names and Targeting Specific Versions of Windows</a>  for more information.
  * @see https://learn.microsoft.com/windows/win32/api/fwpmtypes/ns-fwpmtypes-fwpm_net_event_ipsec_kernel_drop0
  * @namespace Windows.Win32.NetworkManagement.WindowsFilteringPlatform
- * @version v4.0.30319
  */
-class FWPM_NET_EVENT_IPSEC_KERNEL_DROP0 extends Win32Struct
-{
+class FWPM_NET_EVENT_IPSEC_KERNEL_DROP0 extends Win32Struct {
     static sizeof => 32
 
     static packingSize => 8
@@ -26,7 +25,7 @@ class FWPM_NET_EVENT_IPSEC_KERNEL_DROP0 extends Win32Struct
 
     /**
      * An [FWP_DIRECTION](/windows/desktop/api/fwptypes/ne-fwptypes-fwp_direction) value that specifies whether the dropped packet is inbound or outbound.
-     * @type {Integer}
+     * @type {FWP_DIRECTION}
      */
     direction {
         get => NumGet(this, 4, "int")

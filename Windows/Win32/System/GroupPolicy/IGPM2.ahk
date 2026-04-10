@@ -1,17 +1,15 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
-#Include ..\..\Foundation\BSTR.ahk
-#Include .\IGPMBackupDirEx.ahk
 #Include .\IGPM.ahk
+#Include .\IGPMBackupDirEx.ahk
 
 /**
  * The IGPM2 interface extends the GPMBackupDir and InitializeReporting methods of the IGPM interface of the Group Policy Management Console (GPMC).
  * @see https://learn.microsoft.com/windows/win32/api/gpmgmt/nn-gpmgmt-igpm2
  * @namespace Windows.Win32.System.GroupPolicy
- * @version v4.0.30319
  */
-class IGPM2 extends IGPM{
+class IGPM2 extends IGPM {
 
     static sizeof => A_PtrSize
     /**
@@ -35,7 +33,7 @@ class IGPM2 extends IGPM{
     /**
      * For a Group Policy object (GPO), the GetBackupDirEx method creates and returns a GPMBackupDirEx object, which you can use to access a GPMBackup or GPMBackupCollection object.
      * @param {BSTR} bstrBackupDir Required. The name of the file system directory containing the Group Policy object (GPO) backups. Note that the directory must already exist.
-     * @param {Integer} backupDirType Determines whether the back up is for a Starter Group Policy object or a Group Policy object.
+     * @param {GPMBackupType} backupDirType Determines whether the back up is for a Starter Group Policy object or a Group Policy object.
      * @returns {IGPMBackupDirEx} Address of a pointer to the   <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/gpmgmt/nn-gpmgmt-igpmbackupdirex">IGPMBackupDirEx</a> interface.
      * @see https://learn.microsoft.com/windows/win32/api/gpmgmt/nf-gpmgmt-igpm2-getbackupdirex
      */

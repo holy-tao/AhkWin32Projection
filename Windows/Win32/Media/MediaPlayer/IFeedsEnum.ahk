@@ -6,9 +6,8 @@
 
 /**
  * @namespace Windows.Win32.Media.MediaPlayer
- * @version v4.0.30319
  */
-class IFeedsEnum extends IDispatch{
+class IFeedsEnum extends IDispatch {
 
     static sizeof => A_PtrSize
     /**

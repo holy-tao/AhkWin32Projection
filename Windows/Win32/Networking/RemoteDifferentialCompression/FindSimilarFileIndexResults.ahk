@@ -5,10 +5,8 @@
  * Contains the file index information that the ISimilarityTraitsTable::FindSimilarFileIndex method returned for a matching file.
  * @see https://learn.microsoft.com/windows/win32/api/msrdc/ns-msrdc-findsimilarfileindexresults
  * @namespace Windows.Win32.Networking.RemoteDifferentialCompression
- * @version v4.0.30319
  */
-class FindSimilarFileIndexResults extends Win32Struct
-{
+class FindSimilarFileIndexResults extends Win32Struct {
     static sizeof => 8
 
     static packingSize => 4

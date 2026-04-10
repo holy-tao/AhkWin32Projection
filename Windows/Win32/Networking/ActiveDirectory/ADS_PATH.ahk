@@ -7,10 +7,8 @@
  * The <b>Path</b> attribute in represents a file system path.
  * @see https://learn.microsoft.com/windows/win32/api/iads/ns-iads-ads_path
  * @namespace Windows.Win32.Networking.ActiveDirectory
- * @version v4.0.30319
  */
-class ADS_PATH extends Win32Struct
-{
+class ADS_PATH extends Win32Struct {
     static sizeof => 24
 
     static packingSize => 8

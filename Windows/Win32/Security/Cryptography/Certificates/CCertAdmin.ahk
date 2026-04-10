@@ -7,10 +7,8 @@
  * <i>RowID</i> and <i>Date</i> are mutually exclusive; one and only one of them can be nonzero.
  * @see https://learn.microsoft.com/windows/win32/api/certadm/nf-certadm-icertadmin2-deleterow
  * @namespace Windows.Win32.Security.Cryptography.Certificates
- * @version v4.0.30319
  */
-class CCertAdmin extends Win32Struct
-{
+class CCertAdmin extends Win32Struct {
     static sizeof => 0
 
     static packingSize => 1

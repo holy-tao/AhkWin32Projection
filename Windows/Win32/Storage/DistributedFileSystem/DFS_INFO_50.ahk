@@ -5,10 +5,8 @@
  * Contains the DFS metadata version and capabilities of an existing DFS namespace.
  * @see https://learn.microsoft.com/windows/win32/api/lmdfs/ns-lmdfs-dfs_info_50
  * @namespace Windows.Win32.Storage.DistributedFileSystem
- * @version v4.0.30319
  */
-class DFS_INFO_50 extends Win32Struct
-{
+class DFS_INFO_50 extends Win32Struct {
     static sizeof => 16
 
     static packingSize => 8

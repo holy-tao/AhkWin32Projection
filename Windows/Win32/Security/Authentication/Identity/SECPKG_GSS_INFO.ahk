@@ -5,10 +5,8 @@
  * A SECPKG_GSS_INFO structure contains information used for GSS-compatible negotiations.
  * @see https://learn.microsoft.com/windows/win32/api/ntsecpkg/ns-ntsecpkg-secpkg_gss_info
  * @namespace Windows.Win32.Security.Authentication.Identity
- * @version v4.0.30319
  */
-class SECPKG_GSS_INFO extends Win32Struct
-{
+class SECPKG_GSS_INFO extends Win32Struct {
     static sizeof => 8
 
     static packingSize => 4
@@ -24,9 +22,9 @@ class SECPKG_GSS_INFO extends Win32Struct
 
     /**
      * The encoded GSS OID.
-     * @type {Array<Byte>}
+     * @type {Array<Integer>}
      */
-    EncodedId{
+    EncodedId {
         get {
             if(!this.HasProp("__EncodedIdProxyArray"))
                 this.__EncodedIdProxyArray := Win32FixedArray(this.ptr + 4, 4, Primitive, "char")

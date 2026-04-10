@@ -9,18 +9,16 @@
 
 /**
  * @namespace Windows.Win32.System.Diagnostics.Debug.Extensions
- * @version v4.0.30319
  */
-class DEBUG_PROCESSOR_IDENTIFICATION_ALL extends Win32Struct
-{
-    static sizeof => 224
+class DEBUG_PROCESSOR_IDENTIFICATION_ALL extends Win32Struct {
+    static sizeof => 144
 
     static packingSize => 4
 
     /**
      * @type {DEBUG_PROCESSOR_IDENTIFICATION_ALPHA}
      */
-    Alpha{
+    Alpha {
         get {
             if(!this.HasProp("__Alpha"))
                 this.__Alpha := DEBUG_PROCESSOR_IDENTIFICATION_ALPHA(0, this)
@@ -31,7 +29,7 @@ class DEBUG_PROCESSOR_IDENTIFICATION_ALL extends Win32Struct
     /**
      * @type {DEBUG_PROCESSOR_IDENTIFICATION_AMD64}
      */
-    Amd64{
+    Amd64 {
         get {
             if(!this.HasProp("__Amd64"))
                 this.__Amd64 := DEBUG_PROCESSOR_IDENTIFICATION_AMD64(0, this)
@@ -42,7 +40,7 @@ class DEBUG_PROCESSOR_IDENTIFICATION_ALL extends Win32Struct
     /**
      * @type {DEBUG_PROCESSOR_IDENTIFICATION_IA64}
      */
-    Ia64{
+    Ia64 {
         get {
             if(!this.HasProp("__Ia64"))
                 this.__Ia64 := DEBUG_PROCESSOR_IDENTIFICATION_IA64(0, this)
@@ -53,7 +51,7 @@ class DEBUG_PROCESSOR_IDENTIFICATION_ALL extends Win32Struct
     /**
      * @type {DEBUG_PROCESSOR_IDENTIFICATION_X86}
      */
-    X86{
+    X86 {
         get {
             if(!this.HasProp("__X86"))
                 this.__X86 := DEBUG_PROCESSOR_IDENTIFICATION_X86(0, this)
@@ -64,7 +62,7 @@ class DEBUG_PROCESSOR_IDENTIFICATION_ALL extends Win32Struct
     /**
      * @type {DEBUG_PROCESSOR_IDENTIFICATION_ARM}
      */
-    Arm{
+    Arm {
         get {
             if(!this.HasProp("__Arm"))
                 this.__Arm := DEBUG_PROCESSOR_IDENTIFICATION_ARM(0, this)
@@ -75,7 +73,7 @@ class DEBUG_PROCESSOR_IDENTIFICATION_ALL extends Win32Struct
     /**
      * @type {DEBUG_PROCESSOR_IDENTIFICATION_ARM64}
      */
-    Arm64{
+    Arm64 {
         get {
             if(!this.HasProp("__Arm64"))
                 this.__Arm64 := DEBUG_PROCESSOR_IDENTIFICATION_ARM64(0, this)

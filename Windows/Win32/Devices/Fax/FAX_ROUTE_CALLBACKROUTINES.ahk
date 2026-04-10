@@ -11,10 +11,8 @@
  * For more information, see <a href="https://docs.microsoft.com/previous-versions/windows/desktop/fax/-mfax-fax-routing-extension-registration">Fax Routing Extension Registration</a> and <a href="https://docs.microsoft.com/previous-versions/windows/desktop/fax/-mfax-fax-file-lists">Fax File Lists</a>.
  * @see https://learn.microsoft.com/windows/win32/api/faxroute/ns-faxroute-fax_route_callbackroutines
  * @namespace Windows.Win32.Devices.Fax
- * @version v4.0.30319
  */
-class FAX_ROUTE_CALLBACKROUTINES extends Win32Struct
-{
+class FAX_ROUTE_CALLBACKROUTINES extends Win32Struct {
     static sizeof => 48
 
     static packingSize => 8

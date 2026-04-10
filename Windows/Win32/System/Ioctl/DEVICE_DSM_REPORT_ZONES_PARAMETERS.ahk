@@ -3,10 +3,8 @@
 
 /**
  * @namespace Windows.Win32.System.Ioctl
- * @version v4.0.30319
  */
-class DEVICE_DSM_REPORT_ZONES_PARAMETERS extends Win32Struct
-{
+class DEVICE_DSM_REPORT_ZONES_PARAMETERS extends Win32Struct {
     static sizeof => 8
 
     static packingSize => 4
@@ -36,9 +34,9 @@ class DEVICE_DSM_REPORT_ZONES_PARAMETERS extends Win32Struct
     }
 
     /**
-     * @type {Array<Byte>}
+     * @type {Array<Integer>}
      */
-    Reserved{
+    Reserved {
         get {
             if(!this.HasProp("__ReservedProxyArray"))
                 this.__ReservedProxyArray := Win32FixedArray(this.ptr + 6, 2, Primitive, "char")

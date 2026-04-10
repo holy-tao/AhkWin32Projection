@@ -1,15 +1,14 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
 #Include .\L2TP_TUNNEL_CONFIG_PARAMS2.ahk
+#Include .\ROUTER_CUSTOM_IKEv2_POLICY0.ahk
 
 /**
  * Used to get and set the device configuration for Layer 2 Tunneling Protocol (L2TP) on a RAS Server. (L2TP_CONFIG_PARAMS1)
  * @see https://learn.microsoft.com/windows/win32/api/mprapi/ns-mprapi-l2tp_config_params1
  * @namespace Windows.Win32.NetworkManagement.Rras
- * @version v4.0.30319
  */
-class L2TP_CONFIG_PARAMS1 extends Win32Struct
-{
+class L2TP_CONFIG_PARAMS1 extends Win32Struct {
     static sizeof => 48
 
     static packingSize => 8
@@ -104,7 +103,6 @@ class L2TP_CONFIG_PARAMS1 extends Win32Struct
     }
 
     /**
-     * 
      * @type {Integer}
      */
     dwTunnelConfigParamFlags {
@@ -113,10 +111,9 @@ class L2TP_CONFIG_PARAMS1 extends Win32Struct
     }
 
     /**
-     * 
      * @type {L2TP_TUNNEL_CONFIG_PARAMS2}
      */
-    TunnelConfigParams{
+    TunnelConfigParams {
         get {
             if(!this.HasProp("__TunnelConfigParams"))
                 this.__TunnelConfigParams := L2TP_TUNNEL_CONFIG_PARAMS2(16, this)

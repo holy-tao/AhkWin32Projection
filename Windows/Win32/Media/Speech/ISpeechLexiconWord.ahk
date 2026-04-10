@@ -1,15 +1,14 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
+#Include ..\..\System\Com\IDispatch.ahk
 #Include ..\..\Foundation\BSTR.ahk
 #Include .\ISpeechLexiconPronunciations.ahk
-#Include ..\..\System\Com\IDispatch.ahk
 
 /**
  * @namespace Windows.Win32.Media.Speech
- * @version v4.0.30319
  */
-class ISpeechLexiconWord extends IDispatch{
+class ISpeechLexiconWord extends IDispatch {
 
     static sizeof => A_PtrSize
     /**
@@ -38,7 +37,7 @@ class ISpeechLexiconWord extends IDispatch{
     }
 
     /**
-     * @type {Integer} 
+     * @type {SpeechWordType} 
      */
     Type {
         get => this.get_Type()
@@ -69,7 +68,7 @@ class ISpeechLexiconWord extends IDispatch{
 
     /**
      * 
-     * @returns {Integer} 
+     * @returns {SpeechWordType} 
      */
     get_Type() {
         result := ComCall(8, this, "int*", &WordType := 0, "HRESULT")

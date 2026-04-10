@@ -3,14 +3,10 @@
 
 /**
  * Contains information about a credential.
- * @remarks
- * 
  * @see https://learn.microsoft.com/windows/win32/api/webauthn/ns-webauthn-webauthn_credential
  * @namespace Windows.Win32.Security.Authentication.WebAuthn
- * @version v4.0.30319
  */
-class WEBAUTHN_CREDENTIAL extends Win32Struct
-{
+class WEBAUTHN_CREDENTIAL extends Win32Struct {
     static sizeof => 24
 
     static packingSize => 8

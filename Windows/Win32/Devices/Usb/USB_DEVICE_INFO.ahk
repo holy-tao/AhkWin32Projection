@@ -2,23 +2,23 @@
 #Include ..\..\..\..\Win32Struct.ahk
 #Include .\USB_DEVICE_STATE.ahk
 #Include .\USB_DEVICE_DESCRIPTOR.ahk
-#Include .\USB_ENDPOINT_DESCRIPTOR.ahk
+#Include .\USB_DEVICE_SPEED.ahk
+#Include .\USB_CONNECTION_STATUS.ahk
 #Include .\USB_PIPE_INFO.ahk
+#Include .\USB_ENDPOINT_DESCRIPTOR.ahk
 
 /**
  * @namespace Windows.Win32.Devices.Usb
- * @version v4.0.30319
  */
-class USB_DEVICE_INFO extends Win32Struct
-{
-    static sizeof => 1080
+class USB_DEVICE_INFO extends Win32Struct {
+    static sizeof => 1084
 
-    static packingSize => 8
+    static packingSize => 4
 
     /**
      * @type {USB_DEVICE_STATE}
      */
-    DeviceState{
+    DeviceState {
         get {
             if(!this.HasProp("__DeviceState"))
                 this.__DeviceState := USB_DEVICE_STATE(0, this)
@@ -37,7 +37,7 @@ class USB_DEVICE_INFO extends Win32Struct
     /**
      * @type {USB_DEVICE_DESCRIPTOR}
      */
-    DeviceDescriptor{
+    DeviceDescriptor {
         get {
             if(!this.HasProp("__DeviceDescriptor"))
                 this.__DeviceDescriptor := USB_DEVICE_DESCRIPTOR(6, this)
@@ -54,7 +54,7 @@ class USB_DEVICE_INFO extends Win32Struct
     }
 
     /**
-     * @type {Integer}
+     * @type {USB_DEVICE_SPEED}
      */
     Speed {
         get => NumGet(this, 28, "int")
@@ -78,7 +78,7 @@ class USB_DEVICE_INFO extends Win32Struct
     }
 
     /**
-     * @type {Integer}
+     * @type {USB_CONNECTION_STATUS}
      */
     ConnectionStatus {
         get => NumGet(this, 40, "int")
@@ -126,9 +126,9 @@ class USB_DEVICE_INFO extends Win32Struct
     }
 
     /**
-     * @type {Array<USB_PIPE_INFO>}
+     * @type {USB_PIPE_INFO}
      */
-    PipeList{
+    PipeList {
         get {
             if(!this.HasProp("__PipeListProxyArray"))
                 this.__PipeListProxyArray := Win32FixedArray(this.ptr + 1072, 1, USB_PIPE_INFO, "")

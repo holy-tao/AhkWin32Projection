@@ -5,9 +5,8 @@
  * Defines values that indicate the type of a notification event, and a hint to the listener about the processing of the event.
  * @see https://learn.microsoft.com/windows/win32/api/uiautomationcore/ne-uiautomationcore-notificationkind
  * @namespace Windows.Win32.UI.Accessibility
- * @version v4.0.30319
  */
-class NotificationKind extends Win32Enum{
+class NotificationKind extends Win32Enum {
 
     /**
      * The current element and/or the container has had something added to it that should be presented to the user.

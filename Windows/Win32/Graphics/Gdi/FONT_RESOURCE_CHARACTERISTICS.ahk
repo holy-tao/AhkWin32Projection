@@ -3,9 +3,8 @@
 
 /**
  * @namespace Windows.Win32.Graphics.Gdi
- * @version v4.0.30319
  */
-class FONT_RESOURCE_CHARACTERISTICS extends Win32Enum{
+class FONT_RESOURCE_CHARACTERISTICS extends Win32Enum {
 
     /**
      * @type {Integer (UInt32)}

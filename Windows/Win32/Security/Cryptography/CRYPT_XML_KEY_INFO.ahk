@@ -1,15 +1,14 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
+#Include .\CRYPT_XML_KEY_INFO_ITEM.ahk
 #Include .\BCRYPT_KEY_HANDLE.ahk
 
 /**
  * Encapsulates key information data.
  * @see https://learn.microsoft.com/windows/win32/api/cryptxml/ns-cryptxml-crypt_xml_key_info
  * @namespace Windows.Win32.Security.Cryptography
- * @version v4.0.30319
  */
-class CRYPT_XML_KEY_INFO extends Win32Struct
-{
+class CRYPT_XML_KEY_INFO extends Win32Struct {
     static sizeof => 40
 
     static packingSize => 8
@@ -54,7 +53,7 @@ class CRYPT_XML_KEY_INFO extends Win32Struct
      * Optional. The handle of data  derived from the first key value.
      * @type {BCRYPT_KEY_HANDLE}
      */
-    hVerifyKey{
+    hVerifyKey {
         get {
             if(!this.HasProp("__hVerifyKey"))
                 this.__hVerifyKey := BCRYPT_KEY_HANDLE(32, this)

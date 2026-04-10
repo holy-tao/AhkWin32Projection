@@ -1,18 +1,17 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
+#Include ..\..\System\Com\IUnknown.ahk
 #Include ..\..\System\Com\StructuredStorage\PROPVARIANT.ahk
 #Include .\SYNCMGR_CONFLICT_ID_INFO.ahk
 #Include .\ISyncMgrConflictItems.ahk
-#Include ..\..\System\Com\IUnknown.ahk
 
 /**
  * Exposes methods that provide information about a conflict retrieved from a conflict store, and allows the conflict to be resolved.
  * @see https://learn.microsoft.com/windows/win32/api/syncmgr/nn-syncmgr-isyncmgrconflict
  * @namespace Windows.Win32.UI.Shell
- * @version v4.0.30319
  */
-class ISyncMgrConflict extends IUnknown{
+class ISyncMgrConflict extends IUnknown {
 
     static sizeof => A_PtrSize
     /**

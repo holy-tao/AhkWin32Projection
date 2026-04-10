@@ -1,16 +1,15 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
-#Include ..\..\System\Com\IDataObject.ahk
 #Include ..\..\System\Com\IUnknown.ahk
+#Include ..\..\System\Com\IDataObject.ahk
 
 /**
  * Used to programmatically display the system-supplied directory service query dialog box.
  * @see https://learn.microsoft.com/windows/win32/api/cmnquery/nn-cmnquery-icommonquery
  * @namespace Windows.Win32.Networking.ActiveDirectory
- * @version v4.0.30319
  */
-class ICommonQuery extends IUnknown{
+class ICommonQuery extends IUnknown {
 
     static sizeof => A_PtrSize
     /**

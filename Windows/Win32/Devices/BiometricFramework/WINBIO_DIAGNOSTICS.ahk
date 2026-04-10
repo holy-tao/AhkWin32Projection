@@ -4,10 +4,8 @@
 
 /**
  * @namespace Windows.Win32.Devices.BiometricFramework
- * @version v4.0.30319
  */
-class WINBIO_DIAGNOSTICS extends Win32Struct
-{
+class WINBIO_DIAGNOSTICS extends Win32Struct {
     static sizeof => 20
 
     static packingSize => 4
@@ -39,7 +37,7 @@ class WINBIO_DIAGNOSTICS extends Win32Struct
     /**
      * @type {WINBIO_DATA}
      */
-    VendorDiagnostics{
+    VendorDiagnostics {
         get {
             if(!this.HasProp("__VendorDiagnostics"))
                 this.__VendorDiagnostics := WINBIO_DATA(12, this)

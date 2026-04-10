@@ -5,10 +5,8 @@
  * Represents the context under which a resource is appropriate.
  * @see https://learn.microsoft.com/windows/win32/api/resourceindexer/ns-resourceindexer-indexedresourcequalifier
  * @namespace Windows.Win32.UI.WindowsAndMessaging
- * @version v4.0.30319
  */
-class IndexedResourceQualifier extends Win32Struct
-{
+class IndexedResourceQualifier extends Win32Struct {
     static sizeof => 16
 
     static packingSize => 8

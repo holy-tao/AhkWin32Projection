@@ -1,16 +1,15 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
-#Include ..\..\System\Com\IUnknown.ahk
 #Include ..\..\System\Ole\IOleWindow.ahk
+#Include ..\..\System\Com\IUnknown.ahk
 
 /**
  * Exposes methods that enable desk bar manipulation.
  * @see https://learn.microsoft.com/windows/win32/api/shobjidl_core/nn-shobjidl_core-ideskbar
  * @namespace Windows.Win32.UI.Shell
- * @version v4.0.30319
  */
-class IDeskBar extends IOleWindow{
+class IDeskBar extends IOleWindow {
 
     static sizeof => A_PtrSize
     /**

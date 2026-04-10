@@ -5,9 +5,8 @@
  * The PHONE_TONE enum identifies a phone tone.
  * @see https://learn.microsoft.com/windows/win32/api/tapi3if/ne-tapi3if-phone_tone
  * @namespace Windows.Win32.Devices.Tapi
- * @version v4.0.30319
  */
-class PHONE_TONE extends Win32Enum{
+class PHONE_TONE extends Win32Enum {
 
     /**
      * Zero.

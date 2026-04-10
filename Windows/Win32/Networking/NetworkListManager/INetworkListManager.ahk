@@ -1,19 +1,18 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
+#Include ..\..\System\Com\IDispatch.ahk
 #Include .\IEnumNetworks.ahk
 #Include .\INetwork.ahk
 #Include .\IEnumNetworkConnections.ahk
 #Include .\INetworkConnection.ahk
-#Include ..\..\System\Com\IDispatch.ahk
 
 /**
  * The INetworkListManager interface provides a set of methods to perform network list management functions.
  * @see https://learn.microsoft.com/windows/win32/api/netlistmgr/nn-netlistmgr-inetworklistmanager
  * @namespace Windows.Win32.Networking.NetworkListManager
- * @version v4.0.30319
  */
-class INetworkListManager extends IDispatch{
+class INetworkListManager extends IDispatch {
 
     static sizeof => A_PtrSize
     /**
@@ -56,7 +55,7 @@ class INetworkListManager extends IDispatch{
 
     /**
      * The GetNetworks method retrieves the list of networks available on the local machine.
-     * @param {Integer} Flags <a href="https://docs.microsoft.com/windows/desktop/api/netlistmgr/ne-netlistmgr-nlm_enum_network">NLM_ENUM_NETWORK</a> enumeration value that specifies the flags for the network (specifically, connected or not connected).
+     * @param {NLM_ENUM_NETWORK} Flags <a href="https://docs.microsoft.com/windows/desktop/api/netlistmgr/ne-netlistmgr-nlm_enum_network">NLM_ENUM_NETWORK</a> enumeration value that specifies the flags for the network (specifically, connected or not connected).
      * @returns {IEnumNetworks} Pointer to a pointer that receives an <a href="https://docs.microsoft.com/windows/desktop/api/netlistmgr/nn-netlistmgr-ienumnetworks">IEnumNetworks</a> interface instance that contains the enumerator for the list of available networks.
      * @see https://learn.microsoft.com/windows/win32/api/netlistmgr/nf-netlistmgr-inetworklistmanager-getnetworks
      */
@@ -124,7 +123,7 @@ class INetworkListManager extends IDispatch{
 
     /**
      * The GetConnectivity method returns the overall connectivity state of the machine.
-     * @returns {Integer} Pointer to an <a href="https://docs.microsoft.com/windows/desktop/api/netlistmgr/ne-netlistmgr-nlm_connectivity">NLM_CONNECTIVITY</a> enumeration value that contains a bitmask that specifies the network connectivity of this machine.
+     * @returns {NLM_CONNECTIVITY} Pointer to an <a href="https://docs.microsoft.com/windows/desktop/api/netlistmgr/ne-netlistmgr-nlm_connectivity">NLM_CONNECTIVITY</a> enumeration value that contains a bitmask that specifies the network connectivity of this machine.
      * @see https://learn.microsoft.com/windows/win32/api/netlistmgr/nf-netlistmgr-inetworklistmanager-getconnectivity
      */
     GetConnectivity() {

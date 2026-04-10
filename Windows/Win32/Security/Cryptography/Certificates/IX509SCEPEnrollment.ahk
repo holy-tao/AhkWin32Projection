@@ -1,19 +1,18 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\..\Guid.ahk
+#Include ..\..\..\System\Com\IDispatch.ahk
 #Include ..\..\..\Foundation\BSTR.ahk
 #Include .\ISignerCertificate.ahk
 #Include .\IX509CertificateRequestPkcs10.ahk
 #Include .\IX509EnrollmentStatus.ahk
-#Include ..\..\..\System\Com\IDispatch.ahk
 
 /**
  * X.509 Simple Computer Enrollment Protocol Interface
  * @see https://learn.microsoft.com/windows/win32/api/certenroll/nn-certenroll-ix509scepenrollment
  * @namespace Windows.Win32.Security.Cryptography.Certificates
- * @version v4.0.30319
  */
-class IX509SCEPEnrollment extends IDispatch{
+class IX509SCEPEnrollment extends IDispatch {
 
     static sizeof => A_PtrSize
     /**
@@ -35,14 +34,14 @@ class IX509SCEPEnrollment extends IDispatch{
     static VTableNames => ["Initialize", "InitializeForPending", "CreateRequestMessage", "CreateRetrievePendingMessage", "CreateRetrieveCertificateMessage", "ProcessResponseMessage", "put_ServerCapabilities", "get_FailInfo", "get_SignerCertificate", "put_SignerCertificate", "get_OldCertificate", "put_OldCertificate", "get_TransactionId", "put_TransactionId", "get_Request", "get_CertificateFriendlyName", "put_CertificateFriendlyName", "get_Status", "get_Certificate", "get_Silent", "put_Silent", "DeleteRequest"]
 
     /**
-     * @type {HRESULT} 
+     * @type {BSTR} 
      */
     ServerCapabilities {
         set => this.put_ServerCapabilities(value)
     }
 
     /**
-     * @type {Integer} 
+     * @type {X509SCEPFailInfo} 
      */
     FailInfo {
         get => this.get_FailInfo()
@@ -102,9 +101,9 @@ class IX509SCEPEnrollment extends IDispatch{
      * This method fails if any of the expected certificates is missing, or if the thumbprint doesn't match the CA certificate.
      * @param {IX509CertificateRequestPkcs10} pRequest An instance of a request that has already been initialized.
      * @param {BSTR} strThumbprint The CA certificate thumbprint.
-     * @param {Integer} ThumprintEncoding The encoding of the CA certificate thumbprint.
+     * @param {EncodingType} ThumprintEncoding The encoding of the CA certificate thumbprint.
      * @param {BSTR} strServerCertificates A PKCS7 request with CA and SCEP RA certificates.
-     * @param {Integer} Encoding The encoding type of the request.
+     * @param {EncodingType} Encoding The encoding type of the request.
      * @returns {HRESULT} If this method succeeds, it returns <b>S_OK</b>. Otherwise, it returns an <b>HRESULT</b> error code.
      * @see https://learn.microsoft.com/windows/win32/api/certenroll/nf-certenroll-ix509scepenrollment-initialize
      */
@@ -118,7 +117,7 @@ class IX509SCEPEnrollment extends IDispatch{
 
     /**
      * Initialize the instance to prepare to generate a message to either retrieve an issued certificate, or install a response for a previous request by the issuer.
-     * @param {Integer} _Context 
+     * @param {X509CertificateEnrollmentContext} _Context 
      * @returns {HRESULT} If this method succeeds, it returns <b>S_OK</b>. Otherwise, it returns an <b>HRESULT</b> error code.
      * @see https://learn.microsoft.com/windows/win32/api/certenroll/nf-certenroll-ix509scepenrollment-initializeforpending
      */
@@ -131,7 +130,7 @@ class IX509SCEPEnrollment extends IDispatch{
      * Create a PKCS10 request message with a challenge password. The request message is in an enveloped PKCS7 encrypted with the SCEP server encryption certificate and signed by the server signing certificate.
      * @remarks
      * You must call the <a href="https://docs.microsoft.com/windows/desktop/api/certenroll/nf-certenroll-ix509scepenrollment-initialize">Initialize</a> method before calling this method.
-     * @param {Integer} Encoding 
+     * @param {EncodingType} Encoding 
      * @returns {BSTR} 
      * @see https://learn.microsoft.com/windows/win32/api/certenroll/nf-certenroll-ix509scepenrollment-createrequestmessage
      */
@@ -145,7 +144,7 @@ class IX509SCEPEnrollment extends IDispatch{
      * Create a message for certificate polling (manual enrollment).
      * @remarks
      * You must call the <a href="https://docs.microsoft.com/windows/desktop/api/certenroll/nf-certenroll-ix509scepenrollment-initializeforpending">InitializeForPending</a> method before calling this method.
-     * @param {Integer} Encoding 
+     * @param {EncodingType} Encoding 
      * @returns {BSTR} 
      * @see https://learn.microsoft.com/windows/win32/api/certenroll/nf-certenroll-ix509scepenrollment-createretrievependingmessage
      */
@@ -159,12 +158,12 @@ class IX509SCEPEnrollment extends IDispatch{
      * Retrieve a previously issued certificate.
      * @remarks
      * You must call the <a href="https://docs.microsoft.com/windows/desktop/api/certenroll/nf-certenroll-ix509scepenrollment-initializeforpending">InitializeForPending</a> method before calling this method.
-     * @param {Integer} _Context 
+     * @param {X509CertificateEnrollmentContext} _Context 
      * @param {BSTR} strIssuer ASN.1 encoded issuer name.
-     * @param {Integer} IssuerEncoding 
+     * @param {EncodingType} IssuerEncoding 
      * @param {BSTR} strSerialNumber 
-     * @param {Integer} SerialNumberEncoding 
-     * @param {Integer} Encoding 
+     * @param {EncodingType} SerialNumberEncoding 
+     * @param {EncodingType} Encoding 
      * @returns {BSTR} 
      * @see https://learn.microsoft.com/windows/win32/api/certenroll/nf-certenroll-ix509scepenrollment-createretrievecertificatemessage
      */
@@ -182,8 +181,8 @@ class IX509SCEPEnrollment extends IDispatch{
      * @remarks
      * You must call the <a href="https://docs.microsoft.com/windows/desktop/api/certenroll/nf-certenroll-ix509scepenrollment-initialize">Initialize</a> and <a href="https://docs.microsoft.com/windows/desktop/api/certenroll/nf-certenroll-ix509scepenrollment-createrequestmessage">CreateRequestMessage</a> methods or the <a href="https://docs.microsoft.com/windows/desktop/api/certenroll/nf-certenroll-ix509scepenrollment-initializeforpending">InitializeForPending</a> method before calling this method.
      * @param {BSTR} strResponse 
-     * @param {Integer} Encoding 
-     * @returns {Integer} 
+     * @param {EncodingType} Encoding 
+     * @returns {X509SCEPDisposition} 
      * @see https://learn.microsoft.com/windows/win32/api/certenroll/nf-certenroll-ix509scepenrollment-processresponsemessage
      */
     ProcessResponseMessage(strResponse, Encoding) {
@@ -212,7 +211,7 @@ class IX509SCEPEnrollment extends IDispatch{
 
     /**
      * Gets information when the ProcessResponseMessage method detects a failed environment.
-     * @returns {Integer} 
+     * @returns {X509SCEPFailInfo} 
      * @see https://learn.microsoft.com/windows/win32/api/certenroll/nf-certenroll-ix509scepenrollment-get_failinfo
      */
     get_FailInfo() {
@@ -280,7 +279,7 @@ class IX509SCEPEnrollment extends IDispatch{
      * Set this property before you call the <a href="https://docs.microsoft.com/windows/desktop/api/certenroll/nf-certenroll-ix509scepenrollment-processresponsemessage">ProcessResponseMessage</a> method when you are using a new instance of the <a href="https://docs.microsoft.com/windows/desktop/api/certenroll/nn-certenroll-ix509scepenrollment">IX509SCEPEnrollment</a> interface to install the response.
      * 
      * Set this property before you call the <a href="https://docs.microsoft.com/windows/desktop/api/certenroll/nf-certenroll-ix509scepenrollment-createretrievependingmessage">CreateRetrievePendingMessage</a> method when you are using a new instance of the <a href="https://docs.microsoft.com/windows/desktop/api/certenroll/nn-certenroll-ix509scepenrollment">IX509SCEPEnrollment</a> interface to create a retrieval message.
-     * @param {Integer} Encoding 
+     * @param {EncodingType} Encoding 
      * @returns {BSTR} 
      * @see https://learn.microsoft.com/windows/win32/api/certenroll/nf-certenroll-ix509scepenrollment-get_transactionid
      */
@@ -300,7 +299,7 @@ class IX509SCEPEnrollment extends IDispatch{
      * Set this property before you call the <a href="https://docs.microsoft.com/windows/desktop/api/certenroll/nf-certenroll-ix509scepenrollment-processresponsemessage">ProcessResponseMessage</a> method when you are using a new instance of the <a href="https://docs.microsoft.com/windows/desktop/api/certenroll/nn-certenroll-ix509scepenrollment">IX509SCEPEnrollment</a> interface to install the response.
      * 
      * Set this property before you call the <a href="https://docs.microsoft.com/windows/desktop/api/certenroll/nf-certenroll-ix509scepenrollment-createretrievependingmessage">CreateRetrievePendingMessage</a> method when you are using a new instance of the <a href="https://docs.microsoft.com/windows/desktop/api/certenroll/nn-certenroll-ix509scepenrollment">IX509SCEPEnrollment</a> interface to create a retrieval message.
-     * @param {Integer} Encoding 
+     * @param {EncodingType} Encoding 
      * @param {BSTR} Value 
      * @returns {HRESULT} 
      * @see https://learn.microsoft.com/windows/win32/api/certenroll/nf-certenroll-ix509scepenrollment-put_transactionid
@@ -360,7 +359,7 @@ class IX509SCEPEnrollment extends IDispatch{
 
     /**
      * Gets the certificate for the request.
-     * @param {Integer} Encoding 
+     * @param {EncodingType} Encoding 
      * @returns {BSTR} 
      * @see https://learn.microsoft.com/windows/win32/api/certenroll/nf-certenroll-ix509scepenrollment-get_certificate
      */

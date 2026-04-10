@@ -5,9 +5,8 @@
 
 /**
  * @namespace Windows.Win32.System.Diagnostics.Debug.Extensions
- * @version v4.0.30319
  */
-class IActionEnumerator extends IUnknown{
+class IActionEnumerator extends IUnknown {
 
     static sizeof => A_PtrSize
     /**

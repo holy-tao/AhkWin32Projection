@@ -3,10 +3,8 @@
 
 /**
  * @namespace Windows.Wdk.NetworkManagement.Ndis
- * @version v4.0.30319
  */
-class NDIS_WORK_ITEM extends Win32Struct
-{
+class NDIS_WORK_ITEM extends Win32Struct {
     static sizeof => 48
 
     static packingSize => 8
@@ -28,9 +26,9 @@ class NDIS_WORK_ITEM extends Win32Struct
     }
 
     /**
-     * @type {Array<Byte>}
+     * @type {Array<Integer>}
      */
-    WrapperReserved{
+    WrapperReserved {
         get {
             if(!this.HasProp("__WrapperReservedProxyArray"))
                 this.__WrapperReservedProxyArray := Win32FixedArray(this.ptr + 16, 32, Primitive, "char")

@@ -3,14 +3,10 @@
 
 /**
  * Contains parameters for the Non-Operational Power State Feature that indicates whether permissive mode is enabled for a non-operational power state.
- * @remarks
- * 
  * @see https://learn.microsoft.com/windows/win32/api/nvme/ns-nvme-nvme_cdw11_feature_non_operational_power_state
  * @namespace Windows.Win32.Storage.Nvme
- * @version v4.0.30319
  */
-class NVME_CDW11_FEATURE_NON_OPERATIONAL_POWER_STATE extends Win32Struct
-{
+class NVME_CDW11_FEATURE_NON_OPERATIONAL_POWER_STATE extends Win32Struct {
     static sizeof => 8
 
     static packingSize => 4
@@ -43,7 +39,6 @@ class NVME_CDW11_FEATURE_NON_OPERATIONAL_POWER_STATE extends Win32Struct
     }
 
     /**
-     * 
      * @type {Integer}
      */
     AsUlong {

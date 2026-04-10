@@ -5,10 +5,8 @@
  * Provides statistical information for a Reliable Multicast receiver session. This structure is used with the RM_RECEIVER_STATISTICS socket option.
  * @see https://learn.microsoft.com/windows/win32/api/wsrm/ns-wsrm-rm_receiver_stats
  * @namespace Windows.Win32.Networking.WinSock
- * @version v4.0.30319
  */
-class RM_RECEIVER_STATS extends Win32Struct
-{
+class RM_RECEIVER_STATS extends Win32Struct {
     static sizeof => 144
 
     static packingSize => 8

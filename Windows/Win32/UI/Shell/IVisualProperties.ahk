@@ -1,16 +1,15 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
-#Include ..\..\Graphics\Gdi\LOGFONTW.ahk
 #Include ..\..\System\Com\IUnknown.ahk
+#Include ..\..\Graphics\Gdi\LOGFONTW.ahk
 
 /**
  * Exposes methods that set and get visual properties.
  * @see https://learn.microsoft.com/windows/win32/api/shobjidl/nn-shobjidl-ivisualproperties
  * @namespace Windows.Win32.UI.Shell
- * @version v4.0.30319
  */
-class IVisualProperties extends IUnknown{
+class IVisualProperties extends IUnknown {
 
     static sizeof => A_PtrSize
     /**
@@ -36,7 +35,7 @@ class IVisualProperties extends IUnknown{
      * @param {HBITMAP} hbmp Type: <b>HBITMAP</b>
      * 
      * A handle to the bitmap.
-     * @param {Integer} vpwf Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/shobjidl/ne-shobjidl-vpwatermarkflags">VPWATERMARKFLAGS</a></b>
+     * @param {VPWATERMARKFLAGS} vpwf Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/shobjidl/ne-shobjidl-vpwatermarkflags">VPWATERMARKFLAGS</a></b>
      * 
      * 
      * <a href="https://docs.microsoft.com/windows/desktop/api/shobjidl/ne-shobjidl-vpwatermarkflags">VPWATERMARKFLAGS</a> flags that customize the watermark.
@@ -54,7 +53,7 @@ class IVisualProperties extends IUnknown{
 
     /**
      * Sets the color, as specified.
-     * @param {Integer} vpcf Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/shobjidl/ne-shobjidl-vpcolorflags">VPCOLORFLAGS</a></b>
+     * @param {VPCOLORFLAGS} vpcf Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/shobjidl/ne-shobjidl-vpcolorflags">VPCOLORFLAGS</a></b>
      * 
      * The color flags. See <a href="https://docs.microsoft.com/windows/desktop/api/shobjidl/ne-shobjidl-vpcolorflags">VPCOLORFLAGS</a>.
      * @param {COLORREF} cr Type: <b><a href="https://docs.microsoft.com/windows/desktop/gdi/colorref">COLORREF</a></b>
@@ -72,7 +71,7 @@ class IVisualProperties extends IUnknown{
 
     /**
      * Gets the color, as specified.
-     * @param {Integer} vpcf Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/shobjidl/ne-shobjidl-vpcolorflags">VPCOLORFLAGS</a></b>
+     * @param {VPCOLORFLAGS} vpcf Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/shobjidl/ne-shobjidl-vpcolorflags">VPCOLORFLAGS</a></b>
      * 
      * The color flags. See <a href="https://docs.microsoft.com/windows/desktop/api/shobjidl/ne-shobjidl-vpcolorflags">VPCOLORFLAGS</a>
      * @returns {COLORREF} Type: <b><a href="https://docs.microsoft.com/windows/desktop/gdi/colorref">COLORREF</a>*</b>

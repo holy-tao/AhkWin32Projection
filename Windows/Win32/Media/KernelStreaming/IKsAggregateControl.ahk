@@ -5,9 +5,8 @@
 
 /**
  * @namespace Windows.Win32.Media.KernelStreaming
- * @version v4.0.30319
  */
-class IKsAggregateControl extends IUnknown{
+class IKsAggregateControl extends IUnknown {
 
     static sizeof => A_PtrSize
     /**

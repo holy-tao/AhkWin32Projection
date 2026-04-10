@@ -9,10 +9,8 @@
  * is not set, i.e. set to <b>NULL</b>, the operation will be carried out synchronously. The client must call into the appropriate MI_Operation function to receive the results. The result callbacks will continue to be called until the moreResults field is equal to MI_FALSE.
  * @see https://learn.microsoft.com/windows/win32/api/mi/ns-mi-mi_operationcallbacks
  * @namespace Windows.Win32.System.Wmi
- * @version v4.0.30319
  */
-class MI_OperationCallbacks extends Win32Struct
-{
+class MI_OperationCallbacks extends Win32Struct {
     static sizeof => 72
 
     static packingSize => 8

@@ -1,5 +1,8 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
+#Include .\LIST_VIEW_ITEM_FLAGS.ahk
+#Include .\LIST_VIEW_ITEM_STATE_FLAGS.ahk
+#Include .\LIST_VIEW_ITEM_COLUMN_FORMAT_FLAGS.ahk
 
 /**
  * Specifies or receives the attributes of a list-view item. This structure has been updated to support a new mask value (LVIF_INDENT) that enables item indenting. This structure supersedes the LV_ITEM structure. (ANSI)
@@ -19,11 +22,9 @@
  * > The commctrl.h header defines LVITEM as an alias which automatically selects the ANSI or Unicode version of this function based on the definition of the UNICODE preprocessor constant. Mixing usage of the encoding-neutral alias with code that not encoding-neutral can lead to mismatches that result in compilation or runtime errors. For more information, see [Conventions for Function Prototypes](/windows/win32/intl/conventions-for-function-prototypes).
  * @see https://learn.microsoft.com/windows/win32/api/commctrl/ns-commctrl-lvitema
  * @namespace Windows.Win32.UI.Controls
- * @version v4.0.30319
  * @charset ANSI
  */
-class LVITEMA extends Win32Struct
-{
+class LVITEMA extends Win32Struct {
     static sizeof => 88
 
     static packingSize => 8
@@ -141,7 +142,7 @@ class LVITEMA extends Win32Struct
      * </td>
      * </tr>
      * </table>
-     * @type {Integer}
+     * @type {LIST_VIEW_ITEM_FLAGS}
      */
     mask {
         get => NumGet(this, 0, "uint")
@@ -187,7 +188,7 @@ class LVITEMA extends Win32Struct
      * 
      * 
      * Bits 12 through 15 of this member specify the state image index. The state image is displayed next to an item's icon to indicate an application-defined state. If these bits are zero, the item has no state image. To isolate these bits, use the <a href="https://docs.microsoft.com/windows/desktop/Controls/list-view-item-states">LVIS_STATEIMAGEMASK</a> mask. To set the state image index, use the <a href="https://docs.microsoft.com/windows/desktop/api/commctrl/nf-commctrl-indextostateimagemask">INDEXTOSTATEIMAGEMASK</a> macro. The state image index specifies the index of the image in the state image list that should be drawn. The state image list is specified with the <a href="https://docs.microsoft.com/windows/desktop/Controls/lvm-setimagelist">LVM_SETIMAGELIST</a> message.
-     * @type {Integer}
+     * @type {LIST_VIEW_ITEM_STATE_FLAGS}
      */
     state {
         get => NumGet(this, 12, "uint")
@@ -211,7 +212,7 @@ class LVITEMA extends Win32Struct
      * 
      * 
      * You can use the macro <a href="https://docs.microsoft.com/windows/desktop/api/commctrl/nf-commctrl-listview_setitemstate">ListView_SetItemState</a> both to set and to clear bits.
-     * @type {Integer}
+     * @type {LIST_VIEW_ITEM_STATE_FLAGS}
      */
     stateMask {
         get => NumGet(this, 16, "uint")
@@ -389,7 +390,7 @@ class LVITEMA extends Win32Struct
      * </td>
      * </tr>
      * </table>
-     * @type {Pointer<Integer>}
+     * @type {Pointer<LIST_VIEW_ITEM_COLUMN_FORMAT_FLAGS>}
      */
     piColFmt {
         get => NumGet(this, 72, "ptr")

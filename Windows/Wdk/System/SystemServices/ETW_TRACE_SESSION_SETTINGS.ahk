@@ -3,10 +3,8 @@
 
 /**
  * @namespace Windows.Wdk.System.SystemServices
- * @version v4.0.30319
  */
-class ETW_TRACE_SESSION_SETTINGS extends Win32Struct
-{
+class ETW_TRACE_SESSION_SETTINGS extends Win32Struct {
     static sizeof => 32
 
     static packingSize => 4

@@ -1,17 +1,15 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\..\Win32Struct.ahk
-#Include .\WHEA_NOTIFICATION_FLAGS.ahk
 #Include .\WHEA_NOTIFICATION_DESCRIPTOR.ahk
-#Include .\XPF_MC_BANK_FLAGS.ahk
+#Include .\WHEA_NOTIFICATION_FLAGS.ahk
 #Include .\WHEA_XPF_MC_BANK_DESCRIPTOR.ahk
+#Include .\XPF_MC_BANK_FLAGS.ahk
 
 /**
  * @namespace Windows.Win32.System.Diagnostics.Debug
- * @version v4.0.30319
  */
-class WHEA_XPF_CMC_DESCRIPTOR extends Win32Struct
-{
-    static sizeof => 296
+class WHEA_XPF_CMC_DESCRIPTOR extends Win32Struct {
+    static sizeof => 1064
 
     static packingSize => 8
 
@@ -50,7 +48,7 @@ class WHEA_XPF_CMC_DESCRIPTOR extends Win32Struct
     /**
      * @type {WHEA_NOTIFICATION_DESCRIPTOR}
      */
-    Notify{
+    Notify {
         get {
             if(!this.HasProp("__Notify"))
                 this.__Notify := WHEA_NOTIFICATION_DESCRIPTOR(8, this)
@@ -59,9 +57,9 @@ class WHEA_XPF_CMC_DESCRIPTOR extends Win32Struct
     }
 
     /**
-     * @type {Array<WHEA_XPF_MC_BANK_DESCRIPTOR>}
+     * @type {WHEA_XPF_MC_BANK_DESCRIPTOR}
      */
-    Banks{
+    Banks {
         get {
             if(!this.HasProp("__BanksProxyArray"))
                 this.__BanksProxyArray := Win32FixedArray(this.ptr + 40, 32, WHEA_XPF_MC_BANK_DESCRIPTOR, "")

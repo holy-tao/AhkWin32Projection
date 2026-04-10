@@ -10,10 +10,8 @@
  * The header file Vfw.h defines a <b>AVIStreamHeader</b> structure that is equivalent to this structure, but omits the <b>fcc</b> and <b>cb</b> members.
  * @see https://learn.microsoft.com/windows/win32/api/avifmt/ns-avifmt-avistreamheader
  * @namespace Windows.Win32.Media.DirectShow
- * @version v4.0.30319
  */
-class AVIStreamHeader extends Win32Struct
-{
+class AVIStreamHeader extends Win32Struct {
     static sizeof => 64
 
     static packingSize => 4
@@ -213,7 +211,7 @@ class AVIStreamHeader extends Win32Struct
      * Specifies the destination rectangle for a text or video stream within the movie rectangle specified by the <b>dwWidth</b> and <b>dwHeight</b> members of the AVI main header structure. The <b>rcFrame</b> member is typically used in support of multiple video streams. Set this rectangle to the coordinates corresponding to the movie rectangle to update the whole movie rectangle. Units for this member are pixels. The upper-left corner of the destination rectangle is relative to the upper-left corner of the movie rectangle.
      * @type {RECT}
      */
-    rcFrame{
+    rcFrame {
         get {
             if(!this.HasProp("__rcFrame"))
                 this.__rcFrame := RECT(48, this)

@@ -7,10 +7,8 @@
  * Contains input data for the ID3D11VideoContext::ConfigureAuthenticatedChannel method.
  * @see https://learn.microsoft.com/windows/win32/api/d3d11/ns-d3d11-d3d11_authenticated_configure_input
  * @namespace Windows.Win32.Graphics.Direct3D11
- * @version v4.0.30319
  */
-class D3D11_AUTHENTICATED_CONFIGURE_INPUT extends Win32Struct
-{
+class D3D11_AUTHENTICATED_CONFIGURE_INPUT extends Win32Struct {
     static sizeof => 40
 
     static packingSize => 8
@@ -19,7 +17,7 @@ class D3D11_AUTHENTICATED_CONFIGURE_INPUT extends Win32Struct
      * A <a href="https://docs.microsoft.com/windows/desktop/api/d3d11/ns-d3d11-d3d11_omac">D3D11_OMAC</a> structure that contains a Message Authentication Code (MAC) of the data. The driver uses AES-based one-key CBC MAC (OMAC) to calculate this value for the block of data that appears after this structure member.
      * @type {D3D11_OMAC}
      */
-    omac{
+    omac {
         get {
             if(!this.HasProp("__omac"))
                 this.__omac := D3D11_OMAC(0, this)
@@ -111,7 +109,7 @@ class D3D11_AUTHENTICATED_CONFIGURE_INPUT extends Win32Struct
      * </td>
      * </tr>
      * </table>
-     * @type {Pointer<Guid>}
+     * @type {Pointer}
      */
     ConfigureType {
         get => NumGet(this, 16, "ptr")
@@ -122,7 +120,7 @@ class D3D11_AUTHENTICATED_CONFIGURE_INPUT extends Win32Struct
      * A handle to the authenticated channel. To get the handle, call the <a href="https://docs.microsoft.com/windows/desktop/api/d3d11/nf-d3d11-id3d11authenticatedchannel-getchannelhandle">ID3D11AuthenticatedChannel::GetChannelHandle</a> method.
      * @type {HANDLE}
      */
-    hChannel{
+    hChannel {
         get {
             if(!this.HasProp("__hChannel"))
                 this.__hChannel := HANDLE(24, this)

@@ -5,9 +5,8 @@
  * Specifies variable flags.
  * @see https://learn.microsoft.com/windows/win32/api/oaidl/ne-oaidl-varflags
  * @namespace Windows.Win32.System.Com
- * @version v4.0.30319
  */
-class VARFLAGS extends Win32Enum{
+class VARFLAGS extends Win32Enum {
 
     /**
      * Assignment to the variable should not be allowed.

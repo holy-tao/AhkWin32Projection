@@ -1,16 +1,15 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\..\Guid.ahk
-#Include .\UNCOMPRESSEDAUDIOFORMAT.ahk
 #Include ..\..\..\System\Com\IUnknown.ahk
+#Include .\UNCOMPRESSEDAUDIOFORMAT.ahk
 
 /**
  * The IAudioMediaType interface exposes methods that allow an sAPO to get information that is used to negotiate with the audio engine for the appropriate audio data format.
  * @see https://learn.microsoft.com/windows/win32/api/audiomediatype/nn-audiomediatype-iaudiomediatype
  * @namespace Windows.Win32.Media.Audio.Apo
- * @version v4.0.30319
  */
-class IAudioMediaType extends IUnknown{
+class IAudioMediaType extends IUnknown {
 
     static sizeof => A_PtrSize
     /**

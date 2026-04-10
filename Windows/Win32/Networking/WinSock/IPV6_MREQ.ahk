@@ -32,10 +32,8 @@
  * <div> </div>
  * @see https://learn.microsoft.com/windows/win32/api/ws2ipdef/ns-ws2ipdef-ipv6_mreq
  * @namespace Windows.Win32.Networking.WinSock
- * @version v4.0.30319
  */
-class IPV6_MREQ extends Win32Struct
-{
+class IPV6_MREQ extends Win32Struct {
     static sizeof => 20
 
     static packingSize => 4
@@ -44,7 +42,7 @@ class IPV6_MREQ extends Win32Struct
      * The address of the IPv6 multicast group.
      * @type {IN6_ADDR}
      */
-    ipv6mr_multiaddr{
+    ipv6mr_multiaddr {
         get {
             if(!this.HasProp("__ipv6mr_multiaddr"))
                 this.__ipv6mr_multiaddr := IN6_ADDR(0, this)

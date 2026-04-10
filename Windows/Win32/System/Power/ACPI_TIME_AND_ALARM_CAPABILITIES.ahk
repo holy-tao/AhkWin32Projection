@@ -1,12 +1,11 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
+#Include .\ACPI_TIME_RESOLUTION.ahk
 
 /**
  * @namespace Windows.Win32.System.Power
- * @version v4.0.30319
  */
-class ACPI_TIME_AND_ALARM_CAPABILITIES extends Win32Struct
-{
+class ACPI_TIME_AND_ALARM_CAPABILITIES extends Win32Struct {
     static sizeof => 20
 
     static packingSize => 4
@@ -84,7 +83,7 @@ class ACPI_TIME_AND_ALARM_CAPABILITIES extends Win32Struct
     }
 
     /**
-     * @type {Integer}
+     * @type {ACPI_TIME_RESOLUTION}
      */
     RealTimeResolution {
         get => NumGet(this, 16, "int")

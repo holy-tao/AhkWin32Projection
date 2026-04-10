@@ -1,19 +1,17 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\..\Guid.ahk
-#Include ..\..\..\Foundation\BSTR.ahk
-#Include .\IUPnPDevice.ahk
-#Include .\IUPnPDevices.ahk
-#Include .\IUPnPServices.ahk
 #Include ..\..\..\System\Com\IDispatch.ahk
+#Include .\IUPnPDevices.ahk
+#Include ..\..\..\Foundation\BSTR.ahk
+#Include .\IUPnPServices.ahk
 
 /**
  * The IUPnPDevice interface enables an application to retrieve information about a specific device.
  * @see https://learn.microsoft.com/windows/win32/api/upnp/nn-upnp-iupnpdevice
  * @namespace Windows.Win32.Devices.Enumeration.Pnp
- * @version v4.0.30319
  */
-class IUPnPDevice extends IDispatch{
+class IUPnPDevice extends IDispatch {
 
     static sizeof => A_PtrSize
     /**

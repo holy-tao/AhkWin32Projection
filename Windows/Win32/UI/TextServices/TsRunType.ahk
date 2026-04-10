@@ -38,9 +38,8 @@
  * </table>
  * @see https://learn.microsoft.com/windows/win32/api/textstor/ne-textstor-tsruntype
  * @namespace Windows.Win32.UI.TextServices
- * @version v4.0.30319
  */
-class TsRunType extends Win32Enum{
+class TsRunType extends Win32Enum {
 
     /**
      * The text run is visible.

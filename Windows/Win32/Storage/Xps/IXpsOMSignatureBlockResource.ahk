@@ -1,17 +1,16 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
+#Include .\IXpsOMResource.ahk
 #Include .\IXpsOMDocument.ahk
 #Include ..\..\System\Com\IStream.ahk
-#Include .\IXpsOMResource.ahk
 
 /**
  * Provides an IStream interface to a signature block resource.
  * @see https://learn.microsoft.com/windows/win32/api/xpsobjectmodel/nn-xpsobjectmodel-ixpsomsignatureblockresource
  * @namespace Windows.Win32.Storage.Xps
- * @version v4.0.30319
  */
-class IXpsOMSignatureBlockResource extends IXpsOMResource{
+class IXpsOMSignatureBlockResource extends IXpsOMResource {
 
     static sizeof => A_PtrSize
     /**

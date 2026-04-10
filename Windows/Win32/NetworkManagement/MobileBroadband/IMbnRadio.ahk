@@ -9,9 +9,8 @@
  * An application can acquire this interface by calling the <a href="https://docs.microsoft.com/windows/desktop/api/unknwn/nf-unknwn-iunknown-queryinterface(q)">QueryInterface</a> method of <a href="https://docs.microsoft.com/windows/desktop/api/mbnapi/nn-mbnapi-imbninterface">IMbnInterface</a>.
  * @see https://learn.microsoft.com/windows/win32/api/mbnapi/nn-mbnapi-imbnradio
  * @namespace Windows.Win32.NetworkManagement.MobileBroadband
- * @version v4.0.30319
  */
-class IMbnRadio extends IUnknown{
+class IMbnRadio extends IUnknown {
 
     static sizeof => A_PtrSize
     /**
@@ -33,14 +32,14 @@ class IMbnRadio extends IUnknown{
     static VTableNames => ["get_SoftwareRadioState", "get_HardwareRadioState", "SetSoftwareRadioState"]
 
     /**
-     * @type {Integer} 
+     * @type {MBN_RADIO} 
      */
     SoftwareRadioState {
         get => this.get_SoftwareRadioState()
     }
 
     /**
-     * @type {Integer} 
+     * @type {MBN_RADIO} 
      */
     HardwareRadioState {
         get => this.get_HardwareRadioState()
@@ -48,7 +47,7 @@ class IMbnRadio extends IUnknown{
 
     /**
      * The software radio state of a Mobile Broadband device.
-     * @returns {Integer} 
+     * @returns {MBN_RADIO} 
      * @see https://learn.microsoft.com/windows/win32/api/mbnapi/nf-mbnapi-imbnradio-get_softwareradiostate
      */
     get_SoftwareRadioState() {
@@ -58,7 +57,7 @@ class IMbnRadio extends IUnknown{
 
     /**
      * The hardware radio state of a Mobile Broadband device.
-     * @returns {Integer} 
+     * @returns {MBN_RADIO} 
      * @see https://learn.microsoft.com/windows/win32/api/mbnapi/nf-mbnapi-imbnradio-get_hardwareradiostate
      */
     get_HardwareRadioState() {
@@ -80,7 +79,7 @@ class IMbnRadio extends IUnknown{
      * 
      * 
      * A device's radio state can change without a change request from the application.  For instance, if a user turns on the system's hardware radio switch.  The Mobile Broadband service will notify the application about a change in radio state by calling the <a href="https://docs.microsoft.com/windows/desktop/api/mbnapi/nf-mbnapi-imbnradioevents-onradiostatechange">OnRadioStateChange</a> method of the <a href="https://docs.microsoft.com/windows/desktop/api/mbnapi/nn-mbnapi-imbnradioevents">IMbnRadioEvents</a> interface.
-     * @param {Integer} radioState A <a href="https://docs.microsoft.com/windows/desktop/api/mbnapi/ne-mbnapi-mbn_radio">MBN_RADIO</a> value that specifies the new software radio state.
+     * @param {MBN_RADIO} radioState A <a href="https://docs.microsoft.com/windows/desktop/api/mbnapi/ne-mbnapi-mbn_radio">MBN_RADIO</a> value that specifies the new software radio state.
      * @returns {Integer} A pointer to a request ID assigned by the Mobile Broadband service to identify this request.
      * @see https://learn.microsoft.com/windows/win32/api/mbnapi/nf-mbnapi-imbnradio-setsoftwareradiostate
      */

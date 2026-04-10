@@ -5,9 +5,8 @@
  * Current status of a sync provider.
  * @see https://learn.microsoft.com/windows/win32/api/cfapi/ne-cfapi-cf_sync_provider_status
  * @namespace Windows.Win32.Storage.CloudFilters
- * @version v4.0.30319
  */
-class CF_SYNC_PROVIDER_STATUS extends Win32BitflagEnum{
+class CF_SYNC_PROVIDER_STATUS extends Win32BitflagEnum {
 
     /**
      * The sync provider is disconnected.

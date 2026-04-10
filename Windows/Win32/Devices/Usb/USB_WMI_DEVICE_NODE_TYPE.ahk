@@ -3,9 +3,8 @@
 
 /**
  * @namespace Windows.Win32.Devices.Usb
- * @version v4.0.30319
  */
-class USB_WMI_DEVICE_NODE_TYPE extends Win32Enum{
+class USB_WMI_DEVICE_NODE_TYPE extends Win32Enum {
 
     /**
      * @type {Integer (Int32)}

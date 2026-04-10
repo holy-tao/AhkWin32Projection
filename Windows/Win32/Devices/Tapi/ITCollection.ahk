@@ -1,17 +1,16 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
+#Include ..\..\System\Com\IDispatch.ahk
 #Include ..\..\System\Variant\VARIANT.ahk
 #Include ..\..\System\Com\IUnknown.ahk
-#Include ..\..\System\Com\IDispatch.ahk
 
 /**
  * The ITCollection interface allows Automation client applications, such as those written in Visual Basic, to retrieve collection information.
  * @see https://learn.microsoft.com/windows/win32/api/tapi3if/nn-tapi3if-itcollection
  * @namespace Windows.Win32.Devices.Tapi
- * @version v4.0.30319
  */
-class ITCollection extends IDispatch{
+class ITCollection extends IDispatch {
 
     static sizeof => A_PtrSize
     /**

@@ -7,9 +7,8 @@
  * Exposes methods that provide additional load and save methods that take WICPersistOptions.
  * @see https://learn.microsoft.com/windows/win32/api/wincodecsdk/nn-wincodecsdk-iwicpersiststream
  * @namespace Windows.Win32.Graphics.Imaging
- * @version v4.0.30319
  */
-class IWICPersistStream extends IPersistStream{
+class IWICPersistStream extends IPersistStream {
 
     static sizeof => A_PtrSize
     /**

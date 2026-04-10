@@ -7,10 +7,8 @@
  * This structure cannot be extended.
  * @see https://learn.microsoft.com/windows/win32/api/tapi/ns-tapi-linetranslateoutput
  * @namespace Windows.Win32.Devices.Tapi
- * @version v4.0.30319
  */
-class LINETRANSLATEOUTPUT extends Win32Struct
-{
+class LINETRANSLATEOUTPUT extends Win32Struct {
     static sizeof => 40
 
     static packingSize => 4

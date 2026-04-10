@@ -1,16 +1,15 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\..\Guid.ahk
+#Include ..\..\..\System\Com\IDispatch.ahk
 #Include ..\..\..\Foundation\BSTR.ahk
 #Include .\ISchema.ahk
 #Include .\IVBSAXAttributes.ahk
-#Include ..\..\..\System\Com\IDispatch.ahk
 
 /**
  * @namespace Windows.Win32.Data.Xml.MsXml
- * @version v4.0.30319
  */
-class ISchemaItem extends IDispatch{
+class ISchemaItem extends IDispatch {
 
     static sizeof => A_PtrSize
     /**
@@ -60,7 +59,7 @@ class ISchemaItem extends IDispatch{
     }
 
     /**
-     * @type {Integer} 
+     * @type {SOMITEMTYPE} 
      */
     itemType {
         get => this.get_itemType()
@@ -114,7 +113,7 @@ class ISchemaItem extends IDispatch{
 
     /**
      * 
-     * @returns {Integer} 
+     * @returns {SOMITEMTYPE} 
      */
     get_itemType() {
         result := ComCall(11, this, "int*", &itemType := 0, "HRESULT")

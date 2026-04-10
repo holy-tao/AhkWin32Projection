@@ -5,9 +5,8 @@
  * The MBN_SMS_STATUS_FLAG enumerated type indicates the status of a device's SMS message store.
  * @see https://learn.microsoft.com/windows/win32/api/mbnapi/ne-mbnapi-mbn_sms_status_flag
  * @namespace Windows.Win32.NetworkManagement.MobileBroadband
- * @version v4.0.30319
  */
-class MBN_SMS_STATUS_FLAG extends Win32Enum{
+class MBN_SMS_STATUS_FLAG extends Win32Enum {
 
     /**
      * There is no SMS status information to report.

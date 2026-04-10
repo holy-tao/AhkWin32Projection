@@ -1,9 +1,9 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\..\Guid.ahk
+#Include ..\..\..\System\Com\IUnknown.ahk
 #Include .\IOpcRelationshipSelector.ahk
 #Include .\IOpcRelationshipSelectorEnumerator.ahk
-#Include ..\..\..\System\Com\IUnknown.ahk
 
 /**
  * An unordered set of IOpcRelationshipSelector interface pointers that represent the selection criteria that is used to identify relationships for signing.
@@ -17,9 +17,8 @@
  * When an <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/msopc/nn-msopc-iopcrelationshipselector">IOpcRelationshipSelector</a> interface pointer is deleted from the set, the criterion it provides access to is not saved when the package is saved.
  * @see https://learn.microsoft.com/windows/win32/api/msopc/nn-msopc-iopcrelationshipselectorset
  * @namespace Windows.Win32.Storage.Packaging.Opc
- * @version v4.0.30319
  */
-class IOpcRelationshipSelectorSet extends IUnknown{
+class IOpcRelationshipSelectorSet extends IUnknown {
 
     static sizeof => A_PtrSize
     /**
@@ -46,7 +45,7 @@ class IOpcRelationshipSelectorSet extends IUnknown{
      * Use the methods of the <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/msopc/nn-msopc-iopcrelationshipselector">IOpcRelationshipSelector</a> interface pointers in the set to select relationships for signing.
      * 
      * When an <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/msopc/nn-msopc-iopcrelationshipselector">IOpcRelationshipSelector</a> interface pointer is created and added to the set, the criterion it provides access to is saved when the package is saved.
-     * @param {Integer} selector A value that describes how to interpret the  string that is passed in <i>selectionCriterion</i>.
+     * @param {OPC_RELATIONSHIP_SELECTOR} selector A value that describes how to interpret the  string that is passed in <i>selectionCriterion</i>.
      * @param {PWSTR} selectionCriterion A string that is interpreted to yield a criterion.
      * @returns {IOpcRelationshipSelector} A new <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/msopc/nn-msopc-iopcrelationshipselector">IOpcRelationshipSelector</a> interface pointer that represents how relationships are selected from a Relationships part.
      * 

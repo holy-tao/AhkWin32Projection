@@ -5,9 +5,8 @@
 
 /**
  * @namespace Windows.Win32.Media.MediaPlayer
- * @version v4.0.30319
  */
-class IXFeedsEnum extends IUnknown{
+class IXFeedsEnum extends IUnknown {
 
     static sizeof => A_PtrSize
     /**

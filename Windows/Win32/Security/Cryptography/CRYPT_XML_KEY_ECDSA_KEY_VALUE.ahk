@@ -2,15 +2,14 @@
 #Include ..\..\..\..\Win32Struct.ahk
 #Include .\CRYPT_XML_DATA_BLOB.ahk
 #Include .\CRYPT_XML_BLOB.ahk
+#Include .\CRYPT_XML_CHARSET.ahk
 
 /**
  * Defines an Elliptic Curve Digital Signature Algorithm (ECDSA) key value. The CRYPT_XML_KEY_ECDSA_KEY_VALUE structure is used as an element of the key value union in the CRYPT_XML_KEY_VALUE structure.
  * @see https://learn.microsoft.com/windows/win32/api/cryptxml/ns-cryptxml-crypt_xml_key_ecdsa_key_value
  * @namespace Windows.Win32.Security.Cryptography
- * @version v4.0.30319
  */
-class CRYPT_XML_KEY_ECDSA_KEY_VALUE extends Win32Struct
-{
+class CRYPT_XML_KEY_ECDSA_KEY_VALUE extends Win32Struct {
     static sizeof => 56
 
     static packingSize => 8
@@ -28,7 +27,7 @@ class CRYPT_XML_KEY_ECDSA_KEY_VALUE extends Win32Struct
      * Defines the X value of an ECDSA curve.
      * @type {CRYPT_XML_DATA_BLOB}
      */
-    X{
+    X {
         get {
             if(!this.HasProp("__X"))
                 this.__X := CRYPT_XML_DATA_BLOB(8, this)
@@ -40,7 +39,7 @@ class CRYPT_XML_KEY_ECDSA_KEY_VALUE extends Win32Struct
      * Defines the Y value of an ECDSA curve.
      * @type {CRYPT_XML_DATA_BLOB}
      */
-    Y{
+    Y {
         get {
             if(!this.HasProp("__Y"))
                 this.__Y := CRYPT_XML_DATA_BLOB(24, this)
@@ -52,7 +51,7 @@ class CRYPT_XML_KEY_ECDSA_KEY_VALUE extends Win32Struct
      * A   <b>CRYPT_XML_BLOB</b> value that defines the encoded parameters of an ECDSA curve.
      * @type {CRYPT_XML_BLOB}
      */
-    ExplicitPara{
+    ExplicitPara {
         get {
             if(!this.HasProp("__ExplicitPara"))
                 this.__ExplicitPara := CRYPT_XML_BLOB(40, this)

@@ -5,10 +5,8 @@
  * The SERVER_INFO_502 structure is obsolete. The structure contains information about a specified server.
  * @see https://learn.microsoft.com/windows/win32/api/lmserver/ns-lmserver-server_info_502
  * @namespace Windows.Win32.NetworkManagement.NetManagement
- * @version v4.0.30319
  */
-class SERVER_INFO_502 extends Win32Struct
-{
+class SERVER_INFO_502 extends Win32Struct {
     static sizeof => 72
 
     static packingSize => 4

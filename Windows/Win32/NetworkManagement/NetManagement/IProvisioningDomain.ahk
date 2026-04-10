@@ -1,14 +1,13 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
-#Include ..\..\Data\Xml\MsXml\IXMLDOMNodeList.ahk
 #Include ..\..\System\Com\IUnknown.ahk
+#Include ..\..\Data\Xml\MsXml\IXMLDOMNodeList.ahk
 
 /**
  * @namespace Windows.Win32.NetworkManagement.NetManagement
- * @version v4.0.30319
  */
-class IProvisioningDomain extends IUnknown{
+class IProvisioningDomain extends IUnknown {
 
     static sizeof => A_PtrSize
     /**

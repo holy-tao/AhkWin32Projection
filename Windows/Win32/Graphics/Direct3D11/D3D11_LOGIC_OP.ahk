@@ -5,9 +5,8 @@
  * Specifies logical operations to configure for a render target. (D3D11_LOGIC_OP)
  * @see https://learn.microsoft.com/windows/win32/api/d3d11_1/ne-d3d11_1-d3d11_logic_op
  * @namespace Windows.Win32.Graphics.Direct3D11
- * @version v4.0.30319
  */
-class D3D11_LOGIC_OP extends Win32Enum{
+class D3D11_LOGIC_OP extends Win32Enum {
 
     /**
      * Clears the render target.

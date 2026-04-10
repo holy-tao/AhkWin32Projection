@@ -1,17 +1,16 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
+#Include .\ID3D11DeviceChild.ahk
 #Include .\D3D11_MAPPED_SUBRESOURCE.ahk
 #Include .\ID3D11CommandList.ahk
-#Include .\ID3D11DeviceChild.ahk
 
 /**
  * The ID3D11DeviceContext interface represents a device context which generates rendering commands.
  * @see https://learn.microsoft.com/windows/win32/api/d3d11/nn-d3d11-id3d11devicecontext
  * @namespace Windows.Win32.Graphics.Direct3D11
- * @version v4.0.30319
  */
-class ID3D11DeviceContext extends ID3D11DeviceChild{
+class ID3D11DeviceContext extends ID3D11DeviceChild {
 
     static sizeof => A_PtrSize
     /**
@@ -327,7 +326,7 @@ class ID3D11DeviceContext extends ID3D11DeviceChild{
      * @param {Integer} Subresource Type: <b><a href="https://docs.microsoft.com/windows/desktop/WinProg/windows-data-types">UINT</a></b>
      * 
      * Index number of the <a href="https://docs.microsoft.com/windows/desktop/direct3d11/overviews-direct3d-11-resources-subresources">subresource</a>.
-     * @param {Integer} MapType Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/d3d11/ne-d3d11-d3d11_map">D3D11_MAP</a></b>
+     * @param {D3D11_MAP} MapType Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/d3d11/ne-d3d11-d3d11_map">D3D11_MAP</a></b>
      * 
      * A <a href="https://docs.microsoft.com/windows/desktop/api/d3d11/ne-d3d11-d3d11_map">D3D11_MAP</a>-typed value that specifies the CPU's read and write permissions for a resource.
      * @param {Integer} MapFlags Type: <b><a href="https://docs.microsoft.com/windows/desktop/WinProg/windows-data-types">UINT</a></b>
@@ -481,7 +480,7 @@ class ID3D11DeviceContext extends ID3D11DeviceChild{
      * 
      * A pointer to an <a href="https://docs.microsoft.com/windows/desktop/api/d3d11/nn-d3d11-id3d11buffer">ID3D11Buffer</a> object, that contains indices. The index buffer must have been created with
      *             the <a href="https://docs.microsoft.com/windows/desktop/api/d3d11/ne-d3d11-d3d11_bind_flag">D3D11_BIND_INDEX_BUFFER</a> flag.
-     * @param {Integer} Format Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/dxgiformat/ne-dxgiformat-dxgi_format">DXGI_FORMAT</a></b>
+     * @param {DXGI_FORMAT} Format Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/dxgiformat/ne-dxgiformat-dxgi_format">DXGI_FORMAT</a></b>
      * 
      * A <a href="https://docs.microsoft.com/windows/desktop/api/dxgiformat/ne-dxgiformat-dxgi_format">DXGI_FORMAT</a> that specifies the format of the data in the index buffer. The only formats allowed for index
      *             buffer data are 16-bit (DXGI_FORMAT_R16_UINT) and 32-bit (DXGI_FORMAT_R32_UINT) integers.
@@ -609,7 +608,7 @@ class ID3D11DeviceContext extends ID3D11DeviceChild{
      * @remarks
      * <b>Windows Phone 8:
      *         </b> This API is supported.
-     * @param {Integer} Topology Type: <b><a href="https://docs.microsoft.com/previous-versions/windows/desktop/legacy/ff476189(v=vs.85)">D3D11_PRIMITIVE_TOPOLOGY</a></b>
+     * @param {D3D_PRIMITIVE_TOPOLOGY} Topology Type: <b><a href="https://docs.microsoft.com/previous-versions/windows/desktop/legacy/ff476189(v=vs.85)">D3D11_PRIMITIVE_TOPOLOGY</a></b>
      * 
      * The type of primitive and ordering of the primitive data (see <a href="https://docs.microsoft.com/previous-versions/windows/desktop/legacy/ff476189(v=vs.85)">D3D11_PRIMITIVE_TOPOLOGY</a>).
      * @returns {String} Nothing - always returns an empty string
@@ -737,7 +736,7 @@ class ID3D11DeviceContext extends ID3D11DeviceChild{
      * @param {ID3D11Asynchronous} pAsync Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/d3d11/nn-d3d11-id3d11asynchronous">ID3D11Asynchronous</a>*</b>
      * 
      * A pointer to an <a href="https://docs.microsoft.com/windows/desktop/api/d3d11/nn-d3d11-id3d11asynchronous">ID3D11Asynchronous</a> interface for the object about which <b>GetData</b> retrieves data.
-     * @param {Pointer} pData Type: <b>void*</b>
+     * @param {Integer} pData Type: <b>void*</b>
      * 
      * Address of memory that will receive the data. If <b>NULL</b>, <b>GetData</b> will be used only to check status. The type of data output depends on the type of asynchronous interface.
      * @param {Integer} DataSize Type: <b><a href="https://docs.microsoft.com/windows/desktop/WinProg/windows-data-types">UINT</a></b>
@@ -2031,7 +2030,7 @@ class ID3D11DeviceContext extends ID3D11DeviceChild{
      * @param {Integer} SrcSubresource Type: <b><a href="https://docs.microsoft.com/windows/desktop/WinProg/windows-data-types">UINT</a></b>
      * 
      * The source subresource of the source resource.
-     * @param {Integer} Format Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/dxgiformat/ne-dxgiformat-dxgi_format">DXGI_FORMAT</a></b>
+     * @param {DXGI_FORMAT} Format Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/dxgiformat/ne-dxgiformat-dxgi_format">DXGI_FORMAT</a></b>
      * 
      * A <a href="https://docs.microsoft.com/windows/desktop/api/dxgiformat/ne-dxgiformat-dxgi_format">DXGI_FORMAT</a> that indicates how the multisampled resource will be resolved to a single-sampled resource. 
      *       See remarks.
@@ -2641,7 +2640,7 @@ class ID3D11DeviceContext extends ID3D11DeviceChild{
      * @param {Pointer<ID3D11Buffer>} pIndexBuffer Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/d3d11/nn-d3d11-id3d11buffer">ID3D11Buffer</a>**</b>
      * 
      * A pointer to an index buffer returned by the method (see <a href="https://docs.microsoft.com/windows/desktop/api/d3d11/nn-d3d11-id3d11buffer">ID3D11Buffer</a>).
-     * @param {Pointer<Integer>} Format Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/dxgiformat/ne-dxgiformat-dxgi_format">DXGI_FORMAT</a>*</b>
+     * @param {Pointer<DXGI_FORMAT>} Format Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/dxgiformat/ne-dxgiformat-dxgi_format">DXGI_FORMAT</a>*</b>
      * 
      * Specifies format of the data in the index buffer (see <a href="https://docs.microsoft.com/windows/desktop/api/dxgiformat/ne-dxgiformat-dxgi_format">DXGI_FORMAT</a>). These formats provide the size and type of 
      *           the data in the buffer. The only formats allowed for index buffer data are 16-bit (DXGI_FORMAT_R16_UINT) and 32-bit (DXGI_FORMAT_R32_UINT) 
@@ -2703,7 +2702,7 @@ class ID3D11DeviceContext extends ID3D11DeviceChild{
 
     /**
      * Get information about the primitive type, and data order that describes input data for the input assembler stage. (ID3D11DeviceContext.IAGetPrimitiveTopology)
-     * @param {Pointer<Integer>} pTopology Type: <b><a href="https://docs.microsoft.com/previous-versions/windows/desktop/legacy/ff476189(v=vs.85)">D3D11_PRIMITIVE_TOPOLOGY</a>*</b>
+     * @param {Pointer<D3D_PRIMITIVE_TOPOLOGY>} pTopology Type: <b><a href="https://docs.microsoft.com/previous-versions/windows/desktop/legacy/ff476189(v=vs.85)">D3D11_PRIMITIVE_TOPOLOGY</a>*</b>
      * 
      * A pointer to the type of primitive, and ordering of the primitive data (see <a href="https://docs.microsoft.com/previous-versions/windows/desktop/legacy/ff476189(v=vs.85)">D3D11_PRIMITIVE_TOPOLOGY</a>).
      * @returns {String} Nothing - always returns an empty string
@@ -3313,7 +3312,7 @@ class ID3D11DeviceContext extends ID3D11DeviceChild{
 
     /**
      * Gets the type of device context.
-     * @returns {Integer} Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/d3d11/ne-d3d11-d3d11_device_context_type">D3D11_DEVICE_CONTEXT_TYPE</a></b>
+     * @returns {D3D11_DEVICE_CONTEXT_TYPE} Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/d3d11/ne-d3d11-d3d11_device_context_type">D3D11_DEVICE_CONTEXT_TYPE</a></b>
      * 
      * A member of <a href="https://docs.microsoft.com/windows/desktop/api/d3d11/ne-d3d11-d3d11_device_context_type">D3D11_DEVICE_CONTEXT_TYPE</a> that indicates the type of device context.
      * @see https://learn.microsoft.com/windows/win32/api/d3d11/nf-d3d11-id3d11devicecontext-gettype

@@ -6,10 +6,8 @@
  * Contains input data for the ID3D11VideoContext::QueryAuthenticatedChannel method.
  * @see https://learn.microsoft.com/windows/win32/api/d3d11/ns-d3d11-d3d11_authenticated_query_input
  * @namespace Windows.Win32.Graphics.Direct3D11
- * @version v4.0.30319
  */
-class D3D11_AUTHENTICATED_QUERY_INPUT extends Win32Struct
-{
+class D3D11_AUTHENTICATED_QUERY_INPUT extends Win32Struct {
     static sizeof => 24
 
     static packingSize => 8
@@ -207,7 +205,7 @@ class D3D11_AUTHENTICATED_QUERY_INPUT extends Win32Struct
      * </td>
      * </tr>
      * </table>
-     * @type {Pointer<Guid>}
+     * @type {Pointer}
      */
     QueryType {
         get => NumGet(this, 0, "ptr")
@@ -218,7 +216,7 @@ class D3D11_AUTHENTICATED_QUERY_INPUT extends Win32Struct
      * A handle to the authenticated channel. To get the handle, call the <a href="https://docs.microsoft.com/windows/desktop/api/d3d11/nf-d3d11-id3d11authenticatedchannel-getchannelhandle">ID3D11AuthenticatedChannel::GetChannelHandle</a> method.
      * @type {HANDLE}
      */
-    hChannel{
+    hChannel {
         get {
             if(!this.HasProp("__hChannel"))
                 this.__hChannel := HANDLE(8, this)

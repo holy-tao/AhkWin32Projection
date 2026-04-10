@@ -3,9 +3,8 @@
 
 /**
  * @namespace Windows.Win32.System.Services
- * @version v4.0.30319
  */
-class SERVICE_TRIGGER_SPECIFIC_DATA_ITEM_DATA_TYPE extends Win32Enum{
+class SERVICE_TRIGGER_SPECIFIC_DATA_ITEM_DATA_TYPE extends Win32Enum {
 
     /**
      * @type {Integer (UInt32)}

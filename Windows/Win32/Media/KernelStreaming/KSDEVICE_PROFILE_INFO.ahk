@@ -1,13 +1,13 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
 #Include .\KSCAMERA_PROFILE_INFO.ahk
+#Include .\KSCAMERA_PROFILE_PININFO.ahk
+#Include .\KSCAMERA_PROFILE_CONCURRENCYINFO.ahk
 
 /**
  * @namespace Windows.Win32.Media.KernelStreaming
- * @version v4.0.30319
  */
-class KSDEVICE_PROFILE_INFO extends Win32Struct
-{
+class KSDEVICE_PROFILE_INFO extends Win32Struct {
     static sizeof => 48
 
     static packingSize => 8
@@ -35,14 +35,14 @@ class KSDEVICE_PROFILE_INFO extends Win32Struct
         /**
          * @type {KSCAMERA_PROFILE_INFO}
          */
-        Info{
+        Info {
             get {
                 if(!this.HasProp("__Info"))
                     this.__Info := KSCAMERA_PROFILE_INFO(0, this)
                 return this.__Info
             }
         }
-    
+
         /**
          * @type {Integer}
          */
@@ -50,7 +50,7 @@ class KSDEVICE_PROFILE_INFO extends Win32Struct
             get => NumGet(this, 24, "uint")
             set => NumPut("uint", value, this, 24)
         }
-    
+
         /**
          * @type {Integer}
          */
@@ -58,7 +58,7 @@ class KSDEVICE_PROFILE_INFO extends Win32Struct
             get => NumGet(this, 28, "uint")
             set => NumPut("uint", value, this, 28)
         }
-    
+
         /**
          * @type {Pointer<KSCAMERA_PROFILE_CONCURRENCYINFO>}
          */
@@ -66,16 +66,15 @@ class KSDEVICE_PROFILE_INFO extends Win32Struct
             get => NumGet(this, 32, "ptr")
             set => NumPut("ptr", value, this, 32)
         }
-    
     }
 
     /**
      * @type {_Camera}
      */
-    Camera{
+    Camera {
         get {
             if(!this.HasProp("__Camera"))
-                this.__Camera := %this.__Class%._Camera(8, this)
+                this.__Camera := KSDEVICE_PROFILE_INFO._Camera(8, this)
             return this.__Camera
         }
     }

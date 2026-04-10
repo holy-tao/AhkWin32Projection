@@ -3,10 +3,8 @@
 
 /**
  * @namespace Windows.Win32.System.Hypervisor
- * @version v4.0.30319
  */
-class WHV_UINT128 extends Win32Struct
-{
+class WHV_UINT128 extends Win32Struct {
     static sizeof => 32
 
     static packingSize => 8
@@ -28,9 +26,9 @@ class WHV_UINT128 extends Win32Struct
     }
 
     /**
-     * @type {Array<UInt32>}
+     * @type {Array<Integer>}
      */
-    Dword{
+    Dword {
         get {
             if(!this.HasProp("__DwordProxyArray"))
                 this.__DwordProxyArray := Win32FixedArray(this.ptr + 0, 4, Primitive, "uint")

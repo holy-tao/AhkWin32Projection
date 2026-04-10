@@ -5,10 +5,8 @@
  * The SecPkgContext_EarlyStart structure contains information about whether to attempt to use the False Start feature in a security context.
  * @see https://learn.microsoft.com/windows/win32/api/schannel/ns-schannel-secpkgcontext_earlystart
  * @namespace Windows.Win32.Security.Authentication.Identity
- * @version v4.0.30319
  */
-class SecPkgContext_EarlyStart extends Win32Struct
-{
+class SecPkgContext_EarlyStart extends Win32Struct {
     static sizeof => 4
 
     static packingSize => 4

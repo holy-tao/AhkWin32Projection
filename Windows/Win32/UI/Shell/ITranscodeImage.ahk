@@ -7,9 +7,8 @@
  * Exposes a method that allows conversion to JPEG or bitmap (BMP) image formats from any image type supported by Windows.
  * @see https://learn.microsoft.com/windows/win32/api/imagetranscode/nn-imagetranscode-itranscodeimage
  * @namespace Windows.Win32.UI.Shell
- * @version v4.0.30319
  */
-class ITranscodeImage extends IUnknown{
+class ITranscodeImage extends IUnknown {
 
     static sizeof => A_PtrSize
     /**

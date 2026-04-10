@@ -8,10 +8,8 @@
  * <b>BATTERY_REPORTING_SCALE</b> structure. The maximum number of array entries that can be returned is four.
  * @see https://learn.microsoft.com/windows/win32/api/winnt/ns-winnt-battery_reporting_scale
  * @namespace Windows.Win32.System.Power
- * @version v4.0.30319
  */
-class BATTERY_REPORTING_SCALE extends Win32Struct
-{
+class BATTERY_REPORTING_SCALE extends Win32Struct {
     static sizeof => 8
 
     static packingSize => 4

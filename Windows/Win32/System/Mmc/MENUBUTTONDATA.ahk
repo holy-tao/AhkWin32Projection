@@ -5,10 +5,8 @@
  * The MENUBUTTONDATA structure contains values used to create buttons on a toolbar.
  * @see https://learn.microsoft.com/windows/win32/api/mmc/ns-mmc-menubuttondata
  * @namespace Windows.Win32.System.Mmc
- * @version v4.0.30319
  */
-class MENUBUTTONDATA extends Win32Struct
-{
+class MENUBUTTONDATA extends Win32Struct {
     static sizeof => 12
 
     static packingSize => 4

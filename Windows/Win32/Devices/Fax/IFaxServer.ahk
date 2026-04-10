@@ -1,6 +1,7 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
+#Include ..\..\System\Com\IDispatch.ahk
 #Include ..\..\Foundation\BSTR.ahk
 #Include .\IFaxDeviceProviders.ahk
 #Include .\IFaxDevices.ahk
@@ -12,7 +13,6 @@
 #Include .\IFaxReceiptOptions.ahk
 #Include .\IFaxSecurity.ahk
 #Include ..\..\System\Variant\VARIANT.ahk
-#Include ..\..\System\Com\IDispatch.ahk
 
 /**
  * The IFaxServer interface describes a messaging collection that is used by a fax client application to manage a connection to the fax service.
@@ -20,9 +20,8 @@
  * A default implementation of <b>IFaxServer</b> is provided as the <a href="https://docs.microsoft.com/previous-versions/windows/desktop/fax/-mfax-faxserver">FaxServer</a> object.
  * @see https://learn.microsoft.com/windows/win32/api/faxcomex/nn-faxcomex-ifaxserver
  * @namespace Windows.Win32.Devices.Fax
- * @version v4.0.30319
  */
-class IFaxServer extends IDispatch{
+class IFaxServer extends IDispatch {
 
     static sizeof => A_PtrSize
     /**
@@ -141,14 +140,14 @@ class IFaxServer extends IDispatch{
     }
 
     /**
-     * @type {Integer} 
+     * @type {FAX_SERVER_EVENTS_TYPE_ENUM} 
      */
     RegisteredEvents {
         get => this.get_RegisteredEvents()
     }
 
     /**
-     * @type {Integer} 
+     * @type {FAX_SERVER_APIVERSION_ENUM} 
      */
     APIVersion {
         get => this.get_APIVersion()
@@ -524,7 +523,7 @@ class IFaxServer extends IDispatch{
      * </td>
      * </tr>
      * </table>
-     * @param {Integer} EventTypes Type: <b><a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/faxcomex/ne-faxcomex-fax_server_events_type_enum">FAX_SERVER_EVENTS_TYPE_ENUM</a></b>
+     * @param {FAX_SERVER_EVENTS_TYPE_ENUM} EventTypes Type: <b><a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/faxcomex/ne-faxcomex-fax_server_events_type_enum">FAX_SERVER_EVENTS_TYPE_ENUM</a></b>
      * 
      * A value that contains a set of bit flags representing the types of events for which the <a href="https://docs.microsoft.com/previous-versions/windows/desktop/fax/-mfax-faxserver">FaxServer</a> object is registering to receive notifications. For more information, see <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/faxcomex/ne-faxcomex-fax_server_events_type_enum">FAX_SERVER_EVENTS_TYPE_ENUM</a>.
      * @returns {HRESULT} Type: <b>HRESULT</b>
@@ -652,7 +651,7 @@ class IFaxServer extends IDispatch{
 
     /**
      * The IFaxServer::get_RegisteredEvents property is a value from an enumeration that indicates the types of fax service events a client application is listening for.
-     * @returns {Integer} 
+     * @returns {FAX_SERVER_EVENTS_TYPE_ENUM} 
      * @see https://learn.microsoft.com/windows/win32/api/faxcomex/nf-faxcomex-ifaxserver-get_registeredevents
      */
     get_RegisteredEvents() {
@@ -664,7 +663,7 @@ class IFaxServer extends IDispatch{
      * The IFaxServer::get_APIVersion property is a value that indicates the version of the fax server API.
      * @remarks
      * In general, each new version of the fax server API is fully compatible with previous API versions. When connecting to a fax server using the Component Object Model (COM) objects, the API version of the fax server is not required because the COM layer performs the conversions and mapping to transparently support the fax API version of the server. However, if you want to detect the version of the fax server you are connected to, you can use the <b>IFaxServer::get_APIVersion</b> property.
-     * @returns {Integer} 
+     * @returns {FAX_SERVER_APIVERSION_ENUM} 
      * @see https://learn.microsoft.com/windows/win32/api/faxcomex/nf-faxcomex-ifaxserver-get_apiversion
      */
     get_APIVersion() {

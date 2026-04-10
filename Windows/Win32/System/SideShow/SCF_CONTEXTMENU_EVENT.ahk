@@ -3,10 +3,8 @@
 
 /**
  * @namespace Windows.Win32.System.SideShow
- * @version v4.0.30319
  */
-class SCF_CONTEXTMENU_EVENT extends Win32Struct
-{
+class SCF_CONTEXTMENU_EVENT extends Win32Struct {
     static sizeof => 20
 
     static packingSize => 4

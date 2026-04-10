@@ -3,10 +3,8 @@
 
 /**
  * @namespace Windows.Wdk.Storage.FileSystem
- * @version v4.0.30319
  */
-class RTL_SEGMENT_HEAP_PARAMETERS extends Win32Struct
-{
+class RTL_SEGMENT_HEAP_PARAMETERS extends Win32Struct {
     static sizeof => 48
 
     static packingSize => 8
@@ -36,7 +34,7 @@ class RTL_SEGMENT_HEAP_PARAMETERS extends Win32Struct
     }
 
     /**
-     * @type {Pointer<RTL_SEGMENT_HEAP_MEMORY_SOURCE>}
+     * @type {Pointer}
      */
     MemorySource {
         get => NumGet(this, 8, "ptr")
@@ -44,9 +42,9 @@ class RTL_SEGMENT_HEAP_PARAMETERS extends Win32Struct
     }
 
     /**
-     * @type {Array<UIntPtr>}
+     * @type {Array<Pointer>}
      */
-    Reserved{
+    Reserved {
         get {
             if(!this.HasProp("__ReservedProxyArray"))
                 this.__ReservedProxyArray := Win32FixedArray(this.ptr + 16, 4, Primitive, "ptr")

@@ -1,17 +1,15 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
-#Include .\IInkExtendedProperties.ahk
-#Include .\IInkDrawingAttributes.ahk
 #Include ..\..\System\Com\IDispatch.ahk
+#Include .\IInkExtendedProperties.ahk
 
 /**
  * . (IInkDrawingAttributes)
  * @see https://learn.microsoft.com/windows/win32/api/msinkaut/nn-msinkaut-iinkdrawingattributes
  * @namespace Windows.Win32.UI.TabletPC
- * @version v4.0.30319
  */
-class IInkDrawingAttributes extends IDispatch{
+class IInkDrawingAttributes extends IDispatch {
 
     static sizeof => A_PtrSize
     /**
@@ -89,7 +87,7 @@ class IInkDrawingAttributes extends IDispatch{
     }
 
     /**
-     * @type {Integer} 
+     * @type {InkRasterOperation} 
      */
     RasterOperation {
         get => this.get_RasterOperation()
@@ -97,7 +95,7 @@ class IInkDrawingAttributes extends IDispatch{
     }
 
     /**
-     * @type {Integer} 
+     * @type {InkPenTip} 
      */
     PenTip {
         get => this.get_PenTip()
@@ -322,7 +320,7 @@ class IInkDrawingAttributes extends IDispatch{
      * <div class="alert"><b>Note</b>  Many printers do not support many of the available raster operations. Because of this, the colors displayed may be different than the colors printed. This is directly related to the printer drivers or printer hardware. You may have to experiment to determine which printers can produce the correct output when various raster operations are set on ink.</div>
      * <div> </div>
      * When the <b>RasterOperation</b> property is set to anything other than <a href="https://docs.microsoft.com/windows/desktop/api/msinkaut/ne-msinkaut-inkrasteroperation">InkRasterOperation.IRO_CopyPen</a>, all drawing attributes-anti-aliasing, smoothing, transparency, and pressure-are ignored.
-     * @returns {Integer} 
+     * @returns {InkRasterOperation} 
      * @see https://learn.microsoft.com/windows/win32/api/msinkaut/nf-msinkaut-iinkdrawingattributes-get_rasteroperation
      */
     get_RasterOperation() {
@@ -340,7 +338,7 @@ class IInkDrawingAttributes extends IDispatch{
      * <div class="alert"><b>Note</b>  Many printers do not support many of the available raster operations. Because of this, the colors displayed may be different than the colors printed. This is directly related to the printer drivers or printer hardware. You may have to experiment to determine which printers can produce the correct output when various raster operations are set on ink.</div>
      * <div> </div>
      * When the <b>RasterOperation</b> property is set to anything other than <a href="https://docs.microsoft.com/windows/desktop/api/msinkaut/ne-msinkaut-inkrasteroperation">InkRasterOperation.IRO_CopyPen</a>, all drawing attributes-anti-aliasing, smoothing, transparency, and pressure-are ignored.
-     * @param {Integer} NewRasterOperation 
+     * @param {InkRasterOperation} NewRasterOperation 
      * @returns {HRESULT} 
      * @see https://learn.microsoft.com/windows/win32/api/msinkaut/nf-msinkaut-iinkdrawingattributes-put_rasteroperation
      */
@@ -357,7 +355,7 @@ class IInkDrawingAttributes extends IDispatch{
      * When this property is set to <a href="https://docs.microsoft.com/windows/desktop/api/msinkaut/ne-msinkaut-inkpentip">InkPenTip.IPT_Ball</a>, the <a href="https://docs.microsoft.com/windows/desktop/api/msinkaut/nf-msinkaut-iinkdrawingattributes-get_height">Height</a> property is ignored.
      * 
      * To create a square pen tip, set the <b>PenTip</b> property to <a href="https://docs.microsoft.com/windows/desktop/api/msinkaut/ne-msinkaut-inkpentip">InkPenTip.IPT_Rectangle</a>. Then set the <a href="https://docs.microsoft.com/windows/desktop/api/msinkaut/nf-msinkaut-iinkdrawingattributes-get_height">Height</a> property equal to the <a href="https://docs.microsoft.com/windows/desktop/api/msinkaut/nf-msinkaut-iinkdrawingattributes-get_width">Width</a> property.
-     * @returns {Integer} 
+     * @returns {InkPenTip} 
      * @see https://learn.microsoft.com/windows/win32/api/msinkaut/nf-msinkaut-iinkdrawingattributes-get_pentip
      */
     get_PenTip() {
@@ -373,7 +371,7 @@ class IInkDrawingAttributes extends IDispatch{
      * When this property is set to <a href="https://docs.microsoft.com/windows/desktop/api/msinkaut/ne-msinkaut-inkpentip">InkPenTip.IPT_Ball</a>, the <a href="https://docs.microsoft.com/windows/desktop/api/msinkaut/nf-msinkaut-iinkdrawingattributes-get_height">Height</a> property is ignored.
      * 
      * To create a square pen tip, set the <b>PenTip</b> property to <a href="https://docs.microsoft.com/windows/desktop/api/msinkaut/ne-msinkaut-inkpentip">InkPenTip.IPT_Rectangle</a>. Then set the <a href="https://docs.microsoft.com/windows/desktop/api/msinkaut/nf-msinkaut-iinkdrawingattributes-get_height">Height</a> property equal to the <a href="https://docs.microsoft.com/windows/desktop/api/msinkaut/nf-msinkaut-iinkdrawingattributes-get_width">Width</a> property.
-     * @param {Integer} NewPenTip 
+     * @param {InkPenTip} NewPenTip 
      * @returns {HRESULT} 
      * @see https://learn.microsoft.com/windows/win32/api/msinkaut/nf-msinkaut-iinkdrawingattributes-put_pentip
      */

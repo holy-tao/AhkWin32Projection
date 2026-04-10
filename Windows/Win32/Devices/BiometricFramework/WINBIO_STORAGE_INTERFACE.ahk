@@ -6,10 +6,8 @@
  * Contains pointers to your custom storage adapter functions.
  * @see https://learn.microsoft.com/windows/win32/api/winbio_adapter/ns-winbio_adapter-winbio_storage_interface
  * @namespace Windows.Win32.Devices.BiometricFramework
- * @version v4.0.30319
  */
-class WINBIO_STORAGE_INTERFACE extends Win32Struct
-{
+class WINBIO_STORAGE_INTERFACE extends Win32Struct {
     static sizeof => 264
 
     static packingSize => 8
@@ -24,7 +22,7 @@ class WINBIO_STORAGE_INTERFACE extends Win32Struct
      * <b>Windows Server 2008 R2 and Windows 7:  </b>The version number must be <b>WINBIO_STORAGE_INTERFACE_VERSION_1</b>.
      * @type {WINBIO_ADAPTER_INTERFACE_VERSION}
      */
-    Version{
+    Version {
         get {
             if(!this.HasProp("__Version"))
                 this.__Version := WINBIO_ADAPTER_INTERFACE_VERSION(0, this)
@@ -52,7 +50,7 @@ class WINBIO_STORAGE_INTERFACE extends Win32Struct
 
     /**
      * A GUID that uniquely identifies the storage adapter. You must generate this value.
-     * @type {Pointer<Guid>}
+     * @type {Pointer}
      */
     AdapterId {
         get => NumGet(this, 16, "ptr")
@@ -285,7 +283,6 @@ class WINBIO_STORAGE_INTERFACE extends Win32Struct
     }
 
     /**
-     * 
      * @type {Pointer<PIBIO_STORAGE_NOTIFY_DATABASE_CHANGE_FN>}
      */
     NotifyDatabaseChange {
@@ -294,7 +291,6 @@ class WINBIO_STORAGE_INTERFACE extends Win32Struct
     }
 
     /**
-     * 
      * @type {Pointer<PIBIO_STORAGE_RESERVED_1_FN>}
      */
     Reserved1 {
@@ -303,7 +299,6 @@ class WINBIO_STORAGE_INTERFACE extends Win32Struct
     }
 
     /**
-     * 
      * @type {Pointer<PIBIO_STORAGE_RESERVED_2_FN>}
      */
     Reserved2 {
@@ -312,7 +307,6 @@ class WINBIO_STORAGE_INTERFACE extends Win32Struct
     }
 
     /**
-     * 
      * @type {Pointer<PIBIO_STORAGE_UPDATE_RECORD_BEGIN_FN>}
      */
     UpdateRecordBegin {
@@ -321,7 +315,6 @@ class WINBIO_STORAGE_INTERFACE extends Win32Struct
     }
 
     /**
-     * 
      * @type {Pointer<PIBIO_STORAGE_UPDATE_RECORD_COMMIT_FN>}
      */
     UpdateRecordCommit {

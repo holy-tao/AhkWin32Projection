@@ -7,9 +7,8 @@
  * Extends the ITransformProvider interface to enable Microsoft UI Automation providers to expose properties to support the viewport zooming functionality of a control.
  * @see https://learn.microsoft.com/windows/win32/api/uiautomationcore/nn-uiautomationcore-itransformprovider2
  * @namespace Windows.Win32.UI.Accessibility
- * @version v4.0.30319
  */
-class ITransformProvider2 extends ITransformProvider{
+class ITransformProvider2 extends ITransformProvider {
 
     static sizeof => A_PtrSize
     /**
@@ -115,7 +114,7 @@ class ITransformProvider2 extends ITransformProvider{
 
     /**
      * Zooms the viewport of the control by the specified logical unit.
-     * @param {Integer} _zoomUnit 
+     * @param {ZoomUnit} _zoomUnit The logical unit by which to increase or decrease the zoom of the viewport.
      * @returns {HRESULT} If this method succeeds, it returns <b>S_OK</b>. Otherwise, it returns an <b>HRESULT</b> error code.
      * @see https://learn.microsoft.com/windows/win32/api/uiautomationcore/nf-uiautomationcore-itransformprovider2-zoombyunit
      */

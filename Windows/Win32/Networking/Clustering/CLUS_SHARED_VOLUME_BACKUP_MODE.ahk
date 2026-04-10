@@ -1,14 +1,13 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
+#Include .\CLUSTER_SHARED_VOLUME_BACKUP_STATE.ahk
 
 /**
  * Describes the backup mode for CSV.
  * @see https://learn.microsoft.com/windows/win32/api/clusapi/ns-clusapi-clus_shared_volume_backup_mode
  * @namespace Windows.Win32.Networking.Clustering
- * @version v4.0.30319
  */
-class CLUS_SHARED_VOLUME_BACKUP_MODE extends Win32Struct
-{
+class CLUS_SHARED_VOLUME_BACKUP_MODE extends Win32Struct {
     static sizeof => 528
 
     static packingSize => 4
@@ -17,7 +16,7 @@ class CLUS_SHARED_VOLUME_BACKUP_MODE extends Win32Struct
      * Value from 
      *        <a href="https://docs.microsoft.com/windows/desktop/api/clusapi/ne-clusapi-cluster_shared_volume_backup_state">CLUSTER_SHARED_VOLUME_BACKUP_STATE</a> 
      *        enumeration.
-     * @type {Integer}
+     * @type {CLUSTER_SHARED_VOLUME_BACKUP_STATE}
      */
     BackupState {
         get => NumGet(this, 0, "int")

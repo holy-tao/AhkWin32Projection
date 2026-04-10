@@ -5,9 +5,8 @@
  * The set of schemes used with WsDecodeUrl, WsEncodeUrl, and WsCombineUrl.
  * @see https://learn.microsoft.com/windows/win32/api/webservices/ne-webservices-ws_url_scheme_type
  * @namespace Windows.Win32.Networking.WindowsWebServices
- * @version v4.0.30319
  */
-class WS_URL_SCHEME_TYPE extends Win32Enum{
+class WS_URL_SCHEME_TYPE extends Win32Enum {
 
     /**
      * Denotes the "http" scheme: <a href="https://docs.microsoft.com/windows/desktop/api/webservices/ns-webservices-ws_http_url">WS_HTTP_URL</a>

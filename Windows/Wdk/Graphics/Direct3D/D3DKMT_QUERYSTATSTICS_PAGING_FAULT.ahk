@@ -3,16 +3,14 @@
 
 /**
  * @namespace Windows.Wdk.Graphics.Direct3D
- * @version v4.0.30319
  */
-class D3DKMT_QUERYSTATSTICS_PAGING_FAULT extends Win32Struct
-{
+class D3DKMT_QUERYSTATSTICS_PAGING_FAULT extends Win32Struct {
     static sizeof => 136
 
     static packingSize => 8
 
     /**
-     * @type {Pointer<D3DKMT_QUERYSTATISTICS_COUNTER>}
+     * @type {Pointer}
      */
     Faults {
         get => NumGet(this, 0, "ptr")
@@ -20,7 +18,7 @@ class D3DKMT_QUERYSTATSTICS_PAGING_FAULT extends Win32Struct
     }
 
     /**
-     * @type {Pointer<D3DKMT_QUERYSTATISTICS_COUNTER>}
+     * @type {Pointer}
      */
     FaultsFirstTimeAccess {
         get => NumGet(this, 8, "ptr")
@@ -28,7 +26,7 @@ class D3DKMT_QUERYSTATSTICS_PAGING_FAULT extends Win32Struct
     }
 
     /**
-     * @type {Pointer<D3DKMT_QUERYSTATISTICS_COUNTER>}
+     * @type {Pointer}
      */
     FaultsReclaimed {
         get => NumGet(this, 16, "ptr")
@@ -36,7 +34,7 @@ class D3DKMT_QUERYSTATSTICS_PAGING_FAULT extends Win32Struct
     }
 
     /**
-     * @type {Pointer<D3DKMT_QUERYSTATISTICS_COUNTER>}
+     * @type {Pointer}
      */
     FaultsMigration {
         get => NumGet(this, 24, "ptr")
@@ -44,7 +42,7 @@ class D3DKMT_QUERYSTATSTICS_PAGING_FAULT extends Win32Struct
     }
 
     /**
-     * @type {Pointer<D3DKMT_QUERYSTATISTICS_COUNTER>}
+     * @type {Pointer}
      */
     FaultsIncorrectResource {
         get => NumGet(this, 32, "ptr")
@@ -52,7 +50,7 @@ class D3DKMT_QUERYSTATSTICS_PAGING_FAULT extends Win32Struct
     }
 
     /**
-     * @type {Pointer<D3DKMT_QUERYSTATISTICS_COUNTER>}
+     * @type {Pointer}
      */
     FaultsLostContent {
         get => NumGet(this, 40, "ptr")
@@ -60,7 +58,7 @@ class D3DKMT_QUERYSTATSTICS_PAGING_FAULT extends Win32Struct
     }
 
     /**
-     * @type {Pointer<D3DKMT_QUERYSTATISTICS_COUNTER>}
+     * @type {Pointer}
      */
     FaultsEvicted {
         get => NumGet(this, 48, "ptr")
@@ -68,7 +66,7 @@ class D3DKMT_QUERYSTATSTICS_PAGING_FAULT extends Win32Struct
     }
 
     /**
-     * @type {Pointer<D3DKMT_QUERYSTATISTICS_COUNTER>}
+     * @type {Pointer}
      */
     AllocationsMEM_RESET {
         get => NumGet(this, 56, "ptr")
@@ -76,7 +74,7 @@ class D3DKMT_QUERYSTATSTICS_PAGING_FAULT extends Win32Struct
     }
 
     /**
-     * @type {Pointer<D3DKMT_QUERYSTATISTICS_COUNTER>}
+     * @type {Pointer}
      */
     AllocationsUnresetSuccess {
         get => NumGet(this, 64, "ptr")
@@ -84,7 +82,7 @@ class D3DKMT_QUERYSTATSTICS_PAGING_FAULT extends Win32Struct
     }
 
     /**
-     * @type {Pointer<D3DKMT_QUERYSTATISTICS_COUNTER>}
+     * @type {Pointer}
      */
     AllocationsUnresetFail {
         get => NumGet(this, 72, "ptr")
@@ -108,7 +106,7 @@ class D3DKMT_QUERYSTATSTICS_PAGING_FAULT extends Win32Struct
     }
 
     /**
-     * @type {Pointer<D3DKMT_QUERYSTATISTICS_COUNTER>}
+     * @type {Pointer}
      */
     Evictions {
         get => NumGet(this, 88, "ptr")
@@ -116,7 +114,7 @@ class D3DKMT_QUERYSTATSTICS_PAGING_FAULT extends Win32Struct
     }
 
     /**
-     * @type {Pointer<D3DKMT_QUERYSTATISTICS_COUNTER>}
+     * @type {Pointer}
      */
     EvictionsDueToPreparation {
         get => NumGet(this, 96, "ptr")
@@ -124,7 +122,7 @@ class D3DKMT_QUERYSTATSTICS_PAGING_FAULT extends Win32Struct
     }
 
     /**
-     * @type {Pointer<D3DKMT_QUERYSTATISTICS_COUNTER>}
+     * @type {Pointer}
      */
     EvictionsDueToLock {
         get => NumGet(this, 104, "ptr")
@@ -132,7 +130,7 @@ class D3DKMT_QUERYSTATSTICS_PAGING_FAULT extends Win32Struct
     }
 
     /**
-     * @type {Pointer<D3DKMT_QUERYSTATISTICS_COUNTER>}
+     * @type {Pointer}
      */
     EvictionsDueToClose {
         get => NumGet(this, 112, "ptr")
@@ -140,7 +138,7 @@ class D3DKMT_QUERYSTATSTICS_PAGING_FAULT extends Win32Struct
     }
 
     /**
-     * @type {Pointer<D3DKMT_QUERYSTATISTICS_COUNTER>}
+     * @type {Pointer}
      */
     EvictionsDueToPurge {
         get => NumGet(this, 120, "ptr")
@@ -148,7 +146,7 @@ class D3DKMT_QUERYSTATSTICS_PAGING_FAULT extends Win32Struct
     }
 
     /**
-     * @type {Pointer<D3DKMT_QUERYSTATISTICS_COUNTER>}
+     * @type {Pointer}
      */
     EvictionsDueToSuspendCPUAccess {
         get => NumGet(this, 128, "ptr")

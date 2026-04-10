@@ -15,9 +15,8 @@
  *       the capabilities of each feature level, see <a href="https://docs.microsoft.com/windows/desktop/direct3d11/overviews-direct3d-11-devices-downlevel-intro">Overview For Each Feature Level</a>.
  * @see https://learn.microsoft.com/windows/win32/api/d3d10_1/ne-d3d10_1-d3d10_feature_level1
  * @namespace Windows.Win32.Graphics.Direct3D10
- * @version v4.0.30319
  */
-class D3D10_FEATURE_LEVEL1 extends Win32Enum{
+class D3D10_FEATURE_LEVEL1 extends Win32Enum {
 
     /**
      * The hardware supports Direct3D 10.0 features.

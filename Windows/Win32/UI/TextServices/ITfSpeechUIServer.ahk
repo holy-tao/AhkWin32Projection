@@ -28,9 +28,8 @@
  * Subsequently, the application can use the <a href="https://docs.microsoft.com/windows/desktop/api/ctfspui/nf-ctfspui-itfspeechuiserver-initialize">ITfSpeechUIServer::Initialize</a> method to initialize the user interface and the other methods of the <b>ITfSpeechUIServer</b> interface to manage the user interface.
  * @see https://learn.microsoft.com/windows/win32/api/ctfspui/nn-ctfspui-itfspeechuiserver
  * @namespace Windows.Win32.UI.TextServices
- * @version v4.0.30319
  */
-class ITfSpeechUIServer extends IUnknown{
+class ITfSpeechUIServer extends IUnknown {
 
     static sizeof => A_PtrSize
     /**
@@ -112,7 +111,7 @@ class ITfSpeechUIServer extends IUnknown{
 
     /**
      * ITfSpeechUIServer::UpdateBalloon method
-     * @param {Integer} style Contains a <a href="https://docs.microsoft.com/windows/win32/api/ctfutb/ne-ctfutb-tflbballoonstyle">TfLBBalloonStyle</a> element that specifies the balloon style.
+     * @param {TfLBBalloonStyle} style Contains a <a href="https://docs.microsoft.com/windows/win32/api/ctfutb/ne-ctfutb-tflbballoonstyle">TfLBBalloonStyle</a> element that specifies the balloon style.
      * @param {PWSTR} pch Pointer to a zero-terminated Unicode string that contains the text to show in the balloon.
      * @param {Integer} cch Specifies the number of characters in the string of the <i>pch</i> parameter.
      * @returns {HRESULT} This method can return one of these values.

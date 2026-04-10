@@ -1,14 +1,13 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
-#Include .\ICommand.ahk
 #Include ..\Com\IUnknown.ahk
+#Include .\ICommand.ahk
 
 /**
  * @namespace Windows.Win32.System.Search
- * @version v4.0.30319
  */
-class IDBSchemaCommand extends IUnknown{
+class IDBSchemaCommand extends IUnknown {
 
     static sizeof => A_PtrSize
     /**

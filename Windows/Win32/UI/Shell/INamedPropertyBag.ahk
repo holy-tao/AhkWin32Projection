@@ -7,9 +7,8 @@
  * Exposes methods that provide an object with a specified property bag in which the object can save its properties.
  * @see https://learn.microsoft.com/windows/win32/api/shlobj_core/nn-shlobj_core-inamedpropertybag
  * @namespace Windows.Win32.UI.Shell
- * @version v4.0.30319
  */
-class INamedPropertyBag extends IUnknown{
+class INamedPropertyBag extends IUnknown {
 
     static sizeof => A_PtrSize
     /**

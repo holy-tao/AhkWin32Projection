@@ -1,14 +1,13 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\..\Win32Struct.ahk
+#Include ..\HCERTSTORE.ahk
 
 /**
  * Contains information about the certificate store used by the digital signature wizard.
  * @see https://learn.microsoft.com/windows/win32/api/cryptuiapi/ns-cryptuiapi-cryptui_wiz_digital_sign_store_info
  * @namespace Windows.Win32.Security.Cryptography.UI
- * @version v4.0.30319
  */
-class CRYPTUI_WIZ_DIGITAL_SIGN_STORE_INFO extends Win32Struct
-{
+class CRYPTUI_WIZ_DIGITAL_SIGN_STORE_INFO extends Win32Struct {
     static sizeof => 32
 
     static packingSize => 8

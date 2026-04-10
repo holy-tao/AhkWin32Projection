@@ -4,16 +4,14 @@
 
 /**
  * @namespace Windows.Win32.System.ApplicationInstallationAndServicing
- * @version v4.0.30319
  */
-class PM_EXTENSIONCONSUMER extends Win32Struct
-{
+class PM_EXTENSIONCONSUMER extends Win32Struct {
     static sizeof => 16
 
     static packingSize => 8
 
     /**
-     * @type {Pointer<Guid>}
+     * @type {Pointer}
      */
     ConsumerPID {
         get => NumGet(this, 0, "ptr")
@@ -23,7 +21,7 @@ class PM_EXTENSIONCONSUMER extends Win32Struct
     /**
      * @type {BSTR}
      */
-    ExtensionID{
+    ExtensionID {
         get {
             if(!this.HasProp("__ExtensionID"))
                 this.__ExtensionID := BSTR(8, this)

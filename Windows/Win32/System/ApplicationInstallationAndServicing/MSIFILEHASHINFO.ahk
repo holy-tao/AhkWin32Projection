@@ -9,10 +9,8 @@
  * <a href="https://docs.microsoft.com/windows/desktop/Msi/installer-filehash">FileHash method</a>. Do not use other methods to generate a file hash.
  * @see https://learn.microsoft.com/windows/win32/api/msi/ns-msi-msifilehashinfo
  * @namespace Windows.Win32.System.ApplicationInstallationAndServicing
- * @version v4.0.30319
  */
-class MSIFILEHASHINFO extends Win32Struct
-{
+class MSIFILEHASHINFO extends Win32Struct {
     static sizeof => 20
 
     static packingSize => 4
@@ -29,9 +27,9 @@ class MSIFILEHASHINFO extends Win32Struct
 
     /**
      * The entire 128-bit file hash is contained in four 32-bit fields. The first field corresponds to the HashPart1 column of the MsiHashFile table, the second field corresponds to the HashPart2 column, the third field corresponds to the HashPart3 column, and the fourth field corresponds to the HashPart4 column.
-     * @type {Array<UInt32>}
+     * @type {Array<Integer>}
      */
-    dwData{
+    dwData {
         get {
             if(!this.HasProp("__dwDataProxyArray"))
                 this.__dwDataProxyArray := Win32FixedArray(this.ptr + 4, 4, Primitive, "uint")

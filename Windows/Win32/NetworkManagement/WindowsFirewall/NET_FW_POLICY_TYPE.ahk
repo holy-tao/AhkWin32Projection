@@ -5,9 +5,8 @@
  * The NET_FW_POLICY_TYPE enumerated type specifies the type of policy.
  * @see https://learn.microsoft.com/windows/win32/api/icftypes/ne-icftypes-net_fw_policy_type
  * @namespace Windows.Win32.NetworkManagement.WindowsFirewall
- * @version v4.0.30319
  */
-class NET_FW_POLICY_TYPE extends Win32Enum{
+class NET_FW_POLICY_TYPE extends Win32Enum {
 
     /**
      * Policy type is group.

@@ -1,12 +1,11 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
+#Include .\RTL_BALANCED_LINKS.ahk
 
 /**
  * @namespace Windows.Wdk.System.SystemServices
- * @version v4.0.30319
  */
-class RTL_BALANCED_LINKS extends Win32Struct
-{
+class RTL_BALANCED_LINKS extends Win32Struct {
     static sizeof => 32
 
     static packingSize => 8
@@ -44,9 +43,9 @@ class RTL_BALANCED_LINKS extends Win32Struct
     }
 
     /**
-     * @type {Array<Byte>}
+     * @type {Array<Integer>}
      */
-    Reserved{
+    Reserved {
         get {
             if(!this.HasProp("__ReservedProxyArray"))
                 this.__ReservedProxyArray := Win32FixedArray(this.ptr + 25, 3, Primitive, "char")

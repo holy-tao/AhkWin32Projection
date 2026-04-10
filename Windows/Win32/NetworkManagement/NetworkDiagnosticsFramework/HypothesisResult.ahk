@@ -1,15 +1,15 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
 #Include .\HYPOTHESIS.ahk
+#Include .\HELPER_ATTRIBUTE.ahk
+#Include .\DIAGNOSIS_STATUS.ahk
 
 /**
  * Contains information about a hypothesis returned from a helper class.
  * @see https://learn.microsoft.com/windows/win32/api/ndhelper/ns-ndhelper-hypothesisresult
  * @namespace Windows.Win32.NetworkManagement.NetworkDiagnosticsFramework
- * @version v4.0.30319
  */
-class HypothesisResult extends Win32Struct
-{
+class HypothesisResult extends Win32Struct {
     static sizeof => 40
 
     static packingSize => 8
@@ -20,7 +20,7 @@ class HypothesisResult extends Win32Struct
      * Information for a specific hypothesis.
      * @type {HYPOTHESIS}
      */
-    hypothesis{
+    hypothesis {
         get {
             if(!this.HasProp("__hypothesis"))
                 this.__hypothesis := HYPOTHESIS(0, this)
@@ -34,7 +34,7 @@ class HypothesisResult extends Win32Struct
      * The status of the child helper class and its children. 
      * 
      * If the hypothesis or any of its children indicated <b>DS_CONFIRMED</b> in a call to <a href="https://docs.microsoft.com/windows/desktop/api/ndhelper/nf-ndhelper-inetdiaghelper-lowhealth">LowHealth</a>, then this value will be <b>DS_CONFIRMED</b>. If no problems exist in such a call, the value will be <b>DS_REJECTED</b>. The value will be <b>DS_INDETERMINATE</b> if the health of the component is not clear.
-     * @type {Integer}
+     * @type {DIAGNOSIS_STATUS}
      */
     pathStatus {
         get => NumGet(this, 32, "int")

@@ -1,19 +1,21 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
-#Include .\DOT11_SSID.ahk
 #Include .\WLAN_AVAILABLE_NETWORK.ahk
+#Include .\DOT11_SSID.ahk
+#Include .\DOT11_BSS_TYPE.ahk
+#Include .\DOT11_PHY_TYPE.ahk
+#Include .\DOT11_AUTH_ALGORITHM.ahk
+#Include .\DOT11_CIPHER_ALGORITHM.ahk
 
 /**
  * Contains an array of information about available networks.
  * @see https://learn.microsoft.com/windows/win32/api/wlanapi/ns-wlanapi-wlan_available_network_list
  * @namespace Windows.Win32.NetworkManagement.WiFi
- * @version v4.0.30319
  */
-class WLAN_AVAILABLE_NETWORK_LIST extends Win32Struct
-{
-    static sizeof => 16
+class WLAN_AVAILABLE_NETWORK_LIST extends Win32Struct {
+    static sizeof => 636
 
-    static packingSize => 8
+    static packingSize => 4
 
     /**
      * Contains the number of items in the <b>Network</b> member.
@@ -39,9 +41,9 @@ class WLAN_AVAILABLE_NETWORK_LIST extends Win32Struct
 
     /**
      * An array of <a href="https://docs.microsoft.com/windows/desktop/api/wlanapi/ns-wlanapi-wlan_available_network">WLAN_AVAILABLE_NETWORK</a> structures containing interface information.
-     * @type {Array<WLAN_AVAILABLE_NETWORK>}
+     * @type {WLAN_AVAILABLE_NETWORK}
      */
-    Network{
+    Network {
         get {
             if(!this.HasProp("__NetworkProxyArray"))
                 this.__NetworkProxyArray := Win32FixedArray(this.ptr + 8, 1, WLAN_AVAILABLE_NETWORK, "")

@@ -3,10 +3,8 @@
 
 /**
  * @namespace Windows.Wdk.Foundation
- * @version v4.0.30319
  */
-class FAST_MUTEX extends Win32Struct
-{
+class FAST_MUTEX extends Win32Struct {
     static sizeof => 40
 
     static packingSize => 8
@@ -36,7 +34,7 @@ class FAST_MUTEX extends Win32Struct
     }
 
     /**
-     * @type {Pointer<KEVENT>}
+     * @type {Pointer}
      */
     Event {
         get => NumGet(this, 24, "ptr")

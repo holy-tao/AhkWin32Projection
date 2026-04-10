@@ -3,10 +3,8 @@
 
 /**
  * @namespace Windows.Wdk.System.SystemServices
- * @version v4.0.30319
  */
-class DEVICE_BUS_SPECIFIC_RESET_TYPE extends Win32Struct
-{
+class DEVICE_BUS_SPECIFIC_RESET_TYPE extends Win32Struct {
     static sizeof => 24
 
     static packingSize => 8
@@ -27,7 +25,7 @@ class DEVICE_BUS_SPECIFIC_RESET_TYPE extends Win32Struct
             get => NumGet(this, 0, "uint")
             set => NumPut("uint", value, this, 0)
         }
-    
+
         /**
          * @type {Integer}
          */
@@ -35,7 +33,7 @@ class DEVICE_BUS_SPECIFIC_RESET_TYPE extends Win32Struct
             get => (this._bitfield >> 0) & 0x1
             set => this._bitfield := ((value & 0x1) << 0) | (this._bitfield & ~(0x1 << 0))
         }
-    
+
         /**
          * @type {Integer}
          */
@@ -43,7 +41,7 @@ class DEVICE_BUS_SPECIFIC_RESET_TYPE extends Win32Struct
             get => (this._bitfield >> 1) & 0x1
             set => this._bitfield := ((value & 0x1) << 1) | (this._bitfield & ~(0x1 << 1))
         }
-    
+
         /**
          * @type {Integer}
          */
@@ -51,7 +49,6 @@ class DEVICE_BUS_SPECIFIC_RESET_TYPE extends Win32Struct
             get => (this._bitfield >> 2) & 0x1
             set => this._bitfield := ((value & 0x1) << 2) | (this._bitfield & ~(0x1 << 2))
         }
-    
     }
 
     class _Acpi extends Win32Struct {
@@ -69,7 +66,7 @@ class DEVICE_BUS_SPECIFIC_RESET_TYPE extends Win32Struct
             get => NumGet(this, 0, "uint")
             set => NumPut("uint", value, this, 0)
         }
-    
+
         /**
          * @type {Integer}
          */
@@ -77,7 +74,7 @@ class DEVICE_BUS_SPECIFIC_RESET_TYPE extends Win32Struct
             get => (this._bitfield >> 0) & 0x1
             set => this._bitfield := ((value & 0x1) << 0) | (this._bitfield & ~(0x1 << 0))
         }
-    
+
         /**
          * @type {Integer}
          */
@@ -85,16 +82,15 @@ class DEVICE_BUS_SPECIFIC_RESET_TYPE extends Win32Struct
             get => (this._bitfield >> 1) & 0x1
             set => this._bitfield := ((value & 0x1) << 1) | (this._bitfield & ~(0x1 << 1))
         }
-    
     }
 
     /**
      * @type {_Pci}
      */
-    Pci{
+    Pci {
         get {
             if(!this.HasProp("__Pci"))
-                this.__Pci := %this.__Class%._Pci(0, this)
+                this.__Pci := DEVICE_BUS_SPECIFIC_RESET_TYPE._Pci(0, this)
             return this.__Pci
         }
     }
@@ -102,10 +98,10 @@ class DEVICE_BUS_SPECIFIC_RESET_TYPE extends Win32Struct
     /**
      * @type {_Acpi}
      */
-    Acpi{
+    Acpi {
         get {
             if(!this.HasProp("__Acpi"))
-                this.__Acpi := %this.__Class%._Acpi(0, this)
+                this.__Acpi := DEVICE_BUS_SPECIFIC_RESET_TYPE._Acpi(0, this)
             return this.__Acpi
         }
     }

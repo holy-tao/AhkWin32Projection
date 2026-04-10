@@ -1,12 +1,11 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
+#Include .\STORAGE_ENCRYPTION_TYPE.ahk
 
 /**
  * @namespace Windows.Win32.System.Ioctl
- * @version v4.0.30319
  */
-class STORAGE_DEVICE_SELF_ENCRYPTION_PROPERTY_V2 extends Win32Struct
-{
+class STORAGE_DEVICE_SELF_ENCRYPTION_PROPERTY_V2 extends Win32Struct {
     static sizeof => 16
 
     static packingSize => 4
@@ -36,7 +35,7 @@ class STORAGE_DEVICE_SELF_ENCRYPTION_PROPERTY_V2 extends Win32Struct
     }
 
     /**
-     * @type {Integer}
+     * @type {STORAGE_ENCRYPTION_TYPE}
      */
     EncryptionType {
         get => NumGet(this, 12, "int")

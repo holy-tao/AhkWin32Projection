@@ -3,9 +3,8 @@
 
 /**
  * @namespace Windows.Win32.System.Ioctl
- * @version v4.0.30319
  */
-class GET_CHANGER_PARAMETERS_FEATURES1 extends Win32BitflagEnum{
+class GET_CHANGER_PARAMETERS_FEATURES1 extends Win32BitflagEnum {
 
     /**
      * @type {Integer (UInt32)}

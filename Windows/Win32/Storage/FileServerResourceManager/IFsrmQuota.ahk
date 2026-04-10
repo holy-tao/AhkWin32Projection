@@ -1,8 +1,8 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
-#Include ..\..\System\Variant\VARIANT.ahk
 #Include .\IFsrmQuotaObject.ahk
+#Include ..\..\System\Variant\VARIANT.ahk
 
 /**
  * Used to define a quota for a specified directory and to retrieve use statistics.
@@ -10,9 +10,8 @@
  * A quota limits the amount of data that the system or any user can store in a directory.
  * @see https://learn.microsoft.com/windows/win32/api/fsrmquota/nn-fsrmquota-ifsrmquota
  * @namespace Windows.Win32.Storage.FileServerResourceManager
- * @version v4.0.30319
  */
-class IFsrmQuota extends IFsrmQuotaObject{
+class IFsrmQuota extends IFsrmQuotaObject {
 
     static sizeof => A_PtrSize
     /**

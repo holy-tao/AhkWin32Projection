@@ -11,9 +11,8 @@
  * FUNCFLAG_FRESRICTED means that macro-oriented programmers should not be allowed to access this member. These members are usually treated as _FHIDDEN by tools such as Visual Basic, with the main difference being that code cannot bind to those members.
  * @see https://learn.microsoft.com/windows/win32/api/oaidl/ne-oaidl-funcflags
  * @namespace Windows.Win32.System.Com
- * @version v4.0.30319
  */
-class FUNCFLAGS extends Win32Enum{
+class FUNCFLAGS extends Win32Enum {
 
     /**
      * The function should not be accessible from macro languages. This flag is intended for system-level functions or functions that type browsers should not display.

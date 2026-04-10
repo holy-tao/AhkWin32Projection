@@ -1,8 +1,8 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
-#Include ..\..\Foundation\BSTR.ahk
 #Include ..\..\System\Com\IDispatch.ahk
+#Include ..\..\Foundation\BSTR.ahk
 
 /**
  * The IFaxOutboundRoutingRule interface describes a configuration object that is used by a fax client application to set and retrieve information about an individual fax outbound routing rule.
@@ -10,9 +10,8 @@
  * A default implementation of <b>IFaxOutboundRoutingRule</b> is provided as the <a href="https://docs.microsoft.com/previous-versions/windows/desktop/fax/-mfax-faxoutboundroutingrule">FaxOutboundRoutingRule</a> object.
  * @see https://learn.microsoft.com/windows/win32/api/faxcomex/nn-faxcomex-ifaxoutboundroutingrule
  * @namespace Windows.Win32.Devices.Fax
- * @version v4.0.30319
  */
-class IFaxOutboundRoutingRule extends IDispatch{
+class IFaxOutboundRoutingRule extends IDispatch {
 
     static sizeof => A_PtrSize
     /**
@@ -54,7 +53,7 @@ class IFaxOutboundRoutingRule extends IDispatch{
     }
 
     /**
-     * @type {Integer} 
+     * @type {FAX_RULE_STATUS_ENUM} 
      */
     Status {
         get => this.get_Status()
@@ -116,7 +115,7 @@ class IFaxOutboundRoutingRule extends IDispatch{
      * The IFaxOutboundRoutingRule::get_Status property indicates the current status of the outbound routing rule; for example, whether the rule is valid and whether it can apply to fax jobs.
      * @remarks
      * To read this property, a user must have the <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/faxcomex/ne-faxcomex-fax_access_rights_enum">farQUERY_CONFIG</a> access right.
-     * @returns {Integer} 
+     * @returns {FAX_RULE_STATUS_ENUM} 
      * @see https://learn.microsoft.com/windows/win32/api/faxcomex/nf-faxcomex-ifaxoutboundroutingrule-get_status
      */
     get_Status() {

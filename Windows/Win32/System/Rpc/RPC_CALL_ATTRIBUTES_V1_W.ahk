@@ -33,11 +33,9 @@
  * The second method offers the best performance in most cases, since the caller does not need to perform a memory allocation.
  * @see https://learn.microsoft.com/windows/win32/api/rpcasync/ns-rpcasync-rpc_call_attributes_v1_w
  * @namespace Windows.Win32.System.Rpc
- * @version v4.0.30319
  * @charset Unicode
  */
-class RPC_CALL_ATTRIBUTES_V1_W extends Win32Struct
-{
+class RPC_CALL_ATTRIBUTES_V1_W extends Win32Struct {
     static sizeof => 56
 
     static packingSize => 8

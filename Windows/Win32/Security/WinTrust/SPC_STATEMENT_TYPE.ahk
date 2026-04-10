@@ -3,10 +3,8 @@
 
 /**
  * @namespace Windows.Win32.Security.WinTrust
- * @version v4.0.30319
  */
-class SPC_STATEMENT_TYPE extends Win32Struct
-{
+class SPC_STATEMENT_TYPE extends Win32Struct {
     static sizeof => 16
 
     static packingSize => 8

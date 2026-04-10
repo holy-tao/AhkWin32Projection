@@ -8,10 +8,8 @@
  * <a href="https://docs.microsoft.com/windows/desktop/api/winbase/nf-winbase-gettapeparameters">GetTapeParameters</a> function fills the <b>Remaining</b> and <b>Capacity</b> members with estimates of the tape remaining in the current tape partition and the total capacity of the current tape partition.
  * @see https://learn.microsoft.com/windows/win32/api/winnt/ns-winnt-tape_get_media_parameters
  * @namespace Windows.Win32.System.SystemServices
- * @version v4.0.30319
  */
-class TAPE_GET_MEDIA_PARAMETERS extends Win32Struct
-{
+class TAPE_GET_MEDIA_PARAMETERS extends Win32Struct {
     static sizeof => 32
 
     static packingSize => 8

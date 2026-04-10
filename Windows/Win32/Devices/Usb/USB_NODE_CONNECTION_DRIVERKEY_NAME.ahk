@@ -3,10 +3,8 @@
 
 /**
  * @namespace Windows.Win32.Devices.Usb
- * @version v4.0.30319
  */
-class USB_NODE_CONNECTION_DRIVERKEY_NAME extends Win32Struct
-{
+class USB_NODE_CONNECTION_DRIVERKEY_NAME extends Win32Struct {
     static sizeof => 12
 
     static packingSize => 4

@@ -1,16 +1,15 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
-#Include ..\Com\IUnknown.ahk
 #Include ..\Com\IDispatch.ahk
+#Include ..\Com\IUnknown.ahk
 
 /**
  * Provides methods for enumerating through running packages.
  * @see https://learn.microsoft.com/windows/win32/api/comsvcs/nn-comsvcs-imtsgrp
  * @namespace Windows.Win32.System.ComponentServices
- * @version v4.0.30319
  */
-class IMtsGrp extends IDispatch{
+class IMtsGrp extends IDispatch {
 
     static sizeof => A_PtrSize
     /**

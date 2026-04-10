@@ -1,16 +1,15 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
-#Include .\INSSBuffer.ahk
 #Include ..\..\System\Com\IUnknown.ahk
+#Include .\INSSBuffer.ahk
 
 /**
  * The IWMReaderAllocatorEx interface provides expanded alternatives to the AllocateForOutput and AllocateForStream methods of the IWMReaderCallbackAdvanced interface.
  * @see https://learn.microsoft.com/windows/win32/api/wmsdkidl/nn-wmsdkidl-iwmreaderallocatorex
  * @namespace Windows.Win32.Media.WindowsMediaFormat
- * @version v4.0.30319
  */
-class IWMReaderAllocatorEx extends IUnknown{
+class IWMReaderAllocatorEx extends IUnknown {
 
     static sizeof => A_PtrSize
     /**

@@ -5,9 +5,8 @@
  * Defines values for the type of access granted to the attendee for the channel.
  * @see https://learn.microsoft.com/windows/win32/api/rdpencomapi/ne-rdpencomapi-channel_access_enum
  * @namespace Windows.Win32.System.DesktopSharing
- * @version v4.0.30319
  */
-class CHANNEL_ACCESS_ENUM extends Win32Enum{
+class CHANNEL_ACCESS_ENUM extends Win32Enum {
 
     /**
      * No access. The attendee cannot send or receive data on the channel.

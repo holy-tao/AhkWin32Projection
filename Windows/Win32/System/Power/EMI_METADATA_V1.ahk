@@ -1,5 +1,6 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
+#Include .\EMI_MEASUREMENT_UNIT.ahk
 
 /**
  * The EMI_METADATA structure provides metadata about a device that supports the Energy Metering Interface (EMI) interface, such as the hardware model and hardware revision.
@@ -7,17 +8,15 @@
  * This structure is returned through a successful completion of an <a href="https://docs.microsoft.com/windows/desktop/api/emi/ni-emi-ioctl_emi_get_metadata">IOCTL_EMI_GET_METADATA</a> IOCTL request.
  * @see https://learn.microsoft.com/windows/win32/api/emi/ns-emi-emi_metadata_v1
  * @namespace Windows.Win32.System.Power
- * @version v4.0.30319
  */
-class EMI_METADATA_V1 extends Win32Struct
-{
+class EMI_METADATA_V1 extends Win32Struct {
     static sizeof => 76
 
     static packingSize => 4
 
     /**
      * An <a href="https://docs.microsoft.com/windows/desktop/api/emi/ne-emi-emi_measurement_unit">EMI_MEASUREMENT_UNIT</a> that specifies the unit of energy measurements that can be obtained from the device by calling <a href="https://docs.microsoft.com/windows/desktop/api/emi/ni-emi-ioctl_emi_get_measurement">IOCTL_EMI_GET_MEASUREMENT</a>. In devices that support <b>EMI_VERSION_V1</b>, the only supported unit is <b>EmiMeasurementUnitPicowattHours</b>.
-     * @type {Integer}
+     * @type {EMI_MEASUREMENT_UNIT}
      */
     MeasurementUnit {
         get => NumGet(this, 0, "int")

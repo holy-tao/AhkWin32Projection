@@ -11,10 +11,8 @@
  * <b>KEYBOARD_OVERRUN_MAKE_CODE</b> is a special **MakeCode** value sent when an invalid or unrecognizable combination of keys is pressed or the number of keys pressed exceeds the limit for this keyboard.
  * @see https://learn.microsoft.com/windows/win32/api/winuser/ns-winuser-rawkeyboard
  * @namespace Windows.Win32.UI.Input
- * @version v4.0.30319
  */
-class RAWKEYBOARD extends Win32Struct
-{
+class RAWKEYBOARD extends Win32Struct {
     static sizeof => 16
 
     static packingSize => 4

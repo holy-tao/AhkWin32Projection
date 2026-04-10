@@ -1,16 +1,15 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
 #Include .\EMR.ahk
+#Include .\ENHANCED_METAFILE_RECORD_TYPE.ahk
 #Include ..\..\Foundation\RECTL.ahk
 
 /**
  * The EMRFILLRGN structure contains members for the FillRgn enhanced metafile record.
  * @see https://learn.microsoft.com/windows/win32/api/wingdi/ns-wingdi-emrfillrgn
  * @namespace Windows.Win32.Graphics.Gdi
- * @version v4.0.30319
  */
-class EMRFILLRGN extends Win32Struct
-{
+class EMRFILLRGN extends Win32Struct {
     static sizeof => 36
 
     static packingSize => 4
@@ -19,7 +18,7 @@ class EMRFILLRGN extends Win32Struct
      * The base structure for all record types.
      * @type {EMR}
      */
-    emr{
+    emr {
         get {
             if(!this.HasProp("__emr"))
                 this.__emr := EMR(0, this)
@@ -31,7 +30,7 @@ class EMRFILLRGN extends Win32Struct
      * Bounding rectangle, in device units.
      * @type {RECTL}
      */
-    rclBounds{
+    rclBounds {
         get {
             if(!this.HasProp("__rclBounds"))
                 this.__rclBounds := RECTL(8, this)
@@ -59,9 +58,9 @@ class EMRFILLRGN extends Win32Struct
 
     /**
      * Buffer containing <a href="https://docs.microsoft.com/windows/desktop/api/wingdi/ns-wingdi-rgndata">RGNDATA</a> structure.
-     * @type {Array<Byte>}
+     * @type {Array<Integer>}
      */
-    RgnData{
+    RgnData {
         get {
             if(!this.HasProp("__RgnDataProxyArray"))
                 this.__RgnDataProxyArray := Win32FixedArray(this.ptr + 32, 1, Primitive, "char")

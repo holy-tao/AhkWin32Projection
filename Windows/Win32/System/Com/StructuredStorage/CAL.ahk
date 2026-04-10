@@ -5,10 +5,8 @@
  * Deprecated. Represents an instant in time, typically expressed as a date and time of day and a corresponding calendar.
  * @see https://learn.microsoft.com/windows/win32/Intl/caldatetime
  * @namespace Windows.Win32.System.Com.StructuredStorage
- * @version v4.0.30319
  */
-class CAL extends Win32Struct
-{
+class CAL extends Win32Struct {
     static sizeof => 16
 
     static packingSize => 8

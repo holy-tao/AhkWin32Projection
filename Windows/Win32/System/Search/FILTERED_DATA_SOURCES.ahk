@@ -9,10 +9,8 @@
  * <b>FILTERED_DATA_SOURCES</b> can hold one file content identifier of each type. CLSIDs are always searched first, followed by the  file name extension, then MIME type, and finally the path.
  * @see https://learn.microsoft.com/windows/win32/api/filtereg/ns-filtereg-filtered_data_sources
  * @namespace Windows.Win32.System.Search
- * @version v4.0.30319
  */
-class FILTERED_DATA_SOURCES extends Win32Struct
-{
+class FILTERED_DATA_SOURCES extends Win32Struct {
     static sizeof => 32
 
     static packingSize => 8

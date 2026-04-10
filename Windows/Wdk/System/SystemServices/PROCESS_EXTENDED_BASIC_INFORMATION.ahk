@@ -1,14 +1,11 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
-#Include ..\..\..\Win32\System\Threading\PROCESS_BASIC_INFORMATION.ahk
 
 /**
  * @namespace Windows.Wdk.System.SystemServices
- * @version v4.0.30319
  */
-class PROCESS_EXTENDED_BASIC_INFORMATION extends Win32Struct
-{
-    static sizeof => 64
+class PROCESS_EXTENDED_BASIC_INFORMATION extends Win32Struct {
+    static sizeof => 24
 
     static packingSize => 8
 
@@ -21,22 +18,19 @@ class PROCESS_EXTENDED_BASIC_INFORMATION extends Win32Struct
     }
 
     /**
-     * @type {PROCESS_BASIC_INFORMATION}
+     * @type {Pointer}
      */
-    BasicInfo{
-        get {
-            if(!this.HasProp("__BasicInfo"))
-                this.__BasicInfo := PROCESS_BASIC_INFORMATION(8, this)
-            return this.__BasicInfo
-        }
+    BasicInfo {
+        get => NumGet(this, 8, "ptr")
+        set => NumPut("ptr", value, this, 8)
     }
 
     /**
      * @type {Integer}
      */
     Flags {
-        get => NumGet(this, 56, "uint")
-        set => NumPut("uint", value, this, 56)
+        get => NumGet(this, 16, "uint")
+        set => NumPut("uint", value, this, 16)
     }
 
     /**
@@ -54,8 +48,8 @@ class PROCESS_EXTENDED_BASIC_INFORMATION extends Win32Struct
      * @type {Integer}
      */
     _bitfield {
-        get => NumGet(this, 56, "uint")
-        set => NumPut("uint", value, this, 56)
+        get => NumGet(this, 16, "uint")
+        set => NumPut("uint", value, this, 16)
     }
 
     /**

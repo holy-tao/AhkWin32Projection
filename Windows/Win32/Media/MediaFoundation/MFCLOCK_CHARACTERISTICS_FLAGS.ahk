@@ -5,9 +5,8 @@
  * Contains flags that describe the characteristics of a clock.
  * @see https://learn.microsoft.com/windows/win32/api/mfidl/ne-mfidl-mfclock_characteristics_flags
  * @namespace Windows.Win32.Media.MediaFoundation
- * @version v4.0.30319
  */
-class MFCLOCK_CHARACTERISTICS_FLAGS extends Win32Enum{
+class MFCLOCK_CHARACTERISTICS_FLAGS extends Win32Enum {
 
     /**
      * The clock times returned by the <a href="https://docs.microsoft.com/windows/desktop/api/mfidl/nf-mfidl-imfclock-getcorrelatedtime">IMFClock::GetCorrelatedTime</a> method are in units of 100 nanoseconds. If this flag is absent, call <a href="https://docs.microsoft.com/windows/desktop/api/mfidl/nf-mfidl-imfclock-getproperties">IMFClock::GetProperties</a> to get the clock frequency. The clock frequency is given in the <b>qwClockFrequency</b> member of the <a href="https://docs.microsoft.com/windows/desktop/api/mfidl/ns-mfidl-mfclock_properties">MFCLOCK_PROPERTIES</a> structure returned by that method.

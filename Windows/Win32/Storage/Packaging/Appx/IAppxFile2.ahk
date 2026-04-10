@@ -5,9 +5,8 @@
 
 /**
  * @namespace Windows.Win32.Storage.Packaging.Appx
- * @version v4.0.30319
  */
-class IAppxFile2 extends IAppxFile{
+class IAppxFile2 extends IAppxFile {
 
     static sizeof => A_PtrSize
     /**

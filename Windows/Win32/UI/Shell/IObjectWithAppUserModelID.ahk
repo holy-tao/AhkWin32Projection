@@ -19,9 +19,8 @@
  * The system calls the <a href="https://docs.microsoft.com/windows/desktop/api/shobjidl_core/nf-shobjidl_core-iobjectwithappusermodelid-getappid">IObjectWithAppUserModelID::GetAppID</a> method implemented on a handler to determine whether the application is a registered handler for a file type.
  * @see https://learn.microsoft.com/windows/win32/api/shobjidl_core/nn-shobjidl_core-iobjectwithappusermodelid
  * @namespace Windows.Win32.UI.Shell
- * @version v4.0.30319
  */
-class IObjectWithAppUserModelID extends IUnknown{
+class IObjectWithAppUserModelID extends IUnknown {
 
     static sizeof => A_PtrSize
     /**

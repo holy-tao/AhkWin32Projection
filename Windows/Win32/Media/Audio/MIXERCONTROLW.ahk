@@ -8,11 +8,9 @@
  * > The mmeapi.h header defines MIXERCONTROL as an alias which automatically selects the ANSI or Unicode version of this function based on the definition of the UNICODE preprocessor constant. Mixing usage of the encoding-neutral alias with code that not encoding-neutral can lead to mismatches that result in compilation or runtime errors. For more information, see [Conventions for Function Prototypes](/windows/win32/intl/conventions-for-function-prototypes).
  * @see https://learn.microsoft.com/windows/win32/api/mmeapi/ns-mmeapi-mixercontrolw
  * @namespace Windows.Win32.Media.Audio
- * @version v4.0.30319
  * @charset Unicode
  */
-class MIXERCONTROLW extends Win32Struct
-{
+class MIXERCONTROLW extends Win32Struct {
     static sizeof => 228
 
     static packingSize => 4
@@ -28,7 +26,7 @@ class MIXERCONTROLW extends Win32Struct
             get => NumGet(this, 0, "int")
             set => NumPut("int", value, this, 0)
         }
-    
+
         /**
          * @type {Integer}
          */
@@ -36,7 +34,7 @@ class MIXERCONTROLW extends Win32Struct
             get => NumGet(this, 4, "int")
             set => NumPut("int", value, this, 4)
         }
-    
+
         /**
          * @type {Integer}
          */
@@ -44,7 +42,7 @@ class MIXERCONTROLW extends Win32Struct
             get => NumGet(this, 0, "uint")
             set => NumPut("uint", value, this, 0)
         }
-    
+
         /**
          * @type {Integer}
          */
@@ -52,18 +50,17 @@ class MIXERCONTROLW extends Win32Struct
             get => NumGet(this, 4, "uint")
             set => NumPut("uint", value, this, 4)
         }
-    
+
         /**
-         * @type {Array<UInt32>}
+         * @type {Array<Integer>}
          */
-        dwReserved{
+        dwReserved {
             get {
                 if(!this.HasProp("__dwReservedProxyArray"))
                     this.__dwReservedProxyArray := Win32FixedArray(this.ptr + 0, 6, Primitive, "uint")
                 return this.__dwReservedProxyArray
             }
         }
-    
     }
 
     class _Metrics_e__Union extends Win32Struct {
@@ -77,7 +74,7 @@ class MIXERCONTROLW extends Win32Struct
             get => NumGet(this, 0, "uint")
             set => NumPut("uint", value, this, 0)
         }
-    
+
         /**
          * @type {Integer}
          */
@@ -85,18 +82,17 @@ class MIXERCONTROLW extends Win32Struct
             get => NumGet(this, 0, "uint")
             set => NumPut("uint", value, this, 0)
         }
-    
+
         /**
-         * @type {Array<UInt32>}
+         * @type {Array<Integer>}
          */
-        dwReserved{
+        dwReserved {
             get {
                 if(!this.HasProp("__dwReservedProxyArray"))
                     this.__dwReservedProxyArray := Win32FixedArray(this.ptr + 0, 6, Primitive, "uint")
                 return this.__dwReservedProxyArray
             }
         }
-    
     }
 
     /**
@@ -290,10 +286,10 @@ class MIXERCONTROLW extends Win32Struct
      * Union of boundary types.
      * @type {_Bounds_e__Union}
      */
-    Bounds{
+    Bounds {
         get {
             if(!this.HasProp("__Bounds"))
-                this.__Bounds := %this.__Class%._Bounds_e__Union(180, this)
+                this.__Bounds := MIXERCONTROLW._Bounds_e__Union(180, this)
             return this.__Bounds
         }
     }
@@ -302,10 +298,10 @@ class MIXERCONTROLW extends Win32Struct
      * Union of boundary metrics.
      * @type {_Metrics_e__Union}
      */
-    Metrics{
+    Metrics {
         get {
             if(!this.HasProp("__Metrics"))
-                this.__Metrics := %this.__Class%._Metrics_e__Union(204, this)
+                this.__Metrics := MIXERCONTROLW._Metrics_e__Union(204, this)
             return this.__Metrics
         }
     }

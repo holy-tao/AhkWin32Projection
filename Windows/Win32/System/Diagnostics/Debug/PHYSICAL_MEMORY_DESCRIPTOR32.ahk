@@ -4,13 +4,11 @@
 
 /**
  * @namespace Windows.Win32.System.Diagnostics.Debug
- * @version v4.0.30319
  */
-class PHYSICAL_MEMORY_DESCRIPTOR32 extends Win32Struct
-{
+class PHYSICAL_MEMORY_DESCRIPTOR32 extends Win32Struct {
     static sizeof => 16
 
-    static packingSize => 8
+    static packingSize => 4
 
     /**
      * @type {Integer}
@@ -29,9 +27,9 @@ class PHYSICAL_MEMORY_DESCRIPTOR32 extends Win32Struct
     }
 
     /**
-     * @type {Array<PHYSICAL_MEMORY_RUN32>}
+     * @type {PHYSICAL_MEMORY_RUN32}
      */
-    Run{
+    Run {
         get {
             if(!this.HasProp("__RunProxyArray"))
                 this.__RunProxyArray := Win32FixedArray(this.ptr + 8, 1, PHYSICAL_MEMORY_RUN32, "")

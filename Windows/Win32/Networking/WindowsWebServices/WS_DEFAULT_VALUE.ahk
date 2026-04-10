@@ -5,10 +5,8 @@
  * Defines a default value for a field. This is used in a WS_FIELD_DESCRIPTION.
  * @see https://learn.microsoft.com/windows/win32/api/webservices/ns-webservices-ws_default_value
  * @namespace Windows.Win32.Networking.WindowsWebServices
- * @version v4.0.30319
  */
-class WS_DEFAULT_VALUE extends Win32Struct
-{
+class WS_DEFAULT_VALUE extends Win32Struct {
     static sizeof => 16
 
     static packingSize => 8

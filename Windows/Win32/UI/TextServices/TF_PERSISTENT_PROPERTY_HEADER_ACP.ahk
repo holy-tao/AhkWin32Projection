@@ -5,17 +5,15 @@
  * The TF_PERSISTENT_PROPERTY_HEADER_ACP structure is used to provide property header data.
  * @see https://learn.microsoft.com/windows/win32/api/msctf/ns-msctf-tf_persistent_property_header_acp
  * @namespace Windows.Win32.UI.TextServices
- * @version v4.0.30319
  */
-class TF_PERSISTENT_PROPERTY_HEADER_ACP extends Win32Struct
-{
+class TF_PERSISTENT_PROPERTY_HEADER_ACP extends Win32Struct {
     static sizeof => 32
 
     static packingSize => 8
 
     /**
      * Contains a GUID that identifies the property.
-     * @type {Pointer<Guid>}
+     * @type {Pointer}
      */
     guidType {
         get => NumGet(this, 0, "ptr")
@@ -60,7 +58,7 @@ class TF_PERSISTENT_PROPERTY_HEADER_ACP extends Win32Struct
 
     /**
      * Contains the CLSID of the property owner.
-     * @type {Pointer<Guid>}
+     * @type {Pointer}
      */
     clsidTIP {
         get => NumGet(this, 24, "ptr")

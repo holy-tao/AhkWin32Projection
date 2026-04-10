@@ -4,10 +4,9 @@
 
 /**
  * @namespace Windows.Win32.System.Search
- * @version v4.0.30319
+ * @architecture X64, Arm64
  */
-class DBPARAMS extends Win32Struct
-{
+class DBPARAMS extends Win32Struct {
     static sizeof => 24
 
     static packingSize => 8
@@ -31,7 +30,7 @@ class DBPARAMS extends Win32Struct
     /**
      * @type {HACCESSOR}
      */
-    hAccessor{
+    hAccessor {
         get {
             if(!this.HasProp("__hAccessor"))
                 this.__hAccessor := HACCESSOR(16, this)

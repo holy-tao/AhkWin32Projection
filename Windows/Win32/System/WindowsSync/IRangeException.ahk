@@ -7,9 +7,8 @@
  * Represents an item ID range to exclude from a knowledge object.
  * @see https://learn.microsoft.com/windows/win32/api/winsync/nn-winsync-irangeexception
  * @namespace Windows.Win32.System.WindowsSync
- * @version v4.0.30319
  */
-class IRangeException extends IUnknown{
+class IRangeException extends IUnknown {
 
     static sizeof => A_PtrSize
     /**

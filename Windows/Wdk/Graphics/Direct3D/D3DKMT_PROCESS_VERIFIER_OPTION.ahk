@@ -1,13 +1,13 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
 #Include ..\..\..\Win32\Foundation\HANDLE.ahk
+#Include .\D3DKMT_PROCESS_VERIFIER_OPTION_TYPE.ahk
+#Include .\D3DKMT_VERIFIER_OPTION_MODE.ahk
 
 /**
  * @namespace Windows.Wdk.Graphics.Direct3D
- * @version v4.0.30319
  */
-class D3DKMT_PROCESS_VERIFIER_OPTION extends Win32Struct
-{
+class D3DKMT_PROCESS_VERIFIER_OPTION extends Win32Struct {
     static sizeof => 24
 
     static packingSize => 8
@@ -15,7 +15,7 @@ class D3DKMT_PROCESS_VERIFIER_OPTION extends Win32Struct
     /**
      * @type {HANDLE}
      */
-    hProcess{
+    hProcess {
         get {
             if(!this.HasProp("__hProcess"))
                 this.__hProcess := HANDLE(0, this)
@@ -24,7 +24,7 @@ class D3DKMT_PROCESS_VERIFIER_OPTION extends Win32Struct
     }
 
     /**
-     * @type {Integer}
+     * @type {D3DKMT_PROCESS_VERIFIER_OPTION_TYPE}
      */
     Type {
         get => NumGet(this, 8, "int")
@@ -32,7 +32,7 @@ class D3DKMT_PROCESS_VERIFIER_OPTION extends Win32Struct
     }
 
     /**
-     * @type {Integer}
+     * @type {D3DKMT_VERIFIER_OPTION_MODE}
      */
     Mode {
         get => NumGet(this, 12, "int")
@@ -40,7 +40,7 @@ class D3DKMT_PROCESS_VERIFIER_OPTION extends Win32Struct
     }
 
     /**
-     * @type {Pointer<D3DKMT_PROCESS_VERIFIER_OPTION_DATA>}
+     * @type {Pointer}
      */
     Data {
         get => NumGet(this, 16, "ptr")

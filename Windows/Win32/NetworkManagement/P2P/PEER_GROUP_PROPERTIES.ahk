@@ -5,10 +5,8 @@
  * The PEER_GROUP_PROPERTIES structure contains data about the membership policy of a peer group.
  * @see https://learn.microsoft.com/windows/win32/api/p2p/ns-p2p-peer_group_properties
  * @namespace Windows.Win32.NetworkManagement.P2P
- * @version v4.0.30319
  */
-class PEER_GROUP_PROPERTIES extends Win32Struct
-{
+class PEER_GROUP_PROPERTIES extends Win32Struct {
     static sizeof => 88
 
     static packingSize => 8
@@ -125,8 +123,8 @@ class PEER_GROUP_PROPERTIES extends Win32Struct
 
     /**
      * <b>Windows Vista or later.</b> GUID value that indicates the peer group role for which the password is required for authentication.
-     * @deprecated 
-     * @type {Pointer<Guid>}
+     * @deprecated
+     * @type {Pointer}
      */
     groupPasswordRole {
         get => NumGet(this, 80, "ptr")

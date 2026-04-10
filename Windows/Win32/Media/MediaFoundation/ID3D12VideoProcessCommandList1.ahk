@@ -5,13 +5,10 @@
 
 /**
  * Encapsulates a list of graphics commands for video processing. (ID3D12VideoProcessCommandList1)
- * @remarks
- * 
  * @see https://learn.microsoft.com/windows/win32/api/d3d12video/nn-d3d12video-id3d12videoprocesscommandlist1
  * @namespace Windows.Win32.Media.MediaFoundation
- * @version v4.0.30319
  */
-class ID3D12VideoProcessCommandList1 extends ID3D12VideoProcessCommandList{
+class ID3D12VideoProcessCommandList1 extends ID3D12VideoProcessCommandList {
 
     static sizeof => A_PtrSize
     /**

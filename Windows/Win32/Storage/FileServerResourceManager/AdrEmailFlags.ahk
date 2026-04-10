@@ -5,9 +5,8 @@
  * Describes the options for access denied remediation (ADR) email.
  * @see https://learn.microsoft.com/windows/win32/api/fsrmenums/ne-fsrmenums-adremailflags
  * @namespace Windows.Win32.Storage.FileServerResourceManager
- * @version v4.0.30319
  */
-class AdrEmailFlags extends Win32Enum{
+class AdrEmailFlags extends Win32Enum {
 
     /**
      * The ADR email will include the owner on the To: line.

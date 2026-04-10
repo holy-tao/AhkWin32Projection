@@ -12,9 +12,8 @@
  * [IXpsOMPackage interface](/windows/win32/api/xpsobjectmodel/nn-xpsobjectmodel-ixpsompackage)
  * @see https://learn.microsoft.com/windows/win32/api/xpsobjectmodel_1/nn-xpsobjectmodel_1-ixpsompackage1
  * @namespace Windows.Win32.Storage.Xps
- * @version v4.0.30319
  */
-class IXpsOMPackage1 extends IXpsOMPackage{
+class IXpsOMPackage1 extends IXpsOMPackage {
 
     static sizeof => A_PtrSize
     /**
@@ -39,7 +38,7 @@ class IXpsOMPackage1 extends IXpsOMPackage{
      * Gets the document type of the data that was used to initialize this package. This method is used to determine whether a document is the XPS or OpenXPS type. For more information, see XPS Documents.
      * @remarks
      * If the <a href="https://docs.microsoft.com/windows/desktop/api/xpsobjectmodel_1/nn-xpsobjectmodel_1-ixpsompackage1">IXpsOMPackage1</a> instance was not loaded from a stream or a  file, the document type is unspecified (XPS_DOCUMENT_TYPE_UNSPECIFIED). Otherwise, the document type returned is that of the stream or file used to initialize the <b>IXpsOMPackage1</b> instance.
-     * @returns {Integer} [out, retval] The document type of the source data used to initialize this package. A document type value of XPS_DOCUMENT_TYPE_UNSPECIFIED is returned if the package was created in memory.
+     * @returns {XPS_DOCUMENT_TYPE} [out, retval] The document type of the source data used to initialize this package. A document type value of XPS_DOCUMENT_TYPE_UNSPECIFIED is returned if the package was created in memory.
      * @see https://learn.microsoft.com/windows/win32/api/xpsobjectmodel_1/nf-xpsobjectmodel_1-ixpsompackage1-getdocumenttype
      */
     GetDocumentType() {
@@ -69,7 +68,7 @@ class IXpsOMPackage1 extends IXpsOMPackage{
      * TRUE: The package writer will try to optimize the markup for minimum size.
      * 
      * FALSE: The package writer will not try to perform any optimization.
-     * @param {Integer} documentType [in]            The XPS data format to write to outputStream. The value of this parameter cannot be XPS_DOCUMENT_TYPE_UNSPECIFIED.
+     * @param {XPS_DOCUMENT_TYPE} documentType [in]            The XPS data format to write to outputStream. The value of this parameter cannot be XPS_DOCUMENT_TYPE_UNSPECIFIED.
      * @returns {HRESULT} The method returns an HRESULT. Possible values include, but are not limited to, the following values. For information about XPS Document API return values that are not listed in this table, see XPS Document Errors.
      * 
      * S_OK: The method succeeded.
@@ -96,7 +95,7 @@ class IXpsOMPackage1 extends IXpsOMPackage{
      * TRUE: The package writer will try to optimize the markup for minimum size.
      * 
      * FALSE: The package writer will not try to perform any optimization.
-     * @param {Integer} documentType [in]            The XPS data format to write to outputStream. The value of this parameter cannot be XPS_DOCUMENT_TYPE_UNSPECIFIED.
+     * @param {XPS_DOCUMENT_TYPE} documentType [in]            The XPS data format to write to outputStream. The value of this parameter cannot be XPS_DOCUMENT_TYPE_UNSPECIFIED.
      * @returns {HRESULT} The method returns an HRESULT. Possible values include, but are not limited to, the following values. For information about XPS Document API return values that are not listed in this table, see XPS Document Errors.
      * 
      * S_OK: The method succeeded.

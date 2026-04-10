@@ -1,14 +1,13 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\..\Win32Struct.ahk
+#Include ..\..\SID_NAME_USE.ahk
 
 /**
  * Contains SIDs that are retrieved based on account names.
  * @see https://learn.microsoft.com/windows/win32/api/lsalookup/ns-lsalookup-lsa_translated_sid2
  * @namespace Windows.Win32.Security.Authentication.Identity
- * @version v4.0.30319
  */
-class LSA_TRANSLATED_SID2 extends Win32Struct
-{
+class LSA_TRANSLATED_SID2 extends Win32Struct {
     static sizeof => 24
 
     static packingSize => 8
@@ -16,7 +15,7 @@ class LSA_TRANSLATED_SID2 extends Win32Struct
     /**
      * An 
      * <a href="https://docs.microsoft.com/windows/desktop/api/winnt/ne-winnt-sid_name_use">SID_NAME_USE</a> enumeration value that identifies the use of the SID. If this value is SidTypeUnknown or SidTypeInvalid, the rest of the information in the structure is not valid and should be ignored.
-     * @type {Integer}
+     * @type {SID_NAME_USE}
      */
     Use {
         get => NumGet(this, 0, "int")

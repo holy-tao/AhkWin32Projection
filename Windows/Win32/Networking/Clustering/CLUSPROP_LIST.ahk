@@ -1,8 +1,8 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
-#Include .\CLUSPROP_SYNTAX.ahk
-#Include .\CLUSPROP_VALUE.ahk
 #Include .\CLUSPROP_SZ.ahk
+#Include .\CLUSPROP_VALUE.ahk
+#Include .\CLUSPROP_SYNTAX.ahk
 
 /**
  * Accesses the beginning of a property list.
@@ -10,10 +10,8 @@
  * For information about property lists, see  <a href="https://docs.microsoft.com/previous-versions/windows/desktop/mscs/property-lists">Property Lists</a>.
  * @see https://learn.microsoft.com/windows/win32/api/clusapi/ns-clusapi-clusprop_list
  * @namespace Windows.Win32.Networking.Clustering
- * @version v4.0.30319
  */
-class CLUSPROP_LIST extends Win32Struct
-{
+class CLUSPROP_LIST extends Win32Struct {
     static sizeof => 20
 
     static packingSize => 4
@@ -31,7 +29,7 @@ class CLUSPROP_LIST extends Win32Struct
      * Structure describing the name of the first property in the list.
      * @type {CLUSPROP_SZ}
      */
-    PropertyName{
+    PropertyName {
         get {
             if(!this.HasProp("__PropertyName"))
                 this.__PropertyName := CLUSPROP_SZ(4, this)

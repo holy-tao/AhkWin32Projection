@@ -6,10 +6,8 @@
  * The WMDMRIGHTS structure describes content-use rights.
  * @see https://learn.microsoft.com/windows/win32/WMDM/wmdmrights
  * @namespace Windows.Win32.Media.DeviceManager
- * @version v4.0.30319
  */
-class WMDMRIGHTS extends Win32Struct
-{
+class WMDMRIGHTS extends Win32Struct {
     static sizeof => 36
 
     static packingSize => 4
@@ -24,7 +22,6 @@ class WMDMRIGHTS extends Win32Struct
     }
 
     /**
-     * 
      * @type {Integer}
      */
     dwContentType {
@@ -79,7 +76,6 @@ class WMDMRIGHTS extends Win32Struct
     }
 
     /**
-     * 
      * @type {Integer}
      */
     dwPlaybackCount {
@@ -91,7 +87,7 @@ class WMDMRIGHTS extends Win32Struct
      * [**WMDMDATETIME**](wmdmdatetime.md) structure containing the expiration date and time for the content. If the license has no expiration date, the **wYear** member is set to 0xFFFF, and all other members of **WMDMDATETIME** are ignored.
      * @type {WMDMDATETIME}
      */
-    ExpirationDate{
+    ExpirationDate {
         get {
             if(!this.HasProp("__ExpirationDate"))
                 this.__ExpirationDate := WMDMDATETIME(24, this)

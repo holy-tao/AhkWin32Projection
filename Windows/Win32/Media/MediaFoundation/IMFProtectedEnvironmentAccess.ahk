@@ -9,9 +9,8 @@
  * See  <a href="https://docs.microsoft.com/windows/desktop/api/mfidl/nf-mfidl-mfcreateprotectedenvironmentaccess">MFCreateProtectedEnvironmentAccess</a> for an example of how to create and use an <b>IMFProtectedEnvironmentAccess</b> object.
  * @see https://learn.microsoft.com/windows/win32/api/mfidl/nn-mfidl-imfprotectedenvironmentaccess
  * @namespace Windows.Win32.Media.MediaFoundation
- * @version v4.0.30319
  */
-class IMFProtectedEnvironmentAccess extends IUnknown{
+class IMFProtectedEnvironmentAccess extends IUnknown {
 
     static sizeof => A_PtrSize
     /**
@@ -37,9 +36,9 @@ class IMFProtectedEnvironmentAccess extends IUnknown{
      * @remarks
      * See  <a href="https://docs.microsoft.com/windows/desktop/api/mfidl/nf-mfidl-mfcreateprotectedenvironmentaccess">MFCreateProtectedEnvironmentAccess</a> for an example of how to create an <a href="https://docs.microsoft.com/windows/desktop/api/mfidl/nn-mfidl-imfprotectedenvironmentaccess">IMFProtectedEnvironmentAccess</a> object and use the <b>Call</b> method.
      * @param {Integer} inputLength The length in bytes of the input data.
-     * @param {Pointer} _input 
+     * @param {Integer} _input A pointer to the input data.
      * @param {Integer} outputLength The length in bytes of the output data.
-     * @param {Pointer} output A pointer to the output data.
+     * @param {Integer} output A pointer to the output data.
      * @returns {HRESULT} The method returns an <b>HRESULT</b>. Possible values include, but are not limited to, those in the following table.
      * 
      * <table>

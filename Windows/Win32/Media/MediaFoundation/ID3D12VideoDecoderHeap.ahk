@@ -9,9 +9,8 @@
  * Get an instance of this class by calling [ID3D12VideoDevice::CreateVideoDecoderHeap](nf-d3d12video-id3d12videodevice-createvideodecoderheap.md).
  * @see https://learn.microsoft.com/windows/win32/api/d3d12video/nn-d3d12video-id3d12videodecoderheap
  * @namespace Windows.Win32.Media.MediaFoundation
- * @version v4.0.30319
  */
-class ID3D12VideoDecoderHeap extends ID3D12Pageable{
+class ID3D12VideoDecoderHeap extends ID3D12Pageable {
 
     static sizeof => A_PtrSize
     /**

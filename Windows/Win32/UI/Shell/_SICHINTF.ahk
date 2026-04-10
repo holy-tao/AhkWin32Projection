@@ -5,9 +5,8 @@
  * Used to determine how to compare two Shell items. IShellItem::Compare uses this enumerated type.
  * @see https://learn.microsoft.com/windows/win32/api/shobjidl_core/ne-shobjidl_core-_sichintf
  * @namespace Windows.Win32.UI.Shell
- * @version v4.0.30319
  */
-class _SICHINTF extends Win32Enum{
+class _SICHINTF extends Win32Enum {
 
     /**
      * 0x00000000. This relates to the <i>iOrder</i> parameter of the <a href="https://docs.microsoft.com/windows/desktop/api/shobjidl_core/nf-shobjidl_core-ishellitem-compare">IShellItem::Compare</a> interface and indicates that the comparison is based on the display in a folder view.

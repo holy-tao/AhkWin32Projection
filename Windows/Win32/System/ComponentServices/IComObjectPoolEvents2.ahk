@@ -7,9 +7,8 @@
  * Notifies the subscriber when a new object is created for or removed from the pool.
  * @see https://learn.microsoft.com/windows/win32/api/comsvcs/nn-comsvcs-icomobjectpoolevents2
  * @namespace Windows.Win32.System.ComponentServices
- * @version v4.0.30319
  */
-class IComObjectPoolEvents2 extends IUnknown{
+class IComObjectPoolEvents2 extends IUnknown {
 
     static sizeof => A_PtrSize
     /**

@@ -1,5 +1,6 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
+#Include .\CRYPT_INTEGER_BLOB.ahk
 
 /**
  * Contains information used in the CertFindChainInStore function to build certificate chains.
@@ -7,10 +8,8 @@
  * The <b>pdwIssuerChainIndex</b> and <b>pdwIssuerElementIndex</b> members are only available if the <b>CERT_CHAIN_FIND_BY_ISSUER_PARA_HAS_EXTRA_FIELDS</b> macro is defined. If the <b>CERT_CHAIN_FIND_BY_ISSUER_PARA_HAS_EXTRA_FIELDS</b> macro is defined, the application must initialize all unused fields to zero.
  * @see https://learn.microsoft.com/windows/win32/api/wincrypt/ns-wincrypt-cert_chain_find_by_issuer_para
  * @namespace Windows.Win32.Security.Cryptography
- * @version v4.0.30319
  */
-class CERT_CHAIN_FIND_BY_ISSUER_PARA extends Win32Struct
-{
+class CERT_CHAIN_FIND_BY_ISSUER_PARA extends Win32Struct {
     static sizeof => 56
 
     static packingSize => 8
@@ -40,7 +39,6 @@ class CERT_CHAIN_FIND_BY_ISSUER_PARA extends Win32Struct
     }
 
     /**
-     * 
      * @type {Integer}
      */
     dwKeySpec {

@@ -4,10 +4,8 @@
 
 /**
  * @namespace Windows.Win32.Media.KernelStreaming
- * @version v4.0.30319
  */
-class KSMIDILOOPED_EVENT extends Win32Struct
-{
+class KSMIDILOOPED_EVENT extends Win32Struct {
     static sizeof => 8
 
     static packingSize => 8
@@ -15,7 +13,7 @@ class KSMIDILOOPED_EVENT extends Win32Struct
     /**
      * @type {HANDLE}
      */
-    WriteEvent{
+    WriteEvent {
         get {
             if(!this.HasProp("__WriteEvent"))
                 this.__WriteEvent := HANDLE(0, this)

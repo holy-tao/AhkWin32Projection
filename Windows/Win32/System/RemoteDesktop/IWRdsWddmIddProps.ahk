@@ -7,9 +7,8 @@
  * This interface allows a custom IDD driver to be loaded in a remote session.
  * @see https://learn.microsoft.com/windows/win32/api/wtsprotocol/nn-wtsprotocol-iwrdswddmiddprops
  * @namespace Windows.Win32.System.RemoteDesktop
- * @version v4.0.30319
  */
-class IWRdsWddmIddProps extends IUnknown{
+class IWRdsWddmIddProps extends IUnknown {
 
     static sizeof => A_PtrSize
     /**

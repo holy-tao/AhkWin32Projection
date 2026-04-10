@@ -7,9 +7,8 @@
  * An alpha texture is a bitmap of alpha values, each representing opacity of a pixel or subpixel.
  * @see https://learn.microsoft.com/windows/win32/api/dwrite/ne-dwrite-dwrite_texture_type
  * @namespace Windows.Win32.Graphics.DirectWrite
- * @version v4.0.30319
  */
-class DWRITE_TEXTURE_TYPE extends Win32Enum{
+class DWRITE_TEXTURE_TYPE extends Win32Enum {
 
     /**
      * Specifies an alpha texture for aliased text rendering (that is,  each pixel is either fully opaque or fully transparent), with one byte per pixel.

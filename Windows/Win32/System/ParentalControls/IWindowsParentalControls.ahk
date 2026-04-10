@@ -1,16 +1,15 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
-#Include .\IWPCGamesSettings.ahk
 #Include .\IWindowsParentalControlsCore.ahk
+#Include .\IWPCGamesSettings.ahk
 
 /**
  * Enables access to all settings interfaces of the Minimum Compliance API.
  * @see https://learn.microsoft.com/windows/win32/api/wpcapi/nn-wpcapi-iwindowsparentalcontrols
  * @namespace Windows.Win32.System.ParentalControls
- * @version v4.0.30319
  */
-class IWindowsParentalControls extends IWindowsParentalControlsCore{
+class IWindowsParentalControls extends IWindowsParentalControlsCore {
 
     static sizeof => A_PtrSize
     /**

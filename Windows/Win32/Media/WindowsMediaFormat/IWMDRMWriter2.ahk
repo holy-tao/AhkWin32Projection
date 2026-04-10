@@ -7,9 +7,8 @@
  * The IWMDRMWriter2 interface provides a method that enables you to write content encrypted with Windows Media DRM 10 for Network Devices.An IWMDRMWriter2 interface exists for every writer object.
  * @see https://learn.microsoft.com/windows/win32/api/wmsdkidl/nn-wmsdkidl-iwmdrmwriter2
  * @namespace Windows.Win32.Media.WindowsMediaFormat
- * @version v4.0.30319
  */
-class IWMDRMWriter2 extends IWMDRMWriter{
+class IWMDRMWriter2 extends IWMDRMWriter {
 
     static sizeof => A_PtrSize
     /**

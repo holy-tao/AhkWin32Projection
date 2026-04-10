@@ -4,7 +4,6 @@
 
 /**
  * @namespace Windows.Win32.Networking.Clustering
- * @version v4.0.30319
  */
 class Clustering {
 
@@ -3424,7 +3423,7 @@ class Clustering {
      * @remarks
      * Do not close a cluster handle if there are any object handles still in use that were obtained from the cluster 
      *     handle. After a cluster handle has been closed, all handles obtained from that handle are invalid.
-     * @param {HCLUSTER} _hCluster 
+     * @param {HCLUSTER} _hCluster Handle to the cluster to close.
      * @returns {BOOL} This function always returns <b>TRUE</b>.
      * @see https://learn.microsoft.com/windows/win32/api/clusapi/nf-clusapi-closecluster
      * @since windowsserver2008
@@ -3440,7 +3439,7 @@ class Clustering {
      * The cluster name is stored in the  <a href="https://docs.microsoft.com/previous-versions/windows/desktop/mscs/network-names-name">Name</a> private property of the core  <a href="https://docs.microsoft.com/previous-versions/windows/desktop/mscs/network-name">Network Name</a> resource (that is, the Network Name resource of the cluster). Because of possible dependencies on this resource, the change is not effective until the Network Name resource is brought back online.
      * 
      * Do not call  <b>SetClusterName</b> from a resource DLL. For more information, see  <a href="https://docs.microsoft.com/previous-versions/windows/desktop/mscs/function-calls-to-avoid-in-resource-dlls">Function Calls to Avoid in Resource DLLs</a>.
-     * @param {HCLUSTER} _hCluster 
+     * @param {HCLUSTER} _hCluster Handle to a cluster to rename.
      * @param {PWSTR} lpszNewClusterName Pointer to a null-terminated Unicode string containing the new cluster name.
      * @returns {Integer} If the operation succeeds, the function returns <b>ERROR_RESOURCE_PROPERTIES_STORED</b>.
      * 
@@ -3478,7 +3477,7 @@ class Clustering {
      *     and that the returned size does not include the terminating <b>NULL</b> in the count. For more 
      *     information on sizing buffers, see 
      *     <a href="https://docs.microsoft.com/previous-versions/windows/desktop/mscs/data-size-conventions">Data Size Conventions</a>.
-     * @param {HCLUSTER} _hCluster 
+     * @param {HCLUSTER} _hCluster Handle to a cluster.
      * @param {PWSTR} lpszClusterName Pointer to a null-terminated Unicode string containing the name of the cluster identified by 
      *       <i>hCluster</i>.
      * @param {Pointer<Integer>} lpcchClusterName Pointer to the size of the <i>lpszClusterName</i> buffer as a count of characters. On 
@@ -3532,7 +3531,7 @@ class Clustering {
      * Returns the name of a cluster's quorum resource.
      * @remarks
      * Note that <i>lpcchName</i> refers to a count of characters and not a count of bytes, and that the returned size does not include the terminating <b>NULL</b> in the count. For more information on sizing buffers, see  <a href="https://docs.microsoft.com/previous-versions/windows/desktop/mscs/data-size-conventions">Data Size Conventions</a>.
-     * @param {HCLUSTER} _hCluster 
+     * @param {HCLUSTER} _hCluster Handle to an existing <a href="https://docs.microsoft.com/previous-versions/windows/desktop/mscs/c-gly">cluster</a>.
      * @param {PWSTR} lpszResourceName Pointer to a null-terminated Unicode string containing the name of the cluster's quorum resource. The name is read from the quorum resource's  <a href="https://docs.microsoft.com/previous-versions/windows/desktop/mscs/resources-name">Name</a> common property. Do not pass <b>NULL</b> for this parameter.
      * @param {Pointer<Integer>} lpcchResourceName Pointer to the size of the <i>lpszResourceName</i> buffer as a count of characters. On input, specify the maximum number of characters the buffer can hold, including the terminating <b>NULL</b>. On output, specifies the number of characters in the resulting name, excluding the terminating <b>NULL</b>.
      * @param {PWSTR} lpszDeviceName Pointer to a null-terminated Unicode string containing the path to the location of the quorum log files maintained by the  <a href="https://docs.microsoft.com/previous-versions/windows/desktop/mscs/cluster-service">Cluster service</a>. Do not pass <b>NULL</b> for this parameter.
@@ -3581,7 +3580,10 @@ class Clustering {
      * Do not call <b>SetClusterQuorumResource</b> from 
      *      a resource DLL. For more information, see 
      *      <a href="https://docs.microsoft.com/previous-versions/windows/desktop/mscs/function-calls-to-avoid-in-resource-dlls">Function Calls to Avoid in Resource DLLs</a>.
-     * @param {HRESOURCE} _hResource 
+     * @param {HRESOURCE} _hResource Handle to the new quorum resource; or the existing 
+     *        <a href="https://docs.microsoft.com/previous-versions/windows/desktop/mscs/quorum-resource">quorum resource</a> when 
+     *        <i>dwMaxQuoLogSize</i> is 
+     *        <b>CLUS_NODE_MAJORITY_QUORUM</b>.
      * @param {PWSTR} lpszDeviceName Determines the drive letter and path that the Cluster service will use to maintain the quorum files on the 
      *        new quorum resource. Pass a null-terminated Unicode string or <b>NULL</b>, as follows.
      * 
@@ -3736,7 +3738,7 @@ class Clustering {
      * 
      * If possible, make multiple copies of the backup directory on different media and store these copies in separate 
      *      locations.
-     * @param {HCLUSTER} _hCluster 
+     * @param {HCLUSTER} _hCluster Handle to the cluster to be backed up.
      * @param {PWSTR} lpszPathName Null-terminated Unicode string specifying the path to where the backup should be created. Cluster 
      *       configuration information will be saved to this location; this is sensitive data that should be protected. For 
      *       example, this data can be protected by using an access control list to restrict access to the location where the 
@@ -3910,7 +3912,7 @@ class Clustering {
      *      can have additional destructive effects. For information on how LPC and RPC handles are created, see 
      *      <a href="https://docs.microsoft.com/previous-versions/windows/desktop/mscs/using-object-handles">Using Object Handles</a> and 
      *      <a href="https://docs.microsoft.com/windows/desktop/api/clusapi/nf-clusapi-opencluster">OpenCluster</a>.
-     * @param {HCLUSTER} _hCluster 
+     * @param {HCLUSTER} _hCluster Handle to the <a href="https://docs.microsoft.com/previous-versions/windows/desktop/mscs/c-gly">cluster</a> to be affected.
      * @param {Integer} NetworkCount Number of items in the list specified by the <i>NetworkList</i> parameter.
      * @param {Pointer<HNETWORK>} NetworkList Prioritized array of handles to network objects. The first handle in the array has the highest priority. The 
      *        list must contain only those networks that are used for internal communication between nodes in the cluster, 
@@ -3978,7 +3980,7 @@ class Clustering {
      * 
      * By default (<i>dwFlags</i> = 0), the function will not proceed unless all cluster nodes 
      *        are available.
-     * @param {Pointer} lpReturnStatusBuffer Pointer to an output buffer that receives an array of 
+     * @param {Integer} lpReturnStatusBuffer Pointer to an output buffer that receives an array of 
      *        <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/clusapi/ns-clusapi-cluster_set_password_status">CLUSTER_SET_PASSWORD_STATUS</a> structures 
      *        describing the result of the password update for each cluster node. If this parameter is not 
      *        <b>NULL</b> and the buffer is not large enough to hold the resulting data, the function 
@@ -4058,7 +4060,7 @@ class Clustering {
      *      <a href="https://docs.microsoft.com/previous-versions/windows/desktop/mscs/control-code-functions">control code functions</a>. For more information on 
      *      control codes and control code functions, see 
      *      <a href="https://docs.microsoft.com/previous-versions/windows/desktop/mscs/using-control-codes">Using Control Codes</a>.
-     * @param {HCLUSTER} _hCluster 
+     * @param {HCLUSTER} _hCluster Handle to the cluster to be affected.
      * @param {HNODE} hHostNode If non-<b>NULL</b>, handle to the node to perform the operation represented by the control 
      *        code. If <b>NULL</b>, the local node performs the operation. Specifying 
      *        <i>hHostNode</i> is optional.
@@ -4128,10 +4130,10 @@ class Clustering {
      * <a href="https://docs.microsoft.com/previous-versions/windows/desktop/mscs/clusctl-cluster-validate-private-properties">CLUSCTL_CLUSTER_VALIDATE_PRIVATE_PROPERTIES</a>
      * </li>
      * </ul>
-     * @param {Pointer} lpInBuffer Pointer to an input buffer containing information needed for the operation, or <b>NULL</b> 
+     * @param {Integer} lpInBuffer Pointer to an input buffer containing information needed for the operation, or <b>NULL</b> 
      *        if no information is needed.
      * @param {Integer} nInBufferSize The allocated size (in bytes) of the input buffer.
-     * @param {Pointer} lpOutBuffer Pointer to an output buffer to receive the data resulting from the operation, or 
+     * @param {Integer} lpOutBuffer Pointer to an output buffer to receive the data resulting from the operation, or 
      *        <b>NULL</b> if no data will be returned.
      * @param {Integer} nOutBufferSize The allocated size (in bytes) of the output buffer.
      * @param {Pointer<Integer>} lpBytesReturned Returns the actual size (in bytes) of the data resulting from the operation. If this information is not 
@@ -4202,9 +4204,9 @@ class Clustering {
      * @param {HCLUSTER} _hCluster 
      * @param {HNODE} hHostNode 
      * @param {Integer} dwControlCode 
-     * @param {Pointer} lpInBuffer 
+     * @param {Integer} lpInBuffer 
      * @param {Integer} nInBufferSize 
-     * @param {Pointer} lpOutBuffer 
+     * @param {Integer} lpOutBuffer 
      * @param {Integer} nOutBufferSize 
      * @param {Pointer<Integer>} lpBytesReturned 
      * @param {PWSTR} lpszReason 
@@ -4221,7 +4223,7 @@ class Clustering {
 
     /**
      * Initiates a rolling upgrade of the operating system on a cluster. PCLUSAPI_CLUSTER_UPGRADE defines a pointer to this function.
-     * @param {HCLUSTER} _hCluster 
+     * @param {HCLUSTER} _hCluster A handle to the cluster to upgrade.
      * @param {BOOL} perform <b>True</b> to initiate the rolling upgrade; otherwise <b>false</b>.
      * @param {Pointer<PCLUSTER_UPGRADE_PROGRESS_CALLBACK>} pfnProgressCallback A pointer to the <a href="https://docs.microsoft.com/windows/desktop/api/clusapi/nc-clusapi-pcluster_upgrade_progress_callback">ClusterUpgradeProgressCallback</a> callback function that retrieves the status of the rolling upgrade.
      * @param {Pointer<Void>} pvCallbackArg A pointer to the arguments for <b>pfnProgressCallback</b>.
@@ -4238,8 +4240,15 @@ class Clustering {
 
     /**
      * Creates or modifies a notification port. For information about notification ports, see Receiving Cluster Events.
-     * @param {HCHANGE} _hChange 
-     * @param {HCLUSTER} _hCluster 
+     * @param {HCHANGE} _hChange A handle to a notification port or <b>INVALID_HANDLE_VALUE</b>, indicating that a new handle 
+     *        should be created. If the <i>hChange</i>  parameter is an existing handle, the events that are specified in 
+     *        the <i>dwFilter</i> parameter are added to the notification port.
+     * @param {HCLUSTER} _hCluster A handle to the <a href="https://docs.microsoft.com/previous-versions/windows/desktop/mscs/c-gly">cluster</a> to be associated with the 
+     *        notification port that is  identified by the  <i>hChange</i>    parameter or 
+     *        <b>INVALID_HANDLE_VALUE</b>, indicating that the notification port should not be associated 
+     *        with a cluster. If the  <i>hChange</i>  parameter  is not set to 
+     *        <b>INVALID_HANDLE_VALUE</b>, the <i>hCluster</i>  parameter cannot be set to 
+     *        <b>INVALID_HANDLE_VALUE</b>.
      * @param {Pointer<NOTIFY_FILTER_AND_TYPE>} Filters A pointer to the <a href="https://docs.microsoft.com/windows/desktop/api/clusapi/ns-clusapi-notify_filter_and_type">NOTIFY_FILTER_AND_TYPE</a> structure that specifies the  type of notifications that the port can accept.
      * @param {Integer} dwFilterCount The number of filters that are  specified by the <i>Filters</i> parameter.
      * @param {Pointer} dwNotifyKey A user-specified value to associate with the retrieval of notifications from the notification port. The 
@@ -4267,7 +4276,8 @@ class Clustering {
 
     /**
      * Registers an event type with a notification port by adding the notification key to the event type.
-     * @param {HCHANGE} _hChange 
+     * @param {HCHANGE} _hChange A handle to a notification port that is created with the 
+     *       <a href="https://docs.microsoft.com/windows/desktop/api/clusapi/nf-clusapi-createclusternotifyportv2">CreateClusterNotifyPortV2</a> function.
      * @param {NOTIFY_FILTER_AND_TYPE} Filter A <a href="https://docs.microsoft.com/windows/desktop/api/clusapi/ns-clusapi-notify_filter_and_type">NOTIFY_FILTER_AND_TYPE</a> structure that specifies the event type to create.
      * @param {HANDLE} hObject A handle to the <a href="https://docs.microsoft.com/previous-versions/windows/desktop/mscs/cluster-objects">failover cluster object</a> 
      *        that is affected by the event as specified in the <i>dwFilterType</i> parameter. The type of handle 
@@ -4291,7 +4301,7 @@ class Clustering {
 
     /**
      * Retrieves a handle to a notification event.
-     * @param {HCHANGE} _hChange 
+     * @param {HCHANGE} _hChange A handle to the notification port that received the notification event.
      * @param {Pointer<HANDLE>} lphTargetEvent The handle to the notification event.
      * @returns {Integer} If the operation succeeds, the function returns <b>ERROR_SUCCESS</b>. 
      * 
@@ -4306,11 +4316,12 @@ class Clustering {
 
     /**
      * Retrieves information about the next notification event for a notification port.
-     * @param {HCHANGE} _hChange 
+     * @param {HCHANGE} _hChange A handle to the notification port. This handle is created by the 
+     *       <a href="https://docs.microsoft.com/windows/desktop/api/clusapi/nf-clusapi-createclusternotifyportv2">CreateClusterNotifyPortV2</a> function.
      * @param {Pointer<Pointer>} lpdwNotifyKey A pointer to the notification key for the notification port.
      * @param {Pointer<NOTIFY_FILTER_AND_TYPE>} pFilterAndType A  pointer to a <a href="https://docs.microsoft.com/windows/desktop/api/clusapi/ns-clusapi-notify_filter_and_type">NOTIFY_FILTER_AND_TYPE</a> 
      *       structure that describes the next notification event for the notification port.
-     * @param {Pointer} _buffer 
+     * @param {Integer} _buffer A pointer to a buffer for the notification event.
      * @param {Pointer<Integer>} lpbBufferSize A pointer to  the size of the <i>buffer</i> parameter, in bytes.
      * @param {PWSTR} lpszObjectId A pointer to a  Unicode string   with  the ID of the 
      *        cluster object that triggered the event. The string ends with a  terminating null character.
@@ -4415,8 +4426,15 @@ class Clustering {
      *      <a href="https://docs.microsoft.com/windows/desktop/api/clusapi/nf-clusapi-getclusternotify">GetClusterNotify</a>, and 
      *      <a href="https://docs.microsoft.com/windows/desktop/api/clusapi/nf-clusapi-registerclusternotify">RegisterClusterNotify</a>, functions, see 
      *      <a href="https://docs.microsoft.com/previous-versions/windows/desktop/mscs/receiving-cluster-events">Receiving Cluster Events</a>.
-     * @param {HCHANGE} _hChange 
-     * @param {HCLUSTER} _hCluster 
+     * @param {HCHANGE} _hChange Handle to a notification port or <b>INVALID_HANDLE_VALUE</b>, indicating that a new handle 
+     *        should be created. If <i>hChange</i> is an existing handle, the events specified in 
+     *        <i>dwFilter</i> are added to the notification port.
+     * @param {HCLUSTER} _hCluster Handle to the <a href="https://docs.microsoft.com/previous-versions/windows/desktop/mscs/c-gly">cluster</a> to be associated with the 
+     *        notification port identified by <i>hChange</i>, or 
+     *        <b>INVALID_HANDLE_VALUE</b>, indicating that the notification port should not be associated 
+     *        with a cluster. If <i>hChange</i> is not set to 
+     *        <b>INVALID_HANDLE_VALUE</b>, <i>hCluster</i> cannot be set to 
+     *        <b>INVALID_HANDLE_VALUE</b>.
      * @param {Integer} dwFilter Bitmask of flags enumerated from the <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/clusapi/ne-clusapi-cluster_change">CLUSTER_CHANGE</a> 
      *        enumeration that specifies the events that will cause notifications to be stored in the queue. One or more of 
      *        the following flags can be set using the OR operator, or you can specify all of the flags by using the value 
@@ -4454,7 +4472,8 @@ class Clustering {
      *     flags applicable to the database must be set in the <i>dwFilterType</i> parameter. Applicable 
      *     flags start with the prefix CLUSTER_CHANGE_REGISTRY. Making manual changes to the cluster database through the 
      *     registry editor, RegEdit.exe, does not generate notifications.
-     * @param {HCHANGE} _hChange 
+     * @param {HCHANGE} _hChange Handle to a notification port created with the 
+     *       <a href="https://docs.microsoft.com/windows/desktop/api/clusapi/nf-clusapi-createclusternotifyport">CreateClusterNotifyPort</a> function.
      * @param {Integer} dwFilterType Bitmask of flags that describes the event to be added to the set of events currently being monitored by the 
      *       notification port. For more information about these event types, see 
      *       <a href="https://docs.microsoft.com/windows/desktop/api/clusapi/nf-clusapi-createclusternotifyport">CreateClusterNotifyPort</a>. The 
@@ -4489,7 +4508,8 @@ class Clustering {
      * 
      * The notifications are asynchronous, and the state of the cluster at the time that the application processes the 
      *      notification can be different than the state of the cluster at the time the notification was generated.
-     * @param {HCHANGE} _hChange 
+     * @param {HCHANGE} _hChange The handle to a notification port that is created with the 
+     *        <a href="https://docs.microsoft.com/windows/desktop/api/clusapi/nf-clusapi-createclusternotifyport">CreateClusterNotifyPort</a> function.
      * @param {Pointer<Pointer>} lpdwNotifyKey A  pointer to the notification key for the port that is  identified by the  <i>hChange</i> parameter.
      * @param {Pointer<Integer>} lpdwFilterType 
      * @param {PWSTR} lpszName A pointer to a null-terminated Unicode string containing the name of the 
@@ -4569,7 +4589,7 @@ class Clustering {
 
     /**
      * Closes a notification port established through CreateClusterNotifyPort.
-     * @param {HCHANGE} _hChange 
+     * @param {HCHANGE} _hChange Handle to the notification port to close.
      * @returns {BOOL} This function always returns <b>TRUE</b>.
      * @see https://learn.microsoft.com/windows/win32/api/clusapi/nf-clusapi-closeclusternotifyport
      * @since windowsserver2008
@@ -4594,7 +4614,7 @@ class Clustering {
      *      to <a href="https://docs.microsoft.com/windows/desktop/api/clusapi/nf-clusapi-clusterenum">ClusterEnum</a> to access each of the cluster groups or 
      *      nodes and to <a href="https://docs.microsoft.com/windows/desktop/api/clusapi/nf-clusapi-clustercloseenum">ClusterCloseEnum</a> to release the 
      *      enumerator.
-     * @param {HCLUSTER} _hCluster 
+     * @param {HCLUSTER} _hCluster A handle to a cluster.
      * @param {Integer} dwType 
      * @returns {HCLUSENUM} If the operation succeeds, <b>ClusterOpenEnum</b> 
      *        returns a handle to a cluster enumerator.
@@ -4848,7 +4868,7 @@ class Clustering {
 
     /**
      * Adds a groupset to a cluster and returns a handle to the newly added groupset.
-     * @param {HCLUSTER} _hCluster 
+     * @param {HCLUSTER} _hCluster A handle to the target cluster.
      * @param {PWSTR} groupSetName Pointer to a null-terminated Unicode string containing the name of the groupset to be added.
      * @returns {HGROUPSET} If the operation succeeds, 
      * returns a groupset handle.
@@ -4873,7 +4893,7 @@ class Clustering {
 
     /**
      * Opens a handle to the specified groupset.
-     * @param {HCLUSTER} _hCluster 
+     * @param {HCLUSTER} _hCluster A handle to the cluster containing the collection.
      * @param {PWSTR} lpszGroupSetName The name of the collection to be opened
      * @returns {HGROUPSET} If the operation succeeds, 
      * the function returns a groupset handle.
@@ -4898,7 +4918,7 @@ class Clustering {
 
     /**
      * Closes a groupset handle returned from OpenClusterGroupSet.
-     * @param {HGROUPSET} _hGroupSet 
+     * @param {HGROUPSET} _hGroupSet The handle to close
      * @returns {BOOL} <table>
      * <tr>
      * <th>Return code</th>
@@ -4943,7 +4963,7 @@ class Clustering {
 
     /**
      * Deletes the specified groupset from the cluster.
-     * @param {HGROUPSET} _hGroupSet 
+     * @param {HGROUPSET} _hGroupSet A handle to the collection to be deleted
      * @returns {Integer} If the operation succeeds, the function returns <b>ERROR_SUCCESS</b>.
      * 
      * If the operation fails, 
@@ -4971,8 +4991,8 @@ class Clustering {
 
     /**
      * Adds the specified group to a groupset in the cluster.
-     * @param {HGROUPSET} _hGroupSet 
-     * @param {HGROUP} _hGroup 
+     * @param {HGROUPSET} _hGroupSet The collection to which to add the group
+     * @param {HGROUP} _hGroup The group to add to the collection
      * @returns {Integer} If the operation succeeds, the function returns <b>ERROR_SUCCESS</b>.
      * 
      * If the operation fails, 
@@ -5016,7 +5036,7 @@ class Clustering {
 
     /**
      * Removes the specified group from the groupset to which it is currently a member.
-     * @param {HGROUP} _hGroup 
+     * @param {HGROUP} _hGroup A handle to the group to remove.
      * @returns {Integer} Returns <b>ERROR_SUCCESS</b>  if successful, or if the group was not currently a member of a collection.
      * 
      * If the operation fails, 
@@ -5044,7 +5064,7 @@ class Clustering {
 
     /**
      * Initiates an operation affecting a groupset.
-     * @param {HGROUPSET} _hGroupSet 
+     * @param {HGROUPSET} _hGroupSet Handle to the groupset to be affected.
      * @param {HNODE} hHostNode If non-<b>NULL</b>, handle to the node to perform the operation represented by the control 
      *        code. If <b>NULL</b>, the <a href="https://docs.microsoft.com/previous-versions/windows/desktop/mscs/nodes">node</a> that owns the 
      *        groupset performs the operation. Specifying <i>hHostNode</i> is optional.
@@ -5079,10 +5099,10 @@ class Clustering {
      * <a href="https://docs.microsoft.com/previous-versions/windows/desktop/mscs/clusctl-group-get-provider-collections">CLUSCTL_GROUP_GET_PROVIDER_COLLECTIONS</a>
      * </li>
      * </ul>
-     * @param {Pointer} lpInBuffer Pointer to an input buffer containing information needed for the operation, or <b>NULL</b> 
+     * @param {Integer} lpInBuffer Pointer to an input buffer containing information needed for the operation, or <b>NULL</b> 
      *        if no information is needed.
      * @param {Integer} cbInBufferSize The allocated size (in bytes) of the input buffer.
-     * @param {Pointer} lpOutBuffer Pointer to an output buffer to receive the data resulting from the operation, or 
+     * @param {Integer} lpOutBuffer Pointer to an output buffer to receive the data resulting from the operation, or 
      *        <b>NULL</b> if no data will be returned.
      * @param {Integer} cbOutBufferSize The allocated size (in bytes) of the output buffer.
      * @param {Pointer<Integer>} lpBytesReturned Returns the actual size (in bytes) of the data resulting from the operation. If this information is not 
@@ -5153,9 +5173,9 @@ class Clustering {
      * @param {HGROUPSET} _hGroupSet 
      * @param {HNODE} hHostNode 
      * @param {Integer} dwControlCode 
-     * @param {Pointer} lpInBuffer 
+     * @param {Integer} lpInBuffer 
      * @param {Integer} cbInBufferSize 
-     * @param {Pointer} lpOutBuffer 
+     * @param {Integer} lpOutBuffer 
      * @param {Integer} cbOutBufferSize 
      * @param {Pointer<Integer>} lpBytesReturned 
      * @param {PWSTR} lpszReason 
@@ -5202,7 +5222,7 @@ class Clustering {
 
     /**
      * Sets the dependency expression for a cluster group.
-     * @param {HGROUP} _hGroup 
+     * @param {HGROUP} _hGroup A handle to the group on which to set the dependency expression.
      * @param {PWSTR} lpszDependencyExpression The dependency expression to set on the group.
      * @returns {Integer} If the operation succeeds, the function returns <b>ERROR_SUCCESS</b>.
      * 
@@ -5235,7 +5255,7 @@ class Clustering {
 
     /**
      * Removes a dependency between two cluster groups.
-     * @param {HGROUP} _hGroup 
+     * @param {HGROUP} _hGroup The dependent group
      * @param {HGROUP} hDependsOn The group <i>hDependentGroup</i> depends on
      * @returns {Integer} If the operation succeeds, the function returns <b>ERROR_SUCCESS</b>.
      * 
@@ -5295,7 +5315,7 @@ class Clustering {
 
     /**
      * Sets the dependency expression for a cluster groupset.
-     * @param {HGROUPSET} _hGroupSet 
+     * @param {HGROUPSET} _hGroupSet The collection to receive the dependency expression
      * @param {PWSTR} lpszDependencyExprssion The dependency expression for <i>hCollection</i>
      * @returns {Integer} If the operation succeeds, the function returns <b>ERROR_SUCCESS</b>.
      * 
@@ -5328,7 +5348,7 @@ class Clustering {
 
     /**
      * Removes a groupset from a groupset's dependency expression.
-     * @param {HGROUPSET} _hGroupSet 
+     * @param {HGROUPSET} _hGroupSet The groupset from which to remove the dependency.
      * @param {HGROUPSET} hDependsOn The collection to remove
      * @returns {Integer} If the operation succeeds, the function returns <b>ERROR_SUCCESS</b>.
      * 
@@ -5388,7 +5408,7 @@ class Clustering {
 
     /**
      * Removes a groupset from a group's dependency expression.
-     * @param {HGROUP} _hGroup 
+     * @param {HGROUP} _hGroup The group from which to remove the dependency.
      * @param {HGROUPSET} hDependsOn The groupset to remove.
      * @returns {Integer} If the operation succeeds, the function returns <b>ERROR_SUCCESS</b>.
      * 
@@ -5418,7 +5438,7 @@ class Clustering {
 
     /**
      * Starts the enumeration of groupset for a cluster.
-     * @param {HCLUSTER} _hCluster 
+     * @param {HCLUSTER} _hCluster A handle to the cluster containing the groupset.
      * @returns {HGROUPSETENUM} If successful, returns a handle suitable for use with <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/clusapi/nf-clusapi-clustergroupsetenum">ClusterGroupSetEnum</a>
      * 
      * 
@@ -5440,7 +5460,7 @@ class Clustering {
 
     /**
      * Gets the number of items contained the enumerator's collection.
-     * @param {HGROUPSETENUM} _hGroupSetEnum 
+     * @param {HGROUPSETENUM} _hGroupSetEnum A handle to an enumerator returned by <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/clusapi/nf-clusapi-clustergroupsetopenenum">ClusterGroupSetOpenEnum</a>.
      * @returns {Integer} The number of items in the enumerator's collection. May be zero.
      * @see https://learn.microsoft.com/windows/win32/api/clusapi/nf-clusapi-clustergroupsetgetenumcount
      * @since windowsserver2016
@@ -5452,7 +5472,8 @@ class Clustering {
 
     /**
      * Returns the next enumerable object.
-     * @param {HGROUPSETENUM} _hGroupSetEnum 
+     * @param {HGROUPSETENUM} _hGroupSetEnum A handle to an open cluster node enumeration
+     *     returned by <a href="https://docs.microsoft.com/windows/desktop/api/clusapi/nf-clusapi-clusternodeopenenum">ClusterNodeOpenEnum</a>
      * @param {Integer} dwIndex The index to enumerate, zero for the first call to this function and then
      *     incremented for subsequent calls.
      * @param {PWSTR} lpszName Points to a buffer that receives the name of the object,
@@ -5480,7 +5501,7 @@ class Clustering {
 
     /**
      * Closes an open enumeration for a groupset.
-     * @param {HGROUPSETENUM} _hGroupSetEnum 
+     * @param {HGROUPSETENUM} _hGroupSetEnum The enumeration to be closed.
      * @returns {Integer} If the operation succeeds, the function returns <b>ERROR_SUCCESS</b>.
      * 
      * If the operation fails, the function returns a 
@@ -5556,7 +5577,7 @@ class Clustering {
      * 
      * @param {HCLUSTER} _hCluster 
      * @param {PWSTR} ruleName 
-     * @param {Integer} ruleType 
+     * @param {CLUS_AFFINITY_RULE_TYPE} ruleType 
      * @returns {Integer} 
      */
     static ClusterCreateAffinityRule(_hCluster, ruleName, ruleType) {
@@ -5613,9 +5634,9 @@ class Clustering {
      * @param {PWSTR} affinityRuleName 
      * @param {HNODE} hHostNode 
      * @param {Integer} dwControlCode 
-     * @param {Pointer} lpInBuffer 
+     * @param {Integer} lpInBuffer 
      * @param {Integer} cbInBufferSize 
-     * @param {Pointer} lpOutBuffer 
+     * @param {Integer} lpOutBuffer 
      * @param {Integer} cbOutBufferSize 
      * @param {Pointer<Integer>} lpBytesReturned 
      * @returns {Integer} 
@@ -5631,7 +5652,9 @@ class Clustering {
 
     /**
      * Opens a node and returns a handle to it. (OpenClusterNode)
-     * @param {HCLUSTER} _hCluster 
+     * @param {HCLUSTER} _hCluster Handle to a <a href="https://docs.microsoft.com/previous-versions/windows/desktop/mscs/c-gly">cluster</a> returned from the 
+     *       <a href="https://docs.microsoft.com/windows/desktop/api/clusapi/nf-clusapi-opencluster">OpenCluster</a> or 
+     *       <a href="https://docs.microsoft.com/windows/desktop/api/clusapi/nf-clusapi-openclusterex">OpenClusterEx</a> functions.
      * @param {PWSTR} lpszNodeName Pointer to the NetBIOS name of an existing node. If the DNS name of the node is used, the 
      *       <b>OpenClusterNode</b> function will fail and 
      *       <a href="https://docs.microsoft.com/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a> will return 
@@ -5675,7 +5698,9 @@ class Clustering {
 
     /**
      * Opens a node and returns a handle to it. (OpenClusterNodeEx)
-     * @param {HCLUSTER} _hCluster 
+     * @param {HCLUSTER} _hCluster Handle to a <a href="https://docs.microsoft.com/previous-versions/windows/desktop/mscs/c-gly">cluster</a> returned from the 
+     *       <a href="https://docs.microsoft.com/windows/desktop/api/clusapi/nf-clusapi-opencluster">OpenCluster</a> or 
+     *       <a href="https://docs.microsoft.com/windows/desktop/api/clusapi/nf-clusapi-openclusterex">OpenClusterEx</a> functions.
      * @param {PWSTR} lpszNodeName Pointer to the NetBIOS name of an existing node. If the DNS name of the node is used, the 
      *       <b>OpenClusterNodeEx</b> function will fail and 
      *       <a href="https://docs.microsoft.com/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a> will return 
@@ -5745,7 +5770,7 @@ class Clustering {
 
     /**
      * Closes a node handle.
-     * @param {HNODE} _hNode 
+     * @param {HNODE} _hNode Handle to an existing node.
      * @returns {BOOL} <table>
      * <tr>
      * <th>Return code</th>
@@ -5807,8 +5832,8 @@ class Clustering {
      *     the <b>ClusterNodePaused</b> state (see the 
      *     <a href="https://docs.microsoft.com/windows/desktop/api/clusapi/nf-clusapi-pauseclusternode">PauseClusterNode</a> function). Nodes that are undergoing 
      *     maintenance are typically placed in this state.
-     * @param {HNODE} _hNode 
-     * @returns {Integer} <b>GetClusterNodeState</b> returns the current state 
+     * @param {HNODE} _hNode Handle to the node for which state information should be returned.
+     * @returns {CLUSTER_NODE_STATE} <b>GetClusterNodeState</b> returns the current state 
      *        of the node, which is represented by one of the following values.
      * 
      * 
@@ -5918,7 +5943,9 @@ class Clustering {
      * Note that <i>lpcchName</i> refers to a count of characters and not a count of bytes, and 
      *      that the returned size does not include the terminating <b>NULL</b> in the count. For more information on sizing 
      *      buffers, see <a href="https://docs.microsoft.com/previous-versions/windows/desktop/mscs/data-size-conventions">Data Size Conventions</a>.
-     * @param {HNODE} _hNode 
+     * @param {HNODE} _hNode Handle to the node with the identifier to be returned or <b>NULL</b>. If 
+     *        <i>hNode</i> is set to <b>NULL</b>, the node identifier for the node on 
+     *        which the application is running is returned in the content of <i>lpszNodeId</i>.
      * @param {PWSTR} lpszNodeId This parameter points to a buffer that receives the unique ID of <i>hNode</i>, including 
      *        the terminating <b>NULL</b> character.
      * @param {Pointer<Integer>} lpcchName On input, pointer to the count of characters in the buffer pointed to by the 
@@ -5980,7 +6007,7 @@ class Clustering {
      * For <i>hNode</i> to be a valid handle, there must necessarily be an open cluster handle (see  <a href="https://docs.microsoft.com/windows/desktop/api/clusapi/nf-clusapi-openclusternode">OpenClusterNode</a>).  <b>GetClusterFromNode</b> returns another instance of the handle from which <i>hNode</i> was obtained.
      * 
      * Be sure to call  <a href="https://docs.microsoft.com/windows/desktop/api/clusapi/nf-clusapi-closecluster">CloseCluster</a> on the handle returned from  <b>GetClusterFromNode</b> before the handle goes out of scope. Closing this handle does not invalidate <i>hNode</i> or the cluster handle from which <i>hNode</i> was obtained.
-     * @param {HNODE} _hNode 
+     * @param {HNODE} _hNode Handle to the node.
      * @returns {HCLUSTER} If the operation succeeds, the function returns a handle to the cluster that owns the node.
      * 
      * If the operation fails, 
@@ -6007,7 +6034,7 @@ class Clustering {
      * Groups that are owned by a paused node remain owned by the node. A paused node's groups and resources can be taken offline, but they cannot be brought online. Because the paused state is persistent, a paused node that is rebooted continues to be paused when it comes back up.
      * 
      * A paused node is said to be in the <b>ClusterNodePaused</b> state (see  <a href="https://docs.microsoft.com/windows/desktop/api/clusapi/nf-clusapi-getclusternodestate">GetClusterNodeState</a>). To resume a node's cluster activity, use the  <a href="https://docs.microsoft.com/windows/desktop/api/clusapi/nf-clusapi-resumeclusternode">ResumeClusterNode</a> function.
-     * @param {HNODE} _hNode 
+     * @param {HNODE} _hNode Handle to the node to suspend activity.
      * @returns {Integer} If the operation succeeds, the function returns <b>ERROR_SUCCESS</b>.
      * 
      * If the operation fails, 
@@ -6022,7 +6049,7 @@ class Clustering {
 
     /**
      * Requests that a paused node resume its cluster activity. The PCLUSAPI_RESUME_CLUSTER_NODE type defines a pointer to this function.
-     * @param {HNODE} _hNode 
+     * @param {HNODE} _hNode Handle to the paused node.
      * @returns {Integer} If the operation succeeds, the function returns <b>ERROR_SUCCESS</b>.
      * 
      * If the operation fails, 
@@ -6039,7 +6066,7 @@ class Clustering {
      * Deletes a node from the cluster database.
      * @remarks
      * To reinstate an evicted node, you must first remove the  <a href="https://docs.microsoft.com/previous-versions/windows/desktop/mscs/cluster-service">Cluster service</a> from the node and then reinstall it. During installation, choose the <b>Join an Existing Cluster</b> option.
-     * @param {HNODE} _hNode 
+     * @param {HNODE} _hNode Handle to the node to delete.
      * @returns {Integer} If the operation succeeds, the function returns <b>ERROR_SUCCESS</b>.
      * 
      * If the operation fails, 
@@ -6054,7 +6081,7 @@ class Clustering {
 
     /**
      * Opens an enumerator for iterating through the installed network interfaces.
-     * @param {HCLUSTER} _hCluster 
+     * @param {HCLUSTER} _hCluster Handle to a cluster
      * @param {PWSTR} lpszNodeName The name of the node.
      * @param {PWSTR} lpszNetworkName The name of the network.
      * @returns {HNETINTERFACEENUM} If the operation succeeds, returns a handle to an 
@@ -6081,7 +6108,8 @@ class Clustering {
 
     /**
      * Enumerates the network interfaces installed on a cluster, returning one name with each call.
-     * @param {HNETINTERFACEENUM} _hNetInterfaceEnum 
+     * @param {HNETINTERFACEENUM} _hNetInterfaceEnum Handle to an existing enumeration object originally returned by the 
+     *        <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/clusapi/nf-clusapi-clusternetinterfaceopenenum">ClusterNetInterfaceOpenEnum</a> function.
      * @param {Integer} dwIndex Index used to identify the entry to be enumerated. This parameter should be zero for the first call and then incremented for each subsequent 
      *        call.
      * @param {PWSTR} lpszName Pointer to a null-terminated Unicode string containing the name of the returned object.
@@ -6151,7 +6179,7 @@ class Clustering {
 
     /**
      * Closes a network interface enumeration handle.
-     * @param {HNETINTERFACEENUM} _hNetInterfaceEnum 
+     * @param {HNETINTERFACEENUM} _hNetInterfaceEnum Handle to the node enumerator to close. This is a handle originally returned by the  <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/clusapi/nf-clusapi-clusternetinterfaceopenenum">ClusterNetInterfaceOpenEnum</a> function.
      * @returns {Integer} If the operation succeeds, the function returns <b>ERROR_SUCCESS</b>.
      *      If the operation fails, 
      * the function returns a <a href="https://docs.microsoft.com/windows/desktop/Debug/system-error-codes">system error code</a>.
@@ -6171,7 +6199,7 @@ class Clustering {
      *      access each of the objects to be enumerated and to 
      *      <a href="https://docs.microsoft.com/windows/desktop/api/clusapi/nf-clusapi-clusternodecloseenum">ClusterNodeCloseEnum</a> to release the 
      *      enumerator.
-     * @param {HNODE} _hNode 
+     * @param {HNODE} _hNode Handle to a node.
      * @param {Integer} dwType Bitmask describing the type of objects to be enumerated. The following values of the 
      *        <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/clusapi/ne-clusapi-cluster_node_enum">CLUSTER_NODE_ENUM</a> enumeration are valid.
      * @returns {HNODEENUM} If the operation succeeds, 
@@ -6217,7 +6245,7 @@ class Clustering {
 
     /**
      * Returns the number of cluster objects that are associated with a node enumeration handle.
-     * @param {HNODEENUMEX} _hNodeEnum 
+     * @param {HNODEENUMEX} _hNodeEnum The handle to a node enumeration that was retrieved by the   <a href="https://docs.microsoft.com/windows/desktop/api/clusapi/nf-clusapi-clusternodeopenenumex">ClusterNodeOpenEnumEx</a> function. A valid handle is required. This parameter cannot be <b>NULL</b>.
      * @returns {Integer} The number of objects that are associated with the enumeration handle.
      * @see https://learn.microsoft.com/windows/win32/api/clusapi/nf-clusapi-clusternodegetenumcountex
      * @since windowsserver2008
@@ -6229,7 +6257,7 @@ class Clustering {
 
     /**
      * Retrieves the specified cluster node from a CLUSTER_ENUM_ITEM enumeration.
-     * @param {HNODEENUMEX} _hNodeEnum 
+     * @param {HNODEENUMEX} _hNodeEnum A handle to the <a href="https://docs.microsoft.com/windows/desktop/api/clusapi/ns-clusapi-cluster_enum_item">CLUSTER_ENUM_ITEM</a> enumeration that contains the cluster node to retrieve.
      * @param {Integer} dwIndex The index that identifies the next object to enumerate. This parameter should be zero for the first call to the  <a href="https://docs.microsoft.com/windows/desktop/api/clusapi/nf-clusapi-clusterenumex">ClusterEnumEx</a>  function and then be incremented for subsequent calls.
      * @param {Pointer<CLUSTER_ENUM_ITEM>} pItem A pointer that receives the returned cluster node.
      * @param {Pointer<Integer>} cbItem On input, the size of the  <i>pItem</i>    parameter.
@@ -6286,7 +6314,7 @@ class Clustering {
 
     /**
      * Closes a node enumeration handle. (ClusterNodeCloseEnumEx)
-     * @param {HNODEENUMEX} _hNodeEnum 
+     * @param {HNODEENUMEX} _hNodeEnum The handle to the node enumeration  to close. This handle is returned by the  <a href="https://docs.microsoft.com/windows/desktop/api/clusapi/nf-clusapi-clusternodeopenenumex">ClusterNodeOpenEnumEx</a> function.
      * @returns {Integer} If the operation succeeds, the function returns <b>ERROR_SUCCESS</b>.
      *      If the operation fails, 
      * the function returns a <a href="https://docs.microsoft.com/windows/desktop/Debug/system-error-codes">system error code</a>.
@@ -6300,7 +6328,7 @@ class Clustering {
 
     /**
      * Returns the number of cluster objects associated with a node enumeration handle.
-     * @param {HNODEENUM} _hNodeEnum 
+     * @param {HNODEENUM} _hNodeEnum Handle to a node enumeration. This handle is obtained from  <a href="https://docs.microsoft.com/windows/desktop/api/clusapi/nf-clusapi-clusternodeopenenum">ClusterNodeOpenEnum</a>. A valid handle is required. This parameter cannot be <b>NULL</b>.
      * @returns {Integer} <b>ClusterNodeGetEnumCount</b> returns the number of objects associated with the enumeration handle.
      * @see https://learn.microsoft.com/windows/win32/api/clusapi/nf-clusapi-clusternodegetenumcount
      * @since windowsserver2008
@@ -6312,7 +6340,7 @@ class Clustering {
 
     /**
      * Closes a node enumeration handle. (ClusterNodeCloseEnum)
-     * @param {HNODEENUM} _hNodeEnum 
+     * @param {HNODEENUM} _hNodeEnum Handle to the node enumerator to close. This is a handle originally returned by the  <a href="https://docs.microsoft.com/windows/desktop/api/clusapi/nf-clusapi-clusternodeopenenum">ClusterNodeOpenEnum</a> function.
      * @returns {Integer} If the operation succeeds, the function returns <b>ERROR_SUCCESS</b>.
      *      If the operation fails, 
      * the function returns a <a href="https://docs.microsoft.com/windows/desktop/Debug/system-error-codes">system error code</a>.
@@ -6337,7 +6365,8 @@ class Clustering {
      *      bytes, and that the returned size does not include the terminating <b>NULL</b> in the count. 
      *      For more information on sizing buffers, see 
      *      <a href="https://docs.microsoft.com/previous-versions/windows/desktop/mscs/data-size-conventions">Data Size Conventions</a>.
-     * @param {HNODEENUM} _hNodeEnum 
+     * @param {HNODEENUM} _hNodeEnum Handle to an existing enumeration object originally returned by the 
+     *        <a href="https://docs.microsoft.com/windows/desktop/api/clusapi/nf-clusapi-clusternodeopenenum">ClusterNodeOpenEnum</a> function.
      * @param {Integer} dwIndex Index used to identify the next entry to be enumerated. This parameter should be zero for the first call to 
      *        <b>ClusterNodeEnum</b> and then incremented for subsequent 
      *        calls.
@@ -6412,7 +6441,7 @@ class Clustering {
 
     /**
      * Evicts a node from the cluster and initiates cleanup operations on the node.
-     * @param {HNODE} _hNode 
+     * @param {HNODE} _hNode Handle to the node to remove from the cluster.
      * @param {Integer} dwTimeOut Specifies the number of milliseconds for the function to wait for cleanup operations to occur. The function 
      *       will return when the cleanup is complete or when the specified time elapses, whichever is sooner.
      * @param {Pointer<HRESULT>} phrCleanupStatus Pointer to an <b>HRESULT</b>   that describes the results of the cleanup operation.
@@ -6469,7 +6498,7 @@ class Clustering {
      * Opens the root of the cluster database subtree for a resource type.
      * @remarks
      * The  <b>GetClusterResourceTypeKey</b> function returns a handle to a cluster database key representing the subtree root for the resource type pointed to by <i>lpszTypeName</i> in the cluster identified by <i>hCluster</i>. Callers should call  <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/clusapi/nf-clusapi-clusterregclosekey">ClusterRegCloseKey</a> to close the key handle retrieved by  <b>GetClusterResourceTypeKey</b> when they are done with it.
-     * @param {HCLUSTER} _hCluster 
+     * @param {HCLUSTER} _hCluster Handle to a <a href="https://docs.microsoft.com/previous-versions/windows/desktop/mscs/c-gly">cluster</a>.
      * @param {PWSTR} lpszTypeName Pointer to a NULL-terminated Unicode string specifying the name of a resource type (the registered type name, not the display name).
      * @param {Integer} samDesired Access mask that describes the security access needed for the opened key.
      * @returns {HKEY} If the operation succeeds, the function returns a registry key handle for the resource type.
@@ -6499,7 +6528,7 @@ class Clustering {
      * Do not call  <b>CreateClusterGroup</b> from a resource DLL. For more information, see  <a href="https://docs.microsoft.com/previous-versions/windows/desktop/mscs/function-calls-to-avoid-in-resource-dlls">Function Calls to Avoid in Resource DLLs</a>.
      * 
      * The <b>CreateClusterGroup</b> function calls the <a href="https://docs.microsoft.com/windows/desktop/api/clusapi/nf-clusapi-createclustergroupex">CreateClusterGroupEx</a> function with a <b>NULL</b> CLUSTER_CREATE_GROUP_INFO. The new group is created with a group type of ClusGroupTypeUnknown.
-     * @param {HCLUSTER} _hCluster 
+     * @param {HCLUSTER} _hCluster Handle to the target cluster.
      * @param {PWSTR} lpszGroupName Pointer to a null-terminated Unicode string containing the name of the group to be added to the cluster identified by <i>hCluster</i>. If there is not a group by this name,  <b>CreateClusterGroup</b> creates it.
      * @returns {HGROUP} If the operation succeeds, 
      * the function returns a group handle.
@@ -6524,7 +6553,7 @@ class Clustering {
 
     /**
      * Opens a failover cluster group and returns a handle to it. (OpenClusterGroup)
-     * @param {HCLUSTER} _hCluster 
+     * @param {HCLUSTER} _hCluster Handle to a cluster that includes the group to open.
      * @param {PWSTR} lpszGroupName Name of the group to open.
      * @returns {HGROUP} <table>
      * <tr>
@@ -6566,7 +6595,7 @@ class Clustering {
 
     /**
      * Opens a failover cluster group and returns a handle to it. (OpenClusterGroupEx)
-     * @param {HCLUSTER} _hCluster 
+     * @param {HCLUSTER} _hCluster Handle to a cluster that includes the group to open.
      * @param {PWSTR} lpszGroupName Name of the group to open.
      * @param {Integer} dwDesiredAccess The requested access privileges. This may be any combination of <b>GENERIC_READ</b> 
      *       (0x80000000), <b>GENERIC_ALL</b> (0x10000000), or <b>MAXIMUM_ALLOWED</b> 
@@ -6652,8 +6681,8 @@ class Clustering {
 
     /**
      * Initiates the specified failback operation, and then requests that a paused node resumes cluster activity.
-     * @param {HNODE} _hNode 
-     * @param {Integer} eResumeFailbackType The type of failback operation to use when cluster activity resumes. The available failback types are specified in the <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/clusapi/ne-clusapi-cluster_node_resume_failback_type">CLUSTER_NODE_RESUME_FAILBACK_TYPE</a> enumeration.
+     * @param {HNODE} _hNode The  handle to the paused node.
+     * @param {CLUSTER_NODE_RESUME_FAILBACK_TYPE} eResumeFailbackType The type of failback operation to use when cluster activity resumes. The available failback types are specified in the <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/clusapi/ne-clusapi-cluster_node_resume_failback_type">CLUSTER_NODE_RESUME_FAILBACK_TYPE</a> enumeration.
      * @param {Integer} dwResumeFlagsReserved This parameter is reserved for future use.
      * @returns {Integer} If the operation succeeds, the function returns <b>ERROR_SUCCESS</b>.
      * 
@@ -6670,7 +6699,7 @@ class Clustering {
     /**
      * 
      * @param {HNODE} _hNode 
-     * @param {Integer} eResumeFailbackType 
+     * @param {CLUSTER_NODE_RESUME_FAILBACK_TYPE} eResumeFailbackType 
      * @param {Integer} dwResumeFlagsReserved 
      * @param {PWSTR} lpszReason 
      * @returns {Integer} 
@@ -6686,7 +6715,7 @@ class Clustering {
      * Creates a new cluster group with the options specified in the CLUSTER_CREATE_GROUP_INFO structure in a single operation.
      * @remarks
      * The <b>CLUSTER_CREATE_GROUP_INFO</b> structure enables additional properties for group creation.  Currently, only the group type can be specified, which  enables the group type to be set when the group is created.
-     * @param {HCLUSTER} _hCluster 
+     * @param {HCLUSTER} _hCluster The handle to the cluster in which the group will be created.
      * @param {PWSTR} lpszGroupName The name of the new cluster group.
      * @param {Pointer<CLUSTER_CREATE_GROUP_INFO>} pGroupInfo The additional information used to create the group.
      * @returns {HGROUP} If the operation is successful, the function returns a handle to the newly created group.
@@ -6705,10 +6734,10 @@ class Clustering {
      * Opens a handle to the group enumeration.
      * @remarks
      * The <b>ClusterGroupOpenEnumEx</b> function connects to the cluster service via remote procedure call (RPC) and gathers all of the data to handle the entire enumeration.  After the RPC call completes, the data is maintained locally.  The <b>HGROUPENUMEX</b> handle contains all of the data required to satisfy the enumeration.  Additional calls to <a href="https://docs.microsoft.com/windows/desktop/api/clusapi/nf-clusapi-clustergroupenumex">ClusterGroupEnumEx</a>   or <a href="https://docs.microsoft.com/windows/desktop/api/clusapi/nf-clusapi-clustergroupgetenumcountex">ClusterGroupGetEnumCountEx</a> do not connect to the cluster.
-     * @param {HCLUSTER} _hCluster 
-     * @param {Pointer} lpszProperties A pointer to a list of names of common properties.
+     * @param {HCLUSTER} _hCluster The handle to the cluster on which the enumeration will be performed.
+     * @param {Integer} lpszProperties A pointer to a list of names of common properties.
      * @param {Integer} cbProperties The size, in bytes, of the <b>lpszProperties</b> field.
-     * @param {Pointer} lpszRoProperties A pointer to a list of names of read-only common properties.
+     * @param {Integer} lpszRoProperties A pointer to a list of names of read-only common properties.
      * @param {Integer} cbRoProperties The size, in bytes, of the <b>lpszRoProperties</b> field.
      * @param {Integer} dwFlags Reserved for future use. This value must be 0.
      * @returns {HGROUPENUMEX} If the operation is successful, the function returns a handle to the enumeration.
@@ -6726,7 +6755,7 @@ class Clustering {
      * Returns the number of elements in the enumeration.
      * @remarks
      * The <b>ClusterGroupGetEnumCountEx</b> function doesn't connect to the cluster, because <i>hGroupEnumEx</i> handle already contains the enumeration data.
-     * @param {HGROUPENUMEX} _hGroupEnumEx 
+     * @param {HGROUPENUMEX} _hGroupEnumEx The handle to the enumeration from which the number of entries will be returned.
      * @returns {Integer} The number of items in the enumeration.
      * @see https://learn.microsoft.com/windows/win32/api/clusapi/nf-clusapi-clustergroupgetenumcountex
      * @since windowsserver2012
@@ -6740,7 +6769,7 @@ class Clustering {
      * Retrieves an item in the enumeration.
      * @remarks
      * The <b>ClusterGroupEnumEx</b> function doesn't connect to the cluster, because the <i>hGroupEnumEx</i> already contains the enumeration data.  The data is copied into the buffer but no data is retrieved from the cluster.
-     * @param {HGROUPENUMEX} _hGroupEnumEx 
+     * @param {HGROUPENUMEX} _hGroupEnumEx The handle to the enumeration from which the item will be retrieved.
      * @param {Integer} dwIndex The zero-based index of the item in the enumeration.
      * @param {Pointer<CLUSTER_GROUP_ENUM_ITEM>} pItem A pointer to the buffer to be filled.
      * @param {Pointer<Integer>} cbItem On input, the size of <i>pItem</i>.
@@ -6802,7 +6831,7 @@ class Clustering {
      *     <i>hGroupEnumEx</i> handle after the 
      *     <b>ClusterGroupCloseEnumEx</b> function is 
      *     called.
-     * @param {HGROUPENUMEX} _hGroupEnumEx 
+     * @param {HGROUPENUMEX} _hGroupEnumEx The handle to the enumeration that will be freed.
      * @returns {Integer} ERROR_SUCCESS is returned when the enumeration handle is freed.
      * @see https://learn.microsoft.com/windows/win32/api/clusapi/nf-clusapi-clustergroupcloseenumex
      * @since windowsserver2012
@@ -6814,10 +6843,10 @@ class Clustering {
 
     /**
      * Opens a handle to a resource enumeration that enables iteration through a resource's dependencies and nodes.
-     * @param {HCLUSTER} _hCluster 
-     * @param {Pointer} lpszProperties A pointer to a list of names of common properties.
+     * @param {HCLUSTER} _hCluster A handle to the resource to iterate through.
+     * @param {Integer} lpszProperties A pointer to a list of names of common properties.
      * @param {Integer} cbProperties The size, in bytes, of the <i>lpszProperties</i>  parameter.
-     * @param {Pointer} lpszRoProperties A pointer to a list of names of read-only common properties.
+     * @param {Integer} lpszRoProperties A pointer to a list of names of read-only common properties.
      * @param {Integer} cbRoProperties The size, in bytes, of the <i>lpszRoProperties</i>  parameter.
      * @param {Integer} dwFlags The index that identifies the next object to enumerate. This parameter should be zero for the first call to <b>ClusterResourceOpenEnumEx</b> and then be incremented for subsequent calls.
      * @returns {HRESENUMEX} If the operation succeeds, the function returns an enumeration handle.
@@ -6946,10 +6975,10 @@ class Clustering {
 
     /**
      * Brings a group online. (OnlineClusterGroupEx)
-     * @param {HGROUP} _hGroup 
+     * @param {HGROUP} _hGroup A handle to the group to be brought online.
      * @param {HNODE} hDestinationNode A handle to the  <a href="https://docs.microsoft.com/previous-versions/windows/desktop/mscs/nodes">node</a> that is to host the group.
      * @param {Integer} dwOnlineFlags A flag that specifies settings for the resource that is to be brought online.
-     * @param {Pointer} lpInBuffer A pointer to the input buffer that receives instructions for the operation.  The <i>lpInBuffer</i>  parameter is formatted as a property list.
+     * @param {Integer} lpInBuffer A pointer to the input buffer that receives instructions for the operation.  The <i>lpInBuffer</i>  parameter is formatted as a property list.
      * @param {Integer} cbInBufferSize The size of the <i>lpInBuffer</i> parameter, in bytes.
      * @returns {Integer} If the operation succeeds, the function returns <b>ERROR_SUCCESS</b>.
      * 
@@ -7007,11 +7036,11 @@ class Clustering {
      * 
      * <b>OfflineClusterGroupEx</b> requires that the client 
      *     be granted Full access in the cluster security descriptor.
-     * @param {HGROUP} _hGroup 
+     * @param {HGROUP} _hGroup The handle to a cluster group.
      * @param {Integer} dwOfflineFlags Flags that influence the offline policy. Along with 0x0, the following is an acceptable value: 
      *       <b>CLUSAPI_GROUP_OFFLINE_IGNORE_RESOURCE_LOCKED_STATUS</b> (0x00000001): disregard if a 
      *       resource has indicated that it should be “locked” in its current state.
-     * @param {Pointer} lpInBuffer Contains instructions for the offline operation that are targeted at specific resources within the group. 
+     * @param {Integer} lpInBuffer Contains instructions for the offline operation that are targeted at specific resources within the group. 
      *       <i>lpInBuffer</i> is formatted as a property list, which means that the instructions are 
      *       contained in property values. Resources in the group search the property list for property names that they 
      *       support for offline operations and then interpret the instructions in the associated property value. Note that 
@@ -7036,7 +7065,7 @@ class Clustering {
      * @param {HGROUP} _hGroup 
      * @param {HNODE} hDestinationNode 
      * @param {Integer} dwOnlineFlags 
-     * @param {Pointer} lpInBuffer 
+     * @param {Integer} lpInBuffer 
      * @param {Integer} cbInBufferSize 
      * @param {PWSTR} lpszReason 
      * @returns {Integer} 
@@ -7068,9 +7097,9 @@ class Clustering {
 
     /**
      * Brings an offline or failed resource online. (OnlineClusterResourceEx)
-     * @param {HRESOURCE} _hResource 
+     * @param {HRESOURCE} _hResource The handle to the resource to bring online.
      * @param {Integer} dwOnlineFlags A flag that specifies settings for the resource that is to be brought online.
-     * @param {Pointer} lpInBuffer A pointer to the input buffer that receives instructions for the operation. The <i>lpInBuffer</i>  parameter is formatted as a property list.
+     * @param {Integer} lpInBuffer A pointer to the input buffer that receives instructions for the operation. The <i>lpInBuffer</i>  parameter is formatted as a property list.
      * @param {Integer} cbInBufferSize The size of <i>lpInBuffer</i>, in bytes.
      * @returns {Integer} If the operation succeeds, the function returns <b>ERROR_SUCCESS</b>.
      * 
@@ -7106,7 +7135,7 @@ class Clustering {
      * 
      * @param {HRESOURCE} _hResource 
      * @param {Integer} dwOnlineFlags 
-     * @param {Pointer} lpInBuffer 
+     * @param {Integer} lpInBuffer 
      * @param {Integer} cbInBufferSize 
      * @param {PWSTR} lpszReason 
      * @returns {Integer} 
@@ -7133,9 +7162,9 @@ class Clustering {
      * 
      * <b>OfflineClusterResourceEx</b> requires that the 
      *     client be granted Full access in the cluster security descriptor.
-     * @param {HRESOURCE} _hResource 
+     * @param {HRESOURCE} _hResource The handle to a cluster resource.
      * @param {Integer} dwOfflineFlags Flags that influence the offline policy.
-     * @param {Pointer} lpInBuffer Contains instructions for the offline operation that are targeted at the specific resource. 
+     * @param {Integer} lpInBuffer Contains instructions for the offline operation that are targeted at the specific resource. 
      *       <i>lpInBuffer</i> is formatted as a property list, which means that the instructions are 
      *       contained in property values. The resource DLL searches the property list for property names that it supports 
      *       for offline operations and then interprets the instructions in the associated property value. Note that the 
@@ -7159,7 +7188,7 @@ class Clustering {
      * 
      * @param {HRESOURCE} _hResource 
      * @param {Integer} dwOfflineFlags 
-     * @param {Pointer} lpInBuffer 
+     * @param {Integer} lpInBuffer 
      * @param {Integer} cbInBufferSize 
      * @param {PWSTR} lpszReason 
      * @returns {Integer} 
@@ -7191,10 +7220,10 @@ class Clustering {
      * <li>In the <i>lpInBuffer</i> parameter, add to the property list a resource type named "Virtual Machine" or "Virtual Machine Configuration" that specifies a <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/clusapi/ne-clusapi-cluster_property_format">CLUSTER_PROPERTY_FORMAT</a> enumeration value of <b>CLUSPROP_FORMAT_DWORD</b> (which represents the property's data format) and a property value of <b>VmResdllContextLiveMigration</b> (from the <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/resapi/ne-resapi-vm_resdll_context">VM_RESDLL_CONTEXT</a> enumeration of possible virtual machine actions).</li>
      * </ol>
      * <b>MoveClusterGroupEx</b> requires that the client be granted Full access in the cluster security descriptor.
-     * @param {HGROUP} _hGroup 
+     * @param {HGROUP} _hGroup The handle to a cluster group.
      * @param {HNODE} hDestinationNode The handle to a cluster node, indicating the node to which the group should be moved. This parameter is optional. If left <b>NULL</b>, the cluster will move the group to the most suitable node, according to failover policies configured for the cluster and for this particular group.
      * @param {Integer} dwMoveFlags A bitwise combination of the flags that influence the failover policy with respect to this move operation.
-     * @param {Pointer} lpInBuffer A <a href="https://docs.microsoft.com/previous-versions/windows/desktop/mscs/property-lists">property list</a> that contains move operation instructions for specific resources within the group. The instructions are contained in property values. Resources in the group search the property list for property names that they support for move operations and then interpret the instructions in the associated property value. The properties supported by a resource in a <b>MoveClusterGroupEx</b> operation are not related to the private properties associated with a resource.
+     * @param {Integer} lpInBuffer A <a href="https://docs.microsoft.com/previous-versions/windows/desktop/mscs/property-lists">property list</a> that contains move operation instructions for specific resources within the group. The instructions are contained in property values. Resources in the group search the property list for property names that they support for move operations and then interpret the instructions in the associated property value. The properties supported by a resource in a <b>MoveClusterGroupEx</b> operation are not related to the private properties associated with a resource.
      * @param {Integer} cbInBufferSize The size of <i>lpInBuffer</i>, in bytes.
      * @returns {Integer} <b>MoveClusterGroupEx</b> returns <b>ERROR_IO_PENDING</b> if the move command has been accepted and is in progress. <b>MoveClusterGroupEx</b> returns a nonzero error code if the move command was rejected immediately with no changes to group state. For instance, this would happen if <i>hDestinationNode</i> is not Up at the time of the move request.
      * @see https://learn.microsoft.com/windows/win32/api/clusapi/nf-clusapi-moveclustergroupex
@@ -7210,7 +7239,7 @@ class Clustering {
      * @param {HGROUP} _hGroup 
      * @param {HNODE} hDestinationNode 
      * @param {Integer} dwMoveFlags 
-     * @param {Pointer} lpInBuffer 
+     * @param {Integer} lpInBuffer 
      * @param {Integer} cbInBufferSize 
      * @param {PWSTR} lpszReason 
      * @returns {Integer} 
@@ -7231,7 +7260,7 @@ class Clustering {
      *     <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/clusapi/nf-clusapi-moveclustergroupex">MoveClusterGroupEx</a> call that returned 
      *     <b>ERROR_IO_PENDING</b> and is still in progress. The call attempts to cancel the pending move 
      *     operation and bring the group to its persistent state.
-     * @param {HGROUP} _hGroup 
+     * @param {HGROUP} _hGroup The handle to a cluster group.
      * @param {Integer} dwCancelFlags_RESERVED This parameter is reserved for future use and must be set to zero.
      * @returns {Integer} <b>CancelClusterGroupOperation</b> returns 
      *       <b>ERROR_SUCCESS</b> if the move operation on the group was successfully cancelled.
@@ -7278,7 +7307,7 @@ class Clustering {
 
     /**
      * Closes a group handle.
-     * @param {HGROUP} _hGroup 
+     * @param {HGROUP} _hGroup Handle to the group to close.
      * @returns {BOOL} <table>
      * <tr>
      * <th>Return code</th>
@@ -7327,7 +7356,7 @@ class Clustering {
      * For <i>hGroup</i> to be a valid handle, there must necessarily be an open cluster handle (see  <a href="https://docs.microsoft.com/windows/desktop/api/clusapi/nf-clusapi-openclustergroup">OpenClusterGroup</a>).  <b>GetClusterFromGroup</b> returns another instance of the handle from which <i>hGroup</i> was obtained.
      * 
      * Be sure to call  <a href="https://docs.microsoft.com/windows/desktop/api/clusapi/nf-clusapi-closecluster">CloseCluster</a> on the handle returned from  <b>GetClusterFromGroup</b> before the handle goes out of scope. Closing this handle does not invalidate <i>hGroup</i> or the cluster handle from which <i>hGroup</i> was obtained.
-     * @param {HGROUP} _hGroup 
+     * @param {HGROUP} _hGroup Handle to the group.
      * @returns {HCLUSTER} If the operation succeeds, the function returns a handle to the cluster that owns the group.
      * 
      * If the operation fails, 
@@ -7359,13 +7388,13 @@ class Clustering {
      *      <b>GetClusterGroupState</b> can safely be called from a 
      *      worker thread. For more information, see 
      *      <a href="https://docs.microsoft.com/previous-versions/windows/desktop/mscs/function-calls-to-avoid-in-resource-dlls">Function Calls to Avoid in Resource DLLs</a>.
-     * @param {HGROUP} _hGroup 
+     * @param {HGROUP} _hGroup Handle to the group for which state information should be returned.
      * @param {PWSTR} lpszNodeName Pointer to a null-terminated Unicode string containing the name of the node that currently owns the group.
      * @param {Pointer<Integer>} lpcchNodeName Pointer to the size of the <i>lpszNodeName</i> buffer as a count of characters. On input, 
      *        specify the maximum number of characters the buffer can hold, including the terminating 
      *        <b>NULL</b>. On output, specifies the number of characters in the resulting name, excluding 
      *        the terminating <b>NULL</b>.
-     * @returns {Integer} <b>GetClusterGroupState</b> returns the current 
+     * @returns {CLUSTER_GROUP_STATE} <b>GetClusterGroupState</b> returns the current 
      *        state of the group, which is represented by one of the following values.
      * 
      * <table>
@@ -7479,7 +7508,7 @@ class Clustering {
      * Do not call <b>SetClusterGroupName</b> from a 
      *     resource DLL. For more information, see 
      *     <a href="https://docs.microsoft.com/previous-versions/windows/desktop/mscs/function-calls-to-avoid-in-resource-dlls">Function Calls to Avoid in Resource DLLs</a>.
-     * @param {HGROUP} _hGroup 
+     * @param {HGROUP} _hGroup Handle to the group to name.
      * @param {PWSTR} lpszGroupName Pointer to the new name for the group identified by <i>hGroup</i>.
      * @returns {Integer} If the operation succeeds, the function returns <b>ERROR_SUCCESS</b>.
      * 
@@ -7501,7 +7530,7 @@ class Clustering {
      * Do not call  <b>SetClusterGroupNodeList</b> from a resource DLL. For more information, see  <a href="https://docs.microsoft.com/previous-versions/windows/desktop/mscs/function-calls-to-avoid-in-resource-dlls">Function Calls to Avoid in Resource DLLs</a>.
      * 
      * Do not pass LPC and RPC handles to the same function call. Otherwise, the call will raise an RPC exception and can have additional destructive effects. For information on how LPC and RPC handles are created, see  <a href="https://docs.microsoft.com/previous-versions/windows/desktop/mscs/using-object-handles">Using Object Handles</a> and  <a href="https://docs.microsoft.com/windows/desktop/api/clusapi/nf-clusapi-opencluster">OpenCluster</a>.
-     * @param {HGROUP} _hGroup 
+     * @param {HGROUP} _hGroup Handle to the group to be assigned the list of nodes.
      * @param {Integer} NodeCount Count of nodes in the list identified by <i>NodeList</i>.
      * @param {Pointer<HNODE>} NodeList Array of handles to nodes, in order by preference, with the first node being the most preferred and the last node the least preferred. The number of nodes in the <i>NodeList</i> array is controlled by the <i>NodeCount</i> parameter.
      * @returns {Integer} If the operation succeeds, the function returns <b>ERROR_SUCCESS</b>.
@@ -7560,7 +7589,7 @@ class Clustering {
      * Do not call  <b>OnlineClusterGroup</b> from a resource DLL. For more information, see  <a href="https://docs.microsoft.com/previous-versions/windows/desktop/mscs/function-calls-to-avoid-in-resource-dlls">Function Calls to Avoid in Resource DLLs</a>.
      * 
      * Do not pass LPC and RPC handles to the same function call. Otherwise, the call will raise an RPC exception and can have additional destructive effects. For information on how LPC and RPC handles are created, see  <a href="https://docs.microsoft.com/previous-versions/windows/desktop/mscs/using-object-handles">Using Object Handles</a> and  <a href="https://docs.microsoft.com/windows/desktop/api/clusapi/nf-clusapi-opencluster">OpenCluster</a>.
-     * @param {HGROUP} _hGroup 
+     * @param {HGROUP} _hGroup Handle to the group to be brought online.
      * @param {HNODE} hDestinationNode Handle to the  <a href="https://docs.microsoft.com/previous-versions/windows/desktop/mscs/nodes">node</a> where the group identified by <i>hGroup</i> should be brought online or <b>NULL</b>.
      * @returns {Integer} If the operation succeeds, the function returns <b>ERROR_SUCCESS</b>.
      * 
@@ -7619,7 +7648,7 @@ class Clustering {
      * Do not call  <b>MoveClusterGroup</b> from a resource DLL. For more information, see  <a href="https://docs.microsoft.com/previous-versions/windows/desktop/mscs/function-calls-to-avoid-in-resource-dlls">Function Calls to Avoid in Resource DLLs</a>.
      * 
      * Do not pass LPC and RPC handles to the same function call. Otherwise, the call will raise an RPC exception and can have additional destructive effects. For information on how LPC and RPC handles are created, see  <a href="https://docs.microsoft.com/previous-versions/windows/desktop/mscs/using-object-handles">Using Object Handles</a> and  <a href="https://docs.microsoft.com/windows/desktop/api/clusapi/nf-clusapi-opencluster">OpenCluster</a>.
-     * @param {HGROUP} _hGroup 
+     * @param {HGROUP} _hGroup Handle to the group to be moved.
      * @param {HNODE} hDestinationNode Handle to the node where the moved group should be brought back online or <b>NULL</b>.
      * @returns {Integer} If the operation succeeds, the function returns <b>ERROR_SUCCESS</b>.
      * 
@@ -7655,7 +7684,7 @@ class Clustering {
      * Takes a group offline.
      * @remarks
      * Do not call  <b>OfflineClusterGroup</b> from a resource DLL. For more information, see  <a href="https://docs.microsoft.com/previous-versions/windows/desktop/mscs/function-calls-to-avoid-in-resource-dlls">Function Calls to Avoid in Resource DLLs</a>.
-     * @param {HGROUP} _hGroup 
+     * @param {HGROUP} _hGroup Handle to the group to be taken offline.
      * @returns {Integer} If the operation succeeds, the function returns <b>ERROR_SUCCESS</b>.
      * 
      * If the operation fails, 
@@ -7704,7 +7733,7 @@ class Clustering {
      * Do not call <b>DeleteClusterGroup</b> from a resource 
      *      DLL. For more information, see 
      *      <a href="https://docs.microsoft.com/previous-versions/windows/desktop/mscs/function-calls-to-avoid-in-resource-dlls">Function Calls to Avoid in Resource DLLs</a>.
-     * @param {HGROUP} _hGroup 
+     * @param {HGROUP} _hGroup Handle to the group to be removed. You must close this handle separately.
      * @returns {Integer} This function returns a <a href="https://docs.microsoft.com/windows/desktop/Debug/system-error-codes">system error code</a>. If the 
      *        operation completes successfully the function returns <b>ERROR_SUCCESS</b> (0). Any other 
      *        returned system error code would indicate that the 
@@ -7729,7 +7758,7 @@ class Clustering {
      * Do not call <b>DestroyClusterGroup</b> from a resource 
      *      DLL. For more information, see 
      *      <a href="https://docs.microsoft.com/previous-versions/windows/desktop/mscs/function-calls-to-avoid-in-resource-dlls">Function Calls to Avoid in Resource DLLs</a>.
-     * @param {HGROUP} _hGroup 
+     * @param {HGROUP} _hGroup This parameter takes a handle to the cluster group to be destroyed.
      * @returns {Integer} This function returns a <a href="https://docs.microsoft.com/windows/desktop/Debug/system-error-codes">system error code</a>. If the 
      *        operation completes successfully the function returns <b>ERROR_SUCCESS</b> (0). Any other 
      *        returned system error code would indicate that the 
@@ -7776,7 +7805,7 @@ class Clustering {
      *      <b>ClusterGroupOpenEnum</b> can safely be called from a 
      *      worker thread. For more information, see 
      *      <a href="https://docs.microsoft.com/previous-versions/windows/desktop/mscs/function-calls-to-avoid-in-resource-dlls">Function Calls to Avoid in Resource DLLs</a>.
-     * @param {HGROUP} _hGroup 
+     * @param {HGROUP} _hGroup A handle to the <a href="https://docs.microsoft.com/previous-versions/windows/desktop/mscs/groups">group</a> to be enumerated.
      * @param {Integer} dwType A bitmask that describes the <a href="https://docs.microsoft.com/previous-versions/windows/desktop/mscs/cluster-objects">cluster objects</a> to be 
      *        enumerated. The following are valid values of the 
      *        <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/clusapi/ne-clusapi-cluster_group_enum">CLUSTER_GROUP_ENUM</a> enumeration.
@@ -7803,7 +7832,9 @@ class Clustering {
 
     /**
      * Returns the number of cluster objects associated with a group enumeration handle.
-     * @param {HGROUPENUM} _hGroupEnum 
+     * @param {HGROUPENUM} _hGroupEnum Handle to a group enumeration. This handle is obtained from 
+     *       <a href="https://docs.microsoft.com/windows/win32/api/clusapi/nf-clusapi-clustergroupopenenum">ClusterGroupOpenEnum</a>. A valid handle is 
+     *       required. This parameter cannot be <b>NULL</b>.
      * @returns {Integer} <b>ClusterGroupGetEnumCount</b> returns the 
      *        number of objects associated with the enumeration handle.
      * @see https://learn.microsoft.com/windows/win32/api/clusapi/nf-clusapi-clustergroupgetenumcount
@@ -7826,7 +7857,8 @@ class Clustering {
      *      entry point function. <b>ClusterGroupEnum</b> can safely be 
      *      called from a worker thread. For more information, see 
      *      <a href="https://docs.microsoft.com/previous-versions/windows/desktop/mscs/function-calls-to-avoid-in-resource-dlls">Function Calls to Avoid in Resource DLLs</a>.
-     * @param {HGROUPENUM} _hGroupEnum 
+     * @param {HGROUPENUM} _hGroupEnum A group enumeration handle returned by the 
+     *        <a href="https://docs.microsoft.com/windows/win32/api/clusapi/nf-clusapi-clustergroupopenenum">ClusterGroupOpenEnum</a> function.
      * @param {Integer} dwIndex The index of the resource or node to return. This parameter should be zero for the first call to 
      *        <b>ClusterGroupEnum</b> and then incremented for 
      *        subsequent calls.
@@ -7907,7 +7939,7 @@ class Clustering {
 
     /**
      * Closes a group enumeration handle.
-     * @param {HGROUPENUM} _hGroupEnum 
+     * @param {HGROUPENUM} _hGroupEnum Enumeration handle to close.
      * @returns {Integer} If the operation succeeds, the function returns <b>ERROR_SUCCESS</b>.
      * 
      * If the operation fails, 
@@ -7926,7 +7958,7 @@ class Clustering {
      * Do not call <b>CreateClusterResource</b> from a 
      *     resource DLL. For more information, see 
      *     <a href="https://docs.microsoft.com/previous-versions/windows/desktop/mscs/function-calls-to-avoid-in-resource-dlls">Function Calls to Avoid in Resource DLLs</a>.
-     * @param {HGROUP} _hGroup 
+     * @param {HGROUP} _hGroup Handle to the <a href="https://docs.microsoft.com/previous-versions/windows/desktop/mscs/groups">group</a> that should receive the resource.
      * @param {PWSTR} lpszResourceName Pointer to a null-terminated Unicode string containing the name of the new resource. The specified name 
      *       must be unique within the cluster.
      * @param {PWSTR} lpszResourceType Pointer to the type of new resource. The specified type must be installed in the cluster.
@@ -7972,7 +8004,7 @@ class Clustering {
 
     /**
      * Opens a resource and returns a handle to it. (OpenClusterResource)
-     * @param {HCLUSTER} _hCluster 
+     * @param {HCLUSTER} _hCluster Handle to a <a href="https://docs.microsoft.com/previous-versions/windows/desktop/mscs/c-gly">cluster</a>.
      * @param {PWSTR} lpszResourceName Pointer to a null-terminated Unicode string containing the name of the resource to be opened.
      * 
      * Resource names are not case sensitive. A resource name must be unique within the cluster. The name is set 
@@ -8018,7 +8050,7 @@ class Clustering {
 
     /**
      * Opens a resource and returns a handle to it. (OpenClusterResourceEx)
-     * @param {HCLUSTER} _hCluster 
+     * @param {HCLUSTER} _hCluster Handle to a <a href="https://docs.microsoft.com/previous-versions/windows/desktop/mscs/c-gly">cluster</a>.
      * @param {PWSTR} lpszResourceName Pointer to a null-terminated Unicode string containing the name of the resource to be opened.
      * 
      * Resource names are not case sensitive. A resource name must be unique within the cluster. The name is set 
@@ -8079,7 +8111,7 @@ class Clustering {
 
     /**
      * Closes a resource handle.
-     * @param {HRESOURCE} _hResource 
+     * @param {HRESOURCE} _hResource Handle to the resource to be closed.
      * @returns {BOOL} <table>
      * <tr>
      * <th>Return code</th>
@@ -8128,7 +8160,7 @@ class Clustering {
      * For <i>hResource</i> to be a valid handle, there must necessarily be an open cluster handle (see  <a href="https://docs.microsoft.com/windows/desktop/api/clusapi/nf-clusapi-openclusterresource">OpenClusterResource</a>).  <b>GetClusterFromResource</b> returns another instance of the handle from which <i>hResource</i> was obtained.
      * 
      * Be sure to call  <a href="https://docs.microsoft.com/windows/desktop/api/clusapi/nf-clusapi-closecluster">CloseCluster</a> on the handle returned from  <b>GetClusterFromResource</b> before the handle goes out of scope. Closing this handle does not invalidate <i>hResource</i> or the cluster handle from which <i>hResource</i> was obtained.
-     * @param {HRESOURCE} _hResource 
+     * @param {HRESOURCE} _hResource Handle to the resource.
      * @returns {HCLUSTER} If the operation succeeds, the function returns a handle to the cluster that owns the resource.
      * 
      * If the operation fails, 
@@ -8153,7 +8185,7 @@ class Clustering {
      * <b>DeleteClusterResource</b> does not close the resource handle specified by <i>hResource</i>. To avoid memory leaks, be sure to close this handle with  <a href="https://docs.microsoft.com/windows/desktop/api/clusapi/nf-clusapi-closeclusterresource">CloseClusterResource</a>.
      * 
      * Do not call  <b>DeleteClusterResource</b> from a resource DLL. For more information, see  <a href="https://docs.microsoft.com/previous-versions/windows/desktop/mscs/function-calls-to-avoid-in-resource-dlls">Function Calls to Avoid in Resource DLLs</a>.
-     * @param {HRESOURCE} _hResource 
+     * @param {HRESOURCE} _hResource Handle to an offline resource. You must close this handle separately.
      * @returns {Integer} If the operation succeeds, the function returns <b>ERROR_SUCCESS</b>.
      * 
      * If the operation fails, 
@@ -8216,7 +8248,7 @@ class Clustering {
      *      <b>GetClusterResourceState</b> can safely be called 
      *      from a worker thread. For more information, see 
      *      <a href="https://docs.microsoft.com/previous-versions/windows/desktop/mscs/function-calls-to-avoid-in-resource-dlls">Function Calls to Avoid in Resource DLLs</a>.
-     * @param {HRESOURCE} _hResource 
+     * @param {HRESOURCE} _hResource Handle specifying the resource for which state information should be returned.
      * @param {PWSTR} lpszNodeName Pointer to a buffer that receives the name of the specified resource's current owner node as a 
      *        <b>NULL</b>-terminated Unicode string. Pass <b>NULL</b> if the node name 
      *        is not required.
@@ -8233,7 +8265,7 @@ class Clustering {
      *        <b>NULL</b>. On input, specifies the maximum number of characters the buffer can hold, 
      *        including the terminating <b>NULL</b>. On output, specifies the number of characters in the 
      *        resulting name, excluding the terminating <b>NULL</b>.
-     * @returns {Integer} <b>GetClusterResourceState</b> returns the 
+     * @returns {CLUSTER_RESOURCE_STATE} <b>GetClusterResourceState</b> returns the 
      *        current state of the resource enumerated from the 
      *        <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/clusapi/ne-clusapi-cluster_resource_state">CLUSTER_RESOURCE_STATE</a> enumeration, which can be 
      *        represented by one of the following values.
@@ -8376,7 +8408,7 @@ class Clustering {
      * Do not call <b>SetClusterResourceName</b> from a 
      *     resource DLL. For more information, see 
      *     <a href="https://docs.microsoft.com/previous-versions/windows/desktop/mscs/function-calls-to-avoid-in-resource-dlls">Function Calls to Avoid in Resource DLLs</a>.
-     * @param {HRESOURCE} _hResource 
+     * @param {HRESOURCE} _hResource Handle to a resource to rename.
      * @param {PWSTR} lpszResourceName Pointer to the new name for the resource identified by <i>hResource</i>. Resource names 
      *       are not case sensitive. A resource name must be unique within the cluster.
      * @returns {Integer} If the operation succeeds, the function returns <b>ERROR_SUCCESS</b>.
@@ -8414,7 +8446,7 @@ class Clustering {
      * The resource identified by <i>hResource</i> is treated as inoperable, causing the <a href="https://docs.microsoft.com/previous-versions/windows/desktop/mscs/c-gly">cluster</a> to initiate the same  <a href="https://docs.microsoft.com/previous-versions/windows/desktop/mscs/failover">failover</a> process that would result if the resource had actually failed. Applications call the  <b>FailClusterResource</b> function to test their policies for restarting resources and  <a href="https://docs.microsoft.com/previous-versions/windows/desktop/mscs/groups">groups</a>.
      * 
      * Do not call  <b>FailClusterResource</b> from a resource DLL. For more information, see  <a href="https://docs.microsoft.com/previous-versions/windows/desktop/mscs/function-calls-to-avoid-in-resource-dlls">Function Calls to Avoid in Resource DLLs</a>.
-     * @param {HRESOURCE} _hResource 
+     * @param {HRESOURCE} _hResource Handle to the  <a href="https://docs.microsoft.com/previous-versions/windows/desktop/mscs/resources">resource</a> that is the target of the failure.
      * @returns {Integer} If the operation succeeds, the function returns <b>ERROR_SUCCESS</b>.
      * 
      * If the operation fails, 
@@ -8444,7 +8476,7 @@ class Clustering {
      * Brings an offline or failed resource online. (OnlineClusterResource)
      * @remarks
      * Do not call  <b>OnlineClusterResource</b> from a resource DLL. For more information, see  <a href="https://docs.microsoft.com/previous-versions/windows/desktop/mscs/function-calls-to-avoid-in-resource-dlls">Function Calls to Avoid in Resource DLLs</a>.
-     * @param {HRESOURCE} _hResource 
+     * @param {HRESOURCE} _hResource Handle to the resource to be brought online.
      * @returns {Integer} If the operation succeeds, the function returns <b>ERROR_SUCCESS</b>.
      * 
      * If the operation fails, 
@@ -8481,7 +8513,7 @@ class Clustering {
      * When calling <b>OfflineClusterResource</b> to offline a failed resource, it returns <b>ERROR_SUCCESS</b> instead of <b>ERROR_RESOURCE_FAILED</b>, and the resource will transition to the offline state.
      * 
      * Do not call  <b>OfflineClusterResource</b> from a resource DLL. For more information, see  <a href="https://docs.microsoft.com/previous-versions/windows/desktop/mscs/function-calls-to-avoid-in-resource-dlls">Function Calls to Avoid in Resource DLLs</a>.
-     * @param {HRESOURCE} _hResource 
+     * @param {HRESOURCE} _hResource Handle to the resource to be taken offline.
      * @returns {Integer} If the operation succeeds, the function returns <b>ERROR_SUCCESS</b>.
      * 
      * If the operation fails, the function returns one of the following 
@@ -8548,8 +8580,9 @@ class Clustering {
      *     can have additional destructive effects. For information on how LPC and RPC handles are created, see 
      *     <a href="https://docs.microsoft.com/previous-versions/windows/desktop/mscs/using-object-handles">Using Object Handles</a> and 
      *     <a href="https://docs.microsoft.com/windows/desktop/api/clusapi/nf-clusapi-opencluster">OpenCluster</a>.
-     * @param {HRESOURCE} _hResource 
-     * @param {HGROUP} _hGroup 
+     * @param {HRESOURCE} _hResource Handle of the resource to be moved.
+     * @param {HGROUP} _hGroup Handle of the group that should receive the resource identified by 
+     *       <i>hResource</i>.
      * @returns {Integer} If the function succeeds, it returns <b>ERROR_SUCCESS</b>.
      * 
      * If the function fails, it returns one of the 
@@ -8596,8 +8629,9 @@ class Clustering {
      *     can have additional destructive effects. For information on how LPC and RPC handles are created, see 
      *     <a href="https://docs.microsoft.com/previous-versions/windows/desktop/mscs/using-object-handles">Using Object Handles</a> and 
      *     <a href="https://docs.microsoft.com/windows/desktop/api/clusapi/nf-clusapi-opencluster">OpenCluster</a>.
-     * @param {HRESOURCE} _hResource 
-     * @param {HNODE} _hNode 
+     * @param {HRESOURCE} _hResource Handle to a resource that will add a node to its possible owners list.
+     * @param {HNODE} _hNode Handle to the node to be added to the list of potential host nodes belonging to the resource identified by 
+     *       <i>hResource</i>.
      * @returns {Integer} If the operation succeeds, it returns <b>ERROR_SUCCESS</b>.
      * 
      * If the operation fails, 
@@ -8617,8 +8651,8 @@ class Clustering {
      * Do not call  <b>RemoveClusterResourceNode</b> from a resource DLL. For more information, see  <a href="https://docs.microsoft.com/previous-versions/windows/desktop/mscs/function-calls-to-avoid-in-resource-dlls">Function Calls to Avoid in Resource DLLs</a>.
      * 
      * Do not pass LPC and RPC handles to the same function call. Otherwise, the call will raise an RPC exception and can have additional destructive effects. For information on how LPC and RPC handles are created, see  <a href="https://docs.microsoft.com/previous-versions/windows/desktop/mscs/using-object-handles">Using Object Handles</a> and  <a href="https://docs.microsoft.com/windows/desktop/api/clusapi/nf-clusapi-opencluster">OpenCluster</a>.
-     * @param {HRESOURCE} _hResource 
-     * @param {HNODE} _hNode 
+     * @param {HRESOURCE} _hResource Handle to the target resource.
+     * @param {HNODE} _hNode Handle to the node that should be removed from the list of potential host nodes belonging to the resource identified by <i>hResource</i>.
      * @returns {Integer} If the operation succeeds, the function returns <b>ERROR_SUCCESS</b>.
      * 
      * If the operation fails, 
@@ -8688,7 +8722,7 @@ class Clustering {
      *      can have additional destructive effects. For information on how LPC and RPC handles are created, see 
      *      <a href="https://docs.microsoft.com/previous-versions/windows/desktop/mscs/using-object-handles">Using Object Handles</a> and 
      *      <a href="https://docs.microsoft.com/windows/desktop/api/clusapi/nf-clusapi-opencluster">OpenCluster</a>.
-     * @param {HRESOURCE} _hResource 
+     * @param {HRESOURCE} _hResource Handle to the dependent resource.
      * @param {HRESOURCE} hDependsOn Handle to the resource that the resource identified by <i>hResource</i> should depend 
      *        on.
      * @returns {Integer} If the operation succeeds, it returns <b>ERROR_SUCCESS</b> (0).
@@ -8790,7 +8824,7 @@ class Clustering {
      * Do not call  <b>RemoveClusterResourceDependency</b> from a resource DLL. For more information, see  <a href="https://docs.microsoft.com/previous-versions/windows/desktop/mscs/function-calls-to-avoid-in-resource-dlls">Function Calls to Avoid in Resource DLLs</a>.
      * 
      * Do not pass LPC and RPC handles to the same function call. Otherwise, the call will raise an RPC exception and can have additional destructive effects. For information on how LPC and RPC handles are created, see  <a href="https://docs.microsoft.com/previous-versions/windows/desktop/mscs/using-object-handles">Using Object Handles</a> and  <a href="https://docs.microsoft.com/windows/desktop/api/clusapi/nf-clusapi-opencluster">OpenCluster</a>.
-     * @param {HRESOURCE} _hResource 
+     * @param {HRESOURCE} _hResource Handle to the dependent resource.
      * @param {HRESOURCE} hDependsOn Handle to the resource that the resource identified by <i>hResource</i> currently depends on.
      * @returns {Integer} If the operation succeeds, the function returns <b>ERROR_SUCCESS</b>.
      * 
@@ -8861,7 +8895,7 @@ class Clustering {
      * This gives us expressions of the general form:<b>( [</b><i>id</i><b>] or [</b><i>id</i><b>] ... ) and ( [</b><i>id</i><b>] or [</b><i>id</i><b>] ... ) and ...</b>
      * 
      * For example: ([a904e1b7-95dd-47f0-9b2e-f1007d92699b] or [ae6fcf48-c42f-4960-a61a-7f1044067668]) and ([c471abc6-e454-482e-8be4-fae084cf799b] or [de976488-82cb-4950-8ce0-1b45e868e058])
-     * @param {HRESOURCE} _hResource 
+     * @param {HRESOURCE} _hResource Handle to the resource.
      * @param {PWSTR} lpszDependencyExpression Address of Unicode string containing the dependency expression.
      * @returns {Integer} <b>ERROR_SUCCESS</b> (0) if successful.
      * @see https://learn.microsoft.com/windows/win32/api/clusapi/nf-clusapi-setclusterresourcedependencyexpression
@@ -8876,7 +8910,7 @@ class Clustering {
 
     /**
      * Retrieves the dependency expression associated with the specified resource.
-     * @param {HRESOURCE} _hResource 
+     * @param {HRESOURCE} _hResource Handle to the resource.
      * @param {PWSTR} lpszDependencyExpression Address of buffer that will receive the dependency expression.
      * @param {Pointer<Integer>} lpcchDependencyExpression Size in characters of the buffer pointed to by the <i>lpszDependencyExpression</i> 
      *       parameter.
@@ -8897,7 +8931,7 @@ class Clustering {
      * Adds storage to Cluster Shared Volumes.
      * @remarks
      * The system crash dump path cannot reside on any cluster shared volumes that use BitLocker encryption.
-     * @param {HRESOURCE} _hResource 
+     * @param {HRESOURCE} _hResource Handle to the physical disk resource to add to Cluster Shared Volumes.
      * @returns {Integer} If the operation succeeds, it returns <b>ERROR_SUCCESS</b>.
      * 
      * If the operation fails, 
@@ -8913,7 +8947,7 @@ class Clustering {
 
     /**
      * Removes storage from Cluster Shared Volumes.
-     * @param {HRESOURCE} _hResource 
+     * @param {HRESOURCE} _hResource Handle to the physical disk resource to remove from Cluster Shared Volumes.
      * @returns {Integer} If the operation succeeds, it returns <b>ERROR_SUCCESS</b>.
      * 
      * If the operation fails, 
@@ -8951,7 +8985,7 @@ class Clustering {
      * Updates the state of a snapshot of a cluster shared volume.
      * @param {Guid} guidSnapshotSet The <b>GUID</b> of the snapshot.
      * @param {PWSTR} lpszVolumeName A pointer to the name of the cluster shared volume.
-     * @param {Integer} state A <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/clusapi/ne-clusapi-cluster_shared_volume_snapshot_state">CLUSTER_SHARED_VOLUME_SNAPSHOT_STATE</a> enumeration value that specifies the state of the snapshot.
+     * @param {CLUSTER_SHARED_VOLUME_SNAPSHOT_STATE} state A <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/clusapi/ne-clusapi-cluster_shared_volume_snapshot_state">CLUSTER_SHARED_VOLUME_SNAPSHOT_STATE</a> enumeration value that specifies the state of the snapshot.
      * @returns {Integer} If the operation succeeds, the function returns a resource handle.
      * 
      * If the operation fails, the function returns <b>NULL</b>. For more information about the 
@@ -8984,7 +9018,7 @@ class Clustering {
      * Do not call  <b>CanResourceBeDependent</b> from any resource DLL entry point function.  <b>CanResourceBeDependent</b> can safely be called from a worker thread. For more information, see  <a href="https://docs.microsoft.com/previous-versions/windows/desktop/mscs/function-calls-to-avoid-in-resource-dlls">Function Calls to Avoid in Resource DLLs</a>.
      * 
      * Do not pass LPC and RPC handles to the same function call. Otherwise, the call will raise an RPC exception and can have additional destructive effects. For information on how LPC and RPC handles are created, see  <a href="https://docs.microsoft.com/previous-versions/windows/desktop/mscs/using-object-handles">Using Object Handles</a> and  <a href="https://docs.microsoft.com/windows/desktop/api/clusapi/nf-clusapi-opencluster">OpenCluster</a>.
-     * @param {HRESOURCE} _hResource 
+     * @param {HRESOURCE} _hResource Handle to the resource in question.
      * @param {HRESOURCE} hResourceDependent Handle to the resource upon which the resource identified by <i>hResource</i> may depend.
      * @returns {BOOL} <table>
      * <tr>
@@ -9038,7 +9072,7 @@ class Clustering {
      *      of the <a href="https://docs.microsoft.com/previous-versions/windows/desktop/mscs/control-code-functions">control code functions</a>. For more information 
      *      on control codes and control code functions, see 
      *      <a href="https://docs.microsoft.com/previous-versions/windows/desktop/mscs/using-control-codes">Using Control Codes</a>.
-     * @param {HRESOURCE} _hResource 
+     * @param {HRESOURCE} _hResource Handle to the resource to be affected.
      * @param {HNODE} hHostNode Optional handle to the node to perform the operation. If <b>NULL</b>, the node that owns 
      *        the resource identified by <i>hResource</i> performs the operation.
      * @param {Integer} dwControlCode A <a href="https://docs.microsoft.com/previous-versions/windows/desktop/mscs/resource-control-codes">resource control code</a>, enumerated by the 
@@ -9283,10 +9317,10 @@ class Clustering {
      * <a href="https://docs.microsoft.com/previous-versions/windows/desktop/mscs/clusctl-resource-netname-creds-updated">CLUSCTL_RESOURCE_NETNAME_CREDS_UPDATED</a>
      * </li>
      * </ul>
-     * @param {Pointer} lpInBuffer Pointer to an input buffer containing information needed for the operation, or <b>NULL</b> 
+     * @param {Integer} lpInBuffer Pointer to an input buffer containing information needed for the operation, or <b>NULL</b> 
      *        if no information is needed.
      * @param {Integer} cbInBufferSize The allocated size (in bytes) of the input buffer.
-     * @param {Pointer} lpOutBuffer Pointer to an output buffer to receive the data resulting from the operation, or 
+     * @param {Integer} lpOutBuffer Pointer to an output buffer to receive the data resulting from the operation, or 
      *        <b>NULL</b> if no data will be returned.
      * @param {Integer} cbOutBufferSize The allocated size (in bytes) of the output buffer.
      * @param {Pointer<Integer>} lpBytesReturned Returns the actual size (in bytes) of the data resulting from the operation. If this information is not 
@@ -9400,17 +9434,17 @@ class Clustering {
      *      of the <a href="https://docs.microsoft.com/previous-versions/windows/desktop/mscs/control-code-functions">control code functions</a>. For more information 
      *      on control codes and control code functions, see 
      *      <a href="https://docs.microsoft.com/previous-versions/windows/desktop/mscs/using-control-codes">Using Control Codes</a>.
-     * @param {HRESOURCE} _hResource 
+     * @param {HRESOURCE} _hResource Handle to the resource to be affected.
      * @param {HNODE} hHostNode Optional handle to the node to perform the operation. If <b>NULL</b>, the node that owns 
      *        the resource identified by <i>hResource</i> performs the operation.
      * @param {Integer} dwControlCode A <a href="https://docs.microsoft.com/previous-versions/windows/desktop/mscs/resource-control-codes">resource control code</a>, enumerated by the 
      *        <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/clusapi/ne-clusapi-clusctl_resource_codes">CLUSCTL_RESOURCE_CODES</a> enumeration, specifying 
      *        the operation to be performed. For the syntax associated with a control code, refer to  
      *        the link on the <b>CLUSCTL_RESOURCE_CODES</b> topic.
-     * @param {Pointer} lpInBuffer Pointer to an input buffer containing information needed for the operation, or <b>NULL</b> 
+     * @param {Integer} lpInBuffer Pointer to an input buffer containing information needed for the operation, or <b>NULL</b> 
      *        if no information is needed.
      * @param {Integer} cbInBufferSize The allocated size (in bytes) of the input buffer.
-     * @param {Pointer} lpOutBuffer Pointer to an output buffer to receive the data resulting from the operation, or 
+     * @param {Integer} lpOutBuffer Pointer to an output buffer to receive the data resulting from the operation, or 
      *        <b>NULL</b> if no data will be returned.
      * @param {Integer} cbOutBufferSize The allocated size (in bytes) of the output buffer.
      * @param {Pointer<Integer>} lpBytesReturned Returns the actual size (in bytes) of the data resulting from the operation. If this information is not 
@@ -9524,7 +9558,8 @@ class Clustering {
      *      <a href="https://docs.microsoft.com/previous-versions/windows/desktop/mscs/control-code-functions">control code functions</a>. For more information on 
      *      control codes and control code functions, see 
      *      <a href="https://docs.microsoft.com/previous-versions/windows/desktop/mscs/using-control-codes">Using Control Codes</a>.
-     * @param {HCLUSTER} _hCluster 
+     * @param {HCLUSTER} _hCluster Handle to the cluster containing the resource type identified in 
+     *        <i>lpszResourceTypeName</i>.
      * @param {PWSTR} lpszResourceTypeName Pointer to a <b>NULL</b>-terminated Unicode string containing the name of the resource 
      *        type to be affected.
      * @param {HNODE} hHostNode Handle to the node hosting the affected resource type.
@@ -9607,10 +9642,10 @@ class Clustering {
      * <a href="https://docs.microsoft.com/previous-versions/windows/desktop/mscs/clusctl-resource-type-validate-private-properties">CLUSCTL_RESOURCE_TYPE_VALIDATE_PRIVATE_PROPERTIES</a>
      * </li>
      * </ul>
-     * @param {Pointer} lpInBuffer Pointer to the input buffer with information needed for the operation, or <b>NULL</b> if 
+     * @param {Integer} lpInBuffer Pointer to the input buffer with information needed for the operation, or <b>NULL</b> if 
      *        no information is needed.
      * @param {Integer} nInBufferSize Number of bytes in the buffer pointed to by <i>lpInBuffer</i>.
-     * @param {Pointer} lpOutBuffer Pointer to the output buffer with information resulting from the operation, or 
+     * @param {Integer} lpOutBuffer Pointer to the output buffer with information resulting from the operation, or 
      *       <b>NULL</b> if nothing will be returned.
      * @param {Integer} nOutBufferSize Number of bytes in the output buffer pointed to by <i>lpOutBuffer</i>, or zero if the 
      *        caller does not know how much data will be returned.
@@ -9698,7 +9733,8 @@ class Clustering {
      *      <a href="https://docs.microsoft.com/previous-versions/windows/desktop/mscs/control-code-functions">control code functions</a>. For more information on 
      *      control codes and control code functions, see 
      *      <a href="https://docs.microsoft.com/previous-versions/windows/desktop/mscs/using-control-codes">Using Control Codes</a>.
-     * @param {HCLUSTER} _hCluster 
+     * @param {HCLUSTER} _hCluster Handle to the cluster containing the resource type identified in 
+     *        <i>lpszResourceTypeName</i>.
      * @param {PWSTR} lpszResourceTypeName Pointer to a <b>NULL</b>-terminated Unicode string containing the name of the resource 
      *        type to be affected.
      * @param {HNODE} hHostNode Handle to the node hosting the affected resource type.
@@ -9706,10 +9742,10 @@ class Clustering {
      *        <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/clusapi/ne-clusapi-clusctl_resource_type_codes">CLUSCTL_RESOURCE_TYPE_CODES</a> enumeration, 
      *        specifying the operation to be performed. For the syntax associated with a control code, refer to  the link on 
      *        the <b>CLUSCTL_RESOURCE_TYPE_CODES</b> topic.
-     * @param {Pointer} lpInBuffer Pointer to the input buffer with information needed for the operation, or <b>NULL</b> if 
+     * @param {Integer} lpInBuffer Pointer to the input buffer with information needed for the operation, or <b>NULL</b> if 
      *        no information is needed.
      * @param {Integer} nInBufferSize Number of bytes in the buffer pointed to by <i>lpInBuffer</i>.
-     * @param {Pointer} lpOutBuffer Pointer to the output buffer with information resulting from the operation, or 
+     * @param {Integer} lpOutBuffer Pointer to the output buffer with information resulting from the operation, or 
      *       <b>NULL</b> if nothing will be returned.
      * @param {Integer} nOutBufferSize Number of bytes in the output buffer pointed to by <i>lpOutBuffer</i>, or zero if the 
      *        caller does not know how much data will be returned.
@@ -9796,7 +9832,7 @@ class Clustering {
      *      <a href="https://docs.microsoft.com/previous-versions/windows/desktop/mscs/control-code-functions">control code functions</a>. For more information on 
      *      control codes and control code functions, see 
      *      <a href="https://docs.microsoft.com/previous-versions/windows/desktop/mscs/using-control-codes">Using Control Codes</a>.
-     * @param {HGROUP} _hGroup 
+     * @param {HGROUP} _hGroup Handle to the group to be affected.
      * @param {HNODE} hHostNode If non-<b>NULL</b>, handle to the node to perform the operation represented by the control 
      *        code. If <b>NULL</b>, the <a href="https://docs.microsoft.com/previous-versions/windows/desktop/mscs/nodes">node</a> that owns the 
      *        group performs the operation. Specifying <i>hHostNode</i> is optional.
@@ -9862,10 +9898,10 @@ class Clustering {
      * <a href="https://docs.microsoft.com/previous-versions/windows/desktop/mscs/clusctl-group-validate-private-properties">CLUSCTL_GROUP_VALIDATE_PRIVATE_PROPERTIES</a>
      * </li>
      * </ul>
-     * @param {Pointer} lpInBuffer Pointer to an input buffer containing information needed for the operation, or <b>NULL</b> 
+     * @param {Integer} lpInBuffer Pointer to an input buffer containing information needed for the operation, or <b>NULL</b> 
      *        if no information is needed.
      * @param {Integer} nInBufferSize The allocated size (in bytes) of the input buffer.
-     * @param {Pointer} lpOutBuffer Pointer to an output buffer to receive the data resulting from the operation, or 
+     * @param {Integer} lpOutBuffer Pointer to an output buffer to receive the data resulting from the operation, or 
      *        <b>NULL</b> if no data will be returned.
      * @param {Integer} nOutBufferSize The allocated size (in bytes) of the output buffer.
      * @param {Pointer<Integer>} lpBytesReturned Returns the actual size (in bytes) of the data resulting from the operation. If this information is not 
@@ -9936,9 +9972,9 @@ class Clustering {
      * @param {HRESOURCE} _hResource 
      * @param {HNODE} hHostNode 
      * @param {Integer} dwControlCode 
-     * @param {Pointer} lpInBuffer 
+     * @param {Integer} lpInBuffer 
      * @param {Integer} cbInBufferSize 
-     * @param {Pointer} lpOutBuffer 
+     * @param {Integer} lpOutBuffer 
      * @param {Integer} cbOutBufferSize 
      * @param {Pointer<Integer>} lpBytesReturned 
      * @param {PWSTR} lpszReason 
@@ -9958,9 +9994,9 @@ class Clustering {
      * @param {HRESOURCE} _hResource 
      * @param {HNODE} hHostNode 
      * @param {Integer} dwControlCode 
-     * @param {Pointer} lpInBuffer 
+     * @param {Integer} lpInBuffer 
      * @param {Integer} cbInBufferSize 
-     * @param {Pointer} lpOutBuffer 
+     * @param {Integer} lpOutBuffer 
      * @param {Integer} cbOutBufferSize 
      * @param {Pointer<Integer>} lpBytesReturned 
      * @param {PWSTR} lpszReason 
@@ -9981,9 +10017,9 @@ class Clustering {
      * @param {PWSTR} lpszResourceTypeName 
      * @param {HNODE} hHostNode 
      * @param {Integer} dwControlCode 
-     * @param {Pointer} lpInBuffer 
+     * @param {Integer} lpInBuffer 
      * @param {Integer} nInBufferSize 
-     * @param {Pointer} lpOutBuffer 
+     * @param {Integer} lpOutBuffer 
      * @param {Integer} nOutBufferSize 
      * @param {Pointer<Integer>} lpBytesReturned 
      * @param {PWSTR} lpszReason 
@@ -10005,9 +10041,9 @@ class Clustering {
      * @param {PWSTR} lpszResourceTypeName 
      * @param {HNODE} hHostNode 
      * @param {Integer} dwControlCode 
-     * @param {Pointer} lpInBuffer 
+     * @param {Integer} lpInBuffer 
      * @param {Integer} nInBufferSize 
-     * @param {Pointer} lpOutBuffer 
+     * @param {Integer} lpOutBuffer 
      * @param {Integer} nOutBufferSize 
      * @param {Pointer<Integer>} lpBytesReturned 
      * @param {PWSTR} lpszReason 
@@ -10028,9 +10064,9 @@ class Clustering {
      * @param {HGROUP} _hGroup 
      * @param {HNODE} hHostNode 
      * @param {Integer} dwControlCode 
-     * @param {Pointer} lpInBuffer 
+     * @param {Integer} lpInBuffer 
      * @param {Integer} nInBufferSize 
-     * @param {Pointer} lpOutBuffer 
+     * @param {Integer} lpOutBuffer 
      * @param {Integer} nOutBufferSize 
      * @param {Pointer<Integer>} lpBytesReturned 
      * @param {PWSTR} lpszReason 
@@ -10061,7 +10097,7 @@ class Clustering {
      *      <a href="https://docs.microsoft.com/previous-versions/windows/desktop/mscs/control-code-functions">control code functions</a>. For more information on 
      *      control codes and control code functions, see 
      *      <a href="https://docs.microsoft.com/previous-versions/windows/desktop/mscs/using-control-codes">Using Control Codes</a>.
-     * @param {HNODE} _hNode 
+     * @param {HNODE} _hNode Handle to the node to be affected.
      * @param {HNODE} hHostNode If non-<b>NULL</b>, handle to the node that will perform the operation instead of the node 
      *        specified in <i>hNode</i>. If <b>NULL</b>, the node that handles the call 
      *        performs the operation.
@@ -10123,10 +10159,10 @@ class Clustering {
      * <a href="https://docs.microsoft.com/previous-versions/windows/desktop/mscs/clusctl-node-validate-private-properties">CLUSCTL_NODE_VALIDATE_PRIVATE_PROPERTIES</a>
      * </li>
      * </ul>
-     * @param {Pointer} lpInBuffer Pointer to an input buffer containing information needed for the operation, or <b>NULL</b> 
+     * @param {Integer} lpInBuffer Pointer to an input buffer containing information needed for the operation, or <b>NULL</b> 
      *        if no information is needed.
      * @param {Integer} nInBufferSize The allocated size (in bytes) of the input buffer.
-     * @param {Pointer} lpOutBuffer Pointer to an output buffer to receive the data resulting from the operation, or 
+     * @param {Integer} lpOutBuffer Pointer to an output buffer to receive the data resulting from the operation, or 
      *        <b>NULL</b> if no data will be returned.
      * @param {Integer} nOutBufferSize The allocated size (in bytes) of the output buffer.
      * @param {Pointer<Integer>} lpBytesReturned Returns the actual size (in bytes) of the data resulting from the operation. If this information is not 
@@ -10197,9 +10233,9 @@ class Clustering {
      * @param {HNODE} _hNode 
      * @param {HNODE} hHostNode 
      * @param {Integer} dwControlCode 
-     * @param {Pointer} lpInBuffer 
+     * @param {Integer} lpInBuffer 
      * @param {Integer} nInBufferSize 
-     * @param {Pointer} lpOutBuffer 
+     * @param {Integer} lpOutBuffer 
      * @param {Integer} nOutBufferSize 
      * @param {Pointer<Integer>} lpBytesReturned 
      * @param {PWSTR} lpszReason 
@@ -10223,7 +10259,7 @@ class Clustering {
      *     <b>GetClusterResourceNetworkName</b> can safely 
      *     be called from a worker thread. For more information, see 
      *     <a href="https://docs.microsoft.com/previous-versions/windows/desktop/mscs/function-calls-to-avoid-in-resource-dlls">Function Calls to Avoid in Resource DLLs</a>.
-     * @param {HRESOURCE} _hResource 
+     * @param {HRESOURCE} _hResource Handle to the dependent resource.
      * @param {PWSTR} lpBuffer Buffer containing a null-terminated Unicode string that contains the 
      *       <a href="https://docs.microsoft.com/previous-versions/windows/desktop/mscs/network-names-name">Name</a> private property of the Network Name 
      *       resource on which the resource depends.
@@ -10260,7 +10296,7 @@ class Clustering {
      *      <b>ClusterResourceOpenEnum</b> can safely be called 
      *      from a worker thread. For more information, see 
      *      <a href="https://docs.microsoft.com/previous-versions/windows/desktop/mscs/function-calls-to-avoid-in-resource-dlls">Function Calls to Avoid in Resource DLLs</a>.
-     * @param {HRESOURCE} _hResource 
+     * @param {HRESOURCE} _hResource A handle to a resource.
      * @param {Integer} dwType A bitmask that describes the type of <a href="https://docs.microsoft.com/previous-versions/windows/desktop/mscs/cluster-objects">cluster objects</a> 
      *        to be enumerated.
      * 
@@ -10287,7 +10323,7 @@ class Clustering {
 
     /**
      * Returns the number of cluster objects associated with a resource enumeration handle.
-     * @param {HRESENUM} _hResEnum 
+     * @param {HRESENUM} _hResEnum Handle to a resource enumeration. This handle is obtained from  <a href="https://docs.microsoft.com/windows/desktop/api/clusapi/nf-clusapi-clusterresourceopenenum">ClusterResourceOpenEnum</a>. A valid handle is required. This parameter cannot be <b>NULL</b>.
      * @returns {Integer} <b>ClusterResourceGetEnumCount</b> returns the number of objects associated with the enumeration handle.
      * @see https://learn.microsoft.com/windows/win32/api/clusapi/nf-clusapi-clusterresourcegetenumcount
      * @since windowsserver2008
@@ -10309,7 +10345,8 @@ class Clustering {
      *      <b>ClusterResourceEnum</b> can safely be called from a 
      *      worker thread. For more information, see 
      *      <a href="https://docs.microsoft.com/previous-versions/windows/desktop/mscs/function-calls-to-avoid-in-resource-dlls">Function Calls to Avoid in Resource DLLs</a>.
-     * @param {HRESENUM} _hResEnum 
+     * @param {HRESENUM} _hResEnum A resource enumeration handle returned from 
+     *        the <a href="https://docs.microsoft.com/windows/desktop/api/clusapi/nf-clusapi-clusterresourceopenenum">ClusterResourceOpenEnum</a> function.
      * @param {Integer} dwIndex The index of the resource or node object to return. This parameter should be zero for the first call to the 
      *        <b>ClusterResourceEnum</b> function and then 
      *        incremented for subsequent calls.
@@ -10395,7 +10432,7 @@ class Clustering {
 
     /**
      * Closes a resource enumeration handle.
-     * @param {HRESENUM} _hResEnum 
+     * @param {HRESENUM} _hResEnum A resource enumeration handle to be closed.
      * @returns {Integer} If the operation succeeds, the function returns <b>ERROR_SUCCESS</b>.
      *      If the operation fails, 
      * the function returns a different <a href="https://docs.microsoft.com/windows/desktop/Debug/system-error-codes">system error code</a>.
@@ -10411,7 +10448,7 @@ class Clustering {
      * Creates a resource type in a cluster.
      * @remarks
      * The  <b>CreateClusterResourceType</b> function only defines the resource type in the  <a href="https://docs.microsoft.com/previous-versions/windows/desktop/mscs/cluster-database">cluster database</a> and registers the resource type with the  <a href="https://docs.microsoft.com/previous-versions/windows/desktop/mscs/cluster-service">Cluster service</a>. To complete the process of installing a new resource type in a cluster, developers must install the resource DLLs and  <a href="https://docs.microsoft.com/previous-versions/windows/desktop/mscs/cluster-administrator">Cluster Administrator</a> extension DLLs for the new types on each  <a href="https://docs.microsoft.com/previous-versions/windows/desktop/mscs/nodes">node</a> in the cluster. Also, if Cluster Administrator will be used on systems that are not member nodes, the extension DLLs must also be installed on those systems.
-     * @param {HCLUSTER} _hCluster 
+     * @param {HCLUSTER} _hCluster Handle to the cluster to receive the new resource type.
      * @param {PWSTR} lpszResourceTypeName Pointer to a null-terminated Unicode string containing the name of the new resource type. The specified name must be unique within the cluster.
      * @param {PWSTR} lpszDisplayName Pointer to the  <a href="https://docs.microsoft.com/previous-versions/windows/desktop/mscs/display-names">display name</a> for the new resource type. While the content of <i>lpszResourceTypeName</i> should uniquely identify the resource type on all clusters, the content of <i>lpszDisplayName</i> should be a localized friendly name for the resource suitable for displaying to administrators.
      * @param {PWSTR} lpszResourceTypeDll Pointer to the fully qualified name of the  <a href="https://docs.microsoft.com/previous-versions/windows/desktop/mscs/resource-dlls">resource DLL</a> for the new resource type or the path name relative to the Cluster directory.
@@ -10439,7 +10476,7 @@ class Clustering {
      * The  <b>DeleteClusterResourceType</b> function only removes the resource type with the name pointed to by <i>lpszResourceTypeName</i> from the  <a href="https://docs.microsoft.com/previous-versions/windows/desktop/mscs/cluster-database">cluster database</a> and then unregisters it with the  <a href="https://docs.microsoft.com/previous-versions/windows/desktop/mscs/cluster-service">Cluster service</a>. The caller must delete the  <a href="https://docs.microsoft.com/previous-versions/windows/desktop/mscs/resource-dlls">resource DLL</a> for the resource type from each  <a href="https://docs.microsoft.com/previous-versions/windows/desktop/mscs/nodes">node</a> in the cluster.
      * 
      * The caller must also delete any  <a href="https://docs.microsoft.com/previous-versions/windows/desktop/mscs/resources">resources</a> of this type before calling  <b>DeleteClusterResourceType</b> to delete the type. If any resources of the specified type still exist when  <b>DeleteClusterResourceType</b> is called, the function fails.
-     * @param {HCLUSTER} _hCluster 
+     * @param {HCLUSTER} _hCluster Handle to the cluster containing the resource type to be removed.
      * @param {PWSTR} lpszResourceTypeName Pointer to a null-terminated Unicode string containing the name of the resource type to be removed.
      * @returns {Integer} If the operation succeeds, the function returns <b>ERROR_SUCCESS</b>.
      * 
@@ -10493,7 +10530,7 @@ class Clustering {
 
     /**
      * Opens an enumerator for iterating through a resource type's possible owner nodes or resources.
-     * @param {HCLUSTER} _hCluster 
+     * @param {HCLUSTER} _hCluster <a href="https://docs.microsoft.com/previous-versions/windows/desktop/mscs/c-gly">Cluster</a> handle.
      * @param {PWSTR} lpszResourceTypeName A null-terminated Unicode string containing the name of the resource type.
      * @param {Integer} dwType Bitmask describing the type of <a href="https://docs.microsoft.com/previous-versions/windows/desktop/mscs/cluster-objects">cluster objects</a> to be 
      *        enumerated. The following values of the <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/clusapi/ne-clusapi-cluster_resource_type_enum">CLUSTER_RESOURCE_TYPE_ENUM</a> enumeration are valid.
@@ -10520,7 +10557,7 @@ class Clustering {
 
     /**
      * Returns the number of cluster objects associated with a resource_type enumeration handle.
-     * @param {HRESTYPEENUM} _hResTypeEnum 
+     * @param {HRESTYPEENUM} _hResTypeEnum Handle to a resource type enumeration. This handle is obtained from  <a href="https://docs.microsoft.com/windows/desktop/api/clusapi/nf-clusapi-clusterresourcetypeopenenum">ClusterResourceTypeOpenEnum</a>. A valid handle is required. This parameter cannot be <b>NULL</b>.
      * @returns {Integer} <b>ClusterResourceTypeGetEnumCount</b> returns the number of objects associated with the enumeration handle.
      * @see https://learn.microsoft.com/windows/win32/api/clusapi/nf-clusapi-clusterresourcetypegetenumcount
      * @since windowsserver2008
@@ -10536,7 +10573,8 @@ class Clustering {
      * Note that <i>lpcchName</i> refers to a count of characters and not a count of bytes, and 
      *      that the returned size does not include the terminating <b>NULL</b> in the count. For more information on sizing 
      *      buffers, see <a href="https://docs.microsoft.com/previous-versions/windows/desktop/mscs/data-size-conventions">Data Size Conventions</a>.
-     * @param {HRESTYPEENUM} _hResTypeEnum 
+     * @param {HRESTYPEENUM} _hResTypeEnum Resource type enumeration handle returned from 
+     *        <a href="https://docs.microsoft.com/windows/desktop/api/clusapi/nf-clusapi-clusterresourcetypeopenenum">ClusterResourceTypeOpenEnum</a>.
      * @param {Integer} dwIndex Index of the <a href="https://docs.microsoft.com/previous-versions/windows/desktop/mscs/resources">resource</a> or node object to return. This 
      *        parameter should be zero for the first call to 
      *        <b>ClusterResourceTypeEnum</b> and then 
@@ -10622,7 +10660,7 @@ class Clustering {
 
     /**
      * Closes a resource type enumeration handle.
-     * @param {HRESTYPEENUM} _hResTypeEnum 
+     * @param {HRESTYPEENUM} _hResTypeEnum Enumeration handle to be closed.
      * @returns {Integer} If the operation succeeds, the function returns <b>ERROR_SUCCESS</b>.
      * 
      * If the operation fails, the function returns a 
@@ -10637,7 +10675,7 @@ class Clustering {
 
     /**
      * Opens a connection to a network and returns a handle to it. (OpenClusterNetwork)
-     * @param {HCLUSTER} _hCluster 
+     * @param {HCLUSTER} _hCluster Handle to a <a href="https://docs.microsoft.com/previous-versions/windows/desktop/mscs/c-gly">cluster</a>.
      * @param {PWSTR} lpszNetworkName Pointer to the name of an existing network.
      * @returns {HNETWORK} <table>
      * <tr>
@@ -10679,7 +10717,7 @@ class Clustering {
 
     /**
      * Opens a connection to a network and returns a handle to it. (OpenClusterNetworkEx)
-     * @param {HCLUSTER} _hCluster 
+     * @param {HCLUSTER} _hCluster Handle to a <a href="https://docs.microsoft.com/previous-versions/windows/desktop/mscs/c-gly">cluster</a>.
      * @param {PWSTR} lpszNetworkName Pointer to the name of an existing network.
      * @param {Integer} dwDesiredAccess The requested access privileges. This may be any combination of <b>GENERIC_READ</b> 
      *       (0x80000000), <b>GENERIC_ALL</b> (0x10000000), or <b>MAXIMUM_ALLOWED</b> 
@@ -10736,7 +10774,7 @@ class Clustering {
 
     /**
      * Closes a network handle.
-     * @param {HNETWORK} _hNetwork 
+     * @param {HNETWORK} _hNetwork Handle to the network to close.
      * @returns {BOOL} <table>
      * <tr>
      * <th>Return code</th>
@@ -10785,7 +10823,7 @@ class Clustering {
      * For <i>hNetwork</i> to be a valid handle, there must necessarily be an open cluster handle (see  <a href="https://docs.microsoft.com/windows/desktop/api/clusapi/nf-clusapi-openclusternetwork">OpenClusterNetwork</a>).  <b>GetClusterFromNetwork</b> returns another instance of the handle from which <i>hNetwork</i> was obtained.
      * 
      * Be sure to call  <a href="https://docs.microsoft.com/windows/desktop/api/clusapi/nf-clusapi-closecluster">CloseCluster</a> on the handle returned from  <b>GetClusterFromNetwork</b> before the handle goes out of scope. Closing this handle does not invalidate <i>hNetwork</i> or the cluster handle from which <i>hNetwork</i> was obtained.
-     * @param {HNETWORK} _hNetwork 
+     * @param {HNETWORK} _hNetwork Handle to the network.
      * @returns {HCLUSTER} If the operation succeeds, the function returns a handle to the cluster that owns the network.
      * 
      * If the operation fails, 
@@ -10816,7 +10854,7 @@ class Clustering {
      *      of the objects to be enumerated and to 
      *      <a href="https://docs.microsoft.com/windows/desktop/api/clusapi/nf-clusapi-clusternetworkcloseenum">ClusterNetworkCloseEnum</a> to release the 
      *      enumerator.
-     * @param {HNETWORK} _hNetwork 
+     * @param {HNETWORK} _hNetwork A handle to a network.
      * @param {Integer} dwType 
      * @returns {HNETWORKENUM} If the operation was successful, 
      *        <b>ClusterNetworkOpenEnum</b> returns a handle to a 
@@ -10841,7 +10879,9 @@ class Clustering {
 
     /**
      * Returns the number of cluster objects associated with a network enumeration handle.
-     * @param {HNETWORKENUM} _hNetworkEnum 
+     * @param {HNETWORKENUM} _hNetworkEnum Handle to a network enumeration. This handle is obtained from 
+     *       <a href="https://docs.microsoft.com/windows/desktop/api/clusapi/nf-clusapi-clusternetworkopenenum">ClusterNetworkOpenEnum</a>. A valid handle is 
+     *       required. This parameter cannot be <b>NULL</b>.
      * @returns {Integer} <b>ClusterNetworkGetEnumCount</b> returns the 
      *        number of objects associated with the enumeration handle.
      * @see https://learn.microsoft.com/windows/win32/api/clusapi/nf-clusapi-clusternetworkgetenumcount
@@ -10872,7 +10912,8 @@ class Clustering {
      *      that the returned size does not include the terminating <b>NULL</b> in the count. For more 
      *      information on sizing buffers, see 
      *      <a href="https://docs.microsoft.com/previous-versions/windows/desktop/mscs/data-size-conventions">Data Size Conventions</a>.
-     * @param {HNETWORKENUM} _hNetworkEnum 
+     * @param {HNETWORKENUM} _hNetworkEnum A handle to an existing enumeration object originally returned by the 
+     *        <a href="https://docs.microsoft.com/windows/desktop/api/clusapi/nf-clusapi-clusternetworkopenenum">ClusterNetworkOpenEnum</a> function.
      * @param {Integer} dwIndex The index used to identify the next entry to be enumerated. This parameter should be zero for the first call 
      *        to <b>ClusterNetworkEnum</b> and then incremented for 
      *        subsequent calls.
@@ -10947,7 +10988,7 @@ class Clustering {
 
     /**
      * Closes a network enumeration handle.
-     * @param {HNETWORKENUM} _hNetworkEnum 
+     * @param {HNETWORKENUM} _hNetworkEnum Handle to the network enumerator to close. This is a handle originally returned by the  <a href="https://docs.microsoft.com/windows/desktop/api/clusapi/nf-clusapi-clusternetworkopenenum">ClusterNetworkOpenEnum</a> function.
      * @returns {Integer} If the operation succeeds, the function returns <b>ERROR_SUCCESS</b>.
      * 
      * If the operation fails, 
@@ -10962,8 +11003,8 @@ class Clustering {
 
     /**
      * Current state of a network.
-     * @param {HNETWORK} _hNetwork 
-     * @returns {Integer} <b>GetClusterNetworkState</b> returns the current 
+     * @param {HNETWORK} _hNetwork Handle to the network for which state information should be returned.
+     * @returns {CLUSTER_NETWORK_STATE} <b>GetClusterNetworkState</b> returns the current 
      *        state of the network, which is represented by one of the following values enumerated by the 
      *        <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/clusapi/ne-clusapi-cluster_network_state">CLUSTER_NETWORK_STATE</a> enumeration.
      * 
@@ -11055,7 +11096,7 @@ class Clustering {
      * Sets the name for a network.
      * @remarks
      * <b>SetClusterNetworkName</b> changes the  <a href="https://docs.microsoft.com/previous-versions/windows/desktop/mscs/networks-name">Name</a> common property of the network identified by <i>hNetwork</i>. This is the only way that  <b>Name</b>, a read-only property, can be changed.
-     * @param {HNETWORK} _hNetwork 
+     * @param {HNETWORK} _hNetwork Handle to a network to name.
      * @param {PWSTR} lpszName Pointer to a null-terminated Unicode string containing the new network name.
      * @returns {Integer} If the operation succeeds, the function returns <b>ERROR_SUCCESS</b>.
      * 
@@ -11090,7 +11131,7 @@ class Clustering {
      * Returns the identifier of a network.
      * @remarks
      * Note that <i>lpcchNetworkID</i> refers to a count of characters and not a count of bytes, and that the returned size does not include the terminating <b>NULL</b> in the count. For more information on sizing buffers, see  <a href="https://docs.microsoft.com/previous-versions/windows/desktop/mscs/data-size-conventions">Data Size Conventions</a>.
-     * @param {HNETWORK} _hNetwork 
+     * @param {HNETWORK} _hNetwork Handle to a network.
      * @param {PWSTR} lpszNetworkId Pointer to the identifier of the network associated with <i>hNetwork</i>, including the null-terminating character.
      * @param {Pointer<Integer>} lpcchName Pointer to the size of the <i>lpszNetworkID</i> buffer as a count of characters. On input, specify the maximum number of characters the buffer can hold, including the terminating <b>NULL</b>. On output, specifies the number of characters in the resulting name, excluding the terminating <b>NULL</b>.
      * @returns {Integer} If the operation succeeds, the function returns <b>ERROR_SUCCESS</b>.
@@ -11143,7 +11184,7 @@ class Clustering {
      *      <a href="https://docs.microsoft.com/previous-versions/windows/desktop/mscs/control-code-functions">control code functions</a>. For more information on 
      *      control codes and control code functions, see 
      *      <a href="https://docs.microsoft.com/previous-versions/windows/desktop/mscs/using-control-codes">Using Control Codes</a>.
-     * @param {HNETWORK} _hNetwork 
+     * @param {HNETWORK} _hNetwork Handle to the network to be affected by the operation.
      * @param {HNODE} hHostNode If non-<b>NULL</b>, handle to the <a href="https://docs.microsoft.com/previous-versions/windows/desktop/mscs/nodes">node</a> 
      *        hosting the affected network. If <b>NULL</b>, the local node performs the operation. 
      *        Specifying <i>hHostNode</i> is optional.
@@ -11206,10 +11247,10 @@ class Clustering {
      * <a href="https://docs.microsoft.com/previous-versions/windows/desktop/mscs/clusctl-network-validate-private-properties">CLUSCTL_NETWORK_VALIDATE_PRIVATE_PROPERTIES</a>
      * </li>
      * </ul>
-     * @param {Pointer} lpInBuffer Pointer to an input buffer containing information needed for the operation, or <b>NULL</b> 
+     * @param {Integer} lpInBuffer Pointer to an input buffer containing information needed for the operation, or <b>NULL</b> 
      *        if no information is needed.
      * @param {Integer} nInBufferSize The allocated size (in bytes) of the input buffer.
-     * @param {Pointer} lpOutBuffer Pointer to an output buffer to receive the data resulting from the operation, or 
+     * @param {Integer} lpOutBuffer Pointer to an output buffer to receive the data resulting from the operation, or 
      *        <b>NULL</b> if no data will be returned.
      * @param {Integer} nOutBufferSize The allocated size (in bytes) of the output buffer.
      * @param {Pointer<Integer>} lpBytesReturned Returns the actual size (in bytes) of the data resulting from the operation. If this information is not 
@@ -11279,9 +11320,9 @@ class Clustering {
      * @param {HNETWORK} _hNetwork 
      * @param {HNODE} hHostNode 
      * @param {Integer} dwControlCode 
-     * @param {Pointer} lpInBuffer 
+     * @param {Integer} lpInBuffer 
      * @param {Integer} nInBufferSize 
-     * @param {Pointer} lpOutBuffer 
+     * @param {Integer} lpOutBuffer 
      * @param {Integer} nOutBufferSize 
      * @param {Pointer<Integer>} lpBytesReturned 
      * @param {PWSTR} lpszReason 
@@ -11298,7 +11339,7 @@ class Clustering {
 
     /**
      * Opens a handle to a network interface. (OpenClusterNetInterface)
-     * @param {HCLUSTER} _hCluster 
+     * @param {HCLUSTER} _hCluster Handle to a <a href="https://docs.microsoft.com/previous-versions/windows/desktop/mscs/c-gly">cluster</a>.
      * @param {PWSTR} lpszInterfaceName Pointer to a null-terminated Unicode string containing the name of the network interface to open.
      * @returns {HNETINTERFACE} If the operation was successful, 
      *        <b>OpenClusterNetInterface</b> returns an open 
@@ -11340,7 +11381,7 @@ class Clustering {
 
     /**
      * Opens a handle to a network interface. (OpenClusterNetInterfaceEx)
-     * @param {HCLUSTER} _hCluster 
+     * @param {HCLUSTER} _hCluster Handle to a <a href="https://docs.microsoft.com/previous-versions/windows/desktop/mscs/c-gly">cluster</a>.
      * @param {PWSTR} lpszInterfaceName Pointer to a null-terminated Unicode string containing the name of the network interface to open.
      * @param {Integer} dwDesiredAccess The requested access privileges. This may be any combination of <b>GENERIC_READ</b> 
      *       (0x80000000), <b>GENERIC_ALL</b> (0x10000000), or <b>MAXIMUM_ALLOWED</b> 
@@ -11399,7 +11440,7 @@ class Clustering {
      * Returns the name of a node's interface to a network in a cluster.
      * @remarks
      * Note that <i>lpcchInterfaceName</i> refers to a count of characters and not a count of bytes, and that the returned size does not include the terminating <b>NULL</b> in the count. For more information on sizing buffers, see  <a href="https://docs.microsoft.com/previous-versions/windows/desktop/mscs/data-size-conventions">Data Size Conventions</a>.
-     * @param {HCLUSTER} _hCluster 
+     * @param {HCLUSTER} _hCluster Handle to a cluster.
      * @param {PWSTR} lpszNodeName Pointer to a null-terminated Unicode string containing the name of the node in the cluster.
      * @param {PWSTR} lpszNetworkName Pointer to a null-terminated Unicode string containing the name of the network.
      * @param {PWSTR} lpszInterfaceName Pointer to an output buffer holding the name of the  <a href="https://docs.microsoft.com/previous-versions/windows/desktop/mscs/network-interfaces">network interface</a>.
@@ -11442,7 +11483,7 @@ class Clustering {
 
     /**
      * Closes a network interface handle.
-     * @param {HNETINTERFACE} _hNetInterface 
+     * @param {HNETINTERFACE} _hNetInterface Handle of the network interface to close.
      * @returns {BOOL} <table>
      * <tr>
      * <th>Return code</th>
@@ -11491,7 +11532,7 @@ class Clustering {
      * For <i>hNetInterface</i> to be a valid handle, there must necessarily be an open cluster handle (see  <a href="https://docs.microsoft.com/windows/desktop/api/clusapi/nf-clusapi-openclusternetinterface">OpenClusterNetInterface</a>).  <b>GetClusterFromNetInterface</b> returns another instance of the handle from which <i>hNetInterface</i> was obtained.
      * 
      * Be sure to call  <a href="https://docs.microsoft.com/windows/desktop/api/clusapi/nf-clusapi-closecluster">CloseCluster</a> on the handle returned from  <b>GetClusterFromNetInterface</b> before the handle goes out of scope. Closing this handle does not invalidate <i>hNetInterface</i> or the cluster handle from which <i>hNetInterface</i> was obtained.
-     * @param {HNETINTERFACE} _hNetInterface 
+     * @param {HNETINTERFACE} _hNetInterface Handle to the network interface.
      * @returns {HCLUSTER} If the operation succeeds, the function returns a handle to the cluster that owns the network interface.
      * 
      * If the operation fails, 
@@ -11512,8 +11553,8 @@ class Clustering {
 
     /**
      * Returns the current state of a network interface.
-     * @param {HNETINTERFACE} _hNetInterface 
-     * @returns {Integer} <b>GetClusterNetInterfaceState</b> returns 
+     * @param {HNETINTERFACE} _hNetInterface Handle to the network interface for which state information should be returned.
+     * @returns {CLUSTER_NETINTERFACE_STATE} <b>GetClusterNetInterfaceState</b> returns 
      *        the current state of the network interface, which is represented by one of the following values enumerated by 
      *        the <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/clusapi/ne-clusapi-cluster_netinterface_state">CLUSTER_NETINTERFACE_STATE</a> 
      *        enumeration.
@@ -11615,7 +11656,7 @@ class Clustering {
      *      the <a href="https://docs.microsoft.com/previous-versions/windows/desktop/mscs/control-code-functions">control code functions</a>. For more information on 
      *      control codes and control code functions, see 
      *      <a href="https://docs.microsoft.com/previous-versions/windows/desktop/mscs/using-control-codes">Using Control Codes</a>.
-     * @param {HNETINTERFACE} _hNetInterface 
+     * @param {HNETINTERFACE} _hNetInterface Handle to the network interface to be affected.
      * @param {HNODE} hHostNode If non-<b>NULL</b>, handle to the <a href="https://docs.microsoft.com/previous-versions/windows/desktop/mscs/nodes">node</a> that 
      *        owns the network interface to be affected. If <b>NULL</b>, the local node performs the 
      *        operation. Specifying <i>hHostNode</i> is optional.
@@ -11684,10 +11725,10 @@ class Clustering {
      * <a href="https://docs.microsoft.com/previous-versions/windows/desktop/mscs/clusctl-netinterface-validate-private-properties">CLUSCTL_NETINTERFACE_VALIDATE_PRIVATE_PROPERTIES</a>
      * </li>
      * </ul>
-     * @param {Pointer} lpInBuffer Pointer to an input buffer containing information needed for the operation, or <b>NULL</b> 
+     * @param {Integer} lpInBuffer Pointer to an input buffer containing information needed for the operation, or <b>NULL</b> 
      *        if no information is needed.
      * @param {Integer} nInBufferSize The allocated size (in bytes) of the input buffer.
-     * @param {Pointer} lpOutBuffer Pointer to an output buffer to receive the data resulting from the operation, or 
+     * @param {Integer} lpOutBuffer Pointer to an output buffer to receive the data resulting from the operation, or 
      *        <b>NULL</b> if no data will be returned.
      * @param {Integer} nOutBufferSize The allocated size (in bytes) of the output buffer.
      * @param {Pointer<Integer>} lpBytesReturned Returns the actual size (in bytes) of the data resulting from the operation. If this information is not 
@@ -11757,9 +11798,9 @@ class Clustering {
      * @param {HNETINTERFACE} _hNetInterface 
      * @param {HNODE} hHostNode 
      * @param {Integer} dwControlCode 
-     * @param {Pointer} lpInBuffer 
+     * @param {Integer} lpInBuffer 
      * @param {Integer} nInBufferSize 
-     * @param {Pointer} lpOutBuffer 
+     * @param {Integer} lpOutBuffer 
      * @param {Integer} nOutBufferSize 
      * @param {Pointer<Integer>} lpBytesReturned 
      * @param {PWSTR} lpszReason 
@@ -11782,7 +11823,7 @@ class Clustering {
      *     <i>hCluster</i>. Callers should call 
      *     <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/clusapi/nf-clusapi-clusterregclosekey">ClusterRegCloseKey</a> to close the key handle 
      *     retrieved by <b>GetClusterKey</b> when they are done with it.
-     * @param {HCLUSTER} _hCluster 
+     * @param {HCLUSTER} _hCluster Handle to a cluster.
      * @param {Integer} samDesired Access mask that describes the security access needed for the new key. For more information and possible 
      *       values, see 
      *       <a href="https://docs.microsoft.com/windows/desktop/SysInfo/registry-key-security-and-access-rights">Registry Key Security and Access Rights</a>.
@@ -11809,7 +11850,7 @@ class Clustering {
      * Opens the root of the cluster database subtree for a group.
      * @remarks
      * The  <b>GetClusterGroupKey</b> function returns a handle to a cluster database key representing the subtree root for the group identified by <i>hGroup</i>. Callers should call  <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/clusapi/nf-clusapi-clusterregclosekey">ClusterRegCloseKey</a> to close the key handle retrieved by  <b>GetClusterGroupKey</b> when they are done with it.
-     * @param {HGROUP} _hGroup 
+     * @param {HGROUP} _hGroup Handle to a group.
      * @param {Integer} samDesired Access mask that describes the security access needed for the key.
      * @returns {HKEY} If the operation succeeds, the function returns a database key handle for the group.
      * 
@@ -11834,7 +11875,7 @@ class Clustering {
      * Opens the root of the cluster database subtree for a resource.
      * @remarks
      * The  <b>GetClusterResourceKey</b> function returns a handle to a cluster database key representing the subtree root for the resource identified by <i>hResource</i>. Callers should call  <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/clusapi/nf-clusapi-clusterregclosekey">ClusterRegCloseKey</a> to close the key handle retrieved by  <b>GetClusterResourceKey</b> when they are done with it.
-     * @param {HRESOURCE} _hResource 
+     * @param {HRESOURCE} _hResource Handle to a resource.
      * @param {Integer} samDesired Access mask that describes the security access needed for the opened key.
      * @returns {HKEY} If the operation succeeds, the function returns a registry key handle for the resource.
      * 
@@ -11859,7 +11900,7 @@ class Clustering {
      * Opens the root of the cluster database subtree for a node.
      * @remarks
      * The  <b>GetClusterNodeKey</b> function returns a handle to a cluster database key representing the subtree root for the node identified by <i>hNode</i>. Callers should call  <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/clusapi/nf-clusapi-clusterregclosekey">ClusterRegCloseKey</a> to close the key handle retrieved by  <b>GetClusterNodeKey</b> when they are done with it.
-     * @param {HNODE} _hNode 
+     * @param {HNODE} _hNode Handle to a node.
      * @param {Integer} samDesired Access mask that describes the security access needed for the key.
      * @returns {HKEY} If the operation succeeds, the function returns a registry key handle for the node.
      * 
@@ -11884,7 +11925,7 @@ class Clustering {
      * Opens the root of the cluster database subtree for a network.
      * @remarks
      * The  <b>GetClusterNetworkKey</b> function returns a handle to a cluster database key representing the subtree root for the network identified by <i>hNetwork</i>. Callers should call  <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/clusapi/nf-clusapi-clusterregclosekey">ClusterRegCloseKey</a> to close the key handle retrieved by  <b>GetClusterNetworkKey</b> when they are done with it.
-     * @param {HNETWORK} _hNetwork 
+     * @param {HNETWORK} _hNetwork Handle to a network.
      * @param {Integer} samDesired Access mask that describes the security access needed for the new key.
      * @returns {HKEY} If the operation succeeds, the function returns a registry key handle for the network.
      * 
@@ -11909,7 +11950,7 @@ class Clustering {
      * Opens the root of the cluster database subtree for a network interface object.
      * @remarks
      * The  <b>GetClusterNetInterfaceKey</b> function returns a handle to a cluster database key representing the subtree root for the network interface identified by <i>hNetInterface</i>. Callers should call  <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/clusapi/nf-clusapi-clusterregclosekey">ClusterRegCloseKey</a> to close the key handle retrieved by  <b>GetClusterNetInterfaceKey</b> when they are done with it.
-     * @param {HNETINTERFACE} _hNetInterface 
+     * @param {HNETINTERFACE} _hNetInterface Handle to a network interface.
      * @param {Integer} samDesired Access mask that describes the security access needed for the key.
      * @returns {HKEY} If the operation succeeds, the function returns a registry key handle for the network interface.
      * 
@@ -11960,7 +12001,7 @@ class Clustering {
      * <b>ClusterRegCreateKey</b> can be safely called from 
      *      any other resource DLL entry point function or from a worker thread. For more information, see 
      *      <a href="https://docs.microsoft.com/previous-versions/windows/desktop/mscs/function-calls-to-avoid-in-resource-dlls">Function Calls to Avoid in Resource DLLs</a>.
-     * @param {HKEY} _hKey 
+     * @param {HKEY} _hKey Handle to an open cluster database key. This parameter cannot be <b>NULL</b>.
      * @param {PWSTR} lpszSubKey Pointer to a null-terminated Unicode string specifying the name of the subkey to be created or opened. The 
      *        <i>lpszSubKey</i> parameter must point to a subkey that:
      * 
@@ -12029,7 +12070,7 @@ class Clustering {
      * Opens an existing cluster database key.
      * @remarks
      * Callers should call  <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/clusapi/nf-clusapi-clusterregclosekey">ClusterRegCloseKey</a> to close the key handle opened by  <b>ClusterRegOpenKey</b> when they are done with it.
-     * @param {HKEY} _hKey 
+     * @param {HKEY} _hKey Handle to a currently open key. This parameter cannot be <b>NULL</b>.
      * @param {PWSTR} lpszSubKey Pointer to a null-terminated Unicode string specifying the name of the subkey to be created or opened. The <i>lpszSubKey</i> parameter must point to a subkey that:
      * 
      * <ul>
@@ -12084,7 +12125,7 @@ class Clustering {
      * <b>ClusterRegDeleteKey</b> can be safely called from 
      *     any other resource DLL entry point function or from a worker thread. For more information, see 
      *     <a href="https://docs.microsoft.com/previous-versions/windows/desktop/mscs/function-calls-to-avoid-in-resource-dlls">Function Calls to Avoid in Resource DLLs</a>.
-     * @param {HKEY} _hKey 
+     * @param {HKEY} _hKey Handle to a currently open key.
      * @param {PWSTR} lpszSubKey Pointer to a null-terminated Unicode string specifying the name of the key to delete. The key pointed to by 
      *       <i>lpszSubKey</i> cannot have subkeys; 
      *       <b>ClusterRegDeleteKey</b> can only delete keys without 
@@ -12122,7 +12163,7 @@ class Clustering {
 
     /**
      * Releases the handle of a cluster database key.
-     * @param {HKEY} _hKey 
+     * @param {HKEY} _hKey Handle to the cluster database key to be closed.
      * @returns {Integer} If the operation succeeds, the function returns <b>ERROR_SUCCESS</b>.
      * 
      * If the operation fails, 
@@ -12148,7 +12189,7 @@ class Clustering {
      *      set to <b>NULL</b>, 
      *      <b>ClusterRegEnumKey</b> fails if the node is not part of 
      *      a cluster.
-     * @param {HKEY} _hKey 
+     * @param {HKEY} _hKey <b>HKEY</b> specifying a currently open key.
      * @param {Integer} dwIndex Index used to identify the next subkey to be enumerated. This parameter should be zero for the first call to 
      *        <b>ClusterRegEnumKey</b> and then incremented for 
      *        subsequent calls.
@@ -12262,7 +12303,7 @@ class Clustering {
      * <b>ClusterRegSetValue</b> can be safely called from any 
      *      other resource DLL entry point function or from a worker thread. For more information, see 
      *      <a href="https://docs.microsoft.com/previous-versions/windows/desktop/mscs/function-calls-to-avoid-in-resource-dlls">Function Calls to Avoid in Resource DLLs</a>.
-     * @param {HKEY} _hKey 
+     * @param {HKEY} _hKey Handle to a cluster database key.
      * @param {PWSTR} lpszValueName Pointer to a null-terminated Unicode string containing the name of the value to set. If a value with this 
      *        name is not already present in the <a href="https://docs.microsoft.com/previous-versions/windows/desktop/mscs/resources">resource</a>, 
      *        <b>ClusterRegSetValue</b> adds it to the resource.
@@ -12321,7 +12362,7 @@ class Clustering {
      * <b>ClusterRegDeleteValue</b> can be safely called 
      *      from any other resource DLL entry point function or from a worker thread. For more information, see 
      *      <a href="https://docs.microsoft.com/previous-versions/windows/desktop/mscs/function-calls-to-avoid-in-resource-dlls">Function Calls to Avoid in Resource DLLs</a>.
-     * @param {HKEY} _hKey 
+     * @param {HKEY} _hKey Handle to a currently open key.
      * @param {PWSTR} lpszValueName Pointer to a null-terminated Unicode string containing the name of the value to be removed.
      * @returns {Integer} If the operation succeeds, the function returns <b>ERROR_SUCCESS</b>.
      * 
@@ -12386,11 +12427,11 @@ class Clustering {
      * If <i>lpdwValueType</i> is set to <b>REG_SZ</b>, 
      *      <b>REG_MULTI_SZ</b> or <b>REG_EXPAND_SZ</b>, then 
      *      <i>lpbData</i> also includes a <b>NULL</b> terminator.
-     * @param {HKEY} _hKey 
+     * @param {HKEY} _hKey Handle of the cluster database key to query.
      * @param {PWSTR} lpszValueName Pointer to a null-terminated Unicode string containing the name of the value to be queried.
      * @param {Pointer<Integer>} lpdwValueType Pointer to the key's value type. This parameter can be <b>NULL</b> if the type is not 
      *        required; otherwise, the value returned through this parameter is one of the following.
-     * @param {Pointer} lpData Pointer to the value's data. This parameter can be <b>NULL</b> if the data is not 
+     * @param {Integer} lpData Pointer to the value's data. This parameter can be <b>NULL</b> if the data is not 
      *        required.
      * @param {Pointer<Integer>} lpcbData On input, pointer to the count of bytes in the buffer pointed to by the <i>lpbData</i> 
      *        parameter. On output, pointer to the count of bytes in the value's data, which is placed in the content of 
@@ -12448,7 +12489,7 @@ class Clustering {
 
     /**
      * Enumerates the values of an open cluster database key.
-     * @param {HKEY} _hKey 
+     * @param {HKEY} _hKey Handle of the cluster database key to enumerate.
      * @param {Integer} dwIndex Index used to identify the next value to be enumerated. This parameter should be zero for the first call to 
      *        <b>ClusterRegEnumValue</b> and then incremented for 
      *        subsequent calls.
@@ -12462,7 +12503,7 @@ class Clustering {
      *        <b>NULL</b>. On output, specifies the number of characters in the resulting name, excluding 
      *        the terminating <b>NULL</b>.
      * @param {Pointer<Integer>} lpdwType Pointer to the type code for the value entry, or <b>NULL</b> if the type code is not
-     * @param {Pointer} lpData Pointer to the data for the value entry. This parameter can be <b>NULL</b> if the data is 
+     * @param {Integer} lpData Pointer to the data for the value entry. This parameter can be <b>NULL</b> if the data is 
      *        not required.
      * @param {Pointer<Integer>} lpcbData On input, pointer to a count of bytes in the buffer pointed to by the <i>lpbData</i> 
      *        parameter. On output, pointer to a count of bytes resulting from the operation. This parameter can be 
@@ -12543,7 +12584,7 @@ class Clustering {
 
     /**
      * Returns information about a cluster database key.
-     * @param {HKEY} _hKey 
+     * @param {HKEY} _hKey Handle to a cluster database key. All subsequent parameters describe the contents of the key.
      * @param {Pointer<Integer>} lpcSubKeys If not <b>NULL</b>, pointer to the number of subkeys in the specified key.
      * @param {Pointer<Integer>} lpcchMaxSubKeyLen If not <b>NULL</b>, pointer to the number of characters in the longest subkey name in the specified key. The number does not include the terminating <b>NULL</b>.
      * @param {Pointer<Integer>} lpcValues If not <b>NULL</b>, pointer to the number of values in the specified key.
@@ -12574,9 +12615,9 @@ class Clustering {
 
     /**
      * Returns a copy of the security descriptor protecting the specified cluster database key.
-     * @param {HKEY} _hKey 
+     * @param {HKEY} _hKey Handle to a cluster database key.
      * @param {Integer} RequestedInformation A  <a href="https://docs.microsoft.com/windows/desktop/SecAuthZ/security-information">SECURITY_INFORMATION</a> structure that indicates the requested security descriptor.
-     * @param {Pointer} pSecurityDescriptor Pointer to a <a href="https://docs.microsoft.com/windows/desktop/api/winnt/ns-winnt-security_descriptor">SECURITY_DESCRIPTOR</a> structure containing a copy of the requested security descriptor.
+     * @param {Integer} pSecurityDescriptor Pointer to a <a href="https://docs.microsoft.com/windows/desktop/api/winnt/ns-winnt-security_descriptor">SECURITY_DESCRIPTOR</a> structure containing a copy of the requested security descriptor.
      * @param {Pointer<Integer>} lpcbSecurityDescriptor On input, pointer to a count of the number of bytes in the buffer pointed to by <i>pSecurityDescriptor</i>. On output, pointer to a count of the number of bytes written to the buffer.
      * @returns {Integer} If the operation succeeds, the function returns <b>ERROR_SUCCESS</b>.
      * 
@@ -12624,7 +12665,7 @@ class Clustering {
      * <b>ClusterRegSetKeySecurity</b> can be safely 
      *      called from any other resource DLL entry point function or from a worker thread. For more information, see 
      *      <a href="https://docs.microsoft.com/previous-versions/windows/desktop/mscs/function-calls-to-avoid-in-resource-dlls">Function Calls to Avoid in Resource DLLs</a>.
-     * @param {HKEY} _hKey 
+     * @param {HKEY} _hKey Handle to a cluster database key.
      * @param {Integer} SecurityInformation A <a href="https://docs.microsoft.com/windows/desktop/SecAuthZ/security-information">SECURITY_INFORMATION</a> structure that 
      *        indicates the content of the security descriptor pointed to by 
      *        <i>pSecurityDescriptor</i>.
@@ -12648,7 +12689,7 @@ class Clustering {
     /**
      * 
      * @param {HKEY} _hKey 
-     * @param {Integer} SecurityInformation 
+     * @param {OBJECT_SECURITY_INFORMATION} SecurityInformation 
      * @param {PSECURITY_DESCRIPTOR} pSecurityDescriptor 
      * @param {PWSTR} lpszReason 
      * @returns {Integer} 
@@ -12664,7 +12705,7 @@ class Clustering {
 
     /**
      * Synchronizes the Cluster Database with a cluster.
-     * @param {HCLUSTER} _hCluster 
+     * @param {HCLUSTER} _hCluster A handle to the cluster to synchronize with the cluster database.
      * @param {Integer} flags This parameter is reserved for future use.
      * @returns {Integer} If the operation succeeds, returns <b>ERROR_SUCCESS</b> (0); otherwise, returns a system error code.
      * @see https://learn.microsoft.com/windows/win32/api/clusapi/nf-clusapi-clusterregsyncdatabase
@@ -12681,7 +12722,8 @@ class Clustering {
      * The key should not be closed until the batch has been submitted for execution.
      * 
      * The <b>PCLUSTER_REG_CREATE_BATCH</b> type defines a pointer to this function.
-     * @param {HKEY} _hKey 
+     * @param {HKEY} _hKey The handle of the opened cluster registry key.  All the operations on the batch are relative to this cluster 
+     *        registry key.
      * @param {Pointer<HREGBATCH>} pHREGBATCH The pointer to the handle of the created batch.
      * @returns {Integer} The function returns one of the following 
      *        <a href="https://docs.microsoft.com/windows/desktop/Debug/system-error-codes">system error codes</a>.
@@ -12757,8 +12799,8 @@ class Clustering {
      * Adds a command to a batch that will be executed on a cluster registry key.
      * @remarks
      * The <b>PCLUSTER_REG_BATCH_ADD_COMMAND</b> type defines a pointer to this function.
-     * @param {HREGBATCH} _hRegBatch 
-     * @param {Integer} dwCommand A command supported by this API that is taken from the 
+     * @param {HREGBATCH} _hRegBatch The handle of the batch to which a command will be added.
+     * @param {CLUSTER_REG_COMMAND} dwCommand A command supported by this API that is taken from the 
      *        <a href="https://docs.microsoft.com/windows/desktop/api/clusapi/ne-clusapi-cluster_reg_command">CLUSTER_REG_COMMAND</a> enumeration.  The possible 
      *        commands are as follows.
      * @param {PWSTR} wzName The name of the value or key relative to the command issued by the <i>dwCommand</i> 
@@ -12767,7 +12809,7 @@ class Clustering {
      *        this parameter takes one of the standard 
      *        <a href="https://docs.microsoft.com/windows/desktop/SysInfo/registry-value-types">registry value types</a>. If not, then 
      *        <i>dwCommand</i> is set to 0.
-     * @param {Pointer} lpData A pointer to the data relative to the command issued by <i>dwCommand</i>. The value of 
+     * @param {Integer} lpData A pointer to the data relative to the command issued by <i>dwCommand</i>. The value of 
      *        this parameter is <b>NULL</b> for all but the <b>CLUSREG_SET_VALUE</b> 
      *        command.
      * @param {Integer} cbData The count, in bytes, of the data relative to the command issued by <i>dwCommand</i>. The 
@@ -12873,7 +12915,10 @@ class Clustering {
      *      parameter is set to –1.
      * 
      * The <b>PCLUSTER_REG_CLOSE_BATCH</b> type defines a pointer to this function.
-     * @param {HREGBATCH} _hRegBatch 
+     * @param {HREGBATCH} _hRegBatch The handle of the  cluster registry key opened by 
+     *        <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/clusapi/nf-clusapi-clusterregcreatebatch">ClusterRegCreateBatch</a>. After the completion 
+     *        of <b>ClusterRegCloseBatch</b>, this handle is no 
+     *        longer valid and memory associated with it is freed.
      * @param {BOOL} bCommit If the value this parameter takes is true, then a batch is sent for execution to a cluster server.
      * @param {Pointer<Integer>} failedCommandNumber If execution of the batch is not successful, the number of the command that failed is returned in the form of 
      *        a <i>failedCommandNumber</i> argument. The first command in the batch has number 0, the 
@@ -12927,7 +12972,10 @@ class Clustering {
      * @remarks
      * If a failure has occurred before any command was executed, the <i>failedCommandNumber</i> 
      *      parameter is set to –1.
-     * @param {HREGBATCH} _hRegBatch 
+     * @param {HREGBATCH} _hRegBatch The handle of the  cluster registry key opened by 
+     *        <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/clusapi/nf-clusapi-clusterregcreatebatch">ClusterRegCreateBatch</a>. After the completion 
+     *        of <a href="https://docs.microsoft.com/windows/desktop/api/clusapi/nf-clusapi-clusterregclosebatch">ClusterRegCloseBatch</a>, this handle is no 
+     *        longer valid and memory associated with it is freed.
      * @param {Integer} flags 
      * @param {Pointer<Integer>} failedCommandNumber If execution of the batch is not successful, the number of the command that failed is returned in the form of 
      *        a <i>failedCommandNumber</i> argument. The first command in the batch has number 0, the 
@@ -13047,7 +13095,8 @@ class Clustering {
      * @remarks
      * The <b>PCLUSTER_REG_CREATE_BATCH_NOTIFY_PORT</b> type defines a pointer to this 
      *      function.
-     * @param {HKEY} _hKey 
+     * @param {HKEY} _hKey A cluster registry key. Any updates performed at this key or keys below it will be posted to a notification 
+     *        port.
      * @param {Pointer<HREGBATCHPORT>} phBatchNotifyPort A handle to a batch notification port that allows subsequent reading batch notifications via the 
      *        <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/clusapi/nf-clusapi-clusterreggetbatchnotification">ClusterRegGetBatchNotification</a> 
      *        function.
@@ -13203,7 +13252,7 @@ class Clustering {
      * Add commands to the batch by calling the <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/clusapi/nf-clusapi-clusterregreadbatchaddcommand">ClusterRegReadBatchAddCommand</a>  function. Execute the batch by calling the <a href="https://docs.microsoft.com/windows/desktop/api/clusapi/nf-clusapi-clusterregclosereadbatch">ClusterRegCloseReadBatch</a> function.
      * 
      * Do not close the key until the read batch has been submitted for execution.
-     * @param {HKEY} _hKey 
+     * @param {HKEY} _hKey The handle to the opened cluster registry key. All of the operations on the batch are relative to this cluster registry key.
      * @param {Pointer<HREGREADBATCH>} phRegReadBatch A pointer to the handle of the created read batch.
      * @returns {Integer} The function returns one of the following 
      *        <a href="https://docs.microsoft.com/windows/desktop/Debug/system-error-codes">system error codes</a>.
@@ -13254,7 +13303,7 @@ class Clustering {
      * Adds a read command to a batch that executes on a cluster registry key.
      * @remarks
      * Additional calls to the <b>ClusterRegReadBatchAddCommand</b> function add additional read commands to the batch.
-     * @param {HREGREADBATCH} _hRegReadBatch 
+     * @param {HREGREADBATCH} _hRegReadBatch The handle of the read batch to which a command will be added. Create a batch by calling the <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/clusapi/nf-clusapi-clusterregcreatereadbatch">ClusterRegCreateReadBatch</a> function.
      * @param {PWSTR} wzSubkeyName The name of the key relative to the cluster registry key. If this name is <b>NULL</b>, the read is performed on the cluster registry key represented in the <i>hRegReadBatch</i> parameter.
      * @param {PWSTR} wzValueName The name of the registry value to be read. If this name is <b>NULL</b>, the content of the default value is returned.
      * @returns {Integer} The function returns one of the following 
@@ -13317,7 +13366,7 @@ class Clustering {
      * Executes a read batch and returns results from the read batch executions. (ClusterRegCloseReadBatch)
      * @remarks
      * Create the read batch by calling the <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/clusapi/nf-clusapi-clusterregcreatereadbatch">ClusterRegCreateReadBatch</a> function.
-     * @param {HREGREADBATCH} _hRegReadBatch 
+     * @param {HREGREADBATCH} _hRegReadBatch The handle of the read batch. After the <b>ClusterRegCloseReadBatch</b> function completes, this handle is no longer valid, and memory associated with it is freed.
      * @param {Pointer<HREGREADBATCHREPLY>} phRegReadBatchReply A pointer to the handle of the created read batch result. You must close this handle later by calling the  <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/clusapi/nf-clusapi-clusterregclosereadbatchreply">ClusterRegCloseReadBatchReply</a> function.
      * @returns {Integer} The function returns one of the following 
      *        <a href="https://docs.microsoft.com/windows/desktop/Debug/system-error-codes">system error codes</a>.
@@ -13376,7 +13425,7 @@ class Clustering {
 
     /**
      * Executes a read batch and returns results from the read batch executions. (ClusterRegCloseReadBatchEx)
-     * @param {HREGREADBATCH} _hRegReadBatch 
+     * @param {HREGREADBATCH} _hRegReadBatch The handle of the read batch. After the <a href="https://docs.microsoft.com/windows/desktop/api/clusapi/nf-clusapi-clusterregclosereadbatch">ClusterRegCloseReadBatch</a> function completes, this handle is no longer valid, and memory associated with it is freed.
      * @param {Integer} flags The flags for the operation.
      * @param {Pointer<HREGREADBATCHREPLY>} phRegReadBatchReply A pointer to the handle of the created read batch result. You must close this handle later by calling the  <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/clusapi/nf-clusapi-clusterregclosereadbatchreply">ClusterRegCloseReadBatchReply</a> function.
      * @returns {Integer} The function returns one of the following 
@@ -13438,7 +13487,7 @@ class Clustering {
      * Reads the next command from a read batch result.
      * @remarks
      * The number of records in the read batch results is equal to the number of commands in the read batch. Also, the results are in the same order as the commands that were added to the read batch.
-     * @param {HREGREADBATCHREPLY} _hRegReadBatchReply 
+     * @param {HREGREADBATCHREPLY} _hRegReadBatchReply A handle to a read batch result that was created by calling the <a href="https://docs.microsoft.com/windows/desktop/api/clusapi/nf-clusapi-clusterregclosereadbatch">ClusterRegCloseReadBatch</a> function.  You must close this handle later by calling the  <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/clusapi/nf-clusapi-clusterregclosereadbatchreply">ClusterRegCloseReadBatchReply</a> function.
      * @param {Pointer<CLUSTER_READ_BATCH_COMMAND>} pBatchCommand A pointer to a <a href="https://docs.microsoft.com/windows/desktop/api/clusapi/ns-clusapi-cluster_read_batch_command">CLUSTER_READ_BATCH_COMMAND</a> structure that contains information about the read command.
      * @returns {Integer} The function returns one of the following 
      *        <a href="https://docs.microsoft.com/windows/desktop/Debug/system-error-codes">system error codes</a>.
@@ -13497,7 +13546,7 @@ class Clustering {
      * Closes a read batch result handle and frees the memory associated with it.
      * @remarks
      * Call the <b>ClusterRegCloseReadBatchReply</b> function to close a read batch result that was created by the  <a href="https://docs.microsoft.com/windows/desktop/api/clusapi/nf-clusapi-clusterregclosereadbatch">ClusterRegCloseReadBatch</a> function.
-     * @param {HREGREADBATCHREPLY} _hRegReadBatchReply 
+     * @param {HREGREADBATCHREPLY} _hRegReadBatchReply A handle to a read batch result that was created by calling the <a href="https://docs.microsoft.com/windows/desktop/api/clusapi/nf-clusapi-clusterregclosereadbatch">ClusterRegCloseReadBatch</a> function.
      * @returns {Integer} The function returns one of the following 
      *        <a href="https://docs.microsoft.com/windows/desktop/Debug/system-error-codes">system error codes</a>.
      * 
@@ -13541,7 +13590,7 @@ class Clustering {
 
     /**
      * Updates an account access list (ACL) for a cluster.
-     * @param {HCLUSTER} _hCluster 
+     * @param {HCLUSTER} _hCluster A handle to the cluster.
      * @param {PWSTR} szAccountSID The security identifier (SID) or the account name for the new account access entry (ACE).
      * @param {Integer} dwAccess The access rights controlled by the ACE.
      * 
@@ -13640,7 +13689,7 @@ class Clustering {
 
     /**
      * Creates a cluster name resource and then uses it add a cluster to a domain, even if the machines that host the cluster aren't members of the domain.
-     * @param {HCLUSTER} _hCluster 
+     * @param {HCLUSTER} _hCluster A handle to the cluster to add the cluster name resource to.
      * @param {Pointer<CREATE_CLUSTER_NAME_ACCOUNT>} pConfig A pointer to the <a href="https://docs.microsoft.com/windows/desktop/api/clusapi/ns-clusapi-create_cluster_name_account">CREATE_CLUSTER_NAME_ACCOUNT</a> structure that contains the information about the <a href="https://docs.microsoft.com/previous-versions/windows/desktop/mscs/network-name">cluster name</a> resource to create, and the domain credentials to use.
      * @param {Pointer<PCLUSTER_SETUP_PROGRESS_CALLBACK>} pfnProgressCallback A pointer to the <a href="https://docs.microsoft.com/windows/desktop/api/clusapi/nc-clusapi-pcluster_setup_progress_callback">ClusterSetupProgressCallback</a> callback function that receives the status of updates to the cluster.
      * @param {Pointer<Void>} pvCallbackArg Callback function arguments for the <i>pfnProgressCallback</i> parameter.
@@ -13685,7 +13734,7 @@ class Clustering {
      * 
      * @param {Integer} cNodes 
      * @param {Pointer<PWSTR>} ppszNodeNames 
-     * @param {Pointer<Integer>} pCNOResType 
+     * @param {Pointer<CLUSTER_MGMT_POINT_RESTYPE>} pCNOResType 
      * @returns {Integer} 
      */
     static DetermineCNOResTypeFromNodelist(cNodes, ppszNodeNames, pCNOResType) {
@@ -13699,7 +13748,7 @@ class Clustering {
     /**
      * 
      * @param {HCLUSTER} _hCluster 
-     * @param {Pointer<Integer>} pCNOResType 
+     * @param {Pointer<CLUSTER_MGMT_POINT_RESTYPE>} pCNOResType 
      * @returns {Integer} 
      */
     static DetermineCNOResTypeFromCluster(_hCluster, pCNOResType) {
@@ -13713,7 +13762,7 @@ class Clustering {
      * 
      * @param {Integer} cNodes 
      * @param {Pointer<PWSTR>} ppszNodeNames 
-     * @param {Pointer<Integer>} pCloudType 
+     * @param {Pointer<CLUSTER_CLOUD_TYPE>} pCloudType 
      * @returns {Integer} 
      */
     static DetermineClusterCloudTypeFromNodelist(cNodes, ppszNodeNames, pCloudType) {
@@ -13727,7 +13776,7 @@ class Clustering {
     /**
      * 
      * @param {HCLUSTER} _hCluster 
-     * @param {Pointer<Integer>} pCloudType 
+     * @param {Pointer<CLUSTER_CLOUD_TYPE>} pCloudType 
      * @returns {Integer} 
      */
     static DetermineClusterCloudTypeFromCluster(_hCluster, pCloudType) {
@@ -13754,8 +13803,8 @@ class Clustering {
 
     /**
      * Adds a notification type to a cluster notification port.
-     * @param {HCHANGE} _hChange 
-     * @param {HCLUSTER} _hCluster 
+     * @param {HCHANGE} _hChange A handle to the notification port.
+     * @param {HCLUSTER} _hCluster A handle to the cluster object.
      * @param {Integer} Flags A <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/clusapi/ne-clusapi-cluster_change_resource_type_v2">CLUSTER_CHANGE_RESOURCE_TYPE_V2</a> enumeration value that specifies the notification type to add.
      * @param {PWSTR} resTypeName A pointer to a null-terminated Unicode string that contains the name of the resource type.
      * @param {Pointer} dwNotifyKey The notification key that is returned from the <a href="https://docs.microsoft.com/windows/desktop/api/clusapi/nf-clusapi-getclusternotifyv2">GetClusterNotifyV2</a> function when the event occurs.
@@ -13777,7 +13826,8 @@ class Clustering {
      *      completes, at least 30 seconds should be allowed before the 
      *      <b>AddClusterNode</b> function is called to add additional 
      *      nodes.
-     * @param {HCLUSTER} _hCluster 
+     * @param {HCLUSTER} _hCluster Handle to a cluster, returned by the <a href="https://docs.microsoft.com/windows/desktop/api/clusapi/nf-clusapi-opencluster">OpenCluster</a> or 
+     *        <a href="https://docs.microsoft.com/windows/desktop/api/clusapi/nf-clusapi-createcluster">CreateCluster</a> function.
      * @param {PWSTR} lpszNodeName Name of the computer to add to the cluster.
      * @param {Pointer<PCLUSTER_SETUP_PROGRESS_CALLBACK>} pfnProgressCallback Optional address to a 
      *        <a href="https://docs.microsoft.com/windows/desktop/api/clusapi/nc-clusapi-pcluster_setup_progress_callback">PCLUSTER_SETUP_PROGRESS_CALLBACK</a> 
@@ -13864,7 +13914,8 @@ class Clustering {
      * It is possible for multiple steps to fail when removing a cluster with 
      *     <b>DestroyCluster</b>, but only one error code can be 
      *     returned. The cluster error log should be reviewed if an error is returned.
-     * @param {HCLUSTER} _hCluster 
+     * @param {HCLUSTER} _hCluster Handle to a cluster, returned by the <a href="https://docs.microsoft.com/windows/desktop/api/clusapi/nf-clusapi-opencluster">OpenCluster</a> or 
+     *       <a href="https://docs.microsoft.com/windows/desktop/api/clusapi/nf-clusapi-createcluster">CreateCluster</a> function.
      * @param {Pointer<PCLUSTER_SETUP_PROGRESS_CALLBACK>} pfnProgressCallback Address of callback function that matches the 
      *       <a href="https://docs.microsoft.com/windows/desktop/api/clusapi/nc-clusapi-pcluster_setup_progress_callback">PCLUSTER_SETUP_PROGRESS_CALLBACK</a> 
      *       function pointer that will be called periodically to provide progress on the cluster destruction.
@@ -14187,7 +14238,7 @@ class Clustering {
     /**
      * Enumerates the property names of a cluster object. The PRESUTIL_ENUM_PROPERTIES type defines a pointer to this function.
      * @param {Pointer<RESUTIL_PROPERTY_ITEM>} pPropertyTable Pointer to an array of  <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/resapi/ns-resapi-resutil_property_item">RESUTIL_PROPERTY_ITEM</a> structures describing properties to enumerate.
-     * @param {Pointer} pszOutProperties Pointer to the output buffer in which to return the names of all of the properties in multiple string format. Each property name is stored as a null-terminated Unicode string. The last property name is followed by a final null-terminating character.
+     * @param {Integer} pszOutProperties Pointer to the output buffer in which to return the names of all of the properties in multiple string format. Each property name is stored as a null-terminated Unicode string. The last property name is followed by a final null-terminating character.
      * @param {Integer} cbOutPropertiesSize Size in bytes of the output buffer pointed to by <i>pszOutProperties</i>.
      * @param {Pointer<Integer>} pcbBytesReturned Pointer to the total number of bytes in the property list pointed to by <i>pszOutProperties</i>.
      * @param {Pointer<Integer>} pcbRequired Number of bytes required if the output buffer is too small.
@@ -14249,7 +14300,7 @@ class Clustering {
     /**
      * Retrieves the names of a cluster object's private properties. The PRESUTIL_ENUM_PRIVATE_PROPERTIES type defines a pointer to this function.
      * @param {HKEY} hkeyClusterKey Key identifying the location of the private properties in the  <a href="https://docs.microsoft.com/previous-versions/windows/desktop/mscs/cluster-database">cluster database</a>.
-     * @param {Pointer} pszOutProperties Pointer to an output buffer in which to receive the names of the enumerated properties.
+     * @param {Integer} pszOutProperties Pointer to an output buffer in which to receive the names of the enumerated properties.
      * @param {Integer} cbOutPropertiesSize Size of the output buffer pointed to by <i>pszOutProperties</i>.
      * @param {Pointer<Integer>} pcbBytesReturned Pointer to the total number of bytes returned in the output buffer.
      * @param {Pointer<Integer>} pcbRequired Pointer to the required number of bytes if the output buffer is too small to hold all of the enumerated properties.
@@ -14314,7 +14365,7 @@ class Clustering {
      * Retrieves properties specified by a property table from the cluster database and returns them in a property list. The PRESUTIL_GET_PROPERTIES type defines a pointer to this function.
      * @param {HKEY} hkeyClusterKey Pointer to the cluster database key that identifies the location of the properties to retrieve.
      * @param {Pointer<RESUTIL_PROPERTY_ITEM>} pPropertyTable Pointer to an array of  <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/resapi/ns-resapi-resutil_property_item">RESUTIL_PROPERTY_ITEM</a> structures that describe the properties to retrieve.
-     * @param {Pointer} pOutPropertyList Pointer to an output buffer in which to return the property list.
+     * @param {Integer} pOutPropertyList Pointer to an output buffer in which to return the property list.
      * @param {Integer} cbOutPropertyListSize Size in bytes of the output buffer pointed to by <i>pOutPropertyList</i>.
      * @param {Pointer<Integer>} pcbBytesReturned Pointer to the total number of bytes in the property list pointed to by <i>pOutPropertyList</i>.
      * @param {Pointer<Integer>} pcbRequired Pointer to the number of bytes that is required if <i>pOutPropertyList</i> is too small.
@@ -14386,7 +14437,7 @@ class Clustering {
      * </ul>
      * @param {HKEY} hkeyClusterKey Pointer to the  <a href="https://docs.microsoft.com/previous-versions/windows/desktop/mscs/cluster-database">cluster database</a> key that identifies the location of the properties to retrieve.
      * @param {Pointer<RESUTIL_PROPERTY_ITEM>} pPropertyTable Pointer to an array of  <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/resapi/ns-resapi-resutil_property_item">RESUTIL_PROPERTY_ITEM</a> structures that describe the properties to retrieve.
-     * @param {Pointer} pOutPropertyList Pointer to an output buffer in which to return the property list.
+     * @param {Integer} pOutPropertyList Pointer to an output buffer in which to return the property list.
      * @param {Integer} cbOutPropertyListSize Size in bytes of the output buffer pointed to by <i>OutBuffer</i>.
      * @param {Pointer<Integer>} pcbBytesReturned Pointer to the total number of bytes in the property list pointed to by <i>OutBuffer</i>.
      * @param {Pointer<Integer>} pcbRequired Pointer to the number of bytes that is required if <i>OutBuffer</i> is too small.
@@ -14450,7 +14501,7 @@ class Clustering {
     /**
      * Returns private properties for a cluster object. The PRESUTIL_GET_PRIVATE_PROPERTIES type defines a pointer to this function.
      * @param {HKEY} hkeyClusterKey Pointer to the  <a href="https://docs.microsoft.com/previous-versions/windows/desktop/mscs/cluster-database">cluster database</a> key that identifies the location of the private properties to retrieve.
-     * @param {Pointer} pOutPropertyList Pointer to an output buffer in which a  <a href="https://docs.microsoft.com/previous-versions/windows/desktop/mscs/property-lists">property list</a> with the names and values of the private properties is returned.
+     * @param {Integer} pOutPropertyList Pointer to an output buffer in which a  <a href="https://docs.microsoft.com/previous-versions/windows/desktop/mscs/property-lists">property list</a> with the names and values of the private properties is returned.
      * @param {Integer} cbOutPropertyListSize Size of the output buffer pointed to by <i>pOutPropertyList</i>.
      * @param {Pointer<Integer>} pcbBytesReturned Pointer to the total number of bytes in the property list pointed to by <i>pOutPropertyList</i>.
      * @param {Pointer<Integer>} pcbRequired Pointer to the number of bytes that is required if <i>pOutPropertyList</i> is too small to hold all of the private properties.
@@ -14567,7 +14618,7 @@ class Clustering {
      * Returns a specified property from the cluster database. The PRESUTIL_GET_PROPERTY type defines a pointer to this function.
      * @param {HKEY} hkeyClusterKey Pointer to the cluster database key identifying the location of the property to retrieve.
      * @param {Pointer<RESUTIL_PROPERTY_ITEM>} pPropertyTableItem Pointer to a  <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/resapi/ns-resapi-resutil_property_item">RESUTIL_PROPERTY_ITEM</a> structure that describes the property to retrieve.
-     * @param {Pointer} pOutPropertyItem Pointer to an output buffer in which to return the requested property. It is assumed that the buffer is part of a  <a href="https://docs.microsoft.com/previous-versions/windows/desktop/mscs/property-lists">property list</a>.
+     * @param {Integer} pOutPropertyItem Pointer to an output buffer in which to return the requested property. It is assumed that the buffer is part of a  <a href="https://docs.microsoft.com/previous-versions/windows/desktop/mscs/property-lists">property list</a>.
      * @param {Pointer<Integer>} pcbOutPropertyItemSize Pointer to the size in bytes of the output buffer pointed to by <i>pOutPropertyItem</i>.
      * @returns {Integer} If the operations succeeds, the function returns <b>ERROR_SUCCESS</b>.
      * 
@@ -14607,7 +14658,7 @@ class Clustering {
      * Uses a property table to verify that a property list is correctly formatted.
      * @param {Pointer<RESUTIL_PROPERTY_ITEM>} pPropertyTable Pointer to a property table describing the properties that will be validated in the property list.
      * @param {BOOL} bAllowUnknownProperties If <b>TRUE</b>, the function ignores all properties in the property list that are not included in the property table. If <b>FALSE</b>, any property in the property list that is not included in the property table causes the function to return <b>ERROR_INVALID_PARAMETER</b>.
-     * @param {Pointer} pInPropertyList Pointer to the input buffer containing the property list to validate.
+     * @param {Integer} pInPropertyList Pointer to the input buffer containing the property list to validate.
      * @param {Integer} cbInPropertyListSize Size in bytes of the input buffer pointed to by <i>pInPropertyList</i>.
      * @param {Pointer<Integer>} pOutParams Pointer to a parameter block.
      * @returns {Integer} If the operation succeeds, the function returns <b>ERROR_SUCCESS</b>.
@@ -14703,7 +14754,7 @@ class Clustering {
      * @param {BOOL} bAllowUnknownProperties Indicates whether <a href="https://docs.microsoft.com/previous-versions/windows/desktop/mscs/unknown-properties">unknown properties</a> should be 
      *       accepted. This parameter is set to <b>TRUE</b> if they should be accepted, and 
      *       <b>FALSE</b> if not.
-     * @param {Pointer} pInPropertyList Pointer to the input buffer containing a property list.
+     * @param {Integer} pInPropertyList Pointer to the input buffer containing a property list.
      * @param {Integer} cbInPropertyListSize Size in bytes of the input buffer pointed to by <i>cbInPropertyList</i>.
      * @param {Pointer<Integer>} pOutParams Pointer to a <a href="https://docs.microsoft.com/previous-versions/windows/desktop/mscs/parameter-blocks">parameter block</a> to hold returned data. 
      *       If specified, parameters are only written if they differ from those in the input buffer.
@@ -15069,7 +15120,7 @@ class Clustering {
      * <b>ResUtilSetUnknownProperties</b> can be safely called from any other resource DLL entry point function or from a worker thread. For more information, see  <a href="https://docs.microsoft.com/previous-versions/windows/desktop/mscs/function-calls-to-avoid-in-resource-dlls">Function Calls to Avoid in Resource DLLs</a>.
      * @param {HKEY} hkeyClusterKey <a href="https://docs.microsoft.com/previous-versions/windows/desktop/mscs/cluster-database">Cluster database</a> key identifying the location of the properties to set.
      * @param {Pointer<RESUTIL_PROPERTY_ITEM>} pPropertyTable Pointer to a  <a href="https://docs.microsoft.com/previous-versions/windows/desktop/mscs/property-tables">property table</a> specifying properties that should NOT be set by this function.
-     * @param {Pointer} pInPropertyList Pointer to a  <a href="https://docs.microsoft.com/previous-versions/windows/desktop/mscs/property-lists">property list</a>. Any properties that appear in this list and that do NOT appear in <i>pInPropertyList</i> are set.
+     * @param {Integer} pInPropertyList Pointer to a  <a href="https://docs.microsoft.com/previous-versions/windows/desktop/mscs/property-lists">property list</a>. Any properties that appear in this list and that do NOT appear in <i>pInPropertyList</i> are set.
      * @param {Integer} cbInPropertyListSize Pointer to the size in bytes of the input buffer pointed to by <i>pInPropertyList</i>.
      * @returns {Integer} If the operation succeeds, the function returns <b>ERROR_SUCCESS</b>.
      * 
@@ -15147,7 +15198,7 @@ class Clustering {
      * 
      * The parameter block provides the property values.
      * @param {Pointer<RESUTIL_PROPERTY_ITEM>} pPropertyTable Pointer to a property table describing the properties that will be included in the resulting property list.
-     * @param {Pointer} pOutPropertyList Pointer to an output buffer that receives the property list.
+     * @param {Integer} pOutPropertyList Pointer to an output buffer that receives the property list.
      * @param {Pointer<Integer>} pcbOutPropertyListSize Pointer to the size of the output buffer in bytes.
      * @param {Pointer<Integer>} pInParams Pointer to the parameter block in which the property values are stored.
      * @param {Pointer<Integer>} pcbBytesReturned If the function returns <b>ERROR_SUCCESS</b>, <i>pcbBytesReturned</i> points to the actual byte size of the property list pointed to by <i>pOutPropertyList</i>. If the function does not return <b>ERROR_SUCCESS</b>, <i>pcbBytesReturned</i> points to a value of zero.
@@ -15332,7 +15383,7 @@ class Clustering {
      * </ul>
      * <b>ResUtilSetPrivatePropertyList</b> can be safely called from any other resource DLL entry point function or from a worker thread. For more information, see  <a href="https://docs.microsoft.com/previous-versions/windows/desktop/mscs/function-calls-to-avoid-in-resource-dlls">Function Calls to Avoid in Resource DLLs</a>.
      * @param {HKEY} hkeyClusterKey <a href="https://docs.microsoft.com/previous-versions/windows/desktop/mscs/cluster-database">Cluster database</a> key identifying the location of the properties to set.
-     * @param {Pointer} pInPropertyList Pointer to an input buffer containing a  <a href="https://docs.microsoft.com/previous-versions/windows/desktop/mscs/property-lists">property list</a> with the names and values of the properties to set.
+     * @param {Integer} pInPropertyList Pointer to an input buffer containing a  <a href="https://docs.microsoft.com/previous-versions/windows/desktop/mscs/property-lists">property list</a> with the names and values of the properties to set.
      * @param {Integer} cbInPropertyListSize Pointer to the size in bytes of the input buffer pointed to by <i>pInPropertyList</i>.
      * @returns {Integer} If the operation succeeds, the function returns <b>ERROR_SUCCESS</b>.
      * 
@@ -15401,7 +15452,7 @@ class Clustering {
 
     /**
      * Verifies that a property list is correctly formatted.
-     * @param {Pointer} pInPropertyList Pointer to an input buffer containing the property list to verify.
+     * @param {Integer} pInPropertyList Pointer to an input buffer containing the property list to verify.
      * @param {Integer} cbInPropertyListSize Size of the input buffer pointed to by <i>pInPropertyList</i>.
      * @returns {Integer} If the operation succeeds, the function returns <b>ERROR_SUCCESS</b>.
      * 
@@ -15603,9 +15654,9 @@ class Clustering {
      * <b>ResUtilSetBinaryValue</b> can be safely called from any other resource DLL entry point function or from a worker thread. For more information, see  <a href="https://docs.microsoft.com/previous-versions/windows/desktop/mscs/function-calls-to-avoid-in-resource-dlls">Function Calls to Avoid in Resource DLLs</a>.
      * @param {HKEY} hkeyClusterKey Key identifying the location of the binary value in the cluster database.
      * @param {PWSTR} pszValueName A null-terminated Unicode string containing the name of the value to update.
-     * @param {Pointer} pbNewValue Pointer to the new binary value.
+     * @param {Integer} pbNewValue Pointer to the new binary value.
      * @param {Integer} cbNewValueSize Size of the new binary value.
-     * @param {Pointer} ppbOutValue Address of a pointer to the new binary value.
+     * @param {Integer} ppbOutValue Address of a pointer to the new binary value.
      * @param {Pointer<Integer>} pcbOutValueSize Pointer to a <b>DWORD</b> in which the size in bytes of the value pointed to by <i>ppbOutValue</i> is returned.
      * @returns {Integer} If the operation succeeds, the function returns <b>ERROR_SUCCESS</b>.
      * 
@@ -15809,7 +15860,7 @@ class Clustering {
      * <b>ResUtilSetMultiSzValue</b> can be safely called from any other resource DLL entry point function or from a worker thread. For more information, see  <a href="https://docs.microsoft.com/previous-versions/windows/desktop/mscs/function-calls-to-avoid-in-resource-dlls">Function Calls to Avoid in Resource DLLs</a>.
      * @param {HKEY} hkeyClusterKey Key identifying the location of the multiple string value in the cluster database.
      * @param {PWSTR} pszValueName Null-terminated Unicode string containing the name of the value to update.
-     * @param {Pointer} pszNewValue Pointer to the new multiple string value.
+     * @param {Integer} pszNewValue Pointer to the new multiple string value.
      * @param {Integer} cbNewValueSize Size of the new value.
      * @param {Pointer<PWSTR>} ppszOutValue Pointer to a string pointer that receives a copy of the updated value. If used, callers must call <a href="https://docs.microsoft.com/windows/desktop/api/winbase/nf-winbase-localfree">LocalFree</a> on *<i>ppszOutValue</i>.
      * @param {Pointer<Integer>} pcbOutValueSize Pointer that receives the size of the new value.
@@ -15918,9 +15969,9 @@ class Clustering {
     /**
      * Sets a value in the cluster database.
      * @param {HKEY} hkeyClusterKey A key that identifies the location of the value in the cluster database.
-     * @param {PWSTR} _valueName 
+     * @param {PWSTR} _valueName A Null-terminated Unicode string that contains the name of the value to update.
      * @param {Integer} valueType A flag that indicates the type of the value to update.
-     * @param {Pointer} valueData A pointer to the new data for the value.
+     * @param {Integer} valueData A pointer to the new data for the value.
      * @param {Integer} valueSize The size of the new value, in bytes.
      * @param {Integer} flags The flags that specify settings for the operation.
      * @returns {Integer} Returns <b>ERROR_SUCCESS</b> if the operation succeeds; otherwise, returns a system error code.
@@ -15941,9 +15992,9 @@ class Clustering {
      * @param {Pointer<Integer>} pcbOutValueSize Pointer to the size of the output value.
      * @param {Pointer<CLUSPROP_BINARY>} pValueStruct Pointer to a <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/clusapi/ns-clusapi-clusprop_binary">CLUSPROP_BINARY</a> structure specifying 
      *       the binary value to retrieve from the property list.
-     * @param {Pointer} pbOldValue Pointer to the previous value of the property.
+     * @param {Integer} pbOldValue Pointer to the previous value of the property.
      * @param {Integer} cbOldValueSize Pointer to the length of the previous value of the property.
-     * @param {Pointer} ppPropertyList Address of the pointer to the property list buffer containing the binary property. This pointer will be 
+     * @param {Integer} ppPropertyList Address of the pointer to the property list buffer containing the binary property. This pointer will be 
      *       advanced to the beginning of the next property.
      * @param {Pointer<Integer>} pcbPropertyListSize Pointer to the size of the property list buffer. The size will be decremented to account for the advance of 
      *       the <i>ppPropertyList</i> pointer.
@@ -15988,7 +16039,7 @@ class Clustering {
      * @param {Pointer<CLUSPROP_SZ>} pValueStruct Pointer to a <a href="https://docs.microsoft.com/previous-versions/windows/desktop/legacy/aa368390(v=vs.85)">CLUSPROP_SZ</a> structure specifying the 
      *       string value to retrieve from the property list.
      * @param {PWSTR} pszOldValue Pointer to the previous value of the property.
-     * @param {Pointer} ppPropertyList Address of the pointer to the property list buffer containing the string property. This pointer will be 
+     * @param {Integer} ppPropertyList Address of the pointer to the property list buffer containing the string property. This pointer will be 
      *       advanced to the beginning of the next property.
      * @param {Pointer<Integer>} pcbPropertyListSize Pointer to the size of the property list buffer. The size will be decremented to account for the advance of 
      *       the <i>ppPropertyList</i> pointer.
@@ -16034,9 +16085,9 @@ class Clustering {
      * @param {Pointer<Integer>} pcbOutValueSize Pointer to the size of the output value.
      * @param {Pointer<CLUSPROP_SZ>} pValueStruct Pointer to a <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/clusapi/ns-clusapi-clusprop_sz">CLUSPROP_MULTI_SZ</a> structure 
      *       specifying the multiple string value to retrieve from the property list.
-     * @param {Pointer} pszOldValue Pointer to the previous value of the property.
+     * @param {Integer} pszOldValue Pointer to the previous value of the property.
      * @param {Integer} cbOldValueSize Pointer to the length of the previous value of the property.
-     * @param {Pointer} ppPropertyList Address of the pointer to the property list buffer containing the multiple string property. This pointer 
+     * @param {Integer} ppPropertyList Address of the pointer to the property list buffer containing the multiple string property. This pointer 
      *       will be advanced to the beginning of the next property.
      * @param {Pointer<Integer>} pcbPropertyListSize Pointer to the size of the property list buffer. The size will be decremented to account for the advance of 
      *       the <i>ppPropertyList</i> pointer.
@@ -16184,7 +16235,7 @@ class Clustering {
      * Use  <a href="https://docs.microsoft.com/windows/desktop/api/resapi/nf-resapi-resutilfreeenvironment">ResUtilFreeEnvironment</a> to destroy the environment block.
      * 
      * Do not call  <b>ResUtilGetEnvironmentWithNetName</b> from any resource DLL entry point function.  <b>ResUtilGetEnvironmentWithNetName</b> can safely be called from a worker thread. For more information, see  <a href="https://docs.microsoft.com/previous-versions/windows/desktop/mscs/function-calls-to-avoid-in-resource-dlls">Function Calls to Avoid in Resource DLLs</a>.
-     * @param {HRESOURCE} _hResource 
+     * @param {HRESOURCE} _hResource Handle to a resource that depends on a Network Name resource.
      * @returns {Pointer<Void>} If the operations succeeds, the function returns a pointer to the environment block.
      * 
      * If the operation fails, 
@@ -16249,7 +16300,7 @@ class Clustering {
      * 
      * Do not call  <b>ResUtilSetResourceServiceEnvironment</b> from any resource DLL entry point function.  <b>ResUtilSetResourceServiceEnvironment</b> can safely be called from a worker thread. For more information, see  <a href="https://docs.microsoft.com/previous-versions/windows/desktop/mscs/function-calls-to-avoid-in-resource-dlls">Function Calls to Avoid in Resource DLLs</a>.
      * @param {PWSTR} pszServiceName Pointer a null-terminated Unicode string containing the name of the service.
-     * @param {HRESOURCE} _hResource 
+     * @param {HRESOURCE} _hResource Resource handle for the service obtained from  <a href="https://docs.microsoft.com/windows/desktop/api/clusapi/nf-clusapi-openclusterresource">OpenClusterResource</a>.
      * @param {Pointer<PLOG_EVENT_ROUTINE>} pfnLogEvent Pointer to the  <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/resapi/nc-resapi-plog_event_routine">LogEvent</a> entry point function of the resource DLL managing the service.
      * @param {Pointer} hResourceHandle Resource handle required by the  <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/resapi/nc-resapi-plog_event_routine">LogEvent</a> entry point function. Use the handle passed to the DLL in the  <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/resapi/nc-resapi-popen_routine">Open</a> entry point function.
      * @returns {Integer} If the operation succeeds, the function returns <b>ERROR_SUCCESS</b>.
@@ -16315,7 +16366,7 @@ class Clustering {
      * Locates a string property in a property list. The PRESUTIL_FIND_SZ_PROPERTY type defines a pointer to this function.
      * @remarks
      * If  <b>ResUtilFindSzProperty</b> is successful, *<i>pszPropertyValue</i> points to a copy of the data stored in <i>pPropertyList</i>. Be sure to call <a href="https://docs.microsoft.com/windows/desktop/api/winbase/nf-winbase-localfree">LocalFree</a> on *<i>pszPropertyValue</i> to prevent memory leaks.
-     * @param {Pointer} pPropertyList Pointer to the property list in which to locate the value.
+     * @param {Integer} pPropertyList Pointer to the property list in which to locate the value.
      * @param {Integer} cbPropertyListSize Size in bytes of the data included in <i>pPropertyList</i>.
      * @param {PWSTR} pszPropertyName Pointer to a null-terminated Unicode string containing the name of the value to locate.
      * @param {Pointer<PWSTR>} pszPropertyValue Pointer to a <b>WCHAR</b> pointer to a buffer (allocated by the function) containing a copy of the property value. You must call <a href="https://docs.microsoft.com/windows/desktop/api/winbase/nf-winbase-localfree">LocalFree</a> (on *<i>pszPropertyValue</i>) to free the allocated memory. If no value is required, pass <b>NULL</b> for this parameter.
@@ -16379,7 +16430,7 @@ class Clustering {
      * Locates an expandable string property in a property list. The PRESUTIL_FIND_EXPAND_SZ_PROPERTY type defines a pointer to this function.
      * @remarks
      * If  <b>ResUtilFindExpandSzProperty</b> is successful, *<i>pszPropertyValue</i> points to a copy of the data stored in <i>pPropertyList</i>. Be sure to call <a href="https://docs.microsoft.com/windows/desktop/api/winbase/nf-winbase-localfree">LocalFree</a> on *<i>pszPropertyValue</i> to prevent memory leaks.
-     * @param {Pointer} pPropertyList Pointer to the property list in which to locate the value.
+     * @param {Integer} pPropertyList Pointer to the property list in which to locate the value.
      * @param {Integer} cbPropertyListSize Size in bytes of the data included in <i>pPropertyList</i>.
      * @param {PWSTR} pszPropertyName Pointer to a null-terminated Unicode string containing the name of the value to locate.
      * @param {Pointer<PWSTR>} pszPropertyValue Pointer to a <b>WCHAR</b> pointer to a buffer (allocated by the function) containing a copy of the property value. You must call <a href="https://docs.microsoft.com/windows/desktop/api/winbase/nf-winbase-localfree">LocalFree</a> (on *<i>pszPropertyValue</i>) to free the allocated memory. If no value is required, pass <b>NULL</b> for this parameter.
@@ -16443,7 +16494,7 @@ class Clustering {
      * Locates an expanded string property value in a property list. The PRESUTIL_FIND_EXPANDED_SZ_PROPERTY type defines a pointer to this function.
      * @remarks
      * If  <a href="https://docs.microsoft.com/windows/desktop/api/resapi/nf-resapi-resutilfindexpandszproperty">ResUtilFindExpandSzProperty</a> is successful, *<i>pszPropertyValue</i> points to a copy of the data stored in <i>pPropertyList</i>. Be sure to call <a href="https://docs.microsoft.com/windows/desktop/api/winbase/nf-winbase-localfree">LocalFree</a> on *<i>pszPropertyValue</i> to prevent memory leaks.
-     * @param {Pointer} pPropertyList Pointer to the property list in which to locate the value.
+     * @param {Integer} pPropertyList Pointer to the property list in which to locate the value.
      * @param {Integer} cbPropertyListSize Size in bytes of the data included in <i>pPropertyList</i>.
      * @param {PWSTR} pszPropertyName Pointer to a null-terminated Unicode string containing the name of the value to locate.
      * @param {Pointer<PWSTR>} pszPropertyValue Pointer to a <b>WCHAR</b> pointer to a buffer (allocated by the function) containing a copy of the property value. You must call <a href="https://docs.microsoft.com/windows/desktop/api/winbase/nf-winbase-localfree">LocalFree</a> (on *<i>pszPropertyValue</i>) to free the allocated memory. If no value is required, pass <b>NULL</b> for this parameter.
@@ -16507,7 +16558,7 @@ class Clustering {
      * Locates an unsigned long property value in a property list. The PRESUTIL_FIND_DWORD_PROPERTY type defines a pointer to this function.
      * @remarks
      * If the operation is successful, <i>pdwPropertyValue</i> points directly into the property list buffer. Be careful not to disturb the formatting of the property list when using <i>pdwPropertyValue</i>.
-     * @param {Pointer} pPropertyList Pointer to the property list in which to locate the value.
+     * @param {Integer} pPropertyList Pointer to the property list in which to locate the value.
      * @param {Integer} cbPropertyListSize Size in bytes of the data included in <i>pPropertyList</i>.
      * @param {PWSTR} pszPropertyName Pointer to a null-terminated Unicode string containing the name of the value to locate.
      * @param {Pointer<Integer>} pdwPropertyValue Pointer to the actual value of the data stored in the property list buffer.
@@ -16560,7 +16611,7 @@ class Clustering {
      * Locates a specified binary property in a property list and can also return the value of the property. The PRESUTIL_FIND_BINARY_PROPERTY type defines a pointer to this function.
      * @remarks
      * If  <b>ResUtilFindBinaryProperty</b> is successful, *<i>pbPropertyValue</i> points to a copy of the data stored in <i>pPropertyList</i>. Be sure to call <a href="https://docs.microsoft.com/windows/desktop/api/winbase/nf-winbase-localfree">LocalFree</a> on *<i>pbPropertyValue</i> to prevent memory leaks.
-     * @param {Pointer} pPropertyList Pointer to the property list in which to locate the value.
+     * @param {Integer} pPropertyList Pointer to the property list in which to locate the value.
      * @param {Integer} cbPropertyListSize Size, in bytes, of the property list specified by <i>pPropertyList</i>.
      * @param {PWSTR} pszPropertyName Pointer to a null-terminated Unicode string containing the name of the property to locate.
      * @param {Pointer<Pointer<Integer>>} pbPropertyValue Pointer to a <b>BYTE</b> pointer to a buffer (allocated by the function) containing a copy of the property value. You must call <a href="https://docs.microsoft.com/windows/desktop/api/winbase/nf-winbase-localfree">LocalFree</a> (on *<i>pbPropertyValue</i>) to free the allocated memory. If no value is required, pass <b>NULL</b> for this parameter.
@@ -16626,7 +16677,7 @@ class Clustering {
      * Locates a multiple string property in a property list. The PRESUTIL_FIND_MULTI_SZ_PROPERTY type defines a pointer to this function.
      * @remarks
      * If  <b>ResUtilFindMultiSzProperty</b> is successful, *<i>pbPropertyValue</i> points to a copy of the data stored in <i>pPropertyList</i>. Be sure to call <a href="https://docs.microsoft.com/windows/desktop/api/winbase/nf-winbase-localfree">LocalFree</a> on *<i>pbPropertyValue</i> to prevent memory leaks.
-     * @param {Pointer} pPropertyList Pointer to the property list in which to locate the value.
+     * @param {Integer} pPropertyList Pointer to the property list in which to locate the value.
      * @param {Integer} cbPropertyListSize Size in bytes of the data included in <i>pPropertyList</i>.
      * @param {PWSTR} pszPropertyName Pointer to a null-terminated Unicode string containing the name of the value to locate.
      * @param {Pointer<PWSTR>} pszPropertyValue Pointer to a <b>WCHAR</b> pointer to a buffer (allocated by the function) containing a copy of the property value. You must call <a href="https://docs.microsoft.com/windows/desktop/api/winbase/nf-winbase-localfree">LocalFree</a> (on *<i>pbPropertyValue</i>) to free the allocated memory. If no value is required, pass <b>NULL</b> for this parameter.
@@ -16692,7 +16743,7 @@ class Clustering {
      * Locates a signed long property value in a property list. The PRESUTIL_FIND_LONG_PROPERTY type defines a pointer to this function.
      * @remarks
      * If the operation is successful, <i>plPropertyValue</i> points directly into the property list buffer. Be careful not to disturb the formatting of the property list when using <i>plPropertyValue</i>.
-     * @param {Pointer} pPropertyList Pointer to the property list in which to locate the value.
+     * @param {Integer} pPropertyList Pointer to the property list in which to locate the value.
      * @param {Integer} cbPropertyListSize Size in bytes of the data included in <i>pPropertyList</i>.
      * @param {PWSTR} pszPropertyName Pointer to a null-terminated Unicode string containing the name of the value to locate.
      * @param {Pointer<Integer>} plPropertyValue Pointer to the actual value of the data stored in the property list buffer.
@@ -16743,7 +16794,7 @@ class Clustering {
 
     /**
      * Gets a large integer property value from a property list. The PRESUTIL_FIND_ULARGEINTEGER_PROPERTY type defines a pointer to this function.
-     * @param {Pointer} pPropertyList A pointer to the property list.
+     * @param {Integer} pPropertyList A pointer to the property list.
      * @param {Integer} cbPropertyListSize The size of the data in <i>pPropertyList</i>, in bytes.
      * @param {PWSTR} pszPropertyName The name of the property.
      * @param {Pointer<Integer>} plPropertyValue The value of the property.
@@ -16766,7 +16817,7 @@ class Clustering {
 
     /**
      * TBD. The PRESUTIL_FIND_FILETIME_PROPERTY type defines a pointer to this function.
-     * @param {Pointer} pPropertyList 
+     * @param {Integer} pPropertyList 
      * @param {Integer} cbPropertyListSize 
      * @param {PWSTR} pszPropertyName 
      * @param {Pointer<FILETIME>} pftPropertyValue 
@@ -16965,7 +17016,7 @@ class Clustering {
      * 
      * Do not pass LPC and RPC handles in the same function call. If you do, the call will raise an RPC exception and can result in additional destructive effects. For information on how LPC and RPC handles are created, see  <a href="https://docs.microsoft.com/previous-versions/windows/desktop/mscs/using-object-handles">Using Object Handles</a> and  <a href="https://docs.microsoft.com/windows/desktop/api/clusapi/nf-clusapi-opencluster">OpenCluster</a>.
      * @param {HRESOURCE} hSelf Handle to one of the resources.
-     * @param {HRESOURCE} _hResource 
+     * @param {HRESOURCE} _hResource Handle to the other resource.
      * @returns {BOOL} If the resources are equal, the function returns <b>TRUE</b>.
      * 
      * If the resources are not equal, 
@@ -16983,7 +17034,7 @@ class Clustering {
      * @remarks
      * The  <b>ResUtilResourceTypesEqual</b> utility function compares the resource type name pointed to by <i>lpszResourceTypeName</i> with the resource type name of the resource identified by <i>hResource</i>. To perform the comparison,  <b>ResUtilResourceTypesEqual</b> passes the  <a href="https://docs.microsoft.com/previous-versions/windows/desktop/mscs/clusctl-resource-get-resource-type">CLUSCTL_RESOURCE_GET_RESOURCE_TYPE</a> control code to the  <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/clusapi/nf-clusapi-clusterresourcecontrol">ClusterResourceControl</a> function to retrieve the resource type. If the two resource type names are the same, the resource types are equal. Note that  <b>ResUtilResourceTypesEqual</b> compares the resource type name and not the resource type  <a href="https://docs.microsoft.com/previous-versions/windows/desktop/mscs/display-names">display name</a>.
      * @param {PWSTR} lpszResourceTypeName Pointer to the resource type name to test.
-     * @param {HRESOURCE} _hResource 
+     * @param {HRESOURCE} _hResource Handle of the resource to test.
      * @returns {BOOL} If the resource types are equal, the function returns <b>TRUE</b>.
      * 
      * If the resource types are not equal, 
@@ -17001,7 +17052,7 @@ class Clustering {
     /**
      * Tests whether the resource class of a specified resource is equal to a specified resource class. The PRESUTIL_IS_RESOURCE_CLASS_EQUAL type defines a pointer to this function.
      * @param {Pointer<CLUS_RESOURCE_CLASS_INFO>} prci Pointer to a  <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/clusapi/ns-clusapi-clus_resource_class_info">CLUS_RESOURCE_CLASS_INFO</a> structure describing the resource class.
-     * @param {HRESOURCE} _hResource 
+     * @param {HRESOURCE} _hResource Handle to the resource whose class is to be compared to <i>prci</i>.
      * @returns {BOOL} If the resource classes are equal, the function returns <b>TRUE</b>.
      * 
      * If the resource classes are not equal, 
@@ -17089,7 +17140,7 @@ class Clustering {
      * <b>ResUtilEnumResourcesEx</b> is a convenient and 
      *      easy-to-use alternative to the 
      *      <a href="https://docs.microsoft.com/windows/desktop/api/clusapi/nf-clusapi-clusterresourceenum">ClusterResourceEnum</a> function.
-     * @param {HCLUSTER} _hCluster 
+     * @param {HCLUSTER} _hCluster A handle to the cluster that contains  the resources to enumerate.
      * @param {HRESOURCE} hSelf An optional handle to a cluster resource. The callback function is not invoked for a resource that is  identified by 
      *        <i>hSelf</i>.
      * @param {PWSTR} lpszResTypeName An optional pointer to a name of a <a href="https://docs.microsoft.com/previous-versions/windows/desktop/mscs/resource-types">resource type</a> that 
@@ -17238,7 +17289,7 @@ class Clustering {
      *  
      * 
      * Do not call  <b>ResUtilGetResourceDependencyByName</b> from any resource DLL entry point function.  <b>ResUtilGetResourceDependencyByName</b> can safely be called from a worker thread. For more information, see  <a href="https://docs.microsoft.com/previous-versions/windows/desktop/mscs/function-calls-to-avoid-in-resource-dlls">Function Calls to Avoid in Resource DLLs</a>.
-     * @param {HCLUSTER} _hCluster 
+     * @param {HCLUSTER} _hCluster Handle to the cluster to which the resource belongs.
      * @param {HANDLE} hSelf Handle to the dependent resource. This resource depends on one or more resources.
      * @param {PWSTR} lpszResourceType NULL-terminated Unicode string specifying the resource type of the dependency to return.
      * @param {BOOL} bRecurse Determines the scope of the search. If <b>TRUE</b>, the function checks the entire dependency tree under the dependent resource. If <b>FALSE</b>, the function checks only the resources on which the dependent resource directly depends.
@@ -17292,7 +17343,7 @@ class Clustering {
      * Enumerates the dependencies of a specified resource in a specified cluster and returns a handle to a dependency that matches a specified resource class. The PRESUTIL_GET_RESOURCE_DEPENDENCY_BY_CLASS type defines a pointer to this function.
      * @remarks
      * Do not call  <b>ResUtilGetResourceDependencyByClass</b> from any resource DLL entry point function.  <b>ResUtilGetResourceDependencyByClass</b> can safely be called from a worker thread. For more information, see  <a href="https://docs.microsoft.com/previous-versions/windows/desktop/mscs/function-calls-to-avoid-in-resource-dlls">Function Calls to Avoid in Resource DLLs</a>.
-     * @param {HCLUSTER} _hCluster 
+     * @param {HCLUSTER} _hCluster Handle to the cluster to which the resource belongs.
      * @param {HANDLE} hSelf Handle to the dependent resource. This resource depends on one or more resources.
      * @param {Pointer<CLUS_RESOURCE_CLASS_INFO>} prci Pointer to a  <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/clusapi/ns-clusapi-clus_resource_class_info">CLUS_RESOURCE_CLASS_INFO</a> structure describing the resource class of the dependency to return.
      * @param {BOOL} bRecurse Determines the scope of the search. If <b>TRUE</b>, the function checks the entire dependency tree under the dependent resource. If <b>FALSE</b>, the function checks only the resources on which the dependent resource directly depends.
@@ -17392,7 +17443,7 @@ class Clustering {
      *     <a href="https://docs.microsoft.com/previous-versions/windows/desktop/mscs/ip-address">IP Address</a> resource), 
      *     <a href="https://docs.microsoft.com/previous-versions/windows/desktop/mscs/ipv6-address">IPv6 Address</a> resources, or 
      *     <a href="https://docs.microsoft.com/previous-versions/windows/desktop/mscs/ipv6-tunnel-address">IPv6 Tunnel Address</a> resources.
-     * @param {HRESOURCE} _hResource 
+     * @param {HRESOURCE} _hResource Handle to the resource to query for dependencies.
      * @param {PWSTR} pszAddress Output buffer for returning the value of the 
      *       <a href="https://docs.microsoft.com/previous-versions/windows/desktop/mscs/ip-addresses-address">Address</a> private property.
      * @param {Pointer<Integer>} pcchAddress On input, specifies the size of the <i>pszAddress</i> buffer as a count of 
@@ -17484,8 +17535,8 @@ class Clustering {
      * If the resource identified by hResource depends on more than one Physical Disk resource, 
      *      <b>ResUtilFindDependentDiskResourceDriveLetter</b> 
      *      returns the drive letter of the first Physical Disk dependency that is enumerated for the resource.
-     * @param {HCLUSTER} _hCluster 
-     * @param {HRESOURCE} _hResource 
+     * @param {HCLUSTER} _hCluster Cluster handle.
+     * @param {HRESOURCE} _hResource Handle to the resource to query for dependencies.
      * @param {PWSTR} pszDriveLetter Buffer in which to store the drive letter.
      * @param {Pointer<Integer>} pcchDriveLetter On input, specifies the size of the <i>pszDriveLetter</i> buffer as a count of 
      *        <b>WCHAR</b>s. On output, specifies the size of the resulting data as a count of 
@@ -17600,7 +17651,7 @@ class Clustering {
      * Returns a property format list describing the format of a specified set of properties. The PRESUTIL_GET_PROPERTY_FORMATS type defines a pointer to this function.
      * @param {Pointer<RESUTIL_PROPERTY_ITEM>} pPropertyTable Pointer to a <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/resapi/ns-resapi-resutil_property_item">RESUTIL_PROPERTY_ITEM</a> property 
      *        table specifying the properties whose formats are to be retrieved.
-     * @param {Pointer} pOutPropertyFormatList On input, pointer to a buffer. On a successful return, pointer to a property format list describing the 
+     * @param {Integer} pOutPropertyFormatList On input, pointer to a buffer. On a successful return, pointer to a property format list describing the 
      *        format of each property specified by <i>pPropertyTable</i>.
      * @param {Integer} cbPropertyFormatListSize Specifies the allocated size (in bytes) of the buffer pointed to by 
      *        <i>pOutPropertyFormatList</i>.
@@ -17622,7 +17673,7 @@ class Clustering {
 
     /**
      * Returns handles to the core Network Name, IP Address and quorum resources. The PRESUTIL_GET_CORE_CLUSTER_RESOURCES type defines a pointer to this function.
-     * @param {HCLUSTER} _hCluster 
+     * @param {HCLUSTER} _hCluster Cluster handle (see <a href="https://docs.microsoft.com/windows/desktop/api/clusapi/nf-clusapi-opencluster">OpenCluster</a>).
      * @param {Pointer<HRESOURCE>} phClusterNameResource Pointer to a resource handle to the core 
      *       <a href="https://docs.microsoft.com/previous-versions/windows/desktop/mscs/network-name">Network Name</a> resource for the 
      *       <a href="https://docs.microsoft.com/previous-versions/windows/desktop/mscs/c-gly">cluster</a>, which stores the cluster name.
@@ -17647,7 +17698,8 @@ class Clustering {
 
     /**
      * Returns the name of a resource. The PRESUTIL_GET_RESOURCE_NAME type defines a pointer to this function.
-     * @param {HRESOURCE} _hResource 
+     * @param {HRESOURCE} _hResource Resource handle (see 
+     *       <a href="https://docs.microsoft.com/windows/desktop/api/clusapi/nf-clusapi-openclusterresource">OpenClusterResource</a>).
      * @param {PWSTR} pszResourceName Pointer to a buffer that receives the resource name.
      * @param {Pointer<Integer>} pcchResourceNameInOut On input, specifies the size of the buffer pointed to by <i>pszResourceName</i>, in wide 
      *       characters. On output, specifies the actual size of the resource name returned as a count of wide 
@@ -17670,9 +17722,9 @@ class Clustering {
 
     /**
      * Determines whether or not a specific role has been assigned to a cluster.
-     * @param {HCLUSTER} _hCluster 
-     * @param {Integer} eClusterRole The role the cluster was queried about.  The possible values for this parameter are enumerators from the <a href="https://docs.microsoft.com/windows/desktop/api/resapi/ne-resapi-cluster_role">CLUSTER_ROLE</a> enumeration.  The following values are valid.
-     * @returns {Integer} The possible return values for this function are enumerators from the  <a href="https://docs.microsoft.com/windows/desktop/api/resapi/ne-resapi-cluster_role_state">CLUSTER_ROLE_STATE</a> enumeration.  The following values are valid.
+     * @param {HCLUSTER} _hCluster The handle of the queried cluster.
+     * @param {CLUSTER_ROLE} eClusterRole The role the cluster was queried about.  The possible values for this parameter are enumerators from the <a href="https://docs.microsoft.com/windows/desktop/api/resapi/ne-resapi-cluster_role">CLUSTER_ROLE</a> enumeration.  The following values are valid.
+     * @returns {CLUSTER_ROLE_STATE} The possible return values for this function are enumerators from the  <a href="https://docs.microsoft.com/windows/desktop/api/resapi/ne-resapi-cluster_role_state">CLUSTER_ROLE_STATE</a> enumeration.  The following values are valid.
      * 
      * <table>
      * <tr>
@@ -18080,7 +18132,7 @@ class Clustering {
 
     /**
      * Enumerates all of the resources in a specified cluster and initiates a user-defined operation for each resource. The PRESUTIL_ENUM_RESOURCES_EX2 type defines a pointer to this function.
-     * @param {HCLUSTER} _hCluster 
+     * @param {HCLUSTER} _hCluster A handle to the cluster that contains the resources to enumerate.
      * @param {HRESOURCE} hSelf An optional handle to a cluster resource. The callback function is not invoked for a resource identified by 
      *        <i>hSelf</i>.
      * @param {PWSTR} lpszResTypeName An optional pointer to a name of a <a href="https://docs.microsoft.com/previous-versions/windows/desktop/mscs/resource-types">resource type</a> that 
@@ -18150,7 +18202,7 @@ class Clustering {
 
     /**
      * Enumerates the dependencies of a specified resource in a specified cluster and returns a handle to a dependency of a specified type. The PRESUTIL_GET_RESOURCE_DEPENDENCY_BY_NAME_EX type defines a pointer to this function.
-     * @param {HCLUSTER} _hCluster 
+     * @param {HCLUSTER} _hCluster A handle to the cluster to which the resource belongs.
      * @param {HANDLE} hSelf A handle to the dependent resource. This resource depends on one or more resources.
      * @param {PWSTR} lpszResourceType A null-terminated Unicode string that specifies  the resource type of the dependency to return.
      * @param {BOOL} bRecurse Determines the scope of the search. If <b>TRUE</b>, the function checks the entire dependency tree under the dependent resource. If <b>FALSE</b>, the function checks only the resources on which the dependent resource directly depends.
@@ -18203,7 +18255,7 @@ class Clustering {
 
     /**
      * Enumerates the dependencies of a specified resource in a specified cluster and returns a handle to a dependency that matches a specified resource class. The PRESUTIL_GET_RESOURCE_DEPENDENCY_BY_CLASS_EX type defines a pointer to this function.
-     * @param {HCLUSTER} _hCluster 
+     * @param {HCLUSTER} _hCluster A handle to the cluster to which the resource belongs.
      * @param {HANDLE} hSelf A handle to the dependent resource. This resource depends on one or more resources.
      * @param {Pointer<CLUS_RESOURCE_CLASS_INFO>} prci A pointer to a  <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/clusapi/ns-clusapi-clus_resource_class_info">PCLUS_RESOURCE_CLASS_INFO</a> structure that describes  the resource class of the dependency to return.
      * @param {BOOL} bRecurse Determines the scope of the search. If <b>TRUE</b>, the function checks the entire dependency tree under the dependent resource. If <b>FALSE</b>, the function checks only the resources on which the dependent resource directly depends.
@@ -18318,7 +18370,7 @@ class Clustering {
 
     /**
      * Closes a handle to a Cryptographic Service Provider (CSP). The PCLOSE_CLUSTER_CRYPT_PROVIDER type defines a pointer to this function.
-     * @param {HCLUSCRYPTPROVIDER} _hClusCryptProvider 
+     * @param {HCLUSCRYPTPROVIDER} _hClusCryptProvider A <a href="https://docs.microsoft.com/previous-versions/windows/desktop/legacy/dn823545(v=vs.85)">HCLUSCRYPTPROVIDER</a> structure that contains a handle to a CSP.
      * @returns {Integer} If the operation completes successfully, this function returns <b>ERROR_SUCCESS</b>; otherwise, it returns a system error code.
      * @see https://learn.microsoft.com/windows/win32/api/resapi/nf-resapi-closeclustercryptprovider
      * @since windowsserver2012
@@ -18330,7 +18382,7 @@ class Clustering {
 
     /**
      * Encrypts Checkpointing data for a Cryptographic Service Provider (CSP).
-     * @param {HCLUSCRYPTPROVIDER} _hClusCryptProvider 
+     * @param {HCLUSCRYPTPROVIDER} _hClusCryptProvider A <a href="https://docs.microsoft.com/previous-versions/windows/desktop/legacy/dn823545(v=vs.85)">HCLUSCRYPTPROVIDER</a> structure that contains a handle to the CSP.
      * @param {Pointer<Integer>} pData A pointer to the data to encrypt.
      * @param {Integer} cbData The total number of bytes in the data pointed to by the <i>pDta</i> parameter.
      * @param {Pointer<Pointer<Integer>>} ppData A pointer to a buffer that receives the encrypted data.
@@ -18350,7 +18402,7 @@ class Clustering {
 
     /**
      * Decrypts Checkpointing data for a Cryptographic Service Provider (CSP).
-     * @param {HCLUSCRYPTPROVIDER} _hClusCryptProvider 
+     * @param {HCLUSCRYPTPROVIDER} _hClusCryptProvider A <a href="https://docs.microsoft.com/previous-versions/windows/desktop/legacy/dn823545(v=vs.85)">HCLUSCRYPTPROVIDER</a> structure that contains a handle to the CSP.
      * @param {Pointer<Integer>} pCryptInput A pointer to the data to decrypt.
      * @param {Integer} cbCryptInput The total number of bytes in the data pointed to by the <i>pCryptInput</i> parameter.
      * @param {Pointer<Pointer<Integer>>} ppCryptOutput A pointer to a buffer that receives the decrypted data.
@@ -18469,7 +18521,7 @@ class Clustering {
      * 
      * @param {HCLUSTER} _hCluster 
      * @param {HGROUP} hSelf 
-     * @param {Integer} groupType 
+     * @param {CLUSGROUP_TYPE} groupType 
      * @param {Pointer<LPGROUP_CALLBACK_EX>} pResCallBack 
      * @param {Pointer<Void>} pParameter 
      * @returns {Integer} 
@@ -18497,7 +18549,7 @@ class Clustering {
     /**
      * 
      * @param {HGROUP} _hGroup 
-     * @param {Pointer<Integer>} groupType 
+     * @param {Pointer<CLUSGROUP_TYPE>} groupType 
      * @returns {Integer} 
      */
     static ResUtilGetClusterGroupType(_hGroup, groupType) {

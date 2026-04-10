@@ -1,15 +1,14 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
 #Include ..\..\Foundation\HWND.ahk
+#Include .\SET_WINDOW_POS_FLAGS.ahk
 
 /**
  * Contains information about the size and position of a window.
  * @see https://learn.microsoft.com/windows/win32/api/winuser/ns-winuser-windowpos
  * @namespace Windows.Win32.UI.WindowsAndMessaging
- * @version v4.0.30319
  */
-class WINDOWPOS extends Win32Struct
-{
+class WINDOWPOS extends Win32Struct {
     static sizeof => 40
 
     static packingSize => 8
@@ -20,7 +19,7 @@ class WINDOWPOS extends Win32Struct
      * A handle to the window.
      * @type {HWND}
      */
-    hwnd{
+    hwnd {
         get {
             if(!this.HasProp("__hwnd"))
                 this.__hwnd := HWND(0, this)
@@ -34,7 +33,7 @@ class WINDOWPOS extends Win32Struct
      * The position of the window in Z order (front-to-back position). This member can be a handle to the window behind which this window is placed, or can be one of the special values listed with the <a href="https://docs.microsoft.com/windows/desktop/api/winuser/nf-winuser-setwindowpos">SetWindowPos</a> function.
      * @type {HWND}
      */
-    hwndInsertAfter{
+    hwndInsertAfter {
         get {
             if(!this.HasProp("__hwndInsertAfter"))
                 this.__hwndInsertAfter := HWND(8, this)
@@ -88,7 +87,7 @@ class WINDOWPOS extends Win32Struct
 
     /**
      * Type: <b>UINT</b>
-     * @type {Integer}
+     * @type {SET_WINDOW_POS_FLAGS}
      */
     flags {
         get => NumGet(this, 32, "uint")

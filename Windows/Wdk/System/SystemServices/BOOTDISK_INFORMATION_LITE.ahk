@@ -1,13 +1,10 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
-#Include .\LOADER_PARTITION_INFORMATION_EX.ahk
 
 /**
  * @namespace Windows.Wdk.System.SystemServices
- * @version v4.0.30319
  */
-class BOOTDISK_INFORMATION_LITE extends Win32Struct
-{
+class BOOTDISK_INFORMATION_LITE extends Win32Struct {
     static sizeof => 16
 
     static packingSize => 8
@@ -21,9 +18,9 @@ class BOOTDISK_INFORMATION_LITE extends Win32Struct
     }
 
     /**
-     * @type {Array<LOADER_PARTITION_INFORMATION_EX>}
+     * @type {Array<Pointer>}
      */
-    Entries{
+    Entries {
         get {
             if(!this.HasProp("__EntriesProxyArray"))
                 this.__EntriesProxyArray := Win32FixedArray(this.ptr + 8, 1, Primitive, "ptr")

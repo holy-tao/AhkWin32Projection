@@ -5,9 +5,8 @@
  * Defines statistics collected by the network source.
  * @see https://learn.microsoft.com/windows/win32/api/mfidl/ne-mfidl-mfnetsource_statistics_ids
  * @namespace Windows.Win32.Media.MediaFoundation
- * @version v4.0.30319
  */
-class MFNETSOURCE_STATISTICS_IDS extends Win32Enum{
+class MFNETSOURCE_STATISTICS_IDS extends Win32Enum {
 
     /**
      * The number of packets received (<b>LONG</b>, <b>VT_I4</b>).
@@ -184,7 +183,6 @@ class MFNETSOURCE_STATISTICS_IDS extends Win32Enum{
     static MFNETSOURCE_DOWNLOADPROGRESS_ID => 28
 
     /**
-     * 
      * @type {Integer (Int32)}
      */
     static MFNETSOURCE_UNPREDEFINEDPROTOCOLNAME_ID => 29

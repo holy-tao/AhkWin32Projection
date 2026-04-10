@@ -3,10 +3,8 @@
 
 /**
  * @namespace Windows.Win32.Storage.Nvme
- * @version v4.0.30319
  */
-class LATENCY_MONITOR_FEATURE_STATUS extends Win32Struct
-{
+class LATENCY_MONITOR_FEATURE_STATUS extends Win32Struct {
     static sizeof => 1
 
     static packingSize => 1

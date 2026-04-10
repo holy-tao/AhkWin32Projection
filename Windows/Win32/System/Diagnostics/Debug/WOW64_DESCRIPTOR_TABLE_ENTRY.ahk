@@ -4,10 +4,8 @@
 
 /**
  * @namespace Windows.Win32.System.Diagnostics.Debug
- * @version v4.0.30319
  */
-class WOW64_DESCRIPTOR_TABLE_ENTRY extends Win32Struct
-{
+class WOW64_DESCRIPTOR_TABLE_ENTRY extends Win32Struct {
     static sizeof => 12
 
     static packingSize => 4
@@ -23,7 +21,7 @@ class WOW64_DESCRIPTOR_TABLE_ENTRY extends Win32Struct
     /**
      * @type {WOW64_LDT_ENTRY}
      */
-    Descriptor{
+    Descriptor {
         get {
             if(!this.HasProp("__Descriptor"))
                 this.__Descriptor := WOW64_LDT_ENTRY(4, this)

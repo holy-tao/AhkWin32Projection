@@ -9,9 +9,8 @@
  * This is a <b>MsftWriteSpeedDescriptor</b> object in script.
  * @see https://learn.microsoft.com/windows/win32/api/imapi2/nn-imapi2-iwritespeeddescriptor
  * @namespace Windows.Win32.Storage.Imapi
- * @version v4.0.30319
  */
-class IWriteSpeedDescriptor extends IDispatch{
+class IWriteSpeedDescriptor extends IDispatch {
 
     static sizeof => A_PtrSize
     /**
@@ -33,7 +32,7 @@ class IWriteSpeedDescriptor extends IDispatch{
     static VTableNames => ["get_MediaType", "get_RotationTypeIsPureCAV", "get_WriteSpeed"]
 
     /**
-     * @type {Integer} 
+     * @type {IMAPI_MEDIA_PHYSICAL_TYPE} 
      */
     MediaType {
         get => this.get_MediaType()
@@ -55,7 +54,7 @@ class IWriteSpeedDescriptor extends IDispatch{
 
     /**
      * Retrieves type of media in the current drive.
-     * @returns {Integer} Type of media in the current drive. For possible values, see the <a href="https://docs.microsoft.com/windows/desktop/api/imapi2/ne-imapi2-imapi_media_physical_type">IMAPI_MEDIA_PHYSICAL_TYPE</a> enumeration type.
+     * @returns {IMAPI_MEDIA_PHYSICAL_TYPE} Type of media in the current drive. For possible values, see the <a href="https://docs.microsoft.com/windows/desktop/api/imapi2/ne-imapi2-imapi_media_physical_type">IMAPI_MEDIA_PHYSICAL_TYPE</a> enumeration type.
      * @see https://learn.microsoft.com/windows/win32/api/imapi2/nf-imapi2-iwritespeeddescriptor-get_mediatype
      */
     get_MediaType() {

@@ -1,15 +1,14 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
+#Include .\IMSMQManagement.ahk
 #Include ..\Variant\VARIANT.ahk
 #Include .\IMSMQCollection.ahk
-#Include .\IMSMQManagement.ahk
 
 /**
  * @namespace Windows.Win32.System.MessageQueuing
- * @version v4.0.30319
  */
-class IMSMQOutgoingQueueManagement extends IMSMQManagement{
+class IMSMQOutgoingQueueManagement extends IMSMQManagement {
 
     static sizeof => A_PtrSize
     /**

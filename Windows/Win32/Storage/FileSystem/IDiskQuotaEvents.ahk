@@ -7,9 +7,8 @@
  * Receives quota-related event notifications.
  * @see https://learn.microsoft.com/windows/win32/api/dskquota/nn-dskquota-idiskquotaevents
  * @namespace Windows.Win32.Storage.FileSystem
- * @version v4.0.30319
  */
-class IDiskQuotaEvents extends IUnknown{
+class IDiskQuotaEvents extends IUnknown {
 
     static sizeof => A_PtrSize
     /**

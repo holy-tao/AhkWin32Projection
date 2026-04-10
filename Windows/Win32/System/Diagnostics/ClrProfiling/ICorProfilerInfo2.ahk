@@ -1,16 +1,15 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\..\Guid.ahk
+#Include .\ICorProfilerInfo.ahk
 #Include .\ICorProfilerObjectEnum.ahk
 #Include .\COR_PRF_GC_GENERATION_RANGE.ahk
 #Include .\COR_PRF_EX_CLAUSE_INFO.ahk
-#Include .\ICorProfilerInfo.ahk
 
 /**
  * @namespace Windows.Win32.System.Diagnostics.ClrProfiling
- * @version v4.0.30319
  */
-class ICorProfilerInfo2 extends ICorProfilerInfo{
+class ICorProfilerInfo2 extends ICorProfilerInfo {
 
     static sizeof => A_PtrSize
     /**
@@ -289,7 +288,7 @@ class ICorProfilerInfo2 extends ICorProfilerInfo{
      * 
      * @param {Pointer} classId 
      * @param {Integer} fieldToken 
-     * @returns {Integer} 
+     * @returns {COR_PRF_STATIC_TYPE} 
      */
     GetStaticFieldInfo(classId, fieldToken) {
         result := ComCall(53, this, "ptr", classId, "uint", fieldToken, "int*", &pFieldInfo := 0, "HRESULT")

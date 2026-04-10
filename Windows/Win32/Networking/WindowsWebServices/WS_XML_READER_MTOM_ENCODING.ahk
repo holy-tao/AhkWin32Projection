@@ -1,6 +1,7 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
 #Include .\WS_XML_READER_ENCODING.ahk
+#Include .\WS_XML_READER_ENCODING_TYPE.ahk
 #Include .\WS_STRING.ahk
 
 /**
@@ -16,10 +17,8 @@
  * See http://www.w3.org/TR/2005/REC-xop10-20050125/ for the MTOM specification.
  * @see https://learn.microsoft.com/windows/win32/api/webservices/ns-webservices-ws_xml_reader_mtom_encoding
  * @namespace Windows.Win32.Networking.WindowsWebServices
- * @version v4.0.30319
  */
-class WS_XML_READER_MTOM_ENCODING extends Win32Struct
-{
+class WS_XML_READER_MTOM_ENCODING extends Win32Struct {
     static sizeof => 72
 
     static packingSize => 8
@@ -28,7 +27,7 @@ class WS_XML_READER_MTOM_ENCODING extends Win32Struct
      * The base type for all types that derive from <a href="https://docs.microsoft.com/windows/desktop/api/webservices/ns-webservices-ws_xml_reader_encoding">WS_XML_READER_ENCODING</a>.
      * @type {WS_XML_READER_ENCODING}
      */
-    encoding{
+    encoding {
         get {
             if(!this.HasProp("__encoding"))
                 this.__encoding := WS_XML_READER_ENCODING(0, this)
@@ -59,7 +58,7 @@ class WS_XML_READER_MTOM_ENCODING extends Win32Struct
      *           If readMimeHeader is specified as <b>TRUE</b>, then this must be empty as the startInfo will be read from the mime header.
      * @type {WS_STRING}
      */
-    startInfo{
+    startInfo {
         get {
             if(!this.HasProp("__startInfo"))
                 this.__startInfo := WS_STRING(24, this)
@@ -72,7 +71,7 @@ class WS_XML_READER_MTOM_ENCODING extends Win32Struct
      *           If readMimeHeader is specified as <b>TRUE</b>, then this must be empty as the boundary will be read from the mime header.
      * @type {WS_STRING}
      */
-    boundary{
+    boundary {
         get {
             if(!this.HasProp("__boundary"))
                 this.__boundary := WS_STRING(40, this)
@@ -85,7 +84,7 @@ class WS_XML_READER_MTOM_ENCODING extends Win32Struct
      *           If readMimeHeader is specified as <b>TRUE</b>, then this must be empty as the startUri will be read from the mime header.
      * @type {WS_STRING}
      */
-    startUri{
+    startUri {
         get {
             if(!this.HasProp("__startUri"))
                 this.__startUri := WS_STRING(56, this)

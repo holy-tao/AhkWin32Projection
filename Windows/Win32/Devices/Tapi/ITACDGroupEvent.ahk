@@ -1,16 +1,15 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
-#Include .\ITACDGroup.ahk
 #Include ..\..\System\Com\IDispatch.ahk
+#Include .\ITACDGroup.ahk
 
 /**
  * The ITACDGroupEvent interface (tapi3cc.h) contains methods that retrieve the description of Automatic Call Distribution (ACD) group events.
  * @see https://learn.microsoft.com/windows/win32/api/tapi3cc/nn-tapi3cc-itacdgroupevent
  * @namespace Windows.Win32.Devices.Tapi
- * @version v4.0.30319
  */
-class ITACDGroupEvent extends IDispatch{
+class ITACDGroupEvent extends IDispatch {
 
     static sizeof => A_PtrSize
     /**
@@ -39,7 +38,7 @@ class ITACDGroupEvent extends IDispatch{
     }
 
     /**
-     * @type {Integer} 
+     * @type {ACDGROUP_EVENT} 
      */
     Event {
         get => this.get_Event()
@@ -64,7 +63,7 @@ class ITACDGroupEvent extends IDispatch{
      * The ITACDGroupEvent::get_Event method (tapi3cc.h) gets the descriptor of an event which indicates that a new ACD group has been added.
      * @remarks
      * The ACDGE_NEW_GROUP and ACDGE_REMOVE_GROUP values are not currently supported.
-     * @returns {Integer} Pointer to 
+     * @returns {ACDGROUP_EVENT} Pointer to 
      * <a href="https://docs.microsoft.com/windows/desktop/api/tapi3/ne-tapi3-acdgroup_event">ACDGROUP_EVENT</a> descriptor of event.
      * @see https://learn.microsoft.com/windows/win32/api/tapi3cc/nf-tapi3cc-itacdgroupevent-get_event
      */

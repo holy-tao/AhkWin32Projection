@@ -1,15 +1,14 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\..\Guid.ahk
+#Include ..\IUnknown.ahk
 #Include .\IInternetSecurityMgrSite.ahk
 #Include ..\IEnumString.ahk
-#Include ..\IUnknown.ahk
 
 /**
  * @namespace Windows.Win32.System.Com.Urlmon
- * @version v4.0.30319
  */
-class IInternetSecurityManager extends IUnknown{
+class IInternetSecurityManager extends IUnknown {
 
     static sizeof => A_PtrSize
     /**

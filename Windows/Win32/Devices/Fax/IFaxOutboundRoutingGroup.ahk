@@ -1,9 +1,9 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
+#Include ..\..\System\Com\IDispatch.ahk
 #Include ..\..\Foundation\BSTR.ahk
 #Include .\IFaxDeviceIds.ahk
-#Include ..\..\System\Com\IDispatch.ahk
 
 /**
  * The IFaxOutboundRoutingGroup interface describes a configuration object that is used by a fax client application to retrieve information about an individual fax outbound routing group.
@@ -11,9 +11,8 @@
  * A default implementation of <b>IFaxOutboundRoutingGroup</b> is provided as the <a href="https://docs.microsoft.com/previous-versions/windows/desktop/fax/-mfax-faxoutboundroutinggroup">FaxOutboundRoutingGroup</a> object.
  * @see https://learn.microsoft.com/windows/win32/api/faxcomex/nn-faxcomex-ifaxoutboundroutinggroup
  * @namespace Windows.Win32.Devices.Fax
- * @version v4.0.30319
  */
-class IFaxOutboundRoutingGroup extends IDispatch{
+class IFaxOutboundRoutingGroup extends IDispatch {
 
     static sizeof => A_PtrSize
     /**
@@ -48,7 +47,7 @@ class IFaxOutboundRoutingGroup extends IDispatch{
     }
 
     /**
-     * @type {Integer} 
+     * @type {FAX_GROUP_STATUS_ENUM} 
      */
     Status {
         get => this.get_Status()
@@ -76,7 +75,7 @@ class IFaxOutboundRoutingGroup extends IDispatch{
      * The Status property indicates the collective status of the fax devices in the outbound routing group.
      * @remarks
      * When devices are added to or removed from a group, the group's status does not change.
-     * @returns {Integer} 
+     * @returns {FAX_GROUP_STATUS_ENUM} 
      * @see https://learn.microsoft.com/windows/win32/api/faxcomex/nf-faxcomex-ifaxoutboundroutinggroup-get_status
      */
     get_Status() {

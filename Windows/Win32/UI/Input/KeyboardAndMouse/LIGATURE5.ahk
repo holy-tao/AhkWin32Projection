@@ -3,10 +3,8 @@
 
 /**
  * @namespace Windows.Win32.UI.Input.KeyboardAndMouse
- * @version v4.0.30319
  */
-class LIGATURE5 extends Win32Struct
-{
+class LIGATURE5 extends Win32Struct {
     static sizeof => 14
 
     static packingSize => 2

@@ -5,9 +5,8 @@
  * The MBN_SMS_CAPS enumerated type contains bitfield values that specify SMS capabilities.
  * @see https://learn.microsoft.com/windows/win32/api/mbnapi/ne-mbnapi-mbn_sms_caps
  * @namespace Windows.Win32.NetworkManagement.MobileBroadband
- * @version v4.0.30319
  */
-class MBN_SMS_CAPS extends Win32Enum{
+class MBN_SMS_CAPS extends Win32Enum {
 
     /**
      * The device does not support SMS.

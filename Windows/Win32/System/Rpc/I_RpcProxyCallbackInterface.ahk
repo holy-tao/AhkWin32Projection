@@ -3,10 +3,8 @@
 
 /**
  * @namespace Windows.Win32.System.Rpc
- * @version v4.0.30319
  */
-class I_RpcProxyCallbackInterface extends Win32Struct
-{
+class I_RpcProxyCallbackInterface extends Win32Struct {
     static sizeof => 72
 
     static packingSize => 8

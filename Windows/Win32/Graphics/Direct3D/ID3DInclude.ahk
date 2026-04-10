@@ -8,9 +8,8 @@
  * To use this interface, create an interface that inherits from <b>ID3DInclude</b> and implement custom behavior for the methods.
  * @see https://learn.microsoft.com/windows/win32/api/d3dcommon/nn-d3dcommon-id3dinclude
  * @namespace Windows.Win32.Graphics.Direct3D
- * @version v4.0.30319
  */
-class ID3DInclude extends Win32ComInterface{
+class ID3DInclude extends Win32ComInterface {
 
     static sizeof => A_PtrSize
 
@@ -28,7 +27,7 @@ class ID3DInclude extends Win32ComInterface{
 
     /**
      * A user-implemented method for opening and reading the contents of a shader
-     * @param {Integer} IncludeType Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/d3dcommon/ne-d3dcommon-d3d_include_type">D3D_INCLUDE_TYPE</a></b>
+     * @param {D3D_INCLUDE_TYPE} IncludeType Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/d3dcommon/ne-d3dcommon-d3d_include_type">D3D_INCLUDE_TYPE</a></b>
      * 
      * A <a href="https://docs.microsoft.com/windows/desktop/api/d3dcommon/ne-d3dcommon-d3d_include_type">D3D_INCLUDE_TYPE</a>-typed value that indicates the location of the #include file.
      * @param {PSTR} pFileName Type: <b><a href="https://docs.microsoft.com/windows/desktop/WinProg/windows-data-types">LPCSTR</a></b>

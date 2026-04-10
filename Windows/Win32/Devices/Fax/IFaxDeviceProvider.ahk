@@ -1,9 +1,9 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
+#Include ..\..\System\Com\IDispatch.ahk
 #Include ..\..\Foundation\BSTR.ahk
 #Include ..\..\System\Variant\VARIANT.ahk
-#Include ..\..\System\Com\IDispatch.ahk
 
 /**
  * The IFaxDeviceProvider interface defines a configuration object used by a fax client application to retrieve information about a fax service provider (FSP) registered with the fax service.
@@ -11,9 +11,8 @@
  * A default implementation of <b>IFaxDeviceProvider</b> is provided as the <a href="https://docs.microsoft.com/previous-versions/windows/desktop/fax/-mfax-faxdeviceprovider">FaxDeviceProvider</a> object.
  * @see https://learn.microsoft.com/windows/win32/api/faxcomex/nn-faxcomex-ifaxdeviceprovider
  * @namespace Windows.Win32.Devices.Fax
- * @version v4.0.30319
  */
-class IFaxDeviceProvider extends IDispatch{
+class IFaxDeviceProvider extends IDispatch {
 
     static sizeof => A_PtrSize
     /**
@@ -104,7 +103,7 @@ class IFaxDeviceProvider extends IDispatch{
     }
 
     /**
-     * @type {Integer} 
+     * @type {FAX_PROVIDER_STATUS_ENUM} 
      */
     Status {
         get => this.get_Status()
@@ -232,7 +231,7 @@ class IFaxDeviceProvider extends IDispatch{
      * The IFaxDeviceProvider::get_Status property is a number that indicates whether the fax service provider (FSP) loaded and initialized successfully.
      * @remarks
      * If the FSP did not load successfully, the property indicates the reason for the failure, and <a href="https://docs.microsoft.com/previous-versions/windows/desktop/fax/-mfax-faxdeviceprovider-initerrorcode-vb">IFaxDeviceProvider::get_InitErrorCode</a> holds the last error code value. For more information, see <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/faxcomex/ne-faxcomex-fax_provider_status_enum">FAX_PROVIDER_STATUS_ENUM</a>.
-     * @returns {Integer} 
+     * @returns {FAX_PROVIDER_STATUS_ENUM} 
      * @see https://learn.microsoft.com/windows/win32/api/faxcomex/nf-faxcomex-ifaxdeviceprovider-get_status
      */
     get_Status() {

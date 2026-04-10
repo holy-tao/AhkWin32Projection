@@ -1,12 +1,16 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
-#Include ..\..\Networking\WinSock\IN_ADDR.ahk
+#Include ..\..\Networking\WinSock\SOCKADDR_INET.ahk
 #Include ..\..\Networking\WinSock\SOCKADDR_IN.ahk
+#Include ..\..\Networking\WinSock\ADDRESS_FAMILY.ahk
+#Include ..\..\Networking\WinSock\IN_ADDR.ahk
+#Include ..\..\Networking\WinSock\SOCKADDR_IN6.ahk
 #Include ..\..\Networking\WinSock\IN6_ADDR.ahk
 #Include ..\..\Networking\WinSock\SCOPE_ID.ahk
-#Include ..\..\Networking\WinSock\SOCKADDR_IN6.ahk
-#Include ..\..\Networking\WinSock\SOCKADDR_INET.ahk
 #Include ..\Ndis\NET_LUID_LH.ahk
+#Include ..\..\Networking\WinSock\NL_PREFIX_ORIGIN.ahk
+#Include ..\..\Networking\WinSock\NL_SUFFIX_ORIGIN.ahk
+#Include ..\..\Networking\WinSock\NL_DAD_STATE.ahk
 
 /**
  * Stores information about a unicast IP address.
@@ -24,11 +28,9 @@
  * A similar hotfix is also available for Windows Vista with Service Pack 2 (SP2) and Windows Server 2008 with Service Pack 2 (SP2) that adds support to Netsh.exe for setting the SkipAsSource attribute on an IP address. This hotfix also changes behavior such that if the <b>SkipAsSource</b> member in the <b>MIB_UNICASTIPADDRESS_ROW</b> structure is set to false, the IP address will be registered in DNS. If the <b>SkipAsSource</b> member is set to true, the IP address is not registered in DNS.
  * @see https://learn.microsoft.com/windows/win32/api/netioapi/ns-netioapi-mib_unicastipaddress_row
  * @namespace Windows.Win32.NetworkManagement.IpHelper
- * @version v4.0.30319
  */
-class MIB_UNICASTIPADDRESS_ROW extends Win32Struct
-{
-    static sizeof => 112
+class MIB_UNICASTIPADDRESS_ROW extends Win32Struct {
+    static sizeof => 104
 
     static packingSize => 8
 
@@ -38,7 +40,7 @@ class MIB_UNICASTIPADDRESS_ROW extends Win32Struct
      * The unicast IP address. This member can be an IPv6 address or an IPv4 address.
      * @type {SOCKADDR_INET}
      */
-    Address{
+    Address {
         get {
             if(!this.HasProp("__Address"))
                 this.__Address := SOCKADDR_INET(0, this)
@@ -52,10 +54,10 @@ class MIB_UNICASTIPADDRESS_ROW extends Win32Struct
      * The locally unique identifier (LUID) for the network interface associated with this IP address.
      * @type {NET_LUID_LH}
      */
-    InterfaceLuid{
+    InterfaceLuid {
         get {
             if(!this.HasProp("__InterfaceLuid"))
-                this.__InterfaceLuid := NET_LUID_LH(56, this)
+                this.__InterfaceLuid := NET_LUID_LH(48, this)
             return this.__InterfaceLuid
         }
     }
@@ -67,8 +69,8 @@ class MIB_UNICASTIPADDRESS_ROW extends Win32Struct
      * @type {Integer}
      */
     InterfaceIndex {
-        get => NumGet(this, 72, "uint")
-        set => NumPut("uint", value, this, 72)
+        get => NumGet(this, 64, "uint")
+        set => NumPut("uint", value, this, 64)
     }
 
     /**
@@ -148,11 +150,11 @@ class MIB_UNICASTIPADDRESS_ROW extends Win32Struct
      * </td>
      * </tr>
      * </table>
-     * @type {Integer}
+     * @type {NL_PREFIX_ORIGIN}
      */
     PrefixOrigin {
-        get => NumGet(this, 76, "int")
-        set => NumPut("int", value, this, 76)
+        get => NumGet(this, 68, "int")
+        set => NumPut("int", value, this, 68)
     }
 
     /**
@@ -243,11 +245,11 @@ class MIB_UNICASTIPADDRESS_ROW extends Win32Struct
      * </td>
      * </tr>
      * </table>
-     * @type {Integer}
+     * @type {NL_SUFFIX_ORIGIN}
      */
     SuffixOrigin {
-        get => NumGet(this, 80, "int")
-        set => NumPut("int", value, this, 80)
+        get => NumGet(this, 72, "int")
+        set => NumPut("int", value, this, 72)
     }
 
     /**
@@ -257,8 +259,8 @@ class MIB_UNICASTIPADDRESS_ROW extends Win32Struct
      * @type {Integer}
      */
     ValidLifetime {
-        get => NumGet(this, 84, "uint")
-        set => NumPut("uint", value, this, 84)
+        get => NumGet(this, 76, "uint")
+        set => NumPut("uint", value, this, 76)
     }
 
     /**
@@ -268,8 +270,8 @@ class MIB_UNICASTIPADDRESS_ROW extends Win32Struct
      * @type {Integer}
      */
     PreferredLifetime {
-        get => NumGet(this, 88, "uint")
-        set => NumPut("uint", value, this, 88)
+        get => NumGet(this, 80, "uint")
+        set => NumPut("uint", value, this, 80)
     }
 
     /**
@@ -279,8 +281,8 @@ class MIB_UNICASTIPADDRESS_ROW extends Win32Struct
      * @type {Integer}
      */
     OnLinkPrefixLength {
-        get => NumGet(this, 92, "char")
-        set => NumPut("char", value, this, 92)
+        get => NumGet(this, 84, "char")
+        set => NumPut("char", value, this, 84)
     }
 
     /**
@@ -290,8 +292,8 @@ class MIB_UNICASTIPADDRESS_ROW extends Win32Struct
      * @type {BOOLEAN}
      */
     SkipAsSource {
-        get => NumGet(this, 93, "char")
-        set => NumPut("char", value, this, 93)
+        get => NumGet(this, 85, "char")
+        set => NumPut("char", value, this, 85)
     }
 
     /**
@@ -361,11 +363,11 @@ class MIB_UNICASTIPADDRESS_ROW extends Win32Struct
      * </td>
      * </tr>
      * </table>
-     * @type {Integer}
+     * @type {NL_DAD_STATE}
      */
     DadState {
-        get => NumGet(this, 96, "int")
-        set => NumPut("int", value, this, 96)
+        get => NumGet(this, 88, "int")
+        set => NumPut("int", value, this, 88)
     }
 
     /**
@@ -374,10 +376,10 @@ class MIB_UNICASTIPADDRESS_ROW extends Win32Struct
      * The scope ID of the IP address. This member is applicable only to an IPv6 address. This member cannot be set. It is automatically determined by the interface on which the address was added.
      * @type {SCOPE_ID}
      */
-    ScopeId{
+    ScopeId {
         get {
             if(!this.HasProp("__ScopeId"))
-                this.__ScopeId := SCOPE_ID(100, this)
+                this.__ScopeId := SCOPE_ID(92, this)
             return this.__ScopeId
         }
     }
@@ -389,7 +391,7 @@ class MIB_UNICASTIPADDRESS_ROW extends Win32Struct
      * @type {Integer}
      */
     CreationTimeStamp {
-        get => NumGet(this, 104, "int64")
-        set => NumPut("int64", value, this, 104)
+        get => NumGet(this, 96, "int64")
+        set => NumPut("int64", value, this, 96)
     }
 }

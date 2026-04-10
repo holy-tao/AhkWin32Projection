@@ -9,10 +9,8 @@
  * The FSP can also use the reformatted data to add a brand to the fax transmission.
  * @see https://learn.microsoft.com/windows/win32/api/faxdev/ns-faxdev-fax_send
  * @namespace Windows.Win32.Devices.Fax
- * @version v4.0.30319
  */
-class FAX_SEND extends Win32Struct
-{
+class FAX_SEND extends Win32Struct {
     static sizeof => 72
 
     static packingSize => 8
@@ -111,9 +109,9 @@ class FAX_SEND extends Win32Struct
      * Type: <b>DWORD</b>
      * 
      * This member is reserved  by Microsoft. It must be set to zero.
-     * @type {Array<UInt32>}
+     * @type {Array<Integer>}
      */
-    Reserved{
+    Reserved {
         get {
             if(!this.HasProp("__ReservedProxyArray"))
                 this.__ReservedProxyArray := Win32FixedArray(this.ptr + 56, 3, Primitive, "uint")

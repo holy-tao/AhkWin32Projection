@@ -3,9 +3,8 @@
 
 /**
  * @namespace Windows.Win32.UI.Input.GameInput
- * @version v4.0.30319
  */
-class GameInputArcadeStickButtons extends Win32BitflagEnum{
+class GameInputArcadeStickButtons extends Win32BitflagEnum {
 
     /**
      * @type {Integer (Int32)}

@@ -5,9 +5,8 @@
 
 /**
  * @namespace Windows.Win32.System.ClrHosting
- * @version v4.0.30319
  */
-class IHostMalloc extends IUnknown{
+class IHostMalloc extends IUnknown {
 
     static sizeof => A_PtrSize
     /**
@@ -35,7 +34,7 @@ class IHostMalloc extends IUnknown{
      * 
      * For more information and a code example that shows how to use the <b>AllocADsMem</b> function, see <a href="https://docs.microsoft.com/windows/desktop/api/adshlp/nf-adshlp-reallocadsmem">ReallocADsMem</a>.
      * @param {Pointer} cbSize 
-     * @param {Integer} eCriticalLevel 
+     * @param {EMemoryCriticalLevel} eCriticalLevel 
      * @returns {Pointer<Void>} 
      * @see https://learn.microsoft.com/windows/win32/api/adshlp/nf-adshlp-allocadsmem
      */
@@ -47,7 +46,7 @@ class IHostMalloc extends IUnknown{
     /**
      * 
      * @param {Pointer} cbSize 
-     * @param {Integer} eCriticalLevel 
+     * @param {EMemoryCriticalLevel} eCriticalLevel 
      * @param {Pointer<Integer>} pszFileName 
      * @param {Integer} iLineNo 
      * @returns {Pointer<Void>} 

@@ -5,7 +5,6 @@
 
 /**
  * @namespace Windows.Win32.NetworkManagement.WiFi
- * @version v4.0.30319
  */
 class WiFi {
 
@@ -4959,7 +4958,7 @@ class WiFi {
      * 
      * Depending on the value of the <i>OpCode</i> parameter, the data pointed to by <i>pData</i> will be converted to a boolean value before the automatic configuration parameter is set. If <i>pData</i> points to 0, then the parameter is set to <b>FALSE</b>; otherwise, the parameter is set to <b>TRUE</b>.
      * @param {HANDLE} hClientHandle The client's session handle, obtained by a previous call to the <a href="https://docs.microsoft.com/windows/desktop/api/wlanapi/nf-wlanapi-wlanopenhandle">WlanOpenHandle</a> function.
-     * @param {Integer} OpCode A <a href="https://docs.microsoft.com/windows/win32/api/wlanapi/ne-wlanapi-wlan_autoconf_opcode-r1">WLAN_AUTOCONF_OPCODE</a> value that specifies the parameter to be set. Only some of the opcodes in the <b>WLAN_AUTOCONF_OPCODE</b> enumeration support set operations.
+     * @param {WLAN_AUTOCONF_OPCODE} OpCode A <a href="https://docs.microsoft.com/windows/win32/api/wlanapi/ne-wlanapi-wlan_autoconf_opcode-r1">WLAN_AUTOCONF_OPCODE</a> value that specifies the parameter to be set. Only some of the opcodes in the <b>WLAN_AUTOCONF_OPCODE</b> enumeration support set operations.
      * 
      * <table>
      * <tr>
@@ -5010,7 +5009,7 @@ class WiFi {
      * </tr>
      * </table>
      * @param {Integer} dwDataSize The size of the <i>pData</i> parameter, in bytes. This parameter must be set to <c>sizeof(BOOL)</code> for a BOOL or <code>sizeof(DWORD)</c> for a DWORD, depending on the value of the <i>OpCode</i> parameter.
-     * @param {Pointer} pData The value to be set for the parameter specified in <i>OpCode</i> parameter. The <i>pData</i> parameter must point to a boolean or DWORD value, depending on the value of the <i>OpCode</i> parameter. The <i>pData</i> parameter must not be <b>NULL</b>.
+     * @param {Integer} pData The value to be set for the parameter specified in <i>OpCode</i> parameter. The <i>pData</i> parameter must point to a boolean or DWORD value, depending on the value of the <i>OpCode</i> parameter. The <i>pData</i> parameter must not be <b>NULL</b>.
      * 
      * <div class="alert"><b>Note</b>  The <i>pData</i> parameter may point to an integer value when a boolean is required. If <i>pData</i> points to 0, then the value is converted to <b>FALSE</b>. If <i>pData</i> points to a nonzero integer, then the value is converted to <b>TRUE</b>. </div>
      * <div> </div>
@@ -5098,7 +5097,7 @@ class WiFi {
      * @remarks
      * The <b>WlanQueryAutoConfigParameter</b> function queries for the parameters used by Auto Configuration Module (ACM), the wireless configuration component supported on Windows Vista and  later.
      * @param {HANDLE} hClientHandle The client's session handle, obtained by a previous call to the <a href="https://docs.microsoft.com/windows/desktop/api/wlanapi/nf-wlanapi-wlanopenhandle">WlanOpenHandle</a> function.
-     * @param {Integer} OpCode A value that specifies the configuration parameter to be queried.
+     * @param {WLAN_AUTOCONF_OPCODE} OpCode A value that specifies the configuration parameter to be queried.
      * 
      * <table>
      * <tr>
@@ -5179,7 +5178,7 @@ class WiFi {
      * 
      * <div class="alert"><b>Note</b>  If <i>OpCode</i> is set to <b>wlan_autoconf_opcode_show_denied_networks</b>, then the pointer referenced by <i>ppData</i> may point to an integer value. If the pointer referenced by <i>ppData</i> points to 0, then the integer value should be converted  to the boolean value <b>FALSE</b>. If the pointer referenced by <i>ppData</i> points to a nonzero integer, then the integer value should be converted  to the boolean value <b>TRUE</b>. </div>
      * <div> </div>
-     * @param {Pointer<Integer>} pWlanOpcodeValueType A <a href="https://docs.microsoft.com/windows/win32/api/wlanapi/ne-wlanapi-wlan_opcode_value_type-r1">WLAN_OPCODE_VALUE_TYPE</a> value.
+     * @param {Pointer<WLAN_OPCODE_VALUE_TYPE>} pWlanOpcodeValueType A <a href="https://docs.microsoft.com/windows/win32/api/wlanapi/ne-wlanapi-wlan_opcode_value_type-r1">WLAN_OPCODE_VALUE_TYPE</a> value.
      * @returns {Integer} If the function succeeds, the return value is ERROR_SUCCESS.
      * 
      * If the function fails, the return value may be one of the following return codes.
@@ -5350,7 +5349,7 @@ class WiFi {
      * Changing the software radio state of a physical network interface could cause related changes in the state of the wireless Hosted Network or virtual wireless adapter radio states. The PHYs of every virtual wireless adapter are linked. For more information, see the <a href="https://docs.microsoft.com/windows/desktop/NativeWiFi/about-the-wireless-hosted-network">About the Wireless Hosted Network</a>.
      * @param {HANDLE} hClientHandle The client's session handle, obtained by a previous call to the <a href="https://docs.microsoft.com/windows/desktop/api/wlanapi/nf-wlanapi-wlanopenhandle">WlanOpenHandle</a> function.
      * @param {Pointer<Guid>} pInterfaceGuid The GUID of the interface to be configured.
-     * @param {Integer} OpCode A <a href="https://docs.microsoft.com/windows/win32/api/wlanapi/ne-wlanapi-wlan_intf_opcode-r1">WLAN_INTF_OPCODE</a> value that specifies the parameter to be set.  The following table lists the valid constants along with the data type of the parameter in <i>pData</i>.
+     * @param {WLAN_INTF_OPCODE} OpCode A <a href="https://docs.microsoft.com/windows/win32/api/wlanapi/ne-wlanapi-wlan_intf_opcode-r1">WLAN_INTF_OPCODE</a> value that specifies the parameter to be set.  The following table lists the valid constants along with the data type of the parameter in <i>pData</i>.
      * 
      * <table>
      * <tr>
@@ -5433,7 +5432,7 @@ class WiFi {
      * 
      * <b>Windows XP with SP3 and Wireless LAN API for Windows XP with SP2:  </b>Only the <b>wlan_intf_opcode_autoconf_enabled</b> and <b>wlan_intf_opcode_bss_type</b> constants are valid.
      * @param {Integer} dwDataSize The size of the <i>pData</i> parameter, in bytes. If <i>dwDataSize</i> is larger than the actual amount of memory allocated to <i>pData</i>, then an access violation will occur in the calling program.
-     * @param {Pointer} pData The value to be set as specified by the <i>OpCode</i> parameter. The type of data pointed to by <i>pData</i> must be appropriate for the specified <i>OpCode</i>. Use the table above to determine the type of data to use.
+     * @param {Integer} pData The value to be set as specified by the <i>OpCode</i> parameter. The type of data pointed to by <i>pData</i> must be appropriate for the specified <i>OpCode</i>. Use the table above to determine the type of data to use.
      * 
      * <div class="alert"><b>Note</b>  If <i>OpCode</i> is set to <b>wlan_intf_opcode_autoconf_enabled</b>, <b>wlan_intf_opcode_background_scan_enabled</b>, or <b>wlan_intf_opcode_media_streaming_mode</b>, then <i>pData</i> may point to an integer value. If <i>pData</i> points to 0, then the value is converted to <b>FALSE</b>. If <i>pData</i> points to a nonzero integer, then the value is converted to <b>TRUE</b>. </div>
      * <div> </div>
@@ -5460,7 +5459,7 @@ class WiFi {
      * When   <i>OpCode</i> is set to  <b>wlan_intf_opcode_current_operation_mode</b>,  <b>WlanQueryInterface</b>  queries the current operation mode of the wireless interface. For more information about operation modes, see <a href="https://www.microsoft.com/?ref=go">Native 802.11 Operation Modes</a>. Two operation modes are supported: <b>DOT11_OPERATION_MODE_EXTENSIBLE_STATION</b> and  <b>DOT11_OPERATION_MODE_NETWORK_MONITOR</b>. The operation mode constants are defined in the header file Windot11.h. <i>ppData</i> will point to one of these two values.
      * @param {HANDLE} hClientHandle The client's session handle, obtained by a previous call to the <a href="https://docs.microsoft.com/windows/desktop/api/wlanapi/nf-wlanapi-wlanopenhandle">WlanOpenHandle</a> function.
      * @param {Pointer<Guid>} pInterfaceGuid The GUID of the interface to be queried.
-     * @param {Integer} OpCode A <a href="https://docs.microsoft.com/windows/win32/api/wlanapi/ne-wlanapi-wlan_intf_opcode-r1">WLAN_INTF_OPCODE</a> value that specifies the parameter to be queried.  The following table lists the valid constants along with the data type of the parameter in <i>ppData</i>.
+     * @param {WLAN_INTF_OPCODE} OpCode A <a href="https://docs.microsoft.com/windows/win32/api/wlanapi/ne-wlanapi-wlan_intf_opcode-r1">WLAN_INTF_OPCODE</a> value that specifies the parameter to be queried.  The following table lists the valid constants along with the data type of the parameter in <i>ppData</i>.
      * 
      * <table>
      * <tr>
@@ -5558,7 +5557,7 @@ class WiFi {
      * 
      * <div class="alert"><b>Note</b>  If <i>OpCode</i> is set to <b>wlan_intf_opcode_autoconf_enabled</b>, <b>wlan_intf_opcode_background_scan_enabled</b>, or <b>wlan_intf_opcode_media_streaming_mode</b>, then the pointer referenced by <i>ppData</i> may point to an integer value. If the pointer referenced by <i>ppData</i> points to 0, then the integer value should be converted  to the boolean value <b>FALSE</b>. If the pointer referenced by <i>ppData</i> points to a nonzero integer, then the integer value should be converted  to the boolean value <b>TRUE</b>. </div>
      * <div> </div>
-     * @param {Pointer<Integer>} pWlanOpcodeValueType If passed a non-<b>NULL</b> value, points to a <a href="https://docs.microsoft.com/windows/win32/api/wlanapi/ne-wlanapi-wlan_opcode_value_type-r1">WLAN_OPCODE_VALUE_TYPE</a> value that specifies the type of opcode returned. This parameter may be <b>NULL</b>.
+     * @param {Pointer<WLAN_OPCODE_VALUE_TYPE>} pWlanOpcodeValueType If passed a non-<b>NULL</b> value, points to a <a href="https://docs.microsoft.com/windows/win32/api/wlanapi/ne-wlanapi-wlan_opcode_value_type-r1">WLAN_OPCODE_VALUE_TYPE</a> value that specifies the type of opcode returned. This parameter may be <b>NULL</b>.
      * @returns {Integer} If the function succeeds, the return value is ERROR_SUCCESS.
      * 
      * If the function fails, the return value may be one of the following return codes.
@@ -5582,11 +5581,11 @@ class WiFi {
      * Provides a mechanism for independent hardware vendor (IHV) control of WLAN drivers or services.
      * @param {HANDLE} hClientHandle The client's session handle, obtained by a previous call to the <a href="https://docs.microsoft.com/windows/desktop/api/wlanapi/nf-wlanapi-wlanopenhandle">WlanOpenHandle</a> function.
      * @param {Pointer<Guid>} pInterfaceGuid The GUID of the interface.
-     * @param {Integer} Type A <a href="https://docs.microsoft.com/windows/win32/api/wlanapi/ne-wlanapi-wlan_ihv_control_type-r1">WLAN_IHV_CONTROL_TYPE</a> structure that specifies the type of software bypassed by the IHV control function.
+     * @param {WLAN_IHV_CONTROL_TYPE} Type A <a href="https://docs.microsoft.com/windows/win32/api/wlanapi/ne-wlanapi-wlan_ihv_control_type-r1">WLAN_IHV_CONTROL_TYPE</a> structure that specifies the type of software bypassed by the IHV control function.
      * @param {Integer} dwInBufferSize The size, in bytes, of the input buffer.
-     * @param {Pointer} pInBuffer A generic buffer for driver or service interface input.
+     * @param {Integer} pInBuffer A generic buffer for driver or service interface input.
      * @param {Integer} dwOutBufferSize The size, in bytes, of the output buffer.
-     * @param {Pointer} pOutBuffer A generic buffer for driver or service interface output.
+     * @param {Integer} pOutBuffer A generic buffer for driver or service interface output.
      * @param {Pointer<Integer>} pdwBytesReturned The number of bytes returned.
      * @returns {Integer} If the function succeeds, the return value is ERROR_SUCCESS.
      * 
@@ -5944,7 +5943,7 @@ class WiFi {
      * @param {Pointer<DOT11_SSID>} pDot11Ssid A pointer to a <a href="https://docs.microsoft.com/windows/desktop/NativeWiFi/dot11-ssid">DOT11_SSID</a> structure that specifies the SSID of the network from which the BSS list is requested.  This parameter is optional. When set to <b>NULL</b>, the returned list contains all of available BSS entries on a wireless LAN interface.
      * 
      * If a pointer to a <a href="https://docs.microsoft.com/windows/desktop/NativeWiFi/dot11-ssid">DOT11_SSID</a> structure is specified, the SSID length specified in the <b>uSSIDLength</b> member of <b>DOT11_SSID</b> structure must be less than or equal to <b>DOT11_SSID_MAX_LENGTH</b> defined in the <i>Wlantypes.h</i> header file. In addition, the <i>dot11BssType</i> parameter must be set to either <b>dot11_BSS_type_infrastructure</b> or <b>dot11_BSS_type_independent</b> and the <i>bSecurityEnabled</i> parameter must be specified.
-     * @param {Integer} dot11BssType The BSS type of the network. This parameter is ignored if the SSID of the network for the BSS list is unspecified (the <i>pDot11Ssid</i> parameter is <b>NULL</b>).
+     * @param {DOT11_BSS_TYPE} dot11BssType The BSS type of the network. This parameter is ignored if the SSID of the network for the BSS list is unspecified (the <i>pDot11Ssid</i> parameter is <b>NULL</b>).
      * @param {BOOL} bSecurityEnabled A value that indicates whether security is enabled on the network.  This parameter is only valid when the SSID of the network for the BSS list is specified (the <i>pDot11Ssid</i> parameter is not <b>NULL</b>).
      * @param {Pointer<Pointer<WLAN_BSS_LIST>>} ppWlanBssList A pointer to storage for a pointer to receive the returned list of of BSS entries in a <a href="https://docs.microsoft.com/windows/desktop/api/wlanapi/ns-wlanapi-wlan_bss_list">WLAN_BSS_LIST</a> structure. 
      * 
@@ -6277,7 +6276,7 @@ class WiFi {
      * 
      * <b>Windows XP with SP3 and Wireless LAN API for Windows XP with SP2:  </b>Notifications are handled by the Netman service. If the Netman service is disabled or unavailable, notifications will not be received. If a notification is not received within a reasonable period of time, an application should time out and query the current interface state.
      * @param {HANDLE} hClientHandle The client's session handle, obtained by a previous call to the <a href="https://docs.microsoft.com/windows/desktop/api/wlanapi/nf-wlanapi-wlanopenhandle">WlanOpenHandle</a> function.
-     * @param {Integer} dwNotifSource The notification sources to be registered. These flags may be combined. When this parameter is set to <b>WLAN_NOTIFICATION_SOURCE_NONE</b>, <b>WlanRegisterNotification</b> unregisters notifications on all wireless interfaces. 
+     * @param {WLAN_NOTIFICATION_SOURCES} dwNotifSource The notification sources to be registered. These flags may be combined. When this parameter is set to <b>WLAN_NOTIFICATION_SOURCE_NONE</b>, <b>WlanRegisterNotification</b> unregisters notifications on all wireless interfaces. 
      * 
      * The possible values for this parameter are defined in the <i>Wlanapi.h</i> and <i>L2cmn.h</i> header files.
      * 
@@ -6720,11 +6719,11 @@ class WiFi {
      * @param {Pointer<Guid>} pInterfaceGuid The GUID of the interface.
      * @param {PWSTR} strProfileName The name of the profile associated with the EAP user data. Profile names are case-sensitive. This string must be NULL-terminated.
      * @param {EAP_METHOD_TYPE} eapType An <a href="https://docs.microsoft.com/windows/desktop/api/eaptypes/ns-eaptypes-eap_method_type">EAP_METHOD_TYPE</a> structure that contains the method for which the caller is supplying EAP user credentials.
-     * @param {Integer} dwFlags A set of flags that modify the behavior of the function. 
+     * @param {WLAN_SET_EAPHOST_FLAGS} dwFlags A set of flags that modify the behavior of the function. 
      * 
      * On Windows Vista and Windows Server 2008, this parameter is reserved and should be set to zero.
      * @param {Integer} dwEapUserDataSize The size, in bytes, of the data pointed to by <i>pbEapUserData</i>.
-     * @param {Pointer} pbEapUserData A pointer to the raw EAP data used to set the user credentials.
+     * @param {Integer} pbEapUserData A pointer to the raw EAP data used to set the user credentials.
      * 
      * On Windows Vista and Windows Server 2008, this parameter must not be <b>NULL</b>. 
      * 
@@ -6870,7 +6869,7 @@ class WiFi {
      * @param {PWSTR} strProfileName The name of the profile associated with the EAP user data. Profile names are case-sensitive. This string must be NULL-terminated.
      * 
      * <b>Windows XP with SP3 and Wireless LAN API for Windows XP with SP2:  </b>The supplied name must match the profile name derived automatically from the SSID of the network. For an infrastructure network profile, the SSID must be supplied for the profile name. For an ad hoc network profile, the supplied name must be the SSID of the ad hoc network followed by <c>-adhoc</c>.
-     * @param {Integer} dwFlags A set of flags that modify the behavior of the function. 
+     * @param {WLAN_SET_EAPHOST_FLAGS} dwFlags A set of flags that modify the behavior of the function. 
      * 
      * On Wireless LAN API for Windows XP with SP2, Windows XP with SP3,Windows Vista, and Windows Server 2008, this parameter is reserved and should be set to zero.
      * @param {PWSTR} strEapXmlUserData A pointer to XML data used to set the user credentials. 
@@ -7695,7 +7694,7 @@ class WiFi {
      * @param {Pointer<Guid>} pInterfaceGuid The GUID of the interface.
      * @param {PWSTR} strProfileName The name of the profile associated with the custom user data. Profile names are case-sensitive. This string must be NULL-terminated.
      * @param {Integer} dwDataSize The size of <i>pData</i>, in bytes.
-     * @param {Pointer} pData A pointer to the user data to be set.
+     * @param {Integer} pData A pointer to the user data to be set.
      * @returns {Integer} If the function succeeds, the return value is ERROR_SUCCESS.
      * 
      * If the function fails, the return value may be one of the following return codes.
@@ -7890,7 +7889,7 @@ class WiFi {
      * 
      * The <b>netsh wlan add filter</b> and <b>netsh wlan delete filter</b> commands provide similar functionality at the command line. For more information, see <a href="https://docs.microsoft.com/previous-versions/windows/it-pro/windows-server-2008-R2-and-2008/cc755301(v=ws.10)">Netsh Commands for Wireless Local Area Network (wlan)</a>.
      * @param {HANDLE} hClientHandle The client's session handle, obtained by a previous call to the <a href="https://docs.microsoft.com/windows/desktop/api/wlanapi/nf-wlanapi-wlanopenhandle">WlanOpenHandle</a> function.
-     * @param {Integer} wlanFilterListType A <a href="https://docs.microsoft.com/windows/desktop/api/wlanapi/ne-wlanapi-wlan_filter_list_type">WLAN_FILTER_LIST_TYPE</a> value that specifies the type of filter list.  The value must be either <b>wlan_filter_list_type_user_permit</b> or <b>wlan_filter_list_type_user_deny</b>.  Group policy-defined lists cannot be set using this function.
+     * @param {WLAN_FILTER_LIST_TYPE} wlanFilterListType A <a href="https://docs.microsoft.com/windows/desktop/api/wlanapi/ne-wlanapi-wlan_filter_list_type">WLAN_FILTER_LIST_TYPE</a> value that specifies the type of filter list.  The value must be either <b>wlan_filter_list_type_user_permit</b> or <b>wlan_filter_list_type_user_deny</b>.  Group policy-defined lists cannot be set using this function.
      * @param {Pointer<DOT11_NETWORK_LIST>} pNetworkList Pointer to a <a href="https://docs.microsoft.com/windows/desktop/api/wlanapi/ns-wlanapi-dot11_network_list">DOT11_NETWORK_LIST</a> structure that contains the list of networks to permit or deny. The <b>dwIndex</b> member of the structure must have a value less than the value of the <b>dwNumberOfItems</b> member of the structure; otherwise, an access violation may occur.
      * @returns {Integer} If the function succeeds, the return value is ERROR_SUCCESS.
      * 
@@ -7976,7 +7975,7 @@ class WiFi {
      * @remarks
      * User permission lists can be set by calling <a href="https://docs.microsoft.com/windows/desktop/api/wlanapi/nf-wlanapi-wlansetfilterlist">WlanSetFilterList</a>.
      * @param {HANDLE} hClientHandle The client's session handle, obtained by a previous call to the <a href="https://docs.microsoft.com/windows/desktop/api/wlanapi/nf-wlanapi-wlanopenhandle">WlanOpenHandle</a> function.
-     * @param {Integer} wlanFilterListType A <a href="https://docs.microsoft.com/windows/desktop/api/wlanapi/ne-wlanapi-wlan_filter_list_type">WLAN_FILTER_LIST_TYPE</a> value that specifies the type of filter list.  All user defined and group policy filter lists can be queried.
+     * @param {WLAN_FILTER_LIST_TYPE} wlanFilterListType A <a href="https://docs.microsoft.com/windows/desktop/api/wlanapi/ne-wlanapi-wlan_filter_list_type">WLAN_FILTER_LIST_TYPE</a> value that specifies the type of filter list.  All user defined and group policy filter lists can be queried.
      * @param {Pointer<Pointer<DOT11_NETWORK_LIST>>} ppNetworkList Pointer to a <a href="https://docs.microsoft.com/windows/desktop/api/wlanapi/ns-wlanapi-dot11_network_list">DOT11_NETWORK_LIST</a> structure that contains the list of permitted or denied networks.
      * @returns {Integer} If the function succeeds, the return value is ERROR_SUCCESS.
      * 
@@ -8382,13 +8381,13 @@ class WiFi {
      * @param {Integer} dwInBufferSize Type: **[DWORD](/windows/win32/winprog/windows-data-types)**
      * 
      * The size, in bytes, of the input buffer.
-     * @param {Pointer} pInBuffer Type: **[PVOID](/windows/win32/winprog/windows-data-types)**
+     * @param {Integer} pInBuffer Type: **[PVOID](/windows/win32/winprog/windows-data-types)**
      * 
      * A generic buffer for command input.
      * @param {Integer} dwOutBufferSize Type: **[DWORD](/windows/win32/winprog/windows-data-types)**
      * 
      * The size, in bytes, of the output buffer.
-     * @param {Pointer} pOutBuffer Type: **[PVOID](/windows/win32/winprog/windows-data-types)**
+     * @param {Integer} pOutBuffer Type: **[PVOID](/windows/win32/winprog/windows-data-types)**
      * 
      * A generic buffer for command output.
      * @param {Pointer<Integer>} pdwBytesReturned Type: **[PDWORD](/windows/win32/winprog/windows-data-types)**
@@ -8478,7 +8477,7 @@ class WiFi {
      * For more information about PSD IEs, including a discussion of the format of an IE, see <a href="https://docs.microsoft.com/windows/desktop/api/wlanapi/nf-wlanapi-wlansetpsdiedatalist">WlanSetPsdIEDataList</a>.
      * @param {HANDLE} hClientHandle The client's session handle, obtained by a previous call to the <a href="https://docs.microsoft.com/windows/desktop/api/wlanapi/nf-wlanapi-wlanopenhandle">WlanOpenHandle</a> function.
      * @param {Integer} dwIeDataSize The size, in bytes, of the <i>pRawIeData</i> parameter.
-     * @param {Pointer} pRawIeData The raw IE data for all IEs in the list.
+     * @param {Integer} pRawIeData The raw IE data for all IEs in the list.
      * @param {PWSTR} strFormat Describes the format of a PSD IE. Only IEs with a matching format are returned.
      * @param {Pointer<Pointer<WLAN_RAW_DATA_LIST>>} ppPsdIEDataList A pointer to a <a href="https://docs.microsoft.com/windows/desktop/api/wlanapi/ns-wlanapi-wlan_raw_data_list">PWLAN_RAW_DATA_LIST</a> structure that contains the formatted data list.
      * @returns {Integer} If the function succeeds, the return value is ERROR_SUCCESS.
@@ -8667,7 +8666,7 @@ class WiFi {
      * </ol>
      * The string returned by <a href="https://docs.microsoft.com/windows/desktop/api/sddl/nf-sddl-convertsecuritydescriptortostringsecuritydescriptora">ConvertSecurityDescriptorToStringSecurityDescriptor</a> can then be used as the <i>strModifiedSDDL</i> parameter value when calling <b>WlanSetSecuritySettings</b>.
      * @param {HANDLE} hClientHandle The client's session handle, obtained by a previous call to the <a href="https://docs.microsoft.com/windows/desktop/api/wlanapi/nf-wlanapi-wlanopenhandle">WlanOpenHandle</a> function.
-     * @param {Integer} SecurableObject A <a href="https://docs.microsoft.com/windows/desktop/api/wlanapi/ne-wlanapi-wlan_securable_object">WLAN_SECURABLE_OBJECT</a> value that specifies the object to which the security settings will be applied.
+     * @param {WLAN_SECURABLE_OBJECT} SecurableObject A <a href="https://docs.microsoft.com/windows/desktop/api/wlanapi/ne-wlanapi-wlan_securable_object">WLAN_SECURABLE_OBJECT</a> value that specifies the object to which the security settings will be applied.
      * @param {PWSTR} strModifiedSDDL A security descriptor string that specifies the new security settings for the object. This string must be NULL-terminated. For more information, see the Remarks section.
      * @returns {Integer} If the function succeeds, the return value is ERROR_SUCCESS.
      * 
@@ -8744,8 +8743,8 @@ class WiFi {
      * @remarks
      * The caller is responsible for freeing the memory allocated to the security descriptor string pointed to by the <i>pstrCurrentSDDL</i> parameter if the function succeeds. When no longer needed, the memory for the security descriptor string should be freed by calling <a href="https://docs.microsoft.com/windows/desktop/api/wlanapi/nf-wlanapi-wlanfreememory">WlanFreeMemory</a> function and passing in the <i>pstrCurrentSDDL</i> parameter.
      * @param {HANDLE} hClientHandle The client's session handle, obtained by a previous call to the <a href="https://docs.microsoft.com/windows/desktop/api/wlanapi/nf-wlanapi-wlanopenhandle">WlanOpenHandle</a> function.
-     * @param {Integer} SecurableObject A <a href="https://docs.microsoft.com/windows/desktop/api/wlanapi/ne-wlanapi-wlan_securable_object">WLAN_SECURABLE_OBJECT</a> value that specifies the object to which the security settings apply.
-     * @param {Pointer<Integer>} pValueType A pointer to a <a href="https://docs.microsoft.com/windows/win32/api/wlanapi/ne-wlanapi-wlan_opcode_value_type-r1">WLAN_OPCODE_VALUE_TYPE</a> value that specifies the source of the security settings.
+     * @param {WLAN_SECURABLE_OBJECT} SecurableObject A <a href="https://docs.microsoft.com/windows/desktop/api/wlanapi/ne-wlanapi-wlan_securable_object">WLAN_SECURABLE_OBJECT</a> value that specifies the object to which the security settings apply.
+     * @param {Pointer<WLAN_OPCODE_VALUE_TYPE>} pValueType A pointer to a <a href="https://docs.microsoft.com/windows/win32/api/wlanapi/ne-wlanapi-wlan_opcode_value_type-r1">WLAN_OPCODE_VALUE_TYPE</a> value that specifies the source of the security settings.
      * 
      * <table>
      * <tr>
@@ -8901,8 +8900,8 @@ class WiFi {
      * 
      * The supplied profile must be present on the interface <i>pInterfaceGuid</i>. That means the profile must have been previously created and saved in the profile store and that the profile must be valid for the supplied interface.
      * @param {Pointer<Guid>} pInterfaceGuid The GUID of the interface.
-     * @param {HWND} _hWnd 
-     * @param {Integer} wlStartPage A <a href="https://docs.microsoft.com/windows/desktop/api/wlanapi/ne-wlanapi-wl_display_pages">WL_DISPLAY_PAGES</a> value that specifies the active tab when the UI dialog box appears.
+     * @param {HWND} _hWnd The handle of the  application window requesting the UI display.
+     * @param {WL_DISPLAY_PAGES} wlStartPage A <a href="https://docs.microsoft.com/windows/desktop/api/wlanapi/ne-wlanapi-wl_display_pages">WL_DISPLAY_PAGES</a> value that specifies the active tab when the UI dialog box appears.
      * @param {Pointer<Integer>} pWlanReasonCode A pointer to a <a href="https://docs.microsoft.com/windows/desktop/NativeWiFi/wlan-reason-code">WLAN_REASON_CODE</a> value that indicates why the UI display failed.
      * @returns {Integer} If the function succeeds, the return value is ERROR_SUCCESS.
      * 
@@ -8977,7 +8976,7 @@ class WiFi {
      * 
      * On Windows 7 and later, the operating system installs a virtual device if a Hosted Network capable wireless adapter is present on the machine. This virtual device normally shows up in the “Network Connections Folder” as ‘Wireless  Network Connection 2’ with a Device Name of ‘Microsoft Virtual WiFi Miniport adapter’ if the computer has a single wireless network adapter. This virtual device is used exclusively for performing software access point (SoftAP) connections and is not present in the list returned by the <a href="https://docs.microsoft.com/windows/desktop/api/wlanapi/nf-wlanapi-wlanenuminterfaces">WlanEnumInterfaces</a> function. The lifetime of this virtual device is tied to the physical wireless adapter. If the physical wireless adapter is disabled, this virtual device will be removed as well. This feature is also available on Windows Server 2008 R2 with the Wireless LAN Service installed.
      * @param {HANDLE} hClientHandle The client's session handle, returned by a previous call to the <a href="https://docs.microsoft.com/windows/desktop/api/wlanapi/nf-wlanapi-wlanopenhandle">WlanOpenHandle</a> function.
-     * @param {Pointer<Integer>} pFailReason An optional pointer to a value that receives the failure reason,  if the call to the <b>WlanHostedNetworkStartUsing</b> function fails. Possible values for the failure reason are from the <a href="https://docs.microsoft.com/windows/desktop/api/wlanapi/ne-wlanapi-wlan_hosted_network_reason">WLAN_HOSTED_NETWORK_REASON</a> enumeration type defined in the <i>Wlanapi.h </i> header file.
+     * @param {Pointer<WLAN_HOSTED_NETWORK_REASON>} pFailReason An optional pointer to a value that receives the failure reason,  if the call to the <b>WlanHostedNetworkStartUsing</b> function fails. Possible values for the failure reason are from the <a href="https://docs.microsoft.com/windows/desktop/api/wlanapi/ne-wlanapi-wlan_hosted_network_reason">WLAN_HOSTED_NETWORK_REASON</a> enumeration type defined in the <i>Wlanapi.h </i> header file.
      * @returns {Integer} If the function succeeds, the return value is ERROR_SUCCESS.
      * 
      * If the function fails, the return value may be one of the following return codes.
@@ -9074,7 +9073,7 @@ class WiFi {
      * 
      * On Windows 7 and later, the operating system installs a virtual device if a Hosted Network capable wireless adapter is present on the machine. This virtual device normally shows up in the “Network Connections Folder” as ‘Wireless  Network Connection 2’ with a Device Name of ‘Microsoft Virtual WiFi Miniport adapter’ if the computer has a single wireless network adapter. This virtual device is used exclusively for performing software access point (SoftAP) connections and is not present in the list returned by the <a href="https://docs.microsoft.com/windows/desktop/api/wlanapi/nf-wlanapi-wlanenuminterfaces">WlanEnumInterfaces</a> function. The lifetime of this virtual device is tied to the physical wireless adapter. If the physical wireless adapter is disabled, this virtual device will be removed as well. This feature is also available on Windows Server 2008 R2 with the Wireless LAN Service installed.
      * @param {HANDLE} hClientHandle The client's session handle, returned by a previous call to the <a href="https://docs.microsoft.com/windows/desktop/api/wlanapi/nf-wlanapi-wlanopenhandle">WlanOpenHandle</a> function.
-     * @param {Pointer<Integer>} pFailReason An optional pointer to a value that receives the failure reason  if the call to the <b>WlanHostedNetworkStopUsing</b> function fails. Possible values for the failure reason are from the <a href="https://docs.microsoft.com/windows/desktop/api/wlanapi/ne-wlanapi-wlan_hosted_network_reason">WLAN_HOSTED_NETWORK_REASON</a> enumeration type defined in the <i>Wlanapi.h </i> header file.
+     * @param {Pointer<WLAN_HOSTED_NETWORK_REASON>} pFailReason An optional pointer to a value that receives the failure reason  if the call to the <b>WlanHostedNetworkStopUsing</b> function fails. Possible values for the failure reason are from the <a href="https://docs.microsoft.com/windows/desktop/api/wlanapi/ne-wlanapi-wlan_hosted_network_reason">WLAN_HOSTED_NETWORK_REASON</a> enumeration type defined in the <i>Wlanapi.h </i> header file.
      * @returns {Integer} If the function succeeds, the return value is ERROR_SUCCESS.
      * 
      * If the function fails, the return value may be one of the following return codes.
@@ -9182,7 +9181,7 @@ class WiFi {
      * 
      * On Windows 7 and later, the operating system installs a virtual device if a Hosted Network capable wireless adapter is present on the machine. This virtual device normally shows up in the “Network Connections Folder” as ‘Wireless  Network Connection 2’ with a Device Name of ‘Microsoft Virtual WiFi Miniport adapter’ if the computer has a single wireless network adapter. This virtual device is used exclusively for performing software access point (SoftAP) connections and is not present in the list returned by the <a href="https://docs.microsoft.com/windows/desktop/api/wlanapi/nf-wlanapi-wlanenuminterfaces">WlanEnumInterfaces</a> function. The lifetime of this virtual device is tied to the physical wireless adapter. If the physical wireless adapter is disabled, this virtual device will be removed as well. This feature is also available on Windows Server 2008 R2 with the Wireless LAN Service installed.
      * @param {HANDLE} hClientHandle The client's session handle, returned by a previous call to the <a href="https://docs.microsoft.com/windows/desktop/api/wlanapi/nf-wlanapi-wlanopenhandle">WlanOpenHandle</a> function.
-     * @param {Pointer<Integer>} pFailReason An optional pointer to a value that receives the failure reason  if the call to the <b>WlanHostedNetworkForceStart</b> function fails. Possible values for the failure reason are from the <a href="https://docs.microsoft.com/windows/desktop/api/wlanapi/ne-wlanapi-wlan_hosted_network_reason">WLAN_HOSTED_NETWORK_REASON</a> enumeration type defined in the <i>Wlanapi.h </i> header file.
+     * @param {Pointer<WLAN_HOSTED_NETWORK_REASON>} pFailReason An optional pointer to a value that receives the failure reason  if the call to the <b>WlanHostedNetworkForceStart</b> function fails. Possible values for the failure reason are from the <a href="https://docs.microsoft.com/windows/desktop/api/wlanapi/ne-wlanapi-wlan_hosted_network_reason">WLAN_HOSTED_NETWORK_REASON</a> enumeration type defined in the <i>Wlanapi.h </i> header file.
      * @returns {Integer} If the function succeeds, the return value is ERROR_SUCCESS.
      * 
      * If the function fails, the return value may be one of the following return codes.
@@ -9299,7 +9298,7 @@ class WiFi {
      * 
      * On Windows 7 and later, the operating system installs a virtual device if a Hosted Network capable wireless adapter is present on the machine. This virtual device normally shows up in the “Network Connections Folder” as ‘Wireless  Network Connection 2’ with a Device Name of ‘Microsoft Virtual WiFi Miniport adapter’ if the computer has a single wireless network adapter. This virtual device is used exclusively for performing software access point (SoftAP) connections and is not present in the list returned by the <a href="https://docs.microsoft.com/windows/desktop/api/wlanapi/nf-wlanapi-wlanenuminterfaces">WlanEnumInterfaces</a> function. The lifetime of this virtual device is tied to the physical wireless adapter. If the physical wireless adapter is disabled, this virtual device will be removed as well. This feature is also available on Windows Server 2008 R2 with the Wireless LAN Service installed.
      * @param {HANDLE} hClientHandle The client's session handle, returned by a previous call to the <a href="https://docs.microsoft.com/windows/desktop/api/wlanapi/nf-wlanapi-wlanopenhandle">WlanOpenHandle</a> function.
-     * @param {Pointer<Integer>} pFailReason An optional pointer to a value that receives the failure reason,  if the call to the <b>WlanHostedNetworkForceStop</b> function fails. Possible values for the failure reason are from the <a href="https://docs.microsoft.com/windows/desktop/api/wlanapi/ne-wlanapi-wlan_hosted_network_reason">WLAN_HOSTED_NETWORK_REASON</a> enumeration type defined in the <i>Wlanapi.h </i> header file.
+     * @param {Pointer<WLAN_HOSTED_NETWORK_REASON>} pFailReason An optional pointer to a value that receives the failure reason,  if the call to the <b>WlanHostedNetworkForceStop</b> function fails. Possible values for the failure reason are from the <a href="https://docs.microsoft.com/windows/desktop/api/wlanapi/ne-wlanapi-wlan_hosted_network_reason">WLAN_HOSTED_NETWORK_REASON</a> enumeration type defined in the <i>Wlanapi.h </i> header file.
      * @returns {Integer} If the function succeeds, the return value is ERROR_SUCCESS.
      * 
      * If the function fails, the return value may be one of the following return codes.
@@ -9456,12 +9455,12 @@ class WiFi {
      * 
      * On Windows 7 and later, the operating system installs a virtual device if a Hosted Network capable wireless adapter is present on the machine. This virtual device normally shows up in the “Network Connections Folder” as ‘Wireless  Network Connection 2’ with a Device Name of ‘Microsoft Virtual WiFi Miniport adapter’ if the computer has a single wireless network adapter. This virtual device is used exclusively for performing software access point (SoftAP) connections and is not present in the list returned by the <a href="https://docs.microsoft.com/windows/desktop/api/wlanapi/nf-wlanapi-wlanenuminterfaces">WlanEnumInterfaces</a> function. The lifetime of this virtual device is tied to the physical wireless adapter. If the physical wireless adapter is disabled, this virtual device will be removed as well. This feature is also available on Windows Server 2008 R2 with the Wireless LAN Service installed.
      * @param {HANDLE} hClientHandle The client's session handle, returned by a previous call to the <a href="https://docs.microsoft.com/windows/desktop/api/wlanapi/nf-wlanapi-wlanopenhandle">WlanOpenHandle</a> function.
-     * @param {Integer} OpCode The identifier for property to be queried. This identifier can be any of the values in the <a href="https://docs.microsoft.com/windows/desktop/api/wlanapi/ne-wlanapi-wlan_hosted_network_opcode">WLAN_HOSTED_NETWORK_OPCODE</a> enumeration defined in the <i>Wlanapi.h </i> header file.
+     * @param {WLAN_HOSTED_NETWORK_OPCODE} OpCode The identifier for property to be queried. This identifier can be any of the values in the <a href="https://docs.microsoft.com/windows/desktop/api/wlanapi/ne-wlanapi-wlan_hosted_network_opcode">WLAN_HOSTED_NETWORK_OPCODE</a> enumeration defined in the <i>Wlanapi.h </i> header file.
      * @param {Pointer<Integer>} pdwDataSize A pointer to a value that specifies the size, in bytes, of the buffer returned in the <i>ppvData</i> parameter, if the call to the <b>WlanHostedNetworkQueryProperty</b> function succeeds.
      * @param {Pointer<Pointer<Void>>} ppvData On input, this parameter must be <b>NULL</b>. 
      * 
      * On output, this parameter receives a pointer to a buffer returned with the static property requested,  if the call to the <b>WlanHostedNetworkQueryProperty</b> function succeeds.  The data type associated with this buffer depends upon the value of <i>OpCode</i> parameter.
-     * @param {Pointer<Integer>} pWlanOpcodeValueType A pointer to a value that receives the value type of the wireless Hosted Network property,  if the call to the <b>WlanHostedNetworkQueryProperty</b> function succeeds. The returned value is an enumerated type in the <a href="https://docs.microsoft.com/windows/win32/api/wlanapi/ne-wlanapi-wlan_opcode_value_type-r1">WLAN_OPCODE_VALUE_TYPE</a> enumeration defined in the <i>Wlanapi.h </i> header file.
+     * @param {Pointer<WLAN_OPCODE_VALUE_TYPE>} pWlanOpcodeValueType A pointer to a value that receives the value type of the wireless Hosted Network property,  if the call to the <b>WlanHostedNetworkQueryProperty</b> function succeeds. The returned value is an enumerated type in the <a href="https://docs.microsoft.com/windows/win32/api/wlanapi/ne-wlanapi-wlan_opcode_value_type-r1">WLAN_OPCODE_VALUE_TYPE</a> enumeration defined in the <i>Wlanapi.h </i> header file.
      * @returns {Integer} If the function succeeds, the return value is ERROR_SUCCESS.
      * 
      * If the function fails, the return value may be one of the following return codes.
@@ -9633,7 +9632,7 @@ class WiFi {
      * 
      * On Windows 7 and later, the operating system installs a virtual device if a Hosted Network capable wireless adapter is present on the machine. This virtual device normally shows up in the “Network Connections Folder” as ‘Wireless  Network Connection 2’ with a Device Name of ‘Microsoft Virtual WiFi Miniport adapter’ if the computer has a single wireless network adapter. This virtual device is used exclusively for performing software access point (SoftAP) connections and is not present in the list returned by the <a href="https://docs.microsoft.com/windows/desktop/api/wlanapi/nf-wlanapi-wlanenuminterfaces">WlanEnumInterfaces</a> function. The lifetime of this virtual device is tied to the physical wireless adapter. If the physical wireless adapter is disabled, this virtual device will be removed as well. This feature is also available on Windows Server 2008 R2 with the Wireless LAN Service installed.
      * @param {HANDLE} hClientHandle The client's session handle, returned by a previous call to the <a href="https://docs.microsoft.com/windows/desktop/api/wlanapi/nf-wlanapi-wlanopenhandle">WlanOpenHandle</a> function.
-     * @param {Integer} OpCode The identifier for the property to be set. This identifier can only be the following values in the <a href="https://docs.microsoft.com/windows/desktop/api/wlanapi/ne-wlanapi-wlan_hosted_network_opcode">WLAN_HOSTED_NETWORK_OPCODE</a> enumeration defined in the <i>Wlanapi.h </i> header file:
+     * @param {WLAN_HOSTED_NETWORK_OPCODE} OpCode The identifier for the property to be set. This identifier can only be the following values in the <a href="https://docs.microsoft.com/windows/desktop/api/wlanapi/ne-wlanapi-wlan_hosted_network_opcode">WLAN_HOSTED_NETWORK_OPCODE</a> enumeration defined in the <i>Wlanapi.h </i> header file:
      * 
      * * **wlan_hosted_network_opcode_connection_settings**
      * 
@@ -9643,8 +9642,8 @@ class WiFi {
      * 
      * The Hosted Network enabled flag.
      * @param {Integer} dwDataSize A value that specifies the size, in bytes, of the buffer pointed to by the <i>pvData</i> parameter.
-     * @param {Pointer} pvData A pointer to a buffer with the static property to set.  The data type associated with this buffer depends upon the value of <i>OpCode</i> parameter.
-     * @param {Pointer<Integer>} pFailReason An optional pointer to a value that receives the failure reason,  if the call to the <b>WlanHostedNetworkSetProperty</b> function fails. Possible values for the failure reason are from the <a href="https://docs.microsoft.com/windows/desktop/api/wlanapi/ne-wlanapi-wlan_hosted_network_reason">WLAN_HOSTED_NETWORK_REASON</a> enumeration type defined in the <i>Wlanapi.h </i> header file.
+     * @param {Integer} pvData A pointer to a buffer with the static property to set.  The data type associated with this buffer depends upon the value of <i>OpCode</i> parameter.
+     * @param {Pointer<WLAN_HOSTED_NETWORK_REASON>} pFailReason An optional pointer to a value that receives the failure reason,  if the call to the <b>WlanHostedNetworkSetProperty</b> function fails. Possible values for the failure reason are from the <a href="https://docs.microsoft.com/windows/desktop/api/wlanapi/ne-wlanapi-wlan_hosted_network_reason">WLAN_HOSTED_NETWORK_REASON</a> enumeration type defined in the <i>Wlanapi.h </i> header file.
      * @returns {Integer} If the function succeeds, the return value is ERROR_SUCCESS.
      * 
      * If the function fails, the return value may be one of the following return codes.
@@ -9786,7 +9785,7 @@ class WiFi {
      * 
      * On Windows 7 and later, the operating system installs a virtual device if a Hosted Network capable wireless adapter is present on the machine. This virtual device normally shows up in the “Network Connections Folder” as ‘Wireless  Network Connection 2’ with a Device Name of ‘Microsoft Virtual WiFi Miniport adapter’ if the computer has a single wireless network adapter. This virtual device is used exclusively for performing software access point (SoftAP) connections and is not present in the list returned by the <a href="https://docs.microsoft.com/windows/desktop/api/wlanapi/nf-wlanapi-wlanenuminterfaces">WlanEnumInterfaces</a> function. The lifetime of this virtual device is tied to the physical wireless adapter. If the physical wireless adapter is disabled, this virtual device will be removed as well. This feature is also available on Windows Server 2008 R2 with the Wireless LAN Service installed.
      * @param {HANDLE} hClientHandle The client's session handle, returned by a previous call to the <a href="https://docs.microsoft.com/windows/desktop/api/wlanapi/nf-wlanapi-wlanopenhandle">WlanOpenHandle</a> function.
-     * @param {Pointer<Integer>} pFailReason An optional pointer to a value that receives the failure reason  if the call to the <b>WlanHostedNetworkInitSettings</b> function fails. Possible values for the failure reason are from the <a href="https://docs.microsoft.com/windows/desktop/api/wlanapi/ne-wlanapi-wlan_hosted_network_reason">WLAN_HOSTED_NETWORK_REASON</a> enumeration type defined in the <i>Wlanapi.h </i> header file.
+     * @param {Pointer<WLAN_HOSTED_NETWORK_REASON>} pFailReason An optional pointer to a value that receives the failure reason  if the call to the <b>WlanHostedNetworkInitSettings</b> function fails. Possible values for the failure reason are from the <a href="https://docs.microsoft.com/windows/desktop/api/wlanapi/ne-wlanapi-wlan_hosted_network_reason">WLAN_HOSTED_NETWORK_REASON</a> enumeration type defined in the <i>Wlanapi.h </i> header file.
      * @returns {Integer} If the function succeeds, the return value is ERROR_SUCCESS.
      * 
      * If the function fails, the return value may be one of the following return codes.
@@ -9890,7 +9889,7 @@ class WiFi {
      * 
      * On Windows 7 and later, the operating system installs a virtual device if a Hosted Network capable wireless adapter is present on the machine. This virtual device normally shows up in the “Network Connections Folder” as ‘Wireless  Network Connection 2’ with a Device Name of ‘Microsoft Virtual WiFi Miniport adapter’ if the computer has a single wireless network adapter. This virtual device is used exclusively for performing software access point (SoftAP) connections and is not present in the list returned by the <a href="https://docs.microsoft.com/windows/desktop/api/wlanapi/nf-wlanapi-wlanenuminterfaces">WlanEnumInterfaces</a> function. The lifetime of this virtual device is tied to the physical wireless adapter. If the physical wireless adapter is disabled, this virtual device will be removed as well. This feature is also available on Windows Server 2008 R2 with the Wireless LAN Service installed.
      * @param {HANDLE} hClientHandle The client's session handle, returned by a previous call to the <a href="https://docs.microsoft.com/windows/desktop/api/wlanapi/nf-wlanapi-wlanopenhandle">WlanOpenHandle</a> function.
-     * @param {Pointer<Integer>} pFailReason An optional pointer to a value that receives the failure reason,  if the call to the <b>WlanHostedNetworkRefreshSecuritySettings</b> function fails. Possible values for the failure reason are from the <a href="https://docs.microsoft.com/windows/desktop/api/wlanapi/ne-wlanapi-wlan_hosted_network_reason">WLAN_HOSTED_NETWORK_REASON</a> enumeration type defined in the <i>Wlanapi.h </i> header file.
+     * @param {Pointer<WLAN_HOSTED_NETWORK_REASON>} pFailReason An optional pointer to a value that receives the failure reason,  if the call to the <b>WlanHostedNetworkRefreshSecuritySettings</b> function fails. Possible values for the failure reason are from the <a href="https://docs.microsoft.com/windows/desktop/api/wlanapi/ne-wlanapi-wlan_hosted_network_reason">WLAN_HOSTED_NETWORK_REASON</a> enumeration type defined in the <i>Wlanapi.h </i> header file.
      * @returns {Integer} If the function succeeds, the return value is ERROR_SUCCESS.
      * 
      * If the function fails, the return value may be one of the following return codes.
@@ -10112,14 +10111,14 @@ class WiFi {
      * On Windows 7 and later, the operating system installs a virtual device if a Hosted Network capable wireless adapter is present on the machine. This virtual device normally shows up in the “Network Connections Folder” as ‘Wireless  Network Connection 2’ with a Device Name of ‘Microsoft Virtual WiFi Miniport adapter’ if the computer has a single wireless network adapter. This virtual device is used exclusively for performing software access point (SoftAP) connections and is not present in the list returned by the <a href="https://docs.microsoft.com/windows/desktop/api/wlanapi/nf-wlanapi-wlanenuminterfaces">WlanEnumInterfaces</a> function. The lifetime of this virtual device is tied to the physical wireless adapter. If the physical wireless adapter is disabled, this virtual device will be removed as well. This feature is also available on Windows Server 2008 R2 with the Wireless LAN Service installed.
      * @param {HANDLE} hClientHandle The client's session handle, returned by a previous call to the <a href="https://docs.microsoft.com/windows/desktop/api/wlanapi/nf-wlanapi-wlanopenhandle">WlanOpenHandle</a> function.
      * @param {Integer} dwKeyLength The number of valid data bytes in the key data array pointed to by the <i>pucKeyData</i> parameter. This key length should include the terminating ‘\0’ if the key is a passphrase.
-     * @param {Pointer} pucKeyData A pointer to a buffer that contains the key data. The number of valid data bytes in the buffer must be at least the value specified in <i>dwKeyLength</i> parameter.
+     * @param {Integer} pucKeyData A pointer to a buffer that contains the key data. The number of valid data bytes in the buffer must be at least the value specified in <i>dwKeyLength</i> parameter.
      * @param {BOOL} bIsPassPhrase A Boolean value that indicates if the key data array pointed to by the <i>pucKeyData</i> parameter is in passphrase format. 
      * 
      * If this parameter is <b>TRUE</b>, the key data array is in passphrase format. If this parameter is <b>FALSE</b>, the key data array is not in passphrase format.
      * @param {BOOL} bPersistent A Boolean value that indicates if the key data array pointed to by the <i>pucKeyData</i> parameter is to be stored and reused later or is for one-time use only. 
      * 
      * If this parameter is <b>TRUE</b>, the key data array is to be stored and reused later. If this parameter is <b>FALSE</b>, the key data array is to be used for one session (either the current session or the next session if the Hosted Network is not started).
-     * @param {Pointer<Integer>} pFailReason An optional pointer to a value that receives the failure reason,  if the call to the <b>WlanHostedNetworkSetSecondaryKey</b> function fails. Possible values for the failure reason are from the <a href="https://docs.microsoft.com/windows/desktop/api/wlanapi/ne-wlanapi-wlan_hosted_network_reason">WLAN_HOSTED_NETWORK_REASON</a> enumeration type defined in the <i>Wlanapi.h </i> header file.
+     * @param {Pointer<WLAN_HOSTED_NETWORK_REASON>} pFailReason An optional pointer to a value that receives the failure reason,  if the call to the <b>WlanHostedNetworkSetSecondaryKey</b> function fails. Possible values for the failure reason are from the <a href="https://docs.microsoft.com/windows/desktop/api/wlanapi/ne-wlanapi-wlan_hosted_network_reason">WLAN_HOSTED_NETWORK_REASON</a> enumeration type defined in the <i>Wlanapi.h </i> header file.
      * @returns {Integer} If the function succeeds, the return value is ERROR_SUCCESS.
      * 
      * If the function fails, the return value may be one of the following return codes.
@@ -10244,7 +10243,7 @@ class WiFi {
      * @param {Pointer<BOOL>} pbPersistent A pointer to a Boolean value that indicates if the key data array pointed to by the <i>ppucKeyData</i> parameter is to be stored and reused later or is for one-time use only. 
      * 
      * If this parameter is <b>TRUE</b>, the key data array is to be stored and reused later. If this parameter is <b>FALSE</b>, the key data array is for one-time use only.
-     * @param {Pointer<Integer>} pFailReason An optional pointer to a value that receives the failure reason,  if the call to the <a href="https://docs.microsoft.com/windows/desktop/api/wlanapi/nf-wlanapi-wlanhostednetworksetsecondarykey">WlanHostedNetworkSetSecondaryKey</a> function fails. Possible values for the failure reason are from the <a href="https://docs.microsoft.com/windows/desktop/api/wlanapi/ne-wlanapi-wlan_hosted_network_reason">WLAN_HOSTED_NETWORK_REASON</a> enumeration type defined in the <i>Wlanapi.h </i> header file.
+     * @param {Pointer<WLAN_HOSTED_NETWORK_REASON>} pFailReason An optional pointer to a value that receives the failure reason,  if the call to the <a href="https://docs.microsoft.com/windows/desktop/api/wlanapi/nf-wlanapi-wlanhostednetworksetsecondarykey">WlanHostedNetworkSetSecondaryKey</a> function fails. Possible values for the failure reason are from the <a href="https://docs.microsoft.com/windows/desktop/api/wlanapi/ne-wlanapi-wlan_hosted_network_reason">WLAN_HOSTED_NETWORK_REASON</a> enumeration type defined in the <i>Wlanapi.h </i> header file.
      * @returns {Integer} If the function succeeds, the return value is ERROR_SUCCESS.
      * 
      * If the function fails, the return value may be one of the following return codes.
@@ -10613,7 +10612,7 @@ class WiFi {
      * @param {HANDLE} hClientHandle A client handle to the Wi-Fi Direct service. This handle was  obtained by a previous call to the <a href="https://docs.microsoft.com/windows/desktop/api/wlanapi/nf-wlanapi-wfdopenhandle">WFDOpenHandle</a> function.
      * @param {Pointer<Pointer<Integer>>} pDeviceAddress A pointer to the target device’s Wi-Fi Direct device address. This is the MAC address of the target Wi-Fi device.
      * @param {Pointer<Void>} pvContext An optional context pointer which is passed to the callback function specified in the <i>pfnCallback</i> parameter.
-     * @param {Pointer<WFD_OPEN_SESSION_COMPLETE_CALLBACK>} _pfnCallback 
+     * @param {Pointer<WFD_OPEN_SESSION_COMPLETE_CALLBACK>} _pfnCallback A pointer to the callback function to be called once the <b>WFDStartOpenSession</b> request has completed.
      * @param {Pointer<HANDLE>} phSessionHandle A handle to this specific Wi-Fi Direct session.
      * @returns {Integer} If the function succeeds, the return value is ERROR_SUCCESS.
      * 

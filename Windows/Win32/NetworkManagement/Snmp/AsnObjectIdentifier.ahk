@@ -5,10 +5,9 @@
  * The AsnObjectIdentifier structure represents object identifiers. This structure is used by multiple SNMP functions. This structure is not used by the WinSNMP API functions.
  * @see https://learn.microsoft.com/windows/win32/api/snmp/ns-snmp-asnobjectidentifier
  * @namespace Windows.Win32.NetworkManagement.Snmp
- * @version v4.0.30319
+ * @architecture X64, Arm64
  */
-class AsnObjectIdentifier extends Win32Struct
-{
+class AsnObjectIdentifier extends Win32Struct {
     static sizeof => 16
 
     static packingSize => 8

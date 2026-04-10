@@ -5,9 +5,8 @@
 
 /**
  * @namespace Windows.Win32.System.Diagnostics.Debug.Extensions
- * @version v4.0.30319
  */
-class IRawEnumerator extends IUnknown{
+class IRawEnumerator extends IUnknown {
 
     static sizeof => A_PtrSize
     /**
@@ -64,7 +63,7 @@ class IRawEnumerator extends IUnknown{
      * 
      * If the search for the next control in the group encounters a window with the <b>WS_EX_CONTROLPARENT</b> style, the system recursively searches the window's children.
      * @param {Pointer<BSTR>} name 
-     * @param {Pointer<Integer>} kind 
+     * @param {Pointer<SymbolKind>} kind 
      * @param {Pointer<IModelObject>} value 
      * @returns {HRESULT} Type: <b>HWND</b>
      * 

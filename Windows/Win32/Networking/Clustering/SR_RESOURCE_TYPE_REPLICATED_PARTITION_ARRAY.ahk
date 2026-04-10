@@ -6,11 +6,9 @@
  * Lists the all replicated partitions on a disk.
  * @see https://learn.microsoft.com/windows/win32/api/clusapi/ns-clusapi-sr_resource_type_replicated_partition_array
  * @namespace Windows.Win32.Networking.Clustering
- * @version v4.0.30319
  */
-class SR_RESOURCE_TYPE_REPLICATED_PARTITION_ARRAY extends Win32Struct
-{
-    static sizeof => 16
+class SR_RESOURCE_TYPE_REPLICATED_PARTITION_ARRAY extends Win32Struct {
+    static sizeof => 24
 
     static packingSize => 8
 
@@ -25,9 +23,9 @@ class SR_RESOURCE_TYPE_REPLICATED_PARTITION_ARRAY extends Win32Struct
 
     /**
      * A variable size array of all replicated partitions on the disk.
-     * @type {Array<SR_RESOURCE_TYPE_REPLICATED_PARTITION_INFO>}
+     * @type {SR_RESOURCE_TYPE_REPLICATED_PARTITION_INFO}
      */
-    PartitionArray{
+    PartitionArray {
         get {
             if(!this.HasProp("__PartitionArrayProxyArray"))
                 this.__PartitionArrayProxyArray := Win32FixedArray(this.ptr + 8, 1, SR_RESOURCE_TYPE_REPLICATED_PARTITION_INFO, "")

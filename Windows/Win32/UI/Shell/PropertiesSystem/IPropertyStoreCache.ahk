@@ -16,9 +16,8 @@
  * CLSID_InMemoryPropertyStore implements <a href="https://docs.microsoft.com/windows/desktop/api/propsys/nn-propsys-ipropertystorecache">IPropertyStoreCache</a> instead of <a href="https://docs.microsoft.com/windows/desktop/api/propsys/nn-propsys-ipropertystore">IPropertyStore</a> so that it can store additional state information (<a href="https://docs.microsoft.com/windows/desktop/api/propsys/ne-propsys-psc_state">PSC_STATE</a>) about each of the properties in the cache. This information can be useful for property handler implementers. It can also be useful in other scenarios where a cache of property values is needed.
  * @see https://learn.microsoft.com/windows/win32/api/propsys/nn-propsys-ipropertystorecache
  * @namespace Windows.Win32.UI.Shell.PropertiesSystem
- * @version v4.0.30319
  */
-class IPropertyStoreCache extends IPropertyStore{
+class IPropertyStoreCache extends IPropertyStore {
 
     static sizeof => A_PtrSize
     /**
@@ -44,7 +43,7 @@ class IPropertyStoreCache extends IPropertyStore{
      * @param {Pointer<PROPERTYKEY>} key Type: <b>REFPROPERTYKEY</b>
      * 
      * A reference to a <a href="https://docs.microsoft.com/windows/desktop/api/wtypes/ns-wtypes-propertykey">PROPERTYKEY</a> structure.
-     * @returns {Integer} Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/propsys/ne-propsys-psc_state">PSC_STATE</a>*</b>
+     * @returns {PSC_STATE} Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/propsys/ne-propsys-psc_state">PSC_STATE</a>*</b>
      * 
      * A pointer to a <a href="https://docs.microsoft.com/windows/desktop/api/propsys/ne-propsys-psc_state">PSC_STATE</a> enumeration value.
      * @see https://learn.microsoft.com/windows/win32/api/propsys/nf-propsys-ipropertystorecache-getstate
@@ -62,7 +61,7 @@ class IPropertyStoreCache extends IPropertyStore{
      * @param {Pointer<PROPVARIANT>} ppropvar Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/propidl/ns-propidl-propvariant">PROPVARIANT</a>*</b>
      * 
      * A pointer to a <a href="https://docs.microsoft.com/windows/desktop/api/propidl/ns-propidl-propvariant">PROPVARIANT</a> structure for the property data.
-     * @param {Pointer<Integer>} pstate Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/propsys/ne-propsys-psc_state">PSC_STATE</a>*</b>
+     * @param {Pointer<PSC_STATE>} pstate Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/propsys/ne-propsys-psc_state">PSC_STATE</a>*</b>
      * 
      * A pointer to a <a href="https://docs.microsoft.com/windows/desktop/api/propsys/ne-propsys-psc_state">PSC_STATE</a> enumeration value declaring the current state of the property.
      * @returns {HRESULT} Type: <b>HRESULT</b>
@@ -80,7 +79,7 @@ class IPropertyStoreCache extends IPropertyStore{
     /**
      * 
      * @param {Pointer<PROPERTYKEY>} key 
-     * @param {Integer} state 
+     * @param {PSC_STATE} state 
      * @returns {HRESULT} 
      */
     SetState(key, state) {
@@ -96,7 +95,7 @@ class IPropertyStoreCache extends IPropertyStore{
      * @param {Pointer<PROPVARIANT>} ppropvar Type: <b>const <a href="https://docs.microsoft.com/windows/desktop/api/propidl/ns-propidl-propvariant">PROPVARIANT</a>*</b>
      * 
      * A pointer to a <a href="https://docs.microsoft.com/windows/desktop/api/propidl/ns-propidl-propvariant">PROPVARIANT</a> structure containing the property data.
-     * @param {Integer} state Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/propsys/ne-propsys-psc_state">PSC_STATE</a></b>
+     * @param {PSC_STATE} state Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/propsys/ne-propsys-psc_state">PSC_STATE</a></b>
      * 
      * A value from the <a href="https://docs.microsoft.com/windows/desktop/api/propsys/ne-propsys-psc_state">PSC_STATE</a> enumeration declaring the state of the property.
      * @returns {HRESULT} Type: <b>HRESULT</b>

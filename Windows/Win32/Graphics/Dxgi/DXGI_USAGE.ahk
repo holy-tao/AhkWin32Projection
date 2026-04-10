@@ -9,9 +9,8 @@
  * ``` syntax
  * @see https://learn.microsoft.com/windows/win32/direct3ddxgi/dxgi-usage
  * @namespace Windows.Win32.Graphics.Dxgi
- * @version v4.0.30319
  */
-class DXGI_USAGE extends Win32BitflagEnum{
+class DXGI_USAGE extends Win32BitflagEnum {
 
     /**
      * @type {Integer (UInt32)}

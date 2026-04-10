@@ -4,13 +4,11 @@
 
 /**
  * @namespace Windows.Win32.NetworkManagement.WiFi
- * @version v4.0.30319
  */
-class DOT11_SUPPORTED_DSSS_CHANNEL_LIST extends Win32Struct
-{
-    static sizeof => 16
+class DOT11_SUPPORTED_DSSS_CHANNEL_LIST extends Win32Struct {
+    static sizeof => 12
 
-    static packingSize => 8
+    static packingSize => 4
 
     /**
      * @type {Integer}
@@ -29,9 +27,9 @@ class DOT11_SUPPORTED_DSSS_CHANNEL_LIST extends Win32Struct
     }
 
     /**
-     * @type {Array<DOT11_SUPPORTED_DSSS_CHANNEL>}
+     * @type {DOT11_SUPPORTED_DSSS_CHANNEL}
      */
-    dot11SupportedDSSSChannel{
+    dot11SupportedDSSSChannel {
         get {
             if(!this.HasProp("__dot11SupportedDSSSChannelProxyArray"))
                 this.__dot11SupportedDSSSChannelProxyArray := Win32FixedArray(this.ptr + 8, 1, DOT11_SUPPORTED_DSSS_CHANNEL, "")

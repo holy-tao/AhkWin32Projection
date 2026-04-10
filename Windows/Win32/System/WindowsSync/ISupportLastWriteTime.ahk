@@ -20,9 +20,8 @@
  * </ol>
  * @see https://learn.microsoft.com/windows/win32/api/winsync/nn-winsync-isupportlastwritetime
  * @namespace Windows.Win32.System.WindowsSync
- * @version v4.0.30319
  */
-class ISupportLastWriteTime extends IUnknown{
+class ISupportLastWriteTime extends IUnknown {
 
     static sizeof => A_PtrSize
     /**

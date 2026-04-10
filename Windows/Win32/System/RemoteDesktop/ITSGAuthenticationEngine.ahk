@@ -7,9 +7,8 @@
  * Exposes methods that authenticate users for Remote Desktop Gateway (RD Gateway).
  * @see https://learn.microsoft.com/windows/win32/api/tsgauthenticationengine/nn-tsgauthenticationengine-itsgauthenticationengine
  * @namespace Windows.Win32.System.RemoteDesktop
- * @version v4.0.30319
  */
-class ITSGAuthenticationEngine extends IUnknown{
+class ITSGAuthenticationEngine extends IUnknown {
 
     static sizeof => A_PtrSize
     /**
@@ -42,7 +41,9 @@ class ITSGAuthenticationEngine extends IUnknown{
      * @param {Guid} mainSessionId A unique identifier assigned to the connection request by RD Gateway.
      * @param {Pointer<Integer>} cookieData A pointer to a <b>BYTE</b> that contains the cookie provided by the user.
      * @param {Integer} numCookieBytes The number of bytes referenced by the <i>cookieData</i> parameter.
-     * @param {Pointer} _context 
+     * @param {Pointer} _context A pointer to  a <b>ULONG</b> that contains  a value specific to this connection. This 
+     *       value should be passed back to RD Gateway by using the methods of the 
+     *       <a href="https://docs.microsoft.com/windows/desktop/api/tsgauthenticationengine/nn-tsgauthenticationengine-itsgauthenticateusersink">ITSGAuthenticateUserSink</a> interface.
      * @param {ITSGAuthenticateUserSink} pSink A pointer to a 
      *       <a href="https://docs.microsoft.com/windows/desktop/api/tsgauthenticationengine/nn-tsgauthenticationengine-itsgauthenticateusersink">ITSGAuthenticateUserSink</a> interface that 
      *       the authentication plug-in must use to notify RD Gateway about the result of authentication.
@@ -59,7 +60,7 @@ class ITSGAuthenticationEngine extends IUnknown{
     /**
      * Cancels an existing authentication request.
      * @param {Guid} mainSessionId An identifier assigned to the connection request.
-     * @param {Pointer} _context 
+     * @param {Pointer} _context A pointer to  a <b>ULONG</b> that contains  a value that identifies this connection. This value should be passed back to RD Gateway by using the methods of the  <a href="https://docs.microsoft.com/windows/desktop/api/tsgauthenticationengine/nn-tsgauthenticationengine-itsgauthenticateusersink">ITSGAuthenticateUserSink</a> interface.
      * @returns {HRESULT} If this method succeeds, it returns <b>S_OK</b>. Otherwise, it returns an <b>HRESULT</b> error code.
      * @see https://learn.microsoft.com/windows/win32/api/tsgauthenticationengine/nf-tsgauthenticationengine-itsgauthenticationengine-cancelauthentication
      */

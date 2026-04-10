@@ -5,9 +5,8 @@
 
 /**
  * @namespace Windows.Win32.Web.MsHtml
- * @version v4.0.30319
  */
-class DispSVGElement extends IDispatch{
+class DispSVGElement extends IDispatch {
 
     static sizeof => A_PtrSize
     /**

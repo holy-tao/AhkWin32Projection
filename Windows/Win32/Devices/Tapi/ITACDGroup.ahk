@@ -1,18 +1,17 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
+#Include ..\..\System\Com\IDispatch.ahk
 #Include ..\..\Foundation\BSTR.ahk
 #Include .\IEnumQueue.ahk
 #Include ..\..\System\Variant\VARIANT.ahk
-#Include ..\..\System\Com\IDispatch.ahk
 
 /**
  * The ITACDGroup interface (tapi3cc.h) handles Automatic Call Distribution (ACD) mechanisms, which queue and distribute calls within a switching system.
  * @see https://learn.microsoft.com/windows/win32/api/tapi3cc/nn-tapi3cc-itacdgroup
  * @namespace Windows.Win32.Devices.Tapi
- * @version v4.0.30319
  */
-class ITACDGroup extends IDispatch{
+class ITACDGroup extends IDispatch {
 
     static sizeof => A_PtrSize
     /**

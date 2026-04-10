@@ -1,14 +1,13 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
+#Include .\USER_ACCOUNT_FLAGS.ahk
 
 /**
  * The NET_DISPLAY_MACHINE structure contains information that an account manager can access to determine information about computers and their attributes.
  * @see https://learn.microsoft.com/windows/win32/api/lmaccess/ns-lmaccess-net_display_machine
  * @namespace Windows.Win32.NetworkManagement.NetManagement
- * @version v4.0.30319
  */
-class NET_DISPLAY_MACHINE extends Win32Struct
-{
+class NET_DISPLAY_MACHINE extends Win32Struct {
     static sizeof => 32
 
     static packingSize => 8
@@ -37,7 +36,7 @@ class NET_DISPLAY_MACHINE extends Win32Struct
 
     /**
      * Type: <b>DWORD</b>
-     * @type {Integer}
+     * @type {USER_ACCOUNT_FLAGS}
      */
     usri2_flags {
         get => NumGet(this, 16, "uint")

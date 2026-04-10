@@ -1,7 +1,6 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
-#Include .\IEnumOfflineFilesItems.ahk
 #Include ..\..\System\Com\IUnknown.ahk
 
 /**
@@ -31,9 +30,8 @@
  * For a code example that shows how to use the <b>IEnumOfflineFilesItems</b> interface, see <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/cscobj/nf-cscobj-iofflinefilesitemcontainer-enumitems">IOfflineFilesItemContainer::EnumItems</a>.
  * @see https://learn.microsoft.com/windows/win32/api/cscobj/nn-cscobj-ienumofflinefilesitems
  * @namespace Windows.Win32.Storage.OfflineFiles
- * @version v4.0.30319
  */
-class IEnumOfflineFilesItems extends IUnknown{
+class IEnumOfflineFilesItems extends IUnknown {
 
     static sizeof => A_PtrSize
     /**

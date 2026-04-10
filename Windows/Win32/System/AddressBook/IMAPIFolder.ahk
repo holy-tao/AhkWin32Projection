@@ -1,17 +1,15 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
-#Include .\IMessage.ahk
-#Include .\IMAPIFolder.ahk
 #Include .\IMAPIContainer.ahk
+#Include .\IMessage.ahk
 
 /**
  * IMAPIFolderIMAPIContainer performs operations on the messages and subfolders in a folder. This article describes the related properties and members.
  * @see https://learn.microsoft.com/office/client-developer/outlook/mapi/imapifolderimapicontainer
  * @namespace Windows.Win32.System.AddressBook
- * @version v4.0.30319
  */
-class IMAPIFolder extends IMAPIContainer{
+class IMAPIFolder extends IMAPIContainer {
 
     static sizeof => A_PtrSize
 
@@ -172,7 +170,7 @@ class IMAPIFolder extends IMAPIContainer{
      * @remarks
      * The **IMAPIFolder::CopyFolder** method copies or moves a subfolder from one location to another. The subfolder being copied or moved is added to the destination folder as a subfolder.
      * @param {Integer} cbEntryID > [in] The byte count in the entry identifier pointed to by the  _lpEntryID_ parameter.
-     * @param {Pointer} lpEntryID > [in] A pointer to the entry identifier of the subfolder to copy or move.
+     * @param {Integer} lpEntryID > [in] A pointer to the entry identifier of the subfolder to copy or move.
      * @param {Pointer<Guid>} lpInterface > [in] A pointer to the interface identifier (IID) that represents the interface to be used to access the folder that the  _lpDestFolder_ parameter points to. Passing NULL causes the service provider to return the standard folder interface, [IMAPIFolder : IMAPIContainer](imapifolderimapicontainer.md). Valid values for  _lpInterface_ include IID_IUnknown, IID_IMAPIProp, IID_IMAPIContainer, and IID_IMAPIFolder.
      * @param {Pointer<Void>} lpDestFolder > [in] A pointer to the open folder to receive the copied or moved subfolder.
      * @param {Pointer<Integer>} lpszNewFolderName > [in] A pointer to the name of the copied or moved folder in its new destination. If  _lpszNewFolderName_ is set to NULL, the name of the source subfolder is used for the name of the destination folder.
@@ -239,7 +237,7 @@ class IMAPIFolder extends IMAPIContainer{
      *   
      * The MFCMAPI program allows to choose between folder soft-delete vs. folder hard-delete. Exchange Server 2019 does not implement folder soft-delete in private stores either, and treats deletion requests for folders within private stores (cf. the [[ropOpenFolder]](/openspecs/exchange_server_protocols/ms-oxcfold/9a9402e4-0694-4043-aee0-bcb9737cc8c0) request) as if DELETE_HARD_DELETE was set.
      * @param {Integer} cbEntryID > [in] The byte count in the entry identifier pointed to by the  _lpEntryID_ parameter.
-     * @param {Pointer} lpEntryID > [in] A pointer to the entry identifier of the subfolder to delete.
+     * @param {Integer} lpEntryID > [in] A pointer to the entry identifier of the subfolder to delete.
      * @param {Pointer} ulUIParam > [in] A handle to the parent window of the progress indicator. The  _ulUIParam_ parameter is ignored unless the FOLDER_DIALOG flag is set in the _ulFlags_ parameter.
      * @param {IMAPIProgress} lpProgress > [in] A pointer to a progress object that displays a progress indicator. If NULL is passed in  _lpProgress_, the message store provider displays a progress indicator by using the MAPI progress object implementation. The  _lpProgress_ parameter is ignored unless the FOLDER_DIALOG flag is set in  _ulFlags_.
      * @param {Integer} ulFlags > [in] A bitmask of flags that controls the deletion of the subfolder. The following flags can be set:
@@ -348,7 +346,7 @@ class IMAPIFolder extends IMAPIContainer{
      * @remarks
      * The **IMAPIFolder::GetMessageStatus** method returns the status of a message. Message status is stored in the message's **PR_MSG_STATUS** ([PidTagMessageStatus](pidtagmessagestatus-canonical-property.md)) property.
      * @param {Integer} cbEntryID > [in] The byte count in the entry identifier pointed to by the  _lpEntryID_ parameter.
-     * @param {Pointer} lpEntryID > [in] A pointer to the entry identifier for the message whose status is obtained.
+     * @param {Integer} lpEntryID > [in] A pointer to the entry identifier for the message whose status is obtained.
      * @param {Integer} ulFlags > [in] Reserved; must be zero.
      * @returns {Integer} > [out] A pointer to a pointer to a bitmask of flags that indicate the message's status. Bits 0 through 15 are reserved and must be zero; bits 16 through 31 are available for implementation-specific use. The following flags can be set:
      *     
@@ -387,7 +385,7 @@ class IMAPIFolder extends IMAPIContainer{
      * @remarks
      * The **IMAPIFolder::SetMessageStatus** method sets the message status to the value that is stored in its **PR_MSG_STATUS** ([PidTagMessageStatus](pidtagmessagestatus-canonical-property.md)) property.
      * @param {Integer} cbEntryID > [in] The byte count in the entry identifier pointed to by the  _lpEntryID_ parameter.
-     * @param {Pointer} lpEntryID > [in] A pointer to the entry identifier for the message whose status is set.
+     * @param {Integer} lpEntryID > [in] A pointer to the entry identifier for the message whose status is set.
      * @param {Integer} ulNewStatus > [in] The new status to be assigned.
      * @param {Integer} ulNewStatusMask > [in] A bitmask of flags that is applied to the new status and indicates the flags to be set. The following flags can be set:
      *     

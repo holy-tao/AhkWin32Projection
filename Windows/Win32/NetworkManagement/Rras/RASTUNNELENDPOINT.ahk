@@ -5,10 +5,8 @@
 
 /**
  * @namespace Windows.Win32.NetworkManagement.Rras
- * @version v4.0.30319
  */
-class RASTUNNELENDPOINT extends Win32Struct
-{
+class RASTUNNELENDPOINT extends Win32Struct {
     static sizeof => 20
 
     static packingSize => 4
@@ -24,7 +22,7 @@ class RASTUNNELENDPOINT extends Win32Struct
     /**
      * @type {IN_ADDR}
      */
-    ipv4{
+    ipv4 {
         get {
             if(!this.HasProp("__ipv4"))
                 this.__ipv4 := IN_ADDR(4, this)
@@ -35,7 +33,7 @@ class RASTUNNELENDPOINT extends Win32Struct
     /**
      * @type {IN6_ADDR}
      */
-    ipv6{
+    ipv6 {
         get {
             if(!this.HasProp("__ipv6"))
                 this.__ipv6 := IN6_ADDR(4, this)

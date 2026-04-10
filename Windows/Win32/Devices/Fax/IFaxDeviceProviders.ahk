@@ -1,9 +1,9 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
+#Include ..\..\System\Com\IDispatch.ahk
 #Include ..\..\System\Com\IUnknown.ahk
 #Include .\IFaxDeviceProvider.ahk
-#Include ..\..\System\Com\IDispatch.ahk
 
 /**
  * The IFaxDeviceProviders interface defines a configuration collection which contains the fax device providers on a connected fax server.
@@ -11,9 +11,8 @@
  * A default implementation of <b>IFaxDeviceProviders</b> is provided as the <a href="https://docs.microsoft.com/previous-versions/windows/desktop/fax/-mfax-faxdeviceproviders">FaxDeviceProviders</a> object.
  * @see https://learn.microsoft.com/windows/win32/api/faxcomex/nn-faxcomex-ifaxdeviceproviders
  * @namespace Windows.Win32.Devices.Fax
- * @version v4.0.30319
  */
-class IFaxDeviceProviders extends IDispatch{
+class IFaxDeviceProviders extends IDispatch {
 
     static sizeof => A_PtrSize
     /**

@@ -5,17 +5,15 @@
  * Specifies the capabilities of the Microsoft DirectX Video Acceleration High Definition (DXVA-HD) video processor.
  * @see https://learn.microsoft.com/windows/win32/api/dxvahd/ns-dxvahd-dxvahd_vpcaps
  * @namespace Windows.Win32.Media.MediaFoundation
- * @version v4.0.30319
  */
-class DXVAHD_VPCAPS extends Win32Struct
-{
+class DXVAHD_VPCAPS extends Win32Struct {
     static sizeof => 32
 
     static packingSize => 8
 
     /**
      * A GUID that identifies the video processor. This GUID is defined by the device, and is used in various <a href="https://docs.microsoft.com/windows/desktop/api/dxvahd/nn-dxvahd-idxvahd_device">IDXVAHD_Device</a> methods to specify the video processor.
-     * @type {Pointer<Guid>}
+     * @type {Pointer}
      */
     VPGuid {
         get => NumGet(this, 0, "ptr")

@@ -5,9 +5,8 @@
 
 /**
  * @namespace Windows.Win32.Media.MediaPlayer
- * @version v4.0.30319
  */
-class IWMPNodeWindowed extends IUnknown{
+class IWMPNodeWindowed extends IUnknown {
 
     static sizeof => A_PtrSize
     /**

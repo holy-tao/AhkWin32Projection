@@ -1,15 +1,14 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\..\..\Guid.ahk
+#Include ..\..\..\Com\IUnknown.ahk
 #Include .\IModelObject.ahk
 #Include .\IKeyStore.ahk
-#Include ..\..\..\Com\IUnknown.ahk
 
 /**
  * @namespace Windows.Win32.System.Diagnostics.Debug.Extensions
- * @version v4.0.30319
  */
-class IDataModelManager extends IUnknown{
+class IDataModelManager extends IUnknown {
 
     static sizeof => A_PtrSize
     /**
@@ -114,7 +113,7 @@ class IDataModelManager extends IUnknown{
 
     /**
      * 
-     * @param {Integer} objectKind 
+     * @param {ModelObjectKind} objectKind 
      * @param {Pointer<VARIANT>} intrinsicData 
      * @returns {IModelObject} 
      */

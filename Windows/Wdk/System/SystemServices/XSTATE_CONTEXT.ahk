@@ -1,12 +1,11 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
+#Include ..\..\..\Win32\System\Diagnostics\Debug\XSAVE_AREA.ahk
 
 /**
  * @namespace Windows.Wdk.System.SystemServices
- * @version v4.0.30319
  */
-class XSTATE_CONTEXT extends Win32Struct
-{
+class XSTATE_CONTEXT extends Win32Struct {
     static sizeof => 48
 
     static packingSize => 8

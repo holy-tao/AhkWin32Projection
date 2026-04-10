@@ -3,10 +3,8 @@
 
 /**
  * @namespace Windows.Win32.System.SystemServices
- * @version v4.0.30319
  */
-class IMAGE_RESOURCE_DIRECTORY_STRING extends Win32Struct
-{
+class IMAGE_RESOURCE_DIRECTORY_STRING extends Win32Struct {
     static sizeof => 4
 
     static packingSize => 2
@@ -23,7 +21,7 @@ class IMAGE_RESOURCE_DIRECTORY_STRING extends Win32Struct
      * @type {String}
      */
     NameString {
-        get => StrGet(this.ptr + 2, 0, "UTF-16")
-        set => StrPut(value, this.ptr + 2, 0, "UTF-16")
+        get => StrGet(this.ptr + 2, 0, "UTF-8")
+        set => StrPut(value, this.ptr + 2, 0, "UTF-8")
     }
 }

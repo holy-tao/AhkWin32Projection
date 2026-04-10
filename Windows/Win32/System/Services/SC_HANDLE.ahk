@@ -5,10 +5,8 @@
 
 /**
  * @namespace Windows.Win32.System.Services
- * @version v4.0.30319
  */
-class SC_HANDLE extends Win32Handle
-{
+class SC_HANDLE extends Win32Handle {
     static sizeof => 8
 
     static packingSize => 8

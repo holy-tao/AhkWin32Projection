@@ -37,10 +37,8 @@
  * ```
  * @see https://learn.microsoft.com/windows/win32/tablet/inkoverlay-class
  * @namespace Windows.Win32.UI.TabletPC
- * @version v4.0.30319
  */
-class InkOverlay extends Win32Struct
-{
+class InkOverlay extends Win32Struct {
     static sizeof => 0
 
     static packingSize => 1

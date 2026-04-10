@@ -7,9 +7,8 @@
  * An interface implemented by all objects created from the DirectML device.
  * @see https://learn.microsoft.com/windows/win32/api/directml/nn-directml-idmldevicechild
  * @namespace Windows.Win32.AI.MachineLearning.DirectML
- * @version v4.0.30319
  */
-class IDMLDeviceChild extends IDMLObject{
+class IDMLDeviceChild extends IDMLObject {
 
     static sizeof => A_PtrSize
     /**

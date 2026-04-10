@@ -5,10 +5,8 @@
 
 /**
  * @namespace Windows.Win32.System.Hypervisor
- * @version v4.0.30319
  */
-class WHV_X64_IO_PORT_ACCESS_CONTEXT extends Win32Struct
-{
+class WHV_X64_IO_PORT_ACCESS_CONTEXT extends Win32Struct {
     static sizeof => 104
 
     static packingSize => 8
@@ -22,9 +20,9 @@ class WHV_X64_IO_PORT_ACCESS_CONTEXT extends Win32Struct
     }
 
     /**
-     * @type {Array<Byte>}
+     * @type {Array<Integer>}
      */
-    Reserved{
+    Reserved {
         get {
             if(!this.HasProp("__ReservedProxyArray"))
                 this.__ReservedProxyArray := Win32FixedArray(this.ptr + 1, 3, Primitive, "char")
@@ -33,9 +31,9 @@ class WHV_X64_IO_PORT_ACCESS_CONTEXT extends Win32Struct
     }
 
     /**
-     * @type {Array<Byte>}
+     * @type {Array<Integer>}
      */
-    InstructionBytes{
+    InstructionBytes {
         get {
             if(!this.HasProp("__InstructionBytesProxyArray"))
                 this.__InstructionBytesProxyArray := Win32FixedArray(this.ptr + 4, 16, Primitive, "char")
@@ -46,7 +44,7 @@ class WHV_X64_IO_PORT_ACCESS_CONTEXT extends Win32Struct
     /**
      * @type {WHV_X64_IO_PORT_ACCESS_INFO}
      */
-    AccessInfo{
+    AccessInfo {
         get {
             if(!this.HasProp("__AccessInfo"))
                 this.__AccessInfo := WHV_X64_IO_PORT_ACCESS_INFO(20, this)
@@ -63,9 +61,9 @@ class WHV_X64_IO_PORT_ACCESS_CONTEXT extends Win32Struct
     }
 
     /**
-     * @type {Array<UInt16>}
+     * @type {Array<Integer>}
      */
-    Reserved2{
+    Reserved2 {
         get {
             if(!this.HasProp("__Reserved2ProxyArray"))
                 this.__Reserved2ProxyArray := Win32FixedArray(this.ptr + 30, 3, Primitive, "ushort")
@@ -108,7 +106,7 @@ class WHV_X64_IO_PORT_ACCESS_CONTEXT extends Win32Struct
     /**
      * @type {WHV_X64_SEGMENT_REGISTER}
      */
-    Ds{
+    Ds {
         get {
             if(!this.HasProp("__Ds"))
                 this.__Ds := WHV_X64_SEGMENT_REGISTER(72, this)
@@ -119,7 +117,7 @@ class WHV_X64_IO_PORT_ACCESS_CONTEXT extends Win32Struct
     /**
      * @type {WHV_X64_SEGMENT_REGISTER}
      */
-    Es{
+    Es {
         get {
             if(!this.HasProp("__Es"))
                 this.__Es := WHV_X64_SEGMENT_REGISTER(88, this)

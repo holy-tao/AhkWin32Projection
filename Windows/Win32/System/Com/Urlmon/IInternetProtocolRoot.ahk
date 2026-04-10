@@ -5,9 +5,8 @@
 
 /**
  * @namespace Windows.Win32.System.Com.Urlmon
- * @version v4.0.30319
  */
-class IInternetProtocolRoot extends IUnknown{
+class IInternetProtocolRoot extends IUnknown {
 
     static sizeof => A_PtrSize
     /**

@@ -1,16 +1,14 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
-#Include .\IEnumShellItems.ahk
 #Include ..\..\System\Com\IUnknown.ahk
 
 /**
  * Exposes enumeration of IShellItem interfaces. This interface is typically obtained by calling the IEnumShellItems method.
  * @see https://learn.microsoft.com/windows/win32/api/shobjidl_core/nn-shobjidl_core-ienumshellitems
  * @namespace Windows.Win32.UI.Shell
- * @version v4.0.30319
  */
-class IEnumShellItems extends IUnknown{
+class IEnumShellItems extends IUnknown {
 
     static sizeof => A_PtrSize
     /**

@@ -14,9 +14,8 @@
  * Credential providers that need to enumerate the currently user logged into the system as the default tile can keep track of the current user or leverage APIs such as <a href="https://docs.microsoft.com/windows/desktop/api/wtsapi32/nf-wtsapi32-wtsquerysessioninformationa">WTSQuerySessionInformation</a> to obtain that information.
  * @see https://learn.microsoft.com/windows/win32/api/credentialprovider/ne-credentialprovider-credential_provider_usage_scenario
  * @namespace Windows.Win32.UI.Shell
- * @version v4.0.30319
  */
-class CREDENTIAL_PROVIDER_USAGE_SCENARIO extends Win32Enum{
+class CREDENTIAL_PROVIDER_USAGE_SCENARIO extends Win32Enum {
 
     /**
      * No usage scenario has been set for the credential provider. The scenario is not passed to <a href="https://docs.microsoft.com/windows/desktop/api/credentialprovider/nf-credentialprovider-icredentialprovider-setusagescenario">ICredentialProvider::SetUsageScenario</a>. If a credential provider stores its current usage scenario as a class member, this provides an initialization value before the first call to <b>ICredentialProvider::SetUsageScenario</b>.

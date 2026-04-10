@@ -5,10 +5,8 @@
 
 /**
  * @namespace Windows.Win32.NetworkManagement.Ndis
- * @version v4.0.30319
  */
-class NDIS_TIMESTAMP_CAPABILITIES extends Win32Struct
-{
+class NDIS_TIMESTAMP_CAPABILITIES extends Win32Struct {
     static sizeof => 56
 
     static packingSize => 8
@@ -16,7 +14,7 @@ class NDIS_TIMESTAMP_CAPABILITIES extends Win32Struct
     /**
      * @type {NDIS_OBJECT_HEADER}
      */
-    Header{
+    Header {
         get {
             if(!this.HasProp("__Header"))
                 this.__Header := NDIS_OBJECT_HEADER(0, this)
@@ -59,7 +57,7 @@ class NDIS_TIMESTAMP_CAPABILITIES extends Win32Struct
     /**
      * @type {NDIS_TIMESTAMP_CAPABILITY_FLAGS}
      */
-    TimestampFlags{
+    TimestampFlags {
         get {
             if(!this.HasProp("__TimestampFlags"))
                 this.__TimestampFlags := NDIS_TIMESTAMP_CAPABILITY_FLAGS(40, this)

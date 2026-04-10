@@ -4,13 +4,11 @@
 
 /**
  * @namespace Windows.Win32.Graphics.Printing
- * @version v4.0.30319
  */
-class MAPTABLE extends Win32Struct
-{
-    static sizeof => 16
+class MAPTABLE extends Win32Struct {
+    static sizeof => 12
 
-    static packingSize => 8
+    static packingSize => 4
 
     /**
      * @type {Integer}
@@ -29,9 +27,9 @@ class MAPTABLE extends Win32Struct
     }
 
     /**
-     * @type {Array<TRANSDATA>}
+     * @type {TRANSDATA}
      */
-    Trans{
+    Trans {
         get {
             if(!this.HasProp("__TransProxyArray"))
                 this.__TransProxyArray := Win32FixedArray(this.ptr + 8, 1, TRANSDATA, "")

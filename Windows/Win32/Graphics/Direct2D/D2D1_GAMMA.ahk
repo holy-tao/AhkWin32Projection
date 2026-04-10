@@ -11,9 +11,8 @@
  * The first gradient is interpolated linearly in the space of the render target (sRGB in this case), and one can see the dark bands between each color. The second gradient uses a gamma-correct linear interpolation, and thus does not exhibit the same variations in brightness.
  * @see https://learn.microsoft.com/windows/win32/api/d2d1/ne-d2d1-d2d1_gamma
  * @namespace Windows.Win32.Graphics.Direct2D
- * @version v4.0.30319
  */
-class D2D1_GAMMA extends Win32Enum{
+class D2D1_GAMMA extends Win32Enum {
 
     /**
      * Interpolation is performed in the standard RGB (sRGB) gamma.

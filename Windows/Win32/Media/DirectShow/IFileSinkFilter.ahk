@@ -9,9 +9,8 @@
  * The <a href="https://docs.microsoft.com/windows/desktop/api/strmif/nn-strmif-ifilesinkfilter2">IFileSinkFilter2</a> interface extends <b>IFileSinkFilter</b>.
  * @see https://learn.microsoft.com/windows/win32/api/strmif/nn-strmif-ifilesinkfilter
  * @namespace Windows.Win32.Media.DirectShow
- * @version v4.0.30319
  */
-class IFileSinkFilter extends IUnknown{
+class IFileSinkFilter extends IUnknown {
 
     static sizeof => A_PtrSize
     /**

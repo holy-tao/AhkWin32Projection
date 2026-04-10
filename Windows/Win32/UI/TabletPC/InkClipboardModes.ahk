@@ -13,9 +13,8 @@
  * The <a href="https://docs.microsoft.com/windows/desktop/api/ole2/nf-ole2-olesetclipboard">OleSetClipboard</a> and <a href="https://docs.microsoft.com/windows/desktop/api/shobjidl_core/nf-shobjidl_core-idataobjectprovider-setdataobject">SetDataObject</a> methods replace the contents of the clipboard.
  * @see https://learn.microsoft.com/windows/win32/api/msinkaut/ne-msinkaut-inkclipboardmodes
  * @namespace Windows.Win32.UI.TabletPC
- * @version v4.0.30319
  */
-class InkClipboardModes extends Win32Enum{
+class InkClipboardModes extends Win32Enum {
 
     /**
      * The ink is copied to the Clipboard.

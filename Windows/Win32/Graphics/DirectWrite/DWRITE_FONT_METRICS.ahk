@@ -5,10 +5,8 @@
  * The DWRITE_FONT_METRICS structure specifies the metrics that are applicable to all glyphs within the font face.
  * @see https://learn.microsoft.com/windows/win32/api/dwrite/ns-dwrite-dwrite_font_metrics
  * @namespace Windows.Win32.Graphics.DirectWrite
- * @version v4.0.30319
  */
-class DWRITE_FONT_METRICS extends Win32Struct
-{
+class DWRITE_FONT_METRICS extends Win32Struct {
     static sizeof => 20
 
     static packingSize => 2

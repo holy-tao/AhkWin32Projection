@@ -1,8 +1,8 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
-#Include .\IEnumWIA_FORMAT_INFO.ahk
 #Include ..\..\System\Com\IUnknown.ahk
+#Include .\IEnumWIA_FORMAT_INFO.ahk
 
 /**
  * The IWiaTransfer interface provides stream-based transfer of data.
@@ -23,9 +23,8 @@
  * | [IUnknown::Release](/windows/win32/api/unknwn/nf-unknwn-iunknown-release)               | Decrements reference count.               |
  * @see https://learn.microsoft.com/windows/win32/wia/-wia-iwiatransfer
  * @namespace Windows.Win32.Devices.ImageAcquisition
- * @version v4.0.30319
  */
-class IWiaTransfer extends IUnknown{
+class IWiaTransfer extends IUnknown {
 
     static sizeof => A_PtrSize
     /**

@@ -20,9 +20,8 @@
  * </ol>
  * @see https://learn.microsoft.com/windows/win32/api/mfidl/nn-mfidl-imfsamplegrabbersinkcallback2
  * @namespace Windows.Win32.Media.MediaFoundation
- * @version v4.0.30319
  */
-class IMFSampleGrabberSinkCallback2 extends IMFSampleGrabberSinkCallback{
+class IMFSampleGrabberSinkCallback2 extends IMFSampleGrabberSinkCallback {
 
     static sizeof => A_PtrSize
     /**
@@ -53,7 +52,7 @@ class IMFSampleGrabberSinkCallback2 extends IMFSampleGrabberSinkCallback{
      * @param {Integer} llSampleDuration The duration of the sample, in 100-nanosecond units.
      * 
      * If the sample does not have a duration, the value of this parameter is <b>_I64_MAX</b>.
-     * @param {Pointer} pSampleBuffer A pointer to a buffer that contains the sample data.
+     * @param {Integer} pSampleBuffer A pointer to a buffer that contains the sample data.
      * @param {Integer} dwSampleSize The size, in bytes, of the <i>pSampleBuffer</i> buffer.
      * @param {IMFAttributes} pAttributes A pointer to the <a href="https://docs.microsoft.com/windows/desktop/api/mfobjects/nn-mfobjects-imfattributes">IMFAttributes</a> interface. Use this interface to get the attributes for this sample (if any). For a list of sample attributes, see <a href="https://docs.microsoft.com/windows/desktop/medfound/sample-attributes">Sample Attributes</a>.
      * @returns {HRESULT} If this method succeeds, it returns <b>S_OK</b>. Otherwise, it returns an <b>HRESULT</b> error code.

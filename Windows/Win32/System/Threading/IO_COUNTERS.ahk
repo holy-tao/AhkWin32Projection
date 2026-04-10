@@ -5,10 +5,8 @@
  * Contains I/O accounting information for a process or a job object.
  * @see https://learn.microsoft.com/windows/win32/api/winnt/ns-winnt-io_counters
  * @namespace Windows.Win32.System.Threading
- * @version v4.0.30319
  */
-class IO_COUNTERS extends Win32Struct
-{
+class IO_COUNTERS extends Win32Struct {
     static sizeof => 48
 
     static packingSize => 8

@@ -4,10 +4,8 @@
 
 /**
  * @namespace Windows.Win32.Data.Xml.MsXml
- * @version v4.0.30319
  */
-class XML_ERROR extends Win32Struct
-{
+class XML_ERROR extends Win32Struct {
     static sizeof => 48
 
     static packingSize => 8
@@ -23,7 +21,7 @@ class XML_ERROR extends Win32Struct
     /**
      * @type {BSTR}
      */
-    _pchBuf{
+    _pchBuf {
         get {
             if(!this.HasProp("___pchBuf"))
                 this.___pchBuf := BSTR(8, this)
@@ -50,7 +48,7 @@ class XML_ERROR extends Win32Struct
     /**
      * @type {BSTR}
      */
-    _pszFound{
+    _pszFound {
         get {
             if(!this.HasProp("___pszFound"))
                 this.___pszFound := BSTR(24, this)
@@ -61,7 +59,7 @@ class XML_ERROR extends Win32Struct
     /**
      * @type {BSTR}
      */
-    _pszExpected{
+    _pszExpected {
         get {
             if(!this.HasProp("___pszExpected"))
                 this.___pszExpected := BSTR(32, this)

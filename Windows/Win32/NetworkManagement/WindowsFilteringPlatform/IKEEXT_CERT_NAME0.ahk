@@ -1,14 +1,13 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
+#Include .\IKEEXT_CERT_CRITERIA_NAME_TYPE.ahk
 
 /**
  * Specifies certificate selection &quot;subject&quot; criteria for an authentication method.
  * @see https://learn.microsoft.com/windows/win32/api/iketypes/ns-iketypes-ikeext_cert_name0
  * @namespace Windows.Win32.NetworkManagement.WindowsFilteringPlatform
- * @version v4.0.30319
  */
-class IKEEXT_CERT_NAME0 extends Win32Struct
-{
+class IKEEXT_CERT_NAME0 extends Win32Struct {
     static sizeof => 16
 
     static packingSize => 8
@@ -17,7 +16,7 @@ class IKEEXT_CERT_NAME0 extends Win32Struct
      * Type: [IKEEXT_CERT_CRITERIA_NAME_TYPE](/windows/desktop/api/iketypes/ne-iketypes-ikeext_cert_criteria_name_type)</b>
      * 
      * The type of NAME field.
-     * @type {Integer}
+     * @type {IKEEXT_CERT_CRITERIA_NAME_TYPE}
      */
     nameType {
         get => NumGet(this, 0, "int")

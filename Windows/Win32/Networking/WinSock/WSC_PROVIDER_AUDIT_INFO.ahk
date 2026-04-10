@@ -8,10 +8,8 @@
  * **WSC_PROVIDER_AUDIT_INFO** structure is not currently used.
  * @see https://learn.microsoft.com/windows/win32/api/ws2spi/ns-ws2spi-wsc_provider_audit_info
  * @namespace Windows.Win32.Networking.WinSock
- * @version v4.0.30319
  */
-class WSC_PROVIDER_AUDIT_INFO extends Win32Struct
-{
+class WSC_PROVIDER_AUDIT_INFO extends Win32Struct {
     static sizeof => 16
 
     static packingSize => 8

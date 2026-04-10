@@ -11,9 +11,8 @@
  * To get an instance of the <b>IPdfRendererNative</b> interface, call the <a href="https://docs.microsoft.com/windows/desktop/api/windows.data.pdf.interop/nf-windows-data-pdf-interop-pdfcreaterenderer">PdfCreateRenderer</a> function.
  * @see https://learn.microsoft.com/windows/win32/api/windows.data.pdf.interop/nn-windows-data-pdf-interop-ipdfrenderernative
  * @namespace Windows.Win32.System.WinRT.Pdf
- * @version v4.0.30319
  */
-class IPdfRendererNative extends IUnknown{
+class IPdfRendererNative extends IUnknown {
 
     static sizeof => A_PtrSize
     /**

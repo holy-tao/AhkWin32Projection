@@ -5,9 +5,8 @@
  * Defines the options for applying template changes to derived objects.
  * @see https://learn.microsoft.com/windows/win32/api/fsrmenums/ne-fsrmenums-fsrmtemplateapplyoptions
  * @namespace Windows.Win32.Storage.FileServerResourceManager
- * @version v4.0.30319
  */
-class FsrmTemplateApplyOptions extends Win32Enum{
+class FsrmTemplateApplyOptions extends Win32Enum {
 
     /**
      * Apply template changes to derived objects only if the object's properties match the template's properties.

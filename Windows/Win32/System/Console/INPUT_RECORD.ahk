@@ -1,8 +1,8 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
 #Include .\KEY_EVENT_RECORD.ahk
-#Include .\COORD.ahk
 #Include .\MOUSE_EVENT_RECORD.ahk
+#Include .\COORD.ahk
 #Include .\WINDOW_BUFFER_SIZE_RECORD.ahk
 #Include .\MENU_EVENT_RECORD.ahk
 #Include .\FOCUS_EVENT_RECORD.ahk
@@ -11,73 +11,70 @@
  * See reference information about the INPUT_RECORD structure, which describes an input event in the console input buffer.
  * @see https://learn.microsoft.com/windows/console/input-record-str
  * @namespace Windows.Win32.System.Console
- * @version v4.0.30319
  */
-class INPUT_RECORD extends Win32Struct
-{
-    static sizeof => 24
+class INPUT_RECORD extends Win32Struct {
+    static sizeof => 20
 
     static packingSize => 4
 
     class _Event_e__Union extends Win32Struct {
-        static sizeof => 20
+        static sizeof => 16
         static packingSize => 4
 
         /**
          * @type {KEY_EVENT_RECORD}
          */
-        KeyEvent{
+        KeyEvent {
             get {
                 if(!this.HasProp("__KeyEvent"))
                     this.__KeyEvent := KEY_EVENT_RECORD(0, this)
                 return this.__KeyEvent
             }
         }
-    
+
         /**
          * @type {MOUSE_EVENT_RECORD}
          */
-        MouseEvent{
+        MouseEvent {
             get {
                 if(!this.HasProp("__MouseEvent"))
                     this.__MouseEvent := MOUSE_EVENT_RECORD(0, this)
                 return this.__MouseEvent
             }
         }
-    
+
         /**
          * @type {WINDOW_BUFFER_SIZE_RECORD}
          */
-        WindowBufferSizeEvent{
+        WindowBufferSizeEvent {
             get {
                 if(!this.HasProp("__WindowBufferSizeEvent"))
                     this.__WindowBufferSizeEvent := WINDOW_BUFFER_SIZE_RECORD(0, this)
                 return this.__WindowBufferSizeEvent
             }
         }
-    
+
         /**
          * @type {MENU_EVENT_RECORD}
          */
-        MenuEvent{
+        MenuEvent {
             get {
                 if(!this.HasProp("__MenuEvent"))
                     this.__MenuEvent := MENU_EVENT_RECORD(0, this)
                 return this.__MenuEvent
             }
         }
-    
+
         /**
          * @type {FOCUS_EVENT_RECORD}
          */
-        FocusEvent{
+        FocusEvent {
             get {
                 if(!this.HasProp("__FocusEvent"))
                     this.__FocusEvent := FOCUS_EVENT_RECORD(0, this)
                 return this.__FocusEvent
             }
         }
-    
     }
 
     /**
@@ -103,10 +100,10 @@ class INPUT_RECORD extends Win32Struct
      * The event information. The format of this member depends on the event type specified by the **EventType** member.
      * @type {_Event_e__Union}
      */
-    Event{
+    Event {
         get {
             if(!this.HasProp("__Event"))
-                this.__Event := %this.__Class%._Event_e__Union(4, this)
+                this.__Event := INPUT_RECORD._Event_e__Union(4, this)
             return this.__Event
         }
     }

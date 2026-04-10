@@ -1,19 +1,18 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\..\Guid.ahk
+#Include ..\..\..\System\Com\IDispatch.ahk
 #Include .\ICspAlgorithm.ahk
 #Include .\ICspInformation.ahk
 #Include .\IX509EnrollmentStatus.ahk
 #Include ..\..\..\Foundation\BSTR.ahk
-#Include ..\..\..\System\Com\IDispatch.ahk
 
 /**
  * Contains information about a cryptographic provider/algorithm pair. (ICspStatus)
  * @see https://learn.microsoft.com/windows/win32/api/certenroll/nn-certenroll-icspstatus
  * @namespace Windows.Win32.Security.Cryptography.Certificates
- * @version v4.0.30319
  */
-class ICspStatus extends IDispatch{
+class ICspStatus extends IDispatch {
 
     static sizeof => A_PtrSize
     /**

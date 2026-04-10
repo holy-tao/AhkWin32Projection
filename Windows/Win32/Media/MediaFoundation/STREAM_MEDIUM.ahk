@@ -7,17 +7,15 @@
  * This structure is used internally by the Microsoft Media Foundation AVStream proxy.
  * @see https://learn.microsoft.com/windows/win32/api/mftransform/ns-mftransform-stream_medium
  * @namespace Windows.Win32.Media.MediaFoundation
- * @version v4.0.30319
  */
-class STREAM_MEDIUM extends Win32Struct
-{
+class STREAM_MEDIUM extends Win32Struct {
     static sizeof => 16
 
     static packingSize => 8
 
     /**
      * Reserved.
-     * @type {Pointer<Guid>}
+     * @type {Pointer}
      */
     gidMedium {
         get => NumGet(this, 0, "ptr")

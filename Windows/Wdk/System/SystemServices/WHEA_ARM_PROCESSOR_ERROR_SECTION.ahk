@@ -3,16 +3,14 @@
 
 /**
  * @namespace Windows.Wdk.System.SystemServices
- * @version v4.0.30319
  */
-class WHEA_ARM_PROCESSOR_ERROR_SECTION extends Win32Struct
-{
+class WHEA_ARM_PROCESSOR_ERROR_SECTION extends Win32Struct {
     static sizeof => 56
 
     static packingSize => 8
 
     /**
-     * @type {Pointer<WHEA_ARM_PROCESSOR_ERROR_SECTION_VALID_BITS>}
+     * @type {Pointer}
      */
     ValidBits {
         get => NumGet(this, 0, "ptr")
@@ -52,9 +50,9 @@ class WHEA_ARM_PROCESSOR_ERROR_SECTION extends Win32Struct
     }
 
     /**
-     * @type {Array<Byte>}
+     * @type {Array<Integer>}
      */
-    Reserved{
+    Reserved {
         get {
             if(!this.HasProp("__ReservedProxyArray"))
                 this.__ReservedProxyArray := Win32FixedArray(this.ptr + 17, 3, Primitive, "char")
@@ -95,9 +93,9 @@ class WHEA_ARM_PROCESSOR_ERROR_SECTION extends Win32Struct
     }
 
     /**
-     * @type {Array<Byte>}
+     * @type {Array<Integer>}
      */
-    Data{
+    Data {
         get {
             if(!this.HasProp("__DataProxyArray"))
                 this.__DataProxyArray := Win32FixedArray(this.ptr + 48, 1, Primitive, "char")

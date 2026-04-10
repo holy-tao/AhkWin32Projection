@@ -1,16 +1,15 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
-#Include .\IWMPErrorItem.ahk
 #Include ..\..\System\Com\IDispatch.ahk
+#Include .\IWMPErrorItem.ahk
 
 /**
  * The IWMPError interface provides methods for accessing a collection of IWMPErrorItem pointers.
  * @see https://learn.microsoft.com/windows/win32/api/wmp/nn-wmp-iwmperror
  * @namespace Windows.Win32.Media.MediaPlayer
- * @version v4.0.30319
  */
-class IWMPError extends IDispatch{
+class IWMPError extends IDispatch {
 
     static sizeof => A_PtrSize
     /**

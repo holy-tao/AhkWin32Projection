@@ -7,9 +7,8 @@
  * Represents the ghosting status of an item in the Offline Files cache.
  * @see https://learn.microsoft.com/windows/win32/api/cscobj/nn-cscobj-iofflinefilesghostinfo
  * @namespace Windows.Win32.Storage.OfflineFiles
- * @version v4.0.30319
  */
-class IOfflineFilesGhostInfo extends IUnknown{
+class IOfflineFilesGhostInfo extends IUnknown {
 
     static sizeof => A_PtrSize
     /**

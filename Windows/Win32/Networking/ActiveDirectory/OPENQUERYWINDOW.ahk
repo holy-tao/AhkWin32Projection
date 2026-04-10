@@ -1,14 +1,14 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
+#Include .\IPersistQuery.ahk
+#Include ..\..\System\Com\StructuredStorage\IPropertyBag.ahk
 
 /**
  * Used with the ICommonQuery::OpenQueryWindow method to initialize the directory service query dialog box.
  * @see https://learn.microsoft.com/windows/win32/api/cmnquery/ns-cmnquery-openquerywindow
  * @namespace Windows.Win32.Networking.ActiveDirectory
- * @version v4.0.30319
  */
-class OPENQUERYWINDOW extends Win32Struct
-{
+class OPENQUERYWINDOW extends Win32Struct {
     static sizeof => 48
 
     static packingSize => 8
@@ -38,7 +38,7 @@ class OPENQUERYWINDOW extends Win32Struct
      * Contains a <b>CLSID</b> value that specifies the query handler to be used by the 
      *       query dialog box. The value of this member also determines the type of structure pointed to by the 
      *       <b>pHandlerParameters</b> member.
-     * @type {Pointer<Guid>}
+     * @type {Pointer}
      */
     clsidHandler {
         get => NumGet(this, 8, "ptr")
@@ -60,7 +60,7 @@ class OPENQUERYWINDOW extends Win32Struct
      * Specifies the default form to be displayed in the query dialog box. This member is ignored if 
      *       <b>dwFlags</b> does not contain <b>OQWF_DEFAULTFORM</b>. This member can 
      *       contain the <b>CLSID</b> of a custom query form or one of the system-supplied forms.
-     * @type {Pointer<Guid>}
+     * @type {Pointer}
      */
     clsidDefaultForm {
         get => NumGet(this, 24, "ptr")

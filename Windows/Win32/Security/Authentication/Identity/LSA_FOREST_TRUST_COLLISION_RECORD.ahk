@@ -1,15 +1,14 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\..\Win32Struct.ahk
+#Include .\LSA_FOREST_TRUST_COLLISION_RECORD_TYPE.ahk
 #Include .\LSA_UNICODE_STRING.ahk
 
 /**
  * Contains information about a Local Security Authority forest trust collision.
  * @see https://learn.microsoft.com/windows/win32/api/ntsecapi/ns-ntsecapi-lsa_forest_trust_collision_record
  * @namespace Windows.Win32.Security.Authentication.Identity
- * @version v4.0.30319
  */
-class LSA_FOREST_TRUST_COLLISION_RECORD extends Win32Struct
-{
+class LSA_FOREST_TRUST_COLLISION_RECORD extends Win32Struct {
     static sizeof => 32
 
     static packingSize => 8
@@ -62,7 +61,7 @@ class LSA_FOREST_TRUST_COLLISION_RECORD extends Win32Struct
      * </td>
      * </tr>
      * </table>
-     * @type {Integer}
+     * @type {LSA_FOREST_TRUST_COLLISION_RECORD_TYPE}
      */
     Type {
         get => NumGet(this, 4, "int")
@@ -82,7 +81,7 @@ class LSA_FOREST_TRUST_COLLISION_RECORD extends Win32Struct
      * <a href="https://docs.microsoft.com/windows/desktop/api/lsalookup/ns-lsalookup-lsa_unicode_string">LSA_UNICODE_STRING</a> structure that contains the name of the collision record.
      * @type {LSA_UNICODE_STRING}
      */
-    Name{
+    Name {
         get {
             if(!this.HasProp("__Name"))
                 this.__Name := LSA_UNICODE_STRING(16, this)

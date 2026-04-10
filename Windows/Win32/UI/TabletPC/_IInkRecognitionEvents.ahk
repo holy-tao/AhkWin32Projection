@@ -5,9 +5,8 @@
 
 /**
  * @namespace Windows.Win32.UI.TabletPC
- * @version v4.0.30319
  */
-class _IInkRecognitionEvents extends IDispatch{
+class _IInkRecognitionEvents extends IDispatch {
 
     static sizeof => A_PtrSize
     /**

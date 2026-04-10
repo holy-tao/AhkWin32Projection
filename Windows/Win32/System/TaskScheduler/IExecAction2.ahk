@@ -5,9 +5,8 @@
 
 /**
  * @namespace Windows.Win32.System.TaskScheduler
- * @version v4.0.30319
  */
-class IExecAction2 extends IExecAction{
+class IExecAction2 extends IExecAction {
 
     static sizeof => A_PtrSize
     /**
@@ -29,6 +28,7 @@ class IExecAction2 extends IExecAction{
     static VTableNames => ["get_HideAppWindow", "put_HideAppWindow"]
 
     /**
+     * @type {VARIANT_BOOL} 
      */
     HideAppWindow {
         get => this.get_HideAppWindow()

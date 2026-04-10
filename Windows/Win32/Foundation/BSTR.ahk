@@ -7,10 +7,8 @@
  * Frees resources on the server side when called by RPC stub files. (BSTR_UserFree)
  * @see https://learn.microsoft.com/windows/win32/api/oaidl/nf-oaidl-bstr_userfree
  * @namespace Windows.Win32.Foundation
- * @version v4.0.30319
  */
-class BSTR extends Win32Handle
-{
+class BSTR extends Win32Handle {
     static sizeof => 8
 
     static packingSize => 8
@@ -28,7 +26,6 @@ class BSTR extends Win32Handle
         get => NumGet(this, 0, "ptr")
         set => NumPut("ptr", value, this, 0)
     }
-
     /**
      * @readonly The length of the allocated string in characters, not including the null terminator
      * @type {Integer}

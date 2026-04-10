@@ -1,14 +1,13 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
-#Include .\IHTMLFormElement.ahk
 #Include ..\..\System\Com\IDispatch.ahk
+#Include .\IHTMLFormElement.ahk
 
 /**
  * @namespace Windows.Win32.Web.MsHtml
- * @version v4.0.30319
  */
-class IHTMLProgressElement extends IDispatch{
+class IHTMLProgressElement extends IDispatch {
 
     static sizeof => A_PtrSize
     /**

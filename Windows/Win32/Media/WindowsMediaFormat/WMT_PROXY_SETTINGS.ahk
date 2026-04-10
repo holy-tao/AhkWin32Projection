@@ -9,9 +9,8 @@
  * This enumeration is used directly in <b>GetProxySettings</b> and <b>SetProxySettings</b>, and referenced in several other methods of the <b>IWMReaderNetworkConfig</b> interface.
  * @see https://learn.microsoft.com/windows/win32/api/wmsdkidl/ne-wmsdkidl-wmt_proxy_settings
  * @namespace Windows.Win32.Media.WindowsMediaFormat
- * @version v4.0.30319
  */
-class WMT_PROXY_SETTINGS extends Win32Enum{
+class WMT_PROXY_SETTINGS extends Win32Enum {
 
     /**
      * No proxy settings will be used.
@@ -38,7 +37,6 @@ class WMT_PROXY_SETTINGS extends Win32Enum{
     static WMT_PROXY_SETTING_BROWSER => 3
 
     /**
-     * 
      * @type {Integer (Int32)}
      */
     static WMT_PROXY_SETTING_MAX => 4

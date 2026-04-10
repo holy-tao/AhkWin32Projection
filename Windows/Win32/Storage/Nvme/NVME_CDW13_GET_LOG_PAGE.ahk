@@ -2,15 +2,10 @@
 #Include ..\..\..\..\Win32Struct.ahk
 
 /**
- * 
- * @remarks
- * 
  * @see https://learn.microsoft.com/windows/win32/api/nvme/ns-nvme-nvme_cdw13_get_log_page
  * @namespace Windows.Win32.Storage.Nvme
- * @version v4.0.30319
  */
-class NVME_CDW13_GET_LOG_PAGE extends Win32Struct
-{
+class NVME_CDW13_GET_LOG_PAGE extends Win32Struct {
     static sizeof => 8
 
     static packingSize => 4

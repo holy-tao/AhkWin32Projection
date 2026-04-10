@@ -21,10 +21,8 @@
  * <div> </div>
  * @see https://learn.microsoft.com/windows/win32/api/d3d11/ns-d3d11-d3d11_subresource_data
  * @namespace Windows.Win32.Graphics.Direct3D11
- * @version v4.0.30319
  */
-class D3D11_SUBRESOURCE_DATA extends Win32Struct
-{
+class D3D11_SUBRESOURCE_DATA extends Win32Struct {
     static sizeof => 16
 
     static packingSize => 8

@@ -1,12 +1,11 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
+#Include .\GNSS_DRIVER_REQUEST.ahk
 
 /**
  * @namespace Windows.Win32.Devices.Geolocation
- * @version v4.0.30319
  */
-class GNSS_DRIVER_REQUEST_DATA extends Win32Struct
-{
+class GNSS_DRIVER_REQUEST_DATA extends Win32Struct {
     static sizeof => 16
 
     static packingSize => 4
@@ -28,7 +27,7 @@ class GNSS_DRIVER_REQUEST_DATA extends Win32Struct
     }
 
     /**
-     * @type {Integer}
+     * @type {GNSS_DRIVER_REQUEST}
      */
     Request {
         get => NumGet(this, 8, "int")

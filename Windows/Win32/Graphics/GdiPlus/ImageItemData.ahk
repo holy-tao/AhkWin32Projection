@@ -3,10 +3,8 @@
 
 /**
  * @namespace Windows.Win32.Graphics.GdiPlus
- * @version v4.0.30319
  */
-class ImageItemData extends Win32Struct
-{
+class ImageItemData extends Win32Struct {
     static sizeof => 40
 
     static packingSize => 8

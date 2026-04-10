@@ -7,9 +7,8 @@
  * The **INetworkConnection2** interface represents a single network connection.
  * @see https://learn.microsoft.com/windows/win32/api/netlistmgr/nn-netlistmgr-inetworkconnection2
  * @namespace Windows.Win32.Networking.NetworkListManager
- * @version v4.0.30319
  */
-class INetworkConnection2 extends INetworkConnection{
+class INetworkConnection2 extends INetworkConnection {
 
     static sizeof => A_PtrSize
     /**
@@ -34,7 +33,7 @@ class INetworkConnection2 extends INetworkConnection{
      * Queries whether the specified domain authentication method succeeded for this network connection.
      * @remarks
      * See **Remarks** for [INetwork2::IsDomainAuthenticatedBy method](nf-netlistmgr-inetwork2-isdomainauthenticatedby.md).
-     * @param {Integer} domainAuthenticationKind Type: \[in\] **[NLM_DOMAIN_AUTHENTICATION_KIND](ne-netlistmgr-nlm_domain_authentication_kind.md)**
+     * @param {NLM_DOMAIN_AUTHENTICATION_KIND} domainAuthenticationKind Type: \[in\] **[NLM_DOMAIN_AUTHENTICATION_KIND](ne-netlistmgr-nlm_domain_authentication_kind.md)**
      * 
      * The specific domain authentication method to query about.
      * @returns {BOOL} Type: \[out, retval\] **[BOOL](/windows/win32/winprog/windows-data-types)\***

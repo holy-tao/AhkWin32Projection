@@ -9,10 +9,8 @@
  * See Remarks for <a href="https://docs.microsoft.com/windows/desktop/api/winnls/ns-winnls-nlsversioninfoex">NLSVERSIONINFOEX</a>.
  * @see https://learn.microsoft.com/windows/win32/api/winnls/ns-winnls-nlsversioninfo~r1
  * @namespace Windows.Win32.Globalization
- * @version v4.0.30319
  */
-class NLSVERSIONINFO extends Win32Struct
-{
+class NLSVERSIONINFO extends Win32Struct {
     static sizeof => 24
 
     static packingSize => 8
@@ -53,7 +51,7 @@ class NLSVERSIONINFO extends Win32Struct
     }
 
     /**
-     * @type {Pointer<Guid>}
+     * @type {Pointer}
      */
     guidCustomVersion {
         get => NumGet(this, 16, "ptr")

@@ -1,8 +1,8 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
-#Include ..\..\Foundation\BSTR.ahk
 #Include ..\..\System\Com\IUnknown.ahk
+#Include ..\..\Foundation\BSTR.ahk
 
 /**
  * A collection of properties that represent a CDMA format SMS message read from the device memory.
@@ -12,9 +12,8 @@
  *  This interface is provided by the <a href="https://docs.microsoft.com/windows/desktop/api/mbnapi/nf-mbnapi-imbnsmsevents-onsmsreadcomplete">OnSmsReadComplete</a> and <a href="https://docs.microsoft.com/windows/desktop/api/mbnapi/nf-mbnapi-imbnsmsevents-onsmsnewclass0message">OnSmsNewClass0Message</a> methods of the <a href="https://docs.microsoft.com/windows/desktop/api/mbnapi/nn-mbnapi-imbnsmsevents">IMbnSmsEvents</a> interface.
  * @see https://learn.microsoft.com/windows/win32/api/mbnapi/nn-mbnapi-imbnsmsreadmsgtextcdma
  * @namespace Windows.Win32.NetworkManagement.MobileBroadband
- * @version v4.0.30319
  */
-class IMbnSmsReadMsgTextCdma extends IUnknown{
+class IMbnSmsReadMsgTextCdma extends IUnknown {
 
     static sizeof => A_PtrSize
     /**
@@ -43,7 +42,7 @@ class IMbnSmsReadMsgTextCdma extends IUnknown{
     }
 
     /**
-     * @type {Integer} 
+     * @type {MBN_MSG_STATUS} 
      */
     Status {
         get => this.get_Status()
@@ -64,14 +63,14 @@ class IMbnSmsReadMsgTextCdma extends IUnknown{
     }
 
     /**
-     * @type {Integer} 
+     * @type {MBN_SMS_CDMA_ENCODING} 
      */
     EncodingID {
         get => this.get_EncodingID()
     }
 
     /**
-     * @type {Integer} 
+     * @type {MBN_SMS_CDMA_LANG} 
      */
     LanguageID {
         get => this.get_LanguageID()
@@ -103,7 +102,7 @@ class IMbnSmsReadMsgTextCdma extends IUnknown{
 
     /**
      * The type of message. (IMbnSmsReadMsgTextCdma.get_Status)
-     * @returns {Integer} 
+     * @returns {MBN_MSG_STATUS} 
      * @see https://learn.microsoft.com/windows/win32/api/mbnapi/nf-mbnapi-imbnsmsreadmsgtextcdma-get_status
      */
     get_Status() {
@@ -201,7 +200,7 @@ class IMbnSmsReadMsgTextCdma extends IUnknown{
 
     /**
      * The data encoding used in the message.
-     * @returns {Integer} 
+     * @returns {MBN_SMS_CDMA_ENCODING} 
      * @see https://learn.microsoft.com/windows/win32/api/mbnapi/nf-mbnapi-imbnsmsreadmsgtextcdma-get_encodingid
      */
     get_EncodingID() {
@@ -211,7 +210,7 @@ class IMbnSmsReadMsgTextCdma extends IUnknown{
 
     /**
      * The language used in the message.
-     * @returns {Integer} 
+     * @returns {MBN_SMS_CDMA_LANG} 
      * @see https://learn.microsoft.com/windows/win32/api/mbnapi/nf-mbnapi-imbnsmsreadmsgtextcdma-get_languageid
      */
     get_LanguageID() {

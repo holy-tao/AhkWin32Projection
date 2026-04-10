@@ -3,10 +3,8 @@
 
 /**
  * @namespace Windows.Win32.Storage.IscsiDisc
- * @version v4.0.30319
  */
-class STORAGE_FIRMWARE_SLOT_INFO extends Win32Struct
-{
+class STORAGE_FIRMWARE_SLOT_INFO extends Win32Struct {
     static sizeof => 16
 
     static packingSize => 8
@@ -16,16 +14,16 @@ class STORAGE_FIRMWARE_SLOT_INFO extends Win32Struct
         static packingSize => 8
 
         /**
-         * @type {Array<Byte>}
+         * @type {Array<Integer>}
          */
-        Info{
+        Info {
             get {
                 if(!this.HasProp("__InfoProxyArray"))
                     this.__InfoProxyArray := Win32FixedArray(this.ptr + 0, 8, Primitive, "char")
                 return this.__InfoProxyArray
             }
         }
-    
+
         /**
          * @type {Integer}
          */
@@ -33,7 +31,6 @@ class STORAGE_FIRMWARE_SLOT_INFO extends Win32Struct
             get => NumGet(this, 0, "uint")
             set => NumPut("uint", value, this, 0)
         }
-    
     }
 
     /**
@@ -53,9 +50,9 @@ class STORAGE_FIRMWARE_SLOT_INFO extends Win32Struct
     }
 
     /**
-     * @type {Array<Byte>}
+     * @type {Array<Integer>}
      */
-    Reserved{
+    Reserved {
         get {
             if(!this.HasProp("__ReservedProxyArray"))
                 this.__ReservedProxyArray := Win32FixedArray(this.ptr + 2, 6, Primitive, "char")
@@ -66,10 +63,10 @@ class STORAGE_FIRMWARE_SLOT_INFO extends Win32Struct
     /**
      * @type {_Revision_e__Union}
      */
-    Revision{
+    Revision {
         get {
             if(!this.HasProp("__Revision"))
-                this.__Revision := %this.__Class%._Revision_e__Union(8, this)
+                this.__Revision := STORAGE_FIRMWARE_SLOT_INFO._Revision_e__Union(8, this)
             return this.__Revision
         }
     }

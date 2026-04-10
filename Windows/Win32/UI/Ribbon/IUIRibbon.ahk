@@ -10,9 +10,8 @@
  * 				<a href="https://docs.microsoft.com/windows/desktop/windowsribbon/windowsribbon-controls-tab">Tabs</a> (core and contextual), <a href="https://docs.microsoft.com/windows/desktop/windowsribbon/windowsribbon-controls-group">Groups</a> (containers for controls), and a rich context menu  system (<a href="https://docs.microsoft.com/windows/desktop/windowsribbon/windowsribbon-controls-contextpopup">Context Popup</a>).
  * @see https://learn.microsoft.com/windows/win32/api/uiribbon/nn-uiribbon-iuiribbon
  * @namespace Windows.Win32.UI.Ribbon
- * @version v4.0.30319
  */
-class IUIRibbon extends IUnknown{
+class IUIRibbon extends IUnknown {
 
     static sizeof => A_PtrSize
     /**
@@ -39,7 +38,9 @@ class IUIRibbon extends IUnknown{
      * The value returned for <i>cy</i> is based on a number of dependencies that
      * 			include, but are not limited to, the width of the host window and the layout template declared 
      * 			in the Ribbon markup.
-     * @returns {Integer} 
+     * @returns {Integer} Type: <b>UINT32*</b>
+     * 
+     * The height of the ribbon, in pixels.
      * @see https://learn.microsoft.com/windows/win32/api/uiribbon/nf-uiribbon-iuiribbon-getheight
      */
     GetHeight() {

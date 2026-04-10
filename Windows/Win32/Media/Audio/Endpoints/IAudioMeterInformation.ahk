@@ -7,9 +7,8 @@
  * The IAudioMeterInformation interface represents a peak meter on an audio stream to or from an audio endpoint device.
  * @see https://learn.microsoft.com/windows/win32/api/endpointvolume/nn-endpointvolume-iaudiometerinformation
  * @namespace Windows.Win32.Media.Audio.Endpoints
- * @version v4.0.30319
  */
-class IAudioMeterInformation extends IUnknown{
+class IAudioMeterInformation extends IUnknown {
 
     static sizeof => A_PtrSize
     /**

@@ -4,18 +4,16 @@
 
 /**
  * @namespace Windows.Win32.Devices.Cdrom
- * @version v4.0.30319
  */
-class CDROM_TOC_CD_TEXT_DATA extends Win32Struct
-{
-    static sizeof => 16
+class CDROM_TOC_CD_TEXT_DATA extends Win32Struct {
+    static sizeof => 22
 
-    static packingSize => 8
+    static packingSize => 2
 
     /**
-     * @type {Array<Byte>}
+     * @type {Array<Integer>}
      */
-    Length{
+    Length {
         get {
             if(!this.HasProp("__LengthProxyArray"))
                 this.__LengthProxyArray := Win32FixedArray(this.ptr + 0, 2, Primitive, "char")
@@ -40,12 +38,12 @@ class CDROM_TOC_CD_TEXT_DATA extends Win32Struct
     }
 
     /**
-     * @type {Array<CDROM_TOC_CD_TEXT_DATA_BLOCK>}
+     * @type {CDROM_TOC_CD_TEXT_DATA_BLOCK}
      */
-    Descriptors{
+    Descriptors {
         get {
             if(!this.HasProp("__DescriptorsProxyArray"))
-                this.__DescriptorsProxyArray := Win32FixedArray(this.ptr + 8, 1, CDROM_TOC_CD_TEXT_DATA_BLOCK, "")
+                this.__DescriptorsProxyArray := Win32FixedArray(this.ptr + 4, 1, CDROM_TOC_CD_TEXT_DATA_BLOCK, "")
             return this.__DescriptorsProxyArray
         }
     }

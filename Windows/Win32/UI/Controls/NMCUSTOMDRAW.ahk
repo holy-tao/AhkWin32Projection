@@ -1,9 +1,11 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
-#Include ..\..\Foundation\HWND.ahk
 #Include .\NMHDR.ahk
+#Include ..\..\Foundation\HWND.ahk
+#Include .\NMCUSTOMDRAW_DRAW_STAGE.ahk
 #Include ..\..\Graphics\Gdi\HDC.ahk
 #Include ..\..\Foundation\RECT.ahk
+#Include .\NMCUSTOMDRAW_DRAW_STATE_FLAGS.ahk
 
 /**
  * Contains information specific to an NM_CUSTOMDRAW notification code.
@@ -11,10 +13,8 @@
  * The value your application returns depends on the current drawing stage. The <b>dwDrawStage</b> member of the associated <b>NMCUSTOMDRAW</b> structure holds a value that specifies the drawing stage. When the <b>dwDrawStage</b> member equals CDDS_PREPAINT and CDDS_PREERASE, some controls send the CDDS_PREERASE message first and expect the return value to indicate which subsequent messages will be sent. For a code sample that illustrates states and drawing stages, see <a href="https://docs.microsoft.com/windows/desktop/Controls/custom-draw">Customizing a Control's Appearance Using Custom Draw</a>.
  * @see https://learn.microsoft.com/windows/win32/api/commctrl/ns-commctrl-nmcustomdraw
  * @namespace Windows.Win32.UI.Controls
- * @version v4.0.30319
  */
-class NMCUSTOMDRAW extends Win32Struct
-{
+class NMCUSTOMDRAW extends Win32Struct {
     static sizeof => 80
 
     static packingSize => 8
@@ -25,7 +25,7 @@ class NMCUSTOMDRAW extends Win32Struct
      * An <a href="https://docs.microsoft.com/windows/desktop/api/richedit/ns-richedit-nmhdr">NMHDR</a> structure that contains information about this notification code.
      * @type {NMHDR}
      */
-    hdr{
+    hdr {
         get {
             if(!this.HasProp("__hdr"))
                 this.__hdr := NMHDR(0, this)
@@ -35,7 +35,7 @@ class NMCUSTOMDRAW extends Win32Struct
 
     /**
      * Type: <b><a href="https://docs.microsoft.com/windows/desktop/WinProg/windows-data-types">DWORD</a></b>
-     * @type {Integer}
+     * @type {NMCUSTOMDRAW_DRAW_STAGE}
      */
     dwDrawStage {
         get => NumGet(this, 24, "uint")
@@ -48,7 +48,7 @@ class NMCUSTOMDRAW extends Win32Struct
      * A handle to the control's device context. Use this HDC to perform any GDI functions.
      * @type {HDC}
      */
-    hdc{
+    hdc {
         get {
             if(!this.HasProp("__hdc"))
                 this.__hdc := HDC(32, this)
@@ -62,7 +62,7 @@ class NMCUSTOMDRAW extends Win32Struct
      * The <a href="https://docs.microsoft.com/windows/desktop/api/windef/ns-windef-rect">RECT</a> structure that describes the bounding rectangle of the area being drawn. This member is initialized only by the CDDS_ITEMPREPAINT notification. <a href="https://docs.microsoft.com/windows/desktop/Controls/common-control-versions">Version 5.80.</a> This member is also initialized by the CDDS_PREPAINT notification.
      * @type {RECT}
      */
-    rc{
+    rc {
         get {
             if(!this.HasProp("__rc"))
                 this.__rc := RECT(40, this)
@@ -230,7 +230,7 @@ class NMCUSTOMDRAW extends Win32Struct
      * </td>
      * </tr>
      * </table>
-     * @type {Integer}
+     * @type {NMCUSTOMDRAW_DRAW_STATE_FLAGS}
      */
     uItemState {
         get => NumGet(this, 64, "uint")

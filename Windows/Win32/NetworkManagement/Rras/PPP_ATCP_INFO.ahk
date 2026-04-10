@@ -5,10 +5,8 @@
  * The PPP_ATCP_INFO structure contains the result of a PPP AppleTalk projection operation.
  * @see https://learn.microsoft.com/windows/win32/api/mprapi/ns-mprapi-ppp_atcp_info
  * @namespace Windows.Win32.NetworkManagement.Rras
- * @version v4.0.30319
  */
-class PPP_ATCP_INFO extends Win32Struct
-{
+class PPP_ATCP_INFO extends Win32Struct {
     static sizeof => 72
 
     static packingSize => 4

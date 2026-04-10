@@ -2,14 +2,14 @@
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
 #Include .\IUnknown.ahk
+#Include ..\..\..\..\Guid.ahk
 
 /**
  * Enables a container to control the running of its embedded objects.
  * @see https://learn.microsoft.com/windows/win32/api/objidl/nn-objidl-irunnableobject
  * @namespace Windows.Win32.System.Com
- * @version v4.0.30319
  */
-class IRunnableObject extends IUnknown{
+class IRunnableObject extends IUnknown {
 
     static sizeof => A_PtrSize
     /**

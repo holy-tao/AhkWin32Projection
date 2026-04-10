@@ -11,9 +11,8 @@
  * <div> </div>
  * @see https://learn.microsoft.com/windows/win32/api/vdshwprv/ne-vdshwprv-vds_async_output_type
  * @namespace Windows.Win32.Storage.VirtualDiskService
- * @version v4.0.30319
  */
-class VDS_ASYNC_OUTPUT_TYPE extends Win32Enum{
+class VDS_ASYNC_OUTPUT_TYPE extends Win32Enum {
 
     /**
      * The value is reserved.

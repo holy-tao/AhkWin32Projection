@@ -1,8 +1,8 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
-#Include ..\..\Foundation\FILETIME.ahk
 #Include .\IExtractImage.ahk
+#Include ..\..\Foundation\FILETIME.ahk
 
 /**
  * Extends the capabilities of IExtractImage.
@@ -15,9 +15,8 @@
  * 				<b>IUnknown</b>. The listed method is specific to <b>IExtractImage2</b>.
  * @see https://learn.microsoft.com/windows/win32/api/shobjidl_core/nn-shobjidl_core-iextractimage2
  * @namespace Windows.Win32.UI.Shell
- * @version v4.0.30319
  */
-class IExtractImage2 extends IExtractImage{
+class IExtractImage2 extends IExtractImage {
 
     static sizeof => A_PtrSize
     /**

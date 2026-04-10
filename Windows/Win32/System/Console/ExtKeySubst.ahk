@@ -3,10 +3,8 @@
 
 /**
  * @namespace Windows.Win32.System.Console
- * @version v4.0.30319
  */
-class ExtKeySubst extends Win32Struct
-{
+class ExtKeySubst extends Win32Struct {
     static sizeof => 6
 
     static packingSize => 2

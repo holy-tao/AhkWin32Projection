@@ -3,10 +3,8 @@
 
 /**
  * @namespace Windows.Wdk.System.SystemServices
- * @version v4.0.30319
  */
-class WHEA_XPF_PROCINFO extends Win32Struct
-{
+class WHEA_XPF_PROCINFO extends Win32Struct {
     static sizeof => 56
 
     static packingSize => 8
@@ -16,37 +14,37 @@ class WHEA_XPF_PROCINFO extends Win32Struct
         static packingSize => 1
 
         /**
-         * @type {Pointer<WHEA_XPF_CACHE_CHECK>}
+         * @type {Pointer}
          */
         CacheCheck {
             get => NumGet(this, 0, "ptr")
             set => NumPut("ptr", value, this, 0)
         }
-    
+
         /**
-         * @type {Pointer<WHEA_XPF_TLB_CHECK>}
+         * @type {Pointer}
          */
         TlbCheck {
             get => NumGet(this, 0, "ptr")
             set => NumPut("ptr", value, this, 0)
         }
-    
+
         /**
-         * @type {Pointer<WHEA_XPF_BUS_CHECK>}
+         * @type {Pointer}
          */
         BusCheck {
             get => NumGet(this, 0, "ptr")
             set => NumPut("ptr", value, this, 0)
         }
-    
+
         /**
-         * @type {Pointer<WHEA_XPF_MS_CHECK>}
+         * @type {Pointer}
          */
         MsCheck {
             get => NumGet(this, 0, "ptr")
             set => NumPut("ptr", value, this, 0)
         }
-    
+
         /**
          * @type {Integer}
          */
@@ -54,11 +52,10 @@ class WHEA_XPF_PROCINFO extends Win32Struct
             get => NumGet(this, 0, "uint")
             set => NumPut("uint", value, this, 0)
         }
-    
     }
 
     /**
-     * @type {Pointer<Guid>}
+     * @type {Pointer}
      */
     CheckInfoId {
         get => NumGet(this, 0, "ptr")
@@ -66,7 +63,7 @@ class WHEA_XPF_PROCINFO extends Win32Struct
     }
 
     /**
-     * @type {Pointer<WHEA_XPF_PROCINFO_VALIDBITS>}
+     * @type {Pointer}
      */
     ValidBits {
         get => NumGet(this, 8, "ptr")
@@ -76,10 +73,10 @@ class WHEA_XPF_PROCINFO extends Win32Struct
     /**
      * @type {_CheckInfo_e__Union}
      */
-    CheckInfo{
+    CheckInfo {
         get {
             if(!this.HasProp("__CheckInfo"))
-                this.__CheckInfo := %this.__Class%._CheckInfo_e__Union(16, this)
+                this.__CheckInfo := WHEA_XPF_PROCINFO._CheckInfo_e__Union(16, this)
             return this.__CheckInfo
         }
     }

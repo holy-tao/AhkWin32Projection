@@ -7,9 +7,8 @@
  * Retrieve reply data from an upload-reply job, determine the progress of the reply data transfer to the client, request command line execution, and provide credentials for proxy and remote server authentication requests.
  * @see https://learn.microsoft.com/windows/win32/api/bits1_5/nn-bits1_5-ibackgroundcopyjob2
  * @namespace Windows.Win32.Networking.BackgroundIntelligentTransferService
- * @version v4.0.30319
  */
-class IBackgroundCopyJob2 extends IBackgroundCopyJob{
+class IBackgroundCopyJob2 extends IBackgroundCopyJob {
 
     static sizeof => A_PtrSize
     /**
@@ -433,8 +432,8 @@ class IBackgroundCopyJob2 extends IBackgroundCopyJob{
 
     /**
      * Removes credentials from use. The credentials must match an existing target and scheme pair that you specified using the IBackgroundCopyJob2::SetCredentials method. There is no method to retrieve the credentials you have set.
-     * @param {Integer} Target Identifies whether to use the credentials for proxy or server authentication.
-     * @param {Integer} Scheme Identifies the authentication scheme to use (basic or one of several challenge-response schemes). For details, see the 
+     * @param {BG_AUTH_TARGET} Target Identifies whether to use the credentials for proxy or server authentication.
+     * @param {BG_AUTH_SCHEME} Scheme Identifies the authentication scheme to use (basic or one of several challenge-response schemes). For details, see the 
      * <a href="https://docs.microsoft.com/windows/desktop/api/bits1_5/ne-bits1_5-bg_auth_scheme">BG_AUTH_SCHEME</a> enumeration.
      * @returns {HRESULT} This method returns the following return values, as well as others.
      * 

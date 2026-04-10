@@ -4,11 +4,9 @@
 
 /**
  * @namespace Windows.Win32.NetworkManagement.Dns
- * @version v4.0.30319
  */
-class DNS_SVCB_PARAM_IPV6 extends Win32Struct
-{
-    static sizeof => 16
+class DNS_SVCB_PARAM_IPV6 extends Win32Struct {
+    static sizeof => 72
 
     static packingSize => 8
 
@@ -21,9 +19,9 @@ class DNS_SVCB_PARAM_IPV6 extends Win32Struct
     }
 
     /**
-     * @type {Array<IP6_ADDRESS>}
+     * @type {IP6_ADDRESS}
      */
-    rgIps{
+    rgIps {
         get {
             if(!this.HasProp("__rgIpsProxyArray"))
                 this.__rgIpsProxyArray := Win32FixedArray(this.ptr + 8, 1, IP6_ADDRESS, "")

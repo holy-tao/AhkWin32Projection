@@ -10,9 +10,8 @@
  * An application must implement this interface together with the DelegateExecute handler (<a href="https://docs.microsoft.com/windows/desktop/api/shobjidl_core/nn-shobjidl_core-iexecutecommand">IExecuteCommand</a>).
  * @see https://learn.microsoft.com/windows/win32/api/shobjidl_core/nn-shobjidl_core-iexecutecommandapplicationhostenvironment
  * @namespace Windows.Win32.UI.Shell
- * @version v4.0.30319
  */
-class IExecuteCommandApplicationHostEnvironment extends IUnknown{
+class IExecuteCommandApplicationHostEnvironment extends IUnknown {
 
     static sizeof => A_PtrSize
     /**
@@ -35,7 +34,7 @@ class IExecuteCommandApplicationHostEnvironment extends IUnknown{
 
     /**
      * Determines whether the current application host environment is in the desktop or immersive mode.
-     * @returns {Integer} 
+     * @returns {AHE_TYPE} 
      * @see https://learn.microsoft.com/windows/win32/api/shobjidl_core/nf-shobjidl_core-iexecutecommandapplicationhostenvironment-getvalue
      */
     GetValue() {

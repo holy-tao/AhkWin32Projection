@@ -7,9 +7,8 @@
  * The IVMRSurfaceAllocatorNotify interface is implemented by the Video Mixing Renderer Filter 7 (VMR-7).
  * @see https://learn.microsoft.com/windows/win32/api/strmif/nn-strmif-ivmrsurfaceallocatornotify
  * @namespace Windows.Win32.Media.DirectShow
- * @version v4.0.30319
  */
-class IVMRSurfaceAllocatorNotify extends IUnknown{
+class IVMRSurfaceAllocatorNotify extends IUnknown {
 
     static sizeof => A_PtrSize
     /**
@@ -51,7 +50,7 @@ class IVMRSurfaceAllocatorNotify extends IUnknown{
      * @remarks
      * The VMR needs to know which DirectDraw device is being used at any given time in order to associate the Direct3D surfaces being created in the mixer component with that device.
      * @param {IDirectDraw7} lpDDrawDevice Specifies the DirectDraw device.
-     * @param {HMONITOR} _hMonitor 
+     * @param {HMONITOR} _hMonitor Handle to the monitor associated with the DirectDraw device.
      * @returns {HRESULT} If the method succeeds, it returns S_OK. If it fails, it returns an error code.
      * @see https://learn.microsoft.com/windows/win32/api/strmif/nf-strmif-ivmrsurfaceallocatornotify-setddrawdevice
      */
@@ -67,7 +66,7 @@ class IVMRSurfaceAllocatorNotify extends IUnknown{
      * @remarks
      * The VMR needs to know which DirectDraw device is being used at any given time in order to associate the Direct3D surfaces being created in the mixer component with that device.
      * @param {IDirectDraw7} lpDDrawDevice Specifies the DirectDraw device.
-     * @param {HMONITOR} _hMonitor 
+     * @param {HMONITOR} _hMonitor Specifies the handle to the monitor associated with the DirectDraw device.
      * @returns {HRESULT} If the method succeeds, it returns S_OK. If it fails, it returns an error code.
      * @see https://learn.microsoft.com/windows/win32/api/strmif/nf-strmif-ivmrsurfaceallocatornotify-changeddrawdevice
      */

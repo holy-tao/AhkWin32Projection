@@ -6,10 +6,8 @@
  * Provides the text of a prompt and information about when and where that prompt is to be displayed when using the CryptProtectData and CryptUnprotectData functions.
  * @see https://learn.microsoft.com/windows/win32/api/dpapi/ns-dpapi-cryptprotect_promptstruct
  * @namespace Windows.Win32.Security.Cryptography
- * @version v4.0.30319
  */
-class CRYPTPROTECT_PROMPTSTRUCT extends Win32Struct
-{
+class CRYPTPROTECT_PROMPTSTRUCT extends Win32Struct {
     static sizeof => 24
 
     static packingSize => 8
@@ -63,7 +61,7 @@ class CRYPTPROTECT_PROMPTSTRUCT extends Win32Struct
      * Window handle to the parent window.
      * @type {HWND}
      */
-    hwndApp{
+    hwndApp {
         get {
             if(!this.HasProp("__hwndApp"))
                 this.__hwndApp := HWND(8, this)

@@ -3,10 +3,8 @@
 
 /**
  * @namespace Windows.Win32.System.SystemServices
- * @version v4.0.30319
  */
-class userBITMAP extends Win32Struct
-{
+class userBITMAP extends Win32Struct {
     static sizeof => 28
 
     static packingSize => 4
@@ -68,9 +66,9 @@ class userBITMAP extends Win32Struct
     }
 
     /**
-     * @type {Array<Byte>}
+     * @type {Array<Integer>}
      */
-    pBuffer{
+    pBuffer {
         get {
             if(!this.HasProp("__pBufferProxyArray"))
                 this.__pBufferProxyArray := Win32FixedArray(this.ptr + 24, 1, Primitive, "char")

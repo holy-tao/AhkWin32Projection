@@ -1,7 +1,7 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
-#Include ..\..\Security\ExtensibleAuthenticationProtocol\EAP_TYPE.ahk
 #Include ..\..\Security\ExtensibleAuthenticationProtocol\EAP_METHOD_TYPE.ahk
+#Include ..\..\Security\ExtensibleAuthenticationProtocol\EAP_TYPE.ahk
 #Include .\ONEX_VARIABLE_BLOB.ahk
 
 /**
@@ -16,10 +16,8 @@
  * If the <b>fEapError</b> member in the <a href="https://docs.microsoft.com/windows/desktop/api/dot1x/ns-dot1x-onex_result_update_data">ONEX_RESULT_UPDATE_DATA</a> structure is set, then the  <b>eapError</b> member of the <b>ONEX_RESULT_UPDATE_DATA</b> structure contains an <a href="https://docs.microsoft.com/windows/desktop/api/dot1x/ns-dot1x-onex_variable_blob">ONEX_VARIABLE_BLOB</a> structure with an <b>ONEX_EAP_ERROR</b> structure embedded starting at the <b>dwOffset</b> member of the  <b>ONEX_VARIABLE_BLOB</b>.
  * @see https://learn.microsoft.com/windows/win32/api/dot1x/ns-dot1x-onex_eap_error
  * @namespace Windows.Win32.NetworkManagement.WiFi
- * @version v4.0.30319
  */
-class ONEX_EAP_ERROR extends Win32Struct
-{
+class ONEX_EAP_ERROR extends Win32Struct {
     static sizeof => 72
 
     static packingSize => 8
@@ -442,7 +440,7 @@ class ONEX_EAP_ERROR extends Win32Struct
      * The EAP method type that raised the error during 802.1X authentication. The <a href="https://docs.microsoft.com/windows/desktop/api/eaptypes/ns-eaptypes-eap_method_type">EAP_METHOD_TYPE</a> structure is defined in the <i>Eaptypes.h</i> header file.
      * @type {EAP_METHOD_TYPE}
      */
-    type{
+    type {
         get {
             if(!this.HasProp("__type"))
                 this.__type := EAP_METHOD_TYPE(4, this)
@@ -866,7 +864,7 @@ class ONEX_EAP_ERROR extends Win32Struct
      * </td>
      * </tr>
      * </table>
-     * @type {Pointer<Guid>}
+     * @type {Pointer}
      */
     rootCauseGuid {
         get => NumGet(this, 24, "ptr")
@@ -1131,7 +1129,7 @@ class ONEX_EAP_ERROR extends Win32Struct
      * </td>
      * </tr>
      * </table>
-     * @type {Pointer<Guid>}
+     * @type {Pointer}
      */
     repairGuid {
         get => NumGet(this, 32, "ptr")
@@ -1230,7 +1228,7 @@ class ONEX_EAP_ERROR extends Win32Struct
      * </td>
      * </tr>
      * </table>
-     * @type {Pointer<Guid>}
+     * @type {Pointer}
      */
     helpLinkGuid {
         get => NumGet(this, 40, "ptr")
@@ -1249,7 +1247,6 @@ class ONEX_EAP_ERROR extends Win32Struct
     }
 
     /**
-     * Indicates if the <b>ONEX_EAP_ERROR</b> structure contains a root cause string in the <b>RootCauseString</b> member.
      * @type {Integer}
      */
     fRootCauseString {
@@ -1258,7 +1255,6 @@ class ONEX_EAP_ERROR extends Win32Struct
     }
 
     /**
-     * Indicates if the <b>ONEX_EAP_ERROR</b> structure contains a repair string in the <b>RepairString</b> member.
      * @type {Integer}
      */
     fRepairString {
@@ -1270,7 +1266,7 @@ class ONEX_EAP_ERROR extends Win32Struct
      * A localized and readable string that describes the root cause of the error. This member contains a NULL-terminated Unicode string starting at the <b>dwOffset</b> member of the <a href="https://docs.microsoft.com/windows/desktop/api/dot1x/ns-dot1x-onex_variable_blob">ONEX_VARIABLE_BLOB</a> if the <b>fRootCauseString</b> bitfield member is set.
      * @type {ONEX_VARIABLE_BLOB}
      */
-    RootCauseString{
+    RootCauseString {
         get {
             if(!this.HasProp("__RootCauseString"))
                 this.__RootCauseString := ONEX_VARIABLE_BLOB(52, this)
@@ -1283,7 +1279,7 @@ class ONEX_EAP_ERROR extends Win32Struct
      * This member contains a NULL-terminated Unicode string starting at the <b>dwOffset</b> member of the <a href="https://docs.microsoft.com/windows/desktop/api/dot1x/ns-dot1x-onex_variable_blob">ONEX_VARIABLE_BLOB</a> if the <b>fRepairString</b> bitfield member is set.
      * @type {ONEX_VARIABLE_BLOB}
      */
-    RepairString{
+    RepairString {
         get {
             if(!this.HasProp("__RepairString"))
                 this.__RepairString := ONEX_VARIABLE_BLOB(60, this)

@@ -3,10 +3,8 @@
 
 /**
  * @namespace Windows.Win32.System.Ioctl
- * @version v4.0.30319
  */
-class SD_ENUM_SDS_ENTRY extends Win32Struct
-{
+class SD_ENUM_SDS_ENTRY extends Win32Struct {
     static sizeof => 24
 
     static packingSize => 8
@@ -44,9 +42,9 @@ class SD_ENUM_SDS_ENTRY extends Win32Struct
     }
 
     /**
-     * @type {Array<Byte>}
+     * @type {Array<Integer>}
      */
-    Descriptor{
+    Descriptor {
         get {
             if(!this.HasProp("__DescriptorProxyArray"))
                 this.__DescriptorProxyArray := Win32FixedArray(this.ptr + 20, 1, Primitive, "char")

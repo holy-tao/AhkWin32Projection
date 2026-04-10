@@ -13,10 +13,8 @@
  * The <b>TBADDBITMAP</b> structure is used with the <a href="https://docs.microsoft.com/windows/desktop/Controls/tb-addbitmap">TB_ADDBITMAP</a> message.
  * @see https://learn.microsoft.com/windows/win32/api/commctrl/ns-commctrl-tbaddbitmap
  * @namespace Windows.Win32.UI.Controls
- * @version v4.0.30319
  */
-class TBADDBITMAP extends Win32Struct
-{
+class TBADDBITMAP extends Win32Struct {
     static sizeof => 16
 
     static packingSize => 8
@@ -27,7 +25,7 @@ class TBADDBITMAP extends Win32Struct
      * Handle to the module instance with the executable file that contains a bitmap resource. To use bitmap handles instead of resource IDs, set this member to <b>NULL</b>.
      * @type {HINSTANCE}
      */
-    hInst{
+    hInst {
         get {
             if(!this.HasProp("__hInst"))
                 this.__hInst := HINSTANCE(0, this)

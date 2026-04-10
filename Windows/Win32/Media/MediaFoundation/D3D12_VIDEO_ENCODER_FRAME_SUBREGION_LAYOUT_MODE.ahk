@@ -3,13 +3,10 @@
 
 /**
  * Specifies video encoder frame subregion layout modes.
- * @remarks
- * 
  * @see https://learn.microsoft.com/windows/win32/api/d3d12video/ne-d3d12video-d3d12_video_encoder_frame_subregion_layout_mode
  * @namespace Windows.Win32.Media.MediaFoundation
- * @version v4.0.30319
  */
-class D3D12_VIDEO_ENCODER_FRAME_SUBREGION_LAYOUT_MODE extends Win32Enum{
+class D3D12_VIDEO_ENCODER_FRAME_SUBREGION_LAYOUT_MODE extends Win32Enum {
 
     /**
      * Full frame output support.

@@ -7,9 +7,8 @@
  * Extends the IUIAutomationElement7 interface.
  * @see https://learn.microsoft.com/windows/win32/api/uiautomationclient/nn-uiautomationclient-iuiautomationelement8
  * @namespace Windows.Win32.UI.Accessibility
- * @version v4.0.30319
  */
-class IUIAutomationElement8 extends IUIAutomationElement7{
+class IUIAutomationElement8 extends IUIAutomationElement7 {
 
     static sizeof => A_PtrSize
     /**
@@ -31,14 +30,14 @@ class IUIAutomationElement8 extends IUIAutomationElement7{
     static VTableNames => ["get_CurrentHeadingLevel", "get_CachedHeadingLevel"]
 
     /**
-     * @type {Integer} 
+     * @type {UIA_HEADINGLEVEL_ID} 
      */
     CurrentHeadingLevel {
         get => this.get_CurrentHeadingLevel()
     }
 
     /**
-     * @type {Integer} 
+     * @type {UIA_HEADINGLEVEL_ID} 
      */
     CachedHeadingLevel {
         get => this.get_CachedHeadingLevel()
@@ -46,7 +45,7 @@ class IUIAutomationElement8 extends IUIAutomationElement7{
 
     /**
      * Gets the current heading level of the automation element.
-     * @returns {Integer} 
+     * @returns {UIA_HEADINGLEVEL_ID} 
      * @see https://learn.microsoft.com/windows/win32/api/uiautomationclient/nf-uiautomationclient-iuiautomationelement8-get_currentheadinglevel
      */
     get_CurrentHeadingLevel() {
@@ -56,7 +55,7 @@ class IUIAutomationElement8 extends IUIAutomationElement7{
 
     /**
      * Gets the cached heading level of the automation element.
-     * @returns {Integer} 
+     * @returns {UIA_HEADINGLEVEL_ID} 
      * @see https://learn.microsoft.com/windows/win32/api/uiautomationclient/nf-uiautomationclient-iuiautomationelement8-get_cachedheadinglevel
      */
     get_CachedHeadingLevel() {

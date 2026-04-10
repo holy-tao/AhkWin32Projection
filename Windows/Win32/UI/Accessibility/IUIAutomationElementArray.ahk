@@ -1,16 +1,15 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
-#Include .\IUIAutomationElement.ahk
 #Include ..\..\System\Com\IUnknown.ahk
+#Include .\IUIAutomationElement.ahk
 
 /**
  * Represents a collection of UI Automation elements.
  * @see https://learn.microsoft.com/windows/win32/api/uiautomationclient/nn-uiautomationclient-iuiautomationelementarray
  * @namespace Windows.Win32.UI.Accessibility
- * @version v4.0.30319
  */
-class IUIAutomationElementArray extends IUnknown{
+class IUIAutomationElementArray extends IUnknown {
 
     static sizeof => A_PtrSize
     /**

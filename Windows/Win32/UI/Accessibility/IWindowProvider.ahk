@@ -9,9 +9,8 @@
  * Implemented on a Microsoft UI Automation provider that must support the [Window Control Pattern](/windows/win32/winauto/uiauto-implementingwindow) control pattern.
  * @see https://learn.microsoft.com/windows/win32/api/uiautomationcore/nn-uiautomationcore-iwindowprovider
  * @namespace Windows.Win32.UI.Accessibility
- * @version v4.0.30319
  */
-class IWindowProvider extends IUnknown{
+class IWindowProvider extends IUnknown {
 
     static sizeof => A_PtrSize
     /**
@@ -54,14 +53,14 @@ class IWindowProvider extends IUnknown{
     }
 
     /**
-     * @type {Integer} 
+     * @type {WindowVisualState} 
      */
     WindowVisualState {
         get => this.get_WindowVisualState()
     }
 
     /**
-     * @type {Integer} 
+     * @type {WindowInteractionState} 
      */
     WindowInteractionState {
         get => this.get_WindowInteractionState()
@@ -76,7 +75,7 @@ class IWindowProvider extends IUnknown{
 
     /**
      * Changes the visual state of the window. For example, minimizes or maximizes it.
-     * @param {Integer} state Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/uiautomationcore/ne-uiautomationcore-windowvisualstate">WindowVisualState</a></b>
+     * @param {WindowVisualState} state Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/uiautomationcore/ne-uiautomationcore-windowvisualstate">WindowVisualState</a></b>
      * 
      * The state of the window.
      * @returns {HRESULT} Type: <b><a href="https://docs.microsoft.com/windows/desktop/WinProg/windows-data-types">HRESULT</a></b>
@@ -169,7 +168,7 @@ class IWindowProvider extends IUnknown{
 
     /**
      * Specifies the visual state of the window; that is, whether the window is normal (restored), minimized, or maximized.
-     * @returns {Integer} 
+     * @returns {WindowVisualState} 
      * @see https://learn.microsoft.com/windows/win32/api/uiautomationcore/nf-uiautomationcore-iwindowprovider-get_windowvisualstate
      */
     get_WindowVisualState() {
@@ -179,7 +178,7 @@ class IWindowProvider extends IUnknown{
 
     /**
      * Specifies the current state of the window for the purposes of user interaction.
-     * @returns {Integer} 
+     * @returns {WindowInteractionState} 
      * @see https://learn.microsoft.com/windows/win32/api/uiautomationcore/nf-uiautomationcore-iwindowprovider-get_windowinteractionstate
      */
     get_WindowInteractionState() {

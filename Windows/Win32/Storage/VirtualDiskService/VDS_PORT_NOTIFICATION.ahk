@@ -1,5 +1,6 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
+#Include .\VDS_NF_PORT.ahk
 
 /**
  * The VDS_PORT_NOTIFICATION structure (vdshwprv.h) defines the details of controller port events.
@@ -15,17 +16,14 @@
  * To get the port object, use the <a href="https://docs.microsoft.com/windows/desktop/api/vds/nf-vds-ivdsservice-getobject">IVdsService::GetObject</a> method. You can then use the <a href="https://docs.microsoft.com/windows/desktop/api/vdshwprv/nf-vdshwprv-ivdscontrollerport-getproperties">IVdsControllerPort::GetProperties</a> method to get the port properties.
  * @see https://learn.microsoft.com/windows/win32/api/vdshwprv/ns-vdshwprv-vds_port_notification
  * @namespace Windows.Win32.Storage.VirtualDiskService
- * @version v4.0.30319
  */
-class VDS_PORT_NOTIFICATION extends Win32Struct
-{
+class VDS_PORT_NOTIFICATION extends Win32Struct {
     static sizeof => 16
 
     static packingSize => 8
 
     /**
-     * 
-     * @type {Integer}
+     * @type {VDS_NF_PORT}
      */
     ulEvent {
         get => NumGet(this, 0, "uint")
@@ -34,7 +32,7 @@ class VDS_PORT_NOTIFICATION extends Win32Struct
 
     /**
      * The <b>VDS_OBJECT_ID</b> of the controller port that triggered the event.
-     * @type {Pointer<Guid>}
+     * @type {Pointer}
      */
     portId {
         get => NumGet(this, 8, "ptr")

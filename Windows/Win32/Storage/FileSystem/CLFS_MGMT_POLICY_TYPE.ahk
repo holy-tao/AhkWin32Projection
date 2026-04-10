@@ -5,9 +5,8 @@
  * The CLFS_MGMT_POLICY_TYPE enumeration lists the valid policy types.
  * @see https://learn.microsoft.com/windows/win32/api/clfsmgmt/ne-clfsmgmt-clfs_mgmt_policy_type
  * @namespace Windows.Win32.Storage.FileSystem
- * @version v4.0.30319
  */
-class CLFS_MGMT_POLICY_TYPE extends Win32Enum{
+class CLFS_MGMT_POLICY_TYPE extends Win32Enum {
 
     /**
      * Specifies the maximum size of the log.
@@ -70,7 +69,6 @@ class CLFS_MGMT_POLICY_TYPE extends Win32Enum{
     static ClfsMgmtPolicyNewContainerExtension => 9
 
     /**
-     * 
      * @type {Integer (Int32)}
      */
     static ClfsMgmtPolicyInvalid => 10

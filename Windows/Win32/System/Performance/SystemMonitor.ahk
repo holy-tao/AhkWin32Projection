@@ -5,10 +5,8 @@
  * This class contains the methods and properties used to configure the System Monitor control.
  * @see https://learn.microsoft.com/windows/win32/SysMon/systemmonitor
  * @namespace Windows.Win32.System.Performance
- * @version v4.0.30319
  */
-class SystemMonitor extends Win32Struct
-{
+class SystemMonitor extends Win32Struct {
     static sizeof => 0
 
     static packingSize => 1

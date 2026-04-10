@@ -10,10 +10,8 @@
  *                 accommodate other unique-id URI's as a string.
  * @see https://learn.microsoft.com/windows/win32/api/webservices/ns-webservices-ws_unique_id
  * @namespace Windows.Win32.Networking.WindowsWebServices
- * @version v4.0.30319
  */
-class WS_UNIQUE_ID extends Win32Struct
-{
+class WS_UNIQUE_ID extends Win32Struct {
     static sizeof => 24
 
     static packingSize => 8
@@ -25,7 +23,7 @@ class WS_UNIQUE_ID extends Win32Struct
      *                     and the string value is stored in the uri field.
      * @type {WS_STRING}
      */
-    uri{
+    uri {
         get {
             if(!this.HasProp("__uri"))
                 this.__uri := WS_STRING(0, this)
@@ -37,7 +35,7 @@ class WS_UNIQUE_ID extends Win32Struct
      * If the uri.length field is 0, then this field contains
      *                     the GUID representation of the unique ID.  Otherwise
      *                     the value of the field is not defined.
-     * @type {Pointer<Guid>}
+     * @type {Pointer}
      */
     guid {
         get => NumGet(this, 16, "ptr")

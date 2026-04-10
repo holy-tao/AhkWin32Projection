@@ -5,10 +5,8 @@
  * Represents information about a Chkdsk operation.
  * @see https://learn.microsoft.com/windows/win32/api/clusapi/ns-clusapi-clus_chkdsk_info
  * @namespace Windows.Win32.Networking.Clustering
- * @version v4.0.30319
  */
-class CLUS_CHKDSK_INFO extends Win32Struct
-{
+class CLUS_CHKDSK_INFO extends Win32Struct {
     static sizeof => 24
 
     static packingSize => 8
@@ -42,9 +40,9 @@ class CLUS_CHKDSK_INFO extends Win32Struct
 
     /**
      * A list of file IDs that were identified by the Chkdsk operation.
-     * @type {Array<UInt64>}
+     * @type {Array<Integer>}
      */
-    FileIdList{
+    FileIdList {
         get {
             if(!this.HasProp("__FileIdListProxyArray"))
                 this.__FileIdListProxyArray := Win32FixedArray(this.ptr + 16, 1, Primitive, "uint")

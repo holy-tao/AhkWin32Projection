@@ -5,9 +5,8 @@
 
 /**
  * @namespace Windows.Win32.Web.InternetExplorer
- * @version v4.0.30319
  */
-class IScrollableContextMenu2 extends IScrollableContextMenu{
+class IScrollableContextMenu2 extends IScrollableContextMenu {
 
     static sizeof => A_PtrSize
     /**
@@ -39,7 +38,7 @@ class IScrollableContextMenu2 extends IScrollableContextMenu{
 
     /**
      * 
-     * @param {Integer} scmp 
+     * @param {SCROLLABLECONTEXTMENU_PLACEMENT} scmp 
      * @returns {HRESULT} 
      */
     SetPlacement(scmp) {

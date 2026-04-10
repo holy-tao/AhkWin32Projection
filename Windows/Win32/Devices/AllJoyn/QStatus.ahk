@@ -3,9 +3,8 @@
 
 /**
  * @namespace Windows.Win32.Devices.AllJoyn
- * @version v4.0.30319
  */
-class QStatus extends Win32Enum{
+class QStatus extends Win32Enum {
 
     /**
      * @type {Integer (Int32)}

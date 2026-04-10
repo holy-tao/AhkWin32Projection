@@ -5,9 +5,8 @@
  * Specifies how an InkEdit control appears on the screen.
  * @see https://learn.microsoft.com/windows/win32/api/inked/ne-inked-appearanceconstants
  * @namespace Windows.Win32.UI.TabletPC
- * @version v4.0.30319
  */
-class AppearanceConstants extends Win32Enum{
+class AppearanceConstants extends Win32Enum {
 
     /**
      * Flat. Paints without visual effects.

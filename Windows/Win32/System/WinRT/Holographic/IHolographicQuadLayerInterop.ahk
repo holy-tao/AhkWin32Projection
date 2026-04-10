@@ -1,8 +1,8 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\..\Guid.ahk
-#Include ..\..\..\Graphics\Direct3D12\ID3D12Resource.ahk
 #Include ..\IInspectable.ahk
+#Include ..\..\..\Graphics\Direct3D12\ID3D12Resource.ahk
 
 /**
  * A nano-COM interface that allows COM interop with the [HolographicQuadLayer](/uwp/api/windows.graphics.holographic.holographicquadlayer) Windows Runtime class for apps that use Direct3D 12 for holographic rendering.
@@ -60,9 +60,8 @@
  * ```
  * @see https://learn.microsoft.com/windows/win32/api/windows.graphics.holographic.interop/nn-windows-graphics-holographic-interop-iholographicquadlayerinterop
  * @namespace Windows.Win32.System.WinRT.Holographic
- * @version v4.0.30319
  */
-class IHolographicQuadLayerInterop extends IInspectable{
+class IHolographicQuadLayerInterop extends IInspectable {
 
     static sizeof => A_PtrSize
     /**

@@ -1,15 +1,14 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
+#Include .\DIACTIONA.ahk
 #Include ..\..\Foundation\HINSTANCE.ahk
 #Include ..\..\Foundation\FILETIME.ahk
 
 /**
  * @namespace Windows.Win32.Devices.HumanInterfaceDevice
- * @version v4.0.30319
  * @charset ANSI
  */
-class DIACTIONFORMATA extends Win32Struct
-{
+class DIACTIONFORMATA extends Win32Struct {
     static sizeof => 328
 
     static packingSize => 8
@@ -55,7 +54,7 @@ class DIACTIONFORMATA extends Win32Struct
     }
 
     /**
-     * @type {Pointer<Guid>}
+     * @type {Pointer}
      */
     guidActionMap {
         get => NumGet(this, 24, "ptr")
@@ -97,7 +96,7 @@ class DIACTIONFORMATA extends Win32Struct
     /**
      * @type {HINSTANCE}
      */
-    hInstString{
+    hInstString {
         get {
             if(!this.HasProp("__hInstString"))
                 this.__hInstString := HINSTANCE(48, this)
@@ -108,7 +107,7 @@ class DIACTIONFORMATA extends Win32Struct
     /**
      * @type {FILETIME}
      */
-    ftTimeStamp{
+    ftTimeStamp {
         get {
             if(!this.HasProp("__ftTimeStamp"))
                 this.__ftTimeStamp := FILETIME(56, this)

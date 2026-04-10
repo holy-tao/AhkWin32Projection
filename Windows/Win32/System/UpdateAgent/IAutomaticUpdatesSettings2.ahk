@@ -9,9 +9,8 @@
  * The <b>IAutomaticUpdatesSettings2</b> interface  may require you to update the Windows Update Agent (WUA). For more information, see <a href="https://docs.microsoft.com/windows/desktop/Wua_Sdk/updating-the-windows-update-agent">Updating Windows Update Agent</a>.
  * @see https://learn.microsoft.com/windows/win32/api/wuapi/nn-wuapi-iautomaticupdatessettings2
  * @namespace Windows.Win32.System.UpdateAgent
- * @version v4.0.30319
  */
-class IAutomaticUpdatesSettings2 extends IAutomaticUpdatesSettings{
+class IAutomaticUpdatesSettings2 extends IAutomaticUpdatesSettings {
 
     static sizeof => A_PtrSize
     /**
@@ -75,8 +74,8 @@ class IAutomaticUpdatesSettings2 extends IAutomaticUpdatesSettings{
      * Determines whether a specific user or type of user has permission to perform a selected action.
      * @remarks
      * This method can be used to determine whether User Access Control (UAC) must be used to perform an action in the agent, which may obviate the need for prompting if the user type does not have permission to perform the action.  For example, unless the agent has elevated permission, the <a href="https://docs.microsoft.com/windows/desktop/api/wuapi/nf-wuapi-iautomaticupdatessettings-get_readonly">ReadOnly</a> property of the <a href="https://docs.microsoft.com/windows/desktop/api/wuapi/nn-wuapi-iautomaticupdatessettings">IAutomaticUpdatesSettings</a> interface will always be <b>VARIANT_TRUE</b>.  However, even after a user has been elevated, the <a href="https://docs.microsoft.com/windows/desktop/api/wuapi/ne-wuapi-automaticupdatesnotificationlevel">NotificationLevel</a> (for example) may still be read-only due to Group Policy settings.  The <b>CheckPermission</b> method can determine this before elevation is done to prevent prompting in cases where the setting cannot be changed.
-     * @param {Integer} userType An enumeration that indicates the type of user to verify permissions.
-     * @param {Integer} permissionType An enumeration that indicates the user's permission level.
+     * @param {AutomaticUpdatesUserType} userType An enumeration that indicates the type of user to verify permissions.
+     * @param {AutomaticUpdatesPermissionType} permissionType An enumeration that indicates the user's permission level.
      * @returns {VARIANT_BOOL} True if the user has the specified permission type; otherwise, false.
      * @see https://learn.microsoft.com/windows/win32/api/wuapi/nf-wuapi-iautomaticupdatessettings2-checkpermission
      */

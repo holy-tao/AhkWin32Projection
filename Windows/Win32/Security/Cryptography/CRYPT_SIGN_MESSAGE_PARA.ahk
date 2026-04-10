@@ -1,7 +1,10 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
-#Include .\CRYPT_INTEGER_BLOB.ahk
+#Include .\CERT_CONTEXT.ahk
 #Include .\CRYPT_ALGORITHM_IDENTIFIER.ahk
+#Include .\CRYPT_INTEGER_BLOB.ahk
+#Include .\CRL_CONTEXT.ahk
+#Include .\CRYPT_ATTRIBUTE.ahk
 
 /**
  * The CRYPT_SIGN_MESSAGE_PARA structure contains information for signing messages using a specified signing certificate context.
@@ -9,10 +12,8 @@
  * The <b>HashEncryptionAlgorithm</b> and <b>pvHashEncryptionAuxInfo</b> members can only be used if CRYPT_SIGN_MESSAGE_PARA_HAS_CMS_FIELDS is defined.
  * @see https://learn.microsoft.com/windows/win32/api/wincrypt/ns-wincrypt-crypt_sign_message_para
  * @namespace Windows.Win32.Security.Cryptography
- * @version v4.0.30319
  */
-class CRYPT_SIGN_MESSAGE_PARA extends Win32Struct
-{
+class CRYPT_SIGN_MESSAGE_PARA extends Win32Struct {
     static sizeof => 120
 
     static packingSize => 8
@@ -60,7 +61,7 @@ class CRYPT_SIGN_MESSAGE_PARA extends Win32Struct
      * CRYPT_ALGORITHM_IDENTIFIER containing the hashing algorithm used to hash the data to be signed.
      * @type {CRYPT_ALGORITHM_IDENTIFIER}
      */
-    HashAlgorithm{
+    HashAlgorithm {
         get {
             if(!this.HasProp("__HashAlgorithm"))
                 this.__HashAlgorithm := CRYPT_ALGORITHM_IDENTIFIER(16, this)

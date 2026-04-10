@@ -5,10 +5,8 @@
  * The LINEAGENTSESSIONENTRY structure describes an ACD agent session. The LINEAGENTSESSIONLIST structure can contain an array of LINEAGENTSESSIONENTRY structures.
  * @see https://learn.microsoft.com/windows/win32/api/tapi/ns-tapi-lineagentsessionentry
  * @namespace Windows.Win32.Devices.Tapi
- * @version v4.0.30319
  */
-class LINEAGENTSESSIONENTRY extends Win32Struct
-{
+class LINEAGENTSESSIONENTRY extends Win32Struct {
     static sizeof => 24
 
     static packingSize => 8
@@ -33,7 +31,7 @@ class LINEAGENTSESSIONENTRY extends Win32Struct
 
     /**
      * Universally unique identifier for an ACD group. It is the responsibility of the agent handler to generate and maintain uniqueness of this identifier.
-     * @type {Pointer<Guid>}
+     * @type {Pointer}
      */
     GroupID {
         get => NumGet(this, 8, "ptr")

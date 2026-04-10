@@ -5,10 +5,8 @@
  * Contains information about a currently executing call.
  * @see https://learn.microsoft.com/windows/win32/api/ntsecpkg/ns-ntsecpkg-secpkg_call_info
  * @namespace Windows.Win32.Security.Authentication.Identity
- * @version v4.0.30319
  */
-class SECPKG_CALL_INFO extends Win32Struct
-{
+class SECPKG_CALL_INFO extends Win32Struct {
     static sizeof => 24
 
     static packingSize => 8
@@ -249,7 +247,6 @@ class SECPKG_CALL_INFO extends Win32Struct
     }
 
     /**
-     * 
      * @type {Pointer<Void>}
      */
     MechOid {

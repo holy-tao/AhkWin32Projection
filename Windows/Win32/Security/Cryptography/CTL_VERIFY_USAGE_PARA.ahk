@@ -1,15 +1,14 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
 #Include .\CRYPT_INTEGER_BLOB.ahk
+#Include .\HCERTSTORE.ahk
 
 /**
  * The CTL_VERIFY_USAGE_PARA structure contains parameters used by CertVerifyCTLUsage to establish the validity of a CTL's usage.
  * @see https://learn.microsoft.com/windows/win32/api/wincrypt/ns-wincrypt-ctl_verify_usage_para
  * @namespace Windows.Win32.Security.Cryptography
- * @version v4.0.30319
  */
-class CTL_VERIFY_USAGE_PARA extends Win32Struct
-{
+class CTL_VERIFY_USAGE_PARA extends Win32Struct {
     static sizeof => 56
 
     static packingSize => 8
@@ -31,7 +30,7 @@ class CTL_VERIFY_USAGE_PARA extends Win32Struct
      * If an issuer creates multiple CTLs for the same <b>SubjectUsage</b>, a <b>ListIdentifier</b> can distinguish among them.
      * @type {CRYPT_INTEGER_BLOB}
      */
-    ListIdentifier{
+    ListIdentifier {
         get {
             if(!this.HasProp("__ListIdentifier"))
                 this.__ListIdentifier := CRYPT_INTEGER_BLOB(8, this)

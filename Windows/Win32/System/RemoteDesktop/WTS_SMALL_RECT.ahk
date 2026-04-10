@@ -7,10 +7,8 @@
  * This structure is used by the Remote Desktop Services service to redraw the client window.
  * @see https://learn.microsoft.com/windows/win32/api/wtsdefs/ns-wtsdefs-wts_small_rect
  * @namespace Windows.Win32.System.RemoteDesktop
- * @version v4.0.30319
  */
-class WTS_SMALL_RECT extends Win32Struct
-{
+class WTS_SMALL_RECT extends Win32Struct {
     static sizeof => 8
 
     static packingSize => 2

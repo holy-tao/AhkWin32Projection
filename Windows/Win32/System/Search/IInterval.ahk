@@ -7,9 +7,8 @@
  * Provides a method to get the limits of an interval.
  * @see https://learn.microsoft.com/windows/win32/api/structuredquery/nn-structuredquery-iinterval
  * @namespace Windows.Win32.System.Search
- * @version v4.0.30319
  */
-class IInterval extends IUnknown{
+class IInterval extends IUnknown {
 
     static sizeof => A_PtrSize
     /**
@@ -81,13 +80,13 @@ class IInterval extends IUnknown{
      * <td>All integers are included in the interval.</td>
      * </tr>
      * </table>
-     * @param {Pointer<Integer>} pilkLower Type: <b><a href="https://docs.microsoft.com/windows/win32/api/structuredquery/ne-structuredquery-interval_limit_kind">INTERVAL_LIMIT_KIND</a>*</b>
+     * @param {Pointer<INTERVAL_LIMIT_KIND>} pilkLower Type: <b><a href="https://docs.microsoft.com/windows/win32/api/structuredquery/ne-structuredquery-interval_limit_kind">INTERVAL_LIMIT_KIND</a>*</b>
      * 
      * Receives a pointer to a value from the <a href="https://docs.microsoft.com/windows/win32/api/structuredquery/ne-structuredquery-interval_limit_kind">INTERVAL_LIMIT_KIND</a> enumeration that indicates whether the lower bound of the interval is inclusive, exclusive, or infinite.
      * @param {Pointer<PROPVARIANT>} ppropvarLower Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/propidl/ns-propidl-propvariant">PROPVARIANT</a>*</b>
      * 
      * Receives a pointer to the value for the lower limit of the interval. If the <i>pilkLower</i> parameter is set to <i>ILK_NEGATIVE_INFINITY</i> or <i>ILK_POSITIVE_INFINITY</i>, this value is set to <b>VT_EMPTY</b>.
-     * @param {Pointer<Integer>} pilkUpper Type: <b><a href="https://docs.microsoft.com/windows/win32/api/structuredquery/ne-structuredquery-interval_limit_kind">INTERVAL_LIMIT_KIND</a>*</b>
+     * @param {Pointer<INTERVAL_LIMIT_KIND>} pilkUpper Type: <b><a href="https://docs.microsoft.com/windows/win32/api/structuredquery/ne-structuredquery-interval_limit_kind">INTERVAL_LIMIT_KIND</a>*</b>
      * 
      * Receives a pointer to a value from the <a href="https://docs.microsoft.com/windows/win32/api/structuredquery/ne-structuredquery-interval_limit_kind">INTERVAL_LIMIT_KIND</a> enumeration that indicates whether the upper bound of the interval is inclusive, exclusive, or infinite.
      * @param {Pointer<PROPVARIANT>} ppropvarUpper Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/propidl/ns-propidl-propvariant">PROPVARIANT</a>*</b>

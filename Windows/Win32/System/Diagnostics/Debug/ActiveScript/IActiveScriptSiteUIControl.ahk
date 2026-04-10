@@ -5,9 +5,8 @@
 
 /**
  * @namespace Windows.Win32.System.Diagnostics.Debug.ActiveScript
- * @version v4.0.30319
  */
-class IActiveScriptSiteUIControl extends IUnknown{
+class IActiveScriptSiteUIControl extends IUnknown {
 
     static sizeof => A_PtrSize
     /**
@@ -30,8 +29,8 @@ class IActiveScriptSiteUIControl extends IUnknown{
 
     /**
      * 
-     * @param {Integer} UicItem 
-     * @returns {Integer} 
+     * @param {SCRIPTUICITEM} UicItem 
+     * @returns {SCRIPTUICHANDLING} 
      */
     GetUIBehavior(UicItem) {
         result := ComCall(3, this, "int", UicItem, "int*", &pUicHandling := 0, "HRESULT")

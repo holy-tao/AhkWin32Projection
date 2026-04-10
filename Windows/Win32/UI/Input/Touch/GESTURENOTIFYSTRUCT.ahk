@@ -7,10 +7,8 @@
  * When transmitted with WM_GESTURENOTIFY messages, passes information about a gesture.
  * @see https://learn.microsoft.com/windows/win32/api/winuser/ns-winuser-gesturenotifystruct
  * @namespace Windows.Win32.UI.Input.Touch
- * @version v4.0.30319
  */
-class GESTURENOTIFYSTRUCT extends Win32Struct
-{
+class GESTURENOTIFYSTRUCT extends Win32Struct {
     static sizeof => 24
 
     static packingSize => 8
@@ -37,7 +35,7 @@ class GESTURENOTIFYSTRUCT extends Win32Struct
      * The target window for the gesture notification.
      * @type {HWND}
      */
-    hwndTarget{
+    hwndTarget {
         get {
             if(!this.HasProp("__hwndTarget"))
                 this.__hwndTarget := HWND(8, this)
@@ -49,7 +47,7 @@ class GESTURENOTIFYSTRUCT extends Win32Struct
      * The location of the gesture in physical screen coordinates.
      * @type {POINTS}
      */
-    ptsLocation{
+    ptsLocation {
         get {
             if(!this.HasProp("__ptsLocation"))
                 this.__ptsLocation := POINTS(16, this)

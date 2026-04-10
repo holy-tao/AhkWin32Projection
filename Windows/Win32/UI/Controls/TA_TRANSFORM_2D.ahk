@@ -1,13 +1,13 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
 #Include .\TA_TRANSFORM.ahk
+#Include .\TA_TRANSFORM_TYPE.ahk
+#Include .\TA_TRANSFORM_FLAG.ahk
 
 /**
  * @namespace Windows.Win32.UI.Controls
- * @version v4.0.30319
  */
-class TA_TRANSFORM_2D extends Win32Struct
-{
+class TA_TRANSFORM_2D extends Win32Struct {
     static sizeof => 44
 
     static packingSize => 4
@@ -15,7 +15,7 @@ class TA_TRANSFORM_2D extends Win32Struct
     /**
      * @type {TA_TRANSFORM}
      */
-    header{
+    header {
         get {
             if(!this.HasProp("__header"))
                 this.__header := TA_TRANSFORM(0, this)

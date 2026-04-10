@@ -3,10 +3,8 @@
 
 /**
  * @namespace Windows.Win32.NetworkManagement.Ndis
- * @version v4.0.30319
  */
-class NDIS_WAN_PROTOCOL_CAPS extends Win32Struct
-{
+class NDIS_WAN_PROTOCOL_CAPS extends Win32Struct {
     static sizeof => 8
 
     static packingSize => 4

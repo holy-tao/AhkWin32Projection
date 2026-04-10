@@ -5,9 +5,8 @@
  * The CLUSTER_RESOURCE_EMBEDDED_FAILURE_ACTION enumeration (msclus.h) specifies the various actions that can be performed when a resource has an embedded failure.
  * @see https://learn.microsoft.com/windows/win32/api/msclus/ne-msclus-cluster_resource_embedded_failure_action
  * @namespace Windows.Win32.Networking.Clustering
- * @version v4.0.30319
  */
-class CLUSTER_RESOURCE_EMBEDDED_FAILURE_ACTION extends Win32Enum{
+class CLUSTER_RESOURCE_EMBEDDED_FAILURE_ACTION extends Win32Enum {
 
     /**
      * Indicates that no action is to be taken.

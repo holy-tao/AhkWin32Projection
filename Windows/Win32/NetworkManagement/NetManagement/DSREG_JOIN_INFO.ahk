@@ -1,21 +1,22 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
+#Include .\DSREG_JOIN_TYPE.ahk
+#Include ..\..\Security\Cryptography\CERT_CONTEXT.ahk
+#Include .\DSREG_USER_INFO.ahk
 
 /**
  * Contains information about how a device is joined to Microsoft Azure Active Directory.
  * @see https://learn.microsoft.com/windows/win32/api/lmjoin/ns-lmjoin-dsreg_join_info
  * @namespace Windows.Win32.NetworkManagement.NetManagement
- * @version v4.0.30319
  */
-class DSREG_JOIN_INFO extends Win32Struct
-{
+class DSREG_JOIN_INFO extends Win32Struct {
     static sizeof => 96
 
     static packingSize => 8
 
     /**
      * An enumeration value that specifies the type of the join.
-     * @type {Integer}
+     * @type {DSREG_JOIN_TYPE}
      */
     joinType {
         get => NumGet(this, 0, "int")

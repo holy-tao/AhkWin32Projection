@@ -7,9 +7,8 @@
  * The IQualityControl interface provides support for quality control.
  * @see https://learn.microsoft.com/windows/win32/api/strmif/nn-strmif-iqualitycontrol
  * @namespace Windows.Win32.Media.DirectShow
- * @version v4.0.30319
  */
-class IQualityControl extends IUnknown{
+class IQualityControl extends IUnknown {
 
     static sizeof => A_PtrSize
     /**

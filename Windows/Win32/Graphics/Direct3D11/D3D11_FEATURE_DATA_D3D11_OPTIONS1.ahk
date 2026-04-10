@@ -1,5 +1,6 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
+#Include .\D3D11_TILED_RESOURCES_TIER.ahk
 
 /**
  * Describes Direct3D 11.2 feature options in the current graphics driver.
@@ -14,10 +15,8 @@
  * On non-unified memory architecture systems (discrete GPUs), apps should not use mappable default buffers if the compute shader code accesses the same byte in a default buffer more than once - sending the data across the bus multiple times eliminates the performance gained by mapping the default buffer instead of copying it.
  * @see https://learn.microsoft.com/windows/win32/api/d3d11/ns-d3d11-d3d11_feature_data_d3d11_options1
  * @namespace Windows.Win32.Graphics.Direct3D11
- * @version v4.0.30319
  */
-class D3D11_FEATURE_DATA_D3D11_OPTIONS1 extends Win32Struct
-{
+class D3D11_FEATURE_DATA_D3D11_OPTIONS1 extends Win32Struct {
     static sizeof => 16
 
     static packingSize => 4
@@ -26,7 +25,7 @@ class D3D11_FEATURE_DATA_D3D11_OPTIONS1 extends Win32Struct
      * Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/d3d11/ne-d3d11-d3d11_tiled_resources_tier">D3D11_TILED_RESOURCES_TIER</a></b>
      * 
      * Specifies whether the hardware and driver support tiled resources. The runtime sets this member to a <a href="https://docs.microsoft.com/windows/desktop/api/d3d11/ne-d3d11-d3d11_tiled_resources_tier">D3D11_TILED_RESOURCES_TIER</a>-typed value that indicates if the hardware and driver support tiled resources and at what tier level.
-     * @type {Integer}
+     * @type {D3D11_TILED_RESOURCES_TIER}
      */
     TiledResourcesTier {
         get => NumGet(this, 0, "int")

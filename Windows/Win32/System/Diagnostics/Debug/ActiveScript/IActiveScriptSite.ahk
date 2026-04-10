@@ -1,14 +1,13 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\..\..\Guid.ahk
-#Include ..\..\..\..\Foundation\BSTR.ahk
 #Include ..\..\..\Com\IUnknown.ahk
+#Include ..\..\..\..\Foundation\BSTR.ahk
 
 /**
  * @namespace Windows.Win32.System.Diagnostics.Debug.ActiveScript
- * @version v4.0.30319
  */
-class IActiveScriptSite extends IUnknown{
+class IActiveScriptSite extends IUnknown {
 
     static sizeof => A_PtrSize
     /**
@@ -76,7 +75,7 @@ class IActiveScriptSite extends IUnknown{
 
     /**
      * 
-     * @param {Integer} ssScriptState 
+     * @param {SCRIPTSTATE} ssScriptState 
      * @returns {HRESULT} 
      */
     OnStateChange(ssScriptState) {

@@ -3,9 +3,8 @@
 
 /**
  * @namespace Windows.Wdk.Storage.FileSystem
- * @version v4.0.30319
  */
-class RTL_MEMORY_TYPE extends Win32Enum{
+class RTL_MEMORY_TYPE extends Win32Enum {
 
     /**
      * @type {Integer (Int32)}

@@ -19,17 +19,15 @@
  * </ul>
  * @see https://learn.microsoft.com/windows/win32/api/wtsdefs/ns-wtsdefs-wts_session_id
  * @namespace Windows.Win32.System.RemoteDesktop
- * @version v4.0.30319
  */
-class WTS_SESSION_ID extends Win32Struct
-{
+class WTS_SESSION_ID extends Win32Struct {
     static sizeof => 16
 
     static packingSize => 8
 
     /**
      * A GUID that specifies the client connection.
-     * @type {Pointer<Guid>}
+     * @type {Pointer}
      */
     SessionUniqueGuid {
         get => NumGet(this, 0, "ptr")

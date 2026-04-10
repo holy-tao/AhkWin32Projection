@@ -3,10 +3,8 @@
 
 /**
  * @namespace Windows.Win32.System.Ioctl
- * @version v4.0.30319
  */
-class STORAGE_FEATURE_SUPPORT extends Win32Struct
-{
+class STORAGE_FEATURE_SUPPORT extends Win32Struct {
     static sizeof => 64
 
     static packingSize => 8
@@ -25,7 +23,7 @@ class STORAGE_FEATURE_SUPPORT extends Win32Struct
             get => NumGet(this, 0, "uint")
             set => NumPut("uint", value, this, 0)
         }
-    
+
         /**
          * @type {Integer}
          */
@@ -33,7 +31,7 @@ class STORAGE_FEATURE_SUPPORT extends Win32Struct
             get => (this._bitfield >> 0) & 0x1
             set => this._bitfield := ((value & 0x1) << 0) | (this._bitfield & ~(0x1 << 0))
         }
-    
+
         /**
          * @type {Integer}
          */
@@ -41,7 +39,6 @@ class STORAGE_FEATURE_SUPPORT extends Win32Struct
             get => NumGet(this, 0, "uint")
             set => NumPut("uint", value, this, 0)
         }
-    
     }
 
     /**
@@ -63,18 +60,18 @@ class STORAGE_FEATURE_SUPPORT extends Win32Struct
     /**
      * @type {_Flags_e__Union}
      */
-    Flags{
+    Flags {
         get {
             if(!this.HasProp("__Flags"))
-                this.__Flags := %this.__Class%._Flags_e__Union(8, this)
+                this.__Flags := STORAGE_FEATURE_SUPPORT._Flags_e__Union(8, this)
             return this.__Flags
         }
     }
 
     /**
-     * @type {Array<UInt64>}
+     * @type {Array<Integer>}
      */
-    Reserved{
+    Reserved {
         get {
             if(!this.HasProp("__ReservedProxyArray"))
                 this.__ReservedProxyArray := Win32FixedArray(this.ptr + 16, 6, Primitive, "uint")

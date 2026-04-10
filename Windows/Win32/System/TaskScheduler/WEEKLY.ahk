@@ -18,10 +18,8 @@
  * ```
  * @see https://learn.microsoft.com/windows/win32/api/mstask/ns-mstask-weekly
  * @namespace Windows.Win32.System.TaskScheduler
- * @version v4.0.30319
  */
-class WEEKLY extends Win32Struct
-{
+class WEEKLY extends Win32Struct {
     static sizeof => 4
 
     static packingSize => 2

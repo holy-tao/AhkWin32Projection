@@ -1,16 +1,15 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\..\Guid.ahk
+#Include ..\..\..\System\Com\IDispatch.ahk
 #Include ..\..\..\Foundation\BSTR.ahk
 #Include .\IX509Extensions.ahk
 #Include .\IObjectIds.ahk
-#Include ..\..\..\System\Com\IDispatch.ahk
 
 /**
  * @namespace Windows.Win32.Security.Cryptography.Certificates
- * @version v4.0.30319
  */
-class IX509CertificateRevocationListEntry extends IDispatch{
+class IX509CertificateRevocationListEntry extends IDispatch {
 
     static sizeof => A_PtrSize
     /**
@@ -39,7 +38,7 @@ class IX509CertificateRevocationListEntry extends IDispatch{
     }
 
     /**
-     * @type {Integer} 
+     * @type {CRLRevocationReason} 
      */
     RevocationReason {
         get => this.get_RevocationReason()
@@ -75,7 +74,7 @@ class IX509CertificateRevocationListEntry extends IDispatch{
      * 
      * For an out-of-process EXE server,  you must initialize the initial thread of the server by using 
      *     <b>Windows::Foundation::Initialize</b>(<b>RO_INIT_MULTITHREADED</b>).
-     * @param {Integer} Encoding 
+     * @param {EncodingType} Encoding 
      * @param {BSTR} SerialNumber 
      * @param {Float} RevocationDate 
      * @returns {HRESULT} <ul>
@@ -100,7 +99,7 @@ class IX509CertificateRevocationListEntry extends IDispatch{
 
     /**
      * 
-     * @param {Integer} Encoding 
+     * @param {EncodingType} Encoding 
      * @returns {BSTR} 
      */
     get_SerialNumber(Encoding) {
@@ -120,7 +119,7 @@ class IX509CertificateRevocationListEntry extends IDispatch{
 
     /**
      * 
-     * @returns {Integer} 
+     * @returns {CRLRevocationReason} 
      */
     get_RevocationReason() {
         result := ComCall(10, this, "int*", &pValue := 0, "HRESULT")
@@ -129,7 +128,7 @@ class IX509CertificateRevocationListEntry extends IDispatch{
 
     /**
      * 
-     * @param {Integer} Value 
+     * @param {CRLRevocationReason} Value 
      * @returns {HRESULT} 
      */
     put_RevocationReason(Value) {

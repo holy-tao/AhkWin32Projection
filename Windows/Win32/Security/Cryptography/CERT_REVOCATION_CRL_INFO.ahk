@@ -1,14 +1,14 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
+#Include .\CRL_CONTEXT.ahk
+#Include .\CRL_ENTRY.ahk
 
 /**
  * Contains information updated by a certificate revocation list (CRL) revocation type handler.
  * @see https://learn.microsoft.com/windows/win32/api/wincrypt/ns-wincrypt-cert_revocation_crl_info
  * @namespace Windows.Win32.Security.Cryptography
- * @version v4.0.30319
  */
-class CERT_REVOCATION_CRL_INFO extends Win32Struct
-{
+class CERT_REVOCATION_CRL_INFO extends Win32Struct {
     static sizeof => 40
 
     static packingSize => 8
@@ -23,7 +23,6 @@ class CERT_REVOCATION_CRL_INFO extends Win32Struct
     }
 
     /**
-     * 
      * @type {Pointer<CRL_CONTEXT>}
      */
     pBaseCrlContext {
@@ -32,7 +31,6 @@ class CERT_REVOCATION_CRL_INFO extends Win32Struct
     }
 
     /**
-     * 
      * @type {Pointer<CRL_CONTEXT>}
      */
     pDeltaCrlContext {

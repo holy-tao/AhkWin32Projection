@@ -7,9 +7,8 @@
  * Represents information associated with transparently cached items.
  * @see https://learn.microsoft.com/windows/win32/api/cscobj/nn-cscobj-iofflinefilestransparentcacheinfo
  * @namespace Windows.Win32.Storage.OfflineFiles
- * @version v4.0.30319
  */
-class IOfflineFilesTransparentCacheInfo extends IUnknown{
+class IOfflineFilesTransparentCacheInfo extends IUnknown {
 
     static sizeof => A_PtrSize
     /**

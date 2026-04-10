@@ -3,9 +3,8 @@
 
 /**
  * @namespace Windows.Win32.UI.LegacyWindowsEnvironmentFeatures
- * @version v4.0.30319
  */
-class RECONCILEF extends Win32Enum{
+class RECONCILEF extends Win32Enum {
 
     /**
      * @type {Integer (Int32)}

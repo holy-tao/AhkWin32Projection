@@ -1,19 +1,18 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
+#Include ..\Com\IDispatch.ahk
 #Include ..\..\Foundation\BSTR.ahk
 #Include .\IRunningTask.ahk
 #Include .\IRunningTaskCollection.ahk
 #Include .\ITaskDefinition.ahk
-#Include ..\Com\IDispatch.ahk
 
 /**
  * Provides the methods that are used to run the task immediately, get any running instances of the task, get or set the credentials that are used to register the task, and the properties that describe the task.
  * @see https://learn.microsoft.com/windows/win32/api/taskschd/nn-taskschd-iregisteredtask
  * @namespace Windows.Win32.System.TaskScheduler
- * @version v4.0.30319
  */
-class IRegisteredTask extends IDispatch{
+class IRegisteredTask extends IDispatch {
 
     static sizeof => A_PtrSize
     /**
@@ -49,7 +48,7 @@ class IRegisteredTask extends IDispatch{
     }
 
     /**
-     * @type {Integer} 
+     * @type {TASK_STATE} 
      */
     State {
         get => this.get_State()
@@ -129,7 +128,7 @@ class IRegisteredTask extends IDispatch{
 
     /**
      * Gets the operational state of the registered task.
-     * @returns {Integer} 
+     * @returns {TASK_STATE} 
      * @see https://learn.microsoft.com/windows/win32/api/taskschd/nf-taskschd-iregisteredtask-get_state
      */
     get_State() {

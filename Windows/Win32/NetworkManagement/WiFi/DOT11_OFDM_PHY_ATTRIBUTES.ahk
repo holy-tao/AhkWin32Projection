@@ -3,10 +3,8 @@
 
 /**
  * @namespace Windows.Win32.NetworkManagement.WiFi
- * @version v4.0.30319
  */
-class DOT11_OFDM_PHY_ATTRIBUTES extends Win32Struct
-{
+class DOT11_OFDM_PHY_ATTRIBUTES extends Win32Struct {
     static sizeof => 4
 
     static packingSize => 4

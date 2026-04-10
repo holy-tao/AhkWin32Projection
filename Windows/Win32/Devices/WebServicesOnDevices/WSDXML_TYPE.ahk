@@ -5,10 +5,8 @@
  * Describes an XSD type.
  * @see https://learn.microsoft.com/windows/win32/api/wsdxmldom/ns-wsdxmldom-wsdxml_type
  * @namespace Windows.Win32.Devices.WebServicesOnDevices
- * @version v4.0.30319
  */
-class WSDXML_TYPE extends Win32Struct
-{
+class WSDXML_TYPE extends Win32Struct {
     static sizeof => 16
 
     static packingSize => 8

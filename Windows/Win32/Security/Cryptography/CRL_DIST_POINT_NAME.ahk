@@ -1,15 +1,14 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
 #Include .\CERT_ALT_NAME_INFO.ahk
+#Include .\CERT_ALT_NAME_ENTRY.ahk
 
 /**
  * Identifies a location from which the CRL can be obtained.
  * @see https://learn.microsoft.com/windows/win32/api/wincrypt/ns-wincrypt-crl_dist_point_name
  * @namespace Windows.Win32.Security.Cryptography
- * @version v4.0.30319
  */
-class CRL_DIST_POINT_NAME extends Win32Struct
-{
+class CRL_DIST_POINT_NAME extends Win32Struct {
     static sizeof => 24
 
     static packingSize => 8
@@ -68,7 +67,7 @@ class CRL_DIST_POINT_NAME extends Win32Struct
     /**
      * @type {CERT_ALT_NAME_INFO}
      */
-    FullName{
+    FullName {
         get {
             if(!this.HasProp("__FullName"))
                 this.__FullName := CERT_ALT_NAME_INFO(8, this)

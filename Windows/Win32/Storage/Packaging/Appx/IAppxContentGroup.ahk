@@ -1,16 +1,15 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\..\Guid.ahk
-#Include .\IAppxContentGroupFilesEnumerator.ahk
 #Include ..\..\..\System\Com\IUnknown.ahk
+#Include .\IAppxContentGroupFilesEnumerator.ahk
 
 /**
  * Retrieves information about a content group.
  * @see https://learn.microsoft.com/windows/win32/api/appxpackaging/nn-appxpackaging-iappxcontentgroup
  * @namespace Windows.Win32.Storage.Packaging.Appx
- * @version v4.0.30319
  */
-class IAppxContentGroup extends IUnknown{
+class IAppxContentGroup extends IUnknown {
 
     static sizeof => A_PtrSize
     /**
@@ -43,7 +42,7 @@ class IAppxContentGroup extends IUnknown{
 
     /**
      * Gets files from a content group.
-     * @returns {IAppxContentGroupFilesEnumerator} 
+     * @returns {IAppxContentGroupFilesEnumerator} An enumerator for getting content group files.
      * @see https://learn.microsoft.com/windows/win32/api/appxpackaging/nf-appxpackaging-iappxcontentgroup-getfiles
      */
     GetFiles() {

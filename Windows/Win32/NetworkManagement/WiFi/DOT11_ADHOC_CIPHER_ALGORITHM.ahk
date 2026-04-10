@@ -30,9 +30,8 @@
  * </table>
  * @see https://learn.microsoft.com/windows/win32/api/adhoc/ne-adhoc-dot11_adhoc_cipher_algorithm
  * @namespace Windows.Win32.NetworkManagement.WiFi
- * @version v4.0.30319
  */
-class DOT11_ADHOC_CIPHER_ALGORITHM extends Win32Enum{
+class DOT11_ADHOC_CIPHER_ALGORITHM extends Win32Enum {
 
     /**
      * The cipher algorithm specified is invalid.

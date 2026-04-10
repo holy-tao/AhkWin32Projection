@@ -5,10 +5,8 @@
  * The OCTET_STRING structure contains a pointer to a string of byte data.
  * @see https://learn.microsoft.com/windows/win32/api/ndattrib/ns-ndattrib-octet_string
  * @namespace Windows.Win32.NetworkManagement.NetworkDiagnosticsFramework
- * @version v4.0.30319
  */
-class OCTET_STRING extends Win32Struct
-{
+class OCTET_STRING extends Win32Struct {
     static sizeof => 16
 
     static packingSize => 8

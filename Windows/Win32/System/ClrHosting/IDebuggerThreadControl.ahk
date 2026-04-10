@@ -5,9 +5,8 @@
 
 /**
  * @namespace Windows.Win32.System.ClrHosting
- * @version v4.0.30319
  */
-class IDebuggerThreadControl extends IUnknown{
+class IDebuggerThreadControl extends IUnknown {
 
     static sizeof => A_PtrSize
     /**

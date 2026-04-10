@@ -1,5 +1,6 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
+#Include .\RID_DEVICE_INFO_TYPE.ahk
 #Include .\RID_DEVICE_INFO_MOUSE.ahk
 #Include .\RID_DEVICE_INFO_KEYBOARD.ahk
 #Include .\RID_DEVICE_INFO_HID.ahk
@@ -8,10 +9,8 @@
  * Defines the raw input data coming from any device.
  * @see https://learn.microsoft.com/windows/win32/api/winuser/ns-winuser-rid_device_info
  * @namespace Windows.Win32.UI.Input
- * @version v4.0.30319
  */
-class RID_DEVICE_INFO extends Win32Struct
-{
+class RID_DEVICE_INFO extends Win32Struct {
     static sizeof => 32
 
     static packingSize => 4
@@ -29,7 +28,7 @@ class RID_DEVICE_INFO extends Win32Struct
 
     /**
      * Type: <b>DWORD</b>
-     * @type {Integer}
+     * @type {RID_DEVICE_INFO_TYPE}
      */
     dwType {
         get => NumGet(this, 4, "uint")
@@ -39,7 +38,7 @@ class RID_DEVICE_INFO extends Win32Struct
     /**
      * @type {RID_DEVICE_INFO_MOUSE}
      */
-    mouse{
+    mouse {
         get {
             if(!this.HasProp("__mouse"))
                 this.__mouse := RID_DEVICE_INFO_MOUSE(8, this)
@@ -50,7 +49,7 @@ class RID_DEVICE_INFO extends Win32Struct
     /**
      * @type {RID_DEVICE_INFO_KEYBOARD}
      */
-    keyboard{
+    keyboard {
         get {
             if(!this.HasProp("__keyboard"))
                 this.__keyboard := RID_DEVICE_INFO_KEYBOARD(8, this)
@@ -61,7 +60,7 @@ class RID_DEVICE_INFO extends Win32Struct
     /**
      * @type {RID_DEVICE_INFO_HID}
      */
-    hid{
+    hid {
         get {
             if(!this.HasProp("__hid"))
                 this.__hid := RID_DEVICE_INFO_HID(8, this)

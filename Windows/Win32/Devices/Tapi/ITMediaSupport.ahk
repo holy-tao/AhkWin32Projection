@@ -7,9 +7,8 @@
  * The ITMediaSupport interface provides methods that allow an application to discover the media support capabilities for an Address Object that exposes this interface.
  * @see https://learn.microsoft.com/windows/win32/api/tapi3if/nn-tapi3if-itmediasupport
  * @namespace Windows.Win32.Devices.Tapi
- * @version v4.0.30319
  */
-class ITMediaSupport extends IDispatch{
+class ITMediaSupport extends IDispatch {
 
     static sizeof => A_PtrSize
     /**

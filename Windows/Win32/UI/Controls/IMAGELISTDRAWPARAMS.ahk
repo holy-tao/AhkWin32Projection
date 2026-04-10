@@ -13,10 +13,8 @@
  * Comctl32.dll version 6 is not redistributable.. To use Comctl32.dll version 6, you must specify it in a manifest. For more information on manifests, see <a href="https://docs.microsoft.com/windows/desktop/Controls/cookbook-overview">Enabling Visual Styles</a>.
  * @see https://learn.microsoft.com/windows/win32/api/commctrl/ns-commctrl-imagelistdrawparams
  * @namespace Windows.Win32.UI.Controls
- * @version v4.0.30319
  */
-class IMAGELISTDRAWPARAMS extends Win32Struct
-{
+class IMAGELISTDRAWPARAMS extends Win32Struct {
     static sizeof => 88
 
     static packingSize => 8
@@ -38,7 +36,7 @@ class IMAGELISTDRAWPARAMS extends Win32Struct
      * A handle to the image list that contains the image to be drawn.
      * @type {HIMAGELIST}
      */
-    himl{
+    himl {
         get {
             if(!this.HasProp("__himl"))
                 this.__himl := HIMAGELIST(8, this)
@@ -63,7 +61,7 @@ class IMAGELISTDRAWPARAMS extends Win32Struct
      * A handle to the destination device context.
      * @type {HDC}
      */
-    hdcDst{
+    hdcDst {
         get {
             if(!this.HasProp("__hdcDst"))
                 this.__hdcDst := HDC(24, this)

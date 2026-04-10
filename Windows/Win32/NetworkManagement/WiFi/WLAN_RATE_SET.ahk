@@ -5,10 +5,8 @@
  * The set of supported data rates.
  * @see https://learn.microsoft.com/windows/win32/api/wlanapi/ns-wlanapi-wlan_rate_set
  * @namespace Windows.Win32.NetworkManagement.WiFi
- * @version v4.0.30319
  */
-class WLAN_RATE_SET extends Win32Struct
-{
+class WLAN_RATE_SET extends Win32Struct {
     static sizeof => 256
 
     static packingSize => 4
@@ -30,9 +28,9 @@ class WLAN_RATE_SET extends Win32Struct
      * To calculate the data transfer rate in Mbps for an arbitrary array entry rateSet[i], use the following equation:
      * 
      * <c>rate_in_mbps = (rateSet[i] &amp; 0x7FFF) * 0.5</c>
-     * @type {Array<UInt16>}
+     * @type {Array<Integer>}
      */
-    usRateSet{
+    usRateSet {
         get {
             if(!this.HasProp("__usRateSetProxyArray"))
                 this.__usRateSetProxyArray := Win32FixedArray(this.ptr + 4, 126, Primitive, "ushort")

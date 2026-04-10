@@ -7,9 +7,8 @@
  * Is used by generated stub code to send faults or responses to incoming messages.
  * @see https://learn.microsoft.com/windows/win32/api/wsdhost/nn-wsdhost-iwsdservicemessaging
  * @namespace Windows.Win32.Devices.WebServicesOnDevices
- * @version v4.0.30319
  */
-class IWSDServiceMessaging extends IUnknown{
+class IWSDServiceMessaging extends IUnknown {
 
     static sizeof => A_PtrSize
     /**

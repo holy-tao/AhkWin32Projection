@@ -1,16 +1,15 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
-#Include .\VDS_DRIVE_PROP2.ahk
 #Include ..\..\System\Com\IUnknown.ahk
+#Include .\VDS_DRIVE_PROP2.ahk
 
 /**
  * The IVdsDrive2 (vdshwprv.h) interface provides a method for querying the properties of a drive.
  * @see https://learn.microsoft.com/windows/win32/api/vdshwprv/nn-vdshwprv-ivdsdrive2
  * @namespace Windows.Win32.Storage.VirtualDiskService
- * @version v4.0.30319
  */
-class IVdsDrive2 extends IUnknown{
+class IVdsDrive2 extends IUnknown {
 
     static sizeof => A_PtrSize
     /**

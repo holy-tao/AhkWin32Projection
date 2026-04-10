@@ -1,16 +1,15 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
-#Include .\IMFTopology.ahk
 #Include ..\..\System\Com\IUnknown.ahk
+#Include .\IMFTopology.ahk
 
 /**
  * Enables an application to get a topology from the sequencer source.
  * @see https://learn.microsoft.com/windows/win32/api/mfidl/nn-mfidl-imfmediasourcetopologyprovider
  * @namespace Windows.Win32.Media.MediaFoundation
- * @version v4.0.30319
  */
-class IMFMediaSourceTopologyProvider extends IUnknown{
+class IMFMediaSourceTopologyProvider extends IUnknown {
 
     static sizeof => A_PtrSize
     /**

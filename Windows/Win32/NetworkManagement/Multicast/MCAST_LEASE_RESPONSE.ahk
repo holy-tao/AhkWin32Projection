@@ -6,10 +6,8 @@
  * The MCAST_LEASE_RESPONSE structure is used to respond to multicast lease requests.
  * @see https://learn.microsoft.com/windows/win32/api/madcapcl/ns-madcapcl-mcast_lease_response
  * @namespace Windows.Win32.NetworkManagement.Multicast
- * @version v4.0.30319
  */
-class MCAST_LEASE_RESPONSE extends Win32Struct
-{
+class MCAST_LEASE_RESPONSE extends Win32Struct {
     static sizeof => 40
 
     static packingSize => 8
@@ -37,7 +35,7 @@ class MCAST_LEASE_RESPONSE extends Win32Struct
      * <a href="https://docs.microsoft.com/windows/desktop/api/madcapcl/ns-madcapcl-ipng_address">IPNG_ADDRESS</a> structure.
      * @type {IPNG_ADDRESS}
      */
-    ServerAddress{
+    ServerAddress {
         get {
             if(!this.HasProp("__ServerAddress"))
                 this.__ServerAddress := IPNG_ADDRESS(8, this)

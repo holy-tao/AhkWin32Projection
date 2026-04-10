@@ -24,9 +24,8 @@
  * <img alt="An illustration of a fixed width stroke which does not get transformed." src="./images/fixedwidthstroke.png"/>
  * @see https://learn.microsoft.com/windows/win32/api/d2d1_1/ne-d2d1_1-d2d1_stroke_transform_type
  * @namespace Windows.Win32.Graphics.Direct2D
- * @version v4.0.30319
  */
-class D2D1_STROKE_TRANSFORM_TYPE extends Win32Enum{
+class D2D1_STROKE_TRANSFORM_TYPE extends Win32Enum {
 
     /**
      * The stroke respects the currently set world transform, the dpi, and the stroke width.

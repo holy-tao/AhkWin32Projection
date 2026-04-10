@@ -3,10 +3,8 @@
 
 /**
  * @namespace Windows.Win32.System.Ioctl
- * @version v4.0.30319
  */
-class STORAGE_GET_BC_PROPERTIES_OUTPUT extends Win32Struct
-{
+class STORAGE_GET_BC_PROPERTIES_OUTPUT extends Win32Struct {
     static sizeof => 32
 
     static packingSize => 8

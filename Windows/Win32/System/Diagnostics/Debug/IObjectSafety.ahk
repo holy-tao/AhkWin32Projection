@@ -5,9 +5,8 @@
 
 /**
  * @namespace Windows.Win32.System.Diagnostics.Debug
- * @version v4.0.30319
  */
-class IObjectSafety extends IUnknown{
+class IObjectSafety extends IUnknown {
 
     static sizeof => A_PtrSize
     /**

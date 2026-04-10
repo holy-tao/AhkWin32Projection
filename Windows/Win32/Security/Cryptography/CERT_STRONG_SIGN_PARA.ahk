@@ -1,5 +1,6 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
+#Include .\CERT_STRONG_SIGN_SERIALIZED_INFO.ahk
 
 /**
  * Contains parameters used to check for strong signatures on certificates, certificate revocation lists (CRLs), online certificate status protocol (OCSP) responses, and PKCS
@@ -55,10 +56,8 @@
  * </ul>
  * @see https://learn.microsoft.com/windows/win32/api/wincrypt/ns-wincrypt-cert_strong_sign_para
  * @namespace Windows.Win32.Security.Cryptography
- * @version v4.0.30319
  */
-class CERT_STRONG_SIGN_PARA extends Win32Struct
-{
+class CERT_STRONG_SIGN_PARA extends Win32Struct {
     static sizeof => 16
 
     static packingSize => 8
@@ -73,7 +72,6 @@ class CERT_STRONG_SIGN_PARA extends Win32Struct
     }
 
     /**
-     * 
      * @type {Integer}
      */
     dwInfoChoice {

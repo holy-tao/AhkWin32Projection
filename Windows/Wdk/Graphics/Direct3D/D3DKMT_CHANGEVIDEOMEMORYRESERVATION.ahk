@@ -1,13 +1,12 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
 #Include ..\..\..\Win32\Foundation\HANDLE.ahk
+#Include .\D3DKMT_MEMORY_SEGMENT_GROUP.ahk
 
 /**
  * @namespace Windows.Wdk.Graphics.Direct3D
- * @version v4.0.30319
  */
-class D3DKMT_CHANGEVIDEOMEMORYRESERVATION extends Win32Struct
-{
+class D3DKMT_CHANGEVIDEOMEMORYRESERVATION extends Win32Struct {
     static sizeof => 32
 
     static packingSize => 8
@@ -15,7 +14,7 @@ class D3DKMT_CHANGEVIDEOMEMORYRESERVATION extends Win32Struct
     /**
      * @type {HANDLE}
      */
-    hProcess{
+    hProcess {
         get {
             if(!this.HasProp("__hProcess"))
                 this.__hProcess := HANDLE(0, this)
@@ -32,7 +31,7 @@ class D3DKMT_CHANGEVIDEOMEMORYRESERVATION extends Win32Struct
     }
 
     /**
-     * @type {Integer}
+     * @type {D3DKMT_MEMORY_SEGMENT_GROUP}
      */
     MemorySegmentGroup {
         get => NumGet(this, 12, "int")

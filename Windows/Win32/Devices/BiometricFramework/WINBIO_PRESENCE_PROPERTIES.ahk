@@ -7,10 +7,8 @@
  * Contains biometric values that the Windows Biometric Framework used to determine that an individual was present.
  * @see https://learn.microsoft.com/windows/win32/SecBioMet/winbio-presence-properties
  * @namespace Windows.Win32.Devices.BiometricFramework
- * @version v4.0.30319
  */
-class WINBIO_PRESENCE_PROPERTIES extends Win32Struct
-{
+class WINBIO_PRESENCE_PROPERTIES extends Win32Struct {
     static sizeof => 400
 
     static packingSize => 8
@@ -22,39 +20,38 @@ class WINBIO_PRESENCE_PROPERTIES extends Win32Struct
         class _OpaqueEngineData extends Win32Struct {
             static sizeof => 320
             static packingSize => 8
-    
+
             /**
-             * @type {Pointer<Guid>}
+             * @type {Pointer}
              */
             AdapterId {
                 get => NumGet(this, 0, "ptr")
                 set => NumPut("ptr", value, this, 0)
             }
-        
+
             /**
-             * @type {Array<UInt32>}
+             * @type {Array<Integer>}
              */
-            Data{
+            Data {
                 get {
                     if(!this.HasProp("__DataProxyArray"))
                         this.__DataProxyArray := Win32FixedArray(this.ptr + 8, 78, Primitive, "uint")
                     return this.__DataProxyArray
                 }
             }
-        
         }
-    
+
         /**
          * @type {RECT}
          */
-        BoundingBox{
+        BoundingBox {
             get {
                 if(!this.HasProp("__BoundingBox"))
                     this.__BoundingBox := RECT(0, this)
                 return this.__BoundingBox
             }
         }
-    
+
         /**
          * @type {Integer}
          */
@@ -62,18 +59,17 @@ class WINBIO_PRESENCE_PROPERTIES extends Win32Struct
             get => NumGet(this, 16, "int")
             set => NumPut("int", value, this, 16)
         }
-    
+
         /**
          * @type {_OpaqueEngineData}
          */
-        OpaqueEngineData{
+        OpaqueEngineData {
             get {
                 if(!this.HasProp("__OpaqueEngineData"))
-                    this.__OpaqueEngineData := %this.__Class%._OpaqueEngineData(24, this)
+                    this.__OpaqueEngineData := WINBIO_PRESENCE_PROPERTIES._FacialFeatures._OpaqueEngineData(24, this)
                 return this.__OpaqueEngineData
             }
         }
-    
     }
 
     class _Iris extends Win32Struct {
@@ -83,47 +79,47 @@ class WINBIO_PRESENCE_PROPERTIES extends Win32Struct
         /**
          * @type {RECT}
          */
-        EyeBoundingBox_1{
+        EyeBoundingBox_1 {
             get {
                 if(!this.HasProp("__EyeBoundingBox_1"))
                     this.__EyeBoundingBox_1 := RECT(0, this)
                 return this.__EyeBoundingBox_1
             }
         }
-    
+
         /**
          * @type {RECT}
          */
-        EyeBoundingBox_2{
+        EyeBoundingBox_2 {
             get {
                 if(!this.HasProp("__EyeBoundingBox_2"))
                     this.__EyeBoundingBox_2 := RECT(16, this)
                 return this.__EyeBoundingBox_2
             }
         }
-    
+
         /**
          * @type {POINT}
          */
-        PupilCenter_1{
+        PupilCenter_1 {
             get {
                 if(!this.HasProp("__PupilCenter_1"))
                     this.__PupilCenter_1 := POINT(32, this)
                 return this.__PupilCenter_1
             }
         }
-    
+
         /**
          * @type {POINT}
          */
-        PupilCenter_2{
+        PupilCenter_2 {
             get {
                 if(!this.HasProp("__PupilCenter_2"))
                     this.__PupilCenter_2 := POINT(40, this)
                 return this.__PupilCenter_2
             }
         }
-    
+
         /**
          * @type {Integer}
          */
@@ -131,17 +127,16 @@ class WINBIO_PRESENCE_PROPERTIES extends Win32Struct
             get => NumGet(this, 48, "int")
             set => NumPut("int", value, this, 48)
         }
-    
     }
 
     /**
      * Values for the location of facial features that the Windows Biometric Framework used to determine that an individual was present.
      * @type {_FacialFeatures}
      */
-    FacialFeatures{
+    FacialFeatures {
         get {
             if(!this.HasProp("__FacialFeatures"))
-                this.__FacialFeatures := %this.__Class%._FacialFeatures(0, this)
+                this.__FacialFeatures := WINBIO_PRESENCE_PROPERTIES._FacialFeatures(0, this)
             return this.__FacialFeatures
         }
     }
@@ -174,10 +169,10 @@ class WINBIO_PRESENCE_PROPERTIES extends Win32Struct
      * The position of the center of one of the pupils of the individual to enroll. If the iris-recognition system is only monitoring one eye, or if only one eye is in the camera frame, this value is empty. If the iris-recognition system is monitoring both eyes, and both eyes are in the camera frame, this position is probably of the center of the pupil of the left eye of the individual.
      * @type {_Iris}
      */
-    Iris{
+    Iris {
         get {
             if(!this.HasProp("__Iris"))
-                this.__Iris := %this.__Class%._Iris(0, this)
+                this.__Iris := WINBIO_PRESENCE_PROPERTIES._Iris(0, this)
             return this.__Iris
         }
     }

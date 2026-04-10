@@ -1,20 +1,19 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\Guid.ahk
-#Include ..\Foundation\BSTR.ahk
+#Include ..\System\Com\IUnknown.ahk
 #Include .\MIMECPINFO.ahk
 #Include .\IEnumCodePage.ahk
 #Include .\MIMECSETINFO.ahk
+#Include ..\Foundation\BSTR.ahk
 #Include .\IEnumRfc1766.ahk
 #Include .\RFC1766INFO.ahk
 #Include .\IMLangConvertCharset.ahk
-#Include ..\System\Com\IUnknown.ahk
 
 /**
  * @namespace Windows.Win32.Globalization
- * @version v4.0.30319
  */
-class IMultiLanguage extends IUnknown{
+class IMultiLanguage extends IUnknown {
 
     static sizeof => A_PtrSize
     /**
@@ -114,9 +113,9 @@ class IMultiLanguage extends IUnknown{
      * @param {Pointer<Integer>} pdwMode 
      * @param {Integer} dwSrcEncoding 
      * @param {Integer} dwDstEncoding 
-     * @param {Pointer} pSrcStr 
+     * @param {Integer} pSrcStr 
      * @param {Pointer<Integer>} pcSrcSize 
-     * @param {Pointer} pDstStr 
+     * @param {Integer} pDstStr 
      * @param {Pointer<Integer>} pcDstSize 
      * @returns {HRESULT} If the function succeeds, the return value is nonzero.
      * 
@@ -177,7 +176,7 @@ class IMultiLanguage extends IUnknown{
      * 
      * @param {Pointer<Integer>} pdwMode 
      * @param {Integer} dwEncoding 
-     * @param {Pointer} pSrcStr 
+     * @param {Integer} pSrcStr 
      * @param {Pointer<Integer>} pcSrcSize 
      * @param {PWSTR} pDstStr 
      * @param {Pointer<Integer>} pcDstSize 
@@ -200,7 +199,7 @@ class IMultiLanguage extends IUnknown{
      * @param {Integer} dwEncoding 
      * @param {PWSTR} pSrcStr 
      * @param {Pointer<Integer>} pcSrcSize 
-     * @param {Pointer} pDstStr 
+     * @param {Integer} pDstStr 
      * @param {Pointer<Integer>} pcDstSize 
      * @returns {HRESULT} 
      */

@@ -1,18 +1,17 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
+#Include ..\Com\IUnknown.ahk
 #Include ..\..\Foundation\BSTR.ahk
 #Include .\IItemEnumerator.ahk
 #Include ..\..\Foundation\HMODULE.ahk
-#Include ..\Com\IUnknown.ahk
 
 /**
  * Defines the offline target information, specifically, file and registry locations as well as wow64 information.
  * @see https://learn.microsoft.com/windows/win32/api/wcmconfig/nn-wcmconfig-itargetinfo
  * @namespace Windows.Win32.System.SettingsManagementInfrastructure
- * @version v4.0.30319
  */
-class ITargetInfo extends IUnknown{
+class ITargetInfo extends IUnknown {
 
     static sizeof => A_PtrSize
     /**
@@ -35,7 +34,7 @@ class ITargetInfo extends IUnknown{
 
     /**
      * Gets the current target mode.
-     * @returns {Integer} The current target mode. The target mode identifies the way in which the redirections from the target are handled.
+     * @returns {WcmTargetMode} The current target mode. The target mode identifies the way in which the redirections from the target are handled.
      * @see https://learn.microsoft.com/windows/win32/api/wcmconfig/nf-wcmconfig-itargetinfo-gettargetmode
      */
     GetTargetMode() {
@@ -45,7 +44,7 @@ class ITargetInfo extends IUnknown{
 
     /**
      * Sets the target mode.
-     * @param {Integer} TargetMode The target mode.
+     * @param {WcmTargetMode} TargetMode The target mode.
      * @returns {HRESULT} This method returns an HRESULT value. <b>S_OK</b> indicates success.
      * @see https://learn.microsoft.com/windows/win32/api/wcmconfig/nf-wcmconfig-itargetinfo-settargetmode
      */
@@ -167,7 +166,7 @@ class ITargetInfo extends IUnknown{
     /**
      * Gets a property value for the offline installation location.
      * @param {BOOL} Offline <b>True</b> if the installation location is offline.
-     * @param {PWSTR} _Property 
+     * @param {PWSTR} _Property The name of the property.
      * @returns {BSTR} The value of the property.
      * @see https://learn.microsoft.com/windows/win32/api/wcmconfig/nf-wcmconfig-itargetinfo-getproperty
      */
@@ -182,7 +181,7 @@ class ITargetInfo extends IUnknown{
     /**
      * Sets a property value for the offline installation location.
      * @param {BOOL} Offline <b>True</b> if installation location is offline.
-     * @param {PWSTR} _Property 
+     * @param {PWSTR} _Property The name of the property.
      * @param {PWSTR} Value The value of the property.
      * @returns {HRESULT} This method returns an HRESULT value. <b>S_OK</b> indicates success.
      * @see https://learn.microsoft.com/windows/win32/api/wcmconfig/nf-wcmconfig-itargetinfo-setproperty
@@ -200,7 +199,7 @@ class ITargetInfo extends IUnknown{
      * @remarks
      * <div class="alert"><b>Note</b>   This method is not implemented.</div>
      * <div> </div>
-     * @returns {IItemEnumerator} 
+     * @returns {IItemEnumerator} A pointer to an  <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/wcmconfig/nn-wcmconfig-iitemenumerator">IItemEnumerator</a> object that provides access to  the collection of offline properties.
      * @see https://learn.microsoft.com/windows/win32/api/wcmconfig/nf-wcmconfig-itargetinfo-getenumerator
      */
     GetEnumerator() {
@@ -211,7 +210,7 @@ class ITargetInfo extends IUnknown{
     /**
      * Expands a location string to indicate the offline installation location. (ITargetInfo.ExpandTarget)
      * @param {BOOL} Offline <b>True</b> if the installation location is offline.
-     * @param {PWSTR} _Location 
+     * @param {PWSTR} _Location The location string.
      * @returns {BSTR} The expanded location string.
      * @see https://learn.microsoft.com/windows/win32/api/wcmconfig/nf-wcmconfig-itargetinfo-expandtarget
      */
@@ -226,7 +225,7 @@ class ITargetInfo extends IUnknown{
     /**
      * Expands a location string to indicate the offline installation location. (ITargetInfo.ExpandTargetPath)
      * @param {BOOL} Offline <b>True</b> if the installation location is offline.
-     * @param {PWSTR} _Location 
+     * @param {PWSTR} _Location The location string.
      * @returns {BSTR} The expanded location target path.
      * @see https://learn.microsoft.com/windows/win32/api/wcmconfig/nf-wcmconfig-itargetinfo-expandtargetpath
      */
@@ -241,7 +240,7 @@ class ITargetInfo extends IUnknown{
     /**
      * Sets the module path for the offline installation location.
      * @param {PWSTR} Module The name of the module.
-     * @param {PWSTR} _Path 
+     * @param {PWSTR} _Path The module path.
      * @returns {HRESULT} This method returns an HRESULT value. <b>S_OK</b> indicates success.
      * @see https://learn.microsoft.com/windows/win32/api/wcmconfig/nf-wcmconfig-itargetinfo-setmodulepath
      */

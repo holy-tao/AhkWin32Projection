@@ -5,9 +5,8 @@
  * Identifies the properties for requesting a security token from an issuer. It is used with WsRequestSecurityToken as part of the WS_REQUEST_SECURITY_TOKEN_PROPERTY* parameter.
  * @see https://learn.microsoft.com/windows/win32/api/webservices/ne-webservices-ws_request_security_token_property_id
  * @namespace Windows.Win32.Networking.WindowsWebServices
- * @version v4.0.30319
  */
-class WS_REQUEST_SECURITY_TOKEN_PROPERTY_ID extends Win32Enum{
+class WS_REQUEST_SECURITY_TOKEN_PROPERTY_ID extends Win32Enum {
 
     /**
      * A pointer to a <a href="https://docs.microsoft.com/windows/desktop/api/webservices/ns-webservices-ws_endpoint_address">WS_ENDPOINT_ADDRESS</a> structure containing the address of the service ('relying party') to whom the requested
@@ -142,7 +141,6 @@ class WS_REQUEST_SECURITY_TOKEN_PROPERTY_ID extends Win32Enum{
     static WS_REQUEST_SECURITY_TOKEN_PROPERTY_MESSAGE_PROPERTIES => 12
 
     /**
-     * 
      * @type {Integer (Int32)}
      */
     static WS_REQUEST_SECURITY_TOKEN_PROPERTY_BEARER_KEY_TYPE_VERSION => 13

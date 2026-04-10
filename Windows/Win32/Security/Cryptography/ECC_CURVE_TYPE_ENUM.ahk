@@ -3,9 +3,8 @@
 
 /**
  * @namespace Windows.Win32.Security.Cryptography
- * @version v4.0.30319
  */
-class ECC_CURVE_TYPE_ENUM extends Win32Enum{
+class ECC_CURVE_TYPE_ENUM extends Win32Enum {
 
     /**
      * @type {Integer (Int32)}

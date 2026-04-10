@@ -7,9 +7,8 @@
  * The ITfMSAAControl interface is used by Microsoft Active Accessibility to add or remove a document from TSF control, to avoid unnecessary overhead in TSF. This interface is not recommended for use by other applications.
  * @see https://learn.microsoft.com/windows/win32/api/msaatext/nn-msaatext-itfmsaacontrol
  * @namespace Windows.Win32.UI.TextServices
- * @version v4.0.30319
  */
-class ITfMSAAControl extends IUnknown{
+class ITfMSAAControl extends IUnknown {
 
     static sizeof => A_PtrSize
     /**

@@ -3,9 +3,8 @@
 
 /**
  * @namespace Windows.Win32.System.Threading
- * @version v4.0.30319
  */
-class PROCESS_NAME_FORMAT extends Win32Enum{
+class PROCESS_NAME_FORMAT extends Win32Enum {
 
     /**
      * @type {Integer (UInt32)}

@@ -5,9 +5,8 @@
  * The CLUS_RESSUBCLASS_STORAGE enumeration (msclus.h) identifies a resource subclass that manages a shared bus.
  * @see https://learn.microsoft.com/windows/win32/api/msclus/ne-msclus-clus_ressubclass_storage
  * @namespace Windows.Win32.Networking.Clustering
- * @version v4.0.30319
  */
-class CLUS_RESSUBCLASS_STORAGE extends Win32Enum{
+class CLUS_RESSUBCLASS_STORAGE extends Win32Enum {
 
     /**
      * Identifies a resource subclass that manages a shared bus. The 

@@ -1,18 +1,18 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
+#Include ..\Com\IUnknown.ahk
+#Include ..\..\..\..\Guid.ahk
 #Include ..\..\Foundation\BSTR.ahk
 #Include ..\Com\ITypeInfo.ahk
 #Include ..\Variant\VARIANT.ahk
-#Include ..\Com\IUnknown.ahk
 
 /**
  * Describes the structure of a particular UDT.
  * @see https://learn.microsoft.com/windows/win32/api/oaidl/nn-oaidl-irecordinfo
  * @namespace Windows.Win32.System.Ole
- * @version v4.0.30319
  */
-class IRecordInfo extends IUnknown{
+class IRecordInfo extends IUnknown {
 
     static sizeof => A_PtrSize
     /**

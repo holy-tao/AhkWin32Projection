@@ -7,10 +7,8 @@
  * The arbitrary two-dimensional transform can be downloaded to the driver. Functions are also provided to apply the transform to driver-supplied data.
  * @see https://learn.microsoft.com/windows/win32/api/winddi/ns-winddi-xformobj
  * @namespace Windows.Win32.Devices.Display
- * @version v4.0.30319
  */
-class XFORMOBJ extends Win32Struct
-{
+class XFORMOBJ extends Win32Struct {
     static sizeof => 4
 
     static packingSize => 4

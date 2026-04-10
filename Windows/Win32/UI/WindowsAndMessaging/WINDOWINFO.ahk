@@ -1,15 +1,15 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
 #Include ..\..\Foundation\RECT.ahk
+#Include .\WINDOW_STYLE.ahk
+#Include .\WINDOW_EX_STYLE.ahk
 
 /**
  * Contains window information.
  * @see https://learn.microsoft.com/windows/win32/api/winuser/ns-winuser-windowinfo
  * @namespace Windows.Win32.UI.WindowsAndMessaging
- * @version v4.0.30319
  */
-class WINDOWINFO extends Win32Struct
-{
+class WINDOWINFO extends Win32Struct {
     static sizeof => 60
 
     static packingSize => 4
@@ -31,7 +31,7 @@ class WINDOWINFO extends Win32Struct
      * The coordinates of the window.
      * @type {RECT}
      */
-    rcWindow{
+    rcWindow {
         get {
             if(!this.HasProp("__rcWindow"))
                 this.__rcWindow := RECT(4, this)
@@ -45,7 +45,7 @@ class WINDOWINFO extends Win32Struct
      * The coordinates of the client area.
      * @type {RECT}
      */
-    rcClient{
+    rcClient {
         get {
             if(!this.HasProp("__rcClient"))
                 this.__rcClient := RECT(20, this)
@@ -57,7 +57,7 @@ class WINDOWINFO extends Win32Struct
      * Type: <b>DWORD</b>
      * 
      * The window styles. For a table of window styles, see <a href="https://docs.microsoft.com/windows/desktop/winmsg/window-styles">Window Styles</a>.
-     * @type {Integer}
+     * @type {WINDOW_STYLE}
      */
     dwStyle {
         get => NumGet(this, 36, "uint")
@@ -68,7 +68,7 @@ class WINDOWINFO extends Win32Struct
      * Type: <b>DWORD</b>
      * 
      * The extended window styles. For a table of extended window styles, see <a href="https://docs.microsoft.com/windows/desktop/winmsg/extended-window-styles">Extended Window Styles</a>.
-     * @type {Integer}
+     * @type {WINDOW_EX_STYLE}
      */
     dwExStyle {
         get => NumGet(this, 40, "uint")

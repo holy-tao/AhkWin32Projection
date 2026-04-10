@@ -1,6 +1,9 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
+#Include .\JOB_OBJECT_SECURITY.ahk
 #Include ..\..\Foundation\HANDLE.ahk
+#Include ..\..\Security\TOKEN_GROUPS.ahk
+#Include ..\..\Security\TOKEN_PRIVILEGES.ahk
 
 /**
  * Contains the security limitations for a job object.
@@ -10,17 +13,14 @@
  * Starting with Windows Vista, you must set security limitations individually for each process associated with a job object, rather than setting them for the job object by using <a href="https://docs.microsoft.com/windows/desktop/api/jobapi2/nf-jobapi2-setinformationjobobject">SetInformationJobObject</a>. For information, see <a href="https://docs.microsoft.com/windows/desktop/ProcThread/process-security-and-access-rights">Process Security and Access Rights</a>.
  * @see https://learn.microsoft.com/windows/win32/api/winnt/ns-winnt-jobobject_security_limit_information
  * @namespace Windows.Win32.System.JobObjects
- * @version v4.0.30319
  */
-class JOBOBJECT_SECURITY_LIMIT_INFORMATION extends Win32Struct
-{
+class JOBOBJECT_SECURITY_LIMIT_INFORMATION extends Win32Struct {
     static sizeof => 40
 
     static packingSize => 8
 
     /**
-     * 
-     * @type {Integer}
+     * @type {JOB_OBJECT_SECURITY}
      */
     SecurityLimitFlags {
         get => NumGet(this, 0, "uint")
@@ -37,7 +37,7 @@ class JOBOBJECT_SECURITY_LIMIT_INFORMATION extends Win32Struct
      * <a href="https://docs.microsoft.com/windows/desktop/api/securitybaseapi/nf-securitybaseapi-createrestrictedtoken">CreateRestrictedToken</a>, all processes in the job are limited to that token or a further restricted token. Otherwise, the caller must have the SE_ASSIGNPRIMARYTOKEN_NAME privilege.
      * @type {HANDLE}
      */
-    JobToken{
+    JobToken {
         get {
             if(!this.HasProp("__JobToken"))
                 this.__JobToken := HANDLE(8, this)

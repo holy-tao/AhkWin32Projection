@@ -7,10 +7,8 @@
  * An efficient cache is typically closer to a 90 percent hit rate, and an inefficient cache is typically closer to a 10 percent hit rate (although a low percentage is not necessarily a problem).
  * @see https://learn.microsoft.com/windows/win32/direct3d9/d3ddevinfo-d3d9cacheutilization
  * @namespace Windows.Win32.Graphics.Direct3D9
- * @version v4.0.30319
  */
-class D3DDEVINFO_D3D9CACHEUTILIZATION extends Win32Struct
-{
+class D3DDEVINFO_D3D9CACHEUTILIZATION extends Win32Struct {
     static sizeof => 8
 
     static packingSize => 4

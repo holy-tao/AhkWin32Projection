@@ -1,17 +1,16 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
+#Include ..\..\System\Com\IUnknown.ahk
 #Include ..\..\Graphics\DirectDraw\DDCAPS_DX7.ahk
 #Include ..\..\Graphics\DirectDraw\IDirectDraw.ahk
-#Include ..\..\System\Com\IUnknown.ahk
 
 /**
  * The IDirectDrawVideo interface queries the Video Renderer filter about DirectDraw surfaces and hardware capabilities.Applications can use this interface to control what DirectDraw features the Video Renderer will take advantage of.
  * @see https://learn.microsoft.com/windows/win32/api/amvideo/nn-amvideo-idirectdrawvideo
  * @namespace Windows.Win32.Media.DirectShow
- * @version v4.0.30319
  */
-class IDirectDrawVideo extends IUnknown{
+class IDirectDrawVideo extends IUnknown {
 
     static sizeof => A_PtrSize
     /**

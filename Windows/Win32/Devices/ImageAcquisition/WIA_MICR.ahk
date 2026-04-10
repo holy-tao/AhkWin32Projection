@@ -4,13 +4,11 @@
 
 /**
  * @namespace Windows.Win32.Devices.ImageAcquisition
- * @version v4.0.30319
  */
-class WIA_MICR extends Win32Struct
-{
-    static sizeof => 32
+class WIA_MICR extends Win32Struct {
+    static sizeof => 36
 
-    static packingSize => 8
+    static packingSize => 4
 
     /**
      * @type {Integer}
@@ -61,12 +59,12 @@ class WIA_MICR extends Win32Struct
     }
 
     /**
-     * @type {Array<WIA_MICR_INFO>}
+     * @type {WIA_MICR_INFO}
      */
-    Micr{
+    Micr {
         get {
             if(!this.HasProp("__MicrProxyArray"))
-                this.__MicrProxyArray := Win32FixedArray(this.ptr + 24, 1, WIA_MICR_INFO, "")
+                this.__MicrProxyArray := Win32FixedArray(this.ptr + 20, 1, WIA_MICR_INFO, "")
             return this.__MicrProxyArray
         }
     }

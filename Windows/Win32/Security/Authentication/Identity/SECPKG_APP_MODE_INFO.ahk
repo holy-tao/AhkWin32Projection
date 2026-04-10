@@ -4,10 +4,8 @@
 
 /**
  * @namespace Windows.Win32.Security.Authentication.Identity
- * @version v4.0.30319
  */
-class SECPKG_APP_MODE_INFO extends Win32Struct
-{
+class SECPKG_APP_MODE_INFO extends Win32Struct {
     static sizeof => 48
 
     static packingSize => 8
@@ -39,7 +37,7 @@ class SECPKG_APP_MODE_INFO extends Win32Struct
     /**
      * @type {SecBuffer}
      */
-    UserData{
+    UserData {
         get {
             if(!this.HasProp("__UserData"))
                 this.__UserData := SecBuffer(24, this)

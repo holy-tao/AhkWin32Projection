@@ -3,10 +3,8 @@
 
 /**
  * @namespace Windows.Win32.Devices.Usb
- * @version v4.0.30319
  */
-class USB_USB2HW_VERSION_PARAMETERS extends Win32Struct
-{
+class USB_USB2HW_VERSION_PARAMETERS extends Win32Struct {
     static sizeof => 1
 
     static packingSize => 1

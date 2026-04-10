@@ -1,15 +1,14 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
+#Include ..\..\System\Com\IUnknown.ahk
 #Include .\STINOTIFY.ahk
 #Include .\_ERROR_INFOW.ahk
-#Include ..\..\System\Com\IUnknown.ahk
 
 /**
  * @namespace Windows.Win32.Devices.Fax
- * @version v4.0.30319
  */
-class IStiDevice extends IUnknown{
+class IStiDevice extends IUnknown {
 
     static sizeof => A_PtrSize
     /**
@@ -154,9 +153,9 @@ class IStiDevice extends IUnknown{
      * 
      * Use the <a href="https://docs.microsoft.com/windows/desktop/api/wingdi/nf-wingdi-startpage">StartPage</a> function to prepare the printer driver to receive data.
      * @param {Integer} EscapeFunction 
-     * @param {Pointer} lpInData 
+     * @param {Integer} lpInData 
      * @param {Integer} cbInDataSize 
-     * @param {Pointer} pOutData 
+     * @param {Integer} pOutData 
      * @param {Integer} dwOutDataSize 
      * @returns {Integer} 
      * @see https://learn.microsoft.com/windows/win32/api/wingdi/nf-wingdi-escape
@@ -213,7 +212,7 @@ class IStiDevice extends IUnknown{
 
     /**
      * 
-     * @param {Pointer} lpBuffer 
+     * @param {Integer} lpBuffer 
      * @param {Pointer<Integer>} lpdwNumberOfBytes 
      * @param {Pointer<OVERLAPPED>} lpOverlapped 
      * @returns {HRESULT} 
@@ -227,7 +226,7 @@ class IStiDevice extends IUnknown{
 
     /**
      * 
-     * @param {Pointer} lpBuffer 
+     * @param {Integer} lpBuffer 
      * @param {Integer} nNumberOfBytes 
      * @param {Pointer<OVERLAPPED>} lpOverlapped 
      * @returns {HRESULT} 
@@ -239,7 +238,7 @@ class IStiDevice extends IUnknown{
 
     /**
      * 
-     * @param {Pointer} lpBuffer 
+     * @param {Integer} lpBuffer 
      * @param {Pointer<Integer>} lpdwNumberOfBytes 
      * @param {Pointer<OVERLAPPED>} lpOverlapped 
      * @returns {HRESULT} 
@@ -253,7 +252,7 @@ class IStiDevice extends IUnknown{
 
     /**
      * 
-     * @param {Pointer} lpBuffer 
+     * @param {Integer} lpBuffer 
      * @param {Integer} nNumberOfBytes 
      * @param {Pointer<OVERLAPPED>} lpOverlapped 
      * @returns {HRESULT} 

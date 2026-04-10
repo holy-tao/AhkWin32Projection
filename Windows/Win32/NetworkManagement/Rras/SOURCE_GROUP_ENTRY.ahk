@@ -5,10 +5,8 @@
  * The SOURCE_GROUP_ENTRY structure describes the entry returned by the group enumeration function MgmGroupEnumerationGetNext.
  * @see https://learn.microsoft.com/windows/win32/api/mgm/ns-mgm-source_group_entry
  * @namespace Windows.Win32.NetworkManagement.Rras
- * @version v4.0.30319
  */
-class SOURCE_GROUP_ENTRY extends Win32Struct
-{
+class SOURCE_GROUP_ENTRY extends Win32Struct {
     static sizeof => 16
 
     static packingSize => 4

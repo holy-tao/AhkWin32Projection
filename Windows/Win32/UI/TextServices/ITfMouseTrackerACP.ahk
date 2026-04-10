@@ -7,9 +7,8 @@
  * The ITfMouseTrackerACP interface is implemented by an application to support mouse event sinks.
  * @see https://learn.microsoft.com/windows/win32/api/msctf/nn-msctf-itfmousetrackeracp
  * @namespace Windows.Win32.UI.TextServices
- * @version v4.0.30319
  */
-class ITfMouseTrackerACP extends IUnknown{
+class ITfMouseTrackerACP extends IUnknown {
 
     static sizeof => A_PtrSize
     /**

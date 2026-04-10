@@ -8,13 +8,11 @@
  * NUM_POINTS is currently set to <c>3</c>.
  * @see https://learn.microsoft.com/windows/win32/api/shlobj_core/ns-shlobj_core-auto_scroll_data
  * @namespace Windows.Win32.UI.Shell
- * @version v4.0.30319
  */
-class AUTO_SCROLL_DATA extends Win32Struct
-{
-    static sizeof => 56
+class AUTO_SCROLL_DATA extends Win32Struct {
+    static sizeof => 48
 
-    static packingSize => 8
+    static packingSize => 4
 
     /**
      * Type: <b>int</b>
@@ -53,12 +51,12 @@ class AUTO_SCROLL_DATA extends Win32Struct
      * Type: <b><a href="https://docs.microsoft.com/windows/win32/api/windef/ns-windef-point">POINT</a>[NUM_POINTS]</b>
      * 
      * A pointer to the current scroll coordinates. The index of this array is <b>iNextSample</b>.
-     * @type {Array<POINT>}
+     * @type {POINT}
      */
-    pts{
+    pts {
         get {
             if(!this.HasProp("__ptsProxyArray"))
-                this.__ptsProxyArray := Win32FixedArray(this.ptr + 16, 3, POINT, "")
+                this.__ptsProxyArray := Win32FixedArray(this.ptr + 12, 3, POINT, "")
             return this.__ptsProxyArray
         }
     }
@@ -67,12 +65,12 @@ class AUTO_SCROLL_DATA extends Win32Struct
      * Type: <b>DWORD[NUM_POINTS]</b>
      * 
      * A <b>DWORD</b> that indicates the current scroll time. The index of this array is <b>iNextSample</b>.
-     * @type {Array<UInt32>}
+     * @type {Array<Integer>}
      */
-    dwTimes{
+    dwTimes {
         get {
             if(!this.HasProp("__dwTimesProxyArray"))
-                this.__dwTimesProxyArray := Win32FixedArray(this.ptr + 40, 3, Primitive, "uint")
+                this.__dwTimesProxyArray := Win32FixedArray(this.ptr + 36, 3, Primitive, "uint")
             return this.__dwTimesProxyArray
         }
     }

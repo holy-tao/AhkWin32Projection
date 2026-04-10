@@ -3,10 +3,8 @@
 
 /**
  * @namespace Windows.Wdk.Storage.FileSystem
- * @version v4.0.30319
  */
-class CACHE_MANAGER_CALLBACK_FUNCTIONS extends Win32Struct
-{
+class CACHE_MANAGER_CALLBACK_FUNCTIONS extends Win32Struct {
     static sizeof => 32
 
     static packingSize => 8

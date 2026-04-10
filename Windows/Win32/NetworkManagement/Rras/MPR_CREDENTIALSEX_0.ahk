@@ -5,10 +5,8 @@
  * The MPR_CREDENTIALSEX_0 structure contains extended credentials information such as the information used by Extensible Authentication Protocols (EAPs).
  * @see https://learn.microsoft.com/windows/win32/api/mprapi/ns-mprapi-mpr_credentialsex_0
  * @namespace Windows.Win32.NetworkManagement.Rras
- * @version v4.0.30319
  */
-class MPR_CREDENTIALSEX_0 extends Win32Struct
-{
+class MPR_CREDENTIALSEX_0 extends Win32Struct {
     static sizeof => 16
 
     static packingSize => 8

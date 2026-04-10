@@ -7,9 +7,8 @@
  * Accesses web restrictions settings for the user.
  * @see https://learn.microsoft.com/windows/win32/api/wpcapi/nn-wpcapi-iwpcwebsettings
  * @namespace Windows.Win32.System.ParentalControls
- * @version v4.0.30319
  */
-class IWPCWebSettings extends IWPCSettings{
+class IWPCWebSettings extends IWPCSettings {
 
     static sizeof => A_PtrSize
     /**
@@ -32,7 +31,7 @@ class IWPCWebSettings extends IWPCSettings{
 
     /**
      * Retrieves the web restrictions settings.
-     * @returns {Integer} 
+     * @returns {WPCFLAG_WEB_SETTING} 
      * @see https://learn.microsoft.com/windows/win32/api/wpcapi/nf-wpcapi-iwpcwebsettings-getsettings
      */
     GetSettings() {
@@ -42,7 +41,7 @@ class IWPCWebSettings extends IWPCSettings{
 
     /**
      * Requests that the Parental Controls web restrictions subsystem set the specified primary and sub URLs to the allowed state.
-     * @param {HWND} _hWnd 
+     * @param {HWND} _hWnd A handle to the parent window. This is  needed for proper User Account Control (UAC) dialog box behavior.
      * @param {PWSTR} pcszURL A pointer to primary URL for override.
      * @param {Integer} cURLs The number of entries in <i>ppcszSubURLs</i>.
      * @param {Pointer<PWSTR>} ppcszSubURLs Pointers to URLs that include pages with the primary URL.

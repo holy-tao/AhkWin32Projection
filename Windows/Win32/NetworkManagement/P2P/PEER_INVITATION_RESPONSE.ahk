@@ -1,22 +1,21 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
+#Include .\PEER_INVITATION_RESPONSE_TYPE.ahk
 
 /**
  * The PEER_INVITATION_RESPONSE structure contains a response to an invitation to join a peer collaboration activity.
  * @see https://learn.microsoft.com/windows/win32/api/p2p/ns-p2p-peer_invitation_response
  * @namespace Windows.Win32.NetworkManagement.P2P
- * @version v4.0.30319
  */
-class PEER_INVITATION_RESPONSE extends Win32Struct
-{
+class PEER_INVITATION_RESPONSE extends Win32Struct {
     static sizeof => 24
 
     static packingSize => 8
 
     /**
      * [PEER_INVITATION_RESPONSE_TYPE](./ne-p2p-peer_invitation_response_type.md) enumeration value that specifies the action the peer takes in response to the invitation.
-     * @deprecated 
-     * @type {Integer}
+     * @deprecated
+     * @type {PEER_INVITATION_RESPONSE_TYPE}
      */
     action {
         get => NumGet(this, 0, "int")

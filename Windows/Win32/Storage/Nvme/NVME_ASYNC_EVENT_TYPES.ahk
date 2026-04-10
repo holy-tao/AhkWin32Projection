@@ -7,9 +7,8 @@
  * Use the Event type information values from this enumeration in [Dword 0](ns-nvme-nvme_command_dword0.md) of the Completion Queue entry for an Asynchronous Event Request command.
  * @see https://learn.microsoft.com/windows/win32/api/nvme/ne-nvme-nvme_async_event_types
  * @namespace Windows.Win32.Storage.Nvme
- * @version v4.0.30319
  */
-class NVME_ASYNC_EVENT_TYPES extends Win32Enum{
+class NVME_ASYNC_EVENT_TYPES extends Win32Enum {
 
     /**
      * A general error that is not associated with a specific command. The status of this event is one of the values specified in the **NVME_ASYNC_EVENT_ERROR_STATUS_CODES** enumeration.

@@ -1,16 +1,14 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\..\Guid.ahk
-#Include .\IEnumCERTVIEWCOLUMN.ahk
 #Include ..\..\..\System\Com\IDispatch.ahk
 
 /**
  * Represents a column-enumeration sequence that contains the column data for the current row of the enumeration sequence.
  * @see https://learn.microsoft.com/windows/win32/api/certview/nn-certview-ienumcertviewcolumn
  * @namespace Windows.Win32.Security.Cryptography.Certificates
- * @version v4.0.30319
  */
-class IEnumCERTVIEWCOLUMN extends IDispatch{
+class IEnumCERTVIEWCOLUMN extends IDispatch {
 
     static sizeof => A_PtrSize
     /**
@@ -270,7 +268,7 @@ class IEnumCERTVIEWCOLUMN extends IDispatch{
      * <li>
      * <a href="https://docs.microsoft.com/windows/desktop/api/certview/nf-certview-ienumcertviewcolumn-skip">IEnumCERTVIEWCOLUMN::Skip</a>: Skips a specified number of columns.</li>
      * </ul>
-     * @param {Integer} Flags 
+     * @param {ENUM_CERT_COLUMN_VALUE_FLAGS} Flags 
      * @param {Pointer<VARIANT>} pvarValue A pointer to value of <b>VARIANT</b> type that contains the data column. This method fails if <i>pvarValue</i> is <b>NULL</b>. Upon successful completion of this method, <i>pvarValue</i> contains the data in the  column. The caller is responsible for calling <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/oleauto/nf-oleauto-variantclear">VariantClear</a> when done with this data.
      * @returns {HRESULT} <h3>C++</h3>
      *  If the method succeeds, the method returns S_OK.

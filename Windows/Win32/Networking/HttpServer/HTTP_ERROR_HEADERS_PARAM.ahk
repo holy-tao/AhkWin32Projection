@@ -1,12 +1,11 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
+#Include .\HTTP_UNKNOWN_HEADER.ahk
 
 /**
  * @namespace Windows.Win32.Networking.HttpServer
- * @version v4.0.30319
  */
-class HTTP_ERROR_HEADERS_PARAM extends Win32Struct
-{
+class HTTP_ERROR_HEADERS_PARAM extends Win32Struct {
     static sizeof => 16
 
     static packingSize => 8

@@ -1,14 +1,14 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
+#Include .\D3D12_DRED_ALLOCATION_TYPE.ahk
+#Include .\D3D12_DRED_ALLOCATION_NODE.ahk
 
 /**
  * Describes, as a node in a linked list, data about an allocation tracked by Device Removed Extended Data (DRED).
  * @see https://learn.microsoft.com/windows/win32/api/d3d12/ns-d3d12-d3d12_dred_allocation_node
  * @namespace Windows.Win32.Graphics.Direct3D12
- * @version v4.0.30319
  */
-class D3D12_DRED_ALLOCATION_NODE extends Win32Struct
-{
+class D3D12_DRED_ALLOCATION_NODE extends Win32Struct {
     static sizeof => 32
 
     static packingSize => 8
@@ -33,7 +33,7 @@ class D3D12_DRED_ALLOCATION_NODE extends Win32Struct
 
     /**
      * A [D3D12_DRED_ALLOCATION_TYPE](ne-d3d12-d3d12_dred_allocation_type.md) value representing the runtime object's allocation type.
-     * @type {Integer}
+     * @type {D3D12_DRED_ALLOCATION_TYPE}
      */
     AllocationType {
         get => NumGet(this, 16, "int")

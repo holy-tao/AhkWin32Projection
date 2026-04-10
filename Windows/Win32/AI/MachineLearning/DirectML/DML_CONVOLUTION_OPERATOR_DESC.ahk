@@ -1,14 +1,16 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\..\Win32Struct.ahk
+#Include .\DML_TENSOR_DESC.ahk
+#Include .\DML_CONVOLUTION_MODE.ahk
+#Include .\DML_CONVOLUTION_DIRECTION.ahk
+#Include .\DML_OPERATOR_DESC.ahk
 
 /**
  * Performs a convolution of the *FilterTensor* with the *InputTensor*. This operator supports a number of standard convolution configurations.
  * @see https://learn.microsoft.com/windows/win32/api/directml/ns-directml-dml_convolution_operator_desc
  * @namespace Windows.Win32.AI.MachineLearning.DirectML
- * @version v4.0.30319
  */
-class DML_CONVOLUTION_OPERATOR_DESC extends Win32Struct
-{
+class DML_CONVOLUTION_OPERATOR_DESC extends Win32Struct {
     static sizeof => 104
 
     static packingSize => 8
@@ -75,7 +77,7 @@ class DML_CONVOLUTION_OPERATOR_DESC extends Win32Struct
      * Type: [**DML_CONVOLUTION_MODE**](/windows/win32/api/directml/ne-directml-dml_convolution_mode)
      * 
      * The mode to use for the convolution operation. [DML_CONVOLUTION_MODE_CROSS_CORRELATION](/windows/win32/api/directml/ne-directml-dml_convolution_mode) is the behavior for required for typical inference scenarios. In contrast, [DML_CONVOLUTION_MODE_CONVOLUTION](/windows/win32/api/directml/ne-directml-dml_convolution_mode) flips the order of elements in each filter kernel along each spatial dimension.
-     * @type {Integer}
+     * @type {DML_CONVOLUTION_MODE}
      */
     Mode {
         get => NumGet(this, 32, "int")
@@ -86,7 +88,7 @@ class DML_CONVOLUTION_OPERATOR_DESC extends Win32Struct
      * Type: [**DML_CONVOLUTION_DIRECTION**](/windows/win32/api/directml/ne-directml-dml_convolution_direction)
      * 
      * The direction of the convolution operation. [DML_CONVOLUTION_DIRECTION_FORWARD](/windows/win32/api/directml/ne-directml-dml_convolution_direction) is the primary form of convolution used for inference where a combination of [DML_CONVOLUTION_DIRECTION_FORWARD](/windows/win32/api/directml/ne-directml-dml_convolution_direction) and [DML_CONVOLUTION_DIRECTION_BACKWARD](/windows/win32/api/directml/ne-directml-dml_convolution_direction) are used during training.
-     * @type {Integer}
+     * @type {DML_CONVOLUTION_DIRECTION}
      */
     Direction {
         get => NumGet(this, 36, "int")

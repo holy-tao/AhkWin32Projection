@@ -3,9 +3,8 @@
 
 /**
  * @namespace Windows.Win32.System.Com
- * @version v4.0.30319
  */
-class GLOBALOPT_EH_VALUES extends Win32Enum{
+class GLOBALOPT_EH_VALUES extends Win32Enum {
 
     /**
      * @type {Integer (Int32)}

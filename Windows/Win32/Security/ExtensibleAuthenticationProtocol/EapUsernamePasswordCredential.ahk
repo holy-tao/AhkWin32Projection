@@ -5,10 +5,8 @@
  * Contains the username and password that is used by the EAP method for authenticating the user.
  * @see https://learn.microsoft.com/windows/win32/api/eaptypes/ns-eaptypes-eapusernamepasswordcredential
  * @namespace Windows.Win32.Security.ExtensibleAuthenticationProtocol
- * @version v4.0.30319
  */
-class EapUsernamePasswordCredential extends Win32Struct
-{
+class EapUsernamePasswordCredential extends Win32Struct {
     static sizeof => 16
 
     static packingSize => 8

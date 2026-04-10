@@ -8,10 +8,8 @@
  * In this context, a data stream is a block of data within a minidump file.
  * @see https://learn.microsoft.com/windows/win32/api/minidumpapiset/ns-minidumpapiset-minidump_directory
  * @namespace Windows.Win32.System.Diagnostics.Debug
- * @version v4.0.30319
  */
-class MINIDUMP_DIRECTORY extends Win32Struct
-{
+class MINIDUMP_DIRECTORY extends Win32Struct {
     static sizeof => 12
 
     static packingSize => 4
@@ -31,7 +29,7 @@ class MINIDUMP_DIRECTORY extends Win32Struct
      * <a href="https://docs.microsoft.com/windows/win32/api/minidumpapiset/ns-minidumpapiset-minidump_location_descriptor">MINIDUMP_LOCATION_DESCRIPTOR</a> structure that specifies the location of the data stream.
      * @type {MINIDUMP_LOCATION_DESCRIPTOR}
      */
-    Location{
+    Location {
         get {
             if(!this.HasProp("__Location"))
                 this.__Location := MINIDUMP_LOCATION_DESCRIPTOR(4, this)

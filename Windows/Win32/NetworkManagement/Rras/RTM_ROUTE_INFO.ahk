@@ -7,10 +7,8 @@
  * The RTM_ROUTE_INFO structure is used to exchange route information with the routing table manager. Do not change the read-only information.
  * @see https://learn.microsoft.com/windows/win32/api/rtmv2/ns-rtmv2-rtm_route_info
  * @namespace Windows.Win32.NetworkManagement.Rras
- * @version v4.0.30319
  */
-class RTM_ROUTE_INFO extends Win32Struct
-{
+class RTM_ROUTE_INFO extends Win32Struct {
     static sizeof => 64
 
     static packingSize => 8
@@ -261,7 +259,7 @@ class RTM_ROUTE_INFO extends Win32Struct
      * Specifies the preference and metric information for this route.
      * @type {RTM_PREF_INFO}
      */
-    PrefInfo{
+    PrefInfo {
         get {
             if(!this.HasProp("__PrefInfo"))
                 this.__PrefInfo := RTM_PREF_INFO(28, this)
@@ -291,7 +289,7 @@ class RTM_ROUTE_INFO extends Win32Struct
      * Specifies a list of equal-cost next hops.
      * @type {RTM_NEXTHOP_LIST}
      */
-    NextHopsList{
+    NextHopsList {
         get {
             if(!this.HasProp("__NextHopsList"))
                 this.__NextHopsList := RTM_NEXTHOP_LIST(48, this)

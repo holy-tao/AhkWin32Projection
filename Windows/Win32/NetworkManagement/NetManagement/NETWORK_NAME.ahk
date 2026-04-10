@@ -4,10 +4,8 @@
 
 /**
  * @namespace Windows.Win32.NetworkManagement.NetManagement
- * @version v4.0.30319
  */
-class NETWORK_NAME extends Win32Struct
-{
+class NETWORK_NAME extends Win32Struct {
     static sizeof => 6
 
     static packingSize => 2
@@ -15,7 +13,7 @@ class NETWORK_NAME extends Win32Struct
     /**
      * @type {FLAT_STRING}
      */
-    Name{
+    Name {
         get {
             if(!this.HasProp("__Name"))
                 this.__Name := FLAT_STRING(0, this)

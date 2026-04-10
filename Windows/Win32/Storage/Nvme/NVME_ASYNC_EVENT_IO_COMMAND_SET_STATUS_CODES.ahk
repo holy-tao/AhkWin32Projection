@@ -7,9 +7,8 @@
  * Values from this enumeration are used in the **NVME_ASYNC_EVENT_TYPE_IO_COMMAND_SET_STATUS** field of the [NVME_ASYNC_EVENT_TYPES](ne-nvme-nvme_async_event_types.md) enumeration.
  * @see https://learn.microsoft.com/windows/win32/api/nvme/ne-nvme-nvme_async_event_io_command_set_status_codes
  * @namespace Windows.Win32.Storage.Nvme
- * @version v4.0.30319
  */
-class NVME_ASYNC_EVENT_IO_COMMAND_SET_STATUS_CODES extends Win32Enum{
+class NVME_ASYNC_EVENT_IO_COMMAND_SET_STATUS_CODES extends Win32Enum {
 
     /**
      * One or more [Reservation Notification log](ns-nvme-nvme_reservation_notification_log.md) pages are available.

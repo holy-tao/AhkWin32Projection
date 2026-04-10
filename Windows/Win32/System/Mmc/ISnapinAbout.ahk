@@ -1,16 +1,15 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
-#Include ..\..\UI\WindowsAndMessaging\HICON.ahk
 #Include ..\Com\IUnknown.ahk
+#Include ..\..\UI\WindowsAndMessaging\HICON.ahk
 
 /**
  * The ISnapinAbout interface enables the console to get copyright and version information from a snap-in. The console also uses this interface to obtain images for the static folder from the snap-in.
  * @see https://learn.microsoft.com/windows/win32/api/mmc/nn-mmc-isnapinabout
  * @namespace Windows.Win32.System.Mmc
- * @version v4.0.30319
  */
-class ISnapinAbout extends IUnknown{
+class ISnapinAbout extends IUnknown {
 
     static sizeof => A_PtrSize
     /**

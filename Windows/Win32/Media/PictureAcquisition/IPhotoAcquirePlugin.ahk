@@ -7,9 +7,8 @@
  * Implement the IPhotoAcquirePlugin interface when you want to create a plug-in to run alongside the Windows Vista user interface (UI) for image acquisition. Registry settings are required to enable the plug-in.
  * @see https://learn.microsoft.com/windows/win32/api/photoacquire/nn-photoacquire-iphotoacquireplugin
  * @namespace Windows.Win32.Media.PictureAcquisition
- * @version v4.0.30319
  */
-class IPhotoAcquirePlugin extends IUnknown{
+class IPhotoAcquirePlugin extends IUnknown {
 
     static sizeof => A_PtrSize
     /**

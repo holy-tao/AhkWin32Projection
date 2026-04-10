@@ -1,13 +1,12 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
 #Include .\CDROM_EXCLUSIVE_ACCESS.ahk
+#Include .\EXCLUSIVE_ACCESS_REQUEST_TYPE.ahk
 
 /**
  * @namespace Windows.Win32.Devices.Cdrom
- * @version v4.0.30319
  */
-class CDROM_EXCLUSIVE_LOCK extends Win32Struct
-{
+class CDROM_EXCLUSIVE_LOCK extends Win32Struct {
     static sizeof => 72
 
     static packingSize => 4
@@ -15,7 +14,7 @@ class CDROM_EXCLUSIVE_LOCK extends Win32Struct
     /**
      * @type {CDROM_EXCLUSIVE_ACCESS}
      */
-    Access{
+    Access {
         get {
             if(!this.HasProp("__Access"))
                 this.__Access := CDROM_EXCLUSIVE_ACCESS(0, this)
@@ -24,9 +23,9 @@ class CDROM_EXCLUSIVE_LOCK extends Win32Struct
     }
 
     /**
-     * @type {Array<Byte>}
+     * @type {Array<Integer>}
      */
-    CallerName{
+    CallerName {
         get {
             if(!this.HasProp("__CallerNameProxyArray"))
                 this.__CallerNameProxyArray := Win32FixedArray(this.ptr + 8, 64, Primitive, "char")

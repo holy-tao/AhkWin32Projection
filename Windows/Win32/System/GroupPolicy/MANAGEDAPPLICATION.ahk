@@ -5,10 +5,8 @@
  * The MANAGEDAPPLICATION structure contains information about an application. The function GetManagedApplications returns an array of MANAGEDAPPLICATION structures.
  * @see https://learn.microsoft.com/windows/win32/api/appmgmt/ns-appmgmt-managedapplication
  * @namespace Windows.Win32.System.GroupPolicy
- * @version v4.0.30319
  */
-class MANAGEDAPPLICATION extends Win32Struct
-{
+class MANAGEDAPPLICATION extends Win32Struct {
     static sizeof => 112
 
     static packingSize => 8
@@ -60,7 +58,7 @@ class MANAGEDAPPLICATION extends Win32Struct
 
     /**
      * The GUID of the GPO from which this application is deployed.
-     * @type {Pointer<Guid>}
+     * @type {Pointer}
      */
     GpoId {
         get => NumGet(this, 32, "ptr")
@@ -78,7 +76,7 @@ class MANAGEDAPPLICATION extends Win32Struct
 
     /**
      * If this application is installed by <a href="https://docs.microsoft.com/windows/desktop/Msi/windows-installer-portal">Windows Installer</a>, this member is the ProductId GUID.
-     * @type {Pointer<Guid>}
+     * @type {Pointer}
      */
     ProductId {
         get => NumGet(this, 48, "ptr")
@@ -140,7 +138,6 @@ class MANAGEDAPPLICATION extends Win32Struct
     }
 
     /**
-     * 
      * @type {Integer}
      */
     dwPathType {

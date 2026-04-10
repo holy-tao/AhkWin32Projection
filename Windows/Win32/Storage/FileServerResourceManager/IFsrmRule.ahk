@@ -1,9 +1,9 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
+#Include .\IFsrmObject.ahk
 #Include ..\..\Foundation\BSTR.ahk
 #Include ..\..\System\Variant\VARIANT.ahk
-#Include .\IFsrmObject.ahk
 
 /**
  * Defines a rule.
@@ -11,9 +11,8 @@
  * The name and rule type properties define a unique rule.
  * @see https://learn.microsoft.com/windows/win32/api/fsrmpipeline/nn-fsrmpipeline-ifsrmrule
  * @namespace Windows.Win32.Storage.FileServerResourceManager
- * @version v4.0.30319
  */
-class IFsrmRule extends IFsrmObject{
+class IFsrmRule extends IFsrmObject {
 
     static sizeof => A_PtrSize
     /**
@@ -43,7 +42,7 @@ class IFsrmRule extends IFsrmObject{
     }
 
     /**
-     * @type {Integer} 
+     * @type {FsrmRuleType} 
      */
     RuleType {
         get => this.get_RuleType()
@@ -122,7 +121,7 @@ class IFsrmRule extends IFsrmObject{
      * The rule's type is specified when you call the <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/fsrmpipeline/nf-fsrmpipeline-ifsrmclassificationmanager-createrule">IFsrmClassificationManager::CreateRule</a> method to create the rule.
      * 
      * The name and rule type properties define a unique rule.
-     * @returns {Integer} 
+     * @returns {FsrmRuleType} 
      * @see https://learn.microsoft.com/windows/win32/api/fsrmpipeline/nf-fsrmpipeline-ifsrmrule-get_ruletype
      */
     get_RuleType() {

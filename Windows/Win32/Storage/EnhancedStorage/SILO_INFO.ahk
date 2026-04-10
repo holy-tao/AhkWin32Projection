@@ -5,10 +5,8 @@
  * SILO_INFO structure contains information that identifies and describes the silo.
  * @see https://learn.microsoft.com/windows/win32/api/ehstorapi/ns-ehstorapi-silo_info
  * @namespace Windows.Win32.Storage.EnhancedStorage
- * @version v4.0.30319
  */
-class SILO_INFO extends Win32Struct
-{
+class SILO_INFO extends Win32Struct {
     static sizeof => 12
 
     static packingSize => 4

@@ -1,16 +1,14 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
-#Include ..\..\Foundation\BSTR.ahk
 #Include ..\..\System\Com\IDispatch.ahk
 
 /**
  * The IWMPSettings interface provides methods that get or set the values of Windows Media Player settings.
  * @see https://learn.microsoft.com/windows/win32/api/wmp/nn-wmp-iwmpsettings
  * @namespace Windows.Win32.Media.MediaPlayer
- * @version v4.0.30319
  */
-class IWMPSettings extends IDispatch{
+class IWMPSettings extends IDispatch {
 
     static sizeof => A_PtrSize
     /**
@@ -32,6 +30,7 @@ class IWMPSettings extends IDispatch{
     static VTableNames => ["get_isAvailable", "get_autoStart", "put_autoStart", "get_baseURL", "put_baseURL", "get_defaultFrame", "put_defaultFrame", "get_invokeURLs", "put_invokeURLs", "get_mute", "put_mute", "get_playCount", "put_playCount", "get_rate", "put_rate", "get_balance", "put_balance", "get_volume", "put_volume", "getMode", "setMode", "get_enableErrorDialogs", "put_enableErrorDialogs"]
 
     /**
+     * @type {VARIANT_BOOL} 
      */
     autoStart {
         get => this.get_autoStart()
@@ -39,6 +38,7 @@ class IWMPSettings extends IDispatch{
     }
 
     /**
+     * @type {BSTR} 
      */
     baseURL {
         get => this.get_baseURL()
@@ -46,6 +46,7 @@ class IWMPSettings extends IDispatch{
     }
 
     /**
+     * @type {BSTR} 
      */
     defaultFrame {
         get => this.get_defaultFrame()
@@ -53,6 +54,7 @@ class IWMPSettings extends IDispatch{
     }
 
     /**
+     * @type {VARIANT_BOOL} 
      */
     invokeURLs {
         get => this.get_invokeURLs()
@@ -60,6 +62,7 @@ class IWMPSettings extends IDispatch{
     }
 
     /**
+     * @type {VARIANT_BOOL} 
      */
     mute {
         get => this.get_mute()
@@ -67,6 +70,7 @@ class IWMPSettings extends IDispatch{
     }
 
     /**
+     * @type {Integer} 
      */
     playCount {
         get => this.get_playCount()
@@ -74,6 +78,7 @@ class IWMPSettings extends IDispatch{
     }
 
     /**
+     * @type {Float} 
      */
     rate {
         get => this.get_rate()
@@ -81,6 +86,7 @@ class IWMPSettings extends IDispatch{
     }
 
     /**
+     * @type {Integer} 
      */
     balance {
         get => this.get_balance()
@@ -88,6 +94,7 @@ class IWMPSettings extends IDispatch{
     }
 
     /**
+     * @type {Integer} 
      */
     volume {
         get => this.get_volume()
@@ -95,6 +102,7 @@ class IWMPSettings extends IDispatch{
     }
 
     /**
+     * @type {VARIANT_BOOL} 
      */
     enableErrorDialogs {
         get => this.get_enableErrorDialogs()

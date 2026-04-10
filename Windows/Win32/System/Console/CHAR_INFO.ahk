@@ -5,16 +5,14 @@
  * Specifies a Unicode or ANSI character and its attributes. This structure is used by console functions to read from and write to a console screen buffer.
  * @see https://learn.microsoft.com/windows/console/char-info-str
  * @namespace Windows.Win32.System.Console
- * @version v4.0.30319
  */
-class CHAR_INFO extends Win32Struct
-{
-    static sizeof => 6
+class CHAR_INFO extends Win32Struct {
+    static sizeof => 4
 
     static packingSize => 2
 
     class _Char_e__Union extends Win32Struct {
-        static sizeof => 3
+        static sizeof => 2
         static packingSize => 2
 
         /**
@@ -24,7 +22,7 @@ class CHAR_INFO extends Win32Struct
             get => NumGet(this, 0, "char")
             set => NumPut("char", value, this, 0)
         }
-    
+
         /**
          * @type {CHAR}
          */
@@ -32,17 +30,16 @@ class CHAR_INFO extends Win32Struct
             get => NumGet(this, 0, "char")
             set => NumPut("char", value, this, 0)
         }
-    
     }
 
     /**
      * A union of the following members.
      * @type {_Char_e__Union}
      */
-    Char{
+    Char {
         get {
             if(!this.HasProp("__Char"))
-                this.__Char := %this.__Class%._Char_e__Union(0, this)
+                this.__Char := CHAR_INFO._Char_e__Union(0, this)
             return this.__Char
         }
     }
@@ -70,7 +67,7 @@ class CHAR_INFO extends Win32Struct
      * @type {Integer}
      */
     Attributes {
-        get => NumGet(this, 4, "ushort")
-        set => NumPut("ushort", value, this, 4)
+        get => NumGet(this, 2, "ushort")
+        set => NumPut("ushort", value, this, 2)
     }
 }

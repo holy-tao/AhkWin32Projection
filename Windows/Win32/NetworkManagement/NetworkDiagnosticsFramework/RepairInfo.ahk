@@ -1,23 +1,24 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
-#Include .\ShellCommandInfo.ahk
+#Include .\REPAIR_SCOPE.ahk
+#Include .\REPAIR_RISK.ahk
 #Include .\UiInfo.ahk
+#Include .\UI_INFO_TYPE.ahk
+#Include .\ShellCommandInfo.ahk
 
 /**
  * The RepairInfo structure contains data required for a particular repair option.
  * @see https://learn.microsoft.com/windows/win32/api/ndattrib/ns-ndattrib-repairinfo
  * @namespace Windows.Win32.NetworkManagement.NetworkDiagnosticsFramework
- * @version v4.0.30319
  */
-class RepairInfo extends Win32Struct
-{
+class RepairInfo extends Win32Struct {
     static sizeof => 104
 
     static packingSize => 8
 
     /**
      * A unique GUID for this repair.
-     * @type {Pointer<Guid>}
+     * @type {Pointer}
      */
     guid {
         get => NumGet(this, 0, "ptr")
@@ -190,7 +191,7 @@ class RepairInfo extends Win32Struct
 
     /**
      * Reserved for future use.
-     * @type {Integer}
+     * @type {REPAIR_SCOPE}
      */
     scope {
         get => NumGet(this, 36, "int")
@@ -199,7 +200,7 @@ class RepairInfo extends Win32Struct
 
     /**
      * Reserved for future use.
-     * @type {Integer}
+     * @type {REPAIR_RISK}
      */
     risk {
         get => NumGet(this, 40, "int")
@@ -210,7 +211,7 @@ class RepairInfo extends Win32Struct
      * A <a href="https://docs.microsoft.com/windows/desktop/api/ndattrib/ns-ndattrib-uiinfo">UiInfo</a> structure.
      * @type {UiInfo}
      */
-    UiInfo{
+    UiInfo {
         get {
             if(!this.HasProp("__UiInfo"))
                 this.__UiInfo := UiInfo(48, this)
@@ -219,7 +220,6 @@ class RepairInfo extends Win32Struct
     }
 
     /**
-     * 
      * @type {Integer}
      */
     rootCauseIndex {

@@ -1,17 +1,16 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
+#Include ..\Com\IUnknown.ahk
 #Include ..\..\Foundation\BSTR.ahk
 #Include ..\..\Foundation\FILETIME.ahk
-#Include ..\Com\IUnknown.ahk
 
 /**
  * Exposes properties that the Remote Desktop Connection Broker uses to set a plugin’s queue.
  * @see https://learn.microsoft.com/windows/win32/api/sbtsv/nn-sbtsv-itssbtaskinfo
  * @namespace Windows.Win32.System.RemoteDesktop
- * @version v4.0.30319
  */
-class ITsSbTaskInfo extends IUnknown{
+class ITsSbTaskInfo extends IUnknown {
 
     static sizeof => A_PtrSize
     /**
@@ -89,7 +88,7 @@ class ITsSbTaskInfo extends IUnknown{
     }
 
     /**
-     * @type {Integer} 
+     * @type {RDV_TASK_STATUS} 
      */
     Status {
         get => this.get_Status()
@@ -184,7 +183,7 @@ class ITsSbTaskInfo extends IUnknown{
 
     /**
      * Retrieves an RDV_TASK_STATUS enumeration value that represents the state of the task.
-     * @returns {Integer} 
+     * @returns {RDV_TASK_STATUS} 
      * @see https://learn.microsoft.com/windows/win32/api/sbtsv/nf-sbtsv-itssbtaskinfo-get_status
      */
     get_Status() {

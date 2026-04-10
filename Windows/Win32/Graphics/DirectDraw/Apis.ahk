@@ -6,7 +6,6 @@
 
 /**
  * @namespace Windows.Win32.Graphics.DirectDraw
- * @version v4.0.30319
  */
 class DirectDraw {
 

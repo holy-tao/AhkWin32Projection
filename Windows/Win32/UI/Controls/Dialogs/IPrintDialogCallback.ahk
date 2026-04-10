@@ -7,9 +7,8 @@
  * Provides methods that enable an application to receive notifications and messages from the PrintDlgEx function while the Print Property Sheet is displayed.
  * @see https://learn.microsoft.com/windows/win32/api/commdlg/nn-commdlg-iprintdialogcallback
  * @namespace Windows.Win32.UI.Controls.Dialogs
- * @version v4.0.30319
  */
-class IPrintDialogCallback extends IUnknown{
+class IPrintDialogCallback extends IUnknown {
 
     static sizeof => A_PtrSize
     /**
@@ -78,8 +77,16 @@ class IPrintDialogCallback extends IUnknown{
      * @param {Integer} uMsg Type: <b>UINT</b>
      * 
      * The identifier of the message being received.
-     * @param {WPARAM} _wParam 
-     * @param {LPARAM} _lParam 
+     * @param {WPARAM} _wParam Type: <b>WPARAM</b>
+     * 
+     * Additional information about the message. The exact meaning depends on the value of the <i>uMsg</i> parameter.
+     * @param {LPARAM} _lParam Type: <b>LPARAM</b>
+     * 
+     * Additional information about the message. The exact meaning depends on the value of the <i>uMsg</i> parameter.
+     * 
+     * 					
+     * 
+     * If the <i>uMsg</i> parameter indicates the <a href="https://docs.microsoft.com/windows/desktop/dlgbox/wm-initdialog">WM_INITDIALOG</a> message, <i>lParam</i> is a pointer to a <a href="https://docs.microsoft.com/windows/win32/api/commdlg/ns-commdlg-printdlgexa">PRINTDLGEX</a> structure containing the values specified when the property sheet was created.
      * @param {Pointer<LRESULT>} pResult Type: <b>LRESULT*</b>
      * 
      * Indicates the result to be returned by the dialog box procedure for the message. The value pointed to should be <b>TRUE</b> if you process the message, otherwise it should be <b>FALSE</b> or whatever is an appropriate value according to the message type.

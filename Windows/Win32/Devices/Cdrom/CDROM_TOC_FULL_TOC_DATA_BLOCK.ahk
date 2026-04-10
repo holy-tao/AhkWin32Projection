@@ -3,10 +3,8 @@
 
 /**
  * @namespace Windows.Win32.Devices.Cdrom
- * @version v4.0.30319
  */
-class CDROM_TOC_FULL_TOC_DATA_BLOCK extends Win32Struct
-{
+class CDROM_TOC_FULL_TOC_DATA_BLOCK extends Win32Struct {
     static sizeof => 11
 
     static packingSize => 1
@@ -63,9 +61,9 @@ class CDROM_TOC_FULL_TOC_DATA_BLOCK extends Win32Struct
     }
 
     /**
-     * @type {Array<Byte>}
+     * @type {Array<Integer>}
      */
-    MsfExtra{
+    MsfExtra {
         get {
             if(!this.HasProp("__MsfExtraProxyArray"))
                 this.__MsfExtraProxyArray := Win32FixedArray(this.ptr + 4, 3, Primitive, "char")
@@ -82,9 +80,9 @@ class CDROM_TOC_FULL_TOC_DATA_BLOCK extends Win32Struct
     }
 
     /**
-     * @type {Array<Byte>}
+     * @type {Array<Integer>}
      */
-    Msf{
+    Msf {
         get {
             if(!this.HasProp("__MsfProxyArray"))
                 this.__MsfProxyArray := Win32FixedArray(this.ptr + 8, 3, Primitive, "char")

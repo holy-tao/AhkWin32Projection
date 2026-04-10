@@ -9,9 +9,8 @@
  * Components that do not implement this interface, or do not use the allocator provided by the system, can still allocate samples, but when running from inside a container, the system will have to copy all samples into container memory, which is less efficient.
  * @see https://learn.microsoft.com/windows/win32/api/mfidl/nn-mfidl-imfsampleallocatorcontrol
  * @namespace Windows.Win32.Media.MediaFoundation
- * @version v4.0.30319
  */
-class IMFSampleAllocatorControl extends IUnknown{
+class IMFSampleAllocatorControl extends IUnknown {
 
     static sizeof => A_PtrSize
     /**
@@ -53,7 +52,7 @@ class IMFSampleAllocatorControl extends IUnknown{
      * Retrieves the sample allocator usage for the specified output stream.
      * @param {Integer} dwOutputStreamID The ID of the output stream whose sample allocator usage is requested.
      * @param {Pointer<Integer>} pdwInputStreamID If the allocator usage is [MFSampleAllocatorUsage_DoesNotAllocate](ne-mfidl-mfsampleallocatorusage.md), then this output parameter is set to the ID of the input stream that the output samples are coming from. For all other allocator usage values, this parameter is ignored.
-     * @param {Pointer<Integer>} peUsage A member of the [MFSampleAllocatorUsage](ne-mfidl-mfsampleallocatorusage.md) enumeration specifying the sample allocator usage of the specified output stream.
+     * @param {Pointer<MFSampleAllocatorUsage>} peUsage A member of the [MFSampleAllocatorUsage](ne-mfidl-mfsampleallocatorusage.md) enumeration specifying the sample allocator usage of the specified output stream.
      * @returns {HRESULT} The method returns an **HRESULT**.
      * @see https://learn.microsoft.com/windows/win32/api/mfidl/nf-mfidl-imfsampleallocatorcontrol-getallocatorusage
      */

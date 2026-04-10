@@ -7,9 +7,8 @@
  * Hyphenation rules are specific for each language; not all hyphenation types are valid for a given language.
  * @see https://learn.microsoft.com/windows/win32/api/richedit/ne-richedit-khyph
  * @namespace Windows.Win32.UI.Controls.RichEdit
- * @version v4.0.30319
  */
-class KHYPH extends Win32Enum{
+class KHYPH extends Win32Enum {
 
     /**
      * No hyphenation is allowed.

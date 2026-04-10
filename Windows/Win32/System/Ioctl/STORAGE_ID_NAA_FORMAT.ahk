@@ -3,9 +3,8 @@
 
 /**
  * @namespace Windows.Win32.System.Ioctl
- * @version v4.0.30319
  */
-class STORAGE_ID_NAA_FORMAT extends Win32Enum{
+class STORAGE_ID_NAA_FORMAT extends Win32Enum {
 
     /**
      * @type {Integer (Int32)}

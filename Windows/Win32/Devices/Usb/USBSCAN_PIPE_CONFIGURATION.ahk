@@ -1,16 +1,15 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
 #Include .\USBSCAN_PIPE_INFORMATION.ahk
+#Include .\RAW_PIPE_TYPE.ahk
 
 /**
  * @namespace Windows.Win32.Devices.Usb
- * @version v4.0.30319
  */
-class USBSCAN_PIPE_CONFIGURATION extends Win32Struct
-{
-    static sizeof => 72
+class USBSCAN_PIPE_CONFIGURATION extends Win32Struct {
+    static sizeof => 68
 
-    static packingSize => 8
+    static packingSize => 4
 
     /**
      * @type {Integer}
@@ -21,12 +20,12 @@ class USBSCAN_PIPE_CONFIGURATION extends Win32Struct
     }
 
     /**
-     * @type {Array<USBSCAN_PIPE_INFORMATION>}
+     * @type {USBSCAN_PIPE_INFORMATION}
      */
-    PipeInfo{
+    PipeInfo {
         get {
             if(!this.HasProp("__PipeInfoProxyArray"))
-                this.__PipeInfoProxyArray := Win32FixedArray(this.ptr + 8, 8, USBSCAN_PIPE_INFORMATION, "")
+                this.__PipeInfoProxyArray := Win32FixedArray(this.ptr + 4, 8, USBSCAN_PIPE_INFORMATION, "")
             return this.__PipeInfoProxyArray
         }
     }

@@ -7,9 +7,8 @@
  * Storage format MP3 is supported for reading, but not writing.
  * @see https://learn.microsoft.com/windows/win32/api/wmsdkidl/ne-wmsdkidl-wmt_storage_format
  * @namespace Windows.Win32.Media.WindowsMediaFormat
- * @version v4.0.30319
  */
-class WMT_STORAGE_FORMAT extends Win32Enum{
+class WMT_STORAGE_FORMAT extends Win32Enum {
 
     /**
      * The file is encoded in MP3 format.

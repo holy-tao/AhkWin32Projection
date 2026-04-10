@@ -5,9 +5,8 @@
  * Indicates whether a location is within the image of an object.
  * @see https://learn.microsoft.com/windows/win32/api/ocidl/ne-ocidl-hitresult
  * @namespace Windows.Win32.System.Ole
- * @version v4.0.30319
  */
-class HITRESULT extends Win32Enum{
+class HITRESULT extends Win32Enum {
 
     /**
      * The specified location is outside the object and not close to the object.

@@ -1,17 +1,16 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
+#Include ..\..\System\Com\IUnknown.ahk
 #Include .\IDirect3DAuthenticatedChannel9.ahk
 #Include .\IDirect3DCryptoSession9.ahk
-#Include ..\..\System\Com\IUnknown.ahk
 
 /**
  * Enables an application to use content protection and encryption services implemented by a graphics driver.To get a pointer to this interface, call QueryInterface on a D3D9Ex device.
  * @see https://learn.microsoft.com/windows/win32/api/d3d9/nn-d3d9-idirect3ddevice9video
  * @namespace Windows.Win32.Media.MediaFoundation
- * @version v4.0.30319
  */
-class IDirect3DDevice9Video extends IUnknown{
+class IDirect3DDevice9Video extends IUnknown {
 
     static sizeof => A_PtrSize
     /**
@@ -60,7 +59,7 @@ class IDirect3DDevice9Video extends IUnknown{
      * If the <i>ChannelType</i> parameter is <b>D3DAUTHENTICATEDCHANNEL_D3D9</b>, the method creates a channel with the Direct3D device. This type of channel does not support authentication.
      * 
      * If <i>ChannelType</i> is <b>D3DAUTHENTICATEDCHANNEL_DRIVER_SOFTWARE</b> or <b>D3DAUTHENTICATEDCHANNEL_DRIVER_HARDWARE</b>, the method creates an authenticated channel with the graphics driver.
-     * @param {Integer} _ChannelType 
+     * @param {D3DAUTHENTICATEDCHANNELTYPE} _ChannelType Specifies the type of channel, as a member of the <a href="https://docs.microsoft.com/windows/desktop/medfound/d3dauthenticatedchanneltype">D3DAUTHENTICATEDCHANNELTYPE</a> enumeration.
      * @param {Pointer<HANDLE>} pChannelHandle Receives a pointer to a handle for the channel.
      * @returns {IDirect3DAuthenticatedChannel9} Receives a pointer to the <a href="https://docs.microsoft.com/windows/desktop/api/d3d9/nn-d3d9-idirect3dauthenticatedchannel9">IDirect3DAuthenticatedChannel9</a> interface. The caller must release the interface.
      * @see https://learn.microsoft.com/windows/win32/api/d3d9/nf-d3d9-idirect3ddevice9video-createauthenticatedchannel

@@ -7,9 +7,8 @@
  * The IConsole2 interface is introduced in MMC 1.1.
  * @see https://learn.microsoft.com/windows/win32/api/mmc/nn-mmc-iconsole2
  * @namespace Windows.Win32.System.Mmc
- * @version v4.0.30319
  */
-class IConsole2 extends IConsole{
+class IConsole2 extends IConsole {
 
     static sizeof => A_PtrSize
     /**

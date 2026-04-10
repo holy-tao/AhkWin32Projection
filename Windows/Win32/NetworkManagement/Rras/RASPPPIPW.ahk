@@ -3,11 +3,9 @@
 
 /**
  * @namespace Windows.Win32.NetworkManagement.Rras
- * @version v4.0.30319
  * @charset Unicode
  */
-class RASPPPIPW extends Win32Struct
-{
+class RASPPPIPW extends Win32Struct {
     static sizeof => 80
 
     static packingSize => 4

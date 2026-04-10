@@ -3,15 +3,14 @@
 #Include .\CRYPT_INTEGER_BLOB.ahk
 #Include .\CRYPT_ALGORITHM_IDENTIFIER.ahk
 #Include .\CRYPT_ATTRIBUTES.ahk
+#Include .\CRYPT_ATTRIBUTE.ahk
 
 /**
  * The CMSG_SIGNER_INFO structure contains the content of the PKCS
  * @see https://learn.microsoft.com/windows/win32/api/wincrypt/ns-wincrypt-cmsg_signer_info
  * @namespace Windows.Win32.Security.Cryptography
- * @version v4.0.30319
  */
-class CMSG_SIGNER_INFO extends Win32Struct
-{
+class CMSG_SIGNER_INFO extends Win32Struct {
     static sizeof => 136
 
     static packingSize => 8
@@ -29,7 +28,7 @@ class CMSG_SIGNER_INFO extends Win32Struct
      * A <a href="https://docs.microsoft.com/previous-versions/windows/desktop/legacy/aa381414(v=vs.85)">CERT_NAME_BLOB</a> structure that contains the issuer of a certificate with the public key needed to verify a signature.
      * @type {CRYPT_INTEGER_BLOB}
      */
-    Issuer{
+    Issuer {
         get {
             if(!this.HasProp("__Issuer"))
                 this.__Issuer := CRYPT_INTEGER_BLOB(8, this)
@@ -42,7 +41,7 @@ class CMSG_SIGNER_INFO extends Win32Struct
      * <a href="https://docs.microsoft.com/windows/desktop/api/wincrypt/ns-wincrypt-cert_info">CERT_INFO</a>.
      * @type {CRYPT_INTEGER_BLOB}
      */
-    SerialNumber{
+    SerialNumber {
         get {
             if(!this.HasProp("__SerialNumber"))
                 this.__SerialNumber := CRYPT_INTEGER_BLOB(24, this)
@@ -54,7 +53,7 @@ class CMSG_SIGNER_INFO extends Win32Struct
      * <a href="https://docs.microsoft.com/windows/desktop/api/wincrypt/ns-wincrypt-crypt_algorithm_identifier">CRYPT_ALGORITHM_IDENTIFIER</a> structure specifying the algorithm used in generating the hash of a message.
      * @type {CRYPT_ALGORITHM_IDENTIFIER}
      */
-    HashAlgorithm{
+    HashAlgorithm {
         get {
             if(!this.HasProp("__HashAlgorithm"))
                 this.__HashAlgorithm := CRYPT_ALGORITHM_IDENTIFIER(40, this)
@@ -66,7 +65,7 @@ class CMSG_SIGNER_INFO extends Win32Struct
      * <a href="https://docs.microsoft.com/windows/desktop/api/wincrypt/ns-wincrypt-crypt_algorithm_identifier">CRYPT_ALGORITHM_IDENTIFIER</a> structure specifying the algorithm used to encrypt the hash.
      * @type {CRYPT_ALGORITHM_IDENTIFIER}
      */
-    HashEncryptionAlgorithm{
+    HashEncryptionAlgorithm {
         get {
             if(!this.HasProp("__HashEncryptionAlgorithm"))
                 this.__HashEncryptionAlgorithm := CRYPT_ALGORITHM_IDENTIFIER(64, this)
@@ -79,7 +78,7 @@ class CMSG_SIGNER_INFO extends Win32Struct
      * 						<a href="https://docs.microsoft.com/previous-versions/windows/desktop/legacy/aa381414(v=vs.85)">CRYPT_DATA_BLOB</a> that contains the encrypted hash of the message, the signature.
      * @type {CRYPT_INTEGER_BLOB}
      */
-    EncryptedHash{
+    EncryptedHash {
         get {
             if(!this.HasProp("__EncryptedHash"))
                 this.__EncryptedHash := CRYPT_INTEGER_BLOB(88, this)
@@ -91,7 +90,7 @@ class CMSG_SIGNER_INFO extends Win32Struct
      * <a href="https://docs.microsoft.com/windows/desktop/api/wincrypt/ns-wincrypt-crypt_attributes">CRYPT_ATTRIBUTES</a> structure containing authenticated attributes of the signer.
      * @type {CRYPT_ATTRIBUTES}
      */
-    AuthAttrs{
+    AuthAttrs {
         get {
             if(!this.HasProp("__AuthAttrs"))
                 this.__AuthAttrs := CRYPT_ATTRIBUTES(104, this)
@@ -103,7 +102,7 @@ class CMSG_SIGNER_INFO extends Win32Struct
      * <a href="https://docs.microsoft.com/windows/desktop/api/wincrypt/ns-wincrypt-crypt_attributes">CRYPT_ATTRIBUTES</a> structure containing unauthenticated attributes of the signer.
      * @type {CRYPT_ATTRIBUTES}
      */
-    UnauthAttrs{
+    UnauthAttrs {
         get {
             if(!this.HasProp("__UnauthAttrs"))
                 this.__UnauthAttrs := CRYPT_ATTRIBUTES(120, this)

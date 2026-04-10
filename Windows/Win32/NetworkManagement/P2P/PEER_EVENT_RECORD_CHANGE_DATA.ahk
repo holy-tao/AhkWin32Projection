@@ -1,14 +1,13 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
+#Include .\PEER_RECORD_CHANGE_TYPE.ahk
 
 /**
  * Points to the PEER_EVENT_RECORD_CHANGE_DATA structure if one of the following peer events is triggered.
  * @see https://learn.microsoft.com/windows/win32/api/p2p/ns-p2p-peer_event_record_change_data
  * @namespace Windows.Win32.NetworkManagement.P2P
- * @version v4.0.30319
  */
-class PEER_EVENT_RECORD_CHANGE_DATA extends Win32Struct
-{
+class PEER_EVENT_RECORD_CHANGE_DATA extends Win32Struct {
     static sizeof => 24
 
     static packingSize => 8
@@ -24,8 +23,8 @@ class PEER_EVENT_RECORD_CHANGE_DATA extends Win32Struct
 
     /**
      * Specifies the type of change to a record or record type.
-     * @deprecated 
-     * @type {Integer}
+     * @deprecated
+     * @type {PEER_RECORD_CHANGE_TYPE}
      */
     changeType {
         get => NumGet(this, 4, "int")
@@ -34,7 +33,7 @@ class PEER_EVENT_RECORD_CHANGE_DATA extends Win32Struct
 
     /**
      * Specifies the unique  ID of a changed record.
-     * @type {Pointer<Guid>}
+     * @type {Pointer}
      */
     recordId {
         get => NumGet(this, 8, "ptr")
@@ -43,7 +42,7 @@ class PEER_EVENT_RECORD_CHANGE_DATA extends Win32Struct
 
     /**
      * Specifies the unique  record type of a changed record.
-     * @type {Pointer<Guid>}
+     * @type {Pointer}
      */
     recordType {
         get => NumGet(this, 16, "ptr")

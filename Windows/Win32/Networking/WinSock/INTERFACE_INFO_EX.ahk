@@ -1,6 +1,7 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
 #Include .\SOCKET_ADDRESS.ahk
+#Include .\SOCKADDR.ahk
 
 /**
  * The INTERFACE_INFO_EX structure is used in conjunction with the SIO_GET_INTERFACE_LIST IOCTL command to obtain information about an interface IP address.
@@ -8,10 +9,8 @@
  * On the Microsoft Windows Software Development Kit (SDK) released for Windows Vista and later, the organization of header files has changed and the <b>INTERFACE_INFO_EX</b> structure is defined in the <i>Ws2ipdef.h</i> header file which is automatically included in the <i>Ws2tcpip.h</i> header file. The <i>Ws2ipdef.h</i>  header files should never be used directly.
  * @see https://learn.microsoft.com/windows/win32/api/ws2ipdef/ns-ws2ipdef-interface_info_ex
  * @namespace Windows.Win32.Networking.WinSock
- * @version v4.0.30319
  */
-class INTERFACE_INFO_EX extends Win32Struct
-{
+class INTERFACE_INFO_EX extends Win32Struct {
     static sizeof => 56
 
     static packingSize => 8
@@ -86,7 +85,7 @@ class INTERFACE_INFO_EX extends Win32Struct
      * Address of an interface.
      * @type {SOCKET_ADDRESS}
      */
-    iiAddress{
+    iiAddress {
         get {
             if(!this.HasProp("__iiAddress"))
                 this.__iiAddress := SOCKET_ADDRESS(8, this)
@@ -98,7 +97,7 @@ class INTERFACE_INFO_EX extends Win32Struct
      * Broadcast address of the interface or the address of the other side for point-to-point links.
      * @type {SOCKET_ADDRESS}
      */
-    iiBroadcastAddress{
+    iiBroadcastAddress {
         get {
             if(!this.HasProp("__iiBroadcastAddress"))
                 this.__iiBroadcastAddress := SOCKET_ADDRESS(24, this)
@@ -110,7 +109,7 @@ class INTERFACE_INFO_EX extends Win32Struct
      * Netmask used by the interface.
      * @type {SOCKET_ADDRESS}
      */
-    iiNetmask{
+    iiNetmask {
         get {
             if(!this.HasProp("__iiNetmask"))
                 this.__iiNetmask := SOCKET_ADDRESS(40, this)

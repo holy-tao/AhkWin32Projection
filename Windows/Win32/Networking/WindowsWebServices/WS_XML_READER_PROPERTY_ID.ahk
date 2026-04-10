@@ -5,9 +5,8 @@
  * Identifies each XML reader property is and its associated value.
  * @see https://learn.microsoft.com/windows/win32/api/webservices/ne-webservices-ws_xml_reader_property_id
  * @namespace Windows.Win32.Networking.WindowsWebServices
- * @version v4.0.30319
  */
-class WS_XML_READER_PROPERTY_ID extends Win32Enum{
+class WS_XML_READER_PROPERTY_ID extends Win32Enum {
 
     /**
      * A <b>ULONG</b> that specifies the maximum depth of the document that the reader will permit.

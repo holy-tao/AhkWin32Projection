@@ -3,10 +3,8 @@
 
 /**
  * @namespace Windows.Win32.Devices.Nfc
- * @version v4.0.30319
  */
-class NFC_DATA_BUFFER extends Win32Struct
-{
+class NFC_DATA_BUFFER extends Win32Struct {
     static sizeof => 4
 
     static packingSize => 2
@@ -20,9 +18,9 @@ class NFC_DATA_BUFFER extends Win32Struct
     }
 
     /**
-     * @type {Array<Byte>}
+     * @type {Array<Integer>}
      */
-    pbBuffer{
+    pbBuffer {
         get {
             if(!this.HasProp("__pbBufferProxyArray"))
                 this.__pbBufferProxyArray := Win32FixedArray(this.ptr + 2, 1, Primitive, "char")

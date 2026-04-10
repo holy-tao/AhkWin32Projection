@@ -1,13 +1,12 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
+#Include .\WAVEFILTER.ahk
 
 /**
  * @namespace Windows.Win32.Media.Audio
- * @version v4.0.30319
  * @charset ANSI
  */
-class ACMFILTERDETAILSA extends Win32Struct
-{
+class ACMFILTERDETAILSA extends Win32Struct {
     static sizeof => 160
 
     static packingSize => 8

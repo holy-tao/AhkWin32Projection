@@ -4,14 +4,10 @@
 
 /**
  * Contains fields that specify the information in an Error Information log page.
- * @remarks
- * 
  * @see https://learn.microsoft.com/windows/win32/api/nvme/ns-nvme-nvme_error_info_log
  * @namespace Windows.Win32.Storage.Nvme
- * @version v4.0.30319
  */
-class NVME_ERROR_INFO_LOG extends Win32Struct
-{
+class NVME_ERROR_INFO_LOG extends Win32Struct {
     static sizeof => 72
 
     static packingSize => 8
@@ -31,7 +27,7 @@ class NVME_ERROR_INFO_LOG extends Win32Struct
             get => NumGet(this, 0, "ushort")
             set => NumPut("ushort", value, this, 0)
         }
-    
+
         /**
          * @type {Integer}
          */
@@ -39,7 +35,7 @@ class NVME_ERROR_INFO_LOG extends Win32Struct
             get => (this._bitfield >> 0) & 0xFF
             set => this._bitfield := ((value & 0xFF) << 0) | (this._bitfield & ~(0xFF << 0))
         }
-    
+
         /**
          * @type {Integer}
          */
@@ -47,7 +43,6 @@ class NVME_ERROR_INFO_LOG extends Win32Struct
             get => (this._bitfield >> 8) & 0x7
             set => this._bitfield := ((value & 0x7) << 8) | (this._bitfield & ~(0x7 << 8))
         }
-    
     }
 
     /**
@@ -85,7 +80,7 @@ class NVME_ERROR_INFO_LOG extends Win32Struct
      * The Status Field is located in bits 01:15. Bit 0 corresponds to the [Phase Tag (**P**)](ns-nvme-nvme_command_status.md) posted for the command. If the error is not specific to a particular command then this field reports the most applicable status value.
      * @type {NVME_COMMAND_STATUS}
      */
-    Status{
+    Status {
         get {
             if(!this.HasProp("__Status"))
                 this.__Status := NVME_COMMAND_STATUS(12, this)
@@ -99,10 +94,10 @@ class NVME_ERROR_INFO_LOG extends Win32Struct
      * If the parameter spans multiple bytes or bits, the location indicates the first byte and bit of the parameter. If the error is not specific to a particular command, this field is set to `FFFFh`.
      * @type {_ParameterErrorLocation}
      */
-    ParameterErrorLocation{
+    ParameterErrorLocation {
         get {
             if(!this.HasProp("__ParameterErrorLocation"))
-                this.__ParameterErrorLocation := %this.__Class%._ParameterErrorLocation(16, this)
+                this.__ParameterErrorLocation := NVME_ERROR_INFO_LOG._ParameterErrorLocation(16, this)
             return this.__ParameterErrorLocation
         }
     }
@@ -146,9 +141,9 @@ class NVME_ERROR_INFO_LOG extends Win32Struct
 
     /**
      * A reserved field.
-     * @type {Array<Byte>}
+     * @type {Array<Integer>}
      */
-    Reserved0{
+    Reserved0 {
         get {
             if(!this.HasProp("__Reserved0ProxyArray"))
                 this.__Reserved0ProxyArray := Win32FixedArray(this.ptr + 38, 2, Primitive, "char")
@@ -175,9 +170,9 @@ class NVME_ERROR_INFO_LOG extends Win32Struct
 
     /**
      * A reserved field.
-     * @type {Array<Byte>}
+     * @type {Array<Integer>}
      */
-    Reserved1{
+    Reserved1 {
         get {
             if(!this.HasProp("__Reserved1ProxyArray"))
                 this.__Reserved1ProxyArray := Win32FixedArray(this.ptr + 50, 22, Primitive, "char")

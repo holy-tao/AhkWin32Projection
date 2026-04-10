@@ -5,10 +5,8 @@
  * Provides extended information about a partition on a Physical Disk resource.
  * @see https://learn.microsoft.com/windows/win32/api/msclus/nn-msclus-iscluspartitionex
  * @namespace Windows.Win32.Networking.Clustering
- * @version v4.0.30319
  */
-class ClusPartition extends Win32Struct
-{
+class ClusPartition extends Win32Struct {
     static sizeof => 0
 
     static packingSize => 1

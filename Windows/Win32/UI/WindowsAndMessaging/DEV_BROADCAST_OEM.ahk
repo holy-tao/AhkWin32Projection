@@ -5,10 +5,8 @@
  * Contains information about a OEM-defined device type.
  * @see https://learn.microsoft.com/windows/win32/api/dbt/ns-dbt-dev_broadcast_oem
  * @namespace Windows.Win32.UI.WindowsAndMessaging
- * @version v4.0.30319
  */
-class DEV_BROADCAST_OEM extends Win32Struct
-{
+class DEV_BROADCAST_OEM extends Win32Struct {
     static sizeof => 20
 
     static packingSize => 4

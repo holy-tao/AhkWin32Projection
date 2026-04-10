@@ -9,9 +9,8 @@
  * Represents the collection of verbs for an item in a Shell folder. This object contains properties and methods that allow you to retrieve information about the collection.
  * @see https://learn.microsoft.com/windows/win32/shell/folderitemverbs
  * @namespace Windows.Win32.UI.Shell
- * @version v4.0.30319
  */
-class FolderItemVerbs extends IDispatch{
+class FolderItemVerbs extends IDispatch {
 
     static sizeof => A_PtrSize
     /**

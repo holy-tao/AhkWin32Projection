@@ -7,9 +7,8 @@
  * Offers base functionality that allows for a consistent way to monitor the validity of a session across the different types of sessions.
  * @see https://learn.microsoft.com/windows/win32/api/d3d12/nn-d3d12-id3d12protectedsession
  * @namespace Windows.Win32.Graphics.Direct3D12
- * @version v4.0.30319
  */
-class ID3D12ProtectedSession extends ID3D12DeviceChild{
+class ID3D12ProtectedSession extends ID3D12DeviceChild {
 
     static sizeof => A_PtrSize
     /**
@@ -43,7 +42,7 @@ class ID3D12ProtectedSession extends ID3D12DeviceChild{
 
     /**
      * Gets the status of the protected session.
-     * @returns {Integer} Type: **[D3D12_PROTECTED_SESSION_STATUS](/windows/desktop/api/d3d12/ne-d3d12-d3d12_protected_session_status)**
+     * @returns {D3D12_PROTECTED_SESSION_STATUS} Type: **[D3D12_PROTECTED_SESSION_STATUS](/windows/desktop/api/d3d12/ne-d3d12-d3d12_protected_session_status)**
      * 
      * The status of the protected session. If the returned value is [D3D12_PROTECTED_SESSION_STATUS_INVALID](/windows/desktop/api/d3d12/ne-d3d12-d3d12_protected_session_status), then you need to wait for a uniqueness value bump to reuse the resource if the session is an [ID3D12ProtectedResourceSession](/windows/desktop/api/d3d12/nn-d3d12-id3d12protectedresourcesession).
      * @see https://learn.microsoft.com/windows/win32/api/d3d12/nf-d3d12-id3d12protectedsession-getsessionstatus

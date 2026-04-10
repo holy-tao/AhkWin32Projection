@@ -5,9 +5,8 @@
  * Specifies whether a storage specified contains the value, or a pointer to the value, and whether the value can be represented as nil in the XML content.
  * @see https://learn.microsoft.com/windows/win32/api/webservices/ne-webservices-ws_write_option
  * @namespace Windows.Win32.Networking.WindowsWebServices
- * @version v4.0.30319
  */
-class WS_WRITE_OPTION extends Win32Enum{
+class WS_WRITE_OPTION extends Win32Enum {
 
     /**
      * The storage specified contains the value.  The size of the storage 

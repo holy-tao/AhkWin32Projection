@@ -5,9 +5,8 @@
  * Borland debugging information.
  * @see https://learn.microsoft.com/windows/win32/api/winnt/ns-winnt-image_debug_directory
  * @namespace Windows.Win32.System.Diagnostics.Debug
- * @version v4.0.30319
  */
-class IMAGE_DEBUG_TYPE extends Win32Enum{
+class IMAGE_DEBUG_TYPE extends Win32Enum {
 
     /**
      * @type {Integer (UInt32)}

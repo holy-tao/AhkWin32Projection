@@ -3,10 +3,8 @@
 
 /**
  * @namespace Windows.Wdk.Graphics.Direct3D
- * @version v4.0.30319
  */
-class D3DKMT_SUBMITCOMMAND extends Win32Struct
-{
+class D3DKMT_SUBMITCOMMAND extends Win32Struct {
     static sizeof => 392
 
     static packingSize => 8
@@ -28,7 +26,7 @@ class D3DKMT_SUBMITCOMMAND extends Win32Struct
     }
 
     /**
-     * @type {Pointer<D3DKMT_SUBMITCOMMANDFLAGS>}
+     * @type {Pointer}
      */
     Flags {
         get => NumGet(this, 16, "ptr")
@@ -52,9 +50,9 @@ class D3DKMT_SUBMITCOMMAND extends Win32Struct
     }
 
     /**
-     * @type {Array<UInt32>}
+     * @type {Array<Integer>}
      */
-    BroadcastContext{
+    BroadcastContext {
         get {
             if(!this.HasProp("__BroadcastContextProxyArray"))
                 this.__BroadcastContextProxyArray := Win32FixedArray(this.ptr + 36, 64, Primitive, "uint")
@@ -87,9 +85,9 @@ class D3DKMT_SUBMITCOMMAND extends Win32Struct
     }
 
     /**
-     * @type {Array<UInt32>}
+     * @type {Array<Integer>}
      */
-    WrittenPrimaries{
+    WrittenPrimaries {
         get {
             if(!this.HasProp("__WrittenPrimariesProxyArray"))
                 this.__WrittenPrimariesProxyArray := Win32FixedArray(this.ptr + 312, 16, Primitive, "uint")

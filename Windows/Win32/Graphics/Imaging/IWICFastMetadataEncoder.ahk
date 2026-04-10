@@ -1,8 +1,8 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
-#Include .\IWICMetadataQueryWriter.ahk
 #Include ..\..\System\Com\IUnknown.ahk
+#Include .\IWICMetadataQueryWriter.ahk
 
 /**
  * Exposes methods used for in-place metadata editing. A fast metadata encoder enables you to add and remove metadata to an image without having to fully re-encode the image.
@@ -17,9 +17,8 @@
  * If a fast metadata encoder fails, the image will need to be fully re-encoded to add the metadata.
  * @see https://learn.microsoft.com/windows/win32/api/wincodec/nn-wincodec-iwicfastmetadataencoder
  * @namespace Windows.Win32.Graphics.Imaging
- * @version v4.0.30319
  */
-class IWICFastMetadataEncoder extends IUnknown{
+class IWICFastMetadataEncoder extends IUnknown {
 
     static sizeof => A_PtrSize
     /**

@@ -1,15 +1,14 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
+#Include .\CPU_SET_INFORMATION_TYPE.ahk
 
 /**
  * This structure is returned by GetSystemCpuSetInformation. It is used to enumerate the CPU Sets on the system and determine their current state.
  * @see https://learn.microsoft.com/windows/win32/api/winnt/ns-winnt-system_cpu_set_information
  * @namespace Windows.Win32.System.SystemInformation
- * @version v4.0.30319
  */
-class SYSTEM_CPU_SET_INFORMATION extends Win32Struct
-{
-    static sizeof => 40
+class SYSTEM_CPU_SET_INFORMATION extends Win32Struct {
+    static sizeof => 32
 
     static packingSize => 8
 
@@ -24,7 +23,7 @@ class SYSTEM_CPU_SET_INFORMATION extends Win32Struct
 
     /**
      * This is the type of information in the structure. Applications should skip any structures with unrecognized types.
-     * @type {Integer}
+     * @type {CPU_SET_INFORMATION_TYPE}
      */
     Type {
         get => NumGet(this, 4, "int")
@@ -32,7 +31,7 @@ class SYSTEM_CPU_SET_INFORMATION extends Win32Struct
     }
 
     class _CpuSet extends Win32Struct {
-        static sizeof => 32
+        static sizeof => 24
         static packingSize => 8
 
         /**
@@ -42,7 +41,7 @@ class SYSTEM_CPU_SET_INFORMATION extends Win32Struct
             get => NumGet(this, 0, "uint")
             set => NumPut("uint", value, this, 0)
         }
-    
+
         /**
          * @type {Integer}
          */
@@ -50,7 +49,7 @@ class SYSTEM_CPU_SET_INFORMATION extends Win32Struct
             get => NumGet(this, 4, "ushort")
             set => NumPut("ushort", value, this, 4)
         }
-    
+
         /**
          * @type {Integer}
          */
@@ -58,7 +57,7 @@ class SYSTEM_CPU_SET_INFORMATION extends Win32Struct
             get => NumGet(this, 6, "char")
             set => NumPut("char", value, this, 6)
         }
-    
+
         /**
          * @type {Integer}
          */
@@ -66,7 +65,7 @@ class SYSTEM_CPU_SET_INFORMATION extends Win32Struct
             get => NumGet(this, 7, "char")
             set => NumPut("char", value, this, 7)
         }
-    
+
         /**
          * @type {Integer}
          */
@@ -74,7 +73,7 @@ class SYSTEM_CPU_SET_INFORMATION extends Win32Struct
             get => NumGet(this, 8, "char")
             set => NumPut("char", value, this, 8)
         }
-    
+
         /**
          * @type {Integer}
          */
@@ -82,7 +81,7 @@ class SYSTEM_CPU_SET_INFORMATION extends Win32Struct
             get => NumGet(this, 9, "char")
             set => NumPut("char", value, this, 9)
         }
-    
+
         /**
          * @type {Integer}
          */
@@ -90,7 +89,7 @@ class SYSTEM_CPU_SET_INFORMATION extends Win32Struct
             get => NumGet(this, 10, "char")
             set => NumPut("char", value, this, 10)
         }
-    
+
         /**
          * @type {Integer}
          */
@@ -98,7 +97,7 @@ class SYSTEM_CPU_SET_INFORMATION extends Win32Struct
             get => NumGet(this, 11, "char")
             set => NumPut("char", value, this, 11)
         }
-    
+
         /**
          * This bitfield backs the following members:
          * - Parked
@@ -112,7 +111,7 @@ class SYSTEM_CPU_SET_INFORMATION extends Win32Struct
             get => NumGet(this, 11, "char")
             set => NumPut("char", value, this, 11)
         }
-    
+
         /**
          * @type {Integer}
          */
@@ -120,7 +119,7 @@ class SYSTEM_CPU_SET_INFORMATION extends Win32Struct
             get => (this._bitfield >> 0) & 0x1
             set => this._bitfield := ((value & 0x1) << 0) | (this._bitfield & ~(0x1 << 0))
         }
-    
+
         /**
          * @type {Integer}
          */
@@ -128,7 +127,7 @@ class SYSTEM_CPU_SET_INFORMATION extends Win32Struct
             get => (this._bitfield >> 1) & 0x1
             set => this._bitfield := ((value & 0x1) << 1) | (this._bitfield & ~(0x1 << 1))
         }
-    
+
         /**
          * @type {Integer}
          */
@@ -136,7 +135,7 @@ class SYSTEM_CPU_SET_INFORMATION extends Win32Struct
             get => (this._bitfield >> 2) & 0x1
             set => this._bitfield := ((value & 0x1) << 2) | (this._bitfield & ~(0x1 << 2))
         }
-    
+
         /**
          * @type {Integer}
          */
@@ -144,7 +143,7 @@ class SYSTEM_CPU_SET_INFORMATION extends Win32Struct
             get => (this._bitfield >> 3) & 0x1
             set => this._bitfield := ((value & 0x1) << 3) | (this._bitfield & ~(0x1 << 3))
         }
-    
+
         /**
          * @type {Integer}
          */
@@ -152,7 +151,7 @@ class SYSTEM_CPU_SET_INFORMATION extends Win32Struct
             get => (this._bitfield >> 4) & 0xF
             set => this._bitfield := ((value & 0xF) << 4) | (this._bitfield & ~(0xF << 4))
         }
-    
+
         /**
          * @type {Integer}
          */
@@ -160,7 +159,7 @@ class SYSTEM_CPU_SET_INFORMATION extends Win32Struct
             get => NumGet(this, 12, "uint")
             set => NumPut("uint", value, this, 12)
         }
-    
+
         /**
          * @type {Integer}
          */
@@ -168,24 +167,23 @@ class SYSTEM_CPU_SET_INFORMATION extends Win32Struct
             get => NumGet(this, 12, "char")
             set => NumPut("char", value, this, 12)
         }
-    
+
         /**
          * @type {Integer}
          */
         AllocationTag {
-            get => NumGet(this, 24, "uint")
-            set => NumPut("uint", value, this, 24)
+            get => NumGet(this, 16, "uint")
+            set => NumPut("uint", value, this, 16)
         }
-    
     }
 
     /**
      * @type {_CpuSet}
      */
-    CpuSet{
+    CpuSet {
         get {
             if(!this.HasProp("__CpuSet"))
-                this.__CpuSet := %this.__Class%._CpuSet(8, this)
+                this.__CpuSet := SYSTEM_CPU_SET_INFORMATION._CpuSet(8, this)
             return this.__CpuSet
         }
     }

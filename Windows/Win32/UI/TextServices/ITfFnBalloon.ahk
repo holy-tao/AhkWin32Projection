@@ -7,9 +7,8 @@
  * The ITfFnBalloon interface is implemented by a text service and is used by an application or other text service to update the balloon item that the text service adds to the language bar.
  * @see https://learn.microsoft.com/windows/win32/api/ctffunc/nn-ctffunc-itffnballoon
  * @namespace Windows.Win32.UI.TextServices
- * @version v4.0.30319
  */
-class ITfFnBalloon extends IUnknown{
+class ITfFnBalloon extends IUnknown {
 
     static sizeof => A_PtrSize
     /**
@@ -34,7 +33,7 @@ class ITfFnBalloon extends IUnknown{
      * ITfFnBalloon::UpdateBalloon method
      * @remarks
      * The language bar balloon implementation should update its style and text by modifying the values returned from <a href="https://docs.microsoft.com/windows/desktop/api/ctfutb/nf-ctfutb-itflangbaritem-getstatus">ITfLangBarItemBalloon::GetBalloonInfo</a> and then call <a href="https://docs.microsoft.com/windows/desktop/api/ctfutb/nf-ctfutb-itflangbaritemsink-onupdate">ITfLangBarItemSink::OnUpdate</a> with TF_LBI_BALLOON to cause the language bar to obtain the updated information.
-     * @param {Integer} style Contains one of the <a href="https://docs.microsoft.com/windows/win32/api/ctfutb/ne-ctfutb-tflbballoonstyle">TfLBBalloonStyle</a> values that specifies the new balloon style.
+     * @param {TfLBBalloonStyle} style Contains one of the <a href="https://docs.microsoft.com/windows/win32/api/ctfutb/ne-ctfutb-tflbballoonstyle">TfLBBalloonStyle</a> values that specifies the new balloon style.
      * @param {PWSTR} pch Pointer to a <b>WCHAR</b> buffer that contains the new text for the balloon.
      * @param {Integer} cch Contains the number of characters of the new text in <i>pch</i>.
      * @returns {HRESULT} This method can return one of these values.

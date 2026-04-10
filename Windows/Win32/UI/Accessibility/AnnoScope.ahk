@@ -3,9 +3,8 @@
 
 /**
  * @namespace Windows.Win32.UI.Accessibility
- * @version v4.0.30319
  */
-class AnnoScope extends Win32Enum{
+class AnnoScope extends Win32Enum {
 
     /**
      * @type {Integer (Int32)}

@@ -9,9 +9,8 @@
  * Implemented on a Microsoft UI Automation provider that must support the <a href="https://docs.microsoft.com/windows/desktop/WinAuto/uiauto-implementingtoggle">Toggle</a> control pattern.
  * @see https://learn.microsoft.com/windows/win32/api/uiautomationcore/nn-uiautomationcore-itoggleprovider
  * @namespace Windows.Win32.UI.Accessibility
- * @version v4.0.30319
  */
-class IToggleProvider extends IUnknown{
+class IToggleProvider extends IUnknown {
 
     static sizeof => A_PtrSize
     /**
@@ -33,7 +32,7 @@ class IToggleProvider extends IUnknown{
     static VTableNames => ["Toggle", "get_ToggleState"]
 
     /**
-     * @type {Integer} 
+     * @type {ToggleState} 
      */
     ToggleState {
         get => this.get_ToggleState()
@@ -61,7 +60,7 @@ class IToggleProvider extends IUnknown{
      * A control must cycle through its <a href="https://docs.microsoft.com/windows/desktop/api/uiautomationcore/ne-uiautomationcore-togglestate">ToggleState</a> in this order:  
      * <b>ToggleState_On</b>, <b>ToggleState_Off</b> 
      * and, if supported, <b>ToggleState_Indeterminate</b>.
-     * @returns {Integer} 
+     * @returns {ToggleState} 
      * @see https://learn.microsoft.com/windows/win32/api/uiautomationcore/nf-uiautomationcore-itoggleprovider-get_togglestate
      */
     get_ToggleState() {

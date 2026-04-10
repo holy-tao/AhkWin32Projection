@@ -1,14 +1,13 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
+#Include .\DEV_BROADCAST_HDR_DEVICE_TYPE.ahk
 
 /**
  * Serves as a standard header for information related to a device event reported through the WM_DEVICECHANGE message.
  * @see https://learn.microsoft.com/windows/win32/api/dbt/ns-dbt-dev_broadcast_hdr
  * @namespace Windows.Win32.UI.WindowsAndMessaging
- * @version v4.0.30319
  */
-class DEV_BROADCAST_HDR extends Win32Struct
-{
+class DEV_BROADCAST_HDR extends Win32Struct {
     static sizeof => 12
 
     static packingSize => 4
@@ -29,8 +28,7 @@ class DEV_BROADCAST_HDR extends Win32Struct
     }
 
     /**
-     * 
-     * @type {Integer}
+     * @type {DEV_BROADCAST_HDR_DEVICE_TYPE}
      */
     dbch_devicetype {
         get => NumGet(this, 4, "uint")

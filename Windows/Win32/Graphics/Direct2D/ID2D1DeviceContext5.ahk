@@ -1,17 +1,16 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
+#Include .\ID2D1DeviceContext4.ahk
 #Include .\ID2D1SvgDocument.ahk
 #Include .\ID2D1ColorContext1.ahk
-#Include .\ID2D1DeviceContext4.ahk
 
 /**
  * This interface performs all the same functions as the ID2D1DeviceContext4 interface, plus it enables the creation of color contexts and Svg documents.
  * @see https://learn.microsoft.com/windows/win32/api/d2d1_3/nn-d2d1_3-id2d1devicecontext5
  * @namespace Windows.Win32.Graphics.Direct2D
- * @version v4.0.30319
  */
-class ID2D1DeviceContext5 extends ID2D1DeviceContext4{
+class ID2D1DeviceContext5 extends ID2D1DeviceContext4 {
 
     static sizeof => A_PtrSize
     /**
@@ -64,7 +63,7 @@ class ID2D1DeviceContext5 extends ID2D1DeviceContext4{
 
     /**
      * Creates a color context from a DXGI color space type. It is only valid to use this with the Color Management Effect in 'Best' mode.
-     * @param {Integer} colorSpace Type: <b>DXGI_COLOR_SPACE_TYPE</b>
+     * @param {DXGI_COLOR_SPACE_TYPE} colorSpace Type: <b>DXGI_COLOR_SPACE_TYPE</b>
      * 
      * The color space to create the color context from.
      * @returns {ID2D1ColorContext1} Type: <b>ID2D1ColorContext1**</b>

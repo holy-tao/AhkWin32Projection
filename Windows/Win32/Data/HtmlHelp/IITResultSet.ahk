@@ -7,9 +7,8 @@
  * Use this interface in run-time applications to initialize, build, and obtain information about result sets.
  * @see https://learn.microsoft.com/windows/win32/api/infotech/nn-infotech-iitresultset
  * @namespace Windows.Win32.Data.HtmlHelp
- * @version v4.0.30319
  */
-class IITResultSet extends IUnknown{
+class IITResultSet extends IUnknown {
 
     static sizeof => A_PtrSize
     /**
@@ -33,7 +32,7 @@ class IITResultSet extends IUnknown{
     /**
      * 
      * @param {Integer} lColumnIndex 
-     * @param {Integer} ColumnPriority 
+     * @param {PRIORITY} ColumnPriority 
      * @returns {HRESULT} 
      */
     SetColumnPriority(lColumnIndex, ColumnPriority) {
@@ -71,7 +70,7 @@ class IITResultSet extends IUnknown{
      * This method is used to add a column for pointer properties.
      * @param {Integer} PropID Property ID associated with column.
      * @param {Integer} dwDefaultData 
-     * @param {Integer} _Priority 
+     * @param {PRIORITY} _Priority Download priority of column (PRIORITY_LOW, PRIORITY_NORMAL, or PRIORITY_HIGH).
      * @returns {HRESULT} This method can return one of these values.
      * 
      * <table>
@@ -117,7 +116,7 @@ class IITResultSet extends IUnknown{
      * This method is used to add a column for pointer properties.
      * @param {Integer} PropID Property ID associated with column.
      * @param {PWSTR} lpszwDefault 
-     * @param {Integer} _Priority 
+     * @param {PRIORITY} _Priority Download priority of column (PRIORITY_LOW, PRIORITY_NORMAL, or PRIORITY_HIGH).
      * @returns {HRESULT} This method can return one of these values.
      * 
      * <table>
@@ -166,7 +165,7 @@ class IITResultSet extends IUnknown{
      * @param {Integer} PropID Property ID associated with column.
      * @param {Pointer<Void>} lpvDefaultData Buffer containing default value of data.
      * @param {Integer} cbData Buffer size.
-     * @param {Integer} _Priority 
+     * @param {PRIORITY} _Priority Download priority of column (PRIORITY_LOW, PRIORITY_NORMAL, or PRIORITY_HIGH).
      * @returns {HRESULT} This method can return one of these values.
      * 
      * <table>
@@ -451,7 +450,7 @@ class IITResultSet extends IUnknown{
     /**
      * 
      * @param {Integer} lColumnIndex 
-     * @param {Pointer<Integer>} ColumnPriority 
+     * @param {Pointer<PRIORITY>} ColumnPriority 
      * @returns {HRESULT} 
      */
     GetColumnPriority(lColumnIndex, ColumnPriority) {
@@ -513,7 +512,7 @@ class IITResultSet extends IUnknown{
      * @param {Pointer<Integer>} dwType 
      * @param {Pointer<Pointer<Void>>} lpvDefaultValue 
      * @param {Pointer<Integer>} cbSize 
-     * @param {Pointer<Integer>} ColumnPriority 
+     * @param {Pointer<PRIORITY>} ColumnPriority 
      * @returns {HRESULT} 
      */
     GetColumn(lColumnIndex, PropID, dwType, lpvDefaultValue, cbSize, ColumnPriority) {

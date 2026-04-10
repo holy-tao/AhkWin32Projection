@@ -1,6 +1,15 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
+#Include .\IOleClientSite.ahk
+#Include .\IAdviseSinkEx.ahk
+#Include .\IPropertyNotifySink.ahk
+#Include ..\Com\IUnknown.ahk
+#Include .\IFont.ahk
+#Include .\IOleUndoManager.ahk
 #Include ..\..\Graphics\Gdi\HPALETTE.ahk
+#Include ..\Com\IBindHost.ahk
+#Include .\IOleControlSite.ahk
+#Include ..\Com\IServiceProvider.ahk
 
 /**
  * Specifies container information for IQuickActivate::QuickActivate.
@@ -8,10 +17,8 @@
  * If an interface pointer in the <b>QACONTAINER</b> structure is <b>NULL</b> it does not indicate that the interface is not supported. In this situation, the control should use <a href="https://docs.microsoft.com/windows/desktop/api/unknwn/nf-unknwn-iunknown-queryinterface(q)">QueryInterface</a> to obtain the interface pointer in the standard manner.
  * @see https://learn.microsoft.com/windows/win32/api/ocidl/ns-ocidl-qacontainer
  * @namespace Windows.Win32.System.Ole
- * @version v4.0.30319
  */
-class QACONTAINER extends Win32Struct
-{
+class QACONTAINER extends Win32Struct {
     static sizeof => 112
 
     static packingSize => 8
@@ -128,7 +135,7 @@ class QACONTAINER extends Win32Struct
      * Specifies Palette, an ambient property supplied by the container with a DISPID = -726.
      * @type {HPALETTE}
      */
-    hpal{
+    hpal {
         get {
             if(!this.HasProp("__hpal"))
                 this.__hpal := HPALETTE(80, this)

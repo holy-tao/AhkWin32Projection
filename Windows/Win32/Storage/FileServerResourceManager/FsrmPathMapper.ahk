@@ -8,10 +8,8 @@
  *     local path to the network path if you want to know the actual network share that is running out of space.
  * @see https://learn.microsoft.com/windows/win32/api/fsrm/nf-fsrm-ifsrmpathmapper-getsharepathsforlocalpath
  * @namespace Windows.Win32.Storage.FileServerResourceManager
- * @version v4.0.30319
  */
-class FsrmPathMapper extends Win32Struct
-{
+class FsrmPathMapper extends Win32Struct {
     static sizeof => 0
 
     static packingSize => 1

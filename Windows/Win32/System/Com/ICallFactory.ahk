@@ -7,9 +7,8 @@
  * The ICallFactory (objidlbase.h) interface creates a call object for processing calls to the methods of an asynchronous interface.
  * @see https://learn.microsoft.com/windows/win32/api/objidlbase/nn-objidlbase-icallfactory
  * @namespace Windows.Win32.System.Com
- * @version v4.0.30319
  */
-class ICallFactory extends IUnknown{
+class ICallFactory extends IUnknown {
 
     static sizeof => A_PtrSize
     /**

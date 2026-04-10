@@ -9,10 +9,8 @@
  * This information comes from HID Keyboard Report Descriptor described in [HID Usage Table Review Request 42: Consumer Page Keyboard Assist Controls](https://www.usb.org/sites/default/files/hutrr42c_0.pdf).
  * @see https://learn.microsoft.com/windows/win32/api/ntddkbd/ns-ntddkbd-keyboard_extended_attributes
  * @namespace Windows.Win32.Devices.HumanInterfaceDevice
- * @version v4.0.30319
  */
-class KEYBOARD_EXTENDED_ATTRIBUTES extends Win32Struct
-{
+class KEYBOARD_EXTENDED_ATTRIBUTES extends Win32Struct {
     static sizeof => 7
 
     static packingSize => 1

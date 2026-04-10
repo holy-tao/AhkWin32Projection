@@ -6,10 +6,8 @@
  * Contains unstructured log records for the Compensating Resource Manager (CRM).
  * @see https://learn.microsoft.com/windows/win32/api/comsvcs/ns-comsvcs-crmlogrecordread
  * @namespace Windows.Win32.System.ComponentServices
- * @version v4.0.30319
  */
-class CrmLogRecordRead extends Win32Struct
-{
+class CrmLogRecordRead extends Win32Struct {
     static sizeof => 24
 
     static packingSize => 8
@@ -36,7 +34,7 @@ class CrmLogRecordRead extends Win32Struct
      * The user data.
      * @type {BLOB}
      */
-    blobUserData{
+    blobUserData {
         get {
             if(!this.HasProp("__blobUserData"))
                 this.__blobUserData := BLOB(8, this)

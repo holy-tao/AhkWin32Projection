@@ -7,9 +7,8 @@
  * Enables application developers to monitor (spy on) memory allocation, detect memory leaks, and simulate memory failure in calls to IMalloc methods.
  * @see https://learn.microsoft.com/windows/win32/api/objidl/nn-objidl-imallocspy
  * @namespace Windows.Win32.System.Com
- * @version v4.0.30319
  */
-class IMallocSpy extends IUnknown{
+class IMallocSpy extends IUnknown {
 
     static sizeof => A_PtrSize
     /**

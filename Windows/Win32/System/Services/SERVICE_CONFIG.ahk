@@ -7,9 +7,8 @@
   * <b>Windows Server 2003 and Windows XP:  </b>This value is not supported.
  * @see https://learn.microsoft.com/windows/win32/api/winsvc/nf-winsvc-changeserviceconfig2a
  * @namespace Windows.Win32.System.Services
- * @version v4.0.30319
  */
-class SERVICE_CONFIG extends Win32Enum{
+class SERVICE_CONFIG extends Win32Enum {
 
     /**
      * @type {Integer (UInt32)}

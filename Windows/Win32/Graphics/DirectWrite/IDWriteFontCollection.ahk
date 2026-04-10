@@ -1,9 +1,9 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
+#Include ..\..\System\Com\IUnknown.ahk
 #Include .\IDWriteFontFamily.ahk
 #Include .\IDWriteFont.ahk
-#Include ..\..\System\Com\IUnknown.ahk
 
 /**
  * An object that encapsulates a set of fonts, such as the set of fonts installed on the system, or the set of fonts in a particular directory. (IDWriteFontCollection)
@@ -32,9 +32,8 @@
  * ```cpp
  * @see https://learn.microsoft.com/windows/win32/api/dwrite/nn-dwrite-idwritefontcollection
  * @namespace Windows.Win32.Graphics.DirectWrite
- * @version v4.0.30319
  */
-class IDWriteFontCollection extends IUnknown{
+class IDWriteFontCollection extends IUnknown {
 
     static sizeof => A_PtrSize
     /**
@@ -72,7 +71,9 @@ class IDWriteFontCollection extends IUnknown{
      * @param {Integer} index Type: <b>UINT32</b>
      * 
      * Zero-based index of the font family.
-     * @returns {IDWriteFontFamily} 
+     * @returns {IDWriteFontFamily} Type: <b><a href="https://docs.microsoft.com/windows/win32/api/dwrite/nn-dwrite-idwritefontfamily">IDWriteFontFamily</a>**</b>
+     * 
+     * When this method returns, contains the address of   a pointer to the newly created font family object.
      * @see https://learn.microsoft.com/windows/win32/api/dwrite/nf-dwrite-idwritefontcollection-getfontfamily
      */
     GetFontFamily(index) {
@@ -111,7 +112,9 @@ class IDWriteFontCollection extends IUnknown{
      * @param {IDWriteFontFace} fontFace Type: <b><a href="https://docs.microsoft.com/windows/win32/api/dwrite/nn-dwrite-idwritefontface">IDWriteFontFace</a>*</b>
      * 
      * A font face object that specifies the physical font.
-     * @returns {IDWriteFont} 
+     * @returns {IDWriteFont} Type: <b><a href="https://docs.microsoft.com/windows/win32/api/dwrite/nn-dwrite-idwritefont">IDWriteFont</a>**</b>
+     * 
+     * When this method returns, contains the address of a pointer to the newly created font object if successful; otherwise, <b>NULL</b>.
      * @see https://learn.microsoft.com/windows/win32/api/dwrite/nf-dwrite-idwritefontcollection-getfontfromfontface
      */
     GetFontFromFontFace(fontFace) {

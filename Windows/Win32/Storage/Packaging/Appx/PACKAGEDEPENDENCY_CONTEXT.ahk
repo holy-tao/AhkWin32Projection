@@ -3,10 +3,8 @@
 
 /**
  * @namespace Windows.Win32.Storage.Packaging.Appx
- * @version v4.0.30319
  */
-class PACKAGEDEPENDENCY_CONTEXT extends Win32Struct
-{
+class PACKAGEDEPENDENCY_CONTEXT extends Win32Struct {
     static sizeof => 8
 
     static packingSize => 8

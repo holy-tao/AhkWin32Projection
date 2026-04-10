@@ -1,9 +1,8 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\..\Guid.ahk
-#Include .\IOpcRelationship.ahk
-#Include .\IOpcRelationshipEnumerator.ahk
 #Include ..\..\..\System\Com\IUnknown.ahk
+#Include .\IOpcRelationship.ahk
 
 /**
  * A read-only enumerator of IOpcRelationship interface pointers.
@@ -17,9 +16,8 @@
  * <div> </div>
  * @see https://learn.microsoft.com/windows/win32/api/msopc/nn-msopc-iopcrelationshipenumerator
  * @namespace Windows.Win32.Storage.Packaging.Opc
- * @version v4.0.30319
  */
-class IOpcRelationshipEnumerator extends IUnknown{
+class IOpcRelationshipEnumerator extends IUnknown {
 
     static sizeof => A_PtrSize
     /**

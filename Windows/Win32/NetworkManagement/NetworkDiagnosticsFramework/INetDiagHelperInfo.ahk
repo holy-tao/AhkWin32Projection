@@ -7,9 +7,8 @@
  * The INetDiagHelperInfo interface provides a method that is called by the Network Diagnostics Framework (NDF) when it needs to validate that it has the necessary information for a helper class and that it has chosen the correct helper class.
  * @see https://learn.microsoft.com/windows/win32/api/ndhelper/nn-ndhelper-inetdiaghelperinfo
  * @namespace Windows.Win32.NetworkManagement.NetworkDiagnosticsFramework
- * @version v4.0.30319
  */
-class INetDiagHelperInfo extends IUnknown{
+class INetDiagHelperInfo extends IUnknown {
 
     static sizeof => A_PtrSize
     /**

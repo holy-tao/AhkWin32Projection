@@ -7,10 +7,8 @@
  * The end-of-file (EOF) position for a file must always be less than or equal to the file allocation size. If the allocation size is set to a value that is less than EOF, the EOF position is automatically adjusted to match the file allocation size.
  * @see https://learn.microsoft.com/windows/win32/api/winbase/ns-winbase-file_allocation_info
  * @namespace Windows.Win32.Storage.FileSystem
- * @version v4.0.30319
  */
-class FILE_ALLOCATION_INFO extends Win32Struct
-{
+class FILE_ALLOCATION_INFO extends Win32Struct {
     static sizeof => 8
 
     static packingSize => 8

@@ -1,24 +1,24 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\..\Win32Struct.ahk
+#Include .\MPEG_REQUEST_TYPE.ahk
+#Include .\MPEG_CONTEXT.ahk
+#Include .\MPEG_CONTEXT_TYPE.ahk
 #Include .\MPEG_BCS_DEMUX.ahk
 #Include .\MPEG_WINSOCK.ahk
-#Include .\MPEG_CONTEXT.ahk
+#Include .\MPEG2_FILTER.ahk
 #Include .\DSMCC_FILTER_OPTIONS.ahk
 #Include .\ATSC_FILTER_OPTIONS.ahk
-#Include .\MPEG2_FILTER.ahk
 
 /**
  * @namespace Windows.Win32.Media.DirectShow.Tv
- * @version v4.0.30319
  */
-class MPEG_SERVICE_REQUEST extends Win32Struct
-{
+class MPEG_SERVICE_REQUEST extends Win32Struct {
     static sizeof => 168
 
     static packingSize => 4
 
     /**
-     * @type {Integer}
+     * @type {MPEG_REQUEST_TYPE}
      */
     Type {
         get => NumGet(this, 0, "int")
@@ -28,7 +28,7 @@ class MPEG_SERVICE_REQUEST extends Win32Struct
     /**
      * @type {MPEG_CONTEXT}
      */
-    Context{
+    Context {
         get {
             if(!this.HasProp("__Context"))
                 this.__Context := MPEG_CONTEXT(4, this)
@@ -55,7 +55,7 @@ class MPEG_SERVICE_REQUEST extends Win32Struct
     /**
      * @type {MPEG2_FILTER}
      */
-    Filter{
+    Filter {
         get {
             if(!this.HasProp("__Filter"))
                 this.__Filter := MPEG2_FILTER(16, this)

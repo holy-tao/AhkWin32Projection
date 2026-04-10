@@ -1,7 +1,6 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
-#Include ..\..\Foundation\BSTR.ahk
 #Include ..\..\System\Com\IUnknown.ahk
 
 /**
@@ -10,9 +9,8 @@
  * This interface is implemented by the application to handle events that it has subscribed to by calling <a href="https://docs.microsoft.com/windows/desktop/api/uiautomationclient/nf-uiautomationclient-iuiautomation5-addnotificationeventhandler">AddNotificationEventHandler</a>.
  * @see https://learn.microsoft.com/windows/win32/api/uiautomationclient/nn-uiautomationclient-iuiautomationnotificationeventhandler
  * @namespace Windows.Win32.UI.Accessibility
- * @version v4.0.30319
  */
-class IUIAutomationNotificationEventHandler extends IUnknown{
+class IUIAutomationNotificationEventHandler extends IUnknown {
 
     static sizeof => A_PtrSize
     /**
@@ -38,8 +36,8 @@ class IUIAutomationNotificationEventHandler extends IUnknown{
      * @remarks
      * This method is implemented by the application to handle events that it has subscribed to by calling <a href="https://docs.microsoft.com/windows/desktop/api/uiautomationclient/nf-uiautomationclient-iuiautomation5-addnotificationeventhandler">AddNotificationEventHandler</a>.
      * @param {IUIAutomationElement} sender A pointer to the element that raised the event.
-     * @param {Integer} _notificationKind 
-     * @param {Integer} _notificationProcessing 
+     * @param {NotificationKind} _notificationKind 
+     * @param {NotificationProcessing} _notificationProcessing 
      * @param {BSTR} displayString A string to display in the notification message.
      * @param {BSTR} activityId A unique non-localized string to identify an action or group of actions. This is used to pass additional information to the event handler.
      * @returns {HRESULT} If this method succeeds, it returns <b>S_OK</b>. Otherwise, it returns an <b>HRESULT</b> error code.

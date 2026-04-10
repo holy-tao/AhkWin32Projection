@@ -12,9 +12,8 @@
  *     <b>FsrmQuotaFlags_StatusRebuilding</b> flags.
  * @see https://learn.microsoft.com/windows/win32/api/fsrmenums/ne-fsrmenums-fsrmquotaflags
  * @namespace Windows.Win32.Storage.FileServerResourceManager
- * @version v4.0.30319
  */
-class FsrmQuotaFlags extends Win32Enum{
+class FsrmQuotaFlags extends Win32Enum {
 
     /**
      * If this flag is set, the server will fail an IO operation that causes the disk space usage to exceed the 

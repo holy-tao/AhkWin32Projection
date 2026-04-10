@@ -1,14 +1,13 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
+#Include ..\..\Security\SID_AND_ATTRIBUTES.ahk
 
 /**
  * The INET_FIREWALL_AC_CAPABILITIES structure contains information about the capabilities of an app container.
  * @see https://learn.microsoft.com/windows/win32/api/netfw/ns-netfw-inet_firewall_ac_capabilities
  * @namespace Windows.Win32.NetworkManagement.WindowsFirewall
- * @version v4.0.30319
  */
-class INET_FIREWALL_AC_CAPABILITIES extends Win32Struct
-{
+class INET_FIREWALL_AC_CAPABILITIES extends Win32Struct {
     static sizeof => 16
 
     static packingSize => 8

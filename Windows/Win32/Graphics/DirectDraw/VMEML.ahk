@@ -1,12 +1,11 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
+#Include .\VMEML.ahk
 
 /**
  * @namespace Windows.Win32.Graphics.DirectDraw
- * @version v4.0.30319
  */
-class VMEML extends Win32Struct
-{
+class VMEML extends Win32Struct {
     static sizeof => 24
 
     static packingSize => 8

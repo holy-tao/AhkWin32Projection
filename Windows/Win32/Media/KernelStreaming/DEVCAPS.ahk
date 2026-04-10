@@ -3,10 +3,8 @@
 
 /**
  * @namespace Windows.Win32.Media.KernelStreaming
- * @version v4.0.30319
  */
-class DEVCAPS extends Win32Struct
-{
+class DEVCAPS extends Win32Struct {
     static sizeof => 92
 
     static packingSize => 4

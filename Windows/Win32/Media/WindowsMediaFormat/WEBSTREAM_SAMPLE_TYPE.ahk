@@ -3,9 +3,8 @@
 
 /**
  * @namespace Windows.Win32.Media.WindowsMediaFormat
- * @version v4.0.30319
  */
-class WEBSTREAM_SAMPLE_TYPE extends Win32Enum{
+class WEBSTREAM_SAMPLE_TYPE extends Win32Enum {
 
     /**
      * @type {Integer (Int32)}

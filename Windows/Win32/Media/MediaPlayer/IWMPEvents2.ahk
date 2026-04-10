@@ -7,9 +7,8 @@
  * The IWMPEvents2 interface provides events originating from the Windows Media Player 10 or later control to which an embedding program can respond. The events exposed by IWMPEvents2 are also exposed by the _WMPOCXEvents interface.
  * @see https://learn.microsoft.com/windows/win32/api/wmp/nn-wmp-iwmpevents2
  * @namespace Windows.Win32.Media.MediaPlayer
- * @version v4.0.30319
  */
-class IWMPEvents2 extends IWMPEvents{
+class IWMPEvents2 extends IWMPEvents {
 
     static sizeof => A_PtrSize
     /**
@@ -69,7 +68,7 @@ class IWMPEvents2 extends IWMPEvents{
      * 
      * <b>Windows Media Player 10 Mobile: </b>This event is not supported.
      * @param {IWMPSyncDevice} pDevice Address of the <b>IWMPSyncDevice</b> interface that represents the device for which the status changed.
-     * @param {Integer} NewStatus <b>WMPDeviceStatus</b> enumeration value that represents the new status for the device specified by <i>pDevice</i>.
+     * @param {WMPDeviceStatus} NewStatus <b>WMPDeviceStatus</b> enumeration value that represents the new status for the device specified by <i>pDevice</i>.
      * @returns {String} Nothing - always returns an empty string
      * @see https://learn.microsoft.com/windows/win32/api/wmp/nf-wmp-iwmpevents2-devicestatuschange
      */
@@ -86,7 +85,7 @@ class IWMPEvents2 extends IWMPEvents{
      * 
      * <b>Windows Media Player 10 Mobile: </b>This event is not supported.
      * @param {IWMPSyncDevice} pDevice Address of the <b>IWMPSyncDevice</b> interface that represents the device for which the synchronization state changed.
-     * @param {Integer} NewState <b>WMPSyncState</b> enumeration value that represents the new synchronization state for the device specified by <i>pDevice</i>.
+     * @param {WMPSyncState} NewState <b>WMPSyncState</b> enumeration value that represents the new synchronization state for the device specified by <i>pDevice</i>.
      * @returns {String} Nothing - always returns an empty string
      * @see https://learn.microsoft.com/windows/win32/api/wmp/nf-wmp-iwmpevents2-devicesyncstatechange
      */

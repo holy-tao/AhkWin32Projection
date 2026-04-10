@@ -3,10 +3,8 @@
 
 /**
  * @namespace Windows.Wdk.Storage.FileSystem
- * @version v4.0.30319
  */
-class FILE_FS_VOLUME_FLAGS_INFORMATION extends Win32Struct
-{
+class FILE_FS_VOLUME_FLAGS_INFORMATION extends Win32Struct {
     static sizeof => 4
 
     static packingSize => 4

@@ -1,6 +1,9 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\..\Win32Struct.ahk
 #Include .\CHARFORMATA.ahk
+#Include .\CFM_MASK.ahk
+#Include .\CFE_EFFECTS.ahk
+#Include ..\..\..\Graphics\Gdi\FONT_CHARSET.ahk
 
 /**
  * Contains information about character formatting in a rich edit control. (CHARFORMAT2A)
@@ -15,11 +18,9 @@
  * > The richedit.h header defines CHARFORMAT2 as an alias which automatically selects the ANSI or Unicode version of this function based on the definition of the UNICODE preprocessor constant. Mixing usage of the encoding-neutral alias with code that not encoding-neutral can lead to mismatches that result in compilation or runtime errors. For more information, see [Conventions for Function Prototypes](/windows/win32/intl/conventions-for-function-prototypes).
  * @see https://learn.microsoft.com/windows/win32/api/richedit/ns-richedit-charformat2a
  * @namespace Windows.Win32.UI.Controls.RichEdit
- * @version v4.0.30319
  * @charset ANSI
  */
-class CHARFORMAT2A extends Win32Struct
-{
+class CHARFORMAT2A extends Win32Struct {
     static sizeof => 84
 
     static packingSize => 4
@@ -27,7 +28,7 @@ class CHARFORMAT2A extends Win32Struct
     /**
      * @type {CHARFORMATA}
      */
-    Base{
+    Base {
         get {
             if(!this.HasProp("__Base"))
                 this.__Base := CHARFORMATA(0, this)

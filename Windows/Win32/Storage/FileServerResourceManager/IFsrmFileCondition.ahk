@@ -7,9 +7,8 @@
  * Defines a file condition property.
  * @see https://learn.microsoft.com/windows/win32/api/fsrmreports/nn-fsrmreports-ifsrmfileconditionproperty
  * @namespace Windows.Win32.Storage.FileServerResourceManager
- * @version v4.0.30319
  */
-class IFsrmFileCondition extends IDispatch{
+class IFsrmFileCondition extends IDispatch {
 
     static sizeof => A_PtrSize
     /**
@@ -31,7 +30,7 @@ class IFsrmFileCondition extends IDispatch{
     static VTableNames => ["get_Type", "Delete"]
 
     /**
-     * @type {Integer} 
+     * @type {FsrmFileConditionType} 
      */
     Type {
         get => this.get_Type()
@@ -39,7 +38,7 @@ class IFsrmFileCondition extends IDispatch{
 
     /**
      * 
-     * @returns {Integer} 
+     * @returns {FsrmFileConditionType} 
      */
     get_Type() {
         result := ComCall(7, this, "int*", &pVal := 0, "HRESULT")

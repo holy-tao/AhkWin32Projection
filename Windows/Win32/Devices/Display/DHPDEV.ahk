@@ -4,10 +4,8 @@
 
 /**
  * @namespace Windows.Win32.Devices.Display
- * @version v4.0.30319
  */
-class DHPDEV extends Win32Handle
-{
+class DHPDEV extends Win32Handle {
     static sizeof => 8
 
     static packingSize => 8

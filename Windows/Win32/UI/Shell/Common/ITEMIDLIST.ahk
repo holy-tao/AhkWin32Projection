@@ -23,10 +23,8 @@
  * ```
  * @see https://learn.microsoft.com/windows/win32/api/shtypes/ns-shtypes-itemidlist
  * @namespace Windows.Win32.UI.Shell.Common
- * @version v4.0.30319
  */
-class ITEMIDLIST extends Win32Struct
-{
+class ITEMIDLIST extends Win32Struct {
     static sizeof => 4
 
     static packingSize => 2
@@ -37,7 +35,7 @@ class ITEMIDLIST extends Win32Struct
      * A list of item identifiers.
      * @type {SHITEMID}
      */
-    mkid{
+    mkid {
         get {
             if(!this.HasProp("__mkid"))
                 this.__mkid := SHITEMID(0, this)

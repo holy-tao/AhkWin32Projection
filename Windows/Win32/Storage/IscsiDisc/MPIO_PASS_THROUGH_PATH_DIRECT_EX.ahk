@@ -3,10 +3,8 @@
 
 /**
  * @namespace Windows.Win32.Storage.IscsiDisc
- * @version v4.0.30319
  */
-class MPIO_PASS_THROUGH_PATH_DIRECT_EX extends Win32Struct
-{
+class MPIO_PASS_THROUGH_PATH_DIRECT_EX extends Win32Struct {
     static sizeof => 24
 
     static packingSize => 8

@@ -5,10 +5,8 @@
  * The HTTP_SERVER_AUTHENTICATION_BASIC_PARAMS structure contains the information for Basic authentication on a URL Group.This structure is contained in the HTTP_SERVER_AUTHENTICATION_INFO structure.
  * @see https://learn.microsoft.com/windows/win32/api/http/ns-http-http_server_authentication_basic_params
  * @namespace Windows.Win32.Networking.HttpServer
- * @version v4.0.30319
  */
-class HTTP_SERVER_AUTHENTICATION_BASIC_PARAMS extends Win32Struct
-{
+class HTTP_SERVER_AUTHENTICATION_BASIC_PARAMS extends Win32Struct {
     static sizeof => 16
 
     static packingSize => 8

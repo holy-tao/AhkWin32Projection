@@ -3,13 +3,10 @@
 
 /**
  * Specifies values that indicate the type of artifact that is used to define the lifetime of a package dependency.
- * @remarks
- * 
  * @see https://learn.microsoft.com/windows/win32/api/appmodel/ne-appmodel-packagedependencylifetimekind
  * @namespace Windows.Win32.Storage.Packaging.Appx
- * @version v4.0.30319
  */
-class PackageDependencyLifetimeKind extends Win32Enum{
+class PackageDependencyLifetimeKind extends Win32Enum {
 
     /**
      * The current process is the lifetime artifact. The package dependency is implicitly deleted when the process terminates.

@@ -5,9 +5,8 @@
  * Contains flags that describe content-protection capabilities.
  * @see https://learn.microsoft.com/windows/win32/api/d3d11/ne-d3d11-d3d11_content_protection_caps
  * @namespace Windows.Win32.Graphics.Direct3D11
- * @version v4.0.30319
  */
-class D3D11_CONTENT_PROTECTION_CAPS extends Win32Enum{
+class D3D11_CONTENT_PROTECTION_CAPS extends Win32Enum {
 
     /**
      * The content protection is implemented in software by the driver.
@@ -115,7 +114,6 @@ class D3D11_CONTENT_PROTECTION_CAPS extends Win32Enum{
     static D3D11_CONTENT_PROTECTION_CAPS_HARDWARE_DRM_COMMUNICATION => 16384
 
     /**
-     * 
      * @type {Integer (Int32)}
      */
     static D3D11_CONTENT_PROTECTION_CAPS_HARDWARE_DRM_COMMUNICATION_MULTI_THREADED => 32768

@@ -7,17 +7,15 @@
  * This structure may be followed by addition data, depending on the codec event. For more information, see <a href="https://docs.microsoft.com/windows/desktop/api/strmif/nf-strmif-icodecapi-registerforevent">ICodecAPI::RegisterForEvent</a>.
  * @see https://learn.microsoft.com/windows/win32/api/strmif/ns-strmif-codecapieventdata
  * @namespace Windows.Win32.Media.MediaFoundation
- * @version v4.0.30319
  */
-class CodecAPIEventData extends Win32Struct
-{
+class CodecAPIEventData extends Win32Struct {
     static sizeof => 24
 
     static packingSize => 8
 
     /**
      * A GUID that identifies the codec event.
-     * @type {Pointer<Guid>}
+     * @type {Pointer}
      */
     guid {
         get => NumGet(this, 0, "ptr")
@@ -36,9 +34,9 @@ class CodecAPIEventData extends Win32Struct
 
     /**
      * Reserved; do not use.
-     * @type {Array<UInt32>}
+     * @type {Array<Integer>}
      */
-    reserved{
+    reserved {
         get {
             if(!this.HasProp("__reservedProxyArray"))
                 this.__reservedProxyArray := Win32FixedArray(this.ptr + 12, 3, Primitive, "uint")

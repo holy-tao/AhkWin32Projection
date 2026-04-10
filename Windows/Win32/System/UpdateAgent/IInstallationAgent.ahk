@@ -1,16 +1,14 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
-#Include ..\..\Foundation\BSTR.ahk
 #Include ..\Com\IDispatch.ahk
 
 /**
  * Records the result for an update.
  * @see https://learn.microsoft.com/windows/win32/api/wuapi/nn-wuapi-iinstallationagent
  * @namespace Windows.Win32.System.UpdateAgent
- * @version v4.0.30319
  */
-class IInstallationAgent extends IDispatch{
+class IInstallationAgent extends IDispatch {
 
     static sizeof => A_PtrSize
     /**
@@ -34,7 +32,7 @@ class IInstallationAgent extends IDispatch{
     /**
      * Records the result for an update. The result is specified by an IStringCollection object.
      * @param {BSTR} installationResultCookie A string value that identifies the result cookie.
-     * @param {Integer} _hresult 
+     * @param {Integer} _hresult The identifier of the result.
      * @param {IStringCollection} extendedReportingData An <a href="https://docs.microsoft.com/windows/desktop/api/wuapi/nn-wuapi-istringcollection">IStringCollection</a> interface that represents a collection of strings that contain the result for an update.
      * @returns {HRESULT} Returns <b>S_OK</b> if successful. Otherwise, returns a COM or Windows error code.
      * @see https://learn.microsoft.com/windows/win32/api/wuapi/nf-wuapi-iinstallationagent-recordinstallationresult

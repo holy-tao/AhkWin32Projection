@@ -1,16 +1,15 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
-#Include .\IUIAnimationStoryboard2.ahk
 #Include ..\..\System\Com\IUnknown.ahk
+#Include .\IUIAnimationStoryboard2.ahk
 
 /**
  * Defines an animation variable, which represents a visual element that can be animated in multiple dimensions.
  * @see https://learn.microsoft.com/windows/win32/api/uianimation/nn-uianimation-iuianimationvariable2
  * @namespace Windows.Win32.UI.Animation
- * @version v4.0.30319
  */
-class IUIAnimationVariable2 extends IUnknown{
+class IUIAnimationVariable2 extends IUnknown {
 
     static sizeof => A_PtrSize
     /**
@@ -259,7 +258,7 @@ class IUIAnimationVariable2 extends IUnknown{
      * @remarks
      * An animation variable's rounding mode determines how a floating-point value is converted to an integer.
      *       The default mode for each variable is <b>UI_ANIMATION_ROUNDING_NEAREST</b>.
-     * @param {Integer} _mode 
+     * @param {UI_ANIMATION_ROUNDING_MODE} _mode The rounding mode.
      * @returns {HRESULT} Returns S_OK if successful; otherwise an <b>HRESULT</b> error code. See <a href="https://docs.microsoft.com/windows/desktop/UIAnimation/uianimation-error-codes">Windows Animation Error Codes</a> for a list of error codes.
      * @see https://learn.microsoft.com/windows/win32/api/uianimation/nf-uianimation-iuianimationvariable2-setroundingmode
      */
@@ -273,7 +272,7 @@ class IUIAnimationVariable2 extends IUnknown{
      * @remarks
      * A tag is a pairing of an integer identifier (<i>id</i>) with a COM object (<i>object</i>), and it can be used by an application to identify an animation variable.          
      *          Because <b>NULL</b> is a valid object component of a tag, the <i>object</i> parameter can be <b>NULL</b>.
-     * @param {IUnknown} _object 
+     * @param {IUnknown} _object The object portion of the tag. This parameter can be <b>NULL</b>.
      * @param {Integer} id The identifier portion of the tag.
      * @returns {HRESULT} Returns <b>S_OK</b> if successful; otherwise an <b>HRESULT</b> error code. See <a href="https://docs.microsoft.com/windows/desktop/UIAnimation/uianimation-error-codes">Windows Animation Error Codes</a> for a list of error codes.
      * @see https://learn.microsoft.com/windows/win32/api/uianimation/nf-uianimation-iuianimationvariable2-settag
@@ -289,7 +288,7 @@ class IUIAnimationVariable2 extends IUnknown{
      * A tag is a pairing of an integer identifier (<i>id</i>) with a COM object (<i>object</i>); it can be used by an application to identify an animation variable.
      * 
      * The parameters are optional, so that the method can return both portions of the tag, or just the identifier or object portion.
-     * @param {Pointer<IUnknown>} _object 
+     * @param {Pointer<IUnknown>} _object The object portion of the tag.
      * @param {Pointer<Integer>} id The identifier portion of the tag.
      * @returns {HRESULT} If this method succeeds, it returns S_OK. Otherwise, it returns an  <b>HRESULT</b> error code. See <a href="https://docs.microsoft.com/windows/desktop/UIAnimation/uianimation-error-codes">Windows Animation Error Codes</a> for a list of error codes.
      * @see https://learn.microsoft.com/windows/win32/api/uianimation/nf-uianimation-iuianimationvariable2-gettag

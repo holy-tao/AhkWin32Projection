@@ -7,9 +7,8 @@
  * Interface describing an SVG fill or stroke value.
  * @see https://learn.microsoft.com/windows/win32/api/d2d1svg/nn-d2d1svg-id2d1svgpaint
  * @namespace Windows.Win32.Graphics.Direct2D
- * @version v4.0.30319
  */
-class ID2D1SvgPaint extends ID2D1SvgAttribute{
+class ID2D1SvgPaint extends ID2D1SvgAttribute {
 
     static sizeof => A_PtrSize
     /**
@@ -32,7 +31,7 @@ class ID2D1SvgPaint extends ID2D1SvgAttribute{
 
     /**
      * Sets the paint type.
-     * @param {Integer} paintType Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/d2d1svg/ne-d2d1svg-d2d1_svg_paint_type">D2D1_SVG_PAINT_TYPE</a></b>
+     * @param {D2D1_SVG_PAINT_TYPE} paintType Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/d2d1svg/ne-d2d1svg-d2d1_svg_paint_type">D2D1_SVG_PAINT_TYPE</a></b>
      * 
      * The new paint type.
      * @returns {HRESULT} Type: <b><a href="https://docs.microsoft.com/windows/win32/com/structure-of-com-error-codes">HRESULT</a></b>
@@ -47,7 +46,7 @@ class ID2D1SvgPaint extends ID2D1SvgAttribute{
 
     /**
      * Gets the paint type.
-     * @returns {Integer} Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/d2d1svg/ne-d2d1svg-d2d1_svg_paint_type">D2D1_SVG_PAINT_TYPE</a></b>
+     * @returns {D2D1_SVG_PAINT_TYPE} Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/d2d1svg/ne-d2d1svg-d2d1_svg_paint_type">D2D1_SVG_PAINT_TYPE</a></b>
      * 
      * Returns the paint type.
      * @see https://learn.microsoft.com/windows/win32/api/d2d1svg/nf-d2d1svg-id2d1svgpaint-getpainttype
@@ -70,7 +69,9 @@ class ID2D1SvgPaint extends ID2D1SvgAttribute{
 
     /**
      * Gets the paint color that is used if the paint type is D2D1_SVG_PAINT_TYPE_COLOR.
-     * @param {Pointer<D2D1_COLOR_F>} _color 
+     * @param {Pointer<D2D1_COLOR_F>} _color Type: <b>D2D1_COLOR_F*</b>
+     * 
+     * The paint color that is used if the paint type is D2D1_SVG_PAINT_TYPE_COLOR.
      * @returns {String} Nothing - always returns an empty string
      * @see https://learn.microsoft.com/windows/win32/api/d2d1svg/nf-d2d1svg-id2d1svgpaint-getcolor
      */

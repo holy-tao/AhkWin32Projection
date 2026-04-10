@@ -3,10 +3,8 @@
 
 /**
  * @namespace Windows.Win32.Devices.Display
- * @version v4.0.30319
  */
-class DISPLAY_BRIGHTNESS extends Win32Struct
-{
+class DISPLAY_BRIGHTNESS extends Win32Struct {
     static sizeof => 3
 
     static packingSize => 1

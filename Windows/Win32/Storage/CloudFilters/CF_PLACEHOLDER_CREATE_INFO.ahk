@@ -1,16 +1,15 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
-#Include ..\FileSystem\FILE_BASIC_INFO.ahk
 #Include .\CF_FS_METADATA.ahk
+#Include ..\FileSystem\FILE_BASIC_INFO.ahk
+#Include .\CF_PLACEHOLDER_CREATE_FLAGS.ahk
 
 /**
  * Contains placeholder information for creating new placeholder files or directories.
  * @see https://learn.microsoft.com/windows/win32/api/cfapi/ns-cfapi-cf_placeholder_create_info
  * @namespace Windows.Win32.Storage.CloudFilters
- * @version v4.0.30319
  */
-class CF_PLACEHOLDER_CREATE_INFO extends Win32Struct
-{
+class CF_PLACEHOLDER_CREATE_INFO extends Win32Struct {
     static sizeof => 88
 
     static packingSize => 8
@@ -30,7 +29,7 @@ class CF_PLACEHOLDER_CREATE_INFO extends Win32Struct
      * File system metadata to be created with the placeholder, including all timestamps, file attributes and file size (optional for directories).
      * @type {CF_FS_METADATA}
      */
-    FsMetadata{
+    FsMetadata {
         get {
             if(!this.HasProp("__FsMetadata"))
                 this.__FsMetadata := CF_FS_METADATA(8, this)
@@ -58,7 +57,7 @@ class CF_PLACEHOLDER_CREATE_INFO extends Win32Struct
 
     /**
      * Flags for specifying placeholder creation behavior. See [CF_PLACEHOLDER_CREATE_FLAGS](ne-cfapi-cf_placeholder_create_flags.md) for more information.
-     * @type {Integer}
+     * @type {CF_PLACEHOLDER_CREATE_FLAGS}
      */
     Flags {
         get => NumGet(this, 68, "int")

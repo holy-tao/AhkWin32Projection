@@ -9,9 +9,8 @@
  * Property mnemonics refers to a shortened name for a property.
  * @see https://learn.microsoft.com/windows/win32/api/propsys/ne-propsys-propdesc_searchinfo_flags
  * @namespace Windows.Win32.UI.Shell.PropertiesSystem
- * @version v4.0.30319
  */
-class PROPDESC_SEARCHINFO_FLAGS extends Win32BitflagEnum{
+class PROPDESC_SEARCHINFO_FLAGS extends Win32BitflagEnum {
 
     /**
      * The property is not indexed.

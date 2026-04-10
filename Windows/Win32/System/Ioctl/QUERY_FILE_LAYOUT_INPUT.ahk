@@ -1,55 +1,54 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
+#Include .\QUERY_FILE_LAYOUT_FILTER_TYPE.ahk
 #Include .\CLUSTER_RANGE.ahk
 #Include .\FILE_REFERENCE_RANGE.ahk
+#Include .\STORAGE_RESERVE_ID.ahk
 
 /**
  * @namespace Windows.Win32.System.Ioctl
- * @version v4.0.30319
  */
-class QUERY_FILE_LAYOUT_INPUT extends Win32Struct
-{
+class QUERY_FILE_LAYOUT_INPUT extends Win32Struct {
     static sizeof => 32
 
     static packingSize => 8
 
     class _Filter_e__Union extends Win32Struct {
-        static sizeof => 12
+        static sizeof => 16
         static packingSize => 8
 
         /**
-         * @type {Array<CLUSTER_RANGE>}
+         * @type {CLUSTER_RANGE}
          */
-        ClusterRanges{
+        ClusterRanges {
             get {
                 if(!this.HasProp("__ClusterRangesProxyArray"))
                     this.__ClusterRangesProxyArray := Win32FixedArray(this.ptr + 0, 1, CLUSTER_RANGE, "")
                 return this.__ClusterRangesProxyArray
             }
         }
-    
+
         /**
-         * @type {Array<FILE_REFERENCE_RANGE>}
+         * @type {FILE_REFERENCE_RANGE}
          */
-        FileReferenceRanges{
+        FileReferenceRanges {
             get {
                 if(!this.HasProp("__FileReferenceRangesProxyArray"))
                     this.__FileReferenceRangesProxyArray := Win32FixedArray(this.ptr + 0, 1, FILE_REFERENCE_RANGE, "")
                 return this.__FileReferenceRangesProxyArray
             }
         }
-    
+
         /**
-         * @type {Array<Int32>}
+         * @type {Array<STORAGE_RESERVE_ID>}
          */
-        StorageReserveIds{
+        StorageReserveIds {
             get {
                 if(!this.HasProp("__StorageReserveIdsProxyArray"))
                     this.__StorageReserveIdsProxyArray := Win32FixedArray(this.ptr + 0, 1, Primitive, "int")
                 return this.__StorageReserveIdsProxyArray
             }
         }
-    
     }
 
     /**
@@ -77,7 +76,7 @@ class QUERY_FILE_LAYOUT_INPUT extends Win32Struct
     }
 
     /**
-     * @type {Integer}
+     * @type {QUERY_FILE_LAYOUT_FILTER_TYPE}
      */
     FilterType {
         get => NumGet(this, 8, "int")
@@ -95,10 +94,10 @@ class QUERY_FILE_LAYOUT_INPUT extends Win32Struct
     /**
      * @type {_Filter_e__Union}
      */
-    Filter{
+    Filter {
         get {
             if(!this.HasProp("__Filter"))
-                this.__Filter := %this.__Class%._Filter_e__Union(16, this)
+                this.__Filter := QUERY_FILE_LAYOUT_INPUT._Filter_e__Union(16, this)
             return this.__Filter
         }
     }

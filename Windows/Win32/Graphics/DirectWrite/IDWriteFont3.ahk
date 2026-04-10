@@ -1,17 +1,16 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
+#Include .\IDWriteFont2.ahk
 #Include .\IDWriteFontFace3.ahk
 #Include .\IDWriteFontFaceReference.ahk
-#Include .\IDWriteFont2.ahk
 
 /**
  * Represents a font in a font collection.
  * @see https://learn.microsoft.com/windows/win32/api/dwrite_3/nn-dwrite_3-idwritefont3
  * @namespace Windows.Win32.Graphics.DirectWrite
- * @version v4.0.30319
  */
-class IDWriteFont3 extends IDWriteFont2{
+class IDWriteFont3 extends IDWriteFont2 {
 
     static sizeof => A_PtrSize
     /**
@@ -46,7 +45,9 @@ class IDWriteFont3 extends IDWriteFont2{
 
     /**
      * Compares two instances of font references for equality.
-     * @param {IDWriteFont} _font 
+     * @param {IDWriteFont} _font Type: <b><a href="https://docs.microsoft.com/windows/win32/api/dwrite/nn-dwrite-idwritefont">IDWriteFont</a>*</b>
+     * 
+     * A pointer to a <a href="https://docs.microsoft.com/windows/win32/api/dwrite/nn-dwrite-idwritefont">IDWriteFont</a> interface for the other font instance to compare to this font instance.
      * @returns {BOOL} Type: <b>BOOL</b>
      * 
      * Returns whether the two instances of font references are equal. Returns <b>TRUE</b> if the two instances are equal; otherwise, <b>FALSE</b>.
@@ -83,7 +84,7 @@ class IDWriteFont3 extends IDWriteFont2{
      * Gets the current locality of the font.
      * @remarks
      * For fully local files, the result will always  be DWRITE_LOCALITY_LOCAL. A downloadable file may be any of the states, and this function may change between calls.
-     * @returns {Integer} Type: <b><a href="https://docs.microsoft.com/windows/win32/api/dwrite_3/ne-dwrite_3-dwrite_locality">DWRITE_LOCALITY</a></b>
+     * @returns {DWRITE_LOCALITY} Type: <b><a href="https://docs.microsoft.com/windows/win32/api/dwrite_3/ne-dwrite_3-dwrite_locality">DWRITE_LOCALITY</a></b>
      * 
      * Returns the current locality of the font.
      * @see https://learn.microsoft.com/windows/win32/api/dwrite_3/nf-dwrite_3-idwritefont3-getlocality

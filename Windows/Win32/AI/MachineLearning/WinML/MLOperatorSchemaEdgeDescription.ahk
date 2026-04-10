@@ -1,19 +1,21 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\..\Win32Struct.ahk
+#Include .\MLOperatorParameterOptions.ahk
+#Include .\MLOperatorSchemaEdgeTypeFormat.ahk
 #Include .\MLOperatorEdgeDescription.ahk
+#Include .\MLOperatorEdgeType.ahk
+#Include .\MLOperatorTensorDataType.ahk
 
 /**
  * @namespace Windows.Win32.AI.MachineLearning.WinML
- * @version v4.0.30319
  */
-class MLOperatorSchemaEdgeDescription extends Win32Struct
-{
-    static sizeof => 32
+class MLOperatorSchemaEdgeDescription extends Win32Struct {
+    static sizeof => 24
 
     static packingSize => 8
 
     /**
-     * @type {Integer}
+     * @type {MLOperatorParameterOptions}
      */
     options {
         get => NumGet(this, 0, "uint")
@@ -21,7 +23,7 @@ class MLOperatorSchemaEdgeDescription extends Win32Struct
     }
 
     /**
-     * @type {Integer}
+     * @type {MLOperatorSchemaEdgeTypeFormat}
      */
     typeFormat {
         get => NumGet(this, 4, "int")
@@ -47,7 +49,7 @@ class MLOperatorSchemaEdgeDescription extends Win32Struct
     /**
      * @type {MLOperatorEdgeDescription}
      */
-    edgeDescription{
+    edgeDescription {
         get {
             if(!this.HasProp("__edgeDescription"))
                 this.__edgeDescription := MLOperatorEdgeDescription(8, this)

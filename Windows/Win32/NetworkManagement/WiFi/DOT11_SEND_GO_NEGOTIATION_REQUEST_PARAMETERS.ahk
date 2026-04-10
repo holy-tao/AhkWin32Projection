@@ -6,10 +6,8 @@
 
 /**
  * @namespace Windows.Win32.NetworkManagement.WiFi
- * @version v4.0.30319
  */
-class DOT11_SEND_GO_NEGOTIATION_REQUEST_PARAMETERS extends Win32Struct
-{
+class DOT11_SEND_GO_NEGOTIATION_REQUEST_PARAMETERS extends Win32Struct {
     static sizeof => 36
 
     static packingSize => 4
@@ -17,7 +15,7 @@ class DOT11_SEND_GO_NEGOTIATION_REQUEST_PARAMETERS extends Win32Struct
     /**
      * @type {NDIS_OBJECT_HEADER}
      */
-    Header{
+    Header {
         get {
             if(!this.HasProp("__Header"))
                 this.__Header := NDIS_OBJECT_HEADER(0, this)
@@ -26,9 +24,9 @@ class DOT11_SEND_GO_NEGOTIATION_REQUEST_PARAMETERS extends Win32Struct
     }
 
     /**
-     * @type {Array<Byte>}
+     * @type {Array<Integer>}
      */
-    PeerDeviceAddress{
+    PeerDeviceAddress {
         get {
             if(!this.HasProp("__PeerDeviceAddressProxyArray"))
                 this.__PeerDeviceAddressProxyArray := Win32FixedArray(this.ptr + 4, 6, Primitive, "char")
@@ -55,7 +53,7 @@ class DOT11_SEND_GO_NEGOTIATION_REQUEST_PARAMETERS extends Win32Struct
     /**
      * @type {DOT11_WFD_GO_INTENT}
      */
-    GroupOwnerIntent{
+    GroupOwnerIntent {
         get {
             if(!this.HasProp("__GroupOwnerIntent"))
                 this.__GroupOwnerIntent := DOT11_WFD_GO_INTENT(16, this)
@@ -66,7 +64,7 @@ class DOT11_SEND_GO_NEGOTIATION_REQUEST_PARAMETERS extends Win32Struct
     /**
      * @type {DOT11_WFD_CONFIGURATION_TIMEOUT}
      */
-    MinimumConfigTimeout{
+    MinimumConfigTimeout {
         get {
             if(!this.HasProp("__MinimumConfigTimeout"))
                 this.__MinimumConfigTimeout := DOT11_WFD_CONFIGURATION_TIMEOUT(17, this)
@@ -75,9 +73,9 @@ class DOT11_SEND_GO_NEGOTIATION_REQUEST_PARAMETERS extends Win32Struct
     }
 
     /**
-     * @type {Array<Byte>}
+     * @type {Array<Integer>}
      */
-    IntendedInterfaceAddress{
+    IntendedInterfaceAddress {
         get {
             if(!this.HasProp("__IntendedInterfaceAddressProxyArray"))
                 this.__IntendedInterfaceAddressProxyArray := Win32FixedArray(this.ptr + 19, 6, Primitive, "char")

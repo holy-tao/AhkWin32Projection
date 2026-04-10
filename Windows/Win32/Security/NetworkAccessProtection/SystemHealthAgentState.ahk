@@ -1,16 +1,16 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
 #Include .\ResultCodes.ahk
+#Include .\FailureCategory.ahk
 #Include .\FixupInfo.ahk
+#Include .\FixupState.ahk
 
 /**
  * Stores the dynamic state of the SHA.
  * @see https://learn.microsoft.com/windows/win32/api/naptypes/ns-naptypes-systemhealthagentstate
  * @namespace Windows.Win32.Security.NetworkAccessProtection
- * @version v4.0.30319
  */
-class SystemHealthAgentState extends Win32Struct
-{
+class SystemHealthAgentState extends Win32Struct {
     static sizeof => 64
 
     static packingSize => 8
@@ -31,7 +31,7 @@ class SystemHealthAgentState extends Win32Struct
      * <div> </div>
      * @type {ResultCodes}
      */
-    shaResultCodes{
+    shaResultCodes {
         get {
             if(!this.HasProp("__shaResultCodes"))
                 this.__shaResultCodes := ResultCodes(8, this)
@@ -44,7 +44,7 @@ class SystemHealthAgentState extends Win32Struct
      * 
      * <div class="alert"><b>Note</b>  The <a href="https://docs.microsoft.com/windows/desktop/NAP/sohattributetype-enum">sohAttributeTypeFailureCategory</a> attribute type within the <a href="https://docs.microsoft.com/windows/desktop/api/naptypes/ns-naptypes-soh">SoHRespnse</a> contains the failure category fields.</div>
      * <div> </div>
-     * @type {Integer}
+     * @type {FailureCategory}
      */
     failureCategory {
         get => NumGet(this, 24, "int")
@@ -55,7 +55,7 @@ class SystemHealthAgentState extends Win32Struct
      * A <a href="https://docs.microsoft.com/windows/desktop/api/naptypes/ns-naptypes-fixupinfo">FixupInfo</a> structure that contains information about the fix-up state of the SHA.
      * @type {FixupInfo}
      */
-    fixupInfo{
+    fixupInfo {
         get {
             if(!this.HasProp("__fixupInfo"))
                 this.__fixupInfo := FixupInfo(32, this)

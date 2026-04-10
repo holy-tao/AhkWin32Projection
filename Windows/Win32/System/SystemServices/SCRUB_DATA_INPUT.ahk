@@ -3,10 +3,8 @@
 
 /**
  * @namespace Windows.Win32.System.SystemServices
- * @version v4.0.30319
  */
-class SCRUB_DATA_INPUT extends Win32Struct
-{
+class SCRUB_DATA_INPUT extends Win32Struct {
     static sizeof => 1232
 
     static packingSize => 8
@@ -36,9 +34,9 @@ class SCRUB_DATA_INPUT extends Win32Struct
     }
 
     /**
-     * @type {Array<UInt32>}
+     * @type {Array<Integer>}
      */
-    ObjectId{
+    ObjectId {
         get {
             if(!this.HasProp("__ObjectIdProxyArray"))
                 this.__ObjectIdProxyArray := Win32FixedArray(this.ptr + 12, 4, Primitive, "uint")
@@ -63,9 +61,9 @@ class SCRUB_DATA_INPUT extends Win32Struct
     }
 
     /**
-     * @type {Array<UInt32>}
+     * @type {Array<Integer>}
      */
-    Reserved{
+    Reserved {
         get {
             if(!this.HasProp("__ReservedProxyArray"))
                 this.__ReservedProxyArray := Win32FixedArray(this.ptr + 48, 36, Primitive, "uint")
@@ -74,9 +72,9 @@ class SCRUB_DATA_INPUT extends Win32Struct
     }
 
     /**
-     * @type {Array<Byte>}
+     * @type {Array<Integer>}
      */
-    ResumeContext{
+    ResumeContext {
         get {
             if(!this.HasProp("__ResumeContextProxyArray"))
                 this.__ResumeContextProxyArray := Win32FixedArray(this.ptr + 192, 1040, Primitive, "char")

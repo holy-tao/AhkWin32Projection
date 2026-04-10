@@ -9,10 +9,8 @@
  * You can only set one I/O rate control for a job in a hierarchy of nested jobs. The settings that you specify apply to that job and the child jobs in the hierarchy for that job.  The settings do not apply to the chain of jobs from the parent job up to the top of the hierarchy. You still can change the settings for the original job in the hierarchy on which you set I/O rate control. However, attempts to set values for the control of the I/O rate for any other jobs in the hierarchy, including the parent jobs, fail.
  * @see https://learn.microsoft.com/windows/win32/api/jobapi2/ns-jobapi2-jobobject_io_rate_control_information
  * @namespace Windows.Win32.System.JobObjects
- * @version v4.0.30319
  */
-class JOBOBJECT_IO_RATE_CONTROL_INFORMATION extends Win32Struct
-{
+class JOBOBJECT_IO_RATE_CONTROL_INFORMATION extends Win32Struct {
     static sizeof => 40
 
     static packingSize => 8
@@ -82,7 +80,6 @@ class JOBOBJECT_IO_RATE_CONTROL_INFORMATION extends Win32Struct
     }
 
     /**
-     * 
      * @type {Integer}
      */
     ControlFlags {

@@ -13,10 +13,8 @@
  * For details on how WSD uses these values to send messages, see Appendix I of the <a href="https://schemas.xmlsoap.org/ws/2004/09/soap-over-udp/">SOAP-over-UDP</a> specification.
  * @see https://learn.microsoft.com/windows/win32/api/wsdbase/ns-wsdbase-wsdudpretransmitparams
  * @namespace Windows.Win32.Devices.WebServicesOnDevices
- * @version v4.0.30319
  */
-class WSDUdpRetransmitParams extends Win32Struct
-{
+class WSDUdpRetransmitParams extends Win32Struct {
     static sizeof => 20
 
     static packingSize => 4

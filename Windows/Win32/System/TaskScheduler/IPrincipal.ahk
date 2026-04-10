@@ -1,7 +1,6 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
-#Include ..\..\Foundation\BSTR.ahk
 #Include ..\Com\IDispatch.ahk
 
 /**
@@ -14,9 +13,8 @@
  * If a task is registered using the at.exe command line tool, and this interface is used to retrieve information about the task, then the <a href="https://docs.microsoft.com/windows/desktop/api/taskschd/nf-taskschd-iprincipal-get_logontype">LogonType</a> property will return 0, the <a href="https://docs.microsoft.com/windows/desktop/api/taskschd/nf-taskschd-iprincipal-get_runlevel">RunLevel</a> property will return 0, and the <a href="https://docs.microsoft.com/windows/desktop/api/taskschd/nf-taskschd-iprincipal-get_userid">UserId</a> property will return <b>NULL</b>.
  * @see https://learn.microsoft.com/windows/win32/api/taskschd/nn-taskschd-iprincipal
  * @namespace Windows.Win32.System.TaskScheduler
- * @version v4.0.30319
  */
-class IPrincipal extends IDispatch{
+class IPrincipal extends IDispatch {
 
     static sizeof => A_PtrSize
     /**
@@ -38,6 +36,7 @@ class IPrincipal extends IDispatch{
     static VTableNames => ["get_Id", "put_Id", "get_DisplayName", "put_DisplayName", "get_UserId", "put_UserId", "get_LogonType", "put_LogonType", "get_GroupId", "put_GroupId", "get_RunLevel", "put_RunLevel"]
 
     /**
+     * @type {BSTR} 
      */
     Id {
         get => this.get_Id()
@@ -45,6 +44,7 @@ class IPrincipal extends IDispatch{
     }
 
     /**
+     * @type {BSTR} 
      */
     DisplayName {
         get => this.get_DisplayName()
@@ -52,6 +52,7 @@ class IPrincipal extends IDispatch{
     }
 
     /**
+     * @type {BSTR} 
      */
     UserId {
         get => this.get_UserId()
@@ -59,6 +60,7 @@ class IPrincipal extends IDispatch{
     }
 
     /**
+     * @type {TASK_LOGON_TYPE} 
      */
     LogonType {
         get => this.get_LogonType()
@@ -66,6 +68,7 @@ class IPrincipal extends IDispatch{
     }
 
     /**
+     * @type {BSTR} 
      */
     GroupId {
         get => this.get_GroupId()
@@ -73,6 +76,7 @@ class IPrincipal extends IDispatch{
     }
 
     /**
+     * @type {TASK_RUNLEVEL_TYPE} 
      */
     RunLevel {
         get => this.get_RunLevel()
@@ -192,7 +196,7 @@ class IPrincipal extends IDispatch{
      * <li>Is set to <b>Run only when user is logged on</b> (task <b>LogonType</b> is <b>TASK_LOGON_INTERACTIVE_TOKEN</b> or <b>TASK_LOGON_GROUP</b>)</li>
      * </ul>
      * All other triggers are delayed until battery saver is off. For more information about accessing battery saver status in your application, see <a href="https://docs.microsoft.com/windows/desktop/api/winbase/ns-winbase-system_power_status">SYSTEM_POWER_STATUS</a>. For general information about battery saver, see <a href="https://docs.microsoft.com/windows-hardware/design/component-guidelines/battery-saver">battery saver (in the hardware component guidelines)</a>.
-     * @param {Pointer<Integer>} pLogon 
+     * @param {Pointer<TASK_LOGON_TYPE>} pLogon 
      * @returns {HRESULT} 
      * @see https://learn.microsoft.com/windows/win32/api/taskschd/nf-taskschd-iprincipal-get_logontype
      */
@@ -220,7 +224,7 @@ class IPrincipal extends IDispatch{
      * <li>Is set to <b>Run only when user is logged on</b> (task <b>LogonType</b> is <b>TASK_LOGON_INTERACTIVE_TOKEN</b> or <b>TASK_LOGON_GROUP</b>)</li>
      * </ul>
      * All other triggers are delayed until battery saver is off. For more information about accessing battery saver status in your application, see <a href="https://docs.microsoft.com/windows/desktop/api/winbase/ns-winbase-system_power_status">SYSTEM_POWER_STATUS</a>. For general information about battery saver, see <a href="https://docs.microsoft.com/windows-hardware/design/component-guidelines/battery-saver">battery saver (in the hardware component guidelines)</a>.
-     * @param {Integer} logon 
+     * @param {TASK_LOGON_TYPE} logon 
      * @returns {HRESULT} 
      * @see https://learn.microsoft.com/windows/win32/api/taskschd/nf-taskschd-iprincipal-put_logontype
      */
@@ -267,7 +271,7 @@ class IPrincipal extends IDispatch{
      * If a task is registered using the Builtin\Administrator account or the Local System or Local Service accounts, then the <b>RunLevel</b> property will be ignored.  The property value will also be ignored if User Account Control (UAC) is turned off.
      * 
      * If a task is registered using the Administrators group for the security context of the task, then you must also set the <b>RunLevel</b> property to <b>TASK_RUNLEVEL_HIGHEST</b> if you want to run the task. For more information, see <a href="https://docs.microsoft.com/windows/desktop/TaskSchd/security-contexts-for-running-tasks">Security Contexts for  Tasks</a>.
-     * @param {Pointer<Integer>} pRunLevel 
+     * @param {Pointer<TASK_RUNLEVEL_TYPE>} pRunLevel 
      * @returns {HRESULT} 
      * @see https://learn.microsoft.com/windows/win32/api/taskschd/nf-taskschd-iprincipal-get_runlevel
      */
@@ -284,7 +288,7 @@ class IPrincipal extends IDispatch{
      * If a task is registered using the Builtin\Administrator account or the Local System or Local Service accounts, then the <b>RunLevel</b> property will be ignored.  The property value will also be ignored if User Account Control (UAC) is turned off.
      * 
      * If a task is registered using the Administrators group for the security context of the task, then you must also set the <b>RunLevel</b> property to <b>TASK_RUNLEVEL_HIGHEST</b> if you want to run the task. For more information, see <a href="https://docs.microsoft.com/windows/desktop/TaskSchd/security-contexts-for-running-tasks">Security Contexts for  Tasks</a>.
-     * @param {Integer} runLevel 
+     * @param {TASK_RUNLEVEL_TYPE} runLevel 
      * @returns {HRESULT} 
      * @see https://learn.microsoft.com/windows/win32/api/taskschd/nf-taskschd-iprincipal-put_runlevel
      */

@@ -1,14 +1,13 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
+#Include .\APPCATEGORYINFO.ahk
 
 /**
  * Provides a list of supported application categories from an application publisher to Add/Remove Programs in Control Panel.
  * @see https://learn.microsoft.com/windows/win32/api/appmgmt/ns-appmgmt-appcategoryinfolist
  * @namespace Windows.Win32.UI.Shell
- * @version v4.0.30319
  */
-class APPCATEGORYINFOLIST extends Win32Struct
-{
+class APPCATEGORYINFOLIST extends Win32Struct {
     static sizeof => 16
 
     static packingSize => 8

@@ -3,9 +3,8 @@
 
 /**
  * @namespace Windows.Win32.NetworkManagement.IpHelper
- * @version v4.0.30319
  */
-class MIB_IPSTATS_FORWARDING extends Win32Enum{
+class MIB_IPSTATS_FORWARDING extends Win32Enum {
 
     /**
      * @type {Integer (Int32)}

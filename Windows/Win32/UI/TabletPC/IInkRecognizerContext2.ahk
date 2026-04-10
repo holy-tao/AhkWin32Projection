@@ -1,16 +1,15 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
-#Include ..\..\System\Variant\VARIANT.ahk
 #Include ..\..\System\Com\IDispatch.ahk
+#Include ..\..\System\Variant\VARIANT.ahk
 
 /**
  * Adds members to the InkRecognizerContext Class.
  * @see https://learn.microsoft.com/windows/win32/api/msinkaut/nn-msinkaut-iinkrecognizercontext2
  * @namespace Windows.Win32.UI.TabletPC
- * @version v4.0.30319
  */
-class IInkRecognizerContext2 extends IDispatch{
+class IInkRecognizerContext2 extends IDispatch {
 
     static sizeof => A_PtrSize
     /**

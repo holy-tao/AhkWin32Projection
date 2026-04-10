@@ -5,9 +5,8 @@
  * Defines the format of the data in the log file.
  * @see https://learn.microsoft.com/windows/win32/api/pla/ne-pla-fileformat
  * @namespace Windows.Win32.System.Performance
- * @version v4.0.30319
  */
-class FileFormat extends Win32Enum{
+class FileFormat extends Win32Enum {
 
     /**
      * Comma-separated log file. The first line in the text file contains column headings followed by comma-separated data in the remaining lines of the log file.

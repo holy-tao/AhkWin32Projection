@@ -5,9 +5,8 @@
 
 /**
  * @namespace Windows.Win32.Security.ExtensibleAuthenticationProtocol
- * @version v4.0.30319
  */
-class IEAPProviderConfig3 extends IEAPProviderConfig2{
+class IEAPProviderConfig3 extends IEAPProviderConfig2 {
 
     static sizeof => A_PtrSize
     /**

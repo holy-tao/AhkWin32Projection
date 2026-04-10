@@ -7,9 +7,8 @@
  * These objects can be secured using <a href="https://docs.microsoft.com/windows/desktop/api/wlanapi/nf-wlanapi-wlansetsecuritysettings">WlanSetSecuritySettings</a>. The current permissions associated with these objects can be retrieved using <a href="https://docs.microsoft.com/windows/desktop/api/wlanapi/nf-wlanapi-wlangetsecuritysettings">WlanGetSecuritySettings</a>. For more information about the use of securable objects, see <a href="https://docs.microsoft.com/windows/desktop/SecAuthZ/how-dacls-control-access-to-an-object">How DACLs Control Access to an Object</a> and <a href="https://docs.microsoft.com/windows/desktop/NativeWiFi/native-wifi-api-permissions">Native Wifi API Permissions</a>.
  * @see https://learn.microsoft.com/windows/win32/api/wlanapi/ne-wlanapi-wlan_securable_object
  * @namespace Windows.Win32.NetworkManagement.WiFi
- * @version v4.0.30319
  */
-class WLAN_SECURABLE_OBJECT extends Win32Enum{
+class WLAN_SECURABLE_OBJECT extends Win32Enum {
 
     /**
      * The permissions for modifying the permit list for user profiles.
@@ -162,7 +161,6 @@ class WLAN_SECURABLE_OBJECT extends Win32Enum{
     static wlan_secure_wfd_elevated_access => 16
 
     /**
-     * 
      * @type {Integer (Int32)}
      */
     static WLAN_SECURABLE_OBJECT_COUNT => 17

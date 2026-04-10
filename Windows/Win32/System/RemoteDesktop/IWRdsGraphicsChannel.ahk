@@ -7,9 +7,8 @@
  * This interface is used by the RemoteFX graphics services to send and receive data to a virtual graphics channel.
  * @see https://learn.microsoft.com/windows/win32/api/wrdsgraphicschannels/nn-wrdsgraphicschannels-iwrdsgraphicschannel
  * @namespace Windows.Win32.System.RemoteDesktop
- * @version v4.0.30319
  */
-class IWRdsGraphicsChannel extends IUnknown{
+class IWRdsGraphicsChannel extends IUnknown {
 
     static sizeof => A_PtrSize
     /**

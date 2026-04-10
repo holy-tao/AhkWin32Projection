@@ -3,10 +3,8 @@
 
 /**
  * @namespace Windows.Wdk.System.SystemServices
- * @version v4.0.30319
  */
-class PO_FX_COMPONENT_IDLE_STATE extends Win32Struct
-{
+class PO_FX_COMPONENT_IDLE_STATE extends Win32Struct {
     static sizeof => 24
 
     static packingSize => 8

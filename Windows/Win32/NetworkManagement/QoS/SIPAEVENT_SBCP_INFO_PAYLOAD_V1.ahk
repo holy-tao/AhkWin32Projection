@@ -3,10 +3,8 @@
 
 /**
  * @namespace Windows.Win32.NetworkManagement.QoS
- * @version v4.0.30319
  */
-class SIPAEVENT_SBCP_INFO_PAYLOAD_V1 extends Win32Struct
-{
+class SIPAEVENT_SBCP_INFO_PAYLOAD_V1 extends Win32Struct {
     static sizeof => 24
 
     static packingSize => 4
@@ -60,9 +58,9 @@ class SIPAEVENT_SBCP_INFO_PAYLOAD_V1 extends Win32Struct
     }
 
     /**
-     * @type {Array<Byte>}
+     * @type {Array<Integer>}
      */
-    VarData{
+    VarData {
         get {
             if(!this.HasProp("__VarDataProxyArray"))
                 this.__VarDataProxyArray := Win32FixedArray(this.ptr + 20, 1, Primitive, "char")

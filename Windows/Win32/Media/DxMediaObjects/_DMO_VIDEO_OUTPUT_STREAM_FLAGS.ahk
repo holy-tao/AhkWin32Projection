@@ -5,9 +5,8 @@
  * The DMO_VIDEO_OUTPUT_STREAM_FLAGS enumeration defines flags that describe requested features, for video optimizations.
  * @see https://learn.microsoft.com/windows/win32/api/mediaobj/ne-mediaobj-_dmo_video_output_stream_flags
  * @namespace Windows.Win32.Media.DxMediaObjects
- * @version v4.0.30319
  */
-class _DMO_VIDEO_OUTPUT_STREAM_FLAGS extends Win32Enum{
+class _DMO_VIDEO_OUTPUT_STREAM_FLAGS extends Win32Enum {
 
     /**
      * Requests that every output buffer passed to the DMO contain the previous data that was generated.

@@ -3,10 +3,8 @@
 
 /**
  * @namespace Windows.Win32.System.Environment
- * @version v4.0.30319
  */
-class ENCLAVE_VBS_BASIC_KEY_REQUEST extends Win32Struct
-{
+class ENCLAVE_VBS_BASIC_KEY_REQUEST extends Win32Struct {
     static sizeof => 20
 
     static packingSize => 4

@@ -9,10 +9,8 @@
  * <a href="https://docs.microsoft.com/windows/desktop/api/rpcdce/nf-rpcdce-rpcmgmtstatsvectorfree">RpcMgmtStatsVectorFree</a> to free the statistics vector.
  * @see https://learn.microsoft.com/windows/win32/api/rpcdce/ns-rpcdce-rpc_stats_vector
  * @namespace Windows.Win32.System.Rpc
- * @version v4.0.30319
  */
-class RPC_STATS_VECTOR extends Win32Struct
-{
+class RPC_STATS_VECTOR extends Win32Struct {
     static sizeof => 8
 
     static packingSize => 4
@@ -77,9 +75,9 @@ class RPC_STATS_VECTOR extends Win32Struct
      * </td>
      * </tr>
      * </table>
-     * @type {Array<UInt32>}
+     * @type {Array<Integer>}
      */
-    Stats{
+    Stats {
         get {
             if(!this.HasProp("__StatsProxyArray"))
                 this.__StatsProxyArray := Win32FixedArray(this.ptr + 4, 1, Primitive, "uint")

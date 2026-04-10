@@ -5,10 +5,8 @@
  * Identifies an object type element in a hierarchy of object types.
  * @see https://learn.microsoft.com/windows/win32/api/winnt/ns-winnt-object_type_list
  * @namespace Windows.Win32.Security
- * @version v4.0.30319
  */
-class OBJECT_TYPE_LIST extends Win32Struct
-{
+class OBJECT_TYPE_LIST extends Win32Struct {
     static sizeof => 16
 
     static packingSize => 8

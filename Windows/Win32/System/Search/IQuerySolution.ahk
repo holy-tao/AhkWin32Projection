@@ -9,9 +9,8 @@
  * The <a href="https://github.com/microsoft/Windows-classic-samples/tree/master/Samples/Win7Samples/winui/WindowsSearch/StructuredQuerySample">StructuredQuerySample</a> demonstrates how to read lines from the console, parse them using the system schema, and display the resulting condition trees.
  * @see https://learn.microsoft.com/windows/win32/api/structuredquery/nn-structuredquery-iquerysolution
  * @namespace Windows.Win32.System.Search
- * @version v4.0.30319
  */
-class IQuerySolution extends IConditionFactory{
+class IQuerySolution extends IConditionFactory {
 
     static sizeof => A_PtrSize
     /**

@@ -1,14 +1,13 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
+#Include .\STORAGE_DEVICE_POWER_CAP_UNITS.ahk
 
 /**
  * This structure is used as an input and output buffer for the IOCTL_STORAGE_DEVICE_POWER_CAP.
  * @see https://learn.microsoft.com/windows/win32/api/winioctl/ns-winioctl-storage_device_power_cap
  * @namespace Windows.Win32.System.Ioctl
- * @version v4.0.30319
  */
-class STORAGE_DEVICE_POWER_CAP extends Win32Struct
-{
+class STORAGE_DEVICE_POWER_CAP extends Win32Struct {
     static sizeof => 24
 
     static packingSize => 8
@@ -33,7 +32,7 @@ class STORAGE_DEVICE_POWER_CAP extends Win32Struct
 
     /**
      * The units of the <i>MaxPower</i> value, of type <a href="https://docs.microsoft.com/windows/desktop/api/winioctl/ne-winioctl-storage_device_power_cap_units">STORAGE_DEVICE_POWER_CAP_UNITS</a>.
-     * @type {Integer}
+     * @type {STORAGE_DEVICE_POWER_CAP_UNITS}
      */
     Units {
         get => NumGet(this, 8, "int")

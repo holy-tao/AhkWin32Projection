@@ -1,13 +1,14 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
 #Include .\D3D12_VIDEO_DECODE_CONFIGURATION.ahk
+#Include .\D3D12_BITSTREAM_ENCRYPTION_TYPE.ahk
+#Include .\D3D12_VIDEO_FRAME_CODED_INTERLACE_TYPE.ahk
+#Include .\D3D12_VIDEO_PROTECTED_RESOURCE_SUPPORT_FLAGS.ahk
 
 /**
  * @namespace Windows.Win32.Media.MediaFoundation
- * @version v4.0.30319
  */
-class D3D12_FEATURE_DATA_VIDEO_DECODE_PROTECTED_RESOURCES extends Win32Struct
-{
+class D3D12_FEATURE_DATA_VIDEO_DECODE_PROTECTED_RESOURCES extends Win32Struct {
     static sizeof => 32
 
     static packingSize => 8
@@ -23,7 +24,7 @@ class D3D12_FEATURE_DATA_VIDEO_DECODE_PROTECTED_RESOURCES extends Win32Struct
     /**
      * @type {D3D12_VIDEO_DECODE_CONFIGURATION}
      */
-    Configuration{
+    Configuration {
         get {
             if(!this.HasProp("__Configuration"))
                 this.__Configuration := D3D12_VIDEO_DECODE_CONFIGURATION(8, this)
@@ -32,7 +33,7 @@ class D3D12_FEATURE_DATA_VIDEO_DECODE_PROTECTED_RESOURCES extends Win32Struct
     }
 
     /**
-     * @type {Integer}
+     * @type {D3D12_VIDEO_PROTECTED_RESOURCE_SUPPORT_FLAGS}
      */
     SupportFlags {
         get => NumGet(this, 24, "int")

@@ -41,11 +41,9 @@
  * </table>
  * @see https://learn.microsoft.com/windows/win32/api/rpcdce/ns-rpcdce-rpc_binding_handle_template_v1_a
  * @namespace Windows.Win32.System.Rpc
- * @version v4.0.30319
  * @charset ANSI
  */
-class RPC_BINDING_HANDLE_TEMPLATE_V1_A extends Win32Struct
-{
+class RPC_BINDING_HANDLE_TEMPLATE_V1_A extends Win32Struct {
     static sizeof => 48
 
     static packingSize => 8
@@ -61,7 +59,6 @@ class RPC_BINDING_HANDLE_TEMPLATE_V1_A extends Win32Struct
             get => NumGet(this, 0, "ptr")
             set => NumPut("ptr", value, this, 0)
         }
-    
     }
 
     /**
@@ -100,7 +97,6 @@ class RPC_BINDING_HANDLE_TEMPLATE_V1_A extends Win32Struct
     }
 
     /**
-     * 
      * @type {Integer}
      */
     ProtocolSequence {
@@ -127,20 +123,19 @@ class RPC_BINDING_HANDLE_TEMPLATE_V1_A extends Win32Struct
     }
 
     /**
-     * 
      * @type {_u1_e__Union}
      */
-    u1{
+    u1 {
         get {
             if(!this.HasProp("__u1"))
-                this.__u1 := %this.__Class%._u1_e__Union(32, this)
+                this.__u1 := RPC_BINDING_HANDLE_TEMPLATE_V1_A._u1_e__Union(32, this)
             return this.__u1
         }
     }
 
     /**
      * The UUID of the remote object. The semantics for this UUID are the same as those for a string binding. After the binding handle is created, call <a href="https://docs.microsoft.com/windows/desktop/api/rpcdce/nf-rpcdce-rpcbindingsetobject">RpcBindingSetObject</a> to change the UUID as needed.
-     * @type {Pointer<Guid>}
+     * @type {Pointer}
      */
     ObjectUuid {
         get => NumGet(this, 40, "ptr")

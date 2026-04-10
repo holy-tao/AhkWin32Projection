@@ -7,9 +7,8 @@
  * The IWMWriterNetworkSink interface is used to deliver streams to the network.
  * @see https://learn.microsoft.com/windows/win32/api/wmsdkidl/nn-wmsdkidl-iwmwriternetworksink
  * @namespace Windows.Win32.Media.WindowsMediaFormat
- * @version v4.0.30319
  */
-class IWMWriterNetworkSink extends IWMWriterSink{
+class IWMWriterNetworkSink extends IWMWriterSink {
 
     static sizeof => A_PtrSize
     /**
@@ -82,7 +81,7 @@ class IWMWriterNetworkSink extends IWMWriterSink{
 
     /**
      * The SetNetworkProtocol method sets the network protocol that the network sink uses. Currently, HTTP is the only protocol supported by the network sink.
-     * @param {Integer} protocol Specifies the protocol, as a value from the <a href="https://docs.microsoft.com/windows/desktop/api/wmsdkidl/ne-wmsdkidl-wmt_net_protocol">WMT_NET_PROTOCOL</a> enumeration type.
+     * @param {WMT_NET_PROTOCOL} protocol Specifies the protocol, as a value from the <a href="https://docs.microsoft.com/windows/desktop/api/wmsdkidl/ne-wmsdkidl-wmt_net_protocol">WMT_NET_PROTOCOL</a> enumeration type.
      * @returns {HRESULT} The method returns an <b>HRESULT</b>. Possible values include, but are not limited to, the values shown in the following table.
      * 
      * <table>
@@ -122,7 +121,7 @@ class IWMWriterNetworkSink extends IWMWriterSink{
 
     /**
      * The GetNetworkProtocol method retrieves the network protocol that the network sink uses. Currently, HTTP is the only protocol the network sink supports.
-     * @returns {Integer} Pointer to a variable that receives a member of the <a href="https://docs.microsoft.com/windows/desktop/api/wmsdkidl/ne-wmsdkidl-wmt_net_protocol">WMT_NET_PROTOCOL</a> enumeration type.
+     * @returns {WMT_NET_PROTOCOL} Pointer to a variable that receives a member of the <a href="https://docs.microsoft.com/windows/desktop/api/wmsdkidl/ne-wmsdkidl-wmt_net_protocol">WMT_NET_PROTOCOL</a> enumeration type.
      * @see https://learn.microsoft.com/windows/win32/api/wmsdkidl/nf-wmsdkidl-iwmwriternetworksink-getnetworkprotocol
      */
     GetNetworkProtocol() {

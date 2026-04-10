@@ -3,10 +3,8 @@
 
 /**
  * @namespace Windows.Wdk.Storage.FileSystem
- * @version v4.0.30319
  */
-class REFS_QUERY_VOLUME_DEDUP_INFO_OUTPUT_BUFFER extends Win32Struct
-{
+class REFS_QUERY_VOLUME_DEDUP_INFO_OUTPUT_BUFFER extends Win32Struct {
     static sizeof => 1
 
     static packingSize => 1

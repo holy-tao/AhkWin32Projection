@@ -5,9 +5,8 @@
  * Identifiers for properties of the Contrast effect.
  * @see https://learn.microsoft.com/windows/win32/api/d2d1effects_2/ne-d2d1effects_2-d2d1_contrast_prop
  * @namespace Windows.Win32.Graphics.Direct2D
- * @version v4.0.30319
  */
-class D2D1_CONTRAST_PROP extends Win32Enum{
+class D2D1_CONTRAST_PROP extends Win32Enum {
 
     /**
      * The D2D1_CONTRAST_PROP_CONTRAST property is a float value indicating the amount by which to adjust the contrast of the image. Negative values reduce contrast, while positive values increase contrast.  

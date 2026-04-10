@@ -1,6 +1,7 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
 #Include .\JOBOBJECT_BASIC_LIMIT_INFORMATION.ahk
+#Include .\JOB_OBJECT_LIMIT.ahk
 #Include ..\Threading\IO_COUNTERS.ahk
 
 /**
@@ -13,10 +14,8 @@
  * To register for notifications  that a job has exceeded its peak memory limit while allowing processes to continue to commit memory, use the <a href="https://docs.microsoft.com/windows/desktop/api/jobapi2/nf-jobapi2-setinformationjobobject">SetInformationJobObject</a> function with the <b>JobObjectNotificationLimitInformation</b> information class.
  * @see https://learn.microsoft.com/windows/win32/api/winnt/ns-winnt-jobobject_extended_limit_information
  * @namespace Windows.Win32.System.JobObjects
- * @version v4.0.30319
  */
-class JOBOBJECT_EXTENDED_LIMIT_INFORMATION extends Win32Struct
-{
+class JOBOBJECT_EXTENDED_LIMIT_INFORMATION extends Win32Struct {
     static sizeof => 144
 
     static packingSize => 8
@@ -26,7 +25,7 @@ class JOBOBJECT_EXTENDED_LIMIT_INFORMATION extends Win32Struct
      * <a href="https://docs.microsoft.com/windows/desktop/api/winnt/ns-winnt-jobobject_basic_limit_information">JOBOBJECT_BASIC_LIMIT_INFORMATION</a> structure that contains basic limit information.
      * @type {JOBOBJECT_BASIC_LIMIT_INFORMATION}
      */
-    BasicLimitInformation{
+    BasicLimitInformation {
         get {
             if(!this.HasProp("__BasicLimitInformation"))
                 this.__BasicLimitInformation := JOBOBJECT_BASIC_LIMIT_INFORMATION(0, this)
@@ -38,7 +37,7 @@ class JOBOBJECT_EXTENDED_LIMIT_INFORMATION extends Win32Struct
      * Reserved.
      * @type {IO_COUNTERS}
      */
-    IoInfo{
+    IoInfo {
         get {
             if(!this.HasProp("__IoInfo"))
                 this.__IoInfo := IO_COUNTERS(64, this)

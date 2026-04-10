@@ -3,14 +3,10 @@
 
 /**
  * A structure that represents a device service notification.
- * @remarks
- * 
  * @see https://learn.microsoft.com/windows/win32/api/wlanapi/ns-wlanapi-wlan_device_service_notification_data
  * @namespace Windows.Win32.NetworkManagement.WiFi
- * @version v4.0.30319
  */
-class WLAN_DEVICE_SERVICE_NOTIFICATION_DATA extends Win32Struct
-{
+class WLAN_DEVICE_SERVICE_NOTIFICATION_DATA extends Win32Struct {
     static sizeof => 24
 
     static packingSize => 8
@@ -19,7 +15,7 @@ class WLAN_DEVICE_SERVICE_NOTIFICATION_DATA extends Win32Struct
      * Type: **[GUID](../guiddef/ns-guiddef-guid.md)**
      * 
      * The **GUID** identifying the device service for this notification.
-     * @type {Pointer<Guid>}
+     * @type {Pointer}
      */
     DeviceService {
         get => NumGet(this, 0, "ptr")
@@ -52,9 +48,9 @@ class WLAN_DEVICE_SERVICE_NOTIFICATION_DATA extends Win32Struct
      * Type: **[BYTE](../guiddef/ns-guiddef-guid.md)\[1\]**
      * 
      * A pointer to an array containing **BYTES**s, representing the data blob. This is the data that is received from the independent hardware vendor (IHV) driver, and is passed on to the client as an unformatted byte array blob.
-     * @type {Array<Byte>}
+     * @type {Array<Integer>}
      */
-    DataBlob{
+    DataBlob {
         get {
             if(!this.HasProp("__DataBlobProxyArray"))
                 this.__DataBlobProxyArray := Win32FixedArray(this.ptr + 16, 1, Primitive, "char")

@@ -1,15 +1,15 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\..\Win32Struct.ahk
 #Include ..\..\..\Storage\FileSystem\VS_FIXEDFILEINFO.ahk
+#Include ..\..\..\Storage\FileSystem\VS_FIXEDFILEINFO_FILE_FLAGS.ahk
+#Include ..\..\..\Storage\FileSystem\VS_FIXEDFILEINFO_FILE_OS.ahk
 
 /**
  * Contains module information for the MiniDumpCallback function when the callback type is ModuleCallback.
  * @see https://learn.microsoft.com/windows/win32/api/minidumpapiset/ns-minidumpapiset-minidump_module_callback
  * @namespace Windows.Win32.System.Diagnostics.Debug
- * @version v4.0.30319
  */
-class MINIDUMP_MODULE_CALLBACK extends Win32Struct
-{
+class MINIDUMP_MODULE_CALLBACK extends Win32Struct {
     static sizeof => 112
 
     static packingSize => 8
@@ -64,7 +64,7 @@ class MINIDUMP_MODULE_CALLBACK extends Win32Struct
      * <a href="https://docs.microsoft.com/windows/desktop/api/verrsrc/ns-verrsrc-vs_fixedfileinfo">VS_FIXEDFILEINFO</a> structure that specifies the version of the module.
      * @type {VS_FIXEDFILEINFO}
      */
-    VersionInfo{
+    VersionInfo {
         get {
             if(!this.HasProp("__VersionInfo"))
                 this.__VersionInfo := VS_FIXEDFILEINFO(28, this)

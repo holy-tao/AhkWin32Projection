@@ -7,10 +7,8 @@
  * Represents the data structure used for the CF_OBJECTDESRIPTOR and CF_LINKSRCDESCRIPTOR file formats.
  * @see https://learn.microsoft.com/windows/win32/api/oleidl/ns-oleidl-objectdescriptor
  * @namespace Windows.Win32.System.Ole
- * @version v4.0.30319
  */
-class OBJECTDESCRIPTOR extends Win32Struct
-{
+class OBJECTDESCRIPTOR extends Win32Struct {
     static sizeof => 48
 
     static packingSize => 8
@@ -26,7 +24,7 @@ class OBJECTDESCRIPTOR extends Win32Struct
 
     /**
      * The CLSID of the object being transferred. The clsid is used to obtain the icon for the <b>Display As Icon</b> option in the <b>Paste Special</b> dialog box and is applicable only if the Embed Source or Embedded Object formats are offered. If neither is offered, the value of clsid should be CLSID_NULL. The clsid can be retrieved by the source by loading the object and calling the <a href="https://docs.microsoft.com/windows/desktop/api/oleidl/nf-oleidl-ioleobject-getuserclassid">IOleObject::GetUserClassID</a> method. Note that for link objects, this value is not the same as the value returned by the <a href="https://docs.microsoft.com/windows/desktop/api/objidl/nf-objidl-ipersist-getclassid">IPersist::GetClassID</a> method.
-     * @type {Pointer<Guid>}
+     * @type {Pointer}
      */
     clsid {
         get => NumGet(this, 8, "ptr")
@@ -46,7 +44,7 @@ class OBJECTDESCRIPTOR extends Win32Struct
      * The true extent of the object (without cropping or scaling) in <b>HIMETRIC</b> units. Setting this field is optional. The value can be (0,0) for applications that do not draw the object being transferred. This field is used primarily by targets of drag-and-drop operations, so they can give appropriate feedback to the user.
      * @type {SIZE}
      */
-    sizel{
+    sizel {
         get {
             if(!this.HasProp("__sizel"))
                 this.__sizel := SIZE(20, this)
@@ -58,7 +56,7 @@ class OBJECTDESCRIPTOR extends Win32Struct
      * The offset in <b>HIMETRIC</b> units from the upper-left corner of the object where a drag-and-drop operation was initiated. This field is only meaningful for a drag-and-drop transfer operation since it corresponds to the point where the mouse was clicked to initiate the drag-and-drop operation. The value is (0,0) for other transfer situations, such as a clipboard copy and paste.
      * @type {POINTL}
      */
-    pointl{
+    pointl {
         get {
             if(!this.HasProp("__pointl"))
                 this.__pointl := POINTL(28, this)

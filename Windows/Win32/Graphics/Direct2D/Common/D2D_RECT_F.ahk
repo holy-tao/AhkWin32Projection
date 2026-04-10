@@ -5,10 +5,8 @@
  * Represents a rectangle defined by the coordinates of the upper-left corner (left, top) and the coordinates of the lower-right corner (right, bottom).
  * @see https://learn.microsoft.com/windows/win32/api/dcommon/ns-dcommon-d2d_rect_f
  * @namespace Windows.Win32.Graphics.Direct2D.Common
- * @version v4.0.30319
  */
-class D2D_RECT_F extends Win32Struct
-{
+class D2D_RECT_F extends Win32Struct {
     static sizeof => 16
 
     static packingSize => 4

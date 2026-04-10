@@ -1,14 +1,13 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
+#Include .\ATTACH_VIRTUAL_DISK_VERSION.ahk
 
 /**
  * Contains virtual hard disk (VHD) attach request parameters.
  * @see https://learn.microsoft.com/windows/win32/api/virtdisk/ns-virtdisk-attach_virtual_disk_parameters
  * @namespace Windows.Win32.Storage.Vhd
- * @version v4.0.30319
  */
-class ATTACH_VIRTUAL_DISK_PARAMETERS extends Win32Struct
-{
+class ATTACH_VIRTUAL_DISK_PARAMETERS extends Win32Struct {
     static sizeof => 24
 
     static packingSize => 8
@@ -18,7 +17,7 @@ class ATTACH_VIRTUAL_DISK_PARAMETERS extends Win32Struct
      *      enumeration that specifies the version of the 
      *      <b>ATTACH_VIRTUAL_DISK_PARAMETERS</b> 
      *      structure being passed to or from the VHD functions.
-     * @type {Integer}
+     * @type {ATTACH_VIRTUAL_DISK_VERSION}
      */
     Version {
         get => NumGet(this, 0, "int")
@@ -36,7 +35,6 @@ class ATTACH_VIRTUAL_DISK_PARAMETERS extends Win32Struct
             get => NumGet(this, 0, "uint")
             set => NumPut("uint", value, this, 0)
         }
-    
     }
 
     class _Version2 extends Win32Struct {
@@ -50,7 +48,7 @@ class ATTACH_VIRTUAL_DISK_PARAMETERS extends Win32Struct
             get => NumGet(this, 0, "uint")
             set => NumPut("uint", value, this, 0)
         }
-    
+
         /**
          * @type {Integer}
          */
@@ -58,16 +56,15 @@ class ATTACH_VIRTUAL_DISK_PARAMETERS extends Win32Struct
             get => NumGet(this, 8, "uint")
             set => NumPut("uint", value, this, 8)
         }
-    
     }
 
     /**
      * @type {_Version1}
      */
-    Version1{
+    Version1 {
         get {
             if(!this.HasProp("__Version1"))
-                this.__Version1 := %this.__Class%._Version1(8, this)
+                this.__Version1 := ATTACH_VIRTUAL_DISK_PARAMETERS._Version1(8, this)
             return this.__Version1
         }
     }
@@ -75,10 +72,10 @@ class ATTACH_VIRTUAL_DISK_PARAMETERS extends Win32Struct
     /**
      * @type {_Version2}
      */
-    Version2{
+    Version2 {
         get {
             if(!this.HasProp("__Version2"))
-                this.__Version2 := %this.__Class%._Version2(8, this)
+                this.__Version2 := ATTACH_VIRTUAL_DISK_PARAMETERS._Version2(8, this)
             return this.__Version2
         }
     }

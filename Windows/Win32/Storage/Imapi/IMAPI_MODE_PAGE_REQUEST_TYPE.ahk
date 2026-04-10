@@ -5,9 +5,8 @@
  * Defines values that indicate requests sent to a device using the MODE_SENSE10 MMC command.
  * @see https://learn.microsoft.com/windows/win32/api/imapi2/ne-imapi2-imapi_mode_page_request_type
  * @namespace Windows.Win32.Storage.Imapi
- * @version v4.0.30319
  */
-class IMAPI_MODE_PAGE_REQUEST_TYPE extends Win32Enum{
+class IMAPI_MODE_PAGE_REQUEST_TYPE extends Win32Enum {
 
     /**
      * Requests current settings of the mode page.  This is the most common request type, and the most commonly supported type of this command.

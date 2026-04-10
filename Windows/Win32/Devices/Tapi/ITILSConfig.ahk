@@ -7,9 +7,8 @@
  * The ITILSConfig interface allows configuration of the ILS directory.
  * @see https://learn.microsoft.com/windows/win32/api/rend/nn-rend-itilsconfig
  * @namespace Windows.Win32.Devices.Tapi
- * @version v4.0.30319
  */
-class ITILSConfig extends IDispatch{
+class ITILSConfig extends IDispatch {
 
     static sizeof => A_PtrSize
     /**

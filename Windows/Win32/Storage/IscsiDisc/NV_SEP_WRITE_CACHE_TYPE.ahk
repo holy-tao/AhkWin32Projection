@@ -3,9 +3,8 @@
 
 /**
  * @namespace Windows.Win32.Storage.IscsiDisc
- * @version v4.0.30319
  */
-class NV_SEP_WRITE_CACHE_TYPE extends Win32Enum{
+class NV_SEP_WRITE_CACHE_TYPE extends Win32Enum {
 
     /**
      * @type {Integer (Int32)}

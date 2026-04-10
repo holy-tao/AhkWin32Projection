@@ -5,10 +5,8 @@
  * Enables or disables the maintenance mode on a cluster shared volume (CSV).
  * @see https://learn.microsoft.com/windows/win32/api/clusapi/ns-clusapi-clus_csv_maintenance_mode_info
  * @namespace Windows.Win32.Networking.Clustering
- * @version v4.0.30319
  */
-class CLUS_CSV_MAINTENANCE_MODE_INFO extends Win32Struct
-{
+class CLUS_CSV_MAINTENANCE_MODE_INFO extends Win32Struct {
     static sizeof => 524
 
     static packingSize => 4

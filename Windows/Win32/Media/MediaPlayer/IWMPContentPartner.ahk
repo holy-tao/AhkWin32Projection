@@ -1,17 +1,16 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
-#Include ..\..\Foundation\BSTR.ahk
-#Include ..\..\System\Variant\VARIANT.ahk
 #Include ..\..\System\Com\IUnknown.ahk
+#Include ..\..\System\Variant\VARIANT.ahk
+#Include ..\..\Foundation\BSTR.ahk
 
 /**
  * Note  This section describes functionality designed for use by online stores.
  * @see https://learn.microsoft.com/windows/win32/api/contentpartner/nn-contentpartner-iwmpcontentpartner
  * @namespace Windows.Win32.Media.MediaPlayer
- * @version v4.0.30319
  */
-class IWMPContentPartner extends IUnknown{
+class IWMPContentPartner extends IUnknown {
 
     static sizeof => A_PtrSize
     /**
@@ -67,7 +66,7 @@ class IWMPContentPartner extends IUnknown{
      * Note  This section describes functionality designed for use by online stores.
      * @remarks
      * The data type for <i>pContext</i> is <b>VT_EMPTY</b> for all notifications except wmpsnCatalogDownloadFailure. In the case of a catalog download failure, the data type is <b>VT_ERROR</b> and the variable contains an <b>HRESULT</b> error code.
-     * @param {Integer} type The notification type, specified as a member of the <a href="https://docs.microsoft.com/windows/desktop/api/contentpartner/ne-contentpartner-wmppartnernotification">WMPPartnerNotification</a> enumeration.
+     * @param {WMPPartnerNotification} type The notification type, specified as a member of the <a href="https://docs.microsoft.com/windows/desktop/api/contentpartner/ne-contentpartner-wmppartnernotification">WMPPartnerNotification</a> enumeration.
      * @param {Pointer<VARIANT>} pContext Pointer to a <b>VARIANT</b> that contains notification data.
      * @returns {HRESULT} The method returns an <b>HRESULT</b>. Possible values include, but are not limited to, those in the following table.
      * 
@@ -290,7 +289,7 @@ class IWMPContentPartner extends IUnknown{
      * Note  This section describes functionality designed for use by online stores. Use of this functionality outside the context of an online store is not supported. The GetCommands method retrieves context menu commands.
      * @remarks
      * This method must call <b>CoTaskMemAlloc</b> to allocate the array that it returns in <i>pprgItems</i>.
-     * @param {BSTR} _location 
+     * @param {BSTR} _location A <a href="https://docs.microsoft.com/windows/desktop/WMP/library-location-constants">library location constant</a> that specifies the type of library view where the user right-clicked. For example, the constant g_szCPGenreID indicates that the user right-clicked in the view of a particular genre
      * @param {Pointer<VARIANT>} pLocationContext The ID of the specific view where the user right-clicked. For example, if <i>location</i> is g_szCPGenreID, this parameter is the ID of the particular genre the user was viewing when he or she right-clicked.
      * @param {BSTR} itemLocation A library location constant that indicates the type of the media item or items that were selected when the user right-clicked. For example, the constant g_szCPAlbumID specifies that the user right-clicked when one or more albums were selected.
      * @param {Integer} cItemIDs The number of items that were selected when the user right-clicked. This is the number of elements in the <i>prgItemIDs</i> array.
@@ -333,7 +332,7 @@ class IWMPContentPartner extends IUnknown{
     /**
      * Note  This section describes functionality designed for use by online stores. Use of this functionality outside the context of an online store is not supported. The InvokeCommand method invokes a context menu command.
      * @param {Integer} dwCommandID ID of the command to invoke. Windows Media Player previously obtained this command ID from the content partner plug-in by calling <a href="https://docs.microsoft.com/windows/desktop/api/contentpartner/nf-contentpartner-iwmpcontentpartner-getcommands">IWMPContentPartner::GetCommands</a>.
-     * @param {BSTR} _location 
+     * @param {BSTR} _location A library location constant that specifies the type of library view where the user right-clicked. For example, the constant g_szCPGenreID specifies that the user right-clicked in the view of a particular genre.
      * @param {Pointer<VARIANT>} pLocationContext TheID of the specific view where the user right-clicked. For example, if <i>location</i> is g_szCPGenreID, then this parameter is the ID of the particular genre the user was viewing when he or she right-clicked.
      * @param {BSTR} itemLocation A library location constant that specifies the type of the media item or items that were selected when the user right-clicked. For example, the constant g_szCPAlbumID specifies that the user right-clicked when one or more albums were selected.
      * @param {Integer} cItemIDs The number of items that were selected when the user right-clicked. This is the number of elements in the <i>rgItemIDs</i> array.
@@ -440,7 +439,7 @@ class IWMPContentPartner extends IUnknown{
 
     /**
      * Note  This section describes functionality designed for use by online stores. Use of this functionality outside the context of an online store is not supported. The GetStreamingURL method retrieves the streaming URL of a track.
-     * @param {Integer} st A member of the <a href="https://docs.microsoft.com/windows/desktop/api/contentpartner/ne-contentpartner-wmpstreamingtype">WMPStreamingType</a> enumeration that specifies the type (music, video, or radio) of the media item to be streamed.
+     * @param {WMPStreamingType} st A member of the <a href="https://docs.microsoft.com/windows/desktop/api/contentpartner/ne-contentpartner-wmpstreamingtype">WMPStreamingType</a> enumeration that specifies the type (music, video, or radio) of the media item to be streamed.
      * @param {Pointer<VARIANT>} pStreamContext Pointer to a <b>VARIANT</b> that contains the ID of the media item to be streamed. The ID is in the <b>ulVal</b> member of the <b>VARIANT</b>, which has a type of <b>VT_UI4</b>.
      * @returns {BSTR} Address of a <b>BSTR</b> that receives the URL of the track.
      * @see https://learn.microsoft.com/windows/win32/api/contentpartner/nf-contentpartner-iwmpcontentpartner-getstreamingurl
@@ -527,7 +526,7 @@ class IWMPContentPartner extends IUnknown{
      * @param {Integer} dwCookie A cookie that identifies the update request. When the online store has finished updating the license, it passes this cookie to <a href="https://docs.microsoft.com/windows/desktop/api/contentpartner/nf-contentpartner-iwmpcontentpartnercallback-refreshlicensecomplete">IWMPContentPartnerCallback::RefreshLicenseComplete</a>.
      * @param {VARIANT_BOOL} fLocal <b>VARIANT_BOOL</b> that specifies whether the media file is located on the user's computer. <b>VARIANT_TRUE</b> specifies that the file is on the user's computer. <b>VARIANT_FALSE</b> specifies that the file is not currently on the user's computer, but is available from the online store's servers.
      * @param {BSTR} bstrURL <b>BSTR</b> containing the URL of the media file on the user's computer. This is <b>NULL</b> if the media file is not on the user's computer.
-     * @param {Integer} type A member of the <a href="https://docs.microsoft.com/windows/desktop/api/contentpartner/ne-contentpartner-wmpstreamingtype">WMPStreamingType</a> enumeration that specifies the type (music, video, or radio) of the media file.
+     * @param {WMPStreamingType} type A member of the <a href="https://docs.microsoft.com/windows/desktop/api/contentpartner/ne-contentpartner-wmpstreamingtype">WMPStreamingType</a> enumeration that specifies the type (music, video, or radio) of the media file.
      * @param {Integer} contentID Content ID of the media file for which the updated license is being requested.
      * @param {BSTR} bstrRefreshReason 
      * @param {Pointer<VARIANT>} pReasonContext If refreshing the license for synchronization to a device, this parameter has type <b>VT_BSTR</b> and contains the device name. Otherwise, this parameter has type <b>VT_EMPTY</b> and supplies no information.
@@ -610,15 +609,15 @@ class IWMPContentPartner extends IUnknown{
      * If the view changes as a result of user navigation, Windows Media Player sets the <i>bstrParams</i> parameter to <b>NULL</b> when it calls <b>GetTemplate</b>.
      * 
      * Windows Media Player calls <b>GetTemplate</b> to retrieve the URL of the discovery page that it should display in the new view. The Player also receives a <b>WMPTemplateSize</b> value that indicates what portion of the new view should be occupied by the discovery page.
-     * @param {Integer} task A member of the <a href="https://docs.microsoft.com/windows/desktop/api/contentpartner/ne-contentpartner-wmptasktype">WMPTaskType</a> enumeration that specifies the active task pane.
-     * @param {BSTR} _location 
+     * @param {WMPTaskType} task A member of the <a href="https://docs.microsoft.com/windows/desktop/api/contentpartner/ne-contentpartner-wmptasktype">WMPTaskType</a> enumeration that specifies the active task pane.
+     * @param {BSTR} _location A <a href="https://docs.microsoft.com/windows/desktop/WMP/library-location-constants">library location constant</a> that specifies the type of library view the user is currently seeing. For example, the constant g_szCPListID specifies that the user is viewing a pane that shows a particular playlist.
      * @param {Pointer<VARIANT>} pContext The ID of the specific item the user is currently seeing. For example, if <i>location</i> is g_szCPListID, then this parameter specifies the ID of the particular playlist that the user is seeing.
      * @param {BSTR} clickLocation A library location constant that specifies the type of item the user has selected. For example, the constant g_szCPTrackID specifies that the user has selected a particular music track.
      * @param {Pointer<VARIANT>} pClickContext The ID of the particular item the user has selected. For example, if <i>clickLocation</i> is g_szCPTrackID, then this parameter specifies the ID of the particular track that the user has selected.
      * @param {BSTR} bstrFilter The filter for the current library view. This is the text that the user entered in the Player's word wheel control.
      * @param {BSTR} bstrViewParams Parameters, meaningful only to the online store, associated with the new library location. See Remarks.
      * @param {Pointer<BSTR>} pbstrTemplateURL Pointer to a <b>BSTR</b> that receives the URL of the discovery page to display.
-     * @param {Pointer<Integer>} pTemplateSize Receives a member of the <a href="https://docs.microsoft.com/windows/desktop/api/contentpartner/ne-contentpartner-wmptemplatesize">WMPTemplateSize</a> enumeration that indicates the size of the template in which the Player will display the discovery page.
+     * @param {Pointer<WMPTemplateSize>} pTemplateSize Receives a member of the <a href="https://docs.microsoft.com/windows/desktop/api/contentpartner/ne-contentpartner-wmptemplatesize">WMPTemplateSize</a> enumeration that indicates the size of the template in which the Player will display the discovery page.
      * @returns {HRESULT} The method returns an <b>HRESULT</b>. Possible values include, but are not limited to, those in the following table.
      * 
      * <table>
@@ -689,7 +688,7 @@ class IWMPContentPartner extends IUnknown{
      * Note  This section describes functionality designed for use by online stores. Use of this functionality outside the context of an online store is not supported. The GetListContents method initiates the retrieval of a dynamic list.
      * @remarks
      * Retrieving list contents is an asynchronous operation. This method should initiate the retrieval and return immediately. Then the plug-in must make one or more calls to <a href="https://docs.microsoft.com/windows/desktop/api/contentpartner/nf-contentpartner-iwmpcontentpartnercallback-addlistcontents">IWMPContentPartnerCallback::AddListContents</a> to supply Windows Media Player with the requested list contents. When the plug-in has supplied all the data, it must call <a href="https://docs.microsoft.com/windows/desktop/api/contentpartner/nf-contentpartner-iwmpcontentpartnercallback-listcontentscomplete">IWMPContentPartnerCallback::ListContentsComplete</a> to signal the end of the operation. In each case, the plug-in passes the cookie provided in <i>dwListCookie</i> to identify the correct list retrieval session.
-     * @param {BSTR} _location 
+     * @param {BSTR} _location A library location constant that specifies the type of library view that will have its list retrieved. For example, the constant g_szCPListID specifies that a particular list will be retrieved.
      * @param {Pointer<VARIANT>} pContext The ID of the specific item that will have its list retrieved. For example, if <i>location</i> is g_szCPListID, then this parameter is the ID of the list that will be retrieved.
      * @param {BSTR} bstrListType A library location constant that specifies the type of an individual list item. For example, the constant g_szCPAlbumID specifies that the items in the list are albums.
      * @param {BSTR} bstrParams Parameters, meaningful only to the online store, associated with the retrieved list. See Remarks.

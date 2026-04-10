@@ -9,9 +9,8 @@
  * To declare the interface identifier (IID) for this interface, use the <b>__uuidof</b> operator: <c>__uuidof(IMSVidStreamBufferSinkEvent4)</c>.
  * @see https://learn.microsoft.com/windows/win32/api/segment/nn-segment-imsvidstreambuffersinkevent4
  * @namespace Windows.Win32.Media.DirectShow.Tv
- * @version v4.0.30319
  */
-class IMSVidStreamBufferSinkEvent4 extends IMSVidStreamBufferSinkEvent3{
+class IMSVidStreamBufferSinkEvent4 extends IMSVidStreamBufferSinkEvent3 {
 
     static sizeof => A_PtrSize
     /**

@@ -5,9 +5,8 @@
  * The AppPolicyProcessTerminationMethod enumeration indicates the method used to end a process.
  * @see https://learn.microsoft.com/windows/win32/api/appmodel/ne-appmodel-apppolicyprocessterminationmethod
  * @namespace Windows.Win32.Storage.Packaging.Appx
- * @version v4.0.30319
  */
-class AppPolicyProcessTerminationMethod extends Win32Enum{
+class AppPolicyProcessTerminationMethod extends Win32Enum {
 
     /**
      * Allows DLLs to execute code at shutdown. This value is expected for a desktop application, or for a Desktop Bridge application.

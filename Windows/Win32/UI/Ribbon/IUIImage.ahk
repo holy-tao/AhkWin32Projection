@@ -1,16 +1,15 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
-#Include ..\..\Graphics\Gdi\HBITMAP.ahk
 #Include ..\..\System\Com\IUnknown.ahk
+#Include ..\..\Graphics\Gdi\HBITMAP.ahk
 
 /**
  * The IUIImage interface is implemented by the application and defines the method for retrieving an image to display in the ribbon and context popup UI of the Windows Ribbon framework .
  * @see https://learn.microsoft.com/windows/win32/api/uiribbon/nn-uiribbon-iuiimage
  * @namespace Windows.Win32.UI.Ribbon
- * @version v4.0.30319
  */
-class IUIImage extends IUnknown{
+class IUIImage extends IUnknown {
 
     static sizeof => A_PtrSize
     /**
@@ -35,7 +34,9 @@ class IUIImage extends IUnknown{
      * Retrieves a bitmap to display as an icon in the ribbon and context popup UI of the Windows Ribbon framework.
      * @remarks
      * <b>IUIImage::GetBitmap</b> is called on image property callback triggered by <a href="https://docs.microsoft.com/windows/desktop/api/uiribbon/nf-uiribbon-iuiframework-invalidateuicommand">InvalidateUICommand</a>.
-     * @returns {HBITMAP} 
+     * @returns {HBITMAP} Type: <b>HBITMAP*</b>
+     * 
+     * When this method returns, contains a pointer to the handle to the requested bitmap.
      * @see https://learn.microsoft.com/windows/win32/api/uiribbon/nf-uiribbon-iuiimage-getbitmap
      */
     GetBitmap() {

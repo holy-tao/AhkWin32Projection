@@ -5,9 +5,8 @@
 
 /**
  * @namespace Windows.Win32.Networking.BackgroundIntelligentTransferService
- * @version v4.0.30319
  */
-class AsyncIBackgroundCopyCallback extends IUnknown{
+class AsyncIBackgroundCopyCallback extends IUnknown {
 
     static sizeof => A_PtrSize
     /**

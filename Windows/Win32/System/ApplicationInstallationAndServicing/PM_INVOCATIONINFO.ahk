@@ -4,10 +4,8 @@
 
 /**
  * @namespace Windows.Win32.System.ApplicationInstallationAndServicing
- * @version v4.0.30319
  */
-class PM_INVOCATIONINFO extends Win32Struct
-{
+class PM_INVOCATIONINFO extends Win32Struct {
     static sizeof => 16
 
     static packingSize => 8
@@ -15,7 +13,7 @@ class PM_INVOCATIONINFO extends Win32Struct
     /**
      * @type {BSTR}
      */
-    URIBaseOrAUMID{
+    URIBaseOrAUMID {
         get {
             if(!this.HasProp("__URIBaseOrAUMID"))
                 this.__URIBaseOrAUMID := BSTR(0, this)
@@ -26,7 +24,7 @@ class PM_INVOCATIONINFO extends Win32Struct
     /**
      * @type {BSTR}
      */
-    URIFragmentOrArgs{
+    URIFragmentOrArgs {
         get {
             if(!this.HasProp("__URIFragmentOrArgs"))
                 this.__URIFragmentOrArgs := BSTR(8, this)

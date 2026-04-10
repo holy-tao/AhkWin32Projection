@@ -1,14 +1,13 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
+#Include .\CLUSTER_GROUP_STATE.ahk
 
 /**
  * The CLUSTER_GROUP_ENUM_ITEM structure contains the properties of a cluster group. (CLUSTER_GROUP_ENUM_ITEM)
  * @see https://learn.microsoft.com/windows/win32/api/msclus/ns-msclus-cluster_group_enum_item
  * @namespace Windows.Win32.Networking.Clustering
- * @version v4.0.30319
  */
-class CLUSTER_GROUP_ENUM_ITEM extends Win32Struct
-{
+class CLUSTER_GROUP_ENUM_ITEM extends Win32Struct {
     static sizeof => 80
 
     static packingSize => 8
@@ -61,7 +60,7 @@ class CLUSTER_GROUP_ENUM_ITEM extends Win32Struct
 
     /**
      * The current state of the cluster group.
-     * @type {Integer}
+     * @type {CLUSTER_GROUP_STATE}
      */
     state {
         get => NumGet(this, 32, "int")

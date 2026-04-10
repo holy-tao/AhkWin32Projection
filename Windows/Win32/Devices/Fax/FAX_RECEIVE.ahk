@@ -35,10 +35,8 @@
  * The FSP can reformat the <b>ReceiverName</b> and <b>ReceiverNumber</b> members and transmit the reformatted data to the remote sending device as the called subscriber identifier (CSI) to comply with the recommendation of the standards body of the International Telecommunication Union (ITU) from Study Group 8 (SG8). For more information, see the <b>RoutingInfo</b> and <b>CSI</b> members of the <a href="https://docs.microsoft.com/windows/desktop/api/faxdev/ns-faxdev-fax_dev_status">FAX_DEV_STATUS</a> structure.
  * @see https://learn.microsoft.com/windows/win32/api/faxdev/ns-faxdev-fax_receive
  * @namespace Windows.Win32.Devices.Fax
- * @version v4.0.30319
  */
-class FAX_RECEIVE extends Win32Struct
-{
+class FAX_RECEIVE extends Win32Struct {
     static sizeof => 48
 
     static packingSize => 8
@@ -91,9 +89,9 @@ class FAX_RECEIVE extends Win32Struct
      * Type: <b>DWORD</b>
      * 
      * This member is reserved for future use by Microsoft. It must be set to zero.
-     * @type {Array<UInt32>}
+     * @type {Array<Integer>}
      */
-    Reserved{
+    Reserved {
         get {
             if(!this.HasProp("__ReservedProxyArray"))
                 this.__ReservedProxyArray := Win32FixedArray(this.ptr + 32, 4, Primitive, "uint")

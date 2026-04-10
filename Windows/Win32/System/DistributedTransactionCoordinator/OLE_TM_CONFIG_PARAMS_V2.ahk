@@ -1,12 +1,11 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
+#Include .\APPLICATIONTYPE.ahk
 
 /**
  * @namespace Windows.Win32.System.DistributedTransactionCoordinator
- * @version v4.0.30319
  */
-class OLE_TM_CONFIG_PARAMS_V2 extends Win32Struct
-{
+class OLE_TM_CONFIG_PARAMS_V2 extends Win32Struct {
     static sizeof => 24
 
     static packingSize => 8
@@ -28,7 +27,7 @@ class OLE_TM_CONFIG_PARAMS_V2 extends Win32Struct
     }
 
     /**
-     * @type {Integer}
+     * @type {APPLICATIONTYPE}
      */
     applicationType {
         get => NumGet(this, 8, "int")
@@ -36,7 +35,7 @@ class OLE_TM_CONFIG_PARAMS_V2 extends Win32Struct
     }
 
     /**
-     * @type {Pointer<Guid>}
+     * @type {Pointer}
      */
     clusterResourceId {
         get => NumGet(this, 16, "ptr")

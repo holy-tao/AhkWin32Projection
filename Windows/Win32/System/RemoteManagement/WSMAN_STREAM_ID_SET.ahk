@@ -5,10 +5,8 @@
  * Lists all the streams that are used for either input or output for the shell and commands.
  * @see https://learn.microsoft.com/windows/win32/api/wsman/ns-wsman-wsman_stream_id_set
  * @namespace Windows.Win32.System.RemoteManagement
- * @version v4.0.30319
  */
-class WSMAN_STREAM_ID_SET extends Win32Struct
-{
+class WSMAN_STREAM_ID_SET extends Win32Struct {
     static sizeof => 16
 
     static packingSize => 8

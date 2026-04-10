@@ -16,9 +16,8 @@
  * |Using HTTPS when the proxy requires Digest authentication.|Not supported||
  * @see https://learn.microsoft.com/windows/win32/api/bits1_5/ne-bits1_5-bg_auth_scheme
  * @namespace Windows.Win32.Networking.BackgroundIntelligentTransferService
- * @version v4.0.30319
  */
-class BG_AUTH_SCHEME extends Win32Enum{
+class BG_AUTH_SCHEME extends Win32Enum {
 
     /**
      * <em>Basic</em> is a scheme in which the user name and password are sent in clear-text to the server or proxy.

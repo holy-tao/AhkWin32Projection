@@ -7,9 +7,8 @@
  * The IPortableDeviceEventCallback interface implemented by the application to receive asynchronous callbacks if an application has registered to receive them by calling IPortableDevice::Advise.
  * @see https://learn.microsoft.com/windows/win32/api/portabledeviceapi/nn-portabledeviceapi-iportabledeviceeventcallback
  * @namespace Windows.Win32.Devices.PortableDevices
- * @version v4.0.30319
  */
-class IPortableDeviceEventCallback extends IUnknown{
+class IPortableDeviceEventCallback extends IUnknown {
 
     static sizeof => A_PtrSize
     /**

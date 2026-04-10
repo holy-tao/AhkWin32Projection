@@ -5,10 +5,8 @@
  * Used with the CRYPTUI_WIZ_DIGITAL_SIGN_INFO structure to contain information about the PVK file used by the digital signature wizard.
  * @see https://learn.microsoft.com/windows/win32/api/cryptuiapi/ns-cryptuiapi-cryptui_wiz_digital_sign_pvk_file_info
  * @namespace Windows.Win32.Security.Cryptography.UI
- * @version v4.0.30319
  */
-class CRYPTUI_WIZ_DIGITAL_SIGN_PVK_FILE_INFO extends Win32Struct
-{
+class CRYPTUI_WIZ_DIGITAL_SIGN_PVK_FILE_INFO extends Win32Struct {
     static sizeof => 32
 
     static packingSize => 8

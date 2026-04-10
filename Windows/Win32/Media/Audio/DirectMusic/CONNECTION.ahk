@@ -5,10 +5,8 @@
  * Contains the identification number of a connection.
  * @see https://learn.microsoft.com/windows/win32/api/lmshare/ns-lmshare-connection_info_0
  * @namespace Windows.Win32.Media.Audio.DirectMusic
- * @version v4.0.30319
  */
-class CONNECTION extends Win32Struct
-{
+class CONNECTION extends Win32Struct {
     static sizeof => 12
 
     static packingSize => 4

@@ -3,10 +3,8 @@
 
 /**
  * @namespace Windows.Win32.Security.Authentication.Identity
- * @version v4.0.30319
  */
-class SECPKG_CALL_PACKAGE_UNPIN_ALL_DCS_REQUEST extends Win32Struct
-{
+class SECPKG_CALL_PACKAGE_UNPIN_ALL_DCS_REQUEST extends Win32Struct {
     static sizeof => 8
 
     static packingSize => 4

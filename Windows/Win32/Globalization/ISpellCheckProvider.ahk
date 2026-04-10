@@ -1,18 +1,17 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\Guid.ahk
+#Include ..\System\Com\IUnknown.ahk
 #Include .\IEnumSpellingError.ahk
 #Include ..\System\Com\IEnumString.ahk
 #Include .\IOptionDescription.ahk
-#Include ..\System\Com\IUnknown.ahk
 
 /**
  * Represents a particular spell checker provider for a particular language, to be used by the spell checking infrastructure.
  * @see https://learn.microsoft.com/windows/win32/api/spellcheckprovider/nn-spellcheckprovider-ispellcheckprovider
  * @namespace Windows.Win32.Globalization
- * @version v4.0.30319
  */
-class ISpellCheckProvider extends IUnknown{
+class ISpellCheckProvider extends IUnknown {
 
     static sizeof => A_PtrSize
     /**
@@ -215,7 +214,7 @@ class ISpellCheckProvider extends IUnknown{
      * Initialize the specified word list to contain only the specified words.
      * @remarks
      * This method is called by the system (for example, when the client calls <a href="https://docs.microsoft.com/windows/desktop/api/spellcheck/nf-spellcheck-ispellchecker-add">ISpellChecker::Add</a>), which passes the words from the respective word list to the provider so that it can consider the word list when spell checking.
-     * @param {Integer} wordlistType The type of word list.
+     * @param {WORDLIST_TYPE} wordlistType The type of word list.
      * @param {IEnumString} words The set of words to be included in the word list, passed as an <a href="https://docs.microsoft.com/windows/desktop/api/objidl/nn-objidl-ienumstring">IEnumString</a> object..
      * @returns {HRESULT} This method can return one of these values.
      * 

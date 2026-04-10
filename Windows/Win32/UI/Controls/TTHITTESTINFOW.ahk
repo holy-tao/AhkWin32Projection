@@ -2,9 +2,10 @@
 #Include ..\..\..\..\Win32Struct.ahk
 #Include ..\..\Foundation\HWND.ahk
 #Include ..\..\Foundation\POINT.ahk
+#Include .\TTTOOLINFOW.ahk
+#Include .\TOOLTIP_FLAGS.ahk
 #Include ..\..\Foundation\RECT.ahk
 #Include ..\..\Foundation\HINSTANCE.ahk
-#Include .\TTTOOLINFOW.ahk
 
 /**
  * Contains information that a tooltip control uses to determine whether a point is in the bounding rectangle of the specified tool. If the point is in the rectangle, the structure receives information about the tool. (Unicode)
@@ -18,11 +19,9 @@
  * > The commctrl.h header defines TTHITTESTINFO as an alias which automatically selects the ANSI or Unicode version of this function based on the definition of the UNICODE preprocessor constant. Mixing usage of the encoding-neutral alias with code that not encoding-neutral can lead to mismatches that result in compilation or runtime errors. For more information, see [Conventions for Function Prototypes](/windows/win32/intl/conventions-for-function-prototypes).
  * @see https://learn.microsoft.com/windows/win32/api/commctrl/ns-commctrl-tthittestinfow
  * @namespace Windows.Win32.UI.Controls
- * @version v4.0.30319
  * @charset Unicode
  */
-class TTHITTESTINFOW extends Win32Struct
-{
+class TTHITTESTINFOW extends Win32Struct {
     static sizeof => 88
 
     static packingSize => 8
@@ -33,7 +32,7 @@ class TTHITTESTINFOW extends Win32Struct
      * Handle to the tool or window with the specified tool.
      * @type {HWND}
      */
-    hwnd{
+    hwnd {
         get {
             if(!this.HasProp("__hwnd"))
                 this.__hwnd := HWND(0, this)
@@ -47,7 +46,7 @@ class TTHITTESTINFOW extends Win32Struct
      * Client coordinates of the point to test.
      * @type {POINT}
      */
-    pt{
+    pt {
         get {
             if(!this.HasProp("__pt"))
                 this.__pt := POINT(8, this)
@@ -65,7 +64,7 @@ class TTHITTESTINFOW extends Win32Struct
      * 					<b>cbSize</b> member of this structure must be filled in before sending this message.
      * @type {TTTOOLINFOW}
      */
-    ti{
+    ti {
         get {
             if(!this.HasProp("__ti"))
                 this.__ti := TTTOOLINFOW(16, this)

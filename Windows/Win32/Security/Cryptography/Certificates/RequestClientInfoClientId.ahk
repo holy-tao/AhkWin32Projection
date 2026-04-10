@@ -5,9 +5,8 @@
  * Specifies the type of application that created a certificate request.
  * @see https://learn.microsoft.com/windows/win32/api/certenroll/ne-certenroll-requestclientinfoclientid
  * @namespace Windows.Win32.Security.Cryptography.Certificates
- * @version v4.0.30319
  */
-class RequestClientInfoClientId extends Win32Enum{
+class RequestClientInfoClientId extends Win32Enum {
 
     /**
      * No client identifier is specified.
@@ -76,7 +75,6 @@ class RequestClientInfoClientId extends Win32Enum{
     static ClientIdTest => 10
 
     /**
-     * 
      * @type {Integer (Int32)}
      */
     static ClientIdWinRT => 11

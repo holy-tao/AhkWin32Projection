@@ -5,9 +5,8 @@
  * The RAS_AUTH_ATTRIBUTE_TYPE enumerated type specifies attribute values used for session authentication.
  * @see https://learn.microsoft.com/windows/win32/api/raseapif/ne-raseapif-ras_auth_attribute_type
  * @namespace Windows.Win32.Security.ExtensibleAuthenticationProtocol
- * @version v4.0.30319
  */
-class RAS_AUTH_ATTRIBUTE_TYPE extends Win32Enum{
+class RAS_AUTH_ATTRIBUTE_TYPE extends Win32Enum {
 
     /**
      * Specifies a value equal to zero, and used as the <b>NULL</b> terminator in any array of 
@@ -713,37 +712,31 @@ class RAS_AUTH_ATTRIBUTE_TYPE extends Win32Enum{
     static raatAcctInterimInterval => 85
 
     /**
-     * 
      * @type {Integer (Int32)}
      */
     static raatNASIPv6Address => 95
 
     /**
-     * 
      * @type {Integer (Int32)}
      */
     static raatFramedInterfaceId => 96
 
     /**
-     * 
      * @type {Integer (Int32)}
      */
     static raatFramedIPv6Prefix => 97
 
     /**
-     * 
      * @type {Integer (Int32)}
      */
     static raatLoginIPv6Host => 98
 
     /**
-     * 
      * @type {Integer (Int32)}
      */
     static raatFramedIPv6Route => 99
 
     /**
-     * 
      * @type {Integer (Int32)}
      */
     static raatFramedIPv6Pool => 100
@@ -775,7 +768,6 @@ class RAS_AUTH_ATTRIBUTE_TYPE extends Win32Enum{
     static raatPEAPEmbeddedEAPTypeId => 8099
 
     /**
-     * 
      * @type {Integer (Int32)}
      */
     static raatInnerEAPTypeId => 8099
@@ -787,7 +779,6 @@ class RAS_AUTH_ATTRIBUTE_TYPE extends Win32Enum{
     static raatPEAPFastRoamedSession => 8100
 
     /**
-     * 
      * @type {Integer (Int32)}
      */
     static raatFastRoamedSession => 8100
@@ -799,43 +790,36 @@ class RAS_AUTH_ATTRIBUTE_TYPE extends Win32Enum{
     static raatEAPTLV => 8102
 
     /**
-     * 
      * @type {Integer (Int32)}
      */
     static raatCredentialsChanged => 8103
 
     /**
-     * 
      * @type {Integer (Int32)}
      */
     static raatCertificateThumbprint => 8250
 
     /**
-     * 
      * @type {Integer (Int32)}
      */
     static raatPeerId => 9000
 
     /**
-     * 
      * @type {Integer (Int32)}
      */
     static raatServerId => 9001
 
     /**
-     * 
      * @type {Integer (Int32)}
      */
     static raatMethodId => 9002
 
     /**
-     * 
      * @type {Integer (Int32)}
      */
     static raatEMSK => 9003
 
     /**
-     * 
      * @type {Integer (Int32)}
      */
     static raatSessionId => 9004

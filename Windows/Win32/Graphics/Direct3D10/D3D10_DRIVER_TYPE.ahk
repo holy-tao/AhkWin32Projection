@@ -9,9 +9,8 @@
  * For information about limitations creating nonhardware-type devices on certain feature levels, see <a href="https://docs.microsoft.com/windows/desktop/direct3d11/overviews-direct3d-11-devices-limitations">Limitations Creating WARP and Reference Devices</a>.
  * @see https://learn.microsoft.com/windows/win32/api/d3d10misc/ne-d3d10misc-d3d10_driver_type
  * @namespace Windows.Win32.Graphics.Direct3D10
- * @version v4.0.30319
  */
-class D3D10_DRIVER_TYPE extends Win32Enum{
+class D3D10_DRIVER_TYPE extends Win32Enum {
 
     /**
      * A hardware device; commonly called a HAL device.

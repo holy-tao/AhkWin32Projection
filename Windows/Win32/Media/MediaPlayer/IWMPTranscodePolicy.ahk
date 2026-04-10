@@ -7,9 +7,8 @@
  * The IWMPTranscodePolicy interface provides a method implemented by DirectShow source filters to manage changing the format of digital media files.
  * @see https://learn.microsoft.com/windows/win32/api/wmpservices/nn-wmpservices-iwmptranscodepolicy
  * @namespace Windows.Win32.Media.MediaPlayer
- * @version v4.0.30319
  */
-class IWMPTranscodePolicy extends IUnknown{
+class IWMPTranscodePolicy extends IUnknown {
 
     static sizeof => A_PtrSize
     /**

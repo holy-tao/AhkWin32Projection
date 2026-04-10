@@ -2,6 +2,7 @@
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
 #Include ..\..\System\Com\IDispatch.ahk
+#Include ..\..\..\..\Guid.ahk
 
 /**
  * The base class for all FSRM action interfaces.
@@ -10,9 +11,8 @@
  *     exceeds a directory quota threshold or detection of a restricted file).
  * @see https://learn.microsoft.com/windows/win32/api/fsrm/nn-fsrm-ifsrmaction
  * @namespace Windows.Win32.Storage.FileServerResourceManager
- * @version v4.0.30319
  */
-class IFsrmAction extends IDispatch{
+class IFsrmAction extends IDispatch {
 
     static sizeof => A_PtrSize
     /**
@@ -41,7 +41,7 @@ class IFsrmAction extends IDispatch{
     }
 
     /**
-     * @type {Integer} 
+     * @type {FsrmActionType} 
      */
     ActionType {
         get => this.get_ActionType()
@@ -68,7 +68,7 @@ class IFsrmAction extends IDispatch{
 
     /**
      * Retrieves the action's type.
-     * @returns {Integer} 
+     * @returns {FsrmActionType} 
      * @see https://learn.microsoft.com/windows/win32/api/fsrm/nf-fsrm-ifsrmaction-get_actiontype
      */
     get_ActionType() {

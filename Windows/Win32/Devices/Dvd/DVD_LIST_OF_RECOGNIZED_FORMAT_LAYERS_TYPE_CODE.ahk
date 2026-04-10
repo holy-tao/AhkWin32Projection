@@ -3,10 +3,8 @@
 
 /**
  * @namespace Windows.Win32.Devices.Dvd
- * @version v4.0.30319
  */
-class DVD_LIST_OF_RECOGNIZED_FORMAT_LAYERS_TYPE_CODE extends Win32Struct
-{
+class DVD_LIST_OF_RECOGNIZED_FORMAT_LAYERS_TYPE_CODE extends Win32Struct {
     static sizeof => 2
 
     static packingSize => 1

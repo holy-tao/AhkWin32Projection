@@ -2,13 +2,14 @@
 #Include ..\..\..\..\Win32Struct.ahk
 #Include .\WHV_CAPABILITY_FEATURES.ahk
 #Include .\WHV_EXTENDED_VM_EXITS.ahk
+#Include .\WHV_PROCESSOR_VENDOR.ahk
 #Include .\WHV_PROCESSOR_FEATURES.ahk
-#Include .\WHV_SYNTHETIC_PROCESSOR_FEATURES.ahk
 #Include .\WHV_SYNTHETIC_PROCESSOR_FEATURES_BANKS.ahk
+#Include .\WHV_SYNTHETIC_PROCESSOR_FEATURES.ahk
 #Include .\WHV_PROCESSOR_XSAVE_FEATURES.ahk
 #Include .\WHV_X64_MSR_EXIT_BITMAP.ahk
-#Include .\WHV_PROCESSOR_FEATURES1.ahk
 #Include .\WHV_PROCESSOR_FEATURES_BANKS.ahk
+#Include .\WHV_PROCESSOR_FEATURES1.ahk
 #Include .\WHV_ADVISE_GPA_RANGE_POPULATE_FLAGS.ahk
 #Include .\WHV_CAPABILITY_PROCESSOR_FREQUENCY_CAP.ahk
 #Include .\WHV_PROCESSOR_PERFMON_FEATURES.ahk
@@ -16,10 +17,8 @@
 
 /**
  * @namespace Windows.Win32.System.Hypervisor
- * @version v4.0.30319
  */
-class WHV_CAPABILITY extends Win32Struct
-{
+class WHV_CAPABILITY extends Win32Struct {
     static sizeof => 256
 
     static packingSize => 8
@@ -35,7 +34,7 @@ class WHV_CAPABILITY extends Win32Struct
     /**
      * @type {WHV_CAPABILITY_FEATURES}
      */
-    Features{
+    Features {
         get {
             if(!this.HasProp("__Features"))
                 this.__Features := WHV_CAPABILITY_FEATURES(0, this)
@@ -46,7 +45,7 @@ class WHV_CAPABILITY extends Win32Struct
     /**
      * @type {WHV_EXTENDED_VM_EXITS}
      */
-    ExtendedVmExits{
+    ExtendedVmExits {
         get {
             if(!this.HasProp("__ExtendedVmExits"))
                 this.__ExtendedVmExits := WHV_EXTENDED_VM_EXITS(0, this)
@@ -55,7 +54,7 @@ class WHV_CAPABILITY extends Win32Struct
     }
 
     /**
-     * @type {Integer}
+     * @type {WHV_PROCESSOR_VENDOR}
      */
     ProcessorVendor {
         get => NumGet(this, 0, "int")
@@ -65,7 +64,7 @@ class WHV_CAPABILITY extends Win32Struct
     /**
      * @type {WHV_PROCESSOR_FEATURES}
      */
-    ProcessorFeatures{
+    ProcessorFeatures {
         get {
             if(!this.HasProp("__ProcessorFeatures"))
                 this.__ProcessorFeatures := WHV_PROCESSOR_FEATURES(0, this)
@@ -76,7 +75,7 @@ class WHV_CAPABILITY extends Win32Struct
     /**
      * @type {WHV_SYNTHETIC_PROCESSOR_FEATURES_BANKS}
      */
-    SyntheticProcessorFeaturesBanks{
+    SyntheticProcessorFeaturesBanks {
         get {
             if(!this.HasProp("__SyntheticProcessorFeaturesBanks"))
                 this.__SyntheticProcessorFeaturesBanks := WHV_SYNTHETIC_PROCESSOR_FEATURES_BANKS(0, this)
@@ -87,7 +86,7 @@ class WHV_CAPABILITY extends Win32Struct
     /**
      * @type {WHV_PROCESSOR_XSAVE_FEATURES}
      */
-    ProcessorXsaveFeatures{
+    ProcessorXsaveFeatures {
         get {
             if(!this.HasProp("__ProcessorXsaveFeatures"))
                 this.__ProcessorXsaveFeatures := WHV_PROCESSOR_XSAVE_FEATURES(0, this)
@@ -114,7 +113,7 @@ class WHV_CAPABILITY extends Win32Struct
     /**
      * @type {WHV_X64_MSR_EXIT_BITMAP}
      */
-    X64MsrExitBitmap{
+    X64MsrExitBitmap {
         get {
             if(!this.HasProp("__X64MsrExitBitmap"))
                 this.__X64MsrExitBitmap := WHV_X64_MSR_EXIT_BITMAP(0, this)
@@ -141,7 +140,7 @@ class WHV_CAPABILITY extends Win32Struct
     /**
      * @type {WHV_PROCESSOR_FEATURES_BANKS}
      */
-    ProcessorFeaturesBanks{
+    ProcessorFeaturesBanks {
         get {
             if(!this.HasProp("__ProcessorFeaturesBanks"))
                 this.__ProcessorFeaturesBanks := WHV_PROCESSOR_FEATURES_BANKS(0, this)
@@ -152,7 +151,7 @@ class WHV_CAPABILITY extends Win32Struct
     /**
      * @type {WHV_ADVISE_GPA_RANGE_POPULATE_FLAGS}
      */
-    GpaRangePopulateFlags{
+    GpaRangePopulateFlags {
         get {
             if(!this.HasProp("__GpaRangePopulateFlags"))
                 this.__GpaRangePopulateFlags := WHV_ADVISE_GPA_RANGE_POPULATE_FLAGS(0, this)
@@ -163,7 +162,7 @@ class WHV_CAPABILITY extends Win32Struct
     /**
      * @type {WHV_CAPABILITY_PROCESSOR_FREQUENCY_CAP}
      */
-    ProcessorFrequencyCap{
+    ProcessorFrequencyCap {
         get {
             if(!this.HasProp("__ProcessorFrequencyCap"))
                 this.__ProcessorFrequencyCap := WHV_CAPABILITY_PROCESSOR_FREQUENCY_CAP(0, this)
@@ -174,7 +173,7 @@ class WHV_CAPABILITY extends Win32Struct
     /**
      * @type {WHV_PROCESSOR_PERFMON_FEATURES}
      */
-    ProcessorPerfmonFeatures{
+    ProcessorPerfmonFeatures {
         get {
             if(!this.HasProp("__ProcessorPerfmonFeatures"))
                 this.__ProcessorPerfmonFeatures := WHV_PROCESSOR_PERFMON_FEATURES(0, this)
@@ -185,7 +184,7 @@ class WHV_CAPABILITY extends Win32Struct
     /**
      * @type {WHV_SCHEDULER_FEATURES}
      */
-    SchedulerFeatures{
+    SchedulerFeatures {
         get {
             if(!this.HasProp("__SchedulerFeatures"))
                 this.__SchedulerFeatures := WHV_SCHEDULER_FEATURES(0, this)

@@ -1,15 +1,18 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
 #Include ..\..\Graphics\Gdi\HDC.ahk
+#Include ..\..\Foundation\POINT.ahk
+#Include ..\..\Foundation\SIZE.ahk
+#Include ..\..\Graphics\Gdi\BLENDFUNCTION.ahk
+#Include .\UPDATE_LAYERED_WINDOW_FLAGS.ahk
+#Include ..\..\Foundation\RECT.ahk
 
 /**
  * Used by UpdateLayeredWindowIndirect to provide position, size, shape, content, and translucency information for a layered window.
  * @see https://learn.microsoft.com/windows/win32/api/winuser/ns-winuser-updatelayeredwindowinfo
  * @namespace Windows.Win32.UI.WindowsAndMessaging
- * @version v4.0.30319
  */
-class UPDATELAYEREDWINDOWINFO extends Win32Struct
-{
+class UPDATELAYEREDWINDOWINFO extends Win32Struct {
     static sizeof => 80
 
     static packingSize => 8
@@ -35,7 +38,7 @@ class UPDATELAYEREDWINDOWINFO extends Win32Struct
      * If <b>hdcSrc</b> is <b>NULL</b>, <b>hdcDst</b> must be <b>NULL</b>.
      * @type {HDC}
      */
-    hdcDst{
+    hdcDst {
         get {
             if(!this.HasProp("__hdcDst"))
                 this.__hdcDst := HDC(8, this)
@@ -71,7 +74,7 @@ class UPDATELAYEREDWINDOWINFO extends Win32Struct
      * A handle to the DC for the surface that defines the layered window. This handle can be obtained by calling the <a href="https://docs.microsoft.com/windows/desktop/api/wingdi/nf-wingdi-createcompatibledc">CreateCompatibleDC</a> function. If the shape and visual context of the window will not change, <b>hdcSrc</b> can be <b>NULL</b>.
      * @type {HDC}
      */
-    hdcSrc{
+    hdcSrc {
         get {
             if(!this.HasProp("__hdcSrc"))
                 this.__hdcSrc := HDC(32, this)
@@ -114,7 +117,7 @@ class UPDATELAYEREDWINDOWINFO extends Win32Struct
 
     /**
      * Type: <b>DWORD</b>
-     * @type {Integer}
+     * @type {UPDATE_LAYERED_WINDOW_FLAGS}
      */
     dwFlags {
         get => NumGet(this, 64, "uint")

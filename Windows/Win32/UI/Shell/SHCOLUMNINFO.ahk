@@ -1,15 +1,14 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
 #Include ..\..\Foundation\PROPERTYKEY.ahk
+#Include ..\..\System\Variant\VARENUM.ahk
 
 /**
  * Contains information about the properties of a column. It is used by IColumnProvider::GetColumnInfo.
  * @see https://learn.microsoft.com/windows/win32/api/shlobj/ns-shlobj-shcolumninfo
  * @namespace Windows.Win32.UI.Shell
- * @version v4.0.30319
  */
-class SHCOLUMNINFO extends Win32Struct
-{
+class SHCOLUMNINFO extends Win32Struct {
     static sizeof => 448
 
     static packingSize => 8
@@ -20,7 +19,7 @@ class SHCOLUMNINFO extends Win32Struct
      * A <a href="https://docs.microsoft.com/windows/desktop/shell/objects">SHCOLUMNID</a> structure that uniquely identifies the column.
      * @type {PROPERTYKEY}
      */
-    scid{
+    scid {
         get {
             if(!this.HasProp("__scid"))
                 this.__scid := PROPERTYKEY(0, this)
@@ -32,7 +31,7 @@ class SHCOLUMNINFO extends Win32Struct
      * Type: <b><a href="https://docs.microsoft.com/previous-versions/windows/desktop/legacy/ms221127(v=vs.85)">VARTYPE</a></b>
      * 
      * The native <a href="https://docs.microsoft.com/previous-versions/windows/desktop/legacy/ms221127(v=vs.85)">VARIANT</a> type of the column's data.
-     * @type {Integer}
+     * @type {VARENUM}
      */
     vt {
         get => NumGet(this, 16, "ushort")

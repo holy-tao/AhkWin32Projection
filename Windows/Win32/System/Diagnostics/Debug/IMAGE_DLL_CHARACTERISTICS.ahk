@@ -3,9 +3,8 @@
 
 /**
  * @namespace Windows.Win32.System.Diagnostics.Debug
- * @version v4.0.30319
  */
-class IMAGE_DLL_CHARACTERISTICS extends Win32BitflagEnum{
+class IMAGE_DLL_CHARACTERISTICS extends Win32BitflagEnum {
 
     /**
      * @type {Integer (UInt16)}

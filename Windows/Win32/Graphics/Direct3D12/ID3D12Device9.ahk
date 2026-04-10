@@ -5,13 +5,10 @@
 
 /**
  * Represents a virtual adapter. This interface extends [ID3D12Device8](/windows/win32/api/d3d12/nn-d3d12-id3d12device8) to add methods to manage shader caches.
- * @remarks
- * 
  * @see https://learn.microsoft.com/windows/win32/api/d3d12/nn-d3d12-id3d12device9
  * @namespace Windows.Win32.Graphics.Direct3D12
- * @version v4.0.30319
  */
-class ID3D12Device9 extends ID3D12Device8{
+class ID3D12Device9 extends ID3D12Device8 {
 
     static sizeof => A_PtrSize
     /**
@@ -52,10 +49,10 @@ class ID3D12Device9 extends ID3D12Device8{
 
     /**
      * Modifies the behavior of caches used internally by Direct3D or by the driver.
-     * @param {Integer} Kinds Type: **[D3D12_SHADER_CACHE_KIND_FLAGS](ne-d3d12-d3d12_shader_cache_kind_flags.md)**
+     * @param {D3D12_SHADER_CACHE_KIND_FLAGS} Kinds Type: **[D3D12_SHADER_CACHE_KIND_FLAGS](ne-d3d12-d3d12_shader_cache_kind_flags.md)**
      * 
      * The caches to modify. Any one of these caches may or may not exist.
-     * @param {Integer} Control Type: **[D3D12_SHADER_CACHE_CONTROL_FLAGS](ne-d3d12-d3d12_shader_cache_control_flags.md)**
+     * @param {D3D12_SHADER_CACHE_CONTROL_FLAGS} Control Type: **[D3D12_SHADER_CACHE_CONTROL_FLAGS](ne-d3d12-d3d12_shader_cache_control_flags.md)**
      * 
      * The way in which to modify the caches. You can't pass both **DISABLE** and **ENABLE** at the same time; and you must pass at least one flag.
      * @returns {HRESULT} 

@@ -5,10 +5,8 @@
  * The PPP_IPCP_INFO2 structure contains the result of a PPP Internet Protocol (IP) negotiation.
  * @see https://learn.microsoft.com/windows/win32/api/mprapi/ns-mprapi-ppp_ipcp_info2
  * @namespace Windows.Win32.NetworkManagement.Rras
- * @version v4.0.30319
  */
-class PPP_IPCP_INFO2 extends Win32Struct
-{
+class PPP_IPCP_INFO2 extends Win32Struct {
     static sizeof => 76
 
     static packingSize => 4

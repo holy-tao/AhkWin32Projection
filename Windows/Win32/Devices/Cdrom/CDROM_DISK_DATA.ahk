@@ -3,10 +3,8 @@
 
 /**
  * @namespace Windows.Win32.Devices.Cdrom
- * @version v4.0.30319
  */
-class CDROM_DISK_DATA extends Win32Struct
-{
+class CDROM_DISK_DATA extends Win32Struct {
     static sizeof => 4
 
     static packingSize => 4

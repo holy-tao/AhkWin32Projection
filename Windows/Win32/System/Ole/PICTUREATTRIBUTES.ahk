@@ -5,9 +5,8 @@
  * Specifies attributes of a picture object as returned through the IPicture::get_Attributes method.
  * @see https://learn.microsoft.com/windows/win32/api/ocidl/ne-ocidl-pictureattributes
  * @namespace Windows.Win32.System.Ole
- * @version v4.0.30319
  */
-class PICTUREATTRIBUTES extends Win32Enum{
+class PICTUREATTRIBUTES extends Win32Enum {
 
     /**
      * The picture object is scalable, such that it can be redrawn with a different size than was used to create the picture originally. Metafile-based pictures are considered scalable; icon and bitmap pictures, while they can be scaled, do not express this attribute because both involve bitmap stretching instead of true scaling.

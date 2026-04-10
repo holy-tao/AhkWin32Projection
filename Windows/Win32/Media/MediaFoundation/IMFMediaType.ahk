@@ -2,6 +2,7 @@
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
 #Include .\IMFAttributes.ahk
+#Include ..\..\..\..\Guid.ahk
 
 /**
  * Represents a description of a media format.
@@ -20,9 +21,8 @@
  * </ul>
  * @see https://learn.microsoft.com/windows/win32/api/mfobjects/nn-mfobjects-imfmediatype
  * @namespace Windows.Win32.Media.MediaFoundation
- * @version v4.0.30319
  */
-class IMFMediaType extends IMFAttributes{
+class IMFMediaType extends IMFAttributes {
 
     static sizeof => A_PtrSize
     /**

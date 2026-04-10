@@ -5,10 +5,8 @@
  * Learn more about: JET_THREADSTATS structure
  * @see https://learn.microsoft.com/windows/win32/extensible-storage-engine/jet-threadstats-structure2
  * @namespace Windows.Win32.Storage.Jet
- * @version v4.0.30319
  */
-class JET_THREADSTATS extends Win32Struct
-{
+class JET_THREADSTATS extends Win32Struct {
     static sizeof => 32
 
     static packingSize => 4

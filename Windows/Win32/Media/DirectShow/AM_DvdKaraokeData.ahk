@@ -7,10 +7,8 @@
  * This structure is used for the AM_PROPERTY_DVDKARAOKE_DATA property.
  * @see https://learn.microsoft.com/windows/win32/api/dvdmedia/ns-dvdmedia-am_dvdkaraokedata
  * @namespace Windows.Win32.Media.DirectShow
- * @version v4.0.30319
  */
-class AM_DvdKaraokeData extends Win32Struct
-{
+class AM_DvdKaraokeData extends Win32Struct {
     static sizeof => 8
 
     static packingSize => 4

@@ -5,9 +5,8 @@
  * This section lists the styles, in addition to standard window styles, supported by status bar controls.
  * @see https://learn.microsoft.com/windows/win32/Controls/status-bar-styles
  * @namespace Windows.Win32.Graphics.GdiPlus
- * @version v4.0.30319
  */
-class Status extends Win32Enum{
+class Status extends Win32Enum {
 
     /**
      * @type {Integer (Int32)}

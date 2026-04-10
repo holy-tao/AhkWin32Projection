@@ -5,10 +5,8 @@
  * The WM_PICTURE structure is used as the data item for the WM/Picture complex metadata attribute.
  * @see https://learn.microsoft.com/windows/win32/api/wmsdkidl/ns-wmsdkidl-wm_picture
  * @namespace Windows.Win32.Media.WindowsMediaFormat
- * @version v4.0.30319
  */
-class WM_PICTURE extends Win32Struct
-{
+class WM_PICTURE extends Win32Struct {
     static sizeof => 40
 
     static packingSize => 8
@@ -23,7 +21,6 @@ class WM_PICTURE extends Win32Struct
     }
 
     /**
-     * 
      * @type {Integer}
      */
     bPictureType {

@@ -3,9 +3,8 @@
 
 /**
  * @namespace Windows.Win32.Devices.DeviceAndDriverInstallation
- * @version v4.0.30319
  */
-class CM_CDFLAGS extends Win32BitflagEnum{
+class CM_CDFLAGS extends Win32BitflagEnum {
 
     /**
      * @type {Integer (UInt32)}

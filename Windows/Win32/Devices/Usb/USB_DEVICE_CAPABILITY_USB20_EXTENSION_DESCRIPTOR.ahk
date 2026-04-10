@@ -3,10 +3,8 @@
 
 /**
  * @namespace Windows.Win32.Devices.Usb
- * @version v4.0.30319
  */
-class USB_DEVICE_CAPABILITY_USB20_EXTENSION_DESCRIPTOR extends Win32Struct
-{
+class USB_DEVICE_CAPABILITY_USB20_EXTENSION_DESCRIPTOR extends Win32Struct {
     static sizeof => 7
 
     static packingSize => 1
@@ -22,7 +20,7 @@ class USB_DEVICE_CAPABILITY_USB20_EXTENSION_DESCRIPTOR extends Win32Struct
             get => NumGet(this, 0, "uint")
             set => NumPut("uint", value, this, 0)
         }
-    
+
         /**
          * This bitfield backs the following members:
          * - Reserved
@@ -40,7 +38,7 @@ class USB_DEVICE_CAPABILITY_USB20_EXTENSION_DESCRIPTOR extends Win32Struct
             get => NumGet(this, 0, "uint")
             set => NumPut("uint", value, this, 0)
         }
-    
+
         /**
          * @type {Integer}
          */
@@ -48,7 +46,7 @@ class USB_DEVICE_CAPABILITY_USB20_EXTENSION_DESCRIPTOR extends Win32Struct
             get => (this._bitfield >> 1) & 0x1
             set => this._bitfield := ((value & 0x1) << 1) | (this._bitfield & ~(0x1 << 1))
         }
-    
+
         /**
          * @type {Integer}
          */
@@ -56,7 +54,7 @@ class USB_DEVICE_CAPABILITY_USB20_EXTENSION_DESCRIPTOR extends Win32Struct
             get => (this._bitfield >> 2) & 0x1
             set => this._bitfield := ((value & 0x1) << 2) | (this._bitfield & ~(0x1 << 2))
         }
-    
+
         /**
          * @type {Integer}
          */
@@ -64,7 +62,7 @@ class USB_DEVICE_CAPABILITY_USB20_EXTENSION_DESCRIPTOR extends Win32Struct
             get => (this._bitfield >> 3) & 0x1
             set => this._bitfield := ((value & 0x1) << 3) | (this._bitfield & ~(0x1 << 3))
         }
-    
+
         /**
          * @type {Integer}
          */
@@ -72,7 +70,7 @@ class USB_DEVICE_CAPABILITY_USB20_EXTENSION_DESCRIPTOR extends Win32Struct
             get => (this._bitfield >> 4) & 0x1
             set => this._bitfield := ((value & 0x1) << 4) | (this._bitfield & ~(0x1 << 4))
         }
-    
+
         /**
          * @type {Integer}
          */
@@ -80,7 +78,7 @@ class USB_DEVICE_CAPABILITY_USB20_EXTENSION_DESCRIPTOR extends Win32Struct
             get => (this._bitfield >> 5) & 0x7
             set => this._bitfield := ((value & 0x7) << 5) | (this._bitfield & ~(0x7 << 5))
         }
-    
+
         /**
          * @type {Integer}
          */
@@ -88,7 +86,7 @@ class USB_DEVICE_CAPABILITY_USB20_EXTENSION_DESCRIPTOR extends Win32Struct
             get => (this._bitfield >> 8) & 0xF
             set => this._bitfield := ((value & 0xF) << 8) | (this._bitfield & ~(0xF << 8))
         }
-    
+
         /**
          * @type {Integer}
          */
@@ -96,7 +94,7 @@ class USB_DEVICE_CAPABILITY_USB20_EXTENSION_DESCRIPTOR extends Win32Struct
             get => (this._bitfield >> 12) & 0xF
             set => this._bitfield := ((value & 0xF) << 12) | (this._bitfield & ~(0xF << 12))
         }
-    
+
         /**
          * @type {Integer}
          */
@@ -104,7 +102,6 @@ class USB_DEVICE_CAPABILITY_USB20_EXTENSION_DESCRIPTOR extends Win32Struct
             get => (this._bitfield >> 16) & 0xFFFF
             set => this._bitfield := ((value & 0xFFFF) << 16) | (this._bitfield & ~(0xFFFF << 16))
         }
-    
     }
 
     /**
@@ -134,10 +131,10 @@ class USB_DEVICE_CAPABILITY_USB20_EXTENSION_DESCRIPTOR extends Win32Struct
     /**
      * @type {_bmAttributes_e__Union}
      */
-    bmAttributes{
+    bmAttributes {
         get {
             if(!this.HasProp("__bmAttributes"))
-                this.__bmAttributes := %this.__Class%._bmAttributes_e__Union(3, this)
+                this.__bmAttributes := USB_DEVICE_CAPABILITY_USB20_EXTENSION_DESCRIPTOR._bmAttributes_e__Union(3, this)
             return this.__bmAttributes
         }
     }

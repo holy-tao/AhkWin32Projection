@@ -7,9 +7,8 @@
  * Provides initialization settings for advanced media capture.
  * @see https://learn.microsoft.com/windows/win32/api/mfmediacapture/nn-mfmediacapture-iadvancedmediacaptureinitializationsettings
  * @namespace Windows.Win32.Media.MediaFoundation
- * @version v4.0.30319
  */
-class IAdvancedMediaCaptureInitializationSettings extends IUnknown{
+class IAdvancedMediaCaptureInitializationSettings extends IUnknown {
 
     static sizeof => A_PtrSize
     /**

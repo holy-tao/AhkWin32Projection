@@ -1,14 +1,14 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
+#Include .\CTL_ENTRY.ahk
+#Include .\CTL_CONTEXT.ahk
 
 /**
  * The CERT_TRUST_LIST_INFO structure that indicates valid usage of a CTL.
  * @see https://learn.microsoft.com/windows/win32/api/wincrypt/ns-wincrypt-cert_trust_list_info
  * @namespace Windows.Win32.Security.Cryptography
- * @version v4.0.30319
  */
-class CERT_TRUST_LIST_INFO extends Win32Struct
-{
+class CERT_TRUST_LIST_INFO extends Win32Struct {
     static sizeof => 24
 
     static packingSize => 8

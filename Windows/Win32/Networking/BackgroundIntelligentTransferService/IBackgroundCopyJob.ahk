@@ -1,20 +1,20 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
+#Include ..\..\System\Com\IUnknown.ahk
 #Include .\IEnumBackgroundCopyFiles.ahk
+#Include ..\..\..\..\Guid.ahk
 #Include .\BG_JOB_PROGRESS.ahk
 #Include .\BG_JOB_TIMES.ahk
 #Include .\IBackgroundCopyError.ahk
 #Include ..\..\System\Com\Apis.ahk
-#Include ..\..\System\Com\IUnknown.ahk
 
 /**
  * Use the IBackgroundCopyJob interface to add files to the job, set the priority level of the job, determine the state of the job, and to start and stop the job.
  * @see https://learn.microsoft.com/windows/win32/api/bits/nn-bits-ibackgroundcopyjob
  * @namespace Windows.Win32.Networking.BackgroundIntelligentTransferService
- * @version v4.0.30319
  */
-class IBackgroundCopyJob extends IUnknown{
+class IBackgroundCopyJob extends IUnknown {
 
     static sizeof => A_PtrSize
     /**
@@ -529,7 +529,7 @@ class IBackgroundCopyJob extends IUnknown{
      * @remarks
      * Specify the type of transfer when you 
      * <a href="https://docs.microsoft.com/windows/desktop/api/bits/nf-bits-ibackgroundcopymanager-createjob">create the job</a>.
-     * @returns {Integer} Type of transfer being performed. For a list of transfer types, see the 
+     * @returns {BG_JOB_TYPE} Type of transfer being performed. For a list of transfer types, see the 
      * <a href="https://docs.microsoft.com/windows/desktop/api/bits/ne-bits-bg_job_type">BG_JOB_TYPE</a> enumeration.
      * @see https://learn.microsoft.com/windows/win32/api/bits/nf-bits-ibackgroundcopyjob-gettype
      */
@@ -567,7 +567,7 @@ class IBackgroundCopyJob extends IUnknown{
      * @remarks
      * If you want to know when a job is in error or has transferred all the files in the job, you can use this method to poll for the state of the job or you can register to receive notification when  events occur. For details on registering to receive event notification, see the 
      * <a href="https://docs.microsoft.com/windows/desktop/api/bits/nn-bits-ibackgroundcopycallback">IBackgroundCopyCallback</a> interface.
-     * @returns {Integer} The state of the job. For example, the state reflects whether the job is in error, transferring data, or suspended. For a list of job states, see the 
+     * @returns {BG_JOB_STATE} The state of the job. For example, the state reflects whether the job is in error, transferring data, or suspended. For a list of job states, see the 
      * <a href="https://docs.microsoft.com/windows/desktop/api/bits/ne-bits-bg_job_state">BG_JOB_STATE</a> enumeration.
      * @see https://learn.microsoft.com/windows/win32/api/bits/nf-bits-ibackgroundcopyjob-getstate
      */
@@ -646,7 +646,7 @@ class IBackgroundCopyJob extends IUnknown{
      * @remarks
      * The display name is originally set when you create the job. For details on specifying the display name when you create the job, see the 
      * <a href="https://docs.microsoft.com/windows/desktop/api/bits/nf-bits-ibackgroundcopymanager-createjob">IBackgroundCopyManager::CreateJob</a> method.
-     * @param {PWSTR} _Val 
+     * @param {PWSTR} _Val Null-terminated string that identifies the job. Must not be <b>NULL</b>. The length of the string is limited to 256 characters, not including the null terminator.
      * @returns {HRESULT} This method returns the following <b>HRESULT</b> values, as well as others.
      * 
      * <table>
@@ -726,7 +726,7 @@ class IBackgroundCopyJob extends IUnknown{
 
     /**
      * Provides a description of the job.
-     * @param {PWSTR} _Val 
+     * @param {PWSTR} _Val Null-terminated string that provides additional information about the job. The length of the string is limited to 1,024 characters, not including the null terminator.
      * @returns {HRESULT} This method returns the following <b>HRESULT</b> values, as well as others.
      * 
      * <table>
@@ -806,7 +806,8 @@ class IBackgroundCopyJob extends IUnknown{
 
     /**
      * Specifies the priority level of your job. The priority level determines when your job is processed relative to other jobs in the transfer queue.
-     * @param {Integer} _Val 
+     * @param {BG_JOB_PRIORITY} _Val Specifies the priority level of your job relative to other jobs in the transfer queue. The default is BG_JOB_PRIORITY_NORMAL. For a list of priority levels, see the 
+     * <a href="https://docs.microsoft.com/windows/desktop/api/bits/ne-bits-bg_job_priority">BG_JOB_PRIORITY</a> enumeration.
      * @returns {HRESULT} This method returns the following <b>HRESULT</b> values, as well as others.
      * 
      * <table>
@@ -858,7 +859,7 @@ class IBackgroundCopyJob extends IUnknown{
 
     /**
      * Retrieves the priority level for the job. The priority level determines when the job is processed relative to other jobs in the transfer queue.
-     * @returns {Integer} Priority of the job relative to other jobs in the transfer queue.
+     * @returns {BG_JOB_PRIORITY} Priority of the job relative to other jobs in the transfer queue.
      * @see https://learn.microsoft.com/windows/win32/api/bits/nf-bits-ibackgroundcopyjob-getpriority
      */
     GetPriority() {
@@ -873,7 +874,83 @@ class IBackgroundCopyJob extends IUnknown{
      * <b>SetNotifyFlags</b> method in conjunction with the 
      * <a href="https://docs.microsoft.com/windows/desktop/api/bits/nf-bits-ibackgroundcopyjob-setnotifyinterface">IBackgroundCopyJob::SetNotifyInterface</a> and 
      * <a href="https://docs.microsoft.com/windows/desktop/api/bits1_5/nf-bits1_5-ibackgroundcopyjob2-setnotifycmdline">IBackgroundCopyJob2::SetNotifyCmdLine</a> methods to receive event notification.
-     * @param {Integer} _Val 
+     * @param {Integer} _Val Set one or more of the following flags to identify the events that you want to receive.  
+     * 
+     * <table>
+     * <tr>
+     * <th>Value</th>
+     * <th>Meaning</th>
+     * </tr>
+     * <tr>
+     * <td width="40%"><a id="BG_NOTIFY_JOB_TRANSFERRED"></a><a id="bg_notify_job_transferred"></a><dl>
+     * <dt><b>BG_NOTIFY_JOB_TRANSFERRED</b></dt>
+     * <dt>0x0001</dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * All of the files in the job have been transferred.
+     * 
+     * </td>
+     * </tr>
+     * <tr>
+     * <td width="40%"><a id="BG_NOTIFY_JOB_ERROR"></a><a id="bg_notify_job_error"></a><dl>
+     * <dt><b>BG_NOTIFY_JOB_ERROR</b></dt>
+     * <dt>0x0002</dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * An error has occurred.
+     * 
+     * </td>
+     * </tr>
+     * <tr>
+     * <td width="40%"><a id="BG_NOTIFY_DISABLE"></a><a id="bg_notify_disable"></a><dl>
+     * <dt><b>BG_NOTIFY_DISABLE</b></dt>
+     * <dt>0x0004</dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * Event notification is disabled. BITS ignores the other flags.
+     * 
+     * </td>
+     * </tr>
+     * <tr>
+     * <td width="40%"><a id="BG_NOTIFY_JOB_MODIFICATION"></a><a id="bg_notify_job_modification"></a><dl>
+     * <dt><b>BG_NOTIFY_JOB_MODIFICATION</b></dt>
+     * <dt>0x0008</dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * The job has been modified. For example, a property value changed, the state of the job changed, or progress is made transferring the files. This flag is ignored in command-line callbacks if 
+     * <a href="https://docs.microsoft.com/windows/desktop/api/bits1_5/nf-bits1_5-ibackgroundcopyjob2-setnotifycmdline">command line notification</a> is specified.
+     * 
+     * </td>
+     * </tr>
+     * <tr>
+     * <td width="40%"><a id="BG_NOTIFY_FILE_TRANSFERRED"></a><a id="bg_notify_file_transferred"></a><dl>
+     * <dt><b>BG_NOTIFY_FILE_TRANSFERRED</b></dt>
+     * <dt>0x0010</dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * A file in the job has been transferred.  This flag is ignored in command-line callbacks if 
+     * <a href="https://docs.microsoft.com/windows/desktop/api/bits1_5/nf-bits1_5-ibackgroundcopyjob2-setnotifycmdline">command line notification</a> is specified.
+     * 
+     * </td>
+     * </tr>
+     * <tr>
+     * <td width="40%"><a id="BG_NOTIFY_FILE_RANGES_TRANSFERRED"></a><a id="bg_notify_file_ranges_transferred"></a><dl>
+     * <dt><b>BG_NOTIFY_FILE_RANGES_TRANSFERRED</b></dt>
+     * <dt>0x0020</dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * A range of bytes in the file has been transferred.    This flag is ignored in command-line callbacks if 
+     * <a href="https://docs.microsoft.com/windows/desktop/api/bits1_5/nf-bits1_5-ibackgroundcopyjob2-setnotifycmdline">command line notification</a> is specified. The flag can be specified for any job, but you will only get notifications for jobs that meet the requirements for a <b>BITS_JOB_PROPERTY_ON_DEMAND_MODE</b> job.
+     * 
+     * </td>
+     * </tr>
+     * </table>
      * @returns {HRESULT} This method returns the following <b>HRESULT</b> values, as well as others.
      * 
      * <table>
@@ -998,7 +1075,8 @@ class IBackgroundCopyJob extends IUnknown{
      * <a href="https://docs.microsoft.com/windows/desktop/api/bits1_5/nf-bits1_5-ibackgroundcopyjob2-setnotifycmdline">IBackgroundCopyJob2::SetNotifyCmdLine</a> method.
      * 
      * Note that if more than one application calls the  <b>SetNotifyInterface</b> method to set the notification interface for the job, the last application to call the <b>SetNotifyInterface</b> method is the one that will receive notifications—the other applications will not receive notifications.
-     * @param {IUnknown} _Val 
+     * @param {IUnknown} _Val An 
+     * <a href="https://docs.microsoft.com/windows/desktop/api/bits/nn-bits-ibackgroundcopycallback">IBackgroundCopyCallback</a> interface pointer. To remove the current callback interface pointer, set this parameter to <b>NULL</b>.
      * @returns {HRESULT} This method returns the following <b>HRESULT</b> values, as well as others.
      * 
      * <table>
@@ -1196,7 +1274,7 @@ class IBackgroundCopyJob extends IUnknown{
      * 
      * 
      * BITS uses the Internet Explorer proxy settings of the user if an application does not specify a proxy usage. This default behavior typically works if the application submits the job in the context of an interactive user but may not work if a service running as LocalSystem submits the job. You can specify Internet Explorer proxy settings for LocalSystem; however, it is difficult to detect these settings when problems occur.
-     * @param {Integer} ProxyUsage Specifies whether to use the user's proxy settings, not to use a proxy, or to use application-specified proxy settings. The default is to use the user's proxy settings, <b>BG_JOB_PROXY_USAGE_PRECONFIG</b>. For a list of proxy options, see the 
+     * @param {BG_JOB_PROXY_USAGE} ProxyUsage Specifies whether to use the user's proxy settings, not to use a proxy, or to use application-specified proxy settings. The default is to use the user's proxy settings, <b>BG_JOB_PROXY_USAGE_PRECONFIG</b>. For a list of proxy options, see the 
      * <a href="https://docs.microsoft.com/windows/desktop/api/bits/ne-bits-bg_job_proxy_usage">BG_JOB_PROXY_USAGE</a> enumeration.
      * @param {PWSTR} ProxyList Null-terminated string that contains the proxies to use to transfer files. The list is space-delimited. For details on specifying a proxy, see Remarks.
      * 
@@ -1296,7 +1374,7 @@ class IBackgroundCopyJob extends IUnknown{
 
     /**
      * Retrieves the proxy information that the job uses to transfer the files.
-     * @param {Pointer<Integer>} pProxyUsage Specifies the proxy settings the job uses to transfer the files. For a list of proxy options, see the 
+     * @param {Pointer<BG_JOB_PROXY_USAGE>} pProxyUsage Specifies the proxy settings the job uses to transfer the files. For a list of proxy options, see the 
      * <a href="https://docs.microsoft.com/windows/desktop/api/bits/ne-bits-bg_job_proxy_usage">BG_JOB_PROXY_USAGE</a> enumeration.
      * @param {Pointer<PWSTR>} pProxyList Null-terminated string that contains one or more proxies to use to transfer files. The list is space-delimited. For details on the format of the string, see the Listing Proxy Servers section of 
      * <a href="https://docs.microsoft.com/windows/desktop/WinInet/enabling-internet-functionality">Enabling Internet Functionality</a>. Call the 

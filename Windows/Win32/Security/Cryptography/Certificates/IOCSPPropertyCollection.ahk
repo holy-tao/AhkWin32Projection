@@ -1,11 +1,10 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\..\Guid.ahk
-#Include ..\..\..\Foundation\BSTR.ahk
+#Include ..\..\..\System\Com\IDispatch.ahk
 #Include ..\..\..\System\Com\IUnknown.ahk
 #Include ..\..\..\System\Variant\VARIANT.ahk
 #Include .\IOCSPProperty.ahk
-#Include ..\..\..\System\Com\IDispatch.ahk
 
 /**
  * Represents a set of configurable attribute properties (name-value pairs) for an Online Certificate Status Protocol (OCSP) service.
@@ -27,9 +26,8 @@
  * OCSP attributes govern OCSP responder service behavior for all CA configurations. For more information on CA configurations, see the <a href="https://docs.microsoft.com/windows/desktop/api/certadm/nn-certadm-iocspcaconfiguration">IOCSPCAConfiguration</a> interface topic.
  * @see https://learn.microsoft.com/windows/win32/api/certadm/nn-certadm-iocsppropertycollection
  * @namespace Windows.Win32.Security.Cryptography.Certificates
- * @version v4.0.30319
  */
-class IOCSPPropertyCollection extends IDispatch{
+class IOCSPPropertyCollection extends IDispatch {
 
     static sizeof => A_PtrSize
     /**

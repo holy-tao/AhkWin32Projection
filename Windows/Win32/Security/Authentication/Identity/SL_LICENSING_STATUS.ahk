@@ -1,14 +1,13 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\..\Win32Struct.ahk
+#Include .\SLLICENSINGSTATUS.ahk
 
 /**
  * Represents the licensing status. (SL_LICENSING_STATUS)
  * @see https://learn.microsoft.com/windows/win32/api/slpublic/ns-slpublic-sl_licensing_status
  * @namespace Windows.Win32.Security.Authentication.Identity
- * @version v4.0.30319
  */
-class SL_LICENSING_STATUS extends Win32Struct
-{
+class SL_LICENSING_STATUS extends Win32Struct {
     static sizeof => 32
 
     static packingSize => 8
@@ -17,7 +16,7 @@ class SL_LICENSING_STATUS extends Win32Struct
      * Type: <b>SLID</b>
      * 
      * The SKU ID.
-     * @type {Pointer<Guid>}
+     * @type {Pointer}
      */
     SkuId {
         get => NumGet(this, 0, "ptr")
@@ -28,7 +27,7 @@ class SL_LICENSING_STATUS extends Win32Struct
      * Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/slpublic/ne-slpublic-sllicensingstatus">SLLICENSINGSTATUS</a></b>
      * 
      * The licensing status.
-     * @type {Integer}
+     * @type {SLLICENSINGSTATUS}
      */
     eStatus {
         get => NumGet(this, 8, "int")

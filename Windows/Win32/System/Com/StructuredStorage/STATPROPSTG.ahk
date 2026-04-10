@@ -1,14 +1,13 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\..\Win32Struct.ahk
+#Include ..\..\Variant\VARENUM.ahk
 
 /**
  * The STATPROPSTG structure contains data about a single property in a property set. This data is the property ID and type tag, and the optional string name that may be associated with the property.
  * @see https://learn.microsoft.com/windows/win32/api/propidlbase/ns-propidlbase-statpropstg
  * @namespace Windows.Win32.System.Com.StructuredStorage
- * @version v4.0.30319
  */
-class STATPROPSTG extends Win32Struct
-{
+class STATPROPSTG extends Win32Struct {
     static sizeof => 16
 
     static packingSize => 8
@@ -34,7 +33,7 @@ class STATPROPSTG extends Win32Struct
 
     /**
      * The property type.
-     * @type {Integer}
+     * @type {VARENUM}
      */
     vt {
         get => NumGet(this, 12, "ushort")

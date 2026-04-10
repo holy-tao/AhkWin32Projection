@@ -1,15 +1,14 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
+#Include ..\..\System\Com\IUnknown.ahk
 #Include .\IDirectDrawVideoPort.ahk
 #Include .\DDVIDEOPORTCONNECT.ahk
-#Include ..\..\System\Com\IUnknown.ahk
 
 /**
  * @namespace Windows.Win32.Graphics.DirectDraw
- * @version v4.0.30319
  */
-class IDDVideoPortContainer extends IUnknown{
+class IDDVideoPortContainer extends IUnknown {
 
     static sizeof => A_PtrSize
     /**

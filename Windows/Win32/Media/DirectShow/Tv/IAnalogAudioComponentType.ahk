@@ -9,9 +9,8 @@
  * To declare the interface identifier (IID) for this interface, use the <b>__uuidof</b> operator: <c>__uuidof(IAnalogAudioComponentType)</c>.
  * @see https://learn.microsoft.com/windows/win32/api/tuner/nn-tuner-ianalogaudiocomponenttype
  * @namespace Windows.Win32.Media.DirectShow.Tv
- * @version v4.0.30319
  */
-class IAnalogAudioComponentType extends IComponentType{
+class IAnalogAudioComponentType extends IComponentType {
 
     static sizeof => A_PtrSize
     /**
@@ -39,7 +38,7 @@ class IAnalogAudioComponentType extends IComponentType{
     static VTableNames => ["get_AnalogAudioMode", "put_AnalogAudioMode"]
 
     /**
-     * @type {Integer} 
+     * @type {TVAudioMode} 
      */
     AnalogAudioMode {
         get => this.get_AnalogAudioMode()
@@ -48,7 +47,7 @@ class IAnalogAudioComponentType extends IComponentType{
 
     /**
      * The get_AnalogAudioMode method retrieves the analog audio mode.
-     * @returns {Integer} 
+     * @returns {TVAudioMode} Pointer to a <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/strmif/ne-strmif-tvaudiomode">TVAudioMode</a> variable that receives the analog audio mode.
      * @see https://learn.microsoft.com/windows/win32/api/tuner/nf-tuner-ianalogaudiocomponenttype-get_analogaudiomode
      */
     get_AnalogAudioMode() {
@@ -58,7 +57,7 @@ class IAnalogAudioComponentType extends IComponentType{
 
     /**
      * The put_AnalogAudioMode method specifies the analog audio mode.
-     * @param {Integer} _Mode 
+     * @param {TVAudioMode} _Mode Specifies the analog audio mode. This parameter is a variable of type <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/strmif/ne-strmif-tvaudiomode">TVAudioMode</a>.
      * @returns {HRESULT} Returns S_OK if successful. If the method fails, error information can be retrieved by using the standard COM <b>IErrorInfo</b> interface.
      * @see https://learn.microsoft.com/windows/win32/api/tuner/nf-tuner-ianalogaudiocomponenttype-put_analogaudiomode
      */

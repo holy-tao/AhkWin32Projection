@@ -1,6 +1,7 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
+#Include ..\..\System\Com\IUnknown.ahk
 #Include .\DVD_PLAYBACK_LOCATION2.ahk
 #Include .\DVD_MenuAttributes.ahk
 #Include .\DVD_VideoAttributes.ahk
@@ -11,15 +12,13 @@
 #Include .\IDvdCmd.ahk
 #Include .\DVD_DECODER_CAPS.ahk
 #Include ..\..\Foundation\RECT.ahk
-#Include ..\..\System\Com\IUnknown.ahk
 
 /**
  * The IDvdInfo2 interface reports attributes of a DVD disc or the current state of DVD playback and navigation.
  * @see https://learn.microsoft.com/windows/win32/api/strmif/nn-strmif-idvdinfo2
  * @namespace Windows.Win32.Media.DirectShow
- * @version v4.0.30319
  */
-class IDvdInfo2 extends IUnknown{
+class IDvdInfo2 extends IUnknown {
 
     static sizeof => A_PtrSize
     /**
@@ -44,7 +43,7 @@ class IDvdInfo2 extends IUnknown{
      * The GetCurrentDomain method retrieves the domain in which the DVD Navigator is currently located.
      * @remarks
      * You can use this method to test whether the DVD Navigator is finished playing in a particular title domain. An application doesn't have to test for the current domain before calling an <a href="https://docs.microsoft.com/windows/desktop/api/strmif/nn-strmif-idvdcontrol2">IDvdControl2</a> method such as <a href="https://docs.microsoft.com/windows/desktop/api/strmif/nf-strmif-idvdcontrol2-playtitle">PlayTitle</a>, <a href="https://docs.microsoft.com/windows/desktop/api/strmif/nf-strmif-idvdcontrol2-playforwards">PlayForwards</a>, and so on. The DVD Navigator tests for the domain and simply does nothing, returning VFW_E_DVD_INVALIDDOMAIN, if the current command is invalid for the domain.
-     * @returns {Integer} Pointer to a variable of type <a href="https://docs.microsoft.com/windows/desktop/api/strmif/ne-strmif-dvd_domain">DVD_DOMAIN</a> that receives the current domain.
+     * @returns {DVD_DOMAIN} Pointer to a variable of type <a href="https://docs.microsoft.com/windows/desktop/api/strmif/ne-strmif-dvd_domain">DVD_DOMAIN</a> that receives the current domain.
      * @see https://learn.microsoft.com/windows/win32/api/strmif/nf-strmif-idvdinfo2-getcurrentdomain
      */
     GetCurrentDomain() {
@@ -787,7 +786,7 @@ class IDvdInfo2 extends IUnknown{
      * Some discs can be distributed as part of multidisc set. "Volume" in this context can mean either "disc" or "disc side", depending on how the disc was authored.
      * @param {Pointer<Integer>} pulNumOfVolumes Receives the number of volumes in the volume set.
      * @param {Pointer<Integer>} pulVolume Receives the volume number for this root directory.
-     * @param {Pointer<Integer>} pSide Pointer to a variable of type [DVD_DISC_SIDE](/windows/desktop/api/strmif/ne-strmif-dvd_disc_side) that receives the current disc side.
+     * @param {Pointer<DVD_DISC_SIDE>} pSide Pointer to a variable of type [DVD_DISC_SIDE](/windows/desktop/api/strmif/ne-strmif-dvd_disc_side) that receives the current disc side.
      * @param {Pointer<Integer>} pulNumOfTitles Pointer to a variable of type ULONG that receives the number of titles available in this volume.
      * @returns {HRESULT} Returns one of the following <b>HRESULT</b> values.
      * 
@@ -852,7 +851,7 @@ class IDvdInfo2 extends IUnknown{
      * @param {Integer} ulLangIndex Zero-based index of the language to query. To find the number of text-string languages on the DVD, call <a href="https://docs.microsoft.com/windows/desktop/api/strmif/nf-strmif-idvdinfo2-getdvdtextnumberoflanguages">IDvdInfo2::GetDVDTextNumberOfLanguages</a>.
      * @param {Pointer<Integer>} pulNumOfStrings Receives the number of text strings for the specified language.
      * @param {Pointer<Integer>} pLangCode Receives a <i>locale identifier</i> (LCID) that specifies the language in which the text is written. For example, the LCID for "en-us" is 0x0409.
-     * @param {Pointer<Integer>} pbCharacterSet Receives a member of the <a href="https://docs.microsoft.com/windows/desktop/api/strmif/ne-strmif-dvd_textcharset">DVD_TextCharSet</a> enumeration. The value specifies the character set of the text string.
+     * @param {Pointer<DVD_TextCharSet>} pbCharacterSet Receives a member of the <a href="https://docs.microsoft.com/windows/desktop/api/strmif/ne-strmif-dvd_textcharset">DVD_TextCharSet</a> enumeration. The value specifies the character set of the text string.
      * @returns {HRESULT} Returns one of the following <b>HRESULT</b> values.
      * 
      * <table>
@@ -929,7 +928,7 @@ class IDvdInfo2 extends IUnknown{
      * @param {Pointer<Integer>} pbBuffer Pointer to a buffer that receives the text string. If <i>pchBuffer</i> is <b>NULL</b>, this method returns the size of the string in <i>pulActualSize</i>.
      * @param {Integer} ulMaxBufferSize Size of the <i>pchBuffer</i> in bytes
      * @param {Pointer<Integer>} pulActualSize Receives the actual length of the string in bytes, including the terminating <b>NULL</b>.
-     * @param {Pointer<Integer>} pType Receives a member of the <a href="https://docs.microsoft.com/windows/desktop/api/strmif/ne-strmif-dvd_textstringtype">DVD_TextStringType</a> enumeration. The value indicates the type of text string, such as movie title or song name. This parameter can also receive values that are not defined in the <b>DVD_TextStringType</b> enumeration.
+     * @param {Pointer<DVD_TextStringType>} pType Receives a member of the <a href="https://docs.microsoft.com/windows/desktop/api/strmif/ne-strmif-dvd_textstringtype">DVD_TextStringType</a> enumeration. The value indicates the type of text string, such as movie title or song name. This parameter can also receive values that are not defined in the <b>DVD_TextStringType</b> enumeration.
      * @returns {HRESULT} Returns one of the following <b>HRESULT</b> values.
      * 
      * <table>
@@ -993,7 +992,7 @@ class IDvdInfo2 extends IUnknown{
      * @param {PWSTR} pchwBuffer Pointer to a buffer that receives the text string. If <i>pchBuffer</i> is <b>NULL</b>, this method returns the size of the string in <i>pulActualSize</i>.
      * @param {Integer} ulMaxBufferSize Size of the <i>pchBuffer</i> buffer, in <b>WCHARs</b>.
      * @param {Pointer<Integer>} pulActualSize Receives the actual length of the string in characters, including the terminating <b>NULL</b>.
-     * @param {Pointer<Integer>} pType Receives a member of the <a href="https://docs.microsoft.com/windows/desktop/api/strmif/ne-strmif-dvd_textstringtype">DVD_TextStringType</a> enumeration. The value indicates the type of text string, such as movie title or song name. This parameter can also receive values that are not defined in the <b>DVD_TextStringType</b> enumeration.
+     * @param {Pointer<DVD_TextStringType>} pType Receives a member of the <a href="https://docs.microsoft.com/windows/desktop/api/strmif/ne-strmif-dvd_textstringtype">DVD_TextStringType</a> enumeration. The value indicates the type of text string, such as movie title or song name. This parameter can also receive values that are not defined in the <b>DVD_TextStringType</b> enumeration.
      * @returns {HRESULT} Returns one of the following <b>HRESULT</b> values.
      * 
      * <table>
@@ -1250,7 +1249,7 @@ class IDvdInfo2 extends IUnknown{
      * The GetButtonAtPosition method retrieves the button located at the specified point within the display window.
      * @remarks
      * This method is typically called in response to a mouse pointer move within a DVD menu display window. Be sure to check for success in the <b>HRESULT</b> before trying to retrieve the button number; this method only sets the value of <i>puButtonIndex</i> if a button is found at the specified point. DVD buttons do not necessarily have highlighted rectangles, button rectangles can overlap, and button rectangles do not always correspond to the visual representation of the buttons.
-     * @param {POINT} _point 
+     * @param {POINT} _point Current mouse pointer position as retrieved through the Win32 WM_MOUSEMOVE message.
      * @returns {Integer} Receives the index (from 1 through 36) of the button at the current mouse pointer position.
      * @see https://learn.microsoft.com/windows/win32/api/strmif/nf-strmif-idvdinfo2-getbuttonatposition
      */
@@ -1285,7 +1284,7 @@ class IDvdInfo2 extends IUnknown{
     /**
      * The GetDefaultAudioLanguage method retrieves the default audio language.
      * @param {Pointer<Integer>} pLanguage Receives the default language information.
-     * @param {Pointer<Integer>} pAudioExtension Pointer to a variable of type [DVD_AUDIO_LANG_EXT](/windows/desktop/api/strmif/ne-strmif-dvd_audio_lang_ext) that receives a value indicating the default DVD audio language extension.
+     * @param {Pointer<DVD_AUDIO_LANG_EXT>} pAudioExtension Pointer to a variable of type [DVD_AUDIO_LANG_EXT](/windows/desktop/api/strmif/ne-strmif-dvd_audio_lang_ext) that receives a value indicating the default DVD audio language extension.
      * @returns {HRESULT} Returns one of the following <b>HRESULT</b> values.
      * 
      * <table>
@@ -1362,7 +1361,7 @@ class IDvdInfo2 extends IUnknown{
     /**
      * The GetDefaultSubpictureLanguage method retrieves the default subpicture language.
      * @param {Pointer<Integer>} pLanguage Receives the language information.
-     * @param {Pointer<Integer>} pSubpictureExtension Pointer to a variable of type [DVD_SUBPICTURE_LANG_EXT](/windows/desktop/api/strmif/ne-strmif-dvd_subpicture_lang_ext) that receives one of the allowable values indicating the default language extension.
+     * @param {Pointer<DVD_SUBPICTURE_LANG_EXT>} pSubpictureExtension Pointer to a variable of type [DVD_SUBPICTURE_LANG_EXT](/windows/desktop/api/strmif/ne-strmif-dvd_subpicture_lang_ext) that receives one of the allowable values indicating the default language extension.
      * @returns {HRESULT} Returns one of the following <b>HRESULT</b> values.
      * 
      * <table>

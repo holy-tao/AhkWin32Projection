@@ -7,9 +7,8 @@
  * The IMediaParams interface sets and retrieves envelope-following parameters on an object.
  * @see https://learn.microsoft.com/windows/win32/api/medparam/nn-medparam-imediaparams
  * @namespace Windows.Win32.Media.DirectShow
- * @version v4.0.30319
  */
-class IMediaParams extends IUnknown{
+class IMediaParams extends IUnknown {
 
     static sizeof => A_PtrSize
     /**

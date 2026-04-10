@@ -1,14 +1,12 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
-#Include ..\..\Foundation\BSTR.ahk
 #Include .\ISpeechRecoResult.ahk
 
 /**
  * @namespace Windows.Win32.Media.Speech
- * @version v4.0.30319
  */
-class ISpeechRecoResult2 extends ISpeechRecoResult{
+class ISpeechRecoResult2 extends ISpeechRecoResult {
 
     static sizeof => A_PtrSize
     /**

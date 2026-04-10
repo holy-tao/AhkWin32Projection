@@ -28,9 +28,8 @@
  * Note that formats are supplied by independent hardware vendors (IHVs) and many FOURCC codes are not listed. The formats in this enumeration are unique in that they are sanctioned by the runtime, meaning that the reference rasterizer will operate on all these types. IHV-supplied formats will be supported by the individual IHVs on a card-by-card basis.
  * @see https://learn.microsoft.com/windows/win32/direct3d9/d3dformat
  * @namespace Windows.Win32.Graphics.Direct3D9
- * @version v4.0.30319
  */
-class D3DFORMAT extends Win32Enum{
+class D3DFORMAT extends Win32Enum {
 
     /**
      * @type {Integer (UInt32)}

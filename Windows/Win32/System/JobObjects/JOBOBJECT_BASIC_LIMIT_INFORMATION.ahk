@@ -1,5 +1,6 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
+#Include .\JOB_OBJECT_LIMIT.ahk
 
 /**
  * Contains basic limit information for a job object.
@@ -10,10 +11,8 @@
  * The system increments the active process count when you attempt to associate a process with a job. If the limit is exceeded, the system decrements the active process count only when the process terminates and all handles to the process are closed. Therefore, if you have an open handle to a process that has been terminated in such a manner, you cannot associate any new processes until the handle is closed and the active process count is below the limit.
  * @see https://learn.microsoft.com/windows/win32/api/winnt/ns-winnt-jobobject_basic_limit_information
  * @namespace Windows.Win32.System.JobObjects
- * @version v4.0.30319
  */
-class JOBOBJECT_BASIC_LIMIT_INFORMATION extends Win32Struct
-{
+class JOBOBJECT_BASIC_LIMIT_INFORMATION extends Win32Struct {
     static sizeof => 64
 
     static packingSize => 8
@@ -54,8 +53,7 @@ class JOBOBJECT_BASIC_LIMIT_INFORMATION extends Win32Struct
     }
 
     /**
-     * 
-     * @type {Integer}
+     * @type {JOB_OBJECT_LIMIT}
      */
     LimitFlags {
         get => NumGet(this, 16, "uint")

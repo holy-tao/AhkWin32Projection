@@ -5,10 +5,8 @@
  * Contains information about processor C-state policy settings.
  * @see https://learn.microsoft.com/windows/win32/api/winnt/ns-winnt-processor_power_policy_info
  * @namespace Windows.Win32.System.Power
- * @version v4.0.30319
  */
-class PROCESSOR_POWER_POLICY_INFO extends Win32Struct
-{
+class PROCESSOR_POWER_POLICY_INFO extends Win32Struct {
     static sizeof => 20
 
     static packingSize => 4
@@ -60,9 +58,9 @@ class PROCESSOR_POWER_POLICY_INFO extends Win32Struct
 
     /**
      * Reserved.
-     * @type {Array<Byte>}
+     * @type {Array<Integer>}
      */
-    Spare{
+    Spare {
         get {
             if(!this.HasProp("__SpareProxyArray"))
                 this.__SpareProxyArray := Win32FixedArray(this.ptr + 14, 2, Primitive, "char")
@@ -83,7 +81,6 @@ class PROCESSOR_POWER_POLICY_INFO extends Win32Struct
     }
 
     /**
-     * When set, allows the kernel power policy manager to demote from the current state.
      * @type {Integer}
      */
     AllowDemotion {
@@ -92,7 +89,6 @@ class PROCESSOR_POWER_POLICY_INFO extends Win32Struct
     }
 
     /**
-     * When set, allows the kernel power policy manager to promote from the current state.
      * @type {Integer}
      */
     AllowPromotion {

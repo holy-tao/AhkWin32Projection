@@ -1,12 +1,11 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
+#Include .\NDIS_802_11_NETWORK_TYPE.ahk
 
 /**
  * @namespace Windows.Win32.NetworkManagement.Ndis
- * @version v4.0.30319
  */
-class NDIS_802_11_NETWORK_TYPE_LIST extends Win32Struct
-{
+class NDIS_802_11_NETWORK_TYPE_LIST extends Win32Struct {
     static sizeof => 8
 
     static packingSize => 4
@@ -20,9 +19,9 @@ class NDIS_802_11_NETWORK_TYPE_LIST extends Win32Struct
     }
 
     /**
-     * @type {Array<Int32>}
+     * @type {Array<NDIS_802_11_NETWORK_TYPE>}
      */
-    NetworkType{
+    NetworkType {
         get {
             if(!this.HasProp("__NetworkTypeProxyArray"))
                 this.__NetworkTypeProxyArray := Win32FixedArray(this.ptr + 4, 1, Primitive, "int")

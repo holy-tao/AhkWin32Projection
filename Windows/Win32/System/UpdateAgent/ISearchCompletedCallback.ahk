@@ -7,9 +7,8 @@
  * Contains a method that handles the notification about the completion of an asynchronous search operation.
  * @see https://learn.microsoft.com/windows/win32/api/wuapi/nn-wuapi-isearchcompletedcallback
  * @namespace Windows.Win32.System.UpdateAgent
- * @version v4.0.30319
  */
-class ISearchCompletedCallback extends IUnknown{
+class ISearchCompletedCallback extends IUnknown {
 
     static sizeof => A_PtrSize
     /**

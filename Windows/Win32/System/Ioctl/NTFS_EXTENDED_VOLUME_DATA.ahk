@@ -26,16 +26,13 @@
  * This structure contains the major and minor version information for an NTFS volume. The <b>ByteCount</b> member will return the total bytes  of the output buffer used for this structure by the call to <a href="https://docs.microsoft.com/windows/desktop/api/winioctl/ni-winioctl-fsctl_get_ntfs_volume_data">FSCTL_GET_NTFS_VOLUME_DATA</a>. This value should be <c>sizeof(NTFS_EXTENDED_VOLUME_DATA)</code> if the buffer passed was large enough to hold it, otherwise the value will be less than <code>sizeof(NTFS_EXTENDED_VOLUME_DATA)</c>.
  * @see https://learn.microsoft.com/windows/win32/api/winioctl/ns-winioctl-ntfs_extended_volume_data
  * @namespace Windows.Win32.System.Ioctl
- * @version v4.0.30319
  */
-class NTFS_EXTENDED_VOLUME_DATA extends Win32Struct
-{
+class NTFS_EXTENDED_VOLUME_DATA extends Win32Struct {
     static sizeof => 32
 
     static packingSize => 4
 
     /**
-     * 
      * @type {Integer}
      */
     ByteCount {
@@ -44,7 +41,6 @@ class NTFS_EXTENDED_VOLUME_DATA extends Win32Struct
     }
 
     /**
-     * 
      * @type {Integer}
      */
     MajorVersion {
@@ -53,7 +49,6 @@ class NTFS_EXTENDED_VOLUME_DATA extends Win32Struct
     }
 
     /**
-     * 
      * @type {Integer}
      */
     MinorVersion {
@@ -62,7 +57,6 @@ class NTFS_EXTENDED_VOLUME_DATA extends Win32Struct
     }
 
     /**
-     * 
      * @type {Integer}
      */
     BytesPerPhysicalSector {
@@ -71,7 +65,6 @@ class NTFS_EXTENDED_VOLUME_DATA extends Win32Struct
     }
 
     /**
-     * 
      * @type {Integer}
      */
     LfsMajorVersion {
@@ -80,7 +73,6 @@ class NTFS_EXTENDED_VOLUME_DATA extends Win32Struct
     }
 
     /**
-     * 
      * @type {Integer}
      */
     LfsMinorVersion {
@@ -89,7 +81,6 @@ class NTFS_EXTENDED_VOLUME_DATA extends Win32Struct
     }
 
     /**
-     * 
      * @type {Integer}
      */
     MaxDeviceTrimExtentCount {
@@ -98,7 +89,6 @@ class NTFS_EXTENDED_VOLUME_DATA extends Win32Struct
     }
 
     /**
-     * 
      * @type {Integer}
      */
     MaxDeviceTrimByteCount {
@@ -107,7 +97,6 @@ class NTFS_EXTENDED_VOLUME_DATA extends Win32Struct
     }
 
     /**
-     * 
      * @type {Integer}
      */
     MaxVolumeTrimExtentCount {
@@ -116,7 +105,6 @@ class NTFS_EXTENDED_VOLUME_DATA extends Win32Struct
     }
 
     /**
-     * 
      * @type {Integer}
      */
     MaxVolumeTrimByteCount {

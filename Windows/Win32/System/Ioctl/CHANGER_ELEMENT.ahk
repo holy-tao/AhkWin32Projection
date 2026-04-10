@@ -1,14 +1,13 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
+#Include .\ELEMENT_TYPE.ahk
 
 /**
  * Represents a changer element.
  * @see https://learn.microsoft.com/windows/win32/api/winioctl/ns-winioctl-changer_element
  * @namespace Windows.Win32.System.Ioctl
- * @version v4.0.30319
  */
-class CHANGER_ELEMENT extends Win32Struct
-{
+class CHANGER_ELEMENT extends Win32Struct {
     static sizeof => 8
 
     static packingSize => 4
@@ -16,7 +15,7 @@ class CHANGER_ELEMENT extends Win32Struct
     /**
      * The element type. This parameter can be one of the values from the 
      * <a href="https://docs.microsoft.com/windows/desktop/api/winioctl/ne-winioctl-element_type">ELEMENT_TYPE</a> enumeration type.
-     * @type {Integer}
+     * @type {ELEMENT_TYPE}
      */
     ElementType {
         get => NumGet(this, 0, "int")

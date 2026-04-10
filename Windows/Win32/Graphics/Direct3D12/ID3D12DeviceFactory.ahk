@@ -5,9 +5,8 @@
 
 /**
  * @namespace Windows.Win32.Graphics.Direct3D12
- * @version v4.0.30319
  */
-class ID3D12DeviceFactory extends IUnknown{
+class ID3D12DeviceFactory extends IUnknown {
 
     static sizeof => A_PtrSize
     /**
@@ -55,7 +54,7 @@ class ID3D12DeviceFactory extends IUnknown{
      * 
      * <div class="alert"><b>Note</b>  Only line mode is supported in the <b>SetFlags</b> function. Boxed mode, free mode, and single-line mode are not supported.</div>
      * <div> </div>
-     * @param {Integer} flags 
+     * @param {D3D12_DEVICE_FACTORY_FLAGS} flags 
      * @returns {HRESULT} This function can return one of these values.
      * 
      * <table>
@@ -140,7 +139,7 @@ class ID3D12DeviceFactory extends IUnknown{
 
     /**
      * 
-     * @returns {Integer} 
+     * @returns {D3D12_DEVICE_FACTORY_FLAGS} 
      */
     GetFlags() {
         result := ComCall(6, this, "int")
@@ -177,7 +176,7 @@ class ID3D12DeviceFactory extends IUnknown{
     /**
      * Creates the object that's used to access a device. The instantiated object implements the IDeviceIoControl and ICreateDeviceAccessAsync interfaces.
      * @param {IUnknown} _adapter 
-     * @param {Integer} FeatureLevel 
+     * @param {D3D_FEATURE_LEVEL} FeatureLevel 
      * @param {Pointer<Guid>} riid 
      * @returns {Pointer<Void>} 
      * @see https://learn.microsoft.com/windows/win32/api/deviceaccess/nf-deviceaccess-createdeviceaccessinstance

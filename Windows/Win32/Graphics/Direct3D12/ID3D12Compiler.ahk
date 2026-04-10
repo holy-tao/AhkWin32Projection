@@ -5,9 +5,8 @@
 
 /**
  * @namespace Windows.Win32.Graphics.Direct3D12
- * @version v4.0.30319
  */
-class ID3D12Compiler extends ID3D12CompilerFactoryChild{
+class ID3D12Compiler extends ID3D12CompilerFactoryChild {
 
     static sizeof => A_PtrSize
     /**

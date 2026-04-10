@@ -4,13 +4,11 @@
 
 /**
  * @namespace Windows.Win32.Devices.ImageAcquisition
- * @version v4.0.30319
  */
-class WIA_PATCH_CODES extends Win32Struct
-{
-    static sizeof => 24
+class WIA_PATCH_CODES extends Win32Struct {
+    static sizeof => 20
 
-    static packingSize => 8
+    static packingSize => 4
 
     /**
      * @type {Integer}
@@ -45,9 +43,9 @@ class WIA_PATCH_CODES extends Win32Struct
     }
 
     /**
-     * @type {Array<WIA_PATCH_CODE_INFO>}
+     * @type {WIA_PATCH_CODE_INFO}
      */
-    PatchCodes{
+    PatchCodes {
         get {
             if(!this.HasProp("__PatchCodesProxyArray"))
                 this.__PatchCodesProxyArray := Win32FixedArray(this.ptr + 16, 1, WIA_PATCH_CODE_INFO, "")

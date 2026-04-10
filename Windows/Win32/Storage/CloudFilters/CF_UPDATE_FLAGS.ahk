@@ -5,9 +5,8 @@
  * Flags for updating a placeholder file or directory.
  * @see https://learn.microsoft.com/windows/win32/api/cfapi/ne-cfapi-cf_update_flags
  * @namespace Windows.Win32.Storage.CloudFilters
- * @version v4.0.30319
  */
-class CF_UPDATE_FLAGS extends Win32BitflagEnum{
+class CF_UPDATE_FLAGS extends Win32BitflagEnum {
 
     /**
      * `0x00000000`

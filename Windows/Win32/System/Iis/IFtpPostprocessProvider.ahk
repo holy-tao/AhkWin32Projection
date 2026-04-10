@@ -5,9 +5,8 @@
 
 /**
  * @namespace Windows.Win32.System.Iis
- * @version v4.0.30319
  */
-class IFtpPostprocessProvider extends IUnknown{
+class IFtpPostprocessProvider extends IUnknown {
 
     static sizeof => A_PtrSize
     /**
@@ -31,7 +30,7 @@ class IFtpPostprocessProvider extends IUnknown{
     /**
      * 
      * @param {Pointer<POST_PROCESS_PARAMETERS>} pPostProcessParameters 
-     * @returns {Integer} 
+     * @returns {FTP_PROCESS_STATUS} 
      */
     HandlePostprocess(pPostProcessParameters) {
         result := ComCall(3, this, "ptr", pPostProcessParameters, "int*", &pFtpProcessStatus := 0, "HRESULT")

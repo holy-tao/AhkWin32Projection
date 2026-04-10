@@ -3,10 +3,8 @@
 
 /**
  * @namespace Windows.Win32.Devices.Nfc
- * @version v4.0.30319
  */
-class NFC_SE_TECH_ROUTING_INFO extends Win32Struct
-{
+class NFC_SE_TECH_ROUTING_INFO extends Win32Struct {
     static sizeof => 16
 
     static packingSize => 8

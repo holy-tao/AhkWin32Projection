@@ -17,9 +17,8 @@
  * A text service can use the notifications of this interface to prevent itself from performing any context initialization during the context cleanup operation.
  * @see https://learn.microsoft.com/windows/win32/api/msctf/nn-msctf-itfcleanupcontextdurationsink
  * @namespace Windows.Win32.UI.TextServices
- * @version v4.0.30319
  */
-class ITfCleanupContextDurationSink extends IUnknown{
+class ITfCleanupContextDurationSink extends IUnknown {
 
     static sizeof => A_PtrSize
     /**

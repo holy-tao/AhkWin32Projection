@@ -1,17 +1,16 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
+#Include ..\Com\IDispatch.ahk
 #Include ..\Com\IUnknown.ahk
 #Include .\IRDPSRAPIWindow.ahk
-#Include ..\Com\IDispatch.ahk
 
 /**
  * Manages the window list.
  * @see https://learn.microsoft.com/windows/win32/api/rdpencomapi/nn-rdpencomapi-irdpsrapiwindowlist
  * @namespace Windows.Win32.System.DesktopSharing
- * @version v4.0.30319
  */
-class IRDPSRAPIWindowList extends IDispatch{
+class IRDPSRAPIWindowList extends IDispatch {
 
     static sizeof => A_PtrSize
     /**

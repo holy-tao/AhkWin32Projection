@@ -7,9 +7,8 @@
  * Callback interface for the IMFPMediaPlayer interface.
  * @see https://learn.microsoft.com/windows/win32/api/mfplay/nn-mfplay-imfpmediaplayercallback
  * @namespace Windows.Win32.Media.MediaFoundation
- * @version v4.0.30319
  */
-class IMFPMediaPlayerCallback extends IUnknown{
+class IMFPMediaPlayerCallback extends IUnknown {
 
     static sizeof => A_PtrSize
     /**

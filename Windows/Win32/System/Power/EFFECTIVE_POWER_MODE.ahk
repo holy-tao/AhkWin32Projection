@@ -5,9 +5,8 @@
  * Indicates the effective power mode the system is running.
  * @see https://learn.microsoft.com/windows/win32/api/powersetting/ne-powersetting-effective_power_mode
  * @namespace Windows.Win32.System.Power
- * @version v4.0.30319
  */
-class EFFECTIVE_POWER_MODE extends Win32Enum{
+class EFFECTIVE_POWER_MODE extends Win32Enum {
 
     /**
      * The system is in battery saver mode.

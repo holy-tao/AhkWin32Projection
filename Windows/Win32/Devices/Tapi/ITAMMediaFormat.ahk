@@ -7,9 +7,8 @@
  * The ITAMMediaFormat interface (tapi3ds.h) sets and gets DirectShow media format.
  * @see https://learn.microsoft.com/windows/win32/api/tapi3ds/nn-tapi3ds-itammediaformat
  * @namespace Windows.Win32.Devices.Tapi
- * @version v4.0.30319
  */
-class ITAMMediaFormat extends IUnknown{
+class ITAMMediaFormat extends IUnknown {
 
     static sizeof => A_PtrSize
     /**

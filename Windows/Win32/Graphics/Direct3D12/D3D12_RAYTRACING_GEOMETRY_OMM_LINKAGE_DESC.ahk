@@ -1,13 +1,12 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
 #Include .\D3D12_GPU_VIRTUAL_ADDRESS_AND_STRIDE.ahk
+#Include ..\Dxgi\Common\DXGI_FORMAT.ahk
 
 /**
  * @namespace Windows.Win32.Graphics.Direct3D12
- * @version v4.0.30319
  */
-class D3D12_RAYTRACING_GEOMETRY_OMM_LINKAGE_DESC extends Win32Struct
-{
+class D3D12_RAYTRACING_GEOMETRY_OMM_LINKAGE_DESC extends Win32Struct {
     static sizeof => 32
 
     static packingSize => 8
@@ -15,7 +14,7 @@ class D3D12_RAYTRACING_GEOMETRY_OMM_LINKAGE_DESC extends Win32Struct
     /**
      * @type {D3D12_GPU_VIRTUAL_ADDRESS_AND_STRIDE}
      */
-    OpacityMicromapIndexBuffer{
+    OpacityMicromapIndexBuffer {
         get {
             if(!this.HasProp("__OpacityMicromapIndexBuffer"))
                 this.__OpacityMicromapIndexBuffer := D3D12_GPU_VIRTUAL_ADDRESS_AND_STRIDE(0, this)
@@ -24,7 +23,7 @@ class D3D12_RAYTRACING_GEOMETRY_OMM_LINKAGE_DESC extends Win32Struct
     }
 
     /**
-     * @type {Integer}
+     * @type {DXGI_FORMAT}
      */
     OpacityMicromapIndexFormat {
         get => NumGet(this, 16, "int")

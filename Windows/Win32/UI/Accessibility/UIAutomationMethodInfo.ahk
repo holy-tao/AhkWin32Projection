@@ -1,14 +1,13 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
+#Include .\UIAutomationType.ahk
 
 /**
  * Contains information about a method that is supported by a custom control pattern.
  * @see https://learn.microsoft.com/windows/win32/api/uiautomationcore/ns-uiautomationcore-uiautomationmethodinfo
  * @namespace Windows.Win32.UI.Accessibility
- * @version v4.0.30319
  */
-class UIAutomationMethodInfo extends Win32Struct
-{
+class UIAutomationMethodInfo extends Win32Struct {
     static sizeof => 40
 
     static packingSize => 8
@@ -61,7 +60,7 @@ class UIAutomationMethodInfo extends Win32Struct
      * Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/uiautomationcore/ne-uiautomationcore-uiautomationtype">UIAutomationType</a>*</b>
      * 
      * A pointer to an array of values indicating the data types of the parameters of the method. The data types of the In parameters should be first, followed by those of the Out parameters.
-     * @type {Pointer<Integer>}
+     * @type {Pointer<UIAutomationType>}
      */
     pParameterTypes {
         get => NumGet(this, 24, "ptr")

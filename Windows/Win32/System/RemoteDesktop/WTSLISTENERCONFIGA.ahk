@@ -8,11 +8,9 @@
  * > The wtsapi32.h header defines WTSLISTENERCONFIG as an alias which automatically selects the ANSI or Unicode version of this function based on the definition of the UNICODE preprocessor constant. Mixing usage of the encoding-neutral alias with code that not encoding-neutral can lead to mismatches that result in compilation or runtime errors. For more information, see [Conventions for Function Prototypes](/windows/win32/intl/conventions-for-function-prototypes).
  * @see https://learn.microsoft.com/windows/win32/api/wtsapi32/ns-wtsapi32-wtslistenerconfiga
  * @namespace Windows.Win32.System.RemoteDesktop
- * @version v4.0.30319
  * @charset ANSI
  */
-class WTSLISTENERCONFIGA extends Win32Struct
-{
+class WTSLISTENERCONFIGA extends Win32Struct {
     static sizeof => 728
 
     static packingSize => 4
@@ -27,7 +25,6 @@ class WTSLISTENERCONFIGA extends Win32Struct
     }
 
     /**
-     * 
      * @type {Integer}
      */
     fEnableListener {
@@ -45,7 +42,6 @@ class WTSLISTENERCONFIGA extends Win32Struct
     }
 
     /**
-     * 
      * @type {Integer}
      */
     fPromptForPassword {
@@ -54,7 +50,6 @@ class WTSLISTENERCONFIGA extends Win32Struct
     }
 
     /**
-     * 
      * @type {Integer}
      */
     fInheritColorDepth {
@@ -63,7 +58,6 @@ class WTSLISTENERCONFIGA extends Win32Struct
     }
 
     /**
-     * 
      * @type {Integer}
      */
     ColorDepth {
@@ -72,7 +66,6 @@ class WTSLISTENERCONFIGA extends Win32Struct
     }
 
     /**
-     * 
      * @type {Integer}
      */
     fInheritBrokenTimeoutSettings {
@@ -81,7 +74,6 @@ class WTSLISTENERCONFIGA extends Win32Struct
     }
 
     /**
-     * 
      * @type {Integer}
      */
     BrokenTimeoutSettings {
@@ -90,7 +82,6 @@ class WTSLISTENERCONFIGA extends Win32Struct
     }
 
     /**
-     * 
      * @type {Integer}
      */
     fDisablePrinterRedirection {
@@ -99,7 +90,6 @@ class WTSLISTENERCONFIGA extends Win32Struct
     }
 
     /**
-     * 
      * @type {Integer}
      */
     fDisableDriveRedirection {
@@ -108,7 +98,6 @@ class WTSLISTENERCONFIGA extends Win32Struct
     }
 
     /**
-     * 
      * @type {Integer}
      */
     fDisableComPortRedirection {
@@ -117,7 +106,6 @@ class WTSLISTENERCONFIGA extends Win32Struct
     }
 
     /**
-     * 
      * @type {Integer}
      */
     fDisableLPTPortRedirection {
@@ -126,7 +114,6 @@ class WTSLISTENERCONFIGA extends Win32Struct
     }
 
     /**
-     * 
      * @type {Integer}
      */
     fDisableClipboardRedirection {
@@ -135,7 +122,6 @@ class WTSLISTENERCONFIGA extends Win32Struct
     }
 
     /**
-     * 
      * @type {Integer}
      */
     fDisableAudioRedirection {
@@ -144,7 +130,6 @@ class WTSLISTENERCONFIGA extends Win32Struct
     }
 
     /**
-     * 
      * @type {Integer}
      */
     fDisablePNPRedirection {
@@ -153,7 +138,6 @@ class WTSLISTENERCONFIGA extends Win32Struct
     }
 
     /**
-     * 
      * @type {Integer}
      */
     fDisableDefaultMainClientPrinter {
@@ -180,7 +164,6 @@ class WTSLISTENERCONFIGA extends Win32Struct
     }
 
     /**
-     * 
      * @type {Integer}
      */
     fInheritShadowSettings {
@@ -189,7 +172,6 @@ class WTSLISTENERCONFIGA extends Win32Struct
     }
 
     /**
-     * 
      * @type {Integer}
      */
     ShadowSettings {
@@ -225,7 +207,6 @@ class WTSLISTENERCONFIGA extends Win32Struct
     }
 
     /**
-     * 
      * @type {Integer}
      */
     SecurityLayer {
@@ -243,7 +224,6 @@ class WTSLISTENERCONFIGA extends Win32Struct
     }
 
     /**
-     * 
      * @type {Integer}
      */
     UserAuthentication {

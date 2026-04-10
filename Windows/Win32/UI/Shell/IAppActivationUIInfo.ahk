@@ -1,15 +1,14 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
+#Include ..\..\System\Com\IUnknown.ahk
 #Include ..\..\Graphics\Gdi\HMONITOR.ahk
 #Include ..\..\Foundation\POINT.ahk
-#Include ..\..\System\Com\IUnknown.ahk
 
 /**
  * @namespace Windows.Win32.UI.Shell
- * @version v4.0.30319
  */
-class IAppActivationUIInfo extends IUnknown{
+class IAppActivationUIInfo extends IUnknown {
 
     static sizeof => A_PtrSize
     /**

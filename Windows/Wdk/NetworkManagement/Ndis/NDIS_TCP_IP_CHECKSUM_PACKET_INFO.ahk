@@ -3,10 +3,8 @@
 
 /**
  * @namespace Windows.Wdk.NetworkManagement.Ndis
- * @version v4.0.30319
  */
-class NDIS_TCP_IP_CHECKSUM_PACKET_INFO extends Win32Struct
-{
+class NDIS_TCP_IP_CHECKSUM_PACKET_INFO extends Win32Struct {
     static sizeof => 4
 
     static packingSize => 4
@@ -28,7 +26,7 @@ class NDIS_TCP_IP_CHECKSUM_PACKET_INFO extends Win32Struct
             get => NumGet(this, 0, "uint")
             set => NumPut("uint", value, this, 0)
         }
-    
+
         /**
          * @type {Integer}
          */
@@ -36,7 +34,7 @@ class NDIS_TCP_IP_CHECKSUM_PACKET_INFO extends Win32Struct
             get => (this._bitfield >> 0) & 0x1
             set => this._bitfield := ((value & 0x1) << 0) | (this._bitfield & ~(0x1 << 0))
         }
-    
+
         /**
          * @type {Integer}
          */
@@ -44,7 +42,7 @@ class NDIS_TCP_IP_CHECKSUM_PACKET_INFO extends Win32Struct
             get => (this._bitfield >> 1) & 0x1
             set => this._bitfield := ((value & 0x1) << 1) | (this._bitfield & ~(0x1 << 1))
         }
-    
+
         /**
          * @type {Integer}
          */
@@ -52,7 +50,7 @@ class NDIS_TCP_IP_CHECKSUM_PACKET_INFO extends Win32Struct
             get => (this._bitfield >> 2) & 0x1
             set => this._bitfield := ((value & 0x1) << 2) | (this._bitfield & ~(0x1 << 2))
         }
-    
+
         /**
          * @type {Integer}
          */
@@ -60,7 +58,7 @@ class NDIS_TCP_IP_CHECKSUM_PACKET_INFO extends Win32Struct
             get => (this._bitfield >> 3) & 0x1
             set => this._bitfield := ((value & 0x1) << 3) | (this._bitfield & ~(0x1 << 3))
         }
-    
+
         /**
          * @type {Integer}
          */
@@ -68,7 +66,6 @@ class NDIS_TCP_IP_CHECKSUM_PACKET_INFO extends Win32Struct
             get => (this._bitfield >> 4) & 0x1
             set => this._bitfield := ((value & 0x1) << 4) | (this._bitfield & ~(0x1 << 4))
         }
-    
     }
 
     class _Receive extends Win32Struct {
@@ -90,7 +87,7 @@ class NDIS_TCP_IP_CHECKSUM_PACKET_INFO extends Win32Struct
             get => NumGet(this, 0, "uint")
             set => NumPut("uint", value, this, 0)
         }
-    
+
         /**
          * @type {Integer}
          */
@@ -98,7 +95,7 @@ class NDIS_TCP_IP_CHECKSUM_PACKET_INFO extends Win32Struct
             get => (this._bitfield >> 0) & 0x1
             set => this._bitfield := ((value & 0x1) << 0) | (this._bitfield & ~(0x1 << 0))
         }
-    
+
         /**
          * @type {Integer}
          */
@@ -106,7 +103,7 @@ class NDIS_TCP_IP_CHECKSUM_PACKET_INFO extends Win32Struct
             get => (this._bitfield >> 1) & 0x1
             set => this._bitfield := ((value & 0x1) << 1) | (this._bitfield & ~(0x1 << 1))
         }
-    
+
         /**
          * @type {Integer}
          */
@@ -114,7 +111,7 @@ class NDIS_TCP_IP_CHECKSUM_PACKET_INFO extends Win32Struct
             get => (this._bitfield >> 2) & 0x1
             set => this._bitfield := ((value & 0x1) << 2) | (this._bitfield & ~(0x1 << 2))
         }
-    
+
         /**
          * @type {Integer}
          */
@@ -122,7 +119,7 @@ class NDIS_TCP_IP_CHECKSUM_PACKET_INFO extends Win32Struct
             get => (this._bitfield >> 3) & 0x1
             set => this._bitfield := ((value & 0x1) << 3) | (this._bitfield & ~(0x1 << 3))
         }
-    
+
         /**
          * @type {Integer}
          */
@@ -130,7 +127,7 @@ class NDIS_TCP_IP_CHECKSUM_PACKET_INFO extends Win32Struct
             get => (this._bitfield >> 4) & 0x1
             set => this._bitfield := ((value & 0x1) << 4) | (this._bitfield & ~(0x1 << 4))
         }
-    
+
         /**
          * @type {Integer}
          */
@@ -138,7 +135,7 @@ class NDIS_TCP_IP_CHECKSUM_PACKET_INFO extends Win32Struct
             get => (this._bitfield >> 5) & 0x1
             set => this._bitfield := ((value & 0x1) << 5) | (this._bitfield & ~(0x1 << 5))
         }
-    
+
         /**
          * @type {Integer}
          */
@@ -146,16 +143,15 @@ class NDIS_TCP_IP_CHECKSUM_PACKET_INFO extends Win32Struct
             get => (this._bitfield >> 6) & 0x1
             set => this._bitfield := ((value & 0x1) << 6) | (this._bitfield & ~(0x1 << 6))
         }
-    
     }
 
     /**
      * @type {_Transmit}
      */
-    Transmit{
+    Transmit {
         get {
             if(!this.HasProp("__Transmit"))
-                this.__Transmit := %this.__Class%._Transmit(0, this)
+                this.__Transmit := NDIS_TCP_IP_CHECKSUM_PACKET_INFO._Transmit(0, this)
             return this.__Transmit
         }
     }
@@ -163,10 +159,10 @@ class NDIS_TCP_IP_CHECKSUM_PACKET_INFO extends Win32Struct
     /**
      * @type {_Receive}
      */
-    Receive{
+    Receive {
         get {
             if(!this.HasProp("__Receive"))
-                this.__Receive := %this.__Class%._Receive(0, this)
+                this.__Receive := NDIS_TCP_IP_CHECKSUM_PACKET_INFO._Receive(0, this)
             return this.__Receive
         }
     }

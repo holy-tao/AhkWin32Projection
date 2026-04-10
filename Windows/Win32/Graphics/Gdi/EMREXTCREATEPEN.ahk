@@ -1,16 +1,15 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
 #Include .\EMR.ahk
+#Include .\ENHANCED_METAFILE_RECORD_TYPE.ahk
 #Include .\EXTLOGPEN32.ahk
 
 /**
  * The EMREXTCREATEPEN structure contains members for the ExtCreatePen enhanced metafile record. If the record contains a BITMAPINFO structure, it is followed by the bitmap bits that form a packed device-independent bitmap (DIB).
  * @see https://learn.microsoft.com/windows/win32/api/wingdi/ns-wingdi-emrextcreatepen
  * @namespace Windows.Win32.Graphics.Gdi
- * @version v4.0.30319
  */
-class EMREXTCREATEPEN extends Win32Struct
-{
+class EMREXTCREATEPEN extends Win32Struct {
     static sizeof => 56
 
     static packingSize => 4
@@ -19,7 +18,7 @@ class EMREXTCREATEPEN extends Win32Struct
      * The base structure for all record types.
      * @type {EMR}
      */
-    emr{
+    emr {
         get {
             if(!this.HasProp("__emr"))
                 this.__emr := EMR(0, this)
@@ -76,7 +75,7 @@ class EMREXTCREATEPEN extends Win32Struct
      * Extended logical pen, including the <b>elpStyleEntry</b> member of the <a href="https://docs.microsoft.com/windows/desktop/api/wingdi/ns-wingdi-extlogpen">EXTLOGPEN</a> structure.
      * @type {EXTLOGPEN32}
      */
-    elp{
+    elp {
         get {
             if(!this.HasProp("__elp"))
                 this.__elp := EXTLOGPEN32(28, this)

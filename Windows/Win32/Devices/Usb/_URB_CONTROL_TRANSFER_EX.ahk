@@ -5,10 +5,8 @@
 
 /**
  * @namespace Windows.Win32.Devices.Usb
- * @version v4.0.30319
  */
-class _URB_CONTROL_TRANSFER_EX extends Win32Struct
-{
+class _URB_CONTROL_TRANSFER_EX extends Win32Struct {
     static sizeof => 136
 
     static packingSize => 8
@@ -16,7 +14,7 @@ class _URB_CONTROL_TRANSFER_EX extends Win32Struct
     /**
      * @type {_URB_HEADER}
      */
-    Hdr{
+    Hdr {
         get {
             if(!this.HasProp("__Hdr"))
                 this.__Hdr := _URB_HEADER(0, this)
@@ -75,7 +73,7 @@ class _URB_CONTROL_TRANSFER_EX extends Win32Struct
     /**
      * @type {_URB_HCD_AREA}
      */
-    hca{
+    hca {
         get {
             if(!this.HasProp("__hca"))
                 this.__hca := _URB_HCD_AREA(64, this)
@@ -84,9 +82,9 @@ class _URB_CONTROL_TRANSFER_EX extends Win32Struct
     }
 
     /**
-     * @type {Array<Byte>}
+     * @type {Array<Integer>}
      */
-    SetupPacket{
+    SetupPacket {
         get {
             if(!this.HasProp("__SetupPacketProxyArray"))
                 this.__SetupPacketProxyArray := Win32FixedArray(this.ptr + 128, 8, Primitive, "char")

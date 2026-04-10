@@ -4,10 +4,8 @@
 
 /**
  * @namespace Windows.Win32.System.SystemServices
- * @version v4.0.30319
  */
-class IMAGE_AUX_SYMBOL_EX extends Win32Struct
-{
+class IMAGE_AUX_SYMBOL_EX extends Win32Struct {
     static sizeof => 104
 
     static packingSize => 4
@@ -23,7 +21,7 @@ class IMAGE_AUX_SYMBOL_EX extends Win32Struct
             get => NumGet(this, 0, "uint")
             set => NumPut("uint", value, this, 0)
         }
-    
+
         /**
          * @type {Integer}
          */
@@ -31,18 +29,17 @@ class IMAGE_AUX_SYMBOL_EX extends Win32Struct
             get => NumGet(this, 4, "uint")
             set => NumPut("uint", value, this, 4)
         }
-    
+
         /**
-         * @type {Array<Byte>}
+         * @type {Array<Integer>}
          */
-        rgbReserved{
+        rgbReserved {
             get {
                 if(!this.HasProp("__rgbReservedProxyArray"))
                     this.__rgbReservedProxyArray := Win32FixedArray(this.ptr + 8, 12, Primitive, "char")
                 return this.__rgbReservedProxyArray
             }
         }
-    
     }
 
     class _File extends Win32Struct {
@@ -50,16 +47,15 @@ class IMAGE_AUX_SYMBOL_EX extends Win32Struct
         static packingSize => 1
 
         /**
-         * @type {Array<Byte>}
+         * @type {Array<Integer>}
          */
-        Name{
+        Name {
             get {
                 if(!this.HasProp("__NameProxyArray"))
                     this.__NameProxyArray := Win32FixedArray(this.ptr + 0, 20, Primitive, "char")
                 return this.__NameProxyArray
             }
         }
-    
     }
 
     class _Section extends Win32Struct {
@@ -73,7 +69,7 @@ class IMAGE_AUX_SYMBOL_EX extends Win32Struct
             get => NumGet(this, 0, "uint")
             set => NumPut("uint", value, this, 0)
         }
-    
+
         /**
          * @type {Integer}
          */
@@ -81,7 +77,7 @@ class IMAGE_AUX_SYMBOL_EX extends Win32Struct
             get => NumGet(this, 4, "ushort")
             set => NumPut("ushort", value, this, 4)
         }
-    
+
         /**
          * @type {Integer}
          */
@@ -89,7 +85,7 @@ class IMAGE_AUX_SYMBOL_EX extends Win32Struct
             get => NumGet(this, 6, "ushort")
             set => NumPut("ushort", value, this, 6)
         }
-    
+
         /**
          * @type {Integer}
          */
@@ -97,7 +93,7 @@ class IMAGE_AUX_SYMBOL_EX extends Win32Struct
             get => NumGet(this, 8, "uint")
             set => NumPut("uint", value, this, 8)
         }
-    
+
         /**
          * @type {Integer}
          */
@@ -105,7 +101,7 @@ class IMAGE_AUX_SYMBOL_EX extends Win32Struct
             get => NumGet(this, 12, "short")
             set => NumPut("short", value, this, 12)
         }
-    
+
         /**
          * @type {Integer}
          */
@@ -113,7 +109,7 @@ class IMAGE_AUX_SYMBOL_EX extends Win32Struct
             get => NumGet(this, 14, "char")
             set => NumPut("char", value, this, 14)
         }
-    
+
         /**
          * @type {Integer}
          */
@@ -121,7 +117,7 @@ class IMAGE_AUX_SYMBOL_EX extends Win32Struct
             get => NumGet(this, 15, "char")
             set => NumPut("char", value, this, 15)
         }
-    
+
         /**
          * @type {Integer}
          */
@@ -129,18 +125,17 @@ class IMAGE_AUX_SYMBOL_EX extends Win32Struct
             get => NumGet(this, 16, "short")
             set => NumPut("short", value, this, 16)
         }
-    
+
         /**
-         * @type {Array<Byte>}
+         * @type {Array<Integer>}
          */
-        rgbReserved{
+        rgbReserved {
             get {
                 if(!this.HasProp("__rgbReservedProxyArray"))
                     this.__rgbReservedProxyArray := Win32FixedArray(this.ptr + 18, 2, Primitive, "char")
                 return this.__rgbReservedProxyArray
             }
         }
-    
     }
 
     class _CRC extends Win32Struct {
@@ -154,27 +149,26 @@ class IMAGE_AUX_SYMBOL_EX extends Win32Struct
             get => NumGet(this, 0, "uint")
             set => NumPut("uint", value, this, 0)
         }
-    
+
         /**
-         * @type {Array<Byte>}
+         * @type {Array<Integer>}
          */
-        rgbReserved{
+        rgbReserved {
             get {
                 if(!this.HasProp("__rgbReservedProxyArray"))
                     this.__rgbReservedProxyArray := Win32FixedArray(this.ptr + 4, 16, Primitive, "char")
                 return this.__rgbReservedProxyArray
             }
         }
-    
     }
 
     /**
      * @type {_Sym}
      */
-    Sym{
+    Sym {
         get {
             if(!this.HasProp("__Sym"))
-                this.__Sym := %this.__Class%._Sym(0, this)
+                this.__Sym := IMAGE_AUX_SYMBOL_EX._Sym(0, this)
             return this.__Sym
         }
     }
@@ -182,10 +176,10 @@ class IMAGE_AUX_SYMBOL_EX extends Win32Struct
     /**
      * @type {_File}
      */
-    File{
+    File {
         get {
             if(!this.HasProp("__File"))
-                this.__File := %this.__Class%._File(0, this)
+                this.__File := IMAGE_AUX_SYMBOL_EX._File(0, this)
             return this.__File
         }
     }
@@ -193,10 +187,10 @@ class IMAGE_AUX_SYMBOL_EX extends Win32Struct
     /**
      * @type {_Section}
      */
-    Section{
+    Section {
         get {
             if(!this.HasProp("__Section"))
-                this.__Section := %this.__Class%._Section(0, this)
+                this.__Section := IMAGE_AUX_SYMBOL_EX._Section(0, this)
             return this.__Section
         }
     }
@@ -204,7 +198,7 @@ class IMAGE_AUX_SYMBOL_EX extends Win32Struct
     /**
      * @type {IMAGE_AUX_SYMBOL_TOKEN_DEF}
      */
-    TokenDef{
+    TokenDef {
         get {
             if(!this.HasProp("__TokenDef"))
                 this.__TokenDef := IMAGE_AUX_SYMBOL_TOKEN_DEF(0, this)
@@ -213,9 +207,9 @@ class IMAGE_AUX_SYMBOL_EX extends Win32Struct
     }
 
     /**
-     * @type {Array<Byte>}
+     * @type {Array<Integer>}
      */
-    rgbReserved{
+    rgbReserved {
         get {
             if(!this.HasProp("__rgbReservedProxyArray"))
                 this.__rgbReservedProxyArray := Win32FixedArray(this.ptr + 20, 2, Primitive, "char")
@@ -226,10 +220,10 @@ class IMAGE_AUX_SYMBOL_EX extends Win32Struct
     /**
      * @type {_CRC}
      */
-    CRC{
+    CRC {
         get {
             if(!this.HasProp("__CRC"))
-                this.__CRC := %this.__Class%._CRC(0, this)
+                this.__CRC := IMAGE_AUX_SYMBOL_EX._CRC(0, this)
             return this.__CRC
         }
     }

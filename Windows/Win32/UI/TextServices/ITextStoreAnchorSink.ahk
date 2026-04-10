@@ -7,9 +7,8 @@
  * The ITextStoreAnchorSink interface is implemented by the TSF manager and is used by an anchor-based application to notify the manager when certain events occur. The manager installs this advise sink by calling ITextStoreAnchor::AdviseSink.
  * @see https://learn.microsoft.com/windows/win32/api/textstor/nn-textstor-itextstoreanchorsink
  * @namespace Windows.Win32.UI.TextServices
- * @version v4.0.30319
  */
-class ITextStoreAnchorSink extends IUnknown{
+class ITextStoreAnchorSink extends IUnknown {
 
     static sizeof => A_PtrSize
     /**
@@ -36,7 +35,7 @@ class ITextStoreAnchorSink extends IUnknown{
      * This method is called only when the application modifies its own text, not when a client modifies text with one of the <b>ITextStoreAnchor</b> methods, such as <b>ITextStoreAnchor::SetText</b> or <a href="https://docs.microsoft.com/windows/desktop/api/textstor/nf-textstor-itextstoreanchor-inserttextatselection">ITextStoreAnchor::InsertTextAtSelection</a>.
      * 
      * When calling this method, the application must be able to grant a <a href="https://docs.microsoft.com/windows/desktop/TSF/document-locks">document lock</a>.
-     * @param {Integer} dwFlags 
+     * @param {TEXT_STORE_CHANGE_FLAGS} dwFlags 
      * @param {IAnchor} paStart Pointer to an anchor located at the start of the changed text.
      * @param {IAnchor} paEnd Pointer to an anchor located at the end of the changed text.
      * @returns {HRESULT} This method can return one of these values.
@@ -160,7 +159,7 @@ class ITextStoreAnchorSink extends IUnknown{
      * A layout change can be in response to a change to the text, font size, window movement, window resizing, or other change that affects the displayed text.
      * 
      * If a call to <a href="https://docs.microsoft.com/windows/desktop/api/textstor/nf-textstor-itextstoreanchor-gettextext">ITextStoreAnchor::GetTextExt</a> or <a href="https://docs.microsoft.com/windows/desktop/api/textstor/nf-textstor-itextstoreanchor-getanchorfrompoint">ITextStoreAnchor::GetAnchorFromPoint</a> returns TS_E_NOLAYOUT because the application has not calculated the layout, the application must call <b>ITextStoreAnchorSink::OnLayoutChange</b> when the layout is available.
-     * @param {Integer} lcode Contains a <a href="https://docs.microsoft.com/windows/win32/api/textstor/ne-textstor-tslayoutcode">TsLayoutCode</a> value that defines the type of change.
+     * @param {TsLayoutCode} lcode Contains a <a href="https://docs.microsoft.com/windows/win32/api/textstor/ne-textstor-tslayoutcode">TsLayoutCode</a> value that defines the type of change.
      * @param {Integer} vcView Contains an application-defined cookie that identifies the document. For more information, see <a href="https://docs.microsoft.com/windows/desktop/api/textstor/nf-textstor-itextstoreanchor-getactiveview">ITextStoreAnchor::GetActiveView</a>.
      * @returns {HRESULT} This method can return one of these values.
      * 
@@ -274,7 +273,7 @@ class ITextStoreAnchorSink extends IUnknown{
      * Applications must not call any of the <a href="https://docs.microsoft.com/windows/desktop/api/textstor/nn-textstor-itextstoreanchorsink">ITextStoreAnchorSink</a> methods from within the context of <b>OnLockGranted</b>.
      * 
      * If a synchronous lock request is made from within <b>ITextStoreAnchor::RequestLock</b>, then the caller must also provide the return value from <b>ITextStoreAnchor::RequestLock</b>.
-     * @param {Integer} dwLockFlags 
+     * @param {TEXT_STORE_LOCK_FLAGS} dwLockFlags 
      * @returns {HRESULT} This method can return one of these values.
      * 
      * <table>

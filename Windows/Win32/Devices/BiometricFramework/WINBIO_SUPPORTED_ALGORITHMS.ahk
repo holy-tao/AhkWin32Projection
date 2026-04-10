@@ -4,10 +4,8 @@
 
 /**
  * @namespace Windows.Win32.Devices.BiometricFramework
- * @version v4.0.30319
  */
-class WINBIO_SUPPORTED_ALGORITHMS extends Win32Struct
-{
+class WINBIO_SUPPORTED_ALGORITHMS extends Win32Struct {
     static sizeof => 20
 
     static packingSize => 4
@@ -39,7 +37,7 @@ class WINBIO_SUPPORTED_ALGORITHMS extends Win32Struct
     /**
      * @type {WINBIO_DATA}
      */
-    AlgorithmData{
+    AlgorithmData {
         get {
             if(!this.HasProp("__AlgorithmData"))
                 this.__AlgorithmData := WINBIO_DATA(12, this)

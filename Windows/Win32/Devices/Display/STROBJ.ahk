@@ -1,6 +1,7 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
 #Include ..\..\Foundation\RECTL.ahk
+#Include .\GLYPHPOS.ahk
 
 /**
  * The STROBJ class, or text string object, contains an enumeration of glyph handles and positions for the device driver.
@@ -8,10 +9,8 @@
  * A driver can call <a href="https://docs.microsoft.com/windows/desktop/api/winddi/nf-winddi-strobj_venumstart">STROBJ_vEnumStart</a> and <a href="https://docs.microsoft.com/windows/desktop/api/winddi/nf-winddi-strobj_benum">STROBJ_bEnum</a> to obtain identities and positions of glyphs in the string. If <i>pgp</i> is not <b>NULL</b>, it points to a GLYPHPOS array describing the whole string and only a single call to <b>STROBJ_bEnum</b> is required. If <i>pgp</i> is <b>NULL</b>, <b>STROBJ_bEnum</b> will have to be called repeatedly in a loop to obtain all the string's glyph positions.
  * @see https://learn.microsoft.com/windows/win32/api/winddi/ns-winddi-strobj
  * @namespace Windows.Win32.Devices.Display
- * @version v4.0.30319
  */
-class STROBJ extends Win32Struct
-{
+class STROBJ extends Win32Struct {
     static sizeof => 48
 
     static packingSize => 8
@@ -26,7 +25,6 @@ class STROBJ extends Win32Struct
     }
 
     /**
-     * 
      * @type {Integer}
      */
     flAccel {
@@ -47,7 +45,7 @@ class STROBJ extends Win32Struct
      * Specifies a <a href="https://docs.microsoft.com/windows/desktop/api/windef/ns-windef-rectl">RECTL</a> structure that describes the bounding box for the string.
      * @type {RECTL}
      */
-    rclBkGround{
+    rclBkGround {
         get {
             if(!this.HasProp("__rclBkGround"))
                 this.__rclBkGround := RECTL(12, this)

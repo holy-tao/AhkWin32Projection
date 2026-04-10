@@ -11,10 +11,8 @@
  * <a href="https://docs.microsoft.com/windows/desktop/api/http/nf-http-httpreceiveclientcertificate">HttpReceiveClientCertificate</a> function to return data about the client certificate through the <i>pSslClientCertInfo</i> parameter.
  * @see https://learn.microsoft.com/windows/win32/api/http/ns-http-http_ssl_client_cert_info
  * @namespace Windows.Win32.Networking.HttpServer
- * @version v4.0.30319
  */
-class HTTP_SSL_CLIENT_CERT_INFO extends Win32Struct
-{
+class HTTP_SSL_CLIENT_CERT_INFO extends Win32Struct {
     static sizeof => 32
 
     static packingSize => 8
@@ -57,7 +55,7 @@ class HTTP_SSL_CLIENT_CERT_INFO extends Win32Struct
      * <b>HTTP_SSL_CLIENT_CERT_INFO</b> structure is no longer required, release this token explicitly by closing the handle.
      * @type {HANDLE}
      */
-    Token{
+    Token {
         get {
             if(!this.HasProp("__Token"))
                 this.__Token := HANDLE(16, this)

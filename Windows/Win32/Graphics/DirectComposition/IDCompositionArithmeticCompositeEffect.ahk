@@ -7,9 +7,8 @@
  * The arithmetic composite effect is used to combine 2 images using a weighted sum of pixels from the input images. (IDCompositionArithmeticCompositeEffect)
  * @see https://learn.microsoft.com/windows/win32/api/dcomp/nn-dcomp-idcompositionarithmeticcompositeeffect
  * @namespace Windows.Win32.Graphics.DirectComposition
- * @version v4.0.30319
  */
-class IDCompositionArithmeticCompositeEffect extends IDCompositionFilterEffect{
+class IDCompositionArithmeticCompositeEffect extends IDCompositionFilterEffect {
 
     static sizeof => A_PtrSize
     /**

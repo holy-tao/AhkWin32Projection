@@ -1,18 +1,20 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
+#Include .\D3D12_VIDEO_ENCODER_CODEC_CONFIGURATION_SUPPORT_HEVC_FLAGS.ahk
+#Include .\D3D12_VIDEO_ENCODER_CODEC_CONFIGURATION_HEVC_CUSIZE.ahk
+#Include .\D3D12_VIDEO_ENCODER_CODEC_CONFIGURATION_HEVC_TUSIZE.ahk
+#Include .\D3D12_VIDEO_ENCODER_CODEC_CONFIGURATION_SUPPORT_HEVC_FLAGS1.ahk
 
 /**
  * @namespace Windows.Win32.Media.MediaFoundation
- * @version v4.0.30319
  */
-class D3D12_VIDEO_ENCODER_CODEC_CONFIGURATION_SUPPORT_HEVC1 extends Win32Struct
-{
+class D3D12_VIDEO_ENCODER_CODEC_CONFIGURATION_SUPPORT_HEVC1 extends Win32Struct {
     static sizeof => 96
 
     static packingSize => 4
 
     /**
-     * @type {Integer}
+     * @type {D3D12_VIDEO_ENCODER_CODEC_CONFIGURATION_SUPPORT_HEVC_FLAGS}
      */
     SupportFlags {
         get => NumGet(this, 0, "int")
@@ -20,7 +22,7 @@ class D3D12_VIDEO_ENCODER_CODEC_CONFIGURATION_SUPPORT_HEVC1 extends Win32Struct
     }
 
     /**
-     * @type {Integer}
+     * @type {D3D12_VIDEO_ENCODER_CODEC_CONFIGURATION_HEVC_CUSIZE}
      */
     MinLumaCodingUnitSize {
         get => NumGet(this, 4, "int")
@@ -28,7 +30,7 @@ class D3D12_VIDEO_ENCODER_CODEC_CONFIGURATION_SUPPORT_HEVC1 extends Win32Struct
     }
 
     /**
-     * @type {Integer}
+     * @type {D3D12_VIDEO_ENCODER_CODEC_CONFIGURATION_HEVC_CUSIZE}
      */
     MaxLumaCodingUnitSize {
         get => NumGet(this, 8, "int")
@@ -36,7 +38,7 @@ class D3D12_VIDEO_ENCODER_CODEC_CONFIGURATION_SUPPORT_HEVC1 extends Win32Struct
     }
 
     /**
-     * @type {Integer}
+     * @type {D3D12_VIDEO_ENCODER_CODEC_CONFIGURATION_HEVC_TUSIZE}
      */
     MinLumaTransformUnitSize {
         get => NumGet(this, 12, "int")
@@ -44,7 +46,7 @@ class D3D12_VIDEO_ENCODER_CODEC_CONFIGURATION_SUPPORT_HEVC1 extends Win32Struct
     }
 
     /**
-     * @type {Integer}
+     * @type {D3D12_VIDEO_ENCODER_CODEC_CONFIGURATION_HEVC_TUSIZE}
      */
     MaxLumaTransformUnitSize {
         get => NumGet(this, 16, "int")
@@ -108,9 +110,9 @@ class D3D12_VIDEO_ENCODER_CODEC_CONFIGURATION_SUPPORT_HEVC1 extends Win32Struct
     }
 
     /**
-     * @type {Array<UInt32>}
+     * @type {Array<Integer>}
      */
-    allowed_cb_qp_offset_list_values{
+    allowed_cb_qp_offset_list_values {
         get {
             if(!this.HasProp("__allowed_cb_qp_offset_list_valuesProxyArray"))
                 this.__allowed_cb_qp_offset_list_valuesProxyArray := Win32FixedArray(this.ptr + 44, 6, Primitive, "uint")
@@ -119,9 +121,9 @@ class D3D12_VIDEO_ENCODER_CODEC_CONFIGURATION_SUPPORT_HEVC1 extends Win32Struct
     }
 
     /**
-     * @type {Array<UInt32>}
+     * @type {Array<Integer>}
      */
-    allowed_cr_qp_offset_list_values{
+    allowed_cr_qp_offset_list_values {
         get {
             if(!this.HasProp("__allowed_cr_qp_offset_list_valuesProxyArray"))
                 this.__allowed_cr_qp_offset_list_valuesProxyArray := Win32FixedArray(this.ptr + 68, 6, Primitive, "uint")
@@ -130,7 +132,7 @@ class D3D12_VIDEO_ENCODER_CODEC_CONFIGURATION_SUPPORT_HEVC1 extends Win32Struct
     }
 
     /**
-     * @type {Integer}
+     * @type {D3D12_VIDEO_ENCODER_CODEC_CONFIGURATION_SUPPORT_HEVC_FLAGS1}
      */
     SupportFlags1 {
         get => NumGet(this, 92, "int")

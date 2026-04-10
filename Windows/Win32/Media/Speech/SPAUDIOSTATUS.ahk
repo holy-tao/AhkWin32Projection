@@ -1,12 +1,11 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
+#Include .\SPAUDIOSTATE.ahk
 
 /**
  * @namespace Windows.Win32.Media.Speech
- * @version v4.0.30319
  */
-class SPAUDIOSTATUS extends Win32Struct
-{
+class SPAUDIOSTATUS extends Win32Struct {
     static sizeof => 40
 
     static packingSize => 8
@@ -28,7 +27,7 @@ class SPAUDIOSTATUS extends Win32Struct
     }
 
     /**
-     * @type {Integer}
+     * @type {SPAUDIOSTATE}
      */
     State {
         get => NumGet(this, 8, "int")

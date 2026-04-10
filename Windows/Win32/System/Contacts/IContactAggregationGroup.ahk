@@ -1,14 +1,14 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
-#Include .\IContactAggregationAggregateCollection.ahk
 #Include ..\Com\IUnknown.ahk
+#Include .\IContactAggregationAggregateCollection.ahk
+#Include ..\..\..\..\Guid.ahk
 
 /**
  * @namespace Windows.Win32.System.Contacts
- * @version v4.0.30319
  */
-class IContactAggregationGroup extends IUnknown{
+class IContactAggregationGroup extends IUnknown {
 
     static sizeof => A_PtrSize
     /**

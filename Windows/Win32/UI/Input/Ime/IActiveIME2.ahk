@@ -5,9 +5,8 @@
 
 /**
  * @namespace Windows.Win32.UI.Input.Ime
- * @version v4.0.30319
  */
-class IActiveIME2 extends IActiveIME{
+class IActiveIME2 extends IActiveIME {
 
     static sizeof => A_PtrSize
     /**

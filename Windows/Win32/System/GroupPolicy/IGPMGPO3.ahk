@@ -1,14 +1,13 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
-#Include ..\..\Foundation\BSTR.ahk
 #Include .\IGPMGPO2.ahk
+#Include ..\..\Foundation\BSTR.ahk
 
 /**
  * @namespace Windows.Win32.System.GroupPolicy
- * @version v4.0.30319
  */
-class IGPMGPO3 extends IGPMGPO2{
+class IGPMGPO3 extends IGPMGPO2 {
 
     static sizeof => A_PtrSize
     /**
@@ -38,7 +37,7 @@ class IGPMGPO3 extends IGPMGPO2{
     }
 
     /**
-     * @type {HRESULT} 
+     * @type {Integer} 
      */
     InfrastructureFlags {
         set => this.put_InfrastructureFlags(value)

@@ -1,12 +1,11 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\..\Win32Struct.ahk
+#Include .\PROPVARIANT.ahk
 
 /**
  * @namespace Windows.Win32.System.Com.StructuredStorage
- * @version v4.0.30319
  */
-class CAPROPVARIANT extends Win32Struct
-{
+class CAPROPVARIANT extends Win32Struct {
     static sizeof => 16
 
     static packingSize => 8

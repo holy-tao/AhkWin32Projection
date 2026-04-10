@@ -5,9 +5,8 @@
  * Defines shadow copy LUN flags.
  * @see https://learn.microsoft.com/windows/win32/api/vss/ne-vss-vss_hardware_options
  * @namespace Windows.Win32.Storage.Vss
- * @version v4.0.30319
  */
-class VSS_HARDWARE_OPTIONS extends Win32Enum{
+class VSS_HARDWARE_OPTIONS extends Win32Enum {
 
     /**
      * The shadow copy LUN will be masked from the host.

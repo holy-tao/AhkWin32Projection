@@ -5,10 +5,8 @@
  * Returns the security attribute information.
  * @see https://learn.microsoft.com/windows/win32/api/sspi/ns-sspi-secpkgcontext_subjectattributes
  * @namespace Windows.Win32.Security.Authentication.Identity
- * @version v4.0.30319
  */
-class SecPkgContext_SubjectAttributes extends Win32Struct
-{
+class SecPkgContext_SubjectAttributes extends Win32Struct {
     static sizeof => 8
 
     static packingSize => 8

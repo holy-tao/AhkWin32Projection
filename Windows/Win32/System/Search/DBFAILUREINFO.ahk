@@ -3,10 +3,9 @@
 
 /**
  * @namespace Windows.Win32.System.Search
- * @version v4.0.30319
+ * @architecture X64, Arm64
  */
-class DBFAILUREINFO extends Win32Struct
-{
+class DBFAILUREINFO extends Win32Struct {
     static sizeof => 24
 
     static packingSize => 8

@@ -1,17 +1,29 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
 #Include .\NODERESTRICTION.ahk
+#Include .\RESTRICTION.ahk
 #Include .\VECTORRESTRICTION.ahk
 #Include .\NOTRESTRICTION.ahk
-#Include ..\Com\StructuredStorage\PROPSPEC.ahk
-#Include ..\..\Storage\IndexServer\FULLPROPSPEC.ahk
 #Include .\CONTENTRESTRICTION.ahk
+#Include ..\..\Storage\IndexServer\FULLPROPSPEC.ahk
+#Include ..\Com\StructuredStorage\PROPSPEC.ahk
+#Include ..\Com\StructuredStorage\PROPSPEC_KIND.ahk
 #Include .\NATLANGUAGERESTRICTION.ahk
+#Include .\PROPERTYRESTRICTION.ahk
+#Include ..\Com\StructuredStorage\PROPVARIANT.ahk
+#Include ..\Variant\VARENUM.ahk
 #Include ..\Com\CY.ahk
 #Include ..\..\Foundation\FILETIME.ahk
+#Include ..\Com\StructuredStorage\CLIPDATA.ahk
 #Include ..\..\Foundation\BSTR.ahk
 #Include ..\Com\StructuredStorage\BSTRBLOB.ahk
 #Include ..\Com\BLOB.ahk
+#Include ..\Com\IUnknown.ahk
+#Include ..\Com\IDispatch.ahk
+#Include ..\Com\IStream.ahk
+#Include ..\Com\StructuredStorage\IStorage.ahk
+#Include ..\Com\StructuredStorage\VERSIONEDSTREAM.ahk
+#Include ..\Com\SAFEARRAY.ahk
 #Include ..\Com\StructuredStorage\CAC.ahk
 #Include ..\Com\StructuredStorage\CAUB.ahk
 #Include ..\Com\StructuredStorage\CAI.ahk
@@ -35,17 +47,13 @@
 #Include ..\Com\StructuredStorage\CALPWSTR.ahk
 #Include ..\Com\StructuredStorage\CAPROPVARIANT.ahk
 #Include ..\..\Foundation\DECIMAL.ahk
-#Include ..\Com\StructuredStorage\PROPVARIANT.ahk
-#Include .\PROPERTYRESTRICTION.ahk
 
 /**
  * These flags are used with the SHRestricted function.
  * @see https://learn.microsoft.com/windows/win32/api/shlobj_core/ne-shlobj_core-restrictions
  * @namespace Windows.Win32.System.Search
- * @version v4.0.30319
  */
-class RESTRICTION extends Win32Struct
-{
+class RESTRICTION extends Win32Struct {
     static sizeof => 256
 
     static packingSize => 8
@@ -57,91 +65,90 @@ class RESTRICTION extends Win32Struct
         /**
          * @type {NODERESTRICTION}
          */
-        ar{
+        ar {
             get {
                 if(!this.HasProp("__ar"))
                     this.__ar := NODERESTRICTION(0, this)
                 return this.__ar
             }
         }
-    
+
         /**
          * @type {NODERESTRICTION}
          */
-        orRestriction{
+        orRestriction {
             get {
                 if(!this.HasProp("__orRestriction"))
                     this.__orRestriction := NODERESTRICTION(0, this)
                 return this.__orRestriction
             }
         }
-    
+
         /**
          * @type {NODERESTRICTION}
          */
-        pxr{
+        pxr {
             get {
                 if(!this.HasProp("__pxr"))
                     this.__pxr := NODERESTRICTION(0, this)
                 return this.__pxr
             }
         }
-    
+
         /**
          * @type {VECTORRESTRICTION}
          */
-        vr{
+        vr {
             get {
                 if(!this.HasProp("__vr"))
                     this.__vr := VECTORRESTRICTION(0, this)
                 return this.__vr
             }
         }
-    
+
         /**
          * @type {NOTRESTRICTION}
          */
-        nr{
+        nr {
             get {
                 if(!this.HasProp("__nr"))
                     this.__nr := NOTRESTRICTION(0, this)
                 return this.__nr
             }
         }
-    
+
         /**
          * @type {CONTENTRESTRICTION}
          */
-        cr{
+        cr {
             get {
                 if(!this.HasProp("__cr"))
                     this.__cr := CONTENTRESTRICTION(0, this)
                 return this.__cr
             }
         }
-    
+
         /**
          * @type {NATLANGUAGERESTRICTION}
          */
-        nlr{
+        nlr {
             get {
                 if(!this.HasProp("__nlr"))
                     this.__nlr := NATLANGUAGERESTRICTION(0, this)
                 return this.__nlr
             }
         }
-    
+
         /**
          * @type {PROPERTYRESTRICTION}
          */
-        pr{
+        pr {
             get {
                 if(!this.HasProp("__pr"))
                     this.__pr := PROPERTYRESTRICTION(0, this)
                 return this.__pr
             }
         }
-    
     }
 
     /**
@@ -163,10 +170,10 @@ class RESTRICTION extends Win32Struct
     /**
      * @type {_URes}
      */
-    res{
+    res {
         get {
             if(!this.HasProp("__res"))
-                this.__res := %this.__Class%._URes(8, this)
+                this.__res := RESTRICTION._URes(8, this)
             return this.__res
         }
     }

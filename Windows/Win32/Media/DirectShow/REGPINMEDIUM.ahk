@@ -9,17 +9,15 @@
  * This structure is equivalent to the <a href="https://docs.microsoft.com/windows-hardware/drivers/stream/kspin-medium-structure">KSPIN_MEDIUM</a> structure, which is used by kernel streaming drivers.
  * @see https://learn.microsoft.com/windows/win32/api/strmif/ns-strmif-regpinmedium
  * @namespace Windows.Win32.Media.DirectShow
- * @version v4.0.30319
  */
-class REGPINMEDIUM extends Win32Struct
-{
+class REGPINMEDIUM extends Win32Struct {
     static sizeof => 16
 
     static packingSize => 8
 
     /**
      * GUID that specifies the medium.
-     * @type {Pointer<Guid>}
+     * @type {Pointer}
      */
     clsMedium {
         get => NumGet(this, 0, "ptr")

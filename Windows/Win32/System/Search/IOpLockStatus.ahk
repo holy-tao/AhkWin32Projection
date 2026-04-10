@@ -1,16 +1,15 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
-#Include ..\..\Foundation\HANDLE.ahk
 #Include ..\Com\IUnknown.ahk
+#Include ..\..\Foundation\HANDLE.ahk
 
 /**
  * Provides methods to check the opportunistic lock that is used by Microsoft Windows Desktop Search (WDS) on items while indexing.
  * @see https://learn.microsoft.com/windows/win32/api/searchapi/nn-searchapi-ioplockstatus
  * @namespace Windows.Win32.System.Search
- * @version v4.0.30319
  */
-class IOpLockStatus extends IUnknown{
+class IOpLockStatus extends IUnknown {
 
     static sizeof => A_PtrSize
     /**

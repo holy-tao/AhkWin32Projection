@@ -23,10 +23,8 @@
  * </table>
  * @see https://learn.microsoft.com/windows/win32/api/wincrypt/ns-wincrypt-cryptnet_url_cache_response_info
  * @namespace Windows.Win32.Security.Cryptography
- * @version v4.0.30319
  */
-class CRYPTNET_URL_CACHE_RESPONSE_INFO extends Win32Struct
-{
+class CRYPTNET_URL_CACHE_RESPONSE_INFO extends Win32Struct {
     static sizeof => 40
 
     static packingSize => 8
@@ -91,7 +89,7 @@ class CRYPTNET_URL_CACHE_RESPONSE_INFO extends Win32Struct
      * A <b>FILETIME</b> structure that specifies the <b>Last-Modified</b> entity-header field value  of the cached HTTP response for the URL.
      * @type {FILETIME}
      */
-    LastModifiedTime{
+    LastModifiedTime {
         get {
             if(!this.HasProp("__LastModifiedTime"))
                 this.__LastModifiedTime := FILETIME(8, this)

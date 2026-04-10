@@ -10,10 +10,8 @@
  * To get additional information, the caller passes the <b>EXCEPINFO</b> structure back to the <b>pexcepinfo</b> callback function, which fills in the additional information. When the ActiveX object and the ActiveX client are in different processes, the ActiveX object calls <b>pfnDeferredFillIn</b> before returning to the controller.
  * @see https://learn.microsoft.com/windows/win32/api/oaidl/ns-oaidl-excepinfo
  * @namespace Windows.Win32.System.Com
- * @version v4.0.30319
  */
-class EXCEPINFO extends Win32Struct
-{
+class EXCEPINFO extends Win32Struct {
     static sizeof => 64
 
     static packingSize => 8
@@ -40,7 +38,7 @@ class EXCEPINFO extends Win32Struct
      * The name of the exception source. Typically, this is an application name. This field should be filled in by the implementer of <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/oaidl/nn-oaidl-idispatch">IDispatch</a>.
      * @type {BSTR}
      */
-    bstrSource{
+    bstrSource {
         get {
             if(!this.HasProp("__bstrSource"))
                 this.__bstrSource := BSTR(8, this)
@@ -52,7 +50,7 @@ class EXCEPINFO extends Win32Struct
      * The exception description to display. If no description is available, use null.
      * @type {BSTR}
      */
-    bstrDescription{
+    bstrDescription {
         get {
             if(!this.HasProp("__bstrDescription"))
                 this.__bstrDescription := BSTR(16, this)
@@ -64,7 +62,7 @@ class EXCEPINFO extends Win32Struct
      * The fully qualified help file path. If no Help is available, use null.
      * @type {BSTR}
      */
-    bstrHelpFile{
+    bstrHelpFile {
         get {
             if(!this.HasProp("__bstrHelpFile"))
                 this.__bstrHelpFile := BSTR(24, this)

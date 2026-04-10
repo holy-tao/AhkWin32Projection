@@ -1,5 +1,6 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
+#Include .\FILESYSTEM_STATISTICS_TYPE.ahk
 
 /**
  * Contains statistical information from the file system.Support for this structure started with Windows 10.
@@ -10,17 +11,15 @@
  * The number of read and write operations measured is the number of paging operations.
  * @see https://learn.microsoft.com/windows/win32/api/winioctl/ns-winioctl-filesystem_statistics_ex
  * @namespace Windows.Win32.System.Ioctl
- * @version v4.0.30319
  */
-class FILESYSTEM_STATISTICS_EX extends Win32Struct
-{
+class FILESYSTEM_STATISTICS_EX extends Win32Struct {
     static sizeof => 104
 
     static packingSize => 8
 
     /**
      * The type of file system.
-     * @type {Integer}
+     * @type {FILESYSTEM_STATISTICS_TYPE}
      */
     FileSystemType {
         get => NumGet(this, 0, "ushort")

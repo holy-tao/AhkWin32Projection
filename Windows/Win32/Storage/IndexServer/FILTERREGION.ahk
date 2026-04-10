@@ -7,10 +7,8 @@
  * The <b>cwcExtent</b> member might specify a number of characters (starting from a position the <b>cwcStart</b> member specifies) that extends beyond the end of the chunk. In that case, the region should be continued into the next chunk, which should have the same attribute as the current region.
  * @see https://learn.microsoft.com/windows/win32/api/filter/ns-filter-filterregion
  * @namespace Windows.Win32.Storage.IndexServer
- * @version v4.0.30319
  */
-class FILTERREGION extends Win32Struct
-{
+class FILTERREGION extends Win32Struct {
     static sizeof => 12
 
     static packingSize => 4

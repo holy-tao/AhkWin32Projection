@@ -5,10 +5,8 @@
  * Contains the library version.
  * @see https://learn.microsoft.com/windows/win32/api/dbghelp/ns-dbghelp-api_version
  * @namespace Windows.Win32.System.Diagnostics.Debug
- * @version v4.0.30319
  */
-class API_VERSION extends Win32Struct
-{
+class API_VERSION extends Win32Struct {
     static sizeof => 8
 
     static packingSize => 2

@@ -6,10 +6,8 @@
  * The LIFE_TIME structure contains a start time and an end time.
  * @see https://learn.microsoft.com/windows/win32/api/ndattrib/ns-ndattrib-life_time
  * @namespace Windows.Win32.NetworkManagement.NetworkDiagnosticsFramework
- * @version v4.0.30319
  */
-class LIFE_TIME extends Win32Struct
-{
+class LIFE_TIME extends Win32Struct {
     static sizeof => 16
 
     static packingSize => 4
@@ -20,7 +18,7 @@ class LIFE_TIME extends Win32Struct
      * The time the problem instance began.
      * @type {FILETIME}
      */
-    startTime{
+    startTime {
         get {
             if(!this.HasProp("__startTime"))
                 this.__startTime := FILETIME(0, this)
@@ -34,7 +32,7 @@ class LIFE_TIME extends Win32Struct
      * The time the problem instance ended.
      * @type {FILETIME}
      */
-    endTime{
+    endTime {
         get {
             if(!this.HasProp("__endTime"))
                 this.__endTime := FILETIME(8, this)

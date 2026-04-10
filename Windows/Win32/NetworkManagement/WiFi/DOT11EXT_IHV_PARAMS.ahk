@@ -1,13 +1,14 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
 #Include .\DOT11EXT_IHV_PROFILE_PARAMS.ahk
+#Include .\DOT11EXT_IHV_SSID_LIST.ahk
+#Include .\DOT11_BSS_TYPE.ahk
+#Include .\DOT11_MSSECURITY_SETTINGS.ahk
 
 /**
  * @namespace Windows.Win32.NetworkManagement.WiFi
- * @version v4.0.30319
  */
-class DOT11EXT_IHV_PARAMS extends Win32Struct
-{
+class DOT11EXT_IHV_PARAMS extends Win32Struct {
     static sizeof => 552
 
     static packingSize => 8
@@ -15,7 +16,7 @@ class DOT11EXT_IHV_PARAMS extends Win32Struct
     /**
      * @type {DOT11EXT_IHV_PROFILE_PARAMS}
      */
-    dot11ExtIhvProfileParams{
+    dot11ExtIhvProfileParams {
         get {
             if(!this.HasProp("__dot11ExtIhvProfileParams"))
                 this.__dot11ExtIhvProfileParams := DOT11EXT_IHV_PROFILE_PARAMS(0, this)
@@ -40,7 +41,7 @@ class DOT11EXT_IHV_PARAMS extends Win32Struct
     }
 
     /**
-     * @type {Pointer<Guid>}
+     * @type {Pointer}
      */
     interfaceGuid {
         get => NumGet(this, 544, "ptr")

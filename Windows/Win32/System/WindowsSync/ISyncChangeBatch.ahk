@@ -1,8 +1,8 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
-#Include .\ISyncChangeBuilder.ahk
 #Include .\ISyncChangeBatchBase.ahk
+#Include .\ISyncChangeBuilder.ahk
 
 /**
  * Represents metadata for a set of changes. (ISyncChangeBatch)
@@ -10,9 +10,8 @@
  * Change batches are used by synchronization providers to communicate metadata for item changes from a source provider to a destination provider. The source provider enumerates changes and adds a specified number of them to a change batch. The change batch is then sent to the destination provider. The destination provider enumerates the changes in the change batch and applies them to its item store.
  * @see https://learn.microsoft.com/windows/win32/api/winsync/nn-winsync-isyncchangebatch
  * @namespace Windows.Win32.System.WindowsSync
- * @version v4.0.30319
  */
-class ISyncChangeBatch extends ISyncChangeBatchBase{
+class ISyncChangeBatch extends ISyncChangeBatchBase {
 
     static sizeof => A_PtrSize
     /**

@@ -1,16 +1,15 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
-#Include ..\Com\IEnumUnknown.ahk
 #Include ..\Com\IUnknown.ahk
+#Include ..\Com\IEnumUnknown.ahk
 
 /**
  * Provides access to all the controls on a Visual Basic container.
  * @see https://learn.microsoft.com/windows/win32/api/vbinterf/nn-vbinterf-ivbgetcontrol
  * @namespace Windows.Win32.System.Ole
- * @version v4.0.30319
  */
-class IVBGetControl extends IUnknown{
+class IVBGetControl extends IUnknown {
 
     static sizeof => A_PtrSize
     /**
@@ -104,7 +103,7 @@ class IVBGetControl extends IUnknown{
      *       <b>OLECONTF_OTHERS</b> flag to this list. To enumerate only VBX controls, remove the 
      *       <b>OLECONTF_EMBEDDINGS</b> flag and include the <b>OLECONTF_OTHERS</b> 
      *       flag.
-     * @param {Integer} dwWhich 
+     * @param {ENUM_CONTROLS_WHICH_FLAGS} dwWhich 
      * @returns {IEnumUnknown} Pointer to an enumeration of OLE objects.
      * @see https://learn.microsoft.com/windows/win32/api/vbinterf/nf-vbinterf-ivbgetcontrol-enumcontrols
      */

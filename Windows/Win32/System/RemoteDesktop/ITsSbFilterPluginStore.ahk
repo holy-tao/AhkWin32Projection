@@ -1,17 +1,15 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
-#Include ..\..\Foundation\BSTR.ahk
-#Include .\ITsSbPropertySet.ahk
 #Include ..\Com\IUnknown.ahk
+#Include .\ITsSbPropertySet.ahk
 
 /**
  * Filter Plugin Store
  * @see https://learn.microsoft.com/windows/win32/api/sbtsv/nn-sbtsv-itssbfilterpluginstore
  * @namespace Windows.Win32.System.RemoteDesktop
- * @version v4.0.30319
  */
-class ITsSbFilterPluginStore extends IUnknown{
+class ITsSbFilterPluginStore extends IUnknown {
 
     static sizeof => A_PtrSize
     /**

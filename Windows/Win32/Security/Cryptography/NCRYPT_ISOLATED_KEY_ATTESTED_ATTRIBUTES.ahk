@@ -3,10 +3,8 @@
 
 /**
  * @namespace Windows.Win32.Security.Cryptography
- * @version v4.0.30319
  */
-class NCRYPT_ISOLATED_KEY_ATTESTED_ATTRIBUTES extends Win32Struct
-{
+class NCRYPT_ISOLATED_KEY_ATTESTED_ATTRIBUTES extends Win32Struct {
     static sizeof => 12
 
     static packingSize => 4

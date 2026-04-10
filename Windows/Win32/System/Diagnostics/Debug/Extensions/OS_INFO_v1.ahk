@@ -1,13 +1,12 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\..\..\Win32Struct.ahk
+#Include .\OS_TYPE.ahk
 
 /**
  * @namespace Windows.Win32.System.Diagnostics.Debug.Extensions
- * @version v4.0.30319
  */
-class OS_INFO_v1 extends Win32Struct
-{
-    static sizeof => 352
+class OS_INFO_v1 extends Win32Struct {
+    static sizeof => 192
 
     static packingSize => 8
 
@@ -27,7 +26,7 @@ class OS_INFO_v1 extends Win32Struct
             get => NumGet(this, 0, "uint")
             set => NumPut("uint", value, this, 0)
         }
-    
+
         /**
          * @type {Integer}
          */
@@ -35,7 +34,7 @@ class OS_INFO_v1 extends Win32Struct
             get => (this._bitfield >> 0) & 0x1
             set => this._bitfield := ((value & 0x1) << 0) | (this._bitfield & ~(0x1 << 0))
         }
-    
+
         /**
          * @type {Integer}
          */
@@ -43,7 +42,7 @@ class OS_INFO_v1 extends Win32Struct
             get => (this._bitfield >> 1) & 0x1
             set => this._bitfield := ((value & 0x1) << 1) | (this._bitfield & ~(0x1 << 1))
         }
-    
+
         /**
          * @type {Integer}
          */
@@ -51,11 +50,10 @@ class OS_INFO_v1 extends Win32Struct
             get => (this._bitfield >> 2) & 0x1
             set => this._bitfield := ((value & 0x1) << 2) | (this._bitfield & ~(0x1 << 2))
         }
-    
     }
 
     /**
-     * @type {Integer}
+     * @type {OS_TYPE}
      */
     Type {
         get => NumGet(this, 0, "int")
@@ -73,7 +71,7 @@ class OS_INFO_v1 extends Win32Struct
             get => NumGet(this, 0, "uint")
             set => NumPut("uint", value, this, 0)
         }
-    
+
         /**
          * @type {Integer}
          */
@@ -81,16 +79,15 @@ class OS_INFO_v1 extends Win32Struct
             get => NumGet(this, 4, "uint")
             set => NumPut("uint", value, this, 4)
         }
-    
     }
 
     /**
      * @type {_Version}
      */
-    Version{
+    Version {
         get {
             if(!this.HasProp("__Version"))
-                this.__Version := %this.__Class%._Version(8, this)
+                this.__Version := OS_INFO_v1._Version(8, this)
             return this.__Version
         }
     }
@@ -122,10 +119,10 @@ class OS_INFO_v1 extends Win32Struct
     /**
      * @type {_s}
      */
-    s{
+    s {
         get {
             if(!this.HasProp("__s"))
-                this.__s := %this.__Class%._s(24, this)
+                this.__s := OS_INFO_v1._s(24, this)
             return this.__s
         }
     }
@@ -142,23 +139,23 @@ class OS_INFO_v1 extends Win32Struct
      * @type {String}
      */
     Language {
-        get => StrGet(this.ptr + 32, 29, "UTF-16")
-        set => StrPut(value, this.ptr + 32, 29, "UTF-16")
+        get => StrGet(this.ptr + 32, 29, "UTF-8")
+        set => StrPut(value, this.ptr + 32, 29, "UTF-8")
     }
 
     /**
      * @type {String}
      */
     OsString {
-        get => StrGet(this.ptr + 92, 63, "UTF-16")
-        set => StrPut(value, this.ptr + 92, 63, "UTF-16")
+        get => StrGet(this.ptr + 62, 63, "UTF-8")
+        set => StrPut(value, this.ptr + 62, 63, "UTF-8")
     }
 
     /**
      * @type {String}
      */
     ServicePackString {
-        get => StrGet(this.ptr + 220, 63, "UTF-16")
-        set => StrPut(value, this.ptr + 220, 63, "UTF-16")
+        get => StrGet(this.ptr + 126, 63, "UTF-8")
+        set => StrPut(value, this.ptr + 126, 63, "UTF-8")
     }
 }

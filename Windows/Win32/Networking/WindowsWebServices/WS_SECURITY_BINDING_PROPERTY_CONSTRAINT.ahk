@@ -1,15 +1,14 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
+#Include .\WS_SECURITY_BINDING_PROPERTY_ID.ahk
 #Include .\WS_SECURITY_BINDING_PROPERTY.ahk
 
 /**
  * This structure is used to specify a set of constraints for a particular security binding property. Any property constraints that are not specified will use the default constraints.
  * @see https://learn.microsoft.com/windows/win32/api/webservices/ns-webservices-ws_security_binding_property_constraint
  * @namespace Windows.Win32.Networking.WindowsWebServices
- * @version v4.0.30319
  */
-class WS_SECURITY_BINDING_PROPERTY_CONSTRAINT extends Win32Struct
-{
+class WS_SECURITY_BINDING_PROPERTY_CONSTRAINT extends Win32Struct {
     static sizeof => 48
 
     static packingSize => 8
@@ -21,14 +20,13 @@ class WS_SECURITY_BINDING_PROPERTY_CONSTRAINT extends Win32Struct
         /**
          * @type {WS_SECURITY_BINDING_PROPERTY}
          */
-        securityBindingProperty{
+        securityBindingProperty {
             get {
                 if(!this.HasProp("__securityBindingProperty"))
                     this.__securityBindingProperty := WS_SECURITY_BINDING_PROPERTY(0, this)
                 return this.__securityBindingProperty
             }
         }
-    
     }
 
     /**
@@ -54,7 +52,7 @@ class WS_SECURITY_BINDING_PROPERTY_CONSTRAINT extends Win32Struct
      * 
      * </li>
      * </ul>
-     * @type {Integer}
+     * @type {WS_SECURITY_BINDING_PROPERTY_ID}
      */
     id {
         get => NumGet(this, 0, "int")
@@ -90,10 +88,10 @@ class WS_SECURITY_BINDING_PROPERTY_CONSTRAINT extends Win32Struct
      *                     fields of the property structure will be filled out as follows:
      * @type {_out}
      */
-    out{
+    out {
         get {
             if(!this.HasProp("__out"))
-                this.__out := %this.__Class%._out(24, this)
+                this.__out := WS_SECURITY_BINDING_PROPERTY_CONSTRAINT._out(24, this)
             return this.__out
         }
     }

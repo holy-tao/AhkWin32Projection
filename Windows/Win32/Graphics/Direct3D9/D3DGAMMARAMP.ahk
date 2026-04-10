@@ -5,10 +5,8 @@
  * Contains red, green, and blue ramp data.
  * @see https://learn.microsoft.com/windows/win32/direct3d9/d3dgammaramp
  * @namespace Windows.Win32.Graphics.Direct3D9
- * @version v4.0.30319
  */
-class D3DGAMMARAMP extends Win32Struct
-{
+class D3DGAMMARAMP extends Win32Struct {
     static sizeof => 1536
 
     static packingSize => 2
@@ -18,9 +16,9 @@ class D3DGAMMARAMP extends Win32Struct
      * 
      * 
      * Array of 256 WORD element that describes the red gamma ramp.
-     * @type {Array<UInt16>}
+     * @type {Array<Integer>}
      */
-    red{
+    red {
         get {
             if(!this.HasProp("__redProxyArray"))
                 this.__redProxyArray := Win32FixedArray(this.ptr + 0, 256, Primitive, "ushort")
@@ -33,9 +31,9 @@ class D3DGAMMARAMP extends Win32Struct
      * 
      * 
      * Array of 256 WORD element that describes the green gamma ramp.
-     * @type {Array<UInt16>}
+     * @type {Array<Integer>}
      */
-    green{
+    green {
         get {
             if(!this.HasProp("__greenProxyArray"))
                 this.__greenProxyArray := Win32FixedArray(this.ptr + 512, 256, Primitive, "ushort")
@@ -48,9 +46,9 @@ class D3DGAMMARAMP extends Win32Struct
      * 
      * 
      * Array of 256 WORD element that describes the blue gamma ramp.
-     * @type {Array<UInt16>}
+     * @type {Array<Integer>}
      */
-    blue{
+    blue {
         get {
             if(!this.HasProp("__blueProxyArray"))
                 this.__blueProxyArray := Win32FixedArray(this.ptr + 1024, 256, Primitive, "ushort")

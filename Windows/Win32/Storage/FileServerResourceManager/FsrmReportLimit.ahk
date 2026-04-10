@@ -9,9 +9,8 @@
  *     method.
  * @see https://learn.microsoft.com/windows/win32/api/fsrmenums/ne-fsrmenums-fsrmreportlimit
  * @namespace Windows.Win32.Storage.FileServerResourceManager
- * @version v4.0.30319
  */
-class FsrmReportLimit extends Win32Enum{
+class FsrmReportLimit extends Win32Enum {
 
     /**
      * The report will list up to a maximum number of files. Applies to all report types.

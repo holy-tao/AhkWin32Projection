@@ -3,13 +3,10 @@
 
 /**
  * Indicates a specific class of process information.
- * @remarks
- * 
  * @see https://learn.microsoft.com/windows/win32/api/processthreadsapi/ne-processthreadsapi-process_information_class
  * @namespace Windows.Win32.System.Threading
- * @version v4.0.30319
  */
-class PROCESS_INFORMATION_CLASS extends Win32Enum{
+class PROCESS_INFORMATION_CLASS extends Win32Enum {
 
     /**
      * The process information is represented by a <a href="https://docs.microsoft.com/windows/win32/api/processthreadsapi/ns-processthreadsapi-memory_priority_information">MEMORY_PRIORITY_INFORMATION</a> structure. Allows applications to lower the default memory priority of threads that perform background operations or access files and data that are not expected to be accessed again soon.

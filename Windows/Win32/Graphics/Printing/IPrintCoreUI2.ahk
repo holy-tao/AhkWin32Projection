@@ -5,9 +5,8 @@
 
 /**
  * @namespace Windows.Win32.Graphics.Printing
- * @version v4.0.30319
  */
-class IPrintCoreUI2 extends IPrintOemDriverUI{
+class IPrintCoreUI2 extends IPrintOemDriverUI {
 
     static sizeof => A_PtrSize
     /**
@@ -31,9 +30,9 @@ class IPrintCoreUI2 extends IPrintOemDriverUI{
     /**
      * 
      * @param {Pointer<OEMUIOBJ>} poemuiobj 
-     * @param {Pointer} pmszFeaturesRequested 
+     * @param {Integer} pmszFeaturesRequested 
      * @param {Integer} cbIn 
-     * @param {Pointer} pmszFeatureOptionBuf 
+     * @param {Integer} pmszFeatureOptionBuf 
      * @param {Integer} cbSize 
      * @returns {Integer} 
      */
@@ -48,7 +47,7 @@ class IPrintCoreUI2 extends IPrintOemDriverUI{
      * 
      * @param {Pointer<OEMUIOBJ>} poemuiobj 
      * @param {Integer} dwFlags 
-     * @param {Pointer} pmszFeatureOptionBuf 
+     * @param {Integer} pmszFeatureOptionBuf 
      * @param {Integer} cbIn 
      * @returns {Integer} 
      */
@@ -61,7 +60,7 @@ class IPrintCoreUI2 extends IPrintOemDriverUI{
      * 
      * @param {Pointer<OEMUIOBJ>} poemuiobj 
      * @param {PSTR} pszFeatureKeyword 
-     * @param {Pointer} pmszConstrainedOptionList 
+     * @param {Integer} pmszConstrainedOptionList 
      * @param {Integer} cbSize 
      * @returns {Integer} 
      */
@@ -79,7 +78,7 @@ class IPrintCoreUI2 extends IPrintOemDriverUI{
      * @param {Pointer<OEMUIOBJ>} poemuiobj 
      * @param {PSTR} pszFeatureKeyword 
      * @param {PSTR} pszOptionKeyword 
-     * @param {Pointer} pmszReasonList 
+     * @param {Integer} pmszReasonList 
      * @param {Integer} cbSize 
      * @returns {Integer} 
      */
@@ -98,7 +97,7 @@ class IPrintCoreUI2 extends IPrintOemDriverUI{
      * @param {Pointer<OEMUIOBJ>} poemuiobj 
      * @param {PSTR} pszAttribute 
      * @param {Pointer<Integer>} pdwDataType 
-     * @param {Pointer} pbData 
+     * @param {Integer} pbData 
      * @param {Integer} cbSize 
      * @param {Pointer<Integer>} pcbNeeded 
      * @returns {HRESULT} 
@@ -121,7 +120,7 @@ class IPrintCoreUI2 extends IPrintOemDriverUI{
      * @param {PSTR} pszFeatureKeyword 
      * @param {PSTR} pszAttribute 
      * @param {Pointer<Integer>} pdwDataType 
-     * @param {Pointer} pbData 
+     * @param {Integer} pbData 
      * @param {Integer} cbSize 
      * @param {Pointer<Integer>} pcbNeeded 
      * @returns {HRESULT} 
@@ -146,7 +145,7 @@ class IPrintCoreUI2 extends IPrintOemDriverUI{
      * @param {PSTR} pszOptionKeyword 
      * @param {PSTR} pszAttribute 
      * @param {Pointer<Integer>} pdwDataType 
-     * @param {Pointer} pbData 
+     * @param {Integer} pbData 
      * @param {Integer} cbSize 
      * @param {Pointer<Integer>} pcbNeeded 
      * @returns {HRESULT} 
@@ -168,7 +167,7 @@ class IPrintCoreUI2 extends IPrintOemDriverUI{
     /**
      * 
      * @param {Pointer<OEMUIOBJ>} poemuiobj 
-     * @param {Pointer} pmszFeatureList 
+     * @param {Integer} pmszFeatureList 
      * @param {Integer} cbSize 
      * @returns {Integer} 
      */
@@ -183,7 +182,7 @@ class IPrintCoreUI2 extends IPrintOemDriverUI{
      * 
      * @param {Pointer<OEMUIOBJ>} poemuiobj 
      * @param {PSTR} pszFeatureKeyword 
-     * @param {Pointer} pmszOptionList 
+     * @param {Integer} pmszOptionList 
      * @param {Integer} cbSize 
      * @returns {Integer} 
      */
@@ -200,7 +199,7 @@ class IPrintCoreUI2 extends IPrintOemDriverUI{
      * 
      * @param {HANDLE} hPrinter 
      * @param {Integer} dwLevel 
-     * @param {Pointer} pCaps 
+     * @param {Integer} pCaps 
      * @param {Integer} cbSize 
      * @returns {Integer} 
      */

@@ -5,19 +5,17 @@
  * The IP6_ADDRESS structure stores an IPv6 address. (IP6_ADDRESS)
  * @see https://learn.microsoft.com/windows/win32/api/windns/ns-windns-ip6_address
  * @namespace Windows.Win32.NetworkManagement.Dns
- * @version v4.0.30319
+ * @architecture X64, Arm64
  */
-class IP6_ADDRESS extends Win32Struct
-{
+class IP6_ADDRESS extends Win32Struct {
     static sizeof => 64
 
     static packingSize => 8
 
     /**
-     * 
-     * @type {Array<UInt64>}
+     * @type {Array<Integer>}
      */
-    IP6Qword{
+    IP6Qword {
         get {
             if(!this.HasProp("__IP6QwordProxyArray"))
                 this.__IP6QwordProxyArray := Win32FixedArray(this.ptr + 0, 2, Primitive, "uint")
@@ -27,9 +25,9 @@ class IP6_ADDRESS extends Win32Struct
 
     /**
      * An IPv6 address of the form: "ABCD:EF01:2345:6789:ABCD:EF01:2345:6789"as defined in <a href="https://www.ietf.org/rfc/rfc4291.txt">RFC 4291</a>
-     * @type {Array<UInt32>}
+     * @type {Array<Integer>}
      */
-    IP6Dword{
+    IP6Dword {
         get {
             if(!this.HasProp("__IP6DwordProxyArray"))
                 this.__IP6DwordProxyArray := Win32FixedArray(this.ptr + 0, 4, Primitive, "uint")
@@ -38,9 +36,9 @@ class IP6_ADDRESS extends Win32Struct
     }
 
     /**
-     * @type {Array<UInt16>}
+     * @type {Array<Integer>}
      */
-    IP6Word{
+    IP6Word {
         get {
             if(!this.HasProp("__IP6WordProxyArray"))
                 this.__IP6WordProxyArray := Win32FixedArray(this.ptr + 0, 8, Primitive, "ushort")
@@ -49,9 +47,9 @@ class IP6_ADDRESS extends Win32Struct
     }
 
     /**
-     * @type {Array<Byte>}
+     * @type {Array<Integer>}
      */
-    IP6Byte{
+    IP6Byte {
         get {
             if(!this.HasProp("__IP6ByteProxyArray"))
                 this.__IP6ByteProxyArray := Win32FixedArray(this.ptr + 0, 16, Primitive, "char")

@@ -3,10 +3,8 @@
 
 /**
  * @namespace Windows.Wdk.Storage.FileSystem
- * @version v4.0.30319
  */
-class CPTABLEINFO extends Win32Struct
-{
+class CPTABLEINFO extends Win32Struct {
     static sizeof => 64
 
     static packingSize => 8
@@ -68,9 +66,9 @@ class CPTABLEINFO extends Win32Struct
     }
 
     /**
-     * @type {Array<Byte>}
+     * @type {Array<Integer>}
      */
-    LeadByte{
+    LeadByte {
         get {
             if(!this.HasProp("__LeadByteProxyArray"))
                 this.__LeadByteProxyArray := Win32FixedArray(this.ptr + 14, 12, Primitive, "char")

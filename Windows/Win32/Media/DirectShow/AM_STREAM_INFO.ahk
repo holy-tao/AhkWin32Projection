@@ -5,10 +5,8 @@
  * The AM_STREAM_INFO structure contains stream-control information.
  * @see https://learn.microsoft.com/windows/win32/api/strmif/ns-strmif-am_stream_info
  * @namespace Windows.Win32.Media.DirectShow
- * @version v4.0.30319
  */
-class AM_STREAM_INFO extends Win32Struct
-{
+class AM_STREAM_INFO extends Win32Struct {
     static sizeof => 32
 
     static packingSize => 8

@@ -3,10 +3,8 @@
 
 /**
  * @namespace Windows.Win32.System.RemoteManagement
- * @version v4.0.30319
  */
-class WSMAN_SESSION_HANDLE extends Win32Struct
-{
+class WSMAN_SESSION_HANDLE extends Win32Struct {
     static sizeof => 8
 
     static packingSize => 8

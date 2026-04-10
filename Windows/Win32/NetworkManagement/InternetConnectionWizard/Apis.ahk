@@ -3,7 +3,6 @@
 
 /**
  * @namespace Windows.Win32.NetworkManagement.InternetConnectionWizard
- * @version v4.0.30319
  */
 class InternetConnectionWizard {
 

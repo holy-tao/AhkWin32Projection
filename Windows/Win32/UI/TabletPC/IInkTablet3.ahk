@@ -7,9 +7,8 @@
  * Enables multitouch querying for input.
  * @see https://learn.microsoft.com/windows/win32/api/msinkaut/nn-msinkaut-iinktablet3
  * @namespace Windows.Win32.UI.TabletPC
- * @version v4.0.30319
  */
-class IInkTablet3 extends IDispatch{
+class IInkTablet3 extends IDispatch {
 
     static sizeof => A_PtrSize
     /**

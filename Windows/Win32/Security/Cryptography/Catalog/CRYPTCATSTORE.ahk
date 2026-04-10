@@ -1,15 +1,14 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\..\Win32Struct.ahk
+#Include .\CRYPTCAT_OPEN_FLAGS.ahk
 #Include ..\..\..\Foundation\HANDLE.ahk
 
 /**
  * Represents a catalog file.
  * @see https://learn.microsoft.com/windows/win32/api/mscat/ns-mscat-cryptcatstore
  * @namespace Windows.Win32.Security.Cryptography.Catalog
- * @version v4.0.30319
  */
-class CRYPTCATSTORE extends Win32Struct
-{
+class CRYPTCATSTORE extends Win32Struct {
     static sizeof => 64
 
     static packingSize => 8
@@ -60,8 +59,7 @@ class CRYPTCATSTORE extends Win32Struct
     }
 
     /**
-     * 
-     * @type {Integer}
+     * @type {CRYPTCAT_OPEN_FLAGS}
      */
     fdwStoreFlags {
         get => NumGet(this, 28, "uint")
@@ -72,7 +70,7 @@ class CRYPTCATSTORE extends Win32Struct
      * This member is reserved and must be <b>NULL</b>.
      * @type {HANDLE}
      */
-    hReserved{
+    hReserved {
         get {
             if(!this.HasProp("__hReserved"))
                 this.__hReserved := HANDLE(32, this)
@@ -84,7 +82,7 @@ class CRYPTCATSTORE extends Win32Struct
      * This member is reserved and must be <b>NULL</b>.
      * @type {HANDLE}
      */
-    hAttrs{
+    hAttrs {
         get {
             if(!this.HasProp("__hAttrs"))
                 this.__hAttrs := HANDLE(40, this)
@@ -105,7 +103,7 @@ class CRYPTCATSTORE extends Win32Struct
      * This member is reserved and must be <b>NULL</b>.
      * @type {HANDLE}
      */
-    hSorted{
+    hSorted {
         get {
             if(!this.HasProp("__hSorted"))
                 this.__hSorted := HANDLE(56, this)

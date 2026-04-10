@@ -1,16 +1,13 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
+#Include .\PROCESS_LOOPBACK_MODE.ahk
 
 /**
  * Specifies parameters for a call to ActivateAudioInterfaceAsync where loopback activation is requested.
- * @remarks
- * 
  * @see https://learn.microsoft.com/windows/win32/api/audioclientactivationparams/ns-audioclientactivationparams-audioclient_process_loopback_params
  * @namespace Windows.Win32.Media.Audio
- * @version v4.0.30319
  */
-class AUDIOCLIENT_PROCESS_LOOPBACK_PARAMS extends Win32Struct
-{
+class AUDIOCLIENT_PROCESS_LOOPBACK_PARAMS extends Win32Struct {
     static sizeof => 8
 
     static packingSize => 4
@@ -26,7 +23,7 @@ class AUDIOCLIENT_PROCESS_LOOPBACK_PARAMS extends Win32Struct
 
     /**
      * A value from the [PROCESS_LOOPBACK_MODE](ne-audioclientactivationparams-process_loopback_mode.md) enumeration specifying whether the render streams for the process and child processes specified in the *TargetProcessId* field should be included or excluded when activating the audio interface. For sample code that demonstrates the process loopback capture scenario, see the [Application Loopback API Capture Sample](https://docs.microsoft.com/en-us/samples/microsoft/windows-classic-samples/applicationloopbackaudio-sample/).
-     * @type {Integer}
+     * @type {PROCESS_LOOPBACK_MODE}
      */
     ProcessLoopbackMode {
         get => NumGet(this, 4, "int")

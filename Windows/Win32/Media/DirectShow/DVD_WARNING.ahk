@@ -5,9 +5,8 @@
  * Specifies DVD warning conditions.
  * @see https://learn.microsoft.com/windows/win32/api/dvdevcod/ne-dvdevcod-dvd_warning
  * @namespace Windows.Win32.Media.DirectShow
- * @version v4.0.30319
  */
-class DVD_WARNING extends Win32Enum{
+class DVD_WARNING extends Win32Enum {
 
     /**
      * DVD-Video disc is authored incorrectly. Playback can continue, but unexpected behavior might occur.

@@ -7,9 +7,8 @@
  * INetworkEvents is a notification sink interface that a client implements to get network related events. These APIs are all callback functions that are called automatically when the respective events are raised.
  * @see https://learn.microsoft.com/windows/win32/api/netlistmgr/nn-netlistmgr-inetworkevents
  * @namespace Windows.Win32.Networking.NetworkListManager
- * @version v4.0.30319
  */
-class INetworkEvents extends IUnknown{
+class INetworkEvents extends IUnknown {
 
     static sizeof => A_PtrSize
     /**
@@ -55,7 +54,7 @@ class INetworkEvents extends IUnknown{
     /**
      * The NetworkConnectivityChanged method is called when network connectivity related changes occur. (INetworkEvents.NetworkConnectivityChanged)
      * @param {Guid} networkId A <b>GUID</b> that specifies the new network that was added.
-     * @param {Integer} newConnectivity <a href="https://docs.microsoft.com/windows/desktop/api/netlistmgr/ne-netlistmgr-nlm_connectivity">NLM_CONNECTIVITY</a> enumeration value that contains the new connectivity of this network.
+     * @param {NLM_CONNECTIVITY} newConnectivity <a href="https://docs.microsoft.com/windows/desktop/api/netlistmgr/ne-netlistmgr-nlm_connectivity">NLM_CONNECTIVITY</a> enumeration value that contains the new connectivity of this network.
      * @returns {HRESULT} Returns S_OK if the method succeeds.
      * @see https://learn.microsoft.com/windows/win32/api/netlistmgr/nf-netlistmgr-inetworkevents-networkconnectivitychanged
      */
@@ -67,7 +66,7 @@ class INetworkEvents extends IUnknown{
     /**
      * The NetworkPropertyChanged method is called when a network property change is detected.
      * @param {Guid} networkId GUID that specifies the network on which this event occurred.
-     * @param {Integer} flags <a href="https://docs.microsoft.com/windows/desktop/api/netlistmgr/ne-netlistmgr-nlm_network_property_change">NLM_NETWORK_PROPERTY_CHANGE</a> enumeration value that specifies the network property that changed.
+     * @param {NLM_NETWORK_PROPERTY_CHANGE} flags <a href="https://docs.microsoft.com/windows/desktop/api/netlistmgr/ne-netlistmgr-nlm_network_property_change">NLM_NETWORK_PROPERTY_CHANGE</a> enumeration value that specifies the network property that changed.
      * @returns {HRESULT} Returns S_OK if the method succeeds.
      * @see https://learn.microsoft.com/windows/win32/api/netlistmgr/nf-netlistmgr-inetworkevents-networkpropertychanged
      */

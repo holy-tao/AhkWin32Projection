@@ -11,11 +11,9 @@
  * Some printer configurations, such as printer connections to some non-Windows-based print servers, might return both **PRINTER\_ATTRIBUTE\_LOCAL** and **PRINTER\_ATTRIBUTE\_NETWORK**.
  * @see https://learn.microsoft.com/windows/win32/printdocs/printer-info-4
  * @namespace Windows.Win32.Graphics.Printing
- * @version v4.0.30319
  * @charset ANSI
  */
-class PRINTER_INFO_4A extends Win32Struct
-{
+class PRINTER_INFO_4A extends Win32Struct {
     static sizeof => 24
 
     static packingSize => 8

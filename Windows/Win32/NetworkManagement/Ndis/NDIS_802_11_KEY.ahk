@@ -3,10 +3,8 @@
 
 /**
  * @namespace Windows.Win32.NetworkManagement.Ndis
- * @version v4.0.30319
  */
-class NDIS_802_11_KEY extends Win32Struct
-{
+class NDIS_802_11_KEY extends Win32Struct {
     static sizeof => 40
 
     static packingSize => 8
@@ -36,9 +34,9 @@ class NDIS_802_11_KEY extends Win32Struct
     }
 
     /**
-     * @type {Array<Byte>}
+     * @type {Array<Integer>}
      */
-    BSSID{
+    BSSID {
         get {
             if(!this.HasProp("__BSSIDProxyArray"))
                 this.__BSSIDProxyArray := Win32FixedArray(this.ptr + 12, 6, Primitive, "char")
@@ -55,9 +53,9 @@ class NDIS_802_11_KEY extends Win32Struct
     }
 
     /**
-     * @type {Array<Byte>}
+     * @type {Array<Integer>}
      */
-    KeyMaterial{
+    KeyMaterial {
         get {
             if(!this.HasProp("__KeyMaterialProxyArray"))
                 this.__KeyMaterialProxyArray := Win32FixedArray(this.ptr + 32, 1, Primitive, "char")

@@ -7,9 +7,8 @@
  * Storage modules implement this interface.
  * @see https://learn.microsoft.com/windows/win32/api/fsrmpipeline/nn-fsrmpipeline-ifsrmstoragemoduleimplementation
  * @namespace Windows.Win32.Storage.FileServerResourceManager
- * @version v4.0.30319
  */
-class IFsrmStorageModuleImplementation extends IFsrmPipelineModuleImplementation{
+class IFsrmStorageModuleImplementation extends IFsrmPipelineModuleImplementation {
 
     static sizeof => A_PtrSize
     /**

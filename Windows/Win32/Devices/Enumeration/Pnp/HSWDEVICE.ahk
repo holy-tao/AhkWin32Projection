@@ -5,10 +5,8 @@
 
 /**
  * @namespace Windows.Win32.Devices.Enumeration.Pnp
- * @version v4.0.30319
  */
-class HSWDEVICE extends Win32Handle
-{
+class HSWDEVICE extends Win32Handle {
     static sizeof => 8
 
     static packingSize => 8

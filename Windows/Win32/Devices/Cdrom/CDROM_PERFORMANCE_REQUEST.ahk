@@ -1,18 +1,20 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
+#Include .\CDROM_PERFORMANCE_REQUEST_TYPE.ahk
+#Include .\CDROM_PERFORMANCE_TYPE.ahk
+#Include .\CDROM_PERFORMANCE_EXCEPTION_TYPE.ahk
+#Include .\CDROM_PERFORMANCE_TOLERANCE_TYPE.ahk
 
 /**
  * @namespace Windows.Win32.Devices.Cdrom
- * @version v4.0.30319
  */
-class CDROM_PERFORMANCE_REQUEST extends Win32Struct
-{
+class CDROM_PERFORMANCE_REQUEST extends Win32Struct {
     static sizeof => 20
 
     static packingSize => 4
 
     /**
-     * @type {Integer}
+     * @type {CDROM_PERFORMANCE_REQUEST_TYPE}
      */
     RequestType {
         get => NumGet(this, 0, "int")
@@ -20,7 +22,7 @@ class CDROM_PERFORMANCE_REQUEST extends Win32Struct
     }
 
     /**
-     * @type {Integer}
+     * @type {CDROM_PERFORMANCE_TYPE}
      */
     PerformanceType {
         get => NumGet(this, 4, "int")
@@ -28,7 +30,7 @@ class CDROM_PERFORMANCE_REQUEST extends Win32Struct
     }
 
     /**
-     * @type {Integer}
+     * @type {CDROM_PERFORMANCE_EXCEPTION_TYPE}
      */
     Exceptions {
         get => NumGet(this, 8, "int")
@@ -36,7 +38,7 @@ class CDROM_PERFORMANCE_REQUEST extends Win32Struct
     }
 
     /**
-     * @type {Integer}
+     * @type {CDROM_PERFORMANCE_TOLERANCE_TYPE}
      */
     Tolerance {
         get => NumGet(this, 12, "int")

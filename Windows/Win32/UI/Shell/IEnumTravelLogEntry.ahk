@@ -1,14 +1,12 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
-#Include .\IEnumTravelLogEntry.ahk
 #Include ..\..\System\Com\IUnknown.ahk
 
 /**
  * @namespace Windows.Win32.UI.Shell
- * @version v4.0.30319
  */
-class IEnumTravelLogEntry extends IUnknown{
+class IEnumTravelLogEntry extends IUnknown {
 
     static sizeof => A_PtrSize
     /**

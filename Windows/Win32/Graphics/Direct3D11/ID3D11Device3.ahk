@@ -1,6 +1,7 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
+#Include .\ID3D11Device2.ahk
 #Include .\ID3D11Texture2D1.ahk
 #Include .\ID3D11Texture3D1.ahk
 #Include .\ID3D11RasterizerState2.ahk
@@ -9,15 +10,13 @@
 #Include .\ID3D11RenderTargetView1.ahk
 #Include .\ID3D11Query1.ahk
 #Include .\ID3D11DeviceContext3.ahk
-#Include .\ID3D11Device2.ahk
 
 /**
  * The device interface represents a virtual adapter; it is used to create resources. ID3D11Device3 adds new methods to those in ID3D11Device2.
  * @see https://learn.microsoft.com/windows/win32/api/d3d11_3/nn-d3d11_3-id3d11device3
  * @namespace Windows.Win32.Graphics.Direct3D11
- * @version v4.0.30319
  */
-class ID3D11Device3 extends ID3D11Device2{
+class ID3D11Device3 extends ID3D11Device2 {
 
     static sizeof => A_PtrSize
     /**

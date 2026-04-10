@@ -4,10 +4,8 @@
 
 /**
  * @namespace Windows.Win32.System.Ole
- * @version v4.0.30319
  */
-class OLE_HANDLE extends Win32Handle
-{
+class OLE_HANDLE extends Win32Handle {
     static sizeof => 4
 
     static packingSize => 4

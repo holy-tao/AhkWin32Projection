@@ -1,16 +1,15 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
-#Include ..\Com\IEnumUnknown.ahk
 #Include .\IParseDisplayName.ahk
+#Include ..\Com\IEnumUnknown.ahk
 
 /**
  * Enumerates objects in a compound document or lock a container in the running state. Container and object applications both implement this interface.
  * @see https://learn.microsoft.com/windows/win32/api/oleidl/nn-oleidl-iolecontainer
  * @namespace Windows.Win32.System.Ole
- * @version v4.0.30319
  */
-class IOleContainer extends IParseDisplayName{
+class IOleContainer extends IParseDisplayName {
 
     static sizeof => A_PtrSize
     /**

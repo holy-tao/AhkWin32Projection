@@ -6,10 +6,8 @@
  * Specifies Desktop Window Manager (DWM) thumbnail properties. Used by the DwmUpdateThumbnailProperties function.
  * @see https://learn.microsoft.com/windows/win32/api/dwmapi/ns-dwmapi-dwm_thumbnail_properties
  * @namespace Windows.Win32.Graphics.Dwm
- * @version v4.0.30319
  */
-class DWM_THUMBNAIL_PROPERTIES extends Win32Struct
-{
+class DWM_THUMBNAIL_PROPERTIES extends Win32Struct {
     static sizeof => 48
 
     static packingSize => 4
@@ -27,7 +25,7 @@ class DWM_THUMBNAIL_PROPERTIES extends Win32Struct
      * The area in the destination window where the thumbnail will be rendered.
      * @type {RECT}
      */
-    rcDestination{
+    rcDestination {
         get {
             if(!this.HasProp("__rcDestination"))
                 this.__rcDestination := RECT(4, this)
@@ -39,7 +37,7 @@ class DWM_THUMBNAIL_PROPERTIES extends Win32Struct
      * The region of the source window to use as the thumbnail. By default, the entire window is used as the thumbnail.
      * @type {RECT}
      */
-    rcSource{
+    rcSource {
         get {
             if(!this.HasProp("__rcSource"))
                 this.__rcSource := RECT(20, this)

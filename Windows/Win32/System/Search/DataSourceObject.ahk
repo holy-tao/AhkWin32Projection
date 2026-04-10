@@ -5,9 +5,8 @@
 
 /**
  * @namespace Windows.Win32.System.Search
- * @version v4.0.30319
  */
-class DataSourceObject extends IDispatch{
+class DataSourceObject extends IDispatch {
 
     static sizeof => A_PtrSize
     /**

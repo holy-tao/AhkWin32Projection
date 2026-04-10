@@ -1,14 +1,13 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
-#Include .\D3D_SHADER_CACHE_COMPILER_PROPERTIES.ahk
 #Include ..\..\System\Com\IUnknown.ahk
+#Include .\D3D_SHADER_CACHE_COMPILER_PROPERTIES.ahk
 
 /**
  * @namespace Windows.Win32.Graphics.Direct3D
- * @version v4.0.30319
  */
-class ID3DShaderCacheInstaller extends IUnknown{
+class ID3DShaderCacheInstaller extends IUnknown {
 
     static sizeof => A_PtrSize
     /**
@@ -147,7 +146,7 @@ class ID3DShaderCacheInstaller extends IUnknown{
      * 
      * @param {Pointer<D3D_SHADER_CACHE_APPLICATION_DESC>} pApplicationDesc 
      * @param {Pointer<Integer>} pArraySize 
-     * @param {Integer} flags 
+     * @param {D3D_SHADER_CACHE_TARGET_FLAGS} flags 
      * @returns {D3D_SHADER_CACHE_COMPILER_PROPERTIES} 
      */
     GetPrecompileTargets(pApplicationDesc, pArraySize, flags) {

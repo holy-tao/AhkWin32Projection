@@ -3,10 +3,8 @@
 
 /**
  * @namespace Windows.Win32.System.Power
- * @version v4.0.30319
  */
-class WAKE_ALARM_INFORMATION extends Win32Struct
-{
+class WAKE_ALARM_INFORMATION extends Win32Struct {
     static sizeof => 8
 
     static packingSize => 4

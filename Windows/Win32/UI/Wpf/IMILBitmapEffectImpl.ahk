@@ -1,9 +1,9 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
+#Include ..\..\System\Com\IUnknown.ahk
 #Include ..\..\Graphics\Imaging\IWICBitmapSource.ahk
 #Include .\MilRectD.ahk
-#Include ..\..\System\Com\IUnknown.ahk
 
 /**
  * Exposes methods that define an an out IMILBitmapEffect object.
@@ -11,9 +11,8 @@
  * This interface must be implemented if a custom effect also exposes <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/mileffects/nn-mileffects-imilbitmapeffect">IMILBitmapEffect</a>.
  * @see https://learn.microsoft.com/windows/win32/api/mileffects/nn-mileffects-imilbitmapeffectimpl
  * @namespace Windows.Win32.UI.Wpf
- * @version v4.0.30319
  */
-class IMILBitmapEffectImpl extends IUnknown{
+class IMILBitmapEffectImpl extends IUnknown {
 
     static sizeof => A_PtrSize
     /**

@@ -1,16 +1,15 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
-#Include .\IVdsAsync.ahk
 #Include ..\..\System\Com\IUnknown.ahk
+#Include .\IVdsAsync.ahk
 
 /**
  * Provides a method to create aligned volumes on a pack.
  * @see https://learn.microsoft.com/windows/win32/api/vds/nn-vds-ivdspack2
  * @namespace Windows.Win32.Storage.VirtualDiskService
- * @version v4.0.30319
  */
-class IVdsPack2 extends IUnknown{
+class IVdsPack2 extends IUnknown {
 
     static sizeof => A_PtrSize
     /**
@@ -33,7 +32,7 @@ class IVdsPack2 extends IUnknown{
 
     /**
      * Creates a volume in a disk pack with an optional alignment parameter.
-     * @param {Integer} type Value from the <a href="https://docs.microsoft.com/windows/desktop/api/vds/ne-vds-vds_volume_type">VDS_VOLUME_TYPE</a> enumeration that indicates the type of volume to create.
+     * @param {VDS_VOLUME_TYPE} type Value from the <a href="https://docs.microsoft.com/windows/desktop/api/vds/ne-vds-vds_volume_type">VDS_VOLUME_TYPE</a> enumeration that indicates the type of volume to create.
      * @param {Pointer<VDS_INPUT_DISK>} pInputDiskArray Array of <a href="https://docs.microsoft.com/windows/desktop/api/vds/ns-vds-vds_input_disk">VDS_INPUT_DISK</a> structures that indicate the disks on which to create the volume.
      * 
      * <div class="alert"><b>Note</b>  This array's size must be 32 objects or less, because Windows imposes a limit where no more than 32 disks may be used with a single volume.</div>

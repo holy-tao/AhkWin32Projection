@@ -5,17 +5,15 @@
  * Specifies the pixel format and size of a component plane.
  * @see https://learn.microsoft.com/windows/win32/api/wincodec/ns-wincodec-wicbitmapplanedescription
  * @namespace Windows.Win32.Graphics.Imaging
- * @version v4.0.30319
  */
-class WICBitmapPlaneDescription extends Win32Struct
-{
+class WICBitmapPlaneDescription extends Win32Struct {
     static sizeof => 16
 
     static packingSize => 8
 
     /**
      * Describes the pixel format of the plane.
-     * @type {Pointer<Guid>}
+     * @type {Pointer}
      */
     Format {
         get => NumGet(this, 0, "ptr")

@@ -1,17 +1,16 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\..\Guid.ahk
+#Include ..\..\..\System\Com\IUnknown.ahk
 #Include .\IDxcBlobEncoding.ahk
 #Include .\IDxcBlobUtf16.ahk
 #Include .\IDxcBlob.ahk
 #Include .\IDxcVersionInfo.ahk
-#Include ..\..\..\System\Com\IUnknown.ahk
 
 /**
  * @namespace Windows.Win32.Graphics.Direct3D.Dxc
- * @version v4.0.30319
  */
-class IDxcPdbUtils2 extends IUnknown{
+class IDxcPdbUtils2 extends IUnknown {
 
     static sizeof => A_PtrSize
     /**

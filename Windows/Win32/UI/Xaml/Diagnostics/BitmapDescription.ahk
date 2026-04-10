@@ -1,14 +1,14 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\..\Win32Struct.ahk
+#Include ..\..\..\Graphics\Dxgi\Common\DXGI_FORMAT.ahk
+#Include ..\..\..\Graphics\Dxgi\Common\DXGI_ALPHA_MODE.ahk
 
 /**
  * Represents information about the bitmap stored in IBitmapData.
  * @see https://learn.microsoft.com/windows/win32/api/xamlom/ns-xamlom-bitmapdescription
  * @namespace Windows.Win32.UI.Xaml.Diagnostics
- * @version v4.0.30319
  */
-class BitmapDescription extends Win32Struct
-{
+class BitmapDescription extends Win32Struct {
     static sizeof => 16
 
     static packingSize => 4
@@ -33,7 +33,7 @@ class BitmapDescription extends Win32Struct
 
     /**
      * The format of the bitmap.
-     * @type {Integer}
+     * @type {DXGI_FORMAT}
      */
     Format {
         get => NumGet(this, 8, "int")
@@ -42,7 +42,7 @@ class BitmapDescription extends Win32Struct
 
     /**
      * The alpha mode of the bitmap.
-     * @type {Integer}
+     * @type {DXGI_ALPHA_MODE}
      */
     AlphaMode {
         get => NumGet(this, 12, "int")

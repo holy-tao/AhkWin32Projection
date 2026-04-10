@@ -18,9 +18,8 @@
  * </ul>
  * @see https://learn.microsoft.com/windows/win32/api/strmif/nn-strmif-iamstreamselect
  * @namespace Windows.Win32.Media.DirectShow
- * @version v4.0.30319
  */
-class IAMStreamSelect extends IUnknown{
+class IAMStreamSelect extends IUnknown {
 
     static sizeof => A_PtrSize
     /**

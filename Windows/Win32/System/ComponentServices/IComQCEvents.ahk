@@ -7,9 +7,8 @@
  * Notifies the subscriber if a queued message is created, de-queued, or moved to a retry or dead letter queue.
  * @see https://learn.microsoft.com/windows/win32/api/comsvcs/nn-comsvcs-icomqcevents
  * @namespace Windows.Win32.System.ComponentServices
- * @version v4.0.30319
  */
-class IComQCEvents extends IUnknown{
+class IComQCEvents extends IUnknown {
 
     static sizeof => A_PtrSize
     /**

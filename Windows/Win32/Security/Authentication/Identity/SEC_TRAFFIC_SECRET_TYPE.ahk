@@ -3,13 +3,10 @@
 
 /**
  * Indicates the traffic secret type used.
- * @remarks
- * 
  * @see https://learn.microsoft.com/windows/win32/api/sspi/ne-sspi-sec_traffic_secret_type
  * @namespace Windows.Win32.Security.Authentication.Identity
- * @version v4.0.30319
  */
-class SEC_TRAFFIC_SECRET_TYPE extends Win32Enum{
+class SEC_TRAFFIC_SECRET_TYPE extends Win32Enum {
 
     /**
      * No traffic secret is used.

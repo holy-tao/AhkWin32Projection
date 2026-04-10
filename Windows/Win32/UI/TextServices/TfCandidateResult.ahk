@@ -5,9 +5,8 @@
  * Elements of the TfCandidateResult enumeration are used with the ITfCandidateList::SetResult method to specify the result of a reconversion operation performed on a given candidate string.
  * @see https://learn.microsoft.com/windows/win32/api/ctffunc/ne-ctffunc-tfcandidateresult
  * @namespace Windows.Win32.UI.TextServices
- * @version v4.0.30319
  */
-class TfCandidateResult extends Win32Enum{
+class TfCandidateResult extends Win32Enum {
 
     /**
      * The candidate string has been selected and accepted. The previous text should be replaced with the specified candidate.

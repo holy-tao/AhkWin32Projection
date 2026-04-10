@@ -4,10 +4,8 @@
 
 /**
  * @namespace Windows.Win32.Security
- * @version v4.0.30319
  */
-class SE_SECURITY_DESCRIPTOR extends Win32Struct
-{
+class SE_SECURITY_DESCRIPTOR extends Win32Struct {
     static sizeof => 16
 
     static packingSize => 8
@@ -31,7 +29,7 @@ class SE_SECURITY_DESCRIPTOR extends Win32Struct
     /**
      * @type {PSECURITY_DESCRIPTOR}
      */
-    SecurityDescriptor{
+    SecurityDescriptor {
         get {
             if(!this.HasProp("__SecurityDescriptor"))
                 this.__SecurityDescriptor := PSECURITY_DESCRIPTOR(8, this)

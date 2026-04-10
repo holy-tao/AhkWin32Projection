@@ -3,9 +3,8 @@
 
 /**
  * @namespace Windows.Win32.NetworkManagement.WNet
- * @version v4.0.30319
  */
-class NET_RESOURCE_SCOPE extends Win32Enum{
+class NET_RESOURCE_SCOPE extends Win32Enum {
 
     /**
      * @type {Integer (UInt32)}

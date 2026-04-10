@@ -4,10 +4,8 @@
 
 /**
  * @namespace Windows.Win32.Storage.Nvme
- * @version v4.0.30319
  */
-class NVME_SANITIZE_STATUS_LOG extends Win32Struct
-{
+class NVME_SANITIZE_STATUS_LOG extends Win32Struct {
     static sizeof => 512
 
     static packingSize => 4
@@ -23,7 +21,7 @@ class NVME_SANITIZE_STATUS_LOG extends Win32Struct
     /**
      * @type {NVME_SANITIZE_STATUS}
      */
-    SSTAT{
+    SSTAT {
         get {
             if(!this.HasProp("__SSTAT"))
                 this.__SSTAT := NVME_SANITIZE_STATUS(2, this)
@@ -88,9 +86,9 @@ class NVME_SANITIZE_STATUS_LOG extends Win32Struct
     }
 
     /**
-     * @type {Array<Byte>}
+     * @type {Array<Integer>}
      */
-    Reserved{
+    Reserved {
         get {
             if(!this.HasProp("__ReservedProxyArray"))
                 this.__ReservedProxyArray := Win32FixedArray(this.ptr + 32, 480, Primitive, "char")

@@ -3,10 +3,8 @@
 
 /**
  * @namespace Windows.Win32.Media.KernelStreaming
- * @version v4.0.30319
  */
-class TRANSPORTBASICPARMS extends Win32Struct
-{
+class TRANSPORTBASICPARMS extends Win32Struct {
     static sizeof => 232
 
     static packingSize => 4
@@ -164,9 +162,9 @@ class TRANSPORTBASICPARMS extends Win32Struct
     }
 
     /**
-     * @type {Array<SByte>}
+     * @type {Array<Integer>}
      */
-    VolumeName{
+    VolumeName {
         get {
             if(!this.HasProp("__VolumeNameProxyArray"))
                 this.__VolumeNameProxyArray := Win32FixedArray(this.ptr + 76, 40, Primitive, "char")
@@ -175,9 +173,9 @@ class TRANSPORTBASICPARMS extends Win32Struct
     }
 
     /**
-     * @type {Array<Int32>}
+     * @type {Array<Integer>}
      */
-    Ballistic{
+    Ballistic {
         get {
             if(!this.HasProp("__BallisticProxyArray"))
                 this.__BallisticProxyArray := Win32FixedArray(this.ptr + 116, 20, Primitive, "int")

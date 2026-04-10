@@ -13,9 +13,8 @@
  * The effect is simply to offset the coordinate system by <i>x</i> and <i>y</i>.
  * @see https://learn.microsoft.com/windows/win32/api/dcomp/nn-dcomp-idcompositiontranslatetransform
  * @namespace Windows.Win32.Graphics.DirectComposition
- * @version v4.0.30319
  */
-class IDCompositionTranslateTransform extends IDCompositionTransform{
+class IDCompositionTranslateTransform extends IDCompositionTransform {
 
     static sizeof => A_PtrSize
     /**

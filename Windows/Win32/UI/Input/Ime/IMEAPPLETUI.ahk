@@ -6,10 +6,8 @@
  * Used by IImePadApplet::CreateUI to specify applet window style.
  * @see https://learn.microsoft.com/windows/win32/api/imepad/ns-imepad-imeappletui
  * @namespace Windows.Win32.UI.Input.Ime
- * @version v4.0.30319
  */
-class IMEAPPLETUI extends Win32Struct
-{
+class IMEAPPLETUI extends Win32Struct {
     static sizeof => 56
 
     static packingSize => 8
@@ -18,7 +16,7 @@ class IMEAPPLETUI extends Win32Struct
      * Window handle created by applet window.
      * @type {HWND}
      */
-    hwnd{
+    hwnd {
         get {
             if(!this.HasProp("__hwnd"))
                 this.__hwnd := HWND(0, this)

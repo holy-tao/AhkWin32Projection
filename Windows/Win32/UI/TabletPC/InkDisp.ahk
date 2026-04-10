@@ -20,10 +20,8 @@
  * The [**InkRenderer**](inkrenderer-class.md) object manages the mappings between ink and the display window.
  * @see https://learn.microsoft.com/windows/win32/tablet/inkdisp-class
  * @namespace Windows.Win32.UI.TabletPC
- * @version v4.0.30319
  */
-class InkDisp extends Win32Struct
-{
+class InkDisp extends Win32Struct {
     static sizeof => 0
 
     static packingSize => 1

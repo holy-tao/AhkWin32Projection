@@ -6,10 +6,8 @@
  * Describes a module loaded for the enclave.
  * @see https://learn.microsoft.com/windows/win32/api/ntenclv/ns-ntenclv-vbs_enclave_report_module
  * @namespace Windows.Win32.System.Environment
- * @version v4.0.30319
  */
-class VBS_ENCLAVE_REPORT_MODULE extends Win32Struct
-{
+class VBS_ENCLAVE_REPORT_MODULE extends Win32Struct {
     static sizeof => 112
 
     static packingSize => 4
@@ -18,7 +16,7 @@ class VBS_ENCLAVE_REPORT_MODULE extends Win32Struct
      * The variable data header for the report.
      * @type {VBS_ENCLAVE_REPORT_VARDATA_HEADER}
      */
-    Header{
+    Header {
         get {
             if(!this.HasProp("__Header"))
                 this.__Header := VBS_ENCLAVE_REPORT_VARDATA_HEADER(0, this)
@@ -28,9 +26,9 @@ class VBS_ENCLAVE_REPORT_MODULE extends Win32Struct
 
     /**
      * The enclave unique identifier of the module.
-     * @type {Array<Byte>}
+     * @type {Array<Integer>}
      */
-    UniqueId{
+    UniqueId {
         get {
             if(!this.HasProp("__UniqueIdProxyArray"))
                 this.__UniqueIdProxyArray := Win32FixedArray(this.ptr + 8, 32, Primitive, "char")
@@ -40,9 +38,9 @@ class VBS_ENCLAVE_REPORT_MODULE extends Win32Struct
 
     /**
      * The author identifier of the module.
-     * @type {Array<Byte>}
+     * @type {Array<Integer>}
      */
-    AuthorId{
+    AuthorId {
         get {
             if(!this.HasProp("__AuthorIdProxyArray"))
                 this.__AuthorIdProxyArray := Win32FixedArray(this.ptr + 40, 32, Primitive, "char")
@@ -52,9 +50,9 @@ class VBS_ENCLAVE_REPORT_MODULE extends Win32Struct
 
     /**
      * The family identifier of the module.
-     * @type {Array<Byte>}
+     * @type {Array<Integer>}
      */
-    FamilyId{
+    FamilyId {
         get {
             if(!this.HasProp("__FamilyIdProxyArray"))
                 this.__FamilyIdProxyArray := Win32FixedArray(this.ptr + 72, 16, Primitive, "char")
@@ -64,9 +62,9 @@ class VBS_ENCLAVE_REPORT_MODULE extends Win32Struct
 
     /**
      * The image identifier of the module.
-     * @type {Array<Byte>}
+     * @type {Array<Integer>}
      */
-    ImageId{
+    ImageId {
         get {
             if(!this.HasProp("__ImageIdProxyArray"))
                 this.__ImageIdProxyArray := Win32FixedArray(this.ptr + 88, 16, Primitive, "char")

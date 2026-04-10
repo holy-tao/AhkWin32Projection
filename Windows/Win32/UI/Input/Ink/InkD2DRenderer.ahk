@@ -5,10 +5,8 @@
  * Implements the IInkD2DRenderer interface.
  * @see https://learn.microsoft.com/windows/win32/input_ink/inkd2drenderer
  * @namespace Windows.Win32.UI.Input.Ink
- * @version v4.0.30319
  */
-class InkD2DRenderer extends Win32Struct
-{
+class InkD2DRenderer extends Win32Struct {
     static sizeof => 0
 
     static packingSize => 1

@@ -3,9 +3,8 @@
 
 /**
  * @namespace Windows.Win32.Security.Credentials
- * @version v4.0.30319
  */
-class CRED_PERSIST extends Win32Enum{
+class CRED_PERSIST extends Win32Enum {
 
     /**
      * @type {Integer (UInt32)}

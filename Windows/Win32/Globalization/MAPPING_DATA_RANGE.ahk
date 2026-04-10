@@ -8,10 +8,8 @@
  * <div> </div>
  * @see https://learn.microsoft.com/windows/win32/api/elscore/ns-elscore-mapping_data_range
  * @namespace Windows.Win32.Globalization
- * @version v4.0.30319
  */
-class MAPPING_DATA_RANGE extends Win32Struct
-{
+class MAPPING_DATA_RANGE extends Win32Struct {
     static sizeof => 72
 
     static packingSize => 8

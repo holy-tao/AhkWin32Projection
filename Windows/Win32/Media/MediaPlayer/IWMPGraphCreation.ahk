@@ -7,9 +7,8 @@
  * The IWMPGraphCreation interface provides methods that Windows Media Player calls to enable you to manage the DirectShow filter graph.
  * @see https://learn.microsoft.com/windows/win32/api/wmpservices/nn-wmpservices-iwmpgraphcreation
  * @namespace Windows.Win32.Media.MediaPlayer
- * @version v4.0.30319
  */
-class IWMPGraphCreation extends IUnknown{
+class IWMPGraphCreation extends IUnknown {
 
     static sizeof => A_PtrSize
     /**

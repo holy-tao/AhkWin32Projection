@@ -9,9 +9,8 @@
  * A device can support one or more of these performance counters, but it is not required to support any of them.
  * @see https://learn.microsoft.com/windows/win32/api/d3d10/ne-d3d10-d3d10_counter
  * @namespace Windows.Win32.Graphics.Direct3D10
- * @version v4.0.30319
  */
-class D3D10_COUNTER extends Win32Enum{
+class D3D10_COUNTER extends Win32Enum {
 
     /**
      * Percentage of the time that the GPU is idle.

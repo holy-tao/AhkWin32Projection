@@ -16,10 +16,8 @@
  * -   [**WinBioVerifyWithCallback**](/windows/desktop/api/Winbio/nf-winbio-winbioverifywithcallback)
  * @see https://learn.microsoft.com/windows/win32/SecBioMet/winbio-identity
  * @namespace Windows.Win32.Devices.BiometricFramework
- * @version v4.0.30319
  */
-class WINBIO_IDENTITY extends Win32Struct
-{
+class WINBIO_IDENTITY extends Win32Struct {
     static sizeof => 80
 
     static packingSize => 8
@@ -31,7 +29,7 @@ class WINBIO_IDENTITY extends Win32Struct
         class _AccountSid extends Win32Struct {
             static sizeof => 72
             static packingSize => 4
-    
+
             /**
              * @type {Integer}
              */
@@ -39,20 +37,19 @@ class WINBIO_IDENTITY extends Win32Struct
                 get => NumGet(this, 0, "uint")
                 set => NumPut("uint", value, this, 0)
             }
-        
+
             /**
-             * @type {Array<Byte>}
+             * @type {Array<Integer>}
              */
-            Data{
+            Data {
                 get {
                     if(!this.HasProp("__DataProxyArray"))
                         this.__DataProxyArray := Win32FixedArray(this.ptr + 4, 68, Primitive, "char")
                     return this.__DataProxyArray
                 }
             }
-        
         }
-    
+
         /**
          * @type {Integer}
          */
@@ -60,7 +57,7 @@ class WINBIO_IDENTITY extends Win32Struct
             get => NumGet(this, 0, "uint")
             set => NumPut("uint", value, this, 0)
         }
-    
+
         /**
          * @type {Integer}
          */
@@ -68,37 +65,36 @@ class WINBIO_IDENTITY extends Win32Struct
             get => NumGet(this, 0, "uint")
             set => NumPut("uint", value, this, 0)
         }
-    
+
         /**
-         * @type {Pointer<Guid>}
+         * @type {Pointer}
          */
         TemplateGuid {
             get => NumGet(this, 0, "ptr")
             set => NumPut("ptr", value, this, 0)
         }
-    
+
         /**
          * @type {_AccountSid}
          */
-        AccountSid{
+        AccountSid {
             get {
                 if(!this.HasProp("__AccountSid"))
-                    this.__AccountSid := %this.__Class%._AccountSid(0, this)
+                    this.__AccountSid := WINBIO_IDENTITY._Value_e__Union._AccountSid(0, this)
                 return this.__AccountSid
             }
         }
-    
+
         /**
-         * @type {Array<Byte>}
+         * @type {Array<Integer>}
          */
-        SecureId{
+        SecureId {
             get {
                 if(!this.HasProp("__SecureIdProxyArray"))
                     this.__SecureIdProxyArray := Win32FixedArray(this.ptr + 0, 32, Primitive, "char")
                 return this.__SecureIdProxyArray
             }
         }
-    
     }
 
     /**
@@ -123,10 +119,10 @@ class WINBIO_IDENTITY extends Win32Struct
      * A union that can contain one of the following values:
      * @type {_Value_e__Union}
      */
-    Value{
+    Value {
         get {
             if(!this.HasProp("__Value"))
-                this.__Value := %this.__Class%._Value_e__Union(8, this)
+                this.__Value := WINBIO_IDENTITY._Value_e__Union(8, this)
             return this.__Value
         }
     }

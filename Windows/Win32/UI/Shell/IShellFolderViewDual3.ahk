@@ -1,8 +1,8 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
-#Include ..\..\Foundation\BSTR.ahk
 #Include .\IShellFolderViewDual2.ahk
+#Include ..\..\Foundation\BSTR.ahk
 
 /**
  * Exposes methods that modify the current folder view.
@@ -10,9 +10,8 @@
  * This interface also provides the methods of the <a href="https://docs.microsoft.com/windows/desktop/api/shldisp/nn-shldisp-ishellfolderviewdual">IShellFolderViewDual</a> and <a href="https://docs.microsoft.com/windows/desktop/api/shldisp/nn-shldisp-ishellfolderviewdual2">IShellFolderViewDual2</a> interfaces, from which it inherits.
  * @see https://learn.microsoft.com/windows/win32/api/shldisp/nn-shldisp-ishellfolderviewdual3
  * @namespace Windows.Win32.UI.Shell
- * @version v4.0.30319
  */
-class IShellFolderViewDual3 extends IShellFolderViewDual2{
+class IShellFolderViewDual3 extends IShellFolderViewDual2 {
 
     static sizeof => A_PtrSize
     /**

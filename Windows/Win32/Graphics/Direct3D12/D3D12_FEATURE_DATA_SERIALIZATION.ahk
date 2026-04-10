@@ -1,16 +1,13 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
+#Include .\D3D12_HEAP_SERIALIZATION_TIER.ahk
 
 /**
  * Indicates the level of support for heap serialization.
- * @remarks
- * 
  * @see https://learn.microsoft.com/windows/win32/api/d3d12/ns-d3d12-d3d12_feature_data_serialization
  * @namespace Windows.Win32.Graphics.Direct3D12
- * @version v4.0.30319
  */
-class D3D12_FEATURE_DATA_SERIALIZATION extends Win32Struct
-{
+class D3D12_FEATURE_DATA_SERIALIZATION extends Win32Struct {
     static sizeof => 8
 
     static packingSize => 4
@@ -30,7 +27,7 @@ class D3D12_FEATURE_DATA_SERIALIZATION extends Win32Struct
      * Type: **[D3D12_HEAP_SERIALIZATION_TIER](/windows/desktop/api/d3d12/ne-d3d12-d3d12_heap_serialization_tier)**
      * 
      * An output field, indicating the tier of heap serialization support.
-     * @type {Integer}
+     * @type {D3D12_HEAP_SERIALIZATION_TIER}
      */
     HeapSerializationTier {
         get => NumGet(this, 4, "int")

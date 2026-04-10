@@ -14,10 +14,8 @@
  * Initially, the decoder should set <b>dwMinNumSurfaces</b> equal to the optimal number of surfaces needed to decode smoothly. If the renderer cannot allocate that many surfaces, the connection will fail with the error code E_OUTOFMEMORY. The decoder should reconnect with the same media type but set <b>dwMinNumSurfaces</b> equal to the minimum number of surfaces required for decoding. For example, the optimal number of surfaces might be 8, while the minimum is 4.
  * @see https://learn.microsoft.com/windows/win32/api/amva/ns-amva-amvauncompbufferinfo
  * @namespace Windows.Win32.Media.DirectShow
- * @version v4.0.30319
  */
-class AMVAUncompBufferInfo extends Win32Struct
-{
+class AMVAUncompBufferInfo extends Win32Struct {
     static sizeof => 40
 
     static packingSize => 4
@@ -44,7 +42,7 @@ class AMVAUncompBufferInfo extends Win32Struct
      * <b>DDPIXELFORMAT</b> structure, describing the pixel format of the allocated surfaces.
      * @type {DDPIXELFORMAT}
      */
-    ddUncompPixelFormat{
+    ddUncompPixelFormat {
         get {
             if(!this.HasProp("__ddUncompPixelFormat"))
                 this.__ddUncompPixelFormat := DDPIXELFORMAT(8, this)

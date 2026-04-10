@@ -5,9 +5,8 @@
  * Elements of the TfShiftDir enumeration specify which direction a range anchor is moved.
  * @see https://learn.microsoft.com/windows/win32/api/msctf/ne-msctf-tfshiftdir
  * @namespace Windows.Win32.UI.TextServices
- * @version v4.0.30319
  */
-class TfShiftDir extends Win32Enum{
+class TfShiftDir extends Win32Enum {
 
     /**
      * Specifies that the anchor will be moved to the region immediately preceding the range.

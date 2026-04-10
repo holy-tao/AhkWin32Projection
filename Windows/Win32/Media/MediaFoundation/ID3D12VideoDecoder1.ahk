@@ -5,13 +5,10 @@
 
 /**
  * Represents a Direct3D 12 video decoder that contains resolution-independent resources and state for performing the decode operation. Adds support for protected resources.
- * @remarks
- * 
  * @see https://learn.microsoft.com/windows/win32/api/d3d12video/nn-d3d12video-id3d12videodecoder1
  * @namespace Windows.Win32.Media.MediaFoundation
- * @version v4.0.30319
  */
-class ID3D12VideoDecoder1 extends ID3D12VideoDecoder{
+class ID3D12VideoDecoder1 extends ID3D12VideoDecoder {
 
     static sizeof => A_PtrSize
     /**

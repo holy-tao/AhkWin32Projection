@@ -5,10 +5,8 @@
  * Used by the SetClusterServiceAccountPassword function to return the results of a Cluster service user account password change for each cluster node.
  * @see https://learn.microsoft.com/windows/win32/api/clusapi/ns-clusapi-cluster_set_password_status
  * @namespace Windows.Win32.Networking.Clustering
- * @version v4.0.30319
  */
-class CLUSTER_SET_PASSWORD_STATUS extends Win32Struct
-{
+class CLUSTER_SET_PASSWORD_STATUS extends Win32Struct {
     static sizeof => 12
 
     static packingSize => 4

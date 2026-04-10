@@ -1,17 +1,15 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
-#Include .\IBackgroundCopyJob.ahk
-#Include .\IEnumBackgroundCopyJobs.ahk
 #Include ..\..\System\Com\IUnknown.ahk
+#Include .\IBackgroundCopyJob.ahk
 
 /**
  * Use the IEnumBackgroundCopyJobs interface to enumerate the list of jobs in the transfer queue. To get an IEnumBackgroundCopyJobs interface pointer, call the IBackgroundCopyManager::EnumJobs method.
  * @see https://learn.microsoft.com/windows/win32/api/bits/nn-bits-ienumbackgroundcopyjobs
  * @namespace Windows.Win32.Networking.BackgroundIntelligentTransferService
- * @version v4.0.30319
  */
-class IEnumBackgroundCopyJobs extends IUnknown{
+class IEnumBackgroundCopyJobs extends IUnknown {
 
     static sizeof => A_PtrSize
     /**

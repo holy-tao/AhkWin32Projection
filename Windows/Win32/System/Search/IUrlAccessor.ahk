@@ -1,10 +1,11 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
+#Include ..\Com\IUnknown.ahk
+#Include ..\..\..\..\Guid.ahk
 #Include ..\..\Foundation\FILETIME.ahk
 #Include ..\Com\IStream.ahk
 #Include ..\..\Storage\IndexServer\IFilter.ahk
-#Include ..\Com\IUnknown.ahk
 
 /**
  * Provides methods for processing an individual item in a content source whose URL is provided by the gatherer to the filter host.
@@ -16,9 +17,8 @@
  * Although the protocol handler runs in the protocol host's multithreaded environment, each protocol handler runs in its own thread, employing one <b>IUrlAccessor</b> object at a time.
  * @see https://learn.microsoft.com/windows/win32/api/searchapi/nn-searchapi-iurlaccessor
  * @namespace Windows.Win32.System.Search
- * @version v4.0.30319
  */
-class IUrlAccessor extends IUnknown{
+class IUrlAccessor extends IUnknown {
 
     static sizeof => A_PtrSize
     /**

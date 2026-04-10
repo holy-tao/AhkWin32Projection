@@ -9,9 +9,8 @@
  * To declare the interface identifier (IID) for this interface, use the <b>__uuidof</b> operator: <c>__uuidof(IATSCComponentType)</c>.
  * @see https://learn.microsoft.com/windows/win32/api/tuner/nn-tuner-iatsccomponenttype
  * @namespace Windows.Win32.Media.DirectShow.Tv
- * @version v4.0.30319
  */
-class IATSCComponentType extends IMPEG2ComponentType{
+class IATSCComponentType extends IMPEG2ComponentType {
 
     static sizeof => A_PtrSize
     /**

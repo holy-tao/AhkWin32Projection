@@ -1,18 +1,20 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\..\Win32Struct.ahk
+#Include .\GameInputKind.ahk
+#Include .\GameInputLabel.ahk
+#Include .\GameInputRawDeviceReportInfo.ahk
+#Include .\GameInputRawDeviceReportItemInfo.ahk
 
 /**
  * @namespace Windows.Win32.UI.Input.GameInput
- * @version v4.0.30319
  */
-class GameInputControllerButtonInfo extends Win32Struct
-{
+class GameInputControllerButtonInfo extends Win32Struct {
     static sizeof => 32
 
     static packingSize => 8
 
     /**
-     * @type {Integer}
+     * @type {GameInputKind}
      */
     mappedInputKinds {
         get => NumGet(this, 0, "int")
@@ -20,7 +22,7 @@ class GameInputControllerButtonInfo extends Win32Struct
     }
 
     /**
-     * @type {Integer}
+     * @type {GameInputLabel}
      */
     label {
         get => NumGet(this, 4, "int")

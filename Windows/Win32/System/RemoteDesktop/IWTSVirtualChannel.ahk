@@ -7,9 +7,8 @@
  * Used to control the channel state, and writes on the channel.
  * @see https://learn.microsoft.com/windows/win32/api/tsvirtualchannels/nn-tsvirtualchannels-iwtsvirtualchannel
  * @namespace Windows.Win32.System.RemoteDesktop
- * @version v4.0.30319
  */
-class IWTSVirtualChannel extends IUnknown{
+class IWTSVirtualChannel extends IUnknown {
 
     static sizeof => A_PtrSize
     /**

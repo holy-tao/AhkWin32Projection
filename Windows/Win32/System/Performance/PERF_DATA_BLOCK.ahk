@@ -10,10 +10,8 @@
  * Consumers use <b>PerfTime</b>, <b>PerfFreq</b>, and <b>PerfTime100nSec</b> when calculating counter values unless the counter type contains the <b>PERF_OBJECT_TIMER</b> flag in which case the consumer uses the <b>PerfTime</b> and <b>PerfFreq</b> members of <a href="https://docs.microsoft.com/windows/desktop/api/winperf/ns-winperf-perf_object_type">PERF_OBJECT_TYPE</a>.
  * @see https://learn.microsoft.com/windows/win32/api/winperf/ns-winperf-perf_data_block
  * @namespace Windows.Win32.System.Performance
- * @version v4.0.30319
  */
-class PERF_DATA_BLOCK extends Win32Struct
-{
+class PERF_DATA_BLOCK extends Win32Struct {
     static sizeof => 88
 
     static packingSize => 8
@@ -94,7 +92,7 @@ class PERF_DATA_BLOCK extends Win32Struct
      * Time when the system was monitored. This member is in Coordinated Universal Time (UTC) format.
      * @type {SYSTEMTIME}
      */
-    SystemTime{
+    SystemTime {
         get {
             if(!this.HasProp("__SystemTime"))
                 this.__SystemTime := SYSTEMTIME(36, this)

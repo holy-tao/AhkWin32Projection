@@ -5,10 +5,8 @@
 
 /**
  * @namespace Windows.Win32.Devices.Display
- * @version v4.0.30319
  */
-class FSVIDEO_MODE_INFORMATION extends Win32Struct
-{
+class FSVIDEO_MODE_INFORMATION extends Win32Struct {
     static sizeof => 112
 
     static packingSize => 8
@@ -16,7 +14,7 @@ class FSVIDEO_MODE_INFORMATION extends Win32Struct
     /**
      * @type {VIDEO_MODE_INFORMATION}
      */
-    VideoMode{
+    VideoMode {
         get {
             if(!this.HasProp("__VideoMode"))
                 this.__VideoMode := VIDEO_MODE_INFORMATION(0, this)
@@ -27,7 +25,7 @@ class FSVIDEO_MODE_INFORMATION extends Win32Struct
     /**
      * @type {VIDEO_MEMORY_INFORMATION}
      */
-    VideoMemory{
+    VideoMemory {
         get {
             if(!this.HasProp("__VideoMemory"))
                 this.__VideoMemory := VIDEO_MEMORY_INFORMATION(80, this)

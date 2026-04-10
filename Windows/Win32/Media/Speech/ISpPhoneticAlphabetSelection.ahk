@@ -5,9 +5,8 @@
 
 /**
  * @namespace Windows.Win32.Media.Speech
- * @version v4.0.30319
  */
-class ISpPhoneticAlphabetSelection extends IUnknown{
+class ISpPhoneticAlphabetSelection extends IUnknown {
 
     static sizeof => A_PtrSize
     /**

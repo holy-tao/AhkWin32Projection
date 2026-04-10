@@ -1,22 +1,20 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\..\Win32Struct.ahk
+#Include .\SECPKG_PACKAGE_CHANGE_TYPE.ahk
 #Include .\SECURITY_STRING.ahk
 
 /**
  * The SECPKG_EVENT_PACKAGE_CHANGE structure contains information about changes in security package availability.
  * @see https://learn.microsoft.com/windows/win32/api/ntsecpkg/ns-ntsecpkg-secpkg_event_package_change
  * @namespace Windows.Win32.Security.Authentication.Identity
- * @version v4.0.30319
  */
-class SECPKG_EVENT_PACKAGE_CHANGE extends Win32Struct
-{
+class SECPKG_EVENT_PACKAGE_CHANGE extends Win32Struct {
     static sizeof => 32
 
     static packingSize => 8
 
     /**
-     * 
-     * @type {Integer}
+     * @type {SECPKG_PACKAGE_CHANGE_TYPE}
      */
     ChangeType {
         get => NumGet(this, 0, "uint")
@@ -36,7 +34,7 @@ class SECPKG_EVENT_PACKAGE_CHANGE extends Win32Struct
      * The name of the security package.
      * @type {SECURITY_STRING}
      */
-    PackageName{
+    PackageName {
         get {
             if(!this.HasProp("__PackageName"))
                 this.__PackageName := SECURITY_STRING(16, this)

@@ -3,10 +3,8 @@
 
 /**
  * @namespace Windows.Win32.Graphics.Printing
- * @version v4.0.30319
  */
-class DELETE_PORT_DATA_1 extends Win32Struct
-{
+class DELETE_PORT_DATA_1 extends Win32Struct {
     static sizeof => 236
 
     static packingSize => 4
@@ -20,9 +18,9 @@ class DELETE_PORT_DATA_1 extends Win32Struct
     }
 
     /**
-     * @type {Array<Byte>}
+     * @type {Array<Integer>}
      */
-    Reserved{
+    Reserved {
         get {
             if(!this.HasProp("__ReservedProxyArray"))
                 this.__ReservedProxyArray := Win32FixedArray(this.ptr + 128, 98, Primitive, "char")

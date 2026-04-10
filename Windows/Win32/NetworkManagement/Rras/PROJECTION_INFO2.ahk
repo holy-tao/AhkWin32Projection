@@ -1,16 +1,16 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
 #Include .\PPP_PROJECTION_INFO2.ahk
+#Include .\PPP_LCP.ahk
+#Include .\PPP_LCP_INFO_AUTH_DATA.ahk
 #Include .\IKEV2_PROJECTION_INFO2.ahk
 
 /**
  * Used in the RAS_CONNECTION_4 structure as a placeholder for the PPP_PROJECTION_INFO2 and IKEV2_PROJECTION_INFO2 structures.
  * @see https://learn.microsoft.com/windows/win32/api/mprapi/ns-mprapi-projection_info2
  * @namespace Windows.Win32.NetworkManagement.Rras
- * @version v4.0.30319
  */
-class PROJECTION_INFO2 extends Win32Struct
-{
+class PROJECTION_INFO2 extends Win32Struct {
     static sizeof => 208
 
     static packingSize => 8
@@ -54,7 +54,7 @@ class PROJECTION_INFO2 extends Win32Struct
     /**
      * @type {PPP_PROJECTION_INFO2}
      */
-    PppProjectionInfo{
+    PppProjectionInfo {
         get {
             if(!this.HasProp("__PppProjectionInfo"))
                 this.__PppProjectionInfo := PPP_PROJECTION_INFO2(8, this)
@@ -65,7 +65,7 @@ class PROJECTION_INFO2 extends Win32Struct
     /**
      * @type {IKEV2_PROJECTION_INFO2}
      */
-    Ikev2ProjectionInfo{
+    Ikev2ProjectionInfo {
         get {
             if(!this.HasProp("__Ikev2ProjectionInfo"))
                 this.__Ikev2ProjectionInfo := IKEV2_PROJECTION_INFO2(8, this)

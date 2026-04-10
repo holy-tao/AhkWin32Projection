@@ -1,5 +1,7 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
+#Include .\UpdateAssessmentStatus.ahk
+#Include .\UpdateImpactLevel.ahk
 
 /**
  * UpdateAssessment contains information that assesses how up-to-date an installed OS is.
@@ -9,17 +11,15 @@
  * When <a href="https://docs.microsoft.com/windows/desktop/api/waasapi/nf-waasapi-iwaasassessor-getosupdateassessment">GetOSUpdateAssessment</a> is called, an <a href="https://docs.microsoft.com/windows/desktop/api/waasapitypes/ns-waasapitypes-osupdateassessment">OSUpdateAssessment</a> structure is returned. Within this structure there are two <b>UpdateAssessment</b> structures: <b>assessmentForCurrent</b> and <b>assessmentForUpToDate</b>. The <b>UpdateAssessment</b> structure summarizes the assessments to determine whether a device is current or whether it is up-to-date, respectively; this is defined with the <a href="https://docs.microsoft.com/windows/desktop/SysInfo/updateassessmentstatus">UpdateAssessmentStatus</a> enumeration. The assessment informs how many days the device has been out-of-date with <b>daysOutofDate</b>. This date is used to determine if there is any potential impact (represented by the <b>impact</b> member in this structure) to the device.
  * @see https://learn.microsoft.com/windows/win32/api/waasapitypes/ns-waasapitypes-updateassessment
  * @namespace Windows.Win32.System.UpdateAssessment
- * @version v4.0.30319
  */
-class UpdateAssessment extends Win32Struct
-{
+class UpdateAssessment extends Win32Struct {
     static sizeof => 12
 
     static packingSize => 4
 
     /**
      * An <a href="https://docs.microsoft.com/windows/desktop/SysInfo/updateassessmentstatus">UpdateAssessmentStatus</a> enumeration detailing how up-to-date the device is, and for what reason.
-     * @type {Integer}
+     * @type {UpdateAssessmentStatus}
      */
     status {
         get => NumGet(this, 0, "int")
@@ -28,7 +28,7 @@ class UpdateAssessment extends Win32Struct
 
     /**
      * An <a href="https://docs.microsoft.com/windows/desktop/SysInfo/updateimpactlevel">    UpdateImpactLevel</a> enumeration detailing whether there is any impact on the device if it has an out-of-date OS.
-     * @type {Integer}
+     * @type {UpdateImpactLevel}
      */
     impact {
         get => NumGet(this, 4, "int")

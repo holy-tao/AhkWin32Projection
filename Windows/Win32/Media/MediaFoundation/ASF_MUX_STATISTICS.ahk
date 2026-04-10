@@ -7,10 +7,8 @@
  * Use <a href="https://docs.microsoft.com/windows/desktop/api/wmcontainer/nf-wmcontainer-imfasfmultiplexer-getstatistics">IMFASFMultiplexer::GetStatistics</a> to retrieve this structure.
  * @see https://learn.microsoft.com/windows/win32/api/wmcontainer/ns-wmcontainer-asf_mux_statistics
  * @namespace Windows.Win32.Media.MediaFoundation
- * @version v4.0.30319
  */
-class ASF_MUX_STATISTICS extends Win32Struct
-{
+class ASF_MUX_STATISTICS extends Win32Struct {
     static sizeof => 8
 
     static packingSize => 4

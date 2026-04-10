@@ -4,10 +4,8 @@
 
 /**
  * @namespace Windows.Win32.Media.Multimedia
- * @version v4.0.30319
  */
-class TRUESPEECHWAVEFORMAT extends Win32Struct
-{
+class TRUESPEECHWAVEFORMAT extends Win32Struct {
     static sizeof => 52
 
     static packingSize => 4
@@ -15,7 +13,7 @@ class TRUESPEECHWAVEFORMAT extends Win32Struct
     /**
      * @type {WAVEFORMATEX}
      */
-    wfx{
+    wfx {
         get {
             if(!this.HasProp("__wfx"))
                 this.__wfx := WAVEFORMATEX(0, this)
@@ -40,9 +38,9 @@ class TRUESPEECHWAVEFORMAT extends Win32Struct
     }
 
     /**
-     * @type {Array<Byte>}
+     * @type {Array<Integer>}
      */
-    abReserved{
+    abReserved {
         get {
             if(!this.HasProp("__abReservedProxyArray"))
                 this.__abReservedProxyArray := Win32FixedArray(this.ptr + 24, 28, Primitive, "char")

@@ -5,9 +5,8 @@
 
 /**
  * @namespace Windows.Win32.System.WinRT.Composition
- * @version v4.0.30319
  */
-class ICompositionCapabilitiesInteropFactory extends IInspectable{
+class ICompositionCapabilitiesInteropFactory extends IInspectable {
 
     static sizeof => A_PtrSize
     /**
@@ -31,7 +30,7 @@ class ICompositionCapabilitiesInteropFactory extends IInspectable{
     /**
      * 
      * @param {HWND} _hwnd 
-     * @returns {Pointer<CompositionCapabilities>} 
+     * @returns {Pointer} 
      */
     GetForWindow(_hwnd) {
         _hwnd := _hwnd is Win32Handle ? NumGet(_hwnd, "ptr") : _hwnd

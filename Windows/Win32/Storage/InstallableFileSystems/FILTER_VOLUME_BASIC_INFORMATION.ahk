@@ -3,10 +3,8 @@
 
 /**
  * @namespace Windows.Win32.Storage.InstallableFileSystems
- * @version v4.0.30319
  */
-class FILTER_VOLUME_BASIC_INFORMATION extends Win32Struct
-{
+class FILTER_VOLUME_BASIC_INFORMATION extends Win32Struct {
     static sizeof => 4
 
     static packingSize => 2

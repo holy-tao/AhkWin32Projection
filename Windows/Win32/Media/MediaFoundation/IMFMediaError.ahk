@@ -11,9 +11,8 @@
  * To get a pointer to this interface, call <a href="https://docs.microsoft.com/windows/desktop/api/mfmediaengine/nf-mfmediaengine-imfmediaengine-geterror">IMFMediaEngine::GetError</a>.
  * @see https://learn.microsoft.com/windows/win32/api/mfmediaengine/nn-mfmediaengine-imfmediaerror
  * @namespace Windows.Win32.Media.MediaFoundation
- * @version v4.0.30319
  */
-class IMFMediaError extends IUnknown{
+class IMFMediaError extends IUnknown {
 
     static sizeof => A_PtrSize
     /**
@@ -56,23 +55,23 @@ class IMFMediaError extends IUnknown{
 
     /**
      * Sets the error code.
-     * @param {Integer} error The error code, specified as an <a href="https://docs.microsoft.com/windows/desktop/api/mfmediaengine/ne-mfmediaengine-mf_media_engine_err">MF_MEDIA_ENGINE_ERR</a> value.
+     * @param {MF_MEDIA_ENGINE_ERR} _error The error code, specified as an <a href="https://docs.microsoft.com/windows/desktop/api/mfmediaengine/ne-mfmediaengine-mf_media_engine_err">MF_MEDIA_ENGINE_ERR</a> value.
      * @returns {HRESULT} If this method succeeds, it returns <b>S_OK</b>. Otherwise, it returns an <b>HRESULT</b> error code.
      * @see https://learn.microsoft.com/windows/win32/api/mfmediaengine/nf-mfmediaengine-imfmediaerror-seterrorcode
      */
-    SetErrorCode(error) {
-        result := ComCall(5, this, "int", error, "HRESULT")
+    SetErrorCode(_error) {
+        result := ComCall(5, this, "int", _error, "HRESULT")
         return result
     }
 
     /**
      * Sets the extended error code.
-     * @param {HRESULT} error An <b>HRESULT</b> value that gives additional information about the last error.
+     * @param {HRESULT} _error An <b>HRESULT</b> value that gives additional information about the last error.
      * @returns {HRESULT} If this method succeeds, it returns <b>S_OK</b>. Otherwise, it returns an <b>HRESULT</b> error code.
      * @see https://learn.microsoft.com/windows/win32/api/mfmediaengine/nf-mfmediaengine-imfmediaerror-setextendederrorcode
      */
-    SetExtendedErrorCode(error) {
-        result := ComCall(6, this, "int", error, "HRESULT")
+    SetExtendedErrorCode(_error) {
+        result := ComCall(6, this, "int", _error, "HRESULT")
         return result
     }
 }

@@ -7,10 +7,8 @@
  * Entries that the display driver does not use should be set to <b>NULL</b>. The driver initializes this structure in <a href="https://docs.microsoft.com/windows/desktop/api/winddi/nf-winddi-drvenabledirectdraw">DrvEnableDirectDraw</a>.
  * @see https://learn.microsoft.com/windows/win32/api/ddrawint/ns-ddrawint-dd_palettecallbacks
  * @namespace Windows.Win32.Graphics.DirectDraw
- * @version v4.0.30319
  */
-class DD_PALETTECALLBACKS extends Win32Struct
-{
+class DD_PALETTECALLBACKS extends Win32Struct {
     static sizeof => 24
 
     static packingSize => 8

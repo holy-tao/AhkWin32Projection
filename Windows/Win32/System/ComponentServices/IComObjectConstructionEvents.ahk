@@ -7,9 +7,8 @@
  * Notifies the subscriber if a constructed object is created in an object pool.
  * @see https://learn.microsoft.com/windows/win32/api/comsvcs/nn-comsvcs-icomobjectconstructionevents
  * @namespace Windows.Win32.System.ComponentServices
- * @version v4.0.30319
  */
-class IComObjectConstructionEvents extends IUnknown{
+class IComObjectConstructionEvents extends IUnknown {
 
     static sizeof => A_PtrSize
     /**

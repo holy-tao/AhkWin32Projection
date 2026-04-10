@@ -3,10 +3,8 @@
 
 /**
  * @namespace Windows.Win32.Networking.WinSock
- * @version v4.0.30319
  */
-class INET_PORT_RESERVATION_INFORMATION extends Win32Struct
-{
+class INET_PORT_RESERVATION_INFORMATION extends Win32Struct {
     static sizeof => 4
 
     static packingSize => 4

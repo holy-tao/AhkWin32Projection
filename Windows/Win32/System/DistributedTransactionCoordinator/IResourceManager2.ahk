@@ -5,9 +5,8 @@
 
 /**
  * @namespace Windows.Win32.System.DistributedTransactionCoordinator
- * @version v4.0.30319
  */
-class IResourceManager2 extends IResourceManager{
+class IResourceManager2 extends IResourceManager {
 
     static sizeof => A_PtrSize
     /**
@@ -49,7 +48,7 @@ class IResourceManager2 extends IResourceManager{
      * 
      * @param {Pointer<XID>} pXid 
      * @param {Integer} dwTimeout 
-     * @returns {Integer} 
+     * @returns {XACTSTAT} 
      */
     Reenlist2(pXid, dwTimeout) {
         result := ComCall(8, this, "ptr", pXid, "uint", dwTimeout, "int*", &pXactStat := 0, "HRESULT")

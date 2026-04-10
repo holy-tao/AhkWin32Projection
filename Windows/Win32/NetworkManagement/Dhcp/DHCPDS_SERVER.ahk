@@ -5,10 +5,8 @@
  * The DHCPDS_SERVER structure defines information on a DHCP server in the context of directory services.
  * @see https://learn.microsoft.com/windows/win32/api/dhcpsapi/ns-dhcpsapi-dhcpds_server
  * @namespace Windows.Win32.NetworkManagement.Dhcp
- * @version v4.0.30319
  */
-class DHCPDS_SERVER extends Win32Struct
-{
+class DHCPDS_SERVER extends Win32Struct {
     static sizeof => 48
 
     static packingSize => 8

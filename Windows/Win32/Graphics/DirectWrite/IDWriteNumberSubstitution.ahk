@@ -7,9 +7,8 @@
  * Holds the appropriate digits and numeric punctuation for a specified locale.
  * @see https://learn.microsoft.com/windows/win32/DirectWrite/idwritenumbersubstitution
  * @namespace Windows.Win32.Graphics.DirectWrite
- * @version v4.0.30319
  */
-class IDWriteNumberSubstitution extends IUnknown{
+class IDWriteNumberSubstitution extends IUnknown {
 
     static sizeof => A_PtrSize
     /**

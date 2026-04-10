@@ -7,9 +7,8 @@
  * The IMMCVersionInfo interface provides version information about the installed MMC application.
  * @see https://learn.microsoft.com/windows/win32/api/mmc/nn-mmc-immcversioninfo
  * @namespace Windows.Win32.System.Mmc
- * @version v4.0.30319
  */
-class IMMCVersionInfo extends IUnknown{
+class IMMCVersionInfo extends IUnknown {
 
     static sizeof => A_PtrSize
     /**

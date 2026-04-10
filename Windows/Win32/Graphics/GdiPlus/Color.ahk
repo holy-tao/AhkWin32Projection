@@ -9,10 +9,8 @@
  * Be sure to use colors that make it easy for the user to read the button text. For example, you should avoid using white button text on light colored buttons.
  * @see https://learn.microsoft.com/windows/win32/WMP/color-element
  * @namespace Windows.Win32.Graphics.GdiPlus
- * @version v4.0.30319
  */
-class Color extends Win32Struct
-{
+class Color extends Win32Struct {
     static sizeof => 600
 
     static packingSize => 4

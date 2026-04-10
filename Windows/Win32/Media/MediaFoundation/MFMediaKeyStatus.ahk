@@ -1,5 +1,6 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
+#Include .\MF_MEDIAKEY_STATUS.ahk
 
 /**
  * Represents the status of a Content Decryption Module (CDM) session key.
@@ -9,10 +10,8 @@
  * **MFMediaKeyStatus** is based on the Encrypted Media Extension specification's [MediaKeyStatusMap](https://www.w3.org/TR/2017/REC-encrypted-media-20170918/#dom-mediakeysession-sessionid).
  * @see https://learn.microsoft.com/windows/win32/api/mfidl/ns-mfidl-mfmediakeystatus
  * @namespace Windows.Win32.Media.MediaFoundation
- * @version v4.0.30319
  */
-class MFMediaKeyStatus extends Win32Struct
-{
+class MFMediaKeyStatus extends Win32Struct {
     static sizeof => 16
 
     static packingSize => 8
@@ -37,7 +36,7 @@ class MFMediaKeyStatus extends Win32Struct
 
     /**
      * A value from the [MF_MEDIAKEY_STATUS](ne-mfidl-mf_mediakey_status.md) enumeration specifying the status of the associated session key.
-     * @type {Integer}
+     * @type {MF_MEDIAKEY_STATUS}
      */
     eMediaKeyStatus {
         get => NumGet(this, 12, "int")

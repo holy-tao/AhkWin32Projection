@@ -3,10 +3,8 @@
 
 /**
  * @namespace Windows.Wdk.System.SystemServices
- * @version v4.0.30319
  */
-class BUS_INTERFACE_STANDARD extends Win32Struct
-{
+class BUS_INTERFACE_STANDARD extends Win32Struct {
     static sizeof => 64
 
     static packingSize => 8

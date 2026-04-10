@@ -3,11 +3,9 @@
 
 /**
  * @namespace Windows.Win32.Security.Authentication.Identity
- * @version v4.0.30319
  */
-class CLEAR_BLOCK extends Win32Struct
-{
-    static sizeof => 16
+class CLEAR_BLOCK extends Win32Struct {
+    static sizeof => 8
 
     static packingSize => 2
 
@@ -15,7 +13,7 @@ class CLEAR_BLOCK extends Win32Struct
      * @type {String}
      */
     data {
-        get => StrGet(this.ptr + 0, 7, "UTF-16")
-        set => StrPut(value, this.ptr + 0, 7, "UTF-16")
+        get => StrGet(this.ptr + 0, 7, "UTF-8")
+        set => StrPut(value, this.ptr + 0, 7, "UTF-8")
     }
 }

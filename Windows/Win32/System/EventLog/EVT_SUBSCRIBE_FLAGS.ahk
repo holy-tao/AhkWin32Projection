@@ -7,9 +7,8 @@
  * The EvtSubscribeToFutureEvents, EvtSubscribeStartAtOldestRecord, and EvtSubscribeStartAfterBookmark flags are mutually exclusive.
  * @see https://learn.microsoft.com/windows/win32/api/winevt/ne-winevt-evt_subscribe_flags
  * @namespace Windows.Win32.System.EventLog
- * @version v4.0.30319
  */
-class EVT_SUBSCRIBE_FLAGS extends Win32Enum{
+class EVT_SUBSCRIBE_FLAGS extends Win32Enum {
 
     /**
      * Subscribe to only future events that match the query criteria.

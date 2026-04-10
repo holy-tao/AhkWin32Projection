@@ -1,15 +1,14 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
+#Include ..\..\System\Com\IUnknown.ahk
 #Include .\ILineInfo.ahk
 #Include .\IHTMLElement.ahk
-#Include ..\..\System\Com\IUnknown.ahk
 
 /**
  * @namespace Windows.Win32.Web.MsHtml
- * @version v4.0.30319
  */
-class IDisplayPointer extends IUnknown{
+class IDisplayPointer extends IUnknown {
 
     static sizeof => A_PtrSize
     /**
@@ -33,7 +32,7 @@ class IDisplayPointer extends IUnknown{
     /**
      * 
      * @param {POINT} ptPoint 
-     * @param {Integer} eCoordSystem 
+     * @param {COORD_SYSTEM} eCoordSystem 
      * @param {IHTMLElement} pElementContext 
      * @param {Integer} dwHitTestOptions 
      * @returns {Integer} 
@@ -45,7 +44,7 @@ class IDisplayPointer extends IUnknown{
 
     /**
      * 
-     * @param {Integer} eMoveUnit 
+     * @param {DISPLAY_MOVEUNIT} eMoveUnit 
      * @param {Integer} lXPos 
      * @returns {HRESULT} 
      */
@@ -76,7 +75,7 @@ class IDisplayPointer extends IUnknown{
 
     /**
      * 
-     * @param {Integer} eGravity 
+     * @param {POINTER_GRAVITY} eGravity 
      * @returns {HRESULT} 
      */
     SetPointerGravity(eGravity) {
@@ -86,7 +85,7 @@ class IDisplayPointer extends IUnknown{
 
     /**
      * 
-     * @returns {Integer} 
+     * @returns {POINTER_GRAVITY} 
      */
     GetPointerGravity() {
         result := ComCall(8, this, "int*", &peGravity := 0, "HRESULT")
@@ -95,7 +94,7 @@ class IDisplayPointer extends IUnknown{
 
     /**
      * 
-     * @param {Integer} eGravity 
+     * @param {DISPLAY_GRAVITY} eGravity 
      * @returns {HRESULT} 
      */
     SetDisplayGravity(eGravity) {
@@ -105,7 +104,7 @@ class IDisplayPointer extends IUnknown{
 
     /**
      * 
-     * @returns {Integer} 
+     * @returns {DISPLAY_GRAVITY} 
      */
     GetDisplayGravity() {
         result := ComCall(10, this, "int*", &peGravity := 0, "HRESULT")

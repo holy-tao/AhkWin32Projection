@@ -17,9 +17,8 @@
  *         method, the control should not also implement <b>IInvokeProvider</b>.
  * @see https://learn.microsoft.com/windows/win32/api/uiautomationcore/nn-uiautomationcore-iinvokeprovider
  * @namespace Windows.Win32.UI.Accessibility
- * @version v4.0.30319
  */
-class IInvokeProvider extends IUnknown{
+class IInvokeProvider extends IUnknown {
 
     static sizeof => A_PtrSize
     /**

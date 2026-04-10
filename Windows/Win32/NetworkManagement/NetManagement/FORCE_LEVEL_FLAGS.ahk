@@ -3,9 +3,8 @@
 
 /**
  * @namespace Windows.Win32.NetworkManagement.NetManagement
- * @version v4.0.30319
  */
-class FORCE_LEVEL_FLAGS extends Win32Enum{
+class FORCE_LEVEL_FLAGS extends Win32Enum {
 
     /**
      * @type {Integer (UInt32)}

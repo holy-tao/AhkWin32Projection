@@ -5,9 +5,8 @@
  * Specifies the Portable Network Graphics (PNG) iCCP chunk metadata properties.
  * @see https://learn.microsoft.com/windows/win32/api/wincodec/ne-wincodec-wicpngiccpproperties
  * @namespace Windows.Win32.Graphics.Imaging
- * @version v4.0.30319
  */
-class WICPngIccpProperties extends Win32Enum{
+class WICPngIccpProperties extends Win32Enum {
 
     /**
      * [VT_LPSTR] Indicates the International Color Consortium (ICC) profile name.

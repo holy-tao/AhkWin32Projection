@@ -1,5 +1,6 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
+#Include .\IKEEXT_CREDENTIAL_PAIR0.ahk
 
 /**
  * Is used to store multiple credential pairs. (IKEEXT_CREDENTIALS0)
@@ -15,10 +16,8 @@
  * is index 1.
  * @see https://learn.microsoft.com/windows/win32/api/iketypes/ns-iketypes-ikeext_credentials0
  * @namespace Windows.Win32.NetworkManagement.WindowsFilteringPlatform
- * @version v4.0.30319
  */
-class IKEEXT_CREDENTIALS0 extends Win32Struct
-{
+class IKEEXT_CREDENTIALS0 extends Win32Struct {
     static sizeof => 16
 
     static packingSize => 8

@@ -3,10 +3,8 @@
 
 /**
  * @namespace Windows.Win32.NetworkManagement.WiFi
- * @version v4.0.30319
  */
-class DOT11_RATE_SET extends Win32Struct
-{
+class DOT11_RATE_SET extends Win32Struct {
     static sizeof => 132
 
     static packingSize => 4
@@ -20,9 +18,9 @@ class DOT11_RATE_SET extends Win32Struct
     }
 
     /**
-     * @type {Array<Byte>}
+     * @type {Array<Integer>}
      */
-    ucRateSet{
+    ucRateSet {
         get {
             if(!this.HasProp("__ucRateSetProxyArray"))
                 this.__ucRateSetProxyArray := Win32FixedArray(this.ptr + 4, 126, Primitive, "char")

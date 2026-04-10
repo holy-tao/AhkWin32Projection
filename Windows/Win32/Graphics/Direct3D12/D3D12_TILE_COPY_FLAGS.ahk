@@ -7,9 +7,8 @@
  * This enum is used by the <a href="https://docs.microsoft.com/windows/desktop/api/d3d12/nf-d3d12-id3d12graphicscommandlist-copytiles">CopyTiles</a> method.
  * @see https://learn.microsoft.com/windows/win32/api/d3d12/ne-d3d12-d3d12_tile_copy_flags
  * @namespace Windows.Win32.Graphics.Direct3D12
- * @version v4.0.30319
  */
-class D3D12_TILE_COPY_FLAGS extends Win32BitflagEnum{
+class D3D12_TILE_COPY_FLAGS extends Win32BitflagEnum {
 
     /**
      * No tile-copy flags are specified.

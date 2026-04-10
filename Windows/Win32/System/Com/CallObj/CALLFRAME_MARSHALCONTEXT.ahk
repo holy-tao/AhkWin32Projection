@@ -1,14 +1,13 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\..\Win32Struct.ahk
+#Include ..\IUnknown.ahk
 
 /**
  * Provides information about the context in which marshalling should be carried out.
  * @see https://learn.microsoft.com/windows/win32/api/callobj/ns-callobj-callframe_marshalcontext
  * @namespace Windows.Win32.System.Com.CallObj
- * @version v4.0.30319
  */
-class CALLFRAME_MARSHALCONTEXT extends Win32Struct
-{
+class CALLFRAME_MARSHALCONTEXT extends Win32Struct {
     static sizeof => 32
 
     static packingSize => 8
@@ -51,7 +50,7 @@ class CALLFRAME_MARSHALCONTEXT extends Win32Struct
 
     /**
      * The transfer syntax for which the marshalling should occur.
-     * @type {Pointer<Guid>}
+     * @type {Pointer}
      */
     guidTransferSyntax {
         get => NumGet(this, 24, "ptr")

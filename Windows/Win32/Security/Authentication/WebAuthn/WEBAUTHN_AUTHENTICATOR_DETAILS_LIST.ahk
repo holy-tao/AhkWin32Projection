@@ -1,12 +1,11 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\..\Win32Struct.ahk
+#Include .\WEBAUTHN_AUTHENTICATOR_DETAILS.ahk
 
 /**
  * @namespace Windows.Win32.Security.Authentication.WebAuthn
- * @version v4.0.30319
  */
-class WEBAUTHN_AUTHENTICATOR_DETAILS_LIST extends Win32Struct
-{
+class WEBAUTHN_AUTHENTICATOR_DETAILS_LIST extends Win32Struct {
     static sizeof => 16
 
     static packingSize => 8

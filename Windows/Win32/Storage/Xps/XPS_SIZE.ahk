@@ -7,10 +7,8 @@
  * The measurement units are not specified in the structure.
  * @see https://learn.microsoft.com/windows/win32/api/xpsobjectmodel/ns-xpsobjectmodel-xps_size
  * @namespace Windows.Win32.Storage.Xps
- * @version v4.0.30319
  */
-class XPS_SIZE extends Win32Struct
-{
+class XPS_SIZE extends Win32Struct {
     static sizeof => 8
 
     static packingSize => 4

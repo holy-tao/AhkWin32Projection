@@ -12,10 +12,8 @@
  * <b>QOS</b> structure.
  * @see https://learn.microsoft.com/windows/win32/api/qossp/ns-qossp-rsvp_status_info
  * @namespace Windows.Win32.NetworkManagement.QoS
- * @version v4.0.30319
  */
-class RSVP_STATUS_INFO extends Win32Struct
-{
+class RSVP_STATUS_INFO extends Win32Struct {
     static sizeof => 20
 
     static packingSize => 4
@@ -25,7 +23,7 @@ class RSVP_STATUS_INFO extends Win32Struct
      * <b>QOS_OBJECT_HDR</b>.
      * @type {QOS_OBJECT_HDR}
      */
-    ObjectHdr{
+    ObjectHdr {
         get {
             if(!this.HasProp("__ObjectHdr"))
                 this.__ObjectHdr := QOS_OBJECT_HDR(0, this)

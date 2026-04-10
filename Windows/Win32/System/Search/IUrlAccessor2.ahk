@@ -7,9 +7,8 @@
  * Extends functionality of the IUrlAccessor interface.
  * @see https://learn.microsoft.com/windows/win32/api/searchapi/nn-searchapi-iurlaccessor2
  * @namespace Windows.Win32.System.Search
- * @version v4.0.30319
  */
-class IUrlAccessor2 extends IUrlAccessor{
+class IUrlAccessor2 extends IUrlAccessor {
 
     static sizeof => A_PtrSize
     /**

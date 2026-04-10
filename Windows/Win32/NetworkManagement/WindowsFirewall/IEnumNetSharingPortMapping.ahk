@@ -1,7 +1,6 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
-#Include .\IEnumNetSharingPortMapping.ahk
 #Include ..\..\System\Com\IUnknown.ahk
 
 /**
@@ -14,9 +13,8 @@
  * <b>IEnumNetSharingPortMapping</b> interface.
  * @see https://learn.microsoft.com/windows/win32/api/netcon/nn-netcon-ienumnetsharingportmapping
  * @namespace Windows.Win32.NetworkManagement.WindowsFirewall
- * @version v4.0.30319
  */
-class IEnumNetSharingPortMapping extends IUnknown{
+class IEnumNetSharingPortMapping extends IUnknown {
 
     static sizeof => A_PtrSize
     /**

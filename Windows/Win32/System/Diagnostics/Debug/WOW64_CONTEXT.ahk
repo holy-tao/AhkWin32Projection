@@ -1,5 +1,6 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\..\Win32Struct.ahk
+#Include .\WOW64_CONTEXT_FLAGS.ahk
 #Include .\WOW64_FLOATING_SAVE_AREA.ahk
 
 /**
@@ -27,16 +28,14 @@
  * </table>
  * @see https://learn.microsoft.com/windows/win32/api/winnt/ns-winnt-wow64_context
  * @namespace Windows.Win32.System.Diagnostics.Debug
- * @version v4.0.30319
  */
-class WOW64_CONTEXT extends Win32Struct
-{
+class WOW64_CONTEXT extends Win32Struct {
     static sizeof => 716
 
     static packingSize => 4
 
     /**
-     * @type {Integer}
+     * @type {WOW64_CONTEXT_FLAGS}
      */
     ContextFlags {
         get => NumGet(this, 0, "uint")
@@ -94,7 +93,7 @@ class WOW64_CONTEXT extends Win32Struct
     /**
      * @type {WOW64_FLOATING_SAVE_AREA}
      */
-    FloatSave{
+    FloatSave {
         get {
             if(!this.HasProp("__FloatSave"))
                 this.__FloatSave := WOW64_FLOATING_SAVE_AREA(28, this)
@@ -231,9 +230,9 @@ class WOW64_CONTEXT extends Win32Struct
     }
 
     /**
-     * @type {Array<Byte>}
+     * @type {Array<Integer>}
      */
-    ExtendedRegisters{
+    ExtendedRegisters {
         get {
             if(!this.HasProp("__ExtendedRegistersProxyArray"))
                 this.__ExtendedRegistersProxyArray := Win32FixedArray(this.ptr + 204, 512, Primitive, "char")

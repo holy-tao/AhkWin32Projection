@@ -12,9 +12,8 @@
  *       that the runtime and video driver not create any additional threads that might interfere with the application.
  * @see https://learn.microsoft.com/windows/win32/api/d3d10/ne-d3d10-d3d10_create_device_flag
  * @namespace Windows.Win32.Graphics.Direct3D10
- * @version v4.0.30319
  */
-class D3D10_CREATE_DEVICE_FLAG extends Win32Enum{
+class D3D10_CREATE_DEVICE_FLAG extends Win32Enum {
 
     /**
      * Use this flag if an application will only be calling D3D10 from a single thread. If this flag is not specified, the default behavior of D3D10 

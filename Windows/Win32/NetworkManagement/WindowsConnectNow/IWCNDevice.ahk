@@ -7,9 +7,8 @@
  * Use this interface to configure the device and initiate the session.
  * @see https://learn.microsoft.com/windows/win32/api/wcndevice/nn-wcndevice-iwcndevice
  * @namespace Windows.Win32.NetworkManagement.WindowsConnectNow
- * @version v4.0.30319
  */
-class IWCNDevice extends IUnknown{
+class IWCNDevice extends IUnknown {
 
     static sizeof => A_PtrSize
     /**
@@ -34,7 +33,7 @@ class IWCNDevice extends IUnknown{
      * The IWCNDevice::SetPassword method configures the authentication method value, and if required, a password used for the pending session. This method may only be called prior to IWCNDevice::Connect.
      * @remarks
      * The byte array is not <b>NULL</b>-terminated.  For example, if the password is a 4-digit PIN, you should pass dwPasswordLength as 4 and pbPassword should point to a 4-byte array containing the PIN in ASCII.
-     * @param {Integer} Type A <b>WCN_PASSWORD_TYPE</b> value that specifies the authentication method used for the session.
+     * @param {WCN_PASSWORD_TYPE} Type A <b>WCN_PASSWORD_TYPE</b> value that specifies the authentication method used for the session.
      * 
      * <table>
      * <tr>
@@ -164,7 +163,7 @@ class IWCNDevice extends IUnknown{
      * The IWCNDevice::GetAttribute method gets a cached attribute from the device.
      * @remarks
      * To only query the size of an attribute, a value of 0 (zero) can be passed via <i>dwMaxBufferSize</i> and <i>pdwBufferUsed</i> will be filled appropriately.
-     * @param {Integer} AttributeType A <b>WCN_ATTRIBUTE_TYPE</b>  value that represents a specific attribute value (for example,   <b>WCN_PASSWORD_TYPE</b>).
+     * @param {WCN_ATTRIBUTE_TYPE} AttributeType A <b>WCN_ATTRIBUTE_TYPE</b>  value that represents a specific attribute value (for example,   <b>WCN_PASSWORD_TYPE</b>).
      * @param {Integer} dwMaxBufferSize The allocated size, in bytes, of <i>pbBuffer</i>.
      * @param {Pointer<Integer>} pbBuffer A user-allocated buffer that,  on successful return, contains the contents of the attribute.
      * @param {Pointer<Integer>} pdwBufferUsed On return, contains the size of the attribute in bytes.
@@ -221,7 +220,7 @@ class IWCNDevice extends IUnknown{
 
     /**
      * The GetIntegerAttribute method gets a cached attribute from the device as an integer.
-     * @param {Integer} AttributeType A <b>WCN_ATTRIBUTE_TYPE</b> value  that represents a specific attribute value (for example, <b>WCN_PASSWORD_TYPE</b>).
+     * @param {WCN_ATTRIBUTE_TYPE} AttributeType A <b>WCN_ATTRIBUTE_TYPE</b> value  that represents a specific attribute value (for example, <b>WCN_PASSWORD_TYPE</b>).
      * @returns {Integer} Pointer to an unsigned-integer that represents the retrieved attribute value.
      * @see https://learn.microsoft.com/windows/win32/api/wcndevice/nf-wcndevice-iwcndevice-getintegerattribute
      */
@@ -232,7 +231,7 @@ class IWCNDevice extends IUnknown{
 
     /**
      * The IWCNDevice::GetStringAttribute method gets a cached attribute from the device as a string.
-     * @param {Integer} AttributeType A <b>WCN_ATTRIBUTE_TYPE</b> value that represents a specific attribute value (for example,   <b>WCN_PASSWORD_TYPE</b>). If the attribute is not natively a string data type (for example, <b>WCN_TYPE_VERSION</b> is natively an integer, and <b>WNC_TYPE_SSID</b> is natively a blob), this function will fail with <b>HRESULT_FROM_WIN32(ERROR_INVALID_DATATYPE)</b>.
+     * @param {WCN_ATTRIBUTE_TYPE} AttributeType A <b>WCN_ATTRIBUTE_TYPE</b> value that represents a specific attribute value (for example,   <b>WCN_PASSWORD_TYPE</b>). If the attribute is not natively a string data type (for example, <b>WCN_TYPE_VERSION</b> is natively an integer, and <b>WNC_TYPE_SSID</b> is natively a blob), this function will fail with <b>HRESULT_FROM_WIN32(ERROR_INVALID_DATATYPE)</b>.
      * @param {Integer} cchMaxString The size of the buffer <i>wszString</i>, in characters.
      * @param {PWSTR} wszString A user-allocated buffer that,  on successful return, contains a <b>NULL</b>-terminated string value of the vendor extension.
      * @returns {HRESULT} ...
@@ -520,7 +519,7 @@ class IWCNDevice extends IUnknown{
 
     /**
      * 
-     * @param {Integer} Type 
+     * @param {WCN_PASSWORD_TYPE} Type 
      * @param {Integer} dwOOBPasswordID 
      * @param {Integer} dwPasswordLength 
      * @param {Pointer<Integer>} pbPassword 

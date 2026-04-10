@@ -7,10 +7,8 @@
  * You must set the <b>cbSize</b> member manually before using this structure. It should always be set to sizeof(<b>WM_READER_STATISTICS</b>).
  * @see https://learn.microsoft.com/windows/win32/api/wmsdkidl/ns-wmsdkidl-wm_reader_statistics
  * @namespace Windows.Win32.Media.WindowsMediaFormat
- * @version v4.0.30319
  */
-class WM_READER_STATISTICS extends Win32Struct
-{
+class WM_READER_STATISTICS extends Win32Struct {
     static sizeof => 24
 
     static packingSize => 4

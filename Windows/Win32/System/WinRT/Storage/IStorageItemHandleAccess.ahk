@@ -1,16 +1,15 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\..\Guid.ahk
-#Include ..\..\..\Foundation\HANDLE.ahk
 #Include ..\..\Com\IUnknown.ahk
+#Include ..\..\..\Foundation\HANDLE.ahk
 
 /**
  * Provides access to the operating system handle of a storage file.
  * @see https://learn.microsoft.com/windows/win32/api/windowsstoragecom/nn-windowsstoragecom-istorageitemhandleaccess
  * @namespace Windows.Win32.System.WinRT.Storage
- * @version v4.0.30319
  */
-class IStorageItemHandleAccess extends IUnknown{
+class IStorageItemHandleAccess extends IUnknown {
 
     static sizeof => A_PtrSize
     /**
@@ -33,9 +32,9 @@ class IStorageItemHandleAccess extends IUnknown{
 
     /**
      * Creates a handle to a file.
-     * @param {Integer} accessOptions The level of access that a handle has on the file.
-     * @param {Integer} sharingOptions The requested sharing mode of the handle.
-     * @param {Integer} options The flags of the file handle.
+     * @param {HANDLE_ACCESS_OPTIONS} accessOptions The level of access that a handle has on the file.
+     * @param {HANDLE_SHARING_OPTIONS} sharingOptions The requested sharing mode of the handle.
+     * @param {HANDLE_OPTIONS} options The flags of the file handle.
      * @param {IOplockBreakingHandler} oplockBreakingHandler Not currently implemented.
      * @returns {HANDLE} The handle to the file.
      * @see https://learn.microsoft.com/windows/win32/api/windowsstoragecom/nf-windowsstoragecom-istorageitemhandleaccess-create

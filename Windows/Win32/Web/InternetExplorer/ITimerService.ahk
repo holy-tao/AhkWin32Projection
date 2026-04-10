@@ -1,14 +1,13 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
-#Include .\ITimer.ahk
 #Include ..\..\System\Com\IUnknown.ahk
+#Include .\ITimer.ahk
 
 /**
  * @namespace Windows.Win32.Web.InternetExplorer
- * @version v4.0.30319
  */
-class ITimerService extends IUnknown{
+class ITimerService extends IUnknown {
 
     static sizeof => A_PtrSize
     /**

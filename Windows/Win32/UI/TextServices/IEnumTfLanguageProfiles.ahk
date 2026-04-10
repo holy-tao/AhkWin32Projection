@@ -1,16 +1,14 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
-#Include .\IEnumTfLanguageProfiles.ahk
 #Include ..\..\System\Com\IUnknown.ahk
 
 /**
  * The IEnumTfLanguageProfiles interface is implemented by the TSF manager to provide an enumeration of language profiles.
  * @see https://learn.microsoft.com/windows/win32/api/msctf/nn-msctf-ienumtflanguageprofiles
  * @namespace Windows.Win32.UI.TextServices
- * @version v4.0.30319
  */
-class IEnumTfLanguageProfiles extends IUnknown{
+class IEnumTfLanguageProfiles extends IUnknown {
 
     static sizeof => A_PtrSize
     /**

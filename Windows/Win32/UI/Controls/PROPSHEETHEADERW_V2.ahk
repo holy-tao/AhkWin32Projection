@@ -3,6 +3,8 @@
 #Include ..\..\Foundation\HWND.ahk
 #Include ..\..\Foundation\HINSTANCE.ahk
 #Include ..\WindowsAndMessaging\HICON.ahk
+#Include .\PROPSHEETPAGEW.ahk
+#Include .\HPROPSHEETPAGE.ahk
 #Include ..\..\Graphics\Gdi\HBITMAP.ahk
 #Include ..\..\Graphics\Gdi\HPALETTE.ahk
 
@@ -35,10 +37,8 @@
  * The PSH_WIZARD, PSH_WIZARD97, and PSH_WIZARD_LITE styles are mutually incompatible. Only one of these style flags should be set. PSH_AEROWIZARD should be combined with PSH_WIZARD.
  * @see https://learn.microsoft.com/windows/win32/api/prsht/ns-prsht-propsheetheaderw_v2
  * @namespace Windows.Win32.UI.Controls
- * @version v4.0.30319
  */
-class PROPSHEETHEADERW_V2 extends Win32Struct
-{
+class PROPSHEETHEADERW_V2 extends Win32Struct {
     static sizeof => 96
 
     static packingSize => 8
@@ -62,7 +62,7 @@ class PROPSHEETHEADERW_V2 extends Win32Struct
     /**
      * @type {HWND}
      */
-    hwndParent{
+    hwndParent {
         get {
             if(!this.HasProp("__hwndParent"))
                 this.__hwndParent := HWND(8, this)
@@ -73,7 +73,7 @@ class PROPSHEETHEADERW_V2 extends Win32Struct
     /**
      * @type {HINSTANCE}
      */
-    hInstance{
+    hInstance {
         get {
             if(!this.HasProp("__hInstance"))
                 this.__hInstance := HINSTANCE(16, this)
@@ -84,7 +84,7 @@ class PROPSHEETHEADERW_V2 extends Win32Struct
     /**
      * @type {HICON}
      */
-    hIcon{
+    hIcon {
         get {
             if(!this.HasProp("__hIcon"))
                 this.__hIcon := HICON(24, this)
@@ -159,7 +159,7 @@ class PROPSHEETHEADERW_V2 extends Win32Struct
     /**
      * @type {HBITMAP}
      */
-    hbmWatermark{
+    hbmWatermark {
         get {
             if(!this.HasProp("__hbmWatermark"))
                 this.__hbmWatermark := HBITMAP(72, this)
@@ -182,7 +182,7 @@ class PROPSHEETHEADERW_V2 extends Win32Struct
      * <a href="https://docs.microsoft.com/windows/desktop/Controls/common-control-versions">Version 5.80</a> or later. <b>HPALETTE</b> structure used for drawing the watermark bitmap and/or header bitmap. If the <b>dwFlags</b> member does not include PSH_USEHPLWATERMARK, this member is ignored.
      * @type {HPALETTE}
      */
-    hplWatermark{
+    hplWatermark {
         get {
             if(!this.HasProp("__hplWatermark"))
                 this.__hplWatermark := HPALETTE(80, this)
@@ -193,7 +193,7 @@ class PROPSHEETHEADERW_V2 extends Win32Struct
     /**
      * @type {HBITMAP}
      */
-    hbmHeader{
+    hbmHeader {
         get {
             if(!this.HasProp("__hbmHeader"))
                 this.__hbmHeader := HBITMAP(88, this)

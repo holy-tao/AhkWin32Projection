@@ -7,9 +7,8 @@
  * The IWMDMStorageControl2 interface extends IWMDMStorageControl by making it possible to set the name of the destination file when inserting content into a storage.
  * @see https://learn.microsoft.com/windows/win32/api/mswmdm/nn-mswmdm-iwmdmstoragecontrol2
  * @namespace Windows.Win32.Media.DeviceManager
- * @version v4.0.30319
  */
-class IWMDMStorageControl2 extends IWMDMStorageControl{
+class IWMDMStorageControl2 extends IWMDMStorageControl {
 
     static sizeof => A_PtrSize
     /**

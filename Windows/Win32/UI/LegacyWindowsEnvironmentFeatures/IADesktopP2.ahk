@@ -9,9 +9,8 @@
  * Despite its name, this interface does not inherit from <a href="https://docs.microsoft.com/windows/desktop/api/shlobj/nn-shlobj-iactivedesktopp">IActiveDesktopP</a>.
  * @see https://learn.microsoft.com/windows/win32/api/shlobj/nn-shlobj-iadesktopp2
  * @namespace Windows.Win32.UI.LegacyWindowsEnvironmentFeatures
- * @version v4.0.30319
  */
-class IADesktopP2 extends IUnknown{
+class IADesktopP2 extends IUnknown {
 
     static sizeof => A_PtrSize
     /**

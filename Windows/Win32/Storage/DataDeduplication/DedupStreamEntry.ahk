@@ -4,10 +4,8 @@
 
 /**
  * @namespace Windows.Win32.Storage.DataDeduplication
- * @version v4.0.30319
  */
-class DedupStreamEntry extends Win32Struct
-{
+class DedupStreamEntry extends Win32Struct {
     static sizeof => 48
 
     static packingSize => 8
@@ -15,7 +13,7 @@ class DedupStreamEntry extends Win32Struct
     /**
      * @type {DedupHash}
      */
-    Hash{
+    Hash {
         get {
             if(!this.HasProp("__Hash"))
                 this.__Hash := DedupHash(0, this)

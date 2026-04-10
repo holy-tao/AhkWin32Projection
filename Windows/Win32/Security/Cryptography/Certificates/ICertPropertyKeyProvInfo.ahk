@@ -1,16 +1,15 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\..\Guid.ahk
-#Include .\IX509PrivateKey.ahk
 #Include .\ICertProperty.ahk
+#Include .\IX509PrivateKey.ahk
 
 /**
  * Represents a certificate property that contains information about a private key.
  * @see https://learn.microsoft.com/windows/win32/api/certenroll/nn-certenroll-icertpropertykeyprovinfo
  * @namespace Windows.Win32.Security.Cryptography.Certificates
- * @version v4.0.30319
  */
-class ICertPropertyKeyProvInfo extends ICertProperty{
+class ICertPropertyKeyProvInfo extends ICertProperty {
 
     static sizeof => A_PtrSize
     /**

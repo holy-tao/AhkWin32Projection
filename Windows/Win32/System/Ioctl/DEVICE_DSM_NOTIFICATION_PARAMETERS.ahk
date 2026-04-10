@@ -5,10 +5,8 @@
  * Contains parameters for the DeviceDsmAction_Notification action for the IOCTL_STORAGE_MANAGE_DATA_SET_ATTRIBUTES control code.
  * @see https://learn.microsoft.com/windows/win32/api/winioctl/ns-winioctl-device_dsm_notification_parameters
  * @namespace Windows.Win32.System.Ioctl
- * @version v4.0.30319
  */
-class DEVICE_DSM_NOTIFICATION_PARAMETERS extends Win32Struct
-{
+class DEVICE_DSM_NOTIFICATION_PARAMETERS extends Win32Struct {
     static sizeof => 24
 
     static packingSize => 8
@@ -118,9 +116,9 @@ class DEVICE_DSM_NOTIFICATION_PARAMETERS extends Win32Struct
      * </td>
      * </tr>
      * </table>
-     * @type {Array<Guid>}
+     * @type {Array<Pointer>}
      */
-    FileTypeID{
+    FileTypeID {
         get {
             if(!this.HasProp("__FileTypeIDProxyArray"))
                 this.__FileTypeIDProxyArray := Win32FixedArray(this.ptr + 16, 1, Primitive, "ptr")

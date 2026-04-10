@@ -1,14 +1,17 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
+#Include ..\..\Foundation\FILETIME.ahk
+#Include .\CRYPTNET_URL_CACHE_PRE_FETCH_INFO.ahk
+#Include .\CRYPTNET_URL_CACHE_FLUSH_INFO.ahk
+#Include .\CRYPTNET_URL_CACHE_RESPONSE_INFO.ahk
+#Include .\CRYPT_INTEGER_BLOB.ahk
 
 /**
  * Contains optional information to pass to the CryptRetrieveObjectByUrl function.
  * @see https://learn.microsoft.com/windows/win32/api/wincrypt/ns-wincrypt-crypt_retrieve_aux_info
  * @namespace Windows.Win32.Security.Cryptography
- * @version v4.0.30319
  */
-class CRYPT_RETRIEVE_AUX_INFO extends Win32Struct
-{
+class CRYPT_RETRIEVE_AUX_INFO extends Win32Struct {
     static sizeof => 88
 
     static packingSize => 8
@@ -105,7 +108,6 @@ class CRYPT_RETRIEVE_AUX_INFO extends Win32Struct
     }
 
     /**
-     * 
      * @type {Pointer<PWSTR>}
      */
     ppwszErrorResponseHeaders {
@@ -114,7 +116,6 @@ class CRYPT_RETRIEVE_AUX_INFO extends Win32Struct
     }
 
     /**
-     * 
      * @type {Pointer<Pointer<CRYPT_INTEGER_BLOB>>}
      */
     ppErrorContentBlob {

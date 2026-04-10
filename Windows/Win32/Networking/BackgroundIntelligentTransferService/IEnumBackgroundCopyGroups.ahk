@@ -1,16 +1,14 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
-#Include .\IEnumBackgroundCopyGroups.ahk
 #Include ..\..\System\Com\IUnknown.ahk
 
 /**
  * Use the IEnumBackgroundCopyGroups interface to enumerate the list of groups in the download queue. To get an IEnumBackgroundCopyGroups interface pointer, call the IBackgroundCopyQMgr::EnumGroups method.
  * @see https://learn.microsoft.com/windows/win32/api/qmgr/nn-qmgr-ienumbackgroundcopygroups
  * @namespace Windows.Win32.Networking.BackgroundIntelligentTransferService
- * @version v4.0.30319
  */
-class IEnumBackgroundCopyGroups extends IUnknown{
+class IEnumBackgroundCopyGroups extends IUnknown {
 
     static sizeof => A_PtrSize
     /**

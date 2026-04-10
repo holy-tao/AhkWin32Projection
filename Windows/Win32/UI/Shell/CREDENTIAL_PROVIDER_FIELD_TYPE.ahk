@@ -7,9 +7,8 @@
  * This type enables you to specify the different elements your credential provider will need to display to the user. Credential providers are not responsible for drawing their own UI, so they need to define the elements that are necessary. This type is one of the elements to support that mechanism.
  * @see https://learn.microsoft.com/windows/win32/api/credentialprovider/ne-credentialprovider-credential_provider_field_type
  * @namespace Windows.Win32.UI.Shell
- * @version v4.0.30319
  */
-class CREDENTIAL_PROVIDER_FIELD_TYPE extends Win32Enum{
+class CREDENTIAL_PROVIDER_FIELD_TYPE extends Win32Enum {
 
     /**
      * The value is invalid. This is a safe initialization value, as fields do not default to any given type.

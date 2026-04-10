@@ -10,10 +10,8 @@
  *     Only one target can be marked as the active target. It is possible that no targets will be marked active.
  * @see https://learn.microsoft.com/windows/win32/api/lmdfs/ns-lmdfs-dfs_storage_info
  * @namespace Windows.Win32.Storage.DistributedFileSystem
- * @version v4.0.30319
  */
-class DFS_STORAGE_INFO extends Win32Struct
-{
+class DFS_STORAGE_INFO extends Win32Struct {
     static sizeof => 24
 
     static packingSize => 8

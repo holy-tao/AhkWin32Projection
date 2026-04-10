@@ -1,16 +1,15 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\..\Guid.ahk
-#Include ..\..\..\Foundation\BSTR.ahk
 #Include .\IX509Attribute.ahk
+#Include ..\..\..\Foundation\BSTR.ahk
 
 /**
  * Represents an attribute that identifies the cryptographic provider used by the entity requesting the certificate.
  * @see https://learn.microsoft.com/windows/win32/api/certenroll/nn-certenroll-ix509attributecspprovider
  * @namespace Windows.Win32.Security.Cryptography.Certificates
- * @version v4.0.30319
  */
-class IX509AttributeCspProvider extends IX509Attribute{
+class IX509AttributeCspProvider extends IX509Attribute {
 
     static sizeof => A_PtrSize
     /**
@@ -32,7 +31,7 @@ class IX509AttributeCspProvider extends IX509Attribute{
     static VTableNames => ["InitializeEncode", "InitializeDecode", "get_KeySpec", "get_ProviderName", "get_Signature"]
 
     /**
-     * @type {Integer} 
+     * @type {X509KeySpec} 
      */
     KeySpec {
         get => this.get_KeySpec()
@@ -61,9 +60,9 @@ class IX509AttributeCspProvider extends IX509Attribute{
      * <a href="https://docs.microsoft.com/windows/desktop/api/certenroll/nf-certenroll-ix509attributecspprovider-get_signature">Signature</a>
      * </li>
      * </ul>
-     * @param {Integer} KeySpec An <a href="https://docs.microsoft.com/windows/desktop/api/certenroll/ne-certenroll-x509keyspec">X509KeySpec</a> enumeration value that identifies whether the key pair is used for encryption or for signing.
+     * @param {X509KeySpec} KeySpec An <a href="https://docs.microsoft.com/windows/desktop/api/certenroll/ne-certenroll-x509keyspec">X509KeySpec</a> enumeration value that identifies whether the key pair is used for encryption or for signing.
      * @param {BSTR} strProviderName A <b>BSTR</b> variable that contains the provider name.
-     * @param {Integer} Encoding An <a href="https://docs.microsoft.com/windows/desktop/api/certenroll/ne-certenroll-encodingtype">EncodingType</a> enumeration value that specifies the type of Unicode encoding applied to the signature contained in the <i>strSignature</i> parameter.
+     * @param {EncodingType} Encoding An <a href="https://docs.microsoft.com/windows/desktop/api/certenroll/ne-certenroll-encodingtype">EncodingType</a> enumeration value that specifies the type of Unicode encoding applied to the signature contained in the <i>strSignature</i> parameter.
      * @param {BSTR} strSignature A <b>BSTR</b> variable that contains the provider signature.
      * @returns {HRESULT} If the function succeeds, the function returns <b>S_OK</b>.
      * 
@@ -96,7 +95,7 @@ class IX509AttributeCspProvider extends IX509Attribute{
      * <a href="https://docs.microsoft.com/windows/desktop/api/certenroll/nf-certenroll-ix509attributecspprovider-get_signature">Signature</a>
      * </li>
      * </ul>
-     * @param {Integer} Encoding An <a href="https://docs.microsoft.com/windows/desktop/api/certenroll/ne-certenroll-encodingtype">EncodingType</a> enumeration value that specifies the type of Unicode encoding applied to the input string.
+     * @param {EncodingType} Encoding An <a href="https://docs.microsoft.com/windows/desktop/api/certenroll/ne-certenroll-encodingtype">EncodingType</a> enumeration value that specifies the type of Unicode encoding applied to the input string.
      * @param {BSTR} strEncodedData A <b>BSTR</b> variable that contains the DER-encoded attribute.
      * @returns {HRESULT} If the function succeeds, the function returns <b>S_OK</b>.
      * 
@@ -123,7 +122,7 @@ class IX509AttributeCspProvider extends IX509Attribute{
      * <a href="https://docs.microsoft.com/windows/desktop/api/certenroll/nf-certenroll-ix509attributecspprovider-get_signature">Signature</a>
      * </li>
      * </ul>
-     * @returns {Integer} 
+     * @returns {X509KeySpec} 
      * @see https://learn.microsoft.com/windows/win32/api/certenroll/nf-certenroll-ix509attributecspprovider-get_keyspec
      */
     get_KeySpec() {
@@ -166,7 +165,7 @@ class IX509AttributeCspProvider extends IX509Attribute{
      * <a href="https://docs.microsoft.com/windows/desktop/api/certenroll/nf-certenroll-ix509attributecspprovider-get_providername">ProviderName</a>
      * </li>
      * </ul>
-     * @param {Integer} Encoding 
+     * @param {EncodingType} Encoding 
      * @returns {BSTR} 
      * @see https://learn.microsoft.com/windows/win32/api/certenroll/nf-certenroll-ix509attributecspprovider-get_signature
      */

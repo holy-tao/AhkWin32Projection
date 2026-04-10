@@ -1,9 +1,9 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
+#Include ..\..\System\Com\IDispatch.ahk
 #Include .\IFaxEventLogging.ahk
 #Include .\IFaxActivityLogging.ahk
-#Include ..\..\System\Com\IDispatch.ahk
 
 /**
  * The IFaxLoggingOptions interface is used by a fax client application to access and configure the event logging categories and the activity logging options that the fax service is using.
@@ -11,9 +11,8 @@
  * To create a <b>FaxLoggingOptions</b> object in C++, call the <a href="https://docs.microsoft.com/previous-versions/windows/desktop/fax/-mfax-faxserver-loggingoptions">LoggingOptions</a> method.
  * @see https://learn.microsoft.com/windows/win32/api/faxcomex/nn-faxcomex-ifaxloggingoptions
  * @namespace Windows.Win32.Devices.Fax
- * @version v4.0.30319
  */
-class IFaxLoggingOptions extends IDispatch{
+class IFaxLoggingOptions extends IDispatch {
 
     static sizeof => A_PtrSize
     /**

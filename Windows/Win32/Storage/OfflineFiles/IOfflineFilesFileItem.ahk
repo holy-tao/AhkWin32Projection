@@ -7,9 +7,8 @@
  * Represents a file item in the Offline Files cache.
  * @see https://learn.microsoft.com/windows/win32/api/cscobj/nn-cscobj-iofflinefilesfileitem
  * @namespace Windows.Win32.Storage.OfflineFiles
- * @version v4.0.30319
  */
-class IOfflineFilesFileItem extends IOfflineFilesItem{
+class IOfflineFilesFileItem extends IOfflineFilesItem {
 
     static sizeof => A_PtrSize
     /**

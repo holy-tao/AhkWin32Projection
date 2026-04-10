@@ -3,9 +3,8 @@
 
 /**
  * @namespace Windows.Win32.System.Diagnostics.Debug.Extensions
- * @version v4.0.30319
  */
-class ScriptDebugEvent extends Win32Enum{
+class ScriptDebugEvent extends Win32Enum {
 
     /**
      * @type {Integer (Int32)}

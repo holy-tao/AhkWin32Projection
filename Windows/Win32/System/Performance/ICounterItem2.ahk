@@ -1,14 +1,13 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
-#Include ..\Variant\VARIANT.ahk
 #Include .\ICounterItem.ahk
+#Include ..\Variant\VARIANT.ahk
 
 /**
  * @namespace Windows.Win32.System.Performance
- * @version v4.0.30319
  */
-class ICounterItem2 extends ICounterItem{
+class ICounterItem2 extends ICounterItem {
 
     static sizeof => A_PtrSize
     /**
@@ -92,7 +91,7 @@ class ICounterItem2 extends ICounterItem{
     /**
      * 
      * @param {Integer} iIndex 
-     * @param {Integer} iWhich 
+     * @param {SysmonDataType} iWhich 
      * @returns {VARIANT} 
      */
     GetDataAt(iIndex, iWhich) {

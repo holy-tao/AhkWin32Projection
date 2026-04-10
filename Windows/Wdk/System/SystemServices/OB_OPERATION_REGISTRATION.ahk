@@ -3,10 +3,8 @@
 
 /**
  * @namespace Windows.Wdk.System.SystemServices
- * @version v4.0.30319
  */
-class OB_OPERATION_REGISTRATION extends Win32Struct
-{
+class OB_OPERATION_REGISTRATION extends Win32Struct {
     static sizeof => 32
 
     static packingSize => 8

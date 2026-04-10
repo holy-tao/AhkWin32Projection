@@ -7,9 +7,8 @@
  * This enum is used by the <a href="https://docs.microsoft.com/windows/desktop/api/d3d11_4/nf-d3d11_4-id3d11device5-createfence">ID3D11Device::CreateFence</a> method.
  * @see https://learn.microsoft.com/windows/win32/api/d3d11_3/ne-d3d11_3-d3d11_fence_flag
  * @namespace Windows.Win32.Graphics.Direct3D11
- * @version v4.0.30319
  */
-class D3D11_FENCE_FLAG extends Win32BitflagEnum{
+class D3D11_FENCE_FLAG extends Win32BitflagEnum {
 
     /**
      * No options are specified.
@@ -30,7 +29,6 @@ class D3D11_FENCE_FLAG extends Win32BitflagEnum{
     static D3D11_FENCE_FLAG_SHARED_CROSS_ADAPTER => 4
 
     /**
-     * 
      * @type {Integer (Int32)}
      */
     static D3D11_FENCE_FLAG_NON_MONITORED => 8

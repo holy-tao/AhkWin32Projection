@@ -1,14 +1,14 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
+#Include .\ITfRange.ahk
+#Include .\TfAnchor.ahk
 
 /**
  * The TF_HALTCOND structure is used to contain conditions of a range shift.
  * @see https://learn.microsoft.com/windows/win32/api/msctf/ns-msctf-tf_haltcond
  * @namespace Windows.Win32.UI.TextServices
- * @version v4.0.30319
  */
-class TF_HALTCOND extends Win32Struct
-{
+class TF_HALTCOND extends Win32Struct {
     static sizeof => 16
 
     static packingSize => 8
@@ -24,7 +24,7 @@ class TF_HALTCOND extends Win32Struct
 
     /**
      * Contains one of the <a href="https://docs.microsoft.com/windows/win32/api/msctf/ne-msctf-tfanchor">TfAnchor</a> values that specifies which anchor of <b>pHaltRange</b> the anchor will get shifted to if <b>pHaltRange</b> is encountered during the range shift. This member is ignored if <b>pHaltRange</b> is <b>NULL</b>.
-     * @type {Integer}
+     * @type {TfAnchor}
      */
     aHaltPos {
         get => NumGet(this, 8, "int")

@@ -5,10 +5,8 @@
  * Represents a logical processor in a processor group.
  * @see https://learn.microsoft.com/windows/win32/api/winnt/ns-winnt-processor_number
  * @namespace Windows.Win32.System.Kernel
- * @version v4.0.30319
  */
-class PROCESSOR_NUMBER extends Win32Struct
-{
+class PROCESSOR_NUMBER extends Win32Struct {
     static sizeof => 4
 
     static packingSize => 2

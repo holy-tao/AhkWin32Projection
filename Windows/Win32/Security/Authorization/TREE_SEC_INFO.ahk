@@ -7,9 +7,8 @@
   * If any object in the tree does not grant appropriate permissions to the caller to modify the security descriptor on the object, then the propagation of security information on that particular node of the tree and its objects is skipped. The operation continues on the rest of the tree under the object specified by the <i>pObjectName</i> parameter.
  * @see https://learn.microsoft.com/windows/win32/api/aclapi/nf-aclapi-treesetnamedsecurityinfoa
  * @namespace Windows.Win32.Security.Authorization
- * @version v4.0.30319
  */
-class TREE_SEC_INFO extends Win32Enum{
+class TREE_SEC_INFO extends Win32Enum {
 
     /**
      * @type {Integer (UInt32)}

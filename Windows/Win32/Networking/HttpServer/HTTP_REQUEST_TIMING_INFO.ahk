@@ -3,10 +3,8 @@
 
 /**
  * @namespace Windows.Win32.Networking.HttpServer
- * @version v4.0.30319
  */
-class HTTP_REQUEST_TIMING_INFO extends Win32Struct
-{
+class HTTP_REQUEST_TIMING_INFO extends Win32Struct {
     static sizeof => 248
 
     static packingSize => 8
@@ -20,9 +18,9 @@ class HTTP_REQUEST_TIMING_INFO extends Win32Struct
     }
 
     /**
-     * @type {Array<UInt64>}
+     * @type {Array<Integer>}
      */
-    RequestTiming{
+    RequestTiming {
         get {
             if(!this.HasProp("__RequestTimingProxyArray"))
                 this.__RequestTimingProxyArray := Win32FixedArray(this.ptr + 8, 30, Primitive, "uint")

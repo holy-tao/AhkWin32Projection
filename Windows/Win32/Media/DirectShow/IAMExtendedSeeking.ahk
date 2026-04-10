@@ -11,9 +11,8 @@
  * <pre class="syntax" xml:space="preserve"><code>#include &lt;dshow.h&gt;
  * @see https://learn.microsoft.com/windows/win32/api/qnetwork/nn-qnetwork-iamextendedseeking
  * @namespace Windows.Win32.Media.DirectShow
- * @version v4.0.30319
  */
-class IAMExtendedSeeking extends IDispatch{
+class IAMExtendedSeeking extends IDispatch {
 
     static sizeof => A_PtrSize
     /**
@@ -53,6 +52,7 @@ class IAMExtendedSeeking extends IDispatch{
     }
 
     /**
+     * @type {Float} 
      */
     PlaybackSpeed {
         get => this.get_PlaybackSpeed()

@@ -5,10 +5,8 @@
  * A support structure used in the MI_Application structure. Use the functions with the name prefix &quot;MI_Application_&quot; to manipulate these structures.
  * @see https://learn.microsoft.com/windows/win32/api/mi/ns-mi-mi_applicationft
  * @namespace Windows.Win32.System.Wmi
- * @version v4.0.30319
  */
-class MI_ApplicationFT extends Win32Struct
-{
+class MI_ApplicationFT extends Win32Struct {
     static sizeof => 88
 
     static packingSize => 8

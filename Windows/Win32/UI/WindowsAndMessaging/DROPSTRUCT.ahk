@@ -5,10 +5,8 @@
 
 /**
  * @namespace Windows.Win32.UI.WindowsAndMessaging
- * @version v4.0.30319
  */
-class DROPSTRUCT extends Win32Struct
-{
+class DROPSTRUCT extends Win32Struct {
     static sizeof => 48
 
     static packingSize => 8
@@ -16,7 +14,7 @@ class DROPSTRUCT extends Win32Struct
     /**
      * @type {HWND}
      */
-    hwndSource{
+    hwndSource {
         get {
             if(!this.HasProp("__hwndSource"))
                 this.__hwndSource := HWND(0, this)
@@ -27,7 +25,7 @@ class DROPSTRUCT extends Win32Struct
     /**
      * @type {HWND}
      */
-    hwndSink{
+    hwndSink {
         get {
             if(!this.HasProp("__hwndSink"))
                 this.__hwndSink := HWND(8, this)
@@ -54,7 +52,7 @@ class DROPSTRUCT extends Win32Struct
     /**
      * @type {POINT}
      */
-    ptDrop{
+    ptDrop {
         get {
             if(!this.HasProp("__ptDrop"))
                 this.__ptDrop := POINT(32, this)

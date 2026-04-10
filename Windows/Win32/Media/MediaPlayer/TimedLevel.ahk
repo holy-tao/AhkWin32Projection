@@ -11,19 +11,17 @@
  * The second dimension contains the sampled levels. The frequency data ranges from 0 to 255. The waveform data represents -128 to 127 but is stored as 0 to 255, so subtract 128 to get the correct value.
  * @see https://learn.microsoft.com/windows/win32/api/effects/ns-effects-timedlevel
  * @namespace Windows.Win32.Media.MediaPlayer
- * @version v4.0.30319
  */
-class TimedLevel extends Win32Struct
-{
+class TimedLevel extends Win32Struct {
     static sizeof => 4112
 
     static packingSize => 8
 
     /**
      * A stereo snapshot of the frequency spectrum of the audio data at a time specified by the Plug-in Manager. It can be used for frequency spectrum effects such as real-time analyzers. The frequency value of the first cell is 20 Hz, and the frequency value of the last cell is 22050 Hz.
-     * @type {Array<Byte>}
+     * @type {Array<Integer>}
      */
-    frequency{
+    frequency {
         get {
             if(!this.HasProp("__frequencyProxyArray"))
                 this.__frequencyProxyArray := Win32FixedArray(this.ptr + 0, 2048, Primitive, "char")
@@ -33,9 +31,9 @@ class TimedLevel extends Win32Struct
 
     /**
      * A stereo snapshot of the power value of the audio data at a time specified by the Plug-in Manager as the first element; the next 1024 stereo power values fill out the rest of the array. It can be used for oscilloscope-type effects.
-     * @type {Array<Byte>}
+     * @type {Array<Integer>}
      */
-    waveform{
+    waveform {
         get {
             if(!this.HasProp("__waveformProxyArray"))
                 this.__waveformProxyArray := Win32FixedArray(this.ptr + 2048, 2048, Primitive, "char")

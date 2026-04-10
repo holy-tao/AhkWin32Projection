@@ -7,9 +7,8 @@
  * The CursorButton state for the mouse is always <b>CursorUnavailable</b> when the mouse buttons are up.
  * @see https://learn.microsoft.com/windows/win32/api/msinkaut/ne-msinkaut-inkcursorbuttonstate
  * @namespace Windows.Win32.UI.TabletPC
- * @version v4.0.30319
  */
-class InkCursorButtonState extends Win32Enum{
+class InkCursorButtonState extends Win32Enum {
 
     /**
      * The cursor button is unavailable. A cursor button may become unavailable, for example, when a cursor leaves the range of Tablet PC.

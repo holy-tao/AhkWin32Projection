@@ -3,10 +3,8 @@
 
 /**
  * @namespace Windows.Win32.Storage.Nvme
- * @version v4.0.30319
  */
-class NVME_LBA_ZONE_FORMAT extends Win32Struct
-{
+class NVME_LBA_ZONE_FORMAT extends Win32Struct {
     static sizeof => 16
 
     static packingSize => 8
@@ -28,9 +26,9 @@ class NVME_LBA_ZONE_FORMAT extends Win32Struct
     }
 
     /**
-     * @type {Array<Byte>}
+     * @type {Array<Integer>}
      */
-    Reserved{
+    Reserved {
         get {
             if(!this.HasProp("__ReservedProxyArray"))
                 this.__ReservedProxyArray := Win32FixedArray(this.ptr + 9, 7, Primitive, "char")

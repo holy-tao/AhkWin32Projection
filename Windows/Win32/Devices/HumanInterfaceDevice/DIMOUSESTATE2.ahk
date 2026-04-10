@@ -3,10 +3,8 @@
 
 /**
  * @namespace Windows.Win32.Devices.HumanInterfaceDevice
- * @version v4.0.30319
  */
-class DIMOUSESTATE2 extends Win32Struct
-{
+class DIMOUSESTATE2 extends Win32Struct {
     static sizeof => 20
 
     static packingSize => 4
@@ -36,9 +34,9 @@ class DIMOUSESTATE2 extends Win32Struct
     }
 
     /**
-     * @type {Array<Byte>}
+     * @type {Array<Integer>}
      */
-    rgbButtons{
+    rgbButtons {
         get {
             if(!this.HasProp("__rgbButtonsProxyArray"))
                 this.__rgbButtonsProxyArray := Win32FixedArray(this.ptr + 12, 8, Primitive, "char")

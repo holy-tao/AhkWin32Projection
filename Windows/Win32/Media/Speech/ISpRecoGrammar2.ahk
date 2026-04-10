@@ -5,9 +5,8 @@
 
 /**
  * @namespace Windows.Win32.Media.Speech
- * @version v4.0.30319
  */
-class ISpRecoGrammar2 extends IUnknown{
+class ISpRecoGrammar2 extends IUnknown {
 
     static sizeof => A_PtrSize
     /**
@@ -45,7 +44,7 @@ class ISpRecoGrammar2 extends IUnknown{
     /**
      * 
      * @param {PWSTR} pszFileName 
-     * @param {Integer} Options 
+     * @param {SPLOADOPTIONS} Options 
      * @param {PWSTR} pszSharingUri 
      * @param {PWSTR} pszBaseUri 
      * @returns {HRESULT} 
@@ -62,7 +61,7 @@ class ISpRecoGrammar2 extends IUnknown{
     /**
      * 
      * @param {Pointer<SPBINARYGRAMMAR>} pGrammar 
-     * @param {Integer} Options 
+     * @param {SPLOADOPTIONS} Options 
      * @param {PWSTR} pszSharingUri 
      * @param {PWSTR} pszBaseUri 
      * @returns {HRESULT} 

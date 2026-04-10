@@ -3,10 +3,8 @@
 
 /**
  * @namespace Windows.Win32.Graphics.DirectDraw
- * @version v4.0.30319
  */
-class LPDDFXROP extends Win32Struct
-{
+class LPDDFXROP extends Win32Struct {
     static sizeof => 8
 
     static packingSize => 8

@@ -7,10 +7,8 @@
  * The use of offsets rather than pointers allows for easy serialization of the BIR and for less complicated translation between 32 and 64-bit environments or between user and kernel mode.
  * @see https://learn.microsoft.com/windows/win32/SecBioMet/winbio-bir-data
  * @namespace Windows.Win32.Devices.BiometricFramework
- * @version v4.0.30319
  */
-class WINBIO_BIR_DATA extends Win32Struct
-{
+class WINBIO_BIR_DATA extends Win32Struct {
     static sizeof => 8
 
     static packingSize => 4

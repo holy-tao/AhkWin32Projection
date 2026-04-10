@@ -1,5 +1,8 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
+#Include .\RESUTIL_LARGEINT_DATA.ahk
+#Include .\RESUTIL_ULARGEINT_DATA.ahk
+#Include .\RESUTIL_FILETIME_DATA.ahk
 
 /**
  * Contains information about a cluster object property. An array of RESUTIL_PROPERTY_ITEM structures forms a property table which can be used in property operations.
@@ -8,10 +11,8 @@
  *     <a href="https://docs.microsoft.com/previous-versions/windows/desktop/mscs/using-lists-and-tables">Using Lists and Tables</a>.
  * @see https://learn.microsoft.com/windows/win32/api/resapi/ns-resapi-resutil_property_item
  * @namespace Windows.Win32.Networking.Clustering
- * @version v4.0.30319
  */
-class RESUTIL_PROPERTY_ITEM extends Win32Struct
-{
+class RESUTIL_PROPERTY_ITEM extends Win32Struct {
     static sizeof => 48
 
     static packingSize => 8

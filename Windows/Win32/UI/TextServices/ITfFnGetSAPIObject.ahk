@@ -1,16 +1,15 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
-#Include ..\..\System\Com\IUnknown.ahk
 #Include .\ITfFunction.ahk
+#Include ..\..\System\Com\IUnknown.ahk
 
 /**
  * The ITfFnGetSAPIObject interface is implemented by the Speech API (SAPI) text service. This interface is used by the TSF manager or a client (application or other text service) to obtain various SAPI objects.
  * @see https://learn.microsoft.com/windows/win32/api/ctffunc/nn-ctffunc-itffngetsapiobject
  * @namespace Windows.Win32.UI.TextServices
- * @version v4.0.30319
  */
-class ITfFnGetSAPIObject extends ITfFunction{
+class ITfFnGetSAPIObject extends ITfFunction {
 
     static sizeof => A_PtrSize
     /**
@@ -33,7 +32,7 @@ class ITfFnGetSAPIObject extends ITfFunction{
 
     /**
      * ITfFnGetSAPIObject::Get method
-     * @param {Integer} sObj Contains a <a href="https://docs.microsoft.com/windows/win32/api/ctffunc/ne-ctffunc-tfsapiobject">TfSapiObject</a> value that specifies the SAPI object to obtain.
+     * @param {TfSapiObject} sObj Contains a <a href="https://docs.microsoft.com/windows/win32/api/ctffunc/ne-ctffunc-tfsapiobject">TfSapiObject</a> value that specifies the SAPI object to obtain.
      * @returns {IUnknown} Pointer to an <b>IUnknown</b> interface pointer that receives the requested SAPI object. The caller must release this interface when it is no longer required.
      * @see https://learn.microsoft.com/windows/win32/api/ctffunc/nf-ctffunc-itffngetsapiobject-get
      */

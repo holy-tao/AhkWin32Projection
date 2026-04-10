@@ -17,9 +17,8 @@
  * This interface is available on Windows Vista if Platform Update Supplement for Windows Vista is installed.
  * @see https://learn.microsoft.com/windows/win32/api/mfidl/nn-mfidl-imfqualityadvise2
  * @namespace Windows.Win32.Media.MediaFoundation
- * @version v4.0.30319
  */
-class IMFQualityAdvise2 extends IMFQualityAdvise{
+class IMFQualityAdvise2 extends IMFQualityAdvise {
 
     static sizeof => A_PtrSize
     /**

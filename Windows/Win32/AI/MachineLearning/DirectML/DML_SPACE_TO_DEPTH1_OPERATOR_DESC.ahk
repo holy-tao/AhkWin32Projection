@@ -1,5 +1,7 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\..\Win32Struct.ahk
+#Include .\DML_TENSOR_DESC.ahk
+#Include .\DML_DEPTH_SPACE_ORDER.ahk
 
 /**
  * Rearranges blocks of spatial data into depth. The operator outputs a copy of the input tensor where values from the height and width dimensions are moved to the depth dimension. (DML_SPACE_TO_DEPTH1_OPERATOR_DESC)
@@ -7,10 +9,8 @@
  * When the *Order* parameter is set to [DML_DEPTH_SPACE_ORDER_DEPTH_COLUMN_ROW](/windows/win32/api/directml/ne-directml-dml_depth_space_order), this operator is equivalent to [DML_SPACE_TO_DEPTH_OPERATOR_DESC](/windows/win32/api/directml/ns-directml-dml_space_to_depth_operator_desc).
  * @see https://learn.microsoft.com/windows/win32/api/directml/ns-directml-dml_space_to_depth1_operator_desc
  * @namespace Windows.Win32.AI.MachineLearning.DirectML
- * @version v4.0.30319
  */
-class DML_SPACE_TO_DEPTH1_OPERATOR_DESC extends Win32Struct
-{
+class DML_SPACE_TO_DEPTH1_OPERATOR_DESC extends Win32Struct {
     static sizeof => 24
 
     static packingSize => 8
@@ -52,7 +52,7 @@ class DML_SPACE_TO_DEPTH1_OPERATOR_DESC extends Win32Struct
      * Type: **[DML_DEPTH_SPACE_ORDER](/windows/win32/api/directml/ne-directml-dml_depth_space_order)**
      * 
      * See [DML_DEPTH_SPACE_ORDER](/windows/win32/api/directml/ne-directml-dml_depth_space_order).
-     * @type {Integer}
+     * @type {DML_DEPTH_SPACE_ORDER}
      */
     Order {
         get => NumGet(this, 20, "int")

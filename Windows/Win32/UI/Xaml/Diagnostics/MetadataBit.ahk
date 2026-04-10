@@ -5,9 +5,8 @@
  * Defines constants that are used to define the PropertyChainValue returned from XAML Diagnostics.
  * @see https://learn.microsoft.com/windows/win32/api/xamlom/ne-xamlom-metadatabit
  * @namespace Windows.Win32.UI.Xaml.Diagnostics
- * @version v4.0.30319
  */
-class MetadataBit extends Win32Enum{
+class MetadataBit extends Win32Enum {
 
     /**
      * No special bits are set.

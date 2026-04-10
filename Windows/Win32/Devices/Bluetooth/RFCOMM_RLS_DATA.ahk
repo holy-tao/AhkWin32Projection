@@ -3,10 +3,8 @@
 
 /**
  * @namespace Windows.Win32.Devices.Bluetooth
- * @version v4.0.30319
  */
-class RFCOMM_RLS_DATA extends Win32Struct
-{
+class RFCOMM_RLS_DATA extends Win32Struct {
     static sizeof => 1
 
     static packingSize => 1

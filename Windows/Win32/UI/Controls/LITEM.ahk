@@ -1,14 +1,14 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
+#Include .\LIST_ITEM_FLAGS.ahk
+#Include .\LIST_ITEM_STATE_FLAGS.ahk
 
 /**
  * Used to set and retrieve information about a link item.
  * @see https://learn.microsoft.com/windows/win32/api/commctrl/ns-commctrl-litem
  * @namespace Windows.Win32.UI.Controls
- * @version v4.0.30319
  */
-class LITEM extends Win32Struct
-{
+class LITEM extends Win32Struct {
     static sizeof => 4280
 
     static packingSize => 4
@@ -68,7 +68,7 @@ class LITEM extends Win32Struct
      * </td>
      * </tr>
      * </table>
-     * @type {Integer}
+     * @type {LIST_ITEM_FLAGS}
      */
     mask {
         get => NumGet(this, 0, "uint")
@@ -152,7 +152,7 @@ class LITEM extends Win32Struct
      * </td>
      * </tr>
      * </table>
-     * @type {Integer}
+     * @type {LIST_ITEM_STATE_FLAGS}
      */
     state {
         get => NumGet(this, 8, "uint")
@@ -163,7 +163,7 @@ class LITEM extends Win32Struct
      * Type: <b><a href="https://docs.microsoft.com/windows/desktop/WinProg/windows-data-types">UINT</a></b>
      * 
      * Combination of flags describing which state item to get or set. Allowable items are identical to those allowed in <b>state</b>.
-     * @type {Integer}
+     * @type {LIST_ITEM_STATE_FLAGS}
      */
     stateMask {
         get => NumGet(this, 12, "uint")

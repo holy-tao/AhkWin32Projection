@@ -36,9 +36,8 @@
  * Some Media Foundation interfaces define a <b>Shutdown</b> method, which serves the same purpose as <a href="https://docs.microsoft.com/windows/desktop/api/mfidl/nf-mfidl-imfshutdown-shutdown">IMFShutdown::Shutdown</a> but is not directly related to it.
  * @see https://learn.microsoft.com/windows/win32/api/mfidl/nn-mfidl-imfshutdown
  * @namespace Windows.Win32.Media.MediaFoundation
- * @version v4.0.30319
  */
-class IMFShutdown extends IUnknown{
+class IMFShutdown extends IUnknown {
 
     static sizeof => A_PtrSize
     /**
@@ -77,7 +76,7 @@ class IMFShutdown extends IUnknown{
      * Until <a href="https://docs.microsoft.com/windows/desktop/api/mfidl/nf-mfidl-imfshutdown-shutdown">Shutdown</a> is called, the <b>GetShutdownStatus</b> method returns <b>MF_E_INVALIDREQUEST</b>.
      * 
      * If an object's <a href="https://docs.microsoft.com/windows/desktop/api/mfidl/nf-mfidl-imfshutdown-shutdown">Shutdown</a> method is asynchronous, <i>pStatus</i> might receive the value <b>MFSHUTDOWN_INITIATED</b>. When the object is completely shut down, <i>pStatus</i> receives the value <b>MFSHUTDOWN_COMPLETED</b>.
-     * @returns {Integer} Receives a member of the <a href="https://docs.microsoft.com/windows/desktop/api/mfidl/ne-mfidl-mfshutdown_status">MFSHUTDOWN_STATUS</a> enumeration.
+     * @returns {MFSHUTDOWN_STATUS} Receives a member of the <a href="https://docs.microsoft.com/windows/desktop/api/mfidl/ne-mfidl-mfshutdown_status">MFSHUTDOWN_STATUS</a> enumeration.
      * @see https://learn.microsoft.com/windows/win32/api/mfidl/nf-mfidl-imfshutdown-getshutdownstatus
      */
     GetShutdownStatus() {

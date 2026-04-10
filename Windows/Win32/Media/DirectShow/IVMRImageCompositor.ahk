@@ -7,9 +7,8 @@
  * The IVMRImageCompositor interface is implemented by the default compositor for the Video Mixing Renderer Filter 7 (VMR-7).
  * @see https://learn.microsoft.com/windows/win32/api/strmif/nn-strmif-ivmrimagecompositor
  * @namespace Windows.Win32.Media.DirectShow
- * @version v4.0.30319
  */
-class IVMRImageCompositor extends IUnknown{
+class IVMRImageCompositor extends IUnknown {
 
     static sizeof => A_PtrSize
     /**

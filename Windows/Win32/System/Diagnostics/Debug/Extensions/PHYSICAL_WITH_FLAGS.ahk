@@ -3,10 +3,8 @@
 
 /**
  * @namespace Windows.Win32.System.Diagnostics.Debug.Extensions
- * @version v4.0.30319
  */
-class PHYSICAL_WITH_FLAGS extends Win32Struct
-{
+class PHYSICAL_WITH_FLAGS extends Win32Struct {
     static sizeof => 24
 
     static packingSize => 8
@@ -36,9 +34,9 @@ class PHYSICAL_WITH_FLAGS extends Win32Struct
     }
 
     /**
-     * @type {Array<Byte>}
+     * @type {Array<Integer>}
      */
-    Buf{
+    Buf {
         get {
             if(!this.HasProp("__BufProxyArray"))
                 this.__BufProxyArray := Win32FixedArray(this.ptr + 16, 1, Primitive, "char")

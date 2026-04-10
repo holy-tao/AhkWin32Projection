@@ -5,10 +5,9 @@
  * Learn more about: JET_INDEXID Structure
  * @see https://learn.microsoft.com/windows/win32/extensible-storage-engine/jet-indexid-structure
  * @namespace Windows.Win32.Storage.Jet
- * @version v4.0.30319
+ * @architecture X64, Arm64
  */
-class JET_INDEXID extends Win32Struct
-{
+class JET_INDEXID extends Win32Struct {
     static sizeof => 20
 
     static packingSize => 4
@@ -22,9 +21,9 @@ class JET_INDEXID extends Win32Struct
     }
 
     /**
-     * @type {Array<Byte>}
+     * @type {Array<Integer>}
      */
-    rgbIndexId{
+    rgbIndexId {
         get {
             if(!this.HasProp("__rgbIndexIdProxyArray"))
                 this.__rgbIndexIdProxyArray := Win32FixedArray(this.ptr + 4, 16, Primitive, "char")

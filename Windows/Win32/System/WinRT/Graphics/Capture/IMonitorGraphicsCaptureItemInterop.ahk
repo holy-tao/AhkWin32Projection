@@ -5,9 +5,8 @@
 
 /**
  * @namespace Windows.Win32.System.WinRT.Graphics.Capture
- * @version v4.0.30319
  */
-class IMonitorGraphicsCaptureItemInterop extends IUnknown{
+class IMonitorGraphicsCaptureItemInterop extends IUnknown {
 
     static sizeof => A_PtrSize
     /**

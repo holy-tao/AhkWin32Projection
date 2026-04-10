@@ -9,9 +9,8 @@
  * Use this interface to determine whether it is safe to delete or re-use the buffer contained in a sample. One object assigns itself as the owner of the video sample by calling <a href="https://docs.microsoft.com/windows/desktop/api/mfidl/nf-mfidl-imftrackedsample-setallocator">SetAllocator</a>. When all objects release their reference counts on the sample, the owner's callback method is invoked.
  * @see https://learn.microsoft.com/windows/win32/api/mfidl/nn-mfidl-imftrackedsample
  * @namespace Windows.Win32.Media.MediaFoundation
- * @version v4.0.30319
  */
-class IMFTrackedSample extends IUnknown{
+class IMFTrackedSample extends IUnknown {
 
     static sizeof => A_PtrSize
     /**

@@ -7,9 +7,8 @@
  * Represents a synchronization provider that can be used by a synchronization session to synchronize data with another synchronization provider.
  * @see https://learn.microsoft.com/windows/win32/api/winsync/nn-winsync-isyncprovider
  * @namespace Windows.Win32.System.WindowsSync
- * @version v4.0.30319
  */
-class ISyncProvider extends IUnknown{
+class ISyncProvider extends IUnknown {
 
     static sizeof => A_PtrSize
     /**

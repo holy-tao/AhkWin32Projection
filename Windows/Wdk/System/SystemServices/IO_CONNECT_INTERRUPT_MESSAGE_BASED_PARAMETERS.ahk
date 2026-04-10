@@ -1,12 +1,12 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
+#Include ..\..\Foundation\DEVICE_OBJECT.ahk
+#Include .\IO_INTERRUPT_MESSAGE_INFO.ahk
 
 /**
  * @namespace Windows.Wdk.System.SystemServices
- * @version v4.0.30319
  */
-class IO_CONNECT_INTERRUPT_MESSAGE_BASED_PARAMETERS extends Win32Struct
-{
+class IO_CONNECT_INTERRUPT_MESSAGE_BASED_PARAMETERS extends Win32Struct {
     static sizeof => 56
 
     static packingSize => 8
@@ -22,7 +22,7 @@ class IO_CONNECT_INTERRUPT_MESSAGE_BASED_PARAMETERS extends Win32Struct
             get => NumGet(this, 0, "ptr")
             set => NumPut("ptr", value, this, 0)
         }
-    
+
         /**
          * @type {Pointer<Pointer<IO_INTERRUPT_MESSAGE_INFO>>}
          */
@@ -30,7 +30,7 @@ class IO_CONNECT_INTERRUPT_MESSAGE_BASED_PARAMETERS extends Win32Struct
             get => NumGet(this, 0, "ptr")
             set => NumPut("ptr", value, this, 0)
         }
-    
+
         /**
          * @type {Pointer<PKINTERRUPT>}
          */
@@ -38,7 +38,6 @@ class IO_CONNECT_INTERRUPT_MESSAGE_BASED_PARAMETERS extends Win32Struct
             get => NumGet(this, 0, "ptr")
             set => NumPut("ptr", value, this, 0)
         }
-    
     }
 
     /**
@@ -52,10 +51,10 @@ class IO_CONNECT_INTERRUPT_MESSAGE_BASED_PARAMETERS extends Win32Struct
     /**
      * @type {_ConnectionContext_e__Union}
      */
-    ConnectionContext{
+    ConnectionContext {
         get {
             if(!this.HasProp("__ConnectionContext"))
-                this.__ConnectionContext := %this.__Class%._ConnectionContext_e__Union(8, this)
+                this.__ConnectionContext := IO_CONNECT_INTERRUPT_MESSAGE_BASED_PARAMETERS._ConnectionContext_e__Union(8, this)
             return this.__ConnectionContext
         }
     }

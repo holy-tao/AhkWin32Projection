@@ -1,15 +1,16 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
+#Include .\IKEEXT_CERT_CONFIG_TYPE.ahk
+#Include .\IKEEXT_CERT_ROOT_CONFIG0.ahk
+#Include .\IKEEXT_CERT_AUTH.ahk
 #Include .\FWP_BYTE_BLOB.ahk
 
 /**
  * Is used to specify various parameters for authentication with certificates. (IKEEXT_CERTIFICATE_AUTHENTICATION1)
  * @see https://learn.microsoft.com/windows/win32/api/iketypes/ns-iketypes-ikeext_certificate_authentication1
  * @namespace Windows.Win32.NetworkManagement.WindowsFilteringPlatform
- * @version v4.0.30319
  */
-class IKEEXT_CERTIFICATE_AUTHENTICATION1 extends Win32Struct
-{
+class IKEEXT_CERTIFICATE_AUTHENTICATION1 extends Win32Struct {
     static sizeof => 72
 
     static packingSize => 8
@@ -18,7 +19,7 @@ class IKEEXT_CERTIFICATE_AUTHENTICATION1 extends Win32Struct
      * Certificate configuration type for inbound peer certificate verification.
      * 
      * See [IKEEXT_CERT_CONFIG_TYPE](/windows/desktop/api/iketypes/ne-iketypes-ikeext_cert_config_type) for more information.
-     * @type {Integer}
+     * @type {IKEEXT_CERT_CONFIG_TYPE}
      */
     inboundConfigType {
         get => NumGet(this, 0, "int")
@@ -61,7 +62,7 @@ class IKEEXT_CERTIFICATE_AUTHENTICATION1 extends Win32Struct
      * Certificate configuration type for outbound local certificate verification.
      * 
      * See [IKEEXT_CERT_CONFIG_TYPE](/windows/desktop/api/iketypes/ne-iketypes-ikeext_cert_config_type) for more information.
-     * @type {Integer}
+     * @type {IKEEXT_CERT_CONFIG_TYPE}
      */
     outboundConfigType {
         get => NumGet(this, 24, "int")
@@ -101,8 +102,7 @@ class IKEEXT_CERTIFICATE_AUTHENTICATION1 extends Win32Struct
     }
 
     /**
-     * 
-     * @type {Integer}
+     * @type {IKEEXT_CERT_AUTH}
      */
     flags {
         get => NumGet(this, 48, "uint")
@@ -118,7 +118,7 @@ class IKEEXT_CERTIFICATE_AUTHENTICATION1 extends Win32Struct
      * See [FWP_BYTE_BLOB](/windows/desktop/api/fwptypes/ns-fwptypes-fwp_byte_blob) for more information.
      * @type {FWP_BYTE_BLOB}
      */
-    localCertLocationUrl{
+    localCertLocationUrl {
         get {
             if(!this.HasProp("__localCertLocationUrl"))
                 this.__localCertLocationUrl := FWP_BYTE_BLOB(56, this)

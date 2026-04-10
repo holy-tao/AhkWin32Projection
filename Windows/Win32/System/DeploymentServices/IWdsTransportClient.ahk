@@ -1,17 +1,16 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
+#Include ..\Com\IDispatch.ahk
 #Include .\IWdsTransportSession.ahk
 #Include ..\..\Foundation\BSTR.ahk
-#Include ..\Com\IDispatch.ahk
 
 /**
  * Represents a WDS client that is joined to a transport session on a WDS transport server.
  * @see https://learn.microsoft.com/windows/win32/api/wdstptmgmt/nn-wdstptmgmt-iwdstransportclient
  * @namespace Windows.Win32.System.DeploymentServices
- * @version v4.0.30319
  */
-class IWdsTransportClient extends IDispatch{
+class IWdsTransportClient extends IDispatch {
 
     static sizeof => A_PtrSize
     /**
@@ -231,7 +230,7 @@ class IWdsTransportClient extends IDispatch{
 
     /**
      * Disconnects the WDS client from the session and specifies what action the client should take upon disconnection.
-     * @param {Integer} DisconnectionType A value of the <a href="https://docs.microsoft.com/windows/win32/api/wdstptmgmt/ne-wdstptmgmt-wdstransport_disconnect_type">WDSTRANSPORT_DISCONNECT_TYPE</a> enumeration that specifies what action the WDS client should take when disconnected.
+     * @param {WDSTRANSPORT_DISCONNECT_TYPE} DisconnectionType A value of the <a href="https://docs.microsoft.com/windows/win32/api/wdstptmgmt/ne-wdstptmgmt-wdstransport_disconnect_type">WDSTRANSPORT_DISCONNECT_TYPE</a> enumeration that specifies what action the WDS client should take when disconnected.
      * @returns {HRESULT} Standard HRESULT error values are used: S_OK for success; others for failure.
      * @see https://learn.microsoft.com/windows/win32/api/wdstptmgmt/nf-wdstptmgmt-iwdstransportclient-disconnect
      */

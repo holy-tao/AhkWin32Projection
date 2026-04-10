@@ -3,10 +3,8 @@
 
 /**
  * @namespace Windows.Win32.Storage.IscsiDisc
- * @version v4.0.30319
  */
-class DUMP_DRIVER extends Win32Struct
-{
+class DUMP_DRIVER extends Win32Struct {
     static sizeof => 72
 
     static packingSize => 8

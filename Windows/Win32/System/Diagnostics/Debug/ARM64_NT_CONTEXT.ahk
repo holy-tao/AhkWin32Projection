@@ -6,11 +6,10 @@
  * Contains processor-specific register data. The system uses CONTEXT structures to perform various internal operations.C
  * @see https://learn.microsoft.com/windows/win32/api/winnt/ns-winnt-arm64_nt_context
  * @namespace Windows.Win32.System.Diagnostics.Debug
- * @version v4.0.30319
+ * @architecture X86, X64
  */
-class ARM64_NT_CONTEXT extends Win32Struct
-{
-    static sizeof => 656
+class ARM64_NT_CONTEXT extends Win32Struct {
+    static sizeof => 2960
 
     static packingSize => 8
 
@@ -279,9 +278,9 @@ class ARM64_NT_CONTEXT extends Win32Struct
     }
 
     /**
-     * @type {Array<UInt64>}
+     * @type {Array<Integer>}
      */
-    X{
+    X {
         get {
             if(!this.HasProp("__XProxyArray"))
                 this.__XProxyArray := Win32FixedArray(this.ptr + 8, 31, Primitive, "uint")
@@ -306,9 +305,9 @@ class ARM64_NT_CONTEXT extends Win32Struct
     }
 
     /**
-     * @type {Array<ARM64_NT_NEON128>}
+     * @type {ARM64_NT_NEON128}
      */
-    V{
+    V {
         get {
             if(!this.HasProp("__VProxyArray"))
                 this.__VProxyArray := Win32FixedArray(this.ptr + 272, 32, ARM64_NT_NEON128, "")
@@ -320,58 +319,58 @@ class ARM64_NT_CONTEXT extends Win32Struct
      * @type {Integer}
      */
     Fpcr {
-        get => NumGet(this, 528, "uint")
-        set => NumPut("uint", value, this, 528)
+        get => NumGet(this, 2832, "uint")
+        set => NumPut("uint", value, this, 2832)
     }
 
     /**
      * @type {Integer}
      */
     Fpsr {
-        get => NumGet(this, 532, "uint")
-        set => NumPut("uint", value, this, 532)
+        get => NumGet(this, 2836, "uint")
+        set => NumPut("uint", value, this, 2836)
     }
 
     /**
-     * @type {Array<UInt32>}
+     * @type {Array<Integer>}
      */
-    Bcr{
+    Bcr {
         get {
             if(!this.HasProp("__BcrProxyArray"))
-                this.__BcrProxyArray := Win32FixedArray(this.ptr + 536, 8, Primitive, "uint")
+                this.__BcrProxyArray := Win32FixedArray(this.ptr + 2840, 8, Primitive, "uint")
             return this.__BcrProxyArray
         }
     }
 
     /**
-     * @type {Array<UInt64>}
+     * @type {Array<Integer>}
      */
-    Bvr{
+    Bvr {
         get {
             if(!this.HasProp("__BvrProxyArray"))
-                this.__BvrProxyArray := Win32FixedArray(this.ptr + 568, 8, Primitive, "uint")
+                this.__BvrProxyArray := Win32FixedArray(this.ptr + 2872, 8, Primitive, "uint")
             return this.__BvrProxyArray
         }
     }
 
     /**
-     * @type {Array<UInt32>}
+     * @type {Array<Integer>}
      */
-    Wcr{
+    Wcr {
         get {
             if(!this.HasProp("__WcrProxyArray"))
-                this.__WcrProxyArray := Win32FixedArray(this.ptr + 632, 2, Primitive, "uint")
+                this.__WcrProxyArray := Win32FixedArray(this.ptr + 2936, 2, Primitive, "uint")
             return this.__WcrProxyArray
         }
     }
 
     /**
-     * @type {Array<UInt64>}
+     * @type {Array<Integer>}
      */
-    Wvr{
+    Wvr {
         get {
             if(!this.HasProp("__WvrProxyArray"))
-                this.__WvrProxyArray := Win32FixedArray(this.ptr + 640, 2, Primitive, "uint")
+                this.__WvrProxyArray := Win32FixedArray(this.ptr + 2944, 2, Primitive, "uint")
             return this.__WvrProxyArray
         }
     }

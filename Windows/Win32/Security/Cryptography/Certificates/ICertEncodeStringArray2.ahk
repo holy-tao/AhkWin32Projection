@@ -1,14 +1,13 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\..\Guid.ahk
-#Include ..\..\..\Foundation\BSTR.ahk
 #Include .\ICertEncodeStringArray.ahk
+#Include ..\..\..\Foundation\BSTR.ahk
 
 /**
  * @namespace Windows.Win32.Security.Cryptography.Certificates
- * @version v4.0.30319
  */
-class ICertEncodeStringArray2 extends ICertEncodeStringArray{
+class ICertEncodeStringArray2 extends ICertEncodeStringArray {
 
     static sizeof => A_PtrSize
     /**
@@ -32,7 +31,7 @@ class ICertEncodeStringArray2 extends ICertEncodeStringArray{
     /**
      * 
      * @param {BSTR} strEncodedData 
-     * @param {Integer} Encoding 
+     * @param {EncodingType} Encoding 
      * @returns {HRESULT} 
      */
     DecodeBlob(strEncodedData, Encoding) {
@@ -44,7 +43,7 @@ class ICertEncodeStringArray2 extends ICertEncodeStringArray{
 
     /**
      * 
-     * @param {Integer} Encoding 
+     * @param {EncodingType} Encoding 
      * @returns {BSTR} 
      */
     EncodeBlob(Encoding) {

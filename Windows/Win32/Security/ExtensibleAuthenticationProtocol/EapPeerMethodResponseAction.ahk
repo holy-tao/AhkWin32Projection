@@ -5,9 +5,8 @@
  * Defines the set of actions an EAP authenticator can indicate to a supplicant or EAP peer method during authentication.
  * @see https://learn.microsoft.com/windows/win32/api/eapauthenticatoractiondefine/ne-eapauthenticatoractiondefine-eappeermethodresponseaction
  * @namespace Windows.Win32.Security.ExtensibleAuthenticationProtocol
- * @version v4.0.30319
  */
-class EapPeerMethodResponseAction extends Win32Enum{
+class EapPeerMethodResponseAction extends Win32Enum {
 
     /**
      * The supplicant should discard the request as it is not usable by EAP.

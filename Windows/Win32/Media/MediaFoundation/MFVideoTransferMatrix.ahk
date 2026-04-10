@@ -9,9 +9,8 @@
  * For more information about these values, see the remarks for the <a href="https://docs.microsoft.com/windows/desktop/api/dxva2api/ne-dxva2api-dxva2_videotransfermatrix">DXVA2_VideoTransferMatrix</a> enumeration, which is the DirectX Video Acceleration (DXVA) equivalent of this enumeration.
  * @see https://learn.microsoft.com/windows/win32/api/mfobjects/ne-mfobjects-mfvideotransfermatrix
  * @namespace Windows.Win32.Media.MediaFoundation
- * @version v4.0.30319
  */
-class MFVideoTransferMatrix extends Win32Enum{
+class MFVideoTransferMatrix extends Win32Enum {
 
     /**
      * Unknown transfer matrix. Treat as MFVideoTransferMatrix_BT709.
@@ -38,13 +37,11 @@ class MFVideoTransferMatrix extends Win32Enum{
     static MFVideoTransferMatrix_SMPTE240M => 3
 
     /**
-     * 
      * @type {Integer (Int32)}
      */
     static MFVideoTransferMatrix_BT2020_10 => 4
 
     /**
-     * 
      * @type {Integer (Int32)}
      */
     static MFVideoTransferMatrix_BT2020_12 => 5

@@ -7,9 +7,8 @@
  * The IWMDMObjectInfo interface gets and sets information that controls how playable files on device are handled by the IWMDMDeviceControl interface.This interface is not intended for non-playable files.
  * @see https://learn.microsoft.com/windows/win32/api/mswmdm/nn-mswmdm-iwmdmobjectinfo
  * @namespace Windows.Win32.Media.DeviceManager
- * @version v4.0.30319
  */
-class IWMDMObjectInfo extends IUnknown{
+class IWMDMObjectInfo extends IUnknown {
 
     static sizeof => A_PtrSize
     /**

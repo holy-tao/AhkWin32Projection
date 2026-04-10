@@ -17,14 +17,12 @@
  * > The wingdi.h header defines AXESLIST as an alias which automatically selects the ANSI or Unicode version of this function based on the definition of the UNICODE preprocessor constant. Mixing usage of the encoding-neutral alias with code that not encoding-neutral can lead to mismatches that result in compilation or runtime errors. For more information, see [Conventions for Function Prototypes](/windows/win32/intl/conventions-for-function-prototypes).
  * @see https://learn.microsoft.com/windows/win32/api/wingdi/ns-wingdi-axeslistw
  * @namespace Windows.Win32.Graphics.Gdi
- * @version v4.0.30319
  * @charset Unicode
  */
-class AXESLISTW extends Win32Struct
-{
-    static sizeof => 136
+class AXESLISTW extends Win32Struct {
+    static sizeof => 648
 
-    static packingSize => 8
+    static packingSize => 4
 
     /**
      * Reserved. Must be STAMP_AXESLIST.
@@ -46,9 +44,9 @@ class AXESLISTW extends Win32Struct
 
     /**
      * An array of <a href="https://docs.microsoft.com/windows/desktop/api/wingdi/ns-wingdi-axisinfoa">AXISINFO</a> structures. Each <b>AXISINFO</b> structure contains information on an axis of a specified multiple master font. This corresponds to the <b>dvValues</b> array in the <a href="https://docs.microsoft.com/windows/desktop/api/wingdi/ns-wingdi-designvector">DESIGNVECTOR</a> structure.
-     * @type {Array<AXISINFOW>}
+     * @type {AXISINFOW}
      */
-    axlAxisInfo{
+    axlAxisInfo {
         get {
             if(!this.HasProp("__axlAxisInfoProxyArray"))
                 this.__axlAxisInfoProxyArray := Win32FixedArray(this.ptr + 8, 16, AXISINFOW, "")

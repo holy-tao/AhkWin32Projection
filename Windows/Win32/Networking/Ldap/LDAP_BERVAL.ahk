@@ -7,10 +7,8 @@
  * Use a <b>berval</b> structure for attributes that contain raw binary data, such as certificates, graphics, or sound files.
  * @see https://learn.microsoft.com/windows/win32/api/winldap/ns-winldap-ldap_berval
  * @namespace Windows.Win32.Networking.Ldap
- * @version v4.0.30319
  */
-class LDAP_BERVAL extends Win32Struct
-{
+class LDAP_BERVAL extends Win32Struct {
     static sizeof => 16
 
     static packingSize => 8

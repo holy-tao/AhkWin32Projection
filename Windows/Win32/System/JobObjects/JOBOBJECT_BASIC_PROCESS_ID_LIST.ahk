@@ -5,10 +5,8 @@
  * Contains the process identifier list for a job object.
  * @see https://learn.microsoft.com/windows/win32/api/winnt/ns-winnt-jobobject_basic_process_id_list
  * @namespace Windows.Win32.System.JobObjects
- * @version v4.0.30319
  */
-class JOBOBJECT_BASIC_PROCESS_ID_LIST extends Win32Struct
-{
+class JOBOBJECT_BASIC_PROCESS_ID_LIST extends Win32Struct {
     static sizeof => 16
 
     static packingSize => 8
@@ -33,9 +31,9 @@ class JOBOBJECT_BASIC_PROCESS_ID_LIST extends Win32Struct
 
     /**
      * A variable-length array of process identifiers returned by this call. Array elements 0 through <b>NumberOfProcessIdsInList</b>– 1 contain valid process identifiers.
-     * @type {Array<UIntPtr>}
+     * @type {Array<Pointer>}
      */
-    ProcessIdList{
+    ProcessIdList {
         get {
             if(!this.HasProp("__ProcessIdListProxyArray"))
                 this.__ProcessIdListProxyArray := Win32FixedArray(this.ptr + 8, 1, Primitive, "ptr")

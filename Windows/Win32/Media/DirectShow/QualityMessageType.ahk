@@ -5,9 +5,8 @@
  * Describes a quality message type.
  * @see https://learn.microsoft.com/windows/win32/api/strmif/ne-strmif-qualitymessagetype
  * @namespace Windows.Win32.Media.DirectShow
- * @version v4.0.30319
  */
-class QualityMessageType extends Win32Enum{
+class QualityMessageType extends Win32Enum {
 
     /**
      * Downstream filter needs more data.

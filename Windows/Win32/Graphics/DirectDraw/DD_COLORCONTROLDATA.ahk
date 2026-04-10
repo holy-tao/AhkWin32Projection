@@ -1,14 +1,15 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
+#Include .\DD_DIRECTDRAW_GLOBAL.ahk
+#Include .\DD_SURFACE_LOCAL.ahk
+#Include .\DDCOLORCONTROL.ahk
 
 /**
  * The DD_COLORCONTROLDATA structure contains the color control information for the specified overlay.
  * @see https://learn.microsoft.com/windows/win32/api/ddrawint/ns-ddrawint-dd_colorcontroldata
  * @namespace Windows.Win32.Graphics.DirectDraw
- * @version v4.0.30319
  */
-class DD_COLORCONTROLDATA extends Win32Struct
-{
+class DD_COLORCONTROLDATA extends Win32Struct {
     static sizeof => 40
 
     static packingSize => 8
@@ -41,7 +42,6 @@ class DD_COLORCONTROLDATA extends Win32Struct
     }
 
     /**
-     * 
      * @type {Integer}
      */
     dwFlags {

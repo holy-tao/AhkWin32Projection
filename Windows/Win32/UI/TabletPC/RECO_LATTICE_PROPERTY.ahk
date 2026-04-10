@@ -55,17 +55,15 @@
  * </table>
  * @see https://learn.microsoft.com/windows/win32/api/rectypes/ns-rectypes-reco_lattice_property
  * @namespace Windows.Win32.UI.TabletPC
- * @version v4.0.30319
  */
-class RECO_LATTICE_PROPERTY extends Win32Struct
-{
+class RECO_LATTICE_PROPERTY extends Win32Struct {
     static sizeof => 24
 
     static packingSize => 8
 
     /**
      * GUID for the property value that is being assigned.
-     * @type {Pointer<Guid>}
+     * @type {Pointer}
      */
     guidProperty {
         get => NumGet(this, 0, "ptr")

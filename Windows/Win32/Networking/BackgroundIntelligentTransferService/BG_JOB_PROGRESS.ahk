@@ -5,10 +5,8 @@
  * Provides job-related progress information, such as the number of bytes and files transferred.
  * @see https://learn.microsoft.com/windows/win32/api/bits/ns-bits-bg_job_progress
  * @namespace Windows.Win32.Networking.BackgroundIntelligentTransferService
- * @version v4.0.30319
  */
-class BG_JOB_PROGRESS extends Win32Struct
-{
+class BG_JOB_PROGRESS extends Win32Struct {
     static sizeof => 24
 
     static packingSize => 8

@@ -5,9 +5,8 @@
 
 /**
  * @namespace Windows.Win32.System.MessageQueuing
- * @version v4.0.30319
  */
-class IMSMQTransaction extends IDispatch{
+class IMSMQTransaction extends IDispatch {
 
     static sizeof => A_PtrSize
     /**

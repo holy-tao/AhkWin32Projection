@@ -5,10 +5,8 @@
  * Contains the offset and length for an update sequence number (USN) record extent.
  * @see https://learn.microsoft.com/windows/win32/api/winioctl/ns-winioctl-usn_record_extent
  * @namespace Windows.Win32.System.Ioctl
- * @version v4.0.30319
  */
-class USN_RECORD_EXTENT extends Win32Struct
-{
+class USN_RECORD_EXTENT extends Win32Struct {
     static sizeof => 16
 
     static packingSize => 8

@@ -1,16 +1,14 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
-#Include ..\..\Foundation\BSTR.ahk
+#Include ..\..\System\Com\IDispatch.ahk
 #Include .\ISpeechLexiconPronunciations.ahk
 #Include .\ISpeechLexiconWords.ahk
-#Include ..\..\System\Com\IDispatch.ahk
 
 /**
  * @namespace Windows.Win32.Media.Speech
- * @version v4.0.30319
  */
-class ISpeechLexicon extends IDispatch{
+class ISpeechLexicon extends IDispatch {
 
     static sizeof => A_PtrSize
     /**
@@ -49,7 +47,7 @@ class ISpeechLexicon extends IDispatch{
 
     /**
      * 
-     * @param {Integer} Flags 
+     * @param {SpeechLexiconType} Flags 
      * @param {Pointer<Integer>} GenerationID 
      * @param {Pointer<ISpeechLexiconWords>} Words 
      * @returns {HRESULT} 
@@ -65,7 +63,7 @@ class ISpeechLexicon extends IDispatch{
      * 
      * @param {BSTR} bstrWord 
      * @param {Integer} LangId 
-     * @param {Integer} PartOfSpeech 
+     * @param {SpeechPartOfSpeech} PartOfSpeech 
      * @param {BSTR} bstrPronunciation 
      * @returns {HRESULT} 
      */
@@ -81,7 +79,7 @@ class ISpeechLexicon extends IDispatch{
      * 
      * @param {BSTR} bstrWord 
      * @param {Integer} LangId 
-     * @param {Integer} PartOfSpeech 
+     * @param {SpeechPartOfSpeech} PartOfSpeech 
      * @param {Pointer<VARIANT>} PhoneIds 
      * @returns {HRESULT} 
      */
@@ -96,7 +94,7 @@ class ISpeechLexicon extends IDispatch{
      * 
      * @param {BSTR} bstrWord 
      * @param {Integer} LangId 
-     * @param {Integer} PartOfSpeech 
+     * @param {SpeechPartOfSpeech} PartOfSpeech 
      * @param {BSTR} bstrPronunciation 
      * @returns {HRESULT} 
      */
@@ -112,7 +110,7 @@ class ISpeechLexicon extends IDispatch{
      * 
      * @param {BSTR} bstrWord 
      * @param {Integer} LangId 
-     * @param {Integer} PartOfSpeech 
+     * @param {SpeechPartOfSpeech} PartOfSpeech 
      * @param {Pointer<VARIANT>} PhoneIds 
      * @returns {HRESULT} 
      */
@@ -127,7 +125,7 @@ class ISpeechLexicon extends IDispatch{
      * 
      * @param {BSTR} bstrWord 
      * @param {Integer} LangId 
-     * @param {Integer} _TypeFlags 
+     * @param {SpeechLexiconType} _TypeFlags 
      * @returns {ISpeechLexiconPronunciations} 
      */
     GetPronunciations(bstrWord, LangId, _TypeFlags) {

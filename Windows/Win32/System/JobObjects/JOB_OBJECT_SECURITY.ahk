@@ -5,9 +5,8 @@
  * Applies a filter to the token when a process impersonates a client. Requires at least one of the following members to be set: <b>SidsToDisable</b>, <b>PrivilegesToDelete</b>, or <b>RestrictedSids</b>.
  * @see https://learn.microsoft.com/windows/win32/api/winnt/ns-winnt-jobobject_security_limit_information
  * @namespace Windows.Win32.System.JobObjects
- * @version v4.0.30319
  */
-class JOB_OBJECT_SECURITY extends Win32BitflagEnum{
+class JOB_OBJECT_SECURITY extends Win32BitflagEnum {
 
     /**
      * @type {Integer (UInt32)}

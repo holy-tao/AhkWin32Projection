@@ -1,18 +1,18 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
+#Include .\D3DKMDT_VIDEO_SIGNAL_STANDARD.ahk
+#Include .\D3DDDI_VIDEO_SIGNAL_SCANLINE_ORDERING.ahk
 
 /**
  * @namespace Windows.Wdk.Graphics.Direct3D
- * @version v4.0.30319
  */
-class D3DKMDT_VIDEO_SIGNAL_INFO extends Win32Struct
-{
+class D3DKMDT_VIDEO_SIGNAL_INFO extends Win32Struct {
     static sizeof => 56
 
     static packingSize => 8
 
     /**
-     * @type {Integer}
+     * @type {D3DKMDT_VIDEO_SIGNAL_STANDARD}
      */
     VideoStandard {
         get => NumGet(this, 0, "int")
@@ -20,7 +20,7 @@ class D3DKMDT_VIDEO_SIGNAL_INFO extends Win32Struct
     }
 
     /**
-     * @type {Pointer<D3DKMDT_2DREGION>}
+     * @type {Pointer}
      */
     TotalSize {
         get => NumGet(this, 8, "ptr")
@@ -28,7 +28,7 @@ class D3DKMDT_VIDEO_SIGNAL_INFO extends Win32Struct
     }
 
     /**
-     * @type {Pointer<D3DKMDT_2DREGION>}
+     * @type {Pointer}
      */
     ActiveSize {
         get => NumGet(this, 16, "ptr")
@@ -36,7 +36,7 @@ class D3DKMDT_VIDEO_SIGNAL_INFO extends Win32Struct
     }
 
     /**
-     * @type {Pointer<D3DDDI_RATIONAL>}
+     * @type {Pointer}
      */
     VSyncFreq {
         get => NumGet(this, 24, "ptr")
@@ -44,7 +44,7 @@ class D3DKMDT_VIDEO_SIGNAL_INFO extends Win32Struct
     }
 
     /**
-     * @type {Pointer<D3DDDI_RATIONAL>}
+     * @type {Pointer}
      */
     HSyncFreq {
         get => NumGet(this, 32, "ptr")
@@ -74,7 +74,7 @@ class D3DKMDT_VIDEO_SIGNAL_INFO extends Win32Struct
             get => NumGet(this, 0, "int")
             set => NumPut("int", value, this, 0)
         }
-    
+
         /**
          * @type {Integer}
          */
@@ -82,7 +82,7 @@ class D3DKMDT_VIDEO_SIGNAL_INFO extends Win32Struct
             get => (this._bitfield >> 0) & 0x7
             set => this._bitfield := ((value & 0x7) << 0) | (this._bitfield & ~(0x7 << 0))
         }
-    
+
         /**
          * @type {Integer}
          */
@@ -90,22 +90,21 @@ class D3DKMDT_VIDEO_SIGNAL_INFO extends Win32Struct
             get => (this._bitfield >> 3) & 0x3F
             set => this._bitfield := ((value & 0x3F) << 3) | (this._bitfield & ~(0x3F << 3))
         }
-    
     }
 
     /**
      * @type {_AdditionalSignalInfo}
      */
-    AdditionalSignalInfo{
+    AdditionalSignalInfo {
         get {
             if(!this.HasProp("__AdditionalSignalInfo"))
-                this.__AdditionalSignalInfo := %this.__Class%._AdditionalSignalInfo(48, this)
+                this.__AdditionalSignalInfo := D3DKMDT_VIDEO_SIGNAL_INFO._AdditionalSignalInfo(48, this)
             return this.__AdditionalSignalInfo
         }
     }
 
     /**
-     * @type {Integer}
+     * @type {D3DDDI_VIDEO_SIGNAL_SCANLINE_ORDERING}
      */
     ScanLineOrdering {
         get => NumGet(this, 48, "int")

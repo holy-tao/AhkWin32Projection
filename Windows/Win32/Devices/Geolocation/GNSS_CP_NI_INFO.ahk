@@ -3,10 +3,8 @@
 
 /**
  * @namespace Windows.Win32.Devices.Geolocation
- * @version v4.0.30319
  */
-class GNSS_CP_NI_INFO extends Win32Struct
-{
+class GNSS_CP_NI_INFO extends Win32Struct {
     static sizeof => 1048
 
     static packingSize => 4

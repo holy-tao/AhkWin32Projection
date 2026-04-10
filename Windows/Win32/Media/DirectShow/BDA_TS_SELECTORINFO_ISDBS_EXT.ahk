@@ -3,18 +3,16 @@
 
 /**
  * @namespace Windows.Win32.Media.DirectShow
- * @version v4.0.30319
  */
-class BDA_TS_SELECTORINFO_ISDBS_EXT extends Win32Struct
-{
+class BDA_TS_SELECTORINFO_ISDBS_EXT extends Win32Struct {
     static sizeof => 48
 
     static packingSize => 1
 
     /**
-     * @type {Array<Byte>}
+     * @type {Array<Integer>}
      */
-    bTMCC{
+    bTMCC {
         get {
             if(!this.HasProp("__bTMCCProxyArray"))
                 this.__bTMCCProxyArray := Win32FixedArray(this.ptr + 0, 48, Primitive, "char")

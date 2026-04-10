@@ -9,10 +9,8 @@
  * Retrieve the range information for a control by calling [IMFCameraControlDefaults::GetRangeInfo](ns-mfidl-mf_camera_control_range_info.md).
  * @see https://learn.microsoft.com/windows/win32/api/mfidl/ns-mfidl-mf_camera_control_range_info
  * @namespace Windows.Win32.Media.MediaFoundation
- * @version v4.0.30319
  */
-class MF_CAMERA_CONTROL_RANGE_INFO extends Win32Struct
-{
+class MF_CAMERA_CONTROL_RANGE_INFO extends Win32Struct {
     static sizeof => 16
 
     static packingSize => 4

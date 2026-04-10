@@ -1,17 +1,16 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
+#Include ..\..\System\Com\IUnknown.ahk
 #Include .\DVD_PLAYBACK_LOCATION.ahk
 #Include .\DVD_ATR.ahk
-#Include ..\..\System\Com\IUnknown.ahk
 
 /**
  * Note  This interface has been deprecated. (IDvdInfo)
  * @see https://learn.microsoft.com/windows/win32/api/strmif/nn-strmif-idvdinfo
  * @namespace Windows.Win32.Media.DirectShow
- * @version v4.0.30319
  */
-class IDvdInfo extends IUnknown{
+class IDvdInfo extends IUnknown {
 
     static sizeof => A_PtrSize
     /**
@@ -36,7 +35,7 @@ class IDvdInfo extends IUnknown{
      * Note  The IDvdInfo interface is deprecated. Use IDvdInfo2 instead. Retrieves the current DVD domain of the DVD player.
      * @remarks
      * This method is valid in any domain. For more information, see <a href="https://docs.microsoft.com/windows/desktop/api/strmif/ne-strmif-dvd_domain">DVD_DOMAIN</a>.
-     * @returns {Integer} Pointer to the current domain that is a member of the <a href="https://docs.microsoft.com/windows/desktop/api/strmif/ne-strmif-dvd_domain">DVD_DOMAIN</a> enumerated type.
+     * @returns {DVD_DOMAIN} Pointer to the current domain that is a member of the <a href="https://docs.microsoft.com/windows/desktop/api/strmif/ne-strmif-dvd_domain">DVD_DOMAIN</a> enumerated type.
      * @see https://learn.microsoft.com/windows/win32/api/strmif/nf-strmif-idvdinfo-getcurrentdomain
      */
     GetCurrentDomain() {
@@ -687,7 +686,7 @@ class IDvdInfo extends IUnknown{
      * This method is valid in any domain. For more information, see <a href="https://docs.microsoft.com/windows/desktop/api/strmif/ne-strmif-dvd_domain">DVD_DOMAIN</a>.
      * @param {Pointer<Integer>} pulNumOfVol Pointer to the retrieved number of volumes in the volume set.
      * @param {Pointer<Integer>} pulThisVolNum Pointer to the retrieved volume number for this root directory.
-     * @param {Pointer<Integer>} pSide Pointer to the retrieved current disc side ([DVD_DISC_SIDE](/windows/desktop/api/strmif/ne-strmif-dvd_disc_side)).
+     * @param {Pointer<DVD_DISC_SIDE>} pSide Pointer to the retrieved current disc side ([DVD_DISC_SIDE](/windows/desktop/api/strmif/ne-strmif-dvd_disc_side)).
      * @param {Pointer<Integer>} pulNumOfTitles Pointer to the retrieved number of titles available in this volume.
      * @returns {HRESULT} Returns an <b>HRESULT</b> value .
      * 
@@ -761,7 +760,7 @@ class IDvdInfo extends IUnknown{
      * If the supplied buffer size in <i>cbBufSize</i> is too small for the data, (for example if <i>cbBufSize</i> equals zero), then this method returns E_OUTOFMEMORY and sets the value pointed to by <i>pcbActualSize</i> to the required size.
      * 
      * For more information, refer to Section 4.1.6 and Annex A of the DVD-Video specification.
-     * @param {Pointer} pTextManager Pointer to the retrieved text manager.
+     * @param {Integer} pTextManager Pointer to the retrieved text manager.
      * @param {Integer} ulBufSize Size of the buffer for <i>pTextManager</i>, in bytes.
      * @returns {Integer} Pointer to a value containing the number of bytes of data returned.
      * @see https://learn.microsoft.com/windows/win32/api/strmif/nf-strmif-idvdinfo-getdvdtextinfo

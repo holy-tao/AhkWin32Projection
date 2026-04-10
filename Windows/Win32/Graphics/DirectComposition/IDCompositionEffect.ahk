@@ -13,9 +13,8 @@
  * More than one effect can be simultaneously applied to a visual by using the <a href="https://docs.microsoft.com/windows/desktop/api/dcomp/nn-dcomp-idcompositioneffectgroup">IDCompositionEffectGroup</a> interface.
  * @see https://learn.microsoft.com/windows/win32/api/dcomp/nn-dcomp-idcompositioneffect
  * @namespace Windows.Win32.Graphics.DirectComposition
- * @version v4.0.30319
  */
-class IDCompositionEffect extends IUnknown{
+class IDCompositionEffect extends IUnknown {
 
     static sizeof => A_PtrSize
     /**

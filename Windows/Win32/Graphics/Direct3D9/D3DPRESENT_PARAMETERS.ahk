@@ -1,15 +1,16 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
+#Include .\D3DFORMAT.ahk
+#Include .\D3DMULTISAMPLE_TYPE.ahk
+#Include .\D3DSWAPEFFECT.ahk
 #Include ..\..\Foundation\HWND.ahk
 
 /**
  * Describes the presentation parameters.
  * @see https://learn.microsoft.com/windows/win32/direct3d9/d3dpresent-parameters
  * @namespace Windows.Win32.Graphics.Direct3D9
- * @version v4.0.30319
  */
-class D3DPRESENT_PARAMETERS extends Win32Struct
-{
+class D3DPRESENT_PARAMETERS extends Win32Struct {
     static sizeof => 64
 
     static packingSize => 8
@@ -49,7 +50,7 @@ class D3DPRESENT_PARAMETERS extends Win32Struct
      * For windowed applications, the back buffer format no longer needs to match the display-mode format because color conversion can now be done by the hardware (if the hardware supports color conversion). The set of possible back buffer formats is constrained, but the runtime will allow any valid back buffer format to be presented to any desktop format. (There is the additional requirement that the device be operable in the desktop; devices typically do not operate in 8 bits per pixel modes.)
      * 
      * Full-screen applications cannot do color conversion.
-     * @type {Integer}
+     * @type {D3DFORMAT}
      */
     BackBufferFormat {
         get => NumGet(this, 8, "uint")
@@ -75,7 +76,7 @@ class D3DPRESENT_PARAMETERS extends Win32Struct
      * 
      * 
      * Member of the [**D3DMULTISAMPLE\_TYPE**](./d3dmultisample-type.md) enumerated type. The value must be D3DMULTISAMPLE\_NONE unless **SwapEffect** has been set to D3DSWAPEFFECT\_DISCARD. Multisampling is supported only if the swap effect is D3DSWAPEFFECT\_DISCARD.
-     * @type {Integer}
+     * @type {D3DMULTISAMPLE_TYPE}
      */
     MultiSampleType {
         get => NumGet(this, 16, "int")
@@ -107,7 +108,7 @@ class D3DPRESENT_PARAMETERS extends Win32Struct
      * Differences between Direct3D9 and Direct3D9Ex:
      * 
      * - In Direct3D9Ex, D3DSWAPEFFECT\_FLIPEX is added to designate when an application is adopting flip mode. That is, whan an application's frame is passed in window's mode (instead of copied) to the Desktop Window Manager(DWM) for composition. Flip mode provides more efficient memory bandwidth and enables an application to take advantage of full-screen-present statistics. It does not change full screen behavior. Flip mode behavior is available beginning with Windows 7.
-     * @type {Integer}
+     * @type {D3DSWAPEFFECT}
      */
     SwapEffect {
         get => NumGet(this, 24, "int")
@@ -129,7 +130,7 @@ class D3DPRESENT_PARAMETERS extends Win32Struct
      * Note that no attempt is made by the runtime to reflect user changes in window size. The back buffer is not implicitly reset when this window is reset. However, the [**Present**](/windows/win32/api/d3d9helper/nf-d3d9helper-idirect3ddevice9-present) method does automatically track window position changes.
      * @type {HWND}
      */
-    hDeviceWindow{
+    hDeviceWindow {
         get {
             if(!this.HasProp("__hDeviceWindow"))
                 this.__hDeviceWindow := HWND(32, this)
@@ -165,7 +166,7 @@ class D3DPRESENT_PARAMETERS extends Win32Struct
      * 
      * 
      * Member of the [D3DFORMAT](d3dformat.md) enumerated type. The format of the automatic depth-stencil surface that the device will create. This member is ignored unless **EnableAutoDepthStencil** is **TRUE**.
-     * @type {Integer}
+     * @type {D3DFORMAT}
      */
     AutoDepthStencilFormat {
         get => NumGet(this, 48, "uint")

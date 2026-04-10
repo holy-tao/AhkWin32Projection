@@ -8,18 +8,16 @@
  * This structure can represent a manufacturer's base driver on which the drivers for various printer models are dependent.
  * @see https://learn.microsoft.com/windows/win32/printdocs/core-printer-driver
  * @namespace Windows.Win32.Graphics.Printing
- * @version v4.0.30319
  * @charset ANSI
  */
-class CORE_PRINTER_DRIVERA extends Win32Struct
-{
+class CORE_PRINTER_DRIVERA extends Win32Struct {
     static sizeof => 288
 
     static packingSize => 8
 
     /**
      * The GUID of the core printer driver.
-     * @type {Pointer<Guid>}
+     * @type {Pointer}
      */
     CoreDriverGUID {
         get => NumGet(this, 0, "ptr")
@@ -30,7 +28,7 @@ class CORE_PRINTER_DRIVERA extends Win32Struct
      * The date and time of the latest version of the core printer driver.
      * @type {FILETIME}
      */
-    ftDriverDate{
+    ftDriverDate {
         get {
             if(!this.HasProp("__ftDriverDate"))
                 this.__ftDriverDate := FILETIME(8, this)

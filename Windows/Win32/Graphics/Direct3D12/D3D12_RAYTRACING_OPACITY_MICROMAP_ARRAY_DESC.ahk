@@ -1,13 +1,12 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
+#Include .\D3D12_RAYTRACING_OPACITY_MICROMAP_HISTOGRAM_ENTRY.ahk
 #Include .\D3D12_GPU_VIRTUAL_ADDRESS_AND_STRIDE.ahk
 
 /**
  * @namespace Windows.Win32.Graphics.Direct3D12
- * @version v4.0.30319
  */
-class D3D12_RAYTRACING_OPACITY_MICROMAP_ARRAY_DESC extends Win32Struct
-{
+class D3D12_RAYTRACING_OPACITY_MICROMAP_ARRAY_DESC extends Win32Struct {
     static sizeof => 40
 
     static packingSize => 8
@@ -39,7 +38,7 @@ class D3D12_RAYTRACING_OPACITY_MICROMAP_ARRAY_DESC extends Win32Struct
     /**
      * @type {D3D12_GPU_VIRTUAL_ADDRESS_AND_STRIDE}
      */
-    PerOmmDescs{
+    PerOmmDescs {
         get {
             if(!this.HasProp("__PerOmmDescs"))
                 this.__PerOmmDescs := D3D12_GPU_VIRTUAL_ADDRESS_AND_STRIDE(24, this)

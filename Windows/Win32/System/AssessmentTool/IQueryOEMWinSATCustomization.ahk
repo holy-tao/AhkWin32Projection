@@ -5,9 +5,8 @@
 
 /**
  * @namespace Windows.Win32.System.AssessmentTool
- * @version v4.0.30319
  */
-class IQueryOEMWinSATCustomization extends IUnknown{
+class IQueryOEMWinSATCustomization extends IUnknown {
 
     static sizeof => A_PtrSize
     /**
@@ -30,7 +29,7 @@ class IQueryOEMWinSATCustomization extends IUnknown{
 
     /**
      * 
-     * @returns {Integer} 
+     * @returns {WINSAT_OEM_CUSTOMIZATION_STATE} 
      */
     GetOEMPrePopulationInfo() {
         result := ComCall(3, this, "int*", &state := 0, "HRESULT")

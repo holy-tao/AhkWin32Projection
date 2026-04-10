@@ -7,9 +7,8 @@
  * The IAudioEndpointOffloadStreamMeter interface retrieves general information about the audio channels in the offloaded audio stream.
  * @see https://learn.microsoft.com/windows/win32/api/audioengineendpoint/nn-audioengineendpoint-iaudioendpointoffloadstreammeter
  * @namespace Windows.Win32.Media.Audio.Endpoints
- * @version v4.0.30319
  */
-class IAudioEndpointOffloadStreamMeter extends IUnknown{
+class IAudioEndpointOffloadStreamMeter extends IUnknown {
 
     static sizeof => A_PtrSize
     /**

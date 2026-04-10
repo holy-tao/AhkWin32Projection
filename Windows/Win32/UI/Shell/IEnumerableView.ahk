@@ -1,8 +1,8 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
-#Include .\IEnumIDList.ahk
 #Include ..\..\System\Com\IUnknown.ahk
+#Include .\IEnumIDList.ahk
 
 /**
  * Exposes methods that enumerate the contents of a view and receive notification from callback upon enumeration completion. This interface enables clients of a view to attempt to share the view's list of folder contents.
@@ -12,9 +12,8 @@
  * Typically, this enumeration service is compatible with most folders, and is only provided if it is safe to enumerate the contents of the view.  For example, using this service with a folder containing search results is not supported.
  * @see https://learn.microsoft.com/windows/win32/api/shobjidl/nn-shobjidl-ienumerableview
  * @namespace Windows.Win32.UI.Shell
- * @version v4.0.30319
  */
-class IEnumerableView extends IUnknown{
+class IEnumerableView extends IUnknown {
 
     static sizeof => A_PtrSize
     /**

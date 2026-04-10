@@ -4,13 +4,11 @@
 
 /**
  * @namespace Windows.Win32.NetworkManagement.WiFi
- * @version v4.0.30319
  */
-class DOT11_WME_AC_PARAMETERS_LIST extends Win32Struct
-{
+class DOT11_WME_AC_PARAMETERS_LIST extends Win32Struct {
     static sizeof => 16
 
-    static packingSize => 8
+    static packingSize => 4
 
     /**
      * @type {Integer}
@@ -29,9 +27,9 @@ class DOT11_WME_AC_PARAMETERS_LIST extends Win32Struct
     }
 
     /**
-     * @type {Array<DOT11_WME_AC_PARAMETERS>}
+     * @type {DOT11_WME_AC_PARAMETERS}
      */
-    dot11WMEACParameters{
+    dot11WMEACParameters {
         get {
             if(!this.HasProp("__dot11WMEACParametersProxyArray"))
                 this.__dot11WMEACParametersProxyArray := Win32FixedArray(this.ptr + 8, 1, DOT11_WME_AC_PARAMETERS, "")

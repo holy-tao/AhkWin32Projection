@@ -1,8 +1,8 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\..\Guid.ahk
-#Include ..\..\..\Foundation\PROPERTYKEY.ahk
 #Include ..\..\..\System\Com\IUnknown.ahk
+#Include ..\..\..\Foundation\PROPERTYKEY.ahk
 
 /**
  * Exposes methods that enumerate and retrieve individual property description details. (IPropertyDescription)
@@ -15,9 +15,8 @@
  * Only one property description exists for each property in the system.
  * @see https://learn.microsoft.com/windows/win32/api/propsys/nn-propsys-ipropertydescription
  * @namespace Windows.Win32.UI.Shell.PropertiesSystem
- * @version v4.0.30319
  */
-class IPropertyDescription extends IUnknown{
+class IPropertyDescription extends IUnknown {
 
     static sizeof => A_PtrSize
     /**
@@ -123,10 +122,10 @@ class IPropertyDescription extends IUnknown{
      * If the instance comes from <a href="https://docs.microsoft.com/windows/desktop/api/xpsobjectmodel/nf-xpsobjectmodel-ixpsomcolorprofileresourcecollection-getat">GetAt</a>, the type flags come from the .propdesc file and may be influenced by the specific proplist. This means that flags obtained from one property description instance may be slightly different from another instance (both referring to the same property).
      * 
      * For additional information on type flags, see the <i>canGroupBy</i>, <i>canStackBy</i>, <i>isInnate</i>, <i>multipleValues</i>, <i>isGroup</i>, <i>isTreeProperty</i>, <i>isViewable</i>, <i>isQueryable</i>, and <i>includeInFullTextQuery</i> attributes of the <a href="https://docs.microsoft.com/windows/desktop/properties/propdesc-schema-typeinfo">typeInfo</a> element in the property's .propdesc file.
-     * @param {Integer} mask Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/propsys/ne-propsys-propdesc_type_flags">PROPDESC_TYPE_FLAGS</a></b>
+     * @param {PROPDESC_TYPE_FLAGS} mask Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/propsys/ne-propsys-propdesc_type_flags">PROPDESC_TYPE_FLAGS</a></b>
      * 
      * A mask that specifies which type flags to retrieve. A combination of values found in the <a href="https://docs.microsoft.com/windows/desktop/api/propsys/ne-propsys-propdesc_type_flags">PROPDESC_TYPE_FLAGS</a> constants. To retrieve all type flags, pass <a href="https://docs.microsoft.com/windows/desktop/api/propsys/ne-propsys-propdesc_type_flags">PDTF_MASK_ALL</a>
-     * @returns {Integer} Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/propsys/ne-propsys-propdesc_type_flags">PROPDESC_TYPE_FLAGS</a>*</b>
+     * @returns {PROPDESC_TYPE_FLAGS} Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/propsys/ne-propsys-propdesc_type_flags">PROPDESC_TYPE_FLAGS</a>*</b>
      * 
      * When this method returns, contains a pointer to a value that consists of bitwise <a href="https://docs.microsoft.com/windows/desktop/api/propsys/ne-propsys-propdesc_type_flags">PROPDESC_TYPE_FLAGS</a> values.
      * @see https://learn.microsoft.com/windows/win32/api/propsys/nf-propsys-ipropertydescription-gettypeflags
@@ -138,7 +137,7 @@ class IPropertyDescription extends IUnknown{
 
     /**
      * Gets the current set of flags governing the property's view.
-     * @returns {Integer} Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/propsys/ne-propsys-propdesc_view_flags">PROPDESC_VIEW_FLAGS</a>*</b>
+     * @returns {PROPDESC_VIEW_FLAGS} Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/propsys/ne-propsys-propdesc_view_flags">PROPDESC_VIEW_FLAGS</a>*</b>
      * 
      * When this method returns, contains a pointer to a value that includes one or more of the following flags. See <a href="https://docs.microsoft.com/windows/desktop/api/propsys/ne-propsys-propdesc_view_flags">PROPDESC_VIEW_FLAGS</a> for valid values.
      * @see https://learn.microsoft.com/windows/win32/api/propsys/nf-propsys-ipropertydescription-getviewflags
@@ -168,7 +167,7 @@ class IPropertyDescription extends IUnknown{
      * Gets the current data type used to display the property.
      * @remarks
      * The value retrieved by this method is originally set through the <i>displayType</i> attribute of the <a href="https://docs.microsoft.com/windows/desktop/properties/propdesc-schema-displayinfo">displayInfo</a> element in the property's .propdesc file.
-     * @returns {Integer} Type: <b>PROPDESC_DISPLAYTYPE*</b>
+     * @returns {PROPDESC_DISPLAYTYPE} Type: <b>PROPDESC_DISPLAYTYPE*</b>
      * @see https://learn.microsoft.com/windows/win32/api/propsys/nf-propsys-ipropertydescription-getdisplaytype
      */
     GetDisplayType() {
@@ -194,7 +193,7 @@ class IPropertyDescription extends IUnknown{
      * Gets the grouping method to be used when a view is grouped by a property, and retrieves the grouping type.
      * @remarks
      * The information retrieved by this method comes from the <i>groupingRange</i> attribute of the <a href="https://docs.microsoft.com/windows/desktop/properties/propdesc-schema-typeinfo">typeInfo</a> element in the property's .propdesc file.
-     * @returns {Integer} Type: <b>PROPDESC_GROUPING_RANGE*</b>
+     * @returns {PROPDESC_GROUPING_RANGE} Type: <b>PROPDESC_GROUPING_RANGE*</b>
      * 
      * Receives a pointer to a flag value that indicates the grouping type. The possible values are:
      * @see https://learn.microsoft.com/windows/win32/api/propsys/nf-propsys-ipropertydescription-getgroupingrange
@@ -208,7 +207,7 @@ class IPropertyDescription extends IUnknown{
      * Gets the relative description type for a property description.
      * @remarks
      * The information retrieved by this method comes from the <i>relativeDescriptionType</i> attribute of the <a href="https://docs.microsoft.com/windows/desktop/properties/propdesc-schema-displayinfo">displayInfo</a> element in the property's .propdesc file.
-     * @returns {Integer} Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/propsys/ne-propsys-propdesc_relativedescription_type">PROPDESC_RELATIVEDESCRIPTION_TYPE</a>*</b>
+     * @returns {PROPDESC_RELATIVEDESCRIPTION_TYPE} Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/propsys/ne-propsys-propdesc_relativedescription_type">PROPDESC_RELATIVEDESCRIPTION_TYPE</a>*</b>
      * 
      * When this method returns, contains a pointer to the relative description type value. See <a href="https://docs.microsoft.com/windows/desktop/api/propsys/ne-propsys-propdesc_relativedescription_type">PROPDESC_RELATIVEDESCRIPTION_TYPE</a> for valid values.
      * @see https://learn.microsoft.com/windows/win32/api/propsys/nf-propsys-ipropertydescription-getrelativedescriptiontype
@@ -253,7 +252,7 @@ class IPropertyDescription extends IUnknown{
      * Gets the current sort description flags for the property, which indicate the particular wordings of sort offerings.
      * @remarks
      * The settings retrieved by this method are set through the <i>sortDescription</i> attribute of the <a href="https://docs.microsoft.com/windows/desktop/properties/propdesc-schema-labelinfo">labelInfo</a> element in the property's .propdesc file.
-     * @returns {Integer} Type: <b>PROPDESC_SORTDESCRIPTION*</b>
+     * @returns {PROPDESC_SORTDESCRIPTION} Type: <b>PROPDESC_SORTDESCRIPTION*</b>
      * 
      * When this method returns, contains a pointer to the value of one or more of the following flags that indicate the sort types available to the user. Note that the strings shown are English versions only. Localized strings are used for other locales.
      * @see https://learn.microsoft.com/windows/win32/api/propsys/nf-propsys-ipropertydescription-getsortdescription
@@ -286,7 +285,7 @@ class IPropertyDescription extends IUnknown{
      * Gets a value that describes how the property values are displayed when multiple items are selected in the UI.
      * @remarks
      * The information retrieved by this method comes from the <i>aggregationType</i> attribute of the <a href="https://docs.microsoft.com/windows/desktop/properties/propdesc-schema-typeinfo">typeInfo</a> element in the property's .propdesc file.
-     * @returns {Integer} Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/propsys/ne-propsys-propdesc_aggregation_type">PROPDESC_AGGREGATION_TYPE</a>*</b>
+     * @returns {PROPDESC_AGGREGATION_TYPE} Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/propsys/ne-propsys-propdesc_aggregation_type">PROPDESC_AGGREGATION_TYPE</a>*</b>
      * 
      * When this method returns, contains a pointer to a value that indicates the aggregation type. See <a href="https://docs.microsoft.com/windows/desktop/api/propsys/ne-propsys-propdesc_aggregation_type">PROPDESC_AGGREGATION_TYPE</a>.
      * @see https://learn.microsoft.com/windows/win32/api/propsys/nf-propsys-ipropertydescription-getaggregationtype
@@ -300,10 +299,10 @@ class IPropertyDescription extends IUnknown{
      * Gets the condition type and default condition operation to use when displaying the property in the query builder UI. This influences the list of predicate conditions (for example, equals, less than, and contains) that are shown for this property.
      * @remarks
      * For more information, see the <i>conditionType</i> attribute of the <a href="https://docs.microsoft.com/windows/desktop/properties/propdesc-schema-typeinfo">typeInfo</a> element in the property's .propdesc file.
-     * @param {Pointer<Integer>} pcontype Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/propsys/ne-propsys-propdesc_condition_type">PROPDESC_CONDITION_TYPE</a>*</b>
+     * @param {Pointer<PROPDESC_CONDITION_TYPE>} pcontype Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/propsys/ne-propsys-propdesc_condition_type">PROPDESC_CONDITION_TYPE</a>*</b>
      * 
      * A pointer to a value that indicates the condition type.
-     * @param {Pointer<Integer>} popDefault Type: <b><a href="https://docs.microsoft.com/windows/win32/api/structuredquerycondition/ne-structuredquerycondition-condition_operation">CONDITION_OPERATION</a>*</b>
+     * @param {Pointer<CONDITION_OPERATION>} popDefault Type: <b><a href="https://docs.microsoft.com/windows/win32/api/structuredquerycondition/ne-structuredquerycondition-condition_operation">CONDITION_OPERATION</a>*</b>
      * 
      * When this method returns, contains a pointer to a value that indicates the default condition operation.
      * @returns {HRESULT} Type: <b>HRESULT</b>
@@ -639,7 +638,7 @@ class IPropertyDescription extends IUnknown{
      * @param {Pointer<PROPVARIANT>} propvar Type: <b>REFPROPVARIANT</b>
      * 
      * A reference to a <a href="https://docs.microsoft.com/windows/desktop/api/propidl/ns-propidl-propvariant">PROPVARIANT</a> structure that contains the type and value of the property.
-     * @param {Integer} pdfFlags Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/propsys/ne-propsys-propdesc_format_flags">PROPDESC_FORMAT_FLAGS</a></b>
+     * @param {PROPDESC_FORMAT_FLAGS} pdfFlags Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/propsys/ne-propsys-propdesc_format_flags">PROPDESC_FORMAT_FLAGS</a></b>
      * 
      * One or more of the <a href="https://docs.microsoft.com/windows/desktop/api/propsys/ne-propsys-propdesc_format_flags">PROPDESC_FORMAT_FLAGS</a> flags, which are either bitwise or multiple values, that indicate the property string format.
      * @returns {PWSTR} Type: <b>LPWSTR*</b>

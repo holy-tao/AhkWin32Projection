@@ -7,10 +7,9 @@
  * This structure is used with [WinHttpQueryOption](/windows/desktop/api/winhttp/nf-winhttp-winhttpqueryoption) to retrieve timing information for a request by specifying the **WINHTTP\_OPTION\_REQUEST\_TIMES** flag.
  * @see https://learn.microsoft.com/windows/win32/api/winhttp/ns-winhttp-winhttp_request_times
  * @namespace Windows.Win32.Networking.WinHttp
- * @version v4.0.30319
+ * @architecture X64, Arm64
  */
-class WINHTTP_REQUEST_TIMES extends Win32Struct
-{
+class WINHTTP_REQUEST_TIMES extends Win32Struct {
     static sizeof => 520
 
     static packingSize => 8
@@ -28,9 +27,9 @@ class WINHTTP_REQUEST_TIMES extends Win32Struct
      * Array of unsigned long long integer values that will contain the returned timings, indexed by [**WINHTTP\_REQUEST\_TIME\_ENTRY**](/windows/desktop/api/winhttp/ne-winhttp-winhttp_request_time_entry).
      * 
      * Times are measured as performance counter values; for more information, see [QueryPerformanceCounter](/windows/desktop/api/profileapi/nf-profileapi-queryperformancecounter).
-     * @type {Array<UInt64>}
+     * @type {Array<Integer>}
      */
-    rgullTimes{
+    rgullTimes {
         get {
             if(!this.HasProp("__rgullTimesProxyArray"))
                 this.__rgullTimesProxyArray := Win32FixedArray(this.ptr + 8, 64, Primitive, "uint")

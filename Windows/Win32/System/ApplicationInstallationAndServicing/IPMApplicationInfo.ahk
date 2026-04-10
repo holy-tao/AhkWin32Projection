@@ -1,15 +1,14 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
-#Include ..\..\Foundation\BSTR.ahk
-#Include ..\..\Foundation\FILETIME.ahk
 #Include ..\Com\IUnknown.ahk
+#Include ..\..\..\..\Guid.ahk
+#Include ..\..\Foundation\FILETIME.ahk
 
 /**
  * @namespace Windows.Win32.System.ApplicationInstallationAndServicing
- * @version v4.0.30319
  */
-class IPMApplicationInfo extends IUnknown{
+class IPMApplicationInfo extends IUnknown {
 
     static sizeof => A_PtrSize
     /**
@@ -77,14 +76,14 @@ class IPMApplicationInfo extends IUnknown{
     }
 
     /**
-     * @type {Integer} 
+     * @type {PM_APPLICATION_INSTALL_TYPE} 
      */
     AppInstallType {
         get => this.get_AppInstallType()
     }
 
     /**
-     * @type {Integer} 
+     * @type {PM_APPLICATION_STATE} 
      */
     State {
         get => this.get_State()
@@ -145,7 +144,7 @@ class IPMApplicationInfo extends IUnknown{
     }
 
     /**
-     * @type {Integer} 
+     * @type {PM_APP_GENRE} 
      */
     Genre {
         get => this.get_Genre()
@@ -312,7 +311,7 @@ class IPMApplicationInfo extends IUnknown{
     }
 
     /**
-     * @type {Integer} 
+     * @type {PM_TILE_HUBTYPE} 
      */
     DeploymentAppEnumerationHubFilter {
         get => this.get_DeploymentAppEnumerationHubFilter()
@@ -427,7 +426,7 @@ class IPMApplicationInfo extends IUnknown{
 
     /**
      * 
-     * @returns {Integer} 
+     * @returns {PM_APPLICATION_INSTALL_TYPE} 
      */
     get_AppInstallType() {
         result := ComCall(10, this, "int*", &pAppInstallType := 0, "HRESULT")
@@ -436,7 +435,7 @@ class IPMApplicationInfo extends IUnknown{
 
     /**
      * 
-     * @returns {Integer} 
+     * @returns {PM_APPLICATION_STATE} 
      */
     get_State() {
         result := ComCall(11, this, "int*", &pState := 0, "HRESULT")
@@ -520,7 +519,7 @@ class IPMApplicationInfo extends IUnknown{
 
     /**
      * 
-     * @returns {Integer} 
+     * @returns {PM_APP_GENRE} 
      */
     get_Genre() {
         result := ComCall(20, this, "int*", &pGenre := 0, "HRESULT")
@@ -817,7 +816,7 @@ class IPMApplicationInfo extends IUnknown{
 
     /**
      * 
-     * @returns {Integer} 
+     * @returns {PM_TILE_HUBTYPE} 
      */
     get_DeploymentAppEnumerationHubFilter() {
         result := ComCall(51, this, "int*", &HubType := 0, "HRESULT")

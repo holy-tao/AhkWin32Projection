@@ -7,10 +7,8 @@
 
 /**
  * @namespace Windows.Win32.Media.Speech
- * @version v4.0.30319
  */
-class SPTRANSITIONENTRY extends Win32Struct
-{
+class SPTRANSITIONENTRY extends Win32Struct {
     static sizeof => 56
 
     static packingSize => 8
@@ -18,7 +16,7 @@ class SPTRANSITIONENTRY extends Win32Struct
     /**
      * @type {SPTRANSITIONID}
      */
-    ID{
+    ID {
         get {
             if(!this.HasProp("__ID"))
                 this.__ID := SPTRANSITIONID(0, this)
@@ -29,7 +27,7 @@ class SPTRANSITIONENTRY extends Win32Struct
     /**
      * @type {SPSTATEHANDLE}
      */
-    hNextState{
+    hNextState {
         get {
             if(!this.HasProp("__hNextState"))
                 this.__hNextState := SPSTATEHANDLE(8, this)
@@ -72,7 +70,7 @@ class SPTRANSITIONENTRY extends Win32Struct
     /**
      * @type {SPSTATEHANDLE}
      */
-    hRuleInitialState{
+    hRuleInitialState {
         get {
             if(!this.HasProp("__hRuleInitialState"))
                 this.__hRuleInitialState := SPSTATEHANDLE(32, this)
@@ -83,7 +81,7 @@ class SPTRANSITIONENTRY extends Win32Struct
     /**
      * @type {SPRULEHANDLE}
      */
-    hRule{
+    hRule {
         get {
             if(!this.HasProp("__hRule"))
                 this.__hRule := SPRULEHANDLE(40, this)
@@ -102,7 +100,7 @@ class SPTRANSITIONENTRY extends Win32Struct
     /**
      * @type {SPWORDHANDLE}
      */
-    hWord{
+    hWord {
         get {
             if(!this.HasProp("__hWord"))
                 this.__hWord := SPWORDHANDLE(32, this)

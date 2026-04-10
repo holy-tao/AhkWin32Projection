@@ -1,12 +1,12 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
+#Include .\MIDL_STUB_MESSAGE.ahk
+#Include .\USER_MARSHAL_CB_TYPE.ahk
 
 /**
  * @namespace Windows.Win32.System.Rpc
- * @version v4.0.30319
  */
-class USER_MARSHAL_CB extends Win32Struct
-{
+class USER_MARSHAL_CB extends Win32Struct {
     static sizeof => 48
 
     static packingSize => 8
@@ -44,7 +44,7 @@ class USER_MARSHAL_CB extends Win32Struct
     }
 
     /**
-     * @type {Integer}
+     * @type {USER_MARSHAL_CB_TYPE}
      */
     CBType {
         get => NumGet(this, 28, "int")

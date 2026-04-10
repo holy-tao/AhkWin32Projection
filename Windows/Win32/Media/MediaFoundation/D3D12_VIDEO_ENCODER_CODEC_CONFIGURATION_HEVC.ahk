@@ -1,23 +1,22 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
+#Include .\D3D12_VIDEO_ENCODER_CODEC_CONFIGURATION_HEVC_FLAGS.ahk
+#Include .\D3D12_VIDEO_ENCODER_CODEC_CONFIGURATION_HEVC_CUSIZE.ahk
+#Include .\D3D12_VIDEO_ENCODER_CODEC_CONFIGURATION_HEVC_TUSIZE.ahk
 
 /**
  * Represents codec configuration for HEVC encoding.
- * @remarks
- * 
  * @see https://learn.microsoft.com/windows/win32/api/d3d12video/ns-d3d12video-d3d12_video_encoder_codec_configuration_hevc
  * @namespace Windows.Win32.Media.MediaFoundation
- * @version v4.0.30319
  */
-class D3D12_VIDEO_ENCODER_CODEC_CONFIGURATION_HEVC extends Win32Struct
-{
+class D3D12_VIDEO_ENCODER_CODEC_CONFIGURATION_HEVC extends Win32Struct {
     static sizeof => 24
 
     static packingSize => 4
 
     /**
      * A bitwise OR combination of flags from the [D3D12_VIDEO_ENCODER_CODEC_CONFIGURATION_HEVC_FLAGS](ne-d3d12video-d3d12_video_encoder_codec_configuration_hevc_flags.md) enumeration defining the set of enabled codec features.
-     * @type {Integer}
+     * @type {D3D12_VIDEO_ENCODER_CODEC_CONFIGURATION_HEVC_FLAGS}
      */
     ConfigurationFlags {
         get => NumGet(this, 0, "int")
@@ -26,7 +25,7 @@ class D3D12_VIDEO_ENCODER_CODEC_CONFIGURATION_HEVC extends Win32Struct
 
     /**
      * A value from the [D3D12_VIDEO_ENCODER_CODEC_CONFIGURATION_HEVC_CUSIZE](ne-d3d12video-d3d12_video_encoder_codec_configuration_hevc_cusize.md) enumeration indicating the minimum luma coding block size to be used in the encoder. This value matches what the caller will code in SPS.
-     * @type {Integer}
+     * @type {D3D12_VIDEO_ENCODER_CODEC_CONFIGURATION_HEVC_CUSIZE}
      */
     MinLumaCodingUnitSize {
         get => NumGet(this, 4, "int")
@@ -35,7 +34,7 @@ class D3D12_VIDEO_ENCODER_CODEC_CONFIGURATION_HEVC extends Win32Struct
 
     /**
      * A value from the [D3D12_VIDEO_ENCODER_CODEC_CONFIGURATION_HEVC_CUSIZE](ne-d3d12video-d3d12_video_encoder_codec_configuration_hevc_cusize.md) enumeration indicating the maximum luma coding block size to be used in the encoder. This value matches what the caller will code in SPS.
-     * @type {Integer}
+     * @type {D3D12_VIDEO_ENCODER_CODEC_CONFIGURATION_HEVC_CUSIZE}
      */
     MaxLumaCodingUnitSize {
         get => NumGet(this, 8, "int")
@@ -44,7 +43,7 @@ class D3D12_VIDEO_ENCODER_CODEC_CONFIGURATION_HEVC extends Win32Struct
 
     /**
      * A value from the  [D3D12_VIDEO_ENCODER_CODEC_CONFIGURATION_HEVC_TUSIZE](ne-d3d12video-d3d12_video_encoder_codec_configuration_hevc_tusize.md) enumeration indicating the minimum luma transform block size to be used in the encoder. This value matches the pixel size of what the user will code in SPS.log2_min_luma_transform_block_size_minus2.
-     * @type {Integer}
+     * @type {D3D12_VIDEO_ENCODER_CODEC_CONFIGURATION_HEVC_TUSIZE}
      */
     MinLumaTransformUnitSize {
         get => NumGet(this, 12, "int")
@@ -55,7 +54,7 @@ class D3D12_VIDEO_ENCODER_CODEC_CONFIGURATION_HEVC extends Win32Struct
      * D3D12_VIDEO_ENCODER_CODEC_CONFIGURATION_HEVC_TUSIZE
      * 
      * A value from the  [D3D12_VIDEO_ENCODER_CODEC_CONFIGURATION_HEVC_TUSIZE](ne-d3d12video-d3d12_video_encoder_codec_configuration_hevc_tusize.md) enumeration indicating the maximum luma transform block size to be used in the encoder. This value has to be consistent with the pixel size the user will code in SPS.log2_diff_max_min_luma_transform_block_size. The variable MaxTbLog2SizeY is set equal to log2_min_luma_transform_block_size_minus2 + 2 + log2_diff_max_min_luma_transform_block_size.
-     * @type {Integer}
+     * @type {D3D12_VIDEO_ENCODER_CODEC_CONFIGURATION_HEVC_TUSIZE}
      */
     MaxLumaTransformUnitSize {
         get => NumGet(this, 16, "int")

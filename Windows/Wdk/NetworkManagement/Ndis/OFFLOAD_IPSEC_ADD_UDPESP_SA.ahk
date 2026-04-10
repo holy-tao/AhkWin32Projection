@@ -1,14 +1,11 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
-#Include .\OFFLOAD_SECURITY_ASSOCIATION.ahk
 #Include ..\..\..\Win32\Foundation\HANDLE.ahk
 
 /**
  * @namespace Windows.Wdk.NetworkManagement.Ndis
- * @version v4.0.30319
  */
-class OFFLOAD_IPSEC_ADD_UDPESP_SA extends Win32Struct
-{
+class OFFLOAD_IPSEC_ADD_UDPESP_SA extends Win32Struct {
     static sizeof => 96
 
     static packingSize => 8
@@ -102,9 +99,9 @@ class OFFLOAD_IPSEC_ADD_UDPESP_SA extends Win32Struct
     }
 
     /**
-     * @type {Array<OFFLOAD_SECURITY_ASSOCIATION>}
+     * @type {Array<Pointer>}
      */
-    SecAssoc{
+    SecAssoc {
         get {
             if(!this.HasProp("__SecAssocProxyArray"))
                 this.__SecAssocProxyArray := Win32FixedArray(this.ptr + 40, 3, Primitive, "ptr")
@@ -115,7 +112,7 @@ class OFFLOAD_IPSEC_ADD_UDPESP_SA extends Win32Struct
     /**
      * @type {HANDLE}
      */
-    OffloadHandle{
+    OffloadHandle {
         get {
             if(!this.HasProp("__OffloadHandle"))
                 this.__OffloadHandle := HANDLE(64, this)
@@ -124,7 +121,7 @@ class OFFLOAD_IPSEC_ADD_UDPESP_SA extends Win32Struct
     }
 
     /**
-     * @type {Pointer<OFFLOAD_IPSEC_UDPESP_ENCAPTYPE_ENTRY>}
+     * @type {Pointer}
      */
     EncapTypeEntry {
         get => NumGet(this, 72, "ptr")
@@ -134,7 +131,7 @@ class OFFLOAD_IPSEC_ADD_UDPESP_SA extends Win32Struct
     /**
      * @type {HANDLE}
      */
-    EncapTypeEntryOffldHandle{
+    EncapTypeEntryOffldHandle {
         get {
             if(!this.HasProp("__EncapTypeEntryOffldHandle"))
                 this.__EncapTypeEntryOffldHandle := HANDLE(80, this)
@@ -151,9 +148,9 @@ class OFFLOAD_IPSEC_ADD_UDPESP_SA extends Win32Struct
     }
 
     /**
-     * @type {Array<Byte>}
+     * @type {Array<Integer>}
      */
-    KeyMat{
+    KeyMat {
         get {
             if(!this.HasProp("__KeyMatProxyArray"))
                 this.__KeyMatProxyArray := Win32FixedArray(this.ptr + 92, 1, Primitive, "char")

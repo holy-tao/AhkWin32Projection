@@ -7,9 +7,8 @@
  * Provides a method for retrieving the preferred view size for a new application window.
  * @see https://learn.microsoft.com/windows/win32/api/shobjidl_core/nn-shobjidl_core-ilaunchtargetviewsizepreference
  * @namespace Windows.Win32.UI.Shell
- * @version v4.0.30319
  */
-class ILaunchTargetViewSizePreference extends IUnknown{
+class ILaunchTargetViewSizePreference extends IUnknown {
 
     static sizeof => A_PtrSize
     /**
@@ -32,7 +31,7 @@ class ILaunchTargetViewSizePreference extends IUnknown{
 
     /**
      * Retrieves the preferred view size of the application being launched.
-     * @returns {Integer} Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/shobjidl_core/ne-shobjidl_core-application_view_size_preference">APPLICATION_VIEW_SIZE_PREFERENCE</a>*</b>
+     * @returns {APPLICATION_VIEW_SIZE_PREFERENCE} Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/shobjidl_core/ne-shobjidl_core-application_view_size_preference">APPLICATION_VIEW_SIZE_PREFERENCE</a>*</b>
      * 
      * Contains the address of a pointer to an <a href="https://docs.microsoft.com/windows/desktop/api/shobjidl_core/ne-shobjidl_core-application_view_size_preference">APPLICATION_VIEW_SIZE_PREFERENCE</a>  for the target application.
      * @see https://learn.microsoft.com/windows/win32/api/shobjidl_core/nf-shobjidl_core-ilaunchtargetviewsizepreference-gettargetviewsizepreference

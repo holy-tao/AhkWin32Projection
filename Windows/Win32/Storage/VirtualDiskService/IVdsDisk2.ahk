@@ -7,9 +7,8 @@
  * Provides a method to set the SAN mode of a disk to offline or online.
  * @see https://learn.microsoft.com/windows/win32/api/vds/nn-vds-ivdsdisk2
  * @namespace Windows.Win32.Storage.VirtualDiskService
- * @version v4.0.30319
  */
-class IVdsDisk2 extends IUnknown{
+class IVdsDisk2 extends IUnknown {
 
     static sizeof => A_PtrSize
     /**

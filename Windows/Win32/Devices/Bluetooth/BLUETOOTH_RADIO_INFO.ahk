@@ -6,11 +6,9 @@
  * Contains information about a Bluetooth radio.
  * @see https://learn.microsoft.com/windows/win32/api/bluetoothapis/ns-bluetoothapis-bluetooth_radio_info
  * @namespace Windows.Win32.Devices.Bluetooth
- * @version v4.0.30319
  */
-class BLUETOOTH_RADIO_INFO extends Win32Struct
-{
-    static sizeof => 528
+class BLUETOOTH_RADIO_INFO extends Win32Struct {
+    static sizeof => 520
 
     static packingSize => 8
 
@@ -27,7 +25,7 @@ class BLUETOOTH_RADIO_INFO extends Win32Struct
      * Address of the local Bluetooth radio.
      * @type {BLUETOOTH_ADDRESS}
      */
-    address{
+    address {
         get {
             if(!this.HasProp("__address"))
                 this.__address := BLUETOOTH_ADDRESS(8, this)
@@ -40,8 +38,8 @@ class BLUETOOTH_RADIO_INFO extends Win32Struct
      * @type {String}
      */
     szName {
-        get => StrGet(this.ptr + 24, 247, "UTF-16")
-        set => StrPut(value, this.ptr + 24, 247, "UTF-16")
+        get => StrGet(this.ptr + 16, 247, "UTF-16")
+        set => StrPut(value, this.ptr + 16, 247, "UTF-16")
     }
 
     /**
@@ -49,8 +47,8 @@ class BLUETOOTH_RADIO_INFO extends Win32Struct
      * @type {Integer}
      */
     ulClassofDevice {
-        get => NumGet(this, 520, "uint")
-        set => NumPut("uint", value, this, 520)
+        get => NumGet(this, 512, "uint")
+        set => NumPut("uint", value, this, 512)
     }
 
     /**
@@ -58,8 +56,8 @@ class BLUETOOTH_RADIO_INFO extends Win32Struct
      * @type {Integer}
      */
     lmpSubversion {
-        get => NumGet(this, 524, "ushort")
-        set => NumPut("ushort", value, this, 524)
+        get => NumGet(this, 516, "ushort")
+        set => NumPut("ushort", value, this, 516)
     }
 
     /**
@@ -67,7 +65,7 @@ class BLUETOOTH_RADIO_INFO extends Win32Struct
      * @type {Integer}
      */
     manufacturer {
-        get => NumGet(this, 526, "ushort")
-        set => NumPut("ushort", value, this, 526)
+        get => NumGet(this, 518, "ushort")
+        set => NumPut("ushort", value, this, 518)
     }
 }

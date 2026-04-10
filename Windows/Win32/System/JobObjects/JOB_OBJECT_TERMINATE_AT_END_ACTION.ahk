@@ -3,9 +3,8 @@
 
 /**
  * @namespace Windows.Win32.System.JobObjects
- * @version v4.0.30319
  */
-class JOB_OBJECT_TERMINATE_AT_END_ACTION extends Win32Enum{
+class JOB_OBJECT_TERMINATE_AT_END_ACTION extends Win32Enum {
 
     /**
      * @type {Integer (UInt32)}

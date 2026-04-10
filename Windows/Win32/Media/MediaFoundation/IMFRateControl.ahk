@@ -13,9 +13,8 @@
  * To discover the playback rates that an object supports, use the <a href="https://docs.microsoft.com/windows/desktop/api/mfidl/nn-mfidl-imfratesupport">IMFRateSupport</a> interface
  * @see https://learn.microsoft.com/windows/win32/api/mfidl/nn-mfidl-imfratecontrol
  * @namespace Windows.Win32.Media.MediaFoundation
- * @version v4.0.30319
  */
-class IMFRateControl extends IUnknown{
+class IMFRateControl extends IUnknown {
 
     static sizeof => A_PtrSize
     /**

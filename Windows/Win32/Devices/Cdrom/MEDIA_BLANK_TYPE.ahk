@@ -3,9 +3,8 @@
 
 /**
  * @namespace Windows.Win32.Devices.Cdrom
- * @version v4.0.30319
  */
-class MEDIA_BLANK_TYPE extends Win32Enum{
+class MEDIA_BLANK_TYPE extends Win32Enum {
 
     /**
      * @type {Integer (Int32)}

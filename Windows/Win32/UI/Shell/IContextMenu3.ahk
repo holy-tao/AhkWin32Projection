@@ -22,9 +22,8 @@
  * <div> </div>
  * @see https://learn.microsoft.com/windows/win32/api/shobjidl_core/nn-shobjidl_core-icontextmenu3
  * @namespace Windows.Win32.UI.Shell
- * @version v4.0.30319
  */
-class IContextMenu3 extends IContextMenu2{
+class IContextMenu3 extends IContextMenu2 {
 
     static sizeof => A_PtrSize
     /**
@@ -55,8 +54,12 @@ class IContextMenu3 extends IContextMenu2{
      * @param {Integer} uMsg Type: <b>UINT</b>
      * 
      * The message to be processed. In the case of some messages, such as WM_INITMENUPOPUP, WM_DRAWITEM, WM_MENUCHAR, or WM_MEASUREITEM, the client object being called may provide owner-drawn menu items.
-     * @param {WPARAM} _wParam 
-     * @param {LPARAM} _lParam 
+     * @param {WPARAM} _wParam Type: <b>WPARAM</b>
+     * 
+     * Additional message information. The value of this parameter depends on the value of the <i>uMsg</i> parameter.
+     * @param {LPARAM} _lParam Type: <b>LPARAM</b>
+     * 
+     * Additional message information. The value of this parameter depends on the value of the <i>uMsg</i> parameter.
      * @returns {LRESULT} Type: <b>LRESULT*</b>
      * 
      * The address of an <b>LRESULT</b> value that the owner of the menu will return from the message. This parameter can be <b>NULL</b>.

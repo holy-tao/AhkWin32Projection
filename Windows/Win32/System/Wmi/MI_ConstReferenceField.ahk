@@ -1,14 +1,13 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
+#Include .\MI_Instance.ahk
 
 /**
  * Represents a property inside an MI_Instance structure. (MI_ConstReferenceField)
  * @see https://learn.microsoft.com/windows/win32/api/mi/ns-mi-mi_constreferencefield
  * @namespace Windows.Win32.System.Wmi
- * @version v4.0.30319
  */
-class MI_ConstReferenceField extends Win32Struct
-{
+class MI_ConstReferenceField extends Win32Struct {
     static sizeof => 16
 
     static packingSize => 8

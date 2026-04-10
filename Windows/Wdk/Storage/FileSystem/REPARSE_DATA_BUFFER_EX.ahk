@@ -1,14 +1,11 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
-#Include ..\..\..\Win32\Storage\FileSystem\REPARSE_GUID_DATA_BUFFER.ahk
 
 /**
  * @namespace Windows.Wdk.Storage.FileSystem
- * @version v4.0.30319
  */
-class REPARSE_DATA_BUFFER_EX extends Win32Struct
-{
-    static sizeof => 48
+class REPARSE_DATA_BUFFER_EX extends Win32Struct {
+    static sizeof => 32
 
     static packingSize => 8
 
@@ -29,7 +26,7 @@ class REPARSE_DATA_BUFFER_EX extends Win32Struct
     }
 
     /**
-     * @type {Pointer<Guid>}
+     * @type {Pointer}
      */
     ExistingReparseGuid {
         get => NumGet(this, 8, "ptr")
@@ -45,7 +42,7 @@ class REPARSE_DATA_BUFFER_EX extends Win32Struct
     }
 
     /**
-     * @type {Pointer<REPARSE_DATA_BUFFER>}
+     * @type {Pointer}
      */
     ReparseDataBuffer {
         get => NumGet(this, 24, "ptr")
@@ -53,13 +50,10 @@ class REPARSE_DATA_BUFFER_EX extends Win32Struct
     }
 
     /**
-     * @type {REPARSE_GUID_DATA_BUFFER}
+     * @type {Pointer}
      */
-    ReparseGuidDataBuffer{
-        get {
-            if(!this.HasProp("__ReparseGuidDataBuffer"))
-                this.__ReparseGuidDataBuffer := REPARSE_GUID_DATA_BUFFER(24, this)
-            return this.__ReparseGuidDataBuffer
-        }
+    ReparseGuidDataBuffer {
+        get => NumGet(this, 24, "ptr")
+        set => NumPut("ptr", value, this, 24)
     }
 }

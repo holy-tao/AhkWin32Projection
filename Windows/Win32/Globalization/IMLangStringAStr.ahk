@@ -5,9 +5,8 @@
 
 /**
  * @namespace Windows.Win32.Globalization
- * @version v4.0.30319
  */
-class IMLangStringAStr extends IMLangString{
+class IMLangStringAStr extends IMLangString {
 
     static sizeof => A_PtrSize
     /**

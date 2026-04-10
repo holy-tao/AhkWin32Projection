@@ -5,9 +5,8 @@
  * Specifies whether a user interface is displayed during private key verification and whether verification can proceed if the cryptographic provider is a smart card provider.
  * @see https://learn.microsoft.com/windows/win32/api/certenroll/ne-certenroll-x509privatekeyverify
  * @namespace Windows.Win32.Security.Cryptography.Certificates
- * @version v4.0.30319
  */
-class X509PrivateKeyVerify extends Win32Enum{
+class X509PrivateKeyVerify extends Win32Enum {
 
     /**
      * No option is identified.

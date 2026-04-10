@@ -5,9 +5,8 @@
  * The WindowsMediaLibrarySharingDeviceAuthorizationStatus enumeration defines constants that indicate whether a media device is authorized to have access to a media library.
  * @see https://learn.microsoft.com/windows/win32/api/wmlss/ne-wmlss-windowsmedialibrarysharingdeviceauthorizationstatus
  * @namespace Windows.Win32.Media.LibrarySharingServices
- * @version v4.0.30319
  */
-class WindowsMediaLibrarySharingDeviceAuthorizationStatus extends Win32Enum{
+class WindowsMediaLibrarySharingDeviceAuthorizationStatus extends Win32Enum {
 
     /**
      * It is not known whether the device is authorized to have access to the media library.

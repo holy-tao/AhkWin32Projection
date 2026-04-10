@@ -9,9 +9,8 @@
  * Clients can request that the touch keyboard and handwriting input panel check to see that a user tapped in the edit control with focus before invoking.
  * @see https://learn.microsoft.com/windows/win32/api/inputpanelconfiguration/nn-inputpanelconfiguration-iinputpanelinvocationconfiguration
  * @namespace Windows.Win32.UI.Shell
- * @version v4.0.30319
  */
-class IInputPanelInvocationConfiguration extends IUnknown{
+class IInputPanelInvocationConfiguration extends IUnknown {
 
     static sizeof => A_PtrSize
     /**

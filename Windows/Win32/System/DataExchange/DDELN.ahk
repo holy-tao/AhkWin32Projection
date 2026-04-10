@@ -3,10 +3,8 @@
 
 /**
  * @namespace Windows.Win32.System.DataExchange
- * @version v4.0.30319
  */
-class DDELN extends Win32Struct
-{
+class DDELN extends Win32Struct {
     static sizeof => 4
 
     static packingSize => 2

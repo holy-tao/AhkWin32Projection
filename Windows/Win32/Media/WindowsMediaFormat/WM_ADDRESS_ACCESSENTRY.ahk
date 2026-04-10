@@ -7,10 +7,8 @@
  * You can use the <b>inet_addr</b> function to convert a standard dotted-format string (such as "255.255.255.255") to the correct binary number in network byte order.
  * @see https://learn.microsoft.com/windows/win32/api/wmsdkidl/ns-wmsdkidl-wm_address_accessentry
  * @namespace Windows.Win32.Media.WindowsMediaFormat
- * @version v4.0.30319
  */
-class WM_ADDRESS_ACCESSENTRY extends Win32Struct
-{
+class WM_ADDRESS_ACCESSENTRY extends Win32Struct {
     static sizeof => 8
 
     static packingSize => 4

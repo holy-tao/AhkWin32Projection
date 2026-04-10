@@ -1,17 +1,17 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
+#Include ..\Com\IUnknown.ahk
 #Include .\IWPCSettings.ahk
 #Include .\IWPCWebSettings.ahk
-#Include ..\Com\IUnknown.ahk
+#Include ..\..\..\..\Guid.ahk
 
 /**
  * . (IWindowsParentalControlsCore)
  * @see https://learn.microsoft.com/windows/win32/api/wpcapi/nn-wpcapi-iwindowsparentalcontrolscore
  * @namespace Windows.Win32.System.ParentalControls
- * @version v4.0.30319
  */
-class IWindowsParentalControlsCore extends IUnknown{
+class IWindowsParentalControlsCore extends IUnknown {
 
     static sizeof => A_PtrSize
     /**
@@ -34,7 +34,7 @@ class IWindowsParentalControlsCore extends IUnknown{
 
     /**
      * Indicates the visibility of the Parental Controls user interface.
-     * @returns {Integer} 
+     * @returns {WPCFLAG_VISIBILITY} 
      * @see https://learn.microsoft.com/windows/win32/api/wpcapi/nf-wpcapi-iwindowsparentalcontrolscore-getvisibility
      */
     GetVisibility() {

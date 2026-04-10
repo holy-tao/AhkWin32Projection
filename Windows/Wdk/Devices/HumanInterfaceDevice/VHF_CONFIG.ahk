@@ -4,10 +4,8 @@
 
 /**
  * @namespace Windows.Wdk.Devices.HumanInterfaceDevice
- * @version v4.0.30319
  */
-class VHF_CONFIG extends Win32Struct
-{
+class VHF_CONFIG extends Win32Struct {
     static sizeof => 144
 
     static packingSize => 8
@@ -39,7 +37,7 @@ class VHF_CONFIG extends Win32Struct
     /**
      * @type {HANDLE}
      */
-    FileHandle{
+    FileHandle {
         get {
             if(!this.HasProp("__FileHandle"))
                 this.__FileHandle := HANDLE(24, this)
@@ -72,7 +70,7 @@ class VHF_CONFIG extends Win32Struct
     }
 
     /**
-     * @type {Pointer<Guid>}
+     * @type {Pointer}
      */
     ContainerID {
         get => NumGet(this, 40, "ptr")

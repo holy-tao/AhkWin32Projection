@@ -35,9 +35,8 @@
  * </table>
  * @see https://learn.microsoft.com/windows/win32/api/strmif/ne-strmif-_dvencoderresolution
  * @namespace Windows.Win32.Media.DirectShow
- * @version v4.0.30319
  */
-class _DVENCODERRESOLUTION extends Win32Enum{
+class _DVENCODERRESOLUTION extends Win32Enum {
 
     /**
      * See Remarks.

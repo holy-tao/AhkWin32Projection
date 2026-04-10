@@ -1,6 +1,7 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
 #Include .\COMPATIBILITY_CONTEXT_ELEMENT.ahk
+#Include .\ACTCTX_COMPATIBILITY_ELEMENT_TYPE.ahk
 
 /**
  * The ACTIVATION_CONTEXT_COMPATIBILITY_INFORMATION structure is used by the QueryActCtxW function.
@@ -76,11 +77,9 @@
  * ```
  * @see https://learn.microsoft.com/windows/win32/api/winnt/ns-winnt-activation_context_compatibility_information
  * @namespace Windows.Win32.System.ApplicationInstallationAndServicing
- * @version v4.0.30319
  */
-class ACTIVATION_CONTEXT_COMPATIBILITY_INFORMATION extends Win32Struct
-{
-    static sizeof => 16
+class ACTIVATION_CONTEXT_COMPATIBILITY_INFORMATION extends Win32Struct {
+    static sizeof => 32
 
     static packingSize => 8
 
@@ -95,9 +94,9 @@ class ACTIVATION_CONTEXT_COMPATIBILITY_INFORMATION extends Win32Struct
 
     /**
      * This is an array of <a href="https://docs.microsoft.com/windows/desktop/api/winnt/ns-winnt-compatibility_context_element">COMPATIBILITY_CONTEXT_ELEMENT</a> structures. Each structure describes one compatibility element in the application manifest.
-     * @type {Array<COMPATIBILITY_CONTEXT_ELEMENT>}
+     * @type {COMPATIBILITY_CONTEXT_ELEMENT}
      */
-    Elements{
+    Elements {
         get {
             if(!this.HasProp("__ElementsProxyArray"))
                 this.__ElementsProxyArray := Win32FixedArray(this.ptr + 8, 1, COMPATIBILITY_CONTEXT_ELEMENT, "")

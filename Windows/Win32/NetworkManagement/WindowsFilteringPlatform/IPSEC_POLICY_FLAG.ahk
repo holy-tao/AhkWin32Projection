@@ -6,9 +6,8 @@
   * packet.
  * @see https://learn.microsoft.com/windows/win32/api/ipsectypes/ns-ipsectypes-ipsec_tunnel_policy0
  * @namespace Windows.Win32.NetworkManagement.WindowsFilteringPlatform
- * @version v4.0.30319
  */
-class IPSEC_POLICY_FLAG extends Win32BitflagEnum{
+class IPSEC_POLICY_FLAG extends Win32BitflagEnum {
 
     /**
      * @type {Integer (UInt32)}

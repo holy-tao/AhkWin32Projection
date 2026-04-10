@@ -10,10 +10,8 @@
  * Contains parameters to create a picture object through the OleCreatePictureIndirect function.
  * @see https://learn.microsoft.com/windows/win32/api/olectl/ns-olectl-pictdesc
  * @namespace Windows.Win32.System.Ole
- * @version v4.0.30319
  */
-class PICTDESC extends Win32Struct
-{
+class PICTDESC extends Win32Struct {
     static sizeof => 24
 
     static packingSize => 8
@@ -43,25 +41,24 @@ class PICTDESC extends Win32Struct
         /**
          * @type {HBITMAP}
          */
-        hbitmap{
+        hbitmap {
             get {
                 if(!this.HasProp("__hbitmap"))
                     this.__hbitmap := HBITMAP(0, this)
                 return this.__hbitmap
             }
         }
-    
+
         /**
          * @type {HPALETTE}
          */
-        hpal{
+        hpal {
             get {
                 if(!this.HasProp("__hpal"))
                     this.__hpal := HPALETTE(8, this)
                 return this.__hpal
             }
         }
-    
     }
 
     class _wmf extends Win32Struct {
@@ -71,14 +68,14 @@ class PICTDESC extends Win32Struct
         /**
          * @type {HMETAFILE}
          */
-        hmeta{
+        hmeta {
             get {
                 if(!this.HasProp("__hmeta"))
                     this.__hmeta := HMETAFILE(0, this)
                 return this.__hmeta
             }
         }
-    
+
         /**
          * @type {Integer}
          */
@@ -86,7 +83,7 @@ class PICTDESC extends Win32Struct
             get => NumGet(this, 8, "int")
             set => NumPut("int", value, this, 8)
         }
-    
+
         /**
          * @type {Integer}
          */
@@ -94,7 +91,6 @@ class PICTDESC extends Win32Struct
             get => NumGet(this, 12, "int")
             set => NumPut("int", value, this, 12)
         }
-    
     }
 
     class _icon extends Win32Struct {
@@ -104,14 +100,13 @@ class PICTDESC extends Win32Struct
         /**
          * @type {HICON}
          */
-        hicon{
+        hicon {
             get {
                 if(!this.HasProp("__hicon"))
                     this.__hicon := HICON(0, this)
                 return this.__hicon
             }
         }
-    
     }
 
     class _emf extends Win32Struct {
@@ -121,23 +116,22 @@ class PICTDESC extends Win32Struct
         /**
          * @type {HENHMETAFILE}
          */
-        hemf{
+        hemf {
             get {
                 if(!this.HasProp("__hemf"))
                     this.__hemf := HENHMETAFILE(0, this)
                 return this.__hemf
             }
         }
-    
     }
 
     /**
      * @type {_bmp}
      */
-    bmp{
+    bmp {
         get {
             if(!this.HasProp("__bmp"))
-                this.__bmp := %this.__Class%._bmp(8, this)
+                this.__bmp := PICTDESC._bmp(8, this)
             return this.__bmp
         }
     }
@@ -145,10 +139,10 @@ class PICTDESC extends Win32Struct
     /**
      * @type {_wmf}
      */
-    wmf{
+    wmf {
         get {
             if(!this.HasProp("__wmf"))
-                this.__wmf := %this.__Class%._wmf(8, this)
+                this.__wmf := PICTDESC._wmf(8, this)
             return this.__wmf
         }
     }
@@ -156,10 +150,10 @@ class PICTDESC extends Win32Struct
     /**
      * @type {_icon}
      */
-    icon{
+    icon {
         get {
             if(!this.HasProp("__icon"))
-                this.__icon := %this.__Class%._icon(8, this)
+                this.__icon := PICTDESC._icon(8, this)
             return this.__icon
         }
     }
@@ -167,10 +161,10 @@ class PICTDESC extends Win32Struct
     /**
      * @type {_emf}
      */
-    emf{
+    emf {
         get {
             if(!this.HasProp("__emf"))
-                this.__emf := %this.__Class%._emf(8, this)
+                this.__emf := PICTDESC._emf(8, this)
             return this.__emf
         }
     }

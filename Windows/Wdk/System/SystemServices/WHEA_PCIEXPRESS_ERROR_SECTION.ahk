@@ -1,18 +1,17 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
+#Include .\WHEA_PCIEXPRESS_DEVICE_TYPE.ahk
 
 /**
  * @namespace Windows.Wdk.System.SystemServices
- * @version v4.0.30319
  */
-class WHEA_PCIEXPRESS_ERROR_SECTION extends Win32Struct
-{
+class WHEA_PCIEXPRESS_ERROR_SECTION extends Win32Struct {
     static sizeof => 224
 
     static packingSize => 8
 
     /**
-     * @type {Pointer<WHEA_PCIEXPRESS_ERROR_SECTION_VALIDBITS>}
+     * @type {Pointer}
      */
     ValidBits {
         get => NumGet(this, 0, "ptr")
@@ -20,7 +19,7 @@ class WHEA_PCIEXPRESS_ERROR_SECTION extends Win32Struct
     }
 
     /**
-     * @type {Integer}
+     * @type {WHEA_PCIEXPRESS_DEVICE_TYPE}
      */
     PortType {
         get => NumGet(this, 8, "int")
@@ -28,7 +27,7 @@ class WHEA_PCIEXPRESS_ERROR_SECTION extends Win32Struct
     }
 
     /**
-     * @type {Pointer<WHEA_PCIEXPRESS_VERSION>}
+     * @type {Pointer}
      */
     Version {
         get => NumGet(this, 16, "ptr")
@@ -36,7 +35,7 @@ class WHEA_PCIEXPRESS_ERROR_SECTION extends Win32Struct
     }
 
     /**
-     * @type {Pointer<WHEA_PCIEXPRESS_COMMAND_STATUS>}
+     * @type {Pointer}
      */
     CommandStatus {
         get => NumGet(this, 24, "ptr")
@@ -52,7 +51,7 @@ class WHEA_PCIEXPRESS_ERROR_SECTION extends Win32Struct
     }
 
     /**
-     * @type {Pointer<WHEA_PCIEXPRESS_DEVICE_ID>}
+     * @type {Pointer}
      */
     DeviceId {
         get => NumGet(this, 40, "ptr")
@@ -68,7 +67,7 @@ class WHEA_PCIEXPRESS_ERROR_SECTION extends Win32Struct
     }
 
     /**
-     * @type {Pointer<WHEA_PCIEXPRESS_BRIDGE_CONTROL_STATUS>}
+     * @type {Pointer}
      */
     BridgeControlStatus {
         get => NumGet(this, 56, "ptr")
@@ -76,9 +75,9 @@ class WHEA_PCIEXPRESS_ERROR_SECTION extends Win32Struct
     }
 
     /**
-     * @type {Array<Byte>}
+     * @type {Array<Integer>}
      */
-    ExpressCapability{
+    ExpressCapability {
         get {
             if(!this.HasProp("__ExpressCapabilityProxyArray"))
                 this.__ExpressCapabilityProxyArray := Win32FixedArray(this.ptr + 64, 60, Primitive, "char")
@@ -87,9 +86,9 @@ class WHEA_PCIEXPRESS_ERROR_SECTION extends Win32Struct
     }
 
     /**
-     * @type {Array<Byte>}
+     * @type {Array<Integer>}
      */
-    AerInfo{
+    AerInfo {
         get {
             if(!this.HasProp("__AerInfoProxyArray"))
                 this.__AerInfoProxyArray := Win32FixedArray(this.ptr + 124, 96, Primitive, "char")

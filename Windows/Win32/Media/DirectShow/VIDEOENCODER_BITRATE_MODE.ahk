@@ -5,9 +5,8 @@
  * The VIDEOENCODER_BITRATE_MODE enumeration type defines the three types of bitrates supported by the IEncoderAPI interface.
  * @see https://learn.microsoft.com/windows/win32/api/strmif/ne-strmif-videoencoder_bitrate_mode
  * @namespace Windows.Win32.Media.DirectShow
- * @version v4.0.30319
  */
-class VIDEOENCODER_BITRATE_MODE extends Win32Enum{
+class VIDEOENCODER_BITRATE_MODE extends Win32Enum {
 
     /**
      * The bit rate used for encoding is constant.

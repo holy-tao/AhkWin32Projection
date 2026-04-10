@@ -1,16 +1,13 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\..\Win32Struct.ahk
+#Include .\ETW_PROCESS_TRACE_MODES.ahk
 
 /**
  * Provides configuration parameters to OpenTraceFromBufferStream, OpenTraceFromFile, OpenTraceFromRealTimeLogger, OpenTraceFromRealTimeLoggerWithAllocationOptions functions.
- * @remarks
- * 
  * @see https://learn.microsoft.com/windows/win32/api/evntrace/ns-evntrace-etw_open_trace_options
  * @namespace Windows.Win32.System.Diagnostics.Etw
- * @version v4.0.30319
  */
-class ETW_OPEN_TRACE_OPTIONS extends Win32Struct
-{
+class ETW_OPEN_TRACE_OPTIONS extends Win32Struct {
     static sizeof => 40
 
     static packingSize => 8
@@ -20,7 +17,7 @@ class ETW_OPEN_TRACE_OPTIONS extends Win32Struct
      * 
      * - ETW_PROCESS_TRACE_MODE_NONE
      * - ETW_PROCESS_TRACE_MODE_RAW_TIMESTAMP – Timestamps in the EVENT_RECORD provided to the EventCallback will not be converted to file time as they are by default. Instead, they will remain in the clock type of the original event (e.g. QueryPerformanceCounter, CPU timestamp counter, or GetSystemTimeAsFileTime).
-     * @type {Integer}
+     * @type {ETW_PROCESS_TRACE_MODES}
      */
     ProcessTraceModes {
         get => NumGet(this, 0, "int")

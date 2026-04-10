@@ -9,9 +9,8 @@
  * The <b>IInstallationCompletedCallbackArgs</b> interface is reserved for future use. It  has no properties or methods.
  * @see https://learn.microsoft.com/windows/win32/api/wuapi/nn-wuapi-iinstallationcompletedcallbackargs
  * @namespace Windows.Win32.System.UpdateAgent
- * @version v4.0.30319
  */
-class IInstallationCompletedCallbackArgs extends IDispatch{
+class IInstallationCompletedCallbackArgs extends IDispatch {
 
     static sizeof => A_PtrSize
     /**

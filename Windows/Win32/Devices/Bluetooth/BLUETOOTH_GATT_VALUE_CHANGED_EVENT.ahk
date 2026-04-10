@@ -1,14 +1,13 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
+#Include .\BTH_LE_GATT_CHARACTERISTIC_VALUE.ahk
 
 /**
  * The BLUETOOTH_GATT_VALUE_CHANGED_EVENT structure describes a changed attribute value.
  * @see https://learn.microsoft.com/windows/win32/api/bthledef/ns-bthledef-bluetooth_gatt_value_changed_event
  * @namespace Windows.Win32.Devices.Bluetooth
- * @version v4.0.30319
  */
-class BLUETOOTH_GATT_VALUE_CHANGED_EVENT extends Win32Struct
-{
+class BLUETOOTH_GATT_VALUE_CHANGED_EVENT extends Win32Struct {
     static sizeof => 24
 
     static packingSize => 8

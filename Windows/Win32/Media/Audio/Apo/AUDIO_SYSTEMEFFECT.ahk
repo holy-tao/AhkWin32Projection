@@ -1,5 +1,6 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\..\Win32Struct.ahk
+#Include .\AUDIO_SYSTEMEFFECT_STATE.ahk
 
 /**
  * Represents a System Effects Audio Processing Object (sAPO) audio effect.
@@ -7,17 +8,15 @@
  * For more information on the Windows 11 APIs for the Audio Processing Objects (APOs) that can ship with audio drivers, see [Windows 11 APIs for Audio Processing Objects](/windows-hardware/drivers/audio/windows-11-apis-for-audio-processing-objects).
  * @see https://learn.microsoft.com/windows/win32/api/audioengineextensionapo/ns-audioengineextensionapo-audio_systemeffect
  * @namespace Windows.Win32.Media.Audio.Apo
- * @version v4.0.30319
  */
-class AUDIO_SYSTEMEFFECT extends Win32Struct
-{
+class AUDIO_SYSTEMEFFECT extends Win32Struct {
     static sizeof => 16
 
     static packingSize => 8
 
     /**
      * The GUID identifier for an audio effect. Audio effect GUIDs are defined in [ksmedia.h](/windows-hardware/drivers/audio/ksmedia-h).
-     * @type {Pointer<Guid>}
+     * @type {Pointer}
      */
     id {
         get => NumGet(this, 0, "ptr")
@@ -35,7 +34,7 @@ class AUDIO_SYSTEMEFFECT extends Win32Struct
 
     /**
      * A member of the [AUDIO_SYSTEMEFFECT_STATE](ne-audioengineextensionapo-audio_systemeffect_state.md) enumeration specifying the state of the audio effect.
-     * @type {Integer}
+     * @type {AUDIO_SYSTEMEFFECT_STATE}
      */
     state {
         get => NumGet(this, 12, "int")

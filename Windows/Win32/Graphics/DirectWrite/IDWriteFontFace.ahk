@@ -1,18 +1,17 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
+#Include ..\..\System\Com\IUnknown.ahk
 #Include .\IDWriteFontFile.ahk
 #Include .\DWRITE_GLYPH_METRICS.ahk
 #Include .\DWRITE_FONT_METRICS.ahk
-#Include ..\..\System\Com\IUnknown.ahk
 
 /**
  * This interface exposes various font data such as metrics, names, and glyph outlines. It contains font face type, appropriate file references, and face identification data.
  * @see https://learn.microsoft.com/windows/win32/api/dwrite/nn-dwrite-idwritefontface
  * @namespace Windows.Win32.Graphics.DirectWrite
- * @version v4.0.30319
  */
-class IDWriteFontFace extends IUnknown{
+class IDWriteFontFace extends IUnknown {
 
     static sizeof => A_PtrSize
     /**
@@ -35,7 +34,7 @@ class IDWriteFontFace extends IUnknown{
 
     /**
      * Obtains the file format type of a font face.
-     * @returns {Integer} Type: <b><a href="https://docs.microsoft.com/windows/win32/api/dwrite/ne-dwrite-dwrite_font_face_type">DWRITE_FONT_FACE_TYPE</a></b>
+     * @returns {DWRITE_FONT_FACE_TYPE} Type: <b><a href="https://docs.microsoft.com/windows/win32/api/dwrite/ne-dwrite-dwrite_font_face_type">DWRITE_FONT_FACE_TYPE</a></b>
      * 
      * A value that indicates the type of format for the font face (such as Type 1, TrueType, vector, or bitmap).
      * @see https://learn.microsoft.com/windows/win32/api/dwrite/nf-dwrite-idwritefontface-gettype
@@ -84,7 +83,7 @@ class IDWriteFontFace extends IUnknown{
 
     /**
      * Obtains the algorithmic style simulation flags of a font face. (IDWriteFontFace.GetSimulations)
-     * @returns {Integer} Type: <b><a href="https://docs.microsoft.com/windows/win32/api/dwrite/ne-dwrite-dwrite_font_simulations">DWRITE_FONT_SIMULATIONS</a></b>
+     * @returns {DWRITE_FONT_SIMULATIONS} Type: <b><a href="https://docs.microsoft.com/windows/win32/api/dwrite/ne-dwrite-dwrite_font_simulations">DWRITE_FONT_SIMULATIONS</a></b>
      * 
      * Font face simulation flags for algorithmic means of making text bold or italic.
      * @see https://learn.microsoft.com/windows/win32/api/dwrite/nf-dwrite-idwritefontface-getsimulations
@@ -145,7 +144,10 @@ class IDWriteFontFace extends IUnknown{
      * 
      * Indicates whether the font is being used in a sideways run. This can affect the glyph metrics if the font has oblique simulation
      *     because sideways oblique simulation differs from non-sideways oblique simulation
-     * @returns {DWRITE_GLYPH_METRICS} 
+     * @returns {DWRITE_GLYPH_METRICS} Type: <b><a href="https://docs.microsoft.com/windows/win32/api/dwrite/ns-dwrite-dwrite_glyph_metrics">DWRITE_GLYPH_METRICS</a>*</b>
+     * 
+     * When this method returns, contains an array of DWRITE_GLYPH_METRICS structures.  <i>glyphMetrics</i> must be initialized with an empty buffer that contains at least as many elements as <i>glyphCount</i>.
+     *      The metrics returned by this function are in font design units.
      * @see https://learn.microsoft.com/windows/win32/api/dwrite/nf-dwrite-idwritefontface-getdesignglyphmetrics
      */
     GetDesignGlyphMetrics(glyphIndices, glyphCount, isSideways) {
@@ -297,7 +299,7 @@ class IDWriteFontFace extends IUnknown{
      * 
      * The number of physical pixels per DIP. For example, if the DPI of the rendering surface is 96, this 
      *      value is 1.0f. If the DPI is 120, this value is 120.0f/96.
-     * @param {Integer} measuringMode Type: <b><a href="https://docs.microsoft.com/windows/win32/api/dcommon/ne-dcommon-dwrite_measuring_mode">DWRITE_MEASURING_MODE</a></b>
+     * @param {DWRITE_MEASURING_MODE} measuringMode Type: <b><a href="https://docs.microsoft.com/windows/win32/api/dcommon/ne-dcommon-dwrite_measuring_mode">DWRITE_MEASURING_MODE</a></b>
      * 
      * The measuring method that will be used for glyphs in the font.
      *      Renderer implementations may choose different rendering modes for different measuring methods, for example:
@@ -315,7 +317,7 @@ class IDWriteFontFace extends IUnknown{
      * 
      * A pointer to an object that contains rendering settings such as gamma level, enhanced contrast, and ClearType level. This parameter is necessary in case the rendering parameters 
      *      object overrides the rendering mode.
-     * @returns {Integer} Type: <b><a href="https://docs.microsoft.com/windows/win32/api/dwrite/ne-dwrite-dwrite_rendering_mode">DWRITE_RENDERING_MODE</a>*</b>
+     * @returns {DWRITE_RENDERING_MODE} Type: <b><a href="https://docs.microsoft.com/windows/win32/api/dwrite/ne-dwrite-dwrite_rendering_mode">DWRITE_RENDERING_MODE</a>*</b>
      * 
      * When this method returns, contains a value that indicates the recommended rendering mode to use.
      * @see https://learn.microsoft.com/windows/win32/api/dwrite/nf-dwrite-idwritefontface-getrecommendedrenderingmode
@@ -370,7 +372,9 @@ class IDWriteFontFace extends IUnknown{
      * @param {BOOL} isSideways Type: **BOOL**
      * 
      * A BOOL value that indicates whether the font is being used in a sideways run. This can affect the glyph metrics if the font has oblique simulation because sideways oblique simulation differs from non-sideways oblique simulation.
-     * @returns {DWRITE_GLYPH_METRICS} 
+     * @returns {DWRITE_GLYPH_METRICS} Type: **[**DWRITE\_GLYPH\_METRICS**](/windows/win32/api/dwrite/ns-dwrite-dwrite_glyph_metrics)\***
+     * 
+     * An array of [**DWRITE\_GLYPH\_METRICS**](/windows/win32/api/dwrite/ns-dwrite-dwrite_glyph_metrics) structures filled by this function. The metrics are in font design units.
      * @see https://learn.microsoft.com/windows/win32/DirectWrite/idwritefontface-getgdicompatibleglyphmetrics
      */
     GetGdiCompatibleGlyphMetrics(emSize, pixelsPerDip, transform, useGdiNatural, glyphIndices, glyphCount, isSideways) {

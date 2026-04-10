@@ -1,14 +1,15 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
+#Include .\JET_COLUMNCREATE_A.ahk
+#Include .\JET_INDEXCREATE3_A.ahk
+#Include .\JET_SPACEHINTS.ahk
 #Include ..\StructuredStorage\JET_TABLEID.ahk
 
 /**
  * @namespace Windows.Win32.Storage.Jet
- * @version v4.0.30319
  * @charset ANSI
  */
-class JET_TABLECREATE4_A extends Win32Struct
-{
+class JET_TABLECREATE4_A extends Win32Struct {
     static sizeof => 120
 
     static packingSize => 8
@@ -136,7 +137,7 @@ class JET_TABLECREATE4_A extends Win32Struct
     /**
      * @type {JET_TABLEID}
      */
-    tableid{
+    tableid {
         get {
             if(!this.HasProp("__tableid"))
                 this.__tableid := JET_TABLEID(104, this)

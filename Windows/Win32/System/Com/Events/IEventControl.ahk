@@ -1,17 +1,15 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\..\Guid.ahk
-#Include ..\..\..\Foundation\BSTR.ahk
-#Include .\IEventObjectCollection.ahk
 #Include ..\IDispatch.ahk
+#Include .\IEventObjectCollection.ahk
 
 /**
  * Controls the behavior of an event object, the object that fires an event to its subscribers. (IEventControl)
  * @see https://learn.microsoft.com/windows/win32/api/eventsys/nn-eventsys-ieventcontrol
  * @namespace Windows.Win32.System.Com.Events
- * @version v4.0.30319
  */
-class IEventControl extends IDispatch{
+class IEventControl extends IDispatch {
 
     static sizeof => A_PtrSize
     /**

@@ -5,10 +5,8 @@
  * The SWbemQueryQualifiedName structure stores property names for the IWbemQuery::GetAnalysis method.
  * @see https://learn.microsoft.com/windows/win32/api/wmiutils/ns-wmiutils-swbemqueryqualifiedname
  * @namespace Windows.Win32.System.Wmi
- * @version v4.0.30319
  */
-class SWbemQueryQualifiedName extends Win32Struct
-{
+class SWbemQueryQualifiedName extends Win32Struct {
     static sizeof => 48
 
     static packingSize => 8

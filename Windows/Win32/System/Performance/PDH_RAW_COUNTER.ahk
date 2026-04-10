@@ -6,10 +6,8 @@
  * The PDH_RAW_COUNTER structure returns the data as it was collected from the counter provider. No translation, formatting, or other interpretation is performed on the data.
  * @see https://learn.microsoft.com/windows/win32/api/pdh/ns-pdh-pdh_raw_counter
  * @namespace Windows.Win32.System.Performance
- * @version v4.0.30319
  */
-class PDH_RAW_COUNTER extends Win32Struct
-{
+class PDH_RAW_COUNTER extends Win32Struct {
     static sizeof => 40
 
     static packingSize => 8
@@ -29,7 +27,7 @@ class PDH_RAW_COUNTER extends Win32Struct
      * <a href="https://docs.microsoft.com/windows/desktop/api/minwinbase/ns-minwinbase-filetime">FILETIME</a> format.
      * @type {FILETIME}
      */
-    TimeStamp{
+    TimeStamp {
         get {
             if(!this.HasProp("__TimeStamp"))
                 this.__TimeStamp := FILETIME(4, this)

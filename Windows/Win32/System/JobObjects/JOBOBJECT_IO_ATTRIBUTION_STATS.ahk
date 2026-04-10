@@ -3,10 +3,8 @@
 
 /**
  * @namespace Windows.Win32.System.JobObjects
- * @version v4.0.30319
  */
-class JOBOBJECT_IO_ATTRIBUTION_STATS extends Win32Struct
-{
+class JOBOBJECT_IO_ATTRIBUTION_STATS extends Win32Struct {
     static sizeof => 32
 
     static packingSize => 8

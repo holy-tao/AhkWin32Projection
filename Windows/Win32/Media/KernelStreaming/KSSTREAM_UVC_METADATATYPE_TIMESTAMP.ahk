@@ -3,10 +3,8 @@
 
 /**
  * @namespace Windows.Win32.Media.KernelStreaming
- * @version v4.0.30319
  */
-class KSSTREAM_UVC_METADATATYPE_TIMESTAMP extends Win32Struct
-{
+class KSSTREAM_UVC_METADATATYPE_TIMESTAMP extends Win32Struct {
     static sizeof => 16
 
     static packingSize => 4

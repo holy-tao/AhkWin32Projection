@@ -7,9 +7,8 @@
  * Contains methods for building a font set. (IDWriteFontSetBuilder2)
  * @see https://learn.microsoft.com/windows/win32/api/dwrite_3/nn-dwrite_3-idwritefontsetbuilder2
  * @namespace Windows.Win32.Graphics.DirectWrite
- * @version v4.0.30319
  */
-class IDWriteFontSetBuilder2 extends IDWriteFontSetBuilder1{
+class IDWriteFontSetBuilder2 extends IDWriteFontSetBuilder1 {
 
     static sizeof => A_PtrSize
     /**
@@ -40,7 +39,7 @@ class IDWriteFontSetBuilder2 extends IDWriteFontSetBuilder1{
      * @param {Integer} fontFaceIndex Type: **[UINT32](/windows/win32/winprog/windows-data-types)**
      * 
      * The zero-based index of a font face in a collection.
-     * @param {Integer} fontSimulations Type: **[DWRITE_FONT_SIMULATIONS](../dwrite/ne-dwrite-dwrite_font_simulations.md)**
+     * @param {DWRITE_FONT_SIMULATIONS} fontSimulations Type: **[DWRITE_FONT_SIMULATIONS](../dwrite/ne-dwrite-dwrite_font_simulations.md)**
      * 
      * Font face simulation flags for algorithmic emboldening and italicization.
      * @param {Pointer<DWRITE_FONT_AXIS_VALUE>} fontAxisValues Type: **[DWRITE_FONT_AXIS_VALUE](./ns-dwrite_3-dwrite_font_axis_value.md) const \***
@@ -55,7 +54,9 @@ class IDWriteFontSetBuilder2 extends IDWriteFontSetBuilder1{
      * @param {Integer} fontAxisRangeCount Type: **[UINT32](/windows/win32/winprog/windows-data-types)**
      * 
      * Number of axis ranges.
-     * @param {Pointer<DWRITE_FONT_PROPERTY>} _properties 
+     * @param {Pointer<DWRITE_FONT_PROPERTY>} _properties Type: **[DWRITE_FONT_PROPERTY](./ns-dwrite_3-dwrite_font_property.md) const \***
+     * 
+     * List of properties to associate with the reference.
      * @param {Integer} propertyCount Type: **[UINT32](/windows/win32/winprog/windows-data-types)**
      * 
      * The number of properties defined.

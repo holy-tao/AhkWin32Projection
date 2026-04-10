@@ -1,16 +1,14 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\..\Guid.ahk
-#Include .\IEnumSTATSTG.ahk
 #Include ..\IUnknown.ahk
 
 /**
  * Enumerates an array of STATSTG structures.
  * @see https://learn.microsoft.com/windows/win32/api/objidl/nn-objidl-ienumstatstg
  * @namespace Windows.Win32.System.Com.StructuredStorage
- * @version v4.0.30319
  */
-class IEnumSTATSTG extends IUnknown{
+class IEnumSTATSTG extends IUnknown {
 
     static sizeof => A_PtrSize
     /**

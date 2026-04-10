@@ -4,7 +4,6 @@
 
 /**
  * @namespace Windows.Win32.Graphics.DirectComposition
- * @version v4.0.30319
  */
 class DirectComposition {
 
@@ -137,7 +136,9 @@ class DirectComposition {
      * @param {IDCompositionVisual} visual Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/dcomp/nn-dcomp-idcompositionvisual">IDCompositionVisual</a>*</b>
      * 
      * The visual to route messages from.
-     * @param {HWND} _hwnd 
+     * @param {HWND} _hwnd Type: <b>HWND</b>
+     * 
+     * The HWND to route messages to.
      * @param {BOOL} enable Type: <b>BOOL</b>
      * 
      * Boolean value indicating whether to enable or disable routing.
@@ -158,7 +159,9 @@ class DirectComposition {
      * @param {IDCompositionVisual} visual Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/dcomp/nn-dcomp-idcompositionvisual">IDCompositionVisual</a>*</b>
      * 
      * The visual to route messages from.
-     * @param {HWND} _hwnd 
+     * @param {HWND} _hwnd Type: <b>HWND</b>
+     * 
+     * The HWND to route messages to.
      * @param {BOOL} enable Type: <b>BOOL</b>
      * 
      * Boolean value indicating whether to enable or disable routing.
@@ -176,7 +179,7 @@ class DirectComposition {
 
     /**
      * Gets the identifier of the most recent compositor frame of the specified type.
-     * @param {Integer} frameIdType Type: **[COMPOSITION_FRAME_ID_TYPE](../dcomptypes/ne-dcomptypes-composition_frame_id_type.md)**
+     * @param {COMPOSITION_FRAME_ID_TYPE} frameIdType Type: **[COMPOSITION_FRAME_ID_TYPE](../dcomptypes/ne-dcomptypes-composition_frame_id_type.md)**
      * 
      * The type of the compositor frame.
      * @returns {Integer} Type: **COMPOSITION_FRAME_ID\***

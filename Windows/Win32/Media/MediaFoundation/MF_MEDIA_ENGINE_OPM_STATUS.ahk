@@ -5,9 +5,8 @@
  * Defines the status of the Output Protection Manager (OPM).
  * @see https://learn.microsoft.com/windows/win32/api/mfmediaengine/ne-mfmediaengine-mf_media_engine_opm_status
  * @namespace Windows.Win32.Media.MediaFoundation
- * @version v4.0.30319
  */
-class MF_MEDIA_ENGINE_OPM_STATUS extends Win32Enum{
+class MF_MEDIA_ENGINE_OPM_STATUS extends Win32Enum {
 
     /**
      * Default status. Used to return the correct status when the content is unprotected.

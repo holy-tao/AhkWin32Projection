@@ -1,14 +1,14 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
+#Include .\WS_SECURITY_PROPERTY_CONSTRAINT.ahk
+#Include .\WS_SECURITY_BINDING_CONSTRAINT.ahk
 
 /**
  * This structure specifies the security related constraints as part of WS_POLICY_CONSTRAINTS.
  * @see https://learn.microsoft.com/windows/win32/api/webservices/ns-webservices-ws_security_constraints
  * @namespace Windows.Win32.Networking.WindowsWebServices
- * @version v4.0.30319
  */
-class WS_SECURITY_CONSTRAINTS extends Win32Struct
-{
+class WS_SECURITY_CONSTRAINTS extends Win32Struct {
     static sizeof => 32
 
     static packingSize => 8

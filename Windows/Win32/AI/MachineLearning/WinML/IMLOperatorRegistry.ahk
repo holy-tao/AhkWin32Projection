@@ -5,9 +5,8 @@
 
 /**
  * @namespace Windows.Win32.AI.MachineLearning.WinML
- * @version v4.0.30319
  */
-class IMLOperatorRegistry extends IUnknown{
+class IMLOperatorRegistry extends IUnknown {
 
     static sizeof => A_PtrSize
     /**

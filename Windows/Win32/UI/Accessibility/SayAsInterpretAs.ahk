@@ -5,9 +5,8 @@
  * Defines the values that indicate how a text-to-speech engine should interpret specific data.
  * @see https://learn.microsoft.com/windows/win32/api/uiautomationcore/ne-uiautomationcore-sayasinterpretas
  * @namespace Windows.Win32.UI.Accessibility
- * @version v4.0.30319
  */
-class SayAsInterpretAs extends Win32Enum{
+class SayAsInterpretAs extends Win32Enum {
 
     /**
      * The text should be spoken using the default for the text-to-speech engine.

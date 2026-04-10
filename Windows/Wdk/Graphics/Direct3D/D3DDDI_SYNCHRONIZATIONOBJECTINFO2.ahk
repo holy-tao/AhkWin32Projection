@@ -1,19 +1,18 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
+#Include .\D3DDDI_SYNCHRONIZATIONOBJECT_TYPE.ahk
 #Include ..\..\..\Win32\Foundation\HANDLE.ahk
 
 /**
  * @namespace Windows.Wdk.Graphics.Direct3D
- * @version v4.0.30319
  */
-class D3DDDI_SYNCHRONIZATIONOBJECTINFO2 extends Win32Struct
-{
+class D3DDDI_SYNCHRONIZATIONOBJECTINFO2 extends Win32Struct {
     static sizeof => 88
 
     static packingSize => 8
 
     /**
-     * @type {Integer}
+     * @type {D3DDDI_SYNCHRONIZATIONOBJECT_TYPE}
      */
     Type {
         get => NumGet(this, 0, "int")
@@ -21,7 +20,7 @@ class D3DDDI_SYNCHRONIZATIONOBJECTINFO2 extends Win32Struct
     }
 
     /**
-     * @type {Pointer<D3DDDI_SYNCHRONIZATIONOBJECT_FLAGS>}
+     * @type {Pointer}
      */
     Flags {
         get => NumGet(this, 8, "ptr")
@@ -39,7 +38,6 @@ class D3DDDI_SYNCHRONIZATIONOBJECTINFO2 extends Win32Struct
             get => NumGet(this, 0, "int")
             set => NumPut("int", value, this, 0)
         }
-    
     }
 
     class _Semaphore extends Win32Struct {
@@ -53,7 +51,7 @@ class D3DDDI_SYNCHRONIZATIONOBJECTINFO2 extends Win32Struct
             get => NumGet(this, 0, "uint")
             set => NumPut("uint", value, this, 0)
         }
-    
+
         /**
          * @type {Integer}
          */
@@ -61,7 +59,6 @@ class D3DDDI_SYNCHRONIZATIONOBJECTINFO2 extends Win32Struct
             get => NumGet(this, 4, "uint")
             set => NumPut("uint", value, this, 4)
         }
-    
     }
 
     class _Fence extends Win32Struct {
@@ -75,7 +72,6 @@ class D3DDDI_SYNCHRONIZATIONOBJECTINFO2 extends Win32Struct
             get => NumGet(this, 0, "uint")
             set => NumPut("uint", value, this, 0)
         }
-    
     }
 
     class _CPUNotification extends Win32Struct {
@@ -85,14 +81,13 @@ class D3DDDI_SYNCHRONIZATIONOBJECTINFO2 extends Win32Struct
         /**
          * @type {HANDLE}
          */
-        Event{
+        Event {
             get {
                 if(!this.HasProp("__Event"))
                     this.__Event := HANDLE(0, this)
                 return this.__Event
             }
         }
-    
     }
 
     class _MonitoredFence extends Win32Struct {
@@ -106,7 +101,7 @@ class D3DDDI_SYNCHRONIZATIONOBJECTINFO2 extends Win32Struct
             get => NumGet(this, 0, "uint")
             set => NumPut("uint", value, this, 0)
         }
-    
+
         /**
          * @type {Pointer<Void>}
          */
@@ -114,7 +109,7 @@ class D3DDDI_SYNCHRONIZATIONOBJECTINFO2 extends Win32Struct
             get => NumGet(this, 8, "ptr")
             set => NumPut("ptr", value, this, 8)
         }
-    
+
         /**
          * @type {Integer}
          */
@@ -122,7 +117,7 @@ class D3DDDI_SYNCHRONIZATIONOBJECTINFO2 extends Win32Struct
             get => NumGet(this, 16, "uint")
             set => NumPut("uint", value, this, 16)
         }
-    
+
         /**
          * @type {Integer}
          */
@@ -130,7 +125,7 @@ class D3DDDI_SYNCHRONIZATIONOBJECTINFO2 extends Win32Struct
             get => NumGet(this, 24, "uint")
             set => NumPut("uint", value, this, 24)
         }
-    
+
         /**
          * @type {Integer}
          */
@@ -138,7 +133,6 @@ class D3DDDI_SYNCHRONIZATIONOBJECTINFO2 extends Win32Struct
             get => NumGet(this, 28, "uint")
             set => NumPut("uint", value, this, 28)
         }
-    
     }
 
     class _PeriodicMonitoredFence extends Win32Struct {
@@ -152,7 +146,7 @@ class D3DDDI_SYNCHRONIZATIONOBJECTINFO2 extends Win32Struct
             get => NumGet(this, 0, "uint")
             set => NumPut("uint", value, this, 0)
         }
-    
+
         /**
          * @type {Integer}
          */
@@ -160,7 +154,7 @@ class D3DDDI_SYNCHRONIZATIONOBJECTINFO2 extends Win32Struct
             get => NumGet(this, 4, "uint")
             set => NumPut("uint", value, this, 4)
         }
-    
+
         /**
          * @type {Integer}
          */
@@ -168,7 +162,7 @@ class D3DDDI_SYNCHRONIZATIONOBJECTINFO2 extends Win32Struct
             get => NumGet(this, 8, "uint")
             set => NumPut("uint", value, this, 8)
         }
-    
+
         /**
          * @type {Pointer<Void>}
          */
@@ -176,7 +170,7 @@ class D3DDDI_SYNCHRONIZATIONOBJECTINFO2 extends Win32Struct
             get => NumGet(this, 16, "ptr")
             set => NumPut("ptr", value, this, 16)
         }
-    
+
         /**
          * @type {Integer}
          */
@@ -184,7 +178,7 @@ class D3DDDI_SYNCHRONIZATIONOBJECTINFO2 extends Win32Struct
             get => NumGet(this, 24, "uint")
             set => NumPut("uint", value, this, 24)
         }
-    
+
         /**
          * @type {Integer}
          */
@@ -192,7 +186,7 @@ class D3DDDI_SYNCHRONIZATIONOBJECTINFO2 extends Win32Struct
             get => NumGet(this, 32, "uint")
             set => NumPut("uint", value, this, 32)
         }
-    
+
         /**
          * @type {Integer}
          */
@@ -200,16 +194,15 @@ class D3DDDI_SYNCHRONIZATIONOBJECTINFO2 extends Win32Struct
             get => NumGet(this, 36, "uint")
             set => NumPut("uint", value, this, 36)
         }
-    
     }
 
     /**
      * @type {_SynchronizationMutex}
      */
-    SynchronizationMutex{
+    SynchronizationMutex {
         get {
             if(!this.HasProp("__SynchronizationMutex"))
-                this.__SynchronizationMutex := %this.__Class%._SynchronizationMutex(16, this)
+                this.__SynchronizationMutex := D3DDDI_SYNCHRONIZATIONOBJECTINFO2._SynchronizationMutex(16, this)
             return this.__SynchronizationMutex
         }
     }
@@ -217,10 +210,10 @@ class D3DDDI_SYNCHRONIZATIONOBJECTINFO2 extends Win32Struct
     /**
      * @type {_Semaphore}
      */
-    Semaphore{
+    Semaphore {
         get {
             if(!this.HasProp("__Semaphore"))
-                this.__Semaphore := %this.__Class%._Semaphore(16, this)
+                this.__Semaphore := D3DDDI_SYNCHRONIZATIONOBJECTINFO2._Semaphore(16, this)
             return this.__Semaphore
         }
     }
@@ -228,10 +221,10 @@ class D3DDDI_SYNCHRONIZATIONOBJECTINFO2 extends Win32Struct
     /**
      * @type {_Fence}
      */
-    Fence{
+    Fence {
         get {
             if(!this.HasProp("__Fence"))
-                this.__Fence := %this.__Class%._Fence(16, this)
+                this.__Fence := D3DDDI_SYNCHRONIZATIONOBJECTINFO2._Fence(16, this)
             return this.__Fence
         }
     }
@@ -239,10 +232,10 @@ class D3DDDI_SYNCHRONIZATIONOBJECTINFO2 extends Win32Struct
     /**
      * @type {_CPUNotification}
      */
-    CPUNotification{
+    CPUNotification {
         get {
             if(!this.HasProp("__CPUNotification"))
-                this.__CPUNotification := %this.__Class%._CPUNotification(16, this)
+                this.__CPUNotification := D3DDDI_SYNCHRONIZATIONOBJECTINFO2._CPUNotification(16, this)
             return this.__CPUNotification
         }
     }
@@ -250,10 +243,10 @@ class D3DDDI_SYNCHRONIZATIONOBJECTINFO2 extends Win32Struct
     /**
      * @type {_MonitoredFence}
      */
-    MonitoredFence{
+    MonitoredFence {
         get {
             if(!this.HasProp("__MonitoredFence"))
-                this.__MonitoredFence := %this.__Class%._MonitoredFence(16, this)
+                this.__MonitoredFence := D3DDDI_SYNCHRONIZATIONOBJECTINFO2._MonitoredFence(16, this)
             return this.__MonitoredFence
         }
     }
@@ -261,10 +254,10 @@ class D3DDDI_SYNCHRONIZATIONOBJECTINFO2 extends Win32Struct
     /**
      * @type {_PeriodicMonitoredFence}
      */
-    PeriodicMonitoredFence{
+    PeriodicMonitoredFence {
         get {
             if(!this.HasProp("__PeriodicMonitoredFence"))
-                this.__PeriodicMonitoredFence := %this.__Class%._PeriodicMonitoredFence(16, this)
+                this.__PeriodicMonitoredFence := D3DDDI_SYNCHRONIZATIONOBJECTINFO2._PeriodicMonitoredFence(16, this)
             return this.__PeriodicMonitoredFence
         }
     }
@@ -272,10 +265,10 @@ class D3DDDI_SYNCHRONIZATIONOBJECTINFO2 extends Win32Struct
     /**
      * @type {_Reserved}
      */
-    Reserved{
+    Reserved {
         get {
             if(!this.HasProp("__Reserved"))
-                this.__Reserved := %this.__Class%._Reserved(16, this)
+                this.__Reserved := D3DDDI_SYNCHRONIZATIONOBJECTINFO2._Reserved(16, this)
             return this.__Reserved
         }
     }

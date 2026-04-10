@@ -3,10 +3,8 @@
 
 /**
  * @namespace Windows.Win32.Devices.Display
- * @version v4.0.30319
  */
-class POINTFIX extends Win32Struct
-{
+class POINTFIX extends Win32Struct {
     static sizeof => 8
 
     static packingSize => 4

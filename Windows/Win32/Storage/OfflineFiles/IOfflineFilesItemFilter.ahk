@@ -7,9 +7,8 @@
  * Represents an instance of a filter to be applied to an enumeration.
  * @see https://learn.microsoft.com/windows/win32/api/cscobj/nn-cscobj-iofflinefilesitemfilter
  * @namespace Windows.Win32.Storage.OfflineFiles
- * @version v4.0.30319
  */
-class IOfflineFilesItemFilter extends IUnknown{
+class IOfflineFilesItemFilter extends IUnknown {
 
     static sizeof => A_PtrSize
     /**
@@ -81,10 +80,10 @@ class IOfflineFilesItemFilter extends IUnknown{
      * @param {Pointer<BOOL>} pbEvalTimeOfDay Receives a Boolean value indicating whether the time-of-day part of the <a href="https://docs.microsoft.com/windows/desktop/api/minwinbase/ns-minwinbase-filetime">FILETIME</a> value is to be considered in the item evaluation.  If the flag value is <b>TRUE</b>, the time-of-day is considered.  If the flag value is <b>FALSE</b>, the time-of-day information is stripped from all time values involved in the evaluation; leaving only the year, month, and day.
      * 
      * This can be very helpful when the granularity of filtering is a day.
-     * @param {Pointer<Integer>} pTimeType Receives an <a href="https://docs.microsoft.com/windows/desktop/api/cscobj/ne-cscobj-offlinefiles_item_time">OFFLINEFILES_ITEM_TIME</a> enumeration value that indicates which time value associated with the cache item is to be used in the evaluation.
+     * @param {Pointer<OFFLINEFILES_ITEM_TIME>} pTimeType Receives an <a href="https://docs.microsoft.com/windows/desktop/api/cscobj/ne-cscobj-offlinefiles_item_time">OFFLINEFILES_ITEM_TIME</a> enumeration value that indicates which time value associated with the cache item is to be used in the evaluation.
      * 
      * Only one value is to be provided.  This is not a mask.
-     * @param {Pointer<Integer>} pCompare Receives an <a href="https://docs.microsoft.com/windows/desktop/api/cscobj/ne-cscobj-offlinefiles_compare">OFFLINEFILES_COMPARE</a> enumeration value that indicates the type of logical comparison to perform between the selected item time and the filter time pointed to by the <i>pftTime</i> parameter.
+     * @param {Pointer<OFFLINEFILES_COMPARE>} pCompare Receives an <a href="https://docs.microsoft.com/windows/desktop/api/cscobj/ne-cscobj-offlinefiles_compare">OFFLINEFILES_COMPARE</a> enumeration value that indicates the type of logical comparison to perform between the selected item time and the filter time pointed to by the <i>pftTime</i> parameter.
      * @returns {HRESULT} Returns <b>S_OK</b> if the filter supports time filtering and the time filtering information is provided.
      * 
      * Returns <b>E_NOTIMPL</b> if time filtering is not supported.

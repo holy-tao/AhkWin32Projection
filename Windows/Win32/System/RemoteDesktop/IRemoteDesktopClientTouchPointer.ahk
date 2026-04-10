@@ -7,9 +7,8 @@
  * Provides the properties needed to control the touch pointer feature of the Remote Desktop Protocol (RDP) app container client control.
  * @see https://learn.microsoft.com/windows/win32/api/rdpappcontainerclient/nn-rdpappcontainerclient-iremotedesktopclienttouchpointer
  * @namespace Windows.Win32.System.RemoteDesktop
- * @version v4.0.30319
  */
-class IRemoteDesktopClientTouchPointer extends IDispatch{
+class IRemoteDesktopClientTouchPointer extends IDispatch {
 
     static sizeof => A_PtrSize
     /**

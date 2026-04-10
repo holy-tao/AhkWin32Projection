@@ -5,9 +5,8 @@
  * Network requests are being made.
  * @see https://learn.microsoft.com/windows/win32/api/wininet/ns-wininet-internet_connected_info
  * @namespace Windows.Win32.Networking.WinInet
- * @version v4.0.30319
  */
-class INTERNET_STATE extends Win32Enum{
+class INTERNET_STATE extends Win32Enum {
 
     /**
      * @type {Integer (UInt32)}

@@ -1,21 +1,19 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
-#Include ..\..\Foundation\BSTR.ahk
+#Include ..\Com\IDispatch.ahk
 #Include .\IRDPSRAPISessionProperties.ahk
 #Include .\IRDPSRAPIAttendeeManager.ahk
 #Include .\IRDPSRAPIInvitationManager.ahk
 #Include .\IRDPSRAPIApplicationFilter.ahk
 #Include .\IRDPSRAPIVirtualChannelManager.ahk
-#Include ..\Com\IDispatch.ahk
 
 /**
  * The main object that an application must create to start a collaboration session. (IRDPSRAPISharingSession)
  * @see https://learn.microsoft.com/windows/win32/api/rdpencomapi/nn-rdpencomapi-irdpsrapisharingsession
  * @namespace Windows.Win32.System.DesktopSharing
- * @version v4.0.30319
  */
-class IRDPSRAPISharingSession extends IDispatch{
+class IRDPSRAPISharingSession extends IDispatch {
 
     static sizeof => A_PtrSize
     /**

@@ -3,9 +3,8 @@
 
 /**
  * @namespace Windows.Win32.Security.Cryptography.Certificates
- * @version v4.0.30319
  */
-class CERT_EXIT_EVENT_MASK extends Win32BitflagEnum{
+class CERT_EXIT_EVENT_MASK extends Win32BitflagEnum {
 
     /**
      * @type {Integer (UInt32)}

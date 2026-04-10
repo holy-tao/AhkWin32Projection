@@ -6,10 +6,8 @@
  * Contains information about a notification message. (NMHDR)
  * @see https://learn.microsoft.com/windows/win32/api/winuser/ns-winuser-nmhdr
  * @namespace Windows.Win32.UI.Controls
- * @version v4.0.30319
  */
-class NMHDR extends Win32Struct
-{
+class NMHDR extends Win32Struct {
     static sizeof => 24
 
     static packingSize => 8
@@ -20,7 +18,7 @@ class NMHDR extends Win32Struct
      * A window handle to the control sending the message.
      * @type {HWND}
      */
-    hwndFrom{
+    hwndFrom {
         get {
             if(!this.HasProp("__hwndFrom"))
                 this.__hwndFrom := HWND(0, this)

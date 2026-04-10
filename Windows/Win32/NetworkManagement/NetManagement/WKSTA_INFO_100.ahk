@@ -5,10 +5,8 @@
  * Contains information about a workstation environment, including platform-specific information, the names of the domain and the local computer, and information concerning the operating system.
  * @see https://learn.microsoft.com/windows/win32/api/lmwksta/ns-lmwksta-wksta_info_100
  * @namespace Windows.Win32.NetworkManagement.NetManagement
- * @version v4.0.30319
  */
-class WKSTA_INFO_100 extends Win32Struct
-{
+class WKSTA_INFO_100 extends Win32Struct {
     static sizeof => 32
 
     static packingSize => 8

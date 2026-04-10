@@ -7,9 +7,8 @@
  * Represents the diagnostics policy part of the WDS transport server's configuration.
  * @see https://learn.microsoft.com/windows/win32/api/wdstptmgmt/nn-wdstptmgmt-iwdstransportdiagnosticspolicy
  * @namespace Windows.Win32.System.DeploymentServices
- * @version v4.0.30319
  */
-class IWdsTransportDiagnosticsPolicy extends IWdsTransportCacheable{
+class IWdsTransportDiagnosticsPolicy extends IWdsTransportCacheable {
 
     static sizeof => A_PtrSize
     /**

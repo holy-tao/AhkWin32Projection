@@ -24,10 +24,8 @@
  * Scoped endpoints are generally used by the cluster namespace.
  * @see https://learn.microsoft.com/windows/win32/api/lmserver/ns-lmserver-server_transport_info_3
  * @namespace Windows.Win32.NetworkManagement.NetManagement
- * @version v4.0.30319
  */
-class SERVER_TRANSPORT_INFO_3 extends Win32Struct
-{
+class SERVER_TRANSPORT_INFO_3 extends Win32Struct {
     static sizeof => 312
 
     static packingSize => 8
@@ -76,7 +74,6 @@ class SERVER_TRANSPORT_INFO_3 extends Win32Struct
     }
 
     /**
-     * 
      * @type {Integer}
      */
     svti3_transportaddresslength {
@@ -179,9 +176,9 @@ class SERVER_TRANSPORT_INFO_3 extends Win32Struct
      * Type: <b>BYTE[256]</b>
      * 
      * The credentials to use for the new transport address. If the <b>svti3_passwordlength</b> member is zero, the credentials for the server are used.
-     * @type {Array<Byte>}
+     * @type {Array<Integer>}
      */
-    svti3_password{
+    svti3_password {
         get {
             if(!this.HasProp("__svti3_passwordProxyArray"))
                 this.__svti3_passwordProxyArray := Win32FixedArray(this.ptr + 56, 256, Primitive, "char")

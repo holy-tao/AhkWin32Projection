@@ -5,9 +5,8 @@
 
 /**
  * @namespace Windows.Win32.System.Diagnostics.Debug.Extensions
- * @version v4.0.30319
  */
-class IDebugHostFunctionIntrospection3 extends IDebugHostFunctionIntrospection2{
+class IDebugHostFunctionIntrospection3 extends IDebugHostFunctionIntrospection2 {
 
     static sizeof => A_PtrSize
     /**

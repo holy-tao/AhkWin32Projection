@@ -1,6 +1,7 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
 #Include .\EMR.ahk
+#Include .\ENHANCED_METAFILE_RECORD_TYPE.ahk
 #Include ..\..\Foundation\RECTL.ahk
 #Include .\XFORM.ahk
 
@@ -8,10 +9,8 @@
  * The EMRBITBLT structure contains members for the BitBlt enhanced metafile record. Note that graphics device interface (GDI) converts the device-dependent bitmap into a device-independent bitmap (DIB) before storing it in the metafile record.
  * @see https://learn.microsoft.com/windows/win32/api/wingdi/ns-wingdi-emrbitblt
  * @namespace Windows.Win32.Graphics.Gdi
- * @version v4.0.30319
  */
-class EMRBITBLT extends Win32Struct
-{
+class EMRBITBLT extends Win32Struct {
     static sizeof => 100
 
     static packingSize => 4
@@ -20,7 +19,7 @@ class EMRBITBLT extends Win32Struct
      * The base structure for all record types.
      * @type {EMR}
      */
-    emr{
+    emr {
         get {
             if(!this.HasProp("__emr"))
                 this.__emr := EMR(0, this)
@@ -32,7 +31,7 @@ class EMRBITBLT extends Win32Struct
      * Bounding rectangle, in device units.
      * @type {RECTL}
      */
-    rclBounds{
+    rclBounds {
         get {
             if(!this.HasProp("__rclBounds"))
                 this.__rclBounds := RECTL(8, this)
@@ -107,7 +106,7 @@ class EMRBITBLT extends Win32Struct
      * World-space to page-space transformation of the source device context.
      * @type {XFORM}
      */
-    xformSrc{
+    xformSrc {
         get {
             if(!this.HasProp("__xformSrc"))
                 this.__xformSrc := XFORM(52, this)

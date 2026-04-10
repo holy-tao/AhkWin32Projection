@@ -3,10 +3,8 @@
 
 /**
  * @namespace Windows.Win32.Data.HtmlHelp
- * @version v4.0.30319
  */
-class HH_ENUM_IT extends Win32Struct
-{
+class HH_ENUM_IT extends Win32Struct {
     static sizeof => 32
 
     static packingSize => 8

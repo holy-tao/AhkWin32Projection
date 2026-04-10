@@ -1,11 +1,12 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
+#Include ..\..\System\Com\IUnknown.ahk
+#Include ..\..\..\..\Guid.ahk
 #Include .\IWICBitmapDecoderInfo.ahk
 #Include .\IWICMetadataQueryReader.ahk
 #Include .\IWICBitmapSource.ahk
 #Include .\IWICBitmapFrameDecode.ahk
-#Include ..\..\System\Com\IUnknown.ahk
 
 /**
  * Exposes methods that represent a decoder.
@@ -64,9 +65,8 @@
  * CLSID_WICHeifDecoder operates on HEIF (High Efficiency Image Format) images.
  * @see https://learn.microsoft.com/windows/win32/api/wincodec/nn-wincodec-iwicbitmapdecoder
  * @namespace Windows.Win32.Graphics.Imaging
- * @version v4.0.30319
  */
-class IWICBitmapDecoder extends IUnknown{
+class IWICBitmapDecoder extends IUnknown {
 
     static sizeof => A_PtrSize
     /**
@@ -111,7 +111,7 @@ class IWICBitmapDecoder extends IUnknown{
      * The stream to use for initialization.
      * 
      * The stream contains the encoded pixels which are decoded each time the <a href="https://docs.microsoft.com/windows/desktop/api/wincodec/nf-wincodec-iwicbitmapsource-copypixels">CopyPixels</a> method on the <a href="https://docs.microsoft.com/windows/desktop/api/wincodec/nn-wincodec-iwicbitmapframedecode">IWICBitmapFrameDecode</a> interface (see <a href="https://docs.microsoft.com/windows/desktop/api/wincodec/nf-wincodec-iwicbitmapdecoder-getframe">GetFrame</a>) is invoked.
-     * @param {Integer} cacheOptions Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/wincodec/ne-wincodec-wicdecodeoptions">WICDecodeOptions</a></b>
+     * @param {WICDecodeOptions} cacheOptions Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/wincodec/ne-wincodec-wicdecodeoptions">WICDecodeOptions</a></b>
      * 
      * The <a href="https://docs.microsoft.com/windows/desktop/api/wincodec/ne-wincodec-wicdecodeoptions">WICDecodeOptions</a> to use for initialization.
      * @returns {HRESULT} Type: <b>HRESULT</b>

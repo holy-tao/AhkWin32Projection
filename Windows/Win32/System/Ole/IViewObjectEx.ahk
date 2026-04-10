@@ -1,17 +1,16 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
+#Include .\IViewObject2.ahk
 #Include ..\..\Foundation\RECTL.ahk
 #Include ..\..\Foundation\SIZE.ahk
-#Include .\IViewObject2.ahk
 
 /**
  * An extension derived from IViewObject2 to provide support for Enhanced, flicker-free drawing for non-rectangular objects and transparent objects, hit testing for non-rectangular objects, and Control sizing
  * @see https://learn.microsoft.com/windows/win32/api/ocidl/nn-ocidl-iviewobjectex
  * @namespace Windows.Win32.System.Ole
- * @version v4.0.30319
  */
-class IViewObjectEx extends IViewObject2{
+class IViewObjectEx extends IViewObject2 {
 
     static sizeof => A_PtrSize
     /**
@@ -228,7 +227,7 @@ class IViewObjectEx extends IViewObject2{
      * <li>The object calls <a href="https://docs.microsoft.com/windows/desktop/api/oleidl/nf-oleidl-ioleinplacesite-onposrectchange">IOleInPlaceSite::OnPosRectChange</a> to specify that it requires resizing.</li>
      * <li>The container calls <a href="https://docs.microsoft.com/windows/desktop/api/oleidl/nf-oleidl-ioleinplaceobject-setobjectrects">IOleInPlaceObject::SetObjectRects</a> and specifies the new size.</li>
      * </ol>
-     * @param {Integer} dwAspect 
+     * @param {DVASPECT} dwAspect 
      * @param {Integer} lindex Indicates the portion of the object that is of interest for the draw operation. Its interpretation varies depending on the value in the <i>dwAspect</i> parameter. See the <a href="https://docs.microsoft.com/windows/desktop/api/wtypes/ne-wtypes-dvaspect">DVASPECT</a> enumeration for more information.
      * @param {Pointer<DVTARGETDEVICE>} ptd Pointer to the target device structure that describes the device for which the object is to be rendered. If <b>NULL</b>, the view should be rendered for the default target device (typically the display). A value other than <b>NULL</b> is interpreted in conjunction with <i>hicTargetDev</i> and <b>hdcDraw</b>. For example, if <b>hdcDraw</b> specifies a printer as the device context, the <i>ptd</i> parameter points to a structure describing that printer device. The data may actually be printed if <i>hicTargetDev</i> is a valid value or it may be displayed in print preview mode if <i>hicTargetDev</i> is <b>NULL</b>.
      * @param {HDC} hicTargetDev Specifies the information context for the target device indicated by the ptd parameter from which the object can extract device metrics and test the device's capabilities. If <i>ptd</i> is <b>NULL</b>; the object should ignore the value in the <i>hicTargetDev</i> parameter.

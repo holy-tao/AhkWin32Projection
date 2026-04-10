@@ -3,17 +3,15 @@
 
 /**
  * @namespace Windows.Win32.Storage.FileSystem
- * @version v4.0.30319
  * @charset Unicode
  */
-class NTMS_I1_PARTITIONINFORMATIONW extends Win32Struct
-{
+class NTMS_I1_PARTITIONINFORMATIONW extends Win32Struct {
     static sizeof => 936
 
     static packingSize => 8
 
     /**
-     * @type {Pointer<Guid>}
+     * @type {Pointer}
      */
     PhysicalMedia {
         get => NumGet(this, 0, "ptr")
@@ -21,7 +19,7 @@ class NTMS_I1_PARTITIONINFORMATIONW extends Win32Struct
     }
 
     /**
-     * @type {Pointer<Guid>}
+     * @type {Pointer}
      */
     LogicalMedia {
         get => NumGet(this, 8, "ptr")
@@ -53,9 +51,9 @@ class NTMS_I1_PARTITIONINFORMATIONW extends Win32Struct
     }
 
     /**
-     * @type {Array<Byte>}
+     * @type {Array<Integer>}
      */
-    OmidLabelId{
+    OmidLabelId {
         get {
             if(!this.HasProp("__OmidLabelIdProxyArray"))
                 this.__OmidLabelIdProxyArray := Win32FixedArray(this.ptr + 28, 255, Primitive, "char")

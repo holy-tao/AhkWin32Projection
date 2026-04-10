@@ -8,17 +8,15 @@
  * An invitation request is typically sent by a peer after a contact appears online within the peer collaboration network and a call to <a href="https://docs.microsoft.com/windows/desktop/api/p2p/nf-p2p-peercollabenumapplications">PeerCollabEnumApplications</a> returns a common software application (represented as a application GUID) available on the contact's endpoint.
  * @see https://learn.microsoft.com/windows/win32/api/p2p/ns-p2p-peer_invitation
  * @namespace Windows.Win32.NetworkManagement.P2P
- * @version v4.0.30319
  */
-class PEER_INVITATION extends Win32Struct
-{
+class PEER_INVITATION extends Win32Struct {
     static sizeof => 32
 
     static packingSize => 8
 
     /**
      * GUID value that uniquely identifies the registered software or software component for the peer collaboration activity.
-     * @type {Pointer<Guid>}
+     * @type {Pointer}
      */
     applicationId {
         get => NumGet(this, 0, "ptr")
@@ -27,10 +25,10 @@ class PEER_INVITATION extends Win32Struct
 
     /**
      * <a href="https://docs.microsoft.com/windows/desktop/api/p2p/ns-p2p-peer_data">PEER_DATA</a> structure that contains opaque data describing possible additional application-specific settings (for example, an address and port on which the activity will occur, or a specific video codec to use). This data is limited to 16K.
-     * @deprecated 
+     * @deprecated
      * @type {PEER_DATA}
      */
-    applicationData{
+    applicationData {
         get {
             if(!this.HasProp("__applicationData"))
                 this.__applicationData := PEER_DATA(8, this)

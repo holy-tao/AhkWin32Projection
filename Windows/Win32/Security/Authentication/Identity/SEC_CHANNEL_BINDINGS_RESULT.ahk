@@ -3,10 +3,8 @@
 
 /**
  * @namespace Windows.Win32.Security.Authentication.Identity
- * @version v4.0.30319
  */
-class SEC_CHANNEL_BINDINGS_RESULT extends Win32Struct
-{
+class SEC_CHANNEL_BINDINGS_RESULT extends Win32Struct {
     static sizeof => 4
 
     static packingSize => 4

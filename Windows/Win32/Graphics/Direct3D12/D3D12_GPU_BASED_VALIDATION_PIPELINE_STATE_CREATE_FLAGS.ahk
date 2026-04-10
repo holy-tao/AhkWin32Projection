@@ -9,9 +9,8 @@
  * Generally speaking most application developers are likely to leave this parameter unchanged.  However, if the overhead of deferring patched PSO creation is suspected to be too much of a performance problem, then developers should consider changing this setting.
  * @see https://learn.microsoft.com/windows/win32/api/d3d12sdklayers/ne-d3d12sdklayers-d3d12_gpu_based_validation_pipeline_state_create_flags
  * @namespace Windows.Win32.Graphics.Direct3D12
- * @version v4.0.30319
  */
-class D3D12_GPU_BASED_VALIDATION_PIPELINE_STATE_CREATE_FLAGS extends Win32BitflagEnum{
+class D3D12_GPU_BASED_VALIDATION_PIPELINE_STATE_CREATE_FLAGS extends Win32BitflagEnum {
 
     /**
      * This is the default value.  Indicates no patching of pipeline states should be done during PSO creation.  Instead PSO’s are patched on first use in a command list.  This can help to reduce the up-front cost of PSO creation but may instead slow down command list recording until a steady-state is reached.

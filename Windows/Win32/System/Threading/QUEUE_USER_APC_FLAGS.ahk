@@ -16,9 +16,8 @@
  * ```
  * @see https://learn.microsoft.com/windows/win32/api/processthreadsapi/ne-processthreadsapi-queue_user_apc_flags
  * @namespace Windows.Win32.System.Threading
- * @version v4.0.30319
  */
-class QUEUE_USER_APC_FLAGS extends Win32Enum{
+class QUEUE_USER_APC_FLAGS extends Win32Enum {
 
     /**
      * No flags are passed. Behavior is identical to [QueueUserAPC function](nf-processthreadsapi-queueuserapc.md).

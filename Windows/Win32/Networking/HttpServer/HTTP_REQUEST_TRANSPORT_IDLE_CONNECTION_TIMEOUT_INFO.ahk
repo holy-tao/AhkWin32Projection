@@ -3,10 +3,8 @@
 
 /**
  * @namespace Windows.Win32.Networking.HttpServer
- * @version v4.0.30319
  */
-class HTTP_REQUEST_TRANSPORT_IDLE_CONNECTION_TIMEOUT_INFO extends Win32Struct
-{
+class HTTP_REQUEST_TRANSPORT_IDLE_CONNECTION_TIMEOUT_INFO extends Win32Struct {
     static sizeof => 2
 
     static packingSize => 2

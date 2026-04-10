@@ -9,9 +9,8 @@
  * This interface is not supported on Windows 7 for the IA64 architecture.
  * @see https://learn.microsoft.com/windows/win32/api/relogger/nn-relogger-itraceeventcallback
  * @namespace Windows.Win32.System.Diagnostics.Etw
- * @version v4.0.30319
  */
-class ITraceEventCallback extends IUnknown{
+class ITraceEventCallback extends IUnknown {
 
     static sizeof => A_PtrSize
     /**

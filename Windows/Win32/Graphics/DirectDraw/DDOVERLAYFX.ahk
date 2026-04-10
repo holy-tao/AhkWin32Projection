@@ -1,5 +1,6 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
+#Include .\IDirectDrawSurface.ahk
 #Include .\DDCOLORKEY.ahk
 
 /**
@@ -8,10 +9,8 @@
  * The unions in this structure have been updated to work with compilers that do not support nameless unions. If your compiler does not support nameless unions, define the NONAMELESSUNION token before including the Ddraw.h header file.
  * @see https://learn.microsoft.com/windows/win32/api/ddraw/ns-ddraw-ddoverlayfx
  * @namespace Windows.Win32.Graphics.DirectDraw
- * @version v4.0.30319
  */
-class DDOVERLAYFX extends Win32Struct
-{
+class DDOVERLAYFX extends Win32Struct {
     static sizeof => 72
 
     static packingSize => 8
@@ -106,7 +105,7 @@ class DDOVERLAYFX extends Win32Struct
      * Destination color key for the overlay.
      * @type {DDCOLORKEY}
      */
-    dckDestColorkey{
+    dckDestColorkey {
         get {
             if(!this.HasProp("__dckDestColorkey"))
                 this.__dckDestColorkey := DDCOLORKEY(48, this)
@@ -118,7 +117,7 @@ class DDOVERLAYFX extends Win32Struct
      * Source color key for the overlay.
      * @type {DDCOLORKEY}
      */
-    dckSrcColorkey{
+    dckSrcColorkey {
         get {
             if(!this.HasProp("__dckSrcColorkey"))
                 this.__dckSrcColorkey := DDCOLORKEY(56, this)

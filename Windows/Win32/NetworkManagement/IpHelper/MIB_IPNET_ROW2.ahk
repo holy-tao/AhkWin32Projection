@@ -1,12 +1,14 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
-#Include ..\..\Networking\WinSock\IN_ADDR.ahk
+#Include ..\..\Networking\WinSock\SOCKADDR_INET.ahk
 #Include ..\..\Networking\WinSock\SOCKADDR_IN.ahk
+#Include ..\..\Networking\WinSock\ADDRESS_FAMILY.ahk
+#Include ..\..\Networking\WinSock\IN_ADDR.ahk
+#Include ..\..\Networking\WinSock\SOCKADDR_IN6.ahk
 #Include ..\..\Networking\WinSock\IN6_ADDR.ahk
 #Include ..\..\Networking\WinSock\SCOPE_ID.ahk
-#Include ..\..\Networking\WinSock\SOCKADDR_IN6.ahk
-#Include ..\..\Networking\WinSock\SOCKADDR_INET.ahk
 #Include ..\Ndis\NET_LUID_LH.ahk
+#Include ..\..\Networking\WinSock\NL_NEIGHBOR_STATE.ahk
 
 /**
  * Stores information about a neighbor IP address.
@@ -22,11 +24,9 @@
  * Note that the <i>Netioapi.h</i> header file is automatically included in the <i>Iphlpapi.h</i> header file. The  <i>Netioapi.h</i> header file should never be used directly.
  * @see https://learn.microsoft.com/windows/win32/api/netioapi/ns-netioapi-mib_ipnet_row2
  * @namespace Windows.Win32.NetworkManagement.IpHelper
- * @version v4.0.30319
  */
-class MIB_IPNET_ROW2 extends Win32Struct
-{
-    static sizeof => 128
+class MIB_IPNET_ROW2 extends Win32Struct {
+    static sizeof => 120
 
     static packingSize => 8
 
@@ -41,7 +41,7 @@ class MIB_IPNET_ROW2 extends Win32Struct
             get => NumGet(this, 0, "uint")
             set => NumPut("uint", value, this, 0)
         }
-    
+
         /**
          * @type {Integer}
          */
@@ -49,7 +49,6 @@ class MIB_IPNET_ROW2 extends Win32Struct
             get => NumGet(this, 0, "uint")
             set => NumPut("uint", value, this, 0)
         }
-    
     }
 
     /**
@@ -58,7 +57,7 @@ class MIB_IPNET_ROW2 extends Win32Struct
      * The neighbor IP address. This member can be an IPv6 address or an IPv4 address.
      * @type {SOCKADDR_INET}
      */
-    Address{
+    Address {
         get {
             if(!this.HasProp("__Address"))
                 this.__Address := SOCKADDR_INET(0, this)
@@ -73,8 +72,8 @@ class MIB_IPNET_ROW2 extends Win32Struct
      * @type {Integer}
      */
     InterfaceIndex {
-        get => NumGet(this, 56, "uint")
-        set => NumPut("uint", value, this, 56)
+        get => NumGet(this, 48, "uint")
+        set => NumPut("uint", value, this, 48)
     }
 
     /**
@@ -83,10 +82,10 @@ class MIB_IPNET_ROW2 extends Win32Struct
      * The locally unique identifier (LUID) for the network interface associated with this IP address.
      * @type {NET_LUID_LH}
      */
-    InterfaceLuid{
+    InterfaceLuid {
         get {
             if(!this.HasProp("__InterfaceLuid"))
-                this.__InterfaceLuid := NET_LUID_LH(64, this)
+                this.__InterfaceLuid := NET_LUID_LH(56, this)
             return this.__InterfaceLuid
         }
     }
@@ -95,12 +94,12 @@ class MIB_IPNET_ROW2 extends Win32Struct
      * Type: <b> UCHAR[IF_MAX_PHYS_ADDRESS_LENGTH]</b>
      * 
      * The physical hardware address of the adapter for the network interface associated with this IP address.
-     * @type {Array<Byte>}
+     * @type {Array<Integer>}
      */
-    PhysicalAddress{
+    PhysicalAddress {
         get {
             if(!this.HasProp("__PhysicalAddressProxyArray"))
-                this.__PhysicalAddressProxyArray := Win32FixedArray(this.ptr + 80, 32, Primitive, "char")
+                this.__PhysicalAddressProxyArray := Win32FixedArray(this.ptr + 72, 32, Primitive, "char")
             return this.__PhysicalAddressProxyArray
         }
     }
@@ -112,8 +111,8 @@ class MIB_IPNET_ROW2 extends Win32Struct
      * @type {Integer}
      */
     PhysicalAddressLength {
-        get => NumGet(this, 112, "uint")
-        set => NumPut("uint", value, this, 112)
+        get => NumGet(this, 104, "uint")
+        set => NumPut("uint", value, this, 104)
     }
 
     /**
@@ -226,11 +225,11 @@ class MIB_IPNET_ROW2 extends Win32Struct
      * </td>
      * </tr>
      * </table>
-     * @type {Integer}
+     * @type {NL_NEIGHBOR_STATE}
      */
     State {
-        get => NumGet(this, 116, "int")
-        set => NumPut("int", value, this, 116)
+        get => NumGet(this, 108, "int")
+        set => NumPut("int", value, this, 108)
     }
 
     /**
@@ -240,8 +239,8 @@ class MIB_IPNET_ROW2 extends Win32Struct
      * @type {Integer}
      */
     _bitfield {
-        get => NumGet(this, 120, "char")
-        set => NumPut("char", value, this, 120)
+        get => NumGet(this, 112, "char")
+        set => NumPut("char", value, this, 112)
     }
 
     /**
@@ -264,18 +263,17 @@ class MIB_IPNET_ROW2 extends Win32Struct
      * @type {Integer}
      */
     Flags {
-        get => NumGet(this, 120, "char")
-        set => NumPut("char", value, this, 120)
+        get => NumGet(this, 112, "char")
+        set => NumPut("char", value, this, 112)
     }
 
     /**
-     * 
      * @type {_ReachabilityTime_e__Union}
      */
-    ReachabilityTime{
+    ReachabilityTime {
         get {
             if(!this.HasProp("__ReachabilityTime"))
-                this.__ReachabilityTime := %this.__Class%._ReachabilityTime_e__Union(124, this)
+                this.__ReachabilityTime := MIB_IPNET_ROW2._ReachabilityTime_e__Union(116, this)
             return this.__ReachabilityTime
         }
     }

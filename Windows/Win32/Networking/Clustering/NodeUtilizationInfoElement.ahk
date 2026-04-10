@@ -3,10 +3,8 @@
 
 /**
  * @namespace Windows.Win32.Networking.Clustering
- * @version v4.0.30319
  */
-class NodeUtilizationInfoElement extends Win32Struct
-{
+class NodeUtilizationInfoElement extends Win32Struct {
     static sizeof => 24
 
     static packingSize => 8

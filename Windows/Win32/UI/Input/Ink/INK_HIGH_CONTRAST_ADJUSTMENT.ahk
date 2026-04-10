@@ -3,13 +3,10 @@
 
 /**
  * Specifies how the IInkD2DRenderer2 object draws ink (standard and modified) when system is in a contrast theme mode.
- * @remarks
- * 
  * @see https://learn.microsoft.com/windows/win32/api/inkrenderer/ne-inkrenderer-ink_high_contrast_adjustment
  * @namespace Windows.Win32.UI.Input.Ink
- * @version v4.0.30319
  */
-class INK_HIGH_CONTRAST_ADJUSTMENT extends Win32Enum{
+class INK_HIGH_CONTRAST_ADJUSTMENT extends Win32Enum {
 
     /**
      * For standard strokes, use selected color if contrast is sufficient against the background. Otherwise, use system color.

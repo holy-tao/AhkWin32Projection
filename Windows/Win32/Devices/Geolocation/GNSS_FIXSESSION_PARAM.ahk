@@ -1,5 +1,6 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
+#Include .\GNSS_FIXSESSIONTYPE.ahk
 #Include .\GNSS_SINGLESHOT_PARAM.ahk
 #Include .\GNSS_DISTANCETRACKING_PARAM.ahk
 #Include .\GNSS_CONTINUOUSTRACKING_PARAM.ahk
@@ -7,10 +8,8 @@
 
 /**
  * @namespace Windows.Win32.Devices.Geolocation
- * @version v4.0.30319
  */
-class GNSS_FIXSESSION_PARAM extends Win32Struct
-{
+class GNSS_FIXSESSION_PARAM extends Win32Struct {
     static sizeof => 588
 
     static packingSize => 4
@@ -40,7 +39,7 @@ class GNSS_FIXSESSION_PARAM extends Win32Struct
     }
 
     /**
-     * @type {Integer}
+     * @type {GNSS_FIXSESSIONTYPE}
      */
     SessionType {
         get => NumGet(this, 12, "int")
@@ -64,9 +63,9 @@ class GNSS_FIXSESSION_PARAM extends Win32Struct
     }
 
     /**
-     * @type {Array<UInt32>}
+     * @type {Array<Integer>}
      */
-    Reserved{
+    Reserved {
         get {
             if(!this.HasProp("__ReservedProxyArray"))
                 this.__ReservedProxyArray := Win32FixedArray(this.ptr + 24, 9, Primitive, "uint")
@@ -85,7 +84,7 @@ class GNSS_FIXSESSION_PARAM extends Win32Struct
     /**
      * @type {GNSS_SINGLESHOT_PARAM}
      */
-    SingleShotParam{
+    SingleShotParam {
         get {
             if(!this.HasProp("__SingleShotParam"))
                 this.__SingleShotParam := GNSS_SINGLESHOT_PARAM(64, this)
@@ -96,7 +95,7 @@ class GNSS_FIXSESSION_PARAM extends Win32Struct
     /**
      * @type {GNSS_DISTANCETRACKING_PARAM}
      */
-    DistanceParam{
+    DistanceParam {
         get {
             if(!this.HasProp("__DistanceParam"))
                 this.__DistanceParam := GNSS_DISTANCETRACKING_PARAM(64, this)
@@ -107,7 +106,7 @@ class GNSS_FIXSESSION_PARAM extends Win32Struct
     /**
      * @type {GNSS_CONTINUOUSTRACKING_PARAM}
      */
-    ContinuousParam{
+    ContinuousParam {
         get {
             if(!this.HasProp("__ContinuousParam"))
                 this.__ContinuousParam := GNSS_CONTINUOUSTRACKING_PARAM(64, this)
@@ -118,7 +117,7 @@ class GNSS_FIXSESSION_PARAM extends Win32Struct
     /**
      * @type {GNSS_LKGFIX_PARAM}
      */
-    LkgFixParam{
+    LkgFixParam {
         get {
             if(!this.HasProp("__LkgFixParam"))
                 this.__LkgFixParam := GNSS_LKGFIX_PARAM(64, this)
@@ -127,9 +126,9 @@ class GNSS_FIXSESSION_PARAM extends Win32Struct
     }
 
     /**
-     * @type {Array<Byte>}
+     * @type {Array<Integer>}
      */
-    UnusedParam{
+    UnusedParam {
         get {
             if(!this.HasProp("__UnusedParamProxyArray"))
                 this.__UnusedParamProxyArray := Win32FixedArray(this.ptr + 64, 268, Primitive, "char")
@@ -138,9 +137,9 @@ class GNSS_FIXSESSION_PARAM extends Win32Struct
     }
 
     /**
-     * @type {Array<Byte>}
+     * @type {Array<Integer>}
      */
-    Unused{
+    Unused {
         get {
             if(!this.HasProp("__UnusedProxyArray"))
                 this.__UnusedProxyArray := Win32FixedArray(this.ptr + 332, 256, Primitive, "char")

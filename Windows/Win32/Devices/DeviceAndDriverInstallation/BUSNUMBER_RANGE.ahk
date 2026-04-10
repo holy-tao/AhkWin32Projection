@@ -7,10 +7,8 @@
  * The BUSNUMBER_RANGE structure is included as a member of the [BUSNUMBER_RESOURCE](/windows/desktop/api/cfgmgr32/ns-cfgmgr32-busnumber_resource) structure.
  * @see https://learn.microsoft.com/windows/win32/api/cfgmgr32/ns-cfgmgr32-busnumber_range
  * @namespace Windows.Win32.Devices.DeviceAndDriverInstallation
- * @version v4.0.30319
  */
-class BUSNUMBER_RANGE extends Win32Struct
-{
+class BUSNUMBER_RANGE extends Win32Struct {
     static sizeof => 16
 
     static packingSize => 4

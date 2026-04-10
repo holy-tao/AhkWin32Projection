@@ -3,10 +3,8 @@
 
 /**
  * @namespace Windows.Win32.Devices.Usb
- * @version v4.0.30319
  */
-class USB_DESCRIPTOR_REQUEST extends Win32Struct
-{
+class USB_DESCRIPTOR_REQUEST extends Win32Struct {
     static sizeof => 16
 
     static packingSize => 4
@@ -22,7 +20,7 @@ class USB_DESCRIPTOR_REQUEST extends Win32Struct
             get => NumGet(this, 0, "char")
             set => NumPut("char", value, this, 0)
         }
-    
+
         /**
          * @type {Integer}
          */
@@ -30,7 +28,7 @@ class USB_DESCRIPTOR_REQUEST extends Win32Struct
             get => NumGet(this, 1, "char")
             set => NumPut("char", value, this, 1)
         }
-    
+
         /**
          * @type {Integer}
          */
@@ -38,7 +36,7 @@ class USB_DESCRIPTOR_REQUEST extends Win32Struct
             get => NumGet(this, 2, "ushort")
             set => NumPut("ushort", value, this, 2)
         }
-    
+
         /**
          * @type {Integer}
          */
@@ -46,7 +44,7 @@ class USB_DESCRIPTOR_REQUEST extends Win32Struct
             get => NumGet(this, 4, "ushort")
             set => NumPut("ushort", value, this, 4)
         }
-    
+
         /**
          * @type {Integer}
          */
@@ -54,7 +52,6 @@ class USB_DESCRIPTOR_REQUEST extends Win32Struct
             get => NumGet(this, 6, "ushort")
             set => NumPut("ushort", value, this, 6)
         }
-    
     }
 
     /**
@@ -68,18 +65,18 @@ class USB_DESCRIPTOR_REQUEST extends Win32Struct
     /**
      * @type {_SetupPacket}
      */
-    SetupPacket{
+    SetupPacket {
         get {
             if(!this.HasProp("__SetupPacket"))
-                this.__SetupPacket := %this.__Class%._SetupPacket(4, this)
+                this.__SetupPacket := USB_DESCRIPTOR_REQUEST._SetupPacket(4, this)
             return this.__SetupPacket
         }
     }
 
     /**
-     * @type {Array<Byte>}
+     * @type {Array<Integer>}
      */
-    Data{
+    Data {
         get {
             if(!this.HasProp("__DataProxyArray"))
                 this.__DataProxyArray := Win32FixedArray(this.ptr + 12, 1, Primitive, "char")

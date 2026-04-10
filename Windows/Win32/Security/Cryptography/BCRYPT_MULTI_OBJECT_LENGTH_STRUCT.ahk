@@ -7,10 +7,8 @@
  * The size of the <i>pbHashObject</i> buffer for the <a href="https://docs.microsoft.com/windows/desktop/api/bcrypt/nf-bcrypt-bcryptcreatemultihash">BCryptCreateMultiHash</a> function is the following: <c>cbPerObject + (number of hash states) * cbPerElement</c>.
  * @see https://learn.microsoft.com/windows/win32/api/bcrypt/ns-bcrypt-bcrypt_multi_object_length_struct
  * @namespace Windows.Win32.Security.Cryptography
- * @version v4.0.30319
  */
-class BCRYPT_MULTI_OBJECT_LENGTH_STRUCT extends Win32Struct
-{
+class BCRYPT_MULTI_OBJECT_LENGTH_STRUCT extends Win32Struct {
     static sizeof => 8
 
     static packingSize => 4

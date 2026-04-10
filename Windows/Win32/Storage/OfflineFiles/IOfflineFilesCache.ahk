@@ -1,18 +1,17 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
+#Include ..\..\System\Com\IUnknown.ahk
 #Include .\IOfflineFilesItem.ahk
 #Include .\IOfflineFilesSetting.ahk
 #Include .\IEnumOfflineFilesSettings.ahk
-#Include ..\..\System\Com\IUnknown.ahk
 
 /**
  * Used to manage the Offline Files cache.
  * @see https://learn.microsoft.com/windows/win32/api/cscobj/nn-cscobj-iofflinefilescache
  * @namespace Windows.Win32.Storage.OfflineFiles
- * @version v4.0.30319
  */
-class IOfflineFilesCache extends IUnknown{
+class IOfflineFilesCache extends IUnknown {
 
     static sizeof => A_PtrSize
     /**
@@ -783,7 +782,7 @@ class IOfflineFilesCache extends IUnknown{
      * These settings are configured as attributes of the shared folder on the server by clicking the Caching button on the shared folder's Sharing property page or by using the <c>net share /cache</c> command.
      * @param {PWSTR} pszPath The UNC path of the item.
      * @param {Pointer<BOOL>} pbCacheable Receives <b>TRUE</b> if the item is in the Offline Files cache, <b>FALSE</b> if not.
-     * @param {Pointer<Integer>} pShareCachingMode Receives one of the following <a href="https://docs.microsoft.com/windows/desktop/api/cscobj/ne-cscobj-offlinefiles_caching_mode">OFFLINEFILES_CACHING_MODE</a> enumeration values indicating the caching configuration of the applicable network shared folder under which the specified item exists.
+     * @param {Pointer<OFFLINEFILES_CACHING_MODE>} pShareCachingMode Receives one of the following <a href="https://docs.microsoft.com/windows/desktop/api/cscobj/ne-cscobj-offlinefiles_caching_mode">OFFLINEFILES_CACHING_MODE</a> enumeration values indicating the caching configuration of the applicable network shared folder under which the specified item exists.
      * @returns {HRESULT} Returns <b>S_OK</b> if successful, or an error value otherwise.
      * @see https://learn.microsoft.com/windows/win32/api/cscobj/nf-cscobj-iofflinefilescache-ispathcacheable
      */

@@ -5,9 +5,8 @@
  * The USB_USER_ERROR_CODE enumeration lists the error codes that a USB user-mode request reports when it fails.
  * @see https://learn.microsoft.com/windows/win32/api/usbuser/ne-usbuser-usb_user_error_code
  * @namespace Windows.Win32.Devices.Usb
- * @version v4.0.30319
  */
-class USB_USER_ERROR_CODE extends Win32Enum{
+class USB_USER_ERROR_CODE extends Win32Enum {
 
     /**
      * The user request succeeded.

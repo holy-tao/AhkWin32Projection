@@ -3,10 +3,8 @@
 
 /**
  * @namespace Windows.Win32.Media.DirectShow.Tv
- * @version v4.0.30319
  */
-class KSDATAFORMAT_TYPE_BDA_IF_SIGNAL extends Win32Struct
-{
+class KSDATAFORMAT_TYPE_BDA_IF_SIGNAL extends Win32Struct {
     static sizeof => 0
 
     static packingSize => 1

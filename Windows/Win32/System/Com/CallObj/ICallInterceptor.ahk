@@ -1,16 +1,15 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\..\Guid.ahk
-#Include .\ICallFrameEvents.ahk
 #Include .\ICallIndirect.ahk
+#Include .\ICallFrameEvents.ahk
 
 /**
  * Supports the registration and un-registering of event sinks wishing to be notified of calls made directly on the interface.
  * @see https://learn.microsoft.com/windows/win32/api/callobj/nn-callobj-icallinterceptor
  * @namespace Windows.Win32.System.Com.CallObj
- * @version v4.0.30319
  */
-class ICallInterceptor extends ICallIndirect{
+class ICallInterceptor extends ICallIndirect {
 
     static sizeof => A_PtrSize
     /**

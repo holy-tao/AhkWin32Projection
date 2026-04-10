@@ -6,10 +6,8 @@
  * Contains the three vertices that describe a triangle.
  * @see https://learn.microsoft.com/windows/win32/api/d2d1/ns-d2d1-d2d1_triangle
  * @namespace Windows.Win32.Graphics.Direct2D
- * @version v4.0.30319
  */
-class D2D1_TRIANGLE extends Win32Struct
-{
+class D2D1_TRIANGLE extends Win32Struct {
     static sizeof => 24
 
     static packingSize => 4
@@ -20,7 +18,7 @@ class D2D1_TRIANGLE extends Win32Struct
      * The first vertex of a triangle.
      * @type {D2D_POINT_2F}
      */
-    point1{
+    point1 {
         get {
             if(!this.HasProp("__point1"))
                 this.__point1 := D2D_POINT_2F(0, this)
@@ -34,7 +32,7 @@ class D2D1_TRIANGLE extends Win32Struct
      * The second vertex of a triangle.
      * @type {D2D_POINT_2F}
      */
-    point2{
+    point2 {
         get {
             if(!this.HasProp("__point2"))
                 this.__point2 := D2D_POINT_2F(8, this)
@@ -48,7 +46,7 @@ class D2D1_TRIANGLE extends Win32Struct
      * The third vertex of a triangle.
      * @type {D2D_POINT_2F}
      */
-    point3{
+    point3 {
         get {
             if(!this.HasProp("__point3"))
                 this.__point3 := D2D_POINT_2F(16, this)

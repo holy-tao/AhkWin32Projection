@@ -1,9 +1,9 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
+#Include ..\Com\IDispatch.ahk
 #Include ..\..\Foundation\BSTR.ahk
 #Include .\Extensions.ahk
-#Include ..\Com\IDispatch.ahk
 
 /**
  * Represents a single certificate extension.
@@ -18,9 +18,8 @@
  * The **Extension** object is used by the [**Extensions**](extensions.md) collection object.
  * @see https://learn.microsoft.com/windows/win32/SecCrypto/extension
  * @namespace Windows.Win32.System.Mmc
- * @version v4.0.30319
  */
-class Extension extends IDispatch{
+class Extension extends IDispatch {
 
     static sizeof => A_PtrSize
     /**

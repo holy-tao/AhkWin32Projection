@@ -3,10 +3,8 @@
 
 /**
  * @namespace Windows.Win32.Media.Audio.DirectMusic
- * @version v4.0.30319
  */
-class DMUS_EXTENSIONCHUNK extends Win32Struct
-{
+class DMUS_EXTENSIONCHUNK extends Win32Struct {
     static sizeof => 16
 
     static packingSize => 4
@@ -36,9 +34,9 @@ class DMUS_EXTENSIONCHUNK extends Win32Struct
     }
 
     /**
-     * @type {Array<Byte>}
+     * @type {Array<Integer>}
      */
-    byExtCk{
+    byExtCk {
         get {
             if(!this.HasProp("__byExtCkProxyArray"))
                 this.__byExtCkProxyArray := Win32FixedArray(this.ptr + 12, 4, Primitive, "char")

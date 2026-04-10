@@ -15,9 +15,8 @@
  * ```cpp
  * @see https://learn.microsoft.com/windows/win32/api/d3d12/ne-d3d12-d3d12_shader_component_mapping
  * @namespace Windows.Win32.Graphics.Direct3D12
- * @version v4.0.30319
  */
-class D3D12_SHADER_COMPONENT_MAPPING extends Win32Enum{
+class D3D12_SHADER_COMPONENT_MAPPING extends Win32Enum {
 
     /**
      * Indicates return component 0 (red).

@@ -3,10 +3,8 @@
 
 /**
  * @namespace Windows.Win32.NetworkManagement.IpHelper
- * @version v4.0.30319
  */
-class MIB_ROUTESTATE extends Win32Struct
-{
+class MIB_ROUTESTATE extends Win32Struct {
     static sizeof => 4
 
     static packingSize => 4

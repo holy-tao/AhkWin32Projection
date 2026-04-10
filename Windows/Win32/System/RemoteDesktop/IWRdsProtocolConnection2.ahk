@@ -5,9 +5,8 @@
 
 /**
  * @namespace Windows.Win32.System.RemoteDesktop
- * @version v4.0.30319
  */
-class IWRdsProtocolConnection2 extends IWRdsProtocolConnection{
+class IWRdsProtocolConnection2 extends IWRdsProtocolConnection {
 
     static sizeof => A_PtrSize
     /**

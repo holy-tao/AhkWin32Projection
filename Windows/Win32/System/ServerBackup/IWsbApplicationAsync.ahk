@@ -7,9 +7,8 @@
  * Defines methods to monitor and control the progress of an asynchronous operation.
  * @see https://learn.microsoft.com/windows/win32/api/wsbapp/nn-wsbapp-iwsbapplicationasync
  * @namespace Windows.Win32.System.ServerBackup
- * @version v4.0.30319
  */
-class IWsbApplicationAsync extends IUnknown{
+class IWsbApplicationAsync extends IUnknown {
 
     static sizeof => A_PtrSize
     /**

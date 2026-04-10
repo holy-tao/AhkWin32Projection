@@ -1,9 +1,9 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
+#Include ..\..\System\Com\IDispatch.ahk
 #Include ..\..\System\Ole\IEnumVARIANT.ahk
 #Include ..\..\Foundation\BSTR.ahk
-#Include ..\..\System\Com\IDispatch.ahk
 
 /**
  * Use this interface to enumerate the CD and DVD devices installed on the computer.
@@ -13,9 +13,8 @@
  * To receive notification when a device is added or removed from the computer, implement the <a href="https://docs.microsoft.com/windows/desktop/api/imapi2/nn-imapi2-ddiscmaster2events">DDiscMaster2Events</a> interface.
  * @see https://learn.microsoft.com/windows/win32/api/imapi2/nn-imapi2-idiscmaster2
  * @namespace Windows.Win32.Storage.Imapi
- * @version v4.0.30319
  */
-class IDiscMaster2 extends IDispatch{
+class IDiscMaster2 extends IDispatch {
 
     static sizeof => A_PtrSize
     /**

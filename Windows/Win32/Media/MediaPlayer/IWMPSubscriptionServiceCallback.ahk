@@ -7,9 +7,8 @@
  * Note  This section describes functionality designed for use by online stores.
  * @see https://learn.microsoft.com/windows/win32/api/subscriptionservices/nn-subscriptionservices-iwmpsubscriptionservicecallback
  * @namespace Windows.Win32.Media.MediaPlayer
- * @version v4.0.30319
  */
-class IWMPSubscriptionServiceCallback extends IUnknown{
+class IWMPSubscriptionServiceCallback extends IUnknown {
 
     static sizeof => A_PtrSize
     /**

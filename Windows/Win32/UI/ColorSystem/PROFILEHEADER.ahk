@@ -4,14 +4,10 @@
 
 /**
  * Contains information that describes the contents of a device profile file. This header occurs at the beginning of a device profile file.
- * @remarks
- * 
  * @see https://learn.microsoft.com/windows/win32/api/icm/ns-icm-profileheader
  * @namespace Windows.Win32.UI.ColorSystem
- * @version v4.0.30319
  */
-class PROFILEHEADER extends Win32Struct
-{
+class PROFILEHEADER extends Win32Struct {
     static sizeof => 128
 
     static packingSize => 4
@@ -51,7 +47,6 @@ class PROFILEHEADER extends Win32Struct
     }
 
     /**
-     * 
      * @type {Integer}
      */
     phClass {
@@ -69,7 +64,6 @@ class PROFILEHEADER extends Win32Struct
     }
 
     /**
-     * 
      * @type {Integer}
      */
     phConnectionSpace {
@@ -79,9 +73,9 @@ class PROFILEHEADER extends Win32Struct
 
     /**
      * The date and time that the profile was created.
-     * @type {Array<UInt32>}
+     * @type {Array<Integer>}
      */
-    phDateTime{
+    phDateTime {
         get {
             if(!this.HasProp("__phDateTimeProxyArray"))
                 this.__phDateTimeProxyArray := Win32FixedArray(this.ptr + 24, 3, Primitive, "uint")
@@ -99,7 +93,6 @@ class PROFILEHEADER extends Win32Struct
     }
 
     /**
-     * 
      * @type {Integer}
      */
     phPlatform {
@@ -198,10 +191,9 @@ class PROFILEHEADER extends Win32Struct
     }
 
     /**
-     * 
-     * @type {Array<UInt32>}
+     * @type {Array<Integer>}
      */
-    phAttributes{
+    phAttributes {
         get {
             if(!this.HasProp("__phAttributesProxyArray"))
                 this.__phAttributesProxyArray := Win32FixedArray(this.ptr + 56, 2, Primitive, "uint")
@@ -210,7 +202,6 @@ class PROFILEHEADER extends Win32Struct
     }
 
     /**
-     * 
      * @type {Integer}
      */
     phRenderingIntent {
@@ -222,7 +213,7 @@ class PROFILEHEADER extends Win32Struct
      * Profile illuminant.
      * @type {CIEXYZ}
      */
-    phIlluminant{
+    phIlluminant {
         get {
             if(!this.HasProp("__phIlluminant"))
                 this.__phIlluminant := CIEXYZ(68, this)
@@ -241,9 +232,9 @@ class PROFILEHEADER extends Win32Struct
 
     /**
      * Reserved.
-     * @type {Array<Byte>}
+     * @type {Array<Integer>}
      */
-    phReserved{
+    phReserved {
         get {
             if(!this.HasProp("__phReservedProxyArray"))
                 this.__phReservedProxyArray := Win32FixedArray(this.ptr + 84, 44, Primitive, "char")

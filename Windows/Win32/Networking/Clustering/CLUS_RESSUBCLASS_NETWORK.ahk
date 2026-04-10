@@ -5,9 +5,8 @@
  * The CLUS_RESSUBCLASS_NETWORK enumeration (msclus.h) identifies a resource subclass that manages an IP address provider.
  * @see https://learn.microsoft.com/windows/win32/api/msclus/ne-msclus-clus_ressubclass_network
  * @namespace Windows.Win32.Networking.Clustering
- * @version v4.0.30319
  */
-class CLUS_RESSUBCLASS_NETWORK extends Win32Enum{
+class CLUS_RESSUBCLASS_NETWORK extends Win32Enum {
 
     /**
      * Identifies a resource subclass that manages an IP address provider. The 

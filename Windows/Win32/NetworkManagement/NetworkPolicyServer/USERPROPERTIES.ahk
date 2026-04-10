@@ -7,9 +7,8 @@
  * The properties that are available for a user object depend on where the user object is stored.
  * @see https://learn.microsoft.com/windows/win32/api/sdoias/ne-sdoias-userproperties
  * @namespace Windows.Win32.NetworkManagement.NetworkPolicyServer
- * @version v4.0.30319
  */
-class USERPROPERTIES extends Win32Enum{
+class USERPROPERTIES extends Win32Enum {
 
     /**
      * The number from which the user must call.

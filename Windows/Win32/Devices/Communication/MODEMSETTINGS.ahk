@@ -1,14 +1,14 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
+#Include .\MODEM_SPEAKER_VOLUME.ahk
+#Include .\MODEMSETTINGS_SPEAKER_MODE.ahk
 
 /**
  * Contains information about a modem's configuration.
  * @see https://learn.microsoft.com/windows/win32/api/mcx/ns-mcx-modemsettings
  * @namespace Windows.Win32.Devices.Communication
- * @version v4.0.30319
  */
-class MODEMSETTINGS extends Win32Struct
-{
+class MODEMSETTINGS extends Win32Struct {
     static sizeof => 48
 
     static packingSize => 4
@@ -69,8 +69,7 @@ class MODEMSETTINGS extends Win32Struct
     }
 
     /**
-     * 
-     * @type {Integer}
+     * @type {MODEM_SPEAKER_VOLUME}
      */
     dwSpeakerVolume {
         get => NumGet(this, 24, "uint")
@@ -78,8 +77,7 @@ class MODEMSETTINGS extends Win32Struct
     }
 
     /**
-     * 
-     * @type {Integer}
+     * @type {MODEMSETTINGS_SPEAKER_MODE}
      */
     dwSpeakerMode {
         get => NumGet(this, 28, "uint")
@@ -129,9 +127,9 @@ class MODEMSETTINGS extends Win32Struct
 
     /**
      * Optional provider-defined information.
-     * @type {Array<Byte>}
+     * @type {Array<Integer>}
      */
-    abVariablePortion{
+    abVariablePortion {
         get {
             if(!this.HasProp("__abVariablePortionProxyArray"))
                 this.__abVariablePortionProxyArray := Win32FixedArray(this.ptr + 44, 1, Primitive, "char")

@@ -1,16 +1,13 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
+#Include ..\..\Graphics\Direct3D12\ID3D12Resource.ahk
 
 /**
  * Represents a compressed bitstream from which video is decoded.
- * @remarks
- * 
  * @see https://learn.microsoft.com/windows/win32/api/d3d12video/ns-d3d12video-d3d12_video_decode_compressed_bitstream
  * @namespace Windows.Win32.Media.MediaFoundation
- * @version v4.0.30319
  */
-class D3D12_VIDEO_DECODE_COMPRESSED_BITSTREAM extends Win32Struct
-{
+class D3D12_VIDEO_DECODE_COMPRESSED_BITSTREAM extends Win32Struct {
     static sizeof => 24
 
     static packingSize => 8

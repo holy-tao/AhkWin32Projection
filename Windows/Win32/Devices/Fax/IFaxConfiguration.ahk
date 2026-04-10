@@ -1,8 +1,8 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
-#Include ..\..\Foundation\BSTR.ahk
 #Include ..\..\System\Com\IDispatch.ahk
+#Include ..\..\Foundation\BSTR.ahk
 
 /**
  * Defines various methods that provide configuration options for the fax service.
@@ -10,9 +10,8 @@
  * A default implementation of this interface is provided by the <a href="https://docs.microsoft.com/previous-versions/windows/desktop/fax/-mfax-faxconfiguration">FaxConfiguration</a> object.
  * @see https://learn.microsoft.com/windows/win32/api/faxcomex/nn-faxcomex-ifaxconfiguration
  * @namespace Windows.Win32.Devices.Fax
- * @version v4.0.30319
  */
-class IFaxConfiguration extends IDispatch{
+class IFaxConfiguration extends IDispatch {
 
     static sizeof => A_PtrSize
     /**

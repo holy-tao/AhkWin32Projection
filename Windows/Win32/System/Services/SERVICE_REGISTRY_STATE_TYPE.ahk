@@ -8,9 +8,8 @@
  * Once the service is removed by calling [DeleteService](/windows/win32/api/winsvc/nf-winsvc-deleteservice) the registry state is deleted too.
  * @see https://learn.microsoft.com/windows/win32/api/winsvc/ne-winsvc-service_registry_state_type
  * @namespace Windows.Win32.System.Services
- * @version v4.0.30319
  */
-class SERVICE_REGISTRY_STATE_TYPE extends Win32Enum{
+class SERVICE_REGISTRY_STATE_TYPE extends Win32Enum {
 
     /**
      * Immutable service state, populated by INF to the Parameters subkey.

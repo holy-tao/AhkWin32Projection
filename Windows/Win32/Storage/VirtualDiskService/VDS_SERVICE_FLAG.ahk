@@ -16,9 +16,8 @@
  * <div> </div>
  * @see https://learn.microsoft.com/windows/win32/api/vds/ne-vds-vds_service_flag
  * @namespace Windows.Win32.Storage.VirtualDiskService
- * @version v4.0.30319
  */
-class VDS_SERVICE_FLAG extends Win32Enum{
+class VDS_SERVICE_FLAG extends Win32Enum {
 
     /**
      * If set, the service supports dynamic disks.
@@ -92,7 +91,6 @@ class VDS_SERVICE_FLAG extends Win32Enum{
     static VDS_SVF_SUPPORT_RAID5 => 512
 
     /**
-     * 
      * @type {Integer (Int32)}
      */
     static VDS_SVF_SUPPORT_REFS => 1024

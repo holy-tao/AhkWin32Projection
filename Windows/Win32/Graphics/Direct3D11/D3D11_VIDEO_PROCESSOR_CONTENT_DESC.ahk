@@ -1,22 +1,22 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
+#Include .\D3D11_VIDEO_FRAME_FORMAT.ahk
 #Include ..\Dxgi\Common\DXGI_RATIONAL.ahk
+#Include .\D3D11_VIDEO_USAGE.ahk
 
 /**
  * Describes a video stream for a video processor.
  * @see https://learn.microsoft.com/windows/win32/api/d3d11/ns-d3d11-d3d11_video_processor_content_desc
  * @namespace Windows.Win32.Graphics.Direct3D11
- * @version v4.0.30319
  */
-class D3D11_VIDEO_PROCESSOR_CONTENT_DESC extends Win32Struct
-{
+class D3D11_VIDEO_PROCESSOR_CONTENT_DESC extends Win32Struct {
     static sizeof => 40
 
     static packingSize => 4
 
     /**
      * A member of the <a href="https://docs.microsoft.com/windows/desktop/api/d3d11/ne-d3d11-d3d11_video_frame_format">D3D11_VIDEO_FRAME_FORMAT</a> enumeration that describes how the video stream is interlaced.
-     * @type {Integer}
+     * @type {D3D11_VIDEO_FRAME_FORMAT}
      */
     InputFrameFormat {
         get => NumGet(this, 0, "int")
@@ -27,7 +27,7 @@ class D3D11_VIDEO_PROCESSOR_CONTENT_DESC extends Win32Struct
      * The frame rate of the input video stream, specified as a <a href="https://docs.microsoft.com/windows/desktop/api/dxgicommon/ns-dxgicommon-dxgi_rational">DXGI_RATIONAL</a> structure.
      * @type {DXGI_RATIONAL}
      */
-    InputFrameRate{
+    InputFrameRate {
         get {
             if(!this.HasProp("__InputFrameRate"))
                 this.__InputFrameRate := DXGI_RATIONAL(4, this)
@@ -57,7 +57,7 @@ class D3D11_VIDEO_PROCESSOR_CONTENT_DESC extends Win32Struct
      * The frame rate of the output video stream, specified as a <a href="https://docs.microsoft.com/windows/desktop/api/dxgicommon/ns-dxgicommon-dxgi_rational">DXGI_RATIONAL</a> structure.
      * @type {DXGI_RATIONAL}
      */
-    OutputFrameRate{
+    OutputFrameRate {
         get {
             if(!this.HasProp("__OutputFrameRate"))
                 this.__OutputFrameRate := DXGI_RATIONAL(20, this)
@@ -85,7 +85,7 @@ class D3D11_VIDEO_PROCESSOR_CONTENT_DESC extends Win32Struct
 
     /**
      * A member of the <a href="https://docs.microsoft.com/windows/desktop/api/d3d11/ne-d3d11-d3d11_video_usage">D3D11_VIDEO_USAGE</a> enumeration that describes how the video processor will be used. The value indicates the desired trade-off between speed and video quality. The driver uses this flag as a hint when it creates the video processor.
-     * @type {Integer}
+     * @type {D3D11_VIDEO_USAGE}
      */
     Usage {
         get => NumGet(this, 36, "int")

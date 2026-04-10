@@ -6,10 +6,8 @@
  * Accelerator table structure. Used by IPreviewHandlerFrame::GetWindowContext.
  * @see https://learn.microsoft.com/windows/win32/api/shobjidl_core/ns-shobjidl_core-previewhandlerframeinfo
  * @namespace Windows.Win32.UI.Shell
- * @version v4.0.30319
  */
-class PREVIEWHANDLERFRAMEINFO extends Win32Struct
-{
+class PREVIEWHANDLERFRAMEINFO extends Win32Struct {
     static sizeof => 16
 
     static packingSize => 8
@@ -20,7 +18,7 @@ class PREVIEWHANDLERFRAMEINFO extends Win32Struct
      * A handle to the accelerator table.
      * @type {HACCEL}
      */
-    haccel{
+    haccel {
         get {
             if(!this.HasProp("__haccel"))
                 this.__haccel := HACCEL(0, this)

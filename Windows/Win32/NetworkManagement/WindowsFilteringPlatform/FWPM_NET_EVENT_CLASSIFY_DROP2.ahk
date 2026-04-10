@@ -6,10 +6,8 @@
  * Contains information that describes a layer drop failure. (FWPM_NET_EVENT_CLASSIFY_DROP2)
  * @see https://learn.microsoft.com/windows/win32/api/fwpmtypes/ns-fwpmtypes-fwpm_net_event_classify_drop2
  * @namespace Windows.Win32.NetworkManagement.WindowsFilteringPlatform
- * @version v4.0.30319
  */
-class FWPM_NET_EVENT_CLASSIFY_DROP2 extends Win32Struct
-{
+class FWPM_NET_EVENT_CLASSIFY_DROP2 extends Win32Struct {
     static sizeof => 56
 
     static packingSize => 8
@@ -89,7 +87,7 @@ class FWPM_NET_EVENT_CLASSIFY_DROP2 extends Win32Struct
      * GUID identifier of a vSwitch.
      * @type {FWP_BYTE_BLOB}
      */
-    vSwitchId{
+    vSwitchId {
         get {
             if(!this.HasProp("__vSwitchId"))
                 this.__vSwitchId := FWP_BYTE_BLOB(32, this)

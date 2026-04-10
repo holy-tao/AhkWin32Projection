@@ -15,9 +15,8 @@
  * Windows 10 (XAudio2.9); Windows 8, Windows Phone 8 (XAudio 2.8); DirectX SDK (XAudio 2.7)
  * @see https://learn.microsoft.com/windows/win32/api/xaudio2/nn-xaudio2-ixaudio2submixvoice
  * @namespace Windows.Win32.Media.Audio.XAudio2
- * @version v4.0.30319
  */
-class IXAudio2SubmixVoice extends IXAudio2Voice{
+class IXAudio2SubmixVoice extends IXAudio2Voice {
 
     static sizeof => A_PtrSize
 

@@ -3,9 +3,8 @@
 
 /**
  * @namespace Windows.Win32.NetworkManagement.WindowsFilteringPlatform
- * @version v4.0.30319
  */
-class FWP_NETWORK_CONNECTION_POLICY_SETTING_TYPE extends Win32Enum{
+class FWP_NETWORK_CONNECTION_POLICY_SETTING_TYPE extends Win32Enum {
 
     /**
      * @type {Integer (Int32)}

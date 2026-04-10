@@ -3,9 +3,8 @@
 
 /**
  * @namespace Windows.Win32.Devices.Communication
- * @version v4.0.30319
  */
-class CLEAR_COMM_ERROR_FLAGS extends Win32BitflagEnum{
+class CLEAR_COMM_ERROR_FLAGS extends Win32BitflagEnum {
 
     /**
      * @type {Integer (UInt32)}

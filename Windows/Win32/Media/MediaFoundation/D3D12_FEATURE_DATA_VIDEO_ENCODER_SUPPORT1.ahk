@@ -1,20 +1,51 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
+#Include .\D3D12_VIDEO_ENCODER_CODEC.ahk
+#Include ..\..\Graphics\Dxgi\Common\DXGI_FORMAT.ahk
 #Include .\D3D12_VIDEO_ENCODER_CODEC_CONFIGURATION.ahk
+#Include .\D3D12_VIDEO_ENCODER_CODEC_CONFIGURATION_H264.ahk
+#Include .\D3D12_VIDEO_ENCODER_CODEC_CONFIGURATION_HEVC.ahk
+#Include .\D3D12_VIDEO_ENCODER_AV1_CODEC_CONFIGURATION.ahk
 #Include .\D3D12_VIDEO_ENCODER_SEQUENCE_GOP_STRUCTURE.ahk
-#Include .\D3D12_VIDEO_ENCODER_RATE_CONTROL_CONFIGURATION_PARAMS.ahk
-#Include ..\..\Graphics\Dxgi\Common\DXGI_RATIONAL.ahk
+#Include .\D3D12_VIDEO_ENCODER_SEQUENCE_GOP_STRUCTURE_H264.ahk
+#Include .\D3D12_VIDEO_ENCODER_SEQUENCE_GOP_STRUCTURE_HEVC.ahk
+#Include .\D3D12_VIDEO_ENCODER_AV1_SEQUENCE_STRUCTURE.ahk
 #Include .\D3D12_VIDEO_ENCODER_RATE_CONTROL.ahk
+#Include .\D3D12_VIDEO_ENCODER_RATE_CONTROL_MODE.ahk
+#Include .\D3D12_VIDEO_ENCODER_RATE_CONTROL_FLAGS.ahk
+#Include .\D3D12_VIDEO_ENCODER_RATE_CONTROL_CONFIGURATION_PARAMS.ahk
+#Include .\D3D12_VIDEO_ENCODER_RATE_CONTROL_CQP.ahk
+#Include .\D3D12_VIDEO_ENCODER_RATE_CONTROL_CBR.ahk
+#Include .\D3D12_VIDEO_ENCODER_RATE_CONTROL_VBR.ahk
+#Include .\D3D12_VIDEO_ENCODER_RATE_CONTROL_QVBR.ahk
+#Include .\D3D12_VIDEO_ENCODER_RATE_CONTROL_CQP1.ahk
+#Include .\D3D12_VIDEO_ENCODER_RATE_CONTROL_CBR1.ahk
+#Include .\D3D12_VIDEO_ENCODER_RATE_CONTROL_VBR1.ahk
+#Include .\D3D12_VIDEO_ENCODER_RATE_CONTROL_QVBR1.ahk
+#Include .\D3D12_VIDEO_ENCODER_RATE_CONTROL_ABSOLUTE_QP_MAP.ahk
+#Include ..\..\Graphics\Dxgi\Common\DXGI_RATIONAL.ahk
+#Include .\D3D12_VIDEO_ENCODER_INTRA_REFRESH_MODE.ahk
+#Include .\D3D12_VIDEO_ENCODER_FRAME_SUBREGION_LAYOUT_MODE.ahk
+#Include .\D3D12_VIDEO_ENCODER_PICTURE_RESOLUTION_DESC.ahk
+#Include .\D3D12_VIDEO_ENCODER_VALIDATION_FLAGS.ahk
+#Include .\D3D12_VIDEO_ENCODER_SUPPORT_FLAGS.ahk
 #Include .\D3D12_VIDEO_ENCODER_PROFILE_DESC.ahk
+#Include .\D3D12_VIDEO_ENCODER_PROFILE_H264.ahk
+#Include .\D3D12_VIDEO_ENCODER_PROFILE_HEVC.ahk
+#Include .\D3D12_VIDEO_ENCODER_AV1_PROFILE.ahk
 #Include .\D3D12_VIDEO_ENCODER_LEVEL_SETTING.ahk
+#Include .\D3D12_VIDEO_ENCODER_LEVELS_H264.ahk
+#Include .\D3D12_VIDEO_ENCODER_LEVEL_TIER_CONSTRAINTS_HEVC.ahk
+#Include .\D3D12_VIDEO_ENCODER_AV1_LEVEL_TIER_CONSTRAINTS.ahk
+#Include .\D3D12_FEATURE_DATA_VIDEO_ENCODER_RESOLUTION_SUPPORT_LIMITS.ahk
 #Include .\D3D12_VIDEO_ENCODER_PICTURE_CONTROL_SUBREGIONS_LAYOUT_DATA.ahk
+#Include .\D3D12_VIDEO_ENCODER_PICTURE_CONTROL_SUBREGIONS_LAYOUT_DATA_SLICES.ahk
+#Include .\D3D12_VIDEO_ENCODER_AV1_PICTURE_CONTROL_SUBREGIONS_LAYOUT_DATA_TILES.ahk
 
 /**
  * @namespace Windows.Win32.Media.MediaFoundation
- * @version v4.0.30319
  */
-class D3D12_FEATURE_DATA_VIDEO_ENCODER_SUPPORT1 extends Win32Struct
-{
+class D3D12_FEATURE_DATA_VIDEO_ENCODER_SUPPORT1 extends Win32Struct {
     static sizeof => 184
 
     static packingSize => 8
@@ -28,7 +59,7 @@ class D3D12_FEATURE_DATA_VIDEO_ENCODER_SUPPORT1 extends Win32Struct
     }
 
     /**
-     * @type {Integer}
+     * @type {D3D12_VIDEO_ENCODER_CODEC}
      */
     Codec {
         get => NumGet(this, 4, "int")
@@ -36,7 +67,7 @@ class D3D12_FEATURE_DATA_VIDEO_ENCODER_SUPPORT1 extends Win32Struct
     }
 
     /**
-     * @type {Integer}
+     * @type {DXGI_FORMAT}
      */
     InputFormat {
         get => NumGet(this, 8, "int")
@@ -46,7 +77,7 @@ class D3D12_FEATURE_DATA_VIDEO_ENCODER_SUPPORT1 extends Win32Struct
     /**
      * @type {D3D12_VIDEO_ENCODER_CODEC_CONFIGURATION}
      */
-    CodecConfiguration{
+    CodecConfiguration {
         get {
             if(!this.HasProp("__CodecConfiguration"))
                 this.__CodecConfiguration := D3D12_VIDEO_ENCODER_CODEC_CONFIGURATION(16, this)
@@ -57,7 +88,7 @@ class D3D12_FEATURE_DATA_VIDEO_ENCODER_SUPPORT1 extends Win32Struct
     /**
      * @type {D3D12_VIDEO_ENCODER_SEQUENCE_GOP_STRUCTURE}
      */
-    CodecGopSequence{
+    CodecGopSequence {
         get {
             if(!this.HasProp("__CodecGopSequence"))
                 this.__CodecGopSequence := D3D12_VIDEO_ENCODER_SEQUENCE_GOP_STRUCTURE(32, this)
@@ -68,7 +99,7 @@ class D3D12_FEATURE_DATA_VIDEO_ENCODER_SUPPORT1 extends Win32Struct
     /**
      * @type {D3D12_VIDEO_ENCODER_RATE_CONTROL}
      */
-    RateControl{
+    RateControl {
         get {
             if(!this.HasProp("__RateControl"))
                 this.__RateControl := D3D12_VIDEO_ENCODER_RATE_CONTROL(48, this)
@@ -77,7 +108,7 @@ class D3D12_FEATURE_DATA_VIDEO_ENCODER_SUPPORT1 extends Win32Struct
     }
 
     /**
-     * @type {Integer}
+     * @type {D3D12_VIDEO_ENCODER_INTRA_REFRESH_MODE}
      */
     IntraRefresh {
         get => NumGet(this, 80, "int")
@@ -85,7 +116,7 @@ class D3D12_FEATURE_DATA_VIDEO_ENCODER_SUPPORT1 extends Win32Struct
     }
 
     /**
-     * @type {Integer}
+     * @type {D3D12_VIDEO_ENCODER_FRAME_SUBREGION_LAYOUT_MODE}
      */
     SubregionFrameEncoding {
         get => NumGet(this, 84, "int")
@@ -117,7 +148,7 @@ class D3D12_FEATURE_DATA_VIDEO_ENCODER_SUPPORT1 extends Win32Struct
     }
 
     /**
-     * @type {Integer}
+     * @type {D3D12_VIDEO_ENCODER_VALIDATION_FLAGS}
      */
     ValidationFlags {
         get => NumGet(this, 108, "int")
@@ -125,7 +156,7 @@ class D3D12_FEATURE_DATA_VIDEO_ENCODER_SUPPORT1 extends Win32Struct
     }
 
     /**
-     * @type {Integer}
+     * @type {D3D12_VIDEO_ENCODER_SUPPORT_FLAGS}
      */
     SupportFlags {
         get => NumGet(this, 112, "int")
@@ -135,7 +166,7 @@ class D3D12_FEATURE_DATA_VIDEO_ENCODER_SUPPORT1 extends Win32Struct
     /**
      * @type {D3D12_VIDEO_ENCODER_PROFILE_DESC}
      */
-    SuggestedProfile{
+    SuggestedProfile {
         get {
             if(!this.HasProp("__SuggestedProfile"))
                 this.__SuggestedProfile := D3D12_VIDEO_ENCODER_PROFILE_DESC(120, this)
@@ -146,7 +177,7 @@ class D3D12_FEATURE_DATA_VIDEO_ENCODER_SUPPORT1 extends Win32Struct
     /**
      * @type {D3D12_VIDEO_ENCODER_LEVEL_SETTING}
      */
-    SuggestedLevel{
+    SuggestedLevel {
         get {
             if(!this.HasProp("__SuggestedLevel"))
                 this.__SuggestedLevel := D3D12_VIDEO_ENCODER_LEVEL_SETTING(136, this)
@@ -165,7 +196,7 @@ class D3D12_FEATURE_DATA_VIDEO_ENCODER_SUPPORT1 extends Win32Struct
     /**
      * @type {D3D12_VIDEO_ENCODER_PICTURE_CONTROL_SUBREGIONS_LAYOUT_DATA}
      */
-    SubregionFrameEncodingData{
+    SubregionFrameEncodingData {
         get {
             if(!this.HasProp("__SubregionFrameEncodingData"))
                 this.__SubregionFrameEncodingData := D3D12_VIDEO_ENCODER_PICTURE_CONTROL_SUBREGIONS_LAYOUT_DATA(160, this)

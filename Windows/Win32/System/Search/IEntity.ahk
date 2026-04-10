@@ -1,18 +1,16 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
-#Include .\IEntity.ahk
+#Include ..\Com\IUnknown.ahk
 #Include .\IRelationship.ahk
 #Include .\INamedEntity.ahk
-#Include ..\Com\IUnknown.ahk
 
 /**
  * Provides methods for retrieving information about an entity type in the schema.
  * @see https://learn.microsoft.com/windows/win32/api/structuredquery/nn-structuredquery-ientity
  * @namespace Windows.Win32.System.Search
- * @version v4.0.30319
  */
-class IEntity extends IUnknown{
+class IEntity extends IUnknown {
 
     static sizeof => A_PtrSize
     /**

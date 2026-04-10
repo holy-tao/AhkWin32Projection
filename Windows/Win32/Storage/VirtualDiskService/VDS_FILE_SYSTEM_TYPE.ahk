@@ -10,9 +10,8 @@
  * <div> </div>
  * @see https://learn.microsoft.com/windows/win32/api/vdshwprv/ne-vdshwprv-vds_file_system_type
  * @namespace Windows.Win32.Storage.VirtualDiskService
- * @version v4.0.30319
  */
-class VDS_FILE_SYSTEM_TYPE extends Win32Enum{
+class VDS_FILE_SYSTEM_TYPE extends Win32Enum {
 
     /**
      * The file system is unknown. The <a href="https://docs.microsoft.com/windows/desktop/api/vds/nf-vds-ivdsvolumemf-getfilesystemproperties">IVdsVolumeMF::GetFileSystemProperties</a> method returns this value in the <a href="https://docs.microsoft.com/windows/desktop/api/vds/ns-vds-vds_file_system_prop">VDS_FILE_SYSTEM_PROP</a> structure for BitLocker-encrypted volumes.
@@ -65,13 +64,11 @@ class VDS_FILE_SYSTEM_TYPE extends Win32Enum{
     static VDS_FST_EXFAT => 7
 
     /**
-     * 
      * @type {Integer (Int32)}
      */
     static VDS_FST_CSVFS => 8
 
     /**
-     * 
      * @type {Integer (Int32)}
      */
     static VDS_FST_REFS => 9

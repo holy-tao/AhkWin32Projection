@@ -3,10 +3,8 @@
 
 /**
  * @namespace Windows.Win32.System.Registry
- * @version v4.0.30319
  */
-class DSKTLSYSTEMTIME extends Win32Struct
-{
+class DSKTLSYSTEMTIME extends Win32Struct {
     static sizeof => 18
 
     static packingSize => 2

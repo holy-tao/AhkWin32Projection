@@ -3,9 +3,8 @@
 
 /**
  * @namespace Windows.Win32.System.Performance
- * @version v4.0.30319
  */
-class PDH_DLL_VERSION extends Win32Enum{
+class PDH_DLL_VERSION extends Win32Enum {
 
     /**
      * @type {Integer (UInt32)}

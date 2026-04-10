@@ -5,10 +5,8 @@
  * The SERVER_INFO_1503 structure specifies the number of search operations that can be carried out simultaneously.
  * @see https://learn.microsoft.com/windows/win32/api/lmserver/ns-lmserver-server_info_1503
  * @namespace Windows.Win32.NetworkManagement.NetManagement
- * @version v4.0.30319
  */
-class SERVER_INFO_1503 extends Win32Struct
-{
+class SERVER_INFO_1503 extends Win32Struct {
     static sizeof => 4
 
     static packingSize => 4

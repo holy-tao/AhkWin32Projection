@@ -1,7 +1,9 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
 #Include .\HCERTCHAINENGINE.ahk
+#Include ..\..\Foundation\FILETIME.ahk
 #Include .\HCERTSTORE.ahk
+#Include .\CERT_CHAIN_PARA.ahk
 
 /**
  * Contains the parameters used for building and selecting chains.
@@ -16,10 +18,8 @@
  * </ul>
  * @see https://learn.microsoft.com/windows/win32/api/wincrypt/ns-wincrypt-cert_select_chain_para
  * @namespace Windows.Win32.Security.Cryptography
- * @version v4.0.30319
  */
-class CERT_SELECT_CHAIN_PARA extends Win32Struct
-{
+class CERT_SELECT_CHAIN_PARA extends Win32Struct {
     static sizeof => 40
 
     static packingSize => 8
@@ -28,7 +28,7 @@ class CERT_SELECT_CHAIN_PARA extends Win32Struct
      * The handle of the chain engine to use to build the chain. If the value of the <i>hChainEngine</i> parameter is <b>NULL</b>, the default chain engine, <b>HCCE_CURRENT_USER</b>, is used.
      * @type {HCERTCHAINENGINE}
      */
-    hChainEngine{
+    hChainEngine {
         get {
             if(!this.HasProp("__hChainEngine"))
                 this.__hChainEngine := HCERTCHAINENGINE(0, this)
@@ -52,7 +52,7 @@ class CERT_SELECT_CHAIN_PARA extends Win32Struct
      * The handle of any additional store to search for supporting certificates and certificate trust lists (CTLs). This parameter can be <b>NULL</b> if no additional store is to be searched.
      * @type {HCERTSTORE}
      */
-    hAdditionalStore{
+    hAdditionalStore {
         get {
             if(!this.HasProp("__hAdditionalStore"))
                 this.__hAdditionalStore := HCERTSTORE(16, this)

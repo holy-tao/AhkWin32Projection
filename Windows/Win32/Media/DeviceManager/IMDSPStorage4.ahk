@@ -1,16 +1,15 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
-#Include .\IMDSPStorage.ahk
 #Include .\IMDSPStorage3.ahk
+#Include .\IMDSPStorage.ahk
 
 /**
  * The IMDSPStorage4 interface extends IMDSPStorage3 for supporting virtual storages (such as playlists and albums) and metadata.Note  Unless the service provider has added the device parameter UseExtendedWmdm with a value of 1, Windows Media Device Manager will not call this interface. See Device Parameters for more information about this. .
  * @see https://learn.microsoft.com/windows/win32/api/mswmdm/nn-mswmdm-imdspstorage4
  * @namespace Windows.Win32.Media.DeviceManager
- * @version v4.0.30319
  */
-class IMDSPStorage4 extends IMDSPStorage3{
+class IMDSPStorage4 extends IMDSPStorage3 {
 
     static sizeof => A_PtrSize
     /**
@@ -271,7 +270,7 @@ class IMDSPStorage4 extends IMDSPStorage3{
      * This method allows searching for a storage based on persistent unique identifier while <b>IMDSPStorage2::GetStorage</b> allows searching for a storage based on name.
      * 
      * Windows Media Device Manager calls this method only for devices that can be synchronized with Windows Media Player. See <a href="https://docs.microsoft.com/windows/desktop/WMDM/enabling-synchronization-with-windows-media-player">Enabling Synchronization with Windows Media Player</a> for more information.
-     * @param {Integer} findScope 
+     * @param {WMDM_FIND_SCOPE} findScope 
      * @param {PWSTR} pwszUniqueID Persistent unique identifier of the storage.
      * @returns {IMDSPStorage} Pointer to the returned storage specified by the <i>pwszUniqueID</i> parameter.
      * @see https://learn.microsoft.com/windows/win32/api/mswmdm/nf-mswmdm-imdspstorage4-findstorage

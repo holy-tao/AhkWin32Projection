@@ -1,15 +1,13 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\..\..\Guid.ahk
-#Include ..\..\..\Com\IDispatch.ahk
-#Include .\IActiveScript.ahk
 #Include ..\..\..\Com\IUnknown.ahk
+#Include ..\..\..\Com\IDispatch.ahk
 
 /**
  * @namespace Windows.Win32.System.Diagnostics.Debug.ActiveScript
- * @version v4.0.30319
  */
-class IActiveScript extends IUnknown{
+class IActiveScript extends IUnknown {
 
     static sizeof => A_PtrSize
     /**
@@ -52,7 +50,7 @@ class IActiveScript extends IUnknown{
 
     /**
      * 
-     * @param {Integer} ss 
+     * @param {SCRIPTSTATE} ss 
      * @returns {HRESULT} 
      */
     SetScriptState(ss) {
@@ -62,7 +60,7 @@ class IActiveScript extends IUnknown{
 
     /**
      * 
-     * @returns {Integer} 
+     * @returns {SCRIPTSTATE} 
      */
     GetScriptState() {
         result := ComCall(6, this, "int*", &pssState := 0, "HRESULT")
@@ -145,7 +143,7 @@ class IActiveScript extends IUnknown{
     /**
      * 
      * @param {Integer} stidThread 
-     * @returns {Integer} 
+     * @returns {SCRIPTTHREADSTATE} 
      */
     GetScriptThreadState(stidThread) {
         result := ComCall(13, this, "uint", stidThread, "int*", &pstsState := 0, "HRESULT")

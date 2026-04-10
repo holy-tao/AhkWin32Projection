@@ -7,9 +7,8 @@
  * Notifies the subscriber if an activity is created, destroyed, or timed out.
  * @see https://learn.microsoft.com/windows/win32/api/comsvcs/nn-comsvcs-icomactivityevents
  * @namespace Windows.Win32.System.ComponentServices
- * @version v4.0.30319
  */
-class IComActivityEvents extends IUnknown{
+class IComActivityEvents extends IUnknown {
 
     static sizeof => A_PtrSize
     /**

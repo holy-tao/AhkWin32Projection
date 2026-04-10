@@ -1,18 +1,17 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
+#Include ..\..\System\Com\IUnknown.ahk
 #Include .\IEnumVdsObject.ahk
 #Include .\IVdsDisk.ahk
 #Include .\IVdsVDisk.ahk
-#Include ..\..\System\Com\IUnknown.ahk
 
 /**
  * Defines methods for creating and managing virtual disks.
  * @see https://learn.microsoft.com/windows/win32/api/vds/nn-vds-ivdsvdprovider
  * @namespace Windows.Win32.Storage.VirtualDiskService
- * @version v4.0.30319
  */
-class IVdsVdProvider extends IUnknown{
+class IVdsVdProvider extends IUnknown {
 
     static sizeof => A_PtrSize
     /**
@@ -58,7 +57,7 @@ class IVdsVdProvider extends IUnknown{
      * @param {PWSTR} pPath A <b>NULL</b>-terminated wide-character string containing the name and directory path for the backing file to be created for the virtual disk.
      * @param {PWSTR} pStringSecurityDescriptor A <b>NULL</b>-terminated wide-character string containing the security descriptor to be applied to
      *     the virtual disk. If this parameter is <b>NULL</b>, the security descriptor in the caller's access token will be used.
-     * @param {Integer} Flags A bitmask of <a href="https://docs.microsoft.com/windows/win32/api/virtdisk/ne-virtdisk-create_virtual_disk_flag">CREATE_VIRTUAL_DISK_FLAG</a> enumeration values specifying how the virtual disk is to be created.
+     * @param {CREATE_VIRTUAL_DISK_FLAG} Flags A bitmask of <a href="https://docs.microsoft.com/windows/win32/api/virtdisk/ne-virtdisk-create_virtual_disk_flag">CREATE_VIRTUAL_DISK_FLAG</a> enumeration values specifying how the virtual disk is to be created.
      * 
      * <table>
      * <tr>

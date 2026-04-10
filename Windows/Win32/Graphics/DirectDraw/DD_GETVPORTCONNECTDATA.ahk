@@ -1,14 +1,14 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
+#Include .\DD_DIRECTDRAW_LOCAL.ahk
+#Include .\DDVIDEOPORTCONNECT.ahk
 
 /**
  * The DD_GETVPORTCONNECTDATA structure contains the connection combinations supported by the specified video port extensions (VPE) object.
  * @see https://learn.microsoft.com/windows/win32/api/ddrawint/ns-ddrawint-dd_getvportconnectdata
  * @namespace Windows.Win32.Graphics.DirectDraw
- * @version v4.0.30319
  */
-class DD_GETVPORTCONNECTDATA extends Win32Struct
-{
+class DD_GETVPORTCONNECTDATA extends Win32Struct {
     static sizeof => 40
 
     static packingSize => 8

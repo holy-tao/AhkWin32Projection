@@ -1,16 +1,15 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
-#Include .\CHANGER_ELEMENT.ahk
 #Include .\CHANGER_ELEMENT_LIST.ahk
+#Include .\CHANGER_ELEMENT.ahk
+#Include .\ELEMENT_TYPE.ahk
 
 /**
  * Contains information that the IOCTL_CHANGER_GET_ELEMENT_STATUS control code needs to determine the elements whose status is to be retrieved.
  * @see https://learn.microsoft.com/windows/win32/api/winioctl/ns-winioctl-changer_read_element_status
  * @namespace Windows.Win32.System.Ioctl
- * @version v4.0.30319
  */
-class CHANGER_READ_ELEMENT_STATUS extends Win32Struct
-{
+class CHANGER_READ_ELEMENT_STATUS extends Win32Struct {
     static sizeof => 16
 
     static packingSize => 4
@@ -19,7 +18,7 @@ class CHANGER_READ_ELEMENT_STATUS extends Win32Struct
      * A
      * @type {CHANGER_ELEMENT_LIST}
      */
-    ElementList{
+    ElementList {
         get {
             if(!this.HasProp("__ElementList"))
                 this.__ElementList := CHANGER_ELEMENT_LIST(0, this)

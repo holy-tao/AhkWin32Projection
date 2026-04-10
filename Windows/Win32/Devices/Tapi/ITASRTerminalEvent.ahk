@@ -1,17 +1,16 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
+#Include ..\..\System\Com\IDispatch.ahk
 #Include .\ITTerminal.ahk
 #Include .\ITCallInfo.ahk
-#Include ..\..\System\Com\IDispatch.ahk
 
 /**
  * The ITASRTerminalEvent interface contains methods that retrieve the description of Automatic Speech Recognition terminal events that have occurred.
  * @see https://learn.microsoft.com/windows/win32/api/tapi3if/nn-tapi3if-itasrterminalevent
  * @namespace Windows.Win32.Devices.Tapi
- * @version v4.0.30319
  */
-class ITASRTerminalEvent extends IDispatch{
+class ITASRTerminalEvent extends IDispatch {
 
     static sizeof => A_PtrSize
     /**

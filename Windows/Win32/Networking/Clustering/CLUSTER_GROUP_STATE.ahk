@@ -5,9 +5,8 @@
  * The CLUSTER_GROUP_STATE enumeration (msclus.h) enumerates the possible states of a group.
  * @see https://learn.microsoft.com/windows/win32/api/msclus/ne-msclus-cluster_group_state
  * @namespace Windows.Win32.Networking.Clustering
- * @version v4.0.30319
  */
-class CLUSTER_GROUP_STATE extends Win32Enum{
+class CLUSTER_GROUP_STATE extends Win32Enum {
 
     /**
      * The state of the group is unknown.

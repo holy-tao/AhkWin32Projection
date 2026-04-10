@@ -3,10 +3,8 @@
 
 /**
  * @namespace Windows.Win32.Media.MediaFoundation
- * @version v4.0.30319
  */
-class DXVA_AYUVsample2 extends Win32Struct
-{
+class DXVA_AYUVsample2 extends Win32Struct {
     static sizeof => 4
 
     static packingSize => 1

@@ -1,16 +1,15 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
-#Include .\IVdsAsync.ahk
 #Include ..\..\System\Com\IUnknown.ahk
+#Include .\IVdsAsync.ahk
 
 /**
  * Provides methods to support volume shrinking.
  * @see https://learn.microsoft.com/windows/win32/api/vds/nn-vds-ivdsvolumeshrink
  * @namespace Windows.Win32.Storage.VirtualDiskService
- * @version v4.0.30319
  */
-class IVdsVolumeShrink extends IUnknown{
+class IVdsVolumeShrink extends IUnknown {
 
     static sizeof => A_PtrSize
     /**

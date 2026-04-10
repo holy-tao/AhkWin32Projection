@@ -3,9 +3,8 @@
 
 /**
  * @namespace Windows.Win32.Storage.Imapi
- * @version v4.0.30319
  */
-class MEDIA_TYPES extends Win32Enum{
+class MEDIA_TYPES extends Win32Enum {
 
     /**
      * @type {Integer (Int32)}

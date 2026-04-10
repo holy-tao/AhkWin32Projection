@@ -5,9 +5,8 @@
  * Contains flags for the IMF2DBuffer2::Lock2DSize method.
  * @see https://learn.microsoft.com/windows/win32/api/mfobjects/ne-mfobjects-mf2dbuffer_lockflags
  * @namespace Windows.Win32.Media.MediaFoundation
- * @version v4.0.30319
  */
-class MF2DBuffer_LockFlags extends Win32Enum{
+class MF2DBuffer_LockFlags extends Win32Enum {
 
     /**
      * Reserved.

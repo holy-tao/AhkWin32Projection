@@ -1,13 +1,12 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\..\Win32Struct.ahk
 #Include .\LSA_UNICODE_STRING.ahk
+#Include .\KERB_S4U2PROXY_CACHE_ENTRY_INFO.ahk
 
 /**
  * @namespace Windows.Win32.Security.Authentication.Identity
- * @version v4.0.30319
  */
-class KERB_S4U2PROXY_CRED extends Win32Struct
-{
+class KERB_S4U2PROXY_CRED extends Win32Struct {
     static sizeof => 64
 
     static packingSize => 8
@@ -15,7 +14,7 @@ class KERB_S4U2PROXY_CRED extends Win32Struct
     /**
      * @type {LSA_UNICODE_STRING}
      */
-    UserName{
+    UserName {
         get {
             if(!this.HasProp("__UserName"))
                 this.__UserName := LSA_UNICODE_STRING(0, this)
@@ -26,7 +25,7 @@ class KERB_S4U2PROXY_CRED extends Win32Struct
     /**
      * @type {LSA_UNICODE_STRING}
      */
-    DomainName{
+    DomainName {
         get {
             if(!this.HasProp("__DomainName"))
                 this.__DomainName := LSA_UNICODE_STRING(16, this)

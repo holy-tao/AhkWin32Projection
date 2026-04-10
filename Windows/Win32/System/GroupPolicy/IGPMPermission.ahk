@@ -1,8 +1,8 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
-#Include .\IGPMTrustee.ahk
 #Include ..\Com\IDispatch.ahk
+#Include .\IGPMTrustee.ahk
 
 /**
  * The IGPMPermission interface contains methods to retrieve permission-related properties when using the GPMC.
@@ -272,9 +272,8 @@
  * <a href="https://docs.microsoft.com/windows/desktop/AD/how-security-groups-are-used-in-access-control">How Security Groups are Used in Access Control</a> in the Active Directory Programmer's Guide.
  * @see https://learn.microsoft.com/windows/win32/api/gpmgmt/nn-gpmgmt-igpmpermission
  * @namespace Windows.Win32.System.GroupPolicy
- * @version v4.0.30319
  */
-class IGPMPermission extends IDispatch{
+class IGPMPermission extends IDispatch {
 
     static sizeof => A_PtrSize
     /**
@@ -323,7 +322,7 @@ class IGPMPermission extends IDispatch{
     }
 
     /**
-     * @type {Integer} 
+     * @type {GPMPermissionType} 
      */
     Permission {
         get => this.get_Permission()
@@ -365,7 +364,7 @@ class IGPMPermission extends IDispatch{
 
     /**
      * 
-     * @returns {Integer} 
+     * @returns {GPMPermissionType} 
      */
     get_Permission() {
         result := ComCall(10, this, "int*", &pVal := 0, "HRESULT")

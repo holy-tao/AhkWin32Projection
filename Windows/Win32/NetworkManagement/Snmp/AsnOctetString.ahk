@@ -11,10 +11,9 @@
  * <a href="https://docs.microsoft.com/windows/desktop/api/snmp/nf-snmp-snmputilmemfree">SnmpUtilMemFree</a> function only if the <b>dynamic</b> member is set to <b>TRUE</b>.
  * @see https://learn.microsoft.com/windows/win32/api/snmp/ns-snmp-asnoctetstring
  * @namespace Windows.Win32.NetworkManagement.Snmp
- * @version v4.0.30319
+ * @architecture X64, Arm64
  */
-class AsnOctetString extends Win32Struct
-{
+class AsnOctetString extends Win32Struct {
     static sizeof => 16
 
     static packingSize => 8

@@ -3,10 +3,8 @@
 
 /**
  * @namespace Windows.Win32.Devices.Usb
- * @version v4.0.30319
  */
-class USB_DEVICE_CAPABILITY_PD_CONSUMER_PORT_DESCRIPTOR extends Win32Struct
-{
+class USB_DEVICE_CAPABILITY_PD_CONSUMER_PORT_DESCRIPTOR extends Win32Struct {
     static sizeof => 24
 
     static packingSize => 4
@@ -22,7 +20,7 @@ class USB_DEVICE_CAPABILITY_PD_CONSUMER_PORT_DESCRIPTOR extends Win32Struct
             get => NumGet(this, 0, "ushort")
             set => NumPut("ushort", value, this, 0)
         }
-    
+
         /**
          * This bitfield backs the following members:
          * - BatteryCharging
@@ -35,7 +33,7 @@ class USB_DEVICE_CAPABILITY_PD_CONSUMER_PORT_DESCRIPTOR extends Win32Struct
             get => NumGet(this, 0, "ushort")
             set => NumPut("ushort", value, this, 0)
         }
-    
+
         /**
          * @type {Integer}
          */
@@ -43,7 +41,7 @@ class USB_DEVICE_CAPABILITY_PD_CONSUMER_PORT_DESCRIPTOR extends Win32Struct
             get => (this._bitfield >> 0) & 0x1
             set => this._bitfield := ((value & 0x1) << 0) | (this._bitfield & ~(0x1 << 0))
         }
-    
+
         /**
          * @type {Integer}
          */
@@ -51,7 +49,7 @@ class USB_DEVICE_CAPABILITY_PD_CONSUMER_PORT_DESCRIPTOR extends Win32Struct
             get => (this._bitfield >> 1) & 0x1
             set => this._bitfield := ((value & 0x1) << 1) | (this._bitfield & ~(0x1 << 1))
         }
-    
+
         /**
          * @type {Integer}
          */
@@ -59,7 +57,6 @@ class USB_DEVICE_CAPABILITY_PD_CONSUMER_PORT_DESCRIPTOR extends Win32Struct
             get => (this._bitfield >> 2) & 0x1
             set => this._bitfield := ((value & 0x1) << 2) | (this._bitfield & ~(0x1 << 2))
         }
-    
     }
 
     /**
@@ -97,10 +94,10 @@ class USB_DEVICE_CAPABILITY_PD_CONSUMER_PORT_DESCRIPTOR extends Win32Struct
     /**
      * @type {_bmCapabilities_e__Union}
      */
-    bmCapabilities{
+    bmCapabilities {
         get {
             if(!this.HasProp("__bmCapabilities"))
-                this.__bmCapabilities := %this.__Class%._bmCapabilities_e__Union(4, this)
+                this.__bmCapabilities := USB_DEVICE_CAPABILITY_PD_CONSUMER_PORT_DESCRIPTOR._bmCapabilities_e__Union(4, this)
             return this.__bmCapabilities
         }
     }

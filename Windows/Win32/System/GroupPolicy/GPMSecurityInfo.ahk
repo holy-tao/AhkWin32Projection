@@ -120,10 +120,8 @@
  *     <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/gpmgmt/nf-gpmgmt-igpm-createpermission">IGPM::CreatePermission</a>.
  * @see https://learn.microsoft.com/windows/win32/api/gpmgmt/nn-gpmgmt-igpmsecurityinfo
  * @namespace Windows.Win32.System.GroupPolicy
- * @version v4.0.30319
  */
-class GPMSecurityInfo extends Win32Struct
-{
+class GPMSecurityInfo extends Win32Struct {
     static sizeof => 0
 
     static packingSize => 1

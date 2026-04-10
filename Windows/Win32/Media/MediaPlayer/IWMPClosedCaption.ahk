@@ -1,16 +1,14 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
-#Include ..\..\Foundation\BSTR.ahk
 #Include ..\..\System\Com\IDispatch.ahk
 
 /**
  * The IWMPClosedCaption interface provides a way to include captions with a digital media file. The captioning text is in a Synchronized Accessible Media Interchange (SAMI) file.
  * @see https://learn.microsoft.com/windows/win32/api/wmp/nn-wmp-iwmpclosedcaption
  * @namespace Windows.Win32.Media.MediaPlayer
- * @version v4.0.30319
  */
-class IWMPClosedCaption extends IDispatch{
+class IWMPClosedCaption extends IDispatch {
 
     static sizeof => A_PtrSize
     /**
@@ -32,6 +30,7 @@ class IWMPClosedCaption extends IDispatch{
     static VTableNames => ["get_SAMIStyle", "put_SAMIStyle", "get_SAMILang", "put_SAMILang", "get_SAMIFileName", "put_SAMIFileName", "get_captioningId", "put_captioningId"]
 
     /**
+     * @type {BSTR} 
      */
     SAMIStyle {
         get => this.get_SAMIStyle()
@@ -39,6 +38,7 @@ class IWMPClosedCaption extends IDispatch{
     }
 
     /**
+     * @type {BSTR} 
      */
     SAMILang {
         get => this.get_SAMILang()
@@ -46,6 +46,7 @@ class IWMPClosedCaption extends IDispatch{
     }
 
     /**
+     * @type {BSTR} 
      */
     SAMIFileName {
         get => this.get_SAMIFileName()
@@ -53,6 +54,7 @@ class IWMPClosedCaption extends IDispatch{
     }
 
     /**
+     * @type {BSTR} 
      */
     captioningId {
         get => this.get_captioningId()

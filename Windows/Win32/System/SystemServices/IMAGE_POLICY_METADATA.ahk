@@ -1,14 +1,14 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
 #Include .\IMAGE_POLICY_ENTRY.ahk
+#Include .\IMAGE_POLICY_ENTRY_TYPE.ahk
+#Include .\IMAGE_POLICY_ID.ahk
 
 /**
  * @namespace Windows.Win32.System.SystemServices
- * @version v4.0.30319
  */
-class IMAGE_POLICY_METADATA extends Win32Struct
-{
-    static sizeof => 24
+class IMAGE_POLICY_METADATA extends Win32Struct {
+    static sizeof => 32
 
     static packingSize => 8
 
@@ -21,9 +21,9 @@ class IMAGE_POLICY_METADATA extends Win32Struct
     }
 
     /**
-     * @type {Array<Byte>}
+     * @type {Array<Integer>}
      */
-    Reserved0{
+    Reserved0 {
         get {
             if(!this.HasProp("__Reserved0ProxyArray"))
                 this.__Reserved0ProxyArray := Win32FixedArray(this.ptr + 1, 7, Primitive, "char")
@@ -40,9 +40,9 @@ class IMAGE_POLICY_METADATA extends Win32Struct
     }
 
     /**
-     * @type {Array<IMAGE_POLICY_ENTRY>}
+     * @type {IMAGE_POLICY_ENTRY}
      */
-    Policies{
+    Policies {
         get {
             if(!this.HasProp("__PoliciesProxyArray"))
                 this.__PoliciesProxyArray := Win32FixedArray(this.ptr + 16, 1, IMAGE_POLICY_ENTRY, "")

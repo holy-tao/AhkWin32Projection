@@ -1,16 +1,15 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\..\Guid.ahk
-#Include ..\HCERTSTORE.ahk
 #Include ..\..\..\System\Com\IUnknown.ahk
+#Include ..\HCERTSTORE.ahk
 
 /**
  * Represents the Certificate Enrollment Control and is used primarily to generate certificate requests. (IEnroll)
  * @see https://learn.microsoft.com/windows/win32/api/xenroll/nn-xenroll-ienroll
  * @namespace Windows.Win32.Security.Cryptography.Certificates
- * @version v4.0.30319
  */
-class IEnroll extends IUnknown{
+class IEnroll extends IUnknown {
 
     static sizeof => A_PtrSize
     /**
@@ -32,6 +31,7 @@ class IEnroll extends IUnknown{
     static VTableNames => ["createFilePKCS10WStr", "acceptFilePKCS7WStr", "createPKCS10WStr", "acceptPKCS7Blob", "getCertContextFromPKCS7", "getMyStore", "getCAStore", "getROOTHStore", "enumProvidersWStr", "enumContainersWStr", "freeRequestInfoBlob", "get_MyStoreNameWStr", "put_MyStoreNameWStr", "get_MyStoreTypeWStr", "put_MyStoreTypeWStr", "get_MyStoreFlags", "put_MyStoreFlags", "get_CAStoreNameWStr", "put_CAStoreNameWStr", "get_CAStoreTypeWStr", "put_CAStoreTypeWStr", "get_CAStoreFlags", "put_CAStoreFlags", "get_RootStoreNameWStr", "put_RootStoreNameWStr", "get_RootStoreTypeWStr", "put_RootStoreTypeWStr", "get_RootStoreFlags", "put_RootStoreFlags", "get_RequestStoreNameWStr", "put_RequestStoreNameWStr", "get_RequestStoreTypeWStr", "put_RequestStoreTypeWStr", "get_RequestStoreFlags", "put_RequestStoreFlags", "get_ContainerNameWStr", "put_ContainerNameWStr", "get_ProviderNameWStr", "put_ProviderNameWStr", "get_ProviderType", "put_ProviderType", "get_KeySpec", "put_KeySpec", "get_ProviderFlags", "put_ProviderFlags", "get_UseExistingKeySet", "put_UseExistingKeySet", "get_GenKeyFlags", "put_GenKeyFlags", "get_DeleteRequestCert", "put_DeleteRequestCert", "get_WriteCertToUserDS", "put_WriteCertToUserDS", "get_EnableT61DNEncoding", "put_EnableT61DNEncoding", "get_WriteCertToCSP", "put_WriteCertToCSP", "get_SPCFileNameWStr", "put_SPCFileNameWStr", "get_PVKFileNameWStr", "put_PVKFileNameWStr", "get_HashAlgorithmWStr", "put_HashAlgorithmWStr", "get_RenewalCertificate", "put_RenewalCertificate", "AddCertTypeToRequestWStr", "AddNameValuePairToSignatureWStr", "AddExtensionsToRequest", "AddAuthenticatedAttributesToPKCS7Request", "CreatePKCS7RequestFromRequest"]
 
     /**
+     * @type {PWSTR} 
      */
     MyStoreNameWStr {
         get => this.get_MyStoreNameWStr()
@@ -39,6 +39,7 @@ class IEnroll extends IUnknown{
     }
 
     /**
+     * @type {PWSTR} 
      */
     MyStoreTypeWStr {
         get => this.get_MyStoreTypeWStr()
@@ -46,6 +47,7 @@ class IEnroll extends IUnknown{
     }
 
     /**
+     * @type {Integer} 
      */
     MyStoreFlags {
         get => this.get_MyStoreFlags()
@@ -53,6 +55,7 @@ class IEnroll extends IUnknown{
     }
 
     /**
+     * @type {PWSTR} 
      */
     CAStoreNameWStr {
         get => this.get_CAStoreNameWStr()
@@ -60,6 +63,7 @@ class IEnroll extends IUnknown{
     }
 
     /**
+     * @type {PWSTR} 
      */
     CAStoreTypeWStr {
         get => this.get_CAStoreTypeWStr()
@@ -67,6 +71,7 @@ class IEnroll extends IUnknown{
     }
 
     /**
+     * @type {Integer} 
      */
     CAStoreFlags {
         get => this.get_CAStoreFlags()
@@ -74,6 +79,7 @@ class IEnroll extends IUnknown{
     }
 
     /**
+     * @type {PWSTR} 
      */
     RootStoreNameWStr {
         get => this.get_RootStoreNameWStr()
@@ -81,6 +87,7 @@ class IEnroll extends IUnknown{
     }
 
     /**
+     * @type {PWSTR} 
      */
     RootStoreTypeWStr {
         get => this.get_RootStoreTypeWStr()
@@ -88,6 +95,7 @@ class IEnroll extends IUnknown{
     }
 
     /**
+     * @type {Integer} 
      */
     RootStoreFlags {
         get => this.get_RootStoreFlags()
@@ -95,6 +103,7 @@ class IEnroll extends IUnknown{
     }
 
     /**
+     * @type {PWSTR} 
      */
     RequestStoreNameWStr {
         get => this.get_RequestStoreNameWStr()
@@ -102,6 +111,7 @@ class IEnroll extends IUnknown{
     }
 
     /**
+     * @type {PWSTR} 
      */
     RequestStoreTypeWStr {
         get => this.get_RequestStoreTypeWStr()
@@ -109,6 +119,7 @@ class IEnroll extends IUnknown{
     }
 
     /**
+     * @type {Integer} 
      */
     RequestStoreFlags {
         get => this.get_RequestStoreFlags()
@@ -116,6 +127,7 @@ class IEnroll extends IUnknown{
     }
 
     /**
+     * @type {PWSTR} 
      */
     ContainerNameWStr {
         get => this.get_ContainerNameWStr()
@@ -123,6 +135,7 @@ class IEnroll extends IUnknown{
     }
 
     /**
+     * @type {PWSTR} 
      */
     ProviderNameWStr {
         get => this.get_ProviderNameWStr()
@@ -130,6 +143,7 @@ class IEnroll extends IUnknown{
     }
 
     /**
+     * @type {Integer} 
      */
     ProviderType {
         get => this.get_ProviderType()
@@ -137,6 +151,7 @@ class IEnroll extends IUnknown{
     }
 
     /**
+     * @type {Integer} 
      */
     KeySpec {
         get => this.get_KeySpec()
@@ -144,6 +159,7 @@ class IEnroll extends IUnknown{
     }
 
     /**
+     * @type {Integer} 
      */
     ProviderFlags {
         get => this.get_ProviderFlags()
@@ -151,6 +167,7 @@ class IEnroll extends IUnknown{
     }
 
     /**
+     * @type {BOOL} 
      */
     UseExistingKeySet {
         get => this.get_UseExistingKeySet()
@@ -158,6 +175,7 @@ class IEnroll extends IUnknown{
     }
 
     /**
+     * @type {Integer} 
      */
     GenKeyFlags {
         get => this.get_GenKeyFlags()
@@ -165,6 +183,7 @@ class IEnroll extends IUnknown{
     }
 
     /**
+     * @type {BOOL} 
      */
     DeleteRequestCert {
         get => this.get_DeleteRequestCert()
@@ -172,6 +191,7 @@ class IEnroll extends IUnknown{
     }
 
     /**
+     * @type {BOOL} 
      */
     WriteCertToUserDS {
         get => this.get_WriteCertToUserDS()
@@ -179,6 +199,7 @@ class IEnroll extends IUnknown{
     }
 
     /**
+     * @type {BOOL} 
      */
     EnableT61DNEncoding {
         get => this.get_EnableT61DNEncoding()
@@ -186,6 +207,7 @@ class IEnroll extends IUnknown{
     }
 
     /**
+     * @type {BOOL} 
      */
     WriteCertToCSP {
         get => this.get_WriteCertToCSP()
@@ -193,6 +215,7 @@ class IEnroll extends IUnknown{
     }
 
     /**
+     * @type {PWSTR} 
      */
     SPCFileNameWStr {
         get => this.get_SPCFileNameWStr()
@@ -200,6 +223,7 @@ class IEnroll extends IUnknown{
     }
 
     /**
+     * @type {PWSTR} 
      */
     PVKFileNameWStr {
         get => this.get_PVKFileNameWStr()
@@ -207,6 +231,7 @@ class IEnroll extends IUnknown{
     }
 
     /**
+     * @type {PWSTR} 
      */
     HashAlgorithmWStr {
         get => this.get_HashAlgorithmWStr()
@@ -214,6 +239,7 @@ class IEnroll extends IUnknown{
     }
 
     /**
+     * @type {CERT_CONTEXT} 
      */
     RenewalCertificate {
         get => this.get_RenewalCertificate()

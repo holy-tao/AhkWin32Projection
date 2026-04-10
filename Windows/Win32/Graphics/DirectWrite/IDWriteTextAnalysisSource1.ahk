@@ -7,9 +7,8 @@
  * The interface you implement to provide needed information to the text analyzer, like the text and associated text properties.
  * @see https://learn.microsoft.com/windows/win32/api/dwrite_1/nn-dwrite_1-idwritetextanalysissource1
  * @namespace Windows.Win32.Graphics.DirectWrite
- * @version v4.0.30319
  */
-class IDWriteTextAnalysisSource1 extends IDWriteTextAnalysisSource{
+class IDWriteTextAnalysisSource1 extends IDWriteTextAnalysisSource {
 
     static sizeof => A_PtrSize
     /**
@@ -44,7 +43,7 @@ class IDWriteTextAnalysisSource1 extends IDWriteTextAnalysisSource{
      * @param {Pointer<Integer>} textLength Type: <b>UINT32*</b>
      * 
      * A pointer to the text length.
-     * @param {Pointer<Integer>} glyphOrientation Type: <b><a href="https://docs.microsoft.com/windows/win32/api/dwrite_1/ne-dwrite_1-dwrite_vertical_glyph_orientation">DWRITE_VERTICAL_GLYPH_ORIENTATION</a>*</b>
+     * @param {Pointer<DWRITE_VERTICAL_GLYPH_ORIENTATION>} glyphOrientation Type: <b><a href="https://docs.microsoft.com/windows/win32/api/dwrite_1/ne-dwrite_1-dwrite_vertical_glyph_orientation">DWRITE_VERTICAL_GLYPH_ORIENTATION</a>*</b>
      * 
      * A <a href="https://docs.microsoft.com/windows/win32/api/dwrite_1/ne-dwrite_1-dwrite_vertical_glyph_orientation">DWRITE_VERTICAL_GLYPH_ORIENTATION</a>-typed value that specifies the desired kind of glyph orientation for the text.
      * @param {Pointer<Integer>} bidiLevel Type: <b>UINT8*</b>

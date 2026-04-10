@@ -6,10 +6,8 @@
  * This structure contains data for the input processor profile.
  * @see https://learn.microsoft.com/windows/win32/api/msctf/ns-msctf-tf_inputprocessorprofile
  * @namespace Windows.Win32.UI.TextServices
- * @version v4.0.30319
  */
-class TF_INPUTPROCESSORPROFILE extends Win32Struct
-{
+class TF_INPUTPROCESSORPROFILE extends Win32Struct {
     static sizeof => 64
 
     static packingSize => 8
@@ -49,7 +47,7 @@ class TF_INPUTPROCESSORPROFILE extends Win32Struct
 
     /**
      * The CLSID of the text service. This is CLSID_NULL if this profile is a keyboard layout.
-     * @type {Pointer<Guid>}
+     * @type {Pointer}
      */
     clsid {
         get => NumGet(this, 8, "ptr")
@@ -58,7 +56,7 @@ class TF_INPUTPROCESSORPROFILE extends Win32Struct
 
     /**
      * The guidProfile of the text services. This is GUID_NULL if this profile is a keyboard layout.
-     * @type {Pointer<Guid>}
+     * @type {Pointer}
      */
     guidProfile {
         get => NumGet(this, 16, "ptr")
@@ -67,7 +65,7 @@ class TF_INPUTPROCESSORPROFILE extends Win32Struct
 
     /**
      * The category of this text service. This category is GUID_TFCAT_TIP_KEYBOARD, GUID_TFCAT_TIP_SPEECH, GUID_TFCAT_TIP_HANDWRITING or something in GUID_TFCAT_CATEGORY_OF_TIP.
-     * @type {Pointer<Guid>}
+     * @type {Pointer}
      */
     catid {
         get => NumGet(this, 24, "ptr")
@@ -78,7 +76,7 @@ class TF_INPUTPROCESSORPROFILE extends Win32Struct
      * The keyboard layout handle of the substitute for this text service. This can be <b>NULL</b> if the text service does not have a substitute or this profile is a keyboard layout.
      * @type {HKL}
      */
-    hklSubstitute{
+    hklSubstitute {
         get {
             if(!this.HasProp("__hklSubstitute"))
                 this.__hklSubstitute := HKL(32, this)
@@ -134,7 +132,7 @@ class TF_INPUTPROCESSORPROFILE extends Win32Struct
      * The keyboard layout handle. This is <b>NULL</b> if this profile is a text service.
      * @type {HKL}
      */
-    hkl{
+    hkl {
         get {
             if(!this.HasProp("__hkl"))
                 this.__hkl := HKL(48, this)

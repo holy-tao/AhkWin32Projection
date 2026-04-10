@@ -1,6 +1,7 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
 #Include .\SOCKET.ahk
+#Include .\WSAPOLL_EVENT_FLAGS.ahk
 
 /**
  * Stores socket information used by the WSAPoll function.
@@ -12,10 +13,8 @@
  * If the <b>fd</b> member of the <b>WSAPOLLFD</b> structure is set to a negative value, the structure is ignored by the <a href="https://docs.microsoft.com/windows/desktop/api/winsock2/nf-winsock2-wsapoll">WSAPoll</a> function call, and the <b>revents</b> member is cleared upon return. This is useful to applications that maintain a fixed  allocation for the <i>fdarray</i> parameter of <b>WSAPoll</b>; such applications need not waste resources compacting elements of the array for unused entries or reallocating memory. It is unnecessary to clear the <b>revents</b> member prior to calling the <b>WSAPoll</b> function.
  * @see https://learn.microsoft.com/windows/win32/api/winsock2/ns-winsock2-wsapollfd
  * @namespace Windows.Win32.Networking.WinSock
- * @version v4.0.30319
  */
-class WSAPOLLFD extends Win32Struct
-{
+class WSAPOLLFD extends Win32Struct {
     static sizeof => 16
 
     static packingSize => 8
@@ -26,7 +25,7 @@ class WSAPOLLFD extends Win32Struct
      * The identifier of the socket for which to find status. This parameter is ignored if set to a negative value. See Remarks.
      * @type {SOCKET}
      */
-    fd{
+    fd {
         get {
             if(!this.HasProp("__fd"))
                 this.__fd := SOCKET(0, this)
@@ -64,7 +63,7 @@ class WSAPOLLFD extends Win32Struct
      *  
      * 
      * The POLLIN flag is defined as the combination of the <b>POLLRDNORM</b>  and <b>POLLRDBAND</b> flag values. The POLLOUT flag is defined as the same as the <b>POLLWRNORM</b>  flag value.
-     * @type {Integer}
+     * @type {WSAPOLL_EVENT_FLAGS}
      */
     events {
         get => NumGet(this, 8, "short")
@@ -115,7 +114,7 @@ class WSAPOLLFD extends Win32Struct
      * The POLLIN flag is defined as the combination of the <b>POLLRDNORM</b>  and <b>POLLRDBAND</b> flag values. The POLLOUT flag is defined as the same as the <b>POLLWRNORM</b>  flag value.
      * 
      * For sockets that do not satisfy the status query, and have no error, the <b>revents</b> member is set to zero upon return.
-     * @type {Integer}
+     * @type {WSAPOLL_EVENT_FLAGS}
      */
     revents {
         get => NumGet(this, 10, "short")

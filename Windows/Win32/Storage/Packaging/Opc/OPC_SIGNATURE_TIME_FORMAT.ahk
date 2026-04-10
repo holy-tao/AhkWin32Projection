@@ -127,9 +127,8 @@
  * </table>
  * @see https://learn.microsoft.com/windows/win32/api/msopc/ne-msopc-opc_signature_time_format
  * @namespace Windows.Win32.Storage.Packaging.Opc
- * @version v4.0.30319
  */
-class OPC_SIGNATURE_TIME_FORMAT extends Win32Enum{
+class OPC_SIGNATURE_TIME_FORMAT extends Win32Enum {
 
     /**
      * The format is the complete date with hours, minutes, and seconds expressed as a decimal fraction.

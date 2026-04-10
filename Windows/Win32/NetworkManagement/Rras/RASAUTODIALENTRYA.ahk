@@ -3,11 +3,9 @@
 
 /**
  * @namespace Windows.Win32.NetworkManagement.Rras
- * @version v4.0.30319
  * @charset ANSI
  */
-class RASAUTODIALENTRYA extends Win32Struct
-{
+class RASAUTODIALENTRYA extends Win32Struct {
     static sizeof => 272
 
     static packingSize => 4

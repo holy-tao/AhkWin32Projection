@@ -1,13 +1,12 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\..\Win32Struct.ahk
 #Include .\REMSECURITY_ATTRIBUTES.ahk
+#Include ..\IUnknown.ahk
 
 /**
  * @namespace Windows.Win32.System.Com.Urlmon
- * @version v4.0.30319
  */
-class RemBINDINFO extends Win32Struct
-{
+class RemBINDINFO extends Win32Struct {
     static sizeof => 88
 
     static packingSize => 8
@@ -87,7 +86,7 @@ class RemBINDINFO extends Win32Struct
     /**
      * @type {REMSECURITY_ATTRIBUTES}
      */
-    securityAttributes{
+    securityAttributes {
         get {
             if(!this.HasProp("__securityAttributes"))
                 this.__securityAttributes := REMSECURITY_ATTRIBUTES(48, this)
@@ -96,7 +95,7 @@ class RemBINDINFO extends Win32Struct
     }
 
     /**
-     * @type {Pointer<Guid>}
+     * @type {Pointer}
      */
     iid {
         get => NumGet(this, 64, "ptr")

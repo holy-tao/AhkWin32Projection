@@ -7,9 +7,8 @@
  * These values can be used to express HEVC variables such as MinCbSizeY, CtbLog2SizeY.
  * @see https://learn.microsoft.com/windows/win32/api/d3d12video/ne-d3d12video-d3d12_video_encoder_codec_configuration_hevc_cusize
  * @namespace Windows.Win32.Media.MediaFoundation
- * @version v4.0.30319
  */
-class D3D12_VIDEO_ENCODER_CODEC_CONFIGURATION_HEVC_CUSIZE extends Win32Enum{
+class D3D12_VIDEO_ENCODER_CODEC_CONFIGURATION_HEVC_CUSIZE extends Win32Enum {
 
     /**
      * Luma coding block of pixel size 8.

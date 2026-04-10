@@ -3,10 +3,8 @@
 
 /**
  * @namespace Windows.Win32.System.Diagnostics.ProcessSnapshotting
- * @version v4.0.30319
  */
-class PSS_THREAD_NAME extends Win32Struct
-{
+class PSS_THREAD_NAME extends Win32Struct {
     static sizeof => 16
 
     static packingSize => 8

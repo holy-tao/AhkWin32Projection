@@ -4,10 +4,8 @@
 
 /**
  * @namespace Windows.Win32.Foundation
- * @version v4.0.30319
  */
-class HRSRC extends Win32Handle
-{
+class HRSRC extends Win32Handle {
     static sizeof => 8
 
     static packingSize => 8

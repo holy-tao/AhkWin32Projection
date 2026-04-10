@@ -1,16 +1,15 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
-#Include .\IUIAutomationTextRange.ahk
 #Include .\IUIAutomationTextPattern.ahk
+#Include .\IUIAutomationTextRange.ahk
 
 /**
  * Extends the IUIAutomationTextPattern interface.
  * @see https://learn.microsoft.com/windows/win32/api/uiautomationclient/nn-uiautomationclient-iuiautomationtextpattern2
  * @namespace Windows.Win32.UI.Accessibility
- * @version v4.0.30319
  */
-class IUIAutomationTextPattern2 extends IUIAutomationTextPattern{
+class IUIAutomationTextPattern2 extends IUIAutomationTextPattern {
 
     static sizeof => A_PtrSize
     /**

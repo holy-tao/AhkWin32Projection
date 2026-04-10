@@ -1,16 +1,15 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\..\Guid.ahk
-#Include .\IWICImageEncoder.ahk
 #Include ..\IWICImagingFactory.ahk
+#Include .\IWICImageEncoder.ahk
 
 /**
  * An extension of the WIC factory interface that includes the ability to create an IWICImageEncoder.
  * @see https://learn.microsoft.com/windows/win32/api/wincodec/nn-wincodec-iwicimagingfactory2
  * @namespace Windows.Win32.Graphics.Imaging.D2D
- * @version v4.0.30319
  */
-class IWICImagingFactory2 extends IWICImagingFactory{
+class IWICImagingFactory2 extends IWICImagingFactory {
 
     static sizeof => A_PtrSize
     /**

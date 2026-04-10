@@ -3,10 +3,8 @@
 
 /**
  * @namespace Windows.Win32.Storage.IscsiDisc
- * @version v4.0.30319
  */
-class NVCACHE_HINT_PAYLOAD extends Win32Struct
-{
+class NVCACHE_HINT_PAYLOAD extends Win32Struct {
     static sizeof => 16
 
     static packingSize => 1
@@ -108,9 +106,9 @@ class NVCACHE_HINT_PAYLOAD extends Win32Struct
     }
 
     /**
-     * @type {Array<Byte>}
+     * @type {Array<Integer>}
      */
-    Reserved{
+    Reserved {
         get {
             if(!this.HasProp("__ReservedProxyArray"))
                 this.__ReservedProxyArray := Win32FixedArray(this.ptr + 12, 4, Primitive, "char")

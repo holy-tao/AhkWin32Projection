@@ -5,10 +5,8 @@
  * Defines a list of result codes.
  * @see https://learn.microsoft.com/windows/win32/api/naptypes/ns-naptypes-resultcodes
  * @namespace Windows.Win32.Security.NetworkAccessProtection
- * @version v4.0.30319
  */
-class ResultCodes extends Win32Struct
-{
+class ResultCodes extends Win32Struct {
     static sizeof => 16
 
     static packingSize => 8

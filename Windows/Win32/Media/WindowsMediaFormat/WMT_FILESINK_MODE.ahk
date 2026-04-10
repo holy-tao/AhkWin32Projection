@@ -5,9 +5,8 @@
  * The WMT_FILESINK_MODE enumeration type defines the types of input accepted by the file sink.
  * @see https://learn.microsoft.com/windows/win32/api/wmsdkidl/ne-wmsdkidl-wmt_filesink_mode
  * @namespace Windows.Win32.Media.WindowsMediaFormat
- * @version v4.0.30319
  */
-class WMT_FILESINK_MODE extends Win32Enum{
+class WMT_FILESINK_MODE extends Win32Enum {
 
     /**
      * The file sink accepts normal buffers through calls to <a href="https://docs.microsoft.com/windows/desktop/api/wmsdkidl/nf-wmsdkidl-iwmwritersink-ondataunit">IWMWriterSink::OnDataUnit</a>. This is the default behavior.

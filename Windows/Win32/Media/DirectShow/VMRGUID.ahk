@@ -7,10 +7,8 @@
  * In DirectX 9.0 and later, the monitor is identified by an integer index, not by a GUID.
  * @see https://learn.microsoft.com/windows/win32/api/strmif/ns-strmif-vmrguid
  * @namespace Windows.Win32.Media.DirectShow
- * @version v4.0.30319
  */
-class VMRGUID extends Win32Struct
-{
+class VMRGUID extends Win32Struct {
     static sizeof => 16
 
     static packingSize => 8
@@ -26,7 +24,7 @@ class VMRGUID extends Win32Struct
 
     /**
      * Specifies the GUID for the monitor.
-     * @type {Pointer<Guid>}
+     * @type {Pointer}
      */
     GUID {
         get => NumGet(this, 8, "ptr")

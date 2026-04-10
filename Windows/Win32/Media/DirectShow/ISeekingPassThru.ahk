@@ -9,9 +9,8 @@
  * To obtain this interface, call <b>CoCreateInstance</b> with CLSID_SeekingPassThru. You can also use the <a href="https://docs.microsoft.com/windows/desktop/DirectShow/createpospassthru">CreatePosPassThru</a> function in the base class library.
  * @see https://learn.microsoft.com/windows/win32/api/strmif/nn-strmif-iseekingpassthru
  * @namespace Windows.Win32.Media.DirectShow
- * @version v4.0.30319
  */
-class ISeekingPassThru extends IUnknown{
+class ISeekingPassThru extends IUnknown {
 
     static sizeof => A_PtrSize
     /**

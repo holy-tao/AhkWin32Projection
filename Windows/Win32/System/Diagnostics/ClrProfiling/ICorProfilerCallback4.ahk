@@ -5,9 +5,8 @@
 
 /**
  * @namespace Windows.Win32.System.Diagnostics.ClrProfiling
- * @version v4.0.30319
  */
-class ICorProfilerCallback4 extends ICorProfilerCallback3{
+class ICorProfilerCallback4 extends ICorProfilerCallback3 {
 
     static sizeof => A_PtrSize
     /**

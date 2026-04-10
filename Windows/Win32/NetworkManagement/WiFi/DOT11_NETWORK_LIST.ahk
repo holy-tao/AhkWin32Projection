@@ -1,19 +1,18 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
-#Include .\DOT11_SSID.ahk
 #Include .\DOT11_NETWORK.ahk
+#Include .\DOT11_SSID.ahk
+#Include .\DOT11_BSS_TYPE.ahk
 
 /**
  * Contains a list of 802.11 wireless networks.
  * @see https://learn.microsoft.com/windows/win32/api/wlanapi/ns-wlanapi-dot11_network_list
  * @namespace Windows.Win32.NetworkManagement.WiFi
- * @version v4.0.30319
  */
-class DOT11_NETWORK_LIST extends Win32Struct
-{
-    static sizeof => 16
+class DOT11_NETWORK_LIST extends Win32Struct {
+    static sizeof => 48
 
-    static packingSize => 8
+    static packingSize => 4
 
     /**
      * Contains the number of items in the <b>Network</b> member.
@@ -39,9 +38,9 @@ class DOT11_NETWORK_LIST extends Win32Struct
 
     /**
      * An array of <a href="https://docs.microsoft.com/windows/desktop/api/wlanapi/ns-wlanapi-dot11_network">DOT11_NETWORK</a> structures that contain 802.11 wireless network information.
-     * @type {Array<DOT11_NETWORK>}
+     * @type {DOT11_NETWORK}
      */
-    Network{
+    Network {
         get {
             if(!this.HasProp("__NetworkProxyArray"))
                 this.__NetworkProxyArray := Win32FixedArray(this.ptr + 8, 1, DOT11_NETWORK, "")

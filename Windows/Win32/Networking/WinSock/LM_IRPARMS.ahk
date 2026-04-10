@@ -3,10 +3,8 @@
 
 /**
  * @namespace Windows.Win32.Networking.WinSock
- * @version v4.0.30319
  */
-class LM_IRPARMS extends Win32Struct
-{
+class LM_IRPARMS extends Win32Struct {
     static sizeof => 24
 
     static packingSize => 4

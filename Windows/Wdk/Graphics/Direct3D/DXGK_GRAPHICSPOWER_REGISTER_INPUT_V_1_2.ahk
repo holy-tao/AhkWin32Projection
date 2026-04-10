@@ -3,10 +3,8 @@
 
 /**
  * @namespace Windows.Wdk.Graphics.Direct3D
- * @version v4.0.30319
  */
-class DXGK_GRAPHICSPOWER_REGISTER_INPUT_V_1_2 extends Win32Struct
-{
+class DXGK_GRAPHICSPOWER_REGISTER_INPUT_V_1_2 extends Win32Struct {
     static sizeof => 48
 
     static packingSize => 8

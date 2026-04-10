@@ -5,9 +5,8 @@
  * Defines the access mode values for RDC file mapping objects.
  * @see https://learn.microsoft.com/windows/win32/api/msrdc/ne-msrdc-rdcmappingaccessmode
  * @namespace Windows.Win32.Networking.RemoteDifferentialCompression
- * @version v4.0.30319
  */
-class RdcMappingAccessMode extends Win32Enum{
+class RdcMappingAccessMode extends Win32Enum {
 
     /**
      * The mapping access mode is unknown.

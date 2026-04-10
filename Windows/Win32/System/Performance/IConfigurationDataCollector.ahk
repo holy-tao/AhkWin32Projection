@@ -1,8 +1,8 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
-#Include ..\..\Foundation\BSTR.ahk
 #Include .\IDataCollector.ahk
+#Include ..\..\Foundation\BSTR.ahk
 
 /**
  * Collects computer settings at the time of collection.
@@ -30,9 +30,8 @@
  * When you specify the XML to create the collector, you can specify only the elements for the properties that you want to set. If you do not specify a property, PLA provides a default value. When you retrieve the XML for the collector, the XML provides all elements, including those from <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/pla/nn-pla-idatacollector">IDataCollector</a>.
  * @see https://learn.microsoft.com/windows/win32/api/pla/nn-pla-iconfigurationdatacollector
  * @namespace Windows.Win32.System.Performance
- * @version v4.0.30319
  */
-class IConfigurationDataCollector extends IDataCollector{
+class IConfigurationDataCollector extends IDataCollector {
 
     static sizeof => A_PtrSize
     /**

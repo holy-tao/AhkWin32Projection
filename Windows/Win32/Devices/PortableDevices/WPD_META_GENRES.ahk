@@ -7,9 +7,8 @@
  * This enumeration is used by the [WPD\_MEDIA\_META\_GENRE](media-properties.md) property.
  * @see https://learn.microsoft.com/windows/win32/wpd_sdk/wpd-meta-genres
  * @namespace Windows.Win32.Devices.PortableDevices
- * @version v4.0.30319
  */
-class WPD_META_GENRES extends Win32Enum{
+class WPD_META_GENRES extends Win32Enum {
 
     /**
      * @type {Integer (Int32)}

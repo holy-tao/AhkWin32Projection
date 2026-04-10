@@ -14,11 +14,9 @@
  * > The ntdsapi.h header defines DS_DOMAIN_CONTROLLER_INFO_2 as an alias which automatically selects the ANSI or Unicode version of this function based on the definition of the UNICODE preprocessor constant. Mixing usage of the encoding-neutral alias with code that not encoding-neutral can lead to mismatches that result in compilation or runtime errors. For more information, see [Conventions for Function Prototypes](/windows/win32/intl/conventions-for-function-prototypes).
  * @see https://learn.microsoft.com/windows/win32/api/ntdsapi/ns-ntdsapi-ds_domain_controller_info_2a
  * @namespace Windows.Win32.Networking.ActiveDirectory
- * @version v4.0.30319
  * @charset ANSI
  */
-class DS_DOMAIN_CONTROLLER_INFO_2A extends Win32Struct
-{
+class DS_DOMAIN_CONTROLLER_INFO_2A extends Win32Struct {
     static sizeof => 104
 
     static packingSize => 8
@@ -115,7 +113,7 @@ class DS_DOMAIN_CONTROLLER_INFO_2A extends Win32Struct
 
     /**
      * Contains the <b>GUID</b> for the site object on the domain controller.
-     * @type {Pointer<Guid>}
+     * @type {Pointer}
      */
     SiteObjectGuid {
         get => NumGet(this, 72, "ptr")
@@ -124,7 +122,7 @@ class DS_DOMAIN_CONTROLLER_INFO_2A extends Win32Struct
 
     /**
      * Contains the <b>GUID</b> for the computer object on the domain controller.
-     * @type {Pointer<Guid>}
+     * @type {Pointer}
      */
     ComputerObjectGuid {
         get => NumGet(this, 80, "ptr")
@@ -133,7 +131,7 @@ class DS_DOMAIN_CONTROLLER_INFO_2A extends Win32Struct
 
     /**
      * Contains the <b>GUID</b> for the server object on the domain controller.
-     * @type {Pointer<Guid>}
+     * @type {Pointer}
      */
     ServerObjectGuid {
         get => NumGet(this, 88, "ptr")
@@ -142,7 +140,7 @@ class DS_DOMAIN_CONTROLLER_INFO_2A extends Win32Struct
 
     /**
      * Contains the <b>GUID</b> for the NTDS DSA object on the domain controller.
-     * @type {Pointer<Guid>}
+     * @type {Pointer}
      */
     NtdsDsaObjectGuid {
         get => NumGet(this, 96, "ptr")

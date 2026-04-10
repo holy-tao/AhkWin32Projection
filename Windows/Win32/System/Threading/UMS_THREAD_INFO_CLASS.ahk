@@ -3,9 +3,8 @@
 
 /**
  * @namespace Windows.Win32.System.Threading
- * @version v4.0.30319
  */
-class UMS_THREAD_INFO_CLASS extends Win32Enum{
+class UMS_THREAD_INFO_CLASS extends Win32Enum {
 
     /**
      * @type {Integer (Int32)}

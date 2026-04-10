@@ -1,14 +1,13 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
+#Include .\CRYPT_INTEGER_BLOB.ahk
 
 /**
  * The CRYPT_ATTRIBUTE structure specifies an attribute that has one or more values.
  * @see https://learn.microsoft.com/windows/win32/api/wincrypt/ns-wincrypt-crypt_attribute
  * @namespace Windows.Win32.Security.Cryptography
- * @version v4.0.30319
  */
-class CRYPT_ATTRIBUTE extends Win32Struct
-{
+class CRYPT_ATTRIBUTE extends Win32Struct {
     static sizeof => 24
 
     static packingSize => 8

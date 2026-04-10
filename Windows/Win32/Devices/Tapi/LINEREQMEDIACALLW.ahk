@@ -4,11 +4,9 @@
 
 /**
  * @namespace Windows.Win32.Devices.Tapi
- * @version v4.0.30319
  * @charset Unicode
  */
-class LINEREQMEDIACALLW extends Win32Struct
-{
+class LINEREQMEDIACALLW extends Win32Struct {
     static sizeof => 624
 
     static packingSize => 8
@@ -16,7 +14,7 @@ class LINEREQMEDIACALLW extends Win32Struct
     /**
      * @type {HWND}
      */
-    hWnd{
+    hWnd {
         get {
             if(!this.HasProp("__hWnd"))
                 this.__hWnd := HWND(0, this)
@@ -41,9 +39,9 @@ class LINEREQMEDIACALLW extends Win32Struct
     }
 
     /**
-     * @type {Array<Byte>}
+     * @type {Array<Integer>}
      */
-    ucDeviceID{
+    ucDeviceID {
         get {
             if(!this.HasProp("__ucDeviceIDProxyArray"))
                 this.__ucDeviceIDProxyArray := Win32FixedArray(this.ptr + 96, 40, Primitive, "char")

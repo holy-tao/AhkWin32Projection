@@ -1,174 +1,173 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\..\Win32Struct.ahk
-#Include .\XPF_MCE_FLAGS.ahk
-#Include .\XPF_MC_BANK_FLAGS.ahk
-#Include .\WHEA_XPF_MC_BANK_DESCRIPTOR.ahk
+#Include .\WHEA_ERROR_SOURCE_TYPE.ahk
+#Include .\WHEA_ERROR_SOURCE_STATE.ahk
 #Include .\WHEA_XPF_MCE_DESCRIPTOR.ahk
-#Include .\WHEA_NOTIFICATION_FLAGS.ahk
-#Include .\WHEA_NOTIFICATION_DESCRIPTOR.ahk
+#Include .\XPF_MCE_FLAGS.ahk
+#Include .\WHEA_XPF_MC_BANK_DESCRIPTOR.ahk
+#Include .\XPF_MC_BANK_FLAGS.ahk
 #Include .\WHEA_XPF_CMC_DESCRIPTOR.ahk
+#Include .\WHEA_NOTIFICATION_DESCRIPTOR.ahk
+#Include .\WHEA_NOTIFICATION_FLAGS.ahk
 #Include .\WHEA_XPF_NMI_DESCRIPTOR.ahk
 #Include .\WHEA_IPF_MCA_DESCRIPTOR.ahk
 #Include .\WHEA_IPF_CMC_DESCRIPTOR.ahk
 #Include .\WHEA_IPF_CPE_DESCRIPTOR.ahk
+#Include .\WHEA_AER_ROOTPORT_DESCRIPTOR.ahk
 #Include .\WHEA_PCI_SLOT_NUMBER.ahk
 #Include .\AER_ROOTPORT_DESCRIPTOR_FLAGS.ahk
-#Include .\WHEA_AER_ROOTPORT_DESCRIPTOR.ahk
-#Include .\AER_ENDPOINT_DESCRIPTOR_FLAGS.ahk
 #Include .\WHEA_AER_ENDPOINT_DESCRIPTOR.ahk
-#Include .\AER_BRIDGE_DESCRIPTOR_FLAGS.ahk
+#Include .\AER_ENDPOINT_DESCRIPTOR_FLAGS.ahk
 #Include .\WHEA_AER_BRIDGE_DESCRIPTOR.ahk
+#Include .\AER_BRIDGE_DESCRIPTOR_FLAGS.ahk
 #Include .\WHEA_GENERIC_ERROR_DESCRIPTOR.ahk
 #Include .\WHEA_GENERIC_ERROR_DESCRIPTOR_V2.ahk
-#Include .\WHEA_ERROR_SOURCE_CONFIGURATION_DD.ahk
 #Include .\WHEA_DEVICE_DRIVER_DESCRIPTOR.ahk
+#Include .\WHEA_ERROR_SOURCE_CONFIGURATION_DD.ahk
 
 /**
  * @namespace Windows.Win32.System.Diagnostics.Debug
- * @version v4.0.30319
  */
-class WHEA_ERROR_SOURCE_DESCRIPTOR extends Win32Struct
-{
-    static sizeof => 336
+class WHEA_ERROR_SOURCE_DESCRIPTOR extends Win32Struct {
+    static sizeof => 1104
 
     static packingSize => 8
 
     class _Info_e__Union extends Win32Struct {
-        static sizeof => 296
+        static sizeof => 1064
         static packingSize => 8
 
         /**
          * @type {WHEA_XPF_MCE_DESCRIPTOR}
          */
-        XpfMceDescriptor{
+        XpfMceDescriptor {
             get {
                 if(!this.HasProp("__XpfMceDescriptor"))
                     this.__XpfMceDescriptor := WHEA_XPF_MCE_DESCRIPTOR(0, this)
                 return this.__XpfMceDescriptor
             }
         }
-    
+
         /**
          * @type {WHEA_XPF_CMC_DESCRIPTOR}
          */
-        XpfCmcDescriptor{
+        XpfCmcDescriptor {
             get {
                 if(!this.HasProp("__XpfCmcDescriptor"))
                     this.__XpfCmcDescriptor := WHEA_XPF_CMC_DESCRIPTOR(0, this)
                 return this.__XpfCmcDescriptor
             }
         }
-    
+
         /**
          * @type {WHEA_XPF_NMI_DESCRIPTOR}
          */
-        XpfNmiDescriptor{
+        XpfNmiDescriptor {
             get {
                 if(!this.HasProp("__XpfNmiDescriptor"))
                     this.__XpfNmiDescriptor := WHEA_XPF_NMI_DESCRIPTOR(0, this)
                 return this.__XpfNmiDescriptor
             }
         }
-    
+
         /**
          * @type {WHEA_IPF_MCA_DESCRIPTOR}
          */
-        IpfMcaDescriptor{
+        IpfMcaDescriptor {
             get {
                 if(!this.HasProp("__IpfMcaDescriptor"))
                     this.__IpfMcaDescriptor := WHEA_IPF_MCA_DESCRIPTOR(0, this)
                 return this.__IpfMcaDescriptor
             }
         }
-    
+
         /**
          * @type {WHEA_IPF_CMC_DESCRIPTOR}
          */
-        IpfCmcDescriptor{
+        IpfCmcDescriptor {
             get {
                 if(!this.HasProp("__IpfCmcDescriptor"))
                     this.__IpfCmcDescriptor := WHEA_IPF_CMC_DESCRIPTOR(0, this)
                 return this.__IpfCmcDescriptor
             }
         }
-    
+
         /**
          * @type {WHEA_IPF_CPE_DESCRIPTOR}
          */
-        IpfCpeDescriptor{
+        IpfCpeDescriptor {
             get {
                 if(!this.HasProp("__IpfCpeDescriptor"))
                     this.__IpfCpeDescriptor := WHEA_IPF_CPE_DESCRIPTOR(0, this)
                 return this.__IpfCpeDescriptor
             }
         }
-    
+
         /**
          * @type {WHEA_AER_ROOTPORT_DESCRIPTOR}
          */
-        AerRootportDescriptor{
+        AerRootportDescriptor {
             get {
                 if(!this.HasProp("__AerRootportDescriptor"))
                     this.__AerRootportDescriptor := WHEA_AER_ROOTPORT_DESCRIPTOR(0, this)
                 return this.__AerRootportDescriptor
             }
         }
-    
+
         /**
          * @type {WHEA_AER_ENDPOINT_DESCRIPTOR}
          */
-        AerEndpointDescriptor{
+        AerEndpointDescriptor {
             get {
                 if(!this.HasProp("__AerEndpointDescriptor"))
                     this.__AerEndpointDescriptor := WHEA_AER_ENDPOINT_DESCRIPTOR(0, this)
                 return this.__AerEndpointDescriptor
             }
         }
-    
+
         /**
          * @type {WHEA_AER_BRIDGE_DESCRIPTOR}
          */
-        AerBridgeDescriptor{
+        AerBridgeDescriptor {
             get {
                 if(!this.HasProp("__AerBridgeDescriptor"))
                     this.__AerBridgeDescriptor := WHEA_AER_BRIDGE_DESCRIPTOR(0, this)
                 return this.__AerBridgeDescriptor
             }
         }
-    
+
         /**
          * @type {WHEA_GENERIC_ERROR_DESCRIPTOR}
          */
-        GenErrDescriptor{
+        GenErrDescriptor {
             get {
                 if(!this.HasProp("__GenErrDescriptor"))
                     this.__GenErrDescriptor := WHEA_GENERIC_ERROR_DESCRIPTOR(0, this)
                 return this.__GenErrDescriptor
             }
         }
-    
+
         /**
          * @type {WHEA_GENERIC_ERROR_DESCRIPTOR_V2}
          */
-        GenErrDescriptorV2{
+        GenErrDescriptorV2 {
             get {
                 if(!this.HasProp("__GenErrDescriptorV2"))
                     this.__GenErrDescriptorV2 := WHEA_GENERIC_ERROR_DESCRIPTOR_V2(0, this)
                 return this.__GenErrDescriptorV2
             }
         }
-    
+
         /**
          * @type {WHEA_DEVICE_DRIVER_DESCRIPTOR}
          */
-        DeviceDriverDescriptor{
+        DeviceDriverDescriptor {
             get {
                 if(!this.HasProp("__DeviceDriverDescriptor"))
                     this.__DeviceDriverDescriptor := WHEA_DEVICE_DRIVER_DESCRIPTOR(0, this)
                 return this.__DeviceDriverDescriptor
             }
         }
-    
     }
 
     /**
@@ -188,7 +187,7 @@ class WHEA_ERROR_SOURCE_DESCRIPTOR extends Win32Struct
     }
 
     /**
-     * @type {Integer}
+     * @type {WHEA_ERROR_SOURCE_TYPE}
      */
     Type {
         get => NumGet(this, 8, "int")
@@ -196,7 +195,7 @@ class WHEA_ERROR_SOURCE_DESCRIPTOR extends Win32Struct
     }
 
     /**
-     * @type {Integer}
+     * @type {WHEA_ERROR_SOURCE_STATE}
      */
     State {
         get => NumGet(this, 12, "int")
@@ -254,10 +253,10 @@ class WHEA_ERROR_SOURCE_DESCRIPTOR extends Win32Struct
     /**
      * @type {_Info_e__Union}
      */
-    Info{
+    Info {
         get {
             if(!this.HasProp("__Info"))
-                this.__Info := %this.__Class%._Info_e__Union(40, this)
+                this.__Info := WHEA_ERROR_SOURCE_DESCRIPTOR._Info_e__Union(40, this)
             return this.__Info
         }
     }

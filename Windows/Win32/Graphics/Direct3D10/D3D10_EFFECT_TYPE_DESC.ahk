@@ -1,5 +1,7 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
+#Include ..\Direct3D\D3D_SHADER_VARIABLE_CLASS.ahk
+#Include ..\Direct3D\D3D_SHADER_VARIABLE_TYPE.ahk
 
 /**
  * Describes an effect-variable type.
@@ -7,10 +9,8 @@
  * To get an effect-variable type, call <a href="https://docs.microsoft.com/windows/desktop/api/d3d10effect/nf-d3d10effect-id3d10effecttype-getdesc">ID3D10EffectType::GetDesc</a>.
  * @see https://learn.microsoft.com/windows/win32/api/d3d10effect/ns-d3d10effect-d3d10_effect_type_desc
  * @namespace Windows.Win32.Graphics.Direct3D10
- * @version v4.0.30319
  */
-class D3D10_EFFECT_TYPE_DESC extends Win32Struct
-{
+class D3D10_EFFECT_TYPE_DESC extends Win32Struct {
     static sizeof => 48
 
     static packingSize => 8
@@ -30,7 +30,7 @@ class D3D10_EFFECT_TYPE_DESC extends Win32Struct
      * Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/d3dcommon/ne-d3dcommon-d3d_shader_variable_class">D3D10_SHADER_VARIABLE_CLASS</a></b>
      * 
      * The variable class (see <a href="https://docs.microsoft.com/windows/desktop/api/d3dcommon/ne-d3dcommon-d3d_shader_variable_class">D3D10_SHADER_VARIABLE_CLASS</a>).
-     * @type {Integer}
+     * @type {D3D_SHADER_VARIABLE_CLASS}
      */
     Class {
         get => NumGet(this, 8, "int")
@@ -41,7 +41,7 @@ class D3D10_EFFECT_TYPE_DESC extends Win32Struct
      * Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/d3dcommon/ne-d3dcommon-d3d_shader_variable_type">D3D10_SHADER_VARIABLE_TYPE</a></b>
      * 
      * The variable type (see <a href="https://docs.microsoft.com/windows/desktop/api/d3dcommon/ne-d3dcommon-d3d_shader_variable_type">D3D10_SHADER_VARIABLE_TYPE</a>).
-     * @type {Integer}
+     * @type {D3D_SHADER_VARIABLE_TYPE}
      */
     Type {
         get => NumGet(this, 12, "int")

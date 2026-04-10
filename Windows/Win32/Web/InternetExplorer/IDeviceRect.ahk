@@ -5,9 +5,8 @@
 
 /**
  * @namespace Windows.Win32.Web.InternetExplorer
- * @version v4.0.30319
  */
-class IDeviceRect extends IDispatch{
+class IDeviceRect extends IDispatch {
 
     static sizeof => A_PtrSize
     /**

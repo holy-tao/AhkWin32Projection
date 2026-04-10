@@ -5,10 +5,8 @@
  * Used by an IEnumExtraSearch enumerator object to return information on the search objects supported by a Shell Folder object.
  * @see https://learn.microsoft.com/windows/win32/api/shobjidl_core/ns-shobjidl_core-extrasearch
  * @namespace Windows.Win32.UI.Shell
- * @version v4.0.30319
  */
-class EXTRASEARCH extends Win32Struct
-{
+class EXTRASEARCH extends Win32Struct {
     static sizeof => 4336
 
     static packingSize => 8
@@ -17,7 +15,7 @@ class EXTRASEARCH extends Win32Struct
      * Type: <b>GUID</b>
      * 
      * A search object's GUID.
-     * @type {Pointer<Guid>}
+     * @type {Pointer}
      */
     guidSearch {
         get => NumGet(this, 0, "ptr")

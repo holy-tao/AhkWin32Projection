@@ -1,8 +1,8 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
-#Include ..\..\Foundation\BSTR.ahk
 #Include ..\..\System\Com\IDispatch.ahk
+#Include ..\..\Foundation\BSTR.ahk
 
 /**
  * The IFaxJobStatus interface is used for notifications and to hold the dynamic information of the job.
@@ -10,9 +10,8 @@
  * You do not create the <a href="https://docs.microsoft.com/previous-versions/windows/desktop/fax/-mfax-faxjobstatus">FaxJobStatus</a> object. It is received as part of a notification when you implement <a href="https://docs.microsoft.com/windows/win32/api/faxcomex/nf-faxcomex-_ifaxaccountnotify-onincomingjobchanged">IFaxServerNotify::OnIncomingJobChanged</a> or <a href="https://msdn.microsoft.com/132747ed-04b4-4803-976c-5274d8c9f73d">IFaxServerNotify::OnOutgoingJobChanged</a>, which include a parameter of the type <b>FaxJobStatus</b>. When the event occurs and the implemented function is called, you receive this object containing the dynamic information.
  * @see https://learn.microsoft.com/windows/win32/api/faxcomex/nn-faxcomex-ifaxjobstatus
  * @namespace Windows.Win32.Devices.Fax
- * @version v4.0.30319
  */
-class IFaxJobStatus extends IDispatch{
+class IFaxJobStatus extends IDispatch {
 
     static sizeof => A_PtrSize
     /**
@@ -40,7 +39,7 @@ class IFaxJobStatus extends IDispatch{
     static VTableNames => ["get_Status", "get_Pages", "get_Size", "get_CurrentPage", "get_DeviceId", "get_CSID", "get_TSID", "get_ExtendedStatusCode", "get_ExtendedStatus", "get_AvailableOperations", "get_Retries", "get_JobType", "get_ScheduledTime", "get_TransmissionStart", "get_TransmissionEnd", "get_CallerId", "get_RoutingInformation"]
 
     /**
-     * @type {Integer} 
+     * @type {FAX_JOB_STATUS_ENUM} 
      */
     Status {
         get => this.get_Status()
@@ -89,7 +88,7 @@ class IFaxJobStatus extends IDispatch{
     }
 
     /**
-     * @type {Integer} 
+     * @type {FAX_JOB_EXTENDED_STATUS_ENUM} 
      */
     ExtendedStatusCode {
         get => this.get_ExtendedStatusCode()
@@ -103,7 +102,7 @@ class IFaxJobStatus extends IDispatch{
     }
 
     /**
-     * @type {Integer} 
+     * @type {FAX_JOB_OPERATIONS_ENUM} 
      */
     AvailableOperations {
         get => this.get_AvailableOperations()
@@ -117,7 +116,7 @@ class IFaxJobStatus extends IDispatch{
     }
 
     /**
-     * @type {Integer} 
+     * @type {FAX_JOB_TYPE_ENUM} 
      */
     JobType {
         get => this.get_JobType()
@@ -160,7 +159,7 @@ class IFaxJobStatus extends IDispatch{
 
     /**
      * The Status property is a number that indicates the current status of fax job in the job queue.
-     * @returns {Integer} 
+     * @returns {FAX_JOB_STATUS_ENUM} 
      * @see https://learn.microsoft.com/windows/win32/api/faxcomex/nf-faxcomex-ifaxjobstatus-get_status
      */
     get_Status() {
@@ -232,7 +231,7 @@ class IFaxJobStatus extends IDispatch{
 
     /**
      * The ExtendedStatusCode property specifies a code describing the job's extended status.
-     * @returns {Integer} 
+     * @returns {FAX_JOB_EXTENDED_STATUS_ENUM} 
      * @see https://learn.microsoft.com/windows/win32/api/faxcomex/nf-faxcomex-ifaxjobstatus-get_extendedstatuscode
      */
     get_ExtendedStatusCode() {
@@ -253,7 +252,7 @@ class IFaxJobStatus extends IDispatch{
 
     /**
      * The AvailableOperations property indicates the combination of valid operations that you can perform on the fax job, given its current status.
-     * @returns {Integer} 
+     * @returns {FAX_JOB_OPERATIONS_ENUM} 
      * @see https://learn.microsoft.com/windows/win32/api/faxcomex/nf-faxcomex-ifaxjobstatus-get_availableoperations
      */
     get_AvailableOperations() {
@@ -273,7 +272,7 @@ class IFaxJobStatus extends IDispatch{
 
     /**
      * The JobType property describes the type of fax job; for example, the job can be a receive job, a send job, or a routing job.
-     * @returns {Integer} 
+     * @returns {FAX_JOB_TYPE_ENUM} 
      * @see https://learn.microsoft.com/windows/win32/api/faxcomex/nf-faxcomex-ifaxjobstatus-get_jobtype
      */
     get_JobType() {

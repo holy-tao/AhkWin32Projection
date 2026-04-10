@@ -5,10 +5,8 @@
 
 /**
  * @namespace Windows.Win32.Storage.Nvme
- * @version v4.0.30319
  */
-class NVME_WCS_DEVICE_ERROR_RECOVERY_LOG extends Win32Struct
-{
+class NVME_WCS_DEVICE_ERROR_RECOVERY_LOG extends Win32Struct {
     static sizeof => 512
 
     static packingSize => 8
@@ -24,7 +22,7 @@ class NVME_WCS_DEVICE_ERROR_RECOVERY_LOG extends Win32Struct
     /**
      * @type {NVME_WCS_DEVICE_RESET_ACTION}
      */
-    PanicResetAction{
+    PanicResetAction {
         get {
             if(!this.HasProp("__PanicResetAction"))
                 this.__PanicResetAction := NVME_WCS_DEVICE_RESET_ACTION(2, this)
@@ -51,7 +49,7 @@ class NVME_WCS_DEVICE_ERROR_RECOVERY_LOG extends Win32Struct
     /**
      * @type {NVME_WCS_DEVICE_CAPABILITIES}
      */
-    DeviceCapabilitiesA{
+    DeviceCapabilitiesA {
         get {
             if(!this.HasProp("__DeviceCapabilitiesA"))
                 this.__DeviceCapabilitiesA := NVME_WCS_DEVICE_CAPABILITIES(16, this)
@@ -68,9 +66,9 @@ class NVME_WCS_DEVICE_ERROR_RECOVERY_LOG extends Win32Struct
     }
 
     /**
-     * @type {Array<Byte>}
+     * @type {Array<Integer>}
      */
-    Reserved0{
+    Reserved0 {
         get {
             if(!this.HasProp("__Reserved0ProxyArray"))
                 this.__Reserved0ProxyArray := Win32FixedArray(this.ptr + 21, 3, Primitive, "char")
@@ -95,9 +93,9 @@ class NVME_WCS_DEVICE_ERROR_RECOVERY_LOG extends Win32Struct
     }
 
     /**
-     * @type {Array<Byte>}
+     * @type {Array<Integer>}
      */
-    Reserved1{
+    Reserved1 {
         get {
             if(!this.HasProp("__Reserved1ProxyArray"))
                 this.__Reserved1ProxyArray := Win32FixedArray(this.ptr + 32, 466, Primitive, "char")
@@ -114,7 +112,7 @@ class NVME_WCS_DEVICE_ERROR_RECOVERY_LOG extends Win32Struct
     }
 
     /**
-     * @type {Pointer<Guid>}
+     * @type {Pointer}
      */
     LogPageGUID {
         get => NumGet(this, 504, "ptr")

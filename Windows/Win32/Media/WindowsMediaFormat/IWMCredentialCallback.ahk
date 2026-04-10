@@ -7,9 +7,8 @@
  * The IWMCredentialCallback interface is a callback interface used by the reader object to acquire user credentials.
  * @see https://learn.microsoft.com/windows/win32/api/wmsdkidl/nn-wmsdkidl-iwmcredentialcallback
  * @namespace Windows.Win32.Media.WindowsMediaFormat
- * @version v4.0.30319
  */
-class IWMCredentialCallback extends IUnknown{
+class IWMCredentialCallback extends IUnknown {
 
     static sizeof => A_PtrSize
     /**

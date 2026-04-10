@@ -1,11 +1,10 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
-#Include ..\..\Foundation\BSTR.ahk
+#Include ..\..\System\Com\IDispatch.ahk
 #Include ..\..\System\Variant\VARIANT.ahk
 #Include .\INetFwRules.ahk
 #Include .\INetFwServiceRestriction.ahk
-#Include ..\..\System\Com\IDispatch.ahk
 
 /**
  * To access the firewall policy.
@@ -15,9 +14,8 @@
  * The Windows Firewall/Internet Connection Sharing  service must be running to access this interface.
  * @see https://learn.microsoft.com/windows/win32/api/netfw/nn-netfw-inetfwpolicy2
  * @namespace Windows.Win32.NetworkManagement.WindowsFirewall
- * @version v4.0.30319
  */
-class INetFwPolicy2 extends IDispatch{
+class INetFwPolicy2 extends IDispatch {
 
     static sizeof => A_PtrSize
     /**
@@ -66,7 +64,7 @@ class INetFwPolicy2 extends IDispatch{
     }
 
     /**
-     * @type {Integer} 
+     * @type {NET_FW_MODIFY_STATE} 
      */
     LocalPolicyModifyState {
         get => this.get_LocalPolicyModifyState()
@@ -88,7 +86,7 @@ class INetFwPolicy2 extends IDispatch{
      * Indicates whether a firewall is enabled locally (the effective result may differ due to group policy settings). (Get)
      * @remarks
      * When you pass a profile type obtained from the <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/netfw/nf-netfw-inetfwpolicy2-get_currentprofiletypes">CurrentProfileTypes</a> property, make sure that you pass only one profile type to <b>get_FirewallEnabled</b> and <b>put_FirewallEnabled</b>. Note that <b>get_CurrentProfileTypes</b> can return multiple profiles.
-     * @param {Integer} profileType 
+     * @param {NET_FW_PROFILE_TYPE2} profileType 
      * @returns {VARIANT_BOOL} 
      * @see https://learn.microsoft.com/windows/win32/api/netfw/nf-netfw-inetfwpolicy2-get_firewallenabled
      */
@@ -101,7 +99,7 @@ class INetFwPolicy2 extends IDispatch{
      * Indicates whether a firewall is enabled locally (the effective result may differ due to group policy settings). (Put)
      * @remarks
      * When you pass a profile type obtained from the <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/netfw/nf-netfw-inetfwpolicy2-get_currentprofiletypes">CurrentProfileTypes</a> property, make sure that you pass only one profile type to <b>get_FirewallEnabled</b> and <b>put_FirewallEnabled</b>. Note that <b>get_CurrentProfileTypes</b> can return multiple profiles.
-     * @param {Integer} profileType 
+     * @param {NET_FW_PROFILE_TYPE2} profileType 
      * @param {VARIANT_BOOL} enabled 
      * @returns {HRESULT} 
      * @see https://learn.microsoft.com/windows/win32/api/netfw/nf-netfw-inetfwpolicy2-put_firewallenabled
@@ -117,7 +115,7 @@ class INetFwPolicy2 extends IDispatch{
      * An excluded interface is an interface to which the firewall is not applicable.  The firewall is not applicable to any traffic received from or sent to an excluded interface. An empty list indicates that there are no excluded interfaces.
      * 
      * When you pass a profile type obtained from the <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/netfw/nf-netfw-inetfwpolicy2-get_currentprofiletypes">CurrentProfileTypes</a> property, make sure that you pass only one profile type to <b>get_ExcludedInterfaces</b> and <b>put_ExcludedInterfaces</b>. Note that <b>get_CurrentProfileTypes</b> can return multiple profiles.
-     * @param {Integer} profileType 
+     * @param {NET_FW_PROFILE_TYPE2} profileType 
      * @returns {VARIANT} 
      * @see https://learn.microsoft.com/windows/win32/api/netfw/nf-netfw-inetfwpolicy2-get_excludedinterfaces
      */
@@ -133,7 +131,7 @@ class INetFwPolicy2 extends IDispatch{
      * An excluded interface is an interface to which the firewall is not applicable.  The firewall is not applicable to any traffic received from or sent to an excluded interface. An empty list indicates that there are no excluded interfaces.
      * 
      * When you pass a profile type obtained from the <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/netfw/nf-netfw-inetfwpolicy2-get_currentprofiletypes">CurrentProfileTypes</a> property, make sure that you pass only one profile type to <b>get_ExcludedInterfaces</b> and <b>put_ExcludedInterfaces</b>. Note that <b>get_CurrentProfileTypes</b> can return multiple profiles.
-     * @param {Integer} profileType 
+     * @param {NET_FW_PROFILE_TYPE2} profileType 
      * @param {VARIANT} interfaces 
      * @returns {HRESULT} 
      * @see https://learn.microsoft.com/windows/win32/api/netfw/nf-netfw-inetfwpolicy2-put_excludedinterfaces
@@ -150,7 +148,7 @@ class INetFwPolicy2 extends IDispatch{
      *    and only locally-initiated traffic is allowed.
      * 
      * When you pass a profile type obtained from the <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/netfw/nf-netfw-inetfwpolicy2-get_currentprofiletypes">CurrentProfileTypes</a> property, make sure that you pass only one profile type to <b>get_BlockAllInboundTraffic</b> and <b>put_BlockAllInboundTraffic</b>. Note that <b>get_CurrentProfileTypes</b> can return multiple profiles.
-     * @param {Integer} profileType 
+     * @param {NET_FW_PROFILE_TYPE2} profileType 
      * @returns {VARIANT_BOOL} 
      * @see https://learn.microsoft.com/windows/win32/api/netfw/nf-netfw-inetfwpolicy2-get_blockallinboundtraffic
      */
@@ -166,7 +164,7 @@ class INetFwPolicy2 extends IDispatch{
      *    and only locally-initiated traffic is allowed.
      * 
      * When you pass a profile type obtained from the <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/netfw/nf-netfw-inetfwpolicy2-get_currentprofiletypes">CurrentProfileTypes</a> property, make sure that you pass only one profile type to <b>get_BlockAllInboundTraffic</b> and <b>put_BlockAllInboundTraffic</b>. Note that <b>get_CurrentProfileTypes</b> can return multiple profiles.
-     * @param {Integer} profileType 
+     * @param {NET_FW_PROFILE_TYPE2} profileType 
      * @param {VARIANT_BOOL} Block 
      * @returns {HRESULT} 
      * @see https://learn.microsoft.com/windows/win32/api/netfw/nf-netfw-inetfwpolicy2-put_blockallinboundtraffic
@@ -180,7 +178,7 @@ class INetFwPolicy2 extends IDispatch{
      * Indicates whether interactive firewall notifications are disabled. (INetFwPolicy2.get_NotificationsDisabled)
      * @remarks
      * When you pass a profile type obtained from the <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/netfw/nf-netfw-inetfwpolicy2-get_currentprofiletypes">CurrentProfileTypes</a> property, make sure that you pass only one profile type to <b>get_NotificationsDisabled</b> and <b>put_NotificationsDisabled</b>. Note that <b>get_CurrentProfileTypes</b> can return multiple profiles.
-     * @param {Integer} profileType 
+     * @param {NET_FW_PROFILE_TYPE2} profileType 
      * @returns {VARIANT_BOOL} 
      * @see https://learn.microsoft.com/windows/win32/api/netfw/nf-netfw-inetfwpolicy2-get_notificationsdisabled
      */
@@ -193,7 +191,7 @@ class INetFwPolicy2 extends IDispatch{
      * Indicates whether interactive firewall notifications are disabled. (INetFwPolicy2.put_NotificationsDisabled)
      * @remarks
      * When you pass a profile type obtained from the <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/netfw/nf-netfw-inetfwpolicy2-get_currentprofiletypes">CurrentProfileTypes</a> property, make sure that you pass only one profile type to <b>get_NotificationsDisabled</b> and <b>put_NotificationsDisabled</b>. Note that <b>get_CurrentProfileTypes</b> can return multiple profiles.
-     * @param {Integer} profileType 
+     * @param {NET_FW_PROFILE_TYPE2} profileType 
      * @param {VARIANT_BOOL} disabled 
      * @returns {HRESULT} 
      * @see https://learn.microsoft.com/windows/win32/api/netfw/nf-netfw-inetfwpolicy2-put_notificationsdisabled
@@ -209,7 +207,7 @@ class INetFwPolicy2 extends IDispatch{
      * If a computer sends a broadcast packet, a unicast response is allowed for three seconds. Use this property to change this behavior.
      * 
      * When you pass a profile type obtained from the <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/netfw/nf-netfw-inetfwpolicy2-get_currentprofiletypes">CurrentProfileTypes</a> property (<b>get_CurrentProfileTypes</b>), make sure that you pass only one profile type to <b>get_UnicastResponsesToMulticastBroadcastDisabled</b> and <b>put_UnicastResponsesToMulticastBroadcastDisabled</b>. Note that <b>get_CurrentProfileTypes</b> can return multiple profiles.
-     * @param {Integer} profileType 
+     * @param {NET_FW_PROFILE_TYPE2} profileType 
      * @returns {VARIANT_BOOL} 
      * @see https://learn.microsoft.com/windows/win32/api/netfw/nf-netfw-inetfwpolicy2-get_unicastresponsestomulticastbroadcastdisabled
      */
@@ -224,7 +222,7 @@ class INetFwPolicy2 extends IDispatch{
      * If a computer sends a broadcast packet, a unicast response is allowed for three seconds. Use this property to change this behavior.
      * 
      * When you pass a profile type obtained from the <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/netfw/nf-netfw-inetfwpolicy2-get_currentprofiletypes">CurrentProfileTypes</a> property (<b>get_CurrentProfileTypes</b>), make sure that you pass only one profile type to <b>get_UnicastResponsesToMulticastBroadcastDisabled</b> and <b>put_UnicastResponsesToMulticastBroadcastDisabled</b>. Note that <b>get_CurrentProfileTypes</b> can return multiple profiles.
-     * @param {Integer} profileType 
+     * @param {NET_FW_PROFILE_TYPE2} profileType 
      * @param {VARIANT_BOOL} disabled 
      * @returns {HRESULT} 
      * @see https://learn.microsoft.com/windows/win32/api/netfw/nf-netfw-inetfwpolicy2-put_unicastresponsestomulticastbroadcastdisabled
@@ -442,8 +440,8 @@ class INetFwPolicy2 extends IDispatch{
      *    and only locally-initiated traffic is allowed.
      * 
      * When you pass a profile type obtained from the <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/netfw/nf-netfw-inetfwpolicy2-get_currentprofiletypes">CurrentProfileTypes</a> property, make sure that you pass only one profile type to <b>get_DefaultInboundAction</b> and <b>put_DefaultInboundAction</b>. Note that <b>get_CurrentProfileTypes</b> can return multiple profiles.
-     * @param {Integer} profileType 
-     * @returns {Integer} 
+     * @param {NET_FW_PROFILE_TYPE2} profileType 
+     * @returns {NET_FW_ACTION} 
      * @see https://learn.microsoft.com/windows/win32/api/netfw/nf-netfw-inetfwpolicy2-get_defaultinboundaction
      */
     get_DefaultInboundAction(profileType) {
@@ -458,8 +456,8 @@ class INetFwPolicy2 extends IDispatch{
      *    and only locally-initiated traffic is allowed.
      * 
      * When you pass a profile type obtained from the <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/netfw/nf-netfw-inetfwpolicy2-get_currentprofiletypes">CurrentProfileTypes</a> property, make sure that you pass only one profile type to <b>get_DefaultInboundAction</b> and <b>put_DefaultInboundAction</b>. Note that <b>get_CurrentProfileTypes</b> can return multiple profiles.
-     * @param {Integer} profileType 
-     * @param {Integer} action 
+     * @param {NET_FW_PROFILE_TYPE2} profileType 
+     * @param {NET_FW_ACTION} action 
      * @returns {HRESULT} 
      * @see https://learn.microsoft.com/windows/win32/api/netfw/nf-netfw-inetfwpolicy2-put_defaultinboundaction
      */
@@ -475,8 +473,8 @@ class INetFwPolicy2 extends IDispatch{
      *    and only locally-initiated traffic is allowed.
      * 
      * When you pass a profile type obtained from the <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/netfw/nf-netfw-inetfwpolicy2-get_currentprofiletypes">CurrentProfileTypes</a> property, make sure that you pass only one profile type to <b>get_DefaultOutboundAction</b> and <b>put_DefaultOutboundAction</b>. Note that <b>get_CurrentProfileTypes</b> can return multiple profiles.
-     * @param {Integer} profileType 
-     * @returns {Integer} 
+     * @param {NET_FW_PROFILE_TYPE2} profileType 
+     * @returns {NET_FW_ACTION} 
      * @see https://learn.microsoft.com/windows/win32/api/netfw/nf-netfw-inetfwpolicy2-get_defaultoutboundaction
      */
     get_DefaultOutboundAction(profileType) {
@@ -491,8 +489,8 @@ class INetFwPolicy2 extends IDispatch{
      *    and only locally-initiated traffic is allowed.
      * 
      * When you pass a profile type obtained from the <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/netfw/nf-netfw-inetfwpolicy2-get_currentprofiletypes">CurrentProfileTypes</a> property, make sure that you pass only one profile type to <b>get_DefaultOutboundAction</b> and <b>put_DefaultOutboundAction</b>. Note that <b>get_CurrentProfileTypes</b> can return multiple profiles.
-     * @param {Integer} profileType 
-     * @param {Integer} action 
+     * @param {NET_FW_PROFILE_TYPE2} profileType 
+     * @param {NET_FW_ACTION} action 
      * @returns {HRESULT} 
      * @see https://learn.microsoft.com/windows/win32/api/netfw/nf-netfw-inetfwpolicy2-put_defaultoutboundaction
      */
@@ -522,7 +520,7 @@ class INetFwPolicy2 extends IDispatch{
 
     /**
      * Determines if adding or setting a rule or group of rules will take effect in the current firewall profile.
-     * @returns {Integer} 
+     * @returns {NET_FW_MODIFY_STATE} 
      * @see https://learn.microsoft.com/windows/win32/api/netfw/nf-netfw-inetfwpolicy2-get_localpolicymodifystate
      */
     get_LocalPolicyModifyState() {

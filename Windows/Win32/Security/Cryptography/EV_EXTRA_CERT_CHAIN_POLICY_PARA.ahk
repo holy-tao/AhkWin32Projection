@@ -1,14 +1,13 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
+#Include .\CERT_ROOT_PROGRAM_FLAGS.ahk
 
 /**
  * Specifies the parameters that are passed in for EV policy validation. Applications use this structure to pass hints to the API that indicate which of the policy qualifier flags of the extended validation certificates are important to the application.
  * @see https://learn.microsoft.com/windows/win32/api/wincrypt/ns-wincrypt-ev_extra_cert_chain_policy_para
  * @namespace Windows.Win32.Security.Cryptography
- * @version v4.0.30319
  */
-class EV_EXTRA_CERT_CHAIN_POLICY_PARA extends Win32Struct
-{
+class EV_EXTRA_CERT_CHAIN_POLICY_PARA extends Win32Struct {
     static sizeof => 8
 
     static packingSize => 4
@@ -23,8 +22,7 @@ class EV_EXTRA_CERT_CHAIN_POLICY_PARA extends Win32Struct
     }
 
     /**
-     * 
-     * @type {Integer}
+     * @type {CERT_ROOT_PROGRAM_FLAGS}
      */
     dwRootProgramQualifierFlags {
         get => NumGet(this, 4, "uint")

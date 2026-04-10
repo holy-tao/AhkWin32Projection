@@ -1,13 +1,13 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\..\..\Win32Struct.ahk
+#Include .\PROFILER_RELATIONSHIP_INFO.ahk
 #Include ..\..\..\..\Foundation\BSTR.ahk
+#Include .\PROFILER_PROPERTY_TYPE_SUBSTRING_INFO.ahk
 
 /**
  * @namespace Windows.Win32.System.Diagnostics.Debug.ActiveScript
- * @version v4.0.30319
  */
-class PROFILER_HEAP_OBJECT_RELATIONSHIP extends Win32Struct
-{
+class PROFILER_HEAP_OBJECT_RELATIONSHIP extends Win32Struct {
     static sizeof => 16
 
     static packingSize => 8
@@ -21,7 +21,7 @@ class PROFILER_HEAP_OBJECT_RELATIONSHIP extends Win32Struct
     }
 
     /**
-     * @type {Integer}
+     * @type {PROFILER_RELATIONSHIP_INFO}
      */
     relationshipInfo {
         get => NumGet(this, 4, "int")
@@ -47,7 +47,7 @@ class PROFILER_HEAP_OBJECT_RELATIONSHIP extends Win32Struct
     /**
      * @type {BSTR}
      */
-    bstrValue{
+    bstrValue {
         get {
             if(!this.HasProp("__bstrValue"))
                 this.__bstrValue := BSTR(8, this)

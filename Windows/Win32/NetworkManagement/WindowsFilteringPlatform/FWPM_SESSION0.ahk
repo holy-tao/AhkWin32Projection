@@ -1,6 +1,7 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
 #Include .\FWPM_DISPLAY_DATA0.ahk
+#Include ..\..\Security\SID.ahk
 
 /**
  * Stores the state associated with a client session.
@@ -12,10 +13,8 @@
  * <b>FWPM_SESSION0</b> is a specific implementation of FWPM_SESSION. See <a href="https://docs.microsoft.com/windows/desktop/FWP/wfp-version-independent-names-and-targeting-specific-versions-of-windows">WFP Version-Independent Names and Targeting Specific Versions of Windows</a>  for more information.
  * @see https://learn.microsoft.com/windows/win32/api/fwpmtypes/ns-fwpmtypes-fwpm_session0
  * @namespace Windows.Win32.NetworkManagement.WindowsFilteringPlatform
- * @version v4.0.30319
  */
-class FWPM_SESSION0 extends Win32Struct
-{
+class FWPM_SESSION0 extends Win32Struct {
     static sizeof => 64
 
     static packingSize => 8
@@ -25,7 +24,7 @@ class FWPM_SESSION0 extends Win32Struct
      * 
      * If this member is zero in the
      *    call to <a href="https://docs.microsoft.com/windows/desktop/api/fwpmu/nf-fwpmu-fwpmengineopen0">FwpmEngineOpen0</a>, Base Filtering Engine (BFE) will generate a GUID.
-     * @type {Pointer<Guid>}
+     * @type {Pointer}
      */
     sessionKey {
         get => NumGet(this, 0, "ptr")
@@ -38,7 +37,7 @@ class FWPM_SESSION0 extends Win32Struct
      * See [FWPM_DISPLAY_DATA0](/windows/desktop/api/fwptypes/ns-fwptypes-fwpm_display_data0) for more information.
      * @type {FWPM_DISPLAY_DATA0}
      */
-    displayData{
+    displayData {
         get {
             if(!this.HasProp("__displayData"))
                 this.__displayData := FWPM_DISPLAY_DATA0(8, this)

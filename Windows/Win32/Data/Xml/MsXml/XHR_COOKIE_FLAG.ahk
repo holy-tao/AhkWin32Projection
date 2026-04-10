@@ -5,9 +5,8 @@
  * Defines a set of flags that you can assign to a cookie in the HTTP cookie jar by calling the SetCookie method or query from the HTTP cookie jar by calling the GetCookie method.
  * @see https://learn.microsoft.com/windows/win32/api/msxml6/ne-msxml6-xhr_cookie_flag
  * @namespace Windows.Win32.Data.Xml.MsXml
- * @version v4.0.30319
  */
-class XHR_COOKIE_FLAG extends Win32Enum{
+class XHR_COOKIE_FLAG extends Win32Enum {
 
     /**
      * The cookie is secure. 
@@ -60,13 +59,11 @@ class XHR_COOKIE_FLAG extends Win32Enum{
     static XHR_COOKIE_IS_RESTRICTED => 512
 
     /**
-     * 
      * @type {Integer (Int32)}
      */
     static XHR_COOKIE_IE6 => 1024
 
     /**
-     * 
      * @type {Integer (Int32)}
      */
     static XHR_COOKIE_IS_LEGACY => 2048

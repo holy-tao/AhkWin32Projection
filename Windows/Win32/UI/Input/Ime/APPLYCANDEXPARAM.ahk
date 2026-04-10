@@ -3,10 +3,8 @@
 
 /**
  * @namespace Windows.Win32.UI.Input.Ime
- * @version v4.0.30319
  */
-class APPLYCANDEXPARAM extends Win32Struct
-{
+class APPLYCANDEXPARAM extends Win32Struct {
     static sizeof => 32
 
     static packingSize => 8

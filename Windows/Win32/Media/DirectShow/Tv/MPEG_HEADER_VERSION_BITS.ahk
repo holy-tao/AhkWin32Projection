@@ -5,10 +5,8 @@
  * The MPEG_HEADER_VERSION_BITS structure contains the first 8 bits following the TSID in an MPEG-2 PSI section. These bits contain the version number and the current/next indicator.
  * @see https://learn.microsoft.com/windows/win32/api/mpeg2bits/ns-mpeg2bits-mpeg_header_version_bits
  * @namespace Windows.Win32.Media.DirectShow.Tv
- * @version v4.0.30319
  */
-class MPEG_HEADER_VERSION_BITS extends Win32Struct
-{
+class MPEG_HEADER_VERSION_BITS extends Win32Struct {
     static sizeof => 1
 
     static packingSize => 1
@@ -26,7 +24,6 @@ class MPEG_HEADER_VERSION_BITS extends Win32Struct
     }
 
     /**
-     * The current_next_indicator field.
      * @type {Integer}
      */
     CurrentNextIndicator {
@@ -35,7 +32,6 @@ class MPEG_HEADER_VERSION_BITS extends Win32Struct
     }
 
     /**
-     * The version_number field.
      * @type {Integer}
      */
     VersionNumber {

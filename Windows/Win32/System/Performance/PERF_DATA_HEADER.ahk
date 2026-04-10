@@ -16,10 +16,8 @@
  * you compute the display values of certain performance counters.
  * @see https://learn.microsoft.com/windows/win32/api/perflib/ns-perflib-perf_data_header
  * @namespace Windows.Win32.System.Performance
- * @version v4.0.30319
  */
-class PERF_DATA_HEADER extends Win32Struct
-{
+class PERF_DATA_HEADER extends Win32Struct {
     static sizeof => 48
 
     static packingSize => 8
@@ -73,7 +71,7 @@ class PERF_DATA_HEADER extends Win32Struct
      * The time at which data is collected by the provider.
      * @type {SYSTEMTIME}
      */
-    SystemTime{
+    SystemTime {
         get {
             if(!this.HasProp("__SystemTime"))
                 this.__SystemTime := SYSTEMTIME(32, this)

@@ -1,5 +1,8 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
+#Include .\JOBOBJECT_RATE_CONTROL_TOLERANCE.ahk
+#Include .\JOBOBJECT_RATE_CONTROL_TOLERANCE_INTERVAL.ahk
+#Include .\JOB_OBJECT_LIMIT.ahk
 
 /**
  * Contains extended information about notification limits for a job object. This structure is used by the SetInformationJobObject and QueryInformationJobObject functions with the JobObjectNotificationLimitInformation2 information class.
@@ -11,10 +14,8 @@
  * CPU rate control limits for a job are established in a <a href="https://docs.microsoft.com/windows/desktop/api/winnt/ns-winnt-jobobject_cpu_rate_control_information">JOBOBJECT_CPU_RATE_CONTROL_INFORMATION</a> structure. The CPU rate control values in the <b>JOBOBJECT_NOTIFICATION_LIMIT_INFORMATION_2</b> structure specify how much the job can exceed its established CPU rate control limits before notification is sent.
  * @see https://learn.microsoft.com/windows/win32/api/winnt/ns-winnt-jobobject_notification_limit_information_2
  * @namespace Windows.Win32.System.JobObjects
- * @version v4.0.30319
  */
-class JOBOBJECT_NOTIFICATION_LIMIT_INFORMATION_2 extends Win32Struct
-{
+class JOBOBJECT_NOTIFICATION_LIMIT_INFORMATION_2 extends Win32Struct {
     static sizeof => 72
 
     static packingSize => 8
@@ -67,7 +68,7 @@ class JOBOBJECT_NOTIFICATION_LIMIT_INFORMATION_2 extends Win32Struct
     }
 
     /**
-     * @type {Integer}
+     * @type {JOBOBJECT_RATE_CONTROL_TOLERANCE}
      */
     RateControlTolerance {
         get => NumGet(this, 32, "int")
@@ -75,7 +76,7 @@ class JOBOBJECT_NOTIFICATION_LIMIT_INFORMATION_2 extends Win32Struct
     }
 
     /**
-     * @type {Integer}
+     * @type {JOBOBJECT_RATE_CONTROL_TOLERANCE}
      */
     CpuRateControlTolerance {
         get => NumGet(this, 32, "int")
@@ -83,7 +84,7 @@ class JOBOBJECT_NOTIFICATION_LIMIT_INFORMATION_2 extends Win32Struct
     }
 
     /**
-     * @type {Integer}
+     * @type {JOBOBJECT_RATE_CONTROL_TOLERANCE_INTERVAL}
      */
     RateControlToleranceInterval {
         get => NumGet(this, 36, "int")
@@ -91,7 +92,7 @@ class JOBOBJECT_NOTIFICATION_LIMIT_INFORMATION_2 extends Win32Struct
     }
 
     /**
-     * @type {Integer}
+     * @type {JOBOBJECT_RATE_CONTROL_TOLERANCE_INTERVAL}
      */
     CpuRateControlToleranceInterval {
         get => NumGet(this, 36, "int")
@@ -99,8 +100,7 @@ class JOBOBJECT_NOTIFICATION_LIMIT_INFORMATION_2 extends Win32Struct
     }
 
     /**
-     * 
-     * @type {Integer}
+     * @type {JOB_OBJECT_LIMIT}
      */
     LimitFlags {
         get => NumGet(this, 40, "uint")
@@ -109,7 +109,7 @@ class JOBOBJECT_NOTIFICATION_LIMIT_INFORMATION_2 extends Win32Struct
 
     /**
      * If the <i>LimitFlags</i> parameter specifies <b>JOB_OBJECT_LIMIT_IO_RATE_CONTROL</b>, this member specifies the extent to which a job can exceed its I/O rate control limits during the interval specified by the <b>IoRateControlToleranceInterval</b> member.  Otherwise, this member is ignored.
-     * @type {Integer}
+     * @type {JOBOBJECT_RATE_CONTROL_TOLERANCE}
      */
     IoRateControlTolerance {
         get => NumGet(this, 44, "int")
@@ -127,7 +127,7 @@ class JOBOBJECT_NOTIFICATION_LIMIT_INFORMATION_2 extends Win32Struct
 
     /**
      * If the <i>LimitFlags</i> parameter specifies <b>JOB_OBJECT_IO_LIMIT_RATE_CONTROL</b>, this member specifies the interval during which a job's I/O usage is monitored to determine whether the job has exceeded its I/O rate control limits. Otherwise, this member is ignored.
-     * @type {Integer}
+     * @type {JOBOBJECT_RATE_CONTROL_TOLERANCE_INTERVAL}
      */
     IoRateControlToleranceInterval {
         get => NumGet(this, 56, "int")
@@ -136,7 +136,7 @@ class JOBOBJECT_NOTIFICATION_LIMIT_INFORMATION_2 extends Win32Struct
 
     /**
      * If the <i>LimitFlags</i> parameter specifies <b>JOB_OBJECT_LIMIT_IO_RATE_CONTROL</b>, this member specifies the extent to which a job can exceed its network rate control limits during the interval specified by the <b>NetRateControlToleranceInterval</b> member.  Otherwise, this member is ignored.
-     * @type {Integer}
+     * @type {JOBOBJECT_RATE_CONTROL_TOLERANCE}
      */
     NetRateControlTolerance {
         get => NumGet(this, 60, "int")
@@ -145,7 +145,7 @@ class JOBOBJECT_NOTIFICATION_LIMIT_INFORMATION_2 extends Win32Struct
 
     /**
      * If the <i>LimitFlags</i> parameter specifies <b>JOB_OBJECT_NET_LIMIT_RATE_CONTROL</b>, this member specifies the interval during which a job's network usage is monitored to determine whether the job has exceeded its network rate control limits. Otherwise, this member is ignored.
-     * @type {Integer}
+     * @type {JOBOBJECT_RATE_CONTROL_TOLERANCE_INTERVAL}
      */
     NetRateControlToleranceInterval {
         get => NumGet(this, 64, "int")

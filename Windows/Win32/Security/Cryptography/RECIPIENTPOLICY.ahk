@@ -1,15 +1,13 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
-#Include .\CRYPT_INTEGER_BLOB.ahk
 #Include .\ENDPOINTADDRESS.ahk
+#Include .\CRYPT_INTEGER_BLOB.ahk
 #Include .\CLAIMLIST.ahk
 
 /**
  * @namespace Windows.Win32.Security.Cryptography
- * @version v4.0.30319
  */
-class RECIPIENTPOLICY extends Win32Struct
-{
+class RECIPIENTPOLICY extends Win32Struct {
     static sizeof => 120
 
     static packingSize => 8
@@ -17,7 +15,7 @@ class RECIPIENTPOLICY extends Win32Struct
     /**
      * @type {ENDPOINTADDRESS}
      */
-    recipient{
+    recipient {
         get {
             if(!this.HasProp("__recipient"))
                 this.__recipient := ENDPOINTADDRESS(0, this)
@@ -28,7 +26,7 @@ class RECIPIENTPOLICY extends Win32Struct
     /**
      * @type {ENDPOINTADDRESS}
      */
-    issuer{
+    issuer {
         get {
             if(!this.HasProp("__issuer"))
                 this.__issuer := ENDPOINTADDRESS(32, this)
@@ -47,7 +45,7 @@ class RECIPIENTPOLICY extends Win32Struct
     /**
      * @type {CLAIMLIST}
      */
-    requiredClaims{
+    requiredClaims {
         get {
             if(!this.HasProp("__requiredClaims"))
                 this.__requiredClaims := CLAIMLIST(72, this)
@@ -58,7 +56,7 @@ class RECIPIENTPOLICY extends Win32Struct
     /**
      * @type {CLAIMLIST}
      */
-    optionalClaims{
+    optionalClaims {
         get {
             if(!this.HasProp("__optionalClaims"))
                 this.__optionalClaims := CLAIMLIST(88, this)

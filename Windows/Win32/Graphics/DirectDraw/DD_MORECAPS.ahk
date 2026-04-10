@@ -3,10 +3,8 @@
 
 /**
  * @namespace Windows.Win32.Graphics.DirectDraw
- * @version v4.0.30319
  */
-class DD_MORECAPS extends Win32Struct
-{
+class DD_MORECAPS extends Win32Struct {
     static sizeof => 36
 
     static packingSize => 4

@@ -7,9 +7,8 @@
  * Keywords include Boolean operators such as AND, NOT, and OR.
  * @see https://learn.microsoft.com/windows/win32/api/structuredquery/ne-structuredquery-case_requirement
  * @namespace Windows.Win32.System.Search
- * @version v4.0.30319
  */
-class CASE_REQUIREMENT extends Win32Enum{
+class CASE_REQUIREMENT extends Win32Enum {
 
     /**
      * Keywords are recognized regardless of case.

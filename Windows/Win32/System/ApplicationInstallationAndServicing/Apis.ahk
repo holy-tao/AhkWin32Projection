@@ -6,7 +6,6 @@
 
 /**
  * @namespace Windows.Win32.System.ApplicationInstallationAndServicing
- * @version v4.0.30319
  */
 class ApplicationInstallationAndServicing {
 
@@ -3206,9 +3205,9 @@ class ApplicationInstallationAndServicing {
      * <b>MsiSetInternalUI</b> function is useful when the installer must display a user interface. For example, if a feature is installed, but the source is a compact disc that must be inserted, the installer prompts the user for the compact disc. Depending on the nature of the installation, the application might also display progress indicators or query the user for information.
      * 
      * When Msi.dll is loaded, the user interface level is set to DEFAULT and the user interface owner is set to 0 (that is, the initial user interface owner is the desktop).
-     * @param {Integer} dwUILevel 
+     * @param {INSTALLUILEVEL} dwUILevel 
      * @param {Pointer<HWND>} phWnd Pointer to a window. This window becomes the owner of any user interface created. A pointer to the previous owner of the user interface is returned. If this parameter is null, the owner of the user interface does not change.
-     * @returns {Integer} The previous user interface level is returned. If an invalid <i>dwUILevel </i> is passed, then <b>INSTALLUILEVEL_NOCHANGE</b> is returned.
+     * @returns {INSTALLUILEVEL} The previous user interface level is returned. If an invalid <i>dwUILevel </i> is passed, then <b>INSTALLUILEVEL_NOCHANGE</b> is returned.
      * @see https://learn.microsoft.com/windows/win32/api/msi/nf-msi-msisetinternalui
      * @since windows8.0
      */
@@ -4130,7 +4129,7 @@ class ApplicationInstallationAndServicing {
      * > [!NOTE]
      * > The msi.h header defines MsiQueryProductState as an alias which automatically selects the ANSI or Unicode version of this function based on the definition of the UNICODE preprocessor constant. Mixing usage of the encoding-neutral alias with code that not encoding-neutral can lead to mismatches that result in compilation or runtime errors. For more information, see [Conventions for Function Prototypes](/windows/win32/intl/conventions-for-function-prototypes).
      * @param {PSTR} szProduct Specifies the product code that identifies the product to be queried.
-     * @returns {Integer} <table>
+     * @returns {INSTALLSTATE} <table>
      * <tr>
      * <th>Value</th>
      * <th>Meaning</th>
@@ -4211,7 +4210,7 @@ class ApplicationInstallationAndServicing {
      * > [!NOTE]
      * > The msi.h header defines MsiQueryProductState as an alias which automatically selects the ANSI or Unicode version of this function based on the definition of the UNICODE preprocessor constant. Mixing usage of the encoding-neutral alias with code that not encoding-neutral can lead to mismatches that result in compilation or runtime errors. For more information, see [Conventions for Function Prototypes](/windows/win32/intl/conventions-for-function-prototypes).
      * @param {PWSTR} szProduct Specifies the product code that identifies the product to be queried.
-     * @returns {Integer} <table>
+     * @returns {INSTALLSTATE} <table>
      * <tr>
      * <th>Value</th>
      * <th>Meaning</th>
@@ -5094,7 +5093,7 @@ class ApplicationInstallationAndServicing {
      * 
      * <div class="alert"><b>Note</b>  The special SID string "S-1-5-18" (system) cannot be used to enumerate products installed as per-machine. If <i>dwContext</i> is "MSIINSTALLCONTEXT_MACHINE", <i>szUserSid</i> must be <b>NULL</b>.</div>
      * <div> </div>
-     * @param {Integer} dwContext The installation context  of the product instance that is being queried.
+     * @param {MSIINSTALLCONTEXT} dwContext The installation context  of the product instance that is being queried.
      * 
      * <table>
      * <tr>
@@ -5571,7 +5570,7 @@ class ApplicationInstallationAndServicing {
      * 
      * <div class="alert"><b>Note</b>  The special SID string "S-1-5-18" (system) cannot be used to enumerate products installed as per-machine. If <i>dwContext</i> is "MSIINSTALLCONTEXT_MACHINE", <i>szUserSid</i> must be <b>NULL</b>.</div>
      * <div> </div>
-     * @param {Integer} dwContext The installation context  of the product instance that is being queried.
+     * @param {MSIINSTALLCONTEXT} dwContext The installation context  of the product instance that is being queried.
      * 
      * <table>
      * <tr>
@@ -6179,8 +6178,8 @@ class ApplicationInstallationAndServicing {
      * > [!NOTE]
      * > The msi.h header defines MsiConfigureProduct as an alias which automatically selects the ANSI or Unicode version of this function based on the definition of the UNICODE preprocessor constant. Mixing usage of the encoding-neutral alias with code that not encoding-neutral can lead to mismatches that result in compilation or runtime errors. For more information, see [Conventions for Function Prototypes](/windows/win32/intl/conventions-for-function-prototypes).
      * @param {PSTR} szProduct Specifies the product code for the product to be configured.
-     * @param {Integer} iInstallLevel Specifies how much of the product should be installed when installing the product to its default state. The <i>iInstallLevel</i> parameter is ignored, and all features are installed, if the <i>eInstallState</i> parameter is set to any other value than INSTALLSTATE_DEFAULT.
-     * @param {Integer} eInstallState 
+     * @param {INSTALLLEVEL} iInstallLevel Specifies how much of the product should be installed when installing the product to its default state. The <i>iInstallLevel</i> parameter is ignored, and all features are installed, if the <i>eInstallState</i> parameter is set to any other value than INSTALLSTATE_DEFAULT.
+     * @param {INSTALLSTATE} eInstallState 
      * @returns {Integer} <table>
      * <tr>
      * <th>Value</th>
@@ -6259,8 +6258,8 @@ class ApplicationInstallationAndServicing {
      * > [!NOTE]
      * > The msi.h header defines MsiConfigureProduct as an alias which automatically selects the ANSI or Unicode version of this function based on the definition of the UNICODE preprocessor constant. Mixing usage of the encoding-neutral alias with code that not encoding-neutral can lead to mismatches that result in compilation or runtime errors. For more information, see [Conventions for Function Prototypes](/windows/win32/intl/conventions-for-function-prototypes).
      * @param {PWSTR} szProduct Specifies the product code for the product to be configured.
-     * @param {Integer} iInstallLevel Specifies how much of the product should be installed when installing the product to its default state. The <i>iInstallLevel</i> parameter is ignored, and all features are installed, if the <i>eInstallState</i> parameter is set to any other value than INSTALLSTATE_DEFAULT.
-     * @param {Integer} eInstallState 
+     * @param {INSTALLLEVEL} iInstallLevel Specifies how much of the product should be installed when installing the product to its default state. The <i>iInstallLevel</i> parameter is ignored, and all features are installed, if the <i>eInstallState</i> parameter is set to any other value than INSTALLSTATE_DEFAULT.
+     * @param {INSTALLSTATE} eInstallState 
      * @returns {Integer} <table>
      * <tr>
      * <th>Value</th>
@@ -6342,8 +6341,8 @@ class ApplicationInstallationAndServicing {
      * > [!NOTE]
      * > The msi.h header defines MsiConfigureProductEx as an alias which automatically selects the ANSI or Unicode version of this function based on the definition of the UNICODE preprocessor constant. Mixing usage of the encoding-neutral alias with code that not encoding-neutral can lead to mismatches that result in compilation or runtime errors. For more information, see [Conventions for Function Prototypes](/windows/win32/intl/conventions-for-function-prototypes).
      * @param {PSTR} szProduct Specifies the product code for the product to be configured.
-     * @param {Integer} iInstallLevel Specifies how much of the product should be installed when installing the product to its default state. The <i>iInstallLevel</i> parameters are ignored, and all features are installed, if the <i>eInstallState</i> parameter is set to any value other than <b>INSTALLSTATE_DEFAULT</b>.
-     * @param {Integer} eInstallState 
+     * @param {INSTALLLEVEL} iInstallLevel Specifies how much of the product should be installed when installing the product to its default state. The <i>iInstallLevel</i> parameters are ignored, and all features are installed, if the <i>eInstallState</i> parameter is set to any value other than <b>INSTALLSTATE_DEFAULT</b>.
+     * @param {INSTALLSTATE} eInstallState 
      * @param {PSTR} szCommandLine Specifies the command-line property settings. This should be a list of the format <i>Property=Setting Property=Setting</i>. For more information, see 
      * <a href="https://docs.microsoft.com/windows/desktop/Msi/about-properties">About Properties</a>.
      * @returns {Integer} <table>
@@ -6428,8 +6427,8 @@ class ApplicationInstallationAndServicing {
      * > [!NOTE]
      * > The msi.h header defines MsiConfigureProductEx as an alias which automatically selects the ANSI or Unicode version of this function based on the definition of the UNICODE preprocessor constant. Mixing usage of the encoding-neutral alias with code that not encoding-neutral can lead to mismatches that result in compilation or runtime errors. For more information, see [Conventions for Function Prototypes](/windows/win32/intl/conventions-for-function-prototypes).
      * @param {PWSTR} szProduct Specifies the product code for the product to be configured.
-     * @param {Integer} iInstallLevel Specifies how much of the product should be installed when installing the product to its default state. The <i>iInstallLevel</i> parameters are ignored, and all features are installed, if the <i>eInstallState</i> parameter is set to any value other than <b>INSTALLSTATE_DEFAULT</b>.
-     * @param {Integer} eInstallState 
+     * @param {INSTALLLEVEL} iInstallLevel Specifies how much of the product should be installed when installing the product to its default state. The <i>iInstallLevel</i> parameters are ignored, and all features are installed, if the <i>eInstallState</i> parameter is set to any value other than <b>INSTALLSTATE_DEFAULT</b>.
+     * @param {INSTALLSTATE} eInstallState 
      * @param {PWSTR} szCommandLine Specifies the command-line property settings. This should be a list of the format <i>Property=Setting Property=Setting</i>. For more information, see 
      * <a href="https://docs.microsoft.com/windows/desktop/Msi/about-properties">About Properties</a>.
      * @returns {Integer} <table>
@@ -8053,7 +8052,7 @@ class ApplicationInstallationAndServicing {
      * @param {Pointer<Integer>} pcchOrgNameBuf Pointer to a variable that specifies the size, in characters, of the buffer pointed to by the <i>lpOrgNameBuf</i> parameter. On input, this is the full size of the buffer, including a space for a terminating null character. If the buffer passed in is too small, the count returned does not include the terminating null character.
      * @param {PSTR} lpSerialBuf Pointer to a buffer that receives the product ID.
      * @param {Pointer<Integer>} pcchSerialBuf Pointer to a variable that specifies the size, in characters, of the buffer pointed to by the <i>lpSerialBuf</i> parameter. On input, this is the full size of the buffer, including a space for a terminating null character. If the buffer passed in is too small, the count returned does not include the terminating null character.
-     * @returns {Integer} <table>
+     * @returns {USERINFOSTATE} <table>
      * <tr>
      * <th>Value</th>
      * <th>Meaning</th>
@@ -8158,7 +8157,7 @@ class ApplicationInstallationAndServicing {
      * @param {Pointer<Integer>} pcchOrgNameBuf Pointer to a variable that specifies the size, in characters, of the buffer pointed to by the <i>lpOrgNameBuf</i> parameter. On input, this is the full size of the buffer, including a space for a terminating null character. If the buffer passed in is too small, the count returned does not include the terminating null character.
      * @param {PWSTR} lpSerialBuf Pointer to a buffer that receives the product ID.
      * @param {Pointer<Integer>} pcchSerialBuf Pointer to a variable that specifies the size, in characters, of the buffer pointed to by the <i>lpSerialBuf</i> parameter. On input, this is the full size of the buffer, including a space for a terminating null character. If the buffer passed in is too small, the count returned does not include the terminating null character.
-     * @returns {Integer} <table>
+     * @returns {USERINFOSTATE} <table>
      * <tr>
      * <th>Value</th>
      * <th>Meaning</th>
@@ -8431,7 +8430,7 @@ class ApplicationInstallationAndServicing {
      * @param {PSTR} szInstallPackage If <i>eInstallType</i> is set to INSTALLTYPE_NETWORK_IMAGE, this parameter is a null-terminated string that specifies a path to the product that is to be patched. The installer applies the patch to every eligible product listed in the patch package if <i>szInstallPackage</i> is set to null and <i>eInstallType</i> is set to INSTALLTYPE_DEFAULT.
      * 
      * If <i>eInstallType</i> is INSTALLTYPE_SINGLE_INSTANCE, the installer applies the patch to the product specified by <i>szInstallPackage</i>. In this case, other eligible products listed in the patch package are ignored and the <i>szInstallPackage</i> parameter contains the null-terminated string representing the product code of the instance to patch. This type of installation requires the installer running Windows Server 2003 or Windows XP.
-     * @param {Integer} eInstallType This parameter specifies the type of installation to patch.
+     * @param {INSTALLTYPE} eInstallType This parameter specifies the type of installation to patch.
      * 
      * <table>
      * <tr>
@@ -8576,7 +8575,7 @@ class ApplicationInstallationAndServicing {
      * @param {PWSTR} szInstallPackage If <i>eInstallType</i> is set to INSTALLTYPE_NETWORK_IMAGE, this parameter is a null-terminated string that specifies a path to the product that is to be patched. The installer applies the patch to every eligible product listed in the patch package if <i>szInstallPackage</i> is set to null and <i>eInstallType</i> is set to INSTALLTYPE_DEFAULT.
      * 
      * If <i>eInstallType</i> is INSTALLTYPE_SINGLE_INSTANCE, the installer applies the patch to the product specified by <i>szInstallPackage</i>. In this case, other eligible products listed in the patch package are ignored and the <i>szInstallPackage</i> parameter contains the null-terminated string representing the product code of the instance to patch. This type of installation requires the installer running Windows Server 2003 or Windows XP.
-     * @param {Integer} eInstallType This parameter specifies the type of installation to patch.
+     * @param {INSTALLTYPE} eInstallType This parameter specifies the type of installation to patch.
      * 
      * <table>
      * <tr>
@@ -9177,7 +9176,7 @@ class ApplicationInstallationAndServicing {
      * > The msi.h header defines MsiRemovePatches as an alias which automatically selects the ANSI or Unicode version of this function based on the definition of the UNICODE preprocessor constant. Mixing usage of the encoding-neutral alias with code that not encoding-neutral can lead to mismatches that result in compilation or runtime errors. For more information, see [Conventions for Function Prototypes](/windows/win32/intl/conventions-for-function-prototypes).
      * @param {PSTR} szPatchList A null-terminated string that represents the list of patches to remove.  Each patch can be specified by the GUID of the patch or the full path to the patch package. The patches in the list are delimited by semicolons.
      * @param {PSTR} szProductCode A null-terminated string that is the <a href="https://docs.microsoft.com/windows/desktop/Msi/productcode">ProductCode</a> (GUID) of the product from which the patches are removed.  This parameter cannot be <b>NULL</b>.
-     * @param {Integer} eUninstallType Value that indicates the type of patch removal to perform. This parameter must be <b>INSTALLTYPE_SINGLE_INSTANCE</b>.
+     * @param {INSTALLTYPE} eUninstallType Value that indicates the type of patch removal to perform. This parameter must be <b>INSTALLTYPE_SINGLE_INSTANCE</b>.
      * 
      * <table>
      * <tr>
@@ -9341,7 +9340,7 @@ class ApplicationInstallationAndServicing {
      * > The msi.h header defines MsiRemovePatches as an alias which automatically selects the ANSI or Unicode version of this function based on the definition of the UNICODE preprocessor constant. Mixing usage of the encoding-neutral alias with code that not encoding-neutral can lead to mismatches that result in compilation or runtime errors. For more information, see [Conventions for Function Prototypes](/windows/win32/intl/conventions-for-function-prototypes).
      * @param {PWSTR} szPatchList A null-terminated string that represents the list of patches to remove.  Each patch can be specified by the GUID of the patch or the full path to the patch package. The patches in the list are delimited by semicolons.
      * @param {PWSTR} szProductCode A null-terminated string that is the <a href="https://docs.microsoft.com/windows/desktop/Msi/productcode">ProductCode</a> (GUID) of the product from which the patches are removed.  This parameter cannot be <b>NULL</b>.
-     * @param {Integer} eUninstallType Value that indicates the type of patch removal to perform. This parameter must be <b>INSTALLTYPE_SINGLE_INSTANCE</b>.
+     * @param {INSTALLTYPE} eUninstallType Value that indicates the type of patch removal to perform. This parameter must be <b>INSTALLTYPE_SINGLE_INSTANCE</b>.
      * 
      * <table>
      * <tr>
@@ -9779,7 +9778,7 @@ class ApplicationInstallationAndServicing {
      * 
      * <div class="alert"><b>Note</b>  The special SID string "S-1-5-18" (system) cannot be used to enumerate products installed as per-machine. If <i>dwContext</i> is <b>MSIINSTALLCONTEXT_MACHINE</b>, <i>szUserSid</i> must be <b>NULL</b>.</div>
      * <div> </div>
-     * @param {Integer} dwContext Restricts the  enumeration to a per-user-unmanaged,  per-user-managed, or per-machine context. This parameter can be any one of the  following values.
+     * @param {MSIINSTALLCONTEXT} dwContext Restricts the  enumeration to a per-user-unmanaged,  per-user-managed, or per-machine context. This parameter can be any one of the  following values.
      * 
      * <table>
      * <tr>
@@ -10087,7 +10086,7 @@ class ApplicationInstallationAndServicing {
      * 
      * <div class="alert"><b>Note</b>  The special SID string "S-1-5-18" (system) cannot be used to enumerate products installed as per-machine. If <i>dwContext</i> is <b>MSIINSTALLCONTEXT_MACHINE</b>, <i>szUserSid</i> must be <b>NULL</b>.</div>
      * <div> </div>
-     * @param {Integer} dwContext Restricts the  enumeration to a per-user-unmanaged,  per-user-managed, or per-machine context. This parameter can be any one of the  following values.
+     * @param {MSIINSTALLCONTEXT} dwContext Restricts the  enumeration to a per-user-unmanaged,  per-user-managed, or per-machine context. This parameter can be any one of the  following values.
      * 
      * <table>
      * <tr>
@@ -10615,7 +10614,7 @@ class ApplicationInstallationAndServicing {
      * @param {PSTR} szProductCode The product that is the target for the set of patches. The value must be the <a href="https://docs.microsoft.com/windows/desktop/Msi/productcode">ProductCode</a> GUID for the product.
      * @param {PSTR} szUserSid Null-terminated string  that specifies  a security identifier (SID) of a user. This parameter restricts the context of enumeration for  this user account. This parameter cannot be   the special SID strings "S-1-1-0" (everyone) or "S-1-5-18" (local system). For the machine context <i>dwContext</i> is set to<b> MSIINSTALLCONTEXT_MACHINE</b> and <i>szUserSid</i> must be <b>NULL</b>. 
      * For the current user context <i>szUserSid</i> can be null and  <i>dwContext</i> can be set to <b>MSIINSTALLCONTEXT_USERMANAGED</b> or <b>MSIINSTALLCONTEXT_USERUNMANAGED</b>.
-     * @param {Integer} dwContext Restricts the  enumeration to a per-user-unmanaged,  per-user-managed, or per-machine context. This parameter can be any one of the  following values.
+     * @param {MSIINSTALLCONTEXT} dwContext Restricts the  enumeration to a per-user-unmanaged,  per-user-managed, or per-machine context. This parameter can be any one of the  following values.
      * 
      * <table>
      * <tr>
@@ -10864,7 +10863,7 @@ class ApplicationInstallationAndServicing {
      * @param {PWSTR} szProductCode The product that is the target for the set of patches. The value must be the <a href="https://docs.microsoft.com/windows/desktop/Msi/productcode">ProductCode</a> GUID for the product.
      * @param {PWSTR} szUserSid Null-terminated string  that specifies  a security identifier (SID) of a user. This parameter restricts the context of enumeration for  this user account. This parameter cannot be   the special SID strings "S-1-1-0" (everyone) or "S-1-5-18" (local system). For the machine context <i>dwContext</i> is set to<b> MSIINSTALLCONTEXT_MACHINE</b> and <i>szUserSid</i> must be <b>NULL</b>. 
      * For the current user context <i>szUserSid</i> can be null and  <i>dwContext</i> can be set to <b>MSIINSTALLCONTEXT_USERMANAGED</b> or <b>MSIINSTALLCONTEXT_USERUNMANAGED</b>.
-     * @param {Integer} dwContext Restricts the  enumeration to a per-user-unmanaged,  per-user-managed, or per-machine context. This parameter can be any one of the  following values.
+     * @param {MSIINSTALLCONTEXT} dwContext Restricts the  enumeration to a per-user-unmanaged,  per-user-managed, or per-machine context. This parameter can be any one of the  following values.
      * 
      * <table>
      * <tr>
@@ -11530,7 +11529,7 @@ class ApplicationInstallationAndServicing {
      * @param {Integer} dwIndex The index of the patch to retrieve. This parameter must be zero for the first call to the <b>MsiEnumPatchesEx</b> function and then incremented for subsequent calls. The <i>dwIndex</i> parameter should be incremented only if the previous call returned ERROR_SUCCESS.
      * @param {PSTR} szPatchCode An output buffer to contain the GUID of the patch being enumerated. The buffer should be large enough to hold the GUID. This parameter can be <b>NULL</b>.
      * @param {PSTR} szTargetProductCode An output buffer to contain the <a href="https://docs.microsoft.com/windows/desktop/Msi/productcode">ProductCode</a> GUID of the product that receives this patch. The buffer should be large enough to hold the GUID. This parameter can be <b>NULL</b>.
-     * @param {Pointer<Integer>} pdwTargetProductContext Returns the context of the patch being enumerated. The output value can be  <b>MSIINSTALLCONTEXT_USERMANAGED</b>,  <b>MSIINSTALLCONTEXT_USERUNMANAGED</b>, or <b>MSIINSTALLCONTEXT_MACHINE</b>. This parameter can be <b>NULL</b>.
+     * @param {Pointer<MSIINSTALLCONTEXT>} pdwTargetProductContext Returns the context of the patch being enumerated. The output value can be  <b>MSIINSTALLCONTEXT_USERMANAGED</b>,  <b>MSIINSTALLCONTEXT_USERUNMANAGED</b>, or <b>MSIINSTALLCONTEXT_MACHINE</b>. This parameter can be <b>NULL</b>.
      * @param {PSTR} szTargetUserSid An output buffer that receives  the string SID of the account under which this patch instance exists. This buffer returns an empty string for a per-machine context.
      * 
      * This buffer should be large enough to contain the SID. If the buffer is too small, the function returns <b>ERROR_MORE_DATA</b> and sets *<i>pcchTargetUserSid</i> to the number of <b>TCHAR</b> in the value, not including the terminating NULL character.
@@ -11803,7 +11802,7 @@ class ApplicationInstallationAndServicing {
      * @param {Integer} dwIndex The index of the patch to retrieve. This parameter must be zero for the first call to the <b>MsiEnumPatchesEx</b> function and then incremented for subsequent calls. The <i>dwIndex</i> parameter should be incremented only if the previous call returned ERROR_SUCCESS.
      * @param {PWSTR} szPatchCode An output buffer to contain the GUID of the patch being enumerated. The buffer should be large enough to hold the GUID. This parameter can be <b>NULL</b>.
      * @param {PWSTR} szTargetProductCode An output buffer to contain the <a href="https://docs.microsoft.com/windows/desktop/Msi/productcode">ProductCode</a> GUID of the product that receives this patch. The buffer should be large enough to hold the GUID. This parameter can be <b>NULL</b>.
-     * @param {Pointer<Integer>} pdwTargetProductContext Returns the context of the patch being enumerated. The output value can be  <b>MSIINSTALLCONTEXT_USERMANAGED</b>,  <b>MSIINSTALLCONTEXT_USERUNMANAGED</b>, or <b>MSIINSTALLCONTEXT_MACHINE</b>. This parameter can be <b>NULL</b>.
+     * @param {Pointer<MSIINSTALLCONTEXT>} pdwTargetProductContext Returns the context of the patch being enumerated. The output value can be  <b>MSIINSTALLCONTEXT_USERMANAGED</b>,  <b>MSIINSTALLCONTEXT_USERUNMANAGED</b>, or <b>MSIINSTALLCONTEXT_MACHINE</b>. This parameter can be <b>NULL</b>.
      * @param {PWSTR} szTargetUserSid An output buffer that receives  the string SID of the account under which this patch instance exists. This buffer returns an empty string for a per-machine context.
      * 
      * This buffer should be large enough to contain the SID. If the buffer is too small, the function returns <b>ERROR_MORE_DATA</b> and sets *<i>pcchTargetUserSid</i> to the number of <b>TCHAR</b> in the value, not including the terminating NULL character.
@@ -11930,7 +11929,7 @@ class ApplicationInstallationAndServicing {
      * > The msi.h header defines MsiQueryFeatureState as an alias which automatically selects the ANSI or Unicode version of this function based on the definition of the UNICODE preprocessor constant. Mixing usage of the encoding-neutral alias with code that not encoding-neutral can lead to mismatches that result in compilation or runtime errors. For more information, see [Conventions for Function Prototypes](/windows/win32/intl/conventions-for-function-prototypes).
      * @param {PSTR} szProduct Specifies the product code for the product that contains the feature of interest.
      * @param {PSTR} szFeature Identifies the feature of interest.
-     * @returns {Integer} <table>
+     * @returns {INSTALLSTATE} <table>
      * <tr>
      * <th>Value</th>
      * <th>Meaning</th>
@@ -12031,7 +12030,7 @@ class ApplicationInstallationAndServicing {
      * > The msi.h header defines MsiQueryFeatureState as an alias which automatically selects the ANSI or Unicode version of this function based on the definition of the UNICODE preprocessor constant. Mixing usage of the encoding-neutral alias with code that not encoding-neutral can lead to mismatches that result in compilation or runtime errors. For more information, see [Conventions for Function Prototypes](/windows/win32/intl/conventions-for-function-prototypes).
      * @param {PWSTR} szProduct Specifies the product code for the product that contains the feature of interest.
      * @param {PWSTR} szFeature Identifies the feature of interest.
-     * @returns {Integer} <table>
+     * @returns {INSTALLSTATE} <table>
      * <tr>
      * <th>Value</th>
      * <th>Meaning</th>
@@ -12163,7 +12162,7 @@ class ApplicationInstallationAndServicing {
      * 
      * <div class="alert"><b>Note</b>  The special SID string s-1-5-18 (system) cannot be used to enumerate features of products installed as per-machine. If <i>dwContext</i> is <b>MSIINSTALLCONTEXT_MACHINE</b>, <i>szUserSid</i> must be null.</div>
      * <div> </div>
-     * @param {Integer} dwContext The installation context  of the product instance being queried.
+     * @param {MSIINSTALLCONTEXT} dwContext The installation context  of the product instance being queried.
      * 
      * <table>
      * <tr>
@@ -12204,7 +12203,7 @@ class ApplicationInstallationAndServicing {
      * </tr>
      * </table>
      * @param {PSTR} szFeature Specifies the feature being queried. Identifier of the feature as found in the <b>Feature</b> column of the <a href="https://docs.microsoft.com/windows/desktop/Msi/feature-table">Feature table</a>.
-     * @param {Pointer<Integer>} pdwState Installation state of the feature for the specified product instance. This parameter can return one of the following or null.
+     * @param {Pointer<INSTALLSTATE>} pdwState Installation state of the feature for the specified product instance. This parameter can return one of the following or null.
      * 
      * <table>
      * <tr>
@@ -12390,7 +12389,7 @@ class ApplicationInstallationAndServicing {
      * 
      * <div class="alert"><b>Note</b>  The special SID string s-1-5-18 (system) cannot be used to enumerate features of products installed as per-machine. If <i>dwContext</i> is <b>MSIINSTALLCONTEXT_MACHINE</b>, <i>szUserSid</i> must be null.</div>
      * <div> </div>
-     * @param {Integer} dwContext The installation context  of the product instance being queried.
+     * @param {MSIINSTALLCONTEXT} dwContext The installation context  of the product instance being queried.
      * 
      * <table>
      * <tr>
@@ -12431,7 +12430,7 @@ class ApplicationInstallationAndServicing {
      * </tr>
      * </table>
      * @param {PWSTR} szFeature Specifies the feature being queried. Identifier of the feature as found in the <b>Feature</b> column of the <a href="https://docs.microsoft.com/windows/desktop/Msi/feature-table">Feature table</a>.
-     * @param {Pointer<Integer>} pdwState Installation state of the feature for the specified product instance. This parameter can return one of the following or null.
+     * @param {Pointer<INSTALLSTATE>} pdwState Installation state of the feature for the specified product instance. This parameter can return one of the following or null.
      * 
      * <table>
      * <tr>
@@ -12589,7 +12588,7 @@ class ApplicationInstallationAndServicing {
      * > The msi.h header defines MsiUseFeature as an alias which automatically selects the ANSI or Unicode version of this function based on the definition of the UNICODE preprocessor constant. Mixing usage of the encoding-neutral alias with code that not encoding-neutral can lead to mismatches that result in compilation or runtime errors. For more information, see [Conventions for Function Prototypes](/windows/win32/intl/conventions-for-function-prototypes).
      * @param {PSTR} szProduct Specifies the product code for the product that owns the feature to be used.
      * @param {PSTR} szFeature Identifies the feature to be used.
-     * @returns {Integer} <table>
+     * @returns {INSTALLSTATE} <table>
      * <tr>
      * <th>Value</th>
      * <th>Meaning</th>
@@ -12704,7 +12703,7 @@ class ApplicationInstallationAndServicing {
      * > The msi.h header defines MsiUseFeature as an alias which automatically selects the ANSI or Unicode version of this function based on the definition of the UNICODE preprocessor constant. Mixing usage of the encoding-neutral alias with code that not encoding-neutral can lead to mismatches that result in compilation or runtime errors. For more information, see [Conventions for Function Prototypes](/windows/win32/intl/conventions-for-function-prototypes).
      * @param {PWSTR} szProduct Specifies the product code for the product that owns the feature to be used.
      * @param {PWSTR} szFeature Identifies the feature to be used.
-     * @returns {Integer} <table>
+     * @returns {INSTALLSTATE} <table>
      * <tr>
      * <th>Value</th>
      * <th>Meaning</th>
@@ -12839,7 +12838,7 @@ class ApplicationInstallationAndServicing {
      * </td>
      * </tr>
      * </table>
-     * @returns {Integer} <table>
+     * @returns {INSTALLSTATE} <table>
      * <tr>
      * <th>Value</th>
      * <th>Meaning</th>
@@ -12950,7 +12949,7 @@ class ApplicationInstallationAndServicing {
      * </td>
      * </tr>
      * </table>
-     * @returns {Integer} <table>
+     * @returns {INSTALLSTATE} <table>
      * <tr>
      * <th>Value</th>
      * <th>Meaning</th>
@@ -13245,7 +13244,7 @@ class ApplicationInstallationAndServicing {
      * > The msi.h header defines MsiConfigureFeature as an alias which automatically selects the ANSI or Unicode version of this function based on the definition of the UNICODE preprocessor constant. Mixing usage of the encoding-neutral alias with code that not encoding-neutral can lead to mismatches that result in compilation or runtime errors. For more information, see [Conventions for Function Prototypes](/windows/win32/intl/conventions-for-function-prototypes).
      * @param {PSTR} szProduct Specifies the product code for the product to be configured.
      * @param {PSTR} szFeature Specifies the feature ID for the feature to be configured.
-     * @param {Integer} eInstallState 
+     * @param {INSTALLSTATE} eInstallState 
      * @returns {Integer} <table>
      * <tr>
      * <th>Value</th>
@@ -13315,7 +13314,7 @@ class ApplicationInstallationAndServicing {
      * > The msi.h header defines MsiConfigureFeature as an alias which automatically selects the ANSI or Unicode version of this function based on the definition of the UNICODE preprocessor constant. Mixing usage of the encoding-neutral alias with code that not encoding-neutral can lead to mismatches that result in compilation or runtime errors. For more information, see [Conventions for Function Prototypes](/windows/win32/intl/conventions-for-function-prototypes).
      * @param {PWSTR} szProduct Specifies the product code for the product to be configured.
      * @param {PWSTR} szFeature Specifies the feature ID for the feature to be configured.
-     * @param {Integer} eInstallState 
+     * @param {INSTALLSTATE} eInstallState 
      * @returns {Integer} <table>
      * <tr>
      * <th>Value</th>
@@ -14551,7 +14550,7 @@ class ApplicationInstallationAndServicing {
      * 
      * 
      * If <i>lpPathBuf</i> is null, <i>pcchBuf</i> can be null.
-     * @returns {Integer} The 
+     * @returns {INSTALLSTATE} The 
      * <b>MsiGetComponentPath</b> function returns the following values.
      * 					
      * 
@@ -14751,7 +14750,7 @@ class ApplicationInstallationAndServicing {
      * 
      * 
      * If <i>lpPathBuf</i> is null, <i>pcchBuf</i> can be null.
-     * @returns {Integer} The 
+     * @returns {INSTALLSTATE} The 
      * <b>MsiGetComponentPath</b> function returns the following values.
      * 					
      * 
@@ -14928,7 +14927,7 @@ class ApplicationInstallationAndServicing {
      * 
      * <div class="alert"><b>Note</b>  The special SID string s-1-5-18 (System) cannot be used to search applications installed in the per-machine installation context.  Setting the SID value to s-1-5-18 returns <b>ERROR_INVALID_PARAMETER</b>. When <i>dwContext</i> is set to MSIINSTALLCONTEXT_MACHINE only, <i>szUserSid</i> must be <b>NULL</b>.</div>
      * <div> </div>
-     * @param {Integer} dwContext 
+     * @param {MSIINSTALLCONTEXT} dwContext 
      * @param {PSTR} lpOutPathBuffer A string value that receives the path to the component. This parameter can be <b>NULL</b>. If the component is a registry key, the registry roots are represented numerically. If this is a registry subkey path, there is a backslash at the end of the Key Path. If this is a registry value key path, there is no backslash at the end. For example, a registry path on a 32-bit operating system of <b>HKEY_CURRENT_USER</b>&#92;<b>SOFTWARE</b>&#92;<b>Microsoft</b> is returned as "01:\SOFTWARE\Microsoft\". The registry roots returned on 32-bit operating systems are defined as shown in the following table. 
      * 
      * 
@@ -14986,7 +14985,7 @@ class ApplicationInstallationAndServicing {
      * </tr>
      * </table>
      * @param {Pointer<Integer>} pcchOutPathBuffer Pointer to a location that receives the size of the buffer, in <b>TCHAR</b>, pointed to by the <i>szPathBuf</i> parameter.  The value in this location should be set to the count of  <b>TCHAR</b> in the string including the terminating null character. If the size of the  buffer  is too small, this parameter receives the length of the string value without including the terminating null character in the count.
-     * @returns {Integer} The 
+     * @returns {INSTALLSTATE} The 
      * <b>MsiGetComponentPathEx</b> function returns the following values.
      * 					
      * 
@@ -15186,7 +15185,7 @@ class ApplicationInstallationAndServicing {
      * 
      * <div class="alert"><b>Note</b>  The special SID string s-1-5-18 (System) cannot be used to search applications installed in the per-machine installation context.  Setting the SID value to s-1-5-18 returns <b>ERROR_INVALID_PARAMETER</b>. When <i>dwContext</i> is set to MSIINSTALLCONTEXT_MACHINE only, <i>szUserSid</i> must be <b>NULL</b>.</div>
      * <div> </div>
-     * @param {Integer} dwContext 
+     * @param {MSIINSTALLCONTEXT} dwContext 
      * @param {PWSTR} lpOutPathBuffer A string value that receives the path to the component. This parameter can be <b>NULL</b>. If the component is a registry key, the registry roots are represented numerically. If this is a registry subkey path, there is a backslash at the end of the Key Path. If this is a registry value key path, there is no backslash at the end. For example, a registry path on a 32-bit operating system of <b>HKEY_CURRENT_USER</b>&#92;<b>SOFTWARE</b>&#92;<b>Microsoft</b> is returned as "01:\SOFTWARE\Microsoft\". The registry roots returned on 32-bit operating systems are defined as shown in the following table. 
      * 
      * 
@@ -15244,7 +15243,7 @@ class ApplicationInstallationAndServicing {
      * </tr>
      * </table>
      * @param {Pointer<Integer>} pcchOutPathBuffer Pointer to a location that receives the size of the buffer, in <b>TCHAR</b>, pointed to by the <i>szPathBuf</i> parameter.  The value in this location should be set to the count of  <b>TCHAR</b> in the string including the terminating null character. If the size of the  buffer  is too small, this parameter receives the length of the string value without including the terminating null character in the count.
-     * @returns {Integer} The 
+     * @returns {INSTALLSTATE} The 
      * <b>MsiGetComponentPathEx</b> function returns the following values.
      * 					
      * 
@@ -15388,7 +15387,7 @@ class ApplicationInstallationAndServicing {
      * @param {PSTR} szAssemblyName The assembly name as a string.
      * @param {PSTR} szAppContext Set to null for global assemblies. For private assemblies, set <i>szAppContext</i> to the full path of the application configuration file  or to the full path of the executable file of the application to which the assembly has been made private.
      * @param {Integer} dwInstallMode 
-     * @param {Integer} dwAssemblyInfo 
+     * @param {MSIASSEMBLYINFO} dwAssemblyInfo 
      * @param {PSTR} lpPathBuf Pointer to a variable that receives the path to the component. This parameter can be null.
      * @param {Pointer<Integer>} pcchPathBuf Pointer to a variable that specifies the size, in characters, of the buffer pointed to by the <i>lpPathBuf</i> parameter. On input, this is the full size of the buffer, including a space for a terminating null character. If the buffer passed in is too small, the count returned does not include the terminating null character. 
      * 
@@ -15583,7 +15582,7 @@ class ApplicationInstallationAndServicing {
      * @param {PWSTR} szAssemblyName The assembly name as a string.
      * @param {PWSTR} szAppContext Set to null for global assemblies. For private assemblies, set <i>szAppContext</i> to the full path of the application configuration file  or to the full path of the executable file of the application to which the assembly has been made private.
      * @param {Integer} dwInstallMode 
-     * @param {Integer} dwAssemblyInfo 
+     * @param {MSIASSEMBLYINFO} dwAssemblyInfo 
      * @param {PWSTR} lpPathBuf Pointer to a variable that receives the path to the component. This parameter can be null.
      * @param {Pointer<Integer>} pcchPathBuf Pointer to a variable that specifies the size, in characters, of the buffer pointed to by the <i>lpPathBuf</i> parameter. On input, this is the full size of the buffer, including a space for a terminating null character. If the buffer passed in is too small, the count returned does not include the terminating null character. 
      * 
@@ -15796,7 +15795,7 @@ class ApplicationInstallationAndServicing {
      * 
      * <div class="alert"><b>Note</b>  The special SID string "S-1-5-18" (system) cannot be used to enumerate products installed as per-machine. If <i>dwContext</i> is <b>MSIINSTALLCONTEXT_MACHINE</b>, <i>szUserSid</i> must be null.</div>
      * <div> </div>
-     * @param {Integer} dwContext The installation context  of the product instance being queried.
+     * @param {MSIINSTALLCONTEXT} dwContext The installation context  of the product instance being queried.
      * 
      * <table>
      * <tr>
@@ -15835,7 +15834,7 @@ class ApplicationInstallationAndServicing {
      * </tr>
      * </table>
      * @param {PSTR} szComponentCode Specifies the component being queried. Component code GUID of the component as found in the ComponentID column of the <a href="https://docs.microsoft.com/windows/desktop/Msi/component-table">Component</a> table.
-     * @param {Pointer<Integer>} pdwState Installation state of the component for the specified product instance. This parameter can return one of the following or null values.
+     * @param {Pointer<INSTALLSTATE>} pdwState Installation state of the component for the specified product instance. This parameter can return one of the following or null values.
      * 
      * <table>
      * <tr>
@@ -16015,7 +16014,7 @@ class ApplicationInstallationAndServicing {
      * 
      * <div class="alert"><b>Note</b>  The special SID string "S-1-5-18" (system) cannot be used to enumerate products installed as per-machine. If <i>dwContext</i> is <b>MSIINSTALLCONTEXT_MACHINE</b>, <i>szUserSid</i> must be null.</div>
      * <div> </div>
-     * @param {Integer} dwContext The installation context  of the product instance being queried.
+     * @param {MSIINSTALLCONTEXT} dwContext The installation context  of the product instance being queried.
      * 
      * <table>
      * <tr>
@@ -16054,7 +16053,7 @@ class ApplicationInstallationAndServicing {
      * </tr>
      * </table>
      * @param {PWSTR} szComponentCode Specifies the component being queried. Component code GUID of the component as found in the ComponentID column of the <a href="https://docs.microsoft.com/windows/desktop/Msi/component-table">Component</a> table.
-     * @param {Pointer<Integer>} pdwState Installation state of the component for the specified product instance. This parameter can return one of the following or null values.
+     * @param {Pointer<INSTALLSTATE>} pdwState Installation state of the component for the specified product instance. This parameter can return one of the following or null values.
      * 
      * <table>
      * <tr>
@@ -16477,7 +16476,7 @@ class ApplicationInstallationAndServicing {
      * </table>
      * @param {Integer} dwIndex Specifies the index of the product to retrieve. This parameter must be zero for the first call to the <b>MsiEnumProductsEx</b> function and then incremented for subsequent calls. The index should be incremented, only if the previous call has returned ERROR_SUCCESS. Because products are not ordered, any new product has an arbitrary index. This means that the function can return products in any order.
      * @param {PSTR} szInstalledProductCode Null-terminated string of <b>TCHAR</b> that gives the <a href="https://docs.microsoft.com/windows/desktop/Msi/productcode">ProductCode</a> GUID of the product instance being enumerated. This parameter can be <b>NULL</b>.
-     * @param {Pointer<Integer>} pdwInstalledContext Returns the context of the product instance  being enumerated. The output value can be MSIINSTALLCONTEXT_USERMANAGED, MSIINSTALLCONTEXT_USERUNMANAGED, or MSIINSTALLCONTEXT_MACHINE. This parameter can be <b>NULL</b>.
+     * @param {Pointer<MSIINSTALLCONTEXT>} pdwInstalledContext Returns the context of the product instance  being enumerated. The output value can be MSIINSTALLCONTEXT_USERMANAGED, MSIINSTALLCONTEXT_USERUNMANAGED, or MSIINSTALLCONTEXT_MACHINE. This parameter can be <b>NULL</b>.
      * @param {PSTR} szSid An output buffer that receives the string SID of the account under which this product instance exists.  This buffer returns an empty string for an instance installed in a per-machine context. 
      *  
      * 
@@ -16703,7 +16702,7 @@ class ApplicationInstallationAndServicing {
      * </table>
      * @param {Integer} dwIndex Specifies the index of the product to retrieve. This parameter must be zero for the first call to the <b>MsiEnumProductsEx</b> function and then incremented for subsequent calls. The index should be incremented, only if the previous call has returned ERROR_SUCCESS. Because products are not ordered, any new product has an arbitrary index. This means that the function can return products in any order.
      * @param {PWSTR} szInstalledProductCode Null-terminated string of <b>TCHAR</b> that gives the <a href="https://docs.microsoft.com/windows/desktop/Msi/productcode">ProductCode</a> GUID of the product instance being enumerated. This parameter can be <b>NULL</b>.
-     * @param {Pointer<Integer>} pdwInstalledContext Returns the context of the product instance  being enumerated. The output value can be MSIINSTALLCONTEXT_USERMANAGED, MSIINSTALLCONTEXT_USERUNMANAGED, or MSIINSTALLCONTEXT_MACHINE. This parameter can be <b>NULL</b>.
+     * @param {Pointer<MSIINSTALLCONTEXT>} pdwInstalledContext Returns the context of the product instance  being enumerated. The output value can be MSIINSTALLCONTEXT_USERMANAGED, MSIINSTALLCONTEXT_USERUNMANAGED, or MSIINSTALLCONTEXT_MACHINE. This parameter can be <b>NULL</b>.
      * @param {PWSTR} szSid An output buffer that receives the string SID of the account under which this product instance exists.  This buffer returns an empty string for an instance installed in a per-machine context. 
      *  
      * 
@@ -17517,7 +17516,7 @@ class ApplicationInstallationAndServicing {
      * @param {Integer} dwIndex Specifies the index of the component to retrieve.  This parameter must be zero (0) for the first call to <b>MsiEnumComponentsEx</b> function.  For each subsequent call, the index must be incremented by 1.  The index should only be incremented if the previous call to the function returns ERROR_SUCCESS.
      * Components are not ordered and can be returned by the function in any order.
      * @param {PSTR} szInstalledComponentCode An output buffer that receives the component code GUID for the installed component. The length of the buffer should be large enough to hold a  null-terminated string value containing the component code. The first 38 <b>TCHAR</b> characters receives the GUID for the component, and the 39th character receives a terminating  NULL character.
-     * @param {Pointer<Integer>} pdwInstalledContext A flag that gives the installation context the application that installed the component.
+     * @param {Pointer<MSIINSTALLCONTEXT>} pdwInstalledContext A flag that gives the installation context the application that installed the component.
      * 
      * 
      * <table>
@@ -17794,7 +17793,7 @@ class ApplicationInstallationAndServicing {
      * @param {Integer} dwIndex Specifies the index of the component to retrieve.  This parameter must be zero (0) for the first call to <b>MsiEnumComponentsEx</b> function.  For each subsequent call, the index must be incremented by 1.  The index should only be incremented if the previous call to the function returns ERROR_SUCCESS.
      * Components are not ordered and can be returned by the function in any order.
      * @param {PWSTR} szInstalledComponentCode An output buffer that receives the component code GUID for the installed component. The length of the buffer should be large enough to hold a  null-terminated string value containing the component code. The first 38 <b>TCHAR</b> characters receives the GUID for the component, and the 39th character receives a terminating  NULL character.
-     * @param {Pointer<Integer>} pdwInstalledContext A flag that gives the installation context the application that installed the component.
+     * @param {Pointer<MSIINSTALLCONTEXT>} pdwInstalledContext A flag that gives the installation context the application that installed the component.
      * 
      * 
      * <table>
@@ -18234,7 +18233,7 @@ class ApplicationInstallationAndServicing {
      * @param {Integer} dwContext A flag that extends the enumeration to instances of applications installed in the specified installation context. The enumeration includes only instances of applications that are installed by the users identified by  <i>szUserSid</i>.
      * @param {Integer} dwProductIndex Specifies the index of the application to retrieve.  The value of this parameter must be zero (0) in the first call to the function.  For each subsequent call, the index must be incremented by 1.  The index should only be incremented if the previous call to the function returns <b>ERROR_SUCCESS</b>.
      * @param {PSTR} szProductBuf A string value that receives the product code for the application. The length of the buffer at this location should be large enough to hold a  null-terminated string value containing the product code. The first 38 <b>TCHAR</b> characters receives the GUID for the component, and the 39th character receives a terminating  NULL character.
-     * @param {Pointer<Integer>} pdwInstalledContext A flag that gives the installation context of the application.
+     * @param {Pointer<MSIINSTALLCONTEXT>} pdwInstalledContext A flag that gives the installation context of the application.
      * @param {PSTR} szSid Receives the security identifier (SID) that identifies the user that installed the application. The location receives an empty string value if this instance of the application exists in a per-machine installation context. 
      * 
      * The length of the buffer should be large enough to hold a null-terminated string  value containing the SID. If the buffer is too small, the function returns <b>ERROR_MORE_DATA</b> and the location pointed to by <i>pcchSid</i> receives  the number of <b>TCHAR</b> in the SID, not including the terminating NULL character.
@@ -18428,7 +18427,7 @@ class ApplicationInstallationAndServicing {
      * @param {Integer} dwContext A flag that extends the enumeration to instances of applications installed in the specified installation context. The enumeration includes only instances of applications that are installed by the users identified by  <i>szUserSid</i>.
      * @param {Integer} dwProductIndex Specifies the index of the application to retrieve.  The value of this parameter must be zero (0) in the first call to the function.  For each subsequent call, the index must be incremented by 1.  The index should only be incremented if the previous call to the function returns <b>ERROR_SUCCESS</b>.
      * @param {PWSTR} szProductBuf A string value that receives the product code for the application. The length of the buffer at this location should be large enough to hold a  null-terminated string value containing the product code. The first 38 <b>TCHAR</b> characters receives the GUID for the component, and the 39th character receives a terminating  NULL character.
-     * @param {Pointer<Integer>} pdwInstalledContext A flag that gives the installation context of the application.
+     * @param {Pointer<MSIINSTALLCONTEXT>} pdwInstalledContext A flag that gives the installation context of the application.
      * @param {PWSTR} szSid Receives the security identifier (SID) that identifies the user that installed the application. The location receives an empty string value if this instance of the application exists in a per-machine installation context. 
      * 
      * The length of the buffer should be large enough to hold a null-terminated string  value containing the SID. If the buffer is too small, the function returns <b>ERROR_MORE_DATA</b> and the location pointed to by <i>pcchSid</i> receives  the number of <b>TCHAR</b> in the SID, not including the terminating NULL character.
@@ -20250,7 +20249,7 @@ class ApplicationInstallationAndServicing {
      * > The msi.h header defines MsiInstallMissingComponent as an alias which automatically selects the ANSI or Unicode version of this function based on the definition of the UNICODE preprocessor constant. Mixing usage of the encoding-neutral alias with code that not encoding-neutral can lead to mismatches that result in compilation or runtime errors. For more information, see [Conventions for Function Prototypes](/windows/win32/intl/conventions-for-function-prototypes).
      * @param {PSTR} szProduct Specifies the product code for the product that owns the component to be installed.
      * @param {PSTR} szComponent Identifies the component to be installed.
-     * @param {Integer} eInstallState 
+     * @param {INSTALLSTATE} eInstallState 
      * @returns {Integer} <table>
      * <tr>
      * <th>Value</th>
@@ -20374,7 +20373,7 @@ class ApplicationInstallationAndServicing {
      * > The msi.h header defines MsiInstallMissingComponent as an alias which automatically selects the ANSI or Unicode version of this function based on the definition of the UNICODE preprocessor constant. Mixing usage of the encoding-neutral alias with code that not encoding-neutral can lead to mismatches that result in compilation or runtime errors. For more information, see [Conventions for Function Prototypes](/windows/win32/intl/conventions-for-function-prototypes).
      * @param {PWSTR} szProduct Specifies the product code for the product that owns the component to be installed.
      * @param {PWSTR} szComponent Identifies the component to be installed.
-     * @param {Integer} eInstallState 
+     * @param {INSTALLSTATE} eInstallState 
      * @returns {Integer} <table>
      * <tr>
      * <th>Value</th>
@@ -20771,7 +20770,7 @@ class ApplicationInstallationAndServicing {
      * 
      * 
      * If <i>lpPathBuf</i> is null, <i>pcchBuf</i> can be null.
-     * @returns {Integer} <table>
+     * @returns {INSTALLSTATE} <table>
      * <tr>
      * <th>Value</th>
      * <th>Meaning</th>
@@ -20919,7 +20918,7 @@ class ApplicationInstallationAndServicing {
      * 
      * 
      * If <i>lpPathBuf</i> is null, <i>pcchBuf</i> can be null.
-     * @returns {Integer} <table>
+     * @returns {INSTALLSTATE} <table>
      * <tr>
      * <th>Value</th>
      * <th>Meaning</th>
@@ -21894,7 +21893,7 @@ class ApplicationInstallationAndServicing {
      * <div> </div>
      * <div class="alert"><b>Note</b>  The special SID string s-1-1-0 (everyone) should not be used. Setting the SID value to "S-1-1-0" fails and returns <b>ERROR_INVALID_PARAM</b>.</div>
      * <div> </div>
-     * @param {Integer} dwContext 
+     * @param {MSIINSTALLCONTEXT} dwContext 
      * @param {Integer} dwOptions The <i>dwOptions</i> value determines the interpretation of the <i>szProductCodeOrPatchCode</i> value and the type of sources to clear. This parameter must be a combination of one of the following <b>MSISOURCETYPE_*</b> constants and one of the following <b>MSICODE_*</b> constants.
      * 
      * <table>
@@ -22097,7 +22096,7 @@ class ApplicationInstallationAndServicing {
      * <div> </div>
      * <div class="alert"><b>Note</b>  The special SID string s-1-1-0 (everyone) should not be used. Setting the SID value to "S-1-1-0" fails and returns <b>ERROR_INVALID_PARAM</b>.</div>
      * <div> </div>
-     * @param {Integer} dwContext 
+     * @param {MSIINSTALLCONTEXT} dwContext 
      * @param {Integer} dwOptions The <i>dwOptions</i> value determines the interpretation of the <i>szProductCodeOrPatchCode</i> value and the type of sources to clear. This parameter must be a combination of one of the following <b>MSISOURCETYPE_*</b> constants and one of the following <b>MSICODE_*</b> constants.
      * 
      * <table>
@@ -22301,7 +22300,7 @@ class ApplicationInstallationAndServicing {
      * <div> </div>
      * <div class="alert"><b>Note</b>  The special SID string s-1-1-0 (everyone) should not be used. Setting the SID value to s-1-1-0 fails and returns ERROR_INVALID_PARAM .</div>
      * <div> </div>
-     * @param {Integer} dwContext 
+     * @param {MSIINSTALLCONTEXT} dwContext 
      * @param {Integer} dwOptions The <i>dwOptions</i> value specifies the meaning of <i>szProductCodeOrPatchCode</i>.
      * 
      * <table>
@@ -22496,7 +22495,7 @@ class ApplicationInstallationAndServicing {
      * <div> </div>
      * <div class="alert"><b>Note</b>  The special SID string s-1-1-0 (everyone) should not be used. Setting the SID value to s-1-1-0 fails and returns ERROR_INVALID_PARAM .</div>
      * <div> </div>
-     * @param {Integer} dwContext 
+     * @param {MSIINSTALLCONTEXT} dwContext 
      * @param {Integer} dwOptions The <i>dwOptions</i> value specifies the meaning of <i>szProductCodeOrPatchCode</i>.
      * 
      * <table>
@@ -22690,7 +22689,7 @@ class ApplicationInstallationAndServicing {
      * <div> </div>
      * <div class="alert"><b>Note</b>  The special SID string "S-1-1-0" (everyone) should not be used. Setting the SID value to "S-1-1-0" fails and returns <b>ERROR_INVALID_PARAM</b>.</div>
      * <div> </div>
-     * @param {Integer} dwContext 
+     * @param {MSIINSTALLCONTEXT} dwContext 
      * @param {Integer} dwOptions The <i>dwOptions</i> value determines the interpretation of the <i>szProductCodeOrPatchCode</i> value and the type of sources to clear. This parameter must be a combination of one of the following <b>MSISOURCETYPE_*</b> constants and one of the following <b>MSICODE_*</b> constants.
      * 
      * <table>
@@ -22897,7 +22896,7 @@ class ApplicationInstallationAndServicing {
      * <div> </div>
      * <div class="alert"><b>Note</b>  The special SID string "S-1-1-0" (everyone) should not be used. Setting the SID value to "S-1-1-0" fails and returns <b>ERROR_INVALID_PARAM</b>.</div>
      * <div> </div>
-     * @param {Integer} dwContext 
+     * @param {MSIINSTALLCONTEXT} dwContext 
      * @param {Integer} dwOptions The <i>dwOptions</i> value determines the interpretation of the <i>szProductCodeOrPatchCode</i> value and the type of sources to clear. This parameter must be a combination of one of the following <b>MSISOURCETYPE_*</b> constants and one of the following <b>MSICODE_*</b> constants.
      * 
      * <table>
@@ -23105,7 +23104,7 @@ class ApplicationInstallationAndServicing {
      * <div> </div>
      * <div class="alert"><b>Note</b>  The special SID string s-1-1-0 (everyone) should not be used. Setting the SID value to s-1-1-0 fails and returns ERROR_INVALID_PARAM.</div>
      * <div> </div>
-     * @param {Integer} dwContext 
+     * @param {MSIINSTALLCONTEXT} dwContext 
      * @param {Integer} dwOptions The <i>dwOptions</i> value specifies the meaning of <i>szProductCodeOrPatchCode</i>.
      * 
      * <table>
@@ -23295,7 +23294,7 @@ class ApplicationInstallationAndServicing {
      * <div> </div>
      * <div class="alert"><b>Note</b>  The special SID string s-1-1-0 (everyone) should not be used. Setting the SID value to s-1-1-0 fails and returns ERROR_INVALID_PARAM.</div>
      * <div> </div>
-     * @param {Integer} dwContext 
+     * @param {MSIINSTALLCONTEXT} dwContext 
      * @param {Integer} dwOptions The <i>dwOptions</i> value specifies the meaning of <i>szProductCodeOrPatchCode</i>.
      * 
      * <table>
@@ -23451,7 +23450,7 @@ class ApplicationInstallationAndServicing {
      * > The msi.h header defines MsiSourceListClearAllEx as an alias which automatically selects the ANSI or Unicode version of this function based on the definition of the UNICODE preprocessor constant. Mixing usage of the encoding-neutral alias with code that not encoding-neutral can lead to mismatches that result in compilation or runtime errors. For more information, see [Conventions for Function Prototypes](/windows/win32/intl/conventions-for-function-prototypes).
      * @param {PSTR} szProductCodeOrPatchCode The <a href="https://docs.microsoft.com/windows/desktop/Msi/productcode">ProductCode</a> or patch GUID of the product or patch. Use a null-terminated string. If the string is longer than 39 characters, the function fails and returns ERROR_INVALID_PARAMETER. This parameter cannot be <b>NULL</b>.
      * @param {PSTR} szUserSid This parameter can be a string SID that specifies the user account that contains the product or patch.  The SID is not validated or resolved. An incorrect SID can return ERROR_UNKNOWN_PRODUCT or ERROR_UNKNOWN_PATCH. When referencing a machine context, <i>szUserSID</i> must be <b>NULL</b> and <i>dwContext</i> must be MSIINSTALLCONTEXT_MACHINE. Using the machine SID ("S-1-5-18") returns ERROR_INVALID PARAMETER. When referencing the current user account, <i>szUserSID</i> can be <b>NULL</b> and <i>dwContext</i> can be  MSIINSTALLCONTEXT_USERMANAGED or MSIINSTALLCONTEXT_USERUNMANAGED.
-     * @param {Integer} dwContext 
+     * @param {MSIINSTALLCONTEXT} dwContext 
      * @param {Integer} dwOptions The <i>dwOptions</i> value determines the interpretation of the <i>szProductCodeOrPatchCode</i> value and the type of sources to clear. This parameter must be a combination of one of the following MSISOURCETYPE_* constants and one of the following MSICODE_* constants.
      * 
      * <table>
@@ -23634,7 +23633,7 @@ class ApplicationInstallationAndServicing {
      * > The msi.h header defines MsiSourceListClearAllEx as an alias which automatically selects the ANSI or Unicode version of this function based on the definition of the UNICODE preprocessor constant. Mixing usage of the encoding-neutral alias with code that not encoding-neutral can lead to mismatches that result in compilation or runtime errors. For more information, see [Conventions for Function Prototypes](/windows/win32/intl/conventions-for-function-prototypes).
      * @param {PWSTR} szProductCodeOrPatchCode The <a href="https://docs.microsoft.com/windows/desktop/Msi/productcode">ProductCode</a> or patch GUID of the product or patch. Use a null-terminated string. If the string is longer than 39 characters, the function fails and returns ERROR_INVALID_PARAMETER. This parameter cannot be <b>NULL</b>.
      * @param {PWSTR} szUserSid This parameter can be a string SID that specifies the user account that contains the product or patch.  The SID is not validated or resolved. An incorrect SID can return ERROR_UNKNOWN_PRODUCT or ERROR_UNKNOWN_PATCH. When referencing a machine context, <i>szUserSID</i> must be <b>NULL</b> and <i>dwContext</i> must be MSIINSTALLCONTEXT_MACHINE. Using the machine SID ("S-1-5-18") returns ERROR_INVALID PARAMETER. When referencing the current user account, <i>szUserSID</i> can be <b>NULL</b> and <i>dwContext</i> can be  MSIINSTALLCONTEXT_USERMANAGED or MSIINSTALLCONTEXT_USERUNMANAGED.
-     * @param {Integer} dwContext 
+     * @param {MSIINSTALLCONTEXT} dwContext 
      * @param {Integer} dwOptions The <i>dwOptions</i> value determines the interpretation of the <i>szProductCodeOrPatchCode</i> value and the type of sources to clear. This parameter must be a combination of one of the following MSISOURCETYPE_* constants and one of the following MSICODE_* constants.
      * 
      * <table>
@@ -23817,7 +23816,7 @@ class ApplicationInstallationAndServicing {
      * > The msi.h header defines MsiSourceListForceResolutionEx as an alias which automatically selects the ANSI or Unicode version of this function based on the definition of the UNICODE preprocessor constant. Mixing usage of the encoding-neutral alias with code that not encoding-neutral can lead to mismatches that result in compilation or runtime errors. For more information, see [Conventions for Function Prototypes](/windows/win32/intl/conventions-for-function-prototypes).
      * @param {PSTR} szProductCodeOrPatchCode The <a href="https://docs.microsoft.com/windows/desktop/Msi/productcode">ProductCode</a> or patch GUID of the product or patch. Use a null-terminated string. If the string is longer than 39 characters, the function fails and returns ERROR_INVALID_PARAMETER. This parameter cannot be <b>NULL</b>.
      * @param {PSTR} szUserSid This parameter can be a string SID that specifies the user account that contains the product or patch.  The SID is not validated or resolved. An incorrect SID can return ERROR_UNKNOWN_PRODUCT or ERROR_UNKNOWN_PATCH. When referencing a machine context, <i>szUserSID</i> must be <b>NULL</b> and <i>dwContext</i> must be MSIINSTALLCONTEXT_MACHINE. Using the machine SID ("S-1-5-18") returns ERROR_INVALID PARAMETER. When referencing the current user account, <i>szUserSID</i> can be <b>NULL</b> and <i>dwContext</i> can be  MSIINSTALLCONTEXT_USERMANAGED or MSIINSTALLCONTEXT_USERUNMANAGED.
-     * @param {Integer} dwContext 
+     * @param {MSIINSTALLCONTEXT} dwContext 
      * @param {Integer} dwOptions The <i>dwOptions</i> value determines the interpretation of the <i>szProductCodeOrPatchCode</i> value . 
      * 
      * <table>
@@ -23973,7 +23972,7 @@ class ApplicationInstallationAndServicing {
      * > The msi.h header defines MsiSourceListForceResolutionEx as an alias which automatically selects the ANSI or Unicode version of this function based on the definition of the UNICODE preprocessor constant. Mixing usage of the encoding-neutral alias with code that not encoding-neutral can lead to mismatches that result in compilation or runtime errors. For more information, see [Conventions for Function Prototypes](/windows/win32/intl/conventions-for-function-prototypes).
      * @param {PWSTR} szProductCodeOrPatchCode The <a href="https://docs.microsoft.com/windows/desktop/Msi/productcode">ProductCode</a> or patch GUID of the product or patch. Use a null-terminated string. If the string is longer than 39 characters, the function fails and returns ERROR_INVALID_PARAMETER. This parameter cannot be <b>NULL</b>.
      * @param {PWSTR} szUserSid This parameter can be a string SID that specifies the user account that contains the product or patch.  The SID is not validated or resolved. An incorrect SID can return ERROR_UNKNOWN_PRODUCT or ERROR_UNKNOWN_PATCH. When referencing a machine context, <i>szUserSID</i> must be <b>NULL</b> and <i>dwContext</i> must be MSIINSTALLCONTEXT_MACHINE. Using the machine SID ("S-1-5-18") returns ERROR_INVALID PARAMETER. When referencing the current user account, <i>szUserSID</i> can be <b>NULL</b> and <i>dwContext</i> can be  MSIINSTALLCONTEXT_USERMANAGED or MSIINSTALLCONTEXT_USERUNMANAGED.
-     * @param {Integer} dwContext 
+     * @param {MSIINSTALLCONTEXT} dwContext 
      * @param {Integer} dwOptions The <i>dwOptions</i> value determines the interpretation of the <i>szProductCodeOrPatchCode</i> value . 
      * 
      * <table>
@@ -24164,7 +24163,7 @@ class ApplicationInstallationAndServicing {
      * <div> </div>
      * <div class="alert"><b>Note</b>  The special SID string "S-1-1-0" (everyone) should not be used. Setting the SID value to "S-1-1-0" fails and returns <b>ERROR_INVALID_PARAM</b>.</div>
      * <div> </div>
-     * @param {Integer} dwContext 
+     * @param {MSIINSTALLCONTEXT} dwContext 
      * @param {Integer} dwOptions The <i>dwOptions</i> value specifies the meaning of <i>szProductCodeOrPatchCode</i>.
      * 
      * If the property being set is "LastUsedSource", this parameter also specifies the type of source as network or URL. In this case, the <i>dwOptions</i> parameter must be a combination of one of the following <b>MSISOURCETYPE_*</b> constants and one of the following <b>MSICODE_*</b> constants.
@@ -24387,7 +24386,7 @@ class ApplicationInstallationAndServicing {
      * <div> </div>
      * <div class="alert"><b>Note</b>  The special SID string "S-1-1-0" (everyone) should not be used. Setting the SID value to "S-1-1-0" fails and returns <b>ERROR_INVALID_PARAM</b>.</div>
      * <div> </div>
-     * @param {Integer} dwContext 
+     * @param {MSIINSTALLCONTEXT} dwContext 
      * @param {Integer} dwOptions The <i>dwOptions</i> value specifies the meaning of <i>szProductCodeOrPatchCode</i>.
      * 
      * If the property being set is "LastUsedSource", this parameter also specifies the type of source as network or URL. In this case, the <i>dwOptions</i> parameter must be a combination of one of the following <b>MSISOURCETYPE_*</b> constants and one of the following <b>MSICODE_*</b> constants.
@@ -24608,7 +24607,7 @@ class ApplicationInstallationAndServicing {
      * <div> </div>
      * <div class="alert"><b>Note</b>  The special SID string s-1-1-0 (everyone) should not be used. Setting the SID value to s-1-1-0 fails and returns ERROR_INVALID_PARAM.</div>
      * <div> </div>
-     * @param {Integer} dwContext 
+     * @param {MSIINSTALLCONTEXT} dwContext 
      * @param {Integer} dwOptions The <i>dwOptions</i> value specifies the meaning of <i>szProductCodeOrPatchCode</i>.
      * 
      * <table>
@@ -24823,7 +24822,7 @@ class ApplicationInstallationAndServicing {
      * <div> </div>
      * <div class="alert"><b>Note</b>  The special SID string s-1-1-0 (everyone) should not be used. Setting the SID value to s-1-1-0 fails and returns ERROR_INVALID_PARAM.</div>
      * <div> </div>
-     * @param {Integer} dwContext 
+     * @param {MSIINSTALLCONTEXT} dwContext 
      * @param {Integer} dwOptions The <i>dwOptions</i> value specifies the meaning of <i>szProductCodeOrPatchCode</i>.
      * 
      * <table>
@@ -25049,7 +25048,7 @@ class ApplicationInstallationAndServicing {
      * 
      * <div class="alert"><b>Note</b>  The special SID string s-1-5-18 (system) cannot be used to enumerate products or patches installed as per-machine.  Setting the SID value to s-1-5-18 returns ERROR_INVALID_PARAMETER.</div>
      * <div> </div>
-     * @param {Integer} dwContext 
+     * @param {MSIINSTALLCONTEXT} dwContext 
      * @param {Integer} dwOptions The <i>dwOptions</i> value determines the interpretation of the <i>szProductCodeOrPatchCode</i> value and the type of sources to clear. This parameter must be a combination of one of the following MSISOURCETYPE_* constants and one of the following MSICODE_* constants.
      * 
      * <table>
@@ -25293,7 +25292,7 @@ class ApplicationInstallationAndServicing {
      * 
      * <div class="alert"><b>Note</b>  The special SID string s-1-5-18 (system) cannot be used to enumerate products or patches installed as per-machine.  Setting the SID value to s-1-5-18 returns ERROR_INVALID_PARAMETER.</div>
      * <div> </div>
-     * @param {Integer} dwContext 
+     * @param {MSIINSTALLCONTEXT} dwContext 
      * @param {Integer} dwOptions The <i>dwOptions</i> value determines the interpretation of the <i>szProductCodeOrPatchCode</i> value and the type of sources to clear. This parameter must be a combination of one of the following MSISOURCETYPE_* constants and one of the following MSICODE_* constants.
      * 
      * <table>
@@ -25537,7 +25536,7 @@ class ApplicationInstallationAndServicing {
      * 
      * <div class="alert"><b>Note</b>  The special SID string s-1-5-18 (system) cannot be used to enumerate products or patches installed as per-machine.  Setting the SID value to s-1-5-18 returns ERROR_INVALID_PARAMETER.</div>
      * <div> </div>
-     * @param {Integer} dwContext 
+     * @param {MSIINSTALLCONTEXT} dwContext 
      * @param {Integer} dwOptions The <i>dwOptions</i> value that  specifies the meaning of <i>szProductCodeOrPatchCode</i>.
      * 
      * <table>
@@ -25773,7 +25772,7 @@ class ApplicationInstallationAndServicing {
      * 
      * <div class="alert"><b>Note</b>  The special SID string s-1-5-18 (system) cannot be used to enumerate products or patches installed as per-machine.  Setting the SID value to s-1-5-18 returns ERROR_INVALID_PARAMETER.</div>
      * <div> </div>
-     * @param {Integer} dwContext 
+     * @param {MSIINSTALLCONTEXT} dwContext 
      * @param {Integer} dwOptions The <i>dwOptions</i> value that  specifies the meaning of <i>szProductCodeOrPatchCode</i>.
      * 
      * <table>
@@ -26373,7 +26372,7 @@ class ApplicationInstallationAndServicing {
      * </td>
      * </tr>
      * </table>
-     * @param {Pointer} pbHashData Returned hash buffer. This parameter can be <b>NULL</b> if the hash data is not being requested.
+     * @param {Integer} pbHashData Returned hash buffer. This parameter can be <b>NULL</b> if the hash data is not being requested.
      * @param {Pointer<Integer>} pcbHashData Pointer to a variable that specifies the size, in bytes, of the buffer pointed to by the <i>pbHashData</i> parameter. This parameter cannot be <b>NULL</b> if <i>pbHashData</i> is non-<b>NULL</b>. If ERROR_MORE_DATA is returned, <i>pbHashData</i> gives the size of the buffer required to hold the hash data. If ERROR_SUCCESS is returned, it gives the number of bytes written to the hash buffer. The <i>pcbHashData</i> parameter is ignored if <i>pbHashData</i> is <b>NULL</b>.
      * @returns {Pointer<CERT_CONTEXT>} Returned signer certificate context
      * @see https://learn.microsoft.com/windows/win32/api/msi/nf-msi-msigetfilesignatureinformationa
@@ -26433,7 +26432,7 @@ class ApplicationInstallationAndServicing {
      * </td>
      * </tr>
      * </table>
-     * @param {Pointer} pbHashData Returned hash buffer. This parameter can be <b>NULL</b> if the hash data is not being requested.
+     * @param {Integer} pbHashData Returned hash buffer. This parameter can be <b>NULL</b> if the hash data is not being requested.
      * @param {Pointer<Integer>} pcbHashData Pointer to a variable that specifies the size, in bytes, of the buffer pointed to by the <i>pbHashData</i> parameter. This parameter cannot be <b>NULL</b> if <i>pbHashData</i> is non-<b>NULL</b>. If ERROR_MORE_DATA is returned, <i>pbHashData</i> gives the size of the buffer required to hold the hash data. If ERROR_SUCCESS is returned, it gives the number of bytes written to the hash buffer. The <i>pcbHashData</i> parameter is ignored if <i>pbHashData</i> is <b>NULL</b>.
      * @returns {Pointer<CERT_CONTEXT>} Returned signer certificate context
      * @see https://learn.microsoft.com/windows/win32/api/msi/nf-msi-msigetfilesignatureinformationw
@@ -27050,7 +27049,7 @@ class ApplicationInstallationAndServicing {
 
     /**
      * The MsiEndTransaction function can commit or roll back all the installations belonging to the transaction opened by the MsiBeginTransaction function.
-     * @param {Integer} dwTransactionState The value of this parameter determines whether the installer commits or rolls back all the installations belonging to the transaction. The value can be one of the following.
+     * @param {MSITRANSACTIONSTATE} dwTransactionState The value of this parameter determines whether the installer commits or rolls back all the installations belonging to the transaction. The value can be one of the following.
      * 
      * <table>
      * <tr>
@@ -27351,7 +27350,7 @@ class ApplicationInstallationAndServicing {
      * @param {MSIHANDLE} hView Handle to the view.
      * @param {PSTR} szColumnNameBuffer Pointer to the buffer that receives the null-terminated column name. Do not attempt to determine the size of the buffer by passing in a null (value=0) for <i>szColumnName</i>. You can get the size of the buffer by passing in an empty string (for example ""). The function then returns MSIDBERROR_MOREDATA and <i>pcchBuf</i> contains the required buffer size in TCHARs, not including the terminating null character. On return of MSIDBERROR_NOERROR, <i>pcchBuf</i> contains the number of TCHARs written to the buffer, not including the terminating null character. This parameter is an empty string if there are no errors.
      * @param {Pointer<Integer>} pcchBuf Pointer to the variable that specifies the size, in TCHARs, of the buffer pointed to by the variable <i>szColumnNameBuffer</i>. When the function returns MSIDBERROR_NOERROR, this variable contains the size of the data copied to <i>szColumnNameBuffer</i>, not including the terminating null character. If <i>szColumnNameBuffer</i> is not large enough, the function returns MSIDBERROR_MOREDATA and stores the required size, not including the terminating null character, in the variable pointed to by <i>pcchBuf</i>.
-     * @returns {Integer} This function returns one of the following values.
+     * @returns {MSIDBERROR} This function returns one of the following values.
      * 
      * <table>
      * <tr>
@@ -27765,7 +27764,7 @@ class ApplicationInstallationAndServicing {
      * @param {MSIHANDLE} hView Handle to the view.
      * @param {PWSTR} szColumnNameBuffer Pointer to the buffer that receives the null-terminated column name. Do not attempt to determine the size of the buffer by passing in a null (value=0) for <i>szColumnName</i>. You can get the size of the buffer by passing in an empty string (for example ""). The function then returns MSIDBERROR_MOREDATA and <i>pcchBuf</i> contains the required buffer size in TCHARs, not including the terminating null character. On return of MSIDBERROR_NOERROR, <i>pcchBuf</i> contains the number of TCHARs written to the buffer, not including the terminating null character. This parameter is an empty string if there are no errors.
      * @param {Pointer<Integer>} pcchBuf Pointer to the variable that specifies the size, in TCHARs, of the buffer pointed to by the variable <i>szColumnNameBuffer</i>. When the function returns MSIDBERROR_NOERROR, this variable contains the size of the data copied to <i>szColumnNameBuffer</i>, not including the terminating null character. If <i>szColumnNameBuffer</i> is not large enough, the function returns MSIDBERROR_MOREDATA and stores the required size, not including the terminating null character, in the variable pointed to by <i>pcchBuf</i>.
-     * @returns {Integer} This function returns one of the following values.
+     * @returns {MSIDBERROR} This function returns one of the following values.
      * 
      * <table>
      * <tr>
@@ -28239,7 +28238,7 @@ class ApplicationInstallationAndServicing {
      * 
      * If the function fails, you can obtain extended error information by using <a href="https://docs.microsoft.com/windows/desktop/api/msiquery/nf-msiquery-msigetlasterrorrecord">MsiGetLastErrorRecord</a>.
      * @param {MSIHANDLE} hView Handle to a view.
-     * @param {Integer} eModifyMode 
+     * @param {MSIMODIFY} eModifyMode 
      * @param {MSIHANDLE} hRecord Handle to the record to modify.
      * @returns {Integer} The 
      * <b>MsiViewModify</b> function returns the following values:
@@ -28266,7 +28265,7 @@ class ApplicationInstallationAndServicing {
      * Note that it is recommended to use variables of type PMSIHANDLE because the installer closes PMSIHANDLE objects as they go out of scope, whereas you must close MSIHANDLE objects by calling 
      * <a href="https://docs.microsoft.com/windows/desktop/api/msi/nf-msi-msiclosehandle">MsiCloseHandle</a>. For more information see <a href="https://docs.microsoft.com/windows/desktop/Msi/windows-installer-best-practices">Use PMSIHANDLE instead of HANDLE</a> section in the <a href="https://docs.microsoft.com/windows/desktop/Msi/windows-installer-best-practices">Windows Installer Best Practices</a>.
      * @param {MSIHANDLE} hView Handle to the view from which to obtain column information.
-     * @param {Integer} eColumnInfo 
+     * @param {MSICOLINFO} eColumnInfo 
      * @param {Pointer<MSIHANDLE>} phRecord Pointer to a handle to receive the column information data record.
      * @returns {Integer} Note that in low memory situations, this function can raise a STATUS_NO_MEMORY exception.
      * @see https://learn.microsoft.com/windows/win32/api/msiquery/nf-msiquery-msiviewgetcolumninfo
@@ -28375,7 +28374,7 @@ class ApplicationInstallationAndServicing {
      * > The msiquery.h header defines MsiDatabaseIsTablePersistent as an alias which automatically selects the ANSI or Unicode version of this function based on the definition of the UNICODE preprocessor constant. Mixing usage of the encoding-neutral alias with code that not encoding-neutral can lead to mismatches that result in compilation or runtime errors. For more information, see [Conventions for Function Prototypes](/windows/win32/intl/conventions-for-function-prototypes).
      * @param {MSIHANDLE} hDatabase Handle to the database that belongs to the relevant table. For more information, see <a href="https://docs.microsoft.com/windows/desktop/Msi/obtaining-a-database-handle">Obtaining a Database Handle</a>.
      * @param {PSTR} szTableName Specifies the name of the relevant table.
-     * @returns {Integer} This function returns MSICONDITION.
+     * @returns {MSICONDITION} This function returns MSICONDITION.
      * @see https://learn.microsoft.com/windows/win32/api/msiquery/nf-msiquery-msidatabaseistablepersistenta
      * @since windows8.0
      */
@@ -28394,7 +28393,7 @@ class ApplicationInstallationAndServicing {
      * > The msiquery.h header defines MsiDatabaseIsTablePersistent as an alias which automatically selects the ANSI or Unicode version of this function based on the definition of the UNICODE preprocessor constant. Mixing usage of the encoding-neutral alias with code that not encoding-neutral can lead to mismatches that result in compilation or runtime errors. For more information, see [Conventions for Function Prototypes](/windows/win32/intl/conventions-for-function-prototypes).
      * @param {MSIHANDLE} hDatabase Handle to the database that belongs to the relevant table. For more information, see <a href="https://docs.microsoft.com/windows/desktop/Msi/obtaining-a-database-handle">Obtaining a Database Handle</a>.
      * @param {PWSTR} szTableName Specifies the name of the relevant table.
-     * @returns {Integer} This function returns MSICONDITION.
+     * @returns {MSICONDITION} This function returns MSICONDITION.
      * @see https://learn.microsoft.com/windows/win32/api/msiquery/nf-msiquery-msidatabaseistablepersistentw
      * @since windows8.0
      */
@@ -29530,7 +29529,7 @@ class ApplicationInstallationAndServicing {
      * > The msiquery.h header defines MsiDatabaseApplyTransform as an alias which automatically selects the ANSI or Unicode version of this function based on the definition of the UNICODE preprocessor constant. Mixing usage of the encoding-neutral alias with code that not encoding-neutral can lead to mismatches that result in compilation or runtime errors. For more information, see [Conventions for Function Prototypes](/windows/win32/intl/conventions-for-function-prototypes).
      * @param {MSIHANDLE} hDatabase Handle to the database obtained from <a href="https://docs.microsoft.com/windows/desktop/api/msiquery/nf-msiquery-msiopendatabasea">MsiOpenDatabase</a> to the transform.
      * @param {PSTR} szTransformFile Specifies the name of the transform file to apply.
-     * @param {Integer} iErrorConditions Error conditions that should be suppressed. This parameter is a bit field that can contain the following bits. 
+     * @param {MSITRANSFORM_ERROR} iErrorConditions Error conditions that should be suppressed. This parameter is a bit field that can contain the following bits. 
      * 
      * 
      * 
@@ -29654,7 +29653,7 @@ class ApplicationInstallationAndServicing {
      * > The msiquery.h header defines MsiDatabaseApplyTransform as an alias which automatically selects the ANSI or Unicode version of this function based on the definition of the UNICODE preprocessor constant. Mixing usage of the encoding-neutral alias with code that not encoding-neutral can lead to mismatches that result in compilation or runtime errors. For more information, see [Conventions for Function Prototypes](/windows/win32/intl/conventions-for-function-prototypes).
      * @param {MSIHANDLE} hDatabase Handle to the database obtained from <a href="https://docs.microsoft.com/windows/desktop/api/msiquery/nf-msiquery-msiopendatabasea">MsiOpenDatabase</a> to the transform.
      * @param {PWSTR} szTransformFile Specifies the name of the transform file to apply.
-     * @param {Integer} iErrorConditions Error conditions that should be suppressed. This parameter is a bit field that can contain the following bits. 
+     * @param {MSITRANSFORM_ERROR} iErrorConditions Error conditions that should be suppressed. This parameter is a bit field that can contain the following bits. 
      * 
      * 
      * 
@@ -29777,8 +29776,8 @@ class ApplicationInstallationAndServicing {
      * @param {MSIHANDLE} hDatabase The handle to the database that contains the new database summary information.
      * @param {MSIHANDLE} hDatabaseReference The handle to the database that contains the original summary information.
      * @param {PSTR} szTransformFile The name of the transform to which the summary information is added.
-     * @param {Integer} iErrorConditions 
-     * @param {Integer} iValidation 
+     * @param {MSITRANSFORM_ERROR} iErrorConditions 
+     * @param {MSITRANSFORM_VALIDATE} iValidation 
      * @returns {Integer} This function returns UINT.
      * @see https://learn.microsoft.com/windows/win32/api/msiquery/nf-msiquery-msicreatetransformsummaryinfoa
      * @since windows8.0
@@ -29814,8 +29813,8 @@ class ApplicationInstallationAndServicing {
      * @param {MSIHANDLE} hDatabase The handle to the database that contains the new database summary information.
      * @param {MSIHANDLE} hDatabaseReference The handle to the database that contains the original summary information.
      * @param {PWSTR} szTransformFile The name of the transform to which the summary information is added.
-     * @param {Integer} iErrorConditions 
-     * @param {Integer} iValidation 
+     * @param {MSITRANSFORM_ERROR} iErrorConditions 
+     * @param {MSITRANSFORM_VALIDATE} iValidation 
      * @returns {Integer} This function returns UINT.
      * @see https://learn.microsoft.com/windows/win32/api/msiquery/nf-msiquery-msicreatetransformsummaryinfow
      * @since windows8.0
@@ -29856,7 +29855,7 @@ class ApplicationInstallationAndServicing {
      * The 
      * <b>MsiGetDatabaseState</b> function returns the update state of the database.
      * @param {MSIHANDLE} hDatabase Handle to the database obtained from <a href="https://docs.microsoft.com/windows/desktop/api/msiquery/nf-msiquery-msiopendatabasea">MsiOpenDatabase</a>.
-     * @returns {Integer} This function returns MSIDBSTATE.
+     * @returns {MSIDBSTATE} This function returns MSIDBSTATE.
      * @see https://learn.microsoft.com/windows/win32/api/msiquery/nf-msiquery-msigetdatabasestate
      * @since windows8.0
      */
@@ -30218,7 +30217,7 @@ class ApplicationInstallationAndServicing {
      * <a href="https://docs.microsoft.com/windows/desktop/Msi/ole-limitations-on-streams">OLE Limitations on Streams</a>.
      * @param {MSIHANDLE} hRecord Handle to the record.
      * @param {Integer} iField Specifies the field of the record.
-     * @param {Pointer} szDataBuf A buffer to receive the stream field. You should ensure the destination buffer is the same size or larger than the source buffer. See the Remarks section.
+     * @param {Integer} szDataBuf A buffer to receive the stream field. You should ensure the destination buffer is the same size or larger than the source buffer. See the Remarks section.
      * @param {Pointer<Integer>} pcbDataBuf Specifies the in and out buffer count. On input, this is the full size of the buffer. On output, this is the number of bytes that were actually written to the buffer. See the Remarks section.
      * @returns {Integer} This function returns UINT.
      * @see https://learn.microsoft.com/windows/win32/api/msiquery/nf-msiquery-msirecordreadstream
@@ -30490,7 +30489,7 @@ class ApplicationInstallationAndServicing {
      * <b>MsiGetMode</b> from a deferred custom action. For details, see 
      * <a href="https://docs.microsoft.com/windows/desktop/Msi/obtaining-context-information-for-deferred-execution-custom-actions">Obtaining Context Information for Deferred Execution Custom Actions</a>.
      * @param {MSIHANDLE} hInstall Handle to the installation provided to a DLL custom action or obtained through <a href="https://docs.microsoft.com/windows/desktop/api/msi/nf-msi-msiopenpackagea">MsiOpenPackage</a>, <a href="https://docs.microsoft.com/windows/desktop/api/msi/nf-msi-msiopenpackageexa">MsiOpenPackageEx</a>, or <a href="https://docs.microsoft.com/windows/desktop/api/msi/nf-msi-msiopenproducta">MsiOpenProduct</a>.
-     * @param {Integer} eRunMode 
+     * @param {MSIRUNMODE} eRunMode 
      * @returns {BOOL} <b>TRUE</b> indicates the specific property passed into the function is currently set.
      * 
      * <b>FALSE</b> indicates the specific property passed into the function is currently not set.
@@ -30507,7 +30506,7 @@ class ApplicationInstallationAndServicing {
     /**
      * The MsiSetMode function sets an internal engine Boolean state.
      * @param {MSIHANDLE} hInstall Handle to the installation provided to a DLL custom action or obtained through <a href="https://docs.microsoft.com/windows/desktop/api/msi/nf-msi-msiopenpackagea">MsiOpenPackage</a>, <a href="https://docs.microsoft.com/windows/desktop/api/msi/nf-msi-msiopenpackageexa">MsiOpenPackageEx</a>, or <a href="https://docs.microsoft.com/windows/desktop/api/msi/nf-msi-msiopenproducta">MsiOpenProduct</a>.
-     * @param {Integer} eRunMode 
+     * @param {MSIRUNMODE} eRunMode 
      * @param {BOOL} fState Specifies the state to set to <b>TRUE</b> or <b>FALSE</b>.
      * @returns {Integer} This function returns UINT.
      * @see https://learn.microsoft.com/windows/win32/api/msiquery/nf-msiquery-msisetmode
@@ -30988,7 +30987,7 @@ class ApplicationInstallationAndServicing {
      * <b>MsiProcessMessage</b>, see the 
      * <a href="https://docs.microsoft.com/windows/desktop/Msi/sending-messages-to-windows-installer-using-msiprocessmessage">Sending Messages to Windows Installer Using MsiProcessMessage</a>.
      * @param {MSIHANDLE} hInstall Handle to the installation provided to a DLL custom action or obtained through <a href="https://docs.microsoft.com/windows/desktop/api/msi/nf-msi-msiopenpackagea">MsiOpenPackage</a>, <a href="https://docs.microsoft.com/windows/desktop/api/msi/nf-msi-msiopenpackageexa">MsiOpenPackageEx</a>, or <a href="https://docs.microsoft.com/windows/desktop/api/msi/nf-msi-msiopenproducta">MsiOpenProduct</a>.
-     * @param {Integer} eMessageType The <i>eMessage</i> parameter must be a value specifying one of the following message types. To display a message box with push buttons or icons, use OR-operators to add INSTALLMESSAGE_ERROR, INSTALLMESSAGE_WARNING, or INSTALLMESSAGE_USER to the standard message box styles used by 
+     * @param {INSTALLMESSAGE} eMessageType The <i>eMessage</i> parameter must be a value specifying one of the following message types. To display a message box with push buttons or icons, use OR-operators to add INSTALLMESSAGE_ERROR, INSTALLMESSAGE_WARNING, or INSTALLMESSAGE_USER to the standard message box styles used by 
      * the <a href="https://docs.microsoft.com/windows/desktop/api/winuser/nf-winuser-messagebox">MessageBox</a> and 
      * <a href="https://docs.microsoft.com/windows/desktop/api/winuser/nf-winuser-messageboxexa">MessageBoxEx</a> functions. For more information, see the Remarks below. 
      * 
@@ -31194,7 +31193,7 @@ class ApplicationInstallationAndServicing {
      * @param {MSIHANDLE} hInstall Handle to the installation provided to a DLL custom action or obtained through <a href="https://docs.microsoft.com/windows/desktop/api/msi/nf-msi-msiopenpackagea">MsiOpenPackage</a>, <a href="https://docs.microsoft.com/windows/desktop/api/msi/nf-msi-msiopenpackageexa">MsiOpenPackageEx</a>, or <a href="https://docs.microsoft.com/windows/desktop/api/msi/nf-msi-msiopenproducta">MsiOpenProduct</a>.
      * @param {PSTR} szCondition Specifies the conditional expression. This parameter must not be <b>NULL</b>. For the syntax of conditional expressions see 
      * <a href="https://docs.microsoft.com/windows/desktop/Msi/conditional-statement-syntax">Conditional Statement Syntax</a>.
-     * @returns {Integer} This function returns MSICONDITION.
+     * @returns {MSICONDITION} This function returns MSICONDITION.
      * @see https://learn.microsoft.com/windows/win32/api/msiquery/nf-msiquery-msievaluateconditiona
      * @since windows8.0
      */
@@ -31251,7 +31250,7 @@ class ApplicationInstallationAndServicing {
      * @param {MSIHANDLE} hInstall Handle to the installation provided to a DLL custom action or obtained through <a href="https://docs.microsoft.com/windows/desktop/api/msi/nf-msi-msiopenpackagea">MsiOpenPackage</a>, <a href="https://docs.microsoft.com/windows/desktop/api/msi/nf-msi-msiopenpackageexa">MsiOpenPackageEx</a>, or <a href="https://docs.microsoft.com/windows/desktop/api/msi/nf-msi-msiopenproducta">MsiOpenProduct</a>.
      * @param {PWSTR} szCondition Specifies the conditional expression. This parameter must not be <b>NULL</b>. For the syntax of conditional expressions see 
      * <a href="https://docs.microsoft.com/windows/desktop/Msi/conditional-statement-syntax">Conditional Statement Syntax</a>.
-     * @returns {Integer} This function returns MSICONDITION.
+     * @returns {MSICONDITION} This function returns MSICONDITION.
      * @see https://learn.microsoft.com/windows/win32/api/msiquery/nf-msiquery-msievaluateconditionw
      * @since windows8.0
      */
@@ -31279,8 +31278,8 @@ class ApplicationInstallationAndServicing {
      * > The msiquery.h header defines MsiGetFeatureState as an alias which automatically selects the ANSI or Unicode version of this function based on the definition of the UNICODE preprocessor constant. Mixing usage of the encoding-neutral alias with code that not encoding-neutral can lead to mismatches that result in compilation or runtime errors. For more information, see [Conventions for Function Prototypes](/windows/win32/intl/conventions-for-function-prototypes).
      * @param {MSIHANDLE} hInstall Handle to the installation provided to a DLL custom action or obtained through <a href="https://docs.microsoft.com/windows/desktop/api/msi/nf-msi-msiopenpackagea">MsiOpenPackage</a>, <a href="https://docs.microsoft.com/windows/desktop/api/msi/nf-msi-msiopenpackageexa">MsiOpenPackageEx</a>, or <a href="https://docs.microsoft.com/windows/desktop/api/msi/nf-msi-msiopenproducta">MsiOpenProduct</a>.
      * @param {PSTR} szFeature Specifies the feature name within the product.
-     * @param {Pointer<Integer>} piInstalled 
-     * @param {Pointer<Integer>} piAction Receives the action taken during the installation session. This parameter must not be null. For return values, see <i>piInstalled</i>.
+     * @param {Pointer<INSTALLSTATE>} piInstalled 
+     * @param {Pointer<INSTALLSTATE>} piAction Receives the action taken during the installation session. This parameter must not be null. For return values, see <i>piInstalled</i>.
      * @returns {Integer} The 
      * <b>MsiGetFeatureState</b> function returns the following values:
      * @see https://learn.microsoft.com/windows/win32/api/msiquery/nf-msiquery-msigetfeaturestatea
@@ -31313,8 +31312,8 @@ class ApplicationInstallationAndServicing {
      * > The msiquery.h header defines MsiGetFeatureState as an alias which automatically selects the ANSI or Unicode version of this function based on the definition of the UNICODE preprocessor constant. Mixing usage of the encoding-neutral alias with code that not encoding-neutral can lead to mismatches that result in compilation or runtime errors. For more information, see [Conventions for Function Prototypes](/windows/win32/intl/conventions-for-function-prototypes).
      * @param {MSIHANDLE} hInstall Handle to the installation provided to a DLL custom action or obtained through <a href="https://docs.microsoft.com/windows/desktop/api/msi/nf-msi-msiopenpackagea">MsiOpenPackage</a>, <a href="https://docs.microsoft.com/windows/desktop/api/msi/nf-msi-msiopenpackageexa">MsiOpenPackageEx</a>, or <a href="https://docs.microsoft.com/windows/desktop/api/msi/nf-msi-msiopenproducta">MsiOpenProduct</a>.
      * @param {PWSTR} szFeature Specifies the feature name within the product.
-     * @param {Pointer<Integer>} piInstalled 
-     * @param {Pointer<Integer>} piAction Receives the action taken during the installation session. This parameter must not be null. For return values, see <i>piInstalled</i>.
+     * @param {Pointer<INSTALLSTATE>} piInstalled 
+     * @param {Pointer<INSTALLSTATE>} piAction Receives the action taken during the installation session. This parameter must not be null. For return values, see <i>piInstalled</i>.
      * @returns {Integer} The 
      * <b>MsiGetFeatureState</b> function returns the following values:
      * @see https://learn.microsoft.com/windows/win32/api/msiquery/nf-msiquery-msigetfeaturestatew
@@ -31364,7 +31363,7 @@ class ApplicationInstallationAndServicing {
      * > The msiquery.h header defines MsiSetFeatureState as an alias which automatically selects the ANSI or Unicode version of this function based on the definition of the UNICODE preprocessor constant. Mixing usage of the encoding-neutral alias with code that not encoding-neutral can lead to mismatches that result in compilation or runtime errors. For more information, see [Conventions for Function Prototypes](/windows/win32/intl/conventions-for-function-prototypes).
      * @param {MSIHANDLE} hInstall Handle to the installation provided to a DLL custom action or obtained through <a href="https://docs.microsoft.com/windows/desktop/api/msi/nf-msi-msiopenpackagea">MsiOpenPackage</a>, <a href="https://docs.microsoft.com/windows/desktop/api/msi/nf-msi-msiopenpackageexa">MsiOpenPackageEx</a>, or <a href="https://docs.microsoft.com/windows/desktop/api/msi/nf-msi-msiopenproducta">MsiOpenProduct</a>.
      * @param {PSTR} szFeature Specifies the name of the feature.
-     * @param {Integer} iState 
+     * @param {INSTALLSTATE} iState 
      * @returns {Integer} The 
      * <b>MsiSetFeatureState</b> function returns the following values:
      * @see https://learn.microsoft.com/windows/win32/api/msiquery/nf-msiquery-msisetfeaturestatea
@@ -31411,7 +31410,7 @@ class ApplicationInstallationAndServicing {
      * > The msiquery.h header defines MsiSetFeatureState as an alias which automatically selects the ANSI or Unicode version of this function based on the definition of the UNICODE preprocessor constant. Mixing usage of the encoding-neutral alias with code that not encoding-neutral can lead to mismatches that result in compilation or runtime errors. For more information, see [Conventions for Function Prototypes](/windows/win32/intl/conventions-for-function-prototypes).
      * @param {MSIHANDLE} hInstall Handle to the installation provided to a DLL custom action or obtained through <a href="https://docs.microsoft.com/windows/desktop/api/msi/nf-msi-msiopenpackagea">MsiOpenPackage</a>, <a href="https://docs.microsoft.com/windows/desktop/api/msi/nf-msi-msiopenpackageexa">MsiOpenPackageEx</a>, or <a href="https://docs.microsoft.com/windows/desktop/api/msi/nf-msi-msiopenproducta">MsiOpenProduct</a>.
      * @param {PWSTR} szFeature Specifies the name of the feature.
-     * @param {Integer} iState 
+     * @param {INSTALLSTATE} iState 
      * @returns {Integer} The 
      * <b>MsiSetFeatureState</b> function returns the following values:
      * @see https://learn.microsoft.com/windows/win32/api/msiquery/nf-msiquery-msisetfeaturestatew
@@ -31667,8 +31666,8 @@ class ApplicationInstallationAndServicing {
      * > The msiquery.h header defines MsiGetComponentState as an alias which automatically selects the ANSI or Unicode version of this function based on the definition of the UNICODE preprocessor constant. Mixing usage of the encoding-neutral alias with code that not encoding-neutral can lead to mismatches that result in compilation or runtime errors. For more information, see [Conventions for Function Prototypes](/windows/win32/intl/conventions-for-function-prototypes).
      * @param {MSIHANDLE} hInstall Handle to the installation provided to a DLL custom action or obtained through <a href="https://docs.microsoft.com/windows/desktop/api/msi/nf-msi-msiopenpackagea">MsiOpenPackage</a>, <a href="https://docs.microsoft.com/windows/desktop/api/msi/nf-msi-msiopenpackageexa">MsiOpenPackageEx</a>, or <a href="https://docs.microsoft.com/windows/desktop/api/msi/nf-msi-msiopenproducta">MsiOpenProduct</a>.
      * @param {PSTR} szComponent A null-terminated string that specifies the component name within the product.
-     * @param {Pointer<Integer>} piInstalled 
-     * @param {Pointer<Integer>} piAction Receives the action taken during the installation. This parameter must not be null. For return values, see <i>piInstalled</i>.
+     * @param {Pointer<INSTALLSTATE>} piInstalled 
+     * @param {Pointer<INSTALLSTATE>} piAction Receives the action taken during the installation. This parameter must not be null. For return values, see <i>piInstalled</i>.
      * @returns {Integer} The 
      * <b>MsiGetComponentState</b> function returns the following values:
      * @see https://learn.microsoft.com/windows/win32/api/msiquery/nf-msiquery-msigetcomponentstatea
@@ -31701,8 +31700,8 @@ class ApplicationInstallationAndServicing {
      * > The msiquery.h header defines MsiGetComponentState as an alias which automatically selects the ANSI or Unicode version of this function based on the definition of the UNICODE preprocessor constant. Mixing usage of the encoding-neutral alias with code that not encoding-neutral can lead to mismatches that result in compilation or runtime errors. For more information, see [Conventions for Function Prototypes](/windows/win32/intl/conventions-for-function-prototypes).
      * @param {MSIHANDLE} hInstall Handle to the installation provided to a DLL custom action or obtained through <a href="https://docs.microsoft.com/windows/desktop/api/msi/nf-msi-msiopenpackagea">MsiOpenPackage</a>, <a href="https://docs.microsoft.com/windows/desktop/api/msi/nf-msi-msiopenpackageexa">MsiOpenPackageEx</a>, or <a href="https://docs.microsoft.com/windows/desktop/api/msi/nf-msi-msiopenproducta">MsiOpenProduct</a>.
      * @param {PWSTR} szComponent A null-terminated string that specifies the component name within the product.
-     * @param {Pointer<Integer>} piInstalled 
-     * @param {Pointer<Integer>} piAction Receives the action taken during the installation. This parameter must not be null. For return values, see <i>piInstalled</i>.
+     * @param {Pointer<INSTALLSTATE>} piInstalled 
+     * @param {Pointer<INSTALLSTATE>} piAction Receives the action taken during the installation. This parameter must not be null. For return values, see <i>piInstalled</i>.
      * @returns {Integer} The 
      * <b>MsiGetComponentState</b> function returns the following values:
      * @see https://learn.microsoft.com/windows/win32/api/msiquery/nf-msiquery-msigetcomponentstatew
@@ -31739,7 +31738,7 @@ class ApplicationInstallationAndServicing {
      * > The msiquery.h header defines MsiSetComponentState as an alias which automatically selects the ANSI or Unicode version of this function based on the definition of the UNICODE preprocessor constant. Mixing usage of the encoding-neutral alias with code that not encoding-neutral can lead to mismatches that result in compilation or runtime errors. For more information, see [Conventions for Function Prototypes](/windows/win32/intl/conventions-for-function-prototypes).
      * @param {MSIHANDLE} hInstall Handle to the installation provided to a DLL custom action or obtained through <a href="https://docs.microsoft.com/windows/desktop/api/msi/nf-msi-msiopenpackagea">MsiOpenPackage</a>, <a href="https://docs.microsoft.com/windows/desktop/api/msi/nf-msi-msiopenpackageexa">MsiOpenPackageEx</a>, or <a href="https://docs.microsoft.com/windows/desktop/api/msi/nf-msi-msiopenproducta">MsiOpenProduct</a>.
      * @param {PSTR} szComponent Specifies the name of the component.
-     * @param {Integer} iState 
+     * @param {INSTALLSTATE} iState 
      * @returns {Integer} The 
      * <b>MsiSetComponentState</b> function returns the following values:
      * @see https://learn.microsoft.com/windows/win32/api/msiquery/nf-msiquery-msisetcomponentstatea
@@ -31773,7 +31772,7 @@ class ApplicationInstallationAndServicing {
      * > The msiquery.h header defines MsiSetComponentState as an alias which automatically selects the ANSI or Unicode version of this function based on the definition of the UNICODE preprocessor constant. Mixing usage of the encoding-neutral alias with code that not encoding-neutral can lead to mismatches that result in compilation or runtime errors. For more information, see [Conventions for Function Prototypes](/windows/win32/intl/conventions-for-function-prototypes).
      * @param {MSIHANDLE} hInstall Handle to the installation provided to a DLL custom action or obtained through <a href="https://docs.microsoft.com/windows/desktop/api/msi/nf-msi-msiopenpackagea">MsiOpenPackage</a>, <a href="https://docs.microsoft.com/windows/desktop/api/msi/nf-msi-msiopenpackageexa">MsiOpenPackageEx</a>, or <a href="https://docs.microsoft.com/windows/desktop/api/msi/nf-msi-msiopenproducta">MsiOpenProduct</a>.
      * @param {PWSTR} szComponent Specifies the name of the component.
-     * @param {Integer} iState 
+     * @param {INSTALLSTATE} iState 
      * @returns {Integer} The 
      * <b>MsiSetComponentState</b> function returns the following values:
      * @see https://learn.microsoft.com/windows/win32/api/msiquery/nf-msiquery-msisetcomponentstatew
@@ -31844,8 +31843,8 @@ class ApplicationInstallationAndServicing {
      * > The msiquery.h header defines MsiGetFeatureCost as an alias which automatically selects the ANSI or Unicode version of this function based on the definition of the UNICODE preprocessor constant. Mixing usage of the encoding-neutral alias with code that not encoding-neutral can lead to mismatches that result in compilation or runtime errors. For more information, see [Conventions for Function Prototypes](/windows/win32/intl/conventions-for-function-prototypes).
      * @param {MSIHANDLE} hInstall Handle to the installation provided to a DLL custom action or obtained through <a href="https://docs.microsoft.com/windows/desktop/api/msi/nf-msi-msiopenpackagea">MsiOpenPackage</a>, <a href="https://docs.microsoft.com/windows/desktop/api/msi/nf-msi-msiopenpackageexa">MsiOpenPackageEx</a>, or <a href="https://docs.microsoft.com/windows/desktop/api/msi/nf-msi-msiopenproducta">MsiOpenProduct</a>.
      * @param {PSTR} szFeature Specifies the name of the feature.
-     * @param {Integer} iCostTree 
-     * @param {Integer} iState 
+     * @param {MSICOSTTREE} iCostTree 
+     * @param {INSTALLSTATE} iState 
      * @param {Pointer<Integer>} piCost Receives the disk space requirements in units of 512 bytes. This parameter must not be null.
      * @returns {Integer} The 
      * <b>MsiGetFeatureCost</b> function returns the following values:
@@ -31919,8 +31918,8 @@ class ApplicationInstallationAndServicing {
      * > The msiquery.h header defines MsiGetFeatureCost as an alias which automatically selects the ANSI or Unicode version of this function based on the definition of the UNICODE preprocessor constant. Mixing usage of the encoding-neutral alias with code that not encoding-neutral can lead to mismatches that result in compilation or runtime errors. For more information, see [Conventions for Function Prototypes](/windows/win32/intl/conventions-for-function-prototypes).
      * @param {MSIHANDLE} hInstall Handle to the installation provided to a DLL custom action or obtained through <a href="https://docs.microsoft.com/windows/desktop/api/msi/nf-msi-msiopenpackagea">MsiOpenPackage</a>, <a href="https://docs.microsoft.com/windows/desktop/api/msi/nf-msi-msiopenpackageexa">MsiOpenPackageEx</a>, or <a href="https://docs.microsoft.com/windows/desktop/api/msi/nf-msi-msiopenproducta">MsiOpenProduct</a>.
      * @param {PWSTR} szFeature Specifies the name of the feature.
-     * @param {Integer} iCostTree 
-     * @param {Integer} iState 
+     * @param {MSICOSTTREE} iCostTree 
+     * @param {INSTALLSTATE} iState 
      * @param {Pointer<Integer>} piCost Receives the disk space requirements in units of 512 bytes. This parameter must not be null.
      * @returns {Integer} The 
      * <b>MsiGetFeatureCost</b> function returns the following values:
@@ -31958,7 +31957,7 @@ class ApplicationInstallationAndServicing {
      * <b>MsiEnumComponentCosts</b> enumerates the total disk-space per drive used during the installation. In this case, <i>iState</i> is ignored. The costs of the installer include those costs for caching the database in the secure folder as well as the cost to create the installation script. Note that the total disk-space used during the installation may be larger than the space used after the component is installed.
      * @param {Integer} dwIndex 0-based index for drives. This parameter should be zero for the first call to the 
      * <b>MsiEnumComponentCosts</b> function and then incremented for subsequent calls.
-     * @param {Integer} iState Requested component state to be enumerated. If <i>szComponent</i> is passed as Null or an empty string, the installer ignores the <i>iState</i> parameter.
+     * @param {INSTALLSTATE} iState Requested component state to be enumerated. If <i>szComponent</i> is passed as Null or an empty string, the installer ignores the <i>iState</i> parameter.
      * @param {PSTR} szDriveBuf Buffer that holds the drive name including the null terminator. This is an empty string in case of an error.
      * @param {Pointer<Integer>} pcchDriveBuf Pointer to a variable that specifies the size, in TCHARs, of the buffer pointed to by the <i>lpDriveBuf</i> parameter. This size should include the terminating null character. If the buffer provided is too small, the variable pointed to by <i>pcchDriveBuf</i> contains the count of characters not including the null terminator.
      * @param {Pointer<Integer>} piCost Cost of the component per drive expressed in multiples of 512 bytes. This value is 0 if an error has occurred. The value returned in <i>piCost</i> is final disk-space used by the component after installation. If <i>szComponent</i> is passed as Null or an empty string, the installer sets the value at <i>piCost</i> to 0.
@@ -32098,7 +32097,7 @@ class ApplicationInstallationAndServicing {
      * <b>MsiEnumComponentCosts</b> enumerates the total disk-space per drive used during the installation. In this case, <i>iState</i> is ignored. The costs of the installer include those costs for caching the database in the secure folder as well as the cost to create the installation script. Note that the total disk-space used during the installation may be larger than the space used after the component is installed.
      * @param {Integer} dwIndex 0-based index for drives. This parameter should be zero for the first call to the 
      * <b>MsiEnumComponentCosts</b> function and then incremented for subsequent calls.
-     * @param {Integer} iState Requested component state to be enumerated. If <i>szComponent</i> is passed as Null or an empty string, the installer ignores the <i>iState</i> parameter.
+     * @param {INSTALLSTATE} iState Requested component state to be enumerated. If <i>szComponent</i> is passed as Null or an empty string, the installer ignores the <i>iState</i> parameter.
      * @param {PWSTR} szDriveBuf Buffer that holds the drive name including the null terminator. This is an empty string in case of an error.
      * @param {Pointer<Integer>} pcchDriveBuf Pointer to a variable that specifies the size, in TCHARs, of the buffer pointed to by the <i>lpDriveBuf</i> parameter. This size should include the terminating null character. If the buffer provided is too small, the variable pointed to by <i>pcchDriveBuf</i> contains the count of characters not including the null terminator.
      * @param {Pointer<Integer>} piCost Cost of the component per drive expressed in multiples of 512 bytes. This value is 0 if an error has occurred. The value returned in <i>piCost</i> is final disk-space used by the component after installation. If <i>szComponent</i> is passed as Null or an empty string, the installer sets the value at <i>piCost</i> to 0.
@@ -33243,9 +33242,9 @@ class ApplicationInstallationAndServicing {
 
     /**
      * 
-     * @param {Pointer} PatchFileBuffer 
+     * @param {Integer} PatchFileBuffer 
      * @param {Integer} PatchFileSize 
-     * @param {Pointer} OldFileBuffer 
+     * @param {Integer} OldFileBuffer 
      * @param {Integer} OldFileSize 
      * @param {Pointer<Integer>} NewFileSize 
      * @param {Integer} ApplyOptionFlags 
@@ -33374,11 +33373,11 @@ class ApplicationInstallationAndServicing {
 
     /**
      * 
-     * @param {Pointer} PatchFileMapped 
+     * @param {Integer} PatchFileMapped 
      * @param {Integer} PatchFileSize 
-     * @param {Pointer} OldFileMapped 
+     * @param {Integer} OldFileMapped 
      * @param {Integer} OldFileSize 
-     * @param {Pointer} NewFileBuffer 
+     * @param {Integer} NewFileBuffer 
      * @param {Integer} NewFileBufferSize 
      * @param {Pointer<Integer>} NewFileActualSize 
      * @param {Pointer<FILETIME>} NewFileTime 
@@ -33405,7 +33404,7 @@ class ApplicationInstallationAndServicing {
      * @param {Integer} RetainRangeCount 
      * @param {Pointer<PATCH_RETAIN_RANGE>} RetainRangeArray 
      * @param {Integer} SignatureBufferSize 
-     * @param {Pointer} SignatureBuffer 
+     * @param {Integer} SignatureBuffer 
      * @returns {BOOL} 
      */
     static GetFilePatchSignatureA(FileName, OptionFlags, OptionData, IgnoreRangeCount, IgnoreRangeArray, RetainRangeCount, RetainRangeArray, SignatureBufferSize, SignatureBuffer) {
@@ -33427,7 +33426,7 @@ class ApplicationInstallationAndServicing {
      * @param {Integer} RetainRangeCount 
      * @param {Pointer<PATCH_RETAIN_RANGE>} RetainRangeArray 
      * @param {Integer} SignatureBufferSize 
-     * @param {Pointer} SignatureBuffer 
+     * @param {Integer} SignatureBuffer 
      * @returns {BOOL} 
      */
     static GetFilePatchSignatureW(FileName, OptionFlags, OptionData, IgnoreRangeCount, IgnoreRangeArray, RetainRangeCount, RetainRangeArray, SignatureBufferSize, SignatureBuffer) {
@@ -33449,7 +33448,7 @@ class ApplicationInstallationAndServicing {
      * @param {Integer} RetainRangeCount 
      * @param {Pointer<PATCH_RETAIN_RANGE>} RetainRangeArray 
      * @param {Integer} SignatureBufferSize 
-     * @param {Pointer} SignatureBuffer 
+     * @param {Integer} SignatureBuffer 
      * @returns {BOOL} 
      */
     static GetFilePatchSignatureByHandle(FileHandle, OptionFlags, OptionData, IgnoreRangeCount, IgnoreRangeArray, RetainRangeCount, RetainRangeArray, SignatureBufferSize, SignatureBuffer) {
@@ -33463,7 +33462,7 @@ class ApplicationInstallationAndServicing {
 
     /**
      * 
-     * @param {Pointer} FileBufferWritable 
+     * @param {Integer} FileBufferWritable 
      * @param {Integer} FileSize 
      * @param {Integer} OptionFlags 
      * @param {Pointer<Void>} OptionData 
@@ -33472,7 +33471,7 @@ class ApplicationInstallationAndServicing {
      * @param {Integer} RetainRangeCount 
      * @param {Pointer<PATCH_RETAIN_RANGE>} RetainRangeArray 
      * @param {Integer} SignatureBufferSize 
-     * @param {Pointer} SignatureBuffer 
+     * @param {Integer} SignatureBuffer 
      * @returns {BOOL} 
      */
     static GetFilePatchSignatureByBuffer(FileBufferWritable, FileSize, OptionFlags, OptionData, IgnoreRangeCount, IgnoreRangeArray, RetainRangeCount, RetainRangeArray, SignatureBufferSize, SignatureBuffer) {
@@ -33484,7 +33483,7 @@ class ApplicationInstallationAndServicing {
 
     /**
      * 
-     * @param {Pointer} FileBuffer 
+     * @param {Integer} FileBuffer 
      * @param {Integer} FileSize 
      * @param {Integer} OptionFlags 
      * @param {Pointer<PATCH_OPTION_DATA>} OptionData 
@@ -33572,7 +33571,7 @@ class ApplicationInstallationAndServicing {
      * @param {Integer} ApplyFlags 
      * @param {DELTA_INPUT} Source 
      * @param {DELTA_INPUT} Delta 
-     * @param {Pointer} lpTarget 
+     * @param {Integer} lpTarget 
      * @param {Pointer} uTargetSize 
      * @returns {BOOL} 
      */
@@ -33627,7 +33626,7 @@ class ApplicationInstallationAndServicing {
      * @param {DELTA_INPUT} TargetOptions [in] Reserved. Pass a [DELTA_INPUT](/previous-versions/bb417345(v=msdn.10)#delta-input-structure) structure with *Editable* set to **FALSE**, *lpStart* set to **NULL** and *uSize* set to 0.
      * @param {DELTA_INPUT} GlobalOptions [in] Reserved. Pass a [DELTA_INPUT](/previous-versions/bb417345(v=msdn.10)#delta-input-structure) structure with *lpStart* set to **NULL** and *uSize* set to 0.
      * @param {Pointer<FILETIME>} lpTargetFileTime [in] The time stamp set on the target file after delta apply. If **NULL**, the target timestamp will be the current time during the create process.
-     * @param {Integer} HashAlgId [in] ALG_ID of the algorithm to be used to generate the target signature. Some special values are:
+     * @param {ALG_ID} HashAlgId [in] ALG_ID of the algorithm to be used to generate the target signature. Some special values are:
      * 
      * - 0 = No signature
      * - 32 = 32-bit CRC defined in msdelta.dll
@@ -33651,7 +33650,7 @@ class ApplicationInstallationAndServicing {
      * @param {PSTR} lpTargetOptionsName 
      * @param {DELTA_INPUT} GlobalOptions 
      * @param {Pointer<FILETIME>} lpTargetFileTime 
-     * @param {Integer} HashAlgId 
+     * @param {ALG_ID} HashAlgId 
      * @param {PSTR} lpDeltaName 
      * @returns {BOOL} 
      */
@@ -33677,7 +33676,7 @@ class ApplicationInstallationAndServicing {
      * @param {PWSTR} lpTargetOptionsName 
      * @param {DELTA_INPUT} GlobalOptions [in] Reserved. Pass a [DELTA_INPUT](/previous-versions/bb417345(v=msdn.10)#delta-input-structure) structure with *lpStart* set to **NULL** and *uSize* set to 0.
      * @param {Pointer<FILETIME>} lpTargetFileTime [in] The time stamp set on the target file after delta apply. If **NULL**, the target timestamp will be the current time during the create process.
-     * @param {Integer} HashAlgId [in] ALG_ID of the algorithm to be used to generate the target signature. Some special values are:
+     * @param {ALG_ID} HashAlgId [in] ALG_ID of the algorithm to be used to generate the target signature. Some special values are:
      * 
      * - 0 = No signature
      * - 32 = 32-bit CRC defined in msdelta.dll
@@ -33699,7 +33698,7 @@ class ApplicationInstallationAndServicing {
     /**
      * 
      * @param {Integer} FileTypeSet 
-     * @param {Integer} HashAlgId 
+     * @param {ALG_ID} HashAlgId 
      * @param {DELTA_INPUT} Source 
      * @param {Pointer<DELTA_HASH>} lpHash 
      * @returns {BOOL} 
@@ -33712,7 +33711,7 @@ class ApplicationInstallationAndServicing {
     /**
      * 
      * @param {Integer} FileTypeSet 
-     * @param {Integer} HashAlgId 
+     * @param {ALG_ID} HashAlgId 
      * @param {PSTR} lpSourceName 
      * @param {Pointer<DELTA_HASH>} lpHash 
      * @returns {BOOL} 
@@ -33727,7 +33726,7 @@ class ApplicationInstallationAndServicing {
     /**
      * 
      * @param {Integer} FileTypeSet 
-     * @param {Integer} HashAlgId 
+     * @param {ALG_ID} HashAlgId 
      * @param {PWSTR} lpSourceName 
      * @param {Pointer<DELTA_HASH>} lpHash 
      * @returns {BOOL} 
@@ -33744,7 +33743,7 @@ class ApplicationInstallationAndServicing {
      * @param {Integer} FileTypeSet 
      * @param {Integer} NormalizeFlags 
      * @param {DELTA_INPUT} NormalizeOptions 
-     * @param {Pointer} lpSource 
+     * @param {Integer} lpSource 
      * @param {Pointer} uSourceSize 
      * @returns {BOOL} 
      */
@@ -34469,7 +34468,7 @@ class ApplicationInstallationAndServicing {
      * </td>
      * </tr>
      * </table>
-     * @param {Pointer} pvBuffer Pointer to a buffer that holds the returned information. This parameter is optional. If <i>pvBuffer</i> is <b>null</b>, then <i>cbBuffer</i> must be zero. If the size of the buffer pointed to by <i>pvBuffer</i> is too small, 
+     * @param {Integer} pvBuffer Pointer to a buffer that holds the returned information. This parameter is optional. If <i>pvBuffer</i> is <b>null</b>, then <i>cbBuffer</i> must be zero. If the size of the buffer pointed to by <i>pvBuffer</i> is too small, 
      * <b>QueryActCtxW</b> returns ERROR_INSUFFICIENT_BUFFER and no data is written into the buffer. See the Remarks section for the method you can use to determine the required size of the buffer.
      * @param {Pointer} cbBuffer Size of the buffer in bytes pointed to by <i>pvBuffer</i>. This parameter is optional.
      * @param {Pointer<Pointer>} pcbWrittenOrRequired Number of bytes written or required. The parameter <i>pcbWrittenOrRequired</i> can only be <b>NULL</b> when <i>pvBuffer</i> is <b>NULL</b>. If <i>pcbWrittenOrRequired</i> is non-<b>NULL</b>, it is filled with the number of bytes required to store the returned buffer.
@@ -34507,7 +34506,7 @@ class ApplicationInstallationAndServicing {
      * 
      * <b>Windows 8 and Windows Server 2012:  </b>A pointer to a string that contains the value <b>"http://schemas.microsoft.com/SMI/2011/WindowsSettings"</b> is also a valid parameter.  A <b>NULL</b> is still equivalent to the previous value.
      * @param {PWSTR} settingName The name of the attribute to be queried.
-     * @param {Pointer} pvBuffer A pointer to the buffer that receives the query result.
+     * @param {Integer} pvBuffer A pointer to the buffer that receives the query result.
      * @param {Pointer} dwBuffer The size of the buffer  in characters that receives the query result.
      * @param {Pointer<Pointer>} pdwWrittenOrRequired A pointer to a value which is the number of characters written to the buffer specified by <i>pvBuffer</i> or that is required to hold the query result.
      * @returns {BOOL} If the function succeeds, it returns <b>TRUE</b>. Otherwise, it returns <b>FALSE</b>.

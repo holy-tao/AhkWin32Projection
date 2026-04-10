@@ -3,13 +3,10 @@
 
 /**
  * The values of the **BMFORMAT** enumerated type are used by several WCS functions to indicate the format that particular bitmaps are in.
- * @remarks
- * 
  * @see https://learn.microsoft.com/windows/win32/api/icm/ne-icm-bmformat
  * @namespace Windows.Win32.UI.ColorSystem
- * @version v4.0.30319
  */
-class BMFORMAT extends Win32Enum{
+class BMFORMAT extends Win32Enum {
 
     /**
      * 16 bits per pixel. RGB color space. 5 bits per channel. The most significant bit is ignored.

@@ -7,9 +7,8 @@
  * Represents an adapter output (such as a monitor). The IDXGIOutput3 interface exposes a method to check for overlay support.
  * @see https://learn.microsoft.com/windows/win32/api/dxgi1_3/nn-dxgi1_3-idxgioutput3
  * @namespace Windows.Win32.Graphics.Dxgi
- * @version v4.0.30319
  */
-class IDXGIOutput3 extends IDXGIOutput2{
+class IDXGIOutput3 extends IDXGIOutput2 {
 
     static sizeof => A_PtrSize
     /**
@@ -32,7 +31,7 @@ class IDXGIOutput3 extends IDXGIOutput2{
 
     /**
      * Checks for overlay support.
-     * @param {Integer} EnumFormat Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/dxgiformat/ne-dxgiformat-dxgi_format">DXGI_FORMAT</a></b>
+     * @param {DXGI_FORMAT} EnumFormat Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/dxgiformat/ne-dxgiformat-dxgi_format">DXGI_FORMAT</a></b>
      * 
      * A <a href="https://docs.microsoft.com/windows/desktop/api/dxgiformat/ne-dxgiformat-dxgi_format">DXGI_FORMAT</a>-typed value for the color format.
      * @param {IUnknown} pConcernedDevice Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/unknwn/nn-unknwn-iunknown">IUnknown</a>*</b>

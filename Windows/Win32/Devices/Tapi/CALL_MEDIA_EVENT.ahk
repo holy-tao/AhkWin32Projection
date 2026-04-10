@@ -7,9 +7,8 @@
  * Due to latency, stream events may continue for a few seconds after a stream or related call session has been torn down.
  * @see https://learn.microsoft.com/windows/win32/api/tapi3if/ne-tapi3if-call_media_event
  * @namespace Windows.Win32.Devices.Tapi
- * @version v4.0.30319
  */
-class CALL_MEDIA_EVENT extends Win32Enum{
+class CALL_MEDIA_EVENT extends Win32Enum {
 
     /**
      * A new media stream has been created.
@@ -48,7 +47,6 @@ class CALL_MEDIA_EVENT extends Win32Enum{
     static CME_STREAM_INACTIVE => 5
 
     /**
-     * 
      * @type {Integer (Int32)}
      */
     static CME_LASTITEM => 5

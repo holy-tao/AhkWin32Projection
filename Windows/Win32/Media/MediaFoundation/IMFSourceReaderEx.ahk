@@ -2,14 +2,14 @@
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
 #Include .\IMFSourceReader.ahk
+#Include .\IMFTransform.ahk
 
 /**
  * Extends the IMFSourceReader interface.
  * @see https://learn.microsoft.com/windows/win32/api/mfreadwrite/nn-mfreadwrite-imfsourcereaderex
  * @namespace Windows.Win32.Media.MediaFoundation
- * @version v4.0.30319
  */
-class IMFSourceReaderEx extends IMFSourceReader{
+class IMFSourceReaderEx extends IMFSourceReader {
 
     static sizeof => A_PtrSize
     /**

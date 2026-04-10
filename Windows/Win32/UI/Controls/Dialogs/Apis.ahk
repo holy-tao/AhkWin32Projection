@@ -4,7 +4,6 @@
 
 /**
  * @namespace Windows.Win32.UI.Controls.Dialogs
- * @version v4.0.30319
  */
 class Dialogs {
 
@@ -905,7 +904,7 @@ class Dialogs {
 
     /**
      * The CommDlgExtendedError function (commdlg.h) returns a common dialog box error code.
-     * @returns {Integer} Type: <b>DWORD</b>
+     * @returns {COMMON_DLG_ERRORS} Type: <b>DWORD</b>
      * 
      * If the most recent call to a common dialog box function succeeded, the return value is undefined. If the common dialog box function returned <b>FALSE</b> because the user closed or canceled the dialog box, the return value is zero. Otherwise, the return value is a nonzero error code.
      * 

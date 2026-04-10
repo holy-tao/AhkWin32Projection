@@ -44,10 +44,8 @@
  * for events).
  * @see https://learn.microsoft.com/windows/win32/api/evntprov/ns-evntprov-event_data_descriptor
  * @namespace Windows.Win32.System.Diagnostics.Etw
- * @version v4.0.30319
  */
-class EVENT_DATA_DESCRIPTOR extends Win32Struct
-{
+class EVENT_DATA_DESCRIPTOR extends Win32Struct {
     static sizeof => 16
 
     static packingSize => 8

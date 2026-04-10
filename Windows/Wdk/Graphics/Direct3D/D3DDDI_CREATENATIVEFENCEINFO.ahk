@@ -3,10 +3,8 @@
 
 /**
  * @namespace Windows.Wdk.Graphics.Direct3D
- * @version v4.0.30319
  */
-class D3DDDI_CREATENATIVEFENCEINFO extends Win32Struct
-{
+class D3DDDI_CREATENATIVEFENCEINFO extends Win32Struct {
     static sizeof => 48
 
     static packingSize => 8
@@ -44,7 +42,7 @@ class D3DDDI_CREATENATIVEFENCEINFO extends Win32Struct
     }
 
     /**
-     * @type {Pointer<D3DDDI_SYNCHRONIZATIONOBJECT_FLAGS>}
+     * @type {Pointer}
      */
     Flags {
         get => NumGet(this, 24, "ptr")
@@ -60,7 +58,7 @@ class D3DDDI_CREATENATIVEFENCEINFO extends Win32Struct
     }
 
     /**
-     * @type {Pointer<D3DDDI_NATIVEFENCEMAPPING>}
+     * @type {Pointer}
      */
     NativeFenceMapping {
         get => NumGet(this, 40, "ptr")

@@ -4,10 +4,8 @@
 
 /**
  * @namespace Windows.Win32.System.Iis
- * @version v4.0.30319
  */
-class CONFIGURATION_ENTRY extends Win32Struct
-{
+class CONFIGURATION_ENTRY extends Win32Struct {
     static sizeof => 16
 
     static packingSize => 8
@@ -15,7 +13,7 @@ class CONFIGURATION_ENTRY extends Win32Struct
     /**
      * @type {BSTR}
      */
-    bstrKey{
+    bstrKey {
         get {
             if(!this.HasProp("__bstrKey"))
                 this.__bstrKey := BSTR(0, this)
@@ -26,7 +24,7 @@ class CONFIGURATION_ENTRY extends Win32Struct
     /**
      * @type {BSTR}
      */
-    bstrValue{
+    bstrValue {
         get {
             if(!this.HasProp("__bstrValue"))
                 this.__bstrValue := BSTR(8, this)

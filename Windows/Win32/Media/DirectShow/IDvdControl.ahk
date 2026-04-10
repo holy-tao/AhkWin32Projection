@@ -7,9 +7,8 @@
  * Note  This interface has been deprecated. (IDvdControl)
  * @see https://learn.microsoft.com/windows/win32/api/strmif/nn-strmif-idvdcontrol
  * @namespace Windows.Win32.Media.DirectShow
- * @version v4.0.30319
  */
-class IDvdControl extends IUnknown{
+class IDvdControl extends IUnknown {
 
     static sizeof => A_PtrSize
     /**
@@ -199,7 +198,7 @@ class IDvdControl extends IUnknown{
      * Note  The IDvdControl interface is deprecated. Use IDvdControl2 instread. Displays the specified menu on the screen.
      * @remarks
      * This method returns an error unless the domain is DVD_DOMAIN_VideoManagerMenu, DVD_DOMAIN_VideoTitleSetMenu, DVD_DOMAIN_Title, or DVD_DOMAIN_Stop. For more information, see <a href="https://docs.microsoft.com/windows/desktop/api/strmif/ne-strmif-dvd_domain">DVD_DOMAIN</a>.
-     * @param {Integer} MenuID Value that specifies the menu to display. Member of the <a href="https://docs.microsoft.com/windows/win32/api/strmif/ne-strmif-dvd_menu_id">DVD_MENU_ID</a> enumerated data type.
+     * @param {DVD_MENU_ID} MenuID Value that specifies the menu to display. Member of the <a href="https://docs.microsoft.com/windows/win32/api/strmif/ne-strmif-dvd_menu_id">DVD_MENU_ID</a> enumerated data type.
      * @returns {HRESULT} Returns an <b>HRESULT</b> value.
      * @see https://learn.microsoft.com/windows/win32/api/strmif/nf-strmif-idvdcontrol-menucall
      */
@@ -570,7 +569,7 @@ class IDvdControl extends IUnknown{
      * DVD buttons do not all necessarily have highlight rectangles. Button rectangles can overlap, and the rectangles do not always correspond to the visual representation of DVD buttons.
      * 
      * This method returns an error unless the domain is DVD_DOMAIN_VideoManagerMenu, DVD_DOMAIN_VideoTitleSetMenu, or DVD_DOMAIN_Title. For more information, see <a href="https://docs.microsoft.com/windows/desktop/api/strmif/ne-strmif-dvd_domain">DVD_DOMAIN</a>.
-     * @param {POINT} _point 
+     * @param {POINT} _point Specified point within the display window.
      * @returns {HRESULT} Returns an <b>HRESULT</b> value .
      * @see https://learn.microsoft.com/windows/win32/api/strmif/nf-strmif-idvdcontrol-mouseactivate
      */
@@ -587,7 +586,7 @@ class IDvdControl extends IUnknown{
      * This method checks the specified point within the display window to see if it is within a current DVD button's highlight rectangle. If it is, this method selects the button.
      * 
      * DVD buttons do not all necessarily have highlight rectangles. Button rectangles can overlap, and the rectangles do not always correspond to the visual representation of DVD buttons.
-     * @param {POINT} _point 
+     * @param {POINT} _point Specified point within the display window.
      * @returns {HRESULT} Returns an <b>HRESULT</b> value.
      * @see https://learn.microsoft.com/windows/win32/api/strmif/nf-strmif-idvdcontrol-mouseselect
      */

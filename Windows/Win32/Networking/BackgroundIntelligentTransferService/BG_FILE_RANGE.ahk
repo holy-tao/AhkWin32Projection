@@ -7,10 +7,8 @@
  * The range must exist in the file or BITS generates an <b>BG_E_INVALID_RANGE</b> error.
  * @see https://learn.microsoft.com/windows/win32/api/bits2_0/ns-bits2_0-bg_file_range
  * @namespace Windows.Win32.Networking.BackgroundIntelligentTransferService
- * @version v4.0.30319
  */
-class BG_FILE_RANGE extends Win32Struct
-{
+class BG_FILE_RANGE extends Win32Struct {
     static sizeof => 16
 
     static packingSize => 8

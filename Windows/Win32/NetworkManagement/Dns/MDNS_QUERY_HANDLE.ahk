@@ -7,10 +7,8 @@
  * This structure is for internal use only.
  * @see https://learn.microsoft.com/windows/win32/api/windns/ns-windns-mdns_query_handle
  * @namespace Windows.Win32.NetworkManagement.Dns
- * @version v4.0.30319
  */
-class MDNS_QUERY_HANDLE extends Win32Struct
-{
+class MDNS_QUERY_HANDLE extends Win32Struct {
     static sizeof => 544
 
     static packingSize => 8
@@ -53,9 +51,9 @@ class MDNS_QUERY_HANDLE extends Win32Struct
 
     /**
      * Reserved. Do not use.
-     * @type {Array<UInt32>}
+     * @type {Array<Integer>}
      */
-    stateNameData{
+    stateNameData {
         get {
             if(!this.HasProp("__stateNameDataProxyArray"))
                 this.__stateNameDataProxyArray := Win32FixedArray(this.ptr + 536, 2, Primitive, "uint")

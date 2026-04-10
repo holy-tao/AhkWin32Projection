@@ -5,9 +5,8 @@
 
 /**
  * @namespace Windows.Win32.Devices.Tapi
- * @version v4.0.30319
  */
-class ITTAPIDispatchEventNotification extends IDispatch{
+class ITTAPIDispatchEventNotification extends IDispatch {
 
     static sizeof => A_PtrSize
     /**

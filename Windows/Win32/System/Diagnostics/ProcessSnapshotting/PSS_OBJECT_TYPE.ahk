@@ -5,9 +5,8 @@
  * Specifies the object type in a PSS_HANDLE_ENTRY structure.
  * @see https://learn.microsoft.com/windows/win32/api/processsnapshot/ne-processsnapshot-pss_object_type
  * @namespace Windows.Win32.System.Diagnostics.ProcessSnapshotting
- * @version v4.0.30319
  */
-class PSS_OBJECT_TYPE extends Win32Enum{
+class PSS_OBJECT_TYPE extends Win32Enum {
 
     /**
      * The object type is either unknown or unsupported.
@@ -46,7 +45,6 @@ class PSS_OBJECT_TYPE extends Win32Enum{
     static PSS_OBJECT_TYPE_SECTION => 5
 
     /**
-     * 
      * @type {Integer (Int32)}
      */
     static PSS_OBJECT_TYPE_SEMAPHORE => 6

@@ -5,10 +5,8 @@
  * Provides error information for use in the ISyncMgrSynchronizeCallback::LogError method.
  * @see https://learn.microsoft.com/windows/win32/api/mobsync/ns-mobsync-syncmgrlogerrorinfo
  * @namespace Windows.Win32.UI.Shell
- * @version v4.0.30319
  */
-class SYNCMGRLOGERRORINFO extends Win32Struct
-{
+class SYNCMGRLOGERRORINFO extends Win32Struct {
     static sizeof => 32
 
     static packingSize => 8
@@ -50,7 +48,7 @@ class SYNCMGRLOGERRORINFO extends Win32Struct
      * Type: <b>GUID</b>
      * 
      * An error identifier.
-     * @type {Pointer<Guid>}
+     * @type {Pointer}
      */
     ErrorID {
         get => NumGet(this, 16, "ptr")
@@ -61,7 +59,7 @@ class SYNCMGRLOGERRORINFO extends Win32Struct
      * Type: <b>GUID</b>
      * 
      * The item where the error occurred.
-     * @type {Pointer<Guid>}
+     * @type {Pointer}
      */
     ItemID {
         get => NumGet(this, 24, "ptr")

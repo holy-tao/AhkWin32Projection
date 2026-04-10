@@ -1,8 +1,8 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
-#Include ..\Variant\VARIANT.ahk
 #Include ..\Com\IDispatch.ahk
+#Include ..\Variant\VARIANT.ahk
 
 /**
  * Specifies when the data collector set runs.To get this interface, call the IScheduleCollection::CreateSchedule method.
@@ -14,9 +14,8 @@
  * For an example that shows the XML that you can use to initialize this object if you call the <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/pla/nf-pla-idatacollectorset-setxml">IDataCollectorSet::SetXml</a> method, see the Remarks section of <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/pla/nn-pla-idatacollectorset">IDataCollectorSet</a>.  When you specify the XML to create the object, you can specify only the elements for the properties that you want to set. If you do not specify a property, PLA provides a default value. When you retrieve the XML for the set, the XML includes all elements.
  * @see https://learn.microsoft.com/windows/win32/api/pla/nn-pla-ischedule
  * @namespace Windows.Win32.System.Performance
- * @version v4.0.30319
  */
-class ISchedule extends IDispatch{
+class ISchedule extends IDispatch {
 
     static sizeof => A_PtrSize
     /**
@@ -62,7 +61,7 @@ class ISchedule extends IDispatch{
     }
 
     /**
-     * @type {Integer} 
+     * @type {WeekDays} 
      */
     Days {
         get => this.get_Days()
@@ -149,7 +148,7 @@ class ISchedule extends IDispatch{
 
     /**
      * Retrieves or sets the days on which the data collector set runs. (Get)
-     * @returns {Integer} 
+     * @returns {WeekDays} 
      * @see https://learn.microsoft.com/windows/win32/api/pla/nf-pla-ischedule-get_days
      */
     get_Days() {
@@ -159,7 +158,7 @@ class ISchedule extends IDispatch{
 
     /**
      * Retrieves or sets the days on which the data collector set runs. (Put)
-     * @param {Integer} days 
+     * @param {WeekDays} days 
      * @returns {HRESULT} 
      * @see https://learn.microsoft.com/windows/win32/api/pla/nf-pla-ischedule-put_days
      */

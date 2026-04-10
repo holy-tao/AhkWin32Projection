@@ -23,9 +23,8 @@
  * Subsequent writes to the buffer within the same frame should use D3D10_MAP_WRITE_NO_OVERWRITE. This will enable the CPU to access a resource that is potentially being used by the GPU as long as the restrictions described previously are respected.
  * @see https://learn.microsoft.com/windows/win32/api/d3d10/ne-d3d10-d3d10_map
  * @namespace Windows.Win32.Graphics.Direct3D10
- * @version v4.0.30319
  */
-class D3D10_MAP extends Win32Enum{
+class D3D10_MAP extends Win32Enum {
 
     /**
      * Resource is mapped for reading. The resource must have been created with read access (see <a href="https://docs.microsoft.com/windows/win32/api/d3d10/ne-d3d10-d3d10_cpu_access_flag">D3D10_CPU_ACCESS_READ</a>).

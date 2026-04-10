@@ -1,16 +1,14 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\..\Guid.ahk
-#Include .\IEnumSTATPROPSTG.ahk
 #Include ..\IUnknown.ahk
 
 /**
  * The IEnumSTATPROPSTG interface iterates through an array of STATPROPSTG structures containing statistical data about properties in a property set.
  * @see https://learn.microsoft.com/windows/win32/api/propidlbase/nn-propidlbase-ienumstatpropstg
  * @namespace Windows.Win32.System.Com.StructuredStorage
- * @version v4.0.30319
  */
-class IEnumSTATPROPSTG extends IUnknown{
+class IEnumSTATPROPSTG extends IUnknown {
 
     static sizeof => A_PtrSize
     /**

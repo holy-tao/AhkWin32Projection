@@ -1,18 +1,17 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
 #Include .\BATTERY_REPORTING_SCALE.ahk
+#Include .\SYSTEM_POWER_STATE.ahk
 
 /**
  * Contains information about the power capabilities of the system.
  * @see https://learn.microsoft.com/windows/win32/api/winnt/ns-winnt-system_power_capabilities
  * @namespace Windows.Win32.System.Power
- * @version v4.0.30319
  */
-class SYSTEM_POWER_CAPABILITIES extends Win32Struct
-{
-    static sizeof => 80
+class SYSTEM_POWER_CAPABILITIES extends Win32Struct {
+    static sizeof => 76
 
-    static packingSize => 8
+    static packingSize => 4
 
     /**
      * If this member is <b>TRUE</b>, there is a system power button.
@@ -180,7 +179,6 @@ class SYSTEM_POWER_CAPABILITIES extends Win32Struct
     }
 
     /**
-     * 
      * @type {BOOLEAN}
      */
     Hiberboot {
@@ -217,7 +215,6 @@ class SYSTEM_POWER_CAPABILITIES extends Win32Struct
     }
 
     /**
-     * 
      * @type {Integer}
      */
     HiberFileType {
@@ -226,7 +223,6 @@ class SYSTEM_POWER_CAPABILITIES extends Win32Struct
     }
 
     /**
-     * 
      * @type {BOOLEAN}
      */
     AoAcConnectivitySupported {
@@ -236,9 +232,9 @@ class SYSTEM_POWER_CAPABILITIES extends Win32Struct
 
     /**
      * Reserved.
-     * @type {Array<Byte>}
+     * @type {Array<Integer>}
      */
-    spare3{
+    spare3 {
         get {
             if(!this.HasProp("__spare3ProxyArray"))
                 this.__spare3ProxyArray := Win32FixedArray(this.ptr + 24, 6, Primitive, "char")
@@ -268,9 +264,9 @@ class SYSTEM_POWER_CAPABILITIES extends Win32Struct
     /**
      * A <a href="https://docs.microsoft.com/windows/desktop/api/winnt/ns-winnt-battery_reporting_scale">BATTERY_REPORTING_SCALE</a> structure 
      *       that contains information about how system battery metrics are reported.
-     * @type {Array<BATTERY_REPORTING_SCALE>}
+     * @type {BATTERY_REPORTING_SCALE}
      */
-    BatteryScale{
+    BatteryScale {
         get {
             if(!this.HasProp("__BatteryScaleProxyArray"))
                 this.__BatteryScaleProxyArray := Win32FixedArray(this.ptr + 32, 3, BATTERY_REPORTING_SCALE, "")
@@ -282,7 +278,7 @@ class SYSTEM_POWER_CAPABILITIES extends Win32Struct
      * The lowest <a href="https://docs.microsoft.com/windows/desktop/Power/system-power-states">system sleep state</a> (Sx) that will generate a wake event when the system is on AC power. This 
      *       member must be one of the <a href="https://docs.microsoft.com/windows/desktop/api/winnt/ne-winnt-system_power_state">SYSTEM_POWER_STATE</a> 
      *       enumeration type values.
-     * @type {Integer}
+     * @type {SYSTEM_POWER_STATE}
      */
     AcOnLineWake {
         get => NumGet(this, 56, "int")
@@ -293,7 +289,7 @@ class SYSTEM_POWER_CAPABILITIES extends Win32Struct
      * The lowest <a href="https://docs.microsoft.com/windows/desktop/Power/system-power-states">system sleep state</a> (Sx) that will generate a wake event via the lid switch. This member must be 
      *       one of the <a href="https://docs.microsoft.com/windows/desktop/api/winnt/ne-winnt-system_power_state">SYSTEM_POWER_STATE</a> enumeration 
      *       type values.
-     * @type {Integer}
+     * @type {SYSTEM_POWER_STATE}
      */
     SoftLidWake {
         get => NumGet(this, 60, "int")
@@ -307,7 +303,7 @@ class SYSTEM_POWER_CAPABILITIES extends Win32Struct
      *       values. 
      * 
      * To wake the computer using the RTC, the operating system must also support waking from the sleep state the computer is in when the RTC generates the wake event. Therefore, the  effective lowest sleep state from which an RTC wake event can wake the computer is the lowest sleep state supported by the operating system that is  equal to or higher than  the  value  of <b>RtcWake</b>.  To determine  the sleep states that the operating system supports, check the   <b>SystemS1</b>, <b>SystemS2</b>, <b>SystemS3</b>, and <b>SystemS4</b> members.
-     * @type {Integer}
+     * @type {SYSTEM_POWER_STATE}
      */
     RtcWake {
         get => NumGet(this, 64, "int")
@@ -318,7 +314,7 @@ class SYSTEM_POWER_CAPABILITIES extends Win32Struct
      * The minimum allowable <a href="https://docs.microsoft.com/windows/desktop/Power/system-power-states">system power state</a> supporting wake events. This member must be one of the 
      *       <a href="https://docs.microsoft.com/windows/desktop/api/winnt/ne-winnt-system_power_state">SYSTEM_POWER_STATE</a> enumeration type 
      *       values. Note that this state may change as different device drivers are installed on the system.
-     * @type {Integer}
+     * @type {SYSTEM_POWER_STATE}
      */
     MinDeviceWakeState {
         get => NumGet(this, 68, "int")
@@ -331,7 +327,7 @@ class SYSTEM_POWER_CAPABILITIES extends Win32Struct
      *       <b>LT_LOWEST_LATENCY</b>. This member must be one of the 
      *       <a href="https://docs.microsoft.com/windows/desktop/api/winnt/ne-winnt-system_power_state">SYSTEM_POWER_STATE</a> enumeration type 
      *       values.
-     * @type {Integer}
+     * @type {SYSTEM_POWER_STATE}
      */
     DefaultLowLatencyWake {
         get => NumGet(this, 72, "int")

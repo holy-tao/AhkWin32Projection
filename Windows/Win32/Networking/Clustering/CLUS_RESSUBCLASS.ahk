@@ -5,9 +5,8 @@
  * The CLUS_RESSUBCLASS enumeration (msclus.h) identifies a resource subclass that manages a shared resource.
  * @see https://learn.microsoft.com/windows/win32/api/msclus/ne-msclus-clus_ressubclass
  * @namespace Windows.Win32.Networking.Clustering
- * @version v4.0.30319
  */
-class CLUS_RESSUBCLASS extends Win32Enum{
+class CLUS_RESSUBCLASS extends Win32Enum {
 
     /**
      * Identifies a resource subclass that manages a shared resource, such as a disk on a shared SCSI bus. The 

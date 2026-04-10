@@ -1,17 +1,16 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\..\Guid.ahk
-#Include ..\..\..\Foundation\BSTR.ahk
-#Include ..\..\..\System\Variant\VARIANT.ahk
 #Include ..\..\..\System\Com\IDispatch.ahk
+#Include ..\..\..\System\Variant\VARIANT.ahk
+#Include ..\..\..\Foundation\BSTR.ahk
 
 /**
  * Exported by the server engine and is called by exit modules.
  * @see https://learn.microsoft.com/windows/win32/api/certif/nn-certif-icertserverexit
  * @namespace Windows.Win32.Security.Cryptography.Certificates
- * @version v4.0.30319
  */
-class ICertServerExit extends IDispatch{
+class ICertServerExit extends IDispatch {
 
     static sizeof => A_PtrSize
     /**
@@ -34,7 +33,7 @@ class ICertServerExit extends IDispatch{
 
     /**
      * Causes the current instantiation of the interface to operate on the request referenced by Context.
-     * @param {Integer} _Context 
+     * @param {Integer} _Context Specifies the request and associated certificate under construction.
      * @returns {HRESULT} <h3>VB</h3>
      *  If the method succeeds, the method returns S_OK.
      * 

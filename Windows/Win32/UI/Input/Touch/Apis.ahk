@@ -3,7 +3,6 @@
 
 /**
  * @namespace Windows.Win32.UI.Input.Touch
- * @version v4.0.30319
  */
 class Touch {
 
@@ -15,7 +14,7 @@ class Touch {
      * Retrieves detailed information about touch inputs associated with a particular touch input handle.
      * @remarks
      * Calling <a href="https://docs.microsoft.com/windows/desktop/api/winuser/nf-winuser-closetouchinputhandle">CloseTouchInputHandle</a> will not free memory associated with values retrieved in a call to <b>GetTouchInputInfo</b>.  Values in structures passed to <b>GetTouchInputInfo</b>  will be valid until you delete them.
-     * @param {HTOUCHINPUT} _hTouchInput 
+     * @param {HTOUCHINPUT} _hTouchInput The touch input handle received in the <b>LPARAM</b> of a touch message. The function fails with <b>ERROR_INVALID_HANDLE</b> if this handle is not valid. Note that the handle is not valid after it has been used in a successful call to <a href="https://docs.microsoft.com/windows/desktop/api/winuser/nf-winuser-closetouchinputhandle">CloseTouchInputHandle</a> or after it has been passed to <a href="https://docs.microsoft.com/windows/desktop/wintouch/sendmessage--postmessage--and-related-functions">DefWindowProc, PostMessage, SendMessage</a> or one of their variants.
      * @param {Integer} cInputs The number of structures in the <i>pInputs</i> array. This should ideally be at least equal to the number of touch points associated with the message as indicated in the message <b>WPARAM</b>. If <i>cInputs</i> is less than the number of touch points, the function will still succeed and populate the <i>pInputs</i> buffer with information about <i>cInputs</i> touch points.
      * @param {Pointer<TOUCHINPUT>} pInputs A pointer to an array of <a href="https://docs.microsoft.com/windows/desktop/api/winuser/ns-winuser-touchinput">TOUCHINPUT</a> structures to receive information about the touch points associated with the specified touch input handle.
      * @param {Integer} cbSize The size, in bytes, of a single <a href="https://docs.microsoft.com/windows/desktop/api/winuser/ns-winuser-touchinput">TOUCHINPUT</a> structure. If <i>cbSize</i> is not the size of a single <b>TOUCHINPUT</b> structure, the function fails with <b>ERROR_INVALID_PARAMETER</b>.
@@ -41,7 +40,7 @@ class Touch {
      * Closes a touch input handle, frees process memory associated with it, and invalidates the handle.
      * @remarks
      * Calling <b>CloseTouchInputHandle</b> will not free memory associated with values retrieved in a call to <a href="https://docs.microsoft.com/windows/desktop/api/winuser/nf-winuser-gettouchinputinfo">GetTouchInputInfo</a>. Values in structures passed to <b>GetTouchInputInfo</b>  will be valid until you delete them.
-     * @param {HTOUCHINPUT} _hTouchInput 
+     * @param {HTOUCHINPUT} _hTouchInput The touch input handle received in the <b>LPARAM</b> of a touch message. The function fails with <b>ERROR_INVALID_HANDLE</b> if this handle is not valid. Note that the handle is not valid after it has been used in a successful call to <b>CloseTouchInputHandle</b> or after it has been passed to <a href="https://docs.microsoft.com/windows/desktop/wintouch/sendmessage--postmessage--and-related-functions">DefWindowProc, PostMessage, SendMessage</a> or one of their variants.
      * @returns {BOOL} If the function succeeds, the return value is nonzero.
      *      
      * 
@@ -71,8 +70,8 @@ class Touch {
      *   </div>
      * <div> </div>
      * If <b>TWF_WANTPALM</b> is enabled, packets from touch input are not buffered and palm detection is not performed before the packets are sent to your application. Enabling <b>TWF_WANTPALM</b> is most useful if you want minimal latencies when processing <a href="https://docs.microsoft.com/windows/desktop/wintouch/wm-touchdown">WM_TOUCH</a> messages.
-     * @param {HWND} _hwnd 
-     * @param {Integer} ulFlags 
+     * @param {HWND} _hwnd The handle of the window being registered. The function fails with <b>ERROR_ACCESS_DENIED</b> if the calling thread does not own the specified window.
+     * @param {REGISTER_TOUCH_WINDOW_FLAGS} ulFlags 
      * @returns {BOOL} If the function succeeds, the return value is nonzero.
      *      
      * 
@@ -99,7 +98,7 @@ class Touch {
      * Registers a window as no longer being touch-capable.
      * @remarks
      * The <b>UnregisterTouchWindow</b>  function succeeds even if the specified window was not previously registered as being touch-capable.
-     * @param {HWND} _hwnd 
+     * @param {HWND} _hwnd The handle of the window. The function fails with <b>ERROR_ACCESS_DENIED</b> if the calling thread does not own the specified window.
      * @returns {BOOL} If the function succeeds, the return value is nonzero.
      *      
      * 
@@ -151,7 +150,7 @@ class Touch {
      * </td>
      * </tr>
      * </table>
-     * @param {HWND} _hwnd 
+     * @param {HWND} _hwnd The handle of the window. The function fails with <b>ERROR_ACCESS_DENIED</b> if the calling thread is not on the same desktop as the specified window.
      * @param {Pointer<Integer>} pulFlags The address of the <b>ULONG</b> variable to receive the modifier flags for the specified window's touch capability.
      * @returns {BOOL} Returns <b>TRUE</b> if the window supports Windows Touch; returns <b>FALSE</b> if the window does not support Windows Touch.
      * @see https://learn.microsoft.com/windows/win32/api/winuser/nf-winuser-istouchwindow
@@ -179,7 +178,7 @@ class Touch {
      * If the message is passed to <a href="https://docs.microsoft.com/windows/win32/api/winuser/nf-winuser-defwindowproca">DefWindowProc</a>, or is forwarded using
      *    one of the PostMessage or SendMessage classes of API functions, the handle
      *    is transferred with the message and need not be closed by the application.
-     * @param {HGESTUREINFO} _hGestureInfo 
+     * @param {HGESTUREINFO} _hGestureInfo The gesture information handle.
      * @param {Pointer<GESTUREINFO>} pGestureInfo A pointer to the gesture information structure.
      * @returns {BOOL} If the function succeeds, the return value is nonzero.
      *      
@@ -207,9 +206,9 @@ class Touch {
      * Retrieves additional information about a gesture from its GESTUREINFO handle.
      * @remarks
      * This function is reserved for future use and should only be used for testing. Windows 7 gestures do not use extra arguments.
-     * @param {HGESTUREINFO} _hGestureInfo 
+     * @param {HGESTUREINFO} _hGestureInfo The handle to the gesture information that is passed in the <i>lParam</i> of a <a href="https://docs.microsoft.com/windows/desktop/wintouch/wm-gesture">WM_GESTURE</a> message.
      * @param {Integer} cbExtraArgs A count of the bytes of data stored in the extra arguments.
-     * @param {Pointer} pExtraArgs A pointer to the extra argument information.
+     * @param {Integer} pExtraArgs A pointer to the extra argument information.
      * @returns {BOOL} If the function succeeds, the return value is nonzero.
      *      
      * 
@@ -243,7 +242,7 @@ class Touch {
      * If the message is passed to <a href="https://docs.microsoft.com/windows/win32/api/winuser/nf-winuser-defwindowproca">DefWindowProc</a>, or is forwarded using
      *    one of the PostMessage or SendMessage classes of API functions, the handle
      *    is transferred with the message and need not be closed by the application.
-     * @param {HGESTUREINFO} _hGestureInfo 
+     * @param {HGESTUREINFO} _hGestureInfo The gesture information handle.
      * @returns {BOOL} If the function succeeds, the return value is nonzero.
      *      
      * 
@@ -443,7 +442,7 @@ class Touch {
      * <div class="alert"><b>Note</b>  Calling <b>SetGestureConfig</b> will change the gesture configuration for the lifetime of the Window, not just for the next gesture.
      * 	 </div>
      * <div> </div>
-     * @param {HWND} _hwnd 
+     * @param {HWND} _hwnd A handle to the window to set the gesture configuration on.
      * @param {Integer} dwReserved This value is reserved and must be set to 0.
      * @param {Integer} cIDs A count of the gesture configuration structures that are being passed.
      * @param {Pointer<GESTURECONFIG>} pGestureConfig An array of gesture configuration structures that specify the gesture configuration.
@@ -494,7 +493,7 @@ class Touch {
      * <td>If specified, <b>GetGestureConfig</b> returns consolidated configuration for the specified window and its parent window chain.</td>
      * </tr>
      * </table>
-     * @param {HWND} _hwnd 
+     * @param {HWND} _hwnd A handle to the window to get the gesture configuration from.
      * @param {Integer} dwReserved This value is reserved and must be set to 0.
      * @param {Integer} dwFlags A gesture command flag value indicating options for retrieving the gesture configuration.  See Remarks for additional information and supported values.
      * @param {Pointer<Integer>} pcIDs The size, in number of gesture configuration structures, that is in the <i>pGestureConfig</i> buffer.

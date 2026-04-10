@@ -7,9 +7,8 @@
  * The IVdsSubSystemInterconnect interface (vdshwprv.h) provides a method to query the interconnect types that are supported by a subsystem.
  * @see https://learn.microsoft.com/windows/win32/api/vdshwprv/nn-vdshwprv-ivdssubsysteminterconnect
  * @namespace Windows.Win32.Storage.VirtualDiskService
- * @version v4.0.30319
  */
-class IVdsSubSystemInterconnect extends IUnknown{
+class IVdsSubSystemInterconnect extends IUnknown {
 
     static sizeof => A_PtrSize
     /**

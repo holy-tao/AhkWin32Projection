@@ -1,14 +1,13 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
+#Include .\IPSEC_SA_DETAILS1.ahk
 
 /**
  * Encapsulates an inbound and outbound security association (SA) pair.
  * @see https://learn.microsoft.com/windows/win32/api/ipsectypes/ns-ipsectypes-ipsec_sa_context1
  * @namespace Windows.Win32.NetworkManagement.WindowsFilteringPlatform
- * @version v4.0.30319
  */
-class IPSEC_SA_CONTEXT1 extends Win32Struct
-{
+class IPSEC_SA_CONTEXT1 extends Win32Struct {
     static sizeof => 24
 
     static packingSize => 8

@@ -5,9 +5,8 @@
  * Describes the gamma function used for color interpolation.
  * @see https://learn.microsoft.com/windows/win32/api/xpsobjectmodel/ne-xpsobjectmodel-xps_color_interpolation
  * @namespace Windows.Win32.Storage.Xps
- * @version v4.0.30319
  */
-class XPS_COLOR_INTERPOLATION extends Win32Enum{
+class XPS_COLOR_INTERPOLATION extends Win32Enum {
 
     /**
      * First, the color values are converted to scRGB, then a linear interpolation is performed between them.

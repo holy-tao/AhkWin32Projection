@@ -5,9 +5,8 @@
  * Identify the portion of a depth-stencil buffer for writing depth data. (D3D10_DEPTH_WRITE_MASK)
  * @see https://learn.microsoft.com/windows/win32/api/d3d10/ne-d3d10-d3d10_depth_write_mask
  * @namespace Windows.Win32.Graphics.Direct3D10
- * @version v4.0.30319
  */
-class D3D10_DEPTH_WRITE_MASK extends Win32Enum{
+class D3D10_DEPTH_WRITE_MASK extends Win32Enum {
 
     /**
      * Turn off writes to the depth-stencil buffer.

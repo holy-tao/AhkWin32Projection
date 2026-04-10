@@ -3,10 +3,8 @@
 
 /**
  * @namespace Windows.Win32.Media.Speech
- * @version v4.0.30319
  */
-class SPSERIALIZEDEVENT64 extends Win32Struct
-{
+class SPSERIALIZEDEVENT64 extends Win32Struct {
     static sizeof => 32
 
     static packingSize => 8

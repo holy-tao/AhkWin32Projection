@@ -1,5 +1,6 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
+#Include .\STICKYKEYS_FLAGS.ahk
 
 /**
  * Contains information about the StickyKeys accessibility feature.
@@ -24,10 +25,8 @@
  * </ul>
  * @see https://learn.microsoft.com/windows/win32/api/winuser/ns-winuser-stickykeys
  * @namespace Windows.Win32.UI.Accessibility
- * @version v4.0.30319
  */
-class STICKYKEYS extends Win32Struct
-{
+class STICKYKEYS extends Win32Struct {
     static sizeof => 8
 
     static packingSize => 4
@@ -332,7 +331,7 @@ class STICKYKEYS extends Win32Struct
      * </td>
      * </tr>
      * </table>
-     * @type {Integer}
+     * @type {STICKYKEYS_FLAGS}
      */
     dwFlags {
         get => NumGet(this, 4, "uint")

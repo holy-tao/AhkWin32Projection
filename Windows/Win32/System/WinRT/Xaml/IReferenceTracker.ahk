@@ -1,8 +1,8 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\..\Guid.ahk
-#Include .\IReferenceTrackerManager.ahk
 #Include ..\..\Com\IUnknown.ahk
+#Include .\IReferenceTrackerManager.ahk
 
 /**
  * Defines the interface implemented by the XAML framework for managing XAML object references.
@@ -10,9 +10,8 @@
  * This interface is implemented by most XAML framework objects. It is not defined as <b>agile</b>, nor does it marshal across apartments. Use it only from within the apartment of the XAML object that implements it.
  * @see https://learn.microsoft.com/windows/win32/api/windows.ui.xaml.hosting.referencetracker/nn-windows-ui-xaml-hosting-referencetracker-ireferencetracker
  * @namespace Windows.Win32.System.WinRT.Xaml
- * @version v4.0.30319
  */
-class IReferenceTracker extends IUnknown{
+class IReferenceTracker extends IUnknown {
 
     static sizeof => A_PtrSize
     /**

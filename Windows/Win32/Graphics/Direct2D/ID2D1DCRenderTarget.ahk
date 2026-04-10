@@ -34,9 +34,8 @@
  * ```
  * @see https://learn.microsoft.com/windows/win32/api/d2d1/nn-d2d1-id2d1dcrendertarget
  * @namespace Windows.Win32.Graphics.Direct2D
- * @version v4.0.30319
  */
-class ID2D1DCRenderTarget extends ID2D1RenderTarget{
+class ID2D1DCRenderTarget extends ID2D1RenderTarget {
 
     static sizeof => A_PtrSize
     /**
@@ -61,7 +60,9 @@ class ID2D1DCRenderTarget extends ID2D1RenderTarget{
      * Binds the render target to the device context to which it issues drawing commands.
      * @remarks
      * Before you can render with the DC render target, you must use its <b>BindDC</b> method to associate it with a GDI DC.  You do this each time you  use a different DC, or the size of the area you want to draw to changes.
-     * @param {HDC} _hDC 
+     * @param {HDC} _hDC Type: <b>const HDC</b>
+     * 
+     * The device context to which the render target issues drawing commands.
      * @param {Pointer<RECT>} pSubRect Type: <b>const <a href="https://docs.microsoft.com/windows/win32/api/windef/ns-windef-rect">RECT</a>*</b>
      * 
      * The dimensions of the handle to a device context (HDC) to which the render target is bound.

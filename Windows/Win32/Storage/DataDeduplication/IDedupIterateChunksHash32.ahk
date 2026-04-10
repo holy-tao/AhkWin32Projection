@@ -5,9 +5,8 @@
 
 /**
  * @namespace Windows.Win32.Storage.DataDeduplication
- * @version v4.0.30319
  */
-class IDedupIterateChunksHash32 extends IUnknown{
+class IDedupIterateChunksHash32 extends IUnknown {
 
     static sizeof => A_PtrSize
     /**

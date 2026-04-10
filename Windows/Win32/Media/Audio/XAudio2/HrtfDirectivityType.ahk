@@ -5,9 +5,8 @@
  * Indicates one of several stock directivity patterns.
  * @see https://learn.microsoft.com/windows/win32/api/hrtfapoapi/ne-hrtfapoapi-hrtfdirectivitytype
  * @namespace Windows.Win32.Media.Audio.XAudio2
- * @version v4.0.30319
  */
-class HrtfDirectivityType extends Win32Enum{
+class HrtfDirectivityType extends Win32Enum {
 
     /**
      * The sound emission is in all directions.

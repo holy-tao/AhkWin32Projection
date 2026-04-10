@@ -5,10 +5,8 @@
 
 /**
  * @namespace Windows.Win32.Graphics.Gdi
- * @version v4.0.30319
  */
-class HMETAFILE extends Win32Handle
-{
+class HMETAFILE extends Win32Handle {
     static sizeof => 8
 
     static packingSize => 8

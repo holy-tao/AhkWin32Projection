@@ -7,9 +7,8 @@
  * Performs initialization or cleanup when entering or exiting a COM apartment.
  * @see https://learn.microsoft.com/windows/win32/api/objidl/nn-objidl-iinitializespy
  * @namespace Windows.Win32.System.Com
- * @version v4.0.30319
  */
-class IInitializeSpy extends IUnknown{
+class IInitializeSpy extends IUnknown {
 
     static sizeof => A_PtrSize
     /**

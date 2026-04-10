@@ -5,9 +5,8 @@
 
 /**
  * @namespace Windows.Win32.Media.KernelStreaming
- * @version v4.0.30319
  */
-class IKsPinPipe extends IUnknown{
+class IKsPinPipe extends IUnknown {
 
     static sizeof => A_PtrSize
     /**
@@ -31,8 +30,8 @@ class IKsPinPipe extends IUnknown{
     /**
      * 
      * @param {Pointer<Pointer<KSALLOCATOR_FRAMING_EX>>} FramingEx 
-     * @param {Pointer<Integer>} FramingProp 
-     * @param {Integer} Option 
+     * @param {Pointer<FRAMING_PROP>} FramingProp 
+     * @param {FRAMING_CACHE_OPS} Option 
      * @returns {HRESULT} 
      */
     KsGetPinFramingCache(FramingEx, FramingProp, Option) {
@@ -46,8 +45,8 @@ class IKsPinPipe extends IUnknown{
     /**
      * 
      * @param {Pointer<KSALLOCATOR_FRAMING_EX>} FramingEx 
-     * @param {Pointer<Integer>} FramingProp 
-     * @param {Integer} Option 
+     * @param {Pointer<FRAMING_PROP>} FramingProp 
+     * @param {FRAMING_CACHE_OPS} Option 
      * @returns {HRESULT} 
      */
     KsSetPinFramingCache(FramingEx, FramingProp, Option) {
@@ -68,7 +67,7 @@ class IKsPinPipe extends IUnknown{
 
     /**
      * 
-     * @param {Integer} Operation 
+     * @param {KSPEEKOPERATION} Operation 
      * @returns {IKsAllocatorEx} 
      */
     KsGetPipe(Operation) {

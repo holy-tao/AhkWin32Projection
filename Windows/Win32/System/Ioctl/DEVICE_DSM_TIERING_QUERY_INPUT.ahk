@@ -3,10 +3,8 @@
 
 /**
  * @namespace Windows.Win32.System.Ioctl
- * @version v4.0.30319
  */
-class DEVICE_DSM_TIERING_QUERY_INPUT extends Win32Struct
-{
+class DEVICE_DSM_TIERING_QUERY_INPUT extends Win32Struct {
     static sizeof => 24
 
     static packingSize => 8
@@ -44,9 +42,9 @@ class DEVICE_DSM_TIERING_QUERY_INPUT extends Win32Struct
     }
 
     /**
-     * @type {Array<Guid>}
+     * @type {Array<Pointer>}
      */
-    TierIds{
+    TierIds {
         get {
             if(!this.HasProp("__TierIdsProxyArray"))
                 this.__TierIdsProxyArray := Win32FixedArray(this.ptr + 16, 1, Primitive, "ptr")

@@ -7,9 +7,8 @@
  * Extends IImageList by providing additional methods for manipulating and interacting with image lists.
  * @see https://learn.microsoft.com/windows/win32/api/commoncontrols/nn-commoncontrols-iimagelist2
  * @namespace Windows.Win32.UI.Controls
- * @version v4.0.30319
  */
-class IImageList2 extends IImageList{
+class IImageList2 extends IImageList {
 
     static sizeof => A_PtrSize
     /**
@@ -112,7 +111,9 @@ class IImageList2 extends IImageList{
      * @param {Integer} cx Type: <b>int</b>
      * 
      * The x-axis count.
-     * @param {Integer} _cy 
+     * @param {Integer} _cy Type: <b>int</b>
+     * 
+     * The y-axis count.
      * @returns {HRESULT} Type: <b><a href="https://docs.microsoft.com/windows/desktop/WinProg/windows-data-types">HRESULT</a></b>
      * 
      * If this method succeeds, it returns <b>S_OK</b>. Otherwise, it returns an <b>HRESULT</b> error code.
@@ -307,8 +308,10 @@ class IImageList2 extends IImageList{
      * @param {Integer} cx Type: <b>int</b>
      * 
      * Width, in pixels, of each image.
-     * @param {Integer} _cy 
-     * @param {Integer} flags Type: <b><a href="https://docs.microsoft.com/windows/desktop/WinProg/windows-data-types">UINT</a></b>
+     * @param {Integer} _cy Type: <b>int</b>
+     * 
+     * Height, in pixels, of each image.
+     * @param {IMAGELIST_CREATION_FLAGS} flags Type: <b><a href="https://docs.microsoft.com/windows/desktop/WinProg/windows-data-types">UINT</a></b>
      * 
      * A combination of <a href="https://docs.microsoft.com/windows/desktop/Controls/ilc-constants">Image List Creation Flags</a>.
      * @param {Integer} cInitial Type: <b>int</b>

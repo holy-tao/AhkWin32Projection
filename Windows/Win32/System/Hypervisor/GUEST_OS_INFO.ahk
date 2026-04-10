@@ -3,10 +3,8 @@
 
 /**
  * @namespace Windows.Win32.System.Hypervisor
- * @version v4.0.30319
  */
-class GUEST_OS_INFO extends Win32Struct
-{
+class GUEST_OS_INFO extends Win32Struct {
     static sizeof => 24
 
     static packingSize => 8
@@ -29,7 +27,7 @@ class GUEST_OS_INFO extends Win32Struct
             get => NumGet(this, 0, "uint")
             set => NumPut("uint", value, this, 0)
         }
-    
+
         /**
          * @type {Integer}
          */
@@ -37,7 +35,7 @@ class GUEST_OS_INFO extends Win32Struct
             get => (this._bitfield >> 0) & 0xFFFF
             set => this._bitfield := ((value & 0xFFFF) << 0) | (this._bitfield & ~(0xFFFF << 0))
         }
-    
+
         /**
          * @type {Integer}
          */
@@ -45,7 +43,7 @@ class GUEST_OS_INFO extends Win32Struct
             get => (this._bitfield >> 16) & 0xFF
             set => this._bitfield := ((value & 0xFF) << 16) | (this._bitfield & ~(0xFF << 16))
         }
-    
+
         /**
          * @type {Integer}
          */
@@ -53,7 +51,7 @@ class GUEST_OS_INFO extends Win32Struct
             get => (this._bitfield >> 24) & 0xFF
             set => this._bitfield := ((value & 0xFF) << 24) | (this._bitfield & ~(0xFF << 24))
         }
-    
+
         /**
          * @type {Integer}
          */
@@ -61,7 +59,7 @@ class GUEST_OS_INFO extends Win32Struct
             get => (this._bitfield >> 32) & 0xFF
             set => this._bitfield := ((value & 0xFF) << 32) | (this._bitfield & ~(0xFF << 32))
         }
-    
+
         /**
          * @type {Integer}
          */
@@ -69,7 +67,7 @@ class GUEST_OS_INFO extends Win32Struct
             get => (this._bitfield >> 40) & 0xFF
             set => this._bitfield := ((value & 0xFF) << 40) | (this._bitfield & ~(0xFF << 40))
         }
-    
+
         /**
          * @type {Integer}
          */
@@ -77,7 +75,6 @@ class GUEST_OS_INFO extends Win32Struct
             get => (this._bitfield >> 48) & 0xFFFF
             set => this._bitfield := ((value & 0xFFFF) << 48) | (this._bitfield & ~(0xFFFF << 48))
         }
-    
     }
 
     class _OpenSource extends Win32Struct {
@@ -97,7 +94,7 @@ class GUEST_OS_INFO extends Win32Struct
             get => NumGet(this, 0, "uint")
             set => NumPut("uint", value, this, 0)
         }
-    
+
         /**
          * @type {Integer}
          */
@@ -105,7 +102,7 @@ class GUEST_OS_INFO extends Win32Struct
             get => (this._bitfield >> 0) & 0xFFFF
             set => this._bitfield := ((value & 0xFFFF) << 0) | (this._bitfield & ~(0xFFFF << 0))
         }
-    
+
         /**
          * @type {Integer}
          */
@@ -113,7 +110,7 @@ class GUEST_OS_INFO extends Win32Struct
             get => (this._bitfield >> 16) & 0xFFFFFFFF
             set => this._bitfield := ((value & 0xFFFFFFFF) << 16) | (this._bitfield & ~(0xFFFFFFFF << 16))
         }
-    
+
         /**
          * @type {Integer}
          */
@@ -121,7 +118,7 @@ class GUEST_OS_INFO extends Win32Struct
             get => (this._bitfield >> 48) & 0xFF
             set => this._bitfield := ((value & 0xFF) << 48) | (this._bitfield & ~(0xFF << 48))
         }
-    
+
         /**
          * @type {Integer}
          */
@@ -129,7 +126,7 @@ class GUEST_OS_INFO extends Win32Struct
             get => (this._bitfield >> 56) & 0x7F
             set => this._bitfield := ((value & 0x7F) << 56) | (this._bitfield & ~(0x7F << 56))
         }
-    
+
         /**
          * @type {Integer}
          */
@@ -137,7 +134,6 @@ class GUEST_OS_INFO extends Win32Struct
             get => (this._bitfield >> 63) & 0x1
             set => this._bitfield := ((value & 0x1) << 63) | (this._bitfield & ~(0x1 << 63))
         }
-    
     }
 
     /**
@@ -151,10 +147,10 @@ class GUEST_OS_INFO extends Win32Struct
     /**
      * @type {_ClosedSource}
      */
-    ClosedSource{
+    ClosedSource {
         get {
             if(!this.HasProp("__ClosedSource"))
-                this.__ClosedSource := %this.__Class%._ClosedSource(0, this)
+                this.__ClosedSource := GUEST_OS_INFO._ClosedSource(0, this)
             return this.__ClosedSource
         }
     }
@@ -162,10 +158,10 @@ class GUEST_OS_INFO extends Win32Struct
     /**
      * @type {_OpenSource}
      */
-    OpenSource{
+    OpenSource {
         get {
             if(!this.HasProp("__OpenSource"))
-                this.__OpenSource := %this.__Class%._OpenSource(0, this)
+                this.__OpenSource := GUEST_OS_INFO._OpenSource(0, this)
             return this.__OpenSource
         }
     }

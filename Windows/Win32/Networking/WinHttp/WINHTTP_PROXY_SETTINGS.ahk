@@ -1,17 +1,14 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
 #Include ..\..\Foundation\FILETIME.ahk
+#Include .\WINHTTP_PROXY_NETWORKING_KEY.ahk
 
 /**
  * The WINHTTP_PROXY_SETTINGS_EX structure represents extended proxy settings.
- * @remarks
- * 
  * @see https://learn.microsoft.com/windows/win32/api/winhttp/ns-winhttp-winhttp_proxy_settings_ex
  * @namespace Windows.Win32.Networking.WinHttp
- * @version v4.0.30319
  */
-class WINHTTP_PROXY_SETTINGS extends Win32Struct
-{
+class WINHTTP_PROXY_SETTINGS extends Win32Struct {
     static sizeof => 112
 
     static packingSize => 8
@@ -107,7 +104,7 @@ class WINHTTP_PROXY_SETTINGS extends Win32Struct
     /**
      * @type {FILETIME}
      */
-    ftLastKnownDetectTime{
+    ftLastKnownDetectTime {
         get {
             if(!this.HasProp("__ftLastKnownDetectTime"))
                 this.__ftLastKnownDetectTime := FILETIME(76, this)

@@ -1,15 +1,14 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
 #Include .\CRYPT_BIT_BLOB.ahk
+#Include .\CRYPT_INTEGER_BLOB.ahk
 
 /**
  * The CERT_BASIC_CONSTRAINTS_INFO structure contains information that indicates whether the certified subject can act as a certification authority (CA), an end entity, or both.
  * @see https://learn.microsoft.com/windows/win32/api/wincrypt/ns-wincrypt-cert_basic_constraints_info
  * @namespace Windows.Win32.Security.Cryptography
- * @version v4.0.30319
  */
-class CERT_BASIC_CONSTRAINTS_INFO extends Win32Struct
-{
+class CERT_BASIC_CONSTRAINTS_INFO extends Win32Struct {
     static sizeof => 48
 
     static packingSize => 8
@@ -25,7 +24,7 @@ class CERT_BASIC_CONSTRAINTS_INFO extends Win32Struct
      * </ul>
      * @type {CRYPT_BIT_BLOB}
      */
-    SubjectType{
+    SubjectType {
         get {
             if(!this.HasProp("__SubjectType"))
                 this.__SubjectType := CRYPT_BIT_BLOB(0, this)

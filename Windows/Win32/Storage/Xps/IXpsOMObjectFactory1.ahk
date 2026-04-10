@@ -1,11 +1,11 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
+#Include .\IXpsOMObjectFactory.ahk
 #Include .\IXpsOMPackageWriter.ahk
 #Include .\IXpsOMPackage1.ahk
 #Include .\IXpsOMPage1.ahk
 #Include .\IXpsOMRemoteDictionaryResource.ahk
-#Include .\IXpsOMObjectFactory.ahk
 
 /**
  * Inherits from IXpsOMObjectFactory.
@@ -16,9 +16,8 @@
  * [IXpsOMObjectFactory interface](/windows/win32/api/xpsobjectmodel/nn-xpsobjectmodel-ixpsomobjectfactory)
  * @see https://learn.microsoft.com/windows/win32/api/xpsobjectmodel_1/nn-xpsobjectmodel_1-ixpsomobjectfactory1
  * @namespace Windows.Win32.Storage.Xps
- * @version v4.0.30319
  */
-class IXpsOMObjectFactory1 extends IXpsOMObjectFactory{
+class IXpsOMObjectFactory1 extends IXpsOMObjectFactory {
 
     static sizeof => A_PtrSize
     /**
@@ -44,7 +43,7 @@ class IXpsOMObjectFactory1 extends IXpsOMObjectFactory{
      * @remarks
      * This method only parses the data enough to detect the document type. It does not validate the content. A return value of S_OK does not, therefore, imply that the file contains a valid document.
      * @param {PWSTR} filename [in] The name of the  XPS file from which to get the type.
-     * @returns {Integer} [out, retval] The document type.
+     * @returns {XPS_DOCUMENT_TYPE} [out, retval] The document type.
      * @see https://learn.microsoft.com/windows/win32/api/xpsobjectmodel_1/nf-xpsobjectmodel_1-ixpsomobjectfactory1-getdocumenttypefromfile
      */
     GetDocumentTypeFromFile(filename) {
@@ -59,7 +58,7 @@ class IXpsOMObjectFactory1 extends IXpsOMObjectFactory{
      * @remarks
      * This method only parses the data enough to detect the document type. It does not validate the content. A return value of S_OK does not, therefore, imply that the stream contains a valid document.
      * @param {IStream} xpsDocumentStream [in] A stream that contains XPS OM data. The stream must support sequential reading and the read position of the stream must be set to the beginning of the XPS data.
-     * @returns {Integer} [out, retval] The document type of the XPS data found in the stream.
+     * @returns {XPS_DOCUMENT_TYPE} [out, retval] The document type of the XPS data found in the stream.
      * @see https://learn.microsoft.com/windows/win32/api/xpsobjectmodel_1/nf-xpsobjectmodel_1-ixpsomobjectfactory1-getdocumenttypefromstream
      */
     GetDocumentTypeFromStream(xpsDocumentStream) {
@@ -157,13 +156,13 @@ class IXpsOMObjectFactory1 extends IXpsOMObjectFactory{
      * </td>
      * </tr>
      * </table>
-     * @param {Integer} interleaving [in] Specifies whether the content of the XPS OM will be interleaved when it is written to the file.
+     * @param {XPS_INTERLEAVING} interleaving [in] Specifies whether the content of the XPS OM will be interleaved when it is written to the file.
      * @param {IOpcPartUri} documentSequencePartName [in] The <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/msopc/nn-msopc-iopcparturi">IOpcPartUri</a> interface that contains the part name of the document sequence in the new file.
      * @param {IXpsOMCoreProperties} coreProperties [in] The <a href="https://docs.microsoft.com/windows/desktop/api/xpsobjectmodel/nn-xpsobjectmodel-ixpsomcoreproperties">IXpsOMCoreProperties</a> interface that contains the core document properties to be given to the new file. This parameter can be set to <b>NULL</b>.
      * @param {IXpsOMImageResource} packageThumbnail [in] The <a href="https://docs.microsoft.com/windows/desktop/api/xpsobjectmodel/nn-xpsobjectmodel-ixpsomimageresource">IXpsOMImageResource</a> interface that contains the thumbnail image to be assigned to the new file. This parameter can be set to <b>NULL</b>.
      * @param {IXpsOMPrintTicketResource} documentSequencePrintTicket [in] The <a href="https://docs.microsoft.com/windows/desktop/api/xpsobjectmodel/nn-xpsobjectmodel-ixpsomprintticketresource">IXpsOMPrintTicketResource</a> interface that contains the package-level print ticket to be assigned to the new file. This parameter can be set to <b>NULL</b>.
      * @param {IOpcPartUri} discardControlPartName [in] The <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/msopc/nn-msopc-iopcparturi">IOpcPartUri</a> interface that contains the name of the discard control part. This parameter can be set to <b>NULL</b>.
-     * @param {Integer} documentType [in] Specifies the document type of the package writer. The value of this parameter cannot be XPS_DOCUMENT_TYPE_UNSPECIFIED.
+     * @param {XPS_DOCUMENT_TYPE} documentType [in] Specifies the document type of the package writer. The value of this parameter cannot be XPS_DOCUMENT_TYPE_UNSPECIFIED.
      * @returns {IXpsOMPackageWriter} [out, retval]    A pointer to the new  <a href="https://docs.microsoft.com/windows/desktop/api/xpsobjectmodel/nn-xpsobjectmodel-ixpsompackagewriter">IXpsOMPackageWriter</a> interface created by this method.
      * @see https://learn.microsoft.com/windows/win32/api/xpsobjectmodel_1/nf-xpsobjectmodel_1-ixpsomobjectfactory1-createpackagewriteronfile1
      */
@@ -207,13 +206,13 @@ class IXpsOMObjectFactory1 extends IXpsOMObjectFactory{
      * </td>
      * </tr>
      * </table>
-     * @param {Integer} interleaving [in] Specifies whether the content of the XPS OM will be interleaved when it is written to the stream.
+     * @param {XPS_INTERLEAVING} interleaving [in] Specifies whether the content of the XPS OM will be interleaved when it is written to the stream.
      * @param {IOpcPartUri} documentSequencePartName [in] The <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/msopc/nn-msopc-iopcparturi">IOpcPartUri</a> interface that contains the part name of the document sequence in the new file.
      * @param {IXpsOMCoreProperties} coreProperties [in] The <a href="https://docs.microsoft.com/windows/desktop/api/xpsobjectmodel/nn-xpsobjectmodel-ixpsomcoreproperties">IXpsOMCoreProperties</a> interface that contains the core document properties to be given to the new file. This parameter can be set to <b>NULL</b>.
      * @param {IXpsOMImageResource} packageThumbnail [in] The <a href="https://docs.microsoft.com/windows/desktop/api/xpsobjectmodel/nn-xpsobjectmodel-ixpsomimageresource">IXpsOMImageResource</a> interface that contains the thumbnail image to be assigned to the new file.  This parameter can be set to <b>NULL</b>.
      * @param {IXpsOMPrintTicketResource} documentSequencePrintTicket [in] The <a href="https://docs.microsoft.com/windows/desktop/api/xpsobjectmodel/nn-xpsobjectmodel-ixpsomprintticketresource">IXpsOMPrintTicketResource</a> interface that contains the package-level print ticket to be assigned to the new file.  This parameter can be set to <b>NULL</b>.
      * @param {IOpcPartUri} discardControlPartName [in] The <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/msopc/nn-msopc-iopcparturi">IOpcPartUri</a> interface that contains the name of the discard control part.  This parameter can be set to <b>NULL</b>.
-     * @param {Integer} documentType [in] The document type of the package writer. The value of this parameter cannot be XPS_DOCUMENT_TYPE_UNSPECIFIED.
+     * @param {XPS_DOCUMENT_TYPE} documentType [in] The document type of the package writer. The value of this parameter cannot be XPS_DOCUMENT_TYPE_UNSPECIFIED.
      * @returns {IXpsOMPackageWriter} [out, retval]    A pointer to the new <a href="https://docs.microsoft.com/windows/desktop/api/xpsobjectmodel/nn-xpsobjectmodel-ixpsompackagewriter">IXpsOMPackageWriter</a> interface created by this method.
      * @see https://learn.microsoft.com/windows/win32/api/xpsobjectmodel_1/nf-xpsobjectmodel_1-ixpsomobjectfactory1-createpackagewriteronstream1
      */

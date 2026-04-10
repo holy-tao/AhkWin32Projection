@@ -5,10 +5,8 @@
  * Defines metadata specific to files provided by WOF_PROVIDER_FILE.
  * @see https://learn.microsoft.com/windows/win32/api/wofapi/ns-wofapi-wof_file_compression_info_v1
  * @namespace Windows.Win32.Storage.FileSystem
- * @version v4.0.30319
  */
-class WOF_FILE_COMPRESSION_INFO_V1 extends Win32Struct
-{
+class WOF_FILE_COMPRESSION_INFO_V1 extends Win32Struct {
     static sizeof => 8
 
     static packingSize => 4

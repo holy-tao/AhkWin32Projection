@@ -5,10 +5,8 @@
  * Contains information for a MIB opaque query.
  * @see https://learn.microsoft.com/windows/win32/api/iprtrmib/ns-iprtrmib-mib_opaque_query
  * @namespace Windows.Win32.NetworkManagement.IpHelper
- * @version v4.0.30319
  */
-class MIB_OPAQUE_QUERY extends Win32Struct
-{
+class MIB_OPAQUE_QUERY extends Win32Struct {
     static sizeof => 8
 
     static packingSize => 4
@@ -24,9 +22,9 @@ class MIB_OPAQUE_QUERY extends Win32Struct
 
     /**
      * The index of the MIB object to query.
-     * @type {Array<UInt32>}
+     * @type {Array<Integer>}
      */
-    rgdwVarIndex{
+    rgdwVarIndex {
         get {
             if(!this.HasProp("__rgdwVarIndexProxyArray"))
                 this.__rgdwVarIndexProxyArray := Win32FixedArray(this.ptr + 4, 1, Primitive, "uint")

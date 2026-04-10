@@ -5,9 +5,8 @@
  * Defines service configuration options.
  * @see https://learn.microsoft.com/windows/win32/api/http/ne-http-http_service_config_id
  * @namespace Windows.Win32.Networking.HttpServer
- * @version v4.0.30319
  */
-class HTTP_SERVICE_CONFIG_ID extends Win32Enum{
+class HTTP_SERVICE_CONFIG_ID extends Win32Enum {
 
     /**
      * Specifies the IP Listen List used to register IP addresses on which to listen for SSL connections.
@@ -68,7 +67,6 @@ class HTTP_SERVICE_CONFIG_ID extends Win32Enum{
     static HttpServiceConfigSslCcsCertInfo => 6
 
     /**
-     * 
      * @type {Integer (Int32)}
      */
     static HttpServiceConfigSetting => 7

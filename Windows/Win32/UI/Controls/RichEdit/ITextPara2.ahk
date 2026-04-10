@@ -1,17 +1,15 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\..\Guid.ahk
-#Include ..\..\..\System\Com\IUnknown.ahk
-#Include .\ITextPara2.ahk
 #Include .\ITextPara.ahk
+#Include ..\..\..\System\Com\IUnknown.ahk
 
 /**
  * Text Object Model (TOM) rich text-range attributes are accessed through a pair of dual interfaces, ITextFont and ITextPara. (ITextPara2)
  * @see https://learn.microsoft.com/windows/win32/api/tom/nn-tom-itextpara2
  * @namespace Windows.Win32.UI.Controls.RichEdit
- * @version v4.0.30319
  */
-class ITextPara2 extends ITextPara{
+class ITextPara2 extends ITextPara {
 
     static sizeof => A_PtrSize
     /**

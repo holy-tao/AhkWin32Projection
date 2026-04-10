@@ -5,9 +5,8 @@
 
 /**
  * @namespace Windows.Win32.Media.MediaFoundation
- * @version v4.0.30319
  */
-class IWMColorLegalizerProps extends IUnknown{
+class IWMColorLegalizerProps extends IUnknown {
 
     static sizeof => A_PtrSize
     /**

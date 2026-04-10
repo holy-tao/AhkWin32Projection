@@ -1,14 +1,13 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
 #Include .\STORAGE_COUNTER.ahk
+#Include .\STORAGE_COUNTER_TYPE.ahk
 
 /**
  * @namespace Windows.Win32.System.Ioctl
- * @version v4.0.30319
  */
-class STORAGE_COUNTERS extends Win32Struct
-{
-    static sizeof => 24
+class STORAGE_COUNTERS extends Win32Struct {
+    static sizeof => 32
 
     static packingSize => 8
 
@@ -37,9 +36,9 @@ class STORAGE_COUNTERS extends Win32Struct
     }
 
     /**
-     * @type {Array<STORAGE_COUNTER>}
+     * @type {STORAGE_COUNTER}
      */
-    Counters{
+    Counters {
         get {
             if(!this.HasProp("__CountersProxyArray"))
                 this.__CountersProxyArray := Win32FixedArray(this.ptr + 16, 1, STORAGE_COUNTER, "")

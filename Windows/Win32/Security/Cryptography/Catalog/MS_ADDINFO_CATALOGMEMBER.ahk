@@ -1,14 +1,14 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\..\Win32Struct.ahk
+#Include .\CRYPTCATSTORE.ahk
+#Include .\CRYPTCATMEMBER.ahk
 
 /**
  * Provides additional information for catalog member subject types.
  * @see https://learn.microsoft.com/windows/win32/api/mssip/ns-mssip-ms_addinfo_catalogmember
  * @namespace Windows.Win32.Security.Cryptography.Catalog
- * @version v4.0.30319
  */
-class MS_ADDINFO_CATALOGMEMBER extends Win32Struct
-{
+class MS_ADDINFO_CATALOGMEMBER extends Win32Struct {
     static sizeof => 24
 
     static packingSize => 8

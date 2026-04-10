@@ -13,10 +13,8 @@
  *     method.
  * @see https://learn.microsoft.com/windows/win32/api/vdshwprv/ns-vdshwprv-vds_partition_notification
  * @namespace Windows.Win32.Storage.VirtualDiskService
- * @version v4.0.30319
  */
-class VDS_PARTITION_NOTIFICATION extends Win32Struct
-{
+class VDS_PARTITION_NOTIFICATION extends Win32Struct {
     static sizeof => 24
 
     static packingSize => 8
@@ -77,7 +75,7 @@ class VDS_PARTITION_NOTIFICATION extends Win32Struct
 
     /**
      * The GUID of the disk containing the partition that triggered the event.
-     * @type {Pointer<Guid>}
+     * @type {Pointer}
      */
     diskId {
         get => NumGet(this, 8, "ptr")

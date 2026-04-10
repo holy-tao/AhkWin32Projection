@@ -4,10 +4,8 @@
 
 /**
  * @namespace Windows.Win32.UI.Input.GameInput
- * @version v4.0.30319
  */
-class GameInputHapticWaveformInfo extends Win32Struct
-{
+class GameInputHapticWaveformInfo extends Win32Struct {
     static sizeof => 16
 
     static packingSize => 8
@@ -15,7 +13,7 @@ class GameInputHapticWaveformInfo extends Win32Struct
     /**
      * @type {GameInputUsage}
      */
-    usage{
+    usage {
         get {
             if(!this.HasProp("__usage"))
                 this.__usage := GameInputUsage(0, this)

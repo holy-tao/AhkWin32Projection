@@ -3,9 +3,8 @@
 
 /**
  * @namespace Windows.Win32.UI.Accessibility
- * @version v4.0.30319
  */
-class SOUNDSENTRY_WINDOWS_EFFECT extends Win32Enum{
+class SOUNDSENTRY_WINDOWS_EFFECT extends Win32Enum {
 
     /**
      * @type {Integer (UInt32)}

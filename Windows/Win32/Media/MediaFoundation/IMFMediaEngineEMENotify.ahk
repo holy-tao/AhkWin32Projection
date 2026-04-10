@@ -1,14 +1,12 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
-#Include ..\..\Foundation\BSTR.ahk
 #Include ..\..\System\Com\IUnknown.ahk
 
 /**
  * @namespace Windows.Win32.Media.MediaFoundation
- * @version v4.0.30319
  */
-class IMFMediaEngineEMENotify extends IUnknown{
+class IMFMediaEngineEMENotify extends IUnknown {
 
     static sizeof => A_PtrSize
     /**
@@ -39,7 +37,7 @@ class IMFMediaEngineEMENotify extends IUnknown{
      * 
      * 
      * The **EncryptedData** object can be created, and it is safe for scripting. The ProgID for the **EncryptedData** object is CAPICOM.EncryptedData.1.
-     * @param {Pointer} pbInitData 
+     * @param {Integer} pbInitData 
      * @param {Integer} cb 
      * @param {BSTR} bstrInitDataType 
      * @returns {String} Nothing - always returns an empty string

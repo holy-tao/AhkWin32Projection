@@ -1,15 +1,22 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
+#Include .\MFVideoInfo.ahk
 #Include .\MFRatio.ahk
+#Include .\MFVideoChromaSubsampling.ahk
+#Include .\MFVideoInterlaceMode.ahk
+#Include .\MFVideoTransferFunction.ahk
+#Include .\MFVideoPrimaries.ahk
+#Include .\MFVideoTransferMatrix.ahk
+#Include .\MFVideoLighting.ahk
+#Include .\MFNominalRange.ahk
+#Include .\MFVideoArea.ahk
 #Include .\MFOffset.ahk
 #Include ..\..\Foundation\SIZE.ahk
-#Include .\MFVideoArea.ahk
-#Include .\MFVideoInfo.ahk
 #Include .\MFVideoCompressedInfo.ahk
+#Include .\MFVideoSurfaceInfo.ahk
+#Include .\MFPaletteEntry.ahk
 #Include .\MFARGB.ahk
 #Include .\MFAYUVSample.ahk
-#Include .\MFPaletteEntry.ahk
-#Include .\MFVideoSurfaceInfo.ahk
 
 /**
  * Describes a video format.
@@ -21,10 +28,8 @@
  * You can use the <b>MFVIDEOFORMAT</b> structure as the format block for a DirectShow media type. Set the format GUID to FORMAT_MFVideoFormat.
  * @see https://learn.microsoft.com/windows/win32/api/mfobjects/ns-mfobjects-mfvideoformat
  * @namespace Windows.Win32.Media.MediaFoundation
- * @version v4.0.30319
  */
-class MFVIDEOFORMAT extends Win32Struct
-{
+class MFVIDEOFORMAT extends Win32Struct {
     static sizeof => 168
 
     static packingSize => 8
@@ -42,7 +47,7 @@ class MFVIDEOFORMAT extends Win32Struct
      * <a href="https://docs.microsoft.com/windows/desktop/api/mfobjects/ns-mfobjects-mfvideoinfo">MFVideoInfo</a> structure. This structure contains information that applies to both compressed and uncompressed formats.
      * @type {MFVideoInfo}
      */
-    videoInfo{
+    videoInfo {
         get {
             if(!this.HasProp("__videoInfo"))
                 this.__videoInfo := MFVideoInfo(8, this)
@@ -52,7 +57,7 @@ class MFVIDEOFORMAT extends Win32Struct
 
     /**
      * Video subtype. See <a href="https://docs.microsoft.com/windows/desktop/medfound/video-subtype-guids">Video Subtype GUIDs</a>.
-     * @type {Pointer<Guid>}
+     * @type {Pointer}
      */
     guidFormat {
         get => NumGet(this, 120, "ptr")
@@ -63,7 +68,7 @@ class MFVIDEOFORMAT extends Win32Struct
      * <a href="https://docs.microsoft.com/windows/desktop/api/mfobjects/ns-mfobjects-mfvideocompressedinfo">MFVideoCompressedInfo</a> structure. This structure contains information that applies only to compressed formats.
      * @type {MFVideoCompressedInfo}
      */
-    compressedInfo{
+    compressedInfo {
         get {
             if(!this.HasProp("__compressedInfo"))
                 this.__compressedInfo := MFVideoCompressedInfo(128, this)
@@ -75,7 +80,7 @@ class MFVIDEOFORMAT extends Win32Struct
      * <a href="https://docs.microsoft.com/windows/desktop/api/mfobjects/ns-mfobjects-mfvideosurfaceinfo">MFVideoSurfaceInfo</a> structure. This structure contains information that applies only to uncompressed formats.
      * @type {MFVideoSurfaceInfo}
      */
-    surfaceInfo{
+    surfaceInfo {
         get {
             if(!this.HasProp("__surfaceInfo"))
                 this.__surfaceInfo := MFVideoSurfaceInfo(152, this)

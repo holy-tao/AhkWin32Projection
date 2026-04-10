@@ -4,10 +4,8 @@
 
 /**
  * @namespace Windows.Win32.UI.Input.GameInput
- * @version v4.0.30319
  */
-class GameInputForceFeedbackConditionParams extends Win32Struct
-{
+class GameInputForceFeedbackConditionParams extends Win32Struct {
     static sizeof => 52
 
     static packingSize => 4
@@ -15,7 +13,7 @@ class GameInputForceFeedbackConditionParams extends Win32Struct
     /**
      * @type {GameInputForceFeedbackMagnitude}
      */
-    magnitude{
+    magnitude {
         get {
             if(!this.HasProp("__magnitude"))
                 this.__magnitude := GameInputForceFeedbackMagnitude(0, this)

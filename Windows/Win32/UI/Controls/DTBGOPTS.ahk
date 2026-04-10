@@ -6,10 +6,8 @@
  * Defines the options for the DrawThemeBackgroundEx function.
  * @see https://learn.microsoft.com/windows/win32/api/uxtheme/ns-uxtheme-dtbgopts
  * @namespace Windows.Win32.UI.Controls
- * @version v4.0.30319
  */
-class DTBGOPTS extends Win32Struct
-{
+class DTBGOPTS extends Win32Struct {
     static sizeof => 24
 
     static packingSize => 4
@@ -129,7 +127,7 @@ class DTBGOPTS extends Win32Struct
      * A <a href="https://docs.microsoft.com/windows/desktop/api/windef/ns-windef-rect">RECT</a> that specifies the bounding rectangle of the clip region.
      * @type {RECT}
      */
-    rcClip{
+    rcClip {
         get {
             if(!this.HasProp("__rcClip"))
                 this.__rcClip := RECT(8, this)

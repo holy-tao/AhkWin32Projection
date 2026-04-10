@@ -1,7 +1,9 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\..\Win32Struct.ahk
+#Include .\KERB_PROTOCOL_MESSAGE_TYPE.ahk
 #Include .\LSA_UNICODE_STRING.ahk
 #Include ..\..\..\Foundation\LUID.ahk
+#Include .\KERB_REQUEST_FLAGS.ahk
 
 /**
  * Specifies a message to add, remove, or replace an extra server credential for a logon session.
@@ -9,10 +11,8 @@
  * Calling  the <a href="https://docs.microsoft.com/windows/desktop/api/ntsecapi/nf-ntsecapi-lsacallauthenticationpackage">LsaCallAuthenticationPackage</a> function with this structure affects only the behavior of the <a href="https://docs.microsoft.com/windows/desktop/api/sspi/nf-sspi-acceptsecuritycontext">AcceptSecurityContext (Kerberos)</a> function. Using this structure allows multiple physical and virtual servers to share a single identity.
  * @see https://learn.microsoft.com/windows/win32/api/ntsecapi/ns-ntsecapi-kerb_add_credentials_request
  * @namespace Windows.Win32.Security.Authentication.Identity
- * @version v4.0.30319
  */
-class KERB_ADD_CREDENTIALS_REQUEST extends Win32Struct
-{
+class KERB_ADD_CREDENTIALS_REQUEST extends Win32Struct {
     static sizeof => 72
 
     static packingSize => 8
@@ -21,7 +21,7 @@ class KERB_ADD_CREDENTIALS_REQUEST extends Win32Struct
      * A 
      * 						value of the <a href="https://docs.microsoft.com/windows/desktop/api/ntsecapi/ne-ntsecapi-kerb_protocol_message_type">KERB_PROTOCOL_MESSAGE_TYPE</a> enumeration that lists the types of messages that can be sent to the <a href="https://docs.microsoft.com/windows/desktop/SecGloss/k-gly">Kerberos</a> authentication package by calling 
      * the <a href="https://docs.microsoft.com/windows/desktop/api/ntsecapi/nf-ntsecapi-lsacallauthenticationpackage">LsaCallAuthenticationPackage</a> function. This member must be set to <b>KerbAddExtraCredentialsMessage</b>.
-     * @type {Integer}
+     * @type {KERB_PROTOCOL_MESSAGE_TYPE}
      */
     MessageType {
         get => NumGet(this, 0, "int")
@@ -32,7 +32,7 @@ class KERB_ADD_CREDENTIALS_REQUEST extends Win32Struct
      * The user name for the credential.
      * @type {LSA_UNICODE_STRING}
      */
-    UserName{
+    UserName {
         get {
             if(!this.HasProp("__UserName"))
                 this.__UserName := LSA_UNICODE_STRING(8, this)
@@ -44,7 +44,7 @@ class KERB_ADD_CREDENTIALS_REQUEST extends Win32Struct
      * The domain name for the credential.
      * @type {LSA_UNICODE_STRING}
      */
-    DomainName{
+    DomainName {
         get {
             if(!this.HasProp("__DomainName"))
                 this.__DomainName := LSA_UNICODE_STRING(24, this)
@@ -56,7 +56,7 @@ class KERB_ADD_CREDENTIALS_REQUEST extends Win32Struct
      * The password for the credential.
      * @type {LSA_UNICODE_STRING}
      */
-    Password{
+    Password {
         get {
             if(!this.HasProp("__Password"))
                 this.__Password := LSA_UNICODE_STRING(40, this)
@@ -68,7 +68,7 @@ class KERB_ADD_CREDENTIALS_REQUEST extends Win32Struct
      * The logon ID of the credential. The value of this member can be <b>NULL</b>.
      * @type {LUID}
      */
-    LogonId{
+    LogonId {
         get {
             if(!this.HasProp("__LogonId"))
                 this.__LogonId := LUID(56, this)
@@ -77,8 +77,7 @@ class KERB_ADD_CREDENTIALS_REQUEST extends Win32Struct
     }
 
     /**
-     * 
-     * @type {Integer}
+     * @type {KERB_REQUEST_FLAGS}
      */
     Flags {
         get => NumGet(this, 64, "uint")

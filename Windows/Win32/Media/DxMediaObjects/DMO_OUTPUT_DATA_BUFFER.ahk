@@ -1,14 +1,13 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
+#Include .\IMediaBuffer.ahk
 
 /**
  * The DMO_OUTPUT_DATA_BUFFER structure describes an output buffer used by a Microsoft DirectX Media Object (DMO).
  * @see https://learn.microsoft.com/windows/win32/api/mediaobj/ns-mediaobj-dmo_output_data_buffer
  * @namespace Windows.Win32.Media.DxMediaObjects
- * @version v4.0.30319
  */
-class DMO_OUTPUT_DATA_BUFFER extends Win32Struct
-{
+class DMO_OUTPUT_DATA_BUFFER extends Win32Struct {
     static sizeof => 32
 
     static packingSize => 8

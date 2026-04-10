@@ -1,21 +1,20 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
+#Include ..\Com\IUnknown.ahk
 #Include ..\..\Foundation\BSTR.ahk
 #Include .\ITsSbLoadBalanceResult.ahk
 #Include ..\Variant\VARIANT.ahk
 #Include .\ITsSbEnvironment.ahk
 #Include .\ITsSbClientConnectionPropertySet.ahk
 #Include .\ITsSbSession.ahk
-#Include ..\Com\IUnknown.ahk
 
 /**
  * Exposes methods and properties that store state information about an incoming connection request from a Remote Desktop Connection (RDC) client.
  * @see https://learn.microsoft.com/windows/win32/api/sbtsv/nn-sbtsv-itssbclientconnection
  * @namespace Windows.Win32.System.RemoteDesktop
- * @version v4.0.30319
  */
-class ITsSbClientConnection extends IUnknown{
+class ITsSbClientConnection extends IUnknown {
 
     static sizeof => A_PtrSize
     /**
@@ -100,7 +99,7 @@ class ITsSbClientConnection extends IUnknown{
     }
 
     /**
-     * @type {Integer} 
+     * @type {RD_FARM_TYPE} 
      */
     RdFarmType {
         get => this.get_RdFarmType()
@@ -174,7 +173,7 @@ class ITsSbClientConnection extends IUnknown{
      * @remarks
      * Plug-ins can use the client connection object to store context information that is specific to a connection request. This allows plug-ins to remain stateless and rely exclusively on state information stored by connection requests. Plug-ins that use this method can also register for connection request notifications. Contexts can be deleted upon receipt of CONNECTION_REQUEST_FAILED, CONNECTION_REQUEST_TIMEDOUT, or CONNECTION_REQUEST_SUCCEEDED notifications. These notifications indicate that the connection request is about to be deleted.
      * @param {BSTR} contextId A <b>BSTR</b> variable that contains the context ID. We recommend using unique identifiers as context IDs to avoid collisions between plug-ins. A client connection object can be used by more than one plug-in.
-     * @param {VARIANT} _context 
+     * @param {VARIANT} _context The context information to store.
      * @returns {VARIANT} Existing context information for the supplied context ID, if any, is returned in this parameter. The existing information is overwritten.
      * @see https://learn.microsoft.com/windows/win32/api/sbtsv/nf-sbtsv-itssbclientconnection-putcontext
      */
@@ -189,7 +188,7 @@ class ITsSbClientConnection extends IUnknown{
     /**
      * Retrieves context information that was stored by a plug-in by using the PutContext method.
      * @param {BSTR} contextId A <b>BSTR</b> variable that contains the context ID.
-     * @returns {VARIANT} 
+     * @returns {VARIANT} A pointer to the context information.
      * @see https://learn.microsoft.com/windows/win32/api/sbtsv/nf-sbtsv-itssbclientconnection-getcontext
      */
     GetContext(contextId) {
@@ -260,7 +259,7 @@ class ITsSbClientConnection extends IUnknown{
 
     /**
      * Rd Farm Type.
-     * @returns {Integer} 
+     * @returns {RD_FARM_TYPE} 
      * @see https://learn.microsoft.com/windows/win32/api/sbtsv/nf-sbtsv-itssbclientconnection-get_rdfarmtype
      */
     get_RdFarmType() {

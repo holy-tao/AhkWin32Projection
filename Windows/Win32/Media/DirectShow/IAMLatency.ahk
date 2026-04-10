@@ -7,9 +7,8 @@
  * The IAMLatency interface reports the amount of latency that a filter introduces into the graph.
  * @see https://learn.microsoft.com/windows/win32/api/strmif/nn-strmif-iamlatency
  * @namespace Windows.Win32.Media.DirectShow
- * @version v4.0.30319
  */
-class IAMLatency extends IUnknown{
+class IAMLatency extends IUnknown {
 
     static sizeof => A_PtrSize
     /**

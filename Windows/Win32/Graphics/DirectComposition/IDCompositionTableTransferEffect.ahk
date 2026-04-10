@@ -7,9 +7,8 @@
  * The table transfer effect is used to map the color intensities of an image using a transfer function created from interpolating a list of values you provide.
  * @see https://learn.microsoft.com/windows/win32/api/dcomp/nn-dcomp-idcompositiontabletransfereffect
  * @namespace Windows.Win32.Graphics.DirectComposition
- * @version v4.0.30319
  */
-class IDCompositionTableTransferEffect extends IDCompositionFilterEffect{
+class IDCompositionTableTransferEffect extends IDCompositionFilterEffect {
 
     static sizeof => A_PtrSize
     /**

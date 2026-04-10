@@ -1,5 +1,7 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
+#Include .\PEB_LDR_DATA.ahk
+#Include .\RTL_USER_PROCESS_PARAMETERS.ahk
 
 /**
  * Contains process information.
@@ -22,19 +24,17 @@
  * ```
  * @see https://learn.microsoft.com/windows/win32/api/winternl/ns-winternl-peb
  * @namespace Windows.Win32.System.Threading
- * @version v4.0.30319
  */
-class PEB extends Win32Struct
-{
+class PEB extends Win32Struct {
     static sizeof => 712
 
     static packingSize => 8
 
     /**
      * Reserved for internal use by the operating system.
-     * @type {Array<Byte>}
+     * @type {Array<Integer>}
      */
-    Reserved1{
+    Reserved1 {
         get {
             if(!this.HasProp("__Reserved1ProxyArray"))
                 this.__Reserved1ProxyArray := Win32FixedArray(this.ptr + 0, 2, Primitive, "char")
@@ -53,9 +53,9 @@ class PEB extends Win32Struct
 
     /**
      * Reserved for internal use by the operating system.
-     * @type {Array<Byte>}
+     * @type {Array<Integer>}
      */
-    Reserved2{
+    Reserved2 {
         get {
             if(!this.HasProp("__Reserved2ProxyArray"))
                 this.__Reserved2ProxyArray := Win32FixedArray(this.ptr + 3, 1, Primitive, "char")
@@ -65,9 +65,9 @@ class PEB extends Win32Struct
 
     /**
      * Reserved for internal use by the operating system.
-     * @type {Array<Void>}
+     * @type {Array<Pointer<Void>>}
      */
-    Reserved3{
+    Reserved3 {
         get {
             if(!this.HasProp("__Reserved3ProxyArray"))
                 this.__Reserved3ProxyArray := Win32FixedArray(this.ptr + 8, 2, Primitive, "ptr")
@@ -95,9 +95,9 @@ class PEB extends Win32Struct
 
     /**
      * Reserved for internal use by the operating system.
-     * @type {Array<Void>}
+     * @type {Array<Pointer<Void>>}
      */
-    Reserved4{
+    Reserved4 {
         get {
             if(!this.HasProp("__Reserved4ProxyArray"))
                 this.__Reserved4ProxyArray := Win32FixedArray(this.ptr + 40, 3, Primitive, "ptr")
@@ -106,7 +106,6 @@ class PEB extends Win32Struct
     }
 
     /**
-     * 
      * @type {Pointer<Void>}
      */
     AtlThunkSListPtr {
@@ -142,7 +141,6 @@ class PEB extends Win32Struct
     }
 
     /**
-     * 
      * @type {Integer}
      */
     Reserved8 {
@@ -151,7 +149,6 @@ class PEB extends Win32Struct
     }
 
     /**
-     * 
      * @type {Integer}
      */
     AtlThunkSListPtr32 {
@@ -160,10 +157,9 @@ class PEB extends Win32Struct
     }
 
     /**
-     * 
-     * @type {Array<Void>}
+     * @type {Array<Pointer<Void>>}
      */
-    Reserved9{
+    Reserved9 {
         get {
             if(!this.HasProp("__Reserved9ProxyArray"))
                 this.__Reserved9ProxyArray := Win32FixedArray(this.ptr + 104, 45, Primitive, "ptr")
@@ -172,10 +168,9 @@ class PEB extends Win32Struct
     }
 
     /**
-     * 
-     * @type {Array<Byte>}
+     * @type {Array<Integer>}
      */
-    Reserved10{
+    Reserved10 {
         get {
             if(!this.HasProp("__Reserved10ProxyArray"))
                 this.__Reserved10ProxyArray := Win32FixedArray(this.ptr + 464, 96, Primitive, "char")
@@ -193,10 +188,9 @@ class PEB extends Win32Struct
     }
 
     /**
-     * 
-     * @type {Array<Byte>}
+     * @type {Array<Integer>}
      */
-    Reserved11{
+    Reserved11 {
         get {
             if(!this.HasProp("__Reserved11ProxyArray"))
                 this.__Reserved11ProxyArray := Win32FixedArray(this.ptr + 568, 128, Primitive, "char")
@@ -205,10 +199,9 @@ class PEB extends Win32Struct
     }
 
     /**
-     * 
-     * @type {Array<Void>}
+     * @type {Array<Pointer<Void>>}
      */
-    Reserved12{
+    Reserved12 {
         get {
             if(!this.HasProp("__Reserved12ProxyArray"))
                 this.__Reserved12ProxyArray := Win32FixedArray(this.ptr + 696, 1, Primitive, "ptr")

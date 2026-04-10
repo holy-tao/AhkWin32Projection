@@ -1,8 +1,8 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\..\Guid.ahk
-#Include ..\..\..\Foundation\BSTR.ahk
 #Include .\IDVBTuningSpace2.ahk
+#Include ..\..\..\Foundation\BSTR.ahk
 
 /**
  * The IDVBSTuningSpace interface is implemented on the DVBTuningSpace object and provides methods for working with tuning spaces with a DVBS network type.
@@ -10,9 +10,8 @@
  * To declare the interface identifier (IID) for this interface, use the <b>__uuidof</b> operator: <c>__uuidof(IDVBSTuningSpace)</c>.
  * @see https://learn.microsoft.com/windows/win32/api/tuner/nn-tuner-idvbstuningspace
  * @namespace Windows.Win32.Media.DirectShow.Tv
- * @version v4.0.30319
  */
-class IDVBSTuningSpace extends IDVBTuningSpace2{
+class IDVBSTuningSpace extends IDVBTuningSpace2 {
 
     static sizeof => A_PtrSize
     /**
@@ -72,7 +71,7 @@ class IDVBSTuningSpace extends IDVBTuningSpace2{
     }
 
     /**
-     * @type {Integer} 
+     * @type {SpectralInversion} 
      */
     SpectralInversion {
         get => this.get_SpectralInversion()
@@ -168,7 +167,7 @@ class IDVBSTuningSpace extends IDVBTuningSpace2{
 
     /**
      * The get_SpectralInversion method retrieves an integer indicating the spectral inversion.
-     * @returns {Integer} Receives the spectral inversion.
+     * @returns {SpectralInversion} Receives the spectral inversion.
      * @see https://learn.microsoft.com/windows/win32/api/tuner/nf-tuner-idvbstuningspace-get_spectralinversion
      */
     get_SpectralInversion() {
@@ -178,7 +177,7 @@ class IDVBSTuningSpace extends IDVBTuningSpace2{
 
     /**
      * The put_SpectralInversion method sets a value indicating the spectral inversion.
-     * @param {Integer} SpectralInversionVal The spectral inversion.
+     * @param {SpectralInversion} SpectralInversionVal The spectral inversion.
      * @returns {HRESULT} Returns S_OK if successful. If the method fails, error information can be retrieved using the standard COM <b>IErrorInfo</b> interface.
      * @see https://learn.microsoft.com/windows/win32/api/tuner/nf-tuner-idvbstuningspace-put_spectralinversion
      */

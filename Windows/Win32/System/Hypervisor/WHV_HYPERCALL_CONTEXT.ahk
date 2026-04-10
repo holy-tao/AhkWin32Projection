@@ -4,11 +4,9 @@
 
 /**
  * @namespace Windows.Win32.System.Hypervisor
- * @version v4.0.30319
  */
-class WHV_HYPERCALL_CONTEXT extends Win32Struct
-{
-    static sizeof => 128
+class WHV_HYPERCALL_CONTEXT extends Win32Struct {
+    static sizeof => 272
 
     static packingSize => 8
 
@@ -77,9 +75,9 @@ class WHV_HYPERCALL_CONTEXT extends Win32Struct
     }
 
     /**
-     * @type {Array<WHV_UINT128>}
+     * @type {WHV_UINT128}
      */
-    XmmRegisters{
+    XmmRegisters {
         get {
             if(!this.HasProp("__XmmRegistersProxyArray"))
                 this.__XmmRegistersProxyArray := Win32FixedArray(this.ptr + 64, 6, WHV_UINT128, "")
@@ -88,12 +86,12 @@ class WHV_HYPERCALL_CONTEXT extends Win32Struct
     }
 
     /**
-     * @type {Array<UInt64>}
+     * @type {Array<Integer>}
      */
-    Reserved1{
+    Reserved1 {
         get {
             if(!this.HasProp("__Reserved1ProxyArray"))
-                this.__Reserved1ProxyArray := Win32FixedArray(this.ptr + 112, 2, Primitive, "uint")
+                this.__Reserved1ProxyArray := Win32FixedArray(this.ptr + 256, 2, Primitive, "uint")
             return this.__Reserved1ProxyArray
         }
     }

@@ -3,10 +3,8 @@
 
 /**
  * @namespace Windows.Wdk.Graphics.Direct3D
- * @version v4.0.30319
  */
-class DXGKMDT_OPM_SET_HDCP_SRM_PARAMETERS extends Win32Struct
-{
+class DXGKMDT_OPM_SET_HDCP_SRM_PARAMETERS extends Win32Struct {
     static sizeof => 4
 
     static packingSize => 4

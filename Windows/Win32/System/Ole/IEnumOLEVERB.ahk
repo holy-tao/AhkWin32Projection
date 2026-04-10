@@ -1,16 +1,14 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
-#Include .\IEnumOLEVERB.ahk
 #Include ..\Com\IUnknown.ahk
 
 /**
  * Enumerates the different verbs available for an object in order of ascending verb number. An enumerator that implements the IEnumOLEVERB interface is returned by IOleObject::EnumVerbs.
  * @see https://learn.microsoft.com/windows/win32/api/oleidl/nn-oleidl-ienumoleverb
  * @namespace Windows.Win32.System.Ole
- * @version v4.0.30319
  */
-class IEnumOLEVERB extends IUnknown{
+class IEnumOLEVERB extends IUnknown {
 
     static sizeof => A_PtrSize
     /**

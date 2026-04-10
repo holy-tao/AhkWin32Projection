@@ -1,24 +1,25 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
 #Include ..\Ndis\NDIS_OBJECT_HEADER.ahk
-#Include .\DOT11_SSID.ahk
-#Include .\DOT11_CHANNEL_HINT.ahk
 #Include .\DOT11_OFFLOAD_NETWORK.ahk
+#Include .\DOT11_SSID.ahk
+#Include .\DOT11_CIPHER_ALGORITHM.ahk
+#Include .\DOT11_AUTH_ALGORITHM.ahk
+#Include .\DOT11_CHANNEL_HINT.ahk
+#Include .\DOT11_PHY_TYPE.ahk
 
 /**
  * @namespace Windows.Win32.NetworkManagement.WiFi
- * @version v4.0.30319
  */
-class DOT11_OFFLOAD_NETWORK_LIST_INFO extends Win32Struct
-{
-    static sizeof => 32
+class DOT11_OFFLOAD_NETWORK_LIST_INFO extends Win32Struct {
+    static sizeof => 100
 
-    static packingSize => 8
+    static packingSize => 4
 
     /**
      * @type {NDIS_OBJECT_HEADER}
      */
-    Header{
+    Header {
         get {
             if(!this.HasProp("__Header"))
                 this.__Header := NDIS_OBJECT_HEADER(0, this)
@@ -67,9 +68,9 @@ class DOT11_OFFLOAD_NETWORK_LIST_INFO extends Win32Struct
     }
 
     /**
-     * @type {Array<DOT11_OFFLOAD_NETWORK>}
+     * @type {DOT11_OFFLOAD_NETWORK}
      */
-    offloadNetworkList{
+    offloadNetworkList {
         get {
             if(!this.HasProp("__offloadNetworkListProxyArray"))
                 this.__offloadNetworkListProxyArray := Win32FixedArray(this.ptr + 24, 1, DOT11_OFFLOAD_NETWORK, "")

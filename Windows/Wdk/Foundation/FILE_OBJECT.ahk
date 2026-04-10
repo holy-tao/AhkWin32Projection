@@ -1,7 +1,10 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\Win32Struct.ahk
-#Include ..\..\Win32\Foundation\UNICODE_STRING.ahk
-#Include ..\..\Win32\System\Kernel\LIST_ENTRY.ahk
+#Include .\DEVICE_OBJECT.ahk
+#Include .\VPB.ahk
+#Include .\SECTION_OBJECT_POINTERS.ahk
+#Include .\FILE_OBJECT.ahk
+#Include .\IO_COMPLETION_CONTEXT.ahk
 
 /**
  * Contains an object identifier and user-defined metadata associated with the object identifier.
@@ -9,11 +12,9 @@
  * Object identifiers are used  to track  files and directories. They are invisible to most applications and should never be modified by applications. Modifying an object identifier can result in the loss of data from portions of a file, up to and including entire volumes of data.
  * @see https://learn.microsoft.com/windows/win32/api/winioctl/ns-winioctl-file_objectid_buffer
  * @namespace Windows.Wdk.Foundation
- * @version v4.0.30319
  */
-class FILE_OBJECT extends Win32Struct
-{
-    static sizeof => 184
+class FILE_OBJECT extends Win32Struct {
+    static sizeof => 168
 
     static packingSize => 8
 
@@ -170,68 +171,73 @@ class FILE_OBJECT extends Win32Struct
     }
 
     /**
-     * @type {UNICODE_STRING}
+     * @type {Pointer}
      */
-    FileName{
-        get {
-            if(!this.HasProp("__FileName"))
-                this.__FileName := UNICODE_STRING(88, this)
-            return this.__FileName
-        }
+    FileName {
+        get => NumGet(this, 88, "ptr")
+        set => NumPut("ptr", value, this, 88)
     }
 
     /**
      * @type {Integer}
      */
     CurrentByteOffset {
-        get => NumGet(this, 104, "int64")
-        set => NumPut("int64", value, this, 104)
+        get => NumGet(this, 96, "int64")
+        set => NumPut("int64", value, this, 96)
     }
 
     /**
      * @type {Integer}
      */
     Waiters {
-        get => NumGet(this, 112, "uint")
-        set => NumPut("uint", value, this, 112)
+        get => NumGet(this, 104, "uint")
+        set => NumPut("uint", value, this, 104)
     }
 
     /**
      * @type {Integer}
      */
     Busy {
-        get => NumGet(this, 116, "uint")
-        set => NumPut("uint", value, this, 116)
+        get => NumGet(this, 108, "uint")
+        set => NumPut("uint", value, this, 108)
     }
 
     /**
      * @type {Pointer<Void>}
      */
     LastLock {
+        get => NumGet(this, 112, "ptr")
+        set => NumPut("ptr", value, this, 112)
+    }
+
+    /**
+     * @type {Pointer}
+     */
+    Lock {
         get => NumGet(this, 120, "ptr")
         set => NumPut("ptr", value, this, 120)
     }
 
     /**
-     * @type {Pointer<KEVENT>}
-     */
-    Lock {
-        get => NumGet(this, 128, "ptr")
-        set => NumPut("ptr", value, this, 128)
-    }
-
-    /**
-     * @type {Pointer<KEVENT>}
+     * @type {Pointer}
      */
     Event {
-        get => NumGet(this, 136, "ptr")
-        set => NumPut("ptr", value, this, 136)
+        get => NumGet(this, 128, "ptr")
+        set => NumPut("ptr", value, this, 128)
     }
 
     /**
      * @type {Pointer<IO_COMPLETION_CONTEXT>}
      */
     CompletionContext {
+        get => NumGet(this, 136, "ptr")
+        set => NumPut("ptr", value, this, 136)
+    }
+
+    /**
+     * @type {Pointer}
+     */
+    IrpListLock {
         get => NumGet(this, 144, "ptr")
         set => NumPut("ptr", value, this, 144)
     }
@@ -239,27 +245,16 @@ class FILE_OBJECT extends Win32Struct
     /**
      * @type {Pointer}
      */
-    IrpListLock {
+    IrpList {
         get => NumGet(this, 152, "ptr")
         set => NumPut("ptr", value, this, 152)
-    }
-
-    /**
-     * @type {LIST_ENTRY}
-     */
-    IrpList{
-        get {
-            if(!this.HasProp("__IrpList"))
-                this.__IrpList := LIST_ENTRY(160, this)
-            return this.__IrpList
-        }
     }
 
     /**
      * @type {Pointer<Void>}
      */
     FileObjectExtension {
-        get => NumGet(this, 176, "ptr")
-        set => NumPut("ptr", value, this, 176)
+        get => NumGet(this, 160, "ptr")
+        set => NumPut("ptr", value, this, 160)
     }
 }

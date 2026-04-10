@@ -5,10 +5,8 @@
  * Defines the wire SoH protocol.
  * @see https://learn.microsoft.com/windows/win32/api/naptypes/ns-naptypes-networksoh
  * @namespace Windows.Win32.Security.NetworkAccessProtection
- * @version v4.0.30319
  */
-class NetworkSoH extends Win32Struct
-{
+class NetworkSoH extends Win32Struct {
     static sizeof => 16
 
     static packingSize => 8

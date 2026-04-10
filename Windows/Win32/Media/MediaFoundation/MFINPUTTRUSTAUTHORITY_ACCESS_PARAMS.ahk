@@ -1,16 +1,15 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
 #Include .\MFINPUTTRUSTAUTHORITY_ACCESS_ACTION.ahk
+#Include .\MFPOLICYMANAGER_ACTION.ahk
 
 /**
  * Contains parameters for the IMFInputTrustAuthority::BindAccess or IMFInputTrustAuthority::UpdateAccess method.
  * @see https://learn.microsoft.com/windows/win32/api/mfidl/ns-mfidl-mfinputtrustauthority_access_params
  * @namespace Windows.Win32.Media.MediaFoundation
- * @version v4.0.30319
  */
-class MFINPUTTRUSTAUTHORITY_ACCESS_PARAMS extends Win32Struct
-{
-    static sizeof => 40
+class MFINPUTTRUSTAUTHORITY_ACCESS_PARAMS extends Win32Struct {
+    static sizeof => 56
 
     static packingSize => 8
 
@@ -79,9 +78,9 @@ class MFINPUTTRUSTAUTHORITY_ACCESS_PARAMS extends Win32Struct
 
     /**
      * Array of <a href="https://docs.microsoft.com/windows/win32/api/mfidl/ns-mfidl-mfinputtrustauthority_access_action">MFINPUTTRUSTAUTHORITY_ACCESS_ACTION</a> structures. The number of elements in the array is specified in the <b>cActions</b> member.
-     * @type {Array<MFINPUTTRUSTAUTHORITY_ACCESS_ACTION>}
+     * @type {MFINPUTTRUSTAUTHORITY_ACCESS_ACTION}
      */
-    rgOutputActions{
+    rgOutputActions {
         get {
             if(!this.HasProp("__rgOutputActionsProxyArray"))
                 this.__rgOutputActionsProxyArray := Win32FixedArray(this.ptr + 32, 1, MFINPUTTRUSTAUTHORITY_ACCESS_ACTION, "")

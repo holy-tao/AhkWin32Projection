@@ -1,17 +1,16 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
+#Include ..\..\System\Com\IUnknown.ahk
 #Include .\SILO_INFO.ahk
 #Include ..\..\Devices\PortableDevices\IPortableDevice.ahk
-#Include ..\..\System\Com\IUnknown.ahk
 
 /**
  * IEnhancedStorageSilo interface is the point of access for an IEEE 1667 silo and is used to obtain information and perform operations at the silo level.
  * @see https://learn.microsoft.com/windows/win32/api/ehstorapi/nn-ehstorapi-ienhancedstoragesilo
  * @namespace Windows.Win32.Storage.EnhancedStorage
- * @version v4.0.30319
  */
-class IEnhancedStorageSilo extends IUnknown{
+class IEnhancedStorageSilo extends IUnknown {
 
     static sizeof => A_PtrSize
     /**

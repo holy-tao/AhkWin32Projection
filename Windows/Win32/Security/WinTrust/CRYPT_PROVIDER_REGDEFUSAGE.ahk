@@ -5,10 +5,8 @@
  * Used by the WintrustAddDefaultForUsage function to register callback information about a provider's default usage.
  * @see https://learn.microsoft.com/windows/win32/api/wintrust/ns-wintrust-crypt_provider_regdefusage
  * @namespace Windows.Win32.Security.WinTrust
- * @version v4.0.30319
  */
-class CRYPT_PROVIDER_REGDEFUSAGE extends Win32Struct
-{
+class CRYPT_PROVIDER_REGDEFUSAGE extends Win32Struct {
     static sizeof => 40
 
     static packingSize => 8

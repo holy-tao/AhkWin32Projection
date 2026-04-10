@@ -1,12 +1,11 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
+#Include .\GNSS_NI_USER_RESPONSE.ahk
 
 /**
  * @namespace Windows.Win32.Devices.Geolocation
- * @version v4.0.30319
  */
-class GNSS_NI_RESPONSE extends Win32Struct
-{
+class GNSS_NI_RESPONSE extends Win32Struct {
     static sizeof => 16
 
     static packingSize => 4
@@ -36,7 +35,7 @@ class GNSS_NI_RESPONSE extends Win32Struct
     }
 
     /**
-     * @type {Integer}
+     * @type {GNSS_NI_USER_RESPONSE}
      */
     UserResponse {
         get => NumGet(this, 12, "int")

@@ -1,15 +1,13 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
-#Include ..\TIMECODE.ahk
 #Include .\AVITCDLINDEX_ENTRY.ahk
+#Include ..\TIMECODE.ahk
 
 /**
  * @namespace Windows.Win32.Media.DirectShow
- * @version v4.0.30319
  */
-class AVITCDLINDEX extends Win32Struct
-{
-    static sizeof => 18752
+class AVITCDLINDEX extends Win32Struct {
+    static sizeof => 42112
 
     static packingSize => 8
 
@@ -70,9 +68,9 @@ class AVITCDLINDEX extends Win32Struct
     }
 
     /**
-     * @type {Array<UInt32>}
+     * @type {Array<Integer>}
      */
-    dwReserved{
+    dwReserved {
         get {
             if(!this.HasProp("__dwReservedProxyArray"))
                 this.__dwReservedProxyArray := Win32FixedArray(this.ptr + 20, 3, Primitive, "uint")
@@ -81,9 +79,9 @@ class AVITCDLINDEX extends Win32Struct
     }
 
     /**
-     * @type {Array<AVITCDLINDEX_ENTRY>}
+     * @type {AVITCDLINDEX_ENTRY}
      */
-    aIndex{
+    aIndex {
         get {
             if(!this.HasProp("__aIndexProxyArray"))
                 this.__aIndexProxyArray := Win32FixedArray(this.ptr + 32, 584, AVITCDLINDEX_ENTRY, "")
@@ -92,12 +90,12 @@ class AVITCDLINDEX extends Win32Struct
     }
 
     /**
-     * @type {Array<UInt32>}
+     * @type {Array<Integer>}
      */
-    adwTrailingFill{
+    adwTrailingFill {
         get {
             if(!this.HasProp("__adwTrailingFillProxyArray"))
-                this.__adwTrailingFillProxyArray := Win32FixedArray(this.ptr + 4704, 3512, Primitive, "uint")
+                this.__adwTrailingFillProxyArray := Win32FixedArray(this.ptr + 28064, 3512, Primitive, "uint")
             return this.__adwTrailingFillProxyArray
         }
     }

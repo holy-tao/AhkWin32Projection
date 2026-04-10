@@ -5,9 +5,8 @@
  * The NETSOURCE_URLCREDPOLICY_SETTINGS enumeration type is used for an output parameter of IWMSInternalAdminNetSource2::GetCredentialsEx.
  * @see https://learn.microsoft.com/windows/win32/api/wmsinternaladminnetsource/ne-wmsinternaladminnetsource-netsource_urlcredpolicy_settings
  * @namespace Windows.Win32.Media.WindowsMediaFormat
- * @version v4.0.30319
  */
-class NETSOURCE_URLCREDPOLICY_SETTINGS extends Win32Enum{
+class NETSOURCE_URLCREDPOLICY_SETTINGS extends Win32Enum {
 
     /**
      * Specifies that your application can log on to servers for which passwords are cached without informing the user.

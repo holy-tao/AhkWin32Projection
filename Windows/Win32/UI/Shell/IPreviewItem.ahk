@@ -12,9 +12,8 @@
  * An implementation of this interface for system-provided data objects is provided with Windows. Custom data sources that want to expose this information must implement the interface as part of their data object.
  * @see https://learn.microsoft.com/windows/win32/api/shobjidl_core/nn-shobjidl_core-ipreviewitem
  * @namespace Windows.Win32.UI.Shell
- * @version v4.0.30319
  */
-class IPreviewItem extends IRelatedItem{
+class IPreviewItem extends IRelatedItem {
 
     static sizeof => A_PtrSize
     /**

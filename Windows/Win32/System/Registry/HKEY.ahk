@@ -5,10 +5,8 @@
 
 /**
  * @namespace Windows.Win32.System.Registry
- * @version v4.0.30319
  */
-class HKEY extends Win32Handle
-{
+class HKEY extends Win32Handle {
     static sizeof => 8
 
     static packingSize => 8

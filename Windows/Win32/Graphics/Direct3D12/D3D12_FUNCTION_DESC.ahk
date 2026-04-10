@@ -1,5 +1,6 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
+#Include ..\Direct3D\D3D_FEATURE_LEVEL.ahk
 
 /**
  * Describes a function. (D3D12_FUNCTION_DESC)
@@ -7,10 +8,8 @@
  * This structure is returned by <a href="https://docs.microsoft.com/windows/desktop/api/d3d12shader/nf-d3d12shader-id3d12functionreflection-getdesc">ID3D12FunctionReflection::GetDesc</a>.
  * @see https://learn.microsoft.com/windows/win32/api/d3d12shader/ns-d3d12shader-d3d12_function_desc
  * @namespace Windows.Win32.Graphics.Direct3D12
- * @version v4.0.30319
  */
-class D3D12_FUNCTION_DESC extends Win32Struct
-{
+class D3D12_FUNCTION_DESC extends Win32Struct {
     static sizeof => 152
 
     static packingSize => 8
@@ -252,7 +251,7 @@ class D3D12_FUNCTION_DESC extends Win32Struct
 
     /**
      * A <a href="https://docs.microsoft.com/windows/desktop/api/d3dcommon/ne-d3dcommon-d3d_feature_level">D3D_FEATURE_LEVEL</a>-typed value that specifies the minimum Direct3D feature level target of the function byte code.
-     * @type {Integer}
+     * @type {D3D_FEATURE_LEVEL}
      */
     MinFeatureLevel {
         get => NumGet(this, 112, "int")

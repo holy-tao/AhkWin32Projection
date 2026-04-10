@@ -1,14 +1,13 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
+#Include ..\Dxgi\Common\DXGI_FORMAT.ahk
 
 /**
  * Specifies the DXGI_FORMAT and block information of a DDS format.
  * @see https://learn.microsoft.com/windows/win32/api/wincodec/ns-wincodec-wicddsformatinfo
  * @namespace Windows.Win32.Graphics.Imaging
- * @version v4.0.30319
  */
-class WICDdsFormatInfo extends Win32Struct
-{
+class WICDdsFormatInfo extends Win32Struct {
     static sizeof => 16
 
     static packingSize => 4
@@ -17,7 +16,7 @@ class WICDdsFormatInfo extends Win32Struct
      * Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/dxgiformat/ne-dxgiformat-dxgi_format">DXGI_FORMAT</a></b>
      * 
      * The <a href="https://docs.microsoft.com/windows/desktop/api/dxgiformat/ne-dxgiformat-dxgi_format">DXGI_FORMAT</a>
-     * @type {Integer}
+     * @type {DXGI_FORMAT}
      */
     DxgiFormat {
         get => NumGet(this, 0, "int")

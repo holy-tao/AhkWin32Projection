@@ -5,10 +5,8 @@
  * Used with IDXGIFactoryMedia::CreateDecodeSwapChainForCompositionSurfaceHandle to describe a decode swap chain.
  * @see https://learn.microsoft.com/windows/win32/api/dxgi1_3/ns-dxgi1_3-dxgi_decode_swap_chain_desc
  * @namespace Windows.Win32.Graphics.Dxgi
- * @version v4.0.30319
  */
-class DXGI_DECODE_SWAP_CHAIN_DESC extends Win32Struct
-{
+class DXGI_DECODE_SWAP_CHAIN_DESC extends Win32Struct {
     static sizeof => 4
 
     static packingSize => 4

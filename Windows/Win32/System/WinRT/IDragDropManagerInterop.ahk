@@ -5,13 +5,10 @@
 
 /**
  * Enables interoperability with a WinRT CoreDragDropManager object.
- * @remarks
- * 
  * @see https://learn.microsoft.com/windows/win32/api/dragdropinterop/nn-dragdropinterop-idragdropmanagerinterop
  * @namespace Windows.Win32.System.WinRT
- * @version v4.0.30319
  */
-class IDragDropManagerInterop extends IInspectable{
+class IDragDropManagerInterop extends IInspectable {
 
     static sizeof => A_PtrSize
     /**
@@ -34,7 +31,7 @@ class IDragDropManagerInterop extends IInspectable{
 
     /**
      * Gets a CoreDragDropManager object for the window of the active application.
-     * @param {HWND} _hwnd 
+     * @param {HWND} _hwnd Handle to the window of the active application.
      * @param {Pointer<Guid>} riid The GUID for the resource interface.
      * 
      * The REFIID, or GUID, of the interface to the resource can be obtained by using the __uuidof() macro. For example: 

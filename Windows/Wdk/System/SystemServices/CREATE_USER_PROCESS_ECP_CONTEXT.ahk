@@ -3,10 +3,8 @@
 
 /**
  * @namespace Windows.Wdk.System.SystemServices
- * @version v4.0.30319
  */
-class CREATE_USER_PROCESS_ECP_CONTEXT extends Win32Struct
-{
+class CREATE_USER_PROCESS_ECP_CONTEXT extends Win32Struct {
     static sizeof => 16
 
     static packingSize => 8

@@ -1,5 +1,17 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
+#Include .\DTBLLABEL.ahk
+#Include .\DTBLEDIT.ahk
+#Include .\DTBLLBX.ahk
+#Include .\DTBLCOMBOBOX.ahk
+#Include .\DTBLDDLBX.ahk
+#Include .\DTBLCHECKBOX.ahk
+#Include .\DTBLGROUPBOX.ahk
+#Include .\DTBLBUTTON.ahk
+#Include .\DTBLRADIOBUTTON.ahk
+#Include .\DTBLMVLISTBOX.ahk
+#Include .\DTBLMVDDLBX.ahk
+#Include .\DTBLPAGE.ahk
 
 /**
  * Describes a control that will be used in a dialog box built from a display table.
@@ -17,10 +29,8 @@
  * For an overview of display tables, see [Display Tables](display-tables.md). For information about how to implement a display table, see [Implementing a Display Table](display-table-implementation.md).
  * @see https://learn.microsoft.com/office/client-developer/outlook/mapi/dtctl
  * @namespace Windows.Win32.System.AddressBook
- * @version v4.0.30319
  */
-class DTCTL extends Win32Struct
-{
+class DTCTL extends Win32Struct {
     static sizeof => 48
 
     static packingSize => 8
@@ -36,7 +46,7 @@ class DTCTL extends Win32Struct
             get => NumGet(this, 0, "ptr")
             set => NumPut("ptr", value, this, 0)
         }
-    
+
         /**
          * @type {Pointer<DTBLLABEL>}
          */
@@ -44,7 +54,7 @@ class DTCTL extends Win32Struct
             get => NumGet(this, 0, "ptr")
             set => NumPut("ptr", value, this, 0)
         }
-    
+
         /**
          * @type {Pointer<DTBLEDIT>}
          */
@@ -52,7 +62,7 @@ class DTCTL extends Win32Struct
             get => NumGet(this, 0, "ptr")
             set => NumPut("ptr", value, this, 0)
         }
-    
+
         /**
          * @type {Pointer<DTBLLBX>}
          */
@@ -60,7 +70,7 @@ class DTCTL extends Win32Struct
             get => NumGet(this, 0, "ptr")
             set => NumPut("ptr", value, this, 0)
         }
-    
+
         /**
          * @type {Pointer<DTBLCOMBOBOX>}
          */
@@ -68,7 +78,7 @@ class DTCTL extends Win32Struct
             get => NumGet(this, 0, "ptr")
             set => NumPut("ptr", value, this, 0)
         }
-    
+
         /**
          * @type {Pointer<DTBLDDLBX>}
          */
@@ -76,7 +86,7 @@ class DTCTL extends Win32Struct
             get => NumGet(this, 0, "ptr")
             set => NumPut("ptr", value, this, 0)
         }
-    
+
         /**
          * @type {Pointer<DTBLCHECKBOX>}
          */
@@ -84,7 +94,7 @@ class DTCTL extends Win32Struct
             get => NumGet(this, 0, "ptr")
             set => NumPut("ptr", value, this, 0)
         }
-    
+
         /**
          * @type {Pointer<DTBLGROUPBOX>}
          */
@@ -92,7 +102,7 @@ class DTCTL extends Win32Struct
             get => NumGet(this, 0, "ptr")
             set => NumPut("ptr", value, this, 0)
         }
-    
+
         /**
          * @type {Pointer<DTBLBUTTON>}
          */
@@ -100,7 +110,7 @@ class DTCTL extends Win32Struct
             get => NumGet(this, 0, "ptr")
             set => NumPut("ptr", value, this, 0)
         }
-    
+
         /**
          * @type {Pointer<DTBLRADIOBUTTON>}
          */
@@ -108,7 +118,7 @@ class DTCTL extends Win32Struct
             get => NumGet(this, 0, "ptr")
             set => NumPut("ptr", value, this, 0)
         }
-    
+
         /**
          * @type {Pointer<DTBLMVLISTBOX>}
          */
@@ -116,7 +126,7 @@ class DTCTL extends Win32Struct
             get => NumGet(this, 0, "ptr")
             set => NumPut("ptr", value, this, 0)
         }
-    
+
         /**
          * @type {Pointer<DTBLMVDDLBX>}
          */
@@ -124,7 +134,7 @@ class DTCTL extends Win32Struct
             get => NumGet(this, 0, "ptr")
             set => NumPut("ptr", value, this, 0)
         }
-    
+
         /**
          * @type {Pointer<DTBLPAGE>}
          */
@@ -132,7 +142,6 @@ class DTCTL extends Win32Struct
             get => NumGet(this, 0, "ptr")
             set => NumPut("ptr", value, this, 0)
         }
-    
     }
 
     /**
@@ -273,10 +282,10 @@ class DTCTL extends Win32Struct
      * > A structure that holds the data for the control and corresponds to the control's **PR_CONTROL_STRUCTURE** ([PidTagControlStructure](pidtagcontrolstructure-canonical-property.md)) property. Each type of control has a different structure.
      * @type {_ctl_e__Union}
      */
-    ctl{
+    ctl {
         get {
             if(!this.HasProp("__ctl"))
-                this.__ctl := %this.__Class%._ctl_e__Union(40, this)
+                this.__ctl := DTCTL._ctl_e__Union(40, this)
             return this.__ctl
         }
     }

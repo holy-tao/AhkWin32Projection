@@ -3,10 +3,8 @@
 
 /**
  * @namespace Windows.Win32.Devices.Display
- * @version v4.0.30319
  */
-class LIGATURE extends Win32Struct
-{
+class LIGATURE extends Win32Struct {
     static sizeof => 24
 
     static packingSize => 8
@@ -36,9 +34,9 @@ class LIGATURE extends Win32Struct
     }
 
     /**
-     * @type {Array<UInt32>}
+     * @type {Array<Integer>}
      */
-    ahglyph{
+    ahglyph {
         get {
             if(!this.HasProp("__ahglyphProxyArray"))
                 this.__ahglyphProxyArray := Win32FixedArray(this.ptr + 20, 1, Primitive, "uint")

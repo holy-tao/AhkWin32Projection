@@ -2,6 +2,7 @@
 #Include ..\..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\..\Guid.ahk
 #Include ..\..\..\System\Com\IUnknown.ahk
+#Include ..\..\..\..\..\Guid.ahk
 
 /**
  * This topic applies to Update Rollup 2 for Microsoft Windows XP Media Center Edition 2005 and later. The IAttributeGet interface gets key/value pairs from an object, where the key is a GUID and the value is any binary data.
@@ -9,9 +10,8 @@
  * To declare the interface identifier (IID) for this interface, use the <b>__uuidof</b> operator: <c>__uuidof(IAttributeGet)</c>.
  * @see https://learn.microsoft.com/windows/win32/api/dsattrib/nn-dsattrib-iattributeget
  * @namespace Windows.Win32.Media.DirectShow.Tv
- * @version v4.0.30319
  */
-class IAttributeGet extends IUnknown{
+class IAttributeGet extends IUnknown {
 
     static sizeof => A_PtrSize
     /**
@@ -61,7 +61,7 @@ class IAttributeGet extends IUnknown{
 
     /**
      * This topic applies to Update Rollup 2 for Microsoft Windows XP Media Center Edition 2005 and later.
-     * @param {Guid} _guidAttribute 
+     * @param {Guid} _guidAttribute <b>GUID</b> that specifies the attribute to retrieve.
      * @param {Pointer<Integer>} pbAttribute Pointer to a buffer that receives the attribute value. This parameter can be <b>NULL</b>.
      * @param {Pointer<Integer>} pdwAttributeLength If <i>pbAttribute</i> is <b>NULL</b>, this parameter receives the size of the attribute data, in bytes. If <i>pbAttribute</i> is non-<b>NULL</b>, this parameter specifies the size of the <i>pbAttribute</i> buffer, in bytes.
      * @returns {HRESULT} The method returns an <b>HRESULT</b>. Possible values include, but are not limited to, those in the following table.

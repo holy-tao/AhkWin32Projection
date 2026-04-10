@@ -5,10 +5,8 @@
  * Used in conjunction with the IOCTL_STORAGE_QUERY_PROPERTY request to retrieve the trim descriptor data for a device.
  * @see https://learn.microsoft.com/windows/win32/api/winioctl/ns-winioctl-device_trim_descriptor
  * @namespace Windows.Win32.System.Ioctl
- * @version v4.0.30319
  */
-class DEVICE_TRIM_DESCRIPTOR extends Win32Struct
-{
+class DEVICE_TRIM_DESCRIPTOR extends Win32Struct {
     static sizeof => 12
 
     static packingSize => 4

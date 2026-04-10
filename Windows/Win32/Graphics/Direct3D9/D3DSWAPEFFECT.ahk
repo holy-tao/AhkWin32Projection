@@ -15,9 +15,8 @@
  * An invisible window cannot receive user-mode events; furthermore, an invisible-fullscreen window will interfere with the presentation of another applications' windowed-mode window. Therefore, each application needs to ensure that a device window is visible when a swapchain is presented in fullscreen mode.
  * @see https://learn.microsoft.com/windows/win32/direct3d9/d3dswapeffect
  * @namespace Windows.Win32.Graphics.Direct3D9
- * @version v4.0.30319
  */
-class D3DSWAPEFFECT extends Win32Enum{
+class D3DSWAPEFFECT extends Win32Enum {
 
     /**
      * @type {Integer (Int32)}

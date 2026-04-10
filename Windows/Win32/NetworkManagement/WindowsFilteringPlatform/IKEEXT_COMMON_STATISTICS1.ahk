@@ -6,10 +6,8 @@
  * Various statistics common to IKE, Authip, and IKEv2.
  * @see https://learn.microsoft.com/windows/win32/api/iketypes/ns-iketypes-ikeext_common_statistics1
  * @namespace Windows.Win32.NetworkManagement.WindowsFilteringPlatform
- * @version v4.0.30319
  */
-class IKEEXT_COMMON_STATISTICS1 extends Win32Struct
-{
+class IKEEXT_COMMON_STATISTICS1 extends Win32Struct {
     static sizeof => 28
 
     static packingSize => 4
@@ -20,7 +18,7 @@ class IKEEXT_COMMON_STATISTICS1 extends Win32Struct
      * See <a href="https://docs.microsoft.com/windows/win32/api/iketypes/ns-iketypes-ikeext_ip_version_specific_common_statistics1">IKEEXT_IP_VERSION_SPECIFIC_COMMON_STATISTICS1</a> for more information.
      * @type {IKEEXT_IP_VERSION_SPECIFIC_COMMON_STATISTICS1}
      */
-    v4Statistics{
+    v4Statistics {
         get {
             if(!this.HasProp("__v4Statistics"))
                 this.__v4Statistics := IKEEXT_IP_VERSION_SPECIFIC_COMMON_STATISTICS1(0, this)
@@ -34,7 +32,7 @@ class IKEEXT_COMMON_STATISTICS1 extends Win32Struct
      * See <a href="https://docs.microsoft.com/windows/win32/api/iketypes/ns-iketypes-ikeext_ip_version_specific_common_statistics1">IKEEXT_IP_VERSION_SPECIFIC_COMMON_STATISTICS1</a> for more information.
      * @type {IKEEXT_IP_VERSION_SPECIFIC_COMMON_STATISTICS1}
      */
-    v6Statistics{
+    v6Statistics {
         get {
             if(!this.HasProp("__v6Statistics"))
                 this.__v6Statistics := IKEEXT_IP_VERSION_SPECIFIC_COMMON_STATISTICS1(8, this)

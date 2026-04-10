@@ -1,14 +1,14 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
-#Include ..\..\Security\Cryptography\HCERTSTORE.ahk
 #Include ..\..\Security\Cryptography\CERT_CONTEXT.ahk
+#Include ..\..\Security\Cryptography\CERT_QUERY_ENCODING_TYPE.ahk
+#Include ..\..\Security\Cryptography\CERT_INFO.ahk
+#Include ..\..\Security\Cryptography\HCERTSTORE.ahk
 
 /**
  * @namespace Windows.Win32.System.Iis
- * @version v4.0.30319
  */
-class CERT_CONTEXT_EX extends Win32Struct
-{
+class CERT_CONTEXT_EX extends Win32Struct {
     static sizeof => 48
 
     static packingSize => 8
@@ -16,7 +16,7 @@ class CERT_CONTEXT_EX extends Win32Struct
     /**
      * @type {CERT_CONTEXT}
      */
-    CertContext{
+    CertContext {
         get {
             if(!this.HasProp("__CertContext"))
                 this.__CertContext := CERT_CONTEXT(0, this)

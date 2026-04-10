@@ -12,9 +12,8 @@
  * -
  * @see https://learn.microsoft.com/windows/win32/api/spatialaudioclient/ne-spatialaudioclient-spatial_audio_stream_options
  * @namespace Windows.Win32.Media.Audio
- * @version v4.0.30319
  */
-class SPATIAL_AUDIO_STREAM_OPTIONS extends Win32BitflagEnum{
+class SPATIAL_AUDIO_STREAM_OPTIONS extends Win32BitflagEnum {
 
     /**
      * No stream options.

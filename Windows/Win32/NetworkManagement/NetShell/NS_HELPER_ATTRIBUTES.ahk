@@ -5,10 +5,8 @@
  * Provides attributes of a helper.
  * @see https://learn.microsoft.com/windows/win32/api/netsh/ns-netsh-ns_helper_attributes
  * @namespace Windows.Win32.NetworkManagement.NetShell
- * @version v4.0.30319
  */
-class NS_HELPER_ATTRIBUTES extends Win32Struct
-{
+class NS_HELPER_ATTRIBUTES extends Win32Struct {
     static sizeof => 32
 
     static packingSize => 8
@@ -39,7 +37,7 @@ class NS_HELPER_ATTRIBUTES extends Win32Struct
 
     /**
      * The GUID of the helper.
-     * @type {Pointer<Guid>}
+     * @type {Pointer}
      */
     guidHelper {
         get => NumGet(this, 8, "ptr")

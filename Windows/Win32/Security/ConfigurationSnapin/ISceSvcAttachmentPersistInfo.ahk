@@ -7,9 +7,8 @@
  * The ISceSvcAttachmentPersistInfo interface retrieves any modified configuration or analysis information from an attachment snap-in.
  * @see https://learn.microsoft.com/windows/win32/api/scesvc/nn-scesvc-iscesvcattachmentpersistinfo
  * @namespace Windows.Win32.Security.ConfigurationSnapin
- * @version v4.0.30319
  */
-class ISceSvcAttachmentPersistInfo extends IUnknown{
+class ISceSvcAttachmentPersistInfo extends IUnknown {
 
     static sizeof => A_PtrSize
     /**

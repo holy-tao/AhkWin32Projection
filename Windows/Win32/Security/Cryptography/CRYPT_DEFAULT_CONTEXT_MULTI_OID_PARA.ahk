@@ -5,10 +5,8 @@
  * Used with the CryptInstallDefaultContext function to contain an array of object identifier strings.
  * @see https://learn.microsoft.com/windows/win32/api/wincrypt/ns-wincrypt-crypt_default_context_multi_oid_para
  * @namespace Windows.Win32.Security.Cryptography
- * @version v4.0.30319
  */
-class CRYPT_DEFAULT_CONTEXT_MULTI_OID_PARA extends Win32Struct
-{
+class CRYPT_DEFAULT_CONTEXT_MULTI_OID_PARA extends Win32Struct {
     static sizeof => 16
 
     static packingSize => 8

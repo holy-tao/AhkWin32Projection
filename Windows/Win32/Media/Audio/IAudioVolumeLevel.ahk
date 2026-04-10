@@ -7,9 +7,8 @@
  * The IAudioVolumeLevel interface provides access to a hardware volume control.
  * @see https://learn.microsoft.com/windows/win32/api/devicetopology/nn-devicetopology-iaudiovolumelevel
  * @namespace Windows.Win32.Media.Audio
- * @version v4.0.30319
  */
-class IAudioVolumeLevel extends IPerChannelDbLevel{
+class IAudioVolumeLevel extends IPerChannelDbLevel {
 
     static sizeof => A_PtrSize
     /**

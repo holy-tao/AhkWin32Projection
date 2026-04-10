@@ -3,9 +3,8 @@
 
 /**
  * @namespace Windows.Win32.UI.WindowsAndMessaging
- * @version v4.0.30319
  */
-class WINDOW_ACTION_KINDS extends Win32BitflagEnum{
+class WINDOW_ACTION_KINDS extends Win32BitflagEnum {
 
     /**
      * @type {Integer (Int32)}

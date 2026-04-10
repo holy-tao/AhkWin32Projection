@@ -5,9 +5,8 @@
  * The CALLINFOCHANGE_CAUSE enum is used by the ITCallInfoChangeEvent::get_Cause method to return a description of the type of call information that has changed.
  * @see https://learn.microsoft.com/windows/win32/api/tapi3if/ne-tapi3if-callinfochange_cause
  * @namespace Windows.Win32.Devices.Tapi
- * @version v4.0.30319
  */
-class CALLINFOCHANGE_CAUSE extends Win32Enum{
+class CALLINFOCHANGE_CAUSE extends Win32Enum {
 
     /**
      * Unspecified call information has changed.
@@ -173,7 +172,6 @@ class CALLINFOCHANGE_CAUSE extends Win32Enum{
     static CIC_MEDIATYPE => 26
 
     /**
-     * 
      * @type {Integer (Int32)}
      */
     static CIC_LASTITEM => 26

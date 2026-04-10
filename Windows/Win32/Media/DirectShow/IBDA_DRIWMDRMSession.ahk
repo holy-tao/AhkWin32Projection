@@ -5,9 +5,8 @@
 
 /**
  * @namespace Windows.Win32.Media.DirectShow
- * @version v4.0.30319
  */
-class IBDA_DRIWMDRMSession extends IUnknown{
+class IBDA_DRIWMDRMSession extends IUnknown {
 
     static sizeof => A_PtrSize
     /**

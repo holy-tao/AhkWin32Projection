@@ -1,14 +1,13 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
+#Include .\TXFS_RMF_LAGS.ahk
 
 /**
  * Contains information about the resource manager (RM).
  * @see https://learn.microsoft.com/windows/win32/api/winioctl/ns-winioctl-txfs_query_rm_information
  * @namespace Windows.Win32.System.Ioctl
- * @version v4.0.30319
  */
-class TXFS_QUERY_RM_INFORMATION extends Win32Struct
-{
+class TXFS_QUERY_RM_INFORMATION extends Win32Struct {
     static sizeof => 168
 
     static packingSize => 8
@@ -118,8 +117,7 @@ class TXFS_QUERY_RM_INFORMATION extends Win32Struct
     }
 
     /**
-     * 
-     * @type {Integer}
+     * @type {TXFS_RMF_LAGS}
      */
     Flags {
         get => NumGet(this, 68, "uint")
@@ -316,7 +314,7 @@ class TXFS_QUERY_RM_INFORMATION extends Win32Struct
 
     /**
      * The <b>GUID</b> that indicates the name of this RM.
-     * @type {Pointer<Guid>}
+     * @type {Pointer}
      */
     RMName {
         get => NumGet(this, 152, "ptr")

@@ -9,10 +9,8 @@
  * Extension identifiers are generated using an SDK-provided generation utility.
  * @see https://learn.microsoft.com/windows/win32/api/tapi/ns-tapi-lineextensionid
  * @namespace Windows.Win32.Devices.Tapi
- * @version v4.0.30319
  */
-class LINEEXTENSIONID extends Win32Struct
-{
+class LINEEXTENSIONID extends Win32Struct {
     static sizeof => 16
 
     static packingSize => 4

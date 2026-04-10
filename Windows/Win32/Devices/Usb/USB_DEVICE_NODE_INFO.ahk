@@ -1,29 +1,30 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
+#Include .\USB_WMI_DEVICE_NODE_TYPE.ahk
 #Include .\USB_TOPOLOGY_ADDRESS.ahk
+#Include .\USB_DEVICE_INFO.ahk
 #Include .\USB_DEVICE_STATE.ahk
 #Include .\USB_DEVICE_DESCRIPTOR.ahk
-#Include .\USB_ENDPOINT_DESCRIPTOR.ahk
+#Include .\USB_DEVICE_SPEED.ahk
+#Include .\USB_CONNECTION_STATUS.ahk
 #Include .\USB_PIPE_INFO.ahk
-#Include .\USB_DEVICE_INFO.ahk
+#Include .\USB_ENDPOINT_DESCRIPTOR.ahk
+#Include .\USB_HUB_DEVICE_INFO.ahk
 #Include .\USB_HUB_DESCRIPTOR.ahk
 #Include .\USB_HUB_CAPABILITIES.ahk
 #Include .\USB_HUB_PORT_INFORMATION.ahk
-#Include .\USB_HUB_DEVICE_INFO.ahk
+#Include .\USB_COMPOSITE_DEVICE_INFO.ahk
 #Include .\USB_CONFIGURATION_DESCRIPTOR.ahk
 #Include .\USB_COMPOSITE_FUNCTION_INFO.ahk
-#Include .\USB_COMPOSITE_DEVICE_INFO.ahk
 #Include .\USB_CONTROLLER_DEVICE_INFO.ahk
 
 /**
  * @namespace Windows.Win32.Devices.Usb
- * @version v4.0.30319
  */
-class USB_DEVICE_NODE_INFO extends Win32Struct
-{
+class USB_DEVICE_NODE_INFO extends Win32Struct {
     static sizeof => 1208
 
-    static packingSize => 8
+    static packingSize => 4
 
     /**
      * @type {Integer}
@@ -50,7 +51,7 @@ class USB_DEVICE_NODE_INFO extends Win32Struct
     }
 
     /**
-     * @type {Integer}
+     * @type {USB_WMI_DEVICE_NODE_TYPE}
      */
     NodeType {
         get => NumGet(this, 88, "int")
@@ -60,7 +61,7 @@ class USB_DEVICE_NODE_INFO extends Win32Struct
     /**
      * @type {USB_TOPOLOGY_ADDRESS}
      */
-    BusAddress{
+    BusAddress {
         get {
             if(!this.HasProp("__BusAddress"))
                 this.__BusAddress := USB_TOPOLOGY_ADDRESS(92, this)
@@ -71,10 +72,10 @@ class USB_DEVICE_NODE_INFO extends Win32Struct
     /**
      * @type {USB_DEVICE_INFO}
      */
-    UsbDeviceInfo{
+    UsbDeviceInfo {
         get {
             if(!this.HasProp("__UsbDeviceInfo"))
-                this.__UsbDeviceInfo := USB_DEVICE_INFO(128, this)
+                this.__UsbDeviceInfo := USB_DEVICE_INFO(124, this)
             return this.__UsbDeviceInfo
         }
     }
@@ -82,10 +83,10 @@ class USB_DEVICE_NODE_INFO extends Win32Struct
     /**
      * @type {USB_HUB_DEVICE_INFO}
      */
-    HubDeviceInfo{
+    HubDeviceInfo {
         get {
             if(!this.HasProp("__HubDeviceInfo"))
-                this.__HubDeviceInfo := USB_HUB_DEVICE_INFO(128, this)
+                this.__HubDeviceInfo := USB_HUB_DEVICE_INFO(124, this)
             return this.__HubDeviceInfo
         }
     }
@@ -93,10 +94,10 @@ class USB_DEVICE_NODE_INFO extends Win32Struct
     /**
      * @type {USB_COMPOSITE_DEVICE_INFO}
      */
-    CompositeDeviceInfo{
+    CompositeDeviceInfo {
         get {
             if(!this.HasProp("__CompositeDeviceInfo"))
-                this.__CompositeDeviceInfo := USB_COMPOSITE_DEVICE_INFO(128, this)
+                this.__CompositeDeviceInfo := USB_COMPOSITE_DEVICE_INFO(124, this)
             return this.__CompositeDeviceInfo
         }
     }
@@ -104,21 +105,21 @@ class USB_DEVICE_NODE_INFO extends Win32Struct
     /**
      * @type {USB_CONTROLLER_DEVICE_INFO}
      */
-    ControllerDeviceInfo{
+    ControllerDeviceInfo {
         get {
             if(!this.HasProp("__ControllerDeviceInfo"))
-                this.__ControllerDeviceInfo := USB_CONTROLLER_DEVICE_INFO(128, this)
+                this.__ControllerDeviceInfo := USB_CONTROLLER_DEVICE_INFO(124, this)
             return this.__ControllerDeviceInfo
         }
     }
 
     /**
-     * @type {Array<Byte>}
+     * @type {Array<Integer>}
      */
-    DeviceInformation{
+    DeviceInformation {
         get {
             if(!this.HasProp("__DeviceInformationProxyArray"))
-                this.__DeviceInformationProxyArray := Win32FixedArray(this.ptr + 128, 4, Primitive, "char")
+                this.__DeviceInformationProxyArray := Win32FixedArray(this.ptr + 124, 4, Primitive, "char")
             return this.__DeviceInformationProxyArray
         }
     }

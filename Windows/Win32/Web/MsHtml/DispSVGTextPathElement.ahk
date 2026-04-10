@@ -5,9 +5,8 @@
 
 /**
  * @namespace Windows.Win32.Web.MsHtml
- * @version v4.0.30319
  */
-class DispSVGTextPathElement extends IDispatch{
+class DispSVGTextPathElement extends IDispatch {
 
     static sizeof => A_PtrSize
     /**

@@ -6,13 +6,11 @@
  * This structure is used in conjunction with IOCTL_STORAGE_QUERY_PROPERTY to return temperature data from a storage device or adapter.
  * @see https://learn.microsoft.com/windows/win32/api/winioctl/ns-winioctl-storage_temperature_data_descriptor
  * @namespace Windows.Win32.System.Ioctl
- * @version v4.0.30319
  */
-class STORAGE_TEMPERATURE_DATA_DESCRIPTOR extends Win32Struct
-{
-    static sizeof => 32
+class STORAGE_TEMPERATURE_DATA_DESCRIPTOR extends Win32Struct {
+    static sizeof => 40
 
-    static packingSize => 8
+    static packingSize => 4
 
     /**
      * Contains the size of this structure, in bytes. The value of this member will change as members are added to the structure.
@@ -61,9 +59,9 @@ class STORAGE_TEMPERATURE_DATA_DESCRIPTOR extends Win32Struct
 
     /**
      * Reserved for future use.
-     * @type {Array<Byte>}
+     * @type {Array<Integer>}
      */
-    Reserved0{
+    Reserved0 {
         get {
             if(!this.HasProp("__Reserved0ProxyArray"))
                 this.__Reserved0ProxyArray := Win32FixedArray(this.ptr + 14, 2, Primitive, "char")
@@ -73,9 +71,9 @@ class STORAGE_TEMPERATURE_DATA_DESCRIPTOR extends Win32Struct
 
     /**
      * Reserved for future use.
-     * @type {Array<UInt32>}
+     * @type {Array<Integer>}
      */
-    Reserved1{
+    Reserved1 {
         get {
             if(!this.HasProp("__Reserved1ProxyArray"))
                 this.__Reserved1ProxyArray := Win32FixedArray(this.ptr + 16, 2, Primitive, "uint")
@@ -85,9 +83,9 @@ class STORAGE_TEMPERATURE_DATA_DESCRIPTOR extends Win32Struct
 
     /**
      * Device temperature data, of type <a href="https://docs.microsoft.com/windows/desktop/api/winioctl/ns-winioctl-storage_temperature_info">STORAGE_TEMPERATURE_INFO</a>.
-     * @type {Array<STORAGE_TEMPERATURE_INFO>}
+     * @type {STORAGE_TEMPERATURE_INFO}
      */
-    TemperatureInfo{
+    TemperatureInfo {
         get {
             if(!this.HasProp("__TemperatureInfoProxyArray"))
                 this.__TemperatureInfoProxyArray := Win32FixedArray(this.ptr + 24, 1, STORAGE_TEMPERATURE_INFO, "")

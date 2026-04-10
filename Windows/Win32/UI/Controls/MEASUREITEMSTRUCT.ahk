@@ -1,5 +1,6 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
+#Include .\DRAWITEMSTRUCT_CTL_TYPE.ahk
 
 /**
  * Informs the system of the dimensions of an owner-drawn control or menu item. This allows the system to process user interaction with the control correctly.
@@ -9,10 +10,8 @@
  * If an application does not fill the appropriate members of <b>MEASUREITEMSTRUCT</b>, the control or menu item may not be drawn properly.
  * @see https://learn.microsoft.com/windows/win32/api/winuser/ns-winuser-measureitemstruct
  * @namespace Windows.Win32.UI.Controls
- * @version v4.0.30319
  */
-class MEASUREITEMSTRUCT extends Win32Struct
-{
+class MEASUREITEMSTRUCT extends Win32Struct {
     static sizeof => 32
 
     static packingSize => 8
@@ -68,7 +67,7 @@ class MEASUREITEMSTRUCT extends Win32Struct
      * </td>
      * </tr>
      * </table>
-     * @type {Integer}
+     * @type {DRAWITEMSTRUCT_CTL_TYPE}
      */
     CtlType {
         get => NumGet(this, 0, "uint")

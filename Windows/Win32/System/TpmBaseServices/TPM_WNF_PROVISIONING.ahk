@@ -3,10 +3,8 @@
 
 /**
  * @namespace Windows.Win32.System.TpmBaseServices
- * @version v4.0.30319
  */
-class TPM_WNF_PROVISIONING extends Win32Struct
-{
+class TPM_WNF_PROVISIONING extends Win32Struct {
     static sizeof => 32
 
     static packingSize => 4
@@ -20,9 +18,9 @@ class TPM_WNF_PROVISIONING extends Win32Struct
     }
 
     /**
-     * @type {Array<Byte>}
+     * @type {Array<Integer>}
      */
-    message{
+    message {
         get {
             if(!this.HasProp("__messageProxyArray"))
                 this.__messageProxyArray := Win32FixedArray(this.ptr + 4, 28, Primitive, "char")

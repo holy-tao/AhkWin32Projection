@@ -5,10 +5,8 @@
 
 /**
  * @namespace Windows.Win32.Networking.HttpServer
- * @version v4.0.30319
  */
-class HTTP_REQUEST_QUEUE_HANDLE extends Win32Handle
-{
+class HTTP_REQUEST_QUEUE_HANDLE extends Win32Handle {
     static sizeof => 8
 
     static packingSize => 8

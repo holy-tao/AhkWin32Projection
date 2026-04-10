@@ -5,9 +5,8 @@
  * Defines the set of data chunks used to generate a remote copy.
  * @see https://learn.microsoft.com/windows/win32/api/msrdc/ne-msrdc-rdcneedtype
  * @namespace Windows.Win32.Networking.RemoteDifferentialCompression
- * @version v4.0.30319
  */
-class RdcNeedType extends Win32Enum{
+class RdcNeedType extends Win32Enum {
 
     /**
      * The chunk is a source chunk.

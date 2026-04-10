@@ -14,9 +14,8 @@
   * </dl>
  * @see https://learn.microsoft.com/windows/win32/api/wincrypt/nf-wincrypt-cryptstringtobinarya
  * @namespace Windows.Win32.Security.Cryptography
- * @version v4.0.30319
  */
-class CRYPT_STRING extends Win32Enum{
+class CRYPT_STRING extends Win32Enum {
 
     /**
      * @type {Integer (UInt32)}

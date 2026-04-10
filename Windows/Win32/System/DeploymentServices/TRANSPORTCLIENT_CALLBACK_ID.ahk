@@ -5,9 +5,8 @@
  * This enumeration is received by the WdsTransportClientRegisterCallback function.
  * @see https://learn.microsoft.com/windows/win32/api/wdstci/ne-wdstci-transportclient_callback_id
  * @namespace Windows.Win32.System.DeploymentServices
- * @version v4.0.30319
  */
-class TRANSPORTCLIENT_CALLBACK_ID extends Win32Enum{
+class TRANSPORTCLIENT_CALLBACK_ID extends Win32Enum {
 
     /**
      * Identifies the <a href="https://docs.microsoft.com/windows/desktop/api/wdstci/nc-wdstci-pfn_wdstransportclientsessionstart">PFN_WdsTransportClientSessionStart</a> callback.
@@ -40,7 +39,6 @@ class TRANSPORTCLIENT_CALLBACK_ID extends Win32Enum{
     static WDS_TRANSPORTCLIENT_SESSION_STARTEX => 4
 
     /**
-     * 
      * @type {Integer (Int32)}
      */
     static WDS_TRANSPORTCLIENT_SESSION_NEGOTIATE => 5

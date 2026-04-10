@@ -5,10 +5,8 @@
  * The DX_IRQDATA structure contains the IRQ information supplied by the driver.
  * @see https://learn.microsoft.com/windows/win32/api/dxmini/ns-dxmini-dx_irqdata
  * @namespace Windows.Win32.Graphics.DirectDraw
- * @version v4.0.30319
  */
-class DX_IRQDATA extends Win32Struct
-{
+class DX_IRQDATA extends Win32Struct {
     static sizeof => 4
 
     static packingSize => 4

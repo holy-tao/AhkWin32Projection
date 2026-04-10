@@ -1,22 +1,20 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
-#Include ..\..\Foundation\HANDLE.ahk
 #Include .\CLIENT_ID.ahk
+#Include ..\..\Foundation\HANDLE.ahk
 
 /**
  * @namespace Windows.Win32.System.WindowsProgramming
- * @version v4.0.30319
  */
-class SYSTEM_THREAD_INFORMATION extends Win32Struct
-{
+class SYSTEM_THREAD_INFORMATION extends Win32Struct {
     static sizeof => 80
 
     static packingSize => 8
 
     /**
-     * @type {Array<Int64>}
+     * @type {Array<Integer>}
      */
-    Reserved1{
+    Reserved1 {
         get {
             if(!this.HasProp("__Reserved1ProxyArray"))
                 this.__Reserved1ProxyArray := Win32FixedArray(this.ptr + 0, 3, Primitive, "int64")
@@ -43,7 +41,7 @@ class SYSTEM_THREAD_INFORMATION extends Win32Struct
     /**
      * @type {CLIENT_ID}
      */
-    ClientId{
+    ClientId {
         get {
             if(!this.HasProp("__ClientId"))
                 this.__ClientId := CLIENT_ID(40, this)

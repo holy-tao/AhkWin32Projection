@@ -7,9 +7,8 @@
  * This interface receives notifications that relate to a graphics virtual channel.
  * @see https://learn.microsoft.com/windows/win32/api/wrdsgraphicschannels/nn-wrdsgraphicschannels-iwrdsgraphicschannelevents
  * @namespace Windows.Win32.System.RemoteDesktop
- * @version v4.0.30319
  */
-class IWRdsGraphicsChannelEvents extends IUnknown{
+class IWRdsGraphicsChannelEvents extends IUnknown {
 
     static sizeof => A_PtrSize
     /**

@@ -5,10 +5,8 @@
  * Contains a certificate hash.
  * @see https://learn.microsoft.com/windows/win32/api/winefs/ns-winefs-efs_hash_blob
  * @namespace Windows.Win32.Storage.FileSystem
- * @version v4.0.30319
  */
-class EFS_HASH_BLOB extends Win32Struct
-{
+class EFS_HASH_BLOB extends Win32Struct {
     static sizeof => 16
 
     static packingSize => 8

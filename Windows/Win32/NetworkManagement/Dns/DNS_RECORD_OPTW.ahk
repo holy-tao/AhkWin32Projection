@@ -1,15 +1,14 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
+#Include .\DNS_RECORDW.ahk
 #Include .\DNS_RECORD_FLAGS.ahk
 #Include .\DNS_HEADER_EXT.ahk
 #Include .\DNS_OPT_DATA.ahk
 
 /**
  * @namespace Windows.Win32.NetworkManagement.Dns
- * @version v4.0.30319
  */
-class DNS_RECORD_OPTW extends Win32Struct
-{
+class DNS_RECORD_OPTW extends Win32Struct {
     static sizeof => 40
 
     static packingSize => 8
@@ -25,18 +24,17 @@ class DNS_RECORD_OPTW extends Win32Struct
             get => NumGet(this, 0, "uint")
             set => NumPut("uint", value, this, 0)
         }
-    
+
         /**
          * @type {DNS_RECORD_FLAGS}
          */
-        S{
+        S {
             get {
                 if(!this.HasProp("__S"))
                     this.__S := DNS_RECORD_FLAGS(0, this)
                 return this.__S
             }
         }
-    
     }
 
     class _Data_e__Union extends Win32Struct {
@@ -46,14 +44,13 @@ class DNS_RECORD_OPTW extends Win32Struct
         /**
          * @type {DNS_OPT_DATA}
          */
-        OPT{
+        OPT {
             get {
                 if(!this.HasProp("__OPT"))
                     this.__OPT := DNS_OPT_DATA(0, this)
                 return this.__OPT
             }
         }
-    
     }
 
     /**
@@ -91,10 +88,10 @@ class DNS_RECORD_OPTW extends Win32Struct
     /**
      * @type {_Flags_e__Union}
      */
-    Flags{
+    Flags {
         get {
             if(!this.HasProp("__Flags"))
-                this.__Flags := %this.__Class%._Flags_e__Union(20, this)
+                this.__Flags := DNS_RECORD_OPTW._Flags_e__Union(20, this)
             return this.__Flags
         }
     }
@@ -102,7 +99,7 @@ class DNS_RECORD_OPTW extends Win32Struct
     /**
      * @type {DNS_HEADER_EXT}
      */
-    ExtHeader{
+    ExtHeader {
         get {
             if(!this.HasProp("__ExtHeader"))
                 this.__ExtHeader := DNS_HEADER_EXT(24, this)
@@ -129,10 +126,10 @@ class DNS_RECORD_OPTW extends Win32Struct
     /**
      * @type {_Data_e__Union}
      */
-    Data{
+    Data {
         get {
             if(!this.HasProp("__Data"))
-                this.__Data := %this.__Class%._Data_e__Union(32, this)
+                this.__Data := DNS_RECORD_OPTW._Data_e__Union(32, this)
             return this.__Data
         }
     }

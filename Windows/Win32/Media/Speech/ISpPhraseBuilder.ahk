@@ -1,15 +1,14 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
+#Include .\ISpPhrase.ahk
 #Include .\SPPHRASERULEHANDLE.ahk
 #Include .\SPPHRASEPROPERTYHANDLE.ahk
-#Include .\ISpPhrase.ahk
 
 /**
  * @namespace Windows.Win32.Media.Speech
- * @version v4.0.30319
  */
-class ISpPhraseBuilder extends ISpPhrase{
+class ISpPhraseBuilder extends ISpPhrase {
 
     static sizeof => A_PtrSize
     /**

@@ -7,9 +7,8 @@
  * Use this interface to retrieve information about the size of a writable unit on sequentially recorded media.
  * @see https://learn.microsoft.com/windows/win32/api/imapi2/nn-imapi2-imultisessionsequential2
  * @namespace Windows.Win32.Storage.Imapi
- * @version v4.0.30319
  */
-class IMultisessionSequential2 extends IMultisessionSequential{
+class IMultisessionSequential2 extends IMultisessionSequential {
 
     static sizeof => A_PtrSize
     /**

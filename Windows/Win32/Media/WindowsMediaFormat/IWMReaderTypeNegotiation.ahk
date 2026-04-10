@@ -7,9 +7,8 @@
  * The IWMReaderTypeNegotiation interface provides a single method that can be used to test certain changes to the output properties of a stream.An IWMReaderTypeNegotiation interface exists for every reader object.
  * @see https://learn.microsoft.com/windows/win32/api/wmsdkidl/nn-wmsdkidl-iwmreadertypenegotiation
  * @namespace Windows.Win32.Media.WindowsMediaFormat
- * @version v4.0.30319
  */
-class IWMReaderTypeNegotiation extends IUnknown{
+class IWMReaderTypeNegotiation extends IUnknown {
 
     static sizeof => A_PtrSize
     /**

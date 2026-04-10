@@ -4,11 +4,9 @@
 
 /**
  * @namespace Windows.Win32.System.Ioctl
- * @version v4.0.30319
  */
-class PERF_BIN extends Win32Struct
-{
-    static sizeof => 16
+class PERF_BIN extends Win32Struct {
+    static sizeof => 24
 
     static packingSize => 8
 
@@ -29,9 +27,9 @@ class PERF_BIN extends Win32Struct
     }
 
     /**
-     * @type {Array<BIN_RANGE>}
+     * @type {BIN_RANGE}
      */
-    BinsRanges{
+    BinsRanges {
         get {
             if(!this.HasProp("__BinsRangesProxyArray"))
                 this.__BinsRangesProxyArray := Win32FixedArray(this.ptr + 8, 1, BIN_RANGE, "")

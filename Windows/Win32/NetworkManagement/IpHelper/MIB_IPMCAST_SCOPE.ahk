@@ -7,10 +7,8 @@
  * Note that the <i>Iprtrmib.h</i> header file is automatically included in the <i>Iphlpapi.h</i> header file. The  <i>Iprtrmib.h</i> header files should never be used directly.
  * @see https://learn.microsoft.com/windows/win32/api/iprtrmib/ns-iprtrmib-mib_ipmcast_scope
  * @namespace Windows.Win32.NetworkManagement.IpHelper
- * @version v4.0.30319
  */
-class MIB_IPMCAST_SCOPE extends Win32Struct
-{
+class MIB_IPMCAST_SCOPE extends Win32Struct {
     static sizeof => 524
 
     static packingSize => 4
@@ -46,9 +44,9 @@ class MIB_IPMCAST_SCOPE extends Win32Struct
      * A Unicode character array that contains the text name associated with the multicast scope. The name should be suitable for display to multicast application users.
      * 
      * If no name is specified, the default name is the string representation of the scoped address in <b>dwGroupAddress</b> with the address and mask length appended and separated by a slash "/" character, of the form "239.*.*.*.x/y", where <b>x</b> is the address length and <b>y</b> is the mask length.
-     * @type {Array<UInt16>}
+     * @type {Array<Integer>}
      */
-    snNameBuffer{
+    snNameBuffer {
         get {
             if(!this.HasProp("__snNameBufferProxyArray"))
                 this.__snNameBufferProxyArray := Win32FixedArray(this.ptr + 8, 256, Primitive, "ushort")

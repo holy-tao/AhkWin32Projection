@@ -6,17 +6,15 @@
  * The STATPROPSETSTG structure contains information about a property set. (STATPROPSETSTG structure)
  * @see https://learn.microsoft.com/windows/win32/api/propidlbase/ns-propidlbase-statpropsetstg
  * @namespace Windows.Win32.System.Com.StructuredStorage
- * @version v4.0.30319
  */
-class STATPROPSETSTG extends Win32Struct
-{
+class STATPROPSETSTG extends Win32Struct {
     static sizeof => 48
 
     static packingSize => 8
 
     /**
      * FMTID of the current property set, specified when the property set was initially created.
-     * @type {Pointer<Guid>}
+     * @type {Pointer}
      */
     fmtid {
         get => NumGet(this, 0, "ptr")
@@ -26,7 +24,7 @@ class STATPROPSETSTG extends Win32Struct
     /**
      * <b>CLSID</b> associated with this property set, specified when the property set was initially created and possibly modified thereafter with 
      * <a href="https://docs.microsoft.com/windows/desktop/api/propidl/nf-propidl-ipropertystorage-setclass">IPropertyStorage::SetClass</a>. If not set, the value will be <b>CLSID_NULL</b>.
-     * @type {Pointer<Guid>}
+     * @type {Pointer}
      */
     clsid {
         get => NumGet(this, 8, "ptr")
@@ -47,7 +45,7 @@ class STATPROPSETSTG extends Win32Struct
      * Time in Universal Coordinated Time (UTC) when the property set was last modified.
      * @type {FILETIME}
      */
-    mtime{
+    mtime {
         get {
             if(!this.HasProp("__mtime"))
                 this.__mtime := FILETIME(20, this)
@@ -59,7 +57,7 @@ class STATPROPSETSTG extends Win32Struct
      * Time in UTC when this property set was created.
      * @type {FILETIME}
      */
-    ctime{
+    ctime {
         get {
             if(!this.HasProp("__ctime"))
                 this.__ctime := FILETIME(28, this)
@@ -71,7 +69,7 @@ class STATPROPSETSTG extends Win32Struct
      * Time in UTC when this property set was last accessed.
      * @type {FILETIME}
      */
-    atime{
+    atime {
         get {
             if(!this.HasProp("__atime"))
                 this.__atime := FILETIME(36, this)
@@ -80,7 +78,6 @@ class STATPROPSETSTG extends Win32Struct
     }
 
     /**
-     * 
      * @type {Integer}
      */
     dwOSVersion {

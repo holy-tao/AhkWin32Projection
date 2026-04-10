@@ -5,9 +5,8 @@
 
 /**
  * @namespace Windows.Win32.System.Search
- * @version v4.0.30319
  */
-class IBindResource extends IUnknown{
+class IBindResource extends IUnknown {
 
     static sizeof => A_PtrSize
     /**

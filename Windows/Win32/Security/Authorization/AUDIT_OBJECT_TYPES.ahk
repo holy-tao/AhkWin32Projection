@@ -1,12 +1,11 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
+#Include .\AUDIT_OBJECT_TYPE.ahk
 
 /**
  * @namespace Windows.Win32.Security.Authorization
- * @version v4.0.30319
  */
-class AUDIT_OBJECT_TYPES extends Win32Struct
-{
+class AUDIT_OBJECT_TYPES extends Win32Struct {
     static sizeof => 16
 
     static packingSize => 8

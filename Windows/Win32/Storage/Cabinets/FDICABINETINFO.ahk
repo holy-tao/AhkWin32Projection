@@ -5,10 +5,8 @@
  * The FDICABINETINFO structure contains details about a particular cabinet file.
  * @see https://learn.microsoft.com/windows/win32/api/fdi/ns-fdi-fdicabinetinfo
  * @namespace Windows.Win32.Storage.Cabinets
- * @version v4.0.30319
  */
-class FDICABINETINFO extends Win32Struct
-{
+class FDICABINETINFO extends Win32Struct {
     static sizeof => 24
 
     static packingSize => 4

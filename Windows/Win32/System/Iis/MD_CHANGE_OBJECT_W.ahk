@@ -3,10 +3,8 @@
 
 /**
  * @namespace Windows.Win32.System.Iis
- * @version v4.0.30319
  */
-class MD_CHANGE_OBJECT_W extends Win32Struct
-{
+class MD_CHANGE_OBJECT_W extends Win32Struct {
     static sizeof => 24
 
     static packingSize => 8

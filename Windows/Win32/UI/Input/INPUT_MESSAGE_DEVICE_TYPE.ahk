@@ -5,9 +5,8 @@
  * The type of device that sent the input message.
  * @see https://learn.microsoft.com/windows/win32/api/winuser/ne-winuser-input_message_device_type
  * @namespace Windows.Win32.UI.Input
- * @version v4.0.30319
  */
-class INPUT_MESSAGE_DEVICE_TYPE extends Win32Enum{
+class INPUT_MESSAGE_DEVICE_TYPE extends Win32Enum {
 
     /**
      * The device type isn't identified.

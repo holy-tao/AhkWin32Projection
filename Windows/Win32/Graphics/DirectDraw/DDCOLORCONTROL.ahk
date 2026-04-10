@@ -3,14 +3,10 @@
 
 /**
  * The DDCOLORCONTROL structure defines the color controls associated with a Microsoft DirectDraw [*video port extensions (VPE)*](/windows-hardware/drivers/display/video-port-extensions-to-directx) object.
- * @remarks
- * 
  * @see https://learn.microsoft.com/windows/win32/api/ddraw/ns-ddraw-ddcolorcontrol
  * @namespace Windows.Win32.Graphics.DirectDraw
- * @version v4.0.30319
  */
-class DDCOLORCONTROL extends Win32Struct
-{
+class DDCOLORCONTROL extends Win32Struct {
     static sizeof => 40
 
     static packingSize => 4

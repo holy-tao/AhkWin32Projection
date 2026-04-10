@@ -3,9 +3,8 @@
 
 /**
  * @namespace Windows.Wdk.System.SystemServices
- * @version v4.0.30319
  */
-class WHEA_PSHED_PLUGIN_ENABLE_NOTIFY_ERRORS extends Win32Enum{
+class WHEA_PSHED_PLUGIN_ENABLE_NOTIFY_ERRORS extends Win32Enum {
 
     /**
      * @type {Integer (Int32)}

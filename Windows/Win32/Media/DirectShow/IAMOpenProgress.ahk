@@ -7,9 +7,8 @@
  * The IAMOpenProgress interface reports the progress of a file-open operation and enables the application to cancel the operation.Filters that open files over a network can expose this interface.
  * @see https://learn.microsoft.com/windows/win32/api/strmif/nn-strmif-iamopenprogress
  * @namespace Windows.Win32.Media.DirectShow
- * @version v4.0.30319
  */
-class IAMOpenProgress extends IUnknown{
+class IAMOpenProgress extends IUnknown {
 
     static sizeof => A_PtrSize
     /**

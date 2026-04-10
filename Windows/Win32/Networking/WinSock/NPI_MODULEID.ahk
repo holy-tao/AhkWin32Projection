@@ -1,13 +1,12 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
+#Include .\NPI_MODULEID_TYPE.ahk
 #Include ..\..\Foundation\LUID.ahk
 
 /**
  * @namespace Windows.Win32.Networking.WinSock
- * @version v4.0.30319
  */
-class NPI_MODULEID extends Win32Struct
-{
+class NPI_MODULEID extends Win32Struct {
     static sizeof => 16
 
     static packingSize => 8
@@ -21,7 +20,7 @@ class NPI_MODULEID extends Win32Struct
     }
 
     /**
-     * @type {Integer}
+     * @type {NPI_MODULEID_TYPE}
      */
     Type {
         get => NumGet(this, 4, "int")
@@ -29,7 +28,7 @@ class NPI_MODULEID extends Win32Struct
     }
 
     /**
-     * @type {Pointer<Guid>}
+     * @type {Pointer}
      */
     Guid {
         get => NumGet(this, 8, "ptr")
@@ -39,7 +38,7 @@ class NPI_MODULEID extends Win32Struct
     /**
      * @type {LUID}
      */
-    IfLuid{
+    IfLuid {
         get {
             if(!this.HasProp("__IfLuid"))
                 this.__IfLuid := LUID(8, this)

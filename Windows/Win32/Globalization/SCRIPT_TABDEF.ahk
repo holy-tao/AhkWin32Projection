@@ -7,10 +7,8 @@
  * This structure is ignored unless the <i>dwFlags</i> parameter is set to SSA_TAB in the       <a href="https://docs.microsoft.com/windows/desktop/api/usp10/nf-usp10-scriptstringanalyse">ScriptStringAnalyse</a> function.
  * @see https://learn.microsoft.com/windows/win32/api/usp10/ns-usp10-script_tabdef
  * @namespace Windows.Win32.Globalization
- * @version v4.0.30319
  */
-class SCRIPT_TABDEF extends Win32Struct
-{
+class SCRIPT_TABDEF extends Win32Struct {
     static sizeof => 24
 
     static packingSize => 8

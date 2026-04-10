@@ -7,9 +7,8 @@
  * This interface exposes the multi-carrier functionality of a capable Mobile Broadband device.
  * @see https://learn.microsoft.com/windows/win32/api/mbnapi/nn-mbnapi-imbnmulticarrier
  * @namespace Windows.Win32.NetworkManagement.MobileBroadband
- * @version v4.0.30319
  */
-class IMbnMultiCarrier extends IUnknown{
+class IMbnMultiCarrier extends IUnknown {
 
     static sizeof => A_PtrSize
     /**
@@ -111,7 +110,7 @@ class IMbnMultiCarrier extends IUnknown{
 
     /**
      * Gets the current cellular classes for a multi-carrier device.
-     * @returns {Integer} <a href="https://docs.microsoft.com/windows/desktop/api/mbnapi/ne-mbnapi-mbn_cellular_class">MBN_CELLULAR_CLASS</a>
+     * @returns {MBN_CELLULAR_CLASS} <a href="https://docs.microsoft.com/windows/desktop/api/mbnapi/ne-mbnapi-mbn_cellular_class">MBN_CELLULAR_CLASS</a>
      * 
      * 
      * Pointer to an <a href="https://docs.microsoft.com/windows/desktop/api/mbnapi/ne-mbnapi-mbn_cellular_class">MBN_CELLULAR_CLASS</a> enumeration that specifies the current cellular class. If this method returns any value other than <b>S_OK</b>, <i>currentCellularClass</i> is <b>NULL</b>. When <b>GetCurrentCellularClass</b> returns <b>S_OK</b>, the calling application must free the allocated memory by calling <a href="https://docs.microsoft.com/windows/desktop/api/oleauto/nf-oleauto-safearraydestroy">SafeArrayDestroy</a>.

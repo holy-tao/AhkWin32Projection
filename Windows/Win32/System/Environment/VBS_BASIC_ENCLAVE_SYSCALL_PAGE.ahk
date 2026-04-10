@@ -3,10 +3,8 @@
 
 /**
  * @namespace Windows.Win32.System.Environment
- * @version v4.0.30319
  */
-class VBS_BASIC_ENCLAVE_SYSCALL_PAGE extends Win32Struct
-{
+class VBS_BASIC_ENCLAVE_SYSCALL_PAGE extends Win32Struct {
     static sizeof => 104
 
     static packingSize => 8

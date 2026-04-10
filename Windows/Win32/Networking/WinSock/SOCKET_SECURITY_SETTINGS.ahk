@@ -1,5 +1,6 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
+#Include .\SOCKET_SECURITY_PROTOCOL.ahk
 
 /**
  * Specifies generic security requirements for a socket.
@@ -13,17 +14,15 @@
  * Advanced applications can specify a security protocol and associated settings by casting them to the <b>SOCKET_SECURITY_SETTINGS</b> type.
  * @see https://learn.microsoft.com/windows/win32/api/mstcpip/ns-mstcpip-socket_security_settings
  * @namespace Windows.Win32.Networking.WinSock
- * @version v4.0.30319
  */
-class SOCKET_SECURITY_SETTINGS extends Win32Struct
-{
+class SOCKET_SECURITY_SETTINGS extends Win32Struct {
     static sizeof => 8
 
     static packingSize => 4
 
     /**
      * A <a href="https://docs.microsoft.com/windows/desktop/api/mstcpip/ne-mstcpip-socket_security_protocol">SOCKET_SECURITY_PROTOCOL</a> value that identifies the type of security protocol to be used on the socket.
-     * @type {Integer}
+     * @type {SOCKET_SECURITY_PROTOCOL}
      */
     SecurityProtocol {
         get => NumGet(this, 0, "int")

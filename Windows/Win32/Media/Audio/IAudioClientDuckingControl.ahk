@@ -13,9 +13,8 @@
  * Audio from applications could continue to be ducked if there are other concurrent applications with streams that cause ducking.
  * @see https://learn.microsoft.com/windows/win32/api/audioclient/nn-audioclient-iaudioclientduckingcontrol
  * @namespace Windows.Win32.Media.Audio
- * @version v4.0.30319
  */
-class IAudioClientDuckingControl extends IUnknown{
+class IAudioClientDuckingControl extends IUnknown {
 
     static sizeof => A_PtrSize
     /**
@@ -44,7 +43,7 @@ class IAudioClientDuckingControl extends IUnknown{
      * **IAudioClientDuckingControl** only controls the ducking caused by the audio stream (**IAudioClient**) that the interface is obtained from. 
      * 
      * Audio from applications could continue to be ducked if there are other concurrent applications with streams that cause ducking.
-     * @param {Integer} options A value from the [AUDIO_DUCKING_OPTIONS](ne-audioclient-audio_ducking_options.md) enumeration specifying the requested ducking behavior.
+     * @param {AUDIO_DUCKING_OPTIONS} options A value from the [AUDIO_DUCKING_OPTIONS](ne-audioclient-audio_ducking_options.md) enumeration specifying the requested ducking behavior.
      * @returns {HRESULT} On successful completion, returns S_OK.
      * @see https://learn.microsoft.com/windows/win32/api/audioclient/nf-audioclient-iaudioclientduckingcontrol-setduckingoptionsforcurrentstream
      */

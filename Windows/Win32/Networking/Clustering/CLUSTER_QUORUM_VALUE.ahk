@@ -5,9 +5,8 @@
  * CLUSTER_QUORUM_VALUE (msclus.h) enumerates values returned by the ClusterControl function with two specific control codes.
  * @see https://learn.microsoft.com/windows/win32/api/msclus/ne-msclus-cluster_quorum_value
  * @namespace Windows.Win32.Networking.Clustering
- * @version v4.0.30319
  */
-class CLUSTER_QUORUM_VALUE extends Win32Enum{
+class CLUSTER_QUORUM_VALUE extends Win32Enum {
 
     /**
      * The quorum will be maintained.

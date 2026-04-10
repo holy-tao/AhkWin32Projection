@@ -5,9 +5,8 @@
  * Allows a sync provider to control how placeholder files should be hydrated by the platform. This is the primary policy.
  * @see https://learn.microsoft.com/windows/win32/api/cfapi/ne-cfapi-cf_hydration_policy_primary
  * @namespace Windows.Win32.Storage.CloudFilters
- * @version v4.0.30319
  */
-class CF_HYDRATION_POLICY_PRIMARY extends Win32Enum{
+class CF_HYDRATION_POLICY_PRIMARY extends Win32Enum {
 
     /**
      * The same behavior as **CF_HYDRATION_POLICY_PROGRESSIVE**, except that **CF_HYDRATION_POLICY_PARTIAL** does not have continuous hydration in the background.

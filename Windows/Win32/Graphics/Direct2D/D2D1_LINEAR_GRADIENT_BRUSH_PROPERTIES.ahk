@@ -12,10 +12,8 @@
  * <img alt="Illustration of four gradients with different axes" src="./images/Linear_Gradients.png"/>
  * @see https://learn.microsoft.com/windows/win32/api/d2d1/ns-d2d1-d2d1_linear_gradient_brush_properties
  * @namespace Windows.Win32.Graphics.Direct2D
- * @version v4.0.30319
  */
-class D2D1_LINEAR_GRADIENT_BRUSH_PROPERTIES extends Win32Struct
-{
+class D2D1_LINEAR_GRADIENT_BRUSH_PROPERTIES extends Win32Struct {
     static sizeof => 16
 
     static packingSize => 4
@@ -26,7 +24,7 @@ class D2D1_LINEAR_GRADIENT_BRUSH_PROPERTIES extends Win32Struct
      * In the brush's coordinate space, the starting point  of the gradient axis.
      * @type {D2D_POINT_2F}
      */
-    startPoint{
+    startPoint {
         get {
             if(!this.HasProp("__startPoint"))
                 this.__startPoint := D2D_POINT_2F(0, this)
@@ -40,7 +38,7 @@ class D2D1_LINEAR_GRADIENT_BRUSH_PROPERTIES extends Win32Struct
      * In the brush's coordinate space, the endpoint  of the gradient axis.
      * @type {D2D_POINT_2F}
      */
-    endPoint{
+    endPoint {
         get {
             if(!this.HasProp("__endPoint"))
                 this.__endPoint := D2D_POINT_2F(8, this)

@@ -1,20 +1,18 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
+#Include .\MI_Qualifier.ahk
 
 /**
  * Represents a class property (element) in a class's declaration.
  * @see https://learn.microsoft.com/windows/win32/api/mi/ns-mi-mi_propertydecl
  * @namespace Windows.Win32.System.Wmi
- * @version v4.0.30319
  */
-class MI_PropertyDecl extends Win32Struct
-{
+class MI_PropertyDecl extends Win32Struct {
     static sizeof => 72
 
     static packingSize => 8
 
     /**
-     * 
      * @type {Integer}
      */
     flags {

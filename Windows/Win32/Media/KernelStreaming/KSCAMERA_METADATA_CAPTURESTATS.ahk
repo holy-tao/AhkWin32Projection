@@ -4,10 +4,8 @@
 
 /**
  * @namespace Windows.Win32.Media.KernelStreaming
- * @version v4.0.30319
  */
-class KSCAMERA_METADATA_CAPTURESTATS extends Win32Struct
-{
+class KSCAMERA_METADATA_CAPTURESTATS extends Win32Struct {
     static sizeof => 80
 
     static packingSize => 8
@@ -15,7 +13,7 @@ class KSCAMERA_METADATA_CAPTURESTATS extends Win32Struct
     /**
      * @type {KSCAMERA_METADATA_ITEMHEADER}
      */
-    Header{
+    Header {
         get {
             if(!this.HasProp("__Header"))
                 this.__Header := KSCAMERA_METADATA_ITEMHEADER(0, this)

@@ -18,13 +18,11 @@
  * <div> </div>
  * @see https://learn.microsoft.com/windows/win32/api/wingdi/ns-wingdi-bitmapinfo
  * @namespace Windows.Win32.Graphics.Gdi
- * @version v4.0.30319
  */
-class BITMAPINFO extends Win32Struct
-{
-    static sizeof => 48
+class BITMAPINFO extends Win32Struct {
+    static sizeof => 44
 
-    static packingSize => 8
+    static packingSize => 4
 
     /**
      * A <a href="https://docs.microsoft.com/windows/win32/api/wingdi/ns-wingdi-bitmapinfoheader">BITMAPINFOHEADER</a> structure that contains information about the dimensions of color format.
@@ -32,7 +30,7 @@ class BITMAPINFO extends Win32Struct
      * .
      * @type {BITMAPINFOHEADER}
      */
-    bmiHeader{
+    bmiHeader {
         get {
             if(!this.HasProp("__bmiHeader"))
                 this.__bmiHeader := BITMAPINFOHEADER(0, this)
@@ -64,9 +62,9 @@ class BITMAPINFO extends Win32Struct
      * The number of entries in the array depends on the values of the <b>biBitCount</b> and <b>biClrUsed</b> members of the <a href="https://docs.microsoft.com/windows/win32/api/wingdi/ns-wingdi-bitmapinfoheader">BITMAPINFOHEADER</a> structure.
      * 
      * The colors in the <b>bmiColors</b> table appear in order of importance. For more information, see the Remarks section.
-     * @type {Array<RGBQUAD>}
+     * @type {RGBQUAD}
      */
-    bmiColors{
+    bmiColors {
         get {
             if(!this.HasProp("__bmiColorsProxyArray"))
                 this.__bmiColorsProxyArray := Win32FixedArray(this.ptr + 40, 1, RGBQUAD, "")

@@ -1,16 +1,15 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
-#Include .\IWTSProtocolConnectionCallback.ahk
 #Include ..\Com\IUnknown.ahk
+#Include .\IWTSProtocolConnectionCallback.ahk
 
 /**
  * IWTSProtocolListenerCallback is no longer available. Instead, use IWRdsProtocolListenerCallback.
  * @see https://learn.microsoft.com/windows/win32/api/wtsprotocol/nn-wtsprotocol-iwtsprotocollistenercallback
  * @namespace Windows.Win32.System.RemoteDesktop
- * @version v4.0.30319
  */
-class IWTSProtocolListenerCallback extends IUnknown{
+class IWTSProtocolListenerCallback extends IUnknown {
 
     static sizeof => A_PtrSize
     /**

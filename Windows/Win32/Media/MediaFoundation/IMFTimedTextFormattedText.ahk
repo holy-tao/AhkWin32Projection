@@ -7,9 +7,8 @@
  * Represents a block of formatted timed-text.
  * @see https://learn.microsoft.com/windows/win32/api/mfmediaengine/nn-mfmediaengine-imftimedtextformattedtext
  * @namespace Windows.Win32.Media.MediaFoundation
- * @version v4.0.30319
  */
-class IMFTimedTextFormattedText extends IUnknown{
+class IMFTimedTextFormattedText extends IUnknown {
 
     static sizeof => A_PtrSize
     /**

@@ -7,9 +7,8 @@
  * Exposes a method that enables an item in a scrollable view to be placed in a visible portion of the view.
  * @see https://learn.microsoft.com/windows/win32/api/uiautomationclient/nn-uiautomationclient-iuiautomationscrollitempattern
  * @namespace Windows.Win32.UI.Accessibility
- * @version v4.0.30319
  */
-class IUIAutomationScrollItemPattern extends IUnknown{
+class IUIAutomationScrollItemPattern extends IUnknown {
 
     static sizeof => A_PtrSize
     /**

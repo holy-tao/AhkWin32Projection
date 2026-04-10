@@ -1,16 +1,15 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
-#Include ..\..\System\Com\IStream.ahk
 #Include .\IXpsOMResource.ahk
+#Include ..\..\System\Com\IStream.ahk
 
 /**
  * Provides an IStream interface to a PrintTicket resource.
  * @see https://learn.microsoft.com/windows/win32/api/xpsobjectmodel/nn-xpsobjectmodel-ixpsomprintticketresource
  * @namespace Windows.Win32.Storage.Xps
- * @version v4.0.30319
  */
-class IXpsOMPrintTicketResource extends IXpsOMResource{
+class IXpsOMPrintTicketResource extends IXpsOMResource {
 
     static sizeof => A_PtrSize
     /**

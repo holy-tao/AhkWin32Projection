@@ -5,9 +5,8 @@
 
 /**
  * @namespace Windows.Win32.System.ClrHosting
- * @version v4.0.30319
  */
-class ICLRDomainManager extends IUnknown{
+class ICLRDomainManager extends IUnknown {
 
     static sizeof => A_PtrSize
     /**
@@ -32,7 +31,7 @@ class ICLRDomainManager extends IUnknown{
      * 
      * @param {PWSTR} wszAppDomainManagerAssembly 
      * @param {PWSTR} wszAppDomainManagerType 
-     * @param {Integer} dwInitializeDomainFlags 
+     * @param {EInitializeNewDomainFlags} dwInitializeDomainFlags 
      * @returns {HRESULT} 
      */
     SetAppDomainManagerType(wszAppDomainManagerAssembly, wszAppDomainManagerType, dwInitializeDomainFlags) {

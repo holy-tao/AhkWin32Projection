@@ -1,73 +1,72 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
+#Include .\COLORSPACE_TRANSFORM_TYPE.ahk
 #Include .\GAMMA_RAMP_RGB256x3x16.ahk
-#Include .\GAMMA_RAMP_RGB.ahk
 #Include .\GAMMA_RAMP_DXGI_1.ahk
+#Include .\GAMMA_RAMP_RGB.ahk
 #Include .\COLORSPACE_TRANSFORM_3x4.ahk
 #Include .\COLORSPACE_TRANSFORM_MATRIX_V2.ahk
+#Include .\COLORSPACE_TRANSFORM_STAGE_CONTROL.ahk
 
 /**
  * @namespace Windows.Win32.Devices.Display
- * @version v4.0.30319
  */
-class COLORSPACE_TRANSFORM extends Win32Struct
-{
-    static sizeof => 65600
+class COLORSPACE_TRANSFORM extends Win32Struct {
+    static sizeof => 98356
 
-    static packingSize => 8
+    static packingSize => 4
 
     class _Data_e__Union extends Win32Struct {
-        static sizeof => 65592
-        static packingSize => 8
+        static sizeof => 98352
+        static packingSize => 4
 
         /**
          * @type {GAMMA_RAMP_RGB256x3x16}
          */
-        Rgb256x3x16{
+        Rgb256x3x16 {
             get {
                 if(!this.HasProp("__Rgb256x3x16"))
                     this.__Rgb256x3x16 := GAMMA_RAMP_RGB256x3x16(0, this)
                 return this.__Rgb256x3x16
             }
         }
-    
+
         /**
          * @type {GAMMA_RAMP_DXGI_1}
          */
-        Dxgi1{
+        Dxgi1 {
             get {
                 if(!this.HasProp("__Dxgi1"))
                     this.__Dxgi1 := GAMMA_RAMP_DXGI_1(0, this)
                 return this.__Dxgi1
             }
         }
-    
+
         /**
          * @type {COLORSPACE_TRANSFORM_3x4}
          */
-        T3x4{
+        T3x4 {
             get {
                 if(!this.HasProp("__T3x4"))
                     this.__T3x4 := COLORSPACE_TRANSFORM_3x4(0, this)
                 return this.__T3x4
             }
         }
-    
+
         /**
          * @type {COLORSPACE_TRANSFORM_MATRIX_V2}
          */
-        MatrixV2{
+        MatrixV2 {
             get {
                 if(!this.HasProp("__MatrixV2"))
                     this.__MatrixV2 := COLORSPACE_TRANSFORM_MATRIX_V2(0, this)
                 return this.__MatrixV2
             }
         }
-    
     }
 
     /**
-     * @type {Integer}
+     * @type {COLORSPACE_TRANSFORM_TYPE}
      */
     Type {
         get => NumGet(this, 0, "int")
@@ -77,10 +76,10 @@ class COLORSPACE_TRANSFORM extends Win32Struct
     /**
      * @type {_Data_e__Union}
      */
-    Data{
+    Data {
         get {
             if(!this.HasProp("__Data"))
-                this.__Data := %this.__Class%._Data_e__Union(8, this)
+                this.__Data := COLORSPACE_TRANSFORM._Data_e__Union(4, this)
             return this.__Data
         }
     }

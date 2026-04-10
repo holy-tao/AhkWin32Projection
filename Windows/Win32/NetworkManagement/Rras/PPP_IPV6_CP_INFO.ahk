@@ -5,10 +5,8 @@
  * Contains the result of an IPv6 control protocol negotiation.
  * @see https://learn.microsoft.com/windows/win32/api/mprapi/ns-mprapi-ppp_ipv6_cp_info
  * @namespace Windows.Win32.NetworkManagement.Rras
- * @version v4.0.30319
  */
-class PPP_IPV6_CP_INFO extends Win32Struct
-{
+class PPP_IPV6_CP_INFO extends Win32Struct {
     static sizeof => 48
 
     static packingSize => 4
@@ -42,9 +40,9 @@ class PPP_IPV6_CP_INFO extends Win32Struct
 
     /**
      * Specifies the 64 bit interface identifier of the IPv6 server interface.
-     * @type {Array<Byte>}
+     * @type {Array<Integer>}
      */
-    bInterfaceIdentifier{
+    bInterfaceIdentifier {
         get {
             if(!this.HasProp("__bInterfaceIdentifierProxyArray"))
                 this.__bInterfaceIdentifierProxyArray := Win32FixedArray(this.ptr + 12, 8, Primitive, "char")
@@ -54,9 +52,9 @@ class PPP_IPV6_CP_INFO extends Win32Struct
 
     /**
      * Specifies the 64 bit interface identifier of the IPv6 client interface.
-     * @type {Array<Byte>}
+     * @type {Array<Integer>}
      */
-    bRemoteInterfaceIdentifier{
+    bRemoteInterfaceIdentifier {
         get {
             if(!this.HasProp("__bRemoteInterfaceIdentifierProxyArray"))
                 this.__bRemoteInterfaceIdentifierProxyArray := Win32FixedArray(this.ptr + 20, 8, Primitive, "char")
@@ -84,9 +82,9 @@ class PPP_IPV6_CP_INFO extends Win32Struct
 
     /**
      * Specifies the address prefix of the IPv6 client interface.
-     * @type {Array<Byte>}
+     * @type {Array<Integer>}
      */
-    bPrefix{
+    bPrefix {
         get {
             if(!this.HasProp("__bPrefixProxyArray"))
                 this.__bPrefixProxyArray := Win32FixedArray(this.ptr + 36, 8, Primitive, "char")

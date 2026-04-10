@@ -5,10 +5,8 @@
  * Contains the data, and information about the data, sent as part of a WM_DDE_POKE message.
  * @see https://learn.microsoft.com/windows/win32/api/dde/ns-dde-ddepoke
  * @namespace Windows.Win32.System.DataExchange
- * @version v4.0.30319
  */
-class DDEPOKE extends Win32Struct
-{
+class DDEPOKE extends Win32Struct {
     static sizeof => 6
 
     static packingSize => 2
@@ -26,9 +24,6 @@ class DDEPOKE extends Win32Struct
     }
 
     /**
-     * Type: <b>unsigned short</b>
-     * 
-     * Unused.
      * @type {Integer}
      */
     unused {
@@ -37,9 +32,6 @@ class DDEPOKE extends Win32Struct
     }
 
     /**
-     * Type: <b>unsigned short</b>
-     * 
-     * Indicates whether the application receiving the <a href="https://docs.microsoft.com/windows/desktop/dataxchg/wm-dde-poke">WM_DDE_POKE</a> message should free the data. If this value is nonzero, the application should free the data.
      * @type {Integer}
      */
     fRelease {
@@ -48,9 +40,6 @@ class DDEPOKE extends Win32Struct
     }
 
     /**
-     * Type: <b>unsigned short</b>
-     * 
-     * Reserved.
      * @type {Integer}
      */
     fReserved {
@@ -74,9 +63,9 @@ class DDEPOKE extends Win32Struct
      * 
      * Contains the data. The length and type of data depend on the value of the 
      * 					<b>cfFormat</b> member.
-     * @type {Array<Byte>}
+     * @type {Array<Integer>}
      */
-    Value{
+    Value {
         get {
             if(!this.HasProp("__ValueProxyArray"))
                 this.__ValueProxyArray := Win32FixedArray(this.ptr + 4, 1, Primitive, "char")

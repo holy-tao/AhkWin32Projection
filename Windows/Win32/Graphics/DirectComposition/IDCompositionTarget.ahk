@@ -7,9 +7,8 @@
  * Represents a binding between a Microsoft DirectComposition visual tree and a destination on top of which the visual tree should be composed.
  * @see https://learn.microsoft.com/windows/win32/api/dcomp/nn-dcomp-idcompositiontarget
  * @namespace Windows.Win32.Graphics.DirectComposition
- * @version v4.0.30319
  */
-class IDCompositionTarget extends IUnknown{
+class IDCompositionTarget extends IUnknown {
 
     static sizeof => A_PtrSize
     /**

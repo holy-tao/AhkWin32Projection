@@ -3,18 +3,16 @@
 
 /**
  * @namespace Windows.Win32.Devices.HumanInterfaceDevice
- * @version v4.0.30319
  */
-class DIPOVCALIBRATION extends Win32Struct
-{
+class DIPOVCALIBRATION extends Win32Struct {
     static sizeof => 40
 
     static packingSize => 4
 
     /**
-     * @type {Array<Int32>}
+     * @type {Array<Integer>}
      */
-    lMin{
+    lMin {
         get {
             if(!this.HasProp("__lMinProxyArray"))
                 this.__lMinProxyArray := Win32FixedArray(this.ptr + 0, 5, Primitive, "int")
@@ -23,9 +21,9 @@ class DIPOVCALIBRATION extends Win32Struct
     }
 
     /**
-     * @type {Array<Int32>}
+     * @type {Array<Integer>}
      */
-    lMax{
+    lMax {
         get {
             if(!this.HasProp("__lMaxProxyArray"))
                 this.__lMaxProxyArray := Win32FixedArray(this.ptr + 20, 5, Primitive, "int")

@@ -7,9 +7,8 @@
  * Used to create and destroy stubs for managed objects within the current COM+ context.
  * @see https://learn.microsoft.com/windows/win32/api/comsvcs/nn-comsvcs-imanagedactivationevents
  * @namespace Windows.Win32.System.ComponentServices
- * @version v4.0.30319
  */
-class IManagedActivationEvents extends IUnknown{
+class IManagedActivationEvents extends IUnknown {
 
     static sizeof => A_PtrSize
     /**

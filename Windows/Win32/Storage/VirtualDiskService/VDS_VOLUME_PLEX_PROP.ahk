@@ -1,5 +1,9 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
+#Include .\VDS_VOLUME_PLEX_TYPE.ahk
+#Include .\VDS_VOLUME_PLEX_STATUS.ahk
+#Include .\VDS_HEALTH.ahk
+#Include .\VDS_TRANSITION_STATE.ahk
 
 /**
  * Defines the properties of a volume plex object.
@@ -7,17 +11,15 @@
  * The <a href="https://docs.microsoft.com/windows/desktop/api/vds/nf-vds-ivdsvolumeplex-getproperties">IVdsVolumePlex::GetProperties</a> method returns this structure to report the properties of a <a href="https://docs.microsoft.com/windows/desktop/VDS/volume-plex-object">volume plex object</a>.
  * @see https://learn.microsoft.com/windows/win32/api/vds/ns-vds-vds_volume_plex_prop
  * @namespace Windows.Win32.Storage.VirtualDiskService
- * @version v4.0.30319
  */
-class VDS_VOLUME_PLEX_PROP extends Win32Struct
-{
+class VDS_VOLUME_PLEX_PROP extends Win32Struct {
     static sizeof => 40
 
     static packingSize => 8
 
     /**
      * The GUID of the plex object.
-     * @type {Pointer<Guid>}
+     * @type {Pointer}
      */
     id {
         get => NumGet(this, 0, "ptr")
@@ -26,7 +28,7 @@ class VDS_VOLUME_PLEX_PROP extends Win32Struct
 
     /**
      * The plex type enumerated by <a href="https://docs.microsoft.com/windows/desktop/api/vds/ne-vds-vds_volume_plex_type">VDS_VOLUME_PLEX_TYPE</a>. The type of the plex is not required to match the type of the volume to which the plex belongs.
-     * @type {Integer}
+     * @type {VDS_VOLUME_PLEX_TYPE}
      */
     type {
         get => NumGet(this, 8, "int")
@@ -35,7 +37,7 @@ class VDS_VOLUME_PLEX_PROP extends Win32Struct
 
     /**
      * The status of the plex object enumerated by <a href="https://docs.microsoft.com/windows/desktop/api/vds/ne-vds-vds_volume_plex_status">VDS_VOLUME_PLEX_STATUS</a>. The status of the plex is not required to match the status of the volume to which the plex belongs.
-     * @type {Integer}
+     * @type {VDS_VOLUME_PLEX_STATUS}
      */
     status {
         get => NumGet(this, 12, "int")
@@ -44,7 +46,7 @@ class VDS_VOLUME_PLEX_PROP extends Win32Struct
 
     /**
      * A  <a href="https://docs.microsoft.com/windows/desktop/api/vdshwprv/ne-vdshwprv-vds_health">VDS_HEALTH</a> enumeration value that specifies the health state of the plex.  The health state of the plex is not required to match the health state of the volume to which the plex belongs.
-     * @type {Integer}
+     * @type {VDS_HEALTH}
      */
     health {
         get => NumGet(this, 16, "int")
@@ -53,7 +55,7 @@ class VDS_VOLUME_PLEX_PROP extends Win32Struct
 
     /**
      * A  <a href="https://docs.microsoft.com/windows/desktop/api/vdshwprv/ne-vdshwprv-vds_transition_state">VDS_TRANSITION_STATE</a> enumeration value that specifies the transition state of the plex.
-     * @type {Integer}
+     * @type {VDS_TRANSITION_STATE}
      */
     TransitionState {
         get => NumGet(this, 20, "int")

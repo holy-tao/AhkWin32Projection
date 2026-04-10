@@ -7,9 +7,8 @@
  * Note  This interface is deprecated.
  * @see https://learn.microsoft.com/windows/win32/api/amstream/nn-amstream-iammediastream
  * @namespace Windows.Win32.Media.DirectShow
- * @version v4.0.30319
  */
-class IAMMediaStream extends IMediaStream{
+class IAMMediaStream extends IMediaStream {
 
     static sizeof => A_PtrSize
     /**
@@ -64,7 +63,7 @@ class IAMMediaStream extends IMediaStream{
      * @param {IUnknown} pSourceObject Pointer to an <b>IUnknown</b> source object.
      * @param {Integer} dwFlags 
      * @param {Pointer<Guid>} PurposeId Purpose ID for the new media stream.
-     * @param {Integer} StreamType <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/mmstream/ne-mmstream-stream_type">STREAM_TYPE</a> enumeration value that specifies the new media stream's media type.
+     * @param {STREAM_TYPE} StreamType <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/mmstream/ne-mmstream-stream_type">STREAM_TYPE</a> enumeration value that specifies the new media stream's media type.
      * @returns {HRESULT} Returns S_OK if successful or E_POINTER if one or more of the required parameters are invalid.
      * @see https://learn.microsoft.com/windows/win32/api/amstream/nf-amstream-iammediastream-initialize
      */
@@ -77,7 +76,7 @@ class IAMMediaStream extends IMediaStream{
      * Note  This interface is deprecated. New applications should not use it. The SetState method sets the filter state.
      * @remarks
      * Applications should not call this method.
-     * @param {Integer} State Sets the filter's state, as specified by the <a href="https://docs.microsoft.com/windows/win32/api/strmif/ne-strmif-filter_state">FILTER_STATE</a> enumerated type.
+     * @param {FILTER_STATE} State Sets the filter's state, as specified by the <a href="https://docs.microsoft.com/windows/win32/api/strmif/ne-strmif-filter_state">FILTER_STATE</a> enumerated type.
      * @returns {HRESULT} Returns S_OK if successful or E_INVALIDARG if the <i>State</i> parameter is invalid.
      * @see https://learn.microsoft.com/windows/win32/api/amstream/nf-amstream-iammediastream-setstate
      */

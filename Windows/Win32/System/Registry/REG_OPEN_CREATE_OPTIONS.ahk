@@ -3,9 +3,8 @@
 
 /**
  * @namespace Windows.Win32.System.Registry
- * @version v4.0.30319
  */
-class REG_OPEN_CREATE_OPTIONS extends Win32BitflagEnum{
+class REG_OPEN_CREATE_OPTIONS extends Win32BitflagEnum {
 
     /**
      * @type {Integer (UInt32)}

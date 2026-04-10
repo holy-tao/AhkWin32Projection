@@ -3,9 +3,8 @@
 
 /**
  * @namespace Windows.Wdk.Storage.FileSystem
- * @version v4.0.30319
  */
-class NTCREATEFILE_CREATE_DISPOSITION extends Win32Enum{
+class NTCREATEFILE_CREATE_DISPOSITION extends Win32Enum {
 
     /**
      * @type {Integer (UInt32)}

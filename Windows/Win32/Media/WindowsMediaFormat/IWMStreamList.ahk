@@ -7,9 +7,8 @@
  * The IWMStreamList interface is used by mutual exclusion objects and bandwidth sharing objects to maintain lists of streams.
  * @see https://learn.microsoft.com/windows/win32/api/wmsdkidl/nn-wmsdkidl-iwmstreamlist
  * @namespace Windows.Win32.Media.WindowsMediaFormat
- * @version v4.0.30319
  */
-class IWMStreamList extends IUnknown{
+class IWMStreamList extends IUnknown {
 
     static sizeof => A_PtrSize
     /**

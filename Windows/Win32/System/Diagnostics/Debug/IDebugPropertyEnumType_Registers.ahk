@@ -5,9 +5,8 @@
 
 /**
  * @namespace Windows.Win32.System.Diagnostics.Debug
- * @version v4.0.30319
  */
-class IDebugPropertyEnumType_Registers extends IDebugPropertyEnumType_All{
+class IDebugPropertyEnumType_Registers extends IDebugPropertyEnumType_All {
 
     static sizeof => A_PtrSize
     /**

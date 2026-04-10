@@ -3,9 +3,8 @@
 
 /**
  * @namespace Windows.Win32.NetworkManagement.WindowsFilteringPlatform
- * @version v4.0.30319
  */
-class FWPM_FILTER_FLAGS extends Win32BitflagEnum{
+class FWPM_FILTER_FLAGS extends Win32BitflagEnum {
 
     /**
      * @type {Integer (UInt32)}

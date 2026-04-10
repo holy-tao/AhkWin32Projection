@@ -3,9 +3,8 @@
 
 /**
  * @namespace Windows.Win32.Security.ConfigurationSnapin
- * @version v4.0.30319
  */
-class SCE_LOG_ERR_LEVEL extends Win32Enum{
+class SCE_LOG_ERR_LEVEL extends Win32Enum {
 
     /**
      * @type {Integer (Int32)}

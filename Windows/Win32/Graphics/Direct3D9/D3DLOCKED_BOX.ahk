@@ -7,10 +7,8 @@
  * Volumes can be visualized as being organized into slices of width x height 2D surfaces stacked up to make a width x height x depth volume. For more information, see [Volume Texture Resources (Direct3D 9)](volume-texture-resources.md).
  * @see https://learn.microsoft.com/windows/win32/direct3d9/d3dlocked-box
  * @namespace Windows.Win32.Graphics.Direct3D9
- * @version v4.0.30319
  */
-class D3DLOCKED_BOX extends Win32Struct
-{
+class D3DLOCKED_BOX extends Win32Struct {
     static sizeof => 16
 
     static packingSize => 8

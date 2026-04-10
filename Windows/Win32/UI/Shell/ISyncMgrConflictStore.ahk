@@ -1,8 +1,8 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
-#Include .\IEnumSyncMgrConflict.ahk
 #Include ..\..\System\Com\IUnknown.ahk
+#Include .\IEnumSyncMgrConflict.ahk
 
 /**
  * Exposes methods that allow a handler to provide conflicts that appear in the Conflicts folder.
@@ -16,9 +16,8 @@
  * If conflicts are added to the conflict store, the handler (or a related component) should call <a href="https://docs.microsoft.com/windows/desktop/api/syncmgr/nf-syncmgr-isyncmgrcontrol-updateconflicts">ISyncMgrControl::UpdateConflicts</a> so that both the Conflicts folder and conflict counts can be updated.
  * @see https://learn.microsoft.com/windows/win32/api/syncmgr/nn-syncmgr-isyncmgrconflictstore
  * @namespace Windows.Win32.UI.Shell
- * @version v4.0.30319
  */
-class ISyncMgrConflictStore extends IUnknown{
+class ISyncMgrConflictStore extends IUnknown {
 
     static sizeof => A_PtrSize
     /**

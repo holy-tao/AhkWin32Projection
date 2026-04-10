@@ -1,18 +1,18 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
+#Include .\D3D11_VIDEO_DECODER_BUFFER_TYPE.ahk
+#Include .\D3D11_VIDEO_DECODER_SUB_SAMPLE_MAPPING_BLOCK.ahk
 
 /**
  * @namespace Windows.Win32.Graphics.Direct3D11
- * @version v4.0.30319
  */
-class D3D11_VIDEO_DECODER_BUFFER_DESC2 extends Win32Struct
-{
+class D3D11_VIDEO_DECODER_BUFFER_DESC2 extends Win32Struct {
     static sizeof => 56
 
     static packingSize => 8
 
     /**
-     * @type {Integer}
+     * @type {D3D11_VIDEO_DECODER_BUFFER_TYPE}
      */
     BufferType {
         get => NumGet(this, 0, "int")

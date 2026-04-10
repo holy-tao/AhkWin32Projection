@@ -1,11 +1,11 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
+#Include ..\..\System\Com\IDispatch.ahk
 #Include .\IFaxAccountOutgoingQueue.ahk
 #Include .\IFaxAccountIncomingQueue.ahk
 #Include .\IFaxAccountIncomingArchive.ahk
 #Include .\IFaxAccountOutgoingArchive.ahk
-#Include ..\..\System\Com\IDispatch.ahk
 
 /**
  * Provides access to the incoming and outgoing fax queues and fax archives.
@@ -13,9 +13,8 @@
  * A default implementation is provided by <a href="https://docs.microsoft.com/previous-versions/windows/desktop/fax/-mfax-faxaccountfolders">FaxAccountFolders</a>.
  * @see https://learn.microsoft.com/windows/win32/api/faxcomex/nn-faxcomex-ifaxaccountfolders
  * @namespace Windows.Win32.Devices.Fax
- * @version v4.0.30319
  */
-class IFaxAccountFolders extends IDispatch{
+class IFaxAccountFolders extends IDispatch {
 
     static sizeof => A_PtrSize
     /**

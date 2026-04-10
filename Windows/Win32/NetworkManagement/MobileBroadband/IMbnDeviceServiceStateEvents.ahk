@@ -1,14 +1,12 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
-#Include ..\..\Foundation\BSTR.ahk
 #Include ..\..\System\Com\IUnknown.ahk
 
 /**
  * @namespace Windows.Win32.NetworkManagement.MobileBroadband
- * @version v4.0.30319
  */
-class IMbnDeviceServiceStateEvents extends IUnknown{
+class IMbnDeviceServiceStateEvents extends IUnknown {
 
     static sizeof => A_PtrSize
     /**
@@ -32,7 +30,7 @@ class IMbnDeviceServiceStateEvents extends IUnknown{
     /**
      * 
      * @param {BSTR} interfaceID 
-     * @param {Integer} stateChange 
+     * @param {MBN_DEVICE_SERVICE_SESSIONS_STATE} stateChange 
      * @returns {HRESULT} 
      */
     OnSessionsStateChange(interfaceID, stateChange) {

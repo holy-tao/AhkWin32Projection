@@ -4,11 +4,9 @@
 
 /**
  * @namespace Windows.Win32.Storage.Nvme
- * @version v4.0.30319
  */
-class NVME_OCP_DEVICE_FIRMWARE_ACTIVATION_HISTORY_LOG extends Win32Struct
-{
-    static sizeof => 2968
+class NVME_OCP_DEVICE_FIRMWARE_ACTIVATION_HISTORY_LOG extends Win32Struct {
+    static sizeof => 4248
 
     static packingSize => 8
 
@@ -21,9 +19,9 @@ class NVME_OCP_DEVICE_FIRMWARE_ACTIVATION_HISTORY_LOG extends Win32Struct
     }
 
     /**
-     * @type {Array<Byte>}
+     * @type {Array<Integer>}
      */
-    Reserved0{
+    Reserved0 {
         get {
             if(!this.HasProp("__Reserved0ProxyArray"))
                 this.__Reserved0ProxyArray := Win32FixedArray(this.ptr + 1, 3, Primitive, "char")
@@ -40,9 +38,9 @@ class NVME_OCP_DEVICE_FIRMWARE_ACTIVATION_HISTORY_LOG extends Win32Struct
     }
 
     /**
-     * @type {Array<FIRMWARE_ACTIVATION_HISTORY_ENTRY>}
+     * @type {FIRMWARE_ACTIVATION_HISTORY_ENTRY}
      */
-    Entries{
+    Entries {
         get {
             if(!this.HasProp("__EntriesProxyArray"))
                 this.__EntriesProxyArray := Win32FixedArray(this.ptr + 8, 20, FIRMWARE_ACTIVATION_HISTORY_ENTRY, "")
@@ -51,12 +49,12 @@ class NVME_OCP_DEVICE_FIRMWARE_ACTIVATION_HISTORY_LOG extends Win32Struct
     }
 
     /**
-     * @type {Array<Byte>}
+     * @type {Array<Integer>}
      */
-    Reserved1{
+    Reserved1 {
         get {
             if(!this.HasProp("__Reserved1ProxyArray"))
-                this.__Reserved1ProxyArray := Win32FixedArray(this.ptr + 168, 2790, Primitive, "char")
+                this.__Reserved1ProxyArray := Win32FixedArray(this.ptr + 1448, 2790, Primitive, "char")
             return this.__Reserved1ProxyArray
         }
     }
@@ -65,15 +63,15 @@ class NVME_OCP_DEVICE_FIRMWARE_ACTIVATION_HISTORY_LOG extends Win32Struct
      * @type {Integer}
      */
     LogPageVersionNumber {
-        get => NumGet(this, 2958, "ushort")
-        set => NumPut("ushort", value, this, 2958)
+        get => NumGet(this, 4238, "ushort")
+        set => NumPut("ushort", value, this, 4238)
     }
 
     /**
-     * @type {Pointer<Guid>}
+     * @type {Pointer}
      */
     LogPageGUID {
-        get => NumGet(this, 2960, "ptr")
-        set => NumPut("ptr", value, this, 2960)
+        get => NumGet(this, 4240, "ptr")
+        set => NumPut("ptr", value, this, 4240)
     }
 }

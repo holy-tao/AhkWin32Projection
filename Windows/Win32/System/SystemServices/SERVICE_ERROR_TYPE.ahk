@@ -3,9 +3,8 @@
 
 /**
  * @namespace Windows.Win32.System.SystemServices
- * @version v4.0.30319
  */
-class SERVICE_ERROR_TYPE extends Win32Enum{
+class SERVICE_ERROR_TYPE extends Win32Enum {
 
     /**
      * @type {Integer (Int32)}

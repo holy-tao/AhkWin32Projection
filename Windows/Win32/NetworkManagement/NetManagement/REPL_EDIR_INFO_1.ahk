@@ -3,10 +3,8 @@
 
 /**
  * @namespace Windows.Win32.NetworkManagement.NetManagement
- * @version v4.0.30319
  */
-class REPL_EDIR_INFO_1 extends Win32Struct
-{
+class REPL_EDIR_INFO_1 extends Win32Struct {
     static sizeof => 16
 
     static packingSize => 8

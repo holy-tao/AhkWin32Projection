@@ -3,10 +3,8 @@
 
 /**
  * @namespace Windows.Win32.NetworkManagement.WiFi
- * @version v4.0.30319
  */
-class DOT11_BSS_ENTRY_PHY_SPECIFIC_INFO extends Win32Struct
-{
+class DOT11_BSS_ENTRY_PHY_SPECIFIC_INFO extends Win32Struct {
     static sizeof => 16
 
     static packingSize => 4
@@ -22,7 +20,7 @@ class DOT11_BSS_ENTRY_PHY_SPECIFIC_INFO extends Win32Struct
             get => NumGet(this, 0, "uint")
             set => NumPut("uint", value, this, 0)
         }
-    
+
         /**
          * @type {Integer}
          */
@@ -30,7 +28,7 @@ class DOT11_BSS_ENTRY_PHY_SPECIFIC_INFO extends Win32Struct
             get => NumGet(this, 4, "uint")
             set => NumPut("uint", value, this, 4)
         }
-    
+
         /**
          * @type {Integer}
          */
@@ -38,7 +36,6 @@ class DOT11_BSS_ENTRY_PHY_SPECIFIC_INFO extends Win32Struct
             get => NumGet(this, 8, "uint")
             set => NumPut("uint", value, this, 8)
         }
-    
     }
 
     /**
@@ -52,10 +49,10 @@ class DOT11_BSS_ENTRY_PHY_SPECIFIC_INFO extends Win32Struct
     /**
      * @type {_FHSS}
      */
-    FHSS{
+    FHSS {
         get {
             if(!this.HasProp("__FHSS"))
-                this.__FHSS := %this.__Class%._FHSS(0, this)
+                this.__FHSS := DOT11_BSS_ENTRY_PHY_SPECIFIC_INFO._FHSS(0, this)
             return this.__FHSS
         }
     }

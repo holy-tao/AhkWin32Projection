@@ -5,9 +5,8 @@
  * Used by SHShowManageLibraryUI to define options for handling a name collision when saving a library.
  * @see https://learn.microsoft.com/windows/win32/api/shobjidl_core/ne-shobjidl_core-librarymanagedialogoptions
  * @namespace Windows.Win32.UI.Shell
- * @version v4.0.30319
  */
-class LIBRARYMANAGEDIALOGOPTIONS extends Win32BitflagEnum{
+class LIBRARYMANAGEDIALOGOPTIONS extends Win32BitflagEnum {
 
     /**
      * Show default warning UI to the user.

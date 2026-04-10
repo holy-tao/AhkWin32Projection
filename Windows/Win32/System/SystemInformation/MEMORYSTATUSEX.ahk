@@ -9,10 +9,8 @@
  * The physical memory sizes returned include the memory from all nodes.
  * @see https://learn.microsoft.com/windows/win32/api/sysinfoapi/ns-sysinfoapi-memorystatusex
  * @namespace Windows.Win32.System.SystemInformation
- * @version v4.0.30319
  */
-class MEMORYSTATUSEX extends Win32Struct
-{
+class MEMORYSTATUSEX extends Win32Struct {
     static sizeof => 64
 
     static packingSize => 8

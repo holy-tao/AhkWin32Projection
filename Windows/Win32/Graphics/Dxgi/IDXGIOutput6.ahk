@@ -1,16 +1,15 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
-#Include .\DXGI_OUTPUT_DESC1.ahk
 #Include .\IDXGIOutput5.ahk
+#Include .\DXGI_OUTPUT_DESC1.ahk
 
 /**
  * Represents an adapter output (such as a monitor). The IDXGIOutput6 interface exposes methods to provide specific monitor capabilities.
  * @see https://learn.microsoft.com/windows/win32/api/dxgi1_6/nn-dxgi1_6-idxgioutput6
  * @namespace Windows.Win32.Graphics.Dxgi
- * @version v4.0.30319
  */
-class IDXGIOutput6 extends IDXGIOutput5{
+class IDXGIOutput6 extends IDXGIOutput5 {
 
     static sizeof => A_PtrSize
     /**

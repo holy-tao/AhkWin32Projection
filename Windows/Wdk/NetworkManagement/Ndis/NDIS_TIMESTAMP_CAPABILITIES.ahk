@@ -3,16 +3,14 @@
 
 /**
  * @namespace Windows.Wdk.NetworkManagement.Ndis
- * @version v4.0.30319
  */
-class NDIS_TIMESTAMP_CAPABILITIES extends Win32Struct
-{
+class NDIS_TIMESTAMP_CAPABILITIES extends Win32Struct {
     static sizeof => 48
 
     static packingSize => 8
 
     /**
-     * @type {Pointer<NDIS_OBJECT_HEADER>}
+     * @type {Pointer}
      */
     Header {
         get => NumGet(this, 0, "ptr")
@@ -52,7 +50,7 @@ class NDIS_TIMESTAMP_CAPABILITIES extends Win32Struct
     }
 
     /**
-     * @type {Pointer<NDIS_TIMESTAMP_CAPABILITY_FLAGS>}
+     * @type {Pointer}
      */
     TimestampFlags {
         get => NumGet(this, 40, "ptr")

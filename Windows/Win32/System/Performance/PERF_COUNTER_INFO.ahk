@@ -7,10 +7,8 @@
  * This structure is contained within a <a href="https://docs.microsoft.com/windows/desktop/api/perflib/ns-perflib-perf_counterset_info">PERF_COUNTERSET_INFO</a> or <a href="https://docs.microsoft.com/windows/desktop/api/perflib/ns-perflib-perf_counterset_instance">PERF_COUNTERSET_INSTANCE</a> block.
  * @see https://learn.microsoft.com/windows/win32/api/perflib/ns-perflib-perf_counter_info
  * @namespace Windows.Win32.System.Performance
- * @version v4.0.30319
  */
-class PERF_COUNTER_INFO extends Win32Struct
-{
+class PERF_COUNTER_INFO extends Win32Struct {
     static sizeof => 32
 
     static packingSize => 8

@@ -19,10 +19,8 @@
  * </ul>
  * @see https://learn.microsoft.com/windows/win32/api/winbio_adapter/ns-winbio_adapter-winbio_adapter_interface_version
  * @namespace Windows.Win32.Devices.BiometricFramework
- * @version v4.0.30319
  */
-class WINBIO_ADAPTER_INTERFACE_VERSION extends Win32Struct
-{
+class WINBIO_ADAPTER_INTERFACE_VERSION extends Win32Struct {
     static sizeof => 4
 
     static packingSize => 2

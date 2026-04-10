@@ -20,9 +20,8 @@
  * </ul>
  * @see https://learn.microsoft.com/windows/win32/api/mfobjects/nn-mfobjects-imfasyncresult
  * @namespace Windows.Win32.Media.MediaFoundation
- * @version v4.0.30319
  */
-class IMFAsyncResult extends IUnknown{
+class IMFAsyncResult extends IUnknown {
 
     static sizeof => A_PtrSize
     /**

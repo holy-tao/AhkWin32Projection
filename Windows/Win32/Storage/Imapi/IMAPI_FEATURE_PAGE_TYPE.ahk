@@ -9,9 +9,8 @@
  * Other values not defined here may exist. Consumers of this enumeration should not presume this list to be the only set of valid values.
  * @see https://learn.microsoft.com/windows/win32/api/imapi2/ne-imapi2-imapi_feature_page_type
  * @namespace Windows.Win32.Storage.Imapi
- * @version v4.0.30319
  */
-class IMAPI_FEATURE_PAGE_TYPE extends Win32Enum{
+class IMAPI_FEATURE_PAGE_TYPE extends Win32Enum {
 
     /**
      * Identifies profiles supported by the logical unit.

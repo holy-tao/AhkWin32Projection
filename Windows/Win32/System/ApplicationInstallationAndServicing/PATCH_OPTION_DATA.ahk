@@ -1,12 +1,11 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
+#Include .\PATCH_INTERLEAVE_MAP.ahk
 
 /**
  * @namespace Windows.Win32.System.ApplicationInstallationAndServicing
- * @version v4.0.30319
  */
-class PATCH_OPTION_DATA extends Win32Struct
-{
+class PATCH_OPTION_DATA extends Win32Struct {
     static sizeof => 64
 
     static packingSize => 8

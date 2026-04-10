@@ -1,8 +1,8 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
-#Include .\IDWriteFontFileEnumerator.ahk
 #Include ..\..\System\Com\IUnknown.ahk
+#Include .\IDWriteFontFileEnumerator.ahk
 
 /**
  * Used to construct a collection of fonts given a particular type of key.
@@ -10,9 +10,8 @@
  * The font collection loader interface is recommended to be implemented by a singleton object. Note that font collection loader implementations must not register themselves with DirectWrite factory inside their constructors and must not unregister themselves in their destructors, because registration and unregistration operations increment and decrement the object reference count respectively. Instead, registration and unregistration of font file loaders with DirectWrite factory should be performed outside of the font file loader implementation as a separate step.
  * @see https://learn.microsoft.com/windows/win32/api/dwrite/nn-dwrite-idwritefontcollectionloader
  * @namespace Windows.Win32.Graphics.DirectWrite
- * @version v4.0.30319
  */
-class IDWriteFontCollectionLoader extends IUnknown{
+class IDWriteFontCollectionLoader extends IUnknown {
 
     static sizeof => A_PtrSize
     /**
@@ -38,7 +37,7 @@ class IDWriteFontCollectionLoader extends IUnknown{
      * @param {IDWriteFactory} factory Type: <b><a href="https://docs.microsoft.com/windows/win32/api/dwrite/nn-dwrite-idwritefactory">IDWriteFactory</a>*</b>
      * 
      * Pointer to the <a href="https://docs.microsoft.com/windows/win32/api/dwrite/nn-dwrite-idwritefactory">IDWriteFactory</a> object that was used to create the current font collection.
-     * @param {Pointer} collectionKey Type: <b>const void*</b>
+     * @param {Integer} collectionKey Type: <b>const void*</b>
      * 
      * A font collection key that uniquely identifies the collection of font files within
      *      the scope of the font collection loader being used. The buffer allocated for this key must be at least  the size, in bytes, specified by <i>collectionKeySize</i>.

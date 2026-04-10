@@ -17,10 +17,8 @@
  * The value of the <b>wFlags</b> member for <a href="https://docs.microsoft.com/previous-versions/windows/desktop/legacy/dd392295(v=vs.85)">DNS_DNSKEY_DATA</a> is a set of flags that specify key properties as  described in section 2.1.1 of <a href="https://www.ietf.org/rfc/rfc4034.txt">RFC 4034</a>.
  * @see https://learn.microsoft.com/windows/win32/api/windns/ns-windns-dns_key_data
  * @namespace Windows.Win32.NetworkManagement.Dns
- * @version v4.0.30319
  */
-class DNS_KEY_DATA extends Win32Struct
-{
+class DNS_KEY_DATA extends Win32Struct {
     static sizeof => 10
 
     static packingSize => 2
@@ -146,9 +144,9 @@ class DNS_KEY_DATA extends Win32Struct
 
     /**
      * A <b>BYTE</b> array that contains the public key for the algorithm in <b>chAlgorithm</b>, represented in base 64, as described in Appendix A of <a href="https://www.ietf.org/rfc/rfc2535.txt">RFC 2535</a>.
-     * @type {Array<Byte>}
+     * @type {Array<Integer>}
      */
-    Key{
+    Key {
         get {
             if(!this.HasProp("__KeyProxyArray"))
                 this.__KeyProxyArray := Win32FixedArray(this.ptr + 8, 1, Primitive, "char")

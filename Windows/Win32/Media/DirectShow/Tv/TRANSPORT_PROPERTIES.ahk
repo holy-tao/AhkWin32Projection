@@ -3,10 +3,8 @@
 
 /**
  * @namespace Windows.Win32.Media.DirectShow.Tv
- * @version v4.0.30319
  */
-class TRANSPORT_PROPERTIES extends Win32Struct
-{
+class TRANSPORT_PROPERTIES extends Win32Struct {
     static sizeof => 24
 
     static packingSize => 8
@@ -18,7 +16,7 @@ class TRANSPORT_PROPERTIES extends Win32Struct
         class _Others extends Win32Struct {
             static sizeof => 8
             static packingSize => 8
-    
+
             /**
              * This bitfield backs the following members:
              * - TransportScramblingControl
@@ -29,7 +27,7 @@ class TRANSPORT_PROPERTIES extends Win32Struct
                 get => NumGet(this, 0, "int64")
                 set => NumPut("int64", value, this, 0)
             }
-        
+
             /**
              * @type {Integer}
              */
@@ -37,20 +35,19 @@ class TRANSPORT_PROPERTIES extends Win32Struct
                 get => (this._bitfield >> 0) & 0xFF
                 set => this._bitfield := ((value & 0xFF) << 0) | (this._bitfield & ~(0xFF << 0))
             }
-        
         }
-    
+
         /**
          * @type {_Others}
          */
-        Others{
+        Others {
             get {
                 if(!this.HasProp("__Others"))
-                    this.__Others := %this.__Class%._Others(0, this)
+                    this.__Others := TRANSPORT_PROPERTIES._Fields_e__Union._Others(0, this)
                 return this.__Others
             }
         }
-    
+
         /**
          * @type {Integer}
          */
@@ -58,7 +55,6 @@ class TRANSPORT_PROPERTIES extends Win32Struct
             get => NumGet(this, 0, "int64")
             set => NumPut("int64", value, this, 0)
         }
-    
     }
 
     /**
@@ -80,10 +76,10 @@ class TRANSPORT_PROPERTIES extends Win32Struct
     /**
      * @type {_Fields_e__Union}
      */
-    Fields{
+    Fields {
         get {
             if(!this.HasProp("__Fields"))
-                this.__Fields := %this.__Class%._Fields_e__Union(16, this)
+                this.__Fields := TRANSPORT_PROPERTIES._Fields_e__Union(16, this)
             return this.__Fields
         }
     }

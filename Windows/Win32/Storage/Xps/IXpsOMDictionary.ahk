@@ -3,7 +3,6 @@
 #Include ..\..\..\..\Guid.ahk
 #Include ..\..\System\Com\IUnknown.ahk
 #Include .\IXpsOMShareable.ahk
-#Include .\IXpsOMDictionary.ahk
 
 /**
  * The dictionary is used by an XPS package to share resources.
@@ -13,9 +12,8 @@
  * A dictionary cannot contain duplicate interface pointers.
  * @see https://learn.microsoft.com/windows/win32/api/xpsobjectmodel/nn-xpsobjectmodel-ixpsomdictionary
  * @namespace Windows.Win32.Storage.Xps
- * @version v4.0.30319
  */
-class IXpsOMDictionary extends IUnknown{
+class IXpsOMDictionary extends IUnknown {
 
     static sizeof => A_PtrSize
     /**

@@ -9,9 +9,8 @@
  * For a sample that demonstrates how to define command line options for Crawl Scope Manager (CSM) indexing operations, see the [CrawlScopeCommandLine](https://github.com/microsoft/Windows-classic-samples/tree/master/Samples/Win7Samples/winui/WindowsSearch/CrawlScopeCommandLine) sample.
  * @see https://learn.microsoft.com/windows/win32/api/searchapi/nn-searchapi-isearchcrawlscopemanager2
  * @namespace Windows.Win32.System.Search
- * @version v4.0.30319
  */
-class ISearchCrawlScopeManager2 extends ISearchCrawlScopeManager{
+class ISearchCrawlScopeManager2 extends ISearchCrawlScopeManager {
 
     static sizeof => A_PtrSize
     /**

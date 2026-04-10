@@ -5,10 +5,8 @@
  * Provides information about a published application to the Add/Remove Programs Control Panel utility.
  * @see https://learn.microsoft.com/windows/win32/api/shappmgr/ns-shappmgr-appinfodata
  * @namespace Windows.Win32.UI.Shell
- * @version v4.0.30319
  */
-class APPINFODATA extends Win32Struct
-{
+class APPINFODATA extends Win32Struct {
     static sizeof => 152
 
     static packingSize => 8
@@ -58,7 +56,6 @@ class APPINFODATA extends Win32Struct
     }
 
     /**
-     * 
      * @type {PWSTR}
      */
     pszPublisher {

@@ -3,13 +3,10 @@
 
 /**
  * Specifies flags for video encoder creation.
- * @remarks
- * 
  * @see https://learn.microsoft.com/windows/win32/api/d3d12video/ne-d3d12video-d3d12_video_encoder_flags
  * @namespace Windows.Win32.Media.MediaFoundation
- * @version v4.0.30319
  */
-class D3D12_VIDEO_ENCODER_FLAGS extends Win32BitflagEnum{
+class D3D12_VIDEO_ENCODER_FLAGS extends Win32BitflagEnum {
 
     /**
      * None.

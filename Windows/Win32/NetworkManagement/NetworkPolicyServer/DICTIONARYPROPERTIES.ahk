@@ -7,9 +7,8 @@
  * The dictionary is the collection of all possible attributes. It includes some attributes that are reserved for system use.
  * @see https://learn.microsoft.com/windows/win32/api/sdoias/ne-sdoias-dictionaryproperties
  * @namespace Windows.Win32.NetworkManagement.NetworkPolicyServer
- * @version v4.0.30319
  */
-class DICTIONARYPROPERTIES extends Win32Enum{
+class DICTIONARYPROPERTIES extends Win32Enum {
 
     /**
      * The collection of all possible attributes.

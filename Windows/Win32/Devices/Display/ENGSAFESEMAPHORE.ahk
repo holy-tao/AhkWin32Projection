@@ -12,10 +12,8 @@
  * Once the safe semaphore is initialized, the driver can call <a href="https://docs.microsoft.com/windows/desktop/api/winddi/nf-winddi-engacquiresemaphore">EngAcquireSemaphore</a> and <a href="https://docs.microsoft.com/windows/desktop/api/winddi/nf-winddi-engreleasesemaphore">EngReleaseSemaphore</a> with the <b>hsem</b> for synchronization.
  * @see https://learn.microsoft.com/windows/win32/api/winddi/ns-winddi-engsafesemaphore
  * @namespace Windows.Win32.Devices.Display
- * @version v4.0.30319
  */
-class ENGSAFESEMAPHORE extends Win32Struct
-{
+class ENGSAFESEMAPHORE extends Win32Struct {
     static sizeof => 16
 
     static packingSize => 8
@@ -24,7 +22,7 @@ class ENGSAFESEMAPHORE extends Win32Struct
      * Handle to the semaphore.
      * @type {HSEMAPHORE}
      */
-    hsem{
+    hsem {
         get {
             if(!this.HasProp("__hsem"))
                 this.__hsem := HSEMAPHORE(0, this)

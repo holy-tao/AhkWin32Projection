@@ -12,9 +12,8 @@
  *    <b>IID_IVssSnapshotMgmt2</b> as the <i>riid</i> parameter.
  * @see https://learn.microsoft.com/windows/win32/api/vsmgmt/nn-vsmgmt-ivsssnapshotmgmt2
  * @namespace Windows.Win32.Storage.Vss
- * @version v4.0.30319
  */
-class IVssSnapshotMgmt2 extends IUnknown{
+class IVssSnapshotMgmt2 extends IUnknown {
 
     static sizeof => A_PtrSize
     /**

@@ -1,12 +1,14 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
+#Include .\WHEA_ERROR_TYPE.ahk
+#Include .\WHEA_ERROR_SEVERITY.ahk
+#Include ..\..\..\Win32\System\Diagnostics\Debug\WHEA_ERROR_SOURCE_TYPE.ahk
+#Include .\WHEA_ERROR_PACKET_DATA_FORMAT.ahk
 
 /**
  * @namespace Windows.Wdk.System.SystemServices
- * @version v4.0.30319
  */
-class WHEA_ERROR_PACKET_V2 extends Win32Struct
-{
+class WHEA_ERROR_PACKET_V2 extends Win32Struct {
     static sizeof => 80
 
     static packingSize => 8
@@ -36,7 +38,7 @@ class WHEA_ERROR_PACKET_V2 extends Win32Struct
     }
 
     /**
-     * @type {Pointer<WHEA_ERROR_PACKET_FLAGS>}
+     * @type {Pointer}
      */
     Flags {
         get => NumGet(this, 16, "ptr")
@@ -44,7 +46,7 @@ class WHEA_ERROR_PACKET_V2 extends Win32Struct
     }
 
     /**
-     * @type {Integer}
+     * @type {WHEA_ERROR_TYPE}
      */
     ErrorType {
         get => NumGet(this, 24, "int")
@@ -52,7 +54,7 @@ class WHEA_ERROR_PACKET_V2 extends Win32Struct
     }
 
     /**
-     * @type {Integer}
+     * @type {WHEA_ERROR_SEVERITY}
      */
     ErrorSeverity {
         get => NumGet(this, 28, "int")
@@ -68,7 +70,7 @@ class WHEA_ERROR_PACKET_V2 extends Win32Struct
     }
 
     /**
-     * @type {Integer}
+     * @type {WHEA_ERROR_SOURCE_TYPE}
      */
     ErrorSourceType {
         get => NumGet(this, 36, "int")
@@ -76,7 +78,7 @@ class WHEA_ERROR_PACKET_V2 extends Win32Struct
     }
 
     /**
-     * @type {Pointer<Guid>}
+     * @type {Pointer}
      */
     NotifyType {
         get => NumGet(this, 40, "ptr")
@@ -92,7 +94,7 @@ class WHEA_ERROR_PACKET_V2 extends Win32Struct
     }
 
     /**
-     * @type {Integer}
+     * @type {WHEA_ERROR_PACKET_DATA_FORMAT}
      */
     DataFormat {
         get => NumGet(this, 56, "int")

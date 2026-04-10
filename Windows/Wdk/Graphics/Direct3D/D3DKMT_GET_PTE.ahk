@@ -1,13 +1,10 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
-#Include .\DXGK_PTE.ahk
 
 /**
  * @namespace Windows.Wdk.Graphics.Direct3D
- * @version v4.0.30319
  */
-class D3DKMT_GET_PTE extends Win32Struct
-{
+class D3DKMT_GET_PTE extends Win32Struct {
     static sizeof => 560
 
     static packingSize => 8
@@ -29,9 +26,9 @@ class D3DKMT_GET_PTE extends Win32Struct
     }
 
     /**
-     * @type {Array<UInt32>}
+     * @type {Array<Integer>}
      */
-    PageTableIndex{
+    PageTableIndex {
         get {
             if(!this.HasProp("__PageTableIndexProxyArray"))
                 this.__PageTableIndexProxyArray := Win32FixedArray(this.ptr + 8, 6, Primitive, "uint")
@@ -56,9 +53,9 @@ class D3DKMT_GET_PTE extends Win32Struct
     }
 
     /**
-     * @type {Array<DXGK_PTE>}
+     * @type {Array<Pointer>}
      */
-    Pte{
+    Pte {
         get {
             if(!this.HasProp("__PteProxyArray"))
                 this.__PteProxyArray := Win32FixedArray(this.ptr + 40, 64, Primitive, "ptr")

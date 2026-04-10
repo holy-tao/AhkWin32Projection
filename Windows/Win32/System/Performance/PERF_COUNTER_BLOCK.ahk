@@ -11,10 +11,8 @@
  * You must ensure that the size of the counter block is aligned to an 8-byte boundary. For example, if the performance object includes two DWORD counters, you must add an additional four bytes to the counter block to make it aligned to an 8-byte boundary.
  * @see https://learn.microsoft.com/windows/win32/api/winperf/ns-winperf-perf_counter_block
  * @namespace Windows.Win32.System.Performance
- * @version v4.0.30319
  */
-class PERF_COUNTER_BLOCK extends Win32Struct
-{
+class PERF_COUNTER_BLOCK extends Win32Struct {
     static sizeof => 4
 
     static packingSize => 4

@@ -3,10 +3,8 @@
 
 /**
  * @namespace Windows.Win32.System.ApplicationInstallationAndServicing
- * @version v4.0.30319
  */
-class MsmMerge extends Win32Struct
-{
+class MsmMerge extends Win32Struct {
     static sizeof => 0
 
     static packingSize => 1

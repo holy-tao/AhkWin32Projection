@@ -3,9 +3,8 @@
 
 /**
  * @namespace Windows.Win32.Globalization
- * @version v4.0.30319
  */
-class FOLD_STRING_MAP_FLAGS extends Win32BitflagEnum{
+class FOLD_STRING_MAP_FLAGS extends Win32BitflagEnum {
 
     /**
      * @type {Integer (UInt32)}

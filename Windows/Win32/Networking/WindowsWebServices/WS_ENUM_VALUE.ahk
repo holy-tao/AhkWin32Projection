@@ -1,14 +1,13 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
+#Include .\WS_XML_STRING.ahk
 
 /**
  * Provides serialization information about a single value that is part of an enumeration (WS_ENUM_DESCRIPTION).
  * @see https://learn.microsoft.com/windows/win32/api/webservices/ns-webservices-ws_enum_value
  * @namespace Windows.Win32.Networking.WindowsWebServices
- * @version v4.0.30319
  */
-class WS_ENUM_VALUE extends Win32Struct
-{
+class WS_ENUM_VALUE extends Win32Struct {
     static sizeof => 16
 
     static packingSize => 8

@@ -3,14 +3,10 @@
 
 /**
  * Describes the coordinates of a resource.
- * @remarks
- * 
  * @see https://learn.microsoft.com/windows/win32/api/d3d12video/ns-d3d12video-d3d12_resource_coordinate
  * @namespace Windows.Win32.Media.MediaFoundation
- * @version v4.0.30319
  */
-class D3D12_RESOURCE_COORDINATE extends Win32Struct
-{
+class D3D12_RESOURCE_COORDINATE extends Win32Struct {
     static sizeof => 24
 
     static packingSize => 8

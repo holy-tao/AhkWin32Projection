@@ -1,10 +1,10 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
+#Include ..\..\System\Com\IUnknown.ahk
 #Include .\IBackgroundCopyJob.ahk
 #Include .\IEnumBackgroundCopyJobs.ahk
 #Include ..\..\System\Com\Apis.ahk
-#Include ..\..\System\Com\IUnknown.ahk
 
 /**
  * Creates transfer jobs, retrieves an enumerator object that contains the jobs in the queue, and retrieves individual jobs from the queue.
@@ -12,9 +12,8 @@
  * <b>Windows Vista and later:  </b>When an ActiveX control tries to instantiate this interface from an Internet Explorer process, the call will fail with access denied. This is because COM does not allow lower-integrity clients to bind to class instances at higher integrity levels. For details, see <a href="https://docs.microsoft.com/previous-versions/windows/internet-explorer/ie-developer/">Understanding and Working in Protected Mode Internet Explorer</a> and <a href="https://docs.microsoft.com/previous-versions/dotnet/articles/bb625962(v=msdn.10)">How the Integrity Mechanism Is Implemented in Windows Vista</a>. A user can workaround the issue by adding the website to the Trusted site zone.
  * @see https://learn.microsoft.com/windows/win32/api/bits/nn-bits-ibackgroundcopymanager
  * @namespace Windows.Win32.Networking.BackgroundIntelligentTransferService
- * @version v4.0.30319
  */
-class IBackgroundCopyManager extends IUnknown{
+class IBackgroundCopyManager extends IUnknown {
 
     static sizeof => A_PtrSize
     /**
@@ -52,7 +51,7 @@ class IBackgroundCopyManager extends IUnknown{
      * 
      * For scalability concerns, see <a href="https://docs.microsoft.com/windows/desktop/Bits/best-practices-when-using-bits">Best Practices When Using BITS</a>.
      * @param {PWSTR} DisplayName Null-terminated string that contains a display name for the job. Typically, the display name is used to identify the job in a user interface. Note that more than one job may have the same display name. Must not be <b>NULL</b>. The name is limited to 256 characters, not including the null terminator.
-     * @param {Integer} Type Type of transfer job, such as BG_JOB_TYPE_DOWNLOAD. For a list of transfer types, see the 
+     * @param {BG_JOB_TYPE} Type Type of transfer job, such as BG_JOB_TYPE_DOWNLOAD. For a list of transfer types, see the 
      * <a href="https://docs.microsoft.com/windows/desktop/api/bits/ne-bits-bg_job_type">BG_JOB_TYPE</a> enumeration.
      * @param {Pointer<Guid>} pJobId Uniquely identifies your job in the queue. Use this identifier when you call the 
      * <a href="https://docs.microsoft.com/windows/desktop/api/bits/nf-bits-ibackgroundcopymanager-getjob">IBackgroundCopyManager::GetJob</a> method to get a job from the queue.
@@ -170,7 +169,7 @@ class IBackgroundCopyManager extends IUnknown{
      * Descriptions for HTTP errors are  localized.
      * 
      * <b>Windows XP/2000:  </b>Descriptions for HTTP errors are not localized.
-     * @param {HRESULT} _hResult 
+     * @param {HRESULT} _hResult Error code from a previous call to a BITS method.
      * @param {Integer} LanguageId Identifies the language identifier to use to generate the description. To create the language identifier, use the 
      * <a href="https://docs.microsoft.com/windows/desktop/api/winnt/nf-winnt-makelangid">MAKELANGID</a> macro. For example, to specify U.S. English, use the following code sample. 
      * 

@@ -15,9 +15,8 @@
  * </ol>
  * @see https://learn.microsoft.com/windows/win32/api/atscpsipparser/nn-atscpsipparser-icaptionservicedescriptor
  * @namespace Windows.Win32.Media.DirectShow.Tv
- * @version v4.0.30319
  */
-class ICaptionServiceDescriptor extends IUnknown{
+class ICaptionServiceDescriptor extends IUnknown {
 
     static sizeof => A_PtrSize
     /**

@@ -5,10 +5,8 @@
  * The path to the image used for the background of a Journal note.
  * @see https://learn.microsoft.com/windows/win32/tablet/path-element
  * @namespace Windows.Win32.Networking.ActiveDirectory
- * @version v4.0.30319
  */
-class Path extends Win32Struct
-{
+class Path extends Win32Struct {
     static sizeof => 0
 
     static packingSize => 1

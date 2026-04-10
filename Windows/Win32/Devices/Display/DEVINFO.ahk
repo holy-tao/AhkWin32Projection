@@ -1,6 +1,10 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
 #Include ..\..\Graphics\Gdi\LOGFONTW.ahk
+#Include ..\..\Graphics\Gdi\FONT_CHARSET.ahk
+#Include ..\..\Graphics\Gdi\FONT_OUTPUT_PRECISION.ahk
+#Include ..\..\Graphics\Gdi\FONT_CLIP_PRECISION.ahk
+#Include ..\..\Graphics\Gdi\FONT_QUALITY.ahk
 #Include ..\..\Graphics\Gdi\HPALETTE.ahk
 
 /**
@@ -42,10 +46,8 @@
  * </ul>
  * @see https://learn.microsoft.com/windows/win32/api/winddi/ns-winddi-devinfo
  * @namespace Windows.Win32.Devices.Display
- * @version v4.0.30319
  */
-class DEVINFO extends Win32Struct
-{
+class DEVINFO extends Win32Struct {
     static sizeof => 312
 
     static packingSize => 8
@@ -380,7 +382,7 @@ class DEVINFO extends Win32Struct
      * Is an Extended Logical Font structure that specifies the default font for a device. For more information about this structure, see EXTLOGFONT in the Microsoft Windows SDK documentation.
      * @type {LOGFONTW}
      */
-    lfDefaultFont{
+    lfDefaultFont {
         get {
             if(!this.HasProp("__lfDefaultFont"))
                 this.__lfDefaultFont := LOGFONTW(4, this)
@@ -392,7 +394,7 @@ class DEVINFO extends Win32Struct
      * Is an Extended Logical Font structure that specifies the default variable-pitch font for a device. For more information about this structure, see EXTLOGFONT in the Windows SDK documentation.
      * @type {LOGFONTW}
      */
-    lfAnsiVarFont{
+    lfAnsiVarFont {
         get {
             if(!this.HasProp("__lfAnsiVarFont"))
                 this.__lfAnsiVarFont := LOGFONTW(96, this)
@@ -404,7 +406,7 @@ class DEVINFO extends Win32Struct
      * Is an Extended Logical Font structure that specifies the default fixed-pitch (monospaced) font for a device. For more information about this structure, see EXTLOGFONT in the Windows SDK documentation.
      * @type {LOGFONTW}
      */
-    lfAnsiFixFont{
+    lfAnsiFixFont {
         get {
             if(!this.HasProp("__lfAnsiFixFont"))
                 this.__lfAnsiFixFont := LOGFONTW(188, this)
@@ -422,7 +424,6 @@ class DEVINFO extends Win32Struct
     }
 
     /**
-     * 
      * @type {Integer}
      */
     iDitherFormat {
@@ -431,7 +432,6 @@ class DEVINFO extends Win32Struct
     }
 
     /**
-     * 
      * @type {Integer}
      */
     cxDither {
@@ -452,7 +452,7 @@ class DEVINFO extends Win32Struct
      * Handle to the default palette for the device. The driver should create the palette by calling <a href="https://docs.microsoft.com/windows/desktop/api/winddi/nf-winddi-engcreatepalette">EngCreatePalette</a>. The driver associates a palette with a device by returning this handle to GDI.
      * @type {HPALETTE}
      */
-    hpalDefault{
+    hpalDefault {
         get {
             if(!this.HasProp("__hpalDefault"))
                 this.__hpalDefault := HPALETTE(296, this)

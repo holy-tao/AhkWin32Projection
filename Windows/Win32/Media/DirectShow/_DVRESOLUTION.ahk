@@ -48,9 +48,8 @@
  * ```
  * @see https://learn.microsoft.com/windows/win32/api/strmif/ne-strmif-_dvresolution
  * @namespace Windows.Win32.Media.DirectShow
- * @version v4.0.30319
  */
-class _DVRESOLUTION extends Win32Enum{
+class _DVRESOLUTION extends Win32Enum {
 
     /**
      * Decode at full size.

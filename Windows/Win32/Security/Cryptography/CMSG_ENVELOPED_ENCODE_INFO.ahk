@@ -1,17 +1,16 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
 #Include .\HCRYPTPROV_LEGACY.ahk
-#Include .\CRYPT_INTEGER_BLOB.ahk
 #Include .\CRYPT_ALGORITHM_IDENTIFIER.ahk
+#Include .\CRYPT_INTEGER_BLOB.ahk
+#Include .\CERT_INFO.ahk
 
 /**
  * Contains information needed to encode an enveloped message. It is passed to CryptMsgOpenToEncode if the dwMsgType parameter is CMSG_ENVELOPED.
  * @see https://learn.microsoft.com/windows/win32/api/wincrypt/ns-wincrypt-cmsg_enveloped_encode_info
  * @namespace Windows.Win32.Security.Cryptography
- * @version v4.0.30319
  */
-class CMSG_ENVELOPED_ENCODE_INFO extends Win32Struct
-{
+class CMSG_ENVELOPED_ENCODE_INFO extends Win32Struct {
     static sizeof => 64
 
     static packingSize => 8
@@ -36,7 +35,7 @@ class CMSG_ENVELOPED_ENCODE_INFO extends Win32Struct
      * Unless there is a strong reason for passing in a specific cryptographic provider in <b>hCryptProv</b>, pass zero to use the default RSA or DSS provider.
      * @type {HCRYPTPROV_LEGACY}
      */
-    hCryptProv{
+    hCryptProv {
         get {
             if(!this.HasProp("__hCryptProv"))
                 this.__hCryptProv := HCRYPTPROV_LEGACY(8, this)
@@ -95,7 +94,7 @@ class CMSG_ENVELOPED_ENCODE_INFO extends Win32Struct
      * <div> </div>
      * @type {CRYPT_ALGORITHM_IDENTIFIER}
      */
-    ContentEncryptionAlgorithm{
+    ContentEncryptionAlgorithm {
         get {
             if(!this.HasProp("__ContentEncryptionAlgorithm"))
                 this.__ContentEncryptionAlgorithm := CRYPT_ALGORITHM_IDENTIFIER(16, this)

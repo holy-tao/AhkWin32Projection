@@ -5,10 +5,8 @@
 
 /**
  * @namespace Windows.Win32.Media.KernelStreaming
- * @version v4.0.30319
  */
-class KSPROPERTY_VBICODECFILTERING_SCANLINES_S extends Win32Struct
-{
+class KSPROPERTY_VBICODECFILTERING_SCANLINES_S extends Win32Struct {
     static sizeof => 144
 
     static packingSize => 8
@@ -16,7 +14,7 @@ class KSPROPERTY_VBICODECFILTERING_SCANLINES_S extends Win32Struct
     /**
      * @type {KSIDENTIFIER}
      */
-    Property{
+    Property {
         get {
             if(!this.HasProp("__Property"))
                 this.__Property := KSIDENTIFIER(0, this)
@@ -27,7 +25,7 @@ class KSPROPERTY_VBICODECFILTERING_SCANLINES_S extends Win32Struct
     /**
      * @type {VBICODECFILTERING_SCANLINES}
      */
-    Scanlines{
+    Scanlines {
         get {
             if(!this.HasProp("__Scanlines"))
                 this.__Scanlines := VBICODECFILTERING_SCANLINES(16, this)

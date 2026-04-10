@@ -1,15 +1,14 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
 #Include ..\..\Foundation\HANDLE.ahk
+#Include ..\Cryptography\CTL_CONTEXT.ahk
 
 /**
  * The WINTRUST_CATALOG_INFO structure is used when calling WinVerifyTrust to verify a member of a Microsoft catalog.
  * @see https://learn.microsoft.com/windows/win32/api/wintrust/ns-wintrust-wintrust_catalog_info
  * @namespace Windows.Win32.Security.WinTrust
- * @version v4.0.30319
  */
-class WINTRUST_CATALOG_INFO extends Win32Struct
-{
+class WINTRUST_CATALOG_INFO extends Win32Struct {
     static sizeof => 72
 
     static packingSize => 8
@@ -63,7 +62,7 @@ class WINTRUST_CATALOG_INFO extends Win32Struct
      * Optional. Handle of the open catalog member file to be verified. The handle must be to a file with at least read permissions.
      * @type {HANDLE}
      */
-    hMemberFile{
+    hMemberFile {
         get {
             if(!this.HasProp("__hMemberFile"))
                 this.__hMemberFile := HANDLE(32, this)

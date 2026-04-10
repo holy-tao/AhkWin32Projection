@@ -1,16 +1,15 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
-#Include ..\..\Foundation\HANDLE.ahk
 #Include .\ID3D11DeviceChild.ahk
+#Include ..\..\Foundation\HANDLE.ahk
 
 /**
  * Represents a fence, an object used for synchronization of the CPU and one or more GPUs. (ID3D11Fence)
  * @see https://learn.microsoft.com/windows/win32/api/d3d11_3/nn-d3d11_3-id3d11fence
  * @namespace Windows.Win32.Graphics.Direct3D11
- * @version v4.0.30319
  */
-class ID3D11Fence extends ID3D11DeviceChild{
+class ID3D11Fence extends ID3D11DeviceChild {
 
     static sizeof => A_PtrSize
     /**

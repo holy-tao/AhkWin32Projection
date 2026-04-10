@@ -2,13 +2,12 @@
 #Include ..\..\..\..\Win32Struct.ahk
 #Include ..\..\Foundation\HANDLE.ahk
 #Include ..\..\Foundation\HWND.ahk
+#Include .\WER_SUBMIT_RESULT.ahk
 
 /**
  * @namespace Windows.Win32.System.ErrorReporting
- * @version v4.0.30319
  */
-class WER_REPORT_INFORMATION_V5 extends Win32Struct
-{
+class WER_REPORT_INFORMATION_V5 extends Win32Struct {
     static sizeof => 2504
 
     static packingSize => 8
@@ -24,7 +23,7 @@ class WER_REPORT_INFORMATION_V5 extends Win32Struct
     /**
      * @type {HANDLE}
      */
-    hProcess{
+    hProcess {
         get {
             if(!this.HasProp("__hProcess"))
                 this.__hProcess := HANDLE(8, this)
@@ -75,7 +74,7 @@ class WER_REPORT_INFORMATION_V5 extends Win32Struct
     /**
      * @type {HWND}
      */
-    hwndParent{
+    hwndParent {
         get {
             if(!this.HasProp("__hwndParent"))
                 this.__hwndParent := HWND(2200, this)
@@ -100,9 +99,9 @@ class WER_REPORT_INFORMATION_V5 extends Win32Struct
     }
 
     /**
-     * @type {Array<Byte>}
+     * @type {Array<Integer>}
      */
-    rgbApplicationIdentity{
+    rgbApplicationIdentity {
         get {
             if(!this.HasProp("__rgbApplicationIdentityProxyArray"))
                 this.__rgbApplicationIdentityProxyArray := Win32FixedArray(this.ptr + 2464, 16, Primitive, "char")
@@ -113,7 +112,7 @@ class WER_REPORT_INFORMATION_V5 extends Win32Struct
     /**
      * @type {HANDLE}
      */
-    hSnapshot{
+    hSnapshot {
         get {
             if(!this.HasProp("__hSnapshot"))
                 this.__hSnapshot := HANDLE(2480, this)
@@ -124,7 +123,7 @@ class WER_REPORT_INFORMATION_V5 extends Win32Struct
     /**
      * @type {HANDLE}
      */
-    hDeleteFilesImpersonationToken{
+    hDeleteFilesImpersonationToken {
         get {
             if(!this.HasProp("__hDeleteFilesImpersonationToken"))
                 this.__hDeleteFilesImpersonationToken := HANDLE(2488, this)
@@ -133,7 +132,7 @@ class WER_REPORT_INFORMATION_V5 extends Win32Struct
     }
 
     /**
-     * @type {Integer}
+     * @type {WER_SUBMIT_RESULT}
      */
     submitResultMax {
         get => NumGet(this, 2496, "int")

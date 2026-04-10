@@ -1,15 +1,14 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
+#Include .\DD_DIRECTDRAW_LOCAL.ahk
 #Include .\DDPIXELFORMAT.ahk
 
 /**
  * The DD_GETINTERNALMOCOMPDATA structure contains the internal memory requirements.
  * @see https://learn.microsoft.com/windows/win32/api/ddrawint/ns-ddrawint-dd_getinternalmocompdata
  * @namespace Windows.Win32.Graphics.DirectDraw
- * @version v4.0.30319
  */
-class DD_GETINTERNALMOCOMPDATA extends Win32Struct
-{
+class DD_GETINTERNALMOCOMPDATA extends Win32Struct {
     static sizeof => 64
 
     static packingSize => 8
@@ -54,7 +53,7 @@ class DD_GETINTERNALMOCOMPDATA extends Win32Struct
      * Points to a <a href="https://docs.microsoft.com/windows-hardware/drivers/ddi/content/ksmedia/ns-ksmedia-_ddpixelformat">DDPIXELFORMAT</a> structure that contains the pixel format of the uncompressed output frame.
      * @type {DDPIXELFORMAT}
      */
-    ddPixelFormat{
+    ddPixelFormat {
         get {
             if(!this.HasProp("__ddPixelFormat"))
                 this.__ddPixelFormat := DDPIXELFORMAT(24, this)

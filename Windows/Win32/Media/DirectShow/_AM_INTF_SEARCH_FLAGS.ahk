@@ -7,9 +7,8 @@
  * If no flags are set (the default case), it is equivalent to the bitwise <b>OR</b> of all the flags. All filters and pins are searched.
  * @see https://learn.microsoft.com/windows/win32/api/strmif/ne-strmif-_am_intf_search_flags
  * @namespace Windows.Win32.Media.DirectShow
- * @version v4.0.30319
  */
-class _AM_INTF_SEARCH_FLAGS extends Win32Enum{
+class _AM_INTF_SEARCH_FLAGS extends Win32Enum {
 
     /**
      * Search input pins.

@@ -7,9 +7,8 @@
  * Extends the functionality of the IUrlAccessor3 interface with the IUrlAccessor4::ShouldIndexItemContent method that identifies whether the content of the item should be indexed.
  * @see https://learn.microsoft.com/windows/win32/api/searchapi/nn-searchapi-iurlaccessor4
  * @namespace Windows.Win32.System.Search
- * @version v4.0.30319
  */
-class IUrlAccessor4 extends IUrlAccessor3{
+class IUrlAccessor4 extends IUrlAccessor3 {
 
     static sizeof => A_PtrSize
     /**

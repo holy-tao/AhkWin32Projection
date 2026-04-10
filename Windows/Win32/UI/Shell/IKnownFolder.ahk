@@ -1,8 +1,9 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
-#Include .\KNOWNFOLDER_DEFINITION.ahk
 #Include ..\..\System\Com\IUnknown.ahk
+#Include ..\..\..\..\Guid.ahk
+#Include .\KNOWNFOLDER_DEFINITION.ahk
 
 /**
  * Exposes methods that allow an application to retrieve information about a known folder's category, type, GUID, pointer to an item identifier list (PIDL) value, redirection capabilities, and definition.
@@ -12,9 +13,8 @@
  * Third parties do not implement <b>IKnownFolder</b>. Use the provided implementation.
  * @see https://learn.microsoft.com/windows/win32/api/shobjidl_core/nn-shobjidl_core-iknownfolder
  * @namespace Windows.Win32.UI.Shell
- * @version v4.0.30319
  */
-class IKnownFolder extends IUnknown{
+class IKnownFolder extends IUnknown {
 
     static sizeof => A_PtrSize
     /**
@@ -50,7 +50,7 @@ class IKnownFolder extends IUnknown{
 
     /**
      * Retrieves the category�virtual, fixed, common, or per-user�of the selected folder.
-     * @returns {Integer} Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/shobjidl_core/ne-shobjidl_core-kf_category">KF_CATEGORY</a>*</b>
+     * @returns {KF_CATEGORY} Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/shobjidl_core/ne-shobjidl_core-kf_category">KF_CATEGORY</a>*</b>
      * 
      * When this method returns, contains a pointer to the <a href="https://docs.microsoft.com/windows/desktop/api/shobjidl_core/ne-shobjidl_core-kf_category">KF_CATEGORY</a> of the selected folder.
      * @see https://learn.microsoft.com/windows/win32/api/shobjidl_core/nf-shobjidl_core-iknownfolder-getcategory

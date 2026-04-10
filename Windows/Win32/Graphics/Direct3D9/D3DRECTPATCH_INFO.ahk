@@ -1,5 +1,7 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
+#Include .\D3DBASISTYPE.ahk
+#Include .\D3DDEGREETYPE.ahk
 
 /**
  * Describes a rectangular high-order patch.
@@ -28,10 +30,8 @@
  * ```
  * @see https://learn.microsoft.com/windows/win32/direct3d9/d3drectpatch-info
  * @namespace Windows.Win32.Graphics.Direct3D9
- * @version v4.0.30319
  */
-class D3DRECTPATCH_INFO extends Win32Struct
-{
+class D3DRECTPATCH_INFO extends Win32Struct {
     static sizeof => 28
 
     static packingSize => 4
@@ -109,7 +109,7 @@ class D3DRECTPATCH_INFO extends Win32Struct
      * | D3DBASIS\_BEZIER      | Linear, cubic, and quintic | Width = height = (DWORD)order + 1 |
      * | D3DBASIS\_BSPLINE     | Linear, cubic, and quintic | Width = height > (DWORD)order  |
      * | D3DBASIS\_INTERPOLATE | Cubic                      | Width = height > (DWORD)order  |
-     * @type {Integer}
+     * @type {D3DBASISTYPE}
      */
     Basis {
         get => NumGet(this, 20, "int")
@@ -121,7 +121,7 @@ class D3DRECTPATCH_INFO extends Win32Struct
      * 
      * 
      * Member of the [**D3DDEGREETYPE**](./d3ddegreetype.md) enumerated type, defining the degree for the rectangular patch.
-     * @type {Integer}
+     * @type {D3DDEGREETYPE}
      */
     Degree {
         get => NumGet(this, 24, "int")

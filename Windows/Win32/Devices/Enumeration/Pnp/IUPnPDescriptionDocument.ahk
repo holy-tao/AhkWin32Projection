@@ -1,17 +1,15 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\..\Guid.ahk
-#Include ..\..\..\Foundation\BSTR.ahk
-#Include .\IUPnPDevice.ahk
 #Include ..\..\..\System\Com\IDispatch.ahk
+#Include .\IUPnPDevice.ahk
 
 /**
  * The IUPnPDescriptionDocument interface enables an application to load a device description.
  * @see https://learn.microsoft.com/windows/win32/api/upnp/nn-upnp-iupnpdescriptiondocument
  * @namespace Windows.Win32.Devices.Enumeration.Pnp
- * @version v4.0.30319
  */
-class IUPnPDescriptionDocument extends IDispatch{
+class IUPnPDescriptionDocument extends IDispatch {
 
     static sizeof => A_PtrSize
     /**

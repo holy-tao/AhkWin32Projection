@@ -5,9 +5,8 @@
 
 /**
  * @namespace Windows.Win32.Graphics.Direct3D
- * @version v4.0.30319
  */
-class ID3DShaderCacheExplorer extends IUnknown{
+class ID3DShaderCacheExplorer extends IUnknown {
 
     static sizeof => A_PtrSize
     /**

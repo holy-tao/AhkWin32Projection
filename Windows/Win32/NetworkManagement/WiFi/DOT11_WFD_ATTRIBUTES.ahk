@@ -4,10 +4,8 @@
 
 /**
  * @namespace Windows.Win32.NetworkManagement.WiFi
- * @version v4.0.30319
  */
-class DOT11_WFD_ATTRIBUTES extends Win32Struct
-{
+class DOT11_WFD_ATTRIBUTES extends Win32Struct {
     static sizeof => 72
 
     static packingSize => 8
@@ -15,7 +13,7 @@ class DOT11_WFD_ATTRIBUTES extends Win32Struct
     /**
      * @type {NDIS_OBJECT_HEADER}
      */
-    Header{
+    Header {
         get {
             if(!this.HasProp("__Header"))
                 this.__Header := NDIS_OBJECT_HEADER(0, this)
@@ -80,9 +78,9 @@ class DOT11_WFD_ATTRIBUTES extends Win32Struct
     }
 
     /**
-     * @type {Array<Byte>}
+     * @type {Array<Integer>}
      */
-    DeviceAddress{
+    DeviceAddress {
         get {
             if(!this.HasProp("__DeviceAddressProxyArray"))
                 this.__DeviceAddressProxyArray := Win32FixedArray(this.ptr + 24, 6, Primitive, "char")

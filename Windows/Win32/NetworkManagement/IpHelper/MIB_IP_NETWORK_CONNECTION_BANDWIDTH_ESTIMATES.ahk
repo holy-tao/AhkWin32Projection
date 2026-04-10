@@ -13,10 +13,8 @@
  * The  <b>MIB_IP_NETWORK_CONNECTION_BANDWIDTH_ESTIMATES</b>  structure is defined in the <i>Netioapi.h</i> header file which is automatically included in the <i>Iphlpapi.h</i> header file. The  <i>Netioapi.h</i> header file should never be used directly.
  * @see https://learn.microsoft.com/windows/win32/api/netioapi/ns-netioapi-mib_ip_network_connection_bandwidth_estimates
  * @namespace Windows.Win32.NetworkManagement.IpHelper
- * @version v4.0.30319
  */
-class MIB_IP_NETWORK_CONNECTION_BANDWIDTH_ESTIMATES extends Win32Struct
-{
+class MIB_IP_NETWORK_CONNECTION_BANDWIDTH_ESTIMATES extends Win32Struct {
     static sizeof => 48
 
     static packingSize => 8
@@ -25,7 +23,7 @@ class MIB_IP_NETWORK_CONNECTION_BANDWIDTH_ESTIMATES extends Win32Struct
      * Bandwidth estimates for the data being received by the host from the IP network.
      * @type {NL_BANDWIDTH_INFORMATION}
      */
-    InboundBandwidthInformation{
+    InboundBandwidthInformation {
         get {
             if(!this.HasProp("__InboundBandwidthInformation"))
                 this.__InboundBandwidthInformation := NL_BANDWIDTH_INFORMATION(0, this)
@@ -37,7 +35,7 @@ class MIB_IP_NETWORK_CONNECTION_BANDWIDTH_ESTIMATES extends Win32Struct
      * Bandwidth estimates for the data being sent from the host to the IP network.
      * @type {NL_BANDWIDTH_INFORMATION}
      */
-    OutboundBandwidthInformation{
+    OutboundBandwidthInformation {
         get {
             if(!this.HasProp("__OutboundBandwidthInformation"))
                 this.__OutboundBandwidthInformation := NL_BANDWIDTH_INFORMATION(24, this)

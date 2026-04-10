@@ -3,15 +3,11 @@
 
 /**
  * Contains information that defines the profile enumeration constraints. (ANSI)
- * @remarks
- * 
  * @see https://learn.microsoft.com/windows/win32/api/icm/ns-icm-enumtypea
  * @namespace Windows.Win32.UI.ColorSystem
- * @version v4.0.30319
  * @charset ANSI
  */
-class ENUMTYPEA extends Win32Struct
-{
+class ENUMTYPEA extends Win32Struct {
     static sizeof => 96
 
     static packingSize => 8
@@ -106,9 +102,9 @@ class ENUMTYPEA extends Win32Struct
 
     /**
      * The horizontal (x) and vertical (y) resolution in pixels of the device on which the image will be displayed. The x resolution is stored in **dwResolution\[0\]**, and the y resolution is kept in **dwResolution\[1\]**.
-     * @type {Array<UInt32>}
+     * @type {Array<Integer>}
      */
-    dwResolution{
+    dwResolution {
         get {
             if(!this.HasProp("__dwResolutionProxyArray"))
                 this.__dwResolutionProxyArray := Win32FixedArray(this.ptr + 32, 2, Primitive, "uint")
@@ -126,7 +122,6 @@ class ENUMTYPEA extends Win32Struct
     }
 
     /**
-     * 
      * @type {Integer}
      */
     dwClass {
@@ -144,7 +139,6 @@ class ENUMTYPEA extends Win32Struct
     }
 
     /**
-     * 
      * @type {Integer}
      */
     dwConnectionSpace {
@@ -162,7 +156,6 @@ class ENUMTYPEA extends Win32Struct
     }
 
     /**
-     * 
      * @type {Integer}
      */
     dwPlatform {
@@ -171,7 +164,6 @@ class ENUMTYPEA extends Win32Struct
     }
 
     /**
-     * 
      * @type {Integer}
      */
     dwProfileFlags {
@@ -198,10 +190,9 @@ class ENUMTYPEA extends Win32Struct
     }
 
     /**
-     * 
-     * @type {Array<UInt32>}
+     * @type {Array<Integer>}
      */
-    dwAttributes{
+    dwAttributes {
         get {
             if(!this.HasProp("__dwAttributesProxyArray"))
                 this.__dwAttributesProxyArray := Win32FixedArray(this.ptr + 76, 2, Primitive, "uint")
@@ -210,7 +201,6 @@ class ENUMTYPEA extends Win32Struct
     }
 
     /**
-     * 
      * @type {Integer}
      */
     dwRenderingIntent {
@@ -228,7 +218,6 @@ class ENUMTYPEA extends Win32Struct
     }
 
     /**
-     * 
      * @type {Integer}
      */
     dwDeviceClass {

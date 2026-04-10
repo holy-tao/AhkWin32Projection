@@ -9,9 +9,8 @@
  * This interface is reserved for system use.
  * @see https://learn.microsoft.com/windows/win32/api/ndhelper/nn-ndhelper-inetdiaghelperutilfactory
  * @namespace Windows.Win32.NetworkManagement.NetworkDiagnosticsFramework
- * @version v4.0.30319
  */
-class INetDiagHelperUtilFactory extends IUnknown{
+class INetDiagHelperUtilFactory extends IUnknown {
 
     static sizeof => A_PtrSize
     /**

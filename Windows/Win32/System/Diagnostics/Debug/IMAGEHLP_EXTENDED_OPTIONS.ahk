@@ -5,9 +5,8 @@
  * Lists the extended symbol options that you can get and set by using the SymGetExtendedOption and SymSetExtendedOption functions.
  * @see https://learn.microsoft.com/windows/win32/api/dbghelp/ne-dbghelp-imagehlp_extended_options
  * @namespace Windows.Win32.System.Diagnostics.Debug
- * @version v4.0.30319
  */
-class IMAGEHLP_EXTENDED_OPTIONS extends Win32Enum{
+class IMAGEHLP_EXTENDED_OPTIONS extends Win32Enum {
 
     /**
      * Turns off explicit updates to the last access time of a symbol that is loaded. By default, DbgHelp updates the last access time of a symbol file that is consumed so that a symbol cache can be maintained by using a least recently used mechanism.

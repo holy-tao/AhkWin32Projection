@@ -5,9 +5,8 @@
  * The PHONE_PRIVILEGE enum indicates the application's privilege status with respect to the current phone device.
  * @see https://learn.microsoft.com/windows/win32/api/tapi3if/ne-tapi3if-phone_privilege
  * @namespace Windows.Win32.Devices.Tapi
- * @version v4.0.30319
  */
-class PHONE_PRIVILEGE extends Win32Enum{
+class PHONE_PRIVILEGE extends Win32Enum {
 
     /**
      * The application has owner privileges for the current phone session.

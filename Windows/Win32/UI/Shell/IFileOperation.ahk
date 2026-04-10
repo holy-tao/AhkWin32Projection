@@ -93,9 +93,8 @@
  * A full sample that demonstrates the extension of <b>IFileOperation</b> is included in the Windows Software Development Kit (SDK). In a default installation, it can be found at %ProgramFiles%\Microsoft SDKs\Windows\v6.0\Samples\WinUI\Shell\AppPlatform\FileOperations.
  * @see https://learn.microsoft.com/windows/win32/api/shobjidl_core/nn-shobjidl_core-ifileoperation
  * @namespace Windows.Win32.UI.Shell
- * @version v4.0.30319
  */
-class IFileOperation extends IUnknown{
+class IFileOperation extends IUnknown {
 
     static sizeof => A_PtrSize
     /**
@@ -187,7 +186,7 @@ class IFileOperation extends IUnknown{
      * Sets parameters for the current operation.
      * @remarks
      * Set these flags before you call <a href="https://docs.microsoft.com/windows/desktop/api/shobjidl_core/nf-shobjidl_core-ifileoperation-performoperations">IFileOperation::PerformOperations</a> to define the parameters for whatever operations are being performed, such as copy, delete, or rename.
-     * @param {Integer} dwOperationFlags Type: <b>DWORD</b>
+     * @param {FILEOPERATION_FLAGS} dwOperationFlags Type: <b>DWORD</b>
      * 
      * Flags that control the file operation. This member can be a combination of the following flags. FOF flags are defined in Shellapi.h and FOFX flags are defined in Shobjidl.h.
      *     

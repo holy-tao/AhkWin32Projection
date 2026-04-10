@@ -1,14 +1,13 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Handle.ahk
 #Include ..\..\..\..\Guid.ahk
+#Include ..\..\Foundation\PROPERTYKEY.ahk
 #Include .\IMessageFilter.ahk
 #Include .\IActivateAudioInterfaceAsyncOperation.ahk
 #Include .\IAudioStateMonitor.ahk
-#Include ..\..\Foundation\PROPERTYKEY.ahk
 
 /**
  * @namespace Windows.Win32.Media.Audio
- * @version v4.0.30319
  */
 class Audio {
 
@@ -2581,7 +2580,7 @@ class Audio {
      * 
      * @param {PSTR} pszSound 
      * @param {HMODULE} hmod 
-     * @param {Integer} fdwSound 
+     * @param {SND_FLAGS} fdwSound 
      * @returns {BOOL} 
      */
     static PlaySoundA(pszSound, hmod, fdwSound) {
@@ -2596,7 +2595,7 @@ class Audio {
      * 
      * @param {PWSTR} pszSound 
      * @param {HMODULE} hmod 
-     * @param {Integer} fdwSound 
+     * @param {SND_FLAGS} fdwSound 
      * @returns {BOOL} 
      */
     static PlaySoundW(pszSound, hmod, fdwSound) {
@@ -2898,7 +2897,7 @@ class Audio {
      * </ul>
      * The <i>fdwOpen</i> parameter specifies how the <i>dwCallback</i> parameter is interpreted. For more information, see Remarks.
      * @param {Pointer} dwInstance User-instance data passed to the callback mechanism. This parameter is not used with the window callback mechanism.
-     * @param {Integer} fdwOpen Flags for opening the device. The following values are defined.
+     * @param {MIDI_WAVE_OPEN_TYPE} fdwOpen Flags for opening the device. The following values are defined.
      * 
      * <table>
      * <tr>
@@ -3116,7 +3115,7 @@ class Audio {
      * 
      * Preparing a header that has already been prepared has no effect, and the function returns zero.
      * @param {HWAVEOUT} hwo Handle to the waveform-audio output device.
-     * @param {Pointer} pwh Pointer to a <a href="https://docs.microsoft.com/previous-versions/dd743837(v=vs.85)">WAVEHDR</a> structure that identifies the data block to be prepared.
+     * @param {Integer} pwh Pointer to a <a href="https://docs.microsoft.com/previous-versions/dd743837(v=vs.85)">WAVEHDR</a> structure that identifies the data block to be prepared.
      * @param {Integer} cbwh Size, in bytes, of the <a href="https://docs.microsoft.com/previous-versions/dd743837(v=vs.85)">WAVEHDR</a> structure.
      * @returns {Integer} Returns <b>MMSYSERR_NOERROR</b> if successful or an error otherwise. Possible error values include the following.
      * 
@@ -3176,7 +3175,7 @@ class Audio {
      * 
      * Unpreparing a buffer that has not been prepared has no effect, and the function returns zero.
      * @param {HWAVEOUT} hwo Handle to the waveform-audio output device.
-     * @param {Pointer} pwh Pointer to a <a href="https://docs.microsoft.com/previous-versions/dd743837(v=vs.85)">WAVEHDR</a> structure identifying the data block to be cleaned up.
+     * @param {Integer} pwh Pointer to a <a href="https://docs.microsoft.com/previous-versions/dd743837(v=vs.85)">WAVEHDR</a> structure identifying the data block to be cleaned up.
      * @param {Integer} cbwh Size, in bytes, of the <b>WAVEHDR</b> structure.
      * @returns {Integer} Returns MMSYSERR_NOERROR if successful or an error otherwise. Possible error values include the following.
      * 
@@ -3247,7 +3246,7 @@ class Audio {
      * 
      * The buffer must be prepared with the <b>waveOutPrepareHeader</b> function before it is passed to <b>waveOutWrite</b>. Unless the device is paused by calling the <b>waveOutPause</b> function, playback begins when the first data block is sent to the device.
      * @param {HWAVEOUT} hwo Handle to the waveform-audio output device.
-     * @param {Pointer} pwh Pointer to a <a href="https://docs.microsoft.com/previous-versions/dd743837(v=vs.85)">WAVEHDR</a> structure containing information about the data block.
+     * @param {Integer} pwh Pointer to a <a href="https://docs.microsoft.com/previous-versions/dd743837(v=vs.85)">WAVEHDR</a> structure containing information about the data block.
      * @param {Integer} cbwh Size, in bytes, of the <b>WAVEHDR</b> structure.
      * @returns {Integer} Returns MMSYSERR_NOERROR if successful or an error otherwise. Possible error values include the following.
      * 
@@ -3577,7 +3576,7 @@ class Audio {
      * 
      * The position is set to zero when the device is opened or reset.
      * @param {HWAVEOUT} hwo Handle to the waveform-audio output device.
-     * @param {Pointer} pmmt Pointer to an <a href="https://docs.microsoft.com/previous-versions/dd757347(v=vs.85)">MMTIME</a> structure.
+     * @param {Integer} pmmt Pointer to an <a href="https://docs.microsoft.com/previous-versions/dd757347(v=vs.85)">MMTIME</a> structure.
      * @param {Integer} cbmmt Size, in bytes, of the <b>MMTIME</b> structure.
      * @returns {Integer} Returns MMSYSERR_NOERROR if successful or an error otherwise. Possible error values include the following.
      * 
@@ -4088,7 +4087,7 @@ class Audio {
     /**
      * 
      * @param {Pointer} uDeviceID 
-     * @param {Pointer} pwic 
+     * @param {Integer} pwic 
      * @param {Integer} cbwic 
      * @returns {Integer} 
      */
@@ -4100,7 +4099,7 @@ class Audio {
     /**
      * 
      * @param {Pointer} uDeviceID 
-     * @param {Pointer} pwic 
+     * @param {Integer} pwic 
      * @param {Integer} cbwic 
      * @returns {Integer} 
      */
@@ -4165,7 +4164,7 @@ class Audio {
      * @param {Pointer<WAVEFORMATEX>} pwfx Pointer to a <a href="https://docs.microsoft.com/previous-versions/dd757713(v=vs.85)">WAVEFORMATEX</a> structure that identifies the desired format for recording waveform-audio data. You can free this structure immediately after <b>waveInOpen</b> returns.
      * @param {Pointer} dwCallback Pointer to a fixed callback function, an event handle, a handle to a window, or the identifier of a thread to be called during waveform-audio recording to process messages related to the progress of recording. If no callback function is required, this value can be zero. For more information on the callback function, see <a href="https://docs.microsoft.com/previous-versions/dd743849(v=vs.85)">waveInProc</a>.
      * @param {Pointer} dwInstance User-instance data passed to the callback mechanism. This parameter is not used with the window callback mechanism.
-     * @param {Integer} fdwOpen Flags for opening the device. The following values are defined.
+     * @param {MIDI_WAVE_OPEN_TYPE} fdwOpen Flags for opening the device. The following values are defined.
      *             
      * 
      * <table>
@@ -4363,7 +4362,7 @@ class Audio {
      * @remarks
      * The <b>lpData</b>, <b>dwBufferLength</b>, and <b>dwFlags</b> members of the <b>WAVEHDR</b> structure must be set before calling this function (<b>dwFlags</b> must be zero).
      * @param {HWAVEIN} hwi Handle to the waveform-audio input device.
-     * @param {Pointer} pwh Pointer to a <a href="https://docs.microsoft.com/previous-versions/dd743837(v=vs.85)">WAVEHDR</a> structure that identifies the buffer to be prepared.
+     * @param {Integer} pwh Pointer to a <a href="https://docs.microsoft.com/previous-versions/dd743837(v=vs.85)">WAVEHDR</a> structure that identifies the buffer to be prepared.
      * @param {Integer} cbwh Size, in bytes, of the <b>WAVEHDR</b> structure.
      * @returns {Integer} Returns MMSYSERR_NOERROR if successful or an error otherwise. Possible error values include the following.
      * 
@@ -4423,7 +4422,7 @@ class Audio {
      * 
      * You must call this function before freeing the buffer. After passing a buffer to the device driver with the <b>waveInAddBuffer</b> function, you must wait until the driver is finished with the buffer before calling <b>waveInUnprepareHeader</b>. Unpreparing a buffer that has not been prepared has no effect, and the function returns zero.
      * @param {HWAVEIN} hwi Handle to the waveform-audio input device.
-     * @param {Pointer} pwh Pointer to a <a href="https://docs.microsoft.com/previous-versions/dd743837(v=vs.85)">WAVEHDR</a> structure identifying the buffer to be cleaned up.
+     * @param {Integer} pwh Pointer to a <a href="https://docs.microsoft.com/previous-versions/dd743837(v=vs.85)">WAVEHDR</a> structure identifying the buffer to be cleaned up.
      * @param {Integer} cbwh Size, in bytes, of the <b>WAVEHDR</b> structure.
      * @returns {Integer} Returns MMSYSERR_NOERROR if successful or an error otherwise. Possible error values include the following.
      * 
@@ -4494,7 +4493,7 @@ class Audio {
      * 
      * The buffer must be prepared with the <b>waveInPrepareHeader</b> function before it is passed to this function.
      * @param {HWAVEIN} hwi Handle to the waveform-audio input device.
-     * @param {Pointer} pwh Pointer to a <a href="https://docs.microsoft.com/previous-versions/dd743837(v=vs.85)">WAVEHDR</a> structure that identifies the buffer.
+     * @param {Integer} pwh Pointer to a <a href="https://docs.microsoft.com/previous-versions/dd743837(v=vs.85)">WAVEHDR</a> structure that identifies the buffer.
      * @param {Integer} cbwh Size, in bytes, of the <b>WAVEHDR</b> structure.
      * @returns {Integer} Returns MMSYSERR_NOERROR if successful or an error otherwise. Possible error values include the following.
      * 
@@ -4735,7 +4734,7 @@ class Audio {
      * 
      * The position is set to zero when the device is opened or reset.
      * @param {HWAVEIN} hwi Handle to the waveform-audio input device.
-     * @param {Pointer} pmmt Pointer to an <a href="https://docs.microsoft.com/previous-versions/dd757347(v=vs.85)">MMTIME</a> structure.
+     * @param {Integer} pmmt Pointer to an <a href="https://docs.microsoft.com/previous-versions/dd757347(v=vs.85)">MMTIME</a> structure.
      * @param {Integer} cbmmt Size, in bytes, of the <a href="https://docs.microsoft.com/previous-versions/dd757347(v=vs.85)">MMTIME</a> structure.
      * @returns {Integer} Returns MMSYSERR_NOERROR if successful or an error otherwise. Possible error values include the following.
      *           
@@ -5161,7 +5160,7 @@ class Audio {
      * 
      * The position is set to zero when the device is opened or reset.
      * @param {HMIDISTRM} hms Handle to a MIDI stream. This handle must have been returned by a call to the <a href="https://docs.microsoft.com/previous-versions/dd798486(v=vs.85)">midiStreamOpen</a> function. This handle identifies the output device.
-     * @param {Pointer} lpmmt Pointer to an <a href="https://docs.microsoft.com/previous-versions/dd757347(v=vs.85)">MMTIME</a> structure.
+     * @param {Integer} lpmmt Pointer to an <a href="https://docs.microsoft.com/previous-versions/dd757347(v=vs.85)">MMTIME</a> structure.
      * @param {Integer} cbmmt Size, in bytes, of the <a href="https://docs.microsoft.com/previous-versions/dd757347(v=vs.85)">MMTIME</a> structure.
      * @returns {Integer} Returns MMSYSERR_NOERROR if successful or an error otherwise. Possible error values include the following.
      * 
@@ -5214,7 +5213,7 @@ class Audio {
      * 
      * The buffer pointed to by the <a href="https://docs.microsoft.com/previous-versions/dd798449(v=vs.85)">MIDIHDR</a> structure contains one or more MIDI events, each of which is defined by a <a href="https://docs.microsoft.com/previous-versions/dd798448(v=vs.85)">MIDIEVENT</a> structure.
      * @param {HMIDISTRM} hms Handle to a MIDI stream. This handle must have been returned by a call to the <a href="https://docs.microsoft.com/previous-versions/dd798486(v=vs.85)">midiStreamOpen</a> function. This handle identifies the output device.
-     * @param {Pointer} pmh Pointer to a <a href="https://docs.microsoft.com/previous-versions/dd798449(v=vs.85)">MIDIHDR</a> structure that identifies the MIDI buffer.
+     * @param {Integer} pmh Pointer to a <a href="https://docs.microsoft.com/previous-versions/dd798449(v=vs.85)">MIDIHDR</a> structure that identifies the MIDI buffer.
      * @param {Integer} cbmh Size, in bytes, of the <a href="https://docs.microsoft.com/previous-versions/dd798449(v=vs.85)">MIDIHDR</a> structure.
      * @returns {Integer} Returns MMSYSERR_NOERROR if successful or an error otherwise. Possible error values include the following.
      * 
@@ -5500,7 +5499,7 @@ class Audio {
      * @param {Pointer} uDeviceID Identifier of the MIDI output device. The device identifier specified by this parameter varies from zero to one less than the number of devices present. The MIDI_MAPPER constant is also a valid device identifier.
      * 
      * This parameter can also be a properly cast device handle.
-     * @param {Pointer} pmoc Pointer to a <a href="https://docs.microsoft.com/previous-versions/dd798467(v=vs.85)">MIDIOUTCAPS</a> structure. This structure is filled with information about the capabilities of the device.
+     * @param {Integer} pmoc Pointer to a <a href="https://docs.microsoft.com/previous-versions/dd798467(v=vs.85)">MIDIOUTCAPS</a> structure. This structure is filled with information about the capabilities of the device.
      * @param {Integer} cbmoc Size, in bytes, of the <a href="https://docs.microsoft.com/previous-versions/dd798467(v=vs.85)">MIDIOUTCAPS</a> structure. Only <i>cbMidiOutCaps</i> bytes (or less) of information is copied to the location pointed to by <i>lpMidiOutCaps</i>. If <i>cbMidiOutCaps</i> is zero, nothing is copied, and the function returns MMSYSERR_NOERROR.
      * @returns {Integer} Returns MMSYSERR_NOERROR if successful or an error otherwise. Possible error values include the following.
      * 
@@ -5576,7 +5575,7 @@ class Audio {
      * @param {Pointer} uDeviceID Identifier of the MIDI output device. The device identifier specified by this parameter varies from zero to one less than the number of devices present. The MIDI_MAPPER constant is also a valid device identifier.
      * 
      * This parameter can also be a properly cast device handle.
-     * @param {Pointer} pmoc Pointer to a <a href="https://docs.microsoft.com/previous-versions/dd798467(v=vs.85)">MIDIOUTCAPS</a> structure. This structure is filled with information about the capabilities of the device.
+     * @param {Integer} pmoc Pointer to a <a href="https://docs.microsoft.com/previous-versions/dd798467(v=vs.85)">MIDIOUTCAPS</a> structure. This structure is filled with information about the capabilities of the device.
      * @param {Integer} cbmoc Size, in bytes, of the <a href="https://docs.microsoft.com/previous-versions/dd798467(v=vs.85)">MIDIOUTCAPS</a> structure. Only <i>cbMidiOutCaps</i> bytes (or less) of information is copied to the location pointed to by <i>lpMidiOutCaps</i>. If <i>cbMidiOutCaps</i> is zero, nothing is copied, and the function returns MMSYSERR_NOERROR.
      * @returns {Integer} Returns MMSYSERR_NOERROR if successful or an error otherwise. Possible error values include the following.
      * 
@@ -5903,7 +5902,7 @@ class Audio {
      * @param {Integer} uDeviceID Identifier of the MIDI output device that is to be opened.
      * @param {Pointer} dwCallback Pointer to a callback function, an event handle, a thread identifier, or a handle of a window or thread called during MIDI playback to process messages related to the progress of the playback. If no callback is desired, specify <b>NULL</b> for this parameter. For more information on the callback function, see <a href="https://docs.microsoft.com/previous-versions/dd798478(v=vs.85)">MidiOutProc</a>.
      * @param {Pointer} dwInstance User instance data passed to the callback. This parameter is not used with window callbacks or threads.
-     * @param {Integer} fdwOpen Callback flag for opening the device. It can be the following values.
+     * @param {MIDI_WAVE_OPEN_TYPE} fdwOpen Callback flag for opening the device. It can be the following values.
      * 
      * <table>
      * <tr>
@@ -6072,7 +6071,7 @@ class Audio {
      * 
      * Preparing a header that has already been prepared has no effect, and the function returns MMSYSERR_NOERROR.
      * @param {HMIDIOUT} hmo Handle to the MIDI output device. To get the device handle, call <a href="https://docs.microsoft.com/previous-versions/dd798476(v=vs.85)">midiOutOpen</a>. This parameter can also be the handle of a MIDI stream cast to a <b>HMIDIOUT</b> type.
-     * @param {Pointer} pmh Pointer to a <a href="https://docs.microsoft.com/previous-versions/dd798449(v=vs.85)">MIDIHDR</a> structure that identifies the buffer to be prepared.
+     * @param {Integer} pmh Pointer to a <a href="https://docs.microsoft.com/previous-versions/dd798449(v=vs.85)">MIDIHDR</a> structure that identifies the buffer to be prepared.
      *           
      * 
      * Before calling the function, set the <b>lpData</b>, <b>dwBufferLength</b>, and <b>dwFlags</b> members of the <a href="https://docs.microsoft.com/previous-versions/dd798449(v=vs.85)">MIDIHDR</a> structure. The <b>dwFlags</b> member must be set to zero.
@@ -6135,7 +6134,7 @@ class Audio {
      * 
      * Unpreparing a buffer that has not been prepared has no effect, and the function returns MMSYSERR_NOERROR.
      * @param {HMIDIOUT} hmo Handle to the MIDI output device. This parameter can also be the handle of a MIDI stream cast to <b>HMIDIOUT</b>.
-     * @param {Pointer} pmh Pointer to a <a href="https://docs.microsoft.com/previous-versions/dd798449(v=vs.85)">MIDIHDR</a> structure identifying the buffer to be cleaned up.
+     * @param {Integer} pmh Pointer to a <a href="https://docs.microsoft.com/previous-versions/dd798449(v=vs.85)">MIDIHDR</a> structure identifying the buffer to be cleaned up.
      * @param {Integer} cbmh Size, in bytes, of the <a href="https://docs.microsoft.com/previous-versions/dd798449(v=vs.85)">MIDIHDR</a> structure.
      * @returns {Integer} Returns MMSYSERR_NOERROR if successful or an error otherwise. Possible error values include the following.
      * 
@@ -6317,7 +6316,7 @@ class Audio {
      * @remarks
      * Before the buffer is passed to <b>midiOutLongMsg</b>, it must be prepared by using the <a href="https://docs.microsoft.com/previous-versions/dd798477(v=vs.85)">midiOutPrepareHeader</a> function. The MIDI output device driver determines whether the data is sent synchronously or asynchronously.
      * @param {HMIDIOUT} hmo Handle to the MIDI output device. This parameter can also be the handle of a MIDI stream cast to <b>HMIDIOUT</b>.
-     * @param {Pointer} pmh Pointer to a <a href="https://docs.microsoft.com/previous-versions/dd798449(v=vs.85)">MIDIHDR</a> structure that identifies the MIDI buffer.
+     * @param {Integer} pmh Pointer to a <a href="https://docs.microsoft.com/previous-versions/dd798449(v=vs.85)">MIDIHDR</a> structure that identifies the MIDI buffer.
      * @param {Integer} cbmh Size, in bytes, of the <a href="https://docs.microsoft.com/previous-versions/dd798449(v=vs.85)">MIDIHDR</a> structure.
      * @returns {Integer} Returns MMSYSERR_NOERROR if successful or an error otherwise. Possible error values include the following.
      * 
@@ -6826,7 +6825,7 @@ class Audio {
      * > [!NOTE]
      * > The mmeapi.h header defines midiInGetDevCaps as an alias which automatically selects the ANSI or Unicode version of this function based on the definition of the UNICODE preprocessor constant. Mixing usage of the encoding-neutral alias with code that not encoding-neutral can lead to mismatches that result in compilation or runtime errors. For more information, see [Conventions for Function Prototypes](/windows/win32/intl/conventions-for-function-prototypes).
      * @param {Pointer} uDeviceID Identifier of the MIDI input device. The device identifier varies from zero to one less than the number of devices present. This parameter can also be a properly cast device handle.
-     * @param {Pointer} pmic Pointer to a <a href="https://docs.microsoft.com/previous-versions/dd798451(v=vs.85)">MIDIINCAPS</a> structure that is filled with information about the capabilities of the device.
+     * @param {Integer} pmic Pointer to a <a href="https://docs.microsoft.com/previous-versions/dd798451(v=vs.85)">MIDIINCAPS</a> structure that is filled with information about the capabilities of the device.
      * @param {Integer} cbmic Size, in bytes, of the <a href="https://docs.microsoft.com/previous-versions/dd798451(v=vs.85)">MIDIINCAPS</a> structure. Only <i>cbMidiInCaps</i> bytes (or less) of information is copied to the location pointed to by <i>lpMidiInCaps</i>. If <i>cbMidiInCaps</i> is zero, nothing is copied, and the function returns MMSYSERR_NOERROR.
      * @returns {Integer} Returns MMSYSERR_NOERROR if successful or an error otherwise. Possible error values include the following.
      * 
@@ -6900,7 +6899,7 @@ class Audio {
      * > [!NOTE]
      * > The mmeapi.h header defines midiInGetDevCaps as an alias which automatically selects the ANSI or Unicode version of this function based on the definition of the UNICODE preprocessor constant. Mixing usage of the encoding-neutral alias with code that not encoding-neutral can lead to mismatches that result in compilation or runtime errors. For more information, see [Conventions for Function Prototypes](/windows/win32/intl/conventions-for-function-prototypes).
      * @param {Pointer} uDeviceID Identifier of the MIDI input device. The device identifier varies from zero to one less than the number of devices present. This parameter can also be a properly cast device handle.
-     * @param {Pointer} pmic Pointer to a <a href="https://docs.microsoft.com/previous-versions/dd798451(v=vs.85)">MIDIINCAPS</a> structure that is filled with information about the capabilities of the device.
+     * @param {Integer} pmic Pointer to a <a href="https://docs.microsoft.com/previous-versions/dd798451(v=vs.85)">MIDIINCAPS</a> structure that is filled with information about the capabilities of the device.
      * @param {Integer} cbmic Size, in bytes, of the <a href="https://docs.microsoft.com/previous-versions/dd798451(v=vs.85)">MIDIINCAPS</a> structure. Only <i>cbMidiInCaps</i> bytes (or less) of information is copied to the location pointed to by <i>lpMidiInCaps</i>. If <i>cbMidiInCaps</i> is zero, nothing is copied, and the function returns MMSYSERR_NOERROR.
      * @returns {Integer} Returns MMSYSERR_NOERROR if successful or an error otherwise. Possible error values include the following.
      * 
@@ -7104,7 +7103,7 @@ class Audio {
      * @param {Integer} uDeviceID Identifier of the MIDI input device to be opened.
      * @param {Pointer} dwCallback Pointer to a callback function, a thread identifier, or a handle of a window called with information about incoming MIDI messages. For more information on the callback function, see <a href="https://docs.microsoft.com/previous-versions/dd798460(v=vs.85)">MidiInProc</a>.
      * @param {Pointer} dwInstance User instance data passed to the callback function. This parameter is not used with window callback functions or threads.
-     * @param {Integer} fdwOpen Callback flag for opening the device and, optionally, a status flag that helps regulate rapid data transfers. It can be the following values.
+     * @param {MIDI_WAVE_OPEN_TYPE} fdwOpen Callback flag for opening the device and, optionally, a status flag that helps regulate rapid data transfers. It can be the following values.
      * 
      * <table>
      * <tr>
@@ -7274,7 +7273,7 @@ class Audio {
      * Preparing a header that has already been prepared has no effect, and the function returns zero.
      * @param {HMIDIIN} hmi Handle to the MIDI input device.
      *           To get the device handle, call <a href="https://docs.microsoft.com/previous-versions/dd798458(v=vs.85)">midiInOpen</a>.
-     * @param {Pointer} pmh Pointer to a <a href="https://docs.microsoft.com/previous-versions/dd798449(v=vs.85)">MIDIHDR</a> structure that identifies the buffer to be prepared.
+     * @param {Integer} pmh Pointer to a <a href="https://docs.microsoft.com/previous-versions/dd798449(v=vs.85)">MIDIHDR</a> structure that identifies the buffer to be prepared.
      *            
      * 
      * Before calling the function, set the <b>lpData</b>, <b>dwBufferLength</b>, and <b>dwFlags</b> members of the <a href="https://docs.microsoft.com/previous-versions/dd798449(v=vs.85)">MIDIHDR</a> structure. The <b>dwFlags</b> member must be set to zero.
@@ -7335,7 +7334,7 @@ class Audio {
      * @remarks
      * This function is complementary to <a href="https://docs.microsoft.com/previous-versions/dd798459(v=vs.85)">midiInPrepareHeader</a>. You must use this function before freeing the buffer. After passing a buffer to the device driver by using the <a href="https://docs.microsoft.com/previous-versions/dd798450(v=vs.85)">midiInAddBuffer</a> function, you must wait until the driver is finished with the buffer before using <b>midiInUnprepareHeader</b>. Unpreparing a buffer that has not been prepared has no effect, and the function returns MMSYSERR_NOERROR.
      * @param {HMIDIIN} hmi Handle to the MIDI input device.
-     * @param {Pointer} pmh Pointer to a <a href="https://docs.microsoft.com/previous-versions/dd798449(v=vs.85)">MIDIHDR</a> structure identifying the buffer to be cleaned up.
+     * @param {Integer} pmh Pointer to a <a href="https://docs.microsoft.com/previous-versions/dd798449(v=vs.85)">MIDIHDR</a> structure identifying the buffer to be cleaned up.
      * @param {Integer} cbmh Size of the <a href="https://docs.microsoft.com/previous-versions/dd798449(v=vs.85)">MIDIHDR</a> structure.
      * @returns {Integer} Returns MMSYSERR_NOERROR if successful or an error otherwise. Possible error values include the following.
      * 
@@ -7395,7 +7394,7 @@ class Audio {
      * 
      * The buffer must be prepared by using the <a href="https://docs.microsoft.com/previous-versions/dd798459(v=vs.85)">midiInPrepareHeader</a> function before it is passed to the <b>midiInAddBuffer</b> function.
      * @param {HMIDIIN} hmi Handle to the MIDI input device.
-     * @param {Pointer} pmh Pointer to a <a href="https://docs.microsoft.com/previous-versions/dd798449(v=vs.85)">MIDIHDR</a> structure that identifies the buffer.
+     * @param {Integer} pmh Pointer to a <a href="https://docs.microsoft.com/previous-versions/dd798449(v=vs.85)">MIDIHDR</a> structure that identifies the buffer.
      * @param {Integer} cbmh Size, in bytes, of the <a href="https://docs.microsoft.com/previous-versions/dd798449(v=vs.85)">MIDIHDR</a> structure.
      * @returns {Integer} Returns MMSYSERR_NOERROR if successful or an error otherwise. Possible error values include the following.
      * 
@@ -7776,7 +7775,7 @@ class Audio {
      * <td>Auxiliary audio mapper. The function returns an error if no auxiliary audio mapper is installed.</td>
      * </tr>
      * </table>
-     * @param {Pointer} pac Pointer to an <a href="https://docs.microsoft.com/previous-versions/dd756711(v=vs.85)">AUXCAPS</a> structure to be filled with information about the capabilities of the device.
+     * @param {Integer} pac Pointer to an <a href="https://docs.microsoft.com/previous-versions/dd756711(v=vs.85)">AUXCAPS</a> structure to be filled with information about the capabilities of the device.
      * @param {Integer} cbac Size, in bytes, of the <a href="https://docs.microsoft.com/previous-versions/dd756711(v=vs.85)">AUXCAPS</a> structure.
      * @returns {Integer} Returns MMSYSERR_NOERROR if successful or an error otherwise. Possible error values include the following.
      * 
@@ -7830,7 +7829,7 @@ class Audio {
      * <td>Auxiliary audio mapper. The function returns an error if no auxiliary audio mapper is installed.</td>
      * </tr>
      * </table>
-     * @param {Pointer} pac Pointer to an <a href="https://docs.microsoft.com/previous-versions/dd756711(v=vs.85)">AUXCAPS</a> structure to be filled with information about the capabilities of the device.
+     * @param {Integer} pac Pointer to an <a href="https://docs.microsoft.com/previous-versions/dd756711(v=vs.85)">AUXCAPS</a> structure to be filled with information about the capabilities of the device.
      * @param {Integer} cbac Size, in bytes, of the <a href="https://docs.microsoft.com/previous-versions/dd756711(v=vs.85)">AUXCAPS</a> structure.
      * @returns {Integer} Returns MMSYSERR_NOERROR if successful or an error otherwise. Possible error values include the following.
      * 
@@ -8069,7 +8068,7 @@ class Audio {
      * > [!NOTE]
      * > The mmeapi.h header defines mixerGetDevCaps as an alias which automatically selects the ANSI or Unicode version of this function based on the definition of the UNICODE preprocessor constant. Mixing usage of the encoding-neutral alias with code that not encoding-neutral can lead to mismatches that result in compilation or runtime errors. For more information, see [Conventions for Function Prototypes](/windows/win32/intl/conventions-for-function-prototypes).
      * @param {Pointer} uMxId Identifier or handle of an open mixer device.
-     * @param {Pointer} pmxcaps Pointer to a <a href="https://docs.microsoft.com/windows/desktop/api/mmeapi/ns-mmeapi-mixercapsa">MIXERCAPS</a> structure that receives information about the capabilities of the device.
+     * @param {Integer} pmxcaps Pointer to a <a href="https://docs.microsoft.com/windows/desktop/api/mmeapi/ns-mmeapi-mixercapsa">MIXERCAPS</a> structure that receives information about the capabilities of the device.
      * @param {Integer} cbmxcaps Size, in bytes, of the <a href="https://docs.microsoft.com/windows/desktop/api/mmeapi/ns-mmeapi-mixercapsa">MIXERCAPS</a> structure.
      * @returns {Integer} Returns MMSYSERR_NOERROR if successful or an error otherwise. Possible error values include the following.
      * 
@@ -8136,7 +8135,7 @@ class Audio {
      * > [!NOTE]
      * > The mmeapi.h header defines mixerGetDevCaps as an alias which automatically selects the ANSI or Unicode version of this function based on the definition of the UNICODE preprocessor constant. Mixing usage of the encoding-neutral alias with code that not encoding-neutral can lead to mismatches that result in compilation or runtime errors. For more information, see [Conventions for Function Prototypes](/windows/win32/intl/conventions-for-function-prototypes).
      * @param {Pointer} uMxId Identifier or handle of an open mixer device.
-     * @param {Pointer} pmxcaps Pointer to a <a href="https://docs.microsoft.com/windows/desktop/api/mmeapi/ns-mmeapi-mixercapsa">MIXERCAPS</a> structure that receives information about the capabilities of the device.
+     * @param {Integer} pmxcaps Pointer to a <a href="https://docs.microsoft.com/windows/desktop/api/mmeapi/ns-mmeapi-mixercapsa">MIXERCAPS</a> structure that receives information about the capabilities of the device.
      * @param {Integer} cbmxcaps Size, in bytes, of the <a href="https://docs.microsoft.com/windows/desktop/api/mmeapi/ns-mmeapi-mixercapsa">MIXERCAPS</a> structure.
      * @returns {Integer} Returns MMSYSERR_NOERROR if successful or an error otherwise. Possible error values include the following.
      * 
@@ -9885,7 +9884,7 @@ class Audio {
 
     /**
      * 
-     * @param {Integer} category 
+     * @param {AUDIO_STREAM_CATEGORY} category 
      * @returns {IAudioStateMonitor} 
      */
     static CreateRenderAudioStateMonitorForCategory(category) {
@@ -9895,8 +9894,8 @@ class Audio {
 
     /**
      * 
-     * @param {Integer} category 
-     * @param {Integer} role 
+     * @param {AUDIO_STREAM_CATEGORY} category 
+     * @param {ERole} role 
      * @returns {IAudioStateMonitor} 
      */
     static CreateRenderAudioStateMonitorForCategoryAndDeviceRole(category, role) {
@@ -9906,7 +9905,7 @@ class Audio {
 
     /**
      * 
-     * @param {Integer} category 
+     * @param {AUDIO_STREAM_CATEGORY} category 
      * @param {PWSTR} deviceId 
      * @returns {IAudioStateMonitor} 
      */
@@ -9928,7 +9927,7 @@ class Audio {
 
     /**
      * 
-     * @param {Integer} category 
+     * @param {AUDIO_STREAM_CATEGORY} category 
      * @returns {IAudioStateMonitor} 
      */
     static CreateCaptureAudioStateMonitorForCategory(category) {
@@ -9938,8 +9937,8 @@ class Audio {
 
     /**
      * 
-     * @param {Integer} category 
-     * @param {Integer} role 
+     * @param {AUDIO_STREAM_CATEGORY} category 
+     * @param {ERole} role 
      * @returns {IAudioStateMonitor} 
      */
     static CreateCaptureAudioStateMonitorForCategoryAndDeviceRole(category, role) {
@@ -9949,7 +9948,7 @@ class Audio {
 
     /**
      * 
-     * @param {Integer} category 
+     * @param {AUDIO_STREAM_CATEGORY} category 
      * @param {PWSTR} deviceId 
      * @returns {IAudioStateMonitor} 
      */
@@ -10260,7 +10259,7 @@ class Audio {
      * > The msacm.h header defines acmDriverAdd as an alias which automatically selects the ANSI or Unicode version of this function based on the definition of the UNICODE preprocessor constant. Mixing usage of the encoding-neutral alias with code that not encoding-neutral can lead to mismatches that result in compilation or runtime errors. For more information, see [Conventions for Function Prototypes](/windows/win32/intl/conventions-for-function-prototypes).
      * @param {Pointer<HACMDRIVERID>} phadid Pointer to the buffer that receives a handle identifying the installed driver. This handle is used to identify the driver in calls to other ACM functions.
      * @param {HINSTANCE} hinstModule Handle to the instance of the module whose executable or dynamic-link library (DLL) contains the driver entry function.
-     * @param {LPARAM} _lParam 
+     * @param {LPARAM} _lParam Driver function address or a notification window handle, depending on the <i>fdwAdd</i> flags.
      * @param {Integer} dwPriority Window message to send for notification broadcasts. This parameter is used only with the ACM_DRIVERADDF_NOTIFYHWND flag. All other flags require this member to be set to zero.
      * @param {Integer} fdwAdd Flags for adding ACM drivers. The following values are defined.
      * 
@@ -10350,7 +10349,7 @@ class Audio {
      * > The msacm.h header defines acmDriverAdd as an alias which automatically selects the ANSI or Unicode version of this function based on the definition of the UNICODE preprocessor constant. Mixing usage of the encoding-neutral alias with code that not encoding-neutral can lead to mismatches that result in compilation or runtime errors. For more information, see [Conventions for Function Prototypes](/windows/win32/intl/conventions-for-function-prototypes).
      * @param {Pointer<HACMDRIVERID>} phadid Pointer to the buffer that receives a handle identifying the installed driver. This handle is used to identify the driver in calls to other ACM functions.
      * @param {HINSTANCE} hinstModule Handle to the instance of the module whose executable or dynamic-link library (DLL) contains the driver entry function.
-     * @param {LPARAM} _lParam 
+     * @param {LPARAM} _lParam Driver function address or a notification window handle, depending on the <i>fdwAdd</i> flags.
      * @param {Integer} dwPriority Window message to send for notification broadcasts. This parameter is used only with the ACM_DRIVERADDF_NOTIFYHWND flag. All other flags require this member to be set to zero.
      * @param {Integer} fdwAdd Flags for adding ACM drivers. The following values are defined.
      * 

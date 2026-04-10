@@ -1,18 +1,17 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\..\Guid.ahk
-#Include ..\..\..\Foundation\BSTR.ahk
+#Include .\IX509Enrollment.ahk
 #Include .\IX509EnrollmentPolicyServer.ahk
 #Include .\IX509CertificateTemplate.ahk
-#Include .\IX509Enrollment.ahk
+#Include ..\..\..\Foundation\BSTR.ahk
 
 /**
  * The IX509Enrollment2 interface enables you to enroll in a certificate hierarchy and install a certificate response.
  * @see https://learn.microsoft.com/windows/win32/api/certenroll/nn-certenroll-ix509enrollment2
  * @namespace Windows.Win32.Security.Cryptography.Certificates
- * @version v4.0.30319
  */
-class IX509Enrollment2 extends IX509Enrollment{
+class IX509Enrollment2 extends IX509Enrollment {
 
     static sizeof => A_PtrSize
     /**
@@ -77,7 +76,7 @@ class IX509Enrollment2 extends IX509Enrollment{
      * <li>Initializes the request object by using the template.</li>
      * <li>Retrieves the signature count, issuance policies, and application policies from the template.</li>
      * </ul>
-     * @param {Integer} _context 
+     * @param {X509CertificateEnrollmentContext} _context 
      * @param {IX509EnrollmentPolicyServer} pPolicyServer Pointer to an <a href="https://docs.microsoft.com/windows/desktop/api/certenroll/nn-certenroll-ix509enrollmentpolicyserver">IX509EnrollmentPolicyServer</a> object that represents the certificate enrollment policy (CEP) server that contains the template specified by the <i>pTemplate</i> parameter.
      * @param {IX509CertificateTemplate} pTemplate Pointer to an <a href="https://docs.microsoft.com/windows/desktop/api/certenroll/nn-certenroll-ix509certificatetemplate">IX509CertificateTemplate</a> object that represents the template to use during initialization.
      * @returns {HRESULT} If the function succeeds, the function returns <b>S_OK</b>.
@@ -151,14 +150,14 @@ class IX509Enrollment2 extends IX509Enrollment{
      * If you call this method from the web, you can specify only <b>AllowNone</b> or <b>AllowUntrustedRoot</b> in the <i>Restrictions</i> parameter. If you specify <b>AllowNoOutstandingRequest</b> or <b>AllowUntrustedCertificate</b>, the method returns an <b>E_ACCESSDENIED</b> error.
      * 
      * The last four parameters (<i>strEnrollmentPolicyServerUrl</i>, <i>strEnrollmentPolicyServerID</i>, <i>EnrollmentPolicyServerFlags</i>, and <i>authFlags</i>) are not included in the <a href="https://docs.microsoft.com/windows/desktop/api/certenroll/nf-certenroll-ix509enrollment-installresponse">InstallResponse</a> method. They enable you to add a property value to the installed certificate in much the same way as the <a href="https://docs.microsoft.com/windows/desktop/api/certenroll/nn-certenroll-icertpropertyenrollmentpolicyserver">ICertPropertyEnrollmentPolicyServer</a> interface does.
-     * @param {Integer} _Restrictions 
+     * @param {InstallResponseRestrictionFlags} _Restrictions 
      * @param {BSTR} strResponse A <b>BSTR</b> variable that contains the DER-encoded response.
-     * @param {Integer} Encoding An <a href="https://docs.microsoft.com/windows/desktop/api/certenroll/ne-certenroll-encodingtype">EncodingType</a> enumeration value that specifies the type of encoding applied to  the string that contains the DER-encoded response.
+     * @param {EncodingType} Encoding An <a href="https://docs.microsoft.com/windows/desktop/api/certenroll/ne-certenroll-encodingtype">EncodingType</a> enumeration value that specifies the type of encoding applied to  the string that contains the DER-encoded response.
      * @param {BSTR} strPassword An optional password for the certificate installation. This can be  <b>NULL</b> to indicate that  no password is used.  When you have finished using the password, clear it from memory by calling the <a href="https://docs.microsoft.com/previous-versions/windows/desktop/legacy/aa366877(v=vs.85)">SecureZeroMemory</a> function. For more information about protecting the password, see <a href="https://docs.microsoft.com/windows/desktop/SecBP/handling-passwords">Handling Passwords</a>.
      * @param {BSTR} strEnrollmentPolicyServerUrl A <b>BSTR</b> that contains the URL of the certificate enrollment policy (CEP) server.
      * @param {BSTR} strEnrollmentPolicyServerID A <b>BSTR</b> that contains an identifier for the CEP server.
-     * @param {Integer} EnrollmentPolicyServerFlags 
-     * @param {Integer} authFlags An <a href="https://docs.microsoft.com/windows/desktop/api/certcli/ne-certcli-x509enrollmentauthflags">X509EnrollmentAuthFlags</a> enumeration value that specifies the client authentication type. For Windows 7, only <b>X509AuthCertificate</b> can be chosen from the following values.
+     * @param {PolicyServerUrlFlags} EnrollmentPolicyServerFlags 
+     * @param {X509EnrollmentAuthFlags} authFlags An <a href="https://docs.microsoft.com/windows/desktop/api/certcli/ne-certcli-x509enrollmentauthflags">X509EnrollmentAuthFlags</a> enumeration value that specifies the client authentication type. For Windows 7, only <b>X509AuthCertificate</b> can be chosen from the following values.
      * 
      * <table>
      * <tr>

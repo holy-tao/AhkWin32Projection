@@ -5,9 +5,8 @@
  * Specifies which objects are enumerated for autocompletion lists.
  * @see https://learn.microsoft.com/windows/win32/api/shlobj_core/ne-shlobj_core-autocompletelistoptions
  * @namespace Windows.Win32.UI.Shell
- * @version v4.0.30319
  */
-class AUTOCOMPLETELISTOPTIONS extends Win32Enum{
+class AUTOCOMPLETELISTOPTIONS extends Win32Enum {
 
     /**
      * No enumeration should take place.

@@ -1,12 +1,11 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
+#Include .\D3DKMT_OFFER_PRIORITY.ahk
 
 /**
  * @namespace Windows.Wdk.Graphics.Direct3D
- * @version v4.0.30319
  */
-class D3DKMT_OFFERALLOCATIONS extends Win32Struct
-{
+class D3DKMT_OFFERALLOCATIONS extends Win32Struct {
     static sizeof => 40
 
     static packingSize => 8
@@ -44,7 +43,7 @@ class D3DKMT_OFFERALLOCATIONS extends Win32Struct
     }
 
     /**
-     * @type {Integer}
+     * @type {D3DKMT_OFFER_PRIORITY}
      */
     Priority {
         get => NumGet(this, 28, "int")
@@ -52,7 +51,7 @@ class D3DKMT_OFFERALLOCATIONS extends Win32Struct
     }
 
     /**
-     * @type {Pointer<D3DKMT_OFFER_FLAGS>}
+     * @type {Pointer}
      */
     Flags {
         get => NumGet(this, 32, "ptr")

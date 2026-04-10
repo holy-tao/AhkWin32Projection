@@ -3,10 +3,8 @@
 
 /**
  * @namespace Windows.Win32.System.SystemInformation
- * @version v4.0.30319
  */
-class SYSTEM_POOL_ZEROING_INFORMATION extends Win32Struct
-{
+class SYSTEM_POOL_ZEROING_INFORMATION extends Win32Struct {
     static sizeof => 1
 
     static packingSize => 1

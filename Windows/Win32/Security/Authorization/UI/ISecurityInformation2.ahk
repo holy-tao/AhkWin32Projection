@@ -1,16 +1,15 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\..\Guid.ahk
-#Include ..\..\..\System\Com\IDataObject.ahk
 #Include ..\..\..\System\Com\IUnknown.ahk
+#Include ..\..\..\System\Com\IDataObject.ahk
 
 /**
  * Enables the access control editor to obtain information from the client that is not provided by the ISecurityInformation interface.
  * @see https://learn.microsoft.com/windows/win32/api/aclui/nn-aclui-isecurityinformation2
  * @namespace Windows.Win32.Security.Authorization.UI
- * @version v4.0.30319
  */
-class ISecurityInformation2 extends IUnknown{
+class ISecurityInformation2 extends IUnknown {
 
     static sizeof => A_PtrSize
     /**

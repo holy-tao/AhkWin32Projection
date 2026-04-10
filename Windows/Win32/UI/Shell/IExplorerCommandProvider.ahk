@@ -11,9 +11,8 @@
  * Each command should have its own unique GUID; the command provider is expected to create a command instance on a per-GUID basis.
  * @see https://learn.microsoft.com/windows/win32/api/shobjidl_core/nn-shobjidl_core-iexplorercommandprovider
  * @namespace Windows.Win32.UI.Shell
- * @version v4.0.30319
  */
-class IExplorerCommandProvider extends IUnknown{
+class IExplorerCommandProvider extends IUnknown {
 
     static sizeof => A_PtrSize
     /**

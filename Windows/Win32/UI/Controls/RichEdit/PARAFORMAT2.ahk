@@ -1,15 +1,19 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\..\Win32Struct.ahk
 #Include .\PARAFORMAT.ahk
+#Include .\PARAFORMAT_MASK.ahk
+#Include .\PARAFORMAT_NUMBERING.ahk
+#Include .\PARAFORMAT_ALIGNMENT.ahk
+#Include .\PARAFORMAT_SHADING_STYLE.ahk
+#Include .\PARAFORMAT_NUMBERING_STYLE.ahk
+#Include .\PARAFORMAT_BORDERS.ahk
 
 /**
  * Contains information about paragraph formatting attributes in a rich edit control. (PARAFORMAT2)
  * @see https://learn.microsoft.com/windows/win32/api/richedit/ns-richedit-paraformat2
  * @namespace Windows.Win32.UI.Controls.RichEdit
- * @version v4.0.30319
  */
-class PARAFORMAT2 extends Win32Struct
-{
+class PARAFORMAT2 extends Win32Struct {
     static sizeof => 188
 
     static packingSize => 4
@@ -17,7 +21,7 @@ class PARAFORMAT2 extends Win32Struct
     /**
      * @type {PARAFORMAT}
      */
-    Base{
+    Base {
         get {
             if(!this.HasProp("__Base"))
                 this.__Base := PARAFORMAT(0, this)
@@ -114,7 +118,7 @@ class PARAFORMAT2 extends Win32Struct
      * 
      * Style and colors used for background shading. Bits 0 to 3 contain the shading style, bits 4 to 7 contain the foreground color index, and bits 8 to 11 contain the background color index. To use this member, set the PFM_SHADING flag in the 
      * 					<b>dwMask</b> member. This member is included only for compatibility with Word; the rich edit control stores the value but does not use it to display the text.
-     * @type {Integer}
+     * @type {PARAFORMAT_SHADING_STYLE}
      */
     wShadingStyle {
         get => NumGet(this, 174, "ushort")
@@ -139,7 +143,7 @@ class PARAFORMAT2 extends Win32Struct
      * 
      * Numbering style used with numbered paragraphs. Use this member in conjunction with the 
      * 					<b>wNumbering</b> member. This member is included only for compatibility with TOM interfaces; the rich edit control stores the value but rich edit versions earlier than 3.0 do not use it to display the text or bullets. To use this member, set the PFM_NUMBERINGSTYLE flag in the
-     * @type {Integer}
+     * @type {PARAFORMAT_NUMBERING_STYLE}
      */
     wNumberingStyle {
         get => NumGet(this, 178, "ushort")
@@ -190,7 +194,7 @@ class PARAFORMAT2 extends Win32Struct
      * 
      * Border location, style, and color. Bits 0 to 7 specify the border locations, bits 8 to 11 specify the border style, and bits 12 to 15 specify the border color index. To use this member, set the PFM_BORDER flag in the 
      * 					<b>dwMask</b> member.
-     * @type {Integer}
+     * @type {PARAFORMAT_BORDERS}
      */
     wBorders {
         get => NumGet(this, 186, "ushort")

@@ -1,6 +1,8 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\..\Win32Struct.ahk
+#Include .\WINML_FEATURE_TYPE.ahk
 #Include .\WINML_TENSOR_VARIABLE_DESC.ahk
+#Include .\WINML_TENSOR_DATA_TYPE.ahk
 #Include .\WINML_SEQUENCE_VARIABLE_DESC.ahk
 #Include .\WINML_MAP_VARIABLE_DESC.ahk
 #Include .\WINML_IMAGE_VARIABLE_DESC.ahk
@@ -9,10 +11,8 @@
  * Contains description properties of the variable.
  * @see https://learn.microsoft.com/windows/win32/api/winml/ns-winml-winml_variable_desc
  * @namespace Windows.Win32.AI.MachineLearning.WinML
- * @version v4.0.30319
  */
-class WINML_VARIABLE_DESC extends Win32Struct
-{
+class WINML_VARIABLE_DESC extends Win32Struct {
     static sizeof => 40
 
     static packingSize => 8
@@ -37,7 +37,7 @@ class WINML_VARIABLE_DESC extends Win32Struct
 
     /**
      * A <a href="https://docs.microsoft.com/windows/desktop/api/winml/ne-winml-winml_feature_type">WINML_FEATURE_TYPE</a> containing the feature type of variable.
-     * @type {Integer}
+     * @type {WINML_FEATURE_TYPE}
      */
     FeatureType {
         get => NumGet(this, 16, "int")
@@ -56,7 +56,7 @@ class WINML_VARIABLE_DESC extends Win32Struct
     /**
      * @type {WINML_TENSOR_VARIABLE_DESC}
      */
-    Tensor{
+    Tensor {
         get {
             if(!this.HasProp("__Tensor"))
                 this.__Tensor := WINML_TENSOR_VARIABLE_DESC(24, this)
@@ -67,7 +67,7 @@ class WINML_VARIABLE_DESC extends Win32Struct
     /**
      * @type {WINML_SEQUENCE_VARIABLE_DESC}
      */
-    Sequence{
+    Sequence {
         get {
             if(!this.HasProp("__Sequence"))
                 this.__Sequence := WINML_SEQUENCE_VARIABLE_DESC(24, this)
@@ -78,7 +78,7 @@ class WINML_VARIABLE_DESC extends Win32Struct
     /**
      * @type {WINML_MAP_VARIABLE_DESC}
      */
-    Map{
+    Map {
         get {
             if(!this.HasProp("__Map"))
                 this.__Map := WINML_MAP_VARIABLE_DESC(24, this)
@@ -89,7 +89,7 @@ class WINML_VARIABLE_DESC extends Win32Struct
     /**
      * @type {WINML_IMAGE_VARIABLE_DESC}
      */
-    Image{
+    Image {
         get {
             if(!this.HasProp("__Image"))
                 this.__Image := WINML_IMAGE_VARIABLE_DESC(24, this)

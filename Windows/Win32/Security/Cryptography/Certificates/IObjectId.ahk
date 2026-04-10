@@ -1,16 +1,15 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\..\Guid.ahk
-#Include ..\..\..\Foundation\BSTR.ahk
 #Include ..\..\..\System\Com\IDispatch.ahk
+#Include ..\..\..\Foundation\BSTR.ahk
 
 /**
  * Represents an object identifier (OID).
  * @see https://learn.microsoft.com/windows/win32/api/certenroll/nn-certenroll-iobjectid
  * @namespace Windows.Win32.Security.Cryptography.Certificates
- * @version v4.0.30319
  */
-class IObjectId extends IDispatch{
+class IObjectId extends IDispatch {
 
     static sizeof => A_PtrSize
     /**
@@ -32,7 +31,7 @@ class IObjectId extends IDispatch{
     static VTableNames => ["InitializeFromName", "InitializeFromValue", "InitializeFromAlgorithmName", "get_Name", "get_FriendlyName", "put_FriendlyName", "get_Value", "GetAlgorithmName"]
 
     /**
-     * @type {Integer} 
+     * @type {CERTENROLL_OBJECTID} 
      */
     Name {
         get => this.get_Name()
@@ -71,7 +70,7 @@ class IObjectId extends IDispatch{
      * <a href="https://docs.microsoft.com/windows/desktop/api/certenroll/nf-certenroll-iobjectid-get_value">Value</a>
      * </li>
      * </ul>
-     * @param {Integer} Name A <a href="https://docs.microsoft.com/windows/desktop/api/certenroll/ne-certenroll-certenroll_objectid">CERTENROLL_OBJECTID</a> enumeration value.
+     * @param {CERTENROLL_OBJECTID} Name A <a href="https://docs.microsoft.com/windows/desktop/api/certenroll/ne-certenroll-certenroll_objectid">CERTENROLL_OBJECTID</a> enumeration value.
      * @returns {HRESULT} If the function succeeds, the function returns <b>S_OK</b>.
      * 
      * If the function fails, it returns an <b>HRESULT</b> value that indicates the error. Possible values include, but are not limited to, those in the following table. For a list of common error codes, see <a href="https://docs.microsoft.com/windows/desktop/SecCrypto/common-hresult-values">Common HRESULT Values</a>.
@@ -199,7 +198,7 @@ class IObjectId extends IDispatch{
      * Initializes the object from an algorithm name or an object identifier.
      * @remarks
      * You can use the upper 16 bits of the <i>GroupId</i> parameter to specify the key size for algorithms that accept a variable bit length. For example, to initialize an <a href="https://docs.microsoft.com/windows/desktop/api/certenroll/nn-certenroll-iobjectid">IObjectId</a> object from a 192-bit AES algorithm, specify "AES" for the <i>strAlgorithmName</i> parameter, shift the length left by 16, and perform a bitwise-<b>OR</b> combination on the shifted bit length and the <i>GroupId</i> value.
-     * @param {Integer} GroupId An  <a href="https://docs.microsoft.com/windows/desktop/api/certenroll/ne-certenroll-objectidgroupid">ObjectIdGroupId</a> enumeration value that specifies the OID group to search. This can be any of the following algorithm groups:<ul>
+     * @param {ObjectIdGroupId} GroupId An  <a href="https://docs.microsoft.com/windows/desktop/api/certenroll/ne-certenroll-objectidgroupid">ObjectIdGroupId</a> enumeration value that specifies the OID group to search. This can be any of the following algorithm groups:<ul>
      * <li><b>XCN_CRYPT_HASH_ALG_OID_GROUP_ID</b></li>
      * <li><b>XCN_CRYPT_ENCRYPT_ALG_OID_GROUP_ID</b></li>
      * <li><b>XCN_CRYPT_PUBKEY_ALG_OID_GROUP_ID</b></li>
@@ -211,8 +210,8 @@ class IObjectId extends IDispatch{
      * <li><b>XCN_CRYPT_POLICY_OID_GROUP_ID</b></li>
      * <li><b>XCN_CRYPT_TEMPLATE_OID_GROUP_ID</b></li>
      * </ul>
-     * @param {Integer} KeyFlags 
-     * @param {Integer} AlgFlags 
+     * @param {ObjectIdPublicKeyFlags} KeyFlags 
+     * @param {AlgorithmFlags} AlgFlags 
      * @param {BSTR} strAlgorithmName A <b>BSTR</b> variable that contains the name. You can specify a name, or an OID in dotted decimal format.  The method verifies that the format is consistent with the ASN.1 X.208 standard. For more information about CNG algorithm names, see <a href="https://docs.microsoft.com/windows/desktop/SecCNG/cng-algorithm-identifiers">CNG Algorithm Identifiers</a>.
      * @returns {HRESULT} If the function succeeds, the function returns <b>S_OK</b>.
      * 
@@ -293,7 +292,7 @@ class IObjectId extends IDispatch{
      * <a href="https://docs.microsoft.com/windows/desktop/api/certenroll/nf-certenroll-iobjectid-get_value">Value</a>
      * </li>
      * </ul>
-     * @returns {Integer} 
+     * @returns {CERTENROLL_OBJECTID} 
      * @see https://learn.microsoft.com/windows/win32/api/certenroll/nf-certenroll-iobjectid-get_name
      */
     get_Name() {
@@ -410,7 +409,7 @@ class IObjectId extends IDispatch{
      * You can use the <b>XCN_CRYPT_ENCRYPT_ALG_OID_GROUP_ID</b> constant to create a <i>GroupId</i> parameter value that takes account of the key size for algorithms that can be identified by a variable bit length. For example, to initialize an <a href="https://docs.microsoft.com/windows/desktop/api/certenroll/nn-certenroll-iobjectid">IObjectId</a> object from a 192-bit AES algorithm, specify "AES" for the <i>strAlgorithmName</i> parameter, shift the length left by 16, and perform a bitwise-OR combination on the shifted bit length and <b>XCN_CRYPT_ENCRYPT_ALG_OID_GROUP_ID</b>.
      * 
      * If you set the <i>GroupId</i> parameter to anything other than <b>XCN_CRYPT_PUBKEY_ALG_OID_GROUP_ID</b>, specify <b>XCN_CRYPT_OID_INFO_PUBKEY_ANY</b> for the <i>KeyFlags</i> parameter.
-     * @param {Integer} GroupId An <a href="https://docs.microsoft.com/windows/desktop/api/certenroll/ne-certenroll-objectidgroupid">ObjectIdGroupId</a> enumeration value that specifies the OID group to search. This can be any of the following algorithm groups:
+     * @param {ObjectIdGroupId} GroupId An <a href="https://docs.microsoft.com/windows/desktop/api/certenroll/ne-certenroll-objectidgroupid">ObjectIdGroupId</a> enumeration value that specifies the OID group to search. This can be any of the following algorithm groups:
      * 
      * <ul>
      * <li><b>XCN_CRYPT_HASH_ALG_OID_GROUP_ID</b></li>
@@ -427,7 +426,7 @@ class IObjectId extends IDispatch{
      * <li><b>XCN_CRYPT_POLICY_OID_GROUP_ID</b></li>
      * <li><b>XCN_CRYPT_TEMPLATE_OID_GROUP_ID</b></li>
      * </ul>
-     * @param {Integer} KeyFlags 
+     * @param {ObjectIdPublicKeyFlags} KeyFlags 
      * @returns {BSTR} Pointer to a <b>BSTR</b> variable that contains the name.
      * @see https://learn.microsoft.com/windows/win32/api/certenroll/nf-certenroll-iobjectid-getalgorithmname
      */

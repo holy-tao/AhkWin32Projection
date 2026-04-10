@@ -1,7 +1,6 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
-#Include ..\..\Foundation\BSTR.ahk
 #Include ..\Com\IDispatch.ahk
 
 /**
@@ -10,9 +9,8 @@
  * When reading or writing XML for a task, the security credentials for a principal are specified in the <a href="https://docs.microsoft.com/windows/desktop/TaskSchd/taskschedulerschema-principal-principaltype-element">Principal</a> element of the Task Scheduler schema.
  * @see https://learn.microsoft.com/windows/win32/api/taskschd/nn-taskschd-iprincipal2
  * @namespace Windows.Win32.System.TaskScheduler
- * @version v4.0.30319
  */
-class IPrincipal2 extends IDispatch{
+class IPrincipal2 extends IDispatch {
 
     static sizeof => A_PtrSize
     /**
@@ -34,6 +32,7 @@ class IPrincipal2 extends IDispatch{
     static VTableNames => ["get_ProcessTokenSidType", "put_ProcessTokenSidType", "get_RequiredPrivilegeCount", "get_RequiredPrivilege", "AddRequiredPrivilege"]
 
     /**
+     * @type {TASK_PROCESSTOKENSID_TYPE} 
      */
     ProcessTokenSidType {
         get => this.get_ProcessTokenSidType()
@@ -48,7 +47,7 @@ class IPrincipal2 extends IDispatch{
 
     /**
      * Gets or sets the task process security identifier (SID) type. (Get)
-     * @param {Pointer<Integer>} pProcessTokenSidType 
+     * @param {Pointer<TASK_PROCESSTOKENSID_TYPE>} pProcessTokenSidType 
      * @returns {HRESULT} 
      * @see https://learn.microsoft.com/windows/win32/api/taskschd/nf-taskschd-iprincipal2-get_processtokensidtype
      */
@@ -61,7 +60,7 @@ class IPrincipal2 extends IDispatch{
 
     /**
      * Gets or sets the task process security identifier (SID) type. (Put)
-     * @param {Integer} processTokenSidType 
+     * @param {TASK_PROCESSTOKENSID_TYPE} processTokenSidType 
      * @returns {HRESULT} 
      * @see https://learn.microsoft.com/windows/win32/api/taskschd/nf-taskschd-iprincipal2-put_processtokensidtype
      */

@@ -7,9 +7,8 @@
  * Used to configure imported file group objects.
  * @see https://learn.microsoft.com/windows/win32/api/fsrmscreen/nn-fsrmscreen-ifsrmfilegroupimported
  * @namespace Windows.Win32.Storage.FileServerResourceManager
- * @version v4.0.30319
  */
-class IFsrmFileGroupImported extends IFsrmFileGroup{
+class IFsrmFileGroupImported extends IFsrmFileGroup {
 
     static sizeof => A_PtrSize
     /**

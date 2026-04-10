@@ -48,9 +48,8 @@
  * | [IUnknown::Release](/windows/win32/api/unknwn/nf-unknwn-iunknown-release)               | Decrements reference count.               |
  * @see https://learn.microsoft.com/windows/win32/wia/-wia-iwiaimagefilter
  * @namespace Windows.Win32.Devices.ImageAcquisition
- * @version v4.0.30319
  */
-class IWiaImageFilter extends IUnknown{
+class IWiaImageFilter extends IUnknown {
 
     static sizeof => A_PtrSize
     /**

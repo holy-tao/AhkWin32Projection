@@ -5,10 +5,8 @@
  * DRT_BOOTSTRAP_PROVIDER structure defines the DRT interface that must be implemented by a bootstrap provider.
  * @see https://learn.microsoft.com/windows/win32/api/drt/ns-drt-drt_bootstrap_provider
  * @namespace Windows.Win32.NetworkManagement.P2P
- * @version v4.0.30319
  */
-class DRT_BOOTSTRAP_PROVIDER extends Win32Struct
-{
+class DRT_BOOTSTRAP_PROVIDER extends Win32Struct {
     static sizeof => 64
 
     static packingSize => 8

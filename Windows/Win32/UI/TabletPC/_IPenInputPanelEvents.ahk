@@ -5,9 +5,8 @@
 
 /**
  * @namespace Windows.Win32.UI.TabletPC
- * @version v4.0.30319
  */
-class _IPenInputPanelEvents extends IDispatch{
+class _IPenInputPanelEvents extends IDispatch {
 
     static sizeof => A_PtrSize
     /**

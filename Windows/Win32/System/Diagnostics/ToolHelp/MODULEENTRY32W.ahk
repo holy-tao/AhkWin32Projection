@@ -8,11 +8,9 @@
  * The <b>modBaseAddr</b> and <b>hModule</b> members are valid only in the context of the process specified by <i>th32ProcessID</i>.
  * @see https://learn.microsoft.com/windows/win32/api/tlhelp32/ns-tlhelp32-moduleentry32w
  * @namespace Windows.Win32.System.Diagnostics.ToolHelp
- * @version v4.0.30319
  * @charset Unicode
  */
-class MODULEENTRY32W extends Win32Struct
-{
+class MODULEENTRY32W extends Win32Struct {
     static sizeof => 1080
 
     static packingSize => 8
@@ -86,7 +84,7 @@ class MODULEENTRY32W extends Win32Struct
      * A handle to the module in the context of the owning process.
      * @type {HMODULE}
      */
-    hModule{
+    hModule {
         get {
             if(!this.HasProp("__hModule"))
                 this.__hModule := HMODULE(40, this)

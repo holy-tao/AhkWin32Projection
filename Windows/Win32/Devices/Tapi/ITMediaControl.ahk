@@ -7,9 +7,8 @@
  * The ITMediaControl interface is a generic interface for media file terminals. The interface exposes methods that allow the application to start, stop, or pause current actions, such as a playback.
  * @see https://learn.microsoft.com/windows/win32/api/tapi3if/nn-tapi3if-itmediacontrol
  * @namespace Windows.Win32.Devices.Tapi
- * @version v4.0.30319
  */
-class ITMediaControl extends IDispatch{
+class ITMediaControl extends IDispatch {
 
     static sizeof => A_PtrSize
     /**
@@ -31,7 +30,7 @@ class ITMediaControl extends IDispatch{
     static VTableNames => ["Start", "Stop", "Pause", "get_MediaState"]
 
     /**
-     * @type {Integer} 
+     * @type {TERMINAL_MEDIA_STATE} 
      */
     MediaState {
         get => this.get_MediaState()
@@ -69,7 +68,7 @@ class ITMediaControl extends IDispatch{
 
     /**
      * The get_MediaState method gets the current state of media on the file terminal.
-     * @returns {Integer} Pointer to the 
+     * @returns {TERMINAL_MEDIA_STATE} Pointer to the 
      * <a href="https://docs.microsoft.com/windows/desktop/api/tapi3if/ne-tapi3if-terminal_media_state">TERMINAL_MEDIA_STATE</a> descriptor of the current state of the file terminal.
      * @see https://learn.microsoft.com/windows/win32/api/tapi3if/nf-tapi3if-itmediacontrol-get_mediastate
      */

@@ -4,10 +4,8 @@
 
 /**
  * @namespace Windows.Win32.System.Ioctl
- * @version v4.0.30319
  */
-class BIN_COUNT extends Win32Struct
-{
+class BIN_COUNT extends Win32Struct {
     static sizeof => 24
 
     static packingSize => 8
@@ -15,7 +13,7 @@ class BIN_COUNT extends Win32Struct
     /**
      * @type {BIN_RANGE}
      */
-    BinRange{
+    BinRange {
         get {
             if(!this.HasProp("__BinRange"))
                 this.__BinRange := BIN_RANGE(0, this)

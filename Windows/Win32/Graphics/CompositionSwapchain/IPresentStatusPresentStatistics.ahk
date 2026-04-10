@@ -5,13 +5,10 @@
 
 /**
  * Describes how a present was processed during a DWM-composed frame.
- * @remarks
- * 
  * @see https://learn.microsoft.com/windows/win32/api/presentation/nn-presentation-ipresentstatuspresentstatistics
  * @namespace Windows.Win32.Graphics.CompositionSwapchain
- * @version v4.0.30319
  */
-class IPresentStatusPresentStatistics extends IPresentStatistics{
+class IPresentStatusPresentStatistics extends IPresentStatistics {
 
     static sizeof => A_PtrSize
     /**
@@ -46,7 +43,7 @@ class IPresentStatusPresentStatistics extends IPresentStatistics{
 
     /**
      * Gets the status of the frame.
-     * @returns {Integer} Type: **[PresentStatus](ne-presentation-presentstatus.md)**
+     * @returns {PresentStatus} Type: **[PresentStatus](ne-presentation-presentstatus.md)**
      * 
      * The status of the frame.
      * @see https://learn.microsoft.com/windows/win32/api/presentation/nf-presentation-ipresentstatuspresentstatistics-getpresentstatus

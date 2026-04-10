@@ -10,9 +10,8 @@
  * <div> </div>
  * @see https://learn.microsoft.com/windows/win32/api/dxgidebug/ne-dxgidebug-dxgi_info_queue_message_category
  * @namespace Windows.Win32.Graphics.Dxgi
- * @version v4.0.30319
  */
-class DXGI_INFO_QUEUE_MESSAGE_CATEGORY extends Win32Enum{
+class DXGI_INFO_QUEUE_MESSAGE_CATEGORY extends Win32Enum {
 
     /**
      * Unknown category.

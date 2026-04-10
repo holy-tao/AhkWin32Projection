@@ -7,9 +7,8 @@
  * Represents a share item in the Offline Files cache.
  * @see https://learn.microsoft.com/windows/win32/api/cscobj/nn-cscobj-iofflinefilesshareitem
  * @namespace Windows.Win32.Storage.OfflineFiles
- * @version v4.0.30319
  */
-class IOfflineFilesShareItem extends IOfflineFilesItem{
+class IOfflineFilesShareItem extends IOfflineFilesItem {
 
     static sizeof => A_PtrSize
     /**

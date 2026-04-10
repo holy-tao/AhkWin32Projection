@@ -7,9 +7,8 @@
  * Exposes methods that create a destination Shell item for a copy or move operation. This interface is provided to allow more control over file operations by providing an ITransferDestination::Advise method.
  * @see https://learn.microsoft.com/windows/win32/api/shobjidl_core/nn-shobjidl_core-itransferdestination
  * @namespace Windows.Win32.UI.Shell
- * @version v4.0.30319
  */
-class ITransferDestination extends IUnknown{
+class ITransferDestination extends IUnknown {
 
     static sizeof => A_PtrSize
     /**

@@ -3,10 +3,8 @@
 
 /**
  * @namespace Windows.Win32.Security.EnterpriseData
- * @version v4.0.30319
  */
-class _SRP_REQUEST extends Win32Struct
-{
+class _SRP_REQUEST extends Win32Struct {
     static sizeof => 8
 
     static packingSize => 8

@@ -1,16 +1,18 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
+#Include .\INET_FIREWALL_AC_CHANGE_TYPE.ahk
+#Include .\INET_FIREWALL_AC_CREATION_TYPE.ahk
+#Include ..\..\Security\SID.ahk
 #Include .\INET_FIREWALL_AC_CAPABILITIES.ahk
+#Include ..\..\Security\SID_AND_ATTRIBUTES.ahk
 #Include .\INET_FIREWALL_AC_BINARIES.ahk
 
 /**
  * The INET_FIREWALL_AC_CHANGE structure contains information about a change made to an app container. (INET_FIREWALL_AC_CHANGE)
  * @see https://learn.microsoft.com/windows/win32/api/netfw/ns-netfw-inet_firewall_ac_change
  * @namespace Windows.Win32.NetworkManagement.WindowsFirewall
- * @version v4.0.30319
  */
-class INET_FIREWALL_AC_CHANGE extends Win32Struct
-{
+class INET_FIREWALL_AC_CHANGE extends Win32Struct {
     static sizeof => 48
 
     static packingSize => 8
@@ -19,7 +21,7 @@ class INET_FIREWALL_AC_CHANGE extends Win32Struct
      * Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/netfw/ne-netfw-inet_firewall_ac_change_type">INET_FIREWALL_AC_CHANGE_TYPE</a></b>
      * 
      * The type of change made.
-     * @type {Integer}
+     * @type {INET_FIREWALL_AC_CHANGE_TYPE}
      */
     changeType {
         get => NumGet(this, 0, "int")
@@ -30,7 +32,7 @@ class INET_FIREWALL_AC_CHANGE extends Win32Struct
      * Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/networkisolation/ne-networkisolation-inet_firewall_ac_creation_type">INET_FIREWALL_AC_CREATION_TYPE</a></b>
      * 
      * The method by which the app container was created.
-     * @type {Integer}
+     * @type {INET_FIREWALL_AC_CREATION_TYPE}
      */
     createType {
         get => NumGet(this, 4, "int")
@@ -73,7 +75,7 @@ class INET_FIREWALL_AC_CHANGE extends Win32Struct
     /**
      * @type {INET_FIREWALL_AC_CAPABILITIES}
      */
-    capabilities{
+    capabilities {
         get {
             if(!this.HasProp("__capabilities"))
                 this.__capabilities := INET_FIREWALL_AC_CAPABILITIES(32, this)
@@ -84,7 +86,7 @@ class INET_FIREWALL_AC_CHANGE extends Win32Struct
     /**
      * @type {INET_FIREWALL_AC_BINARIES}
      */
-    binaries{
+    binaries {
         get {
             if(!this.HasProp("__binaries"))
                 this.__binaries := INET_FIREWALL_AC_BINARIES(32, this)

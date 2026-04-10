@@ -5,9 +5,8 @@
  * Defines constants that specify DXCore adapter properties.
  * @see https://learn.microsoft.com/windows/win32/api/dxcore_interface/ne-dxcore_interface-dxcoreadapterproperty
  * @namespace Windows.Win32.Graphics.DXCore
- * @version v4.0.30319
  */
-class DXCoreAdapterProperty extends Win32Enum{
+class DXCoreAdapterProperty extends Win32Enum {
 
     /**
      * Specifies the <em>InstanceLuid</em> adapter property, which contains a locally unique identifier representing the adapter. This value remains constant for the lifetime of this adapter. The LUID of an adapter changes on reboot, driver upgrade, or device disablement/enablement.

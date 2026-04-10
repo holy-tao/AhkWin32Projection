@@ -1,15 +1,22 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
+#Include .\D3D12_VIDEO_ENCODER_CODEC.ahk
 #Include .\D3D12_VIDEO_ENCODER_PROFILE_DESC.ahk
+#Include .\D3D12_VIDEO_ENCODER_PROFILE_H264.ahk
+#Include .\D3D12_VIDEO_ENCODER_PROFILE_HEVC.ahk
+#Include .\D3D12_VIDEO_ENCODER_AV1_PROFILE.ahk
+#Include ..\..\Graphics\Dxgi\Common\DXGI_FORMAT.ahk
 #Include .\D3D12_VIDEO_ENCODER_PICTURE_RESOLUTION_DESC.ahk
+#Include .\D3D12_VIDEO_ENCODER_OPTIONAL_METADATA_ENABLE_FLAGS.ahk
 #Include .\D3D12_VIDEO_ENCODER_CODEC_CONFIGURATION.ahk
+#Include .\D3D12_VIDEO_ENCODER_CODEC_CONFIGURATION_H264.ahk
+#Include .\D3D12_VIDEO_ENCODER_CODEC_CONFIGURATION_HEVC.ahk
+#Include .\D3D12_VIDEO_ENCODER_AV1_CODEC_CONFIGURATION.ahk
 
 /**
  * @namespace Windows.Win32.Media.MediaFoundation
- * @version v4.0.30319
  */
-class D3D12_FEATURE_DATA_VIDEO_ENCODER_RESOURCE_REQUIREMENTS1 extends Win32Struct
-{
+class D3D12_FEATURE_DATA_VIDEO_ENCODER_RESOURCE_REQUIREMENTS1 extends Win32Struct {
     static sizeof => 112
 
     static packingSize => 8
@@ -23,7 +30,7 @@ class D3D12_FEATURE_DATA_VIDEO_ENCODER_RESOURCE_REQUIREMENTS1 extends Win32Struc
     }
 
     /**
-     * @type {Integer}
+     * @type {D3D12_VIDEO_ENCODER_CODEC}
      */
     Codec {
         get => NumGet(this, 4, "int")
@@ -33,7 +40,7 @@ class D3D12_FEATURE_DATA_VIDEO_ENCODER_RESOURCE_REQUIREMENTS1 extends Win32Struc
     /**
      * @type {D3D12_VIDEO_ENCODER_PROFILE_DESC}
      */
-    Profile{
+    Profile {
         get {
             if(!this.HasProp("__Profile"))
                 this.__Profile := D3D12_VIDEO_ENCODER_PROFILE_DESC(8, this)
@@ -42,7 +49,7 @@ class D3D12_FEATURE_DATA_VIDEO_ENCODER_RESOURCE_REQUIREMENTS1 extends Win32Struc
     }
 
     /**
-     * @type {Integer}
+     * @type {DXGI_FORMAT}
      */
     InputFormat {
         get => NumGet(this, 24, "int")
@@ -52,7 +59,7 @@ class D3D12_FEATURE_DATA_VIDEO_ENCODER_RESOURCE_REQUIREMENTS1 extends Win32Struc
     /**
      * @type {D3D12_VIDEO_ENCODER_PICTURE_RESOLUTION_DESC}
      */
-    PictureTargetResolution{
+    PictureTargetResolution {
         get {
             if(!this.HasProp("__PictureTargetResolution"))
                 this.__PictureTargetResolution := D3D12_VIDEO_ENCODER_PICTURE_RESOLUTION_DESC(28, this)
@@ -93,7 +100,7 @@ class D3D12_FEATURE_DATA_VIDEO_ENCODER_RESOURCE_REQUIREMENTS1 extends Win32Struc
     }
 
     /**
-     * @type {Integer}
+     * @type {D3D12_VIDEO_ENCODER_OPTIONAL_METADATA_ENABLE_FLAGS}
      */
     OptionalMetadata {
         get => NumGet(this, 52, "int")
@@ -103,7 +110,7 @@ class D3D12_FEATURE_DATA_VIDEO_ENCODER_RESOURCE_REQUIREMENTS1 extends Win32Struc
     /**
      * @type {D3D12_VIDEO_ENCODER_CODEC_CONFIGURATION}
      */
-    CodecConfiguration{
+    CodecConfiguration {
         get {
             if(!this.HasProp("__CodecConfiguration"))
                 this.__CodecConfiguration := D3D12_VIDEO_ENCODER_CODEC_CONFIGURATION(56, this)
@@ -114,7 +121,7 @@ class D3D12_FEATURE_DATA_VIDEO_ENCODER_RESOURCE_REQUIREMENTS1 extends Win32Struc
     /**
      * @type {D3D12_VIDEO_ENCODER_PICTURE_RESOLUTION_DESC}
      */
-    EncoderOutputMetadataQPMapTextureDimensions{
+    EncoderOutputMetadataQPMapTextureDimensions {
         get {
             if(!this.HasProp("__EncoderOutputMetadataQPMapTextureDimensions"))
                 this.__EncoderOutputMetadataQPMapTextureDimensions := D3D12_VIDEO_ENCODER_PICTURE_RESOLUTION_DESC(72, this)
@@ -125,7 +132,7 @@ class D3D12_FEATURE_DATA_VIDEO_ENCODER_RESOURCE_REQUIREMENTS1 extends Win32Struc
     /**
      * @type {D3D12_VIDEO_ENCODER_PICTURE_RESOLUTION_DESC}
      */
-    EncoderOutputMetadataSATDMapTextureDimensions{
+    EncoderOutputMetadataSATDMapTextureDimensions {
         get {
             if(!this.HasProp("__EncoderOutputMetadataSATDMapTextureDimensions"))
                 this.__EncoderOutputMetadataSATDMapTextureDimensions := D3D12_VIDEO_ENCODER_PICTURE_RESOLUTION_DESC(80, this)
@@ -136,7 +143,7 @@ class D3D12_FEATURE_DATA_VIDEO_ENCODER_RESOURCE_REQUIREMENTS1 extends Win32Struc
     /**
      * @type {D3D12_VIDEO_ENCODER_PICTURE_RESOLUTION_DESC}
      */
-    EncoderOutputMetadataBitAllocationMapTextureDimensions{
+    EncoderOutputMetadataBitAllocationMapTextureDimensions {
         get {
             if(!this.HasProp("__EncoderOutputMetadataBitAllocationMapTextureDimensions"))
                 this.__EncoderOutputMetadataBitAllocationMapTextureDimensions := D3D12_VIDEO_ENCODER_PICTURE_RESOLUTION_DESC(88, this)

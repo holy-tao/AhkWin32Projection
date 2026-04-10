@@ -16,9 +16,8 @@
  * ```
  * @see https://learn.microsoft.com/windows/win32/api/sdoias/ne-sdoias-iascommonproperties
  * @namespace Windows.Win32.NetworkManagement.NetworkPolicyServer
- * @version v4.0.30319
  */
-class IASCOMMONPROPERTIES extends Win32Enum{
+class IASCOMMONPROPERTIES extends Win32Enum {
 
     /**
      * This property is reserved.
@@ -57,13 +56,11 @@ class IASCOMMONPROPERTIES extends Win32Enum{
     static PROPERTY_SDO_DATASTORE_NAME => 5
 
     /**
-     * 
      * @type {Integer (Int32)}
      */
     static PROPERTY_SDO_TEMPLATE_GUID => 6
 
     /**
-     * 
      * @type {Integer (Int32)}
      */
     static PROPERTY_SDO_OPAQUE => 7

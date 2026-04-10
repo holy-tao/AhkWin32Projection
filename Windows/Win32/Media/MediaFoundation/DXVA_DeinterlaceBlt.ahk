@@ -2,14 +2,13 @@
 #Include ..\..\..\..\Win32Struct.ahk
 #Include ..\..\Foundation\RECT.ahk
 #Include .\DXVA_VideoSample.ahk
+#Include .\DXVA_SampleFormat.ahk
 
 /**
  * @namespace Windows.Win32.Media.MediaFoundation
- * @version v4.0.30319
  */
-class DXVA_DeinterlaceBlt extends Win32Struct
-{
-    static sizeof => 312
+class DXVA_DeinterlaceBlt extends Win32Struct {
+    static sizeof => 1080
 
     static packingSize => 8
 
@@ -40,7 +39,7 @@ class DXVA_DeinterlaceBlt extends Win32Struct
     /**
      * @type {RECT}
      */
-    DstRect{
+    DstRect {
         get {
             if(!this.HasProp("__DstRect"))
                 this.__DstRect := RECT(16, this)
@@ -51,7 +50,7 @@ class DXVA_DeinterlaceBlt extends Win32Struct
     /**
      * @type {RECT}
      */
-    SrcRect{
+    SrcRect {
         get {
             if(!this.HasProp("__SrcRect"))
                 this.__SrcRect := RECT(32, this)
@@ -76,9 +75,9 @@ class DXVA_DeinterlaceBlt extends Win32Struct
     }
 
     /**
-     * @type {Array<DXVA_VideoSample>}
+     * @type {DXVA_VideoSample}
      */
-    Source{
+    Source {
         get {
             if(!this.HasProp("__SourceProxyArray"))
                 this.__SourceProxyArray := Win32FixedArray(this.ptr + 56, 32, DXVA_VideoSample, "")

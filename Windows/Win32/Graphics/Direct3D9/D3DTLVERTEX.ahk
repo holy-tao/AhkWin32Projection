@@ -3,10 +3,8 @@
 
 /**
  * @namespace Windows.Win32.Graphics.Direct3D9
- * @version v4.0.30319
  */
-class D3DTLVERTEX extends Win32Struct
-{
+class D3DTLVERTEX extends Win32Struct {
     static sizeof => 32
 
     static packingSize => 4

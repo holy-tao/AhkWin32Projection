@@ -9,9 +9,8 @@
  * To declare the interface identifier (IID) for this interface, use the <b>__uuidof</b> operator: <c>__uuidof(IMPEG2ComponentType)</c>.
  * @see https://learn.microsoft.com/windows/win32/api/tuner/nn-tuner-impeg2componenttype
  * @namespace Windows.Win32.Media.DirectShow.Tv
- * @version v4.0.30319
  */
-class IMPEG2ComponentType extends ILanguageComponentType{
+class IMPEG2ComponentType extends ILanguageComponentType {
 
     static sizeof => A_PtrSize
     /**
@@ -39,7 +38,7 @@ class IMPEG2ComponentType extends ILanguageComponentType{
     static VTableNames => ["get_StreamType", "put_StreamType"]
 
     /**
-     * @type {Integer} 
+     * @type {MPEG2StreamType} 
      */
     StreamType {
         get => this.get_StreamType()
@@ -48,7 +47,7 @@ class IMPEG2ComponentType extends ILanguageComponentType{
 
     /**
      * The get_StreamType method retrieves the stream type.
-     * @returns {Integer} Pointer to a variable of type <a href="https://docs.microsoft.com/previous-versions/windows/desktop/mstv/mpeg2streamtype">MPEG2StreamType</a> that receives the stream type value.
+     * @returns {MPEG2StreamType} Pointer to a variable of type <a href="https://docs.microsoft.com/previous-versions/windows/desktop/mstv/mpeg2streamtype">MPEG2StreamType</a> that receives the stream type value.
      * @see https://learn.microsoft.com/windows/win32/api/tuner/nf-tuner-impeg2componenttype-get_streamtype
      */
     get_StreamType() {
@@ -58,7 +57,7 @@ class IMPEG2ComponentType extends ILanguageComponentType{
 
     /**
      * The put_StreamType method sets the MPEG2 stream type.
-     * @param {Integer} MP2StreamType Variable of type <a href="https://docs.microsoft.com/previous-versions/windows/desktop/mstv/mpeg2streamtype">MPEG2StreamType</a> that specifies the stream type.
+     * @param {MPEG2StreamType} MP2StreamType Variable of type <a href="https://docs.microsoft.com/previous-versions/windows/desktop/mstv/mpeg2streamtype">MPEG2StreamType</a> that specifies the stream type.
      * @returns {HRESULT} Returns S_OK if successful. If the method fails, error information can be retrieved using the standard COM <b>IErrorInfo</b> interface.
      * @see https://learn.microsoft.com/windows/win32/api/tuner/nf-tuner-impeg2componenttype-put_streamtype
      */

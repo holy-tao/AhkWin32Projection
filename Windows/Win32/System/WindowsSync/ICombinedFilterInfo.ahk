@@ -5,9 +5,8 @@
 
 /**
  * @namespace Windows.Win32.System.WindowsSync
- * @version v4.0.30319
  */
-class ICombinedFilterInfo extends ISyncFilterInfo{
+class ICombinedFilterInfo extends ISyncFilterInfo {
 
     static sizeof => A_PtrSize
     /**
@@ -52,7 +51,7 @@ class ICombinedFilterInfo extends ISyncFilterInfo{
 
     /**
      * 
-     * @param {Pointer<Integer>} pFilterCombinationType 
+     * @param {Pointer<FILTER_COMBINATION_TYPE>} pFilterCombinationType 
      * @returns {HRESULT} 
      */
     GetFilterCombinationType(pFilterCombinationType) {

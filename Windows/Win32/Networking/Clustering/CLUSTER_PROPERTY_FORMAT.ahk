@@ -5,9 +5,8 @@
  * The CLUSTER_PROPERTY_FORMAT enumeration (msclus.h) specifies the data type of a property value in a property list.
  * @see https://learn.microsoft.com/windows/win32/api/msclus/ne-msclus-cluster_property_format
  * @namespace Windows.Win32.Networking.Clustering
- * @version v4.0.30319
  */
-class CLUSTER_PROPERTY_FORMAT extends Win32Enum{
+class CLUSTER_PROPERTY_FORMAT extends Win32Enum {
 
     /**
      * Data is in an unknown format.
@@ -91,13 +90,11 @@ class CLUSTER_PROPERTY_FORMAT extends Win32Enum{
     static CLUSPROP_FORMAT_FILETIME => 12
 
     /**
-     * 
      * @type {Integer (Int32)}
      */
     static CLUSPROP_FORMAT_VALUE_LIST => 13
 
     /**
-     * 
      * @type {Integer (Int32)}
      */
     static CLUSPROP_FORMAT_PROPERTY_LIST => 14

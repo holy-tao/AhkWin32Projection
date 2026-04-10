@@ -3,16 +3,14 @@
 
 /**
  * @namespace Windows.Wdk.Graphics.Direct3D
- * @version v4.0.30319
  */
-class DXGKMDT_OPM_COPP_COMPATIBLE_GET_INFO_PARAMETERS extends Win32Struct
-{
+class DXGKMDT_OPM_COPP_COMPATIBLE_GET_INFO_PARAMETERS extends Win32Struct {
     static sizeof => 4080
 
     static packingSize => 8
 
     /**
-     * @type {Pointer<DXGKMDT_OPM_RANDOM_NUMBER>}
+     * @type {Pointer}
      */
     rnRandomNumber {
         get => NumGet(this, 0, "ptr")
@@ -20,7 +18,7 @@ class DXGKMDT_OPM_COPP_COMPATIBLE_GET_INFO_PARAMETERS extends Win32Struct
     }
 
     /**
-     * @type {Pointer<Guid>}
+     * @type {Pointer}
      */
     guidInformation {
         get => NumGet(this, 8, "ptr")
@@ -44,9 +42,9 @@ class DXGKMDT_OPM_COPP_COMPATIBLE_GET_INFO_PARAMETERS extends Win32Struct
     }
 
     /**
-     * @type {Array<Byte>}
+     * @type {Array<Integer>}
      */
-    abParameters{
+    abParameters {
         get {
             if(!this.HasProp("__abParametersProxyArray"))
                 this.__abParametersProxyArray := Win32FixedArray(this.ptr + 24, 4056, Primitive, "char")

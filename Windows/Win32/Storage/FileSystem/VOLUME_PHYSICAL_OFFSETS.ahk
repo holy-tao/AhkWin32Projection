@@ -4,11 +4,9 @@
 
 /**
  * @namespace Windows.Win32.Storage.FileSystem
- * @version v4.0.30319
  */
-class VOLUME_PHYSICAL_OFFSETS extends Win32Struct
-{
-    static sizeof => 16
+class VOLUME_PHYSICAL_OFFSETS extends Win32Struct {
+    static sizeof => 24
 
     static packingSize => 8
 
@@ -21,9 +19,9 @@ class VOLUME_PHYSICAL_OFFSETS extends Win32Struct
     }
 
     /**
-     * @type {Array<VOLUME_PHYSICAL_OFFSET>}
+     * @type {VOLUME_PHYSICAL_OFFSET}
      */
-    PhysicalOffset{
+    PhysicalOffset {
         get {
             if(!this.HasProp("__PhysicalOffsetProxyArray"))
                 this.__PhysicalOffsetProxyArray := Win32FixedArray(this.ptr + 8, 1, VOLUME_PHYSICAL_OFFSET, "")

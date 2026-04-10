@@ -7,9 +7,8 @@
  * Implemented by monikers to enable the running object table (ROT) to compare monikers against each other.
  * @see https://learn.microsoft.com/windows/win32/api/objidl/nn-objidl-irotdata
  * @namespace Windows.Win32.System.Com
- * @version v4.0.30319
  */
-class IROTData extends IUnknown{
+class IROTData extends IUnknown {
 
     static sizeof => A_PtrSize
     /**

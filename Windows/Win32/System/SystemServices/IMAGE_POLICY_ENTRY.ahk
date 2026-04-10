@@ -1,12 +1,12 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
+#Include .\IMAGE_POLICY_ENTRY_TYPE.ahk
+#Include .\IMAGE_POLICY_ID.ahk
 
 /**
  * @namespace Windows.Win32.System.SystemServices
- * @version v4.0.30319
  */
-class IMAGE_POLICY_ENTRY extends Win32Struct
-{
+class IMAGE_POLICY_ENTRY extends Win32Struct {
     static sizeof => 16
 
     static packingSize => 8
@@ -22,7 +22,7 @@ class IMAGE_POLICY_ENTRY extends Win32Struct
             get => NumGet(this, 0, "ptr")
             set => NumPut("ptr", value, this, 0)
         }
-    
+
         /**
          * @type {BOOLEAN}
          */
@@ -30,7 +30,7 @@ class IMAGE_POLICY_ENTRY extends Win32Struct
             get => NumGet(this, 0, "char")
             set => NumPut("char", value, this, 0)
         }
-    
+
         /**
          * @type {Integer}
          */
@@ -38,7 +38,7 @@ class IMAGE_POLICY_ENTRY extends Win32Struct
             get => NumGet(this, 0, "char")
             set => NumPut("char", value, this, 0)
         }
-    
+
         /**
          * @type {Integer}
          */
@@ -46,7 +46,7 @@ class IMAGE_POLICY_ENTRY extends Win32Struct
             get => NumGet(this, 0, "char")
             set => NumPut("char", value, this, 0)
         }
-    
+
         /**
          * @type {Integer}
          */
@@ -54,7 +54,7 @@ class IMAGE_POLICY_ENTRY extends Win32Struct
             get => NumGet(this, 0, "short")
             set => NumPut("short", value, this, 0)
         }
-    
+
         /**
          * @type {Integer}
          */
@@ -62,7 +62,7 @@ class IMAGE_POLICY_ENTRY extends Win32Struct
             get => NumGet(this, 0, "ushort")
             set => NumPut("ushort", value, this, 0)
         }
-    
+
         /**
          * @type {Integer}
          */
@@ -70,7 +70,7 @@ class IMAGE_POLICY_ENTRY extends Win32Struct
             get => NumGet(this, 0, "int")
             set => NumPut("int", value, this, 0)
         }
-    
+
         /**
          * @type {Integer}
          */
@@ -78,7 +78,7 @@ class IMAGE_POLICY_ENTRY extends Win32Struct
             get => NumGet(this, 0, "uint")
             set => NumPut("uint", value, this, 0)
         }
-    
+
         /**
          * @type {Integer}
          */
@@ -86,7 +86,7 @@ class IMAGE_POLICY_ENTRY extends Win32Struct
             get => NumGet(this, 0, "int64")
             set => NumPut("int64", value, this, 0)
         }
-    
+
         /**
          * @type {Integer}
          */
@@ -94,7 +94,7 @@ class IMAGE_POLICY_ENTRY extends Win32Struct
             get => NumGet(this, 0, "uint")
             set => NumPut("uint", value, this, 0)
         }
-    
+
         /**
          * @type {PSTR}
          */
@@ -102,7 +102,7 @@ class IMAGE_POLICY_ENTRY extends Win32Struct
             get => NumGet(this, 0, "ptr")
             set => NumPut("ptr", value, this, 0)
         }
-    
+
         /**
          * @type {PWSTR}
          */
@@ -110,11 +110,10 @@ class IMAGE_POLICY_ENTRY extends Win32Struct
             get => NumGet(this, 0, "ptr")
             set => NumPut("ptr", value, this, 0)
         }
-    
     }
 
     /**
-     * @type {Integer}
+     * @type {IMAGE_POLICY_ENTRY_TYPE}
      */
     Type {
         get => NumGet(this, 0, "int")
@@ -122,7 +121,7 @@ class IMAGE_POLICY_ENTRY extends Win32Struct
     }
 
     /**
-     * @type {Integer}
+     * @type {IMAGE_POLICY_ID}
      */
     PolicyId {
         get => NumGet(this, 4, "int")
@@ -132,10 +131,10 @@ class IMAGE_POLICY_ENTRY extends Win32Struct
     /**
      * @type {_u_e__Union}
      */
-    u{
+    u {
         get {
             if(!this.HasProp("__u"))
-                this.__u := %this.__Class%._u_e__Union(8, this)
+                this.__u := IMAGE_POLICY_ENTRY._u_e__Union(8, this)
             return this.__u
         }
     }

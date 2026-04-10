@@ -3,10 +3,8 @@
 
 /**
  * @namespace Windows.Win32.System.SystemServices
- * @version v4.0.30319
  */
-class KERNEL_CET_CONTEXT extends Win32Struct
-{
+class KERNEL_CET_CONTEXT extends Win32Struct {
     static sizeof => 24
 
     static packingSize => 8
@@ -80,9 +78,9 @@ class KERNEL_CET_CONTEXT extends Win32Struct
     }
 
     /**
-     * @type {Array<UInt16>}
+     * @type {Array<Integer>}
      */
-    Fill{
+    Fill {
         get {
             if(!this.HasProp("__FillProxyArray"))
                 this.__FillProxyArray := Win32FixedArray(this.ptr + 20, 2, Primitive, "ushort")

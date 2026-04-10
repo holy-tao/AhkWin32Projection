@@ -1,14 +1,12 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
-#Include ..\..\Foundation\BSTR.ahk
 #Include .\ISpeechBaseStream.ahk
 
 /**
  * @namespace Windows.Win32.Media.Speech
- * @version v4.0.30319
  */
-class ISpeechFileStream extends ISpeechBaseStream{
+class ISpeechFileStream extends ISpeechBaseStream {
 
     static sizeof => A_PtrSize
     /**
@@ -43,7 +41,7 @@ class ISpeechFileStream extends ISpeechBaseStream{
      * > [!NOTE]
      * > The winbase.h header defines OpenBackupEventLog as an alias which automatically selects the ANSI or Unicode version of this function based on the definition of the UNICODE preprocessor constant. Mixing usage of the encoding-neutral alias with code that not encoding-neutral can lead to mismatches that result in compilation or runtime errors. For more information, see [Conventions for Function Prototypes](/windows/win32/intl/conventions-for-function-prototypes).
      * @param {BSTR} FileName 
-     * @param {Integer} FileMode 
+     * @param {SpeechStreamFileMode} FileMode 
      * @param {VARIANT_BOOL} DoEvents 
      * @returns {HRESULT} If the function succeeds, the return value is a handle to the backup event log.
      * 						

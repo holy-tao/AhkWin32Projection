@@ -3,10 +3,8 @@
 
 /**
  * @namespace Windows.Win32.Media.DirectShow.Tv
- * @version v4.0.30319
  */
-class Mpeg2TableSampleHdr extends Win32Struct
-{
+class Mpeg2TableSampleHdr extends Win32Struct {
     static sizeof => 8
 
     static packingSize => 4
@@ -20,9 +18,9 @@ class Mpeg2TableSampleHdr extends Win32Struct
     }
 
     /**
-     * @type {Array<Byte>}
+     * @type {Array<Integer>}
      */
-    Reserved{
+    Reserved {
         get {
             if(!this.HasProp("__ReservedProxyArray"))
                 this.__ReservedProxyArray := Win32FixedArray(this.ptr + 1, 3, Primitive, "char")
@@ -31,9 +29,9 @@ class Mpeg2TableSampleHdr extends Win32Struct
     }
 
     /**
-     * @type {Array<Int32>}
+     * @type {Array<Integer>}
      */
-    SectionOffsets{
+    SectionOffsets {
         get {
             if(!this.HasProp("__SectionOffsetsProxyArray"))
                 this.__SectionOffsetsProxyArray := Win32FixedArray(this.ptr + 4, 1, Primitive, "int")

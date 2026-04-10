@@ -3,7 +3,6 @@
 
 /**
  * @namespace Windows.Win32.System.SystemInformation
- * @version v4.0.30319
  */
 class SystemInformation {
 
@@ -685,7 +684,7 @@ class SystemInformation {
 
     /**
      * Queries whether user-mode Hardware-enforced Stack Protection is available for the specified environment.
-     * @param {Integer} UserCetEnvironment 
+     * @param {USER_CET_ENVIRONMENT} UserCetEnvironment 
      * @returns {BOOL} TRUE if user-mode Hardware-enforced Stack Protection is available for the specified environment, FALSE otherwise.
      * @see https://learn.microsoft.com/windows/win32/api/sysinfoapi/nf-sysinfoapi-isusercetavailableinenvironment
      */
@@ -720,7 +719,6 @@ class SystemInformation {
      * 
      * For all platforms, the low-order word contains the version number of the operating system. The low-order byte of this word specifies the major version number, in hexadecimal notation. The high-order byte specifies the minor version (revision) number, in hexadecimal notation. The  high-order bit is zero, the next 7 bits represent the build number, and the low-order byte is 5.
      * @see https://learn.microsoft.com/windows/win32/api/sysinfoapi/nf-sysinfoapi-getversion
-     * @deprecated 
      * @since windows5.0
      */
     static GetVersion() {
@@ -1149,7 +1147,7 @@ class SystemInformation {
      * 
      * To compile an application that uses this function, define the _WIN32_WINNT macro as 0x0500 or later. For more information, see 
      * <a href="https://docs.microsoft.com/windows/desktop/WinProg/using-the-windows-headers">Using the Windows Headers</a>.
-     * @param {Integer} NameType The type of name to be retrieved. This parameter is a value from the 
+     * @param {COMPUTER_NAME_FORMAT} NameType The type of name to be retrieved. This parameter is a value from the 
      * <a href="https://docs.microsoft.com/windows/desktop/api/sysinfoapi/ne-sysinfoapi-computer_name_format">COMPUTER_NAME_FORMAT</a> enumeration type. The following table provides additional information. 
      * 
      * 
@@ -1315,7 +1313,7 @@ class SystemInformation {
      * 
      * To compile an application that uses this function, define the _WIN32_WINNT macro as 0x0500 or later. For more information, see 
      * <a href="https://docs.microsoft.com/windows/desktop/WinProg/using-the-windows-headers">Using the Windows Headers</a>.
-     * @param {Integer} NameType The type of name to be retrieved. This parameter is a value from the 
+     * @param {COMPUTER_NAME_FORMAT} NameType The type of name to be retrieved. This parameter is a value from the 
      * <a href="https://docs.microsoft.com/windows/desktop/api/sysinfoapi/ne-sysinfoapi-computer_name_format">COMPUTER_NAME_FORMAT</a> enumeration type. The following table provides additional information. 
      * 
      * 
@@ -1485,7 +1483,7 @@ class SystemInformation {
      * 
      * > [!NOTE]
      * > The sysinfoapi.h header defines SetComputerNameEx as an alias which automatically selects the ANSI or Unicode version of this function based on the definition of the UNICODE preprocessor constant. Mixing usage of the encoding-neutral alias with code that not encoding-neutral can lead to mismatches that result in compilation or runtime errors. For more information, see [Conventions for Function Prototypes](/windows/win32/intl/conventions-for-function-prototypes).
-     * @param {Integer} NameType 
+     * @param {COMPUTER_NAME_FORMAT} NameType 
      * @param {PWSTR} lpBuffer The new name. The name cannot include control characters, leading or trailing spaces, or any of the following characters: " / \ [ ] : | &lt; &gt; + = ; , ?
      * @returns {BOOL} If the function succeeds, the return value is a nonzero value.
      * 
@@ -1596,7 +1594,6 @@ class SystemInformation {
      * <a href="https://docs.microsoft.com/windows/desktop/api/winnt/ns-winnt-osversioninfoa">OSVERSIONINFO</a> or 
      * <a href="https://docs.microsoft.com/windows/desktop/api/winnt/ns-winnt-osversioninfoexa">OSVERSIONINFOEX</a> structure.
      * @see https://learn.microsoft.com/windows/win32/api/sysinfoapi/nf-sysinfoapi-getversionexa
-     * @deprecated 
      * @since windows5.0
      */
     static GetVersionExA(lpVersionInformation) {
@@ -1667,7 +1664,6 @@ class SystemInformation {
      * <a href="https://docs.microsoft.com/windows/desktop/api/winnt/ns-winnt-osversioninfoa">OSVERSIONINFO</a> or 
      * <a href="https://docs.microsoft.com/windows/desktop/api/winnt/ns-winnt-osversioninfoexa">OSVERSIONINFOEX</a> structure.
      * @see https://learn.microsoft.com/windows/win32/api/sysinfoapi/nf-sysinfoapi-getversionexw
-     * @deprecated 
      * @since windows5.0
      */
     static GetVersionExW(lpVersionInformation) {
@@ -1706,7 +1702,7 @@ class SystemInformation {
      * 
      * > [!NOTE]
      * > Starting with *TBD Release Iron*, the behavior of this and other NUMA functions has been modified to better support systems with nodes containing more that 64 processors. For more information about this change, including information about enabling the old behavior of this API, see [NUMA Support](/windows/win32/procthread/numa-support).
-     * @param {Pointer} _Buffer 
+     * @param {Integer} _Buffer A pointer to a buffer that receives  an array of <a href="https://docs.microsoft.com/windows/desktop/api/winnt/ns-winnt-system_logical_processor_information">SYSTEM_LOGICAL_PROCESSOR_INFORMATION</a> structures. If the function fails, the contents of this buffer are undefined.
      * @param {Pointer<Integer>} ReturnedLength On input, specifies the length of the buffer pointed to by  <i>Buffer</i>, in bytes. If the buffer is large enough to contain all of the data, this function succeeds and <i>ReturnLength</i> is set to the number of bytes returned. If the buffer is not large enough to contain all of the data, the function fails, <a href="https://docs.microsoft.com/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a> returns ERROR_INSUFFICIENT_BUFFER, and <i>ReturnLength</i> is set to the buffer length required to contain all of the data. If the function fails with an error other than ERROR_INSUFFICIENT_BUFFER, the value of <i>ReturnLength</i> is undefined.
      * @returns {BOOL} If the function succeeds, the return value is TRUE and at least one <a href="https://docs.microsoft.com/windows/desktop/api/winnt/ns-winnt-system_logical_processor_information">SYSTEM_LOGICAL_PROCESSOR_INFORMATION</a> structure is written to the output buffer.
      * 
@@ -1736,7 +1732,7 @@ class SystemInformation {
      * When this function is called with a relationship type of <b>RelationProcessorCore</b>, it returns a <a href="https://docs.microsoft.com/windows/desktop/api/winnt/ns-winnt-processor_relationship">PROCESSOR_RELATIONSHIP</a> structure for every active processor core in every processor group in the system. This is by design, because an unaffinitized 32-bit thread can run on any logical processor in a given group, including processors 32 through 63. A 32-bit caller can use the total count of <b>PROCESSOR_RELATIONSHIP</b> structures to determine the actual number of active processor cores on the system. However, the affinity of a 32-bit thread cannot be explicitly set to logical processor 32 through 63 of any processor group.
      * 
      * To compile an application that uses this function, set _WIN32_WINNT &gt;= 0x0601. For more information, see <a href="https://docs.microsoft.com/windows/desktop/WinProg/using-the-windows-headers">Using the Windows Headers</a>.
-     * @param {Integer} RelationshipType The type of relationship to retrieve. This parameter can be one of the following <a href="https://docs.microsoft.com/windows/desktop/api/winnt/ne-winnt-logical_processor_relationship">LOGICAL_PROCESSOR_RELATIONSHIP</a> values.
+     * @param {LOGICAL_PROCESSOR_RELATIONSHIP} RelationshipType The type of relationship to retrieve. This parameter can be one of the following <a href="https://docs.microsoft.com/windows/desktop/api/winnt/ne-winnt-logical_processor_relationship">LOGICAL_PROCESSOR_RELATIONSHIP</a> values.
      * 
      * <table>
      * <tr>
@@ -1842,7 +1838,7 @@ class SystemInformation {
      * </td>
      * </tr>
      * </table>
-     * @param {Pointer} _Buffer 
+     * @param {Integer} _Buffer A pointer to a buffer that receives a sequence of variable-sized <a href="https://docs.microsoft.com/windows/win32/api/winnt/ns-winnt-system_logical_processor_information_ex">SYSTEM_LOGICAL_PROCESSOR_INFORMATION_EX</a> structures. If the function fails, the contents of this buffer are undefined.
      * @param {Pointer<Integer>} ReturnedLength On input, specifies the length of the buffer pointed to by  <i>Buffer</i>, in bytes. If the buffer is large enough to contain all of the data, this function succeeds and <i>ReturnedLength</i> is set to the number of bytes returned. If the buffer is not large enough to contain all of the data, the function fails, <a href="https://docs.microsoft.com/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a> returns ERROR_INSUFFICIENT_BUFFER, and <i>ReturnedLength</i> is set to the buffer length required to contain all of the data. If the function fails with an error other than ERROR_INSUFFICIENT_BUFFER, the value of <i>ReturnedLength</i> is undefined.
      * @returns {BOOL} If the function succeeds, the return value is TRUE and at least one <a href="https://docs.microsoft.com/windows/win32/api/winnt/ns-winnt-system_logical_processor_information_ex">SYSTEM_LOGICAL_PROCESSOR_INFORMATION_EX</a> structure is written to the output buffer.
      * 
@@ -1938,7 +1934,7 @@ class SystemInformation {
      * @param {Integer} dwOSMinorVersion The minor version number of the operating system. The minimum value is 0.
      * @param {Integer} dwSpMajorVersion The major version number of the operating system service pack. The minimum value is 0.
      * @param {Integer} dwSpMinorVersion The minor version number of the operating system service pack. The minimum value is 0.
-     * @param {Pointer<Integer>} pdwReturnedProductType The product type. This parameter cannot be <b>NULL</b>. If the specified operating system  is less than the current operating system, this information is mapped to the types supported by the specified operating system. If the specified operating system is greater than the highest supported operating system, this information is mapped to the types supported by the current operating system.
+     * @param {Pointer<OS_PRODUCT_TYPE>} pdwReturnedProductType The product type. This parameter cannot be <b>NULL</b>. If the specified operating system  is less than the current operating system, this information is mapped to the types supported by the specified operating system. If the specified operating system is greater than the highest supported operating system, this information is mapped to the types supported by the current operating system.
      * @returns {BOOL} If the function succeeds, the return value is a nonzero value.
      * 
      * If the function fails, the return value is zero. This function fails if one of the input parameters is invalid.
@@ -1964,7 +1960,7 @@ class SystemInformation {
      * 
      * 
      * Before the first call to <b>VerSetCondition</b>, initialize this variable to zero. For subsequent calls, pass in the variable used in the previous call.
-     * @param {Integer} TypeMask A mask that indicates the member of the 
+     * @param {VER_FLAGS} TypeMask A mask that indicates the member of the 
      * <a href="https://docs.microsoft.com/windows/desktop/api/winnt/ns-winnt-osversioninfoexa">OSVERSIONINFOEX</a> structure whose comparison operator is being set. This value corresponds to one of the bits specified in the <i>dwTypeMask</i> parameter for the
      * @param {Integer} Condition The operator to be used for the comparison. The 
      * <a href="https://docs.microsoft.com/windows/desktop/api/winbase/nf-winbase-verifyversioninfoa">VerifyVersionInfo</a> function uses this operator to compare a specified attribute value to the corresponding value for the currently running system.
@@ -2010,8 +2006,8 @@ class SystemInformation {
      * The ACPI table provider ('ACPI') returns a list of <b>DWORD</b> table identifiers. Each identifier returned corresponds to Signature field of the DESCRIPTION_HEADER structure for an ACPI table currently in the ACPI namespace of the system.
      * 
      * For ACPI, if the system contains multiple tables with the same name, they are all enumerated with <b>EnumSystemFirmwareTables</b>. However, <a href="https://docs.microsoft.com/windows/desktop/api/sysinfoapi/nf-sysinfoapi-getsystemfirmwaretable">GetSystemFirmwareTable</a> retrieves only the first table in the list with this name.
-     * @param {Integer} FirmwareTableProviderSignature 
-     * @param {Pointer} pFirmwareTableEnumBuffer A pointer to a buffer that receives the list of  firmware tables. If this parameter is <b>NULL</b>, the return value is the required buffer size.
+     * @param {FIRMWARE_TABLE_PROVIDER} FirmwareTableProviderSignature 
+     * @param {Integer} pFirmwareTableEnumBuffer A pointer to a buffer that receives the list of  firmware tables. If this parameter is <b>NULL</b>, the return value is the required buffer size.
      * 
      * For more information on the contents of this buffer, see the Remarks section.
      * @param {Integer} BufferSize The size of the <i>pFirmwareTableBuffer</i> buffer, in bytes.
@@ -2052,7 +2048,7 @@ class SystemInformation {
      * 
      * 
      * ```cpp
-     * @param {Integer} FirmwareTableProviderSignature 
+     * @param {FIRMWARE_TABLE_PROVIDER} FirmwareTableProviderSignature 
      * @param {Integer} FirmwareTableID The identifier of the firmware table. This identifier is little endian, you must reverse the characters in the string.
      * 
      * For example, FACP is an ACPI provider, as described in the Signature field of the DESCRIPTION_HEADER structure in the ACPI specification (see the [Advanced Configuration and Power Interface (ACPI) Specification](https://uefi.org/htmlspecs/ACPI_Spec_6_4_html/). Therefore, use 'PCAF' to specify the FACP table, as shown in the following example:
@@ -2060,7 +2056,7 @@ class SystemInformation {
      * <c>retVal = GetSystemFirmwareTable('ACPI', 'PCAF', pBuffer, BUFSIZE);</c>
      * 
      * For more information, see the Remarks section of the <a href="https://docs.microsoft.com/windows/desktop/api/sysinfoapi/nf-sysinfoapi-enumsystemfirmwaretables">EnumSystemFirmwareTables</a> function.
-     * @param {Pointer} pFirmwareTableBuffer A pointer to a buffer that receives the requested firmware table. If this parameter is <b>NULL</b>, the return value is the required buffer size. 
+     * @param {Integer} pFirmwareTableBuffer A pointer to a buffer that receives the requested firmware table. If this parameter is <b>NULL</b>, the return value is the required buffer size. 
      * 
      * For more information on the contents of this buffer, see the Remarks section.
      * @param {Integer} BufferSize The size of the <i>pFirmwareTableBuffer</i> buffer, in bytes.
@@ -2160,7 +2156,7 @@ class SystemInformation {
 
     /**
      * 
-     * @param {Integer} NameType 
+     * @param {COMPUTER_NAME_FORMAT} NameType 
      * @param {Integer} Flags 
      * @param {PWSTR} lpBuffer 
      * @returns {BOOL} 
@@ -2288,7 +2284,7 @@ class SystemInformation {
      * To compile an application that uses this function, define _WIN32_WINNT as 0x0601 or later. For more information, see 
      * <a href="https://docs.microsoft.com/windows/desktop/WinProg/using-the-windows-headers">Using the Windows Headers</a>.
      * @param {Integer} Group The number of the processor group for which to retrieve the cycle time.
-     * @param {Pointer} _Buffer 
+     * @param {Integer} _Buffer A pointer to a buffer to receive a SYSTEM_PROCESSOR_CYCLE_TIME_INFORMATION structure for each processor in the group. On output, the DWORD64 <b>CycleTime</b> member of this structure is set to the cycle time for one processor.
      * @param {Pointer<Integer>} ReturnedLength The size of the buffer, in bytes. When the function returns, this parameter contains the number of bytes written to <i>Buffer</i>. If the buffer is too small for the data, the function fails with ERROR_INSUFFICIENT_BUFFER and sets the <i>ReturnedLength</i> parameter to the required buffer size.
      * @returns {BOOL} If the function succeeds, the return value is a nonzero value.
      * 
@@ -2435,7 +2431,7 @@ class SystemInformation {
      * 
      * > [!NOTE]
      * > The sysinfoapi.h header defines SetComputerNameEx as an alias which automatically selects the ANSI or Unicode version of this function based on the definition of the UNICODE preprocessor constant. Mixing usage of the encoding-neutral alias with code that not encoding-neutral can lead to mismatches that result in compilation or runtime errors. For more information, see [Conventions for Function Prototypes](/windows/win32/intl/conventions-for-function-prototypes).
-     * @param {Integer} NameType 
+     * @param {COMPUTER_NAME_FORMAT} NameType 
      * @param {PSTR} lpBuffer The new name. The name cannot include control characters, leading or trailing spaces, or any of the following characters: " / \ [ ] : | &lt; &gt; + = ; , ?
      * @returns {BOOL} If the function succeeds, the return value is a nonzero value.
      * 
@@ -2459,7 +2455,7 @@ class SystemInformation {
 
     /**
      * 
-     * @returns {Integer} 
+     * @returns {DEVELOPER_DRIVE_ENABLEMENT_STATE} 
      */
     static GetDeveloperDriveEnablementState() {
         result := DllCall("api-ms-win-core-sysinfo-l1-2-6.dll\GetDeveloperDriveEnablementState", "int")
@@ -2471,7 +2467,7 @@ class SystemInformation {
      * @param {Pointer<Integer>} Nonce 
      * @param {Integer} PackageVersion 
      * @param {Integer} ReportTypesBitmap 
-     * @param {Pointer} ReportBuffer 
+     * @param {Integer} ReportBuffer 
      * @param {Pointer<Integer>} ReportBufferSize 
      * @returns {BOOL} 
      */
@@ -2485,7 +2481,7 @@ class SystemInformation {
 
     /**
      * Allows an application to query the available CPU Sets on the system, and their current state.
-     * @param {Pointer} Information A pointer to a [**SYSTEM\_CPU\_SET\_INFORMATION**](/windows/desktop/api/winnt/ns-winnt-system_cpu_set_information) structure that receives the CPU Set data. Pass NULL with a buffer length of 0 to determine the required buffer size.
+     * @param {Integer} Information A pointer to a [**SYSTEM\_CPU\_SET\_INFORMATION**](/windows/desktop/api/winnt/ns-winnt-system_cpu_set_information) structure that receives the CPU Set data. Pass NULL with a buffer length of 0 to determine the required buffer size.
      * @param {Integer} BufferLength The length, in bytes, of the output buffer passed as the Information argument.
      * @param {Pointer<Integer>} ReturnedLength The length, in bytes, of the valid data in the output buffer if the buffer is large enough, or the required size of the output buffer. If no CPU Sets exist, this value will be 0.
      * @param {HANDLE} Process An optional handle to a process. This process is used to determine the value of the **AllocatedToTargetProcess** flag in the SYSTEM\_CPU\_SET\_INFORMATION structure. If a CPU Set is allocated to the specified process, the flag is set. Otherwise, it is clear. This handle must have the PROCESS\_QUERY\_LIMITED\_INFORMATION access right. The value returned by [**GetCurrentProcess**](/windows/win32/api/processthreadsapi/nf-processthreadsapi-getcurrentprocess) may also be specified here.
@@ -2603,7 +2599,7 @@ class SystemInformation {
      * > The wow64apiset.h header defines GetSystemWow64Directory2 as an alias which automatically selects the ANSI or Unicode version of this function based on the definition of the UNICODE preprocessor constant. Mixing usage of the encoding-neutral alias with code that not encoding-neutral can lead to mismatches that result in compilation or runtime errors. For more information, see [Conventions for Function Prototypes](/windows/win32/intl/conventions-for-function-prototypes).
      * @param {PSTR} lpBuffer A pointer to the buffer to receive the path. This path does not end with a backslash.
      * @param {Integer} uSize The maximum size of the buffer, in <b>TCHARs</b>.
-     * @param {Integer} ImageFileMachineType An <a href="https://docs.microsoft.com/windows/desktop/SysInfo/image-file-machine-constants">IMAGE_FILE_MACHINE_*</a> value that specifies the machine to test.
+     * @param {IMAGE_FILE_MACHINE} ImageFileMachineType An <a href="https://docs.microsoft.com/windows/desktop/SysInfo/image-file-machine-constants">IMAGE_FILE_MACHINE_*</a> value that specifies the machine to test.
      * @returns {Integer} If the function succeeds, the return value is the length, in <b>TCHARs</b>, of the string copied to the buffer, not including the terminating null character. If the length is greater than the size of the buffer, the return value is the size of the buffer required to hold the path.
      * 
      * If the function fails, the return value is zero. To get extended error information, call 
@@ -2642,7 +2638,7 @@ class SystemInformation {
      * > The wow64apiset.h header defines GetSystemWow64Directory2 as an alias which automatically selects the ANSI or Unicode version of this function based on the definition of the UNICODE preprocessor constant. Mixing usage of the encoding-neutral alias with code that not encoding-neutral can lead to mismatches that result in compilation or runtime errors. For more information, see [Conventions for Function Prototypes](/windows/win32/intl/conventions-for-function-prototypes).
      * @param {PWSTR} lpBuffer A pointer to the buffer to receive the path. This path does not end with a backslash.
      * @param {Integer} uSize The maximum size of the buffer, in <b>TCHARs</b>.
-     * @param {Integer} ImageFileMachineType An <a href="https://docs.microsoft.com/windows/desktop/SysInfo/image-file-machine-constants">IMAGE_FILE_MACHINE_*</a> value that specifies the machine to test.
+     * @param {IMAGE_FILE_MACHINE} ImageFileMachineType An <a href="https://docs.microsoft.com/windows/desktop/SysInfo/image-file-machine-constants">IMAGE_FILE_MACHINE_*</a> value that specifies the machine to test.
      * @returns {Integer} If the function succeeds, the return value is the length, in <b>TCHARs</b>, of the string copied to the buffer, not including the terminating null character. If the length is greater than the size of the buffer, the return value is the size of the buffer required to hold the path.
      * 
      * If the function fails, the return value is zero. To get extended error information, call 
@@ -2674,7 +2670,7 @@ class SystemInformation {
      * <li>Test suites that need to achieve full feature coverage by running tests on all supported architectures in the system. 
      * </li>
      * </ul>
-     * @param {Integer} WowGuestMachine An <a href="https://docs.microsoft.com/windows/desktop/SysInfo/image-file-machine-constants">IMAGE_FILE_MACHINE_*</a> value that specifies the machine to test.
+     * @param {IMAGE_FILE_MACHINE} WowGuestMachine An <a href="https://docs.microsoft.com/windows/desktop/SysInfo/image-file-machine-constants">IMAGE_FILE_MACHINE_*</a> value that specifies the machine to test.
      * @returns {BOOL} On success, returns a pointer to a boolean: <b>true</b> if the machine supports WOW64, or <b>false</b> if it does not.
      * @see https://learn.microsoft.com/windows/win32/api/wow64apiset/nf-wow64apiset-iswow64guestmachinesupported
      * @since windows10.0.16299
@@ -2709,7 +2705,7 @@ class SystemInformation {
     /**
      * 
      * @param {Integer} Flags 
-     * @returns {Integer} 
+     * @returns {OS_DEPLOYEMENT_STATE_VALUES} 
      */
     static RtlOsDeploymentState(Flags) {
         result := DllCall("ntdll.dll\RtlOsDeploymentState", "uint", Flags, "int")
@@ -2718,7 +2714,7 @@ class SystemInformation {
 
     /**
      * 
-     * @param {Integer} DataId 
+     * @param {RTL_SYSTEM_GLOBAL_DATA_ID} DataId 
      * @param {Pointer<Void>} _Buffer 
      * @param {Integer} _Size 
      * @returns {Integer} 
@@ -2733,8 +2729,8 @@ class SystemInformation {
     /**
      * Retrieves values representing the device family and form factor of the current device.
      * @param {Pointer<Integer>} pullUAPInfo 
-     * @param {Pointer<Integer>} pulDeviceFamily 
-     * @param {Pointer<Integer>} pulDeviceForm 
+     * @param {Pointer<DEVICEFAMILYINFOENUM>} pulDeviceFamily 
+     * @param {Pointer<DEVICEFAMILYDEVICEFORM>} pulDeviceForm 
      * @returns {String} Nothing - always returns an empty string
      * @see https://learn.microsoft.com/windows/win32/DevNotes/rtlgetdevicefamilyinfoenum
      */
@@ -2756,10 +2752,10 @@ class SystemInformation {
      * @param {Pointer<Integer>} pulDeviceFormBufferSize Type: _Inout_ **PDWORD**
      * 
      * The size of the buffer for the device form.
-     * @param {Pointer} DeviceFamily Type: _Out_writes_bytes_(*pulDeviceFamilyBufferSize) **PWSTR**
+     * @param {Integer} DeviceFamily Type: _Out_writes_bytes_(*pulDeviceFamilyBufferSize) **PWSTR**
      * 
      * The retrieved device family.
-     * @param {Pointer} DeviceForm Type: _Out_writes_bytes_(*pulDeviceFormBufferSize) **PWSTR**
+     * @param {Integer} DeviceForm Type: _Out_writes_bytes_(*pulDeviceFormBufferSize) **PWSTR**
      * 
      * The retrieved device form.
      * @returns {Integer} Type: DWORD
@@ -2823,7 +2819,7 @@ class SystemInformation {
      * A user with administrative privileges can disable DEP for selected applications by using the <b>System</b> Control Panel application. If the system DEP policy is OptOut, DEP is disabled for these applications.
      * 
      * The Application Compatibility Toolkit can be used to create a list of individual applications that are exempt from DEP. If the system DEP policy is OptOut, DEP is automatically disabled for applications on the list.
-     * @returns {Integer} This function returns a value of type <b>DEP_SYSTEM_POLICY_TYPE</b>, which can be one of the following values.
+     * @returns {DEP_SYSTEM_POLICY_TYPE} This function returns a value of type <b>DEP_SYSTEM_POLICY_TYPE</b>, which can be one of the following values.
      * 
      * <table>
      * <tr>
@@ -2889,7 +2885,7 @@ class SystemInformation {
 
     /**
      * Retrieves the firmware type of the local computer.
-     * @param {Pointer<Integer>} FirmwareType A pointer to a <a href="https://docs.microsoft.com/windows/desktop/api/winnt/ne-winnt-firmware_type">FIRMWARE_TYPE</a> enumeration.
+     * @param {Pointer<FIRMWARE_TYPE>} FirmwareType A pointer to a <a href="https://docs.microsoft.com/windows/desktop/api/winnt/ne-winnt-firmware_type">FIRMWARE_TYPE</a> enumeration.
      * @returns {BOOL} If the function succeeds, the return value is nonzero.
      * 
      * If the function fails, the return value is zero. To get extended error information, call the <a href="https://docs.microsoft.com/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a> function.
@@ -2948,7 +2944,7 @@ class SystemInformation {
      * 
      * 
      * You must set the <b>dwOSVersionInfoSize</b> member of this structure to <c>sizeof(OSVERSIONINFOEX)</c>. You must also specify valid data for the members indicated by <i>dwTypeMask</i>. The function ignores structure members for which the corresponding <i>dwTypeMask</i> bit is not set.
-     * @param {Integer} dwTypeMask A mask that indicates the members of the
+     * @param {VER_FLAGS} dwTypeMask A mask that indicates the members of the
      * @param {Integer} dwlConditionMask The type of comparison to be used for each <b>lpVersionInfo</b> member being compared. To build this value, call the 
      * <a href="https://docs.microsoft.com/windows/desktop/api/winnt/nf-winnt-versetconditionmask">VerSetConditionMask</a> function or the 
      * <a href="https://docs.microsoft.com/windows/desktop/api/winnt/nf-winnt-ver_set_condition">VER_SET_CONDITION</a> macro once for each 
@@ -3012,7 +3008,7 @@ class SystemInformation {
      * 
      * 
      * You must set the <b>dwOSVersionInfoSize</b> member of this structure to <c>sizeof(OSVERSIONINFOEX)</c>. You must also specify valid data for the members indicated by <i>dwTypeMask</i>. The function ignores structure members for which the corresponding <i>dwTypeMask</i> bit is not set.
-     * @param {Integer} dwTypeMask A mask that indicates the members of the
+     * @param {VER_FLAGS} dwTypeMask A mask that indicates the members of the
      * @param {Integer} dwlConditionMask The type of comparison to be used for each <b>lpVersionInfo</b> member being compared. To build this value, call the 
      * <a href="https://docs.microsoft.com/windows/desktop/api/winnt/nf-winnt-versetconditionmask">VerSetConditionMask</a> function or the 
      * <a href="https://docs.microsoft.com/windows/desktop/api/winnt/nf-winnt-ver_set_condition">VER_SET_CONDITION</a> macro once for each 

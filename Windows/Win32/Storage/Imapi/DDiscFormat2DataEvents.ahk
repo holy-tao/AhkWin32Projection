@@ -7,9 +7,8 @@
  * Implement this interface to receive notifications of the current write operation. (DDiscFormat2DataEvents)
  * @see https://learn.microsoft.com/windows/win32/api/imapi2/nn-imapi2-ddiscformat2dataevents
  * @namespace Windows.Win32.Storage.Imapi
- * @version v4.0.30319
  */
-class DDiscFormat2DataEvents extends IDispatch{
+class DDiscFormat2DataEvents extends IDispatch {
 
     static sizeof => A_PtrSize
     /**
@@ -51,7 +50,9 @@ class DDiscFormat2DataEvents extends IDispatch{
      * <li>Once after the operation completes</li>
      * </ul>
      * To stop the write process, call the <a href="https://docs.microsoft.com/windows/desktop/api/imapi2/nf-imapi2-idiscformat2data-cancelwrite">IDiscFormat2Data::CancelWrite</a> method.
-     * @param {IDispatch} _object 
+     * @param {IDispatch} _object The <a href="https://docs.microsoft.com/windows/desktop/api/imapi2/nn-imapi2-idiscformat2data">IDiscFormat2Data</a> interface that initiated the write operation. 
+     * 
+     * This parameter is a <b>MsftDiscFormat2Data</b> object in script.
      * @param {IDispatch} progress An <a href="https://docs.microsoft.com/windows/desktop/api/imapi2/nn-imapi2-idiscformat2dataeventargs">IDiscFormat2DataEventArgs</a> interface that you use to determine the progress of the write operation. 
      * 
      * This parameter is a <b>MsftDiscFormat2Data</b> object in script.

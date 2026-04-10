@@ -7,9 +7,8 @@
  * Exposes methods to obtain folder view settings.
  * @see https://learn.microsoft.com/windows/win32/api/shobjidl_core/nn-shobjidl_core-ifolderviewsettings
  * @namespace Windows.Win32.UI.Shell
- * @version v4.0.30319
  */
-class IFolderViewSettings extends IUnknown{
+class IFolderViewSettings extends IUnknown {
 
     static sizeof => A_PtrSize
     /**
@@ -65,7 +64,7 @@ class IFolderViewSettings extends IUnknown{
 
     /**
      * Gets a folder's logical view mode.
-     * @returns {Integer} Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/shobjidl_core/ne-shobjidl_core-folderlogicalviewmode">FOLDERLOGICALVIEWMODE</a>*</b>
+     * @returns {FOLDERLOGICALVIEWMODE} Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/shobjidl_core/ne-shobjidl_core-folderlogicalviewmode">FOLDERLOGICALVIEWMODE</a>*</b>
      * 
      * A pointer to a <a href="https://docs.microsoft.com/windows/desktop/api/shobjidl_core/ne-shobjidl_core-folderlogicalviewmode">FOLDERLOGICALVIEWMODE</a> value.
      * @see https://learn.microsoft.com/windows/win32/api/shobjidl_core/nf-shobjidl_core-ifolderviewsettings-getviewmode
@@ -89,10 +88,10 @@ class IFolderViewSettings extends IUnknown{
 
     /**
      * Gets folder view options flags.
-     * @param {Pointer<Integer>} pfolderMask Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/shobjidl_core/ne-shobjidl_core-folderflags">FOLDERFLAGS</a>*</b>
+     * @param {Pointer<FOLDERFLAGS>} pfolderMask Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/shobjidl_core/ne-shobjidl_core-folderflags">FOLDERFLAGS</a>*</b>
      * 
      * A pointer to a mask for folder view options.
-     * @param {Pointer<Integer>} pfolderFlags Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/shobjidl_core/ne-shobjidl_core-folderflags">FOLDERFLAGS</a>*</b>
+     * @param {Pointer<FOLDERFLAGS>} pfolderFlags Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/shobjidl_core/ne-shobjidl_core-folderflags">FOLDERFLAGS</a>*</b>
      * 
      * A pointer to a flag for folder view options.
      * @returns {HRESULT} Type: <b>HRESULT</b>

@@ -4,10 +4,8 @@
 
 /**
  * @namespace Windows.Win32.Media.KernelStreaming
- * @version v4.0.30319
  */
-class VIDEOFORMAT_DX12 extends Win32Struct
-{
+class VIDEOFORMAT_DX12 extends Win32Struct {
     static sizeof => 32
 
     static packingSize => 8
@@ -15,7 +13,7 @@ class VIDEOFORMAT_DX12 extends Win32Struct
     /**
      * @type {KSATTRIBUTE}
      */
-    Header{
+    Header {
         get {
             if(!this.HasProp("__Header"))
                 this.__Header := KSATTRIBUTE(0, this)
@@ -40,7 +38,7 @@ class VIDEOFORMAT_DX12 extends Win32Struct
     }
 
     /**
-     * @type {Pointer<Guid>}
+     * @type {Pointer}
      */
     customLayout {
         get => NumGet(this, 24, "ptr")

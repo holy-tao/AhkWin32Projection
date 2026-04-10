@@ -7,9 +7,8 @@
  * Contains methods to iterate over and perform other operations on a list of enumerated objects. (IVssEnumObject)
  * @see https://learn.microsoft.com/windows/win32/api/vss/nn-vss-ivssenumobject
  * @namespace Windows.Win32.Storage.Vss
- * @version v4.0.30319
  */
-class IVssEnumObject extends IUnknown{
+class IVssEnumObject extends IUnknown {
 
     static sizeof => A_PtrSize
     /**

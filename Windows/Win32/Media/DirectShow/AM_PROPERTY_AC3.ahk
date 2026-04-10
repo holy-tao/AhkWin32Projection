@@ -3,9 +3,8 @@
 
 /**
  * @namespace Windows.Win32.Media.DirectShow
- * @version v4.0.30319
  */
-class AM_PROPERTY_AC3 extends Win32Enum{
+class AM_PROPERTY_AC3 extends Win32Enum {
 
     /**
      * @type {Integer (Int32)}

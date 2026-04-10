@@ -1,16 +1,15 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
-#Include .\IEnumFilters.ahk
 #Include ..\..\System\Com\IUnknown.ahk
+#Include .\IEnumFilters.ahk
 
 /**
  * The Filter Graph Manager exposes IGraphConfig to support dynamic graph building.
  * @see https://learn.microsoft.com/windows/win32/api/strmif/nn-strmif-igraphconfig
  * @namespace Windows.Win32.Media.DirectShow
- * @version v4.0.30319
  */
-class IGraphConfig extends IUnknown{
+class IGraphConfig extends IUnknown {
 
     static sizeof => A_PtrSize
     /**

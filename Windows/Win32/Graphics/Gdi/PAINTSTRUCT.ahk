@@ -7,10 +7,8 @@
  * The PAINTSTRUCT structure contains information for an application. This information can be used to paint the client area of a window owned by that application.
  * @see https://learn.microsoft.com/windows/win32/api/winuser/ns-winuser-paintstruct
  * @namespace Windows.Win32.Graphics.Gdi
- * @version v4.0.30319
  */
-class PAINTSTRUCT extends Win32Struct
-{
+class PAINTSTRUCT extends Win32Struct {
     static sizeof => 72
 
     static packingSize => 8
@@ -19,7 +17,7 @@ class PAINTSTRUCT extends Win32Struct
      * A handle to the display DC to be used for painting.
      * @type {HDC}
      */
-    hdc{
+    hdc {
         get {
             if(!this.HasProp("__hdc"))
                 this.__hdc := HDC(0, this)
@@ -40,7 +38,7 @@ class PAINTSTRUCT extends Win32Struct
      * A <a href="https://docs.microsoft.com/windows/desktop/api/windef/ns-windef-rect">RECT</a> structure that specifies the upper left and lower right corners of the rectangle in which the painting is requested, in device units relative to the upper-left corner of the client area.
      * @type {RECT}
      */
-    rcPaint{
+    rcPaint {
         get {
             if(!this.HasProp("__rcPaint"))
                 this.__rcPaint := RECT(12, this)
@@ -68,9 +66,9 @@ class PAINTSTRUCT extends Win32Struct
 
     /**
      * Reserved; used internally by the system.
-     * @type {Array<Byte>}
+     * @type {Array<Integer>}
      */
-    rgbReserved{
+    rgbReserved {
         get {
             if(!this.HasProp("__rgbReservedProxyArray"))
                 this.__rgbReservedProxyArray := Win32FixedArray(this.ptr + 36, 32, Primitive, "char")

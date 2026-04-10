@@ -4,10 +4,8 @@
 
 /**
  * @namespace Windows.Win32.Media.Audio.DirectMusic
- * @version v4.0.30319
  */
-class RGNHEADER extends Win32Struct
-{
+class RGNHEADER extends Win32Struct {
     static sizeof => 12
 
     static packingSize => 2
@@ -15,7 +13,7 @@ class RGNHEADER extends Win32Struct
     /**
      * @type {RGNRANGE}
      */
-    RangeKey{
+    RangeKey {
         get {
             if(!this.HasProp("__RangeKey"))
                 this.__RangeKey := RGNRANGE(0, this)
@@ -26,7 +24,7 @@ class RGNHEADER extends Win32Struct
     /**
      * @type {RGNRANGE}
      */
-    RangeVelocity{
+    RangeVelocity {
         get {
             if(!this.HasProp("__RangeVelocity"))
                 this.__RangeVelocity := RGNRANGE(4, this)

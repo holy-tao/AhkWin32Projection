@@ -9,17 +9,15 @@
  *             Windows 8, Windows Phone 8 (XAudio 2.8); DirectX SDK (XAudio 2.7)
  * @see https://learn.microsoft.com/windows/win32/api/xapo/ns-xapo-xapo_registration_properties
  * @namespace Windows.Win32.Media.Audio.XAudio2
- * @version v4.0.30319
  */
-class XAPO_REGISTRATION_PROPERTIES extends Win32Struct
-{
+class XAPO_REGISTRATION_PROPERTIES extends Win32Struct {
     static sizeof => 1064
 
     static packingSize => 8
 
     /**
      * COM class ID for use with the CoCreateInstance function.
-     * @type {Pointer<Guid>}
+     * @type {Pointer}
      */
     clsid {
         get => NumGet(this, 0, "ptr")

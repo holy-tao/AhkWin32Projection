@@ -13,9 +13,8 @@
  *     <b>VSS_SM_RESTORE_EVENTS_FLAG</b>).
  * @see https://learn.microsoft.com/windows/win32/api/vswriter/ne-vswriter-vss_subscribe_mask
  * @namespace Windows.Win32.Storage.Vss
- * @version v4.0.30319
  */
-class VSS_SUBSCRIBE_MASK extends Win32Enum{
+class VSS_SUBSCRIBE_MASK extends Win32Enum {
 
     /**
      * This enumeration value is reserved for future use. 

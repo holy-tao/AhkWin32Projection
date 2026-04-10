@@ -7,9 +7,8 @@
  * The IAudioPeakMeter interface provides access to a hardware peak-meter control.
  * @see https://learn.microsoft.com/windows/win32/api/devicetopology/nn-devicetopology-iaudiopeakmeter
  * @namespace Windows.Win32.Media.Audio
- * @version v4.0.30319
  */
-class IAudioPeakMeter extends IUnknown{
+class IAudioPeakMeter extends IUnknown {
 
     static sizeof => A_PtrSize
     /**

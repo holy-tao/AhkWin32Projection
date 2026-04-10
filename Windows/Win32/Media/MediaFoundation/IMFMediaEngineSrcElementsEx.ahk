@@ -1,16 +1,15 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
-#Include ..\..\Foundation\BSTR.ahk
 #Include .\IMFMediaEngineSrcElements.ahk
+#Include ..\..\Foundation\BSTR.ahk
 
 /**
  * Extends the IMFMediaEngineSrcElements interface to provide additional capabilities.
  * @see https://learn.microsoft.com/windows/win32/api/mfmediaengine/nn-mfmediaengine-imfmediaenginesrcelementsex
  * @namespace Windows.Win32.Media.MediaFoundation
- * @version v4.0.30319
  */
-class IMFMediaEngineSrcElementsEx extends IMFMediaEngineSrcElements{
+class IMFMediaEngineSrcElementsEx extends IMFMediaEngineSrcElements {
 
     static sizeof => A_PtrSize
     /**

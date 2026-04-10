@@ -1,16 +1,15 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
-#Include ..\..\Foundation\BSTR.ahk
 #Include ..\..\System\Com\IDispatch.ahk
+#Include ..\..\Foundation\BSTR.ahk
 
 /**
  * The ITPluggableTerminalClassInfo interface exposes methods that allow the application to retrieve information concerning a pluggable terminal.
  * @see https://learn.microsoft.com/windows/win32/api/tapi3if/nn-tapi3if-itpluggableterminalclassinfo
  * @namespace Windows.Win32.Devices.Tapi
- * @version v4.0.30319
  */
-class ITPluggableTerminalClassInfo extends IDispatch{
+class ITPluggableTerminalClassInfo extends IDispatch {
 
     static sizeof => A_PtrSize
     /**
@@ -67,7 +66,7 @@ class ITPluggableTerminalClassInfo extends IDispatch{
     }
 
     /**
-     * @type {Integer} 
+     * @type {TERMINAL_DIRECTION} 
      */
     Direction {
         get => this.get_Direction()
@@ -143,7 +142,7 @@ class ITPluggableTerminalClassInfo extends IDispatch{
 
     /**
      * The get_Direction method gets the direction supported by the terminal. (ITPluggableTerminalClassInfo.get_Direction)
-     * @returns {Integer} The 
+     * @returns {TERMINAL_DIRECTION} The 
      * <a href="https://docs.microsoft.com/windows/desktop/api/tapi3if/ne-tapi3if-terminal_direction">TERMINAL_DIRECTION</a> descriptor for the direction supported by the terminal.
      * @see https://learn.microsoft.com/windows/win32/api/tapi3if/nf-tapi3if-itpluggableterminalclassinfo-get_direction
      */

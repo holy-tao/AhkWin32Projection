@@ -3,9 +3,8 @@
 
 /**
  * @namespace Windows.Win32.Security.Cryptography.UI
- * @version v4.0.30319
  */
-class CTL_MODIFY_REQUEST_OPERATION extends Win32Enum{
+class CTL_MODIFY_REQUEST_OPERATION extends Win32Enum {
 
     /**
      * @type {Integer (UInt32)}

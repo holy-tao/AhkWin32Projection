@@ -3,10 +3,8 @@
 
 /**
  * @namespace Windows.Win32.Devices.Geolocation
- * @version v4.0.30319
  */
-class LatLongReport extends Win32Struct
-{
+class LatLongReport extends Win32Struct {
     static sizeof => 0
 
     static packingSize => 1

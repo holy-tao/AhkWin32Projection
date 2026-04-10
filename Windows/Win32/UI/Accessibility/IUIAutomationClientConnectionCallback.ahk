@@ -5,9 +5,8 @@
 
 /**
  * @namespace Windows.Win32.UI.Accessibility
- * @version v4.0.30319
  */
-class IUIAutomationClientConnectionCallback extends IUnknown{
+class IUIAutomationClientConnectionCallback extends IUnknown {
 
     static sizeof => A_PtrSize
     /**

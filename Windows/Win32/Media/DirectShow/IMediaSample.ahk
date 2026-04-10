@@ -7,9 +7,8 @@
  * The IMediaSample interface sets and retrieves properties on media samples.
  * @see https://learn.microsoft.com/windows/win32/api/strmif/nn-strmif-imediasample
  * @namespace Windows.Win32.Media.DirectShow
- * @version v4.0.30319
  */
-class IMediaSample extends IUnknown{
+class IMediaSample extends IUnknown {
 
     static sizeof => A_PtrSize
     /**

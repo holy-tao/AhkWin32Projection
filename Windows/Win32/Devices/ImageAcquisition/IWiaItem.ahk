@@ -1,11 +1,10 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
-#Include ..\..\Foundation\BSTR.ahk
-#Include .\IEnumWiaItem.ahk
-#Include .\IWiaItem.ahk
-#Include .\IEnumWIA_DEV_CAPS.ahk
 #Include ..\..\System\Com\IUnknown.ahk
+#Include .\IEnumWiaItem.ahk
+#Include .\IEnumWIA_DEV_CAPS.ahk
+#Include ..\..\Foundation\BSTR.ahk
 
 /**
  * Each Windows Image Acquisition (WIA) hardware device is represented to an application as a hierarchical tree of IWiaItem objects.
@@ -110,9 +109,8 @@
  * </table>
  * @see https://learn.microsoft.com/windows/win32/api/wia_xp/nn-wia_xp-iwiaitem
  * @namespace Windows.Win32.Devices.ImageAcquisition
- * @version v4.0.30319
  */
-class IWiaItem extends IUnknown{
+class IWiaItem extends IUnknown {
 
     static sizeof => A_PtrSize
     /**

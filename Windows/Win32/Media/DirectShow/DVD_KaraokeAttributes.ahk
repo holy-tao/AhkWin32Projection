@@ -1,14 +1,13 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
+#Include .\DVD_KARAOKE_ASSIGNMENT.ahk
 
 /**
  * The DVD_KaraokeAttributes structure contains information about a karaoke audio stream. The IDvdInfo2::GetKaraokeAttributes method fills in a DVD_KaraokeAttributes structure for a specified stream.
  * @see https://learn.microsoft.com/windows/win32/api/strmif/ns-strmif-dvd_karaokeattributes
  * @namespace Windows.Win32.Media.DirectShow
- * @version v4.0.30319
  */
-class DVD_KaraokeAttributes extends Win32Struct
-{
+class DVD_KaraokeAttributes extends Win32Struct {
     static sizeof => 32
 
     static packingSize => 4
@@ -42,7 +41,7 @@ class DVD_KaraokeAttributes extends Win32Struct
 
     /**
      * A [DVD_KARAOKE_ASSIGNMENT](/windows/win32/api/strmif/ne-strmif-dvd_karaoke_assignment) value indicating the speaker configuration into which all the channels will be mixed.
-     * @type {Integer}
+     * @type {DVD_KARAOKE_ASSIGNMENT}
      */
     ChannelAssignment {
         get => NumGet(this, 12, "int")
@@ -51,9 +50,9 @@ class DVD_KaraokeAttributes extends Win32Struct
 
     /**
      * An array of valid [DVD_KARAOKE_CONTENTS](/windows/desktop/api/strmif/ne-strmif-dvd_karaoke_contents) values that identifies the content on each channel.
-     * @type {Array<UInt16>}
+     * @type {Array<Integer>}
      */
-    wChannelContents{
+    wChannelContents {
         get {
             if(!this.HasProp("__wChannelContentsProxyArray"))
                 this.__wChannelContentsProxyArray := Win32FixedArray(this.ptr + 16, 8, Primitive, "ushort")

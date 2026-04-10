@@ -1,8 +1,8 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
-#Include ..\..\Foundation\BSTR.ahk
 #Include ..\..\System\Com\IUnknown.ahk
+#Include ..\..\Foundation\BSTR.ahk
 
 /**
  * A collection of properties that represent an SMS message read from the device memory.
@@ -13,9 +13,8 @@
  *      <a href="https://docs.microsoft.com/windows/desktop/api/mbnapi/nn-mbnapi-imbnsmsevents">IMbnSmsEvents</a> interface.
  * @see https://learn.microsoft.com/windows/win32/api/mbnapi/nn-mbnapi-imbnsmsreadmsgpdu
  * @namespace Windows.Win32.NetworkManagement.MobileBroadband
- * @version v4.0.30319
  */
-class IMbnSmsReadMsgPdu extends IUnknown{
+class IMbnSmsReadMsgPdu extends IUnknown {
 
     static sizeof => A_PtrSize
     /**
@@ -44,7 +43,7 @@ class IMbnSmsReadMsgPdu extends IUnknown{
     }
 
     /**
-     * @type {Integer} 
+     * @type {MBN_MSG_STATUS} 
      */
     Status {
         get => this.get_Status()
@@ -76,7 +75,7 @@ class IMbnSmsReadMsgPdu extends IUnknown{
 
     /**
      * The type of message. (IMbnSmsReadMsgPdu.get_Status)
-     * @returns {Integer} 
+     * @returns {MBN_MSG_STATUS} 
      * @see https://learn.microsoft.com/windows/win32/api/mbnapi/nf-mbnapi-imbnsmsreadmsgpdu-get_status
      */
     get_Status() {

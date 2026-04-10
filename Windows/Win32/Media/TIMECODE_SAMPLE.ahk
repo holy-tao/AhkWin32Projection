@@ -1,6 +1,7 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\Win32Struct.ahk
 #Include .\TIMECODE.ahk
+#Include .\TIMECODE_SAMPLE_FLAGS.ahk
 
 /**
  * The TIMECODE_SAMPLE structure contains complete timecode information.
@@ -8,10 +9,8 @@
  * The upper 16 bits in <b>dwFlags</b> are reserved; set to zero.
  * @see https://learn.microsoft.com/windows/win32/api/strmif/ns-strmif-timecode_sample
  * @namespace Windows.Win32.Media
- * @version v4.0.30319
  */
-class TIMECODE_SAMPLE extends Win32Struct
-{
+class TIMECODE_SAMPLE extends Win32Struct {
     static sizeof => 32
 
     static packingSize => 8
@@ -29,7 +28,7 @@ class TIMECODE_SAMPLE extends Win32Struct
      * <a href="https://docs.microsoft.com/windows/desktop/DirectShow/getting-timecode-from-the-device">TIMECODE</a> structure.
      * @type {TIMECODE}
      */
-    timecode{
+    timecode {
         get {
             if(!this.HasProp("__timecode"))
                 this.__timecode := TIMECODE(8, this)
@@ -47,8 +46,7 @@ class TIMECODE_SAMPLE extends Win32Struct
     }
 
     /**
-     * 
-     * @type {Integer}
+     * @type {TIMECODE_SAMPLE_FLAGS}
      */
     dwFlags {
         get => NumGet(this, 28, "uint")

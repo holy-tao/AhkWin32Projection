@@ -1,5 +1,7 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
+#Include .\SRestriction.ahk
+#Include .\SPropValue.ahk
 
 /**
  * Describes a comment restriction, which is used to annotate a restriction. Comment restrictions are unlike other restrictions because they are not evaluated.
@@ -11,10 +13,8 @@
  * For more information about the **SCommentRestriction** structure and restrictions in general, see [About Restrictions](about-restrictions.md).
  * @see https://learn.microsoft.com/office/client-developer/outlook/mapi/scommentrestriction
  * @namespace Windows.Win32.System.AddressBook
- * @version v4.0.30319
  */
-class SCommentRestriction extends Win32Struct
-{
+class SCommentRestriction extends Win32Struct {
     static sizeof => 24
 
     static packingSize => 8

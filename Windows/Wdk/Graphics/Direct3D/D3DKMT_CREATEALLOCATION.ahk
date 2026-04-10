@@ -1,13 +1,14 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
+#Include .\D3DKMT_CREATESTANDARDALLOCATION.ahk
+#Include .\D3DDDI_ALLOCATIONINFO.ahk
+#Include .\D3DDDI_ALLOCATIONINFO2.ahk
 #Include ..\..\..\Win32\Foundation\HANDLE.ahk
 
 /**
  * @namespace Windows.Wdk.Graphics.Direct3D
- * @version v4.0.30319
  */
-class D3DKMT_CREATEALLOCATION extends Win32Struct
-{
+class D3DKMT_CREATEALLOCATION extends Win32Struct {
     static sizeof => 72
 
     static packingSize => 8
@@ -101,7 +102,7 @@ class D3DKMT_CREATEALLOCATION extends Win32Struct
     }
 
     /**
-     * @type {Pointer<D3DKMT_CREATEALLOCATIONFLAGS>}
+     * @type {Pointer}
      */
     Flags {
         get => NumGet(this, 56, "ptr")
@@ -111,7 +112,7 @@ class D3DKMT_CREATEALLOCATION extends Win32Struct
     /**
      * @type {HANDLE}
      */
-    hPrivateRuntimeResourceHandle{
+    hPrivateRuntimeResourceHandle {
         get {
             if(!this.HasProp("__hPrivateRuntimeResourceHandle"))
                 this.__hPrivateRuntimeResourceHandle := HANDLE(64, this)

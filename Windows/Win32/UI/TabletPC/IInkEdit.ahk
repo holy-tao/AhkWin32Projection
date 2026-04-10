@@ -1,22 +1,21 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
-#Include ..\..\Foundation\BSTR.ahk
+#Include ..\..\System\Com\IDispatch.ahk
 #Include .\IInkDrawingAttributes.ahk
 #Include .\IInkRecognizer.ahk
+#Include ..\..\Foundation\BSTR.ahk
 #Include ..\..\System\Variant\VARIANT.ahk
 #Include ..\..\System\Ole\OLE_HANDLE.ahk
 #Include ..\..\System\Ole\IFontDisp.ahk
 #Include ..\..\System\Ole\IPictureDisp.ahk
-#Include ..\..\System\Com\IDispatch.ahk
 
 /**
  * . (IInkEdit)
  * @see https://learn.microsoft.com/windows/win32/api/inked/nn-inked-iinkedit
  * @namespace Windows.Win32.UI.TabletPC
- * @version v4.0.30319
  */
-class IInkEdit extends IDispatch{
+class IInkEdit extends IDispatch {
 
     static sizeof => A_PtrSize
     /**
@@ -38,7 +37,7 @@ class IInkEdit extends IDispatch{
     static VTableNames => ["get_Status", "get_UseMouseForInput", "put_UseMouseForInput", "get_InkMode", "put_InkMode", "get_InkInsertMode", "put_InkInsertMode", "get_DrawingAttributes", "putref_DrawingAttributes", "get_RecognitionTimeout", "put_RecognitionTimeout", "get_Recognizer", "putref_Recognizer", "get_Factoid", "put_Factoid", "get_SelInks", "put_SelInks", "get_SelInksDisplayMode", "put_SelInksDisplayMode", "Recognize", "GetGestureStatus", "SetGestureStatus", "put_BackColor", "get_BackColor", "get_Appearance", "put_Appearance", "get_BorderStyle", "put_BorderStyle", "get_Hwnd", "get_Font", "putref_Font", "get_Text", "put_Text", "get_MouseIcon", "put_MouseIcon", "putref_MouseIcon", "get_MousePointer", "put_MousePointer", "get_Locked", "put_Locked", "get_Enabled", "put_Enabled", "get_MaxLength", "put_MaxLength", "get_MultiLine", "put_MultiLine", "get_ScrollBars", "put_ScrollBars", "get_DisableNoScroll", "put_DisableNoScroll", "get_SelAlignment", "put_SelAlignment", "get_SelBold", "put_SelBold", "get_SelItalic", "put_SelItalic", "get_SelUnderline", "put_SelUnderline", "get_SelColor", "put_SelColor", "get_SelFontName", "put_SelFontName", "get_SelFontSize", "put_SelFontSize", "get_SelCharOffset", "put_SelCharOffset", "get_TextRTF", "put_TextRTF", "get_SelStart", "put_SelStart", "get_SelLength", "put_SelLength", "get_SelText", "put_SelText", "get_SelRTF", "put_SelRTF", "Refresh"]
 
     /**
-     * @type {Integer} 
+     * @type {InkEditStatus} 
      */
     Status {
         get => this.get_Status()
@@ -53,7 +52,7 @@ class IInkEdit extends IDispatch{
     }
 
     /**
-     * @type {Integer} 
+     * @type {InkMode} 
      */
     InkMode {
         get => this.get_InkMode()
@@ -61,7 +60,7 @@ class IInkEdit extends IDispatch{
     }
 
     /**
-     * @type {Integer} 
+     * @type {InkInsertMode} 
      */
     InkInsertMode {
         get => this.get_InkInsertMode()
@@ -107,7 +106,7 @@ class IInkEdit extends IDispatch{
     }
 
     /**
-     * @type {Integer} 
+     * @type {InkDisplayMode} 
      */
     SelInksDisplayMode {
         get => this.get_SelInksDisplayMode()
@@ -123,7 +122,7 @@ class IInkEdit extends IDispatch{
     }
 
     /**
-     * @type {Integer} 
+     * @type {AppearanceConstants} 
      */
     Appearance {
         get => this.get_Appearance()
@@ -131,7 +130,7 @@ class IInkEdit extends IDispatch{
     }
 
     /**
-     * @type {Integer} 
+     * @type {BorderStyleConstants} 
      */
     BorderStyle {
         get => this.get_BorderStyle()
@@ -169,7 +168,7 @@ class IInkEdit extends IDispatch{
     }
 
     /**
-     * @type {Integer} 
+     * @type {InkMousePointer} 
      */
     MousePointer {
         get => this.get_MousePointer()
@@ -209,7 +208,7 @@ class IInkEdit extends IDispatch{
     }
 
     /**
-     * @type {Integer} 
+     * @type {ScrollBarsConstants} 
      */
     ScrollBars {
         get => this.get_ScrollBars()
@@ -332,7 +331,7 @@ class IInkEdit extends IDispatch{
      * Gets a value that specifies whether the InkEdit control is idle, collecting ink, or recognizing ink.
      * @remarks
      * This property is available at run time only.
-     * @returns {Integer} 
+     * @returns {InkEditStatus} 
      * @see https://learn.microsoft.com/windows/win32/api/inked/nf-inked-iinkedit-get_status
      */
     get_Status() {
@@ -371,7 +370,7 @@ class IInkEdit extends IDispatch{
      * The value of this property is always Disabled if it is used on a system that has Microsoft Windows XP Tablet PC Edition installed but no recognizers are present. If used on a system with Windows Vista or Windows XP Tablet PC Edition installed, the value can be set to any of the values in the <a href="https://docs.microsoft.com/windows/desktop/api/inked/ne-inked-inkmode">InkMode</a> enumeration type.
      * 
      * This property should be changed only if the <a href="https://docs.microsoft.com/windows/desktop/api/inked/nf-inked-iinkedit-get_status">Status</a> property returns IES_Idle.
-     * @returns {Integer} 
+     * @returns {InkMode} 
      * @see https://learn.microsoft.com/windows/win32/api/inked/nf-inked-iinkedit-get_inkmode
      */
     get_InkMode() {
@@ -385,7 +384,7 @@ class IInkEdit extends IDispatch{
      * The value of this property is always Disabled if it is used on a system that has Microsoft Windows XP Tablet PC Edition installed but no recognizers are present. If used on a system with Windows Vista or Windows XP Tablet PC Edition installed, the value can be set to any of the values in the <a href="https://docs.microsoft.com/windows/desktop/api/inked/ne-inked-inkmode">InkMode</a> enumeration type.
      * 
      * This property should be changed only if the <a href="https://docs.microsoft.com/windows/desktop/api/inked/nf-inked-iinkedit-get_status">Status</a> property returns IES_Idle.
-     * @param {Integer} newVal 
+     * @param {InkMode} newVal 
      * @returns {HRESULT} 
      * @see https://learn.microsoft.com/windows/win32/api/inked/nf-inked-iinkedit-put_inkmode
      */
@@ -396,7 +395,7 @@ class IInkEdit extends IDispatch{
 
     /**
      * Gets or sets a value that specifies how ink is inserted onto the InkEdit control, either as text or as ink. (Get)
-     * @returns {Integer} 
+     * @returns {InkInsertMode} 
      * @see https://learn.microsoft.com/windows/win32/api/inked/nf-inked-iinkedit-get_inkinsertmode
      */
     get_InkInsertMode() {
@@ -406,7 +405,7 @@ class IInkEdit extends IDispatch{
 
     /**
      * Gets or sets a value that specifies how ink is inserted onto the InkEdit control, either as text or as ink. (Put)
-     * @param {Integer} newVal 
+     * @param {InkInsertMode} newVal 
      * @returns {HRESULT} 
      * @see https://learn.microsoft.com/windows/win32/api/inked/nf-inked-iinkedit-put_inkinsertmode
      */
@@ -588,7 +587,7 @@ class IInkEdit extends IDispatch{
      * Gets or sets a value that allows for toggling the appearance of the selection between ink and text. (Get)
      * @remarks
      * This property is run time only.
-     * @returns {Integer} 
+     * @returns {InkDisplayMode} 
      * @see https://learn.microsoft.com/windows/win32/api/inked/nf-inked-iinkedit-get_selinksdisplaymode
      */
     get_SelInksDisplayMode() {
@@ -600,7 +599,7 @@ class IInkEdit extends IDispatch{
      * Gets or sets a value that allows for toggling the appearance of the selection between ink and text. (Put)
      * @remarks
      * This property is run time only.
-     * @param {Integer} _InkDisplayMode 
+     * @param {InkDisplayMode} _InkDisplayMode 
      * @returns {HRESULT} 
      * @see https://learn.microsoft.com/windows/win32/api/inked/nf-inked-iinkedit-put_selinksdisplaymode
      */
@@ -677,7 +676,7 @@ class IInkEdit extends IDispatch{
      * <a href="https://docs.microsoft.com/windows/desktop/api/msinkaut/ne-msinkaut-inkapplicationgesture">IAG_DownLeft</a>
      * </li>
      * </ul>
-     * @param {Integer} Gesture The gesture that you want the status of.
+     * @param {InkApplicationGesture} Gesture The gesture that you want the status of.
      * @returns {VARIANT_BOOL} <b>VARIANT_TRUE</b> if the <a href="https://docs.microsoft.com/windows/desktop/tablet/inkedit-control">InkEdit</a> control has interest in the gesture and the <a href="https://docs.microsoft.com/windows/desktop/tablet/inkedit-gesture">Gesture</a> event of the InkEdit control fires when the gesture is recognized. <b>VARIANT_FALSE</b> if the InkEdit control has no interest in the gesture.
      * @see https://learn.microsoft.com/windows/win32/api/inked/nf-inked-iinkedit-getgesturestatus
      */
@@ -694,7 +693,7 @@ class IInkEdit extends IDispatch{
      * This method should only be called if the <a href="https://docs.microsoft.com/windows/desktop/api/inked/nf-inked-iinkedit-get_status">Status</a> property returns IES_Idle.
      * 
      * To get the interest of the <a href="https://docs.microsoft.com/windows/desktop/tablet/inkedit-control-reference">InkEdit</a> control in a known gesture, call the <a href="https://docs.microsoft.com/windows/desktop/api/msinkaut/nf-msinkaut-iinkcollector-getgesturestatus">GetGestureStatus</a> method.
-     * @param {Integer} Gesture The <a href="https://docs.microsoft.com/windows/desktop/api/msinkaut/nn-msinkaut-iinkgesture">IInkGesture</a> object that you want the status of.
+     * @param {InkApplicationGesture} Gesture The <a href="https://docs.microsoft.com/windows/desktop/api/msinkaut/nn-msinkaut-iinkgesture">IInkGesture</a> object that you want the status of.
      * @param {VARIANT_BOOL} Listen <b>VARIANT_TRUE</b> to indicate that the <a href="https://docs.microsoft.com/windows/desktop/tablet/inkedit-control-reference">InkEdit</a> control uses the application gesture; otherwise, <b>VARIANT_FALSE</b>.
      * @returns {HRESULT} This method can return one of these values.
      * 
@@ -811,7 +810,7 @@ class IInkEdit extends IDispatch{
 
     /**
      * Gets or sets a value that determines the appearance of the InkEdit control - whether it is flat (painted with no visual effects) or 3D (painted with three-dimensional effects). (Get)
-     * @returns {Integer} 
+     * @returns {AppearanceConstants} 
      * @see https://learn.microsoft.com/windows/win32/api/inked/nf-inked-iinkedit-get_appearance
      */
     get_Appearance() {
@@ -821,7 +820,7 @@ class IInkEdit extends IDispatch{
 
     /**
      * Gets or sets a value that determines the appearance of the InkEdit control - whether it is flat (painted with no visual effects) or 3D (painted with three-dimensional effects). (Put)
-     * @param {Integer} pAppearance 
+     * @param {AppearanceConstants} pAppearance 
      * @returns {HRESULT} 
      * @see https://learn.microsoft.com/windows/win32/api/inked/nf-inked-iinkedit-put_appearance
      */
@@ -832,7 +831,7 @@ class IInkEdit extends IDispatch{
 
     /**
      * Gets or sets a value that determines whether the InkEdit control has a border. (Get)
-     * @returns {Integer} 
+     * @returns {BorderStyleConstants} 
      * @see https://learn.microsoft.com/windows/win32/api/inked/nf-inked-iinkedit-get_borderstyle
      */
     get_BorderStyle() {
@@ -842,7 +841,7 @@ class IInkEdit extends IDispatch{
 
     /**
      * Gets or sets a value that determines whether the InkEdit control has a border. (Put)
-     * @param {Integer} pBorderStyle 
+     * @param {BorderStyleConstants} pBorderStyle 
      * @returns {HRESULT} 
      * @see https://learn.microsoft.com/windows/win32/api/inked/nf-inked-iinkedit-put_borderstyle
      */
@@ -969,7 +968,7 @@ class IInkEdit extends IDispatch{
      * If you set the <b>MousePointer</b> property to <a href="https://docs.microsoft.com/windows/desktop/api/msinkaut/ne-msinkaut-inkmousepointer">IMP_Default</a>, the mouse cursor setting is based on the current cursor's drawing attributes. If the ink collector is disabled, the mouse cursor setting is based on the underlying windows mouse cursor <a href="https://docs.microsoft.com/windows/desktop/api/inked/nf-inked-iinkedit-get_drawingattributes">DrawingAttributes</a> property. If the <b>MousePointer</b> property is set to <b>IMP_Custom</b> and the <a href="https://docs.microsoft.com/windows/desktop/api/inked/nf-inked-iinkedit-get_mouseicon">MouseIcon</a> property is <b>NULL</b>, then the ink collector no longer handles mouse cursor settings. Setting the mouse cursor to any other setting (other than the <b>MousePointer</b> property set to <b>IMP_Default</b> and the <b>MouseIcon</b> property set to <b>NULL</b>) forces the mouse cursor to use the current setting.
      * 
      * You can use this property when you want to indicate changes in functionality as the mouse pointer passes over controls on a form or dialog box. The <a href="https://docs.microsoft.com/windows/desktop/api/msinkaut/ne-msinkaut-inkmousepointer">IMP_Hourglass</a> setting is useful for indicating that the user should wait for a process or operation to finish.
-     * @returns {Integer} 
+     * @returns {InkMousePointer} 
      * @see https://learn.microsoft.com/windows/win32/api/inked/nf-inked-iinkedit-get_mousepointer
      */
     get_MousePointer() {
@@ -983,7 +982,7 @@ class IInkEdit extends IDispatch{
      * If you set the <b>MousePointer</b> property to <a href="https://docs.microsoft.com/windows/desktop/api/msinkaut/ne-msinkaut-inkmousepointer">IMP_Default</a>, the mouse cursor setting is based on the current cursor's drawing attributes. If the ink collector is disabled, the mouse cursor setting is based on the underlying windows mouse cursor <a href="https://docs.microsoft.com/windows/desktop/api/inked/nf-inked-iinkedit-get_drawingattributes">DrawingAttributes</a> property. If the <b>MousePointer</b> property is set to <b>IMP_Custom</b> and the <a href="https://docs.microsoft.com/windows/desktop/api/inked/nf-inked-iinkedit-get_mouseicon">MouseIcon</a> property is <b>NULL</b>, then the ink collector no longer handles mouse cursor settings. Setting the mouse cursor to any other setting (other than the <b>MousePointer</b> property set to <b>IMP_Default</b> and the <b>MouseIcon</b> property set to <b>NULL</b>) forces the mouse cursor to use the current setting.
      * 
      * You can use this property when you want to indicate changes in functionality as the mouse pointer passes over controls on a form or dialog box. The <a href="https://docs.microsoft.com/windows/desktop/api/msinkaut/ne-msinkaut-inkmousepointer">IMP_Hourglass</a> setting is useful for indicating that the user should wait for a process or operation to finish.
-     * @param {Integer} MousePointer 
+     * @param {InkMousePointer} MousePointer 
      * @returns {HRESULT} 
      * @see https://learn.microsoft.com/windows/win32/api/inked/nf-inked-iinkedit-put_mousepointer
      */
@@ -1120,7 +1119,7 @@ class IInkEdit extends IDispatch{
      * 
      * 
      * Scroll bars are displayed only if the contents of the <a href="https://docs.microsoft.com/windows/desktop/tablet/inkedit-control-reference">InkEdit</a> control extend beyond the control's borders. If <b>ScrollBars</b> is set to <b>FALSE</b>, the control won't have scroll bars, regardless of its contents.
-     * @returns {Integer} 
+     * @returns {ScrollBarsConstants} 
      * @see https://learn.microsoft.com/windows/win32/api/inked/nf-inked-iinkedit-get_scrollbars
      */
     get_ScrollBars() {
@@ -1140,7 +1139,7 @@ class IInkEdit extends IDispatch{
      * 
      * 
      * Scroll bars are displayed only if the contents of the <a href="https://docs.microsoft.com/windows/desktop/tablet/inkedit-control-reference">InkEdit</a> control extend beyond the control's borders. If <b>ScrollBars</b> is set to <b>FALSE</b>, the control won't have scroll bars, regardless of its contents.
-     * @param {Integer} newVal 
+     * @param {ScrollBarsConstants} newVal 
      * @returns {HRESULT} 
      * @see https://learn.microsoft.com/windows/win32/api/inked/nf-inked-iinkedit-put_scrollbars
      */

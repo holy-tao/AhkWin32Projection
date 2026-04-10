@@ -4,10 +4,8 @@
 
 /**
  * @namespace Windows.Win32.Web.MsHtml
- * @version v4.0.30319
  */
-class HTML_PAINTER_INFO extends Win32Struct
-{
+class HTML_PAINTER_INFO extends Win32Struct {
     static sizeof => 32
 
     static packingSize => 8
@@ -29,7 +27,7 @@ class HTML_PAINTER_INFO extends Win32Struct
     }
 
     /**
-     * @type {Pointer<Guid>}
+     * @type {Pointer}
      */
     iidDrawObject {
         get => NumGet(this, 8, "ptr")
@@ -39,7 +37,7 @@ class HTML_PAINTER_INFO extends Win32Struct
     /**
      * @type {RECT}
      */
-    rcExpand{
+    rcExpand {
         get {
             if(!this.HasProp("__rcExpand"))
                 this.__rcExpand := RECT(16, this)

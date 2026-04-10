@@ -9,9 +9,8 @@
  * On Windows Vista and later as well as on the Microsoft Windows Software Development Kit (SDK), the organization of header files has changed and the <b>SCOPE_LEVEL</b> enumeration type is defined in the <i>Ws2def.h</i> header file. Note that the <i>Ws2def.h</i> header file is automatically included in <i>Winsock2.h</i>, and should never be used directly.
  * @see https://learn.microsoft.com/windows/win32/api/ws2def/ne-ws2def-scope_level
  * @namespace Windows.Win32.Networking.WinSock
- * @version v4.0.30319
  */
-class SCOPE_LEVEL extends Win32Enum{
+class SCOPE_LEVEL extends Win32Enum {
 
     /**
      * The scope is interface-level.
@@ -56,7 +55,6 @@ class SCOPE_LEVEL extends Win32Enum{
     static ScopeLevelGlobal => 14
 
     /**
-     * 
      * @type {Integer (Int32)}
      */
     static ScopeLevelCount => 16

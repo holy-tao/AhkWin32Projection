@@ -3,10 +3,8 @@
 
 /**
  * @namespace Windows.Win32.System.Search
- * @version v4.0.30319
  */
-class MSDAORA8_ERROR extends Win32Struct
-{
+class MSDAORA8_ERROR extends Win32Struct {
     static sizeof => 0
 
     static packingSize => 1

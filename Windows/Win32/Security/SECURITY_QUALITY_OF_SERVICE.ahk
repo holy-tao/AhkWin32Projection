@@ -1,14 +1,13 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\Win32Struct.ahk
+#Include .\SECURITY_IMPERSONATION_LEVEL.ahk
 
 /**
  * Contains information used to support client impersonation.
  * @see https://learn.microsoft.com/windows/win32/api/winnt/ns-winnt-security_quality_of_service
  * @namespace Windows.Win32.Security
- * @version v4.0.30319
  */
-class SECURITY_QUALITY_OF_SERVICE extends Win32Struct
-{
+class SECURITY_QUALITY_OF_SERVICE extends Win32Struct {
     static sizeof => 12
 
     static packingSize => 4
@@ -25,7 +24,7 @@ class SECURITY_QUALITY_OF_SERVICE extends Win32Struct
     /**
      * Specifies the information given to the server about the client, and how the server may represent, or impersonate, the client. Security impersonation levels govern the degree to which a server process can act on behalf of a client <a href="https://docs.microsoft.com/windows/desktop/SecGloss/p-gly">process</a>. This member is a 
      * <a href="https://docs.microsoft.com/windows/desktop/api/winnt/ne-winnt-security_impersonation_level">SECURITY_IMPERSONATION_LEVEL</a> enumeration type value.
-     * @type {Integer}
+     * @type {SECURITY_IMPERSONATION_LEVEL}
      */
     ImpersonationLevel {
         get => NumGet(this, 4, "int")

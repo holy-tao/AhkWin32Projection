@@ -1,21 +1,20 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
+#Include .\SpatialAudioHrtfDistanceDecayType.ahk
 
 /**
  * Represents the decay model that is applied over distance from the position of an ISpatialAudioObjectForHrtf to the position of the listener.
  * @see https://learn.microsoft.com/windows/win32/api/spatialaudiohrtf/ns-spatialaudiohrtf-spatialaudiohrtfdistancedecay
  * @namespace Windows.Win32.Media.Audio
- * @version v4.0.30319
  */
-class SpatialAudioHrtfDistanceDecay extends Win32Struct
-{
+class SpatialAudioHrtfDistanceDecay extends Win32Struct {
     static sizeof => 20
 
     static packingSize => 4
 
     /**
      * The type of decay, natural or custom. The default value for this field is  <b>SpatialAudioHrtfDistanceDecay_NaturalDecay</b>.
-     * @type {Integer}
+     * @type {SpatialAudioHrtfDistanceDecayType}
      */
     Type {
         get => NumGet(this, 0, "int")
@@ -23,7 +22,6 @@ class SpatialAudioHrtfDistanceDecay extends Win32Struct
     }
 
     /**
-     * 
      * @type {Float}
      */
     MaxGain {
@@ -32,7 +30,6 @@ class SpatialAudioHrtfDistanceDecay extends Win32Struct
     }
 
     /**
-     * 
      * @type {Float}
      */
     MinGain {
@@ -41,7 +38,6 @@ class SpatialAudioHrtfDistanceDecay extends Win32Struct
     }
 
     /**
-     * 
      * @type {Float}
      */
     UnityGainDistance {
@@ -50,7 +46,6 @@ class SpatialAudioHrtfDistanceDecay extends Win32Struct
     }
 
     /**
-     * 
      * @type {Float}
      */
     CutoffDistance {

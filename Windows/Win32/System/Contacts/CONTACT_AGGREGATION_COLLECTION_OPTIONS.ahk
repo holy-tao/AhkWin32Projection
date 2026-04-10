@@ -3,9 +3,8 @@
 
 /**
  * @namespace Windows.Win32.System.Contacts
- * @version v4.0.30319
  */
-class CONTACT_AGGREGATION_COLLECTION_OPTIONS extends Win32Enum{
+class CONTACT_AGGREGATION_COLLECTION_OPTIONS extends Win32Enum {
 
     /**
      * @type {Integer (Int32)}

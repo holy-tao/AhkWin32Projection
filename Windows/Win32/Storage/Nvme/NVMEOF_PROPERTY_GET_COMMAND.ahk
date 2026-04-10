@@ -3,10 +3,8 @@
 
 /**
  * @namespace Windows.Win32.Storage.Nvme
- * @version v4.0.30319
  */
-class NVMEOF_PROPERTY_GET_COMMAND extends Win32Struct
-{
+class NVMEOF_PROPERTY_GET_COMMAND extends Win32Struct {
     static sizeof => 64
 
     static packingSize => 4
@@ -25,7 +23,7 @@ class NVMEOF_PROPERTY_GET_COMMAND extends Win32Struct
             get => NumGet(this, 0, "char")
             set => NumPut("char", value, this, 0)
         }
-    
+
         /**
          * @type {Integer}
          */
@@ -33,7 +31,6 @@ class NVMEOF_PROPERTY_GET_COMMAND extends Win32Struct
             get => (this._bitfield >> 0) & 0x7
             set => this._bitfield := ((value & 0x7) << 0) | (this._bitfield & ~(0x7 << 0))
         }
-    
     }
 
     /**
@@ -69,9 +66,9 @@ class NVMEOF_PROPERTY_GET_COMMAND extends Win32Struct
     }
 
     /**
-     * @type {Array<Byte>}
+     * @type {Array<Integer>}
      */
-    Reserved1{
+    Reserved1 {
         get {
             if(!this.HasProp("__Reserved1ProxyArray"))
                 this.__Reserved1ProxyArray := Win32FixedArray(this.ptr + 5, 35, Primitive, "char")
@@ -82,18 +79,18 @@ class NVMEOF_PROPERTY_GET_COMMAND extends Win32Struct
     /**
      * @type {_ATTRIB}
      */
-    ATTRIB{
+    ATTRIB {
         get {
             if(!this.HasProp("__ATTRIB"))
-                this.__ATTRIB := %this.__Class%._ATTRIB(40, this)
+                this.__ATTRIB := NVMEOF_PROPERTY_GET_COMMAND._ATTRIB(40, this)
             return this.__ATTRIB
         }
     }
 
     /**
-     * @type {Array<Byte>}
+     * @type {Array<Integer>}
      */
-    Reserved2{
+    Reserved2 {
         get {
             if(!this.HasProp("__Reserved2ProxyArray"))
                 this.__Reserved2ProxyArray := Win32FixedArray(this.ptr + 41, 3, Primitive, "char")
@@ -110,9 +107,9 @@ class NVMEOF_PROPERTY_GET_COMMAND extends Win32Struct
     }
 
     /**
-     * @type {Array<Byte>}
+     * @type {Array<Integer>}
      */
-    Reserved3{
+    Reserved3 {
         get {
             if(!this.HasProp("__Reserved3ProxyArray"))
                 this.__Reserved3ProxyArray := Win32FixedArray(this.ptr + 48, 16, Primitive, "char")

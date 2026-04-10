@@ -1,5 +1,6 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
+#Include .\IDirectDrawSurface.ahk
 #Include .\DDCOLORKEY.ahk
 
 /**
@@ -8,10 +9,8 @@
  * The unions in this structure have been updated to work with compilers that do not support nameless unions. If your compiler does not support nameless unions, define the NONAMELESSUNION token before including the Ddraw.h header file.
  * @see https://learn.microsoft.com/windows/win32/api/ddraw/ns-ddraw-ddbltfx
  * @namespace Windows.Win32.Graphics.DirectDraw
- * @version v4.0.30319
  */
-class DDBLTFX extends Win32Struct
-{
+class DDBLTFX extends Win32Struct {
     static sizeof => 128
 
     static packingSize => 8
@@ -260,7 +259,7 @@ class DDBLTFX extends Win32Struct
      * Destination color key override.
      * @type {DDCOLORKEY}
      */
-    ddckDestColorkey{
+    ddckDestColorkey {
         get {
             if(!this.HasProp("__ddckDestColorkey"))
                 this.__ddckDestColorkey := DDCOLORKEY(112, this)
@@ -272,7 +271,7 @@ class DDBLTFX extends Win32Struct
      * Source color key override.
      * @type {DDCOLORKEY}
      */
-    ddckSrcColorkey{
+    ddckSrcColorkey {
         get {
             if(!this.HasProp("__ddckSrcColorkey"))
                 this.__ddckSrcColorkey := DDCOLORKEY(120, this)

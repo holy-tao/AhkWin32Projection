@@ -1,18 +1,15 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\..\Guid.ahk
-#Include ..\..\Variant\VARIANT.ahk
 #Include ..\IUnknown.ahk
+#Include ..\..\Variant\VARIANT.ahk
 
 /**
  * Windows Imaging Component (WIC) proxy function for IPropertyBag2::Write.
- * @remarks
- * 
  * @see https://learn.microsoft.com/windows/win32/wic/-wic-codec-ipropertybag2-write-proxy
  * @namespace Windows.Win32.System.Com.StructuredStorage
- * @version v4.0.30319
  */
-class IPropertyBag2 extends IUnknown{
+class IPropertyBag2 extends IUnknown {
 
     static sizeof => A_PtrSize
     /**

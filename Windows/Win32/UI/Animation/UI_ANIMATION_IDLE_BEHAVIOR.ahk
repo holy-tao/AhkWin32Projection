@@ -5,9 +5,8 @@
  * Defines the behavior of a timer when the animation manager is idle.
  * @see https://learn.microsoft.com/windows/win32/api/uianimation/ne-uianimation-ui_animation_idle_behavior
  * @namespace Windows.Win32.UI.Animation
- * @version v4.0.30319
  */
-class UI_ANIMATION_IDLE_BEHAVIOR extends Win32Enum{
+class UI_ANIMATION_IDLE_BEHAVIOR extends Win32Enum {
 
     /**
      * The timer continues to generate timer events (is enabled) when the animation manager is idle.

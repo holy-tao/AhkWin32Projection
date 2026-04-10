@@ -1,9 +1,9 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
+#Include ..\..\System\Com\IDispatch.ahk
 #Include .\INetFwOpenPort.ahk
 #Include ..\..\System\Com\IUnknown.ahk
-#Include ..\..\System\Com\IDispatch.ahk
 
 /**
  * The INetFwOpenPorts interface is a standard Automation collection interface.
@@ -16,9 +16,8 @@
  * immediately.
  * @see https://learn.microsoft.com/windows/win32/api/netfw/nn-netfw-inetfwopenports
  * @namespace Windows.Win32.NetworkManagement.WindowsFirewall
- * @version v4.0.30319
  */
-class INetFwOpenPorts extends IDispatch{
+class INetFwOpenPorts extends IDispatch {
 
     static sizeof => A_PtrSize
     /**
@@ -189,7 +188,7 @@ class INetFwOpenPorts extends IDispatch{
      * If the port is already
      *    closed ,the <b>Remove</b> method has no effect.
      * @param {Integer} portNumber Port number to remove.
-     * @param {Integer} ipProtocol Protocol of the port to remove.
+     * @param {NET_FW_IP_PROTOCOL} ipProtocol Protocol of the port to remove.
      * @returns {HRESULT} <h3>C++</h3>
      * <table>
      * <tr>
@@ -286,7 +285,7 @@ class INetFwOpenPorts extends IDispatch{
     /**
      * Returns the specified port if it is in the collection.
      * @param {Integer} portNumber Port number to find.
-     * @param {Integer} ipProtocol Protocol of the port to find by type <a href="https://docs.microsoft.com/windows/desktop/api/icftypes/ne-icftypes-net_fw_ip_protocol">NET_FW_IP_PROTOCOL</a>.
+     * @param {NET_FW_IP_PROTOCOL} ipProtocol Protocol of the port to find by type <a href="https://docs.microsoft.com/windows/desktop/api/icftypes/ne-icftypes-net_fw_ip_protocol">NET_FW_IP_PROTOCOL</a>.
      * @returns {INetFwOpenPort} Reference to the returned <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/netfw/nn-netfw-inetfwopenport">INetFwOpenPort</a> object.
      * @see https://learn.microsoft.com/windows/win32/api/netfw/nf-netfw-inetfwopenports-item
      */

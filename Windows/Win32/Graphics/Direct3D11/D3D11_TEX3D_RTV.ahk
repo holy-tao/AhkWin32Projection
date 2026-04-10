@@ -7,10 +7,8 @@
  * This structure is one member of a render target view. See <a href="https://docs.microsoft.com/windows/desktop/api/d3d11/ns-d3d11-d3d11_render_target_view_desc">D3D11_RENDER_TARGET_VIEW_DESC</a>.
  * @see https://learn.microsoft.com/windows/win32/api/d3d11/ns-d3d11-d3d11_tex3d_rtv
  * @namespace Windows.Win32.Graphics.Direct3D11
- * @version v4.0.30319
  */
-class D3D11_TEX3D_RTV extends Win32Struct
-{
+class D3D11_TEX3D_RTV extends Win32Struct {
     static sizeof => 12
 
     static packingSize => 4

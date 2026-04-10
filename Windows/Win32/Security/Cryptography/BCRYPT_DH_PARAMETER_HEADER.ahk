@@ -41,10 +41,8 @@
  * ```
  * @see https://learn.microsoft.com/windows/win32/api/bcrypt/ns-bcrypt-bcrypt_dh_parameter_header
  * @namespace Windows.Win32.Security.Cryptography
- * @version v4.0.30319
  */
-class BCRYPT_DH_PARAMETER_HEADER extends Win32Struct
-{
+class BCRYPT_DH_PARAMETER_HEADER extends Win32Struct {
     static sizeof => 12
 
     static packingSize => 4

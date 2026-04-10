@@ -25,10 +25,8 @@
  * Accesses that target any portion of two or more registers are not supported.
  * @see https://learn.microsoft.com/windows/win32/api/nvme/ns-nvme-nvme_controller_registers
  * @namespace Windows.Win32.Storage.Nvme
- * @version v4.0.30319
  */
-class NVME_CONTROLLER_REGISTERS extends Win32Struct
-{
+class NVME_CONTROLLER_REGISTERS extends Win32Struct {
     static sizeof => 4152
 
     static packingSize => 8
@@ -39,7 +37,7 @@ class NVME_CONTROLLER_REGISTERS extends Win32Struct
      * The Controller Capabilities **CAP** register starts at Offset 00h.
      * @type {NVME_CONTROLLER_CAPABILITIES}
      */
-    CAP{
+    CAP {
         get {
             if(!this.HasProp("__CAP"))
                 this.__CAP := NVME_CONTROLLER_CAPABILITIES(0, this)
@@ -53,7 +51,7 @@ class NVME_CONTROLLER_REGISTERS extends Win32Struct
      * The Version **VS** register starts at Offset 08h.
      * @type {NVME_VERSION}
      */
-    VS{
+    VS {
         get {
             if(!this.HasProp("__VS"))
                 this.__VS := NVME_VERSION(16, this)
@@ -103,7 +101,7 @@ class NVME_CONTROLLER_REGISTERS extends Win32Struct
      * The Controller Configuration **CC** register starts at Offset 14h.
      * @type {NVME_CONTROLLER_CONFIGURATION}
      */
-    CC{
+    CC {
         get {
             if(!this.HasProp("__CC"))
                 this.__CC := NVME_CONTROLLER_CONFIGURATION(32, this)
@@ -128,7 +126,7 @@ class NVME_CONTROLLER_REGISTERS extends Win32Struct
      * The Controller Status **CSTS** register starts at Offset 1Ch.
      * @type {NVME_CONTROLLER_STATUS}
      */
-    CSTS{
+    CSTS {
         get {
             if(!this.HasProp("__CSTS"))
                 this.__CSTS := NVME_CONTROLLER_STATUS(44, this)
@@ -144,7 +142,7 @@ class NVME_CONTROLLER_REGISTERS extends Win32Struct
      * The (Optional) NVM Subsystem Reset register starts at Offset 20h.
      * @type {NVME_NVM_SUBSYSTEM_RESET}
      */
-    NSSR{
+    NSSR {
         get {
             if(!this.HasProp("__NSSR"))
                 this.__NSSR := NVME_NVM_SUBSYSTEM_RESET(52, this)
@@ -158,7 +156,7 @@ class NVME_CONTROLLER_REGISTERS extends Win32Struct
      * The Admin Queue Attributes **AQA** register starts at Offset 24h.
      * @type {NVME_ADMIN_QUEUE_ATTRIBUTES}
      */
-    AQA{
+    AQA {
         get {
             if(!this.HasProp("__AQA"))
                 this.__AQA := NVME_ADMIN_QUEUE_ATTRIBUTES(56, this)
@@ -172,7 +170,7 @@ class NVME_CONTROLLER_REGISTERS extends Win32Struct
      * The Admin Submission Queue Base Address register starts at Offset 28h.
      * @type {NVME_ADMIN_SUBMISSION_QUEUE_BASE_ADDRESS}
      */
-    ASQ{
+    ASQ {
         get {
             if(!this.HasProp("__ASQ"))
                 this.__ASQ := NVME_ADMIN_SUBMISSION_QUEUE_BASE_ADDRESS(64, this)
@@ -186,7 +184,7 @@ class NVME_CONTROLLER_REGISTERS extends Win32Struct
      * Admin Completion Queue Base Address register starts at Offset 30h.
      * @type {NVME_ADMIN_COMPLETION_QUEUE_BASE_ADDRESS}
      */
-    ACQ{
+    ACQ {
         get {
             if(!this.HasProp("__ACQ"))
                 this.__ACQ := NVME_ADMIN_COMPLETION_QUEUE_BASE_ADDRESS(80, this)
@@ -202,7 +200,7 @@ class NVME_CONTROLLER_REGISTERS extends Win32Struct
      * The (Optional) Controller Memory Buffer Location register starts at Offset 38h.
      * @type {NVME_CONTROLLER_MEMORY_BUFFER_LOCATION}
      */
-    CMBLOC{
+    CMBLOC {
         get {
             if(!this.HasProp("__CMBLOC"))
                 this.__CMBLOC := NVME_CONTROLLER_MEMORY_BUFFER_LOCATION(96, this)
@@ -218,7 +216,7 @@ class NVME_CONTROLLER_REGISTERS extends Win32Struct
      * The (Optional) Controller Memory Buffer Size register starts at Offset 3Ch.
      * @type {NVME_CONTROLLER_MEMORY_BUFFER_SIZE}
      */
-    CMBSZ{
+    CMBSZ {
         get {
             if(!this.HasProp("__CMBSZ"))
                 this.__CMBSZ := NVME_CONTROLLER_MEMORY_BUFFER_SIZE(104, this)
@@ -227,9 +225,9 @@ class NVME_CONTROLLER_REGISTERS extends Win32Struct
     }
 
     /**
-     * @type {Array<UInt32>}
+     * @type {Array<Integer>}
      */
-    Reserved1{
+    Reserved1 {
         get {
             if(!this.HasProp("__Reserved1ProxyArray"))
                 this.__Reserved1ProxyArray := Win32FixedArray(this.ptr + 112, 9, Primitive, "uint")
@@ -240,7 +238,7 @@ class NVME_CONTROLLER_REGISTERS extends Win32Struct
     /**
      * @type {NVME_NVM_SUBSYSTEM_SHUTDOWN}
      */
-    NSSD{
+    NSSD {
         get {
             if(!this.HasProp("__NSSD"))
                 this.__NSSD := NVME_NVM_SUBSYSTEM_SHUTDOWN(148, this)
@@ -251,7 +249,7 @@ class NVME_CONTROLLER_REGISTERS extends Win32Struct
     /**
      * @type {NVME_CONTROLLER_READY_TIMEOUTS}
      */
-    CRTO{
+    CRTO {
         get {
             if(!this.HasProp("__CRTO"))
                 this.__CRTO := NVME_CONTROLLER_READY_TIMEOUTS(152, this)
@@ -263,9 +261,9 @@ class NVME_CONTROLLER_REGISTERS extends Win32Struct
      * Offset 40h to EFFh is reserved.
      * 
      * All reserved registers and all reserved bits within registers are read-only and return `0h` when read, however, software should not rely on `0h` being returned.
-     * @type {Array<UInt32>}
+     * @type {Array<Integer>}
      */
-    Reserved2{
+    Reserved2 {
         get {
             if(!this.HasProp("__Reserved2ProxyArray"))
                 this.__Reserved2ProxyArray := Win32FixedArray(this.ptr + 160, 933, Primitive, "uint")
@@ -277,9 +275,9 @@ class NVME_CONTROLLER_REGISTERS extends Win32Struct
      * Offset F00h to FFFh is reserved for Command Set specific registers.
      * 
      * All reserved registers and all reserved bits within registers are read-only and return `0h` when read, however, software should not rely on `0h` being returned.
-     * @type {Array<UInt32>}
+     * @type {Array<Integer>}
      */
-    Reserved3{
+    Reserved3 {
         get {
             if(!this.HasProp("__Reserved3ProxyArray"))
                 this.__Reserved3ProxyArray := Win32FixedArray(this.ptr + 3892, 64, Primitive, "uint")
@@ -289,9 +287,9 @@ class NVME_CONTROLLER_REGISTERS extends Win32Struct
 
     /**
      * Specifies the start of the first Doorbell register. The Admin [Submission Queue Tail Doorbell](ns-nvme-nvme_submission_queue_tail_doorbell.md).
-     * @type {Array<UInt32>}
+     * @type {Array<Integer>}
      */
-    Doorbells{
+    Doorbells {
         get {
             if(!this.HasProp("__DoorbellsProxyArray"))
                 this.__DoorbellsProxyArray := Win32FixedArray(this.ptr + 4148, 1, Primitive, "uint")

@@ -7,9 +7,8 @@
  * This effect is used to alter the saturation of an image. The saturation effect is a specialization of the color matrix effect.
  * @see https://learn.microsoft.com/windows/win32/api/dcomp/nn-dcomp-idcompositionsaturationeffect
  * @namespace Windows.Win32.Graphics.DirectComposition
- * @version v4.0.30319
  */
-class IDCompositionSaturationEffect extends IDCompositionFilterEffect{
+class IDCompositionSaturationEffect extends IDCompositionFilterEffect {
 
     static sizeof => A_PtrSize
     /**

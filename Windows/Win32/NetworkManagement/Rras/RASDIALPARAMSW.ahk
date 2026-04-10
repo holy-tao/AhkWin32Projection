@@ -3,11 +3,10 @@
 
 /**
  * @namespace Windows.Win32.NetworkManagement.Rras
- * @version v4.0.30319
  * @charset Unicode
+ * @architecture X64, Arm64
  */
-class RASDIALPARAMSW extends Win32Struct
-{
+class RASDIALPARAMSW extends Win32Struct {
     static sizeof => 2128
 
     static packingSize => 8

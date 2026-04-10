@@ -1,14 +1,13 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
+#Include .\VMR9DeinterlaceTech.ahk
 
 /**
  * The VMR9DeinterlaceCaps structure describes the capabilities of a deinterlacing mode.
  * @see https://learn.microsoft.com/windows/win32/api/vmr9/ns-vmr9-vmr9deinterlacecaps
  * @namespace Windows.Win32.Media.DirectShow
- * @version v4.0.30319
  */
-class VMR9DeinterlaceCaps extends Win32Struct
-{
+class VMR9DeinterlaceCaps extends Win32Struct {
     static sizeof => 20
 
     static packingSize => 4
@@ -51,7 +50,7 @@ class VMR9DeinterlaceCaps extends Win32Struct
 
     /**
      * Bitwise combination of flags from the <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/vmr9/ne-vmr9-vmr9deinterlacetech">VMR9DeinterlaceTech</a> enumeration type. These flags are used to describe the deinterlacing algorithm.
-     * @type {Integer}
+     * @type {VMR9DeinterlaceTech}
      */
     DeinterlaceTechnology {
         get => NumGet(this, 16, "int")

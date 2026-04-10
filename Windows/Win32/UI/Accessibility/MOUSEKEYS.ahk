@@ -17,10 +17,8 @@
  * </ul>
  * @see https://learn.microsoft.com/windows/win32/api/winuser/ns-winuser-mousekeys
  * @namespace Windows.Win32.UI.Accessibility
- * @version v4.0.30319
  */
-class MOUSEKEYS extends Win32Struct
-{
+class MOUSEKEYS extends Win32Struct {
     static sizeof => 28
 
     static packingSize => 4

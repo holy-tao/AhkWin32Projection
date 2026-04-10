@@ -4,10 +4,8 @@
 
 /**
  * @namespace Windows.Win32.System.Hypervisor
- * @version v4.0.30319
  */
-class WHV_X64_MSR_ACCESS_CONTEXT extends Win32Struct
-{
+class WHV_X64_MSR_ACCESS_CONTEXT extends Win32Struct {
     static sizeof => 32
 
     static packingSize => 8
@@ -15,7 +13,7 @@ class WHV_X64_MSR_ACCESS_CONTEXT extends Win32Struct
     /**
      * @type {WHV_X64_MSR_ACCESS_INFO}
      */
-    AccessInfo{
+    AccessInfo {
         get {
             if(!this.HasProp("__AccessInfo"))
                 this.__AccessInfo := WHV_X64_MSR_ACCESS_INFO(0, this)

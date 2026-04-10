@@ -153,10 +153,8 @@
  * </table>
  * @see https://learn.microsoft.com/windows/win32/api/mmreg/ns-mmreg-waveformatextensible
  * @namespace Windows.Win32.Media.Audio
- * @version v4.0.30319
  */
-class WAVEFORMATEXTENSIBLE extends Win32Struct
-{
+class WAVEFORMATEXTENSIBLE extends Win32Struct {
     static sizeof => 40
 
     static packingSize => 8
@@ -172,7 +170,7 @@ class WAVEFORMATEXTENSIBLE extends Win32Struct
             get => NumGet(this, 0, "ushort")
             set => NumPut("ushort", value, this, 0)
         }
-    
+
         /**
          * @type {Integer}
          */
@@ -180,7 +178,7 @@ class WAVEFORMATEXTENSIBLE extends Win32Struct
             get => NumGet(this, 0, "ushort")
             set => NumPut("ushort", value, this, 0)
         }
-    
+
         /**
          * @type {Integer}
          */
@@ -188,14 +186,13 @@ class WAVEFORMATEXTENSIBLE extends Win32Struct
             get => NumGet(this, 0, "ushort")
             set => NumPut("ushort", value, this, 0)
         }
-    
     }
 
     /**
      * <a href="https://docs.microsoft.com/previous-versions/dd757713(v=vs.85)">WAVEFORMATEX</a> structure that specifies the basic format. The <b>wFormatTag</b> member must be WAVE_FORMAT_EXTENSIBLE. The <b>cbSize</b> member must be at least 22.
      * @type {WAVEFORMATEX}
      */
-    Format{
+    Format {
         get {
             if(!this.HasProp("__Format"))
                 this.__Format := WAVEFORMATEX(0, this)
@@ -207,10 +204,10 @@ class WAVEFORMATEXTENSIBLE extends Win32Struct
      * A union describing the sample format.
      * @type {_Samples_e__Union}
      */
-    Samples{
+    Samples {
         get {
             if(!this.HasProp("__Samples"))
-                this.__Samples := %this.__Class%._Samples_e__Union(20, this)
+                this.__Samples := WAVEFORMATEXTENSIBLE._Samples_e__Union(20, this)
             return this.__Samples
         }
     }
@@ -226,7 +223,7 @@ class WAVEFORMATEXTENSIBLE extends Win32Struct
 
     /**
      * Subformat of the data, such as KSDATAFORMAT_SUBTYPE_PCM. The subformat information is similar to that provided by the tag in the <a href="https://docs.microsoft.com/previous-versions/dd757713(v=vs.85)">WAVEFORMATEX</a> structure's <b>wFormatTag</b> member.
-     * @type {Pointer<Guid>}
+     * @type {Pointer}
      */
     SubFormat {
         get => NumGet(this, 32, "ptr")

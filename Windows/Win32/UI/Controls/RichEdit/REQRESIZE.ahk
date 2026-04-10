@@ -1,17 +1,16 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\..\Win32Struct.ahk
-#Include ..\..\..\Foundation\HWND.ahk
 #Include ..\NMHDR.ahk
+#Include ..\..\..\Foundation\HWND.ahk
 #Include ..\..\..\Foundation\RECT.ahk
 
 /**
  * Contains the requested size of a rich edit control. A rich edit control sends this structure to its parent window as part of an EN_REQUESTRESIZE notification code.
  * @see https://learn.microsoft.com/windows/win32/api/richedit/ns-richedit-reqresize
  * @namespace Windows.Win32.UI.Controls.RichEdit
- * @version v4.0.30319
+ * @architecture X64, Arm64
  */
-class REQRESIZE extends Win32Struct
-{
+class REQRESIZE extends Win32Struct {
     static sizeof => 40
 
     static packingSize => 8
@@ -22,7 +21,7 @@ class REQRESIZE extends Win32Struct
      * Notification header.
      * @type {NMHDR}
      */
-    nmhdr{
+    nmhdr {
         get {
             if(!this.HasProp("__nmhdr"))
                 this.__nmhdr := NMHDR(0, this)
@@ -36,7 +35,7 @@ class REQRESIZE extends Win32Struct
      * Requested new size.
      * @type {RECT}
      */
-    rc{
+    rc {
         get {
             if(!this.HasProp("__rc"))
                 this.__rc := RECT(24, this)

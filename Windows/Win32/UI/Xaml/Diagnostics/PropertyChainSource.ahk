@@ -1,16 +1,15 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\..\Win32Struct.ahk
 #Include ..\..\..\Foundation\BSTR.ahk
+#Include .\BaseValueSource.ahk
 #Include .\SourceInfo.ahk
 
 /**
  * Represents the source object (a Style) of a target type.
  * @see https://learn.microsoft.com/windows/win32/api/xamlom/ns-xamlom-propertychainsource
  * @namespace Windows.Win32.UI.Xaml.Diagnostics
- * @version v4.0.30319
  */
-class PropertyChainSource extends Win32Struct
-{
+class PropertyChainSource extends Win32Struct {
     static sizeof => 64
 
     static packingSize => 8
@@ -28,7 +27,7 @@ class PropertyChainSource extends Win32Struct
      * The target type of the style, defined in markup.
      * @type {BSTR}
      */
-    TargetType{
+    TargetType {
         get {
             if(!this.HasProp("__TargetType"))
                 this.__TargetType := BSTR(8, this)
@@ -40,7 +39,7 @@ class PropertyChainSource extends Win32Struct
      * The name of the style, if it has an <a href="https://docs.microsoft.com/windows/uwp/xaml-platform/x-name-attribute">x:Name</a> defined in markup.
      * @type {BSTR}
      */
-    Name{
+    Name {
         get {
             if(!this.HasProp("__Name"))
                 this.__Name := BSTR(16, this)
@@ -50,7 +49,7 @@ class PropertyChainSource extends Win32Struct
 
     /**
      * Where the style is defined in the application .
-     * @type {Integer}
+     * @type {BaseValueSource}
      */
     Source {
         get => NumGet(this, 24, "int")
@@ -58,10 +57,9 @@ class PropertyChainSource extends Win32Struct
     }
 
     /**
-     * 
      * @type {SourceInfo}
      */
-    SrcInfo{
+    SrcInfo {
         get {
             if(!this.HasProp("__SrcInfo"))
                 this.__SrcInfo := SourceInfo(32, this)

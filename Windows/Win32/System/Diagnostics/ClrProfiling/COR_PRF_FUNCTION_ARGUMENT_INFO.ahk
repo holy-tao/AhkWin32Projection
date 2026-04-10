@@ -4,11 +4,9 @@
 
 /**
  * @namespace Windows.Win32.System.Diagnostics.ClrProfiling
- * @version v4.0.30319
  */
-class COR_PRF_FUNCTION_ARGUMENT_INFO extends Win32Struct
-{
-    static sizeof => 16
+class COR_PRF_FUNCTION_ARGUMENT_INFO extends Win32Struct {
+    static sizeof => 24
 
     static packingSize => 8
 
@@ -29,9 +27,9 @@ class COR_PRF_FUNCTION_ARGUMENT_INFO extends Win32Struct
     }
 
     /**
-     * @type {Array<COR_PRF_FUNCTION_ARGUMENT_RANGE>}
+     * @type {COR_PRF_FUNCTION_ARGUMENT_RANGE}
      */
-    ranges{
+    ranges {
         get {
             if(!this.HasProp("__rangesProxyArray"))
                 this.__rangesProxyArray := Win32FixedArray(this.ptr + 8, 1, COR_PRF_FUNCTION_ARGUMENT_RANGE, "")

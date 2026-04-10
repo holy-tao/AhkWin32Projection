@@ -1,16 +1,15 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
-#Include ..\Com\ITypeInfo.ahk
 #Include ..\Com\IUnknown.ahk
+#Include ..\Com\ITypeInfo.ahk
 
 /**
  * Provides access to the type information for an object's coclass entry in its type library.
  * @see https://learn.microsoft.com/windows/win32/api/ocidl/nn-ocidl-iprovideclassinfo
  * @namespace Windows.Win32.System.Ole
- * @version v4.0.30319
  */
-class IProvideClassInfo extends IUnknown{
+class IProvideClassInfo extends IUnknown {
 
     static sizeof => A_PtrSize
     /**

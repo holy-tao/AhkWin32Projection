@@ -3,9 +3,8 @@
 
 /**
  * @namespace Windows.Win32.Media.Speech
- * @version v4.0.30319
  */
-class SpeechGrammarState extends Win32Enum{
+class SpeechGrammarState extends Win32Enum {
 
     /**
      * @type {Integer (Int32)}

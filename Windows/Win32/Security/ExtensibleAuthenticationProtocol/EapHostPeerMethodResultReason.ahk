@@ -5,9 +5,8 @@
  * Defines the set of possible reasons that describe the results returned by an EAP method to a supplicant.
  * @see https://learn.microsoft.com/windows/win32/api/eaphostpeertypes/ne-eaphostpeertypes-eaphostpeermethodresultreason
  * @namespace Windows.Win32.Security.ExtensibleAuthenticationProtocol
- * @version v4.0.30319
  */
-class EapHostPeerMethodResultReason extends Win32Enum{
+class EapHostPeerMethodResultReason extends Win32Enum {
 
     /**
      * Authentication was successful.

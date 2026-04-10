@@ -7,10 +7,8 @@
  * For more details on how core data is defined, see our [**privacy statement**](/windows/privacy/windows-diagnostic-data).
  * @see https://learn.microsoft.com/windows/win32/api/diagnosticdataquerytypes/ns-diagnosticdataquerytypes-diagnostic_data_search_criteria
  * @namespace Windows.Win32.Security.DiagnosticDataQuery
- * @version v4.0.30319
  */
-class DIAGNOSTIC_DATA_SEARCH_CRITERIA extends Win32Struct
-{
+class DIAGNOSTIC_DATA_SEARCH_CRITERIA extends Win32Struct {
     static sizeof => 56
 
     static packingSize => 8

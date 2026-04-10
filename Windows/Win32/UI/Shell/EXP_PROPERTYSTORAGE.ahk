@@ -7,10 +7,8 @@
  * EXP_PROPERTYSTORAGE is used to store information serialized by the <a href="https://docs.microsoft.com/windows/desktop/api/shobjidl_core/nn-shobjidl_core-ishelllinka">IShellLink</a> object.  It is named with the tag value EXP_PROPERTYSTORAGE_SIG and can be accessed via <a href="https://docs.microsoft.com/windows/desktop/api/shobjidl_core/nn-shobjidl_core-ishelllinkdatalist">IShellLinkDataList</a>, including operations for add, remove, and copy. This block can be used to inspect the Shell link state.
  * @see https://learn.microsoft.com/windows/win32/api/shlobj_core/ns-shlobj_core-exp_propertystorage
  * @namespace Windows.Win32.UI.Shell
- * @version v4.0.30319
  */
-class EXP_PROPERTYSTORAGE extends Win32Struct
-{
+class EXP_PROPERTYSTORAGE extends Win32Struct {
     static sizeof => 12
 
     static packingSize => 4
@@ -41,9 +39,9 @@ class EXP_PROPERTYSTORAGE extends Win32Struct
      * Type: <b>BYTE[1]</b>
      * 
      * A serialized property store in the format defined by SERIALIZEDPROPSTORAGE.
-     * @type {Array<Byte>}
+     * @type {Array<Integer>}
      */
-    abPropertyStorage{
+    abPropertyStorage {
         get {
             if(!this.HasProp("__abPropertyStorageProxyArray"))
                 this.__abPropertyStorageProxyArray := Win32FixedArray(this.ptr + 8, 1, Primitive, "char")

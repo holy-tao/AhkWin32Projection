@@ -5,19 +5,17 @@
  * Contains information about the certificate that the EAP method uses for authentication.
  * @see https://learn.microsoft.com/windows/win32/api/eaptypes/ns-eaptypes-eapcertificatecredential
  * @namespace Windows.Win32.Security.ExtensibleAuthenticationProtocol
- * @version v4.0.30319
  */
-class EapCertificateCredential extends Win32Struct
-{
+class EapCertificateCredential extends Win32Struct {
     static sizeof => 32
 
     static packingSize => 8
 
     /**
      * SHA1 hash of the certificate.
-     * @type {Array<Byte>}
+     * @type {Array<Integer>}
      */
-    certHash{
+    certHash {
         get {
             if(!this.HasProp("__certHashProxyArray"))
                 this.__certHashProxyArray := Win32FixedArray(this.ptr + 0, 20, Primitive, "char")

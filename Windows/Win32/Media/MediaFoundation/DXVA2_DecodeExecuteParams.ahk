@@ -1,14 +1,14 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
+#Include .\DXVA2_DecodeBufferDesc.ahk
+#Include .\DXVA2_DecodeExtensionData.ahk
 
 /**
  * Contains parameters for the IDirectXVideoDecoder::Execute method.
  * @see https://learn.microsoft.com/windows/win32/api/dxva2api/ns-dxva2api-dxva2_decodeexecuteparams
  * @namespace Windows.Win32.Media.MediaFoundation
- * @version v4.0.30319
  */
-class DXVA2_DecodeExecuteParams extends Win32Struct
-{
+class DXVA2_DecodeExecuteParams extends Win32Struct {
     static sizeof => 24
 
     static packingSize => 8

@@ -1,6 +1,9 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
+#Include .\VDS_STORAGE_BUS_TYPE.ahk
 #Include .\VDS_STORAGE_DEVICE_ID_DESCRIPTOR.ahk
+#Include .\VDS_STORAGE_IDENTIFIER.ahk
+#Include .\VDS_INTERCONNECT.ahk
 
 /**
  * Defines information about a LUN or disk. Applications can use this structure to uniquely identify a LUN at all times.
@@ -17,10 +20,8 @@
  * To get the LUN object, use the <a href="https://docs.microsoft.com/windows/desktop/api/vds/nf-vds-ivdsservice-getobject">IVdsService::GetObject</a> method. You can then use the <a href="https://docs.microsoft.com/windows/desktop/api/vdshwprv/nf-vdshwprv-ivdslun-getproperties">IVdsLun::GetProperties</a> method to get the LUN properties.
  * @see https://learn.microsoft.com/windows/win32/api/vdslun/ns-vdslun-vds_lun_information
  * @namespace Windows.Win32.Storage.VirtualDiskService
- * @version v4.0.30319
  */
-class VDS_LUN_INFORMATION extends Win32Struct
-{
+class VDS_LUN_INFORMATION extends Win32Struct {
     static sizeof => 88
 
     static packingSize => 8
@@ -68,7 +69,7 @@ class VDS_LUN_INFORMATION extends Win32Struct
     /**
      * The bus type of the LUN enumerated by 
      *       <a href="https://docs.microsoft.com/windows/desktop/api/vdslun/ne-vdslun-vds_storage_bus_type">VDS_STORAGE_BUS_TYPE</a>.
-     * @type {Integer}
+     * @type {VDS_STORAGE_BUS_TYPE}
      */
     m_BusType {
         get => NumGet(this, 12, "int")
@@ -120,7 +121,7 @@ class VDS_LUN_INFORMATION extends Win32Struct
      *       32 bits of the GUID comprise the disk signature, and the remaining bits are zeros. For disks that use the GUID 
      *       Partition Table (GPT) partitioning structure, the GUID consists of the GPT disk identifier. If this value is 
      *       zero, the disk is uninitialized or the hardware provider was unable to retrieve the signature.
-     * @type {Pointer<Guid>}
+     * @type {Pointer}
      */
     m_diskSignature {
         get => NumGet(this, 48, "ptr")
@@ -138,7 +139,7 @@ class VDS_LUN_INFORMATION extends Win32Struct
      *       structure.
      * @type {VDS_STORAGE_DEVICE_ID_DESCRIPTOR}
      */
-    m_deviceIdDescriptor{
+    m_deviceIdDescriptor {
         get {
             if(!this.HasProp("__m_deviceIdDescriptor"))
                 this.__m_deviceIdDescriptor := VDS_STORAGE_DEVICE_ID_DESCRIPTOR(56, this)

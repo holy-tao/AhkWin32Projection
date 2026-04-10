@@ -1,9 +1,8 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\..\Guid.ahk
-#Include .\IOpcSignatureReference.ahk
-#Include .\IOpcSignatureReferenceEnumerator.ahk
 #Include ..\..\..\System\Com\IUnknown.ahk
+#Include .\IOpcSignatureReference.ahk
 
 /**
  * A read-only enumerator of IOpcSignatureReference interface pointers.
@@ -15,9 +14,8 @@
  * To get an <b>IOpcSignatureReferenceEnumerator</b> interface pointer, call the <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/msopc/nf-msopc-iopcsignaturereferenceset-getenumerator">IOpcSignatureReferenceSet::GetEnumerator</a> or <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/msopc/nf-msopc-iopcdigitalsignature-getcustomreferenceenumerator">IOpcDigitalSignature::GetCustomReferenceEnumerator</a> method.
  * @see https://learn.microsoft.com/windows/win32/api/msopc/nn-msopc-iopcsignaturereferenceenumerator
  * @namespace Windows.Win32.Storage.Packaging.Opc
- * @version v4.0.30319
  */
-class IOpcSignatureReferenceEnumerator extends IUnknown{
+class IOpcSignatureReferenceEnumerator extends IUnknown {
 
     static sizeof => A_PtrSize
     /**
@@ -124,7 +122,7 @@ class IOpcSignatureReferenceEnumerator extends IUnknown{
      * Gets the IOpcSignatureReference interface pointer at the current position of the enumerator.
      * @remarks
      * When an enumerator is created, the current position precedes the first pointer. To set the current position to the first pointer of the enumerator, call the  <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/msopc/nf-msopc-iopcsignaturereferenceenumerator-movenext">MoveNext</a> method after creating the enumerator.
-     * @returns {IOpcSignatureReference} 
+     * @returns {IOpcSignatureReference} An <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/msopc/nn-msopc-iopcsignaturereference">IOpcSignatureReference</a> interface pointer.
      * @see https://learn.microsoft.com/windows/win32/api/msopc/nf-msopc-iopcsignaturereferenceenumerator-getcurrent
      */
     GetCurrent() {

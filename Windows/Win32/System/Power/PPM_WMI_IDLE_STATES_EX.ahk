@@ -4,11 +4,9 @@
 
 /**
  * @namespace Windows.Win32.System.Power
- * @version v4.0.30319
  */
-class PPM_WMI_IDLE_STATES_EX extends Win32Struct
-{
-    static sizeof => 32
+class PPM_WMI_IDLE_STATES_EX extends Win32Struct {
+    static sizeof => 56
 
     static packingSize => 8
 
@@ -53,9 +51,9 @@ class PPM_WMI_IDLE_STATES_EX extends Win32Struct
     }
 
     /**
-     * @type {Array<PPM_WMI_IDLE_STATE>}
+     * @type {PPM_WMI_IDLE_STATE}
      */
-    State{
+    State {
         get {
             if(!this.HasProp("__StateProxyArray"))
                 this.__StateProxyArray := Win32FixedArray(this.ptr + 24, 1, PPM_WMI_IDLE_STATE, "")

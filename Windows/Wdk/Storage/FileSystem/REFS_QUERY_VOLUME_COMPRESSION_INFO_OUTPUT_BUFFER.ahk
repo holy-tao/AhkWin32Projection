@@ -1,18 +1,17 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
+#Include .\REFS_COMPRESSION_FORMATS.ahk
 
 /**
  * @namespace Windows.Wdk.Storage.FileSystem
- * @version v4.0.30319
  */
-class REFS_QUERY_VOLUME_COMPRESSION_INFO_OUTPUT_BUFFER extends Win32Struct
-{
+class REFS_QUERY_VOLUME_COMPRESSION_INFO_OUTPUT_BUFFER extends Win32Struct {
     static sizeof => 104
 
     static packingSize => 8
 
     /**
-     * @type {Integer}
+     * @type {REFS_COMPRESSION_FORMATS}
      */
     DefaultCompressionFormat {
         get => NumGet(this, 0, "int")
@@ -84,9 +83,9 @@ class REFS_QUERY_VOLUME_COMPRESSION_INFO_OUTPUT_BUFFER extends Win32Struct
     }
 
     /**
-     * @type {Array<UInt64>}
+     * @type {Array<Integer>}
      */
-    Reserved{
+    Reserved {
         get {
             if(!this.HasProp("__ReservedProxyArray"))
                 this.__ReservedProxyArray := Win32FixedArray(this.ptr + 56, 6, Primitive, "uint")

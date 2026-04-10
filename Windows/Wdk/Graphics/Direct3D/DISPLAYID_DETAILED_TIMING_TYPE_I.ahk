@@ -3,10 +3,8 @@
 
 /**
  * @namespace Windows.Wdk.Graphics.Direct3D
- * @version v4.0.30319
  */
-class DISPLAYID_DETAILED_TIMING_TYPE_I extends Win32Struct
-{
+class DISPLAYID_DETAILED_TIMING_TYPE_I extends Win32Struct {
     static sizeof => 20
 
     static packingSize => 4

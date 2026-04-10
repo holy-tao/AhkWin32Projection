@@ -6,7 +6,6 @@
 
 /**
  * @namespace Windows.Win32.System.MessageQueuing
- * @version v4.0.30319
  */
 class MessageQueuing {
 
@@ -1262,7 +1261,7 @@ class MessageQueuing {
      * 
      * @param {PWSTR} lpwcsFormatName 
      * @param {Integer} RequestedInformation 
-     * @param {Pointer} pSecurityDescriptor 
+     * @param {Integer} pSecurityDescriptor 
      * @param {Integer} nLength 
      * @returns {Integer} 
      */
@@ -1276,7 +1275,7 @@ class MessageQueuing {
     /**
      * 
      * @param {PWSTR} lpwcsFormatName 
-     * @param {Integer} SecurityInformation 
+     * @param {OBJECT_SECURITY_INFORMATION} SecurityInformation 
      * @param {PSECURITY_DESCRIPTOR} pSecurityDescriptor 
      * @returns {HRESULT} 
      */
@@ -1381,7 +1380,7 @@ class MessageQueuing {
 
     /**
      * 
-     * @param {Pointer} lpCertBuffer 
+     * @param {Integer} lpCertBuffer 
      * @param {Integer} dwCertBufferLength 
      * @returns {HANDLE} 
      */
@@ -1393,7 +1392,7 @@ class MessageQueuing {
 
     /**
      * 
-     * @param {Pointer} lpCertBuffer 
+     * @param {Integer} lpCertBuffer 
      * @param {Integer} dwCertBufferLength 
      * @returns {HANDLE} 
      */

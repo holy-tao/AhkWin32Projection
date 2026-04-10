@@ -7,9 +7,8 @@
  * Contains information about a service that is registered with Windows Update Agent (WUA) or with Automatic Updates. (IUpdateService2)
  * @see https://learn.microsoft.com/windows/win32/api/wuapi/nn-wuapi-iupdateservice2
  * @namespace Windows.Win32.System.UpdateAgent
- * @version v4.0.30319
  */
-class IUpdateService2 extends IUpdateService{
+class IUpdateService2 extends IUpdateService {
 
     static sizeof => A_PtrSize
     /**

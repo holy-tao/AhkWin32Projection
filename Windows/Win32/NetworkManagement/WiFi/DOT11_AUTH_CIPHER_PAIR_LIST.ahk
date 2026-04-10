@@ -2,21 +2,21 @@
 #Include ..\..\..\..\Win32Struct.ahk
 #Include ..\Ndis\NDIS_OBJECT_HEADER.ahk
 #Include .\DOT11_AUTH_CIPHER_PAIR.ahk
+#Include .\DOT11_AUTH_ALGORITHM.ahk
+#Include .\DOT11_CIPHER_ALGORITHM.ahk
 
 /**
  * @namespace Windows.Win32.NetworkManagement.WiFi
- * @version v4.0.30319
  */
-class DOT11_AUTH_CIPHER_PAIR_LIST extends Win32Struct
-{
-    static sizeof => 24
+class DOT11_AUTH_CIPHER_PAIR_LIST extends Win32Struct {
+    static sizeof => 20
 
-    static packingSize => 8
+    static packingSize => 4
 
     /**
      * @type {NDIS_OBJECT_HEADER}
      */
-    Header{
+    Header {
         get {
             if(!this.HasProp("__Header"))
                 this.__Header := NDIS_OBJECT_HEADER(0, this)
@@ -41,12 +41,12 @@ class DOT11_AUTH_CIPHER_PAIR_LIST extends Win32Struct
     }
 
     /**
-     * @type {Array<DOT11_AUTH_CIPHER_PAIR>}
+     * @type {DOT11_AUTH_CIPHER_PAIR}
      */
-    AuthCipherPairs{
+    AuthCipherPairs {
         get {
             if(!this.HasProp("__AuthCipherPairsProxyArray"))
-                this.__AuthCipherPairsProxyArray := Win32FixedArray(this.ptr + 16, 1, DOT11_AUTH_CIPHER_PAIR, "")
+                this.__AuthCipherPairsProxyArray := Win32FixedArray(this.ptr + 12, 1, DOT11_AUTH_CIPHER_PAIR, "")
             return this.__AuthCipherPairsProxyArray
         }
     }

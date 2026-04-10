@@ -1,21 +1,20 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
+#Include .\CRYPT_XML_PROPERTY_ID.ahk
 
 /**
  * Contains information about a CryptXML property.
  * @see https://learn.microsoft.com/windows/win32/api/cryptxml/ns-cryptxml-crypt_xml_property
  * @namespace Windows.Win32.Security.Cryptography
- * @version v4.0.30319
  */
-class CRYPT_XML_PROPERTY extends Win32Struct
-{
+class CRYPT_XML_PROPERTY extends Win32Struct {
     static sizeof => 24
 
     static packingSize => 8
 
     /**
      * A value of the <a href="https://docs.microsoft.com/windows/desktop/api/cryptxml/ne-cryptxml-crypt_xml_property_id">CRYPT_XML_PROPERTY_ID</a> enumeration that specifies the property type.
-     * @type {Integer}
+     * @type {CRYPT_XML_PROPERTY_ID}
      */
     dwPropId {
         get => NumGet(this, 0, "int")

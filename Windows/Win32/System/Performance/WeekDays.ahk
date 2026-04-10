@@ -5,9 +5,8 @@
  * Defines the days of the week on which to run the data collector set.
  * @see https://learn.microsoft.com/windows/win32/api/pla/ne-pla-weekdays
  * @namespace Windows.Win32.System.Performance
- * @version v4.0.30319
  */
-class WeekDays extends Win32Enum{
+class WeekDays extends Win32Enum {
 
     /**
      * Run only once on the specified start date and time.

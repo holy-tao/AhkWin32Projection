@@ -1,8 +1,8 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
-#Include .\WICDdsFormatInfo.ahk
 #Include ..\..\System\Com\IUnknown.ahk
+#Include .\WICDdsFormatInfo.ahk
 
 /**
  * Provides access to a single frame of DDS image data in its native DXGI_FORMAT form, as well as information about the image data.
@@ -10,9 +10,8 @@
  * This interface is implemented by the WIC DDS codec. To obtain this interface, create an <a href="https://docs.microsoft.com/windows/desktop/api/wincodec/nn-wincodec-iwicbitmapframedecode">IWICBitmapFrameDecode</a> using the DDS codec and QueryInterface for IID_IWICDdsFrameDecode.
  * @see https://learn.microsoft.com/windows/win32/api/wincodec/nn-wincodec-iwicddsframedecode
  * @namespace Windows.Win32.Graphics.Imaging
- * @version v4.0.30319
  */
-class IWICDdsFrameDecode extends IUnknown{
+class IWICDdsFrameDecode extends IUnknown {
 
     static sizeof => A_PtrSize
     /**

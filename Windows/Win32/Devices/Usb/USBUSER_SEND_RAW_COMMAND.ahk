@@ -1,14 +1,13 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
 #Include .\USBUSER_REQUEST_HEADER.ahk
+#Include .\USB_USER_ERROR_CODE.ahk
 #Include .\USB_SEND_RAW_COMMAND_PARAMETERS.ahk
 
 /**
  * @namespace Windows.Win32.Devices.Usb
- * @version v4.0.30319
  */
-class USBUSER_SEND_RAW_COMMAND extends Win32Struct
-{
+class USBUSER_SEND_RAW_COMMAND extends Win32Struct {
     static sizeof => 44
 
     static packingSize => 4
@@ -16,7 +15,7 @@ class USBUSER_SEND_RAW_COMMAND extends Win32Struct
     /**
      * @type {USBUSER_REQUEST_HEADER}
      */
-    Header{
+    Header {
         get {
             if(!this.HasProp("__Header"))
                 this.__Header := USBUSER_REQUEST_HEADER(0, this)
@@ -27,7 +26,7 @@ class USBUSER_SEND_RAW_COMMAND extends Win32Struct
     /**
      * @type {USB_SEND_RAW_COMMAND_PARAMETERS}
      */
-    Parameters{
+    Parameters {
         get {
             if(!this.HasProp("__Parameters"))
                 this.__Parameters := USB_SEND_RAW_COMMAND_PARAMETERS(16, this)

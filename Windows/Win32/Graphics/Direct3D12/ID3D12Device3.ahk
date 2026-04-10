@@ -9,9 +9,8 @@
  * Use <a href="https://docs.microsoft.com/windows/desktop/api/d3d12/nf-d3d12-d3d12createdevice">D3D12CreateDevice</a> to create a device.
  * @see https://learn.microsoft.com/windows/win32/api/d3d12/nn-d3d12-id3d12device3
  * @namespace Windows.Win32.Graphics.Direct3D12
- * @version v4.0.30319
  */
-class ID3D12Device3 extends ID3D12Device2{
+class ID3D12Device3 extends ID3D12Device2 {
 
     static sizeof => A_PtrSize
     /**
@@ -94,7 +93,7 @@ class ID3D12Device3 extends ID3D12Device2{
      * <b>EnqueueMakeResident</b> performs the same actions as <a href="https://docs.microsoft.com/windows/desktop/api/d3d12/nf-d3d12-id3d12device-makeresident">MakeResident</a>, but does not wait for the resources to be made resident. Instead, <b>EnqueueMakeResident</b> signals a fence when the work is done. 
      * 
      * The system will not allow work that references the resources that are being made resident by using <b>EnqueueMakeResident</b> before its fence is signaled. Instead, calls to this API are guaranteed to signal their corresponding fence in order, so the same fence can be used from call to call.
-     * @param {Integer} Flags Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/d3d12/ne-d3d12-d3d12_residency_flags">D3D12_RESIDENCY_FLAGS</a></b>
+     * @param {D3D12_RESIDENCY_FLAGS} Flags Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/d3d12/ne-d3d12-d3d12_residency_flags">D3D12_RESIDENCY_FLAGS</a></b>
      * 
      * Controls whether the objects should be made resident if the application is over its memory budget.
      * @param {Integer} NumObjects Type: <b><a href="https://docs.microsoft.com/windows/desktop/WinProg/windows-data-types">UINT</a></b>

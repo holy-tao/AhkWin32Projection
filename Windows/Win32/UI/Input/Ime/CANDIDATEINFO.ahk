@@ -3,10 +3,8 @@
 
 /**
  * @namespace Windows.Win32.UI.Input.Ime
- * @version v4.0.30319
  */
-class CANDIDATEINFO extends Win32Struct
-{
+class CANDIDATEINFO extends Win32Struct {
     static sizeof => 144
 
     static packingSize => 4
@@ -28,9 +26,9 @@ class CANDIDATEINFO extends Win32Struct
     }
 
     /**
-     * @type {Array<UInt32>}
+     * @type {Array<Integer>}
      */
-    dwOffset{
+    dwOffset {
         get {
             if(!this.HasProp("__dwOffsetProxyArray"))
                 this.__dwOffsetProxyArray := Win32FixedArray(this.ptr + 8, 32, Primitive, "uint")

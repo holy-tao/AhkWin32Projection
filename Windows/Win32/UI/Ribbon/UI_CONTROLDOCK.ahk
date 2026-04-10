@@ -7,9 +7,8 @@
  * The QAT dock position is based on the <b>UI_CONTROLDOCK</b> value in <a href="https://docs.microsoft.com/windows/desktop/windowsribbon/windowsribbon-reference-properties-uipkey-quickaccesstoolbardock">UI_PKEY_QuickAccessToolbarDock</a>.
  * @see https://learn.microsoft.com/windows/win32/api/uiribbon/ne-uiribbon-ui_controldock
  * @namespace Windows.Win32.UI.Ribbon
- * @version v4.0.30319
  */
-class UI_CONTROLDOCK extends Win32Enum{
+class UI_CONTROLDOCK extends Win32Enum {
 
     /**
      * The QAT is docked in the nonclient area of the Ribbon host application, as shown in the following screen shot.

@@ -5,9 +5,8 @@
  * Indicates the basic characteristics of the channel, such as whether it is sessionful, and what directions of communication are supported.
  * @see https://learn.microsoft.com/windows/win32/api/webservices/ne-webservices-ws_channel_type
  * @namespace Windows.Win32.Networking.WindowsWebServices
- * @version v4.0.30319
  */
-class WS_CHANNEL_TYPE extends Win32Enum{
+class WS_CHANNEL_TYPE extends Win32Enum {
 
     /**
      * Input channels support Receive operations.  They are used on the sender side.

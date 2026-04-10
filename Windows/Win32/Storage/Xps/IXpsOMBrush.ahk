@@ -7,9 +7,8 @@
  * Defines objects that are used to paint graphical objects. Classes that derive from IXpsOMBrush describe how the area is painted.
  * @see https://learn.microsoft.com/windows/win32/api/xpsobjectmodel/nn-xpsobjectmodel-ixpsombrush
  * @namespace Windows.Win32.Storage.Xps
- * @version v4.0.30319
  */
-class IXpsOMBrush extends IXpsOMShareable{
+class IXpsOMBrush extends IXpsOMShareable {
 
     static sizeof => A_PtrSize
     /**

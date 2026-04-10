@@ -9,10 +9,8 @@
  *      backup.
  * @see https://learn.microsoft.com/windows/win32/api/ddpbackup/ns-ddpbackup-dedup_container_extent
  * @namespace Windows.Win32.Storage.DataDeduplication
- * @version v4.0.30319
  */
-class DEDUP_CONTAINER_EXTENT extends Win32Struct
-{
+class DEDUP_CONTAINER_EXTENT extends Win32Struct {
     static sizeof => 24
 
     static packingSize => 8

@@ -5,9 +5,8 @@
  * Indicates how a strongly-typed effect property maps to an underlying Direct2D effect property.
  * @see https://learn.microsoft.com/windows/win32/api/windows.graphics.effects.interop/ne-windows-graphics-effects-interop-graphics_effect_property_mapping
  * @namespace Windows.Win32.System.WinRT.Graphics.Direct2D
- * @version v4.0.30319
  */
-class GRAPHICS_EFFECT_PROPERTY_MAPPING extends Win32Enum{
+class GRAPHICS_EFFECT_PROPERTY_MAPPING extends Win32Enum {
 
     /**
      * Specifies that the value cannot be mapped to a Direct2D effect property.

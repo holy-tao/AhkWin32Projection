@@ -3,9 +3,8 @@
 
 /**
  * @namespace Windows.Win32.UI.Controls
- * @version v4.0.30319
  */
-class HIT_TEST_BACKGROUND_OPTIONS extends Win32Enum{
+class HIT_TEST_BACKGROUND_OPTIONS extends Win32Enum {
 
     /**
      * @type {Integer (UInt32)}

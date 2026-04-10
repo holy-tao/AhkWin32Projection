@@ -1,5 +1,6 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
+#Include .\SETUP_DI_DRIVER_INSTALL_FLAGS.ahk
 
 /**
  * An SP_DRVINSTALL_PARAMS structure contains driver installation parameters associated with a particular driver information element.
@@ -27,10 +28,9 @@
  * <div class="alert"><b>Note</b>  The installer does not have to set the DNF_REQUESTADDITIONALSOFTWARE flag if the INF file for the <a href="https://docs.microsoft.com/previous-versions/windows/hardware/difxapi/driverpackagepreinstall">driver package</a> has set the <b>RequestAdditionalSoftware </b> flag in the <a href="https://docs.microsoft.com/windows-hardware/drivers/install/inf-controlflags-section">INF ControlFlags Section</a>.</div>
  * @see https://learn.microsoft.com/windows/win32/api/setupapi/ns-setupapi-sp_drvinstall_params
  * @namespace Windows.Win32.Devices.DeviceAndDriverInstallation
- * @version v4.0.30319
+ * @architecture X64, Arm64
  */
-class SP_DRVINSTALL_PARAMS extends Win32Struct
-{
+class SP_DRVINSTALL_PARAMS extends Win32Struct {
     static sizeof => 32
 
     static packingSize => 8
@@ -55,7 +55,7 @@ class SP_DRVINSTALL_PARAMS extends Win32Struct
 
     /**
      * Flags that control functions operating on this driver. Can be a combination of the following:
-     * @type {Integer}
+     * @type {SETUP_DI_DRIVER_INSTALL_FLAGS}
      */
     Flags {
         get => NumGet(this, 8, "uint")

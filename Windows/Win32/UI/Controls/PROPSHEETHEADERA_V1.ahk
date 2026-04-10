@@ -3,13 +3,13 @@
 #Include ..\..\Foundation\HWND.ahk
 #Include ..\..\Foundation\HINSTANCE.ahk
 #Include ..\WindowsAndMessaging\HICON.ahk
+#Include .\PROPSHEETPAGEA.ahk
+#Include .\HPROPSHEETPAGE.ahk
 
 /**
  * @namespace Windows.Win32.UI.Controls
- * @version v4.0.30319
  */
-class PROPSHEETHEADERA_V1 extends Win32Struct
-{
+class PROPSHEETHEADERA_V1 extends Win32Struct {
     static sizeof => 72
 
     static packingSize => 8
@@ -33,7 +33,7 @@ class PROPSHEETHEADERA_V1 extends Win32Struct
     /**
      * @type {HWND}
      */
-    hwndParent{
+    hwndParent {
         get {
             if(!this.HasProp("__hwndParent"))
                 this.__hwndParent := HWND(8, this)
@@ -44,7 +44,7 @@ class PROPSHEETHEADERA_V1 extends Win32Struct
     /**
      * @type {HINSTANCE}
      */
-    hInstance{
+    hInstance {
         get {
             if(!this.HasProp("__hInstance"))
                 this.__hInstance := HINSTANCE(16, this)
@@ -55,7 +55,7 @@ class PROPSHEETHEADERA_V1 extends Win32Struct
     /**
      * @type {HICON}
      */
-    hIcon{
+    hIcon {
         get {
             if(!this.HasProp("__hIcon"))
                 this.__hIcon := HICON(24, this)

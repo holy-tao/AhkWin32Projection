@@ -3,9 +3,8 @@
 
 /**
  * @namespace Windows.Win32.Graphics.Gdi
- * @version v4.0.30319
  */
-class DRAW_CAPTION_FLAGS extends Win32BitflagEnum{
+class DRAW_CAPTION_FLAGS extends Win32BitflagEnum {
 
     /**
      * @type {Integer (UInt32)}

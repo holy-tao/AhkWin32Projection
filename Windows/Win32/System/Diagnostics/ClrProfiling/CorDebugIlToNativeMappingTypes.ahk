@@ -3,9 +3,8 @@
 
 /**
  * @namespace Windows.Win32.System.Diagnostics.ClrProfiling
- * @version v4.0.30319
  */
-class CorDebugIlToNativeMappingTypes extends Win32Enum{
+class CorDebugIlToNativeMappingTypes extends Win32Enum {
 
     /**
      * @type {Integer (Int32)}

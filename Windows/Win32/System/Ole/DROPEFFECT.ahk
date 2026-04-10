@@ -21,9 +21,8 @@
  * This allows for the definition of new drop effects, while preserving backward compatibility with existing code.
  * @see https://learn.microsoft.com/windows/win32/com/dropeffect-constants
  * @namespace Windows.Win32.System.Ole
- * @version v4.0.30319
  */
-class DROPEFFECT extends Win32BitflagEnum{
+class DROPEFFECT extends Win32BitflagEnum {
 
     /**
      * @type {Integer (UInt32)}

@@ -3,10 +3,8 @@
 
 /**
  * @namespace Windows.Win32.Storage.FileSystem
- * @version v4.0.30319
  */
-class VOLUME_GET_BC_PROPERTIES_OUTPUT extends Win32Struct
-{
+class VOLUME_GET_BC_PROPERTIES_OUTPUT extends Win32Struct {
     static sizeof => 32
 
     static packingSize => 8

@@ -7,9 +7,8 @@
  * This enumeration is used in two methods, <b>GetNetworkProtocol</b> and <b>SetNetworkProtocol</b>, from the <b>IWMWriterNetworkSink</b> interface.
  * @see https://learn.microsoft.com/windows/win32/api/wmsdkidl/ne-wmsdkidl-wmt_net_protocol
  * @namespace Windows.Win32.Media.WindowsMediaFormat
- * @version v4.0.30319
  */
-class WMT_NET_PROTOCOL extends Win32Enum{
+class WMT_NET_PROTOCOL extends Win32Enum {
 
     /**
      * The network sink supports hypertext transfer protocol (HTTP).

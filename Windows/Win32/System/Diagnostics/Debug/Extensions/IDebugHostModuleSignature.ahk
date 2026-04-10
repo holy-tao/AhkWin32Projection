@@ -5,9 +5,8 @@
 
 /**
  * @namespace Windows.Win32.System.Diagnostics.Debug.Extensions
- * @version v4.0.30319
  */
-class IDebugHostModuleSignature extends IUnknown{
+class IDebugHostModuleSignature extends IUnknown {
 
     static sizeof => A_PtrSize
     /**

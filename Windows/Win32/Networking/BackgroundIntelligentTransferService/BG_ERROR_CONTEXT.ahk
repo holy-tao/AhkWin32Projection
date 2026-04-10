@@ -5,9 +5,8 @@
  * Defines constants that specify the context in which the error occurred.
  * @see https://learn.microsoft.com/windows/win32/api/bits/ne-bits-bg_error_context
  * @namespace Windows.Win32.Networking.BackgroundIntelligentTransferService
- * @version v4.0.30319
  */
-class BG_ERROR_CONTEXT extends Win32Enum{
+class BG_ERROR_CONTEXT extends Win32Enum {
 
     /**
      * An error has not occurred.

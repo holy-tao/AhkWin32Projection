@@ -23,9 +23,8 @@
  *             Of course if the scaler is simply used to produce a single rectangle output, this concern is eliminated because the scaler will internally request scanlines in the correct order.
  * @see https://learn.microsoft.com/windows/win32/api/wincodec/nn-wincodec-iwicbitmapscaler
  * @namespace Windows.Win32.Graphics.Imaging
- * @version v4.0.30319
  */
-class IWICBitmapScaler extends IWICBitmapSource{
+class IWICBitmapScaler extends IWICBitmapSource {
 
     static sizeof => A_PtrSize
     /**
@@ -59,7 +58,9 @@ class IWICBitmapScaler extends IWICBitmapSource{
      * @param {Integer} uiHeight Type: <b>UINT</b>
      * 
      * The destination height.
-     * @param {Integer} _mode 
+     * @param {WICBitmapInterpolationMode} _mode Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/wincodec/ne-wincodec-wicbitmapinterpolationmode">WICBitmapInterpolationMode</a></b>
+     * 
+     * The <a href="https://docs.microsoft.com/windows/desktop/api/wincodec/ne-wincodec-wicbitmapinterpolationmode">WICBitmapInterpolationMode</a> to use when scaling.
      * @returns {HRESULT} Type: <b>HRESULT</b>
      * 
      * If this method succeeds, it returns <b>S_OK</b>. Otherwise, it returns an <b>HRESULT</b> error code.

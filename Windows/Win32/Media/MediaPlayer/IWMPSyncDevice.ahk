@@ -1,16 +1,14 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
-#Include ..\..\Foundation\BSTR.ahk
 #Include ..\..\System\Com\IUnknown.ahk
 
 /**
  * The IWMPSyncDevice interface represents a device to which Windows Media Player 10 or later can copy digital media files.
  * @see https://learn.microsoft.com/windows/win32/api/wmp/nn-wmp-iwmpsyncdevice
  * @namespace Windows.Win32.Media.MediaPlayer
- * @version v4.0.30319
  */
-class IWMPSyncDevice extends IUnknown{
+class IWMPSyncDevice extends IUnknown {
 
     static sizeof => A_PtrSize
     /**
@@ -32,6 +30,7 @@ class IWMPSyncDevice extends IUnknown{
     static VTableNames => ["get_friendlyName", "put_friendlyName", "get_deviceName", "get_deviceId", "get_partnershipIndex", "get_connected", "get_status", "get_syncState", "get_progress", "getItemInfo", "createPartnership", "deletePartnership", "start", "stop", "showSettings", "isIdentical"]
 
     /**
+     * @type {BSTR} 
      */
     friendlyName {
         get => this.get_friendlyName()
@@ -373,7 +372,7 @@ class IWMPSyncDevice extends IUnknown{
      * Windows Media Player 10 or later supports up to 16 device partnerships. The Player allows one partnership with one computer for each device. Creating a new partnership destroys any existing partnership with the current device.
      * 
      * <b>Windows Media Player 10 Mobile: </b>This method is not supported.
-     * @param {Pointer<Integer>} pwmpds Pointer to a <b>WMPDeviceStatus</b> enumeration value indicating the current status.
+     * @param {Pointer<WMPDeviceStatus>} pwmpds Pointer to a <b>WMPDeviceStatus</b> enumeration value indicating the current status.
      * @returns {HRESULT} The method returns an <b>HRESULT</b>. Possible values include, but are not limited to, those in the following table.
      * 
      * <table>
@@ -419,7 +418,7 @@ class IWMPSyncDevice extends IUnknown{
      * Devices that have the status <b>wmpdsManualDevice</b> always return wmpssUnknown.
      * 
      * <b>Windows Media Player 10 Mobile: </b>This method is not supported.
-     * @param {Pointer<Integer>} pwmpss Pointer to a <b>WMPSyncState</b> enumeration value indicating the current synchronization state for the device.
+     * @param {Pointer<WMPSyncState>} pwmpss Pointer to a <b>WMPSyncState</b> enumeration value indicating the current synchronization state for the device.
      * @returns {HRESULT} The method returns an <b>HRESULT</b>. Possible values include, but are not limited to, those in the following table.
      * 
      * <table>

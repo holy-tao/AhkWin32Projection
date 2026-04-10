@@ -3,10 +3,8 @@
 
 /**
  * @namespace Windows.Win32.System.Console
- * @version v4.0.30319
  */
-class APPKEY extends Win32Struct
-{
+class APPKEY extends Win32Struct {
     static sizeof => 4
 
     static packingSize => 2

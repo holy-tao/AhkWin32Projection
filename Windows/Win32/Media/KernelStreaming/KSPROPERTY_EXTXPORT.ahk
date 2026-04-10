@@ -16,9 +16,8 @@
  * The UVC specification does not define how the device uses the continuity bit. The **KSPROPERTY\_EXTXPORT\_S** structure is described in the Windows DDK.
  * @see https://learn.microsoft.com/windows/win32/DirectShow/ksproperty-extxport-atn-search
  * @namespace Windows.Win32.Media.KernelStreaming
- * @version v4.0.30319
  */
-class KSPROPERTY_EXTXPORT extends Win32Enum{
+class KSPROPERTY_EXTXPORT extends Win32Enum {
 
     /**
      * @type {Integer (Int32)}

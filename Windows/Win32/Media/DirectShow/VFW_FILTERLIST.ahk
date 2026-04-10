@@ -3,10 +3,8 @@
 
 /**
  * @namespace Windows.Win32.Media.DirectShow
- * @version v4.0.30319
  */
-class VFW_FILTERLIST extends Win32Struct
-{
+class VFW_FILTERLIST extends Win32Struct {
     static sizeof => 16
 
     static packingSize => 8
@@ -20,9 +18,9 @@ class VFW_FILTERLIST extends Win32Struct
     }
 
     /**
-     * @type {Array<Guid>}
+     * @type {Array<Pointer>}
      */
-    aClsId{
+    aClsId {
         get {
             if(!this.HasProp("__aClsIdProxyArray"))
                 this.__aClsIdProxyArray := Win32FixedArray(this.ptr + 8, 1, Primitive, "ptr")

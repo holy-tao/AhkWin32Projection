@@ -5,9 +5,8 @@
  * The AGENT_SESSION_EVENT enumeration (tapi3cc.h) describes agent session events.
  * @see https://learn.microsoft.com/windows/win32/api/tapi3cc/ne-tapi3cc-agent_session_event
  * @namespace Windows.Win32.Devices.Tapi
- * @version v4.0.30319
  */
-class AGENT_SESSION_EVENT extends Win32Enum{
+class AGENT_SESSION_EVENT extends Win32Enum {
 
     /**
      * A new agent session has been created.

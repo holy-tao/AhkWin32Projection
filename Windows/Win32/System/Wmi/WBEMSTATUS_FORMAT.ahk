@@ -3,9 +3,8 @@
 
 /**
  * @namespace Windows.Win32.System.Wmi
- * @version v4.0.30319
  */
-class WBEMSTATUS_FORMAT extends Win32Enum{
+class WBEMSTATUS_FORMAT extends Win32Enum {
 
     /**
      * @type {Integer (Int32)}

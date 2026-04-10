@@ -1,6 +1,7 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\..\Guid.ahk
+#Include .\ITextDocument.ahk
 #Include .\ITextDisplays.ahk
 #Include .\ITextFont2.ahk
 #Include .\ITextPara2.ahk
@@ -11,15 +12,13 @@
 #Include .\ITextStrings.ahk
 #Include .\ITextRange2.ahk
 #Include .\ITextStory.ahk
-#Include .\ITextDocument.ahk
 
 /**
  * Extends the ITextDocument interface, adding methods that enable the Input Method Editor (IME) to drive the rich edit control, and methods to retrieve other interfaces such as ITextDisplays, ITextRange2, ITextFont2, ITextPara2, and so on.
  * @see https://learn.microsoft.com/windows/win32/api/tom/nn-tom-itextdocument2
  * @namespace Windows.Win32.UI.Controls.RichEdit
- * @version v4.0.30319
  */
-class ITextDocument2 extends ITextDocument{
+class ITextDocument2 extends ITextDocument {
 
     static sizeof => A_PtrSize
     /**
@@ -137,7 +136,7 @@ class ITextDocument2 extends ITextDocument{
 
     /**
      * Gets the East Asian flags.
-     * @returns {Integer} Type: <b>long*</b>
+     * @returns {tomConstants} Type: <b>long*</b>
      * @see https://learn.microsoft.com/windows/win32/api/tom/nf-tom-itextdocument2-geteastasianflags
      */
     GetEastAsianFlags() {
@@ -346,7 +345,7 @@ class ITextDocument2 extends ITextDocument{
 
     /**
      * Retrieves the client rectangle of the rich edit control.
-     * @param {Integer} Type Type: <b>long</b>
+     * @param {tomConstants} Type Type: <b>long</b>
      * @param {Pointer<Integer>} pLeft Type: <b>long*</b>
      * 
      * The x-coordinate of the upper-left corner of the rectangle.
@@ -538,7 +537,9 @@ class ITextDocument2 extends ITextDocument{
 
     /**
      * Releases an Input Method Manager (IMM) input context.
-     * @param {Integer} _Context 
+     * @param {Integer} _Context Type: <b>int64</b>
+     * 
+     * The IMM input context to release.
      * @returns {HRESULT} Type: <b><a href="https://docs.microsoft.com/windows/desktop/WinProg/windows-data-types">HRESULT</a></b>
      * 
      * If the method succeeds, it returns <b>NOERROR</b>. Otherwise, it returns an <b>HRESULT</b> error code.

@@ -10,9 +10,8 @@
  * Use this interface to interact with a collection of generic objects.
  * @see https://learn.microsoft.com/windows/win32/api/objectarray/nn-objectarray-iobjectcollection
  * @namespace Windows.Win32.UI.Shell.Common
- * @version v4.0.30319
  */
-class IObjectCollection extends IObjectArray{
+class IObjectCollection extends IObjectArray {
 
     static sizeof => A_PtrSize
     /**

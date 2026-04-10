@@ -5,9 +5,8 @@
  * Determines the parameter type to be freed. (CALLFRAME_NULL)
  * @see https://learn.microsoft.com/windows/win32/api/callobj/ne-callobj-callframe_null
  * @namespace Windows.Win32.System.Com.CallObj
- * @version v4.0.30319
  */
-class CALLFRAME_NULL extends Win32Enum{
+class CALLFRAME_NULL extends Win32Enum {
 
     /**
      * No values are freed.

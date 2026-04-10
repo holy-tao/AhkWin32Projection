@@ -1,8 +1,8 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
-#Include ..\..\Foundation\BSTR.ahk
 #Include ..\..\System\Com\IUnknown.ahk
+#Include ..\..\Foundation\BSTR.ahk
 
 /**
  * Provides access to a device's Forward Data Channel (FDC) Service. The FDC is an out-of-band channel that carries configuration and control messages.
@@ -10,9 +10,8 @@
  * To declare the interface identifier (IID) for this interface, use the <b>__uuidof</b> operator: <c>__uuidof(IBDA_FDC)</c>.
  * @see https://learn.microsoft.com/windows/win32/api/bdaiface/nn-bdaiface-ibda_fdc
  * @namespace Windows.Win32.Media.DirectShow
- * @version v4.0.30319
  */
-class IBDA_FDC extends IUnknown{
+class IBDA_FDC extends IUnknown {
 
     static sizeof => A_PtrSize
     /**
@@ -131,7 +130,7 @@ class IBDA_FDC extends IUnknown{
      * @param {Pointer<Integer>} Pid Receives the packet identifier (PID) of the table.
      * @param {Integer} MaxBufferSize The size of the <i>SecBuffer</i> array, in bytes.
      * @param {Pointer<Integer>} ActualSize Receives the number of bytes that the method copies into the  <i>SecBuffer</i> array.
-     * @param {Pointer<Integer>} _SecBuffer 
+     * @param {Pointer<Integer>} _SecBuffer A byte array, allocated by the caller, that receives the table section.
      * @returns {HRESULT} If this method succeeds, it returns <b>S_OK</b>. Otherwise, it returns an <b>HRESULT</b> error code.
      * @see https://learn.microsoft.com/windows/win32/api/bdaiface/nf-bdaiface-ibda_fdc-gettablesection
      */

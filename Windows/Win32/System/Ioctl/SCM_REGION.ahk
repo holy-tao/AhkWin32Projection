@@ -3,10 +3,8 @@
 
 /**
  * @namespace Windows.Win32.System.Ioctl
- * @version v4.0.30319
  */
-class SCM_REGION extends Win32Struct
-{
+class SCM_REGION extends Win32Struct {
     static sizeof => 80
 
     static packingSize => 8
@@ -44,7 +42,7 @@ class SCM_REGION extends Win32Struct
     }
 
     /**
-     * @type {Pointer<Guid>}
+     * @type {Pointer}
      */
     LogicalDeviceGuid {
         get => NumGet(this, 16, "ptr")
@@ -52,7 +50,7 @@ class SCM_REGION extends Win32Struct
     }
 
     /**
-     * @type {Pointer<Guid>}
+     * @type {Pointer}
      */
     AddressRangeType {
         get => NumGet(this, 24, "ptr")

@@ -7,9 +7,8 @@
  * Transfers the foreground window to the process hosting the COM server.
  * @see https://learn.microsoft.com/windows/win32/api/objidl/nn-objidl-iforegroundtransfer
  * @namespace Windows.Win32.System.Com
- * @version v4.0.30319
  */
-class IForegroundTransfer extends IUnknown{
+class IForegroundTransfer extends IUnknown {
 
     static sizeof => A_PtrSize
     /**

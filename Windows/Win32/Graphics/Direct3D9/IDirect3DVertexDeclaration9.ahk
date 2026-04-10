@@ -1,8 +1,8 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
-#Include .\IDirect3DDevice9.ahk
 #Include ..\..\System\Com\IUnknown.ahk
+#Include .\IDirect3DDevice9.ahk
 
 /**
  * The IDirect3DVertexDeclaration9 (d3d9.h) interface is used by applications to encapsulate the vertex shader declaration.
@@ -19,9 +19,8 @@
  * ```
  * @see https://learn.microsoft.com/windows/win32/api/d3d9/nn-d3d9-idirect3dvertexdeclaration9
  * @namespace Windows.Win32.Graphics.Direct3D9
- * @version v4.0.30319
  */
-class IDirect3DVertexDeclaration9 extends IUnknown{
+class IDirect3DVertexDeclaration9 extends IUnknown {
 
     static sizeof => A_PtrSize
     /**

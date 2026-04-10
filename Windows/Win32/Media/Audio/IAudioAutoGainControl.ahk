@@ -7,9 +7,8 @@
  * The IAudioAutoGainControl interface provides access to a hardware automatic gain control (AGC).
  * @see https://learn.microsoft.com/windows/win32/api/devicetopology/nn-devicetopology-iaudioautogaincontrol
  * @namespace Windows.Win32.Media.Audio
- * @version v4.0.30319
  */
-class IAudioAutoGainControl extends IUnknown{
+class IAudioAutoGainControl extends IUnknown {
 
     static sizeof => A_PtrSize
     /**

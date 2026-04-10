@@ -5,9 +5,8 @@
  * Identifiers for the properties of the Color matrix effect.
  * @see https://learn.microsoft.com/windows/win32/api/d2d1effects/ne-d2d1effects-d2d1_colormatrix_prop
  * @namespace Windows.Win32.Graphics.Direct2D
- * @version v4.0.30319
  */
-class D2D1_COLORMATRIX_PROP extends Win32Enum{
+class D2D1_COLORMATRIX_PROP extends Win32Enum {
 
     /**
      * A 5x4 matrix of float values. The elements in the matrix are not bounded and are unitless.

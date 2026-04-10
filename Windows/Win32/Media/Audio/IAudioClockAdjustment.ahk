@@ -7,9 +7,8 @@
  * The IAudioClockAdjustment interface is used to adjust the sample rate of a stream.
  * @see https://learn.microsoft.com/windows/win32/api/audioclient/nn-audioclient-iaudioclockadjustment
  * @namespace Windows.Win32.Media.Audio
- * @version v4.0.30319
  */
-class IAudioClockAdjustment extends IUnknown{
+class IAudioClockAdjustment extends IUnknown {
 
     static sizeof => A_PtrSize
     /**

@@ -5,10 +5,8 @@
  * A support structure used in the MI_ParameterSet structure. Use the functions with the name prefix MI_ParameterSet_ to manipulate these structures.
  * @see https://learn.microsoft.com/windows/win32/api/mi/ns-mi-mi_parametersetft
  * @namespace Windows.Win32.System.Wmi
- * @version v4.0.30319
  */
-class MI_ParameterSetFT extends Win32Struct
-{
+class MI_ParameterSetFT extends Win32Struct {
     static sizeof => 32
 
     static packingSize => 8

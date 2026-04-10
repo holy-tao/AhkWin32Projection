@@ -1,15 +1,11 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
-#Include ..\..\..\Win32\Foundation\RECT.ahk
-#Include ..\..\..\Win32\Foundation\POINT.ahk
 
 /**
  * @namespace Windows.Wdk.Graphics.Direct3D
- * @version v4.0.30319
  */
-class D3DKMT_SCATTERBLT extends Win32Struct
-{
-    static sizeof => 48
+class D3DKMT_SCATTERBLT extends Win32Struct {
+    static sizeof => 40
 
     static packingSize => 8
 
@@ -38,24 +34,18 @@ class D3DKMT_SCATTERBLT extends Win32Struct
     }
 
     /**
-     * @type {RECT}
+     * @type {Pointer}
      */
-    SourceRect{
-        get {
-            if(!this.HasProp("__SourceRect"))
-                this.__SourceRect := RECT(24, this)
-            return this.__SourceRect
-        }
+    SourceRect {
+        get => NumGet(this, 24, "ptr")
+        set => NumPut("ptr", value, this, 24)
     }
 
     /**
-     * @type {POINT}
+     * @type {Pointer}
      */
-    DestinationOffset{
-        get {
-            if(!this.HasProp("__DestinationOffset"))
-                this.__DestinationOffset := POINT(40, this)
-            return this.__DestinationOffset
-        }
+    DestinationOffset {
+        get => NumGet(this, 32, "ptr")
+        set => NumPut("ptr", value, this, 32)
     }
 }

@@ -7,9 +7,8 @@
  * Provides access to the individual components of an HTTP address.
  * @see https://learn.microsoft.com/windows/win32/api/wsdbase/nn-wsdbase-iwsdhttpaddress
  * @namespace Windows.Win32.Devices.WebServicesOnDevices
- * @version v4.0.30319
  */
-class IWSDHttpAddress extends IWSDTransportAddress{
+class IWSDHttpAddress extends IWSDTransportAddress {
 
     static sizeof => A_PtrSize
     /**

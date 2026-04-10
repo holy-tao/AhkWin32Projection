@@ -23,10 +23,8 @@
  * </table></span></div>
  * @see https://learn.microsoft.com/windows/win32/api/strmif/ns-strmif-dvd_mua_coeff
  * @namespace Windows.Win32.Media.DirectShow
- * @version v4.0.30319
  */
-class DVD_MUA_Coeff extends Win32Struct
-{
+class DVD_MUA_Coeff extends Win32Struct {
     static sizeof => 16
 
     static packingSize => 8

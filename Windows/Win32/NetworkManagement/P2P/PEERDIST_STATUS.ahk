@@ -5,9 +5,8 @@
  * PEERDIST_STATUS enumeration defines the possible status values of the Peer Distribution service.
  * @see https://learn.microsoft.com/windows/win32/api/peerdist/ne-peerdist-peerdist_status
  * @namespace Windows.Win32.NetworkManagement.P2P
- * @version v4.0.30319
  */
-class PEERDIST_STATUS extends Win32Enum{
+class PEERDIST_STATUS extends Win32Enum {
 
     /**
      * The service is disabled by Group Policy or according to configuration parameters.

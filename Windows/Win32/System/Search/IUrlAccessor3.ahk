@@ -7,9 +7,8 @@
  * Extends the functionality of the IUrlAccessor2 interface with the IUrlAccessor3::GetImpersonationSidBlobs method to identify user security identifiers (SIDs) for a specified URL.
  * @see https://learn.microsoft.com/windows/win32/api/searchapi/nn-searchapi-iurlaccessor3
  * @namespace Windows.Win32.System.Search
- * @version v4.0.30319
  */
-class IUrlAccessor3 extends IUrlAccessor2{
+class IUrlAccessor3 extends IUrlAccessor2 {
 
     static sizeof => A_PtrSize
     /**

@@ -1,8 +1,11 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
-#Include ..\Ndis\NET_LUID_LH.ahk
-#Include ..\..\Networking\WinSock\NL_INTERFACE_OFFLOAD_ROD.ahk
 #Include .\MIB_IPINTERFACE_ROW.ahk
+#Include ..\..\Networking\WinSock\ADDRESS_FAMILY.ahk
+#Include ..\Ndis\NET_LUID_LH.ahk
+#Include ..\..\Networking\WinSock\NL_ROUTER_DISCOVERY_BEHAVIOR.ahk
+#Include ..\..\Networking\WinSock\NL_LINK_LOCAL_ADDRESS_BEHAVIOR.ahk
+#Include ..\..\Networking\WinSock\NL_INTERFACE_OFFLOAD_ROD.ahk
 
 /**
  * Contains a table of IP interface entries.
@@ -20,11 +23,9 @@
  * Note that the <i>Netioapi.h</i> header file is automatically included in the <i>Iphlpapi.h</i> header file. The  <i>Netioapi.h</i> header file should never be used directly.
  * @see https://learn.microsoft.com/windows/win32/api/netioapi/ns-netioapi-mib_ipinterface_table
  * @namespace Windows.Win32.NetworkManagement.IpHelper
- * @version v4.0.30319
  */
-class MIB_IPINTERFACE_TABLE extends Win32Struct
-{
-    static sizeof => 16
+class MIB_IPINTERFACE_TABLE extends Win32Struct {
+    static sizeof => 184
 
     static packingSize => 8
 
@@ -40,9 +41,9 @@ class MIB_IPINTERFACE_TABLE extends Win32Struct
     /**
      * An array of 
      * <a href="https://docs.microsoft.com/windows/desktop/api/netioapi/ns-netioapi-mib_ipinterface_row">MIB_IPINTERFACE_ROW</a> structures that contain IP interface entries.
-     * @type {Array<MIB_IPINTERFACE_ROW>}
+     * @type {MIB_IPINTERFACE_ROW}
      */
-    Table{
+    Table {
         get {
             if(!this.HasProp("__TableProxyArray"))
                 this.__TableProxyArray := Win32FixedArray(this.ptr + 8, 1, MIB_IPINTERFACE_ROW, "")

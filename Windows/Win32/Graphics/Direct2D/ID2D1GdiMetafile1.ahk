@@ -1,16 +1,15 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
-#Include Common\D2D_RECT_F.ahk
 #Include .\ID2D1GdiMetafile.ahk
+#Include Common\D2D_RECT_F.ahk
 
 /**
  * This interface performs all the same functions as the existing ID2D1GdiMetafile interface. It also enables accessing the metafile DPI and bounds.
  * @see https://learn.microsoft.com/windows/win32/api/d2d1_3/nn-d2d1_3-id2d1gdimetafile1
  * @namespace Windows.Win32.Graphics.Direct2D
- * @version v4.0.30319
  */
-class ID2D1GdiMetafile1 extends ID2D1GdiMetafile{
+class ID2D1GdiMetafile1 extends ID2D1GdiMetafile {
 
     static sizeof => A_PtrSize
     /**

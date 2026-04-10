@@ -5,10 +5,8 @@
  * Contains information needed for SP3 compatible encryption.
  * @see https://learn.microsoft.com/windows/win32/api/wincrypt/ns-wincrypt-cmsg_sp3_compatible_aux_info
  * @namespace Windows.Win32.Security.Cryptography
- * @version v4.0.30319
  */
-class CMSG_SP3_COMPATIBLE_AUX_INFO extends Win32Struct
-{
+class CMSG_SP3_COMPATIBLE_AUX_INFO extends Win32Struct {
     static sizeof => 8
 
     static packingSize => 4

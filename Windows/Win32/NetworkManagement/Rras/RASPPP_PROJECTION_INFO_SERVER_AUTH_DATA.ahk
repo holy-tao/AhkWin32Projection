@@ -3,9 +3,8 @@
 
 /**
  * @namespace Windows.Win32.NetworkManagement.Rras
- * @version v4.0.30319
  */
-class RASPPP_PROJECTION_INFO_SERVER_AUTH_DATA extends Win32Enum{
+class RASPPP_PROJECTION_INFO_SERVER_AUTH_DATA extends Win32Enum {
 
     /**
      * @type {Integer (UInt32)}

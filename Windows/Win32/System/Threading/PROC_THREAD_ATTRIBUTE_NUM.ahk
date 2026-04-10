@@ -3,9 +3,8 @@
 
 /**
  * @namespace Windows.Win32.System.Threading
- * @version v4.0.30319
  */
-class PROC_THREAD_ATTRIBUTE_NUM extends Win32Enum{
+class PROC_THREAD_ATTRIBUTE_NUM extends Win32Enum {
 
     /**
      * @type {Integer (UInt32)}

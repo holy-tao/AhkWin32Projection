@@ -1,16 +1,15 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
-#Include ..\..\System\Com\StructuredStorage\IPropertyStorage.ahk
 #Include ..\..\System\Com\IUnknown.ahk
+#Include ..\..\System\Com\StructuredStorage\IPropertyStorage.ahk
 
 /**
  * The IJolietDiscMaster interface enables the staging of a CD data disc.
  * @see https://learn.microsoft.com/windows/win32/api/imapi/nn-imapi-ijolietdiscmaster
  * @namespace Windows.Win32.Storage.Imapi
- * @version v4.0.30319
  */
-class IJolietDiscMaster extends IUnknown{
+class IJolietDiscMaster extends IUnknown {
 
     static sizeof => A_PtrSize
     /**

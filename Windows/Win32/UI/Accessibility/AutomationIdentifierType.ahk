@@ -5,9 +5,8 @@
  * Contains values used in the UiaLookupId function.
  * @see https://learn.microsoft.com/windows/win32/api/uiautomationcoreapi/ne-uiautomationcoreapi-automationidentifiertype
  * @namespace Windows.Win32.UI.Accessibility
- * @version v4.0.30319
  */
-class AutomationIdentifierType extends Win32Enum{
+class AutomationIdentifierType extends Win32Enum {
 
     /**
      * Specifies a property ID.

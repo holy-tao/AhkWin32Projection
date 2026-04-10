@@ -3,10 +3,8 @@
 
 /**
  * @namespace Windows.Win32.System.Ioctl
- * @version v4.0.30319
  */
-class DEVICE_DATA_SET_TOPOLOGY_ID_QUERY_OUTPUT extends Win32Struct
-{
+class DEVICE_DATA_SET_TOPOLOGY_ID_QUERY_OUTPUT extends Win32Struct {
     static sizeof => 24
 
     static packingSize => 8
@@ -20,9 +18,9 @@ class DEVICE_DATA_SET_TOPOLOGY_ID_QUERY_OUTPUT extends Win32Struct
     }
 
     /**
-     * @type {Array<Byte>}
+     * @type {Array<Integer>}
      */
-    TopologyId{
+    TopologyId {
         get {
             if(!this.HasProp("__TopologyIdProxyArray"))
                 this.__TopologyIdProxyArray := Win32FixedArray(this.ptr + 8, 16, Primitive, "char")

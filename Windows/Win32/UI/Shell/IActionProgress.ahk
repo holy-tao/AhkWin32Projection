@@ -13,9 +13,8 @@
  * Once implemented, classes should call <a href="https://docs.microsoft.com/windows/desktop/api/shobjidl_core/nf-shobjidl_core-iactionprogress-begin">IActionProgress::Begin</a> when an action is started. Periodically, <a href="https://docs.microsoft.com/windows/desktop/api/shobjidl_core/nf-shobjidl_core-iactionprogress-updateprogress">IActionProgress::UpdateProgress</a> should be called to update the UI with progress information, and detailed textual information should be conveyed to the UI by calling <a href="https://docs.microsoft.com/windows/desktop/api/shobjidl_core/nf-shobjidl_core-iactionprogress-updatetext">IActionProgress::UpdateText</a>. <a href="https://docs.microsoft.com/windows/desktop/api/shobjidl_core/nf-shobjidl_core-iactionprogress-querycancel">IActionProgress::QueryCancel</a> and <a href="https://docs.microsoft.com/windows/desktop/api/shobjidl_core/nf-shobjidl_core-iactionprogress-resetcancel">IActionProgress::ResetCancel</a> should be called to handle cancellation requests. Once the operation ends, <a href="https://docs.microsoft.com/windows/desktop/api/shobjidl_core/nf-shobjidl_core-iactionprogress-end">IActionProgress::End</a> should be called.
  * @see https://learn.microsoft.com/windows/win32/api/shobjidl_core/nn-shobjidl_core-iactionprogress
  * @namespace Windows.Win32.UI.Shell
- * @version v4.0.30319
  */
-class IActionProgress extends IUnknown{
+class IActionProgress extends IUnknown {
 
     static sizeof => A_PtrSize
     /**
@@ -40,7 +39,7 @@ class IActionProgress extends IUnknown{
      * Called when an action has begun that requires its progress be displayed to the user.
      * @remarks
      * This method should be called when an action is beginning. The values of <i>action</i> and <i>flags</i> may be used to determine how to draw the UI that will be displayed to the user, or how to interpret or filter certain user actions associated with the action. When the action has completed, <a href="https://docs.microsoft.com/windows/desktop/api/shobjidl_core/nf-shobjidl_core-iactionprogress-end">IActionProgress::End</a> should be called.
-     * @param {Integer} action Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/shobjidl_core/ne-shobjidl_core-spaction">SPACTION</a></b>
+     * @param {SPACTION} action Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/shobjidl_core/ne-shobjidl_core-spaction">SPACTION</a></b>
      * 
      * The action being performed. See <a href="https://docs.microsoft.com/windows/desktop/api/shobjidl_core/ne-shobjidl_core-spaction">SPACTION</a> for a list of acceptable values.
      * @param {Integer} flags Type: <b><a href="https://docs.microsoft.com/windows/win32/api/shobjidl_core/ne-shobjidl_core-_spbeginf">SPBEGINF</a></b>
@@ -80,7 +79,9 @@ class IActionProgress extends IUnknown{
      * Called if descriptive text associated with the action will be changed.
      * @remarks
      * The class implementing this method must interpret the value of <i>sptext</i> and <i>fMayCompact</i> in the context of the action being performed and the UI that shows the progress to the user. The value of <i>sptext</i> can be used to differentiate between lines of changeable text. Often, the value of <i>fMayCompact</i> refers to whether the text string can be truncated with an ellipsis (...) in order to conserve screen space.
-     * @param {Integer} _sptext 
+     * @param {SPTEXT} _sptext Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/shobjidl_core/ne-shobjidl_core-sptext">SPTEXT</a></b>
+     * 
+     * A value that specifies the type of text displayed. See <a href="https://docs.microsoft.com/windows/desktop/api/shobjidl_core/ne-shobjidl_core-sptext">SPTEXT</a> for acceptable values.
      * @param {PWSTR} pszText Type: <b>LPCWSTR</b>
      * 
      * A pointer to a wide character string to display.

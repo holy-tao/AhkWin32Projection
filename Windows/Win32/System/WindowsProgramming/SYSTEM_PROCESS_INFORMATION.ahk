@@ -5,10 +5,8 @@
 
 /**
  * @namespace Windows.Win32.System.WindowsProgramming
- * @version v4.0.30319
  */
-class SYSTEM_PROCESS_INFORMATION extends Win32Struct
-{
+class SYSTEM_PROCESS_INFORMATION extends Win32Struct {
     static sizeof => 256
 
     static packingSize => 8
@@ -30,9 +28,9 @@ class SYSTEM_PROCESS_INFORMATION extends Win32Struct
     }
 
     /**
-     * @type {Array<Byte>}
+     * @type {Array<Integer>}
      */
-    Reserved1{
+    Reserved1 {
         get {
             if(!this.HasProp("__Reserved1ProxyArray"))
                 this.__Reserved1ProxyArray := Win32FixedArray(this.ptr + 8, 48, Primitive, "char")
@@ -43,7 +41,7 @@ class SYSTEM_PROCESS_INFORMATION extends Win32Struct
     /**
      * @type {UNICODE_STRING}
      */
-    ImageName{
+    ImageName {
         get {
             if(!this.HasProp("__ImageName"))
                 this.__ImageName := UNICODE_STRING(56, this)
@@ -62,7 +60,7 @@ class SYSTEM_PROCESS_INFORMATION extends Win32Struct
     /**
      * @type {HANDLE}
      */
-    UniqueProcessId{
+    UniqueProcessId {
         get {
             if(!this.HasProp("__UniqueProcessId"))
                 this.__UniqueProcessId := HANDLE(80, this)
@@ -199,9 +197,9 @@ class SYSTEM_PROCESS_INFORMATION extends Win32Struct
     }
 
     /**
-     * @type {Array<Int64>}
+     * @type {Array<Integer>}
      */
-    Reserved7{
+    Reserved7 {
         get {
             if(!this.HasProp("__Reserved7ProxyArray"))
                 this.__Reserved7ProxyArray := Win32FixedArray(this.ptr + 208, 6, Primitive, "int64")

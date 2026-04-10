@@ -3,14 +3,10 @@
 
 /**
  * The blob extension data for a credential.
- * @remarks
- * 
  * @see https://learn.microsoft.com/windows/win32/api/webauthn/ns-webauthn-webauthn_cred_blob_extension
  * @namespace Windows.Win32.Security.Authentication.WebAuthn
- * @version v4.0.30319
  */
-class WEBAUTHN_CRED_BLOB_EXTENSION extends Win32Struct
-{
+class WEBAUTHN_CRED_BLOB_EXTENSION extends Win32Struct {
     static sizeof => 16
 
     static packingSize => 8

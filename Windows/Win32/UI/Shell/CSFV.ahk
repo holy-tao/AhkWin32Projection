@@ -1,14 +1,16 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
+#Include .\IShellFolder.ahk
+#Include .\IShellView.ahk
+#Include Common\ITEMIDLIST.ahk
+#Include .\FOLDERVIEWMODE.ahk
 
 /**
  * Used with the SHCreateShellFolderViewEx function.
  * @see https://learn.microsoft.com/windows/win32/api/shlobj_core/ns-shlobj_core-csfv
  * @namespace Windows.Win32.UI.Shell
- * @version v4.0.30319
  */
-class CSFV extends Win32Struct
-{
+class CSFV extends Win32Struct {
     static sizeof => 56
 
     static packingSize => 8
@@ -79,7 +81,7 @@ class CSFV extends Win32Struct
 
     /**
      * Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/shobjidl_core/ne-shobjidl_core-folderviewmode">FOLDERVIEWMODE</a></b>
-     * @type {Integer}
+     * @type {FOLDERVIEWMODE}
      */
     fvm {
         get => NumGet(this, 48, "int")

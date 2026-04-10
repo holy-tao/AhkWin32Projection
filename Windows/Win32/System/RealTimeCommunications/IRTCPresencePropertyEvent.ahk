@@ -1,14 +1,13 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
-#Include ..\..\Foundation\BSTR.ahk
 #Include ..\Com\IDispatch.ahk
+#Include ..\..\Foundation\BSTR.ahk
 
 /**
  * @namespace Windows.Win32.System.RealTimeCommunications
- * @version v4.0.30319
  */
-class IRTCPresencePropertyEvent extends IDispatch{
+class IRTCPresencePropertyEvent extends IDispatch {
 
     static sizeof => A_PtrSize
     /**
@@ -44,7 +43,7 @@ class IRTCPresencePropertyEvent extends IDispatch{
     }
 
     /**
-     * @type {Integer} 
+     * @type {RTC_PRESENCE_PROPERTY} 
      */
     PresenceProperty {
         get => this.get_PresenceProperty()
@@ -78,7 +77,7 @@ class IRTCPresencePropertyEvent extends IDispatch{
 
     /**
      * 
-     * @returns {Integer} 
+     * @returns {RTC_PRESENCE_PROPERTY} 
      */
     get_PresenceProperty() {
         result := ComCall(9, this, "int*", &penPresProp := 0, "HRESULT")

@@ -5,9 +5,8 @@
  * The TreeScope (uiautomationclient.h) enumeration contains values that specify the scope of various operations in the Microsoft UI Automation tree.
  * @see https://learn.microsoft.com/windows/win32/api/uiautomationclient/ne-uiautomationclient-treescope
  * @namespace Windows.Win32.UI.Accessibility
- * @version v4.0.30319
  */
-class TreeScope extends Win32Enum{
+class TreeScope extends Win32Enum {
 
     /**
      * The scope excludes the subtree from the search.

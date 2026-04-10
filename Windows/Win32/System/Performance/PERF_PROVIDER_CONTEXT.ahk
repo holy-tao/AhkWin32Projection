@@ -7,10 +7,8 @@
  * By default, PERFLIB uses process heap. The memory allocation and free routines lets you provide custom memory management.
  * @see https://learn.microsoft.com/windows/win32/api/perflib/ns-perflib-perf_provider_context
  * @namespace Windows.Win32.System.Performance
- * @version v4.0.30319
  */
-class PERF_PROVIDER_CONTEXT extends Win32Struct
-{
+class PERF_PROVIDER_CONTEXT extends Win32Struct {
     static sizeof => 40
 
     static packingSize => 8

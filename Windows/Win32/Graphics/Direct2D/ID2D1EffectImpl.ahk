@@ -10,9 +10,8 @@
  *       the <a href="https://docs.microsoft.com/windows/desktop/api/d2d1_1/nf-d2d1_1-id2d1factory1-registereffectfromstring">ID2D1Factory::RegisterEffect</a>  method.
  * @see https://learn.microsoft.com/windows/win32/api/d2d1effectauthor/nn-d2d1effectauthor-id2d1effectimpl
  * @namespace Windows.Win32.Graphics.Direct2D
- * @version v4.0.30319
  */
-class ID2D1EffectImpl extends IUnknown{
+class ID2D1EffectImpl extends IUnknown {
 
     static sizeof => A_PtrSize
     /**
@@ -73,7 +72,9 @@ class ID2D1EffectImpl extends IUnknown{
      * The method will not otherwise be called. The transforms created by the effect will be called to handle their input and output rectangles for every draw call.
      * 
      * Most effects defer creating any resources or specifying a topology until this call is made. They store their properties and map them to a concrete set of rendering techniques when first drawn.
-     * @param {Integer} _changeType 
+     * @param {D2D1_CHANGE_TYPE} _changeType Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/d2d1effectauthor/ne-d2d1effectauthor-d2d1_change_type">D2D1_CHANGE_TYPE</a></b>
+     * 
+     * Indicates the type of change the effect should expect.
      * @returns {HRESULT} Type: <b>HRESULT</b>
      * 
      * If the method succeeds, it returns <b>S_OK</b>. If it fails, it returns an <b>HRESULT</b> error code.

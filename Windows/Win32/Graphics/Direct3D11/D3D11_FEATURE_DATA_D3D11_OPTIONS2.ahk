@@ -1,5 +1,7 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
+#Include .\D3D11_CONSERVATIVE_RASTERIZATION_TIER.ahk
+#Include .\D3D11_TILED_RESOURCES_TIER.ahk
 
 /**
  * Describes Direct3D 11.3 feature options in the current graphics driver. (D3D11_FEATURE_DATA_D3D11_OPTIONS2)
@@ -16,10 +18,8 @@
  * See <a href="https://docs.microsoft.com/windows/desktop/api/d3d11_3/ne-d3d11_3-d3d11_texture_layout">D3D11_TEXTURE_LAYOUT</a> for texture swizzle options and restrictions.
  * @see https://learn.microsoft.com/windows/win32/api/d3d11/ns-d3d11-d3d11_feature_data_d3d11_options2
  * @namespace Windows.Win32.Graphics.Direct3D11
- * @version v4.0.30319
  */
-class D3D11_FEATURE_DATA_D3D11_OPTIONS2 extends Win32Struct
-{
+class D3D11_FEATURE_DATA_D3D11_OPTIONS2 extends Win32Struct {
     static sizeof => 32
 
     static packingSize => 4
@@ -57,7 +57,7 @@ class D3D11_FEATURE_DATA_D3D11_OPTIONS2 extends Win32Struct
     /**
      * Specifies whether the hardware and driver support conservative rasterization.
      *             The runtime sets this member to a <a href="https://docs.microsoft.com/windows/desktop/api/d3d11/ne-d3d11-d3d11_conservative_rasterization_tier">D3D11_CONSERVATIVE_RASTERIZATION_TIER</a>-typed value that indicates if the hardware and driver support conservative rasterization and at what tier level.
-     * @type {Integer}
+     * @type {D3D11_CONSERVATIVE_RASTERIZATION_TIER}
      */
     ConservativeRasterizationTier {
         get => NumGet(this, 12, "int")
@@ -67,7 +67,7 @@ class D3D11_FEATURE_DATA_D3D11_OPTIONS2 extends Win32Struct
     /**
      * Specifies whether the hardware and driver support tiled resources.
      *             The runtime sets this member to a <a href="https://docs.microsoft.com/windows/desktop/api/d3d11/ne-d3d11-d3d11_tiled_resources_tier">D3D11_TILED_RESOURCES_TIER</a>-typed value that indicates if the hardware and driver support tiled resources and at what tier level.
-     * @type {Integer}
+     * @type {D3D11_TILED_RESOURCES_TIER}
      */
     TiledResourcesTier {
         get => NumGet(this, 16, "int")

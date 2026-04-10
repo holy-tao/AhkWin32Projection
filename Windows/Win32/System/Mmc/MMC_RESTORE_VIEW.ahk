@@ -10,10 +10,8 @@
  * <b>View</b> context menu, setting its internal view type state, and performing any initialization necessary to display the result pane as it appeared at that point in the view history.
  * @see https://learn.microsoft.com/windows/win32/api/mmc/ns-mmc-mmc_restore_view
  * @namespace Windows.Win32.System.Mmc
- * @version v4.0.30319
  */
-class MMC_RESTORE_VIEW extends Win32Struct
-{
+class MMC_RESTORE_VIEW extends Win32Struct {
     static sizeof => 32
 
     static packingSize => 8

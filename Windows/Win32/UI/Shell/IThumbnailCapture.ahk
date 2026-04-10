@@ -1,16 +1,15 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
-#Include ..\..\Graphics\Gdi\HBITMAP.ahk
 #Include ..\..\System\Com\IUnknown.ahk
+#Include ..\..\Graphics\Gdi\HBITMAP.ahk
 
 /**
  * Exposes a method that obtains a thumbnail representation of an HTML wallpaper.
  * @see https://learn.microsoft.com/windows/win32/api/shlobj/nn-shlobj-ithumbnailcapture
  * @namespace Windows.Win32.UI.Shell
- * @version v4.0.30319
  */
-class IThumbnailCapture extends IUnknown{
+class IThumbnailCapture extends IUnknown {
 
     static sizeof => A_PtrSize
     /**

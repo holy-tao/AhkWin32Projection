@@ -22,9 +22,8 @@
  * ```
  * @see https://learn.microsoft.com/windows/win32/api/comsvcs/nn-comsvcs-itransactioncontextex
  * @namespace Windows.Win32.System.ComponentServices
- * @version v4.0.30319
  */
-class ITransactionContextEx extends IUnknown{
+class ITransactionContextEx extends IUnknown {
 
     static sizeof => A_PtrSize
     /**

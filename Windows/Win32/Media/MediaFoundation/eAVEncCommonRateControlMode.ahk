@@ -7,9 +7,8 @@
  * This enumeration is also used with <a href="https://docs.microsoft.com/windows/desktop/medfound/camera-encoder-h264-uvc-1-5">H.264 UVC 1.5 camera encoders</a>.
  * @see https://learn.microsoft.com/windows/win32/api/codecapi/ne-codecapi-eavenccommonratecontrolmode
  * @namespace Windows.Win32.Media.MediaFoundation
- * @version v4.0.30319
  */
-class eAVEncCommonRateControlMode extends Win32Enum{
+class eAVEncCommonRateControlMode extends Win32Enum {
 
     /**
      * Constant bit rate (CBR) encoding.

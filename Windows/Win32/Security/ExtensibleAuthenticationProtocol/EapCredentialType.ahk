@@ -5,9 +5,8 @@
  * Defines the set of possible EAP credentials that can be passed to the EapPeerGetConfigBlobAndUserBlob function.
  * @see https://learn.microsoft.com/windows/win32/api/eaptypes/ne-eaptypes-eapcredentialtype
  * @namespace Windows.Win32.Security.ExtensibleAuthenticationProtocol
- * @version v4.0.30319
  */
-class EapCredentialType extends Win32Enum{
+class EapCredentialType extends Win32Enum {
 
     /**
      * The EAP method has no credential passed to it. The method must attempt a machine authentication.

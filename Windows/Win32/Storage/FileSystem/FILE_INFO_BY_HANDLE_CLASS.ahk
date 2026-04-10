@@ -11,9 +11,8 @@
  *     function is mentioned, the information class is valid with both functions.
  * @see https://learn.microsoft.com/windows/win32/api/minwinbase/ne-minwinbase-file_info_by_handle_class
  * @namespace Windows.Win32.Storage.FileSystem
- * @version v4.0.30319
  */
-class FILE_INFO_BY_HANDLE_CLASS extends Win32Enum{
+class FILE_INFO_BY_HANDLE_CLASS extends Win32Enum {
 
     /**
      * Minimal information for the file should be retrieved or set. Used for file handles. See 
@@ -204,13 +203,11 @@ class FILE_INFO_BY_HANDLE_CLASS extends Win32Enum{
     static FileIdExtdDirectoryRestartInfo => 20
 
     /**
-     * 
      * @type {Integer (Int32)}
      */
     static FileDispositionInfoEx => 21
 
     /**
-     * 
      * @type {Integer (Int32)}
      */
     static FileRenameInfoEx => 22

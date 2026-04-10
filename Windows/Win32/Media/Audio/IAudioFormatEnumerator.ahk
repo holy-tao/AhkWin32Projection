@@ -7,9 +7,8 @@
  * Provides a list of supported audio formats. The most preferred format is first in the list. Get a reference to this interface by calling ISpatialAudioClient::GetSupportedAudioObjectFormatEnumerator.
  * @see https://learn.microsoft.com/windows/win32/api/spatialaudioclient/nn-spatialaudioclient-iaudioformatenumerator
  * @namespace Windows.Win32.Media.Audio
- * @version v4.0.30319
  */
-class IAudioFormatEnumerator extends IUnknown{
+class IAudioFormatEnumerator extends IUnknown {
 
     static sizeof => A_PtrSize
     /**

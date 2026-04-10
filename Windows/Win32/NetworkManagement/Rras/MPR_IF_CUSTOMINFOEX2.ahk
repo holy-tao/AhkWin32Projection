@@ -1,16 +1,16 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
 #Include .\MPRAPI_OBJECT_HEADER.ahk
-#Include ..\..\Security\Cryptography\CRYPT_INTEGER_BLOB.ahk
-#Include .\MPR_VPN_TRAFFIC_SELECTORS.ahk
 #Include .\ROUTER_IKEv2_IF_CUSTOM_CONFIG2.ahk
+#Include ..\..\Security\Cryptography\CRYPT_INTEGER_BLOB.ahk
+#Include .\ROUTER_CUSTOM_IKEv2_POLICY0.ahk
+#Include .\MPR_VPN_TRAFFIC_SELECTORS.ahk
+#Include .\MPR_VPN_TRAFFIC_SELECTOR.ahk
 
 /**
  * @namespace Windows.Win32.NetworkManagement.Rras
- * @version v4.0.30319
  */
-class MPR_IF_CUSTOMINFOEX2 extends Win32Struct
-{
+class MPR_IF_CUSTOMINFOEX2 extends Win32Struct {
     static sizeof => 88
 
     static packingSize => 8
@@ -18,7 +18,7 @@ class MPR_IF_CUSTOMINFOEX2 extends Win32Struct
     /**
      * @type {MPRAPI_OBJECT_HEADER}
      */
-    Header{
+    Header {
         get {
             if(!this.HasProp("__Header"))
                 this.__Header := MPRAPI_OBJECT_HEADER(0, this)
@@ -37,7 +37,7 @@ class MPR_IF_CUSTOMINFOEX2 extends Win32Struct
     /**
      * @type {ROUTER_IKEv2_IF_CUSTOM_CONFIG2}
      */
-    customIkev2Config{
+    customIkev2Config {
         get {
             if(!this.HasProp("__customIkev2Config"))
                 this.__customIkev2Config := ROUTER_IKEv2_IF_CUSTOM_CONFIG2(8, this)

@@ -1,17 +1,16 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\..\Guid.ahk
-#Include ..\..\..\Foundation\BSTR.ahk
-#Include ..\..\..\System\Variant\VARIANT.ahk
 #Include ..\..\..\System\Com\IDispatch.ahk
+#Include ..\..\..\System\Variant\VARIANT.ahk
+#Include ..\..\..\Foundation\BSTR.ahk
 
 /**
  * Allows the policy module to communicate with Certificate Services.
  * @see https://learn.microsoft.com/windows/win32/api/certif/nn-certif-icertserverpolicy
  * @namespace Windows.Win32.Security.Cryptography.Certificates
- * @version v4.0.30319
  */
-class ICertServerPolicy extends IDispatch{
+class ICertServerPolicy extends IDispatch {
 
     static sizeof => A_PtrSize
     /**
@@ -36,7 +35,8 @@ class ICertServerPolicy extends IDispatch{
      * Specifies the request to be used as the context for subsequent calls to Certificate Services.
      * @remarks
      * The policy module must call the <b>SetContext</b> method first, before calls to any other <a href="https://docs.microsoft.com/windows/desktop/api/certif/nn-certif-icertserverpolicy">ICertServerPolicy</a> method,  so that the interface  references a valid request.
-     * @param {Integer} _Context 
+     * @param {Integer} _Context Specifies the request. This  parameter must be set to the identical value returned in the  <i>Context</i> parameter of the  
+     * <a href="https://docs.microsoft.com/windows/desktop/api/certpol/nf-certpol-icertpolicy-verifyrequest">ICertPolicy::VerifyRequest</a> method.
      * @returns {HRESULT} <h3>VB</h3>
      *  If the method succeeds, the method returns S_OK.
      * 
@@ -385,7 +385,7 @@ class ICertServerPolicy extends IDispatch{
      * </dl>
      * </td>
      * <td width="60%">
-     * @param {Integer} PropertyType 
+     * @param {CERT_PROPERTY_TYPE} PropertyType 
      * @returns {VARIANT} A pointer to <b>VARIANT</b> that will contain the property value.
      * @see https://learn.microsoft.com/windows/win32/api/certif/nf-certif-icertserverpolicy-getcertificateproperty
      */
@@ -578,7 +578,7 @@ class ICertServerPolicy extends IDispatch{
      * 
      * Certificate extensions are distinct from certificate properties. Properties are generic data that is attached to the request. Some of these properties are encoded into the certificate (for example: <i>BeginDate</i>), while others are just used to mark requests in the queue and log. Extensions that are not disabled are encoded into the certificate. Extensions are always marked with an <a href="https://docs.microsoft.com/windows/desktop/SecGloss/o-gly">object identifier</a>, and always have a critical/noncritical flag.
      * @param {BSTR} strExtensionName A string that contains the name of the extension.
-     * @param {Integer} Type 
+     * @param {CERT_PROPERTY_TYPE} Type 
      * @returns {VARIANT} A pointer to a <b>VARIANT</b> that receives the requested extension value.
      * @see https://learn.microsoft.com/windows/win32/api/certif/nf-certif-icertserverpolicy-getcertificateextension
      */

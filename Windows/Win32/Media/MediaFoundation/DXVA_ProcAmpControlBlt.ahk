@@ -4,10 +4,8 @@
 
 /**
  * @namespace Windows.Win32.Media.MediaFoundation
- * @version v4.0.30319
  */
-class DXVA_ProcAmpControlBlt extends Win32Struct
-{
+class DXVA_ProcAmpControlBlt extends Win32Struct {
     static sizeof => 56
 
     static packingSize => 4
@@ -23,7 +21,7 @@ class DXVA_ProcAmpControlBlt extends Win32Struct
     /**
      * @type {RECT}
      */
-    DstRect{
+    DstRect {
         get {
             if(!this.HasProp("__DstRect"))
                 this.__DstRect := RECT(4, this)
@@ -34,7 +32,7 @@ class DXVA_ProcAmpControlBlt extends Win32Struct
     /**
      * @type {RECT}
      */
-    SrcRect{
+    SrcRect {
         get {
             if(!this.HasProp("__SrcRect"))
                 this.__SrcRect := RECT(20, this)

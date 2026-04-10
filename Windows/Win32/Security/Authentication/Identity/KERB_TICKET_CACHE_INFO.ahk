@@ -1,15 +1,14 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\..\Win32Struct.ahk
 #Include .\LSA_UNICODE_STRING.ahk
+#Include .\KERB_TICKET_FLAGS.ahk
 
 /**
  * Contains information about a cached Kerberos ticket. The Kerberos ticket is defined in Internet RFC 4120. For more information, see http://www.ietf.org.
  * @see https://learn.microsoft.com/windows/win32/api/ntsecapi/ns-ntsecapi-kerb_ticket_cache_info
  * @namespace Windows.Win32.Security.Authentication.Identity
- * @version v4.0.30319
  */
-class KERB_TICKET_CACHE_INFO extends Win32Struct
-{
+class KERB_TICKET_CACHE_INFO extends Win32Struct {
     static sizeof => 64
 
     static packingSize => 8
@@ -19,7 +18,7 @@ class KERB_TICKET_CACHE_INFO extends Win32Struct
      * 						<a href="https://docs.microsoft.com/windows/desktop/api/subauth/ns-subauth-unicode_string">UNICODE_STRING</a> that contains the name of the server the ticket applies to. This name is combined with the <b>RealmName</b> value to create the full name <b>ServerName</b>@<b>RealmName</b>.
      * @type {LSA_UNICODE_STRING}
      */
-    ServerName{
+    ServerName {
         get {
             if(!this.HasProp("__ServerName"))
                 this.__ServerName := LSA_UNICODE_STRING(0, this)
@@ -31,7 +30,7 @@ class KERB_TICKET_CACHE_INFO extends Win32Struct
      * A <a href="https://docs.microsoft.com/windows/desktop/api/subauth/ns-subauth-unicode_string">UNICODE_STRING</a> that contains the name of the realm the ticket applies to.
      * @type {LSA_UNICODE_STRING}
      */
-    RealmName{
+    RealmName {
         get {
             if(!this.HasProp("__RealmName"))
                 this.__RealmName := LSA_UNICODE_STRING(16, this)
@@ -76,8 +75,7 @@ class KERB_TICKET_CACHE_INFO extends Win32Struct
     }
 
     /**
-     * 
-     * @type {Integer}
+     * @type {KERB_TICKET_FLAGS}
      */
     TicketFlags {
         get => NumGet(this, 60, "uint")

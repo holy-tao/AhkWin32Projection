@@ -1,5 +1,6 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
+#Include .\DISPLAY_DEVICE_STATE_FLAGS.ahk
 
 /**
  * The DISPLAY_DEVICE structure receives information about the display device specified by the iDevNum parameter of the EnumDisplayDevices function. (ANSI)
@@ -14,11 +15,9 @@
  * > The wingdi.h header defines DISPLAY_DEVICE as an alias which automatically selects the ANSI or Unicode version of this function based on the definition of the UNICODE preprocessor constant. Mixing usage of the encoding-neutral alias with code that not encoding-neutral can lead to mismatches that result in compilation or runtime errors. For more information, see [Conventions for Function Prototypes](/windows/win32/intl/conventions-for-function-prototypes).
  * @see https://learn.microsoft.com/windows/win32/api/wingdi/ns-wingdi-display_devicea
  * @namespace Windows.Win32.Graphics.Gdi
- * @version v4.0.30319
  * @charset ANSI
  */
-class DISPLAY_DEVICEA extends Win32Struct
-{
+class DISPLAY_DEVICEA extends Win32Struct {
     static sizeof => 424
 
     static packingSize => 4
@@ -85,7 +84,7 @@ class DISPLAY_DEVICEA extends Win32Struct
      * <td>The device is VGA compatible.</td>
      * </tr>
      * </table>
-     * @type {Integer}
+     * @type {DISPLAY_DEVICE_STATE_FLAGS}
      */
     StateFlags {
         get => NumGet(this, 164, "uint")

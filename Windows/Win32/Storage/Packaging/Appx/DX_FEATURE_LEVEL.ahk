@@ -3,9 +3,8 @@
 
 /**
  * @namespace Windows.Win32.Storage.Packaging.Appx
- * @version v4.0.30319
  */
-class DX_FEATURE_LEVEL extends Win32Enum{
+class DX_FEATURE_LEVEL extends Win32Enum {
 
     /**
      * @type {Integer (Int32)}

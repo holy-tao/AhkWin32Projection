@@ -9,9 +9,8 @@
  * Fog can be considered a measure of visibility: the lower the fog value produced by a fog equation, the less visible an object is.
  * @see https://learn.microsoft.com/windows/win32/direct3d9/d3dfogmode
  * @namespace Windows.Win32.Graphics.Direct3D9
- * @version v4.0.30319
  */
-class D3DFOGMODE extends Win32Enum{
+class D3DFOGMODE extends Win32Enum {
 
     /**
      * @type {Integer (Int32)}

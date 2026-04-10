@@ -7,9 +7,8 @@
  * Gets data from an Integrated Services Digital Broadcasting (ISDB) entitlement management message (EMM) table.
  * @see https://learn.microsoft.com/windows/win32/api/dvbsiparser/nn-dvbsiparser-iisdb_emm
  * @namespace Windows.Win32.Media.DirectShow.Tv
- * @version v4.0.30319
  */
-class IISDB_EMM extends IUnknown{
+class IISDB_EMM extends IUnknown {
 
     static sizeof => A_PtrSize
     /**

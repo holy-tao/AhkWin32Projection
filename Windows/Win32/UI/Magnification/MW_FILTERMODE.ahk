@@ -3,9 +3,8 @@
 
 /**
  * @namespace Windows.Win32.UI.Magnification
- * @version v4.0.30319
  */
-class MW_FILTERMODE extends Win32Enum{
+class MW_FILTERMODE extends Win32Enum {
 
     /**
      * @type {Integer (UInt32)}

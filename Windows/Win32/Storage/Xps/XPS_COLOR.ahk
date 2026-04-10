@@ -1,5 +1,6 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
+#Include .\XPS_COLOR_TYPE.ahk
 
 /**
  * The contents of the XPS_COLOR structure when the colorType is XPS_COLOR_TYPE_CONTEXT.
@@ -7,10 +8,8 @@
  * For information about how to interpret or apply the values in this structure's members, see the <a href="https://www.ecma-international.org/activities/XML%20Paper%20Specification/XPS%20Standard%20WD%201.6.pdf">XML Paper Specification</a>.
  * @see https://learn.microsoft.com/windows/win32/api/xpsobjectmodel/ns-xpsobjectmodel-xps_color
  * @namespace Windows.Win32.Storage.Xps
- * @version v4.0.30319
  */
-class XPS_COLOR extends Win32Struct
-{
+class XPS_COLOR extends Win32Struct {
     static sizeof => 64
 
     static packingSize => 4
@@ -22,7 +21,7 @@ class XPS_COLOR extends Win32Struct
         class _sRGB extends Win32Struct {
             static sizeof => 4
             static packingSize => 1
-    
+
             /**
              * @type {Integer}
              */
@@ -30,7 +29,7 @@ class XPS_COLOR extends Win32Struct
                 get => NumGet(this, 0, "char")
                 set => NumPut("char", value, this, 0)
             }
-        
+
             /**
              * @type {Integer}
              */
@@ -38,7 +37,7 @@ class XPS_COLOR extends Win32Struct
                 get => NumGet(this, 1, "char")
                 set => NumPut("char", value, this, 1)
             }
-        
+
             /**
              * @type {Integer}
              */
@@ -46,7 +45,7 @@ class XPS_COLOR extends Win32Struct
                 get => NumGet(this, 2, "char")
                 set => NumPut("char", value, this, 2)
             }
-        
+
             /**
              * @type {Integer}
              */
@@ -54,13 +53,12 @@ class XPS_COLOR extends Win32Struct
                 get => NumGet(this, 3, "char")
                 set => NumPut("char", value, this, 3)
             }
-        
         }
-    
+
         class _scRGB extends Win32Struct {
             static sizeof => 16
             static packingSize => 4
-    
+
             /**
              * @type {Float}
              */
@@ -68,7 +66,7 @@ class XPS_COLOR extends Win32Struct
                 get => NumGet(this, 0, "float")
                 set => NumPut("float", value, this, 0)
             }
-        
+
             /**
              * @type {Float}
              */
@@ -76,7 +74,7 @@ class XPS_COLOR extends Win32Struct
                 get => NumGet(this, 4, "float")
                 set => NumPut("float", value, this, 4)
             }
-        
+
             /**
              * @type {Float}
              */
@@ -84,7 +82,7 @@ class XPS_COLOR extends Win32Struct
                 get => NumGet(this, 8, "float")
                 set => NumPut("float", value, this, 8)
             }
-        
+
             /**
              * @type {Float}
              */
@@ -92,13 +90,12 @@ class XPS_COLOR extends Win32Struct
                 get => NumGet(this, 12, "float")
                 set => NumPut("float", value, this, 12)
             }
-        
         }
-    
+
         class _context extends Win32Struct {
             static sizeof => 40
             static packingSize => 4
-    
+
             /**
              * @type {Integer}
              */
@@ -106,58 +103,55 @@ class XPS_COLOR extends Win32Struct
                 get => NumGet(this, 0, "char")
                 set => NumPut("char", value, this, 0)
             }
-        
+
             /**
-             * @type {Array<Single>}
+             * @type {Array<Float>}
              */
-            channels{
+            channels {
                 get {
                     if(!this.HasProp("__channelsProxyArray"))
                         this.__channelsProxyArray := Win32FixedArray(this.ptr + 4, 9, Primitive, "float")
                     return this.__channelsProxyArray
                 }
             }
-        
         }
-    
+
         /**
          * @type {_sRGB}
          */
-        sRGB{
+        sRGB {
             get {
                 if(!this.HasProp("__sRGB"))
-                    this.__sRGB := %this.__Class%._sRGB(0, this)
+                    this.__sRGB := XPS_COLOR.XPS_COLOR_VALUE._sRGB(0, this)
                 return this.__sRGB
             }
         }
-    
+
         /**
          * @type {_scRGB}
          */
-        scRGB{
+        scRGB {
             get {
                 if(!this.HasProp("__scRGB"))
-                    this.__scRGB := %this.__Class%._scRGB(0, this)
+                    this.__scRGB := XPS_COLOR.XPS_COLOR_VALUE._scRGB(0, this)
                 return this.__scRGB
             }
         }
-    
+
         /**
          * @type {_context}
          */
-        context{
+        context {
             get {
                 if(!this.HasProp("__context"))
-                    this.__context := %this.__Class%._context(0, this)
+                    this.__context := XPS_COLOR.XPS_COLOR_VALUE._context(0, this)
                 return this.__context
             }
         }
-    
     }
 
     /**
-     * 
-     * @type {Integer}
+     * @type {XPS_COLOR_TYPE}
      */
     colorType {
         get => NumGet(this, 0, "int")
@@ -165,13 +159,12 @@ class XPS_COLOR extends Win32Struct
     }
 
     /**
-     * 
      * @type {XPS_COLOR_VALUE}
      */
-    value{
+    value {
         get {
             if(!this.HasProp("__value"))
-                this.__value := %this.__Class%.XPS_COLOR_VALUE(4, this)
+                this.__value := XPS_COLOR.XPS_COLOR_VALUE(4, this)
             return this.__value
         }
     }

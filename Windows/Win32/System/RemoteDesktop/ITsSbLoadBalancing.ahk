@@ -9,9 +9,8 @@
  * A plug-in can implement this interface to provide a custom load-balancing algorithm.
  * @see https://learn.microsoft.com/windows/win32/api/sbtsv/nn-sbtsv-itssbloadbalancing
  * @namespace Windows.Win32.System.RemoteDesktop
- * @version v4.0.30319
  */
-class ITsSbLoadBalancing extends ITsSbPlugin{
+class ITsSbLoadBalancing extends ITsSbPlugin {
 
     static sizeof => A_PtrSize
     /**

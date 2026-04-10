@@ -12,9 +12,8 @@
  * Only one property description exists for each property in the system.
  * @see https://learn.microsoft.com/windows/win32/api/propsys/nn-propsys-ipropertydescriptionrelatedpropertyinfo
  * @namespace Windows.Win32.UI.Shell.PropertiesSystem
- * @version v4.0.30319
  */
-class IPropertyDescriptionRelatedPropertyInfo extends IPropertyDescription{
+class IPropertyDescriptionRelatedPropertyInfo extends IPropertyDescription {
 
     static sizeof => A_PtrSize
     /**

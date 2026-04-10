@@ -1,12 +1,11 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
+#Include .\IOMMU_DMA_LOGICAL_ADDRESS_TOKEN.ahk
 
 /**
  * @namespace Windows.Wdk.System.SystemServices
- * @version v4.0.30319
  */
-class IOMMU_DMA_LOGICAL_ADDRESS_TOKEN_MAPPED_SEGMENT extends Win32Struct
-{
+class IOMMU_DMA_LOGICAL_ADDRESS_TOKEN_MAPPED_SEGMENT extends Win32Struct {
     static sizeof => 24
 
     static packingSize => 8

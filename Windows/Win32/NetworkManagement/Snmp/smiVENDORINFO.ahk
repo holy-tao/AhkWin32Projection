@@ -5,11 +5,9 @@
  * The smiVENDORINFO structure contains information about the Microsoft WinSNMP implementation.
  * @see https://learn.microsoft.com/windows/win32/api/winsnmp/ns-winsnmp-smivendorinfo
  * @namespace Windows.Win32.NetworkManagement.Snmp
- * @version v4.0.30319
  */
-class smiVENDORINFO extends Win32Struct
-{
-    static sizeof => 388
+class smiVENDORINFO extends Win32Struct {
+    static sizeof => 196
 
     static packingSize => 4
 
@@ -18,8 +16,8 @@ class smiVENDORINFO extends Win32Struct
      * @type {String}
      */
     vendorName {
-        get => StrGet(this.ptr + 0, 63, "UTF-16")
-        set => StrPut(value, this.ptr + 0, 63, "UTF-16")
+        get => StrGet(this.ptr + 0, 63, "UTF-8")
+        set => StrPut(value, this.ptr + 0, 63, "UTF-8")
     }
 
     /**
@@ -27,8 +25,8 @@ class smiVENDORINFO extends Win32Struct
      * @type {String}
      */
     vendorContact {
-        get => StrGet(this.ptr + 128, 63, "UTF-16")
-        set => StrPut(value, this.ptr + 128, 63, "UTF-16")
+        get => StrGet(this.ptr + 64, 63, "UTF-8")
+        set => StrPut(value, this.ptr + 64, 63, "UTF-8")
     }
 
     /**
@@ -36,8 +34,8 @@ class smiVENDORINFO extends Win32Struct
      * @type {String}
      */
     vendorVersionId {
-        get => StrGet(this.ptr + 256, 31, "UTF-16")
-        set => StrPut(value, this.ptr + 256, 31, "UTF-16")
+        get => StrGet(this.ptr + 128, 31, "UTF-8")
+        set => StrPut(value, this.ptr + 128, 31, "UTF-8")
     }
 
     /**
@@ -45,8 +43,8 @@ class smiVENDORINFO extends Win32Struct
      * @type {String}
      */
     vendorVersionDate {
-        get => StrGet(this.ptr + 320, 31, "UTF-16")
-        set => StrPut(value, this.ptr + 320, 31, "UTF-16")
+        get => StrGet(this.ptr + 160, 31, "UTF-8")
+        set => StrPut(value, this.ptr + 160, 31, "UTF-8")
     }
 
     /**
@@ -54,7 +52,7 @@ class smiVENDORINFO extends Win32Struct
      * @type {Integer}
      */
     vendorEnterprise {
-        get => NumGet(this, 384, "uint")
-        set => NumPut("uint", value, this, 384)
+        get => NumGet(this, 192, "uint")
+        set => NumPut("uint", value, this, 192)
     }
 }

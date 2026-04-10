@@ -1,14 +1,13 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
-#Include ..\..\System\Com\IStream.ahk
 #Include .\ISpStreamFormat.ahk
+#Include ..\..\System\Com\IStream.ahk
 
 /**
  * @namespace Windows.Win32.Media.Speech
- * @version v4.0.30319
  */
-class ISpStream extends ISpStreamFormat{
+class ISpStream extends ISpStreamFormat {
 
     static sizeof => A_PtrSize
     /**
@@ -59,7 +58,7 @@ class ISpStream extends ISpStreamFormat{
     /**
      * 
      * @param {PWSTR} pszFileName 
-     * @param {Integer} eMode 
+     * @param {SPFILEMODE} eMode 
      * @param {Pointer<Guid>} pFormatId 
      * @param {Pointer<WAVEFORMATEX>} pWaveFormatEx 
      * @param {Integer} ullEventInterest 

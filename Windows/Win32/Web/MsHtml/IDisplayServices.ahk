@@ -1,16 +1,15 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
+#Include ..\..\System\Com\IUnknown.ahk
 #Include .\IDisplayPointer.ahk
 #Include .\IHTMLCaret.ahk
 #Include .\IHTMLComputedStyle.ahk
-#Include ..\..\System\Com\IUnknown.ahk
 
 /**
  * @namespace Windows.Win32.Web.MsHtml
- * @version v4.0.30319
  */
-class IDisplayServices extends IUnknown{
+class IDisplayServices extends IUnknown {
 
     static sizeof => A_PtrSize
     /**
@@ -43,8 +42,8 @@ class IDisplayServices extends IUnknown{
     /**
      * 
      * @param {Pointer<RECT>} pRect 
-     * @param {Integer} eSource 
-     * @param {Integer} eDestination 
+     * @param {COORD_SYSTEM} eSource 
+     * @param {COORD_SYSTEM} eDestination 
      * @param {IHTMLElement} pIElement 
      * @returns {HRESULT} 
      */
@@ -56,8 +55,8 @@ class IDisplayServices extends IUnknown{
     /**
      * 
      * @param {Pointer<POINT>} pPoint 
-     * @param {Integer} eSource 
-     * @param {Integer} eDestination 
+     * @param {COORD_SYSTEM} eSource 
+     * @param {COORD_SYSTEM} eDestination 
      * @param {IHTMLElement} pIElement 
      * @returns {HRESULT} 
      */

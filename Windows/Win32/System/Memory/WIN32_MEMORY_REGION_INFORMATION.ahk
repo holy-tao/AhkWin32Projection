@@ -34,10 +34,8 @@
  * </table>
  * @see https://learn.microsoft.com/windows/win32/api/memoryapi/ns-memoryapi-win32_memory_region_information
  * @namespace Windows.Win32.System.Memory
- * @version v4.0.30319
  */
-class WIN32_MEMORY_REGION_INFORMATION extends Win32Struct
-{
+class WIN32_MEMORY_REGION_INFORMATION extends Win32Struct {
     static sizeof => 32
 
     static packingSize => 8

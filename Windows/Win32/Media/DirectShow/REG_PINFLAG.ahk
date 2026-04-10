@@ -3,9 +3,8 @@
 
 /**
  * @namespace Windows.Win32.Media.DirectShow
- * @version v4.0.30319
  */
-class REG_PINFLAG extends Win32BitflagEnum{
+class REG_PINFLAG extends Win32BitflagEnum {
 
     /**
      * @type {Integer (Int32)}

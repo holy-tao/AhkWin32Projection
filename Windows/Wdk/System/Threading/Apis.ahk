@@ -4,7 +4,6 @@
 
 /**
  * @namespace Windows.Wdk.System.Threading
- * @version v4.0.30319
  */
 class Threading {
 
@@ -21,7 +20,7 @@ class Threading {
      * 
      * This function has no associated import library. You must use the <a href="https://docs.microsoft.com/windows/desktop/api/libloaderapi/nf-libloaderapi-loadlibrarya">LoadLibrary</a> and <a href="https://docs.microsoft.com/windows/desktop/api/libloaderapi/nf-libloaderapi-getprocaddress">GetProcAddress</a> functions to dynamically link to Ntdll.dll.
      * @param {HANDLE} ProcessHandle A handle to the process for which information is to be retrieved.
-     * @param {Integer} ProcessInformationClass 
+     * @param {PROCESSINFOCLASS} ProcessInformationClass 
      * @param {Pointer<Void>} ProcessInformation A pointer to a buffer supplied by the calling application into which the function writes the requested information. The size of the information written varies depending on the data type of the <i>ProcessInformationClass</i> parameter:
      * @param {Integer} ProcessInformationLength The size of the buffer pointed to by the <i>ProcessInformation</i> parameter, in bytes.
      * @param {Pointer<Integer>} ReturnLength A pointer to a variable in which the function returns the size of the requested information. If the function was successful, this is the size of the information written to the buffer pointed to by the <i>ProcessInformation</i> parameter (if the buffer was too small, this is the minimum size of buffer needed to receive the information successfully).
@@ -50,7 +49,7 @@ class Threading {
      * 
      * This function has no associated import library. You must use the [**LoadLibrary**](/windows/win32/api/libloaderapi/nf-libloaderapi-loadlibrarya) and [**GetProcAddress**](/windows/win32/api/libloaderapi/nf-libloaderapi-getprocaddress) functions to dynamically link to Ntdll.dll.
      * @param {HANDLE} ProcessHandle A handle to the process for which information is to be retrieved.
-     * @param {Integer} ProcessInformationClass The type of process information to be retrieved. This parameter can be one of the following values from the **PROCESSINFOCLASS** enumeration.
+     * @param {PROCESSINFOCLASS} ProcessInformationClass The type of process information to be retrieved. This parameter can be one of the following values from the **PROCESSINFOCLASS** enumeration.
      * 
      * 
      * 
@@ -175,7 +174,7 @@ class Threading {
      * 
      * This function has no associated import library. You must use the <a href="https://docs.microsoft.com/windows/desktop/api/libloaderapi/nf-libloaderapi-loadlibrarya">LoadLibrary</a> and <a href="https://docs.microsoft.com/windows/desktop/api/libloaderapi/nf-libloaderapi-getprocaddress">GetProcAddress</a> functions to dynamically link to Ntdll.dll.
      * @param {HANDLE} ThreadHandle A handle to the thread about which information is being requested.
-     * @param {Integer} ThreadInformationClass If this parameter is the <b>ThreadIsIoPending</b> value of the  <b>THREADINFOCLASS</b> enumeration, the function determines whether the thread has any I/O operations pending.
+     * @param {THREADINFOCLASS} ThreadInformationClass If this parameter is the <b>ThreadIsIoPending</b> value of the  <b>THREADINFOCLASS</b> enumeration, the function determines whether the thread has any I/O operations pending.
      * 
      * Use the public  function <a href="https://docs.microsoft.com/windows/desktop/api/processthreadsapi/nf-processthreadsapi-getthreadiopendingflag">GetThreadIOPendingFlag</a> instead to obtain this information.
      * 
@@ -208,7 +207,7 @@ class Threading {
     /**
      * 
      * @param {HANDLE} ThreadHandle 
-     * @param {Integer} ThreadInformationClass 
+     * @param {THREADINFOCLASS} ThreadInformationClass 
      * @param {Pointer<Void>} ThreadInformation 
      * @param {Integer} ThreadInformationLength 
      * @param {Pointer<Integer>} ReturnLength 
@@ -228,8 +227,8 @@ class Threading {
     /**
      * 
      * @param {HANDLE} ThreadHandle 
-     * @param {Integer} ThreadInformationClass 
-     * @param {Pointer} ThreadInformation 
+     * @param {THREADINFOCLASS} ThreadInformationClass 
+     * @param {Integer} ThreadInformation 
      * @param {Integer} ThreadInformationLength 
      * @returns {NTSTATUS} 
      */
@@ -245,7 +244,7 @@ class Threading {
      * Deprecated. Waits until the specified object attains a state of signaled. NtWaitForSingleObject is superseded by WaitForSingleObject.
      * @remarks
      * Because there is no import library for this function, you must use <a href="https://docs.microsoft.com/windows/desktop/api/libloaderapi/nf-libloaderapi-getprocaddress">GetProcAddress</a>.
-     * @param {HANDLE} _Handle 
+     * @param {HANDLE} _Handle The handle to the wait object.
      * @param {BOOLEAN} Alertable Specifies whether an alert can be delivered when the object is waiting.
      * @param {Pointer<Integer>} Timeout A pointer to an absolute or relative time over
      *         which the wait is to occur. Can be null. If a timeout is specified, and
@@ -339,7 +338,7 @@ class Threading {
      * @param {Pointer<HANDLE>} TimerHandle 
      * @param {Integer} DesiredAccess 
      * @param {Pointer<OBJECT_ATTRIBUTES>} ObjectAttributes 
-     * @param {Integer} TimerType 
+     * @param {TIMER_TYPE} TimerType 
      * @returns {NTSTATUS} 
      */
     static NtCreateTimer(TimerHandle, DesiredAccess, ObjectAttributes, TimerType) {
@@ -403,8 +402,8 @@ class Threading {
     /**
      * 
      * @param {HANDLE} TimerHandle 
-     * @param {Integer} TimerSetInformationClass 
-     * @param {Pointer} TimerSetInformation 
+     * @param {TIMER_SET_INFORMATION_CLASS} TimerSetInformationClass 
+     * @param {Integer} TimerSetInformation 
      * @param {Integer} TimerSetInformationLength 
      * @returns {NTSTATUS} 
      */
@@ -476,8 +475,8 @@ class Threading {
     /**
      * 
      * @param {HANDLE} ThreadHandle 
-     * @param {Integer} ThreadInformationClass 
-     * @param {Pointer} ThreadInformation 
+     * @param {THREADINFOCLASS} ThreadInformationClass 
+     * @param {Integer} ThreadInformation 
      * @param {Integer} ThreadInformationLength 
      * @returns {NTSTATUS} 
      */
@@ -494,7 +493,7 @@ class Threading {
      * @param {Pointer<HANDLE>} TimerHandle 
      * @param {Integer} DesiredAccess 
      * @param {Pointer<OBJECT_ATTRIBUTES>} ObjectAttributes 
-     * @param {Integer} TimerType 
+     * @param {TIMER_TYPE} TimerType 
      * @returns {NTSTATUS} 
      */
     static ZwCreateTimer(TimerHandle, DesiredAccess, ObjectAttributes, TimerType) {
@@ -558,8 +557,8 @@ class Threading {
     /**
      * 
      * @param {HANDLE} TimerHandle 
-     * @param {Integer} TimerSetInformationClass 
-     * @param {Pointer} TimerSetInformation 
+     * @param {TIMER_SET_INFORMATION_CLASS} TimerSetInformationClass 
+     * @param {Integer} TimerSetInformation 
      * @param {Integer} TimerSetInformationLength 
      * @returns {NTSTATUS} 
      */

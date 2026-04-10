@@ -3,9 +3,8 @@
 
 /**
  * @namespace Windows.Win32.System.Diagnostics.Debug
- * @version v4.0.30319
  */
-class MINIDUMP_THREAD_INFO_DUMP_FLAGS extends Win32Enum{
+class MINIDUMP_THREAD_INFO_DUMP_FLAGS extends Win32Enum {
 
     /**
      * @type {Integer (UInt32)}

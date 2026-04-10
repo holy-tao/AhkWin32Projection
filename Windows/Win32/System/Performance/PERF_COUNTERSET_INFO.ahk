@@ -7,17 +7,15 @@
  * The memory block for this structure also contains one or more <a href="https://docs.microsoft.com/windows/desktop/api/perflib/ns-perflib-perf_counter_info">PERF_COUNTER_INFO</a> structures. The <b>NumCounter</b> member determines the number of <b>PERF_COUNTER_INFO</b> structures that follow this structure in memory.
  * @see https://learn.microsoft.com/windows/win32/api/perflib/ns-perflib-perf_counterset_info
  * @namespace Windows.Win32.System.Performance
- * @version v4.0.30319
  */
-class PERF_COUNTERSET_INFO extends Win32Struct
-{
+class PERF_COUNTERSET_INFO extends Win32Struct {
     static sizeof => 24
 
     static packingSize => 8
 
     /**
      * GUID that uniquely identifies the counter set. The <b>guid</b> attribute of the <a href="https://docs.microsoft.com/windows/desktop/PerfCtrs/performance-counters-counterset--provider--element">counterSet</a> element contains the GUID.
-     * @type {Pointer<Guid>}
+     * @type {Pointer}
      */
     CounterSetGuid {
         get => NumGet(this, 0, "ptr")
@@ -26,7 +24,7 @@ class PERF_COUNTERSET_INFO extends Win32Struct
 
     /**
      * GUID that uniquely identifies the provider that supports the counter set. The <b>providerGuid</b> attribute of the <a href="https://docs.microsoft.com/previous-versions/aa373164(v=vs.85)">provider</a> element contains the GUID.
-     * @type {Pointer<Guid>}
+     * @type {Pointer}
      */
     ProviderGuid {
         get => NumGet(this, 8, "ptr")

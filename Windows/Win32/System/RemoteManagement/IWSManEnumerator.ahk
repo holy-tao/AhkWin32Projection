@@ -1,8 +1,8 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
-#Include ..\..\Foundation\BSTR.ahk
 #Include ..\Com\IDispatch.ahk
+#Include ..\..\Foundation\BSTR.ahk
 
 /**
  * Represents a stream of results returned from operations such as a WS-Management protocol WS-Enumeration:Enumerate operation.
@@ -14,9 +14,8 @@
  * Be aware that freeing the enumeration object clears pending enumeration requests.
  * @see https://learn.microsoft.com/windows/win32/api/wsmandisp/nn-wsmandisp-iwsmanenumerator
  * @namespace Windows.Win32.System.RemoteManagement
- * @version v4.0.30319
  */
-class IWSManEnumerator extends IDispatch{
+class IWSManEnumerator extends IDispatch {
 
     static sizeof => A_PtrSize
     /**

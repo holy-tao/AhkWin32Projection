@@ -6,10 +6,8 @@
  * Specifies information about a series of fingerprint or palm samples.
  * @see https://learn.microsoft.com/windows/win32/SecBioMet/winbio-bdb-ansi-381-header
  * @namespace Windows.Win32.Devices.BiometricFramework
- * @version v4.0.30319
  */
-class WINBIO_BDB_ANSI_381_HEADER extends Win32Struct
-{
+class WINBIO_BDB_ANSI_381_HEADER extends Win32Struct {
     static sizeof => 40
 
     static packingSize => 8
@@ -45,7 +43,7 @@ class WINBIO_BDB_ANSI_381_HEADER extends Win32Struct
      * A [**WINBIO\_REGISTERED\_FORMAT**](winbio-registered-format.md) structure that contains the registered data format as an owner/type pair.
      * @type {WINBIO_REGISTERED_FORMAT}
      */
-    ProductId{
+    ProductId {
         get {
             if(!this.HasProp("__ProductId"))
                 this.__ProductId := WINBIO_REGISTERED_FORMAT(16, this)
@@ -144,7 +142,6 @@ class WINBIO_BDB_ANSI_381_HEADER extends Win32Struct
     }
 
     /**
-     * 
      * @type {Integer}
      */
     Reserved {

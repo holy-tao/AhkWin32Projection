@@ -23,10 +23,8 @@
  * By default, all categories map to non-compliant (FALSE).
  * @see https://learn.microsoft.com/windows/win32/api/naptypes/ns-naptypes-failurecategorymapping
  * @namespace Windows.Win32.Security.NetworkAccessProtection
- * @version v4.0.30319
  */
-class FailureCategoryMapping extends Win32Struct
-{
+class FailureCategoryMapping extends Win32Struct {
     static sizeof => 20
 
     static packingSize => 4
@@ -38,7 +36,7 @@ class FailureCategoryMapping extends Win32Struct
      * <div> </div>
      * @type {Array<BOOL>}
      */
-    mappingCompliance{
+    mappingCompliance {
         get {
             if(!this.HasProp("__mappingComplianceProxyArray"))
                 this.__mappingComplianceProxyArray := Win32FixedArray(this.ptr + 0, 5, Primitive, "int")

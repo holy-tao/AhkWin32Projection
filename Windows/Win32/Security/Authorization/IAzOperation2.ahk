@@ -1,17 +1,15 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
-#Include ..\..\Foundation\BSTR.ahk
-#Include .\IAzRoleAssignments.ahk
 #Include .\IAzOperation.ahk
+#Include .\IAzRoleAssignments.ahk
 
 /**
  * Extends the IAzOperation with a method that returns the role assignments associated with the operation.
  * @see https://learn.microsoft.com/windows/win32/api/azroles/nn-azroles-iazoperation2
  * @namespace Windows.Win32.Security.Authorization
- * @version v4.0.30319
  */
-class IAzOperation2 extends IAzOperation{
+class IAzOperation2 extends IAzOperation {
 
     static sizeof => A_PtrSize
     /**

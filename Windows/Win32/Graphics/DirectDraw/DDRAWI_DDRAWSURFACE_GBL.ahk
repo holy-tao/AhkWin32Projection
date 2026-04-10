@@ -1,14 +1,15 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
+#Include .\ACCESSRECTLIST.ahk
+#Include .\VMEMHEAP.ahk
+#Include .\DDRAWI_DIRECTDRAW_GBL.ahk
 #Include .\DDPIXELFORMAT.ahk
 
 /**
  * @namespace Windows.Win32.Graphics.DirectDraw
- * @version v4.0.30319
  */
-class DDRAWI_DDRAWSURFACE_GBL extends Win32Struct
-{
-    static sizeof => 104
+class DDRAWI_DDRAWSURFACE_GBL extends Win32Struct {
+    static sizeof => 96
 
     static packingSize => 8
 
@@ -72,81 +73,81 @@ class DDRAWI_DDRAWSURFACE_GBL extends Win32Struct
      * @type {Pointer<DDRAWI_DIRECTDRAW_GBL>}
      */
     lpDD {
-        get => NumGet(this, 32, "ptr")
-        set => NumPut("ptr", value, this, 32)
+        get => NumGet(this, 24, "ptr")
+        set => NumPut("ptr", value, this, 24)
     }
 
     /**
      * @type {Pointer<Void>}
      */
     lpDDHandle {
-        get => NumGet(this, 32, "ptr")
-        set => NumPut("ptr", value, this, 32)
+        get => NumGet(this, 24, "ptr")
+        set => NumPut("ptr", value, this, 24)
     }
 
     /**
      * @type {Pointer}
      */
     fpVidMem {
-        get => NumGet(this, 40, "ptr")
-        set => NumPut("ptr", value, this, 40)
+        get => NumGet(this, 32, "ptr")
+        set => NumPut("ptr", value, this, 32)
     }
 
     /**
      * @type {Integer}
      */
     lPitch {
-        get => NumGet(this, 48, "int")
-        set => NumPut("int", value, this, 48)
+        get => NumGet(this, 40, "int")
+        set => NumPut("int", value, this, 40)
     }
 
     /**
      * @type {Integer}
      */
     dwLinearSize {
-        get => NumGet(this, 48, "uint")
-        set => NumPut("uint", value, this, 48)
+        get => NumGet(this, 40, "uint")
+        set => NumPut("uint", value, this, 40)
     }
 
     /**
      * @type {Integer}
      */
     wHeight {
-        get => NumGet(this, 52, "ushort")
-        set => NumPut("ushort", value, this, 52)
+        get => NumGet(this, 44, "ushort")
+        set => NumPut("ushort", value, this, 44)
     }
 
     /**
      * @type {Integer}
      */
     wWidth {
-        get => NumGet(this, 54, "ushort")
-        set => NumPut("ushort", value, this, 54)
+        get => NumGet(this, 46, "ushort")
+        set => NumPut("ushort", value, this, 46)
     }
 
     /**
      * @type {Integer}
      */
     dwUsageCount {
-        get => NumGet(this, 56, "uint")
-        set => NumPut("uint", value, this, 56)
+        get => NumGet(this, 48, "uint")
+        set => NumPut("uint", value, this, 48)
     }
 
     /**
      * @type {Pointer}
      */
     dwReserved1 {
-        get => NumGet(this, 64, "ptr")
-        set => NumPut("ptr", value, this, 64)
+        get => NumGet(this, 56, "ptr")
+        set => NumPut("ptr", value, this, 56)
     }
 
     /**
      * @type {DDPIXELFORMAT}
      */
-    ddpfSurface{
+    ddpfSurface {
         get {
             if(!this.HasProp("__ddpfSurface"))
-                this.__ddpfSurface := DDPIXELFORMAT(72, this)
+                this.__ddpfSurface := DDPIXELFORMAT(64, this)
             return this.__ddpfSurface
         }
     }

@@ -1,17 +1,16 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
+#Include ..\..\System\Com\IUnknown.ahk
 #Include .\LIFE_TIME.ahk
 #Include ..\..\Foundation\FILETIME.ahk
-#Include ..\..\System\Com\IUnknown.ahk
 
 /**
  * The INetDiagHelper interface provides methods that capture and provide information associated with diagnoses and resolution of network-related issues.
  * @see https://learn.microsoft.com/windows/win32/api/ndhelper/nn-ndhelper-inetdiaghelper
  * @namespace Windows.Win32.NetworkManagement.NetworkDiagnosticsFramework
- * @version v4.0.30319
  */
-class INetDiagHelper extends IUnknown{
+class INetDiagHelper extends IUnknown {
 
     static sizeof => A_PtrSize
     /**
@@ -225,7 +224,7 @@ class INetDiagHelper extends IUnknown{
      * @param {PWSTR} pwszInstanceDescription A pointer to a null-terminated string containing the user-friendly description of the information being diagnosed.  For example, if a class were to diagnosis a connectivity issue with an IP address, the <i>pwszInstanceDescription</i> parameter would contain the host name.
      * @param {Pointer<PWSTR>} ppwszDescription A pointer to a null-terminated string containing the description of the issue found if the component is found to be unhealthy.
      * @param {Pointer<Integer>} pDeferredTime A pointer to the time, in seconds, to be deferred if the diagnosis cannot be started immediately.  This is used when the <i>pStatus</i> parameter is set to <b>DS_DEFERRED</b>.
-     * @param {Pointer<Integer>} pStatus A pointer to the <a href="https://docs.microsoft.com/windows/desktop/api/ndhelper/ne-ndhelper-diagnosis_status">DIAGNOSIS_STATUS</a> that is returned from the diagnosis.
+     * @param {Pointer<DIAGNOSIS_STATUS>} pStatus A pointer to the <a href="https://docs.microsoft.com/windows/desktop/api/ndhelper/ne-ndhelper-diagnosis_status">DIAGNOSIS_STATUS</a> that is returned from the diagnosis.
      * @returns {HRESULT} <table>
      * <tr>
      * <th>Return code</th>
@@ -310,7 +309,7 @@ class INetDiagHelper extends IUnknown{
      * @param {PWSTR} pwszInstanceDescription A pointer to a null-terminated string containing the user-friendly description of the information being diagnosed.  For example, if a class were to diagnosis a connectivity issue with an IP address, the <i>pwszInstanceDescription</i> parameter would contain the host name.
      * @param {Pointer<PWSTR>} ppwszDescription A pointer to a null-terminated string containing the description of high utilization diagnosis result.
      * @param {Pointer<Integer>} pDeferredTime A pointer to the time, in seconds, to be deferred if the diagnosis cannot be started immediately. This is used when the <i>pStatus</i> parameter is set to <b>DS_DEFERRED</b>.
-     * @param {Pointer<Integer>} pStatus A pointer to the <a href="https://docs.microsoft.com/windows/desktop/api/ndhelper/ne-ndhelper-diagnosis_status">DIAGNOSIS_STATUS</a> that is returned from the diagnosis.
+     * @param {Pointer<DIAGNOSIS_STATUS>} pStatus A pointer to the <a href="https://docs.microsoft.com/windows/desktop/api/ndhelper/ne-ndhelper-diagnosis_status">DIAGNOSIS_STATUS</a> that is returned from the diagnosis.
      * @returns {HRESULT} <table>
      * <tr>
      * <th>Return code</th>
@@ -769,7 +768,7 @@ class INetDiagHelper extends IUnknown{
      * This method is not required when building a Helper Class Extension.
      * @param {Pointer<RepairInfo>} pInfo A pointer to a <a href="https://docs.microsoft.com/windows/desktop/api/ndattrib/ns-ndattrib-repairinfo">RepairInfo</a> structure.
      * @param {Pointer<Integer>} pDeferredTime A pointer to the time, in seconds, to be deferred if the repair cannot be started immediately. This is only valid when the pStatus parameter is set to <b>DS_DEFERRED</b>.
-     * @param {Pointer<Integer>} pStatus A pointer to the <a href="https://docs.microsoft.com/windows/desktop/api/ndhelper/ne-ndhelper-repair_status">REPAIR_STATUS</a> that is returned from the repair.
+     * @param {Pointer<REPAIR_STATUS>} pStatus A pointer to the <a href="https://docs.microsoft.com/windows/desktop/api/ndhelper/ne-ndhelper-repair_status">REPAIR_STATUS</a> that is returned from the repair.
      * @returns {HRESULT} <table>
      * <tr>
      * <th>Return code</th>
@@ -861,9 +860,9 @@ class INetDiagHelper extends IUnknown{
      * This method is not required when building a Helper Class Extension.
      * 
      * This method only returns an error code if it encounters failures that impede validation. If necessary, the <i>pStatus</i> parameter is the expected way to communicate that the component is still in low health. <b>DS_REJECTED</b> is used to indicate that the issue has been resolved.
-     * @param {Integer} problem The <a href="https://docs.microsoft.com/windows/desktop/api/ndhelper/ne-ndhelper-problem_type">PROBLEM_TYPE</a> that the helper class has previously diagnosed.
+     * @param {PROBLEM_TYPE} problem The <a href="https://docs.microsoft.com/windows/desktop/api/ndhelper/ne-ndhelper-problem_type">PROBLEM_TYPE</a> that the helper class has previously diagnosed.
      * @param {Pointer<Integer>} pDeferredTime A pointer to the time to be deferred, in seconds, if the diagnosis cannot be started immediately. This is used only when the pStatus member is set to <b>DS_DEFERRED</b>.
-     * @param {Pointer<Integer>} pStatus A pointer to the <a href="https://docs.microsoft.com/windows/desktop/api/ndhelper/ne-ndhelper-diagnosis_status">DIAGNOSIS_STATUS</a> that is returned from the diagnosis.
+     * @param {Pointer<REPAIR_STATUS>} pStatus A pointer to the <a href="https://docs.microsoft.com/windows/desktop/api/ndhelper/ne-ndhelper-diagnosis_status">DIAGNOSIS_STATUS</a> that is returned from the diagnosis.
      * @returns {HRESULT} <table>
      * <tr>
      * <th>Return code</th>
@@ -953,7 +952,7 @@ class INetDiagHelper extends IUnknown{
      * Retrieves the repair information that the Helper Class Extension has for a given problem type.
      * @remarks
      * This method is not required when building a Helper Class Extension.
-     * @param {Integer} problem A <a href="https://docs.microsoft.com/windows/desktop/api/ndhelper/ne-ndhelper-problem_type">PROBLEM_TYPE</a> value that specifies the problem type that the helper class has previously diagnosed.
+     * @param {PROBLEM_TYPE} problem A <a href="https://docs.microsoft.com/windows/desktop/api/ndhelper/ne-ndhelper-problem_type">PROBLEM_TYPE</a> value that specifies the problem type that the helper class has previously diagnosed.
      * @param {Pointer<Integer>} pcelt A pointer to a count of elements in the <b>RepairInfo</b> array.
      * @param {Pointer<Pointer<RepairInfo>>} ppInfo A pointer to an array of <a href="https://docs.microsoft.com/windows/desktop/api/ndattrib/ns-ndattrib-repairinfo">RepairInfo</a> structures.
      * @returns {HRESULT} <table>

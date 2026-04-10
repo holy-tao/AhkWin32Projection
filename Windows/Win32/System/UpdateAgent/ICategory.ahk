@@ -1,20 +1,18 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
+#Include ..\Com\IDispatch.ahk
 #Include ..\..\Foundation\BSTR.ahk
 #Include .\ICategoryCollection.ahk
 #Include .\IImageInformation.ahk
-#Include .\ICategory.ahk
 #Include .\IUpdateCollection.ahk
-#Include ..\Com\IDispatch.ahk
 
 /**
  * Represents the category to which an update belongs.
  * @see https://learn.microsoft.com/windows/win32/api/wuapi/nn-wuapi-icategory
  * @namespace Windows.Win32.System.UpdateAgent
- * @version v4.0.30319
  */
-class ICategory extends IDispatch{
+class ICategory extends IDispatch {
 
     static sizeof => A_PtrSize
     /**

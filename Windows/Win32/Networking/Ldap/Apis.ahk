@@ -3,7 +3,6 @@
 
 /**
  * @namespace Windows.Win32.Networking.Ldap
- * @version v4.0.30319
  */
 class Ldap {
 
@@ -7182,7 +7181,7 @@ class Ldap {
      * 
      * > [!NOTE]
      * > The winldap.h header defines ldap_parse_result as an alias which automatically selects the ANSI or Unicode version of this function based on the definition of the UNICODE preprocessor constant. Mixing usage of the encoding-neutral alias with code that not encoding-neutral can lead to mismatches that result in compilation or runtime errors. For more information, see [Conventions for Function Prototypes](/windows/win32/intl/conventions-for-function-prototypes).
-     * @param {Pointer<LDAP>} _Connection 
+     * @param {Pointer<LDAP>} _Connection The session handle.
      * @param {Pointer<LDAPMessage>} ResultMessage The result of an LDAP operation as returned by one of the synchronous operation calls or by 
      * <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/winldap/nf-winldap-ldap_result">ldap_result</a> for an asynchronous operation.
      * @param {Pointer<Integer>} ReturnCode Indicates the outcome of the server operation that generated the original result message. Pass <b>NULL</b> to ignore this field.
@@ -7219,7 +7218,7 @@ class Ldap {
      * <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/winldap/nf-winldap-ldap_memfree">ldap_memfree</a>. Free the <i>Referrals</i> array by calling 
      * <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/winldap/nf-winldap-ldap_value_free">ldap_value_free</a>. Free the <i>ServerControls</i> by calling 
      * <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/winldap/nf-winldap-ldap_controls_free">ldap_controls_free</a>.
-     * @param {Pointer<LDAP>} _Connection 
+     * @param {Pointer<LDAP>} _Connection The session handle.
      * @param {Pointer<LDAPMessage>} ResultMessage The result of an LDAP operation as returned by one of the synchronous operation calls or by 
      * <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/winldap/nf-winldap-ldap_result">ldap_result</a> for an asynchronous operation.
      * @param {Pointer<Integer>} ReturnCode Indicates the outcome of the server operation that generated the original result message. Pass <b>NULL</b> to ignore this field.
@@ -7260,7 +7259,7 @@ class Ldap {
      * 
      * > [!NOTE]
      * > The winldap.h header defines ldap_parse_extended_result as an alias which automatically selects the ANSI or Unicode version of this function based on the definition of the UNICODE preprocessor constant. Mixing usage of the encoding-neutral alias with code that not encoding-neutral can lead to mismatches that result in compilation or runtime errors. For more information, see [Conventions for Function Prototypes](/windows/win32/intl/conventions-for-function-prototypes).
-     * @param {Pointer<LDAP>} _Connection 
+     * @param {Pointer<LDAP>} _Connection The session handle.
      * @param {Pointer<LDAPMessage>} ResultMessage A pointer to an 
      * <a href="https://docs.microsoft.com/windows/desktop/api/winldap/ns-winldap-ldapmessage">LDAPMessage</a> structure as returned by 
      * <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/winldap/nf-winldap-ldap_result">ldap_result</a> in response to an extended operation request.
@@ -7299,7 +7298,7 @@ class Ldap {
      * 
      * > [!NOTE]
      * > The winldap.h header defines ldap_parse_extended_result as an alias which automatically selects the ANSI or Unicode version of this function based on the definition of the UNICODE preprocessor constant. Mixing usage of the encoding-neutral alias with code that not encoding-neutral can lead to mismatches that result in compilation or runtime errors. For more information, see [Conventions for Function Prototypes](/windows/win32/intl/conventions-for-function-prototypes).
-     * @param {Pointer<LDAP>} _Connection 
+     * @param {Pointer<LDAP>} _Connection The session handle.
      * @param {Pointer<LDAPMessage>} ResultMessage A pointer to an 
      * <a href="https://docs.microsoft.com/windows/win32/api/winldap/ns-winldap-ldapmessage">LDAPMessage</a> structure as returned by 
      * <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/winldap/nf-winldap-ldap_result">ldap_result</a> in response to an extended operation request.
@@ -7479,7 +7478,7 @@ class Ldap {
      * <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/winldap/nf-winldap-ldap_memfree">ldap_memfree</a>. Free the <i>Referrals</i> array by calling 
      * <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/winldap/nf-winldap-ldap_value_free">ldap_value_free</a>. Free the <i>ServerControls</i> by calling 
      * <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/winldap/nf-winldap-ldap_controls_free">ldap_controls_free</a>.
-     * @param {Pointer<LDAP>} _Connection 
+     * @param {Pointer<LDAP>} _Connection The session handle.
      * @param {Pointer<LDAPMessage>} ResultMessage The result of an LDAP operation as returned by one of the synchronous operation calls or by 
      * <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/winldap/nf-winldap-ldap_result">ldap_result</a> for an asynchronous operation.
      * @param {Pointer<Integer>} ReturnCode Indicates the outcome of the server operation that generated the original result message. Pass <b>NULL</b> to ignore this field.
@@ -7637,7 +7636,7 @@ class Ldap {
     /**
      * Obsolete function. It exists only for compatibility.
      * @param {Pointer<LDAP>} ld Session handle.
-     * @param {PSTR} _msg 
+     * @param {PSTR} _msg A message.
      * @returns {String} Nothing - always returns an empty string
      * @see https://learn.microsoft.com/windows/win32/api/winldap/nf-winldap-ldap_perror
      * @since windows6.0.6000
@@ -8696,7 +8695,7 @@ class Ldap {
      * <div class="alert"><b>Warning</b>  The <b>ldap_cleanup</b> function may cause 
      *     unpredictable behavior at the DLL unload time.  Use is not recommended and is at your own risk.</div>
      * <div> </div>
-     * @param {HANDLE} _hInstance 
+     * @param {HANDLE} _hInstance This parameter is ignored.
      * @returns {Integer} If the function succeeds, the return value is <b>LDAP_SUCCESS</b>.
      * 
      * If the function fails, it returns an error code. For more information, see 
@@ -8726,9 +8725,9 @@ class Ldap {
      * 
      * > [!NOTE]
      * > The winldap.h header defines ldap_escape_filter_element as an alias which automatically selects the ANSI or Unicode version of this function based on the definition of the UNICODE preprocessor constant. Mixing usage of the encoding-neutral alias with code that not encoding-neutral can lead to mismatches that result in compilation or runtime errors. For more information, see [Conventions for Function Prototypes](/windows/win32/intl/conventions-for-function-prototypes).
-     * @param {Pointer} sourceFilterElement A pointer to a null-terminated string that contains the filter element to convert.
+     * @param {Integer} sourceFilterElement A pointer to a null-terminated string that contains the filter element to convert.
      * @param {Integer} sourceLength The length, in bytes, of the source filter element.
-     * @param {Pointer} destFilterElement A pointer to a null-terminated character string.
+     * @param {Integer} destFilterElement A pointer to a null-terminated character string.
      * @param {Integer} destLength The length, in bytes, of the <i>destFilterElement</i> buffer.
      * @returns {Integer} If the function succeeds, the return value is <b>LDAP_SUCCESS</b>.
      * 
@@ -8751,9 +8750,9 @@ class Ldap {
      * 
      * <div class="alert"><b>Note</b>  Do not call <b>ldap_escape_filter_element</b> for attribute values that are strings, as the run time does not perform any conversion from UTF-8 format. Use this function only for attribute elements that are raw binary data.</div>
      * <div> </div>
-     * @param {Pointer} sourceFilterElement A pointer to a null-terminated string that contains the filter element to convert.
+     * @param {Integer} sourceFilterElement A pointer to a null-terminated string that contains the filter element to convert.
      * @param {Integer} sourceLength The length, in bytes, of the source filter element.
-     * @param {Pointer} destFilterElement A pointer to a null-terminated character string.
+     * @param {Integer} destFilterElement A pointer to a null-terminated character string.
      * @param {Integer} destLength The length, in bytes, of the <i>destFilterElement</i> buffer.
      * @returns {Integer} If the function succeeds, the return value is <b>LDAP_SUCCESS</b>.
      * 
@@ -8776,9 +8775,9 @@ class Ldap {
      * 
      * <div class="alert"><b>Note</b>  Do not call <b>ldap_escape_filter_element</b> for attribute values that are strings, as the run time does not perform any conversion from UTF-8 format. Use this function only for attribute elements that are raw binary data.</div>
      * <div> </div>
-     * @param {Pointer} sourceFilterElement A pointer to a null-terminated string that contains the filter element to convert.
+     * @param {Integer} sourceFilterElement A pointer to a null-terminated string that contains the filter element to convert.
      * @param {Integer} sourceLength The length, in bytes, of the source filter element.
-     * @param {Pointer} destFilterElement A pointer to a null-terminated character string.
+     * @param {Integer} destFilterElement A pointer to a null-terminated character string.
      * @param {Integer} destLength The length, in bytes, of the <i>destFilterElement</i> buffer.
      * @returns {Integer} If the function succeeds, the return value is <b>LDAP_SUCCESS</b>.
      * 
@@ -9642,7 +9641,7 @@ class Ldap {
      * <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/winldap/nf-winldap-ldap_parse_result">ldap_parse_result</a>.
      * @param {Pointer<Integer>} TargetPos The numeric position of the target entry in the result set list, as provided by the targetPosition element of the BER-encoded response control (<a href="https://docs.microsoft.com/previous-versions/windows/desktop/ldap/ldap-control-vlvresponse">LDAP_CONTROL_VLVRESPONSE</a>). If this parameter is <b>NULL</b>, the target position is not returned.
      * @param {Pointer<Integer>} ListCount The server estimate of the number of entries in the list as provided by the contentCount element of the BER-encoded response control (<a href="https://docs.microsoft.com/previous-versions/windows/desktop/ldap/ldap-control-vlvresponse">LDAP_CONTROL_VLVRESPONSE</a>). If this parameter is <b>NULL</b>, the size is not returned.
-     * @param {Pointer<Pointer<LDAP_BERVAL>>} _Context 
+     * @param {Pointer<Pointer<LDAP_BERVAL>>} _Context The server-generated context identifier. If the server does not return a context identifier, this parameter will be set to <b>NULL</b>. If <b>NULL</b> is passed for contextp, the context identifier is not returned.
      * @param {Pointer<Integer>} ErrCode The VLV result code, as provided by the virtualListViewResult element of the BER-encoded response control (<a href="https://docs.microsoft.com/previous-versions/windows/desktop/ldap/ldap-control-vlvresponse">LDAP_CONTROL_VLVRESPONSE</a>). If this parameter is <b>NULL</b>, the result code is not returned.
      * @returns {Integer} This function returns an 
      * <a href="https://docs.microsoft.com/previous-versions/windows/desktop/ldap/return-values">LDAP error code</a> that indicates whether a VLV result control was found and parsed successfully. <b>LDAP_SUCCESS</b> is returned if all goes well, <b>LDAP_CONTROL_MISSING</b> is returned if the <i>ctrls</i> array does not include a response control (<a href="https://docs.microsoft.com/previous-versions/windows/desktop/ldap/ldap-control-vlvresponse">LDAP_CONTROL_VLVRESPONSE</a>), and another LDAP error code is returned if a parsing error or other issue occurs.
@@ -9698,7 +9697,7 @@ class Ldap {
      * <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/winldap/nf-winldap-ldap_parse_result">ldap_parse_result</a>.
      * @param {Pointer<Integer>} TargetPos The numeric position of the target entry in the result set list, as provided by the targetPosition element of the BER-encoded response control (<a href="https://docs.microsoft.com/previous-versions/windows/desktop/ldap/ldap-control-vlvresponse">LDAP_CONTROL_VLVRESPONSE</a>). If this parameter is <b>NULL</b>, the target position is not returned.
      * @param {Pointer<Integer>} ListCount The server estimate of the number of entries in the list as provided by the contentCount element of the BER-encoded response control (<a href="https://docs.microsoft.com/previous-versions/windows/desktop/ldap/ldap-control-vlvresponse">LDAP_CONTROL_VLVRESPONSE</a>). If this parameter is <b>NULL</b>, the size is not returned.
-     * @param {Pointer<Pointer<LDAP_BERVAL>>} _Context 
+     * @param {Pointer<Pointer<LDAP_BERVAL>>} _Context The server-generated context identifier. If the server does not return a context identifier, this parameter will be set to <b>NULL</b>. If <b>NULL</b> is passed for contextp, the context identifier is not returned.
      * @param {Pointer<Integer>} ErrCode The VLV result code, as provided by the virtualListViewResult element of the BER-encoded response control (<a href="https://docs.microsoft.com/previous-versions/windows/desktop/ldap/ldap-control-vlvresponse">LDAP_CONTROL_VLVRESPONSE</a>). If this parameter is <b>NULL</b>, the result code is not returned.
      * @returns {Integer} This function returns an 
      * <a href="https://docs.microsoft.com/previous-versions/windows/desktop/ldap/return-values">LDAP error code</a> that indicates whether a VLV result control was found and parsed successfully. <b>LDAP_SUCCESS</b> is returned if all goes well, <b>LDAP_CONTROL_MISSING</b> is returned if the <i>ctrls</i> array does not include a response control (<a href="https://docs.microsoft.com/previous-versions/windows/desktop/ldap/ldap-control-vlvresponse">LDAP_CONTROL_VLVRESPONSE</a>), and another LDAP error code is returned if a parsing error or other issue occurs.
@@ -9902,7 +9901,7 @@ class Ldap {
      * 
      * > [!NOTE]
      * > The winldap.h header defines ldap_parse_reference as an alias which automatically selects the ANSI or Unicode version of this function based on the definition of the UNICODE preprocessor constant. Mixing usage of the encoding-neutral alias with code that not encoding-neutral can lead to mismatches that result in compilation or runtime errors. For more information, see [Conventions for Function Prototypes](/windows/win32/intl/conventions-for-function-prototypes).
-     * @param {Pointer<LDAP>} _Connection 
+     * @param {Pointer<LDAP>} _Connection The session handle.
      * @param {Pointer<LDAPMessage>} ResultMessage A pointer to an 
      * <a href="https://docs.microsoft.com/windows/desktop/api/winldap/ns-winldap-ldapmessage">LDAPMessage</a> structure containing the search response.
      * @param {Pointer<Pointer<PWSTR>>} Referrals A pointer to the list of subordinate referrals. Free with <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/winldap/nf-winldap-ldap_value_free">ldap_value_free</a>.
@@ -9928,7 +9927,7 @@ class Ldap {
      * 
      * When it is no longer needed, free the <i>Referrals</i> pointer by calling 
      * <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/winldap/nf-winldap-ldap_value_free">ldap_value_free</a>.
-     * @param {Pointer<LDAP>} _Connection 
+     * @param {Pointer<LDAP>} _Connection The session handle.
      * @param {Pointer<LDAPMessage>} ResultMessage A pointer to an 
      * 
      * <a href="https://docs.microsoft.com/windows/win32/api/winldap/ns-winldap-ldapmessage">LDAPMessage</a> structure containing the search response.
@@ -9956,7 +9955,7 @@ class Ldap {
      * 
      * When it is no longer needed, free the <i>Referrals</i> pointer by calling 
      * <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/winldap/nf-winldap-ldap_value_free">ldap_value_free</a>.
-     * @param {Pointer<LDAP>} _Connection 
+     * @param {Pointer<LDAP>} _Connection The session handle.
      * @param {Pointer<LDAPMessage>} ResultMessage A pointer to an 
      * <a href="https://docs.microsoft.com/windows/win32/api/winldap/ns-winldap-ldapmessage">LDAPMessage</a> structure containing the search response.
      * @param {Pointer<Pointer<PSTR>>} Referrals A pointer to the list of subordinate referrals. Free with <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/winldap/nf-winldap-ldap_value_free">ldap_value_free</a>.
@@ -10233,7 +10232,7 @@ class Ldap {
     /**
      * The LdapMapErrorToWin32 function translates an LdapError value to the closest Win32 error code.
      * @param {Integer} LdapError The error code returned from an LDAP function.
-     * @returns {Integer} Returns the corresponding Win32 error code.
+     * @returns {WIN32_ERROR} Returns the corresponding Win32 error code.
      * @see https://learn.microsoft.com/windows/win32/api/winldap/nf-winldap-ldapmaperrortowin32
      * @since windows6.0.6000
      */

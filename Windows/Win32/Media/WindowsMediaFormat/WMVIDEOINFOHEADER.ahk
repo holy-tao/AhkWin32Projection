@@ -11,10 +11,8 @@
  * For uncompressed video of 16 or fewer bits per pixel (bpp), additional information is required. You must specify bit fields for 16 bpp and palette information for 8 or fewer bpp video. To convey this information, allocate enough consecutive memory to hold the additional information and copy the data to the memory directly following this structure. When you specify the address and size of this structure in the <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/wmsdkidl/ns-wmsdkidl-wm_media_type">WM_MEDIA_TYPE</a> structure for a stream, include the size of the palette or bit field data.
  * @see https://learn.microsoft.com/windows/win32/api/wmsdkidl/ns-wmsdkidl-wmvideoinfoheader
  * @namespace Windows.Win32.Media.WindowsMediaFormat
- * @version v4.0.30319
  */
-class WMVIDEOINFOHEADER extends Win32Struct
-{
+class WMVIDEOINFOHEADER extends Win32Struct {
     static sizeof => 88
 
     static packingSize => 8
@@ -23,7 +21,7 @@ class WMVIDEOINFOHEADER extends Win32Struct
      * <b>RECT</b> structure that specifies the source video window.
      * @type {RECT}
      */
-    rcSource{
+    rcSource {
         get {
             if(!this.HasProp("__rcSource"))
                 this.__rcSource := RECT(0, this)
@@ -35,7 +33,7 @@ class WMVIDEOINFOHEADER extends Win32Struct
      * <b>RECT</b> structure that specifies the destination video window.
      * @type {RECT}
      */
-    rcTarget{
+    rcTarget {
         get {
             if(!this.HasProp("__rcTarget"))
                 this.__rcTarget := RECT(16, this)
@@ -74,7 +72,7 @@ class WMVIDEOINFOHEADER extends Win32Struct
      * <b>BITMAPINFOHEADER</b> structure that contains color and dimension information for the video image bitmap. <b>BITMAPINFOHEADER</b> is a Windows GDI structure.
      * @type {BITMAPINFOHEADER}
      */
-    bmiHeader{
+    bmiHeader {
         get {
             if(!this.HasProp("__bmiHeader"))
                 this.__bmiHeader := BITMAPINFOHEADER(48, this)

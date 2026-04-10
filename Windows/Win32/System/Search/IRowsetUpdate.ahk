@@ -5,9 +5,8 @@
 
 /**
  * @namespace Windows.Win32.System.Search
- * @version v4.0.30319
  */
-class IRowsetUpdate extends IRowsetChange{
+class IRowsetUpdate extends IRowsetChange {
 
     static sizeof => A_PtrSize
     /**

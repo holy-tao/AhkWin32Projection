@@ -1,12 +1,12 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
+#Include .\D3DKMT_DEVICESTATE_TYPE.ahk
+#Include .\D3DKMT_DEVICEEXECUTION_STATE.ahk
 
 /**
  * @namespace Windows.Wdk.Graphics.Direct3D
- * @version v4.0.30319
  */
-class D3DKMT_GETDEVICESTATE extends Win32Struct
-{
+class D3DKMT_GETDEVICESTATE extends Win32Struct {
     static sizeof => 16
 
     static packingSize => 8
@@ -20,7 +20,7 @@ class D3DKMT_GETDEVICESTATE extends Win32Struct
     }
 
     /**
-     * @type {Integer}
+     * @type {D3DKMT_DEVICESTATE_TYPE}
      */
     StateType {
         get => NumGet(this, 4, "int")
@@ -28,7 +28,7 @@ class D3DKMT_GETDEVICESTATE extends Win32Struct
     }
 
     /**
-     * @type {Integer}
+     * @type {D3DKMT_DEVICEEXECUTION_STATE}
      */
     ExecutionState {
         get => NumGet(this, 8, "int")
@@ -36,7 +36,7 @@ class D3DKMT_GETDEVICESTATE extends Win32Struct
     }
 
     /**
-     * @type {Pointer<D3DKMT_DEVICEPRESENT_STATE>}
+     * @type {Pointer}
      */
     PresentState {
         get => NumGet(this, 8, "ptr")
@@ -44,7 +44,7 @@ class D3DKMT_GETDEVICESTATE extends Win32Struct
     }
 
     /**
-     * @type {Pointer<D3DKMT_DEVICERESET_STATE>}
+     * @type {Pointer}
      */
     ResetState {
         get => NumGet(this, 8, "ptr")
@@ -52,7 +52,7 @@ class D3DKMT_GETDEVICESTATE extends Win32Struct
     }
 
     /**
-     * @type {Pointer<D3DKMT_DEVICEPRESENT_STATE_DWM>}
+     * @type {Pointer}
      */
     PresentStateDWM {
         get => NumGet(this, 8, "ptr")
@@ -60,7 +60,7 @@ class D3DKMT_GETDEVICESTATE extends Win32Struct
     }
 
     /**
-     * @type {Pointer<D3DKMT_DEVICEPAGEFAULT_STATE>}
+     * @type {Pointer}
      */
     PageFaultState {
         get => NumGet(this, 8, "ptr")
@@ -68,7 +68,7 @@ class D3DKMT_GETDEVICESTATE extends Win32Struct
     }
 
     /**
-     * @type {Pointer<D3DKMT_DEVICEPRESENT_QUEUE_STATE>}
+     * @type {Pointer}
      */
     PresentQueueState {
         get => NumGet(this, 8, "ptr")

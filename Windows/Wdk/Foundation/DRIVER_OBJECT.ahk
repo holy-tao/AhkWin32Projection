@@ -1,14 +1,15 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\Win32Struct.ahk
+#Include .\DEVICE_OBJECT.ahk
+#Include .\DRIVER_EXTENSION.ahk
 #Include ..\..\Win32\Foundation\UNICODE_STRING.ahk
+#Include .\FAST_IO_DISPATCH.ahk
 
 /**
  * @namespace Windows.Wdk.Foundation
- * @version v4.0.30319
  */
-class DRIVER_OBJECT extends Win32Struct
-{
-    static sizeof => 336
+class DRIVER_OBJECT extends Win32Struct {
+    static sizeof => 328
 
     static packingSize => 8
 
@@ -77,63 +78,60 @@ class DRIVER_OBJECT extends Win32Struct
     }
 
     /**
-     * @type {UNICODE_STRING}
+     * @type {Pointer}
      */
-    DriverName{
-        get {
-            if(!this.HasProp("__DriverName"))
-                this.__DriverName := UNICODE_STRING(56, this)
-            return this.__DriverName
-        }
+    DriverName {
+        get => NumGet(this, 56, "ptr")
+        set => NumPut("ptr", value, this, 56)
     }
 
     /**
      * @type {Pointer<UNICODE_STRING>}
      */
     HardwareDatabase {
-        get => NumGet(this, 72, "ptr")
-        set => NumPut("ptr", value, this, 72)
+        get => NumGet(this, 64, "ptr")
+        set => NumPut("ptr", value, this, 64)
     }
 
     /**
      * @type {Pointer<FAST_IO_DISPATCH>}
      */
     FastIoDispatch {
-        get => NumGet(this, 80, "ptr")
-        set => NumPut("ptr", value, this, 80)
+        get => NumGet(this, 72, "ptr")
+        set => NumPut("ptr", value, this, 72)
     }
 
     /**
      * @type {Pointer<DRIVER_INITIALIZE>}
      */
     DriverInit {
-        get => NumGet(this, 88, "ptr")
-        set => NumPut("ptr", value, this, 88)
+        get => NumGet(this, 80, "ptr")
+        set => NumPut("ptr", value, this, 80)
     }
 
     /**
      * @type {Pointer<DRIVER_STARTIO>}
      */
     DriverStartIo {
-        get => NumGet(this, 96, "ptr")
-        set => NumPut("ptr", value, this, 96)
+        get => NumGet(this, 88, "ptr")
+        set => NumPut("ptr", value, this, 88)
     }
 
     /**
      * @type {Pointer<DRIVER_UNLOAD>}
      */
     DriverUnload {
-        get => NumGet(this, 104, "ptr")
-        set => NumPut("ptr", value, this, 104)
+        get => NumGet(this, 96, "ptr")
+        set => NumPut("ptr", value, this, 96)
     }
 
     /**
-     * @type {Array<DRIVER_DISPATCH>}
+     * @type {Array<Pointer<DRIVER_DISPATCH>>}
      */
-    MajorFunction{
+    MajorFunction {
         get {
             if(!this.HasProp("__MajorFunctionProxyArray"))
-                this.__MajorFunctionProxyArray := Win32FixedArray(this.ptr + 112, 28, Primitive, "ptr")
+                this.__MajorFunctionProxyArray := Win32FixedArray(this.ptr + 104, 28, Primitive, "ptr")
             return this.__MajorFunctionProxyArray
         }
     }

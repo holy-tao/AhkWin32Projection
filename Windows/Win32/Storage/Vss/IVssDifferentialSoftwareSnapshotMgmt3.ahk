@@ -1,8 +1,8 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
-#Include .\VSS_VOLUME_PROTECTION_INFO.ahk
 #Include .\IVssDifferentialSoftwareSnapshotMgmt2.ahk
+#Include .\VSS_VOLUME_PROTECTION_INFO.ahk
 
 /**
  * Defines methods that allow applications to use the shadow copy protection feature of VSS.
@@ -12,9 +12,8 @@
  * When a volume protection fault occurs, the application must call the <a href="https://docs.microsoft.com/windows/desktop/api/vsmgmt/nf-vsmgmt-ivssdifferentialsoftwaresnapshotmgmt3-getvolumeprotectlevel">GetVolumeProtectLevel</a> method for the volume to identify the cause of the fault.
  * @see https://learn.microsoft.com/windows/win32/api/vsmgmt/nn-vsmgmt-ivssdifferentialsoftwaresnapshotmgmt3
  * @namespace Windows.Win32.Storage.Vss
- * @version v4.0.30319
  */
-class IVssDifferentialSoftwareSnapshotMgmt3 extends IVssDifferentialSoftwareSnapshotMgmt2{
+class IVssDifferentialSoftwareSnapshotMgmt3 extends IVssDifferentialSoftwareSnapshotMgmt2 {
 
     static sizeof => A_PtrSize
     /**
@@ -53,7 +52,7 @@ class IVssDifferentialSoftwareSnapshotMgmt3 extends IVssDifferentialSoftwareSnap
      *          </li>
      * <li>A volume GUID path in the form \\?&#92;<i>Volume</i>{<i>GUID</i>}\ (where <i>GUID</i> identifies the volume)</li>
      * </ul>
-     * @param {Integer} protectionLevel A value from the  <a href="https://docs.microsoft.com/windows/desktop/api/vsmgmt/ne-vsmgmt-vss_protection_level">VSS_PROTECTION_LEVEL</a> enumeration that specifies the shadow copy protection level.
+     * @param {VSS_PROTECTION_LEVEL} protectionLevel A value from the  <a href="https://docs.microsoft.com/windows/desktop/api/vsmgmt/ne-vsmgmt-vss_protection_level">VSS_PROTECTION_LEVEL</a> enumeration that specifies the shadow copy protection level.
      * @returns {HRESULT} The following are the valid return codes for this method.
      * 
      * <table>

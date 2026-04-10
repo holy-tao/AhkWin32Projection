@@ -1,18 +1,18 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
+#Include .\IOMMU_MAP_PHYSICAL_ADDRESS_TYPE.ahk
+#Include ..\..\Foundation\MDL.ahk
 
 /**
  * @namespace Windows.Wdk.System.SystemServices
- * @version v4.0.30319
  */
-class IOMMU_MAP_PHYSICAL_ADDRESS extends Win32Struct
-{
+class IOMMU_MAP_PHYSICAL_ADDRESS extends Win32Struct {
     static sizeof => 24
 
     static packingSize => 8
 
     /**
-     * @type {Integer}
+     * @type {IOMMU_MAP_PHYSICAL_ADDRESS_TYPE}
      */
     MapType {
         get => NumGet(this, 0, "int")
@@ -30,7 +30,6 @@ class IOMMU_MAP_PHYSICAL_ADDRESS extends Win32Struct
             get => NumGet(this, 0, "ptr")
             set => NumPut("ptr", value, this, 0)
         }
-    
     }
 
     class _ContiguousRange extends Win32Struct {
@@ -44,7 +43,7 @@ class IOMMU_MAP_PHYSICAL_ADDRESS extends Win32Struct
             get => NumGet(this, 0, "int64")
             set => NumPut("int64", value, this, 0)
         }
-    
+
         /**
          * @type {Pointer}
          */
@@ -52,7 +51,6 @@ class IOMMU_MAP_PHYSICAL_ADDRESS extends Win32Struct
             get => NumGet(this, 8, "ptr")
             set => NumPut("ptr", value, this, 8)
         }
-    
     }
 
     class _PfnArray extends Win32Struct {
@@ -66,7 +64,7 @@ class IOMMU_MAP_PHYSICAL_ADDRESS extends Win32Struct
             get => NumGet(this, 0, "ptr")
             set => NumPut("ptr", value, this, 0)
         }
-    
+
         /**
          * @type {Pointer}
          */
@@ -74,16 +72,15 @@ class IOMMU_MAP_PHYSICAL_ADDRESS extends Win32Struct
             get => NumGet(this, 8, "ptr")
             set => NumPut("ptr", value, this, 8)
         }
-    
     }
 
     /**
      * @type {_Mdl}
      */
-    Mdl{
+    Mdl {
         get {
             if(!this.HasProp("__Mdl"))
-                this.__Mdl := %this.__Class%._Mdl(8, this)
+                this.__Mdl := IOMMU_MAP_PHYSICAL_ADDRESS._Mdl(8, this)
             return this.__Mdl
         }
     }
@@ -91,10 +88,10 @@ class IOMMU_MAP_PHYSICAL_ADDRESS extends Win32Struct
     /**
      * @type {_ContiguousRange}
      */
-    ContiguousRange{
+    ContiguousRange {
         get {
             if(!this.HasProp("__ContiguousRange"))
-                this.__ContiguousRange := %this.__Class%._ContiguousRange(8, this)
+                this.__ContiguousRange := IOMMU_MAP_PHYSICAL_ADDRESS._ContiguousRange(8, this)
             return this.__ContiguousRange
         }
     }
@@ -102,10 +99,10 @@ class IOMMU_MAP_PHYSICAL_ADDRESS extends Win32Struct
     /**
      * @type {_PfnArray}
      */
-    PfnArray{
+    PfnArray {
         get {
             if(!this.HasProp("__PfnArray"))
-                this.__PfnArray := %this.__Class%._PfnArray(8, this)
+                this.__PfnArray := IOMMU_MAP_PHYSICAL_ADDRESS._PfnArray(8, this)
             return this.__PfnArray
         }
     }

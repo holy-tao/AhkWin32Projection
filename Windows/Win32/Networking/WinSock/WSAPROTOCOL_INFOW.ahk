@@ -9,11 +9,9 @@
  * > The winsock2.h header defines WSAPROTOCOL_INFO as an alias which automatically selects the ANSI or Unicode version of this function based on the definition of the UNICODE preprocessor constant. Mixing usage of the encoding-neutral alias with code that not encoding-neutral can lead to mismatches that result in compilation or runtime errors. For more information, see [Conventions for Function Prototypes](/windows/win32/intl/conventions-for-function-prototypes).
  * @see https://learn.microsoft.com/windows/win32/api/winsock2/ns-winsock2-wsaprotocol_infow
  * @namespace Windows.Win32.Networking.WinSock
- * @version v4.0.30319
  * @charset Unicode
  */
-class WSAPROTOCOL_INFOW extends Win32Struct
-{
+class WSAPROTOCOL_INFOW extends Win32Struct {
     static sizeof => 624
 
     static packingSize => 8
@@ -382,7 +380,7 @@ class WSAPROTOCOL_INFOW extends Win32Struct
      * Type: <b>GUID</b>
      * 
      * A globally unique identifier (GUID) assigned to the provider by the service provider vendor. This value is useful for instances where more than one service provider is able to implement a particular protocol. An application can use the <b>ProviderId</b> member to distinguish between providers that might otherwise be indistinguishable.
-     * @type {Pointer<Guid>}
+     * @type {Pointer}
      */
     ProviderId {
         get => NumGet(this, 24, "ptr")
@@ -407,7 +405,7 @@ class WSAPROTOCOL_INFOW extends Win32Struct
      * 						<a href="https://docs.microsoft.com/windows/desktop/api/winsock2/ns-winsock2-wsaprotocolchain">WSAPROTOCOLCHAIN</a> structure associated with the protocol. If the length of the chain is 0, this <a href="https://docs.microsoft.com/windows/desktop/api/winsock2/ns-winsock2-wsaprotocol_infoa">WSAPROTOCOL_INFO</a> entry represents a layered protocol which has Windows Sockets 2 SPI as both its top and bottom edges. If the length of the chain equals 1, this entry represents a base protocol whose Catalog Entry identifier is in the <b>dwCatalogEntryId</b> member of the <b>WSAPROTOCOL_INFO</b> structure. If the length of the chain is larger than 1, this entry represents a protocol chain which consists of one or more layered protocols on top of a base protocol. The corresponding Catalog Entry identifiers are in the ProtocolChain.ChainEntries array starting with the layered protocol at the top (the zero element in the ProtocolChain.ChainEntries array) and ending with the base protocol. Refer to the Windows Sockets 2 Service Provider Interface specification for more information on protocol chains.
      * @type {WSAPROTOCOLCHAIN}
      */
-    ProtocolChain{
+    ProtocolChain {
         get {
             if(!this.HasProp("__ProtocolChain"))
                 this.__ProtocolChain := WSAPROTOCOLCHAIN(36, this)

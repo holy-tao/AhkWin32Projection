@@ -1,8 +1,8 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\..\..\Guid.ahk
-#Include .\IApplicationDebugger.ahk
 #Include ..\..\..\Com\IUnknown.ahk
+#Include .\IApplicationDebugger.ahk
 #Include .\IEnumRemoteDebugApplicationThreads.ahk
 #Include ..\..\..\..\Foundation\BSTR.ahk
 #Include .\IDebugApplicationNode.ahk
@@ -10,9 +10,8 @@
 
 /**
  * @namespace Windows.Win32.System.Diagnostics.Debug.ActiveScript
- * @version v4.0.30319
  */
-class IRemoteDebugApplication extends IUnknown{
+class IRemoteDebugApplication extends IUnknown {
 
     static sizeof => A_PtrSize
     /**
@@ -36,8 +35,8 @@ class IRemoteDebugApplication extends IUnknown{
     /**
      * 
      * @param {IRemoteDebugApplicationThread} prptFocus 
-     * @param {Integer} bra 
-     * @param {Integer} era 
+     * @param {BREAKRESUMEACTION} bra 
+     * @param {ERRORRESUMEACTION} era 
      * @returns {HRESULT} 
      */
     ResumeFromBreakPoint(prptFocus, bra, era) {

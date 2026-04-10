@@ -5,11 +5,9 @@
  * Holds an extra data block used by IShellLinkDataList. It holds expandable environment strings for the icon or target.
  * @see https://learn.microsoft.com/windows/win32/api/shlobj_core/ns-shlobj_core-exp_sz_link
  * @namespace Windows.Win32.UI.Shell
- * @version v4.0.30319
  */
-class EXP_SZ_LINK extends Win32Struct
-{
-    static sizeof => 1048
+class EXP_SZ_LINK extends Win32Struct {
+    static sizeof => 788
 
     static packingSize => 4
 
@@ -40,8 +38,8 @@ class EXP_SZ_LINK extends Win32Struct
      * @type {String}
      */
     szTarget {
-        get => StrGet(this.ptr + 8, 259, "UTF-16")
-        set => StrPut(value, this.ptr + 8, 259, "UTF-16")
+        get => StrGet(this.ptr + 8, 259, "UTF-8")
+        set => StrPut(value, this.ptr + 8, 259, "UTF-8")
     }
 
     /**
@@ -51,12 +49,12 @@ class EXP_SZ_LINK extends Win32Struct
      * @type {String}
      */
     swzTarget {
-        get => StrGet(this.ptr + 528, 259, "UTF-16")
-        set => StrPut(value, this.ptr + 528, 259, "UTF-16")
+        get => StrGet(this.ptr + 268, 259, "UTF-16")
+        set => StrPut(value, this.ptr + 268, 259, "UTF-16")
     }
 
     __New(ptrOrObj := 0, parent := ""){
         super.__New(ptrOrObj, parent)
-        this.cbSize := 1048
+        this.cbSize := 788
     }
 }

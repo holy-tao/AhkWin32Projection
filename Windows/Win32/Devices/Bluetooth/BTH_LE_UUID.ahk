@@ -5,10 +5,8 @@
  * The BTH_LE_UUID structure contains information about a Bluetooth Low Energy (LE) Universally Unique Identifier (UUID).
  * @see https://learn.microsoft.com/windows/win32/api/bthledef/ns-bthledef-bth_le_uuid
  * @namespace Windows.Win32.Devices.Bluetooth
- * @version v4.0.30319
  */
-class BTH_LE_UUID extends Win32Struct
-{
+class BTH_LE_UUID extends Win32Struct {
     static sizeof => 16
 
     static packingSize => 8
@@ -24,15 +22,14 @@ class BTH_LE_UUID extends Win32Struct
             get => NumGet(this, 0, "ushort")
             set => NumPut("ushort", value, this, 0)
         }
-    
+
         /**
-         * @type {Pointer<Guid>}
+         * @type {Pointer}
          */
         LongUuid {
             get => NumGet(this, 0, "ptr")
             set => NumPut("ptr", value, this, 0)
         }
-    
     }
 
     /**
@@ -48,10 +45,10 @@ class BTH_LE_UUID extends Win32Struct
      * The value of the UUID.
      * @type {_Value_e__Union}
      */
-    Value{
+    Value {
         get {
             if(!this.HasProp("__Value"))
-                this.__Value := %this.__Class%._Value_e__Union(8, this)
+                this.__Value := BTH_LE_UUID._Value_e__Union(8, this)
             return this.__Value
         }
     }

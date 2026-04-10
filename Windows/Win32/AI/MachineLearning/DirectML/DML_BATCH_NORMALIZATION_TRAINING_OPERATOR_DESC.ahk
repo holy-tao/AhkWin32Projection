@@ -1,16 +1,14 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\..\Win32Struct.ahk
+#Include .\DML_TENSOR_DESC.ahk
+#Include .\DML_OPERATOR_DESC.ahk
 
 /**
  * The DML_BATCH_NORMALIZATION_TRAINING_OPERATOR_DESC structure (directml.h) performs a batch normalization on the input.
- * @remarks
- * 
  * @see https://learn.microsoft.com/windows/win32/api/directml/ns-directml-dml_batch_normalization_training_operator_desc
  * @namespace Windows.Win32.AI.MachineLearning.DirectML
- * @version v4.0.30319
  */
-class DML_BATCH_NORMALIZATION_TRAINING_OPERATOR_DESC extends Win32Struct
-{
+class DML_BATCH_NORMALIZATION_TRAINING_OPERATOR_DESC extends Win32Struct {
     static sizeof => 72
 
     static packingSize => 8

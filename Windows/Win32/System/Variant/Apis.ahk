@@ -3,7 +3,6 @@
 
 /**
  * @namespace Windows.Win32.System.Variant
- * @version v4.0.30319
  */
 class Variant {
 
@@ -819,7 +818,7 @@ class Variant {
      * <div> </div>
      * @param {Pointer<VARIANT>} pvargDest The destination variant. If this is the same as <i>pvarSrc</i>, the variant will be converted in place.
      * @param {Pointer<VARIANT>} pvarSrc The variant to convert.
-     * @param {Integer} wFlags Flags.
+     * @param {VAR_CHANGE_FLAGS} wFlags Flags.
      * 
      * <table>
      * <tr>
@@ -869,7 +868,7 @@ class Variant {
      * </td>
      * </tr>
      * </table>
-     * @param {Integer} vt The type to convert to. If the return code is S_OK, the <b>vt</b> field of the *<i>pvargDest</i> is guaranteed to be equal to this value.
+     * @param {VARENUM} vt The type to convert to. If the return code is S_OK, the <b>vt</b> field of the *<i>pvargDest</i> is guaranteed to be equal to this value.
      * @returns {HRESULT} This function can return one of these values.
      * 
      * <table>
@@ -971,7 +970,7 @@ class Variant {
      * @param {Pointer<VARIANT>} pvargDest The destination variant. If this is the same as <i>pvarSrc</i>, the variant will be converted in place.
      * @param {Pointer<VARIANT>} pvarSrc The variant to convert.
      * @param {Integer} lcid The locale identifier. The LCID is useful when the type of the source or destination VARIANTARG is VT_BSTR, VT_DISPATCH, or VT_DATE.
-     * @param {Integer} wFlags Flags.
+     * @param {VAR_CHANGE_FLAGS} wFlags Flags.
      * 
      * <table>
      * <tr>
@@ -1021,7 +1020,7 @@ class Variant {
      * </td>
      * </tr>
      * </table>
-     * @param {Integer} vt The type to convert to. If the return code is S_OK, the <b>vt</b> field of the *<i>pvargDest</i> is guaranteed to be equal to this value.
+     * @param {VARENUM} vt The type to convert to. If the return code is S_OK, the <b>vt</b> field of the *<i>pvargDest</i> is guaranteed to be equal to this value.
      * @returns {HRESULT} This function can return one of these values.
      * 
      * <table>
@@ -1137,7 +1136,7 @@ class Variant {
      * Initializes a VARIANT structure with the contents of a buffer.
      * @remarks
      * Creates a VT_ARRAY | VT_UI1 variant..
-     * @param {Pointer} pv Type: <b>const VOID*</b>
+     * @param {Integer} pv Type: <b>const VOID*</b>
      * 
      * Pointer to the source buffer.
      * @param {Integer} cb Type: <b>UINT</b>
@@ -1851,7 +1850,7 @@ class Variant {
      * @param {Pointer<VARIANT>} varIn Type: <b>REFVARIANT</b>
      * 
      * Reference to a source <a href="https://docs.microsoft.com/windows/desktop/api/oaidl/ns-oaidl-variant">VARIANT</a> structure.
-     * @param {Pointer} pv Type: <b>VOID*</b>
+     * @param {Integer} pv Type: <b>VOID*</b>
      * 
      * Pointer to a buffer of length <i>cb</i> bytes. When this function returns, contains the first <i>cb</i> bytes of the extracted buffer value.
      * @param {Integer} cb Type: <b>UINT</b>
@@ -2007,7 +2006,7 @@ class Variant {
      * @param {Pointer<VARIANT>} varIn Type: <b>REFVARIANT</b>
      * 
      * Reference to a source variant structure.
-     * @param {Integer} stfOut Type: <b>PSTIME_FLAGS</b>
+     * @param {PSTIME_FLAGS} stfOut Type: <b>PSTIME_FLAGS</b>
      * 
      * Specifies one of the following time flags:
      * @param {Pointer<FILETIME>} pftOut Type: <b>FILETIME*</b>

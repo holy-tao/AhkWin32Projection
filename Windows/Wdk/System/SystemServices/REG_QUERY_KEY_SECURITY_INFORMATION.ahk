@@ -4,10 +4,8 @@
 
 /**
  * @namespace Windows.Wdk.System.SystemServices
- * @version v4.0.30319
  */
-class REG_QUERY_KEY_SECURITY_INFORMATION extends Win32Struct
-{
+class REG_QUERY_KEY_SECURITY_INFORMATION extends Win32Struct {
     static sizeof => 56
 
     static packingSize => 8
@@ -31,7 +29,7 @@ class REG_QUERY_KEY_SECURITY_INFORMATION extends Win32Struct
     /**
      * @type {PSECURITY_DESCRIPTOR}
      */
-    SecurityDescriptor{
+    SecurityDescriptor {
         get {
             if(!this.HasProp("__SecurityDescriptor"))
                 this.__SecurityDescriptor := PSECURITY_DESCRIPTOR(16, this)

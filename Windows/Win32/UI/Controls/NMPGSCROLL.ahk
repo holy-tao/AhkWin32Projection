@@ -1,17 +1,17 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
-#Include ..\..\Foundation\HWND.ahk
 #Include .\NMHDR.ahk
+#Include ..\..\Foundation\HWND.ahk
+#Include .\NMPGSCROLL_KEYS.ahk
 #Include ..\..\Foundation\RECT.ahk
+#Include .\NMPGSCROLL_DIR.ahk
 
 /**
  * Contains and receives information that the pager control uses when scrolling the contained window. It is used with the PGN_SCROLL notification.
  * @see https://learn.microsoft.com/windows/win32/api/commctrl/ns-commctrl-nmpgscroll
  * @namespace Windows.Win32.UI.Controls
- * @version v4.0.30319
  */
-class NMPGSCROLL extends Win32Struct
-{
+class NMPGSCROLL extends Win32Struct {
     static sizeof => 64
 
     static packingSize => 8
@@ -23,7 +23,7 @@ class NMPGSCROLL extends Win32Struct
      * <a href="https://docs.microsoft.com/windows/desktop/api/richedit/ns-richedit-nmhdr">NMHDR</a> structure that contains information about the notification.
      * @type {NMHDR}
      */
-    hdr{
+    hdr {
         get {
             if(!this.HasProp("__hdr"))
                 this.__hdr := NMHDR(0, this)
@@ -33,7 +33,7 @@ class NMPGSCROLL extends Win32Struct
 
     /**
      * Type: <b><a href="https://docs.microsoft.com/windows/desktop/WinProg/windows-data-types">BOOL</a></b>
-     * @type {Integer}
+     * @type {NMPGSCROLL_KEYS}
      */
     fwKeys {
         get => NumGet(this, 24, "ushort")
@@ -46,7 +46,7 @@ class NMPGSCROLL extends Win32Struct
      * Contains the client rectangle of the pager control.
      * @type {RECT}
      */
-    rcParent{
+    rcParent {
         get {
             if(!this.HasProp("__rcParent"))
                 this.__rcParent := RECT(28, this)
@@ -56,7 +56,7 @@ class NMPGSCROLL extends Win32Struct
 
     /**
      * Type: <b>int</b>
-     * @type {Integer}
+     * @type {NMPGSCROLL_DIR}
      */
     iDir {
         get => NumGet(this, 44, "int")

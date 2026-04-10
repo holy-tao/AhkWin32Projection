@@ -33,10 +33,8 @@
  * For more information about standard and categorized sorting, see [Sorting and Categorization](sorting-and-categorization.md).
  * @see https://learn.microsoft.com/office/client-developer/outlook/mapi/ssortorder
  * @namespace Windows.Win32.System.AddressBook
- * @version v4.0.30319
  */
-class SSortOrder extends Win32Struct
-{
+class SSortOrder extends Win32Struct {
     static sizeof => 8
 
     static packingSize => 4

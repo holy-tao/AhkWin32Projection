@@ -3,10 +3,8 @@
 
 /**
  * @namespace Windows.Win32.Storage.IscsiDisc
- * @version v4.0.30319
  */
-class SRB_IO_CONTROL extends Win32Struct
-{
+class SRB_IO_CONTROL extends Win32Struct {
     static sizeof => 28
 
     static packingSize => 4
@@ -20,9 +18,9 @@ class SRB_IO_CONTROL extends Win32Struct
     }
 
     /**
-     * @type {Array<Byte>}
+     * @type {Array<Integer>}
      */
-    Signature{
+    Signature {
         get {
             if(!this.HasProp("__SignatureProxyArray"))
                 this.__SignatureProxyArray := Win32FixedArray(this.ptr + 4, 8, Primitive, "char")

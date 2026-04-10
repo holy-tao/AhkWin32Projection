@@ -1,14 +1,14 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
-#Include .\RPC_VERSION.ahk
 #Include .\RPC_SYNTAX_IDENTIFIER.ahk
+#Include .\RPC_VERSION.ahk
+#Include .\RPC_DISPATCH_TABLE.ahk
+#Include .\MIDL_INTERFACE_METHOD_PROPERTIES.ahk
 
 /**
  * @namespace Windows.Win32.System.Rpc
- * @version v4.0.30319
  */
-class MIDL_SYNTAX_INFO extends Win32Struct
-{
+class MIDL_SYNTAX_INFO extends Win32Struct {
     static sizeof => 72
 
     static packingSize => 8
@@ -16,7 +16,7 @@ class MIDL_SYNTAX_INFO extends Win32Struct
     /**
      * @type {RPC_SYNTAX_IDENTIFIER}
      */
-    TransferSyntax{
+    TransferSyntax {
         get {
             if(!this.HasProp("__TransferSyntax"))
                 this.__TransferSyntax := RPC_SYNTAX_IDENTIFIER(0, this)

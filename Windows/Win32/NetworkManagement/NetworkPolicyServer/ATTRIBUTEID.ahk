@@ -3,9 +3,8 @@
 
 /**
  * @namespace Windows.Win32.NetworkManagement.NetworkPolicyServer
- * @version v4.0.30319
  */
-class ATTRIBUTEID extends Win32Enum{
+class ATTRIBUTEID extends Win32Enum {
 
     /**
      * @type {Integer (UInt32)}

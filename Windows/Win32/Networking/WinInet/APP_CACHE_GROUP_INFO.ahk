@@ -4,10 +4,8 @@
 
 /**
  * @namespace Windows.Win32.Networking.WinInet
- * @version v4.0.30319
  */
-class APP_CACHE_GROUP_INFO extends Win32Struct
-{
+class APP_CACHE_GROUP_INFO extends Win32Struct {
     static sizeof => 24
 
     static packingSize => 8
@@ -23,7 +21,7 @@ class APP_CACHE_GROUP_INFO extends Win32Struct
     /**
      * @type {FILETIME}
      */
-    ftLastAccessTime{
+    ftLastAccessTime {
         get {
             if(!this.HasProp("__ftLastAccessTime"))
                 this.__ftLastAccessTime := FILETIME(8, this)

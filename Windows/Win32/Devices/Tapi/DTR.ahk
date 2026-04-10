@@ -5,10 +5,8 @@
  * Disables the DTR line when the device is opened and leaves it disabled.
  * @see https://learn.microsoft.com/windows/win32/api/winbase/ns-winbase-dcb
  * @namespace Windows.Win32.Devices.Tapi
- * @version v4.0.30319
  */
-class DTR extends Win32Struct
-{
+class DTR extends Win32Struct {
     static sizeof => 14
 
     static packingSize => 2

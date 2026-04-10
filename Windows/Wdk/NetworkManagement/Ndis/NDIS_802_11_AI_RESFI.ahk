@@ -3,10 +3,8 @@
 
 /**
  * @namespace Windows.Wdk.NetworkManagement.Ndis
- * @version v4.0.30319
  */
-class NDIS_802_11_AI_RESFI extends Win32Struct
-{
+class NDIS_802_11_AI_RESFI extends Win32Struct {
     static sizeof => 6
 
     static packingSize => 2

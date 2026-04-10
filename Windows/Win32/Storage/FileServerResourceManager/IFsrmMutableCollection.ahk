@@ -1,16 +1,14 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
-#Include .\IFsrmMutableCollection.ahk
 #Include .\IFsrmCollection.ahk
 
 /**
  * Used to manage a collection of FSRM objects that can have objects added to or removed from the collection.
  * @see https://learn.microsoft.com/windows/win32/api/fsrm/nn-fsrm-ifsrmmutablecollection
  * @namespace Windows.Win32.Storage.FileServerResourceManager
- * @version v4.0.30319
  */
-class IFsrmMutableCollection extends IFsrmCollection{
+class IFsrmMutableCollection extends IFsrmCollection {
 
     static sizeof => A_PtrSize
     /**

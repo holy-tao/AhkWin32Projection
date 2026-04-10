@@ -4,11 +4,9 @@
 
 /**
  * @namespace Windows.Win32.Media.MediaFoundation
- * @version v4.0.30319
  */
-class D3D12_VIDEO_ENCODER_AV1_SEGMENTATION_CONFIG extends Win32Struct
-{
-    static sizeof => 96
+class D3D12_VIDEO_ENCODER_AV1_SEGMENTATION_CONFIG extends Win32Struct {
+    static sizeof => 608
 
     static packingSize => 8
 
@@ -45,9 +43,9 @@ class D3D12_VIDEO_ENCODER_AV1_SEGMENTATION_CONFIG extends Win32Struct
     }
 
     /**
-     * @type {Array<D3D12_VIDEO_ENCODER_AV1_SEGMENT_DATA>}
+     * @type {D3D12_VIDEO_ENCODER_AV1_SEGMENT_DATA}
      */
-    SegmentsData{
+    SegmentsData {
         get {
             if(!this.HasProp("__SegmentsDataProxyArray"))
                 this.__SegmentsDataProxyArray := Win32FixedArray(this.ptr + 32, 8, D3D12_VIDEO_ENCODER_AV1_SEGMENT_DATA, "")

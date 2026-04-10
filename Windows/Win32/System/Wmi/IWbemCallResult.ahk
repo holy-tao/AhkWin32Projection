@@ -1,18 +1,17 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
+#Include ..\Com\IUnknown.ahk
 #Include .\IWbemClassObject.ahk
 #Include ..\..\Foundation\BSTR.ahk
 #Include .\IWbemServices.ahk
-#Include ..\Com\IUnknown.ahk
 
 /**
  * Used for semisynchronous calls of the IWbemServices interface. When making such calls, the called IWbemServices method returns immediately, along with an IWbemCallResult object.
  * @see https://learn.microsoft.com/windows/win32/api/wbemcli/nn-wbemcli-iwbemcallresult
  * @namespace Windows.Win32.System.Wmi
- * @version v4.0.30319
  */
-class IWbemCallResult extends IUnknown{
+class IWbemCallResult extends IUnknown {
 
     static sizeof => A_PtrSize
     /**

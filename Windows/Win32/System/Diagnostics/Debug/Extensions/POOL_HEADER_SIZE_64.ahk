@@ -3,10 +3,8 @@
 
 /**
  * @namespace Windows.Win32.System.Diagnostics.Debug.Extensions
- * @version v4.0.30319
  */
-class POOL_HEADER_SIZE_64 extends Win32Struct
-{
+class POOL_HEADER_SIZE_64 extends Win32Struct {
     static sizeof => 8
 
     static packingSize => 4

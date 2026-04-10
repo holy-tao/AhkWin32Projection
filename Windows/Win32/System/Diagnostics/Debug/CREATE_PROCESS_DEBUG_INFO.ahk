@@ -6,10 +6,8 @@
  * Contains process creation information that can be used by a debugger.
  * @see https://learn.microsoft.com/windows/win32/api/minwinbase/ns-minwinbase-create_process_debug_info
  * @namespace Windows.Win32.System.Diagnostics.Debug
- * @version v4.0.30319
  */
-class CREATE_PROCESS_DEBUG_INFO extends Win32Struct
-{
+class CREATE_PROCESS_DEBUG_INFO extends Win32Struct {
     static sizeof => 72
 
     static packingSize => 8
@@ -22,7 +20,7 @@ class CREATE_PROCESS_DEBUG_INFO extends Win32Struct
      *        <a href="https://docs.microsoft.com/windows/desktop/api/handleapi/nf-handleapi-closehandle">CloseHandle</a> function.
      * @type {HANDLE}
      */
-    hFile{
+    hFile {
         get {
             if(!this.HasProp("__hFile"))
                 this.__hFile := HANDLE(0, this)
@@ -35,7 +33,7 @@ class CREATE_PROCESS_DEBUG_INFO extends Win32Struct
      *       Otherwise, the debugger can use the member to read from and write to the process's memory.
      * @type {HANDLE}
      */
-    hProcess{
+    hProcess {
         get {
             if(!this.HasProp("__hProcess"))
                 this.__hProcess := HANDLE(8, this)
@@ -52,7 +50,7 @@ class CREATE_PROCESS_DEBUG_INFO extends Win32Struct
      *       the thread.
      * @type {HANDLE}
      */
-    hThread{
+    hThread {
         get {
             if(!this.HasProp("__hThread"))
                 this.__hThread := HANDLE(16, this)

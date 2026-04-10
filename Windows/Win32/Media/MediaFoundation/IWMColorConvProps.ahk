@@ -7,9 +7,8 @@
  * Sets properties on the color converter DSP.
  * @see https://learn.microsoft.com/windows/win32/api/wmcodecdsp/nn-wmcodecdsp-iwmcolorconvprops
  * @namespace Windows.Win32.Media.MediaFoundation
- * @version v4.0.30319
  */
-class IWMColorConvProps extends IUnknown{
+class IWMColorConvProps extends IUnknown {
 
     static sizeof => A_PtrSize
     /**

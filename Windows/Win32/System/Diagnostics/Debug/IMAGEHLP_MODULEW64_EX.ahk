@@ -1,13 +1,12 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\..\Win32Struct.ahk
 #Include .\IMAGEHLP_MODULEW64.ahk
+#Include .\SYM_TYPE.ahk
 
 /**
  * @namespace Windows.Win32.System.Diagnostics.Debug
- * @version v4.0.30319
  */
-class IMAGEHLP_MODULEW64_EX extends Win32Struct
-{
+class IMAGEHLP_MODULEW64_EX extends Win32Struct {
     static sizeof => 3264
 
     static packingSize => 8
@@ -15,7 +14,7 @@ class IMAGEHLP_MODULEW64_EX extends Win32Struct
     /**
      * @type {IMAGEHLP_MODULEW64}
      */
-    Module{
+    Module {
         get {
             if(!this.HasProp("__Module"))
                 this.__Module := IMAGEHLP_MODULEW64(0, this)

@@ -1,16 +1,15 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
-#Include ..\..\System\Com\IEnumString.ahk
 #Include .\ITfInputScope.ahk
+#Include ..\..\System\Com\IEnumString.ahk
 
 /**
  * The ITfInputScope2 interface is used by the text input processors to get the IEnumString interface pointer and this IEnumString interface enumerates the word list that the application specified for this context.
  * @see https://learn.microsoft.com/windows/win32/api/inputscope/nn-inputscope-itfinputscope2
  * @namespace Windows.Win32.UI.TextServices
- * @version v4.0.30319
  */
-class ITfInputScope2 extends ITfInputScope{
+class ITfInputScope2 extends ITfInputScope {
 
     static sizeof => A_PtrSize
     /**

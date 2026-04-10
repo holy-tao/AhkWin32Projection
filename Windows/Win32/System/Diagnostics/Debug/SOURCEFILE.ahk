@@ -5,11 +5,9 @@
  * The SOURCEFILE structure (dbghelp.h) contains source file information.
  * @see https://learn.microsoft.com/windows/win32/api/dbghelp/ns-dbghelp-sourcefile
  * @namespace Windows.Win32.System.Diagnostics.Debug
- * @version v4.0.30319
  * @charset ANSI
  */
-class SOURCEFILE extends Win32Struct
-{
+class SOURCEFILE extends Win32Struct {
     static sizeof => 16
 
     static packingSize => 8

@@ -5,9 +5,8 @@
  * WCN_VALUE_TYPE_CONFIGURATION_ERROR enumeration defines possible error values returned to a device while attempting to configure to, and associate with, the WLAN.
  * @see https://learn.microsoft.com/windows/win32/api/wcntypes/ne-wcntypes-wcn_value_type_configuration_error
  * @namespace Windows.Win32.NetworkManagement.WindowsConnectNow
- * @version v4.0.30319
  */
-class WCN_VALUE_TYPE_CONFIGURATION_ERROR extends Win32Enum{
+class WCN_VALUE_TYPE_CONFIGURATION_ERROR extends Win32Enum {
 
     /**
      * No error. An application must be prepared to handle devices that signal 'No Error' even if the device detected an error.

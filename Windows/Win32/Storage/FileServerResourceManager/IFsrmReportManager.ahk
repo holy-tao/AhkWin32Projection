@@ -1,11 +1,11 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
-#Include ..\..\Foundation\BSTR.ahk
+#Include ..\..\System\Com\IDispatch.ahk
 #Include .\IFsrmCollection.ahk
 #Include .\IFsrmReportJob.ahk
+#Include ..\..\Foundation\BSTR.ahk
 #Include ..\..\System\Variant\VARIANT.ahk
-#Include ..\..\System\Com\IDispatch.ahk
 
 /**
  * Used to manage report jobs.
@@ -18,9 +18,8 @@
  *     identifier.
  * @see https://learn.microsoft.com/windows/win32/api/fsrmreports/nn-fsrmreports-ifsrmreportmanager
  * @namespace Windows.Win32.Storage.FileServerResourceManager
- * @version v4.0.30319
  */
-class IFsrmReportManager extends IDispatch{
+class IFsrmReportManager extends IDispatch {
 
     static sizeof => A_PtrSize
     /**
@@ -49,7 +48,7 @@ class IFsrmReportManager extends IDispatch{
 
     /**
      * Enumerates the report jobs.
-     * @param {Integer} options The options to use when enumerating the report jobs. For possible values, see the 
+     * @param {FsrmEnumOptions} options The options to use when enumerating the report jobs. For possible values, see the 
      *       <a href="https://docs.microsoft.com/windows/desktop/api/fsrmenums/ne-fsrmenums-fsrmenumoptions">FsrmEnumOptions</a> enumeration.
      * 
      * <div class="alert"><b>Note</b>  The <b>FsrmEnumOptions_Asynchronous</b> option is not supported for this 
@@ -100,8 +99,8 @@ class IFsrmReportManager extends IDispatch{
 
     /**
      * Retrieves the local directory path where the reports with the specified context are stored.
-     * @param {Integer} _context 
-     * @returns {BSTR} 
+     * @param {FsrmReportGenerationContext} _context The report context (for example, if the report is scheduled or run on demand). For possible values, see the <a href="https://docs.microsoft.com/windows/desktop/api/fsrmenums/ne-fsrmenums-fsrmreportgenerationcontext">FsrmReportGenerationContext</a> enumeration.
+     * @returns {BSTR} The local directory path where the reports are stored.
      * @see https://learn.microsoft.com/windows/win32/api/fsrmreports/nf-fsrmreports-ifsrmreportmanager-getoutputdirectory
      */
     GetOutputDirectory(_context) {
@@ -147,8 +146,11 @@ class IFsrmReportManager extends IDispatch{
      * <li>"%systemdrive%\StorageReports\Incident"</li>
      * <li>"%systemdrive%\StorageReports\Interactive"</li>
      * </ul>
-     * @param {Integer} _context 
-     * @param {BSTR} _path 
+     * @param {FsrmReportGenerationContext} _context The report context (for example, if the report is scheduled or runs on demand). For possible values, see 
+     *       the <a href="https://docs.microsoft.com/windows/desktop/api/fsrmenums/ne-fsrmenums-fsrmreportgenerationcontext">FsrmReportGenerationContext</a> 
+     *       enumeration.
+     * @param {BSTR} _path The full path to the local directory where the reports are stored. The path can contain environment 
+     *       variables. The path is limited to 150 characters.
      * @returns {HRESULT} The method returns the following return values.
      * @see https://learn.microsoft.com/windows/win32/api/fsrmreports/nf-fsrmreports-ifsrmreportmanager-setoutputdirectory
      */
@@ -161,8 +163,8 @@ class IFsrmReportManager extends IDispatch{
 
     /**
      * Retrieves a value that determines whether a specified report filter is configurable for the specified report type.
-     * @param {Integer} reportType Report type. For possible values, see the <a href="https://docs.microsoft.com/windows/desktop/api/fsrmenums/ne-fsrmenums-fsrmreporttype">FsrmReportType</a> enumeration.
-     * @param {Integer} filter Report filter. For possible values, see the <a href="https://docs.microsoft.com/windows/desktop/api/fsrmenums/ne-fsrmenums-fsrmreportfilter">FsrmReportFilter</a> enumeration.
+     * @param {FsrmReportType} reportType Report type. For possible values, see the <a href="https://docs.microsoft.com/windows/desktop/api/fsrmenums/ne-fsrmenums-fsrmreporttype">FsrmReportType</a> enumeration.
+     * @param {FsrmReportFilter} filter Report filter. For possible values, see the <a href="https://docs.microsoft.com/windows/desktop/api/fsrmenums/ne-fsrmenums-fsrmreportfilter">FsrmReportFilter</a> enumeration.
      * @returns {VARIANT_BOOL} Is <b>VARIANT_TRUE</b> if the filter is configurable for the report type, otherwise it is <b>VARIANT_FALSE</b>.
      * @see https://learn.microsoft.com/windows/win32/api/fsrmreports/nf-fsrmreports-ifsrmreportmanager-isfiltervalidforreporttype
      */
@@ -175,8 +177,8 @@ class IFsrmReportManager extends IDispatch{
      * Retrieves the default report filter value that is used with the specified report type.
      * @remarks
      * This value is used if the <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/fsrmreports/nf-fsrmreports-ifsrmreport-setfilter">IFsrmReport::SetFilter</a> method was not called to specify a filter value for the report.
-     * @param {Integer} reportType Report type. For possible values, see the <a href="https://docs.microsoft.com/windows/desktop/api/fsrmenums/ne-fsrmenums-fsrmreporttype">FsrmReportType</a> enumeration.
-     * @param {Integer} filter Report filter. For possible values, see the <a href="https://docs.microsoft.com/windows/desktop/api/fsrmenums/ne-fsrmenums-fsrmreportfilter">FsrmReportFilter</a> enumeration.
+     * @param {FsrmReportType} reportType Report type. For possible values, see the <a href="https://docs.microsoft.com/windows/desktop/api/fsrmenums/ne-fsrmenums-fsrmreporttype">FsrmReportType</a> enumeration.
+     * @param {FsrmReportFilter} filter Report filter. For possible values, see the <a href="https://docs.microsoft.com/windows/desktop/api/fsrmenums/ne-fsrmenums-fsrmreportfilter">FsrmReportFilter</a> enumeration.
      * @returns {VARIANT} The default report filter value.
      * @see https://learn.microsoft.com/windows/win32/api/fsrmreports/nf-fsrmreports-ifsrmreportmanager-getdefaultfilter
      */
@@ -260,8 +262,8 @@ class IFsrmReportManager extends IDispatch{
      *  
      * 
      * The default filter values are used for report actions.
-     * @param {Integer} reportType The report type. For possible values, see the <a href="https://docs.microsoft.com/windows/desktop/api/fsrmenums/ne-fsrmenums-fsrmreporttype">FsrmReportType</a> enumeration.
-     * @param {Integer} filter The report filter. For possible values, see the <a href="https://docs.microsoft.com/windows/desktop/api/fsrmenums/ne-fsrmenums-fsrmreportfilter">FsrmReportFilter</a> enumeration.
+     * @param {FsrmReportType} reportType The report type. For possible values, see the <a href="https://docs.microsoft.com/windows/desktop/api/fsrmenums/ne-fsrmenums-fsrmreporttype">FsrmReportType</a> enumeration.
+     * @param {FsrmReportFilter} filter The report filter. For possible values, see the <a href="https://docs.microsoft.com/windows/desktop/api/fsrmenums/ne-fsrmenums-fsrmreportfilter">FsrmReportFilter</a> enumeration.
      * @param {VARIANT} filterValue The default report filter value.
      * @returns {HRESULT} The method returns the following return values.
      * @see https://learn.microsoft.com/windows/win32/api/fsrmreports/nf-fsrmreports-ifsrmreportmanager-setdefaultfilter
@@ -273,7 +275,7 @@ class IFsrmReportManager extends IDispatch{
 
     /**
      * Retrieves the current value of the specified report size limit.
-     * @param {Integer} limit The report size limit which is used to limit the files listed in a report. For possible values, see the <a href="https://docs.microsoft.com/windows/desktop/api/fsrmenums/ne-fsrmenums-fsrmreportlimit">FsrmReportLimit</a> enumeration.
+     * @param {FsrmReportLimit} limit The report size limit which is used to limit the files listed in a report. For possible values, see the <a href="https://docs.microsoft.com/windows/desktop/api/fsrmenums/ne-fsrmenums-fsrmreportlimit">FsrmReportLimit</a> enumeration.
      * @returns {VARIANT} The limit. The variant type is <b>VT_I4</b>. Use the <b>lVal</b> member of the variant to access the limit value.
      * @see https://learn.microsoft.com/windows/win32/api/fsrmreports/nf-fsrmreports-ifsrmreportmanager-getreportsizelimit
      */
@@ -344,7 +346,7 @@ class IFsrmReportManager extends IDispatch{
      * <td>1,000 folders</td>
      * </tr>
      * </table>
-     * @param {Integer} limit Identifies the limit which is used to limit the files listed in a report. For possible values, see the 
+     * @param {FsrmReportLimit} limit Identifies the limit which is used to limit the files listed in a report. For possible values, see the 
      *       <a href="https://docs.microsoft.com/windows/desktop/api/fsrmenums/ne-fsrmenums-fsrmreportlimit">FsrmReportLimit</a> enumeration.
      * @param {VARIANT} limitValue The limit. Must be greater than zero. You can specify the variant as a short, int, or long that is either 
      *       signed or unsigned. The method will also accept a string value. The method must be able to convert the value to 

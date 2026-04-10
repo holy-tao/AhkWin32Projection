@@ -5,9 +5,8 @@
  * Configurable options for the filter engine.
  * @see https://learn.microsoft.com/windows/win32/api/fwpmtypes/ne-fwpmtypes-fwpm_engine_option
  * @namespace Windows.Win32.NetworkManagement.WindowsFilteringPlatform
- * @version v4.0.30319
  */
-class FWPM_ENGINE_OPTION extends Win32Enum{
+class FWPM_ENGINE_OPTION extends Win32Enum {
 
     /**
      * The filter engine will collect WFP network events.

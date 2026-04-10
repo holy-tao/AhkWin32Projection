@@ -1,15 +1,14 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\..\..\Guid.ahk
+#Include ..\..\..\Com\IUnknown.ahk
 #Include ..\..\..\..\Foundation\BSTR.ahk
 #Include .\IEnumJsStackFrames.ahk
-#Include ..\..\..\Com\IUnknown.ahk
 
 /**
  * @namespace Windows.Win32.System.Diagnostics.Debug.ActiveScript
- * @version v4.0.30319
  */
-class IJsDebugDataTarget extends IUnknown{
+class IJsDebugDataTarget extends IUnknown {
 
     static sizeof => A_PtrSize
     /**
@@ -33,7 +32,7 @@ class IJsDebugDataTarget extends IUnknown{
     /**
      * 
      * @param {Integer} _address 
-     * @param {Integer} flags 
+     * @param {JsDebugReadMemoryFlags} flags 
      * @param {Pointer<Integer>} pBuffer 
      * @param {Integer} _size 
      * @param {Pointer<Integer>} pBytesRead 

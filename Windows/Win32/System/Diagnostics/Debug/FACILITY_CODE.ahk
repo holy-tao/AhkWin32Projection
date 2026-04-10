@@ -3,9 +3,8 @@
 
 /**
  * @namespace Windows.Win32.System.Diagnostics.Debug
- * @version v4.0.30319
  */
-class FACILITY_CODE extends Win32Enum{
+class FACILITY_CODE extends Win32Enum {
 
     /**
      * @type {Integer (UInt32)}

@@ -5,9 +5,8 @@
 
 /**
  * @namespace Windows.Win32.System.DistributedTransactionCoordinator
- * @version v4.0.30319
  */
-class IDtcLuRecoveryInitiatedByDtc extends IUnknown{
+class IDtcLuRecoveryInitiatedByDtc extends IUnknown {
 
     static sizeof => A_PtrSize
     /**
@@ -30,7 +29,7 @@ class IDtcLuRecoveryInitiatedByDtc extends IUnknown{
 
     /**
      * 
-     * @param {Pointer<Integer>} pWork 
+     * @param {Pointer<DTCINITIATEDRECOVERYWORK>} pWork 
      * @param {Pointer<Pointer<Void>>} ppv 
      * @returns {HRESULT} 
      */

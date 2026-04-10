@@ -7,9 +7,8 @@
  * The IADsExtension interface forms the basis of the ADSI application extension model.
  * @see https://learn.microsoft.com/windows/win32/api/iads/nn-iads-iadsextension
  * @namespace Windows.Win32.Networking.ActiveDirectory
- * @version v4.0.30319
  */
-class IADsExtension extends IUnknown{
+class IADsExtension extends IUnknown {
 
     static sizeof => A_PtrSize
     /**

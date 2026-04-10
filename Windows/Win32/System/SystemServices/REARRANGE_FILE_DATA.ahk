@@ -4,10 +4,8 @@
 
 /**
  * @namespace Windows.Win32.System.SystemServices
- * @version v4.0.30319
  */
-class REARRANGE_FILE_DATA extends Win32Struct
-{
+class REARRANGE_FILE_DATA extends Win32Struct {
     static sizeof => 32
 
     static packingSize => 8
@@ -31,7 +29,7 @@ class REARRANGE_FILE_DATA extends Win32Struct
     /**
      * @type {HANDLE}
      */
-    SourceFileHandle{
+    SourceFileHandle {
         get {
             if(!this.HasProp("__SourceFileHandle"))
                 this.__SourceFileHandle := HANDLE(16, this)

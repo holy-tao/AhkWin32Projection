@@ -7,9 +7,8 @@
  * The unmarshaling policy option <b>COMGLB_UNMARSHALING_POLICY</b> takes values from the <a href="https://docs.microsoft.com/windows/win32/api/objidl/ne-objidl-globalopt_unmarshaling_policy_values">GLOBALOPT_UNMARSHALING_POLICY_VALUES</a> enumeration.
  * @see https://learn.microsoft.com/windows/win32/api/objidlbase/ne-objidlbase-globalopt_properties
  * @namespace Windows.Win32.System.Com
- * @version v4.0.30319
  */
-class GLOBALOPT_PROPERTIES extends Win32Enum{
+class GLOBALOPT_PROPERTIES extends Win32Enum {
 
     /**
      * Defines COM exception-handling behavior.
@@ -42,19 +41,16 @@ class GLOBALOPT_PROPERTIES extends Win32Enum{
     static COMGLB_UNMARSHALING_POLICY => 5
 
     /**
-     * 
      * @type {Integer (Int32)}
      */
     static COMGLB_PROPERTIES_RESERVED1 => 6
 
     /**
-     * 
      * @type {Integer (Int32)}
      */
     static COMGLB_PROPERTIES_RESERVED2 => 7
 
     /**
-     * 
      * @type {Integer (Int32)}
      */
     static COMGLB_PROPERTIES_RESERVED3 => 8

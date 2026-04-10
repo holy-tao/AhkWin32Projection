@@ -1,5 +1,6 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
+#Include .\VDS_PROVIDER_TYPE.ahk
 
 /**
  * The VDS_PROVIDER_PROP structure (vdshwprv.h) defines the properties of a provider object.
@@ -8,17 +9,15 @@
  *     returns this structure to report the property details of a provider object.
  * @see https://learn.microsoft.com/windows/win32/api/vdshwprv/ns-vdshwprv-vds_provider_prop
  * @namespace Windows.Win32.Storage.VirtualDiskService
- * @version v4.0.30319
  */
-class VDS_PROVIDER_PROP extends Win32Struct
-{
+class VDS_PROVIDER_PROP extends Win32Struct {
     static sizeof => 48
 
     static packingSize => 8
 
     /**
      * The GUID of the provider object.
-     * @type {Pointer<Guid>}
+     * @type {Pointer}
      */
     id {
         get => NumGet(this, 0, "ptr")
@@ -36,7 +35,7 @@ class VDS_PROVIDER_PROP extends Win32Struct
 
     /**
      * The version-specific GUID of the provider.
-     * @type {Pointer<Guid>}
+     * @type {Pointer}
      */
     guidVersionId {
         get => NumGet(this, 16, "ptr")
@@ -55,7 +54,7 @@ class VDS_PROVIDER_PROP extends Win32Struct
     /**
      * The provider types enumerated by 
      *       <a href="https://docs.microsoft.com/windows/desktop/api/vdshwprv/ne-vdshwprv-vds_provider_type">VDS_PROVIDER_TYPE</a>.
-     * @type {Integer}
+     * @type {VDS_PROVIDER_TYPE}
      */
     type {
         get => NumGet(this, 32, "int")

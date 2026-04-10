@@ -22,9 +22,8 @@
  *      Rather, you register to receive all VDS notifications of all types and from all providers.
  * @see https://learn.microsoft.com/windows/win32/api/vdshwprv/nn-vdshwprv-ivdsadvisesink
  * @namespace Windows.Win32.Storage.VirtualDiskService
- * @version v4.0.30319
  */
-class IVdsAdviseSink extends IUnknown{
+class IVdsAdviseSink extends IUnknown {
 
     static sizeof => A_PtrSize
     /**

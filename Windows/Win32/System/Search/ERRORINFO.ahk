@@ -3,10 +3,9 @@
 
 /**
  * @namespace Windows.Win32.System.Search
- * @version v4.0.30319
+ * @architecture X64, Arm64
  */
-class ERRORINFO extends Win32Struct
-{
+class ERRORINFO extends Win32Struct {
     static sizeof => 32
 
     static packingSize => 8
@@ -28,7 +27,7 @@ class ERRORINFO extends Win32Struct
     }
 
     /**
-     * @type {Pointer<Guid>}
+     * @type {Pointer}
      */
     clsid {
         get => NumGet(this, 8, "ptr")
@@ -36,7 +35,7 @@ class ERRORINFO extends Win32Struct
     }
 
     /**
-     * @type {Pointer<Guid>}
+     * @type {Pointer}
      */
     iid {
         get => NumGet(this, 16, "ptr")

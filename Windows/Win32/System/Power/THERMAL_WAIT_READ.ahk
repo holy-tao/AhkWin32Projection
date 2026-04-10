@@ -3,10 +3,8 @@
 
 /**
  * @namespace Windows.Win32.System.Power
- * @version v4.0.30319
  */
-class THERMAL_WAIT_READ extends Win32Struct
-{
+class THERMAL_WAIT_READ extends Win32Struct {
     static sizeof => 12
 
     static packingSize => 4

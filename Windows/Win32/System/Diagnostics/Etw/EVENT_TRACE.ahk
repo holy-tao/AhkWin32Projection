@@ -12,10 +12,8 @@
  * callback function.
  * @see https://learn.microsoft.com/windows/win32/api/evntrace/ns-evntrace-event_trace
  * @namespace Windows.Win32.System.Diagnostics.Etw
- * @version v4.0.30319
  */
-class EVENT_TRACE extends Win32Struct
-{
+class EVENT_TRACE extends Win32Struct {
     static sizeof => 72
 
     static packingSize => 8
@@ -26,7 +24,7 @@ class EVENT_TRACE extends Win32Struct
      * structure that contains standard event tracing information.
      * @type {EVENT_TRACE_HEADER}
      */
-    Header{
+    Header {
         get {
             if(!this.HasProp("__Header"))
                 this.__Header := EVENT_TRACE_HEADER(0, this)
@@ -61,7 +59,7 @@ class EVENT_TRACE extends Win32Struct
      * Class GUID of the parent event. Contains valid data when the provider calls the
      * [TraceEventInstance](/windows/win32/api/evntrace/nf-evntrace-traceeventinstance)
      * function to generate the event. Otherwise, the value is zero.
-     * @type {Pointer<Guid>}
+     * @type {Pointer}
      */
     ParentGuid {
         get => NumGet(this, 48, "ptr")
@@ -97,7 +95,7 @@ class EVENT_TRACE extends Win32Struct
     /**
      * @type {ETW_BUFFER_CONTEXT}
      */
-    BufferContext{
+    BufferContext {
         get {
             if(!this.HasProp("__BufferContext"))
                 this.__BufferContext := ETW_BUFFER_CONTEXT(68, this)

@@ -15,9 +15,8 @@
  * You might need to implement this interface if you are writing a pipeline object (media source, transform, or media sink). For more information, see <a href="https://docs.microsoft.com/windows/desktop/medfound/implementing-rate-control">Implementing Rate Control</a>.
  * @see https://learn.microsoft.com/windows/win32/api/mfidl/nn-mfidl-imfratesupport
  * @namespace Windows.Win32.Media.MediaFoundation
- * @version v4.0.30319
  */
-class IMFRateSupport extends IUnknown{
+class IMFRateSupport extends IUnknown {
 
     static sizeof => A_PtrSize
     /**
@@ -44,7 +43,7 @@ class IMFRateSupport extends IUnknown{
      * The value returned in <i>plfRate</i> represents a lower bound. Playback at this rate is not guaranteed. Call <a href="https://docs.microsoft.com/windows/desktop/api/mfidl/nf-mfidl-imfratesupport-isratesupported">IMFRateSupport::IsRateSupported</a> to check whether the boundary rate is supported. For example, a component that supports arbitrarily slow rates will return zero in <i>pflRate</i>, and applications should call <b>IsRateSupported</b> separately to determine whether the component supports rate 0.
      * 
      * If <i>eDirection</i> is MFRATE_REVERSE, the method retrieves the slowest reverse playback rate. This is a negative value, assuming the object supports reverse playback.
-     * @param {Integer} eDirection Specifies whether to query to the slowest forward playback rate or reverse playback rate. The value is a member of the <a href="https://docs.microsoft.com/windows/desktop/api/mfidl/ne-mfidl-mfrate_direction">MFRATE_DIRECTION</a> enumeration.
+     * @param {MFRATE_DIRECTION} eDirection Specifies whether to query to the slowest forward playback rate or reverse playback rate. The value is a member of the <a href="https://docs.microsoft.com/windows/desktop/api/mfidl/ne-mfidl-mfrate_direction">MFRATE_DIRECTION</a> enumeration.
      * @param {BOOL} fThin If <b>TRUE</b>, the method retrieves the slowest thinned playback rate. Otherwise, the method retrieves the slowest non-thinned playback rate. For information about thinning, see <a href="https://docs.microsoft.com/windows/desktop/medfound/about-rate-control">About Rate Control</a>.
      * @returns {Float} Receives the slowest playback rate that the object supports.
      * @see https://learn.microsoft.com/windows/win32/api/mfidl/nf-mfidl-imfratesupport-getslowestrate
@@ -62,7 +61,7 @@ class IMFRateSupport extends IUnknown{
      * If the component processes or receives a stream (most transforms or media sinks), it may ignore this parameter if it does not care whether the stream is thinned. In the Media Session's implementation of rate support, if the transforms do not explicitly support reverse playback, the Media Session will attempt to playback in reverse with thinning but not without thinning. Therefore, most applications will set <i>fThin</i> to <b>TRUE</b> when using the Media Session for reverse playback.
      * 
      * If <i>eDirection</i> is MFRATE_REVERSE, the method retrieves the fastest reverse playback rate. This is a negative value, assuming the object supports reverse playback.
-     * @param {Integer} eDirection Specifies whether to query to the fastest forward playback rate or reverse playback rate. The value is a member of the <a href="https://docs.microsoft.com/windows/desktop/api/mfidl/ne-mfidl-mfrate_direction">MFRATE_DIRECTION</a> enumeration.
+     * @param {MFRATE_DIRECTION} eDirection Specifies whether to query to the fastest forward playback rate or reverse playback rate. The value is a member of the <a href="https://docs.microsoft.com/windows/desktop/api/mfidl/ne-mfidl-mfrate_direction">MFRATE_DIRECTION</a> enumeration.
      * @param {BOOL} fThin If <b>TRUE</b>, the method retrieves the fastest thinned playback rate. Otherwise, the method retrieves the fastest non-thinned playback rate. For information about thinning, see <a href="https://docs.microsoft.com/windows/desktop/medfound/about-rate-control">About Rate Control</a>.
      * @returns {Float} Receives the fastest playback rate that the object supports.
      * @see https://learn.microsoft.com/windows/win32/api/mfidl/nf-mfidl-imfratesupport-getfastestrate

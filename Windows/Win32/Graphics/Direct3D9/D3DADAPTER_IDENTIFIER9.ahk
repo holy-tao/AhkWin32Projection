@@ -24,11 +24,10 @@
  * ```
  * @see https://learn.microsoft.com/windows/win32/direct3d9/d3dadapter-identifier9
  * @namespace Windows.Win32.Graphics.Direct3D9
- * @version v4.0.30319
+ * @architecture X64, Arm64
  */
-class D3DADAPTER_IDENTIFIER9 extends Win32Struct
-{
-    static sizeof => 2152
+class D3DADAPTER_IDENTIFIER9 extends Win32Struct {
+    static sizeof => 1096
 
     static packingSize => 8
 
@@ -40,8 +39,8 @@ class D3DADAPTER_IDENTIFIER9 extends Win32Struct
      * @type {String}
      */
     Driver {
-        get => StrGet(this.ptr + 0, 511, "UTF-16")
-        set => StrPut(value, this.ptr + 0, 511, "UTF-16")
+        get => StrGet(this.ptr + 0, 511, "UTF-8")
+        set => StrPut(value, this.ptr + 0, 511, "UTF-8")
     }
 
     /**
@@ -52,8 +51,8 @@ class D3DADAPTER_IDENTIFIER9 extends Win32Struct
      * @type {String}
      */
     Description {
-        get => StrGet(this.ptr + 1024, 511, "UTF-16")
-        set => StrPut(value, this.ptr + 1024, 511, "UTF-16")
+        get => StrGet(this.ptr + 512, 511, "UTF-8")
+        set => StrPut(value, this.ptr + 512, 511, "UTF-8")
     }
 
     /**
@@ -64,8 +63,8 @@ class D3DADAPTER_IDENTIFIER9 extends Win32Struct
      * @type {String}
      */
     DeviceName {
-        get => StrGet(this.ptr + 2048, 31, "UTF-16")
-        set => StrPut(value, this.ptr + 2048, 31, "UTF-16")
+        get => StrGet(this.ptr + 1024, 31, "UTF-8")
+        set => StrPut(value, this.ptr + 1024, 31, "UTF-8")
     }
 
     /**
@@ -76,8 +75,8 @@ class D3DADAPTER_IDENTIFIER9 extends Win32Struct
      * @type {Integer}
      */
     DriverVersion {
-        get => NumGet(this, 2112, "int64")
-        set => NumPut("int64", value, this, 2112)
+        get => NumGet(this, 1056, "int64")
+        set => NumPut("int64", value, this, 1056)
     }
 
     /**
@@ -88,8 +87,8 @@ class D3DADAPTER_IDENTIFIER9 extends Win32Struct
      * @type {Integer}
      */
     VendorId {
-        get => NumGet(this, 2120, "uint")
-        set => NumPut("uint", value, this, 2120)
+        get => NumGet(this, 1064, "uint")
+        set => NumPut("uint", value, this, 1064)
     }
 
     /**
@@ -100,8 +99,8 @@ class D3DADAPTER_IDENTIFIER9 extends Win32Struct
      * @type {Integer}
      */
     DeviceId {
-        get => NumGet(this, 2124, "uint")
-        set => NumPut("uint", value, this, 2124)
+        get => NumGet(this, 1068, "uint")
+        set => NumPut("uint", value, this, 1068)
     }
 
     /**
@@ -112,8 +111,8 @@ class D3DADAPTER_IDENTIFIER9 extends Win32Struct
      * @type {Integer}
      */
     SubSysId {
-        get => NumGet(this, 2128, "uint")
-        set => NumPut("uint", value, this, 2128)
+        get => NumGet(this, 1072, "uint")
+        set => NumPut("uint", value, this, 1072)
     }
 
     /**
@@ -124,8 +123,8 @@ class D3DADAPTER_IDENTIFIER9 extends Win32Struct
      * @type {Integer}
      */
     Revision {
-        get => NumGet(this, 2132, "uint")
-        set => NumPut("uint", value, this, 2132)
+        get => NumGet(this, 1076, "uint")
+        set => NumPut("uint", value, this, 1076)
     }
 
     /**
@@ -133,11 +132,11 @@ class D3DADAPTER_IDENTIFIER9 extends Win32Struct
      * 
      * 
      * Can be queried to check changes in the driver and chip set. This GUID is a unique identifier for the driver and chip set pair. Query this member to track changes to the driver and chip set in order to generate a new profile for the graphics subsystem. DeviceIdentifier can also be used to identify particular problematic drivers.
-     * @type {Pointer<Guid>}
+     * @type {Pointer}
      */
     DeviceIdentifier {
-        get => NumGet(this, 2136, "ptr")
-        set => NumPut("ptr", value, this, 2136)
+        get => NumGet(this, 1080, "ptr")
+        set => NumPut("ptr", value, this, 1080)
     }
 
     /**
@@ -177,7 +176,7 @@ class D3DADAPTER_IDENTIFIER9 extends Win32Struct
      * @type {Integer}
      */
     WHQLLevel {
-        get => NumGet(this, 2144, "uint")
-        set => NumPut("uint", value, this, 2144)
+        get => NumGet(this, 1088, "uint")
+        set => NumPut("uint", value, this, 1088)
     }
 }

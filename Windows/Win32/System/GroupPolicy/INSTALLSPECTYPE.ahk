@@ -5,9 +5,8 @@
  * The INSTALLSPECTYPE enumeration values define the ways a group policy application can be specified to the InstallApplication function. The values are used in the Type member of INSTALLDATA.
  * @see https://learn.microsoft.com/windows/win32/api/appmgmt/ne-appmgmt-installspectype
  * @namespace Windows.Win32.System.GroupPolicy
- * @version v4.0.30319
  */
-class INSTALLSPECTYPE extends Win32Enum{
+class INSTALLSPECTYPE extends Win32Enum {
 
     /**
      * This constant equals 1. The application is specified by its display name and group policy GUID.
@@ -22,13 +21,11 @@ class INSTALLSPECTYPE extends Win32Enum{
     static FILEEXT => 2
 
     /**
-     * 
      * @type {Integer (Int32)}
      */
     static PROGID => 3
 
     /**
-     * 
      * @type {Integer (Int32)}
      */
     static COMCLASS => 4

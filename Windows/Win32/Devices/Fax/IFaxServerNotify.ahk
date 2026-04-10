@@ -27,9 +27,8 @@
  * A fax client application must implement <b>IFaxServerNotify2</b> and pass the fax service the pointer to an <b>IFaxServerNotify2</b> interface.
  * @see https://learn.microsoft.com/windows/win32/api/faxcomex/nn-faxcomex-ifaxservernotify2
  * @namespace Windows.Win32.Devices.Fax
- * @version v4.0.30319
  */
-class IFaxServerNotify extends IDispatch{
+class IFaxServerNotify extends IDispatch {
 
     static sizeof => A_PtrSize
     /**

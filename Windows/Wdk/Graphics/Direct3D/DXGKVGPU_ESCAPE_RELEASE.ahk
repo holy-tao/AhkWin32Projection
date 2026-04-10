@@ -3,16 +3,14 @@
 
 /**
  * @namespace Windows.Wdk.Graphics.Direct3D
- * @version v4.0.30319
  */
-class DXGKVGPU_ESCAPE_RELEASE extends Win32Struct
-{
+class DXGKVGPU_ESCAPE_RELEASE extends Win32Struct {
     static sizeof => 8
 
     static packingSize => 8
 
     /**
-     * @type {Pointer<DXGKVGPU_ESCAPE_HEAD>}
+     * @type {Pointer}
      */
     Header {
         get => NumGet(this, 0, "ptr")

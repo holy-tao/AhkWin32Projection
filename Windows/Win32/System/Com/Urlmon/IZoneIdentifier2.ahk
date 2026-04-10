@@ -5,9 +5,8 @@
 
 /**
  * @namespace Windows.Win32.System.Com.Urlmon
- * @version v4.0.30319
  */
-class IZoneIdentifier2 extends IZoneIdentifier{
+class IZoneIdentifier2 extends IZoneIdentifier {
 
     static sizeof => A_PtrSize
     /**

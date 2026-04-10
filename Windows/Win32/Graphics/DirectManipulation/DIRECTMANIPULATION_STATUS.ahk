@@ -5,9 +5,8 @@
  * Defines the possible states of Direct Manipulation.
  * @see https://learn.microsoft.com/windows/win32/api/directmanipulation/ne-directmanipulation-directmanipulation_status
  * @namespace Windows.Win32.Graphics.DirectManipulation
- * @version v4.0.30319
  */
-class DIRECTMANIPULATION_STATUS extends Win32Enum{
+class DIRECTMANIPULATION_STATUS extends Win32Enum {
 
     /**
      * The viewport is being initialized and is not yet able to process input.

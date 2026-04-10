@@ -1,19 +1,17 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\..\Guid.ahk
+#Include ..\..\..\System\Com\IDispatch.ahk
 #Include ..\..\..\Foundation\BSTR.ahk
 #Include ..\..\..\System\Variant\VARIANT.ahk
-#Include .\IXMLDOMNode.ahk
 #Include .\IXMLDOMNodeList.ahk
 #Include .\IXMLDOMNamedNodeMap.ahk
 #Include .\IXMLDOMDocument.ahk
-#Include ..\..\..\System\Com\IDispatch.ahk
 
 /**
  * @namespace Windows.Win32.Data.Xml.MsXml
- * @version v4.0.30319
  */
-class IXMLDOMNode extends IDispatch{
+class IXMLDOMNode extends IDispatch {
 
     static sizeof => A_PtrSize
     /**
@@ -50,7 +48,7 @@ class IXMLDOMNode extends IDispatch{
     }
 
     /**
-     * @type {Integer} 
+     * @type {DOMNodeType} 
      */
     nodeType {
         get => this.get_nodeType()
@@ -224,7 +222,7 @@ class IXMLDOMNode extends IDispatch{
 
     /**
      * 
-     * @returns {Integer} 
+     * @returns {DOMNodeType} 
      */
     get_nodeType() {
         result := ComCall(10, this, "int*", &type := 0, "HRESULT")

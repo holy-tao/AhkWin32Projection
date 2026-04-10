@@ -1,16 +1,15 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
-#Include ..\Com\IEnumString.ahk
 #Include ..\Com\IUnknown.ahk
+#Include ..\Com\IEnumString.ahk
 
 /**
  * The IStringTable interface is introduced in MMC 1.1.
  * @see https://learn.microsoft.com/windows/win32/api/mmc/nn-mmc-istringtable
  * @namespace Windows.Win32.System.Mmc
- * @version v4.0.30319
  */
-class IStringTable extends IUnknown{
+class IStringTable extends IUnknown {
 
     static sizeof => A_PtrSize
     /**

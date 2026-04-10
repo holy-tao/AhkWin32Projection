@@ -7,10 +7,8 @@
  * For the mouse, the Usage Page is 1 and the Usage is 2.
  * @see https://learn.microsoft.com/windows/win32/api/winuser/ns-winuser-rid_device_info_mouse
  * @namespace Windows.Win32.UI.Input
- * @version v4.0.30319
  */
-class RID_DEVICE_INFO_MOUSE extends Win32Struct
-{
+class RID_DEVICE_INFO_MOUSE extends Win32Struct {
     static sizeof => 16
 
     static packingSize => 4

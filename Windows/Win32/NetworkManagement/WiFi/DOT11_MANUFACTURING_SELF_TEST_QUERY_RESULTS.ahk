@@ -1,18 +1,17 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
+#Include .\DOT11_MANUFACTURING_SELF_TEST_TYPE.ahk
 
 /**
  * @namespace Windows.Win32.NetworkManagement.WiFi
- * @version v4.0.30319
  */
-class DOT11_MANUFACTURING_SELF_TEST_QUERY_RESULTS extends Win32Struct
-{
+class DOT11_MANUFACTURING_SELF_TEST_QUERY_RESULTS extends Win32Struct {
     static sizeof => 32
 
     static packingSize => 8
 
     /**
-     * @type {Integer}
+     * @type {DOT11_MANUFACTURING_SELF_TEST_TYPE}
      */
     SelfTestType {
         get => NumGet(this, 0, "int")
@@ -60,9 +59,9 @@ class DOT11_MANUFACTURING_SELF_TEST_QUERY_RESULTS extends Win32Struct
     }
 
     /**
-     * @type {Array<Byte>}
+     * @type {Array<Integer>}
      */
-    ucBufferOut{
+    ucBufferOut {
         get {
             if(!this.HasProp("__ucBufferOutProxyArray"))
                 this.__ucBufferOutProxyArray := Win32FixedArray(this.ptr + 28, 1, Primitive, "char")

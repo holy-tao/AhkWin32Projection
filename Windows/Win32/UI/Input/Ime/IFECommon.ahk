@@ -9,9 +9,8 @@
  * Create an instance of this interface with the <a href="https://docs.microsoft.com/windows/desktop/api/msime/nf-msime-createifecommoninstance">CreateIFECommonInstance</a> function.
  * @see https://learn.microsoft.com/windows/win32/api/msime/nn-msime-ifecommon
  * @namespace Windows.Win32.UI.Input.Ime
- * @version v4.0.30319
  */
-class IFECommon extends IUnknown{
+class IFECommon extends IUnknown {
 
     static sizeof => A_PtrSize
     /**

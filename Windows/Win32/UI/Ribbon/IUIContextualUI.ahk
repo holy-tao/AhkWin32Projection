@@ -28,9 +28,8 @@
  * <img alt="Screen shot with callouts showing the ContentPopup, ContextMenu, and MiniToolbar." src="./images/IUIContextualUI_Concepts.png"/>
  * @see https://learn.microsoft.com/windows/win32/api/uiribbon/nn-uiribbon-iuicontextualui
  * @namespace Windows.Win32.UI.Ribbon
- * @version v4.0.30319
  */
-class IUIContextualUI extends IUnknown{
+class IUIContextualUI extends IUnknown {
 
     static sizeof => A_PtrSize
     /**

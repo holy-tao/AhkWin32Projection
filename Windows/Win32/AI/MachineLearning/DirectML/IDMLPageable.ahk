@@ -7,9 +7,8 @@
  * Implemented by objects that can be evicted from GPU memory, and hence that can be supplied to IDMLDevice::Evict and IDMLDevice::MakeResident.
  * @see https://learn.microsoft.com/windows/win32/api/directml/nn-directml-idmlpageable
  * @namespace Windows.Win32.AI.MachineLearning.DirectML
- * @version v4.0.30319
  */
-class IDMLPageable extends IDMLDeviceChild{
+class IDMLPageable extends IDMLDeviceChild {
 
     static sizeof => A_PtrSize
     /**

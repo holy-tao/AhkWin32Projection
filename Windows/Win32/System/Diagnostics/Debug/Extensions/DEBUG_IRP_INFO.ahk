@@ -4,11 +4,9 @@
 
 /**
  * @namespace Windows.Win32.System.Diagnostics.Debug.Extensions
- * @version v4.0.30319
  */
-class DEBUG_IRP_INFO extends Win32Struct
-{
-    static sizeof => 176
+class DEBUG_IRP_INFO extends Win32Struct {
+    static sizeof => 496
 
     static packingSize => 8
 
@@ -79,7 +77,7 @@ class DEBUG_IRP_INFO extends Win32Struct
     /**
      * @type {DEBUG_IRP_STACK_INFO}
      */
-    CurrentStack{
+    CurrentStack {
         get {
             if(!this.HasProp("__CurrentStack"))
                 this.__CurrentStack := DEBUG_IRP_STACK_INFO(56, this)
@@ -88,9 +86,9 @@ class DEBUG_IRP_INFO extends Win32Struct
     }
 
     /**
-     * @type {Array<DEBUG_IRP_STACK_INFO>}
+     * @type {DEBUG_IRP_STACK_INFO}
      */
-    Stack{
+    Stack {
         get {
             if(!this.HasProp("__StackProxyArray"))
                 this.__StackProxyArray := Win32FixedArray(this.ptr + 96, 10, DEBUG_IRP_STACK_INFO, "")

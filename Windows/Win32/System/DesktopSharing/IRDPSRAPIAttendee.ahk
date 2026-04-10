@@ -1,10 +1,10 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
+#Include ..\Com\IDispatch.ahk
 #Include ..\..\Foundation\BSTR.ahk
 #Include .\IRDPSRAPIInvitation.ahk
 #Include ..\Com\IUnknown.ahk
-#Include ..\Com\IDispatch.ahk
 
 /**
  * Attendee objects are created as a result of clients connecting to the session and being authenticated. After an attendee object is created, it is automatically added to the attendees list.
@@ -12,9 +12,8 @@
  * Applications should not save pointers to attendee objects. The lifetime of the attendee object depends on the lifetime of the <b>RDPSession</b> object. It also depends if the session is still in the opened state and if the client corresponding to the attendee object is still connected to the session. Applications can keep references to attendee objects but calling some methods on it after the client disconnected or after the session is destroyed will return <b>E_UNEXPECTED</b> failures.
  * @see https://learn.microsoft.com/windows/win32/api/rdpencomapi/nn-rdpencomapi-irdpsrapiattendee
  * @namespace Windows.Win32.System.DesktopSharing
- * @version v4.0.30319
  */
-class IRDPSRAPIAttendee extends IDispatch{
+class IRDPSRAPIAttendee extends IDispatch {
 
     static sizeof => A_PtrSize
     /**
@@ -56,7 +55,7 @@ class IRDPSRAPIAttendee extends IDispatch{
     }
 
     /**
-     * @type {Integer} 
+     * @type {CTRL_LEVEL} 
      */
     ControlLevel {
         get => this.get_ControlLevel()
@@ -109,7 +108,7 @@ class IRDPSRAPIAttendee extends IDispatch{
 
     /**
      * The level of control the attendee has over the session. (Get)
-     * @returns {Integer} 
+     * @returns {CTRL_LEVEL} 
      * @see https://learn.microsoft.com/windows/win32/api/rdpencomapi/nf-rdpencomapi-irdpsrapiattendee-get_controllevel
      */
     get_ControlLevel() {
@@ -119,7 +118,7 @@ class IRDPSRAPIAttendee extends IDispatch{
 
     /**
      * The level of control the attendee has over the session. (Put)
-     * @param {Integer} pNewVal 
+     * @param {CTRL_LEVEL} pNewVal 
      * @returns {HRESULT} 
      * @see https://learn.microsoft.com/windows/win32/api/rdpencomapi/nf-rdpencomapi-irdpsrapiattendee-put_controllevel
      */

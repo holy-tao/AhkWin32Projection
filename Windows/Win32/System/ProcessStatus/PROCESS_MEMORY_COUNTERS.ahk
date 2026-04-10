@@ -5,10 +5,8 @@
  * Contains the memory statistics for a process.
  * @see https://learn.microsoft.com/windows/win32/api/psapi/ns-psapi-process_memory_counters
  * @namespace Windows.Win32.System.ProcessStatus
- * @version v4.0.30319
  */
-class PROCESS_MEMORY_COUNTERS extends Win32Struct
-{
+class PROCESS_MEMORY_COUNTERS extends Win32Struct {
     static sizeof => 72
 
     static packingSize => 8

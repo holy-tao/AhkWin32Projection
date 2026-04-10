@@ -3,10 +3,8 @@
 
 /**
  * @namespace Windows.Win32.Devices.AllJoyn
- * @version v4.0.30319
  */
-class alljoyn_permissionconfigurationlistener_callbacks extends Win32Struct
-{
+class alljoyn_permissionconfigurationlistener_callbacks extends Win32Struct {
     static sizeof => 32
 
     static packingSize => 8

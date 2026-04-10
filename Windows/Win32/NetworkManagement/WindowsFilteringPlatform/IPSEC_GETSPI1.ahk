@@ -1,15 +1,16 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
 #Include .\IPSEC_TRAFFIC1.ahk
+#Include .\FWP_IP_VERSION.ahk
+#Include .\IPSEC_TRAFFIC_TYPE.ahk
+#Include .\IPSEC_V4_UDP_ENCAPSULATION0.ahk
 
 /**
  * The IPSEC_GETSPI1 structure contains information that must be supplied when requesting a security parameter index (SPI) from the IPsec driver.Note  IPSEC_GETSPI1 is the specific implementation of IPSEC_GETSPI used in Windows 7 and later.
  * @see https://learn.microsoft.com/windows/win32/api/ipsectypes/ns-ipsectypes-ipsec_getspi1
  * @namespace Windows.Win32.NetworkManagement.WindowsFilteringPlatform
- * @version v4.0.30319
  */
-class IPSEC_GETSPI1 extends Win32Struct
-{
+class IPSEC_GETSPI1 extends Win32Struct {
     static sizeof => 96
 
     static packingSize => 8
@@ -18,7 +19,7 @@ class IPSEC_GETSPI1 extends Win32Struct
      * An [IPSEC_TRAFFIC1](/windows/desktop/api/ipsectypes/ns-ipsectypes-ipsec_traffic1) structure that describes traffic characteristics of the inbound IPsec SA.
      * @type {IPSEC_TRAFFIC1}
      */
-    inboundIpsecTraffic{
+    inboundIpsecTraffic {
         get {
             if(!this.HasProp("__inboundIpsecTraffic"))
                 this.__inboundIpsecTraffic := IPSEC_TRAFFIC1(0, this)
@@ -28,7 +29,7 @@ class IPSEC_GETSPI1 extends Win32Struct
 
     /**
      * An [FWP_IP_VERSION](/windows/desktop/api/fwptypes/ne-fwptypes-fwp_ip_version) value that indicates the IP version of the inbound IPsec traffic.
-     * @type {Integer}
+     * @type {FWP_IP_VERSION}
      */
     ipVersion {
         get => NumGet(this, 72, "int")

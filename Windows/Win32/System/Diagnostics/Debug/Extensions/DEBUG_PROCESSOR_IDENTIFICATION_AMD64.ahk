@@ -3,11 +3,9 @@
 
 /**
  * @namespace Windows.Win32.System.Diagnostics.Debug.Extensions
- * @version v4.0.30319
  */
-class DEBUG_PROCESSOR_IDENTIFICATION_AMD64 extends Win32Struct
-{
-    static sizeof => 44
+class DEBUG_PROCESSOR_IDENTIFICATION_AMD64 extends Win32Struct {
+    static sizeof => 28
 
     static packingSize => 4
 
@@ -39,7 +37,7 @@ class DEBUG_PROCESSOR_IDENTIFICATION_AMD64 extends Win32Struct
      * @type {String}
      */
     VendorString {
-        get => StrGet(this.ptr + 12, 15, "UTF-16")
-        set => StrPut(value, this.ptr + 12, 15, "UTF-16")
+        get => StrGet(this.ptr + 12, 15, "UTF-8")
+        set => StrPut(value, this.ptr + 12, 15, "UTF-8")
     }
 }

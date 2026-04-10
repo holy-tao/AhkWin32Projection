@@ -13,9 +13,8 @@
  * You can also get a pointer to this interface by calling <a href="https://docs.microsoft.com/windows/desktop/api/mfidl/nf-mfidl-imfgetservice-getservice">IMFGetService::GetService</a> on the PMP Media Session, using the service identifier <b>MF_PMP_SERVICE</b>.
  * @see https://learn.microsoft.com/windows/win32/api/mfidl/nn-mfidl-imfpmphost
  * @namespace Windows.Win32.Media.MediaFoundation
- * @version v4.0.30319
  */
-class IMFPMPHost extends IUnknown{
+class IMFPMPHost extends IUnknown {
 
     static sizeof => A_PtrSize
     /**

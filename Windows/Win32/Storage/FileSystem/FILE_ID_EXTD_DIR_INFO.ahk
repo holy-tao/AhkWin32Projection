@@ -6,10 +6,8 @@
  * Contains identification information for a file. (FILE_ID_EXTD_DIR_INFO)
  * @see https://learn.microsoft.com/windows/win32/api/winbase/ns-winbase-file_id_extd_dir_info
  * @namespace Windows.Win32.Storage.FileSystem
- * @version v4.0.30319
  */
-class FILE_ID_EXTD_DIR_INFO extends Win32Struct
-{
+class FILE_ID_EXTD_DIR_INFO extends Win32Struct {
     static sizeof => 96
 
     static packingSize => 8
@@ -321,7 +319,7 @@ class FILE_ID_EXTD_DIR_INFO extends Win32Struct
      * The file ID.
      * @type {FILE_ID_128}
      */
-    FileId{
+    FileId {
         get {
             if(!this.HasProp("__FileId"))
                 this.__FileId := FILE_ID_128(72, this)

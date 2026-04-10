@@ -3,10 +3,8 @@
 
 /**
  * @namespace Windows.Win32.System.Ioctl
- * @version v4.0.30319
  */
-class PHYSICAL_ELEMENT_STATUS_DESCRIPTOR extends Win32Struct
-{
+class PHYSICAL_ELEMENT_STATUS_DESCRIPTOR extends Win32Struct {
     static sizeof => 40
 
     static packingSize => 8
@@ -52,9 +50,9 @@ class PHYSICAL_ELEMENT_STATUS_DESCRIPTOR extends Win32Struct
     }
 
     /**
-     * @type {Array<Byte>}
+     * @type {Array<Integer>}
      */
-    Reserved1{
+    Reserved1 {
         get {
             if(!this.HasProp("__Reserved1ProxyArray"))
                 this.__Reserved1ProxyArray := Win32FixedArray(this.ptr + 14, 2, Primitive, "char")
@@ -71,9 +69,9 @@ class PHYSICAL_ELEMENT_STATUS_DESCRIPTOR extends Win32Struct
     }
 
     /**
-     * @type {Array<UInt32>}
+     * @type {Array<Integer>}
      */
-    Reserved2{
+    Reserved2 {
         get {
             if(!this.HasProp("__Reserved2ProxyArray"))
                 this.__Reserved2ProxyArray := Win32FixedArray(this.ptr + 24, 4, Primitive, "uint")

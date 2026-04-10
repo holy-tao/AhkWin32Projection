@@ -1,15 +1,14 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
 #Include .\CRYPT_INTEGER_BLOB.ahk
+#Include .\CERT_EXTENSION.ahk
 
 /**
  * Defines additional parameters for the time stamp request.
  * @see https://learn.microsoft.com/windows/win32/api/wincrypt/ns-wincrypt-crypt_timestamp_para
  * @namespace Windows.Win32.Security.Cryptography
- * @version v4.0.30319
  */
-class CRYPT_TIMESTAMP_PARA extends Win32Struct
-{
+class CRYPT_TIMESTAMP_PARA extends Win32Struct {
     static sizeof => 48
 
     static packingSize => 8
@@ -39,7 +38,7 @@ class CRYPT_TIMESTAMP_PARA extends Win32Struct
      * timeliness of the response when no local clock is available.
      * @type {CRYPT_INTEGER_BLOB}
      */
-    Nonce{
+    Nonce {
         get {
             if(!this.HasProp("__Nonce"))
                 this.__Nonce := CRYPT_INTEGER_BLOB(16, this)

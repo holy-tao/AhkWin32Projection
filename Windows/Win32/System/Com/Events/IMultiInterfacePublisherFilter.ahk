@@ -1,16 +1,14 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\..\Guid.ahk
-#Include ..\..\..\Foundation\BSTR.ahk
 #Include ..\IUnknown.ahk
 
 /**
  * Manages a filtered subscription cache for an event method.
  * @see https://learn.microsoft.com/windows/win32/api/eventsys/nn-eventsys-imultiinterfacepublisherfilter
  * @namespace Windows.Win32.System.Com.Events
- * @version v4.0.30319
  */
-class IMultiInterfacePublisherFilter extends IUnknown{
+class IMultiInterfacePublisherFilter extends IUnknown {
 
     static sizeof => A_PtrSize
     /**

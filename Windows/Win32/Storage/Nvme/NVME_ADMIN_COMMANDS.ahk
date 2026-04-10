@@ -3,13 +3,10 @@
 
 /**
  * Defines values that specify a command in the Admin command set which. The Admin command set contains commands that may be submitted to the Admin Submission Queue.
- * @remarks
- * 
  * @see https://learn.microsoft.com/windows/win32/api/nvme/ne-nvme-nvme_admin_commands
  * @namespace Windows.Win32.Storage.Nvme
- * @version v4.0.30319
  */
-class NVME_ADMIN_COMMANDS extends Win32Enum{
+class NVME_ADMIN_COMMANDS extends Win32Enum {
 
     /**
      * The Delete I/O Submission Queue command.

@@ -1,16 +1,14 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
-#Include ..\..\Foundation\BSTR.ahk
 #Include .\ITsSbBaseNotifySink.ahk
 
 /**
  * Exposes methods that report status and error messages about tasks to Remote Desktop Connection Broker (RD Connection Broker).
  * @see https://learn.microsoft.com/windows/win32/api/sbtsv/nn-sbtsv-itssbtaskpluginnotifysink
  * @namespace Windows.Win32.System.RemoteDesktop
- * @version v4.0.30319
  */
-class ITsSbTaskPluginNotifySink extends ITsSbBaseNotifySink{
+class ITsSbTaskPluginNotifySink extends ITsSbBaseNotifySink {
 
     static sizeof => A_PtrSize
     /**
@@ -74,7 +72,7 @@ class ITsSbTaskPluginNotifySink extends ITsSbBaseNotifySink{
      * Notifies Remote Desktop Connection Broker (RD Connection Broker) that the status of a task has changed.
      * @param {BSTR} szTargetName The name of the target.
      * @param {BSTR} TaskIdentifier The GUID that identifies the task.
-     * @param {Integer} TaskStatus An <a href="https://docs.microsoft.com/windows/win32/api/sessdirpublictypes/ne-sessdirpublictypes-rdv_task_status">RDV_TASK_STATUS</a> enumeration value representing the new state of the task.
+     * @param {RDV_TASK_STATUS} TaskStatus An <a href="https://docs.microsoft.com/windows/win32/api/sessdirpublictypes/ne-sessdirpublictypes-rdv_task_status">RDV_TASK_STATUS</a> enumeration value representing the new state of the task.
      * @returns {HRESULT} If this method succeeds, it returns <b>S_OK</b>. Otherwise, it returns an <b>HRESULT</b> error code.
      * @see https://learn.microsoft.com/windows/win32/api/sbtsv/nf-sbtsv-itssbtaskpluginnotifysink-onupdatetaskstatus
      */

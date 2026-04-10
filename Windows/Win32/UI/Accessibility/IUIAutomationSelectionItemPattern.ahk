@@ -1,16 +1,15 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
-#Include .\IUIAutomationElement.ahk
 #Include ..\..\System\Com\IUnknown.ahk
+#Include .\IUIAutomationElement.ahk
 
 /**
  * Provides access to the selectable child items of a container control that supports IUIAutomationSelectionPattern.
  * @see https://learn.microsoft.com/windows/win32/api/uiautomationclient/nn-uiautomationclient-iuiautomationselectionitempattern
  * @namespace Windows.Win32.UI.Accessibility
- * @version v4.0.30319
  */
-class IUIAutomationSelectionItemPattern extends IUnknown{
+class IUIAutomationSelectionItemPattern extends IUnknown {
 
     static sizeof => A_PtrSize
     /**

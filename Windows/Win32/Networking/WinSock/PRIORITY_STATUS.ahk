@@ -1,18 +1,17 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
+#Include .\SOCKET_PRIORITY_HINT.ahk
 
 /**
  * @namespace Windows.Win32.Networking.WinSock
- * @version v4.0.30319
  */
-class PRIORITY_STATUS extends Win32Struct
-{
+class PRIORITY_STATUS extends Win32Struct {
     static sizeof => 8
 
     static packingSize => 4
 
     /**
-     * @type {Integer}
+     * @type {SOCKET_PRIORITY_HINT}
      */
     Sender {
         get => NumGet(this, 0, "int")
@@ -20,7 +19,7 @@ class PRIORITY_STATUS extends Win32Struct
     }
 
     /**
-     * @type {Integer}
+     * @type {SOCKET_PRIORITY_HINT}
      */
     Receiver {
         get => NumGet(this, 4, "int")

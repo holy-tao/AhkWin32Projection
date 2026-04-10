@@ -1,5 +1,9 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
+#Include .\TRUSTEE_W.ahk
+#Include .\MULTIPLE_TRUSTEE_OPERATION.ahk
+#Include .\TRUSTEE_FORM.ahk
+#Include .\TRUSTEE_TYPE.ahk
 
 /**
  * Identifies the user account, group account, or logon session to which an access control entry (ACE) applies. (Unicode)
@@ -43,11 +47,9 @@
  * > The accctrl.h header defines TRUSTEE_ as an alias which automatically selects the ANSI or Unicode version of this function based on the definition of the UNICODE preprocessor constant. Mixing usage of the encoding-neutral alias with code that not encoding-neutral can lead to mismatches that result in compilation or runtime errors. For more information, see [Conventions for Function Prototypes](/windows/win32/intl/conventions-for-function-prototypes).
  * @see https://learn.microsoft.com/windows/win32/api/accctrl/ns-accctrl-trustee_w
  * @namespace Windows.Win32.Security.Authorization
- * @version v4.0.30319
  * @charset Unicode
  */
-class TRUSTEE_W extends Win32Struct
-{
+class TRUSTEE_W extends Win32Struct {
     static sizeof => 32
 
     static packingSize => 8
@@ -64,7 +66,7 @@ class TRUSTEE_W extends Win32Struct
     /**
      * A value of the 
      * <a href="https://docs.microsoft.com/windows/desktop/api/accctrl/ne-accctrl-multiple_trustee_operation">MULTIPLE_TRUSTEE_OPERATION</a> enumeration type. Currently, this member must be NO_MULTIPLE_TRUSTEE.
-     * @type {Integer}
+     * @type {MULTIPLE_TRUSTEE_OPERATION}
      */
     MultipleTrusteeOperation {
         get => NumGet(this, 8, "int")
@@ -74,7 +76,7 @@ class TRUSTEE_W extends Win32Struct
     /**
      * A value from the 
      * <a href="https://docs.microsoft.com/windows/desktop/api/accctrl/ne-accctrl-trustee_form">TRUSTEE_FORM</a> enumeration type that indicates the type of data pointed to by the <b>ptstrName</b> member.
-     * @type {Integer}
+     * @type {TRUSTEE_FORM}
      */
     TrusteeForm {
         get => NumGet(this, 12, "int")
@@ -84,7 +86,7 @@ class TRUSTEE_W extends Win32Struct
     /**
      * A value from the 
      * <a href="https://docs.microsoft.com/windows/desktop/api/accctrl/ne-accctrl-trustee_type">TRUSTEE_TYPE</a> enumeration type that indicates whether the trustee is a user account, a group account, or an unknown account type.
-     * @type {Integer}
+     * @type {TRUSTEE_TYPE}
      */
     TrusteeType {
         get => NumGet(this, 16, "int")

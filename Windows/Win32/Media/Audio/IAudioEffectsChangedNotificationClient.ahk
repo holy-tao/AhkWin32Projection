@@ -9,9 +9,8 @@
  * Register the callback interface by calling [IAudioEffectsManager::RegisterAudioEffectsChangedNotificationCallback](nf-audioclient-iaudioeffectsmanager-registeraudioeffectschangednotificationcallback.md).
  * @see https://learn.microsoft.com/windows/win32/api/audioclient/nn-audioclient-iaudioeffectschangednotificationclient
  * @namespace Windows.Win32.Media.Audio
- * @version v4.0.30319
  */
-class IAudioEffectsChangedNotificationClient extends IUnknown{
+class IAudioEffectsChangedNotificationClient extends IUnknown {
 
     static sizeof => A_PtrSize
     /**

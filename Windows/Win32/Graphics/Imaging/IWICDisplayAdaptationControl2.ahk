@@ -5,9 +5,8 @@
 
 /**
  * @namespace Windows.Win32.Graphics.Imaging
- * @version v4.0.30319
  */
-class IWICDisplayAdaptationControl2 extends IWICDisplayAdaptationControl{
+class IWICDisplayAdaptationControl2 extends IWICDisplayAdaptationControl {
 
     static sizeof => A_PtrSize
     /**
@@ -49,7 +48,7 @@ class IWICDisplayAdaptationControl2 extends IWICDisplayAdaptationControl{
 
     /**
      * 
-     * @param {Integer} _mode 
+     * @param {WICBitmapToneMappingMode} _mode 
      * @returns {HRESULT} 
      */
     SetToneMappingMode(_mode) {
@@ -59,7 +58,7 @@ class IWICDisplayAdaptationControl2 extends IWICDisplayAdaptationControl{
 
     /**
      * 
-     * @returns {Integer} 
+     * @returns {WICBitmapToneMappingMode} 
      */
     GetToneMappingMode() {
         result := ComCall(9, this, "int*", &_mode := 0, "HRESULT")
@@ -68,7 +67,7 @@ class IWICDisplayAdaptationControl2 extends IWICDisplayAdaptationControl{
 
     /**
      * 
-     * @param {Integer} _mode 
+     * @param {WICBitmapToneMappingMode} _mode 
      * @returns {BOOL} 
      */
     DoesSupportToneMappingMode(_mode) {

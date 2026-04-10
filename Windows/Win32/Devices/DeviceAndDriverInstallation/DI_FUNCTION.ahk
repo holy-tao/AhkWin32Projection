@@ -3,9 +3,8 @@
 
 /**
  * @namespace Windows.Win32.Devices.DeviceAndDriverInstallation
- * @version v4.0.30319
  */
-class DI_FUNCTION extends Win32Enum{
+class DI_FUNCTION extends Win32Enum {
 
     /**
      * @type {Integer (UInt32)}

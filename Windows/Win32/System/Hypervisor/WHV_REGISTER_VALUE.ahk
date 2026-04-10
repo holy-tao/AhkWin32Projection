@@ -16,10 +16,8 @@
 
 /**
  * @namespace Windows.Win32.System.Hypervisor
- * @version v4.0.30319
  */
-class WHV_REGISTER_VALUE extends Win32Struct
-{
+class WHV_REGISTER_VALUE extends Win32Struct {
     static sizeof => 400
 
     static packingSize => 8
@@ -27,7 +25,7 @@ class WHV_REGISTER_VALUE extends Win32Struct
     /**
      * @type {WHV_UINT128}
      */
-    Reg128{
+    Reg128 {
         get {
             if(!this.HasProp("__Reg128"))
                 this.__Reg128 := WHV_UINT128(0, this)
@@ -70,7 +68,7 @@ class WHV_REGISTER_VALUE extends Win32Struct
     /**
      * @type {WHV_X64_FP_REGISTER}
      */
-    Fp{
+    Fp {
         get {
             if(!this.HasProp("__Fp"))
                 this.__Fp := WHV_X64_FP_REGISTER(0, this)
@@ -81,7 +79,7 @@ class WHV_REGISTER_VALUE extends Win32Struct
     /**
      * @type {WHV_X64_FP_CONTROL_STATUS_REGISTER}
      */
-    FpControlStatus{
+    FpControlStatus {
         get {
             if(!this.HasProp("__FpControlStatus"))
                 this.__FpControlStatus := WHV_X64_FP_CONTROL_STATUS_REGISTER(0, this)
@@ -92,7 +90,7 @@ class WHV_REGISTER_VALUE extends Win32Struct
     /**
      * @type {WHV_X64_XMM_CONTROL_STATUS_REGISTER}
      */
-    XmmControlStatus{
+    XmmControlStatus {
         get {
             if(!this.HasProp("__XmmControlStatus"))
                 this.__XmmControlStatus := WHV_X64_XMM_CONTROL_STATUS_REGISTER(0, this)
@@ -103,7 +101,7 @@ class WHV_REGISTER_VALUE extends Win32Struct
     /**
      * @type {WHV_X64_SEGMENT_REGISTER}
      */
-    Segment{
+    Segment {
         get {
             if(!this.HasProp("__Segment"))
                 this.__Segment := WHV_X64_SEGMENT_REGISTER(0, this)
@@ -114,7 +112,7 @@ class WHV_REGISTER_VALUE extends Win32Struct
     /**
      * @type {WHV_X64_TABLE_REGISTER}
      */
-    Table{
+    Table {
         get {
             if(!this.HasProp("__Table"))
                 this.__Table := WHV_X64_TABLE_REGISTER(0, this)
@@ -125,7 +123,7 @@ class WHV_REGISTER_VALUE extends Win32Struct
     /**
      * @type {WHV_X64_INTERRUPT_STATE_REGISTER}
      */
-    InterruptState{
+    InterruptState {
         get {
             if(!this.HasProp("__InterruptState"))
                 this.__InterruptState := WHV_X64_INTERRUPT_STATE_REGISTER(0, this)
@@ -136,7 +134,7 @@ class WHV_REGISTER_VALUE extends Win32Struct
     /**
      * @type {WHV_X64_PENDING_INTERRUPTION_REGISTER}
      */
-    PendingInterruption{
+    PendingInterruption {
         get {
             if(!this.HasProp("__PendingInterruption"))
                 this.__PendingInterruption := WHV_X64_PENDING_INTERRUPTION_REGISTER(0, this)
@@ -147,7 +145,7 @@ class WHV_REGISTER_VALUE extends Win32Struct
     /**
      * @type {WHV_X64_DELIVERABILITY_NOTIFICATIONS_REGISTER}
      */
-    DeliverabilityNotifications{
+    DeliverabilityNotifications {
         get {
             if(!this.HasProp("__DeliverabilityNotifications"))
                 this.__DeliverabilityNotifications := WHV_X64_DELIVERABILITY_NOTIFICATIONS_REGISTER(0, this)
@@ -158,7 +156,7 @@ class WHV_REGISTER_VALUE extends Win32Struct
     /**
      * @type {WHV_X64_PENDING_EXCEPTION_EVENT}
      */
-    ExceptionEvent{
+    ExceptionEvent {
         get {
             if(!this.HasProp("__ExceptionEvent"))
                 this.__ExceptionEvent := WHV_X64_PENDING_EXCEPTION_EVENT(0, this)
@@ -169,7 +167,7 @@ class WHV_REGISTER_VALUE extends Win32Struct
     /**
      * @type {WHV_X64_PENDING_EXT_INT_EVENT}
      */
-    ExtIntEvent{
+    ExtIntEvent {
         get {
             if(!this.HasProp("__ExtIntEvent"))
                 this.__ExtIntEvent := WHV_X64_PENDING_EXT_INT_EVENT(0, this)
@@ -180,7 +178,7 @@ class WHV_REGISTER_VALUE extends Win32Struct
     /**
      * @type {WHV_INTERNAL_ACTIVITY_REGISTER}
      */
-    InternalActivity{
+    InternalActivity {
         get {
             if(!this.HasProp("__InternalActivity"))
                 this.__InternalActivity := WHV_INTERNAL_ACTIVITY_REGISTER(0, this)
@@ -191,7 +189,7 @@ class WHV_REGISTER_VALUE extends Win32Struct
     /**
      * @type {WHV_X64_PENDING_DEBUG_EXCEPTION}
      */
-    PendingDebugException{
+    PendingDebugException {
         get {
             if(!this.HasProp("__PendingDebugException"))
                 this.__PendingDebugException := WHV_X64_PENDING_DEBUG_EXCEPTION(0, this)

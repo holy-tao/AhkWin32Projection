@@ -4,10 +4,8 @@
 
 /**
  * @namespace Windows.Win32.System.Rpc
- * @version v4.0.30319
  */
-class NDR64_CONF_BOGUS_STRUCTURE_HEADER_FORMAT extends Win32Struct
-{
+class NDR64_CONF_BOGUS_STRUCTURE_HEADER_FORMAT extends Win32Struct {
     static sizeof => 40
 
     static packingSize => 8
@@ -31,7 +29,7 @@ class NDR64_CONF_BOGUS_STRUCTURE_HEADER_FORMAT extends Win32Struct
     /**
      * @type {NDR64_STRUCTURE_FLAGS}
      */
-    Flags{
+    Flags {
         get {
             if(!this.HasProp("__Flags"))
                 this.__Flags := NDR64_STRUCTURE_FLAGS(2, this)

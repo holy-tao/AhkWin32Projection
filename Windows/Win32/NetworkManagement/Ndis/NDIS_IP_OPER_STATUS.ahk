@@ -1,12 +1,11 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
+#Include .\NET_IF_OPER_STATUS.ahk
 
 /**
  * @namespace Windows.Win32.NetworkManagement.Ndis
- * @version v4.0.30319
  */
-class NDIS_IP_OPER_STATUS extends Win32Struct
-{
+class NDIS_IP_OPER_STATUS extends Win32Struct {
     static sizeof => 12
 
     static packingSize => 4
@@ -20,7 +19,7 @@ class NDIS_IP_OPER_STATUS extends Win32Struct
     }
 
     /**
-     * @type {Integer}
+     * @type {NET_IF_OPER_STATUS}
      */
     OperationalStatus {
         get => NumGet(this, 4, "int")

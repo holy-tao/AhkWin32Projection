@@ -1,14 +1,14 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\..\Win32Struct.ahk
+#Include .\HrtfDistanceDecay.ahk
+#Include .\HrtfDirectivity.ahk
 
 /**
  * Specifies parameters used to initialize HRTF spatial audio.
  * @see https://learn.microsoft.com/windows/win32/api/hrtfapoapi/ns-hrtfapoapi-hrtfapoinit
  * @namespace Windows.Win32.Media.Audio.XAudio2
- * @version v4.0.30319
  */
-class HrtfApoInit extends Win32Struct
-{
+class HrtfApoInit extends Win32Struct {
     static sizeof => 16
 
     static packingSize => 8

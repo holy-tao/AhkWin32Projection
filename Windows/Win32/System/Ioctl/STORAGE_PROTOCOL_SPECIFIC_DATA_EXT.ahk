@@ -1,18 +1,17 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
+#Include .\STORAGE_PROTOCOL_TYPE.ahk
 
 /**
  * @namespace Windows.Win32.System.Ioctl
- * @version v4.0.30319
  */
-class STORAGE_PROTOCOL_SPECIFIC_DATA_EXT extends Win32Struct
-{
+class STORAGE_PROTOCOL_SPECIFIC_DATA_EXT extends Win32Struct {
     static sizeof => 64
 
     static packingSize => 4
 
     /**
-     * @type {Integer}
+     * @type {STORAGE_PROTOCOL_TYPE}
      */
     ProtocolType {
         get => NumGet(this, 0, "int")
@@ -108,9 +107,9 @@ class STORAGE_PROTOCOL_SPECIFIC_DATA_EXT extends Win32Struct
     }
 
     /**
-     * @type {Array<UInt32>}
+     * @type {Array<Integer>}
      */
-    Reserved{
+    Reserved {
         get {
             if(!this.HasProp("__ReservedProxyArray"))
                 this.__ReservedProxyArray := Win32FixedArray(this.ptr + 48, 4, Primitive, "uint")

@@ -1,13 +1,10 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
-#Include .\PMKID_CANDIDATE.ahk
 
 /**
  * @namespace Windows.Wdk.NetworkManagement.Ndis
- * @version v4.0.30319
  */
-class NDIS_802_11_PMKID_CANDIDATE_LIST extends Win32Struct
-{
+class NDIS_802_11_PMKID_CANDIDATE_LIST extends Win32Struct {
     static sizeof => 16
 
     static packingSize => 8
@@ -29,9 +26,9 @@ class NDIS_802_11_PMKID_CANDIDATE_LIST extends Win32Struct
     }
 
     /**
-     * @type {Array<PMKID_CANDIDATE>}
+     * @type {Array<Pointer>}
      */
-    CandidateList{
+    CandidateList {
         get {
             if(!this.HasProp("__CandidateListProxyArray"))
                 this.__CandidateListProxyArray := Win32FixedArray(this.ptr + 8, 1, Primitive, "ptr")

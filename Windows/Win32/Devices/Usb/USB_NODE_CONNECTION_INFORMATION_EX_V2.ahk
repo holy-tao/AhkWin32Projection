@@ -5,10 +5,8 @@
 
 /**
  * @namespace Windows.Win32.Devices.Usb
- * @version v4.0.30319
  */
-class USB_NODE_CONNECTION_INFORMATION_EX_V2 extends Win32Struct
-{
+class USB_NODE_CONNECTION_INFORMATION_EX_V2 extends Win32Struct {
     static sizeof => 24
 
     static packingSize => 4
@@ -32,7 +30,7 @@ class USB_NODE_CONNECTION_INFORMATION_EX_V2 extends Win32Struct
     /**
      * @type {USB_PROTOCOLS}
      */
-    SupportedUsbProtocols{
+    SupportedUsbProtocols {
         get {
             if(!this.HasProp("__SupportedUsbProtocols"))
                 this.__SupportedUsbProtocols := USB_PROTOCOLS(8, this)
@@ -43,7 +41,7 @@ class USB_NODE_CONNECTION_INFORMATION_EX_V2 extends Win32Struct
     /**
      * @type {USB_NODE_CONNECTION_INFORMATION_EX_V2_FLAGS}
      */
-    Flags{
+    Flags {
         get {
             if(!this.HasProp("__Flags"))
                 this.__Flags := USB_NODE_CONNECTION_INFORMATION_EX_V2_FLAGS(16, this)

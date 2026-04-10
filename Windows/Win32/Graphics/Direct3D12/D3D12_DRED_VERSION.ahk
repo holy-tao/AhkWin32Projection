@@ -3,13 +3,10 @@
 
 /**
  * Defines constants that specify a version of Device Removed Extended Data (DRED), as used by the D3D12_VERSIONED_DEVICE_REMOVED_EXTENDED_DATA structure.
- * @remarks
- * 
  * @see https://learn.microsoft.com/windows/win32/api/d3d12/ne-d3d12-d3d12_dred_version
  * @namespace Windows.Win32.Graphics.Direct3D12
- * @version v4.0.30319
  */
-class D3D12_DRED_VERSION extends Win32Enum{
+class D3D12_DRED_VERSION extends Win32Enum {
 
     /**
      * Specifies DRED version 1.0.

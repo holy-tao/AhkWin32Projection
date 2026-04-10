@@ -1,16 +1,15 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
-#Include ..\..\Foundation\BSTR.ahk
 #Include ..\..\System\Com\IDispatch.ahk
+#Include ..\..\Foundation\BSTR.ahk
 
 /**
  * The ITDirectoryObjectUser interface is the common interface supported by the User object. This interface is created by calling QueryInterface on ITDirectoryObject.
  * @see https://learn.microsoft.com/windows/win32/api/rend/nn-rend-itdirectoryobjectuser
  * @namespace Windows.Win32.Devices.Tapi
- * @version v4.0.30319
  */
-class ITDirectoryObjectUser extends IDispatch{
+class ITDirectoryObjectUser extends IDispatch {
 
     static sizeof => A_PtrSize
     /**

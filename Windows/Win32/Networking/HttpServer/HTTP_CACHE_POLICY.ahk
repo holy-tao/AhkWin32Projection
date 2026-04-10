@@ -1,21 +1,19 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
+#Include .\HTTP_CACHE_POLICY_TYPE.ahk
 
 /**
  * Used to define a cache policy associated with a cached response fragment.
  * @see https://learn.microsoft.com/windows/win32/api/http/ns-http-http_cache_policy
  * @namespace Windows.Win32.Networking.HttpServer
- * @version v4.0.30319
  */
-class HTTP_CACHE_POLICY extends Win32Struct
-{
+class HTTP_CACHE_POLICY extends Win32Struct {
     static sizeof => 8
 
     static packingSize => 4
 
     /**
-     * 
-     * @type {Integer}
+     * @type {HTTP_CACHE_POLICY_TYPE}
      */
     Policy {
         get => NumGet(this, 0, "int")

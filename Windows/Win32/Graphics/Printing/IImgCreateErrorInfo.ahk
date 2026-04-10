@@ -5,9 +5,8 @@
 
 /**
  * @namespace Windows.Win32.Graphics.Printing
- * @version v4.0.30319
  */
-class IImgCreateErrorInfo extends ICreateErrorInfo{
+class IImgCreateErrorInfo extends ICreateErrorInfo {
 
     static sizeof => A_PtrSize
     /**

@@ -5,13 +5,10 @@
 
 /**
  * Enables interoperability with a WinRT [UserActivity](/uwp/api/windows.applicationmodel.useractivities.useractivity) object.
- * @remarks
- * 
  * @see https://learn.microsoft.com/windows/win32/api/useractivityinterop/nn-useractivityinterop-iuseractivityinterop
  * @namespace Windows.Win32.System.WinRT
- * @version v4.0.30319
  */
-class IUserActivityInterop extends IInspectable{
+class IUserActivityInterop extends IInspectable {
 
     static sizeof => A_PtrSize
     /**

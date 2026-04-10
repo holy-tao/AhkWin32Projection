@@ -1,14 +1,13 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
-#Include ..\..\Foundation\BSTR.ahk
 #Include .\IRTCBuddyEvent.ahk
+#Include ..\..\Foundation\BSTR.ahk
 
 /**
  * @namespace Windows.Win32.System.RealTimeCommunications
- * @version v4.0.30319
  */
-class IRTCBuddyEvent2 extends IRTCBuddyEvent{
+class IRTCBuddyEvent2 extends IRTCBuddyEvent {
 
     static sizeof => A_PtrSize
     /**
@@ -30,7 +29,7 @@ class IRTCBuddyEvent2 extends IRTCBuddyEvent{
     static VTableNames => ["get_EventType", "get_StatusCode", "get_StatusText"]
 
     /**
-     * @type {Integer} 
+     * @type {RTC_BUDDY_EVENT_TYPE} 
      */
     EventType {
         get => this.get_EventType()
@@ -52,7 +51,7 @@ class IRTCBuddyEvent2 extends IRTCBuddyEvent{
 
     /**
      * 
-     * @returns {Integer} 
+     * @returns {RTC_BUDDY_EVENT_TYPE} 
      */
     get_EventType() {
         result := ComCall(8, this, "int*", &pEventType := 0, "HRESULT")

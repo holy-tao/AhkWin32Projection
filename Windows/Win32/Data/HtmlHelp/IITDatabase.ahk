@@ -7,9 +7,8 @@
  * Use this interface for opening and closing the database object, and for instantiating objects stored in the database.
  * @see https://learn.microsoft.com/windows/win32/api/infotech/nn-infotech-iitdatabase
  * @namespace Windows.Win32.Data.HtmlHelp
- * @version v4.0.30319
  */
-class IITDatabase extends IUnknown{
+class IITDatabase extends IUnknown {
 
     static sizeof => A_PtrSize
     /**

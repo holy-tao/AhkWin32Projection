@@ -1,14 +1,15 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
+#Include ..\Cryptography\CERT_CONTEXT.ahk
+#Include ..\Cryptography\HCERTSTORE.ahk
+#Include ..\..\Foundation\FILETIME.ahk
 
 /**
  * Used when calling WinVerifyTrust to verify a CERT_CONTEXT.
  * @see https://learn.microsoft.com/windows/win32/api/wintrust/ns-wintrust-wintrust_cert_info
  * @namespace Windows.Win32.Security.WinTrust
- * @version v4.0.30319
  */
-class WINTRUST_CERT_INFO extends Win32Struct
-{
+class WINTRUST_CERT_INFO extends Win32Struct {
     static sizeof => 56
 
     static packingSize => 8
@@ -61,7 +62,6 @@ class WINTRUST_CERT_INFO extends Win32Struct
     }
 
     /**
-     * 
      * @type {Integer}
      */
     dwFlags {
@@ -70,7 +70,6 @@ class WINTRUST_CERT_INFO extends Win32Struct
     }
 
     /**
-     * 
      * @type {Pointer<FILETIME>}
      */
     psftVerifyAsOf {

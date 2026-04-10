@@ -1,6 +1,7 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
+#Include ..\..\System\Com\IUnknown.ahk
 #Include .\ID2D1Effect.ahk
 #Include .\ID2D1TransformNode.ahk
 #Include .\ID2D1BlendTransform.ahk
@@ -10,7 +11,6 @@
 #Include .\ID2D1ResourceTexture.ahk
 #Include .\ID2D1VertexBuffer.ahk
 #Include .\ID2D1ColorContext.ahk
-#Include ..\..\System\Com\IUnknown.ahk
 
 /**
  * Provides factory methods and other state management for effect and transform authors. (ID2D1EffectContext)
@@ -20,9 +20,8 @@
  * Each call to <a href="https://docs.microsoft.com/windows/desktop/api/d2d1effectauthor/nf-d2d1effectauthor-id2d1effectimpl-initialize">ID2D1Effect::Initialize</a> will be provided a different <b>ID2D1EffectContext</b> interface. This interface tracks resource allocations for the effect. When the effect is released, the corresponding allocations will also be released.
  * @see https://learn.microsoft.com/windows/win32/api/d2d1effectauthor/nn-d2d1effectauthor-id2d1effectcontext
  * @namespace Windows.Win32.Graphics.Direct2D
- * @version v4.0.30319
  */
-class ID2D1EffectContext extends IUnknown{
+class ID2D1EffectContext extends IUnknown {
 
     static sizeof => A_PtrSize
     /**
@@ -70,7 +69,9 @@ class ID2D1EffectContext extends IUnknown{
      * @param {Pointer<Guid>} effectId Type: <b>REFCLSID</b>
      * 
      * The built-in or registered effect ID to create the effect. See <a href="https://docs.microsoft.com/windows/desktop/Direct2D/built-in-effects">Built-in Effects</a> for a list of effect IDs.
-     * @returns {ID2D1Effect} 
+     * @returns {ID2D1Effect} Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/d2d1_1/nn-d2d1_1-id2d1effect">ID2D1Effect</a>**</b>
+     * 
+     * When this method returns, contains the address of a pointer to the effect.
      * @see https://learn.microsoft.com/windows/win32/api/d2d1effectauthor/nf-d2d1effectauthor-id2d1effectcontext-createeffect
      */
     CreateEffect(effectId) {
@@ -80,13 +81,13 @@ class ID2D1EffectContext extends IUnknown{
 
     /**
      * This indicates the maximum feature level from the provided list which is supported by the device.
-     * @param {Pointer<Integer>} featureLevels Type: <b>const <a href="https://docs.microsoft.com/windows/desktop/api/d3dcommon/ne-d3dcommon-d3d_feature_level">D3D_FEATURE_LEVEL</a>*</b>
+     * @param {Pointer<D3D_FEATURE_LEVEL>} featureLevels Type: <b>const <a href="https://docs.microsoft.com/windows/desktop/api/d3dcommon/ne-d3dcommon-d3d_feature_level">D3D_FEATURE_LEVEL</a>*</b>
      * 
      * The feature levels provided by the application.
      * @param {Integer} featureLevelsCount Type: <b>UINT32</b>
      * 
      * The count of feature levels provided by the application
-     * @returns {Integer} Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/d3dcommon/ne-d3dcommon-d3d_feature_level">D3D_FEATURE_LEVEL</a>*</b>
+     * @returns {D3D_FEATURE_LEVEL} Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/d3dcommon/ne-d3dcommon-d3d_feature_level">D3D_FEATURE_LEVEL</a>*</b>
      * 
      * The maximum feature level from the <i>featureLevels</i> list which is supported by the D2D device.
      * @see https://learn.microsoft.com/windows/win32/api/d2d1effectauthor/nf-d2d1effectauthor-id2d1effectcontext-getmaximumsupportedfeaturelevel
@@ -100,7 +101,9 @@ class ID2D1EffectContext extends IUnknown{
 
     /**
      * Wraps an effect graph into a single transform node and then inserted into a transform graph. This allows an effect to aggregate other effects.
-     * @param {ID2D1Effect} _effect 
+     * @param {ID2D1Effect} _effect Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/d2d1_1/nn-d2d1_1-id2d1effect">ID2D1Effect</a>*</b>
+     * 
+     * The effect to be wrapped in a transform node.
      * @returns {ID2D1TransformNode} Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/d2d1effectauthor/nn-d2d1effectauthor-id2d1transformnode">ID2D1TransformNode</a>**</b>
      * 
      * The returned transform node that encapsulates the effect graph.
@@ -131,10 +134,10 @@ class ID2D1EffectContext extends IUnknown{
 
     /**
      * Creates a transform that extends its input infinitely in every direction based on the passed in extend mode.
-     * @param {Integer} extendModeX Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/d2d1/ne-d2d1-d2d1_extend_mode">D2D1_EXTEND_MODE</a></b>
+     * @param {D2D1_EXTEND_MODE} extendModeX Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/d2d1/ne-d2d1-d2d1_extend_mode">D2D1_EXTEND_MODE</a></b>
      * 
      * The extend mode in the X-axis direction.
-     * @param {Integer} extendModeY Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/d2d1/ne-d2d1-d2d1_extend_mode">D2D1_EXTEND_MODE</a></b>
+     * @param {D2D1_EXTEND_MODE} extendModeY Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/d2d1/ne-d2d1-d2d1_extend_mode">D2D1_EXTEND_MODE</a></b>
      * 
      * The extend mode in the Y-axis direction.
      * @returns {ID2D1BorderTransform} Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/d2d1effectauthor/nn-d2d1effectauthor-id2d1bordertransform">ID2D1BorderTransform</a>**</b>
@@ -392,7 +395,9 @@ class ID2D1EffectContext extends IUnknown{
      * @param {Pointer<D2D1_CUSTOM_VERTEX_BUFFER_PROPERTIES>} customVertexBufferProperties Type: <b>const <a href="https://docs.microsoft.com/windows/desktop/api/d2d1effectauthor/ns-d2d1effectauthor-d2d1_custom_vertex_buffer_properties">D2D1_CUSTOM_VERTEX_BUFFER_PROPERTIES</a>*</b>
      * 
      * The properties used to define a custom vertex buffer. If you use a built-in vertex shader, you don't have to specify this property.
-     * @returns {ID2D1VertexBuffer} 
+     * @returns {ID2D1VertexBuffer} Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/d2d1effectauthor/nn-d2d1effectauthor-id2d1vertexbuffer">ID2D1VertexBuffer</a>**</b>
+     * 
+     * The returned vertex buffer.
      * @see https://learn.microsoft.com/windows/win32/api/d2d1effectauthor/nf-d2d1effectauthor-id2d1effectcontext-createvertexbuffer
      */
     CreateVertexBuffer(vertexBufferProperties, resourceId, customVertexBufferProperties) {
@@ -405,7 +410,9 @@ class ID2D1EffectContext extends IUnknown{
      * @param {Pointer<Guid>} resourceId Type: <b>const GUID*</b>
      * 
      * The unique id that identifies the vertex buffer.
-     * @returns {ID2D1VertexBuffer} 
+     * @returns {ID2D1VertexBuffer} Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/d2d1effectauthor/nn-d2d1effectauthor-id2d1vertexbuffer">ID2D1VertexBuffer</a>**</b>
+     * 
+     * The returned vertex buffer that can be used as a resource in a <a href="https://docs.microsoft.com/windows/desktop/Direct2D/direct2d-portal">Direct2D</a> effect.
      * @see https://learn.microsoft.com/windows/win32/api/d2d1effectauthor/nf-d2d1effectauthor-id2d1effectcontext-findvertexbuffer
      */
     FindVertexBuffer(resourceId) {
@@ -415,10 +422,12 @@ class ID2D1EffectContext extends IUnknown{
 
     /**
      * Creates a color context from a color space.
-     * @param {Integer} space Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/d2d1_1/ne-d2d1_1-d2d1_color_space">D2D1_COLOR_SPACE</a></b>
+     * @param {D2D1_COLOR_SPACE} space Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/d2d1_1/ne-d2d1_1-d2d1_color_space">D2D1_COLOR_SPACE</a></b>
      * 
      * The space  of color context to create.
-     * @param {Pointer<Integer>} _profile 
+     * @param {Pointer<Integer>} _profile Type: <b>const BYTE*</b>
+     * 
+     * A buffer containing the ICC profile bytes used to initialize the color context when <i>space</i> is <a href="https://docs.microsoft.com/windows/desktop/api/d2d1_1/ne-d2d1_1-d2d1_color_space">D2D1_COLOR_SPACE_CUSTOM</a>.  For other types, the parameter is ignored and should be set to <b>NULL</b>.
      * @param {Integer} profileSize Type: <b>UINT32</b>
      * 
      * The size in bytes of <i>Profile</i>.
@@ -470,10 +479,10 @@ class ID2D1EffectContext extends IUnknown{
 
     /**
      * This indicates whether an optional capability is supported by the D3D device.
-     * @param {Integer} feature Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/d2d1effectauthor/ne-d2d1effectauthor-d2d1_feature">D2D1_FEATURE</a></b>
+     * @param {D2D1_FEATURE} feature Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/d2d1effectauthor/ne-d2d1effectauthor-d2d1_feature">D2D1_FEATURE</a></b>
      * 
      * The feature to query support for.
-     * @param {Pointer} featureSupportData Type: <b>void*</b>
+     * @param {Integer} featureSupportData Type: <b>void*</b>
      * 
      * A structure indicating information about how or if the feature is supported.
      * @param {Integer} featureSupportDataSize Type: <b>UINT32</b>
@@ -510,7 +519,7 @@ class ID2D1EffectContext extends IUnknown{
 
     /**
      * Indicates whether the buffer precision is supported by the underlying Direct2D device.
-     * @param {Integer} bufferPrecision Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/d2d1_1/ne-d2d1_1-d2d1_buffer_precision">D2D1_BUFFER_PRECISION</a></b>
+     * @param {D2D1_BUFFER_PRECISION} bufferPrecision Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/d2d1_1/ne-d2d1_1-d2d1_buffer_precision">D2D1_BUFFER_PRECISION</a></b>
      * 
      * The buffer precision to check.
      * @returns {BOOL} Type: <b>BOOL</b>

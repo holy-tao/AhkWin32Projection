@@ -1,16 +1,15 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
-#Include .\VDS_HBAPORT_PROP.ahk
 #Include ..\..\System\Com\IUnknown.ahk
+#Include .\VDS_HBAPORT_PROP.ahk
 
 /**
  * Provides methods to query and interact with HBA ports on the local system.
  * @see https://learn.microsoft.com/windows/win32/api/vds/nn-vds-ivdshbaport
  * @namespace Windows.Win32.Storage.VirtualDiskService
- * @version v4.0.30319
  */
-class IVdsHbaPort extends IUnknown{
+class IVdsHbaPort extends IUnknown {
 
     static sizeof => A_PtrSize
     /**
@@ -45,7 +44,7 @@ class IVdsHbaPort extends IUnknown{
 
     /**
      * Sets the statuses of all paths originating from the HBA port to a specified status.
-     * @param {Integer} _status 
+     * @param {VDS_PATH_STATUS} _status The status to be assigned to the paths.
      * @returns {HRESULT} This method can return standard HRESULT values, such as E_INVALIDARG or E_OUTOFMEMORY, and <a href="https://docs.microsoft.com/windows/desktop/VDS/virtual-disk-service-common-return-codes">VDS-specific return values</a>. It can also return converted <a href="https://docs.microsoft.com/windows/desktop/Debug/system-error-codes">system error codes</a>  using the <a href="https://docs.microsoft.com/windows/desktop/api/winerror/nf-winerror-hresult_from_win32">HRESULT_FROM_WIN32</a> macro. Errors can originate from VDS itself or from the underlying <a href="https://docs.microsoft.com/windows/desktop/VDS/about-vds">VDS provider</a> that is being used. Possible return values include the following.
      * 
      * <table>

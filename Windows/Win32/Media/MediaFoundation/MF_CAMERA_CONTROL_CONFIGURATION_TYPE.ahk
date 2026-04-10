@@ -9,9 +9,8 @@
  * Retrieve the configuration type of a control by calling [IMFCameraControlDefaults::GetType](ne-mfidl-mf_camera_control_configuration_type.md).
  * @see https://learn.microsoft.com/windows/win32/api/mfidl/ne-mfidl-mf_camera_control_configuration_type
  * @namespace Windows.Win32.Media.MediaFoundation
- * @version v4.0.30319
  */
-class MF_CAMERA_CONTROL_CONFIGURATION_TYPE extends Win32Enum{
+class MF_CAMERA_CONTROL_CONFIGURATION_TYPE extends Win32Enum {
 
     /**
      * The camera control must be configured before streaming begins.

@@ -1,5 +1,6 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
+#Include .\EAP_METHOD_TYPE.ahk
 
 /**
  * Contains a set of function pointers to the EAPHost Authenticator Method APIs.
@@ -41,10 +42,8 @@
  * These APIs are called on an EAP authenticator method when an authenticator (server) EAPHost receives a specific corresponding remote procedure call from  a peer (client) EAP method.  Note that a complete one-to-one correspondence does not exist between EAP peer methods and EAP authenticator methods; the specific EAP authenticator method API calls must be made based on the requirements of your implementation of the EAP authenticator method API calls.
  * @see https://learn.microsoft.com/windows/win32/api/eapmethodauthenticatorapis/ns-eapmethodauthenticatorapis-eap_authenticator_method_routines
  * @namespace Windows.Win32.Security.ExtensibleAuthenticationProtocol
- * @version v4.0.30319
  */
-class EAP_AUTHENTICATOR_METHOD_ROUTINES extends Win32Struct
-{
+class EAP_AUTHENTICATOR_METHOD_ROUTINES extends Win32Struct {
     static sizeof => 96
 
     static packingSize => 8

@@ -1,19 +1,17 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
-#Include .\JET_LOGTIME.ahk
 #Include .\JET_SIGNATURE.ahk
+#Include .\JET_LOGTIME.ahk
 #Include .\JET_LGPOS.ahk
-#Include .\JET_BKLOGTIME.ahk
 #Include .\JET_BKINFO.ahk
+#Include .\JET_BKLOGTIME.ahk
 
 /**
  * Learn more about: JET_DBINFOMISC4 Structure
  * @see https://learn.microsoft.com/windows/win32/extensible-storage-engine/jet-dbinfomisc4-structure
  * @namespace Windows.Win32.Storage.Jet
- * @version v4.0.30319
  */
-class JET_DBINFOMISC4 extends Win32Struct
-{
+class JET_DBINFOMISC4 extends Win32Struct {
     static sizeof => 348
 
     static packingSize => 4
@@ -37,7 +35,7 @@ class JET_DBINFOMISC4 extends Win32Struct
     /**
      * @type {JET_SIGNATURE}
      */
-    signDb{
+    signDb {
         get {
             if(!this.HasProp("__signDb"))
                 this.__signDb := JET_SIGNATURE(8, this)
@@ -56,7 +54,7 @@ class JET_DBINFOMISC4 extends Win32Struct
     /**
      * @type {JET_LGPOS}
      */
-    lgposConsistent{
+    lgposConsistent {
         get {
             if(!this.HasProp("__lgposConsistent"))
                 this.__lgposConsistent := JET_LGPOS(40, this)
@@ -67,7 +65,7 @@ class JET_DBINFOMISC4 extends Win32Struct
     /**
      * @type {JET_LOGTIME}
      */
-    logtimeConsistent{
+    logtimeConsistent {
         get {
             if(!this.HasProp("__logtimeConsistent"))
                 this.__logtimeConsistent := JET_LOGTIME(48, this)
@@ -78,7 +76,7 @@ class JET_DBINFOMISC4 extends Win32Struct
     /**
      * @type {JET_LOGTIME}
      */
-    logtimeAttach{
+    logtimeAttach {
         get {
             if(!this.HasProp("__logtimeAttach"))
                 this.__logtimeAttach := JET_LOGTIME(56, this)
@@ -89,7 +87,7 @@ class JET_DBINFOMISC4 extends Win32Struct
     /**
      * @type {JET_LGPOS}
      */
-    lgposAttach{
+    lgposAttach {
         get {
             if(!this.HasProp("__lgposAttach"))
                 this.__lgposAttach := JET_LGPOS(64, this)
@@ -100,7 +98,7 @@ class JET_DBINFOMISC4 extends Win32Struct
     /**
      * @type {JET_LOGTIME}
      */
-    logtimeDetach{
+    logtimeDetach {
         get {
             if(!this.HasProp("__logtimeDetach"))
                 this.__logtimeDetach := JET_LOGTIME(72, this)
@@ -111,7 +109,7 @@ class JET_DBINFOMISC4 extends Win32Struct
     /**
      * @type {JET_LGPOS}
      */
-    lgposDetach{
+    lgposDetach {
         get {
             if(!this.HasProp("__lgposDetach"))
                 this.__lgposDetach := JET_LGPOS(80, this)
@@ -122,7 +120,7 @@ class JET_DBINFOMISC4 extends Win32Struct
     /**
      * @type {JET_SIGNATURE}
      */
-    signLog{
+    signLog {
         get {
             if(!this.HasProp("__signLog"))
                 this.__signLog := JET_SIGNATURE(88, this)
@@ -133,7 +131,7 @@ class JET_DBINFOMISC4 extends Win32Struct
     /**
      * @type {JET_BKINFO}
      */
-    bkinfoFullPrev{
+    bkinfoFullPrev {
         get {
             if(!this.HasProp("__bkinfoFullPrev"))
                 this.__bkinfoFullPrev := JET_BKINFO(116, this)
@@ -144,7 +142,7 @@ class JET_DBINFOMISC4 extends Win32Struct
     /**
      * @type {JET_BKINFO}
      */
-    bkinfoIncPrev{
+    bkinfoIncPrev {
         get {
             if(!this.HasProp("__bkinfoIncPrev"))
                 this.__bkinfoIncPrev := JET_BKINFO(140, this)
@@ -155,7 +153,7 @@ class JET_DBINFOMISC4 extends Win32Struct
     /**
      * @type {JET_BKINFO}
      */
-    bkinfoFullCur{
+    bkinfoFullCur {
         get {
             if(!this.HasProp("__bkinfoFullCur"))
                 this.__bkinfoFullCur := JET_BKINFO(164, this)
@@ -238,7 +236,7 @@ class JET_DBINFOMISC4 extends Win32Struct
     /**
      * @type {JET_LOGTIME}
      */
-    logtimeGenMaxCreate{
+    logtimeGenMaxCreate {
         get {
             if(!this.HasProp("__logtimeGenMaxCreate"))
                 this.__logtimeGenMaxCreate := JET_LOGTIME(224, this)
@@ -257,7 +255,7 @@ class JET_DBINFOMISC4 extends Win32Struct
     /**
      * @type {JET_LOGTIME}
      */
-    logtimeRepair{
+    logtimeRepair {
         get {
             if(!this.HasProp("__logtimeRepair"))
                 this.__logtimeRepair := JET_LOGTIME(236, this)
@@ -284,7 +282,7 @@ class JET_DBINFOMISC4 extends Win32Struct
     /**
      * @type {JET_LOGTIME}
      */
-    logtimeECCFixSuccess{
+    logtimeECCFixSuccess {
         get {
             if(!this.HasProp("__logtimeECCFixSuccess"))
                 this.__logtimeECCFixSuccess := JET_LOGTIME(252, this)
@@ -311,7 +309,7 @@ class JET_DBINFOMISC4 extends Win32Struct
     /**
      * @type {JET_LOGTIME}
      */
-    logtimeECCFixFail{
+    logtimeECCFixFail {
         get {
             if(!this.HasProp("__logtimeECCFixFail"))
                 this.__logtimeECCFixFail := JET_LOGTIME(268, this)
@@ -338,7 +336,7 @@ class JET_DBINFOMISC4 extends Win32Struct
     /**
      * @type {JET_LOGTIME}
      */
-    logtimeBadChecksum{
+    logtimeBadChecksum {
         get {
             if(!this.HasProp("__logtimeBadChecksum"))
                 this.__logtimeBadChecksum := JET_LOGTIME(284, this)
@@ -365,7 +363,7 @@ class JET_DBINFOMISC4 extends Win32Struct
     /**
      * @type {JET_BKINFO}
      */
-    bkinfoCopyPrev{
+    bkinfoCopyPrev {
         get {
             if(!this.HasProp("__bkinfoCopyPrev"))
                 this.__bkinfoCopyPrev := JET_BKINFO(300, this)
@@ -376,7 +374,7 @@ class JET_DBINFOMISC4 extends Win32Struct
     /**
      * @type {JET_BKINFO}
      */
-    bkinfoDiffPrev{
+    bkinfoDiffPrev {
         get {
             if(!this.HasProp("__bkinfoDiffPrev"))
                 this.__bkinfoDiffPrev := JET_BKINFO(324, this)

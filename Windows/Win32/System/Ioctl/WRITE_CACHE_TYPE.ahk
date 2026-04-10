@@ -9,9 +9,8 @@
  * The [IOCTL_STORAGE_QUERY_PROPERTY](ni-winioctl-ioctl_storage_query_property.md) control code reports a **WRITE_CACHE_TYPE** value in the [STORAGE_WRITE_CACHE_PROPERTY](ns-winioctl-storage_write_cache_property.md) structure.
  * @see https://learn.microsoft.com/windows/win32/api/winioctl/ne-winioctl-write_cache_type
  * @namespace Windows.Win32.System.Ioctl
- * @version v4.0.30319
  */
-class WRITE_CACHE_TYPE extends Win32Enum{
+class WRITE_CACHE_TYPE extends Win32Enum {
 
     /**
      * The system cannot report the type of the write cache.

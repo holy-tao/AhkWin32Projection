@@ -7,9 +7,8 @@
  * The IDropTarget interface is one of the interfaces you implement to provide drag-and-drop operations in your application.
  * @see https://learn.microsoft.com/windows/win32/api/oleidl/nn-oleidl-idroptarget
  * @namespace Windows.Win32.System.Ole
- * @version v4.0.30319
  */
-class IDropTarget extends IUnknown{
+class IDropTarget extends IUnknown {
 
     static sizeof => A_PtrSize
     /**
@@ -82,9 +81,9 @@ class IDropTarget extends IUnknown{
      * 
      * On return, the method must write the effect, one of the DROPEFFECT flags, to the <i>pdwEffect</i> parameter. <a href="https://docs.microsoft.com/windows/desktop/api/ole2/nf-ole2-dodragdrop">DoDragDrop</a> then takes this parameter and writes it to its <i>pdwEffect</i> parameter. You communicate the effect of the drop back to the source through <b>DoDragDrop</b> in the <i>pdwEffect</i> parameter. The <b>DoDragDrop</b> function then calls <a href="https://docs.microsoft.com/windows/desktop/api/oleidl/nf-oleidl-idropsource-givefeedback">IDropSource::GiveFeedback</a> so that the source application can display the appropriate visual feedback to the user through the target window.
      * @param {IDataObject} pDataObj A pointer to the <a href="https://docs.microsoft.com/windows/desktop/api/objidl/nn-objidl-idataobject">IDataObject</a> interface on the data object. This data object contains the data being transferred in the drag-and-drop operation. If the drop occurs, this data object will be incorporated into the target.
-     * @param {Integer} grfKeyState The current state of the keyboard modifier keys on the keyboard. Possible values can be a combination of any of the flags MK_CONTROL, MK_SHIFT, MK_ALT, MK_BUTTON, MK_LBUTTON, MK_MBUTTON, and MK_RBUTTON.
+     * @param {MODIFIERKEYS_FLAGS} grfKeyState The current state of the keyboard modifier keys on the keyboard. Possible values can be a combination of any of the flags MK_CONTROL, MK_SHIFT, MK_ALT, MK_BUTTON, MK_LBUTTON, MK_MBUTTON, and MK_RBUTTON.
      * @param {POINTL} pt A <a href="https://docs.microsoft.com/windows/win32/api/windef/ns-windef-pointl">POINTL</a> structure containing the current cursor coordinates in screen coordinates.
-     * @param {Pointer<Integer>} pdwEffect On input, pointer to the value of the <i>pdwEffect</i> parameter of the <a href="https://docs.microsoft.com/windows/desktop/api/ole2/nf-ole2-dodragdrop">DoDragDrop</a> function. On return, must contain one of the <a href="https://docs.microsoft.com/windows/desktop/com/dropeffect-constants">DROPEFFECT</a> flags, which indicates what the result of the drop operation would be.
+     * @param {Pointer<DROPEFFECT>} pdwEffect On input, pointer to the value of the <i>pdwEffect</i> parameter of the <a href="https://docs.microsoft.com/windows/desktop/api/ole2/nf-ole2-dodragdrop">DoDragDrop</a> function. On return, must contain one of the <a href="https://docs.microsoft.com/windows/desktop/com/dropeffect-constants">DROPEFFECT</a> flags, which indicates what the result of the drop operation would be.
      * @returns {HRESULT} This method returns S_OK on success. Other possible values include the following.
      * 
      * <table>
@@ -188,9 +187,9 @@ class IDropTarget extends IUnknown{
      * 
      * <h3><a id="Notes_to_Implementers"></a><a id="notes_to_implementers"></a><a id="NOTES_TO_IMPLEMENTERS"></a>Notes to Implementers</h3>
      * This function is called frequently during the <a href="https://docs.microsoft.com/windows/desktop/api/ole2/nf-ole2-dodragdrop">DoDragDrop</a> loop so it makes sense to optimize your implementation of the <b>DragOver</b> method as much as possible.
-     * @param {Integer} grfKeyState The current state of the keyboard modifier keys on the keyboard. Valid values can be a combination of any of the flags MK_CONTROL, MK_SHIFT, MK_ALT, MK_BUTTON, MK_LBUTTON, MK_MBUTTON, and MK_RBUTTON.
+     * @param {MODIFIERKEYS_FLAGS} grfKeyState The current state of the keyboard modifier keys on the keyboard. Valid values can be a combination of any of the flags MK_CONTROL, MK_SHIFT, MK_ALT, MK_BUTTON, MK_LBUTTON, MK_MBUTTON, and MK_RBUTTON.
      * @param {POINTL} pt A <a href="https://docs.microsoft.com/windows/win32/api/windef/ns-windef-pointl">POINTL</a> structure containing the current cursor coordinates in screen coordinates.
-     * @param {Pointer<Integer>} pdwEffect On input, pointer to the value of the <i>pdwEffect</i> parameter of the <a href="https://docs.microsoft.com/windows/desktop/api/ole2/nf-ole2-dodragdrop">DoDragDrop</a> function. On return, must contain one of the <a href="https://docs.microsoft.com/windows/desktop/com/dropeffect-constants">DROPEFFECT</a> flags, which indicates what the result of the drop operation would be.
+     * @param {Pointer<DROPEFFECT>} pdwEffect On input, pointer to the value of the <i>pdwEffect</i> parameter of the <a href="https://docs.microsoft.com/windows/desktop/api/ole2/nf-ole2-dodragdrop">DoDragDrop</a> function. On return, must contain one of the <a href="https://docs.microsoft.com/windows/desktop/com/dropeffect-constants">DROPEFFECT</a> flags, which indicates what the result of the drop operation would be.
      * @returns {HRESULT} This method returns S_OK on success. Other possible values include the following.
      * 
      * <table>
@@ -297,9 +296,9 @@ class IDropTarget extends IUnknown{
      * <li>Make any necessary changes to the data, such as removing the data if the operation was a move.</li>
      * </ul>
      * @param {IDataObject} pDataObj A pointer to the <a href="https://docs.microsoft.com/windows/desktop/api/objidl/nn-objidl-idataobject">IDataObject</a> interface on the data object being transferred in the drag-and-drop operation.
-     * @param {Integer} grfKeyState The current state of the keyboard modifier keys on the keyboard. Possible values can be a combination of any of the flags MK_CONTROL, MK_SHIFT, MK_ALT, MK_BUTTON, MK_LBUTTON, MK_MBUTTON, and MK_RBUTTON.
+     * @param {MODIFIERKEYS_FLAGS} grfKeyState The current state of the keyboard modifier keys on the keyboard. Possible values can be a combination of any of the flags MK_CONTROL, MK_SHIFT, MK_ALT, MK_BUTTON, MK_LBUTTON, MK_MBUTTON, and MK_RBUTTON.
      * @param {POINTL} pt A <a href="https://docs.microsoft.com/windows/win32/api/windef/ns-windef-pointl">POINTL</a> structure containing the current cursor coordinates in screen coordinates.
-     * @param {Pointer<Integer>} pdwEffect On input, pointer to the value of the <i>pdwEffect</i> parameter of the <a href="https://docs.microsoft.com/windows/desktop/api/ole2/nf-ole2-dodragdrop">DoDragDrop</a> function. On return, must contain one of the <a href="https://docs.microsoft.com/windows/desktop/com/dropeffect-constants">DROPEFFECT</a> flags, which indicates what the result of the drop operation would be.
+     * @param {Pointer<DROPEFFECT>} pdwEffect On input, pointer to the value of the <i>pdwEffect</i> parameter of the <a href="https://docs.microsoft.com/windows/desktop/api/ole2/nf-ole2-dodragdrop">DoDragDrop</a> function. On return, must contain one of the <a href="https://docs.microsoft.com/windows/desktop/com/dropeffect-constants">DROPEFFECT</a> flags, which indicates what the result of the drop operation would be.
      * @returns {HRESULT} This method returns S_OK on success. Other possible values include the following.
      * 
      * <table>

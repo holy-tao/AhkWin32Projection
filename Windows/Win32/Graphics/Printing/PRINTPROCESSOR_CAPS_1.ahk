@@ -9,10 +9,8 @@
  * The spooler calls a print processor's [**GetPrintProcessorCapabilities**](/windows-hardware/drivers/ddi/content/winsplp/nf-winsplp-getprintprocessorcapabilities) function when an application calls [**GetPrinterData**](getprinterdata.md), specifying a value name with a format of PrintProcCaps\_*datatype*, where *datatype* is the name of an input data type.
  * @see https://learn.microsoft.com/windows/win32/printdocs/printprocessor-caps-1
  * @namespace Windows.Win32.Graphics.Printing
- * @version v4.0.30319
  */
-class PRINTPROCESSOR_CAPS_1 extends Win32Struct
-{
+class PRINTPROCESSOR_CAPS_1 extends Win32Struct {
     static sizeof => 16
 
     static packingSize => 4

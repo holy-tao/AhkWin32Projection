@@ -5,9 +5,8 @@
 
 /**
  * @namespace Windows.Win32.System.ClrHosting
- * @version v4.0.30319
  */
-class ICatalogServices extends IUnknown{
+class ICatalogServices extends IUnknown {
 
     static sizeof => A_PtrSize
     /**

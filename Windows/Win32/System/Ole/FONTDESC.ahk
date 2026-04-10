@@ -6,10 +6,8 @@
  * Contains parameters used to create a font object through the OleCreateFontIndirect function.
  * @see https://learn.microsoft.com/windows/win32/api/olectl/ns-olectl-fontdesc
  * @namespace Windows.Win32.System.Ole
- * @version v4.0.30319
  */
-class FONTDESC extends Win32Struct
-{
+class FONTDESC extends Win32Struct {
     static sizeof => 48
 
     static packingSize => 8
@@ -38,7 +36,7 @@ class FONTDESC extends Win32Struct
      * Initial point size of the font. Use the <b>int64</b> member of the <a href="https://docs.microsoft.com/windows/win32/api/wtypes/ns-wtypes-cy-r1">CY</a> structure and scale your font size (in points) by 10000.
      * @type {CY}
      */
-    cySize{
+    cySize {
         get {
             if(!this.HasProp("__cySize"))
                 this.__cySize := CY(16, this)

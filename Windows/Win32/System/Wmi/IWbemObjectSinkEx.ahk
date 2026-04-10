@@ -1,7 +1,6 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
-#Include ..\..\Foundation\BSTR.ahk
 #Include .\IWbemObjectSink.ahk
 
 /**
@@ -18,9 +17,8 @@
  * <div> </div>
  * @see https://learn.microsoft.com/windows/win32/api/wbemcli/nf-wbemcli-iwbemobjectsink-indicate
  * @namespace Windows.Win32.System.Wmi
- * @version v4.0.30319
  */
-class IWbemObjectSinkEx extends IWbemObjectSink{
+class IWbemObjectSinkEx extends IWbemObjectSink {
 
     static sizeof => A_PtrSize
     /**

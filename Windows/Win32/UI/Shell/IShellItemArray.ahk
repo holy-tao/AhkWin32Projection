@@ -1,9 +1,9 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
+#Include ..\..\System\Com\IUnknown.ahk
 #Include .\IShellItem.ahk
 #Include .\IEnumShellItems.ahk
-#Include ..\..\System\Com\IUnknown.ahk
 
 /**
  * Exposes methods that create and manipulate Shell item arrays.
@@ -27,9 +27,8 @@
  * </ul>
  * @see https://learn.microsoft.com/windows/win32/api/shobjidl_core/nn-shobjidl_core-ishellitemarray
  * @namespace Windows.Win32.UI.Shell
- * @version v4.0.30319
  */
-class IShellItemArray extends IUnknown{
+class IShellItemArray extends IUnknown {
 
     static sizeof => A_PtrSize
     /**
@@ -96,7 +95,7 @@ class IShellItemArray extends IUnknown{
      * Calling applications may achieve other aggregation behaviors by accessing the individual shell items and their property stores directly.  See <a href="https://docs.microsoft.com/previous-versions/windows/desktop/legacy/bb761472(v=vs.85)">IPropertyStore::GetCount</a>, <a href="https://docs.microsoft.com/previous-versions/windows/desktop/legacy/bb761471(v=vs.85)">IPropertyStore::GetAt</a>, and <a href="https://docs.microsoft.com/windows/desktop/api/shobjidl_core/nf-shobjidl_core-ishellitem2-getpropertystore">GetPropertyStore</a>.
      * 
      * Writing to an array of shell items is supported via the <a href="https://docs.microsoft.com/windows/desktop/api/shobjidl_core/nn-shobjidl_core-ifileoperation">IFileOperation</a> API.
-     * @param {Integer} flags Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/propsys/ne-propsys-getpropertystoreflags">GETPROPERTYSTOREFLAGS</a></b>
+     * @param {GETPROPERTYSTOREFLAGS} flags Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/propsys/ne-propsys-getpropertystoreflags">GETPROPERTYSTOREFLAGS</a></b>
      * 
      * One of the <a href="https://docs.microsoft.com/windows/desktop/api/propsys/ne-propsys-getpropertystoreflags">GETPROPERTYSTOREFLAGS</a> constants.
      * @param {Pointer<Guid>} riid Type: <b>REFIID</b>
@@ -156,11 +155,11 @@ class IShellItemArray extends IUnknown{
      * The Shell item array caches individual attributes after they have been determined.
      * 
      * As this method passes through the array gathering attribute information, it normally stops looking at a particular attribute after that value is irrevocably set. For instance, if the SIATTRIBFLAGS_AND flag is set, after an attribute is found not to be set on an item (a value of 0), there is no need to continue examining that attribute value on other items because the result of the AND operation will always be 0. Therefore, the final set of attributes is commonly calculated by looking at only the first few items in the array, which is all that is needed to obtain the final value. If you have a need to examine all items in the array, set the SIATTRIBFLAGS_ALLITEMS flag. However, be aware that this can slow the method's return considerably, so do not do so without cause.
-     * @param {Integer} AttribFlags Type: <b>SIATTRIBFLAGS</b>
-     * @param {Integer} sfgaoMask Type: <b>SFGAOF</b>
+     * @param {SIATTRIBFLAGS} AttribFlags Type: <b>SIATTRIBFLAGS</b>
+     * @param {SFGAO_FLAGS} sfgaoMask Type: <b>SFGAOF</b>
      * 
      * A mask that specifies what particular attributes are being requested. A bitwise OR of one or more of the <a href="https://docs.microsoft.com/windows/desktop/shell/sfgao">SFGAO</a> values.
-     * @returns {Integer} Type: <b>SFGAOF*</b>
+     * @returns {SFGAO_FLAGS} Type: <b>SFGAOF*</b>
      * 
      * A bitmap that, when this method returns successfully, contains the values of the requested attributes.
      * @see https://learn.microsoft.com/windows/win32/api/shobjidl_core/nf-shobjidl_core-ishellitemarray-getattributes

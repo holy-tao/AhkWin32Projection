@@ -61,9 +61,8 @@
  * </table>
  * @see https://learn.microsoft.com/windows/win32/api/msopc/nn-msopc-iopcrelationshipselector
  * @namespace Windows.Win32.Storage.Packaging.Opc
- * @version v4.0.30319
  */
-class IOpcRelationshipSelector extends IUnknown{
+class IOpcRelationshipSelector extends IUnknown {
 
     static sizeof => A_PtrSize
     /**
@@ -111,7 +110,7 @@ class IOpcRelationshipSelector extends IUnknown{
      * </td>
      * </tr>
      * </table>
-     * @returns {Integer} A value that describes which <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/msopc/nn-msopc-iopcrelationship">IOpcRelationship</a> interface property will be compared to the string returned by the <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/msopc/nf-msopc-iopcrelationshipselector-getselectioncriterion">GetSelectionCriterion</a> method.
+     * @returns {OPC_RELATIONSHIP_SELECTOR} A value that describes which <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/msopc/nn-msopc-iopcrelationship">IOpcRelationship</a> interface property will be compared to the string returned by the <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/msopc/nf-msopc-iopcrelationshipselector-getselectioncriterion">GetSelectionCriterion</a> method.
      * @see https://learn.microsoft.com/windows/win32/api/msopc/nf-msopc-iopcrelationshipselector-getselectortype
      */
     GetSelectorType() {

@@ -18,9 +18,8 @@
  * To capture an image, call <a href="https://docs.microsoft.com/windows/desktop/api/mfcaptureengine/nf-mfcaptureengine-imfcaptureengine-takephoto">IMFCaptureEngine::TakePhoto</a>.
  * @see https://learn.microsoft.com/windows/win32/api/mfcaptureengine/nn-mfcaptureengine-imfcapturephotosink
  * @namespace Windows.Win32.Media.MediaFoundation
- * @version v4.0.30319
  */
-class IMFCapturePhotoSink extends IMFCaptureSink{
+class IMFCapturePhotoSink extends IMFCaptureSink {
 
     static sizeof => A_PtrSize
     /**

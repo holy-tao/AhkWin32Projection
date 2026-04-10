@@ -3,10 +3,8 @@
 
 /**
  * @namespace Windows.Win32.Media.DirectShow
- * @version v4.0.30319
  */
-class BDA_WMDRM_RENEWLICENSE extends Win32Struct
-{
+class BDA_WMDRM_RENEWLICENSE extends Win32Struct {
     static sizeof => 16
 
     static packingSize => 4
@@ -36,9 +34,9 @@ class BDA_WMDRM_RENEWLICENSE extends Win32Struct
     }
 
     /**
-     * @type {Array<Byte>}
+     * @type {Array<Integer>}
      */
-    argbXmrLicenceOutputBuffer{
+    argbXmrLicenceOutputBuffer {
         get {
             if(!this.HasProp("__argbXmrLicenceOutputBufferProxyArray"))
                 this.__argbXmrLicenceOutputBufferProxyArray := Win32FixedArray(this.ptr + 12, 1, Primitive, "char")

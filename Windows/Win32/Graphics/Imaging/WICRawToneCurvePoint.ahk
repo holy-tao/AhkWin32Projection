@@ -5,10 +5,8 @@
  * Represents a raw image tone curve point.
  * @see https://learn.microsoft.com/windows/win32/api/wincodec/ns-wincodec-wicrawtonecurvepoint
  * @namespace Windows.Win32.Graphics.Imaging
- * @version v4.0.30319
  */
-class WICRawToneCurvePoint extends Win32Struct
-{
+class WICRawToneCurvePoint extends Win32Struct {
     static sizeof => 16
 
     static packingSize => 8

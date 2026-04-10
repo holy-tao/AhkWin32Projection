@@ -1,5 +1,8 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
+#Include ..\Direct3D\D3D_SHADER_INPUT_TYPE.ahk
+#Include ..\Direct3D\D3D_RESOURCE_RETURN_TYPE.ahk
+#Include ..\Direct3D\D3D_SRV_DIMENSION.ahk
 
 /**
  * Describes how a shader resource is bound to a shader input. (D3D11_SHADER_INPUT_BIND_DESC)
@@ -7,10 +10,8 @@
  * Get a shader-input-signature description by calling <a href="https://docs.microsoft.com/windows/desktop/api/d3d11shader/nf-d3d11shader-id3d11shaderreflection-getresourcebindingdesc">ID3D11ShaderReflection::GetResourceBindingDesc</a> or <a href="https://docs.microsoft.com/windows/desktop/api/d3d11shader/nf-d3d11shader-id3d11shaderreflection-getresourcebindingdescbyname">ID3D11ShaderReflection::GetResourceBindingDescByName</a>.
  * @see https://learn.microsoft.com/windows/win32/api/d3d11shader/ns-d3d11shader-d3d11_shader_input_bind_desc
  * @namespace Windows.Win32.Graphics.Direct3D11
- * @version v4.0.30319
  */
-class D3D11_SHADER_INPUT_BIND_DESC extends Win32Struct
-{
+class D3D11_SHADER_INPUT_BIND_DESC extends Win32Struct {
     static sizeof => 40
 
     static packingSize => 8
@@ -30,7 +31,7 @@ class D3D11_SHADER_INPUT_BIND_DESC extends Win32Struct
      * Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/d3dcommon/ne-d3dcommon-d3d_shader_input_type">D3D_SHADER_INPUT_TYPE</a></b>
      * 
      * A <a href="https://docs.microsoft.com/windows/desktop/api/d3dcommon/ne-d3dcommon-d3d_shader_input_type">D3D_SHADER_INPUT_TYPE</a>-typed value that identifies the type of data in the resource.
-     * @type {Integer}
+     * @type {D3D_SHADER_INPUT_TYPE}
      */
     Type {
         get => NumGet(this, 8, "int")
@@ -74,7 +75,7 @@ class D3D11_SHADER_INPUT_BIND_DESC extends Win32Struct
      * Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/d3dcommon/ne-d3dcommon-d3d_resource_return_type">D3D_RESOURCE_RETURN_TYPE</a></b>
      * 
      * If the input is a texture, the <a href="https://docs.microsoft.com/windows/desktop/api/d3dcommon/ne-d3dcommon-d3d_resource_return_type">D3D_RESOURCE_RETURN_TYPE</a>-typed value that identifies the return type.
-     * @type {Integer}
+     * @type {D3D_RESOURCE_RETURN_TYPE}
      */
     ReturnType {
         get => NumGet(this, 24, "int")
@@ -85,7 +86,7 @@ class D3D11_SHADER_INPUT_BIND_DESC extends Win32Struct
      * Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/d3dcommon/ne-d3dcommon-d3d_srv_dimension">D3D_SRV_DIMENSION</a></b>
      * 
      * A <a href="https://docs.microsoft.com/windows/desktop/api/d3dcommon/ne-d3dcommon-d3d_srv_dimension">D3D_SRV_DIMENSION</a>-typed value that identifies the dimensions of the bound resource.
-     * @type {Integer}
+     * @type {D3D_SRV_DIMENSION}
      */
     Dimension {
         get => NumGet(this, 28, "int")

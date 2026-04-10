@@ -3,11 +3,9 @@
 
 /**
  * @namespace Windows.Win32.System.DistributedTransactionCoordinator
- * @version v4.0.30319
  */
-class XID extends Win32Struct
-{
-    static sizeof => 268
+class XID extends Win32Struct {
+    static sizeof => 140
 
     static packingSize => 4
 
@@ -39,7 +37,7 @@ class XID extends Win32Struct
      * @type {String}
      */
     data {
-        get => StrGet(this.ptr + 12, 127, "UTF-16")
-        set => StrPut(value, this.ptr + 12, 127, "UTF-16")
+        get => StrGet(this.ptr + 12, 127, "UTF-8")
+        set => StrPut(value, this.ptr + 12, 127, "UTF-8")
     }
 }

@@ -1,19 +1,17 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
-#Include ..\..\..\Win32\System\Kernel\LIST_ENTRY.ahk
+#Include ..\..\Foundation\KDPC.ahk
 
 /**
  * @namespace Windows.Wdk.System.SystemServices
- * @version v4.0.30319
  */
-class KTIMER extends Win32Struct
-{
-    static sizeof => 48
+class KTIMER extends Win32Struct {
+    static sizeof => 40
 
     static packingSize => 8
 
     /**
-     * @type {Pointer<DISPATCHER_HEADER>}
+     * @type {Pointer}
      */
     Header {
         get => NumGet(this, 0, "ptr")
@@ -29,29 +27,26 @@ class KTIMER extends Win32Struct
     }
 
     /**
-     * @type {LIST_ENTRY}
+     * @type {Pointer}
      */
-    TimerListEntry{
-        get {
-            if(!this.HasProp("__TimerListEntry"))
-                this.__TimerListEntry := LIST_ENTRY(16, this)
-            return this.__TimerListEntry
-        }
+    TimerListEntry {
+        get => NumGet(this, 16, "ptr")
+        set => NumPut("ptr", value, this, 16)
     }
 
     /**
      * @type {Pointer<KDPC>}
      */
     Dpc {
-        get => NumGet(this, 32, "ptr")
-        set => NumPut("ptr", value, this, 32)
+        get => NumGet(this, 24, "ptr")
+        set => NumPut("ptr", value, this, 24)
     }
 
     /**
      * @type {Integer}
      */
     Period {
-        get => NumGet(this, 40, "uint")
-        set => NumPut("uint", value, this, 40)
+        get => NumGet(this, 32, "uint")
+        set => NumPut("uint", value, this, 32)
     }
 }

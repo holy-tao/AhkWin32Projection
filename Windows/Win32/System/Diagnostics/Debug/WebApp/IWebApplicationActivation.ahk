@@ -7,9 +7,8 @@
  * Enables debugging applications to manage activations.
  * @see https://learn.microsoft.com/windows/win32/api/webapplication/nn-webapplication-iwebapplicationactivation
  * @namespace Windows.Win32.System.Diagnostics.Debug.WebApp
- * @version v4.0.30319
  */
-class IWebApplicationActivation extends IUnknown{
+class IWebApplicationActivation extends IUnknown {
 
     static sizeof => A_PtrSize
     /**

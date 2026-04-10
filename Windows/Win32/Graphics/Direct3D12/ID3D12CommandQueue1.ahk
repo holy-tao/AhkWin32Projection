@@ -5,9 +5,8 @@
 
 /**
  * @namespace Windows.Win32.Graphics.Direct3D12
- * @version v4.0.30319
  */
-class ID3D12CommandQueue1 extends ID3D12CommandQueue{
+class ID3D12CommandQueue1 extends ID3D12CommandQueue {
 
     static sizeof => A_PtrSize
     /**
@@ -34,7 +33,7 @@ class ID3D12CommandQueue1 extends ID3D12CommandQueue{
      * When a thread is running in one of the dynamic priority classes, the system temporarily boosts the thread's priority when it is taken out of a wait state. If 
      * <b>SetProcessPriorityBoost</b> is called with the <i>DisablePriorityBoost</i> parameter set to TRUE, its threads' priorities are not boosted. This setting affects all existing threads and any threads subsequently created by the process. To restore normal behavior, call 
      * <b>SetProcessPriorityBoost</b> with <i>DisablePriorityBoost</i> set to FALSE.
-     * @param {Integer} _Priority 
+     * @param {D3D12_COMMAND_QUEUE_PROCESS_PRIORITY} _Priority 
      * @returns {HRESULT} If the function succeeds, the return value is nonzero.
      * 
      * If the function fails, the return value is zero. To get extended error information, call 
@@ -48,7 +47,7 @@ class ID3D12CommandQueue1 extends ID3D12CommandQueue{
 
     /**
      * Retrieves the priority boost control state of the specified process.
-     * @param {Pointer<Integer>} pOutValue 
+     * @param {Pointer<D3D12_COMMAND_QUEUE_PROCESS_PRIORITY>} pOutValue 
      * @returns {HRESULT} If the function succeeds, the return value is nonzero. In that case, the variable pointed to by the <i>pDisablePriorityBoost</i> parameter receives the priority boost control state.
      * 
      * If the function fails, the return value is zero. To get extended error information, call 
@@ -64,7 +63,7 @@ class ID3D12CommandQueue1 extends ID3D12CommandQueue{
 
     /**
      * 
-     * @param {Integer} _Priority 
+     * @param {D3D12_COMMAND_QUEUE_GLOBAL_PRIORITY} _Priority 
      * @returns {HRESULT} 
      */
     SetGlobalPriority(_Priority) {
@@ -74,7 +73,7 @@ class ID3D12CommandQueue1 extends ID3D12CommandQueue{
 
     /**
      * 
-     * @param {Pointer<Integer>} pOutValue 
+     * @param {Pointer<D3D12_COMMAND_QUEUE_GLOBAL_PRIORITY>} pOutValue 
      * @returns {HRESULT} 
      */
     GetGlobalPriority(pOutValue) {

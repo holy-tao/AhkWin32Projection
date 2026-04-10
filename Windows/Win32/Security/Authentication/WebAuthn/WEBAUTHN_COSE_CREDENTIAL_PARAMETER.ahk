@@ -3,14 +3,10 @@
 
 /**
  * The structure containing the COSE credential parameter information.
- * @remarks
- * 
  * @see https://learn.microsoft.com/windows/win32/api/webauthn/ns-webauthn-webauthn_cose_credential_parameter
  * @namespace Windows.Win32.Security.Authentication.WebAuthn
- * @version v4.0.30319
  */
-class WEBAUTHN_COSE_CREDENTIAL_PARAMETER extends Win32Struct
-{
+class WEBAUTHN_COSE_CREDENTIAL_PARAMETER extends Win32Struct {
     static sizeof => 24
 
     static packingSize => 8

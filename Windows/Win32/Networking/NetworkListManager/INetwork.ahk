@@ -1,9 +1,10 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
-#Include ..\..\Foundation\BSTR.ahk
-#Include .\IEnumNetworkConnections.ahk
 #Include ..\..\System\Com\IDispatch.ahk
+#Include ..\..\Foundation\BSTR.ahk
+#Include ..\..\..\..\Guid.ahk
+#Include .\IEnumNetworkConnections.ahk
 
 /**
  * The INetwork interface represents a network on the local machine. It can also represent a collection of network connections with a similar network signature.
@@ -134,9 +135,8 @@
  * The <a href="../oaidl/nn-oaidl-ipropertybag.md">IPropertyBag</a> interface accepts <i>LPCOLESTR</i> as part of the <a href="https://docs.microsoft.com/previous-versions/windows/embedded/ms884257(v=msdn.10)">IPropertyBag::Read</a> and <a href="../oaidl/nn-oaidl-ipropertybag.md">IPropertyBag::Write</a> methods. For convenience, the string values for these properties are defined inside <b>netlistmgr.h</b> using the same names.
  * @see https://learn.microsoft.com/windows/win32/api/netlistmgr/nn-netlistmgr-inetwork
  * @namespace Windows.Win32.Networking.NetworkListManager
- * @version v4.0.30319
  */
-class INetwork extends IDispatch{
+class INetwork extends IDispatch {
 
     static sizeof => A_PtrSize
     /**
@@ -298,7 +298,7 @@ class INetwork extends IDispatch{
 
     /**
      * The GetDomainType method returns the domain type of a network.
-     * @returns {Integer} Pointer to an <a href="https://docs.microsoft.com/windows/desktop/api/netlistmgr/ne-netlistmgr-nlm_domain_type">NLM_DOMAIN_TYPE</a> enumeration value that specifies the domain type of the network.
+     * @returns {NLM_DOMAIN_TYPE} Pointer to an <a href="https://docs.microsoft.com/windows/desktop/api/netlistmgr/ne-netlistmgr-nlm_domain_type">NLM_DOMAIN_TYPE</a> enumeration value that specifies the domain type of the network.
      * @see https://learn.microsoft.com/windows/win32/api/netlistmgr/nf-netlistmgr-inetwork-getdomaintype
      */
     GetDomainType() {
@@ -375,7 +375,7 @@ class INetwork extends IDispatch{
 
     /**
      * The GetConnectivity method returns the connectivity state of the network.
-     * @returns {Integer} Pointer to a <a href="https://docs.microsoft.com/windows/desktop/api/netlistmgr/ne-netlistmgr-nlm_connectivity">NLM_CONNECTIVITY</a> enumeration value that contains a bitmask  that specifies the connectivity state of this network.
+     * @returns {NLM_CONNECTIVITY} Pointer to a <a href="https://docs.microsoft.com/windows/desktop/api/netlistmgr/ne-netlistmgr-nlm_connectivity">NLM_CONNECTIVITY</a> enumeration value that contains a bitmask  that specifies the connectivity state of this network.
      * @see https://learn.microsoft.com/windows/win32/api/netlistmgr/nf-netlistmgr-inetwork-getconnectivity
      */
     GetConnectivity() {
@@ -387,7 +387,7 @@ class INetwork extends IDispatch{
      * The GetCategory method returns the category of a network.
      * @remarks
      * The private or public network categories must never be used to assume  which Windows Firewall ports are open, as the user can change the default settings of these categories. Instead, Windows Firewall APIs should be called to ensure the ports that the required ports are open.
-     * @returns {Integer} Pointer to a <a href="https://docs.microsoft.com/windows/desktop/api/netlistmgr/ne-netlistmgr-nlm_network_category">NLM_NETWORK_CATEGORY</a> enumeration value that specifies the category information for the network.
+     * @returns {NLM_NETWORK_CATEGORY} Pointer to a <a href="https://docs.microsoft.com/windows/desktop/api/netlistmgr/ne-netlistmgr-nlm_network_category">NLM_NETWORK_CATEGORY</a> enumeration value that specifies the category information for the network.
      * @see https://learn.microsoft.com/windows/win32/api/netlistmgr/nf-netlistmgr-inetwork-getcategory
      */
     GetCategory() {
@@ -397,7 +397,7 @@ class INetwork extends IDispatch{
 
     /**
      * The SetCategory method sets the category of a network. Changes made take effect immediately. Callers of this API must be members of the Administrators group.
-     * @param {Integer} NewCategory Pointer to a <a href="https://docs.microsoft.com/windows/desktop/api/netlistmgr/ne-netlistmgr-nlm_network_category">NLM_NETWORK_CATEGORY</a> enumeration value that specifies the new category of the network.
+     * @param {NLM_NETWORK_CATEGORY} NewCategory Pointer to a <a href="https://docs.microsoft.com/windows/desktop/api/netlistmgr/ne-netlistmgr-nlm_network_category">NLM_NETWORK_CATEGORY</a> enumeration value that specifies the new category of the network.
      * @returns {HRESULT} Returns S_OK if the method succeeds.
      * @see https://learn.microsoft.com/windows/win32/api/netlistmgr/nf-netlistmgr-inetwork-setcategory
      */

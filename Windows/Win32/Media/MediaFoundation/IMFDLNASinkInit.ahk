@@ -7,9 +7,8 @@
  * Initializes the Digital Living Network Alliance (DLNA) media sink. (IMFDLNASinkInit)
  * @see https://learn.microsoft.com/windows/win32/api/mfmp2dlna/nn-mfmp2dlna-imfdlnasinkinit
  * @namespace Windows.Win32.Media.MediaFoundation
- * @version v4.0.30319
  */
-class IMFDLNASinkInit extends IUnknown{
+class IMFDLNASinkInit extends IUnknown {
 
     static sizeof => A_PtrSize
     /**

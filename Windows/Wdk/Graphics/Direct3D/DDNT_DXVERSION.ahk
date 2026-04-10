@@ -3,16 +3,14 @@
 
 /**
  * @namespace Windows.Wdk.Graphics.Direct3D
- * @version v4.0.30319
  */
-class DDNT_DXVERSION extends Win32Struct
-{
+class DDNT_DXVERSION extends Win32Struct {
     static sizeof => 16
 
     static packingSize => 8
 
     /**
-     * @type {Pointer<DDNT_GETDRIVERINFO2DATA>}
+     * @type {Pointer}
      */
     gdi2 {
         get => NumGet(this, 0, "ptr")

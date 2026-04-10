@@ -13,9 +13,8 @@
  * This interface is used only by the Windows credential provider framework. Its method should not be called by other parties.
  * @see https://learn.microsoft.com/windows/win32/api/credentialprovider/nn-credentialprovider-icredentialprovidersetuserarray
  * @namespace Windows.Win32.UI.Shell
- * @version v4.0.30319
  */
-class ICredentialProviderSetUserArray extends IUnknown{
+class ICredentialProviderSetUserArray extends IUnknown {
 
     static sizeof => A_PtrSize
     /**

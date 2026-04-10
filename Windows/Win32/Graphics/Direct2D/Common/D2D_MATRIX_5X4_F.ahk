@@ -11,10 +11,8 @@
  * ```
  * @see https://learn.microsoft.com/windows/win32/api/dcommon/ns-dcommon-d2d_matrix_5x4_f
  * @namespace Windows.Win32.Graphics.Direct2D.Common
- * @version v4.0.30319
  */
-class D2D_MATRIX_5X4_F extends Win32Struct
-{
+class D2D_MATRIX_5X4_F extends Win32Struct {
     static sizeof => 80
 
     static packingSize => 4
@@ -180,9 +178,9 @@ class D2D_MATRIX_5X4_F extends Win32Struct
     }
 
     /**
-     * @type {Array<Single>}
+     * @type {Array<Float>}
      */
-    m{
+    m {
         get {
             if(!this.HasProp("__mProxyArray"))
                 this.__mProxyArray := Win32FixedArray(this.ptr + 0, 20, Primitive, "float")

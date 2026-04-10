@@ -4,10 +4,8 @@
 
 /**
  * @namespace Windows.Wdk.Graphics.Direct3D
- * @version v4.0.30319
  */
-class D3DKMT_OPENNATIVEFENCEFROMNTHANDLE extends Win32Struct
-{
+class D3DKMT_OPENNATIVEFENCEFROMNTHANDLE extends Win32Struct {
     static sizeof => 40
 
     static packingSize => 8
@@ -15,7 +13,7 @@ class D3DKMT_OPENNATIVEFENCEFROMNTHANDLE extends Win32Struct
     /**
      * @type {HANDLE}
      */
-    hNtHandle{
+    hNtHandle {
         get {
             if(!this.HasProp("__hNtHandle"))
                 this.__hNtHandle := HANDLE(0, this)
@@ -40,7 +38,7 @@ class D3DKMT_OPENNATIVEFENCEFROMNTHANDLE extends Win32Struct
     }
 
     /**
-     * @type {Pointer<D3DDDI_SYNCHRONIZATIONOBJECT_FLAGS>}
+     * @type {Pointer}
      */
     Flags {
         get => NumGet(this, 16, "ptr")
@@ -56,7 +54,7 @@ class D3DKMT_OPENNATIVEFENCEFROMNTHANDLE extends Win32Struct
     }
 
     /**
-     * @type {Pointer<D3DDDI_NATIVEFENCEMAPPING>}
+     * @type {Pointer}
      */
     NativeFenceMapping {
         get => NumGet(this, 32, "ptr")

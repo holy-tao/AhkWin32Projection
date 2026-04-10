@@ -1,16 +1,15 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
-#Include .\SLOWAPPINFO.ahk
 #Include ..\..\System\Com\IUnknown.ahk
+#Include .\SLOWAPPINFO.ahk
 
 /**
  * Exposes methods that provide general information about an application to the Add/Remove Programs Application.
  * @see https://learn.microsoft.com/windows/win32/api/shappmgr/nn-shappmgr-ishellapp
  * @namespace Windows.Win32.UI.Shell
- * @version v4.0.30319
  */
-class IShellApp extends IUnknown{
+class IShellApp extends IUnknown {
 
     static sizeof => A_PtrSize
     /**

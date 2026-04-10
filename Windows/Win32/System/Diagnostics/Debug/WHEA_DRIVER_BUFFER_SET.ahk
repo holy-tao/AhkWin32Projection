@@ -3,10 +3,8 @@
 
 /**
  * @namespace Windows.Win32.System.Diagnostics.Debug
- * @version v4.0.30319
  */
-class WHEA_DRIVER_BUFFER_SET extends Win32Struct
-{
+class WHEA_DRIVER_BUFFER_SET extends Win32Struct {
     static sizeof => 48
 
     static packingSize => 8

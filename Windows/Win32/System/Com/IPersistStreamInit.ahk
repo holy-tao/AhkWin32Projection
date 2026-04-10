@@ -7,9 +7,8 @@
  * A replacement for IPersistStream that adds an initialization method.
  * @see https://learn.microsoft.com/windows/win32/api/ocidl/nn-ocidl-ipersiststreaminit
  * @namespace Windows.Win32.System.Com
- * @version v4.0.30319
  */
-class IPersistStreamInit extends IPersist{
+class IPersistStreamInit extends IPersist {
 
     static sizeof => A_PtrSize
     /**

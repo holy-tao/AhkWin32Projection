@@ -1,14 +1,13 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
+#Include .\EAP_METHOD_PROPERTY.ahk
 
 /**
  * Contains an array of EAP method properties.
  * @see https://learn.microsoft.com/windows/win32/api/eaptypes/ns-eaptypes-eap_method_property_array
  * @namespace Windows.Win32.Security.ExtensibleAuthenticationProtocol
- * @version v4.0.30319
  */
-class EAP_METHOD_PROPERTY_ARRAY extends Win32Struct
-{
+class EAP_METHOD_PROPERTY_ARRAY extends Win32Struct {
     static sizeof => 16
 
     static packingSize => 8

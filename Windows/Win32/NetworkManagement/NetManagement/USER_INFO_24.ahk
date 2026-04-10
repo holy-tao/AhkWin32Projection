@@ -9,10 +9,8 @@
  * On Windows 8 and Windows Server 2012, the Internet identity for a connected account can often be used instead of the computer account.
  * @see https://learn.microsoft.com/windows/win32/api/lmaccess/ns-lmaccess-user_info_24
  * @namespace Windows.Win32.NetworkManagement.NetManagement
- * @version v4.0.30319
  */
-class USER_INFO_24 extends Win32Struct
-{
+class USER_INFO_24 extends Win32Struct {
     static sizeof => 32
 
     static packingSize => 8

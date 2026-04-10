@@ -5,10 +5,8 @@
  * Contains the client credentials returned by a call to WlxQueryTsLogonCredentials.
  * @see https://learn.microsoft.com/windows/win32/api/winwlx/ns-winwlx-wlx_client_credentials_info_v2_0
  * @namespace Windows.Win32.Security.WinWlx
- * @version v4.0.30319
  */
-class WLX_CLIENT_CREDENTIALS_INFO_V2_0 extends Win32Struct
-{
+class WLX_CLIENT_CREDENTIALS_INFO_V2_0 extends Win32Struct {
     static sizeof => 40
 
     static packingSize => 8

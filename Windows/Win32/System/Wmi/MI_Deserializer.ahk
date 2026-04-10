@@ -5,10 +5,8 @@
  * Deserialization object as created from MI_Application_NewDeserializer. The object itself should not be manually used or changed as it is used internally.
  * @see https://learn.microsoft.com/windows/win32/api/mi/ns-mi-mi_deserializer
  * @namespace Windows.Win32.System.Wmi
- * @version v4.0.30319
  */
-class MI_Deserializer extends Win32Struct
-{
+class MI_Deserializer extends Win32Struct {
     static sizeof => 16
 
     static packingSize => 8

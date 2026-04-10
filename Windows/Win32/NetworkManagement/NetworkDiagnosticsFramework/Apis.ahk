@@ -3,7 +3,6 @@
 
 /**
  * @namespace Windows.Win32.NetworkManagement.NetworkDiagnosticsFramework
- * @version v4.0.30319
  */
 class NetworkDiagnosticsFramework {
 
@@ -172,7 +171,9 @@ class NetworkDiagnosticsFramework {
      * @param {Pointer<HELPER_ATTRIBUTE>} attributes Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/ndattrib/ns-ndattrib-helper_attribute">HELPER_ATTRIBUTE</a>*</b>
      * 
      * The applicable <a href="https://docs.microsoft.com/windows/desktop/api/ndattrib/ns-ndattrib-helper_attribute">HELPER_ATTRIBUTE</a> structure.
-     * @returns {Pointer<Void>} 
+     * @returns {Pointer<Void>} Type: <b>NDFHANDLE*</b>
+     * 
+     * A handle to the Network Diagnostics Framework incident.
      * @see https://learn.microsoft.com/windows/win32/api/ndfapi/nf-ndfapi-ndfcreateincident
      * @deprecated NdfCreateIncident is deprecated and might not work on all platforms. For more info, see MSDN.
      * @since windows6.0.6000
@@ -201,7 +202,9 @@ class NetworkDiagnosticsFramework {
      * @param {Pointer<SID>} userId Type: <b>SID*</b>
      * 
      * Unique identifier associated with the user.
-     * @returns {Pointer<Void>} 
+     * @returns {Pointer<Void>} Type: <b>NDFHANDLE*</b>
+     * 
+     * Handle to the Network Diagnostics Framework incident.
      * @see https://learn.microsoft.com/windows/win32/api/ndfapi/nf-ndfapi-ndfcreatewinsockincident
      * @deprecated NdfCreateWinSockIncident is deprecated and might not work on all platforms. For more info, see MSDN.
      * @since windows6.0.6000
@@ -220,7 +223,9 @@ class NetworkDiagnosticsFramework {
      * @param {PWSTR} url Type: <b>LPCWSTR</b>
      * 
      * The URL with which there is a connectivity issue.
-     * @returns {Pointer<Void>} 
+     * @returns {Pointer<Void>} Type: <b>NDFHANDLE*</b>
+     * 
+     * Handle to the Network Diagnostics Framework incident.
      * @see https://learn.microsoft.com/windows/win32/api/ndfapi/nf-ndfapi-ndfcreatewebincident
      * @deprecated NdfCreateWebIncident is deprecated and might not work on all platforms. For more info, see MSDN.
      * @since windows6.0.6000
@@ -243,7 +248,9 @@ class NetworkDiagnosticsFramework {
      * @param {PWSTR} moduleName Type: <b>LPWSTR</b>
      * 
      * The module name to use when checking against application-specific filtering rules (for example, "C:\Program Files\Internet Explorer\iexplorer.exe").  If <b>NULL</b>, the value is autodetected during the diagnosis.
-     * @returns {Pointer<Void>} 
+     * @returns {Pointer<Void>} Type: <b>NDFHANDLE*</b>
+     * 
+     * Handle to the Network Diagnostics Framework incident.
      * @see https://learn.microsoft.com/windows/win32/api/ndfapi/nf-ndfapi-ndfcreatewebincidentex
      * @deprecated NdfCreateWebIncidentEx is deprecated and might not work on all platforms. For more info, see MSDN.
      * @since windows6.0.6000
@@ -261,7 +268,9 @@ class NetworkDiagnosticsFramework {
      * @param {PWSTR} UNCPath Type: <b>LPCWSTR</b>
      * 
      * The full UNC string (for example, "\\server\folder\file.ext") for the shared asset with which there is a connectivity issue.
-     * @returns {Pointer<Void>} 
+     * @returns {Pointer<Void>} Type: <b>NDFHANDLE*</b>
+     * 
+     * Handle to the Network Diagnostics Framework incident.
      * @see https://learn.microsoft.com/windows/win32/api/ndfapi/nf-ndfapi-ndfcreatesharingincident
      * @deprecated NdfCreateSharingIncident is deprecated and might not work on all platforms. For more info, see MSDN.
      * @since windows6.0.6000
@@ -283,7 +292,9 @@ class NetworkDiagnosticsFramework {
      * The numeric representation of the type of record that was queried when the issue occurred.  For more information and a complete listing of record set types and their numeric representations, see the windns.h header file.
      * 
      * This parameter should be set to  <b>DNS_TYPE_ZERO</b> for generic DNS resolution diagnosis.
-     * @returns {Pointer<Void>} 
+     * @returns {Pointer<Void>} Type: <b>NDFHANDLE*</b>
+     * 
+     * Handle to the Network Diagnostics Framework incident.
      * @see https://learn.microsoft.com/windows/win32/api/ndfapi/nf-ndfapi-ndfcreatednsincident
      * @deprecated NdfCreateDNSIncident is deprecated and might not work on all platforms. For more info, see MSDN.
      * @since windows6.0.6000
@@ -297,7 +308,9 @@ class NetworkDiagnosticsFramework {
 
     /**
      * Diagnoses generic Internet connectivity problems.
-     * @returns {Pointer<Void>} 
+     * @returns {Pointer<Void>} Type: <b>NDFHANDLE*</b>
+     * 
+     * Handle to the Network Diagnostics Framework incident.
      * @see https://learn.microsoft.com/windows/win32/api/ndfapi/nf-ndfapi-ndfcreateconnectivityincident
      * @deprecated NdfCreateConnectivityIncident is deprecated and might not work on all platforms. For more info, see MSDN.
      * @since windows6.0.6000
@@ -314,7 +327,9 @@ class NetworkDiagnosticsFramework {
      * Identifier of the network interface that the caller would like to create the incident for.  
      * 
      * The NULL GUID {00000000-0000-0000-0000-000000000000} may be used if the caller does not want to specify an interface. The system will attempt to determine the most appropriate interface based on the current state of the system.
-     * @returns {Pointer<Void>} 
+     * @returns {Pointer<Void>} Type: <b>NDFHANDLE*</b>
+     * 
+     * Handle to the Network Diagnostics Framework incident.
      * @see https://learn.microsoft.com/windows/win32/api/ndfapi/nf-ndfapi-ndfcreatenetconnectionincident
      * @deprecated NdfCreateNetConnectionIncident is deprecated and might not work on all platforms. For more info, see MSDN.
      * @since windows8.0
@@ -343,7 +358,9 @@ class NetworkDiagnosticsFramework {
      * @param {PWSTR} appId Type: <b>LPCWSTR</b>
      * 
      * Application ID for the calling application.
-     * @returns {Pointer<Void>} 
+     * @returns {Pointer<Void>} Type: <b>NDFHANDLE*</b>
+     * 
+     * Handle to the Network Diagnostics Framework incident.
      * @see https://learn.microsoft.com/windows/win32/api/ndfapi/nf-ndfapi-ndfcreatepnrpincident
      * @deprecated NdfCreatePnrpIncident is deprecated and might not work on all platforms. For more info, see MSDN.
      * @since windows6.1
@@ -386,7 +403,9 @@ class NetworkDiagnosticsFramework {
      * @param {PWSTR} appId Type: <b>LPCWSTR</b>
      * 
      * Application ID for the calling application.
-     * @returns {Pointer<Void>} 
+     * @returns {Pointer<Void>} Type: <b>NDFHANDLE*</b>
+     * 
+     * Handle to the Network Diagnostics Framework incident.
      * @see https://learn.microsoft.com/windows/win32/api/ndfapi/nf-ndfapi-ndfcreategroupingincident
      * @deprecated NdfCreateGroupingIncident is deprecated and might not work on all platforms. For more info, see MSDN.
      * @since windows6.1
@@ -404,8 +423,12 @@ class NetworkDiagnosticsFramework {
 
     /**
      * The NdfExecuteDiagnosis function is used to diagnose the root cause of the incident that has occurred.
-     * @param {Pointer<Void>} _handle 
-     * @param {HWND} _hwnd 
+     * @param {Pointer<Void>} _handle Type: <b>NDFHANDLE</b>
+     * 
+     * Handle to the Network Diagnostics Framework incident.
+     * @param {HWND} _hwnd Type: <b>HWND</b>
+     * 
+     * Handle to the window that is intended to display the diagnostic information. If specified, the NDF UI is modal to the window.  If <b>NULL</b>, the UI is non-modal.
      * @returns {HRESULT} Type: <b>HRESULT</b>
      * 
      * Possible return values include, but are not limited to, the following.
@@ -453,7 +476,9 @@ class NetworkDiagnosticsFramework {
 
     /**
      * Used to close an Network Diagnostics Framework (NDF) incident following its resolution.
-     * @param {Pointer<Void>} _handle 
+     * @param {Pointer<Void>} _handle Type: <b>NDFHANDLE</b>
+     * 
+     * Handle to the NDF incident that is being closed.
      * @returns {HRESULT} Type: <b>HRESULT</b>
      * 
      * Possible return values include, but are not limited to, the following.
@@ -519,7 +544,9 @@ class NetworkDiagnosticsFramework {
      * <td>Reset the ""%InterfaceName%"" adapter.\nThis can sometimes resolve an intermittent problem.</td>
      * </tr>
      * </table>
-     * @param {Pointer<Void>} _Handle 
+     * @param {Pointer<Void>} _Handle Type: <b>NDFHANDLE</b>
+     * 
+     * A handle to the Network Diagnostics Framework incident.
      * @param {Pointer<Integer>} RootCauseCount Type: <b>ULONG*</b>
      * 
      * The number of root causes that could potentially have caused this incident. If diagnosis does not succeed, the contents of this parameter should be ignored.
@@ -627,7 +654,9 @@ class NetworkDiagnosticsFramework {
      * <b>NdfRepairIncident</b> can only be called when <a href="https://docs.microsoft.com/windows/desktop/api/ndfapi/nf-ndfapi-ndfdiagnoseincident">NdfDiagnoseIncident</a> is used for diagnostics. This is typically the case in scenarios where no user interface is shown, or where the standard Windows experience is not being used (as with Media Center and embedded applications). <b>NdfRepairIncident</b> should not be called when <a href="https://docs.microsoft.com/windows/desktop/api/ndfapi/nf-ndfapi-ndfexecutediagnosis">NdfExecuteDiagnosis</a> is used.
      * 
      * Before using this API, an application must call an incident creation function such as <a href="https://docs.microsoft.com/windows/desktop/api/ndfapi/nf-ndfapi-ndfcreatewebincident">NdfCreateWebIncident</a> to begin the NDF diagnostics process. The application then calls <a href="https://docs.microsoft.com/windows/desktop/api/ndfapi/nf-ndfapi-ndfdiagnoseincident">NdfDiagnoseIncident</a> to diagnose the issue. If the diagnostics process identifies some possible repairs, the application can call <b>NdfRepairIncident</b> to repair the problem without displaying a user interface. <a href="https://docs.microsoft.com/windows/desktop/api/ndfapi/nf-ndfapi-ndfcancelincident">NdfCancelIncident</a> can optionally be called from a separate thread if the application wants to cancel an ongoing <b>NdfRepairIncident</b> call. Finally, the application calls <a href="https://docs.microsoft.com/windows/desktop/api/ndfapi/nf-ndfapi-ndfcloseincident">NdfCloseIncident</a>.
-     * @param {Pointer<Void>} _Handle 
+     * @param {Pointer<Void>} _Handle Type: <b>NDFHANDLE</b>
+     * 
+     * Handle to the Network Diagnostics Framework incident. This handle should match the handle passed to <a href="https://docs.microsoft.com/windows/desktop/api/ndfapi/nf-ndfapi-ndfdiagnoseincident">NdfDiagnoseIncident</a>.
      * @param {Pointer<RepairInfoEx>} RepairEx Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/ndattrib/ns-ndattrib-repairinfoex">RepairInfoEx</a>*</b>
      * 
      * A structure (obtained from <a href="https://docs.microsoft.com/windows/desktop/api/ndfapi/nf-ndfapi-ndfdiagnoseincident">NdfDiagnoseIncident</a>) which indicates the particular repair to be performed.
@@ -711,7 +740,9 @@ class NetworkDiagnosticsFramework {
      * 
      * 
      * <a href="https://docs.microsoft.com/windows/desktop/api/ndfapi/nf-ndfapi-ndfcloseincident">NdfCloseIncident</a> should be used to close an incident once it has been resolved, as <b>NdfCancelIncident</b> does not actually close the incident itself.
-     * @param {Pointer<Void>} _Handle 
+     * @param {Pointer<Void>} _Handle Type: <b>NDFHANDLE</b>
+     * 
+     * Handle to the Network Diagnostics Framework incident. This handle should match the handle of an existing incident.
      * @returns {HRESULT} Type: <b>HRESULT</b>
      * 
      * Possible return values include, but are not limited to, the following.
@@ -753,7 +784,9 @@ class NetworkDiagnosticsFramework {
      * This function cannot be called on an incident which has already been closed.
      * 
      * ETL files contain information such as which components were diagnosed, component configuration information, and diagnosis results. For more information about ETL files, see <a href="https://docs.microsoft.com/windows/desktop/NDF/network-tracing-in-windows-7">Network Tracing in Windows 7</a>.
-     * @param {Pointer<Void>} _Handle 
+     * @param {Pointer<Void>} _Handle Type: <b>NDFHANDLE</b>
+     * 
+     * Handle to a Network Diagnostics Framework incident. This handle should match the handle of an existing incident.
      * @returns {PWSTR} Type: <b>LPCWSTR*</b>
      * 
      * The location of the trace file.

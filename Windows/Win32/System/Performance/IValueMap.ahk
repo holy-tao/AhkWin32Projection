@@ -1,19 +1,18 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
-#Include ..\..\Foundation\BSTR.ahk
+#Include ..\Com\IDispatch.ahk
 #Include .\IValueMapItem.ahk
 #Include ..\Com\IUnknown.ahk
+#Include ..\..\Foundation\BSTR.ahk
 #Include ..\Variant\VARIANT.ahk
-#Include ..\Com\IDispatch.ahk
 
 /**
  * Manages a collection of name/value pairs.To get this interface, access one of the following properties or methods:IDataCollector::SetXmlIDataCollectorSet::CommitIDataCollectorSet::SetXmlITraceDataProvider::KeywordsAllITraceDataProvider::KeywordsAnyITraceDataProvider::LevelITraceDataProvider::Properties
  * @see https://learn.microsoft.com/windows/win32/api/pla/nn-pla-ivaluemap
  * @namespace Windows.Win32.System.Performance
- * @version v4.0.30319
  */
-class IValueMap extends IDispatch{
+class IValueMap extends IDispatch {
 
     static sizeof => A_PtrSize
     /**
@@ -65,7 +64,7 @@ class IValueMap extends IDispatch{
     }
 
     /**
-     * @type {Integer} 
+     * @type {ValueMapType} 
      */
     ValueMapType {
         get => this.get_ValueMapType()
@@ -171,7 +170,7 @@ class IValueMap extends IDispatch{
 
     /**
      * Retrieves or sets the type of items in the collection. (Get)
-     * @returns {Integer} 
+     * @returns {ValueMapType} 
      * @see https://learn.microsoft.com/windows/win32/api/pla/nf-pla-ivaluemap-get_valuemaptype
      */
     get_ValueMapType() {
@@ -181,7 +180,7 @@ class IValueMap extends IDispatch{
 
     /**
      * Retrieves or sets the type of items in the collection. (Put)
-     * @param {Integer} type 
+     * @param {ValueMapType} type 
      * @returns {HRESULT} 
      * @see https://learn.microsoft.com/windows/win32/api/pla/nf-pla-ivaluemap-put_valuemaptype
      */
@@ -230,12 +229,12 @@ class IValueMap extends IDispatch{
 
     /**
      * Adds one or more items to the collection.
-     * @param {IValueMap} map An <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/pla/nn-pla-ivaluemap">IValueMap</a> interface that contains a collection of items to add to this collection.
+     * @param {IValueMap} _map An <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/pla/nn-pla-ivaluemap">IValueMap</a> interface that contains a collection of items to add to this collection.
      * @returns {HRESULT} Returns S_OK if successful.
      * @see https://learn.microsoft.com/windows/win32/api/pla/nf-pla-ivaluemap-addrange
      */
-    AddRange(map) {
-        result := ComCall(19, this, "ptr", map, "HRESULT")
+    AddRange(_map) {
+        result := ComCall(19, this, "ptr", _map, "HRESULT")
         return result
     }
 

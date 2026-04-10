@@ -4,10 +4,8 @@
 
 /**
  * @namespace Windows.Win32.Media.KernelStreaming
- * @version v4.0.30319
  */
-class VBICODECFILTERING_STATISTICS_CC extends Win32Struct
-{
+class VBICODECFILTERING_STATISTICS_CC extends Win32Struct {
     static sizeof => 56
 
     static packingSize => 4
@@ -15,7 +13,7 @@ class VBICODECFILTERING_STATISTICS_CC extends Win32Struct
     /**
      * @type {VBICODECFILTERING_STATISTICS_COMMON}
      */
-    Common{
+    Common {
         get {
             if(!this.HasProp("__Common"))
                 this.__Common := VBICODECFILTERING_STATISTICS_COMMON(0, this)

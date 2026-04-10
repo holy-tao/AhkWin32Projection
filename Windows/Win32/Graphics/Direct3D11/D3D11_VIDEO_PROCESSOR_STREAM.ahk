@@ -1,5 +1,6 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
+#Include .\ID3D11VideoProcessorInputView.ahk
 
 /**
  * Contains stream-level data for the ID3D11VideoContext::VideoProcessorBlt method.
@@ -7,10 +8,8 @@
  * If the stereo 3D format is <b>D3D11_VIDEO_PROCESSOR_STEREO_FORMAT_SEPARATE</b>, the <b>ppPastSurfaces</b>, <b>pInputSurface</b>, and <b>ppFutureSurfaces</b> members contain the left view.
  * @see https://learn.microsoft.com/windows/win32/api/d3d11/ns-d3d11-d3d11_video_processor_stream
  * @namespace Windows.Win32.Graphics.Direct3D11
- * @version v4.0.30319
  */
-class D3D11_VIDEO_PROCESSOR_STREAM extends Win32Struct
-{
+class D3D11_VIDEO_PROCESSOR_STREAM extends Win32Struct {
     static sizeof => 72
 
     static packingSize => 8

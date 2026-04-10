@@ -7,10 +7,8 @@
  * The AAUX and VAUX packs are defined in IEC 61834-4.
  * @see https://learn.microsoft.com/windows/win32/api/strmif/ns-strmif-dvinfo
  * @namespace Windows.Win32.Media.DirectShow
- * @version v4.0.30319
  */
-class DVINFO extends Win32Struct
-{
+class DVINFO extends Win32Struct {
     static sizeof => 32
 
     static packingSize => 4
@@ -71,9 +69,9 @@ class DVINFO extends Win32Struct
 
     /**
      * Reserved. Set this array to zero.
-     * @type {Array<UInt32>}
+     * @type {Array<Integer>}
      */
-    dwDVReserved{
+    dwDVReserved {
         get {
             if(!this.HasProp("__dwDVReservedProxyArray"))
                 this.__dwDVReservedProxyArray := Win32FixedArray(this.ptr + 24, 2, Primitive, "uint")

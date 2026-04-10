@@ -6,10 +6,8 @@
 
 /**
  * @namespace Windows.Win32.Web.MsHtml
- * @version v4.0.30319
  */
-class HTML_PAINT_DRAW_INFO extends Win32Struct
-{
+class HTML_PAINT_DRAW_INFO extends Win32Struct {
     static sizeof => 48
 
     static packingSize => 8
@@ -17,7 +15,7 @@ class HTML_PAINT_DRAW_INFO extends Win32Struct
     /**
      * @type {RECT}
      */
-    rcViewport{
+    rcViewport {
         get {
             if(!this.HasProp("__rcViewport"))
                 this.__rcViewport := RECT(0, this)
@@ -28,7 +26,7 @@ class HTML_PAINT_DRAW_INFO extends Win32Struct
     /**
      * @type {HRGN}
      */
-    hrgnUpdate{
+    hrgnUpdate {
         get {
             if(!this.HasProp("__hrgnUpdate"))
                 this.__hrgnUpdate := HRGN(16, this)
@@ -39,7 +37,7 @@ class HTML_PAINT_DRAW_INFO extends Win32Struct
     /**
      * @type {HTML_PAINT_XFORM}
      */
-    xform{
+    xform {
         get {
             if(!this.HasProp("__xform"))
                 this.__xform := HTML_PAINT_XFORM(24, this)

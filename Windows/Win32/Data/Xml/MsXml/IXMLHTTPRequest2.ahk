@@ -25,9 +25,8 @@
  * <b>IXMLHTTPRequest2</b> implements a callback model for event handling. Because <b>IXMLHTTPRequest2</b> methods allow only asynchronous method calls, to receive completion callbacks an application must pass a pointer to an <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/msxml6/nn-msxml6-ixmlhttprequest2callback">IXMLHTTPRequest2Callback</a> object when it calls the <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/msxml6/nf-msxml6-ixmlhttprequest2-open">IXMLHTTPRequest2::Open</a> method to create an HTTP request.
  * @see https://learn.microsoft.com/windows/win32/api/msxml6/nn-msxml6-ixmlhttprequest2
  * @namespace Windows.Win32.Data.Xml.MsXml
- * @version v4.0.30319
  */
-class IXMLHTTPRequest2 extends IUnknown{
+class IXMLHTTPRequest2 extends IUnknown {
 
     static sizeof => A_PtrSize
     /**
@@ -231,7 +230,7 @@ class IXMLHTTPRequest2 extends IUnknown{
      * <li>XHR_PROP_QUERY_STRING_UTF8 – Causes the query string to be encoded in UTF-8 instead of ACP for HTTP request.</li>
      * <li>XHR_PROP_IGNORE_CERT_ERRORS – Suppresses certain server certificate errors.</li>
      * </ul>
-     * @param {Integer} eProperty The following values are valid:
+     * @param {XHR_PROPERTY} eProperty The following values are valid:
      * 
      * <table>
      * <tr>

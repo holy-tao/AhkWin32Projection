@@ -9,9 +9,8 @@
  * A default implementation of <b>IFaxEventLogging</b> is provided as the <a href="https://docs.microsoft.com/previous-versions/windows/desktop/fax/-mfax-faxeventlogging">FaxEventLogging</a> object.
  * @see https://learn.microsoft.com/windows/win32/api/faxcomex/nn-faxcomex-ifaxeventlogging
  * @namespace Windows.Win32.Devices.Fax
- * @version v4.0.30319
  */
-class IFaxEventLogging extends IDispatch{
+class IFaxEventLogging extends IDispatch {
 
     static sizeof => A_PtrSize
     /**
@@ -39,7 +38,7 @@ class IFaxEventLogging extends IDispatch{
     static VTableNames => ["get_InitEventsLevel", "put_InitEventsLevel", "get_InboundEventsLevel", "put_InboundEventsLevel", "get_OutboundEventsLevel", "put_OutboundEventsLevel", "get_GeneralEventsLevel", "put_GeneralEventsLevel", "Refresh", "Save"]
 
     /**
-     * @type {Integer} 
+     * @type {FAX_LOG_LEVEL_ENUM} 
      */
     InitEventsLevel {
         get => this.get_InitEventsLevel()
@@ -47,7 +46,7 @@ class IFaxEventLogging extends IDispatch{
     }
 
     /**
-     * @type {Integer} 
+     * @type {FAX_LOG_LEVEL_ENUM} 
      */
     InboundEventsLevel {
         get => this.get_InboundEventsLevel()
@@ -55,7 +54,7 @@ class IFaxEventLogging extends IDispatch{
     }
 
     /**
-     * @type {Integer} 
+     * @type {FAX_LOG_LEVEL_ENUM} 
      */
     OutboundEventsLevel {
         get => this.get_OutboundEventsLevel()
@@ -63,7 +62,7 @@ class IFaxEventLogging extends IDispatch{
     }
 
     /**
-     * @type {Integer} 
+     * @type {FAX_LOG_LEVEL_ENUM} 
      */
     GeneralEventsLevel {
         get => this.get_GeneralEventsLevel()
@@ -74,7 +73,7 @@ class IFaxEventLogging extends IDispatch{
      * The IFaxEventLogging::get_InitEventsLevel property indicates the level of detail at which the fax service logs initialization (starting the server) and termination (shutting down the server) events in the application log. (Get)
      * @remarks
      * To read or to write to this property, a user must have the <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/faxcomex/ne-faxcomex-fax_access_rights_enum">farQUERY_CONFIG</a> access right.
-     * @returns {Integer} 
+     * @returns {FAX_LOG_LEVEL_ENUM} 
      * @see https://learn.microsoft.com/windows/win32/api/faxcomex/nf-faxcomex-ifaxeventlogging-get_initeventslevel
      */
     get_InitEventsLevel() {
@@ -86,7 +85,7 @@ class IFaxEventLogging extends IDispatch{
      * The IFaxEventLogging::get_InitEventsLevel property indicates the level of detail at which the fax service logs initialization (starting the server) and termination (shutting down the server) events in the application log. (Put)
      * @remarks
      * To read or to write to this property, a user must have the <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/faxcomex/ne-faxcomex-fax_access_rights_enum">farQUERY_CONFIG</a> access right.
-     * @param {Integer} InitEventLevel 
+     * @param {FAX_LOG_LEVEL_ENUM} InitEventLevel 
      * @returns {HRESULT} 
      * @see https://learn.microsoft.com/windows/win32/api/faxcomex/nf-faxcomex-ifaxeventlogging-put_initeventslevel
      */
@@ -99,7 +98,7 @@ class IFaxEventLogging extends IDispatch{
      * The IFaxEventLogging::get_InboundEventsLevel property indicates the level of detail at which the fax service logs events about inbound fax transmissions in the application log. (Get)
      * @remarks
      * To read or to write to this property, a user must have the <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/faxcomex/ne-faxcomex-fax_access_rights_enum">farQUERY_CONFIG</a> access right.
-     * @returns {Integer} 
+     * @returns {FAX_LOG_LEVEL_ENUM} 
      * @see https://learn.microsoft.com/windows/win32/api/faxcomex/nf-faxcomex-ifaxeventlogging-get_inboundeventslevel
      */
     get_InboundEventsLevel() {
@@ -111,7 +110,7 @@ class IFaxEventLogging extends IDispatch{
      * The IFaxEventLogging::get_InboundEventsLevel property indicates the level of detail at which the fax service logs events about inbound fax transmissions in the application log. (Put)
      * @remarks
      * To read or to write to this property, a user must have the <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/faxcomex/ne-faxcomex-fax_access_rights_enum">farQUERY_CONFIG</a> access right.
-     * @param {Integer} InboundEventLevel 
+     * @param {FAX_LOG_LEVEL_ENUM} InboundEventLevel 
      * @returns {HRESULT} 
      * @see https://learn.microsoft.com/windows/win32/api/faxcomex/nf-faxcomex-ifaxeventlogging-put_inboundeventslevel
      */
@@ -124,7 +123,7 @@ class IFaxEventLogging extends IDispatch{
      * The IFaxEventLogging::get_OutboundEventsLevel property indicates the level of detail at which the fax service logs events about outbound fax transmissions in the application log. (Get)
      * @remarks
      * To read or to write to this property, a user must have the <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/faxcomex/ne-faxcomex-fax_access_rights_enum">farQUERY_CONFIG</a> access right.
-     * @returns {Integer} 
+     * @returns {FAX_LOG_LEVEL_ENUM} 
      * @see https://learn.microsoft.com/windows/win32/api/faxcomex/nf-faxcomex-ifaxeventlogging-get_outboundeventslevel
      */
     get_OutboundEventsLevel() {
@@ -136,7 +135,7 @@ class IFaxEventLogging extends IDispatch{
      * The IFaxEventLogging::get_OutboundEventsLevel property indicates the level of detail at which the fax service logs events about outbound fax transmissions in the application log. (Put)
      * @remarks
      * To read or to write to this property, a user must have the <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/faxcomex/ne-faxcomex-fax_access_rights_enum">farQUERY_CONFIG</a> access right.
-     * @param {Integer} OutboundEventLevel 
+     * @param {FAX_LOG_LEVEL_ENUM} OutboundEventLevel 
      * @returns {HRESULT} 
      * @see https://learn.microsoft.com/windows/win32/api/faxcomex/nf-faxcomex-ifaxeventlogging-put_outboundeventslevel
      */
@@ -149,7 +148,7 @@ class IFaxEventLogging extends IDispatch{
      * The IFaxEventLogging::get_GeneralEventsLevel property indicates the level of detail at which the fax service logs general events in the application log. (Get)
      * @remarks
      * To read or to write to this property, a user must have the <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/faxcomex/ne-faxcomex-fax_access_rights_enum">farQUERY_CONFIG</a> access right.
-     * @returns {Integer} 
+     * @returns {FAX_LOG_LEVEL_ENUM} 
      * @see https://learn.microsoft.com/windows/win32/api/faxcomex/nf-faxcomex-ifaxeventlogging-get_generaleventslevel
      */
     get_GeneralEventsLevel() {
@@ -161,7 +160,7 @@ class IFaxEventLogging extends IDispatch{
      * The IFaxEventLogging::get_GeneralEventsLevel property indicates the level of detail at which the fax service logs general events in the application log. (Put)
      * @remarks
      * To read or to write to this property, a user must have the <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/faxcomex/ne-faxcomex-fax_access_rights_enum">farQUERY_CONFIG</a> access right.
-     * @param {Integer} GeneralEventLevel 
+     * @param {FAX_LOG_LEVEL_ENUM} GeneralEventLevel 
      * @returns {HRESULT} 
      * @see https://learn.microsoft.com/windows/win32/api/faxcomex/nf-faxcomex-ifaxeventlogging-put_generaleventslevel
      */

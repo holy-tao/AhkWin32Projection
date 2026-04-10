@@ -4,10 +4,8 @@
 
 /**
  * @namespace Windows.Win32.Devices.Nfc
- * @version v4.0.30319
  */
-class NFC_LLCP_SERVICE_DISCOVER_REQUEST extends Win32Struct
-{
+class NFC_LLCP_SERVICE_DISCOVER_REQUEST extends Win32Struct {
     static sizeof => 24
 
     static packingSize => 8
@@ -29,12 +27,12 @@ class NFC_LLCP_SERVICE_DISCOVER_REQUEST extends Win32Struct
     }
 
     /**
-     * @type {Array<NFC_LLCP_SERVICE_NAME_ENTRY>}
+     * @type {NFC_LLCP_SERVICE_NAME_ENTRY}
      */
-    ServiceNameEntries{
+    ServiceNameEntries {
         get {
             if(!this.HasProp("__ServiceNameEntriesProxyArray"))
-                this.__ServiceNameEntriesProxyArray := Win32FixedArray(this.ptr + 16, 1, NFC_LLCP_SERVICE_NAME_ENTRY, "")
+                this.__ServiceNameEntriesProxyArray := Win32FixedArray(this.ptr + 12, 1, NFC_LLCP_SERVICE_NAME_ENTRY, "")
             return this.__ServiceNameEntriesProxyArray
         }
     }

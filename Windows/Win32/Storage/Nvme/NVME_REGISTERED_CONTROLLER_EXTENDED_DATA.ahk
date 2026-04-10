@@ -3,10 +3,8 @@
 
 /**
  * @namespace Windows.Win32.Storage.Nvme
- * @version v4.0.30319
  */
-class NVME_REGISTERED_CONTROLLER_EXTENDED_DATA extends Win32Struct
-{
+class NVME_REGISTERED_CONTROLLER_EXTENDED_DATA extends Win32Struct {
     static sizeof => 64
 
     static packingSize => 8
@@ -25,7 +23,7 @@ class NVME_REGISTERED_CONTROLLER_EXTENDED_DATA extends Win32Struct
             get => NumGet(this, 0, "char")
             set => NumPut("char", value, this, 0)
         }
-    
+
         /**
          * @type {Integer}
          */
@@ -33,7 +31,6 @@ class NVME_REGISTERED_CONTROLLER_EXTENDED_DATA extends Win32Struct
             get => (this._bitfield >> 0) & 0x1
             set => this._bitfield := ((value & 0x1) << 0) | (this._bitfield & ~(0x1 << 0))
         }
-    
     }
 
     /**
@@ -47,18 +44,18 @@ class NVME_REGISTERED_CONTROLLER_EXTENDED_DATA extends Win32Struct
     /**
      * @type {_RCSTS}
      */
-    RCSTS{
+    RCSTS {
         get {
             if(!this.HasProp("__RCSTS"))
-                this.__RCSTS := %this.__Class%._RCSTS(2, this)
+                this.__RCSTS := NVME_REGISTERED_CONTROLLER_EXTENDED_DATA._RCSTS(2, this)
             return this.__RCSTS
         }
     }
 
     /**
-     * @type {Array<Byte>}
+     * @type {Array<Integer>}
      */
-    Reserved{
+    Reserved {
         get {
             if(!this.HasProp("__ReservedProxyArray"))
                 this.__ReservedProxyArray := Win32FixedArray(this.ptr + 3, 5, Primitive, "char")
@@ -75,9 +72,9 @@ class NVME_REGISTERED_CONTROLLER_EXTENDED_DATA extends Win32Struct
     }
 
     /**
-     * @type {Array<Byte>}
+     * @type {Array<Integer>}
      */
-    HOSTID{
+    HOSTID {
         get {
             if(!this.HasProp("__HOSTIDProxyArray"))
                 this.__HOSTIDProxyArray := Win32FixedArray(this.ptr + 16, 16, Primitive, "char")
@@ -86,9 +83,9 @@ class NVME_REGISTERED_CONTROLLER_EXTENDED_DATA extends Win32Struct
     }
 
     /**
-     * @type {Array<Byte>}
+     * @type {Array<Integer>}
      */
-    Reserved1{
+    Reserved1 {
         get {
             if(!this.HasProp("__Reserved1ProxyArray"))
                 this.__Reserved1ProxyArray := Win32FixedArray(this.ptr + 32, 32, Primitive, "char")

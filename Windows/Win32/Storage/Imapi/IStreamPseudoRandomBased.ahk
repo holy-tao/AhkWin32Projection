@@ -9,9 +9,8 @@
  * To create the <b>MsftStreamPrgn001</b> object in a script, use IMAPI2.MsftStreamPrgn001 as the program identifier when calling <b>CreateObject</b>.
  * @see https://learn.microsoft.com/windows/win32/api/imapi2/nn-imapi2-istreampseudorandombased
  * @namespace Windows.Win32.Storage.Imapi
- * @version v4.0.30319
  */
-class IStreamPseudoRandomBased extends IStream{
+class IStreamPseudoRandomBased extends IStream {
 
     static sizeof => A_PtrSize
     /**

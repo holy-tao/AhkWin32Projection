@@ -3,9 +3,8 @@
 
 /**
  * @namespace Windows.Win32.NetworkManagement.NetManagement
- * @version v4.0.30319
  */
-class NET_REMOTE_COMPUTER_SUPPORTS_OPTIONS extends Win32Enum{
+class NET_REMOTE_COMPUTER_SUPPORTS_OPTIONS extends Win32Enum {
 
     /**
      * @type {Integer (UInt32)}

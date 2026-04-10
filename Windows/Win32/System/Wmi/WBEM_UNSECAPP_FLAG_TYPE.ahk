@@ -5,9 +5,8 @@
  * Used to control access checks on callbacks when using the IWbemUnsecuredApartment::CreateSinkStub method.
  * @see https://learn.microsoft.com/windows/win32/api/wbemcli/ne-wbemcli-wbem_unsecapp_flag_type
  * @namespace Windows.Win32.System.Wmi
- * @version v4.0.30319
  */
-class WBEM_UNSECAPP_FLAG_TYPE extends Win32Enum{
+class WBEM_UNSECAPP_FLAG_TYPE extends Win32Enum {
 
     /**
      * Unsecapp.exe reads the registry key UnsecAppAccessControlDefault to determine if it should authenticate callbacks.

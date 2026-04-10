@@ -7,9 +7,8 @@
  * The IWMMetadataEditor interface is used to edit metadata information in ASF file headers. It is obtained by calling the WMCreateEditor function.
  * @see https://learn.microsoft.com/windows/win32/api/wmsdkidl/nn-wmsdkidl-iwmmetadataeditor
  * @namespace Windows.Win32.Media.WindowsMediaFormat
- * @version v4.0.30319
  */
-class IWMMetadataEditor extends IUnknown{
+class IWMMetadataEditor extends IUnknown {
 
     static sizeof => A_PtrSize
     /**

@@ -7,9 +7,8 @@
  * Use IBitsPeer to get information about a peer in the neighborhood.
  * @see https://learn.microsoft.com/windows/win32/api/bits3_0/nn-bits3_0-ibitspeer
  * @namespace Windows.Win32.Networking.BackgroundIntelligentTransferService
- * @version v4.0.30319
  */
-class IBitsPeer extends IUnknown{
+class IBitsPeer extends IUnknown {
 
     static sizeof => A_PtrSize
     /**

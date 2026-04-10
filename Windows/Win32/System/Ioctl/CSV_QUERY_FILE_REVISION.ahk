@@ -13,10 +13,8 @@
  * Revision tracking is per file, not per stream, so the output changes whenever the stream changes.
  * @see https://learn.microsoft.com/windows/win32/api/winioctl/ns-winioctl-csv_query_file_revision
  * @namespace Windows.Win32.System.Ioctl
- * @version v4.0.30319
  */
-class CSV_QUERY_FILE_REVISION extends Win32Struct
-{
+class CSV_QUERY_FILE_REVISION extends Win32Struct {
     static sizeof => 32
 
     static packingSize => 8
@@ -44,9 +42,9 @@ class CSV_QUERY_FILE_REVISION extends Win32Struct
      *         opening this stream.</li>
      * </ul>
      * If any of the numbers are 0, the function caller should assume that the file was modified.
-     * @type {Array<Int64>}
+     * @type {Array<Integer>}
      */
-    FileRevision{
+    FileRevision {
         get {
             if(!this.HasProp("__FileRevisionProxyArray"))
                 this.__FileRevisionProxyArray := Win32FixedArray(this.ptr + 8, 3, Primitive, "int64")

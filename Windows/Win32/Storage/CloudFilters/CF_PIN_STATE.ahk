@@ -80,9 +80,8 @@
  * </table>
  * @see https://learn.microsoft.com/windows/win32/api/cfapi/ne-cfapi-cf_pin_state
  * @namespace Windows.Win32.Storage.CloudFilters
- * @version v4.0.30319
  */
-class CF_PIN_STATE extends Win32Enum{
+class CF_PIN_STATE extends Win32Enum {
 
     /**
      * The platform can decide freely when the placeholder’s content needs to present or absent locally on the disk.

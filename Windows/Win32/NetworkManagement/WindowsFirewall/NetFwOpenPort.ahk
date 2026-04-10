@@ -3,10 +3,8 @@
 
 /**
  * @namespace Windows.Win32.NetworkManagement.WindowsFirewall
- * @version v4.0.30319
  */
-class NetFwOpenPort extends Win32Struct
-{
+class NetFwOpenPort extends Win32Struct {
     static sizeof => 0
 
     static packingSize => 1

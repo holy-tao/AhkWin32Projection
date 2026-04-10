@@ -3,16 +3,14 @@
 
 /**
  * @namespace Windows.Win32.Media.Audio
- * @version v4.0.30319
  */
-class AudioClient3ActivationParams extends Win32Struct
-{
+class AudioClient3ActivationParams extends Win32Struct {
     static sizeof => 8
 
     static packingSize => 8
 
     /**
-     * @type {Pointer<Guid>}
+     * @type {Pointer}
      */
     tracingContextId {
         get => NumGet(this, 0, "ptr")

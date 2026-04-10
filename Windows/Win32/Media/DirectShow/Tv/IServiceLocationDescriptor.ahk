@@ -7,9 +7,8 @@
  * Gets information from the Service Location Descriptor in an Advanced Television Systems Committee (ATSC) Virtual Channel Table (VCT).
  * @see https://learn.microsoft.com/windows/win32/api/atscpsipparser/nn-atscpsipparser-iservicelocationdescriptor
  * @namespace Windows.Win32.Media.DirectShow.Tv
- * @version v4.0.30319
  */
-class IServiceLocationDescriptor extends IUnknown{
+class IServiceLocationDescriptor extends IUnknown {
 
     static sizeof => A_PtrSize
     /**

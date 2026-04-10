@@ -5,9 +5,8 @@
  * This topic applies to Windows XP Service Pack 1 or later.
  * @see https://learn.microsoft.com/windows/win32/api/encdec/ne-encdec-cpevents
  * @namespace Windows.Win32.Media.DirectShow.Tv
- * @version v4.0.30319
  */
-class CPEvents extends Win32Enum{
+class CPEvents extends Win32Enum {
 
     /**
      * No content protection issues.
@@ -64,7 +63,6 @@ class CPEvents extends Win32Enum{
     static CPEVENT_UNTRUSTEDGRAPH => 8
 
     /**
-     * 
      * @type {Integer (Int32)}
      */
     static CPEVENT_PROTECTWINDOWED => 9

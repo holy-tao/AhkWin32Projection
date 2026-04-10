@@ -7,9 +7,8 @@
  * Converts Direct2D primitives stored in an ID2D1CommandList into a fixed page representation. The print sub-system then consumes the primitives.
  * @see https://learn.microsoft.com/windows/win32/api/d2d1_1/nn-d2d1_1-id2d1printcontrol
  * @namespace Windows.Win32.Graphics.Direct2D
- * @version v4.0.30319
  */
-class ID2D1PrintControl extends IUnknown{
+class ID2D1PrintControl extends IUnknown {
 
     static sizeof => A_PtrSize
     /**

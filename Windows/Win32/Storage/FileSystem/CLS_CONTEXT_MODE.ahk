@@ -3,9 +3,8 @@
 
 /**
  * @namespace Windows.Win32.Storage.FileSystem
- * @version v4.0.30319
  */
-class CLS_CONTEXT_MODE extends Win32Enum{
+class CLS_CONTEXT_MODE extends Win32Enum {
 
     /**
      * @type {Integer (Int32)}

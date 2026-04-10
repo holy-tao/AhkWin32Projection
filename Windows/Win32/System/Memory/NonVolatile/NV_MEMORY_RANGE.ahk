@@ -3,10 +3,8 @@
 
 /**
  * @namespace Windows.Win32.System.Memory.NonVolatile
- * @version v4.0.30319
  */
-class NV_MEMORY_RANGE extends Win32Struct
-{
+class NV_MEMORY_RANGE extends Win32Struct {
     static sizeof => 16
 
     static packingSize => 8

@@ -18,10 +18,8 @@
  * <div> </div>
  * @see https://learn.microsoft.com/windows/win32/api/rpcdce/ns-rpcdce-rpc_policy
  * @namespace Windows.Win32.System.Rpc
- * @version v4.0.30319
  */
-class RPC_POLICY extends Win32Struct
-{
+class RPC_POLICY extends Win32Struct {
     static sizeof => 12
 
     static packingSize => 4

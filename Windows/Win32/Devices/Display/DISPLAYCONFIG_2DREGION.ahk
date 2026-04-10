@@ -5,10 +5,8 @@
  * The DISPLAYCONFIG_2DREGION structure represents a point or an offset in a two-dimensional space.
  * @see https://learn.microsoft.com/windows/win32/api/wingdi/ns-wingdi-displayconfig_2dregion
  * @namespace Windows.Win32.Devices.Display
- * @version v4.0.30319
  */
-class DISPLAYCONFIG_2DREGION extends Win32Struct
-{
+class DISPLAYCONFIG_2DREGION extends Win32Struct {
     static sizeof => 8
 
     static packingSize => 4

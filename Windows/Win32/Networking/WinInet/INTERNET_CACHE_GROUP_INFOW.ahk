@@ -14,11 +14,9 @@
  * > The wininet.h header defines INTERNET_CACHE_GROUP_INFO as an alias which automatically selects the ANSI or Unicode version of this function based on the definition of the UNICODE preprocessor constant. Mixing usage of the encoding-neutral alias with code that not encoding-neutral can lead to mismatches that result in compilation or runtime errors. For more information, see [Conventions for Function Prototypes](/windows/win32/intl/conventions-for-function-prototypes).
  * @see https://learn.microsoft.com/windows/win32/api/wininet/ns-wininet-internet_cache_group_infow
  * @namespace Windows.Win32.Networking.WinInet
- * @version v4.0.30319
  * @charset Unicode
  */
-class INTERNET_CACHE_GROUP_INFOW extends Win32Struct
-{
+class INTERNET_CACHE_GROUP_INFOW extends Win32Struct {
     static sizeof => 276
 
     static packingSize => 4
@@ -70,9 +68,9 @@ class INTERNET_CACHE_GROUP_INFOW extends Win32Struct
 
     /**
      * Array  that can be used by a client application to store information related to the group.
-     * @type {Array<UInt32>}
+     * @type {Array<Integer>}
      */
-    dwOwnerStorage{
+    dwOwnerStorage {
         get {
             if(!this.HasProp("__dwOwnerStorageProxyArray"))
                 this.__dwOwnerStorageProxyArray := Win32FixedArray(this.ptr + 20, 4, Primitive, "uint")

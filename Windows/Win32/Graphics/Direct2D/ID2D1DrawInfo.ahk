@@ -7,9 +7,8 @@
  * This interface is used to describe a GPU rendering pass on a vertex or pixel shader. It is passed to ID2D1DrawTransform.
  * @see https://learn.microsoft.com/windows/win32/api/d2d1effectauthor/nn-d2d1effectauthor-id2d1drawinfo
  * @namespace Windows.Win32.Graphics.Direct2D
- * @version v4.0.30319
  */
-class ID2D1DrawInfo extends ID2D1RenderInfo{
+class ID2D1DrawInfo extends ID2D1RenderInfo {
 
     static sizeof => A_PtrSize
     /**
@@ -32,7 +31,9 @@ class ID2D1DrawInfo extends ID2D1RenderInfo{
 
     /**
      * Sets the constant buffer for this transform's pixel shader.
-     * @param {Pointer<Integer>} _buffer 
+     * @param {Pointer<Integer>} _buffer Type: <b>const BYTE*</b>
+     * 
+     * The data applied to the constant buffer.
      * @param {Integer} bufferCount Type: <b>UINT32</b>
      * 
      * The number of bytes of data in the constant buffer
@@ -68,7 +69,9 @@ class ID2D1DrawInfo extends ID2D1RenderInfo{
 
     /**
      * Sets the constant buffer for this transform's vertex shader.
-     * @param {Pointer<Integer>} _buffer 
+     * @param {Pointer<Integer>} _buffer Type: <b>const BYTE*</b>
+     * 
+     * The data applied to the constant buffer
      * @param {Integer} bufferCount Type: <b>UINT32</b>
      * 
      * The number of bytes of data in the constant buffer.
@@ -95,7 +98,7 @@ class ID2D1DrawInfo extends ID2D1RenderInfo{
      * @param {Pointer<Guid>} shaderId Type: <b>REFGUID</b>
      * 
      * The resource id for the  shader.
-     * @param {Integer} pixelOptions Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/d2d1effectauthor/ne-d2d1effectauthor-d2d1_pixel_options">D2D1_PIXEL_OPTIONS</a></b>
+     * @param {D2D1_PIXEL_OPTIONS} pixelOptions Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/d2d1effectauthor/ne-d2d1effectauthor-d2d1_pixel_options">D2D1_PIXEL_OPTIONS</a></b>
      * 
      * Additional information provided to the renderer to indicate the operations the pixel shader does.
      * @returns {HRESULT} Type: <b>HRESULT</b>
@@ -140,7 +143,7 @@ class ID2D1DrawInfo extends ID2D1RenderInfo{
      * @param {ID2D1VertexBuffer} vertexBuffer Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/d2d1effectauthor/nn-d2d1effectauthor-id2d1vertexbuffer">ID2D1VertexBuffer</a>*</b>
      * 
      * The vertex buffer, if this is cleared, the default vertex shader and mapping to the transform rectangles will be used.
-     * @param {Integer} vertexOptions Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/d2d1effectauthor/ne-d2d1effectauthor-d2d1_vertex_options">D2D1_VERTEX_OPTIONS</a></b>
+     * @param {D2D1_VERTEX_OPTIONS} vertexOptions Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/d2d1effectauthor/ne-d2d1effectauthor-d2d1_vertex_options">D2D1_VERTEX_OPTIONS</a></b>
      * 
      * Options that influence how the renderer will interact with the vertex shader.
      * @param {Pointer<D2D1_BLEND_DESCRIPTION>} blendDescription Type: <b>const <a href="https://docs.microsoft.com/windows/desktop/api/d2d1effectauthor/ns-d2d1effectauthor-d2d1_blend_description">D2D1_BLEND_DESCRIPTION</a>*</b>

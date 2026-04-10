@@ -1,20 +1,16 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
-#Include ..\..\..\Win32\System\Diagnostics\Debug\WHEA_NOTIFICATION_FLAGS.ahk
-#Include ..\..\..\Win32\System\Diagnostics\Debug\WHEA_NOTIFICATION_DESCRIPTOR.ahk
 
 /**
  * @namespace Windows.Wdk.System.SystemServices
- * @version v4.0.30319
  */
-class WHEAP_BAD_HEST_NOTIFY_DATA_EVENT extends Win32Struct
-{
-    static sizeof => 48
+class WHEAP_BAD_HEST_NOTIFY_DATA_EVENT extends Win32Struct {
+    static sizeof => 24
 
     static packingSize => 8
 
     /**
-     * @type {Pointer<WHEA_EVENT_LOG_ENTRY>}
+     * @type {Pointer}
      */
     WheaEventLogEntry {
         get => NumGet(this, 0, "ptr")
@@ -38,13 +34,10 @@ class WHEAP_BAD_HEST_NOTIFY_DATA_EVENT extends Win32Struct
     }
 
     /**
-     * @type {WHEA_NOTIFICATION_DESCRIPTOR}
+     * @type {Pointer}
      */
-    NotifyDesc{
-        get {
-            if(!this.HasProp("__NotifyDesc"))
-                this.__NotifyDesc := WHEA_NOTIFICATION_DESCRIPTOR(12, this)
-            return this.__NotifyDesc
-        }
+    NotifyDesc {
+        get => NumGet(this, 16, "ptr")
+        set => NumPut("ptr", value, this, 16)
     }
 }

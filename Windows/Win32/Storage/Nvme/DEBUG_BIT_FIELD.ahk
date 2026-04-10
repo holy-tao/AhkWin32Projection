@@ -3,10 +3,8 @@
 
 /**
  * @namespace Windows.Win32.Storage.Nvme
- * @version v4.0.30319
  */
-class DEBUG_BIT_FIELD extends Win32Struct
-{
+class DEBUG_BIT_FIELD extends Win32Struct {
     static sizeof => 2
 
     static packingSize => 2

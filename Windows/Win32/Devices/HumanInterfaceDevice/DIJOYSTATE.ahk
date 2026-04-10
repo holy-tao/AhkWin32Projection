@@ -3,10 +3,8 @@
 
 /**
  * @namespace Windows.Win32.Devices.HumanInterfaceDevice
- * @version v4.0.30319
  */
-class DIJOYSTATE extends Win32Struct
-{
+class DIJOYSTATE extends Win32Struct {
     static sizeof => 80
 
     static packingSize => 4
@@ -60,9 +58,9 @@ class DIJOYSTATE extends Win32Struct
     }
 
     /**
-     * @type {Array<Int32>}
+     * @type {Array<Integer>}
      */
-    rglSlider{
+    rglSlider {
         get {
             if(!this.HasProp("__rglSliderProxyArray"))
                 this.__rglSliderProxyArray := Win32FixedArray(this.ptr + 24, 2, Primitive, "int")
@@ -71,9 +69,9 @@ class DIJOYSTATE extends Win32Struct
     }
 
     /**
-     * @type {Array<UInt32>}
+     * @type {Array<Integer>}
      */
-    rgdwPOV{
+    rgdwPOV {
         get {
             if(!this.HasProp("__rgdwPOVProxyArray"))
                 this.__rgdwPOVProxyArray := Win32FixedArray(this.ptr + 32, 4, Primitive, "uint")
@@ -82,9 +80,9 @@ class DIJOYSTATE extends Win32Struct
     }
 
     /**
-     * @type {Array<Byte>}
+     * @type {Array<Integer>}
      */
-    rgbButtons{
+    rgbButtons {
         get {
             if(!this.HasProp("__rgbButtonsProxyArray"))
                 this.__rgbButtonsProxyArray := Win32FixedArray(this.ptr + 48, 32, Primitive, "char")

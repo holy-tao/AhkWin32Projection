@@ -1,5 +1,6 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
+#Include .\UIAutomationType.ahk
 
 /**
  * Contains information about a custom property.
@@ -17,10 +18,8 @@
  * </ul>
  * @see https://learn.microsoft.com/windows/win32/api/uiautomationcore/ns-uiautomationcore-uiautomationpropertyinfo
  * @namespace Windows.Win32.UI.Accessibility
- * @version v4.0.30319
  */
-class UIAutomationPropertyInfo extends Win32Struct
-{
+class UIAutomationPropertyInfo extends Win32Struct {
     static sizeof => 24
 
     static packingSize => 8
@@ -29,7 +28,7 @@ class UIAutomationPropertyInfo extends Win32Struct
      * Type: <b>GUID</b>
      * 
      * The unique identifier of the property.
-     * @type {Pointer<Guid>}
+     * @type {Pointer}
      */
     guid {
         get => NumGet(this, 0, "ptr")
@@ -51,7 +50,7 @@ class UIAutomationPropertyInfo extends Win32Struct
      * Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/uiautomationcore/ne-uiautomationcore-uiautomationtype">UIAutomationType</a></b>
      * 
      * A value from the <a href="https://docs.microsoft.com/windows/desktop/api/uiautomationcore/ne-uiautomationcore-uiautomationtype">UIAutomationType</a> enumerated type indicating the data type of the property value.
-     * @type {Integer}
+     * @type {UIAutomationType}
      */
     type {
         get => NumGet(this, 16, "int")

@@ -3,10 +3,8 @@
 
 /**
  * @namespace Windows.Win32.Media.DirectShow.Tv
- * @version v4.0.30319
  */
-class BDA_DEBUG_DATA extends Win32Struct
-{
+class BDA_DEBUG_DATA extends Win32Struct {
     static sizeof => 24
 
     static packingSize => 8
@@ -20,7 +18,7 @@ class BDA_DEBUG_DATA extends Win32Struct
     }
 
     /**
-     * @type {Pointer<Guid>}
+     * @type {Pointer}
      */
     uuidDebugDataType {
         get => NumGet(this, 8, "ptr")
@@ -36,9 +34,9 @@ class BDA_DEBUG_DATA extends Win32Struct
     }
 
     /**
-     * @type {Array<Byte>}
+     * @type {Array<Integer>}
      */
-    argbDebugData{
+    argbDebugData {
         get {
             if(!this.HasProp("__argbDebugDataProxyArray"))
                 this.__argbDebugDataProxyArray := Win32FixedArray(this.ptr + 20, 1, Primitive, "char")

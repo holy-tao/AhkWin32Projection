@@ -11,9 +11,8 @@
  * The <b>D3D11_RESOURCE_MISC_FLAG</b> cannot be used when creating resources with <b>D3D11_CPU_ACCESS</b> flags.
  * @see https://learn.microsoft.com/windows/win32/api/d3d11/ne-d3d11-d3d11_resource_misc_flag
  * @namespace Windows.Win32.Graphics.Direct3D11
- * @version v4.0.30319
  */
-class D3D11_RESOURCE_MISC_FLAG extends Win32BitflagEnum{
+class D3D11_RESOURCE_MISC_FLAG extends Win32BitflagEnum {
 
     /**
      * Enables MIP map generation by using <a href="https://docs.microsoft.com/windows/desktop/api/d3d11/nf-d3d11-id3d11devicecontext-generatemips">ID3D11DeviceContext::GenerateMips</a> on a texture resource. The resource must be created with the <a href="https://docs.microsoft.com/windows/desktop/api/d3d11/ne-d3d11-d3d11_bind_flag">bind flags</a> that specify that the resource is a render target and a shader resource.

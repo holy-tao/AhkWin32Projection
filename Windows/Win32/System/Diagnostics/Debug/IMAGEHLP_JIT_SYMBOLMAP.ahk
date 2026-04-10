@@ -3,10 +3,8 @@
 
 /**
  * @namespace Windows.Win32.System.Diagnostics.Debug
- * @version v4.0.30319
  */
-class IMAGEHLP_JIT_SYMBOLMAP extends Win32Struct
-{
+class IMAGEHLP_JIT_SYMBOLMAP extends Win32Struct {
     static sizeof => 24
 
     static packingSize => 8

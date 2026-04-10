@@ -9,9 +9,8 @@
  * Preserved keys are keyboard shortcuts that an application or TSF text service can register with the TSF manager.
  * @see https://learn.microsoft.com/windows/win32/api/msctf/nn-msctf-itfpreservedkeynotifysink
  * @namespace Windows.Win32.UI.TextServices
- * @version v4.0.30319
  */
-class ITfPreservedKeyNotifySink extends IUnknown{
+class ITfPreservedKeyNotifySink extends IUnknown {
 
     static sizeof => A_PtrSize
     /**

@@ -1,30 +1,45 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
+#Include .\D3D12_VIDEO_ENCODER_SEQUENCE_CONTROL_FLAGS.ahk
 #Include .\D3D12_VIDEO_ENCODER_INTRA_REFRESH.ahk
-#Include .\D3D12_VIDEO_ENCODER_RATE_CONTROL_CONFIGURATION_PARAMS.ahk
-#Include ..\..\Graphics\Dxgi\Common\DXGI_RATIONAL.ahk
+#Include .\D3D12_VIDEO_ENCODER_INTRA_REFRESH_MODE.ahk
 #Include .\D3D12_VIDEO_ENCODER_RATE_CONTROL.ahk
+#Include .\D3D12_VIDEO_ENCODER_RATE_CONTROL_MODE.ahk
+#Include .\D3D12_VIDEO_ENCODER_RATE_CONTROL_FLAGS.ahk
+#Include .\D3D12_VIDEO_ENCODER_RATE_CONTROL_CONFIGURATION_PARAMS.ahk
+#Include .\D3D12_VIDEO_ENCODER_RATE_CONTROL_CQP.ahk
+#Include .\D3D12_VIDEO_ENCODER_RATE_CONTROL_CBR.ahk
+#Include .\D3D12_VIDEO_ENCODER_RATE_CONTROL_VBR.ahk
+#Include .\D3D12_VIDEO_ENCODER_RATE_CONTROL_QVBR.ahk
+#Include .\D3D12_VIDEO_ENCODER_RATE_CONTROL_CQP1.ahk
+#Include .\D3D12_VIDEO_ENCODER_RATE_CONTROL_CBR1.ahk
+#Include .\D3D12_VIDEO_ENCODER_RATE_CONTROL_VBR1.ahk
+#Include .\D3D12_VIDEO_ENCODER_RATE_CONTROL_QVBR1.ahk
+#Include .\D3D12_VIDEO_ENCODER_RATE_CONTROL_ABSOLUTE_QP_MAP.ahk
+#Include ..\..\Graphics\Dxgi\Common\DXGI_RATIONAL.ahk
 #Include .\D3D12_VIDEO_ENCODER_PICTURE_RESOLUTION_DESC.ahk
+#Include .\D3D12_VIDEO_ENCODER_FRAME_SUBREGION_LAYOUT_MODE.ahk
 #Include .\D3D12_VIDEO_ENCODER_PICTURE_CONTROL_SUBREGIONS_LAYOUT_DATA.ahk
+#Include .\D3D12_VIDEO_ENCODER_PICTURE_CONTROL_SUBREGIONS_LAYOUT_DATA_SLICES.ahk
+#Include .\D3D12_VIDEO_ENCODER_AV1_PICTURE_CONTROL_SUBREGIONS_LAYOUT_DATA_TILES.ahk
 #Include .\D3D12_VIDEO_ENCODER_SEQUENCE_GOP_STRUCTURE.ahk
+#Include .\D3D12_VIDEO_ENCODER_SEQUENCE_GOP_STRUCTURE_H264.ahk
+#Include .\D3D12_VIDEO_ENCODER_SEQUENCE_GOP_STRUCTURE_HEVC.ahk
+#Include .\D3D12_VIDEO_ENCODER_AV1_SEQUENCE_STRUCTURE.ahk
 
 /**
  * The D3D12_VIDEO_ENCODER_SEQUENCE_CONTROL_DESC represents parameters for the input of the video encoding operation at a sequence level.
- * @remarks
- * 
  * @see https://learn.microsoft.com/windows/win32/api/d3d12video/ns-d3d12video-d3d12_video_encoder_sequence_control_desc
  * @namespace Windows.Win32.Media.MediaFoundation
- * @version v4.0.30319
  */
-class D3D12_VIDEO_ENCODER_SEQUENCE_CONTROL_DESC extends Win32Struct
-{
+class D3D12_VIDEO_ENCODER_SEQUENCE_CONTROL_DESC extends Win32Struct {
     static sizeof => 96
 
     static packingSize => 8
 
     /**
      * A bitwise OR combination of values from the [D3D12_VIDEO_ENCODER_SEQUENCE_CONTROL_FLAGS](ne-d3d12video-d3d12_video_encoder_sequence_control_flags.md) enumeration specifying the sequence control descriptor flags for the current operation.
-     * @type {Integer}
+     * @type {D3D12_VIDEO_ENCODER_SEQUENCE_CONTROL_FLAGS}
      */
     Flags {
         get => NumGet(this, 0, "int")
@@ -51,7 +66,7 @@ class D3D12_VIDEO_ENCODER_SEQUENCE_CONTROL_DESC extends Win32Struct
      *  - For row based intra-refresh, the configured subregion partitioning mode will be reconfigured to correspond with N uniform slices partitioning per frame for a duration of N **EncodeFrame** commands. This is particularly important for when the subregion partitioning is set to an incompatible mode with IR requirements, for example when the row of intra coded units in a slice will disrupt the limitation set to bytes per slice. The expectation for row-based intra refresh is that the resulting frame contains N slices, all P slices, except the current intra refresh row slice, which has to be an I slice.
      * @type {D3D12_VIDEO_ENCODER_INTRA_REFRESH}
      */
-    IntraRefreshConfig{
+    IntraRefreshConfig {
         get {
             if(!this.HasProp("__IntraRefreshConfig"))
                 this.__IntraRefreshConfig := D3D12_VIDEO_ENCODER_INTRA_REFRESH(4, this)
@@ -65,7 +80,7 @@ class D3D12_VIDEO_ENCODER_SEQUENCE_CONTROL_DESC extends Win32Struct
      * Check support for rate control dynamic reconfiguration in [D3D12_VIDEO_ENCODER_SUPPORT_FLAG_RATE_CONTROL_RECONFIGURATION_AVAILABLE](ne-d3d12video-d3d12_video_encoder_support_flags.md). If rate control dynamic reconfiguration is allowed, by modifying *RateControl*, the rate control algorithm is restarted with the new configuration starting from the execution of the associated **EncodeFrame**. Otherwise this should be set at the beginning of the encoding session and not changed after.
      * @type {D3D12_VIDEO_ENCODER_RATE_CONTROL}
      */
-    RateControl{
+    RateControl {
         get {
             if(!this.HasProp("__RateControl"))
                 this.__RateControl := D3D12_VIDEO_ENCODER_RATE_CONTROL(16, this)
@@ -83,7 +98,7 @@ class D3D12_VIDEO_ENCODER_SEQUENCE_CONTROL_DESC extends Win32Struct
      * For some codecs, A change in resolution in the middle of the encoding session might require a GOP to be reset with a potential force IDR/Key frame request, and also might require resetting the DPB buffer/frame management algorithms.
      * @type {D3D12_VIDEO_ENCODER_PICTURE_RESOLUTION_DESC}
      */
-    PictureTargetResolution{
+    PictureTargetResolution {
         get {
             if(!this.HasProp("__PictureTargetResolution"))
                 this.__PictureTargetResolution := D3D12_VIDEO_ENCODER_PICTURE_RESOLUTION_DESC(48, this)
@@ -95,7 +110,7 @@ class D3D12_VIDEO_ENCODER_SEQUENCE_CONTROL_DESC extends Win32Struct
      * A value from the [D3D12_VIDEO_ENCODER_FRAME_SUBREGION_LAYOUT_MODE](ne-d3d12video-d3d12_video_encoder_frame_subregion_layout_mode.md) enumeration specifying which layout mode is being used and therefore which union members to use in *pFrameSubregionsLayoutData*.
      * 
      * Check support for subregion dynamic reconfiguration in [D3D12_VIDEO_ENCODER_SUPPORT_FLAG_SUBREGION_LAYOUT_RECONFIGURATION_AVAILABLE]((ne-d3d12video-d3d12_video_encoder_support_flags.md). If no support is given for this, this indicates the target subregion mode of the full encoding session and must not be changed during the encoding session. Otherwise this indicates the subregion partitioning mode used for the associated **EncodeFrame** command.
-     * @type {Integer}
+     * @type {D3D12_VIDEO_ENCODER_FRAME_SUBREGION_LAYOUT_MODE}
      */
     SelectedLayoutMode {
         get => NumGet(this, 56, "int")
@@ -106,7 +121,7 @@ class D3D12_VIDEO_ENCODER_SEQUENCE_CONTROL_DESC extends Win32Struct
      * A [D3D12_VIDEO_ENCODER_PICTURE_CONTROL_SUBREGIONS_LAYOUT_DATA](ns-d3d12video-d3d12_video_encoder_picture_control_subregions_layout_data.md) structure specifying picture subregions layout optional codec-specific data. If the specified *SelectedLayoutMode* value indicates that such that there are no subregions, null is expected.
      * @type {D3D12_VIDEO_ENCODER_PICTURE_CONTROL_SUBREGIONS_LAYOUT_DATA}
      */
-    FrameSubregionsLayoutData{
+    FrameSubregionsLayoutData {
         get {
             if(!this.HasProp("__FrameSubregionsLayoutData"))
                 this.__FrameSubregionsLayoutData := D3D12_VIDEO_ENCODER_PICTURE_CONTROL_SUBREGIONS_LAYOUT_DATA(64, this)
@@ -120,7 +135,7 @@ class D3D12_VIDEO_ENCODER_SEQUENCE_CONTROL_DESC extends Win32Struct
      * Check support for GOP dynamic reconfiguration in [D3D12_VIDEO_ENCODER_SUPPORT_FLAG_SEQUENCE_GOP_RECONFIGURATION_AVAILABLE](ne-d3d12video-d3d12_video_encoder_support_flags.md). If no support is given for this, *CodecGopSequence* indicates the target GOP pattern (in display order) of the full encoding session and must not be changed during the encoding session. Otherwise this indicates the new GOP subregion mode used starting at the associated **EncodeFrame** command.
      * @type {D3D12_VIDEO_ENCODER_SEQUENCE_GOP_STRUCTURE}
      */
-    CodecGopSequence{
+    CodecGopSequence {
         get {
             if(!this.HasProp("__CodecGopSequence"))
                 this.__CodecGopSequence := D3D12_VIDEO_ENCODER_SEQUENCE_GOP_STRUCTURE(80, this)

@@ -1,9 +1,9 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
+#Include ..\Com\IUnknown.ahk
 #Include .\ISyncKnowledge.ahk
 #Include .\IForgottenKnowledge.ahk
-#Include ..\Com\IUnknown.ahk
 
 /**
  * Represents additional information about an ISyncChange object during recovery synchronization.
@@ -11,9 +11,8 @@
  * To obtain an <b>ISyncFullEnumerationChange</b> object, pass <b>IID_ISyncFullEnumerationChange</b> to the <b>QueryInterface</b> method of an <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/winsync/nn-winsync-isyncchange">ISyncChange</a> object during recovery synchronization.
  * @see https://learn.microsoft.com/windows/win32/api/winsync/nn-winsync-isyncfullenumerationchange
  * @namespace Windows.Win32.System.WindowsSync
- * @version v4.0.30319
  */
-class ISyncFullEnumerationChange extends IUnknown{
+class ISyncFullEnumerationChange extends IUnknown {
 
     static sizeof => A_PtrSize
     /**

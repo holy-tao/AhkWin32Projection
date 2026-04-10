@@ -5,9 +5,8 @@
  * The FAX_ACCESS_RIGHTS_ENUM enumeration defines access rights to the fax server.
  * @see https://learn.microsoft.com/windows/win32/api/faxcomex/ne-faxcomex-fax_access_rights_enum
  * @namespace Windows.Win32.Devices.Fax
- * @version v4.0.30319
  */
-class FAX_ACCESS_RIGHTS_ENUM extends Win32Enum{
+class FAX_ACCESS_RIGHTS_ENUM extends Win32Enum {
 
     /**
      * The user can submit low-priority fax jobs. Users can view and manage their jobs in the fax server's queue and their messages in the outgoing fax archive.

@@ -3,10 +3,8 @@
 
 /**
  * @namespace Windows.Win32.System.Diagnostics.Debug.ActiveScript
- * @version v4.0.30319
  */
-class DefaultDebugSessionProvider extends Win32Struct
-{
+class DefaultDebugSessionProvider extends Win32Struct {
     static sizeof => 0
 
     static packingSize => 1

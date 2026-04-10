@@ -5,9 +5,8 @@
  * Specifies the identifiers of the metadata items in an 8BIM IPTC block.
  * @see https://learn.microsoft.com/windows/win32/api/wincodec/ne-wincodec-wic8bimiptcproperties
  * @namespace Windows.Win32.Graphics.Imaging
- * @version v4.0.30319
  */
-class WIC8BIMIptcProperties extends Win32Enum{
+class WIC8BIMIptcProperties extends Win32Enum {
 
     /**
      * [VT_LPSTR] A name that identifies the 8BIM block.
@@ -16,7 +15,6 @@ class WIC8BIMIptcProperties extends Win32Enum{
     static WIC8BIMIptcPString => 0
 
     /**
-     * 
      * @type {Integer (Int32)}
      */
     static WIC8BIMIptcEmbeddedIPTC => 1

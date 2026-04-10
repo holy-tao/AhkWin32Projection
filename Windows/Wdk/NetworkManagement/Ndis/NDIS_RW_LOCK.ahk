@@ -1,13 +1,10 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
-#Include .\NDIS_RW_LOCK_REFCOUNT.ahk
 
 /**
  * @namespace Windows.Wdk.NetworkManagement.Ndis
- * @version v4.0.30319
  */
-class NDIS_RW_LOCK extends Win32Struct
-{
+class NDIS_RW_LOCK extends Win32Struct {
     static sizeof => 528
 
     static packingSize => 8
@@ -29,9 +26,9 @@ class NDIS_RW_LOCK extends Win32Struct
     }
 
     /**
-     * @type {Array<Byte>}
+     * @type {Array<Integer>}
      */
-    Reserved{
+    Reserved {
         get {
             if(!this.HasProp("__ReservedProxyArray"))
                 this.__ReservedProxyArray := Win32FixedArray(this.ptr + 0, 16, Primitive, "char")
@@ -40,9 +37,9 @@ class NDIS_RW_LOCK extends Win32Struct
     }
 
     /**
-     * @type {Array<NDIS_RW_LOCK_REFCOUNT>}
+     * @type {Array<Pointer>}
      */
-    RefCount{
+    RefCount {
         get {
             if(!this.HasProp("__RefCountProxyArray"))
                 this.__RefCountProxyArray := Win32FixedArray(this.ptr + 16, 32, Primitive, "ptr")
@@ -51,9 +48,9 @@ class NDIS_RW_LOCK extends Win32Struct
     }
 
     /**
-     * @type {Array<UInt32>}
+     * @type {Array<Integer>}
      */
-    RefCountEx{
+    RefCountEx {
         get {
             if(!this.HasProp("__RefCountExProxyArray"))
                 this.__RefCountExProxyArray := Win32FixedArray(this.ptr + 16, 128, Primitive, "uint")

@@ -1,5 +1,6 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\..\Win32Struct.ahk
+#Include .\HARDWARE_COUNTER_TYPE.ahk
 
 /**
  * Contains the hardware counter value.
@@ -7,17 +8,15 @@
  * This structure is a member of the <a href="https://docs.microsoft.com/windows/desktop/api/winnt/ns-winnt-performance_data">PERFORMANCE_DATA</a> structure.
  * @see https://learn.microsoft.com/windows/win32/api/winnt/ns-winnt-hardware_counter_data
  * @namespace Windows.Win32.System.Performance.HardwareCounterProfiling
- * @version v4.0.30319
  */
-class HARDWARE_COUNTER_DATA extends Win32Struct
-{
+class HARDWARE_COUNTER_DATA extends Win32Struct {
     static sizeof => 16
 
     static packingSize => 8
 
     /**
      * The type of hardware counter data collected. For possible values, see the <a href="https://docs.microsoft.com/windows/desktop/api/winnt/ne-winnt-hardware_counter_type">HARDWARE_COUNTER_TYPE</a> enumeration.
-     * @type {Integer}
+     * @type {HARDWARE_COUNTER_TYPE}
      */
     Type {
         get => NumGet(this, 0, "int")

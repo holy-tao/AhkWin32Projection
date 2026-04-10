@@ -1,14 +1,11 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\Win32Struct.ahk
-#Include ..\..\Win32\System\Kernel\LIST_ENTRY.ahk
 
 /**
  * @namespace Windows.Wdk.Foundation
- * @version v4.0.30319
  */
-class DISPATCHER_HEADER extends Win32Struct
-{
-    static sizeof => 24
+class DISPATCHER_HEADER extends Win32Struct {
+    static sizeof => 16
 
     static packingSize => 8
 
@@ -499,13 +496,10 @@ class DISPATCHER_HEADER extends Win32Struct
     }
 
     /**
-     * @type {LIST_ENTRY}
+     * @type {Pointer}
      */
-    WaitListHead{
-        get {
-            if(!this.HasProp("__WaitListHead"))
-                this.__WaitListHead := LIST_ENTRY(8, this)
-            return this.__WaitListHead
-        }
+    WaitListHead {
+        get => NumGet(this, 8, "ptr")
+        set => NumPut("ptr", value, this, 8)
     }
 }

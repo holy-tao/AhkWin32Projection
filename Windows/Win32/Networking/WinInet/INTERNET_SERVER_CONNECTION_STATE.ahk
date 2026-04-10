@@ -3,10 +3,8 @@
 
 /**
  * @namespace Windows.Win32.Networking.WinInet
- * @version v4.0.30319
  */
-class INTERNET_SERVER_CONNECTION_STATE extends Win32Struct
-{
+class INTERNET_SERVER_CONNECTION_STATE extends Win32Struct {
     static sizeof => 40
 
     static packingSize => 8

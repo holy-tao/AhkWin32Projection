@@ -4,14 +4,10 @@
 
 /**
  * Specifies an entry in the Completion Queue that is 16 bytes in size.
- * @remarks
- * 
  * @see https://learn.microsoft.com/windows/win32/api/nvme/ns-nvme-nvme_completion_entry
  * @namespace Windows.Win32.Storage.Nvme
- * @version v4.0.30319
  */
-class NVME_COMPLETION_ENTRY extends Win32Struct
-{
+class NVME_COMPLETION_ENTRY extends Win32Struct {
     static sizeof => 20
 
     static packingSize => 4
@@ -27,7 +23,7 @@ class NVME_COMPLETION_ENTRY extends Win32Struct
             get => NumGet(this, 0, "ushort")
             set => NumPut("ushort", value, this, 0)
         }
-    
+
         /**
          * @type {Integer}
          */
@@ -35,7 +31,7 @@ class NVME_COMPLETION_ENTRY extends Win32Struct
             get => NumGet(this, 2, "ushort")
             set => NumPut("ushort", value, this, 2)
         }
-    
+
         /**
          * @type {Integer}
          */
@@ -43,11 +39,10 @@ class NVME_COMPLETION_ENTRY extends Win32Struct
             get => NumGet(this, 0, "uint")
             set => NumPut("uint", value, this, 0)
         }
-    
     }
 
     class _DW3_e__Union extends Win32Struct {
-        static sizeof => 6
+        static sizeof => 8
         static packingSize => 4
 
         /**
@@ -57,18 +52,18 @@ class NVME_COMPLETION_ENTRY extends Win32Struct
             get => NumGet(this, 0, "ushort")
             set => NumPut("ushort", value, this, 0)
         }
-    
+
         /**
          * @type {NVME_COMMAND_STATUS}
          */
-        Status{
+        Status {
             get {
                 if(!this.HasProp("__Status"))
                     this.__Status := NVME_COMMAND_STATUS(2, this)
                 return this.__Status
             }
         }
-    
+
         /**
          * @type {Integer}
          */
@@ -76,7 +71,6 @@ class NVME_COMPLETION_ENTRY extends Win32Struct
             get => NumGet(this, 0, "uint")
             set => NumPut("uint", value, this, 0)
         }
-    
     }
 
     /**
@@ -102,10 +96,10 @@ class NVME_COMPLETION_ENTRY extends Win32Struct
      * A union that contains the information in Dword 2.
      * @type {_DW2_e__Union}
      */
-    DW2{
+    DW2 {
         get {
             if(!this.HasProp("__DW2"))
-                this.__DW2 := %this.__Class%._DW2_e__Union(8, this)
+                this.__DW2 := NVME_COMPLETION_ENTRY._DW2_e__Union(8, this)
             return this.__DW2
         }
     }
@@ -114,10 +108,10 @@ class NVME_COMPLETION_ENTRY extends Win32Struct
      * A union that contains the information in Dword 3.
      * @type {_DW3_e__Union}
      */
-    DW3{
+    DW3 {
         get {
             if(!this.HasProp("__DW3"))
-                this.__DW3 := %this.__Class%._DW3_e__Union(12, this)
+                this.__DW3 := NVME_COMPLETION_ENTRY._DW3_e__Union(12, this)
             return this.__DW3
         }
     }

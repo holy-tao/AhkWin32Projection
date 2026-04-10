@@ -3,9 +3,8 @@
 
 /**
  * @namespace Windows.Win32.UI.Controls.RichEdit
- * @version v4.0.30319
  */
-class RICH_EDIT_GET_CONTEXT_MENU_SEL_TYPE extends Win32BitflagEnum{
+class RICH_EDIT_GET_CONTEXT_MENU_SEL_TYPE extends Win32BitflagEnum {
 
     /**
      * @type {Integer (UInt16)}

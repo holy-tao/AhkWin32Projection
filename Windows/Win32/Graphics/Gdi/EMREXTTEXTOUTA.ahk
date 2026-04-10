@@ -1,18 +1,17 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
 #Include .\EMR.ahk
+#Include .\ENHANCED_METAFILE_RECORD_TYPE.ahk
 #Include ..\..\Foundation\RECTL.ahk
-#Include ..\..\Foundation\POINTL.ahk
 #Include .\EMRTEXT.ahk
+#Include ..\..\Foundation\POINTL.ahk
 
 /**
  * The EMREXTTEXTOUTA and EMREXTTEXTOUTW structures contain members for the ExtTextOut, TextOut, or DrawText enhanced metafile records.
  * @see https://learn.microsoft.com/windows/win32/api/wingdi/ns-wingdi-emrexttextouta
  * @namespace Windows.Win32.Graphics.Gdi
- * @version v4.0.30319
  */
-class EMREXTTEXTOUTA extends Win32Struct
-{
+class EMREXTTEXTOUTA extends Win32Struct {
     static sizeof => 76
 
     static packingSize => 4
@@ -21,7 +20,7 @@ class EMREXTTEXTOUTA extends Win32Struct
      * Base structure for all record types.
      * @type {EMR}
      */
-    emr{
+    emr {
         get {
             if(!this.HasProp("__emr"))
                 this.__emr := EMR(0, this)
@@ -33,7 +32,7 @@ class EMREXTTEXTOUTA extends Win32Struct
      * Bounding rectangle, in device units.
      * @type {RECTL}
      */
-    rclBounds{
+    rclBounds {
         get {
             if(!this.HasProp("__rclBounds"))
                 this.__rclBounds := RECTL(8, this)
@@ -72,7 +71,7 @@ class EMREXTTEXTOUTA extends Win32Struct
      * <b>EMRTEXT</b> structure, which is followed by the string and the intercharacter spacing array.
      * @type {EMRTEXT}
      */
-    emrtext{
+    emrtext {
         get {
             if(!this.HasProp("__emrtext"))
                 this.__emrtext := EMRTEXT(36, this)

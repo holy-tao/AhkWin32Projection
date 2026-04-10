@@ -1,14 +1,14 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
+#Include .\CLUSTER_CSV_VOLUME_FAULT_STATE.ahk
+#Include .\CLUSTER_SHARED_VOLUME_BACKUP_STATE.ahk
 
 /**
  * Represents information about a cluster shared volume (CSV).
  * @see https://learn.microsoft.com/windows/win32/api/clusapi/ns-clusapi-clus_csv_volume_info
  * @namespace Windows.Win32.Networking.Clustering
- * @version v4.0.30319
  */
-class CLUS_CSV_VOLUME_INFO extends Win32Struct
-{
+class CLUS_CSV_VOLUME_INFO extends Win32Struct {
     static sizeof => 640
 
     static packingSize => 8
@@ -33,7 +33,7 @@ class CLUS_CSV_VOLUME_INFO extends Win32Struct
 
     /**
      * A <a href="https://docs.microsoft.com/windows/desktop/api/clusapi/ne-clusapi-cluster_csv_volume_fault_state">CLUSTER_CSV_VOLUME_FAULT_STATE</a> enumeration value that specifies the fault state of the CSV.
-     * @type {Integer}
+     * @type {CLUSTER_CSV_VOLUME_FAULT_STATE}
      */
     FaultState {
         get => NumGet(this, 12, "int")
@@ -42,7 +42,7 @@ class CLUS_CSV_VOLUME_INFO extends Win32Struct
 
     /**
      * A <a href="https://docs.microsoft.com/windows/desktop/api/clusapi/ne-clusapi-cluster_shared_volume_backup_state">CLUSTER_SHARED_VOLUME_BACKUP_STATE</a> enumeration value that specifies the state of the CSV backup.
-     * @type {Integer}
+     * @type {CLUSTER_SHARED_VOLUME_BACKUP_STATE}
      */
     BackupState {
         get => NumGet(this, 16, "int")

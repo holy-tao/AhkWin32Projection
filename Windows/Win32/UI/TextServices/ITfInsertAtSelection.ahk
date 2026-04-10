@@ -1,16 +1,15 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
-#Include .\ITfRange.ahk
 #Include ..\..\System\Com\IUnknown.ahk
+#Include .\ITfRange.ahk
 
 /**
  * The ITfInsertAtSelection interface is implemented by the manager and is used by a text service to insert text or an embedded object in a context. The text service obtains this interface by calling ITfContext::QueryInterface.
  * @see https://learn.microsoft.com/windows/win32/api/msctf/nn-msctf-itfinsertatselection
  * @namespace Windows.Win32.UI.TextServices
- * @version v4.0.30319
  */
-class ITfInsertAtSelection extends IUnknown{
+class ITfInsertAtSelection extends IUnknown {
 
     static sizeof => A_PtrSize
     /**
@@ -36,7 +35,7 @@ class ITfInsertAtSelection extends IUnknown{
      * @remarks
      * To insert an <a href="https://docs.microsoft.com/windows/desktop/api/objidl/nn-objidl-idataobject">IDataObject</a> object instead of text, use <a href="https://docs.microsoft.com/windows/desktop/api/msctf/nf-msctf-itfinsertatselection-insertembeddedatselection">ITfInsertAtSelection::InsertEmbeddedAtSelection</a>.
      * @param {Integer} ec Identifies the edit context. This is obtained from <a href="https://docs.microsoft.com/windows/desktop/api/msctf/nf-msctf-itfdocumentmgr-createcontext">ITfDocumentMgr::CreateContext</a> or <a href="https://docs.microsoft.com/windows/desktop/api/msctf/nf-msctf-itfeditsession-doeditsession">ITfEditSession::DoEditSession</a>.
-     * @param {Integer} dwFlags 
+     * @param {INSERT_TEXT_AT_SELECTION_FLAGS} dwFlags 
      * @param {PWSTR} pchText Specifies the text to insert.
      * @param {Integer} cch Specifies the character count of the text in <i>pchText</i>.
      * @returns {ITfRange} Receives the position of the inserted object.

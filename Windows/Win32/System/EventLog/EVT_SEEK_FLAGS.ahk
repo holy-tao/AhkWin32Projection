@@ -56,9 +56,8 @@
  * </table>
  * @see https://learn.microsoft.com/windows/win32/api/winevt/ne-winevt-evt_seek_flags
  * @namespace Windows.Win32.System.EventLog
- * @version v4.0.30319
  */
-class EVT_SEEK_FLAGS extends Win32Enum{
+class EVT_SEEK_FLAGS extends Win32Enum {
 
     /**
      * Seek to the specified offset from the first entry in the result set. The offset must be a positive value.

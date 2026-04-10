@@ -1,12 +1,11 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
+#Include .\STORAGE_RESERVE_ID.ahk
 
 /**
  * @namespace Windows.Win32.System.Ioctl
- * @version v4.0.30319
  */
-class FILE_LAYOUT_INFO_ENTRY extends Win32Struct
-{
+class FILE_LAYOUT_INFO_ENTRY extends Win32Struct {
     static sizeof => 64
 
     static packingSize => 8
@@ -22,7 +21,7 @@ class FILE_LAYOUT_INFO_ENTRY extends Win32Struct
             get => NumGet(this, 0, "int64")
             set => NumPut("int64", value, this, 0)
         }
-    
+
         /**
          * @type {Integer}
          */
@@ -30,7 +29,7 @@ class FILE_LAYOUT_INFO_ENTRY extends Win32Struct
             get => NumGet(this, 8, "int64")
             set => NumPut("int64", value, this, 8)
         }
-    
+
         /**
          * @type {Integer}
          */
@@ -38,7 +37,7 @@ class FILE_LAYOUT_INFO_ENTRY extends Win32Struct
             get => NumGet(this, 16, "int64")
             set => NumPut("int64", value, this, 16)
         }
-    
+
         /**
          * @type {Integer}
          */
@@ -46,7 +45,7 @@ class FILE_LAYOUT_INFO_ENTRY extends Win32Struct
             get => NumGet(this, 24, "int64")
             set => NumPut("int64", value, this, 24)
         }
-    
+
         /**
          * @type {Integer}
          */
@@ -54,16 +53,15 @@ class FILE_LAYOUT_INFO_ENTRY extends Win32Struct
             get => NumGet(this, 32, "uint")
             set => NumPut("uint", value, this, 32)
         }
-    
     }
 
     /**
      * @type {_BasicInformation}
      */
-    BasicInformation{
+    BasicInformation {
         get {
             if(!this.HasProp("__BasicInformation"))
-                this.__BasicInformation := %this.__Class%._BasicInformation(0, this)
+                this.__BasicInformation := FILE_LAYOUT_INFO_ENTRY._BasicInformation(0, this)
             return this.__BasicInformation
         }
     }
@@ -93,7 +91,7 @@ class FILE_LAYOUT_INFO_ENTRY extends Win32Struct
     }
 
     /**
-     * @type {Integer}
+     * @type {STORAGE_RESERVE_ID}
      */
     StorageReserveId {
         get => NumGet(this, 56, "int")

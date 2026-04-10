@@ -11,9 +11,8 @@
  * A geometry sink consists of one or more figures. Each figure is made up of one or more line, curve, or arc segments. To create a figure, call the <a href="https://docs.microsoft.com/windows/win32/api/d2d1/nf-d2d1-id2d1simplifiedgeometrysink-beginfigure">BeginFigure</a> method, specify the figure's start point, and then use its Add methods (such as AddLine and AddBezier) to add segments. When you are finished adding segments, call the <a href="https://docs.microsoft.com/windows/win32/api/d2d1/nf-d2d1-id2d1simplifiedgeometrysink-endfigure">EndFigure</a> method. You can repeat this sequence to create additional figures. When you are finished creating figures, call the <a href="https://docs.microsoft.com/windows/win32/api/d2d1/nf-d2d1-id2d1simplifiedgeometrysink-close">Close</a> method.
  * @see https://learn.microsoft.com/windows/win32/api/d2d1/nn-d2d1-id2d1geometrysink
  * @namespace Windows.Win32.Graphics.Direct2D
- * @version v4.0.30319
  */
-class ID2D1GeometrySink extends ID2D1SimplifiedGeometrySink{
+class ID2D1GeometrySink extends ID2D1SimplifiedGeometrySink {
 
     static sizeof => A_PtrSize
     /**
@@ -36,7 +35,9 @@ class ID2D1GeometrySink extends ID2D1SimplifiedGeometrySink{
 
     /**
      * Creates a line segment between the current point and the specified end point and adds it to the geometry sink.
-     * @param {D2D_POINT_2F} _point 
+     * @param {D2D_POINT_2F} _point Type: <b><a href="https://docs.microsoft.com/windows/win32/Direct2D/d2d1-point-2f">D2D1_POINT_2F</a></b>
+     * 
+     * The end point of the line to draw.
      * @returns {String} Nothing - always returns an empty string
      * @see https://learn.microsoft.com/windows/win32/api/d2d1/nf-d2d1-id2d1geometrysink-addline
      */

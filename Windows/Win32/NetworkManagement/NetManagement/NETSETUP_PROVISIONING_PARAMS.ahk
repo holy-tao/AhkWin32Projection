@@ -1,5 +1,6 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
+#Include .\NETSETUP_PROVISION.ahk
 
 /**
  * The NETSETUP_PROVISIONING_PARAMS structure contains information that is used when creating a provisioning package using the NetCreateProvisionPackage function.
@@ -21,10 +22,8 @@
  * </ul>
  * @see https://learn.microsoft.com/windows/win32/api/lmjoin/ns-lmjoin-netsetup_provisioning_params
  * @namespace Windows.Win32.NetworkManagement.NetManagement
- * @version v4.0.30319
  */
-class NETSETUP_PROVISIONING_PARAMS extends Win32Struct
-{
+class NETSETUP_PROVISIONING_PARAMS extends Win32Struct {
     static sizeof => 120
 
     static packingSize => 8
@@ -95,8 +94,7 @@ class NETSETUP_PROVISIONING_PARAMS extends Win32Struct
     }
 
     /**
-     * 
-     * @type {Integer}
+     * @type {NETSETUP_PROVISION}
      */
     dwProvisionOptions {
         get => NumGet(this, 40, "uint")

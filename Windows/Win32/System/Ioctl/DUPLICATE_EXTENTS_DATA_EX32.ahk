@@ -3,10 +3,9 @@
 
 /**
  * @namespace Windows.Win32.System.Ioctl
- * @version v4.0.30319
+ * @architecture X64, Arm64
  */
-class DUPLICATE_EXTENTS_DATA_EX32 extends Win32Struct
-{
+class DUPLICATE_EXTENTS_DATA_EX32 extends Win32Struct {
     static sizeof => 40
 
     static packingSize => 8

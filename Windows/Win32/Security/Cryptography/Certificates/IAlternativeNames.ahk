@@ -1,17 +1,16 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\..\Guid.ahk
+#Include ..\..\..\System\Com\IDispatch.ahk
 #Include .\IAlternativeName.ahk
 #Include ..\..\..\System\Com\IUnknown.ahk
-#Include ..\..\..\System\Com\IDispatch.ahk
 
 /**
  * Contains methods and properties that enable you to manage a collection of IAlternativeName objects.
  * @see https://learn.microsoft.com/windows/win32/api/certenroll/nn-certenroll-ialternativenames
  * @namespace Windows.Win32.Security.Cryptography.Certificates
- * @version v4.0.30319
  */
-class IAlternativeNames extends IDispatch{
+class IAlternativeNames extends IDispatch {
 
     static sizeof => A_PtrSize
     /**

@@ -33,10 +33,8 @@
  * Note that NT SERVICE is the domain name.
  * @see https://learn.microsoft.com/windows/win32/api/winsvc/ns-winsvc-service_sid_info
  * @namespace Windows.Win32.System.Services
- * @version v4.0.30319
  */
-class SERVICE_SID_INFO extends Win32Struct
-{
+class SERVICE_SID_INFO extends Win32Struct {
     static sizeof => 4
 
     static packingSize => 4

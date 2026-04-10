@@ -5,9 +5,8 @@
  * The MBN_SMS_FLAG enumerated type specifies the SMS message class.
  * @see https://learn.microsoft.com/windows/win32/api/mbnapi/ne-mbnapi-mbn_sms_flag
  * @namespace Windows.Win32.NetworkManagement.MobileBroadband
- * @version v4.0.30319
  */
-class MBN_SMS_FLAG extends Win32Enum{
+class MBN_SMS_FLAG extends Win32Enum {
 
     /**
      * Refers to all the messages in the device message store.

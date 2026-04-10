@@ -7,9 +7,8 @@
  * The IStreamBuilder interface enables an output pin to notify the filter graph manager that the pin itself will build the downstream section of the filter graph.
  * @see https://learn.microsoft.com/windows/win32/api/strmif/nn-strmif-istreambuilder
  * @namespace Windows.Win32.Media.DirectShow
- * @version v4.0.30319
  */
-class IStreamBuilder extends IUnknown{
+class IStreamBuilder extends IUnknown {
 
     static sizeof => A_PtrSize
     /**

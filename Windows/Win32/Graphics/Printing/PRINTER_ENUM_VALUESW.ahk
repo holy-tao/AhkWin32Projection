@@ -5,11 +5,9 @@
  * The PRINTER\_ENUM\_VALUES structure specifies the value name, type, and data for a printer configuration value returned by the EnumPrinterDataEx function.
  * @see https://learn.microsoft.com/windows/win32/printdocs/printer-enum-values
  * @namespace Windows.Win32.Graphics.Printing
- * @version v4.0.30319
  * @charset Unicode
  */
-class PRINTER_ENUM_VALUESW extends Win32Struct
-{
+class PRINTER_ENUM_VALUESW extends Win32Struct {
     static sizeof => 32
 
     static packingSize => 8

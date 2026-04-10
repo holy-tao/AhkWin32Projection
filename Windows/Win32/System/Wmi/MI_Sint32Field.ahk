@@ -5,10 +5,8 @@
  * Represents a property inside an MI_Instance structure. (MI_Sint32Field)
  * @see https://learn.microsoft.com/windows/win32/api/mi/ns-mi-mi_sint32field
  * @namespace Windows.Win32.System.Wmi
- * @version v4.0.30319
  */
-class MI_Sint32Field extends Win32Struct
-{
+class MI_Sint32Field extends Win32Struct {
     static sizeof => 8
 
     static packingSize => 4

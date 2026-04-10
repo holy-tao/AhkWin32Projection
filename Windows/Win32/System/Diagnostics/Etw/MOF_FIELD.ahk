@@ -19,10 +19,8 @@
  * [EVENT_TRACE](/windows/win32/api/evntrace/ns-evntrace-event_trace) structures.
  * @see https://learn.microsoft.com/windows/win32/api/evntrace/ns-evntrace-mof_field
  * @namespace Windows.Win32.System.Diagnostics.Etw
- * @version v4.0.30319
  */
-class MOF_FIELD extends Win32Struct
-{
+class MOF_FIELD extends Win32Struct {
     static sizeof => 16
 
     static packingSize => 8

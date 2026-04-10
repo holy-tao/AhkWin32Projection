@@ -7,9 +7,8 @@
  * Encodes ID2D1Image interfaces to an IWICBitmapEncoder.
  * @see https://learn.microsoft.com/windows/win32/api/wincodec/nn-wincodec-iwicimageencoder
  * @namespace Windows.Win32.Graphics.Imaging.D2D
- * @version v4.0.30319
  */
-class IWICImageEncoder extends IUnknown{
+class IWICImageEncoder extends IUnknown {
 
     static sizeof => A_PtrSize
     /**

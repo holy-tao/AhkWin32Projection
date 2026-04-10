@@ -1,14 +1,13 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
-#Include .\SORTCOLUMN.ahk
 #Include ..\..\System\Com\IUnknown.ahk
+#Include .\SORTCOLUMN.ahk
 
 /**
  * @namespace Windows.Win32.UI.Shell
- * @version v4.0.30319
  */
-class ISortColumnArray extends IUnknown{
+class ISortColumnArray extends IUnknown {
 
     static sizeof => A_PtrSize
     /**
@@ -69,7 +68,7 @@ class ISortColumnArray extends IUnknown{
 
     /**
      * 
-     * @returns {Integer} 
+     * @returns {SORT_ORDER_TYPE} 
      */
     GetSortType() {
         result := ComCall(5, this, "int*", &type := 0, "HRESULT")

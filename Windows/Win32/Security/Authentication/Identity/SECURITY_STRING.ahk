@@ -3,14 +3,10 @@
 
 /**
  * Used as the string interface for kernel operations and is a clone of the UNICODE_STRING structure.
- * @remarks
- * 
  * @see https://learn.microsoft.com/windows/win32/api/sspi/ns-sspi-security_string
  * @namespace Windows.Win32.Security.Authentication.Identity
- * @version v4.0.30319
  */
-class SECURITY_STRING extends Win32Struct
-{
+class SECURITY_STRING extends Win32Struct {
     static sizeof => 16
 
     static packingSize => 8

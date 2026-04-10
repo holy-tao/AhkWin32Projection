@@ -1,18 +1,16 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
-#Include ..\..\Foundation\BSTR.ahk
+#Include ..\..\System\Com\IUnknown.ahk
 #Include .\IFhScopeIterator.ahk
 #Include .\IFhTarget.ahk
-#Include ..\..\System\Com\IUnknown.ahk
 
 /**
  * The IFhConfigMgr interface allows client applications to read and modify the File History configuration for the user account under which the methods of this interface are called.
  * @see https://learn.microsoft.com/windows/win32/api/fhcfg/nn-fhcfg-ifhconfigmgr
  * @namespace Windows.Win32.Storage.FileHistory
- * @version v4.0.30319
  */
-class IFhConfigMgr extends IUnknown{
+class IFhConfigMgr extends IUnknown {
 
     static sizeof => A_PtrSize
     /**
@@ -98,7 +96,7 @@ class IFhConfigMgr extends IUnknown{
      * Custom libraries are specified by name. Folders are specified by their full path (for example, C:\Users\Public\Videos).
      * @param {BOOL} Add If this parameter is <b>TRUE</b>, a new exclusion rule is added.
      * If it is set to <b>FALSE</b>, an existing exclusion rule is removed.
-     * @param {Integer} Category Specifies the type of the exclusion rule. See the <a href="https://docs.microsoft.com/windows/desktop/api/fhcfg/ne-fhcfg-fh_protected_item_category">FH_PROTECTED_ITEM_CATEGORY</a> enumeration for possible values.
+     * @param {FH_PROTECTED_ITEM_CATEGORY} Category Specifies the type of the exclusion rule. See the <a href="https://docs.microsoft.com/windows/desktop/api/fhcfg/ne-fhcfg-fh_protected_item_category">FH_PROTECTED_ITEM_CATEGORY</a> enumeration for possible values.
      * @param {BSTR} Item The folder path or library name or GUID of the item that the exclusion rule applies to.
      * @returns {HRESULT} <b>S_OK</b> on success, or an unsuccessful <b>HRESULT</b> value on failure. Possible unsuccessful <b>HRESULT</b> values include values defined in the FhErrors.h header file.
      * @see https://learn.microsoft.com/windows/win32/api/fhcfg/nf-fhcfg-ifhconfigmgr-addremoveexcluderule
@@ -123,7 +121,7 @@ class IFhConfigMgr extends IUnknown{
      * 
      * The <a href="https://docs.microsoft.com/windows/desktop/api/fhcfg/nf-fhcfg-ifhconfigmgr-addremoveexcluderule">IFhConfigMgr::AddRemoveExcludeRule</a> method can be used to add or remove exclusion rules. It cannot be used to modify the inclusion rules.
      * @param {BOOL} Include If set to <b>TRUE</b>, inclusion rules are returned. If set to <b>FALSE</b>, exclusion rules are returned.
-     * @param {Integer} Category An <a href="https://docs.microsoft.com/windows/desktop/api/fhcfg/ne-fhcfg-fh_protected_item_category">FH_PROTECTED_ITEM_CATEGORY</a> enumeration value that specifies the type of the inclusion or exclusion rules.
+     * @param {FH_PROTECTED_ITEM_CATEGORY} Category An <a href="https://docs.microsoft.com/windows/desktop/api/fhcfg/ne-fhcfg-fh_protected_item_category">FH_PROTECTED_ITEM_CATEGORY</a> enumeration value that specifies the type of the inclusion or exclusion rules.
      * @returns {IFhScopeIterator} Receives an <a href="https://docs.microsoft.com/windows/desktop/api/fhcfg/nn-fhcfg-ifhscopeiterator">IFhScopeIterator</a> interface pointer that can be used to enumerate the rules in the requested category.
      * @see https://learn.microsoft.com/windows/win32/api/fhcfg/nf-fhcfg-ifhconfigmgr-getincludeexcluderules
      */
@@ -138,7 +136,7 @@ class IFhConfigMgr extends IUnknown{
      * Each local policy contains a numeric parameter that specifies how or when the File History feature backs up files and folders. See the <a href="https://docs.microsoft.com/windows/desktop/api/fhcfg/ne-fhcfg-fh_local_policy_type">FH_LOCAL_POLICY_TYPE</a> enumeration for more information about the local policies that can be specified.
      * 
      * To set the numeric parameter value for a local policy, use the <a href="https://docs.microsoft.com/windows/desktop/api/fhcfg/nf-fhcfg-ifhconfigmgr-setlocalpolicy">IFhConfigMgr::SetLocalPolicy</a> method.
-     * @param {Integer} LocalPolicyType Specifies the local policy.
+     * @param {FH_LOCAL_POLICY_TYPE} LocalPolicyType Specifies the local policy.
      * @returns {Integer} Receives the value of the numeric parameter for the specified local policy.
      * @see https://learn.microsoft.com/windows/win32/api/fhcfg/nf-fhcfg-ifhconfigmgr-getlocalpolicy
      */
@@ -153,7 +151,7 @@ class IFhConfigMgr extends IUnknown{
      * Each local policy contains a numeric parameter that specifies how or when the File History feature backs up files and folders. See the <a href="https://docs.microsoft.com/windows/desktop/api/fhcfg/ne-fhcfg-fh_local_policy_type">FH_LOCAL_POLICY_TYPE</a> enumeration for more information about the local policies that can be specified.
      * 
      * To retrieve the numeric parameter value for a local policy, use the <a href="https://docs.microsoft.com/windows/desktop/api/fhcfg/nf-fhcfg-ifhconfigmgr-getlocalpolicy">IFhConfigMgr::GetLocalPolicy</a> method.
-     * @param {Integer} LocalPolicyType Specifies the local policy.
+     * @param {FH_LOCAL_POLICY_TYPE} LocalPolicyType Specifies the local policy.
      * @param {Integer} PolicyValue Specifies the new value of the numeric parameter for the specified local policy.
      * @returns {HRESULT} <b>S_OK</b> on success, or an unsuccessful <b>HRESULT</b> value on failure. Possible unsuccessful <b>HRESULT</b> values include values defined in the FhErrors.h header file.
      * @see https://learn.microsoft.com/windows/win32/api/fhcfg/nf-fhcfg-ifhconfigmgr-setlocalpolicy
@@ -165,7 +163,7 @@ class IFhConfigMgr extends IUnknown{
 
     /**
      * Retrieves the backup status value for an FhConfigMgr object.
-     * @returns {Integer} Receives the backup status value. See the <a href="https://docs.microsoft.com/windows/desktop/api/fhcfg/ne-fhcfg-fh_backup_status">FH_BACKUP_STATUS</a> enumeration for the list of possible backup status values.
+     * @returns {FH_BACKUP_STATUS} Receives the backup status value. See the <a href="https://docs.microsoft.com/windows/desktop/api/fhcfg/ne-fhcfg-fh_backup_status">FH_BACKUP_STATUS</a> enumeration for the list of possible backup status values.
      * @see https://learn.microsoft.com/windows/win32/api/fhcfg/nf-fhcfg-ifhconfigmgr-getbackupstatus
      */
     GetBackupStatus() {
@@ -177,7 +175,7 @@ class IFhConfigMgr extends IUnknown{
      * Changes the backup status value for an FhConfigMgr object.
      * @remarks
      * <b>FH_STATUS_DISABLED_BY_GP</b> is not a valid value for the <i>BackupStatus</i> parameter.
-     * @param {Integer} BackupStatus The backup status value. See the <a href="https://docs.microsoft.com/windows/desktop/api/fhcfg/ne-fhcfg-fh_backup_status">FH_BACKUP_STATUS</a> enumeration for a list of possible backup status values.
+     * @param {FH_BACKUP_STATUS} BackupStatus The backup status value. See the <a href="https://docs.microsoft.com/windows/desktop/api/fhcfg/ne-fhcfg-fh_backup_status">FH_BACKUP_STATUS</a> enumeration for a list of possible backup status values.
      * @returns {HRESULT} <b>S_OK</b> on success, or an unsuccessful <b>HRESULT</b> value on failure. Possible unsuccessful <b>HRESULT</b> values include values defined in the FhErrors.h header file.
      * @see https://learn.microsoft.com/windows/win32/api/fhcfg/nf-fhcfg-ifhconfigmgr-setbackupstatus
      */
@@ -205,7 +203,7 @@ class IFhConfigMgr extends IUnknown{
      * 
      * For network shares, the <i>TargetUrl</i> parameter contains the full path of the share.  This path must end with a trailing backslash (for example, "\\\\myserver\myshare\\").
      * @param {BSTR} TargetUrl The storage device or network share to be validated.
-     * @returns {Integer} Receives the result of the device validation. See the <a href="https://docs.microsoft.com/windows/desktop/api/fhcfg/ne-fhcfg-fh_device_validation_result">FH_DEVICE_VALIDATION_RESULT</a> enumeration for the list of possible device validation result values.
+     * @returns {FH_DEVICE_VALIDATION_RESULT} Receives the result of the device validation. See the <a href="https://docs.microsoft.com/windows/desktop/api/fhcfg/ne-fhcfg-fh_device_validation_result">FH_DEVICE_VALIDATION_RESULT</a> enumeration for the list of possible device validation result values.
      * @see https://learn.microsoft.com/windows/win32/api/fhcfg/nf-fhcfg-ifhconfigmgr-validatetarget
      */
     ValidateTarget(TargetUrl) {

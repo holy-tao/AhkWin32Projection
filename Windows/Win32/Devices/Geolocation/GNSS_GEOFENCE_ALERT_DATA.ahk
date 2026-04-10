@@ -1,14 +1,13 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
+#Include .\GNSS_GEOFENCE_STATE.ahk
 #Include .\GNSS_FIXDATA_BASIC.ahk
 #Include .\GNSS_FIXDATA_ACCURACY.ahk
 
 /**
  * @namespace Windows.Win32.Devices.Geolocation
- * @version v4.0.30319
  */
-class GNSS_GEOFENCE_ALERT_DATA extends Win32Struct
-{
+class GNSS_GEOFENCE_ALERT_DATA extends Win32Struct {
     static sizeof => 640
 
     static packingSize => 8
@@ -38,7 +37,7 @@ class GNSS_GEOFENCE_ALERT_DATA extends Win32Struct
     }
 
     /**
-     * @type {Integer}
+     * @type {GNSS_GEOFENCE_STATE}
      */
     GeofenceState {
         get => NumGet(this, 12, "int")
@@ -48,7 +47,7 @@ class GNSS_GEOFENCE_ALERT_DATA extends Win32Struct
     /**
      * @type {GNSS_FIXDATA_BASIC}
      */
-    FixBasicData{
+    FixBasicData {
         get {
             if(!this.HasProp("__FixBasicData"))
                 this.__FixBasicData := GNSS_FIXDATA_BASIC(16, this)
@@ -59,7 +58,7 @@ class GNSS_GEOFENCE_ALERT_DATA extends Win32Struct
     /**
      * @type {GNSS_FIXDATA_ACCURACY}
      */
-    FixAccuracyData{
+    FixAccuracyData {
         get {
             if(!this.HasProp("__FixAccuracyData"))
                 this.__FixAccuracyData := GNSS_FIXDATA_ACCURACY(64, this)
@@ -68,9 +67,9 @@ class GNSS_GEOFENCE_ALERT_DATA extends Win32Struct
     }
 
     /**
-     * @type {Array<Byte>}
+     * @type {Array<Integer>}
      */
-    Unused{
+    Unused {
         get {
             if(!this.HasProp("__UnusedProxyArray"))
                 this.__UnusedProxyArray := Win32FixedArray(this.ptr + 128, 512, Primitive, "char")

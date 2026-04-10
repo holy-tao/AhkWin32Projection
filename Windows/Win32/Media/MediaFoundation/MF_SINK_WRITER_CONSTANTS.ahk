@@ -3,9 +3,8 @@
 
 /**
  * @namespace Windows.Win32.Media.MediaFoundation
- * @version v4.0.30319
  */
-class MF_SINK_WRITER_CONSTANTS extends Win32Enum{
+class MF_SINK_WRITER_CONSTANTS extends Win32Enum {
 
     /**
      * @type {Integer (UInt32)}

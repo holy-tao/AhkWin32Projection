@@ -3,10 +3,9 @@
 
 /**
  * @namespace Windows.Win32.Storage.Jet
- * @version v4.0.30319
+ * @architecture X64, Arm64
  */
-class JET_RECPOS2 extends Win32Struct
-{
+class JET_RECPOS2 extends Win32Struct {
     static sizeof => 32
 
     static packingSize => 8

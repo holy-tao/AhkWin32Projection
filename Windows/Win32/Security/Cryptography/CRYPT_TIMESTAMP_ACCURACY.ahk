@@ -5,10 +5,8 @@
  * Is used by the CRYPT_TIMESTAMP_INFO structure to represent the accuracy of the time deviation around the UTC time at which the time stamp token was created by the Time Stamp Authority (TSA).
  * @see https://learn.microsoft.com/windows/win32/api/wincrypt/ns-wincrypt-crypt_timestamp_accuracy
  * @namespace Windows.Win32.Security.Cryptography
- * @version v4.0.30319
  */
-class CRYPT_TIMESTAMP_ACCURACY extends Win32Struct
-{
+class CRYPT_TIMESTAMP_ACCURACY extends Win32Struct {
     static sizeof => 12
 
     static packingSize => 4

@@ -5,9 +5,8 @@
  * Specifies the inertia values for a manipulation (translation, rotation, scaling).
  * @see https://learn.microsoft.com/windows/win32/api/interactioncontext/ne-interactioncontext-inertia_parameter
  * @namespace Windows.Win32.UI.InteractionContext
- * @version v4.0.30319
  */
-class INERTIA_PARAMETER extends Win32Enum{
+class INERTIA_PARAMETER extends Win32Enum {
 
     /**
      * The rate of deceleration, in degrees/ms².

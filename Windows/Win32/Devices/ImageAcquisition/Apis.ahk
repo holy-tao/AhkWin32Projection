@@ -4,7 +4,6 @@
 
 /**
  * @namespace Windows.Win32.Devices.ImageAcquisition
- * @version v4.0.30319
  */
 class ImageAcquisition {
 

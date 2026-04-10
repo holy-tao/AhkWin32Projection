@@ -6,10 +6,8 @@
 
 /**
  * @namespace Windows.Win32.NetworkManagement.WiFi
- * @version v4.0.30319
  */
-class DOT11_SEND_INVITATION_RESPONSE_PARAMETERS extends Win32Struct
-{
+class DOT11_SEND_INVITATION_RESPONSE_PARAMETERS extends Win32Struct {
     static sizeof => 56
 
     static packingSize => 8
@@ -17,7 +15,7 @@ class DOT11_SEND_INVITATION_RESPONSE_PARAMETERS extends Win32Struct
     /**
      * @type {NDIS_OBJECT_HEADER}
      */
-    Header{
+    Header {
         get {
             if(!this.HasProp("__Header"))
                 this.__Header := NDIS_OBJECT_HEADER(0, this)
@@ -26,9 +24,9 @@ class DOT11_SEND_INVITATION_RESPONSE_PARAMETERS extends Win32Struct
     }
 
     /**
-     * @type {Array<Byte>}
+     * @type {Array<Integer>}
      */
-    ReceiverDeviceAddress{
+    ReceiverDeviceAddress {
         get {
             if(!this.HasProp("__ReceiverDeviceAddressProxyArray"))
                 this.__ReceiverDeviceAddressProxyArray := Win32FixedArray(this.ptr + 4, 6, Primitive, "char")
@@ -71,7 +69,7 @@ class DOT11_SEND_INVITATION_RESPONSE_PARAMETERS extends Win32Struct
     /**
      * @type {DOT11_WFD_CONFIGURATION_TIMEOUT}
      */
-    MinimumConfigTimeout{
+    MinimumConfigTimeout {
         get {
             if(!this.HasProp("__MinimumConfigTimeout"))
                 this.__MinimumConfigTimeout := DOT11_WFD_CONFIGURATION_TIMEOUT(29, this)
@@ -80,9 +78,9 @@ class DOT11_SEND_INVITATION_RESPONSE_PARAMETERS extends Win32Struct
     }
 
     /**
-     * @type {Array<Byte>}
+     * @type {Array<Integer>}
      */
-    GroupBSSID{
+    GroupBSSID {
         get {
             if(!this.HasProp("__GroupBSSIDProxyArray"))
                 this.__GroupBSSIDProxyArray := Win32FixedArray(this.ptr + 31, 6, Primitive, "char")
@@ -101,7 +99,7 @@ class DOT11_SEND_INVITATION_RESPONSE_PARAMETERS extends Win32Struct
     /**
      * @type {DOT11_WFD_CHANNEL}
      */
-    OperatingChannel{
+    OperatingChannel {
         get {
             if(!this.HasProp("__OperatingChannel"))
                 this.__OperatingChannel := DOT11_WFD_CHANNEL(38, this)

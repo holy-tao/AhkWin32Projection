@@ -7,9 +7,8 @@
  * The IAudioSystemEffects interface uses the basic methods that are inherited from IUnknown, and must implement an Initialize method.
  * @see https://learn.microsoft.com/windows/win32/api/audioenginebaseapo/nn-audioenginebaseapo-iaudiosystemeffects
  * @namespace Windows.Win32.Media.Audio.Apo
- * @version v4.0.30319
  */
-class IAudioSystemEffects extends IUnknown{
+class IAudioSystemEffects extends IUnknown {
 
     static sizeof => A_PtrSize
     /**

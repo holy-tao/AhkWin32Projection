@@ -1,5 +1,24 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
+#Include .\CLUSPROP_LIST.ahk
+#Include .\CLUSPROP_SYNTAX.ahk
+#Include .\CLUSPROP_SZ.ahk
+#Include .\CLUSPROP_VALUE.ahk
+#Include .\CLUSPROP_BINARY.ahk
+#Include .\CLUSPROP_WORD.ahk
+#Include .\CLUSPROP_DWORD.ahk
+#Include .\CLUSPROP_LONG.ahk
+#Include .\CLUSPROP_ULARGE_INTEGER.ahk
+#Include .\CLUSPROP_LARGE_INTEGER.ahk
+#Include .\CLUSPROP_SECURITY_DESCRIPTOR.ahk
+#Include .\CLUSPROP_RESOURCE_CLASS.ahk
+#Include .\CLUSPROP_RESOURCE_CLASS_INFO.ahk
+#Include .\CLUSPROP_SCSI_ADDRESS.ahk
+#Include .\CLUSPROP_PARTITION_INFO.ahk
+#Include .\CLUSPROP_REQUIRED_DEPENDENCY.ahk
+#Include .\CLUSPROP_PARTITION_INFO_EX.ahk
+#Include .\CLUSPROP_PARTITION_INFO_EX2.ahk
+#Include .\CLUSPROP_FILETIME.ahk
 
 /**
  * Used to build or parse a property list or, a value list.
@@ -23,10 +42,8 @@
  *      guaranteed to be naturally aligned.
  * @see https://learn.microsoft.com/windows/win32/api/clusapi/ns-clusapi-clusprop_buffer_helper
  * @namespace Windows.Win32.Networking.Clustering
- * @version v4.0.30319
  */
-class CLUSPROP_BUFFER_HELPER extends Win32Struct
-{
+class CLUSPROP_BUFFER_HELPER extends Win32Struct {
     static sizeof => 224
 
     static packingSize => 8

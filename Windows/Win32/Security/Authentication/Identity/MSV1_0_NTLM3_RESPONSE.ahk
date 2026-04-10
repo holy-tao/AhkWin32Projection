@@ -3,18 +3,16 @@
 
 /**
  * @namespace Windows.Win32.Security.Authentication.Identity
- * @version v4.0.30319
  */
-class MSV1_0_NTLM3_RESPONSE extends Win32Struct
-{
+class MSV1_0_NTLM3_RESPONSE extends Win32Struct {
     static sizeof => 48
 
     static packingSize => 8
 
     /**
-     * @type {Array<Byte>}
+     * @type {Array<Integer>}
      */
-    Response{
+    Response {
         get {
             if(!this.HasProp("__ResponseProxyArray"))
                 this.__ResponseProxyArray := Win32FixedArray(this.ptr + 0, 16, Primitive, "char")
@@ -63,9 +61,9 @@ class MSV1_0_NTLM3_RESPONSE extends Win32Struct
     }
 
     /**
-     * @type {Array<Byte>}
+     * @type {Array<Integer>}
      */
-    ChallengeFromClient{
+    ChallengeFromClient {
         get {
             if(!this.HasProp("__ChallengeFromClientProxyArray"))
                 this.__ChallengeFromClientProxyArray := Win32FixedArray(this.ptr + 32, 8, Primitive, "char")
@@ -82,9 +80,9 @@ class MSV1_0_NTLM3_RESPONSE extends Win32Struct
     }
 
     /**
-     * @type {Array<Byte>}
+     * @type {Array<Integer>}
      */
-    Buffer{
+    Buffer {
         get {
             if(!this.HasProp("__BufferProxyArray"))
                 this.__BufferProxyArray := Win32FixedArray(this.ptr + 44, 1, Primitive, "char")

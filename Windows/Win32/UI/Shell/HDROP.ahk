@@ -4,10 +4,8 @@
 
 /**
  * @namespace Windows.Win32.UI.Shell
- * @version v4.0.30319
  */
-class HDROP extends Win32Handle
-{
+class HDROP extends Win32Handle {
     static sizeof => 8
 
     static packingSize => 8

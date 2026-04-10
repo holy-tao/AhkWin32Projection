@@ -3,10 +3,8 @@
 
 /**
  * @namespace Windows.Win32.Media.DirectShow.Tv
- * @version v4.0.30319
  */
-class LanguageInfo extends Win32Struct
-{
+class LanguageInfo extends Win32Struct {
     static sizeof => 8
 
     static packingSize => 4

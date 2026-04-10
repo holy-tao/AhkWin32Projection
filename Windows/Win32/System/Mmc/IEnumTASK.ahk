@@ -1,16 +1,14 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
-#Include .\IEnumTASK.ahk
 #Include ..\Com\IUnknown.ahk
 
 /**
  * The IEnumTASK interface is introduced in MMC 1.1.
  * @see https://learn.microsoft.com/windows/win32/api/mmc/nn-mmc-ienumtask
  * @namespace Windows.Win32.System.Mmc
- * @version v4.0.30319
  */
-class IEnumTASK extends IUnknown{
+class IEnumTASK extends IUnknown {
 
     static sizeof => A_PtrSize
     /**

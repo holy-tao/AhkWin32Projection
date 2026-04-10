@@ -1,16 +1,14 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
-#Include .\IEnumNetSharingPublicConnection.ahk
 #Include ..\..\System\Com\IUnknown.ahk
 
 /**
  * The IEnumNetSharingPublicConnection interface provides methods for enumerating the currently configured publicly-shared connections.
  * @see https://learn.microsoft.com/windows/win32/api/netcon/nn-netcon-ienumnetsharingpublicconnection
  * @namespace Windows.Win32.NetworkManagement.WindowsFirewall
- * @version v4.0.30319
  */
-class IEnumNetSharingPublicConnection extends IUnknown{
+class IEnumNetSharingPublicConnection extends IUnknown {
 
     static sizeof => A_PtrSize
     /**

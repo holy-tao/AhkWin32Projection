@@ -5,10 +5,8 @@
  * Defines the format of the Winlogon version 1.4 function dispatch table passed to the GINA DLL in the WlxInitialize call.
  * @see https://learn.microsoft.com/windows/win32/api/winwlx/ns-winwlx-wlx_dispatch_version_1_4
  * @namespace Windows.Win32.Security.WinWlx
- * @version v4.0.30319
  */
-class WLX_DISPATCH_VERSION_1_4 extends Win32Struct
-{
+class WLX_DISPATCH_VERSION_1_4 extends Win32Struct {
     static sizeof => 216
 
     static packingSize => 8

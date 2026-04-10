@@ -7,9 +7,8 @@
  * Implements methods that retrieve data from the entitlement descriptor in a Protected Broadcast Driver Architecture (PBDA) transport stream.
  * @see https://learn.microsoft.com/windows/win32/api/dvbsiparser/nn-dvbsiparser-ipbdaentitlementdescriptor
  * @namespace Windows.Win32.Media.DirectShow.Tv
- * @version v4.0.30319
  */
-class IPBDAEntitlementDescriptor extends IUnknown{
+class IPBDAEntitlementDescriptor extends IUnknown {
 
     static sizeof => A_PtrSize
     /**

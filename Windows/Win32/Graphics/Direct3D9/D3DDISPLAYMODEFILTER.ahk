@@ -1,14 +1,14 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
+#Include .\D3DFORMAT.ahk
+#Include .\D3DSCANLINEORDERING.ahk
 
 /**
  * Specifies types of display modes to filter out.
  * @see https://learn.microsoft.com/windows/win32/direct3d9/d3ddisplaymodefilter
  * @namespace Windows.Win32.Graphics.Direct3D9
- * @version v4.0.30319
  */
-class D3DDISPLAYMODEFILTER extends Win32Struct
-{
+class D3DDISPLAYMODEFILTER extends Win32Struct {
     static sizeof => 12
 
     static packingSize => 4
@@ -30,7 +30,7 @@ class D3DDISPLAYMODEFILTER extends Win32Struct
      * 
      * 
      * The display mode format to filter out. See [D3DFORMAT](d3dformat.md).
-     * @type {Integer}
+     * @type {D3DFORMAT}
      */
     Format {
         get => NumGet(this, 4, "uint")
@@ -42,7 +42,7 @@ class D3DDISPLAYMODEFILTER extends Win32Struct
      * 
      * 
      * Whether the scanline ordering is interlaced or progressive. See [**D3DSCANLINEORDERING**](./d3dscanlineordering.md).
-     * @type {Integer}
+     * @type {D3DSCANLINEORDERING}
      */
     ScanLineOrdering {
         get => NumGet(this, 8, "int")

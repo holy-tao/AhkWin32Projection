@@ -1,10 +1,19 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
+#Include ..\..\System\Com\StructuredStorage\PROPVARIANT.ahk
+#Include ..\..\System\Variant\VARENUM.ahk
 #Include ..\..\System\Com\CY.ahk
 #Include ..\..\Foundation\FILETIME.ahk
+#Include ..\..\System\Com\StructuredStorage\CLIPDATA.ahk
 #Include ..\..\Foundation\BSTR.ahk
 #Include ..\..\System\Com\StructuredStorage\BSTRBLOB.ahk
 #Include ..\..\System\Com\BLOB.ahk
+#Include ..\..\System\Com\IUnknown.ahk
+#Include ..\..\System\Com\IDispatch.ahk
+#Include ..\..\System\Com\IStream.ahk
+#Include ..\..\System\Com\StructuredStorage\IStorage.ahk
+#Include ..\..\System\Com\StructuredStorage\VERSIONEDSTREAM.ahk
+#Include ..\..\System\Com\SAFEARRAY.ahk
 #Include ..\..\System\Com\StructuredStorage\CAC.ahk
 #Include ..\..\System\Com\StructuredStorage\CAUB.ahk
 #Include ..\..\System\Com\StructuredStorage\CAI.ahk
@@ -28,7 +37,6 @@
 #Include ..\..\System\Com\StructuredStorage\CALPWSTR.ahk
 #Include ..\..\System\Com\StructuredStorage\CAPROPVARIANT.ahk
 #Include ..\..\Foundation\DECIMAL.ahk
-#Include ..\..\System\Com\StructuredStorage\PROPVARIANT.ahk
 
 /**
  * The WMDM\_PROP\_VALUES\_RANGE structure describes a range of valid values for a particular property in a particular property configuration.
@@ -36,10 +44,8 @@
  * This structure is used in the [**WMDM\_PROP\_DESC**](wmdm-prop-desc.md) structure to describe a range of valid values. A range of valid values is applicable when WMDM\_ENUM\_PROP\_VALID\_VALUES\_ENUM is selected from the [**WMDM\_ENUM\_PROP\_VALID\_VALUES\_FORM**](wmdm-enum-prop-valid-values-form.md) enumeration.
  * @see https://learn.microsoft.com/windows/win32/WMDM/wmdm-prop-values-range
  * @namespace Windows.Win32.Media.DeviceManager
- * @version v4.0.30319
  */
-class WMDM_PROP_VALUES_RANGE extends Win32Struct
-{
+class WMDM_PROP_VALUES_RANGE extends Win32Struct {
     static sizeof => 72
 
     static packingSize => 8
@@ -48,7 +54,7 @@ class WMDM_PROP_VALUES_RANGE extends Win32Struct
      * Minimum value in the range.
      * @type {PROPVARIANT}
      */
-    rangeMin{
+    rangeMin {
         get {
             if(!this.HasProp("__rangeMin"))
                 this.__rangeMin := PROPVARIANT(0, this)
@@ -60,7 +66,7 @@ class WMDM_PROP_VALUES_RANGE extends Win32Struct
      * Maximum value in the range.
      * @type {PROPVARIANT}
      */
-    rangeMax{
+    rangeMax {
         get {
             if(!this.HasProp("__rangeMax"))
                 this.__rangeMax := PROPVARIANT(24, this)
@@ -72,7 +78,7 @@ class WMDM_PROP_VALUES_RANGE extends Win32Struct
      * The step size in which valid values increment from the minimum value to the maximum value. This permits specifying discrete permissible values in a range.
      * @type {PROPVARIANT}
      */
-    rangeStep{
+    rangeStep {
         get {
             if(!this.HasProp("__rangeStep"))
                 this.__rangeStep := PROPVARIANT(48, this)

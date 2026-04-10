@@ -1,8 +1,8 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
-#Include ..\..\Foundation\SIZE.ahk
 #Include ..\..\System\Com\IUnknown.ahk
+#Include ..\..\Foundation\SIZE.ahk
 
 /**
  * Enables development tool applications to dynamically spoof system and user states, such as native display resolution, device scale factor, and application view state, for the purpose of testing Windows Store apps running in design mode for a wide range of form factors without the need for the actual hardware. Also enables testing of changes in normally user-controlled state to test Windows Store apps under a variety of scenarios.
@@ -27,9 +27,8 @@
  * Use the methods of this interface to test your Windows Store app under various spoofed configurations and scenarios.
  * @see https://learn.microsoft.com/windows/win32/api/shobjidl_core/nn-shobjidl_core-iapplicationdesignmodesettings
  * @namespace Windows.Win32.UI.Shell
- * @version v4.0.30319
  */
-class IApplicationDesignModeSettings extends IUnknown{
+class IApplicationDesignModeSettings extends IUnknown {
 
     static sizeof => A_PtrSize
     /**
@@ -99,7 +98,7 @@ class IApplicationDesignModeSettings extends IUnknown{
 
     /**
      * Sets a spoofed device scale factor to be used for a Windows Store app running in design mode.
-     * @param {Integer} scaleFactor One of the <a href="https://docs.microsoft.com/windows/desktop/api/shtypes/ne-shtypes-device_scale_factor">DEVICE_SCALE_FACTOR</a> enumeration values that indicates the device scale factor to spoof.
+     * @param {DEVICE_SCALE_FACTOR} scaleFactor One of the <a href="https://docs.microsoft.com/windows/desktop/api/shtypes/ne-shtypes-device_scale_factor">DEVICE_SCALE_FACTOR</a> enumeration values that indicates the device scale factor to spoof.
      * @returns {HRESULT} If this method succeeds, it returns S_OK. Otherwise, it returns an HRESULT error code, including the following:
      * 
      * <table>
@@ -129,7 +128,7 @@ class IApplicationDesignModeSettings extends IUnknown{
 
     /**
      * Sets a spoofed application view state (full-screen landscape, full-screen portrait, filled, or snapped) to be used for a Windows Store app running in design mode.
-     * @param {Integer} viewState One of the <a href="https://docs.microsoft.com/windows/desktop/api/shobjidl_core/ne-shobjidl_core-application_view_state">APPLICATION_VIEW_STATE</a> enumeration values that indicates the application view state to spoof.
+     * @param {APPLICATION_VIEW_STATE} viewState One of the <a href="https://docs.microsoft.com/windows/desktop/api/shobjidl_core/ne-shobjidl_core-application_view_state">APPLICATION_VIEW_STATE</a> enumeration values that indicates the application view state to spoof.
      * @returns {HRESULT} If this method succeeds, it returns S_OK. Otherwise, it returns an HRESULT error code, including the following:
      * 
      * <table>
@@ -170,9 +169,9 @@ class IApplicationDesignModeSettings extends IUnknown{
 
     /**
      * Determines whether a particular application view state is supported for specific spoofed display size and scale factor settings.
-     * @param {Integer} viewState One of the enumeration values that indicates the application view state for which support is being determined.
+     * @param {APPLICATION_VIEW_STATE} viewState One of the enumeration values that indicates the application view state for which support is being determined.
      * @param {SIZE} nativeDisplaySizePixels The native size of the display to spoof.
-     * @param {Integer} scaleFactor One of the enumeration values that indicates the device scale factor to spoof.
+     * @param {DEVICE_SCALE_FACTOR} scaleFactor One of the enumeration values that indicates the device scale factor to spoof.
      * @returns {BOOL} When this method returns successfully, receives a pointer to a Boolean value which is set to <b>TRUE</b> if the application view state is supported for the given display size and scale factor, and <b>FALSE</b> if it is not.
      * @see https://learn.microsoft.com/windows/win32/api/shobjidl_core/nf-shobjidl_core-iapplicationdesignmodesettings-isapplicationviewstatesupported
      */
@@ -183,7 +182,7 @@ class IApplicationDesignModeSettings extends IUnknown{
 
     /**
      * Sends a spoofed edge gesture event to the proxy core window on the caller's thread. This gesture toggles the app's app bar, if the app supports one. The caller can specify the type of input that triggered the edge gesture.
-     * @param {Integer} edgeGestureKind 
+     * @param {EDGE_GESTURE_KIND} edgeGestureKind 
      * @returns {HRESULT} If this method succeeds, it returns S_OK. Otherwise, it returns an HRESULT error code, including the following:
      * 
      * <table>

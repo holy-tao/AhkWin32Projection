@@ -3,9 +3,8 @@
 
 /**
  * @namespace Windows.Win32.Devices.Display
- * @version v4.0.30319
  */
-class BACKLIGHT_OPTIMIZATION_LEVEL extends Win32Enum{
+class BACKLIGHT_OPTIMIZATION_LEVEL extends Win32Enum {
 
     /**
      * @type {Integer (Int32)}

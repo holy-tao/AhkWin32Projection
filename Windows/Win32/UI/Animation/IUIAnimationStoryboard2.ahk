@@ -7,9 +7,8 @@
  * Defines a storyboard, which contains a group of transitions that are synchronized relative to one another.In this sectionTopicDescriptionAbandon MethodTerminates the storyboard, releases all related animation variables, and removes the storyboard from the schedule.AddKeyframeAfterTransition MethodAdds a keyframe at the end of the specified transition.AddKeyframeAtOffset MethodAdds a keyframe at the specified offset from an existing keyframe.AddTransition MethodAdds a transition to the storyboard.AddTransitionAtKeyframe MethodAdds a transition that starts at the specified keyframe.AddTransitionBetweenKeyframes MethodAdds a transition between two keyframes.Conclude MethodCompletes the current iteration of a keyframe loop that is in progress (where the loop is set to UI_ANIMATION_REPEAT_INDEFINITELY), terminates the loop, and continues with the storyboard. Finish MethodFinishes the storyboard within the specified time, compressing the storyboard if necessary.GetElapsedTime MethodGets the time that has elapsed since the storyboard started playing.GetStatus MethodGets the status of the storyboard.GetTag MethodGets the tag for a storyboard.HoldVariable MethodDirects the storyboard to hold the specified animation variable at its final value until the storyboard ends.RepeatBetweenKeyframes MethodCreates a loop between two keyframes.Schedule MethodDirects the storyboard to schedule itself for play.SetSkipDuration MethodSpecifies an offset from the beginning of a storyboard at which to start animating.SetLongestAcceptableDelay MethodSets the longest acceptable delay before the scheduled storyboard begins.SetStoryboardEventHandler MethodSpecifies a handler for storyboard events.SetTag MethodSets the tag for the storyboard. .
  * @see https://learn.microsoft.com/windows/win32/api/uianimation/nn-uianimation-iuianimationstoryboard2
  * @namespace Windows.Win32.UI.Animation
- * @version v4.0.30319
  */
-class IUIAnimationStoryboard2 extends IUnknown{
+class IUIAnimationStoryboard2 extends IUnknown {
 
     static sizeof => A_PtrSize
     /**
@@ -215,7 +214,7 @@ class IUIAnimationStoryboard2 extends IUnknown{
      * @param {UI_ANIMATION_KEYFRAME} startKeyframe The keyframe at which the loop is to begin.
      * @param {UI_ANIMATION_KEYFRAME} endKeyframe The keyframe at which the loop is to end. <i>endKeyframe</i> must not occur earlier in the storyboard than <i>startKeyframe</i>.
      * @param {Float} cRepetition The number of times the loop is to be repeated; the last iteration of a loop can terminate fractionally between keyframes. A value of  zero indicates that the specified portion of a storyboard will not be played.  A value of <a href="https://docs.microsoft.com/windows/desktop/UIAnimation/ui-animation-repeat-indefinitely">UI_ANIMATION_REPEAT_INDEFINITELY</a> (-1) indicates that the loop will repeat indefinitely until the storyboard is trimmed or concluded.
-     * @param {Integer} repeatMode The pattern for the loop iteration. 
+     * @param {UI_ANIMATION_REPEAT_MODE} repeatMode The pattern for the loop iteration. 
      * 
      * A value of <a href="https://docs.microsoft.com/windows/win32/api/uianimation/ne-uianimation-ui_animation_repeat_mode">UI_ANIMATION_REPEAT_MODE_ALTERNATE</a> (1) specifies that the  start of the loop must alternate between keyframes (k1-&gt;k2, k2-&gt;k1, k1-&gt;k2, and so on).
      * 
@@ -305,7 +304,7 @@ class IUIAnimationStoryboard2 extends IUnknown{
      * 
      * It is possible to reuse a storyboard by calling <b>Schedule</b> again after its status has reached <a href="https://docs.microsoft.com/windows/win32/api/uianimation/ne-uianimation-ui_animation_storyboard_status">UI_ANIMATION_STORYBOARD_READY</a>.  An attempt to schedule a storyboard when it is in any state other than <b>UI_ANIMATION_STORYBOARD_BUILDING</b> or <b>UI_ANIMATION_STORYBOARD_READY</b> fails, and  <i>schedulingResult</i> is set to <a href="https://docs.microsoft.com/windows/win32/api/uianimation/ne-uianimation-ui_animation_scheduling_result">UI_ANIMATION_SCHEDULING_ALREADY_SCHEDULED</a>.
      * @param {Float} timeNow The current time.
-     * @returns {Integer} The result of the scheduling request.
+     * @returns {UI_ANIMATION_SCHEDULING_RESULT} The result of the scheduling request.
      *             You can omit this parameter from calls to this method.
      * @see https://learn.microsoft.com/windows/win32/api/uianimation/nf-uianimation-iuianimationstoryboard2-schedule
      */
@@ -365,7 +364,8 @@ class IUIAnimationStoryboard2 extends IUnknown{
      * Sets the tag for the storyboard. (IUIAnimationStoryboard2.SetTag)
      * @remarks
      * A tag is a pairing of an integer identifier (<i>id</i>) with a COM object (<i>object</i>). It can be used by an application to identify a storyboard.
-     * @param {IUnknown} _object 
+     * @param {IUnknown} _object The object portion of the tag.        
+     *             This parameter can be NULL.
      * @param {Integer} id The identifier portion of the tag.
      * @returns {HRESULT} Returns S_OK if successful; otherwise an <b>HRESULT</b> error code. See <a href="https://docs.microsoft.com/windows/desktop/UIAnimation/uianimation-error-codes">Windows Animation Error Codes</a> for a list of error codes.
      * @see https://learn.microsoft.com/windows/win32/api/uianimation/nf-uianimation-iuianimationstoryboard2-settag
@@ -381,7 +381,7 @@ class IUIAnimationStoryboard2 extends IUnknown{
      * A tag is a pairing of an integer identifier (<i>id</i>) with a COM object (<i>object</i>); it can be used by an application to identify a storyboard.
      * 
      * This method can return the identifier, the object, or both portions of the tag.
-     * @param {Pointer<IUnknown>} _object 
+     * @param {Pointer<IUnknown>} _object The object portion of the tag.
      * @param {Pointer<Integer>} id The identifier portion of the tag.
      * @returns {HRESULT} If this method succeeds, it returns S_OK. Otherwise, it returns an  <b>HRESULT</b> error code. See <a href="https://docs.microsoft.com/windows/desktop/UIAnimation/uianimation-error-codes">Windows Animation Error Codes</a> for a list of error codes.
      * 
@@ -416,7 +416,7 @@ class IUIAnimationStoryboard2 extends IUnknown{
      * @remarks
      * Unless this method is called from a handler for <a href="https://docs.microsoft.com/windows/desktop/api/uianimation/nf-uianimation-iuianimationstoryboardeventhandler2-onstoryboardstatuschanged">OnStoryboardStatusChanged</a> events, the only values it returns are <a href="https://docs.microsoft.com/windows/win32/api/uianimation/ne-uianimation-ui_animation_storyboard_status">UI_ANIMATION_STORYBOARD_BUILDING</a>, <b>UI_ANIMATION_STORYBOARD_SCHEDULED</b>,
      * <b>UI_ANIMATION_STORYBOARD_PLAYING</b>, and <b>UI_ANIMATION_STORYBOARD_READY</b>.
-     * @returns {Integer} 
+     * @returns {UI_ANIMATION_STORYBOARD_STATUS} The storyboard status.
      * @see https://learn.microsoft.com/windows/win32/api/uianimation/nf-uianimation-iuianimationstoryboard2-getstatus
      */
     GetStatus() {

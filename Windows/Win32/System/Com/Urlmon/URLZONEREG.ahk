@@ -3,9 +3,8 @@
 
 /**
  * @namespace Windows.Win32.System.Com.Urlmon
- * @version v4.0.30319
  */
-class URLZONEREG extends Win32Enum{
+class URLZONEREG extends Win32Enum {
 
     /**
      * @type {Integer (Int32)}

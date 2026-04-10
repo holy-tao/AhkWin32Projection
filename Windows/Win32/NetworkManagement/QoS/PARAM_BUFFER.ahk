@@ -5,10 +5,8 @@
  * The PARAM_BUFFER structure describes the format of the parameter buffer that can be included in the CONTROL_SERVICE structure.
  * @see https://learn.microsoft.com/windows/win32/api/qossp/ns-qossp-param_buffer
  * @namespace Windows.Win32.NetworkManagement.QoS
- * @version v4.0.30319
  */
-class PARAM_BUFFER extends Win32Struct
-{
+class PARAM_BUFFER extends Win32Struct {
     static sizeof => 12
 
     static packingSize => 4
@@ -33,9 +31,9 @@ class PARAM_BUFFER extends Win32Struct
 
     /**
      * Buffer containing the parameter.
-     * @type {Array<Byte>}
+     * @type {Array<Integer>}
      */
-    Buffer{
+    Buffer {
         get {
             if(!this.HasProp("__BufferProxyArray"))
                 this.__BufferProxyArray := Win32FixedArray(this.ptr + 8, 1, Primitive, "char")

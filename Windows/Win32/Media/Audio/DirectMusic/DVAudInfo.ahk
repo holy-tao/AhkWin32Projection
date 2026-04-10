@@ -3,18 +3,16 @@
 
 /**
  * @namespace Windows.Win32.Media.Audio.DirectMusic
- * @version v4.0.30319
  */
-class DVAudInfo extends Win32Struct
-{
+class DVAudInfo extends Win32Struct {
     static sizeof => 16
 
     static packingSize => 2
 
     /**
-     * @type {Array<Byte>}
+     * @type {Array<Integer>}
      */
-    bAudStyle{
+    bAudStyle {
         get {
             if(!this.HasProp("__bAudStyleProxyArray"))
                 this.__bAudStyleProxyArray := Win32FixedArray(this.ptr + 0, 2, Primitive, "char")
@@ -23,9 +21,9 @@ class DVAudInfo extends Win32Struct
     }
 
     /**
-     * @type {Array<Byte>}
+     * @type {Array<Integer>}
      */
-    bAudQu{
+    bAudQu {
         get {
             if(!this.HasProp("__bAudQuProxyArray"))
                 this.__bAudQuProxyArray := Win32FixedArray(this.ptr + 2, 2, Primitive, "char")
@@ -42,9 +40,9 @@ class DVAudInfo extends Win32Struct
     }
 
     /**
-     * @type {Array<UInt16>}
+     * @type {Array<Integer>}
      */
-    wAvgSamplesPerPinPerFrm{
+    wAvgSamplesPerPinPerFrm {
         get {
             if(!this.HasProp("__wAvgSamplesPerPinPerFrmProxyArray"))
                 this.__wAvgSamplesPerPinPerFrmProxyArray := Win32FixedArray(this.ptr + 6, 2, Primitive, "ushort")

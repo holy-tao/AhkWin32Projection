@@ -1,22 +1,21 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\..\Win32Struct.ahk
+#Include .\MSV1_0_LOGON_SUBMIT_TYPE.ahk
 #Include .\LSA_UNICODE_STRING.ahk
 
 /**
  * Contains information about an interactive logon.
  * @see https://learn.microsoft.com/windows/win32/api/ntsecapi/ns-ntsecapi-msv1_0_interactive_logon
  * @namespace Windows.Win32.Security.Authentication.Identity
- * @version v4.0.30319
  */
-class MSV1_0_INTERACTIVE_LOGON extends Win32Struct
-{
+class MSV1_0_INTERACTIVE_LOGON extends Win32Struct {
     static sizeof => 56
 
     static packingSize => 8
 
     /**
      * <a href="https://docs.microsoft.com/windows/desktop/api/ntsecapi/ne-ntsecapi-msv1_0_logon_submit_type">MSV1_0_LOGON_SUBMIT_TYPE</a> value that specifies the type of logon being requested. This member must be set to <b>MsV1_0InteractiveLogon</b>.
-     * @type {Integer}
+     * @type {MSV1_0_LOGON_SUBMIT_TYPE}
      */
     MessageType {
         get => NumGet(this, 0, "int")
@@ -29,7 +28,7 @@ class MSV1_0_INTERACTIVE_LOGON extends Win32Struct
      * The <b>Buffer</b> member of the <a href="https://docs.microsoft.com/windows/desktop/api/subauth/ns-subauth-unicode_string">UNICODE_STRING</a> is relative to the KERB_INTERACTIVE_LOGON structure and must point to memory that is contiguous to the MSV1_0_INTERACTIVE_LOGON structure.
      * @type {LSA_UNICODE_STRING}
      */
-    LogonDomainName{
+    LogonDomainName {
         get {
             if(!this.HasProp("__LogonDomainName"))
                 this.__LogonDomainName := LSA_UNICODE_STRING(8, this)
@@ -43,7 +42,7 @@ class MSV1_0_INTERACTIVE_LOGON extends Win32Struct
      * The <b>Buffer</b> member of the <a href="https://docs.microsoft.com/windows/desktop/api/subauth/ns-subauth-unicode_string">UNICODE_STRING</a> is relative to the KERB_INTERACTIVE_LOGON structure and must point to memory that is contiguous to the MSV1_0_INTERACTIVE_LOGON structure.
      * @type {LSA_UNICODE_STRING}
      */
-    UserName{
+    UserName {
         get {
             if(!this.HasProp("__UserName"))
                 this.__UserName := LSA_UNICODE_STRING(24, this)
@@ -57,7 +56,7 @@ class MSV1_0_INTERACTIVE_LOGON extends Win32Struct
      * The <b>Buffer</b> member of the <a href="https://docs.microsoft.com/windows/desktop/api/subauth/ns-subauth-unicode_string">UNICODE_STRING</a> is relative to the KERB_INTERACTIVE_LOGON structure and must point to memory that is contiguous to the MSV1_0_INTERACTIVE_LOGON structure.
      * @type {LSA_UNICODE_STRING}
      */
-    Password{
+    Password {
         get {
             if(!this.HasProp("__Password"))
                 this.__Password := LSA_UNICODE_STRING(40, this)

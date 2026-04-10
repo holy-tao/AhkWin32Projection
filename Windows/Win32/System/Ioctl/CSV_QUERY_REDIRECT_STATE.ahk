@@ -11,10 +11,8 @@
  *     value.
  * @see https://learn.microsoft.com/windows/win32/api/winioctl/ns-winioctl-csv_query_redirect_state
  * @namespace Windows.Win32.System.Ioctl
- * @version v4.0.30319
  */
-class CSV_QUERY_REDIRECT_STATE extends Win32Struct
-{
+class CSV_QUERY_REDIRECT_STATE extends Win32Struct {
     static sizeof => 12
 
     static packingSize => 4

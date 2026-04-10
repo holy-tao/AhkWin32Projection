@@ -1,14 +1,13 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
+#Include .\DHCP_FILTER_RECORD.ahk
 
 /**
  * Contains information regarding the number of link-layer filter records.
  * @see https://learn.microsoft.com/windows/win32/api/dhcpsapi/ns-dhcpsapi-dhcp_filter_enum_info
  * @namespace Windows.Win32.NetworkManagement.Dhcp
- * @version v4.0.30319
  */
-class DHCP_FILTER_ENUM_INFO extends Win32Struct
-{
+class DHCP_FILTER_ENUM_INFO extends Win32Struct {
     static sizeof => 16
 
     static packingSize => 8

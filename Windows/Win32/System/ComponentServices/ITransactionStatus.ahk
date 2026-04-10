@@ -7,9 +7,8 @@
  * Used to discover the status of the transaction that is completed by the call to CoLeaveServiceDomain when CServiceConfig is configured to use transactions in the call to CoEnterServiceDomain.
  * @see https://learn.microsoft.com/windows/win32/api/comsvcs/nn-comsvcs-itransactionstatus
  * @namespace Windows.Win32.System.ComponentServices
- * @version v4.0.30319
  */
-class ITransactionStatus extends IUnknown{
+class ITransactionStatus extends IUnknown {
 
     static sizeof => A_PtrSize
     /**

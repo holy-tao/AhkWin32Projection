@@ -1,8 +1,8 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\..\Guid.ahk
-#Include ..\..\..\Foundation\RECT.ahk
 #Include .\ISurfaceImageSourceNative.ahk
+#Include ..\..\..\Foundation\RECT.ahk
 
 /**
  * Provides the implementation of a large (greater than the screen size) shared surface for DirectX drawing.
@@ -20,9 +20,8 @@
  * ```
  * @see https://learn.microsoft.com/windows/win32/api/windows.ui.xaml.media.dxinterop/nn-windows-ui-xaml-media-dxinterop-ivirtualsurfaceimagesourcenative
  * @namespace Windows.Win32.System.WinRT.Xaml
- * @version v4.0.30319
  */
-class IVirtualSurfaceImageSourceNative extends ISurfaceImageSourceNative{
+class IVirtualSurfaceImageSourceNative extends ISurfaceImageSourceNative {
 
     static sizeof => A_PtrSize
     /**

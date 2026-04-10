@@ -4,10 +4,8 @@
 
 /**
  * @namespace Windows.Win32.NetworkManagement.Dhcp
- * @version v4.0.30319
  */
-class SCOPE_MIB_INFO_V6 extends Win32Struct
-{
+class SCOPE_MIB_INFO_V6 extends Win32Struct {
     static sizeof => 40
 
     static packingSize => 8
@@ -15,7 +13,7 @@ class SCOPE_MIB_INFO_V6 extends Win32Struct
     /**
      * @type {DHCP_IPV6_ADDRESS}
      */
-    Subnet{
+    Subnet {
         get {
             if(!this.HasProp("__Subnet"))
                 this.__Subnet := DHCP_IPV6_ADDRESS(0, this)

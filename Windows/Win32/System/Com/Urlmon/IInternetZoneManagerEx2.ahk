@@ -5,9 +5,8 @@
 
 /**
  * @namespace Windows.Win32.System.Com.Urlmon
- * @version v4.0.30319
  */
-class IInternetZoneManagerEx2 extends IInternetZoneManagerEx{
+class IInternetZoneManagerEx2 extends IInternetZoneManagerEx {
 
     static sizeof => A_PtrSize
     /**

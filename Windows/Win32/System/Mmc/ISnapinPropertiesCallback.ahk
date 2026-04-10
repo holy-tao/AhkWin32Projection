@@ -7,9 +7,8 @@
  * The ISnapinPropertiesCallback interface adds property names for the snap-in. This interface is implemented by MMC for the snap-in.
  * @see https://learn.microsoft.com/windows/win32/api/mmcobj/nn-mmcobj-isnapinpropertiescallback
  * @namespace Windows.Win32.System.Mmc
- * @version v4.0.30319
  */
-class ISnapinPropertiesCallback extends IUnknown{
+class ISnapinPropertiesCallback extends IUnknown {
 
     static sizeof => A_PtrSize
     /**

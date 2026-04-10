@@ -1,15 +1,13 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\..\Win32Struct.ahk
 #Include .\LSA_UNICODE_STRING.ahk
-#Include ..\..\..\System\PasswordManagement\CYPHER_BLOCK.ahk
 #Include .\USER_SESSION_KEY.ahk
+#Include ..\..\..\System\PasswordManagement\CYPHER_BLOCK.ahk
 
 /**
  * @namespace Windows.Win32.Security.Authentication.Identity
- * @version v4.0.30319
  */
-class MSV1_0_VALIDATION_INFO extends Win32Struct
-{
+class MSV1_0_VALIDATION_INFO extends Win32Struct {
     static sizeof => 80
 
     static packingSize => 8
@@ -33,7 +31,7 @@ class MSV1_0_VALIDATION_INFO extends Win32Struct
     /**
      * @type {LSA_UNICODE_STRING}
      */
-    LogonServer{
+    LogonServer {
         get {
             if(!this.HasProp("__LogonServer"))
                 this.__LogonServer := LSA_UNICODE_STRING(16, this)
@@ -44,7 +42,7 @@ class MSV1_0_VALIDATION_INFO extends Win32Struct
     /**
      * @type {LSA_UNICODE_STRING}
      */
-    LogonDomainName{
+    LogonDomainName {
         get {
             if(!this.HasProp("__LogonDomainName"))
                 this.__LogonDomainName := LSA_UNICODE_STRING(32, this)
@@ -55,7 +53,7 @@ class MSV1_0_VALIDATION_INFO extends Win32Struct
     /**
      * @type {USER_SESSION_KEY}
      */
-    SessionKey{
+    SessionKey {
         get {
             if(!this.HasProp("__SessionKey"))
                 this.__SessionKey := USER_SESSION_KEY(48, this)

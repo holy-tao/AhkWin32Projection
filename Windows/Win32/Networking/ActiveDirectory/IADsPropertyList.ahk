@@ -1,17 +1,15 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
-#Include ..\..\Foundation\BSTR.ahk
-#Include ..\..\System\Variant\VARIANT.ahk
 #Include ..\..\System\Com\IDispatch.ahk
+#Include ..\..\System\Variant\VARIANT.ahk
 
 /**
  * The IADsPropertyList interface is used to modify, read, and update a list of property entries in the property cache of an object.
  * @see https://learn.microsoft.com/windows/win32/api/iads/nn-iads-iadspropertylist
  * @namespace Windows.Win32.Networking.ActiveDirectory
- * @version v4.0.30319
  */
-class IADsPropertyList extends IDispatch{
+class IADsPropertyList extends IDispatch {
 
     static sizeof => A_PtrSize
     /**

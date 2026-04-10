@@ -11,10 +11,8 @@
  * Each handle has an associated set of permissions that determine the operations your application can perform on the [**Policy**](policy-object.md) object by using the handle. Your application can open more than one handle to the **Policy** object at a time. When a handle is no longer required, your application should close it by calling [**LsaClose**](/windows/desktop/api/Ntsecapi/nf-ntsecapi-lsaclose).
  * @see https://learn.microsoft.com/windows/win32/SecMgmt/lsa-handle
  * @namespace Windows.Win32.Security.Authentication.Identity
- * @version v4.0.30319
  */
-class LSA_HANDLE extends Win32Handle
-{
+class LSA_HANDLE extends Win32Handle {
     static sizeof => 8
 
     static packingSize => 8

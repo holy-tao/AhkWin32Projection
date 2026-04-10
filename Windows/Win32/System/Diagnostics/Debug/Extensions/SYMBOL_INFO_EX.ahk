@@ -3,10 +3,8 @@
 
 /**
  * @namespace Windows.Win32.System.Diagnostics.Debug.Extensions
- * @version v4.0.30319
  */
-class SYMBOL_INFO_EX extends Win32Struct
-{
+class SYMBOL_INFO_EX extends Win32Struct {
     static sizeof => 40
 
     static packingSize => 8
@@ -52,9 +50,9 @@ class SYMBOL_INFO_EX extends Win32Struct
     }
 
     /**
-     * @type {Array<UInt32>}
+     * @type {Array<Integer>}
      */
-    Reserved{
+    Reserved {
         get {
             if(!this.HasProp("__ReservedProxyArray"))
                 this.__ReservedProxyArray := Win32FixedArray(this.ptr + 24, 4, Primitive, "uint")

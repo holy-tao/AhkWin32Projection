@@ -11,9 +11,8 @@
  * For more information about access levels on objects and properties, see [Permissions for Objects and Properties](permissions-for-mapi-objects-and-properties.md).
  * @see https://learn.microsoft.com/office/client-developer/outlook/mapi/ipropdataimapiprop
  * @namespace Windows.Win32.System.AddressBook
- * @version v4.0.30319
  */
-class IPropData extends IMAPIProp{
+class IPropData extends IMAPIProp {
 
     static sizeof => A_PtrSize
 

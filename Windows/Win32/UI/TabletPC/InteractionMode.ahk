@@ -5,9 +5,8 @@
  * Specifies the interaction modes that can be chosen by the user for the Tablet PC Input Panel.
  * @see https://learn.microsoft.com/windows/win32/api/peninputpanel/ne-peninputpanel-interactionmode
  * @namespace Windows.Win32.UI.TabletPC
- * @version v4.0.30319
  */
-class InteractionMode extends Win32Enum{
+class InteractionMode extends Win32Enum {
 
     /**
      * The Input Panel appears next to the text insertion point that currently has focus.

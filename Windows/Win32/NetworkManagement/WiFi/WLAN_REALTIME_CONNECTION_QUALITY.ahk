@@ -1,20 +1,19 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
-#Include .\WLAN_RATE_SET.ahk
+#Include .\DOT11_PHY_TYPE.ahk
 #Include .\WLAN_REALTIME_CONNECTION_QUALITY_LINK_INFO.ahk
+#Include .\WLAN_RATE_SET.ahk
 
 /**
  * @namespace Windows.Win32.NetworkManagement.WiFi
- * @version v4.0.30319
  */
-class WLAN_REALTIME_CONNECTION_QUALITY extends Win32Struct
-{
-    static sizeof => 32
+class WLAN_REALTIME_CONNECTION_QUALITY extends Win32Struct {
+    static sizeof => 296
 
-    static packingSize => 8
+    static packingSize => 4
 
     /**
-     * @type {Integer}
+     * @type {DOT11_PHY_TYPE}
      */
     dot11PhyType {
         get => NumGet(this, 0, "int")
@@ -62,9 +61,9 @@ class WLAN_REALTIME_CONNECTION_QUALITY extends Win32Struct
     }
 
     /**
-     * @type {Array<WLAN_REALTIME_CONNECTION_QUALITY_LINK_INFO>}
+     * @type {WLAN_REALTIME_CONNECTION_QUALITY_LINK_INFO}
      */
-    linksInfo{
+    linksInfo {
         get {
             if(!this.HasProp("__linksInfoProxyArray"))
                 this.__linksInfoProxyArray := Win32FixedArray(this.ptr + 24, 1, WLAN_REALTIME_CONNECTION_QUALITY_LINK_INFO, "")

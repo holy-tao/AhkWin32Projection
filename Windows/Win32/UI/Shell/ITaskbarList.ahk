@@ -13,9 +13,8 @@
  * See <a href="https://docs.microsoft.com/windows/desktop/shell/taskbar">Modifying Contents of the Taskbar</a> for more information about using this interface.
  * @see https://learn.microsoft.com/windows/win32/api/shobjidl_core/nn-shobjidl_core-itaskbarlist
  * @namespace Windows.Win32.UI.Shell
- * @version v4.0.30319
  */
-class ITaskbarList extends IUnknown{
+class ITaskbarList extends IUnknown {
 
     static sizeof => A_PtrSize
     /**
@@ -60,7 +59,9 @@ class ITaskbarList extends IUnknown{
      * Any type of window can be added to the taskbar, but it is recommended that the window at least have the <a href="https://docs.microsoft.com/windows/desktop/winmsg/window-styles">WS_CAPTION</a> style.
      * 
      * Any window added with this method must be removed with the <a href="https://docs.microsoft.com/windows/desktop/api/shobjidl_core/nf-shobjidl_core-itaskbarlist-deletetab">DeleteTab</a> method when the added window is destroyed.
-     * @param {HWND} _hwnd 
+     * @param {HWND} _hwnd Type: <b>HWND</b>
+     * 
+     * A handle to the window to be added to the taskbar.
      * @returns {HRESULT} Type: <b>HRESULT</b>
      * 
      * If this method succeeds, it returns <b>S_OK</b>. Otherwise, it returns an <b>HRESULT</b> error code.
@@ -75,7 +76,9 @@ class ITaskbarList extends IUnknown{
 
     /**
      * Deletes an item from the taskbar.
-     * @param {HWND} _hwnd 
+     * @param {HWND} _hwnd Type: <b>HWND</b>
+     * 
+     * A handle to the window to be deleted from the taskbar.
      * @returns {HRESULT} Type: <b>HRESULT</b>
      * 
      * If this method succeeds, it returns <b>S_OK</b>. Otherwise, it returns an <b>HRESULT</b> error code.
@@ -90,7 +93,9 @@ class ITaskbarList extends IUnknown{
 
     /**
      * Activates an item on the taskbar. The window is not actually activated; the window's item on the taskbar is merely displayed as active.
-     * @param {HWND} _hwnd 
+     * @param {HWND} _hwnd Type: <b>HWND</b>
+     * 
+     * A handle to the window on the taskbar to be displayed as active.
      * @returns {HRESULT} Type: <b>HRESULT</b>
      * 
      * If this method succeeds, it returns <b>S_OK</b>. Otherwise, it returns an <b>HRESULT</b> error code.
@@ -107,7 +112,9 @@ class ITaskbarList extends IUnknown{
      * Marks a taskbar item as active but does not visually activate it.
      * @remarks
      * <b>SetActiveAlt</b> marks the item associated with <i>hwnd</i> as the currently active item for the window's process without changing the pressed state of any item. Any user action that would activate a different tab in that process will activate the tab associated with <i>hwnd</i> instead. The active state of the window's item is not guaranteed to be preserved when the process associated with <i>hwnd</i> is not active. To ensure that a given tab is always active, call <b>SetActiveAlt</b> whenever any of your windows are activated. Calling <b>SetActiveAlt</b> with a <b>NULL</b> <i>hwnd</i> clears this state.
-     * @param {HWND} _hwnd 
+     * @param {HWND} _hwnd Type: <b>HWND</b>
+     * 
+     * A handle to the window to be marked as active.
      * @returns {HRESULT} Type: <b>HRESULT</b>
      * 
      * If this method succeeds, it returns <b>S_OK</b>. Otherwise, it returns an <b>HRESULT</b> error code.

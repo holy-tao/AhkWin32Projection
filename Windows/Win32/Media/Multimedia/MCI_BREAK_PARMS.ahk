@@ -20,10 +20,8 @@
  * Disables any existing break key.
  * @see https://learn.microsoft.com/windows/win32/Multimedia/mci-break-parms
  * @namespace Windows.Win32.Media.Multimedia
- * @version v4.0.30319
  */
-class MCI_BREAK_PARMS extends Win32Struct
-{
+class MCI_BREAK_PARMS extends Win32Struct {
     static sizeof => 24
 
     static packingSize => 8
@@ -50,7 +48,7 @@ class MCI_BREAK_PARMS extends Win32Struct
      * Handle to the window that must be the current window for break detection.
      * @type {HWND}
      */
-    hwndBreak{
+    hwndBreak {
         get {
             if(!this.HasProp("__hwndBreak"))
                 this.__hwndBreak := HWND(16, this)

@@ -3,13 +3,10 @@
 
 /**
  * Defines constants that specify a kind of shader cache.
- * @remarks
- * 
  * @see https://learn.microsoft.com/windows/win32/api/d3d12/ne-d3d12-d3d12_shader_cache_kind_flags
  * @namespace Windows.Win32.Graphics.Direct3D12
- * @version v4.0.30319
  */
-class D3D12_SHADER_CACHE_KIND_FLAGS extends Win32BitflagEnum{
+class D3D12_SHADER_CACHE_KIND_FLAGS extends Win32BitflagEnum {
 
     /**
      * Specifies a cache that's managed by Direct3D 12 to store driver compilations of application shaders.

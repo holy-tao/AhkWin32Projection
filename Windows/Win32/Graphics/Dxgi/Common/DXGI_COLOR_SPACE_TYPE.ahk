@@ -183,9 +183,8 @@
  * Subsampling and the layout of the color channels are inferred from the surface format.
  * @see https://learn.microsoft.com/windows/win32/api/dxgicommon/ne-dxgicommon-dxgi_color_space_type
  * @namespace Windows.Win32.Graphics.Dxgi.Common
- * @version v4.0.30319
  */
-class DXGI_COLOR_SPACE_TYPE extends Win32Enum{
+class DXGI_COLOR_SPACE_TYPE extends Win32Enum {
 
     /**
      * <table>

@@ -7,10 +7,8 @@
  * For more details on how configurations work, see [**Diagnostic Data Viewer overview**](/windows/privacy/diagnostic-data-viewer-overview)
  * @see https://learn.microsoft.com/windows/win32/api/diagnosticdataquerytypes/ns-diagnosticdataquerytypes-diagnostic_data_event_transcript_configuration
  * @namespace Windows.Win32.Security.DiagnosticDataQuery
- * @version v4.0.30319
  */
-class DIAGNOSTIC_DATA_EVENT_TRANSCRIPT_CONFIGURATION extends Win32Struct
-{
+class DIAGNOSTIC_DATA_EVENT_TRANSCRIPT_CONFIGURATION extends Win32Struct {
     static sizeof => 12
 
     static packingSize => 4

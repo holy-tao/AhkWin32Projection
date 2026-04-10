@@ -1,8 +1,8 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
-#Include ..\..\Graphics\Direct3D9\IDirect3DSurface9.ahk
 #Include ..\..\System\Com\IUnknown.ahk
+#Include ..\..\Graphics\Direct3D9\IDirect3DSurface9.ahk
 
 /**
  * Provides DirectX Video Acceleration (DXVA) services from a Direct3D device.
@@ -17,9 +17,8 @@
  * </ul>
  * @see https://learn.microsoft.com/windows/win32/api/dxva2api/nn-dxva2api-idirectxvideoaccelerationservice
  * @namespace Windows.Win32.Media.MediaFoundation
- * @version v4.0.30319
  */
-class IDirectXVideoAccelerationService extends IUnknown{
+class IDirectXVideoAccelerationService extends IUnknown {
 
     static sizeof => A_PtrSize
     /**
@@ -47,8 +46,8 @@ class IDirectXVideoAccelerationService extends IUnknown{
      * @param {Integer} Width The width of the surface, in pixels.
      * @param {Integer} Height The height of the surface, in pixels.
      * @param {Integer} BackBuffers The number of back buffers. The method creates <i>BackBuffers</i> + 1 surfaces.
-     * @param {Integer} Format The pixel format, specified as a <b>D3DFORMAT</b> value or FOURCC code. For more information, see the Direct3D documentation.
-     * @param {Integer} Pool The memory pool in which to create the surface, specified as a <b>D3DPOOL</b> value. For more information, see the Direct3D documentation. Decoders should generally use the value D3DPOOL_DEFAULT.
+     * @param {D3DFORMAT} Format The pixel format, specified as a <b>D3DFORMAT</b> value or FOURCC code. For more information, see the Direct3D documentation.
+     * @param {D3DPOOL} Pool The memory pool in which to create the surface, specified as a <b>D3DPOOL</b> value. For more information, see the Direct3D documentation. Decoders should generally use the value D3DPOOL_DEFAULT.
      * @param {Integer} Usage Reserved. Set this value to zero.
      * @param {Integer} DxvaType 
      * @param {Pointer<HANDLE>} pSharedHandle A pointer to a handle that is used to share the surfaces between Direct3D devices. Set this parameter to <b>NULL</b>.

@@ -1,6 +1,7 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
+#Include ..\..\System\Com\IUnknown.ahk
 #Include .\IUIAutomationElement.ahk
 #Include .\IUIAutomationTreeWalker.ahk
 #Include .\IUIAutomationCondition.ahk
@@ -10,7 +11,6 @@
 #Include .\IUIAutomationProxyFactoryEntry.ahk
 #Include .\IUIAutomationProxyFactoryMapping.ahk
 #Include ..\..\Foundation\BSTR.ahk
-#Include ..\..\System\Com\IUnknown.ahk
 
 /**
  * Exposes methods that enable Microsoft UI Automation client applications to discover, access, and filter UI Automation elements.
@@ -35,9 +35,8 @@
  * ```
  * @see https://learn.microsoft.com/windows/win32/api/uiautomationclient/nn-uiautomationclient-iuiautomation
  * @namespace Windows.Win32.UI.Accessibility
- * @version v4.0.30319
  */
-class IUIAutomation extends IUnknown{
+class IUIAutomation extends IUnknown {
 
     static sizeof => A_PtrSize
     /**
@@ -175,7 +174,9 @@ class IUIAutomation extends IUnknown{
 
     /**
      * Retrieves a UI Automation element for the specified window.
-     * @param {HWND} _hwnd 
+     * @param {HWND} _hwnd Type: <b>UIA_HWND</b>
+     * 
+     * The window handle.
      * @returns {IUIAutomationElement} Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/uiautomationclient/nn-uiautomationclient-iuiautomationelement">IUIAutomationElement</a>**</b>
      * 
      * Receives a pointer to the element.
@@ -240,7 +241,9 @@ class IUIAutomation extends IUnknown{
 
     /**
      * Retrieves a UI Automation element for the specified window, prefetches the requested properties and control patterns, and stores the prefetched items in the cache.
-     * @param {HWND} _hwnd 
+     * @param {HWND} _hwnd Type: <b>UIA_HWND</b>
+     * 
+     * The window handle.
      * @param {IUIAutomationCacheRequest} cacheRequest Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/uiautomationclient/nn-uiautomationclient-iuiautomationcacherequest">IUIAutomationCacheRequest</a>*</b>
      * 
      * A pointer to the cache request, which specifies the properties and control patterns to store in the cache.
@@ -408,7 +411,7 @@ class IUIAutomation extends IUnknown{
 
     /**
      * Creates a condition that selects elements that have a property with the specified value.
-     * @param {Integer} propertyId Type: <b>PROPERTYID</b>
+     * @param {UIA_PROPERTY_ID} propertyId Type: <b>PROPERTYID</b>
      * 
      * The property identifier.  For a list of property IDs, see <a href="https://docs.microsoft.com/windows/desktop/WinAuto/uiauto-entry-propids">Property Identifiers</a>.
      * @param {VARIANT} value Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/oaidl/ns-oaidl-variant">VARIANT</a></b>
@@ -426,13 +429,13 @@ class IUIAutomation extends IUnknown{
 
     /**
      * Creates a condition that selects elements that have a property with the specified value, using optional flags.
-     * @param {Integer} propertyId Type: <b>PROPERTYID</b>
+     * @param {UIA_PROPERTY_ID} propertyId Type: <b>PROPERTYID</b>
      * 
      * The property identifier.  For a list of property IDs, see <a href="https://docs.microsoft.com/windows/desktop/WinAuto/uiauto-entry-propids">Property Identifiers</a>.
      * @param {VARIANT} value Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/windef/ns-windef-rect">RECT</a></b>
      * 
      * The property value.
-     * @param {Integer} flags 
+     * @param {PropertyConditionFlags} flags 
      * @returns {IUIAutomationCondition} Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/uiautomationclient/nn-uiautomationclient-iuiautomationcondition">IUIAutomationCondition</a>**</b>
      * 
      * Receives a pointer to the new condition.
@@ -581,13 +584,13 @@ class IUIAutomation extends IUnknown{
      * Registers a method that handles Microsoft UI Automation events.Note  Before implementing an event handler, you should be familiar with the threading issues described in Understanding Threading Issues.
      * @remarks
      * A UI Automation client should not use multiple threads to add or remove event handlers. Unexpected behavior can result if one event handler is being added or removed while another is being added or removed in the same client process.
-     * @param {Integer} eventId Type: <b>EVENTID</b>
+     * @param {UIA_EVENT_ID} eventId Type: <b>EVENTID</b>
      * 
      * The identifier of the event that the method handles. For a list of event IDs, see <a href="https://docs.microsoft.com/windows/desktop/WinAuto/uiauto-event-ids">Event Identifiers</a>.
      * @param {IUIAutomationElement} element Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/uiautomationclient/nn-uiautomationclient-iuiautomationelement">IUIAutomationElement</a>*</b>
      * 
      * A pointer to the UI Automation element to associate with the event handler.
-     * @param {Integer} scope 
+     * @param {TreeScope} scope 
      * @param {IUIAutomationCacheRequest} cacheRequest Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/uiautomationclient/nn-uiautomationclient-iuiautomationcacherequest">IUIAutomationCacheRequest</a>*</b>
      * 
      * A pointer to a cache request, or <b>NULL</b> if no caching is wanted.
@@ -614,7 +617,7 @@ class IUIAutomation extends IUnknown{
      * is to follow the Component Object Model (COM) standard and avoid destroying the event handler object until its reference count 
      * has reached zero. Destroying an event handler immediately after unsubscribing for events may result in an 
      * access violation if an event is delivered late.
-     * @param {Integer} eventId Type: <b>EVENTID</b>
+     * @param {UIA_EVENT_ID} eventId Type: <b>EVENTID</b>
      * 
      * The identifier of the event being handled. For a list of event IDs, see <a href="https://docs.microsoft.com/windows/desktop/WinAuto/uiauto-event-ids">Event Identifiers</a>.
      * @param {IUIAutomationElement} element Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/uiautomationclient/nn-uiautomationclient-iuiautomationelement">IUIAutomationElement</a>*</b>
@@ -645,14 +648,14 @@ class IUIAutomation extends IUnknown{
      * @param {IUIAutomationElement} element Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/uiautomationclient/nn-uiautomationclient-iuiautomationelement">IUIAutomationElement</a>*</b>
      * 
      * A pointer to the UI Automation element associated with the event handler.
-     * @param {Integer} scope 
+     * @param {TreeScope} scope 
      * @param {IUIAutomationCacheRequest} cacheRequest Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/uiautomationclient/nn-uiautomationclient-iuiautomationcacherequest">IUIAutomationCacheRequest</a>*</b>
      * 
      * A pointer to a cache request, or <b>NULL</b> if no caching is wanted.
      * @param {IUIAutomationPropertyChangedEventHandler} handler Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/uiautomationclient/nn-uiautomationclient-iuiautomationpropertychangedeventhandler">IUIAutomationPropertyChangedEventHandler</a>*</b>
      * 
      * A pointer to the object that handles the event.
-     * @param {Pointer<Integer>} propertyArray Type: <b>PROPERTYID*</b>
+     * @param {Pointer<UIA_PROPERTY_ID>} propertyArray Type: <b>PROPERTYID*</b>
      * 
      * A pointer to the identifiers of the UI Automation properties of interest.  For a list of property IDs, see <a href="https://docs.microsoft.com/windows/desktop/WinAuto/uiauto-entry-propids">Property Identifiers</a>.
      * @param {Integer} propertyCount Type: <b>int</b>
@@ -680,7 +683,7 @@ class IUIAutomation extends IUnknown{
      * @param {IUIAutomationElement} element Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/uiautomationclient/nn-uiautomationclient-iuiautomationelement">IUIAutomationElement</a>*</b>
      * 
      * A pointer to the UI Automation element associated with the event handler.
-     * @param {Integer} scope 
+     * @param {TreeScope} scope 
      * @param {IUIAutomationCacheRequest} cacheRequest Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/uiautomationclient/nn-uiautomationclient-iuiautomationcacherequest">IUIAutomationCacheRequest</a>*</b>
      * 
      * A pointer to a cache request, or <b>NULL</b> if no caching is wanted.
@@ -733,7 +736,7 @@ class IUIAutomation extends IUnknown{
      * @param {IUIAutomationElement} element Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/uiautomationclient/nn-uiautomationclient-iuiautomationelement">IUIAutomationElement</a>*</b>
      * 
      * A pointer to the UI Automation element associated with the event handler.
-     * @param {Integer} scope 
+     * @param {TreeScope} scope 
      * @param {IUIAutomationCacheRequest} cacheRequest Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/uiautomationclient/nn-uiautomationclient-iuiautomationcacherequest">IUIAutomationCacheRequest</a>*</b>
      * 
      * A pointer to a cache request, or <b>NULL</b> if no caching is wanted.
@@ -843,19 +846,21 @@ class IUIAutomation extends IUnknown{
 
     /**
      * Converts an array of integers to a SAFEARRAY.
-     * @param {Pointer<Integer>} array Type: <b>int*</b>
+     * @param {Pointer<Integer>} _array Type: <b>int*</b>
      * 
      * A pointer to an array of integers.
      * @param {Integer} arrayCount Type: <b>int</b>
      * 
      * The number of elements in <i>array</i>.
-     * @returns {Pointer<SAFEARRAY>} 
+     * @returns {Pointer<SAFEARRAY>} Type: <b><a href="https://docs.microsoft.com/windows/win32/api/oaidl/ns-oaidl-safearray">SAFEARRAY</a>**</b>
+     * 
+     * Receives a pointer to the allocated SAFEARRAY.
      * @see https://learn.microsoft.com/windows/win32/api/uiautomationclient/nf-uiautomationclient-iuiautomation-intnativearraytosafearray
      */
-    IntNativeArrayToSafeArray(array, arrayCount) {
-        arrayMarshal := array is VarRef ? "int*" : "ptr"
+    IntNativeArrayToSafeArray(_array, arrayCount) {
+        _arrayMarshal := _array is VarRef ? "int*" : "ptr"
 
-        result := ComCall(42, this, arrayMarshal, array, "int", arrayCount, "ptr*", &_safeArray := 0, "HRESULT")
+        result := ComCall(42, this, _arrayMarshal, _array, "int", arrayCount, "ptr*", &_safeArray := 0, "HRESULT")
         return _safeArray
     }
 
@@ -864,7 +869,7 @@ class IUIAutomation extends IUnknown{
      * @param {Pointer<SAFEARRAY>} intArray Type: <b><a href="https://docs.microsoft.com/windows/win32/api/oaidl/ns-oaidl-safearray">SAFEARRAY</a>*</b>
      * 
      * A pointer to the SAFEARRAY to convert.
-     * @param {Pointer<Pointer<Integer>>} array Type: <b>int**</b>
+     * @param {Pointer<Pointer<Integer>>} _array Type: <b>int**</b>
      * 
      * Receives a pointer to the allocated array.
      * @returns {Integer} Type: <b>int*</b>
@@ -872,10 +877,10 @@ class IUIAutomation extends IUnknown{
      * Receives the number of elements in <i>array</i>.
      * @see https://learn.microsoft.com/windows/win32/api/uiautomationclient/nf-uiautomationclient-iuiautomation-intsafearraytonativearray
      */
-    IntSafeArrayToNativeArray(intArray, array) {
-        arrayMarshal := array is VarRef ? "ptr*" : "ptr"
+    IntSafeArrayToNativeArray(intArray, _array) {
+        _arrayMarshal := _array is VarRef ? "ptr*" : "ptr"
 
-        result := ComCall(43, this, "ptr", intArray, arrayMarshal, array, "int*", &arrayCount := 0, "HRESULT")
+        result := ComCall(43, this, "ptr", intArray, _arrayMarshal, _array, "int*", &arrayCount := 0, "HRESULT")
         return arrayCount
     }
 
@@ -966,7 +971,9 @@ class IUIAutomation extends IUnknown{
      * The programmatic name is intended for debugging and diagnostic purposes only. The string is not localized.
      * 
      * This property should not be used in string comparisons. To determine whether two properties are the same, compare the property identifiers directly.
-     * @param {Integer} _property 
+     * @param {UIA_PROPERTY_ID} _property Type: <b>PROPERTYID</b>
+     * 
+     * The property identifier.  For a list of property IDs, see <a href="https://docs.microsoft.com/windows/desktop/WinAuto/uiauto-entry-propids">Property Identifiers</a>.
      * @returns {BSTR} Type: <b>BSTR*</b>
      * 
      * Receives the registered programmatic name.
@@ -984,7 +991,7 @@ class IUIAutomation extends IUnknown{
      * The programmatic name is intended for debugging and diagnostic purposes only. The string is not localized.
      * 
      * This property should not be used in string comparisons. To determine whether two control patterns are the same, compare the control pattern identifiers directly.
-     * @param {Integer} pattern Type: <b>PATTERNID</b>
+     * @param {UIA_PATTERN_ID} pattern Type: <b>PATTERNID</b>
      * 
      * The identifier of the control pattern. For a list of control pattern IDs, see <a href="https://docs.microsoft.com/windows/desktop/WinAuto/uiauto-controlpattern-ids">Control Pattern Identifiers</a>.
      * @returns {BSTR} Type: <b>BSTR*</b>

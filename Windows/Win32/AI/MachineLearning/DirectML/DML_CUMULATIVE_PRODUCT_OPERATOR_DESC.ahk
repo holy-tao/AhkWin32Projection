@@ -1,5 +1,7 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\..\Win32Struct.ahk
+#Include .\DML_TENSOR_DESC.ahk
+#Include .\DML_AXIS_DIRECTION.ahk
 
 /**
  * Multiplies the elements of a tensor along an axis, writing the running tally of the product into the output tensor.
@@ -7,10 +9,8 @@
  * This operator supports in-place execution, meaning that the output tensor is permitted to alias *InputTensor* during binding.
  * @see https://learn.microsoft.com/windows/win32/api/directml/ns-directml-dml_cumulative_product_operator_desc
  * @namespace Windows.Win32.AI.MachineLearning.DirectML
- * @version v4.0.30319
  */
-class DML_CUMULATIVE_PRODUCT_OPERATOR_DESC extends Win32Struct
-{
+class DML_CUMULATIVE_PRODUCT_OPERATOR_DESC extends Win32Struct {
     static sizeof => 32
 
     static packingSize => 8
@@ -54,7 +54,7 @@ class DML_CUMULATIVE_PRODUCT_OPERATOR_DESC extends Win32Struct
      * Type: **[DML_AXIS_DIRECTION](/windows/win32/api/directml/ne-directml-dml_axis_direction)**
      * 
      * One of the values of the [DML_AXIS_DIRECTION](/windows/win32/api/directml/ne-directml-dml_axis_direction) enumeration. If set to **DML_AXIS_DIRECTION_INCREASING**, then the product occurs by traversing the tensor along the specified axis by ascending element index. If set to **DML_AXIS_DIRECTION_DECREASING**, the reverse is true and the product occurs by traversing elements by descending index.
-     * @type {Integer}
+     * @type {DML_AXIS_DIRECTION}
      */
     AxisDirection {
         get => NumGet(this, 20, "int")

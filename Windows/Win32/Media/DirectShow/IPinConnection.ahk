@@ -7,9 +7,8 @@
  * This interface provides methods for reconnecting an input pin while the filter is still running.
  * @see https://learn.microsoft.com/windows/win32/api/strmif/nn-strmif-ipinconnection
  * @namespace Windows.Win32.Media.DirectShow
- * @version v4.0.30319
  */
-class IPinConnection extends IUnknown{
+class IPinConnection extends IUnknown {
 
     static sizeof => A_PtrSize
     /**

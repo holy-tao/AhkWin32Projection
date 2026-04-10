@@ -5,10 +5,8 @@
  * Contains output of a repair copies operation returned from the FSCTL_REPAIR_COPIES control code.
  * @see https://learn.microsoft.com/windows/win32/api/winioctl/ns-winioctl-repair_copies_output
  * @namespace Windows.Win32.System.Ioctl
- * @version v4.0.30319
  */
-class REPAIR_COPIES_OUTPUT extends Win32Struct
-{
+class REPAIR_COPIES_OUTPUT extends Win32Struct {
     static sizeof => 16
 
     static packingSize => 8

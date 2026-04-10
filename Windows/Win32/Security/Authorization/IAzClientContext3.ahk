@@ -1,21 +1,19 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
-#Include ..\..\Foundation\BSTR.ahk
+#Include .\IAzClientContext2.ahk
 #Include .\IAzOperations.ahk
 #Include .\IAzTasks.ahk
 #Include .\IAzBizRuleParameters.ahk
 #Include .\IAzBizRuleInterfaces.ahk
 #Include ..\..\System\Variant\VARIANT.ahk
-#Include .\IAzClientContext2.ahk
 
 /**
  * Extends the IAzClientContext2 interface.
  * @see https://learn.microsoft.com/windows/win32/api/azroles/nn-azroles-iazclientcontext3
  * @namespace Windows.Win32.Security.Authorization
- * @version v4.0.30319
  */
-class IAzClientContext3 extends IAzClientContext2{
+class IAzClientContext3 extends IAzClientContext2 {
 
     static sizeof => A_PtrSize
     /**

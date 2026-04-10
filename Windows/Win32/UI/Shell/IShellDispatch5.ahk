@@ -7,9 +7,8 @@
  * Extends the IShellDispatch4 object.
  * @see https://learn.microsoft.com/windows/win32/shell/ishelldispatch5
  * @namespace Windows.Win32.UI.Shell
- * @version v4.0.30319
  */
-class IShellDispatch5 extends IShellDispatch4{
+class IShellDispatch5 extends IShellDispatch4 {
 
     static sizeof => A_PtrSize
     /**

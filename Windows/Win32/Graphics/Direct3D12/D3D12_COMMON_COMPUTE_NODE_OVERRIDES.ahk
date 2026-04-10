@@ -1,12 +1,12 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
+#Include .\D3D12_NODE_ID.ahk
+#Include .\D3D12_NODE_OUTPUT_OVERRIDES.ahk
 
 /**
  * @namespace Windows.Win32.Graphics.Direct3D12
- * @version v4.0.30319
  */
-class D3D12_COMMON_COMPUTE_NODE_OVERRIDES extends Win32Struct
-{
+class D3D12_COMMON_COMPUTE_NODE_OVERRIDES extends Win32Struct {
     static sizeof => 48
 
     static packingSize => 8

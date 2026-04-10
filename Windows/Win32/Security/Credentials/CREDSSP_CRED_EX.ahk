@@ -1,19 +1,18 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
+#Include .\CREDSPP_SUBMIT_TYPE.ahk
 #Include .\CREDSSP_CRED.ahk
 
 /**
  * @namespace Windows.Win32.Security.Credentials
- * @version v4.0.30319
  */
-class CREDSSP_CRED_EX extends Win32Struct
-{
+class CREDSSP_CRED_EX extends Win32Struct {
     static sizeof => 40
 
     static packingSize => 8
 
     /**
-     * @type {Integer}
+     * @type {CREDSPP_SUBMIT_TYPE}
      */
     Type {
         get => NumGet(this, 0, "int")
@@ -47,7 +46,7 @@ class CREDSSP_CRED_EX extends Win32Struct
     /**
      * @type {CREDSSP_CRED}
      */
-    Cred{
+    Cred {
         get {
             if(!this.HasProp("__Cred"))
                 this.__Cred := CREDSSP_CRED(16, this)

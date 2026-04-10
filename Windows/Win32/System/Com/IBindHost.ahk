@@ -1,14 +1,13 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
-#Include .\IMoniker.ahk
 #Include .\IUnknown.ahk
+#Include .\IMoniker.ahk
 
 /**
  * @namespace Windows.Win32.System.Com
- * @version v4.0.30319
  */
-class IBindHost extends IUnknown{
+class IBindHost extends IUnknown {
 
     static sizeof => A_PtrSize
     /**

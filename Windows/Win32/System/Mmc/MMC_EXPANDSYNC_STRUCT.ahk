@@ -8,10 +8,8 @@
  * <b>MMCN_EXPANDSYNC</b>.
  * @see https://learn.microsoft.com/windows/win32/api/mmc/ns-mmc-mmc_expandsync_struct
  * @namespace Windows.Win32.System.Mmc
- * @version v4.0.30319
  */
-class MMC_EXPANDSYNC_STRUCT extends Win32Struct
-{
+class MMC_EXPANDSYNC_STRUCT extends Win32Struct {
     static sizeof => 16
 
     static packingSize => 8

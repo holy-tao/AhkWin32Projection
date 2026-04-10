@@ -14,9 +14,8 @@
  * Implemented on a UI Automation provider that must support the <a href="https://docs.microsoft.com/windows/desktop/WinAuto/uiauto-implementingtable">Table</a> control pattern and <a href="https://docs.microsoft.com/windows/desktop/WinAuto/uiauto-implementinggrid">Grid</a> control pattern.
  * @see https://learn.microsoft.com/windows/win32/api/uiautomationcore/nn-uiautomationcore-itableprovider
  * @namespace Windows.Win32.UI.Accessibility
- * @version v4.0.30319
  */
-class ITableProvider extends IUnknown{
+class ITableProvider extends IUnknown {
 
     static sizeof => A_PtrSize
     /**
@@ -38,7 +37,7 @@ class ITableProvider extends IUnknown{
     static VTableNames => ["GetRowHeaders", "GetColumnHeaders", "get_RowOrColumnMajor"]
 
     /**
-     * @type {Integer} 
+     * @type {RowOrColumnMajor} 
      */
     RowOrColumnMajor {
         get => this.get_RowOrColumnMajor()
@@ -72,7 +71,7 @@ class ITableProvider extends IUnknown{
 
     /**
      * Specifies the primary direction of traversal for the table.
-     * @returns {Integer} 
+     * @returns {RowOrColumnMajor} 
      * @see https://learn.microsoft.com/windows/win32/api/uiautomationcore/nf-uiautomationcore-itableprovider-get_roworcolumnmajor
      */
     get_RowOrColumnMajor() {

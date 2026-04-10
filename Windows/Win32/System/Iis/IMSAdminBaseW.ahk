@@ -1,16 +1,14 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
+#Include ..\Com\IUnknown.ahk
 #Include .\METADATA_HANDLE_INFO.ahk
 #Include ..\..\Foundation\FILETIME.ahk
-#Include .\IMSAdminBaseW.ahk
-#Include ..\Com\IUnknown.ahk
 
 /**
  * @namespace Windows.Win32.System.Iis
- * @version v4.0.30319
  */
-class IMSAdminBaseW extends IUnknown{
+class IMSAdminBaseW extends IUnknown {
 
     static sizeof => A_PtrSize
     /**

@@ -7,9 +7,8 @@
  * Note  This interface is obsolete and should not be used. Manages reconstructed video frames.
  * @see https://learn.microsoft.com/windows/win32/api/wmcodecdsp/nn-wmcodecdsp-iwmvideodecoderreconbuffer
  * @namespace Windows.Win32.Media.MediaFoundation
- * @version v4.0.30319
  */
-class IWMVideoDecoderReconBuffer extends IUnknown{
+class IWMVideoDecoderReconBuffer extends IUnknown {
 
     static sizeof => A_PtrSize
     /**

@@ -5,10 +5,8 @@
  * Represents metadata header.
  * @see https://learn.microsoft.com/windows/win32/api/wincodecsdk/ns-wincodecsdk-wicmetadataheader
  * @namespace Windows.Win32.Graphics.Imaging
- * @version v4.0.30319
  */
-class WICMetadataHeader extends Win32Struct
-{
+class WICMetadataHeader extends Win32Struct {
     static sizeof => 32
 
     static packingSize => 8

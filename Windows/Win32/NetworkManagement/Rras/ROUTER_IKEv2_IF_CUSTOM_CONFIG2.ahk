@@ -1,14 +1,14 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
 #Include ..\..\Security\Cryptography\CRYPT_INTEGER_BLOB.ahk
+#Include .\ROUTER_CUSTOM_IKEv2_POLICY0.ahk
 #Include .\MPR_VPN_TRAFFIC_SELECTORS.ahk
+#Include .\MPR_VPN_TRAFFIC_SELECTOR.ahk
 
 /**
  * @namespace Windows.Win32.NetworkManagement.Rras
- * @version v4.0.30319
  */
-class ROUTER_IKEv2_IF_CUSTOM_CONFIG2 extends Win32Struct
-{
+class ROUTER_IKEv2_IF_CUSTOM_CONFIG2 extends Win32Struct {
     static sizeof => 80
 
     static packingSize => 8
@@ -32,7 +32,7 @@ class ROUTER_IKEv2_IF_CUSTOM_CONFIG2 extends Win32Struct
     /**
      * @type {CRYPT_INTEGER_BLOB}
      */
-    certificateName{
+    certificateName {
         get {
             if(!this.HasProp("__certificateName"))
                 this.__certificateName := CRYPT_INTEGER_BLOB(8, this)
@@ -51,7 +51,7 @@ class ROUTER_IKEv2_IF_CUSTOM_CONFIG2 extends Win32Struct
     /**
      * @type {CRYPT_INTEGER_BLOB}
      */
-    certificateHash{
+    certificateHash {
         get {
             if(!this.HasProp("__certificateHash"))
                 this.__certificateHash := CRYPT_INTEGER_BLOB(32, this)
@@ -70,7 +70,7 @@ class ROUTER_IKEv2_IF_CUSTOM_CONFIG2 extends Win32Struct
     /**
      * @type {MPR_VPN_TRAFFIC_SELECTORS}
      */
-    vpnTrafficSelectors{
+    vpnTrafficSelectors {
         get {
             if(!this.HasProp("__vpnTrafficSelectors"))
                 this.__vpnTrafficSelectors := MPR_VPN_TRAFFIC_SELECTORS(56, this)

@@ -4,37 +4,34 @@
 
 /**
  * @namespace Windows.Win32.Devices.Tapi
- * @version v4.0.30319
  */
-class NSID extends Win32Struct
-{
-    static sizeof => 168
+class NSID extends Win32Struct {
+    static sizeof => 104
 
     static packingSize => 4
 
     class _address_e__Union extends Win32Struct {
-        static sizeof => 138
+        static sizeof => 76
         static packingSize => 4
 
         /**
          * @type {ADDRALIAS}
          */
-        alias{
+        alias {
             get {
                 if(!this.HasProp("__alias"))
                     this.__alias := ADDRALIAS(0, this)
                 return this.__alias
             }
         }
-    
+
         /**
          * @type {String}
          */
         rgchInterNet {
-            get => StrGet(this.ptr + 0, 0, "UTF-16")
-            set => StrPut(value, this.ptr + 0, 0, "UTF-16")
+            get => StrGet(this.ptr + 0, 0, "UTF-8")
+            set => StrPut(value, this.ptr + 0, 0, "UTF-8")
         }
-    
     }
 
     /**
@@ -46,9 +43,9 @@ class NSID extends Win32Struct
     }
 
     /**
-     * @type {Array<Byte>}
+     * @type {Array<Integer>}
      */
-    uchType{
+    uchType {
         get {
             if(!this.HasProp("__uchTypeProxyArray"))
                 this.__uchTypeProxyArray := Win32FixedArray(this.ptr + 4, 16, Primitive, "char")
@@ -75,10 +72,10 @@ class NSID extends Win32Struct
     /**
      * @type {_address_e__Union}
      */
-    address{
+    address {
         get {
             if(!this.HasProp("__address"))
-                this.__address := %this.__Class%._address_e__Union(28, this)
+                this.__address := NSID._address_e__Union(28, this)
             return this.__address
         }
     }

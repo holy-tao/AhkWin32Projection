@@ -1,14 +1,13 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
+#Include .\ALG_ID.ahk
 
 /**
  * The SCHANNEL_ALG structure contains algorithm and key size information. It is used as the structure passed as pbData in CryptSetKeyParam when dwParam is set to KP_SCHANNEL_ALG.
  * @see https://learn.microsoft.com/windows/win32/api/wincrypt/ns-wincrypt-schannel_alg
  * @namespace Windows.Win32.Security.Cryptography
- * @version v4.0.30319
  */
-class SCHANNEL_ALG extends Win32Struct
-{
+class SCHANNEL_ALG extends Win32Struct {
     static sizeof => 20
 
     static packingSize => 4
@@ -63,7 +62,7 @@ class SCHANNEL_ALG extends Win32Struct
      * SCHANNEL_MAC_KEYs can be either MD5 or SHA.
      * 
      * SCHANNEL_ENC_KEYs can be RC4, DES, 3DES, or RC2.
-     * @type {Integer}
+     * @type {ALG_ID}
      */
     Algid {
         get => NumGet(this, 4, "uint")

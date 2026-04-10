@@ -11,9 +11,8 @@
  * For more information on the Windows 11 APIs for the Audio Processing Objects (APOs) that can ship with audio drivers, see [Windows 11 APIs for Audio Processing Objects](/windows-hardware/drivers/audio/windows-11-apis-for-audio-processing-objects).
  * @see https://learn.microsoft.com/windows/win32/api/mmdeviceapi/nn-mmdeviceapi-iaudiosystemeffectspropertychangenotificationclient
  * @namespace Windows.Win32.Media.Audio
- * @version v4.0.30319
  */
-class IAudioSystemEffectsPropertyChangeNotificationClient extends IUnknown{
+class IAudioSystemEffectsPropertyChangeNotificationClient extends IUnknown {
 
     static sizeof => A_PtrSize
     /**
@@ -42,7 +41,7 @@ class IAudioSystemEffectsPropertyChangeNotificationClient extends IUnknown{
      * This method will not be called if the registry is manually edited. A notification is generated only when [IPropertyStore::SetValue](../propsys/nf-propsys-ipropertystore-setvalue.md) is called on the associated default, user, or volatile property store.
      * 
      * For more information on the Windows 11 APIs for the Audio Processing Objects (APOs) that can ship with audio drivers, see [Windows 11 APIs for Audio Processing Objects](/windows-hardware/drivers/audio/windows-11-apis-for-audio-processing-objects).
-     * @param {Integer} type A value from the [AUDIO_SYSTEMEFFECTS_PROPERTYSTORE_TYPE](ne-mmdeviceapi-audio_systemeffects_propertystore_type.md) specifying the type of the property store that triggered the callback.
+     * @param {AUDIO_SYSTEMEFFECTS_PROPERTYSTORE_TYPE} type A value from the [AUDIO_SYSTEMEFFECTS_PROPERTYSTORE_TYPE](ne-mmdeviceapi-audio_systemeffects_propertystore_type.md) specifying the type of the property store that triggered the callback.
      * @param {PROPERTYKEY} key A [PROPERTYKEY](../wtypes/ns-wtypes-propertykey.md) structure identifying the property that changed.
      * @returns {HRESULT} 
      * @see https://learn.microsoft.com/windows/win32/api/mmdeviceapi/nf-mmdeviceapi-iaudiosystemeffectspropertychangenotificationclient-onpropertychanged

@@ -10,9 +10,8 @@
  * <div> </div>
  * @see https://learn.microsoft.com/windows/win32/api/vdshwprv/ne-vdshwprv-vds_hwprovider_type
  * @namespace Windows.Win32.Storage.VirtualDiskService
- * @version v4.0.30319
  */
-class VDS_HWPROVIDER_TYPE extends Win32Enum{
+class VDS_HWPROVIDER_TYPE extends Win32Enum {
 
     /**
      * The type is unknown.

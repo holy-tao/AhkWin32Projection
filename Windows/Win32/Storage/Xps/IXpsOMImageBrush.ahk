@@ -1,10 +1,9 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
+#Include .\IXpsOMTileBrush.ahk
 #Include .\IXpsOMImageResource.ahk
 #Include .\IXpsOMColorProfileResource.ahk
-#Include .\IXpsOMImageBrush.ahk
-#Include .\IXpsOMTileBrush.ahk
 
 /**
  * A brush that uses a raster image as a source.
@@ -58,9 +57,8 @@
  * ```
  * @see https://learn.microsoft.com/windows/win32/api/xpsobjectmodel/nn-xpsobjectmodel-ixpsomimagebrush
  * @namespace Windows.Win32.Storage.Xps
- * @version v4.0.30319
  */
-class IXpsOMImageBrush extends IXpsOMTileBrush{
+class IXpsOMImageBrush extends IXpsOMTileBrush {
 
     static sizeof => A_PtrSize
     /**

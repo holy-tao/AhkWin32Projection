@@ -3,10 +3,8 @@
 
 /**
  * @namespace Windows.Win32.System.SystemServices
- * @version v4.0.30319
  */
-class IMAGE_EXPORT_DIRECTORY extends Win32Struct
-{
+class IMAGE_EXPORT_DIRECTORY extends Win32Struct {
     static sizeof => 40
 
     static packingSize => 4

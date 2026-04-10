@@ -2,12 +2,12 @@
 #Include ..\..\..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\..\..\Guid.ahk
 #Include ..\..\..\Com\IUnknown.ahk
+#Include ..\..\..\..\Foundation\BSTR.ahk
 
 /**
  * @namespace Windows.Win32.System.Diagnostics.Debug.Extensions
- * @version v4.0.30319
  */
-class IDataModelScriptDebugBreakpoint extends IUnknown{
+class IDataModelScriptDebugBreakpoint extends IUnknown {
 
     static sizeof => A_PtrSize
     /**

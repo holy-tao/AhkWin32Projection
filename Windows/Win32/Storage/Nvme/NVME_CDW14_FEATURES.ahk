@@ -4,14 +4,10 @@
 
 /**
  * The NVME_CDW14_FEATURES structure contains parameters for the Set Features command that sets the attributes of the specified feature.
- * @remarks
- * 
  * @see https://learn.microsoft.com/windows/win32/api/nvme/ns-nvme-nvme_cdw14_features
  * @namespace Windows.Win32.Storage.Nvme
- * @version v4.0.30319
  */
-class NVME_CDW14_FEATURES extends Win32Struct
-{
+class NVME_CDW14_FEATURES extends Win32Struct {
     static sizeof => 12
 
     static packingSize => 4
@@ -20,7 +16,7 @@ class NVME_CDW14_FEATURES extends Win32Struct
      * Specifies an [NVME_CDW14_FEATURE_HOST_MEMORY_BUFFER](ns-nvme-nvme_cdw14_feature_host_memory_buffer.md) structure containing a value that specifies the upper 32 bits of the physical location of the Host Memory Descriptor List.
      * @type {NVME_CDW14_FEATURE_HOST_MEMORY_BUFFER}
      */
-    HostMemoryBuffer{
+    HostMemoryBuffer {
         get {
             if(!this.HasProp("__HostMemoryBuffer"))
                 this.__HostMemoryBuffer := NVME_CDW14_FEATURE_HOST_MEMORY_BUFFER(0, this)
@@ -29,7 +25,6 @@ class NVME_CDW14_FEATURES extends Win32Struct
     }
 
     /**
-     * 
      * @type {Integer}
      */
     AsUlong {

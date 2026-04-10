@@ -3,10 +3,8 @@
 
 /**
  * @namespace Windows.Win32.NetworkManagement.Dhcp
- * @version v4.0.30319
  */
-class SCOPE_MIB_INFO_VQ extends Win32Struct
-{
+class SCOPE_MIB_INFO_VQ extends Win32Struct {
     static sizeof => 40
 
     static packingSize => 4

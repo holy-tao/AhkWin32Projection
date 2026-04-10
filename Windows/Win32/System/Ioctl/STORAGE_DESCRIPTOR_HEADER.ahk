@@ -9,10 +9,8 @@
  *      the buffer immediately following this structure.
  * @see https://learn.microsoft.com/windows/win32/api/winioctl/ns-winioctl-storage_descriptor_header
  * @namespace Windows.Win32.System.Ioctl
- * @version v4.0.30319
  */
-class STORAGE_DESCRIPTOR_HEADER extends Win32Struct
-{
+class STORAGE_DESCRIPTOR_HEADER extends Win32Struct {
     static sizeof => 8
 
     static packingSize => 4

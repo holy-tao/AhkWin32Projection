@@ -5,9 +5,8 @@
  * Contains flags for the IMFMediaEngineClassFactory::CreateInstance method.
  * @see https://learn.microsoft.com/windows/win32/api/mfmediaengine/ne-mfmediaengine-mf_media_engine_createflags
  * @namespace Windows.Win32.Media.MediaFoundation
- * @version v4.0.30319
  */
-class MF_MEDIA_ENGINE_CREATEFLAGS extends Win32Enum{
+class MF_MEDIA_ENGINE_CREATEFLAGS extends Win32Enum {
 
     /**
      * The Media Engine will play audio only. It will not play video.

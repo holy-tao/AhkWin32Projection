@@ -1,18 +1,17 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
+#Include .\HandleType.ahk
 
 /**
  * @namespace Windows.Win32.Security.Cryptography
- * @version v4.0.30319
  */
-class INFORMATIONCARD_CRYPTO_HANDLE extends Win32Struct
-{
+class INFORMATIONCARD_CRYPTO_HANDLE extends Win32Struct {
     static sizeof => 24
 
     static packingSize => 8
 
     /**
-     * @type {Integer}
+     * @type {HandleType}
      */
     type {
         get => NumGet(this, 0, "int")

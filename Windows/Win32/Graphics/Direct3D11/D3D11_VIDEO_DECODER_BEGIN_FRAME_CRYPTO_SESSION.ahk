@@ -1,5 +1,6 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
+#Include .\ID3D11CryptoSession.ahk
 
 /**
  * Provides data to the ID3D11VideoContext::DecoderBeginFrame method.
@@ -7,10 +8,8 @@
  * This structure is passed in the <i>pContentKey</i> parameter of the <a href="https://docs.microsoft.com/windows/desktop/api/d3d11/nf-d3d11-id3d11videocontext-decoderbeginframe">ID3D11VideoContext::DecoderBeginFrame</a> function when <a href="https://docs.microsoft.com/windows/desktop/medfound/direct3d-11-video-guids">D3D11_DECODER_ENCRYPTION_HW_CENC</a>  is specified in the <b>guidConfigBitstreamEncryption</b> member of the <a href="https://docs.microsoft.com/windows/desktop/api/d3d11/ns-d3d11-d3d11_video_decoder_config">D3D11_VIDEO_DECODER_CONFIG</a> structure when creating the video decoder interface.
  * @see https://learn.microsoft.com/windows/win32/api/d3d11_1/ns-d3d11_1-d3d11_video_decoder_begin_frame_crypto_session
  * @namespace Windows.Win32.Graphics.Direct3D11
- * @version v4.0.30319
  */
-class D3D11_VIDEO_DECODER_BEGIN_FRAME_CRYPTO_SESSION extends Win32Struct
-{
+class D3D11_VIDEO_DECODER_BEGIN_FRAME_CRYPTO_SESSION extends Win32Struct {
     static sizeof => 48
 
     static packingSize => 8
@@ -63,7 +62,6 @@ class D3D11_VIDEO_DECODER_BEGIN_FRAME_CRYPTO_SESSION extends Win32Struct
     }
 
     /**
-     * 
      * @type {Pointer<Void>}
      */
     pPrivateData {

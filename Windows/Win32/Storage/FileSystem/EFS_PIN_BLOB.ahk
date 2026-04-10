@@ -3,10 +3,8 @@
 
 /**
  * @namespace Windows.Win32.Storage.FileSystem
- * @version v4.0.30319
  */
-class EFS_PIN_BLOB extends Win32Struct
-{
+class EFS_PIN_BLOB extends Win32Struct {
     static sizeof => 16
 
     static packingSize => 8

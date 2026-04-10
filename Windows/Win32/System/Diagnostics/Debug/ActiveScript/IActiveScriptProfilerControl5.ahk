@@ -1,14 +1,13 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\..\..\Guid.ahk
-#Include .\IActiveScriptProfilerHeapEnum.ahk
 #Include .\IActiveScriptProfilerControl4.ahk
+#Include .\IActiveScriptProfilerHeapEnum.ahk
 
 /**
  * @namespace Windows.Win32.System.Diagnostics.Debug.ActiveScript
- * @version v4.0.30319
  */
-class IActiveScriptProfilerControl5 extends IActiveScriptProfilerControl4{
+class IActiveScriptProfilerControl5 extends IActiveScriptProfilerControl4 {
 
     static sizeof => A_PtrSize
     /**
@@ -31,7 +30,7 @@ class IActiveScriptProfilerControl5 extends IActiveScriptProfilerControl4{
 
     /**
      * 
-     * @param {Integer} enumFlags 
+     * @param {PROFILER_HEAP_ENUM_FLAGS} enumFlags 
      * @returns {IActiveScriptProfilerHeapEnum} 
      */
     EnumHeap2(enumFlags) {

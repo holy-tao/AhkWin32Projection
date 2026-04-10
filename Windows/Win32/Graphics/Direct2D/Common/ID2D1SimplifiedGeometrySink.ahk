@@ -11,9 +11,8 @@
  * To create geometry paths that can contain arcs and quadratic Bezier curves, use an <a href="https://docs.microsoft.com/windows/win32/api/d2d1/nn-d2d1-id2d1geometrysink">ID2D1GeometrySink</a>.
  * @see https://learn.microsoft.com/windows/win32/api/d2d1/nn-d2d1-id2d1simplifiedgeometrysink
  * @namespace Windows.Win32.Graphics.Direct2D.Common
- * @version v4.0.30319
  */
-class ID2D1SimplifiedGeometrySink extends IUnknown{
+class ID2D1SimplifiedGeometrySink extends IUnknown {
 
     static sizeof => A_PtrSize
     /**
@@ -38,7 +37,9 @@ class ID2D1SimplifiedGeometrySink extends IUnknown{
      * Specifies the method used to determine which points are inside the geometry described by this geometry sink and which points are outside.
      * @remarks
      * The fill mode defaults to D2D1_FILL_MODE_ALTERNATE. To set the fill mode, call <b>SetFillMode</b> before the first call to <a href="https://docs.microsoft.com/windows/win32/api/d2d1/nf-d2d1-id2d1simplifiedgeometrysink-beginfigure">BeginFigure</a>. Not doing will put the geometry sink in an error state.
-     * @param {Integer} _fillMode 
+     * @param {D2D1_FILL_MODE} _fillMode Type: <b><a href="https://docs.microsoft.com/windows/win32/api/d2d1/ne-d2d1-d2d1_fill_mode">D2D1_FILL_MODE</a></b>
+     * 
+     * The method used to determine whether a given point is part of the geometry.
      * @returns {String} Nothing - always returns an empty string
      * @see https://learn.microsoft.com/windows/win32/api/d2d1/nf-d2d1-id2d1simplifiedgeometrysink-setfillmode
      */
@@ -50,7 +51,7 @@ class ID2D1SimplifiedGeometrySink extends IUnknown{
      * Specifies stroke and join options to be applied to new segments added to the geometry sink.
      * @remarks
      * After this method is called, the specified segment flags are applied to each segment subsequently added to the sink. The segment flags are applied to every additional segment until this method is called again and a different set of segment flags is specified.
-     * @param {Integer} vertexFlags Type: <b><a href="https://docs.microsoft.com/windows/win32/api/d2d1/ne-d2d1-d2d1_path_segment">D2D1_PATH_SEGMENT</a></b>
+     * @param {D2D1_PATH_SEGMENT} vertexFlags Type: <b><a href="https://docs.microsoft.com/windows/win32/api/d2d1/ne-d2d1-d2d1_path_segment">D2D1_PATH_SEGMENT</a></b>
      * 
      * Stroke and join options to be applied to new segments added to the geometry sink.
      * @returns {String} Nothing - always returns an empty string
@@ -67,7 +68,7 @@ class ID2D1SimplifiedGeometrySink extends IUnknown{
      * @param {D2D_POINT_2F} startPoint Type: <b><a href="https://docs.microsoft.com/windows/win32/Direct2D/d2d1-point-2f">D2D1_POINT_2F</a></b>
      * 
      * The point at which to begin the new figure.
-     * @param {Integer} figureBegin Type: <b><a href="https://docs.microsoft.com/windows/win32/api/d2d1/ne-d2d1-d2d1_figure_begin">D2D1_FIGURE_BEGIN</a></b>
+     * @param {D2D1_FIGURE_BEGIN} figureBegin Type: <b><a href="https://docs.microsoft.com/windows/win32/api/d2d1/ne-d2d1-d2d1_figure_begin">D2D1_FIGURE_BEGIN</a></b>
      * 
      * Whether the new figure should be hollow or filled.
      * @returns {String} Nothing - always returns an empty string
@@ -79,7 +80,9 @@ class ID2D1SimplifiedGeometrySink extends IUnknown{
 
     /**
      * Creates a sequence of lines using the specified points and adds them to the geometry sink.
-     * @param {Pointer<D2D_POINT_2F>} _points 
+     * @param {Pointer<D2D_POINT_2F>} _points Type: <b>const <a href="https://docs.microsoft.com/windows/win32/Direct2D/d2d1-point-2f">D2D1_POINT_2F</a>*</b>
+     * 
+     * A pointer to an array of one or more points that describe the lines to draw. A line is drawn from the geometry sink's current point (the end point of the last segment drawn or the location specified by <a href="https://docs.microsoft.com/windows/win32/api/d2d1/nf-d2d1-id2d1simplifiedgeometrysink-beginfigure">BeginFigure</a>) to the first point in the array. if the array contains additional points, a line is drawn from the first point to the second point in the array, from the second point to the third point, and so on.
      * @param {Integer} pointsCount Type: <b>UINT</b>
      * 
      * The number of points in the <i>points</i> array.
@@ -109,7 +112,7 @@ class ID2D1SimplifiedGeometrySink extends IUnknown{
      * Ends the current figure; optionally, closes it.
      * @remarks
      * Calling this method without a matching call to <a href="https://docs.microsoft.com/windows/win32/api/d2d1/nf-d2d1-id2d1simplifiedgeometrysink-beginfigure">BeginFigure</a>  places the geometry sink in an error state; subsequent calls are ignored, and the overall failure will be returned when the <a href="https://docs.microsoft.com/windows/win32/api/d2d1/nf-d2d1-id2d1simplifiedgeometrysink-close">Close</a> method is called.
-     * @param {Integer} figureEnd Type: <b><a href="https://docs.microsoft.com/windows/win32/api/d2d1/ne-d2d1-d2d1_figure_end">D2D1_FIGURE_END</a></b>
+     * @param {D2D1_FIGURE_END} figureEnd Type: <b><a href="https://docs.microsoft.com/windows/win32/api/d2d1/ne-d2d1-d2d1_figure_end">D2D1_FIGURE_END</a></b>
      * 
      * A value that indicates whether the current figure is closed. If the figure is closed, a line is drawn between the current point and the start point specified by <a href="https://docs.microsoft.com/windows/win32/api/d2d1/nf-d2d1-id2d1simplifiedgeometrysink-beginfigure">BeginFigure</a>.
      * @returns {String} Nothing - always returns an empty string

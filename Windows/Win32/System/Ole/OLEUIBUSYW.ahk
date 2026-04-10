@@ -1,5 +1,6 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
+#Include .\BUSY_DIALOG_FLAGS.ahk
 #Include ..\..\Foundation\HWND.ahk
 #Include ..\..\Foundation\HINSTANCE.ahk
 #Include ..\..\Foundation\HRSRC.ahk
@@ -12,11 +13,9 @@
  * > The oledlg.h header defines OLEUIBUSY as an alias which automatically selects the ANSI or Unicode version of this function based on the definition of the UNICODE preprocessor constant. Mixing usage of the encoding-neutral alias with code that not encoding-neutral can lead to mismatches that result in compilation or runtime errors. For more information, see [Conventions for Function Prototypes](/windows/win32/intl/conventions-for-function-prototypes).
  * @see https://learn.microsoft.com/windows/win32/api/oledlg/ns-oledlg-oleuibusyw
  * @namespace Windows.Win32.System.Ole
- * @version v4.0.30319
  * @charset Unicode
  */
-class OLEUIBUSYW extends Win32Struct
-{
+class OLEUIBUSYW extends Win32Struct {
     static sizeof => 80
 
     static packingSize => 8
@@ -79,7 +78,7 @@ class OLEUIBUSYW extends Win32Struct
      * </td>
      * </tr>
      * </table>
-     * @type {Integer}
+     * @type {BUSY_DIALOG_FLAGS}
      */
     dwFlags {
         get => NumGet(this, 4, "uint")
@@ -90,7 +89,7 @@ class OLEUIBUSYW extends Win32Struct
      * The window that owns the dialog box. This member should not be <b>NULL</b>.
      * @type {HWND}
      */
-    hWndOwner{
+    hWndOwner {
         get {
             if(!this.HasProp("__hWndOwner"))
                 this.__hWndOwner := HWND(8, this)
@@ -129,7 +128,7 @@ class OLEUIBUSYW extends Win32Struct
      * Instance that contains a dialog box template specified by the <b>lpTemplateName</b> member.
      * @type {HINSTANCE}
      */
-    hInstance{
+    hInstance {
         get {
             if(!this.HasProp("__hInstance"))
                 this.__hInstance := HINSTANCE(40, this)
@@ -150,7 +149,7 @@ class OLEUIBUSYW extends Win32Struct
      * Customized template handle.
      * @type {HRSRC}
      */
-    hResource{
+    hResource {
         get {
             if(!this.HasProp("__hResource"))
                 this.__hResource := HRSRC(56, this)
@@ -162,7 +161,7 @@ class OLEUIBUSYW extends Win32Struct
      * Input only. Handle to the task that is blocking.
      * @type {HTASK}
      */
-    hTask{
+    hTask {
         get {
             if(!this.HasProp("__hTask"))
                 this.__hTask := HTASK(64, this)

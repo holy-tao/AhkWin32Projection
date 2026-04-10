@@ -3,13 +3,10 @@
 
 /**
  * Flags for specifying the system-drawn backdrop material of a window, including behind the non-client area.
- * @remarks
- * 
  * @see https://learn.microsoft.com/windows/win32/api/dwmapi/ne-dwmapi-dwm_systembackdrop_type
  * @namespace Windows.Win32.Graphics.Dwm
- * @version v4.0.30319
  */
-class DWM_SYSTEMBACKDROP_TYPE extends Win32Enum{
+class DWM_SYSTEMBACKDROP_TYPE extends Win32Enum {
 
     /**
      * The default. Let the Desktop Window Manager (DWM) automatically decide the system-drawn backdrop material for this window.

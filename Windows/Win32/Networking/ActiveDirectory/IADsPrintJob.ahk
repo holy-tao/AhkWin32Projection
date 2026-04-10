@@ -1,8 +1,8 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
-#Include ..\..\Foundation\BSTR.ahk
 #Include .\IADs.ahk
+#Include ..\..\Foundation\BSTR.ahk
 
 /**
  * The IADsPrintJob interface is a dual interface that inherits from IADs.
@@ -12,9 +12,8 @@
  * To access any print jobs in a print queue, call the  <a href="https://docs.microsoft.com/windows/desktop/api/iads/nf-iads-iadsprintqueueoperations-printjobs">IADsPrintQueueOperations::PrintJobs</a> method to obtain the collection object holding all the print jobs in the print queue.
  * @see https://learn.microsoft.com/windows/win32/api/iads/nn-iads-iadsprintjob
  * @namespace Windows.Win32.Networking.ActiveDirectory
- * @version v4.0.30319
  */
-class IADsPrintJob extends IADs{
+class IADsPrintJob extends IADs {
 
     static sizeof => A_PtrSize
     /**

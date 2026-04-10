@@ -1,13 +1,12 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\..\Win32Struct.ahk
 #Include ..\..\..\Foundation\HWND.ahk
+#Include .\WEBAUTHN_PLUGIN_REQUEST_TYPE.ahk
 
 /**
  * @namespace Windows.Win32.Security.Authentication.WebAuthn
- * @version v4.0.30319
  */
-class WEBAUTHN_PLUGIN_OPERATION_REQUEST extends Win32Struct
-{
+class WEBAUTHN_PLUGIN_OPERATION_REQUEST extends Win32Struct {
     static sizeof => 48
 
     static packingSize => 8
@@ -15,7 +14,7 @@ class WEBAUTHN_PLUGIN_OPERATION_REQUEST extends Win32Struct
     /**
      * @type {HWND}
      */
-    hWnd{
+    hWnd {
         get {
             if(!this.HasProp("__hWnd"))
                 this.__hWnd := HWND(0, this)
@@ -24,7 +23,7 @@ class WEBAUTHN_PLUGIN_OPERATION_REQUEST extends Win32Struct
     }
 
     /**
-     * @type {Pointer<Guid>}
+     * @type {Pointer}
      */
     transactionId {
         get => NumGet(this, 8, "ptr")
@@ -48,7 +47,7 @@ class WEBAUTHN_PLUGIN_OPERATION_REQUEST extends Win32Struct
     }
 
     /**
-     * @type {Integer}
+     * @type {WEBAUTHN_PLUGIN_REQUEST_TYPE}
      */
     requestType {
         get => NumGet(this, 32, "int")

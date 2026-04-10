@@ -5,10 +5,8 @@
  * The LINEAGENTSESSIONLIST structure describes a list of ACD agent sessions. This structure can contain an array of LINEAGENTSESSIONENTRY structures. The lineGetAgentSessionList function returns the LINEAGENTSESSIONLIST structure.
  * @see https://learn.microsoft.com/windows/win32/api/tapi/ns-tapi-lineagentsessionlist
  * @namespace Windows.Win32.Devices.Tapi
- * @version v4.0.30319
  */
-class LINEAGENTSESSIONLIST extends Win32Struct
-{
+class LINEAGENTSESSIONLIST extends Win32Struct {
     static sizeof => 24
 
     static packingSize => 4

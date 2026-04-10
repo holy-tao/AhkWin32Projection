@@ -7,9 +7,8 @@
  * Extends the IMFCaptureSink interface to provide functionality for dynamically setting the output media type of the record sink or preview sink.
  * @see https://learn.microsoft.com/windows/win32/api/mfcaptureengine/nn-mfcaptureengine-imfcapturesink2
  * @namespace Windows.Win32.Media.MediaFoundation
- * @version v4.0.30319
  */
-class IMFCaptureSink2 extends IMFCaptureSink{
+class IMFCaptureSink2 extends IMFCaptureSink {
 
     static sizeof => A_PtrSize
     /**

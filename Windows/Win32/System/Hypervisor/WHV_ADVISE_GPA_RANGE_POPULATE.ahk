@@ -1,13 +1,12 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
 #Include .\WHV_ADVISE_GPA_RANGE_POPULATE_FLAGS.ahk
+#Include .\WHV_MEMORY_ACCESS_TYPE.ahk
 
 /**
  * @namespace Windows.Win32.System.Hypervisor
- * @version v4.0.30319
  */
-class WHV_ADVISE_GPA_RANGE_POPULATE extends Win32Struct
-{
+class WHV_ADVISE_GPA_RANGE_POPULATE extends Win32Struct {
     static sizeof => 12
 
     static packingSize => 4
@@ -15,7 +14,7 @@ class WHV_ADVISE_GPA_RANGE_POPULATE extends Win32Struct
     /**
      * @type {WHV_ADVISE_GPA_RANGE_POPULATE_FLAGS}
      */
-    Flags{
+    Flags {
         get {
             if(!this.HasProp("__Flags"))
                 this.__Flags := WHV_ADVISE_GPA_RANGE_POPULATE_FLAGS(0, this)
@@ -24,7 +23,7 @@ class WHV_ADVISE_GPA_RANGE_POPULATE extends Win32Struct
     }
 
     /**
-     * @type {Integer}
+     * @type {WHV_MEMORY_ACCESS_TYPE}
      */
     AccessType {
         get => NumGet(this, 8, "int")

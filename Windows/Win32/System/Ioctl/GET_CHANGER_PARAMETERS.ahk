@@ -1,14 +1,14 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
+#Include .\CHANGER_FEATURES.ahk
+#Include .\GET_CHANGER_PARAMETERS_FEATURES1.ahk
 
 /**
  * Represents the parameters of a changer.
  * @see https://learn.microsoft.com/windows/win32/api/winioctl/ns-winioctl-get_changer_parameters
  * @namespace Windows.Win32.System.Ioctl
- * @version v4.0.30319
  */
-class GET_CHANGER_PARAMETERS extends Win32Struct
-{
+class GET_CHANGER_PARAMETERS extends Win32Struct {
     static sizeof => 60
 
     static packingSize => 4
@@ -140,8 +140,7 @@ class GET_CHANGER_PARAMETERS extends Win32Struct
     }
 
     /**
-     * 
-     * @type {Integer}
+     * @type {CHANGER_FEATURES}
      */
     Features0 {
         get => NumGet(this, 32, "uint")
@@ -149,8 +148,7 @@ class GET_CHANGER_PARAMETERS extends Win32Struct
     }
 
     /**
-     * 
-     * @type {Integer}
+     * @type {GET_CHANGER_PARAMETERS_FEATURES1}
      */
     Features1 {
         get => NumGet(this, 36, "uint")
@@ -305,9 +303,9 @@ class GET_CHANGER_PARAMETERS extends Win32Struct
 
     /**
      * Reserved for future use.
-     * @type {Array<Byte>}
+     * @type {Array<Integer>}
      */
-    Reserved1{
+    Reserved1 {
         get {
             if(!this.HasProp("__Reserved1ProxyArray"))
                 this.__Reserved1ProxyArray := Win32FixedArray(this.ptr + 50, 2, Primitive, "char")
@@ -317,9 +315,9 @@ class GET_CHANGER_PARAMETERS extends Win32Struct
 
     /**
      * Reserved for future use.
-     * @type {Array<UInt32>}
+     * @type {Array<Integer>}
      */
-    Reserved2{
+    Reserved2 {
         get {
             if(!this.HasProp("__Reserved2ProxyArray"))
                 this.__Reserved2ProxyArray := Win32FixedArray(this.ptr + 52, 2, Primitive, "uint")

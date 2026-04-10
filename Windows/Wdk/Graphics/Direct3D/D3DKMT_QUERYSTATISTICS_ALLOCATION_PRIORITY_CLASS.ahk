@@ -3,9 +3,8 @@
 
 /**
  * @namespace Windows.Wdk.Graphics.Direct3D
- * @version v4.0.30319
  */
-class D3DKMT_QUERYSTATISTICS_ALLOCATION_PRIORITY_CLASS extends Win32Enum{
+class D3DKMT_QUERYSTATISTICS_ALLOCATION_PRIORITY_CLASS extends Win32Enum {
 
     /**
      * @type {Integer (Int32)}

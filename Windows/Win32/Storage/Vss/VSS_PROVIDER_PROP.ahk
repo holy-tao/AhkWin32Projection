@@ -1,21 +1,20 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
+#Include .\VSS_PROVIDER_TYPE.ahk
 
 /**
  * Specifies shadow copy provider properties.
  * @see https://learn.microsoft.com/windows/win32/api/vss/ns-vss-vss_provider_prop
  * @namespace Windows.Win32.Storage.Vss
- * @version v4.0.30319
  */
-class VSS_PROVIDER_PROP extends Win32Struct
-{
+class VSS_PROVIDER_PROP extends Win32Struct {
     static sizeof => 48
 
     static packingSize => 8
 
     /**
      * Identifies the provider who supports shadow copies of this class.
-     * @type {Pointer<Guid>}
+     * @type {Pointer}
      */
     m_ProviderId {
         get => NumGet(this, 0, "ptr")
@@ -34,7 +33,7 @@ class VSS_PROVIDER_PROP extends Win32Struct
     /**
      * Provider type. See <a href="https://docs.microsoft.com/windows/desktop/api/vss/ne-vss-vss_provider_type">VSS_PROVIDER_TYPE</a> for more 
      *       information.
-     * @type {Integer}
+     * @type {VSS_PROVIDER_TYPE}
      */
     m_eProviderType {
         get => NumGet(this, 16, "int")
@@ -53,7 +52,7 @@ class VSS_PROVIDER_PROP extends Win32Struct
     /**
      * A <a href="https://docs.microsoft.com/windows/desktop/VSS/volume-shadow-copy-api-data-types">VSS_ID</a> (GUID) uniquely 
      *       identifying the version of a provider.
-     * @type {Pointer<Guid>}
+     * @type {Pointer}
      */
     m_ProviderVersionId {
         get => NumGet(this, 32, "ptr")
@@ -62,7 +61,7 @@ class VSS_PROVIDER_PROP extends Win32Struct
 
     /**
      * Class identifier of the component registered in the local machine's COM catalog.
-     * @type {Pointer<Guid>}
+     * @type {Pointer}
      */
     m_ClassId {
         get => NumGet(this, 40, "ptr")

@@ -1,16 +1,15 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
+#Include ..\Com\IDispatch.ahk
 #Include ..\Variant\VARIANT.ahk
 #Include ..\..\Foundation\BSTR.ahk
 #Include .\ISWbemQualifierSet.ahk
-#Include ..\Com\IDispatch.ahk
 
 /**
  * @namespace Windows.Win32.System.Wmi
- * @version v4.0.30319
  */
-class ISWbemProperty extends IDispatch{
+class ISWbemProperty extends IDispatch {
 
     static sizeof => A_PtrSize
     /**
@@ -67,7 +66,7 @@ class ISWbemProperty extends IDispatch{
     }
 
     /**
-     * @type {Integer} 
+     * @type {WbemCimtypeEnum} 
      */
     CIMType {
         get => this.get_CIMType()
@@ -138,7 +137,7 @@ class ISWbemProperty extends IDispatch{
 
     /**
      * 
-     * @returns {Integer} 
+     * @returns {WbemCimtypeEnum} 
      */
     get_CIMType() {
         result := ComCall(12, this, "int*", &iCimType := 0, "HRESULT")

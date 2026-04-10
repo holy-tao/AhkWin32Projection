@@ -7,9 +7,8 @@
  * These three methods allow additional interfaces to be added to the DirectInputEffectDriver object without affecting the functionality of the original interface.
  * @see https://learn.microsoft.com/windows/win32/api/dinputd/nn-dinputd-idirectinputeffectdriver
  * @namespace Windows.Win32.Devices.HumanInterfaceDevice
- * @version v4.0.30319
  */
-class IDirectInputEffect extends IUnknown{
+class IDirectInputEffect extends IUnknown {
 
     static sizeof => A_PtrSize
     /**

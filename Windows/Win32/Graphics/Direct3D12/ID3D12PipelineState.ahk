@@ -1,8 +1,8 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
-#Include ..\Direct3D\ID3DBlob.ahk
 #Include .\ID3D12Pageable.ahk
+#Include ..\Direct3D\ID3DBlob.ahk
 
 /**
  * Represents the state of all currently set shaders as well as certain fixed function state objects.
@@ -12,9 +12,8 @@
  * A pipeline state object corresponds to a significant portion of the state of the graphics processing unit (GPU).  This state includes all currently set shaders and certain fixed function state objects.  The only way to change states contained within the pipeline object is to change the currently bound pipeline object.
  * @see https://learn.microsoft.com/windows/win32/api/d3d12/nn-d3d12-id3d12pipelinestate
  * @namespace Windows.Win32.Graphics.Direct3D12
- * @version v4.0.30319
  */
-class ID3D12PipelineState extends ID3D12Pageable{
+class ID3D12PipelineState extends ID3D12Pageable {
 
     static sizeof => A_PtrSize
     /**

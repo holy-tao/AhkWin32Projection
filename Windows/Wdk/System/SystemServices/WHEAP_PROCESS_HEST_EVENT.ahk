@@ -3,16 +3,14 @@
 
 /**
  * @namespace Windows.Wdk.System.SystemServices
- * @version v4.0.30319
  */
-class WHEAP_PROCESS_HEST_EVENT extends Win32Struct
-{
-    static sizeof => 176
+class WHEAP_PROCESS_HEST_EVENT extends Win32Struct {
+    static sizeof => 112
 
     static packingSize => 8
 
     /**
-     * @type {Pointer<WHEA_EVENT_LOG_ENTRY>}
+     * @type {Pointer}
      */
     WheaEventLogEntry {
         get => NumGet(this, 0, "ptr")
@@ -23,95 +21,95 @@ class WHEAP_PROCESS_HEST_EVENT extends Win32Struct
      * @type {String}
      */
     Error {
-        get => StrGet(this.ptr + 8, 31, "UTF-16")
-        set => StrPut(value, this.ptr + 8, 31, "UTF-16")
+        get => StrGet(this.ptr + 8, 31, "UTF-8")
+        set => StrPut(value, this.ptr + 8, 31, "UTF-8")
     }
 
     /**
      * @type {String}
      */
     EntryType {
-        get => StrGet(this.ptr + 72, 31, "UTF-16")
-        set => StrPut(value, this.ptr + 72, 31, "UTF-16")
+        get => StrGet(this.ptr + 40, 31, "UTF-8")
+        set => StrPut(value, this.ptr + 40, 31, "UTF-8")
     }
 
     /**
      * @type {Integer}
      */
     EntryIndex {
-        get => NumGet(this, 136, "uint")
-        set => NumPut("uint", value, this, 136)
+        get => NumGet(this, 72, "uint")
+        set => NumPut("uint", value, this, 72)
     }
 
     /**
      * @type {BOOLEAN}
      */
     HestValid {
-        get => NumGet(this, 140, "char")
-        set => NumPut("char", value, this, 140)
+        get => NumGet(this, 76, "char")
+        set => NumPut("char", value, this, 76)
     }
 
     /**
      * @type {Integer}
      */
     CmcCount {
-        get => NumGet(this, 144, "uint")
-        set => NumPut("uint", value, this, 144)
+        get => NumGet(this, 80, "uint")
+        set => NumPut("uint", value, this, 80)
     }
 
     /**
      * @type {Integer}
      */
     MceCount {
-        get => NumGet(this, 148, "uint")
-        set => NumPut("uint", value, this, 148)
+        get => NumGet(this, 84, "uint")
+        set => NumPut("uint", value, this, 84)
     }
 
     /**
      * @type {Integer}
      */
     NmiCount {
-        get => NumGet(this, 152, "uint")
-        set => NumPut("uint", value, this, 152)
+        get => NumGet(this, 88, "uint")
+        set => NumPut("uint", value, this, 88)
     }
 
     /**
      * @type {Integer}
      */
     AerRootCount {
-        get => NumGet(this, 156, "uint")
-        set => NumPut("uint", value, this, 156)
+        get => NumGet(this, 92, "uint")
+        set => NumPut("uint", value, this, 92)
     }
 
     /**
      * @type {Integer}
      */
     AerBridgeCount {
-        get => NumGet(this, 160, "uint")
-        set => NumPut("uint", value, this, 160)
+        get => NumGet(this, 96, "uint")
+        set => NumPut("uint", value, this, 96)
     }
 
     /**
      * @type {Integer}
      */
     AerEndPointCount {
-        get => NumGet(this, 164, "uint")
-        set => NumPut("uint", value, this, 164)
+        get => NumGet(this, 100, "uint")
+        set => NumPut("uint", value, this, 100)
     }
 
     /**
      * @type {Integer}
      */
     GenericV1Count {
-        get => NumGet(this, 168, "uint")
-        set => NumPut("uint", value, this, 168)
+        get => NumGet(this, 104, "uint")
+        set => NumPut("uint", value, this, 104)
     }
 
     /**
      * @type {Integer}
      */
     GenericV2Count {
-        get => NumGet(this, 172, "uint")
-        set => NumPut("uint", value, this, 172)
+        get => NumGet(this, 108, "uint")
+        set => NumPut("uint", value, this, 108)
     }
 }

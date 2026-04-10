@@ -11,9 +11,8 @@
  * The <b>BackendSupport</b> member of the <a href="https://docs.microsoft.com/windows/desktop/api/dot1x/ns-dot1x-onex_result_update_data">ONEX_RESULT_UPDATE_DATA</a> struct contains a value from the <b>ONEX_EAP_METHOD_BACKEND_SUPPORT</b> enumeration.
  * @see https://learn.microsoft.com/windows/win32/api/dot1x/ne-dot1x-onex_eap_method_backend_support
  * @namespace Windows.Win32.NetworkManagement.WiFi
- * @version v4.0.30319
  */
-class ONEX_EAP_METHOD_BACKEND_SUPPORT extends Win32Enum{
+class ONEX_EAP_METHOD_BACKEND_SUPPORT extends Win32Enum {
 
     /**
      * It is not known whether the EAP method configured on the supplicant for 802.1X authentication is supported on the authentication server. This value can be returned if the 802.1X authentication process is in the initial state.

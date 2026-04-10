@@ -5,9 +5,8 @@
 
 /**
  * @namespace Windows.Win32.Media.DirectShow
- * @version v4.0.30319
  */
-class IVPVBIConfig extends IVPBaseConfig{
+class IVPVBIConfig extends IVPBaseConfig {
 
     static sizeof => A_PtrSize
     /**

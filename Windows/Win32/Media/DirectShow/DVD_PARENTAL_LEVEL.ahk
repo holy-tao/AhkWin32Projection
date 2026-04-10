@@ -39,9 +39,8 @@
  * This enumeration is used in the <a href="https://docs.microsoft.com/windows/desktop/api/strmif/nf-strmif-idvdinfo2-gettitleparentallevels">IDvdInfo2::GetTitleParentalLevels</a> method.
  * @see https://learn.microsoft.com/windows/win32/api/strmif/ne-strmif-dvd_parental_level
  * @namespace Windows.Win32.Media.DirectShow
- * @version v4.0.30319
  */
-class DVD_PARENTAL_LEVEL extends Win32Enum{
+class DVD_PARENTAL_LEVEL extends Win32Enum {
 
     /**
      * Parental level 8.

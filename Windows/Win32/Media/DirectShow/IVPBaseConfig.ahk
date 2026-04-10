@@ -1,10 +1,10 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
+#Include ..\..\System\Com\IUnknown.ahk
 #Include ..\..\Graphics\DirectDraw\DDVIDEOPORTCONNECT.ahk
 #Include ..\..\Graphics\DirectDraw\DDPIXELFORMAT.ahk
 #Include ..\..\Graphics\DirectDraw\IDirectDrawSurface.ahk
-#Include ..\..\System\Com\IUnknown.ahk
 
 /**
  * IVPBaseConfig is implemented on a filter that wraps a hardware device such as a decoder or capture device, if the device has a video port to the graphics adapter.
@@ -12,9 +12,8 @@
  * Include Dvp.h and Vptype.h before Vpconfig.h.
  * @see https://learn.microsoft.com/windows/win32/api/vpconfig/nn-vpconfig-ivpbaseconfig
  * @namespace Windows.Win32.Media.DirectShow
- * @version v4.0.30319
  */
-class IVPBaseConfig extends IUnknown{
+class IVPBaseConfig extends IUnknown {
 
     static sizeof => A_PtrSize
 

@@ -1,13 +1,12 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
 #Include .\PrintPropertyValue.ahk
+#Include .\EPrintPropertyType.ahk
 
 /**
  * @namespace Windows.Win32.Graphics.Printing
- * @version v4.0.30319
  */
-class PrintNamedProperty extends Win32Struct
-{
+class PrintNamedProperty extends Win32Struct {
     static sizeof => 32
 
     static packingSize => 8
@@ -23,7 +22,7 @@ class PrintNamedProperty extends Win32Struct
     /**
      * @type {PrintPropertyValue}
      */
-    propertyValue{
+    propertyValue {
         get {
             if(!this.HasProp("__propertyValue"))
                 this.__propertyValue := PrintPropertyValue(8, this)

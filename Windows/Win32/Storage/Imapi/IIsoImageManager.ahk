@@ -1,9 +1,9 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
+#Include ..\..\System\Com\IDispatch.ahk
 #Include ..\..\Foundation\BSTR.ahk
 #Include ..\..\System\Com\IStream.ahk
-#Include ..\..\System\Com\IDispatch.ahk
 
 /**
  * Use this interface to verify if an existing .iso file contains a valid file system for burning.
@@ -14,9 +14,8 @@
  * This interface is supported in Windows Server 2003 with Service Pack 1 (SP1), Windows XP with Service Pack 2 (SP2),  and Windows Vista  via the Windows Feature Pack for Storage. All  features provided by this  update package are supported natively in Windows 7 and Windows Server 2008 R2.
  * @see https://learn.microsoft.com/windows/win32/api/imapi2fs/nn-imapi2fs-iisoimagemanager
  * @namespace Windows.Win32.Storage.Imapi
- * @version v4.0.30319
  */
-class IIsoImageManager extends IDispatch{
+class IIsoImageManager extends IDispatch {
 
     static sizeof => A_PtrSize
     /**
@@ -80,7 +79,7 @@ class IIsoImageManager extends IDispatch{
      * Sets the Path property value with a logical path to an .iso image.
      * @remarks
      * This method is supported in Windows Server 2003 with Service Pack 1 (SP1), Windows XP with Service Pack 2 (SP2),  and Windows Vista  via the Windows Feature Pack for Storage. All  features provided by this  update package are supported natively in Windows 7 and Windows Server 2008 R2.
-     * @param {BSTR} _Val 
+     * @param {BSTR} _Val The logical path to the .iso image. For example, "c:\\path\\file.iso".
      * @returns {HRESULT} S_OK is returned on success, but other success codes may be returned as a result of implementation.
      * 
      * <table>

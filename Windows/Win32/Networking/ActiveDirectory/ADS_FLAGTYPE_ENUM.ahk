@@ -12,9 +12,8 @@
  * <div> </div>
  * @see https://learn.microsoft.com/windows/win32/api/iads/ne-iads-ads_flagtype_enum
  * @namespace Windows.Win32.Networking.ActiveDirectory
- * @version v4.0.30319
  */
-class ADS_FLAGTYPE_ENUM extends Win32Enum{
+class ADS_FLAGTYPE_ENUM extends Win32Enum {
 
     /**
      * The <b>ObjectType</b> field is present in the ACE.

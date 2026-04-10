@@ -7,9 +7,8 @@
  * Represents the pinned status of an item in the Offline Files cache.
  * @see https://learn.microsoft.com/windows/win32/api/cscobj/nn-cscobj-iofflinefilespininfo
  * @namespace Windows.Win32.Storage.OfflineFiles
- * @version v4.0.30319
  */
-class IOfflineFilesPinInfo extends IUnknown{
+class IOfflineFilesPinInfo extends IUnknown {
 
     static sizeof => A_PtrSize
     /**

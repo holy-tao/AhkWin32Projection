@@ -3,10 +3,8 @@
 
 /**
  * @namespace Windows.Win32.NetworkManagement.Ndis
- * @version v4.0.30319
  */
-class NET_IF_COMPARTMENT_ID extends Win32Struct
-{
+class NET_IF_COMPARTMENT_ID extends Win32Struct {
     static sizeof => 4
 
     static packingSize => 4

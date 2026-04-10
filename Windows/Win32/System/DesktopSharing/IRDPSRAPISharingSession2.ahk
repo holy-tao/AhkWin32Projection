@@ -1,17 +1,15 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
-#Include ..\..\Foundation\BSTR.ahk
-#Include .\IRDPSRAPIFrameBuffer.ahk
 #Include .\IRDPSRAPISharingSession.ahk
+#Include .\IRDPSRAPIFrameBuffer.ahk
 
 /**
  * The main object that an application must create to start a collaboration session. (IRDPSRAPISharingSession2)
  * @see https://learn.microsoft.com/windows/win32/api/rdpencomapi/nn-rdpencomapi-irdpsrapisharingsession2
  * @namespace Windows.Win32.System.DesktopSharing
- * @version v4.0.30319
  */
-class IRDPSRAPISharingSession2 extends IRDPSRAPISharingSession{
+class IRDPSRAPISharingSession2 extends IRDPSRAPISharingSession {
 
     static sizeof => A_PtrSize
     /**
@@ -68,7 +66,7 @@ class IRDPSRAPISharingSession2 extends IRDPSRAPISharingSession{
     /**
      * Sends an OnControlLevelChangeResponse event.
      * @param {IRDPSRAPIAttendee} pAttendee Attendee that requests control.
-     * @param {Integer} RequestedLevel Level of control requested by the attendee. For possible values, see the <a href="https://docs.microsoft.com/windows/win32/api/rdpencomapi/ne-rdpencomapi-ctrl_level">CTRL_LEVEL</a> enumeration.
+     * @param {CTRL_LEVEL} RequestedLevel Level of control requested by the attendee. For possible values, see the <a href="https://docs.microsoft.com/windows/win32/api/rdpencomapi/ne-rdpencomapi-ctrl_level">CTRL_LEVEL</a> enumeration.
      * @param {Integer} ReasonCode Specifies the reason for the change.
      * @returns {HRESULT} If the method succeeds, the return value is <b>S_OK</b>. Otherwise, the return value is an error code.
      * @see https://learn.microsoft.com/windows/win32/api/rdpencomapi/nf-rdpencomapi-irdpsrapisharingsession2-sendcontrollevelchangeresponse

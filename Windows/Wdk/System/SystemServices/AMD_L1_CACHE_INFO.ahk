@@ -3,10 +3,8 @@
 
 /**
  * @namespace Windows.Wdk.System.SystemServices
- * @version v4.0.30319
  */
-class AMD_L1_CACHE_INFO extends Win32Struct
-{
+class AMD_L1_CACHE_INFO extends Win32Struct {
     static sizeof => 8
 
     static packingSize => 4

@@ -10,9 +10,8 @@
  * <div> </div>
  * @see https://learn.microsoft.com/windows/win32/api/iads/ne-iads-ads_name_inittype_enum
  * @namespace Windows.Win32.Networking.ActiveDirectory
- * @version v4.0.30319
  */
-class ADS_NAME_INITTYPE_ENUM extends Win32Enum{
+class ADS_NAME_INITTYPE_ENUM extends Win32Enum {
 
     /**
      * Initializes a <b>NameTranslate</b> object by setting the domain that the object binds to.

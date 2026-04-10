@@ -12,9 +12,8 @@
  * To declare the interface identifier (IID) for this interface, use the <b>__uuidof</b> operator: <c>__uuidof(IBDA_DiseqCommand)</c>.
  * @see https://learn.microsoft.com/windows/win32/api/bdaiface/nn-bdaiface-ibda_diseqcommand
  * @namespace Windows.Win32.Media.DirectShow
- * @version v4.0.30319
  */
-class IBDA_DiseqCommand extends IUnknown{
+class IBDA_DiseqCommand extends IUnknown {
 
     static sizeof => A_PtrSize
     /**
@@ -36,28 +35,28 @@ class IBDA_DiseqCommand extends IUnknown{
     static VTableNames => ["put_EnableDiseqCommands", "put_DiseqLNBSource", "put_DiseqUseToneBurst", "put_DiseqRepeats", "put_DiseqSendCommand", "get_DiseqResponse"]
 
     /**
-     * @type {HRESULT} 
+     * @type {BOOLEAN} 
      */
     EnableDiseqCommands {
         set => this.put_EnableDiseqCommands(value)
     }
 
     /**
-     * @type {HRESULT} 
+     * @type {Integer} 
      */
     DiseqLNBSource {
         set => this.put_DiseqLNBSource(value)
     }
 
     /**
-     * @type {HRESULT} 
+     * @type {BOOLEAN} 
      */
     DiseqUseToneBurst {
         set => this.put_DiseqUseToneBurst(value)
     }
 
     /**
-     * @type {HRESULT} 
+     * @type {Integer} 
      */
     DiseqRepeats {
         set => this.put_DiseqRepeats(value)

@@ -7,9 +7,8 @@
  * Speaker fill is a DSP process that converts mono or stereo audio into multichannel audio.
  * @see https://learn.microsoft.com/windows/win32/api/codecapi/ne-codecapi-eavdspspeakerfill
  * @namespace Windows.Win32.Media.MediaFoundation
- * @version v4.0.30319
  */
-class eAVDSPSpeakerFill extends Win32Enum{
+class eAVDSPSpeakerFill extends Win32Enum {
 
     /**
      * Speaker fill is disabled.

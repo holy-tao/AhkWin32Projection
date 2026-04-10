@@ -3,9 +3,8 @@
 
 /**
  * @namespace Windows.Win32.Media.DirectShow
- * @version v4.0.30319
  */
-class ADVISE_TYPE extends Win32BitflagEnum{
+class ADVISE_TYPE extends Win32BitflagEnum {
 
     /**
      * @type {Integer (Int32)}

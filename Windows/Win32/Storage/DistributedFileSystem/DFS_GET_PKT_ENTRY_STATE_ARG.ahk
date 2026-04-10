@@ -5,10 +5,8 @@
  * Input buffer used with the FSCTL_DFS_GET_PKT_ENTRY_STATE control code.
  * @see https://learn.microsoft.com/windows/win32/api/lmdfs/ns-lmdfs-dfs_get_pkt_entry_state_arg
  * @namespace Windows.Win32.Storage.DistributedFileSystem
- * @version v4.0.30319
  */
-class DFS_GET_PKT_ENTRY_STATE_ARG extends Win32Struct
-{
+class DFS_GET_PKT_ENTRY_STATE_ARG extends Win32Struct {
     static sizeof => 16
 
     static packingSize => 4

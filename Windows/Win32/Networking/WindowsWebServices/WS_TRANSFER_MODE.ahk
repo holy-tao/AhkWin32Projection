@@ -13,9 +13,8 @@
  *                 to the calls to <a href="https://docs.microsoft.com/windows/desktop/api/webservices/nf-webservices-wsfillbody">WsFillBody</a> and <a href="https://docs.microsoft.com/windows/desktop/api/webservices/nf-webservices-wsflushbody">WsFlushBody</a> are NOPs.
  * @see https://learn.microsoft.com/windows/win32/api/webservices/ne-webservices-ws_transfer_mode
  * @namespace Windows.Win32.Networking.WindowsWebServices
- * @version v4.0.30319
  */
-class WS_TRANSFER_MODE extends Win32Enum{
+class WS_TRANSFER_MODE extends Win32Enum {
 
     /**
      * Setting this flag means messages are delivered in chunks.  The start of the message

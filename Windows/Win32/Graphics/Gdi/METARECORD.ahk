@@ -5,10 +5,8 @@
  * The METARECORD structure contains a Windows-format metafile record.
  * @see https://learn.microsoft.com/windows/win32/api/wingdi/ns-wingdi-metarecord
  * @namespace Windows.Win32.Graphics.Gdi
- * @version v4.0.30319
  */
-class METARECORD extends Win32Struct
-{
+class METARECORD extends Win32Struct {
     static sizeof => 8
 
     static packingSize => 4
@@ -33,9 +31,9 @@ class METARECORD extends Win32Struct
 
     /**
      * An array of words containing the function parameters, in reverse of the order they are passed to the function.
-     * @type {Array<UInt16>}
+     * @type {Array<Integer>}
      */
-    rdParm{
+    rdParm {
         get {
             if(!this.HasProp("__rdParmProxyArray"))
                 this.__rdParmProxyArray := Win32FixedArray(this.ptr + 6, 1, Primitive, "ushort")

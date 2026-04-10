@@ -5,9 +5,8 @@
  * Specifies the type of a timed text cue event.
  * @see https://learn.microsoft.com/windows/win32/api/mfmediaengine/ne-mfmediaengine-mf_timed_text_cue_event
  * @namespace Windows.Win32.Media.MediaFoundation
- * @version v4.0.30319
  */
-class MF_TIMED_TEXT_CUE_EVENT extends Win32Enum{
+class MF_TIMED_TEXT_CUE_EVENT extends Win32Enum {
 
     /**
      * The cue has become active.

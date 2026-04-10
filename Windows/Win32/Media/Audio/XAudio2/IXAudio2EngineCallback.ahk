@@ -9,9 +9,8 @@
  * Windows 10 (XAudio2.9); Windows 8, Windows Phone 8 (XAudio 2.8); DirectX SDK (XAudio 2.7)
  * @see https://learn.microsoft.com/windows/win32/api/xaudio2/nn-xaudio2-ixaudio2enginecallback
  * @namespace Windows.Win32.Media.Audio.XAudio2
- * @version v4.0.30319
  */
-class IXAudio2EngineCallback extends Win32ComInterface{
+class IXAudio2EngineCallback extends Win32ComInterface {
 
     static sizeof => A_PtrSize
 
@@ -70,11 +69,11 @@ class IXAudio2EngineCallback extends Win32ComInterface{
      * 
      * <h3><a id="Platform_Requirements"></a><a id="platform_requirements"></a><a id="PLATFORM_REQUIREMENTS"></a>Platform Requirements</h3>
      * Windows 10 (XAudio2.9); Windows 8, Windows Phone 8 (XAudio 2.8); DirectX SDK (XAudio 2.7)
-     * @param {HRESULT} Error Error code returned by XAudio2.
+     * @param {HRESULT} _Error Error code returned by XAudio2.
      * @returns {String} Nothing - always returns an empty string
      * @see https://learn.microsoft.com/windows/win32/api/xaudio2/nf-xaudio2-ixaudio2enginecallback-oncriticalerror
      */
-    OnCriticalError(Error) {
-        ComCall(2, this, "int", Error)
+    OnCriticalError(_Error) {
+        ComCall(2, this, "int", _Error)
     }
 }

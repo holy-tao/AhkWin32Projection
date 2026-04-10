@@ -9,9 +9,8 @@
  * The compute queue always uses <b>D3D12_SHADER_VISIBILITY_ALL</b> because it has only one active stage. The 3D queue can choose values, but if it uses <b>D3D12_SHADER_VISIBILITY_ALL</b>, all shader stages can access whatever is bound at the root signature slot.
  * @see https://learn.microsoft.com/windows/win32/api/d3d12/ne-d3d12-d3d12_shader_visibility
  * @namespace Windows.Win32.Graphics.Direct3D12
- * @version v4.0.30319
  */
-class D3D12_SHADER_VISIBILITY extends Win32Enum{
+class D3D12_SHADER_VISIBILITY extends Win32Enum {
 
     /**
      * Specifies that all shader stages can access whatever is bound at the root signature slot.

@@ -4,7 +4,6 @@
 
 /**
  * @namespace Windows.Win32.NetworkManagement.WindowsNetworkVirtualization
- * @version v4.0.30319
  */
 class WindowsNetworkVirtualization {
 
@@ -50,7 +49,9 @@ class WindowsNetworkVirtualization {
      * @param {Pointer<WNV_NOTIFICATION_PARAM>} NotificationParam Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/wnvapi/ns-wnvapi-wnv_notification_param">PWNV_NOTIFICATION_PARAM</a></b>
      * 
      * A pointer to the notification type for the request.
-     * @param {Pointer<OVERLAPPED>} _Overlapped 
+     * @param {Pointer<OVERLAPPED>} _Overlapped Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/minwinbase/ns-minwinbase-overlapped">LPOVERLAPPED</a></b>
+     * 
+     * Information about the asynchronous completion of this request. If this parameter is <b>NULL</b>, the request is synchronous.
      * @param {Pointer<Integer>} BytesTransferred Type: <b>PULONG</b>
      * 
      * When this function returns, the <i>BytesTransferred</i> parameter points to the size of the buffer that is filled with the notification structures of the specific event type.

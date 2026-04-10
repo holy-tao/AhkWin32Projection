@@ -1,12 +1,13 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
+#Include .\SCM_PD_HEALTH_STATUS.ahk
+#Include .\SCM_PD_OPERATIONAL_STATUS.ahk
+#Include .\SCM_PD_OPERATIONAL_STATUS_REASON.ahk
 
 /**
  * @namespace Windows.Win32.System.Ioctl
- * @version v4.0.30319
  */
-class SCM_PD_MANAGEMENT_STATUS extends Win32Struct
-{
+class SCM_PD_MANAGEMENT_STATUS extends Win32Struct {
     static sizeof => 88
 
     static packingSize => 4
@@ -28,7 +29,7 @@ class SCM_PD_MANAGEMENT_STATUS extends Win32Struct
     }
 
     /**
-     * @type {Integer}
+     * @type {SCM_PD_HEALTH_STATUS}
      */
     Health {
         get => NumGet(this, 8, "int")
@@ -52,9 +53,9 @@ class SCM_PD_MANAGEMENT_STATUS extends Win32Struct
     }
 
     /**
-     * @type {Array<Int32>}
+     * @type {Array<SCM_PD_OPERATIONAL_STATUS>}
      */
-    OperationalStatus{
+    OperationalStatus {
         get {
             if(!this.HasProp("__OperationalStatusProxyArray"))
                 this.__OperationalStatusProxyArray := Win32FixedArray(this.ptr + 20, 16, Primitive, "int")
@@ -63,9 +64,9 @@ class SCM_PD_MANAGEMENT_STATUS extends Win32Struct
     }
 
     /**
-     * @type {Array<Int32>}
+     * @type {Array<SCM_PD_OPERATIONAL_STATUS_REASON>}
      */
-    AdditionalReasons{
+    AdditionalReasons {
         get {
             if(!this.HasProp("__AdditionalReasonsProxyArray"))
                 this.__AdditionalReasonsProxyArray := Win32FixedArray(this.ptr + 84, 1, Primitive, "int")

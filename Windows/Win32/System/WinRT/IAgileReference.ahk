@@ -9,9 +9,8 @@
  * Call the <a href="https://docs.microsoft.com/windows/desktop/api/combaseapi/nf-combaseapi-rogetagilereference">RoGetAgileReference</a> function to create an agile reference to an object.
  * @see https://learn.microsoft.com/windows/win32/api/objidl/nn-objidl-iagilereference
  * @namespace Windows.Win32.System.WinRT
- * @version v4.0.30319
  */
-class IAgileReference extends IUnknown{
+class IAgileReference extends IUnknown {
 
     static sizeof => A_PtrSize
     /**

@@ -5,10 +5,8 @@
  * Contains the information for digest authentication on a URL Group.
  * @see https://learn.microsoft.com/windows/win32/api/http/ns-http-http_server_authentication_digest_params
  * @namespace Windows.Win32.Networking.HttpServer
- * @version v4.0.30319
  */
-class HTTP_SERVER_AUTHENTICATION_DIGEST_PARAMS extends Win32Struct
-{
+class HTTP_SERVER_AUTHENTICATION_DIGEST_PARAMS extends Win32Struct {
     static sizeof => 32
 
     static packingSize => 8

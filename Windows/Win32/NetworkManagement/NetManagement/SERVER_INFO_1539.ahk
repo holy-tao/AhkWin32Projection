@@ -5,10 +5,8 @@
  * The SERVER_INFO_1539 structure specifies whether the server processes raw Server Message Blocks (SMBs).
  * @see https://learn.microsoft.com/windows/win32/api/lmserver/ns-lmserver-server_info_1539
  * @namespace Windows.Win32.NetworkManagement.NetManagement
- * @version v4.0.30319
  */
-class SERVER_INFO_1539 extends Win32Struct
-{
+class SERVER_INFO_1539 extends Win32Struct {
     static sizeof => 4
 
     static packingSize => 4

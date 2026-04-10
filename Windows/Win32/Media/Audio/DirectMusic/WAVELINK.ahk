@@ -3,10 +3,8 @@
 
 /**
  * @namespace Windows.Win32.Media.Audio.DirectMusic
- * @version v4.0.30319
  */
-class WAVELINK extends Win32Struct
-{
+class WAVELINK extends Win32Struct {
     static sizeof => 12
 
     static packingSize => 4

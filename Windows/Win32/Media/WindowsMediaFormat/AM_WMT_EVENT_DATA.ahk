@@ -7,10 +7,8 @@
  * This structure is relevant when using the <a href="https://docs.microsoft.com/windows/desktop/wmformat/wm-asf-reader-filter">WM ASF Reader</a> filter to read files protected with Digital Rights Management.
  * @see https://learn.microsoft.com/windows/win32/api/evcode/ns-evcode-am_wmt_event_data
  * @namespace Windows.Win32.Media.WindowsMediaFormat
- * @version v4.0.30319
  */
-class AM_WMT_EVENT_DATA extends Win32Struct
-{
+class AM_WMT_EVENT_DATA extends Win32Struct {
     static sizeof => 16
 
     static packingSize => 8

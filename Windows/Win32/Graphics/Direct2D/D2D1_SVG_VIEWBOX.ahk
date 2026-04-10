@@ -5,10 +5,8 @@
  * Represents an SVG viewBox.
  * @see https://learn.microsoft.com/windows/win32/api/d2d1svg/ns-d2d1svg-d2d1_svg_viewbox
  * @namespace Windows.Win32.Graphics.Direct2D
- * @version v4.0.30319
  */
-class D2D1_SVG_VIEWBOX extends Win32Struct
-{
+class D2D1_SVG_VIEWBOX extends Win32Struct {
     static sizeof => 16
 
     static packingSize => 4

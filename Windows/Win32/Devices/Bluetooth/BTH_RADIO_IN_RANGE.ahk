@@ -6,11 +6,9 @@
  * Stores data about Bluetooth devices within communication range.
  * @see https://learn.microsoft.com/windows/win32/api/bthdef/ns-bthdef-bth_radio_in_range
  * @namespace Windows.Win32.Devices.Bluetooth
- * @version v4.0.30319
  */
-class BTH_RADIO_IN_RANGE extends Win32Struct
-{
-    static sizeof => 528
+class BTH_RADIO_IN_RANGE extends Win32Struct {
+    static sizeof => 280
 
     static packingSize => 8
 
@@ -18,7 +16,7 @@ class BTH_RADIO_IN_RANGE extends Win32Struct
      * Current set of attributes associated with the remote device, in the form of a <a href="https://docs.microsoft.com/windows/desktop/api/bthdef/ns-bthdef-bth_device_info">BTH_DEVICE_INFO</a> structure.
      * @type {BTH_DEVICE_INFO}
      */
-    deviceInfo{
+    deviceInfo {
         get {
             if(!this.HasProp("__deviceInfo"))
                 this.__deviceInfo := BTH_DEVICE_INFO(0, this)
@@ -31,7 +29,7 @@ class BTH_RADIO_IN_RANGE extends Win32Struct
      * @type {Integer}
      */
     previousDeviceFlags {
-        get => NumGet(this, 520, "uint")
-        set => NumPut("uint", value, this, 520)
+        get => NumGet(this, 272, "uint")
+        set => NumPut("uint", value, this, 272)
     }
 }

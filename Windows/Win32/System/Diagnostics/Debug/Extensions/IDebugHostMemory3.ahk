@@ -1,14 +1,13 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\..\..\Guid.ahk
-#Include .\Location.ahk
 #Include .\IDebugHostMemory2.ahk
+#Include .\Location.ahk
 
 /**
  * @namespace Windows.Win32.System.Diagnostics.Debug.Extensions
- * @version v4.0.30319
  */
-class IDebugHostMemory3 extends IDebugHostMemory2{
+class IDebugHostMemory3 extends IDebugHostMemory2 {
 
     static sizeof => A_PtrSize
     /**

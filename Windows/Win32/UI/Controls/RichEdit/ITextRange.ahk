@@ -1,13 +1,12 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\..\Guid.ahk
+#Include ..\..\..\System\Com\IDispatch.ahk
 #Include ..\..\..\Foundation\BSTR.ahk
-#Include .\ITextRange.ahk
 #Include .\ITextFont.ahk
 #Include .\ITextPara.ahk
 #Include ..\..\..\System\Variant\VARIANT.ahk
 #Include ..\..\..\System\Com\IUnknown.ahk
-#Include ..\..\..\System\Com\IDispatch.ahk
 
 /**
  * The ITextRange objects are powerful editing and data-binding tools that allow a program to select text in a story and then examine or change that text.
@@ -160,9 +159,8 @@
  * Applications can retrieve an <b>ITextRange</b> pointer by calling the <a href="https://docs.microsoft.com/windows/desktop/api/tom/nf-tom-itextdocument-range">Range</a> method.
  * @see https://learn.microsoft.com/windows/win32/api/tom/nn-tom-itextrange
  * @namespace Windows.Win32.UI.Controls.RichEdit
- * @version v4.0.30319
  */
-class ITextRange extends IDispatch{
+class ITextRange extends IDispatch {
 
     static sizeof => A_PtrSize
     /**
@@ -222,7 +220,9 @@ class ITextRange extends IDispatch{
      * <b>ITextRange::SetText</b> replaces the text in the range with the new text. In contrast, <a href="https://docs.microsoft.com/windows/desktop/api/tom/nf-tom-itextselection-typetext">TypeText</a> replaces the selection with the text <i>bstr</i> and leaves the selection as an insertion point just following the inserted text, just as if you had typed the text in. For UI selection behavior, see <b>TypeText</b>.
      * 
      * If, after you call <b>ITextRange::SetText</b>, you call <a href="https://docs.microsoft.com/windows/desktop/api/tom/nf-tom-itextrange-gettext">ITextRange::GetText</a>, you get back the same text that you set with the <b>ITextRange::SetText</b> method (unless some other range has changed that text in between the calls).
-     * @param {BSTR} _bstr 
+     * @param {BSTR} _bstr Type: <b>BSTR</b>
+     * 
+     * Text that replaces the current text in this range. If null, the current text is deleted.
      * @returns {HRESULT} Type: <b>HRESULT</b>
      * 
      * The method returns an <b>HRESULT</b> value. If the method succeeds, it returns <b>S_OK</b>. If the method fails, it returns one of the following error codes. For more information about COM error codes, see <a href="https://docs.microsoft.com/windows/desktop/com/error-handling-in-com">Error Handling in COM</a>.
@@ -342,7 +342,9 @@ class ITextRange extends IDispatch{
      * However, <b>ITextRange::SetChar</b> is more efficient than a replace operation that is accomplished by a delete followed by an insertion. Thus, rewriting the code without using <b>ITextRange::SetChar</b> would probably be much slower. 
      * 
      * The <i>Char</i> property, which can do most things that a characters collection can, has two big advantages: it can reference any character in the parent story instead of being limited to the parent range, and it's significantly faster, since <b>LONG</b>s rather than range objects are involved. Because of these advantages, the Text Object Model (TOM) does not support a characters collection.
-     * @param {Integer} _Char 
+     * @param {Integer} _Char Type: <b>long</b>
+     * 
+     * New value for character at the starting position.
      * @returns {HRESULT} Type: <b>HRESULT</b>
      * 
      * The method returns an <b>HRESULT</b> value. If the method succeeds, it returns <b>S_OK</b>. If the method fails, it returns one of the following error codes. For more information about COM error codes, see <a href="https://docs.microsoft.com/windows/desktop/com/error-handling-in-com">Error Handling in COM</a>.
@@ -794,7 +796,9 @@ class ITextRange extends IDispatch{
      * Expands this range so that any partial units it contains are completely contained.
      * @remarks
      * For example, if an insertion point is at the beginning, the end, or within a word, <b>ITextRange::Expand</b> expands the range to include that word. If the range already includes one word and part of another, <b>ITextRange::Expand</b> expands the range to include both words. <b>ITextRange::Expand</b> expands the range to include the visible portion of the range's story.
-     * @param {Integer} _Unit 
+     * @param {Integer} _Unit Type: <b>long</b>
+     * 
+     * Unit to include, if it is partially within the range. The default value is <c>tomWord</c>. For a list of the other <i>Unit</i> values, see the discussion under <a href="https://docs.microsoft.com/windows/desktop/api/tom/nn-tom-itextrange">ITextRange</a>.
      * @returns {Integer} Type: <b>long*</b>
      * 
      * The count of characters added to the range. The value can be null.
@@ -811,7 +815,9 @@ class ITextRange extends IDispatch{
      * The <b>ITextRange::GetIndex</b> method retrieves the story index of a word, line, sentence, paragraph, and so forth, at the range Start. <i>Unit</i> specifies which kind of entity to index, such as words (<b>tomWord</b>), lines (<b>tomLine</b>), sentences (<b>tomSentence</b>), or paragraphs (<b>tomParagraph</b>). For example, <b>ITextRange::GetIndex</b> sets <i>pIndex</i> equal to the line number of the first line in the range. For a range at the end of the story, <b>ITextRange::GetIndex</b>, returns the number of <i>Unit</i>s in the story. Thus, you can get the number of words, lines, objects, and so forth, in a story.
      * 
      * The index value returned by the <b>ITextRange::GetIndex</b> method is not valid if the text is subsequently edited. Thus, users should be careful about using methods that return index values, especially if the values are to be stored for any duration. This is in contrast to a pointer to a range, which does remain valid when the text is edited.
-     * @param {Integer} _Unit 
+     * @param {Integer} _Unit Type: <b>long</b>
+     * 
+     * Unit that is indexed. For a list of possible <i>Unit</i> values, see the discussion under <a href="https://docs.microsoft.com/windows/desktop/api/tom/nn-tom-itextrange">ITextRange</a>.
      * @returns {Integer} Type: <b>long*</b>
      * 
      * The index value. The value is zero if <i>Unit</i> does not exist.
@@ -826,7 +832,9 @@ class ITextRange extends IDispatch{
      * Changes this range to the specified unit of the story.
      * @remarks
      * This method allows an application to work with line-oriented text, such as programs, in a convenient way. For example, <c>SetIndex(tomLine, 10, 0)</c> converts a range to an insertion point at the start of the tenth line.
-     * @param {Integer} _Unit 
+     * @param {Integer} _Unit Type: <b>long</b>
+     * 
+     * Unit used to index the range. For a list of unit values, see <a href="https://docs.microsoft.com/windows/desktop/api/tom/nn-tom-itextrange">ITextRange</a>.
      * @param {Integer} Index Type: <b>long</b>
      * 
      * Index for the <i>Unit</i>. This range is relocated to the <i>Unit</i> that has this index number. If positive, the numbering of <i>Unit</i>s begins at the start of the story and proceeds forward. If negative, the numbering begins at the end of the story and proceeds backward. The start of the story corresponds to an <i>Index</i> of 1 for all units that exist, and the last unit in the story corresponds to an <i>Index</i> of -1.
@@ -1004,7 +1012,9 @@ class ITextRange extends IDispatch{
      * If the range is an insertion point on a boundary between <i>Unit</i>s, <b>ITextRange::StartOf</b> does not change the start position. 
      * 
      * The <b>ITextRange::StartOf</b> and <a href="https://docs.microsoft.com/windows/desktop/api/tom/nf-tom-itextrange-endof">ITextRange::EndOf</a> methods differ from the <a href="https://docs.microsoft.com/windows/desktop/api/tom/nf-tom-itextselection-homekey">HomeKey</a> and <a href="https://docs.microsoft.com/windows/desktop/api/tom/nf-tom-itextselection-endkey">EndKey</a> methods in that the latter extend from the active end, whereas <b>ITextRange::StartOf</b> extends from the start position and <b>ITextRange::EndOf</b> extends from the end position.
-     * @param {Integer} _Unit 
+     * @param {Integer} _Unit Type: <b>long</b>
+     * 
+     * Unit to use in the move operation. For a list of <i>Unit</i> values, see the discussion under <a href="https://docs.microsoft.com/windows/desktop/api/tom/nn-tom-itextrange">ITextRange</a>.
      * @param {Integer} Extend Type: <b>long</b>
      * @returns {Integer} Type: <b>long*</b>
      * 
@@ -1020,7 +1030,9 @@ class ITextRange extends IDispatch{
      * Moves this range's ends to the end of the last overlapping Unit in the range.
      * @remarks
      * For comparison, the <a href="https://docs.microsoft.com/windows/desktop/api/tom/nf-tom-itextrange-startof">ITextRange::StartOf</a> method moves the range ends to the beginning of the first overlapping <i>Unit</i> in the range. Note, the <b>ITextRange::StartOf</b> and <b>ITextRange::EndOf</b> methods differ from the <a href="https://docs.microsoft.com/windows/desktop/api/tom/nf-tom-itextselection-homekey">HomeKey</a> and <a href="https://docs.microsoft.com/windows/desktop/api/tom/nf-tom-itextselection-endkey">EndKey</a> methods in that the latter extend from the active end, whereas <b>ITextRange::StartOf</b> extends from Start and <b>ITextRange::EndOf</b> extends from End. If the range is an insertion point on a boundary between <i>Unit</i>s, <b>ITextRange::EndOf</b> does not change End. In particular, calling <b>ITextRange::EndOf</b> (<i>tomCharacter</i>, *, *) does not change End except for an insertion point at the beginning of a story.
-     * @param {Integer} _Unit 
+     * @param {Integer} _Unit Type: <b>long</b>
+     * 
+     * Unit to use. Default value: <i>tomWord</i>. For a list of the other <i>Unit</i> values, see the discussion under <a href="https://docs.microsoft.com/windows/desktop/api/tom/nn-tom-itextrange">ITextRange</a>.
      * @param {Integer} Extend Type: <b>long</b>
      * 
      * Indicator of how the shifting of the range ends is to proceed. It can be one of the following. 
@@ -1080,7 +1092,9 @@ class ITextRange extends IDispatch{
      * 
      * See also the <a href="https://docs.microsoft.com/windows/desktop/api/tom/nf-tom-itextrange-movestart">ITextRange::MoveStart</a> and <a href="https://docs.microsoft.com/windows/desktop/api/tom/nf-tom-itextrange-moveend">ITextRange::MoveEnd</a> methods, which move the range Start or End position <i>Count</i> 
      * 				<i>Unit</i>s, respectively.
-     * @param {Integer} _Unit 
+     * @param {Integer} _Unit Type: <b>long</b>
+     * 
+     * Unit to use. The default value is <b>tomCharacter</b>. For information on other values, see the discussion in <a href="https://docs.microsoft.com/windows/desktop/api/tom/nn-tom-itextrange">ITextRange</a>.
      * @param {Integer} Count Type: <b>long</b>
      * 
      * Number of <i>Unit</i>s to move past. The default value is 1. If <i>Count</i> is greater than zero, motion is forward—toward the end of the story—and if <i>Count</i> is less than zero, motion is backward—toward the beginning. If <i>Count</i> is zero, the range is unchanged.
@@ -1102,7 +1116,9 @@ class ITextRange extends IDispatch{
      * The motion described by <b>ITextRange::MoveStart</b> is logical rather than geometric. That is, motion is toward the end or toward the start of a story. Depending on the language, moving to the end of the story could be moving left or moving right. 
      * 
      * For more information, see <a href="https://docs.microsoft.com/windows/desktop/api/tom/nn-tom-itextrange">ITextRange</a> and <a href="https://docs.microsoft.com/windows/desktop/api/tom/nf-tom-itextrange-move">ITextRange::Move</a>.
-     * @param {Integer} _Unit 
+     * @param {Integer} _Unit Type: <b>long</b>
+     * 
+     * Unit used in the move. The default value is <b>tomCharacter</b>. For a list of the other <i>Unit</i> values, see the discussion under <a href="https://docs.microsoft.com/windows/desktop/api/tom/nn-tom-itextrange">ITextRange</a>.
      * @param {Integer} Count Type: <b>long</b>
      * 
      * Number of units to move. The default value is 1. If <i>Count</i> is greater than zero, motion is forward—toward the end of the story—and if <i>Count</i> is less than zero, motion is backward—toward the beginning. If  <i>Count</i> is zero, the start position is unchanged.
@@ -1124,7 +1140,9 @@ class ITextRange extends IDispatch{
      * The motion described by <b>ITextRange::MoveEnd</b> is logical rather than geometric. That is, motion is toward the end or toward the start of a story. Depending on the language, moving to the end of the story could be moving left or moving right. 
      * 
      * For more information, see <a href="https://docs.microsoft.com/windows/desktop/api/tom/nn-tom-itextrange">ITextRange</a> and <a href="https://docs.microsoft.com/windows/desktop/api/tom/nf-tom-itextrange-move">ITextRange::Move</a>.
-     * @param {Integer} _Unit 
+     * @param {Integer} _Unit Type: <b>long</b>
+     * 
+     * The units by which to move the end of the range. The default value is <b>tomCharacter</b>. For a list of the other unit values, see <a href="https://docs.microsoft.com/windows/desktop/api/tom/nn-tom-itextrange">ITextRange</a>.
      * @param {Integer} Count Type: <b>long</b>
      * 
      * The number of units to move past. The default value is 1. If <i>Count</i> is greater than zero, motion is forward—toward the end of the story—and if <i>Count</i> is less than zero, motion is backward—toward the beginning. If  <i>Count</i> is zero, the end position is unchanged.
@@ -1467,7 +1485,9 @@ class ITextRange extends IDispatch{
      * 
      * 
      * To do this for all such occurrences, change the If into a While/Wend loop in the above line of code. This an example of a <b>FIND/REPLACE</b> macro that cannot be run with <b>Find and Replace</b> dialog boxes.
-     * @param {BSTR} _bstr 
+     * @param {BSTR} _bstr Type: <b>BSTR</b>
+     * 
+     * String to find.
      * @param {Integer} Count Type: <b>long</b>
      * 
      * Maximum number of characters to search. It can be one of the following. 
@@ -1498,7 +1518,7 @@ class ITextRange extends IDispatch{
      *  
      * 
      * In all cases, if a string is found, the range limits are changed to be those of the matched string and 					<i>pLength</i> is set equal to the length of the string. If the string is not found, the range remains unchanged and <i>pLength</i> is set equal to zero.
-     * @param {Integer} Flags Type: <b>long</b>
+     * @param {tomConstants} Flags Type: <b>long</b>
      * @returns {Integer} Type: <b>long*</b>
      * 
      * The length of string matched.
@@ -1513,7 +1533,9 @@ class ITextRange extends IDispatch{
 
     /**
      * Searches up to Count characters for the string, bstr, starting at the range's Start cp (cpFirst).
-     * @param {BSTR} _bstr 
+     * @param {BSTR} _bstr Type: <b>BSTR</b>
+     * 
+     * The string to search for.
      * @param {Integer} Count Type: <b>long</b>
      * 
      * Maximum number of characters to search. It can be one of the following. 
@@ -1533,7 +1555,7 @@ class ITextRange extends IDispatch{
      * <td>Search backward for <i>n</i> chars, starting from <i>cpLim.</i></td>
      * </tr>
      * </table>
-     * @param {Integer} Flags Type: <b>long</b>
+     * @param {tomConstants} Flags Type: <b>long</b>
      * @returns {Integer} Type: <b>long*</b>
      * 
      * The length of the matched string.
@@ -1548,7 +1570,9 @@ class ITextRange extends IDispatch{
 
     /**
      * Searches up to Count characters for the string, bstr, starting from the range's End cp.
-     * @param {BSTR} _bstr 
+     * @param {BSTR} _bstr Type: <b>BSTR</b>
+     * 
+     * String to search for.
      * @param {Integer} Count Type: <b>long</b>
      * 
      * Maximum number of characters to search. It can be one of the following. 
@@ -1570,7 +1594,7 @@ class ITextRange extends IDispatch{
      * 								<i>cpLim.</i></td>
      * </tr>
      * </table>
-     * @param {Integer} Flags Type: <b>long</b>
+     * @param {tomConstants} Flags Type: <b>long</b>
      * @returns {Integer} Type: <b>long*</b>
      * 
      * The length of string matched.
@@ -1615,7 +1639,10 @@ class ITextRange extends IDispatch{
      * <li>If you select to the end of a paragraph, but not the whole paragraph, the CR is not deleted. </li>
      * <li>If you delete the whole paragraph (from the beginning through the CR), you delete the CR as well (unless it is the final CR in the file). </li>
      * </ul>
-     * @param {Integer} _Unit 
+     * @param {Integer} _Unit Type: <b>long</b>
+     * 
+     * Unit to use. 
+     * 					<i>Unit</i> can be <i>tomCharacter</i> (the default value) or <i>tomWord</i>.
      * @param {Integer} Count Type: <b>long</b>
      * 
      * Number of 
@@ -1799,7 +1826,7 @@ class ITextRange extends IDispatch{
 
     /**
      * Changes the case of letters in this range according to the Type parameter.
-     * @param {Integer} Type Type: <b>long</b>
+     * @param {tomConstants} Type Type: <b>long</b>
      * 
      * Type of case change. The default value is <i>tomLower</i>.
      * 
@@ -1884,7 +1911,7 @@ class ITextRange extends IDispatch{
      * Retrieves screen coordinates for the start or end character position in the text range, along with the intra-line position.
      * @remarks
      * The <b>ITextRange::GetPoint</b> method gives <a href="https://docs.microsoft.com/windows/desktop/api/tom/nn-tom-itextrange">ITextRange</a> the ability to emulate UI-pointer commands; it is also handy for accessibility purposes.
-     * @param {Integer} Type Type: <b>long</b>
+     * @param {tomConstants} Type Type: <b>long</b>
      * 
      * Flag that indicates the position to retrieve. This parameter can include one value from each of the following tables. The default value is tomStart + TA_BASELINE + TA_LEFT.
      * 
@@ -1949,7 +1976,7 @@ class ITextRange extends IDispatch{
      * @param {Integer} y Type: <b>long</b>
      * 
      * Vertical coordinate of the specified point, in absolute screen coordinates.
-     * @param {Integer} Type Type: <b>long</b>
+     * @param {tomConstants} Type Type: <b>long</b>
      * 
      * The end to move to the specified point. It can be one of the following. 
      * 					

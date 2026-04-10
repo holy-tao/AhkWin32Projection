@@ -1,6 +1,9 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
 #Include .\D3D12_RENDER_TARGET_BLEND_DESC.ahk
+#Include .\D3D12_BLEND.ahk
+#Include .\D3D12_BLEND_OP.ahk
+#Include .\D3D12_LOGIC_OP.ahk
 
 /**
  * Describes the blend state. (D3D12_BLEND_DESC)
@@ -69,13 +72,11 @@
  * Note the helper structure, <a href="https://docs.microsoft.com/windows/desktop/direct3d12/cd3dx12-blend-desc">CD3DX12_BLEND_DESC</a>.
  * @see https://learn.microsoft.com/windows/win32/api/d3d12/ns-d3d12-d3d12_blend_desc
  * @namespace Windows.Win32.Graphics.Direct3D12
- * @version v4.0.30319
  */
-class D3D12_BLEND_DESC extends Win32Struct
-{
-    static sizeof => 72
+class D3D12_BLEND_DESC extends Win32Struct {
+    static sizeof => 328
 
-    static packingSize => 8
+    static packingSize => 4
 
     /**
      * Specifies whether to use alpha-to-coverage as a multisampling technique when setting a pixel to a render target. For more info about using alpha-to-coverage, see <a href="https://docs.microsoft.com/windows/desktop/direct3d11/d3d10-graphics-programming-guide-blend-state">Alpha-To-Coverage</a>.
@@ -99,9 +100,9 @@ class D3D12_BLEND_DESC extends Win32Struct
 
     /**
      * An array of <a href="https://docs.microsoft.com/windows/desktop/api/d3d12/ns-d3d12-d3d12_render_target_blend_desc">D3D12_RENDER_TARGET_BLEND_DESC</a> structures that describe the blend states for render targets; these correspond to the eight render targets that can be bound to the <a href="https://docs.microsoft.com/windows/desktop/direct3d11/d3d10-graphics-programming-guide-output-merger-stage">output-merger stage</a> at one time.
-     * @type {Array<D3D12_RENDER_TARGET_BLEND_DESC>}
+     * @type {D3D12_RENDER_TARGET_BLEND_DESC}
      */
-    RenderTarget{
+    RenderTarget {
         get {
             if(!this.HasProp("__RenderTargetProxyArray"))
                 this.__RenderTargetProxyArray := Win32FixedArray(this.ptr + 8, 8, D3D12_RENDER_TARGET_BLEND_DESC, "")

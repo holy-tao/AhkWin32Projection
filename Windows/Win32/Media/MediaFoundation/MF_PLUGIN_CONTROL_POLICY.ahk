@@ -5,9 +5,8 @@
  * Defines policy settings for the IMFPluginControl2::SetPolicy method.
  * @see https://learn.microsoft.com/windows/win32/api/mfobjects/ne-mfobjects-mf_plugin_control_policy
  * @namespace Windows.Win32.Media.MediaFoundation
- * @version v4.0.30319
  */
-class MF_PLUGIN_CONTROL_POLICY extends Win32Enum{
+class MF_PLUGIN_CONTROL_POLICY extends Win32Enum {
 
     /**
      * Enumerate all registered sources and transforms.
@@ -28,7 +27,6 @@ class MF_PLUGIN_CONTROL_POLICY extends Win32Enum{
     static MF_PLUGIN_CONTROL_POLICY_USE_WEB_PLUGINS => 2
 
     /**
-     * 
      * @type {Integer (Int32)}
      */
     static MF_PLUGIN_CONTROL_POLICY_USE_WEB_PLUGINS_EDGEMODE => 3

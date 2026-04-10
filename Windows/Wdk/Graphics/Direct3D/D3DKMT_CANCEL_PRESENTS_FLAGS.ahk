@@ -3,10 +3,8 @@
 
 /**
  * @namespace Windows.Wdk.Graphics.Direct3D
- * @version v4.0.30319
  */
-class D3DKMT_CANCEL_PRESENTS_FLAGS extends Win32Struct
-{
+class D3DKMT_CANCEL_PRESENTS_FLAGS extends Win32Struct {
     static sizeof => 4
 
     static packingSize => 4
@@ -25,7 +23,7 @@ class D3DKMT_CANCEL_PRESENTS_FLAGS extends Win32Struct
             get => NumGet(this, 0, "uint")
             set => NumPut("uint", value, this, 0)
         }
-    
+
         /**
          * @type {Integer}
          */
@@ -33,16 +31,15 @@ class D3DKMT_CANCEL_PRESENTS_FLAGS extends Win32Struct
             get => (this._bitfield >> 0) & 0x1
             set => this._bitfield := ((value & 0x1) << 0) | (this._bitfield & ~(0x1 << 0))
         }
-    
     }
 
     /**
      * @type {_ReprogramInterrupt}
      */
-    ReprogramInterrupt{
+    ReprogramInterrupt {
         get {
             if(!this.HasProp("__ReprogramInterrupt"))
-                this.__ReprogramInterrupt := %this.__Class%._ReprogramInterrupt(0, this)
+                this.__ReprogramInterrupt := D3DKMT_CANCEL_PRESENTS_FLAGS._ReprogramInterrupt(0, this)
             return this.__ReprogramInterrupt
         }
     }

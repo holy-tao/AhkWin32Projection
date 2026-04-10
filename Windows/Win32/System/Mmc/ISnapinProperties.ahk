@@ -7,9 +7,8 @@
  * The ISnapinProperties interface enables a snap-in to initialize the snap-in's properties and receive notification when a property is added, changed, or deleted.
  * @see https://learn.microsoft.com/windows/win32/api/mmcobj/nn-mmcobj-isnapinproperties
  * @namespace Windows.Win32.System.Mmc
- * @version v4.0.30319
  */
-class ISnapinProperties extends IUnknown{
+class ISnapinProperties extends IUnknown {
 
     static sizeof => A_PtrSize
     /**

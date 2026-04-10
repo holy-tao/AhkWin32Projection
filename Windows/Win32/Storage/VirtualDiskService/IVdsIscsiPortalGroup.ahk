@@ -1,19 +1,18 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
+#Include ..\..\System\Com\IUnknown.ahk
 #Include .\VDS_ISCSI_PORTALGROUP_PROP.ahk
 #Include .\IVdsIscsiTarget.ahk
 #Include .\IEnumVdsObject.ahk
 #Include .\IVdsAsync.ahk
-#Include ..\..\System\Com\IUnknown.ahk
 
 /**
  * The IVdsIscsiPortalGroup interface (vdshwprv.h) provides methods for performing query and configuration services on an iSCSI portal group.
  * @see https://learn.microsoft.com/windows/win32/api/vdshwprv/nn-vdshwprv-ivdsiscsiportalgroup
  * @namespace Windows.Win32.Storage.VirtualDiskService
- * @version v4.0.30319
  */
-class IVdsIscsiPortalGroup extends IUnknown{
+class IVdsIscsiPortalGroup extends IUnknown {
 
     static sizeof => A_PtrSize
     /**

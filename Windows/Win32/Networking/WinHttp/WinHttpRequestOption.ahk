@@ -10,9 +10,8 @@
  * > For Windows XP and Windows 2000, see the [Run-Time Requirements](winhttp-start-page.md) section of the WinHttp start page.
  * @see https://learn.microsoft.com/windows/win32/WinHttp/winhttprequestoption
  * @namespace Windows.Win32.Networking.WinHttp
- * @version v4.0.30319
  */
-class WinHttpRequestOption extends Win32Enum{
+class WinHttpRequestOption extends Win32Enum {
 
     /**
      * @type {Integer (Int32)}

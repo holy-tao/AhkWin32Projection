@@ -3,10 +3,8 @@
 
 /**
  * @namespace Windows.Win32.Security.Cryptography
- * @version v4.0.30319
  */
-class BCRYPT_PQDSA_KEY_BLOB extends Win32Struct
-{
+class BCRYPT_PQDSA_KEY_BLOB extends Win32Struct {
     static sizeof => 12
 
     static packingSize => 4

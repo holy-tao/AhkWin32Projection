@@ -17,9 +17,8 @@
  * Not all methods implemented by <a href="https://docs.microsoft.com/windows/desktop/api/d2d1_1/nn-d2d1_1-id2d1devicecontext">ID2D1DeviceContext</a> are present.
  * @see https://learn.microsoft.com/windows/win32/api/d2d1_1/nn-d2d1_1-id2d1commandsink
  * @namespace Windows.Win32.Graphics.Direct2D
- * @version v4.0.30319
  */
-class ID2D1CommandSink extends IUnknown{
+class ID2D1CommandSink extends IUnknown {
 
     static sizeof => A_PtrSize
     /**
@@ -70,7 +69,7 @@ class ID2D1CommandSink extends IUnknown{
 
     /**
      * Sets the antialiasing mode that will be used to render any subsequent geometry.
-     * @param {Integer} antialiasMode Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/d2d1/ne-d2d1-d2d1_antialias_mode">D2D1_ANTIALIAS_MODE</a></b>
+     * @param {D2D1_ANTIALIAS_MODE} antialiasMode Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/d2d1/ne-d2d1-d2d1_antialias_mode">D2D1_ANTIALIAS_MODE</a></b>
      * 
      * The antialiasing mode selected for the command list.
      * @returns {HRESULT} Type: <b>HRESULT</b>
@@ -103,7 +102,7 @@ class ID2D1CommandSink extends IUnknown{
 
     /**
      * Indicates the new default antialiasing mode for text.
-     * @param {Integer} textAntialiasMode Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/d2d1/ne-d2d1-d2d1_text_antialias_mode">D2D1_TEXT_ANTIALIAS_MODE</a></b>
+     * @param {D2D1_TEXT_ANTIALIAS_MODE} textAntialiasMode Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/d2d1/ne-d2d1-d2d1_text_antialias_mode">D2D1_TEXT_ANTIALIAS_MODE</a></b>
      * 
      * The antialiasing mode for the text.
      * @returns {HRESULT} Type: <b>HRESULT</b>
@@ -150,7 +149,7 @@ class ID2D1CommandSink extends IUnknown{
 
     /**
      * Sets a new primitive blend mode. (ID2D1CommandSink.SetPrimitiveBlend)
-     * @param {Integer} primitiveBlend Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/d2d1_1/ne-d2d1_1-d2d1_primitive_blend">D2D1_PRIMITIVE_BLEND</a></b>
+     * @param {D2D1_PRIMITIVE_BLEND} primitiveBlend Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/d2d1_1/ne-d2d1_1-d2d1_primitive_blend">D2D1_PRIMITIVE_BLEND</a></b>
      * 
      * The primitive blend that will apply to subsequent primitives.
      * @returns {HRESULT} Type: <b>HRESULT</b>
@@ -167,7 +166,7 @@ class ID2D1CommandSink extends IUnknown{
      * The unit mode changes the meaning of subsequent units from device-independent pixels (DIPs) to pixels or the other way. The command sink does not record a DPI, this is implied by the playback context or other playback interface such as ID2D1PrintControl.
      * @remarks
      * The unit mode changes the interpretation of units from DIPs to pixels  or vice versa.
-     * @param {Integer} unitMode Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/d2d1_1/ne-d2d1_1-d2d1_unit_mode">D2D1_UNIT_MODE</a></b>
+     * @param {D2D1_UNIT_MODE} unitMode Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/d2d1_1/ne-d2d1_1-d2d1_unit_mode">D2D1_UNIT_MODE</a></b>
      * 
      * The enumeration that specifies how units are to be interpreted.
      * @returns {HRESULT} Type: <b>HRESULT</b>
@@ -192,7 +191,9 @@ class ID2D1CommandSink extends IUnknown{
      * <li>Opaque black for an ignore bitmap target.</li>
      * <li>Containing no content (or white) for a printer page.</li>
      * </ul>
-     * @param {Pointer<D2D1_COLOR_F>} _color 
+     * @param {Pointer<D2D1_COLOR_F>} _color Type: <b>const <a href="https://docs.microsoft.com/windows/desktop/Direct2D/d2d1-color-f">D2D1_COLOR_F</a>*</b>
+     * 
+     * The color to which the command sink should be cleared.
      * @returns {HRESULT} Type: <b>HRESULT</b>
      * 
      * If the method succeeds, it returns <b>S_OK</b>. If it fails, it returns an <b>HRESULT</b> error code.
@@ -210,14 +211,16 @@ class ID2D1CommandSink extends IUnknown{
      * @param {D2D_POINT_2F} baselineOrigin Type: <b><a href="https://docs.microsoft.com/windows/desktop/Direct2D/d2d1-point-2f">D2D1_POINT_2F</a></b>
      * 
      * The upper left corner of the baseline.
-     * @param {Pointer<DWRITE_GLYPH_RUN>} _glyphRun 
+     * @param {Pointer<DWRITE_GLYPH_RUN>} _glyphRun Type: <b>const <a href="https://docs.microsoft.com/windows/desktop/api/dwrite/ns-dwrite-dwrite_glyph_run">DWRITE_GLYPH_RUN</a>*</b>
+     * 
+     * The glyphs to render.
      * @param {Pointer<DWRITE_GLYPH_RUN_DESCRIPTION>} glyphRunDescription Type: <b>const <a href="https://docs.microsoft.com/windows/desktop/api/dwrite/ns-dwrite-dwrite_glyph_run_description">DWRITE_GLYPH_RUN_DESCRIPTION</a>*</b>
      * 
      * Additional non-rendering information about the glyphs.
      * @param {ID2D1Brush} foregroundBrush Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/d2d1/nn-d2d1-id2d1brush">ID2D1Brush</a>*</b>
      * 
      * The brush used to fill the glyphs.
-     * @param {Integer} measuringMode Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/dcommon/ne-dcommon-dwrite_measuring_mode">DWRITE_MEASURING_MODE</a></b>
+     * @param {DWRITE_MEASURING_MODE} measuringMode Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/dcommon/ne-dcommon-dwrite_measuring_mode">DWRITE_MEASURING_MODE</a></b>
      * 
      * The measuring mode to apply to the glyphs.
      * @returns {HRESULT} Type: <b>HRESULT</b>
@@ -287,7 +290,9 @@ class ID2D1CommandSink extends IUnknown{
 
     /**
      * Draws a rectangle.
-     * @param {Pointer<D2D_RECT_F>} _rect 
+     * @param {Pointer<D2D_RECT_F>} _rect Type: <b>const <a href="https://docs.microsoft.com/windows/desktop/Direct2D/d2d1-rect-f">D2D1_RECT_F</a>*</b>
+     * 
+     * The rectangle to be drawn to the command sink.
      * @param {ID2D1Brush} brush Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/d2d1/nn-d2d1-id2d1brush">ID2D1Brush</a>*</b>
      * 
      * The brush used to stroke the geometry.
@@ -319,14 +324,18 @@ class ID2D1CommandSink extends IUnknown{
      * 
      * 
      * The <i>perspectiveTransform</i> is specified in addition to the transform on device context.
-     * @param {ID2D1Bitmap} _bitmap 
+     * @param {ID2D1Bitmap} _bitmap Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/d2d1/nn-d2d1-id2d1bitmap">ID2D1Bitmap</a>*</b>
+     * 
+     * The bitmap to draw.
      * @param {Pointer<D2D_RECT_F>} destinationRectangle Type: <b><a href="https://docs.microsoft.com/windows/desktop/Direct2D/d2d1-rect-f">D2D1_RECT_F</a></b>
      * 
      * The destination rectangle. The default is the size of the bitmap and the location is the upper left corner of the render target.
      * @param {Float} opacity Type: <b>FLOAT</b>
      * 
      * The opacity of the bitmap.
-     * @param {Integer} _interpolationMode 
+     * @param {D2D1_INTERPOLATION_MODE} _interpolationMode Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/d2d1_1/ne-d2d1_1-d2d1_interpolation_mode">D2D1_INTERPOLATION_MODE</a></b>
+     * 
+     * The interpolation mode to use.
      * @param {Pointer<D2D_RECT_F>} sourceRectangle Type: <b>const <a href="https://docs.microsoft.com/windows/desktop/Direct2D/d2d1-rect-f">D2D1_RECT_F</a></b>
      * 
      * An optional source rectangle.
@@ -345,15 +354,19 @@ class ID2D1CommandSink extends IUnknown{
      * Draws the provided image to the command sink.
      * @remarks
      * Because the image can itself be a command list or contain an effect graph that in turn contains a command list, this method can result in recursive processing.
-     * @param {ID2D1Image} _image 
+     * @param {ID2D1Image} _image Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/d2d1/nn-d2d1-id2d1image">ID2D1Image</a>*</b>
+     * 
+     * The image to be drawn to the command sink.
      * @param {Pointer<D2D_POINT_2F>} targetOffset Type: <b>const <a href="https://docs.microsoft.com/windows/desktop/Direct2D/d2d1-point-2f">D2D1_POINT_2F</a>*</b>
      * 
      * This defines the offset in the destination space that the image will be rendered to. The entire logical extent of the image will be rendered to the corresponding destination. If not specified, the destination origin will be (0, 0). The top-left corner of the image will be mapped to the target offset. This will not necessarily be the origin.
      * @param {Pointer<D2D_RECT_F>} imageRectangle Type: <b>const <a href="https://docs.microsoft.com/windows/desktop/Direct2D/d2d1-rect-f">D2D1_RECT_F</a>*</b>
      * 
      * The corresponding rectangle in the image space will be mapped to the provided origins when processing the image.
-     * @param {Integer} _interpolationMode 
-     * @param {Integer} compositeMode Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/d2d1_1/ne-d2d1_1-d2d1_composite_mode">D2D1_COMPOSITE_MODE</a></b>
+     * @param {D2D1_INTERPOLATION_MODE} _interpolationMode Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/d2d1_1/ne-d2d1_1-d2d1_interpolation_mode">D2D1_INTERPOLATION_MODE</a></b>
+     * 
+     * The interpolation mode to use to  scale the image if necessary.
+     * @param {D2D1_COMPOSITE_MODE} compositeMode Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/d2d1_1/ne-d2d1_1-d2d1_composite_mode">D2D1_COMPOSITE_MODE</a></b>
      * 
      * If specified, the composite mode that will be applied to the limits of the currently selected clip.
      * @returns {HRESULT} Type: <b>HRESULT</b>
@@ -455,7 +468,9 @@ class ID2D1CommandSink extends IUnknown{
 
     /**
      * Indicates to the command sink a rectangle to be filled.
-     * @param {Pointer<D2D_RECT_F>} _rect 
+     * @param {Pointer<D2D_RECT_F>} _rect Type: <b>const <a href="https://docs.microsoft.com/windows/desktop/Direct2D/d2d1-rect-f">D2D1_RECT_F</a>*</b>
+     * 
+     * The rectangle to fill.
      * @param {ID2D1Brush} brush Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/d2d1/nn-d2d1-id2d1brush">ID2D1Brush</a>*</b>
      * 
      * The brush with which to fill the rectangle.
@@ -476,7 +491,7 @@ class ID2D1CommandSink extends IUnknown{
      * @param {Pointer<D2D_RECT_F>} clipRect Type: <b>const <a href="https://docs.microsoft.com/windows/desktop/Direct2D/d2d1-rect-f">D2D1_RECT_F</a>*</b>
      * 
      * The rectangle that defines the clip.
-     * @param {Integer} antialiasMode Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/d2d1/ne-d2d1-d2d1_antialias_mode">D2D1_ANTIALIAS_MODE</a></b>
+     * @param {D2D1_ANTIALIAS_MODE} antialiasMode Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/d2d1/ne-d2d1-d2d1_antialias_mode">D2D1_ANTIALIAS_MODE</a></b>
      * 
      * The antialias mode for the clip.
      * @returns {HRESULT} Type: <b>HRESULT</b>

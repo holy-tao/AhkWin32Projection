@@ -1,15 +1,14 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
 #Include ..\..\Foundation\POINT.ahk
+#Include .\TCHITTESTINFO_FLAGS.ahk
 
 /**
  * Contains information about a hit test. This structure supersedes the TC_HITTESTINFO structure.
  * @see https://learn.microsoft.com/windows/win32/api/commctrl/ns-commctrl-tchittestinfo
  * @namespace Windows.Win32.UI.Controls
- * @version v4.0.30319
  */
-class TCHITTESTINFO extends Win32Struct
-{
+class TCHITTESTINFO extends Win32Struct {
     static sizeof => 12
 
     static packingSize => 4
@@ -20,7 +19,7 @@ class TCHITTESTINFO extends Win32Struct
      * Position to hit test, in client coordinates.
      * @type {POINT}
      */
-    pt{
+    pt {
         get {
             if(!this.HasProp("__pt"))
                 this.__pt := POINT(0, this)
@@ -30,7 +29,7 @@ class TCHITTESTINFO extends Win32Struct
 
     /**
      * Type: <b><a href="https://docs.microsoft.com/windows/desktop/WinProg/windows-data-types">UINT</a></b>
-     * @type {Integer}
+     * @type {TCHITTESTINFO_FLAGS}
      */
     flags {
         get => NumGet(this, 8, "uint")

@@ -1,12 +1,11 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\Win32Struct.ahk
+#Include .\FILE_OBJECT.ahk
 
 /**
  * @namespace Windows.Wdk.Foundation
- * @version v4.0.30319
  */
-class TARGET_DEVICE_CUSTOM_NOTIFICATION extends Win32Struct
-{
+class TARGET_DEVICE_CUSTOM_NOTIFICATION extends Win32Struct {
     static sizeof => 32
 
     static packingSize => 8
@@ -28,7 +27,7 @@ class TARGET_DEVICE_CUSTOM_NOTIFICATION extends Win32Struct
     }
 
     /**
-     * @type {Pointer<Guid>}
+     * @type {Pointer}
      */
     Event {
         get => NumGet(this, 8, "ptr")
@@ -52,9 +51,9 @@ class TARGET_DEVICE_CUSTOM_NOTIFICATION extends Win32Struct
     }
 
     /**
-     * @type {Array<Byte>}
+     * @type {Array<Integer>}
      */
-    CustomDataBuffer{
+    CustomDataBuffer {
         get {
             if(!this.HasProp("__CustomDataBufferProxyArray"))
                 this.__CustomDataBufferProxyArray := Win32FixedArray(this.ptr + 28, 1, Primitive, "char")

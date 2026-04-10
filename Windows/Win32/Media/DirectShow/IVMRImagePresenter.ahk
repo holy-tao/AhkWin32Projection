@@ -7,9 +7,8 @@
  * The IVMRImagePresenter interface is implemented by the default Allocator-Presenter for the Video Mixing Renderer Filter 7 (VMR-7).
  * @see https://learn.microsoft.com/windows/win32/api/strmif/nn-strmif-ivmrimagepresenter
  * @namespace Windows.Win32.Media.DirectShow
- * @version v4.0.30319
  */
-class IVMRImagePresenter extends IUnknown{
+class IVMRImagePresenter extends IUnknown {
 
     static sizeof => A_PtrSize
     /**

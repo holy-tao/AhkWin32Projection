@@ -5,10 +5,8 @@
  * Contains pointers to the Local Security Authority (LSA) functions that Windows authentication packages can call.
  * @see https://learn.microsoft.com/windows/win32/api/ntsecpkg/ns-ntsecpkg-lsa_dispatch_table
  * @namespace Windows.Win32.Security.Authentication.Identity
- * @version v4.0.30319
  */
-class LSA_DISPATCH_TABLE extends Win32Struct
-{
+class LSA_DISPATCH_TABLE extends Win32Struct {
     static sizeof => 88
 
     static packingSize => 8

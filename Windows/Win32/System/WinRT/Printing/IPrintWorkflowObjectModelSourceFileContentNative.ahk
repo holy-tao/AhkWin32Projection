@@ -1,14 +1,13 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\..\Guid.ahk
-#Include ..\..\..\Storage\Xps\IXpsOMObjectFactory1.ahk
 #Include ..\..\Com\IUnknown.ahk
+#Include ..\..\..\Storage\Xps\IXpsOMObjectFactory1.ahk
 
 /**
  * @namespace Windows.Win32.System.WinRT.Printing
- * @version v4.0.30319
  */
-class IPrintWorkflowObjectModelSourceFileContentNative extends IUnknown{
+class IPrintWorkflowObjectModelSourceFileContentNative extends IUnknown {
 
     static sizeof => A_PtrSize
     /**

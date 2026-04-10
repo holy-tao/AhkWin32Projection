@@ -1,5 +1,7 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
+#Include .\RESTOREPOINTINFO_EVENT_TYPE.ahk
+#Include .\RESTOREPOINTINFO_TYPE.ahk
 
 /**
  * Contains information used by the SRSetRestorePoint function. (ANSI)
@@ -8,18 +10,15 @@
  * > The srrestoreptapi.h header defines RESTOREPOINTINFO as an alias which automatically selects the ANSI or Unicode version of this function based on the definition of the UNICODE preprocessor constant. Mixing usage of the encoding-neutral alias with code that not encoding-neutral can lead to mismatches that result in compilation or runtime errors. For more information, see [Conventions for Function Prototypes](/windows/win32/intl/conventions-for-function-prototypes).
  * @see https://learn.microsoft.com/windows/win32/api/srrestoreptapi/ns-srrestoreptapi-restorepointinfoa
  * @namespace Windows.Win32.System.Restore
- * @version v4.0.30319
  * @charset ANSI
  */
-class RESTOREPOINTINFOA extends Win32Struct
-{
+class RESTOREPOINTINFOA extends Win32Struct {
     static sizeof => 80
 
     static packingSize => 8
 
     /**
-     * 
-     * @type {Integer}
+     * @type {RESTOREPOINTINFO_EVENT_TYPE}
      */
     dwEventType {
         get => NumGet(this, 0, "uint")
@@ -27,8 +26,7 @@ class RESTOREPOINTINFOA extends Win32Struct
     }
 
     /**
-     * 
-     * @type {Integer}
+     * @type {RESTOREPOINTINFO_TYPE}
      */
     dwRestorePtType {
         get => NumGet(this, 4, "uint")

@@ -1,17 +1,16 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\..\Guid.ahk
+#Include ..\..\..\System\Com\IDispatch.ahk
 #Include .\ISignerCertificate.ahk
 #Include ..\..\..\System\Com\IUnknown.ahk
-#Include ..\..\..\System\Com\IDispatch.ahk
 
 /**
  * The ISignerCertificates interface defines the following methods and properties to manage a collection of ISignerCertificate objects.
  * @see https://learn.microsoft.com/windows/win32/api/certenroll/nn-certenroll-isignercertificates
  * @namespace Windows.Win32.Security.Cryptography.Certificates
- * @version v4.0.30319
  */
-class ISignerCertificates extends IDispatch{
+class ISignerCertificates extends IDispatch {
 
     static sizeof => A_PtrSize
     /**

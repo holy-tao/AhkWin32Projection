@@ -1,12 +1,12 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
+#Include .\DDRAWI_DIRECTDRAW_GBL.ahk
+#Include ..\Gdi\RGNDATA.ahk
 
 /**
  * @namespace Windows.Win32.Graphics.DirectDraw
- * @version v4.0.30319
  */
-class DDRAWI_DDRAWCLIPPER_GBL extends Win32Struct
-{
+class DDRAWI_DDRAWCLIPPER_GBL extends Win32Struct {
     static sizeof => 48
 
     static packingSize => 8

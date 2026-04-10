@@ -7,9 +7,8 @@
  * Note  This interface has been deprecated. Note  Microsoft does not provide an implementation of this interface.
  * @see https://learn.microsoft.com/windows/win32/api/strmif/nn-strmif-iamanalogvideoencoder
  * @namespace Windows.Win32.Media.DirectShow
- * @version v4.0.30319
  */
-class IAMAnalogVideoEncoder extends IUnknown{
+class IAMAnalogVideoEncoder extends IUnknown {
 
     static sizeof => A_PtrSize
     /**

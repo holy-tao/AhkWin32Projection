@@ -7,10 +7,8 @@
  * The list of (D)TLS extensions returned via this structure is not exhaustive. Depending on the type of the (D)TLS extension, it is not always possible to determine whether it has been negotiated with the peer. This structure generally reports negotiable (D)TLS extensions of interest to SSPI callers, such as: Certificate Status Request, Application Layer Protocol Negotiation, Secure Real-time Transport Protocol, Token Binding, Extended Master Secret, Renegotiation Info.
  * @see https://learn.microsoft.com/windows/win32/api/sspi/ns-sspi-secpkgcontext_negotiatedtlsextensions
  * @namespace Windows.Win32.Security.Authentication.Identity
- * @version v4.0.30319
  */
-class SecPkgContext_NegotiatedTlsExtensions extends Win32Struct
-{
+class SecPkgContext_NegotiatedTlsExtensions extends Win32Struct {
     static sizeof => 16
 
     static packingSize => 8

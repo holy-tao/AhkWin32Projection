@@ -5,7 +5,6 @@
 
 /**
  * @namespace Windows.Win32.Storage.CloudFilters
- * @version v4.0.30319
  */
 class CloudFilters {
 
@@ -136,7 +135,7 @@ class CloudFilters {
      * 
      * **ProviderId** is a GUID that is meant to identify a specific sync provider. It is optional. If not provided, the platform generates a GUID using the MD5 hash of the **ProviderName** string. The information is used for telemetry only such that the platform can better correlate activities from the same sync provider more efficiently and more accurately even if the sync provider registers sync roots with different **ProviderName** strings. It is recommended that a sync provider always supply the same GUID for all versions of its sync product(s). However, sync providers are free to choose different **ProviderName** strings for the sake of the best user experience.
      * @param {Pointer<CF_SYNC_POLICIES>} Policies The policies of the sync root to be registered.
-     * @param {Integer} RegisterFlags Flags for registering previous and new sync roots.
+     * @param {CF_REGISTER_FLAGS} RegisterFlags Flags for registering previous and new sync roots.
      * 
      * | Flag | Description |
      * |--------|--------|
@@ -198,7 +197,7 @@ class CloudFilters {
      * @param {PWSTR} SyncRootPath The path to the sync root.
      * @param {Pointer<CF_CALLBACK_REGISTRATION>} CallbackTable The callback table to be registered. This parameter is how the sync provider tells the library which functions to call for various types of requests from the platform. It is an array of structures containing a callback type and associated function pointer. The sync provider only needs to register the callbacks it implements. The *CallbackTable* array should always end with **CF_CALLBACK_REGISTRATION_END**.
      * @param {Pointer<Void>} CallbackContext *CallbackContext* is provided for the convenience of the sync provider. The platform will remember this *CallbackContext* and pass it back to the sync provider any time one of its callback functions is invoked on the current sync root. A good use for the *CallbackContext* would be a pointer into the sync provider’s own structure that maintains state for this connection.
-     * @param {Integer} ConnectFlags The sync provider can request additional information be provided when its callbacks are invoked by passing *ConnectFlags* to this API. The following flags are supported:
+     * @param {CF_CONNECT_FLAGS} ConnectFlags The sync provider can request additional information be provided when its callbacks are invoked by passing *ConnectFlags* to this API. The following flags are supported:
      * 
      * | Request | Description |
      * |--------|--------|
@@ -308,7 +307,7 @@ class CloudFilters {
     /**
      * Updates the current status of the sync provider.
      * @param {CF_CONNECTION_KEY} ConnectionKey A connection key representing a communication channel with the sync filter.
-     * @param {Integer} ProviderStatus The current status of the sync provider. The status persists for the life of the sync root connection. The sync root connection is torn down either when [CfDisconnectSyncRoot](nf-cfapi-cfdisconnectsyncroot.md) is called or if the sync provider process is terminated.
+     * @param {CF_SYNC_PROVIDER_STATUS} ProviderStatus The current status of the sync provider. The status persists for the life of the sync root connection. The sync root connection is torn down either when [CfDisconnectSyncRoot](nf-cfapi-cfdisconnectsyncroot.md) is called or if the sync provider process is terminated.
      * @returns {HRESULT} If this function succeeds, it returns `S_OK`. Otherwise, it returns an **HRESULT** error code.
      * @see https://learn.microsoft.com/windows/win32/api/cfapi/nf-cfapi-cfupdatesyncproviderstatus
      * @since windows10.0.16299
@@ -323,7 +322,7 @@ class CloudFilters {
     /**
      * Queries a sync provider to get the status of the provider.
      * @param {CF_CONNECTION_KEY} ConnectionKey A connection key representing a communication channel with the sync filter.
-     * @returns {Integer} The current status of the sync provider.
+     * @returns {CF_SYNC_PROVIDER_STATUS} The current status of the sync provider.
      * @see https://learn.microsoft.com/windows/win32/api/cfapi/nf-cfapi-cfquerysyncproviderstatus
      * @since windows10.0.16299
      */
@@ -380,7 +379,7 @@ class CloudFilters {
      * - **CF_PLACEHOLDER_CREATE_FLAG_MARK_IN_SYNC** - This flag is applicable for both placeholder files and directories. When this flag is present, the newly created placeholder will be marked as in-sync as part of the **TRANSFER_PLACEHOLDERS** operation.
      * - **CF_PLACEHOLDER_CREATE_FLAG_ALWAYS_FULL** - This flag is enforced on a placeholder file only. It can be set on a placeholder directory, but it has no effect. When this flag is present, the newly created placeholder will be marked as always full. Once hydrated, any attempt to dehydrate such a file placeholder will fail with error code **ERROR_CLOUD_FILE_DEHYDRATION_DISALLOWED**.
      * @param {Integer} PlaceholderCount The count of placeholders in the *PlaceholderArray*.
-     * @param {Integer} CreateFlags Flags for configuring the creation of a placeholder. *CreateFlags* can be set to the following values:
+     * @param {CF_CREATE_FLAGS} CreateFlags Flags for configuring the creation of a placeholder. *CreateFlags* can be set to the following values:
      * 
      * - **CF_CREATE_FLAG_NONE** is the default mode where the API processes all entries in the array even when errors are encountered.
      * - **CF_CREATE_FLAG_STOP_ON_ERROR** causes the API to return immediately if creation of a placeholder fails. In that case, the API returns the failure code.
@@ -402,7 +401,7 @@ class CloudFilters {
      * 
      * This aims to remove the complexity related to oplock usages. The caller must close the handle returned by **CfOpenFileWithOplock** with [CfCloseHandle](nf-cfapi-cfclosehandle.md).
      * @param {PWSTR} FilePath Fully qualified path to the file or directory to be opened.
-     * @param {Integer} Flags 
+     * @param {CF_OPEN_FILE_FLAGS} Flags 
      * @returns {HANDLE} An opaque handle to the file or directory that is just opened. Note that this is not a normal Win32 handle and hence cannot be used with non-CfApi Win32 APIs directly.
      * @see https://learn.microsoft.com/windows/win32/api/cfapi/nf-cfapi-cfopenfilewithoplock
      * @since windows10.0.16299
@@ -495,9 +494,9 @@ class CloudFilters {
      * 
      * If the API returns **HRESULT_FROM_WIN32(ERROR_IO_PENDING)** when using *Overlapped* asynchronously, the caller can then wait using [GetOverlappedResult](/windows/win32/api/ioapiset/nf-ioapiset-getoverlappedresult).
      * @param {HANDLE} FileHandle Handle to the file or directory to be converted.
-     * @param {Pointer} FileIdentity A user mode buffer that contains the opaque file or directory information supplied by the caller. Optional if the caller is not dehydrating the file at the same time, or if the caller is converting a directory. *FileIdentity* gets passed back to the sync provider in all callbacks. Cannot exceed 4KB in size.
+     * @param {Integer} FileIdentity A user mode buffer that contains the opaque file or directory information supplied by the caller. Optional if the caller is not dehydrating the file at the same time, or if the caller is converting a directory. *FileIdentity* gets passed back to the sync provider in all callbacks. Cannot exceed 4KB in size.
      * @param {Integer} FileIdentityLength Length, in bytes, of the *FileIdentity*.
-     * @param {Integer} ConvertFlags Placeholder conversion flags. *ConvertFlags* can be set to the following values:
+     * @param {CF_CONVERT_FLAGS} ConvertFlags Placeholder conversion flags. *ConvertFlags* can be set to the following values:
      * 
      * | Flag | Description |
      * |--------|--------|
@@ -506,7 +505,9 @@ class CloudFilters {
      * | **CF_CONVERT_FLAG_ENABLE_ON_DEMAND_POPULATION** | This is applicable for directories only. When specified, it marks the converted placeholder directory partially populated such that any future access to it will result in a **FETCH_PLACEHOLDERS** callback sent to the sync provider. |
      * | **CF_CONVERT_FLAG_ALWAYS_FULL** | This is effective on placeholder files only. Once a file is converted to a placeholder with this flag, the placeholder is marked always full. Any attempt to dehydrate such a placeholder will fail with error code **ERROR_CLOUD_FILE_DEHYDRATION_DISALLOWED**. |
      * | **CF_CONVERT_FLAG_FORCE_CONVERT_TO_CLOUD_FILE** | When specified, the platform allows a sync engine to atomically convert a non-cloud files placeholder (having another reparse tag/data) to a cloud files placeholder. Note that the API normally fails conversion of any non-placeholder file to a placeholder.<br/><br/>The combination **(CF\_CONVERT\_FLAG\_FORCE\_CONVERT\_TO\_CLOUD\_FILE \| CF\_CONVERT\_FLAG\_DEHYDRATE)** is especially useful in migration scenarios when certain providers are migrating from another platform to cloud files platform and they intend to convert hydrated placeholders on the older platform to dehydrated placeholders on the cloud files platform atomically. Just this flag should be passed for converting full placeholders to cloud files placeholders. If the older platform implements full files as a regular, non-placeholder files, this flag is not needed. Passing this flag on a directory converts directories to cloud files as well, though the **DEHYDRATE** flag doesn’t apply to directories.<br/><br/>Even when the policy **CF\_PLACEHOLDER\_MANAGEMENT\_POLICY\_CONVERT\_TO\_UNRESTRICTED** was specified with [CfRegisterSyncRoot](nf-cfapi-cfregistersyncroot.md), only processes that have registered/connected to the cloud files sync root are allowed to specify this flag.<br/><br/>**Note:** The flag is supported only if the `PlatformVersion.IntegrationNumber` obtained from [CfGetPlatformInfo](nf-cfapi-cfgetplatforminfo.md) is `0x500` or higher. |
-     * @param {Pointer<OVERLAPPED>} _Overlapped 
+     * @param {Pointer<OVERLAPPED>} _Overlapped When specified and combined with an asynchronous *FileHandle*, *Overlapped* allows the platform to perform the **CfConvertToPlaceholder** call asynchronously. See the [Remarks](#-remarks) for more details.
+     * 
+     * If not specified, the platform will perform the API call synchronously, regardless of how the handle was created.
      * @returns {Integer} When specified, this is the final USN value after convert actions are performed.
      * @see https://learn.microsoft.com/windows/win32/api/cfapi/nf-cfapi-cfconverttoplaceholder
      * @since windows10.0.16299
@@ -536,7 +537,7 @@ class CloudFilters {
      * - A `0` value in a **timestamp** field (**CreationTime**, **LastAccessTime**, **LastWriteTime**, and **ChangeTime**) means no change to the current timestamp on the file.
      * - A `0` value in **FileAttributes** means no change to the current file attributes on the file.
      * - There is no special value in **FileSize**; a `0` value in **FileSize** truncates the file size to `0`.
-     * @param {Pointer} FileIdentity *FileIdentity* is a user mode buffer that contains the opaque file or directory information supplied by the caller. The *FileIdentity* blob should not exceed 4KB in size. *FileIdentity* gets passed back to the sync provider in all callbacks. This is optional if an update is not needed or if the caller wants to remove the *FileIdentity* blob from the placeholder to be updated.
+     * @param {Integer} FileIdentity *FileIdentity* is a user mode buffer that contains the opaque file or directory information supplied by the caller. The *FileIdentity* blob should not exceed 4KB in size. *FileIdentity* gets passed back to the sync provider in all callbacks. This is optional if an update is not needed or if the caller wants to remove the *FileIdentity* blob from the placeholder to be updated.
      * @param {Integer} FileIdentityLength Length, in bytes, of the *FileIdentity*.
      * @param {Pointer<CF_FILE_RANGE>} DehydrateRangeArray This array specifies ranges of the existing placeholder that will no longer be considered valid after the update.
      * 
@@ -545,7 +546,7 @@ class CloudFilters {
      * >[!NOTE]
      * >Passing a single range with Offset **0** and Length **CF_EOF** will invalidate the entire file - This has the same effect as passing the flag **CF_UPDATE_FLAG_DEHYDRATE** instead. Also, passing **CF_UPDATE_FLAG_DEHYDRATE** causes *DehydrateRangeArray* to be silently dropped
      * @param {Integer} DehydrateRangeCount The count of a series of discrete *DehydrateRangeArray* partitions of placeholder data.
-     * @param {Integer} UpdateFlags Update flags for placeholders. UpdateFlags can be set to the following values:
+     * @param {CF_UPDATE_FLAGS} UpdateFlags Update flags for placeholders. UpdateFlags can be set to the following values:
      * 
      * | Flag | Description |
      * |--------|--------|
@@ -563,7 +564,9 @@ class CloudFilters {
      * @param {Pointer<Integer>} UpdateUsn On input, *UpdateUsn* instructs the platform to only perform the update if the file still has the same USN value as the one passed in. This serves a similar purpose to **CF_UPDATE_FLAG_VERIFY_IN_SYNC** but also encompasses local metadata changes. Passing a pointer to a USN value of `0` on input is the same as passing a `NULL` pointer.
      * 
      * On return, *UpdateUsn* receives the final USN value after update actions were performed.
-     * @param {Pointer<OVERLAPPED>} _Overlapped 
+     * @param {Pointer<OVERLAPPED>} _Overlapped When specified and combined with an asynchronous *FileHandle*, *Overlapped* allows the platform to perform the **CfUpdatePlaceholder** call asynchronously. See the [Remarks](#-remarks) for more details.
+     * 
+     * If not specified, the platform will perform the API call synchronously, regardless of how the handle was created.
      * @returns {HRESULT} If this function succeeds, it returns `S_OK`. Otherwise, it returns an **HRESULT** error code.
      * @see https://learn.microsoft.com/windows/win32/api/cfapi/nf-cfapi-cfupdateplaceholder
      * @since windows10.0.16299
@@ -586,8 +589,10 @@ class CloudFilters {
      * 
      * If the API returns HRESULT_FROM_WIN32(ERROR_IO_PENDING) when using *Overlapped* asynchronously, the caller can then wait using [GetOverlappedResult](/windows/win32/api/ioapiset/nf-ioapiset-getoverlappedresult).
      * @param {HANDLE} FileHandle A handle to the file or directory placeholder that is about to be reverted to a normal file or directory. The platform properly synchronizes the revert operation with other active requests. An attribute or no-access handle is sufficient.
-     * @param {Integer} RevertFlags Placeholder revert flags. *RevertFlags* should be set to **CF_REVERT_FLAG_NONE**.
-     * @param {Pointer<OVERLAPPED>} _Overlapped 
+     * @param {CF_REVERT_FLAGS} RevertFlags Placeholder revert flags. *RevertFlags* should be set to **CF_REVERT_FLAG_NONE**.
+     * @param {Pointer<OVERLAPPED>} _Overlapped When specified and combined with an asynchronous *FileHandle*, *Overlapped* allows the platform to perform the **CfRevertPlaceholder** call asynchronously. See the [Remarks](#-remarks) for more details.
+     * 
+     * If not specified, the platform will perform the API call synchronously, regardless of how the handle was created.
      * @returns {HRESULT} If this function succeeds, it returns `S_OK`. Otherwise, it returns an **HRESULT** error code.
      * @see https://learn.microsoft.com/windows/win32/api/cfapi/nf-cfapi-cfrevertplaceholder
      * @since windows10.0.16299
@@ -608,8 +613,10 @@ class CloudFilters {
      * @param {HANDLE} FileHandle Handle of the placeholder file to be hydrated. An attribute or no-access handle is sufficient.
      * @param {Integer} StartingOffset The starting point offset of the placeholder file data.
      * @param {Integer} Length The length, in bytes, of the placeholder file whose data must be available locally on the disk after the API completes successfully. A length of `CF_EOF` (defined as -1) signifies end of file. For any subrange that is not present in the placeholder, the platform will fetch the data from the sync provider and store it on disk in the placeholder.
-     * @param {Integer} HydrateFlags The placeholder hydration flags. *HydrateFlags* must be set to **CF_HYDRATE_FLAG_NONE**.
-     * @param {Pointer<OVERLAPPED>} _Overlapped 
+     * @param {CF_HYDRATE_FLAGS} HydrateFlags The placeholder hydration flags. *HydrateFlags* must be set to **CF_HYDRATE_FLAG_NONE**.
+     * @param {Pointer<OVERLAPPED>} _Overlapped When specified and combined with an asynchronous *FileHandle*, *Overlapped* allows the platform to perform the **CfHydratePlaceholder** call asynchronously. See the [Remarks](#-remarks) for more details.
+     * 
+     * If not specified, the platform will perform the API call synchronously, regardless of how the handle was created.
      * @returns {HRESULT} If this function succeeds, it returns `S_OK`. Otherwise, it returns an **HRESULT** error code.
      * @see https://learn.microsoft.com/windows/win32/api/cfapi/nf-cfapi-cfhydrateplaceholder
      * @since windows10.0.16299
@@ -626,7 +633,7 @@ class CloudFilters {
      * @param {HANDLE} FileHandle 
      * @param {Integer} StartingOffset 
      * @param {Integer} Length 
-     * @param {Integer} DehydrateFlags 
+     * @param {CF_DEHYDRATE_FLAGS} DehydrateFlags 
      * @param {Pointer<OVERLAPPED>} _Overlapped 
      * @returns {HRESULT} 
      */
@@ -644,13 +651,13 @@ class CloudFilters {
      * 
      * The caller must have initialized the overlapped structure with an event to wait on. If this returns **HRESULT_FROM_WIN32(ERROR_IO_PENDING)**, the caller can then wait using [GetOverlappedResult](/windows/win32/api/ioapiset/nf-ioapiset-getoverlappedresult). If not specified, the platform will perform the API call synchronously, regardless of how the handle was created.
      * @param {HANDLE} FileHandle The handle of the placeholder file. The platform properly synchronizes the operation with other active requests. An attribute or no-access handle is sufficient. The caller must have **READ_DATA** or **WRITE_DAC** access to the placeholder, otherwise the operation will be failed with **STATUS_CLOUD_FILE_ACCESS_DENIED**.
-     * @param {Integer} PinState The pin state of the placeholder file. For a list of valid *PinState* values, see [CF_PIN_STATE](ne-cfapi-cf_pin_state.md).
-     * @param {Integer} PinFlags The pin state flags. *PinFlags* can be set to the following values:
+     * @param {CF_PIN_STATE} PinState The pin state of the placeholder file. For a list of valid *PinState* values, see [CF_PIN_STATE](ne-cfapi-cf_pin_state.md).
+     * @param {CF_SET_PIN_FLAGS} PinFlags The pin state flags. *PinFlags* can be set to the following values:
      * 
      * - If **CF_PIN_FLAG_RECURSE** is specified, the platform applies the pin state to *FileHandle* and every file recursively beneath it (relevant only if *FileHandle* is a handle to a directory).
      * - If **CF_PIN_FLAG_RECURSE_ONLY** is specified, the platform applies the pin state to every file recursively beneath *FileHandle*, but not to *FileHandle* itself.
      * - If **CF_PIN_FLAG_RECURSE_STOP_ERROR** is specified, the platform will stop the recursion when encountering first error. Otherwise, the platform skips the error and continues the recursion.
-     * @param {Pointer<OVERLAPPED>} _Overlapped 
+     * @param {Pointer<OVERLAPPED>} _Overlapped Allows the call to be performed asynchronously. See the [Remarks](#-remarks) section for more details.
      * @returns {HRESULT} If this function succeeds, it returns `S_OK`. Otherwise, it returns an **HRESULT** error code.
      * @see https://learn.microsoft.com/windows/win32/api/cfapi/nf-cfapi-cfsetpinstate
      * @since windows10.0.16299
@@ -665,8 +672,8 @@ class CloudFilters {
     /**
      * Sets the in-sync state for a placeholder file or folder.
      * @param {HANDLE} FileHandle A handle to the placeholder. The platform properly synchronizes the operation with other active requests. An attribute or no-access handle is sufficient. The caller must have **WRITE_DATA** or **WRITE_DAC** access to the placeholder.
-     * @param {Integer} InSyncState 
-     * @param {Integer} InSyncFlags The in-sync state flags. See [CF_SET_IN_SYNC_FLAGS](ne-cfapi-cf_set_in_sync_flags.md) for more details.
+     * @param {CF_IN_SYNC_STATE} InSyncState 
+     * @param {CF_SET_IN_SYNC_FLAGS} InSyncFlags The in-sync state flags. See [CF_SET_IN_SYNC_FLAGS](ne-cfapi-cf_set_in_sync_flags.md) for more details.
      * @param {Pointer<Integer>} InSyncUsn When specified, on input, *InSyncUsn* instructs the platform to only perform in-sync setting if the file still has the same USN value as the one passed in. This is to close a race where the sync provider has just sync’d placeholder changes up to the cloud, but before the call to **CfSetInSyncState**, the placeholder changed in some way. Passing a pointer to a USN value of `0` on input is the same as passing a `NULL` pointer. On return, *InSYncUsn* receives the final USN value after setting the in-sync state.
      * @returns {HRESULT} If this function succeeds, it returns `S_OK`. Otherwise, it returns an **HRESULT** error code.
      * @see https://learn.microsoft.com/windows/win32/api/cfapi/nf-cfapi-cfsetinsyncstate
@@ -733,7 +740,7 @@ class CloudFilters {
      * | **CF_PLACEHOLDER_STATE_INVALID** | This is an invalid state when the API fails to parse the various information of the file or directory. |
      * @param {Integer} FileAttributes The file attribute information.
      * @param {Integer} ReparseTag The reparse tag information from a file.
-     * @returns {Integer} Can include [CF_PLACEHOLDER_STATE](ne-cfapi-cf_placeholder_state.md); the placeholder state.
+     * @returns {CF_PLACEHOLDER_STATE} Can include [CF_PLACEHOLDER_STATE](ne-cfapi-cf_placeholder_state.md); the placeholder state.
      * @see https://learn.microsoft.com/windows/win32/api/cfapi/nf-cfapi-cfgetplaceholderstatefromattributetag
      * @since windows10.0.16299
      */
@@ -749,8 +756,8 @@ class CloudFilters {
      * 
      * Not all information classes supported by [GetFileInformationByHandleEx](/windows/win32/api/winbase/nf-winbase-getfileinformationbyhandleex) are supported by this API. If the *FileAttributes* and *ReparseTag* can’t be extracted from a given information class, this API will return **CF_PLACEHOLDER_STATE_INVALID** and set last error properly.
      * @param {Pointer<Void>} InfoBuffer An info buffer about the file.
-     * @param {Integer} InfoClass An info class so the function knows how to interpret the *InfoBuffer*.
-     * @returns {Integer} Can include [CF_PLACEHOLDER_STATE](ne-cfapi-cf_placeholder_state.md); the placeholder state.
+     * @param {FILE_INFO_BY_HANDLE_CLASS} InfoClass An info class so the function knows how to interpret the *InfoBuffer*.
+     * @returns {CF_PLACEHOLDER_STATE} Can include [CF_PLACEHOLDER_STATE](ne-cfapi-cf_placeholder_state.md); the placeholder state.
      * @see https://learn.microsoft.com/windows/win32/api/cfapi/nf-cfapi-cfgetplaceholderstatefromfileinfo
      * @since windows10.0.16299
      */
@@ -766,7 +773,7 @@ class CloudFilters {
      * @remarks
      * The **WIN32_FIND_DATA** structure is obtained from the [FindFirstFile](/windows/win32/api/fileapi/nf-fileapi-findfirstfilea)/[FindNextFile](/windows/win32/api/fileapi/nf-fileapi-findnextfilea) functions.
      * @param {Pointer<WIN32_FIND_DATAA>} FindData The find data information on the file.
-     * @returns {Integer} Can include [CF_PLACEHOLDER_STATE](ne-cfapi-cf_placeholder_state.md); the placeholder state.
+     * @returns {CF_PLACEHOLDER_STATE} Can include [CF_PLACEHOLDER_STATE](ne-cfapi-cf_placeholder_state.md); the placeholder state.
      * @see https://learn.microsoft.com/windows/win32/api/cfapi/nf-cfapi-cfgetplaceholderstatefromfinddata
      * @since windows10.0.16299
      */
@@ -793,8 +800,8 @@ class CloudFilters {
      * | FileIdentity | An opaque blob supplied by the sync provider to the platform when the placeholder was created. File identity is provided for all sync provider callbacks. |
      * | FileIdentityLength | The length of the file identity in bytes. |
      * @param {HANDLE} FileHandle A handle to the placeholder whose information will be queried. Unlike most cloud files APIs that take a file handle, this one does not modify the file in any way. Therefore, the file handle only requires **READ_ATTRIBUTES** access.
-     * @param {Integer} InfoClass Placeholder information. This can be set to either [CF_PLACEHOLDER_STANDARD_INFO](ns-cfapi-cf_placeholder_standard_info.md) or [CF_PLACEHOLDER_BASIC_INFO](ns-cfapi-cf_placeholder_basic_info.md).
-     * @param {Pointer} InfoBuffer A pointer to a buffer that will receive information about the placeholder.
+     * @param {CF_PLACEHOLDER_INFO_CLASS} InfoClass Placeholder information. This can be set to either [CF_PLACEHOLDER_STANDARD_INFO](ns-cfapi-cf_placeholder_standard_info.md) or [CF_PLACEHOLDER_BASIC_INFO](ns-cfapi-cf_placeholder_basic_info.md).
+     * @param {Integer} InfoBuffer A pointer to a buffer that will receive information about the placeholder.
      * @param {Integer} InfoBufferLength The length of the *InfoBuffer*, in bytes. If the buffer is not large enough to hold all the information requested, the API will return as much data as it can fit into the buffer, and the call will fail with **HRESULT_FROM_WIN32(ERROR_MORE_DATA)**.
      * @returns {Integer} The number of bytes returned in the *InfoBuffer*.
      * @see https://learn.microsoft.com/windows/win32/api/cfapi/nf-cfapi-cfgetplaceholderinfo
@@ -818,7 +825,7 @@ class CloudFilters {
      * - CF_SYNC_ROOT_INFO_STANDARD
      * - CF_SYNC_ROOT_INFO_PROVIDER
      * @param {PWSTR} FilePath A fully qualified path to a file whose sync root information is to be queried.
-     * @param {Integer} InfoClass Types of sync root information.
+     * @param {CF_SYNC_ROOT_INFO_CLASS} InfoClass Types of sync root information.
      * @param {Pointer<Void>} InfoBuffer A pointer to a buffer that will receive the sync root information.
      * @param {Integer} InfoBufferLength Length, in bytes, of the *InfoBuffer*.
      * @param {Pointer<Integer>} ReturnedLength Length, in bytes, of the returned sync root information. Refer to [CfRegisterSyncRoot](nf-cfapi-cfregistersyncroot.md) for details about the sync root information.
@@ -843,7 +850,7 @@ class CloudFilters {
      * 
      * If the file is not underneath a cloud files sync root, the API will fail. On success, information is returned according to the specific *InfoClass* requested.
      * @param {HANDLE} FileHandle Handle of the file under the sync root whose information is to be queried.
-     * @param {Integer} InfoClass Types of sync root information.
+     * @param {CF_SYNC_ROOT_INFO_CLASS} InfoClass Types of sync root information.
      * @param {Pointer<Void>} InfoBuffer A pointer to a buffer that will receive the sync root information.
      * @param {Integer} InfoBufferLength Length, in bytes, of the *InfoBuffer*.
      * @param {Pointer<Integer>} ReturnedLength The number of bytes returned in the *InfoBuffer*.
@@ -866,10 +873,10 @@ class CloudFilters {
      * @remarks
      * Unlike most placeholder APIs that take a file handle, this one does not modify the file in any way, therefore the file handle only requires READ_ATTRIBUTES access.
      * @param {HANDLE} FileHandle The handle of the placeholder file to be queried.
-     * @param {Integer} InfoClass Types of the range of placeholder data.
+     * @param {CF_PLACEHOLDER_RANGE_INFO_CLASS} InfoClass Types of the range of placeholder data.
      * @param {Integer} StartingOffset Offset of the starting point of the range of data.
      * @param {Integer} Length Length of the range of data. A provider can specify `CF_EOF` for *Length* to indicate that range for which information is requested is from *StartingOffset* to end of the file.
-     * @param {Pointer} InfoBuffer Pointer to a buffer that will receive the data. The buffer is an array of **CF_FILE_RANGE** structures, which are offset/length pairs, describing the requested ranges.
+     * @param {Integer} InfoBuffer Pointer to a buffer that will receive the data. The buffer is an array of **CF_FILE_RANGE** structures, which are offset/length pairs, describing the requested ranges.
      * @param {Integer} InfoBufferLength The length of *InfoBuffer* in bytes.
      * @returns {Integer} The length of the returned range of placeholder data in the *InfoBuffer*.
      * @see https://learn.microsoft.com/windows/win32/api/cfapi/nf-cfapi-cfgetplaceholderrangeinfo
@@ -901,7 +908,7 @@ class CloudFilters {
      * @param {CF_CONNECTION_KEY} ConnectionKey An opaque handle created by [CfConnectSyncRoot](nf-cfapi-cfconnectsyncroot.md) for a sync root managed by the sync provider. It is returned also in **CF_CALLBACK_INFO** in the **CF_CALLBACK_TYPE_FETCH_DATA** callback and other callbacks.
      * @param {Integer} TransferKey The opaque handle to the placeholder file for which **CF_CALLBACK_TYPE_FETCH_DATA** callback has been invoked. It is also returned in **CF_CALLBACK_INFO** in the **CF_CALLBACK_TYPE_FETCH_DATA** callback. This can alternatively be obtained by [CfGetTransferKey](nf-cfapi-cfgettransferkey.md) if the API is not being invoked from **CF_CALLBACK_TYPE_FETCH_DATA** Callback.
      * @param {Integer} FileId A 64bit file system-maintained volume-wide unique ID of the placeholder file/directory to be serviced. Like *TransferKey*, this is returned in **CF_CALLBACK_INFO** in the **CF_CALLBACK_TYPE_FETCH_DATA** and other callbacks so that the provider doesn’t have to retrieve it again.
-     * @param {Integer} InfoClass Types of the range of placeholder data. The value can be one of the following:
+     * @param {CF_PLACEHOLDER_RANGE_INFO_CLASS} InfoClass Types of the range of placeholder data. The value can be one of the following:
      * 
      * | Value | Description |
      * |--------|--------|
@@ -910,7 +917,7 @@ class CloudFilters {
      * | CF_PLACEHOLDER_RANGEINFO_MODIFIED | Modified data is a subset of the on-disk data that is currently not in sync with the cloud (i.e., either modified or appended.) |
      * @param {Integer} StartingOffset Offset of the starting point of the range of data. *StartingOffset* and *RangeLength* specify a range in the placeholder file whose information as described by the *InfoClass* parameter is requested
      * @param {Integer} RangeLength Length of the range of data. A provider can specify `CF_EOF` for *RangeLength* to indicate that range for which information is requested is from *StartingOffset* to end of the file.
-     * @param {Pointer} InfoBuffer Pointer to a buffer that will receive the data. The buffer is an array of **CF_FILE_RANGE** structures, which are offset/length pairs, describing the requested ranges.
+     * @param {Integer} InfoBuffer Pointer to a buffer that will receive the data. The buffer is an array of **CF_FILE_RANGE** structures, which are offset/length pairs, describing the requested ranges.
      * @param {Integer} InfoBufferSize The length of *InfoBuffer* in bytes.
      * @returns {Integer} Receives the number of bytes returned in *InfoBuffer*.
      * @see https://learn.microsoft.com/windows/win32/api/cfapi/nf-cfapi-cfgetplaceholderrangeinfoforhydration

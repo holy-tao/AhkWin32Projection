@@ -3,9 +3,8 @@
 
 /**
  * @namespace Windows.Win32.System.Rpc
- * @version v4.0.30319
  */
-class RPC_C_QOS_CAPABILITIES extends Win32BitflagEnum{
+class RPC_C_QOS_CAPABILITIES extends Win32BitflagEnum {
 
     /**
      * @type {Integer (UInt32)}

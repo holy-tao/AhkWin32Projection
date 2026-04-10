@@ -4,13 +4,11 @@
 
 /**
  * @namespace Windows.Win32.NetworkManagement.WiFi
- * @version v4.0.30319
  */
-class DOT11_SUPPORTED_OFDM_FREQUENCY_LIST extends Win32Struct
-{
-    static sizeof => 16
+class DOT11_SUPPORTED_OFDM_FREQUENCY_LIST extends Win32Struct {
+    static sizeof => 12
 
-    static packingSize => 8
+    static packingSize => 4
 
     /**
      * @type {Integer}
@@ -29,9 +27,9 @@ class DOT11_SUPPORTED_OFDM_FREQUENCY_LIST extends Win32Struct
     }
 
     /**
-     * @type {Array<DOT11_SUPPORTED_OFDM_FREQUENCY>}
+     * @type {DOT11_SUPPORTED_OFDM_FREQUENCY}
      */
-    dot11SupportedOFDMFrequency{
+    dot11SupportedOFDMFrequency {
         get {
             if(!this.HasProp("__dot11SupportedOFDMFrequencyProxyArray"))
                 this.__dot11SupportedOFDMFrequencyProxyArray := Win32FixedArray(this.ptr + 8, 1, DOT11_SUPPORTED_OFDM_FREQUENCY, "")

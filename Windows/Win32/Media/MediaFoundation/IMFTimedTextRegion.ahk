@@ -1,16 +1,15 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
-#Include .\MFARGB.ahk
 #Include ..\..\System\Com\IUnknown.ahk
+#Include .\MFARGB.ahk
 
 /**
  * Represents the display region of a timed-text object.
  * @see https://learn.microsoft.com/windows/win32/api/mfmediaengine/nn-mfmediaengine-imftimedtextregion
  * @namespace Windows.Win32.Media.MediaFoundation
- * @version v4.0.30319
  */
-class IMFTimedTextRegion extends IUnknown{
+class IMFTimedTextRegion extends IUnknown {
 
     static sizeof => A_PtrSize
     /**
@@ -51,7 +50,7 @@ class IMFTimedTextRegion extends IUnknown{
      * @param {Pointer<Float>} pY Type: <b>double*</b>
      * 
      * A pointer to a variable that receives the Y-coordinate of the position.
-     * @param {Pointer<Integer>} unitType Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/mfmediaengine/ne-mfmediaengine-mf_timed_text_unit_type">MF_TIMED_TEXT_UNIT_TYPE</a>*</b>
+     * @param {Pointer<MF_TIMED_TEXT_UNIT_TYPE>} unitType Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/mfmediaengine/ne-mfmediaengine-mf_timed_text_unit_type">MF_TIMED_TEXT_UNIT_TYPE</a>*</b>
      * 
      * A pointer to a variable that receives a <a href="https://docs.microsoft.com/windows/desktop/api/mfmediaengine/ne-mfmediaengine-mf_timed_text_unit_type">MF_TIMED_TEXT_UNIT_TYPE</a>-typed value that specifies the units in which the timed-text region is measured.
      * @returns {HRESULT} Type: <b>HRESULT</b>
@@ -76,7 +75,7 @@ class IMFTimedTextRegion extends IUnknown{
      * @param {Pointer<Float>} pHeight Type: <b>double*</b>
      * 
      * A pointer to a variable that receives the height of the region.
-     * @param {Pointer<Integer>} unitType Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/mfmediaengine/ne-mfmediaengine-mf_timed_text_unit_type">MF_TIMED_TEXT_UNIT_TYPE</a>*</b>
+     * @param {Pointer<MF_TIMED_TEXT_UNIT_TYPE>} unitType Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/mfmediaengine/ne-mfmediaengine-mf_timed_text_unit_type">MF_TIMED_TEXT_UNIT_TYPE</a>*</b>
      * 
      * A pointer to a variable that receives a <a href="https://docs.microsoft.com/windows/desktop/api/mfmediaengine/ne-mfmediaengine-mf_timed_text_unit_type">MF_TIMED_TEXT_UNIT_TYPE</a>-typed value that specifies the units in which the timed-text region is measured.
      * @returns {HRESULT} Type: <b>HRESULT</b>
@@ -108,7 +107,7 @@ class IMFTimedTextRegion extends IUnknown{
 
     /**
      * Gets the writing mode of the region.
-     * @returns {Integer} Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/mfmediaengine/ne-mfmediaengine-mf_timed_text_writing_mode">MF_TIMED_TEXT_WRITING_MODE</a>*</b>
+     * @returns {MF_TIMED_TEXT_WRITING_MODE} Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/mfmediaengine/ne-mfmediaengine-mf_timed_text_writing_mode">MF_TIMED_TEXT_WRITING_MODE</a>*</b>
      * 
      * A pointer to a variable that receives a <a href="https://docs.microsoft.com/windows/desktop/api/mfmediaengine/ne-mfmediaengine-mf_timed_text_writing_mode">MF_TIMED_TEXT_WRITING_MODE</a>-typed value that specifies the writing mode of the region.
      * @see https://learn.microsoft.com/windows/win32/api/mfmediaengine/nf-mfmediaengine-imftimedtextregion-getwritingmode
@@ -120,7 +119,7 @@ class IMFTimedTextRegion extends IUnknown{
 
     /**
      * Gets the display alignment of the region.
-     * @returns {Integer} Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/mfmediaengine/ne-mfmediaengine-mf_timed_text_display_alignment">MF_TIMED_TEXT_DISPLAY_ALIGNMENT</a>*</b>
+     * @returns {MF_TIMED_TEXT_DISPLAY_ALIGNMENT} Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/mfmediaengine/ne-mfmediaengine-mf_timed_text_display_alignment">MF_TIMED_TEXT_DISPLAY_ALIGNMENT</a>*</b>
      * 
      * A pointer to a variable that receives a <a href="https://docs.microsoft.com/windows/desktop/api/mfmediaengine/ne-mfmediaengine-mf_timed_text_display_alignment">MF_TIMED_TEXT_DISPLAY_ALIGNMENT</a>-typed value that specifies the display alignment of the region.
      * @see https://learn.microsoft.com/windows/win32/api/mfmediaengine/nf-mfmediaengine-imftimedtextregion-getdisplayalignment
@@ -135,7 +134,7 @@ class IMFTimedTextRegion extends IUnknown{
      * @param {Pointer<Float>} pLineHeight Type: <b>double*</b>
      * 
      * A pointer to a variable that receives the height of each line of text in the region.
-     * @param {Pointer<Integer>} unitType Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/mfmediaengine/ne-mfmediaengine-mf_timed_text_unit_type">MF_TIMED_TEXT_UNIT_TYPE</a>*</b>
+     * @param {Pointer<MF_TIMED_TEXT_UNIT_TYPE>} unitType Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/mfmediaengine/ne-mfmediaengine-mf_timed_text_unit_type">MF_TIMED_TEXT_UNIT_TYPE</a>*</b>
      * 
      * A pointer to a variable that receives a <a href="https://docs.microsoft.com/windows/desktop/api/mfmediaengine/ne-mfmediaengine-mf_timed_text_unit_type">MF_TIMED_TEXT_UNIT_TYPE</a>-typed value that specifies the units in which the timed-text region is measured.
      * @returns {HRESULT} Type: <b>HRESULT</b>
@@ -177,7 +176,7 @@ class IMFTimedTextRegion extends IUnknown{
      * @param {Pointer<Float>} end Type: <b>double*</b>
      * 
      * A pointer to a variable that receives the end of the region.
-     * @param {Pointer<Integer>} unitType Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/mfmediaengine/ne-mfmediaengine-mf_timed_text_unit_type">MF_TIMED_TEXT_UNIT_TYPE</a>*</b>
+     * @param {Pointer<MF_TIMED_TEXT_UNIT_TYPE>} unitType Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/mfmediaengine/ne-mfmediaengine-mf_timed_text_unit_type">MF_TIMED_TEXT_UNIT_TYPE</a>*</b>
      * 
      * A pointer to a variable that receives a <a href="https://docs.microsoft.com/windows/desktop/api/mfmediaengine/ne-mfmediaengine-mf_timed_text_unit_type">MF_TIMED_TEXT_UNIT_TYPE</a>-typed value that specifies the units in which the timed-text region is measured.
      * @returns {HRESULT} Type: <b>HRESULT</b>
@@ -222,7 +221,7 @@ class IMFTimedTextRegion extends IUnknown{
 
     /**
      * Gets the scroll mode of the region.
-     * @returns {Integer} Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/mfmediaengine/ne-mfmediaengine-mf_timed_text_scroll_mode">MF_TIMED_TEXT_SCROLL_MODE</a>*</b>
+     * @returns {MF_TIMED_TEXT_SCROLL_MODE} Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/mfmediaengine/ne-mfmediaengine-mf_timed_text_scroll_mode">MF_TIMED_TEXT_SCROLL_MODE</a>*</b>
      * 
      * A pointer to a variable that receives a <a href="https://docs.microsoft.com/windows/desktop/api/mfmediaengine/ne-mfmediaengine-mf_timed_text_scroll_mode">MF_TIMED_TEXT_SCROLL_MODE</a>-typed value that specifies the scroll mode of the region.
      * @see https://learn.microsoft.com/windows/win32/api/mfmediaengine/nf-mfmediaengine-imftimedtextregion-getscrollmode

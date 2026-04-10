@@ -110,9 +110,8 @@
  * </table>
  * @see https://learn.microsoft.com/windows/win32/api/comsvcs/ne-comsvcs-csc_inheritanceconfig
  * @namespace Windows.Win32.System.ComponentServices
- * @version v4.0.30319
  */
-class CSC_InheritanceConfig extends Win32Enum{
+class CSC_InheritanceConfig extends Win32Enum {
 
     /**
      * The new context is created from the existing context.

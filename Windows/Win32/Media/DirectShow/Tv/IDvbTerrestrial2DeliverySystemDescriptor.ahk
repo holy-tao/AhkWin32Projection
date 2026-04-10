@@ -5,9 +5,8 @@
 
 /**
  * @namespace Windows.Win32.Media.DirectShow.Tv
- * @version v4.0.30319
  */
-class IDvbTerrestrial2DeliverySystemDescriptor extends IUnknown{
+class IDvbTerrestrial2DeliverySystemDescriptor extends IUnknown {
 
     static sizeof => A_PtrSize
     /**

@@ -1,14 +1,15 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
+#Include .\D3DFORMAT.ahk
+#Include .\D3DRESOURCETYPE.ahk
+#Include .\D3DPOOL.ahk
 
 /**
  * Describes a vertex buffer.
  * @see https://learn.microsoft.com/windows/win32/direct3d9/d3dvertexbuffer-desc
  * @namespace Windows.Win32.Graphics.Direct3D9
- * @version v4.0.30319
  */
-class D3DVERTEXBUFFER_DESC extends Win32Struct
-{
+class D3DVERTEXBUFFER_DESC extends Win32Struct {
     static sizeof => 24
 
     static packingSize => 4
@@ -18,7 +19,7 @@ class D3DVERTEXBUFFER_DESC extends Win32Struct
      * 
      * 
      * Member of the [D3DFORMAT](d3dformat.md) enumerated type, describing the surface format of the vertex buffer data.
-     * @type {Integer}
+     * @type {D3DFORMAT}
      */
     Format {
         get => NumGet(this, 0, "uint")
@@ -30,7 +31,7 @@ class D3DVERTEXBUFFER_DESC extends Win32Struct
      * 
      * 
      * Member of the [**D3DRESOURCETYPE**](./d3dresourcetype.md) enumerated type, identifying this resource as a vertex buffer.
-     * @type {Integer}
+     * @type {D3DRESOURCETYPE}
      */
     Type {
         get => NumGet(this, 4, "int")
@@ -54,7 +55,7 @@ class D3DVERTEXBUFFER_DESC extends Win32Struct
      * 
      * 
      * Member of the [**D3DPOOL**](./d3dpool.md) enumerated type, specifying the class of memory allocated for this vertex buffer.
-     * @type {Integer}
+     * @type {D3DPOOL}
      */
     Pool {
         get => NumGet(this, 12, "int")

@@ -5,11 +5,9 @@
  * The DRIVER\_INFO\_1 structure identifies a printer driver.
  * @see https://learn.microsoft.com/windows/win32/printdocs/driver-info-1
  * @namespace Windows.Win32.Graphics.Printing
- * @version v4.0.30319
  * @charset ANSI
  */
-class DRIVER_INFO_1A extends Win32Struct
-{
+class DRIVER_INFO_1A extends Win32Struct {
     static sizeof => 8
 
     static packingSize => 8

@@ -1,16 +1,14 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
-#Include ..\..\Foundation\BSTR.ahk
 #Include ..\..\System\Com\IDispatch.ahk
 
 /**
  * The IADsOpenDSObject interface is designed to supply a security context for binding to an object in the underlying directory store.
  * @see https://learn.microsoft.com/windows/win32/api/iads/nn-iads-iadsopendsobject
  * @namespace Windows.Win32.Networking.ActiveDirectory
- * @version v4.0.30319
  */
-class IADsOpenDSObject extends IDispatch{
+class IADsOpenDSObject extends IDispatch {
 
     static sizeof => A_PtrSize
     /**

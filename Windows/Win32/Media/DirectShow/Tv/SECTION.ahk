@@ -27,10 +27,8 @@
  * ```
  * @see https://learn.microsoft.com/windows/win32/api/mpeg2structs/ns-mpeg2structs-section
  * @namespace Windows.Win32.Media.DirectShow.Tv
- * @version v4.0.30319
  */
-class SECTION extends Win32Struct
-{
+class SECTION extends Win32Struct {
     static sizeof => 4
 
     static packingSize => 1
@@ -42,14 +40,14 @@ class SECTION extends Win32Struct
         /**
          * @type {MPEG_HEADER_BITS_MIDL}
          */
-        S{
+        S {
             get {
                 if(!this.HasProp("__S"))
                     this.__S := MPEG_HEADER_BITS_MIDL(0, this)
                 return this.__S
             }
         }
-    
+
         /**
          * @type {Integer}
          */
@@ -57,7 +55,6 @@ class SECTION extends Win32Struct
             get => NumGet(this, 0, "ushort")
             set => NumPut("ushort", value, this, 0)
         }
-    
     }
 
     /**
@@ -73,19 +70,19 @@ class SECTION extends Win32Struct
      * A union that contains the following members.
      * @type {_Header_e__Union}
      */
-    Header{
+    Header {
         get {
             if(!this.HasProp("__Header"))
-                this.__Header := %this.__Class%._Header_e__Union(1, this)
+                this.__Header := SECTION._Header_e__Union(1, this)
             return this.__Header
         }
     }
 
     /**
      * Contains the section data, as a byte array. The length of the array is given by the <b>Header.W.SectionLength</b> field.
-     * @type {Array<Byte>}
+     * @type {Array<Integer>}
      */
-    SectionData{
+    SectionData {
         get {
             if(!this.HasProp("__SectionDataProxyArray"))
                 this.__SectionDataProxyArray := Win32FixedArray(this.ptr + 3, 1, Primitive, "char")

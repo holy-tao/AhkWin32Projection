@@ -1,8 +1,8 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
-#Include ..\..\System\Com\IStream.ahk
 #Include .\IXpsOMResource.ahk
+#Include ..\..\System\Com\IStream.ahk
 
 /**
  * Provides an IStream interface to an image resource.
@@ -60,9 +60,8 @@
  * ```
  * @see https://learn.microsoft.com/windows/win32/api/xpsobjectmodel/nn-xpsobjectmodel-ixpsomimageresource
  * @namespace Windows.Win32.Storage.Xps
- * @version v4.0.30319
  */
-class IXpsOMImageResource extends IXpsOMResource{
+class IXpsOMImageResource extends IXpsOMResource {
 
     static sizeof => A_PtrSize
     /**
@@ -104,7 +103,7 @@ class IXpsOMImageResource extends IXpsOMResource{
      * 
      * Because <a href="https://docs.microsoft.com/windows/desktop/api/xpsobjectmodel/nf-xpsobjectmodel-ixpsomimageresource-getstream">GetStream</a> gets a clone of  the stream that is set by this method, the provided stream should have an efficient cloning method. A stream with an inefficient cloning method will reduce the performance of <b>GetStream</b>.
      * @param {IStream} sourceStream The read-only stream to be associated with this resource.
-     * @param {Integer} _imageType 
+     * @param {XPS_IMAGE_TYPE} _imageType The  <a href="https://docs.microsoft.com/windows/win32/api/xpsobjectmodel/ne-xpsobjectmodel-xps_image_type">XPS_IMAGE_TYPE</a> value that describes the type of image in the stream.
      * @param {IOpcPartUri} partName The part name to be assigned to this resource.
      * @returns {HRESULT} If the method succeeds, it returns S_OK; otherwise, it returns an <b>HRESULT</b> error code.
      * @see https://learn.microsoft.com/windows/win32/api/xpsobjectmodel/nf-xpsobjectmodel-ixpsomimageresource-setcontent
@@ -116,7 +115,7 @@ class IXpsOMImageResource extends IXpsOMResource{
 
     /**
      * Gets the type of image resource.
-     * @returns {Integer} 
+     * @returns {XPS_IMAGE_TYPE} The  <a href="https://docs.microsoft.com/windows/win32/api/xpsobjectmodel/ne-xpsobjectmodel-xps_image_type">XPS_IMAGE_TYPE</a> value that describes the image type in the stream.
      * @see https://learn.microsoft.com/windows/win32/api/xpsobjectmodel/nf-xpsobjectmodel-ixpsomimageresource-getimagetype
      */
     GetImageType() {

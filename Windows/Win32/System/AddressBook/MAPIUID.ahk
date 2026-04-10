@@ -27,19 +27,17 @@
  * [Setting Transport Order](setting-transport-order.md)
  * @see https://learn.microsoft.com/office/client-developer/outlook/mapi/mapiuid
  * @namespace Windows.Win32.System.AddressBook
- * @version v4.0.30319
  */
-class MAPIUID extends Win32Struct
-{
+class MAPIUID extends Win32Struct {
     static sizeof => 16
 
     static packingSize => 1
 
     /**
      * > An array that contains a 16-byte identifier.
-     * @type {Array<Byte>}
+     * @type {Array<Integer>}
      */
-    ab{
+    ab {
         get {
             if(!this.HasProp("__abProxyArray"))
                 this.__abProxyArray := Win32FixedArray(this.ptr + 0, 16, Primitive, "char")

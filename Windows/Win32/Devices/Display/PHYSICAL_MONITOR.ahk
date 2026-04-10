@@ -8,10 +8,8 @@
  * A physical monitor description is always an array of 128 characters.
  * @see https://learn.microsoft.com/windows/win32/api/physicalmonitorenumerationapi/ns-physicalmonitorenumerationapi-physical_monitor
  * @namespace Windows.Win32.Devices.Display
- * @version v4.0.30319
  */
-class PHYSICAL_MONITOR extends Win32Struct
-{
+class PHYSICAL_MONITOR extends Win32Struct {
     static sizeof => 264
 
     static packingSize => 8
@@ -20,7 +18,7 @@ class PHYSICAL_MONITOR extends Win32Struct
      * Handle to the physical monitor.
      * @type {HANDLE}
      */
-    hPhysicalMonitor{
+    hPhysicalMonitor {
         get {
             if(!this.HasProp("__hPhysicalMonitor"))
                 this.__hPhysicalMonitor := HANDLE(0, this)

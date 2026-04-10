@@ -7,9 +7,8 @@
  * The IMessageView interface is introduced in MMC 1.2.
  * @see https://learn.microsoft.com/windows/win32/api/mmc/nn-mmc-imessageview
  * @namespace Windows.Win32.System.Mmc
- * @version v4.0.30319
  */
-class IMessageView extends IUnknown{
+class IMessageView extends IUnknown {
 
     static sizeof => A_PtrSize
     /**
@@ -66,7 +65,7 @@ class IMessageView extends IUnknown{
 
     /**
      * The IMessageView::SetIcon method enables a snap-in to set the icon for the result pane message displayed using the MMC message OCX control.
-     * @param {Integer} id A value that specifies the type of icon for the result pane message. The value is taken from the 
+     * @param {IconIdentifier} id A value that specifies the type of icon for the result pane message. The value is taken from the 
      * <a href="https://docs.microsoft.com/windows/desktop/api/mmc/ne-mmc-iconidentifier">IconIdentifier</a> enumeration.
      * @returns {HRESULT} This method can return one of these values.
      * @see https://learn.microsoft.com/windows/win32/api/mmc/nf-mmc-imessageview-seticon

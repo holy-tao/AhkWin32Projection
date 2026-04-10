@@ -3,10 +3,8 @@
 
 /**
  * @namespace Windows.Wdk.System.SystemServices
- * @version v4.0.30319
  */
-class PCI_EXPRESS_DPC_ERROR_SOURCE_ID extends Win32Struct
-{
+class PCI_EXPRESS_DPC_ERROR_SOURCE_ID extends Win32Struct {
     static sizeof => 4
 
     static packingSize => 2

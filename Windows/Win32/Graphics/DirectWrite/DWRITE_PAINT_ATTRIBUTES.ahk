@@ -3,9 +3,8 @@
 
 /**
  * @namespace Windows.Win32.Graphics.DirectWrite
- * @version v4.0.30319
  */
-class DWRITE_PAINT_ATTRIBUTES extends Win32BitflagEnum{
+class DWRITE_PAINT_ATTRIBUTES extends Win32BitflagEnum {
 
     /**
      * @type {Integer (Int32)}

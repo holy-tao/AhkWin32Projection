@@ -5,9 +5,8 @@
  * The DS_NAME_FORMAT enumeration provides formats to use for input and output names for the DsCrackNames function.
  * @see https://learn.microsoft.com/windows/win32/api/ntdsapi/ne-ntdsapi-ds_name_format
  * @namespace Windows.Win32.Networking.ActiveDirectory
- * @version v4.0.30319
  */
-class DS_NAME_FORMAT extends Win32Enum{
+class DS_NAME_FORMAT extends Win32Enum {
 
     /**
      * Indicates the name is using an unknown name type. This format can impact performance because it forces the server to attempt to match all possible

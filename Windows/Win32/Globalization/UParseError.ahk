@@ -3,10 +3,8 @@
 
 /**
  * @namespace Windows.Win32.Globalization
- * @version v4.0.30319
  */
-class UParseError extends Win32Struct
-{
+class UParseError extends Win32Struct {
     static sizeof => 72
 
     static packingSize => 4
@@ -28,9 +26,9 @@ class UParseError extends Win32Struct
     }
 
     /**
-     * @type {Array<UInt16>}
+     * @type {Array<Integer>}
      */
-    preContext{
+    preContext {
         get {
             if(!this.HasProp("__preContextProxyArray"))
                 this.__preContextProxyArray := Win32FixedArray(this.ptr + 8, 16, Primitive, "ushort")
@@ -39,9 +37,9 @@ class UParseError extends Win32Struct
     }
 
     /**
-     * @type {Array<UInt16>}
+     * @type {Array<Integer>}
      */
-    postContext{
+    postContext {
         get {
             if(!this.HasProp("__postContextProxyArray"))
                 this.__postContextProxyArray := Win32FixedArray(this.ptr + 40, 16, Primitive, "ushort")

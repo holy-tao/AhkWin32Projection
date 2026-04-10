@@ -1,21 +1,20 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
+#Include .\WSD_CONFIG_PARAM_TYPE.ahk
 
 /**
  * Represents configuration parameters for creating WSDAPI objects.
  * @see https://learn.microsoft.com/windows/win32/api/wsdbase/ns-wsdbase-wsd_config_param
  * @namespace Windows.Win32.Devices.WebServicesOnDevices
- * @version v4.0.30319
  */
-class WSD_CONFIG_PARAM extends Win32Struct
-{
+class WSD_CONFIG_PARAM extends Win32Struct {
     static sizeof => 24
 
     static packingSize => 8
 
     /**
      * A <a href="https://docs.microsoft.com/windows/win32/api/wsdbase/ne-wsdbase-wsd_config_param_type">WSD_CONFIG_PARAM_TYPE</a> value that indicates the type configuration data contained in this structure.
-     * @type {Integer}
+     * @type {WSD_CONFIG_PARAM_TYPE}
      */
     configParamType {
         get => NumGet(this, 0, "int")

@@ -3,10 +3,8 @@
 
 /**
  * @namespace Windows.Win32.Media.DirectShow
- * @version v4.0.30319
  */
-class BDA_DISEQC_RESPONSE extends Win32Struct
-{
+class BDA_DISEQC_RESPONSE extends Win32Struct {
     static sizeof => 16
 
     static packingSize => 4
@@ -28,9 +26,9 @@ class BDA_DISEQC_RESPONSE extends Win32Struct
     }
 
     /**
-     * @type {Array<Byte>}
+     * @type {Array<Integer>}
      */
-    argbPacketData{
+    argbPacketData {
         get {
             if(!this.HasProp("__argbPacketDataProxyArray"))
                 this.__argbPacketDataProxyArray := Win32FixedArray(this.ptr + 8, 8, Primitive, "char")

@@ -5,9 +5,8 @@
  * Defines the values that specify the message string from the event to format.
  * @see https://learn.microsoft.com/windows/win32/api/winevt/ne-winevt-evt_format_message_flags
  * @namespace Windows.Win32.System.EventLog
- * @version v4.0.30319
  */
-class EVT_FORMAT_MESSAGE_FLAGS extends Win32Enum{
+class EVT_FORMAT_MESSAGE_FLAGS extends Win32Enum {
 
     /**
      * Format the event's message string.

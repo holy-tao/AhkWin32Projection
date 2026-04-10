@@ -1,6 +1,7 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
 #Include .\DXVA2_ExtendedFormat.ahk
+#Include ..\..\Graphics\Direct3D9\D3DFORMAT.ahk
 #Include .\DXVA2_Frequency.ahk
 
 /**
@@ -11,10 +12,8 @@
  * Decoders should set the values of <b>InputSampleFreq</b> and <b>OutputFrameFreq</b> if the frame rate is known. Otherwise, set these members to 0/0 to indicate an unknown frame rate.
  * @see https://learn.microsoft.com/windows/win32/api/dxva2api/ns-dxva2api-dxva2_videodesc
  * @namespace Windows.Win32.Media.MediaFoundation
- * @version v4.0.30319
  */
-class DXVA2_VideoDesc extends Win32Struct
-{
+class DXVA2_VideoDesc extends Win32Struct {
     static sizeof => 40
 
     static packingSize => 4
@@ -41,7 +40,7 @@ class DXVA2_VideoDesc extends Win32Struct
      * Additional details about the video format, specified as a <a href="https://docs.microsoft.com/windows/desktop/api/dxva2api/ns-dxva2api-dxva2_extendedformat">DXVA2_ExtendedFormat</a> structure.
      * @type {DXVA2_ExtendedFormat}
      */
-    SampleFormat{
+    SampleFormat {
         get {
             if(!this.HasProp("__SampleFormat"))
                 this.__SampleFormat := DXVA2_ExtendedFormat(8, this)
@@ -51,7 +50,7 @@ class DXVA2_VideoDesc extends Win32Struct
 
     /**
      * Surface format, specified as a <b>D3DFORMAT</b> value or FOURCC code. A FOURCC code can be constructed using the <b>D3DFORMAT</b> or <b>MAKEFOURCC</b> macros.
-     * @type {Integer}
+     * @type {D3DFORMAT}
      */
     Format {
         get => NumGet(this, 12, "uint")
@@ -62,7 +61,7 @@ class DXVA2_VideoDesc extends Win32Struct
      * Frame rate of the input video stream, specified as a <a href="https://docs.microsoft.com/windows/desktop/api/dxva2api/ns-dxva2api-dxva2_frequency">DXVA2_Frequency</a> structure.
      * @type {DXVA2_Frequency}
      */
-    InputSampleFreq{
+    InputSampleFreq {
         get {
             if(!this.HasProp("__InputSampleFreq"))
                 this.__InputSampleFreq := DXVA2_Frequency(16, this)
@@ -74,7 +73,7 @@ class DXVA2_VideoDesc extends Win32Struct
      * Frame rate of the output video, specified as a <a href="https://docs.microsoft.com/windows/desktop/api/dxva2api/ns-dxva2api-dxva2_frequency">DXVA2_Frequency</a> structure.
      * @type {DXVA2_Frequency}
      */
-    OutputFrameFreq{
+    OutputFrameFreq {
         get {
             if(!this.HasProp("__OutputFrameFreq"))
                 this.__OutputFrameFreq := DXVA2_Frequency(24, this)

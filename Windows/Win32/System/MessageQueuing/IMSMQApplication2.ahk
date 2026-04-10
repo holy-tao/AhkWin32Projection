@@ -1,15 +1,14 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
+#Include .\IMSMQApplication.ahk
 #Include ..\..\Foundation\BSTR.ahk
 #Include ..\Com\IDispatch.ahk
-#Include .\IMSMQApplication.ahk
 
 /**
  * @namespace Windows.Win32.System.MessageQueuing
- * @version v4.0.30319
  */
-class IMSMQApplication2 extends IMSMQApplication{
+class IMSMQApplication2 extends IMSMQApplication {
 
     static sizeof => A_PtrSize
     /**

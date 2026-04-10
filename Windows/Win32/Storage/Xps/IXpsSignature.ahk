@@ -1,11 +1,11 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
+#Include ..\..\System\Com\IUnknown.ahk
 #Include ..\Packaging\Opc\IOpcCertificateEnumerator.ahk
 #Include ..\Packaging\Opc\IOpcPartUri.ahk
 #Include ..\Packaging\Opc\IOpcSignatureCustomObjectEnumerator.ahk
 #Include ..\Packaging\Opc\IOpcSignatureReferenceEnumerator.ahk
-#Include ..\..\System\Com\IUnknown.ahk
 
 /**
  * Represents a single digital signature.
@@ -15,9 +15,8 @@
  * An <b>IXpsSignature</b> interface may represent a signature that is not XPS compliant. For example, it could represent a signature that includes only custom parts, which is not allowed by the <a href="https://www.ecma-international.org/activities/XML%20Paper%20Specification/XPS%20Standard%20WD%201.6.pdf">XML Paper Specification</a>.
  * @see https://learn.microsoft.com/windows/win32/api/xpsdigitalsignature/nn-xpsdigitalsignature-ixpssignature
  * @namespace Windows.Win32.Storage.Xps
- * @version v4.0.30319
  */
-class IXpsSignature extends IUnknown{
+class IXpsSignature extends IUnknown {
 
     static sizeof => A_PtrSize
     /**
@@ -128,7 +127,7 @@ class IXpsSignature extends IUnknown{
      * Gets the format of the signing time.
      * @remarks
      * For more information about the  format of the date-time string that is returned  in <i>timeFormat</i>, see <a href="https://docs.microsoft.com/windows/win32/api/msopc/ne-msopc-opc_signature_time_format">OPC_SIGNATURE_TIME_FORMAT</a>.
-     * @returns {Integer} The value of <a href="https://docs.microsoft.com/windows/win32/api/msopc/ne-msopc-opc_signature_time_format">OPC_SIGNATURE_TIME_FORMAT</a> that describes the format of the signing time.
+     * @returns {OPC_SIGNATURE_TIME_FORMAT} The value of <a href="https://docs.microsoft.com/windows/win32/api/msopc/ne-msopc-opc_signature_time_format">OPC_SIGNATURE_TIME_FORMAT</a> that describes the format of the signing time.
      * @see https://learn.microsoft.com/windows/win32/api/xpsdigitalsignature/nf-xpsdigitalsignature-ixpssignature-getsigningtimeformat
      */
     GetSigningTimeFormat() {
@@ -154,8 +153,11 @@ class IXpsSignature extends IUnknown{
      *     This means that  if, for example,  a signature is found to be incompliant, no digest will be calculated  if the signature is also broken.
      * 
      * For more information on the different types of signature statuses that can be detected by this method, see  <a href="https://docs.microsoft.com/windows/win32/api/xpsdigitalsignature/ne-xpsdigitalsignature-xps_signature_status">XPS_SIGNATURE_STATUS</a>.
-     * @param {Pointer<CERT_CONTEXT>} _x509Certificate 
-     * @returns {Integer} The <a href="https://docs.microsoft.com/windows/win32/api/xpsdigitalsignature/ne-xpsdigitalsignature-xps_signature_status">XPS_SIGNATURE_STATUS</a> value that describes the results of the verification.
+     * @param {Pointer<CERT_CONTEXT>} _x509Certificate The <a href="https://docs.microsoft.com/windows/desktop/api/wincrypt/ns-wincrypt-cert_context">CERT_CONTEXT</a> structure that contains the X.509 certificate that will be used for verification.
+     * 
+     * If the signature is not incomplete or incompliant, this  certificate will be used  only to  validate that the signed data in the XPS package is intact. The certificate will not be used to perform any other checks.
+     *     Before using the certificate the application is expected to verify the trust chain and any other requirements.
+     * @returns {XPS_SIGNATURE_STATUS} The <a href="https://docs.microsoft.com/windows/win32/api/xpsdigitalsignature/ne-xpsdigitalsignature-xps_signature_status">XPS_SIGNATURE_STATUS</a> value that describes the results of the verification.
      * @see https://learn.microsoft.com/windows/win32/api/xpsdigitalsignature/nf-xpsdigitalsignature-ixpssignature-verify
      */
     Verify(_x509Certificate) {
@@ -170,7 +172,7 @@ class IXpsSignature extends IUnknown{
      * 
      * This method deduces the signature policy by examining the list of signed parts and relationships.
      *     For example, the <b>XPS_SIGN_POLICY_DISCARD_CONTROL</b> flag is set if the discard-control relationship type from the XPS package root is signed.
-     * @returns {Integer} The logical <b>OR</b> of the <a href="https://docs.microsoft.com/windows/win32/api/xpsdigitalsignature/ne-xpsdigitalsignature-xps_sign_policy">XPS_SIGN_POLICY</a> values that represent the signing policy.
+     * @returns {XPS_SIGN_POLICY} The logical <b>OR</b> of the <a href="https://docs.microsoft.com/windows/win32/api/xpsdigitalsignature/ne-xpsdigitalsignature-xps_sign_policy">XPS_SIGN_POLICY</a> values that represent the signing policy.
      * @see https://learn.microsoft.com/windows/win32/api/xpsdigitalsignature/nf-xpsdigitalsignature-ixpssignature-getpolicy
      */
     GetPolicy() {

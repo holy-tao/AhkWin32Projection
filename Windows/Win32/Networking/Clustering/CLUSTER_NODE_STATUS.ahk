@@ -5,9 +5,8 @@
  * The CLUSTER_NODE_STATUS enumeration (msclus.h) describes the status of a cluster node.
  * @see https://learn.microsoft.com/windows/win32/api/msclus/ne-msclus-cluster_node_status
  * @namespace Windows.Win32.Networking.Clustering
- * @version v4.0.30319
  */
-class CLUSTER_NODE_STATUS extends Win32Enum{
+class CLUSTER_NODE_STATUS extends Win32Enum {
 
     /**
      * The node status is normal.
@@ -46,7 +45,6 @@ class CLUSTER_NODE_STATUS extends Win32Enum{
     static NodeStatusDrainFailed => 16
 
     /**
-     * 
      * @type {Integer (Int32)}
      */
     static NodeStatusAvoidPlacement => 32

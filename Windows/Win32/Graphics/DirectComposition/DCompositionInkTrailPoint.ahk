@@ -3,10 +3,8 @@
 
 /**
  * @namespace Windows.Win32.Graphics.DirectComposition
- * @version v4.0.30319
  */
-class DCompositionInkTrailPoint extends Win32Struct
-{
+class DCompositionInkTrailPoint extends Win32Struct {
     static sizeof => 12
 
     static packingSize => 4

@@ -5,11 +5,9 @@
  * Contains information about a file that the OpenFile function opened or attempted to open.
  * @see https://learn.microsoft.com/windows/win32/api/winbase/ns-winbase-ofstruct
  * @namespace Windows.Win32.Storage.FileSystem
- * @version v4.0.30319
  */
-class OFSTRUCT extends Win32Struct
-{
-    static sizeof => 264
+class OFSTRUCT extends Win32Struct {
+    static sizeof => 136
 
     static packingSize => 2
 
@@ -64,7 +62,7 @@ class OFSTRUCT extends Win32Struct
      * @type {String}
      */
     szPathName {
-        get => StrGet(this.ptr + 8, 127, "UTF-16")
-        set => StrPut(value, this.ptr + 8, 127, "UTF-16")
+        get => StrGet(this.ptr + 8, 127, "UTF-8")
+        set => StrPut(value, this.ptr + 8, 127, "UTF-8")
     }
 }

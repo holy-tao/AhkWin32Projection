@@ -3,10 +3,8 @@
 
 /**
  * @namespace Windows.Win32.System.SystemInformation
- * @version v4.0.30319
  */
-class SYSTEM_PROCESSOR_CYCLE_TIME_INFORMATION extends Win32Struct
-{
+class SYSTEM_PROCESSOR_CYCLE_TIME_INFORMATION extends Win32Struct {
     static sizeof => 8
 
     static packingSize => 8

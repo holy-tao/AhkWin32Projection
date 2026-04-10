@@ -7,9 +7,8 @@
  * The IMDServiceProvider2 interface extends the IMDServiceProvider interface by providing a way of obtaining IMDSPDevice object(s) for a given device path name. The device path name comes from the Plug and Play (PnP) subsystem.
  * @see https://learn.microsoft.com/windows/win32/api/mswmdm/nn-mswmdm-imdserviceprovider2
  * @namespace Windows.Win32.Media.DeviceManager
- * @version v4.0.30319
  */
-class IMDServiceProvider2 extends IMDServiceProvider{
+class IMDServiceProvider2 extends IMDServiceProvider {
 
     static sizeof => A_PtrSize
     /**

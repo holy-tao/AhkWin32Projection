@@ -5,10 +5,8 @@
  * Contains information about a single OpenType feature to apply to a run.
  * @see https://learn.microsoft.com/windows/win32/api/usp10/ns-usp10-opentype_feature_record
  * @namespace Windows.Win32.Globalization
- * @version v4.0.30319
  */
-class OPENTYPE_FEATURE_RECORD extends Win32Struct
-{
+class OPENTYPE_FEATURE_RECORD extends Win32Struct {
     static sizeof => 8
 
     static packingSize => 4

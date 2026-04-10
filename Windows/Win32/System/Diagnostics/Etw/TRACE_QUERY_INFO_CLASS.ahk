@@ -10,9 +10,8 @@
  * the [TraceSetInformation](/windows/desktop/ETW/tracesetinformation) function.
  * @see https://learn.microsoft.com/windows/win32/api/evntrace/ne-evntrace-trace_query_info_class
  * @namespace Windows.Win32.System.Diagnostics.Etw
- * @version v4.0.30319
  */
-class TRACE_QUERY_INFO_CLASS extends Win32Enum{
+class TRACE_QUERY_INFO_CLASS extends Win32Enum {
 
     /**
      * Query for an array of GUIDs of the providers that are registered on the

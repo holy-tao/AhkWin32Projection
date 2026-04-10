@@ -5,9 +5,8 @@
 
 /**
  * @namespace Windows.Win32.Media.Audio.DirectSound
- * @version v4.0.30319
  */
-class IDirectSoundNotify extends IUnknown{
+class IDirectSoundNotify extends IUnknown {
 
     static sizeof => A_PtrSize
     /**

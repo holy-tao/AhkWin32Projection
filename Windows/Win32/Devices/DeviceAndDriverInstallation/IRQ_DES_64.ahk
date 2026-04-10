@@ -1,20 +1,18 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
+#Include .\IRQD_FLAGS.ahk
 
 /**
  * The IRQ_DES structure is used for specifying either a resource list or a resource requirements list that describes IRQ line usage for a device instance. For more information about resource lists and resource requirements lists, see Hardware Resources. (64 bit)
  * @see https://learn.microsoft.com/windows/win32/api/cfgmgr32/ns-cfgmgr32-irq_des_64
  * @namespace Windows.Win32.Devices.DeviceAndDriverInstallation
- * @version v4.0.30319
  */
-class IRQ_DES_64 extends Win32Struct
-{
+class IRQ_DES_64 extends Win32Struct {
     static sizeof => 24
 
     static packingSize => 8
 
     /**
-     * 
      * @type {Integer}
      */
     IRQD_Count {
@@ -121,7 +119,7 @@ class IRQ_DES_64 extends Win32Struct
      * </td>
      * </tr>
      * </table>
-     * @type {Integer}
+     * @type {IRQD_FLAGS}
      */
     IRQD_Flags {
         get => NumGet(this, 8, "uint")
@@ -129,7 +127,6 @@ class IRQ_DES_64 extends Win32Struct
     }
 
     /**
-     * 
      * @type {Integer}
      */
     IRQD_Alloc_Num {
@@ -138,7 +135,6 @@ class IRQ_DES_64 extends Win32Struct
     }
 
     /**
-     * 
      * @type {Integer}
      */
     IRQD_Affinity {

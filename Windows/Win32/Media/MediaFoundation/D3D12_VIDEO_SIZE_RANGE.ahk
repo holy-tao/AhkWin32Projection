@@ -3,14 +3,10 @@
 
 /**
  * Describes the range of supported sizes for a video scaler.
- * @remarks
- * 
  * @see https://learn.microsoft.com/windows/win32/api/d3d12video/ns-d3d12video-d3d12_video_size_range
  * @namespace Windows.Win32.Media.MediaFoundation
- * @version v4.0.30319
  */
-class D3D12_VIDEO_SIZE_RANGE extends Win32Struct
-{
+class D3D12_VIDEO_SIZE_RANGE extends Win32Struct {
     static sizeof => 16
 
     static packingSize => 4

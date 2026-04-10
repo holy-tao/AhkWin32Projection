@@ -1,6 +1,7 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
+#Include ..\Com\IUnknown.ahk
 #Include .\IWTSProtocolLogonErrorRedirector.ahk
 #Include .\WTS_CLIENT_DATA.ahk
 #Include .\WTS_USER_CREDENTIAL.ahk
@@ -9,15 +10,13 @@
 #Include .\WTS_PROTOCOL_STATUS.ahk
 #Include .\WTS_PROPERTY_VALUE.ahk
 #Include .\IWTSProtocolShadowConnection.ahk
-#Include ..\Com\IUnknown.ahk
 
 /**
  * IWTSProtocolConnection is no longer available. Instead, use IWRdsProtocolConnection.
  * @see https://learn.microsoft.com/windows/win32/api/wtsprotocol/nn-wtsprotocol-iwtsprotocolconnection
  * @namespace Windows.Win32.System.RemoteDesktop
- * @version v4.0.30319
  */
-class IWTSProtocolConnection extends IUnknown{
+class IWTSProtocolConnection extends IUnknown {
 
     static sizeof => A_PtrSize
     /**

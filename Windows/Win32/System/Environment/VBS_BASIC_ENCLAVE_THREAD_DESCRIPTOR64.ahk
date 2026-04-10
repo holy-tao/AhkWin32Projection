@@ -3,18 +3,16 @@
 
 /**
  * @namespace Windows.Win32.System.Environment
- * @version v4.0.30319
  */
-class VBS_BASIC_ENCLAVE_THREAD_DESCRIPTOR64 extends Win32Struct
-{
+class VBS_BASIC_ENCLAVE_THREAD_DESCRIPTOR64 extends Win32Struct {
     static sizeof => 72
 
     static packingSize => 8
 
     /**
-     * @type {Array<UInt64>}
+     * @type {Array<Integer>}
      */
-    ThreadContext{
+    ThreadContext {
         get {
             if(!this.HasProp("__ThreadContextProxyArray"))
                 this.__ThreadContextProxyArray := Win32FixedArray(this.ptr + 0, 4, Primitive, "uint")

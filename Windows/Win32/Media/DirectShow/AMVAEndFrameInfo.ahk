@@ -7,10 +7,8 @@
  * The buffer pointed to by <b>pMiscData</b> cannot contain pointer values, because their addresses will not be valid in kernel mode, where frame processing occurs.
  * @see https://learn.microsoft.com/windows/win32/api/amva/ns-amva-amvaendframeinfo
  * @namespace Windows.Win32.Media.DirectShow
- * @version v4.0.30319
  */
-class AMVAEndFrameInfo extends Win32Struct
-{
+class AMVAEndFrameInfo extends Win32Struct {
     static sizeof => 16
 
     static packingSize => 8

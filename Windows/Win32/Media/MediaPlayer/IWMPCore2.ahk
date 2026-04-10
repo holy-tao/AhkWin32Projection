@@ -1,16 +1,15 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
-#Include .\IWMPDVD.ahk
 #Include .\IWMPCore.ahk
+#Include .\IWMPDVD.ahk
 
 /**
  * The IWMPCore2 interface provides a method that supplements the IWMPCore interface.
  * @see https://learn.microsoft.com/windows/win32/api/wmp/nn-wmp-iwmpcore2
  * @namespace Windows.Win32.Media.MediaPlayer
- * @version v4.0.30319
  */
-class IWMPCore2 extends IWMPCore{
+class IWMPCore2 extends IWMPCore {
 
     static sizeof => A_PtrSize
     /**

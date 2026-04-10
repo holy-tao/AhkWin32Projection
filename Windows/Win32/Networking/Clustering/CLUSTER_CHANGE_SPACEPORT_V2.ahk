@@ -3,9 +3,8 @@
 
 /**
  * @namespace Windows.Win32.Networking.Clustering
- * @version v4.0.30319
  */
-class CLUSTER_CHANGE_SPACEPORT_V2 extends Win32Enum{
+class CLUSTER_CHANGE_SPACEPORT_V2 extends Win32Enum {
 
     /**
      * @type {Integer (Int32)}

@@ -7,9 +7,8 @@
  * The IHeaderCtrl2 interface is introduced in MMC 1.2.
  * @see https://learn.microsoft.com/windows/win32/api/mmc/nn-mmc-iheaderctrl2
  * @namespace Windows.Win32.System.Mmc
- * @version v4.0.30319
  */
-class IHeaderCtrl2 extends IHeaderCtrl{
+class IHeaderCtrl2 extends IHeaderCtrl {
 
     static sizeof => A_PtrSize
     /**

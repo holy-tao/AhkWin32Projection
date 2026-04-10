@@ -5,9 +5,8 @@
 
 /**
  * @namespace Windows.Win32.System.Diagnostics.Debug.ActiveScript
- * @version v4.0.30319
  */
-class IEnumDebugStackFrames64 extends IEnumDebugStackFrames{
+class IEnumDebugStackFrames64 extends IEnumDebugStackFrames {
 
     static sizeof => A_PtrSize
     /**

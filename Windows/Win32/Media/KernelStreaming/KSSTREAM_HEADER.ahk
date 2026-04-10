@@ -4,10 +4,9 @@
 
 /**
  * @namespace Windows.Win32.Media.KernelStreaming
- * @version v4.0.30319
+ * @architecture X64, Arm64
  */
-class KSSTREAM_HEADER extends Win32Struct
-{
+class KSSTREAM_HEADER extends Win32Struct {
     static sizeof => 56
 
     static packingSize => 8
@@ -31,7 +30,7 @@ class KSSTREAM_HEADER extends Win32Struct
     /**
      * @type {KSTIME}
      */
-    PresentationTime{
+    PresentationTime {
         get {
             if(!this.HasProp("__PresentationTime"))
                 this.__PresentationTime := KSTIME(8, this)

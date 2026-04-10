@@ -18,10 +18,8 @@
  * <div> </div>
  * @see https://learn.microsoft.com/windows/win32/api/shobjidl_core/ns-shobjidl_core-cminvokecommandinfoex
  * @namespace Windows.Win32.UI.Shell
- * @version v4.0.30319
  */
-class CMINVOKECOMMANDINFOEX extends Win32Struct
-{
+class CMINVOKECOMMANDINFOEX extends Win32Struct {
     static sizeof => 104
 
     static packingSize => 8
@@ -54,7 +52,7 @@ class CMINVOKECOMMANDINFOEX extends Win32Struct
      * A handle to the window that is the owner of the shortcut menu. An extension can also use this handle as the owner of any message boxes or dialog boxes it displays. Callers must specify a legitimate HWND that can be used as the owner window for any UI that may be displayed. Failing to specify an HWND when calling from a UI thread (one with windows already created) will result in reentrancy and possible bugs in the implementation of a <a href="https://docs.microsoft.com/windows/desktop/api/shobjidl_core/nf-shobjidl_core-icontextmenu-invokecommand">IContextMenu::InvokeCommand</a> call.
      * @type {HWND}
      */
-    hwnd{
+    hwnd {
         get {
             if(!this.HasProp("__hwnd"))
                 this.__hwnd := HWND(8, this)
@@ -154,7 +152,7 @@ class CMINVOKECOMMANDINFOEX extends Win32Struct
      * An icon to use for any application activated by the command. If the <b>fMask</b> member does not specify <b>CMIC_MASK_ICON</b>, this member is ignored.
      * @type {HANDLE}
      */
-    hIcon{
+    hIcon {
         get {
             if(!this.HasProp("__hIcon"))
                 this.__hIcon := HANDLE(48, this)
@@ -223,7 +221,7 @@ class CMINVOKECOMMANDINFOEX extends Win32Struct
      * The point where the command is invoked. If the <b>fMask</b> member does not specify <b>CMIC_MASK_PTINVOKE</b>, this member is ignored. This member is not valid prior to Internet Explorer 4.0.
      * @type {POINT}
      */
-    ptInvoke{
+    ptInvoke {
         get {
             if(!this.HasProp("__ptInvoke"))
                 this.__ptInvoke := POINT(96, this)

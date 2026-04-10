@@ -1,16 +1,15 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
-#Include .\IWTSBitmapRenderer.ahk
 #Include ..\Com\IUnknown.ahk
+#Include .\IWTSBitmapRenderer.ahk
 
 /**
  * This service is used to create a visual mapping on the client corresponding to a mapped window on the server.
  * @see https://learn.microsoft.com/windows/win32/api/tsvirtualchannels/nn-tsvirtualchannels-iwtsbitmaprenderservice
  * @namespace Windows.Win32.System.RemoteDesktop
- * @version v4.0.30319
  */
-class IWTSBitmapRenderService extends IUnknown{
+class IWTSBitmapRenderService extends IUnknown {
 
     static sizeof => A_PtrSize
     /**

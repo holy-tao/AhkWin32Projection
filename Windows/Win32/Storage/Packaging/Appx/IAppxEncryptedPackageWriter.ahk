@@ -7,9 +7,8 @@
  * Provides a write-only object model for encrypted app packages. (IAppxEncryptedPackageWriter)
  * @see https://learn.microsoft.com/windows/win32/api/appxpackaging/nn-appxpackaging-iappxencryptedpackagewriter
  * @namespace Windows.Win32.Storage.Packaging.Appx
- * @version v4.0.30319
  */
-class IAppxEncryptedPackageWriter extends IUnknown{
+class IAppxEncryptedPackageWriter extends IUnknown {
 
     static sizeof => A_PtrSize
     /**
@@ -33,7 +32,7 @@ class IAppxEncryptedPackageWriter extends IUnknown{
     /**
      * Adds a new encrypted payload file to the appx package.
      * @param {PWSTR} fileName The name of the payload file. The file name path must be relative to the root of the package.
-     * @param {Integer} compressionOption The type of compression to use  to store <i>fileName</i> in the package.
+     * @param {APPX_COMPRESSION_OPTION} compressionOption The type of compression to use  to store <i>fileName</i> in the package.
      * @param {IStream} inputStream An <a href="https://docs.microsoft.com/windows/desktop/api/objidl/nn-objidl-istream">IStream</a> providing the contents of <i>fileName</i>.
      *           The stream must support <a href="https://docs.microsoft.com/windows/desktop/api/objidl/nf-objidl-isequentialstream-read">Read</a>, <a href="https://docs.microsoft.com/windows/desktop/api/objidl/nf-objidl-istream-seek">Seek</a>, and <a href="https://docs.microsoft.com/windows/desktop/api/objidl/nf-objidl-istream-stat">Stat</a>.
      * @returns {HRESULT} If the method succeeds, it returns <b>S_OK</b>. Otherwise, it returns an error code.

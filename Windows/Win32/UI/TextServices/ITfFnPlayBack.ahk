@@ -7,9 +7,8 @@
  * The ITfFnPlayBack interface is implemented by the Speech API (SAPI) text service. This interface is used by the TSF manager or a client (application or other text service) to control the audio data for speech input text.
  * @see https://learn.microsoft.com/windows/win32/api/ctffunc/nn-ctffunc-itffnplayback
  * @namespace Windows.Win32.UI.TextServices
- * @version v4.0.30319
  */
-class ITfFnPlayBack extends ITfFunction{
+class ITfFnPlayBack extends ITfFunction {
 
     static sizeof => A_PtrSize
     /**

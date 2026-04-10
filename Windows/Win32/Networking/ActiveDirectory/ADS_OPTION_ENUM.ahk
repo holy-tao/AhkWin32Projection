@@ -5,9 +5,8 @@
  * Contains values that indicate the options that can be retrieved or set with the IADsObjectOptions.GetOption and IADsObjectOptions.SetOption methods.
  * @see https://learn.microsoft.com/windows/win32/api/iads/ne-iads-ads_option_enum
  * @namespace Windows.Win32.Networking.ActiveDirectory
- * @version v4.0.30319
  */
-class ADS_OPTION_ENUM extends Win32Enum{
+class ADS_OPTION_ENUM extends Win32Enum {
 
     /**
      * Gets a <b>VT_BSTR</b> that contains the host name of the server for the current binding 

@@ -9,10 +9,8 @@
  * This structure extends the <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/mpeg2structs/ns-mpeg2structs-long_section">LONG_SECTION</a> structure.
  * @see https://learn.microsoft.com/windows/win32/api/mpeg2structs/ns-mpeg2structs-dsmcc_section
  * @namespace Windows.Win32.Media.DirectShow.Tv
- * @version v4.0.30319
  */
-class DSMCC_SECTION extends Win32Struct
-{
+class DSMCC_SECTION extends Win32Struct {
     static sizeof => 28
 
     static packingSize => 4
@@ -24,14 +22,14 @@ class DSMCC_SECTION extends Win32Struct
         /**
          * @type {MPEG_HEADER_BITS_MIDL}
          */
-        S{
+        S {
             get {
                 if(!this.HasProp("__S"))
                     this.__S := MPEG_HEADER_BITS_MIDL(0, this)
                 return this.__S
             }
         }
-    
+
         /**
          * @type {Integer}
          */
@@ -39,7 +37,6 @@ class DSMCC_SECTION extends Win32Struct
             get => NumGet(this, 0, "ushort")
             set => NumPut("ushort", value, this, 0)
         }
-    
     }
 
     class _Version_e__Union extends Win32Struct {
@@ -49,14 +46,14 @@ class DSMCC_SECTION extends Win32Struct
         /**
          * @type {MPEG_HEADER_VERSION_BITS_MIDL}
          */
-        S{
+        S {
             get {
                 if(!this.HasProp("__S"))
                     this.__S := MPEG_HEADER_VERSION_BITS_MIDL(0, this)
                 return this.__S
             }
         }
-    
+
         /**
          * @type {Integer}
          */
@@ -64,7 +61,6 @@ class DSMCC_SECTION extends Win32Struct
             get => NumGet(this, 0, "char")
             set => NumPut("char", value, this, 0)
         }
-    
     }
 
     /**
@@ -80,10 +76,10 @@ class DSMCC_SECTION extends Win32Struct
      * A union that contains the following members.
      * @type {_Header_e__Union}
      */
-    Header{
+    Header {
         get {
             if(!this.HasProp("__Header"))
-                this.__Header := %this.__Class%._Header_e__Union(1, this)
+                this.__Header := DSMCC_SECTION._Header_e__Union(1, this)
             return this.__Header
         }
     }
@@ -101,10 +97,10 @@ class DSMCC_SECTION extends Win32Struct
      * A union that contains the following members.
      * @type {_Version_e__Union}
      */
-    Version{
+    Version {
         get {
             if(!this.HasProp("__Version"))
-                this.__Version := %this.__Class%._Version_e__Union(6, this)
+                this.__Version := DSMCC_SECTION._Version_e__Union(6, this)
             return this.__Version
         }
     }
@@ -192,9 +188,9 @@ class DSMCC_SECTION extends Win32Struct
 
     /**
      * Contains the remaining section data, as a byte array. The length of the array is <c>Header.W.SectionLength - 17</c> bytes.
-     * @type {Array<Byte>}
+     * @type {Array<Integer>}
      */
-    RemainingData{
+    RemainingData {
         get {
             if(!this.HasProp("__RemainingDataProxyArray"))
                 this.__RemainingDataProxyArray := Win32FixedArray(this.ptr + 24, 1, Primitive, "char")

@@ -1,16 +1,15 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
-#Include .\ID2D1DeviceContext1.ahk
 #Include .\ID2D1Device.ahk
+#Include .\ID2D1DeviceContext1.ahk
 
 /**
  * Represents a resource domain whose objects and device contexts can be used together. (ID2D1Device1)
  * @see https://learn.microsoft.com/windows/win32/api/d2d1_2/nn-d2d1_2-id2d1device1
  * @namespace Windows.Win32.Graphics.Direct2D
- * @version v4.0.30319
  */
-class ID2D1Device1 extends ID2D1Device{
+class ID2D1Device1 extends ID2D1Device {
 
     static sizeof => A_PtrSize
     /**
@@ -33,7 +32,7 @@ class ID2D1Device1 extends ID2D1Device{
 
     /**
      * Retrieves the current rendering priority of the device.
-     * @returns {Integer} Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/d2d1_2/ne-d2d1_2-d2d1_rendering_priority">D2D1_RENDERING_PRIORITY</a></b>
+     * @returns {D2D1_RENDERING_PRIORITY} Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/d2d1_2/ne-d2d1_2-d2d1_rendering_priority">D2D1_RENDERING_PRIORITY</a></b>
      * 
      * The current rendering priority of the device.
      * @see https://learn.microsoft.com/windows/win32/api/d2d1_2/nf-d2d1_2-id2d1device1-getrenderingpriority
@@ -47,7 +46,7 @@ class ID2D1Device1 extends ID2D1Device{
      * Sets the priority of Direct2D rendering operations performed on any device context associated with the device.
      * @remarks
      * Calling this method affects the rendering priority of all device contexts associated with the device. This method can be called at any time, but is not guaranteed to take effect until the beginning of the next frame. The recommended usage is to call this method outside of <a href="https://docs.microsoft.com/windows/desktop/api/d2d1/nf-d2d1-id2d1rendertarget-begindraw">BeginDraw</a> and <a href="https://docs.microsoft.com/windows/desktop/api/d2d1/nf-d2d1-id2d1rendertarget-enddraw">EndDraw</a> blocks. Cycling this property frequently within drawing blocks will effectively reduce the benefits of any throttling that is applied.
-     * @param {Integer} renderingPriority Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/d2d1_2/ne-d2d1_2-d2d1_rendering_priority">D2D1_RENDERING_PRIORITY</a></b>
+     * @param {D2D1_RENDERING_PRIORITY} renderingPriority Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/d2d1_2/ne-d2d1_2-d2d1_rendering_priority">D2D1_RENDERING_PRIORITY</a></b>
      * 
      * The desired rendering priority for the device and associated contexts.
      * @returns {String} Nothing - always returns an empty string
@@ -59,7 +58,7 @@ class ID2D1Device1 extends ID2D1Device{
 
     /**
      * 
-     * @param {Integer} options 
+     * @param {D2D1_DEVICE_CONTEXT_OPTIONS} options 
      * @returns {ID2D1DeviceContext1} 
      */
     CreateDeviceContext(options) {

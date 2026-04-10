@@ -3,10 +3,8 @@
 
 /**
  * @namespace Windows.Win32.Graphics.Printing
- * @version v4.0.30319
  */
-class SIMULATE_CAPS_1 extends Win32Struct
-{
+class SIMULATE_CAPS_1 extends Win32Struct {
     static sizeof => 20
 
     static packingSize => 4

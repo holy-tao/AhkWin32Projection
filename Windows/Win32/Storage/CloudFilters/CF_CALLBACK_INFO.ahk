@@ -1,6 +1,8 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
 #Include .\CF_CONNECTION_KEY.ahk
+#Include ..\..\System\CorrelationVector\CORRELATION_VECTOR.ahk
+#Include .\CF_PROCESS_INFO.ahk
 
 /**
  * Contains common callback information.
@@ -14,10 +16,8 @@
  * - All mount points are resolved.
  * @see https://learn.microsoft.com/windows/win32/api/cfapi/ns-cfapi-cf_callback_info
  * @namespace Windows.Win32.Storage.CloudFilters
- * @version v4.0.30319
  */
-class CF_CALLBACK_INFO extends Win32Struct
-{
+class CF_CALLBACK_INFO extends Win32Struct {
     static sizeof => 152
 
     static packingSize => 8
@@ -35,7 +35,7 @@ class CF_CALLBACK_INFO extends Win32Struct
      * An opaque handle created by [CfConnectSyncRoot](nf-cfapi-cfconnectsyncroot.md) for a sync root managed by the sync provider. *ConnectionKey* is returned as a convenience so the sync provider doesn't need to manually track it.
      * @type {CF_CONNECTION_KEY}
      */
-    ConnectionKey{
+    ConnectionKey {
         get {
             if(!this.HasProp("__ConnectionKey"))
                 this.__ConnectionKey := CF_CONNECTION_KEY(8, this)

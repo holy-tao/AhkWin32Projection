@@ -1,15 +1,15 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
 #Include .\WS_SECURITY_BINDING_PROPERTIES.ahk
+#Include .\WS_SECURITY_BINDING_PROPERTY.ahk
+#Include .\WS_USERNAME_CREDENTIAL.ahk
 
 /**
  * The security binding template for specifying the use of an application supplied username / password pair as a direct (i.e., one-shot) security token.
  * @see https://learn.microsoft.com/windows/win32/api/webservices/ns-webservices-ws_username_message_security_binding_template
  * @namespace Windows.Win32.Networking.WindowsWebServices
- * @version v4.0.30319
  */
-class WS_USERNAME_MESSAGE_SECURITY_BINDING_TEMPLATE extends Win32Struct
-{
+class WS_USERNAME_MESSAGE_SECURITY_BINDING_TEMPLATE extends Win32Struct {
     static sizeof => 40
 
     static packingSize => 8
@@ -18,7 +18,7 @@ class WS_USERNAME_MESSAGE_SECURITY_BINDING_TEMPLATE extends Win32Struct
      * Application provided security binding properties that cannot be represented in policy.
      * @type {WS_SECURITY_BINDING_PROPERTIES}
      */
-    securityBindingProperties{
+    securityBindingProperties {
         get {
             if(!this.HasProp("__securityBindingProperties"))
                 this.__securityBindingProperties := WS_SECURITY_BINDING_PROPERTIES(0, this)

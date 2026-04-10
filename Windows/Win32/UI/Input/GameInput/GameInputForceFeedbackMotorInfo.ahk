@@ -1,18 +1,18 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\..\Win32Struct.ahk
+#Include .\GameInputFeedbackAxes.ahk
+#Include .\GameInputLocation.ahk
 
 /**
  * @namespace Windows.Win32.UI.Input.GameInput
- * @version v4.0.30319
  */
-class GameInputForceFeedbackMotorInfo extends Win32Struct
-{
+class GameInputForceFeedbackMotorInfo extends Win32Struct {
     static sizeof => 28
 
     static packingSize => 4
 
     /**
-     * @type {Integer}
+     * @type {GameInputFeedbackAxes}
      */
     supportedAxes {
         get => NumGet(this, 0, "int")
@@ -20,7 +20,7 @@ class GameInputForceFeedbackMotorInfo extends Win32Struct
     }
 
     /**
-     * @type {Integer}
+     * @type {GameInputLocation}
      */
     location {
         get => NumGet(this, 4, "int")

@@ -1,12 +1,12 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
+#Include ..\..\System\Com\IUnknown.ahk
 #Include .\ITfDocumentMgr.ahk
 #Include .\IEnumTfDocumentMgrs.ahk
 #Include .\ITfFunctionProvider.ahk
 #Include .\IEnumTfFunctionProviders.ahk
 #Include .\ITfCompartmentMgr.ahk
-#Include ..\..\System\Com\IUnknown.ahk
 
 /**
  * The ITfThreadMgr defines the primary object implemented by the TSF manager. ITfThreadMgr is used by applications and text services to activate and deactivate text services, create document managers, and maintain the document context focus.
@@ -16,9 +16,8 @@
  * A text service receives a pointer to this interface in its <a href="https://docs.microsoft.com/windows/desktop/api/msctf/nf-msctf-itftextinputprocessor-activate">ITfTextInputProcessor::Activate</a> method.
  * @see https://learn.microsoft.com/windows/win32/api/msctf/nn-msctf-itfthreadmgr
  * @namespace Windows.Win32.UI.TextServices
- * @version v4.0.30319
  */
-class ITfThreadMgr extends IUnknown{
+class ITfThreadMgr extends IUnknown {
 
     static sizeof => A_PtrSize
     /**
@@ -201,7 +200,7 @@ class ITfThreadMgr extends IUnknown{
      * }
      * 
      * ```
-     * @param {HWND} _hwnd 
+     * @param {HWND} _hwnd Handle of the window to associate the focus with.
      * @param {ITfDocumentMgr} pdimNew Pointer to the document manager to associate the focus with. The TSF manager does not increment the object reference count. This value can be <b>NULL</b>.
      * @returns {ITfDocumentMgr} Receives the document manager previously associated with the window. Receives <b>NULL</b> if there is no previous association. This parameter cannot be <b>NULL</b>.
      * @see https://learn.microsoft.com/windows/win32/api/msctf/nf-msctf-itfthreadmgr-associatefocus

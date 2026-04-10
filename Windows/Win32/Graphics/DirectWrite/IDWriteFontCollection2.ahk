@@ -1,18 +1,17 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
+#Include .\IDWriteFontCollection1.ahk
 #Include .\IDWriteFontFamily2.ahk
 #Include .\IDWriteFontList2.ahk
 #Include .\IDWriteFontSet1.ahk
-#Include .\IDWriteFontCollection1.ahk
 
 /**
  * This interface encapsulates a set of fonts, such as the set of fonts installed on the system, or the set of fonts in a particular directory. The font collection API can be used to discover what font families and fonts are available, and to obtain some metadata about the fonts. (IDWriteFontCollection2)
  * @see https://learn.microsoft.com/windows/win32/api/dwrite_3/nn-dwrite_3-idwritefontcollection2
  * @namespace Windows.Win32.Graphics.DirectWrite
- * @version v4.0.30319
  */
-class IDWriteFontCollection2 extends IDWriteFontCollection1{
+class IDWriteFontCollection2 extends IDWriteFontCollection1 {
 
     static sizeof => A_PtrSize
     /**
@@ -38,7 +37,9 @@ class IDWriteFontCollection2 extends IDWriteFontCollection1{
      * @param {Integer} index Type: **[UINT32](/windows/win32/winprog/windows-data-types)**
      * 
      * Zero-based index of the font family.
-     * @returns {IDWriteFontFamily2} 
+     * @returns {IDWriteFontFamily2} Type: **[IDWriteFontFamily2](./nn-dwrite_3-idwritefontfamily2.md)\*\***
+     * 
+     * The address of a pointer to an [IDWriteFontFamily2](./nn-dwrite_3-idwritefontfamily2.md) interface. On successful completion, the function sets the pointer to a newly created font family object.
      * @see https://learn.microsoft.com/windows/win32/api/dwrite_3/nf-dwrite_3-idwritefontcollection2-getfontfamily
      */
     GetFontFamily(index) {
@@ -73,7 +74,7 @@ class IDWriteFontCollection2 extends IDWriteFontCollection1{
 
     /**
      * Retrieves the font family model used by the font collection to group families.
-     * @returns {Integer} Type: **[DWRITE_FONT_FAMILY_MODEL](./ne-dwrite_3-dwrite_font_family_model.md)**
+     * @returns {DWRITE_FONT_FAMILY_MODEL} Type: **[DWRITE_FONT_FAMILY_MODEL](./ne-dwrite_3-dwrite_font_family_model.md)**
      * 
      * How families are grouped in the collection.
      * @see https://learn.microsoft.com/windows/win32/api/dwrite_3/nf-dwrite_3-idwritefontcollection2-getfontfamilymodel

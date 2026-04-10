@@ -5,9 +5,8 @@
 
 /**
  * @namespace Windows.Win32.Media.Multimedia
- * @version v4.0.30319
  */
-class IAVIPersistFile extends IPersistFile{
+class IAVIPersistFile extends IPersistFile {
 
     static sizeof => A_PtrSize
     /**

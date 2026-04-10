@@ -7,9 +7,8 @@
  * Contains a method that applications use to track the completion of a callback method. Applications that call service methods asynchronously may implement this interface, and supply it as a parameter to IPortableDeviceServiceMethods::InvokeAsync.
  * @see https://learn.microsoft.com/windows/win32/api/portabledeviceapi/nn-portabledeviceapi-iportabledeviceservicemethodcallback
  * @namespace Windows.Win32.Devices.PortableDevices
- * @version v4.0.30319
  */
-class IPortableDeviceServiceMethodCallback extends IUnknown{
+class IPortableDeviceServiceMethodCallback extends IUnknown {
 
     static sizeof => A_PtrSize
     /**

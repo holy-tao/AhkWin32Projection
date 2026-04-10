@@ -5,9 +5,8 @@
 
 /**
  * @namespace Windows.Win32.System.Diagnostics.Debug.Extensions
- * @version v4.0.30319
  */
-class IDebugHostMemory5 extends IDebugHostMemory4{
+class IDebugHostMemory5 extends IDebugHostMemory4 {
 
     static sizeof => A_PtrSize
     /**

@@ -3,9 +3,8 @@
 
 /**
  * @namespace Windows.Wdk.System.SystemServices
- * @version v4.0.30319
  */
-class IO_CONTAINER_NOTIFICATION_CLASS extends Win32Enum{
+class IO_CONTAINER_NOTIFICATION_CLASS extends Win32Enum {
 
     /**
      * @type {Integer (Int32)}

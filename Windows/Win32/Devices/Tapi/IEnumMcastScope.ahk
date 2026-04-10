@@ -1,17 +1,15 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
-#Include .\IMcastScope.ahk
-#Include .\IEnumMcastScope.ahk
 #Include ..\..\System\Com\IUnknown.ahk
+#Include .\IMcastScope.ahk
 
 /**
  * The IEnumMcastScope interface provides COM-standard enumeration methods for the IMcastScope interface. The IMcastAddressAllocation::EnumerateScopes method returns a pointer to IEnumMcastScope.
  * @see https://learn.microsoft.com/windows/win32/api/mdhcp/nn-mdhcp-ienummcastscope
  * @namespace Windows.Win32.Devices.Tapi
- * @version v4.0.30319
  */
-class IEnumMcastScope extends IUnknown{
+class IEnumMcastScope extends IUnknown {
 
     static sizeof => A_PtrSize
     /**

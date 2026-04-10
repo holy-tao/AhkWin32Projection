@@ -3,7 +3,6 @@
 
 /**
  * @namespace Windows.Win32.NetworkManagement.Snmp
- * @version v4.0.30319
  */
 class Snmp {
 
@@ -952,7 +951,7 @@ class Snmp {
      * Extension agents are encouraged to use the 
      * <a href="https://docs.microsoft.com/windows/desktop/api/snmp/nf-snmp-snmpsvcsetlogtype">SnmpSvcSetLogType</a> and 
      * <b>SnmpSvcSetLogLevel</b> functions during development to adjust the output of debugging information. Extension agents can integrate the information with the debug output from the SNMP service.
-     * @param {Integer} nLogLevel Specifies a signed integer variable that indicates the level of detail of the debug output from the
+     * @param {SNMP_LOG} nLogLevel Specifies a signed integer variable that indicates the level of detail of the debug output from the
      * @returns {String} Nothing - always returns an empty string
      * @see https://learn.microsoft.com/windows/win32/api/snmp/nf-snmp-snmpsvcsetloglevel
      * @since windows5.0
@@ -985,7 +984,7 @@ class Snmp {
      * <a href="https://docs.microsoft.com/windows/desktop/api/snmp/nf-snmp-snmpsvcsetloglevel">SnmpSvcSetLogLevel</a> function to set the level of detail of the debug output from the SNMP service or from an extension agent's call to the 
      * <b>SnmpUtilDbgPrint</b> function. Call the 
      * <a href="https://docs.microsoft.com/windows/desktop/api/snmp/nf-snmp-snmpsvcsetlogtype">SnmpSvcSetLogType</a> function to specify the destination for the debug output.
-     * @param {Integer} nLogLevel 
+     * @param {SNMP_LOG} nLogLevel 
      * @param {PSTR} szFormat Pointer to a null-terminated format string that is similar to the standard C library function <b>printf</b> style.
      * @returns {String} Nothing - always returns an empty string
      * @see https://learn.microsoft.com/windows/win32/api/snmp/nf-snmp-snmputildbgprint
@@ -1202,7 +1201,7 @@ class Snmp {
      * 
      * <div class="alert"><b>Note</b>  The <a href="https://docs.microsoft.com/windows/desktop/api/snmp/ns-snmp-snmpvarbind">SnmpVarBind</a> array pointed to by the <a href="https://docs.microsoft.com/windows/desktop/api/snmp/ns-snmp-snmpvarbindlist">SnmpVarBindList</a> structure must be allocated using the <a href="https://docs.microsoft.com/windows/desktop/api/snmp/nf-snmp-snmputilmemalloc">SnmpUtilMemAlloc</a> function.</div>
      * <div> </div>
-     * @param {Pointer<Integer>} errorStatus 
+     * @param {Pointer<SNMP_ERROR_STATUS>} errorStatus 
      * @param {Pointer<Integer>} errorIndex Pointer to a variable in which the error index result will be returned.
      * @returns {Integer} If the function succeeds, the return value is nonzero.
      * 
@@ -1268,7 +1267,7 @@ class Snmp {
      * 
      * You must always precede the object identifier with a period (.) to obtain the correct system group (for example, ".1.3.6.1.2.1.1"). If an application passes the variable "1.3.6.1.2.1.1", 
      * <b>SnmpMgrStrToOid</b> cannot interpret the object identifier correctly.
-     * @param {PSTR} _string 
+     * @param {PSTR} _string Pointer to a null-terminated string to convert.
      * @param {Pointer<AsnObjectIdentifier>} oid Pointer to an object identifier variable to receive the converted value.
      * @returns {BOOL} If the function succeeds, the return value is nonzero.
      * 
@@ -1289,7 +1288,7 @@ class Snmp {
      * If the function succeeds, call the 
      * <a href="https://docs.microsoft.com/windows/desktop/api/snmp/nf-snmp-snmputilmemfree">SnmpUtilMemFree</a> function to free the memory allocated for the converted string.
      * @param {Pointer<AsnObjectIdentifier>} oid Pointer to an object identifier variable to convert.
-     * @param {Pointer<PSTR>} _string 
+     * @param {Pointer<PSTR>} _string Pointer to a null-terminated string to receive the converted value.
      * @returns {BOOL} If the function succeeds, the return value is nonzero.
      * 
      * If the function fails, the return value is zero.
@@ -1399,9 +1398,9 @@ class Snmp {
      * @param {Pointer<AsnObjectIdentifier>} enterprise Pointer to an 
      * <a href="https://docs.microsoft.com/windows/desktop/api/snmp/ns-snmp-asnobjectidentifier">AsnObjectIdentifier</a> structure to receive the enterprise that generated the SNMP trap.
      * @param {Pointer<AsnOctetString>} IPAddress Pointer to a variable to receive the address of the agent that generated the SNMP trap.
-     * @param {Pointer<Integer>} genericTrap 
+     * @param {Pointer<SNMP_GENERICTRAP>} genericTrap 
      * @param {Pointer<Integer>} specificTrap Pointer to a variable to receive an indication of the specific trap generated.
-     * @param {Pointer<Integer>} _timeStamp 
+     * @param {Pointer<Integer>} _timeStamp Pointer to a variable to receive the time stamp.
      * @param {Pointer<SnmpVarBindList>} variableBindings Pointer to an 
      * <a href="https://docs.microsoft.com/windows/desktop/api/snmp/ns-snmp-snmpvarbindlist">SnmpVarBindList</a> structure to receive the variable bindings list.
      * @returns {BOOL} If the function returns a trap, the return value is <b>TRUE</b>. The code for the error can be retrieved by calling <a href="https://docs.microsoft.com/windows/desktop/api/winsnmp/nf-winsnmp-snmpgetlasterror">SnmpGetLastError</a> immediately after the call.
@@ -1475,11 +1474,11 @@ class Snmp {
      * <a href="https://docs.microsoft.com/windows/desktop/api/snmp/ns-snmp-asnobjectidentifier">AsnObjectIdentifier</a> structure to receive the enterprise that generated the SNMP trap.
      * @param {Pointer<AsnOctetString>} agentAddress Pointer to a variable to receive the address of the agent that generated the SNMP trap; this information is retrieved from the SNMP protocol data unit (PDU).
      * @param {Pointer<AsnOctetString>} sourceAddress Pointer to a variable to receive the address of the agent that generated the SNMP trap; this information is retrieved from the network transport.
-     * @param {Pointer<Integer>} genericTrap 
+     * @param {Pointer<SNMP_GENERICTRAP>} genericTrap 
      * @param {Pointer<Integer>} specificTrap Pointer to a variable to receive an indicator of the specific trap generated.
      * @param {Pointer<AsnOctetString>} community Pointer to an 
      * <a href="https://docs.microsoft.com/windows/desktop/api/snmp/ns-snmp-asnoctetstring">AsnOctetString</a> structure to receive the community string of the generated SNMP trap.
-     * @param {Pointer<Integer>} _timeStamp 
+     * @param {Pointer<Integer>} _timeStamp Pointer to a variable to receive the time stamp.
      * @param {Pointer<SnmpVarBindList>} variableBindings Pointer to an 
      * <a href="https://docs.microsoft.com/windows/desktop/api/snmp/ns-snmp-snmpvarbindlist">SnmpVarBindList</a> structure to receive the variable bindings list.
      * @returns {BOOL} If the function returns a trap, the return value is nonzero.
@@ -1547,7 +1546,7 @@ class Snmp {
      * <a href="https://docs.microsoft.com/windows/desktop/api/winsnmp/nf-winsnmp-snmpcontexttostr">SnmpContextToStr</a> and 
      * <a href="https://docs.microsoft.com/windows/desktop/api/winsnmp/nf-winsnmp-snmpentitytostr">SnmpEntityToStr</a> functions. For additional information, see 
      * <a href="https://docs.microsoft.com/windows/desktop/SNMP/setting-the-entity-and-context-translation-mode">Setting the Entity and Context Translation Mode</a>.
-     * @param {Pointer<Integer>} nTranslateMode 
+     * @param {Pointer<SNMP_API_TRANSLATE_MODE>} nTranslateMode 
      * @returns {Integer} If the function succeeds, the return value is SNMPAPI_SUCCESS.
      * 
      * If the function fails, the return value is SNMPAPI_FAILURE. If 
@@ -1617,7 +1616,7 @@ class Snmp {
      * 
      * For additional information, see 
      * <a href="https://docs.microsoft.com/windows/desktop/SNMP/setting-the-entity-and-context-translation-mode">Setting the Entity and Context Translation Mode</a>.
-     * @param {Integer} nTranslateMode 
+     * @param {SNMP_API_TRANSLATE_MODE} nTranslateMode 
      * @returns {Integer} If the function succeeds, the return value is SNMPAPI_SUCCESS.
      * 
      * If the function fails, the return value is SNMPAPI_FAILURE. To get extended error information, call 
@@ -1690,7 +1689,7 @@ class Snmp {
      * <b>SnmpGetRetransmitMode</b> function. For additional information, see 
      * <a href="https://docs.microsoft.com/windows/desktop/SNMP/about-retransmission">About Retransmission</a> and 
      * <a href="https://docs.microsoft.com/windows/desktop/SNMP/managing-the-retransmission-policy">Managing the Retransmission Policy</a>.
-     * @param {Pointer<Integer>} nRetransmitMode 
+     * @param {Pointer<SNMP_STATUS>} nRetransmitMode 
      * @returns {Integer} If the function succeeds, the return value is SNMPAPI_SUCCESS.
      * 
      * If the function fails, the return value is SNMPAPI_FAILURE. If 
@@ -1767,7 +1766,7 @@ class Snmp {
      * For additional information, see 
      * <a href="https://docs.microsoft.com/windows/desktop/SNMP/about-retransmission">About Retransmission</a> and 
      * <a href="https://docs.microsoft.com/windows/desktop/SNMP/managing-the-retransmission-policy">Managing the Retransmission Policy</a>.
-     * @param {Integer} nRetransmitMode 
+     * @param {SNMP_STATUS} nRetransmitMode 
      * @returns {Integer} If the function succeeds, the return value is SNMPAPI_SUCCESS.
      * 
      * If the function fails, the return value is SNMPAPI_FAILURE. To get extended error information, call 
@@ -2284,9 +2283,9 @@ class Snmp {
      * @param {Pointer<Integer>} nMinorVersion Pointer to an unsigned long integer variable to receive the minor version number of the WinSNMP API that the implementation supports. For example, to indicate that the implementation supports WinSNMP version 2.0, the function returns a value of 0.
      * @param {Pointer<Integer>} nLevel Pointer to an unsigned long integer variable to receive the highest level of SNMP communications the implementation supports. Upon successful return, this parameter contains a value of 2. For a description of level 2 support, see 
      * <a href="https://docs.microsoft.com/windows/desktop/SNMP/levels-of-snmp-support">Levels of SNMP Support</a>.
-     * @param {Pointer<Integer>} nTranslateMode Pointer to an unsigned long integer variable to receive the default translation mode in effect for the implementation. The translation mode applies to the implementation's interpretation of the <i>entity</i> parameter that the WinSNMP application passes to the 
+     * @param {Pointer<SNMP_API_TRANSLATE_MODE>} nTranslateMode Pointer to an unsigned long integer variable to receive the default translation mode in effect for the implementation. The translation mode applies to the implementation's interpretation of the <i>entity</i> parameter that the WinSNMP application passes to the 
      * <a href="https://docs.microsoft.com/windows/desktop/api/winsnmp/nf-winsnmp-snmpstrtoentity">SnmpStrToEntity</a> function. The translation mode also applies to the <i>string</i> parameter that the WinSNMP application passes to the
-     * @param {Pointer<Integer>} nRetransmitMode 
+     * @param {Pointer<SNMP_STATUS>} nRetransmitMode 
      * @returns {Integer} If the function succeeds, the return value is SNMPAPI_SUCCESS, and the parameters contain appropriate values, as indicated in the preceding parameter descriptions.
      * 
      * If the function fails, the return value is SNMPAPI_FAILURE. To get extended error information, call 
@@ -2455,7 +2454,7 @@ class Snmp {
      * 
      * For more information, see 
      * <a href="https://docs.microsoft.com/windows/desktop/SNMP/winsnmp-sessions">WinSNMP Sessions</a>.
-     * @param {HWND} _hWnd 
+     * @param {HWND} _hWnd Handle to a window of the WinSNMP application to notify when an asynchronous request completes, or when trap notification occurs.
      * @param {Integer} wMsg Specifies an unsigned integer that identifies the notification message to send to the WinSNMP application window.
      * @returns {Pointer} If the function succeeds, the return value is a handle that identifies the WinSNMP session that the implementation opens for the calling application.
      * 
@@ -2626,7 +2625,7 @@ class Snmp {
      * @param {Pointer} session Handle to the WinSNMP session.
      * @param {Pointer} srcEntity Handle to the management entity that initiates the request to send the SNMP message.
      * @param {Pointer} dstEntity Handle to the target entity that will respond to the SNMP request.
-     * @param {Pointer} _context 
+     * @param {Pointer} _context Handle to the context, (a set of managed object resources), that the target management entity controls.
      * @param {Pointer} PDU Handle to the protocol data unit that contains the SNMP operation request.
      * @returns {Integer} If the function succeeds, the return value is SNMPAPI_SUCCESS.
      * 
@@ -2855,7 +2854,7 @@ class Snmp {
      * <a href="https://docs.microsoft.com/windows/desktop/api/winsnmp/nf-winsnmp-snmpregister">SnmpRegister</a> function specifies a handle to the management entity that registers for trap notification.
      * @param {Pointer<Pointer>} dstEntity Pointer to a variable that receives a handle to the entity that receives the message. Note that the <i>dstEntity</i> parameter to the 
      * <a href="https://docs.microsoft.com/windows/desktop/api/winsnmp/nf-winsnmp-snmpregister">SnmpRegister</a> function specifies a handle to the management entity that sends traps.
-     * @param {Pointer<Pointer>} _context 
+     * @param {Pointer<Pointer>} _context Pointer to a variable that receives a handle to the context, which is a set of managed object resources. The entity specified by the <i>srcEntity</i> parameter issues the message from this context.
      * @param {Pointer<Pointer>} PDU Pointer to a variable that receives a handle to the protocol data unit (PDU) component of the message.
      * @returns {Integer} If the function succeeds, the return value is SNMPAPI_SUCCESS, and the output parameters contain the values indicated in the preceding parameter descriptions.
      * 
@@ -3089,9 +3088,20 @@ class Snmp {
      * 
      * Note that the <i>dstEntity</i> parameter to the 
      * <a href="https://docs.microsoft.com/windows/desktop/api/winsnmp/nf-winsnmp-snmprecvmsg">SnmpRecvMsg</a> function receives a handle to the management entity that registers for trap notification.
-     * @param {Pointer} _context 
-     * @param {Pointer<smiOID>} _notification 
-     * @param {Integer} state 
+     * @param {Pointer} _context Handle to the context, which is a set of managed object resources. 
+     * 
+     * 
+     * 
+     * 
+     * If this parameter is <b>NULL</b>, the implementation registers or unregisters the WinSNMP application for traps and notifications for every context.
+     * @param {Pointer<smiOID>} _notification Pointer to an 
+     * <a href="https://docs.microsoft.com/windows/desktop/api/winsnmp/ns-winsnmp-smioid">smiOID</a> structure that contains the pattern-matching sequence for one type of trap or notification. The implementation uses this sequence to identify the type of trap or notification for which the WinSNMP application is registering or unregistering. For additional information, see the following Remarks section. 
+     * 
+     * 
+     * 
+     * 
+     * If this parameter is <b>NULL</b>, the implementation registers or unregisters the WinSNMP application for all traps and notifications from the management entity or entities specified by the <i>dstEntity</i> parameter.
+     * @param {SNMP_STATUS} state 
      * @returns {Integer} If the function succeeds, the return value is SNMPAPI_SUCCESS.
      * 
      * If the function fails, the return value is SNMPAPI_FAILURE. To get extended error information, call 
@@ -3260,7 +3270,7 @@ class Snmp {
      * <b>SnmpCreateSession</b> function, requesting that the implementation signal the session about messages and events using window notification messages.
      * 
      * <c>hSession = SnmpCreateSession (myWnd, myMsg, NULL, NULL);</c>
-     * @param {HWND} _hWnd 
+     * @param {HWND} _hWnd Handle to a window of the WinSNMP application to notify when an asynchronous request completes, or when trap notification occurs. This parameter is required for window notification messages for the session.
      * @param {Integer} wMsg Specifies an unsigned integer that identifies the notification message to send to the WinSNMP application window. This parameter is required for window notification messages for the session.
      * @param {Pointer<SNMPAPI_CALLBACK>} fCallBack Specifies the address of an application-defined, session-specific 
      * <a href="https://docs.microsoft.com/windows/desktop/api/winsnmp/nc-winsnmp-snmpapi_callback">SNMPAPI_CALLBACK</a> function. The implementation will call this function to inform the WinSNMP session when notifications are available. 
@@ -3394,7 +3404,7 @@ class Snmp {
      * When you call the 
      * <a href="https://docs.microsoft.com/windows/desktop/api/winsnmp/nf-winsnmp-snmpcreatesession">SnmpCreateSession</a> function, you can specify whether the implementation should use a window notification message or an 
      * <a href="https://docs.microsoft.com/windows/desktop/api/winsnmp/nc-winsnmp-snmpapi_callback">SNMPAPI_CALLBACK</a> function to notify the application when an SNMP message or asynchronous event is available.
-     * @param {Integer} lStatus 
+     * @param {SNMP_STATUS} lStatus 
      * @returns {Integer} If the function succeeds, the return value is SNMPAPI_SUCCESS.
      * 
      * If the function fails, the return value is SNMPAPI_FAILURE. To get extended error information, call 
@@ -3640,13 +3650,13 @@ class Snmp {
      * @param {Pointer<Integer>} nLevel Pointer to an unsigned long integer variable to receive the highest level of SNMP communications the 
      *       implementation supports. Upon successful return, this parameter contains a value of 2. For a description of level 2 support, see 
      *       <a href="https://docs.microsoft.com/windows/desktop/SNMP/levels-of-snmp-support">Levels of SNMP Support</a>.
-     * @param {Pointer<Integer>} nTranslateMode Pointer to an unsigned long integer variable to receive the default translation mode in effect for 
+     * @param {Pointer<SNMP_API_TRANSLATE_MODE>} nTranslateMode Pointer to an unsigned long integer variable to receive the default translation mode in effect for 
      *       the implementation. The translation mode applies to how the implementation interprets the 
      *       <i>entity</i> parameter, that the WinSNMP application passes to the 
      *       <a href="https://docs.microsoft.com/windows/desktop/api/winsnmp/nf-winsnmp-snmpstrtoentity">SnmpStrToEntity</a> function. The translation mode also 
      *       applies to the <i>string</i> parameter that the WinSNMP application passes to the 
      *       <a href="https://docs.microsoft.com/windows/desktop/api/winsnmp/nf-winsnmp-snmpstrtocontext">SnmpStrToContext</a> function. This parameter can be
-     * @param {Pointer<Integer>} nRetransmitMode Pointer to an unsigned long integer variable to receive the default retransmission mode in effect for the
+     * @param {Pointer<SNMP_STATUS>} nRetransmitMode Pointer to an unsigned long integer variable to receive the default retransmission mode in effect for the
      * @returns {Integer} If the function succeeds, the return value is SNMPAPI_SUCCESS, and the parameters contain appropriate values, 
      *        as indicated in the preceding parameter descriptions.
      * 
@@ -3812,7 +3822,47 @@ class Snmp {
      * <a href="https://docs.microsoft.com/windows/desktop/api/winsnmp/nf-winsnmp-snmpstartup">SnmpStartup</a> function. A WinSNMP application can change the setting of the entity and context translation mode with a call to the 
      * <a href="https://docs.microsoft.com/windows/desktop/api/winsnmp/nf-winsnmp-snmpsettranslatemode">SnmpSetTranslateMode</a> function.
      * @param {Pointer} session Handle to the WinSNMP session.
-     * @param {PSTR} _string 
+     * @param {PSTR} _string Pointer to a null-terminated string that identifies the SNMP management entity of interest. The current setting of the entity and context translation mode determines the manner in which 
+     * <b>SnmpStrToEntity</b> interprets the input string as follows. 
+     * 
+     * 
+     * 
+     * <table>
+     * <tr>
+     * <th>Entity/Context Translation Mode</th>
+     * <th>Meaning</th>
+     * </tr>
+     * <tr>
+     * <td width="40%"><a id="SNMPAPI_TRANSLATED"></a><a id="snmpapi_translated"></a><dl>
+     * <dt><b>SNMPAPI_TRANSLATED</b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * The implementation interprets the <i>string</i> parameter as a user-friendly name. The implementation translates the name into its SNMPv1 or SNMPv2C components using the implementation's database.
+     * 
+     * </td>
+     * </tr>
+     * <tr>
+     * <td width="40%"><a id="SNMPAPI_UNTRANSLATED_V1"></a><a id="snmpapi_untranslated_v1"></a><dl>
+     * <dt><b>SNMPAPI_UNTRANSLATED_V1</b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * The implementation interprets the <i>string</i> parameter as a literal SNMP transport address.
+     * 
+     * </td>
+     * </tr>
+     * <tr>
+     * <td width="40%"><a id="SNMPAPI_UNTRANSLATED_V2"></a><a id="snmpapi_untranslated_v2"></a><dl>
+     * <dt><b>SNMPAPI_UNTRANSLATED_V2</b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * The implementation interprets the <i>string</i> parameter as a literal SNMP transport address.
+     * 
+     * </td>
+     * </tr>
+     * </table>
      * @returns {Pointer} If the function succeeds, the return value is a handle to the SNMP management entity of interest.
      * 
      * If the function fails, the return value is SNMPAPI_FAILURE. To get extended error information, call 
@@ -3904,8 +3954,8 @@ class Snmp {
      * 
      * When the entity and context translation mode is SNMPAPI_UNTRANSLATED_V1 or SNMPAPI_UNTRANSLATED_V2, the Microsoft WinSNMP implementation also returns the literal SNMP transport address of the management entity.
      * @param {Pointer} entity Handle to the SNMP management entity of interest.
-     * @param {Integer} _size 
-     * @param {PSTR} _string 
+     * @param {Integer} _size Specifies the size, in bytes, of the buffer pointed to by the <i>string</i> parameter. The WinSNMP application must allocate a buffer that is large enough to contain the output string.
+     * @param {PSTR} _string Pointer to a buffer to receive the null-terminated string that identifies the SNMP management entity of interest.
      * @returns {Integer} If the function succeeds, the return value is the number of bytes, including a terminating null byte, that 
      * <b>SnmpEntityToStr</b> returns in the <i>string</i> buffer. This value can be less than or equal to the value of the <i>size</i> parameter, but it cannot be greater.
      * 
@@ -4080,7 +4130,51 @@ class Snmp {
      * <a href="https://docs.microsoft.com/windows/desktop/api/winbase/nf-winbase-globalfree">GlobalFree</a> function to deallocate the resources. For additional information, see 
      * <a href="https://docs.microsoft.com/windows/desktop/SNMP/freeing-winsnmp-descriptors">Freeing WinSNMP Descriptors</a>.
      * @param {Pointer} session Handle to the WinSNMP session.
-     * @param {Pointer<smiOCTETS>} _string 
+     * @param {Pointer<smiOCTETS>} _string Pointer to an 
+     * <a href="https://docs.microsoft.com/windows/desktop/api/winsnmp/ns-winsnmp-smioctets">smiOCTETS</a> structure that contains a string to interpret. The string can identify a collection of managed objects, or it can be a community string. 
+     * 
+     * 
+     * 
+     * 
+     * The current setting of the entity and context translation mode determines the way 
+     * <b>SnmpStrToContext</b> interprets the input string structure as shown in the following table.
+     * 
+     * <table>
+     * <tr>
+     * <th>Entity/Context Translation Mode</th>
+     * <th>Meaning</th>
+     * </tr>
+     * <tr>
+     * <td width="40%"><a id="SNMPAPI_TRANSLATED"></a><a id="snmpapi_translated"></a><dl>
+     * <dt><b>SNMPAPI_TRANSLATED</b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * The implementation interprets the <i>string</i> parameter as a user-friendly name for a collection of managed objects. The implementation translates the name into its SNMPv1 or SNMPv2C components using the implementation's database.
+     * 
+     * </td>
+     * </tr>
+     * <tr>
+     * <td width="40%"><a id="SNMPAPI_UNTRANSLATED_V1"></a><a id="snmpapi_untranslated_v1"></a><dl>
+     * <dt><b>SNMPAPI_UNTRANSLATED_V1</b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * The implementation interprets the <i>string</i> parameter as a literal SNMP community string.
+     * 
+     * </td>
+     * </tr>
+     * <tr>
+     * <td width="40%"><a id="SNMPAPI_UNTRANSLATED_V2"></a><a id="snmpapi_untranslated_v2"></a><dl>
+     * <dt><b>SNMPAPI_UNTRANSLATED_V2</b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * The implementation interprets the <i>string</i> parameter as a literal SNMP community string.
+     * 
+     * </td>
+     * </tr>
+     * </table>
      * @returns {Pointer} If the function succeeds, the return value is a handle to the context of interest.
      * 
      * If the function fails, the return value is SNMPAPI_FAILURE. To get extended error information, call 
@@ -4185,8 +4279,9 @@ class Snmp {
      * <b>SnmpContextToStr</b> returns the SNMP community string.
      * 
      * When the entity and context translation mode is SNMPAPI_UNTRANSLATED_V1 or SNMPAPI_UNTRANSLATED_V2, the implementation also returns the SNMP community string.
-     * @param {Pointer} _context 
-     * @param {Pointer<smiOCTETS>} _string 
+     * @param {Pointer} _context Handle to the SNMP context of interest.
+     * @param {Pointer<smiOCTETS>} _string Pointer to an 
+     * <a href="https://docs.microsoft.com/windows/desktop/api/winsnmp/ns-winsnmp-smioctets">smiOCTETS</a> structure to receive the string that identifies the context of interest. The string can have a null-terminating byte.
      * @returns {Integer} If the function succeeds, the return value is SNMPAPI_SUCCESS.
      * 
      * If the function fails, the return value is SNMPAPI_FAILURE. To get extended error information, call 
@@ -4263,7 +4358,7 @@ class Snmp {
      * 
      * For additional information, see 
      * <a href="https://docs.microsoft.com/windows/desktop/SNMP/winsnmp-data-management-concepts">WinSNMP Data Management Concepts</a>.
-     * @param {Pointer} _context 
+     * @param {Pointer} _context Handle to the SNMP context that will have its resources released.
      * @returns {Integer} If the function succeeds, the return value is SNMPAPI_SUCCESS.
      * 
      * If the function fails, the return value is SNMPAPI_FAILURE. To get extended error information, call 
@@ -4478,7 +4573,7 @@ class Snmp {
      * <a href="https://docs.microsoft.com/windows/desktop/api/winsnmp/nf-winsnmp-snmpfreepdu">SnmpFreePdu</a> function to release the resources that the 
      * <b>SnmpCreatePdu</b> function allocates for the new PDU.
      * @param {Pointer} session Handle to the WinSNMP session.
-     * @param {Integer} PDU_type 
+     * @param {SNMP_PDU_TYPE} PDU_type 
      * @param {Integer} request_id Specifies a unique numeric value that the WinSNMP application supplies to identify the PDU. If this parameter is <b>NULL</b>, the implementation assigns a value.
      * @param {Integer} error_status If the <i>PDU_type</i> parameter is equal to <b>SNMP_PDU_GETBULK</b>, this parameter specifies a value for the <b>non_repeaters</b> field of the PDU. For other PDU types, this parameter specifies a value for the <b>error_status</b> field of the PDU. This parameter can be <b>NULL</b>.
      * @param {Integer} error_index If the <i>PDU_type</i> parameter is equal to <b>SNMP_PDU_GETBULK</b>, this parameter specifies a value for the <b>max_repetitions</b> field of the PDU. For other PDU types, this parameter specifies a value for the <b>error_index</b> field of the PDU. This parameter can be <b>NULL</b>.
@@ -4591,9 +4686,9 @@ class Snmp {
      * <b>SnmpGetPduData</b>, the call results in a copy of the variable bindings list of the specified PDU. This type of call to 
      * <b>SnmpGetPduData</b> also duplicates the handle to the PDU.
      * @param {Pointer} PDU Handle to the SNMP PDU.
-     * @param {Pointer<Integer>} PDU_type 
+     * @param {Pointer<SNMP_PDU_TYPE>} PDU_type 
      * @param {Pointer<Integer>} request_id Pointer to a variable that receives the <b>request_id</b> field of the specified PDU. This parameter can be <b>NULL</b>.
-     * @param {Pointer<Integer>} error_status Pointer to a variable that receives the <b>error_status</b> field of the specified PDU. If the <i>PDU_type</i> parameter is equal to <b>SNMP_PDU_GETBULK</b>, this parameter receives the value of the <b>non_repeaters</b> field of the PDU.
+     * @param {Pointer<SNMP_ERROR>} error_status Pointer to a variable that receives the <b>error_status</b> field of the specified PDU. If the <i>PDU_type</i> parameter is equal to <b>SNMP_PDU_GETBULK</b>, this parameter receives the value of the <b>non_repeaters</b> field of the PDU.
      * @param {Pointer<Integer>} error_index Pointer to a variable that receives the <b>error_index</b> field of the specified PDU. 
      * 
      * 
@@ -5902,7 +5997,7 @@ class Snmp {
      * For additional information, see 
      * <a href="https://docs.microsoft.com/windows/desktop/SNMP/winsnmp-data-management-concepts">WinSNMP Data Management Concepts</a> and 
      * <a href="https://docs.microsoft.com/windows/desktop/SNMP/freeing-winsnmp-descriptors">Freeing WinSNMP Descriptors</a>.
-     * @param {PSTR} _string 
+     * @param {PSTR} _string Pointer to a <b>null</b>-terminated object identifier string to convert.
      * @param {Pointer<smiOID>} dstOID Pointer to an 
      * <a href="https://docs.microsoft.com/windows/desktop/api/winsnmp/ns-winsnmp-smioid">smiOID</a> structure that receives the converted value.
      * @returns {Integer} If the function succeeds, the return value is the number of subidentifiers in the converted object identifier. This number is also the value of the <b>len</b> member of the 
@@ -5980,8 +6075,8 @@ class Snmp {
      * <a href="https://docs.microsoft.com/windows/desktop/SNMP/winsnmp-data-management-concepts">WinSNMP Data Management Concepts</a>.
      * @param {Pointer<smiOID>} srcOID Pointer to an 
      * <a href="https://docs.microsoft.com/windows/desktop/api/winsnmp/ns-winsnmp-smioid">smiOID</a> structure with an object identifier to convert.
-     * @param {Integer} _size 
-     * @param {PSTR} _string 
+     * @param {Integer} _size Specifies the size, in bytes, of the buffer indicated by the <i>string</i> parameter. For more information, see the following Remarks section.
+     * @param {PSTR} _string Pointer to a buffer to receive the converted string object identifier that specifies the SNMP management entity.
      * @returns {Integer} If the function succeeds, the return value is the length, in bytes, of the string that the WinSNMP application writes to the <i>string</i> parameter. The return value includes a <b>null</b>-terminating byte. This value may be less than or equal to the value of the <i>size</i> parameter, but it may not be greater.
      * 
      * If the function fails, the return value is SNMPAPI_FAILURE. To get extended error information, call 
@@ -6323,7 +6418,7 @@ class Snmp {
      * @param {Pointer} session Handle to the WinSNMP session.
      * @param {Pointer} srcEntity Handle to the management entity that initiates the request to encode the SNMP message.
      * @param {Pointer} dstEntity Handle to the target management entity.
-     * @param {Pointer} _context 
+     * @param {Pointer} _context Handle to the context (a set of managed object resources) that the target management entity controls.
      * @param {Pointer} pdu Handle to the PDU that contains the SNMP operation request.
      * @param {Pointer<smiOCTETS>} msgBufDesc Pointer to an 
      * <a href="https://docs.microsoft.com/windows/desktop/api/winsnmp/ns-winsnmp-smioctets">smiOCTETS</a> structure that receives the encoded SNMP message.
@@ -6439,7 +6534,7 @@ class Snmp {
      * @param {Pointer} session Handle to the WinSNMP session. This parameter is required. For additional information, see the following Remarks section.
      * @param {Pointer<Pointer>} srcEntity Pointer to a variable that receives a handle to the source management entity. For more information, see the following Remarks section.
      * @param {Pointer<Pointer>} dstEntity Pointer to a variable that receives a handle to the target management entity. For more information, see the following Remarks section.
-     * @param {Pointer<Pointer>} _context 
+     * @param {Pointer<Pointer>} _context Pointer to a variable that receives a handle to the context (a set of managed object resources) that the target management entity controls.
      * @param {Pointer<Pointer>} pdu Pointer to a variable that receives a handle to the SNMP protocol data unit (PDU).
      * @param {Pointer<smiOCTETS>} msgBufDesc Pointer to an 
      * <a href="https://docs.microsoft.com/windows/desktop/api/winsnmp/ns-winsnmp-smioctets">smiOCTETS</a> structure that contains the SNMP message to decode into its components. The <b>len</b> member of the structure specifies the maximum number of bytes to process; the <b>ptr</b> member points to the encoded SNMP message.

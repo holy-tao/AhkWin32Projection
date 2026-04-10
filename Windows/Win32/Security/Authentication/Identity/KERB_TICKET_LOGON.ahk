@@ -1,5 +1,6 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\..\Win32Struct.ahk
+#Include .\KERB_LOGON_SUBMIT_TYPE.ahk
 
 /**
  * Contains profile information for a network logon.
@@ -9,17 +10,15 @@
  * If a ticket-granting ticket (TGT) is supplied as a KRB_CRED message, it is placed in the <a href="https://docs.microsoft.com/windows/desktop/SecGloss/l-gly">logon session</a> credentials cache. If the TGT is omitted, the logon will be only for the local machine.
  * @see https://learn.microsoft.com/windows/win32/api/ntsecapi/ns-ntsecapi-kerb_ticket_logon
  * @namespace Windows.Win32.Security.Authentication.Identity
- * @version v4.0.30319
  */
-class KERB_TICKET_LOGON extends Win32Struct
-{
+class KERB_TICKET_LOGON extends Win32Struct {
     static sizeof => 32
 
     static packingSize => 8
 
     /**
      * <a href="https://docs.microsoft.com/windows/desktop/api/ntsecapi/ne-ntsecapi-kerb_logon_submit_type">KERB_LOGON_SUBMIT_TYPE</a> value identifying the type of logon request being made. This member must be set to <b>KerbTicketLogon</b>.
-     * @type {Integer}
+     * @type {KERB_LOGON_SUBMIT_TYPE}
      */
     MessageType {
         get => NumGet(this, 0, "int")

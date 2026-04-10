@@ -7,9 +7,8 @@
  * Manages how compositor updates are sent to Direct Manipulation.
  * @see https://learn.microsoft.com/windows/win32/api/directmanipulation/nn-directmanipulation-idirectmanipulationupdatemanager
  * @namespace Windows.Win32.Graphics.DirectManipulation
- * @version v4.0.30319
  */
-class IDirectManipulationUpdateManager extends IUnknown{
+class IDirectManipulationUpdateManager extends IUnknown {
 
     static sizeof => A_PtrSize
     /**
@@ -38,7 +37,7 @@ class IDirectManipulationUpdateManager extends IUnknown{
 
     /**
      * Registers a callback that is triggered by a handle.
-     * @param {HANDLE} _handle 
+     * @param {HANDLE} _handle The event handle that triggers the callback.
      * @param {IDirectManipulationUpdateHandler} eventHandler The event handler to call when the event is fired.
      * @returns {Integer} The unique ID of the event callback instance.
      * @see https://learn.microsoft.com/windows/win32/api/directmanipulation/nf-directmanipulation-idirectmanipulationupdatemanager-registerwaithandlecallback

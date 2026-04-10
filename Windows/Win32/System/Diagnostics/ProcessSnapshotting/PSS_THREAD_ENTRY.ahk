@@ -1,6 +1,8 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\..\Win32Struct.ahk
 #Include ..\..\..\Foundation\FILETIME.ahk
+#Include .\PSS_THREAD_FLAGS.ahk
+#Include ..\Debug\CONTEXT.ahk
 
 /**
  * Holds thread information returned by PssWalkSnapshotPssWalkSnapshot.
@@ -8,10 +10,8 @@
  * <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/processsnapshot/nf-processsnapshot-psswalksnapshot">PssWalkSnapshot</a> returns a <b>PSS_THREAD_ENTRY</b> structure when the  <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/processsnapshot/ne-processsnapshot-pss_walk_information_class">PSS_WALK_INFORMATION_CLASS</a> member that the caller provides it is <b>PSS_WALK_THREADS</b>.
  * @see https://learn.microsoft.com/windows/win32/api/processsnapshot/ns-processsnapshot-pss_thread_entry
  * @namespace Windows.Win32.System.Diagnostics.ProcessSnapshotting
- * @version v4.0.30319
  */
-class PSS_THREAD_ENTRY extends Win32Struct
-{
+class PSS_THREAD_ENTRY extends Win32Struct {
     static sizeof => 120
 
     static packingSize => 8
@@ -101,7 +101,7 @@ class PSS_THREAD_ENTRY extends Win32Struct
      * The time the thread was created. For more information, see <a href="https://docs.microsoft.com/windows/desktop/api/minwinbase/ns-minwinbase-filetime">FILETIME</a>.
      * @type {FILETIME}
      */
-    CreateTime{
+    CreateTime {
         get {
             if(!this.HasProp("__CreateTime"))
                 this.__CreateTime := FILETIME(52, this)
@@ -113,7 +113,7 @@ class PSS_THREAD_ENTRY extends Win32Struct
      * If the thread exited, the time of the exit. For more information, see <a href="https://docs.microsoft.com/windows/desktop/api/minwinbase/ns-minwinbase-filetime">FILETIME</a>.
      * @type {FILETIME}
      */
-    ExitTime{
+    ExitTime {
         get {
             if(!this.HasProp("__ExitTime"))
                 this.__ExitTime := FILETIME(60, this)
@@ -125,7 +125,7 @@ class PSS_THREAD_ENTRY extends Win32Struct
      * The amount of time the thread spent executing in kernel mode. For more information, see <a href="https://docs.microsoft.com/windows/desktop/api/minwinbase/ns-minwinbase-filetime">FILETIME</a>.
      * @type {FILETIME}
      */
-    KernelTime{
+    KernelTime {
         get {
             if(!this.HasProp("__KernelTime"))
                 this.__KernelTime := FILETIME(68, this)
@@ -137,7 +137,7 @@ class PSS_THREAD_ENTRY extends Win32Struct
      * The amount of time the thread spent executing in user mode. For more information, see <a href="https://docs.microsoft.com/windows/desktop/api/minwinbase/ns-minwinbase-filetime">FILETIME</a>.
      * @type {FILETIME}
      */
-    UserTime{
+    UserTime {
         get {
             if(!this.HasProp("__UserTime"))
                 this.__UserTime := FILETIME(76, this)
@@ -158,7 +158,7 @@ class PSS_THREAD_ENTRY extends Win32Struct
      * The capture time of this thread. For more information, see <a href="https://docs.microsoft.com/windows/desktop/api/minwinbase/ns-minwinbase-filetime">FILETIME</a>.
      * @type {FILETIME}
      */
-    CaptureTime{
+    CaptureTime {
         get {
             if(!this.HasProp("__CaptureTime"))
                 this.__CaptureTime := FILETIME(96, this)
@@ -168,7 +168,7 @@ class PSS_THREAD_ENTRY extends Win32Struct
 
     /**
      * Flags about the thread. For more information, see <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/processsnapshot/ne-processsnapshot-pss_thread_flags">PSS_THREAD_FLAGS</a>.
-     * @type {Integer}
+     * @type {PSS_THREAD_FLAGS}
      */
     Flags {
         get => NumGet(this, 104, "int")

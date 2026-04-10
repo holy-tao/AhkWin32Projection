@@ -1,22 +1,21 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\..\Win32Struct.ahk
+#Include .\KERB_PROFILE_BUFFER_TYPE.ahk
 #Include .\LSA_UNICODE_STRING.ahk
 
 /**
  * The KERB_INTERACTIVE_PROFILE structure contains information about an interactive logon profile. This structure is used by the LsaLogonUser function.
  * @see https://learn.microsoft.com/windows/win32/api/ntsecapi/ns-ntsecapi-kerb_interactive_profile
  * @namespace Windows.Win32.Security.Authentication.Identity
- * @version v4.0.30319
  */
-class KERB_INTERACTIVE_PROFILE extends Win32Struct
-{
+class KERB_INTERACTIVE_PROFILE extends Win32Struct {
     static sizeof => 160
 
     static packingSize => 8
 
     /**
      * <a href="https://docs.microsoft.com/windows/desktop/api/ntsecapi/ne-ntsecapi-kerb_profile_buffer_type">KERB_PROFILE_BUFFER_TYPE</a> value identifying the type of logon request being made. This member can be set to <b>KerbInteractiveProfile</b>.
-     * @type {Integer}
+     * @type {KERB_PROFILE_BUFFER_TYPE}
      */
     MessageType {
         get => NumGet(this, 0, "int")
@@ -99,7 +98,7 @@ class KERB_INTERACTIVE_PROFILE extends Win32Struct
      * <a href="https://docs.microsoft.com/windows/desktop/api/subauth/ns-subauth-unicode_string">UNICODE_STRING</a> containing the relative path to the account's logon script.
      * @type {LSA_UNICODE_STRING}
      */
-    LogonScript{
+    LogonScript {
         get {
             if(!this.HasProp("__LogonScript"))
                 this.__LogonScript := LSA_UNICODE_STRING(56, this)
@@ -111,7 +110,7 @@ class KERB_INTERACTIVE_PROFILE extends Win32Struct
      * <a href="https://docs.microsoft.com/windows/desktop/api/subauth/ns-subauth-unicode_string">UNICODE_STRING</a> containing the user's home directory.
      * @type {LSA_UNICODE_STRING}
      */
-    HomeDirectory{
+    HomeDirectory {
         get {
             if(!this.HasProp("__HomeDirectory"))
                 this.__HomeDirectory := LSA_UNICODE_STRING(72, this)
@@ -123,7 +122,7 @@ class KERB_INTERACTIVE_PROFILE extends Win32Struct
      * <a href="https://docs.microsoft.com/windows/desktop/api/subauth/ns-subauth-unicode_string">UNICODE_STRING</a> containing the user's full name.
      * @type {LSA_UNICODE_STRING}
      */
-    FullName{
+    FullName {
         get {
             if(!this.HasProp("__FullName"))
                 this.__FullName := LSA_UNICODE_STRING(88, this)
@@ -135,7 +134,7 @@ class KERB_INTERACTIVE_PROFILE extends Win32Struct
      * <a href="https://docs.microsoft.com/windows/desktop/api/subauth/ns-subauth-unicode_string">UNICODE_STRING</a> containing the path to a user's roaming profile. This is used only if the user has a roaming profile.
      * @type {LSA_UNICODE_STRING}
      */
-    ProfilePath{
+    ProfilePath {
         get {
             if(!this.HasProp("__ProfilePath"))
                 this.__ProfilePath := LSA_UNICODE_STRING(104, this)
@@ -147,7 +146,7 @@ class KERB_INTERACTIVE_PROFILE extends Win32Struct
      * <a href="https://docs.microsoft.com/windows/desktop/api/subauth/ns-subauth-unicode_string">UNICODE_STRING</a> containing the drive containing the user's home directory.
      * @type {LSA_UNICODE_STRING}
      */
-    HomeDirectoryDrive{
+    HomeDirectoryDrive {
         get {
             if(!this.HasProp("__HomeDirectoryDrive"))
                 this.__HomeDirectoryDrive := LSA_UNICODE_STRING(120, this)
@@ -159,7 +158,7 @@ class KERB_INTERACTIVE_PROFILE extends Win32Struct
      * <a href="https://docs.microsoft.com/windows/desktop/api/subauth/ns-subauth-unicode_string">UNICODE_STRING</a> containing the name of the server that processed the logon request.
      * @type {LSA_UNICODE_STRING}
      */
-    LogonServer{
+    LogonServer {
         get {
             if(!this.HasProp("__LogonServer"))
                 this.__LogonServer := LSA_UNICODE_STRING(136, this)

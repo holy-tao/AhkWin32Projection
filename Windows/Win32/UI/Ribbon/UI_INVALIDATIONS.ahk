@@ -5,9 +5,8 @@
  * Specifies values that identify the aspect of a Command to invalidate.
  * @see https://learn.microsoft.com/windows/win32/api/uiribbon/ne-uiribbon-ui_invalidations
  * @namespace Windows.Win32.UI.Ribbon
- * @version v4.0.30319
  */
-class UI_INVALIDATIONS extends Win32BitflagEnum{
+class UI_INVALIDATIONS extends Win32BitflagEnum {
 
     /**
      * A state property, such as <a href="https://docs.microsoft.com/windows/desktop/windowsribbon/windowsribbon-reference-properties-uipkey-enabled">UI_PKEY_Enabled</a>.

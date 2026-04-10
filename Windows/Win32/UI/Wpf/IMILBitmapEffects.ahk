@@ -9,9 +9,8 @@
  * Exposes methods that define an enumeration of effects.
  * @see https://learn.microsoft.com/windows/win32/api/mileffects/nn-mileffects-imilbitmapeffects
  * @namespace Windows.Win32.UI.Wpf
- * @version v4.0.30319
  */
-class IMILBitmapEffects extends IUnknown{
+class IMILBitmapEffects extends IUnknown {
 
     static sizeof => A_PtrSize
     /**

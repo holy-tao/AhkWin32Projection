@@ -14,9 +14,8 @@
  * ```
  * @see https://learn.microsoft.com/windows/win32/api/audioclient/nn-audioclient-iaudioeffectsmanager
  * @namespace Windows.Win32.Media.Audio
- * @version v4.0.30319
  */
-class IAudioEffectsManager extends IUnknown{
+class IAudioEffectsManager extends IUnknown {
 
     static sizeof => A_PtrSize
     /**
@@ -91,7 +90,7 @@ class IAudioEffectsManager extends IUnknown{
      * @remarks
      * Get the current list of audio effects for the associated audio stream by calling [GetAudioEffects](nf-audioclient-iaudioeffectsmanager-setaudioeffectstate.md).
      * @param {Guid} effectId The GUID identifier of the effect for which the state is being changed. Audio effect GUIDs are defined in [ksmedia.h](/windows-hardware/drivers/audio/ksmedia-h).
-     * @param {Integer} state A value from the [AUDIO_EFFECT_STATE](ne-audioclient-audio_effect_state.md) enumerating specifying the state to set.
+     * @param {AUDIO_EFFECT_STATE} state A value from the [AUDIO_EFFECT_STATE](ne-audioclient-audio_effect_state.md) enumerating specifying the state to set.
      * @returns {HRESULT} Returns an HRESULT including but not limited to the following.
      * 
      * | Value | Description |

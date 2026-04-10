@@ -3,9 +3,8 @@
 
 /**
  * @namespace Windows.Win32.UI.Accessibility
- * @version v4.0.30319
  */
-class SOUNDSENTRY_FLAGS extends Win32BitflagEnum{
+class SOUNDSENTRY_FLAGS extends Win32BitflagEnum {
 
     /**
      * @type {Integer (UInt32)}

@@ -1,13 +1,12 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
 #Include .\NDIS_PM_WAKE_UP_CAPABILITIES.ahk
+#Include .\NDIS_DEVICE_POWER_STATE.ahk
 
 /**
  * @namespace Windows.Win32.NetworkManagement.Ndis
- * @version v4.0.30319
  */
-class NDIS_PNP_CAPABILITIES extends Win32Struct
-{
+class NDIS_PNP_CAPABILITIES extends Win32Struct {
     static sizeof => 16
 
     static packingSize => 4
@@ -23,7 +22,7 @@ class NDIS_PNP_CAPABILITIES extends Win32Struct
     /**
      * @type {NDIS_PM_WAKE_UP_CAPABILITIES}
      */
-    WakeUpCapabilities{
+    WakeUpCapabilities {
         get {
             if(!this.HasProp("__WakeUpCapabilities"))
                 this.__WakeUpCapabilities := NDIS_PM_WAKE_UP_CAPABILITIES(4, this)

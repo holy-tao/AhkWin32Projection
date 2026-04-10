@@ -1,8 +1,9 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
-#Include ..\..\Foundation\BSTR.ahk
 #Include ..\..\System\Com\IUnknown.ahk
+#Include ..\..\..\..\Guid.ahk
+#Include ..\..\Foundation\BSTR.ahk
 
 /**
  * The ITfFunctionProvider interface is implemented by an application or text service to provide various function objects.
@@ -10,9 +11,8 @@
  * A function provider is registered by calling <a href="https://docs.microsoft.com/windows/desktop/api/msctf/nf-msctf-itfsourcesingle-advisesinglesink">ITFSourceSingle::AdviseSingleSink</a> with IID_ITfFunctionProvider when the text service is activated. The text service should unregister its function provider with <a href="https://docs.microsoft.com/windows/desktop/api/msctf/nf-msctf-itfsourcesingle-unadvisesinglesink">ITFSourceSingle::UnadviseSingleSink</a> when it is deactivated.
  * @see https://learn.microsoft.com/windows/win32/api/msctf/nn-msctf-itffunctionprovider
  * @namespace Windows.Win32.UI.TextServices
- * @version v4.0.30319
  */
-class ITfFunctionProvider extends IUnknown{
+class ITfFunctionProvider extends IUnknown {
 
     static sizeof => A_PtrSize
     /**

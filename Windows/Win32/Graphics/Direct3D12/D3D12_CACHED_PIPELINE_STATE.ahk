@@ -11,10 +11,8 @@
  * If the driver has been upgraded to a D3D12 driver after the PSO was cached, you might see a D3D12_ERROR_DRIVER_VERSION_MISMATCH return code, or if you’re running on a different GPU, the D3D12_ERROR_ADAPTER_NOT_FOUND return code.
  * @see https://learn.microsoft.com/windows/win32/api/d3d12/ns-d3d12-d3d12_cached_pipeline_state
  * @namespace Windows.Win32.Graphics.Direct3D12
- * @version v4.0.30319
  */
-class D3D12_CACHED_PIPELINE_STATE extends Win32Struct
-{
+class D3D12_CACHED_PIPELINE_STATE extends Win32Struct {
     static sizeof => 16
 
     static packingSize => 8

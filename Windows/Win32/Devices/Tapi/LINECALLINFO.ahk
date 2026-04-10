@@ -18,10 +18,8 @@
  * <div> </div>
  * @see https://learn.microsoft.com/windows/win32/api/tapi/ns-tapi-linecallinfo
  * @namespace Windows.Win32.Devices.Tapi
- * @version v4.0.30319
  */
-class LINECALLINFO extends Win32Struct
-{
+class LINECALLINFO extends Win32Struct {
     static sizeof => 324
 
     static packingSize => 4
@@ -187,7 +185,7 @@ class LINECALLINFO extends Win32Struct
      * <a href="https://docs.microsoft.com/windows/desktop/api/tapi/ns-tapi-linedevcaps">LINEDEVCAPS</a> structure.
      * @type {LINEDIALPARAMS}
      */
-    DialParams{
+    DialParams {
         get {
             if(!this.HasProp("__DialParams"))
                 this.__DialParams := LINEDIALPARAMS(64, this)

@@ -27,9 +27,8 @@
  *     return only a shadow copy state of <b>VSS_SS_CREATED</b>.
  * @see https://learn.microsoft.com/windows/win32/api/vss/ne-vss-vss_snapshot_state
  * @namespace Windows.Win32.Storage.Vss
- * @version v4.0.30319
  */
-class VSS_SNAPSHOT_STATE extends Win32Enum{
+class VSS_SNAPSHOT_STATE extends Win32Enum {
 
     /**
      * Reserved for system use. 
@@ -164,7 +163,6 @@ class VSS_SNAPSHOT_STATE extends Win32Enum{
     static VSS_SS_DELETED => 14
 
     /**
-     * 
      * @type {Integer (Int32)}
      */
     static VSS_SS_POSTCOMMITTED => 15

@@ -5,10 +5,8 @@
  * Associates a parent object with a child object.
  * @see https://learn.microsoft.com/windows/win32/api/xamlom/ns-xamlom-parentchildrelation
  * @namespace Windows.Win32.UI.Xaml.Diagnostics
- * @version v4.0.30319
  */
-class ParentChildRelation extends Win32Struct
-{
+class ParentChildRelation extends Win32Struct {
     static sizeof => 24
 
     static packingSize => 8

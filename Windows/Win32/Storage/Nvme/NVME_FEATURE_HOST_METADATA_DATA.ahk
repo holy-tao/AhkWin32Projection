@@ -3,10 +3,8 @@
 
 /**
  * @namespace Windows.Win32.Storage.Nvme
- * @version v4.0.30319
  */
-class NVME_FEATURE_HOST_METADATA_DATA extends Win32Struct
-{
+class NVME_FEATURE_HOST_METADATA_DATA extends Win32Struct {
     static sizeof => 4096
 
     static packingSize => 1
@@ -28,9 +26,9 @@ class NVME_FEATURE_HOST_METADATA_DATA extends Win32Struct
     }
 
     /**
-     * @type {Array<Byte>}
+     * @type {Array<Integer>}
      */
-    MetadataElementDescriptors{
+    MetadataElementDescriptors {
         get {
             if(!this.HasProp("__MetadataElementDescriptorsProxyArray"))
                 this.__MetadataElementDescriptorsProxyArray := Win32FixedArray(this.ptr + 2, 4094, Primitive, "char")

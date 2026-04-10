@@ -1,13 +1,13 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
+#Include ..\..\System\Com\IDispatch.ahk
 #Include ..\..\Foundation\BSTR.ahk
 #Include ..\..\System\Variant\VARIANT.ahk
 #Include .\IAzApplications.ahk
 #Include .\IAzApplication.ahk
 #Include .\IAzApplicationGroups.ahk
 #Include .\IAzApplicationGroup.ahk
-#Include ..\..\System\Com\IDispatch.ahk
 
 /**
  * Defines the container that is the root of the authorization policy store.
@@ -20,9 +20,8 @@
  * <div> </div>
  * @see https://learn.microsoft.com/windows/win32/api/azroles/nn-azroles-iazauthorizationstore
  * @namespace Windows.Win32.Security.Authorization
- * @version v4.0.30319
  */
-class IAzAuthorizationStore extends IDispatch{
+class IAzAuthorizationStore extends IDispatch {
 
     static sizeof => A_PtrSize
     /**
@@ -637,7 +636,7 @@ class IAzAuthorizationStore extends IDispatch{
      * Adds the specified principal to the specified list of principals. (IAzAuthorizationStore.AddPropertyItem)
      * @remarks
      * You must call the <a href="https://docs.microsoft.com/windows/desktop/api/azroles/nf-azroles-iazauthorizationstore-submit">Submit</a> method to persist any changes made by this method.
-     * @param {Integer} lPropId 
+     * @param {AZ_PROP_CONSTANTS} lPropId 
      * @param {VARIANT} varProp Principal to add to the list of principals specified by the <i>lPropId</i> parameter.
      * 
      * The variant must be a <b>BSTR</b> variant.
@@ -877,7 +876,7 @@ class IAzAuthorizationStore extends IDispatch{
      * Initializes the authorization manager.
      * @remarks
      * Active Directory supports Application Partitions, which are also known as Non-Domain Naming Contexts. These partitions are used as a location for programs to store application data. An Authorization Manager policy store cannot be created or kept in the Application Partition; instead, use the Program Data container as the container for Active Directory Authorization Manager policy stores.
-     * @param {Integer} lFlags 
+     * @param {AZ_PROP_CONSTANTS} lFlags 
      * @param {BSTR} bstrPolicyURL Location of the persistent copy of the authorization policy database.
      * 
      * This string must contain both the policy URL prefix and the provider-specific policy location. Authorization Manager uses the provider prefix to load the appropriate provider. The store is loaded from the provider-specific policy location. No spaces are allowed in the policy URL prefix.

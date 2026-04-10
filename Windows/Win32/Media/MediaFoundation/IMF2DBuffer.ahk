@@ -25,9 +25,8 @@
  * For uncompressed images, the amount of valid data in the buffer is determined by the width, height, and pixel layout of the image. For this reason, if you call <a href="https://docs.microsoft.com/windows/desktop/api/mfobjects/nf-mfobjects-imf2dbuffer-lock2d">Lock2D</a> to access the buffer, do not rely on the values returned by <a href="https://docs.microsoft.com/windows/desktop/api/mfobjects/nf-mfobjects-imfmediabuffer-getcurrentlength">IMFMediaBuffer::GetCurrentLength</a> or <a href="https://docs.microsoft.com/windows/desktop/api/mfobjects/nf-mfobjects-imfmediabuffer-getmaxlength">IMFMediaBuffer::GetMaxLength</a>. Similarly, if you modify the data in the buffer, you do not have to call <a href="https://docs.microsoft.com/windows/desktop/api/mfobjects/nf-mfobjects-imfmediabuffer-setcurrentlength">IMFMediaBuffer::SetCurrentLength</a> to update the size. Generally, you should avoid mixing calls to <b>IMF2DBuffer</b> and <a href="https://docs.microsoft.com/windows/desktop/api/mfobjects/nn-mfobjects-imfmediabuffer">IMFMediaBuffer</a> methods on the same media buffer.
  * @see https://learn.microsoft.com/windows/win32/api/mfobjects/nn-mfobjects-imf2dbuffer
  * @namespace Windows.Win32.Media.MediaFoundation
- * @version v4.0.30319
  */
-class IMF2DBuffer extends IUnknown{
+class IMF2DBuffer extends IUnknown {
 
     static sizeof => A_PtrSize
     /**
@@ -215,7 +214,7 @@ class IMF2DBuffer extends IUnknown{
      * Copies this buffer into the caller's buffer, converting the data to contiguous format.
      * @remarks
      * If the original buffer is not contiguous, this method converts the contents into contiguous format during the copy. For a definition of contiguous as it applies to 2-D buffers, see the Remarks section in <a href="https://docs.microsoft.com/windows/desktop/api/mfobjects/nn-mfobjects-imf2dbuffer">IMF2DBuffer</a> interface.
-     * @param {Pointer} pbDestBuffer Pointer to the destination buffer where the data will be copied. The caller allocates the buffer.
+     * @param {Integer} pbDestBuffer Pointer to the destination buffer where the data will be copied. The caller allocates the buffer.
      * @param {Integer} cbDestBuffer Size of the destination buffer, in bytes. To get the required size, call <a href="https://docs.microsoft.com/windows/desktop/api/mfobjects/nf-mfobjects-imf2dbuffer-getcontiguouslength">IMF2DBuffer::GetContiguousLength</a>.
      * @returns {HRESULT} The method returns an <b>HRESULT</b>. Possible values include, but are not limited to, those in the following table.
      * 
@@ -260,7 +259,7 @@ class IMF2DBuffer extends IUnknown{
      * This method copies the contents of the source buffer into the buffer that is managed by this <a href="https://docs.microsoft.com/windows/desktop/api/mfobjects/nn-mfobjects-imf2dbuffer">IMF2DBuffer</a> object. The source buffer must be in contiguous format. While copying, the method converts the contents into the destination buffer's native format, correcting for the buffer's pitch if necessary.
      * 
      * For a definition of contiguous as it applies to 2-D buffers, see the Remarks section in the <a href="https://docs.microsoft.com/windows/desktop/api/mfobjects/nn-mfobjects-imf2dbuffer">IMF2DBuffer</a> interface topic.
-     * @param {Pointer} pbSrcBuffer Pointer to the source buffer. The caller allocates the buffer.
+     * @param {Integer} pbSrcBuffer Pointer to the source buffer. The caller allocates the buffer.
      * @param {Integer} cbSrcBuffer Size of the source buffer, in bytes. To get the maximum size of the buffer, call <a href="https://docs.microsoft.com/windows/desktop/api/mfobjects/nf-mfobjects-imf2dbuffer-getcontiguouslength">IMF2DBuffer::GetContiguousLength</a>.
      * @returns {HRESULT} The method returns an <b>HRESULT</b>. Possible values include, but are not limited to, those in the following table.
      * 

@@ -11,9 +11,8 @@
  * If it is incompatible with the transaction setting from <a href="https://docs.microsoft.com/windows/desktop/api/comsvcs/ne-comsvcs-csc_transactionconfig">CSC_TransactionConfig</a>, the synchronization setting is increased to the minimum that is required for the transaction.
  * @see https://learn.microsoft.com/windows/win32/api/comsvcs/ne-comsvcs-csc_synchronizationconfig
  * @namespace Windows.Win32.System.ComponentServices
- * @version v4.0.30319
  */
-class CSC_SynchronizationConfig extends Win32Enum{
+class CSC_SynchronizationConfig extends Win32Enum {
 
     /**
      * The code is forced to run unsynchronized. This is the default synchronization setting for <a href="https://docs.microsoft.com/windows/desktop/cossdk/cserviceconfig">CServiceConfig</a> when <a href="https://docs.microsoft.com/windows/desktop/api/comsvcs/ne-comsvcs-csc_inheritanceconfig">CSC_InheritanceConfig</a> is set to CSC_Ignore.

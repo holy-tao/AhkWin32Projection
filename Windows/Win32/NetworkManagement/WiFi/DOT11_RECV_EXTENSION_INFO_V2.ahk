@@ -1,14 +1,13 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
+#Include .\DOT11_PHY_TYPE.ahk
 #Include ..\..\Foundation\HANDLE.ahk
 #Include .\DOT11_IV48_COUNTER.ahk
 
 /**
  * @namespace Windows.Win32.NetworkManagement.WiFi
- * @version v4.0.30319
  */
-class DOT11_RECV_EXTENSION_INFO_V2 extends Win32Struct
-{
+class DOT11_RECV_EXTENSION_INFO_V2 extends Win32Struct {
     static sizeof => 104
 
     static packingSize => 8
@@ -30,7 +29,7 @@ class DOT11_RECV_EXTENSION_INFO_V2 extends Win32Struct
     }
 
     /**
-     * @type {Integer}
+     * @type {DOT11_PHY_TYPE}
      */
     dot11PhyType {
         get => NumGet(this, 16, "int")
@@ -78,9 +77,9 @@ class DOT11_RECV_EXTENSION_INFO_V2 extends Win32Struct
     }
 
     /**
-     * @type {Array<Byte>}
+     * @type {Array<Integer>}
      */
-    ucPeerMacAddress{
+    ucPeerMacAddress {
         get {
             if(!this.HasProp("__ucPeerMacAddressProxyArray"))
                 this.__ucPeerMacAddressProxyArray := Win32FixedArray(this.ptr + 34, 6, Primitive, "char")
@@ -99,7 +98,7 @@ class DOT11_RECV_EXTENSION_INFO_V2 extends Win32Struct
     /**
      * @type {HANDLE}
      */
-    hWEPOffloadContext{
+    hWEPOffloadContext {
         get {
             if(!this.HasProp("__hWEPOffloadContext"))
                 this.__hWEPOffloadContext := HANDLE(48, this)
@@ -110,7 +109,7 @@ class DOT11_RECV_EXTENSION_INFO_V2 extends Win32Struct
     /**
      * @type {HANDLE}
      */
-    hAuthOffloadContext{
+    hAuthOffloadContext {
         get {
             if(!this.HasProp("__hAuthOffloadContext"))
                 this.__hAuthOffloadContext := HANDLE(56, this)
@@ -137,7 +136,7 @@ class DOT11_RECV_EXTENSION_INFO_V2 extends Win32Struct
     /**
      * @type {DOT11_IV48_COUNTER}
      */
-    dot11LowestIV48Counter{
+    dot11LowestIV48Counter {
         get {
             if(!this.HasProp("__dot11LowestIV48Counter"))
                 this.__dot11LowestIV48Counter := DOT11_IV48_COUNTER(68, this)
@@ -156,7 +155,7 @@ class DOT11_RECV_EXTENSION_INFO_V2 extends Win32Struct
     /**
      * @type {DOT11_IV48_COUNTER}
      */
-    dot11HighestIV48Counter{
+    dot11HighestIV48Counter {
         get {
             if(!this.HasProp("__dot11HighestIV48Counter"))
                 this.__dot11HighestIV48Counter := DOT11_IV48_COUNTER(80, this)
@@ -189,9 +188,9 @@ class DOT11_RECV_EXTENSION_INFO_V2 extends Win32Struct
     }
 
     /**
-     * @type {Array<Void>}
+     * @type {Array<Pointer<Void>>}
      */
-    pNdisPackets{
+    pNdisPackets {
         get {
             if(!this.HasProp("__pNdisPacketsProxyArray"))
                 this.__pNdisPacketsProxyArray := Win32FixedArray(this.ptr + 96, 1, Primitive, "ptr")

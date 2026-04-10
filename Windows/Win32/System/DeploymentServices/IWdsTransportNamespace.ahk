@@ -1,18 +1,16 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
-#Include ..\..\Foundation\BSTR.ahk
-#Include .\IWdsTransportNamespace.ahk
-#Include .\IWdsTransportCollection.ahk
 #Include ..\Com\IDispatch.ahk
+#Include ..\..\Foundation\BSTR.ahk
+#Include .\IWdsTransportCollection.ahk
 
 /**
  * Represents a namespace on a WDS transport server.
  * @see https://learn.microsoft.com/windows/win32/api/wdstptmgmt/nn-wdstptmgmt-iwdstransportnamespace
  * @namespace Windows.Win32.System.DeploymentServices
- * @version v4.0.30319
  */
-class IWdsTransportNamespace extends IDispatch{
+class IWdsTransportNamespace extends IDispatch {
 
     static sizeof => A_PtrSize
     /**
@@ -40,7 +38,7 @@ class IWdsTransportNamespace extends IDispatch{
     static VTableNames => ["get_Type", "get_Id", "get_Name", "put_Name", "get_FriendlyName", "put_FriendlyName", "get_Description", "put_Description", "get_ContentProvider", "put_ContentProvider", "get_Configuration", "put_Configuration", "get_Registered", "get_Tombstoned", "get_TombstoneTime", "get_TransmissionStarted", "Register", "Deregister", "Clone", "Refresh", "RetrieveContents"]
 
     /**
-     * @type {Integer} 
+     * @type {WDSTRANSPORT_NAMESPACE_TYPE} 
      */
     Type {
         get => this.get_Type()
@@ -123,7 +121,7 @@ class IWdsTransportNamespace extends IDispatch{
 
     /**
      * Enables an application to retrieve the type of the namespace for this object.
-     * @returns {Integer} 
+     * @returns {WDSTRANSPORT_NAMESPACE_TYPE} 
      * @see https://learn.microsoft.com/windows/win32/api/wdstptmgmt/nf-wdstptmgmt-iwdstransportnamespace-get_type
      */
     get_Type() {

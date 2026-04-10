@@ -1,10 +1,10 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
+#Include ..\..\System\Com\IUnknown.ahk
 #Include .\D3D10_SHADER_DESC.ahk
 #Include .\D3D10_SHADER_INPUT_BIND_DESC.ahk
 #Include .\D3D10_SIGNATURE_PARAMETER_DESC.ahk
-#Include ..\..\System\Com\IUnknown.ahk
 
 /**
  * A shader-reflection interface accesses shader information. (ID3D10ShaderReflection)
@@ -12,9 +12,8 @@
  * Create the interface by calling <a href="https://docs.microsoft.com/windows/desktop/direct3d10/d3dx10reflectshader">D3DX10ReflectShader</a>. Since it is a COM interface, creating the interface increases a reference count and the interface must be released when it is no longer needed. The remaining shader-reflection interfaces are not COM interfaces.
  * @see https://learn.microsoft.com/windows/win32/api/d3d10shader/nn-d3d10shader-id3d10shaderreflection
  * @namespace Windows.Win32.Graphics.Direct3D10
- * @version v4.0.30319
  */
-class ID3D10ShaderReflection extends IUnknown{
+class ID3D10ShaderReflection extends IUnknown {
 
     static sizeof => A_PtrSize
     /**

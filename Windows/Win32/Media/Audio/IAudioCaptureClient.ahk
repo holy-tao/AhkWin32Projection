@@ -7,9 +7,8 @@
  * The IAudioCaptureClient interface enables a client to read input data from a capture endpoint buffer.
  * @see https://learn.microsoft.com/windows/win32/api/audioclient/nn-audioclient-iaudiocaptureclient
  * @namespace Windows.Win32.Media.Audio
- * @version v4.0.30319
  */
-class IAudioCaptureClient extends IUnknown{
+class IAudioCaptureClient extends IUnknown {
 
     static sizeof => A_PtrSize
     /**

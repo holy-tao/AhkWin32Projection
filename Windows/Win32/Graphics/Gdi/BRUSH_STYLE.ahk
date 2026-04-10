@@ -3,9 +3,8 @@
 
 /**
  * @namespace Windows.Win32.Graphics.Gdi
- * @version v4.0.30319
  */
-class BRUSH_STYLE extends Win32Enum{
+class BRUSH_STYLE extends Win32Enum {
 
     /**
      * @type {Integer (UInt32)}

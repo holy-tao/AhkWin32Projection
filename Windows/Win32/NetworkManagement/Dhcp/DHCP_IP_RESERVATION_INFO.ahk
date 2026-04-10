@@ -6,10 +6,8 @@
  * The DHCP_IP_RESERVATION_INFO structure defines an IPv4 reservation for a DHCPv4 client.
  * @see https://learn.microsoft.com/windows/win32/api/dhcpsapi/ns-dhcpsapi-dhcp_ip_reservation_info
  * @namespace Windows.Win32.NetworkManagement.Dhcp
- * @version v4.0.30319
  */
-class DHCP_IP_RESERVATION_INFO extends Win32Struct
-{
+class DHCP_IP_RESERVATION_INFO extends Win32Struct {
     static sizeof => 48
 
     static packingSize => 8
@@ -27,7 +25,7 @@ class DHCP_IP_RESERVATION_INFO extends Win32Struct
      * <a href="https://docs.microsoft.com/windows/desktop/api/dhcpsapi/ns-dhcpsapi-dhcp_binary_data">DHCP_CLIENT_UID</a> structure that contains the hardware address (MAC address) of the DHCPv4 client that holds this reservation.
      * @type {DHCP_BINARY_DATA}
      */
-    ReservedForClient{
+    ReservedForClient {
         get {
             if(!this.HasProp("__ReservedForClient"))
                 this.__ReservedForClient := DHCP_BINARY_DATA(8, this)

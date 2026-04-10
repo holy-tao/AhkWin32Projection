@@ -1,8 +1,8 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
-#Include .\IMFPresentationTimeSource.ahk
 #Include .\IMFClock.ahk
+#Include .\IMFPresentationTimeSource.ahk
 
 /**
  * Represents a presentation clock, which is used to schedule when samples are rendered and to synchronize multiple streams.
@@ -12,9 +12,8 @@
  * To get the presentation clock from the Media Session, call <a href="https://docs.microsoft.com/windows/desktop/api/mfidl/nf-mfidl-imfmediasession-getclock">IMFMediaSession::GetClock</a>.
  * @see https://learn.microsoft.com/windows/win32/api/mfidl/nn-mfidl-imfpresentationclock
  * @namespace Windows.Win32.Media.MediaFoundation
- * @version v4.0.30319
  */
-class IMFPresentationClock extends IMFClock{
+class IMFPresentationClock extends IMFClock {
 
     static sizeof => A_PtrSize
     /**

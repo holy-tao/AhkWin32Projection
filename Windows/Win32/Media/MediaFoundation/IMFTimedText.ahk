@@ -1,17 +1,16 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
+#Include ..\..\System\Com\IUnknown.ahk
 #Include .\IMFTimedTextTrack.ahk
 #Include .\IMFTimedTextTrackList.ahk
-#Include ..\..\System\Com\IUnknown.ahk
 
 /**
  * A timed-text object represents a component of timed text.
  * @see https://learn.microsoft.com/windows/win32/api/mfmediaengine/nn-mfmediaengine-imftimedtext
  * @namespace Windows.Win32.Media.MediaFoundation
- * @version v4.0.30319
  */
-class IMFTimedText extends IUnknown{
+class IMFTimedText extends IUnknown {
 
     static sizeof => A_PtrSize
     /**
@@ -76,7 +75,7 @@ class IMFTimedText extends IUnknown{
      * @param {PWSTR} language Type: <b>LPCWSTR</b>
      * 
      * Null-terminated wide-character string that contains the language of the data source.
-     * @param {Integer} kind Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/mfmediaengine/ne-mfmediaengine-mf_timed_text_track_kind">MF_TIMED_TEXT_TRACK_KIND</a></b>
+     * @param {MF_TIMED_TEXT_TRACK_KIND} kind Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/mfmediaengine/ne-mfmediaengine-mf_timed_text_track_kind">MF_TIMED_TEXT_TRACK_KIND</a></b>
      * 
      * A <a href="https://docs.microsoft.com/windows/desktop/api/mfmediaengine/ne-mfmediaengine-mf_timed_text_track_kind">MF_TIMED_TEXT_TRACK_KIND</a>-typed value that specifies the kind of timed-text track.
      * @param {BOOL} isDefault Type: <b>BOOL</b>
@@ -106,7 +105,7 @@ class IMFTimedText extends IUnknown{
      * @param {PWSTR} language Type: <b>LPCWSTR</b>
      * 
      * Null-terminated wide-character string that contains the language of the data source.
-     * @param {Integer} kind Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/mfmediaengine/ne-mfmediaengine-mf_timed_text_track_kind">MF_TIMED_TEXT_TRACK_KIND</a></b>
+     * @param {MF_TIMED_TEXT_TRACK_KIND} kind Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/mfmediaengine/ne-mfmediaengine-mf_timed_text_track_kind">MF_TIMED_TEXT_TRACK_KIND</a></b>
      * 
      * A <a href="https://docs.microsoft.com/windows/desktop/api/mfmediaengine/ne-mfmediaengine-mf_timed_text_track_kind">MF_TIMED_TEXT_TRACK_KIND</a>-typed value that specifies the kind of timed-text track.
      * @param {BOOL} isDefault Type: <b>BOOL</b>
@@ -130,7 +129,7 @@ class IMFTimedText extends IUnknown{
      * 
      * @param {PWSTR} label 
      * @param {PWSTR} language 
-     * @param {Integer} kind 
+     * @param {MF_TIMED_TEXT_TRACK_KIND} kind 
      * @returns {IMFTimedTextTrack} 
      */
     AddTrack(label, language, kind) {

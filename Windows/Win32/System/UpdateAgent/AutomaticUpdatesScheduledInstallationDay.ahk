@@ -7,9 +7,8 @@
  * Updates are installed on the scheduled day. The updates depend on the settings of the <a href="https://docs.microsoft.com/windows/desktop/api/wuapi/nf-wuapi-iautomaticupdatessettings-get_notificationlevel">NotificationLevel</a> and <a href="https://docs.microsoft.com/windows/desktop/api/wuapi/nf-wuapi-iautomaticupdatessettings-get_scheduledinstallationtime">ScheduledInstallationTime</a> properties of the <a href="https://docs.microsoft.com/windows/desktop/api/wuapi/nn-wuapi-iautomaticupdatessettings">IAutomaticUpdatesSettings</a> interface.
  * @see https://learn.microsoft.com/windows/win32/api/wuapi/ne-wuapi-automaticupdatesscheduledinstallationday
  * @namespace Windows.Win32.System.UpdateAgent
- * @version v4.0.30319
  */
-class AutomaticUpdatesScheduledInstallationDay extends Win32Enum{
+class AutomaticUpdatesScheduledInstallationDay extends Win32Enum {
 
     /**
      * Every day.

@@ -7,9 +7,8 @@
  * This article describes IAttach IMAPIProp providing access to the properties of attachments in messages.
  * @see https://learn.microsoft.com/office/client-developer/outlook/mapi/iattachimapiprop
  * @namespace Windows.Win32.System.AddressBook
- * @version v4.0.30319
  */
-class IAttach extends IMAPIProp{
+class IAttach extends IMAPIProp {
 
     static sizeof => A_PtrSize
 

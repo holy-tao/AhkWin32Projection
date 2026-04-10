@@ -3,10 +3,8 @@
 
 /**
  * @namespace Windows.Wdk.System.SystemServices
- * @version v4.0.30319
  */
-class HAL_ERROR_INFO extends Win32Struct
-{
+class HAL_ERROR_INFO extends Win32Struct {
     static sizeof => 144
 
     static packingSize => 8
@@ -220,9 +218,9 @@ class HAL_ERROR_INFO extends Win32Struct
     }
 
     /**
-     * @type {Array<UInt64>}
+     * @type {Array<Integer>}
      */
-    KernelReserved{
+    KernelReserved {
         get {
             if(!this.HasProp("__KernelReservedProxyArray"))
                 this.__KernelReservedProxyArray := Win32FixedArray(this.ptr + 112, 4, Primitive, "uint")

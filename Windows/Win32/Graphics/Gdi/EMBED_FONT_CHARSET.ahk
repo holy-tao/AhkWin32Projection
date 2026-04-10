@@ -3,9 +3,8 @@
 
 /**
  * @namespace Windows.Win32.Graphics.Gdi
- * @version v4.0.30319
  */
-class EMBED_FONT_CHARSET extends Win32Enum{
+class EMBED_FONT_CHARSET extends Win32Enum {
 
     /**
      * @type {Integer (UInt32)}

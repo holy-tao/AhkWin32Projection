@@ -190,9 +190,8 @@
  * </table>
  * @see https://learn.microsoft.com/windows/win32/api/mfplay/ne-mfplay-mfp_event_type
  * @namespace Windows.Win32.Media.MediaFoundation
- * @version v4.0.30319
  */
-class MFP_EVENT_TYPE extends Win32Enum{
+class MFP_EVENT_TYPE extends Win32Enum {
 
     /**
      * Playback has started. This event is sent when the <a href="https://docs.microsoft.com/windows/desktop/api/mfplay/nf-mfplay-imfpmediaplayer-play">IMFPMediaPlayer::Play</a> method completes.

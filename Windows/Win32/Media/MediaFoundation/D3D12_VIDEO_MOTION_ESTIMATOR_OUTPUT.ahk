@@ -1,5 +1,6 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
+#Include .\ID3D12VideoMotionVectorHeap.ahk
 
 /**
  * Specifies the output parameters for calls to ID3D12VideoEncodeCommandList::EstimateMotion.
@@ -7,10 +8,8 @@
  * Call [ID3D12VideoEncodeCommandList::ResolveMotionVectorHeap](nf-d3d12video-id3d12videoencodecommandlist-resolvemotionvectorheap.md) to translate the motion vector output of the [EstimateMotion](nf-d3d12video-id3d12videoencodecommandlist-estimatemotion.md) method from hardware-dependent formats into a consistent format defined by the video motion estimation APIs.
  * @see https://learn.microsoft.com/windows/win32/api/d3d12video/ns-d3d12video-d3d12_video_motion_estimator_output
  * @namespace Windows.Win32.Media.MediaFoundation
- * @version v4.0.30319
  */
-class D3D12_VIDEO_MOTION_ESTIMATOR_OUTPUT extends Win32Struct
-{
+class D3D12_VIDEO_MOTION_ESTIMATOR_OUTPUT extends Win32Struct {
     static sizeof => 8
 
     static packingSize => 8

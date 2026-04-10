@@ -5,9 +5,8 @@
  * Defines the faces of a cubemap.
  * @see https://learn.microsoft.com/windows/win32/direct3d9/d3dcubemap-faces
  * @namespace Windows.Win32.Graphics.Direct3D9
- * @version v4.0.30319
  */
-class D3DCUBEMAP_FACES extends Win32Enum{
+class D3DCUBEMAP_FACES extends Win32Enum {
 
     /**
      * @type {Integer (Int32)}

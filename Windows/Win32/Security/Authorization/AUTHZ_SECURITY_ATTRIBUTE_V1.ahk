@@ -1,14 +1,15 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
+#Include .\AUTHZ_SECURITY_ATTRIBUTE_FLAGS.ahk
+#Include .\AUTHZ_SECURITY_ATTRIBUTE_FQBN_VALUE.ahk
+#Include .\AUTHZ_SECURITY_ATTRIBUTE_OCTET_STRING_VALUE.ahk
 
 /**
  * Defines a security attribute that can be associated with an authorization context.
  * @see https://learn.microsoft.com/windows/win32/api/authz/ns-authz-authz_security_attribute_v1
  * @namespace Windows.Win32.Security.Authorization
- * @version v4.0.30319
  */
-class AUTHZ_SECURITY_ATTRIBUTE_V1 extends Win32Struct
-{
+class AUTHZ_SECURITY_ATTRIBUTE_V1 extends Win32Struct {
     static sizeof => 32
 
     static packingSize => 8
@@ -24,7 +25,7 @@ class AUTHZ_SECURITY_ATTRIBUTE_V1 extends Win32Struct
             get => NumGet(this, 0, "ptr")
             set => NumPut("ptr", value, this, 0)
         }
-    
+
         /**
          * @type {Pointer<Integer>}
          */
@@ -32,7 +33,7 @@ class AUTHZ_SECURITY_ATTRIBUTE_V1 extends Win32Struct
             get => NumGet(this, 0, "ptr")
             set => NumPut("ptr", value, this, 0)
         }
-    
+
         /**
          * @type {Pointer<PWSTR>}
          */
@@ -40,7 +41,7 @@ class AUTHZ_SECURITY_ATTRIBUTE_V1 extends Win32Struct
             get => NumGet(this, 0, "ptr")
             set => NumPut("ptr", value, this, 0)
         }
-    
+
         /**
          * @type {Pointer<AUTHZ_SECURITY_ATTRIBUTE_FQBN_VALUE>}
          */
@@ -48,7 +49,7 @@ class AUTHZ_SECURITY_ATTRIBUTE_V1 extends Win32Struct
             get => NumGet(this, 0, "ptr")
             set => NumPut("ptr", value, this, 0)
         }
-    
+
         /**
          * @type {Pointer<AUTHZ_SECURITY_ATTRIBUTE_OCTET_STRING_VALUE>}
          */
@@ -56,7 +57,6 @@ class AUTHZ_SECURITY_ATTRIBUTE_V1 extends Win32Struct
             get => NumGet(this, 0, "ptr")
             set => NumPut("ptr", value, this, 0)
         }
-    
     }
 
     /**
@@ -186,8 +186,7 @@ class AUTHZ_SECURITY_ATTRIBUTE_V1 extends Win32Struct
     }
 
     /**
-     * 
-     * @type {Integer}
+     * @type {AUTHZ_SECURITY_ATTRIBUTE_FLAGS}
      */
     Flags {
         get => NumGet(this, 12, "uint")
@@ -204,13 +203,12 @@ class AUTHZ_SECURITY_ATTRIBUTE_V1 extends Win32Struct
     }
 
     /**
-     * 
      * @type {_Values_e__Union}
      */
-    Values{
+    Values {
         get {
             if(!this.HasProp("__Values"))
-                this.__Values := %this.__Class%._Values_e__Union(24, this)
+                this.__Values := AUTHZ_SECURITY_ATTRIBUTE_V1._Values_e__Union(24, this)
             return this.__Values
         }
     }

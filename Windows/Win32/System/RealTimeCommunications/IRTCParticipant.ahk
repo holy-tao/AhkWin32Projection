@@ -1,15 +1,14 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
+#Include ..\Com\IUnknown.ahk
 #Include ..\..\Foundation\BSTR.ahk
 #Include .\IRTCSession.ahk
-#Include ..\Com\IUnknown.ahk
 
 /**
  * @namespace Windows.Win32.System.RealTimeCommunications
- * @version v4.0.30319
  */
-class IRTCParticipant extends IUnknown{
+class IRTCParticipant extends IUnknown {
 
     static sizeof => A_PtrSize
     /**
@@ -52,7 +51,7 @@ class IRTCParticipant extends IUnknown{
     }
 
     /**
-     * @type {Integer} 
+     * @type {RTC_PARTICIPANT_STATE} 
      */
     State {
         get => this.get_State()
@@ -96,7 +95,7 @@ class IRTCParticipant extends IUnknown{
 
     /**
      * 
-     * @returns {Integer} 
+     * @returns {RTC_PARTICIPANT_STATE} 
      */
     get_State() {
         result := ComCall(6, this, "int*", &penState := 0, "HRESULT")

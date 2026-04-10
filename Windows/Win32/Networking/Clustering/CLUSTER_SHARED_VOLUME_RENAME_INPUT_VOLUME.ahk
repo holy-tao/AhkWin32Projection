@@ -1,18 +1,17 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
+#Include .\CLUSTER_SHARED_VOLUME_RENAME_INPUT_TYPE.ahk
 
 /**
  * @namespace Windows.Win32.Networking.Clustering
- * @version v4.0.30319
  */
-class CLUSTER_SHARED_VOLUME_RENAME_INPUT_VOLUME extends Win32Struct
-{
-    static sizeof => 536
+class CLUSTER_SHARED_VOLUME_RENAME_INPUT_VOLUME extends Win32Struct {
+    static sizeof => 528
 
     static packingSize => 8
 
     /**
-     * @type {Integer}
+     * @type {CLUSTER_SHARED_VOLUME_RENAME_INPUT_TYPE}
      */
     InputType {
         get => NumGet(this, 0, "int")

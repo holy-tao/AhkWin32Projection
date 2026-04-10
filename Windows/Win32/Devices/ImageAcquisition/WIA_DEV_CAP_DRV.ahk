@@ -3,10 +3,8 @@
 
 /**
  * @namespace Windows.Win32.Devices.ImageAcquisition
- * @version v4.0.30319
  */
-class WIA_DEV_CAP_DRV extends Win32Struct
-{
+class WIA_DEV_CAP_DRV extends Win32Struct {
     static sizeof => 40
 
     static packingSize => 8

@@ -1,16 +1,15 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
-#Include ..\..\Graphics\Gdi\HDC.ahk
 #Include .\IOleInPlaceSiteEx.ahk
+#Include ..\..\Graphics\Gdi\HDC.ahk
 
 /**
  * Extends the IOleInPlaceSiteEx interface.
  * @see https://learn.microsoft.com/windows/win32/api/ocidl/nn-ocidl-ioleinplacesitewindowless
  * @namespace Windows.Win32.System.Ole
- * @version v4.0.30319
  */
-class IOleInPlaceSiteWindowless extends IOleInPlaceSiteEx{
+class IOleInPlaceSiteWindowless extends IOleInPlaceSiteEx {
 
     static sizeof => A_PtrSize
     /**
@@ -269,7 +268,7 @@ class IOleInPlaceSiteWindowless extends IOleInPlaceSiteEx{
      * Releases the device context previously obtained by a call to IOleInPlaceSiteWindowless::GetDC.
      * @remarks
      * An object calls this method to notify its container that the object is done with the device context. If the device context was used for drawing, the container should ensure that all overlapping objects are repainted correctly. If the device context was an offscreen device context, its content should also be copied to the screen in the rectangle originally passed to <a href="https://docs.microsoft.com/windows/desktop/api/ocidl/nf-ocidl-ioleinplacesitewindowless-getdc">IOleInPlaceSiteWindowless::GetDC</a>. See <b>IOleInPlaceSiteWindowless::GetDC</b> for implementation notes relevant to <b>IOleInPlaceSiteWindowless::ReleaseDC</b>.
-     * @param {HDC} _hDC 
+     * @param {HDC} _hDC The device context to be released.
      * @returns {HRESULT} This method returns S_OK on success.
      * @see https://learn.microsoft.com/windows/win32/api/ocidl/nf-ocidl-ioleinplacesitewindowless-releasedc
      */
@@ -298,7 +297,7 @@ class IOleInPlaceSiteWindowless extends IOleInPlaceSiteEx{
      * Enables an object to invalidate a specified region of its in-place image on the screen.
      * @remarks
      * An object is only allowed to invalidate pixels contained in its own site region. Any attempt to invalidate an area outside of that region should result in a no-op.
-     * @param {HRGN} _hRGN 
+     * @param {HRGN} _hRGN The region to invalidate, in client coordinates of the containing window. If this parameter is <b>NULL</b>, the object's full extent is invalidated.
      * @param {BOOL} fErase Specifies whether the background within the update region is to be erased when the region is updated. If this parameter is <b>TRUE</b>, the background is erased. If this parameter is <b>FALSE</b>, the background remains unchanged.
      * @returns {HRESULT} This method returns S_OK on success.
      * @see https://learn.microsoft.com/windows/win32/api/ocidl/nf-ocidl-ioleinplacesitewindowless-invalidatergn
@@ -415,9 +414,9 @@ class IOleInPlaceSiteWindowless extends IOleInPlaceSiteEx{
      * <li>WM_SETCURSOR</li>
      * </ul>
      * If the container returns S_FALSE, the object can take action to process the window message on its own.
-     * @param {Integer} _msg 
-     * @param {WPARAM} _wParam 
-     * @param {LPARAM} _lParam 
+     * @param {Integer} _msg The identifier for the window message provided to the container by Windows.
+     * @param {WPARAM} _wParam A parameter for the window message provided to the container by Windows.
+     * @param {LPARAM} _lParam A parameter for the window message provided to the container by Windows.
      * @returns {LRESULT} A pointer to result code for the window message.
      * @see https://learn.microsoft.com/windows/win32/api/ocidl/nf-ocidl-ioleinplacesitewindowless-ondefwindowmessage
      */

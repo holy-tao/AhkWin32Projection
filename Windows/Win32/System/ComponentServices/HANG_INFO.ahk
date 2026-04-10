@@ -1,12 +1,11 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
+#Include .\DUMPTYPE.ahk
 
 /**
  * @namespace Windows.Win32.System.ComponentServices
- * @version v4.0.30319
  */
-class HANG_INFO extends Win32Struct
-{
+class HANG_INFO extends Win32Struct {
     static sizeof => 24
 
     static packingSize => 4
@@ -28,7 +27,7 @@ class HANG_INFO extends Win32Struct
     }
 
     /**
-     * @type {Integer}
+     * @type {DUMPTYPE}
      */
     DumpType {
         get => NumGet(this, 8, "int")

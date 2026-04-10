@@ -3,16 +3,14 @@
 
 /**
  * @namespace Windows.Wdk.System.SystemServices
- * @version v4.0.30319
  */
-class PCI_FPB_CAPABILITY extends Win32Struct
-{
+class PCI_FPB_CAPABILITY extends Win32Struct {
     static sizeof => 72
 
     static packingSize => 8
 
     /**
-     * @type {Pointer<PCI_FPB_CAPABILITY_HEADER>}
+     * @type {Pointer}
      */
     Header {
         get => NumGet(this, 0, "ptr")
@@ -20,7 +18,7 @@ class PCI_FPB_CAPABILITY extends Win32Struct
     }
 
     /**
-     * @type {Pointer<PCI_FPB_CAPABILITIES_REGISTER>}
+     * @type {Pointer}
      */
     CapabilitiesRegister {
         get => NumGet(this, 8, "ptr")
@@ -28,7 +26,7 @@ class PCI_FPB_CAPABILITY extends Win32Struct
     }
 
     /**
-     * @type {Pointer<PCI_FPB_RID_VECTOR_CONTROL1_REGISTER>}
+     * @type {Pointer}
      */
     RidVectorControl1Register {
         get => NumGet(this, 16, "ptr")
@@ -36,7 +34,7 @@ class PCI_FPB_CAPABILITY extends Win32Struct
     }
 
     /**
-     * @type {Pointer<PCI_FPB_RID_VECTOR_CONTROL2_REGISTER>}
+     * @type {Pointer}
      */
     RidVectorControl2Register {
         get => NumGet(this, 24, "ptr")
@@ -44,7 +42,7 @@ class PCI_FPB_CAPABILITY extends Win32Struct
     }
 
     /**
-     * @type {Pointer<PCI_FPB_MEM_LOW_VECTOR_CONTROL_REGISTER>}
+     * @type {Pointer}
      */
     MemLowVectorControlRegister {
         get => NumGet(this, 32, "ptr")
@@ -52,7 +50,7 @@ class PCI_FPB_CAPABILITY extends Win32Struct
     }
 
     /**
-     * @type {Pointer<PCI_FPB_MEM_HIGH_VECTOR_CONTROL1_REGISTER>}
+     * @type {Pointer}
      */
     MemHighVectorControl1Register {
         get => NumGet(this, 40, "ptr")
@@ -60,7 +58,7 @@ class PCI_FPB_CAPABILITY extends Win32Struct
     }
 
     /**
-     * @type {Pointer<PCI_FPB_MEM_HIGH_VECTOR_CONTROL2_REGISTER>}
+     * @type {Pointer}
      */
     MemHighVectorControl2Register {
         get => NumGet(this, 48, "ptr")
@@ -68,7 +66,7 @@ class PCI_FPB_CAPABILITY extends Win32Struct
     }
 
     /**
-     * @type {Pointer<PCI_FPB_VECTOR_ACCESS_CONTROL_REGISTER>}
+     * @type {Pointer}
      */
     VectorAccessControlRegister {
         get => NumGet(this, 56, "ptr")
@@ -76,7 +74,7 @@ class PCI_FPB_CAPABILITY extends Win32Struct
     }
 
     /**
-     * @type {Pointer<PCI_FPB_VECTOR_ACCESS_DATA_REGISTER>}
+     * @type {Pointer}
      */
     VectorAccessDataRegister {
         get => NumGet(this, 64, "ptr")

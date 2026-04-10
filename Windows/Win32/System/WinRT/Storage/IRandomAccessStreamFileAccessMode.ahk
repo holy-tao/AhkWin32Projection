@@ -7,9 +7,8 @@
  * Provides access to the file access mode that was used when the StorageFile.OpenAsync method was called to open the random-access byte stream.
  * @see https://learn.microsoft.com/windows/win32/api/windowsstoragecom/nn-windowsstoragecom-irandomaccessstreamfileaccessmode
  * @namespace Windows.Win32.System.WinRT.Storage
- * @version v4.0.30319
  */
-class IRandomAccessStreamFileAccessMode extends IUnknown{
+class IRandomAccessStreamFileAccessMode extends IUnknown {
 
     static sizeof => A_PtrSize
     /**

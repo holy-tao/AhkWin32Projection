@@ -10,7 +10,6 @@
 
 /**
  * @namespace Windows.Win32.System.DataExchange
- * @version v4.0.30319
  */
 class DataExchange {
 
@@ -488,7 +487,9 @@ class DataExchange {
      * The return value must be posted as the <i>lParam</i> parameter of a DDE message; it must not be used for any other purpose. After the application posts a return value, it need not perform any action to dispose of the <i>lParam</i> parameter.
      * 
      * An application should call this function only for posted DDE messages.
-     * @param {Integer} _msg 
+     * @param {Integer} _msg Type: <b>UINT</b>
+     * 
+     * The DDE message to be posted.
      * @param {Pointer} uiLo Type: <b>UINT_PTR</b>
      * 
      * A value that corresponds to the 16-bit Windows low-order word of an <i>lParam</i> parameter for the DDE message being posted.
@@ -510,8 +511,14 @@ class DataExchange {
      * Unpacks a Dynamic Data Exchange (DDE)lParam value received from a posted DDE message.
      * @remarks
      * <a href="https://docs.microsoft.com/windows/desktop/api/dde/nf-dde-packddelparam">PackDDElParam</a> eases the porting of 16-bit DDE applications to 32-bit DDE applications.
-     * @param {Integer} _msg 
-     * @param {LPARAM} _lParam 
+     * @param {Integer} _msg Type: <b>UINT</b>
+     * 
+     * The posted DDE message.
+     * @param {LPARAM} _lParam Type: <b>LPARAM</b>
+     * 
+     * The 
+     * 					<i>lParam</i> parameter of the posted DDE message that was received. The application must free the memory object specified by the 
+     * 					<i>lParam</i> parameter by calling the <a href="https://docs.microsoft.com/windows/desktop/api/dde/nf-dde-freeddelparam">FreeDDElParam</a> function.
      * @param {Pointer<Pointer>} puiLo Type: <b>PUINT_PTR</b>
      * 
      * A pointer to a variable that receives the low-order word of 
@@ -544,8 +551,13 @@ class DataExchange {
      * This function frees the memory specified by the 
      * 				<i>lParam</i> parameter. It does not free the contents of 
      * 				<i>lParam</i>.
-     * @param {Integer} _msg 
-     * @param {LPARAM} _lParam 
+     * @param {Integer} _msg Type: <b>UINT</b>
+     * 
+     * The posted DDE message.
+     * @param {LPARAM} _lParam Type: <b>LPARAM</b>
+     * 
+     * The 
+     * 					<i>lParam</i> parameter of the posted DDE message.
      * @returns {BOOL} Type: <b>BOOL</b>
      * 
      * If the function succeeds, the return value is nonzero.
@@ -572,7 +584,10 @@ class DataExchange {
      * 
      * This function allocates or frees 
      * 				<i>lParam</i> parameters as needed, depending on the packing requirements of the incoming and outgoing messages. This reduces reallocations in passing DDE messages.
-     * @param {LPARAM} _lParam 
+     * @param {LPARAM} _lParam Type: <b>LPARAM</b>
+     * 
+     * The 
+     * 					<i>lParam</i> parameter of the posted DDE message being reused.
      * @param {Integer} msgIn Type: <b>UINT</b>
      * 
      * The identifier of the received DDE message.
@@ -629,8 +644,10 @@ class DataExchange {
      * If 
      * 					<i>pidInst</i> points to a nonzero value, reinitialization of the DDEML is implied. In this case, 
      * 					<i>pidInst</i> must point to a valid application-instance identifier.
-     * @param {Pointer<PFNCALLBACK>} _pfnCallback 
-     * @param {Integer} afCmd Type: <b>DWORD</b>
+     * @param {Pointer<PFNCALLBACK>} _pfnCallback Type: <b>PFNCALLBACK</b>
+     * 
+     * A pointer to the application-defined DDE callback function. This function processes DDE transactions sent by the system. For more information, see the <a href="https://docs.microsoft.com/windows/desktop/api/ddeml/nc-ddeml-pfncallback">DdeCallback</a> callback function.
+     * @param {DDE_INITIALIZE_COMMAND} afCmd Type: <b>DWORD</b>
      * 
      * A set of <b>APPCMD_</b>, <b>CBF_</b>, and <b>MF_</b> flags. The <b>APPCMD_</b> flags provide special instructions to <b>DdeInitialize</b>. The <b>CBF_</b> flags specify filters that prevent specific types of transactions from reaching the callback function. The <b>MF_</b> flags specify the types of DDE activity that a DDE monitoring application monitors. Using these flags enhances the performance of a DDE application by eliminating unnecessary calls to the callback function.
      * @returns {Integer} Type: <b>UINT</b>
@@ -679,8 +696,10 @@ class DataExchange {
      * If 
      * 					<i>pidInst</i> points to a nonzero value, reinitialization of the DDEML is implied. In this case, 
      * 					<i>pidInst</i> must point to a valid application-instance identifier.
-     * @param {Pointer<PFNCALLBACK>} _pfnCallback 
-     * @param {Integer} afCmd Type: <b>DWORD</b>
+     * @param {Pointer<PFNCALLBACK>} _pfnCallback Type: <b>PFNCALLBACK</b>
+     * 
+     * A pointer to the application-defined DDE callback function. This function processes DDE transactions sent by the system. For more information, see the <a href="https://docs.microsoft.com/windows/desktop/api/ddeml/nc-ddeml-pfncallback">DdeCallback</a> callback function.
+     * @param {DDE_INITIALIZE_COMMAND} afCmd Type: <b>DWORD</b>
      * 
      * A set of <b>APPCMD_</b>, <b>CBF_</b>, and <b>MF_</b> flags. The <b>APPCMD_</b> flags provide special instructions to <b>DdeInitialize</b>. The <b>CBF_</b> flags specify filters that prevent specific types of transactions from reaching the callback function. The <b>MF_</b> flags specify the types of DDE activity that a DDE monitoring application monitors. Using these flags enhances the performance of a DDE application by eliminating unnecessary calls to the callback function.
      * @returns {Integer} Type: <b>UINT</b>
@@ -737,7 +756,9 @@ class DataExchange {
      * @param {HSZ} hszTopic Type: <b>HSZ</b>
      * 
      * A handle to the string that specifies the name of the topic on which a conversation is to be established. This handle must have been created by a previous call to the <a href="https://docs.microsoft.com/windows/desktop/api/ddeml/nf-ddeml-ddecreatestringhandlea">DdeCreateStringHandle</a> function. If this parameter is 0L, the system will attempt to establish conversations on all topics supported by the selected server (or servers).
-     * @param {HCONVLIST} _hConvList 
+     * @param {HCONVLIST} _hConvList Type: <b>HCONVLIST</b>
+     * 
+     * A handle to the conversation list to be enumerated. This parameter should be 0L if a new conversation list is to be established.
      * @param {Pointer<CONVCONTEXT>} pCC Type: <b>PCONVCONTEXT</b>
      * 
      * A pointer to the <a href="https://docs.microsoft.com/windows/desktop/api/ddeml/ns-ddeml-convcontext">CONVCONTEXT</a> structure that contains conversation-context information. If this parameter is <b>NULL</b>, the server receives the default <b>CONVCONTEXT</b> structure during the 
@@ -765,7 +786,9 @@ class DataExchange {
 
     /**
      * Retrieves the next conversation handle in the specified conversation list.
-     * @param {HCONVLIST} _hConvList 
+     * @param {HCONVLIST} _hConvList Type: <b>HCONVLIST</b>
+     * 
+     * A handle to the conversation list. This handle must have been created by a previous call to the <a href="https://docs.microsoft.com/windows/desktop/api/ddeml/nf-ddeml-ddeconnectlist">DdeConnectList</a> function.
      * @param {HCONV} hConvPrev Type: <b>HCONV</b>
      * 
      * A handle to the conversation handle previously returned by this function. If this parameter is 0L, the function returns the first conversation handle in the list.
@@ -788,7 +811,9 @@ class DataExchange {
      * Destroys the specified conversation list and terminates all conversations associated with the list.
      * @remarks
      * An application can use the <a href="https://docs.microsoft.com/windows/desktop/api/ddeml/nf-ddeml-ddedisconnect">DdeDisconnect</a> function to terminate individual conversations in the list.
-     * @param {HCONVLIST} _hConvList 
+     * @param {HCONVLIST} _hConvList Type: <b>HCONVLIST</b>
+     * 
+     * A handle to the conversation list. This handle must have been created by a previous call to the <a href="https://docs.microsoft.com/windows/desktop/api/ddeml/nf-ddeml-ddeconnectlist">DdeConnectList</a> function.
      * @returns {BOOL} Type: <b>BOOL</b>
      * 
      * If the function succeeds, the return value is nonzero.
@@ -852,7 +877,9 @@ class DataExchange {
      * Terminates a conversation started by either the DdeConnect or DdeConnectList function and invalidates the specified conversation handle.
      * @remarks
      * Any incomplete transactions started before calling <b>DdeDisconnect</b> are immediately abandoned. The <a href="https://docs.microsoft.com/windows/desktop/dataxchg/xtyp-disconnect">XTYP_DISCONNECT</a> transaction is sent to the Dynamic Data Exchange (DDE) callback function of the partner in the conversation. Generally, only client applications must terminate conversations.
-     * @param {HCONV} _hConv 
+     * @param {HCONV} _hConv Type: <b>HCONV</b>
+     * 
+     * A handle to the active conversation to be terminated.
      * @returns {BOOL} Type: <b>BOOL</b>
      * 
      * If the function succeeds, the return value is nonzero.
@@ -872,7 +899,9 @@ class DataExchange {
 
     /**
      * Enables a client Dynamic Data Exchange Management Library (DDEML) application to attempt to reestablish a conversation with a service that has terminated a conversation with the client.
-     * @param {HCONV} _hConv 
+     * @param {HCONV} _hConv Type: <b>HCONV</b>
+     * 
+     * A handle to the conversation to be reestablished. A client must have obtained the conversation handle by a previous call to the <a href="https://docs.microsoft.com/windows/desktop/api/ddeml/nf-ddeml-ddeconnect">DdeConnect</a> function or from an <a href="https://docs.microsoft.com/windows/desktop/dataxchg/xtyp-disconnect">XTYP_DISCONNECT</a> transaction.
      * @returns {HCONV} Type: <b>HCONV</b>
      * 
      * If the function succeeds, the return value is the handle to the reestablished conversation.
@@ -901,7 +930,9 @@ class DataExchange {
      * 				<i>hUser</i> member of the <a href="https://docs.microsoft.com/windows/desktop/api/ddeml/ns-ddeml-convinfo">CONVINFO</a> structure is associated with the conversation and can be used to hold data associated with the conversation. If 
      * 				<i>idTransaction</i> is the identifier of an asynchronous transaction, the 
      * 				<i>hUser</i> member is associated only with the current transaction and is valid only for the duration of the transaction.
-     * @param {HCONV} _hConv 
+     * @param {HCONV} _hConv Type: <b>HCONV</b>
+     * 
+     * A handle to the conversation.
      * @param {Integer} idTransaction Type: <b>DWORD</b>
      * 
      * The transaction. For asynchronous transactions, this parameter should be a transaction identifier returned by the <a href="https://docs.microsoft.com/windows/desktop/api/ddeml/nf-ddeml-ddeclienttransaction">DdeClientTransaction</a> function. For synchronous transactions, this parameter should be QID_SYNC.
@@ -928,7 +959,9 @@ class DataExchange {
 
     /**
      * Associates an application-defined value with a conversation handle or a transaction identifier. This is useful for simplifying the processing of asynchronous transactions. An application can use the DdeQueryConvInfo function to retrieve this value.
-     * @param {HCONV} _hConv 
+     * @param {HCONV} _hConv Type: <b>HCONV</b>
+     * 
+     * A handle to the conversation.
      * @param {Integer} id Type: <b>DWORD</b>
      * 
      * The transaction identifier to associate with the value specified by the 
@@ -962,7 +995,10 @@ class DataExchange {
      * @param {Integer} idInst Type: <b>DWORD</b>
      * 
      * The application instance identifier obtained by a previous call to the <a href="https://docs.microsoft.com/windows/desktop/api/ddeml/nf-ddeml-ddeinitializea">DdeInitialize</a> function.
-     * @param {HCONV} _hConv 
+     * @param {HCONV} _hConv Type: <b>HCONV</b>
+     * 
+     * A handle to the conversation in which the transaction was initiated. If this parameter is 0L, all transactions are abandoned (that is, the 
+     * 					<i>idTransaction</i> parameter is ignored).
      * @param {Integer} idTransaction Type: <b>DWORD</b>
      * 
      * The identifier of the transaction to be abandoned. If this parameter is 0L, all active transactions in the specified conversation are abandoned.
@@ -1029,8 +1065,10 @@ class DataExchange {
      * @param {Integer} idInst Type: <b>DWORD</b>
      * 
      * The application-instance identifier obtained by a previous call to the <a href="https://docs.microsoft.com/windows/desktop/api/ddeml/nf-ddeml-ddeinitializea">DdeInitialize</a> function.
-     * @param {HCONV} _hConv 
-     * @param {Integer} wCmd Type: <b>UINT</b>
+     * @param {HCONV} _hConv Type: <b>HCONV</b>
+     * 
+     * A handle to the conversation to enable or disable. If this parameter is <b>NULL</b>, the function affects all conversations.
+     * @param {DDE_ENABLE_CALLBACK_CMD} wCmd Type: <b>UINT</b>
      * @returns {BOOL} Type: <b>BOOL</b>
      * 
      * If the function succeeds, the return value is nonzero.
@@ -1060,7 +1098,9 @@ class DataExchange {
      * 
      * <h3><a id="Security_Considerations"></a><a id="security_considerations"></a><a id="SECURITY_CONSIDERATIONS"></a>Security Considerations</h3>
      * If the call to <b>DdeImpersonateClient</b> fails for any reason, the client is not impersonated and the client request is made in the security context of the calling process. If the calling process is running as a highly privileged account, such as LocalSystem, or as a member of an administrative group, the user may be able to perform actions that would otherwise be disallowed. Therefore it is important that you always check the return value of the call, and if it fails to raise an error, do not continue execution of the client request.
-     * @param {HCONV} _hConv 
+     * @param {HCONV} _hConv Type: <b>HCONV</b>
+     * 
+     * A handle to the DDE client conversation to be impersonated.
      * @returns {BOOL} Type: <b>BOOL</b>
      * 
      * If the function succeeds, the return value is nonzero.
@@ -1098,7 +1138,7 @@ class DataExchange {
      * @param {HSZ} hsz2 Type: <b>HSZ</b>
      * 
      * Reserved; should be set to 0L.
-     * @param {Integer} afCmd Type: <b>UINT</b>
+     * @param {DDE_NAME_SERVICE_CMD} afCmd Type: <b>UINT</b>
      * @returns {HDDEDATA} Type: <b>HDDEDATA</b>
      * 
      * If the function succeeds, it returns a nonzero value. That value is not a true <b>HDDEDATA</b> value, merely a Boolean indicator of success. The function is typed <b>HDDEDATA</b> to allow for possible future expansion of the function and a more sophisticated return value. 
@@ -1143,7 +1183,9 @@ class DataExchange {
      * The length, in bytes, of the data pointed to by the 
      * 					<i>pData</i> parameter, including the terminating <b>NULL</b>, if the data is a string. A value of -1 indicates that 
      * 					<i>pData</i> is a data handle that identifies the data being sent.
-     * @param {HCONV} _hConv 
+     * @param {HCONV} _hConv Type: <b>HCONV</b>
+     * 
+     * A handle to the conversation in which the transaction is to take place.
      * @param {HSZ} hszItem Type: <b>HSZ</b>
      * 
      * A handle to the data item for which data is being exchanged during the transaction. This handle must have been created by a previous call to the <a href="https://docs.microsoft.com/windows/desktop/api/ddeml/nf-ddeml-ddecreatestringhandlea">DdeCreateStringHandle</a> function. This parameter is ignored (and should be set to 0L) if the 
@@ -1161,7 +1203,7 @@ class DataExchange {
      * 						<a href="https://docs.microsoft.com/windows/desktop/dataxchg/xtyp-poke">XTYP_POKE</a>, <a href="https://docs.microsoft.com/windows/desktop/dataxchg/xtyp-advstart">XTYP_ADVSTART</a>, <a href="https://docs.microsoft.com/windows/desktop/dataxchg/xtyp-advstop">XTYP_ADVSTOP</a>, 
      * 						<a href="https://docs.microsoft.com/windows/desktop/dataxchg/xtyp-request">XTYP_REQUEST</a>), the 
      * 						<i>wFmt</i> value must be either a valid predefined (CF_) DDE format or a valid registered clipboard format.
-     * @param {Integer} wType Type: <b>UINT</b>
+     * @param {DDE_CLIENT_TRANSACTION_TYPE} wType Type: <b>UINT</b>
      * @param {Integer} dwTimeout Type: <b>DWORD</b>
      * 
      * The maximum amount of time, in milliseconds, that the client will wait for a response from the server application in a synchronous transaction. This parameter should be <b>TIMEOUT_ASYNC</b> for asynchronous transactions.
@@ -1197,7 +1239,7 @@ class DataExchange {
      * @param {Integer} idInst Type: <b>DWORD</b>
      * 
      * The application instance identifier obtained by a previous call to the <a href="https://docs.microsoft.com/windows/desktop/api/ddeml/nf-ddeml-ddeinitializea">DdeInitialize</a> function.
-     * @param {Pointer} pSrc Type: <b>LPBYTE</b>
+     * @param {Integer} pSrc Type: <b>LPBYTE</b>
      * 
      * The data to be copied to the DDE object. If this parameter is <b>NULL</b>, no data is copied to the object.
      * @param {Integer} cb Type: <b>DWORD</b>
@@ -1245,7 +1287,7 @@ class DataExchange {
      * @param {HDDEDATA} hData Type: <b>HDDEDATA</b>
      * 
      * A handle to the DDE object that receives additional data.
-     * @param {Pointer} pSrc Type: <b>LPBYTE</b>
+     * @param {Integer} pSrc Type: <b>LPBYTE</b>
      * 
      * The data to be added to the DDE object.
      * @param {Integer} cb Type: <b>DWORD</b>
@@ -1277,7 +1319,7 @@ class DataExchange {
      * @param {HDDEDATA} hData Type: <b>HDDEDATA</b>
      * 
      * A handle to the DDE object that contains the data to copy.
-     * @param {Pointer} pDst Type: <b>LPBYTE</b>
+     * @param {Integer} pDst Type: <b>LPBYTE</b>
      * 
      * A pointer to the buffer that receives the data. If this parameter is <b>NULL</b>, the <b>DdeGetData</b> function returns the amount of data, in bytes, that would be copied to the buffer.
      * @param {Integer} cbMax Type: <b>DWORD</b>
@@ -1772,7 +1814,9 @@ class DataExchange {
      * @param {Integer} idInst Type: <b>DWORD</b>
      * 
      * The application instance identifier obtained by a previous call to the <a href="https://docs.microsoft.com/windows/desktop/api/ddeml/nf-ddeml-ddeinitializea">DdeInitialize</a> function.
-     * @param {HSZ} _hsz 
+     * @param {HSZ} _hsz Type: <b>HSZ</b>
+     * 
+     * A handle to the string to copy. This handle must have been created by a previous call to the <a href="https://docs.microsoft.com/windows/desktop/api/ddeml/nf-ddeml-ddecreatestringhandlea">DdeCreateStringHandle</a> function.
      * @param {PSTR} psz Type: <b>LPTSTR</b>
      * 
      * A pointer to a buffer that receives the string. To obtain the length of the string, this parameter should be set to <b>NULL</b>.
@@ -1823,7 +1867,9 @@ class DataExchange {
      * @param {Integer} idInst Type: <b>DWORD</b>
      * 
      * The application instance identifier obtained by a previous call to the <a href="https://docs.microsoft.com/windows/desktop/api/ddeml/nf-ddeml-ddeinitializea">DdeInitialize</a> function.
-     * @param {HSZ} _hsz 
+     * @param {HSZ} _hsz Type: <b>HSZ</b>
+     * 
+     * A handle to the string to copy. This handle must have been created by a previous call to the <a href="https://docs.microsoft.com/windows/desktop/api/ddeml/nf-ddeml-ddecreatestringhandlea">DdeCreateStringHandle</a> function.
      * @param {PWSTR} psz Type: <b>LPTSTR</b>
      * 
      * A pointer to a buffer that receives the string. To obtain the length of the string, this parameter should be set to <b>NULL</b>.
@@ -1862,7 +1908,9 @@ class DataExchange {
      * @param {Integer} idInst Type: <b>DWORD</b>
      * 
      * The application instance identifier obtained by a previous call to the <a href="https://docs.microsoft.com/windows/desktop/api/ddeml/nf-ddeml-ddeinitializea">DdeInitialize</a> function.
-     * @param {HSZ} _hsz 
+     * @param {HSZ} _hsz Type: <b>HSZ</b>
+     * 
+     * A handle to the string handle to be freed. This handle must have been created by a previous call to the <a href="https://docs.microsoft.com/windows/desktop/api/ddeml/nf-ddeml-ddecreatestringhandlea">DdeCreateStringHandle</a> function.
      * @returns {BOOL} Type: <b>BOOL</b>
      * 
      * If the function succeeds, the return value is nonzero.
@@ -1883,7 +1931,9 @@ class DataExchange {
      * @param {Integer} idInst Type: <b>DWORD</b>
      * 
      * The application instance identifier obtained by a previous call to the <a href="https://docs.microsoft.com/windows/desktop/api/ddeml/nf-ddeml-ddeinitializea">DdeInitialize</a> function.
-     * @param {HSZ} _hsz 
+     * @param {HSZ} _hsz Type: <b>HSZ</b>
+     * 
+     * A handle to the string handle to be saved.
      * @returns {BOOL} Type: <b>BOOL</b>
      * 
      * If the function succeeds, the return value is nonzero.
@@ -1976,7 +2026,7 @@ class DataExchange {
      * 
      * If the reference device context is not identical to the device in which the metafile was originally created, some GDI functions that use device units may not draw the picture correctly.
      * @param {Integer} nSize The size, in bytes, of the buffer that contains the Windows-format metafile.
-     * @param {Pointer} lpMeta16Data A pointer to a buffer that contains the Windows-format metafile data. (It is assumed that the data was obtained by using the <a href="https://docs.microsoft.com/windows/desktop/api/wingdi/nf-wingdi-getmetafilebitsex">GetMetaFileBitsEx</a> or <a href="https://docs.microsoft.com/windows/desktop/api/wingdi/nf-wingdi-getwinmetafilebits">GetWinMetaFileBits</a> function.)
+     * @param {Integer} lpMeta16Data A pointer to a buffer that contains the Windows-format metafile data. (It is assumed that the data was obtained by using the <a href="https://docs.microsoft.com/windows/desktop/api/wingdi/nf-wingdi-getmetafilebitsex">GetMetaFileBitsEx</a> or <a href="https://docs.microsoft.com/windows/desktop/api/wingdi/nf-wingdi-getwinmetafilebits">GetWinMetaFileBits</a> function.)
      * @param {HDC} hdcRef A handle to a reference device context.
      * @param {Pointer<METAFILEPICT>} lpMFP A pointer to a <a href="https://docs.microsoft.com/windows/desktop/api/wingdi/ns-wingdi-metafilepict">METAFILEPICT</a> structure that contains the suggested size of the metafile picture and the mapping mode that was used when the picture was created.
      * @returns {HENHMETAFILE} If the function succeeds, the return value is a handle to a memory-based enhanced metafile.
@@ -2553,7 +2603,9 @@ class DataExchange {
      * Places the given window in the system-maintained clipboard format listener list.
      * @remarks
      * When a window has been added to the clipboard format listener list, it is posted a <a href="https://docs.microsoft.com/windows/desktop/dataxchg/wm-clipboardupdate">WM_CLIPBOARDUPDATE</a> message whenever the contents of the clipboard have changed.
-     * @param {HWND} _hwnd 
+     * @param {HWND} _hwnd Type: <b>HWND</b>
+     * 
+     * A handle to the window to be placed in the clipboard format listener list.
      * @returns {BOOL} Type: <b>BOOL</b>
      * 
      * Returns <b>TRUE</b> if successful, <b>FALSE</b> otherwise. Call <a href="https://docs.microsoft.com/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a> for additional details.
@@ -2577,7 +2629,9 @@ class DataExchange {
      * Removes the given window from the system-maintained clipboard format listener list.
      * @remarks
      * When a window has been removed from the clipboard format listener list, it will no longer receive <a href="https://docs.microsoft.com/windows/desktop/dataxchg/wm-clipboardupdate">WM_CLIPBOARDUPDATE</a> messages.
-     * @param {HWND} _hwnd 
+     * @param {HWND} _hwnd Type: <b>HWND</b>
+     * 
+     * A handle to the window to remove from the clipboard format listener list.
      * @returns {BOOL} Type: <b>BOOL</b>
      * 
      * Returns <b>TRUE</b> if successful, <b>FALSE</b> otherwise. Call <a href="https://docs.microsoft.com/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a> for additional details.

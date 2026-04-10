@@ -4,10 +4,8 @@
 
 /**
  * @namespace Windows.Win32.Devices.Geolocation
- * @version v4.0.30319
  */
-class GNSS_GEOFENCES_TRACKINGSTATUS_DATA extends Win32Struct
-{
+class GNSS_GEOFENCES_TRACKINGSTATUS_DATA extends Win32Struct {
     static sizeof => 532
 
     static packingSize => 4
@@ -39,7 +37,7 @@ class GNSS_GEOFENCES_TRACKINGSTATUS_DATA extends Win32Struct
     /**
      * @type {FILETIME}
      */
-    StatusTimeStamp{
+    StatusTimeStamp {
         get {
             if(!this.HasProp("__StatusTimeStamp"))
                 this.__StatusTimeStamp := FILETIME(12, this)
@@ -48,9 +46,9 @@ class GNSS_GEOFENCES_TRACKINGSTATUS_DATA extends Win32Struct
     }
 
     /**
-     * @type {Array<Byte>}
+     * @type {Array<Integer>}
      */
-    Unused{
+    Unused {
         get {
             if(!this.HasProp("__UnusedProxyArray"))
                 this.__UnusedProxyArray := Win32FixedArray(this.ptr + 20, 512, Primitive, "char")

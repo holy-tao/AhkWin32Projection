@@ -1,14 +1,13 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
+#Include .\DRT_DATA.ahk
 
 /**
  * DRT_SEARCH_INFO structure represents a search query issued with DrtStartSearch.
  * @see https://learn.microsoft.com/windows/win32/api/drt/ns-drt-drt_search_info
  * @namespace Windows.Win32.NetworkManagement.P2P
- * @version v4.0.30319
  */
-class DRT_SEARCH_INFO extends Win32Struct
-{
+class DRT_SEARCH_INFO extends Win32Struct {
     static sizeof => 40
 
     static packingSize => 8

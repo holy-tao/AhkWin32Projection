@@ -13,9 +13,8 @@
  * Implementations of <a href="https://docs.microsoft.com/windows/desktop/api/oleidl/nf-oleidl-ioleitemcontainer-getobject">GetObject</a> can use the <b>BINDSPEED</b> value as a shortcut approximation of the binding deadline, or they can use the <a href="https://docs.microsoft.com/windows/desktop/api/objidl/nn-objidl-ibindctx">IBindCtx</a> instance parameter to determine the exact deadline.
  * @see https://learn.microsoft.com/windows/win32/api/oleidl/ne-oleidl-bindspeed
  * @namespace Windows.Win32.System.Ole
- * @version v4.0.30319
  */
-class BINDSPEED extends Win32Enum{
+class BINDSPEED extends Win32Enum {
 
     /**
      * There is no time limit on the binding operation.

@@ -16,10 +16,9 @@
  * If <i>guidItem</i> is not <b>GUID_NULL</b>, <i>hWnd</i> and <i>uID</i> are ignored.
  * @see https://learn.microsoft.com/windows/win32/api/shellapi/ns-shellapi-notifyiconidentifier
  * @namespace Windows.Win32.UI.Shell
- * @version v4.0.30319
+ * @architecture X64, Arm64
  */
-class NOTIFYICONIDENTIFIER extends Win32Struct
-{
+class NOTIFYICONIDENTIFIER extends Win32Struct {
     static sizeof => 32
 
     static packingSize => 8
@@ -41,7 +40,7 @@ class NOTIFYICONIDENTIFIER extends Win32Struct
      * A handle to the parent window used by the notification's callback function. For more information, see the <i>hWnd</i> member of the <a href="https://docs.microsoft.com/windows/desktop/api/shellapi/ns-shellapi-notifyicondataa">NOTIFYICONDATA</a> structure.
      * @type {HWND}
      */
-    hWnd{
+    hWnd {
         get {
             if(!this.HasProp("__hWnd"))
                 this.__hWnd := HWND(8, this)
@@ -64,7 +63,7 @@ class NOTIFYICONIDENTIFIER extends Win32Struct
      * Type: <b>GUID</b>
      * 
      * A registered GUID that identifies the icon. Use <b>GUID_NULL</b> if the icon is not identified by a GUID.
-     * @type {Pointer<Guid>}
+     * @type {Pointer}
      */
     guidItem {
         get => NumGet(this, 24, "ptr")

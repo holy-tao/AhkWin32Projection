@@ -5,9 +5,8 @@
  * Specifies whether markup compatibility detection must be run before signing.
  * @see https://learn.microsoft.com/windows/win32/api/xpsdigitalsignature/ne-xpsdigitalsignature-xps_sign_flags
  * @namespace Windows.Win32.Storage.Xps
- * @version v4.0.30319
  */
-class XPS_SIGN_FLAGS extends Win32BitflagEnum{
+class XPS_SIGN_FLAGS extends Win32BitflagEnum {
 
     /**
      * The system will check for any markup compatibility elements before 

@@ -1,8 +1,8 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
-#Include ..\..\Foundation\BSTR.ahk
 #Include .\IFsrmAction.ahk
+#Include ..\..\Foundation\BSTR.ahk
 
 /**
  * Used to log an event to the Windows Application event log in response to a quota, file screen, or file management job event.
@@ -14,9 +14,8 @@
  *     property; the other property is optional.
  * @see https://learn.microsoft.com/windows/win32/api/fsrm/nn-fsrm-ifsrmactioneventlog
  * @namespace Windows.Win32.Storage.FileServerResourceManager
- * @version v4.0.30319
  */
-class IFsrmActionEventLog extends IFsrmAction{
+class IFsrmActionEventLog extends IFsrmAction {
 
     static sizeof => A_PtrSize
     /**
@@ -38,7 +37,7 @@ class IFsrmActionEventLog extends IFsrmAction{
     static VTableNames => ["get_EventType", "put_EventType", "get_MessageText", "put_MessageText"]
 
     /**
-     * @type {Integer} 
+     * @type {FsrmEventType} 
      */
     EventType {
         get => this.get_EventType()
@@ -55,7 +54,7 @@ class IFsrmActionEventLog extends IFsrmAction{
 
     /**
      * Retrieves or sets the type of event that the action logs when it runs. (Get)
-     * @returns {Integer} 
+     * @returns {FsrmEventType} 
      * @see https://learn.microsoft.com/windows/win32/api/fsrm/nf-fsrm-ifsrmactioneventlog-get_eventtype
      */
     get_EventType() {
@@ -65,7 +64,7 @@ class IFsrmActionEventLog extends IFsrmAction{
 
     /**
      * Retrieves or sets the type of event that the action logs when it runs. (Put)
-     * @param {Integer} eventType 
+     * @param {FsrmEventType} eventType 
      * @returns {HRESULT} 
      * @see https://learn.microsoft.com/windows/win32/api/fsrm/nf-fsrm-ifsrmactioneventlog-put_eventtype
      */

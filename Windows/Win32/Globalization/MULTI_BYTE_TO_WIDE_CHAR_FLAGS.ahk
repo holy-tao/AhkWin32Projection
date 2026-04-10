@@ -3,9 +3,8 @@
 
 /**
  * @namespace Windows.Win32.Globalization
- * @version v4.0.30319
  */
-class MULTI_BYTE_TO_WIDE_CHAR_FLAGS extends Win32BitflagEnum{
+class MULTI_BYTE_TO_WIDE_CHAR_FLAGS extends Win32BitflagEnum {
 
     /**
      * @type {Integer (UInt32)}

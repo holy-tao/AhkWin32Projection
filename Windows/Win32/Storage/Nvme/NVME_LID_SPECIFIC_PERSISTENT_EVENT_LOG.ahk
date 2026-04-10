@@ -3,10 +3,8 @@
 
 /**
  * @namespace Windows.Win32.Storage.Nvme
- * @version v4.0.30319
  */
-class NVME_LID_SPECIFIC_PERSISTENT_EVENT_LOG extends Win32Struct
-{
+class NVME_LID_SPECIFIC_PERSISTENT_EVENT_LOG extends Win32Struct {
     static sizeof => 2
 
     static packingSize => 2

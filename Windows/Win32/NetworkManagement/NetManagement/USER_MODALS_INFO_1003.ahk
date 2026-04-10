@@ -5,10 +5,8 @@
  * The USER_MODALS_INFO_1003 structure contains the minimum duration for passwords in the security database, which is the security accounts manager (SAM) database or, in the case of domain controllers, the Active Directory.
  * @see https://learn.microsoft.com/windows/win32/api/lmaccess/ns-lmaccess-user_modals_info_1003
  * @namespace Windows.Win32.NetworkManagement.NetManagement
- * @version v4.0.30319
  */
-class USER_MODALS_INFO_1003 extends Win32Struct
-{
+class USER_MODALS_INFO_1003 extends Win32Struct {
     static sizeof => 4
 
     static packingSize => 4

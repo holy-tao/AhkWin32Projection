@@ -5,9 +5,8 @@
  * Flags to specify whether updates will be allowed given the state of a file or directory on disk.
  * @see https://learn.microsoft.com/windows/win32/api/projectedfslib/ne-projectedfslib-prj_update_types
  * @namespace Windows.Win32.Storage.ProjectedFileSystem
- * @version v4.0.30319
  */
-class PRJ_UPDATE_TYPES extends Win32BitflagEnum{
+class PRJ_UPDATE_TYPES extends Win32BitflagEnum {
 
     /**
      * Allow update only if the item is a placeholder (whether hydrated or not).

@@ -1,16 +1,15 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
-#Include ..\..\Foundation\BSTR.ahk
 #Include ..\Com\IUnknown.ahk
+#Include ..\..\Foundation\BSTR.ahk
 
 /**
  * Exposes configuration methods that are implemented by third parties.
  * @see https://learn.microsoft.com/windows/win32/api/wpcapi/nn-wpcapi-iwpcproviderconfig
  * @namespace Windows.Win32.System.ParentalControls
- * @version v4.0.30319
  */
-class IWPCProviderConfig extends IUnknown{
+class IWPCProviderConfig extends IUnknown {
 
     static sizeof => A_PtrSize
     /**
@@ -49,7 +48,7 @@ class IWPCProviderConfig extends IUnknown{
 
     /**
      * Called for the current provider when you click a user tile in the Parental Controls Control Panel. This method allows for changes to the configuration.
-     * @param {HWND} _hWnd 
+     * @param {HWND} _hWnd A handle to the parent window.
      * @param {BSTR} bstrSID A string that contains the <a href="https://docs.microsoft.com/windows/desktop/SecGloss/s-gly">security identifier</a> (SID) of the user to configure.
      * @returns {HRESULT} If the method succeeds, the method returns <b>S_OK</b>.
      * 
@@ -84,7 +83,7 @@ class IWPCProviderConfig extends IUnknown{
 
     /**
      * Called for the current provider to enable configuration override.
-     * @param {HWND} _hWnd 
+     * @param {HWND} _hWnd A handle to the parent window.
      * @param {BSTR} bstrPath Pointer to a string that contains the path.
      * @param {Integer} dwFlags 
      * @returns {HRESULT} If the method succeeds, the method returns <b>S_OK</b>.

@@ -5,9 +5,8 @@
 
 /**
  * @namespace Windows.Win32.Data.Xml.MsXml
- * @version v4.0.30319
  */
-class ISAXContentHandler extends IUnknown{
+class ISAXContentHandler extends IUnknown {
 
     static sizeof => A_PtrSize
     /**

@@ -1,14 +1,14 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
+#Include .\SWbemQueryQualifiedName.ahk
+#Include .\SWbemRpnQueryToken.ahk
 
 /**
  * The SWbemRpnEncodedQuery structure contains information from the IWbemQuery::GetAnalysis method when you use the WMIQ_ANALYSIS_RPN_SEQUENCE analysis type. Not all the fields in the structure are used actively, because some are reserved for future use.
  * @see https://learn.microsoft.com/windows/win32/api/wmiutils/ns-wmiutils-swbemrpnencodedquery
  * @namespace Windows.Win32.System.Wmi
- * @version v4.0.30319
  */
-class SWbemRpnEncodedQuery extends Win32Struct
-{
+class SWbemRpnEncodedQuery extends Win32Struct {
     static sizeof => 136
 
     static packingSize => 8
@@ -153,7 +153,6 @@ class SWbemRpnEncodedQuery extends Win32Struct
     }
 
     /**
-     * 
      * @type {Integer}
      */
     m_uOrderByListSize {
@@ -162,7 +161,6 @@ class SWbemRpnEncodedQuery extends Win32Struct
     }
 
     /**
-     * 
      * @type {Pointer<PWSTR>}
      */
     m_ppszOrderByList {
@@ -171,7 +169,6 @@ class SWbemRpnEncodedQuery extends Win32Struct
     }
 
     /**
-     * 
      * @type {Pointer<Integer>}
      */
     m_uOrderDirectionEl {

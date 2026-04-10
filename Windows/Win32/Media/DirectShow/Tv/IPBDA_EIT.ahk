@@ -1,18 +1,17 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\..\Guid.ahk
+#Include ..\..\..\System\Com\IUnknown.ahk
 #Include .\MPEG_DATE_AND_TIME.ahk
 #Include .\MPEG_TIME.ahk
 #Include .\IGenericDescriptor.ahk
-#Include ..\..\..\System\Com\IUnknown.ahk
 
 /**
  * Implements methods that enable the client to get information from an event information table (EIT) in a Protected Broadcast Device Architecture (PBDA) transport stream. The IPBDASiParser::GetEIT method returns a pointer to this interface.
  * @see https://learn.microsoft.com/windows/win32/api/dvbsiparser/nn-dvbsiparser-ipbda_eit
  * @namespace Windows.Win32.Media.DirectShow.Tv
- * @version v4.0.30319
  */
-class IPBDA_EIT extends IUnknown{
+class IPBDA_EIT extends IUnknown {
 
     static sizeof => A_PtrSize
     /**
@@ -35,7 +34,7 @@ class IPBDA_EIT extends IUnknown{
 
     /**
      * Initializes an object that gets data from an event information table (EIT) in a Protected Broadcast Device Architecture (PBDA) transport stream.
-     * @param {Integer} _size 
+     * @param {Integer} _size Specifies the buffer size for data used to initialize each section.
      * @param {Pointer<Integer>} pBuffer Specifies the buffer used to initialize each section.
      * @returns {HRESULT} If this method succeeds, it returns <b>S_OK</b>. Otherwise, it returns an <b>HRESULT</b> error code.
      * @see https://learn.microsoft.com/windows/win32/api/dvbsiparser/nf-dvbsiparser-ipbda_eit-initialize

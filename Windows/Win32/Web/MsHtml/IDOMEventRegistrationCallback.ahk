@@ -5,9 +5,8 @@
 
 /**
  * @namespace Windows.Win32.Web.MsHtml
- * @version v4.0.30319
  */
-class IDOMEventRegistrationCallback extends IUnknown{
+class IDOMEventRegistrationCallback extends IUnknown {
 
     static sizeof => A_PtrSize
     /**

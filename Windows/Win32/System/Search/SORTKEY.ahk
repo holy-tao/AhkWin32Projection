@@ -1,14 +1,13 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
-#Include ..\Com\StructuredStorage\PROPSPEC.ahk
 #Include ..\..\Storage\IndexServer\FULLPROPSPEC.ahk
+#Include ..\Com\StructuredStorage\PROPSPEC.ahk
+#Include ..\Com\StructuredStorage\PROPSPEC_KIND.ahk
 
 /**
  * @namespace Windows.Win32.System.Search
- * @version v4.0.30319
  */
-class SORTKEY extends Win32Struct
-{
+class SORTKEY extends Win32Struct {
     static sizeof => 32
 
     static packingSize => 8
@@ -16,7 +15,7 @@ class SORTKEY extends Win32Struct
     /**
      * @type {FULLPROPSPEC}
      */
-    propColumn{
+    propColumn {
         get {
             if(!this.HasProp("__propColumn"))
                 this.__propColumn := FULLPROPSPEC(0, this)

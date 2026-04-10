@@ -7,11 +7,9 @@
 
 /**
  * @namespace Windows.Win32.Media.DirectShow
- * @version v4.0.30319
  */
-class DXVA2_VIDEOSAMPLE extends Win32Struct
-{
-    static sizeof => 200
+class DXVA2_VIDEOSAMPLE extends Win32Struct {
+    static sizeof => 136
 
     static packingSize => 8
 
@@ -34,7 +32,7 @@ class DXVA2_VIDEOSAMPLE extends Win32Struct
     /**
      * @type {DXVA2_ExtendedFormat}
      */
-    SampleFormat{
+    SampleFormat {
         get {
             if(!this.HasProp("__SampleFormat"))
                 this.__SampleFormat := DXVA2_ExtendedFormat(16, this)
@@ -61,7 +59,7 @@ class DXVA2_VIDEOSAMPLE extends Win32Struct
     /**
      * @type {RECT}
      */
-    SrcRect{
+    SrcRect {
         get {
             if(!this.HasProp("__SrcRect"))
                 this.__SrcRect := RECT(32, this)
@@ -72,7 +70,7 @@ class DXVA2_VIDEOSAMPLE extends Win32Struct
     /**
      * @type {RECT}
      */
-    DstRect{
+    DstRect {
         get {
             if(!this.HasProp("__DstRect"))
                 this.__DstRect := RECT(48, this)
@@ -81,9 +79,9 @@ class DXVA2_VIDEOSAMPLE extends Win32Struct
     }
 
     /**
-     * @type {Array<DXVA2_AYUVSample8>}
+     * @type {DXVA2_AYUVSample8}
      */
-    Pal{
+    Pal {
         get {
             if(!this.HasProp("__PalProxyArray"))
                 this.__PalProxyArray := Win32FixedArray(this.ptr + 64, 16, DXVA2_AYUVSample8, "")
@@ -94,10 +92,10 @@ class DXVA2_VIDEOSAMPLE extends Win32Struct
     /**
      * @type {DXVA2_Fixed32}
      */
-    PlanarAlpha{
+    PlanarAlpha {
         get {
             if(!this.HasProp("__PlanarAlpha"))
-                this.__PlanarAlpha := DXVA2_Fixed32(192, this)
+                this.__PlanarAlpha := DXVA2_Fixed32(128, this)
             return this.__PlanarAlpha
         }
     }

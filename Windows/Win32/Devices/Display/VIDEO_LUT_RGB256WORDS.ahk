@@ -3,18 +3,16 @@
 
 /**
  * @namespace Windows.Win32.Devices.Display
- * @version v4.0.30319
  */
-class VIDEO_LUT_RGB256WORDS extends Win32Struct
-{
+class VIDEO_LUT_RGB256WORDS extends Win32Struct {
     static sizeof => 1536
 
     static packingSize => 2
 
     /**
-     * @type {Array<UInt16>}
+     * @type {Array<Integer>}
      */
-    Red{
+    Red {
         get {
             if(!this.HasProp("__RedProxyArray"))
                 this.__RedProxyArray := Win32FixedArray(this.ptr + 0, 256, Primitive, "ushort")
@@ -23,9 +21,9 @@ class VIDEO_LUT_RGB256WORDS extends Win32Struct
     }
 
     /**
-     * @type {Array<UInt16>}
+     * @type {Array<Integer>}
      */
-    Green{
+    Green {
         get {
             if(!this.HasProp("__GreenProxyArray"))
                 this.__GreenProxyArray := Win32FixedArray(this.ptr + 512, 256, Primitive, "ushort")
@@ -34,9 +32,9 @@ class VIDEO_LUT_RGB256WORDS extends Win32Struct
     }
 
     /**
-     * @type {Array<UInt16>}
+     * @type {Array<Integer>}
      */
-    Blue{
+    Blue {
         get {
             if(!this.HasProp("__BlueProxyArray"))
                 this.__BlueProxyArray := Win32FixedArray(this.ptr + 1024, 256, Primitive, "ushort")

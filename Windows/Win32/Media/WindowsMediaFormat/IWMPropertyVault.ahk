@@ -7,9 +7,8 @@
  * The IWMPropertyVault interface provides methods to store and retrieve properties.
  * @see https://learn.microsoft.com/windows/win32/api/wmsdkidl/nn-wmsdkidl-iwmpropertyvault
  * @namespace Windows.Win32.Media.WindowsMediaFormat
- * @version v4.0.30319
  */
-class IWMPropertyVault extends IUnknown{
+class IWMPropertyVault extends IUnknown {
 
     static sizeof => A_PtrSize
     /**
@@ -77,7 +76,7 @@ class IWMPropertyVault extends IUnknown{
      * @remarks
      * You must make two calls to <b>GetPropertyByName</b> to properly retrieve the value of the property. On the first call, pass <b>NULL</b> for <i>pValue</i>. When the call returns, <i>pdwSize</i> will point to the correct sizes of the buffer. Then on the second call, pass a properly sized buffer as <i>pValue</i> to receive the data.
      * @param {PWSTR} pszName Pointer to a <b>null</b>-terminated string containing the name of the property to be retrieved.
-     * @param {Pointer<Integer>} pType Pointer to a member of the <a href="https://docs.microsoft.com/windows/desktop/api/wmsdkidl/ne-wmsdkidl-wmt_attr_datatype">WMT_ATTR_DATATYPE</a> enumeration type. This parameter specifies the type of data pointed to by <i>pValue</i>.
+     * @param {Pointer<WMT_ATTR_DATATYPE>} pType Pointer to a member of the <a href="https://docs.microsoft.com/windows/desktop/api/wmsdkidl/ne-wmsdkidl-wmt_attr_datatype">WMT_ATTR_DATATYPE</a> enumeration type. This parameter specifies the type of data pointed to by <i>pValue</i>.
      * @param {Pointer<Integer>} pValue Pointer to a data buffer containing the value of the property. This value can be one of several types. The type of data that the buffer contains on output is specified by the value of <i>pType</i>.
      * @param {Pointer<Integer>} pdwSize Pointer to a <b>DWORD</b> containing the size, in bytes, of the data at <i>pValue</i>.
      * @returns {HRESULT} The method returns an <b>HRESULT</b>. Possible values include, but are not limited to, those in the following table.
@@ -231,7 +230,7 @@ class IWMPropertyVault extends IUnknown{
      *  
      * 
      * In addition to the values in the table, the settings for variable bit rate encoding are set using this method. For more information, see <a href="https://docs.microsoft.com/windows/desktop/wmformat/configuring-vbr-streams">Configuring VBR Streams</a>.
-     * @param {Integer} pType Pointer to a member of the <a href="https://docs.microsoft.com/windows/desktop/api/wmsdkidl/ne-wmsdkidl-wmt_attr_datatype">WMT_ATTR_DATATYPE</a> enumeration type. This parameter specifies the type of data pointed to by <i>pValue</i>.
+     * @param {WMT_ATTR_DATATYPE} pType Pointer to a member of the <a href="https://docs.microsoft.com/windows/desktop/api/wmsdkidl/ne-wmsdkidl-wmt_attr_datatype">WMT_ATTR_DATATYPE</a> enumeration type. This parameter specifies the type of data pointed to by <i>pValue</i>.
      * @param {Pointer<Integer>} pValue Pointer to a data buffer containing the value of the property. This value can be one of several types. The type of data that the buffer contains on output is specified by the value of <i>pType</i>.
      * @param {Integer} dwSize <b>DWORD</b> containing the size, in bytes, of the data at <i>pValue</i>.
      * @returns {HRESULT} The method returns an <b>HRESULT</b>. Possible values include, but are not limited to, those in the following table.
@@ -305,7 +304,7 @@ class IWMPropertyVault extends IUnknown{
      * @param {Integer} dwIndex <b>DWORD</b> containing the property index.
      * @param {PWSTR} pszName Pointer to a wide-character <b>null</b>-terminated string containing the name of the property.
      * @param {Pointer<Integer>} pdwNameLen On input, a pointer to a <b>DWORD</b> containing the length, in wide characters, of the string at <i>pszName</i>. On output, specifies the number of characters, including the terminating <b>null</b> character, required to hold the property name.
-     * @param {Pointer<Integer>} pType Pointer to a member of the <a href="https://docs.microsoft.com/windows/desktop/api/wmsdkidl/ne-wmsdkidl-wmt_attr_datatype">WMT_ATTR_DATATYPE</a> enumeration type. This parameter specifies the type of data pointed to by <i>pValue</i>.
+     * @param {Pointer<WMT_ATTR_DATATYPE>} pType Pointer to a member of the <a href="https://docs.microsoft.com/windows/desktop/api/wmsdkidl/ne-wmsdkidl-wmt_attr_datatype">WMT_ATTR_DATATYPE</a> enumeration type. This parameter specifies the type of data pointed to by <i>pValue</i>.
      * @param {Pointer<Integer>} pValue Pointer to a data buffer containing the value of the property. This value can be one of several types. The type of data that the buffer contains on output is specified by the value of <i>pType</i>.
      * @param {Pointer<Integer>} pdwSize Pointer to a <b>DWORD</b> containing the size, in bytes, of the data at <i>pValue</i>.
      * @returns {HRESULT} The method returns an <b>HRESULT</b>. Possible values include, but are not limited to, those in the following table.

@@ -1,8 +1,8 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\..\Guid.ahk
-#Include ..\..\..\Foundation\BSTR.ahk
 #Include .\IMSVidPlayback.ahk
+#Include ..\..\..\Foundation\BSTR.ahk
 
 /**
  * The IMSVidFilePlayback interface enables the client to specify a local file for playback. It is implemented by the MSVidFilePlaybackDevice object.
@@ -12,9 +12,8 @@
  * To declare the interface identifier (IID) for this interface, use the <b>__uuidof</b> operator: <c>__uuidof(IMSVidFilePlayback)</c>.
  * @see https://learn.microsoft.com/windows/win32/api/segment/nn-segment-imsvidfileplayback
  * @namespace Windows.Win32.Media.DirectShow.Tv
- * @version v4.0.30319
  */
-class IMSVidFilePlayback extends IMSVidPlayback{
+class IMSVidFilePlayback extends IMSVidPlayback {
 
     static sizeof => A_PtrSize
     /**

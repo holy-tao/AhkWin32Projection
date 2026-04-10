@@ -3,10 +3,8 @@
 
 /**
  * @namespace Windows.Wdk.System.SystemServices
- * @version v4.0.30319
  */
-class SYSTEM_FIRMWARE_TABLE_HANDLER extends Win32Struct
-{
+class SYSTEM_FIRMWARE_TABLE_HANDLER extends Win32Struct {
     static sizeof => 24
 
     static packingSize => 8

@@ -5,10 +5,8 @@
  * The DDGETCURRENTAUTOFLIPOUTINFO structure provides the surface information.
  * @see https://learn.microsoft.com/windows/win32/api/dxmini/ns-dxmini-ddgetcurrentautoflipoutinfo
  * @namespace Windows.Win32.Graphics.DirectDraw
- * @version v4.0.30319
  */
-class DDGETCURRENTAUTOFLIPOUTINFO extends Win32Struct
-{
+class DDGETCURRENTAUTOFLIPOUTINFO extends Win32Struct {
     static sizeof => 8
 
     static packingSize => 4

@@ -1,8 +1,8 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
-#Include ..\Dxgi\IDXGISwapChain.ahk
 #Include ..\..\System\Com\IUnknown.ahk
+#Include ..\Dxgi\IDXGISwapChain.ahk
 
 /**
  * A debug interface controls debug settings, validates pipeline state and can only be used if the debug layer is turned on. (ID3D11Debug)
@@ -17,9 +17,8 @@
  *         </b> This API is supported.
  * @see https://learn.microsoft.com/windows/win32/api/d3d11sdklayers/nn-d3d11sdklayers-id3d11debug
  * @namespace Windows.Win32.Graphics.Direct3D11
- * @version v4.0.30319
  */
-class ID3D11Debug extends IUnknown{
+class ID3D11Debug extends IUnknown {
 
     static sizeof => A_PtrSize
     /**
@@ -262,7 +261,7 @@ class ID3D11Debug extends IUnknown{
      * Report information about a device object's lifetime.
      * @remarks
      * <b>ReportLiveDeviceObjects</b> uses the value in  <i>Flags</i> to determine the amount of information to report about a device object's lifetime.
-     * @param {Integer} Flags Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/d3d11sdklayers/ne-d3d11sdklayers-d3d11_rldo_flags">D3D11_RLDO_FLAGS</a></b>
+     * @param {D3D11_RLDO_FLAGS} Flags Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/d3d11sdklayers/ne-d3d11sdklayers-d3d11_rldo_flags">D3D11_RLDO_FLAGS</a></b>
      * 
      * A value from the
      *             <a href="https://docs.microsoft.com/windows/desktop/api/d3d11sdklayers/ne-d3d11sdklayers-d3d11_rldo_flags">D3D11_RLDO_FLAGS</a> enumeration.

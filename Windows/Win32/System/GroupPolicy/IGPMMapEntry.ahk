@@ -1,16 +1,15 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
-#Include ..\..\Foundation\BSTR.ahk
 #Include ..\Com\IDispatch.ahk
+#Include ..\..\Foundation\BSTR.ahk
 
 /**
  * The IGPMMapEntry interface provides access to a map entry.
  * @see https://learn.microsoft.com/windows/win32/api/gpmgmt/nn-gpmgmt-igpmmapentry
  * @namespace Windows.Win32.System.GroupPolicy
- * @version v4.0.30319
  */
-class IGPMMapEntry extends IDispatch{
+class IGPMMapEntry extends IDispatch {
 
     static sizeof => A_PtrSize
     /**
@@ -52,14 +51,14 @@ class IGPMMapEntry extends IDispatch{
     }
 
     /**
-     * @type {Integer} 
+     * @type {GPMDestinationOption} 
      */
     DestinationOption {
         get => this.get_DestinationOption()
     }
 
     /**
-     * @type {Integer} 
+     * @type {GPMEntryType} 
      */
     EntryType {
         get => this.get_EntryType()
@@ -87,7 +86,7 @@ class IGPMMapEntry extends IDispatch{
 
     /**
      * 
-     * @returns {Integer} 
+     * @returns {GPMDestinationOption} 
      */
     get_DestinationOption() {
         result := ComCall(9, this, "int*", &pgpmDestOption := 0, "HRESULT")
@@ -96,7 +95,7 @@ class IGPMMapEntry extends IDispatch{
 
     /**
      * 
-     * @returns {Integer} 
+     * @returns {GPMEntryType} 
      */
     get_EntryType() {
         result := ComCall(10, this, "int*", &pgpmEntryType := 0, "HRESULT")

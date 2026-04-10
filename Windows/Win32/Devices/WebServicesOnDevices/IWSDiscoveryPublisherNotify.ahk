@@ -7,9 +7,8 @@
  * Is implemented by the client program to receive callback notifications from IWSDiscoveryPublisher.
  * @see https://learn.microsoft.com/windows/win32/api/wsddisco/nn-wsddisco-iwsdiscoverypublishernotify
  * @namespace Windows.Win32.Devices.WebServicesOnDevices
- * @version v4.0.30319
  */
-class IWSDiscoveryPublisherNotify extends IUnknown{
+class IWSDiscoveryPublisherNotify extends IUnknown {
 
     static sizeof => A_PtrSize
     /**

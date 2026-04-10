@@ -11,9 +11,8 @@
  * For additional information, see <a href="https://docs.microsoft.com/windows/desktop/properties/propdesc-schema-enumeratedlist">enumeratedList</a>.
  * @see https://learn.microsoft.com/windows/win32/api/propsys/nn-propsys-ipropertyenumtype2
  * @namespace Windows.Win32.UI.Shell.PropertiesSystem
- * @version v4.0.30319
  */
-class IPropertyEnumType2 extends IPropertyEnumType{
+class IPropertyEnumType2 extends IPropertyEnumType {
 
     static sizeof => A_PtrSize
     /**

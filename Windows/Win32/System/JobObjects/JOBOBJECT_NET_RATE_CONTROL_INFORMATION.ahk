@@ -1,5 +1,6 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
+#Include .\JOB_OBJECT_NET_RATE_CONTROL_FLAGS.ahk
 
 /**
  * Contains information used to control the network traffic for a job. This structure is used by the SetInformationJobObject and QueryInformationJobObject functions with the JobObjectNetRateControlInformation information class.
@@ -7,10 +8,8 @@
  * You can only set the control of the network traffic on one job in a hierarchy of nested jobs. The settings that you specify apply to that job and the child jobs in the hierarchy for that job.  The settings do not apply to the chain of jobs from the parent job up to the top of the hierarchy. You can change the settings on the original job in the hierarchy on which you set rate control. However, attempts to set values for the control of the network rate for any other jobs in the hierarchy, including the parent jobs, fail.
  * @see https://learn.microsoft.com/windows/win32/api/winnt/ns-winnt-jobobject_net_rate_control_information
  * @namespace Windows.Win32.System.JobObjects
- * @version v4.0.30319
  */
-class JOBOBJECT_NET_RATE_CONTROL_INFORMATION extends Win32Struct
-{
+class JOBOBJECT_NET_RATE_CONTROL_INFORMATION extends Win32Struct {
     static sizeof => 16
 
     static packingSize => 8
@@ -26,7 +25,7 @@ class JOBOBJECT_NET_RATE_CONTROL_INFORMATION extends Win32Struct
 
     /**
      * A combination of <a href="https://docs.microsoft.com/windows/desktop/api/winnt/ne-winnt-job_object_net_rate_control_flags">JOB_OBJECT_NET_RATE_CONTROL_FLAGS</a> enumeration values that specify the scheduling policy for network rate control.
-     * @type {Integer}
+     * @type {JOB_OBJECT_NET_RATE_CONTROL_FLAGS}
      */
     ControlFlags {
         get => NumGet(this, 8, "int")

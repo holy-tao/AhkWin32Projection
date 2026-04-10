@@ -5,9 +5,8 @@
 
 /**
  * @namespace Windows.Win32.Media
- * @version v4.0.30319
  */
-class IReferenceClock2 extends IReferenceClock{
+class IReferenceClock2 extends IReferenceClock {
 
     static sizeof => A_PtrSize
     /**

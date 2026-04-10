@@ -1,14 +1,13 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
+#Include .\CERT_REVOCATION_STATUS_REASON.ahk
 
 /**
  * Contains information on the revocation status of the certificate.
  * @see https://learn.microsoft.com/windows/win32/api/wincrypt/ns-wincrypt-cert_revocation_status
  * @namespace Windows.Win32.Security.Cryptography
- * @version v4.0.30319
  */
-class CERT_REVOCATION_STATUS extends Win32Struct
-{
+class CERT_REVOCATION_STATUS extends Win32Struct {
     static sizeof => 24
 
     static packingSize => 4
@@ -49,8 +48,7 @@ class CERT_REVOCATION_STATUS extends Win32Struct
     }
 
     /**
-     * 
-     * @type {Integer}
+     * @type {CERT_REVOCATION_STATUS_REASON}
      */
     dwReason {
         get => NumGet(this, 12, "uint")

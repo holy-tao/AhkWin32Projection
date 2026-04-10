@@ -5,9 +5,8 @@
  * The NLM_CONNECTION PROPERTY_CHANGE enumeration is a set of flags that define changes made to the properties of a network connection.
  * @see https://learn.microsoft.com/windows/win32/api/netlistmgr/ne-netlistmgr-nlm_connection_property_change
  * @namespace Windows.Win32.Networking.NetworkListManager
- * @version v4.0.30319
  */
-class NLM_CONNECTION_PROPERTY_CHANGE extends Win32Enum{
+class NLM_CONNECTION_PROPERTY_CHANGE extends Win32Enum {
 
     /**
      * The Authentication (Domain Type) of this Network Connection has changed.

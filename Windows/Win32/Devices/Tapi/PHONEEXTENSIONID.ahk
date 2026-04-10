@@ -9,10 +9,8 @@
  * Extension identifiers are generated using an SDK-provided generation utility.
  * @see https://learn.microsoft.com/windows/win32/api/tapi/ns-tapi-phoneextensionid
  * @namespace Windows.Win32.Devices.Tapi
- * @version v4.0.30319
  */
-class PHONEEXTENSIONID extends Win32Struct
-{
+class PHONEEXTENSIONID extends Win32Struct {
     static sizeof => 16
 
     static packingSize => 4

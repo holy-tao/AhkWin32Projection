@@ -7,9 +7,8 @@
  * Retrieves transaction, activity, and context information on the current context object.
  * @see https://learn.microsoft.com/windows/win32/api/comsvcs/nn-comsvcs-iobjectcontextinfo
  * @namespace Windows.Win32.System.ComponentServices
- * @version v4.0.30319
  */
-class IObjectContextInfo extends IUnknown{
+class IObjectContextInfo extends IUnknown {
 
     static sizeof => A_PtrSize
     /**

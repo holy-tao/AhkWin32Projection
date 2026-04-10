@@ -5,9 +5,8 @@
  * Specifies the display and encoding characteristics of a distinguished name or relative distinguished name (RDN).
  * @see https://learn.microsoft.com/windows/win32/api/certenroll/ne-certenroll-x500nameflags
  * @namespace Windows.Win32.Security.Cryptography.Certificates
- * @version v4.0.30319
  */
-class X500NameFlags extends Win32Enum{
+class X500NameFlags extends Win32Enum {
 
     /**
      * Display characteristics are not identified.
@@ -120,7 +119,6 @@ class X500NameFlags extends Win32Enum{
     static XCN_CERT_NAME_STR_FORWARD_FLAG => 16777216
 
     /**
-     * 
      * @type {Integer (Int32)}
      */
     static XCN_CERT_NAME_STR_AMBIGUOUS_SEPARATOR_FLAGS => 1275068416
@@ -223,13 +221,11 @@ class X500NameFlags extends Win32Enum{
     static XCN_CERT_NAME_STR_DISABLE_UTF8_DIR_STR_FLAG => 1048576
 
     /**
-     * 
      * @type {Integer (Int32)}
      */
     static XCN_CERT_NAME_STR_ENABLE_PUNYCODE_FLAG => 2097152
 
     /**
-     * 
      * @type {Integer (Int32)}
      */
     static XCN_CERT_NAME_STR_DS_ESCAPED => 8388608

@@ -7,10 +7,8 @@
  * If both <b>IsUmsSchedulerThread</b>  and <b>IsUmsWorkerThread</b> are clear, the structure specifies a non-UMS thread.
  * @see https://learn.microsoft.com/windows/win32/api/winbase/ns-winbase-ums_system_thread_information
  * @namespace Windows.Win32.System.Threading
- * @version v4.0.30319
  */
-class UMS_SYSTEM_THREAD_INFORMATION extends Win32Struct
-{
+class UMS_SYSTEM_THREAD_INFORMATION extends Win32Struct {
     static sizeof => 8
 
     static packingSize => 4

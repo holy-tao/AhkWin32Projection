@@ -7,9 +7,8 @@
  * Use the IBackgroundCopyJob3 interface to download ranges of a file and change the prefix of a remote file name.
  * @see https://learn.microsoft.com/windows/win32/api/bits2_0/nn-bits2_0-ibackgroundcopyjob3
  * @namespace Windows.Win32.Networking.BackgroundIntelligentTransferService
- * @version v4.0.30319
  */
-class IBackgroundCopyJob3 extends IBackgroundCopyJob2{
+class IBackgroundCopyJob3 extends IBackgroundCopyJob2 {
 
     static sizeof => A_PtrSize
     /**

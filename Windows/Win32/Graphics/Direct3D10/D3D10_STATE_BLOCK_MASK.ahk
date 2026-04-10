@@ -7,10 +7,8 @@
  * A state-block mask indicates the device states that a pass or a technique changes.  The <a href="https://docs.microsoft.com/windows/desktop/api/d3d10effect/nf-d3d10effect-d3d10stateblockmaskenablecapture">D3D10StateBlockMaskEnableCapture</a> function provides a convenient way of setting a range of bitmasks for the array members of <b>D3D10_STATE_BLOCK_MASK</b>.
  * @see https://learn.microsoft.com/windows/win32/api/d3d10effect/ns-d3d10effect-d3d10_state_block_mask
  * @namespace Windows.Win32.Graphics.Direct3D10
- * @version v4.0.30319
  */
-class D3D10_STATE_BLOCK_MASK extends Win32Struct
-{
+class D3D10_STATE_BLOCK_MASK extends Win32Struct {
     static sizeof => 76
 
     static packingSize => 1
@@ -30,9 +28,9 @@ class D3D10_STATE_BLOCK_MASK extends Win32Struct
      * Type: <b><a href="https://docs.microsoft.com/windows/desktop/WinProg/windows-data-types">BYTE</a></b>
      * 
      * Array of vertex-shader samplers.  The array is a multi-byte bitmask where each bit represents one sampler slot.
-     * @type {Array<Byte>}
+     * @type {Array<Integer>}
      */
-    VSSamplers{
+    VSSamplers {
         get {
             if(!this.HasProp("__VSSamplersProxyArray"))
                 this.__VSSamplersProxyArray := Win32FixedArray(this.ptr + 1, 2, Primitive, "char")
@@ -44,9 +42,9 @@ class D3D10_STATE_BLOCK_MASK extends Win32Struct
      * Type: <b><a href="https://docs.microsoft.com/windows/desktop/WinProg/windows-data-types">BYTE</a></b>
      * 
      * Array of vertex-shader resources. The array is a multi-byte bitmask where each bit represents one resource slot.
-     * @type {Array<Byte>}
+     * @type {Array<Integer>}
      */
-    VSShaderResources{
+    VSShaderResources {
         get {
             if(!this.HasProp("__VSShaderResourcesProxyArray"))
                 this.__VSShaderResourcesProxyArray := Win32FixedArray(this.ptr + 3, 16, Primitive, "char")
@@ -58,9 +56,9 @@ class D3D10_STATE_BLOCK_MASK extends Win32Struct
      * Type: <b><a href="https://docs.microsoft.com/windows/desktop/WinProg/windows-data-types">BYTE</a></b>
      * 
      * Array of vertex-shader constant buffers. The array is a multi-byte bitmask where each bit represents one constant buffer slot.
-     * @type {Array<Byte>}
+     * @type {Array<Integer>}
      */
-    VSConstantBuffers{
+    VSConstantBuffers {
         get {
             if(!this.HasProp("__VSConstantBuffersProxyArray"))
                 this.__VSConstantBuffersProxyArray := Win32FixedArray(this.ptr + 19, 2, Primitive, "char")
@@ -83,9 +81,9 @@ class D3D10_STATE_BLOCK_MASK extends Win32Struct
      * Type: <b><a href="https://docs.microsoft.com/windows/desktop/WinProg/windows-data-types">BYTE</a></b>
      * 
      * Array of geometry-shader samplers. The array is a multi-byte bitmask where each bit represents one sampler slot.
-     * @type {Array<Byte>}
+     * @type {Array<Integer>}
      */
-    GSSamplers{
+    GSSamplers {
         get {
             if(!this.HasProp("__GSSamplersProxyArray"))
                 this.__GSSamplersProxyArray := Win32FixedArray(this.ptr + 22, 2, Primitive, "char")
@@ -97,9 +95,9 @@ class D3D10_STATE_BLOCK_MASK extends Win32Struct
      * Type: <b><a href="https://docs.microsoft.com/windows/desktop/WinProg/windows-data-types">BYTE</a></b>
      * 
      * Array of geometry-shader resources. The array is a multi-byte bitmask where each bit represents one resource slot.
-     * @type {Array<Byte>}
+     * @type {Array<Integer>}
      */
-    GSShaderResources{
+    GSShaderResources {
         get {
             if(!this.HasProp("__GSShaderResourcesProxyArray"))
                 this.__GSShaderResourcesProxyArray := Win32FixedArray(this.ptr + 24, 16, Primitive, "char")
@@ -111,9 +109,9 @@ class D3D10_STATE_BLOCK_MASK extends Win32Struct
      * Type: <b><a href="https://docs.microsoft.com/windows/desktop/WinProg/windows-data-types">BYTE</a></b>
      * 
      * Array of geometry-shader constant buffers. The array is a multi-byte bitmask where each bit represents one buffer slot.
-     * @type {Array<Byte>}
+     * @type {Array<Integer>}
      */
-    GSConstantBuffers{
+    GSConstantBuffers {
         get {
             if(!this.HasProp("__GSConstantBuffersProxyArray"))
                 this.__GSConstantBuffersProxyArray := Win32FixedArray(this.ptr + 40, 2, Primitive, "char")
@@ -136,9 +134,9 @@ class D3D10_STATE_BLOCK_MASK extends Win32Struct
      * Type: <b><a href="https://docs.microsoft.com/windows/desktop/WinProg/windows-data-types">BYTE</a></b>
      * 
      * Array of pixel-shader samplers. The array is a multi-byte bitmask where each bit represents one sampler slot.
-     * @type {Array<Byte>}
+     * @type {Array<Integer>}
      */
-    PSSamplers{
+    PSSamplers {
         get {
             if(!this.HasProp("__PSSamplersProxyArray"))
                 this.__PSSamplersProxyArray := Win32FixedArray(this.ptr + 43, 2, Primitive, "char")
@@ -150,9 +148,9 @@ class D3D10_STATE_BLOCK_MASK extends Win32Struct
      * Type: <b><a href="https://docs.microsoft.com/windows/desktop/WinProg/windows-data-types">BYTE</a></b>
      * 
      * Array of pixel-shader resources. The array is a multi-byte bitmask where each bit represents one resource slot.
-     * @type {Array<Byte>}
+     * @type {Array<Integer>}
      */
-    PSShaderResources{
+    PSShaderResources {
         get {
             if(!this.HasProp("__PSShaderResourcesProxyArray"))
                 this.__PSShaderResourcesProxyArray := Win32FixedArray(this.ptr + 45, 16, Primitive, "char")
@@ -164,9 +162,9 @@ class D3D10_STATE_BLOCK_MASK extends Win32Struct
      * Type: <b><a href="https://docs.microsoft.com/windows/desktop/WinProg/windows-data-types">BYTE</a></b>
      * 
      * Array of pixel-shader constant buffers. The array is a multi-byte bitmask where each bit represents one constant buffer slot.
-     * @type {Array<Byte>}
+     * @type {Array<Integer>}
      */
-    PSConstantBuffers{
+    PSConstantBuffers {
         get {
             if(!this.HasProp("__PSConstantBuffersProxyArray"))
                 this.__PSConstantBuffersProxyArray := Win32FixedArray(this.ptr + 61, 2, Primitive, "char")
@@ -178,9 +176,9 @@ class D3D10_STATE_BLOCK_MASK extends Win32Struct
      * Type: <b><a href="https://docs.microsoft.com/windows/desktop/WinProg/windows-data-types">BYTE</a></b>
      * 
      * Array of vertex buffers. The array is a multi-byte bitmask where each bit represents one resource slot.
-     * @type {Array<Byte>}
+     * @type {Array<Integer>}
      */
-    IAVertexBuffers{
+    IAVertexBuffers {
         get {
             if(!this.HasProp("__IAVertexBuffersProxyArray"))
                 this.__IAVertexBuffersProxyArray := Win32FixedArray(this.ptr + 63, 2, Primitive, "char")

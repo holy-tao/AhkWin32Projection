@@ -7,9 +7,8 @@
  * Used to report events associated with transparently cached items.
  * @see https://learn.microsoft.com/windows/win32/api/cscobj/nn-cscobj-iofflinefilesevents3
  * @namespace Windows.Win32.Storage.OfflineFiles
- * @version v4.0.30319
  */
-class IOfflineFilesEvents3 extends IOfflineFilesEvents2{
+class IOfflineFilesEvents3 extends IOfflineFilesEvents2 {
 
     static sizeof => A_PtrSize
     /**
@@ -33,8 +32,8 @@ class IOfflineFilesEvents3 extends IOfflineFilesEvents2{
     /**
      * Reports that an action has been performed on a transparently cached item.
      * @param {PWSTR} pszPath The item's UNC path string.
-     * @param {Integer} EventType An <a href="https://docs.microsoft.com/windows/desktop/api/cscobj/ne-cscobj-offlinefiles_events">OFFLINEFILES_EVENTS</a> enumeration value that indicates the type of the item.
-     * @param {Integer} ItemType An <a href="https://docs.microsoft.com/windows/desktop/api/cscobj/ne-cscobj-offlinefiles_item_type">OFFLINEFILES_ITEM_TYPE</a> enumeration value that indicates the type of the item.
+     * @param {OFFLINEFILES_EVENTS} EventType An <a href="https://docs.microsoft.com/windows/desktop/api/cscobj/ne-cscobj-offlinefiles_events">OFFLINEFILES_EVENTS</a> enumeration value that indicates the type of the item.
+     * @param {OFFLINEFILES_ITEM_TYPE} ItemType An <a href="https://docs.microsoft.com/windows/desktop/api/cscobj/ne-cscobj-offlinefiles_item_type">OFFLINEFILES_ITEM_TYPE</a> enumeration value that indicates the type of the item.
      * @param {BOOL} bModifiedData <b>TRUE</b> if the item's data was modified, <b>FALSE</b> otherwise.
      * @param {BOOL} bModifiedAttributes <b>TRUE</b> if one or more of the item's attributes were modified, <b>FALSE</b> otherwise.
      * @param {PWSTR} pzsOldPath The original UNC path string for the item.

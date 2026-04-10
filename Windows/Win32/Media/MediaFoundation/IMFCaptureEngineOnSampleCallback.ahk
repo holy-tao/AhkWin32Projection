@@ -21,9 +21,8 @@
  * </ul>
  * @see https://learn.microsoft.com/windows/win32/api/mfcaptureengine/nn-mfcaptureengine-imfcaptureengineonsamplecallback
  * @namespace Windows.Win32.Media.MediaFoundation
- * @version v4.0.30319
  */
-class IMFCaptureEngineOnSampleCallback extends IUnknown{
+class IMFCaptureEngineOnSampleCallback extends IUnknown {
 
     static sizeof => A_PtrSize
     /**

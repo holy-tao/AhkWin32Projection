@@ -5,10 +5,8 @@
  * The RAS_USER_0 structure contains information for a particular Remote Access Service user.
  * @see https://learn.microsoft.com/windows/win32/api/mprapi/ns-mprapi-ras_user_0
  * @namespace Windows.Win32.NetworkManagement.Rras
- * @version v4.0.30319
  */
-class RAS_USER_0 extends Win32Struct
-{
+class RAS_USER_0 extends Win32Struct {
     static sizeof => 260
 
     static packingSize => 2

@@ -4,15 +4,11 @@
 
 /**
  * The **COLORMATCHSETUP** structure contains information that the [**SetupColorMatchingW**](/windows/win32/api/icm/nf-icm-setupcolormatchingw) function uses to initialize the **ColorManagement** dialog box. (Unicode)
- * @remarks
- * 
  * @see https://learn.microsoft.com/windows/win32/api/icm/ns-icm-colormatchsetupw
  * @namespace Windows.Win32.UI.ColorSystem
- * @version v4.0.30319
  * @charset Unicode
  */
-class COLORMATCHSETUPW extends Win32Struct
-{
+class COLORMATCHSETUPW extends Win32Struct {
     static sizeof => 136
 
     static packingSize => 8
@@ -68,7 +64,7 @@ class COLORMATCHSETUPW extends Win32Struct
      * The window handle to the owner of the dialog box, or **NULL** if the dialog box has no owner.
      * @type {HWND}
      */
-    hwndOwner{
+    hwndOwner {
         get {
             if(!this.HasProp("__hwndOwner"))
                 this.__hwndOwner := HWND(16, this)

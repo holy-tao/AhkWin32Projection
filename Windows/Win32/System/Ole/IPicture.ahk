@@ -1,9 +1,9 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
+#Include ..\Com\IUnknown.ahk
 #Include .\OLE_HANDLE.ahk
 #Include ..\..\Graphics\Gdi\HDC.ahk
-#Include ..\Com\IUnknown.ahk
 
 /**
  * Manages a picture object and its properties. Picture objects provide a language-neutral abstraction for bitmaps, icons, and metafiles.
@@ -83,9 +83,8 @@
  * The OLE-provided picture object implements the complete semantics of the <b>IPicture</b> and <a href="https://docs.microsoft.com/windows/desktop/api/ocidl/nn-ocidl-ipicturedisp">IPictureDisp</a> interfaces.
  * @see https://learn.microsoft.com/windows/win32/api/ocidl/nn-ocidl-ipicture
  * @namespace Windows.Win32.System.Ole
- * @version v4.0.30319
  */
-class IPicture extends IUnknown{
+class IPicture extends IUnknown {
 
     static sizeof => A_PtrSize
     /**
@@ -121,7 +120,7 @@ class IPicture extends IUnknown{
     }
 
     /**
-     * @type {Integer} 
+     * @type {PICTYPE} 
      */
     Type {
         get => this.get_Type()
@@ -194,7 +193,7 @@ class IPicture extends IUnknown{
 
     /**
      * Retrieves the current type of the picture contained in the picture object.
-     * @returns {Integer} Pointer to a variable that receives the picture type. The Type property can have any one of the values contained in the <a href="https://docs.microsoft.com/windows/desktop/com/pictype-constants">PICTYPE</a> enumeration.
+     * @returns {PICTYPE} Pointer to a variable that receives the picture type. The Type property can have any one of the values contained in the <a href="https://docs.microsoft.com/windows/desktop/com/pictype-constants">PICTYPE</a> enumeration.
      * @see https://learn.microsoft.com/windows/win32/api/ocidl/nf-ocidl-ipicture-get_type
      */
     get_Type() {
@@ -224,11 +223,11 @@ class IPicture extends IUnknown{
 
     /**
      * Renders (draws) a specified portion of the picture defined by the offset (xSrc,ySrc) of the source picture and the dimensions to copy (cxSrc,xySrc).
-     * @param {HDC} _hDC 
+     * @param {HDC} _hDC A handle of the device context on which to render the image.
      * @param {Integer} x The horizontal coordinate in <i>hdc</i> at which to place the rendered image.
      * @param {Integer} y The vertical coordinate in <i>hdc</i> at which to place the rendered image.
      * @param {Integer} cx The horizontal dimension (width) of the destination rectangle.
-     * @param {Integer} _cy 
+     * @param {Integer} _cy The vertical dimension (height) of the destination rectangle
      * @param {Integer} xSrc The horizontal offset in the source picture from which to start copying.
      * @param {Integer} ySrc The vertical offset in the source picture from which to start copying.
      * @param {Integer} cxSrc The horizontal extent to copy from the source picture.

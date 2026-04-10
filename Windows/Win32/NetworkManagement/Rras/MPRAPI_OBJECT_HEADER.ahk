@@ -5,10 +5,8 @@
  * Defines the structure version for the RAS_CONNECTION_EX, MPR_SERVER_EX, MPR_SERVER_SET_CONFIG_EX, RAS_UPDATE_CONNECTION, AUTH_VALIDATION_EX structures, and the structure version used by the MprAdminConnectionEnumEx method.
  * @see https://learn.microsoft.com/windows/win32/api/mprapi/ns-mprapi-mprapi_object_header
  * @namespace Windows.Win32.NetworkManagement.Rras
- * @version v4.0.30319
  */
-class MPRAPI_OBJECT_HEADER extends Win32Struct
-{
+class MPRAPI_OBJECT_HEADER extends Win32Struct {
     static sizeof => 4
 
     static packingSize => 2
@@ -63,7 +61,6 @@ class MPRAPI_OBJECT_HEADER extends Win32Struct
     }
 
     /**
-     * 
      * @type {Integer}
      */
     type {
@@ -72,7 +69,6 @@ class MPRAPI_OBJECT_HEADER extends Win32Struct
     }
 
     /**
-     * 
      * @type {Integer}
      */
     size {

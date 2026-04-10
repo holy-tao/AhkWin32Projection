@@ -5,10 +5,8 @@
  * Represents a disk extent.
  * @see https://learn.microsoft.com/windows/win32/api/winioctl/ns-winioctl-disk_extent
  * @namespace Windows.Win32.System.Ioctl
- * @version v4.0.30319
  */
-class DISK_EXTENT extends Win32Struct
-{
+class DISK_EXTENT extends Win32Struct {
     static sizeof => 24
 
     static packingSize => 8

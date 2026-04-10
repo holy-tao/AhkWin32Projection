@@ -7,9 +7,8 @@
  * Use this interface to retrieve information about the current write operation. This interface is passed to the DWriteEngine2Events::Update method that you implement.
  * @see https://learn.microsoft.com/windows/win32/api/imapi2/nn-imapi2-iwriteengine2eventargs
  * @namespace Windows.Win32.Storage.Imapi
- * @version v4.0.30319
  */
-class IWriteEngine2EventArgs extends IDispatch{
+class IWriteEngine2EventArgs extends IDispatch {
 
     static sizeof => A_PtrSize
     /**

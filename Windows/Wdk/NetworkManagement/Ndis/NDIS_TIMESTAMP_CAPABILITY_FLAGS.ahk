@@ -3,10 +3,8 @@
 
 /**
  * @namespace Windows.Wdk.NetworkManagement.Ndis
- * @version v4.0.30319
  */
-class NDIS_TIMESTAMP_CAPABILITY_FLAGS extends Win32Struct
-{
+class NDIS_TIMESTAMP_CAPABILITY_FLAGS extends Win32Struct {
     static sizeof => 14
 
     static packingSize => 1

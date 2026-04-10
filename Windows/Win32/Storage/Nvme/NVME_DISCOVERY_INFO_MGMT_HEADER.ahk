@@ -3,10 +3,8 @@
 
 /**
  * @namespace Windows.Win32.Storage.Nvme
- * @version v4.0.30319
  */
-class NVME_DISCOVERY_INFO_MGMT_HEADER extends Win32Struct
-{
+class NVME_DISCOVERY_INFO_MGMT_HEADER extends Win32Struct {
     static sizeof => 1024
 
     static packingSize => 8
@@ -31,7 +29,7 @@ class NVME_DISCOVERY_INFO_MGMT_HEADER extends Win32Struct
             get => NumGet(this, 0, "ushort")
             set => NumPut("ushort", value, this, 0)
         }
-    
+
         /**
          * @type {Integer}
          */
@@ -39,7 +37,7 @@ class NVME_DISCOVERY_INFO_MGMT_HEADER extends Win32Struct
             get => (this._bitfield >> 0) & 0x1
             set => this._bitfield := ((value & 0x1) << 0) | (this._bitfield & ~(0x1 << 0))
         }
-    
+
         /**
          * @type {Integer}
          */
@@ -47,7 +45,7 @@ class NVME_DISCOVERY_INFO_MGMT_HEADER extends Win32Struct
             get => (this._bitfield >> 1) & 0x1
             set => this._bitfield := ((value & 0x1) << 1) | (this._bitfield & ~(0x1 << 1))
         }
-    
+
         /**
          * @type {Integer}
          */
@@ -55,7 +53,7 @@ class NVME_DISCOVERY_INFO_MGMT_HEADER extends Win32Struct
             get => (this._bitfield >> 2) & 0x1
             set => this._bitfield := ((value & 0x1) << 2) | (this._bitfield & ~(0x1 << 2))
         }
-    
+
         /**
          * @type {Integer}
          */
@@ -63,7 +61,7 @@ class NVME_DISCOVERY_INFO_MGMT_HEADER extends Win32Struct
             get => (this._bitfield >> 3) & 0x1
             set => this._bitfield := ((value & 0x1) << 3) | (this._bitfield & ~(0x1 << 3))
         }
-    
+
         /**
          * @type {Integer}
          */
@@ -71,7 +69,7 @@ class NVME_DISCOVERY_INFO_MGMT_HEADER extends Win32Struct
             get => (this._bitfield >> 4) & 0x1
             set => this._bitfield := ((value & 0x1) << 4) | (this._bitfield & ~(0x1 << 4))
         }
-    
+
         /**
          * @type {Integer}
          */
@@ -79,7 +77,7 @@ class NVME_DISCOVERY_INFO_MGMT_HEADER extends Win32Struct
             get => (this._bitfield >> 5) & 0x1
             set => this._bitfield := ((value & 0x1) << 5) | (this._bitfield & ~(0x1 << 5))
         }
-    
+
         /**
          * @type {Integer}
          */
@@ -87,7 +85,7 @@ class NVME_DISCOVERY_INFO_MGMT_HEADER extends Win32Struct
             get => (this._bitfield >> 6) & 0x1
             set => this._bitfield := ((value & 0x1) << 6) | (this._bitfield & ~(0x1 << 6))
         }
-    
+
         /**
          * @type {Integer}
          */
@@ -95,7 +93,6 @@ class NVME_DISCOVERY_INFO_MGMT_HEADER extends Win32Struct
             get => NumGet(this, 0, "ushort")
             set => NumPut("ushort", value, this, 0)
         }
-    
     }
 
     /**
@@ -157,18 +154,18 @@ class NVME_DISCOVERY_INFO_MGMT_HEADER extends Win32Struct
     /**
      * @type {_EKTYPE_e__Union}
      */
-    EKTYPE{
+    EKTYPE {
         get {
             if(!this.HasProp("__EKTYPE"))
-                this.__EKTYPE := %this.__Class%._EKTYPE_e__Union(22, this)
+                this.__EKTYPE := NVME_DISCOVERY_INFO_MGMT_HEADER._EKTYPE_e__Union(22, this)
             return this.__EKTYPE
         }
     }
 
     /**
-     * @type {Array<Byte>}
+     * @type {Array<Integer>}
      */
-    EID{
+    EID {
         get {
             if(!this.HasProp("__EIDProxyArray"))
                 this.__EIDProxyArray := Win32FixedArray(this.ptr + 24, 256, Primitive, "char")
@@ -177,9 +174,9 @@ class NVME_DISCOVERY_INFO_MGMT_HEADER extends Win32Struct
     }
 
     /**
-     * @type {Array<Byte>}
+     * @type {Array<Integer>}
      */
-    ENAME{
+    ENAME {
         get {
             if(!this.HasProp("__ENAMEProxyArray"))
                 this.__ENAMEProxyArray := Win32FixedArray(this.ptr + 280, 256, Primitive, "char")
@@ -188,9 +185,9 @@ class NVME_DISCOVERY_INFO_MGMT_HEADER extends Win32Struct
     }
 
     /**
-     * @type {Array<Byte>}
+     * @type {Array<Integer>}
      */
-    EVER{
+    EVER {
         get {
             if(!this.HasProp("__EVERProxyArray"))
                 this.__EVERProxyArray := Win32FixedArray(this.ptr + 536, 64, Primitive, "char")
@@ -199,9 +196,9 @@ class NVME_DISCOVERY_INFO_MGMT_HEADER extends Win32Struct
     }
 
     /**
-     * @type {Array<Byte>}
+     * @type {Array<Integer>}
      */
-    Reserved2{
+    Reserved2 {
         get {
             if(!this.HasProp("__Reserved2ProxyArray"))
                 this.__Reserved2ProxyArray := Win32FixedArray(this.ptr + 600, 424, Primitive, "char")

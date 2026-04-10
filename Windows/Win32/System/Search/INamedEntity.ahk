@@ -7,9 +7,8 @@
  * Provides methods to get the value of, or a default phrase for the value of, a named entity.
  * @see https://learn.microsoft.com/windows/win32/api/structuredquery/nn-structuredquery-inamedentity
  * @namespace Windows.Win32.System.Search
- * @version v4.0.30319
  */
-class INamedEntity extends IUnknown{
+class INamedEntity extends IUnknown {
 
     static sizeof => A_PtrSize
     /**

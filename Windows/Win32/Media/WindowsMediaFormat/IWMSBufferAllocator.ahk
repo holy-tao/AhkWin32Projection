@@ -1,16 +1,15 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
-#Include .\INSSBuffer.ahk
 #Include ..\..\System\Com\IUnknown.ahk
+#Include .\INSSBuffer.ahk
 
 /**
  * The IWMSSBufferAllocator interface provides methods for allocating a buffer.
  * @see https://learn.microsoft.com/windows/win32/api/wmsbuffer/nn-wmsbuffer-iwmsbufferallocator
  * @namespace Windows.Win32.Media.WindowsMediaFormat
- * @version v4.0.30319
  */
-class IWMSBufferAllocator extends IUnknown{
+class IWMSBufferAllocator extends IUnknown {
 
     static sizeof => A_PtrSize
     /**

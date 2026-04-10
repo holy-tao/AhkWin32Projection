@@ -18,10 +18,8 @@
  * -   [**GetStrokeRanges**](/previous-versions/windows/desktop/legacy/ms705304(v=vs.85))
  * @see https://learn.microsoft.com/windows/win32/tablet/hrecoalt-handle
  * @namespace Windows.Win32.UI.TabletPC
- * @version v4.0.30319
  */
-class HRECOALT extends Win32Handle
-{
+class HRECOALT extends Win32Handle {
     static sizeof => 8
 
     static packingSize => 8

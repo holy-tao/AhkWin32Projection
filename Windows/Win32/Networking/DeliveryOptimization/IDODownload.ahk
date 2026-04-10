@@ -1,19 +1,16 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
+#Include ..\..\System\Com\IUnknown.ahk
 #Include .\DO_DOWNLOAD_STATUS.ahk
 #Include ..\..\System\Variant\VARIANT.ahk
-#Include ..\..\System\Com\IUnknown.ahk
 
 /**
  * Used to start and manage a download.
- * @remarks
- * 
  * @see https://learn.microsoft.com/windows/win32/api/deliveryoptimization/nn-deliveryoptimization-idodownload
  * @namespace Windows.Win32.Networking.DeliveryOptimization
- * @version v4.0.30319
  */
-class IDODownload extends IUnknown{
+class IDODownload extends IUnknown {
 
     static sizeof => A_PtrSize
     /**
@@ -77,7 +74,7 @@ class IDODownload extends IUnknown{
 
     /**
      * IDODownload::GetStatus retrieves a pointer to a DO_DOWNLOAD_STATUS structure that reflects the current status of the download.
-     * @returns {DO_DOWNLOAD_STATUS} 
+     * @returns {DO_DOWNLOAD_STATUS} A pointer to a **DO_DOWNLOAD_STATUS** structure.
      * @see https://learn.microsoft.com/windows/win32/api/deliveryoptimization/nf-deliveryoptimization-idodownload-getstatus
      */
     GetStatus() {
@@ -88,7 +85,7 @@ class IDODownload extends IUnknown{
 
     /**
      * Retrieves a pointer to a **VARIANT** that contains a specific download property.
-     * @param {Integer} propId The required property ID to get (of type **DODownloadProperty**).
+     * @param {DODownloadProperty} propId The required property ID to get (of type **DODownloadProperty**).
      * @returns {VARIANT} The resulting property value, stored in a **VARIANT**.
      * @see https://learn.microsoft.com/windows/win32/api/deliveryoptimization/nf-deliveryoptimization-idodownload-getproperty
      */
@@ -100,7 +97,7 @@ class IDODownload extends IUnknown{
 
     /**
      * Sets a download property.
-     * @param {Integer} propId The required property ID to set (of type **DODownloadProperty**).
+     * @param {DODownloadProperty} propId The required property ID to set (of type **DODownloadProperty**).
      * @param {Pointer<VARIANT>} propVal The property value to set, stored in a **VARIANT**.
      * @returns {HRESULT} If the function succeeds, it returns **S_OK**. Otherwise, it returns an [**HRESULT**](/windows/win32/com/structure-of-com-error-codes) [error code](/windows/win32/com/com-error-codes-10).
      * 

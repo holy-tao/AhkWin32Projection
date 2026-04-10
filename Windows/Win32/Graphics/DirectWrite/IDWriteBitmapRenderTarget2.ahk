@@ -1,14 +1,13 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
-#Include .\DWRITE_BITMAP_DATA_BGRA32.ahk
 #Include .\IDWriteBitmapRenderTarget1.ahk
+#Include .\DWRITE_BITMAP_DATA_BGRA32.ahk
 
 /**
  * @namespace Windows.Win32.Graphics.DirectWrite
- * @version v4.0.30319
  */
-class IDWriteBitmapRenderTarget2 extends IDWriteBitmapRenderTarget1{
+class IDWriteBitmapRenderTarget2 extends IDWriteBitmapRenderTarget1 {
 
     static sizeof => A_PtrSize
     /**

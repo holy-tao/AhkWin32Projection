@@ -2,8 +2,8 @@
 #Include ..\..\..\..\Win32Struct.ahk
 #Include ..\..\Foundation\POINTL.ahk
 #Include ..\..\Foundation\SIZE.ahk
-#Include .\CIECHROMA.ahk
 #Include .\COLORINFO.ahk
+#Include .\CIECHROMA.ahk
 
 /**
  * The GDIINFO structure describes the graphics capabilities of a given device.
@@ -35,10 +35,8 @@
  * Each byte threshold at a particular location in a halftone dither pattern determines whether the pixel at the corresponding output plane location will be on or off. A zero threshold value at a particular location in the pattern array indicates that the corresponding pixel location is ignored (is black). Threshold values from 1 to 255 provide the dither pattern with 255 levels of gray; if the pixel value in the output plane is greater than or equal to the threshold value for that location, the pixel is turned on. A pixel value less than its corresponding threshold value causes its pixel to be turned off in the output plane. See <a href="https://docs.microsoft.com/windows-hardware/drivers/print/customized-halftoning">Customized Halftoning</a> in <a href="https://docs.microsoft.com/windows-hardware/drivers/print/customizing-microsoft-s-printer-drivers">Customizing Microsoft's Printer Drivers</a> for more information.
  * @see https://learn.microsoft.com/windows/win32/api/winddi/ns-winddi-gdiinfo
  * @namespace Windows.Win32.Devices.Display
- * @version v4.0.30319
  */
-class GDIINFO extends Win32Struct
-{
+class GDIINFO extends Win32Struct {
     static sizeof => 320
 
     static packingSize => 8
@@ -234,7 +232,6 @@ class GDIINFO extends Win32Struct
     }
 
     /**
-     * 
      * @type {Integer}
      */
     ulDACRed {
@@ -243,7 +240,6 @@ class GDIINFO extends Win32Struct
     }
 
     /**
-     * 
      * @type {Integer}
      */
     ulDACGreen {
@@ -318,7 +314,7 @@ class GDIINFO extends Win32Struct
      * Specifies a <a href="https://docs.microsoft.com/windows/desktop/api/windef/ns-windef-pointl">POINTL</a> structure that contains the size, in pixels, of the unwritable margin of a surface.
      * @type {POINTL}
      */
-    ptlPhysOffset{
+    ptlPhysOffset {
         get {
             if(!this.HasProp("__ptlPhysOffset"))
                 this.__ptlPhysOffset := POINTL(88, this)
@@ -330,7 +326,7 @@ class GDIINFO extends Win32Struct
      * Specifies a SIZEL structure that contains the size, in pixels, of the entire surface, including unwritable margins. A SIZEL structure is identical to a <a href="https://docs.microsoft.com/windows/desktop/api/windef/ns-windef-size">SIZE</a> structure.
      * @type {SIZE}
      */
-    szlPhysSize{
+    szlPhysSize {
         get {
             if(!this.HasProp("__szlPhysSize"))
                 this.__szlPhysSize := SIZE(96, this)
@@ -351,7 +347,7 @@ class GDIINFO extends Win32Struct
      * Is a <a href="https://docs.microsoft.com/windows/desktop/api/winddi/ns-winddi-colorinfo">COLORINFO</a> structure that defines the device's colors in CIE coordinate space.
      * @type {COLORINFO}
      */
-    ciDevice{
+    ciDevice {
         get {
             if(!this.HasProp("__ciDevice"))
                 this.__ciDevice := COLORINFO(108, this)
@@ -449,7 +445,6 @@ class GDIINFO extends Win32Struct
     }
 
     /**
-     * 
      * @type {Integer}
      */
     ulHTPatternSize {
@@ -458,7 +453,6 @@ class GDIINFO extends Win32Struct
     }
 
     /**
-     * 
      * @type {Integer}
      */
     ulHTOutputFormat {
@@ -467,7 +461,6 @@ class GDIINFO extends Win32Struct
     }
 
     /**
-     * 
      * @type {Integer}
      */
     flHTFlags {
@@ -498,7 +491,6 @@ class GDIINFO extends Win32Struct
     }
 
     /**
-     * 
      * @type {Integer}
      */
     ulPanningHorzRes {
@@ -516,7 +508,6 @@ class GDIINFO extends Win32Struct
     }
 
     /**
-     * 
      * @type {Integer}
      */
     xPanningAlignment {
@@ -534,7 +525,6 @@ class GDIINFO extends Win32Struct
     }
 
     /**
-     * 
      * @type {Integer}
      */
     cxHTPat {
@@ -552,7 +542,6 @@ class GDIINFO extends Win32Struct
     }
 
     /**
-     * 
      * @type {Pointer<Integer>}
      */
     pHTPatA {
@@ -561,7 +550,6 @@ class GDIINFO extends Win32Struct
     }
 
     /**
-     * 
      * @type {Pointer<Integer>}
      */
     pHTPatB {
@@ -676,7 +664,6 @@ class GDIINFO extends Win32Struct
     }
 
     /**
-     * 
      * @type {Integer}
      */
     ulPhysicalPixelGamma {

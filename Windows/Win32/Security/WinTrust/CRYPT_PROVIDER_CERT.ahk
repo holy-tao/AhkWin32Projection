@@ -1,14 +1,15 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
+#Include ..\Cryptography\CERT_CONTEXT.ahk
+#Include ..\Cryptography\CTL_CONTEXT.ahk
+#Include ..\Cryptography\CERT_CHAIN_ELEMENT.ahk
 
 /**
  * Provides information about a provider certificate.
  * @see https://learn.microsoft.com/windows/win32/api/wintrust/ns-wintrust-crypt_provider_cert
  * @namespace Windows.Win32.Security.WinTrust
- * @version v4.0.30319
  */
-class CRYPT_PROVIDER_CERT extends Win32Struct
-{
+class CRYPT_PROVIDER_CERT extends Win32Struct {
     static sizeof => 88
 
     static packingSize => 8

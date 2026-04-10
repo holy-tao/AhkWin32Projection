@@ -3,10 +3,8 @@
 
 /**
  * @namespace Windows.Win32.System.SystemServices
- * @version v4.0.30319
  */
-class IMAGE_DOS_HEADER extends Win32Struct
-{
+class IMAGE_DOS_HEADER extends Win32Struct {
     static sizeof => 64
 
     static packingSize => 4
@@ -124,9 +122,9 @@ class IMAGE_DOS_HEADER extends Win32Struct
     }
 
     /**
-     * @type {Array<UInt16>}
+     * @type {Array<Integer>}
      */
-    e_res{
+    e_res {
         get {
             if(!this.HasProp("__e_resProxyArray"))
                 this.__e_resProxyArray := Win32FixedArray(this.ptr + 28, 4, Primitive, "ushort")
@@ -151,9 +149,9 @@ class IMAGE_DOS_HEADER extends Win32Struct
     }
 
     /**
-     * @type {Array<UInt16>}
+     * @type {Array<Integer>}
      */
-    e_res2{
+    e_res2 {
         get {
             if(!this.HasProp("__e_res2ProxyArray"))
                 this.__e_res2ProxyArray := Win32FixedArray(this.ptr + 40, 10, Primitive, "ushort")

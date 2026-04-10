@@ -1,5 +1,6 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
+#Include .\VDS_STORAGE_BUS_TYPE.ahk
 
 /**
  * The VDS_HINTS2 structure (vdshwprv.h) contains the automagic hints for a LUN in a storage pool.
@@ -16,10 +17,8 @@
  *      technical reasons or when following them can result in a poor configuration.
  * @see https://learn.microsoft.com/windows/win32/api/vdshwprv/ns-vdshwprv-vds_hints2
  * @namespace Windows.Win32.Storage.VirtualDiskService
- * @version v4.0.30319
  */
-class VDS_HINTS2 extends Win32Struct
-{
+class VDS_HINTS2 extends Win32Struct {
     static sizeof => 136
 
     static packingSize => 8
@@ -493,7 +492,7 @@ class VDS_HINTS2 extends Win32Struct
      *       <a href="https://docs.microsoft.com/windows/desktop/api/vdslun/ne-vdslun-vds_storage_bus_type">VDS_STORAGE_BUS_TYPE</a> enumeration value that specifies the bus type for the LUN. Set the 
      *       <b>VDS_HINT_BUSTYPE</b> flag in the <b>ullHintMask</b> member to indicate 
      *       interest in this member.
-     * @type {Integer}
+     * @type {VDS_STORAGE_BUS_TYPE}
      */
     BusType {
         get => NumGet(this, 112, "int")

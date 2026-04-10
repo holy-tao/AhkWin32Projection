@@ -3,15 +3,11 @@
 
 /**
  * Contains the client and server principal names.
- * @remarks
- * 
  * @see https://learn.microsoft.com/windows/win32/api/sspi/ns-sspi-_secpkgcontext_nativenamesa
  * @namespace Windows.Win32.Security.Authentication.Identity
- * @version v4.0.30319
  * @charset ANSI
  */
-class SecPkgContext_NativeNamesA extends Win32Struct
-{
+class SecPkgContext_NativeNamesA extends Win32Struct {
     static sizeof => 16
 
     static packingSize => 8

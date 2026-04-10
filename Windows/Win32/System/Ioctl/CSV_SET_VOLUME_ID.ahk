@@ -3,16 +3,14 @@
 
 /**
  * @namespace Windows.Win32.System.Ioctl
- * @version v4.0.30319
  */
-class CSV_SET_VOLUME_ID extends Win32Struct
-{
+class CSV_SET_VOLUME_ID extends Win32Struct {
     static sizeof => 8
 
     static packingSize => 8
 
     /**
-     * @type {Pointer<Guid>}
+     * @type {Pointer}
      */
     VolumeId {
         get => NumGet(this, 0, "ptr")

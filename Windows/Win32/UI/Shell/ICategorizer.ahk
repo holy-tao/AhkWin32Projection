@@ -1,16 +1,15 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
-#Include .\CATEGORY_INFO.ahk
 #Include ..\..\System\Com\IUnknown.ahk
+#Include .\CATEGORY_INFO.ahk
 
 /**
  * Exposes methods that are used to obtain information about item identifier lists.
  * @see https://learn.microsoft.com/windows/win32/api/shobjidl_core/nn-shobjidl_core-icategorizer
  * @namespace Windows.Win32.UI.Shell
- * @version v4.0.30319
  */
-class ICategorizer extends IUnknown{
+class ICategorizer extends IUnknown {
 
     static sizeof => A_PtrSize
     /**
@@ -116,7 +115,7 @@ class ICategorizer extends IUnknown{
      * <td>The two items are the same (<i>dwCategoryId1</i> = <i>dwCategoryId2</i>).</td>
      * </tr>
      * </table>
-     * @param {Integer} csfFlags Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/shobjidl_core/ne-shobjidl_core-catsort_flags">CATSORT_FLAGS</a></b>
+     * @param {CATSORT_FLAGS} csfFlags Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/shobjidl_core/ne-shobjidl_core-catsort_flags">CATSORT_FLAGS</a></b>
      * 
      * A flag that specifies how the comparison should be performed. The parameter should be one of the values in <a href="https://docs.microsoft.com/windows/desktop/api/shobjidl_core/ne-shobjidl_core-catsort_flags">CATSORT_FLAGS</a>.
      * @param {Integer} dwCategoryId1 Type: <b>DWORD</b>

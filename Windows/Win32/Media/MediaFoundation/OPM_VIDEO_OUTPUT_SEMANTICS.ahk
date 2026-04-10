@@ -5,9 +5,8 @@
  * Specifies whether the IOPMVideoOutput interface will use Output Protection Manager (OPM) semantics or Certified Output Protection Protocol (COPP) semantics.
  * @see https://learn.microsoft.com/windows/win32/api/opmapi/ne-opmapi-opm_video_output_semantics
  * @namespace Windows.Win32.Media.MediaFoundation
- * @version v4.0.30319
  */
-class OPM_VIDEO_OUTPUT_SEMANTICS extends Win32Enum{
+class OPM_VIDEO_OUTPUT_SEMANTICS extends Win32Enum {
 
     /**
      * The interface will use COPP semantics.
@@ -22,7 +21,6 @@ class OPM_VIDEO_OUTPUT_SEMANTICS extends Win32Enum{
     static OPM_VOS_OPM_SEMANTICS => 1
 
     /**
-     * 
      * @type {Integer (Int32)}
      */
     static OPM_VOS_OPM_INDIRECT_DISPLAY => 2

@@ -3,10 +3,8 @@
 
 /**
  * @namespace Windows.Win32.Gaming
- * @version v4.0.30319
  */
-class GameStatistics extends Win32Struct
-{
+class GameStatistics extends Win32Struct {
     static sizeof => 0
 
     static packingSize => 1

@@ -7,10 +7,8 @@
  * Get a shader-variable description using reflection, by calling <a href="https://docs.microsoft.com/windows/desktop/api/d3d10shader/nf-d3d10shader-id3d10shaderreflectionvariable-getdesc">ID3D10ShaderReflectionVariable::GetDesc</a>.
  * @see https://learn.microsoft.com/windows/win32/api/d3d10shader/ns-d3d10shader-d3d10_shader_variable_desc
  * @namespace Windows.Win32.Graphics.Direct3D10
- * @version v4.0.30319
  */
-class D3D10_SHADER_VARIABLE_DESC extends Win32Struct
-{
+class D3D10_SHADER_VARIABLE_DESC extends Win32Struct {
     static sizeof => 32
 
     static packingSize => 8

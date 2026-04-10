@@ -5,9 +5,8 @@
  * The DHCP_POL_ATTR_TYPE enumeration defines the attribute type for a condition in a DHCP server policy.
  * @see https://learn.microsoft.com/windows/win32/api/dhcpsapi/ne-dhcpsapi-dhcp_pol_attr_type
  * @namespace Windows.Win32.NetworkManagement.Dhcp
- * @version v4.0.30319
  */
-class DHCP_POL_ATTR_TYPE extends Win32Enum{
+class DHCP_POL_ATTR_TYPE extends Win32Enum {
 
     /**
      * The condition is based on the hardware address (MAC address) present in the <b>chaddr</b> field of the DHCP message header as defined in <a href="http://www.ietf.org/rfc/rfc2131.txt">RFC2131</a>.
@@ -28,13 +27,11 @@ class DHCP_POL_ATTR_TYPE extends Win32Enum{
     static DhcpAttrSubOption => 2
 
     /**
-     * 
      * @type {Integer (Int32)}
      */
     static DhcpAttrFqdn => 3
 
     /**
-     * 
      * @type {Integer (Int32)}
      */
     static DhcpAttrFqdnSingleLabel => 4

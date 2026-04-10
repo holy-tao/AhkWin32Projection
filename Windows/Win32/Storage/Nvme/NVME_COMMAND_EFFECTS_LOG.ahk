@@ -4,23 +4,19 @@
 
 /**
  * Contains information that describes the commands that the controller supports and the effects of those commands on the state of the NVM subsystem.
- * @remarks
- * 
  * @see https://learn.microsoft.com/windows/win32/api/nvme/ns-nvme-nvme_command_effects_log
  * @namespace Windows.Win32.Storage.Nvme
- * @version v4.0.30319
  */
-class NVME_COMMAND_EFFECTS_LOG extends Win32Struct
-{
+class NVME_COMMAND_EFFECTS_LOG extends Win32Struct {
     static sizeof => 6144
 
-    static packingSize => 8
+    static packingSize => 4
 
     /**
      * A [NVME_COMMAND_EFFECTS_DATA](ns-nvme-nvme_command_effects_data.md) structure that describes the Admin commands that the controller supports and the effects of those commands.
-     * @type {Array<NVME_COMMAND_EFFECTS_DATA>}
+     * @type {NVME_COMMAND_EFFECTS_DATA}
      */
-    ACS{
+    ACS {
         get {
             if(!this.HasProp("__ACSProxyArray"))
                 this.__ACSProxyArray := Win32FixedArray(this.ptr + 0, 256, NVME_COMMAND_EFFECTS_DATA, "")
@@ -30,9 +26,9 @@ class NVME_COMMAND_EFFECTS_LOG extends Win32Struct
 
     /**
      * A [NVME_COMMAND_EFFECTS_DATA](ns-nvme-nvme_command_effects_data.md) structure that describes the I/O commands that the controller supports and the effects of those commands.
-     * @type {Array<NVME_COMMAND_EFFECTS_DATA>}
+     * @type {NVME_COMMAND_EFFECTS_DATA}
      */
-    IOCS{
+    IOCS {
         get {
             if(!this.HasProp("__IOCSProxyArray"))
                 this.__IOCSProxyArray := Win32FixedArray(this.ptr + 2048, 256, NVME_COMMAND_EFFECTS_DATA, "")
@@ -41,10 +37,9 @@ class NVME_COMMAND_EFFECTS_LOG extends Win32Struct
     }
 
     /**
-     * 
-     * @type {Array<Byte>}
+     * @type {Array<Integer>}
      */
-    Reserved{
+    Reserved {
         get {
             if(!this.HasProp("__ReservedProxyArray"))
                 this.__ReservedProxyArray := Win32FixedArray(this.ptr + 4096, 2048, Primitive, "char")

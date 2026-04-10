@@ -1,22 +1,25 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
+#Include .\DRT_EVENT_TYPE.ahk
+#Include .\DRT_LEAFSET_KEY_CHANGE_TYPE.ahk
 #Include .\DRT_DATA.ahk
+#Include .\DRT_REGISTRATION_STATE.ahk
+#Include .\DRT_STATUS.ahk
+#Include ..\..\Networking\WinSock\SOCKADDR_STORAGE.ahk
 
 /**
  * DRT_EVENT_DATA.
  * @see https://learn.microsoft.com/windows/win32/api/drt/ns-drt-drt_event_data
  * @namespace Windows.Win32.NetworkManagement.P2P
- * @version v4.0.30319
  */
-class DRT_EVENT_DATA extends Win32Struct
-{
+class DRT_EVENT_DATA extends Win32Struct {
     static sizeof => 56
 
     static packingSize => 8
 
     /**
      * A <a href="https://docs.microsoft.com/windows/desktop/api/drt/ne-drt-drt_event_type">DRT_EVENT_TYPE</a> enumeration that specifies the event type.
-     * @type {Integer}
+     * @type {DRT_EVENT_TYPE}
      */
     type {
         get => NumGet(this, 0, "int")
@@ -46,35 +49,34 @@ class DRT_EVENT_DATA extends Win32Struct
         static packingSize => 8
 
         /**
-         * @type {Integer}
+         * @type {DRT_LEAFSET_KEY_CHANGE_TYPE}
          */
         change {
             get => NumGet(this, 0, "int")
             set => NumPut("int", value, this, 0)
         }
-    
+
         /**
          * @type {DRT_DATA}
          */
-        localKey{
+        localKey {
             get {
                 if(!this.HasProp("__localKey"))
                     this.__localKey := DRT_DATA(8, this)
                 return this.__localKey
             }
         }
-    
+
         /**
          * @type {DRT_DATA}
          */
-        remoteKey{
+        remoteKey {
             get {
                 if(!this.HasProp("__remoteKey"))
                     this.__remoteKey := DRT_DATA(24, this)
                 return this.__remoteKey
             }
         }
-    
     }
 
     class _registrationStateChange extends Win32Struct {
@@ -82,24 +84,23 @@ class DRT_EVENT_DATA extends Win32Struct
         static packingSize => 8
 
         /**
-         * @type {Integer}
+         * @type {DRT_REGISTRATION_STATE}
          */
         state {
             get => NumGet(this, 0, "int")
             set => NumPut("int", value, this, 0)
         }
-    
+
         /**
          * @type {DRT_DATA}
          */
-        localKey{
+        localKey {
             get {
                 if(!this.HasProp("__localKey"))
                     this.__localKey := DRT_DATA(8, this)
                 return this.__localKey
             }
         }
-    
     }
 
     class _statusChange extends Win32Struct {
@@ -109,7 +110,7 @@ class DRT_EVENT_DATA extends Win32Struct
         class _bootstrapAddresses extends Win32Struct {
             static sizeof => 16
             static packingSize => 8
-    
+
             /**
              * @type {Integer}
              */
@@ -117,7 +118,7 @@ class DRT_EVENT_DATA extends Win32Struct
                 get => NumGet(this, 0, "uint")
                 set => NumPut("uint", value, this, 0)
             }
-        
+
             /**
              * @type {Pointer<SOCKADDR_STORAGE>}
              */
@@ -125,37 +126,35 @@ class DRT_EVENT_DATA extends Win32Struct
                 get => NumGet(this, 8, "ptr")
                 set => NumPut("ptr", value, this, 8)
             }
-        
         }
-    
+
         /**
-         * @type {Integer}
+         * @type {DRT_STATUS}
          */
         status {
             get => NumGet(this, 0, "int")
             set => NumPut("int", value, this, 0)
         }
-    
+
         /**
          * @type {_bootstrapAddresses}
          */
-        bootstrapAddresses{
+        bootstrapAddresses {
             get {
                 if(!this.HasProp("__bootstrapAddresses"))
-                    this.__bootstrapAddresses := %this.__Class%._bootstrapAddresses(8, this)
+                    this.__bootstrapAddresses := DRT_EVENT_DATA._statusChange._bootstrapAddresses(8, this)
                 return this.__bootstrapAddresses
             }
         }
-    
     }
 
     /**
      * @type {_leafsetKeyChange}
      */
-    leafsetKeyChange{
+    leafsetKeyChange {
         get {
             if(!this.HasProp("__leafsetKeyChange"))
-                this.__leafsetKeyChange := %this.__Class%._leafsetKeyChange(16, this)
+                this.__leafsetKeyChange := DRT_EVENT_DATA._leafsetKeyChange(16, this)
             return this.__leafsetKeyChange
         }
     }
@@ -163,10 +162,10 @@ class DRT_EVENT_DATA extends Win32Struct
     /**
      * @type {_registrationStateChange}
      */
-    registrationStateChange{
+    registrationStateChange {
         get {
             if(!this.HasProp("__registrationStateChange"))
-                this.__registrationStateChange := %this.__Class%._registrationStateChange(16, this)
+                this.__registrationStateChange := DRT_EVENT_DATA._registrationStateChange(16, this)
             return this.__registrationStateChange
         }
     }
@@ -174,10 +173,10 @@ class DRT_EVENT_DATA extends Win32Struct
     /**
      * @type {_statusChange}
      */
-    statusChange{
+    statusChange {
         get {
             if(!this.HasProp("__statusChange"))
-                this.__statusChange := %this.__Class%._statusChange(16, this)
+                this.__statusChange := DRT_EVENT_DATA._statusChange(16, this)
             return this.__statusChange
         }
     }

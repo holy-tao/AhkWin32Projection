@@ -5,9 +5,8 @@
 
 /**
  * @namespace Windows.Win32.Security.Authentication.Identity.Provider
- * @version v4.0.30319
  */
-class AsyncIConnectedIdentityProvider extends IUnknown{
+class AsyncIConnectedIdentityProvider extends IUnknown {
 
     static sizeof => A_PtrSize
     /**
@@ -94,7 +93,7 @@ class AsyncIConnectedIdentityProvider extends IUnknown{
 
     /**
      * 
-     * @param {Integer} Identifier 
+     * @param {IDENTITY_URL} Identifier 
      * @param {IBindCtx} _Context 
      * @returns {HRESULT} 
      */
@@ -127,7 +126,7 @@ class AsyncIConnectedIdentityProvider extends IUnknown{
 
     /**
      * 
-     * @returns {Integer} 
+     * @returns {ACCOUNT_STATE} 
      */
     Finish_GetAccountState() {
         result := ComCall(12, this, "int*", &pState := 0, "HRESULT")

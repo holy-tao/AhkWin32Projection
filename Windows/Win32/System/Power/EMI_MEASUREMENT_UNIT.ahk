@@ -9,9 +9,8 @@
  * In devices that implement <b>EMI_VERSION_V1</b>, picowatt-hours is the only supported unit.
  * @see https://learn.microsoft.com/windows/win32/api/emi/ne-emi-emi_measurement_unit
  * @namespace Windows.Win32.System.Power
- * @version v4.0.30319
  */
-class EMI_MEASUREMENT_UNIT extends Win32Enum{
+class EMI_MEASUREMENT_UNIT extends Win32Enum {
 
     /**
      * The energy measurement is returned in picowatt-hours.

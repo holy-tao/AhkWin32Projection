@@ -7,9 +7,8 @@
  * This enumeration is used by the [WPD\_SMS\_ENCODING](sms-properties.md) property.
  * @see https://learn.microsoft.com/windows/win32/wpd_sdk/wpd-sms-encoding-types
  * @namespace Windows.Win32.Devices.PortableDevices
- * @version v4.0.30319
  */
-class WPD_SMS_ENCODING_TYPES extends Win32Enum{
+class WPD_SMS_ENCODING_TYPES extends Win32Enum {
 
     /**
      * @type {Integer (Int32)}

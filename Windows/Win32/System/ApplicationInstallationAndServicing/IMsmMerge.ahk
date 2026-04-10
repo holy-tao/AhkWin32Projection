@@ -1,18 +1,16 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
-#Include ..\..\Foundation\BSTR.ahk
+#Include ..\Com\IDispatch.ahk
 #Include .\IMsmErrors.ahk
 #Include .\IMsmDependencies.ahk
-#Include ..\Com\IDispatch.ahk
 
 /**
  * The IMsmMerge interface and the IMsmMerge2 interface provide interfaces to the Merge object.
  * @see https://learn.microsoft.com/windows/win32/api/mergemod/nn-mergemod-imsmmerge
  * @namespace Windows.Win32.System.ApplicationInstallationAndServicing
- * @version v4.0.30319
  */
-class IMsmMerge extends IDispatch{
+class IMsmMerge extends IDispatch {
 
     static sizeof => A_PtrSize
     /**
@@ -55,7 +53,7 @@ class IMsmMerge extends IDispatch{
 
     /**
      * The OpenDatabase method opens a Windows Installer installation database, located at a specified path, that is to be merged with a module. For more information, see the OpenDatabase method of the Merge object.
-     * @param {BSTR} _Path 
+     * @param {BSTR} _Path Path to the database being opened.
      * @returns {HRESULT} This method can return one of these values.
      * 
      * <table>
@@ -110,7 +108,7 @@ class IMsmMerge extends IDispatch{
      * <a href="https://docs.microsoft.com/windows/desktop/Msi/error-object">Error</a> object.
      * 
      * Opening a merge module clears any errors that have not already been retrieved.
-     * @param {BSTR} _Path 
+     * @param {BSTR} _Path Fully qualified file name that points to a merge module. A <b>LPCWSTR</b> can be used in place of a <b>BSTR</b>.
      * @param {Integer} Language A language identifier (<b>LANGID</b>).
      * @returns {HRESULT} The <b>OpenModule</b> function returns the following values.
      * 
@@ -322,7 +320,7 @@ class IMsmMerge extends IDispatch{
      * This function opens a log file to receive progress and error messages. If the log file already exists, new messages get appended to the log. If the log file does not exist it is created.
      * 
      * Clients may send their own messages to this log file using <a href="https://docs.microsoft.com/windows/desktop/api/mergemod/nf-mergemod-imsmmerge-log">Log</a>.
-     * @param {BSTR} _Path 
+     * @param {BSTR} _Path Fully qualified file name pointing to a file to open or create. A <b>LPCWSTR</b> may be used in place of a <b>BSTR</b>.
      * @returns {HRESULT} This method can return one of these values.
      * 
      * <table>
@@ -759,7 +757,7 @@ class IMsmMerge extends IDispatch{
      * 
      * <b>ExtractFiles</b> always extracts files using short file names for the path. To use long file names for the path, use the 
      * <a href="https://docs.microsoft.com/windows/desktop/api/mergemod/nf-mergemod-imsmmerge2-extractfilesex">ExtractFilesEx</a> function.
-     * @param {BSTR} _Path 
+     * @param {BSTR} _Path The fully qualified destination directory. A <b>LPCWSTR</b> may be used in place of a <b>BSTR</b>.
      * @returns {HRESULT} This method can return one of these values.
      * 
      * <table>

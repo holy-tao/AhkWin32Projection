@@ -1,10 +1,10 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
+#Include ..\..\System\Com\IUnknown.ahk
 #Include ..\..\System\Com\IEnumGUID.ahk
 #Include ..\..\Foundation\BSTR.ahk
 #Include .\IEnumTfLanguageProfiles.ahk
-#Include ..\..\System\Com\IUnknown.ahk
 
 /**
  * The ITfInputProcessorProfiles interface is implemented by the TSF manager and used by an application or text service to manipulate the language profile of one or more text services.
@@ -12,9 +12,8 @@
  * To obtain a pointer to this interface, call <a href="https://docs.microsoft.com/windows/desktop/api/combaseapi/nf-combaseapi-cocreateinstance">CoCreateInstance</a> with CLSID_TF_InputProcessorProfiles.
  * @see https://learn.microsoft.com/windows/win32/api/msctf/nn-msctf-itfinputprocessorprofiles
  * @namespace Windows.Win32.UI.TextServices
- * @version v4.0.30319
  */
-class ITfInputProcessorProfiles extends IUnknown{
+class ITfInputProcessorProfiles extends IUnknown {
 
     static sizeof => A_PtrSize
     /**
@@ -778,7 +777,7 @@ class ITfInputProcessorProfiles extends IUnknown{
      * @param {Pointer<Guid>} rclsid Contains the CLSID of the text service of the profile in question.
      * @param {Integer} langid Contains a <b>LANGID</b> value that specifies the language of the profile in question.
      * @param {Pointer<Guid>} guidProfile Contains a GUID value that identifies the profile in question.
-     * @param {HKL} _hKL 
+     * @param {HKL} _hKL Contains an <b>HKL</b> value that specifies the input locale identifier for the substitute keyboard. Obtain this value by calling <a href="https://docs.microsoft.com/windows/desktop/api/winuser/nf-winuser-loadkeyboardlayouta">LoadKeyboardLayout</a>.
      * @returns {HRESULT} This method can return one of these values.
      * 
      * <table>

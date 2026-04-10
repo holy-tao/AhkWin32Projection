@@ -33,10 +33,8 @@
  *      <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/resapi/nf-resapi-clres_v1_function_table">CLRES_V1_FUNCTION_TABLE</a> macro.
  * @see https://learn.microsoft.com/windows/win32/api/resapi/ns-resapi-clres_function_table
  * @namespace Windows.Win32.Networking.Clustering
- * @version v4.0.30319
  */
-class CLRES_FUNCTION_TABLE extends Win32Struct
-{
+class CLRES_FUNCTION_TABLE extends Win32Struct {
     static sizeof => 120
 
     static packingSize => 8
@@ -68,7 +66,7 @@ class CLRES_FUNCTION_TABLE extends Win32Struct
     /**
      * @type {CLRES_V1_FUNCTIONS}
      */
-    V1Functions{
+    V1Functions {
         get {
             if(!this.HasProp("__V1Functions"))
                 this.__V1Functions := CLRES_V1_FUNCTIONS(8, this)
@@ -79,7 +77,7 @@ class CLRES_FUNCTION_TABLE extends Win32Struct
     /**
      * @type {CLRES_V2_FUNCTIONS}
      */
-    V2Functions{
+    V2Functions {
         get {
             if(!this.HasProp("__V2Functions"))
                 this.__V2Functions := CLRES_V2_FUNCTIONS(8, this)
@@ -90,7 +88,7 @@ class CLRES_FUNCTION_TABLE extends Win32Struct
     /**
      * @type {CLRES_V3_FUNCTIONS}
      */
-    V3Functions{
+    V3Functions {
         get {
             if(!this.HasProp("__V3Functions"))
                 this.__V3Functions := CLRES_V3_FUNCTIONS(8, this)
@@ -101,7 +99,7 @@ class CLRES_FUNCTION_TABLE extends Win32Struct
     /**
      * @type {CLRES_V4_FUNCTIONS}
      */
-    V4Functions{
+    V4Functions {
         get {
             if(!this.HasProp("__V4Functions"))
                 this.__V4Functions := CLRES_V4_FUNCTIONS(8, this)

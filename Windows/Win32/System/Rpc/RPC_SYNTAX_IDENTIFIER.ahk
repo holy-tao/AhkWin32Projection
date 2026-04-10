@@ -4,16 +4,14 @@
 
 /**
  * @namespace Windows.Win32.System.Rpc
- * @version v4.0.30319
  */
-class RPC_SYNTAX_IDENTIFIER extends Win32Struct
-{
+class RPC_SYNTAX_IDENTIFIER extends Win32Struct {
     static sizeof => 16
 
     static packingSize => 8
 
     /**
-     * @type {Pointer<Guid>}
+     * @type {Pointer}
      */
     SyntaxGUID {
         get => NumGet(this, 0, "ptr")
@@ -23,7 +21,7 @@ class RPC_SYNTAX_IDENTIFIER extends Win32Struct
     /**
      * @type {RPC_VERSION}
      */
-    SyntaxVersion{
+    SyntaxVersion {
         get {
             if(!this.HasProp("__SyntaxVersion"))
                 this.__SyntaxVersion := RPC_VERSION(8, this)

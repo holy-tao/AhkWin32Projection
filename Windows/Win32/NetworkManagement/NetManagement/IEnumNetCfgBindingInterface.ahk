@@ -5,9 +5,8 @@
 
 /**
  * @namespace Windows.Win32.NetworkManagement.NetManagement
- * @version v4.0.30319
  */
-class IEnumNetCfgBindingInterface extends IUnknown{
+class IEnumNetCfgBindingInterface extends IUnknown {
 
     static sizeof => A_PtrSize
     /**

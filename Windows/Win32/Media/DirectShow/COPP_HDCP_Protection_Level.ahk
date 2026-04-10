@@ -9,9 +9,8 @@
  * For more information about HDCP, see http://www.digital-cp.com/.
  * @see https://learn.microsoft.com/windows/win32/api/dxva9typ/ne-dxva9typ-copp_hdcp_protection_level
  * @namespace Windows.Win32.Media.DirectShow
- * @version v4.0.30319
  */
-class COPP_HDCP_Protection_Level extends Win32Enum{
+class COPP_HDCP_Protection_Level extends Win32Enum {
 
     /**
      * HDCP protection is not enabled. See Remarks.

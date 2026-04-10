@@ -5,9 +5,8 @@
  * The DLL is in use by the COM+ catalog.
  * @see https://learn.microsoft.com/windows/win32/api/comadmin/nf-comadmin-icomadmincatalog2-issafetodelete
  * @namespace Windows.Win32.System.ComponentServices
- * @version v4.0.30319
  */
-class COMAdminInUse extends Win32Enum{
+class COMAdminInUse extends Win32Enum {
 
     /**
      * @type {Integer (Int32)}

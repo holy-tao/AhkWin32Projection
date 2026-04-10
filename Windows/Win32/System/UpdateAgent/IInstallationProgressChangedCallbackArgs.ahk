@@ -1,16 +1,15 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
-#Include .\IInstallationProgress.ahk
 #Include ..\Com\IDispatch.ahk
+#Include .\IInstallationProgress.ahk
 
 /**
  * Contains information about the change in the progress of an asynchronous installation or uninstallation at the time the callback was made.
  * @see https://learn.microsoft.com/windows/win32/api/wuapi/nn-wuapi-iinstallationprogresschangedcallbackargs
  * @namespace Windows.Win32.System.UpdateAgent
- * @version v4.0.30319
  */
-class IInstallationProgressChangedCallbackArgs extends IDispatch{
+class IInstallationProgressChangedCallbackArgs extends IDispatch {
 
     static sizeof => A_PtrSize
     /**

@@ -5,10 +5,8 @@
  * Contains information about a page added to a process working set.
  * @see https://learn.microsoft.com/windows/win32/api/psapi/ns-psapi-psapi_ws_watch_information
  * @namespace Windows.Win32.System.ProcessStatus
- * @version v4.0.30319
  */
-class PSAPI_WS_WATCH_INFORMATION extends Win32Struct
-{
+class PSAPI_WS_WATCH_INFORMATION extends Win32Struct {
     static sizeof => 16
 
     static packingSize => 8

@@ -7,9 +7,8 @@
  * Used to report progress back to callers of lengthy Offline Files operations. (IOfflineFilesProgress)
  * @see https://learn.microsoft.com/windows/win32/api/cscobj/nn-cscobj-iofflinefilesprogress
  * @namespace Windows.Win32.Storage.OfflineFiles
- * @version v4.0.30319
  */
-class IOfflineFilesProgress extends IUnknown{
+class IOfflineFilesProgress extends IUnknown {
 
     static sizeof => A_PtrSize
     /**

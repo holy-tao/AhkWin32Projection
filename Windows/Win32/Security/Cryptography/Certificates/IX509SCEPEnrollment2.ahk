@@ -1,14 +1,13 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\..\Guid.ahk
-#Include ..\..\..\Foundation\BSTR.ahk
 #Include .\IX509SCEPEnrollment.ahk
+#Include ..\..\..\Foundation\BSTR.ahk
 
 /**
  * @namespace Windows.Win32.Security.Cryptography.Certificates
- * @version v4.0.30319
  */
-class IX509SCEPEnrollment2 extends IX509SCEPEnrollment{
+class IX509SCEPEnrollment2 extends IX509SCEPEnrollment {
 
     static sizeof => A_PtrSize
     /**
@@ -37,7 +36,7 @@ class IX509SCEPEnrollment2 extends IX509SCEPEnrollment{
     }
 
     /**
-     * @type {Integer} 
+     * @type {DelayRetryAction} 
      */
     DelayRetry {
         get => this.get_DelayRetry()
@@ -53,7 +52,7 @@ class IX509SCEPEnrollment2 extends IX509SCEPEnrollment{
 
     /**
      * 
-     * @param {Integer} Encoding 
+     * @param {EncodingType} Encoding 
      * @returns {BSTR} 
      */
     CreateChallengeAnswerMessage(Encoding) {
@@ -64,10 +63,10 @@ class IX509SCEPEnrollment2 extends IX509SCEPEnrollment{
 
     /**
      * 
-     * @param {Integer} Flags 
+     * @param {X509SCEPProcessMessageFlags} Flags 
      * @param {BSTR} strResponse 
-     * @param {Integer} Encoding 
-     * @returns {Integer} 
+     * @param {EncodingType} Encoding 
+     * @returns {X509SCEPDisposition} 
      */
     ProcessResponseMessage2(Flags, strResponse, Encoding) {
         strResponse := strResponse is String ? BSTR.Alloc(strResponse).Value : strResponse
@@ -88,7 +87,7 @@ class IX509SCEPEnrollment2 extends IX509SCEPEnrollment{
 
     /**
      * 
-     * @returns {Integer} 
+     * @returns {DelayRetryAction} 
      */
     get_DelayRetry() {
         result := ComCall(32, this, "int*", &pValue := 0, "HRESULT")

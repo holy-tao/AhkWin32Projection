@@ -1,8 +1,8 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
-#Include ..\..\Foundation\HWND.ahk
 #Include .\ID2D1RenderTarget.ahk
+#Include ..\..\Foundation\HWND.ahk
 
 /**
  * Renders drawing instructions to a window.
@@ -34,9 +34,8 @@
  * Your application should create render targets once and hold onto them for the life of the application or until the render target's  <a href="https://docs.microsoft.com/windows/win32/api/d2d1/nf-d2d1-id2d1rendertarget-enddraw">EndDraw</a> method returns the <a href="https://docs.microsoft.com/windows/win32/Direct2D/direct2d-error-codes">D2DERR_RECREATE_TARGET</a>  error. When you receive this error, you need to recreate the render target (and any resources it created).
  * @see https://learn.microsoft.com/windows/win32/api/d2d1/nn-d2d1-id2d1hwndrendertarget
  * @namespace Windows.Win32.Graphics.Direct2D
- * @version v4.0.30319
  */
-class ID2D1HwndRenderTarget extends ID2D1RenderTarget{
+class ID2D1HwndRenderTarget extends ID2D1RenderTarget {
 
     static sizeof => A_PtrSize
     /**
@@ -62,7 +61,7 @@ class ID2D1HwndRenderTarget extends ID2D1RenderTarget{
      * @remarks
      * <div class="alert"><b>Note</b>  If the window was occluded the last time  that <a href="https://docs.microsoft.com/windows/win32/api/d2d1/nf-d2d1-id2d1rendertarget-enddraw">EndDraw</a> was called, the next time that the render target calls <b>CheckWindowState</b>, it will return <a href="https://docs.microsoft.com/windows/win32/api/d2d1/ne-d2d1-d2d1_window_state">D2D1_WINDOW_STATE_OCCLUDED</a> regardless of the current window state. If you want to use <b>CheckWindowState</b> to determine the current window state, you should call <b>CheckWindowState</b> after every <b>EndDraw</b> call and ignore its return value. This call will ensure that your next call to <b>CheckWindowState</b> state will return the actual window state.</div>
      * <div> </div>
-     * @returns {Integer} Type: <b><a href="https://docs.microsoft.com/windows/win32/api/d2d1/ne-d2d1-d2d1_window_state">D2D1_WINDOW_STATE</a></b>
+     * @returns {D2D1_WINDOW_STATE} Type: <b><a href="https://docs.microsoft.com/windows/win32/api/d2d1/ne-d2d1-d2d1_window_state">D2D1_WINDOW_STATE</a></b>
      * 
      * A value that indicates whether the HWND associated with this render target is occluded.
      * @see https://learn.microsoft.com/windows/win32/api/d2d1/nf-d2d1-id2d1hwndrendertarget-checkwindowstate

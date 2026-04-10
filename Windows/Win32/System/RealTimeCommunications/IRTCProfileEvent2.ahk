@@ -5,9 +5,8 @@
 
 /**
  * @namespace Windows.Win32.System.RealTimeCommunications
- * @version v4.0.30319
  */
-class IRTCProfileEvent2 extends IRTCProfileEvent{
+class IRTCProfileEvent2 extends IRTCProfileEvent {
 
     static sizeof => A_PtrSize
     /**
@@ -29,7 +28,7 @@ class IRTCProfileEvent2 extends IRTCProfileEvent{
     static VTableNames => ["get_EventType"]
 
     /**
-     * @type {Integer} 
+     * @type {RTC_PROFILE_EVENT_TYPE} 
      */
     EventType {
         get => this.get_EventType()
@@ -37,7 +36,7 @@ class IRTCProfileEvent2 extends IRTCProfileEvent{
 
     /**
      * 
-     * @returns {Integer} 
+     * @returns {RTC_PROFILE_EVENT_TYPE} 
      */
     get_EventType() {
         result := ComCall(10, this, "int*", &pEventType := 0, "HRESULT")

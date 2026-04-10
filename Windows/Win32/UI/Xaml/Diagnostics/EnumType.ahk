@@ -1,15 +1,14 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\..\Win32Struct.ahk
 #Include ..\..\..\Foundation\BSTR.ahk
+#Include ..\..\..\System\Com\SAFEARRAY.ahk
 
 /**
  * Represents a XAML Runtime enumeration.
  * @see https://learn.microsoft.com/windows/win32/api/xamlom/ns-xamlom-enumtype
  * @namespace Windows.Win32.UI.Xaml.Diagnostics
- * @version v4.0.30319
  */
-class EnumType extends Win32Struct
-{
+class EnumType extends Win32Struct {
     static sizeof => 24
 
     static packingSize => 8
@@ -18,7 +17,7 @@ class EnumType extends Win32Struct
      * The name of the enumeration.
      * @type {BSTR}
      */
-    Name{
+    Name {
         get {
             if(!this.HasProp("__Name"))
                 this.__Name := BSTR(0, this)

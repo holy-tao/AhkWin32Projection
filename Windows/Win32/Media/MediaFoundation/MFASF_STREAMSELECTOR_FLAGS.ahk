@@ -5,9 +5,8 @@
  * Defines the ASF stream selector options.
  * @see https://learn.microsoft.com/windows/win32/api/wmcontainer/ne-wmcontainer-mfasf_streamselector_flags
  * @namespace Windows.Win32.Media.MediaFoundation
- * @version v4.0.30319
  */
-class MFASF_STREAMSELECTOR_FLAGS extends Win32Enum{
+class MFASF_STREAMSELECTOR_FLAGS extends Win32Enum {
 
     /**
      * The stream selector will not set thinning. Thinning is the process of removing samples from a stream to reduce the bit rate.

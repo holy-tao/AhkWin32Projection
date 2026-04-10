@@ -3,10 +3,8 @@
 
 /**
  * @namespace Windows.Win32.Security.Cryptography
- * @version v4.0.30319
  */
-class NCRYPT_KEY_ACCESS_POLICY_BLOB extends Win32Struct
-{
+class NCRYPT_KEY_ACCESS_POLICY_BLOB extends Win32Struct {
     static sizeof => 16
 
     static packingSize => 4

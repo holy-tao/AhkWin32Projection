@@ -4,13 +4,11 @@
 
 /**
  * @namespace Windows.Win32.NetworkManagement.Ndis
- * @version v4.0.30319
  */
-class NDIS_802_11_PMKID extends Win32Struct
-{
-    static sizeof => 16
+class NDIS_802_11_PMKID extends Win32Struct {
+    static sizeof => 32
 
-    static packingSize => 8
+    static packingSize => 4
 
     /**
      * @type {Integer}
@@ -29,9 +27,9 @@ class NDIS_802_11_PMKID extends Win32Struct
     }
 
     /**
-     * @type {Array<BSSID_INFO>}
+     * @type {BSSID_INFO}
      */
-    BSSIDInfo{
+    BSSIDInfo {
         get {
             if(!this.HasProp("__BSSIDInfoProxyArray"))
                 this.__BSSIDInfoProxyArray := Win32FixedArray(this.ptr + 8, 1, BSSID_INFO, "")

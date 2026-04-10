@@ -7,9 +7,8 @@
  * The IWMRegisterCallback interface enables the application to get status messages from a sink object.By default, the writer object does not send the application any status messages from the sink object.
  * @see https://learn.microsoft.com/windows/win32/api/wmsdkidl/nn-wmsdkidl-iwmregistercallback
  * @namespace Windows.Win32.Media.WindowsMediaFormat
- * @version v4.0.30319
  */
-class IWMRegisterCallback extends IUnknown{
+class IWMRegisterCallback extends IUnknown {
 
     static sizeof => A_PtrSize
     /**

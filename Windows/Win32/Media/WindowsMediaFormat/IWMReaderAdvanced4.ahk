@@ -7,9 +7,8 @@
  * The IWMReaderAdvanced4 interface provides additional functionality to the reader.An IWMReaderAdvanced4 interface exists for every reader object.
  * @see https://learn.microsoft.com/windows/win32/api/wmsdkidl/nn-wmsdkidl-iwmreaderadvanced4
  * @namespace Windows.Win32.Media.WindowsMediaFormat
- * @version v4.0.30319
  */
-class IWMReaderAdvanced4 extends IWMReaderAdvanced3{
+class IWMReaderAdvanced4 extends IWMReaderAdvanced3 {
 
     static sizeof => A_PtrSize
     /**

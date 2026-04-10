@@ -9,9 +9,8 @@
  *     <a href="https://www.iana.org/assignments/ianaiftype-mib">"IANAifType-MIB DEFINITIONS"</a>.
  * @see https://learn.microsoft.com/windows/win32/api/ifdef/ne-ifdef-tunnel_type
  * @namespace Windows.Win32.NetworkManagement.Ndis
- * @version v4.0.30319
  */
-class TUNNEL_TYPE extends Win32Enum{
+class TUNNEL_TYPE extends Win32Enum {
 
     /**
      * Indicates that a tunnel is not specified.

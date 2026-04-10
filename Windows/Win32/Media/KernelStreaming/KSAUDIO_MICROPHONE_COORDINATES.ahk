@@ -3,10 +3,8 @@
 
 /**
  * @namespace Windows.Win32.Media.KernelStreaming
- * @version v4.0.30319
  */
-class KSAUDIO_MICROPHONE_COORDINATES extends Win32Struct
-{
+class KSAUDIO_MICROPHONE_COORDINATES extends Win32Struct {
     static sizeof => 12
 
     static packingSize => 2

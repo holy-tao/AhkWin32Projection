@@ -18,11 +18,9 @@
  * > The wininet.h header defines INTERNET_CACHE_ENTRY_INFO as an alias which automatically selects the ANSI or Unicode version of this function based on the definition of the UNICODE preprocessor constant. Mixing usage of the encoding-neutral alias with code that not encoding-neutral can lead to mismatches that result in compilation or runtime errors. For more information, see [Conventions for Function Prototypes](/windows/win32/intl/conventions-for-function-prototypes).
  * @see https://learn.microsoft.com/windows/win32/api/wininet/ns-wininet-internet_cache_entry_infow
  * @namespace Windows.Win32.Networking.WinInet
- * @version v4.0.30319
  * @charset Unicode
  */
-class INTERNET_CACHE_ENTRY_INFOW extends Win32Struct
-{
+class INTERNET_CACHE_ENTRY_INFOW extends Win32Struct {
     static sizeof => 112
 
     static packingSize => 8
@@ -210,7 +208,7 @@ class INTERNET_CACHE_ENTRY_INFOW extends Win32Struct
      * <a href="https://docs.microsoft.com/windows/desktop/api/minwinbase/ns-minwinbase-filetime">FILETIME</a> structure that contains the last modified time of this URL, in Greenwich mean time format.
      * @type {FILETIME}
      */
-    LastModifiedTime{
+    LastModifiedTime {
         get {
             if(!this.HasProp("__LastModifiedTime"))
                 this.__LastModifiedTime := FILETIME(44, this)
@@ -222,7 +220,7 @@ class INTERNET_CACHE_ENTRY_INFOW extends Win32Struct
      * <a href="https://docs.microsoft.com/windows/desktop/api/minwinbase/ns-minwinbase-filetime">FILETIME</a> structure that contains the expiration time of this file, in Greenwich mean time format.
      * @type {FILETIME}
      */
-    ExpireTime{
+    ExpireTime {
         get {
             if(!this.HasProp("__ExpireTime"))
                 this.__ExpireTime := FILETIME(52, this)
@@ -234,7 +232,7 @@ class INTERNET_CACHE_ENTRY_INFOW extends Win32Struct
      * <a href="https://docs.microsoft.com/windows/desktop/api/minwinbase/ns-minwinbase-filetime">FILETIME</a> structure that contains the last accessed time, in Greenwich mean time format.
      * @type {FILETIME}
      */
-    LastAccessTime{
+    LastAccessTime {
         get {
             if(!this.HasProp("__LastAccessTime"))
                 this.__LastAccessTime := FILETIME(60, this)
@@ -246,7 +244,7 @@ class INTERNET_CACHE_ENTRY_INFOW extends Win32Struct
      * <a href="https://docs.microsoft.com/windows/desktop/api/minwinbase/ns-minwinbase-filetime">FILETIME</a> structure that contains the last time the cache was synchronized.
      * @type {FILETIME}
      */
-    LastSyncTime{
+    LastSyncTime {
         get {
             if(!this.HasProp("__LastSyncTime"))
                 this.__LastSyncTime := FILETIME(68, this)

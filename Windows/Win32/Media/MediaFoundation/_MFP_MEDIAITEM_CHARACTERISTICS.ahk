@@ -12,9 +12,8 @@
  * ```
  * @see https://learn.microsoft.com/windows/win32/api/mfplay/ne-mfplay-_mfp_mediaitem_characteristics
  * @namespace Windows.Win32.Media.MediaFoundation
- * @version v4.0.30319
  */
-class _MFP_MEDIAITEM_CHARACTERISTICS extends Win32Enum{
+class _MFP_MEDIAITEM_CHARACTERISTICS extends Win32Enum {
 
     /**
      * The media item represents a live data source, such as video camera. If playback is stopped and then restarted, there will be a gap in the content.

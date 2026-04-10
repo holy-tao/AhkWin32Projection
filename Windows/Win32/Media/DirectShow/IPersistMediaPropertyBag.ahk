@@ -7,9 +7,8 @@
  * The IPersistMediaPropertyBag interface sets and retrieves INFO and DISP chunks in Audio-Video Interleaved (AVI) streams.
  * @see https://learn.microsoft.com/windows/win32/api/strmif/nn-strmif-ipersistmediapropertybag
  * @namespace Windows.Win32.Media.DirectShow
- * @version v4.0.30319
  */
-class IPersistMediaPropertyBag extends IPersist{
+class IPersistMediaPropertyBag extends IPersist {
 
     static sizeof => A_PtrSize
     /**

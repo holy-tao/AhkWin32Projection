@@ -1,10 +1,18 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\..\Win32Struct.ahk
+#Include ..\..\Variant\VARENUM.ahk
 #Include ..\CY.ahk
 #Include ..\..\..\Foundation\FILETIME.ahk
+#Include .\CLIPDATA.ahk
 #Include ..\..\..\Foundation\BSTR.ahk
 #Include .\BSTRBLOB.ahk
 #Include ..\BLOB.ahk
+#Include ..\IUnknown.ahk
+#Include ..\IDispatch.ahk
+#Include ..\IStream.ahk
+#Include .\IStorage.ahk
+#Include .\VERSIONEDSTREAM.ahk
+#Include ..\SAFEARRAY.ahk
 #Include .\CAC.ahk
 #Include .\CAUB.ahk
 #Include .\CAI.ahk
@@ -27,6 +35,7 @@
 #Include .\CALPSTR.ahk
 #Include .\CALPWSTR.ahk
 #Include .\CAPROPVARIANT.ahk
+#Include .\PROPVARIANT.ahk
 #Include ..\..\..\Foundation\DECIMAL.ahk
 
 /**
@@ -111,16 +120,14 @@
  * ``` syntax
  * @see https://learn.microsoft.com/windows/win32/api/propidlbase/ns-propidlbase-propvariant
  * @namespace Windows.Win32.System.Com.StructuredStorage
- * @version v4.0.30319
  */
-class PROPVARIANT extends Win32Struct
-{
+class PROPVARIANT extends Win32Struct {
     static sizeof => 24
 
     static packingSize => 8
 
     /**
-     * @type {Integer}
+     * @type {VARENUM}
      */
     vt {
         get => NumGet(this, 0, "ushort")
@@ -274,7 +281,7 @@ class PROPVARIANT extends Win32Struct
     /**
      * @type {CY}
      */
-    cyVal{
+    cyVal {
         get {
             if(!this.HasProp("__cyVal"))
                 this.__cyVal := CY(8, this)
@@ -293,7 +300,7 @@ class PROPVARIANT extends Win32Struct
     /**
      * @type {FILETIME}
      */
-    filetime{
+    filetime {
         get {
             if(!this.HasProp("__filetime"))
                 this.__filetime := FILETIME(8, this)
@@ -320,7 +327,7 @@ class PROPVARIANT extends Win32Struct
     /**
      * @type {BSTR}
      */
-    bstrVal{
+    bstrVal {
         get {
             if(!this.HasProp("__bstrVal"))
                 this.__bstrVal := BSTR(8, this)
@@ -331,7 +338,7 @@ class PROPVARIANT extends Win32Struct
     /**
      * @type {BSTRBLOB}
      */
-    bstrblobVal{
+    bstrblobVal {
         get {
             if(!this.HasProp("__bstrblobVal"))
                 this.__bstrblobVal := BSTRBLOB(8, this)
@@ -342,7 +349,7 @@ class PROPVARIANT extends Win32Struct
     /**
      * @type {BLOB}
      */
-    blob{
+    blob {
         get {
             if(!this.HasProp("__blob"))
                 this.__blob := BLOB(8, this)
@@ -417,7 +424,7 @@ class PROPVARIANT extends Win32Struct
     /**
      * @type {CAC}
      */
-    cac{
+    cac {
         get {
             if(!this.HasProp("__cac"))
                 this.__cac := CAC(8, this)
@@ -428,7 +435,7 @@ class PROPVARIANT extends Win32Struct
     /**
      * @type {CAUB}
      */
-    caub{
+    caub {
         get {
             if(!this.HasProp("__caub"))
                 this.__caub := CAUB(8, this)
@@ -439,7 +446,7 @@ class PROPVARIANT extends Win32Struct
     /**
      * @type {CAI}
      */
-    cai{
+    cai {
         get {
             if(!this.HasProp("__cai"))
                 this.__cai := CAI(8, this)
@@ -450,7 +457,7 @@ class PROPVARIANT extends Win32Struct
     /**
      * @type {CAUI}
      */
-    caui{
+    caui {
         get {
             if(!this.HasProp("__caui"))
                 this.__caui := CAUI(8, this)
@@ -461,7 +468,7 @@ class PROPVARIANT extends Win32Struct
     /**
      * @type {CAL}
      */
-    cal{
+    cal {
         get {
             if(!this.HasProp("__cal"))
                 this.__cal := CAL(8, this)
@@ -472,7 +479,7 @@ class PROPVARIANT extends Win32Struct
     /**
      * @type {CAUL}
      */
-    caul{
+    caul {
         get {
             if(!this.HasProp("__caul"))
                 this.__caul := CAUL(8, this)
@@ -483,7 +490,7 @@ class PROPVARIANT extends Win32Struct
     /**
      * @type {CAH}
      */
-    cah{
+    cah {
         get {
             if(!this.HasProp("__cah"))
                 this.__cah := CAH(8, this)
@@ -494,7 +501,7 @@ class PROPVARIANT extends Win32Struct
     /**
      * @type {CAUH}
      */
-    cauh{
+    cauh {
         get {
             if(!this.HasProp("__cauh"))
                 this.__cauh := CAUH(8, this)
@@ -505,7 +512,7 @@ class PROPVARIANT extends Win32Struct
     /**
      * @type {CAFLT}
      */
-    caflt{
+    caflt {
         get {
             if(!this.HasProp("__caflt"))
                 this.__caflt := CAFLT(8, this)
@@ -516,7 +523,7 @@ class PROPVARIANT extends Win32Struct
     /**
      * @type {CADBL}
      */
-    cadbl{
+    cadbl {
         get {
             if(!this.HasProp("__cadbl"))
                 this.__cadbl := CADBL(8, this)
@@ -527,7 +534,7 @@ class PROPVARIANT extends Win32Struct
     /**
      * @type {CABOOL}
      */
-    cabool{
+    cabool {
         get {
             if(!this.HasProp("__cabool"))
                 this.__cabool := CABOOL(8, this)
@@ -538,7 +545,7 @@ class PROPVARIANT extends Win32Struct
     /**
      * @type {CASCODE}
      */
-    cascode{
+    cascode {
         get {
             if(!this.HasProp("__cascode"))
                 this.__cascode := CASCODE(8, this)
@@ -549,7 +556,7 @@ class PROPVARIANT extends Win32Struct
     /**
      * @type {CACY}
      */
-    cacy{
+    cacy {
         get {
             if(!this.HasProp("__cacy"))
                 this.__cacy := CACY(8, this)
@@ -560,7 +567,7 @@ class PROPVARIANT extends Win32Struct
     /**
      * @type {CADATE}
      */
-    cadate{
+    cadate {
         get {
             if(!this.HasProp("__cadate"))
                 this.__cadate := CADATE(8, this)
@@ -571,7 +578,7 @@ class PROPVARIANT extends Win32Struct
     /**
      * @type {CAFILETIME}
      */
-    cafiletime{
+    cafiletime {
         get {
             if(!this.HasProp("__cafiletime"))
                 this.__cafiletime := CAFILETIME(8, this)
@@ -582,7 +589,7 @@ class PROPVARIANT extends Win32Struct
     /**
      * @type {CACLSID}
      */
-    cauuid{
+    cauuid {
         get {
             if(!this.HasProp("__cauuid"))
                 this.__cauuid := CACLSID(8, this)
@@ -593,7 +600,7 @@ class PROPVARIANT extends Win32Struct
     /**
      * @type {CACLIPDATA}
      */
-    caclipdata{
+    caclipdata {
         get {
             if(!this.HasProp("__caclipdata"))
                 this.__caclipdata := CACLIPDATA(8, this)
@@ -604,7 +611,7 @@ class PROPVARIANT extends Win32Struct
     /**
      * @type {CABSTR}
      */
-    cabstr{
+    cabstr {
         get {
             if(!this.HasProp("__cabstr"))
                 this.__cabstr := CABSTR(8, this)
@@ -615,7 +622,7 @@ class PROPVARIANT extends Win32Struct
     /**
      * @type {CABSTRBLOB}
      */
-    cabstrblob{
+    cabstrblob {
         get {
             if(!this.HasProp("__cabstrblob"))
                 this.__cabstrblob := CABSTRBLOB(8, this)
@@ -626,7 +633,7 @@ class PROPVARIANT extends Win32Struct
     /**
      * @type {CALPSTR}
      */
-    calpstr{
+    calpstr {
         get {
             if(!this.HasProp("__calpstr"))
                 this.__calpstr := CALPSTR(8, this)
@@ -637,7 +644,7 @@ class PROPVARIANT extends Win32Struct
     /**
      * @type {CALPWSTR}
      */
-    calpwstr{
+    calpwstr {
         get {
             if(!this.HasProp("__calpwstr"))
                 this.__calpwstr := CALPWSTR(8, this)
@@ -648,7 +655,7 @@ class PROPVARIANT extends Win32Struct
     /**
      * @type {CAPROPVARIANT}
      */
-    capropvar{
+    capropvar {
         get {
             if(!this.HasProp("__capropvar"))
                 this.__capropvar := CAPROPVARIANT(8, this)
@@ -819,7 +826,7 @@ class PROPVARIANT extends Win32Struct
     /**
      * @type {DECIMAL}
      */
-    decVal{
+    decVal {
         get {
             if(!this.HasProp("__decVal"))
                 this.__decVal := DECIMAL(0, this)

@@ -3,16 +3,14 @@
 
 /**
  * @namespace Windows.Win32.Media.MediaFoundation
- * @version v4.0.30319
  */
-class DXVA_COPPCommand extends Win32Struct
-{
+class DXVA_COPPCommand extends Win32Struct {
     static sizeof => 4080
 
     static packingSize => 8
 
     /**
-     * @type {Pointer<Guid>}
+     * @type {Pointer}
      */
     macKDI {
         get => NumGet(this, 0, "ptr")
@@ -20,7 +18,7 @@ class DXVA_COPPCommand extends Win32Struct
     }
 
     /**
-     * @type {Pointer<Guid>}
+     * @type {Pointer}
      */
     guidCommandID {
         get => NumGet(this, 8, "ptr")
@@ -44,9 +42,9 @@ class DXVA_COPPCommand extends Win32Struct
     }
 
     /**
-     * @type {Array<Byte>}
+     * @type {Array<Integer>}
      */
-    CommandData{
+    CommandData {
         get {
             if(!this.HasProp("__CommandDataProxyArray"))
                 this.__CommandDataProxyArray := Win32FixedArray(this.ptr + 24, 4056, Primitive, "char")

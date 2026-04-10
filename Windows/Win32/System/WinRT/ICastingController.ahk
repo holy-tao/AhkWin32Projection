@@ -5,9 +5,8 @@
 
 /**
  * @namespace Windows.Win32.System.WinRT
- * @version v4.0.30319
  */
-class ICastingController extends IUnknown{
+class ICastingController extends IUnknown {
 
     static sizeof => A_PtrSize
     /**

@@ -1,8 +1,8 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\..\Guid.ahk
-#Include ..\..\..\Foundation\BSTR.ahk
 #Include ..\..\..\System\Com\IDispatch.ahk
+#Include ..\..\..\Foundation\BSTR.ahk
 
 /**
  * Provides communications between the Certificate Services server engine and the policy module.
@@ -58,9 +58,8 @@
  * Where <i>MyApp</i> is a specifier that identifies the application; further, the class implementing <b>ICertPolicy</b> must be named <b>"Policy"</b>.
  * @see https://learn.microsoft.com/windows/win32/api/certpol/nn-certpol-icertpolicy
  * @namespace Windows.Win32.Security.Cryptography.Certificates
- * @version v4.0.30319
  */
-class ICertPolicy extends IDispatch{
+class ICertPolicy extends IDispatch {
 
     static sizeof => A_PtrSize
     /**
@@ -109,7 +108,7 @@ class ICertPolicy extends IDispatch{
      * When you write custom policy modules, you must implement <b>VerifyRequest</b> functionality in your modules.
      * @param {BSTR} strConfig Represents the name of the <a href="https://docs.microsoft.com/windows/desktop/SecGloss/c-gly">certification authority</a>, as entered during Certificate Services setup. For information about the configuration string name, see 
      * <a href="https://docs.microsoft.com/windows/desktop/api/certcli/nn-certcli-icertconfig">ICertConfig</a>.
-     * @param {Integer} _Context 
+     * @param {Integer} _Context Identifies the request and associated certificate under construction. The certificate server passes the context to this method.
      * @param {Integer} bNewRequest If set to <b>TRUE</b>, specifies that the request is new. If set to <b>FALSE</b>, the request is being resubmitted to the policy module as a result of an 
      * <a href="https://docs.microsoft.com/windows/desktop/api/certadm/nf-certadm-icertadmin-resubmitrequest">ICertAdmin::ResubmitRequest</a> call. A value of <b>FALSE</b> can be used to indicate that the administrator wants the request to be issued or that request properties set by the administrator should be examined.
      * 

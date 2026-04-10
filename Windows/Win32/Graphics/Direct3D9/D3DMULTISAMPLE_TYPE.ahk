@@ -36,9 +36,8 @@
  * See D3DRS\_MULTISAMPLEMASK for discussion of maskable multisampling.
  * @see https://learn.microsoft.com/windows/win32/direct3d9/d3dmultisample-type
  * @namespace Windows.Win32.Graphics.Direct3D9
- * @version v4.0.30319
  */
-class D3DMULTISAMPLE_TYPE extends Win32Enum{
+class D3DMULTISAMPLE_TYPE extends Win32Enum {
 
     /**
      * @type {Integer (Int32)}

@@ -1,14 +1,13 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
+#Include .\PROPERTY_UNITS.ahk
 
 /**
  * Defines the range and resolution of a packet property.
  * @see https://learn.microsoft.com/windows/win32/api/tpcshrd/ns-tpcshrd-property_metrics
  * @namespace Windows.Win32.UI.TabletPC
- * @version v4.0.30319
  */
-class PROPERTY_METRICS extends Win32Struct
-{
+class PROPERTY_METRICS extends Win32Struct {
     static sizeof => 16
 
     static packingSize => 4
@@ -33,7 +32,7 @@ class PROPERTY_METRICS extends Win32Struct
 
     /**
      * The physical units of the property, such as inches or degrees. For a list of property units, see the <a href="https://docs.microsoft.com/windows/desktop/api/tpcshrd/ne-tpcshrd-property_units">PROPERTY_UNITS</a> enumeration type.
-     * @type {Integer}
+     * @type {PROPERTY_UNITS}
      */
     Units {
         get => NumGet(this, 8, "int")

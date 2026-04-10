@@ -1,14 +1,13 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
-#Include .\WTS_PROPERTY_VALUE.ahk
 #Include ..\Com\IUnknown.ahk
+#Include .\WTS_PROPERTY_VALUE.ahk
 
 /**
  * @namespace Windows.Win32.System.RemoteDesktop
- * @version v4.0.30319
  */
-class IWRdsProtocolConnectionSettings extends IUnknown{
+class IWRdsProtocolConnectionSettings extends IUnknown {
 
     static sizeof => A_PtrSize
     /**

@@ -1,18 +1,17 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
+#Include .\HTTP_CREATE_REQUEST_QUEUE_PROPERTY_ID.ahk
 
 /**
  * @namespace Windows.Win32.Networking.HttpServer
- * @version v4.0.30319
  */
-class HTTP_CREATE_REQUEST_QUEUE_PROPERTY_INFO extends Win32Struct
-{
+class HTTP_CREATE_REQUEST_QUEUE_PROPERTY_INFO extends Win32Struct {
     static sizeof => 16
 
     static packingSize => 8
 
     /**
-     * @type {Integer}
+     * @type {HTTP_CREATE_REQUEST_QUEUE_PROPERTY_ID}
      */
     PropertyId {
         get => NumGet(this, 0, "int")

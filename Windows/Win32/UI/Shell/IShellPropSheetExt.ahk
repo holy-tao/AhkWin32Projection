@@ -7,9 +7,8 @@
  * Exposes methods that allow a property sheet handler to add or replace pages in the property sheet displayed for a file object.
  * @see https://learn.microsoft.com/windows/win32/api/shobjidl_core/nn-shobjidl_core-ishellpropsheetext
  * @namespace Windows.Win32.UI.Shell
- * @version v4.0.30319
  */
-class IShellPropSheetExt extends IUnknown{
+class IShellPropSheetExt extends IUnknown {
 
     static sizeof => A_PtrSize
     /**
@@ -48,7 +47,9 @@ class IShellPropSheetExt extends IUnknown{
      * @param {Pointer<LPFNSVADDPROPSHEETPAGE>} pfnAddPage Type: <b>LPFNADDPROPSHEETPAGE</b>
      * 
      * A pointer to a function that the property sheet handler calls to add a page to the property sheet. The function takes a property sheet handle returned by the <a href="https://docs.microsoft.com/windows/desktop/api/prsht/nf-prsht-createpropertysheetpagea">CreatePropertySheetPage</a> function and the <i>lParam</i> parameter passed to this method.
-     * @param {LPARAM} _lParam 
+     * @param {LPARAM} _lParam Type: <b>LPARAM</b>
+     * 
+     * Handler-specific data to pass to the function pointed to by <i>pfnAddPage</i>.
      * @returns {HRESULT} Type: <b>HRESULT</b>
      * 
      * If successful, returns a one-based index to specify the page that should be initially displayed. See Remarks for more information.
@@ -71,7 +72,9 @@ class IShellPropSheetExt extends IUnknown{
      * @param {Pointer<LPFNSVADDPROPSHEETPAGE>} pfnReplaceWith Type: <b>LPFNADDPROPSHEETPAGE</b>
      * 
      * A pointer to a function that the property sheet handler calls to replace a page to the property sheet. The function takes a property sheet handle returned by the <a href="https://docs.microsoft.com/windows/desktop/api/prsht/nf-prsht-createpropertysheetpagea">CreatePropertySheetPage</a> function and the <i>lParam</i> parameter passed to the <b>ReplacePage</b> method.
-     * @param {LPARAM} _lParam 
+     * @param {LPARAM} _lParam Type: <b>LPARAM</b>
+     * 
+     * The parameter to pass to the function specified by the <i>pfnReplacePage</i> parameter.
      * @returns {HRESULT} Type: <b>HRESULT</b>
      * 
      * If this method succeeds, it returns <b>S_OK</b>. Otherwise, it returns an <b>HRESULT</b> error code.

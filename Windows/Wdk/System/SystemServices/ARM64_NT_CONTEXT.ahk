@@ -1,15 +1,12 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
-#Include ..\..\..\Win32\System\Diagnostics\Debug\ARM64_NT_NEON128.ahk
 
 /**
  * Contains processor-specific register data. The system uses CONTEXT structures to perform various internal operations.C
  * @see https://learn.microsoft.com/windows/win32/api/winnt/ns-winnt-arm64_nt_context
  * @namespace Windows.Wdk.System.SystemServices
- * @version v4.0.30319
  */
-class ARM64_NT_CONTEXT extends Win32Struct
-{
+class ARM64_NT_CONTEXT extends Win32Struct {
     static sizeof => 656
 
     static packingSize => 8
@@ -279,9 +276,9 @@ class ARM64_NT_CONTEXT extends Win32Struct
     }
 
     /**
-     * @type {Array<UInt64>}
+     * @type {Array<Integer>}
      */
-    X{
+    X {
         get {
             if(!this.HasProp("__XProxyArray"))
                 this.__XProxyArray := Win32FixedArray(this.ptr + 8, 31, Primitive, "uint")
@@ -306,12 +303,12 @@ class ARM64_NT_CONTEXT extends Win32Struct
     }
 
     /**
-     * @type {Array<ARM64_NT_NEON128>}
+     * @type {Array<Pointer>}
      */
-    V{
+    V {
         get {
             if(!this.HasProp("__VProxyArray"))
-                this.__VProxyArray := Win32FixedArray(this.ptr + 272, 32, ARM64_NT_NEON128, "")
+                this.__VProxyArray := Win32FixedArray(this.ptr + 272, 32, Primitive, "ptr")
             return this.__VProxyArray
         }
     }
@@ -333,9 +330,9 @@ class ARM64_NT_CONTEXT extends Win32Struct
     }
 
     /**
-     * @type {Array<UInt32>}
+     * @type {Array<Integer>}
      */
-    Bcr{
+    Bcr {
         get {
             if(!this.HasProp("__BcrProxyArray"))
                 this.__BcrProxyArray := Win32FixedArray(this.ptr + 536, 8, Primitive, "uint")
@@ -344,9 +341,9 @@ class ARM64_NT_CONTEXT extends Win32Struct
     }
 
     /**
-     * @type {Array<UInt64>}
+     * @type {Array<Integer>}
      */
-    Bvr{
+    Bvr {
         get {
             if(!this.HasProp("__BvrProxyArray"))
                 this.__BvrProxyArray := Win32FixedArray(this.ptr + 568, 8, Primitive, "uint")
@@ -355,9 +352,9 @@ class ARM64_NT_CONTEXT extends Win32Struct
     }
 
     /**
-     * @type {Array<UInt32>}
+     * @type {Array<Integer>}
      */
-    Wcr{
+    Wcr {
         get {
             if(!this.HasProp("__WcrProxyArray"))
                 this.__WcrProxyArray := Win32FixedArray(this.ptr + 632, 2, Primitive, "uint")
@@ -366,9 +363,9 @@ class ARM64_NT_CONTEXT extends Win32Struct
     }
 
     /**
-     * @type {Array<UInt64>}
+     * @type {Array<Integer>}
      */
-    Wvr{
+    Wvr {
         get {
             if(!this.HasProp("__WvrProxyArray"))
                 this.__WvrProxyArray := Win32FixedArray(this.ptr + 640, 2, Primitive, "uint")

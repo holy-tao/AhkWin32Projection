@@ -5,9 +5,8 @@
  * Indicates semantic flags for function parameters.
  * @see https://learn.microsoft.com/windows/win32/api/d3dcommon/ne-d3dcommon-d3d_parameter_flags
  * @namespace Windows.Win32.Graphics.Direct3D
- * @version v4.0.30319
  */
-class D3D_PARAMETER_FLAGS extends Win32Enum{
+class D3D_PARAMETER_FLAGS extends Win32Enum {
 
     /**
      * The parameter has no semantic flags.

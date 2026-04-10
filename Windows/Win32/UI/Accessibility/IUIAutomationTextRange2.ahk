@@ -7,9 +7,8 @@
  * Extends the IUIAutomationTextRange interface to enable Microsoft UI Automation clients to programmatically invoke context menus.
  * @see https://learn.microsoft.com/windows/win32/api/uiautomationclient/nn-uiautomationclient-iuiautomationtextrange2
  * @namespace Windows.Win32.UI.Accessibility
- * @version v4.0.30319
  */
-class IUIAutomationTextRange2 extends IUIAutomationTextRange{
+class IUIAutomationTextRange2 extends IUIAutomationTextRange {
 
     static sizeof => A_PtrSize
     /**

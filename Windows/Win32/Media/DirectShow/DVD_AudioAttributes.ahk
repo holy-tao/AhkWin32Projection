@@ -1,21 +1,22 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
+#Include .\DVD_AUDIO_APPMODE.ahk
+#Include .\DVD_AUDIO_FORMAT.ahk
+#Include .\DVD_AUDIO_LANG_EXT.ahk
 
 /**
  * The DVD_AudioAttributes structure is used in IDvdInfo2::GetAudioAttributes to receive the various audio attributes of the disc.
  * @see https://learn.microsoft.com/windows/win32/api/strmif/ns-strmif-dvd_audioattributes
  * @namespace Windows.Win32.Media.DirectShow
- * @version v4.0.30319
  */
-class DVD_AudioAttributes extends Win32Struct
-{
+class DVD_AudioAttributes extends Win32Struct {
     static sizeof => 40
 
     static packingSize => 4
 
     /**
      * Indicates the current audio mode. If the mode returned is DVD_AudioMode_Karaoke, call <a href="https://docs.microsoft.com/windows/desktop/api/strmif/nf-strmif-idvdinfo2-getkaraokeattributes">IDvdInfo2::GetKaraokeAttributes</a> to get more info.
-     * @type {Integer}
+     * @type {DVD_AUDIO_APPMODE}
      */
     AppMode {
         get => NumGet(this, 0, "int")
@@ -23,7 +24,6 @@ class DVD_AudioAttributes extends Win32Struct
     }
 
     /**
-     * 
      * @type {Integer}
      */
     AppModeData {
@@ -33,7 +33,7 @@ class DVD_AudioAttributes extends Win32Struct
 
     /**
      * Describes the format (encoding mode) of the audio stream.
-     * @type {Integer}
+     * @type {DVD_AUDIO_FORMAT}
      */
     AudioFormat {
         get => NumGet(this, 8, "int")
@@ -51,7 +51,7 @@ class DVD_AudioAttributes extends Win32Struct
 
     /**
      * A [DVD_AUDIO_LANG_EXT](/windows/desktop/api/strmif/ne-strmif-dvd_audio_lang_ext) enumeration that will be filled in if any information is available on the disc.
-     * @type {Integer}
+     * @type {DVD_AUDIO_LANG_EXT}
      */
     LanguageExtension {
         get => NumGet(this, 16, "int")
@@ -96,9 +96,9 @@ class DVD_AudioAttributes extends Win32Struct
 
     /**
      * Reserved.
-     * @type {Array<UInt32>}
+     * @type {Array<Integer>}
      */
-    dwReserved{
+    dwReserved {
         get {
             if(!this.HasProp("__dwReservedProxyArray"))
                 this.__dwReservedProxyArray := Win32FixedArray(this.ptr + 32, 2, Primitive, "uint")

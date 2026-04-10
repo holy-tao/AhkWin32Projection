@@ -1,12 +1,11 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
+#Include .\JET_ERRCAT.ahk
 
 /**
  * @namespace Windows.Win32.Storage.Jet
- * @version v4.0.30319
  */
-class JET_ERRINFOBASIC_W extends Win32Struct
-{
+class JET_ERRINFOBASIC_W extends Win32Struct {
     static sizeof => 152
 
     static packingSize => 4
@@ -28,7 +27,7 @@ class JET_ERRINFOBASIC_W extends Win32Struct
     }
 
     /**
-     * @type {Integer}
+     * @type {JET_ERRCAT}
      */
     errcatMostSpecific {
         get => NumGet(this, 8, "int")
@@ -36,9 +35,9 @@ class JET_ERRINFOBASIC_W extends Win32Struct
     }
 
     /**
-     * @type {Array<Byte>}
+     * @type {Array<Integer>}
      */
-    rgCategoricalHierarchy{
+    rgCategoricalHierarchy {
         get {
             if(!this.HasProp("__rgCategoricalHierarchyProxyArray"))
                 this.__rgCategoricalHierarchyProxyArray := Win32FixedArray(this.ptr + 12, 8, Primitive, "char")
@@ -55,9 +54,9 @@ class JET_ERRINFOBASIC_W extends Win32Struct
     }
 
     /**
-     * @type {Array<UInt16>}
+     * @type {Array<Integer>}
      */
-    rgszSourceFile{
+    rgszSourceFile {
         get {
             if(!this.HasProp("__rgszSourceFileProxyArray"))
                 this.__rgszSourceFileProxyArray := Win32FixedArray(this.ptr + 24, 64, Primitive, "ushort")

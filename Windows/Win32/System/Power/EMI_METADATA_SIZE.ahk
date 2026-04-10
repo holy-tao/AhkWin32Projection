@@ -7,10 +7,8 @@
  * This structure is returned through a successful completion of an <a href="https://docs.microsoft.com/windows/desktop/api/emi/ni-emi-ioctl_emi_get_metadata_size">IOCTL_EMI_GET_METADATA_SIZE</a> IOCTL request.
  * @see https://learn.microsoft.com/windows/win32/api/emi/ns-emi-emi_metadata_size
  * @namespace Windows.Win32.System.Power
- * @version v4.0.30319
  */
-class EMI_METADATA_SIZE extends Win32Struct
-{
+class EMI_METADATA_SIZE extends Win32Struct {
     static sizeof => 4
 
     static packingSize => 4

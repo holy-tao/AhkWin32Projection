@@ -4,10 +4,8 @@
 
 /**
  * @namespace Windows.Wdk.Storage.FileSystem
- * @version v4.0.30319
  */
-class FILE_TRACKING_INFORMATION extends Win32Struct
-{
+class FILE_TRACKING_INFORMATION extends Win32Struct {
     static sizeof => 16
 
     static packingSize => 8
@@ -15,7 +13,7 @@ class FILE_TRACKING_INFORMATION extends Win32Struct
     /**
      * @type {HANDLE}
      */
-    DestinationFile{
+    DestinationFile {
         get {
             if(!this.HasProp("__DestinationFile"))
                 this.__DestinationFile := HANDLE(0, this)
@@ -35,7 +33,7 @@ class FILE_TRACKING_INFORMATION extends Win32Struct
      * @type {String}
      */
     ObjectInformation {
-        get => StrGet(this.ptr + 12, 0, "UTF-16")
-        set => StrPut(value, this.ptr + 12, 0, "UTF-16")
+        get => StrGet(this.ptr + 12, 0, "UTF-8")
+        set => StrPut(value, this.ptr + 12, 0, "UTF-8")
     }
 }

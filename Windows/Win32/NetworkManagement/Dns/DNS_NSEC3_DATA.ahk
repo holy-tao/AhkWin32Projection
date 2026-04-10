@@ -3,10 +3,8 @@
 
 /**
  * @namespace Windows.Win32.NetworkManagement.Dns
- * @version v4.0.30319
  */
-class DNS_NSEC3_DATA extends Win32Struct
-{
+class DNS_NSEC3_DATA extends Win32Struct {
     static sizeof => 10
 
     static packingSize => 2
@@ -60,9 +58,9 @@ class DNS_NSEC3_DATA extends Win32Struct
     }
 
     /**
-     * @type {Array<Byte>}
+     * @type {Array<Integer>}
      */
-    chData{
+    chData {
         get {
             if(!this.HasProp("__chDataProxyArray"))
                 this.__chDataProxyArray := Win32FixedArray(this.ptr + 8, 1, Primitive, "char")

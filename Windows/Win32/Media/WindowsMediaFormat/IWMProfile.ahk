@@ -1,17 +1,16 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
+#Include ..\..\System\Com\IUnknown.ahk
 #Include .\IWMStreamConfig.ahk
 #Include .\IWMMutualExclusion.ahk
-#Include ..\..\System\Com\IUnknown.ahk
 
 /**
  * The IWMProfile interface is the primary interface for a profile object.
  * @see https://learn.microsoft.com/windows/win32/api/wmsdkidl/nn-wmsdkidl-iwmprofile
  * @namespace Windows.Win32.Media.WindowsMediaFormat
- * @version v4.0.30319
  */
-class IWMProfile extends IUnknown{
+class IWMProfile extends IUnknown {
 
     static sizeof => A_PtrSize
     /**
@@ -36,7 +35,7 @@ class IWMProfile extends IUnknown{
      * The GetVersion method retrieves the version number of the Windows Media Format SDK used to create the profile.
      * @remarks
      * The version number indicates the version of the Windows Media codecs used to encode content in the file. You should always use the latest codecs unless you have a specific need for backward compatibility.
-     * @returns {Integer} Pointer to a <b>DWORD</b> containing one member of the <a href="https://docs.microsoft.com/windows/desktop/api/wmsdkidl/ne-wmsdkidl-wmt_version">WMT_VERSION</a> enumeration type. This value specifies the version of the Windows Media Format SDK that was used to create the profile.
+     * @returns {WMT_VERSION} Pointer to a <b>DWORD</b> containing one member of the <a href="https://docs.microsoft.com/windows/desktop/api/wmsdkidl/ne-wmsdkidl-wmt_version">WMT_VERSION</a> enumeration type. This value specifies the version of the Windows Media Format SDK that was used to create the profile.
      * @see https://learn.microsoft.com/windows/win32/api/wmsdkidl/nf-wmsdkidl-iwmprofile-getversion
      */
     GetVersion() {

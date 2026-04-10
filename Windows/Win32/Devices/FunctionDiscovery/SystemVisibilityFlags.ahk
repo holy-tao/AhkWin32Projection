@@ -7,9 +7,8 @@
  * All data operations and function instances are stored in HKEY_LOCAL_MACHINE. Access to a function instance or its data with system-wide visibility must be performed with Administrator access permissions.
  * @see https://learn.microsoft.com/windows/win32/api/functiondiscoveryapi/ne-functiondiscoveryapi-systemvisibilityflags
  * @namespace Windows.Win32.Devices.FunctionDiscovery
- * @version v4.0.30319
  */
-class SystemVisibilityFlags extends Win32Enum{
+class SystemVisibilityFlags extends Win32Enum {
 
     /**
      * The function instance's data is available to all users on the system.

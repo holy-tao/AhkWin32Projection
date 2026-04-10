@@ -3,10 +3,8 @@
 
 /**
  * @namespace Windows.Win32.System.WindowsProgramming
- * @version v4.0.30319
  */
-class IMAGE_DELAYLOAD_DESCRIPTOR extends Win32Struct
-{
+class IMAGE_DELAYLOAD_DESCRIPTOR extends Win32Struct {
     static sizeof => 32
 
     static packingSize => 4
@@ -22,7 +20,7 @@ class IMAGE_DELAYLOAD_DESCRIPTOR extends Win32Struct
             get => NumGet(this, 0, "uint")
             set => NumPut("uint", value, this, 0)
         }
-    
+
         /**
          * This bitfield backs the following members:
          * - RvaBased
@@ -33,7 +31,7 @@ class IMAGE_DELAYLOAD_DESCRIPTOR extends Win32Struct
             get => NumGet(this, 0, "uint")
             set => NumPut("uint", value, this, 0)
         }
-    
+
         /**
          * @type {Integer}
          */
@@ -41,7 +39,7 @@ class IMAGE_DELAYLOAD_DESCRIPTOR extends Win32Struct
             get => (this._bitfield >> 0) & 0x1
             set => this._bitfield := ((value & 0x1) << 0) | (this._bitfield & ~(0x1 << 0))
         }
-    
+
         /**
          * @type {Integer}
          */
@@ -49,16 +47,15 @@ class IMAGE_DELAYLOAD_DESCRIPTOR extends Win32Struct
             get => (this._bitfield >> 1) & 0x7FFFFFFF
             set => this._bitfield := ((value & 0x7FFFFFFF) << 1) | (this._bitfield & ~(0x7FFFFFFF << 1))
         }
-    
     }
 
     /**
      * @type {_Attributes_e__Union}
      */
-    Attributes{
+    Attributes {
         get {
             if(!this.HasProp("__Attributes"))
-                this.__Attributes := %this.__Class%._Attributes_e__Union(0, this)
+                this.__Attributes := IMAGE_DELAYLOAD_DESCRIPTOR._Attributes_e__Union(0, this)
             return this.__Attributes
         }
     }

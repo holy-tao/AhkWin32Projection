@@ -1,10 +1,9 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
+#Include ..\Com\IDispatch.ahk
 #Include ..\..\Foundation\BSTR.ahk
 #Include ..\Com\IUnknown.ahk
-#Include .\IStringCollection.ahk
-#Include ..\Com\IDispatch.ahk
 
 /**
  * Represents an ordered list of strings.
@@ -12,9 +11,8 @@
  * This interface can be instantiated by using the StringCollection coclass. Use the Microsoft.Update.StringColl program identifier to create the object.
  * @see https://learn.microsoft.com/windows/win32/api/wuapi/nn-wuapi-istringcollection
  * @namespace Windows.Win32.System.UpdateAgent
- * @version v4.0.30319
  */
-class IStringCollection extends IDispatch{
+class IStringCollection extends IDispatch {
 
     static sizeof => A_PtrSize
     /**

@@ -1,5 +1,6 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\..\Win32Struct.ahk
+#Include .\EXCEPTION_RECORD.ahk
 
 /**
  * Describes an exception. (EXCEPTION_RECORD)
@@ -29,10 +30,8 @@
  * ```
  * @see https://learn.microsoft.com/windows/win32/api/winnt/ns-winnt-exception_record
  * @namespace Windows.Win32.System.Diagnostics.Debug
- * @version v4.0.30319
  */
-class EXCEPTION_RECORD extends Win32Struct
-{
+class EXCEPTION_RECORD extends Win32Struct {
     static sizeof => 152
 
     static packingSize => 8
@@ -367,9 +366,9 @@ class EXCEPTION_RECORD extends Win32Struct
      * </td>
      * </tr>
      * </table>
-     * @type {Array<UIntPtr>}
+     * @type {Array<Pointer>}
      */
-    ExceptionInformation{
+    ExceptionInformation {
         get {
             if(!this.HasProp("__ExceptionInformationProxyArray"))
                 this.__ExceptionInformationProxyArray := Win32FixedArray(this.ptr + 32, 15, Primitive, "ptr")

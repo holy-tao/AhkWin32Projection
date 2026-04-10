@@ -1,19 +1,18 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\..\Win32Struct.ahk
+#Include .\MSV1_0_LOGON_SUBMIT_TYPE.ahk
 #Include .\LSA_UNICODE_STRING.ahk
 
 /**
  * @namespace Windows.Win32.Security.Authentication.Identity
- * @version v4.0.30319
  */
-class MSV1_0_S4U_LOGON extends Win32Struct
-{
+class MSV1_0_S4U_LOGON extends Win32Struct {
     static sizeof => 40
 
     static packingSize => 8
 
     /**
-     * @type {Integer}
+     * @type {MSV1_0_LOGON_SUBMIT_TYPE}
      */
     MessageType {
         get => NumGet(this, 0, "int")
@@ -31,7 +30,7 @@ class MSV1_0_S4U_LOGON extends Win32Struct
     /**
      * @type {LSA_UNICODE_STRING}
      */
-    UserPrincipalName{
+    UserPrincipalName {
         get {
             if(!this.HasProp("__UserPrincipalName"))
                 this.__UserPrincipalName := LSA_UNICODE_STRING(8, this)
@@ -42,7 +41,7 @@ class MSV1_0_S4U_LOGON extends Win32Struct
     /**
      * @type {LSA_UNICODE_STRING}
      */
-    DomainName{
+    DomainName {
         get {
             if(!this.HasProp("__DomainName"))
                 this.__DomainName := LSA_UNICODE_STRING(24, this)

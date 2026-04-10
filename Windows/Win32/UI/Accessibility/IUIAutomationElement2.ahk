@@ -1,16 +1,15 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
-#Include .\IUIAutomationElementArray.ahk
 #Include .\IUIAutomationElement.ahk
+#Include .\IUIAutomationElementArray.ahk
 
 /**
  * Extends the IUIAutomationElement interface.
  * @see https://learn.microsoft.com/windows/win32/api/uiautomationclient/nn-uiautomationclient-iuiautomationelement2
  * @namespace Windows.Win32.UI.Accessibility
- * @version v4.0.30319
  */
-class IUIAutomationElement2 extends IUIAutomationElement{
+class IUIAutomationElement2 extends IUIAutomationElement {
 
     static sizeof => A_PtrSize
     /**
@@ -46,14 +45,14 @@ class IUIAutomationElement2 extends IUIAutomationElement{
     }
 
     /**
-     * @type {Integer} 
+     * @type {LiveSetting} 
      */
     CurrentLiveSetting {
         get => this.get_CurrentLiveSetting()
     }
 
     /**
-     * @type {Integer} 
+     * @type {LiveSetting} 
      */
     CachedLiveSetting {
         get => this.get_CachedLiveSetting()
@@ -103,7 +102,7 @@ class IUIAutomationElement2 extends IUIAutomationElement{
      * This property maps to the Accessible Rich Internet Applications (ARIA)<b> live</b> property.
      * 
      * The LiveSetting property is supported by provider elements that are part of a live region. When the content of a live region changes, the provider element can raise a notification. A client application determines whether to notify the user of the changes based on the value of the LiveSetting property.
-     * @returns {Integer} 
+     * @returns {LiveSetting} 
      * @see https://learn.microsoft.com/windows/win32/api/uiautomationclient/nf-uiautomationclient-iuiautomationelement2-get_currentlivesetting
      */
     get_CurrentLiveSetting() {
@@ -117,7 +116,7 @@ class IUIAutomationElement2 extends IUIAutomationElement{
      * This property maps to the Accessible Rich Internet Applications (ARIA)<b> live</b> property.
      * 
      * The LiveSetting property is supported by provider elements that are part of a live region. When the content of a live region changes, the provider element can raise a notification. A client application determines whether to notify the user of the changes based on the value of the LiveSetting property.
-     * @returns {Integer} 
+     * @returns {LiveSetting} 
      * @see https://learn.microsoft.com/windows/win32/api/uiautomationclient/nf-uiautomationclient-iuiautomationelement2-get_cachedlivesetting
      */
     get_CachedLiveSetting() {

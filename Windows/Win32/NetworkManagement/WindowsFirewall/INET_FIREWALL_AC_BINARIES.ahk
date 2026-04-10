@@ -5,10 +5,8 @@
  * The INET_FIREWALL_AC_BINARIES structure contains the binary paths to applications running in an app container.
  * @see https://learn.microsoft.com/windows/win32/api/netfw/ns-netfw-inet_firewall_ac_binaries
  * @namespace Windows.Win32.NetworkManagement.WindowsFirewall
- * @version v4.0.30319
  */
-class INET_FIREWALL_AC_BINARIES extends Win32Struct
-{
+class INET_FIREWALL_AC_BINARIES extends Win32Struct {
     static sizeof => 16
 
     static packingSize => 8

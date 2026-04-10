@@ -7,9 +7,8 @@
   * Returns a handle to the access token.
  * @see https://learn.microsoft.com/windows/win32/api/sspi/nf-sspi-querycontextattributesexa
  * @namespace Windows.Win32.Security.Authentication.Identity
- * @version v4.0.30319
  */
-class SECPKG_ATTR extends Win32Enum{
+class SECPKG_ATTR extends Win32Enum {
 
     /**
      * @type {Integer (UInt32)}

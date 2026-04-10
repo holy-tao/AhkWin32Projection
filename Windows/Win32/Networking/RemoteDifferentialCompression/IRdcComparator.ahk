@@ -7,9 +7,8 @@
  * Used to compare two signature streams (seed and source) and produce the list of source and seed file data chunks needed to create the target file.
  * @see https://learn.microsoft.com/windows/win32/api/msrdc/nn-msrdc-irdccomparator
  * @namespace Windows.Win32.Networking.RemoteDifferentialCompression
- * @version v4.0.30319
  */
-class IRdcComparator extends IUnknown{
+class IRdcComparator extends IUnknown {
 
     static sizeof => A_PtrSize
     /**
@@ -57,7 +56,12 @@ class IRdcComparator extends IUnknown{
      *       must be zero. On output the <b>m_Used</b> member will contain the number of 
      *       <b>RdcNeed</b> structures in the array pointed to by the 
      *       <b>m_Data</b> member.
-     * @param {Pointer<Integer>} _rdc_ErrorCode 
+     * @param {Pointer<RDC_ErrorCode>} _rdc_ErrorCode The address of a <a href="https://docs.microsoft.com/windows/win32/api/msrdc/ne-msrdc-rdc_errorcode">RDC_ErrorCode</a> enumeration that is 
+     *       filled with an RDC specific error code if the return value from the 
+     *       <b>Process</b> method is 
+     *       <b>E_FAIL</b>. If this value is <b>RDC_Win32ErrorCode</b>, then the 
+     *       return value of the <b>Process</b> method contains the 
+     *       specific error code.
      * @returns {HRESULT} If this method succeeds, it returns <b>S_OK</b>. Otherwise, it returns an <b>HRESULT</b> error code.
      * @see https://learn.microsoft.com/windows/win32/api/msrdc/nf-msrdc-irdccomparator-process
      */

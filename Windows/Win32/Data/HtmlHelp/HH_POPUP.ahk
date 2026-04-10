@@ -8,10 +8,8 @@
  * Use this structure to specify or modify the attributes of a pop-up window.
  * @see https://learn.microsoft.com/windows/win32/api/htmlhelp/ns-htmlhelp-hh_popup
  * @namespace Windows.Win32.Data.HtmlHelp
- * @version v4.0.30319
  */
-class HH_POPUP extends Win32Struct
-{
+class HH_POPUP extends Win32Struct {
     static sizeof => 72
 
     static packingSize => 8
@@ -29,7 +27,7 @@ class HH_POPUP extends Win32Struct
      * Instance handle of the program or DLL to retrieve the string resource from. Ignored if <i>idString</i> is zero, or if <i>idString</i> specifies a file name.
      * @type {HINSTANCE}
      */
-    hinst{
+    hinst {
         get {
             if(!this.HasProp("__hinst"))
                 this.__hinst := HINSTANCE(8, this)
@@ -59,7 +57,7 @@ class HH_POPUP extends Win32Struct
      * Specifies (in pixels) where the top center of the pop-up window should be located.
      * @type {POINT}
      */
-    pt{
+    pt {
         get {
             if(!this.HasProp("__pt"))
                 this.__pt := POINT(32, this)
@@ -89,7 +87,7 @@ class HH_POPUP extends Win32Struct
      * Specifies (in pixels) the margins to use on the left, top, right, and bottom sides of the pop-up window. The default for all rectangle members is -1.
      * @type {RECT}
      */
-    rcMargins{
+    rcMargins {
         get {
             if(!this.HasProp("__rcMargins"))
                 this.__rcMargins := RECT(48, this)

@@ -15,10 +15,8 @@
  * <b>Terminate</b> without waiting for the thread to exit.
  * @see https://learn.microsoft.com/windows/win32/api/resapi/ns-resapi-clus_worker
  * @namespace Windows.Win32.Networking.Clustering
- * @version v4.0.30319
  */
-class CLUS_WORKER extends Win32Struct
-{
+class CLUS_WORKER extends Win32Struct {
     static sizeof => 16
 
     static packingSize => 8
@@ -27,7 +25,7 @@ class CLUS_WORKER extends Win32Struct
      * Handle to the worker thread.
      * @type {HANDLE}
      */
-    hThread{
+    hThread {
         get {
             if(!this.HasProp("__hThread"))
                 this.__hThread := HANDLE(0, this)

@@ -5,9 +5,8 @@
  * Specifies the type of key to be returned by IQueryAssociations::GetKey.
  * @see https://learn.microsoft.com/windows/win32/api/shlwapi/ne-shlwapi-assockey
  * @namespace Windows.Win32.UI.Shell
- * @version v4.0.30319
  */
-class ASSOCKEY extends Win32Enum{
+class ASSOCKEY extends Win32Enum {
 
     /**
      * A key that is passed to <a href="https://docs.microsoft.com/windows/desktop/api/shellapi/nf-shellapi-shellexecuteexa">ShellExecuteEx</a> through a <a href="https://docs.microsoft.com/windows/desktop/api/shellapi/ns-shellapi-shellexecuteinfoa">SHELLEXECUTEINFO</a> structure.
@@ -34,7 +33,6 @@ class ASSOCKEY extends Win32Enum{
     static ASSOCKEY_BASECLASS => 4
 
     /**
-     * 
      * @type {Integer (Int32)}
      */
     static ASSOCKEY_MAX => 5

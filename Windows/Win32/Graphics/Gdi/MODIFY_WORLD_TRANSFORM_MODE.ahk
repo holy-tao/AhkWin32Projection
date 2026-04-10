@@ -3,9 +3,8 @@
 
 /**
  * @namespace Windows.Win32.Graphics.Gdi
- * @version v4.0.30319
  */
-class MODIFY_WORLD_TRANSFORM_MODE extends Win32Enum{
+class MODIFY_WORLD_TRANSFORM_MODE extends Win32Enum {
 
     /**
      * @type {Integer (UInt32)}

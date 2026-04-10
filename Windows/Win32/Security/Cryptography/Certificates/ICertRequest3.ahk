@@ -1,16 +1,15 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\..\Guid.ahk
-#Include ..\..\..\Foundation\BSTR.ahk
 #Include .\ICertRequest2.ahk
+#Include ..\..\..\Foundation\BSTR.ahk
 
 /**
  * Provide communications between a client or intermediary application and Certificate Services. (ICertRequest3)
  * @see https://learn.microsoft.com/windows/win32/api/certcli/nn-certcli-icertrequest3
  * @namespace Windows.Win32.Security.Cryptography.Certificates
- * @version v4.0.30319
  */
-class ICertRequest3 extends ICertRequest2{
+class ICertRequest3 extends ICertRequest2 {
 
     static sizeof => A_PtrSize
     /**
@@ -101,8 +100,14 @@ class ICertRequest3 extends ICertRequest2{
      * </td>
      * </tr>
      * </table>
-     * @param {Integer} _hWnd 
-     * @param {Integer} AuthType A value of the <a href="https://docs.microsoft.com/windows/desktop/api/certcli/ne-certcli-x509enrollmentauthflags">X509EnrollmentAuthFlags</a> enumeration that specifies the authentication type.
+     * @param {Integer} _hWnd A handle to the parent window.
+     * 
+     * You must set the <i>hWnd</i> parameter there is a UI presented to obtain the credential. 
+     * 
+     * For certificate based authorization, the handle is used if a UI prompt is needed to obtain the credential, for example, if the credential is on a smart card and a pin prompt is needed.
+     * 
+     * When using Kerberos, anonymous, or user name and password authentication, this parameter is ignored.
+     * @param {X509EnrollmentAuthFlags} AuthType A value of the <a href="https://docs.microsoft.com/windows/desktop/api/certcli/ne-certcli-x509enrollmentauthflags">X509EnrollmentAuthFlags</a> enumeration that specifies the authentication type.
      * 
      * <table>
      * <tr>
@@ -211,7 +216,7 @@ class ICertRequest3 extends ICertRequest2{
      * @param {BSTR} strSerialNumber A <b>BSTR</b> value that represents the certificate serial number, as issued by the CA. The string must specify the serial number as an even number of hexadecimal digits. If necessary, a zero can be prefixed to the number to produce an even number of digits. However, no more than one leading zero may be used.
      * 
      * The <i>strSerialNumber</i> value is only used when the <i>strRequestId</i> is set to <b>NULL</b>.
-     * @returns {Integer} 
+     * @returns {CR_DISP} 
      * @see https://learn.microsoft.com/windows/win32/api/certcli/nf-certcli-icertrequest3-getissuedcertificate2
      */
     GetIssuedCertificate2(strConfig, strRequestId, strSerialNumber) {

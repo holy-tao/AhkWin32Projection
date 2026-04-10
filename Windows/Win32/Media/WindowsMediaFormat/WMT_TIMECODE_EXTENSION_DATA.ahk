@@ -11,10 +11,8 @@
  * Ranges are guaranteed to be monotonically increasing (in other words, 0, 1, 2, 3, … ) with a WMV file. SMPTE time code values are guaranteed to be increasing within a given range in a WMV file, but not across ranges.
  * @see https://learn.microsoft.com/windows/win32/api/wmsdkidl/ns-wmsdkidl-wmt_timecode_extension_data
  * @namespace Windows.Win32.Media.WindowsMediaFormat
- * @version v4.0.30319
  */
-class WMT_TIMECODE_EXTENSION_DATA extends Win32Struct
-{
+class WMT_TIMECODE_EXTENSION_DATA extends Win32Struct {
     static sizeof => 16
 
     static packingSize => 4
@@ -29,7 +27,6 @@ class WMT_TIMECODE_EXTENSION_DATA extends Win32Struct
     }
 
     /**
-     * 
      * @type {Integer}
      */
     dwTimecode {

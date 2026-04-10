@@ -1,14 +1,13 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
-#Include .\SUBSCRIPTIONINFO.ahk
 #Include ..\Com\IUnknown.ahk
+#Include .\SUBSCRIPTIONINFO.ahk
 
 /**
  * @namespace Windows.Win32.System.Search
- * @version v4.0.30319
  */
-class ISubscriptionMgr extends IUnknown{
+class ISubscriptionMgr extends IUnknown {
 
     static sizeof => A_PtrSize
     /**
@@ -97,7 +96,7 @@ class ISubscriptionMgr extends IUnknown{
 
     /**
      * 
-     * @param {Integer} subType 
+     * @param {SUBSCRIPTIONTYPE} subType 
      * @returns {SUBSCRIPTIONINFO} 
      */
     GetDefaultInfo(subType) {
@@ -126,7 +125,7 @@ class ISubscriptionMgr extends IUnknown{
      * @param {PWSTR} pwszURL 
      * @param {PWSTR} pwszFriendlyName 
      * @param {Integer} dwFlags 
-     * @param {Integer} subsType 
+     * @param {SUBSCRIPTIONTYPE} subsType 
      * @param {Pointer<SUBSCRIPTIONINFO>} pInfo 
      * @returns {HRESULT} 
      */

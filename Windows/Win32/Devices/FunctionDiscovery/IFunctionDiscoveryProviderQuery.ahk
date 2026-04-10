@@ -1,17 +1,16 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
+#Include ..\..\System\Com\IUnknown.ahk
 #Include .\IProviderQueryConstraintCollection.ahk
 #Include .\IProviderPropertyConstraintCollection.ahk
-#Include ..\..\System\Com\IUnknown.ahk
 
 /**
  * This interface is passed to all IFunctionDiscoveryProvider::Query method calls and contains query definition information. Providers should use this to determine what the constraints are for each query request they receive.
  * @see https://learn.microsoft.com/windows/win32/api/functiondiscoveryprovider/nn-functiondiscoveryprovider-ifunctiondiscoveryproviderquery
  * @namespace Windows.Win32.Devices.FunctionDiscovery
- * @version v4.0.30319
  */
-class IFunctionDiscoveryProviderQuery extends IUnknown{
+class IFunctionDiscoveryProviderQuery extends IUnknown {
 
     static sizeof => A_PtrSize
     /**

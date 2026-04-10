@@ -5,9 +5,8 @@
  * Specifies conversion matrix from Y'Cb'Cr' to R'G'B'.
  * @see https://learn.microsoft.com/windows/win32/api/wincodec/ne-wincodec-wicjpegtransfermatrix
  * @namespace Windows.Win32.Graphics.Imaging
- * @version v4.0.30319
  */
-class WICJpegTransferMatrix extends Win32Enum{
+class WICJpegTransferMatrix extends Win32Enum {
 
     /**
      * Specifies the identity transfer matrix.

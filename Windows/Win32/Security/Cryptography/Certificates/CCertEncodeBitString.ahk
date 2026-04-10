@@ -7,10 +7,8 @@
  * Use this method to decode an encoded bit string.
  * @see https://learn.microsoft.com/windows/win32/api/certenc/nf-certenc-icertencodebitstring-decode
  * @namespace Windows.Win32.Security.Cryptography.Certificates
- * @version v4.0.30319
  */
-class CCertEncodeBitString extends Win32Struct
-{
+class CCertEncodeBitString extends Win32Struct {
     static sizeof => 0
 
     static packingSize => 1

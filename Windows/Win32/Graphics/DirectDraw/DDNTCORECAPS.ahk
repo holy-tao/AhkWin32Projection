@@ -4,10 +4,8 @@
 
 /**
  * @namespace Windows.Win32.Graphics.DirectDraw
- * @version v4.0.30319
  */
-class DDNTCORECAPS extends Win32Struct
-{
+class DDNTCORECAPS extends Win32Struct {
     static sizeof => 316
 
     static packingSize => 4
@@ -213,9 +211,9 @@ class DDNTCORECAPS extends Win32Struct
     }
 
     /**
-     * @type {Array<UInt32>}
+     * @type {Array<Integer>}
      */
-    dwRops{
+    dwRops {
         get {
             if(!this.HasProp("__dwRopsProxyArray"))
                 this.__dwRopsProxyArray := Win32FixedArray(this.ptr + 100, 8, Primitive, "uint")
@@ -226,7 +224,7 @@ class DDNTCORECAPS extends Win32Struct
     /**
      * @type {DDSCAPS}
      */
-    ddsCaps{
+    ddsCaps {
         get {
             if(!this.HasProp("__ddsCaps"))
                 this.__ddsCaps := DDSCAPS(132, this)
@@ -331,9 +329,9 @@ class DDNTCORECAPS extends Win32Struct
     }
 
     /**
-     * @type {Array<UInt32>}
+     * @type {Array<Integer>}
      */
-    dwSVBRops{
+    dwSVBRops {
         get {
             if(!this.HasProp("__dwSVBRopsProxyArray"))
                 this.__dwSVBRopsProxyArray := Win32FixedArray(this.ptr + 184, 8, Primitive, "uint")
@@ -366,9 +364,9 @@ class DDNTCORECAPS extends Win32Struct
     }
 
     /**
-     * @type {Array<UInt32>}
+     * @type {Array<Integer>}
      */
-    dwVSBRops{
+    dwVSBRops {
         get {
             if(!this.HasProp("__dwVSBRopsProxyArray"))
                 this.__dwVSBRopsProxyArray := Win32FixedArray(this.ptr + 228, 8, Primitive, "uint")
@@ -401,9 +399,9 @@ class DDNTCORECAPS extends Win32Struct
     }
 
     /**
-     * @type {Array<UInt32>}
+     * @type {Array<Integer>}
      */
-    dwSSBRops{
+    dwSSBRops {
         get {
             if(!this.HasProp("__dwSSBRopsProxyArray"))
                 this.__dwSSBRopsProxyArray := Win32FixedArray(this.ptr + 272, 8, Primitive, "uint")

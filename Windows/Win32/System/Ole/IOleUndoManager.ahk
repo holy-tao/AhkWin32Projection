@@ -1,9 +1,9 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
+#Include ..\Com\IUnknown.ahk
 #Include .\IEnumOleUndoUnits.ahk
 #Include ..\..\Foundation\BSTR.ahk
-#Include ..\Com\IUnknown.ahk
 
 /**
  * The IOleUndoManager interface enables containers to implement multi-level undo and redo operations for actions that occur within contained controls.
@@ -29,9 +29,8 @@
  * The host application determines the scope of an undo manager. For example, in one application, the scope might be at the document level; a separate undo manager is maintained for each document; and undo is managed independently for each document. However, another application maintain one undo manager, and therefore one undo scope, for the entire application.
  * @see https://learn.microsoft.com/windows/win32/api/ocidl/nn-ocidl-ioleundomanager
  * @namespace Windows.Win32.System.Ole
- * @version v4.0.30319
  */
-class IOleUndoManager extends IUnknown{
+class IOleUndoManager extends IUnknown {
 
     static sizeof => A_PtrSize
     /**

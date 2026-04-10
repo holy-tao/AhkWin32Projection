@@ -40,16 +40,13 @@
  * </dl>
  * @see https://learn.microsoft.com/windows/win32/api/winddi/ns-winddi-pathobj
  * @namespace Windows.Win32.Devices.Display
- * @version v4.0.30319
  */
-class PATHOBJ extends Win32Struct
-{
+class PATHOBJ extends Win32Struct {
     static sizeof => 8
 
     static packingSize => 4
 
     /**
-     * 
      * @type {Integer}
      */
     fl {

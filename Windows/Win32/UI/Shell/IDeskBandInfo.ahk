@@ -7,9 +7,8 @@
  * Exposes a method for getting the default Desk Band bandwidth.
  * @see https://learn.microsoft.com/windows/win32/api/shobjidl_core/nn-shobjidl_core-ideskbandinfo
  * @namespace Windows.Win32.UI.Shell
- * @version v4.0.30319
  */
-class IDeskBandInfo extends IUnknown{
+class IDeskBandInfo extends IUnknown {
 
     static sizeof => A_PtrSize
     /**

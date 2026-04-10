@@ -7,10 +7,8 @@
  * The **SAppTimeArray** structure is used to define properties of type PT_MV_APPTIME. For more information about PT_MV_APPTIME, see [List of Property Types](property-types.md).
  * @see https://learn.microsoft.com/office/client-developer/outlook/mapi/sapptimearray
  * @namespace Windows.Win32.System.AddressBook
- * @version v4.0.30319
  */
-class SAppTimeArray extends Win32Struct
-{
+class SAppTimeArray extends Win32Struct {
     static sizeof => 16
 
     static packingSize => 8

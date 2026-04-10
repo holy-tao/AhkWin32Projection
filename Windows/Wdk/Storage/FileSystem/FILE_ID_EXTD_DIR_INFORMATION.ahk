@@ -1,14 +1,11 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
-#Include ..\..\..\Win32\Storage\FileSystem\FILE_ID_128.ahk
 
 /**
  * @namespace Windows.Wdk.Storage.FileSystem
- * @version v4.0.30319
  */
-class FILE_ID_EXTD_DIR_INFORMATION extends Win32Struct
-{
-    static sizeof => 96
+class FILE_ID_EXTD_DIR_INFORMATION extends Win32Struct {
+    static sizeof => 88
 
     static packingSize => 8
 
@@ -109,21 +106,18 @@ class FILE_ID_EXTD_DIR_INFORMATION extends Win32Struct
     }
 
     /**
-     * @type {FILE_ID_128}
+     * @type {Pointer}
      */
-    FileId{
-        get {
-            if(!this.HasProp("__FileId"))
-                this.__FileId := FILE_ID_128(72, this)
-            return this.__FileId
-        }
+    FileId {
+        get => NumGet(this, 72, "ptr")
+        set => NumPut("ptr", value, this, 72)
     }
 
     /**
      * @type {String}
      */
     FileName {
-        get => StrGet(this.ptr + 88, 0, "UTF-16")
-        set => StrPut(value, this.ptr + 88, 0, "UTF-16")
+        get => StrGet(this.ptr + 80, 0, "UTF-16")
+        set => StrPut(value, this.ptr + 80, 0, "UTF-16")
     }
 }

@@ -1,6 +1,10 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
 #Include Common\D2D1_PIXEL_FORMAT.ahk
+#Include ..\Dxgi\Common\DXGI_FORMAT.ahk
+#Include Common\D2D1_ALPHA_MODE.ahk
+#Include .\D2D1_BITMAP_OPTIONS.ahk
+#Include .\ID2D1ColorContext.ahk
 
 /**
  * This structure allows a ID2D1Bitmap1 to be created with bitmap options and color context information available.
@@ -8,10 +12,8 @@
  * If both <b>dpiX</b> and <b>dpiY</b> are 0, the dpi of the bitmap will be set to the desktop dpi if the device context is a windowed context, or 96 dpi for any other device context.
  * @see https://learn.microsoft.com/windows/win32/api/d2d1_1/ns-d2d1_1-d2d1_bitmap_properties1
  * @namespace Windows.Win32.Graphics.Direct2D
- * @version v4.0.30319
  */
-class D2D1_BITMAP_PROPERTIES1 extends Win32Struct
-{
+class D2D1_BITMAP_PROPERTIES1 extends Win32Struct {
     static sizeof => 32
 
     static packingSize => 8
@@ -22,7 +24,7 @@ class D2D1_BITMAP_PROPERTIES1 extends Win32Struct
      * The DXGI format and alpha mode to create the bitmap with.
      * @type {D2D1_PIXEL_FORMAT}
      */
-    pixelFormat{
+    pixelFormat {
         get {
             if(!this.HasProp("__pixelFormat"))
                 this.__pixelFormat := D2D1_PIXEL_FORMAT(0, this)
@@ -56,7 +58,7 @@ class D2D1_BITMAP_PROPERTIES1 extends Win32Struct
      * Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/d2d1_1/ne-d2d1_1-d2d1_bitmap_options">D2D1_BITMAP_OPTIONS</a></b>
      * 
      * The special creation options of the bitmap.
-     * @type {Integer}
+     * @type {D2D1_BITMAP_OPTIONS}
      */
     bitmapOptions {
         get => NumGet(this, 16, "int")

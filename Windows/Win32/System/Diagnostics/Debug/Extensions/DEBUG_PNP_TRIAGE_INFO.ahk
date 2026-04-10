@@ -3,10 +3,8 @@
 
 /**
  * @namespace Windows.Win32.System.Diagnostics.Debug.Extensions
- * @version v4.0.30319
  */
-class DEBUG_PNP_TRIAGE_INFO extends Win32Struct
-{
+class DEBUG_PNP_TRIAGE_INFO extends Win32Struct {
     static sizeof => 64
 
     static packingSize => 8

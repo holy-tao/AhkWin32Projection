@@ -1,8 +1,8 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
-#Include ..\..\Foundation\BSTR.ahk
 #Include .\IFaxOutgoingMessage.ahk
+#Include ..\..\Foundation\BSTR.ahk
 
 /**
  * Used by a fax client application to retrieve information about a sent fax message in the archive of outbound faxes.
@@ -12,9 +12,8 @@
  * A default implementation of this interface is provided by the <a href="https://docs.microsoft.com/previous-versions/windows/desktop/fax/-mfax-faxoutgoingmessage">FaxOutgoingMessage</a> object in Windows Vista or later. The <b>FaxOutgoingMessage</b> object implements the <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/faxcomex/nn-faxcomex-ifaxaccountoutgoingarchive">IFaxAccountOutgoingArchive</a> interface on Windows XP or earlier.
  * @see https://learn.microsoft.com/windows/win32/api/faxcomex/nn-faxcomex-ifaxoutgoingmessage2
  * @namespace Windows.Win32.Devices.Fax
- * @version v4.0.30319
  */
-class IFaxOutgoingMessage2 extends IFaxOutgoingMessage{
+class IFaxOutgoingMessage2 extends IFaxOutgoingMessage {
 
     static sizeof => A_PtrSize
     /**
@@ -43,7 +42,7 @@ class IFaxOutgoingMessage2 extends IFaxOutgoingMessage{
     }
 
     /**
-     * @type {Integer} 
+     * @type {FAX_RECEIPT_TYPE_ENUM} 
      */
     ReceiptType {
         get => this.get_ReceiptType()
@@ -76,7 +75,7 @@ class IFaxOutgoingMessage2 extends IFaxOutgoingMessage{
 
     /**
      * Specifies the type of delivery report that is sent following an attempted transmission.
-     * @returns {Integer} 
+     * @returns {FAX_RECEIPT_TYPE_ENUM} 
      * @see https://learn.microsoft.com/windows/win32/api/faxcomex/nf-faxcomex-ifaxoutgoingmessage2-get_receipttype
      */
     get_ReceiptType() {

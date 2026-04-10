@@ -5,10 +5,8 @@
 
 /**
  * @namespace Windows.Win32.Storage.CloudFilters
- * @version v4.0.30319
  */
-class CF_CONNECTION_KEY extends Win32Handle
-{
+class CF_CONNECTION_KEY extends Win32Handle {
     static sizeof => 8
 
     static packingSize => 8

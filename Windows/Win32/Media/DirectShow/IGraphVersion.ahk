@@ -7,9 +7,8 @@
  * The IGraphVersion interface is implemented on the Filter Graph Manager to provide a way for plug-in distributors and applications to know when the graph has changed.
  * @see https://learn.microsoft.com/windows/win32/api/strmif/nn-strmif-igraphversion
  * @namespace Windows.Win32.Media.DirectShow
- * @version v4.0.30319
  */
-class IGraphVersion extends IUnknown{
+class IGraphVersion extends IUnknown {
 
     static sizeof => A_PtrSize
     /**

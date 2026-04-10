@@ -17,17 +17,14 @@
  * > The ntmsapi.h header defines NTMS_OPREQUESTINFORMATION as an alias which automatically selects the ANSI or Unicode version of this function based on the definition of the UNICODE preprocessor constant. Mixing usage of the encoding-neutral alias with code that not encoding-neutral can lead to mismatches that result in compilation or runtime errors. For more information, see [Conventions for Function Prototypes](/windows/win32/intl/conventions-for-function-prototypes).
  * @see https://learn.microsoft.com/windows/win32/api/ntmsapi/ns-ntmsapi-ntms_oprequestinformationw
  * @namespace Windows.Win32.Storage.FileSystem
- * @version v4.0.30319
  * @charset Unicode
  */
-class NTMS_OPREQUESTINFORMATIONW extends Win32Struct
-{
+class NTMS_OPREQUESTINFORMATIONW extends Win32Struct {
     static sizeof => 952
 
     static packingSize => 8
 
     /**
-     * 
      * @type {Integer}
      */
     Request {
@@ -39,7 +36,7 @@ class NTMS_OPREQUESTINFORMATIONW extends Win32Struct
      * System time when the operator request was submitted.
      * @type {SYSTEMTIME}
      */
-    Submitted{
+    Submitted {
         get {
             if(!this.HasProp("__Submitted"))
                 this.__Submitted := SYSTEMTIME(4, this)
@@ -48,7 +45,6 @@ class NTMS_OPREQUESTINFORMATIONW extends Win32Struct
     }
 
     /**
-     * 
      * @type {Integer}
      */
     State {
@@ -66,7 +62,6 @@ class NTMS_OPREQUESTINFORMATIONW extends Win32Struct
     }
 
     /**
-     * 
      * @type {Integer}
      */
     Arg1Type {
@@ -76,7 +71,7 @@ class NTMS_OPREQUESTINFORMATIONW extends Win32Struct
 
     /**
      * <b>Arg1</b> object ID used for move requests or other operator requests that require a reference object. The purpose of this object varies based on the type of operator request. For appropriate uses of <b>Arg1</b>, see the <b>Request</b> description.
-     * @type {Pointer<Guid>}
+     * @type {Pointer}
      */
     Arg1 {
         get => NumGet(this, 544, "ptr")
@@ -84,7 +79,6 @@ class NTMS_OPREQUESTINFORMATIONW extends Win32Struct
     }
 
     /**
-     * 
      * @type {Integer}
      */
     Arg2Type {
@@ -94,7 +88,7 @@ class NTMS_OPREQUESTINFORMATIONW extends Win32Struct
 
     /**
      * <b>Arg2</b> object ID used for operator requests that require a second reference object. The purpose of this object varies based on the type of operator request. For appropriate uses of <b>Arg2</b>, see the <b>Request</b> description.
-     * @type {Pointer<Guid>}
+     * @type {Pointer}
      */
     Arg2 {
         get => NumGet(this, 560, "ptr")

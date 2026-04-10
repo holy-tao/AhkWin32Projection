@@ -3,9 +3,8 @@
 
 /**
  * @namespace Windows.Win32.Security.Cryptography.Certificates
- * @version v4.0.30319
  */
-class PENDING_REQUEST_DESIRED_PROPERTY extends Win32Enum{
+class PENDING_REQUEST_DESIRED_PROPERTY extends Win32Enum {
 
     /**
      * @type {Integer (Int32)}

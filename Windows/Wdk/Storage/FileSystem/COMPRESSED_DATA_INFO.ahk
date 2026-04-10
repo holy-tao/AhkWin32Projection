@@ -3,10 +3,8 @@
 
 /**
  * @namespace Windows.Wdk.Storage.FileSystem
- * @version v4.0.30319
  */
-class COMPRESSED_DATA_INFO extends Win32Struct
-{
+class COMPRESSED_DATA_INFO extends Win32Struct {
     static sizeof => 12
 
     static packingSize => 4
@@ -60,9 +58,9 @@ class COMPRESSED_DATA_INFO extends Win32Struct
     }
 
     /**
-     * @type {Array<UInt32>}
+     * @type {Array<Integer>}
      */
-    CompressedChunkSizes{
+    CompressedChunkSizes {
         get {
             if(!this.HasProp("__CompressedChunkSizesProxyArray"))
                 this.__CompressedChunkSizesProxyArray := Win32FixedArray(this.ptr + 8, 1, Primitive, "uint")

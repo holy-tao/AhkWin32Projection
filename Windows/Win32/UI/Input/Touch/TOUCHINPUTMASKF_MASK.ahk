@@ -3,9 +3,8 @@
 
 /**
  * @namespace Windows.Win32.UI.Input.Touch
- * @version v4.0.30319
  */
-class TOUCHINPUTMASKF_MASK extends Win32BitflagEnum{
+class TOUCHINPUTMASKF_MASK extends Win32BitflagEnum {
 
     /**
      * @type {Integer (UInt32)}

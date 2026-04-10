@@ -1,6 +1,7 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
+#Include .\IDCompositionDevice2.ahk
 #Include .\IDCompositionGaussianBlurEffect.ahk
 #Include .\IDCompositionBrightnessEffect.ahk
 #Include .\IDCompositionColorMatrixEffect.ahk
@@ -14,15 +15,13 @@
 #Include .\IDCompositionBlendEffect.ahk
 #Include .\IDCompositionArithmeticCompositeEffect.ahk
 #Include .\IDCompositionAffineTransform2DEffect.ahk
-#Include .\IDCompositionDevice2.ahk
 
 /**
  * Serves as a factory for all other Microsoft DirectComposition objects and provides methods to control transactional composition. (IDCompositionDevice3)
  * @see https://learn.microsoft.com/windows/win32/api/dcomp/nn-dcomp-idcompositiondevice3
  * @namespace Windows.Win32.Graphics.DirectComposition
- * @version v4.0.30319
  */
-class IDCompositionDevice3 extends IDCompositionDevice2{
+class IDCompositionDevice3 extends IDCompositionDevice2 {
 
     static sizeof => A_PtrSize
     /**
@@ -69,7 +68,9 @@ class IDCompositionDevice3 extends IDCompositionDevice2{
 
     /**
      * Creates an instance of IDCompositionColorMatrixEffect.
-     * @returns {IDCompositionColorMatrixEffect} 
+     * @returns {IDCompositionColorMatrixEffect} Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/dcomp/nn-dcomp-idcompositioncolormatrixeffect">IDCompositionColorMatrixEffect</a>**</b>
+     * 
+     * Receives the created instance of <a href="https://docs.microsoft.com/windows/desktop/api/dcomp/nn-dcomp-idcompositioncolormatrixeffect">IDCompositionColorMatrixEffect</a>.
      * @see https://learn.microsoft.com/windows/win32/api/dcomp/nf-dcomp-idcompositiondevice3-createcolormatrixeffect
      */
     CreateColorMatrixEffect() {

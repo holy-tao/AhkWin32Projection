@@ -5,10 +5,8 @@
  * The PXE_DHCP_OPTION structure can be used with the Windows Deployment Services PXE Server API.
  * @see https://learn.microsoft.com/windows/win32/api/wdspxe/ns-wdspxe-pxe_dhcp_option
  * @namespace Windows.Win32.System.DeploymentServices
- * @version v4.0.30319
  */
-class PXE_DHCP_OPTION extends Win32Struct
-{
+class PXE_DHCP_OPTION extends Win32Struct {
     static sizeof => 3
 
     static packingSize => 1
@@ -33,9 +31,9 @@ class PXE_DHCP_OPTION extends Win32Struct
 
     /**
      * The option value.
-     * @type {Array<Byte>}
+     * @type {Array<Integer>}
      */
-    OptionValue{
+    OptionValue {
         get {
             if(!this.HasProp("__OptionValueProxyArray"))
                 this.__OptionValueProxyArray := Win32FixedArray(this.ptr + 2, 1, Primitive, "char")

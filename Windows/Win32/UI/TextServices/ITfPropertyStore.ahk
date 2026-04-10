@@ -1,17 +1,16 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
-#Include ..\..\System\Variant\VARIANT.ahk
-#Include .\ITfPropertyStore.ahk
 #Include ..\..\System\Com\IUnknown.ahk
+#Include ..\..\..\..\Guid.ahk
+#Include ..\..\System\Variant\VARIANT.ahk
 
 /**
  * The ITfPropertyStore interface is implemented by a text service and used by the TSF manager to provide non-static property values. An instance of this interface is passed to ITfProperty::SetValueStore.
  * @see https://learn.microsoft.com/windows/win32/api/msctf/nn-msctf-itfpropertystore
  * @namespace Windows.Win32.UI.TextServices
- * @version v4.0.30319
  */
-class ITfPropertyStore extends IUnknown{
+class ITfPropertyStore extends IUnknown {
 
     static sizeof => A_PtrSize
     /**

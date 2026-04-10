@@ -25,9 +25,8 @@
  * </ul>
  * @see https://learn.microsoft.com/windows/win32/api/d3d12/nn-d3d12-id3d12commandlist
  * @namespace Windows.Win32.Graphics.Direct3D12
- * @version v4.0.30319
  */
-class ID3D12CommandList extends ID3D12DeviceChild{
+class ID3D12CommandList extends ID3D12DeviceChild {
 
     static sizeof => A_PtrSize
     /**
@@ -50,7 +49,7 @@ class ID3D12CommandList extends ID3D12DeviceChild{
 
     /**
      * Gets the type of the command list, such as direct, bundle, compute, or copy.
-     * @returns {Integer} Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/d3d12/ne-d3d12-d3d12_command_list_type">D3D12_COMMAND_LIST_TYPE</a></b>
+     * @returns {D3D12_COMMAND_LIST_TYPE} Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/d3d12/ne-d3d12-d3d12_command_list_type">D3D12_COMMAND_LIST_TYPE</a></b>
      * 
      * This method returns the type of the command list, 
      *             as a <a href="https://docs.microsoft.com/windows/desktop/api/d3d12/ne-d3d12-d3d12_command_list_type">D3D12_COMMAND_LIST_TYPE</a> enumeration constant, 

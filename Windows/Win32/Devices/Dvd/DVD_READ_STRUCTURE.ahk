@@ -1,12 +1,11 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
+#Include .\DVD_STRUCTURE_FORMAT.ahk
 
 /**
  * @namespace Windows.Win32.Devices.Dvd
- * @version v4.0.30319
  */
-class DVD_READ_STRUCTURE extends Win32Struct
-{
+class DVD_READ_STRUCTURE extends Win32Struct {
     static sizeof => 24
 
     static packingSize => 8
@@ -20,7 +19,7 @@ class DVD_READ_STRUCTURE extends Win32Struct
     }
 
     /**
-     * @type {Integer}
+     * @type {DVD_STRUCTURE_FORMAT}
      */
     Format {
         get => NumGet(this, 8, "int")

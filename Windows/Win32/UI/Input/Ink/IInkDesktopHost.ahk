@@ -7,9 +7,8 @@
  * An IInkDesktopHost object enables ink input, processing, and rendering through the creation of an app thread to host an IInkPresenterDesktop object and insert it into the app's DirectComposition visual tree.
  * @see https://learn.microsoft.com/windows/win32/api/inkpresenterdesktop/nn-inkpresenterdesktop-iinkdesktophost
  * @namespace Windows.Win32.UI.Input.Ink
- * @version v4.0.30319
  */
-class IInkDesktopHost extends IUnknown{
+class IInkDesktopHost extends IUnknown {
 
     static sizeof => A_PtrSize
     /**

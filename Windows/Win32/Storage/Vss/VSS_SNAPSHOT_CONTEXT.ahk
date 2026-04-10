@@ -39,9 +39,8 @@
  *     Windows Server 2008 Enterprise, Windows Server 2008 Datacenter, Windows Server 2003, Enterprise Edition, or Windows Server 2003, Datacenter Edition.
  * @see https://learn.microsoft.com/windows/win32/api/vss/ne-vss-vss_snapshot_context
  * @namespace Windows.Win32.Storage.Vss
- * @version v4.0.30319
  */
-class VSS_SNAPSHOT_CONTEXT extends Win32Enum{
+class VSS_SNAPSHOT_CONTEXT extends Win32Enum {
 
     /**
      * The standard backup context. Specifies an auto-release, nonpersistent shadow copy in which writers are 

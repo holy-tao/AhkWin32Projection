@@ -5,10 +5,8 @@
  * Provides additional information for in-memory BLOB subject types.
  * @see https://learn.microsoft.com/windows/win32/api/mssip/ns-mssip-ms_addinfo_blob
  * @namespace Windows.Win32.Security.Cryptography.Sip
- * @version v4.0.30319
  */
-class MS_ADDINFO_BLOB extends Win32Struct
-{
+class MS_ADDINFO_BLOB extends Win32Struct {
     static sizeof => 32
 
     static packingSize => 8

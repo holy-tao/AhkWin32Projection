@@ -15,10 +15,8 @@
  * - A **FLATENTRY** structure is used to store an entry identifier in a file or pass it in a stream of bytes. An **ENTRYID** structure is used to store an entry identifier on disk.
  * @see https://learn.microsoft.com/office/client-developer/outlook/mapi/flatentry
  * @namespace Windows.Win32.System.AddressBook
- * @version v4.0.30319
  */
-class FLATENTRY extends Win32Struct
-{
+class FLATENTRY extends Win32Struct {
     static sizeof => 8
 
     static packingSize => 4
@@ -34,9 +32,9 @@ class FLATENTRY extends Win32Struct
 
     /**
      * > The complete entry identifier that includes the array of flags and binary data.
-     * @type {Array<Byte>}
+     * @type {Array<Integer>}
      */
-    abEntry{
+    abEntry {
         get {
             if(!this.HasProp("__abEntryProxyArray"))
                 this.__abEntryProxyArray := Win32FixedArray(this.ptr + 4, 1, Primitive, "char")

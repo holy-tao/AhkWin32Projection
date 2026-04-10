@@ -3,10 +3,8 @@
 
 /**
  * @namespace Windows.Win32.Storage.IscsiDisc
- * @version v4.0.30319
  */
-class STORAGE_FIRMWARE_DOWNLOAD extends Win32Struct
-{
+class STORAGE_FIRMWARE_DOWNLOAD extends Win32Struct {
     static sizeof => 32
 
     static packingSize => 8
@@ -44,9 +42,9 @@ class STORAGE_FIRMWARE_DOWNLOAD extends Win32Struct
     }
 
     /**
-     * @type {Array<Byte>}
+     * @type {Array<Integer>}
      */
-    ImageBuffer{
+    ImageBuffer {
         get {
             if(!this.HasProp("__ImageBufferProxyArray"))
                 this.__ImageBufferProxyArray := Win32FixedArray(this.ptr + 24, 1, Primitive, "char")

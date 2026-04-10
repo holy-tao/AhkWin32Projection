@@ -1,12 +1,13 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
+#Include ..\SystemServices\userHBITMAP.ahk
+#Include ..\SystemServices\userHPALETTE.ahk
+#Include ..\SystemServices\userHGLOBAL.ahk
 
 /**
  * @namespace Windows.Win32.System.Com
- * @version v4.0.30319
  */
-class GDI_OBJECT extends Win32Struct
-{
+class GDI_OBJECT extends Win32Struct {
     static sizeof => 32
 
     static packingSize => 8
@@ -22,7 +23,7 @@ class GDI_OBJECT extends Win32Struct
             get => NumGet(this, 0, "ptr")
             set => NumPut("ptr", value, this, 0)
         }
-    
+
         /**
          * @type {Pointer<userHPALETTE>}
          */
@@ -30,7 +31,7 @@ class GDI_OBJECT extends Win32Struct
             get => NumGet(this, 0, "ptr")
             set => NumPut("ptr", value, this, 0)
         }
-    
+
         /**
          * @type {Pointer<userHGLOBAL>}
          */
@@ -38,7 +39,6 @@ class GDI_OBJECT extends Win32Struct
             get => NumGet(this, 0, "ptr")
             set => NumPut("ptr", value, this, 0)
         }
-    
     }
 
     /**
@@ -52,10 +52,10 @@ class GDI_OBJECT extends Win32Struct
     /**
      * @type {_u}
      */
-    u{
+    u {
         get {
             if(!this.HasProp("__u"))
-                this.__u := %this.__Class%._u(8, this)
+                this.__u := GDI_OBJECT._u(8, this)
             return this.__u
         }
     }

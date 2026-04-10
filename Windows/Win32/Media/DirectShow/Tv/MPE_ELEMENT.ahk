@@ -1,14 +1,13 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\..\Win32Struct.ahk
+#Include .\MPE_ELEMENT.ahk
 
 /**
  * The MPE_ELEMENT structure contains information from a multi-protocol encapsulation (MPE) element.
  * @see https://learn.microsoft.com/windows/win32/api/mpeg2structs/ns-mpeg2structs-mpe_element
  * @namespace Windows.Win32.Media.DirectShow.Tv
- * @version v4.0.30319
  */
-class MPE_ELEMENT extends Win32Struct
-{
+class MPE_ELEMENT extends Win32Struct {
     static sizeof => 16
 
     static packingSize => 8

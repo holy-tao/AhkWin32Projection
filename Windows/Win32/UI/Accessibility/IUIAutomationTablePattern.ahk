@@ -1,8 +1,8 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
-#Include .\IUIAutomationElementArray.ahk
 #Include ..\..\System\Com\IUnknown.ahk
+#Include .\IUIAutomationElementArray.ahk
 
 /**
  * Provides access to a control that acts as a container for a collection of child elements.
@@ -10,9 +10,8 @@
  * This control pattern is analogous to <a href="https://docs.microsoft.com/windows/desktop/api/uiautomationclient/nn-uiautomationclient-iuiautomationgridpattern">IUIAutomationGridPattern</a> with the distinction that any control that supports <b>IUIAutomationTablePattern</b> also exposes a column or row header relationship, or both, for each child element. Controls that support the <a href="https://docs.microsoft.com/windows/desktop/WinAuto/uiauto-implementingtableitem">Table</a> control pattern also support the <a href="https://docs.microsoft.com/windows/desktop/WinAuto/uiauto-implementinggrid">Grid</a> control pattern in order to provide access to the inherent grid functionality of a table.
  * @see https://learn.microsoft.com/windows/win32/api/uiautomationclient/nn-uiautomationclient-iuiautomationtablepattern
  * @namespace Windows.Win32.UI.Accessibility
- * @version v4.0.30319
  */
-class IUIAutomationTablePattern extends IUnknown{
+class IUIAutomationTablePattern extends IUnknown {
 
     static sizeof => A_PtrSize
     /**
@@ -34,14 +33,14 @@ class IUIAutomationTablePattern extends IUnknown{
     static VTableNames => ["GetCurrentRowHeaders", "GetCurrentColumnHeaders", "get_CurrentRowOrColumnMajor", "GetCachedRowHeaders", "GetCachedColumnHeaders", "get_CachedRowOrColumnMajor"]
 
     /**
-     * @type {Integer} 
+     * @type {RowOrColumnMajor} 
      */
     CurrentRowOrColumnMajor {
         get => this.get_CurrentRowOrColumnMajor()
     }
 
     /**
-     * @type {Integer} 
+     * @type {RowOrColumnMajor} 
      */
     CachedRowOrColumnMajor {
         get => this.get_CachedRowOrColumnMajor()
@@ -73,7 +72,7 @@ class IUIAutomationTablePattern extends IUnknown{
 
     /**
      * Retrieves the primary direction of traversal for the table.
-     * @returns {Integer} 
+     * @returns {RowOrColumnMajor} 
      * @see https://learn.microsoft.com/windows/win32/api/uiautomationclient/nf-uiautomationclient-iuiautomationtablepattern-get_currentroworcolumnmajor
      */
     get_CurrentRowOrColumnMajor() {
@@ -107,7 +106,7 @@ class IUIAutomationTablePattern extends IUnknown{
 
     /**
      * Retrieves the cached primary direction of traversal for the table.
-     * @returns {Integer} 
+     * @returns {RowOrColumnMajor} 
      * @see https://learn.microsoft.com/windows/win32/api/uiautomationclient/nf-uiautomationclient-iuiautomationtablepattern-get_cachedroworcolumnmajor
      */
     get_CachedRowOrColumnMajor() {

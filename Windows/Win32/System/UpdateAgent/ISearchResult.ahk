@@ -1,18 +1,17 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
+#Include ..\Com\IDispatch.ahk
 #Include .\ICategoryCollection.ahk
 #Include .\IUpdateCollection.ahk
 #Include .\IUpdateExceptionCollection.ahk
-#Include ..\Com\IDispatch.ahk
 
 /**
  * Represents the result of a search.
  * @see https://learn.microsoft.com/windows/win32/api/wuapi/nn-wuapi-isearchresult
  * @namespace Windows.Win32.System.UpdateAgent
- * @version v4.0.30319
  */
-class ISearchResult extends IDispatch{
+class ISearchResult extends IDispatch {
 
     static sizeof => A_PtrSize
     /**
@@ -34,7 +33,7 @@ class ISearchResult extends IDispatch{
     static VTableNames => ["get_ResultCode", "get_RootCategories", "get_Updates", "get_Warnings"]
 
     /**
-     * @type {Integer} 
+     * @type {OperationResultCode} 
      */
     ResultCode {
         get => this.get_ResultCode()
@@ -63,7 +62,7 @@ class ISearchResult extends IDispatch{
 
     /**
      * Gets an OperationResultCode enumeration that specifies the result of a search.
-     * @returns {Integer} 
+     * @returns {OperationResultCode} 
      * @see https://learn.microsoft.com/windows/win32/api/wuapi/nf-wuapi-isearchresult-get_resultcode
      */
     get_ResultCode() {

@@ -16,9 +16,8 @@
  * </ul>
  * @see https://learn.microsoft.com/windows/win32/api/imapi2/nn-imapi2-istreamconcatenate
  * @namespace Windows.Win32.Storage.Imapi
- * @version v4.0.30319
  */
-class IStreamConcatenate extends IStream{
+class IStreamConcatenate extends IStream {
 
     static sizeof => A_PtrSize
     /**

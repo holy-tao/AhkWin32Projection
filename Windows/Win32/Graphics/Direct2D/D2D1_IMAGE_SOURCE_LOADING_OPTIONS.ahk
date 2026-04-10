@@ -8,9 +8,8 @@
  *       It can decrease the quality and efficiency of printing.
  * @see https://learn.microsoft.com/windows/win32/api/d2d1_3/ne-d2d1_3-d2d1_image_source_loading_options
  * @namespace Windows.Win32.Graphics.Direct2D
- * @version v4.0.30319
  */
-class D2D1_IMAGE_SOURCE_LOADING_OPTIONS extends Win32BitflagEnum{
+class D2D1_IMAGE_SOURCE_LOADING_OPTIONS extends Win32BitflagEnum {
 
     /**
      * No options are used.

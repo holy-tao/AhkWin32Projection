@@ -3,16 +3,14 @@
 
 /**
  * @namespace Windows.Wdk.System.SystemServices
- * @version v4.0.30319
  */
-class PCI_EXPRESS_DPC_CAPABILITY extends Win32Struct
-{
+class PCI_EXPRESS_DPC_CAPABILITY extends Win32Struct {
     static sizeof => 104
 
     static packingSize => 8
 
     /**
-     * @type {Pointer<PCI_EXPRESS_ENHANCED_CAPABILITY_HEADER>}
+     * @type {Pointer}
      */
     Header {
         get => NumGet(this, 0, "ptr")
@@ -20,7 +18,7 @@ class PCI_EXPRESS_DPC_CAPABILITY extends Win32Struct
     }
 
     /**
-     * @type {Pointer<PCI_EXPRESS_DPC_CAPS_REGISTER>}
+     * @type {Pointer}
      */
     DpcCapabilities {
         get => NumGet(this, 8, "ptr")
@@ -28,7 +26,7 @@ class PCI_EXPRESS_DPC_CAPABILITY extends Win32Struct
     }
 
     /**
-     * @type {Pointer<PCI_EXPRESS_DPC_CONTROL_REGISTER>}
+     * @type {Pointer}
      */
     DpcControl {
         get => NumGet(this, 16, "ptr")
@@ -36,7 +34,7 @@ class PCI_EXPRESS_DPC_CAPABILITY extends Win32Struct
     }
 
     /**
-     * @type {Pointer<PCI_EXPRESS_DPC_STATUS_REGISTER>}
+     * @type {Pointer}
      */
     DpcStatus {
         get => NumGet(this, 24, "ptr")
@@ -44,7 +42,7 @@ class PCI_EXPRESS_DPC_CAPABILITY extends Win32Struct
     }
 
     /**
-     * @type {Pointer<PCI_EXPRESS_DPC_ERROR_SOURCE_ID>}
+     * @type {Pointer}
      */
     DpcErrSrcId {
         get => NumGet(this, 32, "ptr")
@@ -52,7 +50,7 @@ class PCI_EXPRESS_DPC_CAPABILITY extends Win32Struct
     }
 
     /**
-     * @type {Pointer<PCI_EXPRESS_DPC_RP_PIO_STATUS_REGISTER>}
+     * @type {Pointer}
      */
     RpPioStatus {
         get => NumGet(this, 40, "ptr")
@@ -60,7 +58,7 @@ class PCI_EXPRESS_DPC_CAPABILITY extends Win32Struct
     }
 
     /**
-     * @type {Pointer<PCI_EXPRESS_DPC_RP_PIO_MASK_REGISTER>}
+     * @type {Pointer}
      */
     RpPioMask {
         get => NumGet(this, 48, "ptr")
@@ -68,7 +66,7 @@ class PCI_EXPRESS_DPC_CAPABILITY extends Win32Struct
     }
 
     /**
-     * @type {Pointer<PCI_EXPRESS_DPC_RP_PIO_SEVERITY_REGISTER>}
+     * @type {Pointer}
      */
     RpPioSeverity {
         get => NumGet(this, 56, "ptr")
@@ -76,7 +74,7 @@ class PCI_EXPRESS_DPC_CAPABILITY extends Win32Struct
     }
 
     /**
-     * @type {Pointer<PCI_EXPRESS_DPC_RP_PIO_SYSERR_REGISTER>}
+     * @type {Pointer}
      */
     RpPioSysError {
         get => NumGet(this, 64, "ptr")
@@ -84,7 +82,7 @@ class PCI_EXPRESS_DPC_CAPABILITY extends Win32Struct
     }
 
     /**
-     * @type {Pointer<PCI_EXPRESS_DPC_RP_PIO_EXCEPTION_REGISTER>}
+     * @type {Pointer}
      */
     RpPioException {
         get => NumGet(this, 72, "ptr")
@@ -92,7 +90,7 @@ class PCI_EXPRESS_DPC_CAPABILITY extends Win32Struct
     }
 
     /**
-     * @type {Pointer<PCI_EXPRESS_DPC_RP_PIO_HEADERLOG_REGISTER>}
+     * @type {Pointer}
      */
     RpPioHeaderLog {
         get => NumGet(this, 80, "ptr")
@@ -100,7 +98,7 @@ class PCI_EXPRESS_DPC_CAPABILITY extends Win32Struct
     }
 
     /**
-     * @type {Pointer<PCI_EXPRESS_DPC_RP_PIO_IMPSPECLOG_REGISTER>}
+     * @type {Pointer}
      */
     RpPioImpSpecLog {
         get => NumGet(this, 88, "ptr")
@@ -108,7 +106,7 @@ class PCI_EXPRESS_DPC_CAPABILITY extends Win32Struct
     }
 
     /**
-     * @type {Pointer<PCI_EXPRESS_DPC_RP_PIO_TLPPREFIXLOG_REGISTER>}
+     * @type {Pointer}
      */
     RpPioPrefixLog {
         get => NumGet(this, 96, "ptr")

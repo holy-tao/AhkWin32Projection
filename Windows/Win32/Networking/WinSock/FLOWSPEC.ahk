@@ -52,10 +52,8 @@
  * </dl>
  * @see https://learn.microsoft.com/windows/win32/api/qos/ns-qos-flowspec
  * @namespace Windows.Win32.Networking.WinSock
- * @version v4.0.30319
  */
-class FLOWSPEC extends Win32Struct
-{
+class FLOWSPEC extends Win32Struct {
     static sizeof => 32
 
     static packingSize => 4

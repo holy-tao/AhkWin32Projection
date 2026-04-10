@@ -3,9 +3,8 @@
 
 /**
  * @namespace Windows.Win32.System.Threading
- * @version v4.0.30319
  */
-class PROCESS_DEP_FLAGS extends Win32BitflagEnum{
+class PROCESS_DEP_FLAGS extends Win32BitflagEnum {
 
     /**
      * @type {Integer (UInt32)}

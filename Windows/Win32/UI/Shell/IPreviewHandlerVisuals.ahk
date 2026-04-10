@@ -10,9 +10,8 @@
  * <div> </div>
  * @see https://learn.microsoft.com/windows/win32/api/shobjidl_core/nn-shobjidl_core-ipreviewhandlervisuals
  * @namespace Windows.Win32.UI.Shell
- * @version v4.0.30319
  */
-class IPreviewHandlerVisuals extends IUnknown{
+class IPreviewHandlerVisuals extends IUnknown {
 
     static sizeof => A_PtrSize
     /**
@@ -38,7 +37,9 @@ class IPreviewHandlerVisuals extends IUnknown{
      * @remarks
      * <div class="alert"><b>Note</b>  These are suggestions. It is not compulsory for this method to be called. The preview handlers must be able to make their own decisions.</div>
      * <div> </div>
-     * @param {COLORREF} _color 
+     * @param {COLORREF} _color Type: <b><a href="https://docs.microsoft.com/windows/desktop/gdi/colorref">COLORREF</a></b>
+     * 
+     * A value of type <a href="https://docs.microsoft.com/windows/desktop/gdi/colorref">COLORREF</a> to use for the preview handler background.
      * @returns {HRESULT} Type: <b>HRESULT</b>
      * 
      * If this method succeeds, it returns <b>S_OK</b>. Otherwise, it returns an <b>HRESULT</b> error code.
@@ -72,7 +73,9 @@ class IPreviewHandlerVisuals extends IUnknown{
      * @remarks
      * <div class="alert"><b>Note</b>  These are suggestions. It is not compulsory for this method to be called; the preview handlers must be able to make their own decisions.</div>
      * <div> </div>
-     * @param {COLORREF} _color 
+     * @param {COLORREF} _color Type: <b><a href="https://docs.microsoft.com/windows/desktop/gdi/colorref">COLORREF</a></b>
+     * 
+     * A value of type <a href="https://docs.microsoft.com/windows/desktop/gdi/colorref">COLORREF</a> to use for the preview handler text color.
      * @returns {HRESULT} Type: <b>HRESULT</b>
      * 
      * If this method succeeds, it returns <b>S_OK</b>. Otherwise, it returns an <b>HRESULT</b> error code.

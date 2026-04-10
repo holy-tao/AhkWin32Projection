@@ -1,8 +1,9 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
-#Include .\DXGI_MAPPED_RECT.ahk
 #Include .\IDXGIObject.ahk
+#Include .\IDXGIResource.ahk
+#Include .\DXGI_MAPPED_RECT.ahk
 
 /**
  * The IDXGIOutputDuplication interface accesses and manipulates the duplicated desktop image.
@@ -52,9 +53,8 @@
  * The <b>IDXGIOutputDuplication</b> interface does not exist for Windows Store apps.
  * @see https://learn.microsoft.com/windows/win32/api/dxgi1_2/nn-dxgi1_2-idxgioutputduplication
  * @namespace Windows.Win32.Graphics.Dxgi
- * @version v4.0.30319
  */
-class IDXGIOutputDuplication extends IDXGIObject{
+class IDXGIOutputDuplication extends IDXGIObject {
 
     static sizeof => A_PtrSize
     /**
@@ -146,7 +146,7 @@ class IDXGIOutputDuplication extends IDXGIObject{
      * <div> </div>
      * @param {Integer} DirtyRectsBufferSize The size in bytes of the buffer that the caller passed to the  <i>pDirtyRectsBuffer</i> 
      *        parameter.
-     * @param {Pointer} pDirtyRectsBuffer A pointer to an array of <a href="https://docs.microsoft.com/windows/desktop/api/windef/ns-windef-rect">RECT</a> structures 
+     * @param {Integer} pDirtyRectsBuffer A pointer to an array of <a href="https://docs.microsoft.com/windows/desktop/api/windef/ns-windef-rect">RECT</a> structures 
      *         that identifies the dirty rectangle regions for the desktop frame.
      * @returns {Integer} Pointer to a variable that receives the number of bytes that 
      *        <b>GetFrameDirtyRects</b> 
@@ -179,7 +179,7 @@ class IDXGIOutputDuplication extends IDXGIObject{
      * <div class="alert"><b>Note</b>  To produce a visually accurate copy of the desktop, an application must first process all move RECTs before it processes dirty RECTs.</div>
      * <div> </div>
      * @param {Integer} MoveRectsBufferSize The size in bytes of the buffer that the caller passed to the  <i>pMoveRectBuffer</i> parameter.
-     * @param {Pointer} pMoveRectBuffer A pointer to an array of 
+     * @param {Integer} pMoveRectBuffer A pointer to an array of 
      *        <a href="https://docs.microsoft.com/windows/desktop/api/dxgi1_2/ns-dxgi1_2-dxgi_outdupl_move_rect">DXGI_OUTDUPL_MOVE_RECT</a> structures 
      *        that identifies the moved rectangle regions for the desktop frame.
      * @returns {Integer} Pointer to a variable that receives the number of bytes that 
@@ -206,7 +206,7 @@ class IDXGIOutputDuplication extends IDXGIObject{
      * </ul>
      * The <i>pPointerShapeInfo</i> parameter describes the new pointer shape.
      * @param {Integer} PointerShapeBufferSize The size in bytes of the buffer that the caller passed to the  <i>pPointerShapeBuffer</i> parameter.
-     * @param {Pointer} pPointerShapeBuffer A pointer to a buffer to which <b>GetFramePointerShape</b> copies and returns pixel data for the new pointer shape.
+     * @param {Integer} pPointerShapeBuffer A pointer to a buffer to which <b>GetFramePointerShape</b> copies and returns pixel data for the new pointer shape.
      * @param {Pointer<Integer>} pPointerShapeBufferSizeRequired Pointer to a variable that receives the number of bytes that <b>GetFramePointerShape</b> needs to store the new pointer shape pixel data in the buffer at <i>pPointerShapeBuffer</i>.
      * 
      * For more information about returning the required buffer size, see Remarks.

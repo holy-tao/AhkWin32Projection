@@ -3,10 +3,8 @@
 
 /**
  * @namespace Windows.Wdk.System.SystemServices
- * @version v4.0.30319
  */
-class HAL_PROCESSOR_FEATURE extends Win32Struct
-{
+class HAL_PROCESSOR_FEATURE extends Win32Struct {
     static sizeof => 4
 
     static packingSize => 4

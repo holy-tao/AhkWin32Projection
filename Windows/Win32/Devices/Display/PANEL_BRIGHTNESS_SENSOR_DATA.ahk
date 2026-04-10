@@ -4,10 +4,8 @@
 
 /**
  * @namespace Windows.Win32.Devices.Display
- * @version v4.0.30319
  */
-class PANEL_BRIGHTNESS_SENSOR_DATA extends Win32Struct
-{
+class PANEL_BRIGHTNESS_SENSOR_DATA extends Win32Struct {
     static sizeof => 20
 
     static packingSize => 4
@@ -68,7 +66,7 @@ class PANEL_BRIGHTNESS_SENSOR_DATA extends Win32Struct
     /**
      * @type {CHROMATICITY_COORDINATE}
      */
-    ChromaticityCoordinate{
+    ChromaticityCoordinate {
         get {
             if(!this.HasProp("__ChromaticityCoordinate"))
                 this.__ChromaticityCoordinate := CHROMATICITY_COORDINATE(8, this)

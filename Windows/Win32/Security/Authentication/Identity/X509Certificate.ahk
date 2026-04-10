@@ -1,15 +1,15 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\..\Win32Struct.ahk
+#Include ..\..\Cryptography\ALG_ID.ahk
 #Include ..\..\..\Foundation\FILETIME.ahk
+#Include .\PctPublicKey.ahk
 
 /**
  * Represents an X.509 certificate.
  * @see https://learn.microsoft.com/windows/win32/api/schannel/ns-schannel-x509certificate
  * @namespace Windows.Win32.Security.Authentication.Identity
- * @version v4.0.30319
  */
-class X509Certificate extends Win32Struct
-{
+class X509Certificate extends Win32Struct {
     static sizeof => 64
 
     static packingSize => 8
@@ -25,9 +25,9 @@ class X509Certificate extends Win32Struct
 
     /**
      * The serial number of the certificate.
-     * @type {Array<UInt32>}
+     * @type {Array<Integer>}
      */
-    SerialNumber{
+    SerialNumber {
         get {
             if(!this.HasProp("__SerialNumberProxyArray"))
                 this.__SerialNumberProxyArray := Win32FixedArray(this.ptr + 4, 4, Primitive, "uint")
@@ -37,7 +37,7 @@ class X509Certificate extends Win32Struct
 
     /**
      * The ID of the algorithm used to create the <a href="https://docs.microsoft.com/windows/desktop/SecGloss/d-gly">digital signature</a> for the certificate.
-     * @type {Integer}
+     * @type {ALG_ID}
      */
     SignatureAlgorithm {
         get => NumGet(this, 20, "uint")
@@ -48,7 +48,7 @@ class X509Certificate extends Win32Struct
      * The beginning of the period of validity for the certificate.
      * @type {FILETIME}
      */
-    ValidFrom{
+    ValidFrom {
         get {
             if(!this.HasProp("__ValidFrom"))
                 this.__ValidFrom := FILETIME(24, this)
@@ -60,7 +60,7 @@ class X509Certificate extends Win32Struct
      * The end of the period of validity for the certificate.
      * @type {FILETIME}
      */
-    ValidUntil{
+    ValidUntil {
         get {
             if(!this.HasProp("__ValidUntil"))
                 this.__ValidUntil := FILETIME(32, this)

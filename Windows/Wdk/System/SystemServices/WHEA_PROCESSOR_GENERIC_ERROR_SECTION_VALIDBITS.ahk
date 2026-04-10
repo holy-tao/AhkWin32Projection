@@ -3,10 +3,8 @@
 
 /**
  * @namespace Windows.Wdk.System.SystemServices
- * @version v4.0.30319
  */
-class WHEA_PROCESSOR_GENERIC_ERROR_SECTION_VALIDBITS extends Win32Struct
-{
+class WHEA_PROCESSOR_GENERIC_ERROR_SECTION_VALIDBITS extends Win32Struct {
     static sizeof => 16
 
     static packingSize => 1

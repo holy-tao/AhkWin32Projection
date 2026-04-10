@@ -1,16 +1,15 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\..\Guid.ahk
+#Include .\ISchemaItem.ahk
 #Include .\ISchemaType.ahk
 #Include .\ISchemaComplexType.ahk
 #Include ..\..\..\Foundation\BSTR.ahk
-#Include .\ISchemaItem.ahk
 
 /**
  * @namespace Windows.Win32.Data.Xml.MsXml
- * @version v4.0.30319
  */
-class ISchemaAttribute extends ISchemaItem{
+class ISchemaAttribute extends ISchemaItem {
 
     static sizeof => A_PtrSize
     /**
@@ -60,7 +59,7 @@ class ISchemaAttribute extends ISchemaItem{
     }
 
     /**
-     * @type {Integer} 
+     * @type {SCHEMAUSE} 
      */
     use {
         get => this.get_use()
@@ -113,7 +112,7 @@ class ISchemaAttribute extends ISchemaItem{
 
     /**
      * 
-     * @returns {Integer} 
+     * @returns {SCHEMAUSE} 
      */
     get_use() {
         result := ComCall(18, this, "int*", &use := 0, "HRESULT")

@@ -1,13 +1,14 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
+#Include .\SOCKADDR.ahk
+#Include .\ADDRINFOEX7.ahk
 #Include ..\..\Foundation\HANDLE.ahk
+#Include .\ADDRINFO_DNS_SERVER.ahk
 
 /**
  * @namespace Windows.Win32.Networking.WinSock
- * @version v4.0.30319
  */
-class ADDRINFOEX7 extends Win32Struct
-{
+class ADDRINFOEX7 extends Win32Struct {
     static sizeof => 136
 
     static packingSize => 8
@@ -127,7 +128,7 @@ class ADDRINFOEX7 extends Win32Struct
     /**
      * @type {HANDLE}
      */
-    ai_resolutionhandle{
+    ai_resolutionhandle {
         get {
             if(!this.HasProp("__ai_resolutionhandle"))
                 this.__ai_resolutionhandle := HANDLE(96, this)

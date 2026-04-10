@@ -3,10 +3,8 @@
 
 /**
  * @namespace Windows.Wdk.NetworkManagement.Ndis
- * @version v4.0.30319
  */
-class CO_SPECIFIC_PARAMETERS extends Win32Struct
-{
+class CO_SPECIFIC_PARAMETERS extends Win32Struct {
     static sizeof => 12
 
     static packingSize => 4
@@ -28,9 +26,9 @@ class CO_SPECIFIC_PARAMETERS extends Win32Struct
     }
 
     /**
-     * @type {Array<Byte>}
+     * @type {Array<Integer>}
      */
-    Parameters{
+    Parameters {
         get {
             if(!this.HasProp("__ParametersProxyArray"))
                 this.__ParametersProxyArray := Win32FixedArray(this.ptr + 8, 1, Primitive, "char")

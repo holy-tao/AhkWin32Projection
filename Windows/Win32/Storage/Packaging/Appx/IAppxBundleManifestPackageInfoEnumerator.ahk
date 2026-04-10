@@ -1,16 +1,15 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\..\Guid.ahk
-#Include .\IAppxBundleManifestPackageInfo.ahk
 #Include ..\..\..\System\Com\IUnknown.ahk
+#Include .\IAppxBundleManifestPackageInfo.ahk
 
 /**
  * Provides a read-only object model for the list of payload packages that are described in a bundle package manifest.
  * @see https://learn.microsoft.com/windows/win32/api/appxpackaging/nn-appxpackaging-iappxbundlemanifestpackageinfoenumerator
  * @namespace Windows.Win32.Storage.Packaging.Appx
- * @version v4.0.30319
  */
-class IAppxBundleManifestPackageInfoEnumerator extends IUnknown{
+class IAppxBundleManifestPackageInfoEnumerator extends IUnknown {
 
     static sizeof => A_PtrSize
     /**

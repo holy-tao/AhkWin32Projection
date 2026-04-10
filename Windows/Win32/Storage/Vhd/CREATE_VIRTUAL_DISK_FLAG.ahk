@@ -7,9 +7,8 @@
  * The <b>CREATE_VIRTUAL_DISK_FLAG_FULL_PHYSICAL_ALLOCATION</b> flag is used for the creation of a fixed VHD.
  * @see https://learn.microsoft.com/windows/win32/api/virtdisk/ne-virtdisk-create_virtual_disk_flag
  * @namespace Windows.Win32.Storage.Vhd
- * @version v4.0.30319
  */
-class CREATE_VIRTUAL_DISK_FLAG extends Win32BitflagEnum{
+class CREATE_VIRTUAL_DISK_FLAG extends Win32BitflagEnum {
 
     /**
      * No special creation conditions; system defaults are used.
@@ -48,37 +47,31 @@ class CREATE_VIRTUAL_DISK_FLAG extends Win32BitflagEnum{
     static CREATE_VIRTUAL_DISK_FLAG_DO_NOT_COPY_METADATA_FROM_PARENT => 4
 
     /**
-     * 
      * @type {Integer (Int32)}
      */
     static CREATE_VIRTUAL_DISK_FLAG_CREATE_BACKING_STORAGE => 8
 
     /**
-     * 
      * @type {Integer (Int32)}
      */
     static CREATE_VIRTUAL_DISK_FLAG_USE_CHANGE_TRACKING_SOURCE_LIMIT => 16
 
     /**
-     * 
      * @type {Integer (Int32)}
      */
     static CREATE_VIRTUAL_DISK_FLAG_PRESERVE_PARENT_CHANGE_TRACKING_STATE => 32
 
     /**
-     * 
      * @type {Integer (Int32)}
      */
     static CREATE_VIRTUAL_DISK_FLAG_VHD_SET_USE_ORIGINAL_BACKING_STORAGE => 64
 
     /**
-     * 
      * @type {Integer (Int32)}
      */
     static CREATE_VIRTUAL_DISK_FLAG_SPARSE_FILE => 128
 
     /**
-     * 
      * @type {Integer (Int32)}
      */
     static CREATE_VIRTUAL_DISK_FLAG_PMEM_COMPATIBLE => 256

@@ -1,8 +1,9 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
-#Include ..\..\Foundation\HANDLE.ahk
 #Include .\RAWINPUTHEADER.ahk
+#Include ..\..\Foundation\HANDLE.ahk
 #Include .\RAWMOUSE.ahk
+#Include .\MOUSE_STATE.ahk
 #Include .\RAWKEYBOARD.ahk
 #Include .\RAWHID.ahk
 
@@ -20,10 +21,8 @@
  * Raw input is available only when the application calls <a href="https://docs.microsoft.com/windows/desktop/api/winuser/nf-winuser-registerrawinputdevices">RegisterRawInputDevices</a> with valid device specifications.
  * @see https://learn.microsoft.com/windows/win32/api/winuser/ns-winuser-rawinput
  * @namespace Windows.Win32.UI.Input
- * @version v4.0.30319
  */
-class RAWINPUT extends Win32Struct
-{
+class RAWINPUT extends Win32Struct {
     static sizeof => 48
 
     static packingSize => 8
@@ -35,36 +34,35 @@ class RAWINPUT extends Win32Struct
         /**
          * @type {RAWMOUSE}
          */
-        mouse{
+        mouse {
             get {
                 if(!this.HasProp("__mouse"))
                     this.__mouse := RAWMOUSE(0, this)
                 return this.__mouse
             }
         }
-    
+
         /**
          * @type {RAWKEYBOARD}
          */
-        keyboard{
+        keyboard {
             get {
                 if(!this.HasProp("__keyboard"))
                     this.__keyboard := RAWKEYBOARD(0, this)
                 return this.__keyboard
             }
         }
-    
+
         /**
          * @type {RAWHID}
          */
-        hid{
+        hid {
             get {
                 if(!this.HasProp("__hid"))
                     this.__hid := RAWHID(0, this)
                 return this.__hid
             }
         }
-    
     }
 
     /**
@@ -73,7 +71,7 @@ class RAWINPUT extends Win32Struct
      * The raw input data.
      * @type {RAWINPUTHEADER}
      */
-    header{
+    header {
         get {
             if(!this.HasProp("__header"))
                 this.__header := RAWINPUTHEADER(0, this)
@@ -82,13 +80,12 @@ class RAWINPUT extends Win32Struct
     }
 
     /**
-     * 
      * @type {_data_e__Union}
      */
-    data{
+    data {
         get {
             if(!this.HasProp("__data"))
-                this.__data := %this.__Class%._data_e__Union(24, this)
+                this.__data := RAWINPUT._data_e__Union(24, this)
             return this.__data
         }
     }

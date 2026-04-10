@@ -1,5 +1,6 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
+#Include .\ADVANCED_FEATURE_FLAGS.ahk
 #Include .\SAFEARRAYBOUND.ahk
 
 /**
@@ -12,10 +13,8 @@
  * The <b>fFeatures</b> flags describe attributes of an array that can affect how the array is released. The <b>fFeatures</b> field describes what type of data is stored in the <b>SAFEARRAY</b> and how the array is allocated. This allows freeing the array without referencing its containing variant.
  * @see https://learn.microsoft.com/windows/win32/api/oaidl/ns-oaidl-safearray
  * @namespace Windows.Win32.System.Com
- * @version v4.0.30319
  */
-class SAFEARRAY extends Win32Struct
-{
+class SAFEARRAY extends Win32Struct {
     static sizeof => 32
 
     static packingSize => 8
@@ -182,7 +181,7 @@ class SAFEARRAY extends Win32Struct
      * </td>
      * </tr>
      * </table>
-     * @type {Integer}
+     * @type {ADVANCED_FEATURE_FLAGS}
      */
     fFeatures {
         get => NumGet(this, 2, "ushort")
@@ -218,9 +217,9 @@ class SAFEARRAY extends Win32Struct
 
     /**
      * One bound for each dimension.
-     * @type {Array<SAFEARRAYBOUND>}
+     * @type {SAFEARRAYBOUND}
      */
-    rgsabound{
+    rgsabound {
         get {
             if(!this.HasProp("__rgsaboundProxyArray"))
                 this.__rgsaboundProxyArray := Win32FixedArray(this.ptr + 24, 1, SAFEARRAYBOUND, "")

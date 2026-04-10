@@ -5,9 +5,8 @@
  * Provides information to the IQueryAssociations interface methods.
  * @see https://learn.microsoft.com/windows/win32/shell/ASSOCF_str
  * @namespace Windows.Win32.UI.Shell
- * @version v4.0.30319
  */
-class ASSOCF extends Win32BitflagEnum{
+class ASSOCF extends Win32BitflagEnum {
 
     /**
      * @type {Integer (UInt32)}

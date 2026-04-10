@@ -1,13 +1,12 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
 #Include .\USB4_HRD_DEBUG_ROUTE_STRING.ahk
+#Include .\USB4_CONFIG_SPACE_TYPE.ahk
 
 /**
  * @namespace Windows.Win32.Devices.Usb
- * @version v4.0.30319
  */
-class USB4_HRD_DEBUG_READ_CONFIGURATION_SPACE_INPUT extends Win32Struct
-{
+class USB4_HRD_DEBUG_READ_CONFIGURATION_SPACE_INPUT extends Win32Struct {
     static sizeof => 24
 
     static packingSize => 4
@@ -15,7 +14,7 @@ class USB4_HRD_DEBUG_READ_CONFIGURATION_SPACE_INPUT extends Win32Struct
     /**
      * @type {USB4_HRD_DEBUG_ROUTE_STRING}
      */
-    Route{
+    Route {
         get {
             if(!this.HasProp("__Route"))
                 this.__Route := USB4_HRD_DEBUG_ROUTE_STRING(0, this)
@@ -32,7 +31,7 @@ class USB4_HRD_DEBUG_READ_CONFIGURATION_SPACE_INPUT extends Win32Struct
     }
 
     /**
-     * @type {Integer}
+     * @type {USB4_CONFIG_SPACE_TYPE}
      */
     ConfigurationSpaceType {
         get => NumGet(this, 12, "int")

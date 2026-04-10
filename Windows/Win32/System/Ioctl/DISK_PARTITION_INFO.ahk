@@ -1,14 +1,13 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
+#Include .\PARTITION_STYLE.ahk
 
 /**
  * Contains the disk partition information.
  * @see https://learn.microsoft.com/windows/win32/api/winioctl/ns-winioctl-disk_partition_info
  * @namespace Windows.Win32.System.Ioctl
- * @version v4.0.30319
  */
-class DISK_PARTITION_INFO extends Win32Struct
-{
+class DISK_PARTITION_INFO extends Win32Struct {
     static sizeof => 16
 
     static packingSize => 8
@@ -26,7 +25,7 @@ class DISK_PARTITION_INFO extends Win32Struct
      * The format of a partition.
      * 
      * For more information, see [PARTITION_STYLE](ne-winioctl-partition_style.md).
-     * @type {Integer}
+     * @type {PARTITION_STYLE}
      */
     PartitionStyle {
         get => NumGet(this, 4, "int")
@@ -44,7 +43,7 @@ class DISK_PARTITION_INFO extends Win32Struct
             get => NumGet(this, 0, "uint")
             set => NumPut("uint", value, this, 0)
         }
-    
+
         /**
          * @type {Integer}
          */
@@ -52,7 +51,6 @@ class DISK_PARTITION_INFO extends Win32Struct
             get => NumGet(this, 4, "uint")
             set => NumPut("uint", value, this, 4)
         }
-    
     }
 
     class _Gpt extends Win32Struct {
@@ -60,22 +58,21 @@ class DISK_PARTITION_INFO extends Win32Struct
         static packingSize => 8
 
         /**
-         * @type {Pointer<Guid>}
+         * @type {Pointer}
          */
         DiskId {
             get => NumGet(this, 0, "ptr")
             set => NumPut("ptr", value, this, 0)
         }
-    
     }
 
     /**
      * @type {_Mbr}
      */
-    Mbr{
+    Mbr {
         get {
             if(!this.HasProp("__Mbr"))
-                this.__Mbr := %this.__Class%._Mbr(8, this)
+                this.__Mbr := DISK_PARTITION_INFO._Mbr(8, this)
             return this.__Mbr
         }
     }
@@ -83,10 +80,10 @@ class DISK_PARTITION_INFO extends Win32Struct
     /**
      * @type {_Gpt}
      */
-    Gpt{
+    Gpt {
         get {
             if(!this.HasProp("__Gpt"))
-                this.__Gpt := %this.__Class%._Gpt(8, this)
+                this.__Gpt := DISK_PARTITION_INFO._Gpt(8, this)
             return this.__Gpt
         }
     }

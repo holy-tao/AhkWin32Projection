@@ -1,16 +1,15 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
-#Include .\IWMPPlaylist.ahk
 #Include ..\..\System\Com\IDispatch.ahk
+#Include .\IWMPPlaylist.ahk
 
 /**
  * The IWMPCdrom interface provides a way to access a CD or DVD in its drive.
  * @see https://learn.microsoft.com/windows/win32/api/wmp/nn-wmp-iwmpcdrom
  * @namespace Windows.Win32.Media.MediaPlayer
- * @version v4.0.30319
  */
-class IWMPCdrom extends IDispatch{
+class IWMPCdrom extends IDispatch {
 
     static sizeof => A_PtrSize
     /**

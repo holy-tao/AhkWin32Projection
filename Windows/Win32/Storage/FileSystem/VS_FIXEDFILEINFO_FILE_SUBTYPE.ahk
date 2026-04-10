@@ -3,9 +3,8 @@
 
 /**
  * @namespace Windows.Win32.Storage.FileSystem
- * @version v4.0.30319
  */
-class VS_FIXEDFILEINFO_FILE_SUBTYPE extends Win32Enum{
+class VS_FIXEDFILEINFO_FILE_SUBTYPE extends Win32Enum {
 
     /**
      * @type {Integer (Int32)}

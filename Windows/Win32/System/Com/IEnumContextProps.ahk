@@ -1,16 +1,14 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
-#Include .\IEnumContextProps.ahk
 #Include .\IUnknown.ahk
 
 /**
  * The IEnumContextProps (objidlbase.h) interface provides a mechanism for enumerating the context properties associated with a COM+ object context.
  * @see https://learn.microsoft.com/windows/win32/api/objidlbase/nn-objidlbase-ienumcontextprops
  * @namespace Windows.Win32.System.Com
- * @version v4.0.30319
  */
-class IEnumContextProps extends IUnknown{
+class IEnumContextProps extends IUnknown {
 
     static sizeof => A_PtrSize
     /**

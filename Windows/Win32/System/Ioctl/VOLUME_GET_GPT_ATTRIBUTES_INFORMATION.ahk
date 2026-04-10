@@ -5,10 +5,8 @@
  * Contains volume attributes retrieved with the IOCTL_VOLUME_GET_GPT_ATTRIBUTES control code.
  * @see https://learn.microsoft.com/windows/win32/api/winioctl/ns-winioctl-volume_get_gpt_attributes_information
  * @namespace Windows.Win32.System.Ioctl
- * @version v4.0.30319
  */
-class VOLUME_GET_GPT_ATTRIBUTES_INFORMATION extends Win32Struct
-{
+class VOLUME_GET_GPT_ATTRIBUTES_INFORMATION extends Win32Struct {
     static sizeof => 8
 
     static packingSize => 8

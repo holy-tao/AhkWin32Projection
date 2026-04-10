@@ -1,5 +1,6 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
+#Include .\MIXERLINE_COMPONENTTYPE.ahk
 
 /**
  * The MIXERLINE structure describes the state and metrics of an audio line. (MIXERLINEA)
@@ -8,17 +9,15 @@
  * > The mmeapi.h header defines MIXERLINE as an alias which automatically selects the ANSI or Unicode version of this function based on the definition of the UNICODE preprocessor constant. Mixing usage of the encoding-neutral alias with code that not encoding-neutral can lead to mismatches that result in compilation or runtime errors. For more information, see [Conventions for Function Prototypes](/windows/win32/intl/conventions-for-function-prototypes).
  * @see https://learn.microsoft.com/windows/win32/api/mmeapi/ns-mmeapi-mixerlinea
  * @namespace Windows.Win32.Media.Audio
- * @version v4.0.30319
  * @charset ANSI
  */
-class MIXERLINEA extends Win32Struct
-{
-    static sizeof => 208
+class MIXERLINEA extends Win32Struct {
+    static sizeof => 176
 
     static packingSize => 8
 
     class _Target extends Win32Struct {
-        static sizeof => 80
+        static sizeof => 48
         static packingSize => 4
 
         /**
@@ -28,7 +27,7 @@ class MIXERLINEA extends Win32Struct
             get => NumGet(this, 0, "uint")
             set => NumPut("uint", value, this, 0)
         }
-    
+
         /**
          * @type {Integer}
          */
@@ -36,7 +35,7 @@ class MIXERLINEA extends Win32Struct
             get => NumGet(this, 4, "uint")
             set => NumPut("uint", value, this, 4)
         }
-    
+
         /**
          * @type {Integer}
          */
@@ -44,7 +43,7 @@ class MIXERLINEA extends Win32Struct
             get => NumGet(this, 8, "ushort")
             set => NumPut("ushort", value, this, 8)
         }
-    
+
         /**
          * @type {Integer}
          */
@@ -52,7 +51,7 @@ class MIXERLINEA extends Win32Struct
             get => NumGet(this, 10, "ushort")
             set => NumPut("ushort", value, this, 10)
         }
-    
+
         /**
          * @type {Integer}
          */
@@ -60,15 +59,14 @@ class MIXERLINEA extends Win32Struct
             get => NumGet(this, 12, "uint")
             set => NumPut("uint", value, this, 12)
         }
-    
+
         /**
          * @type {String}
          */
         szPname {
-            get => StrGet(this.ptr + 16, 31, "UTF-16")
-            set => StrPut(value, this.ptr + 16, 31, "UTF-16")
+            get => StrGet(this.ptr + 16, 31, "UTF-8")
+            set => StrPut(value, this.ptr + 16, 31, "UTF-8")
         }
-    
     }
 
     /**
@@ -172,8 +170,7 @@ class MIXERLINEA extends Win32Struct
     }
 
     /**
-     * 
-     * @type {Integer}
+     * @type {MIXERLINE_COMPONENTTYPE}
      */
     dwComponentType {
         get => NumGet(this, 32, "uint")
@@ -235,10 +232,10 @@ class MIXERLINEA extends Win32Struct
      * Target media information.
      * @type {_Target}
      */
-    Target{
+    Target {
         get {
             if(!this.HasProp("__Target"))
-                this.__Target := %this.__Class%._Target(128, this)
+                this.__Target := MIXERLINEA._Target(128, this)
             return this.__Target
         }
     }

@@ -7,9 +7,8 @@
  * Defines an interface implemented by a garbage collector object referenced from XAML.
  * @see https://learn.microsoft.com/windows/win32/api/windows.ui.xaml.hosting.referencetracker/nn-windows-ui-xaml-hosting-referencetracker-ireferencetrackertarget
  * @namespace Windows.Win32.System.WinRT.Xaml
- * @version v4.0.30319
  */
-class IReferenceTrackerTarget extends IUnknown{
+class IReferenceTrackerTarget extends IUnknown {
 
     static sizeof => A_PtrSize
     /**

@@ -5,10 +5,8 @@
  * The TOC_ENTRY_DESCRIPTOR structure holds descriptive information for an entry in a table of contents.
  * @see https://learn.microsoft.com/windows/win32/api/wmcodecdsp/ns-wmcodecdsp-toc_entry_descriptor
  * @namespace Windows.Win32.Media.MediaFoundation
- * @version v4.0.30319
  */
-class TOC_ENTRY_DESCRIPTOR extends Win32Struct
-{
+class TOC_ENTRY_DESCRIPTOR extends Win32Struct {
     static sizeof => 40
 
     static packingSize => 8

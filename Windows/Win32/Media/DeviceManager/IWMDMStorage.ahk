@@ -1,18 +1,17 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
+#Include ..\..\System\Com\IUnknown.ahk
 #Include .\IWMDMStorageGlobals.ahk
 #Include .\WMDMDATETIME.ahk
 #Include .\IWMDMEnumStorage.ahk
-#Include ..\..\System\Com\IUnknown.ahk
 
 /**
  * An instance of the IWMDMStorage interface provides methods to examine and explore a storage (a generic name for a data or collection object, such as a file, folder, or playlist) on a device.
  * @see https://learn.microsoft.com/windows/win32/api/mswmdm/nn-mswmdm-iwmdmstorage
  * @namespace Windows.Win32.Media.DeviceManager
- * @version v4.0.30319
  */
-class IWMDMStorage extends IUnknown{
+class IWMDMStorage extends IUnknown {
 
     static sizeof => A_PtrSize
     /**

@@ -3,10 +3,8 @@
 
 /**
  * @namespace Windows.Win32.System.Rpc
- * @version v4.0.30319
  */
-class _NDR_PROC_CONTEXT extends Win32Struct
-{
+class _NDR_PROC_CONTEXT extends Win32Struct {
     static sizeof => 8
 
     static packingSize => 8

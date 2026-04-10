@@ -3,10 +3,8 @@
 
 /**
  * @namespace Windows.Win32.System.Search
- * @version v4.0.30319
  */
-class SQL_DAY_SECOND_STRUCT extends Win32Struct
-{
+class SQL_DAY_SECOND_STRUCT extends Win32Struct {
     static sizeof => 20
 
     static packingSize => 4

@@ -1,17 +1,16 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
+#Include ..\Com\IDispatch.ahk
 #Include ..\..\Foundation\BSTR.ahk
 #Include ..\Variant\VARIANT.ahk
-#Include ..\Com\IDispatch.ahk
 
 /**
  * Defines a name/value pair.To get this interface, call the IValueMap::Item property. To create this interface, call the IValueMap::CreateValueMapItem method.
  * @see https://learn.microsoft.com/windows/win32/api/pla/nn-pla-ivaluemapitem
  * @namespace Windows.Win32.System.Performance
- * @version v4.0.30319
  */
-class IValueMapItem extends IDispatch{
+class IValueMapItem extends IDispatch {
 
     static sizeof => A_PtrSize
     /**
@@ -65,7 +64,7 @@ class IValueMapItem extends IDispatch{
     }
 
     /**
-     * @type {Integer} 
+     * @type {ValueMapType} 
      */
     ValueMapType {
         get => this.get_ValueMapType()
@@ -181,7 +180,7 @@ class IValueMapItem extends IDispatch{
 
     /**
      * Retrieves or sets the type of the item. (Get)
-     * @returns {Integer} 
+     * @returns {ValueMapType} 
      * @see https://learn.microsoft.com/windows/win32/api/pla/nf-pla-ivaluemapitem-get_valuemaptype
      */
     get_ValueMapType() {
@@ -191,7 +190,7 @@ class IValueMapItem extends IDispatch{
 
     /**
      * Retrieves or sets the type of the item. (Put)
-     * @param {Integer} type 
+     * @param {ValueMapType} type 
      * @returns {HRESULT} 
      * @see https://learn.microsoft.com/windows/win32/api/pla/nf-pla-ivaluemapitem-put_valuemaptype
      */

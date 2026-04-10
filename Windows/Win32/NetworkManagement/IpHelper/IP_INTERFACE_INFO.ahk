@@ -16,13 +16,11 @@
  * This structure is defined in the <i>Ipexport.h</i> header file which is automatically included in the <i>Iphlpapi.h</i> header file. The <i>Ipexport.h</i> header file should never be used directly.
  * @see https://learn.microsoft.com/windows/win32/api/ipexport/ns-ipexport-ip_interface_info
  * @namespace Windows.Win32.NetworkManagement.IpHelper
- * @version v4.0.30319
  */
-class IP_INTERFACE_INFO extends Win32Struct
-{
-    static sizeof => 16
+class IP_INTERFACE_INFO extends Win32Struct {
+    static sizeof => 264
 
-    static packingSize => 8
+    static packingSize => 4
 
     /**
      * The number of adapters listed in the array pointed to by the <b>Adapter</b> member.
@@ -36,12 +34,12 @@ class IP_INTERFACE_INFO extends Win32Struct
     /**
      * An array of 
      * <a href="https://docs.microsoft.com/windows/desktop/api/ipexport/ns-ipexport-ip_adapter_index_map">IP_ADAPTER_INDEX_MAP</a> structures. Each structure maps an adapter index to that adapter's name.  The adapter index  may change when an adapter is disabled and then enabled, or under other circumstances, and should not be considered persistent.
-     * @type {Array<IP_ADAPTER_INDEX_MAP>}
+     * @type {IP_ADAPTER_INDEX_MAP}
      */
-    Adapter{
+    Adapter {
         get {
             if(!this.HasProp("__AdapterProxyArray"))
-                this.__AdapterProxyArray := Win32FixedArray(this.ptr + 8, 1, IP_ADAPTER_INDEX_MAP, "")
+                this.__AdapterProxyArray := Win32FixedArray(this.ptr + 4, 1, IP_ADAPTER_INDEX_MAP, "")
             return this.__AdapterProxyArray
         }
     }

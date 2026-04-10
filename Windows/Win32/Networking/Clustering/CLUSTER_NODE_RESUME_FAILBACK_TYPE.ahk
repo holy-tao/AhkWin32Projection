@@ -5,9 +5,8 @@
  * Specifies the failback type to use when a cluster node in a paused state is resumed by the ResumeClusterNodeEx function.
  * @see https://learn.microsoft.com/windows/win32/api/clusapi/ne-clusapi-cluster_node_resume_failback_type
  * @namespace Windows.Win32.Networking.Clustering
- * @version v4.0.30319
  */
-class CLUSTER_NODE_RESUME_FAILBACK_TYPE extends Win32Enum{
+class CLUSTER_NODE_RESUME_FAILBACK_TYPE extends Win32Enum {
 
     /**
      * Indicates that the failback process is  not to  be performed on the specified groups.

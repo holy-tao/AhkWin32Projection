@@ -5,9 +5,8 @@
 
 /**
  * @namespace Windows.Win32.System.Diagnostics.Debug.Extensions
- * @version v4.0.30319
  */
-class IDebugHostSymbol3 extends IDebugHostSymbol2{
+class IDebugHostSymbol3 extends IDebugHostSymbol2 {
 
     static sizeof => A_PtrSize
     /**
@@ -30,7 +29,7 @@ class IDebugHostSymbol3 extends IDebugHostSymbol2{
 
     /**
      * 
-     * @param {Pointer<Integer>} pCompilerId 
+     * @param {Pointer<KnownCompiler>} pCompilerId 
      * @param {Pointer<BSTR>} pCompilerString 
      * @returns {HRESULT} 
      */

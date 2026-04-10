@@ -1,17 +1,15 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
-#Include ..\..\Foundation\BSTR.ahk
-#Include ..\..\System\Variant\VARIANT.ahk
 #Include ..\..\System\Com\IDispatch.ahk
+#Include ..\..\System\Variant\VARIANT.ahk
 
 /**
  * Provides methods and properties used to manage a list of parameters that can be passed to business rule (BizRule) scripts.
  * @see https://learn.microsoft.com/windows/win32/api/azroles/nn-azroles-iazbizruleparameters
  * @namespace Windows.Win32.Security.Authorization
- * @version v4.0.30319
  */
-class IAzBizRuleParameters extends IDispatch{
+class IAzBizRuleParameters extends IDispatch {
 
     static sizeof => A_PtrSize
     /**

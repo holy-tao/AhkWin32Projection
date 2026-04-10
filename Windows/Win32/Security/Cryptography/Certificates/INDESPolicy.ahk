@@ -7,9 +7,8 @@
  * The NDES Policy Module Interface. When installed against an enterprise CA, NDES generates a password after checking that the user has enrollment permission on the configured NDES templates, both user and machine templates.
  * @see https://learn.microsoft.com/windows/win32/api/certpol/nn-certpol-indespolicy
  * @namespace Windows.Win32.Security.Cryptography.Certificates
- * @version v4.0.30319
  */
-class INDESPolicy extends IUnknown{
+class INDESPolicy extends IUnknown {
 
     static sizeof => A_PtrSize
     /**
@@ -86,7 +85,7 @@ class INDESPolicy extends IUnknown{
      * Notifies the plug-in of the transaction status of the SCEP certificate request.
      * @param {PWSTR} pwszChallenge The authentication and authorization SCEP challenge password for the user.
      * @param {PWSTR} pwszTransactionId The SCEP request transaction ID.
-     * @param {Integer} disposition The disposition of the transaction.
+     * @param {X509SCEPDisposition} disposition The disposition of the transaction.
      * @param {Integer} lastHResult The <b>HRESULT</b> of the last operation.
      * @param {Pointer<CERTTRANSBLOB>} pctbIssuedCertEncoded The requested certificate, if issued.
      * @returns {HRESULT} If this method succeeds, it returns <b>S_OK</b>. Otherwise, it returns an <b>HRESULT</b> error code.

@@ -3,10 +3,8 @@
 
 /**
  * @namespace Windows.Win32.Networking.WinSock
- * @version v4.0.30319
  */
-class TCP_OPT_FASTOPEN extends Win32Struct
-{
+class TCP_OPT_FASTOPEN extends Win32Struct {
     static sizeof => 3
 
     static packingSize => 1
@@ -28,9 +26,9 @@ class TCP_OPT_FASTOPEN extends Win32Struct
     }
 
     /**
-     * @type {Array<Byte>}
+     * @type {Array<Integer>}
      */
-    Cookie{
+    Cookie {
         get {
             if(!this.HasProp("__CookieProxyArray"))
                 this.__CookieProxyArray := Win32FixedArray(this.ptr + 2, 1, Primitive, "char")

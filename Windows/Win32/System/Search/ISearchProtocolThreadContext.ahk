@@ -7,9 +7,8 @@
  * This optional interface enables the protocol handler to perform an action on the thread used for filtering in the protocol host.
  * @see https://learn.microsoft.com/windows/win32/api/searchapi/nn-searchapi-isearchprotocolthreadcontext
  * @namespace Windows.Win32.System.Search
- * @version v4.0.30319
  */
-class ISearchProtocolThreadContext extends IUnknown{
+class ISearchProtocolThreadContext extends IUnknown {
 
     static sizeof => A_PtrSize
     /**

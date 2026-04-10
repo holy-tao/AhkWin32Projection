@@ -1,18 +1,19 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
+#Include .\ONEX_AUTH_STATUS.ahk
+#Include .\ONEX_REASON_CODE.ahk
+#Include .\DOT11_EAP_RESULT.ahk
 
 /**
  * @namespace Windows.Win32.NetworkManagement.WiFi
- * @version v4.0.30319
  */
-class DOT11_MSONEX_RESULT_PARAMS extends Win32Struct
-{
+class DOT11_MSONEX_RESULT_PARAMS extends Win32Struct {
     static sizeof => 48
 
     static packingSize => 8
 
     /**
-     * @type {Integer}
+     * @type {ONEX_AUTH_STATUS}
      */
     Dot11OnexAuthStatus {
         get => NumGet(this, 0, "int")
@@ -20,7 +21,7 @@ class DOT11_MSONEX_RESULT_PARAMS extends Win32Struct
     }
 
     /**
-     * @type {Integer}
+     * @type {ONEX_REASON_CODE}
      */
     Dot11OneXReasonCode {
         get => NumGet(this, 4, "int")

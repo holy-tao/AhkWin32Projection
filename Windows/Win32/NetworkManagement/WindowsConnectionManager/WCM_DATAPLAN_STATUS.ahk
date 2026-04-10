@@ -1,18 +1,16 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
-#Include ..\..\Foundation\FILETIME.ahk
 #Include .\WCM_USAGE_DATA.ahk
-#Include .\WCM_TIME_INTERVAL.ahk
+#Include ..\..\Foundation\FILETIME.ahk
 #Include .\WCM_BILLING_CYCLE_INFO.ahk
+#Include .\WCM_TIME_INTERVAL.ahk
 
 /**
  * Specifies subscription information for a network connection.
  * @see https://learn.microsoft.com/windows/win32/api/wcmapi/ns-wcmapi-wcm_dataplan_status
  * @namespace Windows.Win32.NetworkManagement.WindowsConnectionManager
- * @version v4.0.30319
  */
-class WCM_DATAPLAN_STATUS extends Win32Struct
-{
+class WCM_DATAPLAN_STATUS extends Win32Struct {
     static sizeof => 60
 
     static packingSize => 4
@@ -23,7 +21,7 @@ class WCM_DATAPLAN_STATUS extends Win32Struct
      * Contains usage data.
      * @type {WCM_USAGE_DATA}
      */
-    UsageData{
+    UsageData {
         get {
             if(!this.HasProp("__UsageData"))
                 this.__UsageData := WCM_USAGE_DATA(0, this)
@@ -70,7 +68,7 @@ class WCM_DATAPLAN_STATUS extends Win32Struct
      * Contains information about the billing cycle.
      * @type {WCM_BILLING_CYCLE_INFO}
      */
-    BillingCycle{
+    BillingCycle {
         get {
             if(!this.HasProp("__BillingCycle"))
                 this.__BillingCycle := WCM_BILLING_CYCLE_INFO(24, this)

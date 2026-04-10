@@ -5,10 +5,8 @@
  * Holds the seed and counter values that can be used to verify the primes of the DSS public key.
  * @see https://learn.microsoft.com/windows/win32/api/wincrypt/ns-wincrypt-dssseed
  * @namespace Windows.Win32.Security.Cryptography
- * @version v4.0.30319
  */
-class DSSSEED extends Win32Struct
-{
+class DSSSEED extends Win32Struct {
     static sizeof => 24
 
     static packingSize => 4
@@ -24,9 +22,9 @@ class DSSSEED extends Win32Struct
 
     /**
      * A <b>BYTE</b> string containing the seed value.
-     * @type {Array<Byte>}
+     * @type {Array<Integer>}
      */
-    seed{
+    seed {
         get {
             if(!this.HasProp("__seedProxyArray"))
                 this.__seedProxyArray := Win32FixedArray(this.ptr + 4, 20, Primitive, "char")

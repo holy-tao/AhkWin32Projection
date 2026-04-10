@@ -1,17 +1,16 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\..\Guid.ahk
+#Include .\IX509CertificateRequestCmc.ahk
 #Include .\IX509EnrollmentPolicyServer.ahk
 #Include .\IX509CertificateTemplate.ahk
-#Include .\IX509CertificateRequestCmc.ahk
 
 /**
  * The IX509CertificateRequestCmc2 interface represents a CMC (Certificate Management Message over CMS) certificate request.
  * @see https://learn.microsoft.com/windows/win32/api/certenroll/nn-certenroll-ix509certificaterequestcmc2
  * @namespace Windows.Win32.Security.Cryptography.Certificates
- * @version v4.0.30319
  */
-class IX509CertificateRequestCmc2 extends IX509CertificateRequestCmc{
+class IX509CertificateRequestCmc2 extends IX509CertificateRequestCmc {
 
     static sizeof => A_PtrSize
     /**
@@ -70,7 +69,7 @@ class IX509CertificateRequestCmc2 extends IX509CertificateRequestCmc{
      * 
      * 
      * If the <a href="https://docs.microsoft.com/windows/desktop/api/certenroll/nf-certenroll-ix509certificaterequest-get_cspinformations">CSPInformations</a> property is <b>NULL</b>, the method creates an <a href="https://docs.microsoft.com/windows/desktop/api/certenroll/nn-certenroll-icspinformations">ICspInformations</a> collection from the providers installed on the computer.
-     * @param {Integer} _context 
+     * @param {X509CertificateEnrollmentContext} _context 
      * @param {IX509EnrollmentPolicyServer} pPolicyServer Pointer to an <a href="https://docs.microsoft.com/windows/desktop/api/certenroll/nn-certenroll-ix509enrollmentpolicyserver">IX509EnrollmentPolicyServer</a> object that represents the certificate enrollment policy (CEP) server that contains the template specified by the <i>pTemplate</i> parameter.
      * @param {IX509CertificateTemplate} pTemplate Pointer to an <a href="https://docs.microsoft.com/windows/desktop/api/certenroll/nn-certenroll-ix509certificatetemplate">IX509CertificateTemplate</a> object that represents the template to use during initialization.
      * @returns {HRESULT} If the function succeeds, the function returns <b>S_OK</b>.
@@ -208,7 +207,7 @@ class IX509CertificateRequestCmc2 extends IX509CertificateRequestCmc{
      * Verifies that the certificate request has been signed and that the signature is valid. (IX509CertificateRequestCmc2.CheckSignature)
      * @remarks
      * This method uses the public key to decrypt the signature and compares the signature to a hash of the certificate request.
-     * @param {Integer} AllowedSignatureTypes 
+     * @param {Pkcs10AllowedSignatureTypes} AllowedSignatureTypes 
      * @returns {HRESULT} If the function succeeds, the function returns <b>S_OK</b>.
      * 
      * If the function fails, it returns an <b>HRESULT</b> value that indicates the error. Possible values include, but are not limited to, those in the following table. For a list of common error codes, see <a href="https://docs.microsoft.com/windows/desktop/SecCrypto/common-hresult-values">Common HRESULT Values</a>.

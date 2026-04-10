@@ -5,10 +5,8 @@
  * The RESOURCE_FAILURE_INFO structure represents information about the Failover attempts for a resource and is used by the RESOURCE_FAILURE_INFO_BUFFER structure.
  * @see https://learn.microsoft.com/windows/win32/api/msclus/ns-msclus-resource_failure_info
  * @namespace Windows.Win32.Networking.Clustering
- * @version v4.0.30319
  */
-class RESOURCE_FAILURE_INFO extends Win32Struct
-{
+class RESOURCE_FAILURE_INFO extends Win32Struct {
     static sizeof => 8
 
     static packingSize => 4

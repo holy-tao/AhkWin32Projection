@@ -3,16 +3,14 @@
 
 /**
  * @namespace Windows.Win32.System.WindowsProgramming
- * @version v4.0.30319
  */
-class DELAYLOAD_PROC_DESCRIPTOR extends Win32Struct
-{
-    static sizeof => 24
+class DELAYLOAD_PROC_DESCRIPTOR extends Win32Struct {
+    static sizeof => 16
 
     static packingSize => 8
 
     class _Description_e__Union extends Win32Struct {
-        static sizeof => 12
+        static sizeof => 8
         static packingSize => 8
 
         /**
@@ -22,7 +20,7 @@ class DELAYLOAD_PROC_DESCRIPTOR extends Win32Struct
             get => NumGet(this, 0, "ptr")
             set => NumPut("ptr", value, this, 0)
         }
-    
+
         /**
          * @type {Integer}
          */
@@ -30,7 +28,6 @@ class DELAYLOAD_PROC_DESCRIPTOR extends Win32Struct
             get => NumGet(this, 0, "uint")
             set => NumPut("uint", value, this, 0)
         }
-    
     }
 
     /**
@@ -44,10 +41,10 @@ class DELAYLOAD_PROC_DESCRIPTOR extends Win32Struct
     /**
      * @type {_Description_e__Union}
      */
-    Description{
+    Description {
         get {
             if(!this.HasProp("__Description"))
-                this.__Description := %this.__Class%._Description_e__Union(8, this)
+                this.__Description := DELAYLOAD_PROC_DESCRIPTOR._Description_e__Union(8, this)
             return this.__Description
         }
     }

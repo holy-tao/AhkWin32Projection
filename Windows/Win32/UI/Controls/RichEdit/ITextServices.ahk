@@ -1,8 +1,8 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\..\Guid.ahk
-#Include ..\..\..\System\Ole\IDropTarget.ahk
 #Include ..\..\..\System\Com\IUnknown.ahk
+#Include ..\..\..\System\Ole\IDropTarget.ahk
 
 /**
  * Extends the Text Object Model (TOM) to provide extra functionality for windowless operation.
@@ -16,9 +16,8 @@
  * Applications can call the <a href="https://docs.microsoft.com/windows/desktop/api/textserv/nf-textserv-createtextservices">CreateTextServices</a> function to create a text services object. To retrieve an <b>ITextServices</b> pointer, call <a href="https://docs.microsoft.com/windows/desktop/api/unknwn/nf-unknwn-iunknown-queryinterface(q)">QueryInterface</a> on the private <a href="https://docs.microsoft.com/windows/desktop/api/unknwn/nn-unknwn-iunknown">IUnknown</a> pointer returned by <b>CreateTextServices</b>. You can then call the <b>ITextServices</b> methods to send messages to the text services object.
  * @see https://learn.microsoft.com/windows/win32/api/textserv/nl-textserv-itextservices
  * @namespace Windows.Win32.UI.Controls.RichEdit
- * @version v4.0.30319
  */
-class ITextServices extends IUnknown{
+class ITextServices extends IUnknown {
 
     static sizeof => A_PtrSize
 
@@ -48,9 +47,15 @@ class ITextServices extends IUnknown{
      * <li>Any keystroke that tries to move the insertion point to or past the next line when it is already on the last line; or to or before the previous line when it is already on the first line. </li>
      * <li>Any insertion of the character from <a href="https://docs.microsoft.com/windows/desktop/inputdev/wm-char">WM_CHAR</a> that would move the insertion point past the maximum length of the control. </li>
      * </ul>
-     * @param {Integer} _msg 
-     * @param {WPARAM} _wparam 
-     * @param {LPARAM} _lparam 
+     * @param {Integer} _msg Type: <b><a href="https://docs.microsoft.com/windows/desktop/WinProg/windows-data-types">UINT</a></b>
+     * 
+     * The message identifier.
+     * @param {WPARAM} _wparam Type: <b><a href="https://docs.microsoft.com/windows/desktop/WinProg/windows-data-types">WPARAM</a></b>
+     * 
+     * The <b>WPARAM</b> from the window's message.
+     * @param {LPARAM} _lparam Type: <b><a href="https://docs.microsoft.com/windows/desktop/WinProg/windows-data-types">LPARAM</a></b>
+     * 
+     * The <b>LPARAM</b> from the window's message.
      * @param {Pointer<LRESULT>} plresult Type: <b><a href="https://docs.microsoft.com/windows/desktop/WinProg/windows-data-types">LRESULT</a>*</b>
      * 
      * The message's return <b>LRESULT</b>.
@@ -126,7 +131,7 @@ class ITextServices extends IUnknown{
      * Normally, the client rectangle and device context passed to <b>ITextServices::TxDraw</b> should not be cached, because this would force the text services object to recalculate lines for every draw, which would impede performance. Instead, the text services object could cache the information that is computed for a specific client rectangle and device context (such as line breaks). On the next call to <b>ITextServices::TxDraw</b>, however, the validity of the cached information should be checked before it gets used, and updated information should be regenerated, if necessary.
      * 
      * Also, take great care when the control is in-place active. This problem is even more complex since <b>ITextServices::TxDraw</b> can still be called to render other views than the one that is in-place active. In other words, the client rectangle passed to <b>ITextServices::TxDraw</b> may not be the same as the active one (passed to <a href="https://docs.microsoft.com/windows/desktop/api/textserv/nf-textserv-itextservices-ontxinplaceactivate">ITextServices::OnTxInPlaceActivate</a> and obtained through <a href="https://docs.microsoft.com/windows/desktop/api/textserv/nf-textserv-itexthost-txgetclientrect">TxGetClientRect</a> on the host).
-     * @param {Integer} dwDrawAspect Type: <b><a href="https://docs.microsoft.com/windows/desktop/WinProg/windows-data-types">DWORD</a></b>
+     * @param {DVASPECT} dwDrawAspect Type: <b><a href="https://docs.microsoft.com/windows/desktop/WinProg/windows-data-types">DWORD</a></b>
      * @param {Integer} lindex Type: <b><a href="https://docs.microsoft.com/windows/desktop/WinProg/windows-data-types">LONG</a></b>
      * 
      * Not supported.
@@ -309,7 +314,7 @@ class ITextServices extends IUnknown{
      * This method should be called only for screen views of the control. Therefore the device context (DC) is not passed in, but should be assumed to be a screen DC.
      * 
      * For more information, see the Remarks in <a href="https://docs.microsoft.com/windows/desktop/api/textserv/nf-textserv-itextservices-txdraw">ITextServices::TxDraw</a>.
-     * @param {Integer} dwDrawAspect Type: <b><a href="https://docs.microsoft.com/windows/desktop/WinProg/windows-data-types">DWORD</a></b>
+     * @param {DVASPECT} dwDrawAspect Type: <b><a href="https://docs.microsoft.com/windows/desktop/WinProg/windows-data-types">DWORD</a></b>
      * @param {Integer} lindex Type: <b><a href="https://docs.microsoft.com/windows/desktop/WinProg/windows-data-types">LONG</a></b>
      * 
      * Not supported.
@@ -375,7 +380,7 @@ class ITextServices extends IUnknown{
      * This method allows the host to implement transparent hit testing on text.
      * 
      * For more information, see the Remarks section in <a href="https://docs.microsoft.com/windows/desktop/api/textserv/nf-textserv-itextservices-txdraw">ITextServices::TxDraw</a> and <a href="https://docs.microsoft.com/windows/desktop/api/textserv/nf-textserv-itextservices-ontxsetcursor">ITextServices::OnTxSetCursor</a>.
-     * @param {Integer} dwDrawAspect Type: <b><a href="https://docs.microsoft.com/windows/desktop/WinProg/windows-data-types">DWORD</a></b>
+     * @param {DVASPECT} dwDrawAspect Type: <b><a href="https://docs.microsoft.com/windows/desktop/WinProg/windows-data-types">DWORD</a></b>
      * @param {Integer} lindex Type: <b><a href="https://docs.microsoft.com/windows/desktop/WinProg/windows-data-types">LONG</a></b>
      * 
      * Not supported.

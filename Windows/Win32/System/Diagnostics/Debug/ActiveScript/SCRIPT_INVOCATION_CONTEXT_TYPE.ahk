@@ -3,9 +3,8 @@
 
 /**
  * @namespace Windows.Win32.System.Diagnostics.Debug.ActiveScript
- * @version v4.0.30319
  */
-class SCRIPT_INVOCATION_CONTEXT_TYPE extends Win32Enum{
+class SCRIPT_INVOCATION_CONTEXT_TYPE extends Win32Enum {
 
     /**
      * @type {Integer (Int32)}

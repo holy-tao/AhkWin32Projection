@@ -3,10 +3,8 @@
 
 /**
  * @namespace Windows.Win32.System.Ioctl
- * @version v4.0.30319
  */
-class GET_FILTER_FILE_IDENTIFIER_OUTPUT extends Win32Struct
-{
+class GET_FILTER_FILE_IDENTIFIER_OUTPUT extends Win32Struct {
     static sizeof => 4
 
     static packingSize => 2
@@ -20,9 +18,9 @@ class GET_FILTER_FILE_IDENTIFIER_OUTPUT extends Win32Struct
     }
 
     /**
-     * @type {Array<Byte>}
+     * @type {Array<Integer>}
      */
-    FilterFileIdentifier{
+    FilterFileIdentifier {
         get {
             if(!this.HasProp("__FilterFileIdentifierProxyArray"))
                 this.__FilterFileIdentifierProxyArray := Win32FixedArray(this.ptr + 2, 1, Primitive, "char")

@@ -2,13 +2,12 @@
 #Include ..\..\..\..\Win32Struct.ahk
 #Include ..\..\Foundation\HANDLE.ahk
 #Include ..\..\System\Registry\HKEY.ahk
+#Include .\MONITORREG.ahk
 
 /**
  * @namespace Windows.Win32.Graphics.Printing
- * @version v4.0.30319
  */
-class MONITORINIT extends Win32Struct
-{
+class MONITORINIT extends Win32Struct {
     static sizeof => 48
 
     static packingSize => 8
@@ -24,7 +23,7 @@ class MONITORINIT extends Win32Struct
     /**
      * @type {HANDLE}
      */
-    hSpooler{
+    hSpooler {
         get {
             if(!this.HasProp("__hSpooler"))
                 this.__hSpooler := HANDLE(8, this)
@@ -35,7 +34,7 @@ class MONITORINIT extends Win32Struct
     /**
      * @type {HKEY}
      */
-    hckRegistryRoot{
+    hckRegistryRoot {
         get {
             if(!this.HasProp("__hckRegistryRoot"))
                 this.__hckRegistryRoot := HKEY(16, this)

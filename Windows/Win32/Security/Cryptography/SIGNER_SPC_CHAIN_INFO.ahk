@@ -6,10 +6,8 @@
  * Specifies a Software Publisher Certificate (SPC) and certificate chain used to sign a document.
  * @see https://learn.microsoft.com/windows/win32/SecCrypto/signer-spc-chain-info
  * @namespace Windows.Win32.Security.Cryptography
- * @version v4.0.30319
  */
-class SIGNER_SPC_CHAIN_INFO extends Win32Struct
-{
+class SIGNER_SPC_CHAIN_INFO extends Win32Struct {
     static sizeof => 32
 
     static packingSize => 8
@@ -53,7 +51,7 @@ class SIGNER_SPC_CHAIN_INFO extends Win32Struct
      * Optional. A handle to an additional certificate store.
      * @type {HCERTSTORE}
      */
-    hCertStore{
+    hCertStore {
         get {
             if(!this.HasProp("__hCertStore"))
                 this.__hCertStore := HCERTSTORE(24, this)

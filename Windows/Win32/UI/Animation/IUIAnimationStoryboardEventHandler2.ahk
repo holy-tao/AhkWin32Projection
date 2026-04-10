@@ -7,9 +7,8 @@
  * Defines methods for handling storyboard events.
  * @see https://learn.microsoft.com/windows/win32/api/uianimation/nn-uianimation-iuianimationstoryboardeventhandler2
  * @namespace Windows.Win32.UI.Animation
- * @version v4.0.30319
  */
-class IUIAnimationStoryboardEventHandler2 extends IUnknown{
+class IUIAnimationStoryboardEventHandler2 extends IUnknown {
 
     static sizeof => A_PtrSize
     /**
@@ -134,8 +133,8 @@ class IUIAnimationStoryboardEventHandler2 extends IUnknown{
      * </li>
      * </ul>
      * @param {IUIAnimationStoryboard2} storyboard The storyboard for which the status has changed.
-     * @param {Integer} newStatus The new status.
-     * @param {Integer} previousStatus The previous status.
+     * @param {UI_ANIMATION_STORYBOARD_STATUS} newStatus The new status.
+     * @param {UI_ANIMATION_STORYBOARD_STATUS} previousStatus The previous status.
      * @returns {HRESULT} If this method succeeds, it returns S_OK. Otherwise, it returns an  <b>HRESULT</b> error code. See <a href="https://docs.microsoft.com/windows/desktop/UIAnimation/uianimation-error-codes">Windows Animation Error Codes</a> for a list of error codes.
      * @see https://learn.microsoft.com/windows/win32/api/uianimation/nf-uianimation-iuianimationstoryboardeventhandler2-onstoryboardstatuschanged
      */

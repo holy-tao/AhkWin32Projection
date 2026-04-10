@@ -5,9 +5,8 @@
 
 /**
  * @namespace Windows.Win32.System.Com.Urlmon
- * @version v4.0.30319
  */
-class IInternetBindInfoEx extends IInternetBindInfo{
+class IInternetBindInfoEx extends IInternetBindInfo {
 
     static sizeof => A_PtrSize
     /**

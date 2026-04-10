@@ -6,16 +6,14 @@
  * The LINEATTRS structure is used by a driver's line-drawing functions to determine line attributes.
  * @see https://learn.microsoft.com/windows/win32/api/winddi/ns-winddi-lineattrs
  * @namespace Windows.Win32.Devices.Display
- * @version v4.0.30319
+ * @architecture X64, Arm64
  */
-class LINEATTRS extends Win32Struct
-{
+class LINEATTRS extends Win32Struct {
     static sizeof => 48
 
     static packingSize => 8
 
     /**
-     * 
      * @type {Integer}
      */
     fl {
@@ -24,7 +22,6 @@ class LINEATTRS extends Win32Struct
     }
 
     /**
-     * 
      * @type {Integer}
      */
     iJoin {
@@ -33,7 +30,6 @@ class LINEATTRS extends Win32Struct
     }
 
     /**
-     * 
      * @type {Integer}
      */
     iEndCap {
@@ -45,7 +41,7 @@ class LINEATTRS extends Win32Struct
      * Specifies a FLOAT_LONG that indicates the width of the line. This width is measured in FLOAT world coordinates for a geometric wide line, but in LONG device coordinates for a cosmetic wide line. For a description of the FLOAT_LONG data type, see <a href="https://docs.microsoft.com/windows-hardware/drivers/display/gdi-data-types">GDI Data Types</a>.
      * @type {FLOAT_LONG}
      */
-    elWidth{
+    elWidth {
         get {
             if(!this.HasProp("__elWidth"))
                 this.__elWidth := FLOAT_LONG(12, this)
@@ -88,7 +84,7 @@ class LINEATTRS extends Win32Struct
      * . See also <a href="https://docs.microsoft.com/windows-hardware/drivers/display/styled-cosmetic-lines">Styled Cosmetic Lines</a> for additional information.
      * @type {FLOAT_LONG}
      */
-    elStyleState{
+    elStyleState {
         get {
             if(!this.HasProp("__elStyleState"))
                 this.__elStyleState := FLOAT_LONG(40, this)

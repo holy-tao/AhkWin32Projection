@@ -1,16 +1,15 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
-#Include ..\..\Foundation\HWND.ahk
 #Include ..\..\UI\Controls\NMHDR.ahk
+#Include ..\..\Foundation\HWND.ahk
+#Include .\HH_WINTYPE.ahk
 
 /**
  * This structure returns the file name of the current topic and a constant that specifies the user action that is about to occur, such as hiding the Navigation pane by clicking the Hide button on the toolbar.
  * @see https://learn.microsoft.com/windows/win32/api/htmlhelp/ns-htmlhelp-hhntrack
  * @namespace Windows.Win32.Data.HtmlHelp
- * @version v4.0.30319
  */
-class HHNTRACK extends Win32Struct
-{
+class HHNTRACK extends Win32Struct {
     static sizeof => 48
 
     static packingSize => 8
@@ -19,7 +18,7 @@ class HHNTRACK extends Win32Struct
      * Standard <b>WM_NOTIFY</b> header.
      * @type {NMHDR}
      */
-    hdr{
+    hdr {
         get {
             if(!this.HasProp("__hdr"))
                 this.__hdr := NMHDR(0, this)

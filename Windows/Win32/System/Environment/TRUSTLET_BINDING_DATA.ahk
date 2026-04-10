@@ -4,10 +4,8 @@
 
 /**
  * @namespace Windows.Win32.System.Environment
- * @version v4.0.30319
  */
-class TRUSTLET_BINDING_DATA extends Win32Struct
-{
+class TRUSTLET_BINDING_DATA extends Win32Struct {
     static sizeof => 56
 
     static packingSize => 8
@@ -23,7 +21,7 @@ class TRUSTLET_BINDING_DATA extends Win32Struct
     /**
      * @type {PS_TRUSTLET_TKSESSION_ID}
      */
-    TrustletSessionId{
+    TrustletSessionId {
         get {
             if(!this.HasProp("__TrustletSessionId"))
                 this.__TrustletSessionId := PS_TRUSTLET_TKSESSION_ID(8, this)

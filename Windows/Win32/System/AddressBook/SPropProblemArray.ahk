@@ -8,13 +8,11 @@
  * For more information about how the **SPropProblem** and **SPropProblemArray** structures work with errors related to properties, see [MAPI Named Properties](mapi-named-properties.md).
  * @see https://learn.microsoft.com/office/client-developer/outlook/mapi/spropproblemarray
  * @namespace Windows.Win32.System.AddressBook
- * @version v4.0.30319
  */
-class SPropProblemArray extends Win32Struct
-{
+class SPropProblemArray extends Win32Struct {
     static sizeof => 16
 
-    static packingSize => 8
+    static packingSize => 4
 
     /**
      * > Count of [SPropProblem](spropproblem.md) structures in the array indicated by the **aProblem** member.
@@ -27,12 +25,12 @@ class SPropProblemArray extends Win32Struct
 
     /**
      * > Array of **SPropProblem** structures, each describing a property error.
-     * @type {Array<SPropProblem>}
+     * @type {SPropProblem}
      */
-    aProblem{
+    aProblem {
         get {
             if(!this.HasProp("__aProblemProxyArray"))
-                this.__aProblemProxyArray := Win32FixedArray(this.ptr + 8, 1, SPropProblem, "")
+                this.__aProblemProxyArray := Win32FixedArray(this.ptr + 4, 1, SPropProblem, "")
             return this.__aProblemProxyArray
         }
     }

@@ -7,10 +7,8 @@
  * The CANDIDATEFORM structure (immdev.h) contains position information for the candidate window.
  * @see https://learn.microsoft.com/windows/win32/api/immdev/ns-immdev-candidateform
  * @namespace Windows.Win32.UI.Input.Ime
- * @version v4.0.30319
  */
-class CANDIDATEFORM extends Win32Struct
-{
+class CANDIDATEFORM extends Win32Struct {
     static sizeof => 32
 
     static packingSize => 4
@@ -25,7 +23,6 @@ class CANDIDATEFORM extends Win32Struct
     }
 
     /**
-     * 
      * @type {Integer}
      */
     dwStyle {
@@ -37,7 +34,7 @@ class CANDIDATEFORM extends Win32Struct
      * A <a href="https://docs.microsoft.com/windows/win32/api/windef/ns-windef-point">POINT</a> structure containing the coordinates of the upper left corner of the candidate window or the caret position, depending on the value of <b>dwStyle</b>.
      * @type {POINT}
      */
-    ptCurrentPos{
+    ptCurrentPos {
         get {
             if(!this.HasProp("__ptCurrentPos"))
                 this.__ptCurrentPos := POINT(8, this)
@@ -49,7 +46,7 @@ class CANDIDATEFORM extends Win32Struct
      * A <a href="https://docs.microsoft.com/windows/desktop/api/windef/ns-windef-rect">RECT</a> structure containing the coordinates of the upper left and lower right corners of the exclusion area.
      * @type {RECT}
      */
-    rcArea{
+    rcArea {
         get {
             if(!this.HasProp("__rcArea"))
                 this.__rcArea := RECT(16, this)

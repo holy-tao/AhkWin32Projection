@@ -7,9 +7,8 @@
  * The callback for the IMFVideoSampleAllocatorCallback interface. (IMFVideoSampleAllocatorNotify)
  * @see https://learn.microsoft.com/windows/win32/api/mfidl/nn-mfidl-imfvideosampleallocatornotify
  * @namespace Windows.Win32.Media.MediaFoundation
- * @version v4.0.30319
  */
-class IMFVideoSampleAllocatorNotify extends IUnknown{
+class IMFVideoSampleAllocatorNotify extends IUnknown {
 
     static sizeof => A_PtrSize
     /**

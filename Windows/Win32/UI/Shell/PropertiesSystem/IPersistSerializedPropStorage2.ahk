@@ -15,9 +15,8 @@
  * The in-memory property store, created by calling <a href="https://docs.microsoft.com/windows/desktop/api/propsys/nf-propsys-pscreatememorypropertystore">PSCreateMemoryPropertyStore</a>, provides an implementation of this interface. Use this implementation when you want to persist or restore serialized property storage data.
  * @see https://learn.microsoft.com/windows/win32/api/propsys/nn-propsys-ipersistserializedpropstorage2
  * @namespace Windows.Win32.UI.Shell.PropertiesSystem
- * @version v4.0.30319
  */
-class IPersistSerializedPropStorage2 extends IPersistSerializedPropStorage{
+class IPersistSerializedPropStorage2 extends IPersistSerializedPropStorage {
 
     static sizeof => A_PtrSize
     /**
@@ -56,7 +55,7 @@ class IPersistSerializedPropStorage2 extends IPersistSerializedPropStorage{
      * This methods returns an error if <i>cb</i> is smaller than the total size of the serialized data.
      * 
      * The <b>SERIALIZEDPROPSTORAGE</b> type is defined in Propsys.h as an incomplete type. It should be treated as an array of <b>BYTE</b> values; the format of the returned data is not specified. The contents of the <b>SERIALIZEDPROPSTORAGE</b> structure are suitable for persisting to disk or other storage and can be used to initialize another property store through <a href="https://docs.microsoft.com/windows/desktop/api/propsys/nf-propsys-ipersistserializedpropstorage-setpropertystorage">IPersistSerializedPropStorage::SetPropertyStorage</a>.
-     * @param {Pointer} psps Type: <b>SERIALIZEDPROPSTORAGE*</b>
+     * @param {Integer} psps Type: <b>SERIALIZEDPROPSTORAGE*</b>
      * 
      * When this method returns successfully, contains the contents of the property storage buffer.
      * @param {Integer} cb Type: <b>DWORD</b>

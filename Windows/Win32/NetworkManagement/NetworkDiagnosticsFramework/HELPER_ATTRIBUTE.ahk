@@ -1,7 +1,8 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
-#Include ..\..\Foundation\FILETIME.ahk
+#Include .\ATTRIBUTE_TYPE.ahk
 #Include .\LIFE_TIME.ahk
+#Include ..\..\Foundation\FILETIME.ahk
 #Include .\DIAG_SOCKADDR.ahk
 #Include .\OCTET_STRING.ahk
 
@@ -9,11 +10,9 @@
  * The HELPER_ATTRIBUTE structure contains all NDF supported data types.
  * @see https://learn.microsoft.com/windows/win32/api/ndattrib/ns-ndattrib-helper_attribute
  * @namespace Windows.Win32.NetworkManagement.NetworkDiagnosticsFramework
- * @version v4.0.30319
  */
-class HELPER_ATTRIBUTE extends Win32Struct
-{
-    static sizeof => 272
+class HELPER_ATTRIBUTE extends Win32Struct {
+    static sizeof => 144
 
     static packingSize => 8
 
@@ -32,7 +31,7 @@ class HELPER_ATTRIBUTE extends Win32Struct
      * Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/ndattrib/ne-ndattrib-attribute_type">ATTRIBUTE_TYPE</a></b>
      * 
      * The type of helper attribute.
-     * @type {Integer}
+     * @type {ATTRIBUTE_TYPE}
      */
     type {
         get => NumGet(this, 8, "int")
@@ -120,7 +119,7 @@ class HELPER_ATTRIBUTE extends Win32Struct
     }
 
     /**
-     * @type {Pointer<Guid>}
+     * @type {Pointer}
      */
     Guid {
         get => NumGet(this, 16, "ptr")
@@ -130,7 +129,7 @@ class HELPER_ATTRIBUTE extends Win32Struct
     /**
      * @type {LIFE_TIME}
      */
-    LifeTime{
+    LifeTime {
         get {
             if(!this.HasProp("__LifeTime"))
                 this.__LifeTime := LIFE_TIME(16, this)
@@ -141,7 +140,7 @@ class HELPER_ATTRIBUTE extends Win32Struct
     /**
      * @type {DIAG_SOCKADDR}
      */
-    Address{
+    Address {
         get {
             if(!this.HasProp("__Address"))
                 this.__Address := DIAG_SOCKADDR(16, this)
@@ -152,7 +151,7 @@ class HELPER_ATTRIBUTE extends Win32Struct
     /**
      * @type {OCTET_STRING}
      */
-    OctetString{
+    OctetString {
         get {
             if(!this.HasProp("__OctetString"))
                 this.__OctetString := OCTET_STRING(16, this)

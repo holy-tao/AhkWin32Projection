@@ -1,16 +1,17 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
+#Include .\FILE_STORAGE_TIER_FLAGS.ahk
 #Include .\FILE_STORAGE_TIER.ahk
+#Include .\FILE_STORAGE_TIER_MEDIA_TYPE.ahk
+#Include .\FILE_STORAGE_TIER_CLASS.ahk
 
 /**
  * Contains information for all tiers of a specific volume.
  * @see https://learn.microsoft.com/windows/win32/api/winioctl/ns-winioctl-fsctl_query_storage_classes_output
  * @namespace Windows.Win32.System.Ioctl
- * @version v4.0.30319
  */
-class FSCTL_QUERY_STORAGE_CLASSES_OUTPUT extends Win32Struct
-{
-    static sizeof => 32
+class FSCTL_QUERY_STORAGE_CLASSES_OUTPUT extends Win32Struct {
+    static sizeof => 1080
 
     static packingSize => 8
 
@@ -33,8 +34,7 @@ class FSCTL_QUERY_STORAGE_CLASSES_OUTPUT extends Win32Struct
     }
 
     /**
-     * 
-     * @type {Integer}
+     * @type {FILE_STORAGE_TIER_FLAGS}
      */
     Flags {
         get => NumGet(this, 8, "uint")
@@ -61,9 +61,9 @@ class FSCTL_QUERY_STORAGE_CLASSES_OUTPUT extends Win32Struct
 
     /**
      * <a href="https://docs.microsoft.com/windows/desktop/api/winioctl/ns-winioctl-file_storage_tier">FILE_STORAGE_TIER</a> structure that contains detailed info on the storage tiers.
-     * @type {Array<FILE_STORAGE_TIER>}
+     * @type {FILE_STORAGE_TIER}
      */
-    Tiers{
+    Tiers {
         get {
             if(!this.HasProp("__TiersProxyArray"))
                 this.__TiersProxyArray := Win32FixedArray(this.ptr + 24, 1, FILE_STORAGE_TIER, "")

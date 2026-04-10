@@ -3,9 +3,8 @@
 
 /**
  * @namespace Windows.Win32.Networking.WinSock
- * @version v4.0.30319
  */
-class IGMP_MAX_RESP_CODE_TYPE extends Win32Enum{
+class IGMP_MAX_RESP_CODE_TYPE extends Win32Enum {
 
     /**
      * @type {Integer (Int32)}

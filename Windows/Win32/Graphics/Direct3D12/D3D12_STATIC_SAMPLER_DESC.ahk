@@ -1,5 +1,10 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
+#Include .\D3D12_FILTER.ahk
+#Include .\D3D12_TEXTURE_ADDRESS_MODE.ahk
+#Include .\D3D12_COMPARISON_FUNC.ahk
+#Include .\D3D12_STATIC_BORDER_COLOR.ahk
+#Include .\D3D12_SHADER_VISIBILITY.ahk
 
 /**
  * Describes a static sampler.
@@ -7,17 +12,15 @@
  * Use this structure with the <a href="https://docs.microsoft.com/windows/desktop/api/d3d12/ns-d3d12-d3d12_root_signature_desc">D3D12_ROOT_SIGNATURE_DESC</a> structure.
  * @see https://learn.microsoft.com/windows/win32/api/d3d12/ns-d3d12-d3d12_static_sampler_desc
  * @namespace Windows.Win32.Graphics.Direct3D12
- * @version v4.0.30319
  */
-class D3D12_STATIC_SAMPLER_DESC extends Win32Struct
-{
+class D3D12_STATIC_SAMPLER_DESC extends Win32Struct {
     static sizeof => 52
 
     static packingSize => 4
 
     /**
      * The filtering method to use when sampling a texture, as a <a href="https://docs.microsoft.com/windows/desktop/api/d3d12/ne-d3d12-d3d12_filter">D3D12_FILTER</a> enumeration constant.
-     * @type {Integer}
+     * @type {D3D12_FILTER}
      */
     Filter {
         get => NumGet(this, 0, "int")
@@ -26,7 +29,7 @@ class D3D12_STATIC_SAMPLER_DESC extends Win32Struct
 
     /**
      * Specifies the <a href="https://docs.microsoft.com/windows/desktop/api/d3d12/ne-d3d12-d3d12_texture_address_mode">D3D12_TEXTURE_ADDRESS_MODE</a> mode to use for resolving a <i>u</i> texture coordinate that is outside the 0 to 1 range.
-     * @type {Integer}
+     * @type {D3D12_TEXTURE_ADDRESS_MODE}
      */
     AddressU {
         get => NumGet(this, 4, "int")
@@ -35,7 +38,7 @@ class D3D12_STATIC_SAMPLER_DESC extends Win32Struct
 
     /**
      * Specifies the <a href="https://docs.microsoft.com/windows/desktop/api/d3d12/ne-d3d12-d3d12_texture_address_mode">D3D12_TEXTURE_ADDRESS_MODE</a> mode to use for resolving a <i>v</i> texture coordinate that is outside the 0 to 1 range.
-     * @type {Integer}
+     * @type {D3D12_TEXTURE_ADDRESS_MODE}
      */
     AddressV {
         get => NumGet(this, 8, "int")
@@ -44,7 +47,7 @@ class D3D12_STATIC_SAMPLER_DESC extends Win32Struct
 
     /**
      * Specifies the <a href="https://docs.microsoft.com/windows/desktop/api/d3d12/ne-d3d12-d3d12_texture_address_mode">D3D12_TEXTURE_ADDRESS_MODE</a> mode to use for resolving a <i>w</i> texture coordinate that is outside the 0 to 1 range.
-     * @type {Integer}
+     * @type {D3D12_TEXTURE_ADDRESS_MODE}
      */
     AddressW {
         get => NumGet(this, 12, "int")
@@ -72,7 +75,7 @@ class D3D12_STATIC_SAMPLER_DESC extends Win32Struct
     /**
      * A function that compares sampled data against existing sampled data. 
      *             The function options are listed in <a href="https://docs.microsoft.com/windows/desktop/api/d3d12/ne-d3d12-d3d12_comparison_func">D3D12_COMPARISON_FUNC</a>.
-     * @type {Integer}
+     * @type {D3D12_COMPARISON_FUNC}
      */
     ComparisonFunc {
         get => NumGet(this, 24, "int")
@@ -82,7 +85,7 @@ class D3D12_STATIC_SAMPLER_DESC extends Win32Struct
     /**
      * One member of <a href="https://docs.microsoft.com/windows/desktop/api/d3d12/ne-d3d12-d3d12_static_border_color">D3D12_STATIC_BORDER_COLOR</a>, the border color to use if D3D12_TEXTURE_ADDRESS_MODE_BORDER is specified for AddressU, AddressV, or AddressW. 
      *             Range must be between 0.0 and 1.0 inclusive.
-     * @type {Integer}
+     * @type {D3D12_STATIC_BORDER_COLOR}
      */
     BorderColor {
         get => NumGet(this, 28, "int")
@@ -139,7 +142,7 @@ class D3D12_STATIC_SAMPLER_DESC extends Win32Struct
 
     /**
      * Specifies the visibility of the sampler to the pipeline shaders, one member of <a href="https://docs.microsoft.com/windows/desktop/api/d3d12/ne-d3d12-d3d12_shader_visibility">D3D12_SHADER_VISIBILITY</a>.
-     * @type {Integer}
+     * @type {D3D12_SHADER_VISIBILITY}
      */
     ShaderVisibility {
         get => NumGet(this, 48, "int")

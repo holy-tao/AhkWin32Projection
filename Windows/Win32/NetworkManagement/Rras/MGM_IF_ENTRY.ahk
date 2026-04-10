@@ -5,10 +5,8 @@
  * The MGM_IF_ENTRY structure describes a router interface.
  * @see https://learn.microsoft.com/windows/win32/api/mgm/ns-mgm-mgm_if_entry
  * @namespace Windows.Win32.NetworkManagement.Rras
- * @version v4.0.30319
  */
-class MGM_IF_ENTRY extends Win32Struct
-{
+class MGM_IF_ENTRY extends Win32Struct {
     static sizeof => 16
 
     static packingSize => 4

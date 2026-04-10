@@ -1,12 +1,12 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\..\..\Win32Struct.ahk
+#Include .\IDebugStackFrame.ahk
+#Include ..\..\..\Com\IUnknown.ahk
 
 /**
  * @namespace Windows.Win32.System.Diagnostics.Debug.ActiveScript
- * @version v4.0.30319
  */
-class DebugStackFrameDescriptor64 extends Win32Struct
-{
+class DebugStackFrameDescriptor64 extends Win32Struct {
     static sizeof => 40
 
     static packingSize => 8

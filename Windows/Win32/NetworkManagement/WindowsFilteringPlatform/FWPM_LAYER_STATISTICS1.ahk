@@ -3,16 +3,14 @@
 
 /**
  * @namespace Windows.Win32.NetworkManagement.WindowsFilteringPlatform
- * @version v4.0.30319
  */
-class FWPM_LAYER_STATISTICS1 extends Win32Struct
-{
+class FWPM_LAYER_STATISTICS1 extends Win32Struct {
     static sizeof => 32
 
     static packingSize => 8
 
     /**
-     * @type {Pointer<Guid>}
+     * @type {Pointer}
      */
     layerId {
         get => NumGet(this, 0, "ptr")

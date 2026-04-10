@@ -1,8 +1,8 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
-#Include ..\..\Foundation\RECT.ahk
 #Include .\ID2D1TransformNode.ahk
+#Include ..\..\Foundation\RECT.ahk
 
 /**
  * Represents the base interface for all of the transforms implemented by the transform author.
@@ -10,9 +10,8 @@
  * Transforms are aggregated by effect authors. This interface  provides a common interface for implementing the Shantzis rectangle calculations which is the basis for all the transform processing in Direct2D imaging extensions.  These  calculations are described in the paper <a href="https://dl.acm.org/citation.cfm?id=192191">A model for efficient and flexible image computing</a>.
  * @see https://learn.microsoft.com/windows/win32/api/d2d1effectauthor/nn-d2d1effectauthor-id2d1transform
  * @namespace Windows.Win32.Graphics.Direct2D
- * @version v4.0.30319
  */
-class ID2D1Transform extends ID2D1TransformNode{
+class ID2D1Transform extends ID2D1TransformNode {
 
     static sizeof => A_PtrSize
     /**

@@ -7,9 +7,8 @@
  * The IWMPPluginUI interface manages the connection to Windows Media Player.
  * @see https://learn.microsoft.com/windows/win32/api/wmpplug/nn-wmpplug-iwmppluginui
  * @namespace Windows.Win32.Media.MediaPlayer
- * @version v4.0.30319
  */
-class IWMPPluginUI extends IUnknown{
+class IWMPPluginUI extends IUnknown {
 
     static sizeof => A_PtrSize
     /**

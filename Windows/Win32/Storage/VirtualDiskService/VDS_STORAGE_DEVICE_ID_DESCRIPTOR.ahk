@@ -1,5 +1,6 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
+#Include .\VDS_STORAGE_IDENTIFIER.ahk
 
 /**
  * Defines one or more storage identifiers for a storage device (typically an instance, as opposed to a class, of device).
@@ -9,10 +10,8 @@
  *     this structure as a member to specify the storage device identifiers of a LUN.
  * @see https://learn.microsoft.com/windows/win32/api/vdslun/ns-vdslun-vds_storage_device_id_descriptor
  * @namespace Windows.Win32.Storage.VirtualDiskService
- * @version v4.0.30319
  */
-class VDS_STORAGE_DEVICE_ID_DESCRIPTOR extends Win32Struct
-{
+class VDS_STORAGE_DEVICE_ID_DESCRIPTOR extends Win32Struct {
     static sizeof => 16
 
     static packingSize => 8

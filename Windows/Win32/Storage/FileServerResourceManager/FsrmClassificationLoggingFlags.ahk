@@ -5,9 +5,8 @@
  * Defines the different options for logging information while running classification.
  * @see https://learn.microsoft.com/windows/win32/api/fsrmenums/ne-fsrmenums-fsrmclassificationloggingflags
  * @namespace Windows.Win32.Storage.FileServerResourceManager
- * @version v4.0.30319
  */
-class FsrmClassificationLoggingFlags extends Win32Enum{
+class FsrmClassificationLoggingFlags extends Win32Enum {
 
     /**
      * No logging occurs.

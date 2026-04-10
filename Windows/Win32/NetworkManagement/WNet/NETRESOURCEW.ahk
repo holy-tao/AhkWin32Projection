@@ -1,5 +1,7 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
+#Include .\NET_RESOURCE_SCOPE.ahk
+#Include .\NET_RESOURCE_TYPE.ahk
 
 /**
  * The following structure contains information about a network resource. It is used by several of the network provider functions, including NPOpenEnum and NPAddConnection. (Unicode)
@@ -8,18 +10,15 @@
  * > The winnetwk.h header defines NETRESOURCE as an alias which automatically selects the ANSI or Unicode version of this function based on the definition of the UNICODE preprocessor constant. Mixing usage of the encoding-neutral alias with code that not encoding-neutral can lead to mismatches that result in compilation or runtime errors. For more information, see [Conventions for Function Prototypes](/windows/win32/intl/conventions-for-function-prototypes).
  * @see https://learn.microsoft.com/windows/win32/api/winnetwk/ns-winnetwk-netresourcew
  * @namespace Windows.Win32.NetworkManagement.WNet
- * @version v4.0.30319
  * @charset Unicode
  */
-class NETRESOURCEW extends Win32Struct
-{
+class NETRESOURCEW extends Win32Struct {
     static sizeof => 48
 
     static packingSize => 8
 
     /**
-     * 
-     * @type {Integer}
+     * @type {NET_RESOURCE_SCOPE}
      */
     dwScope {
         get => NumGet(this, 0, "uint")
@@ -27,8 +26,7 @@ class NETRESOURCEW extends Win32Struct
     }
 
     /**
-     * 
-     * @type {Integer}
+     * @type {NET_RESOURCE_TYPE}
      */
     dwType {
         get => NumGet(this, 4, "uint")

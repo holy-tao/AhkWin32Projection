@@ -3,9 +3,8 @@
 
 /**
  * @namespace Windows.Win32.System.Ioctl
- * @version v4.0.30319
  */
-class QUERY_FILE_LAYOUT_FILTER_TYPE extends Win32Enum{
+class QUERY_FILE_LAYOUT_FILTER_TYPE extends Win32Enum {
 
     /**
      * @type {Integer (Int32)}

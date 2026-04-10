@@ -5,9 +5,8 @@
 
 /**
  * @namespace Windows.Win32.System.AssessmentTool
- * @version v4.0.30319
  */
-class IAccessibleWinSAT extends IAccessible{
+class IAccessibleWinSAT extends IAccessible {
 
     static sizeof => A_PtrSize
     /**

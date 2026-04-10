@@ -1,13 +1,13 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
+#Include .\ID2D1Factory.ahk
 #Include .\ID2D1Device.ahk
 #Include .\ID2D1StrokeStyle1.ahk
 #Include .\ID2D1PathGeometry1.ahk
 #Include .\ID2D1DrawingStateBlock1.ahk
 #Include .\ID2D1GdiMetafile.ahk
 #Include .\ID2D1Properties.ahk
-#Include .\ID2D1Factory.ahk
 
 /**
  * Creates Direct2D resources. (ID2D1Factory1)
@@ -15,9 +15,8 @@
  * The <b>ID2D1Factory1</b> interface is used to create devices, register and unregister effects, and enumerate effects properties. Effects are registered and unregistered globally. The registration APIs are placed on this interface for convenience.
  * @see https://learn.microsoft.com/windows/win32/api/d2d1_1/nn-d2d1_1-id2d1factory1
  * @namespace Windows.Win32.Graphics.Direct2D
- * @version v4.0.30319
  */
-class ID2D1Factory1 extends ID2D1Factory{
+class ID2D1Factory1 extends ID2D1Factory {
 
     static sizeof => A_PtrSize
     /**
@@ -115,7 +114,9 @@ class ID2D1Factory1 extends ID2D1Factory{
      * @param {IStream} metafileStream Type: <b>IStream*</b>
      * 
      * A stream object that has the metafile data.
-     * @returns {ID2D1GdiMetafile} 
+     * @returns {ID2D1GdiMetafile} Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/d2d1_1/nn-d2d1_1-id2d1gdimetafile">ID2D1GdiMetafile</a>**</b>
+     * 
+     * The address of the newly created GDI metafile object.
      * @see https://learn.microsoft.com/windows/win32/api/d2d1_1/nf-d2d1_1-id2d1factory1-creategdimetafile
      */
     CreateGdiMetafile(metafileStream) {
@@ -343,7 +344,9 @@ class ID2D1Factory1 extends ID2D1Factory{
      * @param {Pointer<Guid>} effectId Type: <b>REFCLSID</b>
      * 
      * The ID of the effect to retrieve properties from.
-     * @returns {ID2D1Properties} 
+     * @returns {ID2D1Properties} Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/d2d1_1/nn-d2d1_1-id2d1properties">ID2D1Properties</a>**</b>
+     * 
+     * When this method returns, contains the address of a pointer to the property interface that can be used to query the metadata of the effect.
      * @see https://learn.microsoft.com/windows/win32/api/d2d1_1/nf-d2d1_1-id2d1factory1-geteffectproperties
      */
     GetEffectProperties(effectId) {

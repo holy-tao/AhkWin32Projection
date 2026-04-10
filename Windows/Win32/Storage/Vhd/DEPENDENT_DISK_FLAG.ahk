@@ -5,9 +5,8 @@
  * Contains virtual hard disk (VHD) dependency information flags.
  * @see https://learn.microsoft.com/windows/win32/api/virtdisk/ne-virtdisk-dependent_disk_flag
  * @namespace Windows.Win32.Storage.Vhd
- * @version v4.0.30319
  */
-class DEPENDENT_DISK_FLAG extends Win32BitflagEnum{
+class DEPENDENT_DISK_FLAG extends Win32BitflagEnum {
 
     /**
      * No flags specified. Use system defaults.

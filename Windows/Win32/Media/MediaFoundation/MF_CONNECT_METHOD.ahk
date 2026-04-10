@@ -5,9 +5,8 @@
  * Specifies how the topology loader connects a topology node.
  * @see https://learn.microsoft.com/windows/win32/api/mfidl/ne-mfidl-mf_connect_method
  * @namespace Windows.Win32.Media.MediaFoundation
- * @version v4.0.30319
  */
-class MF_CONNECT_METHOD extends Win32Enum{
+class MF_CONNECT_METHOD extends Win32Enum {
 
     /**
      * Connect the node directly to its upstream neighbor. Fail otherwise.

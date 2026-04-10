@@ -1,14 +1,13 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
-#Include .\IHostMalloc.ahk
 #Include ..\Com\IUnknown.ahk
+#Include .\IHostMalloc.ahk
 
 /**
  * @namespace Windows.Win32.System.ClrHosting
- * @version v4.0.30319
  */
-class IHostMemoryManager extends IUnknown{
+class IHostMemoryManager extends IUnknown {
 
     static sizeof => A_PtrSize
     /**
@@ -65,7 +64,7 @@ class IHostMemoryManager extends IUnknown{
      * @param {Pointer} dwSize The size of the region, in bytes. If the _lpAddress_ parameter is **NULL**, this value is rounded up to the next page boundary. Otherwise, the allocated pages include all pages containing one or more bytes in the range from _lpAddress_ to _lpAddress_+_dwSize_. This means that a 2-byte range straddling a page boundary causes both pages to be included in the allocated region.
      * @param {Integer} flAllocationType 
      * @param {Integer} flProtect The memory protection for the region of pages to be allocated. If the pages are being committed, you can specify any one of the [memory protection constants](/windows/win32/Memory/memory-protection-constants).
-     * @param {Integer} eCriticalLevel 
+     * @param {EMemoryCriticalLevel} eCriticalLevel 
      * @returns {Pointer<Void>} 
      * @see https://learn.microsoft.com/windows/win32/api/memoryapi/nf-memoryapi-virtualalloc
      */

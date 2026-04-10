@@ -1,6 +1,8 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
 #Include ..\Direct2D\Common\D2D1_PIXEL_FORMAT.ahk
+#Include ..\Dxgi\Common\DXGI_FORMAT.ahk
+#Include ..\Direct2D\Common\D2D1_ALPHA_MODE.ahk
 
 /**
  * This defines parameters that you can use to override the default parameters normally used when encoding an image.
@@ -16,10 +18,8 @@
  * <div> </div>
  * @see https://learn.microsoft.com/windows/win32/api/wincodec/ns-wincodec-wicimageparameters
  * @namespace Windows.Win32.Graphics.Imaging
- * @version v4.0.30319
  */
-class WICImageParameters extends Win32Struct
-{
+class WICImageParameters extends Win32Struct {
     static sizeof => 32
 
     static packingSize => 4
@@ -28,7 +28,7 @@ class WICImageParameters extends Win32Struct
      * The pixel format to which the image is processed before it is written to the encoder.
      * @type {D2D1_PIXEL_FORMAT}
      */
-    PixelFormat{
+    PixelFormat {
         get {
             if(!this.HasProp("__PixelFormat"))
                 this.__PixelFormat := D2D1_PIXEL_FORMAT(0, this)

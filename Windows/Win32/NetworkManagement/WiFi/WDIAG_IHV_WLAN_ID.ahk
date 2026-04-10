@@ -1,13 +1,12 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
 #Include .\DOT11_SSID.ahk
+#Include .\DOT11_BSS_TYPE.ahk
 
 /**
  * @namespace Windows.Win32.NetworkManagement.WiFi
- * @version v4.0.30319
  */
-class WDIAG_IHV_WLAN_ID extends Win32Struct
-{
+class WDIAG_IHV_WLAN_ID extends Win32Struct {
     static sizeof => 560
 
     static packingSize => 4
@@ -23,7 +22,7 @@ class WDIAG_IHV_WLAN_ID extends Win32Struct
     /**
      * @type {DOT11_SSID}
      */
-    Ssid{
+    Ssid {
         get {
             if(!this.HasProp("__Ssid"))
                 this.__Ssid := DOT11_SSID(512, this)
@@ -32,7 +31,7 @@ class WDIAG_IHV_WLAN_ID extends Win32Struct
     }
 
     /**
-     * @type {Integer}
+     * @type {DOT11_BSS_TYPE}
      */
     BssType {
         get => NumGet(this, 548, "int")

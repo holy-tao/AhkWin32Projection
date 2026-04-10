@@ -1,9 +1,9 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
+#Include ..\..\System\Com\IDispatch.ahk
 #Include ..\..\System\Com\IUnknown.ahk
 #Include .\IFaxInboundRoutingMethod.ahk
-#Include ..\..\System\Com\IDispatch.ahk
 
 /**
  * The IFaxInboundRoutingMethods interface defines a configuration collection used by a fax client application to manage the ordered inbound fax routing methods.
@@ -13,9 +13,8 @@
  * A default implementation of <b>IFaxInboundRoutingMethods</b> is provided as the <a href="https://docs.microsoft.com/previous-versions/windows/desktop/fax/-mfax-faxinboundroutingmethods">FaxInboundRoutingMethods</a> object.
  * @see https://learn.microsoft.com/windows/win32/api/faxcomex/nn-faxcomex-ifaxinboundroutingmethods
  * @namespace Windows.Win32.Devices.Fax
- * @version v4.0.30319
  */
-class IFaxInboundRoutingMethods extends IDispatch{
+class IFaxInboundRoutingMethods extends IDispatch {
 
     static sizeof => A_PtrSize
     /**

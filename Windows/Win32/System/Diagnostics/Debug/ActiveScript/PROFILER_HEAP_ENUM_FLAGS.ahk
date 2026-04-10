@@ -3,9 +3,8 @@
 
 /**
  * @namespace Windows.Win32.System.Diagnostics.Debug.ActiveScript
- * @version v4.0.30319
  */
-class PROFILER_HEAP_ENUM_FLAGS extends Win32BitflagEnum{
+class PROFILER_HEAP_ENUM_FLAGS extends Win32BitflagEnum {
 
     /**
      * @type {Integer (Int32)}

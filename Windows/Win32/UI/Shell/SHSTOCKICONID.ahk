@@ -7,9 +7,8 @@
  * SIID_INVALID, with a value of -1, indicates an invalid **SHSTOCKICONID** value.
  * @see https://learn.microsoft.com/windows/win32/api/shellapi/ne-shellapi-shstockiconid
  * @namespace Windows.Win32.UI.Shell
- * @version v4.0.30319
  */
-class SHSTOCKICONID extends Win32Enum{
+class SHSTOCKICONID extends Win32Enum {
 
     /**
      * :::image type="icon" source="./images/SIID_DOCNOASSOC.png":::

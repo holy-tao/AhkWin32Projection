@@ -14,9 +14,8 @@
  * <a href="https://docs.microsoft.com/windows/desktop/api/indexsrv/nn-indexsrv-iwordbreaker">IWordBreaker</a> implementations receive a pointer to the PhraseSink object in the <a href="https://docs.microsoft.com/windows/desktop/api/indexsrv/nf-indexsrv-iwordbreaker-breaktext">BreakText</a> method.
  * @see https://learn.microsoft.com/windows/win32/api/indexsrv/nn-indexsrv-iphrasesink
  * @namespace Windows.Win32.Storage.IndexServer
- * @version v4.0.30319
  */
-class IPhraseSink extends IUnknown{
+class IPhraseSink extends IUnknown {
 
     static sizeof => A_PtrSize
     /**

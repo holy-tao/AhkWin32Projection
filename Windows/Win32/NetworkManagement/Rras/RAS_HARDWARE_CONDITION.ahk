@@ -5,9 +5,8 @@
  * The RAS_HARDWARE_CONDITION enumeration type specifies hardware status information about a given RAS port.
  * @see https://learn.microsoft.com/windows/win32/api/mprapi/ne-mprapi-ras_hardware_condition
  * @namespace Windows.Win32.NetworkManagement.Rras
- * @version v4.0.30319
  */
-class RAS_HARDWARE_CONDITION extends Win32Enum{
+class RAS_HARDWARE_CONDITION extends Win32Enum {
 
     /**
      * The port is operational.

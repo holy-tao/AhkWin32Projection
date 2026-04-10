@@ -1,16 +1,15 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
-#Include .\DWRITE_LINE_SPACING.ahk
 #Include .\IDWriteTextFormat1.ahk
+#Include .\DWRITE_LINE_SPACING.ahk
 
 /**
  * Describes the font and paragraph properties used to format text, and it describes locale information. | IDWriteTextFormat2 interface
  * @see https://learn.microsoft.com/windows/win32/DirectWrite/idwritetextformat2
  * @namespace Windows.Win32.Graphics.DirectWrite
- * @version v4.0.30319
  */
-class IDWriteTextFormat2 extends IDWriteTextFormat1{
+class IDWriteTextFormat2 extends IDWriteTextFormat1 {
 
     static sizeof => A_PtrSize
     /**

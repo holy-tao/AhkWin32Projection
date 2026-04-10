@@ -9,10 +9,8 @@
  * For more information, see <a href="https://docs.microsoft.com/windows-hardware/drivers/hid/interpreting-hid-reports">Interpreting HID Reports</a>.
  * @see https://learn.microsoft.com/windows/win32/api/winuser/ns-winuser-rawhid
  * @namespace Windows.Win32.UI.Input
- * @version v4.0.30319
  */
-class RAWHID extends Win32Struct
-{
+class RAWHID extends Win32Struct {
     static sizeof => 12
 
     static packingSize => 4
@@ -43,9 +41,9 @@ class RAWHID extends Win32Struct
      * Type: <b>BYTE[1]</b>
      * 
      * The raw input data, as an array of bytes.
-     * @type {Array<Byte>}
+     * @type {Array<Integer>}
      */
-    bRawData{
+    bRawData {
         get {
             if(!this.HasProp("__bRawDataProxyArray"))
                 this.__bRawDataProxyArray := Win32FixedArray(this.ptr + 8, 1, Primitive, "char")

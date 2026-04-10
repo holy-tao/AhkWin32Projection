@@ -1,5 +1,6 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
+#Include .\WINHTTP_INTERNET_SCHEME.ahk
 
 /**
  * The WINHTTP_PROXY_RESULT_ENTRY structure contains a result entry from a call to WinHttpGetProxyResult.
@@ -7,10 +8,8 @@
  * This structure is stored in an array inside of a <a href="https://docs.microsoft.com/windows/desktop/api/winhttp/ns-winhttp-winhttp_proxy_result">WINHTTP_PROXY_RESULT</a> structure.
  * @see https://learn.microsoft.com/windows/win32/api/winhttp/ns-winhttp-winhttp_proxy_result_entry
  * @namespace Windows.Win32.Networking.WinHttp
- * @version v4.0.30319
  */
-class WINHTTP_PROXY_RESULT_ENTRY extends Win32Struct
-{
+class WINHTTP_PROXY_RESULT_ENTRY extends Win32Struct {
     static sizeof => 32
 
     static packingSize => 8
@@ -35,7 +34,7 @@ class WINHTTP_PROXY_RESULT_ENTRY extends Win32Struct
 
     /**
      * An <a href="https://docs.microsoft.com/windows/desktop/WinHttp/internet-scheme">INTERNET_SCHEME</a> value that specifies the scheme of the proxy.
-     * @type {Integer}
+     * @type {WINHTTP_INTERNET_SCHEME}
      */
     ProxyScheme {
         get => NumGet(this, 8, "int")

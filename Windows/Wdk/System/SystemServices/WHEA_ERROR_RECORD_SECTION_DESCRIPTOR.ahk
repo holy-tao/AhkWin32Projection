@@ -1,12 +1,11 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
+#Include .\WHEA_ERROR_SEVERITY.ahk
 
 /**
  * @namespace Windows.Wdk.System.SystemServices
- * @version v4.0.30319
  */
-class WHEA_ERROR_RECORD_SECTION_DESCRIPTOR extends Win32Struct
-{
+class WHEA_ERROR_RECORD_SECTION_DESCRIPTOR extends Win32Struct {
     static sizeof => 80
 
     static packingSize => 8
@@ -28,7 +27,7 @@ class WHEA_ERROR_RECORD_SECTION_DESCRIPTOR extends Win32Struct
     }
 
     /**
-     * @type {Pointer<WHEA_REVISION>}
+     * @type {Pointer}
      */
     Revision {
         get => NumGet(this, 8, "ptr")
@@ -36,7 +35,7 @@ class WHEA_ERROR_RECORD_SECTION_DESCRIPTOR extends Win32Struct
     }
 
     /**
-     * @type {Pointer<WHEA_ERROR_RECORD_SECTION_DESCRIPTOR_VALIDBITS>}
+     * @type {Pointer}
      */
     ValidBits {
         get => NumGet(this, 16, "ptr")
@@ -52,7 +51,7 @@ class WHEA_ERROR_RECORD_SECTION_DESCRIPTOR extends Win32Struct
     }
 
     /**
-     * @type {Pointer<WHEA_ERROR_RECORD_SECTION_DESCRIPTOR_FLAGS>}
+     * @type {Pointer}
      */
     Flags {
         get => NumGet(this, 32, "ptr")
@@ -60,7 +59,7 @@ class WHEA_ERROR_RECORD_SECTION_DESCRIPTOR extends Win32Struct
     }
 
     /**
-     * @type {Pointer<Guid>}
+     * @type {Pointer}
      */
     SectionType {
         get => NumGet(this, 40, "ptr")
@@ -68,7 +67,7 @@ class WHEA_ERROR_RECORD_SECTION_DESCRIPTOR extends Win32Struct
     }
 
     /**
-     * @type {Pointer<Guid>}
+     * @type {Pointer}
      */
     FRUId {
         get => NumGet(this, 48, "ptr")
@@ -76,7 +75,7 @@ class WHEA_ERROR_RECORD_SECTION_DESCRIPTOR extends Win32Struct
     }
 
     /**
-     * @type {Integer}
+     * @type {WHEA_ERROR_SEVERITY}
      */
     SectionSeverity {
         get => NumGet(this, 56, "int")
@@ -84,9 +83,9 @@ class WHEA_ERROR_RECORD_SECTION_DESCRIPTOR extends Win32Struct
     }
 
     /**
-     * @type {Array<SByte>}
+     * @type {Array<Integer>}
      */
-    FRUText{
+    FRUText {
         get {
             if(!this.HasProp("__FRUTextProxyArray"))
                 this.__FRUTextProxyArray := Win32FixedArray(this.ptr + 60, 20, Primitive, "char")

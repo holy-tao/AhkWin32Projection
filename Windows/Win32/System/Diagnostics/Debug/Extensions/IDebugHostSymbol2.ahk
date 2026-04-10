@@ -5,9 +5,8 @@
 
 /**
  * @namespace Windows.Win32.System.Diagnostics.Debug.Extensions
- * @version v4.0.30319
  */
-class IDebugHostSymbol2 extends IDebugHostSymbol{
+class IDebugHostSymbol2 extends IDebugHostSymbol {
 
     static sizeof => A_PtrSize
     /**
@@ -30,7 +29,7 @@ class IDebugHostSymbol2 extends IDebugHostSymbol{
 
     /**
      * 
-     * @returns {Integer} 
+     * @returns {LanguageKind} 
      */
     GetLanguage() {
         result := ComCall(10, this, "int*", &pKind := 0, "HRESULT")

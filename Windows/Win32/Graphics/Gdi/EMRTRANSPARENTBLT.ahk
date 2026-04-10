@@ -1,6 +1,7 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
 #Include .\EMR.ahk
+#Include .\ENHANCED_METAFILE_RECORD_TYPE.ahk
 #Include ..\..\Foundation\RECTL.ahk
 #Include .\XFORM.ahk
 
@@ -10,10 +11,8 @@
  * This structure is to be used during metafile playback.
  * @see https://learn.microsoft.com/windows/win32/api/wingdi/ns-wingdi-emrtransparentblt
  * @namespace Windows.Win32.Graphics.Gdi
- * @version v4.0.30319
  */
-class EMRTRANSPARENTBLT extends Win32Struct
-{
+class EMRTRANSPARENTBLT extends Win32Struct {
     static sizeof => 108
 
     static packingSize => 4
@@ -22,7 +21,7 @@ class EMRTRANSPARENTBLT extends Win32Struct
      * The base structure for all record types.
      * @type {EMR}
      */
-    emr{
+    emr {
         get {
             if(!this.HasProp("__emr"))
                 this.__emr := EMR(0, this)
@@ -34,7 +33,7 @@ class EMRTRANSPARENTBLT extends Win32Struct
      * Inclusive bounds, in device units.
      * @type {RECTL}
      */
-    rclBounds{
+    rclBounds {
         get {
             if(!this.HasProp("__rclBounds"))
                 this.__rclBounds := RECTL(8, this)
@@ -109,7 +108,7 @@ class EMRTRANSPARENTBLT extends Win32Struct
      * World-space to page-space transformation of the source device context.
      * @type {XFORM}
      */
-    xformSrc{
+    xformSrc {
         get {
             if(!this.HasProp("__xformSrc"))
                 this.__xformSrc := XFORM(52, this)

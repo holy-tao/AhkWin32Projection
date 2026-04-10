@@ -9,10 +9,8 @@
  * You acquire an **EventRegistrationToken** when you subscribe to an event.
  * @see https://learn.microsoft.com/windows/win32/api/eventtoken/ns-eventtoken-eventregistrationtoken
  * @namespace Windows.Win32.System.WinRT
- * @version v4.0.30319
  */
-class EventRegistrationToken extends Win32Struct
-{
+class EventRegistrationToken extends Win32Struct {
     static sizeof => 8
 
     static packingSize => 8

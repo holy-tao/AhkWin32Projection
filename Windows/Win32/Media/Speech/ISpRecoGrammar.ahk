@@ -1,14 +1,13 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
-#Include .\ISpRecoContext.ahk
 #Include .\ISpGrammarBuilder.ahk
+#Include .\ISpRecoContext.ahk
 
 /**
  * @namespace Windows.Win32.Media.Speech
- * @version v4.0.30319
  */
-class ISpRecoGrammar extends ISpGrammarBuilder{
+class ISpRecoGrammar extends ISpGrammarBuilder {
 
     static sizeof => A_PtrSize
     /**
@@ -53,7 +52,7 @@ class ISpRecoGrammar extends ISpGrammarBuilder{
     /**
      * 
      * @param {PWSTR} pszFileName 
-     * @param {Integer} Options 
+     * @param {SPLOADOPTIONS} Options 
      * @returns {HRESULT} 
      */
     LoadCmdFromFile(pszFileName, Options) {
@@ -67,7 +66,7 @@ class ISpRecoGrammar extends ISpGrammarBuilder{
      * 
      * @param {Pointer<Guid>} rcid 
      * @param {PWSTR} pszGrammarName 
-     * @param {Integer} Options 
+     * @param {SPLOADOPTIONS} Options 
      * @returns {HRESULT} 
      */
     LoadCmdFromObject(rcid, pszGrammarName, Options) {
@@ -83,7 +82,7 @@ class ISpRecoGrammar extends ISpGrammarBuilder{
      * @param {PWSTR} pszResourceName 
      * @param {PWSTR} pszResourceType 
      * @param {Integer} wLanguage 
-     * @param {Integer} Options 
+     * @param {SPLOADOPTIONS} Options 
      * @returns {HRESULT} 
      */
     LoadCmdFromResource(_hModule, pszResourceName, pszResourceType, wLanguage, Options) {
@@ -98,7 +97,7 @@ class ISpRecoGrammar extends ISpGrammarBuilder{
     /**
      * 
      * @param {Pointer<SPBINARYGRAMMAR>} pGrammar 
-     * @param {Integer} Options 
+     * @param {SPLOADOPTIONS} Options 
      * @returns {HRESULT} 
      */
     LoadCmdFromMemory(pGrammar, Options) {
@@ -112,7 +111,7 @@ class ISpRecoGrammar extends ISpGrammarBuilder{
      * @param {PWSTR} pszStringParam 
      * @param {Pointer<Void>} pvDataPrarm 
      * @param {Integer} cbDataSize 
-     * @param {Integer} Options 
+     * @param {SPLOADOPTIONS} Options 
      * @returns {HRESULT} 
      */
     LoadCmdFromProprietaryGrammar(rguidParam, pszStringParam, pvDataPrarm, cbDataSize, Options) {
@@ -128,7 +127,7 @@ class ISpRecoGrammar extends ISpGrammarBuilder{
      * 
      * @param {PWSTR} pszName 
      * @param {Pointer<Void>} pReserved 
-     * @param {Integer} NewState 
+     * @param {SPRULESTATE} NewState 
      * @returns {HRESULT} 
      */
     SetRuleState(pszName, pReserved, NewState) {
@@ -143,7 +142,7 @@ class ISpRecoGrammar extends ISpGrammarBuilder{
     /**
      * 
      * @param {Integer} ulRuleId 
-     * @param {Integer} NewState 
+     * @param {SPRULESTATE} NewState 
      * @returns {HRESULT} 
      */
     SetRuleIdState(ulRuleId, NewState) {
@@ -154,7 +153,7 @@ class ISpRecoGrammar extends ISpGrammarBuilder{
     /**
      * 
      * @param {PWSTR} pszTopicName 
-     * @param {Integer} Options 
+     * @param {SPLOADOPTIONS} Options 
      * @returns {HRESULT} 
      */
     LoadDictation(pszTopicName, Options) {
@@ -175,7 +174,7 @@ class ISpRecoGrammar extends ISpGrammarBuilder{
 
     /**
      * 
-     * @param {Integer} NewState 
+     * @param {SPRULESTATE} NewState 
      * @returns {HRESULT} 
      */
     SetDictationState(NewState) {
@@ -210,7 +209,7 @@ class ISpRecoGrammar extends ISpGrammarBuilder{
     /**
      * 
      * @param {PWSTR} pszWord 
-     * @param {Pointer<Integer>} pWordPronounceable 
+     * @param {Pointer<SPWORDPRONOUNCEABLE>} pWordPronounceable 
      * @returns {HRESULT} 
      */
     IsPronounceable(pszWord, pWordPronounceable) {
@@ -224,7 +223,7 @@ class ISpRecoGrammar extends ISpGrammarBuilder{
 
     /**
      * 
-     * @param {Integer} eGrammarState 
+     * @param {SPGRAMMARSTATE} eGrammarState 
      * @returns {HRESULT} 
      */
     SetGrammarState(eGrammarState) {
@@ -244,7 +243,7 @@ class ISpRecoGrammar extends ISpGrammarBuilder{
 
     /**
      * 
-     * @param {Pointer<Integer>} peGrammarState 
+     * @param {Pointer<SPGRAMMARSTATE>} peGrammarState 
      * @returns {HRESULT} 
      */
     GetGrammarState(peGrammarState) {

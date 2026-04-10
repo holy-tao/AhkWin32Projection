@@ -7,9 +7,8 @@
  * Provides a dialog box for selecting the device to acquire images from.
  * @see https://learn.microsoft.com/windows/win32/api/photoacquire/nn-photoacquire-iphotoacquiredeviceselectiondialog
  * @namespace Windows.Win32.Media.PictureAcquisition
- * @version v4.0.30319
  */
-class IPhotoAcquireDeviceSelectionDialog extends IUnknown{
+class IPhotoAcquireDeviceSelectionDialog extends IUnknown {
 
     static sizeof => A_PtrSize
     /**
@@ -144,7 +143,7 @@ class IPhotoAcquireDeviceSelectionDialog extends IUnknown{
      * </tr>
      * </table>
      * @param {Pointer<BSTR>} pbstrDeviceId Pointer to a string containing the ID of the selected device.
-     * @param {Pointer<Integer>} pnDeviceType Pointer to the <a href="https://docs.microsoft.com/windows/win32/api/photoacquire/ne-photoacquire-device_selection_device_type">DEVICE_SELECTION_DEVICE_TYPE</a> of the selected device.
+     * @param {Pointer<DEVICE_SELECTION_DEVICE_TYPE>} pnDeviceType Pointer to the <a href="https://docs.microsoft.com/windows/win32/api/photoacquire/ne-photoacquire-device_selection_device_type">DEVICE_SELECTION_DEVICE_TYPE</a> of the selected device.
      * @returns {HRESULT} The method returns an <b>HRESULT</b>. Possible values include, but are not limited to, those in the following table.
      * 
      * <table>

@@ -1,16 +1,15 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
-#Include ..\..\Media\DirectShow\ALLOCATOR_PROPERTIES.ahk
 #Include ..\..\System\Com\IUnknown.ahk
+#Include ..\..\Media\DirectShow\ALLOCATOR_PROPERTIES.ahk
 
 /**
  * The ITAllocatorProperties interface (tapi3ds.h) exposes the buffer allocator properties of the Media Streaming Terminal (MST) to an end-user or server application.
  * @see https://learn.microsoft.com/windows/win32/api/tapi3ds/nn-tapi3ds-itallocatorproperties
  * @namespace Windows.Win32.Devices.Tapi
- * @version v4.0.30319
  */
-class ITAllocatorProperties extends IUnknown{
+class ITAllocatorProperties extends IUnknown {
 
     static sizeof => A_PtrSize
     /**

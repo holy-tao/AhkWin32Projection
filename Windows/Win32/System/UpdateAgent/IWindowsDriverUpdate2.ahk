@@ -1,8 +1,8 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
-#Include .\IStringCollection.ahk
 #Include .\IWindowsDriverUpdate.ahk
+#Include .\IStringCollection.ahk
 
 /**
  * Contains the properties and methods that are available only from a Windows driver update. (IWindowsDriverUpdate2)
@@ -10,9 +10,8 @@
  * This interface can be obtained by calling <a href="https://docs.microsoft.com/windows/desktop/api/unknwn/nf-unknwn-iunknown-queryinterface(q)">QueryInterface</a> method on an <a href="https://docs.microsoft.com/windows/desktop/api/wuapi/nn-wuapi-iupdate">IUpdate</a> interface only if the interface represents a Windows Driver update.
  * @see https://learn.microsoft.com/windows/win32/api/wuapi/nn-wuapi-iwindowsdriverupdate2
  * @namespace Windows.Win32.System.UpdateAgent
- * @version v4.0.30319
  */
-class IWindowsDriverUpdate2 extends IWindowsDriverUpdate{
+class IWindowsDriverUpdate2 extends IWindowsDriverUpdate {
 
     static sizeof => A_PtrSize
     /**

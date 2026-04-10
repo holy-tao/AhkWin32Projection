@@ -1,18 +1,17 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
 #Include .\CRYPT_INTEGER_BLOB.ahk
+#Include .\CERT_PUBLIC_KEY_INFO.ahk
 #Include .\CRYPT_ALGORITHM_IDENTIFIER.ahk
 #Include .\CRYPT_BIT_BLOB.ahk
-#Include .\CERT_PUBLIC_KEY_INFO.ahk
+#Include .\CRYPT_ATTRIBUTE.ahk
 
 /**
  * The CERT_REQUEST_INFO structure contains information for a certificate request. The subject, subject public key, and attribute BLOBs are encoded.
  * @see https://learn.microsoft.com/windows/win32/api/wincrypt/ns-wincrypt-cert_request_info
  * @namespace Windows.Win32.Security.Cryptography
- * @version v4.0.30319
  */
-class CERT_REQUEST_INFO extends Win32Struct
-{
+class CERT_REQUEST_INFO extends Win32Struct {
     static sizeof => 88
 
     static packingSize => 8
@@ -47,7 +46,7 @@ class CERT_REQUEST_INFO extends Win32Struct
      * A <a href="https://docs.microsoft.com/previous-versions/windows/desktop/legacy/aa381414(v=vs.85)">CERT_NAME_BLOB</a> structure that contains the certificate subject's encoded name.
      * @type {CRYPT_INTEGER_BLOB}
      */
-    Subject{
+    Subject {
         get {
             if(!this.HasProp("__Subject"))
                 this.__Subject := CRYPT_INTEGER_BLOB(8, this)
@@ -59,7 +58,7 @@ class CERT_REQUEST_INFO extends Win32Struct
      * <a href="https://docs.microsoft.com/windows/desktop/api/wincrypt/ns-wincrypt-cert_public_key_info">CERT_PUBLIC_KEY_INFO</a> structure containing the encoded public key and its algorithm.
      * @type {CERT_PUBLIC_KEY_INFO}
      */
-    SubjectPublicKeyInfo{
+    SubjectPublicKeyInfo {
         get {
             if(!this.HasProp("__SubjectPublicKeyInfo"))
                 this.__SubjectPublicKeyInfo := CERT_PUBLIC_KEY_INFO(24, this)

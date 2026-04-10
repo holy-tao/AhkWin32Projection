@@ -1,21 +1,20 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
+#Include .\PRINT_EXECUTION_CONTEXT.ahk
 
 /**
  * Contains the execution context of the printer driver that calls GetPrintExecutionData.
  * @see https://learn.microsoft.com/windows/win32/printdocs/print-execution-data
  * @namespace Windows.Win32.Graphics.Printing
- * @version v4.0.30319
  */
-class PRINT_EXECUTION_DATA extends Win32Struct
-{
+class PRINT_EXECUTION_DATA extends Win32Struct {
     static sizeof => 8
 
     static packingSize => 4
 
     /**
      * The [**PRINT\_EXECUTION\_CONTEXT**](print-execution-context.md) value that represents the current execution context of the printer driver.
-     * @type {Integer}
+     * @type {PRINT_EXECUTION_CONTEXT}
      */
     context {
         get => NumGet(this, 0, "int")

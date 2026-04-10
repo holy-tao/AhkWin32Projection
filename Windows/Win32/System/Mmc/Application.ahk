@@ -14,10 +14,8 @@
  * 2.  [**Application.Views**](windowsribbon-element-application-views.md)
  * @see https://learn.microsoft.com/windows/win32/windowsribbon/windowsribbon-element-application
  * @namespace Windows.Win32.System.Mmc
- * @version v4.0.30319
  */
-class Application extends Win32Struct
-{
+class Application extends Win32Struct {
     static sizeof => 0
 
     static packingSize => 1

@@ -1,14 +1,13 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
+#Include .\DHCPV6CAPI_PARAMS.ahk
 
 /**
  * Contains an array of requested parameters.
  * @see https://learn.microsoft.com/windows/win32/api/dhcpv6csdk/ns-dhcpv6csdk-dhcpv6capi_params_array
  * @namespace Windows.Win32.NetworkManagement.Dhcp
- * @version v4.0.30319
  */
-class DHCPV6CAPI_PARAMS_ARRAY extends Win32Struct
-{
+class DHCPV6CAPI_PARAMS_ARRAY extends Win32Struct {
     static sizeof => 16
 
     static packingSize => 8

@@ -3,10 +3,8 @@
 
 /**
  * @namespace Windows.Wdk.System.SystemServices
- * @version v4.0.30319
  */
-class RTL_DYNAMIC_HASH_TABLE extends Win32Struct
-{
+class RTL_DYNAMIC_HASH_TABLE extends Win32Struct {
     static sizeof => 40
 
     static packingSize => 8

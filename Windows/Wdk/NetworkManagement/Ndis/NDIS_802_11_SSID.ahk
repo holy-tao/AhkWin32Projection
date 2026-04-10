@@ -3,10 +3,8 @@
 
 /**
  * @namespace Windows.Wdk.NetworkManagement.Ndis
- * @version v4.0.30319
  */
-class NDIS_802_11_SSID extends Win32Struct
-{
+class NDIS_802_11_SSID extends Win32Struct {
     static sizeof => 36
 
     static packingSize => 4
@@ -20,9 +18,9 @@ class NDIS_802_11_SSID extends Win32Struct
     }
 
     /**
-     * @type {Array<Byte>}
+     * @type {Array<Integer>}
      */
-    Ssid{
+    Ssid {
         get {
             if(!this.HasProp("__SsidProxyArray"))
                 this.__SsidProxyArray := Win32FixedArray(this.ptr + 4, 32, Primitive, "char")

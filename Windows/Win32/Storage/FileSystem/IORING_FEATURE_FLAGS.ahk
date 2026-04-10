@@ -3,13 +3,10 @@
 
 /**
  * Represents feature support for the an I/O ring API version.
- * @remarks
- * 
  * @see https://learn.microsoft.com/windows/win32/api/ntioring_x/ne-ntioring_x-ioring_feature_flags
  * @namespace Windows.Win32.Storage.FileSystem
- * @version v4.0.30319
  */
-class IORING_FEATURE_FLAGS extends Win32BitflagEnum{
+class IORING_FEATURE_FLAGS extends Win32BitflagEnum {
 
     /**
      * None.

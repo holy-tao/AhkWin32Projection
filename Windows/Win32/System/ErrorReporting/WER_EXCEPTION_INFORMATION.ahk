@@ -1,14 +1,13 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
+#Include ..\Diagnostics\Debug\EXCEPTION_POINTERS.ahk
 
 /**
  * Contains exception information for the WerReportAddDump function.
  * @see https://learn.microsoft.com/windows/win32/api/werapi/ns-werapi-wer_exception_information
  * @namespace Windows.Win32.System.ErrorReporting
- * @version v4.0.30319
  */
-class WER_EXCEPTION_INFORMATION extends Win32Struct
-{
+class WER_EXCEPTION_INFORMATION extends Win32Struct {
     static sizeof => 16
 
     static packingSize => 8

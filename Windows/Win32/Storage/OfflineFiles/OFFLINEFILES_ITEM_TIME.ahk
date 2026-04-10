@@ -5,9 +5,8 @@
  * Specifies which time value associated with the cache item is to be used.
  * @see https://learn.microsoft.com/windows/win32/api/cscobj/ne-cscobj-offlinefiles_item_time
  * @namespace Windows.Win32.Storage.OfflineFiles
- * @version v4.0.30319
  */
-class OFFLINEFILES_ITEM_TIME extends Win32Enum{
+class OFFLINEFILES_ITEM_TIME extends Win32Enum {
 
     /**
      * Use the item's creation time.

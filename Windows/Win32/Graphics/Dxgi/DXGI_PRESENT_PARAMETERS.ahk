@@ -1,5 +1,7 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
+#Include ..\..\Foundation\RECT.ahk
+#Include ..\..\Foundation\POINT.ahk
 
 /**
  * Describes information about present that helps the operating system optimize presentation.
@@ -34,10 +36,8 @@
  * For more info about the flip-model swap chain and optimizing presentation, see <a href="https://docs.microsoft.com/windows/desktop/direct3ddxgi/dxgi-1-2-presentation-improvements">Enhancing presentation with the flip model, dirty rectangles, and scrolled areas</a>.
  * @see https://learn.microsoft.com/windows/win32/api/dxgi1_2/ns-dxgi1_2-dxgi_present_parameters
  * @namespace Windows.Win32.Graphics.Dxgi
- * @version v4.0.30319
  */
-class DXGI_PRESENT_PARAMETERS extends Win32Struct
-{
+class DXGI_PRESENT_PARAMETERS extends Win32Struct {
     static sizeof => 32
 
     static packingSize => 8

@@ -4,10 +4,8 @@
 
 /**
  * @namespace Windows.Win32.Networking.WinSock
- * @version v4.0.30319
  */
-class ND_OPTION_PREFIX_INFO extends Win32Struct
-{
+class ND_OPTION_PREFIX_INFO extends Win32Struct {
     static sizeof => 32
 
     static packingSize => 4
@@ -54,7 +52,7 @@ class ND_OPTION_PREFIX_INFO extends Win32Struct
             get => NumGet(this, 0, "char")
             set => NumPut("char", value, this, 0)
         }
-    
+
         /**
          * @type {Integer}
          */
@@ -62,7 +60,7 @@ class ND_OPTION_PREFIX_INFO extends Win32Struct
             get => (this._bitfield >> 0) & 0x1
             set => this._bitfield := ((value & 0x1) << 0) | (this._bitfield & ~(0x1 << 0))
         }
-    
+
         /**
          * @type {Integer}
          */
@@ -70,7 +68,7 @@ class ND_OPTION_PREFIX_INFO extends Win32Struct
             get => (this._bitfield >> 1) & 0x7
             set => this._bitfield := ((value & 0x7) << 1) | (this._bitfield & ~(0x7 << 1))
         }
-    
+
         /**
          * @type {Integer}
          */
@@ -78,7 +76,7 @@ class ND_OPTION_PREFIX_INFO extends Win32Struct
             get => (this._bitfield >> 4) & 0x1
             set => this._bitfield := ((value & 0x1) << 4) | (this._bitfield & ~(0x1 << 4))
         }
-    
+
         /**
          * @type {Integer}
          */
@@ -86,7 +84,7 @@ class ND_OPTION_PREFIX_INFO extends Win32Struct
             get => (this._bitfield >> 5) & 0x1
             set => this._bitfield := ((value & 0x1) << 5) | (this._bitfield & ~(0x1 << 5))
         }
-    
+
         /**
          * @type {Integer}
          */
@@ -94,7 +92,7 @@ class ND_OPTION_PREFIX_INFO extends Win32Struct
             get => (this._bitfield >> 6) & 0x1
             set => this._bitfield := ((value & 0x1) << 6) | (this._bitfield & ~(0x1 << 6))
         }
-    
+
         /**
          * @type {Integer}
          */
@@ -102,7 +100,6 @@ class ND_OPTION_PREFIX_INFO extends Win32Struct
             get => (this._bitfield >> 7) & 0x1
             set => this._bitfield := ((value & 0x1) << 7) | (this._bitfield & ~(0x1 << 7))
         }
-    
     }
 
     /**
@@ -116,10 +113,10 @@ class ND_OPTION_PREFIX_INFO extends Win32Struct
     /**
      * @type {_Flags}
      */
-    Flags{
+    Flags {
         get {
             if(!this.HasProp("__Flags"))
-                this.__Flags := %this.__Class%._Flags(3, this)
+                this.__Flags := ND_OPTION_PREFIX_INFO._Flags(3, this)
             return this.__Flags
         }
     }
@@ -149,9 +146,9 @@ class ND_OPTION_PREFIX_INFO extends Win32Struct
     }
 
     /**
-     * @type {Array<Byte>}
+     * @type {Array<Integer>}
      */
-    nd_opt_pi_reserved3{
+    nd_opt_pi_reserved3 {
         get {
             if(!this.HasProp("__nd_opt_pi_reserved3ProxyArray"))
                 this.__nd_opt_pi_reserved3ProxyArray := Win32FixedArray(this.ptr + 12, 3, Primitive, "char")
@@ -170,7 +167,7 @@ class ND_OPTION_PREFIX_INFO extends Win32Struct
     /**
      * @type {IN6_ADDR}
      */
-    nd_opt_pi_prefix{
+    nd_opt_pi_prefix {
         get {
             if(!this.HasProp("__nd_opt_pi_prefix"))
                 this.__nd_opt_pi_prefix := IN6_ADDR(16, this)

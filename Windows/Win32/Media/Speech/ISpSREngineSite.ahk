@@ -1,15 +1,14 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
+#Include ..\..\System\Com\IUnknown.ahk
 #Include .\ISpPhraseBuilder.ahk
 #Include .\SPSTATEINFO.ahk
-#Include ..\..\System\Com\IUnknown.ahk
 
 /**
  * @namespace Windows.Win32.Media.Speech
- * @version v4.0.30319
  */
-class ISpSREngineSite extends IUnknown{
+class ISpSREngineSite extends IUnknown {
 
     static sizeof => A_PtrSize
     /**
@@ -115,7 +114,7 @@ class ISpSREngineSite extends IUnknown{
     /**
      * 
      * @param {Pointer<SPWORDENTRY>} pWordEntry 
-     * @param {Integer} Options 
+     * @param {SPWORDINFOOPT} Options 
      * @returns {HRESULT} 
      */
     GetWordInfo(pWordEntry, Options) {
@@ -141,7 +140,7 @@ class ISpSREngineSite extends IUnknown{
     /**
      * 
      * @param {Pointer<SPRULEENTRY>} pRuleEntry 
-     * @param {Integer} Options 
+     * @param {SPRULEINFOOPT} Options 
      * @returns {HRESULT} 
      */
     GetRuleInfo(pRuleEntry, Options) {

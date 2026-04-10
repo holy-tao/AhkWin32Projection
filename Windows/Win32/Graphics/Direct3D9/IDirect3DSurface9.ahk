@@ -19,9 +19,8 @@
  * ```
  * @see https://learn.microsoft.com/windows/win32/api/d3d9/nn-d3d9-idirect3dsurface9
  * @namespace Windows.Win32.Graphics.Direct3D9
- * @version v4.0.30319
  */
-class IDirect3DSurface9 extends IDirect3DResource9{
+class IDirect3DSurface9 extends IDirect3DResource9 {
 
     static sizeof => A_PtrSize
     /**
@@ -248,7 +247,9 @@ class IDirect3DSurface9 extends IDirect3DResource9{
      * An hdc is a Windows resource. It must be released after use so Windows can return it to the pool of available resources.
      * 
      * This method will release only the device context returned by <a href="https://docs.microsoft.com/windows/desktop/api/d3d9helper/nf-d3d9helper-idirect3dsurface9-getdc">IDirect3DSurface9::GetDC</a>. Otherwise, this method will fail.
-     * @param {HDC} _hdc 
+     * @param {HDC} _hdc Type: <b><a href="https://docs.microsoft.com/windows/desktop/WinProg/windows-data-types">HDC</a></b>
+     * 
+     * Handle to a device context.
      * @returns {HRESULT} Type: <b><a href="https://docs.microsoft.com/windows/win32/com/structure-of-com-error-codes">HRESULT</a></b>
      * 
      * If the method succeeds, the return value is D3D_OK. D3DERR_INVALIDCALL is returned if the argument is invalid.

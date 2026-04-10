@@ -1,9 +1,9 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
-#Include ..\..\Foundation\BSTR.ahk
-#Include .\IDiscRecorder2.ahk
 #Include .\IDiscFormat2.ahk
+#Include .\IDiscRecorder2.ahk
+#Include ..\..\Foundation\BSTR.ahk
 
 /**
  * Use this interface to write a data stream to a disc.
@@ -13,9 +13,8 @@
  * It is possible for a power state transition to take place during a burn operation (i.e. user log-off or system suspend) which leads to the  interruption of the burn process and  possible data loss. For programming considerations, see <a href="https://docs.microsoft.com/windows/desktop/imapi/preventing-logoff-or-suspend-during-a-burn">Preventing Logoff or Suspend During a Burn</a>.
  * @see https://learn.microsoft.com/windows/win32/api/imapi2/nn-imapi2-idiscformat2data
  * @namespace Windows.Win32.Storage.Imapi
- * @version v4.0.30319
  */
-class IDiscFormat2Data extends IDiscFormat2{
+class IDiscFormat2Data extends IDiscFormat2 {
 
     static sizeof => A_PtrSize
     /**
@@ -61,14 +60,14 @@ class IDiscFormat2Data extends IDiscFormat2{
     }
 
     /**
-     * @type {Integer} 
+     * @type {IMAPI_FORMAT2_DATA_MEDIA_STATE} 
      */
     CurrentMediaStatus {
         get => this.get_CurrentMediaStatus()
     }
 
     /**
-     * @type {Integer} 
+     * @type {IMAPI_MEDIA_WRITE_PROTECT_STATE} 
      */
     WriteProtectStatus {
         get => this.get_WriteProtectStatus()
@@ -126,7 +125,7 @@ class IDiscFormat2Data extends IDiscFormat2{
     }
 
     /**
-     * @type {Integer} 
+     * @type {IMAPI_MEDIA_PHYSICAL_TYPE} 
      */
     CurrentPhysicalMediaType {
         get => this.get_CurrentPhysicalMediaType()
@@ -343,7 +342,7 @@ class IDiscFormat2Data extends IDiscFormat2{
      * Retrieves the current state of the media in the device.
      * @remarks
      * For an example that uses this property, see <a href="https://docs.microsoft.com/windows/desktop/imapi/checking-media-support">Checking Media Support</a>.
-     * @returns {Integer} State of the media in the disc device. For possible values, see the <a href="https://docs.microsoft.com/windows/desktop/api/imapi2/ne-imapi2-imapi_format2_data_media_state">IMAPI_FORMAT2_DATA_MEDIA_STATE</a> enumeration type. Note that more than one state can be set.
+     * @returns {IMAPI_FORMAT2_DATA_MEDIA_STATE} State of the media in the disc device. For possible values, see the <a href="https://docs.microsoft.com/windows/desktop/api/imapi2/ne-imapi2-imapi_format2_data_media_state">IMAPI_FORMAT2_DATA_MEDIA_STATE</a> enumeration type. Note that more than one state can be set.
      * @see https://learn.microsoft.com/windows/win32/api/imapi2/nf-imapi2-idiscformat2data-get_currentmediastatus
      */
     get_CurrentMediaStatus() {
@@ -353,7 +352,7 @@ class IDiscFormat2Data extends IDiscFormat2{
 
     /**
      * Retrieves the current write protect state of the media in the device.
-     * @returns {Integer} The current write protect state of the media in the device. For possible values, see the <a href="https://docs.microsoft.com/windows/desktop/api/imapi2/ne-imapi2-imapi_media_write_protect_state">IMAPI_MEDIA_WRITE_PROTECT_STATE</a> enumeration type. 
+     * @returns {IMAPI_MEDIA_WRITE_PROTECT_STATE} The current write protect state of the media in the device. For possible values, see the <a href="https://docs.microsoft.com/windows/desktop/api/imapi2/ne-imapi2-imapi_media_write_protect_state">IMAPI_MEDIA_WRITE_PROTECT_STATE</a> enumeration type. 
      * 
      * Note that more than one state can be set.
      * @see https://learn.microsoft.com/windows/win32/api/imapi2/nf-imapi2-idiscformat2data-get_writeprotectstatus
@@ -567,7 +566,7 @@ class IDiscFormat2Data extends IDiscFormat2{
 
     /**
      * Retrieves the type of media in the disc device. (IDiscFormat2Data.get_CurrentPhysicalMediaType)
-     * @returns {Integer} Type of media in the disc device. For possible values, see the <a href="https://docs.microsoft.com/windows/desktop/api/imapi2/ne-imapi2-imapi_media_physical_type">IMAPI_MEDIA_PHYSICAL_TYPE</a> enumeration type.
+     * @returns {IMAPI_MEDIA_PHYSICAL_TYPE} Type of media in the disc device. For possible values, see the <a href="https://docs.microsoft.com/windows/desktop/api/imapi2/ne-imapi2-imapi_media_physical_type">IMAPI_MEDIA_PHYSICAL_TYPE</a> enumeration type.
      * @see https://learn.microsoft.com/windows/win32/api/imapi2/nf-imapi2-idiscformat2data-get_currentphysicalmediatype
      */
     get_CurrentPhysicalMediaType() {

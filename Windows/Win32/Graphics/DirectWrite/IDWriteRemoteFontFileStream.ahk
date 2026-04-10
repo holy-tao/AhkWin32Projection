@@ -1,8 +1,8 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
-#Include .\IDWriteAsyncResult.ahk
 #Include .\IDWriteFontFileStream.ahk
+#Include .\IDWriteAsyncResult.ahk
 
 /**
  * Represents a font file stream, parts of which may be non-local.
@@ -10,9 +10,8 @@
  * For more information, see the description of IDWriteRemoteFontFileLoader.
  * @see https://learn.microsoft.com/windows/win32/api/dwrite_3/nn-dwrite_3-idwriteremotefontfilestream
  * @namespace Windows.Win32.Graphics.DirectWrite
- * @version v4.0.30319
  */
-class IDWriteRemoteFontFileStream extends IDWriteFontFileStream{
+class IDWriteRemoteFontFileStream extends IDWriteFontFileStream {
 
     static sizeof => A_PtrSize
     /**
@@ -70,7 +69,7 @@ class IDWriteRemoteFontFileStream extends IDWriteFontFileStream{
 
     /**
      * Gets the current locality of the file.
-     * @returns {Integer} Type: <b><a href="https://docs.microsoft.com/windows/win32/api/dwrite_3/ne-dwrite_3-dwrite_locality">DWRITE_LOCALITY</a></b>
+     * @returns {DWRITE_LOCALITY} Type: <b><a href="https://docs.microsoft.com/windows/win32/api/dwrite_3/ne-dwrite_3-dwrite_locality">DWRITE_LOCALITY</a></b>
      * 
      * Returns the current locality (i.e., remote, partial, or local).
      * @see https://learn.microsoft.com/windows/win32/api/dwrite_3/nf-dwrite_3-idwriteremotefontfilestream-getlocality

@@ -3,10 +3,8 @@
 
 /**
  * @namespace Windows.Win32.Devices.Display
- * @version v4.0.30319
  */
-class VIDEO_POINTER_ATTRIBUTES extends Win32Struct
-{
+class VIDEO_POINTER_ATTRIBUTES extends Win32Struct {
     static sizeof => 28
 
     static packingSize => 4
@@ -68,9 +66,9 @@ class VIDEO_POINTER_ATTRIBUTES extends Win32Struct
     }
 
     /**
-     * @type {Array<Byte>}
+     * @type {Array<Integer>}
      */
-    Pixels{
+    Pixels {
         get {
             if(!this.HasProp("__PixelsProxyArray"))
                 this.__PixelsProxyArray := Win32FixedArray(this.ptr + 24, 1, Primitive, "char")

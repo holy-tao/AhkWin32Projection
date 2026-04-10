@@ -5,10 +5,8 @@
 
 /**
  * @namespace Windows.Win32.System.Diagnostics.Debug
- * @version v4.0.30319
  */
-class WHEA_AER_ENDPOINT_DESCRIPTOR extends Win32Struct
-{
+class WHEA_AER_ENDPOINT_DESCRIPTOR extends Win32Struct {
     static sizeof => 36
 
     static packingSize => 4
@@ -48,7 +46,7 @@ class WHEA_AER_ENDPOINT_DESCRIPTOR extends Win32Struct
     /**
      * @type {WHEA_PCI_SLOT_NUMBER}
      */
-    Slot{
+    Slot {
         get {
             if(!this.HasProp("__Slot"))
                 this.__Slot := WHEA_PCI_SLOT_NUMBER(8, this)
@@ -67,7 +65,7 @@ class WHEA_AER_ENDPOINT_DESCRIPTOR extends Win32Struct
     /**
      * @type {AER_ENDPOINT_DESCRIPTOR_FLAGS}
      */
-    Flags{
+    Flags {
         get {
             if(!this.HasProp("__Flags"))
                 this.__Flags := AER_ENDPOINT_DESCRIPTOR_FLAGS(14, this)

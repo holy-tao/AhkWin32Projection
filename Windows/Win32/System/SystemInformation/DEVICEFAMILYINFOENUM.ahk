@@ -3,9 +3,8 @@
 
 /**
  * @namespace Windows.Win32.System.SystemInformation
- * @version v4.0.30319
  */
-class DEVICEFAMILYINFOENUM extends Win32Enum{
+class DEVICEFAMILYINFOENUM extends Win32Enum {
 
     /**
      * @type {Integer (UInt32)}

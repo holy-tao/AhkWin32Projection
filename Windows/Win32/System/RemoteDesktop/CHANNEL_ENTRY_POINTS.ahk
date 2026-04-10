@@ -5,10 +5,8 @@
  * Contains pointers to the functions called by a client-side DLL to access virtual channels.
  * @see https://learn.microsoft.com/windows/win32/api/cchannel/ns-cchannel-channel_entry_points
  * @namespace Windows.Win32.System.RemoteDesktop
- * @version v4.0.30319
  */
-class CHANNEL_ENTRY_POINTS extends Win32Struct
-{
+class CHANNEL_ENTRY_POINTS extends Win32Struct {
     static sizeof => 40
 
     static packingSize => 8

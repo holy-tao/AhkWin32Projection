@@ -3,9 +3,8 @@
 
 /**
  * @namespace Windows.Win32.Networking.WinHttp
- * @version v4.0.30319
  */
-class WINHTTP_SECURE_DNS_SETTING extends Win32Enum{
+class WINHTTP_SECURE_DNS_SETTING extends Win32Enum {
 
     /**
      * @type {Integer (Int32)}

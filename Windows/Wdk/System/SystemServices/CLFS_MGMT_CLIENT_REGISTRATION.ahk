@@ -3,10 +3,8 @@
 
 /**
  * @namespace Windows.Wdk.System.SystemServices
- * @version v4.0.30319
  */
-class CLFS_MGMT_CLIENT_REGISTRATION extends Win32Struct
-{
+class CLFS_MGMT_CLIENT_REGISTRATION extends Win32Struct {
     static sizeof => 56
 
     static packingSize => 8

@@ -5,11 +5,10 @@
 
 /**
  * @namespace Windows.Win32.Media.MediaFoundation
- * @version v4.0.30319
+ * @architecture X64, Arm64
  */
-class DXVA_VideoSample2 extends Win32Struct
-{
-    static sizeof => 200
+class DXVA_VideoSample2 extends Win32Struct {
+    static sizeof => 136
 
     static packingSize => 8
 
@@ -72,7 +71,7 @@ class DXVA_VideoSample2 extends Win32Struct
     /**
      * @type {RECT}
      */
-    rcSrc{
+    rcSrc {
         get {
             if(!this.HasProp("__rcSrc"))
                 this.__rcSrc := RECT(40, this)
@@ -83,7 +82,7 @@ class DXVA_VideoSample2 extends Win32Struct
     /**
      * @type {RECT}
      */
-    rcDst{
+    rcDst {
         get {
             if(!this.HasProp("__rcDst"))
                 this.__rcDst := RECT(56, this)
@@ -92,9 +91,9 @@ class DXVA_VideoSample2 extends Win32Struct
     }
 
     /**
-     * @type {Array<DXVA_AYUVsample2>}
+     * @type {DXVA_AYUVsample2}
      */
-    Palette{
+    Palette {
         get {
             if(!this.HasProp("__PaletteProxyArray"))
                 this.__PaletteProxyArray := Win32FixedArray(this.ptr + 72, 16, DXVA_AYUVsample2, "")

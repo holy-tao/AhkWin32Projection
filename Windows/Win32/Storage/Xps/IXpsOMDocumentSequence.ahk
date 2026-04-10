@@ -1,10 +1,10 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
+#Include .\IXpsOMPart.ahk
 #Include .\IXpsOMPackage.ahk
 #Include .\IXpsOMDocumentCollection.ahk
 #Include .\IXpsOMPrintTicketResource.ahk
-#Include .\IXpsOMPart.ahk
 
 /**
  * The root object that has the XPS document content.
@@ -54,9 +54,8 @@
  * ```
  * @see https://learn.microsoft.com/windows/win32/api/xpsobjectmodel/nn-xpsobjectmodel-ixpsomdocumentsequence
  * @namespace Windows.Win32.Storage.Xps
- * @version v4.0.30319
  */
-class IXpsOMDocumentSequence extends IXpsOMPart{
+class IXpsOMDocumentSequence extends IXpsOMPart {
 
     static sizeof => A_PtrSize
     /**

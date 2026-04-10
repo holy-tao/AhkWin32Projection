@@ -1,18 +1,24 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
-#Include .\TYPEDESC.ahk
-#Include .\IDLDESC.ahk
-#Include ..\Ole\PARAMDESC.ahk
+#Include ..\Variant\VARIANT.ahk
 #Include .\ELEMDESC.ahk
+#Include .\TYPEDESC.ahk
+#Include ..\Ole\ARRAYDESC.ahk
+#Include ..\Variant\VARENUM.ahk
+#Include .\IDLDESC.ahk
+#Include .\IDLFLAGS.ahk
+#Include ..\Ole\PARAMDESC.ahk
+#Include ..\Ole\PARAMDESCEX.ahk
+#Include ..\Ole\PARAMFLAGS.ahk
+#Include .\VARFLAGS.ahk
+#Include .\VARKIND.ahk
 
 /**
  * Describes a variable, constant, or data member.
  * @see https://learn.microsoft.com/windows/win32/api/oaidl/ns-oaidl-vardesc
  * @namespace Windows.Win32.System.Com
- * @version v4.0.30319
  */
-class VARDESC extends Win32Struct
-{
+class VARDESC extends Win32Struct {
     static sizeof => 64
 
     static packingSize => 8
@@ -55,7 +61,7 @@ class VARDESC extends Win32Struct
      * The variable type.
      * @type {ELEMDESC}
      */
-    elemdescVar{
+    elemdescVar {
         get {
             if(!this.HasProp("__elemdescVar"))
                 this.__elemdescVar := ELEMDESC(24, this)
@@ -65,7 +71,7 @@ class VARDESC extends Win32Struct
 
     /**
      * The variable flags. See <a href="https://docs.microsoft.com/windows/desktop/api/oaidl/ne-oaidl-varflags">VARFLAGS</a>.
-     * @type {Integer}
+     * @type {VARFLAGS}
      */
     wVarFlags {
         get => NumGet(this, 56, "ushort")
@@ -74,7 +80,7 @@ class VARDESC extends Win32Struct
 
     /**
      * The variable type.
-     * @type {Integer}
+     * @type {VARKIND}
      */
     varkind {
         get => NumGet(this, 60, "int")

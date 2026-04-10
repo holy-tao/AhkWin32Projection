@@ -1,12 +1,11 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
+#Include .\STORAGE_ATTRIBUTE_MGMT_ACTION.ahk
 
 /**
  * @namespace Windows.Win32.System.Ioctl
- * @version v4.0.30319
  */
-class STORAGE_ATTRIBUTE_MGMT extends Win32Struct
-{
+class STORAGE_ATTRIBUTE_MGMT extends Win32Struct {
     static sizeof => 16
 
     static packingSize => 4
@@ -28,7 +27,7 @@ class STORAGE_ATTRIBUTE_MGMT extends Win32Struct
     }
 
     /**
-     * @type {Integer}
+     * @type {STORAGE_ATTRIBUTE_MGMT_ACTION}
      */
     Action {
         get => NumGet(this, 8, "int")

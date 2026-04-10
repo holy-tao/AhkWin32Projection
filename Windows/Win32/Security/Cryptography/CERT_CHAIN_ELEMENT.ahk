@@ -1,15 +1,16 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
+#Include .\CERT_CONTEXT.ahk
 #Include .\CERT_TRUST_STATUS.ahk
+#Include .\CERT_REVOCATION_INFO.ahk
+#Include .\CTL_USAGE.ahk
 
 /**
  * The CERT_CHAIN_ELEMENT structure is a single element in a simple certificate chain.
  * @see https://learn.microsoft.com/windows/win32/api/wincrypt/ns-wincrypt-cert_chain_element
  * @namespace Windows.Win32.Security.Cryptography
- * @version v4.0.30319
  */
-class CERT_CHAIN_ELEMENT extends Win32Struct
-{
+class CERT_CHAIN_ELEMENT extends Win32Struct {
     static sizeof => 56
 
     static packingSize => 8
@@ -36,7 +37,7 @@ class CERT_CHAIN_ELEMENT extends Win32Struct
      * Structure indicating the status of the certificate. The structure includes an error status code and an information status code. For information about status code values, see CERT_TRUST_STATUS.
      * @type {CERT_TRUST_STATUS}
      */
-    TrustStatus{
+    TrustStatus {
         get {
             if(!this.HasProp("__TrustStatus"))
                 this.__TrustStatus := CERT_TRUST_STATUS(16, this)

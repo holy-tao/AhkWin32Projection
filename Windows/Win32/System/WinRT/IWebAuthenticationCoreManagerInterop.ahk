@@ -21,9 +21,8 @@
  * ```
  * @see https://learn.microsoft.com/windows/win32/api/webauthenticationcoremanagerinterop/nn-webauthenticationcoremanagerinterop-iwebauthenticationcoremanagerinterop
  * @namespace Windows.Win32.System.WinRT
- * @version v4.0.30319
  */
-class IWebAuthenticationCoreManagerInterop extends IInspectable{
+class IWebAuthenticationCoreManagerInterop extends IInspectable {
 
     static sizeof => A_PtrSize
     /**

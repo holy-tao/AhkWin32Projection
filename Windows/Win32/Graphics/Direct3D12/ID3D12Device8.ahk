@@ -5,13 +5,10 @@
 
 /**
  * Represents a virtual adapter. This interface extends [ID3D12Device7](../d3d12/nn-d3d12-id3d12device7.md).
- * @remarks
- * 
  * @see https://learn.microsoft.com/windows/win32/api/d3d12/nn-d3d12-id3d12device8
  * @namespace Windows.Win32.Graphics.Direct3D12
- * @version v4.0.30319
  */
-class ID3D12Device8 extends ID3D12Device7{
+class ID3D12Device8 extends ID3D12Device7 {
 
     static sizeof => A_PtrSize
     /**
@@ -71,13 +68,13 @@ class ID3D12Device8 extends ID3D12Device7{
      * @param {Pointer<D3D12_HEAP_PROPERTIES>} pHeapProperties Type: \_In\_ **const [D3D12_HEAP_PROPERTIES](/windows/win32/api/d3d12/ns-d3d12-d3d12_heap_properties)\***
      * 
      * A pointer to a **D3D12_HEAP_PROPERTIES** structure that provides properties for the resource's heap.
-     * @param {Integer} HeapFlags Type: **[D3D12_HEAP_FLAGS](/windows/win32/api/d3d12/ne-d3d12-d3d12_heap_flags)**
+     * @param {D3D12_HEAP_FLAGS} HeapFlags Type: **[D3D12_HEAP_FLAGS](/windows/win32/api/d3d12/ne-d3d12-d3d12_heap_flags)**
      * 
      * Heap options, as a bitwise-OR'd combination of **D3D12_HEAP_FLAGS** enumeration constants.
      * @param {Pointer<D3D12_RESOURCE_DESC1>} pDesc Type: **const [D3D12_RESOURCE_DESC1](/windows/win32/api/d3d12/ns-d3d12-d3d12_resource_desc1)\***
      * 
      * A pointer to a **D3D12_RESOURCE_DESC1** structure that describes the resource, including a mip region.
-     * @param {Integer} InitialResourceState Type: **[D3D12_RESOURCE_STATES](/windows/win32/api/d3d12/ne-d3d12-d3d12_resource_states)**
+     * @param {D3D12_RESOURCE_STATES} InitialResourceState Type: **[D3D12_RESOURCE_STATES](/windows/win32/api/d3d12/ne-d3d12-d3d12_resource_states)**
      * 
      * The initial state of the resource, as a bitwise-OR'd combination of **D3D12_RESOURCE_STATES** enumeration constants.
      * 
@@ -124,7 +121,7 @@ class ID3D12Device8 extends ID3D12Device7{
      * @param {Pointer<D3D12_RESOURCE_DESC1>} pDesc Type: [in] **const <a href="https://docs.microsoft.com/windows/win32/api/d3d12/ns-d3d12-d3d12_resource_desc1">D3D12_RESOURCE_DESC1</a>***
      * 
      * A pointer to a **D3D12_RESOURCE_DESC1** structure that describes the resource, including a mip region.
-     * @param {Integer} InitialState Type: **<a href="https://docs.microsoft.com/windows/win32/api/d3d12/ne-d3d12-d3d12_resource_states">D3D12_RESOURCE_STATES</a>**
+     * @param {D3D12_RESOURCE_STATES} InitialState Type: **<a href="https://docs.microsoft.com/windows/win32/api/d3d12/ne-d3d12-d3d12_resource_states">D3D12_RESOURCE_STATES</a>**
      * 
      * The initial state of the resource, as a bitwise-OR'd combination of **D3D12_RESOURCE_STATES** enumeration constants.
      * 

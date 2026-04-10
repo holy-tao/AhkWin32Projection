@@ -7,9 +7,8 @@
  * The IPerChannelDbLevel interface represents a generic subunit control interface that provides per-channel control over the volume level, in decibels, of an audio stream or of a frequency band in an audio stream.
  * @see https://learn.microsoft.com/windows/win32/api/devicetopology/nn-devicetopology-iperchanneldblevel
  * @namespace Windows.Win32.Media.Audio
- * @version v4.0.30319
  */
-class IPerChannelDbLevel extends IUnknown{
+class IPerChannelDbLevel extends IUnknown {
 
     static sizeof => A_PtrSize
     /**

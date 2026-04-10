@@ -24,9 +24,8 @@
  * </ul>
  * @see https://learn.microsoft.com/windows/win32/api/shobjidl_core/ne-shobjidl_core-sigdn
  * @namespace Windows.Win32.UI.Shell
- * @version v4.0.30319
  */
-class SIGDN extends Win32Enum{
+class SIGDN extends Win32Enum {
 
     /**
      * 0x00000000. Returns the display name relative to the parent folder. In UI this name is generally ideal for display to the user.

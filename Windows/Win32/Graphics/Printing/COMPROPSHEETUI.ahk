@@ -1,13 +1,13 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
 #Include ..\..\Foundation\HINSTANCE.ahk
+#Include .\OPTITEM.ahk
+#Include .\DLGPAGE.ahk
 
 /**
  * @namespace Windows.Win32.Graphics.Printing
- * @version v4.0.30319
  */
-class COMPROPSHEETUI extends Win32Struct
-{
+class COMPROPSHEETUI extends Win32Struct {
     static sizeof => 128
 
     static packingSize => 8
@@ -31,7 +31,7 @@ class COMPROPSHEETUI extends Win32Struct
     /**
      * @type {HINSTANCE}
      */
-    hInstCaller{
+    hInstCaller {
         get {
             if(!this.HasProp("__hInstCaller"))
                 this.__hInstCaller := HINSTANCE(8, this)
@@ -136,9 +136,9 @@ class COMPROPSHEETUI extends Win32Struct
     }
 
     /**
-     * @type {Array<UIntPtr>}
+     * @type {Array<Pointer>}
      */
-    dwReserved{
+    dwReserved {
         get {
             if(!this.HasProp("__dwReservedProxyArray"))
                 this.__dwReservedProxyArray := Win32FixedArray(this.ptr + 96, 4, Primitive, "ptr")

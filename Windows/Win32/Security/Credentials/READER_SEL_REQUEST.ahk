@@ -1,12 +1,11 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
+#Include .\READER_SEL_REQUEST_MATCH_TYPE.ahk
 
 /**
  * @namespace Windows.Win32.Security.Credentials
- * @version v4.0.30319
  */
-class READER_SEL_REQUEST extends Win32Struct
-{
+class READER_SEL_REQUEST extends Win32Struct {
     static sizeof => 36
 
     static packingSize => 4
@@ -28,7 +27,7 @@ class READER_SEL_REQUEST extends Win32Struct
     }
 
     /**
-     * @type {Integer}
+     * @type {READER_SEL_REQUEST_MATCH_TYPE}
      */
     MatchType {
         get => NumGet(this, 8, "int")
@@ -46,7 +45,7 @@ class READER_SEL_REQUEST extends Win32Struct
             get => NumGet(this, 0, "uint")
             set => NumPut("uint", value, this, 0)
         }
-    
+
         /**
          * @type {Integer}
          */
@@ -54,7 +53,7 @@ class READER_SEL_REQUEST extends Win32Struct
             get => NumGet(this, 4, "uint")
             set => NumPut("uint", value, this, 4)
         }
-    
+
         /**
          * @type {Integer}
          */
@@ -62,7 +61,7 @@ class READER_SEL_REQUEST extends Win32Struct
             get => NumGet(this, 8, "uint")
             set => NumPut("uint", value, this, 8)
         }
-    
+
         /**
          * @type {Integer}
          */
@@ -70,7 +69,7 @@ class READER_SEL_REQUEST extends Win32Struct
             get => NumGet(this, 12, "uint")
             set => NumPut("uint", value, this, 12)
         }
-    
+
         /**
          * @type {Integer}
          */
@@ -78,7 +77,7 @@ class READER_SEL_REQUEST extends Win32Struct
             get => NumGet(this, 16, "uint")
             set => NumPut("uint", value, this, 16)
         }
-    
+
         /**
          * @type {Integer}
          */
@@ -86,7 +85,6 @@ class READER_SEL_REQUEST extends Win32Struct
             get => NumGet(this, 20, "uint")
             set => NumPut("uint", value, this, 20)
         }
-    
     }
 
     class _SerialNumberParameter extends Win32Struct {
@@ -100,7 +98,7 @@ class READER_SEL_REQUEST extends Win32Struct
             get => NumGet(this, 0, "uint")
             set => NumPut("uint", value, this, 0)
         }
-    
+
         /**
          * @type {Integer}
          */
@@ -108,7 +106,7 @@ class READER_SEL_REQUEST extends Win32Struct
             get => NumGet(this, 4, "uint")
             set => NumPut("uint", value, this, 4)
         }
-    
+
         /**
          * @type {Integer}
          */
@@ -116,16 +114,15 @@ class READER_SEL_REQUEST extends Win32Struct
             get => NumGet(this, 8, "uint")
             set => NumPut("uint", value, this, 8)
         }
-    
     }
 
     /**
      * @type {_ReaderAndContainerParameter}
      */
-    ReaderAndContainerParameter{
+    ReaderAndContainerParameter {
         get {
             if(!this.HasProp("__ReaderAndContainerParameter"))
-                this.__ReaderAndContainerParameter := %this.__Class%._ReaderAndContainerParameter(12, this)
+                this.__ReaderAndContainerParameter := READER_SEL_REQUEST._ReaderAndContainerParameter(12, this)
             return this.__ReaderAndContainerParameter
         }
     }
@@ -133,10 +130,10 @@ class READER_SEL_REQUEST extends Win32Struct
     /**
      * @type {_SerialNumberParameter}
      */
-    SerialNumberParameter{
+    SerialNumberParameter {
         get {
             if(!this.HasProp("__SerialNumberParameter"))
-                this.__SerialNumberParameter := %this.__Class%._SerialNumberParameter(12, this)
+                this.__SerialNumberParameter := READER_SEL_REQUEST._SerialNumberParameter(12, this)
             return this.__SerialNumberParameter
         }
     }

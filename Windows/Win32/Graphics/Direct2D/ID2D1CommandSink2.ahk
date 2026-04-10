@@ -7,9 +7,8 @@
  * This interface performs all the same functions as the existing ID2D1CommandSink1 interface. It also enables access to ink rendering and gradient mesh rendering.
  * @see https://learn.microsoft.com/windows/win32/api/d2d1_3/nn-d2d1_3-id2d1commandsink2
  * @namespace Windows.Win32.Graphics.Direct2D
- * @version v4.0.30319
  */
-class ID2D1CommandSink2 extends ID2D1CommandSink1{
+class ID2D1CommandSink2 extends ID2D1CommandSink1 {
 
     static sizeof => A_PtrSize
     /**
@@ -32,7 +31,9 @@ class ID2D1CommandSink2 extends ID2D1CommandSink1{
 
     /**
      * Renders the given ink object using the given brush and ink style. (ID2D1CommandSink2.DrawInk)
-     * @param {ID2D1Ink} _ink 
+     * @param {ID2D1Ink} _ink Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/d2d1_3/nn-d2d1_3-id2d1ink">ID2D1Ink</a>*</b>
+     * 
+     * The ink object to be rendered.
      * @param {ID2D1Brush} brush Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/d2d1/nn-d2d1-id2d1brush">ID2D1Brush</a>*</b>
      * 
      * The brush with which to render the ink object.

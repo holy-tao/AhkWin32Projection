@@ -3,9 +3,8 @@
 
 /**
  * @namespace Windows.Win32.System.SystemInformation
- * @version v4.0.30319
  */
-class DEVELOPER_DRIVE_ENABLEMENT_STATE extends Win32Enum{
+class DEVELOPER_DRIVE_ENABLEMENT_STATE extends Win32Enum {
 
     /**
      * @type {Integer (Int32)}

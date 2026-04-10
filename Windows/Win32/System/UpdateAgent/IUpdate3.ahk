@@ -7,9 +7,8 @@
  * Contains the properties and methods that are available to an update. (IUpdate3)
  * @see https://learn.microsoft.com/windows/win32/api/wuapi/nn-wuapi-iupdate3
  * @namespace Windows.Win32.System.UpdateAgent
- * @version v4.0.30319
  */
-class IUpdate3 extends IUpdate2{
+class IUpdate3 extends IUpdate2 {
 
     static sizeof => A_PtrSize
     /**

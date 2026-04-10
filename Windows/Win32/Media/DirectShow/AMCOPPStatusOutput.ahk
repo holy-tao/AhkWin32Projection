@@ -5,17 +5,15 @@
  * The AMCOPPStatusOutput structure contains the result of a Certified Output Protection Protocol (COPP) status request.
  * @see https://learn.microsoft.com/windows/win32/api/strmif/ns-strmif-amcoppstatusoutput
  * @namespace Windows.Win32.Media.DirectShow
- * @version v4.0.30319
  */
-class AMCOPPStatusOutput extends Win32Struct
-{
+class AMCOPPStatusOutput extends Win32Struct {
     static sizeof => 4088
 
     static packingSize => 8
 
     /**
      * Message Authentication Code (MAC) of the status data. The driver will use AES-based one-key CBC MAC (OMAC) to calculate this value.
-     * @type {Pointer<Guid>}
+     * @type {Pointer}
      */
     macKDI {
         get => NumGet(this, 0, "ptr")
@@ -33,9 +31,9 @@ class AMCOPPStatusOutput extends Win32Struct
 
     /**
      * Buffer that contains the result of the status request.
-     * @type {Array<Byte>}
+     * @type {Array<Integer>}
      */
-    COPPStatus{
+    COPPStatus {
         get {
             if(!this.HasProp("__COPPStatusProxyArray"))
                 this.__COPPStatusProxyArray := Win32FixedArray(this.ptr + 12, 4076, Primitive, "char")

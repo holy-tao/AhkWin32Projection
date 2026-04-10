@@ -3,10 +3,8 @@
 
 /**
  * @namespace Windows.Wdk.System.SystemServices
- * @version v4.0.30319
  */
-class CM_SONIC_DEVICE_DATA extends Win32Struct
-{
+class CM_SONIC_DEVICE_DATA extends Win32Struct {
     static sizeof => 14
 
     static packingSize => 2
@@ -36,9 +34,9 @@ class CM_SONIC_DEVICE_DATA extends Win32Struct
     }
 
     /**
-     * @type {Array<Byte>}
+     * @type {Array<Integer>}
      */
-    EthernetAddress{
+    EthernetAddress {
         get {
             if(!this.HasProp("__EthernetAddressProxyArray"))
                 this.__EthernetAddressProxyArray := Win32FixedArray(this.ptr + 6, 8, Primitive, "char")

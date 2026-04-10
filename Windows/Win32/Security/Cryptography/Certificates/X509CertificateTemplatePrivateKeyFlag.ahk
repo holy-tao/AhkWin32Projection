@@ -5,9 +5,8 @@
  * Contains values that specify client actions regarding a private key.
  * @see https://learn.microsoft.com/windows/win32/api/certenroll/ne-certenroll-x509certificatetemplateprivatekeyflag
  * @namespace Windows.Win32.Security.Cryptography.Certificates
- * @version v4.0.30319
  */
-class X509CertificateTemplatePrivateKeyFlag extends Win32Enum{
+class X509CertificateTemplatePrivateKeyFlag extends Win32Enum {
 
     /**
      * Instructs the client to create a key archival certificate request.
@@ -34,97 +33,81 @@ class X509CertificateTemplatePrivateKeyFlag extends Win32Enum{
     static PrivateKeyRequireAlternateSignatureAlgorithm => 64
 
     /**
-     * 
      * @type {Integer (Int32)}
      */
     static PrivateKeyRequireSameKeyRenewal => 128
 
     /**
-     * 
      * @type {Integer (Int32)}
      */
     static PrivateKeyUseLegacyProvider => 256
 
     /**
-     * 
      * @type {Integer (Int32)}
      */
     static PrivateKeyEKTrustOnUse => 512
 
     /**
-     * 
      * @type {Integer (Int32)}
      */
     static PrivateKeyEKValidateCert => 1024
 
     /**
-     * 
      * @type {Integer (Int32)}
      */
     static PrivateKeyEKValidateKey => 2048
 
     /**
-     * 
      * @type {Integer (Int32)}
      */
     static PrivateKeyAttestNone => 0
 
     /**
-     * 
      * @type {Integer (Int32)}
      */
     static PrivateKeyAttestPreferred => 4096
 
     /**
-     * 
      * @type {Integer (Int32)}
      */
     static PrivateKeyAttestRequired => 8192
 
     /**
-     * 
      * @type {Integer (Int32)}
      */
     static PrivateKeyAttestMask => 12288
 
     /**
-     * 
      * @type {Integer (Int32)}
      */
     static PrivateKeyAttestWithoutPolicy => 16384
 
     /**
-     * 
      * @type {Integer (Int32)}
      */
     static PrivateKeyServerVersionMask => 983040
 
     /**
-     * 
      * @type {Integer (Int32)}
      */
     static PrivateKeyServerVersionShift => 16
 
     /**
-     * 
      * @type {Integer (Int32)}
      */
     static PrivateKeyHelloKspKey => 1048576
 
     /**
-     * 
      * @type {Integer (Int32)}
      */
     static PrivateKeyHelloLogonKey => 2097152
 
     /**
-     * 
      * @type {Integer (Int32)}
      */
     static PrivateKeyClientVersionMask => 251658240
 
     /**
-     * 
      * @type {Integer (Int32)}
      */
     static PrivateKeyClientVersionShift => 24

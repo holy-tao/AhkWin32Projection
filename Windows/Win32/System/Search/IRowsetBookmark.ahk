@@ -5,9 +5,8 @@
 
 /**
  * @namespace Windows.Win32.System.Search
- * @version v4.0.30319
  */
-class IRowsetBookmark extends IUnknown{
+class IRowsetBookmark extends IUnknown {
 
     static sizeof => A_PtrSize
     /**
@@ -32,7 +31,7 @@ class IRowsetBookmark extends IUnknown{
      * 
      * @param {Pointer} hChapter 
      * @param {Pointer} cbBookmark 
-     * @param {Pointer} pBookmark 
+     * @param {Integer} pBookmark 
      * @returns {HRESULT} 
      */
     PositionOnBookmark(hChapter, cbBookmark, pBookmark) {

@@ -3,10 +3,8 @@
 
 /**
  * @namespace Windows.Win32.Media.DirectShow
- * @version v4.0.30319
  */
-class BDA_RATING_PINRESET extends Win32Struct
-{
+class BDA_RATING_PINRESET extends Win32Struct {
     static sizeof => 2
 
     static packingSize => 1
@@ -20,9 +18,9 @@ class BDA_RATING_PINRESET extends Win32Struct
     }
 
     /**
-     * @type {Array<Byte>}
+     * @type {Array<Integer>}
      */
-    argbNewPin{
+    argbNewPin {
         get {
             if(!this.HasProp("__argbNewPinProxyArray"))
                 this.__argbNewPinProxyArray := Win32FixedArray(this.ptr + 1, 1, Primitive, "char")

@@ -1,5 +1,7 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
+#Include .\LDAPMessage.ahk
+#Include .\LDAP.ahk
 
 /**
  * Used by an LDAP function to return results and error data.
@@ -12,10 +14,8 @@
  * There are no client-accessible fields in this structure.
  * @see https://learn.microsoft.com/windows/win32/api/winldap/ns-winldap-ldapmessage
  * @namespace Windows.Win32.Networking.Ldap
- * @version v4.0.30319
  */
-class LDAPMessage extends Win32Struct
-{
+class LDAPMessage extends Win32Struct {
     static sizeof => 72
 
     static packingSize => 8

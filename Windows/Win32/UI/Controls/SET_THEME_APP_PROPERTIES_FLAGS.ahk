@@ -3,9 +3,8 @@
 
 /**
  * @namespace Windows.Win32.UI.Controls
- * @version v4.0.30319
  */
-class SET_THEME_APP_PROPERTIES_FLAGS extends Win32BitflagEnum{
+class SET_THEME_APP_PROPERTIES_FLAGS extends Win32BitflagEnum {
 
     /**
      * @type {Integer (UInt32)}

@@ -8,9 +8,8 @@
  * <div> </div>
  * @see https://learn.microsoft.com/windows/win32/api/vds/ne-vds-__vds_partition_style
  * @namespace Windows.Win32.Storage.VirtualDiskService
- * @version v4.0.30319
  */
-class __VDS_PARTITION_STYLE extends Win32Enum{
+class __VDS_PARTITION_STYLE extends Win32Enum {
 
     /**
      * This value is not intended for use.

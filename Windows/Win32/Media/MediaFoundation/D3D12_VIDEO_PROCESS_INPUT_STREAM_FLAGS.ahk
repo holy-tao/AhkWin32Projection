@@ -3,13 +3,10 @@
 
 /**
  * Specifies flags for video processing input streams.
- * @remarks
- * 
  * @see https://learn.microsoft.com/windows/win32/api/d3d12video/ne-d3d12video-d3d12_video_process_input_stream_flags
  * @namespace Windows.Win32.Media.MediaFoundation
- * @version v4.0.30319
  */
-class D3D12_VIDEO_PROCESS_INPUT_STREAM_FLAGS extends Win32BitflagEnum{
+class D3D12_VIDEO_PROCESS_INPUT_STREAM_FLAGS extends Win32BitflagEnum {
 
     /**
      * No flags specified.

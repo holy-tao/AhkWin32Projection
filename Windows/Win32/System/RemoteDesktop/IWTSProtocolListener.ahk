@@ -7,9 +7,8 @@
  * IWTSProtocolListener is no longer available. Instead, use IWRdsProtocolListener.
  * @see https://learn.microsoft.com/windows/win32/api/wtsprotocol/nn-wtsprotocol-iwtsprotocollistener
  * @namespace Windows.Win32.System.RemoteDesktop
- * @version v4.0.30319
  */
-class IWTSProtocolListener extends IUnknown{
+class IWTSProtocolListener extends IUnknown {
 
     static sizeof => A_PtrSize
     /**

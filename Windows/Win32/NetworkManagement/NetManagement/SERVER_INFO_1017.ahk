@@ -5,10 +5,8 @@
  * The SERVER_INFO_1017 structure contains the network announce rate associated with the specified server.
  * @see https://learn.microsoft.com/windows/win32/api/lmserver/ns-lmserver-server_info_1017
  * @namespace Windows.Win32.NetworkManagement.NetManagement
- * @version v4.0.30319
  */
-class SERVER_INFO_1017 extends Win32Struct
-{
+class SERVER_INFO_1017 extends Win32Struct {
     static sizeof => 4
 
     static packingSize => 4

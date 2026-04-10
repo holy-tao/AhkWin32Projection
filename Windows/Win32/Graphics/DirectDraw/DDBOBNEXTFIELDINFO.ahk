@@ -1,14 +1,13 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
+#Include .\DDSURFACEDATA.ahk
 
 /**
  * The DDBOBNEXTFIELDINFO structure contains the bob information for the surface.
  * @see https://learn.microsoft.com/windows/win32/api/dxmini/ns-dxmini-ddbobnextfieldinfo
  * @namespace Windows.Win32.Graphics.DirectDraw
- * @version v4.0.30319
  */
-class DDBOBNEXTFIELDINFO extends Win32Struct
-{
+class DDBOBNEXTFIELDINFO extends Win32Struct {
     static sizeof => 8
 
     static packingSize => 8

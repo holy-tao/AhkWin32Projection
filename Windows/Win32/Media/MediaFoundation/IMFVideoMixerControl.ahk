@@ -1,16 +1,15 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
-#Include .\MFVideoNormalizedRect.ahk
 #Include ..\..\System\Com\IUnknown.ahk
+#Include .\MFVideoNormalizedRect.ahk
 
 /**
  * Controls how the Enhanced Video Renderer (EVR) mixes video substreams.
  * @see https://learn.microsoft.com/windows/win32/api/evr/nn-evr-imfvideomixercontrol
  * @namespace Windows.Win32.Media.MediaFoundation
- * @version v4.0.30319
  */
-class IMFVideoMixerControl extends IUnknown{
+class IMFVideoMixerControl extends IUnknown {
 
     static sizeof => A_PtrSize
     /**

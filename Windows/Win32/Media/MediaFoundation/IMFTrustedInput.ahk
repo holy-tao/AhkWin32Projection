@@ -7,9 +7,8 @@
  * Implemented by components that provide input trust authorities (ITAs). This interface is used to get the ITA for each of the component's streams.
  * @see https://learn.microsoft.com/windows/win32/api/mfidl/nn-mfidl-imftrustedinput
  * @namespace Windows.Win32.Media.MediaFoundation
- * @version v4.0.30319
  */
-class IMFTrustedInput extends IUnknown{
+class IMFTrustedInput extends IUnknown {
 
     static sizeof => A_PtrSize
     /**

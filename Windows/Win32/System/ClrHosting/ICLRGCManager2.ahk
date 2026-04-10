@@ -5,9 +5,8 @@
 
 /**
  * @namespace Windows.Win32.System.ClrHosting
- * @version v4.0.30319
  */
-class ICLRGCManager2 extends ICLRGCManager{
+class ICLRGCManager2 extends ICLRGCManager {
 
     static sizeof => A_PtrSize
     /**

@@ -4,10 +4,8 @@
 
 /**
  * @namespace Windows.Win32.Devices.Geolocation
- * @version v4.0.30319
  */
-class GNSS_AGNSS_INJECTTIME extends Win32Struct
-{
+class GNSS_AGNSS_INJECTTIME extends Win32Struct {
     static sizeof => 20
 
     static packingSize => 4
@@ -31,7 +29,7 @@ class GNSS_AGNSS_INJECTTIME extends Win32Struct
     /**
      * @type {FILETIME}
      */
-    UtcTime{
+    UtcTime {
         get {
             if(!this.HasProp("__UtcTime"))
                 this.__UtcTime := FILETIME(8, this)

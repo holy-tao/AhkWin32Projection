@@ -7,10 +7,8 @@
  * The <b>Size</b> member is the only required member of this structure. All the other members are optional. The application can set any of the members that it needs for search criteria.
  * @see https://learn.microsoft.com/windows/win32/api/elscore/ns-elscore-mapping_enum_options
  * @namespace Windows.Win32.Globalization
- * @version v4.0.30319
  */
-class MAPPING_ENUM_OPTIONS extends Win32Struct
-{
+class MAPPING_ENUM_OPTIONS extends Win32Struct {
     static sizeof => 80
 
     static packingSize => 8
@@ -111,7 +109,6 @@ class MAPPING_ENUM_OPTIONS extends Win32Struct
     }
 
     /**
-     * Reserved for future use. Must be set to 0.
      * @type {Integer}
      */
     OnlineService {
@@ -120,7 +117,6 @@ class MAPPING_ENUM_OPTIONS extends Win32Struct
     }
 
     /**
-     * Reserved for future use. Must be set to 0.
      * @type {Integer}
      */
     ServiceType {

@@ -13,9 +13,8 @@
  *  The application can set any of the values in the first three columns. Note that the fourth column is padded to allow for matrix concatenation.
  * @see https://learn.microsoft.com/windows/win32/api/dcomp/nn-dcomp-idcompositionmatrixtransform3d
  * @namespace Windows.Win32.Graphics.DirectComposition
- * @version v4.0.30319
  */
-class IDCompositionMatrixTransform3D extends IDCompositionTransform3D{
+class IDCompositionMatrixTransform3D extends IDCompositionTransform3D {
 
     static sizeof => A_PtrSize
     /**
@@ -42,7 +41,9 @@ class IDCompositionMatrixTransform3D extends IDCompositionTransform3D{
      * This method fails if any of the matrix values are NaN, positive infinity, or negative infinity.
      * 
      * If any of the matrix elements were previously animated, this method removes the animations and sets the elements to the specified static value.
-     * @param {Pointer<D3DMATRIX>} _matrix 
+     * @param {Pointer<D3DMATRIX>} _matrix Type: <b>const <a href="https://docs.microsoft.com/windows/desktop/direct3d9/d3dmatrix">D3DMATRIX</a></b>
+     * 
+     * The new matrix for this 3D transformation effect.
      * @returns {HRESULT} Type: <b><a href="https://docs.microsoft.com/windows/desktop/WinProg/windows-data-types">HRESULT</a></b>
      * 
      * If the function succeeds, it returns S_OK. Otherwise, it returns an <b>HRESULT</b> error code. See <a href="https://docs.microsoft.com/windows/desktop/directcomp/directcomposition-error-codes">DirectComposition Error Codes</a>  for a list of error codes.
@@ -62,7 +63,9 @@ class IDCompositionMatrixTransform3D extends IDCompositionTransform3D{
      * @param {Integer} row Type: <b>int</b>
      * 
      * The row index of the element to change. This value must be between 0 and 3, inclusive.
-     * @param {Integer} _column 
+     * @param {Integer} _column Type: <b>int</b>
+     * 
+     * The column index of the element to change. This value must be between 0 and 3, inclusive.
      * @param {IDCompositionAnimation} animation Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/dcompanimation/nn-dcompanimation-idcompositionanimation">IDCompositionAnimation</a>*</b>
      * 
      * An animation that represents how the value of the specified element changes over time. This parameter must not be NULL.
@@ -85,7 +88,9 @@ class IDCompositionMatrixTransform3D extends IDCompositionTransform3D{
      * @param {Integer} row Type: <b>int</b>
      * 
      * The row index of the element to change. This value must be between 0 and 3, inclusive.
-     * @param {Integer} _column 
+     * @param {Integer} _column Type: <b>int</b>
+     * 
+     * The column index of the element to change. This value must be between 0 and 3, inclusive.
      * @param {Float} value 
      * @returns {HRESULT} Type: <b><a href="https://docs.microsoft.com/windows/desktop/WinProg/windows-data-types">HRESULT</a></b>
      * 

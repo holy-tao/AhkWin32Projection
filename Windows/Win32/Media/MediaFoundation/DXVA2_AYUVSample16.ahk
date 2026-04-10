@@ -5,10 +5,8 @@
  * Defines a 16-bit AYUV pixel value.
  * @see https://learn.microsoft.com/windows/win32/api/dxva2api/ns-dxva2api-dxva2_ayuvsample16
  * @namespace Windows.Win32.Media.MediaFoundation
- * @version v4.0.30319
  */
-class DXVA2_AYUVSample16 extends Win32Struct
-{
+class DXVA2_AYUVSample16 extends Win32Struct {
     static sizeof => 8
 
     static packingSize => 2

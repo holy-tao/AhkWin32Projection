@@ -6,10 +6,8 @@
 
 /**
  * @namespace Windows.Win32.Media.KernelStreaming
- * @version v4.0.30319
  */
-class KSRELATIVEEVENT extends Win32Struct
-{
+class KSRELATIVEEVENT extends Win32Struct {
     static sizeof => 72
 
     static packingSize => 8
@@ -33,7 +31,7 @@ class KSRELATIVEEVENT extends Win32Struct
     /**
      * @type {HANDLE}
      */
-    ObjectHandle{
+    ObjectHandle {
         get {
             if(!this.HasProp("__ObjectHandle"))
                 this.__ObjectHandle := HANDLE(8, this)
@@ -60,7 +58,7 @@ class KSRELATIVEEVENT extends Win32Struct
     /**
      * @type {KSIDENTIFIER}
      */
-    Event{
+    Event {
         get {
             if(!this.HasProp("__Event"))
                 this.__Event := KSIDENTIFIER(24, this)
@@ -71,7 +69,7 @@ class KSRELATIVEEVENT extends Win32Struct
     /**
      * @type {KSEVENTDATA}
      */
-    EventData{
+    EventData {
         get {
             if(!this.HasProp("__EventData"))
                 this.__EventData := KSEVENTDATA(40, this)

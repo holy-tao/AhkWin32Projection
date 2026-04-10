@@ -1,14 +1,13 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\..\Win32Struct.ahk
+#Include .\DML_TENSOR_DESC.ahk
 
 /**
  * Inverts a max-pooling operation (see [DML_MAX_POOLING_OPERATOR1_DESC](/windows/win32/api/directml/ns-directml-dml_max_pooling1_operator_desc) for details) by filling the output tensor *OutputTensor* with the values in the input tensor *InputTensor*, as obtained from a max-pooling operation, according to the index values provided in the *IndicesTensor*. The elements in the output tensor untouched by this process are left with zero values.
  * @see https://learn.microsoft.com/windows/win32/api/directml/ns-directml-dml_max_unpooling_operator_desc
  * @namespace Windows.Win32.AI.MachineLearning.DirectML
- * @version v4.0.30319
  */
-class DML_MAX_UNPOOLING_OPERATOR_DESC extends Win32Struct
-{
+class DML_MAX_UNPOOLING_OPERATOR_DESC extends Win32Struct {
     static sizeof => 24
 
     static packingSize => 8

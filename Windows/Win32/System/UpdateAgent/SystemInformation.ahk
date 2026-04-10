@@ -3,10 +3,8 @@
 
 /**
  * @namespace Windows.Win32.System.UpdateAgent
- * @version v4.0.30319
  */
-class SystemInformation extends Win32Struct
-{
+class SystemInformation extends Win32Struct {
     static sizeof => 0
 
     static packingSize => 1

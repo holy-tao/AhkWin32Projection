@@ -9,9 +9,8 @@
  *     identical.
  * @see https://learn.microsoft.com/windows/win32/api/sdoias/ne-sdoias-policyproperties
  * @namespace Windows.Win32.NetworkManagement.NetworkPolicyServer
- * @version v4.0.30319
  */
-class POLICYPROPERTIES extends Win32Enum{
+class POLICYPROPERTIES extends Win32Enum {
 
     /**
      * String that contains all the text of the conditions.

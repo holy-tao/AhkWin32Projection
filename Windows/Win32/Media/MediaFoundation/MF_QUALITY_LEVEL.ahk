@@ -10,9 +10,8 @@
  * Video decoders can often reduce quality by leaving out certain post-processing steps. The enhanced video renderer (EVR) can sometimes reduce quality by switching to a different deinterlacing mode.
  * @see https://learn.microsoft.com/windows/win32/api/mfidl/ne-mfidl-mf_quality_level
  * @namespace Windows.Win32.Media.MediaFoundation
- * @version v4.0.30319
  */
-class MF_QUALITY_LEVEL extends Win32Enum{
+class MF_QUALITY_LEVEL extends Win32Enum {
 
     /**
      * Normal quality.

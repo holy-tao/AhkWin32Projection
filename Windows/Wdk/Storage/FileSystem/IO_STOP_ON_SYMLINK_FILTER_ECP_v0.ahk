@@ -3,10 +3,8 @@
 
 /**
  * @namespace Windows.Wdk.Storage.FileSystem
- * @version v4.0.30319
  */
-class IO_STOP_ON_SYMLINK_FILTER_ECP_v0 extends Win32Struct
-{
+class IO_STOP_ON_SYMLINK_FILTER_ECP_v0 extends Win32Struct {
     static sizeof => 8
 
     static packingSize => 4
@@ -22,7 +20,7 @@ class IO_STOP_ON_SYMLINK_FILTER_ECP_v0 extends Win32Struct
             get => NumGet(this, 0, "uint")
             set => NumPut("uint", value, this, 0)
         }
-    
+
         /**
          * @type {Integer}
          */
@@ -30,16 +28,15 @@ class IO_STOP_ON_SYMLINK_FILTER_ECP_v0 extends Win32Struct
             get => NumGet(this, 4, "uint")
             set => NumPut("uint", value, this, 4)
         }
-    
     }
 
     /**
      * @type {_Out}
      */
-    Out{
+    Out {
         get {
             if(!this.HasProp("__Out"))
-                this.__Out := %this.__Class%._Out(0, this)
+                this.__Out := IO_STOP_ON_SYMLINK_FILTER_ECP_v0._Out(0, this)
             return this.__Out
         }
     }

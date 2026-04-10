@@ -7,9 +7,8 @@
  * The ITfFnPropertyUIStatus interface is implemented by a text service and used by an application or text service to obtain and set the status of the text service property UI.
  * @see https://learn.microsoft.com/windows/win32/api/ctffunc/nn-ctffunc-itffnpropertyuistatus
  * @namespace Windows.Win32.UI.TextServices
- * @version v4.0.30319
  */
-class ITfFnPropertyUIStatus extends ITfFunction{
+class ITfFnPropertyUIStatus extends ITfFunction {
 
     static sizeof => A_PtrSize
     /**

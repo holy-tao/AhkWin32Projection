@@ -5,10 +5,8 @@
  * Contains strings returned from the IShellFolder interface methods.
  * @see https://learn.microsoft.com/windows/win32/api/shtypes/ns-shtypes-strret
  * @namespace Windows.Win32.UI.Shell.Common
- * @version v4.0.30319
  */
-class STRRET extends Win32Struct
-{
+class STRRET extends Win32Struct {
     static sizeof => 272
 
     static packingSize => 8
@@ -39,9 +37,9 @@ class STRRET extends Win32Struct
     }
 
     /**
-     * @type {Array<Byte>}
+     * @type {Array<Integer>}
      */
-    cStr{
+    cStr {
         get {
             if(!this.HasProp("__cStrProxyArray"))
                 this.__cStrProxyArray := Win32FixedArray(this.ptr + 8, 260, Primitive, "char")

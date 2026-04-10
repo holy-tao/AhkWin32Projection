@@ -1,16 +1,15 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
-#Include .\IRDPSRAPIAttendee.ahk
 #Include ..\Com\IDispatch.ahk
+#Include .\IRDPSRAPIAttendee.ahk
 
 /**
  * Contains information about the reason an attendee disconnected.
  * @see https://learn.microsoft.com/windows/win32/api/rdpencomapi/nn-rdpencomapi-irdpsrapiattendeedisconnectinfo
  * @namespace Windows.Win32.System.DesktopSharing
- * @version v4.0.30319
  */
-class IRDPSRAPIAttendeeDisconnectInfo extends IDispatch{
+class IRDPSRAPIAttendeeDisconnectInfo extends IDispatch {
 
     static sizeof => A_PtrSize
     /**
@@ -45,7 +44,7 @@ class IRDPSRAPIAttendeeDisconnectInfo extends IDispatch{
     }
 
     /**
-     * @type {Integer} 
+     * @type {ATTENDEE_DISCONNECT_REASON} 
      */
     Reason {
         get => this.get_Reason()
@@ -72,7 +71,7 @@ class IRDPSRAPIAttendeeDisconnectInfo extends IDispatch{
 
     /**
      * The reason the attendee was disconnected.
-     * @returns {Integer} 
+     * @returns {ATTENDEE_DISCONNECT_REASON} 
      * @see https://learn.microsoft.com/windows/win32/api/rdpencomapi/nf-rdpencomapi-irdpsrapiattendeedisconnectinfo-get_reason
      */
     get_Reason() {

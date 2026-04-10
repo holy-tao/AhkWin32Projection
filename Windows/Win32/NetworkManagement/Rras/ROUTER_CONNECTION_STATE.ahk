@@ -7,9 +7,8 @@
  * These states are sometimes referred to as <i>operational states</i>.
  * @see https://learn.microsoft.com/windows/win32/api/mprapi/ne-mprapi-router_connection_state
  * @namespace Windows.Win32.NetworkManagement.Rras
- * @version v4.0.30319
  */
-class ROUTER_CONNECTION_STATE extends Win32Enum{
+class ROUTER_CONNECTION_STATE extends Win32Enum {
 
     /**
      * The interface is unreachable. For a list of possible reasons, see 

@@ -7,10 +7,8 @@
  * One or more <a href="https://docs.microsoft.com/windows/desktop/api/winuser/ns-winuser-menuitemtemplate">MENUITEMTEMPLATE</a> structures are combined to form the menu item list.
  * @see https://learn.microsoft.com/windows/win32/api/winuser/ns-winuser-menuitemtemplateheader
  * @namespace Windows.Win32.UI.WindowsAndMessaging
- * @version v4.0.30319
  */
-class MENUITEMTEMPLATEHEADER extends Win32Struct
-{
+class MENUITEMTEMPLATEHEADER extends Win32Struct {
     static sizeof => 4
 
     static packingSize => 2

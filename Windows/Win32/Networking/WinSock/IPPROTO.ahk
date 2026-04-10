@@ -9,9 +9,8 @@
  * The **IPPROTO\_RM** or the **IPPROTO\_PGM** constant can be used to specify the *protocol* parameter to the [**socket**](/windows/desktop/api/Winsock2/nf-winsock2-socket) function to use the RM socket options. On the Microsoft Windows Software Development Kit (SDK) released for Windows Vista and later, the **IPPROTO\_PGM** constant is defined in the *Ws2def.h* header file to the same value as the **IPPROTO\_RM** constant defined in the *Wsrm.h* header file.
  * @see https://learn.microsoft.com/windows/win32/WinSock/ipproto-rm-socket-options
  * @namespace Windows.Win32.Networking.WinSock
- * @version v4.0.30319
  */
-class IPPROTO extends Win32Enum{
+class IPPROTO extends Win32Enum {
 
     /**
      * @type {Integer (Int32)}

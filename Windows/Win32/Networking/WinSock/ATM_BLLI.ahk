@@ -11,10 +11,8 @@
  * ```cpp
  * @see https://learn.microsoft.com/windows/win32/api/ws2atm/ns-ws2atm-atm_blli
  * @namespace Windows.Win32.Networking.WinSock
- * @version v4.0.30319
  */
-class ATM_BLLI extends Win32Struct
-{
+class ATM_BLLI extends Win32Struct {
     static sizeof => 28
 
     static packingSize => 4
@@ -66,9 +64,9 @@ class ATM_BLLI extends Win32Struct
 
     /**
      * Identifies the 802.1 SNAP identifier. Only used if the <b>Layer3Protocol</b> parameter is set to BLLI_L3_ISO_TR9577 and <b>Layer3IPI</b> is set to BLLI_L3_IPI_SNAP, indicating an IEEE 802.1 SNAP identifier. Corresponds to the <i>OUI</i> and <i>PID</i> fields in the B-LLI information element.
-     * @type {Array<Byte>}
+     * @type {Array<Integer>}
      */
-    SnapID{
+    SnapID {
         get {
             if(!this.HasProp("__SnapIDProxyArray"))
                 this.__SnapIDProxyArray := Win32FixedArray(this.ptr + 20, 5, Primitive, "char")

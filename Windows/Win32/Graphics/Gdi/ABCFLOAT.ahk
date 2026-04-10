@@ -9,10 +9,8 @@
  * The character increment (total width) of a character is the sum of the A, B, and C spaces. Either the A or the C space can be negative to indicate underhangs or overhangs.
  * @see https://learn.microsoft.com/windows/win32/api/wingdi/ns-wingdi-abcfloat
  * @namespace Windows.Win32.Graphics.Gdi
- * @version v4.0.30319
  */
-class ABCFLOAT extends Win32Struct
-{
+class ABCFLOAT extends Win32Struct {
     static sizeof => 12
 
     static packingSize => 4

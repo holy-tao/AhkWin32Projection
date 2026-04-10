@@ -7,9 +7,8 @@
  * The IDVRGB219 interface controls the dynamic range in the DV Video Encoder and DV Video Decoder filters.
  * @see https://learn.microsoft.com/windows/win32/api/strmif/nn-strmif-idvrgb219
  * @namespace Windows.Win32.Media.DirectShow
- * @version v4.0.30319
  */
-class IDVRGB219 extends IUnknown{
+class IDVRGB219 extends IUnknown {
 
     static sizeof => A_PtrSize
     /**

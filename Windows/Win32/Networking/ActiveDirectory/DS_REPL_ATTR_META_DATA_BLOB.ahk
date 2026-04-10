@@ -6,10 +6,8 @@
  * The DS_REPL_ATTR_META_DATA_BLOB structure is used to contain replication state data for an object attribute.
  * @see https://learn.microsoft.com/windows/win32/api/ntdsapi/ns-ntdsapi-ds_repl_attr_meta_data_blob
  * @namespace Windows.Win32.Networking.ActiveDirectory
- * @version v4.0.30319
  */
-class DS_REPL_ATTR_META_DATA_BLOB extends Win32Struct
-{
+class DS_REPL_ATTR_META_DATA_BLOB extends Win32Struct {
     static sizeof => 48
 
     static packingSize => 8
@@ -36,7 +34,7 @@ class DS_REPL_ATTR_META_DATA_BLOB extends Win32Struct
      * Contains the time at which the last originating change was made to this attribute. Replication of the change does not affect this value.
      * @type {FILETIME}
      */
-    ftimeLastOriginatingChange{
+    ftimeLastOriginatingChange {
         get {
             if(!this.HasProp("__ftimeLastOriginatingChange"))
                 this.__ftimeLastOriginatingChange := FILETIME(8, this)
@@ -46,7 +44,7 @@ class DS_REPL_ATTR_META_DATA_BLOB extends Win32Struct
 
     /**
      * Contains the invocation identification of the server on which the last change was made to this attribute. Replication of the change does not affect this value.
-     * @type {Pointer<Guid>}
+     * @type {Pointer}
      */
     uuidLastOriginatingDsaInvocationID {
         get => NumGet(this, 16, "ptr")

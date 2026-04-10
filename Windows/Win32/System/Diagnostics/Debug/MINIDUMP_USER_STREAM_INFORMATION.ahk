@@ -1,5 +1,6 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\..\Win32Struct.ahk
+#Include .\MINIDUMP_USER_STREAM.ahk
 
 /**
  * Contains a list of user data streams used by the MiniDumpWriteDump function.
@@ -7,10 +8,9 @@
  * In this context, a data stream refers to a block of data within a minidump file.
  * @see https://learn.microsoft.com/windows/win32/api/minidumpapiset/ns-minidumpapiset-minidump_user_stream_information
  * @namespace Windows.Win32.System.Diagnostics.Debug
- * @version v4.0.30319
+ * @architecture X64, Arm64
  */
-class MINIDUMP_USER_STREAM_INFORMATION extends Win32Struct
-{
+class MINIDUMP_USER_STREAM_INFORMATION extends Win32Struct {
     static sizeof => 16
 
     static packingSize => 8

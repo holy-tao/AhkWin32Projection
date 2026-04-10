@@ -5,9 +5,8 @@
  * Specifies option settings. Used with IShellLinkDataList::GetFlags and IShellLinkDataList::SetFlags.
  * @see https://learn.microsoft.com/windows/win32/api/shlobj_core/ne-shlobj_core-shell_link_data_flags
  * @namespace Windows.Win32.UI.Shell
- * @version v4.0.30319
  */
-class SHELL_LINK_DATA_FLAGS extends Win32BitflagEnum{
+class SHELL_LINK_DATA_FLAGS extends Win32BitflagEnum {
 
     /**
      * 0x00000000. Default value used when no other flag is explicitly set.

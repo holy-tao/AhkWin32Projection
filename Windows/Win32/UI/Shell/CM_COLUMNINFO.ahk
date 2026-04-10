@@ -5,10 +5,8 @@
  * Defines column information. Used by members of the IColumnManager interface.
  * @see https://learn.microsoft.com/windows/win32/api/shobjidl_core/ns-shobjidl_core-cm_columninfo
  * @namespace Windows.Win32.UI.Shell
- * @version v4.0.30319
  */
-class CM_COLUMNINFO extends Win32Struct
-{
+class CM_COLUMNINFO extends Win32Struct {
     static sizeof => 184
 
     static packingSize => 4

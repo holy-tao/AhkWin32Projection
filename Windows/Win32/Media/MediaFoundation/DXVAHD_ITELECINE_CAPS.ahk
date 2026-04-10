@@ -5,9 +5,8 @@
  * Specifies the inverse telecine (IVTC) capabilities of a Microsoft DirectX Video Acceleration High Definition (DXVA-HD) video processor.
  * @see https://learn.microsoft.com/windows/win32/api/dxvahd/ne-dxvahd-dxvahd_itelecine_caps
  * @namespace Windows.Win32.Media.MediaFoundation
- * @version v4.0.30319
  */
-class DXVAHD_ITELECINE_CAPS extends Win32Enum{
+class DXVAHD_ITELECINE_CAPS extends Win32Enum {
 
     /**
      * The video processor can reverse 3:2 pulldown.

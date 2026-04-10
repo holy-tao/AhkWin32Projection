@@ -3,10 +3,8 @@
 
 /**
  * @namespace Windows.Win32.Security.Authentication.WebAuthn
- * @version v4.0.30319
  */
-class EXPERIMENTAL_WEBAUTHN_PLUGIN_CREDENTIAL_DETAILS extends Win32Struct
-{
+class EXPERIMENTAL_WEBAUTHN_PLUGIN_CREDENTIAL_DETAILS extends Win32Struct {
     static sizeof => 64
 
     static packingSize => 8

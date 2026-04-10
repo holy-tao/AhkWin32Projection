@@ -5,9 +5,8 @@
  * Defines the vertical alignment settings for content within the viewport.
  * @see https://learn.microsoft.com/windows/win32/api/directmanipulation/ne-directmanipulation-directmanipulation_verticalalignment
  * @namespace Windows.Win32.Graphics.DirectManipulation
- * @version v4.0.30319
  */
-class DIRECTMANIPULATION_VERTICALALIGNMENT extends Win32BitflagEnum{
+class DIRECTMANIPULATION_VERTICALALIGNMENT extends Win32BitflagEnum {
 
     /**
      * No alignment. The object can be positioned anywhere within the viewport.

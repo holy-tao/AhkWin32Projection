@@ -4,10 +4,8 @@
 
 /**
  * @namespace Windows.Win32.Security.Cryptography
- * @version v4.0.30319
  */
-class PRIVKEYVER3 extends Win32Struct
-{
+class PRIVKEYVER3 extends Win32Struct {
     static sizeof => 44
 
     static packingSize => 4
@@ -55,7 +53,7 @@ class PRIVKEYVER3 extends Win32Struct
     /**
      * @type {DSSSEED}
      */
-    DSSSeed{
+    DSSSeed {
         get {
             if(!this.HasProp("__DSSSeed"))
                 this.__DSSSeed := DSSSEED(20, this)

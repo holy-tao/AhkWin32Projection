@@ -1,5 +1,6 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
+#Include .\DIENVELOPE.ahk
 
 /**
  * The DIEFFECTATTRIBUTES structure describes the information contained in the &quot;Attributes&quot; value of the registry key for each effect that is supported by a force-feedback device.
@@ -7,10 +8,8 @@
  * For information about the DIEFFECT, DICONSTANTFORCE, DIRAMPFORCE, DIPERIODIC, DICONDITION, DICUSTOMFORCE, and DIENVELOPE structures, see the DirectInput section of the DirectX SDK.
  * @see https://learn.microsoft.com/windows/win32/api/dinputd/ns-dinputd-dieffectattributes
  * @namespace Windows.Win32.Devices.HumanInterfaceDevice
- * @version v4.0.30319
  */
-class DIEFFECT extends Win32Struct
-{
+class DIEFFECT extends Win32Struct {
     static sizeof => 80
 
     static packingSize => 8

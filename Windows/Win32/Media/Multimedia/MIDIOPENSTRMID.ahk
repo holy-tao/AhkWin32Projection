@@ -3,10 +3,8 @@
 
 /**
  * @namespace Windows.Win32.Media.Multimedia
- * @version v4.0.30319
  */
-class MIDIOPENSTRMID extends Win32Struct
-{
+class MIDIOPENSTRMID extends Win32Struct {
     static sizeof => 8
 
     static packingSize => 4

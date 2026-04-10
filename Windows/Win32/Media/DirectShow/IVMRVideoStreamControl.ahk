@@ -1,16 +1,15 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
-#Include ..\..\Graphics\DirectDraw\DDCOLORKEY.ahk
 #Include ..\..\System\Com\IUnknown.ahk
+#Include ..\..\Graphics\DirectDraw\DDCOLORKEY.ahk
 
 /**
  * The IVMRVideoStreamControl interface is implemented on each input pin of the Video Mixing Renderer Filter 7 (VMR-7).
  * @see https://learn.microsoft.com/windows/win32/api/strmif/nn-strmif-ivmrvideostreamcontrol
  * @namespace Windows.Win32.Media.DirectShow
- * @version v4.0.30319
  */
-class IVMRVideoStreamControl extends IUnknown{
+class IVMRVideoStreamControl extends IUnknown {
 
     static sizeof => A_PtrSize
     /**

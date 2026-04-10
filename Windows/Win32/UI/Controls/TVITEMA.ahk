@@ -1,5 +1,8 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
+#Include .\TVITEM_MASK.ahk
+#Include .\TREE_VIEW_ITEM_STATE_FLAGS.ahk
+#Include .\TVITEMEXW_CHILDREN.ahk
 
 /**
  * Specifies or receives attributes of a tree-view item. This structure is identical to the TV_ITEM structure, but it has been renamed to follow current naming conventions. New applications should use this structure. (ANSI)
@@ -8,18 +11,16 @@
  * > The commctrl.h header defines TVITEM as an alias which automatically selects the ANSI or Unicode version of this function based on the definition of the UNICODE preprocessor constant. Mixing usage of the encoding-neutral alias with code that not encoding-neutral can lead to mismatches that result in compilation or runtime errors. For more information, see [Conventions for Function Prototypes](/windows/win32/intl/conventions-for-function-prototypes).
  * @see https://learn.microsoft.com/windows/win32/api/commctrl/ns-commctrl-tvitema
  * @namespace Windows.Win32.UI.Controls
- * @version v4.0.30319
  * @charset ANSI
  */
-class TVITEMA extends Win32Struct
-{
+class TVITEMA extends Win32Struct {
     static sizeof => 56
 
     static packingSize => 8
 
     /**
      * Type: <b><a href="https://docs.microsoft.com/windows/desktop/WinProg/windows-data-types">UINT</a></b>
-     * @type {Integer}
+     * @type {TVITEM_MASK}
      */
     mask {
         get => NumGet(this, 0, "uint")
@@ -60,7 +61,7 @@ class TVITEMA extends Win32Struct
      * 
      * To set the state image index, use <a href="https://docs.microsoft.com/windows/desktop/api/commctrl/nf-commctrl-indextostateimagemask">INDEXTOSTATEIMAGEMASK</a>. This macro takes an index and sets bits 12 through 15 appropriately. To indicate that the item has no state image, set the index to zero. This convention means that image zero in the state image list cannot be used as a state image. To isolate bits 12 through 15 of the 
      * 						<b>state</b> member, use the <a href="https://docs.microsoft.com/windows/desktop/Controls/tree-view-control-item-states">TVIS_STATEIMAGEMASK</a> mask.
-     * @type {Integer}
+     * @type {TREE_VIEW_ITEM_STATE_FLAGS}
      */
     state {
         get => NumGet(this, 16, "uint")
@@ -76,7 +77,7 @@ class TVITEMA extends Win32Struct
      * 					<b>state</b> member. If you are setting an item's state, set the bits of the 
      * 					<b>stateMask</b> member to indicate the bits of the 
      * 					<b>state</b> member that you want to set. To set or retrieve an item's overlay image index, set the <a href="https://docs.microsoft.com/windows/desktop/Controls/tree-view-control-item-states">TVIS_OVERLAYMASK</a> bits. To set or retrieve an item's state image index, set the <a href="https://docs.microsoft.com/windows/desktop/Controls/tree-view-control-item-states">TVIS_STATEIMAGEMASK</a> bits.
-     * @type {Integer}
+     * @type {TREE_VIEW_ITEM_STATE_FLAGS}
      */
     stateMask {
         get => NumGet(this, 20, "uint")
@@ -130,7 +131,7 @@ class TVITEMA extends Win32Struct
 
     /**
      * Type: <b>int</b>
-     * @type {Integer}
+     * @type {TVITEMEXW_CHILDREN}
      */
     cChildren {
         get => NumGet(this, 44, "int")

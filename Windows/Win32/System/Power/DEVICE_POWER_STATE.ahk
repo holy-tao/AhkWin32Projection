@@ -3,9 +3,8 @@
 
 /**
  * @namespace Windows.Win32.System.Power
- * @version v4.0.30319
  */
-class DEVICE_POWER_STATE extends Win32Enum{
+class DEVICE_POWER_STATE extends Win32Enum {
 
     /**
      * @type {Integer (Int32)}

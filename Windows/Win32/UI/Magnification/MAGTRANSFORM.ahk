@@ -15,10 +15,8 @@
  * where <i>n</i> is the magnification factor.
  * @see https://learn.microsoft.com/windows/win32/api/magnification/ns-magnification-magtransform
  * @namespace Windows.Win32.UI.Magnification
- * @version v4.0.30319
  */
-class MAGTRANSFORM extends Win32Struct
-{
+class MAGTRANSFORM extends Win32Struct {
     static sizeof => 36
 
     static packingSize => 4
@@ -27,9 +25,9 @@ class MAGTRANSFORM extends Win32Struct
      * Type: <b>float[3]</b>
      * 
      * The transformation matrix.
-     * @type {Array<Single>}
+     * @type {Array<Float>}
      */
-    v{
+    v {
         get {
             if(!this.HasProp("__vProxyArray"))
                 this.__vProxyArray := Win32FixedArray(this.ptr + 0, 9, Primitive, "float")

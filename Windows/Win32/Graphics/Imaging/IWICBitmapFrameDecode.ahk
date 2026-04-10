@@ -1,16 +1,15 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
-#Include .\IWICMetadataQueryReader.ahk
 #Include .\IWICBitmapSource.ahk
+#Include .\IWICMetadataQueryReader.ahk
 
 /**
  * Defines methods for decoding individual image frames of an encoded file.
  * @see https://learn.microsoft.com/windows/win32/api/wincodec/nn-wincodec-iwicbitmapframedecode
  * @namespace Windows.Win32.Graphics.Imaging
- * @version v4.0.30319
  */
-class IWICBitmapFrameDecode extends IWICBitmapSource{
+class IWICBitmapFrameDecode extends IWICBitmapSource {
 
     static sizeof => A_PtrSize
     /**

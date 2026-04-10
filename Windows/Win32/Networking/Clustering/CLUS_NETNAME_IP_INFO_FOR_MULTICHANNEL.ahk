@@ -6,13 +6,11 @@
  * Represents IP information for a NetName resource that has Multichannel enabled.
  * @see https://learn.microsoft.com/windows/win32/api/clusapi/ns-clusapi-clus_netname_ip_info_for_multichannel
  * @namespace Windows.Win32.Networking.Clustering
- * @version v4.0.30319
  */
-class CLUS_NETNAME_IP_INFO_FOR_MULTICHANNEL extends Win32Struct
-{
+class CLUS_NETNAME_IP_INFO_FOR_MULTICHANNEL extends Win32Struct {
     static sizeof => 144
 
-    static packingSize => 8
+    static packingSize => 4
 
     /**
      * An array of wide characters that specifies the name of the resource.
@@ -34,12 +32,12 @@ class CLUS_NETNAME_IP_INFO_FOR_MULTICHANNEL extends Win32Struct
 
     /**
      * An array of <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/clusapi/ns-clusapi-clus_netname_ip_info_entry">CLUS_NETNAME_IP_INFO_ENTRY</a> structures that specify the IP info for each channel.
-     * @type {Array<CLUS_NETNAME_IP_INFO_ENTRY>}
+     * @type {CLUS_NETNAME_IP_INFO_ENTRY}
      */
-    IpInfo{
+    IpInfo {
         get {
             if(!this.HasProp("__IpInfoProxyArray"))
-                this.__IpInfoProxyArray := Win32FixedArray(this.ptr + 136, 1, CLUS_NETNAME_IP_INFO_ENTRY, "")
+                this.__IpInfoProxyArray := Win32FixedArray(this.ptr + 132, 1, CLUS_NETNAME_IP_INFO_ENTRY, "")
             return this.__IpInfoProxyArray
         }
     }

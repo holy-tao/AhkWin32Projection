@@ -5,9 +5,8 @@
 
 /**
  * @namespace Windows.Win32.Graphics.Imaging
- * @version v4.0.30319
  */
-class IWICBitmapToneMapper extends IWICBitmapSource{
+class IWICBitmapToneMapper extends IWICBitmapSource {
 
     static sizeof => A_PtrSize
     /**
@@ -34,7 +33,7 @@ class IWICBitmapToneMapper extends IWICBitmapSource{
      * @param {Pointer<Guid>} guidDstFormat 
      * @param {Float} fLuminanceInNits 
      * @param {Float} fWhiteLevelInNits 
-     * @param {Integer} _mode 
+     * @param {WICBitmapToneMappingMode} _mode 
      * @returns {HRESULT} 
      */
     InitializeForHdrTarget(pISource, guidDstFormat, fLuminanceInNits, fWhiteLevelInNits, _mode) {
@@ -46,7 +45,7 @@ class IWICBitmapToneMapper extends IWICBitmapSource{
      * 
      * @param {IWICBitmapSource} pISource 
      * @param {Pointer<Guid>} guidDstFormat 
-     * @param {Integer} _mode 
+     * @param {WICBitmapToneMappingMode} _mode 
      * @returns {HRESULT} 
      */
     InitializeForSdrTarget(pISource, guidDstFormat, _mode) {

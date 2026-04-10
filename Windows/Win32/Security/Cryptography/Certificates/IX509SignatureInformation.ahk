@@ -1,17 +1,16 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\..\Guid.ahk
-#Include ..\..\..\Foundation\BSTR.ahk
-#Include .\IObjectId.ahk
 #Include ..\..\..\System\Com\IDispatch.ahk
+#Include .\IObjectId.ahk
+#Include ..\..\..\Foundation\BSTR.ahk
 
 /**
  * Represents information used to sign a certificate request.
  * @see https://learn.microsoft.com/windows/win32/api/certenroll/nn-certenroll-ix509signatureinformation
  * @namespace Windows.Win32.Security.Cryptography.Certificates
- * @version v4.0.30319
  */
-class IX509SignatureInformation extends IDispatch{
+class IX509SignatureInformation extends IDispatch {
 
     static sizeof => A_PtrSize
     /**
@@ -196,7 +195,7 @@ class IX509SignatureInformation extends IDispatch{
      * <li>XCN_OID_ECDSA_SHA384 (1.2.840.10045.4.3.3)</li>
      * <li>XCN_OID_ECDSA_SHA512 (1.2.840.10045.4.3.4)</li>
      * </ul>
-     * @param {Integer} Encoding 
+     * @param {EncodingType} Encoding 
      * @returns {BSTR} 
      * @see https://learn.microsoft.com/windows/win32/api/certenroll/nf-certenroll-ix509signatureinformation-get_parameters
      */
@@ -273,7 +272,7 @@ class IX509SignatureInformation extends IDispatch{
      * <li>XCN_OID_ECDSA_SHA384 (1.2.840.10045.4.3.3)</li>
      * <li>XCN_OID_ECDSA_SHA512 (1.2.840.10045.4.3.4)</li>
      * </ul>
-     * @param {Integer} Encoding 
+     * @param {EncodingType} Encoding 
      * @param {BSTR} Value 
      * @returns {HRESULT} 
      * @see https://learn.microsoft.com/windows/win32/api/certenroll/nf-certenroll-ix509signatureinformation-put_parameters

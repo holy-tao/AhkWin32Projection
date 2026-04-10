@@ -1,5 +1,7 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
+#Include .\DXGI_INFO_QUEUE_MESSAGE_CATEGORY.ahk
+#Include .\DXGI_INFO_QUEUE_MESSAGE_SEVERITY.ahk
 
 /**
  * Describes the types of messages to allow or deny to pass through a filter.
@@ -9,10 +11,8 @@
  * This API requires the Windows Software Development Kit (SDK) for Windows 8.
  * @see https://learn.microsoft.com/windows/win32/api/dxgidebug/ns-dxgidebug-dxgi_info_queue_filter_desc
  * @namespace Windows.Win32.Graphics.Dxgi
- * @version v4.0.30319
  */
-class DXGI_INFO_QUEUE_FILTER_DESC extends Win32Struct
-{
+class DXGI_INFO_QUEUE_FILTER_DESC extends Win32Struct {
     static sizeof => 48
 
     static packingSize => 8
@@ -28,7 +28,7 @@ class DXGI_INFO_QUEUE_FILTER_DESC extends Win32Struct
 
     /**
      * An array of <a href="https://docs.microsoft.com/windows/desktop/api/dxgidebug/ne-dxgidebug-dxgi_info_queue_message_category">DXGI_INFO_QUEUE_MESSAGE_CATEGORY</a> enumeration values that describe the message categories to allow or deny. The array must have at least <b>NumCategories</b> number of elements.
-     * @type {Pointer<Integer>}
+     * @type {Pointer<DXGI_INFO_QUEUE_MESSAGE_CATEGORY>}
      */
     pCategoryList {
         get => NumGet(this, 8, "ptr")
@@ -46,7 +46,7 @@ class DXGI_INFO_QUEUE_FILTER_DESC extends Win32Struct
 
     /**
      * An array of <a href="https://docs.microsoft.com/windows/desktop/api/dxgidebug/ne-dxgidebug-dxgi_info_queue_message_severity">DXGI_INFO_QUEUE_MESSAGE_SEVERITY</a> enumeration values that describe the message severity levels to allow or deny. The array must have at least <b>NumSeverities</b> number of elements.
-     * @type {Pointer<Integer>}
+     * @type {Pointer<DXGI_INFO_QUEUE_MESSAGE_SEVERITY>}
      */
     pSeverityList {
         get => NumGet(this, 24, "ptr")

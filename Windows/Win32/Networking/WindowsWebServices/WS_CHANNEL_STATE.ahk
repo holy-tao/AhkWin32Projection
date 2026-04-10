@@ -21,48 +21,40 @@
  *             For information on error codes, see<a href="https://docs.microsoft.com/windows/desktop/wsw/windows-web-services-return-values">Windows Web Services Return Values</a>.
  * @see https://learn.microsoft.com/windows/win32/api/webservices/ne-webservices-ws_channel_state
  * @namespace Windows.Win32.Networking.WindowsWebServices
- * @version v4.0.30319
  */
-class WS_CHANNEL_STATE extends Win32Enum{
+class WS_CHANNEL_STATE extends Win32Enum {
 
     /**
-     * 
      * @type {Integer (Int32)}
      */
     static WS_CHANNEL_STATE_CREATED => 0
 
     /**
-     * 
      * @type {Integer (Int32)}
      */
     static WS_CHANNEL_STATE_OPENING => 1
 
     /**
-     * 
      * @type {Integer (Int32)}
      */
     static WS_CHANNEL_STATE_ACCEPTING => 2
 
     /**
-     * 
      * @type {Integer (Int32)}
      */
     static WS_CHANNEL_STATE_OPEN => 3
 
     /**
-     * 
      * @type {Integer (Int32)}
      */
     static WS_CHANNEL_STATE_FAULTED => 4
 
     /**
-     * 
      * @type {Integer (Int32)}
      */
     static WS_CHANNEL_STATE_CLOSING => 5
 
     /**
-     * 
      * @type {Integer (Int32)}
      */
     static WS_CHANNEL_STATE_CLOSED => 6

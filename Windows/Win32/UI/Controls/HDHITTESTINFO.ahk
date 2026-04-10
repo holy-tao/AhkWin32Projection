@@ -1,15 +1,14 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
 #Include ..\..\Foundation\POINT.ahk
+#Include .\HEADER_HITTEST_INFO_FLAGS.ahk
 
 /**
  * Contains information about a hit test. This structure is used with the HDM_HITTEST message and it supersedes the HD_HITTESTINFO structure.
  * @see https://learn.microsoft.com/windows/win32/api/commctrl/ns-commctrl-hdhittestinfo
  * @namespace Windows.Win32.UI.Controls
- * @version v4.0.30319
  */
-class HDHITTESTINFO extends Win32Struct
-{
+class HDHITTESTINFO extends Win32Struct {
     static sizeof => 16
 
     static packingSize => 4
@@ -20,7 +19,7 @@ class HDHITTESTINFO extends Win32Struct
      * A <a href="https://docs.microsoft.com/windows/win32/api/windef/ns-windef-point">POINT</a> structure that contains the point to be hit test, in client coordinates.
      * @type {POINT}
      */
-    pt{
+    pt {
         get {
             if(!this.HasProp("__pt"))
                 this.__pt := POINT(0, this)
@@ -174,7 +173,7 @@ class HDHITTESTINFO extends Win32Struct
      * </td>
      * </tr>
      * </table>
-     * @type {Integer}
+     * @type {HEADER_HITTEST_INFO_FLAGS}
      */
     flags {
         get => NumGet(this, 8, "uint")

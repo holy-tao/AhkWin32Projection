@@ -3,9 +3,8 @@
 
 /**
  * @namespace Windows.Win32.Graphics.Gdi
- * @version v4.0.30319
  */
-class FONT_QUALITY extends Win32Enum{
+class FONT_QUALITY extends Win32Enum {
 
     /**
      * @type {Integer (Byte)}

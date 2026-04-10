@@ -4,10 +4,8 @@
 
 /**
  * @namespace Windows.Win32.Media.DirectShow
- * @version v4.0.30319
  */
-class AVITCDLINDEX_ENTRY extends Win32Struct
-{
+class AVITCDLINDEX_ENTRY extends Win32Struct {
     static sizeof => 48
 
     static packingSize => 8
@@ -23,7 +21,7 @@ class AVITCDLINDEX_ENTRY extends Win32Struct
     /**
      * @type {TIMECODE}
      */
-    time{
+    time {
         get {
             if(!this.HasProp("__time"))
                 this.__time := TIMECODE(8, this)
@@ -48,9 +46,9 @@ class AVITCDLINDEX_ENTRY extends Win32Struct
     }
 
     /**
-     * @type {Array<SByte>}
+     * @type {Array<Integer>}
      */
-    szReelId{
+    szReelId {
         get {
             if(!this.HasProp("__szReelIdProxyArray"))
                 this.__szReelIdProxyArray := Win32FixedArray(this.ptr + 32, 12, Primitive, "char")

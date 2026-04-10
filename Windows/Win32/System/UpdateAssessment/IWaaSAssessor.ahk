@@ -1,8 +1,8 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
-#Include .\OSUpdateAssessment.ahk
 #Include ..\Com\IUnknown.ahk
+#Include .\OSUpdateAssessment.ahk
 
 /**
  * Gets the OS update assessment by comparing the latest build from Microsoft against the build running on the current device.
@@ -12,9 +12,8 @@
  * Your code must have administrator privileges to use the <b>IWaaSAssessor</b> interface. For more details about developing applications that require administrator privileges, see [this article](/windows/win32/secauthz/developing-applications-that-require-administrator-privilege).
  * @see https://learn.microsoft.com/windows/win32/api/waasapi/nn-waasapi-iwaasassessor
  * @namespace Windows.Win32.System.UpdateAssessment
- * @version v4.0.30319
  */
-class IWaaSAssessor extends IUnknown{
+class IWaaSAssessor extends IUnknown {
 
     static sizeof => A_PtrSize
     /**

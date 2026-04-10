@@ -1,9 +1,14 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
-#Include Common\DXGI_RATIONAL.ahk
 #Include Common\DXGI_MODE_DESC.ahk
+#Include Common\DXGI_RATIONAL.ahk
+#Include Common\DXGI_FORMAT.ahk
+#Include Common\DXGI_MODE_SCANLINE_ORDER.ahk
+#Include Common\DXGI_MODE_SCALING.ahk
 #Include Common\DXGI_SAMPLE_DESC.ahk
+#Include .\DXGI_USAGE.ahk
 #Include ..\..\Foundation\HWND.ahk
+#Include .\DXGI_SWAP_EFFECT.ahk
 
 /**
  * Describes a swap chain. (DXGI_SWAP_CHAIN_DESC)
@@ -19,10 +24,8 @@
  *       see <a href="https://docs.microsoft.com/windows/desktop/direct3ddxgi/d3d10-graphics-programming-guide-dxgi">Full-Screen Application Performance Hints</a>.
  * @see https://learn.microsoft.com/windows/win32/api/dxgi/ns-dxgi-dxgi_swap_chain_desc
  * @namespace Windows.Win32.Graphics.Dxgi
- * @version v4.0.30319
  */
-class DXGI_SWAP_CHAIN_DESC extends Win32Struct
-{
+class DXGI_SWAP_CHAIN_DESC extends Win32Struct {
     static sizeof => 72
 
     static packingSize => 8
@@ -33,7 +36,7 @@ class DXGI_SWAP_CHAIN_DESC extends Win32Struct
      * A <a href="https://docs.microsoft.com/previous-versions/windows/desktop/legacy/bb173064(v=vs.85)">DXGI_MODE_DESC</a> structure that describes the backbuffer display mode.
      * @type {DXGI_MODE_DESC}
      */
-    BufferDesc{
+    BufferDesc {
         get {
             if(!this.HasProp("__BufferDesc"))
                 this.__BufferDesc := DXGI_MODE_DESC(0, this)
@@ -47,7 +50,7 @@ class DXGI_SWAP_CHAIN_DESC extends Win32Struct
      * A <a href="https://docs.microsoft.com/windows/desktop/api/dxgicommon/ns-dxgicommon-dxgi_sample_desc">DXGI_SAMPLE_DESC</a> structure that describes multi-sampling parameters.
      * @type {DXGI_SAMPLE_DESC}
      */
-    SampleDesc{
+    SampleDesc {
         get {
             if(!this.HasProp("__SampleDesc"))
                 this.__SampleDesc := DXGI_SAMPLE_DESC(28, this)
@@ -60,7 +63,7 @@ class DXGI_SWAP_CHAIN_DESC extends Win32Struct
      * 
      * A member of the <a href="https://docs.microsoft.com/windows/desktop/direct3ddxgi/dxgi-usage">DXGI_USAGE</a> enumerated type that describes the surface usage and CPU access options for the back buffer. The back buffer can 
      *         be used for shader input or render-target output.
-     * @type {Integer}
+     * @type {DXGI_USAGE}
      */
     BufferUsage {
         get => NumGet(this, 36, "uint")
@@ -84,7 +87,7 @@ class DXGI_SWAP_CHAIN_DESC extends Win32Struct
      * An <a href="https://docs.microsoft.com/windows/desktop/WinProg/windows-data-types">HWND</a> handle to the output window. This member must not be <b>NULL</b>.
      * @type {HWND}
      */
-    OutputWindow{
+    OutputWindow {
         get {
             if(!this.HasProp("__OutputWindow"))
                 this.__OutputWindow := HWND(48, this)
@@ -112,7 +115,7 @@ class DXGI_SWAP_CHAIN_DESC extends Win32Struct
      * 
      * A member of the <a href="https://docs.microsoft.com/windows/desktop/api/dxgi/ne-dxgi-dxgi_swap_effect">DXGI_SWAP_EFFECT</a> enumerated type that describes options for handling the contents of the presentation buffer after 
      *         presenting a surface.
-     * @type {Integer}
+     * @type {DXGI_SWAP_EFFECT}
      */
     SwapEffect {
         get => NumGet(this, 60, "int")

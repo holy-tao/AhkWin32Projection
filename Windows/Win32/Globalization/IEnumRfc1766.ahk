@@ -5,9 +5,8 @@
 
 /**
  * @namespace Windows.Win32.Globalization
- * @version v4.0.30319
  */
-class IEnumRfc1766 extends IUnknown{
+class IEnumRfc1766 extends IUnknown {
 
     static sizeof => A_PtrSize
     /**

@@ -5,9 +5,8 @@
 
 /**
  * @namespace Windows.Win32.Web.InternetExplorer
- * @version v4.0.30319
  */
-class IUrlHistoryStg2 extends IUrlHistoryStg{
+class IUrlHistoryStg2 extends IUrlHistoryStg {
 
     static sizeof => A_PtrSize
     /**

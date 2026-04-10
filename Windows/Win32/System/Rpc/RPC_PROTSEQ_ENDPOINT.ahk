@@ -3,10 +3,8 @@
 
 /**
  * @namespace Windows.Win32.System.Rpc
- * @version v4.0.30319
  */
-class RPC_PROTSEQ_ENDPOINT extends Win32Struct
-{
+class RPC_PROTSEQ_ENDPOINT extends Win32Struct {
     static sizeof => 16
 
     static packingSize => 8

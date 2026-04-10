@@ -7,9 +7,8 @@
  * The ITfTextInputProcessorEx interface is implemented by a text service and used by the TSF manager to activate and deactivate the text service.
  * @see https://learn.microsoft.com/windows/win32/api/msctf/nn-msctf-itftextinputprocessorex
  * @namespace Windows.Win32.UI.TextServices
- * @version v4.0.30319
  */
-class ITfTextInputProcessorEx extends ITfTextInputProcessor{
+class ITfTextInputProcessorEx extends ITfTextInputProcessor {
 
     static sizeof => A_PtrSize
     /**

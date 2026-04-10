@@ -1,14 +1,15 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
+#Include .\FUNCDESC.ahk
+#Include .\VARDESC.ahk
+#Include .\ITypeComp.ahk
 
 /**
  * Describes a pointer.
  * @see https://learn.microsoft.com/windows/win32/api/oaidl/ns-oaidl-bindptr
  * @namespace Windows.Win32.System.Com
- * @version v4.0.30319
  */
-class BINDPTR extends Win32Struct
-{
+class BINDPTR extends Win32Struct {
     static sizeof => 24
 
     static packingSize => 8

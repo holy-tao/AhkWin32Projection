@@ -9,10 +9,8 @@
  * This structure is used to configure monitors on multi-monitor systems.
  * @see https://learn.microsoft.com/windows/win32/api/vmr9/ns-vmr9-vmr9monitorinfo
  * @namespace Windows.Win32.Media.DirectShow
- * @version v4.0.30319
  */
-class VMR9MonitorInfo extends Win32Struct
-{
+class VMR9MonitorInfo extends Win32Struct {
     static sizeof => 1152
 
     static packingSize => 8
@@ -30,7 +28,7 @@ class VMR9MonitorInfo extends Win32Struct
      * Specifies the monitor's rectangle.
      * @type {RECT}
      */
-    rcMonitor{
+    rcMonitor {
         get {
             if(!this.HasProp("__rcMonitor"))
                 this.__rcMonitor := RECT(4, this)
@@ -42,7 +40,7 @@ class VMR9MonitorInfo extends Win32Struct
      * Handle to the monitor.
      * @type {HMONITOR}
      */
-    hMon{
+    hMon {
         get {
             if(!this.HasProp("__hMon"))
                 this.__hMon := HMONITOR(24, this)

@@ -1,9 +1,10 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
-#Include ..\..\Foundation\BSTR.ahk
-#Include .\IValueMap.ahk
 #Include ..\Com\IDispatch.ahk
+#Include ..\..\Foundation\BSTR.ahk
+#Include ..\..\..\..\Guid.ahk
+#Include .\IValueMap.ahk
 
 /**
  * Specifies a trace provider to enable in the trace session.
@@ -13,9 +14,8 @@
  * Do not use the <b>CoCreateInstance</b> function if you are going to add the interface to the <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/pla/nn-pla-itracedataprovidercollection">ITraceDataProviderCollection</a> collection.
  * @see https://learn.microsoft.com/windows/win32/api/pla/nn-pla-itracedataprovider
  * @namespace Windows.Win32.System.Performance
- * @version v4.0.30319
  */
-class ITraceDataProvider extends IDispatch{
+class ITraceDataProvider extends IDispatch {
 
     static sizeof => A_PtrSize
     /**

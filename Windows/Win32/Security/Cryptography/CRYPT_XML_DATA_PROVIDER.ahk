@@ -5,10 +5,8 @@
  * Specifies the interface to the XML data provider.
  * @see https://learn.microsoft.com/windows/win32/api/cryptxml/ns-cryptxml-crypt_xml_data_provider
  * @namespace Windows.Win32.Security.Cryptography
- * @version v4.0.30319
  */
-class CRYPT_XML_DATA_PROVIDER extends Win32Struct
-{
+class CRYPT_XML_DATA_PROVIDER extends Win32Struct {
     static sizeof => 32
 
     static packingSize => 8

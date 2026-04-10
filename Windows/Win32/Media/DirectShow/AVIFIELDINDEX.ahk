@@ -3,10 +3,8 @@
 
 /**
  * @namespace Windows.Win32.Media.DirectShow
- * @version v4.0.30319
  */
-class AVIFIELDINDEX extends Win32Struct
-{
+class AVIFIELDINDEX extends Win32Struct {
     static sizeof => 48
 
     static packingSize => 8
@@ -22,7 +20,7 @@ class AVIFIELDINDEX extends Win32Struct
             get => NumGet(this, 0, "uint")
             set => NumPut("uint", value, this, 0)
         }
-    
+
         /**
          * @type {Integer}
          */
@@ -30,7 +28,7 @@ class AVIFIELDINDEX extends Win32Struct
             get => NumGet(this, 4, "uint")
             set => NumPut("uint", value, this, 4)
         }
-    
+
         /**
          * @type {Integer}
          */
@@ -38,7 +36,6 @@ class AVIFIELDINDEX extends Win32Struct
             get => NumGet(this, 8, "uint")
             set => NumPut("uint", value, this, 8)
         }
-    
     }
 
     /**
@@ -114,12 +111,12 @@ class AVIFIELDINDEX extends Win32Struct
     }
 
     /**
-     * @type {Array<_avifieldindex_entry>}
+     * @type {_avifieldindex_entry}
      */
-    aIndex{
+    aIndex {
         get {
             if(!this.HasProp("__aIndexProxyArray"))
-                this.__aIndexProxyArray := Win32FixedArray(this.ptr + 40, 1, %this.__Class%._avifieldindex_entry, "")
+                this.__aIndexProxyArray := Win32FixedArray(this.ptr + 36, 1, AVIFIELDINDEX._avifieldindex_entry, "")
             return this.__aIndexProxyArray
         }
     }

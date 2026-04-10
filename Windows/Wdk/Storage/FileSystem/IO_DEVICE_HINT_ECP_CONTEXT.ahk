@@ -1,14 +1,12 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
-#Include ..\..\..\Win32\Foundation\UNICODE_STRING.ahk
+#Include ..\..\Foundation\DEVICE_OBJECT.ahk
 
 /**
  * @namespace Windows.Wdk.Storage.FileSystem
- * @version v4.0.30319
  */
-class IO_DEVICE_HINT_ECP_CONTEXT extends Win32Struct
-{
-    static sizeof => 24
+class IO_DEVICE_HINT_ECP_CONTEXT extends Win32Struct {
+    static sizeof => 16
 
     static packingSize => 8
 
@@ -21,13 +19,10 @@ class IO_DEVICE_HINT_ECP_CONTEXT extends Win32Struct
     }
 
     /**
-     * @type {UNICODE_STRING}
+     * @type {Pointer}
      */
-    RemainingName{
-        get {
-            if(!this.HasProp("__RemainingName"))
-                this.__RemainingName := UNICODE_STRING(8, this)
-            return this.__RemainingName
-        }
+    RemainingName {
+        get => NumGet(this, 8, "ptr")
+        set => NumPut("ptr", value, this, 8)
     }
 }

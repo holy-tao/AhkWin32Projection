@@ -1,15 +1,15 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\Win32Struct.ahk
+#Include .\SID_AND_ATTRIBUTES.ahk
+#Include .\LUID_AND_ATTRIBUTES.ahk
 #Include ..\Foundation\LUID.ahk
 
 /**
  * Contains information about the group security identifiers (SIDs) and privileges in an access token.
  * @see https://learn.microsoft.com/windows/win32/api/winnt/ns-winnt-token_groups_and_privileges
  * @namespace Windows.Win32.Security
- * @version v4.0.30319
  */
-class TOKEN_GROUPS_AND_PRIVILEGES extends Win32Struct
-{
+class TOKEN_GROUPS_AND_PRIVILEGES extends Win32Struct {
     static sizeof => 56
 
     static packingSize => 8
@@ -231,7 +231,7 @@ class TOKEN_GROUPS_AND_PRIVILEGES extends Win32Struct
      * <a href="https://docs.microsoft.com/windows/desktop/SecGloss/l-gly">Locally unique identifier</a> (LUID) of the authenticator of the token.
      * @type {LUID}
      */
-    AuthenticationId{
+    AuthenticationId {
         get {
             if(!this.HasProp("__AuthenticationId"))
                 this.__AuthenticationId := LUID(48, this)

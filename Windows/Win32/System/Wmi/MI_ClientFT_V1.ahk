@@ -1,14 +1,22 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
+#Include .\MI_ApplicationFT.ahk
+#Include .\MI_SessionFT.ahk
+#Include .\MI_OperationFT.ahk
+#Include .\MI_HostedProviderFT.ahk
+#Include .\MI_SerializerFT.ahk
+#Include .\MI_DeserializerFT.ahk
+#Include .\MI_SubscriptionDeliveryOptionsFT.ahk
+#Include .\MI_DestinationOptionsFT.ahk
+#Include .\MI_OperationOptionsFT.ahk
+#Include .\MI_UtilitiesFT.ahk
 
 /**
  * Client function tables.
  * @see https://learn.microsoft.com/windows/win32/api/mi/ns-mi-mi_clientft_v1
  * @namespace Windows.Win32.System.Wmi
- * @version v4.0.30319
  */
-class MI_ClientFT_V1 extends Win32Struct
-{
+class MI_ClientFT_V1 extends Win32Struct {
     static sizeof => 80
 
     static packingSize => 8

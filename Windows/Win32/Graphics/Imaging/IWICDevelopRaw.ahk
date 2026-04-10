@@ -1,16 +1,15 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
-#Include ..\..\System\Com\StructuredStorage\IPropertyBag2.ahk
 #Include .\IWICBitmapFrameDecode.ahk
+#Include ..\..\System\Com\StructuredStorage\IPropertyBag2.ahk
 
 /**
  * Exposes methods that provide access to the capabilities of a raw codec format.
  * @see https://learn.microsoft.com/windows/win32/api/wincodec/nn-wincodec-iwicdevelopraw
  * @namespace Windows.Win32.Graphics.Imaging
- * @version v4.0.30319
  */
-class IWICDevelopRaw extends IWICBitmapFrameDecode{
+class IWICDevelopRaw extends IWICBitmapFrameDecode {
 
     static sizeof => A_PtrSize
     /**
@@ -50,7 +49,7 @@ class IWICDevelopRaw extends IWICBitmapFrameDecode{
 
     /**
      * Sets the desired WICRawParameterSet option.
-     * @param {Integer} ParameterSet Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/wincodec/ne-wincodec-wicrawparameterset">WICRawParameterSet</a></b>
+     * @param {WICRawParameterSet} ParameterSet Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/wincodec/ne-wincodec-wicrawparameterset">WICRawParameterSet</a></b>
      * 
      * The desired <a href="https://docs.microsoft.com/windows/desktop/api/wincodec/ne-wincodec-wicrawparameterset">WICRawParameterSet</a> option.
      * @returns {HRESULT} Type: <b>HRESULT</b>
@@ -162,7 +161,7 @@ class IWICDevelopRaw extends IWICBitmapFrameDecode{
      * If the raw file contains named white points not supported by this API, the codec implementer should support the named white points in the API.
      * 
      * Due to other white point setting methods (e.g. <a href="https://docs.microsoft.com/windows/desktop/api/wincodec/nf-wincodec-iwicdevelopraw-setwhitepointkelvin">SetWhitePointKelvin</a>), care must be taken by codec implementers to ensure proper interoperability. For instance, if the caller sets via a named white point then the codec implementer may wish to disable reading back the corresponding Kelvin temperature. In specific cases where the codec implementer wishes to deny a given action because of previous calls, <b>WINCODEC_ERR_WRONGSTATE</b> should be returned.
-     * @param {Integer} WhitePoint Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/wincodec/ne-wincodec-wicnamedwhitepoint">WICNamedWhitePoint</a></b>
+     * @param {WICNamedWhitePoint} WhitePoint Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/wincodec/ne-wincodec-wicnamedwhitepoint">WICNamedWhitePoint</a></b>
      * 
      * A bitwise combination of the enumeration values.
      * @returns {HRESULT} Type: <b>HRESULT</b>
@@ -183,7 +182,7 @@ class IWICDevelopRaw extends IWICBitmapFrameDecode{
      * If the named white points are not supported by the raw image, a best effort should be made to adjust the image to the named white point even when it isn't a pre-defined white point of the raw file.
      * 
      * If the raw file contains named white points not supported by this API, the codec implementer should support the named white points in <a href="https://docs.microsoft.com/windows/desktop/api/wincodec/ne-wincodec-wicnamedwhitepoint">WICNamedWhitePoint</a>.
-     * @returns {Integer} Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/wincodec/ne-wincodec-wicnamedwhitepoint">WICNamedWhitePoint</a>*</b>
+     * @returns {WICNamedWhitePoint} Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/wincodec/ne-wincodec-wicnamedwhitepoint">WICNamedWhitePoint</a>*</b>
      * 
      * A pointer that receives the bitwise combination of the enumeration values.
      * @see https://learn.microsoft.com/windows/win32/api/wincodec/nf-wincodec-iwicdevelopraw-getnamedwhitepoint
@@ -369,7 +368,9 @@ class IWICDevelopRaw extends IWICBitmapFrameDecode{
      * Sets the tint value of the raw image.
      * @remarks
      * The codec implementer must determine what the outer range values represent and must determine how to map the values to their image processing routines.
-     * @param {Float} _Tint 
+     * @param {Float} _Tint Type: <b>double</b>
+     * 
+     * The tint value of the raw image. The default value is the "as-shot" setting if it exists or 0.0. The value range for sharpness is -1.0 through +1.0. The -1.0 lower limit represents a full green bias to the image, while the 1.0 upper limit represents a full magenta bias.
      * @returns {HRESULT} Type: <b>HRESULT</b>
      * 
      * If this method succeeds, it returns <b>S_OK</b>. Otherwise, it returns an <b>HRESULT</b> error code.
@@ -441,7 +442,7 @@ class IWICDevelopRaw extends IWICBitmapFrameDecode{
      * @param {Integer} cbToneCurveSize Type: <b>UINT</b>
      * 
      * The size of the <i>pToneCurve</i> structure.
-     * @param {Pointer} pToneCurve Type: <b>const <a href="https://docs.microsoft.com/windows/desktop/api/wincodec/ns-wincodec-wicrawtonecurve">WICRawToneCurve</a>*</b>
+     * @param {Integer} pToneCurve Type: <b>const <a href="https://docs.microsoft.com/windows/desktop/api/wincodec/ns-wincodec-wicrawtonecurve">WICRawToneCurve</a>*</b>
      * 
      * The desired tone curve.
      * @returns {HRESULT} Type: <b>HRESULT</b>
@@ -459,7 +460,7 @@ class IWICDevelopRaw extends IWICBitmapFrameDecode{
      * @param {Integer} cbToneCurveBufferSize Type: <b>UINT</b>
      * 
      * The size of the <i>pToneCurve</i> buffer.
-     * @param {Pointer} pToneCurve Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/wincodec/ns-wincodec-wicrawtonecurve">WICRawToneCurve</a>*</b>
+     * @param {Integer} pToneCurve Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/wincodec/ns-wincodec-wicrawtonecurve">WICRawToneCurve</a>*</b>
      * 
      * A pointer that receives the <a href="https://docs.microsoft.com/windows/desktop/api/wincodec/ns-wincodec-wicrawtonecurve">WICRawToneCurve</a> of the raw image.
      * @param {Pointer<Integer>} pcbActualToneCurveBufferSize Type: <b>UINT*</b>
@@ -506,7 +507,7 @@ class IWICDevelopRaw extends IWICBitmapFrameDecode{
 
     /**
      * Sets the current WICRawRenderMode.
-     * @param {Integer} RenderMode Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/wincodec/ne-wincodec-wicrawrendermode">WICRawRenderMode</a></b>
+     * @param {WICRawRenderMode} RenderMode Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/wincodec/ne-wincodec-wicrawrendermode">WICRawRenderMode</a></b>
      * 
      * The render mode to use.
      * @returns {HRESULT} Type: <b>HRESULT</b>
@@ -521,7 +522,7 @@ class IWICDevelopRaw extends IWICBitmapFrameDecode{
 
     /**
      * Gets the current WICRawRenderMode.
-     * @returns {Integer} Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/wincodec/ne-wincodec-wicrawrendermode">WICRawRenderMode</a>*</b>
+     * @returns {WICRawRenderMode} Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/wincodec/ne-wincodec-wicrawrendermode">WICRawRenderMode</a>*</b>
      * 
      * A pointer that receives the current <a href="https://docs.microsoft.com/windows/desktop/api/wincodec/ne-wincodec-wicrawrendermode">WICRawRenderMode</a>.
      * @see https://learn.microsoft.com/windows/win32/api/wincodec/nf-wincodec-iwicdevelopraw-getrendermode

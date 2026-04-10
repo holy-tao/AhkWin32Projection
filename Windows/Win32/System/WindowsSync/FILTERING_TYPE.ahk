@@ -10,9 +10,8 @@
  * <div> </div>
  * @see https://learn.microsoft.com/windows/win32/api/winsync/ne-winsync-filtering_type
  * @namespace Windows.Win32.System.WindowsSync
- * @version v4.0.30319
  */
-class FILTERING_TYPE extends Win32Enum{
+class FILTERING_TYPE extends Win32Enum {
 
     /**
      * The change batch includes data and metadata for items that are currently in the filter.
@@ -21,7 +20,6 @@ class FILTERING_TYPE extends Win32Enum{
     static FT_CURRENT_ITEMS_ONLY => 0
 
     /**
-     * 
      * @type {Integer (Int32)}
      */
     static FT_CURRENT_ITEMS_AND_VERSIONS_FOR_MOVED_OUT_ITEMS => 1

@@ -15,9 +15,8 @@
  * </ul>
  * @see https://learn.microsoft.com/windows/win32/api/shobjidl_core/ne-shobjidl_core-libraryfolderfilter
  * @namespace Windows.Win32.UI.Shell
- * @version v4.0.30319
  */
-class LIBRARYFOLDERFILTER extends Win32Enum{
+class LIBRARYFOLDERFILTER extends Win32Enum {
 
     /**
      * Return only file system items.

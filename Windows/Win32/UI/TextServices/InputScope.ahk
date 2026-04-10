@@ -7,9 +7,8 @@
  * Whether a given input scope value is supported can vary across technologies.
  * @see https://learn.microsoft.com/windows/win32/api/inputscope/ne-inputscope-inputscope
  * @namespace Windows.Win32.UI.TextServices
- * @version v4.0.30319
  */
-class InputScope extends Win32Enum{
+class InputScope extends Win32Enum {
 
     /**
      * Indicates the standard recognition bias. Treated as default and uses the default lexicon. If combined with another input scope, it does not force coercion on the other input scope.

@@ -1,5 +1,8 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
+#Include .\VDS_RAID_TYPE.ahk
+#Include .\VDS_STORAGE_BUS_TYPE.ahk
+#Include .\VDS_POOL_CUSTOM_ATTRIBUTES.ahk
 
 /**
  * The VDS_POOL_ATTRIBUTES structure (vdshwprv.h) defines the attributes of a storage pool.
@@ -7,10 +10,8 @@
  * If an attribute is set for a storage pool, that attribute setting must apply to all drive extents that make up the pool.
  * @see https://learn.microsoft.com/windows/win32/api/vdshwprv/ns-vdshwprv-vds_pool_attributes
  * @namespace Windows.Win32.Storage.VirtualDiskService
- * @version v4.0.30319
  */
-class VDS_POOL_ATTRIBUTES extends Win32Struct
-{
+class VDS_POOL_ATTRIBUTES extends Win32Struct {
     static sizeof => 176
 
     static packingSize => 8
@@ -346,7 +347,7 @@ class VDS_POOL_ATTRIBUTES extends Win32Struct
 
     /**
      * A  <a href="https://docs.microsoft.com/windows/desktop/api/vdshwprv/ne-vdshwprv-vds_raid_type">VDS_RAID_TYPE</a> enumeration value that specifies the RAID type of the storage pool. If the storage pool does not have a specific RAID type, set this member to <b>VDS_RT_UNKNOWN</b> and  clear the <b>VDS_POOL_ATTRIB_RAIDTYPE</b> attribute flag in the <b>ullAttributeMask</b> member.
-     * @type {Integer}
+     * @type {VDS_RAID_TYPE}
      */
     raidType {
         get => NumGet(this, 8, "int")
@@ -355,7 +356,7 @@ class VDS_POOL_ATTRIBUTES extends Win32Struct
 
     /**
      * A <a href="https://docs.microsoft.com/windows/desktop/api/vdslun/ne-vdslun-vds_storage_bus_type">VDS_STORAGE_BUS_TYPE</a> enumeration value that specifies the bus type of the drives in the storage pool.
-     * @type {Integer}
+     * @type {VDS_STORAGE_BUS_TYPE}
      */
     busType {
         get => NumGet(this, 12, "int")

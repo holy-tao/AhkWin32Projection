@@ -17,9 +17,8 @@
  * For a sample that demonstrates how to prioritize indexing events, see the [SearchEvents](https://github.com/microsoft/Windows-classic-samples/tree/master/Samples/Win7Samples/winui/WindowsSearch/SearchEvents) sample.
  * @see https://learn.microsoft.com/windows/win32/api/searchapi/nn-searchapi-irowsetprioritization
  * @namespace Windows.Win32.System.Search
- * @version v4.0.30319
  */
-class IRowsetPrioritization extends IUnknown{
+class IRowsetPrioritization extends IUnknown {
 
     static sizeof => A_PtrSize
     /**
@@ -44,7 +43,9 @@ class IRowsetPrioritization extends IUnknown{
      * Sets the current indexer prioritization level for the scope specified by this query.
      * @remarks
      * Check out the <a href="https://docs.microsoft.com/windows/win32/search/-search-sample-searchevents">SearchEvents code sample</a>.
-     * @param {Integer} _priority 
+     * @param {PRIORITY_LEVEL} _priority Type: <b><a href="https://docs.microsoft.com/windows/win32/api/searchapi/ne-searchapi-priority_level">PRIORITY_LEVEL</a></b>
+     * 
+     * Specifies the new indexer prioritization level to be set as the <a href="https://docs.microsoft.com/windows/win32/api/searchapi/ne-searchapi-priority_level">PRIORITY_LEVEL</a> enumeration.
      * @param {Integer} scopeStatisticsEventFrequency Type: <b>DWORD</b>
      * 
      * Specifies the occurrence interval of the scope statistics event when there are outstanding documents to be indexed within the query scopes.
@@ -62,7 +63,9 @@ class IRowsetPrioritization extends IUnknown{
      * Retrieves the current indexer prioritization level for the scope specified by this query.
      * @remarks
      * Check out the <a href="https://docs.microsoft.com/windows/win32/search/-search-sample-searchevents">SearchEvents code sample</a>.
-     * @param {Pointer<Integer>} _priority 
+     * @param {Pointer<PRIORITY_LEVEL>} _priority Type: <b><a href="https://docs.microsoft.com/windows/win32/api/searchapi/ne-searchapi-priority_level">PRIORITY_LEVEL</a>*</b>
+     * 
+     * The current indexer prioritization level as the <a href="https://docs.microsoft.com/windows/win32/api/searchapi/ne-searchapi-priority_level">PRIORITY_LEVEL</a> enumeration.
      * @param {Pointer<Integer>} scopeStatisticsEventFrequency Type: <b>DWORD*</b>
      * 
      * The occurrence interval of the scope statistics event when there are outstanding documents to be indexed within the query scopes.

@@ -1,8 +1,8 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
-#Include .\IContact.ahk
 #Include ..\Com\IUnknown.ahk
+#Include .\IContact.ahk
 
 /**
  * Do not use. Enumerates the contacts known by the IContactManager.
@@ -10,9 +10,8 @@
  * This interface does not support deletion of contacts during an enumeration. Adding or removing contacts by other means during an enumeration results in undefined behavior. Modifying contact properties during enumeration is allowed.
  * @see https://learn.microsoft.com/windows/win32/api/icontact/nn-icontact-icontactcollection
  * @namespace Windows.Win32.System.Contacts
- * @version v4.0.30319
  */
-class IContactCollection extends IUnknown{
+class IContactCollection extends IUnknown {
 
     static sizeof => A_PtrSize
     /**

@@ -12,10 +12,8 @@
  * The <b>hConvClient</b> and <b>hConvServer</b> members of the <b>MONCONVSTRUCT</b> structure do not hold the same value as would be seen by the applications engaged in the conversation. Instead, they hold a globally unique pair of values that identify the conversation.
  * @see https://learn.microsoft.com/windows/win32/api/ddeml/ns-ddeml-monconvstruct
  * @namespace Windows.Win32.System.DataExchange
- * @version v4.0.30319
  */
-class MONCONVSTRUCT extends Win32Struct
-{
+class MONCONVSTRUCT extends Win32Struct {
     static sizeof => 56
 
     static packingSize => 8
@@ -59,7 +57,7 @@ class MONCONVSTRUCT extends Win32Struct
      * A handle to a task (application instance) that is a partner in the conversation.
      * @type {HANDLE}
      */
-    hTask{
+    hTask {
         get {
             if(!this.HasProp("__hTask"))
                 this.__hTask := HANDLE(16, this)
@@ -73,7 +71,7 @@ class MONCONVSTRUCT extends Win32Struct
      * A handle to the service name on which the conversation is established.
      * @type {HSZ}
      */
-    hszSvc{
+    hszSvc {
         get {
             if(!this.HasProp("__hszSvc"))
                 this.__hszSvc := HSZ(24, this)
@@ -87,7 +85,7 @@ class MONCONVSTRUCT extends Win32Struct
      * A handle to the topic name on which the conversation is established.
      * @type {HSZ}
      */
-    hszTopic{
+    hszTopic {
         get {
             if(!this.HasProp("__hszTopic"))
                 this.__hszTopic := HSZ(32, this)
@@ -101,7 +99,7 @@ class MONCONVSTRUCT extends Win32Struct
      * A handle to the client conversation.
      * @type {HCONV}
      */
-    hConvClient{
+    hConvClient {
         get {
             if(!this.HasProp("__hConvClient"))
                 this.__hConvClient := HCONV(40, this)
@@ -115,7 +113,7 @@ class MONCONVSTRUCT extends Win32Struct
      * A handle to the server conversation.
      * @type {HCONV}
      */
-    hConvServer{
+    hConvServer {
         get {
             if(!this.HasProp("__hConvServer"))
                 this.__hConvServer := HCONV(48, this)

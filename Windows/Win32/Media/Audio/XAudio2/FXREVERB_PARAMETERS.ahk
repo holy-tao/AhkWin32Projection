@@ -8,10 +8,8 @@
  * Windows 10 (XAudio2.9); Windows 8, Windows Phone 8 (XAudio 2.8); DirectX SDK (XAudio 2.7)
  * @see https://learn.microsoft.com/windows/win32/api/xapofx/ns-xapofx-fxreverb_parameters
  * @namespace Windows.Win32.Media.Audio.XAudio2
- * @version v4.0.30319
  */
-class FXREVERB_PARAMETERS extends Win32Struct
-{
+class FXREVERB_PARAMETERS extends Win32Struct {
     static sizeof => 8
 
     static packingSize => 4

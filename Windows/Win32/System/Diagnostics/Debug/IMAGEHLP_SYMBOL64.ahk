@@ -11,10 +11,8 @@
  * ```cpp
  * @see https://learn.microsoft.com/windows/win32/api/dbghelp/ns-dbghelp-imagehlp_symbol64
  * @namespace Windows.Win32.System.Diagnostics.Debug
- * @version v4.0.30319
  */
-class IMAGEHLP_SYMBOL64 extends Win32Struct
-{
+class IMAGEHLP_SYMBOL64 extends Win32Struct {
     static sizeof => 32
 
     static packingSize => 8
@@ -69,7 +67,7 @@ class IMAGEHLP_SYMBOL64 extends Win32Struct
      * @type {String}
      */
     Name {
-        get => StrGet(this.ptr + 28, 0, "UTF-16")
-        set => StrPut(value, this.ptr + 28, 0, "UTF-16")
+        get => StrGet(this.ptr + 28, 0, "UTF-8")
+        set => StrPut(value, this.ptr + 28, 0, "UTF-8")
     }
 }

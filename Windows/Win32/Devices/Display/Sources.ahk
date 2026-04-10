@@ -5,10 +5,8 @@
  * The Sources structure contains a Video Present Network (VidPN) topology.
  * @see https://learn.microsoft.com/windows/win32/api/cloneviewhelper/ns-cloneviewhelper-sources
  * @namespace Windows.Win32.Devices.Display
- * @version v4.0.30319
  */
-class Sources extends Win32Struct
-{
+class Sources extends Win32Struct {
     static sizeof => 12
 
     static packingSize => 4
@@ -33,9 +31,9 @@ class Sources extends Win32Struct
 
     /**
      * An array of identifiers for the video present targets in the VidPN topology.
-     * @type {Array<UInt32>}
+     * @type {Array<Integer>}
      */
-    aTargets{
+    aTargets {
         get {
             if(!this.HasProp("__aTargetsProxyArray"))
                 this.__aTargetsProxyArray := Win32FixedArray(this.ptr + 8, 1, Primitive, "uint")

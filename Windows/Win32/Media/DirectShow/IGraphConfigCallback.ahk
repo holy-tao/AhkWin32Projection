@@ -7,9 +7,8 @@
  * The IGraphConfigCallback interface contains the callback method passed to IGraphConfig::Reconfigure. The caller (an application or filter) implements this interface. For more information, see IGraphConfig.
  * @see https://learn.microsoft.com/windows/win32/api/strmif/nn-strmif-igraphconfigcallback
  * @namespace Windows.Win32.Media.DirectShow
- * @version v4.0.30319
  */
-class IGraphConfigCallback extends IUnknown{
+class IGraphConfigCallback extends IUnknown {
 
     static sizeof => A_PtrSize
     /**

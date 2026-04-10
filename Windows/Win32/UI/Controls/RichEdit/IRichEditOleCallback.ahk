@@ -1,17 +1,16 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\..\Guid.ahk
+#Include ..\..\..\System\Com\IUnknown.ahk
 #Include ..\..\..\System\Com\StructuredStorage\IStorage.ahk
 #Include ..\..\..\System\Com\IDataObject.ahk
-#Include ..\..\..\System\Com\IUnknown.ahk
 
 /**
  * The IRichEditOleCallback interface is used by a rich text edit control to retrieve OLE-related information from its client.
  * @see https://learn.microsoft.com/windows/win32/api/richole/nn-richole-iricheditolecallback
  * @namespace Windows.Win32.UI.Controls.RichEdit
- * @version v4.0.30319
  */
-class IRichEditOleCallback extends IUnknown{
+class IRichEditOleCallback extends IUnknown {
 
     static sizeof => A_PtrSize
     /**
@@ -187,7 +186,7 @@ class IRichEditOleCallback extends IUnknown{
      * The clipboard format that will be used for the paste or drop operation. If the value pointed to by 
      * 					<i>lpcfFormat</i> is zero, the best available format will be used. If the callback changes the value pointed to by 
      * 					<i>lpcfFormat</i>, the rich edit control only uses that format and the operation will fail if the format is not available.
-     * @param {Integer} reco Type: <b><a href="https://docs.microsoft.com/windows/desktop/WinProg/windows-data-types">DWORD</a></b>
+     * @param {RECO_FLAGS} reco Type: <b><a href="https://docs.microsoft.com/windows/desktop/WinProg/windows-data-types">DWORD</a></b>
      * 
      * A clipboard operation flag, which can be one of these values.
      * 
@@ -324,10 +323,10 @@ class IRichEditOleCallback extends IUnknown{
      * @param {BOOL} fDrag Type: <b><a href="https://docs.microsoft.com/windows/desktop/WinProg/windows-data-types">BOOL</a></b>
      * 
      * <b>TRUE</b> if the query is for a <a href="https://docs.microsoft.com/windows/desktop/api/oleidl/nf-oleidl-idroptarget-dragenter">IDropTarget::DragEnter</a> or <a href="https://docs.microsoft.com/windows/desktop/api/oleidl/nf-oleidl-idroptarget-dragover">IDropTarget::DragOver</a>. <b>FALSE</b> if the query is for <a href="https://docs.microsoft.com/windows/desktop/api/oleidl/nf-oleidl-idroptarget-drop">IDropTarget::Drop</a>.
-     * @param {Integer} grfKeyState Type: <b><a href="https://docs.microsoft.com/windows/desktop/WinProg/windows-data-types">DWORD</a></b>
+     * @param {MODIFIERKEYS_FLAGS} grfKeyState Type: <b><a href="https://docs.microsoft.com/windows/desktop/WinProg/windows-data-types">DWORD</a></b>
      * 
      * Key state as defined by OLE.
-     * @param {Pointer<Integer>} pdwEffect Type: <b><a href="https://docs.microsoft.com/windows/desktop/WinProg/windows-data-types">LPDWORD</a></b>
+     * @param {Pointer<DROPEFFECT>} pdwEffect Type: <b><a href="https://docs.microsoft.com/windows/desktop/WinProg/windows-data-types">LPDWORD</a></b>
      * 
      * The effect used by a rich edit control. When 
      * 					<i>fDrag</i> is <b>TRUE</b>, on return, its content is set to the effect allowable by the rich edit control. When 
@@ -348,7 +347,7 @@ class IRichEditOleCallback extends IUnknown{
      * Queries the application for a context menu to use on a right-click event.
      * @remarks
      * When the user selects an item from the context window, a <a href="https://docs.microsoft.com/windows/desktop/menurc/wm-command">WM_COMMAND</a> message is sent to the parent window of the rich edit control.
-     * @param {Integer} seltype Type: <b><a href="https://docs.microsoft.com/windows/desktop/WinProg/windows-data-types">WORD</a></b>
+     * @param {RICH_EDIT_GET_CONTEXT_MENU_SEL_TYPE} seltype Type: <b><a href="https://docs.microsoft.com/windows/desktop/WinProg/windows-data-types">WORD</a></b>
      * @param {IOleObject} lpoleobj Type: <b>LPOLEOBJECT</b>
      * 
      * Pointer to an interface. If the 

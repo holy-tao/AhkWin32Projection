@@ -7,10 +7,8 @@
  * The most-significant unsigned long integer of a version number contains the major and minor version numbers. The least-significant unsigned long integer of the version number contains the custom version and build numbers.
  * @see https://learn.microsoft.com/windows/win32/api/urlmon/ns-urlmon-softdistinfo
  * @namespace Windows.Win32.System.Com.Urlmon
- * @version v4.0.30319
  */
-class SOFTDISTINFO extends Win32Struct
-{
+class SOFTDISTINFO extends Win32Struct {
     static sizeof => 72
 
     static packingSize => 8

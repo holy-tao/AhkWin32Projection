@@ -1,8 +1,8 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
-#Include .\ISyncProviderConfigUI.ahk
 #Include ..\..\UI\Shell\PropertiesSystem\IPropertyStore.ahk
+#Include .\ISyncProviderConfigUI.ahk
 
 /**
  * Represents the information and properties needed to create an instance of a synchronization provider configuration UI.
@@ -10,9 +10,8 @@
  * You can get and set the properties of a  synchronization provider configuration UI by calling the <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/syncregistration/nf-syncregistration-isyncproviderconfiguiinfo-getsyncproviderconfigui">GetSyncProviderConfigUI</a> method and manipulating the configuration UI's <b>IPropertyStore</b>.
  * @see https://learn.microsoft.com/windows/win32/api/syncregistration/nn-syncregistration-isyncproviderconfiguiinfo
  * @namespace Windows.Win32.System.WindowsSync
- * @version v4.0.30319
  */
-class ISyncProviderConfigUIInfo extends IPropertyStore{
+class ISyncProviderConfigUIInfo extends IPropertyStore {
 
     static sizeof => A_PtrSize
     /**

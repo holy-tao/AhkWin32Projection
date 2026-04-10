@@ -3,10 +3,8 @@
 
 /**
  * @namespace Windows.Win32.System.Ioctl
- * @version v4.0.30319
  */
-class SCM_PD_PASSTHROUGH_INVDIMM_OUTPUT extends Win32Struct
-{
+class SCM_PD_PASSTHROUGH_INVDIMM_OUTPUT extends Win32Struct {
     static sizeof => 12
 
     static packingSize => 4
@@ -36,9 +34,9 @@ class SCM_PD_PASSTHROUGH_INVDIMM_OUTPUT extends Win32Struct
     }
 
     /**
-     * @type {Array<Byte>}
+     * @type {Array<Integer>}
      */
-    OutputData{
+    OutputData {
         get {
             if(!this.HasProp("__OutputDataProxyArray"))
                 this.__OutputDataProxyArray := Win32FixedArray(this.ptr + 8, 1, Primitive, "char")

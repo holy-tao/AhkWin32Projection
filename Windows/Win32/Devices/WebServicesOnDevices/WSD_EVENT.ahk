@@ -1,15 +1,17 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
 #Include .\WSD_HANDLER_CONTEXT.ahk
+#Include ..\..\System\Com\IUnknown.ahk
+#Include .\WSD_SOAP_MESSAGE.ahk
+#Include .\WSD_OPERATION.ahk
+#Include .\IWSDMessageParameters.ahk
 
 /**
  * Provides an internal representation of a SOAP message.
  * @see https://learn.microsoft.com/windows/win32/api/wsdtypes/ns-wsdtypes-wsd_event
  * @namespace Windows.Win32.Devices.WebServicesOnDevices
- * @version v4.0.30319
  */
-class WSD_EVENT extends Win32Struct
-{
+class WSD_EVENT extends Win32Struct {
     static sizeof => 64
 
     static packingSize => 8
@@ -45,7 +47,7 @@ class WSD_EVENT extends Win32Struct
      * Reference to a <a href="https://docs.microsoft.com/windows/desktop/api/wsdtypes/ns-wsdtypes-wsd_handler_context">WSD_HANDLER_CONTEXT</a> structure that specifies the handler context.
      * @type {WSD_HANDLER_CONTEXT}
      */
-    HandlerContext{
+    HandlerContext {
         get {
             if(!this.HasProp("__HandlerContext"))
                 this.__HandlerContext := WSD_HANDLER_CONTEXT(16, this)

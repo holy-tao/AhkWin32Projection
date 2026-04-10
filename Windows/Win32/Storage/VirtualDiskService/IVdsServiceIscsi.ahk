@@ -1,16 +1,15 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
-#Include .\IEnumVdsObject.ahk
 #Include ..\..\System\Com\IUnknown.ahk
+#Include .\IEnumVdsObject.ahk
 
 /**
  * Provides methods to interface with the local initiator service, including the ability to set CHAP security settings and to log into targets.
  * @see https://learn.microsoft.com/windows/win32/api/vds/nn-vds-ivdsserviceiscsi
  * @namespace Windows.Win32.Storage.VirtualDiskService
- * @version v4.0.30319
  */
-class IVdsServiceIscsi extends IUnknown{
+class IVdsServiceIscsi extends IUnknown {
 
     static sizeof => A_PtrSize
     /**

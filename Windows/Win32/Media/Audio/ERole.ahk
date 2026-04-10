@@ -9,9 +9,8 @@
  * For more information, see <a href="https://docs.microsoft.com/windows/desktop/CoreAudio/device-roles">Device Roles</a>.
  * @see https://learn.microsoft.com/windows/win32/api/mmdeviceapi/ne-mmdeviceapi-erole
  * @namespace Windows.Win32.Media.Audio
- * @version v4.0.30319
  */
-class ERole extends Win32Enum{
+class ERole extends Win32Enum {
 
     /**
      * Games, system notification sounds, and voice commands.

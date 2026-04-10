@@ -1,16 +1,15 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
-#Include .\IPortableDeviceValues.ahk
 #Include ..\..\System\Com\IUnknown.ahk
+#Include .\IPortableDeviceValues.ahk
 
 /**
  * The IPortableDeviceValuesCollection interface holds a collection of zero-based indexed IPortableDeviceValues interfaces.
  * @see https://learn.microsoft.com/windows/win32/wpd_sdk/iportabledevicevaluescollection
  * @namespace Windows.Win32.Devices.PortableDevices
- * @version v4.0.30319
  */
-class IPortableDeviceValuesCollection extends IUnknown{
+class IPortableDeviceValuesCollection extends IUnknown {
 
     static sizeof => A_PtrSize
     /**

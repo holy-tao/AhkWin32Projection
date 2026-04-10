@@ -1,5 +1,6 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
+#Include .\CMC_PEND_INFO.ahk
 
 /**
  * Contains status information about Certificate Management Messages over CMS.
@@ -7,10 +8,8 @@
  * Additional members of the union may be defined in future versions.
  * @see https://learn.microsoft.com/windows/win32/api/wincrypt/ns-wincrypt-cmc_status_info
  * @namespace Windows.Win32.Security.Cryptography
- * @version v4.0.30319
  */
-class CMC_STATUS_INFO extends Win32Struct
-{
+class CMC_STATUS_INFO extends Win32Struct {
     static sizeof => 40
 
     static packingSize => 8

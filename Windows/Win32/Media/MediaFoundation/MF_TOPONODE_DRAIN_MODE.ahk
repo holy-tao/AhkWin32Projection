@@ -5,9 +5,8 @@
  * Defines at what times a transform in a topology is drained.
  * @see https://learn.microsoft.com/windows/win32/api/mfidl/ne-mfidl-mf_toponode_drain_mode
  * @namespace Windows.Win32.Media.MediaFoundation
- * @version v4.0.30319
  */
-class MF_TOPONODE_DRAIN_MODE extends Win32Enum{
+class MF_TOPONODE_DRAIN_MODE extends Win32Enum {
 
     /**
      * The transform is drained when the end of a stream is reached. It is not drained when markout is reached at the end of a segment.

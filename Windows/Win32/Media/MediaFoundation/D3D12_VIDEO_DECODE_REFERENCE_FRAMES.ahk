@@ -1,5 +1,7 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
+#Include ..\..\Graphics\Direct3D12\ID3D12Resource.ahk
+#Include .\ID3D12VideoDecoderHeap.ahk
 
 /**
  * Contains the list of reference frames for the current decode operation.
@@ -7,10 +9,8 @@
  * Reference textures may have limitations such as a requirement to allocate reference buffers as a texture array.  For information on the requirements for different decoder configurations, see [D3D12_VIDEO_DECODE_TIER](ne-d3d12video-d3d12_video_decode_tier.md).
  * @see https://learn.microsoft.com/windows/win32/api/d3d12video/ns-d3d12video-d3d12_video_decode_reference_frames
  * @namespace Windows.Win32.Media.MediaFoundation
- * @version v4.0.30319
  */
-class D3D12_VIDEO_DECODE_REFERENCE_FRAMES extends Win32Struct
-{
+class D3D12_VIDEO_DECODE_REFERENCE_FRAMES extends Win32Struct {
     static sizeof => 32
 
     static packingSize => 8

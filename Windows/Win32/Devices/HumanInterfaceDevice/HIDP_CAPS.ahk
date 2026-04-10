@@ -3,10 +3,8 @@
 
 /**
  * @namespace Windows.Win32.Devices.HumanInterfaceDevice
- * @version v4.0.30319
  */
-class HIDP_CAPS extends Win32Struct
-{
+class HIDP_CAPS extends Win32Struct {
     static sizeof => 64
 
     static packingSize => 2
@@ -52,9 +50,9 @@ class HIDP_CAPS extends Win32Struct
     }
 
     /**
-     * @type {Array<UInt16>}
+     * @type {Array<Integer>}
      */
-    Reserved{
+    Reserved {
         get {
             if(!this.HasProp("__ReservedProxyArray"))
                 this.__ReservedProxyArray := Win32FixedArray(this.ptr + 10, 17, Primitive, "ushort")

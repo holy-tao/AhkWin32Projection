@@ -1,9 +1,9 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
+#Include .\IUnknown.ahk
 #Include .\IEnumConnectionPoints.ahk
 #Include .\IConnectionPoint.ahk
-#Include .\IUnknown.ahk
 
 /**
  * Supports connection points for connectable objects. (IConnectionPointContainer)
@@ -24,9 +24,8 @@
  * </ul>
  * @see https://learn.microsoft.com/windows/win32/api/ocidl/nn-ocidl-iconnectionpointcontainer
  * @namespace Windows.Win32.System.Com
- * @version v4.0.30319
  */
-class IConnectionPointContainer extends IUnknown{
+class IConnectionPointContainer extends IUnknown {
 
     static sizeof => A_PtrSize
     /**

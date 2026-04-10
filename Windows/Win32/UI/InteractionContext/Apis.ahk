@@ -4,7 +4,6 @@
 
 /**
  * @namespace Windows.Win32.UI.InteractionContext
- * @version v4.0.30319
  */
 class InteractionContext {
 
@@ -127,7 +126,7 @@ class InteractionContext {
     /**
      * Sets Interaction Context object properties.
      * @param {HINTERACTIONCONTEXT} interactionContext Handle to the <a href="https://docs.microsoft.com/previous-versions/windows/desktop/input_intcontext/interaction-context-portal">Interaction Context</a> object.
-     * @param {Integer} _contextProperty 
+     * @param {INTERACTION_CONTEXT_PROPERTY} _contextProperty One of the constants identified by <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/interactioncontext/ne-interactioncontext-interaction_context_property">INTERACTION_CONTEXT_PROPERTY</a>.
      * @param {Integer} value The value of the constant identified by <i>contextProperty</i>.
      * @returns {HRESULT} If this function succeeds, it returns S_OK.
      *  
@@ -145,7 +144,7 @@ class InteractionContext {
     /**
      * Gets Interaction Context object properties.
      * @param {HINTERACTIONCONTEXT} interactionContext Handle to the <a href="https://docs.microsoft.com/previous-versions/windows/desktop/input_intcontext/interaction-context-portal">Interaction Context</a> object.
-     * @param {Integer} _contextProperty 
+     * @param {INTERACTION_CONTEXT_PROPERTY} _contextProperty One of the constants identified by <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/interactioncontext/ne-interactioncontext-interaction_context_property">INTERACTION_CONTEXT_PROPERTY</a>.
      * @returns {Integer} The value of the property.
      * 
      * Valid values for <i>contextProperty</i> are:
@@ -259,7 +258,7 @@ class InteractionContext {
      * 
      * To restore the system setting, set <i>value</i> to INERTIA_PARAMETER_INVALID_VALUE    FLT_MAX.
      * @param {HINTERACTIONCONTEXT} interactionContext The handle of the interaction context.
-     * @param {Integer} inertiaParameter One of the constants from <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/interactioncontext/ne-interactioncontext-inertia_parameter">INERTIA_PARAMETER</a>.
+     * @param {INERTIA_PARAMETER} inertiaParameter One of the constants from <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/interactioncontext/ne-interactioncontext-inertia_parameter">INERTIA_PARAMETER</a>.
      * @param {Float} value One of the following:
      * 
      * <ul>
@@ -284,7 +283,7 @@ class InteractionContext {
     /**
      * Gets the inertia behavior of a manipulation (translation, rotation, scaling).
      * @param {HINTERACTIONCONTEXT} interactionContext The handle of the interaction context.
-     * @param {Integer} inertiaParameter One of the constants from <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/interactioncontext/ne-interactioncontext-inertia_parameter">INERTIA_PARAMETER</a>.
+     * @param {INERTIA_PARAMETER} inertiaParameter One of the constants from <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/interactioncontext/ne-interactioncontext-inertia_parameter">INERTIA_PARAMETER</a>.
      * @returns {Float} The value of <i>inertiaParameter</i>. This value is one of the following:
      * 
      * <ul>
@@ -326,7 +325,7 @@ class InteractionContext {
     /**
      * Gets the cross-slide interaction behavior.
      * @param {HINTERACTIONCONTEXT} interactionContext The handle of the interaction context.
-     * @param {Integer} threshold One of the constants from <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/interactioncontext/ne-interactioncontext-cross_slide_threshold">CROSS_SLIDE_THRESHOLD</a>.
+     * @param {CROSS_SLIDE_THRESHOLD} threshold One of the constants from <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/interactioncontext/ne-interactioncontext-cross_slide_threshold">CROSS_SLIDE_THRESHOLD</a>.
      * @returns {Float} The distance threshold of <i>threshold</i>.
      * @see https://learn.microsoft.com/windows/win32/api/interactioncontext/nf-interactioncontext-getcrossslideparameterinteractioncontext
      * @since windows8.0
@@ -341,7 +340,7 @@ class InteractionContext {
     /**
      * 
      * @param {HINTERACTIONCONTEXT} interactionContext 
-     * @param {Integer} parameter 
+     * @param {TAP_PARAMETER} parameter 
      * @param {Float} value 
      * @returns {HRESULT} 
      */
@@ -355,7 +354,7 @@ class InteractionContext {
     /**
      * 
      * @param {HINTERACTIONCONTEXT} interactionContext 
-     * @param {Integer} parameter 
+     * @param {TAP_PARAMETER} parameter 
      * @returns {Float} 
      */
     static GetTapParameterInteractionContext(interactionContext, parameter) {
@@ -368,7 +367,7 @@ class InteractionContext {
     /**
      * 
      * @param {HINTERACTIONCONTEXT} interactionContext 
-     * @param {Integer} parameter 
+     * @param {HOLD_PARAMETER} parameter 
      * @param {Float} value 
      * @returns {HRESULT} 
      */
@@ -382,7 +381,7 @@ class InteractionContext {
     /**
      * 
      * @param {HINTERACTIONCONTEXT} interactionContext 
-     * @param {Integer} parameter 
+     * @param {HOLD_PARAMETER} parameter 
      * @returns {Float} 
      */
     static GetHoldParameterInteractionContext(interactionContext, parameter) {
@@ -395,7 +394,7 @@ class InteractionContext {
     /**
      * 
      * @param {HINTERACTIONCONTEXT} interactionContext 
-     * @param {Integer} parameter 
+     * @param {TRANSLATION_PARAMETER} parameter 
      * @param {Float} value 
      * @returns {HRESULT} 
      */
@@ -409,7 +408,7 @@ class InteractionContext {
     /**
      * 
      * @param {HINTERACTIONCONTEXT} interactionContext 
-     * @param {Integer} parameter 
+     * @param {TRANSLATION_PARAMETER} parameter 
      * @returns {Float} 
      */
     static GetTranslationParameterInteractionContext(interactionContext, parameter) {
@@ -422,7 +421,7 @@ class InteractionContext {
     /**
      * Sets the parameter values for mouse wheel input.
      * @param {HINTERACTIONCONTEXT} interactionContext Pointer to a handle for the <a href="https://docs.microsoft.com/previous-versions/windows/desktop/input_intcontext/interaction-context-portal">Interaction Context</a>.
-     * @param {Integer} parameter One of the constants identified by <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/interactioncontext/ne-interactioncontext-mouse_wheel_parameter">MOUSE_WHEEL_PARAMETER</a>.
+     * @param {MOUSE_WHEEL_PARAMETER} parameter One of the constants identified by <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/interactioncontext/ne-interactioncontext-mouse_wheel_parameter">MOUSE_WHEEL_PARAMETER</a>.
      * @param {Float} value The value for <i>parameter</i>.
      * @returns {HRESULT} If this function succeeds, it returns S_OK.
      *  
@@ -440,7 +439,7 @@ class InteractionContext {
     /**
      * Gets the mouse wheel state for the Interaction Context object.
      * @param {HINTERACTIONCONTEXT} interactionContext Pointer to a handle for the <a href="https://docs.microsoft.com/previous-versions/windows/desktop/input_intcontext/interaction-context-portal">Interaction Context</a>.
-     * @param {Integer} parameter One of the constants from <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/interactioncontext/ne-interactioncontext-mouse_wheel_parameter">MOUSE_WHEEL_PARAMETER</a>.
+     * @param {MOUSE_WHEEL_PARAMETER} parameter One of the constants from <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/interactioncontext/ne-interactioncontext-mouse_wheel_parameter">MOUSE_WHEEL_PARAMETER</a>.
      * @returns {Float} The value of <i>parameter</i>.
      * @see https://learn.microsoft.com/windows/win32/api/interactioncontext/nf-interactioncontext-getmousewheelparameterinteractioncontext
      * @since windows8.0
@@ -478,7 +477,7 @@ class InteractionContext {
      * After interaction ends, the interaction context might still be busy reporting inertia, or expecting second tap in a double tap gesture (in general, if multi-stroke gesture is possible). This function allows the caller to find out when it is safe to treat the Interaction Context object as idle. The main purpose of this function is management of pools of interaction contexts.
      * @param {HINTERACTIONCONTEXT} interactionContext Pointer to a handle for the <a href="https://docs.microsoft.com/previous-versions/windows/desktop/input_intcontext/interaction-context-portal">Interaction Context</a>.
      * @param {Pointer<POINTER_INFO>} pointerInfo Basic pointer information common to all pointer types.
-     * @returns {Integer} One of the constants from <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/interactioncontext/ne-interactioncontext-interaction_state">INTERACTION_STATE</a>.
+     * @returns {INTERACTION_STATE} One of the constants from <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/interactioncontext/ne-interactioncontext-interaction_state">INTERACTION_STATE</a>.
      * @see https://learn.microsoft.com/windows/win32/api/interactioncontext/nf-interactioncontext-getstateinteractioncontext
      * @since windows8.0
      */

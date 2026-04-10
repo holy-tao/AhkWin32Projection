@@ -1,16 +1,14 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
-#Include ..\..\Foundation\BSTR.ahk
 #Include ..\..\System\Com\IUnknown.ahk
 
 /**
  * Provides a mechanism for notifying the app about information regarding the media key session.
  * @see https://learn.microsoft.com/windows/win32/api/mfmediaengine/nn-mfmediaengine-imfmediakeysessionnotify
  * @namespace Windows.Win32.Media.MediaFoundation
- * @version v4.0.30319
  */
-class IMFMediaKeySessionNotify extends IUnknown{
+class IMFMediaKeySessionNotify extends IUnknown {
 
     static sizeof => A_PtrSize
     /**
@@ -34,7 +32,7 @@ class IMFMediaKeySessionNotify extends IUnknown{
     /**
      * Passes information to the application so it can initiate a key acquisition.
      * @param {BSTR} destinationURL The URL to send the message to.
-     * @param {Pointer} message The message to send to the application.
+     * @param {Integer} message The message to send to the application.
      * @param {Integer} cb The length in bytes of <i>message</i>.
      * @returns {String} Nothing - always returns an empty string
      * @see https://learn.microsoft.com/windows/win32/api/mfmediaengine/nf-mfmediaengine-imfmediakeysessionnotify-keymessage

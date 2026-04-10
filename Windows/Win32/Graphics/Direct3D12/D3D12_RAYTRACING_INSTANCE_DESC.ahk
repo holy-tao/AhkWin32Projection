@@ -7,10 +7,8 @@
  * This C++ struct definition is useful if you're generating instance data on the CPU first, then uploading to the GPU. But your application is also free to generate instance descriptions directly into GPU memory (from compute shaders, for instance) following the same layout.
  * @see https://learn.microsoft.com/windows/win32/api/d3d12/ns-d3d12-d3d12_raytracing_instance_desc
  * @namespace Windows.Win32.Graphics.Direct3D12
- * @version v4.0.30319
  */
-class D3D12_RAYTRACING_INSTANCE_DESC extends Win32Struct
-{
+class D3D12_RAYTRACING_INSTANCE_DESC extends Win32Struct {
     static sizeof => 64
 
     static packingSize => 8
@@ -22,9 +20,9 @@ class D3D12_RAYTRACING_INSTANCE_DESC extends Win32Struct
      * 
      * > [!NOTE]
      * > The layout of `Transform` is a transpose of how affine matrices are typically stored in memory. Instead of four 3-vectors, `Transform` is laid out as three 4-vectors.
-     * @type {Array<Single>}
+     * @type {Array<Float>}
      */
-    Transform{
+    Transform {
         get {
             if(!this.HasProp("__TransformProxyArray"))
                 this.__TransformProxyArray := Win32FixedArray(this.ptr + 0, 12, Primitive, "float")
@@ -44,9 +42,6 @@ class D3D12_RAYTRACING_INSTANCE_DESC extends Win32Struct
     }
 
     /**
-     * Type: **[UINT](/windows/win32/winprog/windows-data-types) : 24**
-     * 
-     * An arbitrary 24-bit value that can be accessed using the `InstanceID` intrinsic function in supported shader types.
      * @type {Integer}
      */
     InstanceID {
@@ -55,9 +50,6 @@ class D3D12_RAYTRACING_INSTANCE_DESC extends Win32Struct
     }
 
     /**
-     * Type: **[UINT](/windows/win32/winprog/windows-data-types) : 8**
-     * 
-     * An 8-bit mask assigned to the instance, which can be used to include/reject groups of instances on a per-ray basis. If the value is zero, then the instance will never be included, so typically this should be set to some non-zero value. For more information see, the `InstanceInclusionMask` parameter to the [TraceRay](/windows/win32/direct3d12/traceray-function) function.
      * @type {Integer}
      */
     InstanceMask {
@@ -77,9 +69,6 @@ class D3D12_RAYTRACING_INSTANCE_DESC extends Win32Struct
     }
 
     /**
-     * Type: **[UINT](/windows/win32/winprog/windows-data-types) : 24**
-     * 
-     * An arbitrary 24-bit value representing per-instance contribution to add into shader table indexing to select the hit group to use.
      * @type {Integer}
      */
     InstanceContributionToHitGroupIndex {
@@ -88,9 +77,6 @@ class D3D12_RAYTRACING_INSTANCE_DESC extends Win32Struct
     }
 
     /**
-     * Type: **[UINT](/windows/win32/winprog/windows-data-types) : 8**
-     * 
-     * An 8-bit mask representing flags from [D3D12_RAYTRACING_INSTANCE_FLAGS](./ne-d3d12-d3d12_raytracing_instance_flags.md) to apply to the instance.
      * @type {Integer}
      */
     Flags {

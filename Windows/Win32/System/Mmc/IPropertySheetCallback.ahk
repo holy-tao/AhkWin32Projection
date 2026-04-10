@@ -7,9 +7,8 @@
  * The IPropertySheetCallback interface is a COM-based interface used by a snap-in to add its property pages to a property sheet.
  * @see https://learn.microsoft.com/windows/win32/api/mmc/nn-mmc-ipropertysheetcallback
  * @namespace Windows.Win32.System.Mmc
- * @version v4.0.30319
  */
-class IPropertySheetCallback extends IUnknown{
+class IPropertySheetCallback extends IUnknown {
 
     static sizeof => A_PtrSize
     /**

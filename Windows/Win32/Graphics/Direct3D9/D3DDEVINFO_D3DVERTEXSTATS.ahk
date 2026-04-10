@@ -7,10 +7,8 @@
  * Use the debug runtime and software vertex processing to get the number of non-clipped and clipped primitives for a particular scene. Primitives will typically be clipped based on a guard band (if one is present). The clipping guard band is set with parameters such as GuardBandLeft in [**D3DCAPS9**](/windows/desktop/api/D3D9Caps/ns-d3d9caps-d3dcaps9).
  * @see https://learn.microsoft.com/windows/win32/direct3d9/d3ddevinfo-d3dvertexstats
  * @namespace Windows.Win32.Graphics.Direct3D9
- * @version v4.0.30319
  */
-class D3DDEVINFO_D3DVERTEXSTATS extends Win32Struct
-{
+class D3DDEVINFO_D3DVERTEXSTATS extends Win32Struct {
     static sizeof => 8
 
     static packingSize => 4

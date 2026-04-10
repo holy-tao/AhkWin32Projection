@@ -3,16 +3,14 @@
 
 /**
  * @namespace Windows.Wdk.System.SystemServices
- * @version v4.0.30319
  */
-class WHEA_AZCC_ROOT_BUS_LIST_EVENT extends Win32Struct
-{
+class WHEA_AZCC_ROOT_BUS_LIST_EVENT extends Win32Struct {
     static sizeof => 48
 
     static packingSize => 8
 
     /**
-     * @type {Pointer<WHEA_EVENT_LOG_ENTRY>}
+     * @type {Pointer}
      */
     WheaEventLogEntry {
         get => NumGet(this, 0, "ptr")
@@ -28,9 +26,9 @@ class WHEA_AZCC_ROOT_BUS_LIST_EVENT extends Win32Struct
     }
 
     /**
-     * @type {Array<UInt32>}
+     * @type {Array<Integer>}
      */
-    RootBuses{
+    RootBuses {
         get {
             if(!this.HasProp("__RootBusesProxyArray"))
                 this.__RootBusesProxyArray := Win32FixedArray(this.ptr + 12, 8, Primitive, "uint")

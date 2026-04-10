@@ -9,9 +9,8 @@
  * Include Dvp.h and Vptype.h before Vpconfig.h.
  * @see https://learn.microsoft.com/windows/win32/api/vpconfig/nn-vpconfig-ivpconfig
  * @namespace Windows.Win32.Media.DirectShow
- * @version v4.0.30319
  */
-class IVPConfig extends IVPBaseConfig{
+class IVPConfig extends IVPBaseConfig {
 
     static sizeof => A_PtrSize
     /**

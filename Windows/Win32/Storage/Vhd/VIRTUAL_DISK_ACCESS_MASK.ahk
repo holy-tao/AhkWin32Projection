@@ -3,13 +3,10 @@
 
 /**
  * VIRTUAL_DISK_ACCESS_MASK contains the bitmask for specifying access rights to a virtual hard disk (VHD) or CD or DVD image file (ISO).
- * @remarks
- * 
  * @see https://learn.microsoft.com/windows/win32/api/virtdisk/ne-virtdisk-virtual_disk_access_mask~r1
  * @namespace Windows.Win32.Storage.Vhd
- * @version v4.0.30319
  */
-class VIRTUAL_DISK_ACCESS_MASK extends Win32BitflagEnum{
+class VIRTUAL_DISK_ACCESS_MASK extends Win32BitflagEnum {
 
     /**
      * Open the virtual disk with no access. This is the only supported value when calling 

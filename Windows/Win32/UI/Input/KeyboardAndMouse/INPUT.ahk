@@ -1,7 +1,11 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\..\Win32Struct.ahk
+#Include .\INPUT_TYPE.ahk
 #Include .\MOUSEINPUT.ahk
+#Include .\MOUSE_EVENT_FLAGS.ahk
 #Include .\KEYBDINPUT.ahk
+#Include .\VIRTUAL_KEY.ahk
+#Include .\KEYBD_EVENT_FLAGS.ahk
 #Include .\HARDWAREINPUT.ahk
 
 /**
@@ -10,17 +14,15 @@
  * <b> INPUT_KEYBOARD</b> supports nonkeyboard input methods, such as handwriting recognition or voice recognition, as if it were text input by using the <b>KEYEVENTF_UNICODE</b> flag. For more information, see the remarks section of <a href="https://docs.microsoft.com/windows/desktop/api/winuser/ns-winuser-keybdinput">KEYBDINPUT</a>.
  * @see https://learn.microsoft.com/windows/win32/api/winuser/ns-winuser-input
  * @namespace Windows.Win32.UI.Input.KeyboardAndMouse
- * @version v4.0.30319
  */
-class INPUT extends Win32Struct
-{
+class INPUT extends Win32Struct {
     static sizeof => 40
 
     static packingSize => 8
 
     /**
      * Type: <b>DWORD</b>
-     * @type {Integer}
+     * @type {INPUT_TYPE}
      */
     type {
         get => NumGet(this, 0, "uint")
@@ -30,7 +32,7 @@ class INPUT extends Win32Struct
     /**
      * @type {MOUSEINPUT}
      */
-    mi{
+    mi {
         get {
             if(!this.HasProp("__mi"))
                 this.__mi := MOUSEINPUT(8, this)
@@ -41,7 +43,7 @@ class INPUT extends Win32Struct
     /**
      * @type {KEYBDINPUT}
      */
-    ki{
+    ki {
         get {
             if(!this.HasProp("__ki"))
                 this.__ki := KEYBDINPUT(8, this)
@@ -52,7 +54,7 @@ class INPUT extends Win32Struct
     /**
      * @type {HARDWAREINPUT}
      */
-    hi{
+    hi {
         get {
             if(!this.HasProp("__hi"))
                 this.__hi := HARDWAREINPUT(8, this)

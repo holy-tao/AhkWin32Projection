@@ -51,10 +51,8 @@
  * </table>
  * @see https://learn.microsoft.com/windows/win32/api/wincrypt/ns-wincrypt-cert_store_prov_find_info
  * @namespace Windows.Win32.Security.Cryptography
- * @version v4.0.30319
  */
-class CERT_STORE_PROV_FIND_INFO extends Win32Struct
-{
+class CERT_STORE_PROV_FIND_INFO extends Win32Struct {
     static sizeof => 24
 
     static packingSize => 8

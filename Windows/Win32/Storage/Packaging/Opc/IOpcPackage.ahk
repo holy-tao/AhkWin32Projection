@@ -1,9 +1,9 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\..\Guid.ahk
+#Include ..\..\..\System\Com\IUnknown.ahk
 #Include .\IOpcPartSet.ahk
 #Include .\IOpcRelationshipSet.ahk
-#Include ..\..\..\System\Com\IUnknown.ahk
 
 /**
  * Represents a package and provides methods to access the package's parts and relationships.
@@ -19,9 +19,8 @@
  * For more information about packages, see the <a href="https://docs.microsoft.com/previous-versions/windows/desktop/opc/open-packaging-conventions-overview">Open Packaging Conventions Fundamentals</a> and the <i>OPC</i>.
  * @see https://learn.microsoft.com/windows/win32/api/msopc/nn-msopc-iopcpackage
  * @namespace Windows.Win32.Storage.Packaging.Opc
- * @version v4.0.30319
  */
-class IOpcPackage extends IUnknown{
+class IOpcPackage extends IUnknown {
 
     static sizeof => A_PtrSize
     /**

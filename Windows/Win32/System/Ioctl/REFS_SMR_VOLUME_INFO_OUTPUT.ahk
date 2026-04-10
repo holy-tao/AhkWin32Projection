@@ -1,12 +1,11 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
+#Include .\REFS_SMR_VOLUME_GC_STATE.ahk
 
 /**
  * @namespace Windows.Win32.System.Ioctl
- * @version v4.0.30319
  */
-class REFS_SMR_VOLUME_INFO_OUTPUT extends Win32Struct
-{
+class REFS_SMR_VOLUME_INFO_OUTPUT extends Win32Struct {
     static sizeof => 112
 
     static packingSize => 8
@@ -68,7 +67,7 @@ class REFS_SMR_VOLUME_INFO_OUTPUT extends Win32Struct
     }
 
     /**
-     * @type {Integer}
+     * @type {REFS_SMR_VOLUME_GC_STATE}
      */
     VolumeGcState {
         get => NumGet(this, 48, "int")
@@ -92,9 +91,9 @@ class REFS_SMR_VOLUME_INFO_OUTPUT extends Win32Struct
     }
 
     /**
-     * @type {Array<UInt64>}
+     * @type {Array<Integer>}
      */
-    Unused{
+    Unused {
         get {
             if(!this.HasProp("__UnusedProxyArray"))
                 this.__UnusedProxyArray := Win32FixedArray(this.ptr + 64, 6, Primitive, "uint")

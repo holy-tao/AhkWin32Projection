@@ -5,10 +5,8 @@
  * Contains values that can represent the size (as supplied to a DirectML operator) of a 2-D plane of elements within a tensor, or a 2-D scale, or any 2-D width/height value.
  * @see https://learn.microsoft.com/windows/win32/api/directml/ns-directml-dml_size_2d
  * @namespace Windows.Win32.AI.MachineLearning.DirectML
- * @version v4.0.30319
  */
-class DML_SIZE_2D extends Win32Struct
-{
+class DML_SIZE_2D extends Win32Struct {
     static sizeof => 8
 
     static packingSize => 4

@@ -7,9 +7,8 @@
  * The ICancelMethodCalls (objidlbase.h) interface manages cancellation requests on an outbound method call and monitors the current state of that call.
  * @see https://learn.microsoft.com/windows/win32/api/objidlbase/nn-objidlbase-icancelmethodcalls
  * @namespace Windows.Win32.System.Com
- * @version v4.0.30319
  */
-class ICancelMethodCalls extends IUnknown{
+class ICancelMethodCalls extends IUnknown {
 
     static sizeof => A_PtrSize
     /**

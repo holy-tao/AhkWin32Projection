@@ -5,9 +5,8 @@
 
 /**
  * @namespace Windows.Win32.Graphics.Direct3D12
- * @version v4.0.30319
  */
-class ID3D12CompilerCacheSession extends ID3D12CompilerFactoryChild{
+class ID3D12CompilerCacheSession extends ID3D12CompilerFactoryChild {
 
     static sizeof => A_PtrSize
     /**
@@ -58,7 +57,7 @@ class ID3D12CompilerCacheSession extends ID3D12CompilerFactoryChild{
      * 
      * @param {Pointer<D3D12_COMPILER_CACHE_GROUP_KEY>} pGroupKey 
      * @param {Pointer<Integer>} pExpectedGroupVersion 
-     * @param {Integer} ValueTypeFlags 
+     * @param {D3D12_COMPILER_VALUE_TYPE_FLAGS} ValueTypeFlags 
      * @param {Pointer<D3D12CompilerCacheSessionGroupValuesFunc>} CallbackFunc 
      * @param {Pointer<Void>} pContext 
      * @returns {HRESULT} 
@@ -107,7 +106,7 @@ class ID3D12CompilerCacheSession extends ID3D12CompilerFactoryChild{
 
     /**
      * 
-     * @returns {Integer} 
+     * @returns {D3D12_COMPILER_VALUE_TYPE_FLAGS} 
      */
     GetValueTypes() {
         result := ComCall(10, this, "int")

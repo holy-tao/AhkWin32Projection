@@ -5,9 +5,8 @@
  * The CLUSCTL_GROUPSET_CODES enumeration (msclus.h) enumerates groupset control codes used by the ClusterGroupSetControl function.
  * @see https://learn.microsoft.com/windows/win32/api/msclus/ne-msclus-clusctl_groupset_codes
  * @namespace Windows.Win32.Networking.Clustering
- * @version v4.0.30319
  */
-class CLUSCTL_GROUPSET_CODES extends Win32Enum{
+class CLUSCTL_GROUPSET_CODES extends Win32Enum {
 
     /**
      * See <a href="https://docs.microsoft.com/previous-versions/windows/desktop/mscs/clusctl-collection-get-common-properties">CLUSCTL_GROUPSET_GET_COMMON_PROPERTIES</a>.

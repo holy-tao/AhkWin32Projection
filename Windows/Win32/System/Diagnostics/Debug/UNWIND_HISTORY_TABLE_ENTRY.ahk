@@ -1,12 +1,12 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\..\Win32Struct.ahk
+#Include .\IMAGE_RUNTIME_FUNCTION_ENTRY.ahk
 
 /**
  * @namespace Windows.Win32.System.Diagnostics.Debug
- * @version v4.0.30319
+ * @architecture X64
  */
-class UNWIND_HISTORY_TABLE_ENTRY extends Win32Struct
-{
+class UNWIND_HISTORY_TABLE_ENTRY extends Win32Struct {
     static sizeof => 16
 
     static packingSize => 8

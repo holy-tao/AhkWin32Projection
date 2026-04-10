@@ -5,9 +5,8 @@
 
 /**
  * @namespace Windows.Win32.AI.MachineLearning.WinML
- * @version v4.0.30319
  */
-class IMLOperatorTypeInferrer extends IUnknown{
+class IMLOperatorTypeInferrer extends IUnknown {
 
     static sizeof => A_PtrSize
     /**

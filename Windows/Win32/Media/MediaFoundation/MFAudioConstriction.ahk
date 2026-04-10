@@ -7,9 +7,8 @@
  * Values defined by the <b>MFAudioConstriction</b> enumeration matches the <b>EAudioConstriction</b> enumeration defined <b>audioenginebaseapo.h</b>.
  * @see https://learn.microsoft.com/windows/win32/api/mfidl/ne-mfidl-mfaudioconstriction
  * @namespace Windows.Win32.Media.MediaFoundation
- * @version v4.0.30319
  */
-class MFAudioConstriction extends Win32Enum{
+class MFAudioConstriction extends Win32Enum {
 
     /**
      * Audio is not constricted.

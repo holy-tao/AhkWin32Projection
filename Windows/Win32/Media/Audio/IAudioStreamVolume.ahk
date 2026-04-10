@@ -7,9 +7,8 @@
  * The IAudioStreamVolume interface enables a client to control and monitor the volume levels for all of the channels in an audio stream.
  * @see https://learn.microsoft.com/windows/win32/api/audioclient/nn-audioclient-iaudiostreamvolume
  * @namespace Windows.Win32.Media.Audio
- * @version v4.0.30319
  */
-class IAudioStreamVolume extends IUnknown{
+class IAudioStreamVolume extends IUnknown {
 
     static sizeof => A_PtrSize
     /**

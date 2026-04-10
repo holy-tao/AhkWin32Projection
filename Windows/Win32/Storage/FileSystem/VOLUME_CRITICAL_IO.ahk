@@ -4,11 +4,9 @@
 
 /**
  * @namespace Windows.Win32.Storage.FileSystem
- * @version v4.0.30319
  */
-class VOLUME_CRITICAL_IO extends Win32Struct
-{
-    static sizeof => 16
+class VOLUME_CRITICAL_IO extends Win32Struct {
+    static sizeof => 24
 
     static packingSize => 8
 
@@ -29,9 +27,9 @@ class VOLUME_CRITICAL_IO extends Win32Struct
     }
 
     /**
-     * @type {Array<FILE_EXTENT>}
+     * @type {FILE_EXTENT}
      */
-    Extents{
+    Extents {
         get {
             if(!this.HasProp("__ExtentsProxyArray"))
                 this.__ExtentsProxyArray := Win32FixedArray(this.ptr + 8, 1, FILE_EXTENT, "")

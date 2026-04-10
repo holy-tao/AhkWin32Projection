@@ -5,10 +5,8 @@
  * Contains the output for the FSCTL_GET_RETRIEVAL_POINTER_BASE control code.
  * @see https://learn.microsoft.com/windows/win32/api/winioctl/ns-winioctl-retrieval_pointer_base
  * @namespace Windows.Win32.System.Ioctl
- * @version v4.0.30319
  */
-class RETRIEVAL_POINTER_BASE extends Win32Struct
-{
+class RETRIEVAL_POINTER_BASE extends Win32Struct {
     static sizeof => 8
 
     static packingSize => 8

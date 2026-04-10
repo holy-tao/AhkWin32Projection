@@ -5,10 +5,8 @@
  * Specifies a group security identifier (SID) for an access token.
  * @see https://learn.microsoft.com/windows/win32/api/winnt/ns-winnt-token_primary_group
  * @namespace Windows.Win32.Security
- * @version v4.0.30319
  */
-class TOKEN_PRIMARY_GROUP extends Win32Struct
-{
+class TOKEN_PRIMARY_GROUP extends Win32Struct {
     static sizeof => 8
 
     static packingSize => 8

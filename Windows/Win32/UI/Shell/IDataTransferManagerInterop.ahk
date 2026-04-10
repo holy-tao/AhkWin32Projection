@@ -7,9 +7,8 @@
  * Enables access to DataTransferManager methods in a Windows Store app that manages multiple windows.
  * @see https://learn.microsoft.com/windows/win32/api/shobjidl_core/nn-shobjidl_core-idatatransfermanagerinterop
  * @namespace Windows.Win32.UI.Shell
- * @version v4.0.30319
  */
-class IDataTransferManagerInterop extends IUnknown{
+class IDataTransferManagerInterop extends IUnknown {
 
     static sizeof => A_PtrSize
     /**

@@ -1,14 +1,14 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
+#Include ..\Com\ITypeInfo.ahk
 #Include ..\..\Storage\IndexServer\DBID.ahk
 
 /**
  * @namespace Windows.Win32.System.Search
- * @version v4.0.30319
+ * @architecture X64, Arm64
  */
-class DBCOLUMNINFO extends Win32Struct
-{
-    static sizeof => 80
+class DBCOLUMNINFO extends Win32Struct {
+    static sizeof => 72
 
     static packingSize => 8
 
@@ -79,7 +79,7 @@ class DBCOLUMNINFO extends Win32Struct
     /**
      * @type {DBID}
      */
-    columnid{
+    columnid {
         get {
             if(!this.HasProp("__columnid"))
                 this.__columnid := DBID(48, this)

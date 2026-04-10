@@ -15,10 +15,8 @@
  * To get the portal object, use the <a href="https://docs.microsoft.com/windows/desktop/api/vds/nf-vds-ivdsservice-getobject">IVdsService::GetObject</a> method. You can then use the <a href="https://docs.microsoft.com/windows/desktop/api/vdshwprv/nf-vdshwprv-ivdsiscsiportal-getproperties">IVdsIscsiPortal::GetProperties</a> method to get the portal properties.
  * @see https://learn.microsoft.com/windows/win32/api/vdshwprv/ns-vdshwprv-vds_portal_notification
  * @namespace Windows.Win32.Storage.VirtualDiskService
- * @version v4.0.30319
  */
-class VDS_PORTAL_NOTIFICATION extends Win32Struct
-{
+class VDS_PORTAL_NOTIFICATION extends Win32Struct {
     static sizeof => 16
 
     static packingSize => 8
@@ -77,7 +75,7 @@ class VDS_PORTAL_NOTIFICATION extends Win32Struct
 
     /**
      * The <b>VDS_OBJECT_ID</b> of the iSCSI portal that triggered the event.
-     * @type {Pointer<Guid>}
+     * @type {Pointer}
      */
     portalId {
         get => NumGet(this, 8, "ptr")

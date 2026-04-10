@@ -4,7 +4,6 @@
 
 /**
  * @namespace Windows.Win32.System.Pipes
- * @version v4.0.30319
  */
 class Pipes {
 
@@ -192,7 +191,7 @@ class Pipes {
      * 
      * This parameter can also be a handle to an anonymous pipe, as returned by the 
      * <a href="https://docs.microsoft.com/windows/win32/api/namedpipeapi/nf-namedpipeapi-createpipe">CreatePipe</a> function.
-     * @param {Pointer<Integer>} lpMode The new pipe mode. The mode is a combination of a read-mode flag and a wait-mode flag. This parameter can be <b>NULL</b> if the mode is not being set. Specify one of the following modes. 
+     * @param {Pointer<NAMED_PIPE_MODE>} lpMode The new pipe mode. The mode is a combination of a read-mode flag and a wait-mode flag. This parameter can be <b>NULL</b> if the mode is not being set. Specify one of the following modes. 
      * 
      * 
      * 
@@ -312,7 +311,7 @@ class Pipes {
      * <a href="https://docs.microsoft.com/windows/win32/api/winbase/nf-winbase-createnamedpipea">CreateNamedPipe</a> or 
      * <a href="https://docs.microsoft.com/windows/win32/api/fileapi/nf-fileapi-createfilew">CreateFile</a> function, or it can be a handle to the read end of an anonymous pipe, as returned by the 
      * <a href="https://docs.microsoft.com/windows/win32/api/namedpipeapi/nf-namedpipeapi-createpipe">CreatePipe</a> function. The handle must have GENERIC_READ access to the pipe.
-     * @param {Pointer} lpBuffer A pointer to a buffer that receives data read from the pipe. This parameter can be <b>NULL</b> if no data is to be read.
+     * @param {Integer} lpBuffer A pointer to a buffer that receives data read from the pipe. This parameter can be <b>NULL</b> if no data is to be read.
      * @param {Integer} nBufferSize The size of the buffer specified by the <i>lpBuffer</i> parameter, in bytes. This parameter is ignored if <i>lpBuffer</i> is <b>NULL</b>.
      * @param {Pointer<Integer>} lpBytesRead A pointer to a variable that receives the number of bytes read from the pipe. This parameter can be <b>NULL</b> if no data is to be read.
      * @param {Pointer<Integer>} lpTotalBytesAvail A pointer to a variable that receives the total number of bytes available to be read from the pipe. This parameter can be <b>NULL</b> if no data is to be read.
@@ -361,9 +360,9 @@ class Pipes {
      * 
      * This parameter can also be a handle to an anonymous pipe, as returned by the 
      * <a href="https://docs.microsoft.com/windows/win32/api/namedpipeapi/nf-namedpipeapi-createpipe">CreatePipe</a> function.
-     * @param {Pointer} lpInBuffer A pointer to the buffer containing the data to be written to the pipe.
+     * @param {Integer} lpInBuffer A pointer to the buffer containing the data to be written to the pipe.
      * @param {Integer} nInBufferSize The size of the input buffer, in bytes.
-     * @param {Pointer} lpOutBuffer A pointer to the buffer that receives the data read from the pipe.
+     * @param {Integer} lpOutBuffer A pointer to the buffer that receives the data read from the pipe.
      * @param {Integer} nOutBufferSize The size of the output buffer, in bytes.
      * @param {Pointer<Integer>} lpBytesRead A pointer to the variable that receives the number of bytes read from the pipe. 
      * 
@@ -443,7 +442,7 @@ class Pipes {
      * \\\\.\\pipe&#92;<i>pipename</i>
      * 
      * The pipename part of the name can include any character other than a backslash, including numbers and special characters. The entire pipe name string can be up to 256 characters long. Pipe names are not case sensitive.
-     * @param {Integer} dwOpenMode The open mode.  
+     * @param {FILE_FLAGS_AND_ATTRIBUTES} dwOpenMode The open mode.  
      * 
      * The function fails if <i>dwOpenMode</i> specifies anything other than 0 or the flags listed in the following tables.
      * 
@@ -581,7 +580,7 @@ class Pipes {
      * </td>
      * </tr>
      * </table>
-     * @param {Integer} dwPipeMode The pipe mode.
+     * @param {NAMED_PIPE_MODE} dwPipeMode The pipe mode.
      * 
      * The function fails if <i>dwPipeMode</i> specifies anything other than 0 or the flags listed in the following tables.
      * 
@@ -771,7 +770,7 @@ class Pipes {
      * <b>Windows 10, version 1709:  </b>Pipes are only supported within an app-container; ie, from one UWP process to another UWP process that's part of the same app. Also, named pipes must use the syntax `\\.\pipe\LOCAL\` for the pipe name.
      * @param {HANDLE} Pipe A handle to an instance of a named pipe. This handle must be created by the 
      * <a href="https://docs.microsoft.com/windows/desktop/api/namedpipeapi/nf-namedpipeapi-createnamedpipew">CreateNamedPipe</a> function.
-     * @param {Pointer} ClientComputerName The computer name.
+     * @param {Integer} ClientComputerName The computer name.
      * @param {Integer} ClientComputerNameLength The size of the <i>ClientComputerName</i> buffer, in bytes.
      * @returns {BOOL} If the function succeeds, the return value is nonzero.
      * 
@@ -839,7 +838,7 @@ class Pipes {
      * 
      * This parameter can also be a handle to an anonymous pipe, as returned by the 
      * <a href="https://docs.microsoft.com/windows/win32/api/namedpipeapi/nf-namedpipeapi-createpipe">CreatePipe</a> function.
-     * @param {Pointer<Integer>} lpFlags 
+     * @param {Pointer<NAMED_PIPE_MODE>} lpFlags 
      * @param {Pointer<Integer>} lpOutBufferSize A pointer to a variable that receives the size of the buffer for outgoing data, in bytes. If the buffer size is zero, the buffer is allocated as needed. This parameter can be <b>NULL</b> if this information is not required.
      * @param {Pointer<Integer>} lpInBufferSize A pointer to a variable that receives the size of the buffer for incoming data, in bytes. If the buffer size is zero, the buffer is allocated as needed. This parameter can be <b>NULL</b> if this information is not required.
      * @param {Pointer<Integer>} lpMaxInstances A pointer to a variable that receives the maximum number of pipe instances that can be created. If the variable is set to PIPE_UNLIMITED_INSTANCES (255), the number of pipe instances that can be created is limited only by the availability of system resources. This parameter can be <b>NULL</b> if this information is not required.
@@ -881,7 +880,7 @@ class Pipes {
      * 
      * This parameter can also be a handle to an anonymous pipe, as returned by the 
      * <a href="https://docs.microsoft.com/windows/desktop/api/namedpipeapi/nf-namedpipeapi-createpipe">CreatePipe</a> function.
-     * @param {Pointer<Integer>} lpState 
+     * @param {Pointer<NAMED_PIPE_MODE>} lpState 
      * @param {Pointer<Integer>} lpCurInstances A pointer to a variable that receives the number of current pipe instances. This parameter can be <b>NULL</b> if this information is not required.
      * @param {Pointer<Integer>} lpMaxCollectionCount A pointer to a variable that receives the maximum number of bytes to be collected on the client's computer before transmission to the server. This parameter must be <b>NULL</b> if the specified pipe handle is to the server end of a named pipe or if client and server processes are on the same computer. This parameter can be <b>NULL</b> if this information is not required.
      * @param {Pointer<Integer>} lpCollectDataTimeout A pointer to a variable that receives the maximum time, in milliseconds, that can pass before a remote named pipe transfers information over the network. This parameter must be <b>NULL</b> if the specified pipe handle is to the server end of a named pipe or if client and server processes are on the same computer. This parameter can be <b>NULL</b> if this information is not required.
@@ -917,9 +916,9 @@ class Pipes {
      * 
      * <b>Windows 10, version 1709:  </b>Pipes are only supported within an app-container; ie, from one UWP process to another UWP process that's part of the same app. Also, named pipes must use the syntax `\\.\pipe\LOCAL\` for the pipe name.
      * @param {PWSTR} lpNamedPipeName The pipe name.
-     * @param {Pointer} lpInBuffer The data to be written to the pipe.
+     * @param {Integer} lpInBuffer The data to be written to the pipe.
      * @param {Integer} nInBufferSize The size of the write buffer, in bytes.
-     * @param {Pointer} lpOutBuffer A pointer to the buffer that receives the data read from the pipe.
+     * @param {Integer} lpOutBuffer A pointer to the buffer that receives the data read from the pipe.
      * @param {Integer} nOutBufferSize The size of the read buffer, in bytes.
      * @param {Pointer<Integer>} lpBytesRead A pointer to a variable that receives the number of bytes read from the pipe.
      * @param {Integer} nTimeOut The number of milliseconds to wait for the named pipe to be available. In addition to numeric values, the following special values can be specified.
@@ -1007,7 +1006,7 @@ class Pipes {
      * \\\\.\\pipe&#92;<i>pipename</i>
      * 
      * The pipename part of the name can include any character other than a backslash, including numbers and special characters. The entire pipe name string can be up to 256 characters long. Pipe names are not case sensitive.
-     * @param {Integer} dwOpenMode The open mode. 
+     * @param {FILE_FLAGS_AND_ATTRIBUTES} dwOpenMode The open mode. 
      * 
      * 
      * The function fails if <i>dwOpenMode</i> specifies anything other than 0 or the flags listed in the following tables.
@@ -1148,7 +1147,7 @@ class Pipes {
      * </td>
      * </tr>
      * </table>
-     * @param {Integer} dwPipeMode The pipe mode. 
+     * @param {NAMED_PIPE_MODE} dwPipeMode The pipe mode. 
      * 
      * 
      * The function fails if <i>dwPipeMode</i> specifies anything other than 0 or the flags listed in the following tables.
@@ -1335,7 +1334,7 @@ class Pipes {
      * 
      * This parameter can also be a handle to an anonymous pipe, as returned by the 
      * <a href="https://docs.microsoft.com/windows/desktop/api/namedpipeapi/nf-namedpipeapi-createpipe">CreatePipe</a> function.
-     * @param {Pointer<Integer>} lpState 
+     * @param {Pointer<NAMED_PIPE_MODE>} lpState 
      * @param {Pointer<Integer>} lpCurInstances A pointer to a variable that receives the number of current pipe instances. This parameter can be <b>NULL</b> if this information is not required.
      * @param {Pointer<Integer>} lpMaxCollectionCount A pointer to a variable that receives the maximum number of bytes to be collected on the client's computer before transmission to the server. This parameter must be <b>NULL</b> if the specified pipe handle is to the server end of a named pipe or if client and server processes are on the same computer. This parameter can be <b>NULL</b> if this information is not required.
      * @param {Pointer<Integer>} lpCollectDataTimeout A pointer to a variable that receives the maximum time, in milliseconds, that can pass before a remote named pipe transfers information over the network. This parameter must be <b>NULL</b> if the specified pipe handle is to the server end of a named pipe or if client and server processes are on the same computer. This parameter can be <b>NULL</b> if this information is not required.
@@ -1381,9 +1380,9 @@ class Pipes {
      * 
      * <b>Windows 10, version 1709:  </b>Pipes are only supported within an app-container; ie, from one UWP process to another UWP process that's part of the same app. Also, named pipes must use the syntax `\\.\pipe\LOCAL\` for the pipe name.
      * @param {PSTR} lpNamedPipeName The pipe name.
-     * @param {Pointer} lpInBuffer The data to be written to the pipe.
+     * @param {Integer} lpInBuffer The data to be written to the pipe.
      * @param {Integer} nInBufferSize The size of the write buffer, in bytes.
-     * @param {Pointer} lpOutBuffer A pointer to the buffer that receives the data read from the pipe.
+     * @param {Integer} lpOutBuffer A pointer to the buffer that receives the data read from the pipe.
      * @param {Integer} nOutBufferSize The size of the read buffer, in bytes.
      * @param {Pointer<Integer>} lpBytesRead A pointer to a variable that receives the number of bytes read from the pipe.
      * @param {Integer} nTimeOut The number of milliseconds to wait for the named pipe to be available. In addition to numeric values, the following special values can be specified.
@@ -1498,7 +1497,7 @@ class Pipes {
      * <b>Windows 10, version 1709:  </b>Pipes are only supported within an app-container; ie, from one UWP process to another UWP process that's part of the same app. Also, named pipes must use the syntax `\\.\pipe\LOCAL\` for the pipe name.
      * @param {HANDLE} Pipe A handle to an instance of a named pipe. This handle must be created by the 
      * <a href="https://docs.microsoft.com/windows/desktop/api/winbase/nf-winbase-createnamedpipea">CreateNamedPipe</a> function.
-     * @param {Pointer} ClientComputerName The computer name.
+     * @param {Integer} ClientComputerName The computer name.
      * @param {Integer} ClientComputerNameLength The size of the <i>ClientComputerName</i> buffer, in bytes.
      * @returns {BOOL} If the function succeeds, the return value is nonzero.
      * 

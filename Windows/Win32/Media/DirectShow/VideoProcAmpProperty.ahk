@@ -5,9 +5,8 @@
  * The VideoProcAmpProperty enumeration specifies video properties on a video capture device.
  * @see https://learn.microsoft.com/windows/win32/api/strmif/ne-strmif-videoprocampproperty
  * @namespace Windows.Win32.Media.DirectShow
- * @version v4.0.30319
  */
-class VideoProcAmpProperty extends Win32Enum{
+class VideoProcAmpProperty extends Win32Enum {
 
     /**
      * Specifies the brightness, also called the <i>black level</i>. For NTSC, the value is expressed in IRE units * 100. For non-NTSC sources, the units are arbitrary, with zero representing blanking and 10,000 representing pure white. Values range from –10,000 to 10,000.

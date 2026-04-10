@@ -5,10 +5,8 @@
  * Specifies a range of text positions where format is applied in the text represented by an IDWriteTextLayout object.
  * @see https://learn.microsoft.com/windows/win32/api/dwrite/ns-dwrite-dwrite_text_range
  * @namespace Windows.Win32.Graphics.DirectWrite
- * @version v4.0.30319
  */
-class DWRITE_TEXT_RANGE extends Win32Struct
-{
+class DWRITE_TEXT_RANGE extends Win32Struct {
     static sizeof => 8
 
     static packingSize => 4

@@ -1,16 +1,14 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\..\Win32Struct.ahk
+#Include .\LSA_UNICODE_STRING.ahk
+#Include .\CRYPTO_SETTINGS.ahk
 
 /**
  * Indicates TLS parameter restrictions.
- * @remarks
- * 
  * @see https://learn.microsoft.com/windows/win32/api/schannel/ns-schannel-tls_parameters
  * @namespace Windows.Win32.Security.Authentication.Identity
- * @version v4.0.30319
  */
-class TLS_PARAMETERS extends Win32Struct
-{
+class TLS_PARAMETERS extends Win32Struct {
     static sizeof => 40
 
     static packingSize => 8

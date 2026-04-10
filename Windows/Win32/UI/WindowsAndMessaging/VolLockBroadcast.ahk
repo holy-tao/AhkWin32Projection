@@ -1,13 +1,12 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
 #Include .\DEV_BROADCAST_HDR.ahk
+#Include .\DEV_BROADCAST_HDR_DEVICE_TYPE.ahk
 
 /**
  * @namespace Windows.Win32.UI.WindowsAndMessaging
- * @version v4.0.30319
  */
-class VolLockBroadcast extends Win32Struct
-{
+class VolLockBroadcast extends Win32Struct {
     static sizeof => 20
 
     static packingSize => 4
@@ -15,7 +14,7 @@ class VolLockBroadcast extends Win32Struct
     /**
      * @type {DEV_BROADCAST_HDR}
      */
-    vlb_dbh{
+    vlb_dbh {
         get {
             if(!this.HasProp("__vlb_dbh"))
                 this.__vlb_dbh := DEV_BROADCAST_HDR(0, this)

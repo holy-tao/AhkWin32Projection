@@ -5,10 +5,8 @@
  * HDV_PCI_PNP_ID structure
  * @see https://learn.microsoft.com/virtualization/api/hcs/Reference/hdv/HdvPciPnpId
  * @namespace Windows.Win32.System.Hypervisor
- * @version v4.0.30319
  */
-class HDV_PCI_PNP_ID extends Win32Struct
-{
+class HDV_PCI_PNP_ID extends Win32Struct {
     static sizeof => 12
 
     static packingSize => 2

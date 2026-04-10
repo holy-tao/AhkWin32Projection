@@ -7,9 +7,8 @@
  * Extends IWICPixelFormatInfo by providing additional information about a pixel format.
  * @see https://learn.microsoft.com/windows/win32/api/wincodec/nn-wincodec-iwicpixelformatinfo2
  * @namespace Windows.Win32.Graphics.Imaging
- * @version v4.0.30319
  */
-class IWICPixelFormatInfo2 extends IWICPixelFormatInfo{
+class IWICPixelFormatInfo2 extends IWICPixelFormatInfo {
 
     static sizeof => A_PtrSize
     /**
@@ -46,7 +45,7 @@ class IWICPixelFormatInfo2 extends IWICPixelFormatInfo{
 
     /**
      * TBD (IWICPixelFormatInfo2.GetNumericRepresentation)
-     * @returns {Integer} Type: <b><a href="https://docs.microsoft.com/windows/win32/api/wincodec/ne-wincodec-wicpixelformatnumericrepresentation">WICPixelFormatNumericRepresentation</a>*</b>
+     * @returns {WICPixelFormatNumericRepresentation} Type: <b><a href="https://docs.microsoft.com/windows/win32/api/wincodec/ne-wincodec-wicpixelformatnumericrepresentation">WICPixelFormatNumericRepresentation</a>*</b>
      * 
      * The address of a <a href="https://docs.microsoft.com/windows/win32/api/wincodec/ne-wincodec-wicpixelformatnumericrepresentation">WICPixelFormatNumericRepresentation</a> variable that you've defined. On successful completion, the function sets your variable to the **WICPixelFormatNumericRepresentation** of the pixel format.
      * @see https://learn.microsoft.com/windows/win32/api/wincodec/nf-wincodec-iwicpixelformatinfo2-getnumericrepresentation

@@ -5,9 +5,8 @@
 
 /**
  * @namespace Windows.Win32.System.WindowsSync
- * @version v4.0.30319
  */
-class IEnumItemIds extends IUnknown{
+class IEnumItemIds extends IUnknown {
 
     static sizeof => A_PtrSize
     /**

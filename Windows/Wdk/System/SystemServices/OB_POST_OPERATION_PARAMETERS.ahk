@@ -3,16 +3,14 @@
 
 /**
  * @namespace Windows.Wdk.System.SystemServices
- * @version v4.0.30319
  */
-class OB_POST_OPERATION_PARAMETERS extends Win32Struct
-{
+class OB_POST_OPERATION_PARAMETERS extends Win32Struct {
     static sizeof => 16
 
     static packingSize => 8
 
     /**
-     * @type {Pointer<OB_POST_CREATE_HANDLE_INFORMATION>}
+     * @type {Pointer}
      */
     CreateHandleInformation {
         get => NumGet(this, 0, "ptr")
@@ -20,7 +18,7 @@ class OB_POST_OPERATION_PARAMETERS extends Win32Struct
     }
 
     /**
-     * @type {Pointer<OB_POST_DUPLICATE_HANDLE_INFORMATION>}
+     * @type {Pointer}
      */
     DuplicateHandleInformation {
         get => NumGet(this, 0, "ptr")

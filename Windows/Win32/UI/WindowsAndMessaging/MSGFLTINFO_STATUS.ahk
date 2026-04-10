@@ -3,9 +3,8 @@
 
 /**
  * @namespace Windows.Win32.UI.WindowsAndMessaging
- * @version v4.0.30319
  */
-class MSGFLTINFO_STATUS extends Win32Enum{
+class MSGFLTINFO_STATUS extends Win32Enum {
 
     /**
      * @type {Integer (UInt32)}

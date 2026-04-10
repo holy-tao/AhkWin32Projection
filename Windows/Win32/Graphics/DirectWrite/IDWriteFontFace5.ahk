@@ -1,17 +1,16 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
+#Include .\IDWriteFontFace4.ahk
 #Include .\DWRITE_FONT_AXIS_VALUE.ahk
 #Include .\IDWriteFontResource.ahk
-#Include .\IDWriteFontFace4.ahk
 
 /**
  * Contains font face type, appropriate file references, and face identification data. (IDWriteFontFace5)
  * @see https://learn.microsoft.com/windows/win32/api/dwrite_3/nn-dwrite_3-idwritefontface5
  * @namespace Windows.Win32.Graphics.DirectWrite
- * @version v4.0.30319
  */
-class IDWriteFontFace5 extends IDWriteFontFace4{
+class IDWriteFontFace5 extends IDWriteFontFace4 {
 
     static sizeof => A_PtrSize
     /**

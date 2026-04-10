@@ -53,9 +53,8 @@
  * If you are using the <a href="https://docs.microsoft.com/windows/desktop/api/mfobjects/nn-mfobjects-imfmediatype">IMFMediaType</a> interface to describe the video format, the video transfer matrix is specified in the <a href="https://docs.microsoft.com/windows/desktop/medfound/mf-mt-yuv-matrix-attribute">MF_MT_YUV_MATRIX</a> attribute.
  * @see https://learn.microsoft.com/windows/win32/api/dxva2api/ne-dxva2api-dxva2_videotransfermatrix
  * @namespace Windows.Win32.Media.MediaFoundation
- * @version v4.0.30319
  */
-class DXVA2_VideoTransferMatrix extends Win32Enum{
+class DXVA2_VideoTransferMatrix extends Win32Enum {
 
     /**
      * Bitmask to validate flag values. This value is not a valid flag.

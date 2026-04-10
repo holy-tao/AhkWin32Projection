@@ -5,9 +5,8 @@
 
 /**
  * @namespace Windows.Win32.System.WinRT.Shell
- * @version v4.0.30319
  */
-class IDDEInitializer extends IUnknown{
+class IDDEInitializer extends IUnknown {
 
     static sizeof => A_PtrSize
     /**
@@ -44,7 +43,7 @@ class IDDEInitializer extends IUnknown{
      * For an out-of-process EXE server,  you must initialize the initial thread of the server by using 
      *     <b>Windows::Foundation::Initialize</b>(<b>RO_INIT_MULTITHREADED</b>).
      * @param {PWSTR} fileExtensionOrProtocol 
-     * @param {Integer} method 
+     * @param {CreateProcessMethod} method 
      * @param {PWSTR} currentDirectory 
      * @param {IShellItem} execTarget 
      * @param {IUnknown} site 

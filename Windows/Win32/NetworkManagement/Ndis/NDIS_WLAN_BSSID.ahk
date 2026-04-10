@@ -1,15 +1,15 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
 #Include .\NDIS_802_11_SSID.ahk
-#Include .\NDIS_802_11_CONFIGURATION_FH.ahk
+#Include .\NDIS_802_11_NETWORK_TYPE.ahk
 #Include .\NDIS_802_11_CONFIGURATION.ahk
+#Include .\NDIS_802_11_CONFIGURATION_FH.ahk
+#Include .\NDIS_802_11_NETWORK_INFRASTRUCTURE.ahk
 
 /**
  * @namespace Windows.Win32.NetworkManagement.Ndis
- * @version v4.0.30319
  */
-class NDIS_WLAN_BSSID extends Win32Struct
-{
+class NDIS_WLAN_BSSID extends Win32Struct {
     static sizeof => 104
 
     static packingSize => 4
@@ -23,9 +23,9 @@ class NDIS_WLAN_BSSID extends Win32Struct
     }
 
     /**
-     * @type {Array<Byte>}
+     * @type {Array<Integer>}
      */
-    MacAddress{
+    MacAddress {
         get {
             if(!this.HasProp("__MacAddressProxyArray"))
                 this.__MacAddressProxyArray := Win32FixedArray(this.ptr + 4, 6, Primitive, "char")
@@ -34,9 +34,9 @@ class NDIS_WLAN_BSSID extends Win32Struct
     }
 
     /**
-     * @type {Array<Byte>}
+     * @type {Array<Integer>}
      */
-    Reserved{
+    Reserved {
         get {
             if(!this.HasProp("__ReservedProxyArray"))
                 this.__ReservedProxyArray := Win32FixedArray(this.ptr + 10, 2, Primitive, "char")
@@ -47,7 +47,7 @@ class NDIS_WLAN_BSSID extends Win32Struct
     /**
      * @type {NDIS_802_11_SSID}
      */
-    Ssid{
+    Ssid {
         get {
             if(!this.HasProp("__Ssid"))
                 this.__Ssid := NDIS_802_11_SSID(12, this)
@@ -72,7 +72,7 @@ class NDIS_WLAN_BSSID extends Win32Struct
     }
 
     /**
-     * @type {Integer}
+     * @type {NDIS_802_11_NETWORK_TYPE}
      */
     NetworkTypeInUse {
         get => NumGet(this, 56, "int")
@@ -82,7 +82,7 @@ class NDIS_WLAN_BSSID extends Win32Struct
     /**
      * @type {NDIS_802_11_CONFIGURATION}
      */
-    Configuration{
+    Configuration {
         get {
             if(!this.HasProp("__Configuration"))
                 this.__Configuration := NDIS_802_11_CONFIGURATION(60, this)
@@ -91,7 +91,7 @@ class NDIS_WLAN_BSSID extends Win32Struct
     }
 
     /**
-     * @type {Integer}
+     * @type {NDIS_802_11_NETWORK_INFRASTRUCTURE}
      */
     InfrastructureMode {
         get => NumGet(this, 92, "int")
@@ -99,9 +99,9 @@ class NDIS_WLAN_BSSID extends Win32Struct
     }
 
     /**
-     * @type {Array<Byte>}
+     * @type {Array<Integer>}
      */
-    SupportedRates{
+    SupportedRates {
         get {
             if(!this.HasProp("__SupportedRatesProxyArray"))
                 this.__SupportedRatesProxyArray := Win32FixedArray(this.ptr + 96, 8, Primitive, "char")

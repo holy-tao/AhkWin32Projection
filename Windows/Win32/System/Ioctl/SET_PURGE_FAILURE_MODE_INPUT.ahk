@@ -3,10 +3,8 @@
 
 /**
  * @namespace Windows.Win32.System.Ioctl
- * @version v4.0.30319
  */
-class SET_PURGE_FAILURE_MODE_INPUT extends Win32Struct
-{
+class SET_PURGE_FAILURE_MODE_INPUT extends Win32Struct {
     static sizeof => 4
 
     static packingSize => 4

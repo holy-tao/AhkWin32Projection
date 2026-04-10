@@ -5,10 +5,8 @@
  * Returns a handle to the access token for the current security context.
  * @see https://learn.microsoft.com/windows/win32/api/sspi/ns-sspi-secpkgcontext_accesstoken
  * @namespace Windows.Win32.Security.Authentication.Identity
- * @version v4.0.30319
  */
-class SecPkgContext_AccessToken extends Win32Struct
-{
+class SecPkgContext_AccessToken extends Win32Struct {
     static sizeof => 8
 
     static packingSize => 8

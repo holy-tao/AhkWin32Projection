@@ -1,13 +1,12 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
+#Include .\SPC_LINK.ahk
 #Include ..\Cryptography\CRYPT_INTEGER_BLOB.ahk
 
 /**
  * @namespace Windows.Win32.Security.WinTrust
- * @version v4.0.30319
  */
-class SPC_IMAGE extends Win32Struct
-{
+class SPC_IMAGE extends Win32Struct {
     static sizeof => 72
 
     static packingSize => 8
@@ -23,7 +22,7 @@ class SPC_IMAGE extends Win32Struct
     /**
      * @type {CRYPT_INTEGER_BLOB}
      */
-    Bitmap{
+    Bitmap {
         get {
             if(!this.HasProp("__Bitmap"))
                 this.__Bitmap := CRYPT_INTEGER_BLOB(8, this)
@@ -34,7 +33,7 @@ class SPC_IMAGE extends Win32Struct
     /**
      * @type {CRYPT_INTEGER_BLOB}
      */
-    Metafile{
+    Metafile {
         get {
             if(!this.HasProp("__Metafile"))
                 this.__Metafile := CRYPT_INTEGER_BLOB(24, this)
@@ -45,7 +44,7 @@ class SPC_IMAGE extends Win32Struct
     /**
      * @type {CRYPT_INTEGER_BLOB}
      */
-    EnhancedMetafile{
+    EnhancedMetafile {
         get {
             if(!this.HasProp("__EnhancedMetafile"))
                 this.__EnhancedMetafile := CRYPT_INTEGER_BLOB(40, this)
@@ -56,7 +55,7 @@ class SPC_IMAGE extends Win32Struct
     /**
      * @type {CRYPT_INTEGER_BLOB}
      */
-    GifFile{
+    GifFile {
         get {
             if(!this.HasProp("__GifFile"))
                 this.__GifFile := CRYPT_INTEGER_BLOB(56, this)

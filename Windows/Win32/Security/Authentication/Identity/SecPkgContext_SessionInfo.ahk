@@ -5,10 +5,8 @@
  * Specifies whether the session is a reconnection and retrieves a value that identifies the session.
  * @see https://learn.microsoft.com/windows/win32/api/schannel/ns-schannel-secpkgcontext_sessioninfo
  * @namespace Windows.Win32.Security.Authentication.Identity
- * @version v4.0.30319
  */
-class SecPkgContext_SessionInfo extends Win32Struct
-{
+class SecPkgContext_SessionInfo extends Win32Struct {
     static sizeof => 40
 
     static packingSize => 4
@@ -51,9 +49,9 @@ class SecPkgContext_SessionInfo extends Win32Struct
 
     /**
      * An array of up to 32 bytes that identifies the session.
-     * @type {Array<Byte>}
+     * @type {Array<Integer>}
      */
-    rgbSessionId{
+    rgbSessionId {
         get {
             if(!this.HasProp("__rgbSessionIdProxyArray"))
                 this.__rgbSessionIdProxyArray := Win32FixedArray(this.ptr + 8, 32, Primitive, "char")

@@ -1,12 +1,14 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\..\Win32Struct.ahk
+#Include .\MLOperatorExecutionType.ahk
+#Include .\MLOperatorEdgeTypeConstraint.ahk
+#Include .\MLOperatorAttributeNameValue.ahk
+#Include .\MLOperatorKernelOptions.ahk
 
 /**
  * @namespace Windows.Win32.AI.MachineLearning.WinML
- * @version v4.0.30319
  */
-class MLOperatorKernelDescription extends Win32Struct
-{
+class MLOperatorKernelDescription extends Win32Struct {
     static sizeof => 64
 
     static packingSize => 8
@@ -36,7 +38,7 @@ class MLOperatorKernelDescription extends Win32Struct
     }
 
     /**
-     * @type {Integer}
+     * @type {MLOperatorExecutionType}
      */
     executionType {
         get => NumGet(this, 20, "uint")
@@ -76,7 +78,7 @@ class MLOperatorKernelDescription extends Win32Struct
     }
 
     /**
-     * @type {Integer}
+     * @type {MLOperatorKernelOptions}
      */
     options {
         get => NumGet(this, 52, "uint")

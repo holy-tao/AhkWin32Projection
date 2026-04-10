@@ -1,12 +1,13 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
+#Include .\D3DDDIFORMAT.ahk
+#Include .\D3DDDI_VIDEO_SIGNAL_SCANLINE_ORDERING.ahk
+#Include .\D3DDDI_ROTATION.ahk
 
 /**
  * @namespace Windows.Wdk.Graphics.Direct3D
- * @version v4.0.30319
  */
-class D3DKMT_DISPLAYMODE extends Win32Struct
-{
+class D3DKMT_DISPLAYMODE extends Win32Struct {
     static sizeof => 48
 
     static packingSize => 8
@@ -28,7 +29,7 @@ class D3DKMT_DISPLAYMODE extends Win32Struct
     }
 
     /**
-     * @type {Integer}
+     * @type {D3DDDIFORMAT}
      */
     Format {
         get => NumGet(this, 8, "uint")
@@ -44,7 +45,7 @@ class D3DKMT_DISPLAYMODE extends Win32Struct
     }
 
     /**
-     * @type {Pointer<D3DDDI_RATIONAL>}
+     * @type {Pointer}
      */
     RefreshRate {
         get => NumGet(this, 16, "ptr")
@@ -52,7 +53,7 @@ class D3DKMT_DISPLAYMODE extends Win32Struct
     }
 
     /**
-     * @type {Integer}
+     * @type {D3DDDI_VIDEO_SIGNAL_SCANLINE_ORDERING}
      */
     ScanLineOrdering {
         get => NumGet(this, 24, "int")
@@ -60,7 +61,7 @@ class D3DKMT_DISPLAYMODE extends Win32Struct
     }
 
     /**
-     * @type {Integer}
+     * @type {D3DDDI_ROTATION}
      */
     DisplayOrientation {
         get => NumGet(this, 28, "int")
@@ -76,7 +77,7 @@ class D3DKMT_DISPLAYMODE extends Win32Struct
     }
 
     /**
-     * @type {Pointer<D3DKMDT_DISPLAYMODE_FLAGS>}
+     * @type {Pointer}
      */
     Flags {
         get => NumGet(this, 40, "ptr")

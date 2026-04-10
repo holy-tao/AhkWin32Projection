@@ -1,17 +1,16 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\..\Guid.ahk
+#Include .\IX509Attribute.ahk
 #Include ..\..\..\Foundation\BSTR.ahk
 #Include .\IObjectId.ahk
-#Include .\IX509Attribute.ahk
 
 /**
  * Represents an attribute that contains an encrypted private key to be archived by a certification authority.
  * @see https://learn.microsoft.com/windows/win32/api/certenroll/nn-certenroll-ix509attributearchivekey
  * @namespace Windows.Win32.Security.Cryptography.Certificates
- * @version v4.0.30319
  */
-class IX509AttributeArchiveKey extends IX509Attribute{
+class IX509AttributeArchiveKey extends IX509Attribute {
 
     static sizeof => A_PtrSize
     /**
@@ -63,7 +62,7 @@ class IX509AttributeArchiveKey extends IX509Attribute{
      * </li>
      * </ul>
      * @param {IX509PrivateKey} pKey Pointer to an <a href="https://docs.microsoft.com/windows/desktop/api/certenroll/nn-certenroll-ix509privatekey">IX509PrivateKey</a> interface that represents the key.
-     * @param {Integer} Encoding An <a href="https://docs.microsoft.com/windows/desktop/api/certenroll/ne-certenroll-encodingtype">EncodingType</a> enumeration value that specifies the type of Unicode encoding applied to the input string that contains the encrypted key.
+     * @param {EncodingType} Encoding An <a href="https://docs.microsoft.com/windows/desktop/api/certenroll/ne-certenroll-encodingtype">EncodingType</a> enumeration value that specifies the type of Unicode encoding applied to the input string that contains the encrypted key.
      * @param {BSTR} strCAXCert A <b>BSTR</b> variable that contains the certification authority encryption certificate that contains the <a href="https://docs.microsoft.com/windows/desktop/SecGloss/p-gly">public key</a> used to encrypt the private key.
      * 
      * Beginning with Windows 7 and Windows Server 2008 R2, you can specify a certificate thumb print or serial number rather than an encoded certificate. Doing so causes the function to search the appropriate local stores for the matching certificate. Keep in mind the following points:
@@ -106,7 +105,7 @@ class IX509AttributeArchiveKey extends IX509Attribute{
      * <a href="https://docs.microsoft.com/windows/desktop/api/certenroll/nf-certenroll-ix509attributearchivekey-get_encryptionstrength">EncryptionStrength</a>
      * </li>
      * </ul>
-     * @param {Integer} Encoding An <a href="https://docs.microsoft.com/windows/desktop/api/certenroll/ne-certenroll-encodingtype">EncodingType</a> enumeration value that specifies the type of Unicode encoding applied to the input string.
+     * @param {EncodingType} Encoding An <a href="https://docs.microsoft.com/windows/desktop/api/certenroll/ne-certenroll-encodingtype">EncodingType</a> enumeration value that specifies the type of Unicode encoding applied to the input string.
      * @param {BSTR} strEncodedData A <b>BSTR</b> variable that contains the DER-encoded attribute.
      * @returns {HRESULT} If the function succeeds, the function returns <b>S_OK</b>.
      * 
@@ -133,7 +132,7 @@ class IX509AttributeArchiveKey extends IX509Attribute{
      * <a href="https://docs.microsoft.com/windows/desktop/api/certenroll/nf-certenroll-ix509attributearchivekey-get_encryptionstrength">EncryptionStrength</a>
      * </li>
      * </ul>
-     * @param {Integer} Encoding 
+     * @param {EncodingType} Encoding 
      * @returns {BSTR} 
      * @see https://learn.microsoft.com/windows/win32/api/certenroll/nf-certenroll-ix509attributearchivekey-get_encryptedkeyblob
      */

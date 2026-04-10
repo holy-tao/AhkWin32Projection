@@ -5,9 +5,8 @@
 
 /**
  * @namespace Windows.Win32.System.Diagnostics.Debug.Extensions
- * @version v4.0.30319
  */
-class IDebugAdvanced2 extends IUnknown{
+class IDebugAdvanced2 extends IUnknown {
 
     static sizeof => A_PtrSize
     /**
@@ -36,7 +35,7 @@ class IDebugAdvanced2 extends IUnknown{
      * You cannot get a valid context for a running thread. Use the [SuspendThread](/windows/desktop/api/processthreadsapi/nf-processthreadsapi-suspendthread) function to suspend the thread before calling **GetThreadContext**.
      * 
      * If you call **GetThreadContext** for the current thread, the function returns successfully; however, the context returned is not valid.
-     * @param {Pointer} _Context 
+     * @param {Integer} _Context 
      * @param {Integer} ContextSize 
      * @returns {HRESULT} If the function succeeds, the return value is nonzero.
      * 
@@ -58,7 +57,7 @@ class IDebugAdvanced2 extends IUnknown{
      * Do not try to set the context for a running thread; the results are unpredictable. Use the 
      *     <a href="https://docs.microsoft.com/windows/desktop/api/processthreadsapi/nf-processthreadsapi-suspendthread">SuspendThread</a> function to suspend the thread before 
      *     calling <b>SetThreadContext</b>.
-     * @param {Pointer} _Context 
+     * @param {Integer} _Context 
      * @param {Integer} ContextSize 
      * @returns {HRESULT} If the context was set, the return value is nonzero.
      * 
@@ -74,9 +73,9 @@ class IDebugAdvanced2 extends IUnknown{
     /**
      * Specifies the type of application that created a certificate request.
      * @param {Integer} Request 
-     * @param {Pointer} InBuffer 
+     * @param {Integer} InBuffer 
      * @param {Integer} InBufferSize 
-     * @param {Pointer} OutBuffer 
+     * @param {Integer} OutBuffer 
      * @param {Integer} OutBufferSize 
      * @returns {Integer} 
      * @see https://learn.microsoft.com/windows/win32/api/certenroll/ne-certenroll-requestclientinfoclientid
@@ -92,7 +91,7 @@ class IDebugAdvanced2 extends IUnknown{
      * @param {PSTR} _SourceFile 
      * @param {Integer} Arg64 
      * @param {Integer} Arg32 
-     * @param {Pointer} _Buffer 
+     * @param {Integer} _Buffer 
      * @param {Integer} BufferSize 
      * @returns {Integer} 
      */
@@ -109,7 +108,7 @@ class IDebugAdvanced2 extends IUnknown{
      * @param {Integer} ModAddr 
      * @param {PSTR} _File 
      * @param {Integer} Flags 
-     * @param {Pointer} FileToken 
+     * @param {Integer} FileToken 
      * @param {Integer} FileTokenSize 
      * @param {Pointer<Integer>} FoundElement 
      * @param {PSTR} _Buffer 
@@ -133,7 +132,7 @@ class IDebugAdvanced2 extends IUnknown{
      * @param {Integer} Which 
      * @param {Integer} Arg64 
      * @param {Integer} Arg32 
-     * @param {Pointer} _Buffer 
+     * @param {Integer} _Buffer 
      * @param {Integer} BufferSize 
      * @param {Pointer<Integer>} InfoSize 
      * @param {PSTR} StringBuffer 
@@ -156,7 +155,7 @@ class IDebugAdvanced2 extends IUnknown{
      * @param {Integer} Which 
      * @param {Integer} Arg64 
      * @param {Integer} Arg32 
-     * @param {Pointer} _Buffer 
+     * @param {Integer} _Buffer 
      * @param {Integer} BufferSize 
      * @returns {Integer} 
      */

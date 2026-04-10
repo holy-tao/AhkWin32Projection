@@ -8,10 +8,8 @@
  * **D3D12_VIDEO_ENCODER_OUTPUT_METADATA** and its child structures are all aligned to a 64-bit access boundary for use with [SetPredication](../d3d12/nf-d3d12-id3d12graphicscommandlist-setpredication.md).
  * @see https://learn.microsoft.com/windows/win32/api/d3d12video/ns-d3d12video-d3d12_video_encoder_output_metadata
  * @namespace Windows.Win32.Media.MediaFoundation
- * @version v4.0.30319
  */
-class D3D12_VIDEO_ENCODER_OUTPUT_METADATA extends Win32Struct
-{
+class D3D12_VIDEO_ENCODER_OUTPUT_METADATA extends Win32Struct {
     static sizeof => 72
 
     static packingSize => 8
@@ -29,7 +27,7 @@ class D3D12_VIDEO_ENCODER_OUTPUT_METADATA extends Win32Struct
      * A [D3D12_VIDEO_ENCODER_OUTPUT_METADATA_STATISTICS](ns-d3d12video-d3d12_video_encoder_output_metadata_statistics.md) representing statistics for an **EncodeFrame** operation.
      * @type {D3D12_VIDEO_ENCODER_OUTPUT_METADATA_STATISTICS}
      */
-    EncodeStats{
+    EncodeStats {
         get {
             if(!this.HasProp("__EncodeStats"))
                 this.__EncodeStats := D3D12_VIDEO_ENCODER_OUTPUT_METADATA_STATISTICS(8, this)

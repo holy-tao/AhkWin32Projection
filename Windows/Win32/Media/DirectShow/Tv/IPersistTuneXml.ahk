@@ -1,8 +1,8 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\..\Guid.ahk
-#Include ..\..\..\System\Variant\VARIANT.ahk
 #Include ..\..\..\System\Com\IPersist.ahk
+#Include ..\..\..\System\Variant\VARIANT.ahk
 
 /**
  * Implements methods for serializing tuning model objects. All serializable tuning model objects are required to implement this interface.
@@ -10,9 +10,8 @@
  * To declare the interface identifier (IID) for this interface, use the <b>__uuidof</b> operator: <c>__uuidof(IPersistTuneXml)</c>.
  * @see https://learn.microsoft.com/windows/win32/api/tuner/nn-tuner-ipersisttunexml
  * @namespace Windows.Win32.Media.DirectShow.Tv
- * @version v4.0.30319
  */
-class IPersistTuneXml extends IPersist{
+class IPersistTuneXml extends IPersist {
 
     static sizeof => A_PtrSize
     /**

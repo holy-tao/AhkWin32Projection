@@ -6,10 +6,8 @@
  * Represents a Bezier segment to be used in the creation of an ID2D1Ink object. This structure differs from D2D1_BEZIER_SEGMENT in that it is composed of D2D1_INK_POINTs, which contain a radius in addition to x- and y-coordinates.
  * @see https://learn.microsoft.com/windows/win32/api/d2d1_3/ns-d2d1_3-d2d1_ink_bezier_segment
  * @namespace Windows.Win32.Graphics.Direct2D
- * @version v4.0.30319
  */
-class D2D1_INK_BEZIER_SEGMENT extends Win32Struct
-{
+class D2D1_INK_BEZIER_SEGMENT extends Win32Struct {
     static sizeof => 36
 
     static packingSize => 4
@@ -18,7 +16,7 @@ class D2D1_INK_BEZIER_SEGMENT extends Win32Struct
      * The first control point for the Bezier segment.
      * @type {D2D1_INK_POINT}
      */
-    point1{
+    point1 {
         get {
             if(!this.HasProp("__point1"))
                 this.__point1 := D2D1_INK_POINT(0, this)
@@ -30,7 +28,7 @@ class D2D1_INK_BEZIER_SEGMENT extends Win32Struct
      * The second control point for the Bezier segment.
      * @type {D2D1_INK_POINT}
      */
-    point2{
+    point2 {
         get {
             if(!this.HasProp("__point2"))
                 this.__point2 := D2D1_INK_POINT(12, this)
@@ -42,7 +40,7 @@ class D2D1_INK_BEZIER_SEGMENT extends Win32Struct
      * The end point for the Bezier segment.
      * @type {D2D1_INK_POINT}
      */
-    point3{
+    point3 {
         get {
             if(!this.HasProp("__point3"))
                 this.__point3 := D2D1_INK_POINT(24, this)

@@ -8,10 +8,8 @@
  * OCSP applications can encode or decode this structure by using <b>X509_ASN_ENCODING</b> or <b>PKCS_7_ASN_ENCODING</b>.
  * @see https://learn.microsoft.com/windows/win32/api/wincrypt/ns-wincrypt-ocsp_response_info
  * @namespace Windows.Win32.Security.Cryptography
- * @version v4.0.30319
  */
-class OCSP_RESPONSE_INFO extends Win32Struct
-{
+class OCSP_RESPONSE_INFO extends Win32Struct {
     static sizeof => 32
 
     static packingSize => 8
@@ -149,7 +147,7 @@ class OCSP_RESPONSE_INFO extends Win32Struct
      * An array of bytes that contain data encoded by using <a href="https://docs.microsoft.com/windows/desktop/SecGloss/d-gly">Distinguished Encoding Rules</a> (DER), as specified by <b>pszObjId</b>.
      * @type {CRYPT_INTEGER_BLOB}
      */
-    Value{
+    Value {
         get {
             if(!this.HasProp("__Value"))
                 this.__Value := CRYPT_INTEGER_BLOB(16, this)

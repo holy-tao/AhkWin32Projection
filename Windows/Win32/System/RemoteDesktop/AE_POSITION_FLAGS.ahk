@@ -7,9 +7,8 @@
  * The Remote Desktop Services AudioEndpoint API is for use in Remote Desktop scenarios; it is not for client applications.
  * @see https://learn.microsoft.com/windows/win32/api/audioengineendpoint/ne-audioengineendpoint-ae_position_flags
  * @namespace Windows.Win32.System.RemoteDesktop
- * @version v4.0.30319
  */
-class AE_POSITION_FLAGS extends Win32Enum{
+class AE_POSITION_FLAGS extends Win32Enum {
 
     /**
      * The position is not valid and must not be used.

@@ -1,17 +1,16 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
+#Include ..\..\System\Com\IUnknown.ahk
 #Include .\DWRITE_INLINE_OBJECT_METRICS.ahk
 #Include .\DWRITE_OVERHANG_METRICS.ahk
-#Include ..\..\System\Com\IUnknown.ahk
 
 /**
  * Wraps an application-defined inline graphic, allowing DWrite to query metrics as if the graphic were a glyph inline with the text.
  * @see https://learn.microsoft.com/windows/win32/api/dwrite/nn-dwrite-idwriteinlineobject
  * @namespace Windows.Win32.Graphics.DirectWrite
- * @version v4.0.30319
  */
-class IDWriteInlineObject extends IUnknown{
+class IDWriteInlineObject extends IUnknown {
 
     static sizeof => A_PtrSize
     /**
@@ -96,10 +95,10 @@ class IDWriteInlineObject extends IUnknown{
 
     /**
      * Layout uses this to determine the line-breaking behavior of the inline object among the text.
-     * @param {Pointer<Integer>} breakConditionBefore Type: <b><a href="https://docs.microsoft.com/windows/win32/api/dwrite/ne-dwrite-dwrite_break_condition">DWRITE_BREAK_CONDITION</a>*</b>
+     * @param {Pointer<DWRITE_BREAK_CONDITION>} breakConditionBefore Type: <b><a href="https://docs.microsoft.com/windows/win32/api/dwrite/ne-dwrite-dwrite_break_condition">DWRITE_BREAK_CONDITION</a>*</b>
      * 
      * When this method returns, contains a value which indicates the line-breaking condition between the object and the content immediately preceding it.
-     * @param {Pointer<Integer>} breakConditionAfter Type: <b><a href="https://docs.microsoft.com/windows/win32/api/dwrite/ne-dwrite-dwrite_break_condition">DWRITE_BREAK_CONDITION</a>*</b>
+     * @param {Pointer<DWRITE_BREAK_CONDITION>} breakConditionAfter Type: <b><a href="https://docs.microsoft.com/windows/win32/api/dwrite/ne-dwrite-dwrite_break_condition">DWRITE_BREAK_CONDITION</a>*</b>
      * 
      * When this method returns, contains a value which indicates the line-breaking condition between the object and the content immediately following it.
      * @returns {HRESULT} Type: <b>HRESULT</b>

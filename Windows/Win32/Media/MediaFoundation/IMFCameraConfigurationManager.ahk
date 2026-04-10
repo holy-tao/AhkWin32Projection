@@ -1,8 +1,8 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
-#Include .\IMFCameraControlDefaultsCollection.ahk
 #Include ..\..\System\Com\IUnknown.ahk
+#Include .\IMFCameraControlDefaultsCollection.ahk
 
 /**
  * The IMFCameraConfigurationManager interface can be created by calling the COM function CoCreateInstance, and passing the CLSID_CameraConfigurationManager as the CLSID parameter.
@@ -10,9 +10,8 @@
  * An instance of the **IMFCameraConfigurationManager** interface can be created by calling the COM function [CoCreateInstance](../combaseapi/nf-combaseapi-cocreateinstance.md), and passing the **CLSID_CameraConfigurationManager** as the CLSID parameter.
  * @see https://learn.microsoft.com/windows/win32/api/mfidl/nn-mfidl-imfcameraconfigurationmanager
  * @namespace Windows.Win32.Media.MediaFoundation
- * @version v4.0.30319
  */
-class IMFCameraConfigurationManager extends IUnknown{
+class IMFCameraConfigurationManager extends IUnknown {
 
     static sizeof => A_PtrSize
     /**

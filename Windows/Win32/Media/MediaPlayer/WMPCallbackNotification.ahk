@@ -5,9 +5,8 @@
  * Note  This section describes functionality designed for use by online stores.
  * @see https://learn.microsoft.com/windows/win32/api/contentpartner/ne-contentpartner-wmpcallbacknotification
  * @namespace Windows.Win32.Media.MediaPlayer
- * @version v4.0.30319
  */
-class WMPCallbackNotification extends Win32Enum{
+class WMPCallbackNotification extends Win32Enum {
 
     /**
      * The user has either signed in or signed out.

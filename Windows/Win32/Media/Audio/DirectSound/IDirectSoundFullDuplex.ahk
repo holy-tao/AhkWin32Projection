@@ -5,9 +5,8 @@
 
 /**
  * @namespace Windows.Win32.Media.Audio.DirectSound
- * @version v4.0.30319
  */
-class IDirectSoundFullDuplex extends IUnknown{
+class IDirectSoundFullDuplex extends IUnknown {
 
     static sizeof => A_PtrSize
     /**

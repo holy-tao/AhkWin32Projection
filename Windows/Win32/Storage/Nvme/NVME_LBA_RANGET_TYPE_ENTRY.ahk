@@ -3,14 +3,10 @@
 
 /**
  * Contains parameters that specify a single entry in a list of Logical Block Address (LBA) ranges, for the LBA Range Type Feature in the Set Features command.
- * @remarks
- * 
  * @see https://learn.microsoft.com/windows/win32/api/nvme/ns-nvme-nvme_lba_ranget_type_entry
  * @namespace Windows.Win32.Storage.Nvme
- * @version v4.0.30319
  */
-class NVME_LBA_RANGET_TYPE_ENTRY extends Win32Struct
-{
+class NVME_LBA_RANGET_TYPE_ENTRY extends Win32Struct {
     static sizeof => 64
 
     static packingSize => 8
@@ -30,7 +26,7 @@ class NVME_LBA_RANGET_TYPE_ENTRY extends Win32Struct
             get => NumGet(this, 0, "char")
             set => NumPut("char", value, this, 0)
         }
-    
+
         /**
          * @type {Integer}
          */
@@ -38,7 +34,7 @@ class NVME_LBA_RANGET_TYPE_ENTRY extends Win32Struct
             get => (this._bitfield >> 0) & 0x1
             set => this._bitfield := ((value & 0x1) << 0) | (this._bitfield & ~(0x1 << 0))
         }
-    
+
         /**
          * @type {Integer}
          */
@@ -46,7 +42,6 @@ class NVME_LBA_RANGET_TYPE_ENTRY extends Win32Struct
             get => (this._bitfield >> 1) & 0x1
             set => this._bitfield := ((value & 0x1) << 1) | (this._bitfield & ~(0x1 << 1))
         }
-    
     }
 
     /**
@@ -66,19 +61,18 @@ class NVME_LBA_RANGET_TYPE_ENTRY extends Win32Struct
      * - Bits 2-7 - Reserved
      * @type {_Attributes}
      */
-    Attributes{
+    Attributes {
         get {
             if(!this.HasProp("__Attributes"))
-                this.__Attributes := %this.__Class%._Attributes(1, this)
+                this.__Attributes := NVME_LBA_RANGET_TYPE_ENTRY._Attributes(1, this)
             return this.__Attributes
         }
     }
 
     /**
-     * 
-     * @type {Array<Byte>}
+     * @type {Array<Integer>}
      */
-    Reserved0{
+    Reserved0 {
         get {
             if(!this.HasProp("__Reserved0ProxyArray"))
                 this.__Reserved0ProxyArray := Win32FixedArray(this.ptr + 2, 14, Primitive, "char")
@@ -106,9 +100,9 @@ class NVME_LBA_RANGET_TYPE_ENTRY extends Win32Struct
 
     /**
      * A Global Unique Identifier (GUID) that uniquely specifies the type of this LBA range. Well known Types may be defined and are published on the [NVM Express website](https://nvmexpress.org/).
-     * @type {Array<Byte>}
+     * @type {Array<Integer>}
      */
-    GUID{
+    GUID {
         get {
             if(!this.HasProp("__GUIDProxyArray"))
                 this.__GUIDProxyArray := Win32FixedArray(this.ptr + 32, 16, Primitive, "char")
@@ -117,10 +111,9 @@ class NVME_LBA_RANGET_TYPE_ENTRY extends Win32Struct
     }
 
     /**
-     * 
-     * @type {Array<Byte>}
+     * @type {Array<Integer>}
      */
-    Reserved1{
+    Reserved1 {
         get {
             if(!this.HasProp("__Reserved1ProxyArray"))
                 this.__Reserved1ProxyArray := Win32FixedArray(this.ptr + 48, 16, Primitive, "char")

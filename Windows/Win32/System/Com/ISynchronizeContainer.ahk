@@ -1,16 +1,15 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
-#Include .\ISynchronize.ahk
 #Include .\IUnknown.ahk
+#Include .\ISynchronize.ahk
 
 /**
  * The ISynchronizeContainer (objidlbase.h) interface manages a group of unsignaled synchronization objects.
  * @see https://learn.microsoft.com/windows/win32/api/objidlbase/nn-objidlbase-isynchronizecontainer
  * @namespace Windows.Win32.System.Com
- * @version v4.0.30319
  */
-class ISynchronizeContainer extends IUnknown{
+class ISynchronizeContainer extends IUnknown {
 
     static sizeof => A_PtrSize
     /**

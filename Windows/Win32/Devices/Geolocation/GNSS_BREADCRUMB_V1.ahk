@@ -4,10 +4,8 @@
 
 /**
  * @namespace Windows.Win32.Devices.Geolocation
- * @version v4.0.30319
  */
-class GNSS_BREADCRUMB_V1 extends Win32Struct
-{
+class GNSS_BREADCRUMB_V1 extends Win32Struct {
     static sizeof => 40
 
     static packingSize => 8
@@ -15,7 +13,7 @@ class GNSS_BREADCRUMB_V1 extends Win32Struct
     /**
      * @type {FILETIME}
      */
-    FixTimeStamp{
+    FixTimeStamp {
         get {
             if(!this.HasProp("__FixTimeStamp"))
                 this.__FixTimeStamp := FILETIME(0, this)

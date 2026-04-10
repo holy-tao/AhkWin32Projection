@@ -3,9 +3,8 @@
 
 /**
  * @namespace Windows.Win32.System.GroupPolicy
- * @version v4.0.30319
  */
-class GPO_OPEN_FLAGS extends Win32Enum{
+class GPO_OPEN_FLAGS extends Win32Enum {
 
     /**
      * @type {Integer (UInt32)}

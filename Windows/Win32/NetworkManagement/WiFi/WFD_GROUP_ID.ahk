@@ -4,18 +4,16 @@
 
 /**
  * @namespace Windows.Win32.NetworkManagement.WiFi
- * @version v4.0.30319
  */
-class WFD_GROUP_ID extends Win32Struct
-{
+class WFD_GROUP_ID extends Win32Struct {
     static sizeof => 44
 
     static packingSize => 4
 
     /**
-     * @type {Array<Byte>}
+     * @type {Array<Integer>}
      */
-    DeviceAddress{
+    DeviceAddress {
         get {
             if(!this.HasProp("__DeviceAddressProxyArray"))
                 this.__DeviceAddressProxyArray := Win32FixedArray(this.ptr + 0, 6, Primitive, "char")
@@ -26,7 +24,7 @@ class WFD_GROUP_ID extends Win32Struct
     /**
      * @type {DOT11_SSID}
      */
-    GroupSSID{
+    GroupSSID {
         get {
             if(!this.HasProp("__GroupSSID"))
                 this.__GroupSSID := DOT11_SSID(8, this)

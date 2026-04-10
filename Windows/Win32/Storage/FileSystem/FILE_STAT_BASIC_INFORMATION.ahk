@@ -4,10 +4,8 @@
 
 /**
  * @namespace Windows.Win32.Storage.FileSystem
- * @version v4.0.30319
  */
-class FILE_STAT_BASIC_INFORMATION extends Win32Struct
-{
+class FILE_STAT_BASIC_INFORMATION extends Win32Struct {
     static sizeof => 104
 
     static packingSize => 8
@@ -127,7 +125,7 @@ class FILE_STAT_BASIC_INFORMATION extends Win32Struct
     /**
      * @type {FILE_ID_128}
      */
-    FileId128{
+    FileId128 {
         get {
             if(!this.HasProp("__FileId128"))
                 this.__FileId128 := FILE_ID_128(88, this)

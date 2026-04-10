@@ -1,5 +1,6 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
+#Include .\ID3D10EffectShaderVariable.ahk
 
 /**
  * Describes an effect variable that contains a shader.
@@ -7,10 +8,8 @@
  * To get a shader description, call a method like <a href="https://docs.microsoft.com/windows/desktop/api/d3d10effect/nf-d3d10effect-id3d10effectpass-getvertexshaderdesc">ID3D10EffectPass::GetVertexShaderDesc</a>.
  * @see https://learn.microsoft.com/windows/win32/api/d3d10effect/ns-d3d10effect-d3d10_pass_shader_desc
  * @namespace Windows.Win32.Graphics.Direct3D10
- * @version v4.0.30319
  */
-class D3D10_PASS_SHADER_DESC extends Win32Struct
-{
+class D3D10_PASS_SHADER_DESC extends Win32Struct {
     static sizeof => 16
 
     static packingSize => 8

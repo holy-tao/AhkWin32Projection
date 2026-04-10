@@ -1,16 +1,15 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
-#Include .\WSDUdpRetransmitParams.ahk
 #Include .\IWSDMessageParameters.ahk
+#Include .\WSDUdpRetransmitParams.ahk
 
 /**
  * Use this interface to specify how often WSD repeats the message transmission.
  * @see https://learn.microsoft.com/windows/win32/api/wsdbase/nn-wsdbase-iwsdudpmessageparameters
  * @namespace Windows.Win32.Devices.WebServicesOnDevices
- * @version v4.0.30319
  */
-class IWSDUdpMessageParameters extends IWSDMessageParameters{
+class IWSDUdpMessageParameters extends IWSDMessageParameters {
 
     static sizeof => A_PtrSize
     /**

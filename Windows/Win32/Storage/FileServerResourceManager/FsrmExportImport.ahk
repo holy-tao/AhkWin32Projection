@@ -15,10 +15,8 @@
  *     method to export the templates.
  * @see https://learn.microsoft.com/windows/win32/api/fsrm/nf-fsrm-ifsrmexportimport-exportfilegroups
  * @namespace Windows.Win32.Storage.FileServerResourceManager
- * @version v4.0.30319
  */
-class FsrmExportImport extends Win32Struct
-{
+class FsrmExportImport extends Win32Struct {
     static sizeof => 0
 
     static packingSize => 1

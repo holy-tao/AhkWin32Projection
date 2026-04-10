@@ -1,8 +1,8 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
-#Include .\IFsrmDerivedObjectsResult.ahk
 #Include .\IFsrmQuotaObject.ahk
+#Include .\IFsrmDerivedObjectsResult.ahk
 
 /**
  * Used to automatically add the quota to new and existing subdirectories of the directory on which the automatic quota is applied.
@@ -21,9 +21,8 @@
  *     <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/fsrm/nf-fsrm-ifsrmobject-commit">committed</a>.
  * @see https://learn.microsoft.com/windows/win32/api/fsrmquota/nn-fsrmquota-ifsrmautoapplyquota
  * @namespace Windows.Win32.Storage.FileServerResourceManager
- * @version v4.0.30319
  */
-class IFsrmAutoApplyQuota extends IFsrmQuotaObject{
+class IFsrmAutoApplyQuota extends IFsrmQuotaObject {
 
     static sizeof => A_PtrSize
     /**
@@ -105,9 +104,9 @@ class IFsrmAutoApplyQuota extends IFsrmQuotaObject{
      *     quota or not. For example, if a quota in one of the subdirectories was originally derived from a template, the 
      *     quota is considered a derived quota and is updated using the automatic quota—the quota is no 
      *     longer considered derived from the template.
-     * @param {Integer} commitOptions The options for saving the quota. For possible values, see the 
+     * @param {FsrmCommitOptions} commitOptions The options for saving the quota. For possible values, see the 
      *       <a href="https://docs.microsoft.com/windows/desktop/api/fsrmenums/ne-fsrmenums-fsrmcommitoptions">FsrmCommitOptions</a> enumeration.
-     * @param {Integer} applyOptions The options used to choose the derived quotas to which the changes are applied. For possible values, see 
+     * @param {FsrmTemplateApplyOptions} applyOptions The options used to choose the derived quotas to which the changes are applied. For possible values, see 
      *       the <a href="https://docs.microsoft.com/windows/desktop/api/fsrmenums/ne-fsrmenums-fsrmtemplateapplyoptions">FsrmTemplateApplyOptions</a> enumeration.
      * @returns {IFsrmDerivedObjectsResult} An <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/fsrm/nn-fsrm-ifsrmderivedobjectsresult">IFsrmDerivedObjectsResult</a> interface 
      *       that you use to determine the list of derived objects that were updated and whether the update was 

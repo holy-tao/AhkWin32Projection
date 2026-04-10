@@ -1,7 +1,6 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
-#Include ..\..\Foundation\BSTR.ahk
 #Include .\ITrigger.ahk
 
 /**
@@ -12,9 +11,8 @@
  * When reading or writing your own XML for a task, a weekly trigger is specified using the <a href="https://docs.microsoft.com/windows/desktop/TaskSchd/taskschedulerschema-schedulebyweek-calendartriggertype-element">ScheduleByWeek</a> element of the Task Scheduler schema.
  * @see https://learn.microsoft.com/windows/win32/api/taskschd/nn-taskschd-iweeklytrigger
  * @namespace Windows.Win32.System.TaskScheduler
- * @version v4.0.30319
  */
-class IWeeklyTrigger extends ITrigger{
+class IWeeklyTrigger extends ITrigger {
 
     static sizeof => A_PtrSize
     /**
@@ -36,6 +34,7 @@ class IWeeklyTrigger extends ITrigger{
     static VTableNames => ["get_DaysOfWeek", "put_DaysOfWeek", "get_WeeksInterval", "put_WeeksInterval", "get_RandomDelay", "put_RandomDelay"]
 
     /**
+     * @type {Integer} 
      */
     DaysOfWeek {
         get => this.get_DaysOfWeek()
@@ -43,6 +42,7 @@ class IWeeklyTrigger extends ITrigger{
     }
 
     /**
+     * @type {Integer} 
      */
     WeeksInterval {
         get => this.get_WeeksInterval()
@@ -50,6 +50,7 @@ class IWeeklyTrigger extends ITrigger{
     }
 
     /**
+     * @type {BSTR} 
      */
     RandomDelay {
         get => this.get_RandomDelay()

@@ -3,9 +3,8 @@
 
 /**
  * @namespace Windows.Win32.UI.Controls
- * @version v4.0.30319
  */
-class SIZINGTYPE extends Win32Enum{
+class SIZINGTYPE extends Win32Enum {
 
     /**
      * @type {Integer (Int32)}

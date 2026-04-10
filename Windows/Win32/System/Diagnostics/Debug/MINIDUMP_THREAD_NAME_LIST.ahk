@@ -4,11 +4,9 @@
 
 /**
  * @namespace Windows.Win32.System.Diagnostics.Debug
- * @version v4.0.30319
  */
-class MINIDUMP_THREAD_NAME_LIST extends Win32Struct
-{
-    static sizeof => 16
+class MINIDUMP_THREAD_NAME_LIST extends Win32Struct {
+    static sizeof => 24
 
     static packingSize => 8
 
@@ -21,9 +19,9 @@ class MINIDUMP_THREAD_NAME_LIST extends Win32Struct
     }
 
     /**
-     * @type {Array<MINIDUMP_THREAD_NAME>}
+     * @type {MINIDUMP_THREAD_NAME}
      */
-    ThreadNames{
+    ThreadNames {
         get {
             if(!this.HasProp("__ThreadNamesProxyArray"))
                 this.__ThreadNamesProxyArray := Win32FixedArray(this.ptr + 8, 1, MINIDUMP_THREAD_NAME, "")

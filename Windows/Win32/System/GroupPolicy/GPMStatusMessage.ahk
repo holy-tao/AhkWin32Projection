@@ -5,10 +5,8 @@
  * The IGPMStatusMessage interface contains property methods that retrieve various properties of status messages related to GPO operations.
  * @see https://learn.microsoft.com/windows/win32/api/gpmgmt/nn-gpmgmt-igpmstatusmessage
  * @namespace Windows.Win32.System.GroupPolicy
- * @version v4.0.30319
  */
-class GPMStatusMessage extends Win32Struct
-{
+class GPMStatusMessage extends Win32Struct {
     static sizeof => 0
 
     static packingSize => 1

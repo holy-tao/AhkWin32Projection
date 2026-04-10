@@ -7,9 +7,8 @@
  * Provides access to a constructor string. Use it when you want to specify the parameters during the construction of your object.
  * @see https://learn.microsoft.com/windows/win32/api/comsvcs/nn-comsvcs-iobjectconstructstring
  * @namespace Windows.Win32.System.ComponentServices
- * @version v4.0.30319
  */
-class IObjectConstructString extends IDispatch{
+class IObjectConstructString extends IDispatch {
 
     static sizeof => A_PtrSize
     /**

@@ -5,9 +5,8 @@
 
 /**
  * @namespace Windows.Win32.System.RemoteDesktop
- * @version v4.0.30319
  */
-class IRemoteSystemAdditionalInfoProvider extends IUnknown{
+class IRemoteSystemAdditionalInfoProvider extends IUnknown {
 
     static sizeof => A_PtrSize
     /**

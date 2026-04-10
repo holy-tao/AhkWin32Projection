@@ -5,9 +5,8 @@
  * Contains values for the AnimationStyle text attribute.
  * @see https://learn.microsoft.com/windows/win32/api/uiautomationcore/ne-uiautomationcore-animationstyle
  * @namespace Windows.Win32.UI.Accessibility
- * @version v4.0.30319
  */
-class AnimationStyle extends Win32Enum{
+class AnimationStyle extends Win32Enum {
 
     /**
      * None.

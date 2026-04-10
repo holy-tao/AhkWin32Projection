@@ -1,12 +1,11 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
+#Include .\IXpsOMVisual.ahk
 #Include .\XPS_POINT.ahk
 #Include .\IXpsOMFontResource.ahk
 #Include .\IXpsOMBrush.ahk
 #Include .\IXpsOMGlyphsEditor.ahk
-#Include .\IXpsOMGlyphs.ahk
-#Include .\IXpsOMVisual.ahk
 
 /**
  * Describes the text that appears on a page.
@@ -50,9 +49,8 @@
  * ```
  * @see https://learn.microsoft.com/windows/win32/api/xpsobjectmodel/nn-xpsobjectmodel-ixpsomglyphs
  * @namespace Windows.Win32.Storage.Xps
- * @version v4.0.30319
  */
-class IXpsOMGlyphs extends IXpsOMVisual{
+class IXpsOMGlyphs extends IXpsOMVisual {
 
     static sizeof => A_PtrSize
     /**
@@ -330,7 +328,7 @@ class IXpsOMGlyphs extends IXpsOMVisual{
 
     /**
      * Gets the style simulations that will be applied when rendering the glyphs.
-     * @returns {Integer} The <a href="https://docs.microsoft.com/windows/win32/api/xpsobjectmodel/ne-xpsobjectmodel-xps_style_simulation">XPS_STYLE_SIMULATION</a> value that describes the style simulations to be applied.
+     * @returns {XPS_STYLE_SIMULATION} The <a href="https://docs.microsoft.com/windows/win32/api/xpsobjectmodel/ne-xpsobjectmodel-xps_style_simulation">XPS_STYLE_SIMULATION</a> value that describes the style simulations to be applied.
      * @see https://learn.microsoft.com/windows/win32/api/xpsobjectmodel/nf-xpsobjectmodel-ixpsomglyphs-getstylesimulations
      */
     GetStyleSimulations() {
@@ -340,7 +338,7 @@ class IXpsOMGlyphs extends IXpsOMVisual{
 
     /**
      * Sets the style simulations that will be applied when the glyphs are rendered.
-     * @param {Integer} styleSimulations The <a href="https://docs.microsoft.com/windows/win32/api/xpsobjectmodel/ne-xpsobjectmodel-xps_style_simulation">XPS_STYLE_SIMULATION</a> value that specifies the style simulation to be applied.
+     * @param {XPS_STYLE_SIMULATION} styleSimulations The <a href="https://docs.microsoft.com/windows/win32/api/xpsobjectmodel/ne-xpsobjectmodel-xps_style_simulation">XPS_STYLE_SIMULATION</a> value that specifies the style simulation to be applied.
      * @returns {HRESULT} The method returns an <b>HRESULT</b>. Possible values include, but are not limited to, those in the table that follows. For information about  XPS document API return values that are not listed in this table, see <a href="https://docs.microsoft.com/previous-versions/windows/desktop/dd372955(v=vs.85)">XPS Document Errors</a>.
      * 
      * <table>

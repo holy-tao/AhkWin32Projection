@@ -3,10 +3,8 @@
 
 /**
  * @namespace Windows.Win32.Media.DirectShow.Tv
- * @version v4.0.30319
  */
-class EVENTID_AudioDescriptorSpanningEvent extends Win32Struct
-{
+class EVENTID_AudioDescriptorSpanningEvent extends Win32Struct {
     static sizeof => 0
 
     static packingSize => 1

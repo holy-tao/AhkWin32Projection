@@ -5,9 +5,8 @@
  * Represents the severity of the log event passed to the LogEvent callback function.
  * @see https://learn.microsoft.com/windows/win32/api/resapi/ne-resapi-log_level
  * @namespace Windows.Win32.Networking.Clustering
- * @version v4.0.30319
  */
-class LOG_LEVEL extends Win32Enum{
+class LOG_LEVEL extends Win32Enum {
 
     /**
      * The event is informational.

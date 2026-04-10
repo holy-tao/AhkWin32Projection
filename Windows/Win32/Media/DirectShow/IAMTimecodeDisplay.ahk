@@ -7,9 +7,8 @@
  * The IAMTimecodeDisplay interface controls an external SMPTE/MIDI timecode display device.DirectShow currently does not provide any filters that implement this interface.
  * @see https://learn.microsoft.com/windows/win32/api/strmif/nn-strmif-iamtimecodedisplay
  * @namespace Windows.Win32.Media.DirectShow
- * @version v4.0.30319
  */
-class IAMTimecodeDisplay extends IUnknown{
+class IAMTimecodeDisplay extends IUnknown {
 
     static sizeof => A_PtrSize
     /**

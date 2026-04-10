@@ -15,9 +15,8 @@
  * You do not call this interface directly. <b>IShellView2</b> is used by the operating system only when it has confirmed that your application is aware of this interface. Objects that expose <a href="https://docs.microsoft.com/windows/desktop/api/shobjidl_core/nn-shobjidl_core-ishellview">IShellView</a> and <b>IShellView2</b> are usually created by other Shell folder objects.
  * @see https://learn.microsoft.com/windows/win32/api/shobjidl_core/nn-shobjidl_core-ishellview2
  * @namespace Windows.Win32.UI.Shell
- * @version v4.0.30319
  */
-class IShellView2 extends IShellView{
+class IShellView2 extends IShellView {
 
     static sizeof => A_PtrSize
     /**

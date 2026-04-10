@@ -8,10 +8,8 @@
  *     a volume is in a redirected mode.
  * @see https://learn.microsoft.com/windows/win32/api/winioctl/ns-winioctl-csv_query_veto_file_direct_io_output
  * @namespace Windows.Win32.System.Ioctl
- * @version v4.0.30319
  */
-class CSV_QUERY_VETO_FILE_DIRECT_IO_OUTPUT extends Win32Struct
-{
+class CSV_QUERY_VETO_FILE_DIRECT_IO_OUTPUT extends Win32Struct {
     static sizeof => 528
 
     static packingSize => 8

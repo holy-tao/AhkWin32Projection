@@ -1,18 +1,17 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
+#Include .\FAULT_INFORMATION_ARCH.ahk
 
 /**
  * @namespace Windows.Wdk.System.SystemServices
- * @version v4.0.30319
  */
-class FAULT_INFORMATION extends Win32Struct
-{
+class FAULT_INFORMATION extends Win32Struct {
     static sizeof => 16
 
     static packingSize => 8
 
     /**
-     * @type {Integer}
+     * @type {FAULT_INFORMATION_ARCH}
      */
     Type {
         get => NumGet(this, 0, "int")
@@ -28,7 +27,7 @@ class FAULT_INFORMATION extends Win32Struct
     }
 
     /**
-     * @type {Pointer<FAULT_INFORMATION_ARM64>}
+     * @type {Pointer}
      */
     Arm64 {
         get => NumGet(this, 8, "ptr")
@@ -36,7 +35,7 @@ class FAULT_INFORMATION extends Win32Struct
     }
 
     /**
-     * @type {Pointer<FAULT_INFORMATION_X64>}
+     * @type {Pointer}
      */
     X64 {
         get => NumGet(this, 8, "ptr")

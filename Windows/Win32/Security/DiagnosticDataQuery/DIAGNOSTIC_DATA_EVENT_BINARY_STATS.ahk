@@ -3,14 +3,10 @@
 
 /**
  * A resource that describes this binary and the amount of diagnostic data it has sent.
- * @remarks
- * 
  * @see https://learn.microsoft.com/windows/win32/api/diagnosticdataquerytypes/ns-diagnosticdataquerytypes-diagnostic_data_event_binary_stats
  * @namespace Windows.Win32.Security.DiagnosticDataQuery
- * @version v4.0.30319
  */
-class DIAGNOSTIC_DATA_EVENT_BINARY_STATS extends Win32Struct
-{
+class DIAGNOSTIC_DATA_EVENT_BINARY_STATS extends Win32Struct {
     static sizeof => 32
 
     static packingSize => 8

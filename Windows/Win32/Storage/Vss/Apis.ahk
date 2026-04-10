@@ -4,7 +4,6 @@
 
 /**
  * @namespace Windows.Win32.Storage.Vss
- * @version v4.0.30319
  */
 class Vss {
 

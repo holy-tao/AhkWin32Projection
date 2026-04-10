@@ -9,9 +9,8 @@
  * A thesaurus file contains a word and a list of words to substitute when querying. It is specific to a catalog and can be defined in more than one file.
  * @see https://learn.microsoft.com/windows/win32/api/searchapi/nn-searchapi-isearchlanguagesupport
  * @namespace Windows.Win32.System.Search
- * @version v4.0.30319
  */
-class ISearchLanguageSupport extends IUnknown{
+class ISearchLanguageSupport extends IUnknown {
 
     static sizeof => A_PtrSize
     /**

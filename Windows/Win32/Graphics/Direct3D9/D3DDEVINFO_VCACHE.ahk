@@ -5,10 +5,8 @@
  * Vertex cache optimization hints.
  * @see https://learn.microsoft.com/windows/win32/direct3d9/d3ddevinfo-vcache
  * @namespace Windows.Win32.Graphics.Direct3D9
- * @version v4.0.30319
  */
-class D3DDEVINFO_VCACHE extends Win32Struct
-{
+class D3DDEVINFO_VCACHE extends Win32Struct {
     static sizeof => 16
 
     static packingSize => 4

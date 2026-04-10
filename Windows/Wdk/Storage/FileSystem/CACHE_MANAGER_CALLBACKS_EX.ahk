@@ -3,10 +3,8 @@
 
 /**
  * @namespace Windows.Wdk.Storage.FileSystem
- * @version v4.0.30319
  */
-class CACHE_MANAGER_CALLBACKS_EX extends Win32Struct
-{
+class CACHE_MANAGER_CALLBACKS_EX extends Win32Struct {
     static sizeof => 16
 
     static packingSize => 8
@@ -28,7 +26,7 @@ class CACHE_MANAGER_CALLBACKS_EX extends Win32Struct
     }
 
     /**
-     * @type {Pointer<CACHE_MANAGER_CALLBACK_FUNCTIONS>}
+     * @type {Pointer}
      */
     Functions {
         get => NumGet(this, 8, "ptr")

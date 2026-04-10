@@ -1,7 +1,6 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
-#Include ..\..\Foundation\BSTR.ahk
 #Include ..\Com\IDispatch.ahk
 
 /**
@@ -44,9 +43,8 @@
  * When reading or writing XML, the actions of a task are specified in the <a href="https://docs.microsoft.com/windows/desktop/TaskSchd/taskschedulerschema-actions-tasktype-element">Actions</a> element of the Task Scheduler schema.
  * @see https://learn.microsoft.com/windows/win32/api/taskschd/nn-taskschd-iaction
  * @namespace Windows.Win32.System.TaskScheduler
- * @version v4.0.30319
  */
-class IAction extends IDispatch{
+class IAction extends IDispatch {
 
     static sizeof => A_PtrSize
     /**
@@ -68,6 +66,7 @@ class IAction extends IDispatch{
     static VTableNames => ["get_Id", "put_Id", "get_Type"]
 
     /**
+     * @type {BSTR} 
      */
     Id {
         get => this.get_Id()
@@ -114,7 +113,7 @@ class IAction extends IDispatch{
      * The action type is defined when the action is created and cannot be changed later. For information on creating an action, see <a href="https://docs.microsoft.com/windows/desktop/api/taskschd/nf-taskschd-iactioncollection-create">IActionCollection.Create</a>.
      * 
      * For information on how actions and tasks work together, see <a href="https://docs.microsoft.com/windows/desktop/TaskSchd/task-actions">Task Actions</a>.
-     * @param {Pointer<Integer>} pType 
+     * @param {Pointer<TASK_ACTION_TYPE>} pType 
      * @returns {HRESULT} 
      * @see https://learn.microsoft.com/windows/win32/api/taskschd/nf-taskschd-iaction-get_type
      */

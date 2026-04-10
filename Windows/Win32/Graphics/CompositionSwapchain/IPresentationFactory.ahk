@@ -1,18 +1,15 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
-#Include .\IPresentationManager.ahk
 #Include ..\..\System\Com\IUnknown.ahk
+#Include .\IPresentationManager.ahk
 
 /**
  * This interface is used to query system support for presentation, and create a presentation manager.
- * @remarks
- * 
  * @see https://learn.microsoft.com/windows/win32/api/presentation/nn-presentation-ipresentationfactory
  * @namespace Windows.Win32.Graphics.CompositionSwapchain
- * @version v4.0.30319
  */
-class IPresentationFactory extends IUnknown{
+class IPresentationFactory extends IUnknown {
 
     static sizeof => A_PtrSize
     /**

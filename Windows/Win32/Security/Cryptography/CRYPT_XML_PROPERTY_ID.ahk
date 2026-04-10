@@ -8,9 +8,8 @@
  *   for the entire period of the signature operation.
  * @see https://learn.microsoft.com/windows/win32/api/cryptxml/ne-cryptxml-crypt_xml_property_id
  * @namespace Windows.Win32.Security.Cryptography
- * @version v4.0.30319
  */
-class CRYPT_XML_PROPERTY_ID extends Win32Enum{
+class CRYPT_XML_PROPERTY_ID extends Win32Enum {
 
     /**
      * Specifies the maximum heap size, in bytes, that the  XML layer can use.

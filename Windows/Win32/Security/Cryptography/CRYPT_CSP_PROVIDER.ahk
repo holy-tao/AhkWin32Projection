@@ -4,10 +4,8 @@
 
 /**
  * @namespace Windows.Win32.Security.Cryptography
- * @version v4.0.30319
  */
-class CRYPT_CSP_PROVIDER extends Win32Struct
-{
+class CRYPT_CSP_PROVIDER extends Win32Struct {
     static sizeof => 40
 
     static packingSize => 8
@@ -31,7 +29,7 @@ class CRYPT_CSP_PROVIDER extends Win32Struct
     /**
      * @type {CRYPT_BIT_BLOB}
      */
-    Signature{
+    Signature {
         get {
             if(!this.HasProp("__Signature"))
                 this.__Signature := CRYPT_BIT_BLOB(16, this)

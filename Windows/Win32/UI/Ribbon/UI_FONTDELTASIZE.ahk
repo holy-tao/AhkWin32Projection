@@ -11,9 +11,8 @@
  * <img alt="Screen shot of the Font grow and Font shrink buttons on the FontControl." src="./images/FontControl_IncDec.png"/>
  * @see https://learn.microsoft.com/windows/win32/api/uiribbon/ne-uiribbon-ui_fontdeltasize
  * @namespace Windows.Win32.UI.Ribbon
- * @version v4.0.30319
  */
-class UI_FONTDELTASIZE extends Win32Enum{
+class UI_FONTDELTASIZE extends Win32Enum {
 
     /**
      * Increment the font size.

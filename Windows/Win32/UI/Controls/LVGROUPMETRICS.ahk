@@ -7,10 +7,8 @@
  * The width of a border determines the margins of the area within which items are placed. The top border is highlighted when the user moves the cursor over it, and when the user clicks on this border in a list that allows multiple selection, all items in the group are selected.
  * @see https://learn.microsoft.com/windows/win32/api/commctrl/ns-commctrl-lvgroupmetrics
  * @namespace Windows.Win32.UI.Controls
- * @version v4.0.30319
  */
-class LVGROUPMETRICS extends Win32Struct
-{
+class LVGROUPMETRICS extends Win32Struct {
     static sizeof => 48
 
     static packingSize => 4

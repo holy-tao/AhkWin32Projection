@@ -3,18 +3,16 @@
 
 /**
  * @namespace Windows.Wdk.Graphics.Direct3D
- * @version v4.0.30319
  */
-class D3DKMT_QUERYSTATISTICS_POLICY extends Win32Struct
-{
+class D3DKMT_QUERYSTATISTICS_POLICY extends Win32Struct {
     static sizeof => 104
 
     static packingSize => 8
 
     /**
-     * @type {Array<UInt64>}
+     * @type {Array<Integer>}
      */
-    PreferApertureForRead{
+    PreferApertureForRead {
         get {
             if(!this.HasProp("__PreferApertureForReadProxyArray"))
                 this.__PreferApertureForReadProxyArray := Win32FixedArray(this.ptr + 0, 5, Primitive, "uint")
@@ -23,9 +21,9 @@ class D3DKMT_QUERYSTATISTICS_POLICY extends Win32Struct
     }
 
     /**
-     * @type {Array<UInt64>}
+     * @type {Array<Integer>}
      */
-    PreferAperture{
+    PreferAperture {
         get {
             if(!this.HasProp("__PreferApertureProxyArray"))
                 this.__PreferApertureProxyArray := Win32FixedArray(this.ptr + 40, 5, Primitive, "uint")

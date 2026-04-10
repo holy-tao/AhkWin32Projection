@@ -7,9 +7,8 @@
  * Exposes methods to get, set, and query a progress dialog.
  * @see https://learn.microsoft.com/windows/win32/api/shobjidl_core/nn-shobjidl_core-ioperationsprogressdialog
  * @namespace Windows.Win32.UI.Shell
- * @version v4.0.30319
  */
-class IOperationsProgressDialog extends IUnknown{
+class IOperationsProgressDialog extends IUnknown {
 
     static sizeof => A_PtrSize
     /**
@@ -66,7 +65,7 @@ class IOperationsProgressDialog extends IUnknown{
 
     /**
      * Sets which progress dialog operation is occurring, and whether we are in pre-flight or undo mode.
-     * @param {Integer} action Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/shobjidl_core/ne-shobjidl_core-spaction">SPACTION</a></b>
+     * @param {SPACTION} action Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/shobjidl_core/ne-shobjidl_core-spaction">SPACTION</a></b>
      * 
      * Specifies operation. See <a href="https://docs.microsoft.com/windows/desktop/api/shobjidl_core/ne-shobjidl_core-spaction">SPACTION</a>.
      * @returns {HRESULT} Type: <b>HRESULT</b>
@@ -81,7 +80,9 @@ class IOperationsProgressDialog extends IUnknown{
 
     /**
      * Sets progress dialog operations mode.
-     * @param {Integer} _mode 
+     * @param {Integer} _mode Type: <b>PDMODE</b>
+     * 
+     * Specifies the operation mode. The following are valid values.
      * @returns {HRESULT} Type: <b>HRESULT</b>
      * 
      * If this method succeeds, it returns <b>S_OK</b>. Otherwise, it returns an <b>HRESULT</b> error code.
@@ -202,7 +203,7 @@ class IOperationsProgressDialog extends IUnknown{
 
     /**
      * Gets operation status for progress dialog.
-     * @returns {Integer} Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/shobjidl_core/ne-shobjidl_core-pdopstatus">PDOPSTATUS</a>*</b>
+     * @returns {PDOPSTATUS} Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/shobjidl_core/ne-shobjidl_core-pdopstatus">PDOPSTATUS</a>*</b>
      * 
      * Contains pointer to the operation status. See <a href="https://docs.microsoft.com/windows/desktop/api/shobjidl_core/ne-shobjidl_core-pdopstatus">PDOPSTATUS</a>.
      * @see https://learn.microsoft.com/windows/win32/api/shobjidl_core/nf-shobjidl_core-ioperationsprogressdialog-getoperationstatus

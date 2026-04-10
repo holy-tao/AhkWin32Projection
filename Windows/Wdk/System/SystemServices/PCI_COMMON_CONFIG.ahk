@@ -3,16 +3,14 @@
 
 /**
  * @namespace Windows.Wdk.System.SystemServices
- * @version v4.0.30319
  */
-class PCI_COMMON_CONFIG extends Win32Struct
-{
+class PCI_COMMON_CONFIG extends Win32Struct {
     static sizeof => 200
 
     static packingSize => 8
 
     /**
-     * @type {Pointer<PCI_COMMON_HEADER>}
+     * @type {Pointer}
      */
     Base {
         get => NumGet(this, 0, "ptr")
@@ -20,9 +18,9 @@ class PCI_COMMON_CONFIG extends Win32Struct
     }
 
     /**
-     * @type {Array<Byte>}
+     * @type {Array<Integer>}
      */
-    DeviceSpecific{
+    DeviceSpecific {
         get {
             if(!this.HasProp("__DeviceSpecificProxyArray"))
                 this.__DeviceSpecificProxyArray := Win32FixedArray(this.ptr + 8, 192, Primitive, "char")

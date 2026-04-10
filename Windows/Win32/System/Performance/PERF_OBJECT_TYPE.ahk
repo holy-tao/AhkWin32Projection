@@ -11,10 +11,9 @@
  * 		For details on the layout of the performance data block, see <a href="https://docs.microsoft.com/windows/desktop/PerfCtrs/performance-data-format">Performance Data Format</a>.
  * @see https://learn.microsoft.com/windows/win32/api/winperf/ns-winperf-perf_object_type
  * @namespace Windows.Win32.System.Performance
- * @version v4.0.30319
+ * @architecture X64, Arm64
  */
-class PERF_OBJECT_TYPE extends Win32Struct
-{
+class PERF_OBJECT_TYPE extends Win32Struct {
     static sizeof => 64
 
     static packingSize => 8
@@ -93,7 +92,6 @@ class PERF_OBJECT_TYPE extends Win32Struct
     }
 
     /**
-     * 
      * @type {Integer}
      */
     DetailLevel {

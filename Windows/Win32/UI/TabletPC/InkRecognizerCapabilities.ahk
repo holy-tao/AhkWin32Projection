@@ -7,9 +7,8 @@
  * This enumeration is a flag.
  * @see https://learn.microsoft.com/windows/win32/api/msinkaut/ne-msinkaut-inkrecognizercapabilities
  * @namespace Windows.Win32.UI.TabletPC
- * @version v4.0.30319
  */
-class InkRecognizerCapabilities extends Win32Enum{
+class InkRecognizerCapabilities extends Win32Enum {
 
     /**
      * Ignores all other flags that are set.
@@ -102,43 +101,36 @@ class InkRecognizerCapabilities extends Win32Enum{
     static IRC_Personalizable => 16384
 
     /**
-     * 
      * @type {Integer (Int32)}
      */
     static IRC_PrefersArbitraryAngle => 32768
 
     /**
-     * 
      * @type {Integer (Int32)}
      */
     static IRC_PrefersParagraphBreaking => 65536
 
     /**
-     * 
      * @type {Integer (Int32)}
      */
     static IRC_PrefersSegmentation => 131072
 
     /**
-     * 
      * @type {Integer (Int32)}
      */
     static IRC_Cursive => 262144
 
     /**
-     * 
      * @type {Integer (Int32)}
      */
     static IRC_TextPrediction => 524288
 
     /**
-     * 
      * @type {Integer (Int32)}
      */
     static IRC_Alpha => 1048576
 
     /**
-     * 
      * @type {Integer (Int32)}
      */
     static IRC_Beta => 2097152

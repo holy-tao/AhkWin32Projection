@@ -18,9 +18,8 @@
  * The [**IInkAnalyzer**](iinkanalyzer.md) maintains a list of available recognizers. To access this list, use the [**IInkAnalyzer::GetInkAnalysisRecognizersByPriority Method**](iinkanalyzer-getinkanalysisrecognizersbypriority.md) method.
  * @see https://learn.microsoft.com/windows/win32/tablet/iinkanalysisrecognizer
  * @namespace Windows.Win32.UI.TabletPC
- * @version v4.0.30319
  */
-class IInk extends IDispatch{
+class IInk extends IDispatch {
 
     static sizeof => A_PtrSize
     /**

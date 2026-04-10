@@ -5,10 +5,8 @@
  * The SERVER_INFO_503 structure is obsolete. The structure contains information about the specified server.
  * @see https://learn.microsoft.com/windows/win32/api/lmserver/ns-lmserver-server_info_503
  * @namespace Windows.Win32.NetworkManagement.NetManagement
- * @version v4.0.30319
  */
-class SERVER_INFO_503 extends Win32Struct
-{
+class SERVER_INFO_503 extends Win32Struct {
     static sizeof => 176
 
     static packingSize => 8
@@ -146,7 +144,6 @@ class SERVER_INFO_503 extends Win32Struct
     }
 
     /**
-     * 
      * @type {Integer}
      */
     sv503_maxnonpagedmemoryusage {

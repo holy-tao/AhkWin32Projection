@@ -6,10 +6,8 @@
  * Describes the capabilities of a biometric unit.
  * @see https://learn.microsoft.com/windows/win32/SecBioMet/winbio-unit-schema
  * @namespace Windows.Win32.Devices.BiometricFramework
- * @version v4.0.30319
  */
-class WINBIO_UNIT_SCHEMA extends Win32Struct
-{
+class WINBIO_UNIT_SCHEMA extends Win32Struct {
     static sizeof => 2588
 
     static packingSize => 4
@@ -84,9 +82,9 @@ class WINBIO_UNIT_SCHEMA extends Win32Struct
 
     /**
      * A string value that contains the device ID. The string can contain up to 256 Unicode characters including a terminating **NULL** character.
-     * @type {Array<UInt16>}
+     * @type {Array<Integer>}
      */
-    DeviceInstanceId{
+    DeviceInstanceId {
         get {
             if(!this.HasProp("__DeviceInstanceIdProxyArray"))
                 this.__DeviceInstanceIdProxyArray := Win32FixedArray(this.ptr + 20, 256, Primitive, "ushort")
@@ -96,9 +94,9 @@ class WINBIO_UNIT_SCHEMA extends Win32Struct
 
     /**
      * A string value that contains a description of the biometric unit. The string can contain up to 256 Unicode characters including a terminating **NULL** character.
-     * @type {Array<UInt16>}
+     * @type {Array<Integer>}
      */
-    Description{
+    Description {
         get {
             if(!this.HasProp("__DescriptionProxyArray"))
                 this.__DescriptionProxyArray := Win32FixedArray(this.ptr + 532, 256, Primitive, "ushort")
@@ -108,9 +106,9 @@ class WINBIO_UNIT_SCHEMA extends Win32Struct
 
     /**
      * A string value that contains the name of the manufacturer. The string can contain up to 256 Unicode characters including a terminating **NULL** character.
-     * @type {Array<UInt16>}
+     * @type {Array<Integer>}
      */
-    Manufacturer{
+    Manufacturer {
         get {
             if(!this.HasProp("__ManufacturerProxyArray"))
                 this.__ManufacturerProxyArray := Win32FixedArray(this.ptr + 1044, 256, Primitive, "ushort")
@@ -120,9 +118,9 @@ class WINBIO_UNIT_SCHEMA extends Win32Struct
 
     /**
      * A string value that contains the model number of the biometric unit. The string can contain up to 256 Unicode characters including a terminating **NULL** character.
-     * @type {Array<UInt16>}
+     * @type {Array<Integer>}
      */
-    Model{
+    Model {
         get {
             if(!this.HasProp("__ModelProxyArray"))
                 this.__ModelProxyArray := Win32FixedArray(this.ptr + 1556, 256, Primitive, "ushort")
@@ -132,9 +130,9 @@ class WINBIO_UNIT_SCHEMA extends Win32Struct
 
     /**
      * A **NULL**-terminated Unicode string that contains the serial number of the biometric unit. The string can contain up to 256 Unicode characters including a terminating **NULL** character.
-     * @type {Array<UInt16>}
+     * @type {Array<Integer>}
      */
-    SerialNumber{
+    SerialNumber {
         get {
             if(!this.HasProp("__SerialNumberProxyArray"))
                 this.__SerialNumberProxyArray := Win32FixedArray(this.ptr + 2068, 256, Primitive, "ushort")
@@ -146,7 +144,7 @@ class WINBIO_UNIT_SCHEMA extends Win32Struct
      * A [**WINBIO\_VERSION**](winbio-version.md) structure that contains the major and minor version numbers for the biometric unit.
      * @type {WINBIO_VERSION}
      */
-    FirmwareVersion{
+    FirmwareVersion {
         get {
             if(!this.HasProp("__FirmwareVersion"))
                 this.__FirmwareVersion := WINBIO_VERSION(2580, this)

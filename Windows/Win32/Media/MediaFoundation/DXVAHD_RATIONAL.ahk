@@ -9,10 +9,8 @@
  * Values of the form <i>n</i>/0, where <i>n</i> is nonzero, are invalid.
  * @see https://learn.microsoft.com/windows/win32/api/dxvahd/ns-dxvahd-dxvahd_rational
  * @namespace Windows.Win32.Media.MediaFoundation
- * @version v4.0.30319
  */
-class DXVAHD_RATIONAL extends Win32Struct
-{
+class DXVAHD_RATIONAL extends Win32Struct {
     static sizeof => 8
 
     static packingSize => 4

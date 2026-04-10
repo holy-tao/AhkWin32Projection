@@ -3,9 +3,8 @@
 
 /**
  * @namespace Windows.Win32.Graphics.Gdi
- * @version v4.0.30319
  */
-class GET_GLYPH_OUTLINE_FORMAT extends Win32Enum{
+class GET_GLYPH_OUTLINE_FORMAT extends Win32Enum {
 
     /**
      * @type {Integer (UInt32)}

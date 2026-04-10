@@ -3,9 +3,8 @@
 
 /**
  * @namespace Windows.Win32.UI.Input
- * @version v4.0.30319
  */
-class RAW_INPUT_DEVICE_INFO_COMMAND extends Win32Enum{
+class RAW_INPUT_DEVICE_INFO_COMMAND extends Win32Enum {
 
     /**
      * @type {Integer (UInt32)}

@@ -3,10 +3,8 @@
 
 /**
  * @namespace Windows.Win32.Devices.Usb
- * @version v4.0.30319
  */
-class PACKET_PARAMETERS extends Win32Struct
-{
+class PACKET_PARAMETERS extends Win32Struct {
     static sizeof => 32
 
     static packingSize => 4
@@ -84,9 +82,9 @@ class PACKET_PARAMETERS extends Win32Struct
     }
 
     /**
-     * @type {Array<Byte>}
+     * @type {Array<Integer>}
      */
-    Pad{
+    Pad {
         get {
             if(!this.HasProp("__PadProxyArray"))
                 this.__PadProxyArray := Win32FixedArray(this.ptr + 21, 3, Primitive, "char")
@@ -103,9 +101,9 @@ class PACKET_PARAMETERS extends Win32Struct
     }
 
     /**
-     * @type {Array<Byte>}
+     * @type {Array<Integer>}
      */
-    Data{
+    Data {
         get {
             if(!this.HasProp("__DataProxyArray"))
                 this.__DataProxyArray := Win32FixedArray(this.ptr + 28, 4, Primitive, "char")

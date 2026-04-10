@@ -1,16 +1,15 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
-#Include .\IMFTimedTextTrack.ahk
 #Include ..\..\System\Com\IUnknown.ahk
+#Include .\IMFTimedTextTrack.ahk
 
 /**
  * Represents a list of timed-text tracks.
  * @see https://learn.microsoft.com/windows/win32/api/mfmediaengine/nn-mfmediaengine-imftimedtexttracklist
  * @namespace Windows.Win32.Media.MediaFoundation
- * @version v4.0.30319
  */
-class IMFTimedTextTrackList extends IUnknown{
+class IMFTimedTextTrackList extends IUnknown {
 
     static sizeof => A_PtrSize
     /**

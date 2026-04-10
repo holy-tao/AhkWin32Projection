@@ -1,14 +1,13 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
+#Include .\ACTCTX_COMPATIBILITY_ELEMENT_TYPE.ahk
 
 /**
  * The COMPATIBILITY_CONTEXT_ELEMENT structure is used by the QueryActCtxW function as part of the ACTIVATION_CONTEXT_COMPATIBILITY_INFORMATION structure.
  * @see https://learn.microsoft.com/windows/win32/api/winnt/ns-winnt-compatibility_context_element
  * @namespace Windows.Win32.System.ApplicationInstallationAndServicing
- * @version v4.0.30319
  */
-class COMPATIBILITY_CONTEXT_ELEMENT extends Win32Struct
-{
+class COMPATIBILITY_CONTEXT_ELEMENT extends Win32Struct {
     static sizeof => 24
 
     static packingSize => 8
@@ -44,7 +43,7 @@ class COMPATIBILITY_CONTEXT_ELEMENT extends Win32Struct
      * </td>
      * </tr>
      * </table>
-     * @type {Pointer<Guid>}
+     * @type {Pointer}
      */
     Id {
         get => NumGet(this, 0, "ptr")
@@ -53,7 +52,7 @@ class COMPATIBILITY_CONTEXT_ELEMENT extends Win32Struct
 
     /**
      * A value of the <a href="https://docs.microsoft.com/windows/desktop/api/winnt/ne-winnt-actctx_compatibility_element_type">ACTCTX_COMPATIBILITY_ELEMENT_TYPE</a> enumeration that describes the compatibility elements in the application manifest.
-     * @type {Integer}
+     * @type {ACTCTX_COMPATIBILITY_ELEMENT_TYPE}
      */
     Type {
         get => NumGet(this, 8, "int")

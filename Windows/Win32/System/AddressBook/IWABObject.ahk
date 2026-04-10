@@ -1,16 +1,15 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
-#Include .\IMailUser.ahk
 #Include ..\Com\IUnknown.ahk
+#Include .\IMailUser.ahk
 
 /**
  * Do not use. This interface provides access to the Windows Address Book (WAB) object which contains function pointers to memory allocation functions and database maintenance functions.
  * @see https://learn.microsoft.com/windows/win32/api/wabapi/nn-wabapi-iwabobject
  * @namespace Windows.Win32.System.AddressBook
- * @version v4.0.30319
  */
-class IWABObject extends IUnknown{
+class IWABObject extends IUnknown {
 
     static sizeof => A_PtrSize
 
@@ -28,7 +27,7 @@ class IWABObject extends IUnknown{
 
     /**
      * This method is not implemented. (IWABObject.GetLastError)
-     * @param {HRESULT} _hResult 
+     * @param {HRESULT} _hResult TBD
      * @param {Integer} ulFlags TBD
      * @param {Pointer<Pointer<MAPIERROR>>} lppMAPIError TBD
      * @returns {HRESULT} This method does not return a value.
@@ -159,7 +158,11 @@ class IWABObject extends IUnknown{
      * 
      * Pointer to an <a href="https://docs.microsoft.com/windows/desktop/api/wabiab/nn-wabiab-iaddrbook">IAddrBook</a> interface 
      * 				that specifies the address book to search.
-     * @param {HWND} _hWnd 
+     * @param {HWND} _hWnd Type: <b>HWND</b>
+     * 
+     * Value of type <b>HWND</b> that specifies 
+     * 				the handle to the parent window for the Find dialog box. 
+     * 				The value can be <b>NULL</b>.
      * @returns {HRESULT} Type: <b>HRESULT</b>
      * 
      * Returns S_OK if successful.
@@ -178,7 +181,10 @@ class IWABObject extends IUnknown{
      * 
      * Pointer to an <a href="https://docs.microsoft.com/windows/desktop/api/wabiab/nn-wabiab-iaddrbook">IAddrBook</a> interface 
      * 				that specifies the address book object.
-     * @param {HWND} _hWnd 
+     * @param {HWND} _hWnd Type: <b>HWND</b>
+     * 
+     * Value of type <b>HWND</b> that specifies 
+     * 				the parent window handle for displayed dialog boxes.
      * @param {PSTR} lpszFileName Type: <b>LPSTR</b>
      * 
      * Value of type <b>LPSTR</b> that specifies 		
@@ -213,7 +219,10 @@ class IWABObject extends IUnknown{
      * 
      * Pointer to an <a href="https://docs.microsoft.com/windows/desktop/api/wabiab/nn-wabiab-iaddrbook">IAddrBook</a> interface 
      * 				that specifies the address book to use.
-     * @param {HWND} _hWnd 
+     * @param {HWND} _hWnd Type: <b>HWND</b>
+     * 
+     * Value of type <b>HWND</b> that specifies the 
+     * 				handle to the parent window for displayed dialog boxes.
      * @param {Integer} ulFlags Type: <b>ULONG</b>
      * 
      * Value of type <b>ULONG</b> that specifies flags 
@@ -363,7 +372,12 @@ class IWABObject extends IUnknown{
      * 
      * Pointer to a variable of type <a href="https://docs.microsoft.com/previous-versions/office/developer/office-2007/cc815817(v=office.12)">SBinary</a> 
      * 				that specifies the entry identifier of the ME object on return.
-     * @param {HWND} _hwnd 
+     * @param {HWND} _hwnd Type: <b>ULONG</b>
+     * 
+     * Value of type <b>ULONG</b> that specifies 
+     * 				the handle of the parent window for displayed dialog boxes. 
+     * 				You must cast the parent <b>HWND</b> to a 
+     * 				<b>ULONG</b>.
      * @returns {HRESULT} Type: <b>HRESULT</b>
      * 
      * If this method succeeds, it returns <b>S_OK</b>. Otherwise, it returns an <b>HRESULT</b> error code.
@@ -409,7 +423,12 @@ class IWABObject extends IUnknown{
      * Value of type <a href="https://docs.microsoft.com/previous-versions/office/developer/office-2007/cc815817(v=office.12)">SBinary</a> that 
      * 				specifies the entry identifier of the contact that should be tagged 
      * 				as ME.
-     * @param {HWND} _hwnd 
+     * @param {HWND} _hwnd Type: <b>ULONG</b>
+     * 
+     * Value of type <b>ULONG</b> that specifies the 
+     * 				parent window handle for displaying dialog boxes. Cast the 
+     * 				parent <b>HWND</b> to a <b>ULONG</b> 
+     * 				before passing.
      * @returns {HRESULT} Type: <b>HRESULT</b>
      * 
      * Returns S_OK if successful, or an error code otherwise.

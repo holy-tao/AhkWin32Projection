@@ -1,5 +1,6 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\..\Win32Struct.ahk
+#Include .\SYMBOL_INFO_FLAGS.ahk
 
 /**
  * The SYMBOL_INFOW (Unicode) structure (dbghelp.h) contains symbol information.
@@ -8,11 +9,9 @@
  * > The dbghelp.h header defines SYMBOL_INFO as an alias which automatically selects the ANSI or Unicode version of this function based on the definition of the UNICODE preprocessor constant. Mixing usage of the encoding-neutral alias with code that not encoding-neutral can lead to mismatches that result in compilation or runtime errors. For more information, see [Conventions for Function Prototypes](/windows/win32/intl/conventions-for-function-prototypes).
  * @see https://learn.microsoft.com/windows/win32/api/dbghelp/ns-dbghelp-symbol_infow
  * @namespace Windows.Win32.System.Diagnostics.Debug
- * @version v4.0.30319
  * @charset Unicode
  */
-class SYMBOL_INFOW extends Win32Struct
-{
+class SYMBOL_INFOW extends Win32Struct {
     static sizeof => 88
 
     static packingSize => 8
@@ -37,9 +36,9 @@ class SYMBOL_INFOW extends Win32Struct
 
     /**
      * This member is reserved for system use.
-     * @type {Array<UInt64>}
+     * @type {Array<Integer>}
      */
-    Reserved{
+    Reserved {
         get {
             if(!this.HasProp("__ReservedProxyArray"))
                 this.__ReservedProxyArray := Win32FixedArray(this.ptr + 8, 2, Primitive, "uint")
@@ -77,8 +76,7 @@ class SYMBOL_INFOW extends Win32Struct
     }
 
     /**
-     * 
-     * @type {Integer}
+     * @type {SYMBOL_INFO_FLAGS}
      */
     Flags {
         get => NumGet(this, 40, "uint")

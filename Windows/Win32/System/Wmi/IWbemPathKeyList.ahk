@@ -7,9 +7,8 @@
  * Used to access the details of the path keys.
  * @see https://learn.microsoft.com/windows/win32/api/wmiutils/nn-wmiutils-iwbempathkeylist
  * @namespace Windows.Win32.System.Wmi
- * @version v4.0.30319
  */
-class IWbemPathKeyList extends IUnknown{
+class IWbemPathKeyList extends IUnknown {
 
     static sizeof => A_PtrSize
     /**

@@ -6,9 +6,8 @@
 
 /**
  * @namespace Windows.Win32.UI.Shell
- * @version v4.0.30319
  */
-class IHlinkSite extends IUnknown{
+class IHlinkSite extends IUnknown {
 
     static sizeof => A_PtrSize
     /**

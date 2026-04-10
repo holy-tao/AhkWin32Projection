@@ -2,16 +2,15 @@
 #Include ..\..\..\..\..\Win32Struct.ahk
 #Include ..\..\..\Foundation\HANDLE.ahk
 #Include .\MINIDUMP_MEMORY_INFO.ahk
+#Include ..\..\Memory\VIRTUAL_ALLOCATION_TYPE.ahk
 
 /**
  * Contains information returned by the MiniDumpCallback function.
  * @see https://learn.microsoft.com/windows/win32/api/minidumpapiset/ns-minidumpapiset-minidump_callback_output
  * @namespace Windows.Win32.System.Diagnostics.Debug
- * @version v4.0.30319
  */
-class MINIDUMP_CALLBACK_OUTPUT extends Win32Struct
-{
-    static sizeof => 64
+class MINIDUMP_CALLBACK_OUTPUT extends Win32Struct {
+    static sizeof => 56
 
     static packingSize => 8
 
@@ -74,7 +73,7 @@ class MINIDUMP_CALLBACK_OUTPUT extends Win32Struct
     /**
      * @type {HANDLE}
      */
-    Handle{
+    Handle {
         get {
             if(!this.HasProp("__Handle"))
                 this.__Handle := HANDLE(0, this)
@@ -85,7 +84,7 @@ class MINIDUMP_CALLBACK_OUTPUT extends Win32Struct
     /**
      * @type {MINIDUMP_MEMORY_INFO}
      */
-    VmRegion{
+    VmRegion {
         get {
             if(!this.HasProp("__VmRegion"))
                 this.__VmRegion := MINIDUMP_MEMORY_INFO(0, this)
@@ -112,7 +111,7 @@ class MINIDUMP_CALLBACK_OUTPUT extends Win32Struct
     /**
      * @type {MINIDUMP_MEMORY_INFO}
      */
-    VmQueryResult{
+    VmQueryResult {
         get {
             if(!this.HasProp("__VmQueryResult"))
                 this.__VmQueryResult := MINIDUMP_MEMORY_INFO(8, this)

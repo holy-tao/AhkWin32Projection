@@ -1,19 +1,18 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\..\Guid.ahk
-#Include ..\..\..\Foundation\BSTR.ahk
+#Include ..\..\..\System\Com\IDispatch.ahk
 #Include ..\..\..\System\Variant\VARIANT.ahk
 #Include .\IVBSAXEntityResolver.ahk
 #Include .\IVBSAXContentHandler.ahk
 #Include .\IVBSAXDTDHandler.ahk
 #Include .\IVBSAXErrorHandler.ahk
-#Include ..\..\..\System\Com\IDispatch.ahk
+#Include ..\..\..\Foundation\BSTR.ahk
 
 /**
  * @namespace Windows.Win32.Data.Xml.MsXml
- * @version v4.0.30319
  */
-class IVBSAXXMLReader extends IDispatch{
+class IVBSAXXMLReader extends IDispatch {
 
     static sizeof => A_PtrSize
     /**

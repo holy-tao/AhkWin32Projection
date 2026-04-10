@@ -9,10 +9,8 @@
  * This data type is used with the [*WinEventProc*](/windows/desktop/api/Winuser/nc-winuser-wineventproc) callback function and the [**SetWinEventHook**](/windows/desktop/api/Winuser/nf-winuser-setwineventhook) and [**UnhookWinEvent**](/windows/desktop/api/Winuser/nf-winuser-unhookwinevent) functions.
  * @see https://learn.microsoft.com/windows/win32/WinAuto/hwineventhook
  * @namespace Windows.Win32.UI.Accessibility
- * @version v4.0.30319
  */
-class HWINEVENTHOOK extends Win32Handle
-{
+class HWINEVENTHOOK extends Win32Handle {
     static sizeof => 8
 
     static packingSize => 8

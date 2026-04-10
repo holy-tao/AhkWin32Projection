@@ -6,10 +6,8 @@
  * Specifies a file to sign.
  * @see https://learn.microsoft.com/windows/win32/SecCrypto/signer-file-info
  * @namespace Windows.Win32.Security.Cryptography
- * @version v4.0.30319
  */
-class SIGNER_FILE_INFO extends Win32Struct
-{
+class SIGNER_FILE_INFO extends Win32Struct {
     static sizeof => 24
 
     static packingSize => 8
@@ -36,7 +34,7 @@ class SIGNER_FILE_INFO extends Win32Struct
      * An open handle to the file specified by the **pwszFileName** member. If this member contains a valid handle, this handle is used to access the file. This member can be set to **NULL**.
      * @type {HANDLE}
      */
-    hFile{
+    hFile {
         get {
             if(!this.HasProp("__hFile"))
                 this.__hFile := HANDLE(16, this)

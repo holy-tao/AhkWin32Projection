@@ -7,9 +7,8 @@
  * Represents the mechanism by which the destination provider asynchronously retrieves item data from the source provider.
  * @see https://learn.microsoft.com/windows/win32/api/winsync/nn-winsync-iasynchronousdataretriever
  * @namespace Windows.Win32.System.WindowsSync
- * @version v4.0.30319
  */
-class IAsynchronousDataRetriever extends IUnknown{
+class IAsynchronousDataRetriever extends IUnknown {
 
     static sizeof => A_PtrSize
     /**

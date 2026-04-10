@@ -3,16 +3,14 @@
 
 /**
  * @namespace Windows.Win32.Storage.FileSystem
- * @version v4.0.30319
  */
-class TRANSACTION_NOTIFICATION_TM_ONLINE_ARGUMENT extends Win32Struct
-{
+class TRANSACTION_NOTIFICATION_TM_ONLINE_ARGUMENT extends Win32Struct {
     static sizeof => 16
 
     static packingSize => 8
 
     /**
-     * @type {Pointer<Guid>}
+     * @type {Pointer}
      */
     TmIdentity {
         get => NumGet(this, 0, "ptr")

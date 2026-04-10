@@ -5,11 +5,9 @@
  * The DRIVER\_INFO\_4 structure contains printer driver information.
  * @see https://learn.microsoft.com/windows/win32/printdocs/driver-info-4
  * @namespace Windows.Win32.Graphics.Printing
- * @version v4.0.30319
  * @charset Unicode
  */
-class DRIVER_INFO_4W extends Win32Struct
-{
+class DRIVER_INFO_4W extends Win32Struct {
     static sizeof => 88
 
     static packingSize => 8

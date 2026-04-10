@@ -5,10 +5,8 @@
  * The IWbemStatusCodeText interface extracts text string descriptions of error codes or the name of the subsystem where the error occurred.
  * @see https://learn.microsoft.com/windows/win32/api/wbemcli/nn-wbemcli-iwbemstatuscodetext
  * @namespace Windows.Win32.System.Wmi
- * @version v4.0.30319
  */
-class WbemStatusCodeText extends Win32Struct
-{
+class WbemStatusCodeText extends Win32Struct {
     static sizeof => 0
 
     static packingSize => 1

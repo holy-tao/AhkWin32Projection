@@ -10,9 +10,8 @@
  * <div> </div>
  * @see https://learn.microsoft.com/windows/win32/api/vds/ne-vds-vds_file_system_flag
  * @namespace Windows.Win32.Storage.VirtualDiskService
- * @version v4.0.30319
  */
-class VDS_FILE_SYSTEM_FLAG extends Win32Enum{
+class VDS_FILE_SYSTEM_FLAG extends Win32Enum {
 
     /**
      * If set, the file system supports format. The drop-down list of a user interface should display only file systems that support formatting.

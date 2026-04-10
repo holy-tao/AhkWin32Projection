@@ -1,8 +1,9 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
-#Include ..\..\Foundation\BSTR.ahk
+#Include ..\..\System\Com\IDispatch.ahk
 #Include .\ISClusProperties.ahk
+#Include ..\..\Foundation\BSTR.ahk
 #Include ..\..\System\Variant\VARIANT.ahk
 #Include .\ISClusResPossibleOwnerNodes.ahk
 #Include .\ISClusResDependencies.ahk
@@ -14,13 +15,11 @@
 #Include .\ISClusRegistryKeys.ahk
 #Include .\ISClusCryptoKeys.ahk
 #Include .\ISClusResType.ahk
-#Include ..\..\System\Com\IDispatch.ahk
 
 /**
  * @namespace Windows.Win32.Networking.Clustering
- * @version v4.0.30319
  */
-class ISClusResource extends IDispatch{
+class ISClusResource extends IDispatch {
 
     static sizeof => A_PtrSize
     /**
@@ -85,14 +84,14 @@ class ISClusResource extends IDispatch{
     }
 
     /**
-     * @type {Integer} 
+     * @type {CLUSTER_RESOURCE_STATE} 
      */
     State {
         get => this.get_State()
     }
 
     /**
-     * @type {Integer} 
+     * @type {CLUS_FLAGS} 
      */
     CoreFlag {
         get => this.get_CoreFlag()
@@ -141,7 +140,7 @@ class ISClusResource extends IDispatch{
     }
 
     /**
-     * @type {Integer} 
+     * @type {CLUSTER_RESOURCE_CLASS} 
      */
     ClassInfo {
         get => this.get_ClassInfo()
@@ -259,7 +258,7 @@ class ISClusResource extends IDispatch{
 
     /**
      * 
-     * @returns {Integer} 
+     * @returns {CLUSTER_RESOURCE_STATE} 
      */
     get_State() {
         result := ComCall(14, this, "int*", &dwState := 0, "HRESULT")
@@ -268,7 +267,7 @@ class ISClusResource extends IDispatch{
 
     /**
      * 
-     * @returns {Integer} 
+     * @returns {CLUS_FLAGS} 
      */
     get_CoreFlag() {
         result := ComCall(15, this, "int*", &dwCoreFlag := 0, "HRESULT")
@@ -465,7 +464,7 @@ class ISClusResource extends IDispatch{
 
     /**
      * 
-     * @returns {Integer} 
+     * @returns {CLUSTER_RESOURCE_CLASS} 
      */
     get_ClassInfo() {
         result := ComCall(31, this, "int*", &prcClassInfo := 0, "HRESULT")

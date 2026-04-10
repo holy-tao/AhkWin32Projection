@@ -1,16 +1,14 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
-#Include .\IEnumMediaTypes.ahk
 #Include ..\..\System\Com\IUnknown.ahk
 
 /**
  * The IEnumMediaTypes interface enumerates a pin's preferred media types.
  * @see https://learn.microsoft.com/windows/win32/api/strmif/nn-strmif-ienummediatypes
  * @namespace Windows.Win32.Media.DirectShow
- * @version v4.0.30319
  */
-class IEnumMediaTypes extends IUnknown{
+class IEnumMediaTypes extends IUnknown {
 
     static sizeof => A_PtrSize
     /**

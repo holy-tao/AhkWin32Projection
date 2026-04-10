@@ -8,10 +8,8 @@
  * The layout of this structure is identical to the <a href="https://docs.microsoft.com/windows/desktop/api/dxva9typ/ns-dxva9typ-dxva_coppstatusdata">DXVA_COPPStatusData</a> structure used in Certified Output Protection Protocol (COPP).
  * @see https://learn.microsoft.com/windows/win32/api/opmapi/ns-opmapi-opm_standard_information
  * @namespace Windows.Win32.Media.MediaFoundation
- * @version v4.0.30319
  */
-class OPM_STANDARD_INFORMATION extends Win32Struct
-{
+class OPM_STANDARD_INFORMATION extends Win32Struct {
     static sizeof => 32
 
     static packingSize => 4
@@ -20,7 +18,7 @@ class OPM_STANDARD_INFORMATION extends Win32Struct
      * An <a href="https://docs.microsoft.com/windows/desktop/api/ksopmapi/ns-ksopmapi-opm_random_number">OPM_RANDOM_NUMBER</a> structure. This structure contains the same 128-bit random number that the application sent to the driver in the <a href="https://docs.microsoft.com/windows/desktop/api/ksopmapi/ns-ksopmapi-opm_get_info_parameters">OPM_GET_INFO_PARAMETERS</a> or <a href="https://docs.microsoft.com/windows/desktop/api/opmapi/nf-opmapi-iopmvideooutput-coppcompatiblegetinformation">OPM_COPP_COMPATIBLE_GET_INFO_PARAMETERS</a> structure.
      * @type {OPM_RANDOM_NUMBER}
      */
-    rnRandomNumber{
+    rnRandomNumber {
         get {
             if(!this.HasProp("__rnRandomNumber"))
                 this.__rnRandomNumber := OPM_RANDOM_NUMBER(0, this)

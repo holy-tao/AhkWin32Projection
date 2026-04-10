@@ -3,9 +3,8 @@
 
 /**
  * @namespace Windows.Win32.Networking.HttpServer
- * @version v4.0.30319
  */
-class HTTP_SERVICE_CONFIG_SETTING_KEY extends Win32Enum{
+class HTTP_SERVICE_CONFIG_SETTING_KEY extends Win32Enum {
 
     /**
      * @type {Integer (Int32)}

@@ -5,10 +5,8 @@
  * The DDSURFACEDATA structure is used by DirectDraw to represent a surface to the kernel-mode miniport driver.
  * @see https://learn.microsoft.com/windows/win32/api/dxmini/ns-dxmini-ddsurfacedata
  * @namespace Windows.Win32.Graphics.DirectDraw
- * @version v4.0.30319
  */
-class DDSURFACEDATA extends Win32Struct
-{
+class DDSURFACEDATA extends Win32Struct {
     static sizeof => 96
 
     static packingSize => 8
@@ -68,7 +66,6 @@ class DDSURFACEDATA extends Win32Struct
     }
 
     /**
-     * 
      * @type {Integer}
      */
     dwOverlayFlags {
@@ -131,7 +128,6 @@ class DDSURFACEDATA extends Win32Struct
     }
 
     /**
-     * 
      * @type {Integer}
      */
     dwFormatFlags {

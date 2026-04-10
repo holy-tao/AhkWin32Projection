@@ -3,9 +3,8 @@
 
 /**
  * @namespace Windows.Win32.Media.Audio.DirectMusic
- * @version v4.0.30319
  */
-class DSPROPERTY_DIRECTSOUNDDEVICE extends Win32Enum{
+class DSPROPERTY_DIRECTSOUNDDEVICE extends Win32Enum {
 
     /**
      * @type {Integer (Int32)}

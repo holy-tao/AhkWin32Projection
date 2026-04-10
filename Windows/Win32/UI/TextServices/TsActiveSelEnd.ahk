@@ -9,9 +9,8 @@
  * This enumeration is used in the <a href="https://docs.microsoft.com/windows/desktop/api/textstor/ns-textstor-ts_selectionstyle">TS_SELECTIONSTYLE</a> structure.
  * @see https://learn.microsoft.com/windows/win32/api/textstor/ne-textstor-tsactiveselend
  * @namespace Windows.Win32.UI.TextServices
- * @version v4.0.30319
  */
-class TsActiveSelEnd extends Win32Enum{
+class TsActiveSelEnd extends Win32Enum {
 
     /**
      * The selection has no active end. This is typical for all selections other than the default selection.

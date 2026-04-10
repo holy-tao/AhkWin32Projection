@@ -4,10 +4,8 @@
 
 /**
  * @namespace Windows.Win32.System.SystemServices
- * @version v4.0.30319
  */
-class TRANSACTION_SUPERIOR_ENLISTMENT_INFORMATION extends Win32Struct
-{
+class TRANSACTION_SUPERIOR_ENLISTMENT_INFORMATION extends Win32Struct {
     static sizeof => 16
 
     static packingSize => 8
@@ -15,7 +13,7 @@ class TRANSACTION_SUPERIOR_ENLISTMENT_INFORMATION extends Win32Struct
     /**
      * @type {TRANSACTION_ENLISTMENT_PAIR}
      */
-    SuperiorEnlistmentPair{
+    SuperiorEnlistmentPair {
         get {
             if(!this.HasProp("__SuperiorEnlistmentPair"))
                 this.__SuperiorEnlistmentPair := TRANSACTION_ENLISTMENT_PAIR(0, this)

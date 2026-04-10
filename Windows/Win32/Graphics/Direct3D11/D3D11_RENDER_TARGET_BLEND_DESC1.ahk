@@ -1,5 +1,8 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
+#Include .\D3D11_BLEND.ahk
+#Include .\D3D11_BLEND_OP.ahk
+#Include .\D3D11_LOGIC_OP.ahk
 
 /**
  * Describes the blend state for a render target. (D3D11_RENDER_TARGET_BLEND_DESC1)
@@ -61,10 +64,8 @@
  * </table>
  * @see https://learn.microsoft.com/windows/win32/api/d3d11_1/ns-d3d11_1-d3d11_render_target_blend_desc1
  * @namespace Windows.Win32.Graphics.Direct3D11
- * @version v4.0.30319
  */
-class D3D11_RENDER_TARGET_BLEND_DESC1 extends Win32Struct
-{
+class D3D11_RENDER_TARGET_BLEND_DESC1 extends Win32Struct {
     static sizeof => 40
 
     static packingSize => 4
@@ -101,7 +102,7 @@ class D3D11_RENDER_TARGET_BLEND_DESC1 extends Win32Struct
      * Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/d3d11/ne-d3d11-d3d11_blend">D3D11_BLEND</a></b>
      * 
      * This <a href="https://docs.microsoft.com/windows/desktop/api/d3d11/ne-d3d11-d3d11_blend">blend option</a> specifies the operation to perform on the RGB value that the pixel shader outputs. The <b>BlendOp</b> member defines how to combine the <b>SrcBlend</b> and <b>DestBlend</b> operations.
-     * @type {Integer}
+     * @type {D3D11_BLEND}
      */
     SrcBlend {
         get => NumGet(this, 8, "int")
@@ -112,7 +113,7 @@ class D3D11_RENDER_TARGET_BLEND_DESC1 extends Win32Struct
      * Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/d3d11/ne-d3d11-d3d11_blend">D3D11_BLEND</a></b>
      * 
      * This <a href="https://docs.microsoft.com/windows/desktop/api/d3d11/ne-d3d11-d3d11_blend">blend option</a> specifies the operation to perform on the current RGB value in the render target. The <b>BlendOp</b> member defines how to combine the <b>SrcBlend</b> and <b>DestBlend</b> operations.
-     * @type {Integer}
+     * @type {D3D11_BLEND}
      */
     DestBlend {
         get => NumGet(this, 12, "int")
@@ -123,7 +124,7 @@ class D3D11_RENDER_TARGET_BLEND_DESC1 extends Win32Struct
      * Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/d3d11/ne-d3d11-d3d11_blend_op">D3D11_BLEND_OP</a></b>
      * 
      * This <a href="https://docs.microsoft.com/windows/desktop/api/d3d11/ne-d3d11-d3d11_blend_op">blend operation</a> defines how to combine the <b>SrcBlend</b> and <b>DestBlend</b> operations.
-     * @type {Integer}
+     * @type {D3D11_BLEND_OP}
      */
     BlendOp {
         get => NumGet(this, 16, "int")
@@ -134,7 +135,7 @@ class D3D11_RENDER_TARGET_BLEND_DESC1 extends Win32Struct
      * Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/d3d11/ne-d3d11-d3d11_blend">D3D11_BLEND</a></b>
      * 
      * This <a href="https://docs.microsoft.com/windows/desktop/api/d3d11/ne-d3d11-d3d11_blend">blend option</a> specifies the operation to perform on the alpha value that the pixel shader outputs. Blend options that end in _COLOR are not allowed. The <b>BlendOpAlpha</b> member defines how to combine the <b>SrcBlendAlpha</b> and <b>DestBlendAlpha</b> operations.
-     * @type {Integer}
+     * @type {D3D11_BLEND}
      */
     SrcBlendAlpha {
         get => NumGet(this, 20, "int")
@@ -145,7 +146,7 @@ class D3D11_RENDER_TARGET_BLEND_DESC1 extends Win32Struct
      * Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/d3d11/ne-d3d11-d3d11_blend">D3D11_BLEND</a></b>
      * 
      * This <a href="https://docs.microsoft.com/windows/desktop/api/d3d11/ne-d3d11-d3d11_blend">blend option</a> specifies the operation to perform on the current alpha value in the render target. Blend options that end in _COLOR are not allowed. The <b>BlendOpAlpha</b> member defines how to combine the <b>SrcBlendAlpha</b> and <b>DestBlendAlpha</b> operations.
-     * @type {Integer}
+     * @type {D3D11_BLEND}
      */
     DestBlendAlpha {
         get => NumGet(this, 24, "int")
@@ -156,7 +157,7 @@ class D3D11_RENDER_TARGET_BLEND_DESC1 extends Win32Struct
      * Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/d3d11/ne-d3d11-d3d11_blend_op">D3D11_BLEND_OP</a></b>
      * 
      * This <a href="https://docs.microsoft.com/windows/desktop/api/d3d11/ne-d3d11-d3d11_blend_op">blend operation</a> defines how to combine the <b>SrcBlendAlpha</b> and <b>DestBlendAlpha</b> operations.
-     * @type {Integer}
+     * @type {D3D11_BLEND_OP}
      */
     BlendOpAlpha {
         get => NumGet(this, 28, "int")
@@ -167,7 +168,7 @@ class D3D11_RENDER_TARGET_BLEND_DESC1 extends Win32Struct
      * Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/d3d11_1/ne-d3d11_1-d3d11_logic_op">D3D11_LOGIC_OP</a></b>
      * 
      * A <a href="https://docs.microsoft.com/windows/desktop/api/d3d11_1/ne-d3d11_1-d3d11_logic_op">D3D11_LOGIC_OP</a>-typed value that specifies the logical operation to configure for the render target.
-     * @type {Integer}
+     * @type {D3D11_LOGIC_OP}
      */
     LogicOp {
         get => NumGet(this, 32, "int")

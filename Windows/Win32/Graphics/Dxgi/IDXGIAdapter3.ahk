@@ -1,8 +1,8 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
-#Include .\DXGI_QUERY_VIDEO_MEMORY_INFO.ahk
 #Include .\IDXGIAdapter2.ahk
+#Include .\DXGI_QUERY_VIDEO_MEMORY_INFO.ahk
 
 /**
  * This interface adds some memory residency methods, for budgeting and reserving physical memory.
@@ -10,9 +10,8 @@
  * For more details, refer to the <a href="https://docs.microsoft.com/windows/desktop/direct3d12/residency">Residency</a> section of the D3D12 documentation.
  * @see https://learn.microsoft.com/windows/win32/api/dxgi1_4/nn-dxgi1_4-idxgiadapter3
  * @namespace Windows.Win32.Graphics.Dxgi
- * @version v4.0.30319
  */
-class IDXGIAdapter3 extends IDXGIAdapter2{
+class IDXGIAdapter3 extends IDXGIAdapter2 {
 
     static sizeof => A_PtrSize
     /**
@@ -77,7 +76,7 @@ class IDXGIAdapter3 extends IDXGIAdapter2{
      *             For single-GPU operation, set this to zero.
      *             If there are multiple GPU nodes, set this to the index of the node (the device's physical adapter) for which the video memory information is queried.
      *             See <a href="https://docs.microsoft.com/windows/win32/direct3d12/multi-engine">Multi-adapter systems</a>.
-     * @param {Integer} MemorySegmentGroup Type: <b><a href="https://docs.microsoft.com/windows/win32/api/dxgi1_4/ne-dxgi1_4-dxgi_memory_segment_group">DXGI_MEMORY_SEGMENT_GROUP</a></b>
+     * @param {DXGI_MEMORY_SEGMENT_GROUP} MemorySegmentGroup Type: <b><a href="https://docs.microsoft.com/windows/win32/api/dxgi1_4/ne-dxgi1_4-dxgi_memory_segment_group">DXGI_MEMORY_SEGMENT_GROUP</a></b>
      * 
      * Specifies a DXGI_MEMORY_SEGMENT_GROUP that identifies the group as local or non-local.
      * @returns {DXGI_QUERY_VIDEO_MEMORY_INFO} Type: <b><a href="https://docs.microsoft.com/windows/win32/api/dxgi1_4/ns-dxgi1_4-dxgi_query_video_memory_info">DXGI_QUERY_VIDEO_MEMORY_INFO</a>*</b>
@@ -102,7 +101,7 @@ class IDXGIAdapter3 extends IDXGIAdapter2{
      *             For single-GPU operation, set this to zero.
      *             If there are multiple GPU nodes, set this to the index of the node (the device's physical adapter) for which the video memory information is being set.
      *             See <a href="https://docs.microsoft.com/windows/win32/direct3d12/multi-engine">Multi-adapter systems</a>.
-     * @param {Integer} MemorySegmentGroup Type: <b><a href="https://docs.microsoft.com/windows/win32/api/dxgi1_4/ne-dxgi1_4-dxgi_memory_segment_group">DXGI_MEMORY_SEGMENT_GROUP</a></b>
+     * @param {DXGI_MEMORY_SEGMENT_GROUP} MemorySegmentGroup Type: <b><a href="https://docs.microsoft.com/windows/win32/api/dxgi1_4/ne-dxgi1_4-dxgi_memory_segment_group">DXGI_MEMORY_SEGMENT_GROUP</a></b>
      * 
      * Specifies a DXGI_MEMORY_SEGMENT_GROUP that identifies the group as local or non-local.
      * @param {Integer} Reservation Type: <b>UINT64</b>

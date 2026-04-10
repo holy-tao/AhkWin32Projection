@@ -7,19 +7,17 @@
  * For more details regarding the creation of keys for OOB authentication, see the [Bluetooth Core Specification](https://www.bluetooth.com/specifications/specs/core-specification-5-3/).
  * @see https://learn.microsoft.com/windows/win32/api/bluetoothapis/ns-bluetoothapis-bluetooth_oob_data_info
  * @namespace Windows.Win32.Devices.Bluetooth
- * @version v4.0.30319
  */
-class BLUETOOTH_OOB_DATA_INFO extends Win32Struct
-{
+class BLUETOOTH_OOB_DATA_INFO extends Win32Struct {
     static sizeof => 32
 
     static packingSize => 1
 
     /**
      * A 128-bit cryptographic key used for two-way authentication.
-     * @type {Array<Byte>}
+     * @type {Array<Integer>}
      */
-    C{
+    C {
         get {
             if(!this.HasProp("__CProxyArray"))
                 this.__CProxyArray := Win32FixedArray(this.ptr + 0, 16, Primitive, "char")
@@ -29,9 +27,9 @@ class BLUETOOTH_OOB_DATA_INFO extends Win32Struct
 
     /**
      * A randomly generated number used for one-way authentication. If this number is not provided by the device initiating the OOB session, this value is 0.
-     * @type {Array<Byte>}
+     * @type {Array<Integer>}
      */
-    R{
+    R {
         get {
             if(!this.HasProp("__RProxyArray"))
                 this.__RProxyArray := Win32FixedArray(this.ptr + 16, 16, Primitive, "char")

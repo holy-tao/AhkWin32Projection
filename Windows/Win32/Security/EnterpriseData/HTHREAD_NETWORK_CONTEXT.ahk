@@ -4,10 +4,8 @@
 
 /**
  * @namespace Windows.Win32.Security.EnterpriseData
- * @version v4.0.30319
  */
-class HTHREAD_NETWORK_CONTEXT extends Win32Struct
-{
+class HTHREAD_NETWORK_CONTEXT extends Win32Struct {
     static sizeof => 16
 
     static packingSize => 8
@@ -23,7 +21,7 @@ class HTHREAD_NETWORK_CONTEXT extends Win32Struct
     /**
      * @type {HANDLE}
      */
-    ThreadContext{
+    ThreadContext {
         get {
             if(!this.HasProp("__ThreadContext"))
                 this.__ThreadContext := HANDLE(8, this)

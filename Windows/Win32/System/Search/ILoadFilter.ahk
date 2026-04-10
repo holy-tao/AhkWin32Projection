@@ -9,9 +9,8 @@
  * A filter, also known as a filter handler, is an implementation of the <a href="https://docs.microsoft.com/windows/desktop/api/filter/nn-filter-ifilter">IFilter</a> interface.
  * @see https://learn.microsoft.com/windows/win32/api/filtereg/nn-filtereg-iloadfilter
  * @namespace Windows.Win32.System.Search
- * @version v4.0.30319
  */
-class ILoadFilter extends IUnknown{
+class ILoadFilter extends IUnknown {
 
     static sizeof => A_PtrSize
     /**

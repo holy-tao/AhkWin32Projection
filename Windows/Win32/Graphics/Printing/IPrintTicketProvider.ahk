@@ -1,14 +1,13 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
-#Include ..\..\Data\Xml\MsXml\IXMLDOMDocument2.ahk
 #Include ..\..\System\Com\IUnknown.ahk
+#Include ..\..\Data\Xml\MsXml\IXMLDOMDocument2.ahk
 
 /**
  * @namespace Windows.Win32.Graphics.Printing
- * @version v4.0.30319
  */
-class IPrintTicketProvider extends IUnknown{
+class IPrintTicketProvider extends IUnknown {
 
     static sizeof => A_PtrSize
     /**
@@ -50,7 +49,7 @@ class IPrintTicketProvider extends IUnknown{
      * 
      * @param {PRINTER_HANDLE} hPrinter 
      * @param {Integer} _version 
-     * @param {Pointer<Integer>} pOptions 
+     * @param {Pointer<SHIMOPTS>} pOptions 
      * @param {Pointer<Integer>} pDevModeFlags 
      * @param {Pointer<Integer>} cNamespaces 
      * @param {Pointer<Pointer<BSTR>>} ppNamespaces 

@@ -5,10 +5,8 @@
  * The NTMS_ALLOCATION_INFORMATION structure contains information about the source media pool from which a medium was taken.
  * @see https://learn.microsoft.com/windows/win32/api/ntmsapi/ns-ntmsapi-ntms_allocation_information
  * @namespace Windows.Win32.Storage.FileSystem
- * @version v4.0.30319
  */
-class NTMS_ALLOCATION_INFORMATION extends Win32Struct
-{
+class NTMS_ALLOCATION_INFORMATION extends Win32Struct {
     static sizeof => 24
 
     static packingSize => 8
@@ -33,7 +31,7 @@ class NTMS_ALLOCATION_INFORMATION extends Win32Struct
 
     /**
      * Unique identifier of the original source of the media.
-     * @type {Pointer<Guid>}
+     * @type {Pointer}
      */
     AllocatedFrom {
         get => NumGet(this, 16, "ptr")

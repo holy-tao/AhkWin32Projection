@@ -11,10 +11,8 @@
  * <a href="https://www.ietf.org/rfc/rfc2616.txt">RFC 2616</a>.
  * @see https://learn.microsoft.com/windows/win32/api/http/ns-http-http_known_header
  * @namespace Windows.Win32.Networking.HttpServer
- * @version v4.0.30319
  */
-class HTTP_KNOWN_HEADER extends Win32Struct
-{
+class HTTP_KNOWN_HEADER extends Win32Struct {
     static sizeof => 16
 
     static packingSize => 8

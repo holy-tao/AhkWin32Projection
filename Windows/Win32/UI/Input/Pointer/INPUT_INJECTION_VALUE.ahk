@@ -5,10 +5,8 @@
  * Contains the input injection details.
  * @see https://learn.microsoft.com/windows/win32/api/winuser/ns-winuser-input_injection_value
  * @namespace Windows.Win32.UI.Input.Pointer
- * @version v4.0.30319
  */
-class INPUT_INJECTION_VALUE extends Win32Struct
-{
+class INPUT_INJECTION_VALUE extends Win32Struct {
     static sizeof => 12
 
     static packingSize => 4

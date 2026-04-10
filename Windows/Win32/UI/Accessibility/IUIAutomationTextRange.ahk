@@ -1,20 +1,18 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
-#Include ..\..\Foundation\BSTR.ahk
-#Include .\IUIAutomationTextRange.ahk
+#Include ..\..\System\Com\IUnknown.ahk
 #Include ..\..\System\Variant\VARIANT.ahk
 #Include .\IUIAutomationElement.ahk
+#Include ..\..\Foundation\BSTR.ahk
 #Include .\IUIAutomationElementArray.ahk
-#Include ..\..\System\Com\IUnknown.ahk
 
 /**
  * Provides access to a span of continuous text in a container that supports the IUIAutomationTextPattern interface. Client applications can use the IUIAutomationTextRange interface to select, compare, and retrieve embedded objects from the text span.
  * @see https://learn.microsoft.com/windows/win32/api/uiautomationclient/nn-uiautomationclient-iuiautomationtextrange
  * @namespace Windows.Win32.UI.Accessibility
- * @version v4.0.30319
  */
-class IUIAutomationTextRange extends IUnknown{
+class IUIAutomationTextRange extends IUnknown {
 
     static sizeof => A_PtrSize
     /**
@@ -68,11 +66,11 @@ class IUIAutomationTextRange extends IUnknown{
 
     /**
      * Retrieves a value that specifies whether the start or end endpoint of this text range is the same as the start or end endpoint of another text range.
-     * @param {Integer} srcEndPoint 
+     * @param {TextPatternRangeEndpoint} srcEndPoint 
      * @param {IUIAutomationTextRange} range Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/uiautomationclient/nn-uiautomationclient-iuiautomationtextrange">IUIAutomationTextRange</a>*</b>
      * 
      * A pointer to the text range to compare.
-     * @param {Integer} targetEndPoint 
+     * @param {TextPatternRangeEndpoint} targetEndPoint 
      * @returns {Integer} Type: <b>int*</b>
      * 
      * Receives a negative value if the caller's endpoint occurs earlier in the text than the target endpoint; 0 if the caller's endpoint is at the same location as the target endpoint; or a positive value if the caller's endpoint occurs later in the text than the target endpoint.
@@ -115,7 +113,7 @@ class IUIAutomationTextRange extends IUnknown{
      * - Document
      * 
      * ExpandToEnclosingUnit respects both visible and hidden text.
-     * @param {Integer} _textUnit 
+     * @param {TextUnit} _textUnit 
      * @returns {HRESULT} Type: **[HRESULT](/windows/desktop/WinProg/windows-data-types)**
      * 
      * If this method succeeds, it returns S_OK. Otherwise, it returns an HRESULT error code.
@@ -130,10 +128,12 @@ class IUIAutomationTextRange extends IUnknown{
      * Retrieves a text range subset that has the specified text attribute value.
      * @remarks
      * The <b>FindAttribute</b> method retrieves matching text regardless of whether the text is hidden or visible. Use <a href="https://docs.microsoft.com/windows/desktop/WinAuto/uiauto-textattribute-ids">UIA_IsHiddenAttributeId</a> to check text visibility.
-     * @param {Integer} attr Type: <b>TEXTATTRIBUTEID</b>
+     * @param {UIA_TEXTATTRIBUTE_ID} attr Type: <b>TEXTATTRIBUTEID</b>
      * 
      * The identifier of the text attribute for the text range subset being retrieved. For a list of text attribute IDs, see <a href="https://docs.microsoft.com/windows/desktop/WinAuto/uiauto-textattribute-ids">Text Attribute Identifiers</a>.
-     * @param {VARIANT} _val 
+     * @param {VARIANT} _val Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/oaidl/ns-oaidl-variant">VARIANT</a></b>
+     * 
+     * The value of the attribute. This value must match the type specified for the attribute.
      * @param {BOOL} backward Type: <b><a href="https://docs.microsoft.com/windows/desktop/WinProg/windows-data-types">BOOL</a></b>
      * 
      * <b>TRUE</b> if the last occurring text range should be returned instead of the first; otherwise <b>FALSE</b>.
@@ -188,7 +188,7 @@ class IUIAutomationTextRange extends IUnknown{
      * 
      * The <b>GetAttributeValue</b> method retrieves the attribute value regardless of whether the text is hidden or visible.
      *             Use UIA_ IsHiddenAttributeId to check text visibility.
-     * @param {Integer} attr Type: <b>TEXTATTRIBUTEID</b>
+     * @param {UIA_TEXTATTRIBUTE_ID} attr Type: <b>TEXTATTRIBUTEID</b>
      * 
      * The identifier of the text attribute. For a list of text attribute IDs, see <a href="https://docs.microsoft.com/windows/desktop/WinAuto/uiauto-textattribute-ids">Text Attribute Identifiers</a>.
      * @returns {VARIANT} Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/oaidl/ns-oaidl-variant">VARIANT</a>*</b>
@@ -292,7 +292,7 @@ class IUIAutomationTextRange extends IUnknown{
      * </ul>
      * <h3><a id="Range_behavior_when_unit_is_TextUnit__Format"></a><a id="range_behavior_when_unit_is_textunit__format"></a><a id="RANGE_BEHAVIOR_WHEN_UNIT_IS_TEXTUNIT__FORMAT"></a>Range behavior when <i>unit</i> is <c>TextUnit::Format</c></h3>
      * <c>TextUnit::Format</c> as a <i>unit</i> value positions the boundary of a text range to expand or move the range based on shared text attributes (format) of the text within the range. However, using the format text unit will not move or expand a text range across the boundary of an embedded object, such as an image or hyperlink. For more info, see <a href="https://docs.microsoft.com/windows/desktop/WinAuto/uiauto-uiautomationtextunits">UI Automation Text Units</a> or <a href="https://docs.microsoft.com/windows/desktop/WinAuto/uiauto-ui-automation-textpattern-overview">UI Automation Support for Textual Content</a>.
-     * @param {Integer} _unit 
+     * @param {TextUnit} _unit 
      * @param {Integer} count Type: <b>int</b>
      * 
      * The number of text units to move. A positive value moves the text range forward. A negative value moves the text range backward. Zero has no effect.
@@ -332,8 +332,8 @@ class IUIAutomationTextRange extends IUnknown{
      * </ul>
      * <h3><a id="Range_behavior_when_unit_is_TextUnit__Format"></a><a id="range_behavior_when_unit_is_textunit__format"></a><a id="RANGE_BEHAVIOR_WHEN_UNIT_IS_TEXTUNIT__FORMAT"></a>Range behavior when <i>unit</i> is <c>TextUnit::Format</c></h3>
      * <c>TextUnit::Format</c> as a <i>unit</i> value positions the boundary of a text range to expand or move the range based on shared text attributes (format) of the text within the range. However, using the format text unit will not move or expand a text range across the boundary of an embedded object, such as an image or hyperlink. For more info, see <a href="https://docs.microsoft.com/windows/desktop/WinAuto/uiauto-uiautomationtextunits">UI Automation Text Units</a> or <a href="https://docs.microsoft.com/windows/desktop/WinAuto/uiauto-ui-automation-textpattern-overview">UI Automation Support for Textual Content</a>.
-     * @param {Integer} endpoint 
-     * @param {Integer} _unit 
+     * @param {TextPatternRangeEndpoint} endpoint 
+     * @param {TextUnit} _unit 
      * @param {Integer} count Type: <b>int</b>
      * 
      * The number of units to move. A positive count moves the endpoint forward. A negative count moves backward. A count of 0 has no effect.
@@ -351,11 +351,11 @@ class IUIAutomationTextRange extends IUnknown{
      * Moves one endpoint of the current text range to the specified endpoint of a second text range. (IUIAutomationTextRange.MoveEndpointByRange)
      * @remarks
      * If the endpoint being moved crosses the other endpoint of the same text range, that other endpoint is moved also, resulting in a degenerate (empty) range and ensuring the correct ordering of the endpoints (that is, the start is always less than or equal to the end).
-     * @param {Integer} srcEndPoint 
+     * @param {TextPatternRangeEndpoint} srcEndPoint 
      * @param {IUIAutomationTextRange} range Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/uiautomationclient/nn-uiautomationclient-iuiautomationtextrange">IUIAutomationTextRange</a>*</b>
      * 
      * A second text range from the same text provider as the current text range.
-     * @param {Integer} targetEndPoint 
+     * @param {TextPatternRangeEndpoint} targetEndPoint 
      * @returns {HRESULT} Type: <b><a href="https://docs.microsoft.com/windows/desktop/WinProg/windows-data-types">HRESULT</a></b>
      * 
      * If this method succeeds, it returns <b>S_OK</b>. Otherwise, it returns an <b>HRESULT</b> error code.

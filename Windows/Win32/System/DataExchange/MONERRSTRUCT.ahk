@@ -6,10 +6,8 @@
  * Contains information about the current Dynamic Data Exchange (DDE) error. A DDE monitoring application can use this structure to monitor errors returned by DDE Management Library functions.
  * @see https://learn.microsoft.com/windows/win32/api/ddeml/ns-ddeml-monerrstruct
  * @namespace Windows.Win32.System.DataExchange
- * @version v4.0.30319
  */
-class MONERRSTRUCT extends Win32Struct
-{
+class MONERRSTRUCT extends Win32Struct {
     static sizeof => 24
 
     static packingSize => 8
@@ -53,7 +51,7 @@ class MONERRSTRUCT extends Win32Struct
      * A handle to the task (application instance) that called the DDE function that caused the error.
      * @type {HANDLE}
      */
-    hTask{
+    hTask {
         get {
             if(!this.HasProp("__hTask"))
                 this.__hTask := HANDLE(16, this)

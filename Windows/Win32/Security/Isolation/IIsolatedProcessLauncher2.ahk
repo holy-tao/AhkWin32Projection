@@ -5,9 +5,8 @@
 
 /**
  * @namespace Windows.Win32.Security.Isolation
- * @version v4.0.30319
  */
-class IIsolatedProcessLauncher2 extends IIsolatedProcessLauncher{
+class IIsolatedProcessLauncher2 extends IIsolatedProcessLauncher {
 
     static sizeof => A_PtrSize
     /**

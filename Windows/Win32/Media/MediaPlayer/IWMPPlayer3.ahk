@@ -1,16 +1,14 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
-#Include ..\..\Foundation\BSTR.ahk
 #Include .\IWMPCore2.ahk
 
 /**
  * The IWMPPlayer3 interface provides methods for modifying the basic behavior of the control user interface. These methods supplement the IWMPCore2 interface.
  * @see https://learn.microsoft.com/windows/win32/api/wmp/nn-wmp-iwmpplayer3
  * @namespace Windows.Win32.Media.MediaPlayer
- * @version v4.0.30319
  */
-class IWMPPlayer3 extends IWMPCore2{
+class IWMPPlayer3 extends IWMPCore2 {
 
     static sizeof => A_PtrSize
     /**
@@ -32,6 +30,7 @@ class IWMPPlayer3 extends IWMPCore2{
     static VTableNames => ["get_enabled", "put_enabled", "get_fullScreen", "put_fullScreen", "get_enableContextMenu", "put_enableContextMenu", "put_uiMode", "get_uiMode", "get_stretchToFit", "put_stretchToFit", "get_windowlessVideo", "put_windowlessVideo"]
 
     /**
+     * @type {VARIANT_BOOL} 
      */
     enabled {
         get => this.get_enabled()
@@ -39,6 +38,7 @@ class IWMPPlayer3 extends IWMPCore2{
     }
 
     /**
+     * @type {VARIANT_BOOL} 
      */
     fullScreen {
         get => this.get_fullScreen()
@@ -46,6 +46,7 @@ class IWMPPlayer3 extends IWMPCore2{
     }
 
     /**
+     * @type {VARIANT_BOOL} 
      */
     enableContextMenu {
         get => this.get_enableContextMenu()
@@ -53,6 +54,7 @@ class IWMPPlayer3 extends IWMPCore2{
     }
 
     /**
+     * @type {BSTR} 
      */
     uiMode {
         get => this.get_uiMode()
@@ -60,6 +62,7 @@ class IWMPPlayer3 extends IWMPCore2{
     }
 
     /**
+     * @type {VARIANT_BOOL} 
      */
     stretchToFit {
         get => this.get_stretchToFit()
@@ -67,6 +70,7 @@ class IWMPPlayer3 extends IWMPCore2{
     }
 
     /**
+     * @type {VARIANT_BOOL} 
      */
     windowlessVideo {
         get => this.get_windowlessVideo()

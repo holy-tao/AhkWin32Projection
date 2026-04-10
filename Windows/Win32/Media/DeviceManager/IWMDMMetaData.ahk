@@ -7,9 +7,8 @@
  * The IWMDMMetaData interface sets and retrieves metadata properties (such as artist, album, genre, and so on) of a storage.
  * @see https://learn.microsoft.com/windows/win32/api/mswmdm/nn-mswmdm-iwmdmmetadata
  * @namespace Windows.Win32.Media.DeviceManager
- * @version v4.0.30319
  */
-class IWMDMMetaData extends IUnknown{
+class IWMDMMetaData extends IUnknown {
 
     static sizeof => A_PtrSize
     /**
@@ -32,7 +31,7 @@ class IWMDMMetaData extends IUnknown{
 
     /**
      * The AddItem method adds a metadata property to the interface.
-     * @param {Integer} Type An <a href="https://docs.microsoft.com/windows/desktop/WMDM/wmdm-tag-datatype">WMDM_TAG_DATATYPE</a> enumerated value specifying the type of metadata being saved.
+     * @param {WMDM_TAG_DATATYPE} Type An <a href="https://docs.microsoft.com/windows/desktop/WMDM/wmdm-tag-datatype">WMDM_TAG_DATATYPE</a> enumerated value specifying the type of metadata being saved.
      * @param {PWSTR} pwszTagName Pointer to a wide-character, null-terminated string specifying the name of the property to set. A list of standard property name constants is given in <a href="https://docs.microsoft.com/windows/desktop/WMDM/metadata-constants">Metadata Constants</a>.
      * @param {Pointer<Integer>} pValue Pointer to a byte array specifying the value to assign to the property. The submitted value is copied, so the memory can be freed after calling <b>AddItem</b>.
      * @param {Integer} iLength Integer specifying the size of <i>pValue</i>, in bytes.
@@ -58,7 +57,7 @@ class IWMDMMetaData extends IUnknown{
     /**
      * The QueryByName method retrieves the value of a property specified by name.
      * @param {PWSTR} pwszTagName Pointer to a wide-character <b>null</b>-terminated string specifying the property name. A list of standard property name constants is given in <a href="https://docs.microsoft.com/windows/desktop/WMDM/metadata-constants">Metadata Constants</a>.
-     * @param {Pointer<Integer>} pType An <a href="https://docs.microsoft.com/windows/desktop/WMDM/wmdm-tag-datatype">WMDM_TAG_DATATYPE</a> enumerated value describing the type of data retrieved by <i>pValue</i>.
+     * @param {Pointer<WMDM_TAG_DATATYPE>} pType An <a href="https://docs.microsoft.com/windows/desktop/WMDM/wmdm-tag-datatype">WMDM_TAG_DATATYPE</a> enumerated value describing the type of data retrieved by <i>pValue</i>.
      * @param {Pointer<Pointer<Integer>>} pValue Pointer to a pointer to a byte array that receives the content of the value if the method succeeds. Windows Media Device Manager allocates this memory and the caller must free it using <b>CoTaskMemFree</b>.
      * @param {Pointer<Integer>} pcbLength Pointer to the size, in bytes, of the byte array <i>ppValue</i>. If the value is a string, this includes the termination character.
      * @returns {HRESULT} The method returns an <b>HRESULT</b>. All the interface methods in Windows Media Device Manager can return any of the following classes of error codes:
@@ -86,7 +85,7 @@ class IWMDMMetaData extends IUnknown{
      * The QueryByIndex method retrieves the value of a property specified by index.
      * @param {Integer} iIndex Integer specifying the zero-based index of the property. The number of items is obtained through the <a href="https://docs.microsoft.com/windows/desktop/api/mswmdm/nf-mswmdm-iwmdmmetadata-getitemcount">GetItemCount</a> call.
      * @param {Pointer<Pointer<Integer>>} ppwszName Name of the property. Windows Media Device Manager allocates this memory, and the caller must free it using <b>CoTaskMemFree</b>.
-     * @param {Pointer<Integer>} pType An <a href="https://docs.microsoft.com/windows/desktop/WMDM/wmdm-tag-datatype">WMDM_TAG_DATATYPE</a> enumerated value describing the type of data returned in <i>ppValue</i>.
+     * @param {Pointer<WMDM_TAG_DATATYPE>} pType An <a href="https://docs.microsoft.com/windows/desktop/WMDM/wmdm-tag-datatype">WMDM_TAG_DATATYPE</a> enumerated value describing the type of data returned in <i>ppValue</i>.
      * @param {Pointer<Pointer<Integer>>} ppValue Pointer to a pointer to a byte array that receives the content of the value if the method succeeds. This memory is allocated by Windows Media Device Manager, and the caller must free it using <b>CoTaskMemFree</b>.
      * @param {Pointer<Integer>} pcbLength Pointer to the size, in bytes, of the byte array <i>ppValue</i>. If the value is a string, this includes the termination character.
      * @returns {HRESULT} The method returns an <b>HRESULT</b>. All the interface methods in Windows Media Device Manager can return any of the following classes of error codes:

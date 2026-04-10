@@ -3,9 +3,8 @@
 
 /**
  * @namespace Windows.Win32.Foundation
- * @version v4.0.30319
  */
-class OBJECT_ATTRIBUTE_FLAGS extends Win32BitflagEnum{
+class OBJECT_ATTRIBUTE_FLAGS extends Win32BitflagEnum {
 
     /**
      * @type {Integer (UInt32)}

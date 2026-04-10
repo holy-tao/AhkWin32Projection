@@ -3,18 +3,16 @@
 
 /**
  * @namespace Windows.Win32.Devices.Dvd
- * @version v4.0.30319
  */
-class DVD_RECORDING_MANAGEMENT_AREA_DATA extends Win32Struct
-{
+class DVD_RECORDING_MANAGEMENT_AREA_DATA extends Win32Struct {
     static sizeof => 5
 
     static packingSize => 1
 
     /**
-     * @type {Array<Byte>}
+     * @type {Array<Integer>}
      */
-    LastRecordedRMASectorNumber{
+    LastRecordedRMASectorNumber {
         get {
             if(!this.HasProp("__LastRecordedRMASectorNumberProxyArray"))
                 this.__LastRecordedRMASectorNumberProxyArray := Win32FixedArray(this.ptr + 0, 4, Primitive, "char")
@@ -23,9 +21,9 @@ class DVD_RECORDING_MANAGEMENT_AREA_DATA extends Win32Struct
     }
 
     /**
-     * @type {Array<Byte>}
+     * @type {Array<Integer>}
      */
-    RMDBytes{
+    RMDBytes {
         get {
             if(!this.HasProp("__RMDBytesProxyArray"))
                 this.__RMDBytesProxyArray := Win32FixedArray(this.ptr + 4, 1, Primitive, "char")

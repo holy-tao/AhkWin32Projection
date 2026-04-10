@@ -4,10 +4,8 @@
 
 /**
  * @namespace Windows.Win32.Devices.Usb
- * @version v4.0.30319
  */
-class USBFN_PIPE_INFORMATION extends Win32Struct
-{
+class USBFN_PIPE_INFORMATION extends Win32Struct {
     static sizeof => 12
 
     static packingSize => 4
@@ -15,7 +13,7 @@ class USBFN_PIPE_INFORMATION extends Win32Struct
     /**
      * @type {USB_ENDPOINT_DESCRIPTOR}
      */
-    EpDesc{
+    EpDesc {
         get {
             if(!this.HasProp("__EpDesc"))
                 this.__EpDesc := USB_ENDPOINT_DESCRIPTOR(0, this)

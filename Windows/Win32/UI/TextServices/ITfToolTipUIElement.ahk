@@ -1,16 +1,15 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
-#Include ..\..\Foundation\BSTR.ahk
 #Include .\ITfUIElement.ahk
+#Include ..\..\Foundation\BSTR.ahk
 
 /**
  * The ITfToolTipUIElement interface is implemented by a text service that wants to show a tooltip on its UI.
  * @see https://learn.microsoft.com/windows/win32/api/msctf/nn-msctf-itftooltipuielement
  * @namespace Windows.Win32.UI.TextServices
- * @version v4.0.30319
  */
-class ITfToolTipUIElement extends ITfUIElement{
+class ITfToolTipUIElement extends ITfUIElement {
 
     static sizeof => A_PtrSize
     /**
@@ -33,7 +32,7 @@ class ITfToolTipUIElement extends ITfUIElement{
 
     /**
      * Returns the string of the tooltip.
-     * @returns {BSTR} 
+     * @returns {BSTR} [out] A pointer to receive BSTR. This is the string for the tooltip.
      * @see https://learn.microsoft.com/windows/win32/api/msctf/nf-msctf-itftooltipuielement-getstring
      */
     GetString() {

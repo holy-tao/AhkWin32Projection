@@ -3,9 +3,8 @@
 
 /**
  * @namespace Windows.Win32.Globalization
- * @version v4.0.30319
  */
-class UCPTrieValueWidth extends Win32Enum{
+class UCPTrieValueWidth extends Win32Enum {
 
     /**
      * @type {Integer (Int32)}

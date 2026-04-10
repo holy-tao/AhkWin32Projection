@@ -7,9 +7,8 @@
  * The **IDXCoreAdapterFactory** interface implements methods for generating DXCore adapter enumeration objects, and for retrieving their details.
  * @see https://learn.microsoft.com/windows/win32/api/dxcore_interface/nn-dxcore_interface-idxcoreadapterfactory
  * @namespace Windows.Win32.Graphics.DXCore
- * @version v4.0.30319
  */
-class IDXCoreAdapterFactory extends IUnknown{
+class IDXCoreAdapterFactory extends IUnknown {
 
     static sizeof => A_PtrSize
     /**
@@ -79,7 +78,7 @@ class IDXCoreAdapterFactory extends IUnknown{
      * Determines whether a specified notification type is supported by the operating system (OS).
      * @remarks
      * You can call **IsNotificationTypeSupported** to determine whether a given notification type is known to this version of the OS. For example, a notification type that's introduced in a particular version of Windows is unknown to previous versions of Windows.
-     * @param {Integer} notificationType Type: **[DXCoreNotificationType](/windows/win32/api/dxcore_interface/ne-dxcore_interface-dxcorenotificationtype)**
+     * @param {DXCoreNotificationType} notificationType Type: **[DXCoreNotificationType](/windows/win32/api/dxcore_interface/ne-dxcore_interface-dxcorenotificationtype)**
      * 
      * The type of notification that you're querying about support for. See the table in [DXCoreNotificationType](/windows/win32/api/dxcore_interface/ne-dxcore_interface-dxcorenotificationtype) for info about the notification types.
      * @returns {Boolean} Type: **bool**
@@ -113,7 +112,7 @@ class IDXCoreAdapterFactory extends IUnknown{
      * @param {IUnknown} dxCoreObject Type: **[IUnknown](/windows/win32/api/unknwn/nn-unknwn-iunknown)\***
      * 
      * The DXCore object ([IDXCoreAdapter](/windows/win32/api/dxcore_interface/nn-dxcore_interface-idxcoreadapter) or [IDXCoreAdapterList](/windows/win32/api/dxcore_interface/nn-dxcore_interface-idxcoreadapterlist)) whose notifications you're subscribing to.
-     * @param {Integer} notificationType Type: **[DXCoreNotificationType](/windows/win32/api/dxcore_interface/ne-dxcore_interface-dxcorenotificationtype)**
+     * @param {DXCoreNotificationType} notificationType Type: **[DXCoreNotificationType](/windows/win32/api/dxcore_interface/ne-dxcore_interface-dxcorenotificationtype)**
      * 
      * The type of notification that you're registering for. See the table in [DXCoreNotificationType](/windows/win32/api/dxcore_interface/ne-dxcore_interface-dxcorenotificationtype) for info about what types are valid with which kinds of objects.
      * @param {Pointer<PFN_DXCORE_NOTIFICATION_CALLBACK>} callbackFunction Type: **[PFN_DXCORE_NOTIFICATION_CALLBACK](/windows/win32/api/dxcore_interface/nc-dxcore_interface-pfn_dxcore_notification_callback)**

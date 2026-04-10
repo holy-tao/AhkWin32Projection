@@ -53,10 +53,8 @@
  *     can fail with <b>ERROR_INVALID_PARAMETER</b>.
  * @see https://learn.microsoft.com/windows/win32/api/winioctl/ns-winioctl-device_data_set_lb_provisioning_state
  * @namespace Windows.Win32.System.Ioctl
- * @version v4.0.30319
  */
-class DEVICE_DATA_SET_LB_PROVISIONING_STATE extends Win32Struct
-{
+class DEVICE_DATA_SET_LB_PROVISIONING_STATE extends Win32Struct {
     static sizeof => 32
 
     static packingSize => 8
@@ -120,9 +118,9 @@ class DEVICE_DATA_SET_LB_PROVISIONING_STATE extends Win32Struct
 
     /**
      * The allocation bitmap containing one bit for each slab. If a bit is set then the corresponding slab is allocated. Otherwise, if a bit is clear, the corresponding slab is unallocated.
-     * @type {Array<UInt32>}
+     * @type {Array<Integer>}
      */
-    SlabAllocationBitMap{
+    SlabAllocationBitMap {
         get {
             if(!this.HasProp("__SlabAllocationBitMapProxyArray"))
                 this.__SlabAllocationBitMapProxyArray := Win32FixedArray(this.ptr + 28, 1, Primitive, "uint")

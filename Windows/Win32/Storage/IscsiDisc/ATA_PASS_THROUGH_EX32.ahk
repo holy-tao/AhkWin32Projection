@@ -3,10 +3,9 @@
 
 /**
  * @namespace Windows.Win32.Storage.IscsiDisc
- * @version v4.0.30319
+ * @architecture X64, Arm64
  */
-class ATA_PASS_THROUGH_EX32 extends Win32Struct
-{
+class ATA_PASS_THROUGH_EX32 extends Win32Struct {
     static sizeof => 40
 
     static packingSize => 4
@@ -92,9 +91,9 @@ class ATA_PASS_THROUGH_EX32 extends Win32Struct
     }
 
     /**
-     * @type {Array<Byte>}
+     * @type {Array<Integer>}
      */
-    PreviousTaskFile{
+    PreviousTaskFile {
         get {
             if(!this.HasProp("__PreviousTaskFileProxyArray"))
                 this.__PreviousTaskFileProxyArray := Win32FixedArray(this.ptr + 24, 8, Primitive, "char")
@@ -103,9 +102,9 @@ class ATA_PASS_THROUGH_EX32 extends Win32Struct
     }
 
     /**
-     * @type {Array<Byte>}
+     * @type {Array<Integer>}
      */
-    CurrentTaskFile{
+    CurrentTaskFile {
         get {
             if(!this.HasProp("__CurrentTaskFileProxyArray"))
                 this.__CurrentTaskFileProxyArray := Win32FixedArray(this.ptr + 32, 8, Primitive, "char")

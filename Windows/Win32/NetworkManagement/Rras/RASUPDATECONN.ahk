@@ -1,21 +1,20 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
+#Include .\RASAPIVERSION.ahk
+#Include .\RASTUNNELENDPOINT.ahk
 #Include ..\..\Networking\WinSock\IN_ADDR.ahk
 #Include ..\..\Networking\WinSock\IN6_ADDR.ahk
-#Include .\RASTUNNELENDPOINT.ahk
 
 /**
  * @namespace Windows.Win32.NetworkManagement.Rras
- * @version v4.0.30319
  */
-class RASUPDATECONN extends Win32Struct
-{
+class RASUPDATECONN extends Win32Struct {
     static sizeof => 56
 
     static packingSize => 4
 
     /**
-     * @type {Integer}
+     * @type {RASAPIVERSION}
      */
     version {
         get => NumGet(this, 0, "int")
@@ -49,7 +48,7 @@ class RASUPDATECONN extends Win32Struct
     /**
      * @type {RASTUNNELENDPOINT}
      */
-    localEndPoint{
+    localEndPoint {
         get {
             if(!this.HasProp("__localEndPoint"))
                 this.__localEndPoint := RASTUNNELENDPOINT(16, this)
@@ -60,7 +59,7 @@ class RASUPDATECONN extends Win32Struct
     /**
      * @type {RASTUNNELENDPOINT}
      */
-    remoteEndPoint{
+    remoteEndPoint {
         get {
             if(!this.HasProp("__remoteEndPoint"))
                 this.__remoteEndPoint := RASTUNNELENDPOINT(36, this)

@@ -5,10 +5,8 @@
  * Contains a packet of opaque data sent during an EAP authentication session.
  * @see https://learn.microsoft.com/windows/win32/api/eapmethodtypes/ns-eapmethodtypes-eappacket
  * @namespace Windows.Win32.Security.ExtensibleAuthenticationProtocol
- * @version v4.0.30319
  */
-class EapPacket extends Win32Struct
-{
+class EapPacket extends Win32Struct {
     static sizeof => 5
 
     static packingSize => 1
@@ -33,9 +31,9 @@ class EapPacket extends Win32Struct
 
     /**
      * The length of the entire packet
-     * @type {Array<Byte>}
+     * @type {Array<Integer>}
      */
-    Length{
+    Length {
         get {
             if(!this.HasProp("__LengthProxyArray"))
                 this.__LengthProxyArray := Win32FixedArray(this.ptr + 2, 2, Primitive, "char")
@@ -45,9 +43,9 @@ class EapPacket extends Win32Struct
 
     /**
      * The packet message data. This opaque data block continues after the first byte for <b>Length</b> - 1 bytes.
-     * @type {Array<Byte>}
+     * @type {Array<Integer>}
      */
-    Data{
+    Data {
         get {
             if(!this.HasProp("__DataProxyArray"))
                 this.__DataProxyArray := Win32FixedArray(this.ptr + 4, 1, Primitive, "char")

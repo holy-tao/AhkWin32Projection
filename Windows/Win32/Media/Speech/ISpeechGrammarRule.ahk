@@ -1,15 +1,14 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
-#Include ..\..\Foundation\BSTR.ahk
-#Include .\ISpeechGrammarRuleState.ahk
 #Include ..\..\System\Com\IDispatch.ahk
+#Include .\ISpeechGrammarRuleState.ahk
+#Include ..\..\Foundation\BSTR.ahk
 
 /**
  * @namespace Windows.Win32.Media.Speech
- * @version v4.0.30319
  */
-class ISpeechGrammarRule extends IDispatch{
+class ISpeechGrammarRule extends IDispatch {
 
     static sizeof => A_PtrSize
     /**
@@ -31,7 +30,7 @@ class ISpeechGrammarRule extends IDispatch{
     static VTableNames => ["get_Attributes", "get_InitialState", "get_Name", "get_Id", "Clear", "AddResource", "AddState"]
 
     /**
-     * @type {Integer} 
+     * @type {SpeechRuleAttributes} 
      */
     Attributes {
         get => this.get_Attributes()
@@ -60,7 +59,7 @@ class ISpeechGrammarRule extends IDispatch{
 
     /**
      * 
-     * @returns {Integer} 
+     * @returns {SpeechRuleAttributes} 
      */
     get_Attributes() {
         result := ComCall(7, this, "int*", &Attributes := 0, "HRESULT")

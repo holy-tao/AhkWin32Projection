@@ -3,9 +3,8 @@
 
 /**
  * @namespace Windows.Win32.Graphics.DirectComposition
- * @version v4.0.30319
  */
-class DCOMPOSITION_DEPTH_MODE extends Win32Enum{
+class DCOMPOSITION_DEPTH_MODE extends Win32Enum {
 
     /**
      * @type {Integer (Int32)}

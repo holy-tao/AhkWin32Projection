@@ -7,9 +7,8 @@
  * Gets the private codec data that must be appended to the output media type. This codec data is required for properly decoding Windows Media Video content.
  * @see https://learn.microsoft.com/windows/win32/api/wmcodecdsp/nn-wmcodecdsp-iwmcodecprivatedata
  * @namespace Windows.Win32.Media.MediaFoundation
- * @version v4.0.30319
  */
-class IWMCodecPrivateData extends IUnknown{
+class IWMCodecPrivateData extends IUnknown {
 
     static sizeof => A_PtrSize
     /**

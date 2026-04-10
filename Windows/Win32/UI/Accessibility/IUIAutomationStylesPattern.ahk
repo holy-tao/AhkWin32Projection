@@ -1,16 +1,15 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
-#Include ..\..\Foundation\BSTR.ahk
 #Include ..\..\System\Com\IUnknown.ahk
+#Include ..\..\Foundation\BSTR.ahk
 
 /**
  * Enables Microsoft UI Automation clients to retrieve the visual styles associated with an element in a document.
  * @see https://learn.microsoft.com/windows/win32/api/uiautomationclient/nn-uiautomationclient-iuiautomationstylespattern
  * @namespace Windows.Win32.UI.Accessibility
- * @version v4.0.30319
  */
-class IUIAutomationStylesPattern extends IUnknown{
+class IUIAutomationStylesPattern extends IUnknown {
 
     static sizeof => A_PtrSize
     /**
@@ -32,7 +31,7 @@ class IUIAutomationStylesPattern extends IUnknown{
     static VTableNames => ["get_CurrentStyleId", "get_CurrentStyleName", "get_CurrentFillColor", "get_CurrentFillPatternStyle", "get_CurrentShape", "get_CurrentFillPatternColor", "get_CurrentExtendedProperties", "GetCurrentExtendedPropertiesAsArray", "get_CachedStyleId", "get_CachedStyleName", "get_CachedFillColor", "get_CachedFillPatternStyle", "get_CachedShape", "get_CachedFillPatternColor", "get_CachedExtendedProperties", "GetCachedExtendedPropertiesAsArray"]
 
     /**
-     * @type {Integer} 
+     * @type {UIA_STYLE_ID} 
      */
     CurrentStyleId {
         get => this.get_CurrentStyleId()
@@ -81,7 +80,7 @@ class IUIAutomationStylesPattern extends IUnknown{
     }
 
     /**
-     * @type {Integer} 
+     * @type {UIA_STYLE_ID} 
      */
     CachedStyleId {
         get => this.get_CachedStyleId()
@@ -131,7 +130,7 @@ class IUIAutomationStylesPattern extends IUnknown{
 
     /**
      * Retrieves the identifier of the visual style associated with an element in a document.
-     * @returns {Integer} 
+     * @returns {UIA_STYLE_ID} 
      * @see https://learn.microsoft.com/windows/win32/api/uiautomationclient/nf-uiautomationclient-iuiautomationstylespattern-get_currentstyleid
      */
     get_CurrentStyleId() {
@@ -220,7 +219,7 @@ class IUIAutomationStylesPattern extends IUnknown{
 
     /**
      * Retrieves the cached identifier of the visual style associated with an element in a document.
-     * @returns {Integer} 
+     * @returns {UIA_STYLE_ID} 
      * @see https://learn.microsoft.com/windows/win32/api/uiautomationclient/nf-uiautomationclient-iuiautomationstylespattern-get_cachedstyleid
      */
     get_CachedStyleId() {

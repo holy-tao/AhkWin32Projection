@@ -3,9 +3,8 @@
 
 /**
  * @namespace Windows.Win32.UI.Input.Ime
- * @version v4.0.30319
  */
-class SET_COMPOSITION_STRING_TYPE extends Win32Enum{
+class SET_COMPOSITION_STRING_TYPE extends Win32Enum {
 
     /**
      * @type {Integer (UInt32)}

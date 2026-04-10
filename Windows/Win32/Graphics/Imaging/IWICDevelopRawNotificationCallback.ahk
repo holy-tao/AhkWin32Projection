@@ -7,9 +7,8 @@
  * Exposes a callback method for raw image change nofications.
  * @see https://learn.microsoft.com/windows/win32/api/wincodec/nn-wincodec-iwicdeveloprawnotificationcallback
  * @namespace Windows.Win32.Graphics.Imaging
- * @version v4.0.30319
  */
-class IWICDevelopRawNotificationCallback extends IUnknown{
+class IWICDevelopRawNotificationCallback extends IUnknown {
 
     static sizeof => A_PtrSize
     /**

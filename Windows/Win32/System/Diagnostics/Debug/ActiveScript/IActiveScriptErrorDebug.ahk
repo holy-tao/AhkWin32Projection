@@ -1,15 +1,14 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\..\..\Guid.ahk
+#Include .\IActiveScriptError.ahk
 #Include .\IDebugDocumentContext.ahk
 #Include .\IDebugStackFrame.ahk
-#Include .\IActiveScriptError.ahk
 
 /**
  * @namespace Windows.Win32.System.Diagnostics.Debug.ActiveScript
- * @version v4.0.30319
  */
-class IActiveScriptErrorDebug extends IActiveScriptError{
+class IActiveScriptErrorDebug extends IActiveScriptError {
 
     static sizeof => A_PtrSize
     /**

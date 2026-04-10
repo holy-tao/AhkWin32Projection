@@ -1,17 +1,15 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
-#Include ..\..\Foundation\HWND.ahk
 #Include .\NMHDR.ahk
+#Include ..\..\Foundation\HWND.ahk
 #Include ..\..\Foundation\RECT.ahk
 
 /**
  * Contains information used to handle an RBN_SPLITTERDRAG notification code.
  * @see https://learn.microsoft.com/windows/win32/api/commctrl/ns-commctrl-nmrebarsplitter
  * @namespace Windows.Win32.UI.Controls
- * @version v4.0.30319
  */
-class NMREBARSPLITTER extends Win32Struct
-{
+class NMREBARSPLITTER extends Win32Struct {
     static sizeof => 40
 
     static packingSize => 8
@@ -22,7 +20,7 @@ class NMREBARSPLITTER extends Win32Struct
      * An <a href="https://docs.microsoft.com/windows/desktop/api/richedit/ns-richedit-nmhdr">NMHDR</a> structure that contains additional information about this notification.
      * @type {NMHDR}
      */
-    hdr{
+    hdr {
         get {
             if(!this.HasProp("__hdr"))
                 this.__hdr := NMHDR(0, this)
@@ -36,7 +34,7 @@ class NMREBARSPLITTER extends Win32Struct
      * An <a href="https://docs.microsoft.com/windows/desktop/api/windef/ns-windef-rect">RECT</a> structure that indicates the size the rebar will be after the drag operation completes.
      * @type {RECT}
      */
-    rcSizing{
+    rcSizing {
         get {
             if(!this.HasProp("__rcSizing"))
                 this.__rcSizing := RECT(24, this)

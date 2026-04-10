@@ -5,9 +5,8 @@
 
 /**
  * @namespace Windows.Win32.System.DistributedTransactionCoordinator
- * @version v4.0.30319
  */
-class ITransactionImport extends IUnknown{
+class ITransactionImport extends IUnknown {
 
     static sizeof => A_PtrSize
     /**

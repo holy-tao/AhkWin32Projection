@@ -1,12 +1,11 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
+#Include .\CERT_POLICY_QUALIFIER_NOTICE_REFERENCE.ahk
 
 /**
  * @namespace Windows.Win32.Security.Cryptography
- * @version v4.0.30319
  */
-class CERT_POLICY_QUALIFIER_USER_NOTICE extends Win32Struct
-{
+class CERT_POLICY_QUALIFIER_USER_NOTICE extends Win32Struct {
     static sizeof => 16
 
     static packingSize => 8

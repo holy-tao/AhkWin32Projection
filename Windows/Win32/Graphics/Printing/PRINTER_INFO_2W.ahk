@@ -1,16 +1,15 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
+#Include ..\Gdi\DEVMODEW.ahk
 #Include ..\..\Security\PSECURITY_DESCRIPTOR.ahk
 
 /**
  * The PRINTER\_INFO\_2 structure specifies detailed printer information.
  * @see https://learn.microsoft.com/windows/win32/printdocs/printer-info-2
  * @namespace Windows.Win32.Graphics.Printing
- * @version v4.0.30319
  * @charset Unicode
  */
-class PRINTER_INFO_2W extends Win32Struct
-{
+class PRINTER_INFO_2W extends Win32Struct {
     static sizeof => 136
 
     static packingSize => 8
@@ -127,7 +126,7 @@ class PRINTER_INFO_2W extends Win32Struct
      * A pointer to a [**SECURITY\_DESCRIPTOR**](/windows/desktop/api/winnt/ns-winnt-security_descriptor) structure for the printer. This member may be **NULL**.
      * @type {PSECURITY_DESCRIPTOR}
      */
-    pSecurityDescriptor{
+    pSecurityDescriptor {
         get {
             if(!this.HasProp("__pSecurityDescriptor"))
                 this.__pSecurityDescriptor := PSECURITY_DESCRIPTOR(96, this)

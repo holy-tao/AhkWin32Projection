@@ -3,10 +3,8 @@
 
 /**
  * @namespace Windows.Win32.Foundation
- * @version v4.0.30319
  */
-class FLOAT128 extends Win32Struct
-{
+class FLOAT128 extends Win32Struct {
     static sizeof => 16
 
     static packingSize => 8

@@ -12,9 +12,8 @@
  * <div> </div>
  * @see https://learn.microsoft.com/windows/win32/api/vdslun/ne-vdslun-vds_storage_bus_type
  * @namespace Windows.Win32.Storage.VirtualDiskService
- * @version v4.0.30319
  */
-class VDS_STORAGE_BUS_TYPE extends Win32Enum{
+class VDS_STORAGE_BUS_TYPE extends Win32Enum {
 
     /**
      * This value is reserved.
@@ -113,7 +112,6 @@ class VDS_STORAGE_BUS_TYPE extends Win32Enum{
     static VDSBusTypeMax => 14
 
     /**
-     * 
      * @type {Integer (Int32)}
      */
     static VDSBusTypeVirtual => 14
@@ -127,25 +125,21 @@ class VDS_STORAGE_BUS_TYPE extends Win32Enum{
     static VDSBusTypeFileBackedVirtual => 15
 
     /**
-     * 
      * @type {Integer (Int32)}
      */
     static VDSBusTypeSpaces => 16
 
     /**
-     * 
      * @type {Integer (Int32)}
      */
     static VDSBusTypeNVMe => 17
 
     /**
-     * 
      * @type {Integer (Int32)}
      */
     static VDSBusTypeScm => 18
 
     /**
-     * 
      * @type {Integer (Int32)}
      */
     static VDSBusTypeUfs => 19

@@ -7,9 +7,8 @@
  * Provides access to the individual components of a transport address.
  * @see https://learn.microsoft.com/windows/win32/api/wsdbase/nn-wsdbase-iwsdaddress
  * @namespace Windows.Win32.Devices.WebServicesOnDevices
- * @version v4.0.30319
  */
-class IWSDAddress extends IUnknown{
+class IWSDAddress extends IUnknown {
 
     static sizeof => A_PtrSize
     /**

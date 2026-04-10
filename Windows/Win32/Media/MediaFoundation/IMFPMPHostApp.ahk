@@ -7,9 +7,8 @@
  * Allows a media source to create a Windows Runtime object in the Protected Media Path (PMP) process.
  * @see https://learn.microsoft.com/windows/win32/api/mfidl/nn-mfidl-imfpmphostapp
  * @namespace Windows.Win32.Media.MediaFoundation
- * @version v4.0.30319
  */
-class IMFPMPHostApp extends IUnknown{
+class IMFPMPHostApp extends IUnknown {
 
     static sizeof => A_PtrSize
     /**

@@ -1,19 +1,20 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
 #Include .\POWER_ACTION_POLICY.ahk
+#Include .\POWER_ACTION.ahk
+#Include .\POWER_ACTION_POLICY_EVENT_CODE.ahk
+#Include .\SYSTEM_POWER_STATE.ahk
 #Include .\SYSTEM_POWER_LEVEL.ahk
 
 /**
  * Contains information about the current system power policy.
  * @see https://learn.microsoft.com/windows/win32/api/winnt/ns-winnt-system_power_policy
  * @namespace Windows.Win32.System.Power
- * @version v4.0.30319
  */
-class SYSTEM_POWER_POLICY extends Win32Struct
-{
-    static sizeof => 168
+class SYSTEM_POWER_POLICY extends Win32Struct {
+    static sizeof => 232
 
-    static packingSize => 8
+    static packingSize => 4
 
     /**
      * The current structure revision.
@@ -29,7 +30,7 @@ class SYSTEM_POWER_POLICY extends Win32Struct
      * <a href="https://docs.microsoft.com/windows/desktop/api/winnt/ns-winnt-power_action_policy">POWER_ACTION_POLICY</a> structure that defines the system power action to initiate when the system power button is pressed.
      * @type {POWER_ACTION_POLICY}
      */
-    PowerButton{
+    PowerButton {
         get {
             if(!this.HasProp("__PowerButton"))
                 this.__PowerButton := POWER_ACTION_POLICY(4, this)
@@ -42,7 +43,7 @@ class SYSTEM_POWER_POLICY extends Win32Struct
      * <a href="https://docs.microsoft.com/windows/desktop/api/winnt/ns-winnt-power_action_policy">POWER_ACTION_POLICY</a> structure that defines the system power action to initiate when the system sleep button is pressed.
      * @type {POWER_ACTION_POLICY}
      */
-    SleepButton{
+    SleepButton {
         get {
             if(!this.HasProp("__SleepButton"))
                 this.__SleepButton := POWER_ACTION_POLICY(16, this)
@@ -55,7 +56,7 @@ class SYSTEM_POWER_POLICY extends Win32Struct
      * <a href="https://docs.microsoft.com/windows/desktop/api/winnt/ns-winnt-power_action_policy">POWER_ACTION_POLICY</a> structure that defines the system power action to initiate when the system lid switch is closed.
      * @type {POWER_ACTION_POLICY}
      */
-    LidClose{
+    LidClose {
         get {
             if(!this.HasProp("__LidClose"))
                 this.__LidClose := POWER_ACTION_POLICY(28, this)
@@ -66,7 +67,7 @@ class SYSTEM_POWER_POLICY extends Win32Struct
     /**
      * The maximum power state (highest Sx value) from which a lid-open event should wake the system. This member must be one of the 
      * <a href="https://docs.microsoft.com/windows/desktop/api/winnt/ne-winnt-system_power_state">SYSTEM_POWER_STATE</a> enumeration type values.
-     * @type {Integer}
+     * @type {SYSTEM_POWER_STATE}
      */
     LidOpenWake {
         get => NumGet(this, 40, "int")
@@ -87,7 +88,7 @@ class SYSTEM_POWER_POLICY extends Win32Struct
      * <a href="https://docs.microsoft.com/windows/desktop/api/winnt/ns-winnt-power_action_policy">POWER_ACTION_POLICY</a> structure that defines the system power action to initiate when the system idle timer expires.
      * @type {POWER_ACTION_POLICY}
      */
-    Idle{
+    Idle {
         get {
             if(!this.HasProp("__Idle"))
                 this.__Idle := POWER_ACTION_POLICY(48, this)
@@ -125,9 +126,9 @@ class SYSTEM_POWER_POLICY extends Win32Struct
 
     /**
      * Reserved.
-     * @type {Array<Byte>}
+     * @type {Array<Integer>}
      */
-    Spare2{
+    Spare2 {
         get {
             if(!this.HasProp("__Spare2ProxyArray"))
                 this.__Spare2ProxyArray := Win32FixedArray(this.ptr + 66, 2, Primitive, "char")
@@ -138,7 +139,7 @@ class SYSTEM_POWER_POLICY extends Win32Struct
     /**
      * The minimum system sleep state (lowest Sx value) currently supported. This member must be one of the 
      * <a href="https://docs.microsoft.com/windows/desktop/api/winnt/ne-winnt-system_power_state">SYSTEM_POWER_STATE</a> enumeration type values.
-     * @type {Integer}
+     * @type {SYSTEM_POWER_STATE}
      */
     MinSleep {
         get => NumGet(this, 68, "int")
@@ -148,7 +149,7 @@ class SYSTEM_POWER_POLICY extends Win32Struct
     /**
      * The maximum system sleep state (highest Sx value) currently supported. This member must be one of the 
      * <a href="https://docs.microsoft.com/windows/desktop/api/winnt/ne-winnt-system_power_state">SYSTEM_POWER_STATE</a> enumeration type values.
-     * @type {Integer}
+     * @type {SYSTEM_POWER_STATE}
      */
     MaxSleep {
         get => NumGet(this, 72, "int")
@@ -159,7 +160,7 @@ class SYSTEM_POWER_POLICY extends Win32Struct
      * The system power state (Sx value) to enter on a system sleep action when there are outstanding latency requirements. This member must be one of the 
      * <a href="https://docs.microsoft.com/windows/desktop/api/winnt/ne-winnt-system_power_state">SYSTEM_POWER_STATE</a> enumeration type values. If an application calls 
      * <a href="https://docs.microsoft.com/windows/desktop/api/winbase/nf-winbase-requestwakeuplatency">RequestWakeupLatency</a> with LT_LOWEST_LATENCY, <b>ReducedLatencySleep</b> will be used in place of <b>MaxSleep</b>.
-     * @type {Integer}
+     * @type {SYSTEM_POWER_STATE}
      */
     ReducedLatencySleep {
         get => NumGet(this, 76, "int")
@@ -205,9 +206,9 @@ class SYSTEM_POWER_POLICY extends Win32Struct
     /**
      * An array of 
      * <a href="https://docs.microsoft.com/windows/desktop/api/winnt/ns-winnt-system_power_level">SYSTEM_POWER_LEVEL</a> structures that defines the actions to take at system battery discharge events.
-     * @type {Array<SYSTEM_POWER_LEVEL>}
+     * @type {SYSTEM_POWER_LEVEL}
      */
-    DischargePolicy{
+    DischargePolicy {
         get {
             if(!this.HasProp("__DischargePolicyProxyArray"))
                 this.__DischargePolicyProxyArray := Win32FixedArray(this.ptr + 96, 4, SYSTEM_POWER_LEVEL, "")
@@ -220,8 +221,8 @@ class SYSTEM_POWER_POLICY extends Win32Struct
      * @type {Integer}
      */
     VideoTimeout {
-        get => NumGet(this, 128, "uint")
-        set => NumPut("uint", value, this, 128)
+        get => NumGet(this, 192, "uint")
+        set => NumPut("uint", value, this, 192)
     }
 
     /**
@@ -229,18 +230,18 @@ class SYSTEM_POWER_POLICY extends Win32Struct
      * @type {BOOLEAN}
      */
     VideoDimDisplay {
-        get => NumGet(this, 132, "char")
-        set => NumPut("char", value, this, 132)
+        get => NumGet(this, 196, "char")
+        set => NumPut("char", value, this, 196)
     }
 
     /**
      * Reserved.
-     * @type {Array<UInt32>}
+     * @type {Array<Integer>}
      */
-    VideoReserved{
+    VideoReserved {
         get {
             if(!this.HasProp("__VideoReservedProxyArray"))
-                this.__VideoReservedProxyArray := Win32FixedArray(this.ptr + 136, 3, Primitive, "uint")
+                this.__VideoReservedProxyArray := Win32FixedArray(this.ptr + 200, 3, Primitive, "uint")
             return this.__VideoReservedProxyArray
         }
     }
@@ -250,8 +251,8 @@ class SYSTEM_POWER_POLICY extends Win32Struct
      * @type {Integer}
      */
     SpindownTimeout {
-        get => NumGet(this, 148, "uint")
-        set => NumPut("uint", value, this, 148)
+        get => NumGet(this, 212, "uint")
+        set => NumPut("uint", value, this, 212)
     }
 
     /**
@@ -259,8 +260,8 @@ class SYSTEM_POWER_POLICY extends Win32Struct
      * @type {BOOLEAN}
      */
     OptimizeForPower {
-        get => NumGet(this, 152, "char")
-        set => NumPut("char", value, this, 152)
+        get => NumGet(this, 216, "char")
+        set => NumPut("char", value, this, 216)
     }
 
     /**
@@ -268,8 +269,8 @@ class SYSTEM_POWER_POLICY extends Win32Struct
      * @type {Integer}
      */
     FanThrottleTolerance {
-        get => NumGet(this, 153, "char")
-        set => NumPut("char", value, this, 153)
+        get => NumGet(this, 217, "char")
+        set => NumPut("char", value, this, 217)
     }
 
     /**
@@ -277,8 +278,8 @@ class SYSTEM_POWER_POLICY extends Win32Struct
      * @type {Integer}
      */
     ForcedThrottle {
-        get => NumGet(this, 154, "char")
-        set => NumPut("char", value, this, 154)
+        get => NumGet(this, 218, "char")
+        set => NumPut("char", value, this, 218)
     }
 
     /**
@@ -286,8 +287,8 @@ class SYSTEM_POWER_POLICY extends Win32Struct
      * @type {Integer}
      */
     MinThrottle {
-        get => NumGet(this, 155, "char")
-        set => NumPut("char", value, this, 155)
+        get => NumGet(this, 219, "char")
+        set => NumPut("char", value, this, 219)
     }
 
     /**
@@ -295,10 +296,10 @@ class SYSTEM_POWER_POLICY extends Win32Struct
      * <a href="https://docs.microsoft.com/windows/desktop/api/winnt/ns-winnt-power_action_policy">POWER_ACTION_POLICY</a> structure that defines the system power action to initiate in response to a thermal event when processor throttling is unable to adequately reduce the system temperature.
      * @type {POWER_ACTION_POLICY}
      */
-    OverThrottled{
+    OverThrottled {
         get {
             if(!this.HasProp("__OverThrottled"))
-                this.__OverThrottled := POWER_ACTION_POLICY(156, this)
+                this.__OverThrottled := POWER_ACTION_POLICY(220, this)
             return this.__OverThrottled
         }
     }

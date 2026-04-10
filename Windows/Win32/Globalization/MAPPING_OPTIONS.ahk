@@ -18,10 +18,8 @@
  * <div> </div>
  * @see https://learn.microsoft.com/windows/win32/api/elscore/ns-elscore-mapping_options
  * @namespace Windows.Win32.Globalization
- * @version v4.0.30319
  */
-class MAPPING_OPTIONS extends Win32Struct
-{
+class MAPPING_OPTIONS extends Win32Struct {
     static sizeof => 120
 
     static packingSize => 8
@@ -178,7 +176,6 @@ class MAPPING_OPTIONS extends Win32Struct
     }
 
     /**
-     * Reserved.
      * @type {Integer}
      */
     GetActionDisplayName {

@@ -7,9 +7,8 @@
  * The IWMPPlayerApplication interface provides methods for switching between a remoted Windows Media Player control and the full mode of the Player. These methods can only be used with C++ programs that embed the control in remote mode.
  * @see https://learn.microsoft.com/windows/win32/api/wmp/nn-wmp-iwmpplayerapplication
  * @namespace Windows.Win32.Media.MediaPlayer
- * @version v4.0.30319
  */
-class IWMPPlayerApplication extends IDispatch{
+class IWMPPlayerApplication extends IDispatch {
 
     static sizeof => A_PtrSize
     /**

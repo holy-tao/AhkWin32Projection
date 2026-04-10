@@ -1,10 +1,10 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
+#Include ..\..\System\Com\IDispatch.ahk
 #Include ..\..\Foundation\BSTR.ahk
 #Include ..\..\System\Variant\VARIANT.ahk
 #Include .\IInkRecognizerContext.ahk
-#Include ..\..\System\Com\IDispatch.ahk
 
 /**
  * Represents the ability to process ink, or handwriting, and translate the stroke into text or gesture. The recognizer creates an InkRecognizerContext object, which is used to perform the actual handwriting recognition.
@@ -18,9 +18,8 @@
  * If you define a class that implements this interface, the new class will not interact correctly with the Tablet PC application programming interfaces (APIs).
  * @see https://learn.microsoft.com/windows/win32/api/msinkaut/nn-msinkaut-iinkrecognizer
  * @namespace Windows.Win32.UI.TabletPC
- * @version v4.0.30319
  */
-class IInkRecognizer extends IDispatch{
+class IInkRecognizer extends IDispatch {
 
     static sizeof => A_PtrSize
     /**
@@ -56,7 +55,7 @@ class IInkRecognizer extends IDispatch{
     }
 
     /**
-     * @type {Integer} 
+     * @type {InkRecognizerCapabilities} 
      */
     Capabilities {
         get => this.get_Capabilities()
@@ -115,7 +114,7 @@ class IInkRecognizer extends IDispatch{
      * To determine if a recognizer has a particular capability, use a bitwise comparison operator to check for that capability.
      * 
      * For information about how to request various recognizer capabilities, or modes, see the <a href="https://docs.microsoft.com/windows/desktop/api/msinkaut/nf-msinkaut-iinkrecognizercontext-get_guide">Guide</a> property of the <a href="https://docs.microsoft.com/windows/desktop/tablet/inkrecognizercontext-class">RecognizerContext</a> object.
-     * @returns {Integer} 
+     * @returns {InkRecognizerCapabilities} 
      * @see https://learn.microsoft.com/windows/win32/api/msinkaut/nf-msinkaut-iinkrecognizer-get_capabilities
      */
     get_Capabilities() {
@@ -168,7 +167,7 @@ class IInkRecognizer extends IDispatch{
 
     /**
      * Creates a new InkRecognizerContext object.
-     * @returns {IInkRecognizerContext} 
+     * @returns {IInkRecognizerContext} Returns a <a href="https://docs.microsoft.com/windows/desktop/tablet/inkrecognizercontext-class">InkRecognizerContext</a> for the invoking <a href="https://docs.microsoft.com/windows/desktop/api/msinkaut/nn-msinkaut-iinkrecognizer">IInkRecognizer</a>.
      * @see https://learn.microsoft.com/windows/win32/api/msinkaut/nf-msinkaut-iinkrecognizer-createrecognizercontext
      */
     CreateRecognizerContext() {

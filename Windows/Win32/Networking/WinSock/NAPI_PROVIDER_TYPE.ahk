@@ -15,9 +15,8 @@
  * The <a href="https://docs.microsoft.com/windows/desktop/api/winsock2/nf-winsock2-wsaenumnamespaceprovidersexa">WSAEnumNameSpaceProvidersEx</a> and <a href="https://docs.microsoft.com/windows/desktop/api/ws2spi/nf-ws2spi-wscenumnamespaceprovidersex32">WSCEnumNameSpaceProvidersEx32</a> functions are used to enumerate namespace providers for the NS_EMAIL namespace and retrieve the <a href="https://docs.microsoft.com/windows/desktop/api/nsemail/ns-nsemail-napi_provider_installation_blob">NAPI_PROVIDER_INSTALLATION_BLOB</a> structure for  a provider.
  * @see https://learn.microsoft.com/windows/win32/api/nsemail/ne-nsemail-napi_provider_type
  * @namespace Windows.Win32.Networking.WinSock
- * @version v4.0.30319
  */
-class NAPI_PROVIDER_TYPE extends Win32Enum{
+class NAPI_PROVIDER_TYPE extends Win32Enum {
 
     /**
      * The namespace provider is expected to be hosted by an application. There may be multiple namespace providers of type <b>ProviderType_Application</b> running at the same time on a local system. 

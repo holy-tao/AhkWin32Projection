@@ -9,16 +9,14 @@
  * If you need to register pin mediums or pin categories, set <b>dwVersion</b> to 2 and use the <a href="https://docs.microsoft.com/windows/desktop/api/strmif/ns-strmif-regfilterpins2">REGFILTERPINS2</a> structure.
  * @see https://learn.microsoft.com/windows/win32/api/strmif/ns-strmif-regfilter2
  * @namespace Windows.Win32.Media.DirectShow
- * @version v4.0.30319
  */
-class REGFILTER extends Win32Struct
-{
+class REGFILTER extends Win32Struct {
     static sizeof => 16
 
     static packingSize => 8
 
     /**
-     * @type {Pointer<Guid>}
+     * @type {Pointer}
      */
     Clsid {
         get => NumGet(this, 0, "ptr")

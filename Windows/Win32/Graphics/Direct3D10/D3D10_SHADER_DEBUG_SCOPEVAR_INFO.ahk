@@ -1,5 +1,7 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
+#Include .\D3D10_SHADER_DEBUG_VARTYPE.ahk
+#Include ..\Direct3D\D3D_SHADER_VARIABLE_CLASS.ahk
 
 /**
  * Describes a shader scope variable.
@@ -7,10 +9,8 @@
  * The <b>D3D10_SHADER_DEBUG_SCOPEVAR_INFO</b> structure is used with the <a href="https://docs.microsoft.com/windows/win32/api/d3d10_1shader/ns-d3d10_1shader-d3d10_shader_debug_info">D3D10_SHADER_DEBUG_INFO</a> structure.
  * @see https://learn.microsoft.com/windows/win32/api/d3d10_1shader/ns-d3d10_1shader-d3d10_shader_debug_scopevar_info
  * @namespace Windows.Win32.Graphics.Direct3D10
- * @version v4.0.30319
  */
-class D3D10_SHADER_DEBUG_SCOPEVAR_INFO extends Win32Struct
-{
+class D3D10_SHADER_DEBUG_SCOPEVAR_INFO extends Win32Struct {
     static sizeof => 44
 
     static packingSize => 4
@@ -30,7 +30,7 @@ class D3D10_SHADER_DEBUG_SCOPEVAR_INFO extends Win32Struct
      * Type: <b><a href="https://docs.microsoft.com/windows/win32/api/d3d10_1shader/ne-d3d10_1shader-d3d10_shader_debug_vartype">D3D10_SHADER_DEBUG_VARTYPE</a></b>
      * 
      * Indicates whether this is a variable or function.
-     * @type {Integer}
+     * @type {D3D10_SHADER_DEBUG_VARTYPE}
      */
     VarType {
         get => NumGet(this, 4, "int")
@@ -41,7 +41,7 @@ class D3D10_SHADER_DEBUG_SCOPEVAR_INFO extends Win32Struct
      * Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/d3dcommon/ne-d3dcommon-d3d_shader_variable_class">D3D10_SHADER_VARIABLE_CLASS</a></b>
      * 
      * Indicates the variable class.
-     * @type {Integer}
+     * @type {D3D_SHADER_VARIABLE_CLASS}
      */
     Class {
         get => NumGet(this, 8, "int")

@@ -7,9 +7,8 @@
  * Notifies the subscriber if a single-threaded apartment (STA) is created or terminated, and when an apartment thread is allocated.
  * @see https://learn.microsoft.com/windows/win32/api/comsvcs/nn-comsvcs-icomthreadevents
  * @namespace Windows.Win32.System.ComponentServices
- * @version v4.0.30319
  */
-class IComThreadEvents extends IUnknown{
+class IComThreadEvents extends IUnknown {
 
     static sizeof => A_PtrSize
     /**

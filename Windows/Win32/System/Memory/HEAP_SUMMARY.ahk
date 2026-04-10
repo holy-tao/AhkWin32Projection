@@ -3,14 +3,10 @@
 
 /**
  * The HEAP_SUMMARY structure (heapapi.h) represents a heap summary retrieved with a call to the HeapSummary function.
- * @remarks
- * 
  * @see https://learn.microsoft.com/windows/win32/api/heapapi/ns-heapapi-heap_summary
  * @namespace Windows.Win32.System.Memory
- * @version v4.0.30319
  */
-class HEAP_SUMMARY extends Win32Struct
-{
+class HEAP_SUMMARY extends Win32Struct {
     static sizeof => 40
 
     static packingSize => 8

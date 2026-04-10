@@ -7,10 +7,8 @@
  * Memory for the byte array must be allocated separately.
  * @see https://learn.microsoft.com/windows/win32/api/iads/ns-iads-ads_octet_string
  * @namespace Windows.Win32.Networking.ActiveDirectory
- * @version v4.0.30319
  */
-class ADS_OCTET_STRING extends Win32Struct
-{
+class ADS_OCTET_STRING extends Win32Struct {
     static sizeof => 16
 
     static packingSize => 8

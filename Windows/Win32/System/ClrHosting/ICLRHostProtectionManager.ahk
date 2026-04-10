@@ -5,9 +5,8 @@
 
 /**
  * @namespace Windows.Win32.System.ClrHosting
- * @version v4.0.30319
  */
-class ICLRHostProtectionManager extends IUnknown{
+class ICLRHostProtectionManager extends IUnknown {
 
     static sizeof => A_PtrSize
     /**
@@ -30,7 +29,7 @@ class ICLRHostProtectionManager extends IUnknown{
 
     /**
      * 
-     * @param {Integer} categories 
+     * @param {EApiCategories} categories 
      * @returns {HRESULT} 
      */
     SetProtectedCategories(categories) {

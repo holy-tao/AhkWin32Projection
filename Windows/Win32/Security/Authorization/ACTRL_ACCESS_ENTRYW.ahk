@@ -1,6 +1,11 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
 #Include .\TRUSTEE_W.ahk
+#Include .\MULTIPLE_TRUSTEE_OPERATION.ahk
+#Include .\TRUSTEE_FORM.ahk
+#Include .\TRUSTEE_TYPE.ahk
+#Include .\ACTRL_ACCESS_ENTRY_ACCESS_FLAGS.ahk
+#Include ..\ACE_FLAGS.ahk
 
 /**
  * Contains access-control information for a specified trustee. This structure stores information equivalent to the access-control information stored in an ACE. (Unicode)
@@ -9,11 +14,9 @@
  * > The accctrl.h header defines ACTRL_ACCESS_ENTRY as an alias which automatically selects the ANSI or Unicode version of this function based on the definition of the UNICODE preprocessor constant. Mixing usage of the encoding-neutral alias with code that not encoding-neutral can lead to mismatches that result in compilation or runtime errors. For more information, see [Conventions for Function Prototypes](/windows/win32/intl/conventions-for-function-prototypes).
  * @see https://learn.microsoft.com/windows/win32/api/accctrl/ns-accctrl-actrl_access_entryw
  * @namespace Windows.Win32.Security.Authorization
- * @version v4.0.30319
  * @charset Unicode
  */
-class ACTRL_ACCESS_ENTRYW extends Win32Struct
-{
+class ACTRL_ACCESS_ENTRYW extends Win32Struct {
     static sizeof => 56
 
     static packingSize => 8
@@ -22,7 +25,7 @@ class ACTRL_ACCESS_ENTRYW extends Win32Struct
      * A <a href="https://docs.microsoft.com/windows/desktop/api/accctrl/ns-accctrl-trustee_a">TRUSTEE</a> structure that identifies the user, group, or program (such as a service) to which the access-control entry applies.
      * @type {TRUSTEE_W}
      */
-    Trustee{
+    Trustee {
         get {
             if(!this.HasProp("__Trustee"))
                 this.__Trustee := TRUSTEE_W(0, this)
@@ -31,8 +34,7 @@ class ACTRL_ACCESS_ENTRYW extends Win32Struct
     }
 
     /**
-     * 
-     * @type {Integer}
+     * @type {ACTRL_ACCESS_ENTRY_ACCESS_FLAGS}
      */
     fAccessFlags {
         get => NumGet(this, 32, "uint")
@@ -65,8 +67,7 @@ class ACTRL_ACCESS_ENTRYW extends Win32Struct
     }
 
     /**
-     * 
-     * @type {Integer}
+     * @type {ACE_FLAGS}
      */
     Inheritance {
         get => NumGet(this, 44, "uint")

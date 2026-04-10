@@ -17,9 +17,8 @@
  * To obtain a handle to the COM+ tracker property, call the <a href="https://docs.microsoft.com/windows/desktop/api/objidl/nf-objidl-icontext-getproperty">IContext::GetProperty</a> method with the <i>rGuid</i> argument set equal to this GUID.
  * @see https://learn.microsoft.com/windows/win32/api/comsvcs/nn-comsvcs-isendmethodevents
  * @namespace Windows.Win32.System.ComponentServices
- * @version v4.0.30319
  */
-class ISendMethodEvents extends IUnknown{
+class ISendMethodEvents extends IUnknown {
 
     static sizeof => A_PtrSize
     /**

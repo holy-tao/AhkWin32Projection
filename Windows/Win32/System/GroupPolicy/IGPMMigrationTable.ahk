@@ -1,19 +1,17 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
-#Include ..\..\Foundation\BSTR.ahk
+#Include ..\Com\IDispatch.ahk
 #Include .\IGPMMapEntry.ahk
 #Include .\IGPMResult.ahk
 #Include .\IGPMMapEntryCollection.ahk
-#Include ..\Com\IDispatch.ahk
 
 /**
  * The IGPMMigrationTable interface provides an interface to a migration table.
  * @see https://learn.microsoft.com/windows/win32/api/gpmgmt/nn-gpmgmt-igpmmigrationtable
  * @namespace Windows.Win32.System.GroupPolicy
- * @version v4.0.30319
  */
-class IGPMMigrationTable extends IDispatch{
+class IGPMMigrationTable extends IDispatch {
 
     static sizeof => A_PtrSize
     /**
@@ -76,7 +74,7 @@ class IGPMMigrationTable extends IDispatch{
     /**
      * Creates an entry in the migration table. The method updates an existing entry.
      * @param {BSTR} bstrSource Source field of the entry. This parameter cannot be null.
-     * @param {Integer} _gpmEntryType 
+     * @param {GPMEntryType} _gpmEntryType 
      * @param {Pointer<VARIANT>} pvarDestination A pointer to a <b>VARIANT</b> structure. You can use the <b>DestinationOptions</b>: <b>opDestinationSameAsSource</b>, <b>opDestinationNone</b>, or <b>opDestinationByRelativeName</b> by passing in a <i>pvarDestination</i> with a <b>vt</b> member of VT_I4. To explicitly pass in the destination, pass in a <i>pvarDestination</i> with a <b>vt</b> member of VT_BSTR, and this sets the <b>DestinationOptions</b> to <b>opDestinationSet</b>. If you pass in null, <b>AddEntry</b> uses the default value for the destination option, <b>opDestinationSameAsSource</b>.
      * @returns {IGPMMapEntry} The new entry.
      * @see https://learn.microsoft.com/windows/win32/api/gpmgmt/nf-gpmgmt-igpmmigrationtable-addentry

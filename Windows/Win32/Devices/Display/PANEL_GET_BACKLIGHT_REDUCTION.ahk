@@ -4,10 +4,8 @@
 
 /**
  * @namespace Windows.Win32.Devices.Display
- * @version v4.0.30319
  */
-class PANEL_GET_BACKLIGHT_REDUCTION extends Win32Struct
-{
+class PANEL_GET_BACKLIGHT_REDUCTION extends Win32Struct {
     static sizeof => 1540
 
     static packingSize => 2
@@ -31,7 +29,7 @@ class PANEL_GET_BACKLIGHT_REDUCTION extends Win32Struct
     /**
      * @type {BACKLIGHT_REDUCTION_GAMMA_RAMP}
      */
-    GammaRamp{
+    GammaRamp {
         get {
             if(!this.HasProp("__GammaRamp"))
                 this.__GammaRamp := BACKLIGHT_REDUCTION_GAMMA_RAMP(4, this)

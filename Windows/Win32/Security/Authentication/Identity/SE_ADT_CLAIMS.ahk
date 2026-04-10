@@ -3,10 +3,8 @@
 
 /**
  * @namespace Windows.Win32.Security.Authentication.Identity
- * @version v4.0.30319
  */
-class SE_ADT_CLAIMS extends Win32Struct
-{
+class SE_ADT_CLAIMS extends Win32Struct {
     static sizeof => 16
 
     static packingSize => 8

@@ -1,5 +1,7 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
+#Include ..\SYSTEM_AUDIT_OBJECT_ACE_FLAGS.ahk
+#Include .\SE_OBJECT_TYPE.ahk
 
 /**
  * Contains a string that identifies a trustee by name and additional strings that identify the object types of an object-specific access control entry (ACE). (Unicode)
@@ -14,18 +16,15 @@
  * > The accctrl.h header defines OBJECTS_AND_NAME_ as an alias which automatically selects the ANSI or Unicode version of this function based on the definition of the UNICODE preprocessor constant. Mixing usage of the encoding-neutral alias with code that not encoding-neutral can lead to mismatches that result in compilation or runtime errors. For more information, see [Conventions for Function Prototypes](/windows/win32/intl/conventions-for-function-prototypes).
  * @see https://learn.microsoft.com/windows/win32/api/accctrl/ns-accctrl-objects_and_name_w
  * @namespace Windows.Win32.Security.Authorization
- * @version v4.0.30319
  * @charset Unicode
  */
-class OBJECTS_AND_NAME_W extends Win32Struct
-{
+class OBJECTS_AND_NAME_W extends Win32Struct {
     static sizeof => 32
 
     static packingSize => 8
 
     /**
-     * 
-     * @type {Integer}
+     * @type {SYSTEM_AUDIT_OBJECT_ACE_FLAGS}
      */
     ObjectsPresent {
         get => NumGet(this, 0, "uint")
@@ -35,7 +34,7 @@ class OBJECTS_AND_NAME_W extends Win32Struct
     /**
      * Specifies a value from the 
      * <a href="https://docs.microsoft.com/windows/desktop/api/accctrl/ne-accctrl-se_object_type">SE_OBJECT_TYPE</a> enumeration that indicates the type of object.
-     * @type {Integer}
+     * @type {SE_OBJECT_TYPE}
      */
     ObjectType {
         get => NumGet(this, 4, "int")

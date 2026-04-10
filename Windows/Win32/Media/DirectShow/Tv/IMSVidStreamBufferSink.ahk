@@ -1,10 +1,10 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\..\Guid.ahk
-#Include ..\..\..\Foundation\BSTR.ahk
-#Include .\IMSVidStreamBufferRecordingControl.ahk
-#Include ..\..\..\System\Com\IUnknown.ahk
 #Include .\IMSVidOutputDevice.ahk
+#Include .\IMSVidStreamBufferRecordingControl.ahk
+#Include ..\..\..\Foundation\BSTR.ahk
+#Include ..\..\..\System\Com\IUnknown.ahk
 
 /**
  * The IMSVidStreamBufferSink interface represents the Stream Buffer Sink filter within the Video Control.
@@ -12,9 +12,8 @@
  * To declare the interface identifier (IID) for this interface, use the <b>__uuidof</b> operator: <c>__uuidof(IMSVidStreamBufferSink)</c>.
  * @see https://learn.microsoft.com/windows/win32/api/segment/nn-segment-imsvidstreambuffersink
  * @namespace Windows.Win32.Media.DirectShow.Tv
- * @version v4.0.30319
  */
-class IMSVidStreamBufferSink extends IMSVidOutputDevice{
+class IMSVidStreamBufferSink extends IMSVidOutputDevice {
 
     static sizeof => A_PtrSize
     /**

@@ -1,19 +1,18 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
-#Include ..\..\Foundation\BSTR.ahk
+#Include ..\Com\IDispatch.ahk
 #Include .\ITaskFolder.ahk
 #Include .\IRunningTaskCollection.ahk
 #Include .\ITaskDefinition.ahk
-#Include ..\Com\IDispatch.ahk
+#Include ..\..\Foundation\BSTR.ahk
 
 /**
  * Provides access to the Task Scheduler service for managing registered tasks.
  * @see https://learn.microsoft.com/windows/win32/api/taskschd/nn-taskschd-itaskservice
  * @namespace Windows.Win32.System.TaskScheduler
- * @version v4.0.30319
  */
-class ITaskService extends IDispatch{
+class ITaskService extends IDispatch {
 
     static sizeof => A_PtrSize
     /**
@@ -71,7 +70,8 @@ class ITaskService extends IDispatch{
 
     /**
      * Gets a folder of registered tasks.
-     * @param {BSTR} _path 
+     * @param {BSTR} _path The path to the folder to retrieve. Do not use a backslash following the last folder name in the path. The root task folder is specified with a backslash (\\). An example of a task folder path, under the root task folder,
+     *  is \MyTaskFolder. The '.' character  cannot be used to specify the current task folder  and the '..' characters cannot be used to specify the parent task folder in the path.
      * @returns {ITaskFolder} An <a href="https://docs.microsoft.com/windows/desktop/api/taskschd/nn-taskschd-itaskfolder">ITaskFolder</a> interface for the requested folder.
      * 
      * Pass in a reference to a <b>NULL</b> <a href="https://docs.microsoft.com/windows/desktop/api/taskschd/nn-taskschd-itaskfolder">ITaskFolder</a> interface pointer. Referencing a non-<b>NULL</b> pointer can cause a memory leak because the pointer will be overwritten.

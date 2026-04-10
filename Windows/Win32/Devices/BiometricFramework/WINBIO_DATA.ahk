@@ -5,10 +5,8 @@
  * Flags that can be used for the Attributes member of the WINBIO\_STORAGE\_SCHEMA structure.
  * @see https://learn.microsoft.com/windows/win32/SecBioMet/winbio-database-type-constants
  * @namespace Windows.Win32.Devices.BiometricFramework
- * @version v4.0.30319
  */
-class WINBIO_DATA extends Win32Struct
-{
+class WINBIO_DATA extends Win32Struct {
     static sizeof => 8
 
     static packingSize => 4
@@ -22,9 +20,9 @@ class WINBIO_DATA extends Win32Struct
     }
 
     /**
-     * @type {Array<Byte>}
+     * @type {Array<Integer>}
      */
-    Data{
+    Data {
         get {
             if(!this.HasProp("__DataProxyArray"))
                 this.__DataProxyArray := Win32FixedArray(this.ptr + 4, 1, Primitive, "char")

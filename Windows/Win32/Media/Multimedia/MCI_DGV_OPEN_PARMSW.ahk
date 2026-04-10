@@ -15,11 +15,9 @@
  * > The digitalv.h header defines MCI_DGV_OPEN_PARMS as an alias which automatically selects the ANSI or Unicode version of this function based on the definition of the UNICODE preprocessor constant. Mixing usage of the encoding-neutral alias with code that not encoding-neutral can lead to mismatches that result in compilation or runtime errors. For more information, see [Conventions for Function Prototypes](/windows/win32/intl/conventions-for-function-prototypes).
  * @see https://learn.microsoft.com/windows/win32/api/digitalv/ns-digitalv-mci_dgv_open_parmsw
  * @namespace Windows.Win32.Media.Multimedia
- * @version v4.0.30319
  * @charset Unicode
  */
-class MCI_DGV_OPEN_PARMSW extends Win32Struct
-{
+class MCI_DGV_OPEN_PARMSW extends Win32Struct {
     static sizeof => 56
 
     static packingSize => 8
@@ -82,7 +80,7 @@ class MCI_DGV_OPEN_PARMSW extends Win32Struct
      * Handle to parent window.
      * @type {HWND}
      */
-    hWndParent{
+    hWndParent {
         get {
             if(!this.HasProp("__hWndParent"))
                 this.__hWndParent := HWND(48, this)

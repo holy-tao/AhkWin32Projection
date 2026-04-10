@@ -5,10 +5,8 @@
  * Specifies a range of data in a placeholder file.
  * @see https://learn.microsoft.com/windows/win32/api/cfapi/ns-cfapi-cf_file_range
  * @namespace Windows.Win32.Storage.CloudFilters
- * @version v4.0.30319
  */
-class CF_FILE_RANGE extends Win32Struct
-{
+class CF_FILE_RANGE extends Win32Struct {
     static sizeof => 16
 
     static packingSize => 8

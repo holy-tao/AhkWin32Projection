@@ -3,11 +3,9 @@
 
 /**
  * @namespace Windows.Win32.Devices.Geolocation
- * @version v4.0.30319
  */
-class GNSS_SUPL_NI_INFO extends Win32Struct
-{
-    static sizeof => 1568
+class GNSS_SUPL_NI_INFO extends Win32Struct {
+    static sizeof => 1308
 
     static packingSize => 4
 
@@ -47,7 +45,7 @@ class GNSS_SUPL_NI_INFO extends Win32Struct
      * @type {String}
      */
     SuplNiUrl {
-        get => StrGet(this.ptr + 1048, 259, "UTF-16")
-        set => StrPut(value, this.ptr + 1048, 259, "UTF-16")
+        get => StrGet(this.ptr + 1048, 259, "UTF-8")
+        set => StrPut(value, this.ptr + 1048, 259, "UTF-8")
     }
 }

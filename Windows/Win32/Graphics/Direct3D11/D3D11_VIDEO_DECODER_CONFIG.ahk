@@ -5,17 +5,15 @@
  * Describes the configuration of a Microsoft Direct3D 11 decoder device for DirectX Video Acceleration (DXVA).
  * @see https://learn.microsoft.com/windows/win32/api/d3d11/ns-d3d11-d3d11_video_decoder_config
  * @namespace Windows.Win32.Graphics.Direct3D11
- * @version v4.0.30319
  */
-class D3D11_VIDEO_DECODER_CONFIG extends Win32Struct
-{
+class D3D11_VIDEO_DECODER_CONFIG extends Win32Struct {
     static sizeof => 80
 
     static packingSize => 8
 
     /**
      * If the bitstream data buffers are encrypted using the D3D11CryptoSession mechanism, this GUID should be set to zero. If no encryption is applied, the value is <b>DXVA_NoEncrypt</b>. If <b>ConfigBitstreamRaw</b> is 0, the value must be <b>DXVA_NoEncrypt</b>.
-     * @type {Pointer<Guid>}
+     * @type {Pointer}
      */
     guidConfigBitstreamEncryption {
         get => NumGet(this, 0, "ptr")
@@ -24,7 +22,7 @@ class D3D11_VIDEO_DECODER_CONFIG extends Win32Struct
 
     /**
      * If the macroblock control data buffers are  encrypted using the D3D11CryptoSession mechanism, this GUID should be set to zero.  If no encryption is applied, the value is <b>DXVA_NoEncrypt</b>. If <b>ConfigBitstreamRaw</b> is 1, the value must be <b>DXVA_NoEncrypt</b>.
-     * @type {Pointer<Guid>}
+     * @type {Pointer}
      */
     guidConfigMBcontrolEncryption {
         get => NumGet(this, 8, "ptr")
@@ -33,7 +31,7 @@ class D3D11_VIDEO_DECODER_CONFIG extends Win32Struct
 
     /**
      * If the residual difference decoding data buffers are  encrypted using the D3D11CryptoSession mechanism, this GUID should be set to zero.   If no encryption is applied, the value is <b>DXVA_NoEncrypt</b>. If <b>ConfigBitstreamRaw</b> is 1, the value must be <b>DXVA_NoEncrypt</b>.
-     * @type {Pointer<Guid>}
+     * @type {Pointer}
      */
     guidConfigResidDiffEncryption {
         get => NumGet(this, 16, "ptr")

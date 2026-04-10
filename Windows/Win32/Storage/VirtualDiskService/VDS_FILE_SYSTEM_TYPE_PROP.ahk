@@ -1,5 +1,6 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
+#Include .\VDS_FILE_SYSTEM_TYPE.ahk
 
 /**
  * Defines the properties of a file system type.
@@ -7,17 +8,15 @@
  * The <a href="https://docs.microsoft.com/windows/desktop/api/vds/nf-vds-ivdsservice-queryfilesystemtypes">IVdsService::QueryFileSystemTypes</a> method returns this structure to report the property details of a file-system type.
  * @see https://learn.microsoft.com/windows/win32/api/vds/ns-vds-vds_file_system_type_prop
  * @namespace Windows.Win32.Storage.VirtualDiskService
- * @version v4.0.30319
  */
-class VDS_FILE_SYSTEM_TYPE_PROP extends Win32Struct
-{
+class VDS_FILE_SYSTEM_TYPE_PROP extends Win32Struct {
     static sizeof => 40
 
     static packingSize => 8
 
     /**
      * The file system types enumerated by <a href="https://docs.microsoft.com/windows/desktop/api/vdshwprv/ne-vdshwprv-vds_file_system_type">VDS_FILE_SYSTEM_TYPE</a>. Valid types are FAT, FAT32, NTFS, CDFS and UDF.
-     * @type {Integer}
+     * @type {VDS_FILE_SYSTEM_TYPE}
      */
     type {
         get => NumGet(this, 0, "int")

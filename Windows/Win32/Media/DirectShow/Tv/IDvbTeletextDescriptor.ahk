@@ -7,9 +7,8 @@
  * Implements methods that get data from a Digital Video Broadcast (DVB) teletext descriptor. The teletext descriptor is the part of the DVB program map table (PMT) that identifies European Broadcasting Union (EBU) teletext streams.
  * @see https://learn.microsoft.com/windows/win32/api/dvbsiparser/nn-dvbsiparser-idvbteletextdescriptor
  * @namespace Windows.Win32.Media.DirectShow.Tv
- * @version v4.0.30319
  */
-class IDvbTeletextDescriptor extends IUnknown{
+class IDvbTeletextDescriptor extends IUnknown {
 
     static sizeof => A_PtrSize
     /**

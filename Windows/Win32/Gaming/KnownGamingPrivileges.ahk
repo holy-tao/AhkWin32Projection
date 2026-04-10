@@ -5,9 +5,8 @@
  * Do not use. This API is only supported for Xbox developers. (KnownGamingPrivileges)
  * @see https://learn.microsoft.com/windows/win32/api/gamingtcui/ne-gamingtcui-knowngamingprivileges
  * @namespace Windows.Win32.Gaming
- * @version v4.0.30319
  */
-class KnownGamingPrivileges extends Win32Enum{
+class KnownGamingPrivileges extends Win32Enum {
 
     /**
      * Do not use. This API is only supported for Xbox developers.

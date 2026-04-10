@@ -7,9 +7,8 @@
  * The IMixerOCXNotify interface is implemented by clients and called by the Overlay Mixer to send notifications of events affecting the video display rectangle.
  * @see https://learn.microsoft.com/windows/win32/api/mixerocx/nn-mixerocx-imixerocxnotify
  * @namespace Windows.Win32.Media.DirectShow
- * @version v4.0.30319
  */
-class IMixerOCXNotify extends IUnknown{
+class IMixerOCXNotify extends IUnknown {
 
     static sizeof => A_PtrSize
     /**

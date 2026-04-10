@@ -4,10 +4,8 @@
 
 /**
  * @namespace Windows.Win32.Media.Audio.DirectMusic
- * @version v4.0.30319
  */
-class INSTHEADER extends Win32Struct
-{
+class INSTHEADER extends Win32Struct {
     static sizeof => 12
 
     static packingSize => 4
@@ -23,7 +21,7 @@ class INSTHEADER extends Win32Struct
     /**
      * @type {MIDILOCALE}
      */
-    Locale{
+    Locale {
         get {
             if(!this.HasProp("__Locale"))
                 this.__Locale := MIDILOCALE(4, this)

@@ -12,10 +12,8 @@
  *         IOCTL to apply the transport setting.
  * @see https://learn.microsoft.com/windows/win32/api/mstcpip/ns-mstcpip-real_time_notification_setting_input
  * @namespace Windows.Win32.Networking.WinSock
- * @version v4.0.30319
  */
-class REAL_TIME_NOTIFICATION_SETTING_INPUT extends Win32Struct
-{
+class REAL_TIME_NOTIFICATION_SETTING_INPUT extends Win32Struct {
     static sizeof => 16
 
     static packingSize => 8
@@ -24,7 +22,7 @@ class REAL_TIME_NOTIFICATION_SETTING_INPUT extends Win32Struct
      * The transport setting ID.
      * @type {TRANSPORT_SETTING_ID}
      */
-    TransportSettingId{
+    TransportSettingId {
         get {
             if(!this.HasProp("__TransportSettingId"))
                 this.__TransportSettingId := TRANSPORT_SETTING_ID(0, this)
@@ -34,7 +32,7 @@ class REAL_TIME_NOTIFICATION_SETTING_INPUT extends Win32Struct
 
     /**
      * The realtime notification broker event GUID for this transport ID.
-     * @type {Pointer<Guid>}
+     * @type {Pointer}
      */
     BrokerEventGuid {
         get => NumGet(this, 8, "ptr")

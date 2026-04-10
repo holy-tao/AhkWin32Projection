@@ -5,9 +5,8 @@
  * Used by a requester to specify how a resynchronization operation is to be performed.
  * @see https://learn.microsoft.com/windows/win32/api/vss/ne-vss-vss_recovery_options
  * @namespace Windows.Win32.Storage.Vss
- * @version v4.0.30319
  */
-class VSS_RECOVERY_OPTIONS extends Win32Enum{
+class VSS_RECOVERY_OPTIONS extends Win32Enum {
 
     /**
      * After the resynchronization operation is complete, the signature of each target LUN  should be identical to that of the original LUN that was used to create the shadow copy.

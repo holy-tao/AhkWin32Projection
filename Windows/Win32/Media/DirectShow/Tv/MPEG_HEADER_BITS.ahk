@@ -5,10 +5,8 @@
  * The MPEG_HEADER_BITS structure contains the first 16 bits that follow the table_id in a generic MPEG-2 section header.
  * @see https://learn.microsoft.com/windows/win32/api/mpeg2bits/ns-mpeg2bits-mpeg_header_bits
  * @namespace Windows.Win32.Media.DirectShow.Tv
- * @version v4.0.30319
  */
-class MPEG_HEADER_BITS extends Win32Struct
-{
+class MPEG_HEADER_BITS extends Win32Struct {
     static sizeof => 2
 
     static packingSize => 2
@@ -27,7 +25,6 @@ class MPEG_HEADER_BITS extends Win32Struct
     }
 
     /**
-     * The length of the section, in bytes.
      * @type {Integer}
      */
     SectionLength {
@@ -36,7 +33,6 @@ class MPEG_HEADER_BITS extends Win32Struct
     }
 
     /**
-     * The private_indicator bit.
      * @type {Integer}
      */
     PrivateIndicator {
@@ -45,7 +41,6 @@ class MPEG_HEADER_BITS extends Win32Struct
     }
 
     /**
-     * The section_syntax_indicator bit.
      * @type {Integer}
      */
     SectionSyntaxIndicator {

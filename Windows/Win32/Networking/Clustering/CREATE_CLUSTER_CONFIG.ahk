@@ -1,14 +1,15 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
+#Include .\CLUSTER_IP_ENTRY.ahk
+#Include .\CLUSTER_MGMT_POINT_TYPE.ahk
+#Include .\CLUSTER_MGMT_POINT_RESTYPE.ahk
 
 /**
  * Defines the initial cluster configuration.
  * @see https://learn.microsoft.com/windows/win32/api/clusapi/ns-clusapi-create_cluster_config
  * @namespace Windows.Win32.Networking.Clustering
- * @version v4.0.30319
  */
-class CREATE_CLUSTER_CONFIG extends Win32Struct
-{
+class CREATE_CLUSTER_CONFIG extends Win32Struct {
     static sizeof => 88
 
     static packingSize => 8
@@ -97,7 +98,7 @@ class CREATE_CLUSTER_CONFIG extends Win32Struct
      * A <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/clusapi/ne-clusapi-cluster_mgmt_point_type">CLUSTER_MGMT_POINT_TYPE</a> value that specifies the management point type. If the value of the <b>fEmptyCluster</b> member of this structure is TRUE, this member is ignored and the structure is treated as if this member were set to <b>CLUSTER_MGMT_POINT_TYPE_NONE</b>. If the <b>dwVersion</b> member of this structure is set to a value less than <b>CLUSAPI_VERSION_WINDOWSBLUE</b>, the value of this member is ignored and the structure is treated as if this member were set to <b>CLUSTER_MGMT_POINT_TYPE_CNO</b>.
      * 
      * <b>Windows Server 2012, Windows Server 2008 R2 and Windows Server 2008:  </b>This member is not supported before Windows Server 2012 R2.
-     * @type {Integer}
+     * @type {CLUSTER_MGMT_POINT_TYPE}
      */
     managementPointType {
         get => NumGet(this, 52, "int")
@@ -105,8 +106,7 @@ class CREATE_CLUSTER_CONFIG extends Win32Struct
     }
 
     /**
-     * 
-     * @type {Integer}
+     * @type {CLUSTER_MGMT_POINT_RESTYPE}
      */
     managementPointResType {
         get => NumGet(this, 56, "int")

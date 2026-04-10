@@ -2,32 +2,33 @@
 #Include ..\..\..\..\Win32Struct.ahk
 #Include .\WHV_EXTENDED_VM_EXITS.ahk
 #Include .\WHV_PROCESSOR_FEATURES.ahk
-#Include .\WHV_SYNTHETIC_PROCESSOR_FEATURES.ahk
 #Include .\WHV_SYNTHETIC_PROCESSOR_FEATURES_BANKS.ahk
+#Include .\WHV_SYNTHETIC_PROCESSOR_FEATURES.ahk
 #Include .\WHV_PROCESSOR_XSAVE_FEATURES.ahk
 #Include .\WHV_X64_CPUID_RESULT.ahk
-#Include .\WHV_CPUID_OUTPUT.ahk
 #Include .\WHV_X64_CPUID_RESULT2.ahk
+#Include .\WHV_X64_CPUID_RESULT2_FLAGS.ahk
+#Include .\WHV_CPUID_OUTPUT.ahk
 #Include .\WHV_MSR_ACTION_ENTRY.ahk
+#Include .\WHV_MSR_ACTION.ahk
+#Include .\WHV_X64_LOCAL_APIC_EMULATION_MODE.ahk
 #Include .\WHV_X64_MSR_EXIT_BITMAP.ahk
-#Include .\WHV_PROCESSOR_FEATURES1.ahk
 #Include .\WHV_PROCESSOR_FEATURES_BANKS.ahk
+#Include .\WHV_PROCESSOR_FEATURES1.ahk
 #Include .\WHV_PROCESSOR_PERFMON_FEATURES.ahk
 
 /**
  * @namespace Windows.Win32.System.Hypervisor
- * @version v4.0.30319
  */
-class WHV_PARTITION_PROPERTY extends Win32Struct
-{
-    static sizeof => 288
+class WHV_PARTITION_PROPERTY extends Win32Struct {
+    static sizeof => 344
 
     static packingSize => 8
 
     /**
      * @type {WHV_EXTENDED_VM_EXITS}
      */
-    ExtendedVmExits{
+    ExtendedVmExits {
         get {
             if(!this.HasProp("__ExtendedVmExits"))
                 this.__ExtendedVmExits := WHV_EXTENDED_VM_EXITS(0, this)
@@ -38,7 +39,7 @@ class WHV_PARTITION_PROPERTY extends Win32Struct
     /**
      * @type {WHV_PROCESSOR_FEATURES}
      */
-    ProcessorFeatures{
+    ProcessorFeatures {
         get {
             if(!this.HasProp("__ProcessorFeatures"))
                 this.__ProcessorFeatures := WHV_PROCESSOR_FEATURES(0, this)
@@ -49,7 +50,7 @@ class WHV_PARTITION_PROPERTY extends Win32Struct
     /**
      * @type {WHV_SYNTHETIC_PROCESSOR_FEATURES_BANKS}
      */
-    SyntheticProcessorFeaturesBanks{
+    SyntheticProcessorFeaturesBanks {
         get {
             if(!this.HasProp("__SyntheticProcessorFeaturesBanks"))
                 this.__SyntheticProcessorFeaturesBanks := WHV_SYNTHETIC_PROCESSOR_FEATURES_BANKS(0, this)
@@ -60,7 +61,7 @@ class WHV_PARTITION_PROPERTY extends Win32Struct
     /**
      * @type {WHV_PROCESSOR_XSAVE_FEATURES}
      */
-    ProcessorXsaveFeatures{
+    ProcessorXsaveFeatures {
         get {
             if(!this.HasProp("__ProcessorXsaveFeatures"))
                 this.__ProcessorXsaveFeatures := WHV_PROCESSOR_XSAVE_FEATURES(0, this)
@@ -85,9 +86,9 @@ class WHV_PARTITION_PROPERTY extends Win32Struct
     }
 
     /**
-     * @type {Array<UInt32>}
+     * @type {Array<Integer>}
      */
-    CpuidExitList{
+    CpuidExitList {
         get {
             if(!this.HasProp("__CpuidExitListProxyArray"))
                 this.__CpuidExitListProxyArray := Win32FixedArray(this.ptr + 0, 1, Primitive, "uint")
@@ -96,9 +97,9 @@ class WHV_PARTITION_PROPERTY extends Win32Struct
     }
 
     /**
-     * @type {Array<WHV_X64_CPUID_RESULT>}
+     * @type {WHV_X64_CPUID_RESULT}
      */
-    CpuidResultList{
+    CpuidResultList {
         get {
             if(!this.HasProp("__CpuidResultListProxyArray"))
                 this.__CpuidResultListProxyArray := Win32FixedArray(this.ptr + 0, 1, WHV_X64_CPUID_RESULT, "")
@@ -107,9 +108,9 @@ class WHV_PARTITION_PROPERTY extends Win32Struct
     }
 
     /**
-     * @type {Array<WHV_X64_CPUID_RESULT2>}
+     * @type {WHV_X64_CPUID_RESULT2}
      */
-    CpuidResultList2{
+    CpuidResultList2 {
         get {
             if(!this.HasProp("__CpuidResultList2ProxyArray"))
                 this.__CpuidResultList2ProxyArray := Win32FixedArray(this.ptr + 0, 1, WHV_X64_CPUID_RESULT2, "")
@@ -118,9 +119,9 @@ class WHV_PARTITION_PROPERTY extends Win32Struct
     }
 
     /**
-     * @type {Array<WHV_MSR_ACTION_ENTRY>}
+     * @type {WHV_MSR_ACTION_ENTRY}
      */
-    MsrActionList{
+    MsrActionList {
         get {
             if(!this.HasProp("__MsrActionListProxyArray"))
                 this.__MsrActionListProxyArray := Win32FixedArray(this.ptr + 0, 1, WHV_MSR_ACTION_ENTRY, "")
@@ -129,7 +130,7 @@ class WHV_PARTITION_PROPERTY extends Win32Struct
     }
 
     /**
-     * @type {Integer}
+     * @type {WHV_MSR_ACTION}
      */
     UnimplementedMsrAction {
         get => NumGet(this, 0, "int")
@@ -145,7 +146,7 @@ class WHV_PARTITION_PROPERTY extends Win32Struct
     }
 
     /**
-     * @type {Integer}
+     * @type {WHV_X64_LOCAL_APIC_EMULATION_MODE}
      */
     LocalApicEmulationMode {
         get => NumGet(this, 0, "int")
@@ -171,7 +172,7 @@ class WHV_PARTITION_PROPERTY extends Win32Struct
     /**
      * @type {WHV_X64_MSR_EXIT_BITMAP}
      */
-    X64MsrExitBitmap{
+    X64MsrExitBitmap {
         get {
             if(!this.HasProp("__X64MsrExitBitmap"))
                 this.__X64MsrExitBitmap := WHV_X64_MSR_EXIT_BITMAP(0, this)
@@ -206,7 +207,7 @@ class WHV_PARTITION_PROPERTY extends Win32Struct
     /**
      * @type {WHV_PROCESSOR_FEATURES_BANKS}
      */
-    ProcessorFeaturesBanks{
+    ProcessorFeaturesBanks {
         get {
             if(!this.HasProp("__ProcessorFeaturesBanks"))
                 this.__ProcessorFeaturesBanks := WHV_PROCESSOR_FEATURES_BANKS(0, this)
@@ -281,7 +282,7 @@ class WHV_PARTITION_PROPERTY extends Win32Struct
     /**
      * @type {WHV_PROCESSOR_PERFMON_FEATURES}
      */
-    ProcessorPerfmonFeatures{
+    ProcessorPerfmonFeatures {
         get {
             if(!this.HasProp("__ProcessorPerfmonFeatures"))
                 this.__ProcessorPerfmonFeatures := WHV_PROCESSOR_PERFMON_FEATURES(0, this)

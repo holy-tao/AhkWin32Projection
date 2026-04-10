@@ -1,12 +1,16 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
+#Include ..\SystemServices\userHMETAFILEPICT.ahk
+#Include ..\SystemServices\userHENHMETAFILE.ahk
+#Include .\GDI_OBJECT.ahk
+#Include ..\SystemServices\userHGLOBAL.ahk
+#Include .\BYTE_BLOB.ahk
+#Include .\IUnknown.ahk
 
 /**
  * @namespace Windows.Win32.System.Com
- * @version v4.0.30319
  */
-class userSTGMEDIUM extends Win32Struct
-{
+class userSTGMEDIUM extends Win32Struct {
     static sizeof => 72
 
     static packingSize => 8
@@ -18,7 +22,7 @@ class userSTGMEDIUM extends Win32Struct
         class _u extends Win32Struct {
             static sizeof => 56
             static packingSize => 8
-    
+
             /**
              * @type {Pointer<userHMETAFILEPICT>}
              */
@@ -26,7 +30,7 @@ class userSTGMEDIUM extends Win32Struct
                 get => NumGet(this, 0, "ptr")
                 set => NumPut("ptr", value, this, 0)
             }
-        
+
             /**
              * @type {Pointer<userHENHMETAFILE>}
              */
@@ -34,7 +38,7 @@ class userSTGMEDIUM extends Win32Struct
                 get => NumGet(this, 0, "ptr")
                 set => NumPut("ptr", value, this, 0)
             }
-        
+
             /**
              * @type {Pointer<GDI_OBJECT>}
              */
@@ -42,7 +46,7 @@ class userSTGMEDIUM extends Win32Struct
                 get => NumGet(this, 0, "ptr")
                 set => NumPut("ptr", value, this, 0)
             }
-        
+
             /**
              * @type {Pointer<userHGLOBAL>}
              */
@@ -50,7 +54,7 @@ class userSTGMEDIUM extends Win32Struct
                 get => NumGet(this, 0, "ptr")
                 set => NumPut("ptr", value, this, 0)
             }
-        
+
             /**
              * @type {PWSTR}
              */
@@ -58,7 +62,7 @@ class userSTGMEDIUM extends Win32Struct
                 get => NumGet(this, 0, "ptr")
                 set => NumPut("ptr", value, this, 0)
             }
-        
+
             /**
              * @type {Pointer<BYTE_BLOB>}
              */
@@ -66,7 +70,7 @@ class userSTGMEDIUM extends Win32Struct
                 get => NumGet(this, 0, "ptr")
                 set => NumPut("ptr", value, this, 0)
             }
-        
+
             /**
              * @type {Pointer<BYTE_BLOB>}
              */
@@ -74,9 +78,8 @@ class userSTGMEDIUM extends Win32Struct
                 get => NumGet(this, 0, "ptr")
                 set => NumPut("ptr", value, this, 0)
             }
-        
         }
-    
+
         /**
          * @type {Integer}
          */
@@ -84,27 +87,26 @@ class userSTGMEDIUM extends Win32Struct
             get => NumGet(this, 0, "uint")
             set => NumPut("uint", value, this, 0)
         }
-    
+
         /**
          * @type {_u}
          */
-        u{
+        u {
             get {
                 if(!this.HasProp("__u"))
-                    this.__u := %this.__Class%._u(8, this)
+                    this.__u := userSTGMEDIUM._STGMEDIUM_UNION._u(8, this)
                 return this.__u
             }
         }
-    
     }
 
     /**
      * @type {_STGMEDIUM_UNION}
      */
-    u{
+    u {
         get {
             if(!this.HasProp("__u"))
-                this.__u := %this.__Class%._STGMEDIUM_UNION(0, this)
+                this.__u := userSTGMEDIUM._STGMEDIUM_UNION(0, this)
             return this.__u
         }
     }

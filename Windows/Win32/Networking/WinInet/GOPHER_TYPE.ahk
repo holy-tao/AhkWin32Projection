@@ -5,9 +5,8 @@
  * Ask+ item.
  * @see https://learn.microsoft.com/windows/win32/api/wininet/ns-wininet-gopher_find_dataa
  * @namespace Windows.Win32.Networking.WinInet
- * @version v4.0.30319
  */
-class GOPHER_TYPE extends Win32Enum{
+class GOPHER_TYPE extends Win32Enum {
 
     /**
      * @type {Integer (UInt32)}

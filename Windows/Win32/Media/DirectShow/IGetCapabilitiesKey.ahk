@@ -1,16 +1,15 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
-#Include ..\..\System\Registry\HKEY.ahk
 #Include ..\..\System\Com\IUnknown.ahk
+#Include ..\..\System\Registry\HKEY.ahk
 
 /**
  * The IGetCapabilitiesKey interface enables an application to retrieve the capabilities of a software or hardware codec from the registry, without creating an instance of the encoder filter.
  * @see https://learn.microsoft.com/windows/win32/api/strmif/nn-strmif-igetcapabilitieskey
  * @namespace Windows.Win32.Media.DirectShow
- * @version v4.0.30319
  */
-class IGetCapabilitiesKey extends IUnknown{
+class IGetCapabilitiesKey extends IUnknown {
 
     static sizeof => A_PtrSize
     /**

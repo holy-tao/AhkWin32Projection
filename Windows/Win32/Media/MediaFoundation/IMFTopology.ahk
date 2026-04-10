@@ -1,17 +1,16 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
+#Include .\IMFAttributes.ahk
 #Include .\IMFTopologyNode.ahk
 #Include .\IMFCollection.ahk
-#Include .\IMFAttributes.ahk
 
 /**
  * Represents a topology. A topology describes a collection of media sources, sinks, and transforms that are connected in a certain order.
  * @see https://learn.microsoft.com/windows/win32/api/mfidl/nn-mfidl-imftopology
  * @namespace Windows.Win32.Media.MediaFoundation
- * @version v4.0.30319
  */
-class IMFTopology extends IMFAttributes{
+class IMFTopology extends IMFAttributes {
 
     static sizeof => A_PtrSize
     /**

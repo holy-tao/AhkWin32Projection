@@ -1,14 +1,13 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
-#Include .\RASCON_IPUI.ahk
 #Include ..\..\System\Com\IUnknown.ahk
+#Include .\RASCON_IPUI.ahk
 
 /**
  * @namespace Windows.Win32.NetworkManagement.NetManagement
- * @version v4.0.30319
  */
-class INetRasConnectionIpUiInfo extends IUnknown{
+class INetRasConnectionIpUiInfo extends IUnknown {
 
     static sizeof => A_PtrSize
     /**

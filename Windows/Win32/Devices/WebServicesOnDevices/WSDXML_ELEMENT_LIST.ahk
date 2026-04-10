@@ -1,14 +1,14 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
+#Include .\WSDXML_ELEMENT_LIST.ahk
+#Include .\WSDXML_ELEMENT.ahk
 
 /**
  * Represents a node in a linked list of XML elements.
  * @see https://learn.microsoft.com/windows/win32/api/wsdxmldom/ns-wsdxmldom-wsdxml_element_list
  * @namespace Windows.Win32.Devices.WebServicesOnDevices
- * @version v4.0.30319
  */
-class WSDXML_ELEMENT_LIST extends Win32Struct
-{
+class WSDXML_ELEMENT_LIST extends Win32Struct {
     static sizeof => 16
 
     static packingSize => 8

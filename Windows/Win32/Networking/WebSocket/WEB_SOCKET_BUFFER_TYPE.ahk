@@ -9,9 +9,8 @@
  * Extension WebSocket frame headers (allowing reserved bits to be set by extensions) may be constructed by setting the high bit (MSB) and low bit (LSB) to 0. The remaining 9 lowest bits can then be used to form the custom frame header in place of the <b>WEB_SOCKET_BUFFER_TYPE</b> enumeration values.
  * @see https://learn.microsoft.com/windows/win32/api/websocket/ne-websocket-web_socket_buffer_type
  * @namespace Windows.Win32.Networking.WebSocket
- * @version v4.0.30319
  */
-class WEB_SOCKET_BUFFER_TYPE extends Win32Enum{
+class WEB_SOCKET_BUFFER_TYPE extends Win32Enum {
 
     /**
      * Indicates the buffer contains the last, and possibly only, part of a UTF8 message.

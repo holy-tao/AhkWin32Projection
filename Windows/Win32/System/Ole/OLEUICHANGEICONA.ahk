@@ -1,5 +1,6 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
+#Include .\CHANGE_ICON_FLAGS.ahk
 #Include ..\..\Foundation\HWND.ahk
 #Include ..\..\Foundation\HINSTANCE.ahk
 #Include ..\..\Foundation\HRSRC.ahk
@@ -12,11 +13,9 @@
  * > The oledlg.h header defines OLEUICHANGEICON as an alias which automatically selects the ANSI or Unicode version of this function based on the definition of the UNICODE preprocessor constant. Mixing usage of the encoding-neutral alias with code that not encoding-neutral can lead to mismatches that result in compilation or runtime errors. For more information, see [Conventions for Function Prototypes](/windows/win32/intl/conventions-for-function-prototypes).
  * @see https://learn.microsoft.com/windows/win32/api/oledlg/ns-oledlg-oleuichangeicona
  * @namespace Windows.Win32.System.Ole
- * @version v4.0.30319
  * @charset ANSI
  */
-class OLEUICHANGEICONA extends Win32Struct
-{
+class OLEUICHANGEICONA extends Win32Struct {
     static sizeof => 344
 
     static packingSize => 8
@@ -40,7 +39,7 @@ class OLEUICHANGEICONA extends Win32Struct
      * | **CIF\_SELECTDEFAULT**    | On input, selects the **Default** radio button on initialization. On exit, specifies that the user selected **Default**.                                                                        |
      * | **CIF\_SELECTFROMFILE** | On input, selects the **From File** radio button on initialization. On exit, specifies that the user selected **From File**.                                                                    |
      * | **CIF\_USEICONEXE** | Input only. Extracts the icon from the executable specified in the **szIconExe** member, instead of retrieving it from the class. This is useful for OLE embedding or linking to non-OLE files.  |
-     * @type {Integer}
+     * @type {CHANGE_ICON_FLAGS}
      */
     dwFlags {
         get => NumGet(this, 4, "uint")
@@ -51,7 +50,7 @@ class OLEUICHANGEICONA extends Win32Struct
      * The window that owns the dialog box. This member should not be **NULL**.
      * @type {HWND}
      */
-    hWndOwner{
+    hWndOwner {
         get {
             if(!this.HasProp("__hWndOwner"))
                 this.__hWndOwner := HWND(8, this)
@@ -90,7 +89,7 @@ class OLEUICHANGEICONA extends Win32Struct
      * Instance that contains a dialog box template specified by the **lpTemplateName** member.
      * @type {HINSTANCE}
      */
-    hInstance{
+    hInstance {
         get {
             if(!this.HasProp("__hInstance"))
                 this.__hInstance := HINSTANCE(40, this)
@@ -111,7 +110,7 @@ class OLEUICHANGEICONA extends Win32Struct
      * Customized template handle.
      * @type {HRSRC}
      */
-    hResource{
+    hResource {
         get {
             if(!this.HasProp("__hResource"))
                 this.__hResource := HRSRC(56, this)
@@ -123,7 +122,7 @@ class OLEUICHANGEICONA extends Win32Struct
      * Current and final image. The source of the icon is embedded in the metafile itself.
      * @type {HGLOBAL}
      */
-    hMetaPict{
+    hMetaPict {
         get {
             if(!this.HasProp("__hMetaPict"))
                 this.__hMetaPict := HGLOBAL(64, this)
@@ -133,7 +132,7 @@ class OLEUICHANGEICONA extends Win32Struct
 
     /**
      * Input only. The class to use to get the **Default** icon.
-     * @type {Pointer<Guid>}
+     * @type {Pointer}
      */
     clsid {
         get => NumGet(this, 72, "ptr")

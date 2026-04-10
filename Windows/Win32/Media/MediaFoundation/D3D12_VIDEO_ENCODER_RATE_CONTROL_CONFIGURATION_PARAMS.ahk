@@ -1,16 +1,21 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
+#Include .\D3D12_VIDEO_ENCODER_RATE_CONTROL_CQP.ahk
+#Include .\D3D12_VIDEO_ENCODER_RATE_CONTROL_CBR.ahk
+#Include .\D3D12_VIDEO_ENCODER_RATE_CONTROL_VBR.ahk
+#Include .\D3D12_VIDEO_ENCODER_RATE_CONTROL_QVBR.ahk
+#Include .\D3D12_VIDEO_ENCODER_RATE_CONTROL_CQP1.ahk
+#Include .\D3D12_VIDEO_ENCODER_RATE_CONTROL_CBR1.ahk
+#Include .\D3D12_VIDEO_ENCODER_RATE_CONTROL_VBR1.ahk
+#Include .\D3D12_VIDEO_ENCODER_RATE_CONTROL_QVBR1.ahk
+#Include .\D3D12_VIDEO_ENCODER_RATE_CONTROL_ABSOLUTE_QP_MAP.ahk
 
 /**
  * Represents video encoder rate control structure definitions for a D3D12_VIDEO_ENCODER_RATE_CONTROL structure.
- * @remarks
- * 
  * @see https://learn.microsoft.com/windows/win32/api/d3d12video/ns-d3d12video-d3d12_video_encoder_rate_control_configuration_params
  * @namespace Windows.Win32.Media.MediaFoundation
- * @version v4.0.30319
  */
-class D3D12_VIDEO_ENCODER_RATE_CONTROL_CONFIGURATION_PARAMS extends Win32Struct
-{
+class D3D12_VIDEO_ENCODER_RATE_CONTROL_CONFIGURATION_PARAMS extends Win32Struct {
     static sizeof => 16
 
     static packingSize => 8

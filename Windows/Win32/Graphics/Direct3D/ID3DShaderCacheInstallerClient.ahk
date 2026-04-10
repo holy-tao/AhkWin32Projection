@@ -4,9 +4,8 @@
 
 /**
  * @namespace Windows.Win32.Graphics.Direct3D
- * @version v4.0.30319
  */
-class ID3DShaderCacheInstallerClient extends Win32ComInterface{
+class ID3DShaderCacheInstallerClient extends Win32ComInterface {
 
     static sizeof => A_PtrSize
     /**
@@ -44,7 +43,7 @@ class ID3DShaderCacheInstallerClient extends Win32ComInterface{
 
     /**
      * 
-     * @returns {Integer} 
+     * @returns {D3D_SHADER_CACHE_APP_REGISTRATION_SCOPE} 
      */
     GetInstallerScope() {
         result := ComCall(1, this, "int")

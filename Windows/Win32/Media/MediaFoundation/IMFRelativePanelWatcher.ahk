@@ -1,8 +1,8 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
-#Include .\IMFRelativePanelReport.ahk
 #Include .\IMFShutdown.ahk
+#Include .\IMFRelativePanelReport.ahk
 
 /**
  * Monitors the panel associated with a display, so that the app receives notifications when the relative location of the panel changes.
@@ -10,9 +10,8 @@
  * Get an instance of this interface by calling [MFCreateRelativePanelWatcher](nf-mfidl-mfcreaterelativepanelwatcher.md).
  * @see https://learn.microsoft.com/windows/win32/api/mfidl/nn-mfidl-imfrelativepanelwatcher
  * @namespace Windows.Win32.Media.MediaFoundation
- * @version v4.0.30319
  */
-class IMFRelativePanelWatcher extends IMFShutdown{
+class IMFRelativePanelWatcher extends IMFShutdown {
 
     static sizeof => A_PtrSize
     /**

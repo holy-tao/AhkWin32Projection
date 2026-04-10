@@ -7,9 +7,8 @@
  * This interface to notify an application of machine-wide cost and data plan related events.
  * @see https://learn.microsoft.com/windows/win32/api/netlistmgr/nn-netlistmgr-inetworkcostmanagerevents
  * @namespace Windows.Win32.Networking.NetworkListManager
- * @version v4.0.30319
  */
-class INetworkCostManagerEvents extends IUnknown{
+class INetworkCostManagerEvents extends IUnknown {
 
     static sizeof => A_PtrSize
     /**

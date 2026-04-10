@@ -3,10 +3,8 @@
 
 /**
  * @namespace Windows.Win32.UI.Shell.PropertiesSystem
- * @version v4.0.30319
  */
-class InMemoryPropertyStoreMarshalByValue extends Win32Struct
-{
+class InMemoryPropertyStoreMarshalByValue extends Win32Struct {
     static sizeof => 0
 
     static packingSize => 1

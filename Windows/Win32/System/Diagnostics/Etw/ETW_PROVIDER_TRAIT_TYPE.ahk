@@ -7,9 +7,8 @@
  * Providers are applications that can generate event logs.
  * @see https://learn.microsoft.com/windows/win32/api/evntcons/ne-evntcons-etw_provider_trait_type
  * @namespace Windows.Win32.System.Diagnostics.Etw
- * @version v4.0.30319
  */
-class ETW_PROVIDER_TRAIT_TYPE extends Win32Enum{
+class ETW_PROVIDER_TRAIT_TYPE extends Win32Enum {
 
     /**
      * ETW Provider trait group.

@@ -1,16 +1,15 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
-#Include .\IDvdCmd.ahk
 #Include ..\..\System\Com\IUnknown.ahk
+#Include .\IDvdCmd.ahk
 
 /**
  * The IDvdControl2 interface navigates and plays DVD-Video titles.
  * @see https://learn.microsoft.com/windows/win32/api/strmif/nn-strmif-idvdcontrol2
  * @namespace Windows.Win32.Media.DirectShow
- * @version v4.0.30319
  */
-class IDvdControl2 extends IUnknown{
+class IDvdControl2 extends IUnknown {
 
     static sizeof => A_PtrSize
     /**
@@ -487,7 +486,7 @@ class IDvdControl2 extends IUnknown{
      * <td>All.</td>
      * </tr>
      * </table>
-     * @param {Integer} MenuID A <a href="https://docs.microsoft.com/windows/win32/api/strmif/ne-strmif-dvd_menu_id">DVD_MENU_ID</a> enumeration value that specifies the menu to display.
+     * @param {DVD_MENU_ID} MenuID A <a href="https://docs.microsoft.com/windows/win32/api/strmif/ne-strmif-dvd_menu_id">DVD_MENU_ID</a> enumeration value that specifies the menu to display.
      * @param {Integer} dwFlags Bitwise OR of one or more flags from the <a href="https://docs.microsoft.com/windows/desktop/api/strmif/ne-strmif-dvd_cmd_flags">DVD_CMD_FLAGS</a> enumeration, specifying how to synchronize the command.
      * @returns {IDvdCmd} Receives a pointer to an <a href="https://docs.microsoft.com/windows/desktop/api/strmif/nn-strmif-idvdcmd">IDvdCmd</a> object that can be used to synchronize DVD commands. The caller must release the interface. This parameter can be <b>NULL</b>. For more information, see <a href="https://docs.microsoft.com/windows/desktop/DirectShow/synchronizing-dvd-commands">Synchronizing DVD Commands</a>.
      * @see https://learn.microsoft.com/windows/win32/api/strmif/nf-strmif-idvdcontrol2-showmenu
@@ -556,7 +555,7 @@ class IDvdControl2 extends IUnknown{
      * </td>
      * </tr>
      * </table>
-     * @param {Integer} buttonDir [DVD_RELATIVE_BUTTON](/windows/desktop/api/strmif/ne-strmif-dvd_relative_button) enumeration value indicating the button to select.
+     * @param {DVD_RELATIVE_BUTTON} buttonDir [DVD_RELATIVE_BUTTON](/windows/desktop/api/strmif/ne-strmif-dvd_relative_button) enumeration value indicating the button to select.
      * @returns {HRESULT} Returns one of the following values.
      * 
      * <table>
@@ -1673,7 +1672,7 @@ class IDvdControl2 extends IUnknown{
      * </td>
      * </tr>
      * </table>
-     * @param {POINT} _point 
+     * @param {POINT} _point Point on the client window area, in screen pixel coordinates.
      * @returns {HRESULT} Returns one of the following values.
      * 
      * <table>
@@ -1785,7 +1784,7 @@ class IDvdControl2 extends IUnknown{
      * </td>
      * </tr>
      * </table>
-     * @param {POINT} _point 
+     * @param {POINT} _point Point on the screen, in screen pixel coordinates.
      * @returns {HRESULT} Returns one of the following values.
      * 
      * <table>
@@ -1916,7 +1915,7 @@ class IDvdControl2 extends IUnknown{
      * <td>All</td>
      * </tr>
      * </table>
-     * @param {Integer} flag Specifies which behavior to modify, as a member of the [DVD_OPTION_FLAG](/windows/desktop/api/strmif/ne-strmif-dvd_option_flag) enumeration type.
+     * @param {DVD_OPTION_FLAG} flag Specifies which behavior to modify, as a member of the [DVD_OPTION_FLAG](/windows/desktop/api/strmif/ne-strmif-dvd_option_flag) enumeration type.
      * @param {BOOL} fState Specifies the new value of the option given in the <i>flag</i> parameter.
      * 
      * [DVD_OPTION_FLAG](/windows/desktop/api/strmif/ne-strmif-dvd_option_flag) reference page.
@@ -2130,7 +2129,7 @@ class IDvdControl2 extends IUnknown{
      * </tr>
      * </table>
      * @param {Integer} Language Locale identifier that specifies the default language.
-     * @param {Integer} audioExtension [DVD_AUDIO_LANG_EXT](/windows/desktop/api/strmif/ne-strmif-dvd_audio_lang_ext) enumeration that specifies the default audio language extension.
+     * @param {DVD_AUDIO_LANG_EXT} audioExtension [DVD_AUDIO_LANG_EXT](/windows/desktop/api/strmif/ne-strmif-dvd_audio_lang_ext) enumeration that specifies the default audio language extension.
      * @returns {HRESULT} Returns one of the following values.
      * 
      * <table>
@@ -2199,7 +2198,7 @@ class IDvdControl2 extends IUnknown{
      * </tr>
      * </table>
      * @param {Integer} Language Locale identifier that specifies the default language.
-     * @param {Integer} subpictureExtension [DVD_SUBPICTURE_LANG_EXT](/windows/desktop/api/strmif/ne-strmif-dvd_subpicture_lang_ext) enumeration that specifies the default subpicture extension.
+     * @param {DVD_SUBPICTURE_LANG_EXT} subpictureExtension [DVD_SUBPICTURE_LANG_EXT](/windows/desktop/api/strmif/ne-strmif-dvd_subpicture_lang_ext) enumeration that specifies the default subpicture extension.
      * @returns {HRESULT} Returns one of the following values.
      * 
      * <table>

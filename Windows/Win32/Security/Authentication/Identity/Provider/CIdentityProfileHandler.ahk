@@ -3,10 +3,8 @@
 
 /**
  * @namespace Windows.Win32.Security.Authentication.Identity.Provider
- * @version v4.0.30319
  */
-class CIdentityProfileHandler extends Win32Struct
-{
+class CIdentityProfileHandler extends Win32Struct {
     static sizeof => 0
 
     static packingSize => 1

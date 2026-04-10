@@ -15,11 +15,9 @@
  * > The digitalv.h header defines MCI_DGV_CAPTURE_PARMS as an alias which automatically selects the ANSI or Unicode version of this function based on the definition of the UNICODE preprocessor constant. Mixing usage of the encoding-neutral alias with code that not encoding-neutral can lead to mismatches that result in compilation or runtime errors. For more information, see [Conventions for Function Prototypes](/windows/win32/intl/conventions-for-function-prototypes).
  * @see https://learn.microsoft.com/windows/win32/api/digitalv/ns-digitalv-mci_dgv_capture_parmsa
  * @namespace Windows.Win32.Media.Multimedia
- * @version v4.0.30319
  * @charset ANSI
  */
-class MCI_DGV_CAPTURE_PARMSA extends Win32Struct
-{
+class MCI_DGV_CAPTURE_PARMSA extends Win32Struct {
     static sizeof => 32
 
     static packingSize => 8
@@ -46,7 +44,7 @@ class MCI_DGV_CAPTURE_PARMSA extends Win32Struct
      * Rectangle containing positioning information. <a href="https://docs.microsoft.com/previous-versions//ms536136(v=vs.85)">RECT</a> structures are handled differently in MCI than in other parts of Windows; in MCI, <b>rc.right</b> contains the width of the rectangle and <b>rc.bottom</b> contains its height.
      * @type {RECT}
      */
-    rc{
+    rc {
         get {
             if(!this.HasProp("__rc"))
                 this.__rc := RECT(16, this)

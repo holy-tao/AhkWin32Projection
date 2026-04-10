@@ -1,17 +1,16 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\..\Guid.ahk
+#Include ..\..\..\System\Com\IUnknown.ahk
 #Include ..\..\..\System\WinRT\IInspectable.ahk
 #Include ..\..\..\Foundation\BSTR.ahk
-#Include ..\..\..\System\Com\IUnknown.ahk
 
 /**
  * Represents a XAML Diagnostics session.
  * @see https://learn.microsoft.com/windows/win32/api/xamlom/nn-xamlom-ixamldiagnostics
  * @namespace Windows.Win32.UI.Xaml.Diagnostics
- * @version v4.0.30319
  */
-class IXamlDiagnostics extends IUnknown{
+class IXamlDiagnostics extends IUnknown {
 
     static sizeof => A_PtrSize
     /**
@@ -93,7 +92,7 @@ class IXamlDiagnostics extends IUnknown{
      * This method performs a hit test on the XAML visual tree and will return all elements
      *     regardless if they are enabled or invisible for hit testing. This method does not return collapsed elements as they do not participate in layout. <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/xamlom/nf-xamlom-ivisualtreeservice-advisevisualtreechange">AdviseVisualTreeChange</a> must be called before this method. The element does not need to be fully enclosed in the 
      *     <i>rect</i> area to be returned.
-     * @param {RECT} _rect 
+     * @param {RECT} _rect The area to hit test.
      * @param {Pointer<Integer>} pCount The size of the array.
      * @param {Pointer<Pointer<Integer>>} ppInstanceHandles An array containing all elements.
      * @returns {HRESULT} If this method succeeds, it returns <b>S_OK</b>. Otherwise, it returns an <b>HRESULT</b> error code.

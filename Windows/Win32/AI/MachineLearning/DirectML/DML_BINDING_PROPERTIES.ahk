@@ -5,10 +5,8 @@
  * Contains information about the binding requirements of a particular compiled operator, or operator initializer. This struct is retrieved from IDMLDispatchable::GetBindingProperties.
  * @see https://learn.microsoft.com/windows/win32/api/directml/ns-directml-dml_binding_properties
  * @namespace Windows.Win32.AI.MachineLearning.DirectML
- * @version v4.0.30319
  */
-class DML_BINDING_PROPERTIES extends Win32Struct
-{
+class DML_BINDING_PROPERTIES extends Win32Struct {
     static sizeof => 24
 
     static packingSize => 8

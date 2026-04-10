@@ -9,9 +9,8 @@
  * The transform changes the state on this render information to specify the compute shader and its dependent resources.
  * @see https://learn.microsoft.com/windows/win32/api/d2d1effectauthor/nn-d2d1effectauthor-id2d1computeinfo
  * @namespace Windows.Win32.Graphics.Direct2D
- * @version v4.0.30319
  */
-class ID2D1ComputeInfo extends ID2D1RenderInfo{
+class ID2D1ComputeInfo extends ID2D1RenderInfo {
 
     static sizeof => A_PtrSize
     /**
@@ -34,7 +33,9 @@ class ID2D1ComputeInfo extends ID2D1RenderInfo{
 
     /**
      * Establishes or changes the constant buffer data for this transform.
-     * @param {Pointer<Integer>} _buffer 
+     * @param {Pointer<Integer>} _buffer Type: <b>const BYTE*</b>
+     * 
+     * The data applied to the constant buffer.
      * @param {Integer} bufferCount Type: <b>UINT32</b>
      * 
      * The number of bytes of data in the constant buffer.

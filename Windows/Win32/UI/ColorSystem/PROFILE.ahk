@@ -3,20 +3,15 @@
 
 /**
  * Contains information that defines a color profile.
- * @remarks
- * 
  * @see https://learn.microsoft.com/windows/win32/api/icm/ns-icm-profile
  * @namespace Windows.Win32.UI.ColorSystem
- * @version v4.0.30319
  */
-class PROFILE extends Win32Struct
-{
+class PROFILE extends Win32Struct {
     static sizeof => 24
 
     static packingSize => 8
 
     /**
-     * 
      * @type {Integer}
      */
     dwType {

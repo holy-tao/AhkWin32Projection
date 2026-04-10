@@ -1,9 +1,8 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\..\Guid.ahk
-#Include .\IOpcPart.ahk
-#Include .\IOpcPartEnumerator.ahk
 #Include ..\..\..\System\Com\IUnknown.ahk
+#Include .\IOpcPart.ahk
 
 /**
  * A read-only enumerator of IOpcPart interface pointers.
@@ -16,9 +15,8 @@
  * <div> </div>
  * @see https://learn.microsoft.com/windows/win32/api/msopc/nn-msopc-iopcpartenumerator
  * @namespace Windows.Win32.Storage.Packaging.Opc
- * @version v4.0.30319
  */
-class IOpcPartEnumerator extends IUnknown{
+class IOpcPartEnumerator extends IUnknown {
 
     static sizeof => A_PtrSize
     /**

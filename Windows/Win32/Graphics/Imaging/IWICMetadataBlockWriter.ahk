@@ -1,8 +1,8 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
-#Include .\IWICMetadataWriter.ahk
 #Include .\IWICMetadataBlockReader.ahk
+#Include .\IWICMetadataWriter.ahk
 
 /**
  * Exposes methods that enable the encoding of metadata. This interface is implemented by the decoder and its image frames.
@@ -11,9 +11,8 @@
  *             If the metadata block contains metadata important to the integrity of the file, such as the image width or height or other intrinsic information about the image, the encoder must set the critical metadata items prior to serializing the metadata.
  * @see https://learn.microsoft.com/windows/win32/api/wincodecsdk/nn-wincodecsdk-iwicmetadatablockwriter
  * @namespace Windows.Win32.Graphics.Imaging
- * @version v4.0.30319
  */
-class IWICMetadataBlockWriter extends IWICMetadataBlockReader{
+class IWICMetadataBlockWriter extends IWICMetadataBlockReader {
 
     static sizeof => A_PtrSize
     /**

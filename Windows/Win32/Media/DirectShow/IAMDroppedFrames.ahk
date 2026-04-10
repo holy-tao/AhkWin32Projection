@@ -13,9 +13,8 @@
  * The number of dropped frames is reported by the capture driver. This information is not directly correlated with any particular media sample, so it is not accurate on a per-frame basis, although it should be accurate over time.
  * @see https://learn.microsoft.com/windows/win32/api/strmif/nn-strmif-iamdroppedframes
  * @namespace Windows.Win32.Media.DirectShow
- * @version v4.0.30319
  */
-class IAMDroppedFrames extends IUnknown{
+class IAMDroppedFrames extends IUnknown {
 
     static sizeof => A_PtrSize
     /**

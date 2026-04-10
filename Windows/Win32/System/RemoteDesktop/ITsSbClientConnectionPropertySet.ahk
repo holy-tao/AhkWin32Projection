@@ -7,9 +7,8 @@
  * Can be used to define custom properties of a client connection as appropriate.
  * @see https://learn.microsoft.com/windows/win32/api/sbtsv/nn-sbtsv-itssbclientconnectionpropertyset
  * @namespace Windows.Win32.System.RemoteDesktop
- * @version v4.0.30319
  */
-class ITsSbClientConnectionPropertySet extends ITsSbPropertySet{
+class ITsSbClientConnectionPropertySet extends ITsSbPropertySet {
 
     static sizeof => A_PtrSize
     /**

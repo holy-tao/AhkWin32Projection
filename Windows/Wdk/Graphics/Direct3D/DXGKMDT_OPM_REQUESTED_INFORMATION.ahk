@@ -3,16 +3,14 @@
 
 /**
  * @namespace Windows.Wdk.Graphics.Direct3D
- * @version v4.0.30319
  */
-class DXGKMDT_OPM_REQUESTED_INFORMATION extends Win32Struct
-{
+class DXGKMDT_OPM_REQUESTED_INFORMATION extends Win32Struct {
     static sizeof => 4088
 
     static packingSize => 8
 
     /**
-     * @type {Pointer<DXGKMDT_OPM_OMAC>}
+     * @type {Pointer}
      */
     omac {
         get => NumGet(this, 0, "ptr")
@@ -28,9 +26,9 @@ class DXGKMDT_OPM_REQUESTED_INFORMATION extends Win32Struct
     }
 
     /**
-     * @type {Array<Byte>}
+     * @type {Array<Integer>}
      */
-    abRequestedInformation{
+    abRequestedInformation {
         get {
             if(!this.HasProp("__abRequestedInformationProxyArray"))
                 this.__abRequestedInformationProxyArray := Win32FixedArray(this.ptr + 12, 4076, Primitive, "char")

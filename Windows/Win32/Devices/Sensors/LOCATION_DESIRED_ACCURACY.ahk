@@ -5,9 +5,8 @@
  * The LOCATION_DESIRED_ACCURACY enumeration type defines values for the SENSOR_PROPERTY_LOCATION_DESIRED_ACCURACY property.
  * @see https://learn.microsoft.com/windows/win32/api/sensorsapi/ne-sensorsapi-location_desired_accuracy
  * @namespace Windows.Win32.Devices.Sensors
- * @version v4.0.30319
  */
-class LOCATION_DESIRED_ACCURACY extends Win32Enum{
+class LOCATION_DESIRED_ACCURACY extends Win32Enum {
 
     /**
      * Indicates that the sensor should use the accuracy for which it can optimize power and other such cost considerations.

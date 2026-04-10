@@ -5,9 +5,8 @@
  * Defines constants that identify the top level properties of the White Level Adjustment effect.
  * @see https://learn.microsoft.com/windows/win32/api/d2d1effects_2/ne-d2d1effects_2-d2d1_whiteleveladjustment_prop
  * @namespace Windows.Win32.Graphics.Direct2D
- * @version v4.0.30319
  */
-class D2D1_WHITELEVELADJUSTMENT_PROP extends Win32Enum{
+class D2D1_WHITELEVELADJUSTMENT_PROP extends Win32Enum {
 
     /**
      * Identifies the `InputWhiteLevel` property of the effect. The property is of type FLOAT, and is specified in nits.

@@ -4,14 +4,10 @@
 
 /**
  * Contains parameters that define a collection of contiguous logical blocks specified by a starting LBA and number of logical blocks.
- * @remarks
- * 
  * @see https://learn.microsoft.com/windows/win32/api/nvme/ns-nvme-nvme_lba_range
  * @namespace Windows.Win32.Storage.Nvme
- * @version v4.0.30319
  */
-class NVME_LBA_RANGE extends Win32Struct
-{
+class NVME_LBA_RANGE extends Win32Struct {
     static sizeof => 24
 
     static packingSize => 8
@@ -22,7 +18,7 @@ class NVME_LBA_RANGE extends Win32Struct
      * The use of this information is optional and the controller is not required to perform any specific action.
      * @type {NVME_CONTEXT_ATTRIBUTES}
      */
-    Attributes{
+    Attributes {
         get {
             if(!this.HasProp("__Attributes"))
                 this.__Attributes := NVME_CONTEXT_ATTRIBUTES(0, this)

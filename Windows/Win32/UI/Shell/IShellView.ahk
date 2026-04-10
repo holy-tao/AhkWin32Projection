@@ -1,9 +1,9 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
+#Include ..\..\System\Ole\IOleWindow.ahk
 #Include ..\..\Foundation\HWND.ahk
 #Include .\FOLDERSETTINGS.ahk
-#Include ..\..\System\Ole\IOleWindow.ahk
 
 /**
  * Exposes methods that present a view in the Windows Explorer or folder windows.
@@ -19,9 +19,8 @@
  * A special instance of <b>IShellView</b> known as the default Shell folder view object can be created by calling <a href="https://docs.microsoft.com/windows/desktop/api/shlobj_core/nf-shlobj_core-shcreateshellfolderview">SHCreateShellFolderView</a> or <a href="https://docs.microsoft.com/windows/desktop/api/shlobj_core/nf-shlobj_core-shcreateshellfolderviewex">SHCreateShellFolderViewEx</a>. This instance can be differentiated from standard implementations by calling <a href="https://docs.microsoft.com/windows/desktop/api/unknwn/nf-unknwn-iunknown-queryinterface(q)">QueryInterface</a> on an <b>IShellView</b> object using the IID_CDefView IID. This call succeeds only when made on the default Shell folder view object.
  * @see https://learn.microsoft.com/windows/win32/api/shobjidl_core/nn-shobjidl_core-ishellview
  * @namespace Windows.Win32.UI.Shell
- * @version v4.0.30319
  */
-class IShellView extends IOleWindow{
+class IShellView extends IOleWindow {
 
     static sizeof => A_PtrSize
     /**
@@ -200,8 +199,12 @@ class IShellView extends IOleWindow{
      * @param {Integer} dwReserved Type: <b>DWORD</b>
      * 
      * Reserved.
-     * @param {Pointer<LPFNSVADDPROPSHEETPAGE>} _pfn 
-     * @param {LPARAM} _lparam 
+     * @param {Pointer<LPFNSVADDPROPSHEETPAGE>} _pfn Type: <b>LPFNADDPROPSHEETPAGE</b>
+     * 
+     * The address of the callback function used to add the pages.
+     * @param {LPARAM} _lparam Type: <b>LPARAM</b>
+     * 
+     * A value that must be passed as the callback function's <i>lparam</i> parameter.
      * @returns {HRESULT} Type: <b>HRESULT</b>
      * 
      * Returns S_OK if successful, or a COM-defined error value otherwise.

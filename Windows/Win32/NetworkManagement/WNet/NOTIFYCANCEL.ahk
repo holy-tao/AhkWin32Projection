@@ -5,10 +5,8 @@
  * The NOTIFYCANCEL structure contains the details of a network disconnect operation. It is used by the CancelConnectNotify function.
  * @see https://learn.microsoft.com/windows/win32/api/npapi/ns-npapi-notifycancel
  * @namespace Windows.Win32.NetworkManagement.WNet
- * @version v4.0.30319
  */
-class NOTIFYCANCEL extends Win32Struct
-{
+class NOTIFYCANCEL extends Win32Struct {
     static sizeof => 24
 
     static packingSize => 8

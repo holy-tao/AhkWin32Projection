@@ -1,23 +1,20 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
+#Include .\D3D12_VIDEO_DECODE_ARGUMENT_TYPE.ahk
 
 /**
  * Represents the decode parameters for a frame.
- * @remarks
- * 
  * @see https://learn.microsoft.com/windows/win32/api/d3d12video/ns-d3d12video-d3d12_video_decode_frame_argument
  * @namespace Windows.Win32.Media.MediaFoundation
- * @version v4.0.30319
  */
-class D3D12_VIDEO_DECODE_FRAME_ARGUMENT extends Win32Struct
-{
+class D3D12_VIDEO_DECODE_FRAME_ARGUMENT extends Win32Struct {
     static sizeof => 16
 
     static packingSize => 8
 
     /**
      * A member of the [D3D12_VIDEO_DECODE_ARGUMENT_TYPE](ne-d3d12video-d3d12_video_decode_argument_type.md) enumeration specifying the type of argument.
-     * @type {Integer}
+     * @type {D3D12_VIDEO_DECODE_ARGUMENT_TYPE}
      */
     Type {
         get => NumGet(this, 0, "int")

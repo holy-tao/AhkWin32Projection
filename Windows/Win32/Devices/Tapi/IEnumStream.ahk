@@ -1,17 +1,15 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
-#Include .\ITStream.ahk
-#Include .\IEnumStream.ahk
 #Include ..\..\System\Com\IUnknown.ahk
+#Include .\ITStream.ahk
 
 /**
  * The IEnumStream interface provides COM-standard enumeration methods for the ITStream interface. The ITStreamControl::EnumerateStreams and ITParticipant::EnumerateStreams methods return a pointer to IEnumStream.
  * @see https://learn.microsoft.com/windows/win32/api/tapi3if/nn-tapi3if-ienumstream
  * @namespace Windows.Win32.Devices.Tapi
- * @version v4.0.30319
  */
-class IEnumStream extends IUnknown{
+class IEnumStream extends IUnknown {
 
     static sizeof => A_PtrSize
     /**

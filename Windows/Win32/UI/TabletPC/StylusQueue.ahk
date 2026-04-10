@@ -19,9 +19,8 @@
  * </ol>
  * @see https://learn.microsoft.com/windows/win32/api/rtscom/ne-rtscom-stylusqueue
  * @namespace Windows.Win32.UI.TabletPC
- * @version v4.0.30319
  */
-class StylusQueue extends Win32Enum{
+class StylusQueue extends Win32Enum {
 
     /**
      * Data is added to the input queue. When data is added to the input queue, it is automatically added to the output queue.

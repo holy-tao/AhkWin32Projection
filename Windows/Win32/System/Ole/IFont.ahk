@@ -1,12 +1,11 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
+#Include ..\Com\IUnknown.ahk
 #Include ..\..\Foundation\BSTR.ahk
 #Include ..\Com\CY.ahk
 #Include ..\..\Graphics\Gdi\HFONT.ahk
-#Include .\IFont.ahk
 #Include ..\..\Graphics\Gdi\TEXTMETRICW.ahk
-#Include ..\Com\IUnknown.ahk
 
 /**
  * Provides a wrapper around a Windows font object.
@@ -138,9 +137,8 @@
  *       Automation. The system implementation of the font object supplies both interfaces.
  * @see https://learn.microsoft.com/windows/win32/api/ocidl/nn-ocidl-ifont
  * @namespace Windows.Win32.System.Ole
- * @version v4.0.30319
  */
-class IFont extends IUnknown{
+class IFont extends IUnknown {
 
     static sizeof => A_PtrSize
     /**
@@ -306,7 +304,7 @@ class IFont extends IUnknown{
 
     /**
      * Sets the point size of the font.
-     * @param {CY} _size 
+     * @param {CY} _size The new size of the font, in <b>HIMETRIC</b> units.
      * @returns {HRESULT} The method supports the standard return value <b>E_UNEXPECTED</b>, as well as the following values.
      * 
      * <table>
@@ -750,7 +748,7 @@ class IFont extends IUnknown{
 
     /**
      * Notifies the font object that the previously realized font identified with hFont should remain valid until ReleaseHfont is called or the font object itself is released completely.
-     * @param {HFONT} _hFont 
+     * @param {HFONT} _hFont Font handle previously realized through <a href="https://docs.microsoft.com/windows/desktop/api/ocidl/nf-ocidl-ifont-get_hfont">get_hFont</a> to be locked in the font object's cache.
      * @returns {HRESULT} The method supports the standard return values <b>E_UNEXPECTED</b> and <b>E_INVALIDARG</b>, as well as the following values.
      * 
      * <table>
@@ -781,7 +779,10 @@ class IFont extends IUnknown{
 
     /**
      * Notifies the font object that the caller that previously locked this font in the cache with IFont::AddRefHfont no longer requires the lock.
-     * @param {HFONT} _hFont 
+     * @param {HFONT} _hFont A font handle previously realized through 
+     *       <a href="https://docs.microsoft.com/windows/desktop/api/ocidl/nf-ocidl-ifont-get_hfont">IFont::get_hFont</a>. This value was passed to a previous 
+     *       call to <a href="https://docs.microsoft.com/windows/desktop/api/ocidl/nf-ocidl-ifont-addrefhfont">IFont::AddRefHfont</a> to lock the font, and the 
+     *       caller would now like to unlock the font in the cache.
      * @returns {HRESULT} The method supports the standard return values <b>E_UNEXPECTED</b> and 
      *       <b>E_INVALIDARG</b>, as well as the following values.
      * 
@@ -838,7 +839,7 @@ class IFont extends IUnknown{
      *      <a href="https://docs.microsoft.com/windows/desktop/api/winuser/nf-winuser-getdc">GetDC</a>, or 
      *      <a href="https://docs.microsoft.com/windows/desktop/api/winuser/nf-winuser-beginpaint">BeginPaint</a>) because screen device contexts are a limited system 
      *      resource.
-     * @param {HDC} _hDC 
+     * @param {HDC} _hDC A handle to the device context in which to select the font.
      * @returns {HRESULT} The method supports the standard return value <b>E_INVALIDARG</b>, as well as the 
      *       following values.
      * 

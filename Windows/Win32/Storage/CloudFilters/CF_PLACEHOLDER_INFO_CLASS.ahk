@@ -5,9 +5,8 @@
  * Information classes for placeholder info.
  * @see https://learn.microsoft.com/windows/win32/api/cfapi/ne-cfapi-cf_placeholder_info_class
  * @namespace Windows.Win32.Storage.CloudFilters
- * @version v4.0.30319
  */
-class CF_PLACEHOLDER_INFO_CLASS extends Win32Enum{
+class CF_PLACEHOLDER_INFO_CLASS extends Win32Enum {
 
     /**
      * Basic placeholder information. See [CF_PLACEHOLDER_BASIC_INFO](ns-cfapi-cf_placeholder_basic_info.md).

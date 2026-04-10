@@ -5,9 +5,8 @@
  * Flags to specify what parts of a PSS_HANDLE_ENTRY structure are valid.
  * @see https://learn.microsoft.com/windows/win32/api/processsnapshot/ne-processsnapshot-pss_handle_flags
  * @namespace Windows.Win32.System.Diagnostics.ProcessSnapshotting
- * @version v4.0.30319
  */
-class PSS_HANDLE_FLAGS extends Win32BitflagEnum{
+class PSS_HANDLE_FLAGS extends Win32BitflagEnum {
 
     /**
      * No parts specified.

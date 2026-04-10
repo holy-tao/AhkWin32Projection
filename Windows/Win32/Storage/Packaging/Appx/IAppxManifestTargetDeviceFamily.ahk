@@ -7,9 +7,8 @@
  * Retrieves information about the target device family from the AppxManifest.xml.
  * @see https://learn.microsoft.com/windows/win32/api/appxpackaging/nn-appxpackaging-iappxmanifesttargetdevicefamily
  * @namespace Windows.Win32.Storage.Packaging.Appx
- * @version v4.0.30319
  */
-class IAppxManifestTargetDeviceFamily extends IUnknown{
+class IAppxManifestTargetDeviceFamily extends IUnknown {
 
     static sizeof => A_PtrSize
     /**

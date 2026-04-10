@@ -1,14 +1,12 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
-#Include ..\..\Foundation\RECT.ahk
 #Include .\KSCAMERA_EXTENDEDPROP_ROI_INFO.ahk
+#Include ..\..\Foundation\RECT.ahk
 
 /**
  * @namespace Windows.Win32.Media.KernelStreaming
- * @version v4.0.30319
  */
-class KSCAMERA_EXTENDEDPROP_ROI_WHITEBALANCE extends Win32Struct
-{
+class KSCAMERA_EXTENDEDPROP_ROI_WHITEBALANCE extends Win32Struct {
     static sizeof => 40
 
     static packingSize => 8
@@ -16,7 +14,7 @@ class KSCAMERA_EXTENDEDPROP_ROI_WHITEBALANCE extends Win32Struct
     /**
      * @type {KSCAMERA_EXTENDEDPROP_ROI_INFO}
      */
-    ROIInfo{
+    ROIInfo {
         get {
             if(!this.HasProp("__ROIInfo"))
                 this.__ROIInfo := KSCAMERA_EXTENDEDPROP_ROI_INFO(0, this)

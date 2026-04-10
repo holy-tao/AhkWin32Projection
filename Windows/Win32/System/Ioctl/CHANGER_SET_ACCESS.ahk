@@ -1,15 +1,14 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
 #Include .\CHANGER_ELEMENT.ahk
+#Include .\ELEMENT_TYPE.ahk
 
 /**
  * Contains information that the IOCTL_CHANGER_SET_ACCESS control code needs to set the state of the device's insert/eject port, door, or keypad.
  * @see https://learn.microsoft.com/windows/win32/api/winioctl/ns-winioctl-changer_set_access
  * @namespace Windows.Win32.System.Ioctl
- * @version v4.0.30319
  */
-class CHANGER_SET_ACCESS extends Win32Struct
-{
+class CHANGER_SET_ACCESS extends Win32Struct {
     static sizeof => 12
 
     static packingSize => 4
@@ -18,7 +17,7 @@ class CHANGER_SET_ACCESS extends Win32Struct
      * A
      * @type {CHANGER_ELEMENT}
      */
-    Element{
+    Element {
         get {
             if(!this.HasProp("__Element"))
                 this.__Element := CHANGER_ELEMENT(0, this)

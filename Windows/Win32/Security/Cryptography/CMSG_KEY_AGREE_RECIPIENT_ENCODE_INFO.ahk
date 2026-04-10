@@ -1,17 +1,18 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
-#Include .\CRYPT_INTEGER_BLOB.ahk
 #Include .\CRYPT_ALGORITHM_IDENTIFIER.ahk
+#Include .\CRYPT_INTEGER_BLOB.ahk
 #Include .\HCRYPTPROV_LEGACY.ahk
+#Include .\CMSG_KEY_AGREE_OPTION.ahk
+#Include .\CERT_ID.ahk
+#Include .\CMSG_RECIPIENT_ENCRYPTED_KEY_ENCODE_INFO.ahk
 
 /**
  * Contains information about a message recipient that is using key agreement key management.
  * @see https://learn.microsoft.com/windows/win32/api/wincrypt/ns-wincrypt-cmsg_key_agree_recipient_encode_info
  * @namespace Windows.Win32.Security.Cryptography
- * @version v4.0.30319
  */
-class CMSG_KEY_AGREE_RECIPIENT_ENCODE_INFO extends Win32Struct
-{
+class CMSG_KEY_AGREE_RECIPIENT_ENCODE_INFO extends Win32Struct {
     static sizeof => 128
 
     static packingSize => 8
@@ -31,7 +32,7 @@ class CMSG_KEY_AGREE_RECIPIENT_ENCODE_INFO extends Win32Struct
      * For ECC recipients, the <b>pszObjId</b> member of the  <a href="https://docs.microsoft.com/windows/desktop/api/wincrypt/ns-wincrypt-crypt_algorithm_identifier">CRYPT_ALGORITHM_IDENTIFIER</a> structure should be set to szOID_DH_SINGLE_PASS_STDDH_SHA1_KDF with the <b>dwKeyChoice</b> member of this <b>CMSG_KEY_AGREE_RECIPIENT_ENCODE_INFO</b> structure set to CMSG_KEY_AGREE_EPHEMERAL_KEY_CHOICE.
      * @type {CRYPT_ALGORITHM_IDENTIFIER}
      */
-    KeyEncryptionAlgorithm{
+    KeyEncryptionAlgorithm {
         get {
             if(!this.HasProp("__KeyEncryptionAlgorithm"))
                 this.__KeyEncryptionAlgorithm := CRYPT_ALGORITHM_IDENTIFIER(8, this)
@@ -52,7 +53,7 @@ class CMSG_KEY_AGREE_RECIPIENT_ENCODE_INFO extends Win32Struct
      * A <a href="https://docs.microsoft.com/windows/desktop/api/wincrypt/ns-wincrypt-crypt_algorithm_identifier">CRYPT_ALGORITHM_IDENTIFIER</a> structure that specifies the algorithm used for key wrapping.
      * @type {CRYPT_ALGORITHM_IDENTIFIER}
      */
-    KeyWrapAlgorithm{
+    KeyWrapAlgorithm {
         get {
             if(!this.HasProp("__KeyWrapAlgorithm"))
                 this.__KeyWrapAlgorithm := CRYPT_ALGORITHM_IDENTIFIER(40, this)
@@ -75,7 +76,7 @@ class CMSG_KEY_AGREE_RECIPIENT_ENCODE_INFO extends Win32Struct
      * <b>Windows Server 2003 and Windows XP:  </b>A handle to a <a href="https://docs.microsoft.com/windows/desktop/SecGloss/c-gly">cryptographic service provider</a> (CSP) obtained by using the <a href="https://docs.microsoft.com/windows/desktop/api/wincrypt/nf-wincrypt-cryptacquirecontexta">CryptAcquireContext</a> function. This member is optional and can be <b>NULL</b>.This member's data type is <b>HCRYPTPROV</b>.
      * @type {HCRYPTPROV_LEGACY}
      */
-    hCryptProv{
+    hCryptProv {
         get {
             if(!this.HasProp("__hCryptProv"))
                 this.__hCryptProv := HCRYPTPROV_LEGACY(72, this)
@@ -93,8 +94,7 @@ class CMSG_KEY_AGREE_RECIPIENT_ENCODE_INFO extends Win32Struct
     }
 
     /**
-     * 
-     * @type {Integer}
+     * @type {CMSG_KEY_AGREE_OPTION}
      */
     dwKeyChoice {
         get => NumGet(this, 84, "uint")
@@ -121,7 +121,7 @@ class CMSG_KEY_AGREE_RECIPIENT_ENCODE_INFO extends Win32Struct
      * A <a href="https://docs.microsoft.com/previous-versions/windows/desktop/legacy/aa381414(v=vs.85)">CRYPT_DATA_BLOB</a> structure that contains user keying material (UKM) provided by the sender to ensure that a different key is generated each time the same two parties generate a pair-wise key. This member is optional and all members should be set to zero if not used.
      * @type {CRYPT_INTEGER_BLOB}
      */
-    UserKeyingMaterial{
+    UserKeyingMaterial {
         get {
             if(!this.HasProp("__UserKeyingMaterial"))
                 this.__UserKeyingMaterial := CRYPT_INTEGER_BLOB(96, this)

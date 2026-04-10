@@ -1,21 +1,19 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
+#Include .\SECURITY_MESSAGE_MSG_ID.ahk
 
 /**
  * The SECURITY_MESSAGE structure is used with the RasSecurityDialogComplete function to indicate the results of a RAS security DLL authentication transaction.
  * @see https://learn.microsoft.com/windows/win32/api/rasshost/ns-rasshost-security_message
  * @namespace Windows.Win32.NetworkManagement.Rras
- * @version v4.0.30319
  */
-class SECURITY_MESSAGE extends Win32Struct
-{
-    static sizeof => 568
+class SECURITY_MESSAGE extends Win32Struct {
+    static sizeof => 296
 
     static packingSize => 8
 
     /**
-     * 
-     * @type {Integer}
+     * @type {SECURITY_MESSAGE_MSG_ID}
      */
     dwMsgId {
         get => NumGet(this, 0, "uint")
@@ -46,8 +44,8 @@ class SECURITY_MESSAGE extends Win32Struct
      * @type {String}
      */
     UserName {
-        get => StrGet(this.ptr + 20, 256, "UTF-16")
-        set => StrPut(value, this.ptr + 20, 256, "UTF-16")
+        get => StrGet(this.ptr + 20, 256, "UTF-8")
+        set => StrPut(value, this.ptr + 20, 256, "UTF-8")
     }
 
     /**
@@ -55,7 +53,7 @@ class SECURITY_MESSAGE extends Win32Struct
      * @type {String}
      */
     Domain {
-        get => StrGet(this.ptr + 534, 15, "UTF-16")
-        set => StrPut(value, this.ptr + 534, 15, "UTF-16")
+        get => StrGet(this.ptr + 278, 15, "UTF-8")
+        set => StrPut(value, this.ptr + 278, 15, "UTF-8")
     }
 }

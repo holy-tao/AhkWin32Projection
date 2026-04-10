@@ -10,9 +10,8 @@
  * <a href="https://docs.microsoft.com/previous-versions/dn408470(v=vs.85)">RegisteredTrustLevel</a> is an alias for this enumeration.
  * @see https://learn.microsoft.com/windows/win32/api/inspectable/ne-inspectable-trustlevel
  * @namespace Windows.Win32.System.WinRT
- * @version v4.0.30319
  */
-class TrustLevel extends Win32Enum{
+class TrustLevel extends Win32Enum {
 
     /**
      * The component has access to resources that are not protected.

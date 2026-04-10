@@ -3,10 +3,8 @@
 
 /**
  * @namespace Windows.Win32.System.Ioctl
- * @version v4.0.30319
  */
-class GETVERSIONINPARAMS extends Win32Struct
-{
+class GETVERSIONINPARAMS extends Win32Struct {
     static sizeof => 24
 
     static packingSize => 4
@@ -52,9 +50,9 @@ class GETVERSIONINPARAMS extends Win32Struct
     }
 
     /**
-     * @type {Array<UInt32>}
+     * @type {Array<Integer>}
      */
-    dwReserved{
+    dwReserved {
         get {
             if(!this.HasProp("__dwReservedProxyArray"))
                 this.__dwReservedProxyArray := Win32FixedArray(this.ptr + 8, 4, Primitive, "uint")

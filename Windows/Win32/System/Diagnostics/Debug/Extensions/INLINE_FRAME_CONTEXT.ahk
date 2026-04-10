@@ -3,10 +3,8 @@
 
 /**
  * @namespace Windows.Win32.System.Diagnostics.Debug.Extensions
- * @version v4.0.30319
  */
-class INLINE_FRAME_CONTEXT extends Win32Struct
-{
+class INLINE_FRAME_CONTEXT extends Win32Struct {
     static sizeof => 8
 
     static packingSize => 4

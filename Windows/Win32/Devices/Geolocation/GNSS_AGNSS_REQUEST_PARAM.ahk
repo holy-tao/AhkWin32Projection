@@ -1,12 +1,11 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
+#Include .\GNSS_AGNSS_REQUEST_TYPE.ahk
 
 /**
  * @namespace Windows.Win32.Devices.Geolocation
- * @version v4.0.30319
  */
-class GNSS_AGNSS_REQUEST_PARAM extends Win32Struct
-{
+class GNSS_AGNSS_REQUEST_PARAM extends Win32Struct {
     static sizeof => 16
 
     static packingSize => 4
@@ -28,7 +27,7 @@ class GNSS_AGNSS_REQUEST_PARAM extends Win32Struct
     }
 
     /**
-     * @type {Integer}
+     * @type {GNSS_AGNSS_REQUEST_TYPE}
      */
     RequestType {
         get => NumGet(this, 8, "int")

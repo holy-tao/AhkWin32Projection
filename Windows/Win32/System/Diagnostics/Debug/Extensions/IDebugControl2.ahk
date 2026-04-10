@@ -1,18 +1,17 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\..\..\Guid.ahk
+#Include ..\..\..\Com\IUnknown.ahk
 #Include .\DEBUG_VALUE.ahk
 #Include .\IDebugBreakpoint.ahk
 #Include .\DEBUG_BREAKPOINT_PARAMETERS.ahk
 #Include .\DEBUG_SPECIFIC_FILTER_PARAMETERS.ahk
 #Include .\DEBUG_EXCEPTION_FILTER_PARAMETERS.ahk
-#Include ..\..\..\Com\IUnknown.ahk
 
 /**
  * @namespace Windows.Win32.System.Diagnostics.Debug.Extensions
- * @version v4.0.30319
  */
-class IDebugControl2 extends IUnknown{
+class IDebugControl2 extends IUnknown {
 
     static sizeof => A_PtrSize
     /**
@@ -1189,7 +1188,7 @@ class IDebugControl2 extends IUnknown{
      * @param {Pointer<Integer>} Type 
      * @param {Pointer<Integer>} ProcessId 
      * @param {Pointer<Integer>} ThreadId 
-     * @param {Pointer} ExtraInformation 
+     * @param {Integer} ExtraInformation 
      * @param {Integer} ExtraInformationSize 
      * @param {Pointer<Integer>} ExtraInformationUsed 
      * @param {PSTR} Description 

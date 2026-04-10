@@ -3,10 +3,8 @@
 
 /**
  * @namespace Windows.Win32.System.Com
- * @version v4.0.30319
  */
-class DWORD_BLOB extends Win32Struct
-{
+class DWORD_BLOB extends Win32Struct {
     static sizeof => 8
 
     static packingSize => 4
@@ -20,9 +18,9 @@ class DWORD_BLOB extends Win32Struct
     }
 
     /**
-     * @type {Array<UInt32>}
+     * @type {Array<Integer>}
      */
-    alData{
+    alData {
         get {
             if(!this.HasProp("__alDataProxyArray"))
                 this.__alDataProxyArray := Win32FixedArray(this.ptr + 4, 1, Primitive, "uint")

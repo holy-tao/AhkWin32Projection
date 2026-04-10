@@ -1,5 +1,6 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
+#Include .\CRYPT_XML_TRANSFORM_FLAGS.ahk
 
 /**
  * Contains information that is used when applying the data transform.
@@ -7,10 +8,8 @@
  * For XML canonicalization transforms, the buffer size specified by the <b>cbBufferSize</b> member must be large enough to accommodate an entire <b>Start</b> element with all attribute values.
  * @see https://learn.microsoft.com/windows/win32/api/cryptxml/ns-cryptxml-crypt_xml_transform_info
  * @namespace Windows.Win32.Security.Cryptography
- * @version v4.0.30319
  */
-class CRYPT_XML_TRANSFORM_INFO extends Win32Struct
-{
+class CRYPT_XML_TRANSFORM_INFO extends Win32Struct {
     static sizeof => 32
 
     static packingSize => 8
@@ -45,7 +44,7 @@ class CRYPT_XML_TRANSFORM_INFO extends Win32Struct
 
     /**
      * Specifies values that control how the transform is applied.
-     * @type {Integer}
+     * @type {CRYPT_XML_TRANSFORM_FLAGS}
      */
     dwFlags {
         get => NumGet(this, 20, "uint")

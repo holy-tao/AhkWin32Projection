@@ -1,14 +1,13 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
+#Include .\IUnknown.ahk
 
 /**
  * Contains information about incoming calls.
  * @see https://learn.microsoft.com/windows/win32/api/objidl/ns-objidl-interfaceinfo
  * @namespace Windows.Win32.System.Com
- * @version v4.0.30319
  */
-class INTERFACEINFO extends Win32Struct
-{
+class INTERFACEINFO extends Win32Struct {
     static sizeof => 24
 
     static packingSize => 8
@@ -24,7 +23,7 @@ class INTERFACEINFO extends Win32Struct
 
     /**
      * The identifier of the requested interface.
-     * @type {Pointer<Guid>}
+     * @type {Pointer}
      */
     iid {
         get => NumGet(this, 8, "ptr")

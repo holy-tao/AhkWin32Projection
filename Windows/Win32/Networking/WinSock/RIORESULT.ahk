@@ -11,10 +11,8 @@
  * The <b>RIORESULT</b> structure is defined in the <i>Mswsockdef.h</i> header file which is automatically included in the <i>Mswsock.h</i> header file. The <i>Mswsockdef.h</i> header file should never be used directly.
  * @see https://learn.microsoft.com/windows/win32/api/mswsockdef/ns-mswsockdef-rioresult
  * @namespace Windows.Win32.Networking.WinSock
- * @version v4.0.30319
  */
-class RIORESULT extends Win32Struct
-{
+class RIORESULT extends Win32Struct {
     static sizeof => 24
 
     static packingSize => 8

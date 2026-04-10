@@ -1,11 +1,10 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
+#Include .\IXpsOMVisual.ahk
 #Include .\IXpsOMGeometry.ahk
 #Include .\IXpsOMBrush.ahk
 #Include .\IXpsOMDashCollection.ahk
-#Include .\IXpsOMPath.ahk
-#Include .\IXpsOMVisual.ahk
 
 /**
  * Describes a non-text visual item.
@@ -48,9 +47,8 @@
  * ```
  * @see https://learn.microsoft.com/windows/win32/api/xpsobjectmodel/nn-xpsobjectmodel-ixpsompath
  * @namespace Windows.Win32.Storage.Xps
- * @version v4.0.30319
  */
-class IXpsOMPath extends IXpsOMVisual{
+class IXpsOMPath extends IXpsOMVisual {
 
     static sizeof => A_PtrSize
     /**
@@ -1026,7 +1024,7 @@ class IXpsOMPath extends IXpsOMVisual{
      * Gets the style of the end cap to be used on the stroke dash.
      * @remarks
      * For more information about dash cap styles, see <a href="https://docs.microsoft.com/windows/win32/api/xpsobjectmodel/ne-xpsobjectmodel-xps_dash_cap">XPS_DASH_CAP</a>.
-     * @returns {Integer} The <a href="https://docs.microsoft.com/windows/win32/api/xpsobjectmodel/ne-xpsobjectmodel-xps_dash_cap">XPS_DASH_CAP</a> value that describes the  style of the end cap to be used on the stroke dash.
+     * @returns {XPS_DASH_CAP} The <a href="https://docs.microsoft.com/windows/win32/api/xpsobjectmodel/ne-xpsobjectmodel-xps_dash_cap">XPS_DASH_CAP</a> value that describes the  style of the end cap to be used on the stroke dash.
      * @see https://learn.microsoft.com/windows/win32/api/xpsobjectmodel/nf-xpsobjectmodel-ixpsompath-getstrokedashcap
      */
     GetStrokeDashCap() {
@@ -1038,7 +1036,7 @@ class IXpsOMPath extends IXpsOMVisual{
      * Sets the style of the stroke's dash cap.
      * @remarks
      * For more information about dash cap styles, see <a href="https://docs.microsoft.com/windows/win32/api/xpsobjectmodel/ne-xpsobjectmodel-xps_dash_cap">XPS_DASH_CAP</a>.
-     * @param {Integer} strokeDashCap The <a href="https://docs.microsoft.com/windows/win32/api/xpsobjectmodel/ne-xpsobjectmodel-xps_dash_cap">XPS_DASH_CAP</a> value to be set.
+     * @param {XPS_DASH_CAP} strokeDashCap The <a href="https://docs.microsoft.com/windows/win32/api/xpsobjectmodel/ne-xpsobjectmodel-xps_dash_cap">XPS_DASH_CAP</a> value to be set.
      * @returns {HRESULT} The method returns an <b>HRESULT</b>. Possible values include, but are not limited to, those in the table that follows. For information about  XPS document API return values that are not listed in this table, see <a href="https://docs.microsoft.com/previous-versions/windows/desktop/dd372955(v=vs.85)">XPS Document Errors</a>.
      * 
      * <table>
@@ -1132,7 +1130,7 @@ class IXpsOMPath extends IXpsOMVisual{
      * Gets the style of the line cap at the start of the stroke line.
      * @remarks
      * For more information about the shapes of line caps, see <a href="https://docs.microsoft.com/windows/win32/api/xpsobjectmodel/ne-xpsobjectmodel-xps_line_cap">XPS_LINE_CAP</a>.
-     * @returns {Integer} The <a href="https://docs.microsoft.com/windows/win32/api/xpsobjectmodel/ne-xpsobjectmodel-xps_line_cap">XPS_LINE_CAP</a> value that indicates the style of the  line cap at the start of the stroke line.
+     * @returns {XPS_LINE_CAP} The <a href="https://docs.microsoft.com/windows/win32/api/xpsobjectmodel/ne-xpsobjectmodel-xps_line_cap">XPS_LINE_CAP</a> value that indicates the style of the  line cap at the start of the stroke line.
      * @see https://learn.microsoft.com/windows/win32/api/xpsobjectmodel/nf-xpsobjectmodel-ixpsompath-getstrokestartlinecap
      */
     GetStrokeStartLineCap() {
@@ -1144,7 +1142,7 @@ class IXpsOMPath extends IXpsOMVisual{
      * Sets the style of the stroke's line cap at the start of the stroke line.
      * @remarks
      * For more information about the line join styles, see <a href="https://docs.microsoft.com/windows/win32/api/xpsobjectmodel/ne-xpsobjectmodel-xps_line_cap">XPS_LINE_CAP</a>.
-     * @param {Integer} strokeStartLineCap The <a href="https://docs.microsoft.com/windows/win32/api/xpsobjectmodel/ne-xpsobjectmodel-xps_line_cap">XPS_LINE_CAP</a> value to be set.
+     * @param {XPS_LINE_CAP} strokeStartLineCap The <a href="https://docs.microsoft.com/windows/win32/api/xpsobjectmodel/ne-xpsobjectmodel-xps_line_cap">XPS_LINE_CAP</a> value to be set.
      * @returns {HRESULT} The method returns an <b>HRESULT</b>. Possible values include, but are not limited to, those in the table that follows. For information about  XPS document API return values that are not listed in this table, see <a href="https://docs.microsoft.com/previous-versions/windows/desktop/dd372955(v=vs.85)">XPS Document Errors</a>.
      * 
      * <table>
@@ -1186,7 +1184,7 @@ class IXpsOMPath extends IXpsOMVisual{
      * Gets the style of the stroke line's end cap.
      * @remarks
      * For more information about line   end cap styles, see <a href="https://docs.microsoft.com/windows/win32/api/xpsobjectmodel/ne-xpsobjectmodel-xps_line_cap">XPS_LINE_CAP</a>.
-     * @returns {Integer} The <a href="https://docs.microsoft.com/windows/win32/api/xpsobjectmodel/ne-xpsobjectmodel-xps_line_cap">XPS_LINE_CAP</a> value that specifies the style of the stroke line's end cap.
+     * @returns {XPS_LINE_CAP} The <a href="https://docs.microsoft.com/windows/win32/api/xpsobjectmodel/ne-xpsobjectmodel-xps_line_cap">XPS_LINE_CAP</a> value that specifies the style of the stroke line's end cap.
      * @see https://learn.microsoft.com/windows/win32/api/xpsobjectmodel/nf-xpsobjectmodel-ixpsompath-getstrokeendlinecap
      */
     GetStrokeEndLineCap() {
@@ -1198,7 +1196,7 @@ class IXpsOMPath extends IXpsOMVisual{
      * Sets the style of the stroke line's end cap.
      * @remarks
      * For more information about dash cap styles, see <a href="https://docs.microsoft.com/windows/win32/api/xpsobjectmodel/ne-xpsobjectmodel-xps_line_cap">XPS_LINE_CAP</a>.
-     * @param {Integer} strokeEndLineCap The <a href="https://docs.microsoft.com/windows/win32/api/xpsobjectmodel/ne-xpsobjectmodel-xps_line_cap">XPS_LINE_CAP</a> value to be  set.
+     * @param {XPS_LINE_CAP} strokeEndLineCap The <a href="https://docs.microsoft.com/windows/win32/api/xpsobjectmodel/ne-xpsobjectmodel-xps_line_cap">XPS_LINE_CAP</a> value to be  set.
      * @returns {HRESULT} The method returns an <b>HRESULT</b>. Possible values include, but are not limited to, those in the table that follows. For information about  XPS document API return values that are not listed in this table, see <a href="https://docs.microsoft.com/previous-versions/windows/desktop/dd372955(v=vs.85)">XPS Document Errors</a>.
      * 
      * <table>
@@ -1240,7 +1238,7 @@ class IXpsOMPath extends IXpsOMVisual{
      * Gets the style for joining stroke lines.
      * @remarks
      * For more information about the line join styles, see <a href="https://docs.microsoft.com/windows/win32/api/xpsobjectmodel/ne-xpsobjectmodel-xps_line_join">XPS_LINE_JOIN</a>.
-     * @returns {Integer} The <a href="https://docs.microsoft.com/windows/win32/api/xpsobjectmodel/ne-xpsobjectmodel-xps_line_join">XPS_LINE_JOIN</a> value of the line join style of the stroke.
+     * @returns {XPS_LINE_JOIN} The <a href="https://docs.microsoft.com/windows/win32/api/xpsobjectmodel/ne-xpsobjectmodel-xps_line_join">XPS_LINE_JOIN</a> value of the line join style of the stroke.
      * @see https://learn.microsoft.com/windows/win32/api/xpsobjectmodel/nf-xpsobjectmodel-ixpsompath-getstrokelinejoin
      */
     GetStrokeLineJoin() {
@@ -1252,7 +1250,7 @@ class IXpsOMPath extends IXpsOMVisual{
      * Sets the style for joining stroke lines.
      * @remarks
      * For more information about the line join styles, see <a href="https://docs.microsoft.com/windows/win32/api/xpsobjectmodel/ne-xpsobjectmodel-xps_line_join">XPS_LINE_JOIN</a>.
-     * @param {Integer} strokeLineJoin The <a href="https://docs.microsoft.com/windows/win32/api/xpsobjectmodel/ne-xpsobjectmodel-xps_line_join">XPS_LINE_JOIN</a> value to be set.
+     * @param {XPS_LINE_JOIN} strokeLineJoin The <a href="https://docs.microsoft.com/windows/win32/api/xpsobjectmodel/ne-xpsobjectmodel-xps_line_join">XPS_LINE_JOIN</a> value to be set.
      * @returns {HRESULT} The method returns an <b>HRESULT</b>. Possible values include, but are not limited to, those in the table that follows. For information about  XPS document API return values that are not listed in this table, see <a href="https://docs.microsoft.com/previous-versions/windows/desktop/dd372955(v=vs.85)">XPS Document Errors</a>.
      * 
      * <table>
@@ -1811,7 +1809,7 @@ class IXpsOMPath extends IXpsOMVisual{
 
     /**
      * Makes a deep copy of the interface. (IXpsOMPath.Clone)
-     * @returns {IXpsOMPath} 
+     * @returns {IXpsOMPath} A pointer to the copy of the interface.
      * @see https://learn.microsoft.com/windows/win32/api/xpsobjectmodel/nf-xpsobjectmodel-ixpsompath-clone
      */
     Clone() {

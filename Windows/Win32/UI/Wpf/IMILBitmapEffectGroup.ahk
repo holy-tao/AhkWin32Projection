@@ -1,17 +1,16 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
+#Include ..\..\System\Com\IUnknown.ahk
 #Include .\IMILBitmapEffectOutputConnector.ahk
 #Include .\IMILBitmapEffectInputConnector.ahk
-#Include ..\..\System\Com\IUnknown.ahk
 
 /**
  * Exposes methods used to access a group of effects.
  * @see https://learn.microsoft.com/windows/win32/api/mileffects/nn-mileffects-imilbitmapeffectgroup
  * @namespace Windows.Win32.UI.Wpf
- * @version v4.0.30319
  */
-class IMILBitmapEffectGroup extends IUnknown{
+class IMILBitmapEffectGroup extends IUnknown {
 
     static sizeof => A_PtrSize
     /**

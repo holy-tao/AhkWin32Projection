@@ -1,20 +1,19 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
-#Include ..\..\Foundation\BSTR.ahk
+#Include ..\..\System\Com\IDispatch.ahk
 #Include .\IEnumAgentSession.ahk
 #Include .\ITAgentSession.ahk
+#Include ..\..\Foundation\BSTR.ahk
 #Include ..\..\System\Com\CY.ahk
 #Include ..\..\System\Variant\VARIANT.ahk
-#Include ..\..\System\Com\IDispatch.ahk
 
 /**
  * The ITAgent interface (tapi3cc.h) handles Agent objects, which receive and process incoming calls and make outgoing calls to customers or prospects.
  * @see https://learn.microsoft.com/windows/win32/api/tapi3cc/nn-tapi3cc-itagent
  * @namespace Windows.Win32.Devices.Tapi
- * @version v4.0.30319
  */
-class ITAgent extends IDispatch{
+class ITAgent extends IDispatch {
 
     static sizeof => A_PtrSize
     /**
@@ -50,7 +49,7 @@ class ITAgent extends IDispatch{
     }
 
     /**
-     * @type {Integer} 
+     * @type {AGENT_STATE} 
      */
     State {
         get => this.get_State()
@@ -218,7 +217,7 @@ class ITAgent extends IDispatch{
      * @remarks
      * The <b>ITAgent::put_State</b> method is a COM wrapper for the TAPI 2.1 
      * <a href="https://docs.microsoft.com/windows/desktop/api/tapi/nf-tapi-linesetagentstateex">lineSetAgentStateEx</a> function.
-     * @param {Integer} AgentState <a href="https://docs.microsoft.com/windows/desktop/api/tapi3/ne-tapi3-agent_state">AGENT_STATE</a>.
+     * @param {AGENT_STATE} AgentState <a href="https://docs.microsoft.com/windows/desktop/api/tapi3/ne-tapi3-agent_state">AGENT_STATE</a>.
      * @returns {HRESULT} This method can return one of these values.
      * 
      * <table>
@@ -280,7 +279,7 @@ class ITAgent extends IDispatch{
 
     /**
      * The ITAgent::get_State method (tapi3cc.h) gets the state of an agent session.
-     * @returns {Integer} Pointer to an 
+     * @returns {AGENT_STATE} Pointer to an 
      * <a href="https://docs.microsoft.com/windows/desktop/api/tapi3/ne-tapi3-agent_state">AGENT_STATE</a>.
      * @see https://learn.microsoft.com/windows/win32/api/tapi3cc/nf-tapi3cc-itagent-get_state
      */

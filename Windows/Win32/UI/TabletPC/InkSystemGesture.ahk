@@ -13,9 +13,8 @@
  * For more information about system gestures, see <a href="https://docs.microsoft.com/windows/desktop/tablet/using-gestures">Using Gestures</a>.
  * @see https://learn.microsoft.com/windows/win32/api/msinkaut/ne-msinkaut-inksystemgesture
  * @namespace Windows.Win32.UI.TabletPC
- * @version v4.0.30319
  */
-class InkSystemGesture extends Win32Enum{
+class InkSystemGesture extends Win32Enum {
 
     /**
      * A click of the left mouse button. This can be used to choose a command from the menu or toolbar, take action if a command is chosen, set an insertion point (IP), or show selection feedback.

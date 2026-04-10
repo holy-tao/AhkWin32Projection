@@ -9,9 +9,8 @@
  * For C++ development, the version of a task is specified using [**IRegistrationInfo::Version**](/windows/desktop/api/taskschd/nf-taskschd-iregistrationinfo-get_version) property.
  * @see https://learn.microsoft.com/windows/win32/TaskSchd/taskschedulerschema-version-registrationinfotype-element
  * @namespace Windows.Win32.Graphics.GdiPlus
- * @version v4.0.30319
  */
-class Version extends Win32Enum{
+class Version extends Win32Enum {
 
     /**
      * @type {Integer (UInt32)}

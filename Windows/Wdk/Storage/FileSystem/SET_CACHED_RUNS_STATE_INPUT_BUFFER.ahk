@@ -3,10 +3,8 @@
 
 /**
  * @namespace Windows.Wdk.Storage.FileSystem
- * @version v4.0.30319
  */
-class SET_CACHED_RUNS_STATE_INPUT_BUFFER extends Win32Struct
-{
+class SET_CACHED_RUNS_STATE_INPUT_BUFFER extends Win32Struct {
     static sizeof => 1
 
     static packingSize => 1

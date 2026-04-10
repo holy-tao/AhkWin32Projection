@@ -1,13 +1,12 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
+#Include .\DIDEVICEIMAGEINFOW.ahk
 
 /**
  * @namespace Windows.Win32.Devices.HumanInterfaceDevice
- * @version v4.0.30319
  * @charset Unicode
  */
-class DIDEVICEIMAGEINFOHEADERW extends Win32Struct
-{
+class DIDEVICEIMAGEINFOHEADERW extends Win32Struct {
     static sizeof => 40
 
     static packingSize => 8

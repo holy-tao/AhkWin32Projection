@@ -1,9 +1,8 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
-#Include .\IWiaPropertyStorage.ahk
-#Include .\IEnumWIA_DEV_INFO.ahk
 #Include ..\..\System\Com\IUnknown.ahk
+#Include .\IWiaPropertyStorage.ahk
 
 /**
  * The IEnumWIA_DEV_INFO interface enumerates the currently available Windows Image Acquisition (WIA) hardware devices and their properties. Device information properties describe the installation and configuration of WIA hardware devices.
@@ -40,9 +39,8 @@
  * </table>
  * @see https://learn.microsoft.com/windows/win32/api/wia_xp/nn-wia_xp-ienumwia_dev_info
  * @namespace Windows.Win32.Devices.ImageAcquisition
- * @version v4.0.30319
  */
-class IEnumWIA_DEV_INFO extends IUnknown{
+class IEnumWIA_DEV_INFO extends IUnknown {
 
     static sizeof => A_PtrSize
     /**

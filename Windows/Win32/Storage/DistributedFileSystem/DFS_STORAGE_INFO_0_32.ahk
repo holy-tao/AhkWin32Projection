@@ -3,10 +3,9 @@
 
 /**
  * @namespace Windows.Win32.Storage.DistributedFileSystem
- * @version v4.0.30319
+ * @architecture X64, Arm64
  */
-class DFS_STORAGE_INFO_0_32 extends Win32Struct
-{
+class DFS_STORAGE_INFO_0_32 extends Win32Struct {
     static sizeof => 12
 
     static packingSize => 4

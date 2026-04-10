@@ -4,7 +4,6 @@
 
 /**
  * @namespace Windows.Win32.System.Diagnostics.ToolHelp
- * @version v4.0.30319
  */
 class ToolHelp {
 
@@ -43,7 +42,7 @@ class ToolHelp {
      * <a href="https://docs.microsoft.com/windows/desktop/api/handleapi/nf-handleapi-closehandle">CloseHandle</a> function.
      * 
      * Note that you can use the <a href="https://docs.microsoft.com/windows/desktop/api/winbase/nf-winbase-queryfullprocessimagenamea">QueryFullProcessImageName</a> function to retrieve the full name of an executable image for both 32- and 64-bit processes from a 32-bit process.
-     * @param {Integer} dwFlags 
+     * @param {CREATE_TOOLHELP_SNAPSHOT_FLAGS} dwFlags 
      * @param {Integer} th32ProcessID The process identifier of the process to be included in the snapshot. This parameter can be zero to indicate the current process. This parameter is used when the <b>TH32CS_SNAPHEAPLIST</b>, <b>TH32CS_SNAPMODULE</b>, <b>TH32CS_SNAPMODULE32</b>, or <b>TH32CS_SNAPALL</b> value is specified. Otherwise, it is ignored and all processes are included in the snapshot.
      * 
      * If the specified process is the Idle process or one of the CSRSS processes, this function fails and the last error code is <b>ERROR_ACCESS_DENIED</b> because their access restrictions prevent user-level code from opening them.

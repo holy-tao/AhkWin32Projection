@@ -5,9 +5,8 @@
 
 /**
  * @namespace Windows.Win32.System.Diagnostics.Debug.ActiveScript
- * @version v4.0.30319
  */
-class IActiveScriptStats extends IUnknown{
+class IActiveScriptStats extends IUnknown {
 
     static sizeof => A_PtrSize
     /**

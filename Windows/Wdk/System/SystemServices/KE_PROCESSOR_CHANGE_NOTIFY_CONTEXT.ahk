@@ -1,19 +1,17 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
-#Include ..\..\..\Win32\System\Kernel\PROCESSOR_NUMBER.ahk
+#Include .\KE_PROCESSOR_CHANGE_NOTIFY_STATE.ahk
 
 /**
  * @namespace Windows.Wdk.System.SystemServices
- * @version v4.0.30319
  */
-class KE_PROCESSOR_CHANGE_NOTIFY_CONTEXT extends Win32Struct
-{
-    static sizeof => 16
+class KE_PROCESSOR_CHANGE_NOTIFY_CONTEXT extends Win32Struct {
+    static sizeof => 24
 
-    static packingSize => 4
+    static packingSize => 8
 
     /**
-     * @type {Integer}
+     * @type {KE_PROCESSOR_CHANGE_NOTIFY_STATE}
      */
     State {
         get => NumGet(this, 0, "int")
@@ -37,13 +35,10 @@ class KE_PROCESSOR_CHANGE_NOTIFY_CONTEXT extends Win32Struct
     }
 
     /**
-     * @type {PROCESSOR_NUMBER}
+     * @type {Pointer}
      */
-    ProcNumber{
-        get {
-            if(!this.HasProp("__ProcNumber"))
-                this.__ProcNumber := PROCESSOR_NUMBER(12, this)
-            return this.__ProcNumber
-        }
+    ProcNumber {
+        get => NumGet(this, 16, "ptr")
+        set => NumPut("ptr", value, this, 16)
     }
 }

@@ -5,10 +5,8 @@
  * The DIFFDEVICEATTRIBUTES structure describes the information contained in the &quot;Attributes&quot; value of the OEMForceFeedback registry key.
  * @see https://learn.microsoft.com/windows/win32/api/dinputd/ns-dinputd-diffdeviceattributes
  * @namespace Windows.Win32.Devices.HumanInterfaceDevice
- * @version v4.0.30319
  */
-class DIFFDEVICEATTRIBUTES extends Win32Struct
-{
+class DIFFDEVICEATTRIBUTES extends Win32Struct {
     static sizeof => 12
 
     static packingSize => 4

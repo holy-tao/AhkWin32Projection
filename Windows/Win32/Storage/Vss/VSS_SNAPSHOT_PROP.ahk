@@ -1,5 +1,6 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
+#Include .\VSS_SNAPSHOT_STATE.ahk
 
 /**
  * Contains the properties of a shadow copy or shadow copy set.
@@ -24,10 +25,8 @@
  *     <b>m_pwszExposedPath</b> will be the path to the portion of the volume that is shared.
  * @see https://learn.microsoft.com/windows/win32/api/vss/ns-vss-vss_snapshot_prop
  * @namespace Windows.Win32.Storage.Vss
- * @version v4.0.30319
  */
-class VSS_SNAPSHOT_PROP extends Win32Struct
-{
+class VSS_SNAPSHOT_PROP extends Win32Struct {
     static sizeof => 104
 
     static packingSize => 8
@@ -35,7 +34,7 @@ class VSS_SNAPSHOT_PROP extends Win32Struct
     /**
      * A <a href="https://docs.microsoft.com/windows/desktop/VSS/volume-shadow-copy-api-data-types">VSS_ID</a> (GUID) uniquely 
      *       identifying the shadow copy identifier.
-     * @type {Pointer<Guid>}
+     * @type {Pointer}
      */
     m_SnapshotId {
         get => NumGet(this, 0, "ptr")
@@ -45,7 +44,7 @@ class VSS_SNAPSHOT_PROP extends Win32Struct
     /**
      * A <a href="https://docs.microsoft.com/windows/desktop/VSS/volume-shadow-copy-api-data-types">VSS_ID</a> (GUID) 
      *       uniquely identifying the shadow copy set containing the shadow copy.
-     * @type {Pointer<Guid>}
+     * @type {Pointer}
      */
     m_SnapshotSetId {
         get => NumGet(this, 8, "ptr")
@@ -138,7 +137,7 @@ class VSS_SNAPSHOT_PROP extends Win32Struct
     /**
      * A <a href="https://docs.microsoft.com/windows/desktop/VSS/volume-shadow-copy-api-data-types">VSS_ID</a> (GUID) 
      *       uniquely identifying the provider used to create this shadow copy.
-     * @type {Pointer<Guid>}
+     * @type {Pointer}
      */
     m_ProviderId {
         get => NumGet(this, 72, "ptr")
@@ -170,7 +169,7 @@ class VSS_SNAPSHOT_PROP extends Win32Struct
     /**
      * Current shadow copy creation status. See 
      *       <a href="https://docs.microsoft.com/windows/desktop/api/vss/ne-vss-vss_snapshot_state">VSS_SNAPSHOT_STATE</a>.
-     * @type {Integer}
+     * @type {VSS_SNAPSHOT_STATE}
      */
     m_eStatus {
         get => NumGet(this, 96, "int")

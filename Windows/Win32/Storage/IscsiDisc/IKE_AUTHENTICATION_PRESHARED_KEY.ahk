@@ -5,10 +5,8 @@
  * IKE_AUTHENTICATION_PRESHARED_KEY structure contains information about the preshared key used in the Internet Key Exchange (IKE) protocol.
  * @see https://learn.microsoft.com/windows/win32/api/iscsidsc/ns-iscsidsc-ike_authentication_preshared_key
  * @namespace Windows.Win32.Storage.IscsiDisc
- * @version v4.0.30319
  */
-class IKE_AUTHENTICATION_PRESHARED_KEY extends Win32Struct
-{
+class IKE_AUTHENTICATION_PRESHARED_KEY extends Win32Struct {
     static sizeof => 40
 
     static packingSize => 8

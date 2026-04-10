@@ -3,10 +3,8 @@
 
 /**
  * @namespace Windows.Win32.System.Search
- * @version v4.0.30319
  */
-class SQLPERF extends Win32Struct
-{
+class SQLPERF extends Win32Struct {
     static sizeof => 160
 
     static packingSize => 8

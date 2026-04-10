@@ -5,9 +5,8 @@
  * Specifies certification authority property values.
  * @see https://learn.microsoft.com/windows/win32/api/certenroll/ne-certenroll-enrollmentcaproperty
  * @namespace Windows.Win32.Security.Cryptography.Certificates
- * @version v4.0.30319
  */
-class EnrollmentCAProperty extends Win32Enum{
+class EnrollmentCAProperty extends Win32Enum {
 
     /**
      * A <b>VT_BSTR</b> value that contains the common name of the certification authority (CA) in Active Directory.

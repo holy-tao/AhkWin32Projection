@@ -7,9 +7,8 @@
  * Provides access to a control that can be moved, resized, or rotated.
  * @see https://learn.microsoft.com/windows/win32/api/uiautomationclient/nn-uiautomationclient-iuiautomationtransformpattern
  * @namespace Windows.Win32.UI.Accessibility
- * @version v4.0.30319
  */
-class IUIAutomationTransformPattern extends IUnknown{
+class IUIAutomationTransformPattern extends IUnknown {
 
     static sizeof => A_PtrSize
     /**

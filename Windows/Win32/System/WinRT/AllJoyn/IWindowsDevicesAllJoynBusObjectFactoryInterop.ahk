@@ -5,9 +5,8 @@
 
 /**
  * @namespace Windows.Win32.System.WinRT.AllJoyn
- * @version v4.0.30319
  */
-class IWindowsDevicesAllJoynBusObjectFactoryInterop extends IInspectable{
+class IWindowsDevicesAllJoynBusObjectFactoryInterop extends IInspectable {
 
     static sizeof => A_PtrSize
     /**

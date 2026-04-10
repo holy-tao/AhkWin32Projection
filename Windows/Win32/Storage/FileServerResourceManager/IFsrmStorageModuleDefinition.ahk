@@ -7,9 +7,8 @@
  * Defines a local storage module that is used to read and write property values.
  * @see https://learn.microsoft.com/windows/win32/api/fsrmpipeline/nn-fsrmpipeline-ifsrmstoragemoduledefinition
  * @namespace Windows.Win32.Storage.FileServerResourceManager
- * @version v4.0.30319
  */
-class IFsrmStorageModuleDefinition extends IFsrmPipelineModuleDefinition{
+class IFsrmStorageModuleDefinition extends IFsrmPipelineModuleDefinition {
 
     static sizeof => A_PtrSize
     /**
@@ -31,7 +30,7 @@ class IFsrmStorageModuleDefinition extends IFsrmPipelineModuleDefinition{
     static VTableNames => ["get_Capabilities", "put_Capabilities", "get_StorageType", "put_StorageType", "get_UpdatesFileContent", "put_UpdatesFileContent"]
 
     /**
-     * @type {Integer} 
+     * @type {FsrmStorageModuleCaps} 
      */
     Capabilities {
         get => this.get_Capabilities()
@@ -39,7 +38,7 @@ class IFsrmStorageModuleDefinition extends IFsrmPipelineModuleDefinition{
     }
 
     /**
-     * @type {Integer} 
+     * @type {FsrmStorageModuleType} 
      */
     StorageType {
         get => this.get_StorageType()
@@ -56,7 +55,7 @@ class IFsrmStorageModuleDefinition extends IFsrmPipelineModuleDefinition{
 
     /**
      * Flags that specify capabilities of the storage module. (Get)
-     * @returns {Integer} 
+     * @returns {FsrmStorageModuleCaps} 
      * @see https://learn.microsoft.com/windows/win32/api/fsrmpipeline/nf-fsrmpipeline-ifsrmstoragemoduledefinition-get_capabilities
      */
     get_Capabilities() {
@@ -66,7 +65,7 @@ class IFsrmStorageModuleDefinition extends IFsrmPipelineModuleDefinition{
 
     /**
      * Flags that specify capabilities of the storage module. (Put)
-     * @param {Integer} capabilities 
+     * @param {FsrmStorageModuleCaps} capabilities 
      * @returns {HRESULT} 
      * @see https://learn.microsoft.com/windows/win32/api/fsrmpipeline/nf-fsrmpipeline-ifsrmstoragemoduledefinition-put_capabilities
      */
@@ -77,7 +76,7 @@ class IFsrmStorageModuleDefinition extends IFsrmPipelineModuleDefinition{
 
     /**
      * The type of storage that the storage module uses. (Get)
-     * @returns {Integer} 
+     * @returns {FsrmStorageModuleType} 
      * @see https://learn.microsoft.com/windows/win32/api/fsrmpipeline/nf-fsrmpipeline-ifsrmstoragemoduledefinition-get_storagetype
      */
     get_StorageType() {
@@ -87,7 +86,7 @@ class IFsrmStorageModuleDefinition extends IFsrmPipelineModuleDefinition{
 
     /**
      * The type of storage that the storage module uses. (Put)
-     * @param {Integer} storageType 
+     * @param {FsrmStorageModuleType} storageType 
      * @returns {HRESULT} 
      * @see https://learn.microsoft.com/windows/win32/api/fsrmpipeline/nf-fsrmpipeline-ifsrmstoragemoduledefinition-put_storagetype
      */

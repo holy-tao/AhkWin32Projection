@@ -1,14 +1,13 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\..\Win32Struct.ahk
+#Include .\DOMAIN_PASSWORD_PROPERTIES.ahk
 
 /**
  * Contains information about a domain's password policy, such as the minimum length for passwords and how unique passwords must be.
  * @see https://learn.microsoft.com/windows/win32/api/ntsecapi/ns-ntsecapi-domain_password_information
  * @namespace Windows.Win32.Security.Authentication.Identity
- * @version v4.0.30319
  */
-class DOMAIN_PASSWORD_INFORMATION extends Win32Struct
-{
+class DOMAIN_PASSWORD_INFORMATION extends Win32Struct {
     static sizeof => 24
 
     static packingSize => 8
@@ -32,8 +31,7 @@ class DOMAIN_PASSWORD_INFORMATION extends Win32Struct
     }
 
     /**
-     * 
-     * @type {Integer}
+     * @type {DOMAIN_PASSWORD_PROPERTIES}
      */
     PasswordProperties {
         get => NumGet(this, 4, "uint")

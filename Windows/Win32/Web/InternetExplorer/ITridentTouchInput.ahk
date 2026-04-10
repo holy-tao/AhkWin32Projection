@@ -5,9 +5,8 @@
 
 /**
  * @namespace Windows.Win32.Web.InternetExplorer
- * @version v4.0.30319
  */
-class ITridentTouchInput extends IUnknown{
+class ITridentTouchInput extends IUnknown {
 
     static sizeof => A_PtrSize
     /**

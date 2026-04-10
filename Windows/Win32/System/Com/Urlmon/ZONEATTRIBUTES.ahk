@@ -3,10 +3,8 @@
 
 /**
  * @namespace Windows.Win32.System.Com.Urlmon
- * @version v4.0.30319
  */
-class ZONEATTRIBUTES extends Win32Struct
-{
+class ZONEATTRIBUTES extends Win32Struct {
     static sizeof => 1460
 
     static packingSize => 4

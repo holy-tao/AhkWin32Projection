@@ -5,9 +5,8 @@
  * Specifies the storage media type.
  * @see https://learn.microsoft.com/windows/win32/api/winioctl/ne-winioctl-file_storage_tier_media_type
  * @namespace Windows.Win32.System.Ioctl
- * @version v4.0.30319
  */
-class FILE_STORAGE_TIER_MEDIA_TYPE extends Win32Enum{
+class FILE_STORAGE_TIER_MEDIA_TYPE extends Win32Enum {
 
     /**
      * Media type is unspecified.
@@ -28,13 +27,11 @@ class FILE_STORAGE_TIER_MEDIA_TYPE extends Win32Enum{
     static FileStorageTierMediaTypeSsd => 2
 
     /**
-     * 
      * @type {Integer (Int32)}
      */
     static FileStorageTierMediaTypeScm => 4
 
     /**
-     * 
      * @type {Integer (Int32)}
      */
     static FileStorageTierMediaTypeMax => 5

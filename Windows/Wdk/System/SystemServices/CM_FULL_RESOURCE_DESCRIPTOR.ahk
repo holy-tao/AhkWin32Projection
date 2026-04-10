@@ -1,18 +1,17 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
+#Include .\INTERFACE_TYPE.ahk
 
 /**
  * @namespace Windows.Wdk.System.SystemServices
- * @version v4.0.30319
  */
-class CM_FULL_RESOURCE_DESCRIPTOR extends Win32Struct
-{
+class CM_FULL_RESOURCE_DESCRIPTOR extends Win32Struct {
     static sizeof => 16
 
     static packingSize => 8
 
     /**
-     * @type {Integer}
+     * @type {INTERFACE_TYPE}
      */
     InterfaceType {
         get => NumGet(this, 0, "int")
@@ -28,7 +27,7 @@ class CM_FULL_RESOURCE_DESCRIPTOR extends Win32Struct
     }
 
     /**
-     * @type {Pointer<CM_PARTIAL_RESOURCE_LIST>}
+     * @type {Pointer}
      */
     PartialResourceList {
         get => NumGet(this, 8, "ptr")

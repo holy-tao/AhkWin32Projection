@@ -5,9 +5,8 @@
 
 /**
  * @namespace Windows.Win32.System.ClrHosting
- * @version v4.0.30319
  */
-class IGCHost2 extends IGCHost{
+class IGCHost2 extends IGCHost {
 
     static sizeof => A_PtrSize
     /**

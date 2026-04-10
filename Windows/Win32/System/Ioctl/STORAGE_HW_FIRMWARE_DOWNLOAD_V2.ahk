@@ -3,10 +3,8 @@
 
 /**
  * @namespace Windows.Win32.System.Ioctl
- * @version v4.0.30319
  */
-class STORAGE_HW_FIRMWARE_DOWNLOAD_V2 extends Win32Struct
-{
+class STORAGE_HW_FIRMWARE_DOWNLOAD_V2 extends Win32Struct {
     static sizeof => 48
 
     static packingSize => 8
@@ -44,9 +42,9 @@ class STORAGE_HW_FIRMWARE_DOWNLOAD_V2 extends Win32Struct
     }
 
     /**
-     * @type {Array<Byte>}
+     * @type {Array<Integer>}
      */
-    Reserved{
+    Reserved {
         get {
             if(!this.HasProp("__ReservedProxyArray"))
                 this.__ReservedProxyArray := Win32FixedArray(this.ptr + 13, 3, Primitive, "char")
@@ -87,9 +85,9 @@ class STORAGE_HW_FIRMWARE_DOWNLOAD_V2 extends Win32Struct
     }
 
     /**
-     * @type {Array<Byte>}
+     * @type {Array<Integer>}
      */
-    ImageBuffer{
+    ImageBuffer {
         get {
             if(!this.HasProp("__ImageBufferProxyArray"))
                 this.__ImageBufferProxyArray := Win32FixedArray(this.ptr + 40, 1, Primitive, "char")

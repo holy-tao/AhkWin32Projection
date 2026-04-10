@@ -13,10 +13,8 @@
  *     method.
  * @see https://learn.microsoft.com/windows/win32/api/vdshwprv/ns-vdshwprv-vds_mount_point_notification
  * @namespace Windows.Win32.Storage.VirtualDiskService
- * @version v4.0.30319
  */
-class VDS_MOUNT_POINT_NOTIFICATION extends Win32Struct
-{
+class VDS_MOUNT_POINT_NOTIFICATION extends Win32Struct {
     static sizeof => 16
 
     static packingSize => 8
@@ -50,7 +48,7 @@ class VDS_MOUNT_POINT_NOTIFICATION extends Win32Struct
 
     /**
      * The GUID of the volume object associated with the drive letter or volume GUID path that triggered the event.
-     * @type {Pointer<Guid>}
+     * @type {Pointer}
      */
     volumeId {
         get => NumGet(this, 8, "ptr")

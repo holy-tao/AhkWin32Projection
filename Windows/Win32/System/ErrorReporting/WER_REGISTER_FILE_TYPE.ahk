@@ -3,9 +3,8 @@
 
 /**
  * @namespace Windows.Win32.System.ErrorReporting
- * @version v4.0.30319
  */
-class WER_REGISTER_FILE_TYPE extends Win32Enum{
+class WER_REGISTER_FILE_TYPE extends Win32Enum {
 
     /**
      * @type {Integer (Int32)}

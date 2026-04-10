@@ -1,15 +1,15 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
+#Include ..\..\Foundation\SYSTEMTIME.ahk
+#Include ..\..\Foundation\FILETIME.ahk
 #Include .\EVT_HANDLE.ahk
 
 /**
  * Contains event data or property values.
  * @see https://learn.microsoft.com/windows/win32/api/winevt/ns-winevt-evt_variant
  * @namespace Windows.Win32.System.EventLog
- * @version v4.0.30319
  */
-class EVT_VARIANT extends Win32Struct
-{
+class EVT_VARIANT extends Win32Struct {
     static sizeof => 16
 
     static packingSize => 8
@@ -313,7 +313,7 @@ class EVT_VARIANT extends Win32Struct
     /**
      * @type {EVT_HANDLE}
      */
-    EvtHandleVal{
+    EvtHandleVal {
         get {
             if(!this.HasProp("__EvtHandleVal"))
                 this.__EvtHandleVal := EVT_HANDLE(0, this)

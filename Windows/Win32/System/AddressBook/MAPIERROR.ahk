@@ -13,10 +13,8 @@
  * For more information about error handling in MAPI, see [Error Handling](error-handling-in-mapi.md).
  * @see https://learn.microsoft.com/office/client-developer/outlook/mapi/mapierror
  * @namespace Windows.Win32.System.AddressBook
- * @version v4.0.30319
  */
-class MAPIERROR extends Win32Struct
-{
+class MAPIERROR extends Win32Struct {
     static sizeof => 32
 
     static packingSize => 8

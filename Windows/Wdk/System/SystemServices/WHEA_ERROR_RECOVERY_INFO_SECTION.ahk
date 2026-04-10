@@ -1,12 +1,12 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
+#Include .\WHEA_RECOVERY_TYPE.ahk
+#Include .\WHEA_RECOVERY_FAILURE_REASON.ahk
 
 /**
  * @namespace Windows.Wdk.System.SystemServices
- * @version v4.0.30319
  */
-class WHEA_ERROR_RECOVERY_INFO_SECTION extends Win32Struct
-{
+class WHEA_ERROR_RECOVERY_INFO_SECTION extends Win32Struct {
     static sizeof => 48
 
     static packingSize => 8
@@ -20,7 +20,7 @@ class WHEA_ERROR_RECOVERY_INFO_SECTION extends Win32Struct
     }
 
     /**
-     * @type {Pointer<WHEA_RECOVERY_ACTION>}
+     * @type {Pointer}
      */
     RecoveryAction {
         get => NumGet(this, 8, "ptr")
@@ -28,7 +28,7 @@ class WHEA_ERROR_RECOVERY_INFO_SECTION extends Win32Struct
     }
 
     /**
-     * @type {Integer}
+     * @type {WHEA_RECOVERY_TYPE}
      */
     RecoveryType {
         get => NumGet(this, 16, "int")
@@ -52,7 +52,7 @@ class WHEA_ERROR_RECOVERY_INFO_SECTION extends Win32Struct
     }
 
     /**
-     * @type {Integer}
+     * @type {WHEA_RECOVERY_FAILURE_REASON}
      */
     FailureReason {
         get => NumGet(this, 24, "int")
@@ -60,9 +60,9 @@ class WHEA_ERROR_RECOVERY_INFO_SECTION extends Win32Struct
     }
 
     /**
-     * @type {Array<SByte>}
+     * @type {Array<Integer>}
      */
-    ProcessName{
+    ProcessName {
         get {
             if(!this.HasProp("__ProcessNameProxyArray"))
                 this.__ProcessNameProxyArray := Win32FixedArray(this.ptr + 28, 20, Primitive, "char")

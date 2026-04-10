@@ -3,9 +3,8 @@
 
 /**
  * @namespace Windows.Win32.Networking.HttpServer
- * @version v4.0.30319
  */
-class HTTP_RECEIVE_HTTP_REQUEST_FLAGS extends Win32Enum{
+class HTTP_RECEIVE_HTTP_REQUEST_FLAGS extends Win32Enum {
 
     /**
      * @type {Integer (UInt32)}

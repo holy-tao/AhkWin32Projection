@@ -1,16 +1,15 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\..\Win32Struct.ahk
 #Include .\ADDRESS64.ahk
+#Include .\ADDRESS_MODE.ahk
 #Include .\KDHELP64.ahk
 
 /**
  * Represents an extended stack frame.
  * @see https://learn.microsoft.com/windows/win32/api/dbghelp/ns-dbghelp-stackframe_ex
  * @namespace Windows.Win32.System.Diagnostics.Debug
- * @version v4.0.30319
  */
-class STACKFRAME_EX extends Win32Struct
-{
+class STACKFRAME_EX extends Win32Struct {
     static sizeof => 272
 
     static packingSize => 8
@@ -27,7 +26,7 @@ class STACKFRAME_EX extends Win32Struct
      * <b>x64:  </b>The program counter is RIP.
      * @type {ADDRESS64}
      */
-    AddrPC{
+    AddrPC {
         get {
             if(!this.HasProp("__AddrPC"))
                 this.__AddrPC := ADDRESS64(0, this)
@@ -40,7 +39,7 @@ class STACKFRAME_EX extends Win32Struct
      *       the return address.
      * @type {ADDRESS64}
      */
-    AddrReturn{
+    AddrReturn {
         get {
             if(!this.HasProp("__AddrReturn"))
                 this.__AddrReturn := ADDRESS64(16, this)
@@ -60,7 +59,7 @@ class STACKFRAME_EX extends Win32Struct
      * <b>x64:  </b>The frame pointer is RBP or RDI. This value is not always used.
      * @type {ADDRESS64}
      */
-    AddrFrame{
+    AddrFrame {
         get {
             if(!this.HasProp("__AddrFrame"))
                 this.__AddrFrame := ADDRESS64(32, this)
@@ -80,7 +79,7 @@ class STACKFRAME_EX extends Win32Struct
      * <b>x64:  </b>The stack pointer is RSP.
      * @type {ADDRESS64}
      */
-    AddrStack{
+    AddrStack {
         get {
             if(!this.HasProp("__AddrStack"))
                 this.__AddrStack := ADDRESS64(48, this)
@@ -93,7 +92,7 @@ class STACKFRAME_EX extends Win32Struct
      *         the backing store (RsBSP).
      * @type {ADDRESS64}
      */
-    AddrBStore{
+    AddrBStore {
         get {
             if(!this.HasProp("__AddrBStore"))
                 this.__AddrBStore := ADDRESS64(64, this)
@@ -113,9 +112,9 @@ class STACKFRAME_EX extends Win32Struct
 
     /**
      * The possible arguments to the function.
-     * @type {Array<UInt64>}
+     * @type {Array<Integer>}
      */
-    Params{
+    Params {
         get {
             if(!this.HasProp("__ParamsProxyArray"))
                 this.__ParamsProxyArray := Win32FixedArray(this.ptr + 88, 4, Primitive, "uint")
@@ -144,9 +143,9 @@ class STACKFRAME_EX extends Win32Struct
     /**
      * This member is used internally by the <a href="https://docs.microsoft.com/windows/desktop/api/dbghelp/nf-dbghelp-stackwalkex">StackWalkEx</a> 
      *       function.
-     * @type {Array<UInt64>}
+     * @type {Array<Integer>}
      */
-    Reserved{
+    Reserved {
         get {
             if(!this.HasProp("__ReservedProxyArray"))
                 this.__ReservedProxyArray := Win32FixedArray(this.ptr + 128, 3, Primitive, "uint")
@@ -159,7 +158,7 @@ class STACKFRAME_EX extends Win32Struct
      *       walking kernel callback frames.
      * @type {KDHELP64}
      */
-    KdHelp{
+    KdHelp {
         get {
             if(!this.HasProp("__KdHelp"))
                 this.__KdHelp := KDHELP64(152, this)

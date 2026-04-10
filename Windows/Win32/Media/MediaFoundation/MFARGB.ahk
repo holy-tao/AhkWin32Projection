@@ -5,10 +5,8 @@
  * Describes an ARGB color value.
  * @see https://learn.microsoft.com/windows/win32/api/mfobjects/ns-mfobjects-mfargb
  * @namespace Windows.Win32.Media.MediaFoundation
- * @version v4.0.30319
  */
-class MFARGB extends Win32Struct
-{
+class MFARGB extends Win32Struct {
     static sizeof => 4
 
     static packingSize => 1

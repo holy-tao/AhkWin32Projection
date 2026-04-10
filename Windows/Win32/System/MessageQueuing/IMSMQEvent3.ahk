@@ -5,9 +5,8 @@
 
 /**
  * @namespace Windows.Win32.System.MessageQueuing
- * @version v4.0.30319
  */
-class IMSMQEvent3 extends IMSMQEvent2{
+class IMSMQEvent3 extends IMSMQEvent2 {
 
     static sizeof => A_PtrSize
     /**

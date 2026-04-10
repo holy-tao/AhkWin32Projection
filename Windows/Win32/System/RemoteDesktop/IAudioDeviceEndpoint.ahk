@@ -9,9 +9,8 @@
  * The Remote Desktop Services AudioEndpoint API is for use in Remote Desktop scenarios; it is not for client applications.
  * @see https://learn.microsoft.com/windows/win32/api/audioengineendpoint/nn-audioengineendpoint-iaudiodeviceendpoint
  * @namespace Windows.Win32.System.RemoteDesktop
- * @version v4.0.30319
  */
-class IAudioDeviceEndpoint extends IUnknown{
+class IAudioDeviceEndpoint extends IUnknown {
 
     static sizeof => A_PtrSize
     /**

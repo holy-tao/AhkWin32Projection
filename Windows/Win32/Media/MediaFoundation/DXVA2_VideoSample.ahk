@@ -1,6 +1,7 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
 #Include .\DXVA2_ExtendedFormat.ahk
+#Include ..\..\Graphics\Direct3D9\IDirect3DSurface9.ahk
 #Include ..\..\Foundation\RECT.ahk
 #Include .\DXVA2_AYUVSample8.ahk
 #Include .\DXVA2_Fixed32.ahk
@@ -9,11 +10,9 @@
  * Specifies an input sample for the IDirectXVideoProcessor::VideoProcessBlt method.
  * @see https://learn.microsoft.com/windows/win32/api/dxva2api/ns-dxva2api-dxva2_videosample
  * @namespace Windows.Win32.Media.MediaFoundation
- * @version v4.0.30319
  */
-class DXVA2_VideoSample extends Win32Struct
-{
-    static sizeof => 200
+class DXVA2_VideoSample extends Win32Struct {
+    static sizeof => 136
 
     static packingSize => 8
 
@@ -39,7 +38,7 @@ class DXVA2_VideoSample extends Win32Struct
      * <a href="https://docs.microsoft.com/windows/desktop/api/dxva2api/ns-dxva2api-dxva2_extendedformat">DXVA2_ExtendedFormat</a> structure that describes the interlacing and extended color information for the sample.
      * @type {DXVA2_ExtendedFormat}
      */
-    SampleFormat{
+    SampleFormat {
         get {
             if(!this.HasProp("__SampleFormat"))
                 this.__SampleFormat := DXVA2_ExtendedFormat(16, this)
@@ -60,7 +59,7 @@ class DXVA2_VideoSample extends Win32Struct
      * Source rectangle. The source rectangle defines which portion of the input sample is copied to the destination surface. The source rectangle is specified using pixel coordinates on the input surface.
      * @type {RECT}
      */
-    SrcRect{
+    SrcRect {
         get {
             if(!this.HasProp("__SrcRect"))
                 this.__SrcRect := RECT(32, this)
@@ -72,7 +71,7 @@ class DXVA2_VideoSample extends Win32Struct
      * Destination rectangle. The destination rectangle defines the portion of the destination surface where the source rectangle is copied. The destination rectangle is specified using pixel coordinates on the destination surface.
      * @type {RECT}
      */
-    DstRect{
+    DstRect {
         get {
             if(!this.HasProp("__DstRect"))
                 this.__DstRect := RECT(48, this)
@@ -82,9 +81,9 @@ class DXVA2_VideoSample extends Win32Struct
 
     /**
      * If the input sample is for a substream and uses a palettized YUV color format, this member contains an array of <a href="https://docs.microsoft.com/windows/desktop/api/dxva2api/ns-dxva2api-dxva2_ayuvsample8">DXVA2_AYUVSample8</a> structures that define the palette entries. For non-palettized pixel formats, the array elements should all be zero.
-     * @type {Array<DXVA2_AYUVSample8>}
+     * @type {DXVA2_AYUVSample8}
      */
-    Pal{
+    Pal {
         get {
             if(!this.HasProp("__PalProxyArray"))
                 this.__PalProxyArray := Win32FixedArray(this.ptr + 64, 16, DXVA2_AYUVSample8, "")
@@ -96,10 +95,10 @@ class DXVA2_VideoSample extends Win32Struct
      * Alpha value that will be applied to this input sample when it is composited.
      * @type {DXVA2_Fixed32}
      */
-    PlanarAlpha{
+    PlanarAlpha {
         get {
             if(!this.HasProp("__PlanarAlpha"))
-                this.__PlanarAlpha := DXVA2_Fixed32(192, this)
+                this.__PlanarAlpha := DXVA2_Fixed32(128, this)
             return this.__PlanarAlpha
         }
     }
@@ -153,7 +152,7 @@ class DXVA2_VideoSample extends Win32Struct
      * @type {Integer}
      */
     SampleData {
-        get => NumGet(this, 196, "uint")
-        set => NumPut("uint", value, this, 196)
+        get => NumGet(this, 132, "uint")
+        set => NumPut("uint", value, this, 132)
     }
 }

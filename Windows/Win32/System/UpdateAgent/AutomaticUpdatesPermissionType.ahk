@@ -11,9 +11,8 @@
  * Featured update notifications are only supported on certain update services. Currently, the only supported update service is Microsoft Update. If Automatic Updates is currently configured to receive updates from another service (from Windows Update, or from a WSUS server), then  the <a href="https://docs.microsoft.com/windows/desktop/api/wuapi/nf-wuapi-iautomaticupdatessettings3-get_featuredupdatesenabled">IAutomaticUpdatesSettings3::FeaturedUpdatesEnabled</a> value will always be VARIANT_FALSE, and attempting to alter its value will result in an error.
  * @see https://learn.microsoft.com/windows/win32/api/wuapi/ne-wuapi-automaticupdatespermissiontype
  * @namespace Windows.Win32.System.UpdateAgent
- * @version v4.0.30319
  */
-class AutomaticUpdatesPermissionType extends Win32Enum{
+class AutomaticUpdatesPermissionType extends Win32Enum {
 
     /**
      * The ability to set the <a href="https://docs.microsoft.com/windows/desktop/api/wuapi/nf-wuapi-iautomaticupdatessettings-get_notificationlevel">IAutomaticUpdatesSettings::NotificationLevel</a> property.

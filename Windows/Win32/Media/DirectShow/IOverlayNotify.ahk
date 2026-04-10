@@ -7,9 +7,8 @@
  * The IOverlayNotify interface provides an upstream filter, such as a decoder, with notifications of changes to the rendering window.
  * @see https://learn.microsoft.com/windows/win32/api/strmif/nn-strmif-ioverlaynotify
  * @namespace Windows.Win32.Media.DirectShow
- * @version v4.0.30319
  */
-class IOverlayNotify extends IUnknown{
+class IOverlayNotify extends IUnknown {
 
     static sizeof => A_PtrSize
     /**

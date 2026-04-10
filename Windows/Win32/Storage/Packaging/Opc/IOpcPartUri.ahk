@@ -10,9 +10,8 @@
  * The behavior and performance of this interface is the same on all supported Windows versions. For more information, see <a href="https://docs.microsoft.com/previous-versions/windows/desktop/opc/packaging-api-overview">Getting Started with the Packaging API</a>, and <a href="https://docs.microsoft.com/windows/desktop/win7ip/platform-update-for-windows-vista-portal">Platform Update for Windows Vista</a>.
  * @see https://learn.microsoft.com/windows/win32/api/msopc/nn-msopc-iopcparturi
  * @namespace Windows.Win32.Storage.Packaging.Opc
- * @version v4.0.30319
  */
-class IOpcPartUri extends IOpcUri{
+class IOpcPartUri extends IOpcUri {
 
     static sizeof => A_PtrSize
     /**

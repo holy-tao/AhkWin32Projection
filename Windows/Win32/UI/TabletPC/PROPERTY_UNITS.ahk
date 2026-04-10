@@ -5,9 +5,8 @@
  * Defines constant values for the unit of measurement of a property.
  * @see https://learn.microsoft.com/windows/win32/api/tpcshrd/ne-tpcshrd-property_units
  * @namespace Windows.Win32.UI.TabletPC
- * @version v4.0.30319
  */
-class PROPERTY_UNITS extends Win32Enum{
+class PROPERTY_UNITS extends Win32Enum {
 
     /**
      * Units are unknown.
@@ -58,55 +57,46 @@ class PROPERTY_UNITS extends Win32Enum{
     static PROPERTY_UNITS_GRAMS => 7
 
     /**
-     * 
      * @type {Integer (Int32)}
      */
     static PROPERTY_UNITS_SILINEAR => 8
 
     /**
-     * 
      * @type {Integer (Int32)}
      */
     static PROPERTY_UNITS_SIROTATION => 9
 
     /**
-     * 
      * @type {Integer (Int32)}
      */
     static PROPERTY_UNITS_ENGLINEAR => 10
 
     /**
-     * 
      * @type {Integer (Int32)}
      */
     static PROPERTY_UNITS_ENGROTATION => 11
 
     /**
-     * 
      * @type {Integer (Int32)}
      */
     static PROPERTY_UNITS_SLUGS => 12
 
     /**
-     * 
      * @type {Integer (Int32)}
      */
     static PROPERTY_UNITS_KELVIN => 13
 
     /**
-     * 
      * @type {Integer (Int32)}
      */
     static PROPERTY_UNITS_FAHRENHEIT => 14
 
     /**
-     * 
      * @type {Integer (Int32)}
      */
     static PROPERTY_UNITS_AMPERE => 15
 
     /**
-     * 
      * @type {Integer (Int32)}
      */
     static PROPERTY_UNITS_CANDELA => 16

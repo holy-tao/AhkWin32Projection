@@ -4,10 +4,8 @@
 
 /**
  * @namespace Windows.Win32.System.WindowsProgramming
- * @version v4.0.30319
  */
-class DCIOVERLAY extends Win32Struct
-{
+class DCIOVERLAY extends Win32Struct {
     static sizeof => 96
 
     static packingSize => 8
@@ -15,7 +13,7 @@ class DCIOVERLAY extends Win32Struct
     /**
      * @type {DCISURFACEINFO}
      */
-    dciInfo{
+    dciInfo {
         get {
             if(!this.HasProp("__dciInfo"))
                 this.__dciInfo := DCISURFACEINFO(0, this)

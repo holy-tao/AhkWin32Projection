@@ -1,12 +1,12 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
+#Include .\D3DDDI_ALLOCATIONLIST.ahk
+#Include .\D3DDDI_PATCHLOCATIONLIST.ahk
 
 /**
  * @namespace Windows.Wdk.Graphics.Direct3D
- * @version v4.0.30319
  */
-class D3DKMT_CREATEDEVICE extends Win32Struct
-{
+class D3DKMT_CREATEDEVICE extends Win32Struct {
     static sizeof => 72
 
     static packingSize => 8
@@ -28,7 +28,7 @@ class D3DKMT_CREATEDEVICE extends Win32Struct
     }
 
     /**
-     * @type {Pointer<D3DKMT_CREATEDEVICEFLAGS>}
+     * @type {Pointer}
      */
     Flags {
         get => NumGet(this, 8, "ptr")

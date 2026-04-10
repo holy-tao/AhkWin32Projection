@@ -18,10 +18,8 @@
  * ```
  * @see https://learn.microsoft.com/windows/win32/api/minidumpapiset/ns-minidumpapiset-minidump_location_descriptor
  * @namespace Windows.Win32.System.Diagnostics.Debug
- * @version v4.0.30319
  */
-class MINIDUMP_LOCATION_DESCRIPTOR extends Win32Struct
-{
+class MINIDUMP_LOCATION_DESCRIPTOR extends Win32Struct {
     static sizeof => 8
 
     static packingSize => 4

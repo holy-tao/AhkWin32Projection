@@ -37,10 +37,8 @@
  * <a href="https://docs.microsoft.com/windows/desktop/api/ws2spi/nf-ws2spi-wsaunadvertiseprovider">WSAUnadvertiseProvider</a> function makes a specific namespace provider no longer available for clients.
  * @see https://learn.microsoft.com/windows/win32/api/ws2spi/ns-ws2spi-nspv2_routine
  * @namespace Windows.Win32.Networking.WinSock
- * @version v4.0.30319
  */
-class NSPV2_ROUTINE extends Win32Struct
-{
+class NSPV2_ROUTINE extends Win32Struct {
     static sizeof => 72
 
     static packingSize => 8

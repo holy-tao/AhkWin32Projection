@@ -9,10 +9,8 @@
  * For example, if a namespace capability change may occur, then the host software should pause the use of the associated namespace, submit the command that may cause a namespace capability change and wait for its completion, and then re-issue the Identify command.
  * @see https://learn.microsoft.com/windows/win32/api/nvme/ns-nvme-nvme_command_effects_data
  * @namespace Windows.Win32.Storage.Nvme
- * @version v4.0.30319
  */
-class NVME_COMMAND_EFFECTS_DATA extends Win32Struct
-{
+class NVME_COMMAND_EFFECTS_DATA extends Win32Struct {
     static sizeof => 8
 
     static packingSize => 4
@@ -154,7 +152,6 @@ class NVME_COMMAND_EFFECTS_DATA extends Win32Struct
     }
 
     /**
-     * 
      * @type {Integer}
      */
     AsUlong {

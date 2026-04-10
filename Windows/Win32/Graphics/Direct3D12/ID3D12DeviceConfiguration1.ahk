@@ -5,9 +5,8 @@
 
 /**
  * @namespace Windows.Win32.Graphics.Direct3D12
- * @version v4.0.30319
  */
-class ID3D12DeviceConfiguration1 extends ID3D12DeviceConfiguration{
+class ID3D12DeviceConfiguration1 extends ID3D12DeviceConfiguration {
 
     static sizeof => A_PtrSize
     /**
@@ -30,7 +29,7 @@ class ID3D12DeviceConfiguration1 extends ID3D12DeviceConfiguration{
 
     /**
      * 
-     * @param {Pointer} pLibraryBlob 
+     * @param {Integer} pLibraryBlob 
      * @param {Pointer} _Size 
      * @param {PWSTR} RootSignatureSubobjectName 
      * @param {Pointer<Guid>} riid 

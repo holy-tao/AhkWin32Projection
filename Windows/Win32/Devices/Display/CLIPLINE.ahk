@@ -11,19 +11,17 @@
  * See <a href="https://docs.microsoft.com/windows-hardware/drivers/display/gdi-data-types">GDI Data Types</a> for a description of the POINTFIX structure.
  * @see https://learn.microsoft.com/windows/win32/api/winddi/ns-winddi-clipline
  * @namespace Windows.Win32.Devices.Display
- * @version v4.0.30319
  */
-class CLIPLINE extends Win32Struct
-{
+class CLIPLINE extends Win32Struct {
     static sizeof => 32
 
-    static packingSize => 8
+    static packingSize => 4
 
     /**
      * Specifies a POINTFIX structure that contains the starting point of the line.
      * @type {POINTFIX}
      */
-    ptfxA{
+    ptfxA {
         get {
             if(!this.HasProp("__ptfxA"))
                 this.__ptfxA := POINTFIX(0, this)
@@ -35,7 +33,7 @@ class CLIPLINE extends Win32Struct
      * Specifies a POINTFIX structure that contains the end point of the line.
      * @type {POINTFIX}
      */
-    ptfxB{
+    ptfxB {
         get {
             if(!this.HasProp("__ptfxB"))
                 this.__ptfxB := POINTFIX(8, this)
@@ -63,9 +61,9 @@ class CLIPLINE extends Win32Struct
 
     /**
      * Is an array of <a href="https://docs.microsoft.com/windows/desktop/api/winddi/ns-winddi-run">RUN</a> structures. The RUN structures describe the start and stop portions of the clip line.
-     * @type {Array<RUN>}
+     * @type {RUN}
      */
-    arun{
+    arun {
         get {
             if(!this.HasProp("__arunProxyArray"))
                 this.__arunProxyArray := Win32FixedArray(this.ptr + 24, 1, RUN, "")

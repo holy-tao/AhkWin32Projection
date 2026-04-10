@@ -1,20 +1,18 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
+#Include .\MFPaletteEntry.ahk
 #Include .\MFARGB.ahk
 #Include .\MFAYUVSample.ahk
-#Include .\MFPaletteEntry.ahk
 
 /**
  * Contains information about an uncompressed video format. This structure is used in the MFVIDEOFORMAT structure.
  * @see https://learn.microsoft.com/windows/win32/api/mfobjects/ns-mfobjects-mfvideosurfaceinfo
  * @namespace Windows.Win32.Media.MediaFoundation
- * @version v4.0.30319
  */
-class MFVideoSurfaceInfo extends Win32Struct
-{
+class MFVideoSurfaceInfo extends Win32Struct {
     static sizeof => 16
 
-    static packingSize => 8
+    static packingSize => 4
 
     /**
      * For compressed formats, this value must be zero. For uncompressed formats, the value is a FOURCC or <b>D3DFORMAT</b> value that identifies the format. Use the <b>Data1</b> field from the subtype GUID. See <a href="https://docs.microsoft.com/windows/desktop/medfound/video-subtype-guids">Video Subtype GUIDs</a>.
@@ -36,9 +34,9 @@ class MFVideoSurfaceInfo extends Win32Struct
 
     /**
      * Array of <a href="https://docs.microsoft.com/windows/win32/api/mfobjects/ns-mfobjects-mfpaletteentry">MFPaletteEntry Union</a>s that contains the color table for a palettized format. The size of the array is given in the <b>PaletteEntries</b> member. If the format is not palettized, set <b>PaletteEntries</b> to zero.
-     * @type {Array<MFPaletteEntry>}
+     * @type {MFPaletteEntry}
      */
-    Palette{
+    Palette {
         get {
             if(!this.HasProp("__PaletteProxyArray"))
                 this.__PaletteProxyArray := Win32FixedArray(this.ptr + 8, 1, MFPaletteEntry, "")

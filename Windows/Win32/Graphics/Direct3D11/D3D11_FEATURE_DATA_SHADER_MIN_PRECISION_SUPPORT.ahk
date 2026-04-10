@@ -9,10 +9,8 @@
  * For more info about HLSL minimum precision, see <a href="https://docs.microsoft.com/windows/desktop/direct3d11/direct3d-11-1-features">using HLSL minimum precision</a>.
  * @see https://learn.microsoft.com/windows/win32/api/d3d11/ns-d3d11-d3d11_feature_data_shader_min_precision_support
  * @namespace Windows.Win32.Graphics.Direct3D11
- * @version v4.0.30319
  */
-class D3D11_FEATURE_DATA_SHADER_MIN_PRECISION_SUPPORT extends Win32Struct
-{
+class D3D11_FEATURE_DATA_SHADER_MIN_PRECISION_SUPPORT extends Win32Struct {
     static sizeof => 8
 
     static packingSize => 4

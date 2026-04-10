@@ -1,13 +1,12 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\..\Win32Struct.ahk
 #Include ..\..\..\Foundation\BSTR.ahk
+#Include .\IDebugProperty.ahk
 
 /**
  * @namespace Windows.Win32.System.Diagnostics.Debug
- * @version v4.0.30319
  */
-class DebugPropertyInfo extends Win32Struct
-{
+class DebugPropertyInfo extends Win32Struct {
     static sizeof => 56
 
     static packingSize => 8
@@ -23,7 +22,7 @@ class DebugPropertyInfo extends Win32Struct
     /**
      * @type {BSTR}
      */
-    m_bstrName{
+    m_bstrName {
         get {
             if(!this.HasProp("__m_bstrName"))
                 this.__m_bstrName := BSTR(8, this)
@@ -34,7 +33,7 @@ class DebugPropertyInfo extends Win32Struct
     /**
      * @type {BSTR}
      */
-    m_bstrType{
+    m_bstrType {
         get {
             if(!this.HasProp("__m_bstrType"))
                 this.__m_bstrType := BSTR(16, this)
@@ -45,7 +44,7 @@ class DebugPropertyInfo extends Win32Struct
     /**
      * @type {BSTR}
      */
-    m_bstrValue{
+    m_bstrValue {
         get {
             if(!this.HasProp("__m_bstrValue"))
                 this.__m_bstrValue := BSTR(24, this)
@@ -56,7 +55,7 @@ class DebugPropertyInfo extends Win32Struct
     /**
      * @type {BSTR}
      */
-    m_bstrFullName{
+    m_bstrFullName {
         get {
             if(!this.HasProp("__m_bstrFullName"))
                 this.__m_bstrFullName := BSTR(32, this)

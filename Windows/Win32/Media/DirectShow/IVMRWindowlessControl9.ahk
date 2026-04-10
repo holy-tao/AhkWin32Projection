@@ -11,9 +11,8 @@
  * Include DShow.h and D3d9.h before Vmr9.h.
  * @see https://learn.microsoft.com/windows/win32/api/vmr9/nn-vmr9-ivmrwindowlesscontrol9
  * @namespace Windows.Win32.Media.DirectShow
- * @version v4.0.30319
  */
-class IVMRWindowlessControl9 extends IUnknown{
+class IVMRWindowlessControl9 extends IUnknown {
 
     static sizeof => A_PtrSize
     /**
@@ -324,7 +323,7 @@ class IVMRWindowlessControl9 extends IUnknown{
      * The SetVideoClippingWindow method specifies the container window that video should be clipped to.
      * @remarks
      * Include DShow.h and D3d9.h before Vmr9.h.
-     * @param {HWND} _hwnd 
+     * @param {HWND} _hwnd Specifies the window to which the video should be clipped.
      * @returns {HRESULT} The method returns an <b>HRESULT</b>. Possible values include those in the following table.
      * 
      * <table>
@@ -379,8 +378,8 @@ class IVMRWindowlessControl9 extends IUnknown{
      * The RepaintVideo method repaints the current video frame.
      * @remarks
      * Include DShow.h and D3d9.h before Vmr9.h.
-     * @param {HWND} _hwnd 
-     * @param {HDC} _hdc 
+     * @param {HWND} _hwnd Specifies the handle of the window in which the repainting should occur.
+     * @param {HDC} _hdc Specifies the handle to the device context for the window.
      * @returns {HRESULT} The method returns an <b>HRESULT</b>. Possible values include those in the following table.
      * 
      * <table>

@@ -3,9 +3,8 @@
 
 /**
  * @namespace Windows.Win32.UI.Controls
- * @version v4.0.30319
  */
-class MDICLOSEBUTTONSTATES extends Win32Enum{
+class MDICLOSEBUTTONSTATES extends Win32Enum {
 
     /**
      * @type {Integer (Int32)}

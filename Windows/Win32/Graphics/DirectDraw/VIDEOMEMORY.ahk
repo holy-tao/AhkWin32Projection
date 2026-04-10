@@ -1,6 +1,7 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
 #Include .\DDSCAPS.ahk
+#Include .\VMEMHEAP.ahk
 
 /**
  * The VIDEOMEMORY structure allows the driver to manage its display memory into heaps.
@@ -14,16 +15,13 @@
  * DirectDraw's heap manager makes two passes through the VIDEOMEMORY structures. The <b>ddsCaps</b> member indicates to DirectDraw what the memory in the heap cannot be used for on the first pass. For example, if the heap was just big enough for a back buffer, sprites could be excluded from being allocated on the first pass by setting the DSCAPS_OFFSCREENPLAIN flag in the <a href="https://docs.microsoft.com/previous-versions/windows/hardware/drivers/ff550286(v=vs.85)">DDSCAPS</a> structure. That way, other surfaces would fill up with sprites, while preserving the back buffer for page flipping. The <b>ddsCapsAlt</b> member could be set to allow sprites on the second pass (by removing the DSCAPS_OFFSCREENPLAIN flag). This allows heaps to be used preferentially for their highest and best use, without ruling out alternative uses. By choosing the order of allocation carefully (for example, by listing the back buffer last), the need to sort by <b>ddsCaps</b> and <b>ddsCapsAlt</b> can sometimes be eliminated.
  * @see https://learn.microsoft.com/windows/win32/api/ddrawint/ns-ddrawint-videomemory
  * @namespace Windows.Win32.Graphics.DirectDraw
- * @version v4.0.30319
  */
-class VIDEOMEMORY extends Win32Struct
-{
-    static sizeof => 56
+class VIDEOMEMORY extends Win32Struct {
+    static sizeof => 40
 
     static packingSize => 8
 
     /**
-     * 
      * @type {Integer}
      */
     dwFlags {
@@ -60,10 +58,10 @@ class VIDEOMEMORY extends Win32Struct
      * Specifies a <a href="https://docs.microsoft.com/previous-versions/windows/hardware/drivers/ff550286(v=vs.85)">DDSCAPS</a> structure in which the driver returns the capabilities for which this section of memory cannot be used.
      * @type {DDSCAPS}
      */
-    ddsCaps{
+    ddsCaps {
         get {
             if(!this.HasProp("__ddsCaps"))
-                this.__ddsCaps := DDSCAPS(28, this)
+                this.__ddsCaps := DDSCAPS(24, this)
             return this.__ddsCaps
         }
     }
@@ -72,10 +70,10 @@ class VIDEOMEMORY extends Win32Struct
      * Specifies a DDSCAPS structure in which the driver returns the capabilities for which this chunk of memory cannot be used when no other memory is found on the first pass.
      * @type {DDSCAPS}
      */
-    ddsCapsAlt{
+    ddsCapsAlt {
         get {
             if(!this.HasProp("__ddsCapsAlt"))
-                this.__ddsCapsAlt := DDSCAPS(32, this)
+                this.__ddsCapsAlt := DDSCAPS(28, this)
             return this.__ddsCapsAlt
         }
     }
@@ -84,15 +82,15 @@ class VIDEOMEMORY extends Win32Struct
      * @type {Pointer<VMEMHEAP>}
      */
     lpHeap {
-        get => NumGet(this, 40, "ptr")
-        set => NumPut("ptr", value, this, 40)
+        get => NumGet(this, 32, "ptr")
+        set => NumPut("ptr", value, this, 32)
     }
 
     /**
      * @type {Integer}
      */
     dwHeight {
-        get => NumGet(this, 40, "uint")
-        set => NumPut("uint", value, this, 40)
+        get => NumGet(this, 32, "uint")
+        set => NumPut("uint", value, this, 32)
     }
 }

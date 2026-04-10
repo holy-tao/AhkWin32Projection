@@ -3,9 +3,8 @@
 
 /**
  * @namespace Windows.Win32.Devices.Fax
- * @version v4.0.30319
  */
-class FAXROUTE_ENABLE extends Win32Enum{
+class FAXROUTE_ENABLE extends Win32Enum {
 
     /**
      * @type {Integer (Int32)}

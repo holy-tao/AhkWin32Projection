@@ -5,9 +5,8 @@
 
 /**
  * @namespace Windows.Win32.Media.MediaPlayer
- * @version v4.0.30319
  */
-class IXFeedFolderEvents extends IUnknown{
+class IXFeedFolderEvents extends IUnknown {
 
     static sizeof => A_PtrSize
     /**
@@ -210,7 +209,7 @@ class IXFeedFolderEvents extends IUnknown{
     /**
      * 
      * @param {PWSTR} pszPath 
-     * @param {Integer} fde 
+     * @param {FEEDS_DOWNLOAD_ERROR} fde 
      * @returns {HRESULT} 
      */
     FeedDownloadCompleted(pszPath, fde) {

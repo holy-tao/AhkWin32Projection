@@ -12,9 +12,8 @@
  * The <a href="https://docs.microsoft.com/windows/desktop/api/mfidl/nn-mfidl-imfworkqueueservices">IMFWorkQueueServices</a> can be obtained from the session by querying     for the <b>MF_WORKQUEUE_SERVICES</b> service.
  * @see https://learn.microsoft.com/windows/win32/api/mfidl/nn-mfidl-imfworkqueueservicesex
  * @namespace Windows.Win32.Media.MediaFoundation
- * @version v4.0.30319
  */
-class IMFWorkQueueServicesEx extends IMFWorkQueueServices{
+class IMFWorkQueueServicesEx extends IMFWorkQueueServices {
 
     static sizeof => A_PtrSize
     /**

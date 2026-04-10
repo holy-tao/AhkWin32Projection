@@ -3,10 +3,8 @@
 
 /**
  * @namespace Windows.Win32.System.Ioctl
- * @version v4.0.30319
  */
-class SMB_SHARE_FLUSH_AND_PURGE_INPUT extends Win32Struct
-{
+class SMB_SHARE_FLUSH_AND_PURGE_INPUT extends Win32Struct {
     static sizeof => 2
 
     static packingSize => 2

@@ -1,14 +1,11 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
-#Include ..\..\..\Win32\Storage\FileSystem\FILE_ID_128.ahk
 
 /**
  * @namespace Windows.Wdk.Storage.FileSystem
- * @version v4.0.30319
  */
-class CREATE_REDIRECTION_ECP_CONTEXT extends Win32Struct
-{
-    static sizeof => 32
+class CREATE_REDIRECTION_ECP_CONTEXT extends Win32Struct {
+    static sizeof => 24
 
     static packingSize => 8
 
@@ -29,21 +26,18 @@ class CREATE_REDIRECTION_ECP_CONTEXT extends Win32Struct
     }
 
     /**
-     * @type {FILE_ID_128}
+     * @type {Pointer}
      */
-    FileId{
-        get {
-            if(!this.HasProp("__FileId"))
-                this.__FileId := FILE_ID_128(4, this)
-            return this.__FileId
-        }
+    FileId {
+        get => NumGet(this, 8, "ptr")
+        set => NumPut("ptr", value, this, 8)
     }
 
     /**
-     * @type {Pointer<Guid>}
+     * @type {Pointer}
      */
     VolumeGuid {
-        get => NumGet(this, 24, "ptr")
-        set => NumPut("ptr", value, this, 24)
+        get => NumGet(this, 16, "ptr")
+        set => NumPut("ptr", value, this, 16)
     }
 }

@@ -7,10 +7,8 @@
  * A <b>MapiFileTagExt</b> structure defines the type of an attached file for purposes such as encoding and decoding the file, choosing the correct application to launch when opening it, or any use that requires full information regarding the file type. Client applications can use information in the <b>lpTag</b> and <b>lpEncoding</b> members of this structure to determine what to do with an attachment.
  * @see https://learn.microsoft.com/windows/win32/api/mapi/ns-mapi-mapifiletagext
  * @namespace Windows.Win32.System.Mapi
- * @version v4.0.30319
  */
-class MapiFileTagExt extends Win32Struct
-{
+class MapiFileTagExt extends Win32Struct {
     static sizeof => 32
 
     static packingSize => 8

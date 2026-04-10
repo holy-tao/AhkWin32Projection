@@ -1,15 +1,15 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\Win32Struct.ahk
 #Include ..\Foundation\LUID.ahk
+#Include .\TOKEN_TYPE.ahk
+#Include .\SECURITY_IMPERSONATION_LEVEL.ahk
 
 /**
  * Contains information about an access token.
  * @see https://learn.microsoft.com/windows/win32/api/winnt/ns-winnt-token_statistics
  * @namespace Windows.Win32.Security
- * @version v4.0.30319
  */
-class TOKEN_STATISTICS extends Win32Struct
-{
+class TOKEN_STATISTICS extends Win32Struct {
     static sizeof => 56
 
     static packingSize => 8
@@ -18,7 +18,7 @@ class TOKEN_STATISTICS extends Win32Struct
      * Specifies a locally unique identifier (<a href="https://docs.microsoft.com/windows/desktop/SecGloss/l-gly">LUID</a>) that identifies this instance of the token object.
      * @type {LUID}
      */
-    TokenId{
+    TokenId {
         get {
             if(!this.HasProp("__TokenId"))
                 this.__TokenId := LUID(0, this)
@@ -30,7 +30,7 @@ class TOKEN_STATISTICS extends Win32Struct
      * Specifies an LUID assigned to the <a href="https://docs.microsoft.com/windows/desktop/SecGloss/s-gly">session</a> this token represents. There can be many tokens representing a single <a href="https://docs.microsoft.com/windows/desktop/SecGloss/l-gly">logon session</a>.
      * @type {LUID}
      */
-    AuthenticationId{
+    AuthenticationId {
         get {
             if(!this.HasProp("__AuthenticationId"))
                 this.__AuthenticationId := LUID(8, this)
@@ -49,7 +49,7 @@ class TOKEN_STATISTICS extends Win32Struct
 
     /**
      * Specifies a <a href="https://docs.microsoft.com/windows/desktop/api/winnt/ne-winnt-token_type">TOKEN_TYPE</a> enumeration type indicating whether the token is a <a href="https://docs.microsoft.com/windows/desktop/SecGloss/p-gly">primary</a> or <a href="https://docs.microsoft.com/windows/desktop/SecGloss/i-gly">impersonation token</a>.
-     * @type {Integer}
+     * @type {TOKEN_TYPE}
      */
     TokenType {
         get => NumGet(this, 24, "int")
@@ -58,7 +58,7 @@ class TOKEN_STATISTICS extends Win32Struct
 
     /**
      * Specifies a <a href="https://docs.microsoft.com/windows/desktop/api/winnt/ne-winnt-security_impersonation_level">SECURITY_IMPERSONATION_LEVEL</a> enumeration type indicating the impersonation level of the token. This member is valid only if the <b>TokenType</b> is TokenImpersonation.
-     * @type {Integer}
+     * @type {SECURITY_IMPERSONATION_LEVEL}
      */
     ImpersonationLevel {
         get => NumGet(this, 28, "int")
@@ -105,7 +105,7 @@ class TOKEN_STATISTICS extends Win32Struct
      * Specifies an LUID that changes each time the token is modified. An application can use this value as a test of whether a <a href="https://docs.microsoft.com/windows/desktop/SecGloss/s-gly">security context</a> has changed since it was last used.
      * @type {LUID}
      */
-    ModifiedId{
+    ModifiedId {
         get {
             if(!this.HasProp("__ModifiedId"))
                 this.__ModifiedId := LUID(48, this)

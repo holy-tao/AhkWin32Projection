@@ -1,19 +1,18 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
-#Include ..\..\..\Win32\Foundation\UNICODE_STRING.ahk
+#Include ..\..\..\Win32\Security\Authentication\Identity\MSV1_0_PROTOCOL_MESSAGE_TYPE.ahk
+#Include ..\..\..\Win32\Security\Authentication\Identity\SECURITY_LOGON_TYPE.ahk
 
 /**
  * @namespace Windows.Wdk.Storage.FileSystem
- * @version v4.0.30319
  */
-class MSV1_0_GETUSERINFO_RESPONSE extends Win32Struct
-{
-    static sizeof => 72
+class MSV1_0_GETUSERINFO_RESPONSE extends Win32Struct {
+    static sizeof => 48
 
     static packingSize => 8
 
     /**
-     * @type {Integer}
+     * @type {MSV1_0_PROTOCOL_MESSAGE_TYPE}
      */
     MessageType {
         get => NumGet(this, 0, "int")
@@ -29,43 +28,34 @@ class MSV1_0_GETUSERINFO_RESPONSE extends Win32Struct
     }
 
     /**
-     * @type {UNICODE_STRING}
+     * @type {Pointer}
      */
-    UserName{
-        get {
-            if(!this.HasProp("__UserName"))
-                this.__UserName := UNICODE_STRING(16, this)
-            return this.__UserName
-        }
+    UserName {
+        get => NumGet(this, 16, "ptr")
+        set => NumPut("ptr", value, this, 16)
     }
 
     /**
-     * @type {UNICODE_STRING}
+     * @type {Pointer}
      */
-    LogonDomainName{
-        get {
-            if(!this.HasProp("__LogonDomainName"))
-                this.__LogonDomainName := UNICODE_STRING(32, this)
-            return this.__LogonDomainName
-        }
+    LogonDomainName {
+        get => NumGet(this, 24, "ptr")
+        set => NumPut("ptr", value, this, 24)
     }
 
     /**
-     * @type {UNICODE_STRING}
+     * @type {Pointer}
      */
-    LogonServer{
-        get {
-            if(!this.HasProp("__LogonServer"))
-                this.__LogonServer := UNICODE_STRING(48, this)
-            return this.__LogonServer
-        }
+    LogonServer {
+        get => NumGet(this, 32, "ptr")
+        set => NumPut("ptr", value, this, 32)
     }
 
     /**
-     * @type {Integer}
+     * @type {SECURITY_LOGON_TYPE}
      */
     LogonType {
-        get => NumGet(this, 64, "int")
-        set => NumPut("int", value, this, 64)
+        get => NumGet(this, 40, "int")
+        set => NumPut("int", value, this, 40)
     }
 }

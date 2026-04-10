@@ -1,18 +1,18 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
+#Include .\StackOverflowType.ahk
+#Include ..\Diagnostics\Debug\EXCEPTION_POINTERS.ahk
 
 /**
  * @namespace Windows.Win32.System.ClrHosting
- * @version v4.0.30319
  */
-class StackOverflowInfo extends Win32Struct
-{
+class StackOverflowInfo extends Win32Struct {
     static sizeof => 16
 
     static packingSize => 8
 
     /**
-     * @type {Integer}
+     * @type {StackOverflowType}
      */
     soType {
         get => NumGet(this, 0, "int")

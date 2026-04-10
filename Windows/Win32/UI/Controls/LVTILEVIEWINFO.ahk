@@ -1,5 +1,7 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
+#Include .\LVTILEVIEWINFO_MASK.ahk
+#Include .\LVTILEVIEWINFO_FLAGS.ahk
 #Include ..\..\Foundation\SIZE.ahk
 #Include ..\..\Foundation\RECT.ahk
 
@@ -9,10 +11,8 @@
  * By default, the dimensions of tiles are determined automatically. To apply a fixed size, supply the correct value or values in <b>sizeTile</b> and set the appropriate flag in <b>dwFlags</b>. Allow enough vertical space for all lines of the label to be displayed. If a line does not fit in the allowed horizontal space, it is terminated with an ellipsis.
  * @see https://learn.microsoft.com/windows/win32/api/commctrl/ns-commctrl-lvtileviewinfo
  * @namespace Windows.Win32.UI.Controls
- * @version v4.0.30319
  */
-class LVTILEVIEWINFO extends Win32Struct
-{
+class LVTILEVIEWINFO extends Win32Struct {
     static sizeof => 40
 
     static packingSize => 4
@@ -30,7 +30,7 @@ class LVTILEVIEWINFO extends Win32Struct
 
     /**
      * Type: <b><a href="https://docs.microsoft.com/windows/desktop/WinProg/windows-data-types">DWORD</a></b>
-     * @type {Integer}
+     * @type {LVTILEVIEWINFO_MASK}
      */
     dwMask {
         get => NumGet(this, 4, "uint")
@@ -39,7 +39,7 @@ class LVTILEVIEWINFO extends Win32Struct
 
     /**
      * Type: <b><a href="https://docs.microsoft.com/windows/desktop/WinProg/windows-data-types">DWORD</a></b>
-     * @type {Integer}
+     * @type {LVTILEVIEWINFO_FLAGS}
      */
     dwFlags {
         get => NumGet(this, 8, "uint")
@@ -52,7 +52,7 @@ class LVTILEVIEWINFO extends Win32Struct
      * Size of an individual tile. Values for dimensions not specified as fixed in <b>dwFlags</b> are ignored.
      * @type {SIZE}
      */
-    sizeTile{
+    sizeTile {
         get {
             if(!this.HasProp("__sizeTile"))
                 this.__sizeTile := SIZE(12, this)
@@ -78,7 +78,7 @@ class LVTILEVIEWINFO extends Win32Struct
      * <a href="https://docs.microsoft.com/windows/desktop/api/windef/ns-windef-rect">RECT</a> that contains coordinates of the label margin.
      * @type {RECT}
      */
-    rcLabelMargin{
+    rcLabelMargin {
         get {
             if(!this.HasProp("__rcLabelMargin"))
                 this.__rcLabelMargin := RECT(24, this)

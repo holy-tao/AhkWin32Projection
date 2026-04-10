@@ -1,14 +1,14 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
+#Include .\WS_SERVICE_METADATA_DOCUMENT.ahk
+#Include .\WS_XML_STRING.ahk
 
 /**
  * Specifies the service metadata documents array. This can be a collection of WSDL/XSD documents represented as an array of WS_STRING.
  * @see https://learn.microsoft.com/windows/win32/api/webservices/ns-webservices-ws_service_metadata
  * @namespace Windows.Win32.Networking.WindowsWebServices
- * @version v4.0.30319
  */
-class WS_SERVICE_METADATA extends Win32Struct
-{
+class WS_SERVICE_METADATA extends Win32Struct {
     static sizeof => 32
 
     static packingSize => 8

@@ -5,10 +5,8 @@
  * Represents key exchange output data for hardware content protection.
  * @see https://learn.microsoft.com/windows/win32/api/d3d11_1/ns-d3d11_1-d3d11_key_exchange_hw_protection_output_data
  * @namespace Windows.Win32.Graphics.Direct3D11
- * @version v4.0.30319
  */
-class D3D11_KEY_EXCHANGE_HW_PROTECTION_OUTPUT_DATA extends Win32Struct
-{
+class D3D11_KEY_EXCHANGE_HW_PROTECTION_OUTPUT_DATA extends Win32Struct {
     static sizeof => 40
 
     static packingSize => 8
@@ -62,9 +60,9 @@ class D3D11_KEY_EXCHANGE_HW_PROTECTION_OUTPUT_DATA extends Win32Struct
      * If <b>PrivateDataSize</b> is greater than 0,  pbInput[0] – <b>pbOutput</b>[<b>PrivateDataSize</b> - 1] is reserved for IHV use.
      * 
      * <b>pbOutput</b>[<b>PrivateDataSize</b>] – <b>pbOutput</b>[<b>HWProtectionDataSize</b> + <b>PrivateDataSize</b> - 1] contains the input data for the DRM command. The format and size of the DRM command is defined by the DRM specification.
-     * @type {Array<Byte>}
+     * @type {Array<Integer>}
      */
-    pbOutput{
+    pbOutput {
         get {
             if(!this.HasProp("__pbOutputProxyArray"))
                 this.__pbOutputProxyArray := Win32FixedArray(this.ptr + 32, 4, Primitive, "char")

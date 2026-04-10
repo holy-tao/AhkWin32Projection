@@ -4,10 +4,8 @@
 
 /**
  * @namespace Windows.Win32.Media.KernelStreaming
- * @version v4.0.30319
  */
-class KSRATE extends Win32Struct
-{
+class KSRATE extends Win32Struct {
     static sizeof => 40
 
     static packingSize => 8
@@ -31,7 +29,7 @@ class KSRATE extends Win32Struct
     /**
      * @type {KSIDENTIFIER}
      */
-    Interface{
+    Interface {
         get {
             if(!this.HasProp("__Interface"))
                 this.__Interface := KSIDENTIFIER(16, this)

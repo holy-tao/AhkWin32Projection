@@ -3,10 +3,8 @@
 
 /**
  * @namespace Windows.Wdk.Storage.FileSystem
- * @version v4.0.30319
  */
-class REFS_STREAM_EXTENT extends Win32Struct
-{
+class REFS_STREAM_EXTENT extends Win32Struct {
     static sizeof => 32
 
     static packingSize => 8

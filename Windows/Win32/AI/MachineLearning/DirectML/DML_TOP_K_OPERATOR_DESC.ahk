@@ -1,5 +1,6 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\..\Win32Struct.ahk
+#Include .\DML_TENSOR_DESC.ahk
 
 /**
  * Selects the largest *K* elements from each sequence along an axis of the *InputTensor*, and returns the values and indices of those elements in the *OutputValueTensor* and *OutputIndexTensor*, respectively.
@@ -7,10 +8,8 @@
  * A newer version of this operator, [DML_TOP_K1_OPERATOR_DESC](/windows/win32/api/directml/ns-directml-dml_top_k1_operator_desc), was introduced in `DML_FEATURE_LEVEL_2_1`.
  * @see https://learn.microsoft.com/windows/win32/api/directml/ns-directml-dml_top_k_operator_desc
  * @namespace Windows.Win32.AI.MachineLearning.DirectML
- * @version v4.0.30319
  */
-class DML_TOP_K_OPERATOR_DESC extends Win32Struct
-{
+class DML_TOP_K_OPERATOR_DESC extends Win32Struct {
     static sizeof => 32
 
     static packingSize => 8

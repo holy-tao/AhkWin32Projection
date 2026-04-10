@@ -3,9 +3,8 @@
 
 /**
  * @namespace Windows.Win32.Security
- * @version v4.0.30319
  */
-class TOKEN_ACCESS_MASK extends Win32BitflagEnum{
+class TOKEN_ACCESS_MASK extends Win32BitflagEnum {
 
     /**
      * @type {Integer (UInt32)}

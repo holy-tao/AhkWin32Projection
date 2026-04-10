@@ -7,9 +7,8 @@
  * The IWMPPlugin interface is implemented by the plug-in. It manages the connection to Windows Media Player.Note  The interface identifier GUID for this interface changed between the beta release and the final release. .
  * @see https://learn.microsoft.com/windows/win32/api/wmpservices/nn-wmpservices-iwmpplugin
  * @namespace Windows.Win32.Media.MediaPlayer
- * @version v4.0.30319
  */
-class IWMPPlugin extends IUnknown{
+class IWMPPlugin extends IUnknown {
 
     static sizeof => A_PtrSize
     /**

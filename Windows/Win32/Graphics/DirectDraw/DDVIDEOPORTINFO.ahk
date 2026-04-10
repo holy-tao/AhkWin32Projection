@@ -1,6 +1,7 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
 #Include ..\..\Foundation\RECT.ahk
+#Include .\DDPIXELFORMAT.ahk
 
 /**
  * The DDVIDEOPORTINFO structure describes how the driver should transfer video data to a surface (or to surfaces); DDVIDEOPORTINFO is a member of the DD_VIDEOPORT_LOCAL structure.
@@ -8,10 +9,8 @@
  * All members of this structure are set by the client and the driver should never change them. The client is typically the overlay mixer.
  * @see https://learn.microsoft.com/windows/win32/api/dvp/ns-dvp-ddvideoportinfo
  * @namespace Windows.Win32.Graphics.DirectDraw
- * @version v4.0.30319
  */
-class DDVIDEOPORTINFO extends Win32Struct
-{
+class DDVIDEOPORTINFO extends Win32Struct {
     static sizeof => 88
 
     static packingSize => 8
@@ -44,7 +43,6 @@ class DDVIDEOPORTINFO extends Win32Struct
     }
 
     /**
-     * 
      * @type {Integer}
      */
     dwVPFlags {
@@ -56,7 +54,7 @@ class DDVIDEOPORTINFO extends Win32Struct
      * Specifies a <a href="https://docs.microsoft.com/windows/desktop/api/windef/ns-windef-rect">RECT</a> structure that specifies a cropping rectangle in pixels. This member contains a valid rectangle when the DDVP_CROP flag is set in the <b>dwVPFlags</b> member.
      * @type {RECT}
      */
-    rCrop{
+    rCrop {
         get {
             if(!this.HasProp("__rCrop"))
                 this.__rCrop := RECT(16, this)

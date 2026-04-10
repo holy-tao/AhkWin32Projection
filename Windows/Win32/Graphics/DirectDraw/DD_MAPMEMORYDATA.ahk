@@ -1,15 +1,14 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
+#Include .\DD_DIRECTDRAW_GLOBAL.ahk
 #Include ..\..\Foundation\HANDLE.ahk
 
 /**
  * The DD_MAPMEMORYDATA structure contains the information necessary to map or unmap a frame buffer into user-mode memory.
  * @see https://learn.microsoft.com/windows/win32/api/ddrawint/ns-ddrawint-dd_mapmemorydata
  * @namespace Windows.Win32.Graphics.DirectDraw
- * @version v4.0.30319
  */
-class DD_MAPMEMORYDATA extends Win32Struct
-{
+class DD_MAPMEMORYDATA extends Win32Struct {
     static sizeof => 40
 
     static packingSize => 8
@@ -36,7 +35,7 @@ class DD_MAPMEMORYDATA extends Win32Struct
      * Handle to the process whose address space is affected.
      * @type {HANDLE}
      */
-    hProcess{
+    hProcess {
         get {
             if(!this.HasProp("__hProcess"))
                 this.__hProcess := HANDLE(16, this)

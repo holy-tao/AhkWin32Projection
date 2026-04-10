@@ -1,14 +1,13 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
+#Include .\BG_AUTH_TARGET.ahk
 
 /**
  * Provides the property value of the BITS job based on the value of the BITS_JOB_PROPERTY_ID enumeration.
  * @see https://learn.microsoft.com/windows/win32/api/bits5_0/ns-bits5_0-bits_job_property_value
  * @namespace Windows.Win32.Networking.BackgroundIntelligentTransferService
- * @version v4.0.30319
  */
-class BITS_JOB_PROPERTY_VALUE extends Win32Struct
-{
+class BITS_JOB_PROPERTY_VALUE extends Win32Struct {
     static sizeof => 40
 
     static packingSize => 8
@@ -30,7 +29,7 @@ class BITS_JOB_PROPERTY_VALUE extends Win32Struct
      * This value is returned when using the enum property ID 
      *      <b>BITS_JOB_PROPERTY_NOTIFICATION_CLSID</b> and represents the CLSID of the callback object 
      *      to register with the BITS job.
-     * @type {Pointer<Guid>}
+     * @type {Pointer}
      */
     ClsID {
         get => NumGet(this, 0, "ptr")
@@ -64,7 +63,7 @@ class BITS_JOB_PROPERTY_VALUE extends Win32Struct
 
     /**
      * This value is returned when using the enum property ID <b>BITS_JOB_PROPERTY_USE_STORED_CREDENTIALS</b> to represent the intranet authentication target which is permitted to use stored credentials.
-     * @type {Integer}
+     * @type {BG_AUTH_TARGET}
      */
     Target {
         get => NumGet(this, 0, "int")

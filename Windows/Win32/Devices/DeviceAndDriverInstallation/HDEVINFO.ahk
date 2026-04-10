@@ -5,10 +5,8 @@
 
 /**
  * @namespace Windows.Win32.Devices.DeviceAndDriverInstallation
- * @version v4.0.30319
  */
-class HDEVINFO extends Win32Handle
-{
+class HDEVINFO extends Win32Handle {
     static sizeof => 8
 
     static packingSize => 8

@@ -5,9 +5,8 @@
  * Supplies options to DirectML to control execution of operators. These flags can be bitwise OR'd together to specify multiple flags at once.
  * @see https://learn.microsoft.com/windows/win32/api/directml/ne-directml-dml_execution_flags
  * @namespace Windows.Win32.AI.MachineLearning.DirectML
- * @version v4.0.30319
  */
-class DML_EXECUTION_FLAGS extends Win32BitflagEnum{
+class DML_EXECUTION_FLAGS extends Win32BitflagEnum {
 
     /**
      * No execution flags are specified.

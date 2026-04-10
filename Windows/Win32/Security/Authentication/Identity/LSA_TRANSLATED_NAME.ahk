@@ -1,15 +1,14 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\..\Win32Struct.ahk
+#Include ..\..\SID_NAME_USE.ahk
 #Include .\LSA_UNICODE_STRING.ahk
 
 /**
  * Used with the LsaLookupSids function to return information about the account identified by a SID.
  * @see https://learn.microsoft.com/windows/win32/api/lsalookup/ns-lsalookup-lsa_translated_name
  * @namespace Windows.Win32.Security.Authentication.Identity
- * @version v4.0.30319
  */
-class LSA_TRANSLATED_NAME extends Win32Struct
-{
+class LSA_TRANSLATED_NAME extends Win32Struct {
     static sizeof => 32
 
     static packingSize => 8
@@ -17,7 +16,7 @@ class LSA_TRANSLATED_NAME extends Win32Struct
     /**
      * A value from the 
      * <a href="https://docs.microsoft.com/windows/desktop/api/winnt/ne-winnt-sid_name_use">SID_NAME_USE</a> enumeration that identifies the type of SID.
-     * @type {Integer}
+     * @type {SID_NAME_USE}
      */
     Use {
         get => NumGet(this, 0, "int")
@@ -29,7 +28,7 @@ class LSA_TRANSLATED_NAME extends Win32Struct
      * <a href="https://docs.microsoft.com/windows/desktop/api/lsalookup/ns-lsalookup-lsa_unicode_string">LSA_UNICODE_STRING</a> structure that contains the isolated name of the translated SID. An isolated name is a user, group, or local group account name without the domain name (for example, user_name, rather than Acctg\user_name).
      * @type {LSA_UNICODE_STRING}
      */
-    Name{
+    Name {
         get {
             if(!this.HasProp("__Name"))
                 this.__Name := LSA_UNICODE_STRING(8, this)

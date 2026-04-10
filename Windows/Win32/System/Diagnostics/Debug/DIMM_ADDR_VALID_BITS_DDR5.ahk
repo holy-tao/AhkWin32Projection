@@ -3,10 +3,8 @@
 
 /**
  * @namespace Windows.Win32.System.Diagnostics.Debug
- * @version v4.0.30319
  */
-class DIMM_ADDR_VALID_BITS_DDR5 extends Win32Struct
-{
+class DIMM_ADDR_VALID_BITS_DDR5 extends Win32Struct {
     static sizeof => 4
 
     static packingSize => 4

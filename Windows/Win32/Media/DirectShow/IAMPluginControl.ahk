@@ -2,14 +2,14 @@
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
 #Include ..\..\System\Com\IUnknown.ahk
+#Include ..\..\..\..\Guid.ahk
 
 /**
  * Controls the preferred and blocked filter lists.
  * @see https://learn.microsoft.com/windows/win32/api/strmif/nn-strmif-iamplugincontrol
  * @namespace Windows.Win32.Media.DirectShow
- * @version v4.0.30319
  */
-class IAMPluginControl extends IUnknown{
+class IAMPluginControl extends IUnknown {
 
     static sizeof => A_PtrSize
     /**

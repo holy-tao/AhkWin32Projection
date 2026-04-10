@@ -12,10 +12,8 @@
  * ```cpp
  * @see https://learn.microsoft.com/windows/win32/api/ntsecpkg/ns-ntsecpkg-secpkg_primary_cred
  * @namespace Windows.Win32.Security.Authentication.Identity
- * @version v4.0.30319
  */
-class SECPKG_PRIMARY_CRED extends Win32Struct
-{
+class SECPKG_PRIMARY_CRED extends Win32Struct {
     static sizeof => 200
 
     static packingSize => 8
@@ -24,7 +22,7 @@ class SECPKG_PRIMARY_CRED extends Win32Struct
      * The <a href="https://docs.microsoft.com/windows/desktop/SecGloss/l-gly">logon identifier</a>.
      * @type {LUID}
      */
-    LogonId{
+    LogonId {
         get {
             if(!this.HasProp("__LogonId"))
                 this.__LogonId := LUID(0, this)
@@ -37,7 +35,7 @@ class SECPKG_PRIMARY_CRED extends Win32Struct
      * <a href="https://docs.microsoft.com/windows/desktop/api/subauth/ns-subauth-unicode_string">UNICODE_STRING</a> structure that contains the Security Accounts Manager account name.
      * @type {LSA_UNICODE_STRING}
      */
-    DownlevelName{
+    DownlevelName {
         get {
             if(!this.HasProp("__DownlevelName"))
                 this.__DownlevelName := LSA_UNICODE_STRING(8, this)
@@ -49,7 +47,7 @@ class SECPKG_PRIMARY_CRED extends Win32Struct
      * A <a href="https://docs.microsoft.com/windows/desktop/api/subauth/ns-subauth-unicode_string">UNICODE_STRING</a> structure that contains the NetBIOS domain name where the account is located.
      * @type {LSA_UNICODE_STRING}
      */
-    DomainName{
+    DomainName {
         get {
             if(!this.HasProp("__DomainName"))
                 this.__DomainName := LSA_UNICODE_STRING(24, this)
@@ -61,7 +59,7 @@ class SECPKG_PRIMARY_CRED extends Win32Struct
      * A <a href="https://docs.microsoft.com/windows/desktop/api/subauth/ns-subauth-unicode_string">UNICODE_STRING</a> structure that contains the logon password. When you have finished using the password, remove the sensitive information from memory by calling <a href="https://docs.microsoft.com/previous-versions/windows/desktop/legacy/aa366877(v=vs.85)">SecureZeroMemory</a>. For more information on protecting the password, see <a href="https://docs.microsoft.com/windows/desktop/SecBP/handling-passwords">Handling Passwords</a>.
      * @type {LSA_UNICODE_STRING}
      */
-    Password{
+    Password {
         get {
             if(!this.HasProp("__Password"))
                 this.__Password := LSA_UNICODE_STRING(40, this)
@@ -73,7 +71,7 @@ class SECPKG_PRIMARY_CRED extends Win32Struct
      * A <a href="https://docs.microsoft.com/windows/desktop/api/subauth/ns-subauth-unicode_string">UNICODE_STRING</a> structure that contains the old password. When you have finished using the old password, remove the sensitive information from memory by calling <a href="https://docs.microsoft.com/previous-versions/windows/desktop/legacy/aa366877(v=vs.85)">SecureZeroMemory</a>.
      * @type {LSA_UNICODE_STRING}
      */
-    OldPassword{
+    OldPassword {
         get {
             if(!this.HasProp("__OldPassword"))
                 this.__OldPassword := LSA_UNICODE_STRING(56, this)
@@ -150,7 +148,7 @@ class SECPKG_PRIMARY_CRED extends Win32Struct
      * A <a href="https://docs.microsoft.com/windows/desktop/api/subauth/ns-subauth-unicode_string">UNICODE_STRING</a> structure that contains the DNS domain name where the user account is located, if known.
      * @type {LSA_UNICODE_STRING}
      */
-    DnsDomainName{
+    DnsDomainName {
         get {
             if(!this.HasProp("__DnsDomainName"))
                 this.__DnsDomainName := LSA_UNICODE_STRING(88, this)
@@ -162,7 +160,7 @@ class SECPKG_PRIMARY_CRED extends Win32Struct
      * A <a href="https://docs.microsoft.com/windows/desktop/api/subauth/ns-subauth-unicode_string">UNICODE_STRING</a> structure that contains the user principal name (UPN), if known.
      * @type {LSA_UNICODE_STRING}
      */
-    Upn{
+    Upn {
         get {
             if(!this.HasProp("__Upn"))
                 this.__Upn := LSA_UNICODE_STRING(104, this)
@@ -174,7 +172,7 @@ class SECPKG_PRIMARY_CRED extends Win32Struct
      * A <a href="https://docs.microsoft.com/windows/desktop/api/subauth/ns-subauth-unicode_string">UNICODE_STRING</a> structure that contains the name of the server that processed the logon.
      * @type {LSA_UNICODE_STRING}
      */
-    LogonServer{
+    LogonServer {
         get {
             if(!this.HasProp("__LogonServer"))
                 this.__LogonServer := LSA_UNICODE_STRING(120, this)
@@ -186,7 +184,7 @@ class SECPKG_PRIMARY_CRED extends Win32Struct
      * A <a href="https://docs.microsoft.com/windows/desktop/api/subauth/ns-subauth-unicode_string">UNICODE_STRING</a> structure. Reserved.
      * @type {LSA_UNICODE_STRING}
      */
-    Spare1{
+    Spare1 {
         get {
             if(!this.HasProp("__Spare1"))
                 this.__Spare1 := LSA_UNICODE_STRING(136, this)
@@ -198,7 +196,7 @@ class SECPKG_PRIMARY_CRED extends Win32Struct
      * A <a href="https://docs.microsoft.com/windows/desktop/api/subauth/ns-subauth-unicode_string">UNICODE_STRING</a> structure. Reserved.
      * @type {LSA_UNICODE_STRING}
      */
-    Spare2{
+    Spare2 {
         get {
             if(!this.HasProp("__Spare2"))
                 this.__Spare2 := LSA_UNICODE_STRING(152, this)
@@ -210,7 +208,7 @@ class SECPKG_PRIMARY_CRED extends Win32Struct
      * A <a href="https://docs.microsoft.com/windows/desktop/api/subauth/ns-subauth-unicode_string">UNICODE_STRING</a> structure. Reserved.
      * @type {LSA_UNICODE_STRING}
      */
-    Spare3{
+    Spare3 {
         get {
             if(!this.HasProp("__Spare3"))
                 this.__Spare3 := LSA_UNICODE_STRING(168, this)
@@ -222,7 +220,7 @@ class SECPKG_PRIMARY_CRED extends Win32Struct
      * A <a href="https://docs.microsoft.com/windows/desktop/api/subauth/ns-subauth-unicode_string">UNICODE_STRING</a> structure. Reserved.
      * @type {LSA_UNICODE_STRING}
      */
-    Spare4{
+    Spare4 {
         get {
             if(!this.HasProp("__Spare4"))
                 this.__Spare4 := LSA_UNICODE_STRING(184, this)

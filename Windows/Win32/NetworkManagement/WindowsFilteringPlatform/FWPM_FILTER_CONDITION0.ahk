@@ -1,6 +1,16 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
+#Include .\FWP_MATCH_TYPE.ahk
 #Include .\FWP_CONDITION_VALUE0.ahk
+#Include .\FWP_DATA_TYPE.ahk
+#Include .\FWP_BYTE_ARRAY16.ahk
+#Include .\FWP_BYTE_BLOB.ahk
+#Include ..\..\Security\SID.ahk
+#Include .\FWP_TOKEN_INFORMATION.ahk
+#Include .\FWP_BYTE_ARRAY6.ahk
+#Include .\FWP_V4_ADDR_AND_MASK.ahk
+#Include .\FWP_V6_ADDR_AND_MASK.ahk
+#Include .\FWP_RANGE0.ahk
 
 /**
  * Expresses a filter condition that must be true for the action to be taken.
@@ -17,17 +27,15 @@
  * <b>FWPM_FILTER_CONDITION0</b> is a specific implementation of FWPM_FILTER_CONDITION. See <a href="https://docs.microsoft.com/windows/desktop/FWP/wfp-version-independent-names-and-targeting-specific-versions-of-windows">WFP Version-Independent Names and Targeting Specific Versions of Windows</a>  for more information.
  * @see https://learn.microsoft.com/windows/win32/api/fwpmtypes/ns-fwpmtypes-fwpm_filter_condition0
  * @namespace Windows.Win32.NetworkManagement.WindowsFilteringPlatform
- * @version v4.0.30319
  */
-class FWPM_FILTER_CONDITION0 extends Win32Struct
-{
+class FWPM_FILTER_CONDITION0 extends Win32Struct {
     static sizeof => 32
 
     static packingSize => 8
 
     /**
      * GUID of the field to be tested. The available keys are listed under [Filtering Condition Identifiers](/windows/win32/fwp/filtering-condition-identifiers-).
-     * @type {Pointer<Guid>}
+     * @type {Pointer}
      */
     fieldKey {
         get => NumGet(this, 0, "ptr")
@@ -36,7 +44,7 @@ class FWPM_FILTER_CONDITION0 extends Win32Struct
 
     /**
      * A [FWP_MATCH_TYPE](https://docs.microsoft.com/windows/desktop/api/fwptypes/ne-fwptypes-fwp_match_type) value that specifies the type of match to be performed.
-     * @type {Integer}
+     * @type {FWP_MATCH_TYPE}
      */
     matchType {
         get => NumGet(this, 8, "int")
@@ -47,7 +55,7 @@ class FWPM_FILTER_CONDITION0 extends Win32Struct
      * A [FWP_CONDITION_VALUE0](https://docs.microsoft.com/windows/desktop/api/fwptypes/ns-fwptypes-fwp_condition_value0) structure that contains the value to match the field against.
      * @type {FWP_CONDITION_VALUE0}
      */
-    conditionValue{
+    conditionValue {
         get {
             if(!this.HasProp("__conditionValue"))
                 this.__conditionValue := FWP_CONDITION_VALUE0(16, this)

@@ -3,10 +3,8 @@
 
 /**
  * @namespace Windows.Win32.System.WindowsProgramming
- * @version v4.0.30319
  */
-class WLDP_DEVICE_SECURITY_INFORMATION extends Win32Struct
-{
+class WLDP_DEVICE_SECURITY_INFORMATION extends Win32Struct {
     static sizeof => 32
 
     static packingSize => 8

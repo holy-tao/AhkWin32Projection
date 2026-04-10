@@ -9,10 +9,8 @@
  * The <b>dwPhoneFeatures</b> member is available only to applications that open the phone device with an API version of 2.0 or later.
  * @see https://learn.microsoft.com/windows/win32/api/tapi/ns-tapi-phonestatus
  * @namespace Windows.Win32.Devices.Tapi
- * @version v4.0.30319
  */
-class PHONESTATUS extends Win32Struct
-{
+class PHONESTATUS extends Win32Struct {
     static sizeof => 104
 
     static packingSize => 4

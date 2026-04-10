@@ -5,9 +5,8 @@
  * Defines values that specify different CIM data types.
  * @see https://learn.microsoft.com/windows/win32/api/wbemcli/ne-wbemcli-cimtype_enumeration
  * @namespace Windows.Win32.System.Wmi
- * @version v4.0.30319
  */
-class CIMTYPE_ENUMERATION extends Win32Enum{
+class CIMTYPE_ENUMERATION extends Win32Enum {
 
     /**
      * An illegal value.

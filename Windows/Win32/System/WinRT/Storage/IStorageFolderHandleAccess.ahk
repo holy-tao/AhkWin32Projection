@@ -1,16 +1,15 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\..\Guid.ahk
-#Include ..\..\..\Foundation\HANDLE.ahk
 #Include ..\..\Com\IUnknown.ahk
+#Include ..\..\..\Foundation\HANDLE.ahk
 
 /**
  * Provides access to the operating system handle of a storage folder.
  * @see https://learn.microsoft.com/windows/win32/api/windowsstoragecom/nn-windowsstoragecom-istoragefolderhandleaccess
  * @namespace Windows.Win32.System.WinRT.Storage
- * @version v4.0.30319
  */
-class IStorageFolderHandleAccess extends IUnknown{
+class IStorageFolderHandleAccess extends IUnknown {
 
     static sizeof => A_PtrSize
     /**
@@ -34,10 +33,10 @@ class IStorageFolderHandleAccess extends IUnknown{
     /**
      * Creates a handle to a file that is in a storage folder.
      * @param {PWSTR} fileName The name of the file that you want to get a handle to.
-     * @param {Integer} creationOptions The action to take on a file that exists or doesn't exist.
-     * @param {Integer} accessOptions The level of access that a handle has on the file.
-     * @param {Integer} sharingOptions The requested sharing mode of the handle.
-     * @param {Integer} options The flags of the file handle.
+     * @param {HANDLE_CREATION_OPTIONS} creationOptions The action to take on a file that exists or doesn't exist.
+     * @param {HANDLE_ACCESS_OPTIONS} accessOptions The level of access that a handle has on the file.
+     * @param {HANDLE_SHARING_OPTIONS} sharingOptions The requested sharing mode of the handle.
+     * @param {HANDLE_OPTIONS} options The flags of the file handle.
      * @param {IOplockBreakingHandler} oplockBreakingHandler Not currently implemented.
      * @returns {HANDLE} The handle to the file.
      * @see https://learn.microsoft.com/windows/win32/api/windowsstoragecom/nf-windowsstoragecom-istoragefolderhandleaccess-create

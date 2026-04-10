@@ -5,9 +5,8 @@
 
 /**
  * @namespace Windows.Win32.Graphics.Imaging
- * @version v4.0.30319
  */
-class IWICBitmapSourceTransform2 extends IWICBitmapSourceTransform{
+class IWICBitmapSourceTransform2 extends IWICBitmapSourceTransform {
 
     static sizeof => A_PtrSize
     /**

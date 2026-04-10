@@ -1,17 +1,16 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
+#Include ..\..\System\Com\IUnknown.ahk
 #Include .\IDot11AdHocSecuritySettings.ahk
 #Include .\IDot11AdHocInterface.ahk
-#Include ..\..\System\Com\IUnknown.ahk
 
 /**
  * Represents an available ad hoc network destination within connection range.
  * @see https://learn.microsoft.com/windows/win32/api/adhoc/nn-adhoc-idot11adhocnetwork
  * @namespace Windows.Win32.NetworkManagement.WiFi
- * @version v4.0.30319
  */
-class IDot11AdHocNetwork extends IUnknown{
+class IDot11AdHocNetwork extends IUnknown {
 
     static sizeof => A_PtrSize
     /**
@@ -34,7 +33,7 @@ class IDot11AdHocNetwork extends IUnknown{
 
     /**
      * Gets the connection status of the network.
-     * @param {Pointer<Integer>} eStatus A pointer to a  <a href="https://docs.microsoft.com/windows/win32/api/adhoc/ne-adhoc-dot11_adhoc_network_connection_status">DOT11_ADHOC_NETWORK_CONNECTION_STATUS</a> value that specifies the connection state.
+     * @param {Pointer<DOT11_ADHOC_NETWORK_CONNECTION_STATUS>} eStatus A pointer to a  <a href="https://docs.microsoft.com/windows/win32/api/adhoc/ne-adhoc-dot11_adhoc_network_connection_status">DOT11_ADHOC_NETWORK_CONNECTION_STATUS</a> value that specifies the connection state.
      * @returns {HRESULT} Possible return values include, but are not limited to, the following.
      * 
      * <table>

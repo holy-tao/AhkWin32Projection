@@ -13,10 +13,8 @@
  * <div> </div>
  * @see https://learn.microsoft.com/windows/win32/api/wininet/ns-wininet-internet_certificate_info
  * @namespace Windows.Win32.Networking.WinInet
- * @version v4.0.30319
  */
-class INTERNET_CERTIFICATE_INFO extends Win32Struct
-{
+class INTERNET_CERTIFICATE_INFO extends Win32Struct {
     static sizeof => 64
 
     static packingSize => 8
@@ -25,7 +23,7 @@ class INTERNET_CERTIFICATE_INFO extends Win32Struct
      * <a href="https://docs.microsoft.com/windows/desktop/api/minwinbase/ns-minwinbase-filetime">FILETIME</a> structure that contains the date the certificate expires.
      * @type {FILETIME}
      */
-    ftExpiry{
+    ftExpiry {
         get {
             if(!this.HasProp("__ftExpiry"))
                 this.__ftExpiry := FILETIME(0, this)
@@ -37,7 +35,7 @@ class INTERNET_CERTIFICATE_INFO extends Win32Struct
      * <a href="https://docs.microsoft.com/windows/desktop/api/minwinbase/ns-minwinbase-filetime">FILETIME</a> structure that contains the date the certificate becomes valid.
      * @type {FILETIME}
      */
-    ftStart{
+    ftStart {
         get {
             if(!this.HasProp("__ftStart"))
                 this.__ftStart := FILETIME(8, this)

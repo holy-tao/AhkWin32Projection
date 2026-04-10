@@ -1,14 +1,13 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
-#Include .\USE_INFO_2.ahk
 #Include .\USE_INFO_3.ahk
+#Include .\USE_INFO_2.ahk
+#Include .\USE_INFO_ASG_TYPE.ahk
 
 /**
  * @namespace Windows.Win32.NetworkManagement.NetManagement
- * @version v4.0.30319
  */
-class USE_INFO_4 extends Win32Struct
-{
+class USE_INFO_4 extends Win32Struct {
     static sizeof => 80
 
     static packingSize => 8
@@ -16,7 +15,7 @@ class USE_INFO_4 extends Win32Struct
     /**
      * @type {USE_INFO_3}
      */
-    ui4_ui3{
+    ui4_ui3 {
         get {
             if(!this.HasProp("__ui4_ui3"))
                 this.__ui4_ui3 := USE_INFO_3(0, this)

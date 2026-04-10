@@ -1,19 +1,16 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
-#Include .\WHEA_PMEM_PAGE_RANGE.ahk
 
 /**
  * @namespace Windows.Wdk.System.SystemServices
- * @version v4.0.30319
  */
-class WHEA_PMEM_ERROR_SECTION extends Win32Struct
-{
+class WHEA_PMEM_ERROR_SECTION extends Win32Struct {
     static sizeof => 96
 
     static packingSize => 8
 
     /**
-     * @type {Pointer<WHEA_PMEM_ERROR_SECTION_VALIDBITS>}
+     * @type {Pointer}
      */
     ValidBits {
         get => NumGet(this, 0, "ptr")
@@ -21,9 +18,9 @@ class WHEA_PMEM_ERROR_SECTION extends Win32Struct
     }
 
     /**
-     * @type {Array<Byte>}
+     * @type {Array<Integer>}
      */
-    LocationInfo{
+    LocationInfo {
         get {
             if(!this.HasProp("__LocationInfoProxyArray"))
                 this.__LocationInfoProxyArray := Win32FixedArray(this.ptr + 8, 64, Primitive, "char")
@@ -32,7 +29,7 @@ class WHEA_PMEM_ERROR_SECTION extends Win32Struct
     }
 
     /**
-     * @type {Pointer<WHEA_ERROR_STATUS>}
+     * @type {Pointer}
      */
     ErrorStatus {
         get => NumGet(this, 72, "ptr")
@@ -56,9 +53,9 @@ class WHEA_PMEM_ERROR_SECTION extends Win32Struct
     }
 
     /**
-     * @type {Array<WHEA_PMEM_PAGE_RANGE>}
+     * @type {Array<Pointer>}
      */
-    PageRange{
+    PageRange {
         get {
             if(!this.HasProp("__PageRangeProxyArray"))
                 this.__PageRangeProxyArray := Win32FixedArray(this.ptr + 88, 1, Primitive, "ptr")

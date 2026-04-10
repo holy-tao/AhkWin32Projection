@@ -7,9 +7,8 @@
  * The IWMPacketSize interface controls the maximum size of packets in an ASF file.
  * @see https://learn.microsoft.com/windows/win32/api/wmsdkidl/nn-wmsdkidl-iwmpacketsize
  * @namespace Windows.Win32.Media.WindowsMediaFormat
- * @version v4.0.30319
  */
-class IWMPacketSize extends IUnknown{
+class IWMPacketSize extends IUnknown {
 
     static sizeof => A_PtrSize
     /**

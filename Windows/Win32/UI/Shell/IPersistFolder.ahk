@@ -11,9 +11,8 @@
  * You do not use this interface directly. It is used by the file system implementation of the <a href="https://docs.microsoft.com/windows/desktop/api/shobjidl_core/nf-shobjidl_core-ishellfolder-bindtoobject">IShellFolder::BindToObject</a> interface when it is initializing a Shell folder object.
  * @see https://learn.microsoft.com/windows/win32/api/shobjidl_core/nn-shobjidl_core-ipersistfolder
  * @namespace Windows.Win32.UI.Shell
- * @version v4.0.30319
  */
-class IPersistFolder extends IPersist{
+class IPersistFolder extends IPersist {
 
     static sizeof => A_PtrSize
     /**

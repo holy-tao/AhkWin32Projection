@@ -5,10 +5,8 @@
  * Receives extended information for the file.
  * @see https://learn.microsoft.com/windows/win32/api/winbase/ns-winbase-file_standard_info
  * @namespace Windows.Win32.Storage.FileSystem
- * @version v4.0.30319
  */
-class FILE_STANDARD_INFO extends Win32Struct
-{
+class FILE_STANDARD_INFO extends Win32Struct {
     static sizeof => 24
 
     static packingSize => 8

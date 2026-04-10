@@ -15,9 +15,8 @@
  * Media Foundation provides a presentation time source that is based on the system clock. To create this object, call the <a href="https://docs.microsoft.com/windows/desktop/api/mfidl/nf-mfidl-mfcreatesystemtimesource">MFCreateSystemTimeSource</a> function.
  * @see https://learn.microsoft.com/windows/win32/api/mfidl/nn-mfidl-imfpresentationtimesource
  * @namespace Windows.Win32.Media.MediaFoundation
- * @version v4.0.30319
  */
-class IMFPresentationTimeSource extends IMFClock{
+class IMFPresentationTimeSource extends IMFClock {
 
     static sizeof => A_PtrSize
     /**

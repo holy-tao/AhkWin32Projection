@@ -1,16 +1,14 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
-#Include .\IMediaObjectInPlace.ahk
 #Include ..\..\System\Com\IUnknown.ahk
 
 /**
  * The IMediaObjectInPlace interface provides methods for processing data in place. A Microsoft DirectX Media Object (DMO) can expose this interface if it meets the following conditions:\_
  * @see https://learn.microsoft.com/windows/win32/api/mediaobj/nn-mediaobj-imediaobjectinplace
  * @namespace Windows.Win32.Media.DxMediaObjects
- * @version v4.0.30319
  */
-class IMediaObjectInPlace extends IUnknown{
+class IMediaObjectInPlace extends IUnknown {
 
     static sizeof => A_PtrSize
     /**
@@ -42,7 +40,7 @@ class IMediaObjectInPlace extends IUnknown{
      * 
      * If the DMO has no effect tail, this method returns S_TRUE or an error code.
      * @param {Integer} ulSize Size of the data, in bytes.
-     * @param {Pointer} pData Pointer to a buffer of size <i>ulSize</i>. On input, the buffer holds the input data. If the method returns successfully, the buffer contains the output data.
+     * @param {Integer} pData Pointer to a buffer of size <i>ulSize</i>. On input, the buffer holds the input data. If the method returns successfully, the buffer contains the output data.
      * @param {Integer} refTimeStart Start time of the data.
      * @param {Integer} dwFlags Either DMO_INPLACE_NORMAL or DMO_INPLACE_ZERO. See Remarks for more information.
      * @returns {HRESULT} Returns an <b>HRESULT</b> value. Possible values include those in the following table.

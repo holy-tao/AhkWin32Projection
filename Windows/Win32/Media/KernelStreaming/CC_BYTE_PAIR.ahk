@@ -3,18 +3,16 @@
 
 /**
  * @namespace Windows.Win32.Media.KernelStreaming
- * @version v4.0.30319
  */
-class CC_BYTE_PAIR extends Win32Struct
-{
+class CC_BYTE_PAIR extends Win32Struct {
     static sizeof => 4
 
     static packingSize => 2
 
     /**
-     * @type {Array<Byte>}
+     * @type {Array<Integer>}
      */
-    Decoded{
+    Decoded {
         get {
             if(!this.HasProp("__DecodedProxyArray"))
                 this.__DecodedProxyArray := Win32FixedArray(this.ptr + 0, 2, Primitive, "char")

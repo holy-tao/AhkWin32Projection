@@ -1,8 +1,12 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
+#Include .\INSERT_OBJECT_FLAGS.ahk
 #Include ..\..\Foundation\HWND.ahk
 #Include ..\..\Foundation\HINSTANCE.ahk
 #Include ..\..\Foundation\HRSRC.ahk
+#Include ..\Com\FORMATETC.ahk
+#Include .\IOleClientSite.ahk
+#Include ..\Com\StructuredStorage\IStorage.ahk
 #Include ..\..\Foundation\HGLOBAL.ahk
 
 /**
@@ -12,11 +16,9 @@
  * > The oledlg.h header defines OLEUIINSERTOBJECT as an alias which automatically selects the ANSI or Unicode version of this function based on the definition of the UNICODE preprocessor constant. Mixing usage of the encoding-neutral alias with code that not encoding-neutral can lead to mismatches that result in compilation or runtime errors. For more information, see [Conventions for Function Prototypes](/windows/win32/intl/conventions-for-function-prototypes).
  * @see https://learn.microsoft.com/windows/win32/api/oledlg/ns-oledlg-oleuiinsertobjecta
  * @namespace Windows.Win32.System.Ole
- * @version v4.0.30319
  * @charset ANSI
  */
-class OLEUIINSERTOBJECTA extends Win32Struct
-{
+class OLEUIINSERTOBJECTA extends Win32Struct {
     static sizeof => 160
 
     static packingSize => 8
@@ -184,7 +186,7 @@ class OLEUIINSERTOBJECTA extends Win32Struct
      * </td>
      * </tr>
      * </table>
-     * @type {Integer}
+     * @type {INSERT_OBJECT_FLAGS}
      */
     dwFlags {
         get => NumGet(this, 4, "uint")
@@ -195,7 +197,7 @@ class OLEUIINSERTOBJECTA extends Win32Struct
      * The window that owns the dialog box. This member should not be <b>NULL</b>.
      * @type {HWND}
      */
-    hWndOwner{
+    hWndOwner {
         get {
             if(!this.HasProp("__hWndOwner"))
                 this.__hWndOwner := HWND(8, this)
@@ -234,7 +236,7 @@ class OLEUIINSERTOBJECTA extends Win32Struct
      * Instance that contains a dialog box template specified by the <b>lpTemplateName</b> member.
      * @type {HINSTANCE}
      */
-    hInstance{
+    hInstance {
         get {
             if(!this.HasProp("__hInstance"))
                 this.__hInstance := HINSTANCE(40, this)
@@ -255,7 +257,7 @@ class OLEUIINSERTOBJECTA extends Win32Struct
      * Customized template handle.
      * @type {HRSRC}
      */
-    hResource{
+    hResource {
         get {
             if(!this.HasProp("__hResource"))
                 this.__hResource := HRSRC(56, this)
@@ -265,7 +267,7 @@ class OLEUIINSERTOBJECTA extends Win32Struct
 
     /**
      * CLSID for class of the object to be inserted. Filled on output.
-     * @type {Pointer<Guid>}
+     * @type {Pointer}
      */
     clsid {
         get => NumGet(this, 64, "ptr")
@@ -310,7 +312,7 @@ class OLEUIINSERTOBJECTA extends Win32Struct
 
     /**
      * Identifier of the requested interface. If <a href="https://docs.microsoft.com/windows/desktop/api/oledlg/nf-oledlg-oleuiinsertobjecta">OleUIInsertObject</a> creates the object, then it will return a pointer to this interface. This parameter is ignored if <b>OleUIInsertObject</b> does not create the object.
-     * @type {Pointer<Guid>}
+     * @type {Pointer}
      */
     iid {
         get => NumGet(this, 96, "ptr")
@@ -375,7 +377,7 @@ class OLEUIINSERTOBJECTA extends Win32Struct
      * MetafilePict structure containing the iconic aspect, if it wasn't placed in the object's cache.
      * @type {HGLOBAL}
      */
-    hMetaPict{
+    hMetaPict {
         get {
             if(!this.HasProp("__hMetaPict"))
                 this.__hMetaPict := HGLOBAL(152, this)

@@ -5,10 +5,8 @@
  * Contains information about a communications device.
  * @see https://learn.microsoft.com/windows/win32/api/winbase/ns-winbase-comstat
  * @namespace Windows.Win32.Devices.Communication
- * @version v4.0.30319
  */
-class COMSTAT extends Win32Struct
-{
+class COMSTAT extends Win32Struct {
     static sizeof => 12
 
     static packingSize => 4
@@ -31,7 +29,6 @@ class COMSTAT extends Win32Struct
     }
 
     /**
-     * If this member is <b>TRUE</b>, transmission is waiting for the CTS (clear-to-send) signal to be sent.
      * @type {Integer}
      */
     fCtsHold {
@@ -40,7 +37,6 @@ class COMSTAT extends Win32Struct
     }
 
     /**
-     * If this member is <b>TRUE</b>, transmission is waiting for the DSR (data-set-ready) signal to be sent.
      * @type {Integer}
      */
     fDsrHold {
@@ -49,7 +45,6 @@ class COMSTAT extends Win32Struct
     }
 
     /**
-     * If this member is <b>TRUE</b>, transmission is waiting for the RLSD (receive-line-signal-detect) signal to be sent.
      * @type {Integer}
      */
     fRlsdHold {
@@ -58,7 +53,6 @@ class COMSTAT extends Win32Struct
     }
 
     /**
-     * If this member is <b>TRUE</b>, transmission is waiting because the XOFF character was received.
      * @type {Integer}
      */
     fXoffHold {
@@ -67,7 +61,6 @@ class COMSTAT extends Win32Struct
     }
 
     /**
-     * If this member is <b>TRUE</b>, transmission is waiting because the XOFF character was transmitted. (Transmission halts when the XOFF character is transmitted to a system that takes the next character as XON, regardless of the actual character.)
      * @type {Integer}
      */
     fXoffSent {
@@ -76,7 +69,6 @@ class COMSTAT extends Win32Struct
     }
 
     /**
-     * If this member is <b>TRUE</b>, the end-of-file (EOF) character has been received.
      * @type {Integer}
      */
     fEof {
@@ -85,8 +77,6 @@ class COMSTAT extends Win32Struct
     }
 
     /**
-     * If this member is <b>TRUE</b>, there is a character queued for transmission that has come to the communications device by way of the 
-     * <a href="https://docs.microsoft.com/windows/desktop/api/winbase/nf-winbase-transmitcommchar">TransmitCommChar</a> function. The communications device transmits such a character ahead of other characters in the device's output buffer.
      * @type {Integer}
      */
     fTxim {
@@ -95,7 +85,6 @@ class COMSTAT extends Win32Struct
     }
 
     /**
-     * Reserved; do not use.
      * @type {Integer}
      */
     fReserved {

@@ -3,10 +3,8 @@
 
 /**
  * @namespace Windows.Win32.System.DistributedTransactionCoordinator
- * @version v4.0.30319
  */
-class XACTOPT extends Win32Struct
-{
+class XACTOPT extends Win32Struct {
     static sizeof => 44
 
     static packingSize => 4
@@ -20,9 +18,9 @@ class XACTOPT extends Win32Struct
     }
 
     /**
-     * @type {Array<Byte>}
+     * @type {Array<Integer>}
      */
-    szDescription{
+    szDescription {
         get {
             if(!this.HasProp("__szDescriptionProxyArray"))
                 this.__szDescriptionProxyArray := Win32FixedArray(this.ptr + 4, 40, Primitive, "char")

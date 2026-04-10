@@ -3,10 +3,8 @@
 
 /**
  * @namespace Windows.Win32.Devices.Usb
- * @version v4.0.30319
  */
-class USB_PORT_EXT_STATUS extends Win32Struct
-{
+class USB_PORT_EXT_STATUS extends Win32Struct {
     static sizeof => 8
 
     static packingSize => 1

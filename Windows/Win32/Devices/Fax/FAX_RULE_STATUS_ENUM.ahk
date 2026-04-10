@@ -5,9 +5,8 @@
  * The FAX_RULE_STATUS_ENUM enumeration defines the status types for outbound routing rules.
  * @see https://learn.microsoft.com/windows/win32/api/faxcomex/ne-faxcomex-fax_rule_status_enum
  * @namespace Windows.Win32.Devices.Fax
- * @version v4.0.30319
  */
-class FAX_RULE_STATUS_ENUM extends Win32Enum{
+class FAX_RULE_STATUS_ENUM extends Win32Enum {
 
     /**
      * The routing rule is valid and can be applied to outbound faxes.

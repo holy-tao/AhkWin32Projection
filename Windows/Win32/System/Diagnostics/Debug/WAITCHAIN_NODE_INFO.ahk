@@ -1,21 +1,20 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\..\Win32Struct.ahk
+#Include .\WCT_OBJECT_TYPE.ahk
+#Include .\WCT_OBJECT_STATUS.ahk
 
 /**
  * Represents a node in a wait chain.
  * @see https://learn.microsoft.com/windows/win32/api/wct/ns-wct-waitchain_node_info
  * @namespace Windows.Win32.System.Diagnostics.Debug
- * @version v4.0.30319
  */
-class WAITCHAIN_NODE_INFO extends Win32Struct
-{
+class WAITCHAIN_NODE_INFO extends Win32Struct {
     static sizeof => 280
 
     static packingSize => 8
 
     /**
-     * 
-     * @type {Integer}
+     * @type {WCT_OBJECT_TYPE}
      */
     ObjectType {
         get => NumGet(this, 0, "int")
@@ -23,8 +22,7 @@ class WAITCHAIN_NODE_INFO extends Win32Struct
     }
 
     /**
-     * 
-     * @type {Integer}
+     * @type {WCT_OBJECT_STATUS}
      */
     ObjectStatus {
         get => NumGet(this, 4, "int")
@@ -42,7 +40,7 @@ class WAITCHAIN_NODE_INFO extends Win32Struct
             get => StrGet(this.ptr + 0, 127, "UTF-16")
             set => StrPut(value, this.ptr + 0, 127, "UTF-16")
         }
-    
+
         /**
          * @type {Integer}
          */
@@ -50,7 +48,7 @@ class WAITCHAIN_NODE_INFO extends Win32Struct
             get => NumGet(this, 256, "int64")
             set => NumPut("int64", value, this, 256)
         }
-    
+
         /**
          * @type {BOOL}
          */
@@ -58,7 +56,6 @@ class WAITCHAIN_NODE_INFO extends Win32Struct
             get => NumGet(this, 264, "int")
             set => NumPut("int", value, this, 264)
         }
-    
     }
 
     class _ThreadObject extends Win32Struct {
@@ -72,7 +69,7 @@ class WAITCHAIN_NODE_INFO extends Win32Struct
             get => NumGet(this, 0, "uint")
             set => NumPut("uint", value, this, 0)
         }
-    
+
         /**
          * @type {Integer}
          */
@@ -80,7 +77,7 @@ class WAITCHAIN_NODE_INFO extends Win32Struct
             get => NumGet(this, 4, "uint")
             set => NumPut("uint", value, this, 4)
         }
-    
+
         /**
          * @type {Integer}
          */
@@ -88,7 +85,7 @@ class WAITCHAIN_NODE_INFO extends Win32Struct
             get => NumGet(this, 8, "uint")
             set => NumPut("uint", value, this, 8)
         }
-    
+
         /**
          * @type {Integer}
          */
@@ -96,16 +93,15 @@ class WAITCHAIN_NODE_INFO extends Win32Struct
             get => NumGet(this, 12, "uint")
             set => NumPut("uint", value, this, 12)
         }
-    
     }
 
     /**
      * @type {_LockObject}
      */
-    LockObject{
+    LockObject {
         get {
             if(!this.HasProp("__LockObject"))
-                this.__LockObject := %this.__Class%._LockObject(8, this)
+                this.__LockObject := WAITCHAIN_NODE_INFO._LockObject(8, this)
             return this.__LockObject
         }
     }
@@ -113,10 +109,10 @@ class WAITCHAIN_NODE_INFO extends Win32Struct
     /**
      * @type {_ThreadObject}
      */
-    ThreadObject{
+    ThreadObject {
         get {
             if(!this.HasProp("__ThreadObject"))
-                this.__ThreadObject := %this.__Class%._ThreadObject(8, this)
+                this.__ThreadObject := WAITCHAIN_NODE_INFO._ThreadObject(8, this)
             return this.__ThreadObject
         }
     }

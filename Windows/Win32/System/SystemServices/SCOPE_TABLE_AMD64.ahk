@@ -3,13 +3,11 @@
 
 /**
  * @namespace Windows.Win32.System.SystemServices
- * @version v4.0.30319
  */
-class SCOPE_TABLE_AMD64 extends Win32Struct
-{
-    static sizeof => 16
+class SCOPE_TABLE_AMD64 extends Win32Struct {
+    static sizeof => 20
 
-    static packingSize => 8
+    static packingSize => 4
 
     /**
      * @type {Integer}
@@ -23,6 +21,14 @@ class SCOPE_TABLE_AMD64 extends Win32Struct
      * @type {Integer}
      */
     BeginAddress {
+        get => NumGet(this, 4, "uint")
+        set => NumPut("uint", value, this, 4)
+    }
+
+    /**
+     * @type {Integer}
+     */
+    EndAddress {
         get => NumGet(this, 8, "uint")
         set => NumPut("uint", value, this, 8)
     }
@@ -30,7 +36,7 @@ class SCOPE_TABLE_AMD64 extends Win32Struct
     /**
      * @type {Integer}
      */
-    EndAddress {
+    HandlerAddress {
         get => NumGet(this, 12, "uint")
         set => NumPut("uint", value, this, 12)
     }
@@ -38,16 +44,8 @@ class SCOPE_TABLE_AMD64 extends Win32Struct
     /**
      * @type {Integer}
      */
-    HandlerAddress {
+    JumpTarget {
         get => NumGet(this, 16, "uint")
         set => NumPut("uint", value, this, 16)
-    }
-
-    /**
-     * @type {Integer}
-     */
-    JumpTarget {
-        get => NumGet(this, 20, "uint")
-        set => NumPut("uint", value, this, 20)
     }
 }

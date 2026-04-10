@@ -5,10 +5,8 @@
  * The RTM_ENTITY_METHOD_OUTPUT structure is used to pass information to the calling client when the routing table manager invokes a method.
  * @see https://learn.microsoft.com/windows/win32/api/rtmv2/ns-rtmv2-rtm_entity_method_output
  * @namespace Windows.Win32.NetworkManagement.Rras
- * @version v4.0.30319
  */
-class RTM_ENTITY_METHOD_OUTPUT extends Win32Struct
-{
+class RTM_ENTITY_METHOD_OUTPUT extends Win32Struct {
     static sizeof => 16
 
     static packingSize => 4
@@ -42,9 +40,9 @@ class RTM_ENTITY_METHOD_OUTPUT extends Win32Struct
 
     /**
      * Buffer for data returned by the method.
-     * @type {Array<Byte>}
+     * @type {Array<Integer>}
      */
-    OutputData{
+    OutputData {
         get {
             if(!this.HasProp("__OutputDataProxyArray"))
                 this.__OutputDataProxyArray := Win32FixedArray(this.ptr + 12, 1, Primitive, "char")

@@ -1,18 +1,18 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
+#Include ..\..\System\Com\IUnknown.ahk
+#Include ..\..\..\..\Guid.ahk
 #Include .\IControlInterface.ahk
 #Include .\IPartsList.ahk
 #Include .\IDeviceTopology.ahk
-#Include ..\..\System\Com\IUnknown.ahk
 
 /**
  * The IPart interface represents a part (connector or subunit) of a device topology.
  * @see https://learn.microsoft.com/windows/win32/api/devicetopology/nn-devicetopology-ipart
  * @namespace Windows.Win32.Media.Audio
- * @version v4.0.30319
  */
-class IPart extends IUnknown{
+class IPart extends IUnknown {
 
     static sizeof => A_PtrSize
     /**
@@ -84,7 +84,7 @@ class IPart extends IUnknown{
      * The GetPartType method gets the part type of this part.
      * @remarks
      * For a code example that uses this method, see the implementation of the SelectCaptureDevice function in <a href="https://docs.microsoft.com/windows/desktop/CoreAudio/device-topologies">Device Topologies</a>.
-     * @returns {Integer} Pointer to a <a href="https://docs.microsoft.com/windows/win32/api/devicetopology/ne-devicetopology-parttype">PartType</a> variable into which the method writes the part type. The part type is one of the following <b>PartType</b> enumeration values, which indicate whether the part is a connector or subunit:
+     * @returns {PartType} Pointer to a <a href="https://docs.microsoft.com/windows/win32/api/devicetopology/ne-devicetopology-parttype">PartType</a> variable into which the method writes the part type. The part type is one of the following <b>PartType</b> enumeration values, which indicate whether the part is a connector or subunit:
      * 
      * Connector
      * 

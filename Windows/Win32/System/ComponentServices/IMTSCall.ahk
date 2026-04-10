@@ -7,9 +7,8 @@
  * Implements the batch work that is submitted through the activity created by the MTSCreateActivity function.
  * @see https://learn.microsoft.com/windows/win32/api/comsvcs/nn-comsvcs-imtscall
  * @namespace Windows.Win32.System.ComponentServices
- * @version v4.0.30319
  */
-class IMTSCall extends IUnknown{
+class IMTSCall extends IUnknown {
 
     static sizeof => A_PtrSize
     /**

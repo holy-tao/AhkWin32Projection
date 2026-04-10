@@ -1,12 +1,14 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
+#Include .\VDS_DISK_STATUS.ahk
+#Include .\VDS_HEALTH.ahk
+#Include .\VDS_STORAGE_BUS_TYPE.ahk
+#Include .\VDS_PARTITION_STYLE.ahk
 
 /**
  * @namespace Windows.Win32.Storage.VirtualDiskService
- * @version v4.0.30319
  */
-class VDS_ADVANCEDDISK_PROP extends Win32Struct
-{
+class VDS_ADVANCEDDISK_PROP extends Win32Struct {
     static sizeof => 144
 
     static packingSize => 8
@@ -140,7 +142,7 @@ class VDS_ADVANCEDDISK_PROP extends Win32Struct
     }
 
     /**
-     * @type {Integer}
+     * @type {VDS_DISK_STATUS}
      */
     status {
         get => NumGet(this, 108, "int")
@@ -148,7 +150,7 @@ class VDS_ADVANCEDDISK_PROP extends Win32Struct
     }
 
     /**
-     * @type {Integer}
+     * @type {VDS_HEALTH}
      */
     health {
         get => NumGet(this, 112, "int")
@@ -156,7 +158,7 @@ class VDS_ADVANCEDDISK_PROP extends Win32Struct
     }
 
     /**
-     * @type {Integer}
+     * @type {VDS_STORAGE_BUS_TYPE}
      */
     BusType {
         get => NumGet(this, 116, "int")
@@ -164,7 +166,7 @@ class VDS_ADVANCEDDISK_PROP extends Win32Struct
     }
 
     /**
-     * @type {Integer}
+     * @type {VDS_PARTITION_STYLE}
      */
     PartitionStyle {
         get => NumGet(this, 120, "int")
@@ -180,7 +182,7 @@ class VDS_ADVANCEDDISK_PROP extends Win32Struct
     }
 
     /**
-     * @type {Pointer<Guid>}
+     * @type {Pointer}
      */
     DiskGuid {
         get => NumGet(this, 128, "ptr")

@@ -1,8 +1,8 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\..\Guid.ahk
-#Include ..\..\..\Foundation\HANDLE.ahk
 #Include ..\..\Com\IUnknown.ahk
+#Include ..\..\..\Foundation\HANDLE.ahk
 
 /**
  * Creates an NT handle for controlling access to scanout on this path.
@@ -15,9 +15,8 @@
  * Use the [CloseHandle](../handleapi/nf-handleapi-closehandle.md) function to close the handle. The system closes the handle automatically when the process terminates. The object is destroyed when its last handle has been closed and its last interface reference has been released.
  * @see https://learn.microsoft.com/windows/win32/api/windows.devices.display.core.interop/nf-windows-devices-display-core-interop-idisplaypathinterop-createsourcepresentationhandle
  * @namespace Windows.Win32.System.WinRT.Display
- * @version v4.0.30319
  */
-class IDisplayPathInterop extends IUnknown{
+class IDisplayPathInterop extends IUnknown {
 
     static sizeof => A_PtrSize
     /**

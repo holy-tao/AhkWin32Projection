@@ -7,9 +7,8 @@
  * Enables interoperability with a WinRT SpatialInteractionManager object and provides access to SpatialInteractionManager members for accessing user input from hands, motion controllers, and system voice commands.
  * @see https://learn.microsoft.com/windows/win32/api/spatialinteractionmanagerinterop/nn-spatialinteractionmanagerinterop-ispatialinteractionmanagerinterop
  * @namespace Windows.Win32.System.WinRT
- * @version v4.0.30319
  */
-class ISpatialInteractionManagerInterop extends IInspectable{
+class ISpatialInteractionManagerInterop extends IInspectable {
 
     static sizeof => A_PtrSize
     /**

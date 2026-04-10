@@ -3,10 +3,8 @@
 
 /**
  * @namespace Windows.Wdk.System.SystemServices
- * @version v4.0.30319
  */
-class PCI_FIRMWARE_BUS_CAPS extends Win32Struct
-{
+class PCI_FIRMWARE_BUS_CAPS extends Win32Struct {
     static sizeof => 16
 
     static packingSize => 2
@@ -114,9 +112,9 @@ class PCI_FIRMWARE_BUS_CAPS extends Win32Struct
     }
 
     /**
-     * @type {Array<Byte>}
+     * @type {Array<Integer>}
      */
-    Reserved2{
+    Reserved2 {
         get {
             if(!this.HasProp("__Reserved2ProxyArray"))
                 this.__Reserved2ProxyArray := Win32FixedArray(this.ptr + 9, 7, Primitive, "char")

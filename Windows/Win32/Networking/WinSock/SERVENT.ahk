@@ -5,10 +5,9 @@
  * The SERVENT (winsock.h) structure is used to store or return the name and service number for a given service name.
  * @see https://learn.microsoft.com/windows/win32/api/winsock/ns-winsock-servent
  * @namespace Windows.Win32.Networking.WinSock
- * @version v4.0.30319
+ * @architecture X64, Arm64
  */
-class SERVENT extends Win32Struct
-{
+class SERVENT extends Win32Struct {
     static sizeof => 32
 
     static packingSize => 8

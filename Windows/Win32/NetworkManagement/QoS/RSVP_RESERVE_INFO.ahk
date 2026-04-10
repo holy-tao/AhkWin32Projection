@@ -1,15 +1,15 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
 #Include .\QOS_OBJECT_HDR.ahk
+#Include .\RSVP_POLICY_INFO.ahk
+#Include .\FLOWDESCRIPTOR.ahk
 
 /**
  * The QOS object RSVP_RESERVE_INFO, through the ProviderSpecific buffer, enables RSVP behavior for a given flow to be specified or modified at a granular level, and enables default RSVP style settings for a flow to be overridden.
  * @see https://learn.microsoft.com/windows/win32/api/qossp/ns-qossp-rsvp_reserve_info
  * @namespace Windows.Win32.NetworkManagement.QoS
- * @version v4.0.30319
  */
-class RSVP_RESERVE_INFO extends Win32Struct
-{
+class RSVP_RESERVE_INFO extends Win32Struct {
     static sizeof => 40
 
     static packingSize => 8
@@ -19,7 +19,7 @@ class RSVP_RESERVE_INFO extends Win32Struct
      * <b>QOS_OBJECT_HDR</b>.
      * @type {QOS_OBJECT_HDR}
      */
-    ObjectHdr{
+    ObjectHdr {
         get {
             if(!this.HasProp("__ObjectHdr"))
                 this.__ObjectHdr := QOS_OBJECT_HDR(0, this)

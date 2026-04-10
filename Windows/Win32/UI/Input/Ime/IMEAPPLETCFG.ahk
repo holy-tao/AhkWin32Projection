@@ -6,10 +6,8 @@
  * Used to specify and set applet configuration in IImePad.
  * @see https://learn.microsoft.com/windows/win32/api/imepad/ns-imepad-imeappletcfg
  * @namespace Windows.Win32.UI.Input.Ime
- * @version v4.0.30319
  */
-class IMEAPPLETCFG extends Win32Struct
-{
+class IMEAPPLETCFG extends Win32Struct {
     static sizeof => 232
 
     static packingSize => 8
@@ -137,7 +135,7 @@ class IMEAPPLETCFG extends Win32Struct
      * The icon handle for the ImePad applet's menu.
      * @type {HICON}
      */
-    hIcon{
+    hIcon {
         get {
             if(!this.HasProp("__hIcon"))
                 this.__hIcon := HICON(208, this)

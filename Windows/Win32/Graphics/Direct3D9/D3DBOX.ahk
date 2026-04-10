@@ -9,10 +9,8 @@
  * The restrictions on side ordering observed for **D3DBOX** are left to right, top to bottom, and front to back.
  * @see https://learn.microsoft.com/windows/win32/direct3d9/d3dbox
  * @namespace Windows.Win32.Graphics.Direct3D9
- * @version v4.0.30319
  */
-class D3DBOX extends Win32Struct
-{
+class D3DBOX extends Win32Struct {
     static sizeof => 24
 
     static packingSize => 4

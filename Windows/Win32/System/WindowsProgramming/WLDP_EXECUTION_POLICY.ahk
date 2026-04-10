@@ -2,14 +2,10 @@
 #Include ..\..\..\..\Win32Enum.ahk
 
 /**
- * 
- * @remarks
- * 
  * @see https://learn.microsoft.com/windows/win32/api/wldp/ne-wldp-wldp_execution_policy
  * @namespace Windows.Win32.System.WindowsProgramming
- * @version v4.0.30319
  */
-class WLDP_EXECUTION_POLICY extends Win32Enum{
+class WLDP_EXECUTION_POLICY extends Win32Enum {
 
     /**
      * The subject does not pass execution policy and should not be executed.

@@ -1,14 +1,13 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
+#Include .\FDIERROR.ahk
 
 /**
  * The FDINOTIFICATION structure to provide information to FNFDINOTIFY.
  * @see https://learn.microsoft.com/windows/win32/api/fdi/ns-fdi-fdinotification
  * @namespace Windows.Win32.Storage.Cabinets
- * @version v4.0.30319
  */
-class FDINOTIFICATION extends Win32Struct
-{
+class FDINOTIFICATION extends Win32Struct {
     static sizeof => 64
 
     static packingSize => 8
@@ -300,7 +299,7 @@ class FDINOTIFICATION extends Win32Struct
      * </td>
      * </tr>
      * </table>
-     * @type {Integer}
+     * @type {FDIERROR}
      */
     fdie {
         get => NumGet(this, 60, "int")

@@ -7,9 +7,8 @@
  * The IDvdCmd interface waits for DVD commands to start or end.The DVD Navigator creates synchronization objects that expose this interface.
  * @see https://learn.microsoft.com/windows/win32/api/strmif/nn-strmif-idvdcmd
  * @namespace Windows.Win32.Media.DirectShow
- * @version v4.0.30319
  */
-class IDvdCmd extends IUnknown{
+class IDvdCmd extends IUnknown {
 
     static sizeof => A_PtrSize
     /**

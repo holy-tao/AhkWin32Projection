@@ -1,14 +1,13 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\..\..\Guid.ahk
-#Include .\IDebugDocumentContext.ahk
 #Include .\IDebugDocument.ahk
+#Include .\IDebugDocumentContext.ahk
 
 /**
  * @namespace Windows.Win32.System.Diagnostics.Debug.ActiveScript
- * @version v4.0.30319
  */
-class IDebugDocumentText extends IDebugDocument{
+class IDebugDocumentText extends IDebugDocument {
 
     static sizeof => A_PtrSize
     /**

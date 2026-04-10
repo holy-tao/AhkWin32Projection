@@ -56,10 +56,8 @@
  * The high word of <b>dwFlags2</b> can be set to contain flags that scope how DirectInput enumerates the device to DirectInput applications. For example, some devices declare multiple top-level HID collections. Such a device might declare that it can act as a keyboard, a mouse, and a joystick all in one. Generally, one or more of these top-level collections is merely a phantom device, which shouldn't be enumerated to games. For this device, the high word of <b>dwFlags2</b> could be set to a combination of the JOYTYPE_HIDEACTIVE, JOYTYPE_MOUSEHIDE, and JOYTYPE_KEYBHIDE flags. The JOYTYPE_HIDEACTIVE flag indicates that DirectInput should not enumerate the device by all its types. The JOYTYPE_MOUSEHIDE and JOYTYPE_KEYBHIDE flags also present in the high word indicate to DirectInput that enumeration of the phantom mouse and keyboard on the device should be suppressed. Note that applications can include the DIEDFL_INCLUDEHIDDEN (described in the Microsoft Windows SDK documentation) flag to enumerate devices, even if they are hidden.
  * @see https://learn.microsoft.com/windows/win32/api/dinputd/ns-dinputd-dijoytypeinfo
  * @namespace Windows.Win32.Devices.HumanInterfaceDevice
- * @version v4.0.30319
  */
-class DIJOYTYPEINFO extends Win32Struct
-{
+class DIJOYTYPEINFO extends Win32Struct {
     static sizeof => 2088
 
     static packingSize => 8
@@ -77,7 +75,7 @@ class DIJOYTYPEINFO extends Win32Struct
      * Joystick hardware settings.
      * @type {JOYREGHWSETTINGS}
      */
-    hws{
+    hws {
         get {
             if(!this.HasProp("__hws"))
                 this.__hws := JOYREGHWSETTINGS(4, this)
@@ -87,7 +85,7 @@ class DIJOYTYPEINFO extends Win32Struct
 
     /**
      * Specifies a CLSID for the joystick type configuration object. Pass this CLSID to CoCreateInstance to create a configuration object. This field is zero if the type does not have custom configuration.
-     * @type {Pointer<Guid>}
+     * @type {Pointer}
      */
     clsidConfig {
         get => NumGet(this, 16, "ptr")
@@ -140,7 +138,6 @@ class DIJOYTYPEINFO extends Win32Struct
     }
 
     /**
-     * 
      * @type {String}
      */
     wszMapFile {

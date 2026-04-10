@@ -5,9 +5,8 @@
  * Specifies the progress operations to receive notifications for.
  * @see https://learn.microsoft.com/windows/win32/api/wincodec/ne-wincodec-wicprogressoperation
  * @namespace Windows.Win32.Graphics.Imaging
- * @version v4.0.30319
  */
-class WICProgressOperation extends Win32Enum{
+class WICProgressOperation extends Win32Enum {
 
     /**
      * Receive copy pixel operation.

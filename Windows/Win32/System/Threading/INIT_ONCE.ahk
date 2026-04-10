@@ -3,10 +3,8 @@
 
 /**
  * @namespace Windows.Win32.System.Threading
- * @version v4.0.30319
  */
-class INIT_ONCE extends Win32Struct
-{
+class INIT_ONCE extends Win32Struct {
     static sizeof => 8
 
     static packingSize => 8

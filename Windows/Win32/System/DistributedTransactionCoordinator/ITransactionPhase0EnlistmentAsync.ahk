@@ -1,14 +1,13 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
-#Include .\ITransaction.ahk
 #Include ..\Com\IUnknown.ahk
+#Include .\ITransaction.ahk
 
 /**
  * @namespace Windows.Win32.System.DistributedTransactionCoordinator
- * @version v4.0.30319
  */
-class ITransactionPhase0EnlistmentAsync extends IUnknown{
+class ITransactionPhase0EnlistmentAsync extends IUnknown {
 
     static sizeof => A_PtrSize
     /**

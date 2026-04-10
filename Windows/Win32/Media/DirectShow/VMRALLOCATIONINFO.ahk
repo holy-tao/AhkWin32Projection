@@ -1,15 +1,15 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
+#Include ..\..\Graphics\Gdi\BITMAPINFOHEADER.ahk
+#Include ..\..\Graphics\DirectDraw\DDPIXELFORMAT.ahk
 #Include ..\..\Foundation\SIZE.ahk
 
 /**
  * The VMRALLOCATIONINFO structure is used in the VMR-7 filter's IVMRSurfaceAllocator::AllocateSurface method.
  * @see https://learn.microsoft.com/windows/win32/api/strmif/ns-strmif-vmrallocationinfo
  * @namespace Windows.Win32.Media.DirectShow
- * @version v4.0.30319
  */
-class VMRALLOCATIONINFO extends Win32Struct
-{
+class VMRALLOCATIONINFO extends Win32Struct {
     static sizeof => 56
 
     static packingSize => 8
@@ -45,7 +45,7 @@ class VMRALLOCATIONINFO extends Win32Struct
      * A <a href="https://docs.microsoft.com/windows/win32/api/windef/ns-windef-size">SIZE</a> structure that specifies the aspect ratio of the new surface.
      * @type {SIZE}
      */
-    szAspectRatio{
+    szAspectRatio {
         get {
             if(!this.HasProp("__szAspectRatio"))
                 this.__szAspectRatio := SIZE(24, this)
@@ -84,7 +84,7 @@ class VMRALLOCATIONINFO extends Win32Struct
      * The size of the native video rectangle.
      * @type {SIZE}
      */
-    szNativeSize{
+    szNativeSize {
         get {
             if(!this.HasProp("__szNativeSize"))
                 this.__szNativeSize := SIZE(44, this)

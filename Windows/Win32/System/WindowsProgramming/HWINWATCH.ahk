@@ -4,10 +4,8 @@
 
 /**
  * @namespace Windows.Win32.System.WindowsProgramming
- * @version v4.0.30319
  */
-class HWINWATCH extends Win32Handle
-{
+class HWINWATCH extends Win32Handle {
     static sizeof => 8
 
     static packingSize => 8

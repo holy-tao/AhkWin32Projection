@@ -11,10 +11,8 @@
  * - The connection is originated by the **Microsoft Remote Desktop** app that is available in the Store.
  * @see https://learn.microsoft.com/windows/win32/api/wtsapi32/ns-wtsapi32-wts_client_address
  * @namespace Windows.Win32.System.RemoteDesktop
- * @version v4.0.30319
  */
-class WTS_CLIENT_ADDRESS extends Win32Struct
-{
+class WTS_CLIENT_ADDRESS extends Win32Struct {
     static sizeof => 24
 
     static packingSize => 4
@@ -35,9 +33,9 @@ class WTS_CLIENT_ADDRESS extends Win32Struct
      * 
      * 
      * For a family <b>AF_INET6</b>: <b>Address </b> contains the IPV6 address of the client as raw byte values. (For example, the address "FFFF::1" would be represented as the following series of byte values: "0xFF 0xFF 0x00 0x00  0x00 0x00  0x00 0x00  0x00 0x00  0x00 0x00  0x00 0x00  0x00 0x01")
-     * @type {Array<Byte>}
+     * @type {Array<Integer>}
      */
-    Address{
+    Address {
         get {
             if(!this.HasProp("__AddressProxyArray"))
                 this.__AddressProxyArray := Win32FixedArray(this.ptr + 4, 20, Primitive, "char")

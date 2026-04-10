@@ -1,14 +1,14 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
+#Include .\MAINTENANCE_MODE_TYPE_ENUM.ahk
+#Include .\CLUSTER_RESOURCE_STATE.ahk
 
 /**
  * Represents the extended maintenance mode settings for a storage class resource.
  * @see https://learn.microsoft.com/windows/win32/api/clusapi/ns-clusapi-clus_maintenance_mode_infoex
  * @namespace Windows.Win32.Networking.Clustering
- * @version v4.0.30319
  */
-class CLUS_MAINTENANCE_MODE_INFOEX extends Win32Struct
-{
+class CLUS_MAINTENANCE_MODE_INFOEX extends Win32Struct {
     static sizeof => 16
 
     static packingSize => 4
@@ -27,7 +27,7 @@ class CLUS_MAINTENANCE_MODE_INFOEX extends Win32Struct
 
     /**
      * Unless the resource in question is in a type of maintenance mode, this member is set to 0.  Otherwise this member  takes an <b>enumerator</b> from the  <a href="https://docs.microsoft.com/windows/desktop/api/clusapi/ne-clusapi-maintenance_mode_type_enum">MAINTENANCE_MODE_TYPE_ENUM</a> enumeration as its value.  The possible values of this member are as follows.
-     * @type {Integer}
+     * @type {MAINTENANCE_MODE_TYPE_ENUM}
      */
     MaintainenceModeType {
         get => NumGet(this, 4, "int")
@@ -36,7 +36,7 @@ class CLUS_MAINTENANCE_MODE_INFOEX extends Win32Struct
 
     /**
      * This member represents the internal resource state. This field is valid only when written by the server.  This member takes an enumerator from the <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/clusapi/ne-clusapi-cluster_resource_state">CLUSTER_RESOURCE_STATE</a> enumeration.  The possible values of this member are as follows.
-     * @type {Integer}
+     * @type {CLUSTER_RESOURCE_STATE}
      */
     InternalState {
         get => NumGet(this, 8, "int")

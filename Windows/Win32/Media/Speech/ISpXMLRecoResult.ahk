@@ -5,9 +5,8 @@
 
 /**
  * @namespace Windows.Win32.Media.Speech
- * @version v4.0.30319
  */
-class ISpXMLRecoResult extends ISpRecoResult{
+class ISpXMLRecoResult extends ISpRecoResult {
 
     static sizeof => A_PtrSize
     /**
@@ -30,7 +29,7 @@ class ISpXMLRecoResult extends ISpRecoResult{
 
     /**
      * 
-     * @param {Integer} Options 
+     * @param {SPXMLRESULTOPTIONS} Options 
      * @returns {PWSTR} 
      */
     GetXMLResult(Options) {

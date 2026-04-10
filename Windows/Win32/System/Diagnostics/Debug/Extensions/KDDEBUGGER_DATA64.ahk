@@ -1,14 +1,12 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\..\..\Win32Struct.ahk
-#Include ..\..\..\Kernel\LIST_ENTRY64.ahk
 #Include .\DBGKD_DEBUG_DATA_HEADER64.ahk
+#Include ..\..\..\Kernel\LIST_ENTRY64.ahk
 
 /**
  * @namespace Windows.Win32.System.Diagnostics.Debug.Extensions
- * @version v4.0.30319
  */
-class KDDEBUGGER_DATA64 extends Win32Struct
-{
+class KDDEBUGGER_DATA64 extends Win32Struct {
     static sizeof => 928
 
     static packingSize => 8
@@ -16,7 +14,7 @@ class KDDEBUGGER_DATA64 extends Win32Struct
     /**
      * @type {DBGKD_DEBUG_DATA_HEADER64}
      */
-    Header{
+    Header {
         get {
             if(!this.HasProp("__Header"))
                 this.__Header := DBGKD_DEBUG_DATA_HEADER64(0, this)

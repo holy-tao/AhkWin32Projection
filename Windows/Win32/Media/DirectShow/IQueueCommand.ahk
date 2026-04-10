@@ -7,9 +7,8 @@
  * The IQueueCommand interface queues a command for processing at a designated time.
  * @see https://learn.microsoft.com/windows/win32/api/control/nn-control-iqueuecommand
  * @namespace Windows.Win32.Media.DirectShow
- * @version v4.0.30319
  */
-class IQueueCommand extends IUnknown{
+class IQueueCommand extends IUnknown {
 
     static sizeof => A_PtrSize
     /**

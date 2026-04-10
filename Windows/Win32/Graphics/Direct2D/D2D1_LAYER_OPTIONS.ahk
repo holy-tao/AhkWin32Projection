@@ -9,9 +9,8 @@
  * A small performance hit from re-copying content occurs when <a href="https://docs.microsoft.com/windows/win32/api/d2d1/nf-d2d1-id2d1rendertarget-clear(constd2d1_color_f_)">ID2D1RenderTarget::Clear</a> is called.
  * @see https://learn.microsoft.com/windows/win32/api/d2d1/ne-d2d1-d2d1_layer_options
  * @namespace Windows.Win32.Graphics.Direct2D
- * @version v4.0.30319
  */
-class D2D1_LAYER_OPTIONS extends Win32BitflagEnum{
+class D2D1_LAYER_OPTIONS extends Win32BitflagEnum {
 
     /**
      * The text in this layer does not use ClearType antialiasing.

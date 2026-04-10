@@ -3,11 +3,9 @@
 
 /**
  * @namespace Windows.Win32.NetworkManagement.Rras
- * @version v4.0.30319
  * @charset ANSI
  */
-class RASDEVINFOA extends Win32Struct
-{
+class RASDEVINFOA extends Win32Struct {
     static sizeof => 152
 
     static packingSize => 4

@@ -3,9 +3,8 @@
 
 /**
  * @namespace Windows.Win32.System.JobObjects
- * @version v4.0.30319
  */
-class JOBOBJECTINFOCLASS extends Win32Enum{
+class JOBOBJECTINFOCLASS extends Win32Enum {
 
     /**
      * @type {Integer (Int32)}

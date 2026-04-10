@@ -6,10 +6,8 @@
  * Specifies Desktop Window Manager (DWM) blur-behind properties. Used by the DwmEnableBlurBehindWindow function.
  * @see https://learn.microsoft.com/windows/win32/api/dwmapi/ns-dwmapi-dwm_blurbehind
  * @namespace Windows.Win32.Graphics.Dwm
- * @version v4.0.30319
  */
-class DWM_BLURBEHIND extends Win32Struct
-{
+class DWM_BLURBEHIND extends Win32Struct {
     static sizeof => 24
 
     static packingSize => 8
@@ -36,7 +34,7 @@ class DWM_BLURBEHIND extends Win32Struct
      * The region within the client area where the blur behind will be applied. A <b>NULL</b> value will apply the blur behind the entire client area.
      * @type {HRGN}
      */
-    hRgnBlur{
+    hRgnBlur {
         get {
             if(!this.HasProp("__hRgnBlur"))
                 this.__hRgnBlur := HRGN(8, this)

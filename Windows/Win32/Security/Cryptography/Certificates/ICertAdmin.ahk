@@ -1,16 +1,15 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\..\Guid.ahk
-#Include ..\..\..\Foundation\BSTR.ahk
 #Include ..\..\..\System\Com\IDispatch.ahk
+#Include ..\..\..\Foundation\BSTR.ahk
 
 /**
  * Provides administration functionality for properly authorized clients.
  * @see https://learn.microsoft.com/windows/win32/api/certadm/nn-certadm-icertadmin
  * @namespace Windows.Win32.Security.Cryptography.Certificates
- * @version v4.0.30319
  */
-class ICertAdmin extends IDispatch{
+class ICertAdmin extends IDispatch {
 
     static sizeof => A_PtrSize
     /**
@@ -176,7 +175,7 @@ class ICertAdmin extends IDispatch{
      * <div> </div>
      * @param {Integer} RequestId Specifies the ID of the certificate request.
      * @param {BSTR} strExtensionName Specifies the <a href="https://docs.microsoft.com/windows/desktop/SecGloss/o-gly">object identifier</a> (OID) for the extension to set. The string must be 31 or fewer non-NULL characters in length.
-     * @param {Integer} Type Specifies the type of extension being set. The <i>Type</i> parameter must agree with the data type of the <i>pvarValue</i> parameter. This data type is set in the <b>vt</b> field of the <b>VARIANT</b> structure.
+     * @param {CERT_PROPERTY_TYPE} Type Specifies the type of extension being set. The <i>Type</i> parameter must agree with the data type of the <i>pvarValue</i> parameter. This data type is set in the <b>vt</b> field of the <b>VARIANT</b> structure.
      * @param {Integer} Flags Specifies the flags for the extension being set. If no flag is to be set, use a value of zero. You can combine these flags with a bitwise-<b>OR</b> operation and also with policy private extension flags (the high 8 bits of the EXTENSION_POLICY_MASK field). 
      * 
      * 
@@ -360,7 +359,7 @@ class ICertAdmin extends IDispatch{
      * <div class="alert"><b>Important</b>  <b>ImportCertificate</b> does not clear the internal cache when the configuration string is changed. When you change the configuration string for the CA, you must instantiate a new <a href="https://docs.microsoft.com/windows/desktop/api/certadm/nn-certadm-icertadmin2">ICertAdmin</a> object and call this method again with the new configuration string.</div>
      * <div> </div>
      * @param {BSTR} strCertificate The binary representation of the certificate being imported.
-     * @param {Integer} Flags 
+     * @param {CERT_IMPORT_FLAGS} Flags 
      * @returns {Integer} A pointer to a <b>LONG</b> value that receives the database-assigned request ID for the imported certificate.
      * @see https://learn.microsoft.com/windows/win32/api/certadm/nf-certadm-icertadmin-importcertificate
      */

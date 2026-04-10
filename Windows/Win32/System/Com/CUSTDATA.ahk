@@ -1,14 +1,13 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
+#Include .\CUSTDATAITEM.ahk
 
 /**
  * Represents custom data.
  * @see https://learn.microsoft.com/windows/win32/api/oaidl/ns-oaidl-custdata
  * @namespace Windows.Win32.System.Com
- * @version v4.0.30319
  */
-class CUSTDATA extends Win32Struct
-{
+class CUSTDATA extends Win32Struct {
     static sizeof => 16
 
     static packingSize => 8

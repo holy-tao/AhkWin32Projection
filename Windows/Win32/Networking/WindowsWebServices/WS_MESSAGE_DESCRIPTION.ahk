@@ -1,14 +1,14 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
+#Include .\WS_XML_STRING.ahk
+#Include .\WS_ELEMENT_DESCRIPTION.ahk
 
 /**
  * The schema for the input/output WS_MESSAGE for a given operation description.
  * @see https://learn.microsoft.com/windows/win32/api/webservices/ns-webservices-ws_message_description
  * @namespace Windows.Win32.Networking.WindowsWebServices
- * @version v4.0.30319
  */
-class WS_MESSAGE_DESCRIPTION extends Win32Struct
-{
+class WS_MESSAGE_DESCRIPTION extends Win32Struct {
     static sizeof => 16
 
     static packingSize => 8

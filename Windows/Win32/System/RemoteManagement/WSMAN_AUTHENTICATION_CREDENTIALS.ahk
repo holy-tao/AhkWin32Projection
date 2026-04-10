@@ -6,10 +6,8 @@
  * Defines the authentication method and the credentials used for server or proxy authentication.
  * @see https://learn.microsoft.com/windows/win32/api/wsman/ns-wsman-wsman_authentication_credentials
  * @namespace Windows.Win32.System.RemoteManagement
- * @version v4.0.30319
  */
-class WSMAN_AUTHENTICATION_CREDENTIALS extends Win32Struct
-{
+class WSMAN_AUTHENTICATION_CREDENTIALS extends Win32Struct {
     static sizeof => 24
 
     static packingSize => 8
@@ -26,7 +24,7 @@ class WSMAN_AUTHENTICATION_CREDENTIALS extends Win32Struct
     /**
      * @type {WSMAN_USERNAME_PASSWORD_CREDS}
      */
-    userAccount{
+    userAccount {
         get {
             if(!this.HasProp("__userAccount"))
                 this.__userAccount := WSMAN_USERNAME_PASSWORD_CREDS(8, this)

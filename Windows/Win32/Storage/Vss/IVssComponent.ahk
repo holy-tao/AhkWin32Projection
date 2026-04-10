@@ -1,17 +1,15 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
-#Include ..\..\Foundation\BSTR.ahk
-#Include .\IVssWMFiledesc.ahk
 #Include ..\..\System\Com\IUnknown.ahk
+#Include .\IVssWMFiledesc.ahk
 
 /**
  * The IVssComponent interface is a C++ (not COM) interface containing methods for examining and modifying information about components contained in a requester's Backup Components Document.
  * @see https://learn.microsoft.com/windows/win32/api/vswriter/nl-vswriter-ivsscomponent
  * @namespace Windows.Win32.Storage.Vss
- * @version v4.0.30319
  */
-class IVssComponent extends IUnknown{
+class IVssComponent extends IUnknown {
 
     static sizeof => A_PtrSize
     /**
@@ -112,7 +110,7 @@ class IVssComponent extends IUnknown{
 
     /**
      * The GetComponentType method returns the type of this component in terms of the VSS_COMPONENT_TYPE enumeration.
-     * @param {Pointer<Integer>} pct The address of a caller-allocated variable that receives a 
+     * @param {Pointer<VSS_COMPONENT_TYPE>} pct The address of a caller-allocated variable that receives a 
      * <a href="https://docs.microsoft.com/windows/desktop/api/vswriter/ne-vswriter-vss_component_type">VSS_COMPONENT_TYPE</a> enumeration value that specifies the type of the component.
      * @returns {HRESULT} The following are the valid return codes for this method.
      * 
@@ -1602,7 +1600,7 @@ class IVssComponent extends IUnknown{
      * @remarks
      * The restore target set by 
      * <b>SetRestoreTarget</b> applies to all files in the component and any nonselectable subcomponents.
-     * @param {Integer} target A value from 
+     * @param {VSS_RESTORE_TARGET} target A value from 
      * <a href="https://docs.microsoft.com/windows/desktop/api/vswriter/ne-vswriter-vss_restore_target">VSS_RESTORE_TARGET</a> containing the restore target information.
      * @returns {HRESULT} The following are the valid return codes for this method.
      * 
@@ -1665,7 +1663,7 @@ class IVssComponent extends IUnknown{
 
     /**
      * The GetRestoreTarget method returns the restore target (in terms of the VSS_RESTORE_TARGET enumeration) for the current component.
-     * @param {Pointer<Integer>} pTarget The address of a caller-allocated variable that receives a 
+     * @param {Pointer<VSS_RESTORE_TARGET>} pTarget The address of a caller-allocated variable that receives a 
      * <a href="https://docs.microsoft.com/windows/desktop/api/vswriter/ne-vswriter-vss_restore_target">VSS_RESTORE_TARGET</a> enumeration value that specifies the restore target.
      * @returns {HRESULT} The following are the valid return codes for this method.
      * 
@@ -2514,7 +2512,9 @@ class IVssComponent extends IUnknown{
      * The GetRestoreSubcomponent method returns the specified subcomponent associated with a given component.
      * @remarks
      * The caller should free the memory held by the <i>pbstrLogicalPath</i> and <i>pbstrComponentName</i> parameters by calling <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/oleauto/nf-oleauto-sysfreestring">SysFreeString</a>.
-     * @param {Integer} _iComponent 
+     * @param {Integer} _iComponent Index of the subcomponent. The value of this parameter is an integer from 0 
+     *       to <i>n</i>–1 inclusive, where <i>n</i> is the total number of subcomponents associated with a given component. The value of <i>n</i> is returned by 
+     * <a href="https://docs.microsoft.com/windows/desktop/api/vswriter/nf-vswriter-ivsscomponent-getrestoresubcomponentcount">IVssComponent::GetRestoreSubcomponentCount</a>.
      * @param {Pointer<BSTR>} pbstrLogicalPath Pointer to a string containing the logical path of the subcomponent. The logical path cannot be empty when working with subcomponents.
      * @param {Pointer<BSTR>} pbstrComponentName Pointer to a string containing the name of the subcomponent. The string cannot be empty.
      * @param {Pointer<Boolean>} pbRepair Reserved for future use.
@@ -2599,7 +2599,7 @@ class IVssComponent extends IUnknown{
      * 
      * The status returned is undefined if this method is applied to a component that has not been selected for restore by being added to the Backup Components via 
      * <a href="https://docs.microsoft.com/windows/desktop/api/vsbackup/nf-vsbackup-ivssbackupcomponents-addcomponent">IVssBackupComponents::AddComponent</a>.
-     * @param {Pointer<Integer>} pStatus The address of a caller-allocated variable that receives a 
+     * @param {Pointer<VSS_FILE_RESTORE_STATUS>} pStatus The address of a caller-allocated variable that receives a 
      * <a href="https://docs.microsoft.com/windows/desktop/api/vswriter/ne-vswriter-vss_file_restore_status">VSS_FILE_RESTORE_STATUS</a> enumeration value that specifies whether all files were successfully restored.
      * @returns {HRESULT} The following are the valid return codes for this method.
      * 

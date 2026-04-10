@@ -5,9 +5,8 @@
  * These are the operational enum values that are passed to KeyCredentialManagerShowUIOperation.
  * @see https://learn.microsoft.com/windows/win32/api/keycredmgr/ne-keycredmgr-keycredentialmanageroperationtype
  * @namespace Windows.Win32.Security.Credentials
- * @version v4.0.30319
  */
-class KeyCredentialManagerOperationType extends Win32Enum{
+class KeyCredentialManagerOperationType extends Win32Enum {
 
     /**
      * Start the Provisioning operation.

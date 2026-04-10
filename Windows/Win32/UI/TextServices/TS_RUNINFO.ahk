@@ -1,5 +1,6 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
+#Include .\TsRunType.ahk
 
 /**
  * The TS_RUNINFO structure specifies the properties of text run data.
@@ -40,10 +41,8 @@
  * </table>
  * @see https://learn.microsoft.com/windows/win32/api/textstor/ns-textstor-ts_runinfo
  * @namespace Windows.Win32.UI.TextServices
- * @version v4.0.30319
  */
-class TS_RUNINFO extends Win32Struct
-{
+class TS_RUNINFO extends Win32Struct {
     static sizeof => 8
 
     static packingSize => 4
@@ -59,7 +58,7 @@ class TS_RUNINFO extends Win32Struct
 
     /**
      * Specifies the text run type. If this parameter is TS_RT_PLAIN, the text run is visible. If this parameter is TS_RT_HIDDEN, the text run is hidden. If this parameter is TS_RT_OPAQUE, the text run is a private data type embedded in the text by application or text service that implements the ITextStore interface.
-     * @type {Integer}
+     * @type {TsRunType}
      */
     type {
         get => NumGet(this, 4, "int")

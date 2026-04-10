@@ -3,10 +3,8 @@
 
 /**
  * @namespace Windows.Win32.Devices.Usb
- * @version v4.0.30319
  */
-class USB_HUB_DESCRIPTOR extends Win32Struct
-{
+class USB_HUB_DESCRIPTOR extends Win32Struct {
     static sizeof => 72
 
     static packingSize => 2
@@ -60,9 +58,9 @@ class USB_HUB_DESCRIPTOR extends Win32Struct
     }
 
     /**
-     * @type {Array<Byte>}
+     * @type {Array<Integer>}
      */
-    bRemoveAndPowerMask{
+    bRemoveAndPowerMask {
         get {
             if(!this.HasProp("__bRemoveAndPowerMaskProxyArray"))
                 this.__bRemoveAndPowerMaskProxyArray := Win32FixedArray(this.ptr + 8, 64, Primitive, "char")

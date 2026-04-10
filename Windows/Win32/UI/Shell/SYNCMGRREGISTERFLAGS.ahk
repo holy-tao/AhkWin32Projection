@@ -7,9 +7,8 @@
  * The SYNCMGRREGISTERFLAGS_MASK value can be used to identify valid <b>SYNCMGRREGISTERFLAGS</b> values.
  * @see https://learn.microsoft.com/windows/win32/api/mobsync/ne-mobsync-syncmgrregisterflags
  * @namespace Windows.Win32.UI.Shell
- * @version v4.0.30319
  */
-class SYNCMGRREGISTERFLAGS extends Win32Enum{
+class SYNCMGRREGISTERFLAGS extends Win32Enum {
 
     /**
      * Network connect events.

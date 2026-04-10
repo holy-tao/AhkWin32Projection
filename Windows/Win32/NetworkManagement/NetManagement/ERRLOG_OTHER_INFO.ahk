@@ -7,10 +7,8 @@
  * The calling application must allocate and free the memory for all structures and variable-length data in an alert message buffer.
  * @see https://learn.microsoft.com/windows/win32/api/lmalert/ns-lmalert-errlog_other_info
  * @namespace Windows.Win32.NetworkManagement.NetManagement
- * @version v4.0.30319
  */
-class ERRLOG_OTHER_INFO extends Win32Struct
-{
+class ERRLOG_OTHER_INFO extends Win32Struct {
     static sizeof => 8
 
     static packingSize => 4

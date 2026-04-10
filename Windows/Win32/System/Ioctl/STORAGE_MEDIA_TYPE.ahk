@@ -5,9 +5,8 @@
  * Specifies various types of storage media.
  * @see https://learn.microsoft.com/windows/win32/api/winioctl/ne-winioctl-storage_media_type
  * @namespace Windows.Win32.System.Ioctl
- * @version v4.0.30319
  */
-class STORAGE_MEDIA_TYPE extends Win32Enum{
+class STORAGE_MEDIA_TYPE extends Win32Enum {
 
     /**
      * One of the following tape types: DAT, DDS1, DDS2, and so on.

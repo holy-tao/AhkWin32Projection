@@ -1,14 +1,13 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
+#Include .\RdcNeed.ahk
 
 /**
  * Describes an array of RdcNeed structures.
  * @see https://learn.microsoft.com/windows/win32/api/msrdc/ns-msrdc-rdcneedpointer
  * @namespace Windows.Win32.Networking.RemoteDifferentialCompression
- * @version v4.0.30319
  */
-class RdcNeedPointer extends Win32Struct
-{
+class RdcNeedPointer extends Win32Struct {
     static sizeof => 16
 
     static packingSize => 8

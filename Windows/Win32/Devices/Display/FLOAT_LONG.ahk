@@ -3,10 +3,9 @@
 
 /**
  * @namespace Windows.Win32.Devices.Display
- * @version v4.0.30319
+ * @architecture X64, Arm64
  */
-class FLOAT_LONG extends Win32Struct
-{
+class FLOAT_LONG extends Win32Struct {
     static sizeof => 8
 
     static packingSize => 4

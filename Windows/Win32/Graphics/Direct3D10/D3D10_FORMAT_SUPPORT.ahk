@@ -5,9 +5,8 @@
  * Which resources are supported for a given format and given device (see ID3D10Device::CheckFormatSupport).
  * @see https://learn.microsoft.com/windows/win32/api/d3d10/ne-d3d10-d3d10_format_support
  * @namespace Windows.Win32.Graphics.Direct3D10
- * @version v4.0.30319
  */
-class D3D10_FORMAT_SUPPORT extends Win32Enum{
+class D3D10_FORMAT_SUPPORT extends Win32Enum {
 
     /**
      * Buffer resources supported.
@@ -155,7 +154,6 @@ class D3D10_FORMAT_SUPPORT extends Win32Enum{
     static D3D10_FORMAT_SUPPORT_SHADER_GATHER => 8388608
 
     /**
-     * 
      * @type {Integer (Int32)}
      */
     static D3D10_FORMAT_SUPPORT_BACK_BUFFER_CAST => 16777216

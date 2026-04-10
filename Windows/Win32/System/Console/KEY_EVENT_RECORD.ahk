@@ -9,16 +9,14 @@
  * Keyboard input events are generated when any key, including control keys, is pressed or released. However, the ALT key when pressed and released without combining with another character, has special meaning to the system and is not passed through to the application. Also, the CTRL+C key combination is not passed through if the input handle is in processed mode (**ENABLE\_PROCESSED\_INPUT**).
  * @see https://learn.microsoft.com/windows/console/key-event-record-str
  * @namespace Windows.Win32.System.Console
- * @version v4.0.30319
  */
-class KEY_EVENT_RECORD extends Win32Struct
-{
-    static sizeof => 20
+class KEY_EVENT_RECORD extends Win32Struct {
+    static sizeof => 16
 
     static packingSize => 4
 
     class _uChar_e__Union extends Win32Struct {
-        static sizeof => 3
+        static sizeof => 2
         static packingSize => 2
 
         /**
@@ -28,7 +26,7 @@ class KEY_EVENT_RECORD extends Win32Struct
             get => NumGet(this, 0, "char")
             set => NumPut("char", value, this, 0)
         }
-    
+
         /**
          * @type {CHAR}
          */
@@ -36,7 +34,6 @@ class KEY_EVENT_RECORD extends Win32Struct
             get => NumGet(this, 0, "char")
             set => NumPut("char", value, this, 0)
         }
-    
     }
 
     /**
@@ -79,10 +76,10 @@ class KEY_EVENT_RECORD extends Win32Struct
      * A union of the following members.
      * @type {_uChar_e__Union}
      */
-    uChar{
+    uChar {
         get {
             if(!this.HasProp("__uChar"))
-                this.__uChar := %this.__Class%._uChar_e__Union(10, this)
+                this.__uChar := KEY_EVENT_RECORD._uChar_e__Union(10, this)
             return this.__uChar
         }
     }
@@ -104,7 +101,7 @@ class KEY_EVENT_RECORD extends Win32Struct
      * @type {Integer}
      */
     dwControlKeyState {
-        get => NumGet(this, 16, "uint")
-        set => NumPut("uint", value, this, 16)
+        get => NumGet(this, 12, "uint")
+        set => NumPut("uint", value, this, 12)
     }
 }

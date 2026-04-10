@@ -3,18 +3,16 @@
 
 /**
  * @namespace Windows.Win32.System.SystemServices
- * @version v4.0.30319
  */
-class IMAGE_ARCHIVE_MEMBER_HEADER extends Win32Struct
-{
+class IMAGE_ARCHIVE_MEMBER_HEADER extends Win32Struct {
     static sizeof => 60
 
     static packingSize => 1
 
     /**
-     * @type {Array<Byte>}
+     * @type {Array<Integer>}
      */
-    Name{
+    Name {
         get {
             if(!this.HasProp("__NameProxyArray"))
                 this.__NameProxyArray := Win32FixedArray(this.ptr + 0, 16, Primitive, "char")
@@ -23,9 +21,9 @@ class IMAGE_ARCHIVE_MEMBER_HEADER extends Win32Struct
     }
 
     /**
-     * @type {Array<Byte>}
+     * @type {Array<Integer>}
      */
-    Date{
+    Date {
         get {
             if(!this.HasProp("__DateProxyArray"))
                 this.__DateProxyArray := Win32FixedArray(this.ptr + 16, 12, Primitive, "char")
@@ -34,9 +32,9 @@ class IMAGE_ARCHIVE_MEMBER_HEADER extends Win32Struct
     }
 
     /**
-     * @type {Array<Byte>}
+     * @type {Array<Integer>}
      */
-    UserID{
+    UserID {
         get {
             if(!this.HasProp("__UserIDProxyArray"))
                 this.__UserIDProxyArray := Win32FixedArray(this.ptr + 28, 6, Primitive, "char")
@@ -45,9 +43,9 @@ class IMAGE_ARCHIVE_MEMBER_HEADER extends Win32Struct
     }
 
     /**
-     * @type {Array<Byte>}
+     * @type {Array<Integer>}
      */
-    GroupID{
+    GroupID {
         get {
             if(!this.HasProp("__GroupIDProxyArray"))
                 this.__GroupIDProxyArray := Win32FixedArray(this.ptr + 34, 6, Primitive, "char")
@@ -56,9 +54,9 @@ class IMAGE_ARCHIVE_MEMBER_HEADER extends Win32Struct
     }
 
     /**
-     * @type {Array<Byte>}
+     * @type {Array<Integer>}
      */
-    Mode{
+    Mode {
         get {
             if(!this.HasProp("__ModeProxyArray"))
                 this.__ModeProxyArray := Win32FixedArray(this.ptr + 40, 8, Primitive, "char")
@@ -67,9 +65,9 @@ class IMAGE_ARCHIVE_MEMBER_HEADER extends Win32Struct
     }
 
     /**
-     * @type {Array<Byte>}
+     * @type {Array<Integer>}
      */
-    Size{
+    Size {
         get {
             if(!this.HasProp("__SizeProxyArray"))
                 this.__SizeProxyArray := Win32FixedArray(this.ptr + 48, 10, Primitive, "char")
@@ -78,9 +76,9 @@ class IMAGE_ARCHIVE_MEMBER_HEADER extends Win32Struct
     }
 
     /**
-     * @type {Array<Byte>}
+     * @type {Array<Integer>}
      */
-    EndHeader{
+    EndHeader {
         get {
             if(!this.HasProp("__EndHeaderProxyArray"))
                 this.__EndHeaderProxyArray := Win32FixedArray(this.ptr + 58, 2, Primitive, "char")

@@ -3,10 +3,8 @@
 
 /**
  * @namespace Windows.Win32.Devices.Nfc
- * @version v4.0.30319
  */
-class NFC_LLCP_SERVICE_NAME_ENTRY extends Win32Struct
-{
+class NFC_LLCP_SERVICE_NAME_ENTRY extends Win32Struct {
     static sizeof => 8
 
     static packingSize => 4
@@ -20,9 +18,9 @@ class NFC_LLCP_SERVICE_NAME_ENTRY extends Win32Struct
     }
 
     /**
-     * @type {Array<Byte>}
+     * @type {Array<Integer>}
      */
-    pbServiceName{
+    pbServiceName {
         get {
             if(!this.HasProp("__pbServiceNameProxyArray"))
                 this.__pbServiceNameProxyArray := Win32FixedArray(this.ptr + 4, 1, Primitive, "char")

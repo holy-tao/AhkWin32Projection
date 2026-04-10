@@ -1,18 +1,24 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
+#Include .\D3D12_VIDEO_ENCODER_FLAGS.ahk
+#Include .\D3D12_VIDEO_ENCODER_CODEC.ahk
 #Include .\D3D12_VIDEO_ENCODER_PROFILE_DESC.ahk
+#Include .\D3D12_VIDEO_ENCODER_PROFILE_H264.ahk
+#Include .\D3D12_VIDEO_ENCODER_PROFILE_HEVC.ahk
+#Include .\D3D12_VIDEO_ENCODER_AV1_PROFILE.ahk
+#Include ..\..\Graphics\Dxgi\Common\DXGI_FORMAT.ahk
 #Include .\D3D12_VIDEO_ENCODER_CODEC_CONFIGURATION.ahk
+#Include .\D3D12_VIDEO_ENCODER_CODEC_CONFIGURATION_H264.ahk
+#Include .\D3D12_VIDEO_ENCODER_CODEC_CONFIGURATION_HEVC.ahk
+#Include .\D3D12_VIDEO_ENCODER_AV1_CODEC_CONFIGURATION.ahk
+#Include .\D3D12_VIDEO_ENCODER_MOTION_ESTIMATION_PRECISION_MODE.ahk
 
 /**
  * Describes an ID3D12VideoEncoder.
- * @remarks
- * 
  * @see https://learn.microsoft.com/windows/win32/api/d3d12video/ns-d3d12video-d3d12_video_encoder_desc
  * @namespace Windows.Win32.Media.MediaFoundation
- * @version v4.0.30319
  */
-class D3D12_VIDEO_ENCODER_DESC extends Win32Struct
-{
+class D3D12_VIDEO_ENCODER_DESC extends Win32Struct {
     static sizeof => 64
 
     static packingSize => 8
@@ -28,7 +34,7 @@ class D3D12_VIDEO_ENCODER_DESC extends Win32Struct
 
     /**
      * A bitwise OR combination of values from the [D3D12_VIDEO_ENCODER_FLAGS](ne-d3d12video-d3d12_video_encoder_flags.md) specifying the flags for encoder creation.
-     * @type {Integer}
+     * @type {D3D12_VIDEO_ENCODER_FLAGS}
      */
     Flags {
         get => NumGet(this, 4, "int")
@@ -37,7 +43,7 @@ class D3D12_VIDEO_ENCODER_DESC extends Win32Struct
 
     /**
      * A [D3D12_VIDEO_ENCODER_CODEC](ne-d3d12video-d3d12_video_encoder_codec.md) specifying the desired codec.
-     * @type {Integer}
+     * @type {D3D12_VIDEO_ENCODER_CODEC}
      */
     EncodeCodec {
         get => NumGet(this, 8, "int")
@@ -48,7 +54,7 @@ class D3D12_VIDEO_ENCODER_DESC extends Win32Struct
      * A [D3D12_VIDEO_ENCODER_PROFILE_DESC](ns-d3d12video-d3d12_video_encoder_profile_desc.md) structure specifying the desired encoding profile.
      * @type {D3D12_VIDEO_ENCODER_PROFILE_DESC}
      */
-    EncodeProfile{
+    EncodeProfile {
         get {
             if(!this.HasProp("__EncodeProfile"))
                 this.__EncodeProfile := D3D12_VIDEO_ENCODER_PROFILE_DESC(16, this)
@@ -58,7 +64,7 @@ class D3D12_VIDEO_ENCODER_DESC extends Win32Struct
 
     /**
      * A [DXGI_FORMAT](../dxgiformat/ne-dxgiformat-dxgi_format.md) specifying the format of the source stream.
-     * @type {Integer}
+     * @type {DXGI_FORMAT}
      */
     InputFormat {
         get => NumGet(this, 32, "int")
@@ -69,7 +75,7 @@ class D3D12_VIDEO_ENCODER_DESC extends Win32Struct
      * A [D3D12_VIDEO_ENCODER_CODEC_CONFIGURATION](ns-d3d12video-d3d12_video_encoder_codec_configuration.md) structure specifying codec configuration parameters.
      * @type {D3D12_VIDEO_ENCODER_CODEC_CONFIGURATION}
      */
-    CodecConfiguration{
+    CodecConfiguration {
         get {
             if(!this.HasProp("__CodecConfiguration"))
                 this.__CodecConfiguration := D3D12_VIDEO_ENCODER_CODEC_CONFIGURATION(40, this)
@@ -79,7 +85,7 @@ class D3D12_VIDEO_ENCODER_DESC extends Win32Struct
 
     /**
      * A value from the [D3D12_VIDEO_ENCODER_MOTION_ESTIMATION_PRECISION_MODE](ne-d3d12video-d3d12_video_encoder_motion_estimation_precision_mode.md) enumeration the maximum number of motion vectors allowed.
-     * @type {Integer}
+     * @type {D3D12_VIDEO_ENCODER_MOTION_ESTIMATION_PRECISION_MODE}
      */
     MaxMotionEstimationPrecision {
         get => NumGet(this, 56, "int")

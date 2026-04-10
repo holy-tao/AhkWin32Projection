@@ -7,9 +7,8 @@
  * The IAudioEndpointOffloadStreamMute interface allows a client to manipulate the mute status of the offloaded audio stream.
  * @see https://learn.microsoft.com/windows/win32/api/audioengineendpoint/nn-audioengineendpoint-iaudioendpointoffloadstreammute
  * @namespace Windows.Win32.Media.Audio.Endpoints
- * @version v4.0.30319
  */
-class IAudioEndpointOffloadStreamMute extends IUnknown{
+class IAudioEndpointOffloadStreamMute extends IUnknown {
 
     static sizeof => A_PtrSize
     /**

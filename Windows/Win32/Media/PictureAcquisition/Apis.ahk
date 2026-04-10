@@ -5,7 +5,6 @@
 
 /**
  * @namespace Windows.Win32.Media.PictureAcquisition
- * @version v4.0.30319
  */
 class PictureAcquisition {
 

@@ -5,9 +5,8 @@
  * Specifies the behavior mode of the InkOverlay object and the InkPicture control.
  * @see https://learn.microsoft.com/windows/win32/api/msinkaut/ne-msinkaut-inkoverlayeditingmode
  * @namespace Windows.Win32.UI.TabletPC
- * @version v4.0.30319
  */
-class InkOverlayEditingMode extends Win32Enum{
+class InkOverlayEditingMode extends Win32Enum {
 
     /**
      * The object or control is in collection mode.

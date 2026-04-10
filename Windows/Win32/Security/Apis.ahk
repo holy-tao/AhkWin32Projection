@@ -1,11 +1,10 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\Win32Handle.ahk
-#Include ..\Foundation\NTSTATUS.ahk
 #Include .\SID_IDENTIFIER_AUTHORITY.ahk
+#Include ..\Foundation\NTSTATUS.ahk
 
 /**
  * @namespace Windows.Win32.Security
- * @version v4.0.30319
  */
 class Security {
 
@@ -569,7 +568,7 @@ class Security {
      * If this parameter is MAXIMUM_ALLOWED, the function sets the <i>GrantedAccess</i> access mask to indicate the maximum access rights the <a href="https://docs.microsoft.com/windows/desktop/SecGloss/s-gly">security descriptor</a> allows the client.
      * @param {Pointer<GENERIC_MAPPING>} GenericMapping A pointer to the 
      * <a href="https://docs.microsoft.com/windows/desktop/api/winnt/ns-winnt-generic_mapping">GENERIC_MAPPING</a> structure associated with the object for which access is being checked.
-     * @param {Pointer} PrivilegeSet A pointer to a 
+     * @param {Integer} PrivilegeSet A pointer to a 
      * <a href="https://docs.microsoft.com/windows/desktop/api/winnt/ns-winnt-privilege_set">PRIVILEGE_SET</a> structure that receives the <a href="https://docs.microsoft.com/windows/desktop/SecGloss/p-gly">privileges</a> used to perform the access validation. If no privileges were used, the function sets the <b>PrivilegeCount</b> member to zero.
      * @param {Pointer<Integer>} PrivilegeSetLength Specifies the size, in bytes, of the buffer pointed to by the <i>PrivilegeSet</i> parameter.
      * @param {Pointer<Integer>} GrantedAccess A pointer to an <a href="https://docs.microsoft.com/windows/desktop/SecGloss/a-gly">access mask</a> that receives the granted access rights. If <i>AccessStatus</i> is set to <b>FALSE</b>, the function sets the access mask to zero. If the function fails, it does not set the access mask.
@@ -613,7 +612,8 @@ class Security {
      * @param {Pointer<Void>} HandleId A pointer to a unique value representing the client's handle to the object. If the access is denied, the system ignores this value.
      * @param {PWSTR} ObjectTypeName A pointer to a null-terminated string specifying the type of object being created or accessed. This string appears in any audit message that the function generates.
      * @param {PWSTR} ObjectName A pointer to a null-terminated string specifying the name of the object being created or accessed. This string appears in any audit message that the function generates.
-     * @param {PSECURITY_DESCRIPTOR} _SecurityDescriptor 
+     * @param {PSECURITY_DESCRIPTOR} _SecurityDescriptor A pointer to the 
+     * <a href="https://docs.microsoft.com/windows/desktop/api/winnt/ns-winnt-security_descriptor">SECURITY_DESCRIPTOR</a> structure against which access is checked.
      * @param {Integer} DesiredAccess <a href="https://docs.microsoft.com/windows/desktop/SecGloss/a-gly">Access mask</a> that specifies the access rights to check. This mask must have been mapped by the <a href="https://docs.microsoft.com/windows/desktop/api/securitybaseapi/nf-securitybaseapi-mapgenericmask">MapGenericMask</a> function to contain no generic access rights.
      * 
      * If this parameter is MAXIMUM_ALLOWED, the function sets the <i>GrantedAccess</i> access mask to indicate the maximum access rights the security descriptor allows the client.
@@ -691,7 +691,7 @@ class Security {
      * @param {Integer} ObjectTypeListLength Specifies the number of elements in the <i>ObjectTypeList</i> array.
      * @param {Pointer<GENERIC_MAPPING>} GenericMapping A pointer to the 
      * <a href="https://docs.microsoft.com/windows/desktop/api/winnt/ns-winnt-generic_mapping">GENERIC_MAPPING</a> structure associated with the object for which access is being checked. The <b>GenericAll</b> member of the  <b>GENERIC_MAPPING</b> structure should contain all the access rights that can be granted by the resource manager, including STANDARD_RIGHTS_ALL and all of the rights that are set in the <b>GenericRead</b>, <b>GenericWrite</b>, and <b>GenericExecute</b> members.
-     * @param {Pointer} PrivilegeSet A pointer to a 
+     * @param {Integer} PrivilegeSet A pointer to a 
      * <a href="https://docs.microsoft.com/windows/desktop/api/winnt/ns-winnt-privilege_set">PRIVILEGE_SET</a> structure that receives the <a href="https://docs.microsoft.com/windows/desktop/SecGloss/p-gly">privileges</a> used to perform the access validation. If no privileges were used, the function sets the <b>PrivilegeCount</b> member to zero.
      * @param {Pointer<Integer>} PrivilegeSetLength Specifies the size, in bytes, of the buffer pointed to by the <i>PrivilegeSet</i> parameter.
      * @param {Pointer<Integer>} GrantedAccess A pointer to an access mask that receives the granted access rights. If <i>AccessStatus</i> is set to <b>FALSE</b>, the function sets the access mask to zero. If the function fails, it does not set the access mask.
@@ -766,7 +766,7 @@ class Security {
      * @param {Integer} ObjectTypeListLength The number of elements in the <i>ObjectTypeList</i> array. This is also the number of elements in the arrays pointed to by the <i>GrantedAccessList</i> and <i>AccessStatusList</i> parameters.
      * @param {Pointer<GENERIC_MAPPING>} GenericMapping A pointer to the 
      * <a href="https://docs.microsoft.com/windows/desktop/api/winnt/ns-winnt-generic_mapping">GENERIC_MAPPING</a> structure associated with the object for which access is being checked.
-     * @param {Pointer} PrivilegeSet A pointer to a 
+     * @param {Integer} PrivilegeSet A pointer to a 
      * <a href="https://docs.microsoft.com/windows/desktop/api/winnt/ns-winnt-privilege_set">PRIVILEGE_SET</a> structure that receives the <a href="https://docs.microsoft.com/windows/desktop/SecGloss/p-gly">privileges</a> used to perform the access validation. If no privileges were used, the function sets the <b>PrivilegeCount</b> member to zero.
      * @param {Pointer<Integer>} PrivilegeSetLength The size, in bytes, of the buffer pointed to by the <i>PrivilegeSet</i> parameter.
      * @param {Pointer<Integer>} GrantedAccessList A pointer to an array of access masks. The function sets each access mask to indicate the access rights granted to the corresponding element in the object type list. If the function fails, it does not set the access masks.
@@ -818,7 +818,7 @@ class Security {
      * @param {Pointer<Void>} HandleId A pointer to a unique value that represents the client's handle to the object. If the access is denied, the system ignores this value.
      * @param {PWSTR} ObjectTypeName A pointer to a null-terminated string that specifies the type of object being created or accessed. This string appears in any audit message that the function generates.
      * @param {PWSTR} ObjectName A pointer to a null-terminated string that specifies the name of the object being created or accessed. This string appears in any audit message that the function generates.
-     * @param {PSECURITY_DESCRIPTOR} _SecurityDescriptor 
+     * @param {PSECURITY_DESCRIPTOR} _SecurityDescriptor A pointer to a <a href="https://docs.microsoft.com/windows/desktop/api/winnt/ns-winnt-security_descriptor">SECURITY_DESCRIPTOR</a> structure against which access is checked.
      * @param {PSID} PrincipalSelfSid A pointer to a <a href="https://docs.microsoft.com/windows/desktop/SecGloss/s-gly">security identifier</a> (SID). If the security descriptor is associated with an object that represents a principal (for example, a user object), the <i>PrincipalSelfSid</i> parameter should be the SID of the object. When evaluating access, this SID logically replaces the SID in any ACE containing the well-known PRINCIPAL_SELF SID (S-1-5-10). For information about well-known SIDs, see <a href="https://docs.microsoft.com/windows/desktop/SecAuthZ/well-known-sids">Well-known SIDs</a>.
      * 
      * If the protected object does not represent a principal, set this parameter to <b>NULL</b>.
@@ -826,7 +826,7 @@ class Security {
      * <a href="https://docs.microsoft.com/windows/desktop/api/securitybaseapi/nf-securitybaseapi-mapgenericmask">MapGenericMask</a> function to contain no generic access rights.
      * 
      * If this parameter is MAXIMUM_ALLOWED, the function sets the <i>GrantedAccess</i> access mask to indicate the maximum access rights the security descriptor allows the client.
-     * @param {Integer} AuditType The type of audit to be generated. This can be one of the values from the <a href="https://docs.microsoft.com/windows/desktop/api/winnt/ne-winnt-audit_event_type">AUDIT_EVENT_TYPE</a> enumeration type.
+     * @param {AUDIT_EVENT_TYPE} AuditType The type of audit to be generated. This can be one of the values from the <a href="https://docs.microsoft.com/windows/desktop/api/winnt/ne-winnt-audit_event_type">AUDIT_EVENT_TYPE</a> enumeration type.
      * @param {Integer} Flags A flag that controls the function's behavior if the calling <a href="https://docs.microsoft.com/windows/desktop/SecGloss/p-gly">process</a> does not have the SE_AUDIT_NAME privilege enabled. If the AUDIT_ALLOW_NO_PRIVILEGE flag is set, the function performs the access check without generating audit messages when the privilege is not enabled. If this parameter is zero, the function fails if the privilege is not enabled.
      * @param {Pointer<OBJECT_TYPE_LIST>} ObjectTypeList A pointer to an array of <a href="https://docs.microsoft.com/windows/desktop/api/winnt/ns-winnt-object_type_list">OBJECT_TYPE_LIST</a> structures that identify the hierarchy of object types for which to check access. Each element in the array specifies a GUID that identifies the object type and a value that indicates the level of the object type in the hierarchy of object types. The array should not have two elements with the same GUID.
      * 
@@ -882,7 +882,7 @@ class Security {
      * @param {Pointer<Void>} HandleId A pointer to a unique value that represents the client's handle to the object. If the access is denied, the system ignores this value.
      * @param {PWSTR} ObjectTypeName A pointer to a null-terminated string that specifies the type of object being created or accessed. This string appears in any audit message that the function generates.
      * @param {PWSTR} ObjectName A pointer to a null-terminated string that specifies the name of the object being created or accessed. This string appears in any audit message that the function generates.
-     * @param {PSECURITY_DESCRIPTOR} _SecurityDescriptor 
+     * @param {PSECURITY_DESCRIPTOR} _SecurityDescriptor A pointer to a <a href="https://docs.microsoft.com/windows/desktop/api/winnt/ns-winnt-security_descriptor">SECURITY_DESCRIPTOR</a> structure against which access is checked.
      * @param {PSID} PrincipalSelfSid A pointer to a <a href="https://docs.microsoft.com/windows/desktop/SecGloss/s-gly">security identifier</a> (SID). If the security descriptor is associated with an object that represents a principal (for example, a user object), the <i>PrincipalSelfSid</i> parameter should be the SID of the object. When evaluating access, this SID logically replaces the SID in any ACE that contains the well-known PRINCIPAL_SELF SID (S-1-5-10). For information about well-known SIDs, see <a href="https://docs.microsoft.com/windows/desktop/SecAuthZ/well-known-sids">Well-known SIDs</a>.
      * 
      * Set this parameter to <b>NULL</b> if the protected object does not represent a principal.
@@ -890,7 +890,7 @@ class Security {
      * <a href="https://docs.microsoft.com/windows/desktop/api/securitybaseapi/nf-securitybaseapi-mapgenericmask">MapGenericMask</a> function so that it contains no generic access rights.
      * 
      * If this parameter is MAXIMUM_ALLOWED, the function sets the access mask in <i>GrantedAccess</i> to indicate the maximum access rights the security descriptor allows the client.
-     * @param {Integer} AuditType The type of audit to be generated. This can be one of the values from the <a href="https://docs.microsoft.com/windows/desktop/api/winnt/ne-winnt-audit_event_type">AUDIT_EVENT_TYPE</a> enumeration type.
+     * @param {AUDIT_EVENT_TYPE} AuditType The type of audit to be generated. This can be one of the values from the <a href="https://docs.microsoft.com/windows/desktop/api/winnt/ne-winnt-audit_event_type">AUDIT_EVENT_TYPE</a> enumeration type.
      * @param {Integer} Flags A flag that controls the function's behavior if the calling <a href="https://docs.microsoft.com/windows/desktop/SecGloss/p-gly">process</a> does not have the SE_AUDIT_NAME privilege enabled. If the AUDIT_ALLOW_NO_PRIVILEGE flag is set, the function performs the access check without generating audit messages when the privilege is not enabled. If this parameter is zero, the function fails if the privilege is not enabled.
      * @param {Pointer<OBJECT_TYPE_LIST>} ObjectTypeList A pointer to an array of 
      * <a href="https://docs.microsoft.com/windows/desktop/api/winnt/ns-winnt-object_type_list">OBJECT_TYPE_LIST</a> structures that identify the hierarchy of object types for which to check access. Each element in the array specifies a GUID that identifies the object type and a value that indicates the level of the object type in the hierarchy of object types. The array should not have two elements with the same GUID.
@@ -951,14 +951,15 @@ class Security {
      * @param {HANDLE} ClientToken A handle to a token object that represents the client that requested the operation. This handle must be obtained through a communication session layer, such as a local named pipe, to prevent possible security policy violations. The caller must have TOKEN_QUERY access for the specified token.
      * @param {PWSTR} ObjectTypeName A pointer to a null-terminated string that specifies the type of object being created or accessed. This string appears in any audit message that the function generates.
      * @param {PWSTR} ObjectName A pointer to a null-terminated string that specifies the name of the object being created or accessed. This string appears in any audit message that the function generates.
-     * @param {PSECURITY_DESCRIPTOR} _SecurityDescriptor 
+     * @param {PSECURITY_DESCRIPTOR} _SecurityDescriptor A pointer to a 
+     * <a href="https://docs.microsoft.com/windows/desktop/api/winnt/ns-winnt-security_descriptor">SECURITY_DESCRIPTOR</a> structure against which access is checked.
      * @param {PSID} PrincipalSelfSid A pointer to a SID. If the security descriptor is associated with an object that represents a principal (for example, a user object), the <i>PrincipalSelfSid</i> parameter should be the SID of the object. When evaluating access, this SID logically replaces the SID in any ACE containing the well-known PRINCIPAL_SELF SID (S-1-5-10). For information about well-known SIDs, see <a href="https://docs.microsoft.com/windows/desktop/SecAuthZ/well-known-sids">Well-known SIDs</a>.
      * 
      * Set this parameter to <b>NULL</b> if the protected object does not represent a principal.
      * @param {Integer} DesiredAccess An <a href="https://docs.microsoft.com/windows/desktop/SecGloss/a-gly">access mask</a> that specifies the access rights to check. This mask must have been mapped by the <a href="https://docs.microsoft.com/windows/desktop/api/securitybaseapi/nf-securitybaseapi-mapgenericmask">MapGenericMask</a> function so that it contains no generic access rights.
      * 
      * If this parameter is MAXIMUM_ALLOWED, the function sets the access mask in <i>GrantedAccess</i> to indicate the maximum access rights the security descriptor allows the client.
-     * @param {Integer} AuditType The type of audit to be generated. This can be one of the values from the <a href="https://docs.microsoft.com/windows/desktop/api/winnt/ne-winnt-audit_event_type">AUDIT_EVENT_TYPE</a> enumeration type.
+     * @param {AUDIT_EVENT_TYPE} AuditType The type of audit to be generated. This can be one of the values from the <a href="https://docs.microsoft.com/windows/desktop/api/winnt/ne-winnt-audit_event_type">AUDIT_EVENT_TYPE</a> enumeration type.
      * @param {Integer} Flags A flag that controls the function's behavior if the calling <a href="https://docs.microsoft.com/windows/desktop/SecGloss/p-gly">process</a> does not have the SE_AUDIT_NAME privilege enabled. If the AUDIT_ALLOW_NO_PRIVILEGE flag is set, the function performs the access check without generating audit messages when the privilege is not enabled. If this parameter is zero, the function fails if the privilege is not enabled.
      * @param {Pointer<OBJECT_TYPE_LIST>} ObjectTypeList A pointer to an array of <a href="https://docs.microsoft.com/windows/desktop/api/winnt/ns-winnt-object_type_list">OBJECT_TYPE_LIST</a> structures that identify the hierarchy of object types for which to check access. Each element in the array specifies a GUID that identifies the object type and a value that indicates the level of the object type in the hierarchy of object types. The array should not have two elements with the same GUID.
      * 
@@ -1003,12 +1004,13 @@ class Security {
      * @param {Pointer<ACL>} pAcl A pointer to an 
      * ACL. This function adds an access-allowed ACE to the end of this ACL. The ACE is in the form of an 
      * <a href="https://docs.microsoft.com/windows/desktop/api/winnt/ns-winnt-access_allowed_ace">ACCESS_ALLOWED_ACE</a> structure.
-     * @param {Integer} dwAceRevision Specifies the revision level of the ACL being modified. 
+     * @param {ACE_REVISION} dwAceRevision Specifies the revision level of the ACL being modified. 
      * 
      * 
      * This value can be ACL_REVISION or ACL_REVISION_DS. Use ACL_REVISION_DS if the ACL contains object-specific ACEs.
      * @param {Integer} AccessMask Specifies the mask of access rights to be granted to the specified SID.
-     * @param {PSID} _pSid 
+     * @param {PSID} _pSid A pointer to the 
+     * SID  representing a user, group, or logon account being granted access.
      * @returns {BOOL} If the function succeeds, the return value is nonzero.
      * 
      * If the function fails, the return value is zero. To get extended error information, call 
@@ -1096,11 +1098,12 @@ class Security {
      * <a href="https://docs.microsoft.com/windows/desktop/SecAuthZ/order-of-aces-in-a-dacl">Order of ACEs in a DACL</a>.
      * @param {Pointer<ACL>} pAcl A pointer to a DACL. The <b>AddAccessAllowedAceEx</b> function adds an access-allowed ACE to the end of this DACL. The ACE is in the form of an 
      * <a href="https://docs.microsoft.com/windows/desktop/api/winnt/ns-winnt-access_allowed_ace">ACCESS_ALLOWED_ACE</a> structure.
-     * @param {Integer} dwAceRevision Specifies the revision level of the DACL being modified. This value can be ACL_REVISION or ACL_REVISION_DS. Use ACL_REVISION_DS if the DACL contains object-specific ACEs.
-     * @param {Integer} AceFlags A set of bit flags that control ACE inheritance. The function sets these flags in the <b>AceFlags</b> member of the
+     * @param {ACE_REVISION} dwAceRevision Specifies the revision level of the DACL being modified. This value can be ACL_REVISION or ACL_REVISION_DS. Use ACL_REVISION_DS if the DACL contains object-specific ACEs.
+     * @param {ACE_FLAGS} AceFlags A set of bit flags that control ACE inheritance. The function sets these flags in the <b>AceFlags</b> member of the
      * @param {Integer} AccessMask A set of bit flags that use the 
      * <a href="https://docs.microsoft.com/windows/desktop/SecAuthZ/access-mask">ACCESS_MASK</a> format. These flags specify the access rights that the new ACE allows for the specified <a href="https://docs.microsoft.com/windows/desktop/SecGloss/s-gly">security identifier</a> (SID).
-     * @param {PSID} _pSid 
+     * @param {PSID} _pSid A pointer to a 
+     * SID that identifies the user, group, or <a href="https://docs.microsoft.com/windows/desktop/SecGloss/l-gly">logon session</a> to which the new ACE allows access.
      * @returns {BOOL} If the function succeeds, the return value is nonzero.
      * 
      * If the function fails, the return value is zero. To get extended error information, call 
@@ -1204,14 +1207,15 @@ class Security {
      * <a href="https://docs.microsoft.com/windows/desktop/SecAuthZ/order-of-aces-in-a-dacl">Order of ACEs in a DACL</a>.
      * @param {Pointer<ACL>} pAcl A pointer to a DACL. The <b>AddAccessAllowedObjectAce</b> function adds an access-allowed ACE to the end of this DACL. The ACE is in the form of an 
      * <a href="https://docs.microsoft.com/windows/desktop/api/winnt/ns-winnt-access_allowed_object_ace">ACCESS_ALLOWED_OBJECT_ACE</a> structure.
-     * @param {Integer} dwAceRevision Specifies the revision level of the DACL being modified. This value must be ACL_REVISION_DS. If the DACL's revision level is lower than ACL_REVISION_DS, the function changes it to ACL_REVISION_DS.
-     * @param {Integer} AceFlags A set of bit flags that control ACE inheritance. The function sets these flags in the <b>AceFlags</b> member of the
+     * @param {ACE_REVISION} dwAceRevision Specifies the revision level of the DACL being modified. This value must be ACL_REVISION_DS. If the DACL's revision level is lower than ACL_REVISION_DS, the function changes it to ACL_REVISION_DS.
+     * @param {ACE_FLAGS} AceFlags A set of bit flags that control ACE inheritance. The function sets these flags in the <b>AceFlags</b> member of the
      * @param {Integer} AccessMask A set of bit flags that use the 
      * <a href="https://docs.microsoft.com/windows/desktop/SecAuthZ/access-mask">ACCESS_MASK</a> format. These flags specify the access rights that the new ACE allows for the specified <a href="https://docs.microsoft.com/windows/desktop/SecGloss/s-gly">security identifier</a> (SID).
      * @param {Pointer<Guid>} ObjectTypeGuid A pointer to a 
      * <a href="https://docs.microsoft.com/windows/win32/api/guiddef/ns-guiddef-guid">GUID</a> structure that identifies the type of object, property set, or property protected by the new ACE. If this parameter is <b>NULL</b>, the new ACE protects the object to which the DACL is assigned.
      * @param {Pointer<Guid>} InheritedObjectTypeGuid A pointer to a <a href="https://docs.microsoft.com/windows/win32/api/guiddef/ns-guiddef-guid">GUID</a> structure that identifies the type of object that can inherit the new ACE. If this parameter is non-<b>NULL</b>, only the specified object type can inherit the ACE. If <b>NULL</b>, any type of child object can inherit the ACE. In either case, inheritance is also controlled by the value of the <i>AceFlags</i> parameter, as well as by any protection against inheritance placed on the child objects.
-     * @param {PSID} _pSid 
+     * @param {PSID} _pSid A pointer to a 
+     * SID that identifies the user, group, or <a href="https://docs.microsoft.com/windows/desktop/SecGloss/l-gly">logon session</a> to which the new ACE allows access.
      * @returns {BOOL} If the function succeeds, the return value is nonzero.
      * 
      * If the function fails, the return value is zero. To get extended error information, call 
@@ -1316,12 +1320,12 @@ class Security {
      * @param {Pointer<ACL>} pAcl A pointer to an 
      * ACL . This function adds an access-denied ACE to the end of this ACL. The ACE is in the form of an 
      * <a href="https://docs.microsoft.com/windows/desktop/api/winnt/ns-winnt-access_denied_ace">ACCESS_DENIED_ACE</a> structure.
-     * @param {Integer} dwAceRevision Specifies the revision level of the ACL being modified. 
+     * @param {ACE_REVISION} dwAceRevision Specifies the revision level of the ACL being modified. 
      * 
      * 
      * This value can be ACL_REVISION or ACL_REVISION_DS. Use ACL_REVISION_DS if the ACL contains object-specific ACEs.
      * @param {Integer} AccessMask Specifies the mask of access rights being denied to the specified SID.
-     * @param {PSID} _pSid 
+     * @param {PSID} _pSid A pointer to the SID structure representing the user, group, or logon account being denied access.
      * @returns {BOOL} If the function succeeds, the return value is nonzero.
      * 
      * If the function fails, the return value is zero. To get extended error information, call 
@@ -1409,11 +1413,12 @@ class Security {
      * <a href="https://docs.microsoft.com/windows/desktop/SecAuthZ/order-of-aces-in-a-dacl">Order of ACEs in a DACL</a>.
      * @param {Pointer<ACL>} pAcl A pointer to a DACL. The <b>AddAccessDeniedAceEx</b> function adds an access-denied ACE to the end of this DACL. The ACE is in the form of an 
      * <a href="https://docs.microsoft.com/windows/desktop/api/winnt/ns-winnt-access_denied_ace">ACCESS_DENIED_ACE</a> structure.
-     * @param {Integer} dwAceRevision Specifies the revision level of the DACL being modified. This value can be ACL_REVISION or ACL_REVISION_DS. Use ACL_REVISION_DS if the DACL contains object-specific ACEs.
-     * @param {Integer} AceFlags A set of bit flags that control ACE inheritance. The function sets these flags in the <b>AceFlags</b> member of the
+     * @param {ACE_REVISION} dwAceRevision Specifies the revision level of the DACL being modified. This value can be ACL_REVISION or ACL_REVISION_DS. Use ACL_REVISION_DS if the DACL contains object-specific ACEs.
+     * @param {ACE_FLAGS} AceFlags A set of bit flags that control ACE inheritance. The function sets these flags in the <b>AceFlags</b> member of the
      * @param {Integer} AccessMask A set of bit flags that use the 
      * <a href="https://docs.microsoft.com/windows/desktop/SecAuthZ/access-mask">ACCESS_MASK</a> format to specify the access rights that the new ACE denies to the specified <a href="https://docs.microsoft.com/windows/desktop/SecGloss/s-gly">security identifier</a> (SID).
-     * @param {PSID} _pSid 
+     * @param {PSID} _pSid A pointer to a 
+     * SID  that identifies the user, group, or <a href="https://docs.microsoft.com/windows/desktop/SecGloss/l-gly">logon session</a> to which the new ACE denies access.
      * @returns {BOOL} If the function succeeds, the return value is nonzero.
      * 
      * If the function fails, the return value is zero. To get extended error information, call 
@@ -1517,14 +1522,15 @@ class Security {
      * <a href="https://docs.microsoft.com/windows/desktop/SecAuthZ/order-of-aces-in-a-dacl">Order of ACEs in a DACL</a>.
      * @param {Pointer<ACL>} pAcl A pointer to a DACL. The <b>AddAccessDeniedObjectAce</b> function adds an access-denied ACE to the end of this DACL. The ACE is in the form of an 
      * <a href="https://docs.microsoft.com/windows/desktop/api/winnt/ns-winnt-access_denied_object_ace">ACCESS_DENIED_OBJECT_ACE</a> structure.
-     * @param {Integer} dwAceRevision Specifies the revision level of the DACL being modified. This value must be ACL_REVISION_DS. If the DACL's revision level is lower than ACL_REVISION_DS, the function changes it to ACL_REVISION_DS.
-     * @param {Integer} AceFlags A set of bit flags that control ACE inheritance. The function sets these flags in the <b>AceFlags</b> member of the
+     * @param {ACE_REVISION} dwAceRevision Specifies the revision level of the DACL being modified. This value must be ACL_REVISION_DS. If the DACL's revision level is lower than ACL_REVISION_DS, the function changes it to ACL_REVISION_DS.
+     * @param {ACE_FLAGS} AceFlags A set of bit flags that control ACE inheritance. The function sets these flags in the <b>AceFlags</b> member of the
      * @param {Integer} AccessMask A set of bit flags that use the 
      * <a href="https://docs.microsoft.com/windows/desktop/SecAuthZ/access-mask">ACCESS_MASK</a> format to specify the access rights that the new ACE denies to the specified <a href="https://docs.microsoft.com/windows/desktop/SecGloss/s-gly">security identifier</a> (SID).
      * @param {Pointer<Guid>} ObjectTypeGuid A pointer to a 
      * <a href="https://docs.microsoft.com/windows/win32/api/guiddef/ns-guiddef-guid">GUID</a> structure that identifies the type of object, property set, or property protected by the new ACE. If this parameter is <b>NULL</b>, the new ACE protects the object to which the ACL is assigned.
      * @param {Pointer<Guid>} InheritedObjectTypeGuid A pointer to a <a href="https://docs.microsoft.com/windows/win32/api/guiddef/ns-guiddef-guid">GUID</a> structure that identifies the type of object that can inherit the new ACE. If this parameter is non-<b>NULL</b>, only the specified object type can inherit the ACE. If <b>NULL</b>, any type of child object can inherit the ACE. In either case, inheritance is also controlled by the value of the <i>AceFlags</i> parameter, as well as by any protection against inheritance placed on the child objects.
-     * @param {PSID} _pSid 
+     * @param {PSID} _pSid A pointer to a 
+     * SID  that identifies the user, group, or <a href="https://docs.microsoft.com/windows/desktop/SecGloss/l-gly">logon session</a> to which the new ACE allows access.
      * @returns {BOOL} If the function succeeds, the return value is nonzero.
      * 
      * If the function fails, the return value is zero. To get extended error information, call 
@@ -1626,13 +1632,13 @@ class Security {
      * <a href="https://docs.microsoft.com/windows/desktop/api/securitybaseapi/nf-securitybaseapi-getaclinformation">GetAclInformation</a> function contains the size of the ACL and the number of ACEs it contains.
      * @param {Pointer<ACL>} pAcl A pointer to an 
      * ACL. This function adds an ACE to this ACL.
-     * @param {Integer} dwAceRevision Specifies the revision level of the ACL being modified. 
+     * @param {ACE_REVISION} dwAceRevision Specifies the revision level of the ACL being modified. 
      * 
      * 
      * This value can be ACL_REVISION or ACL_REVISION_DS. Use ACL_REVISION_DS if the ACL contains object-specific ACEs. This value must be compatible with the <b>AceType</b> field of all ACEs in <i>pAceList</i>. 
      *  Otherwise, the function will fail and set the last error to ERROR_INVALID_PARAMETER.
      * @param {Integer} dwStartingAceIndex Specifies the position in the ACL's list of ACEs at which to add new ACEs. A value of zero inserts the ACEs at the beginning of the list. A value of MAXDWORD appends the ACEs to the end of the list.
-     * @param {Pointer} pAceList A pointer to a list of one or more ACEs to be added to the specified ACL. The ACEs in the list must be stored contiguously.
+     * @param {Integer} pAceList A pointer to a list of one or more ACEs to be added to the specified ACL. The ACEs in the list must be stored contiguously.
      * @param {Integer} nAceListLength Specifies the size, in bytes, of the input buffer pointed to by the <i>pAceList</i> parameter.
      * @returns {BOOL} If the function succeeds, the return value is nonzero.
      * 
@@ -1700,12 +1706,13 @@ class Security {
      * @param {Pointer<ACL>} pAcl A pointer to an 
      * ACL. This function adds a system-audit ACE to this ACL. The ACE is in the form of a 
      * <a href="https://docs.microsoft.com/windows/desktop/api/winnt/ns-winnt-system_audit_ace">SYSTEM_AUDIT_ACE</a> structure.
-     * @param {Integer} dwAceRevision Specifies the revision level of the ACL being modified. 
+     * @param {ACE_REVISION} dwAceRevision Specifies the revision level of the ACL being modified. 
      * 
      * 
      * This value can be ACL_REVISION or ACL_REVISION_DS. Use ACL_REVISION_DS if the ACL contains object-specific ACEs.
      * @param {Integer} dwAccessMask Specifies the mask of access rights to be audited for the specified SID.
-     * @param {PSID} _pSid 
+     * @param {PSID} _pSid A pointer to the 
+     * SID representing the <a href="https://docs.microsoft.com/windows/desktop/SecGloss/p-gly">process</a> whose access is being audited.
      * @param {BOOL} bAuditSuccess Specifies whether successful access attempts are to be audited. Set this flag to <b>TRUE</b> to enable auditing; otherwise, set it to <b>FALSE</b>.
      * @param {BOOL} bAuditFailure Specifies whether unsuccessful access attempts are to be audited. Set this flag to <b>TRUE</b> to enable auditing; otherwise, set it to <b>FALSE</b>.
      * @returns {BOOL} If the function succeeds, the return value is nonzero.
@@ -1792,11 +1799,12 @@ class Security {
      * Adds a system-audit access control entry (ACE) to the end of a system access control list (SACL). (AddAuditAccessAceEx)
      * @param {Pointer<ACL>} pAcl A pointer to a SACL. The <b>AddAuditAccessAceEx</b> function adds a system-audit ACE to this SACL. The ACE is in the form of a 
      * <a href="https://docs.microsoft.com/windows/desktop/api/winnt/ns-winnt-system_audit_ace">SYSTEM_AUDIT_ACE</a> structure.
-     * @param {Integer} dwAceRevision Specifies the revision level of the SACL being modified. This value can be ACL_REVISION or ACL_REVISION_DS. Use ACL_REVISION_DS if the SACL contains object-specific ACEs.
-     * @param {Integer} AceFlags 
+     * @param {ACE_REVISION} dwAceRevision Specifies the revision level of the SACL being modified. This value can be ACL_REVISION or ACL_REVISION_DS. Use ACL_REVISION_DS if the SACL contains object-specific ACEs.
+     * @param {ACE_FLAGS} AceFlags 
      * @param {Integer} dwAccessMask A set of bit flags that use the 
      * <a href="https://docs.microsoft.com/windows/desktop/SecAuthZ/access-mask">ACCESS_MASK</a> format to specify the access rights that the new ACE audits for the specified <a href="https://docs.microsoft.com/windows/desktop/SecGloss/s-gly">security identifier</a> (SID).
-     * @param {PSID} _pSid 
+     * @param {PSID} _pSid A pointer to a 
+     * SID that identifies the user, group, or <a href="https://docs.microsoft.com/windows/desktop/SecGloss/l-gly">logon session</a> for which the new ACE audits access.
      * @param {BOOL} bAuditSuccess Specifies whether successful uses of the specified access rights cause the system to generate an audit record in the security event log. If this flag is <b>TRUE</b> or if the <i>AceFlags</i> parameter specifies the SUCCESSFUL_ACCESS_ACE_FLAG flag, the system records successful access attempts; otherwise, it does not.
      * @param {BOOL} bAuditFailure Specifies whether failed attempts to use the specified access rights cause the system to generate an audit record in the security event log. If this flag is <b>TRUE</b> or if the <i>AceFlags</i> parameter specifies the FAILED_ACCESS_ACE_FLAG flag, the system records failed access attempts; otherwise, it does not.
      * @returns {BOOL} If the function succeeds, the return value is nonzero.
@@ -1899,14 +1907,15 @@ class Security {
      * <a href="https://docs.microsoft.com/windows/desktop/api/winnt/ns-winnt-system_alarm_object_ace">SYSTEM_AUDIT_OBJECT_ACE</a>.
      * @param {Pointer<ACL>} pAcl A pointer to a SACL. The <b>AddAuditAccessObjectAce</b> function adds a system-audit ACE to the end of this SACL. The ACE is in the form of a 
      * <a href="https://docs.microsoft.com/windows/desktop/api/winnt/ns-winnt-system_alarm_object_ace">SYSTEM_AUDIT_OBJECT_ACE</a> structure.
-     * @param {Integer} dwAceRevision Specifies the revision level of the SACL being modified. This value must be ACL_REVISION_DS. If the SACL's revision level is lower than ACL_REVISION_DS, the function changes it to ACL_REVISION_DS.
-     * @param {Integer} AceFlags A set of bit flags that control ACE inheritance and the type of access attempts to audit. The function sets these flags in the <b>AceFlags</b> member of the
+     * @param {ACE_REVISION} dwAceRevision Specifies the revision level of the SACL being modified. This value must be ACL_REVISION_DS. If the SACL's revision level is lower than ACL_REVISION_DS, the function changes it to ACL_REVISION_DS.
+     * @param {ACE_FLAGS} AceFlags A set of bit flags that control ACE inheritance and the type of access attempts to audit. The function sets these flags in the <b>AceFlags</b> member of the
      * @param {Integer} AccessMask An 
      * <a href="https://docs.microsoft.com/windows/desktop/SecAuthZ/access-mask">ACCESS_MASK</a> that specifies the access rights that the new ACE audits for the specified <a href="https://docs.microsoft.com/windows/desktop/SecGloss/s-gly">security identifier</a> (SID).
      * @param {Pointer<Guid>} ObjectTypeGuid A pointer to a 
      * <a href="https://docs.microsoft.com/windows/win32/api/guiddef/ns-guiddef-guid">GUID</a> structure that identifies the type of object, property set, or property protected by the new ACE. If this parameter is <b>NULL</b>, the new ACE protects the object to which the ACL is assigned.
      * @param {Pointer<Guid>} InheritedObjectTypeGuid A pointer to a <a href="https://docs.microsoft.com/windows/win32/api/guiddef/ns-guiddef-guid">GUID</a> structure that identifies the type of object that can inherit the new ACE. If this parameter is non-<b>NULL</b>, only the specified object type can inherit the ACE. If <b>NULL</b>, any type of child object can inherit the ACE. In either case, inheritance is also controlled by the value of the <i>AceFlags</i> parameter, as well as by any protection against inheritance placed on the child objects.
-     * @param {PSID} _pSid 
+     * @param {PSID} _pSid A pointer to a 
+     * SID that identifies the user, group, or <a href="https://docs.microsoft.com/windows/desktop/SecGloss/l-gly">logon session</a> for which the new ACE audits access.
      * @param {BOOL} bAuditSuccess Specifies whether successful uses of the specified access rights cause the system to generate an audit record in the security event log. If this flag is <b>TRUE</b> or if the <i>AceFlags</i> parameter specifies the SUCCESSFUL_ACCESS_ACE_FLAG flag, the system records successful access attempts; otherwise, it does not.
      * @param {BOOL} bAuditFailure Specifies whether failed attempts to use the specified access rights cause the system to generate an audit record in the security event log. If this flag is <b>TRUE</b> or if the <i>AceFlags</i> parameter specifies the FAILED_ACCESS_ACE_FLAG flag, the system records failed access attempts; otherwise, it does not.
      * @returns {BOOL} If the function succeeds, the return value is nonzero.
@@ -2008,8 +2017,8 @@ class Security {
      * @param {Pointer<ACL>} pAcl A pointer to an 
      *  SACL. This function adds a mandatory ACE to the end of this SACL. The ACE is in the form of a 
      * <a href="https://docs.microsoft.com/windows/desktop/api/winnt/ns-winnt-system_mandatory_label_ace">SYSTEM_MANDATORY_LABEL_ACE</a> structure.
-     * @param {Integer} dwAceRevision The revision level of the SACL being modified.
-     * @param {Integer} AceFlags A set of bit flags that control ACE inheritance. This function sets these flags in the <b>AceFlags</b> member of the 
+     * @param {ACE_REVISION} dwAceRevision The revision level of the SACL being modified.
+     * @param {ACE_FLAGS} AceFlags A set of bit flags that control ACE inheritance. This function sets these flags in the <b>AceFlags</b> member of the 
      * <a href="https://docs.microsoft.com/windows/desktop/api/winnt/ns-winnt-ace_header">ACE_HEADER</a> structure of the new ACE.
      * @param {Integer} MandatoryPolicy The access policy for principals with a mandatory integrity level lower than the object associated with the SACL that contains this ACE.
      * 
@@ -2093,12 +2102,12 @@ class Security {
     /**
      * Adds a SYSTEM_RESOURCE_ATTRIBUTE_ACEaccess control entry (ACE) to the end of a system access control list (SACL).
      * @param {Pointer<ACL>} pAcl A pointer to an <a href="https://docs.microsoft.com/windows/desktop/SecGloss/a-gly">access control list</a> (ACL). This function adds an ACE to this ACL. The value of this parameter cannot be <b>NULL</b>. The ACE is in the form of a  <a href="https://docs.microsoft.com/windows/desktop/api/winnt/ns-winnt-system_resource_attribute_ace">SYSTEM_RESOURCE_ATTRIBUTE_ACE</a> structure.
-     * @param {Integer} dwAceRevision Specifies the revision level of the ACL being modified. This value can be ACL_REVISION or ACL_REVISION_DS. Use ACL_REVISION_DS if the ACL contains object-specific ACEs.
-     * @param {Integer} AceFlags A set of bit flags that control ACE inheritance. The function sets these flags in the <b>AceFlags</b> member of the <a href="https://docs.microsoft.com/windows/desktop/api/winnt/ns-winnt-ace_header">ACE_HEADER</a> structure of the new ACE.
+     * @param {ACE_REVISION} dwAceRevision Specifies the revision level of the ACL being modified. This value can be ACL_REVISION or ACL_REVISION_DS. Use ACL_REVISION_DS if the ACL contains object-specific ACEs.
+     * @param {ACE_FLAGS} AceFlags A set of bit flags that control ACE inheritance. The function sets these flags in the <b>AceFlags</b> member of the <a href="https://docs.microsoft.com/windows/desktop/api/winnt/ns-winnt-ace_header">ACE_HEADER</a> structure of the new ACE.
      * 
      * For consistency with the Windows 8 Advanced File Permissions UI, applications should specify the CONTAINER_INHERIT_ACE and OBJECT_INHERIT_ACE flags in the <i>AceFlags</i> parameter.
      * @param {Integer} AccessMask Must be zero for Windows 8 and Windows Server 2012.
-     * @param {PSID} _pSid 
+     * @param {PSID} _pSid Must be the Everyone SID (S-1-1-0) for Windows 8 and Windows Server 2012.
      * @param {Pointer<CLAIM_SECURITY_ATTRIBUTES_INFORMATION>} pAttributeInfo Specifies the attribute information that will be appended after the SID in the ACE.
      * @param {Pointer<Integer>} pReturnLength The size, in bytes, of the actual ACL buffer used. If the buffer specified by the <i>pAcl</i> parameter is not big enough, the value of this parameter is the total size required for the ACL buffer.
      * @returns {BOOL} If the function succeeds, it returns <b>TRUE</b>.
@@ -2124,12 +2133,12 @@ class Security {
     /**
      * Adds a SYSTEM_SCOPED_POLICY_ID_ACEaccess control entry (ACE) to the end of a system access control list (SACL).
      * @param {Pointer<ACL>} pAcl A pointer to an <a href="https://docs.microsoft.com/windows/desktop/SecGloss/a-gly">access control list</a> (ACL). This function adds an ACE to this ACL. The value of this parameter cannot be <b>NULL</b>.
-     * @param {Integer} dwAceRevision Specifies the revision level of the ACL being modified. This value can be ACL_REVISION or ACL_REVISION_DS. Use ACL_REVISION_DS if the ACL contains object-specific ACEs.
-     * @param {Integer} AceFlags A set of bit flags that control ACE inheritance. The function sets these flags in the <b>AceFlags</b> member of the <a href="https://docs.microsoft.com/windows/desktop/api/winnt/ns-winnt-ace_header">ACE_HEADER</a> structure of the new ACE.
+     * @param {ACE_REVISION} dwAceRevision Specifies the revision level of the ACL being modified. This value can be ACL_REVISION or ACL_REVISION_DS. Use ACL_REVISION_DS if the ACL contains object-specific ACEs.
+     * @param {ACE_FLAGS} AceFlags A set of bit flags that control ACE inheritance. The function sets these flags in the <b>AceFlags</b> member of the <a href="https://docs.microsoft.com/windows/desktop/api/winnt/ns-winnt-ace_header">ACE_HEADER</a> structure of the new ACE.
      * 
      * For consistency with the Windows 8 Advanced File Permissions UI, applications should specify the CONTAINER_INHERIT_ACE and OBJECT_INHERIT_ACE flags in the <i>AceFlags</i> parameter.
      * @param {Integer} AccessMask Must be zero for Windows 8 and Windows Server 2012.
-     * @param {PSID} _pSid 
+     * @param {PSID} _pSid A pointer to the SID (S-1-17-*) that identifies the Central Access Policy to be associated with the resource.
      * @returns {BOOL} If the function succeeds, it returns <b>TRUE</b>.
      * 
      * If the function fails, it returns <b>FALSE</b>. To get extended error information, call 
@@ -2164,7 +2173,7 @@ class Security {
      * @param {Pointer<TOKEN_GROUPS>} NewState A pointer to a 
      * <a href="https://docs.microsoft.com/windows/desktop/api/winnt/ns-winnt-token_groups">TOKEN_GROUPS</a> structure that contains the groups to be enabled or disabled. If the <i>ResetToDefault</i> parameter is <b>FALSE</b>, the function sets each of the groups to the value of that group's SE_GROUP_ENABLED attribute in the <b>TOKEN_GROUPS</b> structure. If <i>ResetToDefault</i> is <b>TRUE</b>, this parameter is ignored.
      * @param {Integer} BufferLength The size, in bytes, of the buffer pointed to by the <i>PreviousState</i> parameter. This parameter can be zero if the <i>PreviousState</i> parameter is <b>NULL</b>.
-     * @param {Pointer} PreviousState A pointer to a buffer that receives a 
+     * @param {Integer} PreviousState A pointer to a buffer that receives a 
      * <a href="https://docs.microsoft.com/windows/desktop/api/winnt/ns-winnt-token_groups">TOKEN_GROUPS</a> structure containing the previous state of any groups the function modifies. That is, if a group has been modified by this function, the group and its previous state are contained in the <b>TOKEN_GROUPS</b> structure referenced by <i>PreviousState</i>. If the <b>GroupCount</b> member of <b>TOKEN_GROUPS</b> is zero, then no groups have been changed by this function. This parameter can be <b>NULL</b>. 
      * 
      * 
@@ -2262,7 +2271,7 @@ class Security {
      * 
      * If <i>DisableAllPrivileges</i> is <b>TRUE</b>, the function ignores this parameter.
      * @param {Integer} BufferLength Specifies the size, in bytes, of the buffer pointed to by the <i>PreviousState</i> parameter. This parameter can be zero if the <i>PreviousState</i> parameter is <b>NULL</b>.
-     * @param {Pointer} PreviousState A pointer to a buffer that the function fills with a <a href="https://docs.microsoft.com/windows/desktop/api/winnt/ns-winnt-token_privileges">TOKEN_PRIVILEGES</a> structure that contains the previous state of any privileges that the function modifies.  That is, if a privilege has been modified by this function, the privilege and its previous state are contained in the <b>TOKEN_PRIVILEGES</b> structure referenced by <i>PreviousState</i>. If the <b>PrivilegeCount</b> member of <b>TOKEN_PRIVILEGES</b> is zero, then no privileges have been changed by this function. This parameter can be <b>NULL</b>. 
+     * @param {Integer} PreviousState A pointer to a buffer that the function fills with a <a href="https://docs.microsoft.com/windows/desktop/api/winnt/ns-winnt-token_privileges">TOKEN_PRIVILEGES</a> structure that contains the previous state of any privileges that the function modifies.  That is, if a privilege has been modified by this function, the privilege and its previous state are contained in the <b>TOKEN_PRIVILEGES</b> structure referenced by <i>PreviousState</i>. If the <b>PrivilegeCount</b> member of <b>TOKEN_PRIVILEGES</b> is zero, then no privileges have been changed by this function. This parameter can be <b>NULL</b>. 
      * 
      * 
      * 
@@ -2344,7 +2353,8 @@ class Security {
      * @param {Integer} nSubAuthority5 Subauthority value to place in the SID.
      * @param {Integer} nSubAuthority6 Subauthority value to place in the SID.
      * @param {Integer} nSubAuthority7 Subauthority value to place in the SID.
-     * @param {Pointer<PSID>} _pSid 
+     * @param {Pointer<PSID>} _pSid A pointer to a variable that receives the pointer to the allocated and initialized 
+     * <a href="https://docs.microsoft.com/windows/desktop/api/winnt/ns-winnt-sid">SID</a> structure.
      * @returns {BOOL} If the function succeeds, the return value is nonzero.
      * 
      * If the function fails, the return value is zero. To get extended error information, call 
@@ -2371,7 +2381,7 @@ class Security {
      * The allocated <a href="https://docs.microsoft.com/windows/desktop/api/winnt/ns-winnt-luid">LUID</a> is unique to the local system only, and uniqueness is guaranteed only until the system is next restarted.
      * 
      * The allocated <a href="https://docs.microsoft.com/windows/desktop/api/winnt/ns-winnt-luid">LUID</a> is guaranteed  to be nonzero if this function succeeds.
-     * @param {Pointer<LUID>} _Luid 
+     * @param {Pointer<LUID>} _Luid A pointer to a <a href="https://docs.microsoft.com/windows/desktop/api/winnt/ns-winnt-luid">LUID</a> structure that receives the allocated LUID.
      * @returns {BOOL} If the function succeeds, the return value is nonzero. 
      * 
      * If the function fails, the return value is zero. To get extended error information, call 
@@ -2497,7 +2507,7 @@ class Security {
 
     /**
      * Retrieves a value that indicates whether a package or capability SID is present.
-     * @param {Pointer<ACL>} _Acl 
+     * @param {Pointer<ACL>} _Acl A pointer to an [ACL](/windows/desktop/api/winnt/ns-winnt-acl) structure.
      * @param {Integer} StartingAceIndex Specifies the position in the ACL's list of ACEs at which to add new ACEs. A value of zero inserts the ACEs at the beginning of the list. A value of MAXDWORD appends the ACEs to the end of the list.
      * @param {Pointer<Pointer<Void>>} AppContainerAce Pointer to an AppContainerAce object.
      * @param {Pointer<Integer>} AppContainerAceIndex The position in the ACL's list of ACEs.
@@ -2567,7 +2577,8 @@ class Security {
      * @param {PSECURITY_DESCRIPTOR} CurrentSecurityDescriptor A pointer to the current security descriptor of the object.
      * @param {Pointer<PSECURITY_DESCRIPTOR>} NewSecurityDescriptor A pointer to a variable that receives a pointer to the newly allocated <a href="https://docs.microsoft.com/windows/desktop/SecGloss/s-gly">self-relative security descriptor</a>. It is the caller's responsibility to call the 
      * <a href="https://docs.microsoft.com/windows/desktop/api/securitybaseapi/nf-securitybaseapi-destroyprivateobjectsecurity">DestroyPrivateObjectSecurity</a> function to free this security descriptor.
-     * @param {Pointer<Guid>} _ObjectType 
+     * @param {Pointer<Guid>} _ObjectType A pointer to a 
+     * <a href="https://docs.microsoft.com/windows/win32/api/guiddef/ns-guiddef-guid">GUID</a> structure that identifies the type of object associated with the <i>CurrentSecurityDescriptor</i> parameter. If the object does not have a GUID, this parameter must be <b>NULL</b>.
      * @param {BOOLEAN} IsDirectoryObject If <b>TRUE</b>, the new object is a container and can contain other objects. If <b>FALSE</b>, the new object is not a container.
      * @param {Pointer<GENERIC_MAPPING>} GenericMapping A pointer to a 
      * <a href="https://docs.microsoft.com/windows/desktop/api/winnt/ns-winnt-generic_mapping">GENERIC_MAPPING</a> structure that specifies the mapping from each generic right to specific rights for the object.
@@ -2597,7 +2608,7 @@ class Security {
      * @remarks
      * An application can use the <b>CopySid</b> function to make a copy of a SID in an <a href="https://docs.microsoft.com/windows/desktop/SecGloss/a-gly">access token</a> (for example, in a <a href="https://docs.microsoft.com/windows/desktop/api/winnt/ns-winnt-token_groups">TOKEN_GROUPS</a> structure) to use in an access control entry (<a href="https://docs.microsoft.com/windows/desktop/SecGloss/a-gly">ACE</a>).
      * @param {Integer} nDestinationSidLength Specifies the length, in bytes, of the buffer receiving the copy of the SID.
-     * @param {Pointer} pDestinationSid A pointer to a buffer that receives a copy of the source 
+     * @param {Integer} pDestinationSid A pointer to a buffer that receives a copy of the source 
      * <a href="https://docs.microsoft.com/windows/desktop/api/winnt/ns-winnt-sid">SID</a> structure.
      * @param {PSID} pSourceSid A pointer to a <a href="https://docs.microsoft.com/windows/desktop/api/winnt/ns-winnt-sid">SID</a> structure that the function copies to the buffer pointed to by the <i>pDestinationSid</i> parameter.
      * @returns {BOOL} If the function succeeds, the return value is nonzero.
@@ -2720,9 +2731,10 @@ class Security {
      * @param {PSECURITY_DESCRIPTOR} CreatorDescriptor A pointer to a security descriptor provided by the creator of the object. If the object's creator does not explicitly pass security information for the new object, this parameter can be <b>NULL</b>. Alternatively, this parameter can point to a default security descriptor.
      * @param {Pointer<PSECURITY_DESCRIPTOR>} NewDescriptor A pointer to a variable that receives a pointer to the newly allocated self-relative security descriptor. When you have finished using the security descriptor, free it by calling the  
      * <a href="https://docs.microsoft.com/windows/desktop/api/securitybaseapi/nf-securitybaseapi-destroyprivateobjectsecurity">DestroyPrivateObjectSecurity</a> function.
-     * @param {Pointer<Guid>} _ObjectType 
+     * @param {Pointer<Guid>} _ObjectType A pointer to a 
+     * <a href="https://docs.microsoft.com/windows/win32/api/guiddef/ns-guiddef-guid">GUID</a> structure that identifies the type of object associated with <i>NewDescriptor</i>. If the object does not have a GUID, set <i>ObjectType</i> to <b>NULL</b>.
      * @param {BOOL} IsContainerObject Specifies whether the new object can contain other objects. A value of <b>TRUE</b> indicates that the new object is a container. A value of <b>FALSE</b> indicates that the new object is not a container.
-     * @param {Integer} AutoInheritFlags 
+     * @param {SECURITY_AUTO_INHERIT_FLAGS} AutoInheritFlags 
      * @param {HANDLE} Token A handle to the access token for the client process on whose behalf the object is being created. If this is an <a href="https://docs.microsoft.com/windows/desktop/SecGloss/i-gly">impersonation token</a>, it must be at SecurityIdentification level or higher. For a full description of the SecurityIdentification impersonation level, see the 
      * <a href="https://docs.microsoft.com/windows/desktop/api/winnt/ne-winnt-security_impersonation_level">SECURITY_IMPERSONATION_LEVEL</a> enumerated type. 
      * 
@@ -2881,7 +2893,7 @@ class Security {
      * @param {Pointer<Pointer<Guid>>} ObjectTypes An array of pointers to <a href="https://docs.microsoft.com/windows/win32/api/guiddef/ns-guiddef-guid">GUID</a> structures that identify the object types or classes of the object associated with <i>NewDescriptor</i>. For Active Directory objects, this array contains pointers to the class GUIDs of the object's structural class and all attached auxiliary classes. Set <i>ObjectTypes</i> to <b>NULL</b> if the object does not have a GUID.
      * @param {Integer} GuidCount The number of GUIDs present in the <i>ObjectTypes</i> parameter.
      * @param {BOOL} IsContainerObject Specifies whether the new object can contain other objects. A value of <b>TRUE</b> indicates that the new object is a container. A value of <b>FALSE</b> indicates that the new object is not a container.
-     * @param {Integer} AutoInheritFlags 
+     * @param {SECURITY_AUTO_INHERIT_FLAGS} AutoInheritFlags 
      * @param {HANDLE} Token A handle to the <a href="https://docs.microsoft.com/windows/desktop/SecGloss/a-gly">access token</a> for the client <a href="https://docs.microsoft.com/windows/desktop/SecGloss/p-gly">process</a> on whose behalf the object is being created. If this is an <a href="https://docs.microsoft.com/windows/desktop/SecGloss/i-gly">impersonation token</a>, it must be at SecurityIdentification level or higher. For a full description of the SecurityIdentification impersonation level, see the 
      * <a href="https://docs.microsoft.com/windows/desktop/api/winnt/ne-winnt-security_impersonation_level">SECURITY_IMPERSONATION_LEVEL</a> enumerated type. 
      * 
@@ -2996,7 +3008,7 @@ class Security {
      * <div class="alert"><b>Caution</b>  Applications that use restricted tokens should run the restricted application on desktops other than the default desktop. This is necessary to prevent an attack by a restricted application, using <b>SendMessage</b> or <b>PostMessage</b>, to unrestricted applications on the default desktop. If necessary, switch between desktops for your application purposes.</div>
      * <div> </div>
      * @param {HANDLE} ExistingTokenHandle A handle to a <a href="https://docs.microsoft.com/windows/desktop/SecGloss/p-gly">primary</a> or <a href="https://docs.microsoft.com/windows/desktop/SecGloss/i-gly">impersonation token</a>. The token can also be a restricted token. The handle must have TOKEN_DUPLICATE access to the token.
-     * @param {Integer} Flags 
+     * @param {CREATE_RESTRICTED_TOKEN_FLAGS} Flags 
      * @param {Integer} DisableSidCount Specifies the number of entries in the <i>SidsToDisable</i> array.
      * @param {Pointer<SID_AND_ATTRIBUTES>} SidsToDisable A pointer to an array of 
      * <a href="https://docs.microsoft.com/windows/desktop/api/winnt/ns-winnt-sid_and_attributes">SID_AND_ATTRIBUTES</a> structures that specify the deny-only SIDs in the restricted token. The system uses a deny-only SID to deny access to a securable object. The absence of a deny-only SID does not allow access. 
@@ -3059,9 +3071,9 @@ class Security {
 
     /**
      * Creates a SID for predefined aliases.
-     * @param {Integer} WellKnownSidType Member of the <a href="https://docs.microsoft.com/windows/desktop/api/winnt/ne-winnt-well_known_sid_type">WELL_KNOWN_SID_TYPE</a> enumeration that specifies what the SID will identify.
+     * @param {WELL_KNOWN_SID_TYPE} WellKnownSidType Member of the <a href="https://docs.microsoft.com/windows/desktop/api/winnt/ne-winnt-well_known_sid_type">WELL_KNOWN_SID_TYPE</a> enumeration that specifies what the SID will identify.
      * @param {PSID} DomainSid A pointer to a SID that identifies the domain to use when creating the SID. Pass <b>NULL</b> to use the local computer.
-     * @param {Pointer} _pSid 
+     * @param {Integer} _pSid A pointer to memory where <b>CreateWellKnownSid</b> will store the new SID.
      * @param {Pointer<Integer>} cbSid A pointer to a <b>DWORD</b> that contains the number of bytes available at <i>pSid</i>. The <b>CreateWellKnownSid</b> function stores the number of bytes actually used at this location.
      * @returns {BOOL} If the function succeeds, the return value is nonzero.
      * 
@@ -3137,7 +3149,9 @@ class Security {
 
     /**
      * Deletes a private object's security descriptor.
-     * @param {Pointer<PSECURITY_DESCRIPTOR>} _ObjectDescriptor 
+     * @param {Pointer<PSECURITY_DESCRIPTOR>} _ObjectDescriptor A pointer to a pointer to the 
+     * <a href="https://docs.microsoft.com/windows/desktop/api/winnt/ns-winnt-security_descriptor">SECURITY_DESCRIPTOR</a> structure to be deleted. This security descriptor must have been created by a call to the 
+     * <a href="https://docs.microsoft.com/windows/desktop/api/securitybaseapi/nf-securitybaseapi-createprivateobjectsecurity">CreatePrivateObjectSecurity</a> function.
      * @returns {BOOL} If the function succeeds, the return value is nonzero.
      * 
      * If the function fails, the return value is zero. To get extended error information, call 
@@ -3161,7 +3175,7 @@ class Security {
      * @remarks
      * The <b>DuplicateToken</b> function creates an <a href="https://docs.microsoft.com/windows/desktop/SecGloss/i-gly">impersonation token</a>, which you can use in functions such as <a href="https://docs.microsoft.com/windows/desktop/api/processthreadsapi/nf-processthreadsapi-setthreadtoken">SetThreadToken</a> and <a href="https://docs.microsoft.com/windows/desktop/api/securitybaseapi/nf-securitybaseapi-impersonateloggedonuser">ImpersonateLoggedOnUser</a>. The token created by <b>DuplicateToken</b> cannot be used in the <a href="https://docs.microsoft.com/windows/desktop/api/processthreadsapi/nf-processthreadsapi-createprocessasusera">CreateProcessAsUser</a> function, which requires a <a href="https://docs.microsoft.com/windows/desktop/SecGloss/p-gly">primary token</a>. To create a token that you can pass to <b>CreateProcessAsUser</b>, use the <a href="https://docs.microsoft.com/windows/desktop/api/securitybaseapi/nf-securitybaseapi-duplicatetokenex">DuplicateTokenEx</a> function.
      * @param {HANDLE} ExistingTokenHandle A handle to an access token opened with TOKEN_DUPLICATE access.
-     * @param {Integer} ImpersonationLevel Specifies a 
+     * @param {SECURITY_IMPERSONATION_LEVEL} ImpersonationLevel Specifies a 
      * <a href="https://docs.microsoft.com/windows/desktop/api/winnt/ne-winnt-security_impersonation_level">SECURITY_IMPERSONATION_LEVEL</a> enumerated type that supplies the impersonation level of the new token.
      * @param {Pointer<HANDLE>} DuplicateTokenHandle A pointer to a variable that receives a handle to the duplicate token. This handle has TOKEN_IMPERSONATE and TOKEN_QUERY access to the new token.
      * 
@@ -3196,7 +3210,7 @@ class Security {
      * <a href="https://docs.microsoft.com/windows/desktop/api/namedpipeapi/nf-namedpipeapi-impersonatenamedpipeclient">ImpersonateNamedPipeClient</a>, to impersonate a client. The impersonating thread then calls the 
      * <a href="https://docs.microsoft.com/windows/desktop/api/processthreadsapi/nf-processthreadsapi-openthreadtoken">OpenThreadToken</a> function to get its own token, which is an <a href="https://docs.microsoft.com/windows/desktop/SecGloss/i-gly">impersonation token</a> that has the security context of the client. The thread specifies this impersonation token in a call to <b>DuplicateTokenEx</b>, specifying the TokenPrimary flag. The <b>DuplicateTokenEx</b> function creates a <i>primary token</i> that has the security context of the client.
      * @param {HANDLE} hExistingToken A handle to an access token opened with TOKEN_DUPLICATE access.
-     * @param {Integer} dwDesiredAccess Specifies the requested access rights for the new token. The <b>DuplicateTokenEx</b> function compares the requested access rights with the existing token's <a href="https://docs.microsoft.com/windows/desktop/SecGloss/d-gly">discretionary access control list</a> (DACL) to determine which rights are granted or denied. To request the same access rights as the existing token, specify zero. To request all access rights that are valid for the caller, specify MAXIMUM_ALLOWED. 
+     * @param {TOKEN_ACCESS_MASK} dwDesiredAccess Specifies the requested access rights for the new token. The <b>DuplicateTokenEx</b> function compares the requested access rights with the existing token's <a href="https://docs.microsoft.com/windows/desktop/SecGloss/d-gly">discretionary access control list</a> (DACL) to determine which rights are granted or denied. To request the same access rights as the existing token, specify zero. To request all access rights that are valid for the caller, specify MAXIMUM_ALLOWED. 
      * 
      * 
      * 
@@ -3207,9 +3221,9 @@ class Security {
      * <a href="https://docs.microsoft.com/previous-versions/windows/desktop/legacy/aa379560(v=vs.85)">SECURITY_ATTRIBUTES</a> structure that specifies a <a href="https://docs.microsoft.com/windows/desktop/SecGloss/s-gly">security descriptor</a> for the new token and determines whether child processes can inherit the token. If <i>lpTokenAttributes</i> is <b>NULL</b>, the token gets a default security descriptor and the handle cannot be inherited. If the security descriptor contains a <a href="https://docs.microsoft.com/windows/desktop/SecGloss/s-gly">system access control list</a> (SACL), the token gets ACCESS_SYSTEM_SECURITY access right, even if it was not requested in <i>dwDesiredAccess</i>.
      * 
      * To set the owner in the security descriptor for the new token, the caller's process token must have the <b>SE_RESTORE_NAME</b> privilege set.
-     * @param {Integer} ImpersonationLevel Specifies a value from the 
+     * @param {SECURITY_IMPERSONATION_LEVEL} ImpersonationLevel Specifies a value from the 
      * <a href="https://docs.microsoft.com/windows/desktop/api/winnt/ne-winnt-security_impersonation_level">SECURITY_IMPERSONATION_LEVEL</a> enumeration that indicates the impersonation level of the new token.
-     * @param {Integer} TokenType 
+     * @param {TOKEN_TYPE} TokenType 
      * @param {Pointer<HANDLE>} phNewToken A pointer to a <b>HANDLE</b> variable that receives the new token.
      * 
      * When you have finished using the new token, call the <a href="https://docs.microsoft.com/windows/desktop/api/handleapi/nf-handleapi-closehandle">CloseHandle</a> function to close the token handle.
@@ -3316,7 +3330,8 @@ class Security {
 
     /**
      * Frees a security identifier (SID) previously allocated by using the AllocateAndInitializeSid function.
-     * @param {PSID} _pSid 
+     * @param {PSID} _pSid A pointer to the 
+     * <a href="https://docs.microsoft.com/windows/desktop/api/winnt/ns-winnt-sid">SID</a> structure to free.
      * @returns {Pointer<Void>} If the function succeeds, the function returns <b>NULL</b>.
      * 
      * If the function fails, it returns a pointer to the <a href="https://docs.microsoft.com/windows/desktop/api/winnt/ns-winnt-sid">SID</a> structure represented by the <i>pSid</i> parameter.
@@ -3358,9 +3373,9 @@ class Security {
      * Retrieves information about an access control list (ACL).
      * @param {Pointer<ACL>} pAcl A pointer to an 
      * ACL. The function retrieves information about this ACL. If a null value is passed, the function causes an access violation.
-     * @param {Pointer} pAclInformation A pointer to a buffer to receive the requested information. The structure that is placed into the buffer depends on the information class requested in the <i>dwAclInformationClass</i> parameter.
+     * @param {Integer} pAclInformation A pointer to a buffer to receive the requested information. The structure that is placed into the buffer depends on the information class requested in the <i>dwAclInformationClass</i> parameter.
      * @param {Integer} nAclInformationLength The size, in bytes, of the buffer pointed to by the <i>pAclInformation</i> parameter.
-     * @param {Integer} dwAclInformationClass A value of the 
+     * @param {ACL_INFORMATION_CLASS} dwAclInformationClass A value of the 
      * <a href="https://docs.microsoft.com/windows/desktop/api/winnt/ne-winnt-acl_information_class">ACL_INFORMATION_CLASS</a> enumeration that indicates the class of information requested. This parameter can be one of two values from this enumeration:
      * 
      * <ul>
@@ -3397,7 +3412,7 @@ class Security {
      * @param {PWSTR} lpFileName A pointer to a null-terminated string that specifies the file or directory for which security information is retrieved.
      * @param {Integer} RequestedInformation A 
      * <a href="https://docs.microsoft.com/windows/desktop/SecAuthZ/security-information">SECURITY_INFORMATION</a> value that identifies the security information being requested.
-     * @param {Pointer} pSecurityDescriptor A pointer to a buffer that receives a copy of the <a href="https://docs.microsoft.com/windows/desktop/SecGloss/s-gly">security descriptor</a> of the object specified by the <i>lpFileName</i> parameter. The calling <a href="https://docs.microsoft.com/windows/desktop/SecGloss/p-gly">process</a> must have permission to view the specified aspects of the object's security status. The 
+     * @param {Integer} pSecurityDescriptor A pointer to a buffer that receives a copy of the <a href="https://docs.microsoft.com/windows/desktop/SecGloss/s-gly">security descriptor</a> of the object specified by the <i>lpFileName</i> parameter. The calling <a href="https://docs.microsoft.com/windows/desktop/SecGloss/p-gly">process</a> must have permission to view the specified aspects of the object's security status. The 
      * <a href="https://docs.microsoft.com/windows/desktop/api/winnt/ns-winnt-security_descriptor">SECURITY_DESCRIPTOR</a> structure is returned in <a href="https://docs.microsoft.com/windows/desktop/SecGloss/s-gly">self-relative security descriptor</a> format.
      * @param {Integer} nLength Specifies the size, in bytes, of the buffer pointed to by the <i>pSecurityDescriptor</i> parameter.
      * @param {Pointer<Integer>} lpnLengthNeeded A pointer to the variable that receives the number of bytes necessary to store the complete <a href="https://docs.microsoft.com/windows/desktop/SecGloss/s-gly">security descriptor</a>. If the returned number of bytes is less than or equal to <i>nLength</i>, the entire security descriptor is returned in the output buffer; otherwise, none of the descriptor is returned.
@@ -3428,10 +3443,10 @@ class Security {
      * To read the owner, group, or <a href="https://docs.microsoft.com/windows/desktop/SecGloss/d-gly">DACL</a> from the kernel object's security descriptor, the calling process must have been granted READ_CONTROL access when the handle was opened. To get READ_CONTROL access, the caller must be the owner of the object or the object's DACL must grant the access.
      * 
      * To read the <a href="https://docs.microsoft.com/windows/desktop/SecGloss/s-gly">SACL</a> from the security descriptor, the calling process must have been granted ACCESS_SYSTEM_SECURITY access when the handle was opened. The proper way to get this access is to enable the SE_SECURITY_NAME privilege in the caller's current token, open the handle for ACCESS_SYSTEM_SECURITY access, and then disable the privilege.
-     * @param {HANDLE} _Handle 
+     * @param {HANDLE} _Handle A handle to a kernel object.
      * @param {Integer} RequestedInformation Specifies a 
      * <a href="https://docs.microsoft.com/windows/desktop/SecAuthZ/security-information">SECURITY_INFORMATION</a> value that identifies the security information being requested.
-     * @param {Pointer} pSecurityDescriptor A pointer to a buffer the function fills with a copy of the security descriptor of the specified object. The calling <a href="https://docs.microsoft.com/windows/desktop/SecGloss/p-gly">process</a> must have the right to view the specified aspects of the object's security status. The 
+     * @param {Integer} pSecurityDescriptor A pointer to a buffer the function fills with a copy of the security descriptor of the specified object. The calling <a href="https://docs.microsoft.com/windows/desktop/SecGloss/p-gly">process</a> must have the right to view the specified aspects of the object's security status. The 
      * <a href="https://docs.microsoft.com/windows/desktop/api/winnt/ns-winnt-security_descriptor">SECURITY_DESCRIPTOR</a> structure is returned in <a href="https://docs.microsoft.com/windows/desktop/SecGloss/s-gly">self-relative</a> format.
      * @param {Integer} nLength Specifies the size, in bytes, of the buffer pointed to by the <i>pSecurityDescriptor</i> parameter.
      * @param {Pointer<Integer>} lpnLengthNeeded A pointer to a variable that receives the number of bytes required for the buffer pointed to by the <i>pSecurityDescriptor</i> parameter. If this variable's value is greater than the value of the <i>nLength</i> parameter when the function returns, none of the security descriptor is copied to the buffer.
@@ -3459,7 +3474,8 @@ class Security {
 
     /**
      * Returns the length, in bytes, of a valid security identifier (SID).
-     * @param {PSID} _pSid 
+     * @param {PSID} _pSid A pointer to the 
+     * <a href="https://docs.microsoft.com/windows/desktop/api/winnt/ns-winnt-sid">SID</a> structure whose length is returned. The structure is assumed to be valid.
      * @returns {Integer} If the <a href="https://docs.microsoft.com/windows/desktop/api/winnt/ns-winnt-sid">SID</a> structure is valid, the return value is the length, in bytes, of the <b>SID</b> structure.
      * 
      * If the <a href="https://docs.microsoft.com/windows/desktop/api/winnt/ns-winnt-sid">SID</a> structure is not valid, the return value is undefined. Before calling <b>GetLengthSid</b>, pass the SID to the 
@@ -3483,10 +3499,11 @@ class Security {
      * <li>If the object's <a href="https://docs.microsoft.com/windows/desktop/SecGloss/s-gly">system access control list</a> is being set, the SE_SECURITY_NAME privilege must be enabled for the calling process.</li>
      * </ul>
      * If the preceding conditions are not met, a call to this function does not fail, however, standard access policy is not enforced.
-     * @param {PSECURITY_DESCRIPTOR} _ObjectDescriptor 
-     * @param {Integer} SecurityInformation A set of bit flags that indicate the parts of the security descriptor to retrieve. This parameter can be a combination of the 
+     * @param {PSECURITY_DESCRIPTOR} _ObjectDescriptor A pointer to a 
+     * <a href="https://docs.microsoft.com/windows/desktop/api/winnt/ns-winnt-security_descriptor">SECURITY_DESCRIPTOR</a> structure. This is the security descriptor to be queried.
+     * @param {OBJECT_SECURITY_INFORMATION} SecurityInformation A set of bit flags that indicate the parts of the security descriptor to retrieve. This parameter can be a combination of the 
      * <a href="https://docs.microsoft.com/windows/desktop/SecAuthZ/security-information">SECURITY_INFORMATION</a> bit flags.
-     * @param {Pointer} ResultantDescriptor A pointer to a buffer that receives a copy of the requested information from the specified security descriptor. The 
+     * @param {Integer} ResultantDescriptor A pointer to a buffer that receives a copy of the requested information from the specified security descriptor. The 
      * <a href="https://docs.microsoft.com/windows/desktop/api/winnt/ns-winnt-security_descriptor">SECURITY_DESCRIPTOR</a> structure is returned in <a href="https://docs.microsoft.com/windows/desktop/SecGloss/s-gly">self-relative</a> format.
      * @param {Integer} DescriptorLength Specifies the size, in bytes, of the buffer pointed to by the <i>ResultantDescriptor</i> parameter.
      * @param {Pointer<Integer>} ReturnLength A pointer to a variable the function sets to zero if the descriptor is copied successfully. If the buffer is too small for the security descriptor, this variable receives the number of bytes required. If this variable's value is greater than the value of the <i>DescriptorLength</i> parameter when the function returns, the function returns <b>FALSE</b> and none of the security descriptor is copied to the buffer.
@@ -3673,7 +3690,8 @@ class Security {
      * @remarks
      * The <a href="https://docs.microsoft.com/windows/desktop/SecGloss/r-gly">resource manager</a> control bits are eight bits in the <b>Sbz1</b> member of the <a href="https://docs.microsoft.com/windows/desktop/api/winnt/ns-winnt-security_descriptor">SECURITY_DESCRIPTOR</a> structure that contains information specific to the resource manager accessing the structure. These bits should be accessed only through the <b>GetSecurityDescriptorRMControl</b> and 
      * <a href="https://docs.microsoft.com/windows/desktop/api/securitybaseapi/nf-securitybaseapi-setsecuritydescriptorrmcontrol">SetSecurityDescriptorRMControl</a> functions.
-     * @param {PSECURITY_DESCRIPTOR} _SecurityDescriptor 
+     * @param {PSECURITY_DESCRIPTOR} _SecurityDescriptor A pointer to a 
+     * <a href="https://docs.microsoft.com/windows/desktop/api/winnt/ns-winnt-security_descriptor">SECURITY_DESCRIPTOR</a> structure that contains the <a href="https://docs.microsoft.com/windows/desktop/SecGloss/r-gly">resource manager</a> control bits. The value of the <b>Control</b> member is set to SE_RM_CONTROL_VALID.
      * @param {Pointer<Integer>} RMControl A pointer to a buffer that receives the resource manager control bits.
      * @returns {Integer} If the function succeeds, the return value is ERROR_SUCCESS.
      * 
@@ -3753,7 +3771,11 @@ class Security {
      * @remarks
      * This function uses a 32-bit RID value. For applications that require a larger RID value, use 
      * <a href="https://docs.microsoft.com/windows/desktop/api/securitybaseapi/nf-securitybaseapi-createwellknownsid">CreateWellKnownSid</a> and related functions.
-     * @param {PSID} _pSid 
+     * @param {PSID} _pSid A pointer to the 
+     * <a href="https://docs.microsoft.com/windows/desktop/api/winnt/ns-winnt-sid">SID</a> structure for which a pointer to the 
+     * <a href="https://docs.microsoft.com/windows/desktop/api/winnt/ns-winnt-sid_identifier_authority">SID_IDENTIFIER_AUTHORITY</a> structure is returned.
+     * 
+     * This function does not handle <a href="https://docs.microsoft.com/windows/desktop/api/winnt/ns-winnt-sid">SID</a> structures that are not valid. Call the <a href="https://docs.microsoft.com/windows/desktop/api/securitybaseapi/nf-securitybaseapi-isvalidsid">IsValidSid</a> function to verify that the <b>SID</b> structure is valid before you call this function.
      * @returns {Pointer<SID_IDENTIFIER_AUTHORITY>} If the function succeeds, the return value is a pointer to the <a href="https://docs.microsoft.com/windows/desktop/api/winnt/ns-winnt-sid_identifier_authority">SID_IDENTIFIER_AUTHORITY</a> structure for the specified 
      * <a href="https://docs.microsoft.com/windows/desktop/api/winnt/ns-winnt-sid">SID</a> structure.
      * 
@@ -3794,7 +3816,10 @@ class Security {
      * @remarks
      * The <a href="https://docs.microsoft.com/windows/desktop/api/winnt/ns-winnt-sid">SID</a> structure specified in <i>pSid</i> uses a 32-bit RID value. For applications that require longer RID values, use 
      * <a href="https://docs.microsoft.com/windows/desktop/api/securitybaseapi/nf-securitybaseapi-createwellknownsid">CreateWellKnownSid</a> and related functions.
-     * @param {PSID} _pSid 
+     * @param {PSID} _pSid A pointer to the 
+     * <a href="https://docs.microsoft.com/windows/desktop/api/winnt/ns-winnt-sid">SID</a> structure from which a pointer to a subauthority is to be returned.
+     * 
+     * This function does not handle <a href="https://docs.microsoft.com/windows/desktop/api/winnt/ns-winnt-sid">SID</a> structures that are not valid. Call the <a href="https://docs.microsoft.com/windows/desktop/api/securitybaseapi/nf-securitybaseapi-isvalidsid">IsValidSid</a> function to verify that the <b>SID</b> structure is valid before you call this function.
      * @param {Integer} nSubAuthority Specifies an index value identifying the subauthority array element whose address the function will return. The function performs no validation tests on this value. An application can call the <a href="https://docs.microsoft.com/windows/desktop/api/securitybaseapi/nf-securitybaseapi-getsidsubauthoritycount">GetSidSubAuthorityCount</a> function to discover the range of acceptable values.
      * @returns {Pointer<Integer>} If the function succeeds, the return value is a pointer to the specified <a href="https://docs.microsoft.com/windows/desktop/api/winnt/ns-winnt-sid">SID</a> subauthority. To get extended error information, call 
      * <a href="https://docs.microsoft.com/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>.
@@ -3819,7 +3844,10 @@ class Security {
      * @remarks
      * The SID structure specified in <i>pSid</i> uses a 32-bit value. For applications that require longer RID values, use 
      * <a href="https://docs.microsoft.com/windows/desktop/api/securitybaseapi/nf-securitybaseapi-createwellknownsid">CreateWellKnownSid</a> and related functions.
-     * @param {PSID} _pSid 
+     * @param {PSID} _pSid A pointer to the 
+     * <a href="https://docs.microsoft.com/windows/desktop/api/winnt/ns-winnt-sid">SID</a> structure from which a pointer to the subauthority count is returned.
+     * 
+     * This function does not handle <a href="https://docs.microsoft.com/windows/desktop/api/winnt/ns-winnt-sid">SID</a> structures that are not valid. Call the <a href="https://docs.microsoft.com/windows/desktop/api/securitybaseapi/nf-securitybaseapi-isvalidsid">IsValidSid</a> function to verify that the <b>SID</b> structure is valid before you call this function.
      * @returns {Pointer<Integer>} If the function succeeds, the return value is a pointer to the subauthority count for the specified <a href="https://docs.microsoft.com/windows/desktop/api/winnt/ns-winnt-sid">SID</a> structure.
      * 
      * If the function fails, the return value is undefined. The function fails if the specified <a href="https://docs.microsoft.com/windows/desktop/api/winnt/ns-winnt-sid">SID</a> structure is not valid. To get extended error information, call 
@@ -3841,9 +3869,9 @@ class Security {
     /**
      * Retrieves a specified type of information about an access token. The calling process must have appropriate access rights to obtain the information.
      * @param {HANDLE} TokenHandle A handle to an access token from which information is retrieved. If <i>TokenInformationClass</i> specifies TokenSource, the handle must have TOKEN_QUERY_SOURCE access. For all other <i>TokenInformationClass</i> values, the handle must have TOKEN_QUERY access.
-     * @param {Integer} TokenInformationClass Specifies a value from the 
+     * @param {TOKEN_INFORMATION_CLASS} TokenInformationClass Specifies a value from the 
      * <a href="https://docs.microsoft.com/windows/desktop/api/winnt/ne-winnt-token_information_class">TOKEN_INFORMATION_CLASS</a> enumerated type to identify the type of information the function retrieves. Any callers who check the <b>TokenIsAppContainer</b> and have it return 0 should also verify that the caller token is not an identify level impersonation token. If the current token is not an app container but is an identity level token, you should return <b>AccessDenied</b>.
-     * @param {Pointer} TokenInformation A pointer to a buffer the function fills with the requested information. The structure put into this buffer depends upon the type of information specified by the <i>TokenInformationClass</i> parameter.
+     * @param {Integer} TokenInformation A pointer to a buffer the function fills with the requested information. The structure put into this buffer depends upon the type of information specified by the <i>TokenInformationClass</i> parameter.
      * @param {Integer} TokenInformationLength Specifies the size, in bytes, of the buffer pointed to by the <i>TokenInformation</i> parameter. If <i>TokenInformation</i> is <b>NULL</b>, this parameter must be zero.
      * @param {Pointer<Integer>} ReturnLength A pointer to a variable that receives the number of bytes needed for the buffer pointed to by the <i>TokenInformation</i> parameter. If this value is larger than the value specified in the <i>TokenInformationLength</i> parameter, the function fails and stores no data in the buffer.
      * 
@@ -3872,8 +3900,8 @@ class Security {
 
     /**
      * Receives a security identifier (SID) and returns a SID representing the domain of that SID.
-     * @param {PSID} _pSid 
-     * @param {Pointer} pDomainSid Pointer that <b>GetWindowsAccountDomainSid</b> fills with a pointer to a SID representing the domain.
+     * @param {PSID} _pSid A pointer to the SID to examine.
+     * @param {Integer} pDomainSid Pointer that <b>GetWindowsAccountDomainSid</b> fills with a pointer to a SID representing the domain.
      * @param {Pointer<Integer>} cbDomainSid A pointer to a <b>DWORD</b> that <b>GetWindowsAccountDomainSid</b> fills with the size of the domain SID, in bytes.
      * @returns {BOOL} Returns <b>TRUE</b> if successful.
      * 
@@ -3987,7 +4015,7 @@ class Security {
      * <a href="https://docs.microsoft.com/windows/desktop/api/securitybaseapi/nf-securitybaseapi-reverttoself">RevertToSelf</a> function when the impersonation is complete.
      * 
      * For this function to succeed, the DACL protecting the process token must grant the TOKEN_DUPLICATE right to itself.
-     * @param {Integer} ImpersonationLevel Specifies a 
+     * @param {SECURITY_IMPERSONATION_LEVEL} ImpersonationLevel Specifies a 
      * <a href="https://docs.microsoft.com/windows/desktop/api/winnt/ne-winnt-security_impersonation_level">SECURITY_IMPERSONATION_LEVEL</a> enumerated type that supplies the impersonation level of the new token.
      * @returns {BOOL} If the function succeeds, the return value is nonzero.
      * 
@@ -4021,10 +4049,10 @@ class Security {
      * <li>Size of each <a href="https://docs.microsoft.com/windows/desktop/SecAuthZ/ace">ACE</a> structure that the <a href="https://docs.microsoft.com/windows/desktop/api/winnt/ns-winnt-acl">ACL</a> is to contain minus the <b>SidStart</b> member (<b>DWORD</b>) of the ACE.</li>
      * <li>Length of the SID that each <a href="https://docs.microsoft.com/windows/desktop/SecAuthZ/ace">ACE</a> is to contain.</li>
      * </ul>
-     * @param {Pointer} pAcl A pointer to an 
+     * @param {Integer} pAcl A pointer to an 
      * <a href="https://docs.microsoft.com/windows/desktop/api/winnt/ns-winnt-acl">ACL</a> structure  to be initialized by this function. Allocate memory for <i>pAcl</i> before calling this function.
      * @param {Integer} nAclLength The length, in bytes, of the buffer pointed to by the <i>pAcl</i> parameter. This value must be large enough to contain the <a href="https://docs.microsoft.com/windows/desktop/api/winnt/ns-winnt-acl">ACL</a> header and all of the <a href="https://docs.microsoft.com/windows/desktop/SecGloss/a-gly">access control entries</a> (ACEs) to be stored in the <b>ACL</b>. In addition, this value must be <b>DWORD</b>-aligned. For more information about calculating the size of an <b>ACL</b>, see Remarks.
-     * @param {Integer} dwAclRevision The revision level of the <a href="https://docs.microsoft.com/windows/desktop/api/winnt/ns-winnt-acl">ACL</a> structure being created. 
+     * @param {ACE_REVISION} dwAclRevision The revision level of the <a href="https://docs.microsoft.com/windows/desktop/api/winnt/ns-winnt-acl">ACL</a> structure being created. 
      * 
      * 
      * This value can be ACL_REVISION or ACL_REVISION_DS. Use ACL_REVISION_DS if the <a href="https://docs.microsoft.com/windows/desktop/SecGloss/a-gly">access control list</a> (ACL) supports object-specific ACEs.
@@ -4086,7 +4114,8 @@ class Security {
      * 
      * This function uses a 32-bit RID value. For applications that require a larger RID value, use 
      * <a href="https://docs.microsoft.com/windows/desktop/api/securitybaseapi/nf-securitybaseapi-createwellknownsid">CreateWellKnownSid</a>.
-     * @param {PSID} _Sid 
+     * @param {PSID} _Sid A pointer to a 
+     * <a href="https://docs.microsoft.com/windows/desktop/api/winnt/ns-winnt-sid">SID</a> structure to be initialized.
      * @param {Pointer<SID_IDENTIFIER_AUTHORITY>} pIdentifierAuthority A pointer to a 
      * <a href="https://docs.microsoft.com/windows/desktop/api/winnt/ns-winnt-sid_identifier_authority">SID_IDENTIFIER_AUTHORITY</a> structure to set in the <a href="https://docs.microsoft.com/windows/desktop/api/winnt/ns-winnt-sid">SID</a> structure.
      * @param {Integer} nSubAuthorityCount Specifies the number of subauthorities to set in the <a href="https://docs.microsoft.com/windows/desktop/api/winnt/ns-winnt-sid">SID</a>. Values of the subauthority must be set separately, as described in the following Remarks section.
@@ -4181,7 +4210,8 @@ class Security {
      * Validates a security identifier (SID) by verifying that the revision number is within a known range, and that the number of subauthorities is less than the maximum.
      * @remarks
      * If <i>pSid</i> is <b>NULL</b>, the application will fail with an access violation.
-     * @param {PSID} _pSid 
+     * @param {PSID} _pSid A pointer to the 
+     * <a href="https://docs.microsoft.com/windows/desktop/api/winnt/ns-winnt-sid">SID</a> structure to validate. This parameter cannot be <b>NULL</b>.
      * @returns {BOOL} If the <a href="https://docs.microsoft.com/windows/desktop/api/winnt/ns-winnt-sid">SID</a> structure is valid, the return value is nonzero.
      * 
      * If the <a href="https://docs.microsoft.com/windows/desktop/api/winnt/ns-winnt-sid">SID</a> structure is not valid, the return value is zero. There is no extended error information for this function; do not call <a href="https://docs.microsoft.com/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>.
@@ -4195,8 +4225,8 @@ class Security {
 
     /**
      * Compares a SID to a well-known SID and returns TRUE if they match.
-     * @param {PSID} _pSid 
-     * @param {Integer} WellKnownSidType Member of the 
+     * @param {PSID} _pSid A pointer to the <a href="https://docs.microsoft.com/windows/desktop/api/winnt/ns-winnt-sid">SID</a> to test.
+     * @param {WELL_KNOWN_SID_TYPE} WellKnownSidType Member of the 
      * <a href="https://docs.microsoft.com/windows/desktop/api/winnt/ne-winnt-well_known_sid_type">WELL_KNOWN_SID_TYPE</a> enumeration to compare with the SID at <i>pSid</i>.
      * @returns {BOOL} Returns <b>TRUE</b> if the SID at <i>pSid</i> matches the well-known SID indicated by <i>WellKnownSidType</i>.
      * 
@@ -4219,15 +4249,15 @@ class Security {
      * <a href="https://docs.microsoft.com/windows/desktop/api/securitybaseapi/nf-securitybaseapi-makeselfrelativesd">MakeSelfRelativeSD</a> function to create a self-relative security descriptor from an absolute security descriptor.
      * @param {PSECURITY_DESCRIPTOR} pSelfRelativeSecurityDescriptor A pointer to a 
      * <a href="https://docs.microsoft.com/windows/desktop/api/winnt/ns-winnt-security_descriptor">SECURITY_DESCRIPTOR</a> structure in self-relative format. The function creates an absolute-format version of this security descriptor without modifying the original security descriptor.
-     * @param {Pointer} pAbsoluteSecurityDescriptor A pointer to a buffer that the function fills with the main body of an absolute-format security descriptor. This information is formatted as a <a href="https://docs.microsoft.com/windows/desktop/api/winnt/ns-winnt-security_descriptor">SECURITY_DESCRIPTOR</a> structure.
+     * @param {Integer} pAbsoluteSecurityDescriptor A pointer to a buffer that the function fills with the main body of an absolute-format security descriptor. This information is formatted as a <a href="https://docs.microsoft.com/windows/desktop/api/winnt/ns-winnt-security_descriptor">SECURITY_DESCRIPTOR</a> structure.
      * @param {Pointer<Integer>} lpdwAbsoluteSecurityDescriptorSize A pointer to a variable that specifies the size of the buffer pointed to by the <i>pAbsoluteSD</i> parameter. If the buffer is not large enough for the security descriptor, the function fails and sets this variable to the minimum required size.
-     * @param {Pointer} pDacl A pointer to a buffer the function fills with the <a href="https://docs.microsoft.com/windows/desktop/SecGloss/d-gly">discretionary access control list</a> (DACL) of the absolute-format security descriptor. The main body of the absolute-format security descriptor references this pointer.
+     * @param {Integer} pDacl A pointer to a buffer the function fills with the <a href="https://docs.microsoft.com/windows/desktop/SecGloss/d-gly">discretionary access control list</a> (DACL) of the absolute-format security descriptor. The main body of the absolute-format security descriptor references this pointer.
      * @param {Pointer<Integer>} lpdwDaclSize A pointer to a variable that specifies the size of the buffer pointed to by the <i>pDacl</i> parameter. If the buffer is not large enough for the <a href="https://docs.microsoft.com/windows/desktop/SecGloss/a-gly">access control list</a> (ACL), the function fails and sets this variable to the minimum required size.
-     * @param {Pointer} pSacl A pointer to a buffer the function fills with the <a href="https://docs.microsoft.com/windows/desktop/SecGloss/s-gly">system access control list</a> (SACL) of the absolute-format security descriptor. The main body of the absolute-format security descriptor references this pointer.
+     * @param {Integer} pSacl A pointer to a buffer the function fills with the <a href="https://docs.microsoft.com/windows/desktop/SecGloss/s-gly">system access control list</a> (SACL) of the absolute-format security descriptor. The main body of the absolute-format security descriptor references this pointer.
      * @param {Pointer<Integer>} lpdwSaclSize A pointer to a variable that specifies the size of the buffer pointed to by the <i>pSacl</i> parameter. If the buffer is not large enough for the ACL, the function fails and sets this variable to the minimum required size.
-     * @param {Pointer} pOwner A pointer to a buffer the function fills with the <a href="https://docs.microsoft.com/windows/desktop/SecGloss/s-gly">security identifier</a> (SID) of the owner of the absolute-format security descriptor. The main body of the absolute-format security descriptor references this pointer.
+     * @param {Integer} pOwner A pointer to a buffer the function fills with the <a href="https://docs.microsoft.com/windows/desktop/SecGloss/s-gly">security identifier</a> (SID) of the owner of the absolute-format security descriptor. The main body of the absolute-format security descriptor references this pointer.
      * @param {Pointer<Integer>} lpdwOwnerSize A pointer to a variable that specifies the size of the buffer pointed to by the <i>pOwner</i> parameter. If the buffer is not large enough for the SID, the function fails and sets this variable to the minimum required size.
-     * @param {Pointer} pPrimaryGroup A pointer to a buffer the function fills with the SID of the absolute-format security descriptor's primary group. The main body of the absolute-format security descriptor references this pointer.
+     * @param {Integer} pPrimaryGroup A pointer to a buffer the function fills with the SID of the absolute-format security descriptor's primary group. The main body of the absolute-format security descriptor references this pointer.
      * @param {Pointer<Integer>} lpdwPrimaryGroupSize A pointer to a variable that specifies the size of the buffer pointed to by the <i>pPrimaryGroup</i> parameter. If the buffer is not large enough for the SID, the function fails and sets this variable to the minimum required size.
      * @returns {BOOL} If the function succeeds, the function returns nonzero.
      * 
@@ -4286,7 +4316,7 @@ class Security {
      * <a href="https://docs.microsoft.com/windows/desktop/api/securitybaseapi/nf-securitybaseapi-makeabsolutesd">MakeAbsoluteSD</a> function to create an absolute security descriptor from a self-relative security descriptor.
      * @param {PSECURITY_DESCRIPTOR} pAbsoluteSecurityDescriptor A pointer to a 
      * <a href="https://docs.microsoft.com/windows/desktop/api/winnt/ns-winnt-security_descriptor">SECURITY_DESCRIPTOR</a> structure in absolute format. The function creates a version of this security descriptor in self-relative format without modifying the original.
-     * @param {Pointer} pSelfRelativeSecurityDescriptor A pointer to a buffer the function fills with a security descriptor in self-relative format.
+     * @param {Integer} pSelfRelativeSecurityDescriptor A pointer to a buffer the function fills with a security descriptor in self-relative format.
      * @param {Pointer<Integer>} lpdwBufferLength A pointer to a variable specifying the size of the buffer pointed to by the <i>pSelfRelativeSD</i> parameter. If the buffer is not large enough for the security descriptor, the function fails and sets this variable to the minimum required size.
      * @returns {BOOL} If the function succeeds, the return value is nonzero.
      * 
@@ -4523,7 +4553,7 @@ class Security {
 
     /**
      * Creates an access mask that represents the access permissions necessary to query the specified object security information.
-     * @param {Integer} SecurityInformation A <a href="https://docs.microsoft.com/windows/desktop/SecAuthZ/security-information">SECURITY_INFORMATION</a> structure that specifies the security information to be queried.
+     * @param {OBJECT_SECURITY_INFORMATION} SecurityInformation A <a href="https://docs.microsoft.com/windows/desktop/SecAuthZ/security-information">SECURITY_INFORMATION</a> structure that specifies the security information to be queried.
      * @param {Pointer<Integer>} DesiredAccess A pointer to the access mask that this function creates.
      * @returns {String} Nothing - always returns an empty string
      * @see https://learn.microsoft.com/windows/win32/api/securitybaseapi/nf-securitybaseapi-querysecurityaccessmask
@@ -4569,10 +4599,10 @@ class Security {
      * Sets information about an access control list (ACL).
      * @param {Pointer<ACL>} pAcl A pointer to an 
      * ACL. The function sets information in this ACL.
-     * @param {Pointer} pAclInformation A pointer to a buffer that contains the information to be set. This must be a pointer to an 
+     * @param {Integer} pAclInformation A pointer to a buffer that contains the information to be set. This must be a pointer to an 
      * <a href="https://docs.microsoft.com/windows/desktop/api/winnt/ns-winnt-acl_revision_information">ACL_REVISION_INFORMATION</a> structure.
      * @param {Integer} nAclInformationLength The size, in bytes, of the buffer pointed to by the <i>pAclInfo</i> parameter.
-     * @param {Integer} dwAclInformationClass An 
+     * @param {ACL_INFORMATION_CLASS} dwAclInformationClass An 
      * <a href="https://docs.microsoft.com/windows/desktop/api/winnt/ne-winnt-acl_information_class">ACL_INFORMATION_CLASS</a> enumerated type that gives the class of information requested. 
      * 
      * 
@@ -4610,7 +4640,7 @@ class Security {
      * <li>If the <a href="https://docs.microsoft.com/windows/desktop/SecGloss/s-gly">system access control list</a> (SACL) of the object is being set, the SE_SECURITY_NAME privilege must be enabled for the calling process.</li>
      * </ul>
      * @param {PWSTR} lpFileName A pointer to a null-terminated string that specifies the file or directory for which security is set. Note that security applied to a directory is not inherited by its children.
-     * @param {Integer} SecurityInformation Specifies a 
+     * @param {OBJECT_SECURITY_INFORMATION} SecurityInformation Specifies a 
      * <a href="https://docs.microsoft.com/windows/desktop/SecAuthZ/security-information">SECURITY_INFORMATION</a> structure that identifies the contents of the <a href="https://docs.microsoft.com/windows/desktop/SecGloss/s-gly">security descriptor</a> pointed to by the <i>pSecurityDescriptor</i> parameter.
      * @param {PSECURITY_DESCRIPTOR} pSecurityDescriptor A pointer to a 
      * <a href="https://docs.microsoft.com/windows/desktop/api/winnt/ns-winnt-security_descriptor">SECURITY_DESCRIPTOR</a> structure.
@@ -4629,11 +4659,12 @@ class Security {
 
     /**
      * Sets the security of a kernel object.
-     * @param {HANDLE} _Handle 
-     * @param {Integer} SecurityInformation A set of 
+     * @param {HANDLE} _Handle A handle to a kernel object for which security information is set.
+     * @param {OBJECT_SECURITY_INFORMATION} SecurityInformation A set of 
      * bit flags that indicate the type of security information to set. This parameter can be a combination of the 
      * <a href="https://docs.microsoft.com/windows/desktop/SecAuthZ/security-information">SECURITY_INFORMATION</a> bit flags.
-     * @param {PSECURITY_DESCRIPTOR} _SecurityDescriptor 
+     * @param {PSECURITY_DESCRIPTOR} _SecurityDescriptor A pointer to a 
+     * <a href="https://docs.microsoft.com/windows/desktop/api/winnt/ns-winnt-security_descriptor">SECURITY_DESCRIPTOR</a> structure that contains the new security information.
      * @returns {BOOL} If the function succeeds, the function returns nonzero.
      *       
      * 
@@ -4669,7 +4700,7 @@ class Security {
      * If the preceding conditions are not met, a call to this function does not fail; however, standard access policy is not enforced.
      * 
      * The process calling this function should not be impersonating a client because clients do not typically have appropriate privileges required for underlying token operations.
-     * @param {Integer} SecurityInformation Indicates the parts of the security descriptor to set. This value can be a combination of the 
+     * @param {OBJECT_SECURITY_INFORMATION} SecurityInformation Indicates the parts of the security descriptor to set. This value can be a combination of the 
      * <a href="https://docs.microsoft.com/windows/desktop/SecAuthZ/security-information">SECURITY_INFORMATION</a> bit flags.
      * @param {PSECURITY_DESCRIPTOR} ModificationDescriptor A pointer to a 
      * <a href="https://docs.microsoft.com/windows/desktop/api/winnt/ns-winnt-security_descriptor">SECURITY_DESCRIPTOR</a> structure. The parts of this security descriptor indicated by the <i>SecurityInformation</i> parameter are applied to the <i>ObjectsSecurityDescriptor</i> security descriptor.
@@ -4787,7 +4818,7 @@ class Security {
      * <b>SetPrivateObjectSecurityEx</b> function is equivalent to the SEF_AVOID_OWNER_CHECK bit used in the 
      * <a href="https://docs.microsoft.com/windows/desktop/api/securitybaseapi/nf-securitybaseapi-createprivateobjectsecurityex">CreatePrivateObjectSecurityEx</a> function.</div>
      * <div> </div>
-     * @param {Integer} SecurityInformation The parts of the security descriptor to set. This value can be a combination of the 
+     * @param {OBJECT_SECURITY_INFORMATION} SecurityInformation The parts of the security descriptor to set. This value can be a combination of the 
      * <a href="https://docs.microsoft.com/windows/desktop/SecAuthZ/security-information">SECURITY_INFORMATION</a> bit flags.
      * @param {PSECURITY_DESCRIPTOR} ModificationDescriptor A pointer to a 
      * <a href="https://docs.microsoft.com/windows/desktop/api/winnt/ns-winnt-security_descriptor">SECURITY_DESCRIPTOR</a> structure. The parts of this security descriptor indicated by the <i>SecurityInformation</i> parameter are applied to the <i>ObjectsSecurityDescriptor</i> security descriptor.
@@ -4797,7 +4828,7 @@ class Security {
      * 
      * 
      * On input, this is the current security descriptor of the private object. The function modifies it to produce the new security descriptor. If necessary, the <b>SetPrivateObjectSecurityEx</b> function allocates additional memory to produce a larger security descriptor.
-     * @param {Integer} AutoInheritFlags 
+     * @param {SECURITY_AUTO_INHERIT_FLAGS} AutoInheritFlags 
      * @param {Pointer<GENERIC_MAPPING>} GenericMapping A pointer to a 
      * <a href="https://docs.microsoft.com/windows/desktop/api/winnt/ns-winnt-generic_mapping">GENERIC_MAPPING</a> structure that specifies the specific and standard access rights that correspond to each of the generic access rights.
      * @param {HANDLE} Token Identifies the <a href="https://docs.microsoft.com/windows/desktop/SecGloss/a-gly">access token</a> for the client on whose behalf the private object's security is being modified. This parameter is required to ensure that the client has provided a legitimate value for a new owner <a href="https://docs.microsoft.com/windows/desktop/SecGloss/s-gly">security identifier</a> (SID). The token must be open for TOKEN_QUERY access.
@@ -4825,7 +4856,7 @@ class Security {
 
     /**
      * Creates an access mask that represents the access permissions necessary to set the specified object security information.
-     * @param {Integer} SecurityInformation A <a href="https://docs.microsoft.com/windows/desktop/SecAuthZ/security-information">SECURITY_INFORMATION</a> structure that specifies the security information to be set.
+     * @param {OBJECT_SECURITY_INFORMATION} SecurityInformation A <a href="https://docs.microsoft.com/windows/desktop/SecAuthZ/security-information">SECURITY_INFORMATION</a> structure that specifies the security information to be set.
      * @param {Pointer<Integer>} DesiredAccess A pointer to the access mask that this function creates.
      * @returns {String} Nothing - always returns an empty string
      * @see https://learn.microsoft.com/windows/win32/api/securitybaseapi/nf-securitybaseapi-setsecurityaccessmask
@@ -4843,9 +4874,9 @@ class Security {
      * The <b>SetSecurityDescriptorControl</b> function specifies the control bit or bits to modify, and whether the bits are on or off.
      * @param {PSECURITY_DESCRIPTOR} pSecurityDescriptor A pointer to a 
      * <a href="https://docs.microsoft.com/windows/desktop/api/winnt/ns-winnt-security_descriptor">SECURITY_DESCRIPTOR</a> structure whose control and revision information are set.
-     * @param {Integer} ControlBitsOfInterest A 
+     * @param {SECURITY_DESCRIPTOR_CONTROL} ControlBitsOfInterest A 
      * <a href="https://docs.microsoft.com/windows/desktop/SecAuthZ/security-descriptor-control">SECURITY_DESCRIPTOR_CONTROL</a> mask that indicates the control bits to set.
-     * @param {Integer} ControlBitsToSet A 
+     * @param {SECURITY_DESCRIPTOR_CONTROL} ControlBitsToSet A 
      * <a href="https://docs.microsoft.com/windows/desktop/SecAuthZ/security-descriptor-control">SECURITY_DESCRIPTOR_CONTROL</a> mask that indicates the new values for the control bits specified by the <i>ControlBitsOfInterest</i> mask.
      * @returns {BOOL} If the function succeeds, the return value is nonzero.
      * 
@@ -4969,7 +5000,7 @@ class Security {
      * The resource manager control bits are eight bits in the <b>Sbz1</b> member of the 
      * <a href="https://docs.microsoft.com/windows/desktop/SecAuthZ/security-information">SECURITY_INFORMATION</a> structure that contains information specific to the resource manager accessing the structure. These bits should be accessed only through the 
      * <a href="https://docs.microsoft.com/windows/desktop/api/securitybaseapi/nf-securitybaseapi-getsecuritydescriptorrmcontrol">GetSecurityDescriptorRMControl</a> and <b>SetSecurityDescriptorRMControl</b> functions.
-     * @param {PSECURITY_DESCRIPTOR} _SecurityDescriptor 
+     * @param {PSECURITY_DESCRIPTOR} _SecurityDescriptor A pointer to a <a href="https://docs.microsoft.com/windows/desktop/api/winnt/ns-winnt-security_descriptor">SECURITY_DESCRIPTOR</a> structure that contains the <a href="https://docs.microsoft.com/windows/desktop/SecGloss/r-gly">resource manager</a> control bits.
      * @param {Pointer<Integer>} RMControl A pointer to the bitfield value that the resource manager control bits in the 
      * <a href="https://docs.microsoft.com/windows/desktop/api/winnt/ns-winnt-security_descriptor">SECURITY_DESCRIPTOR</a> structure will be set to. If the value of this parameter is <b>NULL</b>, the resource manager control bits will be cleared.
      * @returns {Integer} The return value is ERROR_SUCCESS.
@@ -5021,9 +5052,9 @@ class Security {
      * 
      * Token-type information can be set only when an access token is created.
      * @param {HANDLE} TokenHandle A handle to the access token for which information is to be set.
-     * @param {Integer} TokenInformationClass A value from the 
+     * @param {TOKEN_INFORMATION_CLASS} TokenInformationClass A value from the 
      * <a href="https://docs.microsoft.com/windows/desktop/api/winnt/ne-winnt-token_information_class">TOKEN_INFORMATION_CLASS</a> enumerated type that identifies the type of information the function sets. The valid values from <b>TOKEN_INFORMATION_CLASS</b> are described in the <i>TokenInformation</i> parameter.
-     * @param {Pointer} TokenInformation A pointer to a buffer that contains the information set in the access token. The structure of this buffer depends on the type of information specified by the <i>TokenInformationClass</i> parameter.
+     * @param {Integer} TokenInformation A pointer to a buffer that contains the information set in the access token. The structure of this buffer depends on the type of information specified by the <i>TokenInformationClass</i> parameter.
      * @param {Integer} TokenInformationLength Specifies the length, in bytes, of the buffer pointed to by <i>TokenInformation</i>.
      * @returns {BOOL} If the function succeeds, the function returns nonzero.
      * 
@@ -5072,7 +5103,7 @@ class Security {
 
     /**
      * Retrieves the cached signing level.
-     * @param {HANDLE} _File 
+     * @param {HANDLE} _File Handle to a file.
      * @param {Pointer<Integer>} Flags Pointer to the flags set on the file. The following *Flags* are supported:
      * 
      * | Flag | Value |
@@ -5082,7 +5113,7 @@ class Security {
      * 
      * Using these flags together (**SIGNING_LEVEL_FILE_CACHE_FLAG_NOT_VALIDATED \| SIGNING_LEVEL_FILE_CACHE_FLAG_VALIDATE_ONLY**) indicates that the file was validated.
      * @param {Pointer<Integer>} SigningLevel Pointer to the signing level.
-     * @param {Pointer} Thumbprint Pointer to the thumbprint.
+     * @param {Integer} Thumbprint Pointer to the thumbprint.
      * @param {Pointer<Integer>} ThumbprintSize Pointer to the thumbprint size.
      * @param {Pointer<Integer>} ThumbprintAlgorithm Pointer to the thumbprint algorithm.
      * @returns {BOOL} If the function succeeds, it returns **TRUE**.
@@ -5158,8 +5189,14 @@ class Security {
      * @remarks
      * The <b>SetUserObjectSecurity</b> function applies changes specified in a <a href="https://docs.microsoft.com/windows/desktop/SecGloss/s-gly">security descriptor</a> to the security descriptor assigned to a user object. The security descriptor of the object must be in <a href="https://docs.microsoft.com/windows/desktop/SecGloss/s-gly">self-relative</a> form. If necessary, this function allocates additional memory to increase the size of the security descriptor.
      * @param {HANDLE} hObj A handle to a user object for which security information is set.
-     * @param {Pointer<Integer>} pSIRequested 
-     * @param {PSECURITY_DESCRIPTOR} _pSID 
+     * @param {Pointer<OBJECT_SECURITY_INFORMATION>} pSIRequested 
+     * @param {PSECURITY_DESCRIPTOR} _pSID A pointer to a 
+     * <a href="https://docs.microsoft.com/windows/desktop/api/winnt/ns-winnt-security_descriptor">SECURITY_DESCRIPTOR</a> structure that contains the new security information. 
+     * 
+     * 
+     * 
+     * 
+     * This buffer must be aligned on a 4-byte boundary.
      * @returns {BOOL} If the function succeeds, the function returns nonzero.
      * 
      * If the function fails, it returns zero. To get extended error information, call 
@@ -5192,7 +5229,8 @@ class Security {
      * @param {HANDLE} hObj A handle to the user object for which to return security information.
      * @param {Pointer<Integer>} pSIRequested A pointer to a 
      * <a href="https://docs.microsoft.com/windows/desktop/SecAuthZ/security-information">SECURITY_INFORMATION</a> value that specifies the security information being requested.
-     * @param {Pointer} _pSID 
+     * @param {Integer} _pSID A pointer to a 
+     * <a href="https://docs.microsoft.com/windows/desktop/api/winnt/ns-winnt-security_descriptor">SECURITY_DESCRIPTOR</a> structure in <a href="https://docs.microsoft.com/windows/desktop/SecGloss/s-gly">self-relative</a> format that contains the requested information when the function returns. This buffer must be aligned on a 4-byte boundary.
      * @param {Integer} nLength The length, in bytes, of the buffer pointed to by the <i>pSD</i> parameter.
      * @param {Pointer<Integer>} lpnLengthNeeded A pointer to a variable to receive the number of bytes required to store the complete <a href="https://docs.microsoft.com/windows/desktop/SecGloss/s-gly">security descriptor</a>. If this variable's value is greater than the value of the <i>nLength</i> parameter when the function returns, the function returns <b>FALSE</b> and none of the security descriptor is copied to the buffer. Otherwise, the entire security descriptor is copied.
      * @returns {BOOL} If the function succeeds, the function returns nonzero.
@@ -5231,7 +5269,8 @@ class Security {
      * @param {Pointer<Void>} HandleId A pointer to a unique value representing the client's handle to the object. If the access is denied, the system ignores this value.
      * @param {PSTR} ObjectTypeName A pointer to a null-terminated string specifying the type of object being created or accessed. This string appears in any audit message that the function generates.
      * @param {PSTR} ObjectName A pointer to a null-terminated string specifying the name of the object being created or accessed. This string appears in any audit message that the function generates.
-     * @param {PSECURITY_DESCRIPTOR} _SecurityDescriptor 
+     * @param {PSECURITY_DESCRIPTOR} _SecurityDescriptor A pointer to the 
+     * <a href="https://docs.microsoft.com/windows/desktop/api/winnt/ns-winnt-security_descriptor">SECURITY_DESCRIPTOR</a> structure against which access is checked.
      * @param {Integer} DesiredAccess <a href="https://docs.microsoft.com/windows/desktop/SecGloss/a-gly">Access mask</a> that specifies the access rights to check. This mask must have been mapped by the 
      * <a href="https://docs.microsoft.com/windows/desktop/api/securitybaseapi/nf-securitybaseapi-mapgenericmask">MapGenericMask</a> function to contain no generic access rights. 
      * 
@@ -5298,7 +5337,8 @@ class Security {
      * @param {Pointer<Void>} HandleId A pointer to a unique value that represents the client's handle to the object. If the access is denied, the system ignores this value.
      * @param {PSTR} ObjectTypeName A pointer to a null-terminated string that specifies the type of object being created or accessed. This string appears in any audit message that the function generates.
      * @param {PSTR} ObjectName A pointer to a null-terminated string that specifies the name of the object being created or accessed. This string appears in any audit message that the function generates.
-     * @param {PSECURITY_DESCRIPTOR} _SecurityDescriptor 
+     * @param {PSECURITY_DESCRIPTOR} _SecurityDescriptor A pointer to a 
+     * <a href="https://docs.microsoft.com/windows/desktop/api/winnt/ns-winnt-security_descriptor">SECURITY_DESCRIPTOR</a> structure against which access is checked.
      * @param {PSID} PrincipalSelfSid A pointer to a <a href="https://docs.microsoft.com/windows/desktop/SecGloss/s-gly">security identifier</a> (SID). If the security descriptor is associated with an object that represents a principal (for example, a user object), the <i>PrincipalSelfSid</i> parameter should be the SID of the object. When evaluating access, this SID logically replaces the SID in any ACE containing the well-known PRINCIPAL_SELF SID (S-1-5-10). For information about well-known SIDs, see <a href="https://docs.microsoft.com/windows/desktop/SecAuthZ/well-known-sids">Well-known SIDs</a>. 
      * 
      * 
@@ -5312,7 +5352,7 @@ class Security {
      * 
      * 
      * If this parameter is MAXIMUM_ALLOWED, the function sets the <i>GrantedAccess</i> access mask to indicate the maximum access rights the security descriptor allows the client.
-     * @param {Integer} AuditType The type of audit to be generated. This can be one of the values from the 
+     * @param {AUDIT_EVENT_TYPE} AuditType The type of audit to be generated. This can be one of the values from the 
      * <a href="https://docs.microsoft.com/windows/desktop/api/winnt/ne-winnt-audit_event_type">AUDIT_EVENT_TYPE</a> enumeration type.
      * @param {Integer} Flags A flag that controls the function's behavior if the calling <a href="https://docs.microsoft.com/windows/desktop/SecGloss/p-gly">process</a> does not have the SE_AUDIT_NAME privilege enabled. If the AUDIT_ALLOW_NO_PRIVILEGE flag is set, the function performs the access check without generating audit messages when the privilege is not enabled. If this parameter is zero, the function fails if the privilege is not enabled.
      * @param {Pointer<OBJECT_TYPE_LIST>} ObjectTypeList A pointer to an array of 
@@ -5386,7 +5426,8 @@ class Security {
      * @param {Pointer<Void>} HandleId A pointer to a unique value that represents the client's handle to the object. If the access is denied, the system ignores this value.
      * @param {PSTR} ObjectTypeName A pointer to a null-terminated string that specifies the type of object being created or accessed. This string appears in any audit message that the function generates.
      * @param {PSTR} ObjectName A pointer to a null-terminated string that specifies the name of the object being created or accessed. This string appears in any audit message that the function generates.
-     * @param {PSECURITY_DESCRIPTOR} _SecurityDescriptor 
+     * @param {PSECURITY_DESCRIPTOR} _SecurityDescriptor A pointer to a 
+     * <a href="https://docs.microsoft.com/windows/desktop/api/winnt/ns-winnt-security_descriptor">SECURITY_DESCRIPTOR</a> structure against which access is checked.
      * @param {PSID} PrincipalSelfSid A pointer to a <a href="https://docs.microsoft.com/windows/desktop/SecGloss/s-gly">security identifier</a> (SID). If the security descriptor is associated with an object that represents a principal (for example, a user object), the <i>PrincipalSelfSid</i> parameter should be the SID of the object. When evaluating access, this SID logically replaces the SID in any ACE that contains the well-known PRINCIPAL_SELF SID (S-1-5-10). For information about well-known SIDs, see <a href="https://docs.microsoft.com/windows/desktop/SecAuthZ/well-known-sids">Well-known SIDs</a>.
      * 
      * Set this parameter to <b>NULL</b> if the protected object does not represent a principal.
@@ -5394,7 +5435,7 @@ class Security {
      * <a href="https://docs.microsoft.com/windows/desktop/api/securitybaseapi/nf-securitybaseapi-mapgenericmask">MapGenericMask</a> function so that it contains no generic access rights.
      * 
      * If this parameter is MAXIMUM_ALLOWED, the function sets the access mask in <i>GrantedAccess</i> to indicate the maximum access rights the security descriptor allows the client.
-     * @param {Integer} AuditType The type of audit to be generated. This can be one of the values from the 
+     * @param {AUDIT_EVENT_TYPE} AuditType The type of audit to be generated. This can be one of the values from the 
      * <a href="https://docs.microsoft.com/windows/desktop/api/winnt/ne-winnt-audit_event_type">AUDIT_EVENT_TYPE</a> enumeration type.
      * @param {Integer} Flags A flag that controls the function's behavior if the calling <a href="https://docs.microsoft.com/windows/desktop/SecGloss/p-gly">process</a> does not have the SE_AUDIT_NAME privilege enabled. If the AUDIT_ALLOW_NO_PRIVILEGE flag is set, the function performs the access check without generating audit messages when the privilege is not enabled. If this parameter is zero, the function fails if the privilege is not enabled.
      * @param {Pointer<OBJECT_TYPE_LIST>} ObjectTypeList A pointer to an array of 
@@ -5465,7 +5506,8 @@ class Security {
      * @param {HANDLE} ClientToken A handle to a token object that represents the client that requested the operation. This handle must be obtained through a communication session layer, such as a local named pipe, to prevent possible security policy violations. The caller must have TOKEN_QUERY access for the specified token.
      * @param {PSTR} ObjectTypeName A pointer to a null-terminated string that specifies the type of object being created or accessed. This string appears in any audit message that the function generates.
      * @param {PSTR} ObjectName A pointer to a null-terminated string that specifies the name of the object being created or accessed. This string appears in any audit message that the function generates.
-     * @param {PSECURITY_DESCRIPTOR} _SecurityDescriptor 
+     * @param {PSECURITY_DESCRIPTOR} _SecurityDescriptor A pointer to a 
+     * <a href="https://docs.microsoft.com/windows/desktop/api/winnt/ns-winnt-security_descriptor">SECURITY_DESCRIPTOR</a> structure against which access is checked.
      * @param {PSID} PrincipalSelfSid A pointer to a SID. If the security descriptor is associated with an object that represents a principal (for example, a user object), the <i>PrincipalSelfSid</i> parameter should be the SID of the object. When evaluating access, this SID logically replaces the SID in any ACE containing the well-known PRINCIPAL_SELF SID (S-1-5-10). For information about well-known SIDs, see <a href="https://docs.microsoft.com/windows/desktop/SecAuthZ/well-known-sids">Well-known SIDs</a>.
      * 
      * Set this parameter to <b>NULL</b> if the protected object does not represent a principal.
@@ -5473,7 +5515,7 @@ class Security {
      * <a href="https://docs.microsoft.com/windows/desktop/api/securitybaseapi/nf-securitybaseapi-mapgenericmask">MapGenericMask</a> function so that it contains no generic access rights.
      * 
      * If this parameter is MAXIMUM_ALLOWED, the function sets the access mask in <i>GrantedAccess</i> to indicate the maximum access rights the security descriptor allows the client.
-     * @param {Integer} AuditType The type of audit to be generated. This can be one of the values from the 
+     * @param {AUDIT_EVENT_TYPE} AuditType The type of audit to be generated. This can be one of the values from the 
      * <a href="https://docs.microsoft.com/windows/desktop/api/winnt/ne-winnt-audit_event_type">AUDIT_EVENT_TYPE</a> enumeration type.
      * @param {Integer} Flags A flag that controls the function's behavior if the calling <a href="https://docs.microsoft.com/windows/desktop/SecGloss/p-gly">process</a> does not have the SE_AUDIT_NAME privilege enabled. If the AUDIT_ALLOW_NO_PRIVILEGE flag is set, the function performs the access check without generating audit messages when the privilege is not enabled. If this parameter is zero, the function fails if the privilege is not enabled.
      * @param {Pointer<OBJECT_TYPE_LIST>} ObjectTypeList A pointer to an array of 
@@ -5712,12 +5754,13 @@ class Security {
      * ACL. This function adds an ACE to this ACL.
      * 
      * The value of this parameter cannot be <b>NULL</b>.
-     * @param {Integer} dwAceRevision Specifies the revision level of the ACL being modified. This value can be ACL_REVISION or ACL_REVISION_DS. 
+     * @param {ACE_REVISION} dwAceRevision Specifies the revision level of the ACL being modified. This value can be ACL_REVISION or ACL_REVISION_DS. 
      *       Use ACL_REVISION_DS if the ACL contains object-specific ACEs.
-     * @param {Integer} AceFlags A set of bit flags that control ACE inheritance. The function sets these flags in the <b>AceFlags</b> member of the
+     * @param {ACE_FLAGS} AceFlags A set of bit flags that control ACE inheritance. The function sets these flags in the <b>AceFlags</b> member of the
      * @param {Integer} AceType The type of the ACE.
      * @param {Integer} AccessMask Specifies the mask of access rights to be granted to the specified SID.
-     * @param {PSID} _pSid 
+     * @param {PSID} _pSid A pointer to the 
+     * SID  that represents a user, group, or logon account being granted access.
      * @param {PWSTR} ConditionStr A string that specifies the conditional statement to be evaluated for the ACE.
      * @param {Pointer<Integer>} ReturnLength The size, in bytes, of the ACL. If the buffer specified by the <i>pACL</i> parameter is not of sufficient size, the value of this parameter is the required size.
      * @returns {BOOL} If the function succeeds, it returns <b>TRUE</b>.
@@ -5771,7 +5814,7 @@ class Security {
      * <li>If the <a href="https://docs.microsoft.com/windows/desktop/SecGloss/s-gly">system access control list</a> (SACL) of the object is being set, the SE_SECURITY_NAME privilege must be enabled for the calling process.</li>
      * </ul>
      * @param {PSTR} lpFileName A pointer to a null-terminated string that specifies the file or directory for which security is set. Note that security applied to a directory is not inherited by its children.
-     * @param {Integer} SecurityInformation Specifies a 
+     * @param {OBJECT_SECURITY_INFORMATION} SecurityInformation Specifies a 
      * <a href="https://docs.microsoft.com/windows/desktop/SecAuthZ/security-information">SECURITY_INFORMATION</a> structure that identifies the contents of the <a href="https://docs.microsoft.com/windows/desktop/SecGloss/s-gly">security descriptor</a> pointed to by the <i>pSecurityDescriptor</i> parameter.
      * @param {PSECURITY_DESCRIPTOR} pSecurityDescriptor A pointer to a 
      * <a href="https://docs.microsoft.com/windows/desktop/api/winnt/ns-winnt-security_descriptor">SECURITY_DESCRIPTOR</a> structure.
@@ -5805,7 +5848,7 @@ class Security {
      * @param {PSTR} lpFileName A pointer to a null-terminated string that specifies the file or directory for which security information is retrieved.
      * @param {Integer} RequestedInformation A 
      * <a href="https://docs.microsoft.com/windows/desktop/SecAuthZ/security-information">SECURITY_INFORMATION</a> value that identifies the security information being requested.
-     * @param {Pointer} pSecurityDescriptor A pointer to a buffer that receives a copy of the <a href="https://docs.microsoft.com/windows/desktop/SecGloss/s-gly">security descriptor</a> of the object specified by the <i>lpFileName</i> parameter. The calling <a href="https://docs.microsoft.com/windows/desktop/SecGloss/p-gly">process</a> must have permission to view the specified aspects of the object's security status. The 
+     * @param {Integer} pSecurityDescriptor A pointer to a buffer that receives a copy of the <a href="https://docs.microsoft.com/windows/desktop/SecGloss/s-gly">security descriptor</a> of the object specified by the <i>lpFileName</i> parameter. The calling <a href="https://docs.microsoft.com/windows/desktop/SecGloss/p-gly">process</a> must have permission to view the specified aspects of the object's security status. The 
      * <a href="https://docs.microsoft.com/windows/desktop/api/winnt/ns-winnt-security_descriptor">SECURITY_DESCRIPTOR</a> structure is returned in <a href="https://docs.microsoft.com/windows/desktop/SecGloss/s-gly">self-relative security descriptor</a> format.
      * @param {Integer} nLength Specifies the size, in bytes, of the buffer pointed to by the <i>pSecurityDescriptor</i> parameter.
      * @param {Pointer<Integer>} lpnLengthNeeded A pointer to the variable that receives the number of bytes necessary to store the complete <a href="https://docs.microsoft.com/windows/desktop/SecGloss/s-gly">security descriptor</a>. If the returned number of bytes is less than or equal to <i>nLength</i>, the entire security descriptor is returned in the output buffer; otherwise, none of the descriptor is returned.
@@ -5840,7 +5883,8 @@ class Security {
      * 
      * In addition to looking up SIDs for local accounts, local domain accounts, and explicitly trusted domain accounts, <b>LookupAccountSid</b> can look up SIDs for any account in any domain in the forest, including SIDs that appear only in the SIDhistory field of an account in the forest. The SIDhistory field stores former SIDs of an account that has been moved from another domain. To look up a SID, <b>LookupAccountSid</b> queries the global catalog of the forest.
      * @param {PSTR} lpSystemName A pointer to a <b>null</b>-terminated character string that specifies the target computer. This string can be the name of a remote computer. If this parameter is <b>NULL</b>, the account name translation begins on the local system. If the name cannot be resolved on the local system, this function will try to resolve the name using domain controllers trusted by the local system. Generally, specify a value for  <i>lpSystemName</i> only when the  account is in an untrusted domain and the   name of a computer in that domain is known.
-     * @param {PSID} _Sid 
+     * @param {PSID} _Sid A pointer to the 
+     * <a href="https://docs.microsoft.com/windows/desktop/api/winnt/ns-winnt-sid">SID</a> to look up.
      * @param {PSTR} Name A pointer to a buffer that receives a <b>null</b>-terminated string that contains the account name that corresponds to the <i>lpSid</i> parameter.
      * @param {Pointer<Integer>} cchName On input, specifies the size, in <b>TCHAR</b>s, of the <i>lpName</i> buffer. If the function fails because the buffer is too small or if <i>cchName</i> is zero, <i>cchName</i> receives the required buffer size, including the terminating <b>null</b> character.
      * @param {PSTR} ReferencedDomainName A pointer to a buffer that receives a <b>null</b>-terminated string that contains the name of the domain where the account name was found.
@@ -5852,7 +5896,7 @@ class Security {
      * 
      * Some accounts are predefined by the system. The domain name returned for these accounts is BUILTIN.
      * @param {Pointer<Integer>} cchReferencedDomainName On input, specifies the size, in <b>TCHAR</b>s, of the <i>lpReferencedDomainName</i> buffer. If the function fails because the buffer is too small or if <i>cchReferencedDomainName</i> is zero, <i>cchReferencedDomainName</i> receives the required buffer size, including the terminating <b>null</b> character.
-     * @param {Pointer<Integer>} peUse A pointer to a variable that receives a 
+     * @param {Pointer<SID_NAME_USE>} peUse A pointer to a variable that receives a 
      * <a href="https://docs.microsoft.com/windows/desktop/api/winnt/ne-winnt-sid_name_use">SID_NAME_USE</a> value that indicates the type of the account.
      * @returns {BOOL} If the function succeeds, the function returns nonzero.
      * 
@@ -5889,7 +5933,8 @@ class Security {
      * 
      * In addition to looking up SIDs for local accounts, local domain accounts, and explicitly trusted domain accounts, <b>LookupAccountSid</b> can look up SIDs for any account in any domain in the forest, including SIDs that appear only in the SIDhistory field of an account in the forest. The SIDhistory field stores former SIDs of an account that has been moved from another domain. To look up a SID, <b>LookupAccountSid</b> queries the global catalog of the forest.
      * @param {PWSTR} lpSystemName A pointer to a <b>null</b>-terminated character string that specifies the target computer. This string can be the name of a remote computer. If this parameter is <b>NULL</b>, the account name translation begins on the local system. If the name cannot be resolved on the local system, this function will try to resolve the name using domain controllers trusted by the local system. Generally, specify a value for  <i>lpSystemName</i> only when the  account is in an untrusted domain and the   name of a computer in that domain is known.
-     * @param {PSID} _Sid 
+     * @param {PSID} _Sid A pointer to the 
+     * <a href="https://docs.microsoft.com/windows/desktop/api/winnt/ns-winnt-sid">SID</a> to look up.
      * @param {PWSTR} Name A pointer to a buffer that receives a <b>null</b>-terminated string that contains the account name that corresponds to the <i>lpSid</i> parameter.
      * @param {Pointer<Integer>} cchName On input, specifies the size, in <b>TCHAR</b>s, of the <i>lpName</i> buffer. If the function fails because the buffer is too small or if <i>cchName</i> is zero, <i>cchName</i> receives the required buffer size, including the terminating <b>null</b> character.
      * @param {PWSTR} ReferencedDomainName A pointer to a buffer that receives a <b>null</b>-terminated string that contains the name of the domain where the account name was found.
@@ -5901,7 +5946,7 @@ class Security {
      * 
      * Some accounts are predefined by the system. The domain name returned for these accounts is BUILTIN.
      * @param {Pointer<Integer>} cchReferencedDomainName On input, specifies the size, in <b>TCHAR</b>s, of the <i>lpReferencedDomainName</i> buffer. If the function fails because the buffer is too small or if <i>cchReferencedDomainName</i> is zero, <i>cchReferencedDomainName</i> receives the required buffer size, including the terminating <b>null</b> character.
-     * @param {Pointer<Integer>} peUse A pointer to a variable that receives a 
+     * @param {Pointer<SID_NAME_USE>} peUse A pointer to a variable that receives a 
      * <a href="https://docs.microsoft.com/windows/desktop/api/winnt/ne-winnt-sid_name_use">SID_NAME_USE</a> value that indicates the type of the account.
      * @returns {BOOL} If the function succeeds, the function returns nonzero.
      * 
@@ -5948,11 +5993,12 @@ class Security {
      * @param {PSTR} lpAccountName A pointer to a <b>null</b>-terminated string that specifies the account name.
      * 
      * Use a fully qualified string in the domain_name\user_name format to ensure that <b>LookupAccountName</b> finds the account in the desired domain.
-     * @param {Pointer} _Sid 
+     * @param {Integer} _Sid A pointer to a buffer that receives the 
+     * <a href="https://docs.microsoft.com/windows/desktop/api/winnt/ns-winnt-sid">SID</a> structure that corresponds to the account name pointed to by the <i>lpAccountName</i> parameter. If this parameter is <b>NULL</b>, <i>cbSid</i> must be zero.
      * @param {Pointer<Integer>} cbSid A pointer to a variable. On input, this value specifies the size, in bytes, of the <i>Sid</i> buffer. If the function fails because the buffer is too small or if <i>cbSid</i> is zero, this variable receives the required buffer size.
      * @param {PSTR} ReferencedDomainName A pointer to a buffer that receives the name of the domain where the account name is found. For computers that are not joined to a domain, this buffer receives the computer name. If this parameter is <b>NULL</b>, the function returns the required buffer size.
      * @param {Pointer<Integer>} cchReferencedDomainName A pointer to a variable. On input, this value specifies the size, in <b>TCHAR</b>s, of the <i>ReferencedDomainName</i> buffer. If the function fails because the buffer is too small, this variable receives the required buffer size, including the terminating <b>null</b> character. If the <i>ReferencedDomainName</i> parameter is <b>NULL</b>, this parameter must be zero.
-     * @param {Pointer<Integer>} peUse A pointer to a 
+     * @param {Pointer<SID_NAME_USE>} peUse A pointer to a 
      * <a href="https://docs.microsoft.com/windows/desktop/api/winnt/ne-winnt-sid_name_use">SID_NAME_USE</a> enumerated type that indicates the type of the account when the function returns.
      * @returns {BOOL} If the function succeeds, the function returns nonzero.
      * 
@@ -5999,11 +6045,12 @@ class Security {
      * @param {PWSTR} lpAccountName A pointer to a <b>null</b>-terminated string that specifies the account name.
      * 
      * Use a fully qualified string in the domain_name\user_name format to ensure that <b>LookupAccountName</b> finds the account in the desired domain.
-     * @param {Pointer} _Sid 
+     * @param {Integer} _Sid A pointer to a buffer that receives the 
+     * <a href="https://docs.microsoft.com/windows/desktop/api/winnt/ns-winnt-sid">SID</a> structure that corresponds to the account name pointed to by the <i>lpAccountName</i> parameter. If this parameter is <b>NULL</b>, <i>cbSid</i> must be zero.
      * @param {Pointer<Integer>} cbSid A pointer to a variable. On input, this value specifies the size, in bytes, of the <i>Sid</i> buffer. If the function fails because the buffer is too small or if <i>cbSid</i> is zero, this variable receives the required buffer size.
      * @param {PWSTR} ReferencedDomainName A pointer to a buffer that receives the name of the domain where the account name is found. For computers that are not joined to a domain, this buffer receives the computer name. If this parameter is <b>NULL</b>, the function returns the required buffer size.
      * @param {Pointer<Integer>} cchReferencedDomainName A pointer to a variable. On input, this value specifies the size, in <b>TCHAR</b>s, of the <i>ReferencedDomainName</i> buffer. If the function fails because the buffer is too small, this variable receives the required buffer size, including the terminating <b>null</b> character. If the <i>ReferencedDomainName</i> parameter is <b>NULL</b>, this parameter must be zero.
-     * @param {Pointer<Integer>} peUse A pointer to a 
+     * @param {Pointer<SID_NAME_USE>} peUse A pointer to a 
      * <a href="https://docs.microsoft.com/windows/desktop/api/winnt/ne-winnt-sid_name_use">SID_NAME_USE</a> enumerated type that indicates the type of the account when the function returns.
      * @returns {BOOL} If the function succeeds, the function returns nonzero.
      * 
@@ -6276,8 +6323,8 @@ class Security {
      * @param {PSTR} lpszUsername A pointer to a null-terminated string that specifies the name of the user. This is the name of the user account to log on to. If you use the <a href="https://docs.microsoft.com/windows/desktop/SecGloss/u-gly">user principal name</a> (UPN) format, <i>User</i><b>@</b><i>DNSDomainName</i>, the <i>lpszDomain</i> parameter must be <b>NULL</b>.
      * @param {PSTR} lpszDomain A pointer to a null-terminated string that specifies the name of the domain or server whose account database contains the <i>lpszUsername</i> account. If this parameter is <b>NULL</b>, the user name must be specified in UPN format. If this parameter is ".", the function validates the account by using only the local account database.
      * @param {PSTR} lpszPassword A pointer to a null-terminated string that specifies the plaintext password for the user account specified by <i>lpszUsername</i>.  When you have finished using the password, clear the password from memory by calling the <a href="https://docs.microsoft.com/previous-versions/windows/desktop/legacy/aa366877(v=vs.85)">SecureZeroMemory</a> function. For more information about protecting passwords, see <a href="https://docs.microsoft.com/windows/desktop/SecBP/handling-passwords">Handling Passwords</a>.
-     * @param {Integer} dwLogonType 
-     * @param {Integer} dwLogonProvider 
+     * @param {LOGON32_LOGON} dwLogonType 
+     * @param {LOGON32_PROVIDER} dwLogonProvider 
      * @param {Pointer<HANDLE>} phToken A pointer to a handle variable that receives a handle to a token that represents the specified user.
      * 
      * You can use the returned handle in calls to the 
@@ -6335,8 +6382,8 @@ class Security {
      * @param {PWSTR} lpszUsername A pointer to a null-terminated string that specifies the name of the user. This is the name of the user account to log on to. If you use the <a href="https://docs.microsoft.com/windows/desktop/SecGloss/u-gly">user principal name</a> (UPN) format, <i>User</i><b>@</b><i>DNSDomainName</i>, the <i>lpszDomain</i> parameter must be <b>NULL</b>.
      * @param {PWSTR} lpszDomain A pointer to a null-terminated string that specifies the name of the domain or server whose account database contains the <i>lpszUsername</i> account. If this parameter is <b>NULL</b>, the user name must be specified in UPN format. If this parameter is ".", the function validates the account by using only the local account database.
      * @param {PWSTR} lpszPassword A pointer to a null-terminated string that specifies the plaintext password for the user account specified by <i>lpszUsername</i>.  When you have finished using the password, clear the password from memory by calling the <a href="https://docs.microsoft.com/previous-versions/windows/desktop/legacy/aa366877(v=vs.85)">SecureZeroMemory</a> function. For more information about protecting passwords, see <a href="https://docs.microsoft.com/windows/desktop/SecBP/handling-passwords">Handling Passwords</a>.
-     * @param {Integer} dwLogonType 
-     * @param {Integer} dwLogonProvider 
+     * @param {LOGON32_LOGON} dwLogonType 
+     * @param {LOGON32_PROVIDER} dwLogonProvider 
      * @param {Pointer<HANDLE>} phToken A pointer to a handle variable that receives a handle to a token that represents the specified user.
      * 
      * You can use the returned handle in calls to the 
@@ -6401,8 +6448,8 @@ class Security {
      * @param {PSTR} lpszUsername A pointer to a null-terminated string that specifies the name of the user. This is the name of the user account to log on to. If you use the <a href="https://docs.microsoft.com/windows/desktop/SecGloss/u-gly">user principal name</a> (UPN) format, user@DNS_domain_name, the <i>lpszDomain</i> parameter must be <b>NULL</b>.
      * @param {PSTR} lpszDomain A pointer to a null-terminated string that specifies the name of the domain or server whose account database contains the <i>lpszUsername</i> account. If this parameter is <b>NULL</b>, the user name must be specified in UPN format. If this parameter is ".", the function validates the account by using only the local account database.
      * @param {PSTR} lpszPassword A pointer to a null-terminated string that specifies the plaintext password for the user account specified by <i>lpszUsername</i>.  When you have finished using the password, clear the password from memory by calling the <a href="https://docs.microsoft.com/previous-versions/windows/desktop/legacy/aa366877(v=vs.85)">SecureZeroMemory</a> function. For more information about protecting passwords, see <a href="https://docs.microsoft.com/windows/desktop/SecBP/handling-passwords">Handling Passwords</a>.
-     * @param {Integer} dwLogonType 
-     * @param {Integer} dwLogonProvider 
+     * @param {LOGON32_LOGON} dwLogonType 
+     * @param {LOGON32_PROVIDER} dwLogonProvider 
      * @param {Pointer<HANDLE>} phToken A pointer to a handle variable that receives a handle to a token that represents the specified user.
      * 
      * You can use the returned handle in calls to the 
@@ -6477,8 +6524,8 @@ class Security {
      * @param {PWSTR} lpszUsername A pointer to a null-terminated string that specifies the name of the user. This is the name of the user account to log on to. If you use the <a href="https://docs.microsoft.com/windows/desktop/SecGloss/u-gly">user principal name</a> (UPN) format, user@DNS_domain_name, the <i>lpszDomain</i> parameter must be <b>NULL</b>.
      * @param {PWSTR} lpszDomain A pointer to a null-terminated string that specifies the name of the domain or server whose account database contains the <i>lpszUsername</i> account. If this parameter is <b>NULL</b>, the user name must be specified in UPN format. If this parameter is ".", the function validates the account by using only the local account database.
      * @param {PWSTR} lpszPassword A pointer to a null-terminated string that specifies the plaintext password for the user account specified by <i>lpszUsername</i>.  When you have finished using the password, clear the password from memory by calling the <a href="https://docs.microsoft.com/previous-versions/windows/desktop/legacy/aa366877(v=vs.85)">SecureZeroMemory</a> function. For more information about protecting passwords, see <a href="https://docs.microsoft.com/windows/desktop/SecBP/handling-passwords">Handling Passwords</a>.
-     * @param {Integer} dwLogonType 
-     * @param {Integer} dwLogonProvider 
+     * @param {LOGON32_LOGON} dwLogonType 
+     * @param {LOGON32_PROVIDER} dwLogonProvider 
      * @param {Pointer<HANDLE>} phToken A pointer to a handle variable that receives a handle to a token that represents the specified user.
      * 
      * You can use the returned handle in calls to the 
@@ -6524,7 +6571,7 @@ class Security {
     /**
      * Converts a security identifier (SID) to its Unicode character representation.
      * @param {Pointer<UNICODE_STRING>} UnicodeString A pointer to the Unicode character representation of the security identifier.
-     * @param {PSID} _Sid 
+     * @param {PSID} _Sid A pointer to the <a href="https://docs.microsoft.com/windows/desktop/api/winnt/ns-winnt-sid">SID</a> structure that represents the security identifier.
      * @param {BOOLEAN} AllocateDestinationString If <b>TRUE</b>, then  <i>UnicodeString</i> is allocated on behalf of the caller, and it is the caller's responsibility to free the allocated memory by calling the <b>RtlFreeUnicodeString</b> function. If <b>FALSE</b>, the caller is responsible for allocating and freeing  <i>UnicodeString</i>.
      * @returns {NTSTATUS} The return value is an  NTSTATUS code. A value of STATUS_SUCCESS (0x00000000L) is returned if the function succeeds.
      * @see https://learn.microsoft.com/windows/win32/api/winternl/nf-winternl-rtlconvertsidtounicodestring

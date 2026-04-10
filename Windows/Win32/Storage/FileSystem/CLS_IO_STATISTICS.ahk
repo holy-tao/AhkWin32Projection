@@ -1,15 +1,14 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
 #Include .\CLS_IO_STATISTICS_HEADER.ahk
+#Include .\CLFS_IOSTATS_CLASS.ahk
 
 /**
  * Defines the statistics that are reported by GetLogIoStatistics.
  * @see https://learn.microsoft.com/windows/win32/api/clfs/ns-clfs-cls_io_statistics
  * @namespace Windows.Win32.Storage.FileSystem
- * @version v4.0.30319
  */
-class CLS_IO_STATISTICS extends Win32Struct
-{
+class CLS_IO_STATISTICS extends Win32Struct {
     static sizeof => 48
 
     static packingSize => 8
@@ -18,7 +17,7 @@ class CLS_IO_STATISTICS extends Win32Struct
      * The header for the statistics buffer.
      * @type {CLS_IO_STATISTICS_HEADER}
      */
-    hdrIoStats{
+    hdrIoStats {
         get {
             if(!this.HasProp("__hdrIoStats"))
                 this.__hdrIoStats := CLS_IO_STATISTICS_HEADER(0, this)

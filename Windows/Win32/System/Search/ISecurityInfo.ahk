@@ -7,9 +7,8 @@
  * Enables the access control editor to communicate with the caller of the CreateSecurityPage and EditSecurity functions.
  * @see https://learn.microsoft.com/windows/win32/api/aclui/nn-aclui-isecurityinformation
  * @namespace Windows.Win32.System.Search
- * @version v4.0.30319
  */
-class ISecurityInfo extends IUnknown{
+class ISecurityInfo extends IUnknown {
 
     static sizeof => A_PtrSize
     /**

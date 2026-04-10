@@ -3,9 +3,8 @@
 
 /**
  * @namespace Windows.Win32.Graphics.Gdi
- * @version v4.0.30319
  */
-class PAN_FAMILY_TYPE extends Win32Enum{
+class PAN_FAMILY_TYPE extends Win32Enum {
 
     /**
      * @type {Integer (Byte)}

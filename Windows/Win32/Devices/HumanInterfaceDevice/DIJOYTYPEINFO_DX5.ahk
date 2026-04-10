@@ -4,10 +4,8 @@
 
 /**
  * @namespace Windows.Win32.Devices.HumanInterfaceDevice
- * @version v4.0.30319
  */
-class DIJOYTYPEINFO_DX5 extends Win32Struct
-{
+class DIJOYTYPEINFO_DX5 extends Win32Struct {
     static sizeof => 1056
 
     static packingSize => 8
@@ -23,7 +21,7 @@ class DIJOYTYPEINFO_DX5 extends Win32Struct
     /**
      * @type {JOYREGHWSETTINGS}
      */
-    hws{
+    hws {
         get {
             if(!this.HasProp("__hws"))
                 this.__hws := JOYREGHWSETTINGS(4, this)
@@ -32,7 +30,7 @@ class DIJOYTYPEINFO_DX5 extends Win32Struct
     }
 
     /**
-     * @type {Pointer<Guid>}
+     * @type {Pointer}
      */
     clsidConfig {
         get => NumGet(this, 16, "ptr")

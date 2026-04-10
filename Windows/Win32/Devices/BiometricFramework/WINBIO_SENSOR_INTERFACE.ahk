@@ -6,10 +6,8 @@
  * Contains pointers to your custom sensor adapter functions.
  * @see https://learn.microsoft.com/windows/win32/api/winbio_adapter/ns-winbio_adapter-winbio_sensor_interface
  * @namespace Windows.Win32.Devices.BiometricFramework
- * @version v4.0.30319
  */
-class WINBIO_SENSOR_INTERFACE extends Win32Struct
-{
+class WINBIO_SENSOR_INTERFACE extends Win32Struct {
     static sizeof => 272
 
     static packingSize => 8
@@ -24,7 +22,7 @@ class WINBIO_SENSOR_INTERFACE extends Win32Struct
      * <b>Windows Server 2008 R2 and Windows 7:  </b>The version number must be <b>WINBIO_SENSOR_INTERFACE_VERSION_1</b>.
      * @type {WINBIO_ADAPTER_INTERFACE_VERSION}
      */
-    Version{
+    Version {
         get {
             if(!this.HasProp("__Version"))
                 this.__Version := WINBIO_ADAPTER_INTERFACE_VERSION(0, this)
@@ -52,7 +50,7 @@ class WINBIO_SENSOR_INTERFACE extends Win32Struct
 
     /**
      * A GUID that uniquely identifies the sensor adapter. You must generate this value.
-     * @type {Pointer<Guid>}
+     * @type {Pointer}
      */
     AdapterId {
         get => NumGet(this, 16, "ptr")
@@ -276,7 +274,6 @@ class WINBIO_SENSOR_INTERFACE extends Win32Struct
     }
 
     /**
-     * 
      * @type {Pointer<PIBIO_SENSOR_ASYNC_IMPORT_RAW_BUFFER_FN>}
      */
     AsyncImportRawBuffer {
@@ -285,7 +282,6 @@ class WINBIO_SENSOR_INTERFACE extends Win32Struct
     }
 
     /**
-     * 
      * @type {Pointer<PIBIO_SENSOR_ASYNC_IMPORT_SECURE_BUFFER_FN>}
      */
     AsyncImportSecureBuffer {
@@ -294,7 +290,6 @@ class WINBIO_SENSOR_INTERFACE extends Win32Struct
     }
 
     /**
-     * 
      * @type {Pointer<PIBIO_SENSOR_QUERY_PRIVATE_SENSOR_TYPE_FN>}
      */
     QueryPrivateSensorType {
@@ -303,7 +298,6 @@ class WINBIO_SENSOR_INTERFACE extends Win32Struct
     }
 
     /**
-     * 
      * @type {Pointer<PIBIO_SENSOR_CONNECT_SECURE_FN>}
      */
     ConnectSecure {
@@ -312,7 +306,6 @@ class WINBIO_SENSOR_INTERFACE extends Win32Struct
     }
 
     /**
-     * 
      * @type {Pointer<PIBIO_SENSOR_START_CAPTURE_EX_FN>}
      */
     StartCaptureEx {
@@ -321,7 +314,6 @@ class WINBIO_SENSOR_INTERFACE extends Win32Struct
     }
 
     /**
-     * 
      * @type {Pointer<PIBIO_SENSOR_START_NOTIFY_WAKE_FN>}
      */
     StartNotifyWake {
@@ -330,7 +322,6 @@ class WINBIO_SENSOR_INTERFACE extends Win32Struct
     }
 
     /**
-     * 
      * @type {Pointer<PIBIO_SENSOR_FINISH_NOTIFY_WAKE_FN>}
      */
     FinishNotifyWake {

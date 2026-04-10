@@ -4,10 +4,8 @@
 
 /**
  * @namespace Windows.Win32.Graphics.Printing
- * @version v4.0.30319
  */
-class OIEXT extends Win32Struct
-{
+class OIEXT extends Win32Struct {
     static sizeof => 56
 
     static packingSize => 8
@@ -31,7 +29,7 @@ class OIEXT extends Win32Struct
     /**
      * @type {HINSTANCE}
      */
-    hInstCaller{
+    hInstCaller {
         get {
             if(!this.HasProp("__hInstCaller"))
                 this.__hInstCaller := HINSTANCE(8, this)
@@ -48,9 +46,9 @@ class OIEXT extends Win32Struct
     }
 
     /**
-     * @type {Array<UIntPtr>}
+     * @type {Array<Pointer>}
      */
-    dwReserved{
+    dwReserved {
         get {
             if(!this.HasProp("__dwReservedProxyArray"))
                 this.__dwReservedProxyArray := Win32FixedArray(this.ptr + 24, 4, Primitive, "ptr")

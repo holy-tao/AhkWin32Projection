@@ -20,10 +20,8 @@
  *      technical reasons or when following them can result in a poor configuration.
  * @see https://learn.microsoft.com/windows/win32/api/vdshwprv/ns-vdshwprv-vds_hints
  * @namespace Windows.Win32.Storage.VirtualDiskService
- * @version v4.0.30319
  */
-class VDS_HINTS extends Win32Struct
-{
+class VDS_HINTS extends Win32Struct {
     static sizeof => 80
 
     static packingSize => 8

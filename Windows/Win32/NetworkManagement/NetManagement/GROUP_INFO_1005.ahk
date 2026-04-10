@@ -5,10 +5,8 @@
  * The GROUP_INFO_1005 structure contains the resource attributes associated with a global group.
  * @see https://learn.microsoft.com/windows/win32/api/lmaccess/ns-lmaccess-group_info_1005
  * @namespace Windows.Win32.NetworkManagement.NetManagement
- * @version v4.0.30319
  */
-class GROUP_INFO_1005 extends Win32Struct
-{
+class GROUP_INFO_1005 extends Win32Struct {
     static sizeof => 4
 
     static packingSize => 4

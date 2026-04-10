@@ -1,14 +1,14 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
+#Include .\PPP_LCP.ahk
+#Include .\PPP_LCP_INFO_AUTH_DATA.ahk
 
 /**
  * The PPP_LCP_INFO structure contains information that describes the results of a PPP Link Control Protocol (LCP) negotiation.
  * @see https://learn.microsoft.com/windows/win32/api/mprapi/ns-mprapi-ppp_lcp_info
  * @namespace Windows.Win32.NetworkManagement.Rras
- * @version v4.0.30319
  */
-class PPP_LCP_INFO extends Win32Struct
-{
+class PPP_LCP_INFO extends Win32Struct {
     static sizeof => 44
 
     static packingSize => 4
@@ -23,8 +23,7 @@ class PPP_LCP_INFO extends Win32Struct
     }
 
     /**
-     * 
-     * @type {Integer}
+     * @type {PPP_LCP}
      */
     dwAuthenticationProtocol {
         get => NumGet(this, 4, "uint")
@@ -32,8 +31,7 @@ class PPP_LCP_INFO extends Win32Struct
     }
 
     /**
-     * 
-     * @type {Integer}
+     * @type {PPP_LCP_INFO_AUTH_DATA}
      */
     dwAuthenticationData {
         get => NumGet(this, 8, "uint")

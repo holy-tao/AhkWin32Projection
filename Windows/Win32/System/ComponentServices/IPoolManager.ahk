@@ -1,16 +1,14 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
-#Include ..\..\Foundation\BSTR.ahk
 #Include ..\Com\IDispatch.ahk
 
 /**
  * Enables the caller to control an object pool.
  * @see https://learn.microsoft.com/windows/win32/api/comsvcs/nn-comsvcs-ipoolmanager
  * @namespace Windows.Win32.System.ComponentServices
- * @version v4.0.30319
  */
-class IPoolManager extends IDispatch{
+class IPoolManager extends IDispatch {
 
     static sizeof => A_PtrSize
     /**

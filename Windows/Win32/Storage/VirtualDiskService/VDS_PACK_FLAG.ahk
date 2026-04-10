@@ -12,9 +12,8 @@
  * <div> </div>
  * @see https://learn.microsoft.com/windows/win32/api/vds/ne-vds-vds_pack_flag
  * @namespace Windows.Win32.Storage.VirtualDiskService
- * @version v4.0.30319
  */
-class VDS_PACK_FLAG extends Win32Enum{
+class VDS_PACK_FLAG extends Win32Enum {
 
     /**
      * If set, an external pack is eligible for online status.

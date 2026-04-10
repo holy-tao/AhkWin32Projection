@@ -1,15 +1,14 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
 #Include .\CHANGER_ELEMENT.ahk
+#Include .\ELEMENT_TYPE.ahk
 
 /**
  * Contains information needed by the IOCTL_CHANGER_SET_POSITION control code to set the changer's robotic transport mechanism to the specified element address.
  * @see https://learn.microsoft.com/windows/win32/api/winioctl/ns-winioctl-changer_set_position
  * @namespace Windows.Win32.System.Ioctl
- * @version v4.0.30319
  */
-class CHANGER_SET_POSITION extends Win32Struct
-{
+class CHANGER_SET_POSITION extends Win32Struct {
     static sizeof => 20
 
     static packingSize => 4
@@ -19,7 +18,7 @@ class CHANGER_SET_POSITION extends Win32Struct
      * <a href="https://docs.microsoft.com/windows/desktop/api/winioctl/ns-winioctl-changer_element">CHANGER_ELEMENT</a> structure that indicates the transport to be moved. The <b>ElementType</b> member must be ChangerTransport.
      * @type {CHANGER_ELEMENT}
      */
-    Transport{
+    Transport {
         get {
             if(!this.HasProp("__Transport"))
                 this.__Transport := CHANGER_ELEMENT(0, this)
@@ -31,7 +30,7 @@ class CHANGER_SET_POSITION extends Win32Struct
      * A
      * @type {CHANGER_ELEMENT}
      */
-    Destination{
+    Destination {
         get {
             if(!this.HasProp("__Destination"))
                 this.__Destination := CHANGER_ELEMENT(8, this)

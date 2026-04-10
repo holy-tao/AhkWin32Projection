@@ -1,14 +1,13 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
+#Include .\FWPM_APPC_NETWORK_CAPABILITY_TYPE.ahk
 
 /**
  * Contains information about network traffic allowed in relation to an app container network capability.
  * @see https://learn.microsoft.com/windows/win32/api/fwpmtypes/ns-fwpmtypes-fwpm_net_event_capability_allow0
  * @namespace Windows.Win32.NetworkManagement.WindowsFilteringPlatform
- * @version v4.0.30319
  */
-class FWPM_NET_EVENT_CAPABILITY_ALLOW0 extends Win32Struct
-{
+class FWPM_NET_EVENT_CAPABILITY_ALLOW0 extends Win32Struct {
     static sizeof => 24
 
     static packingSize => 8
@@ -17,7 +16,7 @@ class FWPM_NET_EVENT_CAPABILITY_ALLOW0 extends Win32Struct
      * Type: <b><a href="https://docs.microsoft.com/windows/win32/api/fwpmtypes/ne-fwpmtypes-fwpm_appc_network_capability_type">FWPM_APPC_NETWORK_CAPABILITY_TYPE</a></b>
      * 
      * The specific app container network capability allowing this traffic.
-     * @type {Integer}
+     * @type {FWPM_APPC_NETWORK_CAPABILITY_TYPE}
      */
     networkCapabilityId {
         get => NumGet(this, 0, "int")

@@ -1,17 +1,16 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
-#Include ..\..\Foundation\HWND.ahk
 #Include .\NMHDR.ahk
+#Include ..\..\Foundation\HWND.ahk
+#Include .\LIST_VIEW_ITEM_FLAGS.ahk
 #Include ..\..\Foundation\POINT.ahk
 
 /**
  * Contains information about a list-view notification message. This structure is the same as the NM_LISTVIEW structure but has been renamed to fit standard naming conventions.
  * @see https://learn.microsoft.com/windows/win32/api/commctrl/ns-commctrl-nmlistview
  * @namespace Windows.Win32.UI.Controls
- * @version v4.0.30319
  */
-class NMLISTVIEW extends Win32Struct
-{
+class NMLISTVIEW extends Win32Struct {
     static sizeof => 64
 
     static packingSize => 8
@@ -23,7 +22,7 @@ class NMLISTVIEW extends Win32Struct
      * <a href="https://docs.microsoft.com/windows/desktop/api/richedit/ns-richedit-nmhdr">NMHDR</a> structure that contains information about this notification message.
      * @type {NMHDR}
      */
-    hdr{
+    hdr {
         get {
             if(!this.HasProp("__hdr"))
                 this.__hdr := NMHDR(0, this)
@@ -80,7 +79,7 @@ class NMLISTVIEW extends Win32Struct
      * 
      * Set of flags that indicate the item attributes that have changed. This member is zero for notifications that do not use it. Otherwise, it can have the same values as the 
      * 					<b>mask</b> member of the <a href="https://docs.microsoft.com/windows/desktop/api/commctrl/ns-commctrl-lvitema">LVITEM</a> structure.
-     * @type {Integer}
+     * @type {LIST_VIEW_ITEM_FLAGS}
      */
     uChanged {
         get => NumGet(this, 40, "uint")
@@ -94,7 +93,7 @@ class NMLISTVIEW extends Win32Struct
      * <a href="https://docs.microsoft.com/windows/win32/api/windef/ns-windef-point">POINT</a> structure that indicates the location at which the event occurred. This member is undefined for notification messages that do not use it.
      * @type {POINT}
      */
-    ptAction{
+    ptAction {
         get {
             if(!this.HasProp("__ptAction"))
                 this.__ptAction := POINT(44, this)

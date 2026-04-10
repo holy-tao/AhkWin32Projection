@@ -1,5 +1,6 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
+#Include .\ID3D11Resource.ahk
 
 /**
  * Contains driver-specific data for the ID3D11VideoContext::DecoderExtension method.
@@ -7,10 +8,8 @@
  * The exact meaning of each structure member depends on the value of <b>Function</b>.
  * @see https://learn.microsoft.com/windows/win32/api/d3d11/ns-d3d11-d3d11_video_decoder_extension
  * @namespace Windows.Win32.Graphics.Direct3D11
- * @version v4.0.30319
  */
-class D3D11_VIDEO_DECODER_EXTENSION extends Win32Struct
-{
+class D3D11_VIDEO_DECODER_EXTENSION extends Win32Struct {
     static sizeof => 48
 
     static packingSize => 8

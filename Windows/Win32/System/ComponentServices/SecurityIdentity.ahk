@@ -9,10 +9,8 @@
  * To use this class from Microsoft Visual Basic, add a reference to the COM+ Services Type Library. You cannot directly create a SecurityIdentity object. To use its properties, you must obtain a refernece to its implementation using [**GetSecurityCallContext**](/windows/desktop/api/ComSvcs/nf-comsvcs-igetsecuritycallcontext-getsecuritycallcontext). Next, get the Item property of the object, requesting a security call context item that is a security identity collection (such as "DirectCaller" or "OriginalCaller"). Then, use the Item property of the SecurityIdentity object to retrieve a security identity item (such as "Name" or "AuthenticationService").
  * @see https://learn.microsoft.com/windows/win32/cossdk/securityidentity
  * @namespace Windows.Win32.System.ComponentServices
- * @version v4.0.30319
  */
-class SecurityIdentity extends Win32Struct
-{
+class SecurityIdentity extends Win32Struct {
     static sizeof => 0
 
     static packingSize => 1

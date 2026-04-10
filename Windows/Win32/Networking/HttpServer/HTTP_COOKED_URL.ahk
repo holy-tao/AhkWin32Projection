@@ -7,10 +7,8 @@
  * For example, if <b>pFullUrl</b> is "http://www.fabrikam.com/path1/path2/file.ext?n1=v1&amp;n2=v2", then <b>pHost</b> points to "www.fabrikam", <b>pAbsPath</b> points to "/path1/…" and <b>pQueryString</b> points to "?n1=v1…".
  * @see https://learn.microsoft.com/windows/win32/api/http/ns-http-http_cooked_url
  * @namespace Windows.Win32.Networking.HttpServer
- * @version v4.0.30319
  */
-class HTTP_COOKED_URL extends Win32Struct
-{
+class HTTP_COOKED_URL extends Win32Struct {
     static sizeof => 40
 
     static packingSize => 8

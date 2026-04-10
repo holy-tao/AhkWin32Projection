@@ -7,9 +7,8 @@
  * Multiple <b>UI_ANIMATION_DEPENDENCIES</b> values can be combined using a bitwise-OR operation.
  * @see https://learn.microsoft.com/windows/win32/api/uianimation/ne-uianimation-ui_animation_dependencies
  * @namespace Windows.Win32.UI.Animation
- * @version v4.0.30319
  */
-class UI_ANIMATION_DEPENDENCIES extends Win32BitflagEnum{
+class UI_ANIMATION_DEPENDENCIES extends Win32BitflagEnum {
 
     /**
      * No aspect depends on the input.

@@ -5,9 +5,8 @@
  * A member of the ADDRESS_CAPABILITY enum is used by the ITAddressCapabilities::get_AddressCapability method to indicate the address capability required.
  * @see https://learn.microsoft.com/windows/win32/api/tapi3if/ne-tapi3if-address_capability
  * @namespace Windows.Win32.Devices.Tapi
- * @version v4.0.30319
  */
-class ADDRESS_CAPABILITY extends Win32Enum{
+class ADDRESS_CAPABILITY extends Win32Enum {
 
     /**
      * An address may support more than one 
@@ -290,31 +289,26 @@ class ADDRESS_CAPABILITY extends Win32Enum{
     static AC_PERMANENTDEVICEID => 42
 
     /**
-     * 
      * @type {Integer (Int32)}
      */
     static AC_GATHERDIGITSMINTIMEOUT => 43
 
     /**
-     * 
      * @type {Integer (Int32)}
      */
     static AC_GATHERDIGITSMAXTIMEOUT => 44
 
     /**
-     * 
      * @type {Integer (Int32)}
      */
     static AC_GENERATEDIGITMINDURATION => 45
 
     /**
-     * 
      * @type {Integer (Int32)}
      */
     static AC_GENERATEDIGITMAXDURATION => 46
 
     /**
-     * 
      * @type {Integer (Int32)}
      */
     static AC_GENERATEDIGITDEFAULTDURATION => 47

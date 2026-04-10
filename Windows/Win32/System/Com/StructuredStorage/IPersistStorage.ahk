@@ -7,9 +7,8 @@
  * Enables a container application to pass a storage object to one of its contained objects and to load and save the storage object.
  * @see https://learn.microsoft.com/windows/win32/api/objidl/nn-objidl-ipersiststorage
  * @namespace Windows.Win32.System.Com.StructuredStorage
- * @version v4.0.30319
  */
-class IPersistStorage extends IPersist{
+class IPersistStorage extends IPersist {
 
     static sizeof => A_PtrSize
     /**

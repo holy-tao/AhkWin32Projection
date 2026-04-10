@@ -5,13 +5,10 @@
 
 /**
  * Exposes a method called by the Remote Desktop Services service to obtain the session ID that is to be reconnected to in the enhanced fast reconnect sequence.
- * @remarks
- * 
  * @see https://learn.microsoft.com/windows/win32/api/wtsprotocol/nn-wtsprotocol-iwrdsenhancedfastreconnectarbitrator
  * @namespace Windows.Win32.System.RemoteDesktop
- * @version v4.0.30319
  */
-class IWRdsEnhancedFastReconnectArbitrator extends IUnknown{
+class IWRdsEnhancedFastReconnectArbitrator extends IUnknown {
 
     static sizeof => A_PtrSize
     /**

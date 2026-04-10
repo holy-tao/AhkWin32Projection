@@ -5,9 +5,8 @@
  * Defines values that are used with the FindFirstFileEx function to specify the information level of the returned data.
  * @see https://learn.microsoft.com/windows/win32/api/minwinbase/ne-minwinbase-findex_info_levels
  * @namespace Windows.Win32.Storage.FileSystem
- * @version v4.0.30319
  */
-class FINDEX_INFO_LEVELS extends Win32Enum{
+class FINDEX_INFO_LEVELS extends Win32Enum {
 
     /**
      * The <a href="https://docs.microsoft.com/windows/desktop/api/fileapi/nf-fileapi-findfirstfileexa">FindFirstFileEx</a> function retrieves a 

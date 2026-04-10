@@ -5,10 +5,8 @@
  * Represents contextual information about an event, such as the time it was generated and which process server and COM+ application generated it.
  * @see https://learn.microsoft.com/windows/win32/api/comsvcs/ns-comsvcs-comsvcseventinfo
  * @namespace Windows.Win32.System.ComponentServices
- * @version v4.0.30319
  */
-class COMSVCSEVENTINFO extends Win32Struct
-{
+class COMSVCSEVENTINFO extends Win32Struct {
     static sizeof => 48
 
     static packingSize => 8
@@ -60,7 +58,7 @@ class COMSVCSEVENTINFO extends Win32Struct
 
     /**
      * The applications globally unique identifier (GUID) for the first component instantiated in <b>dwPid</b>. If you are subscribing to an administration interface or event and the event is not generated from a COM+ application, this member is set to zero.
-     * @type {Pointer<Guid>}
+     * @type {Pointer}
      */
     guidApp {
         get => NumGet(this, 32, "ptr")

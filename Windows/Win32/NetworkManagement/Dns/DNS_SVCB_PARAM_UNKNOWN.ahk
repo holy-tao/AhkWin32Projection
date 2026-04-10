@@ -3,10 +3,8 @@
 
 /**
  * @namespace Windows.Win32.NetworkManagement.Dns
- * @version v4.0.30319
  */
-class DNS_SVCB_PARAM_UNKNOWN extends Win32Struct
-{
+class DNS_SVCB_PARAM_UNKNOWN extends Win32Struct {
     static sizeof => 4
 
     static packingSize => 2
@@ -20,9 +18,9 @@ class DNS_SVCB_PARAM_UNKNOWN extends Win32Struct
     }
 
     /**
-     * @type {Array<Byte>}
+     * @type {Array<Integer>}
      */
-    pbSvcParamValue{
+    pbSvcParamValue {
         get {
             if(!this.HasProp("__pbSvcParamValueProxyArray"))
                 this.__pbSvcParamValueProxyArray := Win32FixedArray(this.ptr + 2, 1, Primitive, "char")

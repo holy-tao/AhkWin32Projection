@@ -13,9 +13,8 @@
  * Do not call the method of <b>IExplorerCommandState</b> directly. Windows Explorer calls your <a href="https://docs.microsoft.com/windows/desktop/api/shobjidl_core/nf-shobjidl_core-iexplorercommandstate-getstate">IExplorerCommandState::GetState</a> implementation when the user wants to perform an action on the item.
  * @see https://learn.microsoft.com/windows/win32/api/shobjidl_core/nn-shobjidl_core-iexplorercommandstate
  * @namespace Windows.Win32.UI.Shell
- * @version v4.0.30319
  */
-class IExplorerCommandState extends IUnknown{
+class IExplorerCommandState extends IUnknown {
 
     static sizeof => A_PtrSize
     /**

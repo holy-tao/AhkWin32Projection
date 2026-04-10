@@ -1,7 +1,11 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
-#Include Common\DXGI_RATIONAL.ahk
 #Include Common\DXGI_MODE_DESC.ahk
+#Include Common\DXGI_RATIONAL.ahk
+#Include Common\DXGI_FORMAT.ahk
+#Include Common\DXGI_MODE_SCANLINE_ORDER.ahk
+#Include Common\DXGI_MODE_SCALING.ahk
+#Include Common\DXGI_MODE_ROTATION.ahk
 
 /**
  * The DXGI_OUTDUPL_DESC structure describes the dimension of the output and the surface that contains the desktop image. The format of the desktop image is always DXGI_FORMAT_B8G8R8A8_UNORM.
@@ -9,10 +13,8 @@
  * This structure is used by <a href="https://docs.microsoft.com/windows/desktop/api/dxgi1_2/nf-dxgi1_2-idxgioutputduplication-getdesc">GetDesc</a>.
  * @see https://learn.microsoft.com/windows/win32/api/dxgi1_2/ns-dxgi1_2-dxgi_outdupl_desc
  * @namespace Windows.Win32.Graphics.Dxgi
- * @version v4.0.30319
  */
-class DXGI_OUTDUPL_DESC extends Win32Struct
-{
+class DXGI_OUTDUPL_DESC extends Win32Struct {
     static sizeof => 36
 
     static packingSize => 4
@@ -21,7 +23,7 @@ class DXGI_OUTDUPL_DESC extends Win32Struct
      * A <a href="https://docs.microsoft.com/previous-versions/windows/desktop/legacy/bb173064(v=vs.85)">DXGI_MODE_DESC</a> structure that describes the display mode of the duplicated output.
      * @type {DXGI_MODE_DESC}
      */
-    ModeDesc{
+    ModeDesc {
         get {
             if(!this.HasProp("__ModeDesc"))
                 this.__ModeDesc := DXGI_MODE_DESC(0, this)
@@ -31,7 +33,7 @@ class DXGI_OUTDUPL_DESC extends Win32Struct
 
     /**
      * A member of the <a href="https://docs.microsoft.com/previous-versions/windows/desktop/legacy/bb173065(v=vs.85)">DXGI_MODE_ROTATION</a> enumerated type that describes how the duplicated output rotates an image.
-     * @type {Integer}
+     * @type {DXGI_MODE_ROTATION}
      */
     Rotation {
         get => NumGet(this, 28, "int")

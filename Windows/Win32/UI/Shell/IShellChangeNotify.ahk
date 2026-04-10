@@ -15,9 +15,8 @@
  * <b>IShellChangeNotify</b> implements <a href="https://docs.microsoft.com/windows/desktop/api/unknwn/nn-unknwn-iunknown">IUnknown</a> as well as the listed method.
  * @see https://learn.microsoft.com/windows/win32/api/shlobj_core/nn-shlobj_core-ishellchangenotify
  * @namespace Windows.Win32.UI.Shell
- * @version v4.0.30319
  */
-class IShellChangeNotify extends IUnknown{
+class IShellChangeNotify extends IUnknown {
 
     static sizeof => A_PtrSize
     /**

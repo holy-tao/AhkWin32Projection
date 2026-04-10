@@ -3,10 +3,8 @@
 
 /**
  * @namespace Windows.Win32.Media.DirectShow
- * @version v4.0.30319
  */
-class BDA_CAS_OPENMMIDATA extends Win32Struct
-{
+class BDA_CAS_OPENMMIDATA extends Win32Struct {
     static sizeof => 24
 
     static packingSize => 8
@@ -28,7 +26,7 @@ class BDA_CAS_OPENMMIDATA extends Win32Struct
     }
 
     /**
-     * @type {Pointer<Guid>}
+     * @type {Pointer}
      */
     uuidDialogType {
         get => NumGet(this, 8, "ptr")
@@ -44,9 +42,9 @@ class BDA_CAS_OPENMMIDATA extends Win32Struct
     }
 
     /**
-     * @type {Array<Byte>}
+     * @type {Array<Integer>}
      */
-    argbDialogData{
+    argbDialogData {
         get {
             if(!this.HasProp("__argbDialogDataProxyArray"))
                 this.__argbDialogDataProxyArray := Win32FixedArray(this.ptr + 18, 1, Primitive, "char")

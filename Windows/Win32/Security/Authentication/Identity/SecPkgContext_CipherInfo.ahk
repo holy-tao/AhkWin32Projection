@@ -5,10 +5,8 @@
  * Cipher info structure. This is returned by SECPKG_ATTR_CIPHER_INFO ulAttribute from the QueryContextAttributes (Schannel) function.
  * @see https://learn.microsoft.com/windows/win32/api/schannel/ns-schannel-secpkgcontext_cipherinfo
  * @namespace Windows.Win32.Security.Authentication.Identity
- * @version v4.0.30319
  */
-class SecPkgContext_CipherInfo extends Win32Struct
-{
+class SecPkgContext_CipherInfo extends Win32Struct {
     static sizeof => 680
 
     static packingSize => 4

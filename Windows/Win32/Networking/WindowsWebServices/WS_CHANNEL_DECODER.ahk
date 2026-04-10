@@ -46,10 +46,8 @@
  *                 <a href="https://docs.microsoft.com/windows/desktop/api/webservices/nc-webservices-ws_free_decoder_callback">WS_FREE_DECODER_CALLBACK</a>.
  * @see https://learn.microsoft.com/windows/win32/api/webservices/ns-webservices-ws_channel_decoder
  * @namespace Windows.Win32.Networking.WindowsWebServices
- * @version v4.0.30319
  */
-class WS_CHANNEL_DECODER extends Win32Struct
-{
+class WS_CHANNEL_DECODER extends Win32Struct {
     static sizeof => 56
 
     static packingSize => 8

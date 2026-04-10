@@ -1,9 +1,8 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
-#Include .\IUIAutomationCacheRequest.ahk
-#Include .\IUIAutomationCondition.ahk
 #Include ..\..\System\Com\IUnknown.ahk
+#Include .\IUIAutomationCondition.ahk
 
 /**
  * Exposes properties and methods of a cache request. Client applications use this interface to specify the properties and control patterns to be cached when a Microsoft UI Automation element is obtained.
@@ -13,9 +12,8 @@
  * Create a new cache request by calling <a href="https://docs.microsoft.com/windows/desktop/api/uiautomationclient/nf-uiautomationclient-iuiautomation-createcacherequest">CreateCacheRequest</a>, and configure the request by calling methods of <b>IUIAutomationCacheRequest</b>.
  * @see https://learn.microsoft.com/windows/win32/api/uiautomationclient/nn-uiautomationclient-iuiautomationcacherequest
  * @namespace Windows.Win32.UI.Accessibility
- * @version v4.0.30319
  */
-class IUIAutomationCacheRequest extends IUnknown{
+class IUIAutomationCacheRequest extends IUnknown {
 
     static sizeof => A_PtrSize
     /**
@@ -37,7 +35,7 @@ class IUIAutomationCacheRequest extends IUnknown{
     static VTableNames => ["AddProperty", "AddPattern", "Clone", "get_TreeScope", "put_TreeScope", "get_TreeFilter", "put_TreeFilter", "get_AutomationElementMode", "put_AutomationElementMode"]
 
     /**
-     * @type {Integer} 
+     * @type {TreeScope} 
      */
     TreeScope {
         get => this.get_TreeScope()
@@ -53,7 +51,7 @@ class IUIAutomationCacheRequest extends IUnknown{
     }
 
     /**
-     * @type {Integer} 
+     * @type {AutomationElementMode} 
      */
     AutomationElementMode {
         get => this.get_AutomationElementMode()
@@ -62,7 +60,7 @@ class IUIAutomationCacheRequest extends IUnknown{
 
     /**
      * Adds a property to the cache request.
-     * @param {Integer} propertyId Type: <b>PROPERTYID</b>
+     * @param {UIA_PROPERTY_ID} propertyId Type: <b>PROPERTYID</b>
      * 
      * A property identifier.  For a list of property IDs, see <a href="https://docs.microsoft.com/windows/desktop/WinAuto/uiauto-entry-propids">Property Identifiers</a>.
      * @returns {HRESULT} Type: <b><a href="https://docs.microsoft.com/windows/desktop/WinProg/windows-data-types">HRESULT</a></b>
@@ -79,7 +77,7 @@ class IUIAutomationCacheRequest extends IUnknown{
      * Adds a control pattern to the cache request.
      * @remarks
      * Adding a control pattern that is already in the cache request has no effect.
-     * @param {Integer} patternId Type: <b>PATTERNID</b>
+     * @param {UIA_PATTERN_ID} patternId Type: <b>PATTERNID</b>
      * 
      * The identifier of the control pattern to add to the cache request. For a list of control pattern IDs, see <a href="https://docs.microsoft.com/windows/desktop/WinAuto/uiauto-controlpattern-ids">Control Pattern Identifiers</a>.
      * @returns {HRESULT} Type: <b><a href="https://docs.microsoft.com/windows/desktop/WinProg/windows-data-types">HRESULT</a></b>
@@ -108,7 +106,7 @@ class IUIAutomationCacheRequest extends IUnknown{
      * Specifies the scope of caching. (Get)
      * @remarks
      * When an element is retrieved, caching can be performed  for only the element itself (the default behavior), or for the element and its children or descendants. This property describes the scope of the request.
-     * @returns {Integer} 
+     * @returns {TreeScope} 
      * @see https://learn.microsoft.com/windows/win32/api/uiautomationclient/nf-uiautomationclient-iuiautomationcacherequest-get_treescope
      */
     get_TreeScope() {
@@ -120,7 +118,7 @@ class IUIAutomationCacheRequest extends IUnknown{
      * Specifies the scope of caching. (Put)
      * @remarks
      * When an element is retrieved, caching can be performed  for only the element itself (the default behavior), or for the element and its children or descendants. This property describes the scope of the request.
-     * @param {Integer} scope 
+     * @param {TreeScope} scope 
      * @returns {HRESULT} 
      * @see https://learn.microsoft.com/windows/win32/api/uiautomationclient/nf-uiautomationclient-iuiautomationcacherequest-put_treescope
      */
@@ -158,7 +156,7 @@ class IUIAutomationCacheRequest extends IUnknown{
      * Certain operations on elements, including <a href="https://docs.microsoft.com/windows/desktop/api/uiautomationclient/nf-uiautomationclient-iuiautomationelement-getcurrentpropertyvalue">GetCurrentPropertyValue</a>, and <a href="https://docs.microsoft.com/windows/desktop/api/uiautomationclient/nf-uiautomationclient-iuiautomationelement-setfocus">SetFocus</a>, require a full reference; attempting to perform these on an element that has none results in an error.
      * 
      * Using <a href="https://docs.microsoft.com/windows/desktop/api/uiautomationclient/ne-uiautomationclient-automationelementmode">AutomationElementMode_None</a> can be more efficient when only properties are needed, as it avoids the overhead involved in setting up full references.
-     * @returns {Integer} 
+     * @returns {AutomationElementMode} 
      * @see https://learn.microsoft.com/windows/win32/api/uiautomationclient/nf-uiautomationclient-iuiautomationcacherequest-get_automationelementmode
      */
     get_AutomationElementMode() {
@@ -174,7 +172,7 @@ class IUIAutomationCacheRequest extends IUnknown{
      * Certain operations on elements, including <a href="https://docs.microsoft.com/windows/desktop/api/uiautomationclient/nf-uiautomationclient-iuiautomationelement-getcurrentpropertyvalue">GetCurrentPropertyValue</a>, and <a href="https://docs.microsoft.com/windows/desktop/api/uiautomationclient/nf-uiautomationclient-iuiautomationelement-setfocus">SetFocus</a>, require a full reference; attempting to perform these on an element that has none results in an error.
      * 
      * Using <a href="https://docs.microsoft.com/windows/desktop/api/uiautomationclient/ne-uiautomationclient-automationelementmode">AutomationElementMode_None</a> can be more efficient when only properties are needed, as it avoids the overhead involved in setting up full references.
-     * @param {Integer} _mode 
+     * @param {AutomationElementMode} _mode 
      * @returns {HRESULT} 
      * @see https://learn.microsoft.com/windows/win32/api/uiautomationclient/nf-uiautomationclient-iuiautomationcacherequest-put_automationelementmode
      */

@@ -5,9 +5,8 @@
 
 /**
  * @namespace Windows.Win32.Media.MediaFoundation
- * @version v4.0.30319
  */
-class IMFSourceBufferAppendMode extends IUnknown{
+class IMFSourceBufferAppendMode extends IUnknown {
 
     static sizeof => A_PtrSize
     /**
@@ -30,7 +29,7 @@ class IMFSourceBufferAppendMode extends IUnknown{
 
     /**
      * 
-     * @returns {Integer} 
+     * @returns {MF_MSE_APPEND_MODE} 
      */
     GetAppendMode() {
         result := ComCall(3, this, "int")
@@ -39,7 +38,7 @@ class IMFSourceBufferAppendMode extends IUnknown{
 
     /**
      * 
-     * @param {Integer} _mode 
+     * @param {MF_MSE_APPEND_MODE} _mode 
      * @returns {HRESULT} 
      */
     SetAppendMode(_mode) {

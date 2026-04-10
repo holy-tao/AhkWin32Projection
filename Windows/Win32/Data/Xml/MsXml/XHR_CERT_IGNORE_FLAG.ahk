@@ -5,9 +5,8 @@
  * Defines flags that you can assign to an outgoing HTTP request to ignore certain certificate errors by calling the SetProperty method on the IXMLHTTPRequest3 interface.
  * @see https://learn.microsoft.com/windows/win32/api/msxml6/ne-msxml6-xhr_cert_ignore_flag
  * @namespace Windows.Win32.Data.Xml.MsXml
- * @version v4.0.30319
  */
-class XHR_CERT_IGNORE_FLAG extends Win32Enum{
+class XHR_CERT_IGNORE_FLAG extends Win32Enum {
 
     /**
      * Ignore certificate revocation errors.

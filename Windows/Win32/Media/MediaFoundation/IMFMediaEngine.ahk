@@ -1,10 +1,10 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
-#Include ..\..\Foundation\BSTR.ahk
-#Include .\IMFMediaError.ahk
-#Include .\IMFMediaTimeRange.ahk
 #Include ..\..\System\Com\IUnknown.ahk
+#Include .\IMFMediaError.ahk
+#Include ..\..\Foundation\BSTR.ahk
+#Include .\IMFMediaTimeRange.ahk
 
 /**
  * Enables an application to play audio or video files.
@@ -14,9 +14,8 @@
  * This interface is extended with <a href="https://docs.microsoft.com/windows/desktop/api/mfmediaengine/nn-mfmediaengine-imfmediaengineex">IMFMediaEngineEx</a>.
  * @see https://learn.microsoft.com/windows/win32/api/mfmediaengine/nn-mfmediaengine-imfmediaengine
  * @namespace Windows.Win32.Media.MediaFoundation
- * @version v4.0.30319
  */
-class IMFMediaEngine extends IUnknown{
+class IMFMediaEngine extends IUnknown {
 
     static sizeof => A_PtrSize
     /**
@@ -53,12 +52,12 @@ class IMFMediaEngine extends IUnknown{
 
     /**
      * Sets the current error code.
-     * @param {Integer} error The error code, as an <a href="https://docs.microsoft.com/windows/desktop/api/mfmediaengine/ne-mfmediaengine-mf_media_engine_err">MF_MEDIA_ENGINE_ERR</a> value.
+     * @param {MF_MEDIA_ENGINE_ERR} _error The error code, as an <a href="https://docs.microsoft.com/windows/desktop/api/mfmediaengine/ne-mfmediaengine-mf_media_engine_err">MF_MEDIA_ENGINE_ERR</a> value.
      * @returns {HRESULT} If this method succeeds, it returns <b>S_OK</b>. Otherwise, it returns an <b>HRESULT</b> error code.
      * @see https://learn.microsoft.com/windows/win32/api/mfmediaengine/nf-mfmediaengine-imfmediaengine-seterrorcode
      */
-    SetErrorCode(error) {
-        result := ComCall(4, this, "int", error, "HRESULT")
+    SetErrorCode(_error) {
+        result := ComCall(4, this, "int", _error, "HRESULT")
         return result
     }
 
@@ -151,7 +150,7 @@ class IMFMediaEngine extends IUnknown{
      * Gets the preload flag.
      * @remarks
      * This method corresponds to the <b>preload</b> attribute of the <b>HTMLMediaElement</b> interface in HTML5. The value is a hint to the user-agent whether to preload the media resource.
-     * @returns {Integer} Returns an <a href="https://docs.microsoft.com/windows/desktop/api/mfmediaengine/ne-mfmediaengine-mf_media_engine_preload">MF_MEDIA_ENGINE_PRELOAD</a> enumeration value.
+     * @returns {MF_MEDIA_ENGINE_PRELOAD} Returns an <a href="https://docs.microsoft.com/windows/desktop/api/mfmediaengine/ne-mfmediaengine-mf_media_engine_preload">MF_MEDIA_ENGINE_PRELOAD</a> enumeration value.
      * @see https://learn.microsoft.com/windows/win32/api/mfmediaengine/nf-mfmediaengine-imfmediaengine-getpreload
      */
     GetPreload() {
@@ -163,7 +162,7 @@ class IMFMediaEngine extends IUnknown{
      * Sets the preload flag.
      * @remarks
      * This method corresponds to setting the <b>preload</b> attribute of the <b>HTMLMediaElement</b> interface in HTML5. The value is a hint to the user-agent whether to preload the media resource.
-     * @param {Integer} Preload An <a href="https://docs.microsoft.com/windows/desktop/api/mfmediaengine/ne-mfmediaengine-mf_media_engine_preload">MF_MEDIA_ENGINE_PRELOAD</a> value equal to  the preload flag.
+     * @param {MF_MEDIA_ENGINE_PRELOAD} Preload An <a href="https://docs.microsoft.com/windows/desktop/api/mfmediaengine/ne-mfmediaengine-mf_media_engine_preload">MF_MEDIA_ENGINE_PRELOAD</a> value equal to  the preload flag.
      * @returns {HRESULT} If this method succeeds, it returns <b>S_OK</b>. Otherwise, it returns an <b>HRESULT</b> error code.
      * @see https://learn.microsoft.com/windows/win32/api/mfmediaengine/nf-mfmediaengine-imfmediaengine-setpreload
      */
@@ -243,7 +242,7 @@ class IMFMediaEngine extends IUnknown{
      * 
      * The value "probably" is used because a MIME type for a media resource is generally not a complete description of the resource. For example, "video/mp4" specifies an MP4 file with video, but does not describe the codec. Even with the optional codecs parameter, the MIME type omits some information, such as the actual coded bit rate. Therefore, it is usually impossible to be certain that playback is possible until the actual media resource is opened.
      * @param {BSTR} type A string that contains a MIME type with an optional codecs parameter, as defined in RFC 4281.
-     * @returns {Integer} Receives an <a href="https://docs.microsoft.com/windows/desktop/api/mfmediaengine/ne-mfmediaengine-mf_media_engine_canplay">MF_MEDIA_ENGINE_CANPLAY</a> enumeration value.
+     * @returns {MF_MEDIA_ENGINE_CANPLAY} Receives an <a href="https://docs.microsoft.com/windows/desktop/api/mfmediaengine/ne-mfmediaengine-mf_media_engine_canplay">MF_MEDIA_ENGINE_CANPLAY</a> enumeration value.
      * @see https://learn.microsoft.com/windows/win32/api/mfmediaengine/nf-mfmediaengine-imfmediaengine-canplaytype
      */
     CanPlayType(type) {
@@ -481,7 +480,7 @@ class IMFMediaEngine extends IUnknown{
      * If <i>Loop</i> is <b>TRUE</b>, playback loops back to the beginning when it reaches the end of the source.
      * 
      * This method corresponds to setting the <b>loop</b> attribute of the <b>HTMLMediaElement</b> interface in HTML5.
-     * @param {BOOL} _Loop 
+     * @param {BOOL} _Loop Specify <b>TRUE</b> to enable looping, or <b>FALSE</b> to disable looping.
      * @returns {HRESULT} If this method succeeds, it returns <b>S_OK</b>. Otherwise, it returns an <b>HRESULT</b> error code.
      * @see https://learn.microsoft.com/windows/win32/api/mfmediaengine/nf-mfmediaengine-imfmediaengine-setloop
      */
@@ -590,7 +589,7 @@ class IMFMediaEngine extends IUnknown{
      * This method adjusts for the correct picture aspect ratio.
      * For example, if the encoded frame is 720 × 420 and the picture aspect ratio is 4:3, the method will return a size equal to 640 × 480 pixels.
      * @param {Pointer<Integer>} cx Receives the width in pixels.
-     * @param {Pointer<Integer>} _cy 
+     * @param {Pointer<Integer>} _cy Receives the height in pixels.
      * @returns {HRESULT} If this method succeeds, it returns <b>S_OK</b>. Otherwise, it returns an <b>HRESULT</b> error code.
      * @see https://learn.microsoft.com/windows/win32/api/mfmediaengine/nf-mfmediaengine-imfmediaengine-getnativevideosize
      */
@@ -607,7 +606,7 @@ class IMFMediaEngine extends IUnknown{
      * @remarks
      * The Media Engine automatically converts the pixel aspect ratio to 1:1 (square pixels).
      * @param {Pointer<Integer>} cx Receives the x component of the aspect ratio.
-     * @param {Pointer<Integer>} _cy 
+     * @param {Pointer<Integer>} _cy Receives the y component of the aspect ratio.
      * @returns {HRESULT} If this method succeeds, it returns <b>S_OK</b>. Otherwise, it returns an <b>HRESULT</b> error code.
      * @see https://learn.microsoft.com/windows/win32/api/mfmediaengine/nf-mfmediaengine-imfmediaengine-getvideoaspectratio
      */

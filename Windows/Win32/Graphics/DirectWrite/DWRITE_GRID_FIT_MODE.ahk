@@ -5,9 +5,8 @@
  * Specifies whether to enable grid-fitting of glyph outlines (also known as hinting).
  * @see https://learn.microsoft.com/windows/win32/api/dwrite_2/ne-dwrite_2-dwrite_grid_fit_mode
  * @namespace Windows.Win32.Graphics.DirectWrite
- * @version v4.0.30319
  */
-class DWRITE_GRID_FIT_MODE extends Win32Enum{
+class DWRITE_GRID_FIT_MODE extends Win32Enum {
 
     /**
      * Choose grid fitting based on the font's table information.

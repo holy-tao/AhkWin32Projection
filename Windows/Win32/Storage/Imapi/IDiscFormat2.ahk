@@ -7,9 +7,8 @@
  * This is a base interface. Use the following interfaces which inherit this interface IDiscFormat2Data, IDiscFormat2Erase, IDiscFormat2TrackAtOnce, IDiscFormat2RawCD
  * @see https://learn.microsoft.com/windows/win32/api/imapi2/nn-imapi2-idiscformat2
  * @namespace Windows.Win32.Storage.Imapi
- * @version v4.0.30319
  */
-class IDiscFormat2 extends IDispatch{
+class IDiscFormat2 extends IDispatch {
 
     static sizeof => A_PtrSize
     /**

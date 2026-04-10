@@ -8,10 +8,8 @@
  * Specifies the credentials.
  * @see https://learn.microsoft.com/windows/win32/api/ntsecpkg/ns-ntsecpkg-secpkg_credential
  * @namespace Windows.Win32.Security.Authentication.Identity
- * @version v4.0.30319
  */
-class SECPKG_CREDENTIAL extends Win32Struct
-{
+class SECPKG_CREDENTIAL extends Win32Struct {
     static sizeof => 88
 
     static packingSize => 8
@@ -65,7 +63,7 @@ class SECPKG_CREDENTIAL extends Win32Struct
      * The logon identity of the caller.
      * @type {LUID}
      */
-    LogonId{
+    LogonId {
         get {
             if(!this.HasProp("__LogonId"))
                 this.__LogonId := LUID(24, this)
@@ -77,7 +75,7 @@ class SECPKG_CREDENTIAL extends Win32Struct
      * The client token of the caller.
      * @type {HANDLE}
      */
-    ClientToken{
+    ClientToken {
         get {
             if(!this.HasProp("__ClientToken"))
                 this.__ClientToken := HANDLE(32, this)
@@ -98,7 +96,7 @@ class SECPKG_CREDENTIAL extends Win32Struct
      * The modified identity of the caller.
      * @type {LUID}
      */
-    ModifiedId{
+    ModifiedId {
         get {
             if(!this.HasProp("__ModifiedId"))
                 this.__ModifiedId := LUID(44, this)
@@ -128,7 +126,7 @@ class SECPKG_CREDENTIAL extends Win32Struct
      * Not currently used.
      * @type {SECPKG_BYTE_VECTOR}
      */
-    PrincipalName{
+    PrincipalName {
         get {
             if(!this.HasProp("__PrincipalName"))
                 this.__PrincipalName := SECPKG_BYTE_VECTOR(60, this)
@@ -140,7 +138,7 @@ class SECPKG_CREDENTIAL extends Win32Struct
      * The list of packages. This member is only relevant to SPNego.
      * @type {SECPKG_BYTE_VECTOR}
      */
-    PackageList{
+    PackageList {
         get {
             if(!this.HasProp("__PackageList"))
                 this.__PackageList := SECPKG_BYTE_VECTOR(68, this)
@@ -152,7 +150,7 @@ class SECPKG_CREDENTIAL extends Win32Struct
      * The supplied credentials that are marshaled. This member contains a <a href="https://docs.microsoft.com/windows/desktop/api/ntsecpkg/ns-ntsecpkg-secpkg_supplied_credential">SECPKG_SUPPLIED_CREDENTIAL</a> 	structure.
      * @type {SECPKG_BYTE_VECTOR}
      */
-    MarshaledSuppliedCreds{
+    MarshaledSuppliedCreds {
         get {
             if(!this.HasProp("__MarshaledSuppliedCreds"))
                 this.__MarshaledSuppliedCreds := SECPKG_BYTE_VECTOR(76, this)

@@ -1,15 +1,13 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
+#Include .\KS_VIDEOINFOHEADER.ahk
 #Include ..\..\Foundation\RECT.ahk
 #Include .\KS_BITMAPINFOHEADER.ahk
-#Include .\KS_VIDEOINFOHEADER.ahk
 
 /**
  * @namespace Windows.Win32.Media.KernelStreaming
- * @version v4.0.30319
  */
-class KS_MPEG1VIDEOINFO extends Win32Struct
-{
+class KS_MPEG1VIDEOINFO extends Win32Struct {
     static sizeof => 104
 
     static packingSize => 8
@@ -17,7 +15,7 @@ class KS_MPEG1VIDEOINFO extends Win32Struct
     /**
      * @type {KS_VIDEOINFOHEADER}
      */
-    hdr{
+    hdr {
         get {
             if(!this.HasProp("__hdr"))
                 this.__hdr := KS_VIDEOINFOHEADER(0, this)
@@ -42,9 +40,9 @@ class KS_MPEG1VIDEOINFO extends Win32Struct
     }
 
     /**
-     * @type {Array<Byte>}
+     * @type {Array<Integer>}
      */
-    bSequenceHeader{
+    bSequenceHeader {
         get {
             if(!this.HasProp("__bSequenceHeaderProxyArray"))
                 this.__bSequenceHeaderProxyArray := Win32FixedArray(this.ptr + 96, 1, Primitive, "char")

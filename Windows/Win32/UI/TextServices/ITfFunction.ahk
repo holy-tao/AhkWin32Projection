@@ -1,16 +1,15 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
-#Include ..\..\Foundation\BSTR.ahk
 #Include ..\..\System\Com\IUnknown.ahk
+#Include ..\..\Foundation\BSTR.ahk
 
 /**
  * The ITfFunction interface is the base interface for the individual function interfaces.
  * @see https://learn.microsoft.com/windows/win32/api/msctf/nn-msctf-itffunction
  * @namespace Windows.Win32.UI.TextServices
- * @version v4.0.30319
  */
-class ITfFunction extends IUnknown{
+class ITfFunction extends IUnknown {
 
     static sizeof => A_PtrSize
     /**

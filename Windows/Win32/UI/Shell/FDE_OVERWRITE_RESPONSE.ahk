@@ -5,9 +5,8 @@
  * Specifies the values used by the IFileDialogEvents::OnOverwrite method to indicate an application's response to an overwrite request during a save operation using the common file dialog.
  * @see https://learn.microsoft.com/windows/win32/api/shobjidl_core/ne-shobjidl_core-fde_overwrite_response
  * @namespace Windows.Win32.UI.Shell
- * @version v4.0.30319
  */
-class FDE_OVERWRITE_RESPONSE extends Win32Enum{
+class FDE_OVERWRITE_RESPONSE extends Win32Enum {
 
     /**
      * The application has not handled the event. The dialog displays a UI asking the user whether the file should be overwritten and returned from the dialog.

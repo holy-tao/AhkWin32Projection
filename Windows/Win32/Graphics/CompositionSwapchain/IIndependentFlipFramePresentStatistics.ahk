@@ -5,13 +5,10 @@
 
 /**
  * Describes how the system displayed an instance of a particular piece of content within a particular independent-flip present.
- * @remarks
- * 
  * @see https://learn.microsoft.com/windows/win32/api/presentation/nn-presentation-iindependentflipframepresentstatistics
  * @namespace Windows.Win32.Graphics.CompositionSwapchain
- * @version v4.0.30319
  */
-class IIndependentFlipFramePresentStatistics extends IPresentStatistics{
+class IIndependentFlipFramePresentStatistics extends IPresentStatistics {
 
     static sizeof => A_PtrSize
     /**

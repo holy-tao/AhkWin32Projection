@@ -1,12 +1,11 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
+#Include .\D3DKMT_ESCAPETYPE.ahk
 
 /**
  * @namespace Windows.Wdk.Graphics.Direct3D
- * @version v4.0.30319
  */
-class D3DKMT_ESCAPE extends Win32Struct
-{
+class D3DKMT_ESCAPE extends Win32Struct {
     static sizeof => 40
 
     static packingSize => 8
@@ -28,7 +27,7 @@ class D3DKMT_ESCAPE extends Win32Struct
     }
 
     /**
-     * @type {Integer}
+     * @type {D3DKMT_ESCAPETYPE}
      */
     Type {
         get => NumGet(this, 8, "int")
@@ -36,7 +35,7 @@ class D3DKMT_ESCAPE extends Win32Struct
     }
 
     /**
-     * @type {Pointer<D3DDDI_ESCAPEFLAGS>}
+     * @type {Pointer}
      */
     Flags {
         get => NumGet(this, 16, "ptr")

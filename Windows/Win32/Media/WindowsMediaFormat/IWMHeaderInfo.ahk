@@ -35,9 +35,8 @@
  * For information about using the writer for metadata editing, see <a href="https://docs.microsoft.com/windows/desktop/wmformat/to-edit-metadata-with-the-writer">To Edit Metadata with the Writer</a>.
  * @see https://learn.microsoft.com/windows/win32/api/wmsdkidl/nn-wmsdkidl-iwmheaderinfo
  * @namespace Windows.Win32.Media.WindowsMediaFormat
- * @version v4.0.30319
  */
-class IWMHeaderInfo extends IUnknown{
+class IWMHeaderInfo extends IUnknown {
 
     static sizeof => A_PtrSize
     /**
@@ -85,7 +84,7 @@ class IWMHeaderInfo extends IUnknown{
      * @param {Pointer<Integer>} pwStreamNum Pointer to a <b>WORD</b> containing the stream number. Although this parameter is a pointer, the method will not change the value. For file-level attributes, use zero for the stream number.
      * @param {PWSTR} pwszName Pointer to a wide-character <b>null</b>-terminated string containing the name. Pass <b>NULL</b> to this parameter to retrieve the required length for the name. Attribute names are limited to 1024 wide characters.
      * @param {Pointer<Integer>} pcchNameLen On input, a pointer to a variable containing the length of the <i>pwszName</i> array in wide characters (2 bytes). On output, if the method succeeds, the variable contains the actual length of the name, including the terminating <b>null</b> character.
-     * @param {Pointer<Integer>} pType Pointer to a variable containing one value from the <b>WMT_ATTR_DATATYPE</b> enumeration type.
+     * @param {Pointer<WMT_ATTR_DATATYPE>} pType Pointer to a variable containing one value from the <b>WMT_ATTR_DATATYPE</b> enumeration type.
      * @param {Pointer<Integer>} pValue Pointer to a byte array containing the value. Pass <b>NULL</b> to this parameter to retrieve the required length for the value.
      * @param {Pointer<Integer>} pcbLength On input, a pointer to a variable containing the length of the <i>pValue</i> array, in bytes. On output, if the method succeeds, the variable contains the actual number of bytes written to <i>pValue</i> by the method.
      * @returns {HRESULT} The method returns an <b>HRESULT</b>. Possible values include, but are not limited to, those in the following table.
@@ -202,7 +201,7 @@ class IWMHeaderInfo extends IUnknown{
      * For a list of all the predefined attributes, see <a href="https://docs.microsoft.com/windows/desktop/wmformat/attributes">Attributes</a>.
      * @param {Pointer<Integer>} pwStreamNum Pointer to a <b>WORD</b> containing the stream number, or zero to indicate any stream. Although this parameter is a pointer, the method does not change the value.
      * @param {PWSTR} pszName Pointer to a <b>null</b>-terminated string containing the name of the attribute. Attribute names are limited to 1024 wide characters.
-     * @param {Pointer<Integer>} pType Pointer to a variable that receives a value from the <a href="https://docs.microsoft.com/windows/desktop/api/wmsdkidl/ne-wmsdkidl-wmt_attr_datatype">WMT_ATTR_DATATYPE</a> enumeration type. The returned value specifies the data type of the attribute.
+     * @param {Pointer<WMT_ATTR_DATATYPE>} pType Pointer to a variable that receives a value from the <a href="https://docs.microsoft.com/windows/desktop/api/wmsdkidl/ne-wmsdkidl-wmt_attr_datatype">WMT_ATTR_DATATYPE</a> enumeration type. The returned value specifies the data type of the attribute.
      * @param {Pointer<Integer>} pValue Pointer to a byte array that receives the value of the attribute. The caller must allocate the array. To determine the required array size, set this parameter to <b>NULL</b> and check the value returned in the <i>pcbLength</i> parameter.
      * @param {Pointer<Integer>} pcbLength On input, the length of the <i>pValue</i> array, in bytes. On output, if the method succeeds, the actual number of bytes that were written to <i>pValue</i>.
      * @returns {HRESULT} The method returns an <b>HRESULT</b>. Possible values include, but are not limited to, those in the following table.
@@ -311,7 +310,7 @@ class IWMHeaderInfo extends IUnknown{
      * The objects of the Windows Media Format SDK perform type checking on some supported metadata attributes, but not all of them. You should ensure that any attributes you use are set using the data type specified in the <a href="https://docs.microsoft.com/windows/desktop/wmformat/attributes">Attributes</a> section of this documentation. Likewise, you cannot assume that an attribute set by another application will use the correct data type.
      * @param {Integer} wStreamNum <b>WORD</b> containing the stream number. To set a file-level attribute, pass zero.
      * @param {PWSTR} pszName Pointer to a wide-character null-terminated string containing the name of the attribute. Attribute names are limited to 1024 wide characters.
-     * @param {Integer} Type A value from the <b>WMT_ATTR_DATATYPE</b> enumeration type.
+     * @param {WMT_ATTR_DATATYPE} Type A value from the <b>WMT_ATTR_DATATYPE</b> enumeration type.
      * @param {Pointer<Integer>} pValue Pointer to a byte array containing the value of the attribute.
      * @param {Integer} cbLength The size of <i>pValue</i>, in bytes.
      * @returns {HRESULT} The method returns an <b>HRESULT</b>. Possible values include, but are not limited to, those in the following table.

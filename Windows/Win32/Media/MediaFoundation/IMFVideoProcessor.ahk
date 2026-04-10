@@ -1,11 +1,12 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
+#Include ..\..\System\Com\IUnknown.ahk
 #Include .\DXVA2_VideoProcessorCaps.ahk
+#Include ..\..\..\..\Guid.ahk
 #Include .\DXVA2_ValueRange.ahk
 #Include .\DXVA2_ProcAmpValues.ahk
 #Include .\DXVA2_Fixed32.ahk
-#Include ..\..\System\Com\IUnknown.ahk
 
 /**
  * Controls video processing in the Enhanced Video Renderer (EVR).
@@ -42,9 +43,8 @@
  * </ol>
  * @see https://learn.microsoft.com/windows/win32/api/evr9/nn-evr9-imfvideoprocessor
  * @namespace Windows.Win32.Media.MediaFoundation
- * @version v4.0.30319
  */
-class IMFVideoProcessor extends IUnknown{
+class IMFVideoProcessor extends IUnknown {
 
     static sizeof => A_PtrSize
     /**

@@ -1,10 +1,10 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
-#Include ..\..\Foundation\BSTR.ahk
+#Include ..\..\System\Com\IDispatch.ahk
 #Include .\IFsrmQuotaTemplate.ahk
 #Include .\IFsrmCommittableCollection.ahk
-#Include ..\..\System\Com\IDispatch.ahk
+#Include ..\..\Foundation\BSTR.ahk
 
 /**
  * Used to manage quota templates.
@@ -15,9 +15,8 @@
  *     identifier.
  * @see https://learn.microsoft.com/windows/win32/api/fsrmquota/nn-fsrmquota-ifsrmquotatemplatemanager
  * @namespace Windows.Win32.Storage.FileServerResourceManager
- * @version v4.0.30319
  */
-class IFsrmQuotaTemplateManager extends IDispatch{
+class IFsrmQuotaTemplateManager extends IDispatch {
 
     static sizeof => A_PtrSize
     /**
@@ -72,7 +71,7 @@ class IFsrmQuotaTemplateManager extends IDispatch{
 
     /**
      * Enumerates the quota templates on the server.
-     * @param {Integer} options Options to use when enumerating the quota templates. For possible values, see the 
+     * @param {FsrmEnumOptions} options Options to use when enumerating the quota templates. For possible values, see the 
      *       <a href="https://docs.microsoft.com/windows/desktop/api/fsrmenums/ne-fsrmenums-fsrmenumoptions">FsrmEnumOptions</a> enumeration.
      * @returns {IFsrmCommittableCollection} An <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/fsrm/nn-fsrm-ifsrmcommittablecollection">IFsrmCommittableCollection</a> interface 
      *       that contains a collection of quota templates.

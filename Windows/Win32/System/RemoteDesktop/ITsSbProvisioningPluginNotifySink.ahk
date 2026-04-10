@@ -1,16 +1,14 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
-#Include ..\..\Foundation\BSTR.ahk
 #Include ..\Com\IUnknown.ahk
 
 /**
  * Exposes methods that notify Remote Desktop Connection Broker (RD Connection Broker) about the provisioning of virtual machines.
  * @see https://learn.microsoft.com/windows/win32/api/sbtsv/nn-sbtsv-itssbprovisioningpluginnotifysink
  * @namespace Windows.Win32.System.RemoteDesktop
- * @version v4.0.30319
  */
-class ITsSbProvisioningPluginNotifySink extends IUnknown{
+class ITsSbProvisioningPluginNotifySink extends IUnknown {
 
     static sizeof => A_PtrSize
     /**
@@ -45,7 +43,7 @@ class ITsSbProvisioningPluginNotifySink extends IUnknown{
     /**
      * Notifies Remote Desktop Connection Broker (RD Connection Broker) that the status of a virtual machine is changed.
      * @param {Pointer<VM_NOTIFY_ENTRY>} pVmNotifyEntry Notification entry.
-     * @param {Integer} VmNotifyStatus Notification status.
+     * @param {VM_NOTIFY_STATUS} VmNotifyStatus Notification status.
      * @param {HRESULT} ErrorCode A standard <b>HRESULT</b> error code describing the reason for the status change.
      * @param {BSTR} ErrorDescr A text description of the reason for the change.
      * @returns {HRESULT} If this method succeeds, it returns <b>S_OK</b>. Otherwise, it returns an <b>HRESULT</b> error code.
@@ -96,7 +94,7 @@ class ITsSbProvisioningPluginNotifySink extends IUnknown{
     /**
      * Notifies Remote Desktop Connection Broker (RD Connection Broker) that the status of the host of a virtual machine is changed.
      * @param {BSTR} VmHost The name of the host.
-     * @param {Integer} VmHostNotifyStatus The new status of the host.
+     * @param {VM_HOST_NOTIFY_STATUS} VmHostNotifyStatus The new status of the host.
      * @param {HRESULT} ErrorCode A standard <b>HRESULT</b> error code describing the reason for the status change.
      * @param {BSTR} ErrorDescr A text description of the reason for the change.
      * @returns {HRESULT} If this method succeeds, it returns <b>S_OK</b>. Otherwise, it returns an <b>HRESULT</b> error code.

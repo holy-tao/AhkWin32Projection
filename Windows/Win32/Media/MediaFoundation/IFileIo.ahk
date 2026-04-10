@@ -5,9 +5,8 @@
 
 /**
  * @namespace Windows.Win32.Media.MediaFoundation
- * @version v4.0.30319
  */
-class IFileIo extends IUnknown{
+class IFileIo extends IUnknown {
 
     static sizeof => A_PtrSize
     /**
@@ -43,8 +42,8 @@ class IFileIo extends IUnknown{
      * 
      * For an out-of-process EXE server,  you must initialize the initial thread of the server by using 
      *     <b>Windows::Foundation::Initialize</b>(<b>RO_INIT_MULTITHREADED</b>).
-     * @param {Integer} eAccessMode 
-     * @param {Integer} eOpenMode 
+     * @param {FILE_ACCESSMODE} eAccessMode 
+     * @param {FILE_OPENMODE} eOpenMode 
      * @param {PWSTR} pwszFileName 
      * @returns {HRESULT} <ul>
      * <li><b>S_OK</b> - Successfully initialized for the first time on the current thread</li>
@@ -174,7 +173,7 @@ class IFileIo extends IUnknown{
      * This attribute cannot be duplicated at the file level. If this attribute is used for an individual stream, it will be treated as custom metadata and will not convey its normal meaning to the objects of the Windows Media Format SDK.
      * 
      * The value of this attribute for a file may vary depending upon the object exposing the [**IWMHeaderInfo**](/previous-versions/windows/desktop/api/wmsdkidl/nn-wmsdkidl-iwmheaderinfo) or [**IWMHeaderInfo3**](/previous-versions/windows/desktop/api/wmsdkidl/nn-wmsdkidl-iwmheaderinfo3) interface used to retrieve it. This is because the reader objects (both synchronous and asynchronous) perform a more thorough check than the metadata editor object does, to ascertain whether you can seek to a point in a file. The **Seekable** attribute value returned by a reader object is more accurate.
-     * @param {Integer} eSeekOrigin 
+     * @param {SEEK_ORIGIN} eSeekOrigin 
      * @param {Integer} qwSeekOffset 
      * @param {Integer} dwSeekFlags 
      * @param {Pointer<Integer>} pqwCurrentPosition 

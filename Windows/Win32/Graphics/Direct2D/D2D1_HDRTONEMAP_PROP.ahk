@@ -5,9 +5,8 @@
  * Defines constants that identify the top level properties of the HDR Tone Map effect.
  * @see https://learn.microsoft.com/windows/win32/api/d2d1effects_2/ne-d2d1effects_2-d2d1_hdrtonemap_prop
  * @namespace Windows.Win32.Graphics.Direct2D
- * @version v4.0.30319
  */
-class D2D1_HDRTONEMAP_PROP extends Win32Enum{
+class D2D1_HDRTONEMAP_PROP extends Win32Enum {
 
     /**
      * Identifies the `InputMaxLuminance` property of the effect. The property is of type FLOAT, and is specified in nits.

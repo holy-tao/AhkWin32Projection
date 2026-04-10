@@ -1,15 +1,14 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
 #Include ..\..\Foundation\HANDLE.ahk
+#Include .\IWSDMessageParameters.ahk
 
 /**
  * Provides a context for handling the response to a two-way request.
  * @see https://learn.microsoft.com/windows/win32/api/wsdtypes/ns-wsdtypes-wsd_synchronous_response_context
  * @namespace Windows.Win32.Devices.WebServicesOnDevices
- * @version v4.0.30319
  */
-class WSD_SYNCHRONOUS_RESPONSE_CONTEXT extends Win32Struct
-{
+class WSD_SYNCHRONOUS_RESPONSE_CONTEXT extends Win32Struct {
     static sizeof => 32
 
     static packingSize => 8
@@ -27,7 +26,7 @@ class WSD_SYNCHRONOUS_RESPONSE_CONTEXT extends Win32Struct
      * The event handle to be signaled when the response is ready.
      * @type {HANDLE}
      */
-    eventHandle{
+    eventHandle {
         get {
             if(!this.HasProp("__eventHandle"))
                 this.__eventHandle := HANDLE(8, this)

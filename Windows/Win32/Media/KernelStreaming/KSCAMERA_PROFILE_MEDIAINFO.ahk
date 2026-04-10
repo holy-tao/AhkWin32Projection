@@ -3,10 +3,8 @@
 
 /**
  * @namespace Windows.Win32.Media.KernelStreaming
- * @version v4.0.30319
  */
-class KSCAMERA_PROFILE_MEDIAINFO extends Win32Struct
-{
+class KSCAMERA_PROFILE_MEDIAINFO extends Win32Struct {
     static sizeof => 40
 
     static packingSize => 8
@@ -22,7 +20,7 @@ class KSCAMERA_PROFILE_MEDIAINFO extends Win32Struct
             get => NumGet(this, 0, "uint")
             set => NumPut("uint", value, this, 0)
         }
-    
+
         /**
          * @type {Integer}
          */
@@ -30,7 +28,6 @@ class KSCAMERA_PROFILE_MEDIAINFO extends Win32Struct
             get => NumGet(this, 4, "uint")
             set => NumPut("uint", value, this, 4)
         }
-    
     }
 
     class _MaxFrameRate extends Win32Struct {
@@ -44,7 +41,7 @@ class KSCAMERA_PROFILE_MEDIAINFO extends Win32Struct
             get => NumGet(this, 0, "uint")
             set => NumPut("uint", value, this, 0)
         }
-    
+
         /**
          * @type {Integer}
          */
@@ -52,16 +49,15 @@ class KSCAMERA_PROFILE_MEDIAINFO extends Win32Struct
             get => NumGet(this, 4, "uint")
             set => NumPut("uint", value, this, 4)
         }
-    
     }
 
     /**
      * @type {_Resolution}
      */
-    Resolution{
+    Resolution {
         get {
             if(!this.HasProp("__Resolution"))
-                this.__Resolution := %this.__Class%._Resolution(0, this)
+                this.__Resolution := KSCAMERA_PROFILE_MEDIAINFO._Resolution(0, this)
             return this.__Resolution
         }
     }
@@ -69,10 +65,10 @@ class KSCAMERA_PROFILE_MEDIAINFO extends Win32Struct
     /**
      * @type {_MaxFrameRate}
      */
-    MaxFrameRate{
+    MaxFrameRate {
         get {
             if(!this.HasProp("__MaxFrameRate"))
-                this.__MaxFrameRate := %this.__Class%._MaxFrameRate(8, this)
+                this.__MaxFrameRate := KSCAMERA_PROFILE_MEDIAINFO._MaxFrameRate(8, this)
             return this.__MaxFrameRate
         }
     }

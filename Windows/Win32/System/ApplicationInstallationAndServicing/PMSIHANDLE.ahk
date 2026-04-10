@@ -4,18 +4,16 @@
 
 /**
  * @namespace Windows.Win32.System.ApplicationInstallationAndServicing
- * @version v4.0.30319
  */
-class PMSIHANDLE extends Win32Struct
-{
-    static sizeof => 4
+class PMSIHANDLE extends Win32Struct {
+    static sizeof => 8
 
-    static packingSize => 4
+    static packingSize => 8
 
     /**
      * @type {MSIHANDLE}
      */
-    m_h{
+    m_h {
         get {
             if(!this.HasProp("__m_h"))
                 this.__m_h := MSIHANDLE(0, this)

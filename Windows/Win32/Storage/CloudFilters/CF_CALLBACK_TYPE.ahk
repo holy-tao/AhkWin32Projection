@@ -15,9 +15,8 @@
  * Callback routines have no return value.
  * @see https://learn.microsoft.com/windows/win32/api/cfapi/ne-cfapi-cf_callback_type
  * @namespace Windows.Win32.Storage.CloudFilters
- * @version v4.0.30319
  */
-class CF_CALLBACK_TYPE extends Win32Enum{
+class CF_CALLBACK_TYPE extends Win32Enum {
 
     /**
      * This callback is used to ask the sync provider for a range of file data that is required in order to satisfy an I/O request, or an explicit hydration request, on a placeholder. Implementation of this callback is required if the sync provider specifies a hydration policy that is _not_ **ALWAYS_FULL** at the sync root registration time.

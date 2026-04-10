@@ -5,9 +5,8 @@
  * Represents mathematical alphanumeric codes.
  * @see https://learn.microsoft.com/windows/win32/api/tom/ne-tom-mancode
  * @namespace Windows.Win32.UI.Controls.RichEdit
- * @version v4.0.30319
  */
-class MANCODE extends Win32Enum{
+class MANCODE extends Win32Enum {
 
     /**
      * Bold

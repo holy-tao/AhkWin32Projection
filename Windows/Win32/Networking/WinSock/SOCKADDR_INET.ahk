@@ -1,10 +1,11 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
-#Include .\IN_ADDR.ahk
 #Include .\SOCKADDR_IN.ahk
+#Include .\ADDRESS_FAMILY.ahk
+#Include .\IN_ADDR.ahk
+#Include .\SOCKADDR_IN6.ahk
 #Include .\IN6_ADDR.ahk
 #Include .\SCOPE_ID.ahk
-#Include .\SOCKADDR_IN6.ahk
 
 /**
  * Contains an IPv4, an IPv6 address, or an address family.
@@ -18,11 +19,9 @@
  * Note that the <i>Ws2ipdef.h</i> header file is automatically included in <i>Ws2tcpip.h</i> header file, and should never be used directly.
  * @see https://learn.microsoft.com/windows/win32/api/ws2ipdef/ns-ws2ipdef-sockaddr_inet
  * @namespace Windows.Win32.Networking.WinSock
- * @version v4.0.30319
  */
-class SOCKADDR_INET extends Win32Struct
-{
-    static sizeof => 56
+class SOCKADDR_INET extends Win32Struct {
+    static sizeof => 48
 
     static packingSize => 4
 
@@ -34,7 +33,7 @@ class SOCKADDR_INET extends Win32Struct
      * On the Windows SDK released for Windows Vista and later, the organization of header files has changed and the <a href="https://docs.microsoft.com/windows/desktop/WinSock/sockaddr-2">SOCKADDR_IN</a> structure is defined in the <i>Ws2def.h</i> header file. Note that the <i>Ws2def.h</i> header file is automatically included in <i>Winsock2.h</i>, and should never be used directly.
      * @type {SOCKADDR_IN}
      */
-    Ipv4{
+    Ipv4 {
         get {
             if(!this.HasProp("__Ipv4"))
                 this.__Ipv4 := SOCKADDR_IN(0, this)
@@ -50,7 +49,7 @@ class SOCKADDR_INET extends Win32Struct
      * On the Windows SDK released for Windows Vista and later, the organization of header files has changed and the <a href="https://docs.microsoft.com/windows/desktop/WinSock/sockaddr-2">SOCKADDR_IN6</a> structure is defined in the <i>Ws2def.h</i> header file. Note that the <i>Ws2def.h</i> header file is automatically included in <i>Winsock2.h</i>, and should never be used directly.
      * @type {SOCKADDR_IN6}
      */
-    Ipv6{
+    Ipv6 {
         get {
             if(!this.HasProp("__Ipv6"))
                 this.__Ipv6 := SOCKADDR_IN6(0, this)
@@ -106,7 +105,7 @@ class SOCKADDR_INET extends Win32Struct
      * </td>
      * </tr>
      * </table>
-     * @type {Integer}
+     * @type {ADDRESS_FAMILY}
      */
     si_family {
         get => NumGet(this, 0, "ushort")

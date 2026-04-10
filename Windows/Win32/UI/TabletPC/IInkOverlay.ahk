@@ -1,6 +1,7 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
+#Include ..\..\System\Com\IDispatch.ahk
 #Include .\IInkDrawingAttributes.ahk
 #Include .\IInkRenderer.ahk
 #Include .\IInkDisp.ahk
@@ -9,7 +10,6 @@
 #Include .\IInkStrokes.ahk
 #Include .\IInkCursors.ahk
 #Include .\IInkTablet.ahk
-#Include ..\..\System\Com\IDispatch.ahk
 
 /**
  * . (IInkOverlay)
@@ -17,9 +17,8 @@
  * Creating the InkOverlay control behind a transparent control (such as a GroupBox with the WS_EX_TRANSPARENT property set) will prevent InkOverlay from collecting ink.
  * @see https://learn.microsoft.com/windows/win32/api/msinkaut/nn-msinkaut-iinkoverlay
  * @namespace Windows.Win32.UI.TabletPC
- * @version v4.0.30319
  */
-class IInkOverlay extends IDispatch{
+class IInkOverlay extends IDispatch {
 
     static sizeof => A_PtrSize
     /**
@@ -93,7 +92,7 @@ class IInkOverlay extends IDispatch{
     }
 
     /**
-     * @type {Integer} 
+     * @type {InkCollectionMode} 
      */
     CollectionMode {
         get => this.get_CollectionMode()
@@ -125,7 +124,7 @@ class IInkOverlay extends IDispatch{
     }
 
     /**
-     * @type {Integer} 
+     * @type {InkMousePointer} 
      */
     MousePointer {
         get => this.get_MousePointer()
@@ -133,7 +132,7 @@ class IInkOverlay extends IDispatch{
     }
 
     /**
-     * @type {Integer} 
+     * @type {InkOverlayEditingMode} 
      */
     EditingMode {
         get => this.get_EditingMode()
@@ -149,7 +148,7 @@ class IInkOverlay extends IDispatch{
     }
 
     /**
-     * @type {Integer} 
+     * @type {InkOverlayEraserMode} 
      */
     EraserMode {
         get => this.get_EraserMode()
@@ -165,7 +164,7 @@ class IInkOverlay extends IDispatch{
     }
 
     /**
-     * @type {Integer} 
+     * @type {InkOverlayAttachMode} 
      */
     AttachMode {
         get => this.get_AttachMode()
@@ -672,7 +671,7 @@ class IInkOverlay extends IDispatch{
      * <li>In the <a href="https://docs.microsoft.com/windows/desktop/tablet/inkcollector-gesture">Gesture</a> event, process the gesture.</li>
      * <li>Set <a href="https://docs.microsoft.com/windows/desktop/api/msinkaut/nf-msinkaut-iinkoverlay-get_dynamicrendering">DynamicRendering</a> to <b>FALSE</b> to prevent the flow of ink while gesturing.</li>
      * </ol>
-     * @returns {Integer} 
+     * @returns {InkCollectionMode} 
      * @see https://learn.microsoft.com/windows/win32/api/msinkaut/nf-msinkaut-iinkoverlay-get_collectionmode
      */
     get_CollectionMode() {
@@ -727,7 +726,7 @@ class IInkOverlay extends IDispatch{
      * <li>In the <a href="https://docs.microsoft.com/windows/desktop/tablet/inkcollector-gesture">Gesture</a> event, process the gesture.</li>
      * <li>Set <a href="https://docs.microsoft.com/windows/desktop/api/msinkaut/nf-msinkaut-iinkoverlay-get_dynamicrendering">DynamicRendering</a> to <b>FALSE</b> to prevent the flow of ink while gesturing.</li>
      * </ol>
-     * @param {Integer} _Mode 
+     * @param {InkCollectionMode} _Mode 
      * @returns {HRESULT} 
      * @see https://learn.microsoft.com/windows/win32/api/msinkaut/nf-msinkaut-iinkoverlay-put_collectionmode
      */
@@ -848,7 +847,7 @@ class IInkOverlay extends IDispatch{
      * If you set the <a href="https://docs.microsoft.com/windows/desktop/api/msinkaut/nf-msinkaut-iinkcollector-get_mousepointer">MousePointer</a> property to <a href="https://docs.microsoft.com/windows/desktop/api/msinkaut/ne-msinkaut-inkmousepointer">IMP_Default</a>, the mouse cursor setting is based on the current cursor's drawing attributes. If the ink collector is disabled, the mouse cursor setting is based on the underlying windows mouse cursor <a href="https://docs.microsoft.com/windows/desktop/api/msinkaut/nf-msinkaut-iinkcursor-get_drawingattributes">DrawingAttributes</a> property. If the <b>MousePointer</b> property is set to <b>IMP_Custom</b> and the <a href="https://docs.microsoft.com/windows/desktop/api/msinkaut/nf-msinkaut-iinkcollector-get_mouseicon">MouseIcon</a> property is <b>NULL</b>, then the ink collector no longer handles mouse cursor settings. Setting the mouse cursor to any other setting (other than the <b>MousePointer</b> property set to <b>IMP_Default</b> and the <b>MouseIcon</b> property set to <b>NULL</b>) forces the mouse cursor to use the current setting.
      * 
      * You can use this property when you want to indicate changes in functionality as the mouse pointer passes over controls on a form or dialog box. The <a href="https://docs.microsoft.com/windows/desktop/api/msinkaut/ne-msinkaut-inkmousepointer">IMP_Hourglass</a> setting is useful for indicating that the user should wait for a process or operation to finish.
-     * @returns {Integer} 
+     * @returns {InkMousePointer} 
      * @see https://learn.microsoft.com/windows/win32/api/msinkaut/nf-msinkaut-iinkoverlay-get_mousepointer
      */
     get_MousePointer() {
@@ -862,7 +861,7 @@ class IInkOverlay extends IDispatch{
      * If you set the <a href="https://docs.microsoft.com/windows/desktop/api/msinkaut/nf-msinkaut-iinkcollector-get_mousepointer">MousePointer</a> property to <a href="https://docs.microsoft.com/windows/desktop/api/msinkaut/ne-msinkaut-inkmousepointer">IMP_Default</a>, the mouse cursor setting is based on the current cursor's drawing attributes. If the ink collector is disabled, the mouse cursor setting is based on the underlying windows mouse cursor <a href="https://docs.microsoft.com/windows/desktop/api/msinkaut/nf-msinkaut-iinkcursor-get_drawingattributes">DrawingAttributes</a> property. If the <b>MousePointer</b> property is set to <b>IMP_Custom</b> and the <a href="https://docs.microsoft.com/windows/desktop/api/msinkaut/nf-msinkaut-iinkcollector-get_mouseicon">MouseIcon</a> property is <b>NULL</b>, then the ink collector no longer handles mouse cursor settings. Setting the mouse cursor to any other setting (other than the <b>MousePointer</b> property set to <b>IMP_Default</b> and the <b>MouseIcon</b> property set to <b>NULL</b>) forces the mouse cursor to use the current setting.
      * 
      * You can use this property when you want to indicate changes in functionality as the mouse pointer passes over controls on a form or dialog box. The <a href="https://docs.microsoft.com/windows/desktop/api/msinkaut/ne-msinkaut-inkmousepointer">IMP_Hourglass</a> setting is useful for indicating that the user should wait for a process or operation to finish.
-     * @param {Integer} MousePointer 
+     * @param {InkMousePointer} MousePointer 
      * @returns {HRESULT} 
      * @see https://learn.microsoft.com/windows/win32/api/msinkaut/nf-msinkaut-iinkoverlay-put_mousepointer
      */
@@ -877,7 +876,7 @@ class IInkOverlay extends IDispatch{
      * The <a href="https://docs.microsoft.com/windows/desktop/tablet/inkoverlay-class">InkOverlay</a> and <a href="https://docs.microsoft.com/windows/desktop/tablet/inkpicture-control-reference">InkPicture</a> objects generate an error if you change the <b>EditingMode</b> property while ink is being collected. To avoid this conflict, make sure the <a href="https://docs.microsoft.com/windows/desktop/api/msinkaut/nf-msinkaut-iinkcollector-get_collectingink">CollectingInk</a> property is <b>FALSE</b> before changing the <b>EditingMode</b> property.
      * 
      * For more information about erasing ink, see <a href="https://docs.microsoft.com/windows/desktop/tablet/erasing-ink-with-the-pen">Erasing Ink with the Pen</a>.
-     * @returns {Integer} 
+     * @returns {InkOverlayEditingMode} 
      * @see https://learn.microsoft.com/windows/win32/api/msinkaut/nf-msinkaut-iinkoverlay-get_editingmode
      */
     get_EditingMode() {
@@ -891,7 +890,7 @@ class IInkOverlay extends IDispatch{
      * The <a href="https://docs.microsoft.com/windows/desktop/tablet/inkoverlay-class">InkOverlay</a> and <a href="https://docs.microsoft.com/windows/desktop/tablet/inkpicture-control-reference">InkPicture</a> objects generate an error if you change the <b>EditingMode</b> property while ink is being collected. To avoid this conflict, make sure the <a href="https://docs.microsoft.com/windows/desktop/api/msinkaut/nf-msinkaut-iinkcollector-get_collectingink">CollectingInk</a> property is <b>FALSE</b> before changing the <b>EditingMode</b> property.
      * 
      * For more information about erasing ink, see <a href="https://docs.microsoft.com/windows/desktop/tablet/erasing-ink-with-the-pen">Erasing Ink with the Pen</a>.
-     * @param {Integer} EditingMode 
+     * @param {InkOverlayEditingMode} EditingMode 
      * @returns {HRESULT} 
      * @see https://learn.microsoft.com/windows/win32/api/msinkaut/nf-msinkaut-iinkoverlay-put_editingmode
      */
@@ -937,7 +936,7 @@ class IInkOverlay extends IDispatch{
      * Gets or sets the value that specifies whether ink is erased by stroke or by point. (Get)
      * @remarks
      * This property only applies when the <a href="https://docs.microsoft.com/windows/desktop/api/msinkaut/nf-msinkaut-iinkoverlay-get_editingmode">EditingMode</a> property is set to <a href="https://docs.microsoft.com/windows/desktop/api/msinkaut/ne-msinkaut-inkoverlayeditingmode">IOEM_Delete</a>.
-     * @returns {Integer} 
+     * @returns {InkOverlayEraserMode} 
      * @see https://learn.microsoft.com/windows/win32/api/msinkaut/nf-msinkaut-iinkoverlay-get_erasermode
      */
     get_EraserMode() {
@@ -949,7 +948,7 @@ class IInkOverlay extends IDispatch{
      * Gets or sets the value that specifies whether ink is erased by stroke or by point. (Put)
      * @remarks
      * This property only applies when the <a href="https://docs.microsoft.com/windows/desktop/api/msinkaut/nf-msinkaut-iinkoverlay-get_editingmode">EditingMode</a> property is set to <a href="https://docs.microsoft.com/windows/desktop/api/msinkaut/ne-msinkaut-inkoverlayeditingmode">IOEM_Delete</a>.
-     * @param {Integer} EraserMode 
+     * @param {InkOverlayEraserMode} EraserMode 
      * @returns {HRESULT} 
      * @see https://learn.microsoft.com/windows/win32/api/msinkaut/nf-msinkaut-iinkoverlay-put_erasermode
      */
@@ -998,7 +997,7 @@ class IInkOverlay extends IDispatch{
      * <div> </div>
      * <div class="alert"><b>Caution</b>  If <b>AttachMode</b> is set to <a href="https://docs.microsoft.com/windows/desktop/api/msinkaut/ne-msinkaut-inkoverlayattachmode">InFront</a> and then a control is added to the <a href="https://docs.microsoft.com/windows/desktop/tablet/inkoverlay-class">InkOverlay</a>'s attached control, then you will have to reset the <b>InkOverlay</b>'s <a href="https://docs.microsoft.com/windows/desktop/api/msinkaut/nf-msinkaut-iinkcollector-get_hwnd">hWnd</a>. First set <a href="https://docs.microsoft.com/windows/desktop/api/msinkaut/nf-msinkaut-iinkcollector-get_enabled">Enabled</a> to <b>FALSE</b>, then set the <b>hWnd</b> property, and then set <b>Enabled</b> to <b>TRUE</b>.</div>
      * <div> </div>
-     * @returns {Integer} 
+     * @returns {InkOverlayAttachMode} 
      * @see https://learn.microsoft.com/windows/win32/api/msinkaut/nf-msinkaut-iinkoverlay-get_attachmode
      */
     get_AttachMode() {
@@ -1013,7 +1012,7 @@ class IInkOverlay extends IDispatch{
      * <div> </div>
      * <div class="alert"><b>Caution</b>  If <b>AttachMode</b> is set to <a href="https://docs.microsoft.com/windows/desktop/api/msinkaut/ne-msinkaut-inkoverlayattachmode">InFront</a> and then a control is added to the <a href="https://docs.microsoft.com/windows/desktop/tablet/inkoverlay-class">InkOverlay</a>'s attached control, then you will have to reset the <b>InkOverlay</b>'s <a href="https://docs.microsoft.com/windows/desktop/api/msinkaut/nf-msinkaut-iinkcollector-get_hwnd">hWnd</a>. First set <a href="https://docs.microsoft.com/windows/desktop/api/msinkaut/nf-msinkaut-iinkcollector-get_enabled">Enabled</a> to <b>FALSE</b>, then set the <b>hWnd</b> property, and then set <b>Enabled</b> to <b>TRUE</b>.</div>
      * <div> </div>
-     * @param {Integer} AttachMode 
+     * @param {InkOverlayAttachMode} AttachMode 
      * @returns {HRESULT} 
      * @see https://learn.microsoft.com/windows/win32/api/msinkaut/nf-msinkaut-iinkoverlay-put_attachmode
      */
@@ -1201,7 +1200,7 @@ class IInkOverlay extends IDispatch{
      * Determines what portion of the selection was hit during a hit test.
      * @param {Integer} x The x-position, in pixels, of the hit test.
      * @param {Integer} y The y-position, in pixels, of the hit test.
-     * @returns {Integer} The value from the <a href="https://docs.microsoft.com/windows/desktop/api/msinkaut/ne-msinkaut-selectionhitresult">SelectionHitResult</a> enumeration,which specifies which part of a selection, if any, was hit during a hit test.
+     * @returns {SelectionHitResult} The value from the <a href="https://docs.microsoft.com/windows/desktop/api/msinkaut/ne-msinkaut-selectionhitresult">SelectionHitResult</a> enumeration,which specifies which part of a selection, if any, was hit during a hit test.
      * @see https://learn.microsoft.com/windows/win32/api/msinkaut/nf-msinkaut-iinkoverlay-hittestselection
      */
     HitTestSelection(x, y) {
@@ -1213,7 +1212,7 @@ class IInkOverlay extends IDispatch{
      * Sets a rectangle in which to redraw the ink within the InkOverlay object.
      * @remarks
      * <a href="https://docs.microsoft.com/windows/desktop/tablet/inkdisp-class">InkDisp</a> within the rectangle represented by <i>rDrawRect</i> is drawn when the area is next repainted if the <a href="https://docs.microsoft.com/windows/desktop/api/msinkaut/nf-msinkaut-iinkcollector-get_autoredraw">AutoRedraw</a> property is <b>TRUE</b>.
-     * @param {IInkRectangle} _Rect 
+     * @param {IInkRectangle} _Rect The rectangle on which to draw, in pixel coordinates. When this parameter is <b>NULL</b>, the entire window is redrawn.
      * @returns {HRESULT} This method can return one of these values.
      * @see https://learn.microsoft.com/windows/win32/api/msinkaut/nf-msinkaut-iinkoverlay-draw
      */
@@ -1230,7 +1229,7 @@ class IInkOverlay extends IDispatch{
      * The <a href="https://docs.microsoft.com/windows/desktop/api/msinkaut/ne-msinkaut-inkapplicationgesture">IAG_AllGestures</a> gesture ID is not supported by the <a href="https://docs.microsoft.com/windows/desktop/tablet/inkedit-control-reference">InkEdit</a> control and returns an error. Passing invalid Gesture IDs does not return an error for InkEdit, but fails for <a href="https://docs.microsoft.com/windows/desktop/tablet/inkcollector-class">InkCollector</a>, <a href="https://docs.microsoft.com/windows/desktop/tablet/inkoverlay-class">InkOverlay</a>, and <a href="https://docs.microsoft.com/windows/desktop/tablet/inkpicture-control-reference">InkPicture</a>.
      * 
      * For the <a href="https://docs.microsoft.com/windows/desktop/tablet/inkedit-control-reference">InkEdit</a> control, this method should only be called if the <a href="https://docs.microsoft.com/windows/desktop/api/inked/nf-inked-iinkedit-get_status">Status</a> property returns <a href="https://docs.microsoft.com/windows/desktop/api/inked/ne-inked-inkeditstatus">IES_Idle</a>.
-     * @param {Integer} Gesture The gesture that you want to set the status of.
+     * @param {InkApplicationGesture} Gesture The gesture that you want to set the status of.
      * @param {VARIANT_BOOL} Listen <b>VARIANT_TRUE</b> if the gesture is being used or <b>VARIANT_FALSE</b> if it is being ignored.
      * @returns {HRESULT} This method can return one of these values.
      * 
@@ -1333,7 +1332,7 @@ class IInkOverlay extends IDispatch{
      * 
      * <div class="alert"><b>Note</b>  By default, the <a href="https://docs.microsoft.com/windows/desktop/tablet/inkcollector-class">InkCollector</a> and <a href="https://docs.microsoft.com/windows/desktop/tablet/inkoverlay-class">InkOverlay</a> objects do not have interest in any of the application gestures.</div>
      * <div> </div>
-     * @param {Integer} Gesture The gesture that you want the status of.
+     * @param {InkApplicationGesture} Gesture The gesture that you want the status of.
      * @returns {VARIANT_BOOL} <b>VARIANT_TRUE</b> if the <a href="https://docs.microsoft.com/windows/desktop/tablet/inkcollector-class">InkCollector</a> control has interest in a particular application gesture; otherwise, <b>VARIANT_FALSE</b>.
      * 
      * This method returns a value that indicates the interest of the <a href="https://docs.microsoft.com/windows/desktop/tablet/inkcollector-class">InkCollector</a> or <a href="https://docs.microsoft.com/windows/desktop/tablet/inkoverlay-class">InkOverlay</a> object in a known application gesture. If <b>VARIANT_TRUE</b>, the <b>InkCollector</b> or <b>InkOverlay</b> object is interested in the gesture and the <a href="https://docs.microsoft.com/windows/desktop/tablet/inkcollector-gesture">Gesture</a> event of the <b>InkCollector</b> or <b>InkOverlay</b> object fires when the gesture is recognized.
@@ -1663,7 +1662,7 @@ class IInkOverlay extends IDispatch{
 
     /**
      * Retrieves the interest an object has in a particular event for the InkCollector class, InkOverlay class, or InkPicture class. (IInkOverlay.GetEventInterest)
-     * @param {Integer} EventId The event in which the ink collector is or is not interested.
+     * @param {InkCollectorEventInterest} EventId The event in which the ink collector is or is not interested.
      * @returns {VARIANT_BOOL} <b>VARIANT_TRUE</b> if interest in the specified event has been set; otherwise, <b>VARIANT_FALSE</b>.
      * @see https://learn.microsoft.com/windows/win32/api/msinkaut/nf-msinkaut-iinkoverlay-geteventinterest
      */
@@ -1678,7 +1677,7 @@ class IInkOverlay extends IDispatch{
      * All ink collector  events can be toggled by using this method. Most of these events are turned off by default for performance reasons. The only events that are on by default are <a href="https://docs.microsoft.com/windows/desktop/tablet/inkcollector-stroke">Stroke</a>, <a href="https://docs.microsoft.com/windows/desktop/tablet/inkcollector-cursorinrange">CursorInRange</a>, and <a href="https://docs.microsoft.com/windows/desktop/tablet/inkcollector-cursoroutofrange">CursorOutOfRange</a>.
      * 
      * Use the <a href="https://docs.microsoft.com/windows/desktop/tablet/inkcollector-newpackets">NewPackets</a>, <a href="https://docs.microsoft.com/windows/desktop/tablet/inkcollector-newinairpackets">NewInAirPackets</a> and <a href="https://docs.microsoft.com/windows/desktop/tablet/inkcollector-cursordown">CursorDown</a> events carefully, in particular because they may have an adverse effect on ink performance if too much code is executed in the event handlers.
-     * @param {Integer} EventId The event to be listened for. Possible values for <i>EventID</i> appear in the <a href="https://docs.microsoft.com/windows/desktop/api/msinkaut/ne-msinkaut-inkcollectoreventinterest">InkCollectorEventInterest</a> enumeration type.
+     * @param {InkCollectorEventInterest} EventId The event to be listened for. Possible values for <i>EventID</i> appear in the <a href="https://docs.microsoft.com/windows/desktop/api/msinkaut/ne-msinkaut-inkcollectoreventinterest">InkCollectorEventInterest</a> enumeration type.
      * @param {VARIANT_BOOL} Listen <b>VARIANT_TRUE</b> if the event is being used and <b>VARIANT_FALSE</b> if it is being ignored.
      * @returns {HRESULT} This method can return one of these values.
      * 

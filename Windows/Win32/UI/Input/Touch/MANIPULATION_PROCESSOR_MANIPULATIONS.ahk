@@ -9,9 +9,8 @@
  * 		  You can combine different kinds of manipulations by a bitwise OR.
  * @see https://learn.microsoft.com/windows/win32/api/manipulations/ne-manipulations-manipulation_processor_manipulations
  * @namespace Windows.Win32.UI.Input.Touch
- * @version v4.0.30319
  */
-class MANIPULATION_PROCESSOR_MANIPULATIONS extends Win32BitflagEnum{
+class MANIPULATION_PROCESSOR_MANIPULATIONS extends Win32BitflagEnum {
 
     /**
      * Indicates that no manipulations are performed.

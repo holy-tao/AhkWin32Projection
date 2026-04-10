@@ -1,14 +1,13 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
+#Include .\METHODDATA.ahk
 
 /**
  * Describes the object's properties and methods.
  * @see https://learn.microsoft.com/windows/win32/api/oleauto/ns-oleauto-interfacedata
  * @namespace Windows.Win32.System.Ole
- * @version v4.0.30319
  */
-class INTERFACEDATA extends Win32Struct
-{
+class INTERFACEDATA extends Win32Struct {
     static sizeof => 16
 
     static packingSize => 8

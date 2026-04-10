@@ -1,17 +1,16 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
+#Include .\IWMDeviceManager.ahk
 #Include .\IWMDMDevice.ahk
 #Include .\IWMDMEnumDevice.ahk
-#Include .\IWMDeviceManager.ahk
 
 /**
  * The IWMDeviceManager2 interface extends IWMDeviceManager interface.
  * @see https://learn.microsoft.com/windows/win32/api/mswmdm/nn-mswmdm-iwmdevicemanager2
  * @namespace Windows.Win32.Media.DeviceManager
- * @version v4.0.30319
  */
-class IWMDeviceManager2 extends IWMDeviceManager{
+class IWMDeviceManager2 extends IWMDeviceManager {
 
     static sizeof => A_PtrSize
     /**

@@ -1,23 +1,22 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
+#Include .\StatusCode.ahk
 
 /**
  * The DHCPV6Prefix contains an IPv6 prefix.
  * @see https://learn.microsoft.com/windows/win32/api/dhcpv6csdk/ns-dhcpv6csdk-dhcpv6prefix
  * @namespace Windows.Win32.NetworkManagement.Dhcp
- * @version v4.0.30319
  */
-class DHCPV6Prefix extends Win32Struct
-{
+class DHCPV6Prefix extends Win32Struct {
     static sizeof => 32
 
     static packingSize => 4
 
     /**
      * 128 bit prefix.
-     * @type {Array<Byte>}
+     * @type {Array<Integer>}
      */
-    prefix{
+    prefix {
         get {
             if(!this.HasProp("__prefixProxyArray"))
                 this.__prefixProxyArray := Win32FixedArray(this.ptr + 0, 16, Primitive, "char")
@@ -54,7 +53,7 @@ class DHCPV6Prefix extends Win32Struct
 
     /**
      * The status code returned.
-     * @type {Integer}
+     * @type {StatusCode}
      */
     status {
         get => NumGet(this, 28, "int")

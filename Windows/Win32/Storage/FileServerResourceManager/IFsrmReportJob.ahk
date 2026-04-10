@@ -1,10 +1,10 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
+#Include .\IFsrmObject.ahk
 #Include ..\..\Foundation\BSTR.ahk
 #Include .\IFsrmCollection.ahk
 #Include .\IFsrmReport.ahk
-#Include .\IFsrmObject.ahk
 
 /**
  * Used to configure a report job.
@@ -19,9 +19,8 @@
  *    <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/fsrmreports/nf-fsrmreports-ifsrmreportjob-get_namespaceroots">namespace root</a>.
  * @see https://learn.microsoft.com/windows/win32/api/fsrmreports/nn-fsrmreports-ifsrmreportjob
  * @namespace Windows.Win32.Storage.FileServerResourceManager
- * @version v4.0.30319
  */
-class IFsrmReportJob extends IFsrmObject{
+class IFsrmReportJob extends IFsrmObject {
 
     static sizeof => A_PtrSize
     /**
@@ -75,7 +74,7 @@ class IFsrmReportJob extends IFsrmObject{
     }
 
     /**
-     * @type {Integer} 
+     * @type {FsrmReportRunningStatus} 
      */
     RunningStatus {
         get => this.get_RunningStatus()
@@ -278,7 +277,7 @@ class IFsrmReportJob extends IFsrmObject{
 
     /**
      * Retrieves the running status of the report job.
-     * @returns {Integer} 
+     * @returns {FsrmReportRunningStatus} 
      * @see https://learn.microsoft.com/windows/win32/api/fsrmreports/nf-fsrmreports-ifsrmreportjob-get_runningstatus
      */
     get_RunningStatus() {
@@ -334,7 +333,7 @@ class IFsrmReportJob extends IFsrmObject{
 
     /**
      * Creates a new report object of the specified type.
-     * @param {Integer} reportType Type of report to generate. For possible values, see the<a href="https://docs.microsoft.com/windows/desktop/api/fsrmenums/ne-fsrmenums-fsrmreporttype">FsrmReportType</a> enumeration.
+     * @param {FsrmReportType} reportType Type of report to generate. For possible values, see the<a href="https://docs.microsoft.com/windows/desktop/api/fsrmenums/ne-fsrmenums-fsrmreporttype">FsrmReportType</a> enumeration.
      * 
      * Note that the job can contain only one report of each type.
      * @returns {IFsrmReport} An <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/fsrmreports/nn-fsrmreports-ifsrmreport">IFsrmReport</a> interface to the newly created report. Use the interface to configure the report.
@@ -351,7 +350,7 @@ class IFsrmReportJob extends IFsrmObject{
      * Note that reports that run in the scheduled context remain in the queue for five minutes before they are run; reports that run in the other contexts remain in the queue for 30 seconds.
      * 
      * If you call this method and the report job is already queued or running, the method returns an error. To determine the status of the job, access the <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/fsrmreports/nf-fsrmreports-ifsrmreportjob-get_runningstatus">IFsrmReportJob::RunningStatus</a> property.
-     * @param {Integer} _context 
+     * @param {FsrmReportGenerationContext} _context Specifies to which subdirectory the reports are written. For possible values, see the <a href="https://docs.microsoft.com/windows/desktop/api/fsrmenums/ne-fsrmenums-fsrmreportgenerationcontext">FsrmReportGenerationContext</a> enumeration.
      * @returns {HRESULT} The method returns the following return values.
      * @see https://learn.microsoft.com/windows/win32/api/fsrmreports/nf-fsrmreports-ifsrmreportjob-run
      */

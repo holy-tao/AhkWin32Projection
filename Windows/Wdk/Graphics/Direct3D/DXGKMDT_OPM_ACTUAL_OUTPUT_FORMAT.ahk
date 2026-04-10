@@ -1,18 +1,17 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
+#Include .\DXGKMDT_OPM_INTERLEAVE_FORMAT.ahk
 
 /**
  * @namespace Windows.Wdk.Graphics.Direct3D
- * @version v4.0.30319
  */
-class DXGKMDT_OPM_ACTUAL_OUTPUT_FORMAT extends Win32Struct
-{
+class DXGKMDT_OPM_ACTUAL_OUTPUT_FORMAT extends Win32Struct {
     static sizeof => 40
 
     static packingSize => 8
 
     /**
-     * @type {Pointer<DXGKMDT_OPM_RANDOM_NUMBER>}
+     * @type {Pointer}
      */
     rnRandomNumber {
         get => NumGet(this, 0, "ptr")
@@ -44,7 +43,7 @@ class DXGKMDT_OPM_ACTUAL_OUTPUT_FORMAT extends Win32Struct
     }
 
     /**
-     * @type {Integer}
+     * @type {DXGKMDT_OPM_INTERLEAVE_FORMAT}
      */
     ifInterleaveFormat {
         get => NumGet(this, 20, "int")

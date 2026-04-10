@@ -1,16 +1,14 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
-#Include .\IEnumRegFilters.ahk
 #Include ..\..\System\Com\IUnknown.ahk
 
 /**
  * Note  This interface has been deprecated. (IEnumRegFilters)
  * @see https://learn.microsoft.com/windows/win32/api/strmif/nn-strmif-ienumregfilters
  * @namespace Windows.Win32.Media.DirectShow
- * @version v4.0.30319
  */
-class IEnumRegFilters extends IUnknown{
+class IEnumRegFilters extends IUnknown {
 
     static sizeof => A_PtrSize
     /**

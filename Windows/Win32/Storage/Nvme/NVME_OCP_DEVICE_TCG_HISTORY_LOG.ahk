@@ -4,11 +4,9 @@
 
 /**
  * @namespace Windows.Win32.Storage.Nvme
- * @version v4.0.30319
  */
-class NVME_OCP_DEVICE_TCG_HISTORY_LOG extends Win32Struct
-{
-    static sizeof => 728
+class NVME_OCP_DEVICE_TCG_HISTORY_LOG extends Win32Struct {
+    static sizeof => 4088
 
     static packingSize => 8
 
@@ -21,9 +19,9 @@ class NVME_OCP_DEVICE_TCG_HISTORY_LOG extends Win32Struct
     }
 
     /**
-     * @type {Array<Byte>}
+     * @type {Array<Integer>}
      */
-    Reserved0{
+    Reserved0 {
         get {
             if(!this.HasProp("__Reserved0ProxyArray"))
                 this.__Reserved0ProxyArray := Win32FixedArray(this.ptr + 1, 3, Primitive, "char")
@@ -40,9 +38,9 @@ class NVME_OCP_DEVICE_TCG_HISTORY_LOG extends Win32Struct
     }
 
     /**
-     * @type {Array<TCG_HISTORY_ENTRY>}
+     * @type {TCG_HISTORY_ENTRY}
      */
-    HistoryEntries{
+    HistoryEntries {
         get {
             if(!this.HasProp("__HistoryEntriesProxyArray"))
                 this.__HistoryEntriesProxyArray := Win32FixedArray(this.ptr + 8, 84, TCG_HISTORY_ENTRY, "")
@@ -51,12 +49,12 @@ class NVME_OCP_DEVICE_TCG_HISTORY_LOG extends Win32Struct
     }
 
     /**
-     * @type {Array<Byte>}
+     * @type {Array<Integer>}
      */
-    Reserved1{
+    Reserved1 {
         get {
             if(!this.HasProp("__Reserved1ProxyArray"))
-                this.__Reserved1ProxyArray := Win32FixedArray(this.ptr + 680, 38, Primitive, "char")
+                this.__Reserved1ProxyArray := Win32FixedArray(this.ptr + 4040, 38, Primitive, "char")
             return this.__Reserved1ProxyArray
         }
     }
@@ -65,15 +63,15 @@ class NVME_OCP_DEVICE_TCG_HISTORY_LOG extends Win32Struct
      * @type {Integer}
      */
     LogPageVersionNumber {
-        get => NumGet(this, 718, "ushort")
-        set => NumPut("ushort", value, this, 718)
+        get => NumGet(this, 4078, "ushort")
+        set => NumPut("ushort", value, this, 4078)
     }
 
     /**
-     * @type {Pointer<Guid>}
+     * @type {Pointer}
      */
     LogPageGUID {
-        get => NumGet(this, 720, "ptr")
-        set => NumPut("ptr", value, this, 720)
+        get => NumGet(this, 4080, "ptr")
+        set => NumPut("ptr", value, this, 4080)
     }
 }

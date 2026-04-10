@@ -6,7 +6,6 @@
 
 /**
  * @namespace Windows.Win32.Graphics.Imaging
- * @version v4.0.30319
  */
 class Imaging {
 
@@ -1680,7 +1679,7 @@ class Imaging {
      * @param {Integer} offset Type: <b>UINT</b>
      * 
      * The offset into the section.
-     * @param {Integer} desiredAccessLevel Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/wincodec/ne-wincodec-wicsectionaccesslevel">WICSectionAccessLevel</a></b>
+     * @param {WICSectionAccessLevel} desiredAccessLevel Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/wincodec/ne-wincodec-wicsectionaccesslevel">WICSectionAccessLevel</a></b>
      * 
      * The desired access level.
      * @returns {IWICBitmap} Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/wincodec/nn-wincodec-iwicbitmap">IWICBitmap</a>**</b>

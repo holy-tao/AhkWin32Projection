@@ -1,16 +1,15 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\..\Guid.ahk
-#Include ..\..\..\Foundation\BSTR.ahk
 #Include ..\..\..\System\Com\IDispatch.ahk
+#Include ..\..\..\Foundation\BSTR.ahk
 
 /**
  * Provides methods for handling certificate revocation list (CRL) distribution information arrays used in certificate extensions.
  * @see https://learn.microsoft.com/windows/win32/api/certenc/nn-certenc-icertencodecrldistinfo
  * @namespace Windows.Win32.Security.Cryptography.Certificates
- * @version v4.0.30319
  */
-class ICertEncodeCRLDistInfo extends IDispatch{
+class ICertEncodeCRLDistInfo extends IDispatch {
 
     static sizeof => A_PtrSize
     /**
@@ -128,7 +127,7 @@ class ICertEncodeCRLDistInfo extends IDispatch{
      * Sets a name at a specified index of a distribution point in a certificate revocation list (CRL) distribution information array.
      * @param {Integer} DistPointIndex Specifies the index of the CRL distribution point for which to set the name. The first value is at index zero.
      * @param {Integer} NameIndex Specifies the index of the name entry to set. The first value is at index zero.
-     * @param {Integer} NameChoice 
+     * @param {CERT_ALT_NAME} NameChoice 
      * @param {BSTR} strName Specifies the name.
      * @returns {HRESULT} <h3>VB</h3>
      *  If the method succeeds, the method returns S_OK.

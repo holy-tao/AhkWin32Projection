@@ -3,16 +3,14 @@
 
 /**
  * @namespace Windows.Win32.Security.Authentication.WebAuthn
- * @version v4.0.30319
  */
-class EXPERIMENTAL_WEBAUTHN_PLUGIN_CANCEL_OPERATION_REQUEST extends Win32Struct
-{
+class EXPERIMENTAL_WEBAUTHN_PLUGIN_CANCEL_OPERATION_REQUEST extends Win32Struct {
     static sizeof => 24
 
     static packingSize => 8
 
     /**
-     * @type {Pointer<Guid>}
+     * @type {Pointer}
      */
     transactionId {
         get => NumGet(this, 0, "ptr")

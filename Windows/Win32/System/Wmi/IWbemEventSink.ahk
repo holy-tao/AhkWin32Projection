@@ -1,7 +1,6 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
-#Include .\IWbemEventSink.ahk
 #Include .\IWbemObjectSink.ahk
 
 /**
@@ -12,9 +11,8 @@
  * Sink implementations should process the event notification within 100 MSEC because the WMI thread that delivers the event notification cannot do other work until the sink object has completed processing. If the notification requires a large amount of processing, the sink can use an internal queue for another thread to handle the processing.
  * @see https://learn.microsoft.com/windows/win32/api/wbemprov/nn-wbemprov-iwbemeventsink
  * @namespace Windows.Win32.System.Wmi
- * @version v4.0.30319
  */
-class IWbemEventSink extends IWbemObjectSink{
+class IWbemEventSink extends IWbemObjectSink {
 
     static sizeof => A_PtrSize
     /**

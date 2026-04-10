@@ -5,10 +5,9 @@
 
 /**
  * @namespace Windows.Win32.Devices.HumanInterfaceDevice
- * @version v4.0.30319
  * @charset Unicode
  */
-class IDirectInput7W extends IDirectInput2W{
+class IDirectInput7W extends IDirectInput2W {
 
     static sizeof => A_PtrSize
     /**

@@ -9,10 +9,8 @@
  * The PostScript Open Type Font does not support multiple master functionality.
  * @see https://learn.microsoft.com/windows/win32/api/wingdi/ns-wingdi-designvector
  * @namespace Windows.Win32.Graphics.Gdi
- * @version v4.0.30319
  */
-class DESIGNVECTOR extends Win32Struct
-{
+class DESIGNVECTOR extends Win32Struct {
     static sizeof => 72
 
     static packingSize => 4
@@ -37,9 +35,9 @@ class DESIGNVECTOR extends Win32Struct
 
     /**
      * An array specifying the values of the axes of a multiple master OpenType font. This array corresponds to the <b>axlAxisInfo</b> array in the <a href="https://docs.microsoft.com/windows/desktop/api/wingdi/ns-wingdi-axeslista">AXESLIST</a> structure.
-     * @type {Array<Int32>}
+     * @type {Array<Integer>}
      */
-    dvValues{
+    dvValues {
         get {
             if(!this.HasProp("__dvValuesProxyArray"))
                 this.__dvValuesProxyArray := Win32FixedArray(this.ptr + 8, 16, Primitive, "int")

@@ -1,14 +1,14 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
+#Include .\CF_PIN_STATE.ahk
+#Include .\CF_IN_SYNC_STATE.ahk
 
 /**
  * Standard placeholder information.
  * @see https://learn.microsoft.com/windows/win32/api/cfapi/ns-cfapi-cf_placeholder_standard_info
  * @namespace Windows.Win32.Storage.CloudFilters
- * @version v4.0.30319
  */
-class CF_PLACEHOLDER_STANDARD_INFO extends Win32Struct
-{
+class CF_PLACEHOLDER_STANDARD_INFO extends Win32Struct {
     static sizeof => 64
 
     static packingSize => 8
@@ -51,7 +51,7 @@ class CF_PLACEHOLDER_STANDARD_INFO extends Win32Struct
 
     /**
      * The [CF_PIN_STATE](ne-cfapi-cf_pin_state.md) of the placeholder. See [CfSetPinState](nf-cfapi-cfsetpinstate.md) for more details.
-     * @type {Integer}
+     * @type {CF_PIN_STATE}
      */
     PinState {
         get => NumGet(this, 32, "int")
@@ -60,7 +60,7 @@ class CF_PLACEHOLDER_STANDARD_INFO extends Win32Struct
 
     /**
      * The [CF_IN_SYNC_STATE](ne-cfapi-cf_in_sync_state.md) of the placeholder. see [CfSetInSyncState](nf-cfapi-cfsetinsyncstate.md) for more details.
-     * @type {Integer}
+     * @type {CF_IN_SYNC_STATE}
      */
     InSyncState {
         get => NumGet(this, 36, "int")
@@ -96,9 +96,9 @@ class CF_PLACEHOLDER_STANDARD_INFO extends Win32Struct
 
     /**
      * An opaque blob supplied by the sync provider to the platform when the placeholder was created. File identity is provided for all sync provider callbacks.
-     * @type {Array<Byte>}
+     * @type {Array<Integer>}
      */
-    FileIdentity{
+    FileIdentity {
         get {
             if(!this.HasProp("__FileIdentityProxyArray"))
                 this.__FileIdentityProxyArray := Win32FixedArray(this.ptr + 60, 1, Primitive, "char")

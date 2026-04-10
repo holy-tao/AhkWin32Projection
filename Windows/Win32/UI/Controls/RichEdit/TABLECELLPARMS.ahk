@@ -5,10 +5,8 @@
  * Defines the attributes of cells in a table row.
  * @see https://learn.microsoft.com/windows/win32/api/richedit/ns-richedit-tablecellparms
  * @namespace Windows.Win32.UI.Controls.RichEdit
- * @version v4.0.30319
  */
-class TABLECELLPARMS extends Win32Struct
-{
+class TABLECELLPARMS extends Win32Struct {
     static sizeof => 40
 
     static packingSize => 4
@@ -40,7 +38,6 @@ class TABLECELLPARMS extends Win32Struct
     }
 
     /**
-     * 
      * @type {Integer}
      */
     nVertAlign {
@@ -49,7 +46,6 @@ class TABLECELLPARMS extends Win32Struct
     }
 
     /**
-     * 
      * @type {Integer}
      */
     fMergeTop {
@@ -58,7 +54,6 @@ class TABLECELLPARMS extends Win32Struct
     }
 
     /**
-     * 
      * @type {Integer}
      */
     fMergePrev {
@@ -67,7 +62,6 @@ class TABLECELLPARMS extends Win32Struct
     }
 
     /**
-     * 
      * @type {Integer}
      */
     fVertical {
@@ -76,7 +70,6 @@ class TABLECELLPARMS extends Win32Struct
     }
 
     /**
-     * 
      * @type {Integer}
      */
     fMergeStart {
@@ -85,7 +78,6 @@ class TABLECELLPARMS extends Win32Struct
     }
 
     /**
-     * 
      * @type {Integer}
      */
     fMergeCont {

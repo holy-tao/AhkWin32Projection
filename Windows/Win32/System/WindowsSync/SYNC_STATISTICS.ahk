@@ -5,9 +5,8 @@
  * Represents types of statistics that convey information about a component.
  * @see https://learn.microsoft.com/windows/win32/api/winsync/ne-winsync-sync_statistics
  * @namespace Windows.Win32.System.WindowsSync
- * @version v4.0.30319
  */
-class SYNC_STATISTICS extends Win32Enum{
+class SYNC_STATISTICS extends Win32Enum {
 
     /**
      * Indicates that the statistic represents the number of ranges that are contained in an <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/winsync/nn-winsync-isyncknowledge">ISyncKnowledge</a> object.

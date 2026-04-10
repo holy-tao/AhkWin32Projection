@@ -4,10 +4,8 @@
 
 /**
  * @namespace Windows.Win32.System.Ioctl
- * @version v4.0.30319
  */
-class STORAGE_HW_ENDURANCE_DATA_DESCRIPTOR extends Win32Struct
-{
+class STORAGE_HW_ENDURANCE_DATA_DESCRIPTOR extends Win32Struct {
     static sizeof => 56
 
     static packingSize => 4
@@ -31,7 +29,7 @@ class STORAGE_HW_ENDURANCE_DATA_DESCRIPTOR extends Win32Struct
     /**
      * @type {STORAGE_HW_ENDURANCE_INFO}
      */
-    EnduranceInfo{
+    EnduranceInfo {
         get {
             if(!this.HasProp("__EnduranceInfo"))
                 this.__EnduranceInfo := STORAGE_HW_ENDURANCE_INFO(8, this)

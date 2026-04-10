@@ -1,16 +1,15 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
-#Include .\IVssEnumObject.ahk
 #Include ..\..\System\Com\IUnknown.ahk
+#Include .\IVssEnumObject.ahk
 
 /**
  * The IVssAdmin interface manages providers registered with VSS.
  * @see https://learn.microsoft.com/windows/win32/api/vsadmin/nn-vsadmin-ivssadmin
  * @namespace Windows.Win32.Storage.Vss
- * @version v4.0.30319
  */
-class IVssAdmin extends IUnknown{
+class IVssAdmin extends IUnknown {
 
     static sizeof => A_PtrSize
     /**
@@ -50,7 +49,7 @@ class IVssAdmin extends IUnknown{
      *      creation.
      * @param {Guid} ClassId The CLSID of the provider.
      * @param {Pointer<Integer>} pwszProviderName The name of the provider.
-     * @param {Integer} eProviderType A 
+     * @param {VSS_PROVIDER_TYPE} eProviderType A 
      *      <a href="https://docs.microsoft.com/windows/desktop/api/vss/ne-vss-vss_provider_type">VSS_PROVIDER_TYPE</a> enumeration value that specifies the provider type. Note that <b>VSS_PROV_HARDWARE</b> is not a valid provider type on Windows client operating system versions. Hardware providers will run only on Windows server operating system versions.
      * @param {Pointer<Integer>} pwszProviderVersion The version of the provider.
      * @param {Guid} ProviderVersionId The <b>VSS_ID</b> that uniquely identifies this version of the  provider. The 

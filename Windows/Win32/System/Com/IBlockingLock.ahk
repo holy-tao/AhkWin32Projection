@@ -7,9 +7,8 @@
  * Provides a semaphore that can be used to provide temporarily exclusive access to a shared resource such as a file.
  * @see https://learn.microsoft.com/windows/win32/api/objidl/nn-objidl-iblockinglock
  * @namespace Windows.Win32.System.Com
- * @version v4.0.30319
  */
-class IBlockingLock extends IUnknown{
+class IBlockingLock extends IUnknown {
 
     static sizeof => A_PtrSize
     /**

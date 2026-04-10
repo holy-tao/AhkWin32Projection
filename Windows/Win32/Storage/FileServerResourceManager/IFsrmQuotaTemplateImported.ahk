@@ -7,9 +7,8 @@
  * Used to modify and save imported quota templates.
  * @see https://learn.microsoft.com/windows/win32/api/fsrmquota/nn-fsrmquota-ifsrmquotatemplateimported
  * @namespace Windows.Win32.Storage.FileServerResourceManager
- * @version v4.0.30319
  */
-class IFsrmQuotaTemplateImported extends IFsrmQuotaTemplate{
+class IFsrmQuotaTemplateImported extends IFsrmQuotaTemplate {
 
     static sizeof => A_PtrSize
     /**

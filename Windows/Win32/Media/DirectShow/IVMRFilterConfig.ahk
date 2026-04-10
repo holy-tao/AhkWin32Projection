@@ -7,9 +7,8 @@
  * The IVMRFilterConfig interface is used to configure the operating mode and video rendering mechanisms of the Video Mixing Renderer Filter 7 (VMR-7).
  * @see https://learn.microsoft.com/windows/win32/api/strmif/nn-strmif-ivmrfilterconfig
  * @namespace Windows.Win32.Media.DirectShow
- * @version v4.0.30319
  */
-class IVMRFilterConfig extends IUnknown{
+class IVMRFilterConfig extends IUnknown {
 
     static sizeof => A_PtrSize
     /**
@@ -189,7 +188,7 @@ class IVMRFilterConfig extends IUnknown{
      * The SetRenderingMode method sets the rendering mode used by the VMR.
      * @remarks
      * The VMR is in <b>VMRMode_Windowed</b> by default. Use this method only if you are putting the VMR into <b>VMRMode_Windowless</b> or <b>VMRMode_Renderless</b> mode. You cannot change the mode after any pin has been connected and you cannot change the mode from windowless or renderless back to windowed, even before any pins are connected. Therefore, specifying <b>VMRMode_Windowed</b> for <i>Mode</i> has no effect under any circumstances.
-     * @param {Integer} _Mode 
+     * @param {Integer} _Mode Specifies the rendering mode as a <a href="https://docs.microsoft.com/windows/desktop/api/strmif/ne-strmif-vmrmode">VMRMode</a> value.
      * @returns {HRESULT} If the method succeeds, it returns S_OK. If it fails, it returns an error code.
      * 
      * <table>

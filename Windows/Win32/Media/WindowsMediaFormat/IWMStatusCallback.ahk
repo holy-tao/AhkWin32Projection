@@ -30,9 +30,8 @@
  * </ul>
  * @see https://learn.microsoft.com/windows/win32/api/wmsdkidl/nn-wmsdkidl-iwmstatuscallback
  * @namespace Windows.Win32.Media.WindowsMediaFormat
- * @version v4.0.30319
  */
-class IWMStatusCallback extends IUnknown{
+class IWMStatusCallback extends IUnknown {
 
     static sizeof => A_PtrSize
     /**
@@ -292,9 +291,9 @@ class IWMStatusCallback extends IUnknown{
      * <td>Sent only when backing up licenses to indicate the licenses are restricted and cannot be backed up.</td>
      * </tr>
      * </table>
-     * @param {Integer} _Status 
+     * @param {WMT_STATUS} _Status One member of the <a href="https://docs.microsoft.com/windows/desktop/api/wmsdkidl/ne-wmsdkidl-wmt_status">WMT_STATUS</a> enumeration type. For a description of possible <b>WMT_STATUS</b> values, see the tables in the Remarks section.
      * @param {HRESULT} hr <b>HRESULT</b> error code. If this indicates failure, you should not process the status as normal, as some error has occurred. Use <c>if (FAILED(hr))</c> to check for a failed value. See the topic <a href="https://docs.microsoft.com/windows/desktop/wmformat/error-codes">Error Codes</a> for a list of possible results.
-     * @param {Integer} dwType Member of the <a href="https://docs.microsoft.com/windows/desktop/api/wmsdkidl/ne-wmsdkidl-wmt_attr_datatype">WMT_ATTR_DATATYPE</a> enumeration type. This value specifies the type of data in the buffer at <i>pValue</i>.
+     * @param {WMT_ATTR_DATATYPE} dwType Member of the <a href="https://docs.microsoft.com/windows/desktop/api/wmsdkidl/ne-wmsdkidl-wmt_attr_datatype">WMT_ATTR_DATATYPE</a> enumeration type. This value specifies the type of data in the buffer at <i>pValue</i>.
      * @param {Pointer<Integer>} pValue Pointer to a byte array containing the value. The contents of this array depend on the value of <i>Status</i> and the value of <i>dwType</i>.
      * @param {Pointer<Void>} pvContext Generic pointer provided by the application, for its own use. This pointer matches the context pointer given to the <a href="https://docs.microsoft.com/windows/desktop/api/wmsdkidl/nf-wmsdkidl-iwmreader-open">IWMReader::Open</a>, <a href="https://docs.microsoft.com/windows/desktop/api/wmsdkidl/nf-wmsdkidl-iwmindexer-startindexing">IWMIndexer::StartIndexing</a>, and other methods. The SDK makes no assumptions about the use of this pointer; it is simply provided by the application and passed back to the application when a callback is made.
      * @returns {HRESULT} This method is implemented by the application. It should always return S_OK.

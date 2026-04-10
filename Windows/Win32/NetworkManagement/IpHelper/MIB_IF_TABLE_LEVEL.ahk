@@ -9,9 +9,8 @@
  *     of interface information to retrieve.
  * @see https://learn.microsoft.com/windows/win32/api/netioapi/ne-netioapi-mib_if_table_level
  * @namespace Windows.Win32.NetworkManagement.IpHelper
- * @version v4.0.30319
  */
-class MIB_IF_TABLE_LEVEL extends Win32Enum{
+class MIB_IF_TABLE_LEVEL extends Win32Enum {
 
     /**
      * The values of statistics and state that are returned in members of the 

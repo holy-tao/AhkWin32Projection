@@ -1,14 +1,13 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
+#Include Common\ITEMIDLIST.ahk
 
 /**
  * Contains and receives information for change notifications. This structure is used with the SHChangeNotifyRegister function and the SFVM_QUERYFSNOTIFY notification.
  * @see https://learn.microsoft.com/windows/win32/api/shlobj_core/ns-shlobj_core-shchangenotifyentry
  * @namespace Windows.Win32.UI.Shell
- * @version v4.0.30319
  */
-class SHChangeNotifyEntry extends Win32Struct
-{
+class SHChangeNotifyEntry extends Win32Struct {
     static sizeof => 16
 
     static packingSize => 8

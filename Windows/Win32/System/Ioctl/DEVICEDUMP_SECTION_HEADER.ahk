@@ -3,16 +3,14 @@
 
 /**
  * @namespace Windows.Win32.System.Ioctl
- * @version v4.0.30319
  */
-class DEVICEDUMP_SECTION_HEADER extends Win32Struct
-{
+class DEVICEDUMP_SECTION_HEADER extends Win32Struct {
     static sizeof => 240
 
     static packingSize => 8
 
     /**
-     * @type {Pointer<Guid>}
+     * @type {Pointer}
      */
     guidDeviceDataId {
         get => NumGet(this, 0, "ptr")
@@ -20,9 +18,9 @@ class DEVICEDUMP_SECTION_HEADER extends Win32Struct
     }
 
     /**
-     * @type {Array<Byte>}
+     * @type {Array<Integer>}
      */
-    sOrganizationID{
+    sOrganizationID {
         get {
             if(!this.HasProp("__sOrganizationIDProxyArray"))
                 this.__sOrganizationIDProxyArray := Win32FixedArray(this.ptr + 8, 16, Primitive, "char")
@@ -39,9 +37,9 @@ class DEVICEDUMP_SECTION_HEADER extends Win32Struct
     }
 
     /**
-     * @type {Array<Byte>}
+     * @type {Array<Integer>}
      */
-    sModelNumber{
+    sModelNumber {
         get {
             if(!this.HasProp("__sModelNumberProxyArray"))
                 this.__sModelNumberProxyArray := Win32FixedArray(this.ptr + 28, 32, Primitive, "char")
@@ -50,9 +48,9 @@ class DEVICEDUMP_SECTION_HEADER extends Win32Struct
     }
 
     /**
-     * @type {Array<Byte>}
+     * @type {Array<Integer>}
      */
-    szDeviceManufacturingID{
+    szDeviceManufacturingID {
         get {
             if(!this.HasProp("__szDeviceManufacturingIDProxyArray"))
                 this.__szDeviceManufacturingIDProxyArray := Win32FixedArray(this.ptr + 60, 32, Primitive, "char")
@@ -85,9 +83,9 @@ class DEVICEDUMP_SECTION_HEADER extends Win32Struct
     }
 
     /**
-     * @type {Array<Byte>}
+     * @type {Array<Integer>}
      */
-    szIssueDescriptionString{
+    szIssueDescriptionString {
         get {
             if(!this.HasProp("__szIssueDescriptionStringProxyArray"))
                 this.__szIssueDescriptionStringProxyArray := Win32FixedArray(this.ptr + 104, 132, Primitive, "char")

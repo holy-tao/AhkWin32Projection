@@ -1,7 +1,7 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\..\Guid.ahk
-#Include ..\..\..\Foundation\BSTR.ahk
+#Include ..\..\..\System\Com\IDispatch.ahk
 #Include ..\..\..\Foundation\HWND.ahk
 #Include .\IMSVidInputDevices.ahk
 #Include .\IMSVidOutputDevices.ahk
@@ -11,7 +11,6 @@
 #Include .\IMSVidInputDevice.ahk
 #Include .\IMSVidVideoRenderer.ahk
 #Include .\IMSVidAudioRenderer.ahk
-#Include ..\..\..\System\Com\IDispatch.ahk
 
 /**
  * The IMSVidCtl interface is the main interface for the Video Control.
@@ -19,9 +18,8 @@
  * To declare the interface identifier (IID) for this interface, use the <b>__uuidof</b> operator: <c>__uuidof(IMSVidCtl)</c>.
  * @see https://learn.microsoft.com/windows/win32/api/msvidctl/nn-msvidctl-imsvidctl
  * @namespace Windows.Win32.Media.DirectShow.Tv
- * @version v4.0.30319
  */
-class IMSVidCtl extends IDispatch{
+class IMSVidCtl extends IDispatch {
 
     static sizeof => A_PtrSize
     /**
@@ -88,7 +86,7 @@ class IMSVidCtl extends IDispatch{
     }
 
     /**
-     * @type {Integer} 
+     * @type {DisplaySizeList} 
      */
     DisplaySize {
         get => this.get_DisplaySize()
@@ -173,7 +171,7 @@ class IMSVidCtl extends IDispatch{
     }
 
     /**
-     * @type {Integer} 
+     * @type {MSVidCtlStateList} 
      */
     State {
         get => this.get_State()
@@ -292,7 +290,7 @@ class IMSVidCtl extends IDispatch{
      * The get_DisplaySize method retrieves the display size.
      * @remarks
      * The display size has no effect if the <b>AutoSize</b> property is false.
-     * @returns {Integer} Receives a member of the <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/msvidctl/ne-msvidctl-displaysizelist">DisplaySizeList</a> enumeration.
+     * @returns {DisplaySizeList} Receives a member of the <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/msvidctl/ne-msvidctl-displaysizelist">DisplaySizeList</a> enumeration.
      * @see https://learn.microsoft.com/windows/win32/api/msvidctl/nf-msvidctl-imsvidctl-get_displaysize
      */
     get_DisplaySize() {
@@ -304,7 +302,7 @@ class IMSVidCtl extends IDispatch{
      * The put_DisplaySize method specifies the display size.
      * @remarks
      * Setting this property has no effect if the <b>AutoSize</b> property is false.
-     * @param {Integer} NewValue Specifies the display size as a member of the <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/msvidctl/ne-msvidctl-displaysizelist">DisplaySizeList</a> enumeration.
+     * @param {DisplaySizeList} NewValue Specifies the display size as a member of the <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/msvidctl/ne-msvidctl-displaysizelist">DisplaySizeList</a> enumeration.
      * @returns {HRESULT} If the method succeeds, it returns S_OK. If it fails, it returns an error code.
      * @see https://learn.microsoft.com/windows/win32/api/msvidctl/nf-msvidctl-imsvidctl-put_displaysize
      */
@@ -594,7 +592,7 @@ class IMSVidCtl extends IDispatch{
 
     /**
      * The get_State method retrieves the state of the filter graph.
-     * @returns {Integer} Receives a member of the <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/msvidctl/ne-msvidctl-msvidctlstatelist">MSVidCtlStateList</a> enumeration.
+     * @returns {MSVidCtlStateList} Receives a member of the <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/msvidctl/ne-msvidctl-msvidctlstatelist">MSVidCtlStateList</a> enumeration.
      * @see https://learn.microsoft.com/windows/win32/api/msvidctl/nf-msvidctl-imsvidctl-get_state
      */
     get_State() {

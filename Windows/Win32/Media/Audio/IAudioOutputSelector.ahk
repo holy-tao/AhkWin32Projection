@@ -7,9 +7,8 @@
  * The IAudioOutputSelector interface provides access to a hardware demultiplexer control (output selector).
  * @see https://learn.microsoft.com/windows/win32/api/devicetopology/nn-devicetopology-iaudiooutputselector
  * @namespace Windows.Win32.Media.Audio
- * @version v4.0.30319
  */
-class IAudioOutputSelector extends IUnknown{
+class IAudioOutputSelector extends IUnknown {
 
     static sizeof => A_PtrSize
     /**

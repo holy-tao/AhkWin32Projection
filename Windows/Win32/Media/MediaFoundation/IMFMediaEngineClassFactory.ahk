@@ -1,10 +1,10 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
+#Include ..\..\System\Com\IUnknown.ahk
 #Include .\IMFMediaEngine.ahk
 #Include .\IMFMediaTimeRange.ahk
 #Include .\IMFMediaError.ahk
-#Include ..\..\System\Com\IUnknown.ahk
 
 /**
  * Creates an instance of the Media Engine.
@@ -14,9 +14,8 @@
  * To get a pointer to this interface, call <a href="https://docs.microsoft.com/windows/desktop/api/combaseapi/nf-combaseapi-cocreateinstance">CoCreateInstance</a>. The class identifier is <b>CLSID_MFMediaEngineClassFactory</b>.
  * @see https://learn.microsoft.com/windows/win32/api/mfmediaengine/nn-mfmediaengine-imfmediaengineclassfactory
  * @namespace Windows.Win32.Media.MediaFoundation
- * @version v4.0.30319
  */
-class IMFMediaEngineClassFactory extends IUnknown{
+class IMFMediaEngineClassFactory extends IUnknown {
 
     static sizeof => A_PtrSize
     /**

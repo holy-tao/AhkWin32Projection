@@ -6,10 +6,8 @@
  * Contains data encoded in the PKCS
  * @see https://learn.microsoft.com/windows/win32/api/wincrypt/ns-wincrypt-crypt_content_info
  * @namespace Windows.Win32.Security.Cryptography
- * @version v4.0.30319
  */
-class CRYPT_CONTENT_INFO extends Win32Struct
-{
+class CRYPT_CONTENT_INFO extends Win32Struct {
     static sizeof => 24
 
     static packingSize => 8
@@ -27,7 +25,7 @@ class CRYPT_CONTENT_INFO extends Win32Struct
      * The data encoded in the PKCS #7 ContentInfo data format.
      * @type {CRYPT_INTEGER_BLOB}
      */
-    Content{
+    Content {
         get {
             if(!this.HasProp("__Content"))
                 this.__Content := CRYPT_INTEGER_BLOB(8, this)

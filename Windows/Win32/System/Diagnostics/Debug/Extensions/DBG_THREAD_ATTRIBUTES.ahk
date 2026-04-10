@@ -3,11 +3,9 @@
 
 /**
  * @namespace Windows.Win32.System.Diagnostics.Debug.Extensions
- * @version v4.0.30319
  */
-class DBG_THREAD_ATTRIBUTES extends Win32Struct
-{
-    static sizeof => 472
+class DBG_THREAD_ATTRIBUTES extends Win32Struct {
+    static sizeof => 272
 
     static packingSize => 8
 
@@ -87,15 +85,15 @@ class DBG_THREAD_ATTRIBUTES extends Win32Struct
      * @type {String}
      */
     StringData {
-        get => StrGet(this.ptr + 68, 99, "UTF-16")
-        set => StrPut(value, this.ptr + 68, 99, "UTF-16")
+        get => StrGet(this.ptr + 68, 99, "UTF-8")
+        set => StrPut(value, this.ptr + 68, 99, "UTF-8")
     }
 
     /**
      * @type {String}
      */
     SymName {
-        get => StrGet(this.ptr + 268, 99, "UTF-16")
-        set => StrPut(value, this.ptr + 268, 99, "UTF-16")
+        get => StrGet(this.ptr + 168, 99, "UTF-8")
+        set => StrPut(value, this.ptr + 168, 99, "UTF-8")
     }
 }

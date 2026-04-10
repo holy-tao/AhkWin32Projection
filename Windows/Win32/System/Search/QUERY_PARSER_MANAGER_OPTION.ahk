@@ -5,9 +5,8 @@
  * Used by IQueryParserManager::SetOption to set parsing options. This can be used to specify schemas and localization options.
  * @see https://learn.microsoft.com/windows/win32/api/structuredquery/ne-structuredquery-query_parser_manager_option
  * @namespace Windows.Win32.System.Search
- * @version v4.0.30319
  */
-class QUERY_PARSER_MANAGER_OPTION extends Win32Enum{
+class QUERY_PARSER_MANAGER_OPTION extends Win32Enum {
 
     /**
      * A <b>VT_LPWSTR</b> containing the name of the file that contains the schema binary. The default value is <b>StructuredQuerySchema.bin</b> for the SystemIndex catalog and <b>StructuredQuerySchemaTrivial.bin</b> for the trivial catalog.

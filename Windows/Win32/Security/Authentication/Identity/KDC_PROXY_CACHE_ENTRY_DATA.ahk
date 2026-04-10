@@ -5,10 +5,8 @@
 
 /**
  * @namespace Windows.Win32.Security.Authentication.Identity
- * @version v4.0.30319
  */
-class KDC_PROXY_CACHE_ENTRY_DATA extends Win32Struct
-{
+class KDC_PROXY_CACHE_ENTRY_DATA extends Win32Struct {
     static sizeof => 112
 
     static packingSize => 8
@@ -24,7 +22,7 @@ class KDC_PROXY_CACHE_ENTRY_DATA extends Win32Struct
     /**
      * @type {LSA_UNICODE_STRING}
      */
-    DomainName{
+    DomainName {
         get {
             if(!this.HasProp("__DomainName"))
                 this.__DomainName := LSA_UNICODE_STRING(8, this)
@@ -35,7 +33,7 @@ class KDC_PROXY_CACHE_ENTRY_DATA extends Win32Struct
     /**
      * @type {LSA_UNICODE_STRING}
      */
-    ProxyServerName{
+    ProxyServerName {
         get {
             if(!this.HasProp("__ProxyServerName"))
                 this.__ProxyServerName := LSA_UNICODE_STRING(24, this)
@@ -46,7 +44,7 @@ class KDC_PROXY_CACHE_ENTRY_DATA extends Win32Struct
     /**
      * @type {LSA_UNICODE_STRING}
      */
-    ProxyServerVdir{
+    ProxyServerVdir {
         get {
             if(!this.HasProp("__ProxyServerVdir"))
                 this.__ProxyServerVdir := LSA_UNICODE_STRING(40, this)
@@ -65,7 +63,7 @@ class KDC_PROXY_CACHE_ENTRY_DATA extends Win32Struct
     /**
      * @type {LUID}
      */
-    LogonId{
+    LogonId {
         get {
             if(!this.HasProp("__LogonId"))
                 this.__LogonId := LUID(60, this)
@@ -76,7 +74,7 @@ class KDC_PROXY_CACHE_ENTRY_DATA extends Win32Struct
     /**
      * @type {LSA_UNICODE_STRING}
      */
-    CredUserName{
+    CredUserName {
         get {
             if(!this.HasProp("__CredUserName"))
                 this.__CredUserName := LSA_UNICODE_STRING(72, this)
@@ -87,7 +85,7 @@ class KDC_PROXY_CACHE_ENTRY_DATA extends Win32Struct
     /**
      * @type {LSA_UNICODE_STRING}
      */
-    CredDomainName{
+    CredDomainName {
         get {
             if(!this.HasProp("__CredDomainName"))
                 this.__CredDomainName := LSA_UNICODE_STRING(88, this)

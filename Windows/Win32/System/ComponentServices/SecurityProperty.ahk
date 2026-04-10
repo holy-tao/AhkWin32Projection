@@ -1,16 +1,15 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
-#Include ..\..\Foundation\BSTR.ahk
 #Include ..\Com\IDispatch.ahk
+#Include ..\..\Foundation\BSTR.ahk
 
 /**
  * Retrieves information about the current object's original caller and direct caller.
  * @see https://learn.microsoft.com/windows/win32/api/comsvcs/nn-comsvcs-securityproperty
  * @namespace Windows.Win32.System.ComponentServices
- * @version v4.0.30319
  */
-class SecurityProperty extends IDispatch{
+class SecurityProperty extends IDispatch {
 
     static sizeof => A_PtrSize
     /**

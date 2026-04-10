@@ -3,9 +3,8 @@
 
 /**
  * @namespace Windows.Win32.Media.Speech
- * @version v4.0.30319
  */
-class DISPID_SpeechLexiconPronunciation extends Win32Enum{
+class DISPID_SpeechLexiconPronunciation extends Win32Enum {
 
     /**
      * @type {Integer (Int32)}

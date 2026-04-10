@@ -7,9 +7,8 @@
  * Represents a physical bitmap that can be associated with a visual for composition in a visual tree. This interface can also be used to update the bitmap contents.
  * @see https://learn.microsoft.com/windows/win32/api/dcomp/nn-dcomp-idcompositionsurface
  * @namespace Windows.Win32.Graphics.DirectComposition
- * @version v4.0.30319
  */
-class IDCompositionSurface extends IUnknown{
+class IDCompositionSurface extends IUnknown {
 
     static sizeof => A_PtrSize
     /**

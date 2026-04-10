@@ -1,12 +1,13 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
+#Include ..\..\..\Win32\Graphics\DirectDraw\DD_DIRECTDRAW_GLOBAL.ahk
+#Include ..\..\..\Win32\Graphics\DirectDraw\DD_DIRECTDRAW_LOCAL.ahk
+#Include ..\..\..\Win32\Graphics\DirectDraw\DD_SURFACE_LOCAL.ahk
 
 /**
  * @namespace Windows.Wdk.Graphics.Direct3D
- * @version v4.0.30319
  */
-class D3DNTHAL_CONTEXTCREATEDATA extends Win32Struct
-{
+class D3DNTHAL_CONTEXTCREATEDATA extends Win32Struct {
     static sizeof => 48
 
     static packingSize => 8

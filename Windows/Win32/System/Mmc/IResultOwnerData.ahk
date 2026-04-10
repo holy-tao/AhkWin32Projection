@@ -7,9 +7,8 @@
  * The IResultOwnerData interface supports the use of virtual lists, which are list-view controls that have the LVS_OWNERDATA style set.
  * @see https://learn.microsoft.com/windows/win32/api/mmc/nn-mmc-iresultownerdata
  * @namespace Windows.Win32.System.Mmc
- * @version v4.0.30319
  */
-class IResultOwnerData extends IUnknown{
+class IResultOwnerData extends IUnknown {
 
     static sizeof => A_PtrSize
     /**

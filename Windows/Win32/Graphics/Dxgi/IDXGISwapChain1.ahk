@@ -1,12 +1,12 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
+#Include .\IDXGISwapChain.ahk
 #Include .\DXGI_SWAP_CHAIN_DESC1.ahk
 #Include .\DXGI_SWAP_CHAIN_FULLSCREEN_DESC.ahk
 #Include ..\..\Foundation\HWND.ahk
 #Include .\IDXGIOutput.ahk
 #Include .\DXGI_RGBA.ahk
-#Include .\IDXGISwapChain.ahk
 
 /**
  * Provides presentation capabilities that are enhanced from IDXGISwapChain. These presentation capabilities consist of specifying dirty rectangles and scroll rectangle to optimize the presentation.
@@ -21,9 +21,8 @@
  * <div> </div>
  * @see https://learn.microsoft.com/windows/win32/api/dxgi1_2/nn-dxgi1_2-idxgiswapchain1
  * @namespace Windows.Win32.Graphics.Dxgi
- * @version v4.0.30319
  */
-class IDXGISwapChain1 extends IDXGISwapChain{
+class IDXGISwapChain1 extends IDXGISwapChain {
 
     static sizeof => A_PtrSize
     /**
@@ -135,7 +134,7 @@ class IDXGISwapChain1 extends IDXGISwapChain{
      * For an example that shows how sync-interval values affect a flip presentation queue, see Remarks.
      * 
      * If the update region straddles more than one output (each represented by <a href="https://docs.microsoft.com/windows/desktop/api/dxgi1_2/nn-dxgi1_2-idxgioutput1">IDXGIOutput1</a>), <b>Present1</b> performs the synchronization to the output that contains the largest sub-rectangle of the target window's client area.
-     * @param {Integer} PresentFlags An integer value that contains swap-chain presentation options. These options are defined by the <a href="https://docs.microsoft.com/windows/desktop/direct3ddxgi/dxgi-present">DXGI_PRESENT</a> constants.
+     * @param {DXGI_PRESENT} PresentFlags An integer value that contains swap-chain presentation options. These options are defined by the <a href="https://docs.microsoft.com/windows/desktop/direct3ddxgi/dxgi-present">DXGI_PRESENT</a> constants.
      * @param {Pointer<DXGI_PRESENT_PARAMETERS>} pPresentParameters A pointer to a <a href="https://docs.microsoft.com/windows/desktop/api/dxgi1_2/ns-dxgi1_2-dxgi_present_parameters">DXGI_PRESENT_PARAMETERS</a> structure that describes updated rectangles and scroll information of the frame to present.
      * @returns {HRESULT} Possible return values include: S_OK, <a href="https://docs.microsoft.com/windows/desktop/direct3ddxgi/dxgi-error">DXGI_ERROR_DEVICE_REMOVED</a> , <a href="https://docs.microsoft.com/windows/desktop/direct3ddxgi/dxgi-status">DXGI_STATUS_OCCLUDED</a>, <a href="https://docs.microsoft.com/windows/desktop/direct3ddxgi/dxgi-error">DXGI_ERROR_INVALID_CALL</a>, or E_OUTOFMEMORY.
      * @see https://learn.microsoft.com/windows/win32/api/dxgi1_2/nf-dxgi1_2-idxgiswapchain1-present1
@@ -222,7 +221,7 @@ class IDXGISwapChain1 extends IDXGISwapChain{
      * You can only use <b>SetRotation</b> to rotate the back buffers for flip-model swap chains that you present in windowed mode. 
      * 
      * <b>SetRotation</b> isn't supported for rotating the back buffers for flip-model swap chains that you present in full-screen mode. In this situation, <b>SetRotation</b> doesn't fail, but you must ensure that you specify no rotation (<a href="https://docs.microsoft.com/previous-versions/windows/desktop/legacy/bb173065(v=vs.85)">DXGI_MODE_ROTATION_IDENTITY</a>) for the swap chain. Otherwise, when you call <a href="https://docs.microsoft.com/windows/desktop/api/dxgi1_2/nf-dxgi1_2-idxgiswapchain1-present1">IDXGISwapChain1::Present1</a> or <a href="https://docs.microsoft.com/windows/desktop/api/dxgi/nf-dxgi-idxgiswapchain-present">IDXGISwapChain::Present</a> to present a frame,  the presentation fails.
-     * @param {Integer} Rotation A <a href="https://docs.microsoft.com/previous-versions/windows/desktop/legacy/bb173065(v=vs.85)">DXGI_MODE_ROTATION</a>-typed value that specifies how to set the rotation of the back buffers for the swap chain.
+     * @param {DXGI_MODE_ROTATION} Rotation A <a href="https://docs.microsoft.com/previous-versions/windows/desktop/legacy/bb173065(v=vs.85)">DXGI_MODE_ROTATION</a>-typed value that specifies how to set the rotation of the back buffers for the swap chain.
      * @returns {HRESULT} <b>SetRotation</b> returns:
      *         <ul>
      * <li>S_OK if it successfully set the rotation.</li>
@@ -241,7 +240,7 @@ class IDXGISwapChain1 extends IDXGISwapChain{
 
     /**
      * Gets the rotation of the back buffers for the swap chain.
-     * @returns {Integer} A pointer to a variable that receives a <a href="https://docs.microsoft.com/previous-versions/windows/desktop/legacy/bb173065(v=vs.85)">DXGI_MODE_ROTATION</a>-typed value that specifies the rotation of the back buffers for the swap chain.
+     * @returns {DXGI_MODE_ROTATION} A pointer to a variable that receives a <a href="https://docs.microsoft.com/previous-versions/windows/desktop/legacy/bb173065(v=vs.85)">DXGI_MODE_ROTATION</a>-typed value that specifies the rotation of the back buffers for the swap chain.
      * @see https://learn.microsoft.com/windows/win32/api/dxgi1_2/nf-dxgi1_2-idxgiswapchain1-getrotation
      */
     GetRotation() {

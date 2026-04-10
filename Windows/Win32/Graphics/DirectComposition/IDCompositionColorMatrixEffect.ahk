@@ -7,9 +7,8 @@
  * The color matrix effect alters the RGBA values of a bitmap.
  * @see https://learn.microsoft.com/windows/win32/api/dcomp/nn-dcomp-idcompositioncolormatrixeffect
  * @namespace Windows.Win32.Graphics.DirectComposition
- * @version v4.0.30319
  */
-class IDCompositionColorMatrixEffect extends IDCompositionFilterEffect{
+class IDCompositionColorMatrixEffect extends IDCompositionFilterEffect {
 
     static sizeof => A_PtrSize
     /**
@@ -32,7 +31,12 @@ class IDCompositionColorMatrixEffect extends IDCompositionFilterEffect{
 
     /**
      * Sets the matrix used by the effect to multiply the RGBA values of the image.
-     * @param {Pointer<D2D_MATRIX_5X4_F>} _matrix 
+     * @param {Pointer<D2D_MATRIX_5X4_F>} _matrix Type: <b>const <a href="https://docs.microsoft.com/windows/desktop/Direct2D/d2d1-matrix-5x4-f">D2D1_MATRIX_5X4_F</a></b>
+     * 
+     * The matrix used by the effect to multiply the RGBA values of the image. The matrix is column major and is applied as shown in the following equation:
+     *           
+     * 
+     * <img alt="Matrix equation" src="./images/color_matrix_formula.png"/>
      * @returns {HRESULT} Type: <b><a href="https://docs.microsoft.com/windows/win32/com/structure-of-com-error-codes">HRESULT</a></b>
      * 
      * If this method succeeds, it returns <b>S_OK</b>. Otherwise, it returns an <b>HRESULT</b> error code.
@@ -48,7 +52,9 @@ class IDCompositionColorMatrixEffect extends IDCompositionFilterEffect{
      * @param {Integer} row Type: <b>int</b>
      * 
      * The row of the element.
-     * @param {Integer} _column 
+     * @param {Integer} _column Type: <b>int</b>
+     * 
+     * The column of the element.
      * @param {IDCompositionAnimation} animation 
      * @returns {HRESULT} Type: <b><a href="https://docs.microsoft.com/windows/win32/com/structure-of-com-error-codes">HRESULT</a></b>
      * 
@@ -65,7 +71,9 @@ class IDCompositionColorMatrixEffect extends IDCompositionFilterEffect{
      * @param {Integer} row Type: <b>int</b>
      * 
      * The row of the element.
-     * @param {Integer} _column 
+     * @param {Integer} _column Type: <b>int</b>
+     * 
+     * The column of the element.
      * @param {Float} value Type: <b>float</b>
      * 
      * The new value of the element.
@@ -81,7 +89,9 @@ class IDCompositionColorMatrixEffect extends IDCompositionFilterEffect{
 
     /**
      * Sets the alpha mode of the output for the color matrix effect.
-     * @param {Integer} _mode 
+     * @param {D2D1_COLORMATRIX_ALPHA_MODE} _mode Type: <b><a href="https://docs.microsoft.com/windows/desktop/Direct2D/color-matrix">D2D1_COLORMATRIX_ALPHA_MODE</a></b>
+     * 
+     * The alpha mode of the output for the color matrix effect.
      * @returns {HRESULT} Type: <b><a href="https://docs.microsoft.com/windows/win32/com/structure-of-com-error-codes">HRESULT</a></b>
      * 
      * If this method succeeds, it returns <b>S_OK</b>. Otherwise, it returns an <b>HRESULT</b> error code.

@@ -1,8 +1,8 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
-#Include .\D3D11_AUTHENTICATED_CONFIGURE_OUTPUT.ahk
 #Include .\ID3D11DeviceChild.ahk
+#Include .\D3D11_AUTHENTICATED_CONFIGURE_OUTPUT.ahk
 
 /**
  * Provides the video functionality of a Microsoft Direct3D 11 device. (ID3D11VideoContext)
@@ -38,9 +38,8 @@
  * </ul>
  * @see https://learn.microsoft.com/windows/win32/api/d3d11/nn-d3d11-id3d11videocontext
  * @namespace Windows.Win32.Graphics.Direct3D11
- * @version v4.0.30319
  */
-class ID3D11VideoContext extends ID3D11DeviceChild{
+class ID3D11VideoContext extends ID3D11DeviceChild {
 
     static sizeof => A_PtrSize
     /**
@@ -66,7 +65,7 @@ class ID3D11VideoContext extends ID3D11DeviceChild{
      * @remarks
      * The graphics driver allocates the buffers that are used for decoding. This method locks the Microsoft Direct3Dsurface that contains the buffer. When you are done using the buffer, call <a href="https://docs.microsoft.com/windows/desktop/api/d3d11/nf-d3d11-id3d11videocontext-releasedecoderbuffer">ID3D11VideoContext::ReleaseDecoderBuffer</a> to unlock the surface.
      * @param {ID3D11VideoDecoder} pDecoder A pointer to the <a href="https://docs.microsoft.com/windows/desktop/api/d3d11/nn-d3d11-id3d11videodecoder">ID3D11VideoDecoder</a> interface. To get this pointer, call <a href="https://docs.microsoft.com/windows/desktop/api/d3d11/nf-d3d11-id3d11videodevice-createvideodecoder">ID3D11VideoDevice::CreateVideoDecoder</a>.
-     * @param {Integer} Type The type of buffer to retrieve, specified as a member of the <a href="https://docs.microsoft.com/windows/desktop/api/d3d11/ne-d3d11-d3d11_video_decoder_buffer_type">D3D11_VIDEO_DECODER_BUFFER_TYPE</a> enumeration.
+     * @param {D3D11_VIDEO_DECODER_BUFFER_TYPE} Type The type of buffer to retrieve, specified as a member of the <a href="https://docs.microsoft.com/windows/desktop/api/d3d11/ne-d3d11-d3d11_video_decoder_buffer_type">D3D11_VIDEO_DECODER_BUFFER_TYPE</a> enumeration.
      * @param {Pointer<Integer>} pBufferSize Receives the size of the buffer, in bytes.
      * @param {Pointer<Pointer<Void>>} ppBuffer Receives a pointer to the start of the memory buffer.
      * @returns {HRESULT} If this method succeeds, it returns <b>S_OK</b>. Otherwise, it returns an <b>HRESULT</b> error code.
@@ -83,7 +82,7 @@ class ID3D11VideoContext extends ID3D11DeviceChild{
     /**
      * Releases a buffer that was obtained by calling the ID3D11VideoContext::GetDecoderBuffer method.
      * @param {ID3D11VideoDecoder} pDecoder A pointer to the <a href="https://docs.microsoft.com/windows/desktop/api/d3d11/nn-d3d11-id3d11videodecoder">ID3D11VideoDecoder</a> interface. To get this pointer, call <a href="https://docs.microsoft.com/windows/desktop/api/d3d11/nf-d3d11-id3d11videodevice-createvideodecoder">ID3D11VideoDevice::CreateVideoDecoder</a>.
-     * @param {Integer} Type The type of buffer to release. Specify the same value that was used in the <i>Type</i> parameter of the <a href="https://docs.microsoft.com/windows/desktop/api/d3d11/nf-d3d11-id3d11videocontext-getdecoderbuffer">GetDecoderBuffer</a> method.
+     * @param {D3D11_VIDEO_DECODER_BUFFER_TYPE} Type The type of buffer to release. Specify the same value that was used in the <i>Type</i> parameter of the <a href="https://docs.microsoft.com/windows/desktop/api/d3d11/nf-d3d11-id3d11videocontext-getdecoderbuffer">GetDecoderBuffer</a> method.
      * @returns {HRESULT} If this method succeeds, it returns <b>S_OK</b>. Otherwise, it returns an <b>HRESULT</b> error code.
      * @see https://learn.microsoft.com/windows/win32/api/d3d11/nf-d3d11-id3d11videocontext-releasedecoderbuffer
      */
@@ -111,7 +110,7 @@ class ID3D11VideoContext extends ID3D11DeviceChild{
      * @param {ID3D11VideoDecoder} pDecoder A pointer to the <a href="https://docs.microsoft.com/windows/desktop/api/d3d11/nn-d3d11-id3d11videodecoder">ID3D11VideoDecoder</a> interface. To get this pointer, call <a href="https://docs.microsoft.com/windows/desktop/api/d3d11/nf-d3d11-id3d11videodevice-createvideodecoder">ID3D11VideoDevice::CreateVideoDecoder</a>.
      * @param {ID3D11VideoDecoderOutputView} pView A pointer to the <a href="https://docs.microsoft.com/windows/desktop/api/d3d11/nn-d3d11-id3d11videodecoderoutputview">ID3D11VideoDecoderOutputView</a> interface. This interface describes the resource that will receive the decoded frame. To get this pointer, call <a href="https://docs.microsoft.com/windows/desktop/api/d3d11/nf-d3d11-id3d11videodevice-createvideodecoderoutputview">ID3D11VideoDevice::CreateVideoDecoderOutputView</a>.
      * @param {Integer} ContentKeySize The size of the content key that is specified in <i>pContentKey</i>. If <i>pContentKey</i> is NULL, set <i>ContentKeySize</i> to zero.
-     * @param {Pointer} pContentKey An optional pointer to a content key that was used to encrypt the frame data. If no content key was used, set this parameter to <b>NULL</b>. If the caller provides a content key, the caller must use the session key to encrypt the content key.
+     * @param {Integer} pContentKey An optional pointer to a content key that was used to encrypt the frame data. If no content key was used, set this parameter to <b>NULL</b>. If the caller provides a content key, the caller must use the session key to encrypt the content key.
      * @returns {HRESULT} If this method succeeds, it returns <b>S_OK</b>. Otherwise, it returns an <b>HRESULT</b> error code.  <b>D3DERR_WASSTILLDRAWING</b> or <b>E_PENDING</b> is returned if the hardware is busy, in which case the decoder should try to make the call again.
      * @see https://learn.microsoft.com/windows/win32/api/d3d11/nf-d3d11-id3d11videocontext-decoderbeginframe
      */
@@ -212,7 +211,7 @@ class ID3D11VideoContext extends ID3D11DeviceChild{
      * 
      * The default fill mode is <b>D3D11_VIDEO_PROCESSOR_ALPHA_FILL_MODE_OPAQUE</b>.
      * @param {ID3D11VideoProcessor} pVideoProcessor A pointer to the <a href="https://docs.microsoft.com/windows/desktop/api/d3d11/nn-d3d11-id3d11videoprocessor">ID3D11VideoProcessor</a> interface. To get this pointer, call <a href="https://docs.microsoft.com/windows/desktop/api/d3d11/nf-d3d11-id3d11videodevice-createvideoprocessor">ID3D11VideoDevice::CreateVideoProcessor</a>.
-     * @param {Integer} AlphaFillMode The alpha fill mode, specified as a <a href="https://docs.microsoft.com/windows/desktop/api/d3d11/ne-d3d11-d3d11_video_processor_alpha_fill_mode">D3D11_VIDEO_PROCESSOR_ALPHA_FILL_MODE</a> value.
+     * @param {D3D11_VIDEO_PROCESSOR_ALPHA_FILL_MODE} AlphaFillMode The alpha fill mode, specified as a <a href="https://docs.microsoft.com/windows/desktop/api/d3d11/ne-d3d11-d3d11_video_processor_alpha_fill_mode">D3D11_VIDEO_PROCESSOR_ALPHA_FILL_MODE</a> value.
      * @param {Integer} StreamIndex The zero-based index of an input stream. This parameter is used if <i>AlphaFillMode</i> is <b>D3D11_VIDEO_PROCESSOR_ALPHA_FILL_MODE_SOURCE_STREAM</b>. Otherwise, the parameter is ignored.
      * @returns {String} Nothing - always returns an empty string
      * @see https://learn.microsoft.com/windows/win32/api/d3d11/nf-d3d11-id3d11videocontext-videoprocessorsetoutputalphafillmode
@@ -233,7 +232,7 @@ class ID3D11VideoContext extends ID3D11DeviceChild{
      * To use this feature, the driver must support downsampling, indicated by the <b>D3D11_VIDEO_PROCESSOR_FEATURE_CAPS_CONSTRICTION</b> capability flag. To query for this capability, call <a href="https://docs.microsoft.com/windows/desktop/api/d3d11/nf-d3d11-id3d11videoprocessorenumerator-getvideoprocessorcaps">ID3D11VideoProcessorEnumerator::GetVideoProcessorCaps</a>.
      * @param {ID3D11VideoProcessor} pVideoProcessor A pointer to the <a href="https://docs.microsoft.com/windows/desktop/api/d3d11/nn-d3d11-id3d11videoprocessor">ID3D11VideoProcessor</a> interface. To get this pointer, call <a href="https://docs.microsoft.com/windows/desktop/api/d3d11/nf-d3d11-id3d11videodevice-createvideoprocessor">ID3D11VideoDevice::CreateVideoProcessor</a>.
      * @param {BOOL} Enable If <b>TRUE</b>, downsampling is enabled. Otherwise, downsampling is disabled and the <b>Size</b> member is ignored.
-     * @param {SIZE} _Size 
+     * @param {SIZE} _Size The sampling size.
      * @returns {String} Nothing - always returns an empty string
      * @see https://learn.microsoft.com/windows/win32/api/d3d11/nf-d3d11-id3d11videocontext-videoprocessorsetoutputconstriction
      */
@@ -314,7 +313,7 @@ class ID3D11VideoContext extends ID3D11DeviceChild{
     /**
      * Gets the current alpha fill mode for the video processor.
      * @param {ID3D11VideoProcessor} pVideoProcessor A pointer to the <a href="https://docs.microsoft.com/windows/desktop/api/d3d11/nn-d3d11-id3d11videoprocessor">ID3D11VideoProcessor</a> interface. To get this pointer, call <a href="https://docs.microsoft.com/windows/desktop/api/d3d11/nf-d3d11-id3d11videodevice-createvideoprocessor">ID3D11VideoDevice::CreateVideoProcessor</a>.
-     * @param {Pointer<Integer>} pAlphaFillMode Receives the alpha fill mode, as a <a href="https://docs.microsoft.com/windows/desktop/api/d3d11/ne-d3d11-d3d11_video_processor_alpha_fill_mode">D3D11_VIDEO_PROCESSOR_ALPHA_FILL_MODE</a> value.
+     * @param {Pointer<D3D11_VIDEO_PROCESSOR_ALPHA_FILL_MODE>} pAlphaFillMode Receives the alpha fill mode, as a <a href="https://docs.microsoft.com/windows/desktop/api/d3d11/ne-d3d11-d3d11_video_processor_alpha_fill_mode">D3D11_VIDEO_PROCESSOR_ALPHA_FILL_MODE</a> value.
      * @param {Pointer<Integer>} pStreamIndex If the alpha fill mode is <b>D3D11_VIDEO_PROCESSOR_ALPHA_FILL_MODE_SOURCE_STREAM</b>, this parameter receives the zero-based index of an input stream. The input stream provides the alpha values for the alpha fill.
      * @returns {String} Nothing - always returns an empty string
      * @see https://learn.microsoft.com/windows/win32/api/d3d11/nf-d3d11-id3d11videocontext-videoprocessorgetoutputalphafillmode
@@ -358,7 +357,7 @@ class ID3D11VideoContext extends ID3D11DeviceChild{
      * @param {ID3D11VideoProcessor} pVideoProcessor A pointer to the <a href="https://docs.microsoft.com/windows/desktop/api/d3d11/nn-d3d11-id3d11videoprocessor">ID3D11VideoProcessor</a> interface. To get this pointer, call <a href="https://docs.microsoft.com/windows/desktop/api/d3d11/nf-d3d11-id3d11videodevice-createvideoprocessor">ID3D11VideoDevice::CreateVideoProcessor</a>.
      * @param {Pointer<Guid>} pExtensionGuid A pointer to a GUID that identifies the state. The meaning of this GUID is defined by the graphics driver.
      * @param {Integer} DataSize The size of the <i>pData</i> buffer, in bytes.
-     * @param {Pointer} pData A pointer to a buffer that receives the private state data.
+     * @param {Integer} pData A pointer to a buffer that receives the private state data.
      * @returns {Integer} If this method succeeds, it returns <b>S_OK</b>. Otherwise, it returns an <b>HRESULT</b> error code.
      * @see https://learn.microsoft.com/windows/win32/api/d3d11/nf-d3d11-id3d11videocontext-videoprocessorgetoutputextension
      */
@@ -371,7 +370,7 @@ class ID3D11VideoContext extends ID3D11DeviceChild{
      * Specifies whether an input stream on the video processor contains interlaced or progressive frames.
      * @param {ID3D11VideoProcessor} pVideoProcessor A pointer to the <a href="https://docs.microsoft.com/windows/desktop/api/d3d11/nn-d3d11-id3d11videoprocessor">ID3D11VideoProcessor</a> interface. To get this pointer, call <a href="https://docs.microsoft.com/windows/desktop/api/d3d11/nf-d3d11-id3d11videodevice-createvideoprocessor">ID3D11VideoDevice::CreateVideoProcessor</a>.
      * @param {Integer} StreamIndex The zero-based index of the input stream. To get the maximum number of streams, call <a href="https://docs.microsoft.com/windows/desktop/api/d3d11/nf-d3d11-id3d11videoprocessorenumerator-getvideoprocessorcaps">ID3D11VideoProcessorEnumerator::GetVideoProcessorCaps</a> and check the <b>MaxStreamStates</b> structure member.
-     * @param {Integer} FrameFormat A <a href="https://docs.microsoft.com/windows/desktop/api/d3d11/ne-d3d11-d3d11_video_frame_format">D3D11_VIDEO_FRAME_FORMAT</a> value that specifies the interlacing.
+     * @param {D3D11_VIDEO_FRAME_FORMAT} FrameFormat A <a href="https://docs.microsoft.com/windows/desktop/api/d3d11/ne-d3d11-d3d11_video_frame_format">D3D11_VIDEO_FRAME_FORMAT</a> value that specifies the interlacing.
      * @returns {String} Nothing - always returns an empty string
      * @see https://learn.microsoft.com/windows/win32/api/d3d11/nf-d3d11-id3d11videocontext-videoprocessorsetstreamframeformat
      */
@@ -399,7 +398,7 @@ class ID3D11VideoContext extends ID3D11DeviceChild{
      * Depending on the output rate, the driver might need to convert the frame rate. If so, the value of <i>RepeatFrame</i> controls whether the driver creates interpolated frames or simply repeats input frames.
      * @param {ID3D11VideoProcessor} pVideoProcessor A pointer to the <a href="https://docs.microsoft.com/windows/desktop/api/d3d11/nn-d3d11-id3d11videoprocessor">ID3D11VideoProcessor</a> interface. To get this pointer, call <a href="https://docs.microsoft.com/windows/desktop/api/d3d11/nf-d3d11-id3d11videodevice-createvideoprocessor">ID3D11VideoDevice::CreateVideoProcessor</a>.
      * @param {Integer} StreamIndex The zero-based index of the input stream. To get the maximum number of streams, call <a href="https://docs.microsoft.com/windows/desktop/api/d3d11/nf-d3d11-id3d11videoprocessorenumerator-getvideoprocessorcaps">ID3D11VideoProcessorEnumerator::GetVideoProcessorCaps</a> and check the <b>MaxStreamStates</b> structure member.
-     * @param {Integer} OutputRate The output rate, specified as a <a href="https://docs.microsoft.com/windows/desktop/api/d3d11/ne-d3d11-d3d11_video_processor_output_rate">D3D11_VIDEO_PROCESSOR_OUTPUT_RATE</a> value.
+     * @param {D3D11_VIDEO_PROCESSOR_OUTPUT_RATE} OutputRate The output rate, specified as a <a href="https://docs.microsoft.com/windows/desktop/api/d3d11/ne-d3d11-d3d11_video_processor_output_rate">D3D11_VIDEO_PROCESSOR_OUTPUT_RATE</a> value.
      * @param {BOOL} RepeatFrame Specifies how the driver performs frame-rate conversion, if required.
      * 
      * <table>
@@ -580,7 +579,7 @@ class ID3D11VideoContext extends ID3D11DeviceChild{
      * @param {ID3D11VideoProcessor} pVideoProcessor A pointer to the <a href="https://docs.microsoft.com/windows/desktop/api/d3d11/nn-d3d11-id3d11videoprocessor">ID3D11VideoProcessor</a> interface. To get this pointer, call <a href="https://docs.microsoft.com/windows/desktop/api/d3d11/nf-d3d11-id3d11videodevice-createvideoprocessor">ID3D11VideoDevice::CreateVideoProcessor</a>.
      * @param {Integer} StreamIndex The zero-based index of the input stream. To get the maximum number of streams, call <a href="https://docs.microsoft.com/windows/desktop/api/d3d11/nf-d3d11-id3d11videoprocessorenumerator-getvideoprocessorcaps">ID3D11VideoProcessorEnumerator::GetVideoProcessorCaps</a> and check the <b>MaxStreamStates</b> structure member.
      * @param {BOOL} Enable Specifies whether stereo 3D is enabled for this stream. If the value is <b>FALSE</b>, the remaining parameters of this method are ignored.
-     * @param {Integer} Format Specifies the layout of the two stereo views in memory, as a <a href="https://docs.microsoft.com/windows/desktop/api/d3d11/ne-d3d11-d3d11_video_processor_stereo_format">D3D11_VIDEO_PROCESSOR_STEREO_FORMAT</a> value.
+     * @param {D3D11_VIDEO_PROCESSOR_STEREO_FORMAT} Format Specifies the layout of the two stereo views in memory, as a <a href="https://docs.microsoft.com/windows/desktop/api/d3d11/ne-d3d11-d3d11_video_processor_stereo_format">D3D11_VIDEO_PROCESSOR_STEREO_FORMAT</a> value.
      * @param {BOOL} LeftViewFrame0 If <b>TRUE</b>, frame 0 contains the left view. Otherwise, frame 0 contains the right view. 
      * 
      * This parameter is ignored for the following stereo formats:
@@ -602,7 +601,7 @@ class ID3D11VideoContext extends ID3D11DeviceChild{
      * </ul>
      * </li>
      * </ul>
-     * @param {Integer} FlipMode A flag from the  <a href="https://docs.microsoft.com/windows/desktop/api/d3d11/ne-d3d11-d3d11_video_processor_stereo_flip_mode">D3D11_VIDEO_PROCESSOR_STEREO_FLIP_MODE</a> enumeration, specifying whether one of the views is flipped.
+     * @param {D3D11_VIDEO_PROCESSOR_STEREO_FLIP_MODE} FlipMode A flag from the  <a href="https://docs.microsoft.com/windows/desktop/api/d3d11/ne-d3d11-d3d11_video_processor_stereo_flip_mode">D3D11_VIDEO_PROCESSOR_STEREO_FLIP_MODE</a> enumeration, specifying whether one of the views is flipped.
      * @param {Integer} MonoOffset For <b>D3D11_VIDEO_PROCESSOR_STEREO_FORMAT_MONO_OFFSET</b> format, this parameter specifies how to generate the left and right views:  
      * 
      * <ul>
@@ -635,7 +634,7 @@ class ID3D11VideoContext extends ID3D11DeviceChild{
      * Enables or disables an image filter for an input stream on the video processor.
      * @param {ID3D11VideoProcessor} pVideoProcessor A pointer to the <a href="https://docs.microsoft.com/windows/desktop/api/d3d11/nn-d3d11-id3d11videoprocessor">ID3D11VideoProcessor</a> interface. To get this pointer, call <a href="https://docs.microsoft.com/windows/desktop/api/d3d11/nf-d3d11-id3d11videodevice-createvideoprocessor">ID3D11VideoDevice::CreateVideoProcessor</a>.
      * @param {Integer} StreamIndex The zero-based index of the input stream. To get the maximum number of streams, call <a href="https://docs.microsoft.com/windows/desktop/api/d3d11/nf-d3d11-id3d11videoprocessorenumerator-getvideoprocessorcaps">ID3D11VideoProcessorEnumerator::GetVideoProcessorCaps</a> and check the <b>MaxStreamStates</b> structure member.
-     * @param {Integer} Filter The filter, specified as a <a href="https://docs.microsoft.com/windows/desktop/api/d3d11/ne-d3d11-d3d11_video_processor_filter">D3D11_VIDEO_PROCESSOR_FILTER</a> value.
+     * @param {D3D11_VIDEO_PROCESSOR_FILTER} Filter The filter, specified as a <a href="https://docs.microsoft.com/windows/desktop/api/d3d11/ne-d3d11-d3d11_video_processor_filter">D3D11_VIDEO_PROCESSOR_FILTER</a> value.
      * 
      * To query which filters the driver supports, call <a href="https://docs.microsoft.com/windows/desktop/api/d3d11/nf-d3d11-id3d11videoprocessorenumerator-getvideoprocessorcaps">ID3D11VideoProcessorEnumerator::GetVideoProcessorCaps</a>.
      * @param {BOOL} Enable Specifies whether to enable the filter.
@@ -670,7 +669,7 @@ class ID3D11VideoContext extends ID3D11DeviceChild{
      * Gets the format of an input stream on the video processor.
      * @param {ID3D11VideoProcessor} pVideoProcessor A pointer to the <a href="https://docs.microsoft.com/windows/desktop/api/d3d11/nn-d3d11-id3d11videoprocessor">ID3D11VideoProcessor</a> interface. To get this pointer, call <a href="https://docs.microsoft.com/windows/desktop/api/d3d11/nf-d3d11-id3d11videodevice-createvideoprocessor">ID3D11VideoDevice::CreateVideoProcessor</a>.
      * @param {Integer} StreamIndex The zero-based index of the input stream. To get the maximum number of streams, call <a href="https://docs.microsoft.com/windows/desktop/api/d3d11/nf-d3d11-id3d11videoprocessorenumerator-getvideoprocessorcaps">ID3D11VideoProcessorEnumerator::GetVideoProcessorCaps</a> and check the <b>MaxStreamStates</b> structure member.
-     * @param {Pointer<Integer>} pFrameFormat Receives a <a href="https://docs.microsoft.com/windows/desktop/api/d3d11/ne-d3d11-d3d11_video_frame_format">D3D11_VIDEO_FRAME_FORMAT</a> value that specifies whether the stream contains interlaced or progressive frames.
+     * @param {Pointer<D3D11_VIDEO_FRAME_FORMAT>} pFrameFormat Receives a <a href="https://docs.microsoft.com/windows/desktop/api/d3d11/ne-d3d11-d3d11_video_frame_format">D3D11_VIDEO_FRAME_FORMAT</a> value that specifies whether the stream contains interlaced or progressive frames.
      * @returns {String} Nothing - always returns an empty string
      * @see https://learn.microsoft.com/windows/win32/api/d3d11/nf-d3d11-id3d11videocontext-videoprocessorgetstreamframeformat
      */
@@ -696,7 +695,7 @@ class ID3D11VideoContext extends ID3D11DeviceChild{
      * Gets the rate at which the video processor produces output frames for an input stream.
      * @param {ID3D11VideoProcessor} pVideoProcessor A pointer to the <a href="https://docs.microsoft.com/windows/desktop/api/d3d11/nn-d3d11-id3d11videoprocessor">ID3D11VideoProcessor</a> interface. To get this pointer, call <a href="https://docs.microsoft.com/windows/desktop/api/d3d11/nf-d3d11-id3d11videodevice-createvideoprocessor">ID3D11VideoDevice::CreateVideoProcessor</a>.
      * @param {Integer} StreamIndex The zero-based index of the input stream. To get the maximum number of streams, call <a href="https://docs.microsoft.com/windows/desktop/api/d3d11/nf-d3d11-id3d11videoprocessorenumerator-getvideoprocessorcaps">ID3D11VideoProcessorEnumerator::GetVideoProcessorCaps</a> and check the <b>MaxStreamStates</b> structure member.
-     * @param {Pointer<Integer>} pOutputRate Receives a <a href="https://docs.microsoft.com/windows/desktop/api/d3d11/ne-d3d11-d3d11_video_processor_output_rate">D3D11_VIDEO_PROCESSOR_OUTPUT_RATE</a> value that specifies the output rate.
+     * @param {Pointer<D3D11_VIDEO_PROCESSOR_OUTPUT_RATE>} pOutputRate Receives a <a href="https://docs.microsoft.com/windows/desktop/api/d3d11/ne-d3d11-d3d11_video_processor_output_rate">D3D11_VIDEO_PROCESSOR_OUTPUT_RATE</a> value that specifies the output rate.
      * @param {Pointer<BOOL>} pRepeatFrame Receives a Boolean value that specifies how the driver performs frame-rate conversion, if required.
      * 
      * 
@@ -842,7 +841,7 @@ class ID3D11VideoContext extends ID3D11DeviceChild{
      * @param {ID3D11VideoProcessor} pVideoProcessor A pointer to the <a href="https://docs.microsoft.com/windows/desktop/api/d3d11/nn-d3d11-id3d11videoprocessor">ID3D11VideoProcessor</a> interface. To get this pointer, call <a href="https://docs.microsoft.com/windows/desktop/api/d3d11/nf-d3d11-id3d11videodevice-createvideoprocessor">ID3D11VideoDevice::CreateVideoProcessor</a>.
      * @param {Integer} StreamIndex The zero-based index of the input stream. To get the maximum number of streams, call <a href="https://docs.microsoft.com/windows/desktop/api/d3d11/nf-d3d11-id3d11videoprocessorenumerator-getvideoprocessorcaps">ID3D11VideoProcessorEnumerator::GetVideoProcessorCaps</a> and check the <b>MaxStreamStates</b> structure member.
      * @param {Pointer<BOOL>} pEnable Receives the value <b>TRUE</b> if stereo 3D is enabled for this stream, or <b>FALSE</b> otherwise. If the value is <b>FALSE</b>, ignore the remaining parameters.
-     * @param {Pointer<Integer>} pFormat Receives a <a href="https://docs.microsoft.com/windows/desktop/api/d3d11/ne-d3d11-d3d11_video_processor_stereo_format">D3D11_VIDEO_PROCESSOR_STEREO_FORMAT</a> value that specifies the layout of the two stereo views in memory.
+     * @param {Pointer<D3D11_VIDEO_PROCESSOR_STEREO_FORMAT>} pFormat Receives a <a href="https://docs.microsoft.com/windows/desktop/api/d3d11/ne-d3d11-d3d11_video_processor_stereo_format">D3D11_VIDEO_PROCESSOR_STEREO_FORMAT</a> value that specifies the layout of the two stereo views in memory.
      * @param {Pointer<BOOL>} pLeftViewFrame0 Receives a Boolean value.
      * 
      * <table>
@@ -899,7 +898,7 @@ class ID3D11VideoContext extends ID3D11DeviceChild{
      * </td>
      * </tr>
      * </table>
-     * @param {Pointer<Integer>} pFlipMode Receives a <a href="https://docs.microsoft.com/windows/desktop/api/d3d11/ne-d3d11-d3d11_video_processor_stereo_flip_mode">D3D11_VIDEO_PROCESSOR_STEREO_FLIP_MODE</a> value. This value specifies whether one of the views is flipped.
+     * @param {Pointer<D3D11_VIDEO_PROCESSOR_STEREO_FLIP_MODE>} pFlipMode Receives a <a href="https://docs.microsoft.com/windows/desktop/api/d3d11/ne-d3d11-d3d11_video_processor_stereo_flip_mode">D3D11_VIDEO_PROCESSOR_STEREO_FLIP_MODE</a> value. This value specifies whether one of the views is flipped.
      * @param {Pointer<Integer>} MonoOffset Receives the pixel offset used for <b>D3D11_VIDEO_PROCESSOR_STEREO_FORMAT_MONO_OFFSET</b> format. This parameter is ignored for other stereo formats.
      * @returns {String} Nothing - always returns an empty string
      * @see https://learn.microsoft.com/windows/win32/api/d3d11/nf-d3d11-id3d11videocontext-videoprocessorgetstreamstereoformat
@@ -935,7 +934,7 @@ class ID3D11VideoContext extends ID3D11DeviceChild{
      * Gets the image filter settings for an input stream on the video processor.
      * @param {ID3D11VideoProcessor} pVideoProcessor A pointer to the <a href="https://docs.microsoft.com/windows/desktop/api/d3d11/nn-d3d11-id3d11videoprocessor">ID3D11VideoProcessor</a> interface. To get this pointer, call <a href="https://docs.microsoft.com/windows/desktop/api/d3d11/nf-d3d11-id3d11videodevice-createvideoprocessor">ID3D11VideoDevice::CreateVideoProcessor</a>.
      * @param {Integer} StreamIndex The zero-based index of the input stream. To get the maximum number of streams, call <a href="https://docs.microsoft.com/windows/desktop/api/d3d11/nf-d3d11-id3d11videoprocessorenumerator-getvideoprocessorcaps">ID3D11VideoProcessorEnumerator::GetVideoProcessorCaps</a> and check the <b>MaxStreamStates</b> structure member.
-     * @param {Integer} Filter The filter to query, specified as a <a href="https://docs.microsoft.com/windows/desktop/api/d3d11/ne-d3d11-d3d11_video_processor_filter">D3D11_VIDEO_PROCESSOR_FILTER</a> value.
+     * @param {D3D11_VIDEO_PROCESSOR_FILTER} Filter The filter to query, specified as a <a href="https://docs.microsoft.com/windows/desktop/api/d3d11/ne-d3d11-d3d11_video_processor_filter">D3D11_VIDEO_PROCESSOR_FILTER</a> value.
      * @param {Pointer<BOOL>} pEnabled Receives the value <b>TRUE</b> if the image filter is enabled, or <b>FALSE</b> otherwise.
      * @param {Pointer<Integer>} pLevel Receives the filter level.
      * @returns {String} Nothing - always returns an empty string
@@ -954,7 +953,7 @@ class ID3D11VideoContext extends ID3D11DeviceChild{
      * @param {Integer} StreamIndex The zero-based index of the input stream. To get the maximum number of streams, call <a href="https://docs.microsoft.com/windows/desktop/api/d3d11/nf-d3d11-id3d11videoprocessorenumerator-getvideoprocessorcaps">ID3D11VideoProcessorEnumerator::GetVideoProcessorCaps</a> and check the <b>MaxStreamStates</b> structure member.
      * @param {Pointer<Guid>} pExtensionGuid A pointer to a GUID that identifies the state. The meaning of this GUID is defined by the graphics driver.
      * @param {Integer} DataSize The size of the <i>pData</i> buffer, in bytes.
-     * @param {Pointer} pData A pointer to a buffer that receives the private state data.
+     * @param {Integer} pData A pointer to a buffer that receives the private state data.
      * @returns {Integer} If this method succeeds, it returns <b>S_OK</b>. Otherwise, it returns an <b>HRESULT</b> error code.
      * @see https://learn.microsoft.com/windows/win32/api/d3d11/nf-d3d11-id3d11videocontext-videoprocessorgetstreamextension
      */
@@ -1005,7 +1004,7 @@ class ID3D11VideoContext extends ID3D11DeviceChild{
      * For RSA Encryption Scheme - Optimal Asymmetric Encryption Padding (RSAES-OAEP), the software decoder generates the secret key, encrypts the secret key by using the public key with RSAES-OAEP, and places the cipher text in the <i>pData</i> parameter. The actual size of the buffer for RSAES-OAEP is 256 bytes.
      * @param {ID3D11CryptoSession} pCryptoSession A pointer to the <a href="https://docs.microsoft.com/windows/desktop/api/d3d11/nn-d3d11-id3d11cryptosession">ID3D11CryptoSession</a> interface of the cryptographic session.
      * @param {Integer} DataSize The size of the <i>pData</i> byte array, in bytes.
-     * @param {Pointer} pData A pointer to a byte array that contains the encrypted session key.
+     * @param {Integer} pData A pointer to a byte array that contains the encrypted session key.
      * @returns {HRESULT} If this method succeeds, it returns <b>S_OK</b>. Otherwise, it returns an <b>HRESULT</b> error code.
      * @see https://learn.microsoft.com/windows/win32/api/d3d11/nf-d3d11-id3d11videocontext-negotiatecryptosessionkeyexchange
      */
@@ -1041,7 +1040,7 @@ class ID3D11VideoContext extends ID3D11DeviceChild{
      * @param {ID3D11Texture2D} pSrcSurface A pointer to the <a href="https://docs.microsoft.com/windows/desktop/api/d3d11/nn-d3d11-id3d11texture2d">ID3D11Texture2D</a> interface of the protected surface.
      * @param {ID3D11Texture2D} pDstSurface A pointer to the <a href="https://docs.microsoft.com/windows/desktop/api/d3d11/nn-d3d11-id3d11texture2d">ID3D11Texture2D</a> interface of the surface that receives the encrypted data.
      * @param {Integer} IVSize The size of the <i>pIV</i> buffer, in bytes.
-     * @param {Pointer} pIV A pointer to a buffer that receives the initialization vector (IV). The caller allocates this buffer, but the driver generates the IV. 
+     * @param {Integer} pIV A pointer to a buffer that receives the initialization vector (IV). The caller allocates this buffer, but the driver generates the IV. 
      * 
      * For 128-bit AES-CTR encryption, <i>pIV</i> points to a <a href="https://docs.microsoft.com/windows/desktop/api/d3d11/ns-d3d11-d3d11_aes_ctr_iv">D3D11_AES_CTR_IV</a> structure. When the driver generates the first IV, it initializes the structure to a random number. For each subsequent IV, the driver simply increments the <b>IV</b> member of the structure, ensuring that the value always increases. The application can validate that the same IV is never used more than once with the same key pair.
      * @returns {String} Nothing - always returns an empty string
@@ -1084,11 +1083,11 @@ class ID3D11VideoContext extends ID3D11DeviceChild{
      * To check whether the driver supports partially encrypted buffers, call <a href="https://docs.microsoft.com/windows/desktop/api/d3d11/nf-d3d11-id3d11videodevice-getcontentprotectioncaps">ID3D11VideoDevice::GetContentProtectionCaps</a> and check for the <b>D3D11_CONTENT_PROTECTION_CAPS_PARTIAL_DECRYPTION 
      * </b> capabilities flag. If the driver does not support partially encrypted buffers, set this parameter to <b>NULL</b>.
      * @param {Integer} ContentKeySize The size of the encrypted content key, in bytes.
-     * @param {Pointer} pContentKey A pointer to a buffer that contains a content encryption key, or <b>NULL</b>. To query whether the driver supports the use of content keys, call <a href="https://docs.microsoft.com/windows/desktop/api/d3d11/nf-d3d11-id3d11videodevice-getcontentprotectioncaps">ID3D11VideoDevice::GetContentProtectionCaps</a> and check for the <b>D3D11_CONTENT_PROTECTION_CAPS_CONTENT_KEY</b> capabilities flag. 
+     * @param {Integer} pContentKey A pointer to a buffer that contains a content encryption key, or <b>NULL</b>. To query whether the driver supports the use of content keys, call <a href="https://docs.microsoft.com/windows/desktop/api/d3d11/nf-d3d11-id3d11videodevice-getcontentprotectioncaps">ID3D11VideoDevice::GetContentProtectionCaps</a> and check for the <b>D3D11_CONTENT_PROTECTION_CAPS_CONTENT_KEY</b> capabilities flag. 
      * 
      * If the driver supports content keys, use the content key to encrypt the surface. Encrypt the content key using the session key, and place the  resulting cipher text in <i>pContentKey</i>. If the driver does not support content keys, use the session key to encrypt the surface and set <i>pContentKey</i> to <b>NULL</b>.
      * @param {Integer} IVSize The size of the <i>pIV</i> buffer, in bytes.
-     * @param {Pointer} pIV A pointer to a buffer that contains the initialization vector (IV). 
+     * @param {Integer} pIV A pointer to a buffer that contains the initialization vector (IV). 
      * 
      * For 128-bit AES-CTR encryption, <i>pIV</i> points to a <a href="https://docs.microsoft.com/windows/desktop/api/d3d11/ns-d3d11-d3d11_aes_ctr_iv">D3D11_AES_CTR_IV</a> structure. The caller allocates the structure and generates the IV. When you generate the first IV, initialize the structure to a random number. For each subsequent IV, simply increment the <b>IV</b> member of the structure, ensuring that the value always increases.  This procedure enables the driver to validate that the same IV is never used more than once with the same key pair.
      * 
@@ -1108,7 +1107,7 @@ class ID3D11VideoContext extends ID3D11DeviceChild{
      * To query whether the driver supports this method, call <a href="https://docs.microsoft.com/windows/desktop/api/d3d11/nf-d3d11-id3d11videodevice-getcontentprotectioncaps">ID3D11VideoDevice::GetContentProtectionCaps</a> and check for the <b>D3D11_CONTENT_PROTECTION_CAPS_FRESHEN_SESSION_KEY</b> capabilities flag.
      * @param {ID3D11CryptoSession} pCryptoSession A pointer to the <a href="https://docs.microsoft.com/windows/desktop/api/d3d11/nn-d3d11-id3d11cryptosession">ID3D11CryptoSession</a> interface.
      * @param {Integer} RandomNumberSize The size of the <i>pRandomNumber</i> array, in bytes. The size should match the size of the session key.
-     * @param {Pointer} pRandomNumber A pointer to a byte array that receives a random number.
+     * @param {Integer} pRandomNumber A pointer to a byte array that receives a random number.
      * @returns {String} Nothing - always returns an empty string
      * @see https://learn.microsoft.com/windows/win32/api/d3d11/nf-d3d11-id3d11videocontext-startsessionkeyrefresh
      */
@@ -1142,7 +1141,7 @@ class ID3D11VideoContext extends ID3D11DeviceChild{
      * The read back key is encrypted by the driver/hardware using the session key.
      * @param {ID3D11CryptoSession} pCryptoSession A pointer to the <a href="https://docs.microsoft.com/windows/desktop/api/d3d11/nn-d3d11-id3d11cryptosession">ID3D11CryptoSession</a> interface.
      * @param {Integer} KeySize The size of the <i>pReadbackKey</i> array, in bytes. The size should match the size of the session key.
-     * @param {Pointer} pReadbackKey A pointer to a byte array that receives the key. The key is encrypted using the session key.
+     * @param {Integer} pReadbackKey A pointer to a byte array that receives the key. The key is encrypted using the session key.
      * @returns {HRESULT} If this method succeeds, it returns <b>S_OK</b>. Otherwise, it returns an <b>HRESULT</b> error code.
      * @see https://learn.microsoft.com/windows/win32/api/d3d11/nf-d3d11-id3d11videocontext-getencryptionbltkey
      */
@@ -1157,7 +1156,7 @@ class ID3D11VideoContext extends ID3D11DeviceChild{
      * This method will fail if the channel type is    <a href="https://docs.microsoft.com/windows/desktop/api/d3d11/ne-d3d11-d3d11_authenticated_channel_type">D3D11_AUTHENTICATED_CHANNEL_D3D11</a>, because the Direct3D11 channel does not support authentication.
      * @param {ID3D11AuthenticatedChannel} pChannel A pointer to the <a href="https://docs.microsoft.com/windows/desktop/api/d3d11/nn-d3d11-id3d11authenticatedchannel">ID3D11AuthenticatedChannel</a> interface.  This method will fail if the channel type is    <a href="https://docs.microsoft.com/windows/desktop/api/d3d11/ne-d3d11-d3d11_authenticated_channel_type">D3D11_AUTHENTICATED_CHANNEL_D3D11</a>, because the Direct3D11 channel does not support authentication.
      * @param {Integer} DataSize The size of the data in the <i>pData</i> array, in bytes.
-     * @param {Pointer} pData A pointer to a byte array that contains the encrypted session key. The buffer must contain 256 bytes of data, encrypted using RSA Encryption Scheme - Optimal Asymmetric Encryption Padding (RSAES-OAEP).
+     * @param {Integer} pData A pointer to a byte array that contains the encrypted session key. The buffer must contain 256 bytes of data, encrypted using RSA Encryption Scheme - Optimal Asymmetric Encryption Padding (RSAES-OAEP).
      * @returns {HRESULT} If this method succeeds, it returns <b>S_OK</b>. Otherwise, it returns an <b>HRESULT</b> error code.
      * @see https://learn.microsoft.com/windows/win32/api/d3d11/nf-d3d11-id3d11videocontext-negotiateauthenticatedchannelkeyexchange
      */
@@ -1170,9 +1169,9 @@ class ID3D11VideoContext extends ID3D11DeviceChild{
      * Sends a query to an authenticated channel.
      * @param {ID3D11AuthenticatedChannel} pChannel A pointer to the <a href="https://docs.microsoft.com/windows/desktop/api/d3d11/nn-d3d11-id3d11authenticatedchannel">ID3D11AuthenticatedChannel</a> interface.
      * @param {Integer} InputSize The size of the <i>pInput</i> array, in bytes.
-     * @param {Pointer} pInput A pointer to a byte array that contains input data for the query. This array always starts with a <a href="https://docs.microsoft.com/windows/desktop/api/d3d11/ns-d3d11-d3d11_authenticated_query_input">D3D11_AUTHENTICATED_QUERY_INPUT</a> structure. The <b>QueryType</b> member of the structure specifies the query and defines the meaning of the rest of the array.
+     * @param {Integer} pInput A pointer to a byte array that contains input data for the query. This array always starts with a <a href="https://docs.microsoft.com/windows/desktop/api/d3d11/ns-d3d11-d3d11_authenticated_query_input">D3D11_AUTHENTICATED_QUERY_INPUT</a> structure. The <b>QueryType</b> member of the structure specifies the query and defines the meaning of the rest of the array.
      * @param {Integer} OutputSize The size of the <i>pOutput</i> array, in bytes.
-     * @param {Pointer} pOutput A pointer to a byte array that receives the result of the query. This array always starts with a <a href="https://docs.microsoft.com/windows/desktop/api/d3d11/ns-d3d11-d3d11_authenticated_query_output">D3D11_AUTHENTICATED_QUERY_OUTPUT</a> structure. The meaning of the rest of the array depends on the query.
+     * @param {Integer} pOutput A pointer to a byte array that receives the result of the query. This array always starts with a <a href="https://docs.microsoft.com/windows/desktop/api/d3d11/ns-d3d11-d3d11_authenticated_query_output">D3D11_AUTHENTICATED_QUERY_OUTPUT</a> structure. The meaning of the rest of the array depends on the query.
      * @returns {HRESULT} If this method succeeds, it returns <b>S_OK</b>. Otherwise, it returns an <b>HRESULT</b> error code.
      * @see https://learn.microsoft.com/windows/win32/api/d3d11/nf-d3d11-id3d11videocontext-queryauthenticatedchannel
      */
@@ -1185,7 +1184,7 @@ class ID3D11VideoContext extends ID3D11DeviceChild{
      * Sends a configuration command to an authenticated channel.
      * @param {ID3D11AuthenticatedChannel} pChannel A pointer to the <a href="https://docs.microsoft.com/windows/desktop/api/d3d11/nn-d3d11-id3d11authenticatedchannel">ID3D11AuthenticatedChannel</a> interface.
      * @param {Integer} InputSize The size of the <i>pInput</i> array, in bytes.
-     * @param {Pointer} pInput A pointer to a byte array that contains input data for the command. This buffer always starts with a <a href="https://docs.microsoft.com/windows/desktop/api/d3d11/ns-d3d11-d3d11_authenticated_configure_input">D3D11_AUTHENTICATED_CONFIGURE_INPUT</a> structure. The <b>ConfigureType</b> member of the structure specifies the command and defines the meaning of the rest of the buffer.
+     * @param {Integer} pInput A pointer to a byte array that contains input data for the command. This buffer always starts with a <a href="https://docs.microsoft.com/windows/desktop/api/d3d11/ns-d3d11-d3d11_authenticated_configure_input">D3D11_AUTHENTICATED_CONFIGURE_INPUT</a> structure. The <b>ConfigureType</b> member of the structure specifies the command and defines the meaning of the rest of the buffer.
      * @returns {D3D11_AUTHENTICATED_CONFIGURE_OUTPUT} A pointer to a <a href="https://docs.microsoft.com/windows/desktop/api/d3d11/ns-d3d11-d3d11_authenticated_configure_output">D3D11_AUTHENTICATED_CONFIGURE_OUTPUT</a> structure that receives the response to the command.
      * @see https://learn.microsoft.com/windows/win32/api/d3d11/nf-d3d11-id3d11videocontext-configureauthenticatedchannel
      */
@@ -1204,7 +1203,7 @@ class ID3D11VideoContext extends ID3D11DeviceChild{
      * @param {ID3D11VideoProcessor} pVideoProcessor A pointer to the <a href="https://docs.microsoft.com/windows/desktop/api/d3d11/nn-d3d11-id3d11videoprocessor">ID3D11VideoProcessor</a> interface. To get this pointer, call <a href="https://docs.microsoft.com/windows/desktop/api/d3d11/nf-d3d11-id3d11videodevice-createvideoprocessor">ID3D11VideoDevice::CreateVideoProcessor</a>.
      * @param {Integer} StreamIndex The zero-based index of the input stream. To get the maximum number of streams, call <a href="https://docs.microsoft.com/windows/desktop/api/d3d11/nf-d3d11-id3d11videoprocessorenumerator-getvideoprocessorcaps">ID3D11VideoProcessorEnumerator::GetVideoProcessorCaps</a> and check the <b>MaxStreamStates</b> structure member.
      * @param {BOOL} Enable Specifies if the stream is to be rotated in a clockwise orientation.
-     * @param {Integer} Rotation Specifies the rotation of the stream.
+     * @param {D3D11_VIDEO_PROCESSOR_ROTATION} Rotation Specifies the rotation of the stream.
      * @returns {String} Nothing - always returns an empty string
      * @see https://learn.microsoft.com/windows/win32/api/d3d11/nf-d3d11-id3d11videocontext-videoprocessorsetstreamrotation
      */
@@ -1217,7 +1216,7 @@ class ID3D11VideoContext extends ID3D11DeviceChild{
      * @param {ID3D11VideoProcessor} pVideoProcessor A pointer to the <a href="https://docs.microsoft.com/windows/desktop/api/d3d11/nn-d3d11-id3d11videoprocessor">ID3D11VideoProcessor</a> interface. To get this pointer, call <a href="https://docs.microsoft.com/windows/desktop/api/d3d11/nf-d3d11-id3d11videodevice-createvideoprocessor">ID3D11VideoDevice::CreateVideoProcessor</a>.
      * @param {Integer} StreamIndex The zero-based index of the input stream. To get the maximum number of streams, call <a href="https://docs.microsoft.com/windows/desktop/api/d3d11/nf-d3d11-id3d11videoprocessorenumerator-getvideoprocessorcaps">ID3D11VideoProcessorEnumerator::GetVideoProcessorCaps</a> and check the <b>MaxStreamStates</b> structure member.
      * @param {Pointer<BOOL>} pEnable Specifies if the stream is rotated.
-     * @param {Pointer<Integer>} pRotation Specifies the rotation of the stream in a clockwise orientation.
+     * @param {Pointer<D3D11_VIDEO_PROCESSOR_ROTATION>} pRotation Specifies the rotation of the stream in a clockwise orientation.
      * @returns {String} Nothing - always returns an empty string
      * @see https://learn.microsoft.com/windows/win32/api/d3d11/nf-d3d11-id3d11videocontext-videoprocessorgetstreamrotation
      */

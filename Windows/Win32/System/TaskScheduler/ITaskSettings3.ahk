@@ -1,16 +1,15 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
-#Include .\IMaintenanceSettings.ahk
 #Include .\ITaskSettings.ahk
+#Include .\IMaintenanceSettings.ahk
 
 /**
  * Provides the extended settings that the Task Scheduler uses to run the task. (ITaskSettings3)
  * @see https://learn.microsoft.com/windows/win32/api/taskschd/nn-taskschd-itasksettings3
  * @namespace Windows.Win32.System.TaskScheduler
- * @version v4.0.30319
  */
-class ITaskSettings3 extends ITaskSettings{
+class ITaskSettings3 extends ITaskSettings {
 
     static sizeof => A_PtrSize
     /**
@@ -32,6 +31,7 @@ class ITaskSettings3 extends ITaskSettings{
     static VTableNames => ["get_DisallowStartOnRemoteAppSession", "put_DisallowStartOnRemoteAppSession", "get_UseUnifiedSchedulingEngine", "put_UseUnifiedSchedulingEngine", "get_MaintenanceSettings", "put_MaintenanceSettings", "CreateMaintenanceSettings", "get_Volatile", "put_Volatile"]
 
     /**
+     * @type {VARIANT_BOOL} 
      */
     DisallowStartOnRemoteAppSession {
         get => this.get_DisallowStartOnRemoteAppSession()
@@ -39,6 +39,7 @@ class ITaskSettings3 extends ITaskSettings{
     }
 
     /**
+     * @type {VARIANT_BOOL} 
      */
     UseUnifiedSchedulingEngine {
         get => this.get_UseUnifiedSchedulingEngine()
@@ -54,6 +55,7 @@ class ITaskSettings3 extends ITaskSettings{
     }
 
     /**
+     * @type {VARIANT_BOOL} 
      */
     Volatile {
         get => this.get_Volatile()

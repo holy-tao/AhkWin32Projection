@@ -14,9 +14,8 @@
  * Font weight values less than 1 or greater than 999 are considered invalid, and they are rejected by font API functions.
  * @see https://learn.microsoft.com/windows/win32/api/dwrite/ne-dwrite-dwrite_font_weight
  * @namespace Windows.Win32.Graphics.DirectWrite
- * @version v4.0.30319
  */
-class DWRITE_FONT_WEIGHT extends Win32Enum{
+class DWRITE_FONT_WEIGHT extends Win32Enum {
 
     /**
      * Predefined font weight : Thin (100).

@@ -7,9 +7,8 @@
  * Check out the <a href="https://docs.microsoft.com/windows/win32/search/-search-sample-searchevents">SearchEvents code sample</a>.
  * @see https://learn.microsoft.com/windows/win32/api/searchapi/ne-searchapi-priority_level
  * @namespace Windows.Win32.System.Search
- * @version v4.0.30319
  */
-class PRIORITY_LEVEL extends Win32Enum{
+class PRIORITY_LEVEL extends Win32Enum {
 
     /**
      * Indicates that the indexer should process items as fast as the machine allows.

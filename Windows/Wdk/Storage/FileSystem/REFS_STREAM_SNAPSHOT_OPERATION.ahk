@@ -3,9 +3,8 @@
 
 /**
  * @namespace Windows.Wdk.Storage.FileSystem
- * @version v4.0.30319
  */
-class REFS_STREAM_SNAPSHOT_OPERATION extends Win32Enum{
+class REFS_STREAM_SNAPSHOT_OPERATION extends Win32Enum {
 
     /**
      * @type {Integer (Int32)}

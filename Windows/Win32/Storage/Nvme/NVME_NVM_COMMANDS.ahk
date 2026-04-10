@@ -7,9 +7,8 @@
  * NVM Commands are submitted by the host when the controller is ready as indicated in the [Controller Status](ns-nvme-nvme_controller_status.md) register and after the appropriate I/O Submission Queue(s) and I/O Completion Queue(s) have been created.
  * @see https://learn.microsoft.com/windows/win32/api/nvme/ne-nvme-nvme_nvm_commands
  * @namespace Windows.Win32.Storage.Nvme
- * @version v4.0.30319
  */
-class NVME_NVM_COMMANDS extends Win32Enum{
+class NVME_NVM_COMMANDS extends Win32Enum {
 
     /**
      * The Flush command that commits data and metadata associated with the specified namespace(s) to nonvolatile media. The flush applies to all commands completed prior to the submission of the Flush command. The controller may also flush additional data and/or metadata from any namespace.

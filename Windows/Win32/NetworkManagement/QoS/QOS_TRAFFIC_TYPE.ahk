@@ -13,9 +13,8 @@
  * </ul>
  * @see https://learn.microsoft.com/windows/win32/api/qos2/ne-qos2-qos_traffic_type
  * @namespace Windows.Win32.NetworkManagement.QoS
- * @version v4.0.30319
  */
-class QOS_TRAFFIC_TYPE extends Win32Enum{
+class QOS_TRAFFIC_TYPE extends Win32Enum {
 
     /**
      * Flow traffic has the same network priority as regular traffic not associated with QOS.

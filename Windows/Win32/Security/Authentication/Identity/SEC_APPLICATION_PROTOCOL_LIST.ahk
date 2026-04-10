@@ -1,23 +1,20 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\..\Win32Struct.ahk
+#Include .\SEC_APPLICATION_PROTOCOL_NEGOTIATION_EXT.ahk
 
 /**
  * Stores a list of application protocols.
- * @remarks
- * 
  * @see https://learn.microsoft.com/windows/win32/api/sspi/ns-sspi-sec_application_protocol_list
  * @namespace Windows.Win32.Security.Authentication.Identity
- * @version v4.0.30319
  */
-class SEC_APPLICATION_PROTOCOL_LIST extends Win32Struct
-{
+class SEC_APPLICATION_PROTOCOL_LIST extends Win32Struct {
     static sizeof => 8
 
     static packingSize => 4
 
     /**
      * The protocol negotiation extension type to use with this list of protocols.
-     * @type {Integer}
+     * @type {SEC_APPLICATION_PROTOCOL_NEGOTIATION_EXT}
      */
     ProtoNegoExt {
         get => NumGet(this, 0, "int")
@@ -35,9 +32,9 @@ class SEC_APPLICATION_PROTOCOL_LIST extends Win32Struct
 
     /**
      * A list of 8-bit length-prefixed application protocol IDs, most preferred first.
-     * @type {Array<Byte>}
+     * @type {Array<Integer>}
      */
-    ProtocolList{
+    ProtocolList {
         get {
             if(!this.HasProp("__ProtocolListProxyArray"))
                 this.__ProtocolListProxyArray := Win32FixedArray(this.ptr + 6, 1, Primitive, "char")

@@ -3,9 +3,8 @@
 
 /**
  * @namespace Windows.Win32.UI.TextServices
- * @version v4.0.30319
  */
-class ANCHOR_CHANGE_HISTORY_FLAGS extends Win32BitflagEnum{
+class ANCHOR_CHANGE_HISTORY_FLAGS extends Win32BitflagEnum {
 
     /**
      * @type {Integer (UInt32)}

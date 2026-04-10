@@ -4,7 +4,6 @@
 
 /**
  * @namespace Windows.Win32.Globalization
- * @version v4.0.30319
  */
 class Globalization {
 
@@ -4439,7 +4438,7 @@ class Globalization {
 ;@region Methods
     /**
      * Retrieves a character set identifier for the font that is currently selected into a specified device context.
-     * @param {HDC} _hdc 
+     * @param {HDC} _hdc Handle to a device context. The function obtains a character set identifier for the font that is selected into this device context.
      * @returns {Integer} If successful, returns a value identifying the character set of the font that is currently selected into the specified device context. The following character set identifiers are defined:
      * 
      * If the function fails, it returns DEFAULT_CHARSET.
@@ -4455,7 +4454,7 @@ class Globalization {
 
     /**
      * Retrieves information about the character set of the font that is currently selected into a specified device context.
-     * @param {HDC} _hdc 
+     * @param {HDC} _hdc Handle to a device context. The function obtains information about the font that is selected into this device context.
      * @param {Pointer<FONTSIGNATURE>} lpSig Pointer to a <a href="https://docs.microsoft.com/windows/desktop/api/wingdi/ns-wingdi-fontsignature">FONTSIGNATURE</a> data structure that receives font-signature information.
      * 
      * If a TrueType font is currently selected into the device context, the <a href="https://docs.microsoft.com/windows/desktop/api/wingdi/ns-wingdi-fontsignature">FONTSIGNATURE</a> structure receives information that identifies the code page and Unicode subranges for which the font provides glyphs.
@@ -4481,7 +4480,7 @@ class Globalization {
      * Translates character set information and sets all members of a destination structure to appropriate values.
      * @param {Pointer<Integer>} lpSrc Pointer to the <b>fsCsb</b> member of a <a href="https://docs.microsoft.com/windows/desktop/api/wingdi/ns-wingdi-fontsignature">FONTSIGNATURE</a> structure if <i>dwFlags</i> is set to TCI_SRCFONTSIG. Otherwise, this parameter is set to a DWORD value indicating the source.
      * @param {Pointer<CHARSETINFO>} lpCs Pointer to a <a href="https://docs.microsoft.com/windows/desktop/api/wingdi/ns-wingdi-charsetinfo">CHARSETINFO</a> structure that receives the translated character set information.
-     * @param {Integer} dwFlags 
+     * @param {TRANSLATE_CHARSET_INFO_FLAGS} dwFlags 
      * @returns {BOOL} Returns a nonzero value if successful, or 0 otherwise. To get extended error information, the application can call <a href="https://docs.microsoft.com/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>.
      * @see https://learn.microsoft.com/windows/win32/api/wingdi/nf-wingdi-translatecharsetinfo
      * @since windows5.0
@@ -4888,7 +4887,7 @@ class Globalization {
      * <a href="https://docs.microsoft.com/windows/desktop/Intl/locale-name-constants">LOCALE_NAME_USER_DEFAULT</a>
      * </li>
      * </ul>
-     * @param {Integer} dwFlags 
+     * @param {TIME_FORMAT_FLAGS} dwFlags 
      * @param {Pointer<SYSTEMTIME>} lpTime Pointer to a <a href="https://docs.microsoft.com/windows/desktop/api/minwinbase/ns-minwinbase-systemtime">SYSTEMTIME</a> structure that contains the time information to format. The application can set this parameter to <b>NULL</b> if the function is to use the current local system time.
      * @param {PWSTR} lpFormat Pointer to a format picture to use to format the time string. If the application sets this parameter to <b>NULL</b>, the function formats the string according to the time format of the specified locale. If the application does not set the parameter to <b>NULL</b>, the function uses the locale only for information not specified in the format picture string, for example, the locale-specific time markers. For information about the format picture string, see the Remarks section.
      * @param {PWSTR} lpTimeStr Pointer to a buffer in which this function retrieves the formatted time string.
@@ -4969,7 +4968,7 @@ class Globalization {
      * <a href="https://docs.microsoft.com/windows/desktop/Intl/locale-name-constants">LOCALE_NAME_USER_DEFAULT</a>
      * </li>
      * </ul>
-     * @param {Integer} dwFlags 
+     * @param {ENUM_DATE_FORMATS_FLAGS} dwFlags 
      * @param {Pointer<SYSTEMTIME>} lpDate Pointer to a <a href="https://docs.microsoft.com/windows/desktop/api/minwinbase/ns-minwinbase-systemtime">SYSTEMTIME</a> structure that contains the date information to format. The application can set this parameter to <b>NULL</b> if the function is to use the current local system date.
      * @param {PWSTR} lpFormat Pointer to a format picture string that is used to form the date. Possible values for the format picture string are defined in <a href="https://docs.microsoft.com/windows/desktop/Intl/day--month--year--and-era-format-pictures">Day, Month, Year, and Era Format Pictures</a>.
      * 
@@ -5311,12 +5310,12 @@ class Globalization {
      * <a href="https://docs.microsoft.com/windows/desktop/Intl/locale-name-constants">LOCALE_NAME_USER_DEFAULT</a>
      * </li>
      * </ul>
-     * @param {Integer} dwCmpFlags 
+     * @param {COMPARE_STRING_FLAGS} dwCmpFlags 
      * @param {PWSTR} lpString1 Pointer to the first string to compare.
      * @param {Integer} cchCount1 Length of the string indicated by <i>lpString1</i>, excluding the terminating null character. The application can supply a negative value if the string is null-terminated. In this case, the function determines the length automatically.
      * @param {PWSTR} lpString2 Pointer to the second string to compare.
      * @param {Integer} cchCount2 Length of the string indicated by <i>lpString2</i>, excluding the terminating null character. The application can supply a negative value if the string is null-terminated. In this case, the function determines the length automatically.
-     * @returns {Integer} Returns one of the following values if successful. To maintain the C runtime convention of comparing strings, the value 2 can be subtracted from a nonzero return value. Then, the meaning of &lt;0, ==0, and &gt;0 is consistent with the C runtime.
+     * @returns {COMPARESTRING_RESULT} Returns one of the following values if successful. To maintain the C runtime convention of comparing strings, the value 2 can be subtracted from a nonzero return value. Then, the meaning of &lt;0, ==0, and &gt;0 is consistent with the C runtime.
      * 
      * <ul>
      * <li>CSTR_LESS_THAN. The string indicated by <i>lpString1</i> is less in lexical value than the string indicated by <i>lpString2</i>.</li>
@@ -5363,7 +5362,7 @@ class Globalization {
      * @param {PWSTR} lpString2 Pointer to the second string to compare.
      * @param {Integer} cchCount2 Length of the string indicated by <i>lpString2</i>. The application supplies -1 if the string is null-terminated. In this case, the function determines the length automatically.
      * @param {BOOL} bIgnoreCase <b>TRUE</b> if the function is to perform a case-insensitive comparison, using the operating system uppercase table information. The application sets this parameter to <b>FALSE</b> if the function is to compare the strings exactly as they are passed in. Note that 1 is the only numeric value that can be used to specify a true value for this boolean parameter that does not result an invalid parameter error. Boolean values for this parameter work as expected.
-     * @returns {Integer} Returns one of the following values if successful. To maintain the C runtime convention of comparing strings, the value 2 can be subtracted from a nonzero return value. Then, the meaning of &lt;0, ==0, and &gt;0 is consistent with the C runtime.
+     * @returns {COMPARESTRING_RESULT} Returns one of the following values if successful. To maintain the C runtime convention of comparing strings, the value 2 can be subtracted from a nonzero return value. Then, the meaning of &lt;0, ==0, and &gt;0 is consistent with the C runtime.
      * 
      * <ul>
      * <li>CSTR_LESS_THAN. The value indicated by <i>lpString1</i> is less than the value indicated by <i>lpString2</i>.</li>
@@ -5428,7 +5427,7 @@ class Globalization {
      * @param {Integer} cchCount1 Length of the string indicated by <i>lpString1</i>, excluding the terminating null character. This value represents bytes for the ANSI version of the function and wide characters for the Unicode version. The application can supply a negative value if the string is null-terminated. In this case, the function determines the length automatically.
      * @param {PWSTR} lpString2 Pointer to the second string to compare.
      * @param {Integer} cchCount2 Length of the string indicated by <i>lpString2</i>, excluding the terminating null character. This value represents bytes for the ANSI version of the function and wide characters for the Unicode version. The application can supply a negative value if the string is null-terminated. In this case, the function determines the length automatically.
-     * @returns {Integer} Returns the values described for <a href="https://docs.microsoft.com/windows/desktop/api/stringapiset/nf-stringapiset-comparestringex">CompareStringEx</a>.
+     * @returns {COMPARESTRING_RESULT} Returns the values described for <a href="https://docs.microsoft.com/windows/desktop/api/stringapiset/nf-stringapiset-comparestringex">CompareStringEx</a>.
      * @see https://learn.microsoft.com/windows/win32/api/stringapiset/nf-stringapiset-comparestringw
      * @since windows5.0
      */
@@ -5452,7 +5451,7 @@ class Globalization {
      * <b>Starting with Windows Vista:</b> The transformations indicated by the MAP_FOLDCZONE, MAP_PRECOMPOSED, and MAP_COMPOSITE flags use Unicode normalization forms KC, C, and D (through the <a href="https://docs.microsoft.com/windows/desktop/api/winnls/nf-winnls-normalizestring">NormalizeString</a> function) to do the mappings.
      * 
      * <b>Starting with Windows 8: </b>The ANSI version of the function is declared in Winnls.h and the Unicode version is declared in Stringapiset.h. Before Windows 8, both versions were declared in Winnls.h.
-     * @param {Integer} dwMapFlags 
+     * @param {FOLD_STRING_MAP_FLAGS} dwMapFlags 
      * @param {PWSTR} lpSrcStr Pointer to a source string that the function maps.
      * @param {Integer} cchSrc Size, in characters, of the source string indicated by <i>lpSrcStr</i>, excluding the terminating null character. The application can set the parameter to any negative value to specify that the source string is null-terminated. In this case, the function calculates the string length automatically, and null-terminates the mapped string indicated by <i>lpDestStr</i>.
      * @param {PWSTR} lpDestStr Pointer to a buffer in which this function retrieves the mapped string.
@@ -6033,7 +6032,7 @@ class Globalization {
      * </td>
      * </tr>
      * </table>
-     * @param {Integer} dwFlags 
+     * @param {MULTI_BYTE_TO_WIDE_CHAR_FLAGS} dwFlags 
      * @param {PSTR} lpMultiByteStr Pointer to the character string to convert.
      * @param {Integer} cbMultiByte Size, in bytes, of the string indicated by the <i>lpMultiByteStr</i> parameter. Alternatively, this parameter can be set to -1 if the string is null-terminated. Note that, if <i>cbMultiByte</i> is 0, the function fails.
      * 
@@ -6214,7 +6213,7 @@ class Globalization {
      * If this parameter is -1, the function processes the entire input string, including the terminating null character. Therefore, the resulting character string has a terminating null character, and the length returned by the function includes this character.
      * 
      * If this parameter is set to a positive integer, the function processes exactly the specified number of characters. If the provided size does not include a terminating null character, the resulting character string is not null-terminated, and the returned length does not include this character.
-     * @param {Pointer} lpMultiByteStr Pointer to a buffer that receives the converted string.
+     * @param {Integer} lpMultiByteStr Pointer to a buffer that receives the converted string.
      * @param {Integer} cbMultiByte Size, in bytes, of the buffer indicated by <i>lpMultiByteStr</i>. If this value is 0, the function returns the required buffer size, in bytes, including any terminating null character, and makes no use of the <i>lpMultiByteStr</i> buffer.
      * @param {PSTR} lpDefaultChar Pointer to the character to use if a character cannot be represented in the specified code page. The application sets this parameter to <b>NULL</b> if the function is to use a system default value. To obtain the system default character, the application can call the <a href="https://docs.microsoft.com/windows/desktop/api/winnls/nf-winnls-getcpinfo">GetCPInfo</a> or <a href="https://docs.microsoft.com/windows/desktop/api/winnls/nf-winnls-getcpinfoexa">GetCPInfoEx</a> function.
      * 
@@ -6525,7 +6524,7 @@ class Globalization {
      * @param {Integer} cchCount1 Length of the string indicated by <i>lpString1</i>, excluding the terminating null character. This value represents bytes for the ANSI version of the function and wide characters for the Unicode version. The application can supply a negative value if the string is null-terminated. In this case, the function determines the length automatically.
      * @param {Pointer<Integer>} lpString2 Pointer to the second string to compare.
      * @param {Integer} cchCount2 Length of the string indicated by <i>lpString2</i>, excluding the terminating null character. This value represents bytes for the ANSI version of the function and wide characters for the Unicode version. The application can supply a negative value if the string is null-terminated. In this case, the function determines the length automatically.
-     * @returns {Integer} Returns the values described for <a href="https://docs.microsoft.com/windows/desktop/api/stringapiset/nf-stringapiset-comparestringex">CompareStringEx</a>.
+     * @returns {COMPARESTRING_RESULT} Returns the values described for <a href="https://docs.microsoft.com/windows/desktop/api/stringapiset/nf-stringapiset-comparestringex">CompareStringEx</a>.
      * @see https://learn.microsoft.com/windows/win32/api/winnls/nf-winnls-comparestringa
      * @since windows5.0
      */
@@ -8301,7 +8300,7 @@ class Globalization {
      * <a href="https://docs.microsoft.com/windows/desktop/Intl/locale-user-default">LOCALE_USER_DEFAULT</a>
      * </li>
      * </ul>
-     * @param {Integer} dwFlags 
+     * @param {TIME_FORMAT_FLAGS} dwFlags 
      * @returns {BOOL} Returns a nonzero value if successful, or 0 otherwise. To get extended error information, the application can call <a href="https://docs.microsoft.com/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>, which can return one of the following error codes:
      * 
      * <ul>
@@ -8362,7 +8361,7 @@ class Globalization {
      * <a href="https://docs.microsoft.com/windows/desktop/Intl/locale-user-default">LOCALE_USER_DEFAULT</a>
      * </li>
      * </ul>
-     * @param {Integer} dwFlags 
+     * @param {TIME_FORMAT_FLAGS} dwFlags 
      * @returns {BOOL} Returns a nonzero value if successful, or 0 otherwise. To get extended error information, the application can call <a href="https://docs.microsoft.com/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>, which can return one of the following error codes:
      * 
      * <ul>
@@ -8646,7 +8645,7 @@ class Globalization {
      * 
      * If the LGRPID_SUPPORTED flag is specified and this function returns <b>TRUE</b>, the language group identifier is supported in the release, but not necessarily installed on the operating system.
      * @param {Integer} LanguageGroup 
-     * @param {Integer} dwFlags 
+     * @param {ENUM_SYSTEM_LANGUAGE_GROUPS_FLAGS} dwFlags 
      * @returns {BOOL} Returns <b>TRUE</b> if the language group identifier passes the specified validity test, or <b>FALSE</b> otherwise.
      * @see https://learn.microsoft.com/windows/win32/api/winnls/nf-winnls-isvalidlanguagegroup
      * @since windows5.0
@@ -8748,7 +8747,7 @@ class Globalization {
      * <a href="https://docs.microsoft.com/windows/desktop/Intl/locale-user-default">LOCALE_USER_DEFAULT</a>
      * </li>
      * </ul>
-     * @param {Integer} dwFlags 
+     * @param {IS_VALID_LOCALE_FLAGS} dwFlags 
      * @returns {BOOL} Returns a nonzero value if the locale identifier passes the specified validity test. The function returns 0 if it does not succeed.
      * @see https://learn.microsoft.com/windows/win32/api/winnls/nf-winnls-isvalidlocale
      * @since windows5.0
@@ -8775,8 +8774,8 @@ class Globalization {
      * 
      * > [!NOTE]
      * > The winnls.h header defines GetGeoInfo as an alias which automatically selects the ANSI or Unicode version of this function based on the definition of the UNICODE preprocessor constant. Mixing usage of the encoding-neutral alias with code that not encoding-neutral can lead to mismatches that result in compilation or runtime errors. For more information, see [Conventions for Function Prototypes](/windows/win32/intl/conventions-for-function-prototypes).
-     * @param {Integer} _Location 
-     * @param {Integer} GeoType Type of information to retrieve. Possible values are defined by the <a href="https://docs.microsoft.com/windows/desktop/api/winnls/ne-winnls-sysgeotype">SYSGEOTYPE</a> enumeration. If the value of <i>GeoType</i> is GEO_LCID, the function retrieves a locale identifier. If the value of <i>GeoType</i> is GEO_RFC1766, the function retrieves a string name that is compliant with RFC 4646 (Windows Vista). For more information, see the Remarks section.
+     * @param {Integer} _Location Identifier for the geographical location for which to get information. For more information, see <a href="https://docs.microsoft.com/windows/desktop/Intl/table-of-geographical-locations">Table of Geographical Locations</a>. You can obtain the available values by calling <a href="https://docs.microsoft.com/windows/desktop/api/winnls/nf-winnls-enumsystemgeoid">EnumSystemGeoID</a>.
+     * @param {SYSGEOTYPE} GeoType Type of information to retrieve. Possible values are defined by the <a href="https://docs.microsoft.com/windows/desktop/api/winnls/ne-winnls-sysgeotype">SYSGEOTYPE</a> enumeration. If the value of <i>GeoType</i> is GEO_LCID, the function retrieves a locale identifier. If the value of <i>GeoType</i> is GEO_RFC1766, the function retrieves a string name that is compliant with RFC 4646 (Windows Vista). For more information, see the Remarks section.
      * 
      * <b>Windows XP:</b> When <i>GeoType</i> is set to GEO_LCID, the retrieved string is an 8-digit hexadecimal value.
      * 
@@ -8828,8 +8827,8 @@ class Globalization {
      * 
      * > [!NOTE]
      * > The winnls.h header defines GetGeoInfo as an alias which automatically selects the ANSI or Unicode version of this function based on the definition of the UNICODE preprocessor constant. Mixing usage of the encoding-neutral alias with code that not encoding-neutral can lead to mismatches that result in compilation or runtime errors. For more information, see [Conventions for Function Prototypes](/windows/win32/intl/conventions-for-function-prototypes).
-     * @param {Integer} _Location 
-     * @param {Integer} GeoType Type of information to retrieve. Possible values are defined by the <a href="https://docs.microsoft.com/windows/desktop/api/winnls/ne-winnls-sysgeotype">SYSGEOTYPE</a> enumeration. If the value of <i>GeoType</i> is GEO_LCID, the function retrieves a locale identifier. If the value of <i>GeoType</i> is GEO_RFC1766, the function retrieves a string name that is compliant with RFC 4646 (Windows Vista). For more information, see the Remarks section.
+     * @param {Integer} _Location Identifier for the geographical location for which to get information. For more information, see <a href="https://docs.microsoft.com/windows/desktop/Intl/table-of-geographical-locations">Table of Geographical Locations</a>. You can obtain the available values by calling <a href="https://docs.microsoft.com/windows/desktop/api/winnls/nf-winnls-enumsystemgeoid">EnumSystemGeoID</a>.
+     * @param {SYSGEOTYPE} GeoType Type of information to retrieve. Possible values are defined by the <a href="https://docs.microsoft.com/windows/desktop/api/winnls/ne-winnls-sysgeotype">SYSGEOTYPE</a> enumeration. If the value of <i>GeoType</i> is GEO_LCID, the function retrieves a locale identifier. If the value of <i>GeoType</i> is GEO_RFC1766, the function retrieves a string name that is compliant with RFC 4646 (Windows Vista). For more information, see the Remarks section.
      * 
      * <b>Windows XP:</b> When <i>GeoType</i> is set to GEO_LCID, the retrieved string is an 8-digit hexadecimal value.
      * 
@@ -8868,8 +8867,8 @@ class Globalization {
      * Retrieves information about a geographic location that you specify by using a two-letter International Organization for Standardization (ISO) 3166-1 code or numeric United Nations (UN) Series M, Number 49 (M.49) code.
      * @remarks
      * For information about two-letter ISO 3166-1 codes, see <a href="https://www.iso.org/iso-3166-country-codes.html">Country Codes - ISO 3166</a>.  For information about numeric UN M.49 codes, see <a href="https://unstats.un.org/unsd/methodology/m49/">Standard country or area codes for statistical use (M49)</a>.
-     * @param {PWSTR} _location 
-     * @param {Integer} geoType The type of information you want to retrieve. Possible values are defined by the <a href="https://docs.microsoft.com/windows/desktop/api/winnls/ne-winnls-sysgeotype">SYSGEOTYPE</a> enumeration. The following values of the <b>SYSGEOTYPE</b> enumeration should not be used with <b>GetGeoInfoEx</b>:
+     * @param {PWSTR} _location The two-letter ISO 3166-1 or numeric UN M.49 code for the geographic location for which to get information.  To get the codes that are available on the operating system, call <a href="https://docs.microsoft.com/windows/desktop/api/winnls/nf-winnls-enumsystemgeonames">EnumSystemGeoNames</a>.
+     * @param {SYSGEOTYPE} geoType The type of information you want to retrieve. Possible values are defined by the <a href="https://docs.microsoft.com/windows/desktop/api/winnls/ne-winnls-sysgeotype">SYSGEOTYPE</a> enumeration. The following values of the <b>SYSGEOTYPE</b> enumeration should not be used with <b>GetGeoInfoEx</b>:
      * 
      * <ul>
      * <li>
@@ -9037,7 +9036,7 @@ class Globalization {
 
     /**
      * Retrieves information about the geographical location of the user. For more information, see Table of Geographical Locations.
-     * @param {Integer} GeoClass Geographical location class to return. Possible values are defined by the <a href="https://docs.microsoft.com/windows/desktop/api/winnls/ne-winnls-sysgeoclass">SYSGEOCLASS</a> enumeration.
+     * @param {SYSGEOCLASS} GeoClass Geographical location class to return. Possible values are defined by the <a href="https://docs.microsoft.com/windows/desktop/api/winnls/ne-winnls-sysgeoclass">SYSGEOCLASS</a> enumeration.
      * @returns {Integer} Returns the geographical location identifier of the user if <a href="https://docs.microsoft.com/windows/desktop/api/winnls/nf-winnls-setusergeoid">SetUserGeoID</a> has been called before to set the identifier.
      * 
      * If no geographical location identifier has been set for the user, the function returns GEOID_NOT_AVAILABLE.
@@ -10215,7 +10214,7 @@ class Globalization {
      * </td>
      * <td width="60%">
      * @param {PWSTR} pcwszFilePath Pointer to a null-terminated string indicating the path to the file. Typically the file is either an LN file or a language-specific resource file. If it is not one of these types, the only significant value that the function retrieves is MUI_FILETYPE_NOT_LANGUAGE_NEUTRAL. The function only retrieves this value if the MUI_QUERY_RESOURCE_TYPES flag is set.
-     * @param {Pointer} pFileMUIInfo Pointer to a buffer containing file information in a <a href="https://docs.microsoft.com/windows/desktop/api/winnls/ns-winnls-filemuiinfo">FILEMUIINFO</a> structure and possibly in data following that structure. The information buffer might have to be much larger than the size of the structure itself. Depending on flag settings, the function can store considerable information following the structure, at offsets retrieved in the structure. For more information, see the Remarks section.
+     * @param {Integer} pFileMUIInfo Pointer to a buffer containing file information in a <a href="https://docs.microsoft.com/windows/desktop/api/winnls/ns-winnls-filemuiinfo">FILEMUIINFO</a> structure and possibly in data following that structure. The information buffer might have to be much larger than the size of the structure itself. Depending on flag settings, the function can store considerable information following the structure, at offsets retrieved in the structure. For more information, see the Remarks section.
      * 
      * Alternatively, the application can set this parameter to <b>NULL</b> if <i>pcbFileMUIInfo</i> is set to 0. In this case, the function retrieves the required size for the information buffer in <i>pcbFileMUIInfo</i>.
      * 
@@ -10854,7 +10853,7 @@ class Globalization {
      * <b>Starting with Windows Vista:</b> The transformations indicated by the MAP_FOLDCZONE, MAP_PRECOMPOSED, and MAP_COMPOSITE flags use Unicode normalization forms KC, C, and D (through the <a href="https://docs.microsoft.com/windows/desktop/api/winnls/nf-winnls-normalizestring">NormalizeString</a> function) to do the mappings.
      * 
      * <b>Starting with Windows 8: </b>The ANSI version of the function is declared in Winnls.h and the Unicode version is declared in Stringapiset.h. Before Windows 8, both versions were declared in Winnls.h.
-     * @param {Integer} dwMapFlags 
+     * @param {FOLD_STRING_MAP_FLAGS} dwMapFlags 
      * @param {PSTR} lpSrcStr Pointer to a source string that the function maps.
      * @param {Integer} cchSrc Size, in characters, of the source string indicated by <i>lpSrcStr</i>, excluding the terminating null character. The application can set the parameter to any negative value to specify that the source string is null-terminated. In this case, the function calculates the string length automatically, and null-terminates the mapped string indicated by <i>lpDestStr</i>.
      * @param {PSTR} lpDestStr Pointer to a buffer in which this function retrieves the mapped string.
@@ -11045,8 +11044,8 @@ class Globalization {
      * > [!NOTE]
      * > The winnls.h header defines EnumSystemLanguageGroups as an alias which automatically selects the ANSI or Unicode version of this function based on the definition of the UNICODE preprocessor constant. Mixing usage of the encoding-neutral alias with code that not encoding-neutral can lead to mismatches that result in compilation or runtime errors. For more information, see [Conventions for Function Prototypes](/windows/win32/intl/conventions-for-function-prototypes).
      * @param {Pointer<LANGUAGEGROUP_ENUMPROCA>} lpLanguageGroupEnumProc Pointer to an application-defined callback function. For more information, see <a href="https://docs.microsoft.com/previous-versions/windows/desktop/legacy/dd317821(v=vs.85)">EnumLanguageGroupsProc</a>.
-     * @param {Integer} dwFlags 
-     * @param {Pointer} _lParam 
+     * @param {ENUM_SYSTEM_LANGUAGE_GROUPS_FLAGS} dwFlags 
+     * @param {Pointer} _lParam Application-defined value to pass to the callback function. This parameter can be used in error checking. It can also be used to ensure thread safety in the callback function.
      * @returns {BOOL} Returns <b>TRUE</b> if successful or <b>FALSE</b> otherwise. To get extended error information, the application can call <a href="https://docs.microsoft.com/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>, which can return one of the following error codes:
      * 
      * <ul>
@@ -11080,8 +11079,8 @@ class Globalization {
      * > [!NOTE]
      * > The winnls.h header defines EnumSystemLanguageGroups as an alias which automatically selects the ANSI or Unicode version of this function based on the definition of the UNICODE preprocessor constant. Mixing usage of the encoding-neutral alias with code that not encoding-neutral can lead to mismatches that result in compilation or runtime errors. For more information, see [Conventions for Function Prototypes](/windows/win32/intl/conventions-for-function-prototypes).
      * @param {Pointer<LANGUAGEGROUP_ENUMPROCW>} lpLanguageGroupEnumProc Pointer to an application-defined callback function. For more information, see <a href="https://docs.microsoft.com/previous-versions/windows/desktop/legacy/dd317821(v=vs.85)">EnumLanguageGroupsProc</a>.
-     * @param {Integer} dwFlags 
-     * @param {Pointer} _lParam 
+     * @param {ENUM_SYSTEM_LANGUAGE_GROUPS_FLAGS} dwFlags 
+     * @param {Pointer} _lParam Application-defined value to pass to the callback function. This parameter can be used in error checking. It can also be used to ensure thread safety in the callback function.
      * @returns {BOOL} Returns <b>TRUE</b> if successful or <b>FALSE</b> otherwise. To get extended error information, the application can call <a href="https://docs.microsoft.com/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>, which can return one of the following error codes:
      * 
      * <ul>
@@ -11117,7 +11116,7 @@ class Globalization {
      * @param {Pointer<LANGGROUPLOCALE_ENUMPROCA>} lpLangGroupLocaleEnumProc Pointer to an application-defined callback function. For more information, see <a href="https://docs.microsoft.com/windows/desktop/api/winnls/nc-winnls-langgrouplocale_enumproca">EnumLanguageGroupLocalesProc</a>.
      * @param {Integer} LanguageGroup 
      * @param {Integer} dwFlags Reserved; must be 0.
-     * @param {Pointer} _lParam 
+     * @param {Pointer} _lParam An application-defined value to pass to the callback function. This value can be used for error checking. It can also be used to ensure thread safety in the callback function.
      * @returns {BOOL} Returns a nonzero value if successful, or 0 otherwise. To get extended error information, the application can call <a href="https://docs.microsoft.com/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>, which can return one of the following error codes:
      * 
      * <ul>
@@ -11153,7 +11152,7 @@ class Globalization {
      * @param {Pointer<LANGGROUPLOCALE_ENUMPROCW>} lpLangGroupLocaleEnumProc Pointer to an application-defined callback function. For more information, see <a href="https://docs.microsoft.com/windows/desktop/api/winnls/nc-winnls-langgrouplocale_enumproca">EnumLanguageGroupLocalesProc</a>.
      * @param {Integer} LanguageGroup 
      * @param {Integer} dwFlags Reserved; must be 0.
-     * @param {Pointer} _lParam 
+     * @param {Pointer} _lParam An application-defined value to pass to the callback function. This value can be used for error checking. It can also be used to ensure thread safety in the callback function.
      * @returns {BOOL} Returns a nonzero value if successful, or 0 otherwise. To get extended error information, the application can call <a href="https://docs.microsoft.com/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>, which can return one of the following error codes:
      * 
      * <ul>
@@ -11283,7 +11282,7 @@ class Globalization {
      * <b>Windows Vista and later:</b> The application can set <i>dwFlags</i> to 0, or to one or more of the specified flags. A setting of 0 causes the parameter value to default to MUI_LANGUAGE_ID | MUI_LICENSED_LANGUAGES.
      * 
      * <b>Windows 2000, Windows XP, Windows Server 2003:</b> The application must set <i>dwFlags</i> to 0.
-     * @param {Pointer} _lParam 
+     * @param {Pointer} _lParam Application-defined value.
      * @returns {BOOL} Returns <b>TRUE</b> if successful or <b>FALSE</b> otherwise. To get extended error information, the application can call <a href="https://docs.microsoft.com/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>, which can return one of the following error codes:
      * 
      * <ul>
@@ -11412,7 +11411,7 @@ class Globalization {
      * <b>Windows Vista and later:</b> The application can set <i>dwFlags</i> to 0, or to one or more of the specified flags. A setting of 0 causes the parameter value to default to MUI_LANGUAGE_ID | MUI_LICENSED_LANGUAGES.
      * 
      * <b>Windows 2000, Windows XP, Windows Server 2003:</b> The application must set <i>dwFlags</i> to 0.
-     * @param {Pointer} _lParam 
+     * @param {Pointer} _lParam Application-defined value.
      * @returns {BOOL} Returns <b>TRUE</b> if successful or <b>FALSE</b> otherwise. To get extended error information, the application can call <a href="https://docs.microsoft.com/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>, which can return one of the following error codes:
      * 
      * <ul>
@@ -11447,7 +11446,7 @@ class Globalization {
      * > [!NOTE]
      * > The winnls.h header defines EnumSystemCodePages as an alias which automatically selects the ANSI or Unicode version of this function based on the definition of the UNICODE preprocessor constant. Mixing usage of the encoding-neutral alias with code that not encoding-neutral can lead to mismatches that result in compilation or runtime errors. For more information, see [Conventions for Function Prototypes](/windows/win32/intl/conventions-for-function-prototypes).
      * @param {Pointer<CODEPAGE_ENUMPROCA>} lpCodePageEnumProc Pointer to an application-defined callback function. The <b>EnumSystemCodePages</b> function enumerates code pages by making repeated calls to this callback function. For more information, see <a href="https://docs.microsoft.com/previous-versions/windows/desktop/legacy/dd317809(v=vs.85)">EnumCodePagesProc</a>.
-     * @param {Integer} dwFlags 
+     * @param {ENUM_SYSTEM_CODE_PAGES_FLAGS} dwFlags 
      * @returns {BOOL} Returns a nonzero value if successful, or 0 otherwise. To get extended error information, the application can call <a href="https://docs.microsoft.com/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>, which can return one of the following error codes:
      * 
      * <ul>
@@ -11483,7 +11482,7 @@ class Globalization {
      * > [!NOTE]
      * > The winnls.h header defines EnumSystemCodePages as an alias which automatically selects the ANSI or Unicode version of this function based on the definition of the UNICODE preprocessor constant. Mixing usage of the encoding-neutral alias with code that not encoding-neutral can lead to mismatches that result in compilation or runtime errors. For more information, see [Conventions for Function Prototypes](/windows/win32/intl/conventions-for-function-prototypes).
      * @param {Pointer<CODEPAGE_ENUMPROCW>} lpCodePageEnumProc Pointer to an application-defined callback function. The <b>EnumSystemCodePages</b> function enumerates code pages by making repeated calls to this callback function. For more information, see <a href="https://docs.microsoft.com/previous-versions/windows/desktop/legacy/dd317809(v=vs.85)">EnumCodePagesProc</a>.
-     * @param {Integer} dwFlags 
+     * @param {ENUM_SYSTEM_CODE_PAGES_FLAGS} dwFlags 
      * @returns {BOOL} Returns a nonzero value if successful, or 0 otherwise. To get extended error information, the application can call <a href="https://docs.microsoft.com/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>, which can return one of the following error codes:
      * 
      * <ul>
@@ -11728,7 +11727,7 @@ class Globalization {
      * No longer supported.
      * 
      * The required header file and DLL are part of the Microsoft Internationalized Domain Name (IDN) Mitigation APIs, which are no longer available for download.
-     * @param {Integer} NormForm Normalization form to use. <a href="https://docs.microsoft.com/windows/desktop/api/winnls/ne-winnls-norm_form">NORM_FORM</a> specifies the standard Unicode normalization forms.
+     * @param {NORM_FORM} NormForm Normalization form to use. <a href="https://docs.microsoft.com/windows/desktop/api/winnls/ne-winnls-norm_form">NORM_FORM</a> specifies the standard Unicode normalization forms.
      * @param {PWSTR} lpSrcString Pointer to the non-normalized source string.
      * @param {Integer} cwSrcLength Length, in characters, of the buffer containing the source string. The application can set this parameter to -1 if the function should assume the string to be null-terminated and calculate the length automatically.
      * @param {PWSTR} lpDstString Pointer to a buffer in which the function retrieves the destination string. Alternatively, this parameter contains <b>NULL</b> if <i>cwDstLength</i> is set to 0.
@@ -11773,7 +11772,7 @@ class Globalization {
      * No longer supported.
      * 
      * The required header file and DLL are part of the Microsoft Internationalized Domain Name (IDN) Mitigation APIs, which are no longer available for download.
-     * @param {Integer} NormForm Normalization form to use. <a href="https://docs.microsoft.com/windows/desktop/api/winnls/ne-winnls-norm_form">NORM_FORM</a> specifies the standard Unicode normalization forms.
+     * @param {NORM_FORM} NormForm Normalization form to use. <a href="https://docs.microsoft.com/windows/desktop/api/winnls/ne-winnls-norm_form">NORM_FORM</a> specifies the standard Unicode normalization forms.
      * @param {PWSTR} lpString Pointer to the string to test.
      * @param {Integer} cwLength Length, in characters, of the input string, including a null terminating character. If this value is -1, the function assumes the string to be null-terminated and calculates the length automatically.
      * @returns {BOOL} Returns <b>TRUE</b> if the input string is already normalized to the appropriate form, or <b>FALSE</b> otherwise. To get extended error information, the application can call <a href="https://docs.microsoft.com/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>, which can return one of the following error codes:
@@ -12999,7 +12998,7 @@ class Globalization {
      * </ul>
      * @param {Integer} Calendar <a href="https://docs.microsoft.com/windows/desktop/Intl/calendar-identifiers">Calendar identifier</a> that specifies the calendar for which information is requested. Note that this identifier can be ENUM_ALL_CALENDARS, to enumerate all calendars that are associated with the locale.
      * @param {Integer} CalType Type of calendar information. For more information, see <a href="https://docs.microsoft.com/windows/desktop/Intl/calendar-type-information">Calendar Type Information</a>. Only one calendar type can be specified per call to this function, except where noted.
-     * @param {LPARAM} _lParam 
+     * @param {LPARAM} _lParam Application-provided parameter to pass to the callback function. This value is especially useful for multi-threaded applications.
      * @returns {BOOL} Returns a nonzero value if successful, or 0 otherwise. To get extended error information, the application can call <a href="https://docs.microsoft.com/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>, which can return one of the following error codes:
      * 
      * <ul>
@@ -13046,8 +13045,8 @@ class Globalization {
      * <a href="https://docs.microsoft.com/windows/desktop/Intl/locale-name-constants">LOCALE_NAME_USER_DEFAULT</a>
      * </li>
      * </ul>
-     * @param {Integer} dwFlags 
-     * @param {LPARAM} _lParam 
+     * @param {ENUM_DATE_FORMATS_FLAGS} dwFlags 
+     * @param {LPARAM} _lParam An application-provided parameter to pass to the callback function. This value is especially useful for multi-threaded applications.
      * @returns {BOOL} Returns a nonzero value if successful, or 0 otherwise. To get extended error information, the application can call <a href="https://docs.microsoft.com/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>, which can return one of the following error codes:
      * 
      * <ul>
@@ -13092,7 +13091,7 @@ class Globalization {
      * </li>
      * </ul>
      * @param {Integer} dwFlags The time format. Set to 0 to use the current user's long time format, or TIME_NOSECONDS (starting with Windows 7) to use the short time format.
-     * @param {LPARAM} _lParam 
+     * @param {LPARAM} _lParam An application-provided parameter to be passed to the callback function. This is especially useful for multi-threaded applications.
      * @returns {BOOL} Returns a nonzero value if successful, or 0 otherwise. To get extended error information, the application can call <a href="https://docs.microsoft.com/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>, which can return one of the following error codes:
      * 
      * <ul>
@@ -13143,7 +13142,7 @@ class Globalization {
      * <a href="https://docs.microsoft.com/windows/desktop/Intl/locale-windows">LOCALE_WINDOWS</a>
      * </li>
      * </ul>
-     * @param {LPARAM} _lParam 
+     * @param {LPARAM} _lParam An application-provided parameter to be passed to the callback function. This is especially useful for multi-threaded applications.
      * @returns {BOOL} Returns a nonzero value if successful, or 0 otherwise. To get extended error information, the application can call <a href="https://docs.microsoft.com/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>, which can return one of the following error codes:
      * 
      * <ul>
@@ -13542,7 +13541,7 @@ class Globalization {
      * 
      * <div class="alert"><b>Important</b>  Starting with Windows 8: To maintain the ability to run on Windows 7, a module that uses Uniscribe must specify Usp10.lib before gdi32.lib in its library list.</div>
      * <div> </div>
-     * @param {HDC} _hdc 
+     * @param {HDC} _hdc Optional. Handle to the device context. For more information, see <a href="https://docs.microsoft.com/windows/desktop/Intl/caching">Caching</a>.
      * @param {Pointer<Pointer<Void>>} psc Pointer to a <a href="https://docs.microsoft.com/windows/desktop/Intl/script-cache">SCRIPT_CACHE</a> structure identifying the script cache.
      * @param {PWSTR} pwcChars Pointer to an array of Unicode characters defining the run.
      * @param {Integer} cChars Number of characters in the Unicode run.
@@ -13588,7 +13587,7 @@ class Globalization {
      * 
      * <div class="alert"><b>Important</b>  Starting with Windows 8: To maintain the ability to run on Windows 7, a module that uses Uniscribe must specify Usp10.lib before gdi32.lib in its library list.</div>
      * <div> </div>
-     * @param {HDC} _hdc 
+     * @param {HDC} _hdc Optional. Handle to the device context. For more information, see <a href="https://docs.microsoft.com/windows/desktop/Intl/caching">Caching</a>.
      * @param {Pointer<Pointer<Void>>} psc Pointer to a <a href="https://docs.microsoft.com/windows/desktop/Intl/script-cache">SCRIPT_CACHE</a> structure identifying the script cache.
      * @param {Pointer<Integer>} pwGlyphs Pointer to a glyph buffer obtained from an earlier call to the <a href="https://docs.microsoft.com/windows/desktop/api/usp10/nf-usp10-scriptshape">ScriptShape</a> function.
      * @param {Integer} cGlyphs Count of glyphs in the glyph buffer.
@@ -13629,7 +13628,7 @@ class Globalization {
      * 
      * <div class="alert"><b>Important</b>  Starting with Windows 8: To maintain the ability to run on Windows 7, a module that uses Uniscribe must specify Usp10.lib before gdi32.lib in its library list.</div>
      * <div> </div>
-     * @param {HDC} _hdc 
+     * @param {HDC} _hdc Handle to the device context. For more information, see <a href="https://docs.microsoft.com/windows/desktop/Intl/caching">Caching</a>. Note that, unlike some other related Uniscribe functions, this function defines the handle as mandatory.
      * @param {Pointer<Pointer<Void>>} psc Pointer to a <a href="https://docs.microsoft.com/windows/desktop/Intl/script-cache">SCRIPT_CACHE</a> structure identifying the script cache.
      * @param {Integer} x Value of the x coordinate of the first glyph.
      * @param {Integer} y Value of the y coordinate of the first glyph.
@@ -13887,7 +13886,7 @@ class Globalization {
      * 
      * <div class="alert"><b>Important</b>  Starting with Windows 8: To maintain the ability to run on Windows 7, a module that uses Uniscribe must specify Usp10.lib before gdi32.lib in its library list.</div>
      * <div> </div>
-     * @param {HDC} _hdc 
+     * @param {HDC} _hdc Optional. Handle to the device context. For more information, see <a href="https://docs.microsoft.com/windows/desktop/Intl/caching">Caching</a>.
      * @param {Pointer<Pointer<Void>>} psc Pointer to a <a href="https://docs.microsoft.com/windows/desktop/Intl/script-cache">SCRIPT_CACHE</a> structure identifying the script cache.
      * @param {PWSTR} pwcInChars Pointer to a string of Unicode characters.
      * @param {Integer} cChars Number of Unicode characters in the string indicated by <i>pwcInChars</i>.
@@ -13930,7 +13929,7 @@ class Globalization {
      * 
      * <div class="alert"><b>Important</b>  Starting with Windows 8: To maintain the ability to run on Windows 7, a module that uses Uniscribe must specify Usp10.lib before gdi32.lib in its library list.</div>
      * <div> </div>
-     * @param {HDC} _hdc 
+     * @param {HDC} _hdc Optional. Handle to the device context. For more information, see <a href="https://docs.microsoft.com/windows/desktop/Intl/caching">Caching</a>.
      * @param {Pointer<Pointer<Void>>} psc Pointer to a <a href="https://docs.microsoft.com/windows/desktop/Intl/script-cache">SCRIPT_CACHE</a> structure identifying the script cache.
      * @param {Integer} wGlyph Glyph to analyze.
      * @param {Pointer<ABC>} pABC Pointer to the ABC width of the specified glyph.
@@ -13977,7 +13976,7 @@ class Globalization {
      * 
      * <div class="alert"><b>Important</b>  Starting with Windows 8: To maintain the ability to run on Windows 7, a module that uses Uniscribe must specify Usp10.lib before gdi32.lib in its library list.</div>
      * <div> </div>
-     * @param {HDC} _hdc 
+     * @param {HDC} _hdc Optional. Handle to the device context. For more information, see <a href="https://docs.microsoft.com/windows/desktop/Intl/caching">Caching</a>.
      * @param {Pointer<Pointer<Void>>} psc Pointer to a <a href="https://docs.microsoft.com/windows/desktop/Intl/script-cache">SCRIPT_CACHE</a> structure identifying the script cache.
      * @param {Pointer<SCRIPT_FONTPROPERTIES>} sfp Pointer to a <a href="https://docs.microsoft.com/windows/desktop/api/usp10/ns-usp10-script_fontproperties">SCRIPT_FONTPROPERTIES</a> structure in which this function retrieves the information from the font cache.
      * @returns {HRESULT} Returns 0 if successful. The function returns a nonzero HRESULT value if it does not succeed. The application can test the return value with the <b>SUCCEEDED</b> and <b>FAILED</b> macros.
@@ -13998,7 +13997,7 @@ class Globalization {
      * @remarks
      * <div class="alert"><b>Important</b>  Starting with Windows 8: To maintain the ability to run on Windows 7, a module that uses Uniscribe must specify Usp10.lib before gdi32.lib in its library list.</div>
      * <div> </div>
-     * @param {HDC} _hdc 
+     * @param {HDC} _hdc Optional. Handle to the device context. For more information, see <a href="https://docs.microsoft.com/windows/desktop/Intl/caching">Caching</a>.
      * @param {Pointer<Pointer<Void>>} psc Pointer to a <a href="https://docs.microsoft.com/windows/desktop/Intl/script-cache">SCRIPT_CACHE</a> structure identifying the script cache.
      * @returns {Integer} Pointer to a buffer in which the function retrieves the font height.
      * @see https://learn.microsoft.com/windows/win32/api/usp10/nf-usp10-scriptcachegetheight
@@ -14024,9 +14023,9 @@ class Globalization {
      * 
      * <div class="alert"><b>Important</b>  Starting with Windows 8: To maintain the ability to run on Windows 7, a module that uses Uniscribe must specify Usp10.lib before gdi32.lib in its library list.</div>
      * <div> </div>
-     * @param {HDC} _hdc 
+     * @param {HDC} _hdc Handle to the device context. If <i>dwFlags</i> is set to SSA_GLYPHS, the device context handle is required. If <i>dwFlags</i> is set to SSA_BREAK, the device context handle is optional. If the device context handle is provided, the function inspects the current font in the device context. If the current font is a symbolic font, the function treats the character string as a single neutral SCRIPT_UNDEFINED item.
      * @param {Pointer<Void>} pString Pointer to the string to analyze. The string must have at least one character. It can be a Unicode string or use the character set from a Windows ANSI <a href="https://docs.microsoft.com/windows/desktop/Intl/code-pages">code page</a>, as specified by the <i>iCharset</i> parameter.
-     * @param {Integer} _cString 
+     * @param {Integer} _cString Length of the string to analyze. The length is measured in characters for an ANSI string or in wide characters for a Unicode string. The length must be at least 1.
      * @param {Integer} cGlyphs Size of the glyph buffer, in WORD values. This size is required. The recommended size is <c>(1.5 * cString + 16)</c>.
      * @param {Integer} iCharset Character set descriptor. If the input string is an ANSI string, this descriptor is set to the character set identifier. If the string is a Unicode string, this descriptor is set to -1.
      * 
@@ -14418,7 +14417,7 @@ class Globalization {
      * @param {Pointer<Void>} ssa A <a href="https://docs.microsoft.com/windows/desktop/Intl/script-string-analysis">SCRIPT_STRING_ANALYSIS</a> structure for the string.
      * @param {Integer} iX The x-coordinate of the reference point used to position the string.
      * @param {Integer} iY The y-coordinate of the reference point used to position the string.
-     * @param {Integer} uOptions 
+     * @param {ETO_OPTIONS} uOptions 
      * @param {Pointer<RECT>} prc Pointer to a <a href="https://docs.microsoft.com/windows/desktop/api/windef/ns-windef-rect">RECT</a> structure that defines the rectangle to use. If <i>uOptions</i> is set to ETO_OPAQUE and <b>NULL</b> is provided for <i>prc</i>, the function succeeds and returns S_OK. However, if the application sets <i>uOptions</i> to ETO_CLIPPING and provides <b>NULL</b> for <i>prc</i>, the function returns E_INVALIDARG. The application can set this parameter to <b>NULL</b> to indicate that no option is needed.
      * @param {Integer} iMinSel Zero-based index specifying the starting position in the string. For no selection, the application should set <i>iMinSel</i> &gt;= <i>iMaxSel</i>.
      * @param {Integer} iMaxSel Zero-based index specifying the ending position in the string.
@@ -14443,7 +14442,7 @@ class Globalization {
      * <div> </div>
      * @param {PWSTR} pwcInChars Pointer to the string to test.
      * @param {Integer} cInChars Length of the input string, in characters.
-     * @param {Integer} dwFlags 
+     * @param {SCRIPT_IS_COMPLEX_FLAGS} dwFlags 
      * @returns {HRESULT} Returns S_OK if the string requires complex script processing. The function returns S_FALSE if the string can be handled by standard API function calls, that is, it contains only characters laid out side-by-side and left-to-right. The function returns a nonzero HRESULT value if it does not succeed.
      * @see https://learn.microsoft.com/windows/win32/api/usp10/nf-usp10-scriptiscomplex
      * @since windows5.0
@@ -14562,7 +14561,7 @@ class Globalization {
      * <div> </div>
      * <div class="alert"><b>Important</b>  Starting with Windows 8: To maintain the ability to run on Windows 7, a module that uses Uniscribe must specify Usp10.lib before gdi32.lib in its library list.</div>
      * <div> </div>
-     * @param {HDC} _hdc 
+     * @param {HDC} _hdc Handle to the device context. For more information, see <a href="https://docs.microsoft.com/windows/desktop/Intl/caching">Caching</a>.
      * @param {Pointer<Pointer<Void>>} psc Pointer to a <a href="https://docs.microsoft.com/windows/desktop/Intl/script-cache">SCRIPT_CACHE</a> structure identifying the script cache.
      * @param {Pointer<SCRIPT_ANALYSIS>} psa Pointer to a <a href="https://docs.microsoft.com/windows/win32/api/usp10/ns-usp10-script_analysis">SCRIPT_ANALYSIS</a> structure obtained from a previous call to <a href="https://docs.microsoft.com/windows/desktop/api/usp10/nf-usp10-scriptitemizeopentype">ScriptItemizeOpenType</a>. The structure identifies the shaping engine, so that glyphs can be formed correctly.
      * 
@@ -14622,7 +14621,7 @@ class Globalization {
      * 
      * <div class="alert"><b>Important</b>  Starting with Windows 8: To maintain the ability to run on Windows 7, a module that uses Uniscribe must specify Usp10.lib before gdi32.lib in its library list.</div>
      * <div> </div>
-     * @param {HDC} _hdc 
+     * @param {HDC} _hdc Handle to the device context. For more information, see <a href="https://docs.microsoft.com/windows/desktop/Intl/caching">Caching</a>.
      * @param {Pointer<Pointer<Void>>} psc Pointer to a <a href="https://docs.microsoft.com/windows/desktop/Intl/script-cache">SCRIPT_CACHE</a> structure identifying the script cache.
      * @param {Pointer<SCRIPT_ANALYSIS>} psa Pointer to a <a href="https://docs.microsoft.com/windows/win32/api/usp10/ns-usp10-script_analysis">SCRIPT_ANALYSIS</a> structure obtained from a previous call to <a href="https://docs.microsoft.com/windows/desktop/api/usp10/nf-usp10-scriptitemizeopentype">ScriptItemizeOpenType</a>. This structures identifies the shaping engine that governs the generated list of glyphs and their associated widths, and x and y placement offsets.
      * 
@@ -14822,7 +14821,7 @@ class Globalization {
      * 
      * <div class="alert"><b>Important</b>  Starting with Windows 8: To maintain the ability to run on Windows 7, a module that uses Uniscribe must specify Usp10.lib before gdi32.lib in its library list.</div>
      * <div> </div>
-     * @param {HDC} _hdc 
+     * @param {HDC} _hdc Handle to the device context. For more information, see <a href="https://docs.microsoft.com/windows/desktop/Intl/caching">Caching</a>.
      * @param {Pointer<Pointer<Void>>} psc Pointer to a <a href="https://docs.microsoft.com/windows/desktop/Intl/script-cache">SCRIPT_CACHE</a> structure identifying the script cache.
      * @param {Pointer<SCRIPT_ANALYSIS>} psa Pointer to a <a href="https://docs.microsoft.com/windows/win32/api/usp10/ns-usp10-script_analysis">SCRIPT_ANALYSIS</a> structure obtained from a previous call to <a href="https://docs.microsoft.com/windows/desktop/api/usp10/nf-usp10-scriptitemizeopentype">ScriptItemizeOpenType</a>. This parameter identifies the shaping engine, so that the appropriate font script tags can be retrieved. The application supplies a non-<b>NULL</b> value for this parameter to retrieve script tags appropriate for the current run.
      * 
@@ -14854,7 +14853,7 @@ class Globalization {
      * 
      * <div class="alert"><b>Important</b>  Starting with Windows 8: To maintain the ability to run on Windows 7, a module that uses Uniscribe must specify Usp10.lib before gdi32.lib in its library list.</div>
      * <div> </div>
-     * @param {HDC} _hdc 
+     * @param {HDC} _hdc Handle to the device context. For more information, see <a href="https://docs.microsoft.com/windows/desktop/Intl/caching">Caching</a>.
      * @param {Pointer<Pointer<Void>>} psc Pointer to a <a href="https://docs.microsoft.com/windows/desktop/Intl/script-cache">SCRIPT_CACHE</a> structure identifying the script cache.
      * @param {Pointer<SCRIPT_ANALYSIS>} psa Pointer to a <a href="https://docs.microsoft.com/windows/win32/api/usp10/ns-usp10-script_analysis">SCRIPT_ANALYSIS</a> structure obtained from a previous call to <a href="https://docs.microsoft.com/windows/desktop/api/usp10/nf-usp10-scriptitemizeopentype">ScriptItemizeOpenType</a>. This parameter identifies the shaping engine, so that the font language tags for the appropriate font and scripts can be retrieved.
      * 
@@ -14889,7 +14888,7 @@ class Globalization {
      * 
      * <div class="alert"><b>Important</b>  Starting with Windows 8: To maintain the ability to run on Windows 7, a module that uses Uniscribe must specify Usp10.lib before gdi32.lib in its library list.</div>
      * <div> </div>
-     * @param {HDC} _hdc 
+     * @param {HDC} _hdc Handle to the device context. For more information, see <a href="https://docs.microsoft.com/windows/desktop/Intl/caching">Caching</a>.
      * @param {Pointer<Pointer<Void>>} psc Pointer to a <a href="https://docs.microsoft.com/windows/desktop/Intl/script-cache">SCRIPT_CACHE</a> structure identifying the script cache.
      * @param {Pointer<SCRIPT_ANALYSIS>} psa Pointer to a <a href="https://docs.microsoft.com/windows/win32/api/usp10/ns-usp10-script_analysis">SCRIPT_ANALYSIS</a> structure obtained from a previous call to <a href="https://docs.microsoft.com/windows/desktop/api/usp10/nf-usp10-scriptitemizeopentype">ScriptItemizeOpenType</a>. This parameter identifies the shaping engine, so that the font feature tags for the appropriate font and scripts can be retrieved.
      * 
@@ -14929,7 +14928,7 @@ class Globalization {
      * 
      * <div class="alert"><b>Important</b>  Starting with Windows 8: To maintain the ability to run on Windows 7, a module that uses Uniscribe must specify Usp10.lib before gdi32.lib in its library list.</div>
      * <div> </div>
-     * @param {HDC} _hdc 
+     * @param {HDC} _hdc Handle to the device context. For more information, see <a href="https://docs.microsoft.com/windows/desktop/Intl/caching">Caching</a>.
      * @param {Pointer<Pointer<Void>>} psc Pointer to a <a href="https://docs.microsoft.com/windows/desktop/Intl/script-cache">SCRIPT_CACHE</a> structure defining the script cache.
      * @param {Pointer<SCRIPT_ANALYSIS>} psa Pointer to a <a href="https://docs.microsoft.com/windows/win32/api/usp10/ns-usp10-script_analysis">SCRIPT_ANALYSIS</a> structure obtained from a previous call to <a href="https://docs.microsoft.com/windows/desktop/api/usp10/nf-usp10-scriptitemizeopentype">ScriptItemizeOpenType</a>. This parameter identifies the shaping engine, so that the array of alternate glyphs can be created with the correct scope.
      * 
@@ -14967,7 +14966,7 @@ class Globalization {
      * 
      * <div class="alert"><b>Important</b>  Starting with Windows 8: To maintain the ability to run on Windows 7, a module that uses Uniscribe must specify Usp10.lib before gdi32.lib in its library list.</div>
      * <div> </div>
-     * @param {HDC} _hdc 
+     * @param {HDC} _hdc Handle to the device context. For more information, see <a href="https://docs.microsoft.com/windows/desktop/Intl/caching">Caching</a>.
      * @param {Pointer<Pointer<Void>>} psc Pointer to a <a href="https://docs.microsoft.com/windows/desktop/Intl/script-cache">SCRIPT_CACHE</a> structure indicating the script cache.
      * @param {Pointer<SCRIPT_ANALYSIS>} psa Pointer to a <a href="https://docs.microsoft.com/windows/win32/api/usp10/ns-usp10-script_analysis">SCRIPT_ANALYSIS</a> structure obtained from a previous call to <a href="https://docs.microsoft.com/windows/desktop/api/usp10/nf-usp10-scriptitemizeopentype">ScriptItemizeOpenType</a>. This parameter identifies the shaping engine so that the correct substitute glyph is used.
      * 
@@ -15002,7 +15001,7 @@ class Globalization {
      * <img alt="Illustration showing the same block of text three times, with enlargements of each showing slightly different alignment" border="" src="./images/HAlign.gif"/>
      * <div class="alert"><b>Important</b>  Starting with Windows 8: To maintain the ability to run on Windows 7, a module that uses Uniscribe must specify Usp10.lib before gdi32.lib in its library list.</div>
      * <div> </div>
-     * @param {HDC} _hdc 
+     * @param {HDC} _hdc Handle to the device context. For more information, see <a href="https://docs.microsoft.com/windows/desktop/Intl/caching">Caching</a>.
      * @param {Pointer<Pointer<Void>>} psc Pointer to a <a href="https://docs.microsoft.com/windows/desktop/Intl/script-cache">SCRIPT_CACHE</a> structure identifying the script cache.
      * @param {Pointer<SCRIPT_ANALYSIS>} psa Pointer to a <a href="https://docs.microsoft.com/windows/win32/api/usp10/ns-usp10-script_analysis">SCRIPT_ANALYSIS</a> structure obtained from a previous call to <a href="https://docs.microsoft.com/windows/desktop/api/usp10/nf-usp10-scriptitemizeopentype">ScriptItemizeOpenType</a>. This structure identifies the shaping engine, so that the advance widths can be retrieved.
      * 
@@ -15013,7 +15012,7 @@ class Globalization {
      * @param {Integer} lParameter A flag specifying if single substitution should be applied to the identifier specified in <i>wGlyphId</i>. The application sets this parameter to 1 to apply the single substitution feature to the identifier. The application sets the parameter to 0 if the function should not apply the feature.
      * @param {Integer} wGlyphId The identifier of the original glyph being shaped.
      * @param {Integer} iAdvance The original glyph advance width.
-     * @param {GOFFSET} _GOffset 
+     * @param {GOFFSET} _GOffset The original glyph offset. Typically, this value is an output of <a href="https://docs.microsoft.com/windows/desktop/api/usp10/nf-usp10-scriptplaceopentype">ScriptPlaceOpenType</a> or <a href="https://docs.microsoft.com/windows/desktop/api/usp10/nf-usp10-scriptplace">ScriptPlace</a>.
      * @param {Pointer<GOFFSET>} pOutGoffset Pointer to the location in which this function retrieves the new glyph offset adjusted for the alternate glyph.
      * @returns {Integer} Pointer to the location in which this function retrieves the new advance width adjusted for the alternate glyph.
      * @see https://learn.microsoft.com/windows/win32/api/usp10/nf-usp10-scriptpositionsingleglyph
@@ -15147,7 +15146,7 @@ class Globalization {
 
     /**
      * 
-     * @param {Integer} code 
+     * @param {UErrorCode} code 
      * @returns {PSTR} 
      */
     static u_errorName(code) {
@@ -15256,7 +15255,7 @@ class Globalization {
      * @param {Pointer<Integer>} dest 
      * @param {Integer} destSize 
      * @param {Integer} options 
-     * @param {Pointer<Integer>} pErrorCode 
+     * @param {Pointer<UErrorCode>} pErrorCode 
      * @returns {Integer} 
      */
     static u_shapeArabic(source, sourceLength, dest, destSize, options, pErrorCode) {
@@ -15271,9 +15270,9 @@ class Globalization {
     /**
      * 
      * @param {PSTR} nameOrAbbrOrLocale 
-     * @param {Pointer<Integer>} fillIn 
+     * @param {Pointer<UScriptCode>} fillIn 
      * @param {Integer} capacity 
-     * @param {Pointer<Integer>} err 
+     * @param {Pointer<UErrorCode>} err 
      * @returns {Integer} 
      */
     static uscript_getCode(nameOrAbbrOrLocale, fillIn, capacity, err) {
@@ -15288,7 +15287,7 @@ class Globalization {
 
     /**
      * 
-     * @param {Integer} scriptCode 
+     * @param {UScriptCode} scriptCode 
      * @returns {PSTR} 
      */
     static uscript_getName(scriptCode) {
@@ -15298,7 +15297,7 @@ class Globalization {
 
     /**
      * 
-     * @param {Integer} scriptCode 
+     * @param {UScriptCode} scriptCode 
      * @returns {PSTR} 
      */
     static uscript_getShortName(scriptCode) {
@@ -15309,8 +15308,8 @@ class Globalization {
     /**
      * 
      * @param {Integer} codepoint 
-     * @param {Pointer<Integer>} err 
-     * @returns {Integer} 
+     * @param {Pointer<UErrorCode>} err 
+     * @returns {UScriptCode} 
      */
     static uscript_getScript(codepoint, err) {
         errMarshal := err is VarRef ? "int*" : "ptr"
@@ -15322,7 +15321,7 @@ class Globalization {
     /**
      * 
      * @param {Integer} c 
-     * @param {Integer} sc 
+     * @param {UScriptCode} sc 
      * @returns {Integer} 
      */
     static uscript_hasScript(c, sc) {
@@ -15333,9 +15332,9 @@ class Globalization {
     /**
      * 
      * @param {Integer} c 
-     * @param {Pointer<Integer>} scripts 
+     * @param {Pointer<UScriptCode>} scripts 
      * @param {Integer} capacity 
-     * @param {Pointer<Integer>} errorCode 
+     * @param {Pointer<UErrorCode>} errorCode 
      * @returns {Integer} 
      */
     static uscript_getScriptExtensions(c, scripts, capacity, errorCode) {
@@ -15348,10 +15347,10 @@ class Globalization {
 
     /**
      * 
-     * @param {Integer} script 
+     * @param {UScriptCode} script 
      * @param {Pointer<Integer>} dest 
      * @param {Integer} capacity 
-     * @param {Pointer<Integer>} pErrorCode 
+     * @param {Pointer<UErrorCode>} pErrorCode 
      * @returns {Integer} 
      */
     static uscript_getSampleString(script, dest, capacity, pErrorCode) {
@@ -15364,8 +15363,8 @@ class Globalization {
 
     /**
      * 
-     * @param {Integer} script 
-     * @returns {Integer} 
+     * @param {UScriptCode} script 
+     * @returns {UScriptUsage} 
      */
     static uscript_getUsage(script) {
         result := DllCall("icuuc.dll\uscript_getUsage", "int", script, "CDecl int")
@@ -15374,7 +15373,7 @@ class Globalization {
 
     /**
      * 
-     * @param {Integer} script 
+     * @param {UScriptCode} script 
      * @returns {Integer} 
      */
     static uscript_isRightToLeft(script) {
@@ -15384,7 +15383,7 @@ class Globalization {
 
     /**
      * 
-     * @param {Integer} script 
+     * @param {UScriptCode} script 
      * @returns {Integer} 
      */
     static uscript_breaksBetweenLetters(script) {
@@ -15394,7 +15393,7 @@ class Globalization {
 
     /**
      * 
-     * @param {Integer} script 
+     * @param {UScriptCode} script 
      * @returns {Integer} 
      */
     static uscript_isCased(script) {
@@ -15446,7 +15445,7 @@ class Globalization {
      * 
      * @param {Pointer<UCharIterator>} iter 
      * @param {Integer} state 
-     * @param {Pointer<Integer>} pErrorCode 
+     * @param {Pointer<UErrorCode>} pErrorCode 
      * @returns {String} Nothing - always returns an empty string
      */
     static uiter_setState(iter, state, pErrorCode) {
@@ -15508,7 +15507,7 @@ class Globalization {
     /**
      * 
      * @param {Pointer<UEnumeration>} en 
-     * @param {Pointer<Integer>} _status 
+     * @param {Pointer<UErrorCode>} _status 
      * @returns {Integer} 
      */
     static uenum_count(en, _status) {
@@ -15523,7 +15522,7 @@ class Globalization {
      * 
      * @param {Pointer<UEnumeration>} en 
      * @param {Pointer<Integer>} resultLength 
-     * @param {Pointer<Integer>} _status 
+     * @param {Pointer<UErrorCode>} _status 
      * @returns {Pointer<Integer>} 
      */
     static uenum_unext(en, resultLength, _status) {
@@ -15539,7 +15538,7 @@ class Globalization {
      * 
      * @param {Pointer<UEnumeration>} en 
      * @param {Pointer<Integer>} resultLength 
-     * @param {Pointer<Integer>} _status 
+     * @param {Pointer<UErrorCode>} _status 
      * @returns {PSTR} 
      */
     static uenum_next(en, resultLength, _status) {
@@ -15554,7 +15553,7 @@ class Globalization {
     /**
      * 
      * @param {Pointer<UEnumeration>} en 
-     * @param {Pointer<Integer>} _status 
+     * @param {Pointer<UErrorCode>} _status 
      * @returns {String} Nothing - always returns an empty string
      */
     static uenum_reset(en, _status) {
@@ -15568,7 +15567,7 @@ class Globalization {
      * 
      * @param {Pointer<Pointer<Integer>>} strings 
      * @param {Integer} count 
-     * @param {Pointer<Integer>} ec 
+     * @param {Pointer<UErrorCode>} ec 
      * @returns {Pointer<UEnumeration>} 
      */
     static uenum_openUCharStringsEnumeration(strings, count, ec) {
@@ -15583,7 +15582,7 @@ class Globalization {
      * 
      * @param {Pointer<Pointer<Integer>>} strings 
      * @param {Integer} count 
-     * @param {Pointer<Integer>} ec 
+     * @param {Pointer<UErrorCode>} ec 
      * @returns {Pointer<UEnumeration>} 
      */
     static uenum_openCharStringsEnumeration(strings, count, ec) {
@@ -15606,7 +15605,7 @@ class Globalization {
     /**
      * 
      * @param {PSTR} localeID 
-     * @param {Pointer<Integer>} _status 
+     * @param {Pointer<UErrorCode>} _status 
      * @returns {String} Nothing - always returns an empty string
      */
     static uloc_setDefault(localeID, _status) {
@@ -15622,7 +15621,7 @@ class Globalization {
      * @param {PSTR} localeID 
      * @param {PSTR} language 
      * @param {Integer} languageCapacity 
-     * @param {Pointer<Integer>} err 
+     * @param {Pointer<UErrorCode>} err 
      * @returns {Integer} 
      */
     static uloc_getLanguage(localeID, language, languageCapacity, err) {
@@ -15640,7 +15639,7 @@ class Globalization {
      * @param {PSTR} localeID 
      * @param {PSTR} script 
      * @param {Integer} scriptCapacity 
-     * @param {Pointer<Integer>} err 
+     * @param {Pointer<UErrorCode>} err 
      * @returns {Integer} 
      */
     static uloc_getScript(localeID, script, scriptCapacity, err) {
@@ -15658,7 +15657,7 @@ class Globalization {
      * @param {PSTR} localeID 
      * @param {PSTR} country 
      * @param {Integer} countryCapacity 
-     * @param {Pointer<Integer>} err 
+     * @param {Pointer<UErrorCode>} err 
      * @returns {Integer} 
      */
     static uloc_getCountry(localeID, country, countryCapacity, err) {
@@ -15676,7 +15675,7 @@ class Globalization {
      * @param {PSTR} localeID 
      * @param {PSTR} _variant 
      * @param {Integer} variantCapacity 
-     * @param {Pointer<Integer>} err 
+     * @param {Pointer<UErrorCode>} err 
      * @returns {Integer} 
      */
     static uloc_getVariant(localeID, _variant, variantCapacity, err) {
@@ -15694,7 +15693,7 @@ class Globalization {
      * @param {PSTR} localeID 
      * @param {PSTR} name 
      * @param {Integer} nameCapacity 
-     * @param {Pointer<Integer>} err 
+     * @param {Pointer<UErrorCode>} err 
      * @returns {Integer} 
      */
     static uloc_getName(localeID, name, nameCapacity, err) {
@@ -15712,7 +15711,7 @@ class Globalization {
      * @param {PSTR} localeID 
      * @param {PSTR} name 
      * @param {Integer} nameCapacity 
-     * @param {Pointer<Integer>} err 
+     * @param {Pointer<UErrorCode>} err 
      * @returns {Integer} 
      */
     static uloc_canonicalize(localeID, name, nameCapacity, err) {
@@ -15767,7 +15766,7 @@ class Globalization {
      * @param {PSTR} displayLocale 
      * @param {Pointer<Integer>} language 
      * @param {Integer} languageCapacity 
-     * @param {Pointer<Integer>} _status 
+     * @param {Pointer<UErrorCode>} _status 
      * @returns {Integer} 
      */
     static uloc_getDisplayLanguage(locale, displayLocale, language, languageCapacity, _status) {
@@ -15787,7 +15786,7 @@ class Globalization {
      * @param {PSTR} displayLocale 
      * @param {Pointer<Integer>} script 
      * @param {Integer} scriptCapacity 
-     * @param {Pointer<Integer>} _status 
+     * @param {Pointer<UErrorCode>} _status 
      * @returns {Integer} 
      */
     static uloc_getDisplayScript(locale, displayLocale, script, scriptCapacity, _status) {
@@ -15807,7 +15806,7 @@ class Globalization {
      * @param {PSTR} displayLocale 
      * @param {Pointer<Integer>} country 
      * @param {Integer} countryCapacity 
-     * @param {Pointer<Integer>} _status 
+     * @param {Pointer<UErrorCode>} _status 
      * @returns {Integer} 
      */
     static uloc_getDisplayCountry(locale, displayLocale, country, countryCapacity, _status) {
@@ -15827,7 +15826,7 @@ class Globalization {
      * @param {PSTR} displayLocale 
      * @param {Pointer<Integer>} _variant 
      * @param {Integer} variantCapacity 
-     * @param {Pointer<Integer>} _status 
+     * @param {Pointer<UErrorCode>} _status 
      * @returns {Integer} 
      */
     static uloc_getDisplayVariant(locale, displayLocale, _variant, variantCapacity, _status) {
@@ -15847,7 +15846,7 @@ class Globalization {
      * @param {PSTR} displayLocale 
      * @param {Pointer<Integer>} dest 
      * @param {Integer} destCapacity 
-     * @param {Pointer<Integer>} _status 
+     * @param {Pointer<UErrorCode>} _status 
      * @returns {Integer} 
      */
     static uloc_getDisplayKeyword(keyword, displayLocale, dest, destCapacity, _status) {
@@ -15868,7 +15867,7 @@ class Globalization {
      * @param {PSTR} displayLocale 
      * @param {Pointer<Integer>} dest 
      * @param {Integer} destCapacity 
-     * @param {Pointer<Integer>} _status 
+     * @param {Pointer<UErrorCode>} _status 
      * @returns {Integer} 
      */
     static uloc_getDisplayKeywordValue(locale, keyword, displayLocale, dest, destCapacity, _status) {
@@ -15889,7 +15888,7 @@ class Globalization {
      * @param {PSTR} inLocaleID 
      * @param {Pointer<Integer>} result 
      * @param {Integer} maxResultSize 
-     * @param {Pointer<Integer>} err 
+     * @param {Pointer<UErrorCode>} err 
      * @returns {Integer} 
      */
     static uloc_getDisplayName(localeID, inLocaleID, result, maxResultSize, err) {
@@ -15924,8 +15923,8 @@ class Globalization {
 
     /**
      * 
-     * @param {Integer} type 
-     * @param {Pointer<Integer>} _status 
+     * @param {ULocAvailableType} type 
+     * @param {Pointer<UErrorCode>} _status 
      * @returns {Pointer<UEnumeration>} 
      */
     static uloc_openAvailableByType(type, _status) {
@@ -15958,7 +15957,7 @@ class Globalization {
      * @param {PSTR} localeID 
      * @param {PSTR} parent 
      * @param {Integer} parentCapacity 
-     * @param {Pointer<Integer>} err 
+     * @param {Pointer<UErrorCode>} err 
      * @returns {Integer} 
      */
     static uloc_getParent(localeID, parent, parentCapacity, err) {
@@ -15976,7 +15975,7 @@ class Globalization {
      * @param {PSTR} localeID 
      * @param {PSTR} name 
      * @param {Integer} nameCapacity 
-     * @param {Pointer<Integer>} err 
+     * @param {Pointer<UErrorCode>} err 
      * @returns {Integer} 
      */
     static uloc_getBaseName(localeID, name, nameCapacity, err) {
@@ -15992,7 +15991,7 @@ class Globalization {
     /**
      * 
      * @param {PSTR} localeID 
-     * @param {Pointer<Integer>} _status 
+     * @param {Pointer<UErrorCode>} _status 
      * @returns {Pointer<UEnumeration>} 
      */
     static uloc_openKeywords(localeID, _status) {
@@ -16010,7 +16009,7 @@ class Globalization {
      * @param {PSTR} keywordName 
      * @param {PSTR} _buffer 
      * @param {Integer} bufferCapacity 
-     * @param {Pointer<Integer>} _status 
+     * @param {Pointer<UErrorCode>} _status 
      * @returns {Integer} 
      */
     static uloc_getKeywordValue(localeID, keywordName, _buffer, bufferCapacity, _status) {
@@ -16030,7 +16029,7 @@ class Globalization {
      * @param {PSTR} keywordValue 
      * @param {PSTR} _buffer 
      * @param {Integer} bufferCapacity 
-     * @param {Pointer<Integer>} _status 
+     * @param {Pointer<UErrorCode>} _status 
      * @returns {Integer} 
      */
     static uloc_setKeywordValue(keywordName, keywordValue, _buffer, bufferCapacity, _status) {
@@ -16059,8 +16058,8 @@ class Globalization {
     /**
      * 
      * @param {PSTR} localeId 
-     * @param {Pointer<Integer>} _status 
-     * @returns {Integer} 
+     * @param {Pointer<UErrorCode>} _status 
+     * @returns {ULayoutType} 
      */
     static uloc_getCharacterOrientation(localeId, _status) {
         localeId := localeId is String ? StrPtr(localeId) : localeId
@@ -16074,8 +16073,8 @@ class Globalization {
     /**
      * 
      * @param {PSTR} localeId 
-     * @param {Pointer<Integer>} _status 
-     * @returns {Integer} 
+     * @param {Pointer<UErrorCode>} _status 
+     * @returns {ULayoutType} 
      */
     static uloc_getLineOrientation(localeId, _status) {
         localeId := localeId is String ? StrPtr(localeId) : localeId
@@ -16090,10 +16089,10 @@ class Globalization {
      * 
      * @param {PSTR} result 
      * @param {Integer} resultAvailable 
-     * @param {Pointer<Integer>} outResult 
+     * @param {Pointer<UAcceptResult>} outResult 
      * @param {PSTR} httpAcceptLanguage 
      * @param {Pointer<UEnumeration>} availableLocales 
-     * @param {Pointer<Integer>} _status 
+     * @param {Pointer<UErrorCode>} _status 
      * @returns {Integer} 
      */
     static uloc_acceptLanguageFromHTTP(result, resultAvailable, outResult, httpAcceptLanguage, availableLocales, _status) {
@@ -16112,11 +16111,11 @@ class Globalization {
      * 
      * @param {PSTR} result 
      * @param {Integer} resultAvailable 
-     * @param {Pointer<Integer>} outResult 
+     * @param {Pointer<UAcceptResult>} outResult 
      * @param {Pointer<Pointer<Integer>>} acceptList 
      * @param {Integer} acceptListCount 
      * @param {Pointer<UEnumeration>} availableLocales 
-     * @param {Pointer<Integer>} _status 
+     * @param {Pointer<UErrorCode>} _status 
      * @returns {Integer} 
      */
     static uloc_acceptLanguage(result, resultAvailable, outResult, acceptList, acceptListCount, availableLocales, _status) {
@@ -16136,7 +16135,7 @@ class Globalization {
      * @param {Integer} hostID 
      * @param {PSTR} locale 
      * @param {Integer} localeCapacity 
-     * @param {Pointer<Integer>} _status 
+     * @param {Pointer<UErrorCode>} _status 
      * @returns {Integer} 
      */
     static uloc_getLocaleForLCID(hostID, locale, localeCapacity, _status) {
@@ -16153,7 +16152,7 @@ class Globalization {
      * @param {PSTR} localeID 
      * @param {PSTR} maximizedLocaleID 
      * @param {Integer} maximizedLocaleIDCapacity 
-     * @param {Pointer<Integer>} err 
+     * @param {Pointer<UErrorCode>} err 
      * @returns {Integer} 
      */
     static uloc_addLikelySubtags(localeID, maximizedLocaleID, maximizedLocaleIDCapacity, err) {
@@ -16171,7 +16170,7 @@ class Globalization {
      * @param {PSTR} localeID 
      * @param {PSTR} minimizedLocaleID 
      * @param {Integer} minimizedLocaleIDCapacity 
-     * @param {Pointer<Integer>} err 
+     * @param {Pointer<UErrorCode>} err 
      * @returns {Integer} 
      */
     static uloc_minimizeSubtags(localeID, minimizedLocaleID, minimizedLocaleIDCapacity, err) {
@@ -16190,7 +16189,7 @@ class Globalization {
      * @param {PSTR} localeID 
      * @param {Integer} localeIDCapacity 
      * @param {Pointer<Integer>} parsedLength 
-     * @param {Pointer<Integer>} err 
+     * @param {Pointer<UErrorCode>} err 
      * @returns {Integer} 
      */
     static uloc_forLanguageTag(langtag, localeID, localeIDCapacity, parsedLength, err) {
@@ -16210,7 +16209,7 @@ class Globalization {
      * @param {PSTR} langtag 
      * @param {Integer} langtagCapacity 
      * @param {Integer} strict 
-     * @param {Pointer<Integer>} err 
+     * @param {Pointer<UErrorCode>} err 
      * @returns {Integer} 
      */
     static uloc_toLanguageTag(localeID, langtag, langtagCapacity, strict, err) {
@@ -16279,7 +16278,7 @@ class Globalization {
      * 
      * @param {PSTR} packageName 
      * @param {PSTR} locale 
-     * @param {Pointer<Integer>} _status 
+     * @param {Pointer<UErrorCode>} _status 
      * @returns {Pointer<UResourceBundle>} 
      */
     static ures_open(packageName, locale, _status) {
@@ -16296,7 +16295,7 @@ class Globalization {
      * 
      * @param {PSTR} packageName 
      * @param {PSTR} locale 
-     * @param {Pointer<Integer>} _status 
+     * @param {Pointer<UErrorCode>} _status 
      * @returns {Pointer<UResourceBundle>} 
      */
     static ures_openDirect(packageName, locale, _status) {
@@ -16313,7 +16312,7 @@ class Globalization {
      * 
      * @param {Pointer<Integer>} packageName 
      * @param {PSTR} locale 
-     * @param {Pointer<Integer>} _status 
+     * @param {Pointer<UErrorCode>} _status 
      * @returns {Pointer<UResourceBundle>} 
      */
     static ures_openU(packageName, locale, _status) {
@@ -16353,8 +16352,8 @@ class Globalization {
     /**
      * 
      * @param {Pointer<UResourceBundle>} resourceBundle 
-     * @param {Integer} type 
-     * @param {Pointer<Integer>} _status 
+     * @param {ULocDataLocaleType} type 
+     * @param {Pointer<UErrorCode>} _status 
      * @returns {PSTR} 
      */
     static ures_getLocaleByType(resourceBundle, type, _status) {
@@ -16369,7 +16368,7 @@ class Globalization {
      * 
      * @param {Pointer<UResourceBundle>} resourceBundle 
      * @param {Pointer<Integer>} len 
-     * @param {Pointer<Integer>} _status 
+     * @param {Pointer<UErrorCode>} _status 
      * @returns {Pointer<Integer>} 
      */
     static ures_getString(resourceBundle, len, _status) {
@@ -16387,7 +16386,7 @@ class Globalization {
      * @param {PSTR} dest 
      * @param {Pointer<Integer>} length 
      * @param {Integer} forceCopy 
-     * @param {Pointer<Integer>} _status 
+     * @param {Pointer<UErrorCode>} _status 
      * @returns {PSTR} 
      */
     static ures_getUTF8String(resB, dest, length, forceCopy, _status) {
@@ -16405,7 +16404,7 @@ class Globalization {
      * 
      * @param {Pointer<UResourceBundle>} resourceBundle 
      * @param {Pointer<Integer>} len 
-     * @param {Pointer<Integer>} _status 
+     * @param {Pointer<UErrorCode>} _status 
      * @returns {Pointer<Integer>} 
      */
     static ures_getBinary(resourceBundle, len, _status) {
@@ -16421,7 +16420,7 @@ class Globalization {
      * 
      * @param {Pointer<UResourceBundle>} resourceBundle 
      * @param {Pointer<Integer>} len 
-     * @param {Pointer<Integer>} _status 
+     * @param {Pointer<UErrorCode>} _status 
      * @returns {Pointer<Integer>} 
      */
     static ures_getIntVector(resourceBundle, len, _status) {
@@ -16436,7 +16435,7 @@ class Globalization {
     /**
      * 
      * @param {Pointer<UResourceBundle>} resourceBundle 
-     * @param {Pointer<Integer>} _status 
+     * @param {Pointer<UErrorCode>} _status 
      * @returns {Integer} 
      */
     static ures_getUInt(resourceBundle, _status) {
@@ -16450,7 +16449,7 @@ class Globalization {
     /**
      * 
      * @param {Pointer<UResourceBundle>} resourceBundle 
-     * @param {Pointer<Integer>} _status 
+     * @param {Pointer<UErrorCode>} _status 
      * @returns {Integer} 
      */
     static ures_getInt(resourceBundle, _status) {
@@ -16476,7 +16475,7 @@ class Globalization {
     /**
      * 
      * @param {Pointer<UResourceBundle>} resourceBundle 
-     * @returns {Integer} 
+     * @returns {UResType} 
      */
     static ures_getType(resourceBundle) {
         resourceBundleMarshal := resourceBundle is VarRef ? "ptr*" : "ptr"
@@ -16524,7 +16523,7 @@ class Globalization {
      * 
      * @param {Pointer<UResourceBundle>} resourceBundle 
      * @param {Pointer<UResourceBundle>} fillIn 
-     * @param {Pointer<Integer>} _status 
+     * @param {Pointer<UErrorCode>} _status 
      * @returns {Pointer<UResourceBundle>} 
      */
     static ures_getNextResource(resourceBundle, fillIn, _status) {
@@ -16541,7 +16540,7 @@ class Globalization {
      * @param {Pointer<UResourceBundle>} resourceBundle 
      * @param {Pointer<Integer>} len 
      * @param {Pointer<Pointer<Integer>>} key 
-     * @param {Pointer<Integer>} _status 
+     * @param {Pointer<UErrorCode>} _status 
      * @returns {Pointer<Integer>} 
      */
     static ures_getNextString(resourceBundle, len, key, _status) {
@@ -16559,7 +16558,7 @@ class Globalization {
      * @param {Pointer<UResourceBundle>} resourceBundle 
      * @param {Integer} indexR 
      * @param {Pointer<UResourceBundle>} fillIn 
-     * @param {Pointer<Integer>} _status 
+     * @param {Pointer<UErrorCode>} _status 
      * @returns {Pointer<UResourceBundle>} 
      */
     static ures_getByIndex(resourceBundle, indexR, fillIn, _status) {
@@ -16576,7 +16575,7 @@ class Globalization {
      * @param {Pointer<UResourceBundle>} resourceBundle 
      * @param {Integer} indexS 
      * @param {Pointer<Integer>} len 
-     * @param {Pointer<Integer>} _status 
+     * @param {Pointer<UErrorCode>} _status 
      * @returns {Pointer<Integer>} 
      */
     static ures_getStringByIndex(resourceBundle, indexS, len, _status) {
@@ -16595,7 +16594,7 @@ class Globalization {
      * @param {PSTR} dest 
      * @param {Pointer<Integer>} pLength 
      * @param {Integer} forceCopy 
-     * @param {Pointer<Integer>} _status 
+     * @param {Pointer<UErrorCode>} _status 
      * @returns {PSTR} 
      */
     static ures_getUTF8StringByIndex(resB, stringIndex, dest, pLength, forceCopy, _status) {
@@ -16614,7 +16613,7 @@ class Globalization {
      * @param {Pointer<UResourceBundle>} resourceBundle 
      * @param {PSTR} key 
      * @param {Pointer<UResourceBundle>} fillIn 
-     * @param {Pointer<Integer>} _status 
+     * @param {Pointer<UErrorCode>} _status 
      * @returns {Pointer<UResourceBundle>} 
      */
     static ures_getByKey(resourceBundle, key, fillIn, _status) {
@@ -16633,7 +16632,7 @@ class Globalization {
      * @param {Pointer<UResourceBundle>} resB 
      * @param {PSTR} key 
      * @param {Pointer<Integer>} len 
-     * @param {Pointer<Integer>} _status 
+     * @param {Pointer<UErrorCode>} _status 
      * @returns {Pointer<Integer>} 
      */
     static ures_getStringByKey(resB, key, len, _status) {
@@ -16654,7 +16653,7 @@ class Globalization {
      * @param {PSTR} dest 
      * @param {Pointer<Integer>} pLength 
      * @param {Integer} forceCopy 
-     * @param {Pointer<Integer>} _status 
+     * @param {Pointer<UErrorCode>} _status 
      * @returns {PSTR} 
      */
     static ures_getUTF8StringByKey(resB, key, dest, pLength, forceCopy, _status) {
@@ -16672,7 +16671,7 @@ class Globalization {
     /**
      * 
      * @param {PSTR} packageName 
-     * @param {Pointer<Integer>} _status 
+     * @param {Pointer<UErrorCode>} _status 
      * @returns {Pointer<UEnumeration>} 
      */
     static ures_openAvailableLocales(packageName, _status) {
@@ -16687,8 +16686,8 @@ class Globalization {
     /**
      * 
      * @param {PSTR} locale 
-     * @param {Integer} dialectHandling 
-     * @param {Pointer<Integer>} pErrorCode 
+     * @param {UDialectHandling} dialectHandling 
+     * @param {Pointer<UErrorCode>} pErrorCode 
      * @returns {Pointer<ULocaleDisplayNames>} 
      */
     static uldn_open(locale, dialectHandling, pErrorCode) {
@@ -16726,7 +16725,7 @@ class Globalization {
     /**
      * 
      * @param {Pointer<ULocaleDisplayNames>} ldn 
-     * @returns {Integer} 
+     * @returns {UDialectHandling} 
      */
     static uldn_getDialectHandling(ldn) {
         ldnMarshal := ldn is VarRef ? "ptr*" : "ptr"
@@ -16741,7 +16740,7 @@ class Globalization {
      * @param {PSTR} locale 
      * @param {Pointer<Integer>} result 
      * @param {Integer} maxResultSize 
-     * @param {Pointer<Integer>} pErrorCode 
+     * @param {Pointer<UErrorCode>} pErrorCode 
      * @returns {Integer} 
      */
     static uldn_localeDisplayName(ldn, locale, result, maxResultSize, pErrorCode) {
@@ -16761,7 +16760,7 @@ class Globalization {
      * @param {PSTR} lang 
      * @param {Pointer<Integer>} result 
      * @param {Integer} maxResultSize 
-     * @param {Pointer<Integer>} pErrorCode 
+     * @param {Pointer<UErrorCode>} pErrorCode 
      * @returns {Integer} 
      */
     static uldn_languageDisplayName(ldn, lang, result, maxResultSize, pErrorCode) {
@@ -16781,7 +16780,7 @@ class Globalization {
      * @param {PSTR} script 
      * @param {Pointer<Integer>} result 
      * @param {Integer} maxResultSize 
-     * @param {Pointer<Integer>} pErrorCode 
+     * @param {Pointer<UErrorCode>} pErrorCode 
      * @returns {Integer} 
      */
     static uldn_scriptDisplayName(ldn, script, result, maxResultSize, pErrorCode) {
@@ -16798,10 +16797,10 @@ class Globalization {
     /**
      * 
      * @param {Pointer<ULocaleDisplayNames>} ldn 
-     * @param {Integer} scriptCode 
+     * @param {UScriptCode} scriptCode 
      * @param {Pointer<Integer>} result 
      * @param {Integer} maxResultSize 
-     * @param {Pointer<Integer>} pErrorCode 
+     * @param {Pointer<UErrorCode>} pErrorCode 
      * @returns {Integer} 
      */
     static uldn_scriptCodeDisplayName(ldn, scriptCode, result, maxResultSize, pErrorCode) {
@@ -16819,7 +16818,7 @@ class Globalization {
      * @param {PSTR} _region 
      * @param {Pointer<Integer>} result 
      * @param {Integer} maxResultSize 
-     * @param {Pointer<Integer>} pErrorCode 
+     * @param {Pointer<UErrorCode>} pErrorCode 
      * @returns {Integer} 
      */
     static uldn_regionDisplayName(ldn, _region, result, maxResultSize, pErrorCode) {
@@ -16839,7 +16838,7 @@ class Globalization {
      * @param {PSTR} _variant 
      * @param {Pointer<Integer>} result 
      * @param {Integer} maxResultSize 
-     * @param {Pointer<Integer>} pErrorCode 
+     * @param {Pointer<UErrorCode>} pErrorCode 
      * @returns {Integer} 
      */
     static uldn_variantDisplayName(ldn, _variant, result, maxResultSize, pErrorCode) {
@@ -16859,7 +16858,7 @@ class Globalization {
      * @param {PSTR} key 
      * @param {Pointer<Integer>} result 
      * @param {Integer} maxResultSize 
-     * @param {Pointer<Integer>} pErrorCode 
+     * @param {Pointer<UErrorCode>} pErrorCode 
      * @returns {Integer} 
      */
     static uldn_keyDisplayName(ldn, key, result, maxResultSize, pErrorCode) {
@@ -16880,7 +16879,7 @@ class Globalization {
      * @param {PSTR} value 
      * @param {Pointer<Integer>} result 
      * @param {Integer} maxResultSize 
-     * @param {Pointer<Integer>} pErrorCode 
+     * @param {Pointer<UErrorCode>} pErrorCode 
      * @returns {Integer} 
      */
     static uldn_keyValueDisplayName(ldn, key, value, result, maxResultSize, pErrorCode) {
@@ -16898,9 +16897,9 @@ class Globalization {
     /**
      * 
      * @param {PSTR} locale 
-     * @param {Pointer<Integer>} contexts 
+     * @param {Pointer<UDisplayContext>} contexts 
      * @param {Integer} length 
-     * @param {Pointer<Integer>} pErrorCode 
+     * @param {Pointer<UErrorCode>} pErrorCode 
      * @returns {Pointer<ULocaleDisplayNames>} 
      */
     static uldn_openForContext(locale, contexts, length, pErrorCode) {
@@ -16916,9 +16915,9 @@ class Globalization {
     /**
      * 
      * @param {Pointer<ULocaleDisplayNames>} ldn 
-     * @param {Integer} type 
-     * @param {Pointer<Integer>} pErrorCode 
-     * @returns {Integer} 
+     * @param {UDisplayContextType} type 
+     * @param {Pointer<UErrorCode>} pErrorCode 
+     * @returns {UDisplayContext} 
      */
     static uldn_getContext(ldn, type, pErrorCode) {
         ldnMarshal := ldn is VarRef ? "ptr*" : "ptr"
@@ -16933,7 +16932,7 @@ class Globalization {
      * @param {PSTR} locale 
      * @param {Pointer<Integer>} buff 
      * @param {Integer} buffCapacity 
-     * @param {Pointer<Integer>} ec 
+     * @param {Pointer<UErrorCode>} ec 
      * @returns {Integer} 
      */
     static ucurr_forLocale(locale, buff, buffCapacity, ec) {
@@ -16950,7 +16949,7 @@ class Globalization {
      * 
      * @param {Pointer<Integer>} isoCode 
      * @param {PSTR} locale 
-     * @param {Pointer<Integer>} _status 
+     * @param {Pointer<UErrorCode>} _status 
      * @returns {Pointer<Void>} 
      */
     static ucurr_register(isoCode, locale, _status) {
@@ -16966,7 +16965,7 @@ class Globalization {
     /**
      * 
      * @param {Pointer<Void>} key 
-     * @param {Pointer<Integer>} _status 
+     * @param {Pointer<UErrorCode>} _status 
      * @returns {Integer} 
      */
     static ucurr_unregister(key, _status) {
@@ -16981,10 +16980,10 @@ class Globalization {
      * 
      * @param {Pointer<Integer>} currency 
      * @param {PSTR} locale 
-     * @param {Integer} nameStyle 
+     * @param {UCurrNameStyle} nameStyle 
      * @param {Pointer<Integer>} isChoiceFormat 
      * @param {Pointer<Integer>} len 
-     * @param {Pointer<Integer>} ec 
+     * @param {Pointer<UErrorCode>} ec 
      * @returns {Pointer<Integer>} 
      */
     static ucurr_getName(currency, locale, nameStyle, isChoiceFormat, len, ec) {
@@ -17006,7 +17005,7 @@ class Globalization {
      * @param {Pointer<Integer>} isChoiceFormat 
      * @param {PSTR} pluralCount 
      * @param {Pointer<Integer>} len 
-     * @param {Pointer<Integer>} ec 
+     * @param {Pointer<UErrorCode>} ec 
      * @returns {Pointer<Integer>} 
      */
     static ucurr_getPluralName(currency, locale, isChoiceFormat, pluralCount, len, ec) {
@@ -17025,7 +17024,7 @@ class Globalization {
     /**
      * 
      * @param {Pointer<Integer>} currency 
-     * @param {Pointer<Integer>} ec 
+     * @param {Pointer<UErrorCode>} ec 
      * @returns {Integer} 
      */
     static ucurr_getDefaultFractionDigits(currency, ec) {
@@ -17039,8 +17038,8 @@ class Globalization {
     /**
      * 
      * @param {Pointer<Integer>} currency 
-     * @param {Integer} usage 
-     * @param {Pointer<Integer>} ec 
+     * @param {UCurrencyUsage} usage 
+     * @param {Pointer<UErrorCode>} ec 
      * @returns {Integer} 
      */
     static ucurr_getDefaultFractionDigitsForUsage(currency, usage, ec) {
@@ -17054,7 +17053,7 @@ class Globalization {
     /**
      * 
      * @param {Pointer<Integer>} currency 
-     * @param {Pointer<Integer>} ec 
+     * @param {Pointer<UErrorCode>} ec 
      * @returns {Float} 
      */
     static ucurr_getRoundingIncrement(currency, ec) {
@@ -17068,8 +17067,8 @@ class Globalization {
     /**
      * 
      * @param {Pointer<Integer>} currency 
-     * @param {Integer} usage 
-     * @param {Pointer<Integer>} ec 
+     * @param {UCurrencyUsage} usage 
+     * @param {Pointer<UErrorCode>} ec 
      * @returns {Float} 
      */
     static ucurr_getRoundingIncrementForUsage(currency, usage, ec) {
@@ -17083,7 +17082,7 @@ class Globalization {
     /**
      * 
      * @param {Integer} currType 
-     * @param {Pointer<Integer>} pErrorCode 
+     * @param {Pointer<UErrorCode>} pErrorCode 
      * @returns {Pointer<UEnumeration>} 
      */
     static ucurr_openISOCurrencies(currType, pErrorCode) {
@@ -17098,7 +17097,7 @@ class Globalization {
      * @param {Pointer<Integer>} isoCode 
      * @param {Float} from 
      * @param {Float} to 
-     * @param {Pointer<Integer>} errorCode 
+     * @param {Pointer<UErrorCode>} errorCode 
      * @returns {Integer} 
      */
     static ucurr_isAvailable(isoCode, from, to, errorCode) {
@@ -17113,7 +17112,7 @@ class Globalization {
      * 
      * @param {PSTR} locale 
      * @param {Float} date 
-     * @param {Pointer<Integer>} ec 
+     * @param {Pointer<UErrorCode>} ec 
      * @returns {Integer} 
      */
     static ucurr_countCurrencies(locale, date, ec) {
@@ -17132,7 +17131,7 @@ class Globalization {
      * @param {Integer} index 
      * @param {Pointer<Integer>} buff 
      * @param {Integer} buffCapacity 
-     * @param {Pointer<Integer>} ec 
+     * @param {Pointer<UErrorCode>} ec 
      * @returns {Integer} 
      */
     static ucurr_forLocaleAndDate(locale, date, index, buff, buffCapacity, ec) {
@@ -17150,7 +17149,7 @@ class Globalization {
      * @param {PSTR} key 
      * @param {PSTR} locale 
      * @param {Integer} commonlyUsed 
-     * @param {Pointer<Integer>} _status 
+     * @param {Pointer<UErrorCode>} _status 
      * @returns {Pointer<UEnumeration>} 
      */
     static ucurr_getKeywordValuesForLocale(key, locale, commonlyUsed, _status) {
@@ -17177,46 +17176,46 @@ class Globalization {
 
     /**
      * 
-     * @param {Pointer<UCPMap>} map 
+     * @param {Pointer<UCPMap>} _map 
      * @param {Integer} c 
      * @returns {Integer} 
      */
-    static ucpmap_get(map, c) {
-        mapMarshal := map is VarRef ? "ptr*" : "ptr"
+    static ucpmap_get(_map, c) {
+        _mapMarshal := _map is VarRef ? "ptr*" : "ptr"
 
-        result := DllCall("icu.dll\ucpmap_get", mapMarshal, map, "int", c, "CDecl uint")
+        result := DllCall("icu.dll\ucpmap_get", _mapMarshal, _map, "int", c, "CDecl uint")
         return result
     }
 
     /**
      * 
-     * @param {Pointer<UCPMap>} map 
+     * @param {Pointer<UCPMap>} _map 
      * @param {Integer} start 
-     * @param {Integer} option 
+     * @param {UCPMapRangeOption} option 
      * @param {Integer} surrogateValue 
      * @param {Pointer<Pointer<UCPMapValueFilter>>} filter 
      * @param {Pointer<Void>} _context 
      * @param {Pointer<Integer>} pValue 
      * @returns {Integer} 
      */
-    static ucpmap_getRange(map, start, option, surrogateValue, filter, _context, pValue) {
-        mapMarshal := map is VarRef ? "ptr*" : "ptr"
+    static ucpmap_getRange(_map, start, option, surrogateValue, filter, _context, pValue) {
+        _mapMarshal := _map is VarRef ? "ptr*" : "ptr"
         filterMarshal := filter is VarRef ? "ptr*" : "ptr"
         _contextMarshal := _context is VarRef ? "ptr" : "ptr"
         pValueMarshal := pValue is VarRef ? "uint*" : "ptr"
 
-        result := DllCall("icu.dll\ucpmap_getRange", mapMarshal, map, "int", start, "int", option, "uint", surrogateValue, filterMarshal, filter, _contextMarshal, _context, pValueMarshal, pValue, "CDecl int")
+        result := DllCall("icu.dll\ucpmap_getRange", _mapMarshal, _map, "int", start, "int", option, "uint", surrogateValue, filterMarshal, filter, _contextMarshal, _context, pValueMarshal, pValue, "CDecl int")
         return result
     }
 
     /**
      * 
-     * @param {Integer} type 
-     * @param {Integer} valueWidth 
+     * @param {UCPTrieType} type 
+     * @param {UCPTrieValueWidth} valueWidth 
      * @param {Pointer<Void>} data 
      * @param {Integer} length 
      * @param {Pointer<Integer>} pActualLength 
-     * @param {Pointer<Integer>} pErrorCode 
+     * @param {Pointer<UErrorCode>} pErrorCode 
      * @returns {Pointer<UCPTrie>} 
      */
     static ucptrie_openFromBinary(type, valueWidth, data, length, pActualLength, pErrorCode) {
@@ -17240,7 +17239,7 @@ class Globalization {
     /**
      * 
      * @param {Pointer<UCPTrie>} trie 
-     * @returns {Integer} 
+     * @returns {UCPTrieType} 
      */
     static ucptrie_getType(trie) {
         result := DllCall("icu.dll\ucptrie_getType", "ptr", trie, "CDecl int")
@@ -17250,7 +17249,7 @@ class Globalization {
     /**
      * 
      * @param {Pointer<UCPTrie>} trie 
-     * @returns {Integer} 
+     * @returns {UCPTrieValueWidth} 
      */
     static ucptrie_getValueWidth(trie) {
         result := DllCall("icu.dll\ucptrie_getValueWidth", "ptr", trie, "CDecl int")
@@ -17272,7 +17271,7 @@ class Globalization {
      * 
      * @param {Pointer<UCPTrie>} trie 
      * @param {Integer} start 
-     * @param {Integer} option 
+     * @param {UCPMapRangeOption} option 
      * @param {Integer} surrogateValue 
      * @param {Pointer<Pointer<UCPMapValueFilter>>} filter 
      * @param {Pointer<Void>} _context 
@@ -17293,7 +17292,7 @@ class Globalization {
      * @param {Pointer<UCPTrie>} trie 
      * @param {Pointer<Void>} data 
      * @param {Integer} capacity 
-     * @param {Pointer<Integer>} pErrorCode 
+     * @param {Pointer<UErrorCode>} pErrorCode 
      * @returns {Integer} 
      */
     static ucptrie_toBinary(trie, data, capacity, pErrorCode) {
@@ -17348,7 +17347,7 @@ class Globalization {
      * 
      * @param {Integer} initialValue 
      * @param {Integer} errorValue 
-     * @param {Pointer<Integer>} pErrorCode 
+     * @param {Pointer<UErrorCode>} pErrorCode 
      * @returns {Pointer<UMutableCPTrie>} 
      */
     static umutablecptrie_open(initialValue, errorValue, pErrorCode) {
@@ -17361,7 +17360,7 @@ class Globalization {
     /**
      * 
      * @param {Pointer<UMutableCPTrie>} other 
-     * @param {Pointer<Integer>} pErrorCode 
+     * @param {Pointer<UErrorCode>} pErrorCode 
      * @returns {Pointer<UMutableCPTrie>} 
      */
     static umutablecptrie_clone(other, pErrorCode) {
@@ -17385,22 +17384,22 @@ class Globalization {
 
     /**
      * 
-     * @param {Pointer<UCPMap>} map 
-     * @param {Pointer<Integer>} pErrorCode 
+     * @param {Pointer<UCPMap>} _map 
+     * @param {Pointer<UErrorCode>} pErrorCode 
      * @returns {Pointer<UMutableCPTrie>} 
      */
-    static umutablecptrie_fromUCPMap(map, pErrorCode) {
-        mapMarshal := map is VarRef ? "ptr*" : "ptr"
+    static umutablecptrie_fromUCPMap(_map, pErrorCode) {
+        _mapMarshal := _map is VarRef ? "ptr*" : "ptr"
         pErrorCodeMarshal := pErrorCode is VarRef ? "int*" : "ptr"
 
-        result := DllCall("icu.dll\umutablecptrie_fromUCPMap", mapMarshal, map, pErrorCodeMarshal, pErrorCode, "CDecl ptr")
+        result := DllCall("icu.dll\umutablecptrie_fromUCPMap", _mapMarshal, _map, pErrorCodeMarshal, pErrorCode, "CDecl ptr")
         return result
     }
 
     /**
      * 
      * @param {Pointer<UCPTrie>} trie 
-     * @param {Pointer<Integer>} pErrorCode 
+     * @param {Pointer<UErrorCode>} pErrorCode 
      * @returns {Pointer<UMutableCPTrie>} 
      */
     static umutablecptrie_fromUCPTrie(trie, pErrorCode) {
@@ -17427,7 +17426,7 @@ class Globalization {
      * 
      * @param {Pointer<UMutableCPTrie>} trie 
      * @param {Integer} start 
-     * @param {Integer} option 
+     * @param {UCPMapRangeOption} option 
      * @param {Integer} surrogateValue 
      * @param {Pointer<Pointer<UCPMapValueFilter>>} filter 
      * @param {Pointer<Void>} _context 
@@ -17449,7 +17448,7 @@ class Globalization {
      * @param {Pointer<UMutableCPTrie>} trie 
      * @param {Integer} c 
      * @param {Integer} value 
-     * @param {Pointer<Integer>} pErrorCode 
+     * @param {Pointer<UErrorCode>} pErrorCode 
      * @returns {String} Nothing - always returns an empty string
      */
     static umutablecptrie_set(trie, c, value, pErrorCode) {
@@ -17465,7 +17464,7 @@ class Globalization {
      * @param {Integer} start 
      * @param {Integer} end 
      * @param {Integer} value 
-     * @param {Pointer<Integer>} pErrorCode 
+     * @param {Pointer<UErrorCode>} pErrorCode 
      * @returns {String} Nothing - always returns an empty string
      */
     static umutablecptrie_setRange(trie, start, end, value, pErrorCode) {
@@ -17478,9 +17477,9 @@ class Globalization {
     /**
      * 
      * @param {Pointer<UMutableCPTrie>} trie 
-     * @param {Integer} type 
-     * @param {Integer} valueWidth 
-     * @param {Pointer<Integer>} pErrorCode 
+     * @param {UCPTrieType} type 
+     * @param {UCPTrieValueWidth} valueWidth 
+     * @param {Pointer<UErrorCode>} pErrorCode 
      * @returns {Pointer<UCPTrie>} 
      */
     static umutablecptrie_buildImmutable(trie, type, valueWidth, pErrorCode) {
@@ -17498,8 +17497,8 @@ class Globalization {
      * @param {Pointer<Integer>} codeUnits 
      * @param {Integer} length 
      * @param {Integer} codePoint 
-     * @param {Integer} reason 
-     * @param {Pointer<Integer>} err 
+     * @param {UConverterCallbackReason} reason 
+     * @param {Pointer<UErrorCode>} err 
      * @returns {String} Nothing - always returns an empty string
      */
     static UCNV_FROM_U_CALLBACK_STOP(_context, fromUArgs, codeUnits, length, codePoint, reason, err) {
@@ -17516,8 +17515,8 @@ class Globalization {
      * @param {Pointer<UConverterToUnicodeArgs>} toUArgs 
      * @param {PSTR} codeUnits 
      * @param {Integer} length 
-     * @param {Integer} reason 
-     * @param {Pointer<Integer>} err 
+     * @param {UConverterCallbackReason} reason 
+     * @param {Pointer<UErrorCode>} err 
      * @returns {String} Nothing - always returns an empty string
      */
     static UCNV_TO_U_CALLBACK_STOP(_context, toUArgs, codeUnits, length, reason, err) {
@@ -17536,8 +17535,8 @@ class Globalization {
      * @param {Pointer<Integer>} codeUnits 
      * @param {Integer} length 
      * @param {Integer} codePoint 
-     * @param {Integer} reason 
-     * @param {Pointer<Integer>} err 
+     * @param {UConverterCallbackReason} reason 
+     * @param {Pointer<UErrorCode>} err 
      * @returns {String} Nothing - always returns an empty string
      */
     static UCNV_FROM_U_CALLBACK_SKIP(_context, fromUArgs, codeUnits, length, codePoint, reason, err) {
@@ -17555,8 +17554,8 @@ class Globalization {
      * @param {Pointer<Integer>} codeUnits 
      * @param {Integer} length 
      * @param {Integer} codePoint 
-     * @param {Integer} reason 
-     * @param {Pointer<Integer>} err 
+     * @param {UConverterCallbackReason} reason 
+     * @param {Pointer<UErrorCode>} err 
      * @returns {String} Nothing - always returns an empty string
      */
     static UCNV_FROM_U_CALLBACK_SUBSTITUTE(_context, fromUArgs, codeUnits, length, codePoint, reason, err) {
@@ -17574,8 +17573,8 @@ class Globalization {
      * @param {Pointer<Integer>} codeUnits 
      * @param {Integer} length 
      * @param {Integer} codePoint 
-     * @param {Integer} reason 
-     * @param {Pointer<Integer>} err 
+     * @param {UConverterCallbackReason} reason 
+     * @param {Pointer<UErrorCode>} err 
      * @returns {String} Nothing - always returns an empty string
      */
     static UCNV_FROM_U_CALLBACK_ESCAPE(_context, fromUArgs, codeUnits, length, codePoint, reason, err) {
@@ -17592,8 +17591,8 @@ class Globalization {
      * @param {Pointer<UConverterToUnicodeArgs>} toUArgs 
      * @param {PSTR} codeUnits 
      * @param {Integer} length 
-     * @param {Integer} reason 
-     * @param {Pointer<Integer>} err 
+     * @param {UConverterCallbackReason} reason 
+     * @param {Pointer<UErrorCode>} err 
      * @returns {String} Nothing - always returns an empty string
      */
     static UCNV_TO_U_CALLBACK_SKIP(_context, toUArgs, codeUnits, length, reason, err) {
@@ -17611,8 +17610,8 @@ class Globalization {
      * @param {Pointer<UConverterToUnicodeArgs>} toUArgs 
      * @param {PSTR} codeUnits 
      * @param {Integer} length 
-     * @param {Integer} reason 
-     * @param {Pointer<Integer>} err 
+     * @param {UConverterCallbackReason} reason 
+     * @param {Pointer<UErrorCode>} err 
      * @returns {String} Nothing - always returns an empty string
      */
     static UCNV_TO_U_CALLBACK_SUBSTITUTE(_context, toUArgs, codeUnits, length, reason, err) {
@@ -17630,8 +17629,8 @@ class Globalization {
      * @param {Pointer<UConverterToUnicodeArgs>} toUArgs 
      * @param {PSTR} codeUnits 
      * @param {Integer} length 
-     * @param {Integer} reason 
-     * @param {Pointer<Integer>} err 
+     * @param {UConverterCallbackReason} reason 
+     * @param {Pointer<UErrorCode>} err 
      * @returns {String} Nothing - always returns an empty string
      */
     static UCNV_TO_U_CALLBACK_ESCAPE(_context, toUArgs, codeUnits, length, reason, err) {
@@ -17660,7 +17659,7 @@ class Globalization {
     /**
      * 
      * @param {PSTR} converterName 
-     * @param {Pointer<Integer>} err 
+     * @param {Pointer<UErrorCode>} err 
      * @returns {Pointer<UConverter>} 
      */
     static ucnv_open(converterName, err) {
@@ -17675,7 +17674,7 @@ class Globalization {
     /**
      * 
      * @param {Pointer<Integer>} name 
-     * @param {Pointer<Integer>} err 
+     * @param {Pointer<UErrorCode>} err 
      * @returns {Pointer<UConverter>} 
      */
     static ucnv_openU(name, err) {
@@ -17689,8 +17688,8 @@ class Globalization {
     /**
      * 
      * @param {Integer} codepage 
-     * @param {Integer} platform 
-     * @param {Pointer<Integer>} err 
+     * @param {UConverterPlatform} platform 
+     * @param {Pointer<UErrorCode>} err 
      * @returns {Pointer<UConverter>} 
      */
     static ucnv_openCCSID(codepage, platform, err) {
@@ -17704,7 +17703,7 @@ class Globalization {
      * 
      * @param {PSTR} packageName 
      * @param {PSTR} converterName 
-     * @param {Pointer<Integer>} err 
+     * @param {Pointer<UErrorCode>} err 
      * @returns {Pointer<UConverter>} 
      */
     static ucnv_openPackage(packageName, converterName, err) {
@@ -17722,7 +17721,7 @@ class Globalization {
      * @param {Pointer<UConverter>} cnv 
      * @param {Pointer<Void>} stackBuffer 
      * @param {Pointer<Integer>} pBufferSize 
-     * @param {Pointer<Integer>} _status 
+     * @param {Pointer<UErrorCode>} _status 
      * @returns {Pointer<UConverter>} 
      */
     static ucnv_safeClone(cnv, stackBuffer, pBufferSize, _status) {
@@ -17738,7 +17737,7 @@ class Globalization {
     /**
      * 
      * @param {Pointer<UConverter>} cnv 
-     * @param {Pointer<Integer>} _status 
+     * @param {Pointer<UErrorCode>} _status 
      * @returns {Pointer<UConverter>} 
      */
     static ucnv_clone(cnv, _status) {
@@ -17765,7 +17764,7 @@ class Globalization {
      * @param {Pointer<UConverter>} converter 
      * @param {PSTR} subChars 
      * @param {Pointer<Integer>} len 
-     * @param {Pointer<Integer>} err 
+     * @param {Pointer<UErrorCode>} err 
      * @returns {String} Nothing - always returns an empty string
      */
     static ucnv_getSubstChars(converter, subChars, len, err) {
@@ -17783,7 +17782,7 @@ class Globalization {
      * @param {Pointer<UConverter>} converter 
      * @param {PSTR} subChars 
      * @param {Integer} len 
-     * @param {Pointer<Integer>} err 
+     * @param {Pointer<UErrorCode>} err 
      * @returns {String} Nothing - always returns an empty string
      */
     static ucnv_setSubstChars(converter, subChars, len, err) {
@@ -17800,7 +17799,7 @@ class Globalization {
      * @param {Pointer<UConverter>} cnv 
      * @param {Pointer<Integer>} s 
      * @param {Integer} length 
-     * @param {Pointer<Integer>} err 
+     * @param {Pointer<UErrorCode>} err 
      * @returns {String} Nothing - always returns an empty string
      */
     static ucnv_setSubstString(cnv, s, length, err) {
@@ -17816,7 +17815,7 @@ class Globalization {
      * @param {Pointer<UConverter>} converter 
      * @param {PSTR} errBytes 
      * @param {Pointer<Integer>} len 
-     * @param {Pointer<Integer>} err 
+     * @param {Pointer<UErrorCode>} err 
      * @returns {String} Nothing - always returns an empty string
      */
     static ucnv_getInvalidChars(converter, errBytes, len, err) {
@@ -17834,7 +17833,7 @@ class Globalization {
      * @param {Pointer<UConverter>} converter 
      * @param {Pointer<Integer>} errUChars 
      * @param {Pointer<Integer>} len 
-     * @param {Pointer<Integer>} err 
+     * @param {Pointer<UErrorCode>} err 
      * @returns {String} Nothing - always returns an empty string
      */
     static ucnv_getInvalidUChars(converter, errUChars, len, err) {
@@ -17909,7 +17908,7 @@ class Globalization {
      * @param {PSTR} displayLocale 
      * @param {Pointer<Integer>} displayName 
      * @param {Integer} displayNameCapacity 
-     * @param {Pointer<Integer>} err 
+     * @param {Pointer<UErrorCode>} err 
      * @returns {Integer} 
      */
     static ucnv_getDisplayName(converter, displayLocale, displayName, displayNameCapacity, err) {
@@ -17926,7 +17925,7 @@ class Globalization {
     /**
      * 
      * @param {Pointer<UConverter>} converter 
-     * @param {Pointer<Integer>} err 
+     * @param {Pointer<UErrorCode>} err 
      * @returns {PSTR} 
      */
     static ucnv_getName(converter, err) {
@@ -17940,7 +17939,7 @@ class Globalization {
     /**
      * 
      * @param {Pointer<UConverter>} converter 
-     * @param {Pointer<Integer>} err 
+     * @param {Pointer<UErrorCode>} err 
      * @returns {Integer} 
      */
     static ucnv_getCCSID(converter, err) {
@@ -17954,8 +17953,8 @@ class Globalization {
     /**
      * 
      * @param {Pointer<UConverter>} converter 
-     * @param {Pointer<Integer>} err 
-     * @returns {Integer} 
+     * @param {Pointer<UErrorCode>} err 
+     * @returns {UConverterPlatform} 
      */
     static ucnv_getPlatform(converter, err) {
         converterMarshal := converter is VarRef ? "ptr*" : "ptr"
@@ -17968,7 +17967,7 @@ class Globalization {
     /**
      * 
      * @param {Pointer<UConverter>} converter 
-     * @returns {Integer} 
+     * @returns {UConverterType} 
      */
     static ucnv_getType(converter) {
         converterMarshal := converter is VarRef ? "ptr*" : "ptr"
@@ -17981,7 +17980,7 @@ class Globalization {
      * 
      * @param {Pointer<UConverter>} converter 
      * @param {Pointer<Integer>} starters 
-     * @param {Pointer<Integer>} err 
+     * @param {Pointer<UErrorCode>} err 
      * @returns {String} Nothing - always returns an empty string
      */
     static ucnv_getStarters(converter, starters, err) {
@@ -17996,8 +17995,8 @@ class Globalization {
      * 
      * @param {Pointer<UConverter>} cnv 
      * @param {Pointer<USet>} setFillIn 
-     * @param {Integer} whichSet 
-     * @param {Pointer<Integer>} pErrorCode 
+     * @param {UConverterUnicodeSet} whichSet 
+     * @param {Pointer<UErrorCode>} pErrorCode 
      * @returns {String} Nothing - always returns an empty string
      */
     static ucnv_getUnicodeSet(cnv, setFillIn, whichSet, pErrorCode) {
@@ -18045,7 +18044,7 @@ class Globalization {
      * @param {Pointer<Void>} newContext 
      * @param {Pointer<Pointer<UConverterToUCallback>>} oldAction 
      * @param {Pointer<Pointer<Void>>} oldContext 
-     * @param {Pointer<Integer>} err 
+     * @param {Pointer<UErrorCode>} err 
      * @returns {String} Nothing - always returns an empty string
      */
     static ucnv_setToUCallBack(converter, newAction, newContext, oldAction, oldContext, err) {
@@ -18065,7 +18064,7 @@ class Globalization {
      * @param {Pointer<Void>} newContext 
      * @param {Pointer<Pointer<UConverterFromUCallback>>} oldAction 
      * @param {Pointer<Pointer<Void>>} oldContext 
-     * @param {Pointer<Integer>} err 
+     * @param {Pointer<UErrorCode>} err 
      * @returns {String} Nothing - always returns an empty string
      */
     static ucnv_setFromUCallBack(converter, newAction, newContext, oldAction, oldContext, err) {
@@ -18087,7 +18086,7 @@ class Globalization {
      * @param {Pointer<Integer>} sourceLimit 
      * @param {Pointer<Integer>} offsets 
      * @param {Integer} flush 
-     * @param {Pointer<Integer>} err 
+     * @param {Pointer<UErrorCode>} err 
      * @returns {String} Nothing - always returns an empty string
      */
     static ucnv_fromUnicode(converter, target, targetLimit, source, sourceLimit, offsets, flush, err) {
@@ -18112,7 +18111,7 @@ class Globalization {
      * @param {PSTR} sourceLimit 
      * @param {Pointer<Integer>} offsets 
      * @param {Integer} flush 
-     * @param {Pointer<Integer>} err 
+     * @param {Pointer<UErrorCode>} err 
      * @returns {String} Nothing - always returns an empty string
      */
     static ucnv_toUnicode(converter, target, targetLimit, source, sourceLimit, offsets, flush, err) {
@@ -18135,7 +18134,7 @@ class Globalization {
      * @param {Integer} destCapacity 
      * @param {Pointer<Integer>} src 
      * @param {Integer} srcLength 
-     * @param {Pointer<Integer>} pErrorCode 
+     * @param {Pointer<UErrorCode>} pErrorCode 
      * @returns {Integer} 
      */
     static ucnv_fromUChars(cnv, dest, destCapacity, src, srcLength, pErrorCode) {
@@ -18156,7 +18155,7 @@ class Globalization {
      * @param {Integer} destCapacity 
      * @param {PSTR} src 
      * @param {Integer} srcLength 
-     * @param {Pointer<Integer>} pErrorCode 
+     * @param {Pointer<UErrorCode>} pErrorCode 
      * @returns {Integer} 
      */
     static ucnv_toUChars(cnv, dest, destCapacity, src, srcLength, pErrorCode) {
@@ -18175,7 +18174,7 @@ class Globalization {
      * @param {Pointer<UConverter>} converter 
      * @param {Pointer<Pointer<Integer>>} source 
      * @param {PSTR} sourceLimit 
-     * @param {Pointer<Integer>} err 
+     * @param {Pointer<UErrorCode>} err 
      * @returns {Integer} 
      */
     static ucnv_getNextUChar(converter, source, sourceLimit, err) {
@@ -18203,7 +18202,7 @@ class Globalization {
      * @param {Pointer<Integer>} pivotLimit 
      * @param {Integer} reset 
      * @param {Integer} flush 
-     * @param {Pointer<Integer>} pErrorCode 
+     * @param {Pointer<UErrorCode>} pErrorCode 
      * @returns {String} Nothing - always returns an empty string
      */
     static ucnv_convertEx(targetCnv, sourceCnv, target, targetLimit, source, sourceLimit, pivotStart, pivotSource, pivotTarget, pivotLimit, reset, flush, pErrorCode) {
@@ -18231,7 +18230,7 @@ class Globalization {
      * @param {Integer} targetCapacity 
      * @param {PSTR} source 
      * @param {Integer} sourceLength 
-     * @param {Pointer<Integer>} pErrorCode 
+     * @param {Pointer<UErrorCode>} pErrorCode 
      * @returns {Integer} 
      */
     static ucnv_convert(toConverterName, fromConverterName, target, targetCapacity, source, sourceLength, pErrorCode) {
@@ -18248,13 +18247,13 @@ class Globalization {
 
     /**
      * 
-     * @param {Integer} algorithmicType 
+     * @param {UConverterType} algorithmicType 
      * @param {Pointer<UConverter>} cnv 
      * @param {PSTR} target 
      * @param {Integer} targetCapacity 
      * @param {PSTR} source 
      * @param {Integer} sourceLength 
-     * @param {Pointer<Integer>} pErrorCode 
+     * @param {Pointer<UErrorCode>} pErrorCode 
      * @returns {Integer} 
      */
     static ucnv_toAlgorithmic(algorithmicType, cnv, target, targetCapacity, source, sourceLength, pErrorCode) {
@@ -18271,12 +18270,12 @@ class Globalization {
     /**
      * 
      * @param {Pointer<UConverter>} cnv 
-     * @param {Integer} algorithmicType 
+     * @param {UConverterType} algorithmicType 
      * @param {PSTR} target 
      * @param {Integer} targetCapacity 
      * @param {PSTR} source 
      * @param {Integer} sourceLength 
-     * @param {Pointer<Integer>} pErrorCode 
+     * @param {Pointer<UErrorCode>} pErrorCode 
      * @returns {Integer} 
      */
     static ucnv_fromAlgorithmic(cnv, algorithmicType, target, targetCapacity, source, sourceLength, pErrorCode) {
@@ -18320,7 +18319,7 @@ class Globalization {
 
     /**
      * 
-     * @param {Pointer<Integer>} pErrorCode 
+     * @param {Pointer<UErrorCode>} pErrorCode 
      * @returns {Pointer<UEnumeration>} 
      */
     static ucnv_openAllNames(pErrorCode) {
@@ -18333,7 +18332,7 @@ class Globalization {
     /**
      * 
      * @param {PSTR} alias 
-     * @param {Pointer<Integer>} pErrorCode 
+     * @param {Pointer<UErrorCode>} pErrorCode 
      * @returns {Integer} 
      */
     static ucnv_countAliases(alias, pErrorCode) {
@@ -18349,7 +18348,7 @@ class Globalization {
      * 
      * @param {PSTR} alias 
      * @param {Integer} n 
-     * @param {Pointer<Integer>} pErrorCode 
+     * @param {Pointer<UErrorCode>} pErrorCode 
      * @returns {PSTR} 
      */
     static ucnv_getAlias(alias, n, pErrorCode) {
@@ -18365,7 +18364,7 @@ class Globalization {
      * 
      * @param {PSTR} alias 
      * @param {Pointer<Pointer<Integer>>} aliases 
-     * @param {Pointer<Integer>} pErrorCode 
+     * @param {Pointer<UErrorCode>} pErrorCode 
      * @returns {String} Nothing - always returns an empty string
      */
     static ucnv_getAliases(alias, aliases, pErrorCode) {
@@ -18381,7 +18380,7 @@ class Globalization {
      * 
      * @param {PSTR} convName 
      * @param {PSTR} standard 
-     * @param {Pointer<Integer>} pErrorCode 
+     * @param {Pointer<UErrorCode>} pErrorCode 
      * @returns {Pointer<UEnumeration>} 
      */
     static ucnv_openStandardNames(convName, standard, pErrorCode) {
@@ -18406,7 +18405,7 @@ class Globalization {
     /**
      * 
      * @param {Integer} n 
-     * @param {Pointer<Integer>} pErrorCode 
+     * @param {Pointer<UErrorCode>} pErrorCode 
      * @returns {PSTR} 
      */
     static ucnv_getStandard(n, pErrorCode) {
@@ -18420,7 +18419,7 @@ class Globalization {
      * 
      * @param {PSTR} name 
      * @param {PSTR} standard 
-     * @param {Pointer<Integer>} pErrorCode 
+     * @param {Pointer<UErrorCode>} pErrorCode 
      * @returns {PSTR} 
      */
     static ucnv_getStandardName(name, standard, pErrorCode) {
@@ -18437,7 +18436,7 @@ class Globalization {
      * 
      * @param {PSTR} alias 
      * @param {PSTR} standard 
-     * @param {Pointer<Integer>} pErrorCode 
+     * @param {Pointer<UErrorCode>} pErrorCode 
      * @returns {PSTR} 
      */
     static ucnv_getCanonicalName(alias, standard, pErrorCode) {
@@ -18525,7 +18524,7 @@ class Globalization {
      * @param {PSTR} source 
      * @param {Integer} sourceLength 
      * @param {Pointer<Integer>} signatureLength 
-     * @param {Pointer<Integer>} pErrorCode 
+     * @param {Pointer<UErrorCode>} pErrorCode 
      * @returns {PSTR} 
      */
     static ucnv_detectUnicodeSignature(source, sourceLength, signatureLength, pErrorCode) {
@@ -18541,7 +18540,7 @@ class Globalization {
     /**
      * 
      * @param {Pointer<UConverter>} cnv 
-     * @param {Pointer<Integer>} _status 
+     * @param {Pointer<UErrorCode>} _status 
      * @returns {Integer} 
      */
     static ucnv_fromUCountPending(cnv, _status) {
@@ -18555,7 +18554,7 @@ class Globalization {
     /**
      * 
      * @param {Pointer<UConverter>} cnv 
-     * @param {Pointer<Integer>} _status 
+     * @param {Pointer<UErrorCode>} _status 
      * @returns {Integer} 
      */
     static ucnv_toUCountPending(cnv, _status) {
@@ -18569,7 +18568,7 @@ class Globalization {
     /**
      * 
      * @param {Pointer<UConverter>} cnv 
-     * @param {Pointer<Integer>} _status 
+     * @param {Pointer<UErrorCode>} _status 
      * @returns {Integer} 
      */
     static ucnv_isFixedWidth(cnv, _status) {
@@ -18586,7 +18585,7 @@ class Globalization {
      * @param {PSTR} source 
      * @param {Integer} length 
      * @param {Integer} offsetIndex 
-     * @param {Pointer<Integer>} err 
+     * @param {Pointer<UErrorCode>} err 
      * @returns {String} Nothing - always returns an empty string
      */
     static ucnv_cbFromUWriteBytes(args, source, length, offsetIndex, err) {
@@ -18601,7 +18600,7 @@ class Globalization {
      * 
      * @param {Pointer<UConverterFromUnicodeArgs>} args 
      * @param {Integer} offsetIndex 
-     * @param {Pointer<Integer>} err 
+     * @param {Pointer<UErrorCode>} err 
      * @returns {String} Nothing - always returns an empty string
      */
     static ucnv_cbFromUWriteSub(args, offsetIndex, err) {
@@ -18616,7 +18615,7 @@ class Globalization {
      * @param {Pointer<Pointer<Integer>>} source 
      * @param {Pointer<Integer>} sourceLimit 
      * @param {Integer} offsetIndex 
-     * @param {Pointer<Integer>} err 
+     * @param {Pointer<UErrorCode>} err 
      * @returns {String} Nothing - always returns an empty string
      */
     static ucnv_cbFromUWriteUChars(args, source, sourceLimit, offsetIndex, err) {
@@ -18633,7 +18632,7 @@ class Globalization {
      * @param {Pointer<Integer>} source 
      * @param {Integer} length 
      * @param {Integer} offsetIndex 
-     * @param {Pointer<Integer>} err 
+     * @param {Pointer<UErrorCode>} err 
      * @returns {String} Nothing - always returns an empty string
      */
     static ucnv_cbToUWriteUChars(args, source, length, offsetIndex, err) {
@@ -18647,7 +18646,7 @@ class Globalization {
      * 
      * @param {Pointer<UConverterToUnicodeArgs>} args 
      * @param {Integer} offsetIndex 
-     * @param {Pointer<Integer>} err 
+     * @param {Pointer<UErrorCode>} err 
      * @returns {String} Nothing - always returns an empty string
      */
     static ucnv_cbToUWriteSub(args, offsetIndex, err) {
@@ -18658,7 +18657,7 @@ class Globalization {
 
     /**
      * 
-     * @param {Pointer<Integer>} _status 
+     * @param {Pointer<UErrorCode>} _status 
      * @returns {String} Nothing - always returns an empty string
      */
     static u_init(_status) {
@@ -18681,7 +18680,7 @@ class Globalization {
      * @param {Pointer<Pointer<UMemAllocFn>>} a 
      * @param {Pointer<Pointer<UMemReallocFn>>} r 
      * @param {Pointer<Pointer<UMemFreeFn>>} f 
-     * @param {Pointer<Integer>} _status 
+     * @param {Pointer<UErrorCode>} _status 
      * @returns {String} Nothing - always returns an empty string
      */
     static u_setMemoryFunctions(_context, a, r, f, _status) {
@@ -18698,7 +18697,7 @@ class Globalization {
      * 
      * @param {PSTR} name 
      * @param {PSTR} locale 
-     * @param {Pointer<Integer>} ec 
+     * @param {Pointer<UErrorCode>} ec 
      * @returns {Pointer<UResourceBundle>} 
      */
     static u_catopen(name, locale, ec) {
@@ -18729,7 +18728,7 @@ class Globalization {
      * @param {Integer} msg_num 
      * @param {Pointer<Integer>} s 
      * @param {Pointer<Integer>} len 
-     * @param {Pointer<Integer>} ec 
+     * @param {Pointer<UErrorCode>} ec 
      * @returns {Pointer<Integer>} 
      */
     static u_catgets(catd, set_num, msg_num, s, len, ec) {
@@ -18745,7 +18744,7 @@ class Globalization {
     /**
      * 
      * @param {Integer} c 
-     * @param {Integer} which 
+     * @param {UProperty} which 
      * @returns {Integer} 
      */
     static u_hasBinaryProperty(c, which) {
@@ -18757,7 +18756,7 @@ class Globalization {
      * 
      * @param {Pointer<Integer>} s 
      * @param {Integer} length 
-     * @param {Integer} which 
+     * @param {UProperty} which 
      * @returns {Integer} 
      */
     static u_stringHasBinaryProperty(s, length, which) {
@@ -18769,8 +18768,8 @@ class Globalization {
 
     /**
      * 
-     * @param {Integer} _property 
-     * @param {Pointer<Integer>} pErrorCode 
+     * @param {UProperty} _property 
+     * @param {Pointer<UErrorCode>} pErrorCode 
      * @returns {Pointer<USet>} 
      */
     static u_getBinaryPropertySet(_property, pErrorCode) {
@@ -18823,7 +18822,7 @@ class Globalization {
     /**
      * 
      * @param {Integer} c 
-     * @param {Integer} which 
+     * @param {UProperty} which 
      * @returns {Integer} 
      */
     static u_getIntPropertyValue(c, which) {
@@ -18833,7 +18832,7 @@ class Globalization {
 
     /**
      * 
-     * @param {Integer} which 
+     * @param {UProperty} which 
      * @returns {Integer} 
      */
     static u_getIntPropertyMinValue(which) {
@@ -18843,7 +18842,7 @@ class Globalization {
 
     /**
      * 
-     * @param {Integer} which 
+     * @param {UProperty} which 
      * @returns {Integer} 
      */
     static u_getIntPropertyMaxValue(which) {
@@ -18853,8 +18852,8 @@ class Globalization {
 
     /**
      * 
-     * @param {Integer} _property 
-     * @param {Pointer<Integer>} pErrorCode 
+     * @param {UProperty} _property 
+     * @param {Pointer<UErrorCode>} pErrorCode 
      * @returns {Pointer<UCPMap>} 
      */
     static u_getIntPropertyMap(_property, pErrorCode) {
@@ -19057,7 +19056,7 @@ class Globalization {
     /**
      * 
      * @param {Integer} c 
-     * @returns {Integer} 
+     * @returns {UCharDirection} 
      */
     static u_charDirection(c) {
         result := DllCall("icuuc.dll\u_charDirection", "int", c, "CDecl int")
@@ -19140,7 +19139,7 @@ class Globalization {
     /**
      * 
      * @param {Integer} c 
-     * @returns {Integer} 
+     * @returns {UBlockCode} 
      */
     static ublock_getCode(c) {
         result := DllCall("icuuc.dll\ublock_getCode", "int", c, "CDecl int")
@@ -19150,10 +19149,10 @@ class Globalization {
     /**
      * 
      * @param {Integer} code 
-     * @param {Integer} nameChoice 
+     * @param {UCharNameChoice} nameChoice 
      * @param {PSTR} _buffer 
      * @param {Integer} bufferLength 
-     * @param {Pointer<Integer>} pErrorCode 
+     * @param {Pointer<UErrorCode>} pErrorCode 
      * @returns {Integer} 
      */
     static u_charName(code, nameChoice, _buffer, bufferLength, pErrorCode) {
@@ -19167,9 +19166,9 @@ class Globalization {
 
     /**
      * 
-     * @param {Integer} nameChoice 
+     * @param {UCharNameChoice} nameChoice 
      * @param {PSTR} name 
-     * @param {Pointer<Integer>} pErrorCode 
+     * @param {Pointer<UErrorCode>} pErrorCode 
      * @returns {Integer} 
      */
     static u_charFromName(nameChoice, name, pErrorCode) {
@@ -19187,8 +19186,8 @@ class Globalization {
      * @param {Integer} limit 
      * @param {Pointer<Pointer<UEnumCharNamesFn>>} fn 
      * @param {Pointer<Void>} _context 
-     * @param {Integer} nameChoice 
-     * @param {Pointer<Integer>} pErrorCode 
+     * @param {UCharNameChoice} nameChoice 
+     * @param {Pointer<UErrorCode>} pErrorCode 
      * @returns {String} Nothing - always returns an empty string
      */
     static u_enumCharNames(start, limit, fn, _context, nameChoice, pErrorCode) {
@@ -19201,8 +19200,8 @@ class Globalization {
 
     /**
      * 
-     * @param {Integer} _property 
-     * @param {Integer} nameChoice 
+     * @param {UProperty} _property 
+     * @param {UPropertyNameChoice} nameChoice 
      * @returns {PSTR} 
      */
     static u_getPropertyName(_property, nameChoice) {
@@ -19213,7 +19212,7 @@ class Globalization {
     /**
      * 
      * @param {PSTR} alias 
-     * @returns {Integer} 
+     * @returns {UProperty} 
      */
     static u_getPropertyEnum(alias) {
         alias := alias is String ? StrPtr(alias) : alias
@@ -19224,9 +19223,9 @@ class Globalization {
 
     /**
      * 
-     * @param {Integer} _property 
+     * @param {UProperty} _property 
      * @param {Integer} value 
-     * @param {Integer} nameChoice 
+     * @param {UPropertyNameChoice} nameChoice 
      * @returns {PSTR} 
      */
     static u_getPropertyValueName(_property, value, nameChoice) {
@@ -19236,7 +19235,7 @@ class Globalization {
 
     /**
      * 
-     * @param {Integer} _property 
+     * @param {UProperty} _property 
      * @param {PSTR} alias 
      * @returns {Integer} 
      */
@@ -19388,7 +19387,7 @@ class Globalization {
      * @param {Integer} c 
      * @param {Pointer<Integer>} dest 
      * @param {Integer} destCapacity 
-     * @param {Pointer<Integer>} pErrorCode 
+     * @param {Pointer<UErrorCode>} pErrorCode 
      * @returns {Integer} 
      */
     static u_getFC_NFKC_Closure(c, dest, destCapacity, pErrorCode) {
@@ -19412,7 +19411,7 @@ class Globalization {
      * 
      * @param {Integer} maxLength 
      * @param {Integer} maxRunCount 
-     * @param {Pointer<Integer>} pErrorCode 
+     * @param {Pointer<UErrorCode>} pErrorCode 
      * @returns {Pointer<UBiDi>} 
      */
     static ubidi_openSized(maxLength, maxRunCount, pErrorCode) {
@@ -19484,7 +19483,7 @@ class Globalization {
     /**
      * 
      * @param {Pointer<UBiDi>} pBiDi 
-     * @param {Integer} reorderingMode 
+     * @param {UBiDiReorderingMode} reorderingMode 
      * @returns {String} Nothing - always returns an empty string
      */
     static ubidi_setReorderingMode(pBiDi, reorderingMode) {
@@ -19496,7 +19495,7 @@ class Globalization {
     /**
      * 
      * @param {Pointer<UBiDi>} pBiDi 
-     * @returns {Integer} 
+     * @returns {UBiDiReorderingMode} 
      */
     static ubidi_getReorderingMode(pBiDi) {
         pBiDiMarshal := pBiDi is VarRef ? "ptr*" : "ptr"
@@ -19536,7 +19535,7 @@ class Globalization {
      * @param {Integer} proLength 
      * @param {Pointer<Integer>} epilogue 
      * @param {Integer} epiLength 
-     * @param {Pointer<Integer>} pErrorCode 
+     * @param {Pointer<UErrorCode>} pErrorCode 
      * @returns {String} Nothing - always returns an empty string
      */
     static ubidi_setContext(pBiDi, prologue, proLength, epilogue, epiLength, pErrorCode) {
@@ -19555,7 +19554,7 @@ class Globalization {
      * @param {Integer} length 
      * @param {Integer} paraLevel 
      * @param {Pointer<Integer>} embeddingLevels 
-     * @param {Pointer<Integer>} pErrorCode 
+     * @param {Pointer<UErrorCode>} pErrorCode 
      * @returns {String} Nothing - always returns an empty string
      */
     static ubidi_setPara(pBiDi, text, length, paraLevel, embeddingLevels, pErrorCode) {
@@ -19573,7 +19572,7 @@ class Globalization {
      * @param {Integer} start 
      * @param {Integer} limit 
      * @param {Pointer<UBiDi>} pLineBiDi 
-     * @param {Pointer<Integer>} pErrorCode 
+     * @param {Pointer<UErrorCode>} pErrorCode 
      * @returns {String} Nothing - always returns an empty string
      */
     static ubidi_setLine(pParaBiDi, start, limit, pLineBiDi, pErrorCode) {
@@ -19587,7 +19586,7 @@ class Globalization {
     /**
      * 
      * @param {Pointer<UBiDi>} pBiDi 
-     * @returns {Integer} 
+     * @returns {UBiDiDirection} 
      */
     static ubidi_getDirection(pBiDi) {
         pBiDiMarshal := pBiDi is VarRef ? "ptr*" : "ptr"
@@ -19600,7 +19599,7 @@ class Globalization {
      * 
      * @param {Pointer<Integer>} text 
      * @param {Integer} length 
-     * @returns {Integer} 
+     * @returns {UBiDiDirection} 
      */
     static ubidi_getBaseDirection(text, length) {
         textMarshal := text is VarRef ? "ushort*" : "ptr"
@@ -19664,7 +19663,7 @@ class Globalization {
      * @param {Pointer<Integer>} pParaStart 
      * @param {Pointer<Integer>} pParaLimit 
      * @param {Pointer<Integer>} pParaLevel 
-     * @param {Pointer<Integer>} pErrorCode 
+     * @param {Pointer<UErrorCode>} pErrorCode 
      * @returns {Integer} 
      */
     static ubidi_getParagraph(pBiDi, charIndex, pParaStart, pParaLimit, pParaLevel, pErrorCode) {
@@ -19685,7 +19684,7 @@ class Globalization {
      * @param {Pointer<Integer>} pParaStart 
      * @param {Pointer<Integer>} pParaLimit 
      * @param {Pointer<Integer>} pParaLevel 
-     * @param {Pointer<Integer>} pErrorCode 
+     * @param {Pointer<UErrorCode>} pErrorCode 
      * @returns {String} Nothing - always returns an empty string
      */
     static ubidi_getParagraphByIndex(pBiDi, paraIndex, pParaStart, pParaLimit, pParaLevel, pErrorCode) {
@@ -19714,7 +19713,7 @@ class Globalization {
     /**
      * 
      * @param {Pointer<UBiDi>} pBiDi 
-     * @param {Pointer<Integer>} pErrorCode 
+     * @param {Pointer<UErrorCode>} pErrorCode 
      * @returns {Pointer<Integer>} 
      */
     static ubidi_getLevels(pBiDi, pErrorCode) {
@@ -19744,7 +19743,7 @@ class Globalization {
     /**
      * 
      * @param {Pointer<UBiDi>} pBiDi 
-     * @param {Pointer<Integer>} pErrorCode 
+     * @param {Pointer<UErrorCode>} pErrorCode 
      * @returns {Integer} 
      */
     static ubidi_countRuns(pBiDi, pErrorCode) {
@@ -19761,7 +19760,7 @@ class Globalization {
      * @param {Integer} runIndex 
      * @param {Pointer<Integer>} pLogicalStart 
      * @param {Pointer<Integer>} pLength 
-     * @returns {Integer} 
+     * @returns {UBiDiDirection} 
      */
     static ubidi_getVisualRun(pBiDi, runIndex, pLogicalStart, pLength) {
         pBiDiMarshal := pBiDi is VarRef ? "ptr*" : "ptr"
@@ -19776,7 +19775,7 @@ class Globalization {
      * 
      * @param {Pointer<UBiDi>} pBiDi 
      * @param {Integer} logicalIndex 
-     * @param {Pointer<Integer>} pErrorCode 
+     * @param {Pointer<UErrorCode>} pErrorCode 
      * @returns {Integer} 
      */
     static ubidi_getVisualIndex(pBiDi, logicalIndex, pErrorCode) {
@@ -19791,7 +19790,7 @@ class Globalization {
      * 
      * @param {Pointer<UBiDi>} pBiDi 
      * @param {Integer} visualIndex 
-     * @param {Pointer<Integer>} pErrorCode 
+     * @param {Pointer<UErrorCode>} pErrorCode 
      * @returns {Integer} 
      */
     static ubidi_getLogicalIndex(pBiDi, visualIndex, pErrorCode) {
@@ -19806,7 +19805,7 @@ class Globalization {
      * 
      * @param {Pointer<UBiDi>} pBiDi 
      * @param {Pointer<Integer>} indexMap 
-     * @param {Pointer<Integer>} pErrorCode 
+     * @param {Pointer<UErrorCode>} pErrorCode 
      * @returns {String} Nothing - always returns an empty string
      */
     static ubidi_getLogicalMap(pBiDi, indexMap, pErrorCode) {
@@ -19821,7 +19820,7 @@ class Globalization {
      * 
      * @param {Pointer<UBiDi>} pBiDi 
      * @param {Pointer<Integer>} indexMap 
-     * @param {Pointer<Integer>} pErrorCode 
+     * @param {Pointer<UErrorCode>} pErrorCode 
      * @returns {String} Nothing - always returns an empty string
      */
     static ubidi_getVisualMap(pBiDi, indexMap, pErrorCode) {
@@ -19902,7 +19901,7 @@ class Globalization {
      * 
      * @param {Pointer<UBiDi>} pBiDi 
      * @param {Integer} c 
-     * @returns {Integer} 
+     * @returns {UCharDirection} 
      */
     static ubidi_getCustomizedClass(pBiDi, c) {
         pBiDiMarshal := pBiDi is VarRef ? "ptr*" : "ptr"
@@ -19918,7 +19917,7 @@ class Globalization {
      * @param {Pointer<Void>} newContext 
      * @param {Pointer<Pointer<UBiDiClassCallback>>} oldFn 
      * @param {Pointer<Pointer<Void>>} oldContext 
-     * @param {Pointer<Integer>} pErrorCode 
+     * @param {Pointer<UErrorCode>} pErrorCode 
      * @returns {String} Nothing - always returns an empty string
      */
     static ubidi_setClassCallback(pBiDi, newFn, newContext, oldFn, oldContext, pErrorCode) {
@@ -19952,7 +19951,7 @@ class Globalization {
      * @param {Pointer<Integer>} dest 
      * @param {Integer} destSize 
      * @param {Integer} options 
-     * @param {Pointer<Integer>} pErrorCode 
+     * @param {Pointer<UErrorCode>} pErrorCode 
      * @returns {Integer} 
      */
     static ubidi_writeReordered(pBiDi, dest, destSize, options, pErrorCode) {
@@ -19971,7 +19970,7 @@ class Globalization {
      * @param {Pointer<Integer>} dest 
      * @param {Integer} destSize 
      * @param {Integer} options 
-     * @param {Pointer<Integer>} pErrorCode 
+     * @param {Pointer<UErrorCode>} pErrorCode 
      * @returns {Integer} 
      */
     static ubidi_writeReverse(src, srcLength, dest, destSize, options, pErrorCode) {
@@ -19991,12 +19990,12 @@ class Globalization {
      * @param {Pointer<Integer>} dest 
      * @param {Integer} destSize 
      * @param {Integer} inParaLevel 
-     * @param {Integer} inOrder 
+     * @param {UBiDiOrder} inOrder 
      * @param {Integer} outParaLevel 
-     * @param {Integer} outOrder 
-     * @param {Integer} doMirroring 
+     * @param {UBiDiOrder} outOrder 
+     * @param {UBiDiMirroring} doMirroring 
      * @param {Integer} shapingOptions 
-     * @param {Pointer<Integer>} pErrorCode 
+     * @param {Pointer<UErrorCode>} pErrorCode 
      * @returns {Integer} 
      */
     static ubiditransform_transform(pBiDiTransform, src, srcLength, dest, destSize, inParaLevel, inOrder, outParaLevel, outOrder, doMirroring, shapingOptions, pErrorCode) {
@@ -20011,7 +20010,7 @@ class Globalization {
 
     /**
      * 
-     * @param {Pointer<Integer>} pErrorCode 
+     * @param {Pointer<UErrorCode>} pErrorCode 
      * @returns {Pointer<UBiDiTransform>} 
      */
     static ubiditransform_open(pErrorCode) {
@@ -20047,7 +20046,7 @@ class Globalization {
      * @param {Pointer<UText>} ut 
      * @param {PSTR} s 
      * @param {Integer} length 
-     * @param {Pointer<Integer>} _status 
+     * @param {Pointer<UErrorCode>} _status 
      * @returns {Pointer<UText>} 
      */
     static utext_openUTF8(ut, s, length, _status) {
@@ -20064,7 +20063,7 @@ class Globalization {
      * @param {Pointer<UText>} ut 
      * @param {Pointer<Integer>} s 
      * @param {Integer} length 
-     * @param {Pointer<Integer>} _status 
+     * @param {Pointer<UErrorCode>} _status 
      * @returns {Pointer<UText>} 
      */
     static utext_openUChars(ut, s, length, _status) {
@@ -20081,7 +20080,7 @@ class Globalization {
      * @param {Pointer<UText>} src 
      * @param {Integer} deep 
      * @param {Integer} readOnly 
-     * @param {Pointer<Integer>} _status 
+     * @param {Pointer<UErrorCode>} _status 
      * @returns {Pointer<UText>} 
      */
     static utext_clone(dest, src, deep, readOnly, _status) {
@@ -20233,7 +20232,7 @@ class Globalization {
      * @param {Integer} nativeLimit 
      * @param {Pointer<Integer>} dest 
      * @param {Integer} destCapacity 
-     * @param {Pointer<Integer>} _status 
+     * @param {Pointer<UErrorCode>} _status 
      * @returns {Integer} 
      */
     static utext_extract(ut, nativeStart, nativeLimit, dest, destCapacity, _status) {
@@ -20271,7 +20270,7 @@ class Globalization {
      * @param {Integer} nativeLimit 
      * @param {Pointer<Integer>} replacementText 
      * @param {Integer} replacementLength 
-     * @param {Pointer<Integer>} _status 
+     * @param {Pointer<UErrorCode>} _status 
      * @returns {Integer} 
      */
     static utext_replace(ut, nativeStart, nativeLimit, replacementText, replacementLength, _status) {
@@ -20289,7 +20288,7 @@ class Globalization {
      * @param {Integer} nativeLimit 
      * @param {Integer} destIndex 
      * @param {Integer} move 
-     * @param {Pointer<Integer>} _status 
+     * @param {Pointer<UErrorCode>} _status 
      * @returns {String} Nothing - always returns an empty string
      */
     static utext_copy(ut, nativeStart, nativeLimit, destIndex, move, _status) {
@@ -20311,7 +20310,7 @@ class Globalization {
      * 
      * @param {Pointer<UText>} ut 
      * @param {Integer} extraSpace 
-     * @param {Pointer<Integer>} _status 
+     * @param {Pointer<UErrorCode>} _status 
      * @returns {Pointer<UText>} 
      */
     static utext_setup(ut, extraSpace, _status) {
@@ -20345,7 +20344,7 @@ class Globalization {
      * 
      * @param {Pointer<Integer>} pattern 
      * @param {Integer} patternLength 
-     * @param {Pointer<Integer>} ec 
+     * @param {Pointer<UErrorCode>} ec 
      * @returns {Pointer<USet>} 
      */
     static uset_openPattern(pattern, patternLength, ec) {
@@ -20361,7 +20360,7 @@ class Globalization {
      * @param {Pointer<Integer>} pattern 
      * @param {Integer} patternLength 
      * @param {Integer} options 
-     * @param {Pointer<Integer>} ec 
+     * @param {Pointer<UErrorCode>} ec 
      * @returns {Pointer<USet>} 
      */
     static uset_openPatternOptions(pattern, patternLength, options, ec) {
@@ -20449,7 +20448,7 @@ class Globalization {
      * @param {Pointer<Integer>} pattern 
      * @param {Integer} patternLength 
      * @param {Integer} options 
-     * @param {Pointer<Integer>} _status 
+     * @param {Pointer<UErrorCode>} _status 
      * @returns {Integer} 
      */
     static uset_applyPattern(set, pattern, patternLength, options, _status) {
@@ -20464,9 +20463,9 @@ class Globalization {
     /**
      * 
      * @param {Pointer<USet>} set 
-     * @param {Integer} prop 
+     * @param {UProperty} prop 
      * @param {Integer} value 
-     * @param {Pointer<Integer>} ec 
+     * @param {Pointer<UErrorCode>} ec 
      * @returns {String} Nothing - always returns an empty string
      */
     static uset_applyIntPropertyValue(set, prop, value, ec) {
@@ -20483,7 +20482,7 @@ class Globalization {
      * @param {Integer} propLength 
      * @param {Pointer<Integer>} value 
      * @param {Integer} valueLength 
-     * @param {Pointer<Integer>} ec 
+     * @param {Pointer<UErrorCode>} ec 
      * @returns {String} Nothing - always returns an empty string
      */
     static uset_applyPropertyAlias(set, prop, propLength, value, valueLength, ec) {
@@ -20515,7 +20514,7 @@ class Globalization {
      * @param {Pointer<Integer>} result 
      * @param {Integer} resultCapacity 
      * @param {Integer} escapeUnprintable 
-     * @param {Pointer<Integer>} ec 
+     * @param {Pointer<UErrorCode>} ec 
      * @returns {Integer} 
      */
     static uset_toPattern(set, result, resultCapacity, escapeUnprintable, ec) {
@@ -20959,7 +20958,7 @@ class Globalization {
      * @param {Pointer<Integer>} end 
      * @param {Pointer<Integer>} str 
      * @param {Integer} strCapacity 
-     * @param {Pointer<Integer>} ec 
+     * @param {Pointer<UErrorCode>} ec 
      * @returns {Integer} 
      */
     static uset_getItem(set, itemIndex, start, end, str, strCapacity, ec) {
@@ -21035,7 +21034,7 @@ class Globalization {
      * @param {Pointer<USet>} set 
      * @param {Pointer<Integer>} s 
      * @param {Integer} length 
-     * @param {Integer} spanCondition 
+     * @param {USetSpanCondition} spanCondition 
      * @returns {Integer} 
      */
     static uset_span(set, s, length, spanCondition) {
@@ -21051,7 +21050,7 @@ class Globalization {
      * @param {Pointer<USet>} set 
      * @param {Pointer<Integer>} s 
      * @param {Integer} length 
-     * @param {Integer} spanCondition 
+     * @param {USetSpanCondition} spanCondition 
      * @returns {Integer} 
      */
     static uset_spanBack(set, s, length, spanCondition) {
@@ -21067,7 +21066,7 @@ class Globalization {
      * @param {Pointer<USet>} set 
      * @param {PSTR} s 
      * @param {Integer} length 
-     * @param {Integer} spanCondition 
+     * @param {USetSpanCondition} spanCondition 
      * @returns {Integer} 
      */
     static uset_spanUTF8(set, s, length, spanCondition) {
@@ -21084,7 +21083,7 @@ class Globalization {
      * @param {Pointer<USet>} set 
      * @param {PSTR} s 
      * @param {Integer} length 
-     * @param {Integer} spanCondition 
+     * @param {USetSpanCondition} spanCondition 
      * @returns {Integer} 
      */
     static uset_spanBackUTF8(set, s, length, spanCondition) {
@@ -21115,7 +21114,7 @@ class Globalization {
      * @param {Pointer<USet>} set 
      * @param {Pointer<Integer>} dest 
      * @param {Integer} destCapacity 
-     * @param {Pointer<Integer>} pErrorCode 
+     * @param {Pointer<UErrorCode>} pErrorCode 
      * @returns {Integer} 
      */
     static uset_serialize(set, dest, destCapacity, pErrorCode) {
@@ -21190,7 +21189,7 @@ class Globalization {
 
     /**
      * 
-     * @param {Pointer<Integer>} pErrorCode 
+     * @param {Pointer<UErrorCode>} pErrorCode 
      * @returns {Pointer<UNormalizer2>} 
      */
     static unorm2_getNFCInstance(pErrorCode) {
@@ -21202,7 +21201,7 @@ class Globalization {
 
     /**
      * 
-     * @param {Pointer<Integer>} pErrorCode 
+     * @param {Pointer<UErrorCode>} pErrorCode 
      * @returns {Pointer<UNormalizer2>} 
      */
     static unorm2_getNFDInstance(pErrorCode) {
@@ -21214,7 +21213,7 @@ class Globalization {
 
     /**
      * 
-     * @param {Pointer<Integer>} pErrorCode 
+     * @param {Pointer<UErrorCode>} pErrorCode 
      * @returns {Pointer<UNormalizer2>} 
      */
     static unorm2_getNFKCInstance(pErrorCode) {
@@ -21226,7 +21225,7 @@ class Globalization {
 
     /**
      * 
-     * @param {Pointer<Integer>} pErrorCode 
+     * @param {Pointer<UErrorCode>} pErrorCode 
      * @returns {Pointer<UNormalizer2>} 
      */
     static unorm2_getNFKDInstance(pErrorCode) {
@@ -21238,7 +21237,7 @@ class Globalization {
 
     /**
      * 
-     * @param {Pointer<Integer>} pErrorCode 
+     * @param {Pointer<UErrorCode>} pErrorCode 
      * @returns {Pointer<UNormalizer2>} 
      */
     static unorm2_getNFKCCasefoldInstance(pErrorCode) {
@@ -21252,8 +21251,8 @@ class Globalization {
      * 
      * @param {PSTR} packageName 
      * @param {PSTR} name 
-     * @param {Integer} _mode 
-     * @param {Pointer<Integer>} pErrorCode 
+     * @param {UNormalization2Mode} _mode 
+     * @param {Pointer<UErrorCode>} pErrorCode 
      * @returns {Pointer<UNormalizer2>} 
      */
     static unorm2_getInstance(packageName, name, _mode, pErrorCode) {
@@ -21270,7 +21269,7 @@ class Globalization {
      * 
      * @param {Pointer<UNormalizer2>} norm2 
      * @param {Pointer<USet>} filterSet 
-     * @param {Pointer<Integer>} pErrorCode 
+     * @param {Pointer<UErrorCode>} pErrorCode 
      * @returns {Pointer<UNormalizer2>} 
      */
     static unorm2_openFiltered(norm2, filterSet, pErrorCode) {
@@ -21300,7 +21299,7 @@ class Globalization {
      * @param {Integer} length 
      * @param {Pointer<Integer>} dest 
      * @param {Integer} capacity 
-     * @param {Pointer<Integer>} pErrorCode 
+     * @param {Pointer<UErrorCode>} pErrorCode 
      * @returns {Integer} 
      */
     static unorm2_normalize(norm2, src, length, dest, capacity, pErrorCode) {
@@ -21321,7 +21320,7 @@ class Globalization {
      * @param {Integer} firstCapacity 
      * @param {Pointer<Integer>} second 
      * @param {Integer} secondLength 
-     * @param {Pointer<Integer>} pErrorCode 
+     * @param {Pointer<UErrorCode>} pErrorCode 
      * @returns {Integer} 
      */
     static unorm2_normalizeSecondAndAppend(norm2, first, firstLength, firstCapacity, second, secondLength, pErrorCode) {
@@ -21342,7 +21341,7 @@ class Globalization {
      * @param {Integer} firstCapacity 
      * @param {Pointer<Integer>} second 
      * @param {Integer} secondLength 
-     * @param {Pointer<Integer>} pErrorCode 
+     * @param {Pointer<UErrorCode>} pErrorCode 
      * @returns {Integer} 
      */
     static unorm2_append(norm2, first, firstLength, firstCapacity, second, secondLength, pErrorCode) {
@@ -21361,7 +21360,7 @@ class Globalization {
      * @param {Integer} c 
      * @param {Pointer<Integer>} decomposition 
      * @param {Integer} capacity 
-     * @param {Pointer<Integer>} pErrorCode 
+     * @param {Pointer<UErrorCode>} pErrorCode 
      * @returns {Integer} 
      */
     static unorm2_getDecomposition(norm2, c, decomposition, capacity, pErrorCode) {
@@ -21379,7 +21378,7 @@ class Globalization {
      * @param {Integer} c 
      * @param {Pointer<Integer>} decomposition 
      * @param {Integer} capacity 
-     * @param {Pointer<Integer>} pErrorCode 
+     * @param {Pointer<UErrorCode>} pErrorCode 
      * @returns {Integer} 
      */
     static unorm2_getRawDecomposition(norm2, c, decomposition, capacity, pErrorCode) {
@@ -21423,7 +21422,7 @@ class Globalization {
      * @param {Pointer<UNormalizer2>} norm2 
      * @param {Pointer<Integer>} s 
      * @param {Integer} length 
-     * @param {Pointer<Integer>} pErrorCode 
+     * @param {Pointer<UErrorCode>} pErrorCode 
      * @returns {Integer} 
      */
     static unorm2_isNormalized(norm2, s, length, pErrorCode) {
@@ -21440,8 +21439,8 @@ class Globalization {
      * @param {Pointer<UNormalizer2>} norm2 
      * @param {Pointer<Integer>} s 
      * @param {Integer} length 
-     * @param {Pointer<Integer>} pErrorCode 
-     * @returns {Integer} 
+     * @param {Pointer<UErrorCode>} pErrorCode 
+     * @returns {UNormalizationCheckResult} 
      */
     static unorm2_quickCheck(norm2, s, length, pErrorCode) {
         norm2Marshal := norm2 is VarRef ? "ptr*" : "ptr"
@@ -21457,7 +21456,7 @@ class Globalization {
      * @param {Pointer<UNormalizer2>} norm2 
      * @param {Pointer<Integer>} s 
      * @param {Integer} length 
-     * @param {Pointer<Integer>} pErrorCode 
+     * @param {Pointer<UErrorCode>} pErrorCode 
      * @returns {Integer} 
      */
     static unorm2_spanQuickCheckYes(norm2, s, length, pErrorCode) {
@@ -21515,7 +21514,7 @@ class Globalization {
      * @param {Pointer<Integer>} s2 
      * @param {Integer} length2 
      * @param {Integer} options 
-     * @param {Pointer<Integer>} pErrorCode 
+     * @param {Pointer<UErrorCode>} pErrorCode 
      * @returns {Integer} 
      */
     static unorm_compare(s1, length1, s2, length2, options, pErrorCode) {
@@ -21532,8 +21531,8 @@ class Globalization {
      * @param {Pointer<Pointer<Integer>>} converterList 
      * @param {Integer} converterListSize 
      * @param {Pointer<USet>} excludedCodePoints 
-     * @param {Integer} whichSet 
-     * @param {Pointer<Integer>} _status 
+     * @param {UConverterUnicodeSet} whichSet 
+     * @param {Pointer<UErrorCode>} _status 
      * @returns {Pointer<UConverterSelector>} 
      */
     static ucnvsel_open(converterList, converterListSize, excludedCodePoints, whichSet, _status) {
@@ -21560,7 +21559,7 @@ class Globalization {
      * 
      * @param {Pointer<Void>} _buffer 
      * @param {Integer} length 
-     * @param {Pointer<Integer>} _status 
+     * @param {Pointer<UErrorCode>} _status 
      * @returns {Pointer<UConverterSelector>} 
      */
     static ucnvsel_openFromSerialized(_buffer, length, _status) {
@@ -21576,7 +21575,7 @@ class Globalization {
      * @param {Pointer<UConverterSelector>} sel 
      * @param {Pointer<Void>} _buffer 
      * @param {Integer} bufferCapacity 
-     * @param {Pointer<Integer>} _status 
+     * @param {Pointer<UErrorCode>} _status 
      * @returns {Integer} 
      */
     static ucnvsel_serialize(sel, _buffer, bufferCapacity, _status) {
@@ -21593,7 +21592,7 @@ class Globalization {
      * @param {Pointer<UConverterSelector>} sel 
      * @param {Pointer<Integer>} s 
      * @param {Integer} length 
-     * @param {Pointer<Integer>} _status 
+     * @param {Pointer<UErrorCode>} _status 
      * @returns {Pointer<UEnumeration>} 
      */
     static ucnvsel_selectForString(sel, s, length, _status) {
@@ -21610,7 +21609,7 @@ class Globalization {
      * @param {Pointer<UConverterSelector>} sel 
      * @param {PSTR} s 
      * @param {Integer} length 
-     * @param {Pointer<Integer>} _status 
+     * @param {Pointer<UErrorCode>} _status 
      * @returns {Pointer<UEnumeration>} 
      */
     static ucnvsel_selectForUTF8(sel, s, length, _status) {
@@ -21955,7 +21954,7 @@ class Globalization {
      * @param {Pointer<Integer>} s2 
      * @param {Integer} length2 
      * @param {Integer} options 
-     * @param {Pointer<Integer>} pErrorCode 
+     * @param {Pointer<UErrorCode>} pErrorCode 
      * @returns {Integer} 
      */
     static u_strCaseCompare(s1, length1, s2, length2, options, pErrorCode) {
@@ -22304,7 +22303,7 @@ class Globalization {
      * @param {Pointer<Integer>} src 
      * @param {Integer} srcLength 
      * @param {PSTR} locale 
-     * @param {Pointer<Integer>} pErrorCode 
+     * @param {Pointer<UErrorCode>} pErrorCode 
      * @returns {Integer} 
      */
     static u_strToUpper(dest, destCapacity, src, srcLength, locale, pErrorCode) {
@@ -22325,7 +22324,7 @@ class Globalization {
      * @param {Pointer<Integer>} src 
      * @param {Integer} srcLength 
      * @param {PSTR} locale 
-     * @param {Pointer<Integer>} pErrorCode 
+     * @param {Pointer<UErrorCode>} pErrorCode 
      * @returns {Integer} 
      */
     static u_strToLower(dest, destCapacity, src, srcLength, locale, pErrorCode) {
@@ -22347,7 +22346,7 @@ class Globalization {
      * @param {Integer} srcLength 
      * @param {Pointer<UBreakIterator>} titleIter 
      * @param {PSTR} locale 
-     * @param {Pointer<Integer>} pErrorCode 
+     * @param {Pointer<UErrorCode>} pErrorCode 
      * @returns {Integer} 
      */
     static u_strToTitle(dest, destCapacity, src, srcLength, titleIter, locale, pErrorCode) {
@@ -22369,7 +22368,7 @@ class Globalization {
      * @param {Pointer<Integer>} src 
      * @param {Integer} srcLength 
      * @param {Integer} options 
-     * @param {Pointer<Integer>} pErrorCode 
+     * @param {Pointer<UErrorCode>} pErrorCode 
      * @returns {Integer} 
      */
     static u_strFoldCase(dest, destCapacity, src, srcLength, options, pErrorCode) {
@@ -22388,7 +22387,7 @@ class Globalization {
      * @param {Pointer<Integer>} pDestLength 
      * @param {Pointer<Integer>} src 
      * @param {Integer} srcLength 
-     * @param {Pointer<Integer>} pErrorCode 
+     * @param {Pointer<UErrorCode>} pErrorCode 
      * @returns {PWSTR} 
      */
     static u_strToWCS(dest, destCapacity, pDestLength, src, srcLength, pErrorCode) {
@@ -22409,7 +22408,7 @@ class Globalization {
      * @param {Pointer<Integer>} pDestLength 
      * @param {PWSTR} src 
      * @param {Integer} srcLength 
-     * @param {Pointer<Integer>} pErrorCode 
+     * @param {Pointer<UErrorCode>} pErrorCode 
      * @returns {Pointer<Integer>} 
      */
     static u_strFromWCS(dest, destCapacity, pDestLength, src, srcLength, pErrorCode) {
@@ -22430,7 +22429,7 @@ class Globalization {
      * @param {Pointer<Integer>} pDestLength 
      * @param {Pointer<Integer>} src 
      * @param {Integer} srcLength 
-     * @param {Pointer<Integer>} pErrorCode 
+     * @param {Pointer<UErrorCode>} pErrorCode 
      * @returns {PSTR} 
      */
     static u_strToUTF8(dest, destCapacity, pDestLength, src, srcLength, pErrorCode) {
@@ -22451,7 +22450,7 @@ class Globalization {
      * @param {Pointer<Integer>} pDestLength 
      * @param {PSTR} src 
      * @param {Integer} srcLength 
-     * @param {Pointer<Integer>} pErrorCode 
+     * @param {Pointer<UErrorCode>} pErrorCode 
      * @returns {Pointer<Integer>} 
      */
     static u_strFromUTF8(dest, destCapacity, pDestLength, src, srcLength, pErrorCode) {
@@ -22474,7 +22473,7 @@ class Globalization {
      * @param {Integer} srcLength 
      * @param {Integer} subchar 
      * @param {Pointer<Integer>} pNumSubstitutions 
-     * @param {Pointer<Integer>} pErrorCode 
+     * @param {Pointer<UErrorCode>} pErrorCode 
      * @returns {PSTR} 
      */
     static u_strToUTF8WithSub(dest, destCapacity, pDestLength, src, srcLength, subchar, pNumSubstitutions, pErrorCode) {
@@ -22498,7 +22497,7 @@ class Globalization {
      * @param {Integer} srcLength 
      * @param {Integer} subchar 
      * @param {Pointer<Integer>} pNumSubstitutions 
-     * @param {Pointer<Integer>} pErrorCode 
+     * @param {Pointer<UErrorCode>} pErrorCode 
      * @returns {Pointer<Integer>} 
      */
     static u_strFromUTF8WithSub(dest, destCapacity, pDestLength, src, srcLength, subchar, pNumSubstitutions, pErrorCode) {
@@ -22520,7 +22519,7 @@ class Globalization {
      * @param {Pointer<Integer>} pDestLength 
      * @param {PSTR} src 
      * @param {Integer} srcLength 
-     * @param {Pointer<Integer>} pErrorCode 
+     * @param {Pointer<UErrorCode>} pErrorCode 
      * @returns {Pointer<Integer>} 
      */
     static u_strFromUTF8Lenient(dest, destCapacity, pDestLength, src, srcLength, pErrorCode) {
@@ -22541,7 +22540,7 @@ class Globalization {
      * @param {Pointer<Integer>} pDestLength 
      * @param {Pointer<Integer>} src 
      * @param {Integer} srcLength 
-     * @param {Pointer<Integer>} pErrorCode 
+     * @param {Pointer<UErrorCode>} pErrorCode 
      * @returns {Pointer<Integer>} 
      */
     static u_strToUTF32(dest, destCapacity, pDestLength, src, srcLength, pErrorCode) {
@@ -22561,7 +22560,7 @@ class Globalization {
      * @param {Pointer<Integer>} pDestLength 
      * @param {Pointer<Integer>} src 
      * @param {Integer} srcLength 
-     * @param {Pointer<Integer>} pErrorCode 
+     * @param {Pointer<UErrorCode>} pErrorCode 
      * @returns {Pointer<Integer>} 
      */
     static u_strFromUTF32(dest, destCapacity, pDestLength, src, srcLength, pErrorCode) {
@@ -22583,7 +22582,7 @@ class Globalization {
      * @param {Integer} srcLength 
      * @param {Integer} subchar 
      * @param {Pointer<Integer>} pNumSubstitutions 
-     * @param {Pointer<Integer>} pErrorCode 
+     * @param {Pointer<UErrorCode>} pErrorCode 
      * @returns {Pointer<Integer>} 
      */
     static u_strToUTF32WithSub(dest, destCapacity, pDestLength, src, srcLength, subchar, pNumSubstitutions, pErrorCode) {
@@ -22606,7 +22605,7 @@ class Globalization {
      * @param {Integer} srcLength 
      * @param {Integer} subchar 
      * @param {Pointer<Integer>} pNumSubstitutions 
-     * @param {Pointer<Integer>} pErrorCode 
+     * @param {Pointer<UErrorCode>} pErrorCode 
      * @returns {Pointer<Integer>} 
      */
     static u_strFromUTF32WithSub(dest, destCapacity, pDestLength, src, srcLength, subchar, pNumSubstitutions, pErrorCode) {
@@ -22627,7 +22626,7 @@ class Globalization {
      * @param {Pointer<Integer>} pDestLength 
      * @param {Pointer<Integer>} src 
      * @param {Integer} srcLength 
-     * @param {Pointer<Integer>} pErrorCode 
+     * @param {Pointer<UErrorCode>} pErrorCode 
      * @returns {PSTR} 
      */
     static u_strToJavaModifiedUTF8(dest, destCapacity, pDestLength, src, srcLength, pErrorCode) {
@@ -22650,7 +22649,7 @@ class Globalization {
      * @param {Integer} srcLength 
      * @param {Integer} subchar 
      * @param {Pointer<Integer>} pNumSubstitutions 
-     * @param {Pointer<Integer>} pErrorCode 
+     * @param {Pointer<UErrorCode>} pErrorCode 
      * @returns {Pointer<Integer>} 
      */
     static u_strFromJavaModifiedUTF8WithSub(dest, destCapacity, pDestLength, src, srcLength, subchar, pNumSubstitutions, pErrorCode) {
@@ -22669,7 +22668,7 @@ class Globalization {
      * 
      * @param {PSTR} locale 
      * @param {Integer} options 
-     * @param {Pointer<Integer>} pErrorCode 
+     * @param {Pointer<UErrorCode>} pErrorCode 
      * @returns {Pointer<UCaseMap>} 
      */
     static ucasemap_open(locale, options, pErrorCode) {
@@ -22720,7 +22719,7 @@ class Globalization {
      * 
      * @param {Pointer<UCaseMap>} csm 
      * @param {PSTR} locale 
-     * @param {Pointer<Integer>} pErrorCode 
+     * @param {Pointer<UErrorCode>} pErrorCode 
      * @returns {String} Nothing - always returns an empty string
      */
     static ucasemap_setLocale(csm, locale, pErrorCode) {
@@ -22736,7 +22735,7 @@ class Globalization {
      * 
      * @param {Pointer<UCaseMap>} csm 
      * @param {Integer} options 
-     * @param {Pointer<Integer>} pErrorCode 
+     * @param {Pointer<UErrorCode>} pErrorCode 
      * @returns {String} Nothing - always returns an empty string
      */
     static ucasemap_setOptions(csm, options, pErrorCode) {
@@ -22762,7 +22761,7 @@ class Globalization {
      * 
      * @param {Pointer<UCaseMap>} csm 
      * @param {Pointer<UBreakIterator>} iterToAdopt 
-     * @param {Pointer<Integer>} pErrorCode 
+     * @param {Pointer<UErrorCode>} pErrorCode 
      * @returns {String} Nothing - always returns an empty string
      */
     static ucasemap_setBreakIterator(csm, iterToAdopt, pErrorCode) {
@@ -22780,7 +22779,7 @@ class Globalization {
      * @param {Integer} destCapacity 
      * @param {Pointer<Integer>} src 
      * @param {Integer} srcLength 
-     * @param {Pointer<Integer>} pErrorCode 
+     * @param {Pointer<UErrorCode>} pErrorCode 
      * @returns {Integer} 
      */
     static ucasemap_toTitle(csm, dest, destCapacity, src, srcLength, pErrorCode) {
@@ -22800,7 +22799,7 @@ class Globalization {
      * @param {Integer} destCapacity 
      * @param {PSTR} src 
      * @param {Integer} srcLength 
-     * @param {Pointer<Integer>} pErrorCode 
+     * @param {Pointer<UErrorCode>} pErrorCode 
      * @returns {Integer} 
      */
     static ucasemap_utf8ToLower(csm, dest, destCapacity, src, srcLength, pErrorCode) {
@@ -22821,7 +22820,7 @@ class Globalization {
      * @param {Integer} destCapacity 
      * @param {PSTR} src 
      * @param {Integer} srcLength 
-     * @param {Pointer<Integer>} pErrorCode 
+     * @param {Pointer<UErrorCode>} pErrorCode 
      * @returns {Integer} 
      */
     static ucasemap_utf8ToUpper(csm, dest, destCapacity, src, srcLength, pErrorCode) {
@@ -22842,7 +22841,7 @@ class Globalization {
      * @param {Integer} destCapacity 
      * @param {PSTR} src 
      * @param {Integer} srcLength 
-     * @param {Pointer<Integer>} pErrorCode 
+     * @param {Pointer<UErrorCode>} pErrorCode 
      * @returns {Integer} 
      */
     static ucasemap_utf8ToTitle(csm, dest, destCapacity, src, srcLength, pErrorCode) {
@@ -22863,7 +22862,7 @@ class Globalization {
      * @param {Integer} destCapacity 
      * @param {PSTR} src 
      * @param {Integer} srcLength 
-     * @param {Pointer<Integer>} pErrorCode 
+     * @param {Pointer<UErrorCode>} pErrorCode 
      * @returns {Integer} 
      */
     static ucasemap_utf8FoldCase(csm, dest, destCapacity, src, srcLength, pErrorCode) {
@@ -22881,7 +22880,7 @@ class Globalization {
      * 
      * @param {PSTR} _path 
      * @param {PSTR} fileName 
-     * @param {Pointer<Integer>} _status 
+     * @param {Pointer<UErrorCode>} _status 
      * @returns {Pointer<UStringPrepProfile>} 
      */
     static usprep_open(_path, fileName, _status) {
@@ -22896,8 +22895,8 @@ class Globalization {
 
     /**
      * 
-     * @param {Integer} type 
-     * @param {Pointer<Integer>} _status 
+     * @param {UStringPrepProfileType} type 
+     * @param {Pointer<UErrorCode>} _status 
      * @returns {Pointer<UStringPrepProfile>} 
      */
     static usprep_openByType(type, _status) {
@@ -22927,7 +22926,7 @@ class Globalization {
      * @param {Integer} destCapacity 
      * @param {Integer} options 
      * @param {Pointer<UParseError>} parseError 
-     * @param {Pointer<Integer>} _status 
+     * @param {Pointer<UErrorCode>} _status 
      * @returns {Integer} 
      */
     static usprep_prepare(prep, src, srcLength, dest, destCapacity, options, parseError, _status) {
@@ -22943,7 +22942,7 @@ class Globalization {
     /**
      * 
      * @param {Integer} options 
-     * @param {Pointer<Integer>} pErrorCode 
+     * @param {Pointer<UErrorCode>} pErrorCode 
      * @returns {Pointer<UIDNA>} 
      */
     static uidna_openUTS46(options, pErrorCode) {
@@ -22972,7 +22971,7 @@ class Globalization {
      * @param {Pointer<Integer>} dest 
      * @param {Integer} capacity 
      * @param {Pointer<UIDNAInfo>} pInfo 
-     * @param {Pointer<Integer>} pErrorCode 
+     * @param {Pointer<UErrorCode>} pErrorCode 
      * @returns {Integer} 
      */
     static uidna_labelToASCII(idna, label, length, dest, capacity, pInfo, pErrorCode) {
@@ -22993,7 +22992,7 @@ class Globalization {
      * @param {Pointer<Integer>} dest 
      * @param {Integer} capacity 
      * @param {Pointer<UIDNAInfo>} pInfo 
-     * @param {Pointer<Integer>} pErrorCode 
+     * @param {Pointer<UErrorCode>} pErrorCode 
      * @returns {Integer} 
      */
     static uidna_labelToUnicode(idna, label, length, dest, capacity, pInfo, pErrorCode) {
@@ -23014,7 +23013,7 @@ class Globalization {
      * @param {Pointer<Integer>} dest 
      * @param {Integer} capacity 
      * @param {Pointer<UIDNAInfo>} pInfo 
-     * @param {Pointer<Integer>} pErrorCode 
+     * @param {Pointer<UErrorCode>} pErrorCode 
      * @returns {Integer} 
      */
     static uidna_nameToASCII(idna, name, length, dest, capacity, pInfo, pErrorCode) {
@@ -23035,7 +23034,7 @@ class Globalization {
      * @param {Pointer<Integer>} dest 
      * @param {Integer} capacity 
      * @param {Pointer<UIDNAInfo>} pInfo 
-     * @param {Pointer<Integer>} pErrorCode 
+     * @param {Pointer<UErrorCode>} pErrorCode 
      * @returns {Integer} 
      */
     static uidna_nameToUnicode(idna, name, length, dest, capacity, pInfo, pErrorCode) {
@@ -23056,7 +23055,7 @@ class Globalization {
      * @param {PSTR} dest 
      * @param {Integer} capacity 
      * @param {Pointer<UIDNAInfo>} pInfo 
-     * @param {Pointer<Integer>} pErrorCode 
+     * @param {Pointer<UErrorCode>} pErrorCode 
      * @returns {Integer} 
      */
     static uidna_labelToASCII_UTF8(idna, label, length, dest, capacity, pInfo, pErrorCode) {
@@ -23078,7 +23077,7 @@ class Globalization {
      * @param {PSTR} dest 
      * @param {Integer} capacity 
      * @param {Pointer<UIDNAInfo>} pInfo 
-     * @param {Pointer<Integer>} pErrorCode 
+     * @param {Pointer<UErrorCode>} pErrorCode 
      * @returns {Integer} 
      */
     static uidna_labelToUnicodeUTF8(idna, label, length, dest, capacity, pInfo, pErrorCode) {
@@ -23100,7 +23099,7 @@ class Globalization {
      * @param {PSTR} dest 
      * @param {Integer} capacity 
      * @param {Pointer<UIDNAInfo>} pInfo 
-     * @param {Pointer<Integer>} pErrorCode 
+     * @param {Pointer<UErrorCode>} pErrorCode 
      * @returns {Integer} 
      */
     static uidna_nameToASCII_UTF8(idna, name, length, dest, capacity, pInfo, pErrorCode) {
@@ -23122,7 +23121,7 @@ class Globalization {
      * @param {PSTR} dest 
      * @param {Integer} capacity 
      * @param {Pointer<UIDNAInfo>} pInfo 
-     * @param {Pointer<Integer>} pErrorCode 
+     * @param {Pointer<UErrorCode>} pErrorCode 
      * @returns {Integer} 
      */
     static uidna_nameToUnicodeUTF8(idna, name, length, dest, capacity, pInfo, pErrorCode) {
@@ -23138,11 +23137,11 @@ class Globalization {
 
     /**
      * 
-     * @param {Integer} type 
+     * @param {UBreakIteratorType} type 
      * @param {PSTR} locale 
      * @param {Pointer<Integer>} text 
      * @param {Integer} textLength 
-     * @param {Pointer<Integer>} _status 
+     * @param {Pointer<UErrorCode>} _status 
      * @returns {Pointer<UBreakIterator>} 
      */
     static ubrk_open(type, locale, text, textLength, _status) {
@@ -23162,7 +23161,7 @@ class Globalization {
      * @param {Pointer<Integer>} text 
      * @param {Integer} textLength 
      * @param {Pointer<UParseError>} parseErr 
-     * @param {Pointer<Integer>} _status 
+     * @param {Pointer<UErrorCode>} _status 
      * @returns {Pointer<UBreakIterator>} 
      */
     static ubrk_openRules(rules, rulesLength, text, textLength, parseErr, _status) {
@@ -23180,7 +23179,7 @@ class Globalization {
      * @param {Integer} rulesLength 
      * @param {Pointer<Integer>} text 
      * @param {Integer} textLength 
-     * @param {Pointer<Integer>} _status 
+     * @param {Pointer<UErrorCode>} _status 
      * @returns {Pointer<UBreakIterator>} 
      */
     static ubrk_openBinaryRules(binaryRules, rulesLength, text, textLength, _status) {
@@ -23197,7 +23196,7 @@ class Globalization {
      * @param {Pointer<UBreakIterator>} bi 
      * @param {Pointer<Void>} stackBuffer 
      * @param {Pointer<Integer>} pBufferSize 
-     * @param {Pointer<Integer>} _status 
+     * @param {Pointer<UErrorCode>} _status 
      * @returns {Pointer<UBreakIterator>} 
      */
     static ubrk_safeClone(bi, stackBuffer, pBufferSize, _status) {
@@ -23213,7 +23212,7 @@ class Globalization {
     /**
      * 
      * @param {Pointer<UBreakIterator>} bi 
-     * @param {Pointer<Integer>} _status 
+     * @param {Pointer<UErrorCode>} _status 
      * @returns {Pointer<UBreakIterator>} 
      */
     static ubrk_clone(bi, _status) {
@@ -23240,7 +23239,7 @@ class Globalization {
      * @param {Pointer<UBreakIterator>} bi 
      * @param {Pointer<Integer>} text 
      * @param {Integer} textLength 
-     * @param {Pointer<Integer>} _status 
+     * @param {Pointer<UErrorCode>} _status 
      * @returns {String} Nothing - always returns an empty string
      */
     static ubrk_setText(bi, text, textLength, _status) {
@@ -23255,7 +23254,7 @@ class Globalization {
      * 
      * @param {Pointer<UBreakIterator>} bi 
      * @param {Pointer<UText>} text 
-     * @param {Pointer<Integer>} _status 
+     * @param {Pointer<UErrorCode>} _status 
      * @returns {String} Nothing - always returns an empty string
      */
     static ubrk_setUText(bi, text, _status) {
@@ -23400,7 +23399,7 @@ class Globalization {
      * @param {Pointer<UBreakIterator>} bi 
      * @param {Pointer<Integer>} fillInVec 
      * @param {Integer} capacity 
-     * @param {Pointer<Integer>} _status 
+     * @param {Pointer<UErrorCode>} _status 
      * @returns {Integer} 
      */
     static ubrk_getRuleStatusVec(bi, fillInVec, capacity, _status) {
@@ -23415,8 +23414,8 @@ class Globalization {
     /**
      * 
      * @param {Pointer<UBreakIterator>} bi 
-     * @param {Integer} type 
-     * @param {Pointer<Integer>} _status 
+     * @param {ULocDataLocaleType} type 
+     * @param {Pointer<UErrorCode>} _status 
      * @returns {PSTR} 
      */
     static ubrk_getLocaleByType(bi, type, _status) {
@@ -23431,7 +23430,7 @@ class Globalization {
      * 
      * @param {Pointer<UBreakIterator>} bi 
      * @param {Pointer<UText>} text 
-     * @param {Pointer<Integer>} _status 
+     * @param {Pointer<UErrorCode>} _status 
      * @returns {String} Nothing - always returns an empty string
      */
     static ubrk_refreshUText(bi, text, _status) {
@@ -23446,7 +23445,7 @@ class Globalization {
      * @param {Pointer<UBreakIterator>} bi 
      * @param {Pointer<Integer>} binaryRules 
      * @param {Integer} rulesCapacity 
-     * @param {Pointer<Integer>} _status 
+     * @param {Pointer<UErrorCode>} _status 
      * @returns {Integer} 
      */
     static ubrk_getBinaryRules(bi, binaryRules, rulesCapacity, _status) {
@@ -23461,7 +23460,7 @@ class Globalization {
     /**
      * 
      * @param {Pointer<Integer>} dataVersionFillin 
-     * @param {Pointer<Integer>} _status 
+     * @param {Pointer<UErrorCode>} _status 
      * @returns {String} Nothing - always returns an empty string
      */
     static u_getDataVersion(dataVersionFillin, _status) {
@@ -23473,10 +23472,10 @@ class Globalization {
 
     /**
      * 
-     * @param {Integer} zoneType 
+     * @param {USystemTimeZoneType} zoneType 
      * @param {PSTR} _region 
      * @param {Pointer<Integer>} rawOffset 
-     * @param {Pointer<Integer>} ec 
+     * @param {Pointer<UErrorCode>} ec 
      * @returns {Pointer<UEnumeration>} 
      */
     static ucal_openTimeZoneIDEnumeration(zoneType, _region, rawOffset, ec) {
@@ -23491,7 +23490,7 @@ class Globalization {
 
     /**
      * 
-     * @param {Pointer<Integer>} ec 
+     * @param {Pointer<UErrorCode>} ec 
      * @returns {Pointer<UEnumeration>} 
      */
     static ucal_openTimeZones(ec) {
@@ -23504,7 +23503,7 @@ class Globalization {
     /**
      * 
      * @param {PSTR} country 
-     * @param {Pointer<Integer>} ec 
+     * @param {Pointer<UErrorCode>} ec 
      * @returns {Pointer<UEnumeration>} 
      */
     static ucal_openCountryTimeZones(country, ec) {
@@ -23520,7 +23519,7 @@ class Globalization {
      * 
      * @param {Pointer<Integer>} result 
      * @param {Integer} resultCapacity 
-     * @param {Pointer<Integer>} ec 
+     * @param {Pointer<UErrorCode>} ec 
      * @returns {Integer} 
      */
     static ucal_getDefaultTimeZone(result, resultCapacity, ec) {
@@ -23534,7 +23533,7 @@ class Globalization {
     /**
      * 
      * @param {Pointer<Integer>} zoneID 
-     * @param {Pointer<Integer>} ec 
+     * @param {Pointer<UErrorCode>} ec 
      * @returns {String} Nothing - always returns an empty string
      */
     static ucal_setDefaultTimeZone(zoneID, ec) {
@@ -23548,7 +23547,7 @@ class Globalization {
      * 
      * @param {Pointer<Integer>} result 
      * @param {Integer} resultCapacity 
-     * @param {Pointer<Integer>} ec 
+     * @param {Pointer<UErrorCode>} ec 
      * @returns {Integer} 
      */
     static ucal_getHostTimeZone(result, resultCapacity, ec) {
@@ -23562,7 +23561,7 @@ class Globalization {
     /**
      * 
      * @param {Pointer<Integer>} zoneID 
-     * @param {Pointer<Integer>} ec 
+     * @param {Pointer<UErrorCode>} ec 
      * @returns {Integer} 
      */
     static ucal_getDSTSavings(zoneID, ec) {
@@ -23587,8 +23586,8 @@ class Globalization {
      * @param {Pointer<Integer>} zoneID 
      * @param {Integer} len 
      * @param {PSTR} locale 
-     * @param {Integer} type 
-     * @param {Pointer<Integer>} _status 
+     * @param {UCalendarType} type 
+     * @param {Pointer<UErrorCode>} _status 
      * @returns {Pointer<Pointer<Void>>} 
      */
     static ucal_open(zoneID, len, locale, type, _status) {
@@ -23615,7 +23614,7 @@ class Globalization {
     /**
      * 
      * @param {Pointer<Pointer<Void>>} _cal 
-     * @param {Pointer<Integer>} _status 
+     * @param {Pointer<UErrorCode>} _status 
      * @returns {Pointer<Pointer<Void>>} 
      */
     static ucal_clone(_cal, _status) {
@@ -23631,7 +23630,7 @@ class Globalization {
      * @param {Pointer<Pointer<Void>>} _cal 
      * @param {Pointer<Integer>} zoneID 
      * @param {Integer} len 
-     * @param {Pointer<Integer>} _status 
+     * @param {Pointer<UErrorCode>} _status 
      * @returns {String} Nothing - always returns an empty string
      */
     static ucal_setTimeZone(_cal, zoneID, len, _status) {
@@ -23647,7 +23646,7 @@ class Globalization {
      * @param {Pointer<Pointer<Void>>} _cal 
      * @param {Pointer<Integer>} result 
      * @param {Integer} resultLength 
-     * @param {Pointer<Integer>} _status 
+     * @param {Pointer<UErrorCode>} _status 
      * @returns {Integer} 
      */
     static ucal_getTimeZoneID(_cal, result, resultLength, _status) {
@@ -23662,11 +23661,11 @@ class Globalization {
     /**
      * 
      * @param {Pointer<Pointer<Void>>} _cal 
-     * @param {Integer} type 
+     * @param {UCalendarDisplayNameType} type 
      * @param {PSTR} locale 
      * @param {Pointer<Integer>} result 
      * @param {Integer} resultLength 
-     * @param {Pointer<Integer>} _status 
+     * @param {Pointer<UErrorCode>} _status 
      * @returns {Integer} 
      */
     static ucal_getTimeZoneDisplayName(_cal, type, locale, result, resultLength, _status) {
@@ -23683,7 +23682,7 @@ class Globalization {
     /**
      * 
      * @param {Pointer<Pointer<Void>>} _cal 
-     * @param {Pointer<Integer>} _status 
+     * @param {Pointer<UErrorCode>} _status 
      * @returns {Integer} 
      */
     static ucal_inDaylightTime(_cal, _status) {
@@ -23698,7 +23697,7 @@ class Globalization {
      * 
      * @param {Pointer<Pointer<Void>>} _cal 
      * @param {Float} date 
-     * @param {Pointer<Integer>} pErrorCode 
+     * @param {Pointer<UErrorCode>} pErrorCode 
      * @returns {String} Nothing - always returns an empty string
      */
     static ucal_setGregorianChange(_cal, date, pErrorCode) {
@@ -23711,7 +23710,7 @@ class Globalization {
     /**
      * 
      * @param {Pointer<Pointer<Void>>} _cal 
-     * @param {Pointer<Integer>} pErrorCode 
+     * @param {Pointer<UErrorCode>} pErrorCode 
      * @returns {Float} 
      */
     static ucal_getGregorianChange(_cal, pErrorCode) {
@@ -23725,7 +23724,7 @@ class Globalization {
     /**
      * 
      * @param {Pointer<Pointer<Void>>} _cal 
-     * @param {Integer} attr 
+     * @param {UCalendarAttribute} attr 
      * @returns {Integer} 
      */
     static ucal_getAttribute(_cal, attr) {
@@ -23738,7 +23737,7 @@ class Globalization {
     /**
      * 
      * @param {Pointer<Pointer<Void>>} _cal 
-     * @param {Integer} attr 
+     * @param {UCalendarAttribute} attr 
      * @param {Integer} newValue 
      * @returns {String} Nothing - always returns an empty string
      */
@@ -23770,7 +23769,7 @@ class Globalization {
     /**
      * 
      * @param {Pointer<Pointer<Void>>} _cal 
-     * @param {Pointer<Integer>} _status 
+     * @param {Pointer<UErrorCode>} _status 
      * @returns {Float} 
      */
     static ucal_getMillis(_cal, _status) {
@@ -23785,7 +23784,7 @@ class Globalization {
      * 
      * @param {Pointer<Pointer<Void>>} _cal 
      * @param {Float} _dateTime 
-     * @param {Pointer<Integer>} _status 
+     * @param {Pointer<UErrorCode>} _status 
      * @returns {String} Nothing - always returns an empty string
      */
     static ucal_setMillis(_cal, _dateTime, _status) {
@@ -23801,7 +23800,7 @@ class Globalization {
      * @param {Integer} year 
      * @param {Integer} month 
      * @param {Integer} date 
-     * @param {Pointer<Integer>} _status 
+     * @param {Pointer<UErrorCode>} _status 
      * @returns {String} Nothing - always returns an empty string
      */
     static ucal_setDate(_cal, year, month, date, _status) {
@@ -23820,7 +23819,7 @@ class Globalization {
      * @param {Integer} hour 
      * @param {Integer} minute 
      * @param {Integer} second 
-     * @param {Pointer<Integer>} _status 
+     * @param {Pointer<UErrorCode>} _status 
      * @returns {String} Nothing - always returns an empty string
      */
     static ucal_setDateTime(_cal, year, month, date, hour, minute, second, _status) {
@@ -23847,9 +23846,9 @@ class Globalization {
     /**
      * 
      * @param {Pointer<Pointer<Void>>} _cal 
-     * @param {Integer} field 
+     * @param {UCalendarDateFields} field 
      * @param {Integer} amount 
-     * @param {Pointer<Integer>} _status 
+     * @param {Pointer<UErrorCode>} _status 
      * @returns {String} Nothing - always returns an empty string
      */
     static ucal_add(_cal, field, amount, _status) {
@@ -23862,9 +23861,9 @@ class Globalization {
     /**
      * 
      * @param {Pointer<Pointer<Void>>} _cal 
-     * @param {Integer} field 
+     * @param {UCalendarDateFields} field 
      * @param {Integer} amount 
-     * @param {Pointer<Integer>} _status 
+     * @param {Pointer<UErrorCode>} _status 
      * @returns {String} Nothing - always returns an empty string
      */
     static ucal_roll(_cal, field, amount, _status) {
@@ -23877,8 +23876,8 @@ class Globalization {
     /**
      * 
      * @param {Pointer<Pointer<Void>>} _cal 
-     * @param {Integer} field 
-     * @param {Pointer<Integer>} _status 
+     * @param {UCalendarDateFields} field 
+     * @param {Pointer<UErrorCode>} _status 
      * @returns {Integer} 
      */
     static ucal_get(_cal, field, _status) {
@@ -23892,7 +23891,7 @@ class Globalization {
     /**
      * 
      * @param {Pointer<Pointer<Void>>} _cal 
-     * @param {Integer} field 
+     * @param {UCalendarDateFields} field 
      * @param {Integer} value 
      * @returns {String} Nothing - always returns an empty string
      */
@@ -23905,7 +23904,7 @@ class Globalization {
     /**
      * 
      * @param {Pointer<Pointer<Void>>} _cal 
-     * @param {Integer} field 
+     * @param {UCalendarDateFields} field 
      * @returns {Integer} 
      */
     static ucal_isSet(_cal, field) {
@@ -23918,7 +23917,7 @@ class Globalization {
     /**
      * 
      * @param {Pointer<Pointer<Void>>} _cal 
-     * @param {Integer} field 
+     * @param {UCalendarDateFields} field 
      * @returns {String} Nothing - always returns an empty string
      */
     static ucal_clearField(_cal, field) {
@@ -23941,9 +23940,9 @@ class Globalization {
     /**
      * 
      * @param {Pointer<Pointer<Void>>} _cal 
-     * @param {Integer} field 
-     * @param {Integer} type 
-     * @param {Pointer<Integer>} _status 
+     * @param {UCalendarDateFields} field 
+     * @param {UCalendarLimitType} type 
+     * @param {Pointer<UErrorCode>} _status 
      * @returns {Integer} 
      */
     static ucal_getLimit(_cal, field, type, _status) {
@@ -23957,8 +23956,8 @@ class Globalization {
     /**
      * 
      * @param {Pointer<Pointer<Void>>} _cal 
-     * @param {Integer} type 
-     * @param {Pointer<Integer>} _status 
+     * @param {ULocDataLocaleType} type 
+     * @param {Pointer<UErrorCode>} _status 
      * @returns {PSTR} 
      */
     static ucal_getLocaleByType(_cal, type, _status) {
@@ -23971,7 +23970,7 @@ class Globalization {
 
     /**
      * 
-     * @param {Pointer<Integer>} _status 
+     * @param {Pointer<UErrorCode>} _status 
      * @returns {PSTR} 
      */
     static ucal_getTZDataVersion(_status) {
@@ -23988,7 +23987,7 @@ class Globalization {
      * @param {Pointer<Integer>} result 
      * @param {Integer} resultCapacity 
      * @param {Pointer<Integer>} isSystemID 
-     * @param {Pointer<Integer>} _status 
+     * @param {Pointer<UErrorCode>} _status 
      * @returns {Integer} 
      */
     static ucal_getCanonicalTimeZoneID(id, len, result, resultCapacity, isSystemID, _status) {
@@ -24004,7 +24003,7 @@ class Globalization {
     /**
      * 
      * @param {Pointer<Pointer<Void>>} _cal 
-     * @param {Pointer<Integer>} _status 
+     * @param {Pointer<UErrorCode>} _status 
      * @returns {PSTR} 
      */
     static ucal_getType(_cal, _status) {
@@ -24020,7 +24019,7 @@ class Globalization {
      * @param {PSTR} key 
      * @param {PSTR} locale 
      * @param {Integer} commonlyUsed 
-     * @param {Pointer<Integer>} _status 
+     * @param {Pointer<UErrorCode>} _status 
      * @returns {Pointer<UEnumeration>} 
      */
     static ucal_getKeywordValuesForLocale(key, locale, commonlyUsed, _status) {
@@ -24036,9 +24035,9 @@ class Globalization {
     /**
      * 
      * @param {Pointer<Pointer<Void>>} _cal 
-     * @param {Integer} dayOfWeek 
-     * @param {Pointer<Integer>} _status 
-     * @returns {Integer} 
+     * @param {UCalendarDaysOfWeek} dayOfWeek 
+     * @param {Pointer<UErrorCode>} _status 
+     * @returns {UCalendarWeekdayType} 
      */
     static ucal_getDayOfWeekType(_cal, dayOfWeek, _status) {
         _calMarshal := _cal is VarRef ? "ptr*" : "ptr"
@@ -24051,8 +24050,8 @@ class Globalization {
     /**
      * 
      * @param {Pointer<Pointer<Void>>} _cal 
-     * @param {Integer} dayOfWeek 
-     * @param {Pointer<Integer>} _status 
+     * @param {UCalendarDaysOfWeek} dayOfWeek 
+     * @param {Pointer<UErrorCode>} _status 
      * @returns {Integer} 
      */
     static ucal_getWeekendTransition(_cal, dayOfWeek, _status) {
@@ -24067,7 +24066,7 @@ class Globalization {
      * 
      * @param {Pointer<Pointer<Void>>} _cal 
      * @param {Float} date 
-     * @param {Pointer<Integer>} _status 
+     * @param {Pointer<UErrorCode>} _status 
      * @returns {Integer} 
      */
     static ucal_isWeekend(_cal, date, _status) {
@@ -24082,8 +24081,8 @@ class Globalization {
      * 
      * @param {Pointer<Pointer<Void>>} _cal 
      * @param {Float} target 
-     * @param {Integer} field 
-     * @param {Pointer<Integer>} _status 
+     * @param {UCalendarDateFields} field 
+     * @param {Pointer<UErrorCode>} _status 
      * @returns {Integer} 
      */
     static ucal_getFieldDifference(_cal, target, field, _status) {
@@ -24097,9 +24096,9 @@ class Globalization {
     /**
      * 
      * @param {Pointer<Pointer<Void>>} _cal 
-     * @param {Integer} type 
+     * @param {UTimeZoneTransitionType} type 
      * @param {Pointer<Float>} transition 
-     * @param {Pointer<Integer>} _status 
+     * @param {Pointer<UErrorCode>} _status 
      * @returns {Integer} 
      */
     static ucal_getTimeZoneTransitionDate(_cal, type, transition, _status) {
@@ -24117,7 +24116,7 @@ class Globalization {
      * @param {Integer} len 
      * @param {Pointer<Integer>} winid 
      * @param {Integer} winidCapacity 
-     * @param {Pointer<Integer>} _status 
+     * @param {Pointer<UErrorCode>} _status 
      * @returns {Integer} 
      */
     static ucal_getWindowsTimeZoneID(id, len, winid, winidCapacity, _status) {
@@ -24136,7 +24135,7 @@ class Globalization {
      * @param {PSTR} _region 
      * @param {Pointer<Integer>} id 
      * @param {Integer} idCapacity 
-     * @param {Pointer<Integer>} _status 
+     * @param {Pointer<UErrorCode>} _status 
      * @returns {Integer} 
      */
     static ucal_getTimeZoneIDForWindowsID(winid, len, _region, id, idCapacity, _status) {
@@ -24153,11 +24152,11 @@ class Globalization {
     /**
      * 
      * @param {Pointer<Pointer<Void>>} _cal 
-     * @param {Integer} nonExistingTimeOpt 
-     * @param {Integer} duplicatedTimeOpt 
+     * @param {UTimeZoneLocalOption} nonExistingTimeOpt 
+     * @param {UTimeZoneLocalOption} duplicatedTimeOpt 
      * @param {Pointer<Integer>} rawOffset 
      * @param {Pointer<Integer>} dstOffset 
-     * @param {Pointer<Integer>} _status 
+     * @param {Pointer<UErrorCode>} _status 
      * @returns {String} Nothing - always returns an empty string
      */
     static ucal_getTimeZoneOffsetFromLocal(_cal, nonExistingTimeOpt, duplicatedTimeOpt, rawOffset, dstOffset, _status) {
@@ -24172,7 +24171,7 @@ class Globalization {
     /**
      * 
      * @param {PSTR} loc 
-     * @param {Pointer<Integer>} _status 
+     * @param {Pointer<UErrorCode>} _status 
      * @returns {Pointer<UCollator>} 
      */
     static ucol_open(loc, _status) {
@@ -24188,10 +24187,10 @@ class Globalization {
      * 
      * @param {Pointer<Integer>} rules 
      * @param {Integer} rulesLength 
-     * @param {Integer} normalizationMode 
-     * @param {Integer} strength 
+     * @param {UColAttributeValue} normalizationMode 
+     * @param {UColAttributeValue} strength 
      * @param {Pointer<UParseError>} parseError 
-     * @param {Pointer<Integer>} _status 
+     * @param {Pointer<UErrorCode>} _status 
      * @returns {Pointer<UCollator>} 
      */
     static ucol_openRules(rules, rulesLength, normalizationMode, strength, parseError, _status) {
@@ -24208,7 +24207,7 @@ class Globalization {
      * @param {Pointer<USet>} contractions 
      * @param {Pointer<USet>} expansions 
      * @param {Integer} addPrefixes 
-     * @param {Pointer<Integer>} _status 
+     * @param {Pointer<UErrorCode>} _status 
      * @returns {String} Nothing - always returns an empty string
      */
     static ucol_getContractionsAndExpansions(coll, contractions, expansions, addPrefixes, _status) {
@@ -24238,7 +24237,7 @@ class Globalization {
      * @param {Integer} sourceLength 
      * @param {Pointer<Integer>} target 
      * @param {Integer} targetLength 
-     * @returns {Integer} 
+     * @returns {UCollationResult} 
      */
     static ucol_strcoll(coll, source, sourceLength, target, targetLength) {
         collMarshal := coll is VarRef ? "ptr*" : "ptr"
@@ -24256,8 +24255,8 @@ class Globalization {
      * @param {Integer} sourceLength 
      * @param {PSTR} target 
      * @param {Integer} targetLength 
-     * @param {Pointer<Integer>} _status 
-     * @returns {Integer} 
+     * @param {Pointer<UErrorCode>} _status 
+     * @returns {UCollationResult} 
      */
     static ucol_strcollUTF8(coll, source, sourceLength, target, targetLength, _status) {
         source := source is String ? StrPtr(source) : source
@@ -24329,8 +24328,8 @@ class Globalization {
      * @param {Pointer<UCollator>} coll 
      * @param {Pointer<UCharIterator>} sIter 
      * @param {Pointer<UCharIterator>} tIter 
-     * @param {Pointer<Integer>} _status 
-     * @returns {Integer} 
+     * @param {Pointer<UErrorCode>} _status 
+     * @returns {UCollationResult} 
      */
     static ucol_strcollIter(coll, sIter, tIter, _status) {
         collMarshal := coll is VarRef ? "ptr*" : "ptr"
@@ -24343,7 +24342,7 @@ class Globalization {
     /**
      * 
      * @param {Pointer<UCollator>} coll 
-     * @returns {Integer} 
+     * @returns {UColAttributeValue} 
      */
     static ucol_getStrength(coll) {
         collMarshal := coll is VarRef ? "ptr*" : "ptr"
@@ -24355,7 +24354,7 @@ class Globalization {
     /**
      * 
      * @param {Pointer<UCollator>} coll 
-     * @param {Integer} strength 
+     * @param {UColAttributeValue} strength 
      * @returns {String} Nothing - always returns an empty string
      */
     static ucol_setStrength(coll, strength) {
@@ -24369,7 +24368,7 @@ class Globalization {
      * @param {Pointer<UCollator>} coll 
      * @param {Pointer<Integer>} dest 
      * @param {Integer} destCapacity 
-     * @param {Pointer<Integer>} pErrorCode 
+     * @param {Pointer<UErrorCode>} pErrorCode 
      * @returns {Integer} 
      */
     static ucol_getReorderCodes(coll, dest, destCapacity, pErrorCode) {
@@ -24386,7 +24385,7 @@ class Globalization {
      * @param {Pointer<UCollator>} coll 
      * @param {Pointer<Integer>} reorderCodes 
      * @param {Integer} reorderCodesLength 
-     * @param {Pointer<Integer>} pErrorCode 
+     * @param {Pointer<UErrorCode>} pErrorCode 
      * @returns {String} Nothing - always returns an empty string
      */
     static ucol_setReorderCodes(coll, reorderCodes, reorderCodesLength, pErrorCode) {
@@ -24402,7 +24401,7 @@ class Globalization {
      * @param {Integer} reorderCode 
      * @param {Pointer<Integer>} dest 
      * @param {Integer} destCapacity 
-     * @param {Pointer<Integer>} pErrorCode 
+     * @param {Pointer<UErrorCode>} pErrorCode 
      * @returns {Integer} 
      */
     static ucol_getEquivalentReorderCodes(reorderCode, dest, destCapacity, pErrorCode) {
@@ -24419,7 +24418,7 @@ class Globalization {
      * @param {PSTR} dispLoc 
      * @param {Pointer<Integer>} result 
      * @param {Integer} resultLength 
-     * @param {Pointer<Integer>} _status 
+     * @param {Pointer<UErrorCode>} _status 
      * @returns {Integer} 
      */
     static ucol_getDisplayName(objLoc, dispLoc, result, resultLength, _status) {
@@ -24454,7 +24453,7 @@ class Globalization {
 
     /**
      * 
-     * @param {Pointer<Integer>} _status 
+     * @param {Pointer<UErrorCode>} _status 
      * @returns {Pointer<UEnumeration>} 
      */
     static ucol_openAvailableLocales(_status) {
@@ -24466,7 +24465,7 @@ class Globalization {
 
     /**
      * 
-     * @param {Pointer<Integer>} _status 
+     * @param {Pointer<UErrorCode>} _status 
      * @returns {Pointer<UEnumeration>} 
      */
     static ucol_getKeywords(_status) {
@@ -24479,7 +24478,7 @@ class Globalization {
     /**
      * 
      * @param {PSTR} keyword 
-     * @param {Pointer<Integer>} _status 
+     * @param {Pointer<UErrorCode>} _status 
      * @returns {Pointer<UEnumeration>} 
      */
     static ucol_getKeywordValues(keyword, _status) {
@@ -24496,7 +24495,7 @@ class Globalization {
      * @param {PSTR} key 
      * @param {PSTR} locale 
      * @param {Integer} commonlyUsed 
-     * @param {Pointer<Integer>} _status 
+     * @param {Pointer<UErrorCode>} _status 
      * @returns {Pointer<UEnumeration>} 
      */
     static ucol_getKeywordValuesForLocale(key, locale, commonlyUsed, _status) {
@@ -24516,7 +24515,7 @@ class Globalization {
      * @param {PSTR} keyword 
      * @param {PSTR} locale 
      * @param {Pointer<Integer>} isAvailable 
-     * @param {Pointer<Integer>} _status 
+     * @param {Pointer<UErrorCode>} _status 
      * @returns {Integer} 
      */
     static ucol_getFunctionalEquivalent(result, resultCapacity, keyword, locale, isAvailable, _status) {
@@ -24570,7 +24569,7 @@ class Globalization {
      * @param {Pointer<Integer>} state 
      * @param {Pointer<Integer>} dest 
      * @param {Integer} count 
-     * @param {Pointer<Integer>} _status 
+     * @param {Pointer<UErrorCode>} _status 
      * @returns {Integer} 
      */
     static ucol_nextSortKeyPart(coll, iter, state, dest, count, _status) {
@@ -24587,11 +24586,11 @@ class Globalization {
      * 
      * @param {Pointer<Integer>} source 
      * @param {Integer} sourceLength 
-     * @param {Integer} boundType 
+     * @param {UColBoundMode} boundType 
      * @param {Integer} noOfLevels 
      * @param {Pointer<Integer>} result 
      * @param {Integer} resultLength 
-     * @param {Pointer<Integer>} _status 
+     * @param {Pointer<UErrorCode>} _status 
      * @returns {Integer} 
      */
     static ucol_getBound(source, sourceLength, boundType, noOfLevels, result, resultLength, _status) {
@@ -24651,9 +24650,9 @@ class Globalization {
     /**
      * 
      * @param {Pointer<UCollator>} coll 
-     * @param {Integer} attr 
-     * @param {Integer} value 
-     * @param {Pointer<Integer>} _status 
+     * @param {UColAttribute} attr 
+     * @param {UColAttributeValue} value 
+     * @param {Pointer<UErrorCode>} _status 
      * @returns {String} Nothing - always returns an empty string
      */
     static ucol_setAttribute(coll, attr, value, _status) {
@@ -24666,9 +24665,9 @@ class Globalization {
     /**
      * 
      * @param {Pointer<UCollator>} coll 
-     * @param {Integer} attr 
-     * @param {Pointer<Integer>} _status 
-     * @returns {Integer} 
+     * @param {UColAttribute} attr 
+     * @param {Pointer<UErrorCode>} _status 
+     * @returns {UColAttributeValue} 
      */
     static ucol_getAttribute(coll, attr, _status) {
         collMarshal := coll is VarRef ? "ptr*" : "ptr"
@@ -24681,8 +24680,8 @@ class Globalization {
     /**
      * 
      * @param {Pointer<UCollator>} coll 
-     * @param {Integer} group 
-     * @param {Pointer<Integer>} pErrorCode 
+     * @param {UColReorderCode} group 
+     * @param {Pointer<UErrorCode>} pErrorCode 
      * @returns {String} Nothing - always returns an empty string
      */
     static ucol_setMaxVariable(coll, group, pErrorCode) {
@@ -24695,7 +24694,7 @@ class Globalization {
     /**
      * 
      * @param {Pointer<UCollator>} coll 
-     * @returns {Integer} 
+     * @returns {UColReorderCode} 
      */
     static ucol_getMaxVariable(coll) {
         collMarshal := coll is VarRef ? "ptr*" : "ptr"
@@ -24707,7 +24706,7 @@ class Globalization {
     /**
      * 
      * @param {Pointer<UCollator>} coll 
-     * @param {Pointer<Integer>} _status 
+     * @param {Pointer<UErrorCode>} _status 
      * @returns {Integer} 
      */
     static ucol_getVariableTop(coll, _status) {
@@ -24723,7 +24722,7 @@ class Globalization {
      * @param {Pointer<UCollator>} coll 
      * @param {Pointer<Void>} stackBuffer 
      * @param {Pointer<Integer>} pBufferSize 
-     * @param {Pointer<Integer>} _status 
+     * @param {Pointer<UErrorCode>} _status 
      * @returns {Pointer<UCollator>} 
      */
     static ucol_safeClone(coll, stackBuffer, pBufferSize, _status) {
@@ -24739,7 +24738,7 @@ class Globalization {
     /**
      * 
      * @param {Pointer<UCollator>} coll 
-     * @param {Pointer<Integer>} _status 
+     * @param {Pointer<UErrorCode>} _status 
      * @returns {Pointer<UCollator>} 
      */
     static ucol_clone(coll, _status) {
@@ -24753,7 +24752,7 @@ class Globalization {
     /**
      * 
      * @param {Pointer<UCollator>} coll 
-     * @param {Integer} delta 
+     * @param {UColRuleOption} delta 
      * @param {Pointer<Integer>} _buffer 
      * @param {Integer} bufferLen 
      * @returns {Integer} 
@@ -24769,8 +24768,8 @@ class Globalization {
     /**
      * 
      * @param {Pointer<UCollator>} coll 
-     * @param {Integer} type 
-     * @param {Pointer<Integer>} _status 
+     * @param {ULocDataLocaleType} type 
+     * @param {Pointer<UErrorCode>} _status 
      * @returns {PSTR} 
      */
     static ucol_getLocaleByType(coll, type, _status) {
@@ -24784,7 +24783,7 @@ class Globalization {
     /**
      * 
      * @param {Pointer<UCollator>} coll 
-     * @param {Pointer<Integer>} _status 
+     * @param {Pointer<UErrorCode>} _status 
      * @returns {Pointer<USet>} 
      */
     static ucol_getTailoredSet(coll, _status) {
@@ -24800,7 +24799,7 @@ class Globalization {
      * @param {Pointer<UCollator>} coll 
      * @param {Pointer<Integer>} _buffer 
      * @param {Integer} capacity 
-     * @param {Pointer<Integer>} _status 
+     * @param {Pointer<UErrorCode>} _status 
      * @returns {Integer} 
      */
     static ucol_cloneBinary(coll, _buffer, capacity, _status) {
@@ -24817,7 +24816,7 @@ class Globalization {
      * @param {Pointer<Integer>} bin 
      * @param {Integer} length 
      * @param {Pointer<UCollator>} base 
-     * @param {Pointer<Integer>} _status 
+     * @param {Pointer<UErrorCode>} _status 
      * @returns {Pointer<UCollator>} 
      */
     static ucol_openBinary(bin, length, base, _status) {
@@ -24834,7 +24833,7 @@ class Globalization {
      * @param {Pointer<UCollator>} coll 
      * @param {Pointer<Integer>} text 
      * @param {Integer} textLength 
-     * @param {Pointer<Integer>} _status 
+     * @param {Pointer<UErrorCode>} _status 
      * @returns {Pointer<UCollationElements>} 
      */
     static ucol_openElements(coll, text, textLength, _status) {
@@ -24884,7 +24883,7 @@ class Globalization {
     /**
      * 
      * @param {Pointer<UCollationElements>} elems 
-     * @param {Pointer<Integer>} _status 
+     * @param {Pointer<UErrorCode>} _status 
      * @returns {Integer} 
      */
     static ucol_next(elems, _status) {
@@ -24898,7 +24897,7 @@ class Globalization {
     /**
      * 
      * @param {Pointer<UCollationElements>} elems 
-     * @param {Pointer<Integer>} _status 
+     * @param {Pointer<UErrorCode>} _status 
      * @returns {Integer} 
      */
     static ucol_previous(elems, _status) {
@@ -24927,7 +24926,7 @@ class Globalization {
      * @param {Pointer<UCollationElements>} elems 
      * @param {Pointer<Integer>} text 
      * @param {Integer} textLength 
-     * @param {Pointer<Integer>} _status 
+     * @param {Pointer<UErrorCode>} _status 
      * @returns {String} Nothing - always returns an empty string
      */
     static ucol_setText(elems, text, textLength, _status) {
@@ -24954,7 +24953,7 @@ class Globalization {
      * 
      * @param {Pointer<UCollationElements>} elems 
      * @param {Integer} offset 
-     * @param {Pointer<Integer>} _status 
+     * @param {Pointer<UErrorCode>} _status 
      * @returns {String} Nothing - always returns an empty string
      */
     static ucol_setOffset(elems, offset, _status) {
@@ -24996,7 +24995,7 @@ class Globalization {
 
     /**
      * 
-     * @param {Pointer<Integer>} _status 
+     * @param {Pointer<UErrorCode>} _status 
      * @returns {Pointer<UCharsetDetector>} 
      */
     static ucsdet_open(_status) {
@@ -25022,7 +25021,7 @@ class Globalization {
      * @param {Pointer<UCharsetDetector>} ucsd 
      * @param {PSTR} textIn 
      * @param {Integer} len 
-     * @param {Pointer<Integer>} _status 
+     * @param {Pointer<UErrorCode>} _status 
      * @returns {String} Nothing - always returns an empty string
      */
     static ucsdet_setText(ucsd, textIn, len, _status) {
@@ -25039,7 +25038,7 @@ class Globalization {
      * @param {Pointer<UCharsetDetector>} ucsd 
      * @param {PSTR} encoding 
      * @param {Integer} length 
-     * @param {Pointer<Integer>} _status 
+     * @param {Pointer<UErrorCode>} _status 
      * @returns {String} Nothing - always returns an empty string
      */
     static ucsdet_setDeclaredEncoding(ucsd, encoding, length, _status) {
@@ -25054,7 +25053,7 @@ class Globalization {
     /**
      * 
      * @param {Pointer<UCharsetDetector>} ucsd 
-     * @param {Pointer<Integer>} _status 
+     * @param {Pointer<UErrorCode>} _status 
      * @returns {Pointer<UCharsetMatch>} 
      */
     static ucsdet_detect(ucsd, _status) {
@@ -25069,7 +25068,7 @@ class Globalization {
      * 
      * @param {Pointer<UCharsetDetector>} ucsd 
      * @param {Pointer<Integer>} matchesFound 
-     * @param {Pointer<Integer>} _status 
+     * @param {Pointer<UErrorCode>} _status 
      * @returns {Pointer<Pointer<UCharsetMatch>>} 
      */
     static ucsdet_detectAll(ucsd, matchesFound, _status) {
@@ -25084,7 +25083,7 @@ class Globalization {
     /**
      * 
      * @param {Pointer<UCharsetMatch>} ucsm 
-     * @param {Pointer<Integer>} _status 
+     * @param {Pointer<UErrorCode>} _status 
      * @returns {PSTR} 
      */
     static ucsdet_getName(ucsm, _status) {
@@ -25098,7 +25097,7 @@ class Globalization {
     /**
      * 
      * @param {Pointer<UCharsetMatch>} ucsm 
-     * @param {Pointer<Integer>} _status 
+     * @param {Pointer<UErrorCode>} _status 
      * @returns {Integer} 
      */
     static ucsdet_getConfidence(ucsm, _status) {
@@ -25112,7 +25111,7 @@ class Globalization {
     /**
      * 
      * @param {Pointer<UCharsetMatch>} ucsm 
-     * @param {Pointer<Integer>} _status 
+     * @param {Pointer<UErrorCode>} _status 
      * @returns {PSTR} 
      */
     static ucsdet_getLanguage(ucsm, _status) {
@@ -25128,7 +25127,7 @@ class Globalization {
      * @param {Pointer<UCharsetMatch>} ucsm 
      * @param {Pointer<Integer>} buf 
      * @param {Integer} cap 
-     * @param {Pointer<Integer>} _status 
+     * @param {Pointer<UErrorCode>} _status 
      * @returns {Integer} 
      */
     static ucsdet_getUChars(ucsm, buf, cap, _status) {
@@ -25143,7 +25142,7 @@ class Globalization {
     /**
      * 
      * @param {Pointer<UCharsetDetector>} ucsd 
-     * @param {Pointer<Integer>} _status 
+     * @param {Pointer<UErrorCode>} _status 
      * @returns {Pointer<UEnumeration>} 
      */
     static ucsdet_getAllDetectableCharsets(ucsd, _status) {
@@ -25181,7 +25180,7 @@ class Globalization {
 
     /**
      * 
-     * @param {Pointer<Integer>} _status 
+     * @param {Pointer<UErrorCode>} _status 
      * @returns {Pointer<UFieldPositionIterator>} 
      */
     static ufieldpositer_open(_status) {
@@ -25220,7 +25219,7 @@ class Globalization {
 
     /**
      * 
-     * @param {Pointer<Integer>} _status 
+     * @param {Pointer<UErrorCode>} _status 
      * @returns {Pointer<Pointer<Void>>} 
      */
     static ufmt_open(_status) {
@@ -25244,8 +25243,8 @@ class Globalization {
     /**
      * 
      * @param {Pointer<Pointer<Void>>} fmt 
-     * @param {Pointer<Integer>} _status 
-     * @returns {Integer} 
+     * @param {Pointer<UErrorCode>} _status 
+     * @returns {UFormattableType} 
      */
     static ufmt_getType(fmt, _status) {
         fmtMarshal := fmt is VarRef ? "ptr*" : "ptr"
@@ -25270,7 +25269,7 @@ class Globalization {
     /**
      * 
      * @param {Pointer<Pointer<Void>>} fmt 
-     * @param {Pointer<Integer>} _status 
+     * @param {Pointer<UErrorCode>} _status 
      * @returns {Float} 
      */
     static ufmt_getDate(fmt, _status) {
@@ -25284,7 +25283,7 @@ class Globalization {
     /**
      * 
      * @param {Pointer<Pointer<Void>>} fmt 
-     * @param {Pointer<Integer>} _status 
+     * @param {Pointer<UErrorCode>} _status 
      * @returns {Float} 
      */
     static ufmt_getDouble(fmt, _status) {
@@ -25298,7 +25297,7 @@ class Globalization {
     /**
      * 
      * @param {Pointer<Pointer<Void>>} fmt 
-     * @param {Pointer<Integer>} _status 
+     * @param {Pointer<UErrorCode>} _status 
      * @returns {Integer} 
      */
     static ufmt_getLong(fmt, _status) {
@@ -25312,7 +25311,7 @@ class Globalization {
     /**
      * 
      * @param {Pointer<Pointer<Void>>} fmt 
-     * @param {Pointer<Integer>} _status 
+     * @param {Pointer<UErrorCode>} _status 
      * @returns {Integer} 
      */
     static ufmt_getInt64(fmt, _status) {
@@ -25326,7 +25325,7 @@ class Globalization {
     /**
      * 
      * @param {Pointer<Pointer<Void>>} fmt 
-     * @param {Pointer<Integer>} _status 
+     * @param {Pointer<UErrorCode>} _status 
      * @returns {Pointer<Void>} 
      */
     static ufmt_getObject(fmt, _status) {
@@ -25341,7 +25340,7 @@ class Globalization {
      * 
      * @param {Pointer<Pointer<Void>>} fmt 
      * @param {Pointer<Integer>} len 
-     * @param {Pointer<Integer>} _status 
+     * @param {Pointer<UErrorCode>} _status 
      * @returns {Pointer<Integer>} 
      */
     static ufmt_getUChars(fmt, len, _status) {
@@ -25356,7 +25355,7 @@ class Globalization {
     /**
      * 
      * @param {Pointer<Pointer<Void>>} fmt 
-     * @param {Pointer<Integer>} _status 
+     * @param {Pointer<UErrorCode>} _status 
      * @returns {Integer} 
      */
     static ufmt_getArrayLength(fmt, _status) {
@@ -25371,7 +25370,7 @@ class Globalization {
      * 
      * @param {Pointer<Pointer<Void>>} fmt 
      * @param {Integer} n 
-     * @param {Pointer<Integer>} _status 
+     * @param {Pointer<UErrorCode>} _status 
      * @returns {Pointer<Pointer<Void>>} 
      */
     static ufmt_getArrayItemByIndex(fmt, n, _status) {
@@ -25386,7 +25385,7 @@ class Globalization {
      * 
      * @param {Pointer<Pointer<Void>>} fmt 
      * @param {Pointer<Integer>} len 
-     * @param {Pointer<Integer>} _status 
+     * @param {Pointer<UErrorCode>} _status 
      * @returns {PSTR} 
      */
     static ufmt_getDecNumChars(fmt, len, _status) {
@@ -25400,7 +25399,7 @@ class Globalization {
 
     /**
      * 
-     * @param {Pointer<Integer>} ec 
+     * @param {Pointer<UErrorCode>} ec 
      * @returns {Pointer<UConstrainedFieldPosition>} 
      */
     static ucfpos_open(ec) {
@@ -25413,7 +25412,7 @@ class Globalization {
     /**
      * 
      * @param {Pointer<UConstrainedFieldPosition>} ucfpos 
-     * @param {Pointer<Integer>} ec 
+     * @param {Pointer<UErrorCode>} ec 
      * @returns {String} Nothing - always returns an empty string
      */
     static ucfpos_reset(ucfpos, ec) {
@@ -25438,7 +25437,7 @@ class Globalization {
      * 
      * @param {Pointer<UConstrainedFieldPosition>} ucfpos 
      * @param {Integer} category 
-     * @param {Pointer<Integer>} ec 
+     * @param {Pointer<UErrorCode>} ec 
      * @returns {String} Nothing - always returns an empty string
      */
     static ucfpos_constrainCategory(ucfpos, category, ec) {
@@ -25453,7 +25452,7 @@ class Globalization {
      * @param {Pointer<UConstrainedFieldPosition>} ucfpos 
      * @param {Integer} category 
      * @param {Integer} field 
-     * @param {Pointer<Integer>} ec 
+     * @param {Pointer<UErrorCode>} ec 
      * @returns {String} Nothing - always returns an empty string
      */
     static ucfpos_constrainField(ucfpos, category, field, ec) {
@@ -25466,7 +25465,7 @@ class Globalization {
     /**
      * 
      * @param {Pointer<UConstrainedFieldPosition>} ucfpos 
-     * @param {Pointer<Integer>} ec 
+     * @param {Pointer<UErrorCode>} ec 
      * @returns {Integer} 
      */
     static ucfpos_getCategory(ucfpos, ec) {
@@ -25480,7 +25479,7 @@ class Globalization {
     /**
      * 
      * @param {Pointer<UConstrainedFieldPosition>} ucfpos 
-     * @param {Pointer<Integer>} ec 
+     * @param {Pointer<UErrorCode>} ec 
      * @returns {Integer} 
      */
     static ucfpos_getField(ucfpos, ec) {
@@ -25496,7 +25495,7 @@ class Globalization {
      * @param {Pointer<UConstrainedFieldPosition>} ucfpos 
      * @param {Pointer<Integer>} pStart 
      * @param {Pointer<Integer>} pLimit 
-     * @param {Pointer<Integer>} ec 
+     * @param {Pointer<UErrorCode>} ec 
      * @returns {String} Nothing - always returns an empty string
      */
     static ucfpos_getIndexes(ucfpos, pStart, pLimit, ec) {
@@ -25511,7 +25510,7 @@ class Globalization {
     /**
      * 
      * @param {Pointer<UConstrainedFieldPosition>} ucfpos 
-     * @param {Pointer<Integer>} ec 
+     * @param {Pointer<UErrorCode>} ec 
      * @returns {Integer} 
      */
     static ucfpos_getInt64IterationContext(ucfpos, ec) {
@@ -25526,7 +25525,7 @@ class Globalization {
      * 
      * @param {Pointer<UConstrainedFieldPosition>} ucfpos 
      * @param {Integer} _context 
-     * @param {Pointer<Integer>} ec 
+     * @param {Pointer<UErrorCode>} ec 
      * @returns {String} Nothing - always returns an empty string
      */
     static ucfpos_setInt64IterationContext(ucfpos, _context, ec) {
@@ -25541,7 +25540,7 @@ class Globalization {
      * @param {Pointer<UConstrainedFieldPosition>} ucfpos 
      * @param {Integer} category 
      * @param {Integer} field 
-     * @param {Pointer<Integer>} ec 
+     * @param {Pointer<UErrorCode>} ec 
      * @returns {Integer} 
      */
     static ucfpos_matchesField(ucfpos, category, field, ec) {
@@ -25559,7 +25558,7 @@ class Globalization {
      * @param {Integer} field 
      * @param {Integer} start 
      * @param {Integer} limit 
-     * @param {Pointer<Integer>} ec 
+     * @param {Pointer<UErrorCode>} ec 
      * @returns {String} Nothing - always returns an empty string
      */
     static ucfpos_setState(ucfpos, category, field, start, limit, ec) {
@@ -25573,7 +25572,7 @@ class Globalization {
      * 
      * @param {Pointer<UFormattedValue>} ufmtval 
      * @param {Pointer<Integer>} pLength 
-     * @param {Pointer<Integer>} ec 
+     * @param {Pointer<UErrorCode>} ec 
      * @returns {Pointer<Integer>} 
      */
     static ufmtval_getString(ufmtval, pLength, ec) {
@@ -25589,7 +25588,7 @@ class Globalization {
      * 
      * @param {Pointer<UFormattedValue>} ufmtval 
      * @param {Pointer<UConstrainedFieldPosition>} ucfpos 
-     * @param {Pointer<Integer>} ec 
+     * @param {Pointer<UErrorCode>} ec 
      * @returns {Integer} 
      */
     static ufmtval_nextPosition(ufmtval, ucfpos, ec) {
@@ -25608,7 +25607,7 @@ class Globalization {
      * @param {Integer} skeletonLength 
      * @param {Pointer<Integer>} tzID 
      * @param {Integer} tzIDLength 
-     * @param {Pointer<Integer>} _status 
+     * @param {Pointer<UErrorCode>} _status 
      * @returns {Pointer<UDateIntervalFormat>} 
      */
     static udtitvfmt_open(locale, skeleton, skeletonLength, tzID, tzIDLength, _status) {
@@ -25635,7 +25634,7 @@ class Globalization {
 
     /**
      * 
-     * @param {Pointer<Integer>} ec 
+     * @param {Pointer<UErrorCode>} ec 
      * @returns {Pointer<UFormattedDateInterval>} 
      */
     static udtitvfmt_openResult(ec) {
@@ -25648,7 +25647,7 @@ class Globalization {
     /**
      * 
      * @param {Pointer<UFormattedDateInterval>} uresult 
-     * @param {Pointer<Integer>} ec 
+     * @param {Pointer<UErrorCode>} ec 
      * @returns {Pointer<UFormattedValue>} 
      */
     static udtitvfmt_resultAsValue(uresult, ec) {
@@ -25678,7 +25677,7 @@ class Globalization {
      * @param {Pointer<Integer>} result 
      * @param {Integer} resultCapacity 
      * @param {Pointer<UFieldPosition>} position 
-     * @param {Pointer<Integer>} _status 
+     * @param {Pointer<UErrorCode>} _status 
      * @returns {Integer} 
      */
     static udtitvfmt_format(formatter, fromDate, toDate, result, resultCapacity, position, _status) {
@@ -25696,7 +25695,7 @@ class Globalization {
      * @param {Float} fromDate 
      * @param {Float} toDate 
      * @param {Pointer<UFormattedDateInterval>} result 
-     * @param {Pointer<Integer>} _status 
+     * @param {Pointer<UErrorCode>} _status 
      * @returns {String} Nothing - always returns an empty string
      */
     static udtitvfmt_formatToResult(formatter, fromDate, toDate, result, _status) {
@@ -25710,8 +25709,8 @@ class Globalization {
     /**
      * 
      * @param {Pointer<UDateIntervalFormat>} formatter 
-     * @param {Integer} value 
-     * @param {Pointer<Integer>} _status 
+     * @param {UDisplayContext} value 
+     * @param {Pointer<UErrorCode>} _status 
      * @returns {String} Nothing - always returns an empty string
      */
     static udtitvfmt_setContext(formatter, value, _status) {
@@ -25724,9 +25723,9 @@ class Globalization {
     /**
      * 
      * @param {Pointer<UDateIntervalFormat>} formatter 
-     * @param {Integer} type 
-     * @param {Pointer<Integer>} _status 
-     * @returns {Integer} 
+     * @param {UDisplayContextType} type 
+     * @param {Pointer<UErrorCode>} _status 
+     * @returns {UDisplayContext} 
      */
     static udtitvfmt_getContext(formatter, type, _status) {
         formatterMarshal := formatter is VarRef ? "ptr*" : "ptr"
@@ -25739,7 +25738,7 @@ class Globalization {
     /**
      * 
      * @param {PSTR} locale 
-     * @param {Pointer<Integer>} _status 
+     * @param {Pointer<UErrorCode>} _status 
      * @returns {Pointer<UGenderInfo>} 
      */
     static ugender_getInstance(locale, _status) {
@@ -25754,10 +25753,10 @@ class Globalization {
     /**
      * 
      * @param {Pointer<UGenderInfo>} genderInfo 
-     * @param {Pointer<Integer>} genders 
+     * @param {Pointer<UGender>} genders 
      * @param {Integer} _size 
-     * @param {Pointer<Integer>} _status 
-     * @returns {Integer} 
+     * @param {Pointer<UErrorCode>} _status 
+     * @returns {UGender} 
      */
     static ugender_getListGender(genderInfo, genders, _size, _status) {
         genderInfoMarshal := genderInfo is VarRef ? "ptr*" : "ptr"
@@ -25771,7 +25770,7 @@ class Globalization {
     /**
      * 
      * @param {PSTR} locale 
-     * @param {Pointer<Integer>} _status 
+     * @param {Pointer<UErrorCode>} _status 
      * @returns {Pointer<UListFormatter>} 
      */
     static ulistfmt_open(locale, _status) {
@@ -25786,9 +25785,9 @@ class Globalization {
     /**
      * 
      * @param {PSTR} locale 
-     * @param {Integer} type 
-     * @param {Integer} width 
-     * @param {Pointer<Integer>} _status 
+     * @param {UListFormatterType} type 
+     * @param {UListFormatterWidth} width 
+     * @param {Pointer<UErrorCode>} _status 
      * @returns {Pointer<UListFormatter>} 
      */
     static ulistfmt_openForType(locale, type, width, _status) {
@@ -25813,7 +25812,7 @@ class Globalization {
 
     /**
      * 
-     * @param {Pointer<Integer>} ec 
+     * @param {Pointer<UErrorCode>} ec 
      * @returns {Pointer<UFormattedList>} 
      */
     static ulistfmt_openResult(ec) {
@@ -25826,7 +25825,7 @@ class Globalization {
     /**
      * 
      * @param {Pointer<UFormattedList>} uresult 
-     * @param {Pointer<Integer>} ec 
+     * @param {Pointer<UErrorCode>} ec 
      * @returns {Pointer<UFormattedValue>} 
      */
     static ulistfmt_resultAsValue(uresult, ec) {
@@ -25856,7 +25855,7 @@ class Globalization {
      * @param {Integer} stringCount 
      * @param {Pointer<Integer>} result 
      * @param {Integer} resultCapacity 
-     * @param {Pointer<Integer>} _status 
+     * @param {Pointer<UErrorCode>} _status 
      * @returns {Integer} 
      */
     static ulistfmt_format(listfmt, strings, stringLengths, stringCount, result, resultCapacity, _status) {
@@ -25877,7 +25876,7 @@ class Globalization {
      * @param {Pointer<Integer>} stringLengths 
      * @param {Integer} stringCount 
      * @param {Pointer<UFormattedList>} uresult 
-     * @param {Pointer<Integer>} _status 
+     * @param {Pointer<UErrorCode>} _status 
      * @returns {String} Nothing - always returns an empty string
      */
     static ulistfmt_formatStringsToResult(listfmt, strings, stringLengths, stringCount, uresult, _status) {
@@ -25893,7 +25892,7 @@ class Globalization {
     /**
      * 
      * @param {PSTR} localeID 
-     * @param {Pointer<Integer>} _status 
+     * @param {Pointer<UErrorCode>} _status 
      * @returns {Pointer<ULocaleData>} 
      */
     static ulocdata_open(localeID, _status) {
@@ -25945,8 +25944,8 @@ class Globalization {
      * @param {Pointer<ULocaleData>} uld 
      * @param {Pointer<USet>} fillIn 
      * @param {Integer} options 
-     * @param {Integer} extype 
-     * @param {Pointer<Integer>} _status 
+     * @param {ULocaleDataExemplarSetType} extype 
+     * @param {Pointer<UErrorCode>} _status 
      * @returns {Pointer<USet>} 
      */
     static ulocdata_getExemplarSet(uld, fillIn, options, extype, _status) {
@@ -25961,10 +25960,10 @@ class Globalization {
     /**
      * 
      * @param {Pointer<ULocaleData>} uld 
-     * @param {Integer} type 
+     * @param {ULocaleDataDelimiterType} type 
      * @param {Pointer<Integer>} result 
      * @param {Integer} resultLength 
-     * @param {Pointer<Integer>} _status 
+     * @param {Pointer<UErrorCode>} _status 
      * @returns {Integer} 
      */
     static ulocdata_getDelimiter(uld, type, result, resultLength, _status) {
@@ -25979,8 +25978,8 @@ class Globalization {
     /**
      * 
      * @param {PSTR} localeID 
-     * @param {Pointer<Integer>} _status 
-     * @returns {Integer} 
+     * @param {Pointer<UErrorCode>} _status 
+     * @returns {UMeasurementSystem} 
      */
     static ulocdata_getMeasurementSystem(localeID, _status) {
         localeID := localeID is String ? StrPtr(localeID) : localeID
@@ -25996,7 +25995,7 @@ class Globalization {
      * @param {PSTR} localeID 
      * @param {Pointer<Integer>} height 
      * @param {Pointer<Integer>} width 
-     * @param {Pointer<Integer>} _status 
+     * @param {Pointer<UErrorCode>} _status 
      * @returns {String} Nothing - always returns an empty string
      */
     static ulocdata_getPaperSize(localeID, height, width, _status) {
@@ -26012,7 +26011,7 @@ class Globalization {
     /**
      * 
      * @param {Pointer<Integer>} versionArray 
-     * @param {Pointer<Integer>} _status 
+     * @param {Pointer<UErrorCode>} _status 
      * @returns {String} Nothing - always returns an empty string
      */
     static ulocdata_getCLDRVersion(versionArray, _status) {
@@ -26027,7 +26026,7 @@ class Globalization {
      * @param {Pointer<ULocaleData>} uld 
      * @param {Pointer<Integer>} pattern 
      * @param {Integer} patternCapacity 
-     * @param {Pointer<Integer>} _status 
+     * @param {Pointer<UErrorCode>} _status 
      * @returns {Integer} 
      */
     static ulocdata_getLocaleDisplayPattern(uld, pattern, patternCapacity, _status) {
@@ -26044,7 +26043,7 @@ class Globalization {
      * @param {Pointer<ULocaleData>} uld 
      * @param {Pointer<Integer>} separator 
      * @param {Integer} separatorCapacity 
-     * @param {Pointer<Integer>} _status 
+     * @param {Pointer<UErrorCode>} _status 
      * @returns {Integer} 
      */
     static ulocdata_getLocaleSeparator(uld, separator, separatorCapacity, _status) {
@@ -26063,7 +26062,7 @@ class Globalization {
      * @param {Integer} patternLength 
      * @param {Pointer<Integer>} result 
      * @param {Integer} resultLength 
-     * @param {Pointer<Integer>} _status 
+     * @param {Pointer<UErrorCode>} _status 
      * @returns {Integer} 
      */
     static u_formatMessage(locale, pattern, patternLength, result, resultLength, _status) {
@@ -26085,7 +26084,7 @@ class Globalization {
      * @param {Pointer<Integer>} result 
      * @param {Integer} resultLength 
      * @param {Pointer<Integer>} ap 
-     * @param {Pointer<Integer>} _status 
+     * @param {Pointer<UErrorCode>} _status 
      * @returns {Integer} 
      */
     static u_vformatMessage(locale, pattern, patternLength, result, resultLength, ap, _status) {
@@ -26107,7 +26106,7 @@ class Globalization {
      * @param {Integer} patternLength 
      * @param {Pointer<Integer>} source 
      * @param {Integer} sourceLength 
-     * @param {Pointer<Integer>} _status 
+     * @param {Pointer<UErrorCode>} _status 
      * @returns {String} Nothing - always returns an empty string
      */
     static u_parseMessage(locale, pattern, patternLength, source, sourceLength, _status) {
@@ -26128,7 +26127,7 @@ class Globalization {
      * @param {Pointer<Integer>} source 
      * @param {Integer} sourceLength 
      * @param {Pointer<Integer>} ap 
-     * @param {Pointer<Integer>} _status 
+     * @param {Pointer<UErrorCode>} _status 
      * @returns {String} Nothing - always returns an empty string
      */
     static u_vparseMessage(locale, pattern, patternLength, source, sourceLength, ap, _status) {
@@ -26150,7 +26149,7 @@ class Globalization {
      * @param {Pointer<Integer>} result 
      * @param {Integer} resultLength 
      * @param {Pointer<UParseError>} parseError 
-     * @param {Pointer<Integer>} _status 
+     * @param {Pointer<UErrorCode>} _status 
      * @returns {Integer} 
      */
     static u_formatMessageWithError(locale, pattern, patternLength, result, resultLength, parseError, _status) {
@@ -26173,7 +26172,7 @@ class Globalization {
      * @param {Integer} resultLength 
      * @param {Pointer<UParseError>} parseError 
      * @param {Pointer<Integer>} ap 
-     * @param {Pointer<Integer>} _status 
+     * @param {Pointer<UErrorCode>} _status 
      * @returns {Integer} 
      */
     static u_vformatMessageWithError(locale, pattern, patternLength, result, resultLength, parseError, ap, _status) {
@@ -26196,7 +26195,7 @@ class Globalization {
      * @param {Pointer<Integer>} source 
      * @param {Integer} sourceLength 
      * @param {Pointer<UParseError>} parseError 
-     * @param {Pointer<Integer>} _status 
+     * @param {Pointer<UErrorCode>} _status 
      * @returns {String} Nothing - always returns an empty string
      */
     static u_parseMessageWithError(locale, pattern, patternLength, source, sourceLength, parseError, _status) {
@@ -26218,7 +26217,7 @@ class Globalization {
      * @param {Integer} sourceLength 
      * @param {Pointer<Integer>} ap 
      * @param {Pointer<UParseError>} parseError 
-     * @param {Pointer<Integer>} _status 
+     * @param {Pointer<UErrorCode>} _status 
      * @returns {String} Nothing - always returns an empty string
      */
     static u_vparseMessageWithError(locale, pattern, patternLength, source, sourceLength, ap, parseError, _status) {
@@ -26238,7 +26237,7 @@ class Globalization {
      * @param {Integer} patternLength 
      * @param {PSTR} locale 
      * @param {Pointer<UParseError>} parseError 
-     * @param {Pointer<Integer>} _status 
+     * @param {Pointer<UErrorCode>} _status 
      * @returns {Pointer<Pointer<Void>>} 
      */
     static umsg_open(pattern, patternLength, locale, parseError, _status) {
@@ -26265,7 +26264,7 @@ class Globalization {
     /**
      * 
      * @param {Pointer<Pointer<Void>>} fmt 
-     * @param {Pointer<Integer>} _status 
+     * @param {Pointer<UErrorCode>} _status 
      * @returns {Pointer<Void>} 
      */
     static umsg_clone(fmt, _status) {
@@ -26308,7 +26307,7 @@ class Globalization {
      * @param {Pointer<Integer>} pattern 
      * @param {Integer} patternLength 
      * @param {Pointer<UParseError>} parseError 
-     * @param {Pointer<Integer>} _status 
+     * @param {Pointer<UErrorCode>} _status 
      * @returns {String} Nothing - always returns an empty string
      */
     static umsg_applyPattern(fmt, pattern, patternLength, parseError, _status) {
@@ -26324,7 +26323,7 @@ class Globalization {
      * @param {Pointer<Pointer<Void>>} fmt 
      * @param {Pointer<Integer>} result 
      * @param {Integer} resultLength 
-     * @param {Pointer<Integer>} _status 
+     * @param {Pointer<UErrorCode>} _status 
      * @returns {Integer} 
      */
     static umsg_toPattern(fmt, result, resultLength, _status) {
@@ -26341,7 +26340,7 @@ class Globalization {
      * @param {Pointer<Pointer<Void>>} fmt 
      * @param {Pointer<Integer>} result 
      * @param {Integer} resultLength 
-     * @param {Pointer<Integer>} _status 
+     * @param {Pointer<UErrorCode>} _status 
      * @returns {Integer} 
      */
     static umsg_format(fmt, result, resultLength, _status) {
@@ -26359,7 +26358,7 @@ class Globalization {
      * @param {Pointer<Integer>} result 
      * @param {Integer} resultLength 
      * @param {Pointer<Integer>} ap 
-     * @param {Pointer<Integer>} _status 
+     * @param {Pointer<UErrorCode>} _status 
      * @returns {Integer} 
      */
     static umsg_vformat(fmt, result, resultLength, ap, _status) {
@@ -26378,7 +26377,7 @@ class Globalization {
      * @param {Pointer<Integer>} source 
      * @param {Integer} sourceLength 
      * @param {Pointer<Integer>} count 
-     * @param {Pointer<Integer>} _status 
+     * @param {Pointer<UErrorCode>} _status 
      * @returns {String} Nothing - always returns an empty string
      */
     static umsg_parse(fmt, source, sourceLength, count, _status) {
@@ -26397,7 +26396,7 @@ class Globalization {
      * @param {Integer} sourceLength 
      * @param {Pointer<Integer>} count 
      * @param {Pointer<Integer>} ap 
-     * @param {Pointer<Integer>} _status 
+     * @param {Pointer<UErrorCode>} _status 
      * @returns {String} Nothing - always returns an empty string
      */
     static umsg_vparse(fmt, source, sourceLength, count, ap, _status) {
@@ -26416,7 +26415,7 @@ class Globalization {
      * @param {Integer} patternLength 
      * @param {Pointer<Integer>} dest 
      * @param {Integer} destCapacity 
-     * @param {Pointer<Integer>} ec 
+     * @param {Pointer<UErrorCode>} ec 
      * @returns {Integer} 
      */
     static umsg_autoQuoteApostrophe(pattern, patternLength, dest, destCapacity, ec) {
@@ -26430,12 +26429,12 @@ class Globalization {
 
     /**
      * 
-     * @param {Integer} style 
+     * @param {UNumberFormatStyle} style 
      * @param {Pointer<Integer>} pattern 
      * @param {Integer} patternLength 
      * @param {PSTR} locale 
      * @param {Pointer<UParseError>} parseErr 
-     * @param {Pointer<Integer>} _status 
+     * @param {Pointer<UErrorCode>} _status 
      * @returns {Pointer<Pointer<Void>>} 
      */
     static unum_open(style, pattern, patternLength, locale, parseErr, _status) {
@@ -26462,7 +26461,7 @@ class Globalization {
     /**
      * 
      * @param {Pointer<Pointer<Void>>} fmt 
-     * @param {Pointer<Integer>} _status 
+     * @param {Pointer<UErrorCode>} _status 
      * @returns {Pointer<Pointer<Void>>} 
      */
     static unum_clone(fmt, _status) {
@@ -26480,7 +26479,7 @@ class Globalization {
      * @param {Pointer<Integer>} result 
      * @param {Integer} resultLength 
      * @param {Pointer<UFieldPosition>} pos 
-     * @param {Pointer<Integer>} _status 
+     * @param {Pointer<UErrorCode>} _status 
      * @returns {Integer} 
      */
     static unum_format(fmt, _number, result, resultLength, pos, _status) {
@@ -26499,7 +26498,7 @@ class Globalization {
      * @param {Pointer<Integer>} result 
      * @param {Integer} resultLength 
      * @param {Pointer<UFieldPosition>} pos 
-     * @param {Pointer<Integer>} _status 
+     * @param {Pointer<UErrorCode>} _status 
      * @returns {Integer} 
      */
     static unum_formatInt64(fmt, _number, result, resultLength, pos, _status) {
@@ -26518,7 +26517,7 @@ class Globalization {
      * @param {Pointer<Integer>} result 
      * @param {Integer} resultLength 
      * @param {Pointer<UFieldPosition>} pos 
-     * @param {Pointer<Integer>} _status 
+     * @param {Pointer<UErrorCode>} _status 
      * @returns {Integer} 
      */
     static unum_formatDouble(fmt, _number, result, resultLength, pos, _status) {
@@ -26537,7 +26536,7 @@ class Globalization {
      * @param {Pointer<Integer>} result 
      * @param {Integer} resultLength 
      * @param {Pointer<UFieldPositionIterator>} fpositer 
-     * @param {Pointer<Integer>} _status 
+     * @param {Pointer<UErrorCode>} _status 
      * @returns {Integer} 
      */
     static unum_formatDoubleForFields(format, _number, result, resultLength, fpositer, _status) {
@@ -26558,7 +26557,7 @@ class Globalization {
      * @param {Pointer<Integer>} result 
      * @param {Integer} resultLength 
      * @param {Pointer<UFieldPosition>} pos 
-     * @param {Pointer<Integer>} _status 
+     * @param {Pointer<UErrorCode>} _status 
      * @returns {Integer} 
      */
     static unum_formatDecimal(fmt, _number, length, result, resultLength, pos, _status) {
@@ -26580,7 +26579,7 @@ class Globalization {
      * @param {Pointer<Integer>} result 
      * @param {Integer} resultLength 
      * @param {Pointer<UFieldPosition>} pos 
-     * @param {Pointer<Integer>} _status 
+     * @param {Pointer<UErrorCode>} _status 
      * @returns {Integer} 
      */
     static unum_formatDoubleCurrency(fmt, _number, currency, result, resultLength, pos, _status) {
@@ -26600,7 +26599,7 @@ class Globalization {
      * @param {Pointer<Integer>} result 
      * @param {Integer} resultLength 
      * @param {Pointer<UFieldPosition>} pos 
-     * @param {Pointer<Integer>} _status 
+     * @param {Pointer<UErrorCode>} _status 
      * @returns {Integer} 
      */
     static unum_formatUFormattable(fmt, _number, result, resultLength, pos, _status) {
@@ -26619,7 +26618,7 @@ class Globalization {
      * @param {Pointer<Integer>} text 
      * @param {Integer} textLength 
      * @param {Pointer<Integer>} parsePos 
-     * @param {Pointer<Integer>} _status 
+     * @param {Pointer<UErrorCode>} _status 
      * @returns {Integer} 
      */
     static unum_parse(fmt, text, textLength, parsePos, _status) {
@@ -26638,7 +26637,7 @@ class Globalization {
      * @param {Pointer<Integer>} text 
      * @param {Integer} textLength 
      * @param {Pointer<Integer>} parsePos 
-     * @param {Pointer<Integer>} _status 
+     * @param {Pointer<UErrorCode>} _status 
      * @returns {Integer} 
      */
     static unum_parseInt64(fmt, text, textLength, parsePos, _status) {
@@ -26657,7 +26656,7 @@ class Globalization {
      * @param {Pointer<Integer>} text 
      * @param {Integer} textLength 
      * @param {Pointer<Integer>} parsePos 
-     * @param {Pointer<Integer>} _status 
+     * @param {Pointer<UErrorCode>} _status 
      * @returns {Float} 
      */
     static unum_parseDouble(fmt, text, textLength, parsePos, _status) {
@@ -26678,7 +26677,7 @@ class Globalization {
      * @param {Pointer<Integer>} parsePos 
      * @param {PSTR} outBuf 
      * @param {Integer} outBufLength 
-     * @param {Pointer<Integer>} _status 
+     * @param {Pointer<UErrorCode>} _status 
      * @returns {Integer} 
      */
     static unum_parseDecimal(fmt, text, textLength, parsePos, outBuf, outBufLength, _status) {
@@ -26700,7 +26699,7 @@ class Globalization {
      * @param {Integer} textLength 
      * @param {Pointer<Integer>} parsePos 
      * @param {Pointer<Integer>} currency 
-     * @param {Pointer<Integer>} _status 
+     * @param {Pointer<UErrorCode>} _status 
      * @returns {Float} 
      */
     static unum_parseDoubleCurrency(fmt, text, textLength, parsePos, currency, _status) {
@@ -26721,7 +26720,7 @@ class Globalization {
      * @param {Pointer<Integer>} text 
      * @param {Integer} textLength 
      * @param {Pointer<Integer>} parsePos 
-     * @param {Pointer<Integer>} _status 
+     * @param {Pointer<UErrorCode>} _status 
      * @returns {Pointer<Pointer<Void>>} 
      */
     static unum_parseToUFormattable(fmt, result, text, textLength, parsePos, _status) {
@@ -26742,7 +26741,7 @@ class Globalization {
      * @param {Pointer<Integer>} pattern 
      * @param {Integer} patternLength 
      * @param {Pointer<UParseError>} parseError 
-     * @param {Pointer<Integer>} _status 
+     * @param {Pointer<UErrorCode>} _status 
      * @returns {String} Nothing - always returns an empty string
      */
     static unum_applyPattern(format, localized, pattern, patternLength, parseError, _status) {
@@ -26775,7 +26774,7 @@ class Globalization {
     /**
      * 
      * @param {Pointer<Pointer<Void>>} fmt 
-     * @param {Integer} attr 
+     * @param {UNumberFormatAttribute} attr 
      * @returns {Integer} 
      */
     static unum_getAttribute(fmt, attr) {
@@ -26788,7 +26787,7 @@ class Globalization {
     /**
      * 
      * @param {Pointer<Pointer<Void>>} fmt 
-     * @param {Integer} attr 
+     * @param {UNumberFormatAttribute} attr 
      * @param {Integer} newValue 
      * @returns {String} Nothing - always returns an empty string
      */
@@ -26801,7 +26800,7 @@ class Globalization {
     /**
      * 
      * @param {Pointer<Pointer<Void>>} fmt 
-     * @param {Integer} attr 
+     * @param {UNumberFormatAttribute} attr 
      * @returns {Float} 
      */
     static unum_getDoubleAttribute(fmt, attr) {
@@ -26814,7 +26813,7 @@ class Globalization {
     /**
      * 
      * @param {Pointer<Pointer<Void>>} fmt 
-     * @param {Integer} attr 
+     * @param {UNumberFormatAttribute} attr 
      * @param {Float} newValue 
      * @returns {String} Nothing - always returns an empty string
      */
@@ -26827,10 +26826,10 @@ class Globalization {
     /**
      * 
      * @param {Pointer<Pointer<Void>>} fmt 
-     * @param {Integer} tag 
+     * @param {UNumberFormatTextAttribute} tag 
      * @param {Pointer<Integer>} result 
      * @param {Integer} resultLength 
-     * @param {Pointer<Integer>} _status 
+     * @param {Pointer<UErrorCode>} _status 
      * @returns {Integer} 
      */
     static unum_getTextAttribute(fmt, tag, result, resultLength, _status) {
@@ -26845,10 +26844,10 @@ class Globalization {
     /**
      * 
      * @param {Pointer<Pointer<Void>>} fmt 
-     * @param {Integer} tag 
+     * @param {UNumberFormatTextAttribute} tag 
      * @param {Pointer<Integer>} newValue 
      * @param {Integer} newValueLength 
-     * @param {Pointer<Integer>} _status 
+     * @param {Pointer<UErrorCode>} _status 
      * @returns {String} Nothing - always returns an empty string
      */
     static unum_setTextAttribute(fmt, tag, newValue, newValueLength, _status) {
@@ -26865,7 +26864,7 @@ class Globalization {
      * @param {Integer} isPatternLocalized 
      * @param {Pointer<Integer>} result 
      * @param {Integer} resultLength 
-     * @param {Pointer<Integer>} _status 
+     * @param {Pointer<UErrorCode>} _status 
      * @returns {Integer} 
      */
     static unum_toPattern(fmt, isPatternLocalized, result, resultLength, _status) {
@@ -26880,10 +26879,10 @@ class Globalization {
     /**
      * 
      * @param {Pointer<Pointer<Void>>} fmt 
-     * @param {Integer} symbol 
+     * @param {UNumberFormatSymbol} symbol 
      * @param {Pointer<Integer>} _buffer 
      * @param {Integer} _size 
-     * @param {Pointer<Integer>} _status 
+     * @param {Pointer<UErrorCode>} _status 
      * @returns {Integer} 
      */
     static unum_getSymbol(fmt, symbol, _buffer, _size, _status) {
@@ -26898,10 +26897,10 @@ class Globalization {
     /**
      * 
      * @param {Pointer<Pointer<Void>>} fmt 
-     * @param {Integer} symbol 
+     * @param {UNumberFormatSymbol} symbol 
      * @param {Pointer<Integer>} value 
      * @param {Integer} length 
-     * @param {Pointer<Integer>} _status 
+     * @param {Pointer<UErrorCode>} _status 
      * @returns {String} Nothing - always returns an empty string
      */
     static unum_setSymbol(fmt, symbol, value, length, _status) {
@@ -26915,8 +26914,8 @@ class Globalization {
     /**
      * 
      * @param {Pointer<Pointer<Void>>} fmt 
-     * @param {Integer} type 
-     * @param {Pointer<Integer>} _status 
+     * @param {ULocDataLocaleType} type 
+     * @param {Pointer<UErrorCode>} _status 
      * @returns {PSTR} 
      */
     static unum_getLocaleByType(fmt, type, _status) {
@@ -26930,8 +26929,8 @@ class Globalization {
     /**
      * 
      * @param {Pointer<Pointer<Void>>} fmt 
-     * @param {Integer} value 
-     * @param {Pointer<Integer>} _status 
+     * @param {UDisplayContext} value 
+     * @param {Pointer<UErrorCode>} _status 
      * @returns {String} Nothing - always returns an empty string
      */
     static unum_setContext(fmt, value, _status) {
@@ -26944,9 +26943,9 @@ class Globalization {
     /**
      * 
      * @param {Pointer<Pointer<Void>>} fmt 
-     * @param {Integer} type 
-     * @param {Pointer<Integer>} _status 
-     * @returns {Integer} 
+     * @param {UDisplayContextType} type 
+     * @param {Pointer<UErrorCode>} _status 
+     * @returns {UDisplayContext} 
      */
     static unum_getContext(fmt, type, _status) {
         fmtMarshal := fmt is VarRef ? "ptr*" : "ptr"
@@ -26958,8 +26957,8 @@ class Globalization {
 
     /**
      * 
-     * @param {Integer} field 
-     * @returns {Integer} 
+     * @param {UDateFormatField} field 
+     * @returns {UCalendarDateFields} 
      */
     static udat_toCalendarDateField(field) {
         result := DllCall("icuin.dll\udat_toCalendarDateField", "int", field, "CDecl int")
@@ -26968,14 +26967,14 @@ class Globalization {
 
     /**
      * 
-     * @param {Integer} timeStyle 
-     * @param {Integer} dateStyle 
+     * @param {UDateFormatStyle} timeStyle 
+     * @param {UDateFormatStyle} dateStyle 
      * @param {PSTR} locale 
      * @param {Pointer<Integer>} tzID 
      * @param {Integer} tzIDLength 
      * @param {Pointer<Integer>} pattern 
      * @param {Integer} patternLength 
-     * @param {Pointer<Integer>} _status 
+     * @param {Pointer<UErrorCode>} _status 
      * @returns {Pointer<Pointer<Void>>} 
      */
     static udat_open(timeStyle, dateStyle, locale, tzID, tzIDLength, pattern, patternLength, _status) {
@@ -27003,8 +27002,8 @@ class Globalization {
     /**
      * 
      * @param {Pointer<Pointer<Void>>} fmt 
-     * @param {Integer} attr 
-     * @param {Pointer<Integer>} _status 
+     * @param {UDateFormatBooleanAttribute} attr 
+     * @param {Pointer<UErrorCode>} _status 
      * @returns {Integer} 
      */
     static udat_getBooleanAttribute(fmt, attr, _status) {
@@ -27018,9 +27017,9 @@ class Globalization {
     /**
      * 
      * @param {Pointer<Pointer<Void>>} fmt 
-     * @param {Integer} attr 
+     * @param {UDateFormatBooleanAttribute} attr 
      * @param {Integer} newValue 
-     * @param {Pointer<Integer>} _status 
+     * @param {Pointer<UErrorCode>} _status 
      * @returns {String} Nothing - always returns an empty string
      */
     static udat_setBooleanAttribute(fmt, attr, newValue, _status) {
@@ -27033,7 +27032,7 @@ class Globalization {
     /**
      * 
      * @param {Pointer<Pointer<Void>>} fmt 
-     * @param {Pointer<Integer>} _status 
+     * @param {Pointer<UErrorCode>} _status 
      * @returns {Pointer<Pointer<Void>>} 
      */
     static udat_clone(fmt, _status) {
@@ -27051,7 +27050,7 @@ class Globalization {
      * @param {Pointer<Integer>} result 
      * @param {Integer} resultLength 
      * @param {Pointer<UFieldPosition>} position 
-     * @param {Pointer<Integer>} _status 
+     * @param {Pointer<UErrorCode>} _status 
      * @returns {Integer} 
      */
     static udat_format(format, dateToFormat, result, resultLength, position, _status) {
@@ -27070,7 +27069,7 @@ class Globalization {
      * @param {Pointer<Integer>} result 
      * @param {Integer} capacity 
      * @param {Pointer<UFieldPosition>} position 
-     * @param {Pointer<Integer>} _status 
+     * @param {Pointer<UErrorCode>} _status 
      * @returns {Integer} 
      */
     static udat_formatCalendar(format, calendar, result, capacity, position, _status) {
@@ -27090,7 +27089,7 @@ class Globalization {
      * @param {Pointer<Integer>} result 
      * @param {Integer} resultLength 
      * @param {Pointer<UFieldPositionIterator>} fpositer 
-     * @param {Pointer<Integer>} _status 
+     * @param {Pointer<UErrorCode>} _status 
      * @returns {Integer} 
      */
     static udat_formatForFields(format, dateToFormat, result, resultLength, fpositer, _status) {
@@ -27110,7 +27109,7 @@ class Globalization {
      * @param {Pointer<Integer>} result 
      * @param {Integer} capacity 
      * @param {Pointer<UFieldPositionIterator>} fpositer 
-     * @param {Pointer<Integer>} _status 
+     * @param {Pointer<UErrorCode>} _status 
      * @returns {Integer} 
      */
     static udat_formatCalendarForFields(format, calendar, result, capacity, fpositer, _status) {
@@ -27130,7 +27129,7 @@ class Globalization {
      * @param {Pointer<Integer>} text 
      * @param {Integer} textLength 
      * @param {Pointer<Integer>} parsePos 
-     * @param {Pointer<Integer>} _status 
+     * @param {Pointer<UErrorCode>} _status 
      * @returns {Float} 
      */
     static udat_parse(format, text, textLength, parsePos, _status) {
@@ -27150,7 +27149,7 @@ class Globalization {
      * @param {Pointer<Integer>} text 
      * @param {Integer} textLength 
      * @param {Pointer<Integer>} parsePos 
-     * @param {Pointer<Integer>} _status 
+     * @param {Pointer<UErrorCode>} _status 
      * @returns {String} Nothing - always returns an empty string
      */
     static udat_parseCalendar(format, calendar, text, textLength, parsePos, _status) {
@@ -27242,7 +27241,7 @@ class Globalization {
      * @param {Pointer<Pointer<Void>>} fmt 
      * @param {Pointer<Integer>} fields 
      * @param {Pointer<Pointer<Void>>} numberFormatToSet 
-     * @param {Pointer<Integer>} _status 
+     * @param {Pointer<UErrorCode>} _status 
      * @returns {String} Nothing - always returns an empty string
      */
     static udat_adoptNumberFormatForFields(fmt, fields, numberFormatToSet, _status) {
@@ -27302,7 +27301,7 @@ class Globalization {
     /**
      * 
      * @param {Pointer<Pointer<Void>>} fmt 
-     * @param {Pointer<Integer>} _status 
+     * @param {Pointer<UErrorCode>} _status 
      * @returns {Float} 
      */
     static udat_get2DigitYearStart(fmt, _status) {
@@ -27317,7 +27316,7 @@ class Globalization {
      * 
      * @param {Pointer<Pointer<Void>>} fmt 
      * @param {Float} d 
-     * @param {Pointer<Integer>} _status 
+     * @param {Pointer<UErrorCode>} _status 
      * @returns {String} Nothing - always returns an empty string
      */
     static udat_set2DigitYearStart(fmt, d, _status) {
@@ -27333,7 +27332,7 @@ class Globalization {
      * @param {Integer} localized 
      * @param {Pointer<Integer>} result 
      * @param {Integer} resultLength 
-     * @param {Pointer<Integer>} _status 
+     * @param {Pointer<UErrorCode>} _status 
      * @returns {Integer} 
      */
     static udat_toPattern(fmt, localized, result, resultLength, _status) {
@@ -27363,11 +27362,11 @@ class Globalization {
     /**
      * 
      * @param {Pointer<Pointer<Void>>} fmt 
-     * @param {Integer} type 
+     * @param {UDateFormatSymbolType} type 
      * @param {Integer} symbolIndex 
      * @param {Pointer<Integer>} result 
      * @param {Integer} resultLength 
-     * @param {Pointer<Integer>} _status 
+     * @param {Pointer<UErrorCode>} _status 
      * @returns {Integer} 
      */
     static udat_getSymbols(fmt, type, symbolIndex, result, resultLength, _status) {
@@ -27382,7 +27381,7 @@ class Globalization {
     /**
      * 
      * @param {Pointer<Pointer<Void>>} fmt 
-     * @param {Integer} type 
+     * @param {UDateFormatSymbolType} type 
      * @returns {Integer} 
      */
     static udat_countSymbols(fmt, type) {
@@ -27395,11 +27394,11 @@ class Globalization {
     /**
      * 
      * @param {Pointer<Pointer<Void>>} format 
-     * @param {Integer} type 
+     * @param {UDateFormatSymbolType} type 
      * @param {Integer} symbolIndex 
      * @param {Pointer<Integer>} value 
      * @param {Integer} valueLength 
-     * @param {Pointer<Integer>} _status 
+     * @param {Pointer<UErrorCode>} _status 
      * @returns {String} Nothing - always returns an empty string
      */
     static udat_setSymbols(format, type, symbolIndex, value, valueLength, _status) {
@@ -27413,8 +27412,8 @@ class Globalization {
     /**
      * 
      * @param {Pointer<Pointer<Void>>} fmt 
-     * @param {Integer} type 
-     * @param {Pointer<Integer>} _status 
+     * @param {ULocDataLocaleType} type 
+     * @param {Pointer<UErrorCode>} _status 
      * @returns {PSTR} 
      */
     static udat_getLocaleByType(fmt, type, _status) {
@@ -27428,8 +27427,8 @@ class Globalization {
     /**
      * 
      * @param {Pointer<Pointer<Void>>} fmt 
-     * @param {Integer} value 
-     * @param {Pointer<Integer>} _status 
+     * @param {UDisplayContext} value 
+     * @param {Pointer<UErrorCode>} _status 
      * @returns {String} Nothing - always returns an empty string
      */
     static udat_setContext(fmt, value, _status) {
@@ -27442,9 +27441,9 @@ class Globalization {
     /**
      * 
      * @param {Pointer<Pointer<Void>>} fmt 
-     * @param {Integer} type 
-     * @param {Pointer<Integer>} _status 
-     * @returns {Integer} 
+     * @param {UDisplayContextType} type 
+     * @param {Pointer<UErrorCode>} _status 
+     * @returns {UDisplayContext} 
      */
     static udat_getContext(fmt, type, _status) {
         fmtMarshal := fmt is VarRef ? "ptr*" : "ptr"
@@ -27457,7 +27456,7 @@ class Globalization {
     /**
      * 
      * @param {PSTR} locale 
-     * @param {Pointer<Integer>} pErrorCode 
+     * @param {Pointer<UErrorCode>} pErrorCode 
      * @returns {Pointer<Pointer<Void>>} 
      */
     static udatpg_open(locale, pErrorCode) {
@@ -27471,7 +27470,7 @@ class Globalization {
 
     /**
      * 
-     * @param {Pointer<Integer>} pErrorCode 
+     * @param {Pointer<UErrorCode>} pErrorCode 
      * @returns {Pointer<Pointer<Void>>} 
      */
     static udatpg_openEmpty(pErrorCode) {
@@ -27495,7 +27494,7 @@ class Globalization {
     /**
      * 
      * @param {Pointer<Pointer<Void>>} dtpg 
-     * @param {Pointer<Integer>} pErrorCode 
+     * @param {Pointer<UErrorCode>} pErrorCode 
      * @returns {Pointer<Pointer<Void>>} 
      */
     static udatpg_clone(dtpg, pErrorCode) {
@@ -27513,7 +27512,7 @@ class Globalization {
      * @param {Integer} length 
      * @param {Pointer<Integer>} bestPattern 
      * @param {Integer} capacity 
-     * @param {Pointer<Integer>} pErrorCode 
+     * @param {Pointer<UErrorCode>} pErrorCode 
      * @returns {Integer} 
      */
     static udatpg_getBestPattern(dtpg, skeleton, length, bestPattern, capacity, pErrorCode) {
@@ -27531,10 +27530,10 @@ class Globalization {
      * @param {Pointer<Pointer<Void>>} dtpg 
      * @param {Pointer<Integer>} skeleton 
      * @param {Integer} length 
-     * @param {Integer} options 
+     * @param {UDateTimePatternMatchOptions} options 
      * @param {Pointer<Integer>} bestPattern 
      * @param {Integer} capacity 
-     * @param {Pointer<Integer>} pErrorCode 
+     * @param {Pointer<UErrorCode>} pErrorCode 
      * @returns {Integer} 
      */
     static udatpg_getBestPatternWithOptions(dtpg, skeleton, length, options, bestPattern, capacity, pErrorCode) {
@@ -27554,7 +27553,7 @@ class Globalization {
      * @param {Integer} length 
      * @param {Pointer<Integer>} skeleton 
      * @param {Integer} capacity 
-     * @param {Pointer<Integer>} pErrorCode 
+     * @param {Pointer<UErrorCode>} pErrorCode 
      * @returns {Integer} 
      */
     static udatpg_getSkeleton(unusedDtpg, pattern, length, skeleton, capacity, pErrorCode) {
@@ -27574,7 +27573,7 @@ class Globalization {
      * @param {Integer} length 
      * @param {Pointer<Integer>} baseSkeleton 
      * @param {Integer} capacity 
-     * @param {Pointer<Integer>} pErrorCode 
+     * @param {Pointer<UErrorCode>} pErrorCode 
      * @returns {Integer} 
      */
     static udatpg_getBaseSkeleton(unusedDtpg, pattern, length, baseSkeleton, capacity, pErrorCode) {
@@ -27596,8 +27595,8 @@ class Globalization {
      * @param {Pointer<Integer>} conflictingPattern 
      * @param {Integer} capacity 
      * @param {Pointer<Integer>} pLength 
-     * @param {Pointer<Integer>} pErrorCode 
-     * @returns {Integer} 
+     * @param {Pointer<UErrorCode>} pErrorCode 
+     * @returns {UDateTimePatternConflict} 
      */
     static udatpg_addPattern(dtpg, pattern, patternLength, override, conflictingPattern, capacity, pLength, pErrorCode) {
         dtpgMarshal := dtpg is VarRef ? "ptr*" : "ptr"
@@ -27613,7 +27612,7 @@ class Globalization {
     /**
      * 
      * @param {Pointer<Pointer<Void>>} dtpg 
-     * @param {Integer} field 
+     * @param {UDateTimePatternField} field 
      * @param {Pointer<Integer>} value 
      * @param {Integer} length 
      * @returns {String} Nothing - always returns an empty string
@@ -27628,7 +27627,7 @@ class Globalization {
     /**
      * 
      * @param {Pointer<Pointer<Void>>} dtpg 
-     * @param {Integer} field 
+     * @param {UDateTimePatternField} field 
      * @param {Pointer<Integer>} pLength 
      * @returns {Pointer<Integer>} 
      */
@@ -27643,7 +27642,7 @@ class Globalization {
     /**
      * 
      * @param {Pointer<Pointer<Void>>} dtpg 
-     * @param {Integer} field 
+     * @param {UDateTimePatternField} field 
      * @param {Pointer<Integer>} value 
      * @param {Integer} length 
      * @returns {String} Nothing - always returns an empty string
@@ -27658,7 +27657,7 @@ class Globalization {
     /**
      * 
      * @param {Pointer<Pointer<Void>>} dtpg 
-     * @param {Integer} field 
+     * @param {UDateTimePatternField} field 
      * @param {Pointer<Integer>} pLength 
      * @returns {Pointer<Integer>} 
      */
@@ -27673,11 +27672,11 @@ class Globalization {
     /**
      * 
      * @param {Pointer<Pointer<Void>>} dtpg 
-     * @param {Integer} field 
-     * @param {Integer} width 
+     * @param {UDateTimePatternField} field 
+     * @param {UDateTimePGDisplayWidth} width 
      * @param {Pointer<Integer>} fieldName 
      * @param {Integer} capacity 
-     * @param {Pointer<Integer>} pErrorCode 
+     * @param {Pointer<UErrorCode>} pErrorCode 
      * @returns {Integer} 
      */
     static udatpg_getFieldDisplayName(dtpg, field, width, fieldName, capacity, pErrorCode) {
@@ -27754,7 +27753,7 @@ class Globalization {
      * @param {Integer} skeletonLength 
      * @param {Pointer<Integer>} dest 
      * @param {Integer} destCapacity 
-     * @param {Pointer<Integer>} pErrorCode 
+     * @param {Pointer<UErrorCode>} pErrorCode 
      * @returns {Integer} 
      */
     static udatpg_replaceFieldTypes(dtpg, pattern, patternLength, skeleton, skeletonLength, dest, destCapacity, pErrorCode) {
@@ -27775,10 +27774,10 @@ class Globalization {
      * @param {Integer} patternLength 
      * @param {Pointer<Integer>} skeleton 
      * @param {Integer} skeletonLength 
-     * @param {Integer} options 
+     * @param {UDateTimePatternMatchOptions} options 
      * @param {Pointer<Integer>} dest 
      * @param {Integer} destCapacity 
-     * @param {Pointer<Integer>} pErrorCode 
+     * @param {Pointer<UErrorCode>} pErrorCode 
      * @returns {Integer} 
      */
     static udatpg_replaceFieldTypesWithOptions(dtpg, pattern, patternLength, skeleton, skeletonLength, options, dest, destCapacity, pErrorCode) {
@@ -27795,7 +27794,7 @@ class Globalization {
     /**
      * 
      * @param {Pointer<Pointer<Void>>} dtpg 
-     * @param {Pointer<Integer>} pErrorCode 
+     * @param {Pointer<UErrorCode>} pErrorCode 
      * @returns {Pointer<UEnumeration>} 
      */
     static udatpg_openSkeletons(dtpg, pErrorCode) {
@@ -27809,7 +27808,7 @@ class Globalization {
     /**
      * 
      * @param {Pointer<Pointer<Void>>} dtpg 
-     * @param {Pointer<Integer>} pErrorCode 
+     * @param {Pointer<UErrorCode>} pErrorCode 
      * @returns {Pointer<UEnumeration>} 
      */
     static udatpg_openBaseSkeletons(dtpg, pErrorCode) {
@@ -27840,8 +27839,8 @@ class Globalization {
     /**
      * 
      * @param {Pointer<Pointer<Void>>} dtpg 
-     * @param {Pointer<Integer>} pErrorCode 
-     * @returns {Integer} 
+     * @param {Pointer<UErrorCode>} pErrorCode 
+     * @returns {UDateFormatHourCycle} 
      */
     static udatpg_getDefaultHourCycle(dtpg, pErrorCode) {
         dtpgMarshal := dtpg is VarRef ? "ptr*" : "ptr"
@@ -27856,7 +27855,7 @@ class Globalization {
      * @param {Pointer<Integer>} skeleton 
      * @param {Integer} skeletonLen 
      * @param {PSTR} locale 
-     * @param {Pointer<Integer>} ec 
+     * @param {Pointer<UErrorCode>} ec 
      * @returns {Pointer<UNumberFormatter>} 
      */
     static unumf_openForSkeletonAndLocale(skeleton, skeletonLen, locale, ec) {
@@ -27875,7 +27874,7 @@ class Globalization {
      * @param {Integer} skeletonLen 
      * @param {PSTR} locale 
      * @param {Pointer<UParseError>} perror 
-     * @param {Pointer<Integer>} ec 
+     * @param {Pointer<UErrorCode>} ec 
      * @returns {Pointer<UNumberFormatter>} 
      */
     static unumf_openForSkeletonAndLocaleWithError(skeleton, skeletonLen, locale, perror, ec) {
@@ -27890,7 +27889,7 @@ class Globalization {
 
     /**
      * 
-     * @param {Pointer<Integer>} ec 
+     * @param {Pointer<UErrorCode>} ec 
      * @returns {Pointer<UFormattedNumber>} 
      */
     static unumf_openResult(ec) {
@@ -27905,7 +27904,7 @@ class Globalization {
      * @param {Pointer<UNumberFormatter>} uformatter 
      * @param {Integer} value 
      * @param {Pointer<UFormattedNumber>} uresult 
-     * @param {Pointer<Integer>} ec 
+     * @param {Pointer<UErrorCode>} ec 
      * @returns {String} Nothing - always returns an empty string
      */
     static unumf_formatInt(uformatter, value, uresult, ec) {
@@ -27921,7 +27920,7 @@ class Globalization {
      * @param {Pointer<UNumberFormatter>} uformatter 
      * @param {Float} value 
      * @param {Pointer<UFormattedNumber>} uresult 
-     * @param {Pointer<Integer>} ec 
+     * @param {Pointer<UErrorCode>} ec 
      * @returns {String} Nothing - always returns an empty string
      */
     static unumf_formatDouble(uformatter, value, uresult, ec) {
@@ -27938,7 +27937,7 @@ class Globalization {
      * @param {PSTR} value 
      * @param {Integer} valueLen 
      * @param {Pointer<UFormattedNumber>} uresult 
-     * @param {Pointer<Integer>} ec 
+     * @param {Pointer<UErrorCode>} ec 
      * @returns {String} Nothing - always returns an empty string
      */
     static unumf_formatDecimal(uformatter, value, valueLen, uresult, ec) {
@@ -27954,7 +27953,7 @@ class Globalization {
     /**
      * 
      * @param {Pointer<UFormattedNumber>} uresult 
-     * @param {Pointer<Integer>} ec 
+     * @param {Pointer<UErrorCode>} ec 
      * @returns {Pointer<UFormattedValue>} 
      */
     static unumf_resultAsValue(uresult, ec) {
@@ -27970,7 +27969,7 @@ class Globalization {
      * @param {Pointer<UFormattedNumber>} uresult 
      * @param {Pointer<Integer>} _buffer 
      * @param {Integer} bufferCapacity 
-     * @param {Pointer<Integer>} ec 
+     * @param {Pointer<UErrorCode>} ec 
      * @returns {Integer} 
      */
     static unumf_resultToString(uresult, _buffer, bufferCapacity, ec) {
@@ -27986,7 +27985,7 @@ class Globalization {
      * 
      * @param {Pointer<UFormattedNumber>} uresult 
      * @param {Pointer<UFieldPosition>} ufpos 
-     * @param {Pointer<Integer>} ec 
+     * @param {Pointer<UErrorCode>} ec 
      * @returns {Integer} 
      */
     static unumf_resultNextFieldPosition(uresult, ufpos, ec) {
@@ -28001,7 +28000,7 @@ class Globalization {
      * 
      * @param {Pointer<UFormattedNumber>} uresult 
      * @param {Pointer<UFieldPositionIterator>} ufpositer 
-     * @param {Pointer<Integer>} ec 
+     * @param {Pointer<UErrorCode>} ec 
      * @returns {String} Nothing - always returns an empty string
      */
     static unumf_resultGetAllFieldPositions(uresult, ufpositer, ec) {
@@ -28017,7 +28016,7 @@ class Globalization {
      * @param {Pointer<UFormattedNumber>} uresult 
      * @param {PSTR} dest 
      * @param {Integer} destCapacity 
-     * @param {Pointer<Integer>} ec 
+     * @param {Pointer<UErrorCode>} ec 
      * @returns {Integer} 
      */
     static unumf_resultToDecimalNumber(uresult, dest, destCapacity, ec) {
@@ -28056,11 +28055,11 @@ class Globalization {
      * 
      * @param {Pointer<Integer>} skeleton 
      * @param {Integer} skeletonLen 
-     * @param {Integer} collapse 
-     * @param {Integer} identityFallback 
+     * @param {UNumberRangeCollapse} collapse 
+     * @param {UNumberRangeIdentityFallback} identityFallback 
      * @param {PSTR} locale 
      * @param {Pointer<UParseError>} perror 
-     * @param {Pointer<Integer>} ec 
+     * @param {Pointer<UErrorCode>} ec 
      * @returns {Pointer<UNumberRangeFormatter>} 
      */
     static unumrf_openForSkeletonWithCollapseAndIdentityFallback(skeleton, skeletonLen, collapse, identityFallback, locale, perror, ec) {
@@ -28075,7 +28074,7 @@ class Globalization {
 
     /**
      * 
-     * @param {Pointer<Integer>} ec 
+     * @param {Pointer<UErrorCode>} ec 
      * @returns {Pointer<UFormattedNumberRange>} 
      */
     static unumrf_openResult(ec) {
@@ -28091,7 +28090,7 @@ class Globalization {
      * @param {Float} first 
      * @param {Float} second 
      * @param {Pointer<UFormattedNumberRange>} uresult 
-     * @param {Pointer<Integer>} ec 
+     * @param {Pointer<UErrorCode>} ec 
      * @returns {String} Nothing - always returns an empty string
      */
     static unumrf_formatDoubleRange(uformatter, first, second, uresult, ec) {
@@ -28110,7 +28109,7 @@ class Globalization {
      * @param {PSTR} second 
      * @param {Integer} secondLen 
      * @param {Pointer<UFormattedNumberRange>} uresult 
-     * @param {Pointer<Integer>} ec 
+     * @param {Pointer<UErrorCode>} ec 
      * @returns {String} Nothing - always returns an empty string
      */
     static unumrf_formatDecimalRange(uformatter, first, firstLen, second, secondLen, uresult, ec) {
@@ -28127,7 +28126,7 @@ class Globalization {
     /**
      * 
      * @param {Pointer<UFormattedNumberRange>} uresult 
-     * @param {Pointer<Integer>} ec 
+     * @param {Pointer<UErrorCode>} ec 
      * @returns {Pointer<UFormattedValue>} 
      */
     static unumrf_resultAsValue(uresult, ec) {
@@ -28141,8 +28140,8 @@ class Globalization {
     /**
      * 
      * @param {Pointer<UFormattedNumberRange>} uresult 
-     * @param {Pointer<Integer>} ec 
-     * @returns {Integer} 
+     * @param {Pointer<UErrorCode>} ec 
+     * @returns {UNumberRangeIdentityResult} 
      */
     static unumrf_resultGetIdentityResult(uresult, ec) {
         uresultMarshal := uresult is VarRef ? "ptr*" : "ptr"
@@ -28157,7 +28156,7 @@ class Globalization {
      * @param {Pointer<UFormattedNumberRange>} uresult 
      * @param {PSTR} dest 
      * @param {Integer} destCapacity 
-     * @param {Pointer<Integer>} ec 
+     * @param {Pointer<UErrorCode>} ec 
      * @returns {Integer} 
      */
     static unumrf_resultGetFirstDecimalNumber(uresult, dest, destCapacity, ec) {
@@ -28175,7 +28174,7 @@ class Globalization {
      * @param {Pointer<UFormattedNumberRange>} uresult 
      * @param {PSTR} dest 
      * @param {Integer} destCapacity 
-     * @param {Pointer<Integer>} ec 
+     * @param {Pointer<UErrorCode>} ec 
      * @returns {Integer} 
      */
     static unumrf_resultGetSecondDecimalNumber(uresult, dest, destCapacity, ec) {
@@ -28213,7 +28212,7 @@ class Globalization {
     /**
      * 
      * @param {PSTR} locale 
-     * @param {Pointer<Integer>} _status 
+     * @param {Pointer<UErrorCode>} _status 
      * @returns {Pointer<UNumberingSystem>} 
      */
     static unumsys_open(locale, _status) {
@@ -28228,7 +28227,7 @@ class Globalization {
     /**
      * 
      * @param {PSTR} name 
-     * @param {Pointer<Integer>} _status 
+     * @param {Pointer<UErrorCode>} _status 
      * @returns {Pointer<UNumberingSystem>} 
      */
     static unumsys_openByName(name, _status) {
@@ -28253,7 +28252,7 @@ class Globalization {
 
     /**
      * 
-     * @param {Pointer<Integer>} _status 
+     * @param {Pointer<UErrorCode>} _status 
      * @returns {Pointer<UEnumeration>} 
      */
     static unumsys_openAvailableNames(_status) {
@@ -28304,7 +28303,7 @@ class Globalization {
      * @param {Pointer<UNumberingSystem>} unumsys 
      * @param {Pointer<Integer>} result 
      * @param {Integer} resultLength 
-     * @param {Pointer<Integer>} _status 
+     * @param {Pointer<UErrorCode>} _status 
      * @returns {Integer} 
      */
     static unumsys_getDescription(unumsys, result, resultLength, _status) {
@@ -28319,7 +28318,7 @@ class Globalization {
     /**
      * 
      * @param {PSTR} locale 
-     * @param {Pointer<Integer>} _status 
+     * @param {Pointer<UErrorCode>} _status 
      * @returns {Pointer<UPluralRules>} 
      */
     static uplrules_open(locale, _status) {
@@ -28334,8 +28333,8 @@ class Globalization {
     /**
      * 
      * @param {PSTR} locale 
-     * @param {Integer} type 
-     * @param {Pointer<Integer>} _status 
+     * @param {UPluralType} type 
+     * @param {Pointer<UErrorCode>} _status 
      * @returns {Pointer<UPluralRules>} 
      */
     static uplrules_openForType(locale, type, _status) {
@@ -28364,7 +28363,7 @@ class Globalization {
      * @param {Float} _number 
      * @param {Pointer<Integer>} keyword 
      * @param {Integer} capacity 
-     * @param {Pointer<Integer>} _status 
+     * @param {Pointer<UErrorCode>} _status 
      * @returns {Integer} 
      */
     static uplrules_select(uplrules, _number, keyword, capacity, _status) {
@@ -28382,7 +28381,7 @@ class Globalization {
      * @param {Pointer<UFormattedNumber>} _number 
      * @param {Pointer<Integer>} keyword 
      * @param {Integer} capacity 
-     * @param {Pointer<Integer>} _status 
+     * @param {Pointer<UErrorCode>} _status 
      * @returns {Integer} 
      */
     static uplrules_selectFormatted(uplrules, _number, keyword, capacity, _status) {
@@ -28398,7 +28397,7 @@ class Globalization {
     /**
      * 
      * @param {Pointer<UPluralRules>} uplrules 
-     * @param {Pointer<Integer>} _status 
+     * @param {Pointer<UErrorCode>} _status 
      * @returns {Pointer<UEnumeration>} 
      */
     static uplrules_getKeywords(uplrules, _status) {
@@ -28415,7 +28414,7 @@ class Globalization {
      * @param {Integer} patternLength 
      * @param {Integer} flags 
      * @param {Pointer<UParseError>} pe 
-     * @param {Pointer<Integer>} _status 
+     * @param {Pointer<UErrorCode>} _status 
      * @returns {Pointer<URegularExpression>} 
      */
     static uregex_open(pattern, patternLength, flags, pe, _status) {
@@ -28431,7 +28430,7 @@ class Globalization {
      * @param {Pointer<UText>} pattern 
      * @param {Integer} flags 
      * @param {Pointer<UParseError>} pe 
-     * @param {Pointer<Integer>} _status 
+     * @param {Pointer<UErrorCode>} _status 
      * @returns {Pointer<URegularExpression>} 
      */
     static uregex_openUText(pattern, flags, pe, _status) {
@@ -28446,7 +28445,7 @@ class Globalization {
      * @param {PSTR} pattern 
      * @param {Integer} flags 
      * @param {Pointer<UParseError>} pe 
-     * @param {Pointer<Integer>} _status 
+     * @param {Pointer<UErrorCode>} _status 
      * @returns {Pointer<URegularExpression>} 
      */
     static uregex_openC(pattern, flags, pe, _status) {
@@ -28472,7 +28471,7 @@ class Globalization {
     /**
      * 
      * @param {Pointer<URegularExpression>} regexp 
-     * @param {Pointer<Integer>} _status 
+     * @param {Pointer<UErrorCode>} _status 
      * @returns {Pointer<URegularExpression>} 
      */
     static uregex_clone(regexp, _status) {
@@ -28487,7 +28486,7 @@ class Globalization {
      * 
      * @param {Pointer<URegularExpression>} regexp 
      * @param {Pointer<Integer>} patLength 
-     * @param {Pointer<Integer>} _status 
+     * @param {Pointer<UErrorCode>} _status 
      * @returns {Pointer<Integer>} 
      */
     static uregex_pattern(regexp, patLength, _status) {
@@ -28502,7 +28501,7 @@ class Globalization {
     /**
      * 
      * @param {Pointer<URegularExpression>} regexp 
-     * @param {Pointer<Integer>} _status 
+     * @param {Pointer<UErrorCode>} _status 
      * @returns {Pointer<UText>} 
      */
     static uregex_patternUText(regexp, _status) {
@@ -28516,7 +28515,7 @@ class Globalization {
     /**
      * 
      * @param {Pointer<URegularExpression>} regexp 
-     * @param {Pointer<Integer>} _status 
+     * @param {Pointer<UErrorCode>} _status 
      * @returns {Integer} 
      */
     static uregex_flags(regexp, _status) {
@@ -28532,7 +28531,7 @@ class Globalization {
      * @param {Pointer<URegularExpression>} regexp 
      * @param {Pointer<Integer>} text 
      * @param {Integer} textLength 
-     * @param {Pointer<Integer>} _status 
+     * @param {Pointer<UErrorCode>} _status 
      * @returns {String} Nothing - always returns an empty string
      */
     static uregex_setText(regexp, text, textLength, _status) {
@@ -28547,7 +28546,7 @@ class Globalization {
      * 
      * @param {Pointer<URegularExpression>} regexp 
      * @param {Pointer<UText>} text 
-     * @param {Pointer<Integer>} _status 
+     * @param {Pointer<UErrorCode>} _status 
      * @returns {String} Nothing - always returns an empty string
      */
     static uregex_setUText(regexp, text, _status) {
@@ -28561,7 +28560,7 @@ class Globalization {
      * 
      * @param {Pointer<URegularExpression>} regexp 
      * @param {Pointer<Integer>} textLength 
-     * @param {Pointer<Integer>} _status 
+     * @param {Pointer<UErrorCode>} _status 
      * @returns {Pointer<Integer>} 
      */
     static uregex_getText(regexp, textLength, _status) {
@@ -28577,7 +28576,7 @@ class Globalization {
      * 
      * @param {Pointer<URegularExpression>} regexp 
      * @param {Pointer<UText>} dest 
-     * @param {Pointer<Integer>} _status 
+     * @param {Pointer<UErrorCode>} _status 
      * @returns {Pointer<UText>} 
      */
     static uregex_getUText(regexp, dest, _status) {
@@ -28592,7 +28591,7 @@ class Globalization {
      * 
      * @param {Pointer<URegularExpression>} regexp 
      * @param {Pointer<UText>} text 
-     * @param {Pointer<Integer>} _status 
+     * @param {Pointer<UErrorCode>} _status 
      * @returns {String} Nothing - always returns an empty string
      */
     static uregex_refreshUText(regexp, text, _status) {
@@ -28606,7 +28605,7 @@ class Globalization {
      * 
      * @param {Pointer<URegularExpression>} regexp 
      * @param {Integer} startIndex 
-     * @param {Pointer<Integer>} _status 
+     * @param {Pointer<UErrorCode>} _status 
      * @returns {Integer} 
      */
     static uregex_matches(regexp, startIndex, _status) {
@@ -28621,7 +28620,7 @@ class Globalization {
      * 
      * @param {Pointer<URegularExpression>} regexp 
      * @param {Integer} startIndex 
-     * @param {Pointer<Integer>} _status 
+     * @param {Pointer<UErrorCode>} _status 
      * @returns {Integer} 
      */
     static uregex_matches64(regexp, startIndex, _status) {
@@ -28636,7 +28635,7 @@ class Globalization {
      * 
      * @param {Pointer<URegularExpression>} regexp 
      * @param {Integer} startIndex 
-     * @param {Pointer<Integer>} _status 
+     * @param {Pointer<UErrorCode>} _status 
      * @returns {Integer} 
      */
     static uregex_lookingAt(regexp, startIndex, _status) {
@@ -28651,7 +28650,7 @@ class Globalization {
      * 
      * @param {Pointer<URegularExpression>} regexp 
      * @param {Integer} startIndex 
-     * @param {Pointer<Integer>} _status 
+     * @param {Pointer<UErrorCode>} _status 
      * @returns {Integer} 
      */
     static uregex_lookingAt64(regexp, startIndex, _status) {
@@ -28666,7 +28665,7 @@ class Globalization {
      * 
      * @param {Pointer<URegularExpression>} regexp 
      * @param {Integer} startIndex 
-     * @param {Pointer<Integer>} _status 
+     * @param {Pointer<UErrorCode>} _status 
      * @returns {Integer} 
      */
     static uregex_find(regexp, startIndex, _status) {
@@ -28681,7 +28680,7 @@ class Globalization {
      * 
      * @param {Pointer<URegularExpression>} regexp 
      * @param {Integer} startIndex 
-     * @param {Pointer<Integer>} _status 
+     * @param {Pointer<UErrorCode>} _status 
      * @returns {Integer} 
      */
     static uregex_find64(regexp, startIndex, _status) {
@@ -28695,7 +28694,7 @@ class Globalization {
     /**
      * 
      * @param {Pointer<URegularExpression>} regexp 
-     * @param {Pointer<Integer>} _status 
+     * @param {Pointer<UErrorCode>} _status 
      * @returns {Integer} 
      */
     static uregex_findNext(regexp, _status) {
@@ -28709,7 +28708,7 @@ class Globalization {
     /**
      * 
      * @param {Pointer<URegularExpression>} regexp 
-     * @param {Pointer<Integer>} _status 
+     * @param {Pointer<UErrorCode>} _status 
      * @returns {Integer} 
      */
     static uregex_groupCount(regexp, _status) {
@@ -28725,7 +28724,7 @@ class Globalization {
      * @param {Pointer<URegularExpression>} regexp 
      * @param {Pointer<Integer>} groupName 
      * @param {Integer} nameLength 
-     * @param {Pointer<Integer>} _status 
+     * @param {Pointer<UErrorCode>} _status 
      * @returns {Integer} 
      */
     static uregex_groupNumberFromName(regexp, groupName, nameLength, _status) {
@@ -28742,7 +28741,7 @@ class Globalization {
      * @param {Pointer<URegularExpression>} regexp 
      * @param {PSTR} groupName 
      * @param {Integer} nameLength 
-     * @param {Pointer<Integer>} _status 
+     * @param {Pointer<UErrorCode>} _status 
      * @returns {Integer} 
      */
     static uregex_groupNumberFromCName(regexp, groupName, nameLength, _status) {
@@ -28761,7 +28760,7 @@ class Globalization {
      * @param {Integer} groupNum 
      * @param {Pointer<Integer>} dest 
      * @param {Integer} destCapacity 
-     * @param {Pointer<Integer>} _status 
+     * @param {Pointer<UErrorCode>} _status 
      * @returns {Integer} 
      */
     static uregex_group(regexp, groupNum, dest, destCapacity, _status) {
@@ -28779,7 +28778,7 @@ class Globalization {
      * @param {Integer} groupNum 
      * @param {Pointer<UText>} dest 
      * @param {Pointer<Integer>} groupLength 
-     * @param {Pointer<Integer>} _status 
+     * @param {Pointer<UErrorCode>} _status 
      * @returns {Pointer<UText>} 
      */
     static uregex_groupUText(regexp, groupNum, dest, groupLength, _status) {
@@ -28795,7 +28794,7 @@ class Globalization {
      * 
      * @param {Pointer<URegularExpression>} regexp 
      * @param {Integer} groupNum 
-     * @param {Pointer<Integer>} _status 
+     * @param {Pointer<UErrorCode>} _status 
      * @returns {Integer} 
      */
     static uregex_start(regexp, groupNum, _status) {
@@ -28810,7 +28809,7 @@ class Globalization {
      * 
      * @param {Pointer<URegularExpression>} regexp 
      * @param {Integer} groupNum 
-     * @param {Pointer<Integer>} _status 
+     * @param {Pointer<UErrorCode>} _status 
      * @returns {Integer} 
      */
     static uregex_start64(regexp, groupNum, _status) {
@@ -28825,7 +28824,7 @@ class Globalization {
      * 
      * @param {Pointer<URegularExpression>} regexp 
      * @param {Integer} groupNum 
-     * @param {Pointer<Integer>} _status 
+     * @param {Pointer<UErrorCode>} _status 
      * @returns {Integer} 
      */
     static uregex_end(regexp, groupNum, _status) {
@@ -28840,7 +28839,7 @@ class Globalization {
      * 
      * @param {Pointer<URegularExpression>} regexp 
      * @param {Integer} groupNum 
-     * @param {Pointer<Integer>} _status 
+     * @param {Pointer<UErrorCode>} _status 
      * @returns {Integer} 
      */
     static uregex_end64(regexp, groupNum, _status) {
@@ -28855,7 +28854,7 @@ class Globalization {
      * 
      * @param {Pointer<URegularExpression>} regexp 
      * @param {Integer} index 
-     * @param {Pointer<Integer>} _status 
+     * @param {Pointer<UErrorCode>} _status 
      * @returns {String} Nothing - always returns an empty string
      */
     static uregex_reset(regexp, index, _status) {
@@ -28869,7 +28868,7 @@ class Globalization {
      * 
      * @param {Pointer<URegularExpression>} regexp 
      * @param {Integer} index 
-     * @param {Pointer<Integer>} _status 
+     * @param {Pointer<UErrorCode>} _status 
      * @returns {String} Nothing - always returns an empty string
      */
     static uregex_reset64(regexp, index, _status) {
@@ -28884,7 +28883,7 @@ class Globalization {
      * @param {Pointer<URegularExpression>} regexp 
      * @param {Integer} regionStart 
      * @param {Integer} regionLimit 
-     * @param {Pointer<Integer>} _status 
+     * @param {Pointer<UErrorCode>} _status 
      * @returns {String} Nothing - always returns an empty string
      */
     static uregex_setRegion(regexp, regionStart, regionLimit, _status) {
@@ -28899,7 +28898,7 @@ class Globalization {
      * @param {Pointer<URegularExpression>} regexp 
      * @param {Integer} regionStart 
      * @param {Integer} regionLimit 
-     * @param {Pointer<Integer>} _status 
+     * @param {Pointer<UErrorCode>} _status 
      * @returns {String} Nothing - always returns an empty string
      */
     static uregex_setRegion64(regexp, regionStart, regionLimit, _status) {
@@ -28915,7 +28914,7 @@ class Globalization {
      * @param {Integer} regionStart 
      * @param {Integer} regionLimit 
      * @param {Integer} startIndex 
-     * @param {Pointer<Integer>} _status 
+     * @param {Pointer<UErrorCode>} _status 
      * @returns {String} Nothing - always returns an empty string
      */
     static uregex_setRegionAndStart(regexp, regionStart, regionLimit, startIndex, _status) {
@@ -28928,7 +28927,7 @@ class Globalization {
     /**
      * 
      * @param {Pointer<URegularExpression>} regexp 
-     * @param {Pointer<Integer>} _status 
+     * @param {Pointer<UErrorCode>} _status 
      * @returns {Integer} 
      */
     static uregex_regionStart(regexp, _status) {
@@ -28942,7 +28941,7 @@ class Globalization {
     /**
      * 
      * @param {Pointer<URegularExpression>} regexp 
-     * @param {Pointer<Integer>} _status 
+     * @param {Pointer<UErrorCode>} _status 
      * @returns {Integer} 
      */
     static uregex_regionStart64(regexp, _status) {
@@ -28956,7 +28955,7 @@ class Globalization {
     /**
      * 
      * @param {Pointer<URegularExpression>} regexp 
-     * @param {Pointer<Integer>} _status 
+     * @param {Pointer<UErrorCode>} _status 
      * @returns {Integer} 
      */
     static uregex_regionEnd(regexp, _status) {
@@ -28970,7 +28969,7 @@ class Globalization {
     /**
      * 
      * @param {Pointer<URegularExpression>} regexp 
-     * @param {Pointer<Integer>} _status 
+     * @param {Pointer<UErrorCode>} _status 
      * @returns {Integer} 
      */
     static uregex_regionEnd64(regexp, _status) {
@@ -28984,7 +28983,7 @@ class Globalization {
     /**
      * 
      * @param {Pointer<URegularExpression>} regexp 
-     * @param {Pointer<Integer>} _status 
+     * @param {Pointer<UErrorCode>} _status 
      * @returns {Integer} 
      */
     static uregex_hasTransparentBounds(regexp, _status) {
@@ -28999,7 +28998,7 @@ class Globalization {
      * 
      * @param {Pointer<URegularExpression>} regexp 
      * @param {Integer} b 
-     * @param {Pointer<Integer>} _status 
+     * @param {Pointer<UErrorCode>} _status 
      * @returns {String} Nothing - always returns an empty string
      */
     static uregex_useTransparentBounds(regexp, b, _status) {
@@ -29012,7 +29011,7 @@ class Globalization {
     /**
      * 
      * @param {Pointer<URegularExpression>} regexp 
-     * @param {Pointer<Integer>} _status 
+     * @param {Pointer<UErrorCode>} _status 
      * @returns {Integer} 
      */
     static uregex_hasAnchoringBounds(regexp, _status) {
@@ -29027,7 +29026,7 @@ class Globalization {
      * 
      * @param {Pointer<URegularExpression>} regexp 
      * @param {Integer} b 
-     * @param {Pointer<Integer>} _status 
+     * @param {Pointer<UErrorCode>} _status 
      * @returns {String} Nothing - always returns an empty string
      */
     static uregex_useAnchoringBounds(regexp, b, _status) {
@@ -29040,7 +29039,7 @@ class Globalization {
     /**
      * 
      * @param {Pointer<URegularExpression>} regexp 
-     * @param {Pointer<Integer>} _status 
+     * @param {Pointer<UErrorCode>} _status 
      * @returns {Integer} 
      */
     static uregex_hitEnd(regexp, _status) {
@@ -29054,7 +29053,7 @@ class Globalization {
     /**
      * 
      * @param {Pointer<URegularExpression>} regexp 
-     * @param {Pointer<Integer>} _status 
+     * @param {Pointer<UErrorCode>} _status 
      * @returns {Integer} 
      */
     static uregex_requireEnd(regexp, _status) {
@@ -29072,7 +29071,7 @@ class Globalization {
      * @param {Integer} replacementLength 
      * @param {Pointer<Integer>} destBuf 
      * @param {Integer} destCapacity 
-     * @param {Pointer<Integer>} _status 
+     * @param {Pointer<UErrorCode>} _status 
      * @returns {Integer} 
      */
     static uregex_replaceAll(regexp, replacementText, replacementLength, destBuf, destCapacity, _status) {
@@ -29090,7 +29089,7 @@ class Globalization {
      * @param {Pointer<URegularExpression>} regexp 
      * @param {Pointer<UText>} replacement 
      * @param {Pointer<UText>} dest 
-     * @param {Pointer<Integer>} _status 
+     * @param {Pointer<UErrorCode>} _status 
      * @returns {Pointer<UText>} 
      */
     static uregex_replaceAllUText(regexp, replacement, dest, _status) {
@@ -29108,7 +29107,7 @@ class Globalization {
      * @param {Integer} replacementLength 
      * @param {Pointer<Integer>} destBuf 
      * @param {Integer} destCapacity 
-     * @param {Pointer<Integer>} _status 
+     * @param {Pointer<UErrorCode>} _status 
      * @returns {Integer} 
      */
     static uregex_replaceFirst(regexp, replacementText, replacementLength, destBuf, destCapacity, _status) {
@@ -29126,7 +29125,7 @@ class Globalization {
      * @param {Pointer<URegularExpression>} regexp 
      * @param {Pointer<UText>} replacement 
      * @param {Pointer<UText>} dest 
-     * @param {Pointer<Integer>} _status 
+     * @param {Pointer<UErrorCode>} _status 
      * @returns {Pointer<UText>} 
      */
     static uregex_replaceFirstUText(regexp, replacement, dest, _status) {
@@ -29144,7 +29143,7 @@ class Globalization {
      * @param {Integer} replacementLength 
      * @param {Pointer<Pointer<Integer>>} destBuf 
      * @param {Pointer<Integer>} destCapacity 
-     * @param {Pointer<Integer>} _status 
+     * @param {Pointer<UErrorCode>} _status 
      * @returns {Integer} 
      */
     static uregex_appendReplacement(regexp, replacementText, replacementLength, destBuf, destCapacity, _status) {
@@ -29163,7 +29162,7 @@ class Globalization {
      * @param {Pointer<URegularExpression>} regexp 
      * @param {Pointer<UText>} replacementText 
      * @param {Pointer<UText>} dest 
-     * @param {Pointer<Integer>} _status 
+     * @param {Pointer<UErrorCode>} _status 
      * @returns {String} Nothing - always returns an empty string
      */
     static uregex_appendReplacementUText(regexp, replacementText, dest, _status) {
@@ -29178,7 +29177,7 @@ class Globalization {
      * @param {Pointer<URegularExpression>} regexp 
      * @param {Pointer<Pointer<Integer>>} destBuf 
      * @param {Pointer<Integer>} destCapacity 
-     * @param {Pointer<Integer>} _status 
+     * @param {Pointer<UErrorCode>} _status 
      * @returns {Integer} 
      */
     static uregex_appendTail(regexp, destBuf, destCapacity, _status) {
@@ -29195,7 +29194,7 @@ class Globalization {
      * 
      * @param {Pointer<URegularExpression>} regexp 
      * @param {Pointer<UText>} dest 
-     * @param {Pointer<Integer>} _status 
+     * @param {Pointer<UErrorCode>} _status 
      * @returns {Pointer<UText>} 
      */
     static uregex_appendTailUText(regexp, dest, _status) {
@@ -29214,7 +29213,7 @@ class Globalization {
      * @param {Pointer<Integer>} requiredCapacity 
      * @param {Pointer<Pointer<Integer>>} destFields 
      * @param {Integer} destFieldsCapacity 
-     * @param {Pointer<Integer>} _status 
+     * @param {Pointer<UErrorCode>} _status 
      * @returns {Integer} 
      */
     static uregex_split(regexp, destBuf, destCapacity, requiredCapacity, destFields, destFieldsCapacity, _status) {
@@ -29233,7 +29232,7 @@ class Globalization {
      * @param {Pointer<URegularExpression>} regexp 
      * @param {Pointer<Pointer<UText>>} destFields 
      * @param {Integer} destFieldsCapacity 
-     * @param {Pointer<Integer>} _status 
+     * @param {Pointer<UErrorCode>} _status 
      * @returns {Integer} 
      */
     static uregex_splitUText(regexp, destFields, destFieldsCapacity, _status) {
@@ -29249,7 +29248,7 @@ class Globalization {
      * 
      * @param {Pointer<URegularExpression>} regexp 
      * @param {Integer} limit 
-     * @param {Pointer<Integer>} _status 
+     * @param {Pointer<UErrorCode>} _status 
      * @returns {String} Nothing - always returns an empty string
      */
     static uregex_setTimeLimit(regexp, limit, _status) {
@@ -29262,7 +29261,7 @@ class Globalization {
     /**
      * 
      * @param {Pointer<URegularExpression>} regexp 
-     * @param {Pointer<Integer>} _status 
+     * @param {Pointer<UErrorCode>} _status 
      * @returns {Integer} 
      */
     static uregex_getTimeLimit(regexp, _status) {
@@ -29277,7 +29276,7 @@ class Globalization {
      * 
      * @param {Pointer<URegularExpression>} regexp 
      * @param {Integer} limit 
-     * @param {Pointer<Integer>} _status 
+     * @param {Pointer<UErrorCode>} _status 
      * @returns {String} Nothing - always returns an empty string
      */
     static uregex_setStackLimit(regexp, limit, _status) {
@@ -29290,7 +29289,7 @@ class Globalization {
     /**
      * 
      * @param {Pointer<URegularExpression>} regexp 
-     * @param {Pointer<Integer>} _status 
+     * @param {Pointer<UErrorCode>} _status 
      * @returns {Integer} 
      */
     static uregex_getStackLimit(regexp, _status) {
@@ -29306,7 +29305,7 @@ class Globalization {
      * @param {Pointer<URegularExpression>} regexp 
      * @param {Pointer<URegexMatchCallback>} callback 
      * @param {Pointer<Void>} _context 
-     * @param {Pointer<Integer>} _status 
+     * @param {Pointer<UErrorCode>} _status 
      * @returns {String} Nothing - always returns an empty string
      */
     static uregex_setMatchCallback(regexp, callback, _context, _status) {
@@ -29322,7 +29321,7 @@ class Globalization {
      * @param {Pointer<URegularExpression>} regexp 
      * @param {Pointer<Pointer<URegexMatchCallback>>} callback 
      * @param {Pointer<Pointer<Void>>} _context 
-     * @param {Pointer<Integer>} _status 
+     * @param {Pointer<UErrorCode>} _status 
      * @returns {String} Nothing - always returns an empty string
      */
     static uregex_getMatchCallback(regexp, callback, _context, _status) {
@@ -29339,7 +29338,7 @@ class Globalization {
      * @param {Pointer<URegularExpression>} regexp 
      * @param {Pointer<URegexFindProgressCallback>} callback 
      * @param {Pointer<Void>} _context 
-     * @param {Pointer<Integer>} _status 
+     * @param {Pointer<UErrorCode>} _status 
      * @returns {String} Nothing - always returns an empty string
      */
     static uregex_setFindProgressCallback(regexp, callback, _context, _status) {
@@ -29355,7 +29354,7 @@ class Globalization {
      * @param {Pointer<URegularExpression>} regexp 
      * @param {Pointer<Pointer<URegexFindProgressCallback>>} callback 
      * @param {Pointer<Pointer<Void>>} _context 
-     * @param {Pointer<Integer>} _status 
+     * @param {Pointer<UErrorCode>} _status 
      * @returns {String} Nothing - always returns an empty string
      */
     static uregex_getFindProgressCallback(regexp, callback, _context, _status) {
@@ -29370,7 +29369,7 @@ class Globalization {
     /**
      * 
      * @param {PSTR} regionCode 
-     * @param {Pointer<Integer>} _status 
+     * @param {Pointer<UErrorCode>} _status 
      * @returns {Pointer<URegion>} 
      */
     static uregion_getRegionFromCode(regionCode, _status) {
@@ -29385,7 +29384,7 @@ class Globalization {
     /**
      * 
      * @param {Integer} code 
-     * @param {Pointer<Integer>} _status 
+     * @param {Pointer<UErrorCode>} _status 
      * @returns {Pointer<URegion>} 
      */
     static uregion_getRegionFromNumericCode(code, _status) {
@@ -29397,8 +29396,8 @@ class Globalization {
 
     /**
      * 
-     * @param {Integer} type 
-     * @param {Pointer<Integer>} _status 
+     * @param {URegionType} type 
+     * @param {Pointer<UErrorCode>} _status 
      * @returns {Pointer<UEnumeration>} 
      */
     static uregion_getAvailable(type, _status) {
@@ -29437,7 +29436,7 @@ class Globalization {
     /**
      * 
      * @param {Pointer<URegion>} _uregion 
-     * @param {Integer} type 
+     * @param {URegionType} type 
      * @returns {Pointer<URegion>} 
      */
     static uregion_getContainingRegionOfType(_uregion, type) {
@@ -29450,7 +29449,7 @@ class Globalization {
     /**
      * 
      * @param {Pointer<URegion>} _uregion 
-     * @param {Pointer<Integer>} _status 
+     * @param {Pointer<UErrorCode>} _status 
      * @returns {Pointer<UEnumeration>} 
      */
     static uregion_getContainedRegions(_uregion, _status) {
@@ -29464,8 +29463,8 @@ class Globalization {
     /**
      * 
      * @param {Pointer<URegion>} _uregion 
-     * @param {Integer} type 
-     * @param {Pointer<Integer>} _status 
+     * @param {URegionType} type 
+     * @param {Pointer<UErrorCode>} _status 
      * @returns {Pointer<UEnumeration>} 
      */
     static uregion_getContainedRegionsOfType(_uregion, type, _status) {
@@ -29493,7 +29492,7 @@ class Globalization {
     /**
      * 
      * @param {Pointer<URegion>} _uregion 
-     * @param {Pointer<Integer>} _status 
+     * @param {Pointer<UErrorCode>} _status 
      * @returns {Pointer<UEnumeration>} 
      */
     static uregion_getPreferredValues(_uregion, _status) {
@@ -29531,7 +29530,7 @@ class Globalization {
     /**
      * 
      * @param {Pointer<URegion>} _uregion 
-     * @returns {Integer} 
+     * @returns {URegionType} 
      */
     static uregion_getType(_uregion) {
         _uregionMarshal := _uregion is VarRef ? "ptr*" : "ptr"
@@ -29544,9 +29543,9 @@ class Globalization {
      * 
      * @param {PSTR} locale 
      * @param {Pointer<Pointer<Void>>} nfToAdopt 
-     * @param {Integer} width 
-     * @param {Integer} capitalizationContext 
-     * @param {Pointer<Integer>} _status 
+     * @param {UDateRelativeDateTimeFormatterStyle} width 
+     * @param {UDisplayContext} capitalizationContext 
+     * @param {Pointer<UErrorCode>} _status 
      * @returns {Pointer<URelativeDateTimeFormatter>} 
      */
     static ureldatefmt_open(locale, nfToAdopt, width, capitalizationContext, _status) {
@@ -29572,7 +29571,7 @@ class Globalization {
 
     /**
      * 
-     * @param {Pointer<Integer>} ec 
+     * @param {Pointer<UErrorCode>} ec 
      * @returns {Pointer<UFormattedRelativeDateTime>} 
      */
     static ureldatefmt_openResult(ec) {
@@ -29585,7 +29584,7 @@ class Globalization {
     /**
      * 
      * @param {Pointer<UFormattedRelativeDateTime>} ufrdt 
-     * @param {Pointer<Integer>} ec 
+     * @param {Pointer<UErrorCode>} ec 
      * @returns {Pointer<UFormattedValue>} 
      */
     static ureldatefmt_resultAsValue(ufrdt, ec) {
@@ -29611,10 +29610,10 @@ class Globalization {
      * 
      * @param {Pointer<URelativeDateTimeFormatter>} reldatefmt 
      * @param {Float} offset 
-     * @param {Integer} _unit 
+     * @param {URelativeDateTimeUnit} _unit 
      * @param {Pointer<Integer>} result 
      * @param {Integer} resultCapacity 
-     * @param {Pointer<Integer>} _status 
+     * @param {Pointer<UErrorCode>} _status 
      * @returns {Integer} 
      */
     static ureldatefmt_formatNumeric(reldatefmt, offset, _unit, result, resultCapacity, _status) {
@@ -29630,9 +29629,9 @@ class Globalization {
      * 
      * @param {Pointer<URelativeDateTimeFormatter>} reldatefmt 
      * @param {Float} offset 
-     * @param {Integer} _unit 
+     * @param {URelativeDateTimeUnit} _unit 
      * @param {Pointer<UFormattedRelativeDateTime>} result 
-     * @param {Pointer<Integer>} _status 
+     * @param {Pointer<UErrorCode>} _status 
      * @returns {String} Nothing - always returns an empty string
      */
     static ureldatefmt_formatNumericToResult(reldatefmt, offset, _unit, result, _status) {
@@ -29647,10 +29646,10 @@ class Globalization {
      * 
      * @param {Pointer<URelativeDateTimeFormatter>} reldatefmt 
      * @param {Float} offset 
-     * @param {Integer} _unit 
+     * @param {URelativeDateTimeUnit} _unit 
      * @param {Pointer<Integer>} result 
      * @param {Integer} resultCapacity 
-     * @param {Pointer<Integer>} _status 
+     * @param {Pointer<UErrorCode>} _status 
      * @returns {Integer} 
      */
     static ureldatefmt_format(reldatefmt, offset, _unit, result, resultCapacity, _status) {
@@ -29666,9 +29665,9 @@ class Globalization {
      * 
      * @param {Pointer<URelativeDateTimeFormatter>} reldatefmt 
      * @param {Float} offset 
-     * @param {Integer} _unit 
+     * @param {URelativeDateTimeUnit} _unit 
      * @param {Pointer<UFormattedRelativeDateTime>} result 
-     * @param {Pointer<Integer>} _status 
+     * @param {Pointer<UErrorCode>} _status 
      * @returns {String} Nothing - always returns an empty string
      */
     static ureldatefmt_formatToResult(reldatefmt, offset, _unit, result, _status) {
@@ -29688,7 +29687,7 @@ class Globalization {
      * @param {Integer} timeStringLen 
      * @param {Pointer<Integer>} result 
      * @param {Integer} resultCapacity 
-     * @param {Pointer<Integer>} _status 
+     * @param {Pointer<UErrorCode>} _status 
      * @returns {Integer} 
      */
     static ureldatefmt_combineDateAndTime(reldatefmt, relativeDateString, relativeDateStringLen, timeString, timeStringLen, result, resultCapacity, _status) {
@@ -29710,7 +29709,7 @@ class Globalization {
      * @param {Integer} textlength 
      * @param {PSTR} locale 
      * @param {Pointer<UBreakIterator>} breakiter 
-     * @param {Pointer<Integer>} _status 
+     * @param {Pointer<UErrorCode>} _status 
      * @returns {Pointer<UStringSearch>} 
      */
     static usearch_open(pattern, patternlength, text, textlength, locale, breakiter, _status) {
@@ -29733,7 +29732,7 @@ class Globalization {
      * @param {Integer} textlength 
      * @param {Pointer<UCollator>} collator 
      * @param {Pointer<UBreakIterator>} breakiter 
-     * @param {Pointer<Integer>} _status 
+     * @param {Pointer<UErrorCode>} _status 
      * @returns {Pointer<UStringSearch>} 
      */
     static usearch_openFromCollator(pattern, patternlength, text, textlength, collator, breakiter, _status) {
@@ -29762,7 +29761,7 @@ class Globalization {
      * 
      * @param {Pointer<UStringSearch>} strsrch 
      * @param {Integer} position 
-     * @param {Pointer<Integer>} _status 
+     * @param {Pointer<UErrorCode>} _status 
      * @returns {String} Nothing - always returns an empty string
      */
     static usearch_setOffset(strsrch, position, _status) {
@@ -29787,9 +29786,9 @@ class Globalization {
     /**
      * 
      * @param {Pointer<UStringSearch>} strsrch 
-     * @param {Integer} attribute 
-     * @param {Integer} value 
-     * @param {Pointer<Integer>} _status 
+     * @param {USearchAttribute} attribute 
+     * @param {USearchAttributeValue} value 
+     * @param {Pointer<UErrorCode>} _status 
      * @returns {String} Nothing - always returns an empty string
      */
     static usearch_setAttribute(strsrch, attribute, value, _status) {
@@ -29802,8 +29801,8 @@ class Globalization {
     /**
      * 
      * @param {Pointer<UStringSearch>} strsrch 
-     * @param {Integer} attribute 
-     * @returns {Integer} 
+     * @param {USearchAttribute} attribute 
+     * @returns {USearchAttributeValue} 
      */
     static usearch_getAttribute(strsrch, attribute) {
         strsrchMarshal := strsrch is VarRef ? "ptr*" : "ptr"
@@ -29841,7 +29840,7 @@ class Globalization {
      * @param {Pointer<UStringSearch>} strsrch 
      * @param {Pointer<Integer>} result 
      * @param {Integer} resultCapacity 
-     * @param {Pointer<Integer>} _status 
+     * @param {Pointer<UErrorCode>} _status 
      * @returns {Integer} 
      */
     static usearch_getMatchedText(strsrch, result, resultCapacity, _status) {
@@ -29857,7 +29856,7 @@ class Globalization {
      * 
      * @param {Pointer<UStringSearch>} strsrch 
      * @param {Pointer<UBreakIterator>} breakiter 
-     * @param {Pointer<Integer>} _status 
+     * @param {Pointer<UErrorCode>} _status 
      * @returns {String} Nothing - always returns an empty string
      */
     static usearch_setBreakIterator(strsrch, breakiter, _status) {
@@ -29885,7 +29884,7 @@ class Globalization {
      * @param {Pointer<UStringSearch>} strsrch 
      * @param {Pointer<Integer>} text 
      * @param {Integer} textlength 
-     * @param {Pointer<Integer>} _status 
+     * @param {Pointer<UErrorCode>} _status 
      * @returns {String} Nothing - always returns an empty string
      */
     static usearch_setText(strsrch, text, textlength, _status) {
@@ -29926,7 +29925,7 @@ class Globalization {
      * 
      * @param {Pointer<UStringSearch>} strsrch 
      * @param {Pointer<UCollator>} collator 
-     * @param {Pointer<Integer>} _status 
+     * @param {Pointer<UErrorCode>} _status 
      * @returns {String} Nothing - always returns an empty string
      */
     static usearch_setCollator(strsrch, collator, _status) {
@@ -29942,7 +29941,7 @@ class Globalization {
      * @param {Pointer<UStringSearch>} strsrch 
      * @param {Pointer<Integer>} pattern 
      * @param {Integer} patternlength 
-     * @param {Pointer<Integer>} _status 
+     * @param {Pointer<UErrorCode>} _status 
      * @returns {String} Nothing - always returns an empty string
      */
     static usearch_setPattern(strsrch, pattern, patternlength, _status) {
@@ -29970,7 +29969,7 @@ class Globalization {
     /**
      * 
      * @param {Pointer<UStringSearch>} strsrch 
-     * @param {Pointer<Integer>} _status 
+     * @param {Pointer<UErrorCode>} _status 
      * @returns {Integer} 
      */
     static usearch_first(strsrch, _status) {
@@ -29985,7 +29984,7 @@ class Globalization {
      * 
      * @param {Pointer<UStringSearch>} strsrch 
      * @param {Integer} position 
-     * @param {Pointer<Integer>} _status 
+     * @param {Pointer<UErrorCode>} _status 
      * @returns {Integer} 
      */
     static usearch_following(strsrch, position, _status) {
@@ -29999,7 +29998,7 @@ class Globalization {
     /**
      * 
      * @param {Pointer<UStringSearch>} strsrch 
-     * @param {Pointer<Integer>} _status 
+     * @param {Pointer<UErrorCode>} _status 
      * @returns {Integer} 
      */
     static usearch_last(strsrch, _status) {
@@ -30014,7 +30013,7 @@ class Globalization {
      * 
      * @param {Pointer<UStringSearch>} strsrch 
      * @param {Integer} position 
-     * @param {Pointer<Integer>} _status 
+     * @param {Pointer<UErrorCode>} _status 
      * @returns {Integer} 
      */
     static usearch_preceding(strsrch, position, _status) {
@@ -30028,7 +30027,7 @@ class Globalization {
     /**
      * 
      * @param {Pointer<UStringSearch>} strsrch 
-     * @param {Pointer<Integer>} _status 
+     * @param {Pointer<UErrorCode>} _status 
      * @returns {Integer} 
      */
     static usearch_next(strsrch, _status) {
@@ -30042,7 +30041,7 @@ class Globalization {
     /**
      * 
      * @param {Pointer<UStringSearch>} strsrch 
-     * @param {Pointer<Integer>} _status 
+     * @param {Pointer<UErrorCode>} _status 
      * @returns {Integer} 
      */
     static usearch_previous(strsrch, _status) {
@@ -30066,7 +30065,7 @@ class Globalization {
 
     /**
      * 
-     * @param {Pointer<Integer>} _status 
+     * @param {Pointer<UErrorCode>} _status 
      * @returns {Pointer<USpoofChecker>} 
      */
     static uspoof_open(_status) {
@@ -30081,7 +30080,7 @@ class Globalization {
      * @param {Pointer<Void>} data 
      * @param {Integer} length 
      * @param {Pointer<Integer>} pActualLength 
-     * @param {Pointer<Integer>} pErrorCode 
+     * @param {Pointer<UErrorCode>} pErrorCode 
      * @returns {Pointer<USpoofChecker>} 
      */
     static uspoof_openFromSerialized(data, length, pActualLength, pErrorCode) {
@@ -30101,7 +30100,7 @@ class Globalization {
      * @param {Integer} confusablesWholeScriptLen 
      * @param {Pointer<Integer>} errType 
      * @param {Pointer<UParseError>} pe 
-     * @param {Pointer<Integer>} _status 
+     * @param {Pointer<UErrorCode>} _status 
      * @returns {Pointer<USpoofChecker>} 
      */
     static uspoof_openFromSource(confusables, confusablesLen, confusablesWholeScript, confusablesWholeScriptLen, errType, pe, _status) {
@@ -30129,7 +30128,7 @@ class Globalization {
     /**
      * 
      * @param {Pointer<USpoofChecker>} sc 
-     * @param {Pointer<Integer>} _status 
+     * @param {Pointer<UErrorCode>} _status 
      * @returns {Pointer<USpoofChecker>} 
      */
     static uspoof_clone(sc, _status) {
@@ -30144,7 +30143,7 @@ class Globalization {
      * 
      * @param {Pointer<USpoofChecker>} sc 
      * @param {Integer} checks 
-     * @param {Pointer<Integer>} _status 
+     * @param {Pointer<UErrorCode>} _status 
      * @returns {String} Nothing - always returns an empty string
      */
     static uspoof_setChecks(sc, checks, _status) {
@@ -30157,7 +30156,7 @@ class Globalization {
     /**
      * 
      * @param {Pointer<USpoofChecker>} sc 
-     * @param {Pointer<Integer>} _status 
+     * @param {Pointer<UErrorCode>} _status 
      * @returns {Integer} 
      */
     static uspoof_getChecks(sc, _status) {
@@ -30171,7 +30170,7 @@ class Globalization {
     /**
      * 
      * @param {Pointer<USpoofChecker>} sc 
-     * @param {Integer} restrictionLevel 
+     * @param {URestrictionLevel} restrictionLevel 
      * @returns {String} Nothing - always returns an empty string
      */
     static uspoof_setRestrictionLevel(sc, restrictionLevel) {
@@ -30183,7 +30182,7 @@ class Globalization {
     /**
      * 
      * @param {Pointer<USpoofChecker>} sc 
-     * @returns {Integer} 
+     * @returns {URestrictionLevel} 
      */
     static uspoof_getRestrictionLevel(sc) {
         scMarshal := sc is VarRef ? "ptr*" : "ptr"
@@ -30196,7 +30195,7 @@ class Globalization {
      * 
      * @param {Pointer<USpoofChecker>} sc 
      * @param {PSTR} localesList 
-     * @param {Pointer<Integer>} _status 
+     * @param {Pointer<UErrorCode>} _status 
      * @returns {String} Nothing - always returns an empty string
      */
     static uspoof_setAllowedLocales(sc, localesList, _status) {
@@ -30211,7 +30210,7 @@ class Globalization {
     /**
      * 
      * @param {Pointer<USpoofChecker>} sc 
-     * @param {Pointer<Integer>} _status 
+     * @param {Pointer<UErrorCode>} _status 
      * @returns {PSTR} 
      */
     static uspoof_getAllowedLocales(sc, _status) {
@@ -30226,7 +30225,7 @@ class Globalization {
      * 
      * @param {Pointer<USpoofChecker>} sc 
      * @param {Pointer<USet>} chars 
-     * @param {Pointer<Integer>} _status 
+     * @param {Pointer<UErrorCode>} _status 
      * @returns {String} Nothing - always returns an empty string
      */
     static uspoof_setAllowedChars(sc, chars, _status) {
@@ -30240,7 +30239,7 @@ class Globalization {
     /**
      * 
      * @param {Pointer<USpoofChecker>} sc 
-     * @param {Pointer<Integer>} _status 
+     * @param {Pointer<UErrorCode>} _status 
      * @returns {Pointer<USet>} 
      */
     static uspoof_getAllowedChars(sc, _status) {
@@ -30257,7 +30256,7 @@ class Globalization {
      * @param {Pointer<Integer>} id 
      * @param {Integer} length 
      * @param {Pointer<Integer>} position 
-     * @param {Pointer<Integer>} _status 
+     * @param {Pointer<UErrorCode>} _status 
      * @returns {Integer} 
      */
     static uspoof_check(sc, id, length, position, _status) {
@@ -30276,7 +30275,7 @@ class Globalization {
      * @param {PSTR} id 
      * @param {Integer} length 
      * @param {Pointer<Integer>} position 
-     * @param {Pointer<Integer>} _status 
+     * @param {Pointer<UErrorCode>} _status 
      * @returns {Integer} 
      */
     static uspoof_checkUTF8(sc, id, length, position, _status) {
@@ -30296,7 +30295,7 @@ class Globalization {
      * @param {Pointer<Integer>} id 
      * @param {Integer} length 
      * @param {Pointer<USpoofCheckResult>} checkResult 
-     * @param {Pointer<Integer>} _status 
+     * @param {Pointer<UErrorCode>} _status 
      * @returns {Integer} 
      */
     static uspoof_check2(sc, id, length, checkResult, _status) {
@@ -30315,7 +30314,7 @@ class Globalization {
      * @param {PSTR} id 
      * @param {Integer} length 
      * @param {Pointer<USpoofCheckResult>} checkResult 
-     * @param {Pointer<Integer>} _status 
+     * @param {Pointer<UErrorCode>} _status 
      * @returns {Integer} 
      */
     static uspoof_check2UTF8(sc, id, length, checkResult, _status) {
@@ -30331,7 +30330,7 @@ class Globalization {
 
     /**
      * 
-     * @param {Pointer<Integer>} _status 
+     * @param {Pointer<UErrorCode>} _status 
      * @returns {Pointer<USpoofCheckResult>} 
      */
     static uspoof_openCheckResult(_status) {
@@ -30355,7 +30354,7 @@ class Globalization {
     /**
      * 
      * @param {Pointer<USpoofCheckResult>} checkResult 
-     * @param {Pointer<Integer>} _status 
+     * @param {Pointer<UErrorCode>} _status 
      * @returns {Integer} 
      */
     static uspoof_getCheckResultChecks(checkResult, _status) {
@@ -30369,8 +30368,8 @@ class Globalization {
     /**
      * 
      * @param {Pointer<USpoofCheckResult>} checkResult 
-     * @param {Pointer<Integer>} _status 
-     * @returns {Integer} 
+     * @param {Pointer<UErrorCode>} _status 
+     * @returns {URestrictionLevel} 
      */
     static uspoof_getCheckResultRestrictionLevel(checkResult, _status) {
         checkResultMarshal := checkResult is VarRef ? "ptr*" : "ptr"
@@ -30383,7 +30382,7 @@ class Globalization {
     /**
      * 
      * @param {Pointer<USpoofCheckResult>} checkResult 
-     * @param {Pointer<Integer>} _status 
+     * @param {Pointer<UErrorCode>} _status 
      * @returns {Pointer<USet>} 
      */
     static uspoof_getCheckResultNumerics(checkResult, _status) {
@@ -30401,7 +30400,7 @@ class Globalization {
      * @param {Integer} length1 
      * @param {Pointer<Integer>} id2 
      * @param {Integer} length2 
-     * @param {Pointer<Integer>} _status 
+     * @param {Pointer<UErrorCode>} _status 
      * @returns {Integer} 
      */
     static uspoof_areConfusable(sc, id1, length1, id2, length2, _status) {
@@ -30421,7 +30420,7 @@ class Globalization {
      * @param {Integer} length1 
      * @param {PSTR} id2 
      * @param {Integer} length2 
-     * @param {Pointer<Integer>} _status 
+     * @param {Pointer<UErrorCode>} _status 
      * @returns {Integer} 
      */
     static uspoof_areConfusableUTF8(sc, id1, length1, id2, length2, _status) {
@@ -30443,7 +30442,7 @@ class Globalization {
      * @param {Integer} length 
      * @param {Pointer<Integer>} dest 
      * @param {Integer} destCapacity 
-     * @param {Pointer<Integer>} _status 
+     * @param {Pointer<UErrorCode>} _status 
      * @returns {Integer} 
      */
     static uspoof_getSkeleton(sc, type, id, length, dest, destCapacity, _status) {
@@ -30464,7 +30463,7 @@ class Globalization {
      * @param {Integer} length 
      * @param {PSTR} dest 
      * @param {Integer} destCapacity 
-     * @param {Pointer<Integer>} _status 
+     * @param {Pointer<UErrorCode>} _status 
      * @returns {Integer} 
      */
     static uspoof_getSkeletonUTF8(sc, type, id, length, dest, destCapacity, _status) {
@@ -30480,7 +30479,7 @@ class Globalization {
 
     /**
      * 
-     * @param {Pointer<Integer>} _status 
+     * @param {Pointer<UErrorCode>} _status 
      * @returns {Pointer<USet>} 
      */
     static uspoof_getInclusionSet(_status) {
@@ -30492,7 +30491,7 @@ class Globalization {
 
     /**
      * 
-     * @param {Pointer<Integer>} _status 
+     * @param {Pointer<UErrorCode>} _status 
      * @returns {Pointer<USet>} 
      */
     static uspoof_getRecommendedSet(_status) {
@@ -30507,7 +30506,7 @@ class Globalization {
      * @param {Pointer<USpoofChecker>} sc 
      * @param {Pointer<Void>} data 
      * @param {Integer} capacity 
-     * @param {Pointer<Integer>} _status 
+     * @param {Pointer<UErrorCode>} _status 
      * @returns {Integer} 
      */
     static uspoof_serialize(sc, data, capacity, _status) {
@@ -30521,9 +30520,9 @@ class Globalization {
 
     /**
      * 
-     * @param {Integer} timeScale 
-     * @param {Integer} value 
-     * @param {Pointer<Integer>} _status 
+     * @param {UDateTimeScale} timeScale 
+     * @param {UTimeScaleValue} value 
+     * @param {Pointer<UErrorCode>} _status 
      * @returns {Integer} 
      */
     static utmscale_getTimeScaleValue(timeScale, value, _status) {
@@ -30536,8 +30535,8 @@ class Globalization {
     /**
      * 
      * @param {Integer} otherTime 
-     * @param {Integer} timeScale 
-     * @param {Pointer<Integer>} _status 
+     * @param {UDateTimeScale} timeScale 
+     * @param {Pointer<UErrorCode>} _status 
      * @returns {Integer} 
      */
     static utmscale_fromInt64(otherTime, timeScale, _status) {
@@ -30550,8 +30549,8 @@ class Globalization {
     /**
      * 
      * @param {Integer} universalTime 
-     * @param {Integer} timeScale 
-     * @param {Pointer<Integer>} _status 
+     * @param {UDateTimeScale} timeScale 
+     * @param {Pointer<UErrorCode>} _status 
      * @returns {Integer} 
      */
     static utmscale_toInt64(universalTime, timeScale, _status) {
@@ -30565,11 +30564,11 @@ class Globalization {
      * 
      * @param {Pointer<Integer>} id 
      * @param {Integer} idLength 
-     * @param {Integer} dir 
+     * @param {UTransDirection} dir 
      * @param {Pointer<Integer>} rules 
      * @param {Integer} rulesLength 
      * @param {Pointer<UParseError>} parseError 
-     * @param {Pointer<Integer>} pErrorCode 
+     * @param {Pointer<UErrorCode>} pErrorCode 
      * @returns {Pointer<Pointer<Void>>} 
      */
     static utrans_openU(id, idLength, dir, rules, rulesLength, parseError, pErrorCode) {
@@ -30584,7 +30583,7 @@ class Globalization {
     /**
      * 
      * @param {Pointer<Pointer<Void>>} trans 
-     * @param {Pointer<Integer>} _status 
+     * @param {Pointer<UErrorCode>} _status 
      * @returns {Pointer<Pointer<Void>>} 
      */
     static utrans_openInverse(trans, _status) {
@@ -30598,7 +30597,7 @@ class Globalization {
     /**
      * 
      * @param {Pointer<Pointer<Void>>} trans 
-     * @param {Pointer<Integer>} _status 
+     * @param {Pointer<UErrorCode>} _status 
      * @returns {Pointer<Pointer<Void>>} 
      */
     static utrans_clone(trans, _status) {
@@ -30637,7 +30636,7 @@ class Globalization {
     /**
      * 
      * @param {Pointer<Pointer<Void>>} adoptedTrans 
-     * @param {Pointer<Integer>} _status 
+     * @param {Pointer<UErrorCode>} _status 
      * @returns {String} Nothing - always returns an empty string
      */
     static utrans_register(adoptedTrans, _status) {
@@ -30664,7 +30663,7 @@ class Globalization {
      * @param {Pointer<Pointer<Void>>} trans 
      * @param {Pointer<Integer>} filterPattern 
      * @param {Integer} filterPatternLen 
-     * @param {Pointer<Integer>} _status 
+     * @param {Pointer<UErrorCode>} _status 
      * @returns {String} Nothing - always returns an empty string
      */
     static utrans_setFilter(trans, filterPattern, filterPatternLen, _status) {
@@ -30686,7 +30685,7 @@ class Globalization {
 
     /**
      * 
-     * @param {Pointer<Integer>} pErrorCode 
+     * @param {Pointer<UErrorCode>} pErrorCode 
      * @returns {Pointer<UEnumeration>} 
      */
     static utrans_openIDs(pErrorCode) {
@@ -30703,7 +30702,7 @@ class Globalization {
      * @param {Pointer<UReplaceableCallbacks>} repFunc 
      * @param {Integer} start 
      * @param {Pointer<Integer>} limit 
-     * @param {Pointer<Integer>} _status 
+     * @param {Pointer<UErrorCode>} _status 
      * @returns {String} Nothing - always returns an empty string
      */
     static utrans_trans(trans, rep, repFunc, start, limit, _status) {
@@ -30721,7 +30720,7 @@ class Globalization {
      * @param {Pointer<Pointer<Void>>} rep 
      * @param {Pointer<UReplaceableCallbacks>} repFunc 
      * @param {Pointer<UTransPosition>} pos 
-     * @param {Pointer<Integer>} _status 
+     * @param {Pointer<UErrorCode>} _status 
      * @returns {String} Nothing - always returns an empty string
      */
     static utrans_transIncremental(trans, rep, repFunc, pos, _status) {
@@ -30740,7 +30739,7 @@ class Globalization {
      * @param {Integer} textCapacity 
      * @param {Integer} start 
      * @param {Pointer<Integer>} limit 
-     * @param {Pointer<Integer>} _status 
+     * @param {Pointer<UErrorCode>} _status 
      * @returns {String} Nothing - always returns an empty string
      */
     static utrans_transUChars(trans, text, textLength, textCapacity, start, limit, _status) {
@@ -30760,7 +30759,7 @@ class Globalization {
      * @param {Pointer<Integer>} textLength 
      * @param {Integer} textCapacity 
      * @param {Pointer<UTransPosition>} pos 
-     * @param {Pointer<Integer>} _status 
+     * @param {Pointer<UErrorCode>} _status 
      * @returns {String} Nothing - always returns an empty string
      */
     static utrans_transIncrementalUChars(trans, text, textLength, textCapacity, pos, _status) {
@@ -30778,7 +30777,7 @@ class Globalization {
      * @param {Integer} escapeUnprintable 
      * @param {Pointer<Integer>} result 
      * @param {Integer} resultLength 
-     * @param {Pointer<Integer>} _status 
+     * @param {Pointer<UErrorCode>} _status 
      * @returns {Integer} 
      */
     static utrans_toRules(trans, escapeUnprintable, result, resultLength, _status) {
@@ -30795,7 +30794,7 @@ class Globalization {
      * @param {Pointer<Pointer<Void>>} trans 
      * @param {Integer} ignoreFilter 
      * @param {Pointer<USet>} fillIn 
-     * @param {Pointer<Integer>} _status 
+     * @param {Pointer<UErrorCode>} _status 
      * @returns {Pointer<USet>} 
      */
     static utrans_getSourceSet(trans, ignoreFilter, fillIn, _status) {
@@ -30961,7 +30960,7 @@ class Globalization {
      * @remarks
      * This function does not have an associated header file or library file. The application can call [**LoadLibrary**](/windows/win32/api/libloaderapi/nf-libloaderapi-loadlibrarya) with the DLL name (Kernel32.dll) to obtain a module handle. It can then call [**GetProcAddress**](/windows/win32/api/libloaderapi/nf-libloaderapi-getprocaddress) with the module handle and the name of this function to get the function address.
      * @param {Pointer<CALDATETIME>} lpCalDateTime Pointer to a [**CALDATETIME**](caldatetime.md) structure that contains the date and calendar information to adjust.
-     * @param {Integer} calUnit The [**CALDATETIME\_DATEUNIT**](caldatetime-dateunit.md) enumeration value indicating the date unit, for example, DayUnit.
+     * @param {CALDATETIME_DATEUNIT} calUnit The [**CALDATETIME\_DATEUNIT**](caldatetime-dateunit.md) enumeration value indicating the date unit, for example, DayUnit.
      * @param {Integer} amount The amount by which to adjust the specified date.
      * @returns {BOOL} Returns **TRUE** if successful or **FALSE** otherwise. To get extended error information, the application can call [**GetLastError**](/windows/win32/api/errhandlingapi/nf-errhandlingapi-getlasterror), which can return one of the following error codes:
      * 
@@ -31697,9 +31696,9 @@ class Globalization {
      * This function uses various statistical and deterministic methods to make its determination, under the control of flags passed in the <i>lpiResult</i> parameter. When the function returns, the results of such tests are reported using the same parameter.
      * 
      * The IS_TEXT_UNICODE_STATISTICS and IS_TEXT_UNICODE_REVERSE_STATISTICS tests use statistical analysis. These tests are not foolproof. The statistical tests assume certain amounts of variation between low and high bytes in a string, and some ASCII strings can slip through. For example, if <i>lpv</i> indicates the ASCII string 0x41, 0x0A, 0x0D, 0x1D (A\n\r^Z), the string passes the IS_TEXT_UNICODE_STATISTICS test, although failure would be preferable.
-     * @param {Pointer} lpv Pointer to the input buffer to examine.
+     * @param {Integer} lpv Pointer to the input buffer to examine.
      * @param {Integer} iSize Size, in bytes, of the input buffer indicated by <i>lpv</i>.
-     * @param {Pointer<Integer>} lpiResult On input, pointer to the tests to apply to the input buffer text. On output, this parameter receives the results of the specified tests: 1 if the contents of the buffer pass a test, 0 for failure. Only flags that are set upon input to the function are significant upon output.
+     * @param {Pointer<IS_TEXT_UNICODE_RESULT>} lpiResult On input, pointer to the tests to apply to the input buffer text. On output, this parameter receives the results of the specified tests: 1 if the contents of the buffer pass a test, 0 for failure. Only flags that are set upon input to the function are significant upon output.
      * 
      * If <i>lpiResult</i> is <b>NULL</b>, the function uses all available tests to determine if the data in the buffer is likely to be Unicode text.
      * @returns {BOOL} Returns a nonzero value if the data in the buffer passes the specified tests. The function returns 0 if the data in the buffer does not pass the specified tests.

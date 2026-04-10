@@ -1,5 +1,9 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
+#Include .\VDS_LUN_PLEX_TYPE.ahk
+#Include .\VDS_LUN_PLEX_STATUS.ahk
+#Include .\VDS_HEALTH.ahk
+#Include .\VDS_TRANSITION_STATE.ahk
 
 /**
  * The VDS_LUN_PLEX_PROP structure (vdshwprv.h) defines the properties of a LUN plex object.
@@ -7,17 +11,15 @@
  * The <a href="https://docs.microsoft.com/windows/desktop/api/vdshwprv/nf-vdshwprv-ivdslunplex-getproperties">IVdsLunPlex::GetProperties</a> method returns this structure to report the properties of a <a href="https://docs.microsoft.com/windows/desktop/VDS/lun-plex-object">LUN plex object</a>.
  * @see https://learn.microsoft.com/windows/win32/api/vdshwprv/ns-vdshwprv-vds_lun_plex_prop
  * @namespace Windows.Win32.Storage.VirtualDiskService
- * @version v4.0.30319
  */
-class VDS_LUN_PLEX_PROP extends Win32Struct
-{
+class VDS_LUN_PLEX_PROP extends Win32Struct {
     static sizeof => 48
 
     static packingSize => 8
 
     /**
      * The GUID of the plex object.
-     * @type {Pointer<Guid>}
+     * @type {Pointer}
      */
     id {
         get => NumGet(this, 0, "ptr")
@@ -35,7 +37,7 @@ class VDS_LUN_PLEX_PROP extends Win32Struct
 
     /**
      * A <a href="https://docs.microsoft.com/windows/desktop/api/vds/ne-vds-vds_lun_plex_type">VDS_LUN_PLEX_TYPE</a> enumeration value that specifies the type of the plex. The type of the plex is not required to match the type of the LUN to which it belongs.
-     * @type {Integer}
+     * @type {VDS_LUN_PLEX_TYPE}
      */
     type {
         get => NumGet(this, 16, "int")
@@ -44,7 +46,7 @@ class VDS_LUN_PLEX_PROP extends Win32Struct
 
     /**
      * A <a href="https://docs.microsoft.com/windows/desktop/api/vds/ne-vds-vds_lun_plex_status">VDS_LUN_PLEX_STATUS</a> enumeration value that specifies the status of the plex. The status of the plex is not required to match the status of the LUN to which it belongs.
-     * @type {Integer}
+     * @type {VDS_LUN_PLEX_STATUS}
      */
     status {
         get => NumGet(this, 20, "int")
@@ -53,7 +55,7 @@ class VDS_LUN_PLEX_PROP extends Win32Struct
 
     /**
      * <a href="https://docs.microsoft.com/windows/desktop/api/vdshwprv/ne-vdshwprv-vds_health">VDS_HEALTH</a>
-     * @type {Integer}
+     * @type {VDS_HEALTH}
      */
     health {
         get => NumGet(this, 24, "int")
@@ -62,7 +64,7 @@ class VDS_LUN_PLEX_PROP extends Win32Struct
 
     /**
      * A <a href="https://docs.microsoft.com/windows/desktop/api/vdshwprv/ne-vdshwprv-vds_transition_state">VDS_TRANSITION_STATE</a> enumeration value that specifies the transition state of the plex.  The transition state of the plex is not required to match that of the LUN to which the plex belongs.
-     * @type {Integer}
+     * @type {VDS_TRANSITION_STATE}
      */
     TransitionState {
         get => NumGet(this, 28, "int")

@@ -9,10 +9,8 @@
  * <b>PERF_STRING_BUFFER_HEADER</b> block.
  * @see https://learn.microsoft.com/windows/win32/api/perflib/ns-perflib-perf_string_buffer_header
  * @namespace Windows.Win32.System.Performance
- * @version v4.0.30319
  */
-class PERF_STRING_BUFFER_HEADER extends Win32Struct
-{
+class PERF_STRING_BUFFER_HEADER extends Win32Struct {
     static sizeof => 8
 
     static packingSize => 4

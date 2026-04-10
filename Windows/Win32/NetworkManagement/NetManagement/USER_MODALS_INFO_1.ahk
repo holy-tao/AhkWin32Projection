@@ -5,10 +5,8 @@
  * The USER_MODALS_INFO_1 structure contains logon server and domain controller information.
  * @see https://learn.microsoft.com/windows/win32/api/lmaccess/ns-lmaccess-user_modals_info_1
  * @namespace Windows.Win32.NetworkManagement.NetManagement
- * @version v4.0.30319
  */
-class USER_MODALS_INFO_1 extends Win32Struct
-{
+class USER_MODALS_INFO_1 extends Win32Struct {
     static sizeof => 16
 
     static packingSize => 8

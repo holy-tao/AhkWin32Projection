@@ -6,10 +6,8 @@
  * Provides parameters for finding certificate trust lists (CTL) used to build a certificate chain.
  * @see https://learn.microsoft.com/windows/win32/api/wincrypt/ns-wincrypt-ctl_usage_match
  * @namespace Windows.Win32.Security.Cryptography
- * @version v4.0.30319
  */
-class CTL_USAGE_MATCH extends Win32Struct
-{
+class CTL_USAGE_MATCH extends Win32Struct {
     static sizeof => 24
 
     static packingSize => 8
@@ -57,7 +55,7 @@ class CTL_USAGE_MATCH extends Win32Struct
      * <a href="https://docs.microsoft.com/windows/desktop/api/wincrypt/ns-wincrypt-ctl_usage">CTL_USAGE</a> structure that includes an array of <a href="https://docs.microsoft.com/windows/desktop/SecGloss/o-gly">object identifiers</a> (OIDs) a CTL must match in order to be valid.
      * @type {CTL_USAGE}
      */
-    Usage{
+    Usage {
         get {
             if(!this.HasProp("__Usage"))
                 this.__Usage := CTL_USAGE(8, this)

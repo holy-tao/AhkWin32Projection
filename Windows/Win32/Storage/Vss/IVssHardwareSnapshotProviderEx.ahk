@@ -1,16 +1,15 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
-#Include .\IVssAsync.ahk
 #Include .\IVssHardwareSnapshotProvider.ahk
+#Include .\IVssAsync.ahk
 
 /**
  * Provides an additional method used by VSS to notify hardware providers of LUN state changes.
  * @see https://learn.microsoft.com/windows/win32/api/vsprov/nn-vsprov-ivsshardwaresnapshotproviderex
  * @namespace Windows.Win32.Storage.Vss
- * @version v4.0.30319
  */
-class IVssHardwareSnapshotProviderEx extends IVssHardwareSnapshotProvider{
+class IVssHardwareSnapshotProviderEx extends IVssHardwareSnapshotProvider {
 
     static sizeof => A_PtrSize
     /**

@@ -9,9 +9,8 @@
  * These settings only apply to individual controls within dialogs. The dialog-wide per-monitor DPI scaling behavior of a dialog is controlled by <a href="https://docs.microsoft.com/windows/desktop/api/winuser/ne-winuser-dialog_dpi_change_behaviors">DIALOG_DPI_CHANGE_BEHAVIORS</a>.
  * @see https://learn.microsoft.com/windows/win32/api/winuser/ne-winuser-dialog_control_dpi_change_behaviors
  * @namespace Windows.Win32.UI.HiDpi
- * @version v4.0.30319
  */
-class DIALOG_CONTROL_DPI_CHANGE_BEHAVIORS extends Win32BitflagEnum{
+class DIALOG_CONTROL_DPI_CHANGE_BEHAVIORS extends Win32BitflagEnum {
 
     /**
      * The default behavior of the dialog manager. The dialog managed will update the font, size, and position of the child window on DPI changes.

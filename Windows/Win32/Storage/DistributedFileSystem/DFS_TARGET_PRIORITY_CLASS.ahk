@@ -27,9 +27,8 @@
  *      <a href="https://docs.microsoft.com/previous-versions/windows/desktop/dfs/dfs-server-target-prioritization">DFS Server Target Prioritization</a>.
  * @see https://learn.microsoft.com/windows/win32/api/lmdfs/ne-lmdfs-dfs_target_priority_class~r1
  * @namespace Windows.Win32.Storage.DistributedFileSystem
- * @version v4.0.30319
  */
-class DFS_TARGET_PRIORITY_CLASS extends Win32Enum{
+class DFS_TARGET_PRIORITY_CLASS extends Win32Enum {
 
     /**
      * The priority class is not valid.

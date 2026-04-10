@@ -5,9 +5,8 @@
 
 /**
  * @namespace Windows.Win32.System.DistributedTransactionCoordinator
- * @version v4.0.30319
  */
-class ITransactionVoterNotifyAsync2 extends ITransactionOutcomeEvents{
+class ITransactionVoterNotifyAsync2 extends ITransactionOutcomeEvents {
 
     static sizeof => A_PtrSize
     /**

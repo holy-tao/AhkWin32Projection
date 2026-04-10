@@ -1,18 +1,17 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\..\Win32Struct.ahk
+#Include .\ChannelChangeSpanningEvent_State.ahk
 
 /**
  * @namespace Windows.Win32.Media.DirectShow.Tv
- * @version v4.0.30319
  */
-class ChannelChangeInfo extends Win32Struct
-{
+class ChannelChangeInfo extends Win32Struct {
     static sizeof => 16
 
     static packingSize => 8
 
     /**
-     * @type {Integer}
+     * @type {ChannelChangeSpanningEvent_State}
      */
     state {
         get => NumGet(this, 0, "int")

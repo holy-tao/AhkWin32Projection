@@ -8,10 +8,9 @@
  * For info about string size limits, see <a href="https://docs.microsoft.com/windows/desktop/appxpkg/identity-constants">Identity constants</a>.
  * @see https://learn.microsoft.com/windows/win32/api/appmodel/ns-appmodel-package_id
  * @namespace Windows.Win32.Storage.Packaging.Appx
- * @version v4.0.30319
+ * @architecture X64, Arm64
  */
-class PACKAGE_ID extends Win32Struct
-{
+class PACKAGE_ID extends Win32Struct {
     static sizeof => 48
 
     static packingSize => 8
@@ -52,7 +51,7 @@ class PACKAGE_ID extends Win32Struct
      * The version of the package.
      * @type {PACKAGE_VERSION}
      */
-    version{
+    version {
         get {
             if(!this.HasProp("__version"))
                 this.__version := PACKAGE_VERSION(8, this)

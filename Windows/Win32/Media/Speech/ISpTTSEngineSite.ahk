@@ -5,9 +5,8 @@
 
 /**
  * @namespace Windows.Win32.Media.Speech
- * @version v4.0.30319
  */
-class ISpTTSEngineSite extends ISpEventSink{
+class ISpTTSEngineSite extends ISpEventSink {
 
     static sizeof => A_PtrSize
     /**
@@ -173,7 +172,7 @@ class ISpTTSEngineSite extends ISpEventSink{
 
     /**
      * 
-     * @param {Pointer<Integer>} peType 
+     * @param {Pointer<SPVSKIPTYPE>} peType 
      * @param {Pointer<Integer>} plNumItems 
      * @returns {HRESULT} 
      */

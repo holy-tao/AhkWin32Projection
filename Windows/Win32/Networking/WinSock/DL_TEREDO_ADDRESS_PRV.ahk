@@ -1,26 +1,24 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
+#Include .\DL_EUI64.ahk
 #Include .\DL_OUI.ahk
 #Include .\DL_EI64.ahk
 #Include .\DL_EI48.ahk
-#Include .\DL_EUI64.ahk
 #Include .\IN_ADDR.ahk
 #Include .\DL_EUI48.ahk
 
 /**
  * @namespace Windows.Win32.Networking.WinSock
- * @version v4.0.30319
  */
-class DL_TEREDO_ADDRESS_PRV extends Win32Struct
-{
+class DL_TEREDO_ADDRESS_PRV extends Win32Struct {
     static sizeof => 38
 
     static packingSize => 1
 
     /**
-     * @type {Array<Byte>}
+     * @type {Array<Integer>}
      */
-    Reserved{
+    Reserved {
         get {
             if(!this.HasProp("__ReservedProxyArray"))
                 this.__ReservedProxyArray := Win32FixedArray(this.ptr + 0, 6, Primitive, "char")
@@ -31,7 +29,7 @@ class DL_TEREDO_ADDRESS_PRV extends Win32Struct
     /**
      * @type {DL_EUI64}
      */
-    Eui64{
+    Eui64 {
         get {
             if(!this.HasProp("__Eui64"))
                 this.__Eui64 := DL_EUI64(6, this)
@@ -58,7 +56,7 @@ class DL_TEREDO_ADDRESS_PRV extends Win32Struct
     /**
      * @type {IN_ADDR}
      */
-    MappedAddress{
+    MappedAddress {
         get {
             if(!this.HasProp("__MappedAddress"))
                 this.__MappedAddress := IN_ADDR(10, this)
@@ -69,7 +67,7 @@ class DL_TEREDO_ADDRESS_PRV extends Win32Struct
     /**
      * @type {IN_ADDR}
      */
-    LocalAddress{
+    LocalAddress {
         get {
             if(!this.HasProp("__LocalAddress"))
                 this.__LocalAddress := IN_ADDR(14, this)
@@ -96,7 +94,7 @@ class DL_TEREDO_ADDRESS_PRV extends Win32Struct
     /**
      * @type {DL_EUI48}
      */
-    DlDestination{
+    DlDestination {
         get {
             if(!this.HasProp("__DlDestination"))
                 this.__DlDestination := DL_EUI48(24, this)

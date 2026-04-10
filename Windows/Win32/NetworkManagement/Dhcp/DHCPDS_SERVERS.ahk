@@ -1,14 +1,13 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
+#Include .\DHCPDS_SERVER.ahk
 
 /**
  * The DHCPDS_SERVERS structure defines a list of DHCP servers in the context of directory services.
  * @see https://learn.microsoft.com/windows/win32/api/dhcpsapi/ns-dhcpsapi-dhcpds_servers
  * @namespace Windows.Win32.NetworkManagement.Dhcp
- * @version v4.0.30319
  */
-class DHCPDS_SERVERS extends Win32Struct
-{
+class DHCPDS_SERVERS extends Win32Struct {
     static sizeof => 16
 
     static packingSize => 8

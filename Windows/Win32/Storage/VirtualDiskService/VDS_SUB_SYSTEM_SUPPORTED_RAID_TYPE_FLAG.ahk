@@ -10,9 +10,8 @@
  * <div> </div>
  * @see https://learn.microsoft.com/windows/win32/api/vdshwprv/ne-vdshwprv-vds_sub_system_supported_raid_type_flag
  * @namespace Windows.Win32.Storage.VirtualDiskService
- * @version v4.0.30319
  */
-class VDS_SUB_SYSTEM_SUPPORTED_RAID_TYPE_FLAG extends Win32Enum{
+class VDS_SUB_SYSTEM_SUPPORTED_RAID_TYPE_FLAG extends Win32Enum {
 
     /**
      * Supports RAID level 2.

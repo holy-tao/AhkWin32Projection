@@ -1,14 +1,13 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
-#Include .\IWICBitmapFrameDecode.ahk
 #Include ..\..\System\Com\IUnknown.ahk
+#Include .\IWICBitmapFrameDecode.ahk
 
 /**
  * @namespace Windows.Win32.Graphics.Imaging
- * @version v4.0.30319
  */
-class IWICBitmapFrameChainReader extends IUnknown{
+class IWICBitmapFrameChainReader extends IUnknown {
 
     static sizeof => A_PtrSize
     /**
@@ -31,7 +30,7 @@ class IWICBitmapFrameChainReader extends IUnknown{
 
     /**
      * 
-     * @param {Integer} chainType 
+     * @param {WICBitmapChainType} chainType 
      * @returns {Integer} 
      */
     GetChainedFrameCount(chainType) {
@@ -41,7 +40,7 @@ class IWICBitmapFrameChainReader extends IUnknown{
 
     /**
      * 
-     * @param {Integer} chainType 
+     * @param {WICBitmapChainType} chainType 
      * @param {Integer} index 
      * @returns {IWICBitmapFrameDecode} 
      */

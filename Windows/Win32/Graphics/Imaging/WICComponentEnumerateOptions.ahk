@@ -5,9 +5,8 @@
  * Specifies component enumeration options.
  * @see https://learn.microsoft.com/windows/win32/api/wincodec/ne-wincodec-wiccomponentenumerateoptions
  * @namespace Windows.Win32.Graphics.Imaging
- * @version v4.0.30319
  */
-class WICComponentEnumerateOptions extends Win32Enum{
+class WICComponentEnumerateOptions extends Win32Enum {
 
     /**
      * Enumerate any components that are not disabled. Because this value is 0x0, it is always included with the other options.

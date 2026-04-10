@@ -7,9 +7,8 @@
  * AMAP_3D_TARGET cannot be combined with AMAP_FORCE_SYSMEM or AMAP_ALLOW_SYSMEM because 3D surfaces cannot be created in system memory.
  * @see https://learn.microsoft.com/windows/win32/api/strmif/ne-strmif-vmrsurfaceallocationflags
  * @namespace Windows.Win32.Media.DirectShow
- * @version v4.0.30319
  */
-class VMRSurfaceAllocationFlags extends Win32Enum{
+class VMRSurfaceAllocationFlags extends Win32Enum {
 
     /**
      * Indicates that the <b>lpPxFmt</b> field contains valid data that should be used to create the DirectDraw surface.

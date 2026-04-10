@@ -1,14 +1,13 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
+#Include .\HTTP_SERVICE_BINDING_BASE.ahk
 
 /**
  * HTTP_REQUEST_CHANNEL_BIND_STATUS.
  * @see https://learn.microsoft.com/windows/win32/api/http/ns-http-http_request_channel_bind_status
  * @namespace Windows.Win32.Networking.HttpServer
- * @version v4.0.30319
  */
-class HTTP_REQUEST_CHANNEL_BIND_STATUS extends Win32Struct
-{
+class HTTP_REQUEST_CHANNEL_BIND_STATUS extends Win32Struct {
     static sizeof => 24
 
     static packingSize => 8

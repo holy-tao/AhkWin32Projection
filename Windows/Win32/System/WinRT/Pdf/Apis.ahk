@@ -4,7 +4,6 @@
 
 /**
  * @namespace Windows.Win32.System.WinRT.Pdf
- * @version v4.0.30319
  */
 class Pdf {
 

@@ -1,6 +1,8 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
+#Include .\WLAN_CONNECTION_MODE.ahk
 #Include .\DOT11_SSID.ahk
+#Include .\DOT11_BSS_TYPE.ahk
 
 /**
  * Contains information about media specific module (MSM) connection related notifications.
@@ -14,17 +16,15 @@
  * For more information on these notifications, see the <a href="https://docs.microsoft.com/windows/win32/api/wlanapi/ne-wlanapi-wlan_notification_msm-r1">WLAN_NOTIFICATION_MSM</a> enumeration reference.
  * @see https://learn.microsoft.com/windows/win32/api/wlanapi/ns-wlanapi-wlan_msm_notification_data
  * @namespace Windows.Win32.NetworkManagement.WiFi
- * @version v4.0.30319
  */
-class WLAN_MSM_NOTIFICATION_DATA extends Win32Struct
-{
+class WLAN_MSM_NOTIFICATION_DATA extends Win32Struct {
     static sizeof => 580
 
     static packingSize => 4
 
     /**
      * A <a href="https://docs.microsoft.com/windows/desktop/api/wlanapi/ne-wlanapi-wlan_connection_mode">WLAN_CONNECTION_MODE</a> value that specifies the mode of the connection.
-     * @type {Integer}
+     * @type {WLAN_CONNECTION_MODE}
      */
     wlanConnectionMode {
         get => NumGet(this, 0, "int")
@@ -44,7 +44,7 @@ class WLAN_MSM_NOTIFICATION_DATA extends Win32Struct
      * A <a href="https://docs.microsoft.com/windows/desktop/NativeWiFi/dot11-ssid">DOT11_SSID</a> structure that contains the SSID of the association.
      * @type {DOT11_SSID}
      */
-    dot11Ssid{
+    dot11Ssid {
         get {
             if(!this.HasProp("__dot11Ssid"))
                 this.__dot11Ssid := DOT11_SSID(516, this)
@@ -54,7 +54,7 @@ class WLAN_MSM_NOTIFICATION_DATA extends Win32Struct
 
     /**
      * A <a href="https://docs.microsoft.com/windows/desktop/NativeWiFi/dot11-bss-type">DOT11_BSS_TYPE</a> value that indicates the BSS network type.
-     * @type {Integer}
+     * @type {DOT11_BSS_TYPE}
      */
     dot11BssType {
         get => NumGet(this, 552, "int")
@@ -63,9 +63,9 @@ class WLAN_MSM_NOTIFICATION_DATA extends Win32Struct
 
     /**
      * A <a href="https://docs.microsoft.com/windows/desktop/NativeWiFi/dot11-mac-address-type">DOT11_MAC_ADDRESS</a> that specifies the MAC address of the peer or access point.
-     * @type {Array<Byte>}
+     * @type {Array<Integer>}
      */
-    dot11MacAddr{
+    dot11MacAddr {
         get {
             if(!this.HasProp("__dot11MacAddrProxyArray"))
                 this.__dot11MacAddrProxyArray := Win32FixedArray(this.ptr + 556, 6, Primitive, "char")

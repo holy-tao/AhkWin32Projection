@@ -3,18 +3,16 @@
 
 /**
  * @namespace Windows.Win32.Storage.Nvme
- * @version v4.0.30319
  */
-class NVMEOF_CONNECT_DATA extends Win32Struct
-{
+class NVMEOF_CONNECT_DATA extends Win32Struct {
     static sizeof => 1024
 
     static packingSize => 2
 
     /**
-     * @type {Array<Byte>}
+     * @type {Array<Integer>}
      */
-    HOSTID{
+    HOSTID {
         get {
             if(!this.HasProp("__HOSTIDProxyArray"))
                 this.__HOSTIDProxyArray := Win32FixedArray(this.ptr + 0, 16, Primitive, "char")
@@ -31,9 +29,9 @@ class NVMEOF_CONNECT_DATA extends Win32Struct
     }
 
     /**
-     * @type {Array<Byte>}
+     * @type {Array<Integer>}
      */
-    Reserved0{
+    Reserved0 {
         get {
             if(!this.HasProp("__Reserved0ProxyArray"))
                 this.__Reserved0ProxyArray := Win32FixedArray(this.ptr + 18, 238, Primitive, "char")
@@ -42,9 +40,9 @@ class NVMEOF_CONNECT_DATA extends Win32Struct
     }
 
     /**
-     * @type {Array<Byte>}
+     * @type {Array<Integer>}
      */
-    SUBNQN{
+    SUBNQN {
         get {
             if(!this.HasProp("__SUBNQNProxyArray"))
                 this.__SUBNQNProxyArray := Win32FixedArray(this.ptr + 256, 256, Primitive, "char")
@@ -53,9 +51,9 @@ class NVMEOF_CONNECT_DATA extends Win32Struct
     }
 
     /**
-     * @type {Array<Byte>}
+     * @type {Array<Integer>}
      */
-    HOSTNQN{
+    HOSTNQN {
         get {
             if(!this.HasProp("__HOSTNQNProxyArray"))
                 this.__HOSTNQNProxyArray := Win32FixedArray(this.ptr + 512, 256, Primitive, "char")
@@ -64,9 +62,9 @@ class NVMEOF_CONNECT_DATA extends Win32Struct
     }
 
     /**
-     * @type {Array<Byte>}
+     * @type {Array<Integer>}
      */
-    Reserved1{
+    Reserved1 {
         get {
             if(!this.HasProp("__Reserved1ProxyArray"))
                 this.__Reserved1ProxyArray := Win32FixedArray(this.ptr + 768, 256, Primitive, "char")

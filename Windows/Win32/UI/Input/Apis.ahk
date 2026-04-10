@@ -3,7 +3,6 @@
 
 /**
  * @namespace Windows.Win32.UI.Input
- * @version v4.0.30319
  */
 class Input {
 
@@ -15,9 +14,12 @@ class Input {
      * Retrieves the raw input from the specified device.
      * @remarks
      * <b>GetRawInputData</b> gets the raw input one <a href="https://docs.microsoft.com/windows/desktop/api/winuser/ns-winuser-rawinput">RAWINPUT</a> structure at a time. In contrast, <a href="https://docs.microsoft.com/windows/desktop/api/winuser/nf-winuser-getrawinputbuffer">GetRawInputBuffer</a> gets an array of <b>RAWINPUT</b> structures.
-     * @param {HRAWINPUT} _hRawInput 
-     * @param {Integer} uiCommand Type: <b>UINT</b>
-     * @param {Pointer} pData Type: <b>LPVOID</b>
+     * @param {HRAWINPUT} _hRawInput Type: <b>HRAWINPUT</b>
+     * 
+     * A handle to the <a href="https://docs.microsoft.com/windows/desktop/api/winuser/ns-winuser-rawinput">RAWINPUT</a> structure. This comes from the 
+     * 					<i>lParam</i> in <a href="https://docs.microsoft.com/windows/desktop/inputdev/wm-input">WM_INPUT</a>.
+     * @param {RAW_INPUT_DATA_COMMAND_FLAGS} uiCommand Type: <b>UINT</b>
+     * @param {Integer} pData Type: <b>LPVOID</b>
      * 
      * A pointer to the data that comes from the <a href="https://docs.microsoft.com/windows/desktop/api/winuser/ns-winuser-rawinput">RAWINPUT</a> structure. This depends on the value of 
      * 					<i>uiCommand</i>. If 
@@ -56,8 +58,8 @@ class Input {
      * @param {HANDLE} hDevice Type: <b>HANDLE</b>
      * 
      * A handle to the raw input device. This comes from the <b>hDevice</b> member of <a href="https://docs.microsoft.com/windows/desktop/api/winuser/ns-winuser-rawinputheader">RAWINPUTHEADER</a> or from <a href="https://docs.microsoft.com/windows/desktop/api/winuser/nf-winuser-getrawinputdevicelist">GetRawInputDeviceList</a>.
-     * @param {Integer} uiCommand Type: <b>UINT</b>
-     * @param {Pointer} pData Type: <b>LPVOID</b>
+     * @param {RAW_INPUT_DEVICE_INFO_COMMAND} uiCommand Type: <b>UINT</b>
+     * @param {Integer} pData Type: <b>LPVOID</b>
      * 
      * A pointer to a buffer that contains the information specified by <i>uiCommand</i>.
      * 
@@ -98,8 +100,8 @@ class Input {
      * @param {HANDLE} hDevice Type: <b>HANDLE</b>
      * 
      * A handle to the raw input device. This comes from the <b>hDevice</b> member of <a href="https://docs.microsoft.com/windows/desktop/api/winuser/ns-winuser-rawinputheader">RAWINPUTHEADER</a> or from <a href="https://docs.microsoft.com/windows/desktop/api/winuser/nf-winuser-getrawinputdevicelist">GetRawInputDeviceList</a>.
-     * @param {Integer} uiCommand Type: <b>UINT</b>
-     * @param {Pointer} pData Type: <b>LPVOID</b>
+     * @param {RAW_INPUT_DEVICE_INFO_COMMAND} uiCommand Type: <b>UINT</b>
+     * @param {Integer} pData Type: <b>LPVOID</b>
      * 
      * A pointer to a buffer that contains the information specified by <i>uiCommand</i>.
      * 
@@ -163,7 +165,7 @@ class Input {
      *     public RAWHID hid;
      * }
      * ```
-     * @param {Pointer} pData Type: **PRAWINPUT**
+     * @param {Integer} pData Type: **PRAWINPUT**
      * 
      * A pointer to a buffer of [RAWINPUT](ns-winuser-rawinput.md) structures that contain the raw input data. Buffer should be aligned on a pointer boundary, which is a **DWORD** on 32-bit architectures and a **QWORD** on 64-bit architectures.
      * 

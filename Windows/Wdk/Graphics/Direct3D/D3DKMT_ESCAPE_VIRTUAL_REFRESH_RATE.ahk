@@ -1,18 +1,17 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
+#Include .\D3DKMT_ESCAPE_VIRTUAL_REFRESH_RATE_TYPE.ahk
 
 /**
  * @namespace Windows.Wdk.Graphics.Direct3D
- * @version v4.0.30319
  */
-class D3DKMT_ESCAPE_VIRTUAL_REFRESH_RATE extends Win32Struct
-{
+class D3DKMT_ESCAPE_VIRTUAL_REFRESH_RATE extends Win32Struct {
     static sizeof => 36
 
     static packingSize => 4
 
     /**
-     * @type {Integer}
+     * @type {D3DKMT_ESCAPE_VIRTUAL_REFRESH_RATE_TYPE}
      */
     Type {
         get => NumGet(this, 0, "int")
@@ -52,9 +51,9 @@ class D3DKMT_ESCAPE_VIRTUAL_REFRESH_RATE extends Win32Struct
     }
 
     /**
-     * @type {Array<Byte>}
+     * @type {Array<Integer>}
      */
-    Reserved{
+    Reserved {
         get {
             if(!this.HasProp("__ReservedProxyArray"))
                 this.__ReservedProxyArray := Win32FixedArray(this.ptr + 20, 16, Primitive, "char")

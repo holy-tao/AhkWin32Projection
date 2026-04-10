@@ -5,9 +5,8 @@
  * The NLM_NETWORK_PROPERTY_CHANGE enumeration is a set of flags that define changes made to the properties of a network.
  * @see https://learn.microsoft.com/windows/win32/api/netlistmgr/ne-netlistmgr-nlm_network_property_change
  * @namespace Windows.Win32.Networking.NetworkListManager
- * @version v4.0.30319
  */
-class NLM_NETWORK_PROPERTY_CHANGE extends Win32Enum{
+class NLM_NETWORK_PROPERTY_CHANGE extends Win32Enum {
 
     /**
      * A connection to this network has been added or removed.
@@ -28,7 +27,6 @@ class NLM_NETWORK_PROPERTY_CHANGE extends Win32Enum{
     static NLM_NETWORK_PROPERTY_CHANGE_NAME => 4
 
     /**
-     * 
      * @type {Integer (Int32)}
      */
     static NLM_NETWORK_PROPERTY_CHANGE_ICON => 8

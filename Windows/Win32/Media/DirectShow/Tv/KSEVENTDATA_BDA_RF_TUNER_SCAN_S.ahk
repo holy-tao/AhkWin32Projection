@@ -1,14 +1,13 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\..\Win32Struct.ahk
-#Include ..\..\..\Foundation\HANDLE.ahk
 #Include ..\..\KernelStreaming\KSEVENTDATA.ahk
+#Include ..\..\..\Foundation\HANDLE.ahk
+#Include .\BDA_LockType.ahk
 
 /**
  * @namespace Windows.Win32.Media.DirectShow.Tv
- * @version v4.0.30319
  */
-class KSEVENTDATA_BDA_RF_TUNER_SCAN_S extends Win32Struct
-{
+class KSEVENTDATA_BDA_RF_TUNER_SCAN_S extends Win32Struct {
     static sizeof => 48
 
     static packingSize => 8
@@ -16,7 +15,7 @@ class KSEVENTDATA_BDA_RF_TUNER_SCAN_S extends Win32Struct
     /**
      * @type {KSEVENTDATA}
      */
-    EventData{
+    EventData {
         get {
             if(!this.HasProp("__EventData"))
                 this.__EventData := KSEVENTDATA(0, this)
@@ -41,7 +40,7 @@ class KSEVENTDATA_BDA_RF_TUNER_SCAN_S extends Win32Struct
     }
 
     /**
-     * @type {Integer}
+     * @type {BDA_LockType}
      */
     LockRequested {
         get => NumGet(this, 40, "int")

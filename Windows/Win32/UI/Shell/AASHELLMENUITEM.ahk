@@ -1,5 +1,6 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
+#Include .\AASHELLMENUFILENAME.ahk
 
 /**
  * Contains information about a menu item. (AASHELLMENUITEM)
@@ -17,10 +18,8 @@
  * Applications that probe owner-draw menu data must validate all data read from the process.
  * @see https://learn.microsoft.com/windows/win32/api/shlobj/ns-shlobj-aashellmenuitem
  * @namespace Windows.Win32.UI.Shell
- * @version v4.0.30319
  */
-class AASHELLMENUITEM extends Win32Struct
-{
+class AASHELLMENUITEM extends Win32Struct {
     static sizeof => 32
 
     static packingSize => 8

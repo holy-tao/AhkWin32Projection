@@ -1,15 +1,16 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
 #Include .\POWER_ACTION_POLICY.ahk
+#Include .\POWER_ACTION.ahk
+#Include .\POWER_ACTION_POLICY_EVENT_CODE.ahk
+#Include .\SYSTEM_POWER_STATE.ahk
 
 /**
  * Contains power policy settings that are unique to each power scheme for a user.
  * @see https://learn.microsoft.com/windows/win32/api/powrprof/ns-powrprof-user_power_policy
  * @namespace Windows.Win32.System.Power
- * @version v4.0.30319
  */
-class USER_POWER_POLICY extends Win32Struct
-{
+class USER_POWER_POLICY extends Win32Struct {
     static sizeof => 80
 
     static packingSize => 4
@@ -28,7 +29,7 @@ class USER_POWER_POLICY extends Win32Struct
      * <a href="https://docs.microsoft.com/windows/desktop/api/winnt/ns-winnt-power_action_policy">POWER_ACTION_POLICY</a> structure that defines the system power action to initiate when the system is running on AC (utility) power and the system idle timer expires.
      * @type {POWER_ACTION_POLICY}
      */
-    IdleAc{
+    IdleAc {
         get {
             if(!this.HasProp("__IdleAc"))
                 this.__IdleAc := POWER_ACTION_POLICY(4, this)
@@ -41,7 +42,7 @@ class USER_POWER_POLICY extends Win32Struct
      * <a href="https://docs.microsoft.com/windows/desktop/api/winnt/ns-winnt-power_action_policy">POWER_ACTION_POLICY</a> structure that defines the system power action to initiate when the system is running on battery power and the system idle timer expires.
      * @type {POWER_ACTION_POLICY}
      */
-    IdleDc{
+    IdleDc {
         get {
             if(!this.HasProp("__IdleDc"))
                 this.__IdleDc := POWER_ACTION_POLICY(16, this)
@@ -110,7 +111,7 @@ class USER_POWER_POLICY extends Win32Struct
     /**
      * The maximum system sleep state when the system is running on AC (utility) power. This member must be one of the 
      * <a href="https://docs.microsoft.com/windows/desktop/api/winnt/ne-winnt-system_power_state">SYSTEM_POWER_STATE</a> enumeration type values.
-     * @type {Integer}
+     * @type {SYSTEM_POWER_STATE}
      */
     MaxSleepAc {
         get => NumGet(this, 40, "int")
@@ -120,7 +121,7 @@ class USER_POWER_POLICY extends Win32Struct
     /**
      * The maximum system sleep state when the system is running on battery power. This member must be one of the 
      * <a href="https://docs.microsoft.com/windows/desktop/api/winnt/ne-winnt-system_power_state">SYSTEM_POWER_STATE</a> enumeration type values.
-     * @type {Integer}
+     * @type {SYSTEM_POWER_STATE}
      */
     MaxSleepDc {
         get => NumGet(this, 44, "int")
@@ -129,9 +130,9 @@ class USER_POWER_POLICY extends Win32Struct
 
     /**
      * Reserved.
-     * @type {Array<UInt32>}
+     * @type {Array<Integer>}
      */
-    Reserved{
+    Reserved {
         get {
             if(!this.HasProp("__ReservedProxyArray"))
                 this.__ReservedProxyArray := Win32FixedArray(this.ptr + 48, 2, Primitive, "uint")

@@ -1,10 +1,9 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
-#Include ..\..\Foundation\BSTR.ahk
+#Include ..\..\System\Com\IUnknown.ahk
 #Include ..\..\Graphics\Gdi\HFONT.ahk
 #Include ..\..\UI\WindowsAndMessaging\HICON.ahk
-#Include ..\..\System\Com\IUnknown.ahk
 
 /**
  * Called by a Failover Cluster Administrator extension to retrieve information about Failover Cluster Administrator's user interface.
@@ -43,9 +42,8 @@
  *      <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/cluadmex/nn-cluadmex-igetclusterresourceinfo">IGetClusterResourceInfo</a>.
  * @see https://learn.microsoft.com/windows/win32/api/cluadmex/nn-cluadmex-igetclusteruiinfo
  * @namespace Windows.Win32.Networking.Clustering
- * @version v4.0.30319
  */
-class IGetClusterUIInfo extends IUnknown{
+class IGetClusterUIInfo extends IUnknown {
 
     static sizeof => A_PtrSize
     /**

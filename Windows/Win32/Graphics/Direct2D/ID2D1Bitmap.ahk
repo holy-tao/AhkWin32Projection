@@ -22,9 +22,8 @@
  * An <b>ID2D1Bitmap</b> is a device-dependent resource: your application should create bitmaps after it initializes the render target with which the bitmap will be used, and recreate the bitmap whenever the render target needs recreated. (For more information about resources, see <a href="https://docs.microsoft.com/windows/win32/Direct2D/resources-and-resource-domains">Resources Overview</a>.)
  * @see https://learn.microsoft.com/windows/win32/api/d2d1/nn-d2d1-id2d1bitmap
  * @namespace Windows.Win32.Graphics.Direct2D
- * @version v4.0.30319
  */
-class ID2D1Bitmap extends ID2D1Image{
+class ID2D1Bitmap extends ID2D1Image {
 
     static sizeof => A_PtrSize
     /**
@@ -112,7 +111,9 @@ class ID2D1Bitmap extends ID2D1Image{
      * @param {Pointer<D2D_POINT_2U>} destPoint Type: <b>const <a href="https://docs.microsoft.com/windows/win32/Direct2D/d2d1-point-2u">D2D1_POINT_2U</a>*</b>
      * 
      * In the current bitmap, the upper-left corner of the area to which the region specified by <i>srcRect</i> is copied.
-     * @param {ID2D1Bitmap} _bitmap 
+     * @param {ID2D1Bitmap} _bitmap Type: <b><a href="https://docs.microsoft.com/windows/win32/api/d2d1/nn-d2d1-id2d1bitmap">ID2D1Bitmap</a>*</b>
+     * 
+     * The bitmap to copy from.
      * @param {Pointer<D2D_RECT_U>} srcRect Type: <b>const <a href="https://docs.microsoft.com/windows/win32/Direct2D/d2d1-rect-u">D2D1_RECT_U</a>*</b>
      * 
      * The area of <i>bitmap</i> to copy.

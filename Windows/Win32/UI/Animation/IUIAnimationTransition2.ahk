@@ -7,9 +7,8 @@
  * Extends the IUIAnimationTransition interface that defines a transition. An IUIAnimationTransition2 transition determines how an animation variable changes over time in a given dimension.
  * @see https://learn.microsoft.com/windows/win32/api/uianimation/nn-uianimation-iuianimationtransition2
  * @namespace Windows.Win32.UI.Animation
- * @version v4.0.30319
  */
-class IUIAnimationTransition2 extends IUnknown{
+class IUIAnimationTransition2 extends IUnknown {
 
     static sizeof => A_PtrSize
     /**

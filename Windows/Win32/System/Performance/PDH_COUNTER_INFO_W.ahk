@@ -9,11 +9,9 @@
  * When you allocate memory for this structure, allocate enough memory for the member strings, such as <b>szCounterName</b>, that are appended to the end of this structure.
  * @see https://learn.microsoft.com/windows/win32/api/pdh/ns-pdh-pdh_counter_info_w
  * @namespace Windows.Win32.System.Performance
- * @version v4.0.30319
  * @charset Unicode
  */
-class PDH_COUNTER_INFO_W extends Win32Struct
-{
+class PDH_COUNTER_INFO_W extends Win32Struct {
     static sizeof => 112
 
     static packingSize => 8
@@ -105,7 +103,7 @@ class PDH_COUNTER_INFO_W extends Win32Struct
     /**
      * @type {PDH_DATA_ITEM_PATH_ELEMENTS_W}
      */
-    DataItemPath{
+    DataItemPath {
         get {
             if(!this.HasProp("__DataItemPath"))
                 this.__DataItemPath := PDH_DATA_ITEM_PATH_ELEMENTS_W(48, this)
@@ -116,7 +114,7 @@ class PDH_COUNTER_INFO_W extends Win32Struct
     /**
      * @type {PDH_COUNTER_PATH_ELEMENTS_W}
      */
-    CounterPath{
+    CounterPath {
         get {
             if(!this.HasProp("__CounterPath"))
                 this.__CounterPath := PDH_COUNTER_PATH_ELEMENTS_W(48, this)
@@ -183,9 +181,9 @@ class PDH_COUNTER_INFO_W extends Win32Struct
 
     /**
      * Start of the string data that is appended to the structure.
-     * @type {Array<UInt32>}
+     * @type {Array<Integer>}
      */
-    DataBuffer{
+    DataBuffer {
         get {
             if(!this.HasProp("__DataBufferProxyArray"))
                 this.__DataBufferProxyArray := Win32FixedArray(this.ptr + 104, 1, Primitive, "uint")

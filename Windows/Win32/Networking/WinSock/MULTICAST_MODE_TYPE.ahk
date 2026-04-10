@@ -11,9 +11,8 @@
  * The <b>MULTICAST_MODE_TYPE</b> enumeration is defined in the <i>Ws2ipdef.h</i> header file which is automatically included in the <i>Ws2tcpip.h</i> header file. The <i>Ws2ipdef.h</i>  header files should never be used directly.
  * @see https://learn.microsoft.com/windows/win32/api/ws2ipdef/ne-ws2ipdef-multicast_mode_type
  * @namespace Windows.Win32.Networking.WinSock
- * @version v4.0.30319
  */
-class MULTICAST_MODE_TYPE extends Win32Enum{
+class MULTICAST_MODE_TYPE extends Win32Enum {
 
     /**
      * The filter contains a list of IP addresses to include.

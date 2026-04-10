@@ -3,9 +3,8 @@
 
 /**
  * @namespace Windows.Win32.System.Ioctl
- * @version v4.0.30319
  */
-class FS_BPIO_OPERATIONS extends Win32Enum{
+class FS_BPIO_OPERATIONS extends Win32Enum {
 
     /**
      * @type {Integer (Int32)}

@@ -7,9 +7,8 @@
  * Represents a single user quota entry in the volume quota information file.
  * @see https://learn.microsoft.com/windows/win32/api/dskquota/nn-dskquota-idiskquotauser
  * @namespace Windows.Win32.Storage.FileSystem
- * @version v4.0.30319
  */
-class IDiskQuotaUser extends IUnknown{
+class IDiskQuotaUser extends IUnknown {
 
     static sizeof => A_PtrSize
     /**

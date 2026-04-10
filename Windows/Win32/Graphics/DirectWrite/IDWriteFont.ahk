@@ -1,18 +1,17 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
+#Include ..\..\System\Com\IUnknown.ahk
 #Include .\IDWriteFontFamily.ahk
 #Include .\IDWriteLocalizedStrings.ahk
 #Include .\IDWriteFontFace.ahk
-#Include ..\..\System\Com\IUnknown.ahk
 
 /**
  * Represents a physical font in a font collection. This interface is used to create font faces from physical fonts, or to retrieve information such as font face metrics or face names from existing font faces.
  * @see https://learn.microsoft.com/windows/win32/api/dwrite/nn-dwrite-idwritefont
  * @namespace Windows.Win32.Graphics.DirectWrite
- * @version v4.0.30319
  */
-class IDWriteFont extends IUnknown{
+class IDWriteFont extends IUnknown {
 
     static sizeof => A_PtrSize
     /**
@@ -35,7 +34,9 @@ class IDWriteFont extends IUnknown{
 
     /**
      * Gets the font family to which the specified font belongs.
-     * @returns {IDWriteFontFamily} 
+     * @returns {IDWriteFontFamily} Type: <b><a href="https://docs.microsoft.com/windows/win32/api/dwrite/nn-dwrite-idwritefontfamily">IDWriteFontFamily</a>**</b>
+     * 
+     * When this method returns, contains an address of a pointer to the font family object to which the specified font belongs.
      * @see https://learn.microsoft.com/windows/win32/api/dwrite/nf-dwrite-idwritefont-getfontfamily
      */
     GetFontFamily() {
@@ -45,7 +46,7 @@ class IDWriteFont extends IUnknown{
 
     /**
      * Gets the weight, or stroke thickness, of the specified font.
-     * @returns {Integer} Type: <b><a href="https://docs.microsoft.com/windows/win32/api/dwrite/ne-dwrite-dwrite_font_weight">DWRITE_FONT_WEIGHT</a></b>
+     * @returns {DWRITE_FONT_WEIGHT} Type: <b><a href="https://docs.microsoft.com/windows/win32/api/dwrite/ne-dwrite-dwrite_font_weight">DWRITE_FONT_WEIGHT</a></b>
      * 
      * A value that indicates the weight for the specified font.
      * @see https://learn.microsoft.com/windows/win32/api/dwrite/nf-dwrite-idwritefont-getweight
@@ -57,7 +58,7 @@ class IDWriteFont extends IUnknown{
 
     /**
      * Gets the stretch, or width, of the specified font.
-     * @returns {Integer} Type: <b><a href="https://docs.microsoft.com/windows/win32/api/dwrite/ne-dwrite-dwrite_font_stretch">DWRITE_FONT_STRETCH</a></b>
+     * @returns {DWRITE_FONT_STRETCH} Type: <b><a href="https://docs.microsoft.com/windows/win32/api/dwrite/ne-dwrite-dwrite_font_stretch">DWRITE_FONT_STRETCH</a></b>
      * 
      * A value that indicates the type of stretch, or width, applied to the specified font.
      * @see https://learn.microsoft.com/windows/win32/api/dwrite/nf-dwrite-idwritefont-getstretch
@@ -69,7 +70,7 @@ class IDWriteFont extends IUnknown{
 
     /**
      * Gets the style, or slope, of the specified font.
-     * @returns {Integer} Type: <b><a href="https://docs.microsoft.com/windows/win32/api/dwrite/ne-dwrite-dwrite_font_style">DWRITE_FONT_STYLE</a></b>
+     * @returns {DWRITE_FONT_STYLE} Type: <b><a href="https://docs.microsoft.com/windows/win32/api/dwrite/ne-dwrite-dwrite_font_style">DWRITE_FONT_STYLE</a></b>
      * 
      * A value that indicates the type of style, or slope, of the specified font.
      * @see https://learn.microsoft.com/windows/win32/api/dwrite/nf-dwrite-idwritefont-getstyle
@@ -108,7 +109,7 @@ class IDWriteFont extends IUnknown{
      * @remarks
      * If the font does not contain the string specified by <i>informationalStringID</i>, the return value is <b>S_OK</b> but 
      *      <i>informationalStrings</i> receives a <b>NULL</b> pointer and <i>exists</i> receives the value <b>FALSE</b>.
-     * @param {Integer} informationalStringID Type: <b><a href="https://docs.microsoft.com/windows/win32/api/dwrite/ne-dwrite-dwrite_informational_string_id">DWRITE_INFORMATIONAL_STRING_ID</a></b>
+     * @param {DWRITE_INFORMATIONAL_STRING_ID} informationalStringID Type: <b><a href="https://docs.microsoft.com/windows/win32/api/dwrite/ne-dwrite-dwrite_informational_string_id">DWRITE_INFORMATIONAL_STRING_ID</a></b>
      * 
      * A value that identifies the  informational string to get. For example, <a href="https://docs.microsoft.com/windows/win32/api/dwrite/ne-dwrite-dwrite_informational_string_id">DWRITE_INFORMATIONAL_STRING_DESCRIPTION</a> specifies a string that contains a description of the font.
      * @param {Pointer<IDWriteLocalizedStrings>} informationalStrings Type: <b><a href="https://docs.microsoft.com/windows/win32/api/dwrite/nn-dwrite-idwritelocalizedstrings">IDWriteLocalizedStrings</a>**</b>
@@ -131,7 +132,7 @@ class IDWriteFont extends IUnknown{
 
     /**
      * Gets a value that indicates what simulations are applied to the specified font.
-     * @returns {Integer} Type: <b><a href="https://docs.microsoft.com/windows/win32/api/dwrite/ne-dwrite-dwrite_font_simulations">DWRITE_FONT_SIMULATIONS</a></b>
+     * @returns {DWRITE_FONT_SIMULATIONS} Type: <b><a href="https://docs.microsoft.com/windows/win32/api/dwrite/ne-dwrite-dwrite_font_simulations">DWRITE_FONT_SIMULATIONS</a></b>
      * 
      *  A value that indicates one or more of the  types of simulations (none, bold, or oblique)  applied to the specified font.
      * @see https://learn.microsoft.com/windows/win32/api/dwrite/nf-dwrite-idwritefont-getsimulations

@@ -3,10 +3,8 @@
 
 /**
  * @namespace Windows.Win32.System.ClrHosting
- * @version v4.0.30319
  */
-class BucketParameters extends Win32Struct
-{
+class BucketParameters extends Win32Struct {
     static sizeof => 5616
 
     static packingSize => 4

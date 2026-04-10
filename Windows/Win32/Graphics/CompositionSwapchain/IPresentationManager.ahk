@@ -1,21 +1,18 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
+#Include ..\..\System\Com\IUnknown.ahk
 #Include .\IPresentationBuffer.ahk
 #Include .\IPresentationSurface.ahk
 #Include ..\..\Foundation\HANDLE.ahk
 #Include .\IPresentStatistics.ahk
-#Include ..\..\System\Com\IUnknown.ahk
 
 /**
  * Defines methods for managing presentation.
- * @remarks
- * 
  * @see https://learn.microsoft.com/windows/win32/api/presentation/nn-presentation-ipresentationmanager
  * @namespace Windows.Win32.Graphics.CompositionSwapchain
- * @version v4.0.30319
  */
-class IPresentationManager extends IUnknown{
+class IPresentationManager extends IUnknown {
 
     static sizeof => A_PtrSize
     /**
@@ -225,7 +222,9 @@ class IPresentationManager extends IUnknown{
      * Enables or disables the specified present statistics kind.
      * @remarks
      * The requested change takes place as soon as possible, however effects can be delayed. We suggest that you register all desired present statistics before you issue presents, and not change during use. This is also how statistics can be extended and changed in the future without breaking backwards compatibility.
-     * @param {Integer} _presentStatisticsKind 
+     * @param {PresentStatisticsKind} _presentStatisticsKind Type: **[PresentStatisticsKind](../presentationtypes/ne-presentationtypes-presentstatisticskind.md)**
+     * 
+     * The present statistics kind to enable or disable.
      * @param {Integer} enabled Type: **[BOOLEAN](/windows/win32/winprog/windows-data-types)**
      * 
      * `TRUE` to enable the present statistics kind; otherwise, `FALSE`.

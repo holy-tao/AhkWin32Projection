@@ -1,17 +1,16 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
+#Include ..\..\System\Com\IUnknown.ahk
 #Include .\IMultiMediaStream.ahk
 #Include .\IStreamSample.ahk
-#Include ..\..\System\Com\IUnknown.ahk
 
 /**
  * Note  This interface is deprecated.
  * @see https://learn.microsoft.com/windows/win32/api/mmstream/nn-mmstream-imediastream
  * @namespace Windows.Win32.Media.DirectShow
- * @version v4.0.30319
  */
-class IMediaStream extends IUnknown{
+class IMediaStream extends IUnknown {
 
     static sizeof => A_PtrSize
     /**
@@ -49,7 +48,7 @@ class IMediaStream extends IUnknown{
      * @remarks
      * The value retrieved in the <i>pPurposeId</i> parameter will usually be either MSPID_PrimaryVideo, which identifies the primary video stream, or MSPID_PrimaryAudio, which identifies the primary audio stream; however, you can define other values if necessary.
      * @param {Pointer<Guid>} pPurposeId Pointer to an <b>MSPID</b> value that will contain the stream's purpose ID (see <a href="https://docs.microsoft.com/windows/desktop/DirectShow/multimedia-streaming-data-types">Multimedia Streaming Data Types</a>). If this parameter is <b>NULL</b> on entry, the method won't retrieve the purpose ID.
-     * @param {Pointer<Integer>} pType Pointer to a <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/mmstream/ne-mmstream-stream_type">STREAM_TYPE</a> enumerated data type value that will contain the stream's media type. If this parameter is <b>NULL</b> on entry, the method won't retrieve the media type.
+     * @param {Pointer<STREAM_TYPE>} pType Pointer to a <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/mmstream/ne-mmstream-stream_type">STREAM_TYPE</a> enumerated data type value that will contain the stream's media type. If this parameter is <b>NULL</b> on entry, the method won't retrieve the media type.
      * @returns {HRESULT} Returns S_OK if successful or E_POINTER if one of the parameters is invalid.
      * @see https://learn.microsoft.com/windows/win32/api/mmstream/nf-mmstream-imediastream-getinformation
      */

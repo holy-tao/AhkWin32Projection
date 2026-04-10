@@ -11,13 +11,11 @@
  * <b>LINEFORWARDLIST</b> structure defines the forwarding parameters requested for forwarding calls on an address or on all addresses on a line.
  * @see https://learn.microsoft.com/windows/win32/api/tapi/ns-tapi-lineforwardlist
  * @namespace Windows.Win32.Devices.Tapi
- * @version v4.0.30319
  */
-class LINEFORWARDLIST extends Win32Struct
-{
-    static sizeof => 16
+class LINEFORWARDLIST extends Win32Struct {
+    static sizeof => 32
 
-    static packingSize => 8
+    static packingSize => 4
 
     /**
      * Total size of the data structure, in bytes.
@@ -40,9 +38,9 @@ class LINEFORWARDLIST extends Win32Struct
     /**
      * Array of forwarding instruction. The array's entries are of type 
      * <a href="https://docs.microsoft.com/windows/desktop/api/tapi/ns-tapi-lineforward">LINEFORWARD</a>.
-     * @type {Array<LINEFORWARD>}
+     * @type {LINEFORWARD}
      */
-    ForwardList{
+    ForwardList {
         get {
             if(!this.HasProp("__ForwardListProxyArray"))
                 this.__ForwardListProxyArray := Win32FixedArray(this.ptr + 8, 1, LINEFORWARD, "")

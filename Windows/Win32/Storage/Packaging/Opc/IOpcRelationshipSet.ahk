@@ -1,10 +1,10 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\..\Guid.ahk
+#Include ..\..\..\System\Com\IUnknown.ahk
 #Include .\IOpcRelationship.ahk
 #Include .\IOpcRelationshipEnumerator.ahk
 #Include ..\..\..\System\Com\IStream.ahk
-#Include ..\..\..\System\Com\IUnknown.ahk
 
 /**
  * Represents a Relationships part as an unordered set of IOpcRelationship interface pointers to relationship objects.
@@ -22,9 +22,8 @@
  * The <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/msopc/nn-msopc-iopcrelationship">IOpcRelationship</a> interface provides access to relationship properties. For details about these properties, see the <a href="https://docs.microsoft.com/previous-versions/windows/desktop/opc/relationships-overview">Relationships Overview</a> and <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/msopc/nn-msopc-iopcrelationship">IOpcRelationship</a>.
  * @see https://learn.microsoft.com/windows/win32/api/msopc/nn-msopc-iopcrelationshipset
  * @namespace Windows.Win32.Storage.Packaging.Opc
- * @version v4.0.30319
  */
-class IOpcRelationshipSet extends IUnknown{
+class IOpcRelationshipSet extends IUnknown {
 
     static sizeof => A_PtrSize
     /**
@@ -77,7 +76,7 @@ class IOpcRelationshipSet extends IUnknown{
      * If the value in <i>targetMode</i> is <b>OPC_URI_TARGET_MODE_EXTERNAL</b>, target is a resource outside of the package and the URI may be absolute or relative to the location of the package.
      * 
      * For more information about the URI of a relationship's target, see the <i>OPC</i>.
-     * @param {Integer} targetMode A value that indicates whether the target of the relationship to be represented as the relationship object is internal or external to  the package.
+     * @param {OPC_URI_TARGET_MODE} targetMode A value that indicates whether the target of the relationship to be represented as the relationship object is internal or external to  the package.
      * @returns {IOpcRelationship} A pointer to the <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/msopc/nn-msopc-iopcrelationship">IOpcRelationship</a> interface  of the relationship object that represents the relationship. 
      * 
      * This parameter can be <b>NULL</b> if a pointer to the  new object is not needed.

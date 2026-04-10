@@ -3,10 +3,8 @@
 
 /**
  * @namespace Windows.Win32.Graphics.GdiPlus
- * @version v4.0.30319
  */
-class ColorBalanceParams extends Win32Struct
-{
+class ColorBalanceParams extends Win32Struct {
     static sizeof => 12
 
     static packingSize => 4

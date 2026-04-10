@@ -1,5 +1,6 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
+#Include .\SoHAttribute.ahk
 
 /**
  * Contains the Statement of Health (SoH) data.
@@ -13,10 +14,8 @@
  * A <b>SoHResponse</b> packet can have at most one <b>sohAttributeTypeIpv4FixupServers</b> or <b>sohAttributeTypeIpv6FixupServers</b> TLV.
  * @see https://learn.microsoft.com/windows/win32/api/naptypes/ns-naptypes-soh
  * @namespace Windows.Win32.Security.NetworkAccessProtection
- * @version v4.0.30319
  */
-class SoH extends Win32Struct
-{
+class SoH extends Win32Struct {
     static sizeof => 16
 
     static packingSize => 8

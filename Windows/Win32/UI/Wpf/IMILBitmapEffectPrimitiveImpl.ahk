@@ -7,9 +7,8 @@
  * Exposes methods that report the state of a bitmap effect. This interface must be implemented to create third party Windows Presentation Foundation (WPF) bitmap effects.
  * @see https://learn.microsoft.com/windows/win32/api/mileffects/nn-mileffects-imilbitmapeffectprimitiveimpl
  * @namespace Windows.Win32.UI.Wpf
- * @version v4.0.30319
  */
-class IMILBitmapEffectPrimitiveImpl extends IUnknown{
+class IMILBitmapEffectPrimitiveImpl extends IUnknown {
 
     static sizeof => A_PtrSize
     /**

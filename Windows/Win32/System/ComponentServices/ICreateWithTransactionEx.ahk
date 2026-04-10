@@ -7,9 +7,8 @@
  * Creates an object that is enlisted within a manual transaction.
  * @see https://learn.microsoft.com/windows/win32/api/comsvcs/nn-comsvcs-icreatewithtransactionex
  * @namespace Windows.Win32.System.ComponentServices
- * @version v4.0.30319
  */
-class ICreateWithTransactionEx extends IUnknown{
+class ICreateWithTransactionEx extends IUnknown {
 
     static sizeof => A_PtrSize
     /**

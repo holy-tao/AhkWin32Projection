@@ -5,9 +5,8 @@
 
 /**
  * @namespace Windows.Win32.Web.MsHtml
- * @version v4.0.30319
  */
-class DispHTMLCSSMediaList extends IDispatch{
+class DispHTMLCSSMediaList extends IDispatch {
 
     static sizeof => A_PtrSize
     /**

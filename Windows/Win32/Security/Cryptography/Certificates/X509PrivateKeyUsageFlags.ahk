@@ -5,9 +5,8 @@
  * Specifies the permitted uses of a private key.
  * @see https://learn.microsoft.com/windows/win32/api/certenroll/ne-certenroll-x509privatekeyusageflags
  * @namespace Windows.Win32.Security.Cryptography.Certificates
- * @version v4.0.30319
  */
-class X509PrivateKeyUsageFlags extends Win32Enum{
+class X509PrivateKeyUsageFlags extends Win32Enum {
 
     /**
      * The permitted uses are not defined.
@@ -47,7 +46,6 @@ class X509PrivateKeyUsageFlags extends Win32Enum{
     static XCN_NCRYPT_ALLOW_KEY_AGREEMENT_FLAG => 4
 
     /**
-     * 
      * @type {Integer (Int32)}
      */
     static XCN_NCRYPT_ALLOW_KEY_IMPORT_FLAG => 8

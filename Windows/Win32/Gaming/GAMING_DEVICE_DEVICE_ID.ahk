@@ -7,9 +7,8 @@
  * This is a Win32 API that's supported in both Win32 and UWP apps. While it works on any device family, it's only really of value on Xbox devices.
  * @see https://learn.microsoft.com/windows/win32/api/gamingdeviceinformation/ne-gamingdeviceinformation-gaming_device_device_id
  * @namespace Windows.Win32.Gaming
- * @version v4.0.30319
  */
-class GAMING_DEVICE_DEVICE_ID extends Win32Enum{
+class GAMING_DEVICE_DEVICE_ID extends Win32Enum {
 
     /**
      * The device is not in the Xbox family.

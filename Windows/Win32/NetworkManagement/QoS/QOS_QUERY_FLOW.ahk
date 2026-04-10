@@ -5,9 +5,8 @@
  * The QOS_QUERY_FLOW enumeration indicates the type of information a QOSQueryFlow function will request.
  * @see https://learn.microsoft.com/windows/win32/api/qos2/ne-qos2-qos_query_flow
  * @namespace Windows.Win32.NetworkManagement.QoS
- * @version v4.0.30319
  */
-class QOS_QUERY_FLOW extends Win32Enum{
+class QOS_QUERY_FLOW extends Win32Enum {
 
     /**
      * Indicates an information request for the flow fundamentals. This information includes bottleneck bandwidth, available bandwidth, and the average Round Trip Time (RTT)

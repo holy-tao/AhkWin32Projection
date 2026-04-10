@@ -1,9 +1,9 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
+#Include ..\Com\IUnknown.ahk
 #Include .\IEnumSearchRoots.ahk
 #Include .\IEnumSearchScopeRules.ahk
-#Include ..\Com\IUnknown.ahk
 
 /**
  * Provides methods that notify the search engine of containers to crawl and/or watch, and items under those containers to include or exclude when crawling or watching.
@@ -11,9 +11,8 @@
  * For a sample that demonstrates how to define command line options for Crawl Scope Manager (CSM) indexing operations, see the [CrawlScopeCommandLine](https://github.com/microsoft/Windows-classic-samples/tree/master/Samples/Win7Samples/winui/WindowsSearch/CrawlScopeCommandLine) sample.
  * @see https://learn.microsoft.com/windows/win32/api/searchapi/nn-searchapi-isearchcrawlscopemanager
  * @namespace Windows.Win32.System.Search
- * @version v4.0.30319
  */
-class ISearchCrawlScopeManager extends IUnknown{
+class ISearchCrawlScopeManager extends IUnknown {
 
     static sizeof => A_PtrSize
     /**
@@ -289,7 +288,7 @@ class ISearchCrawlScopeManager extends IUnknown{
      * @param {Pointer<BOOL>} pfIsIncluded Type: <b>BOOL*</b>
      * 
      * A pointer to a <b>BOOL</b> value: <b>TRUE</b> if <i>pszURL</i> is included in the crawl scope; otherwise, <b>FALSE</b>.
-     * @param {Pointer<Integer>} pReason Type: <b><a href="https://docs.microsoft.com/windows/win32/api/searchapi/ne-searchapi-clusion_reason">CLUSION_REASON</a>*</b>
+     * @param {Pointer<CLUSION_REASON>} pReason Type: <b><a href="https://docs.microsoft.com/windows/win32/api/searchapi/ne-searchapi-clusion_reason">CLUSION_REASON</a>*</b>
      * 
      * Retrieves a pointer to a value from the <a href="https://docs.microsoft.com/windows/win32/api/searchapi/ne-searchapi-clusion_reason">CLUSION_REASON</a> enumeration that indicates the reason that the specified URL was included in or excluded from the crawl scope.
      * @returns {HRESULT} Type: <b>HRESULT</b>

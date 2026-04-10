@@ -1,27 +1,26 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
 #Include .\EMR.ahk
+#Include .\ENHANCED_METAFILE_RECORD_TYPE.ahk
 #Include ..\..\Foundation\RECTL.ahk
-#Include ..\..\Foundation\POINTL.ahk
 #Include .\EMRTEXT.ahk
+#Include ..\..\Foundation\POINTL.ahk
 
 /**
  * The EMRPOLYTEXTOUTA and EMRPOLYTEXTOUTW structures contain members for the PolyTextOut enhanced metafile record.
  * @see https://learn.microsoft.com/windows/win32/api/wingdi/ns-wingdi-emrpolytextouta
  * @namespace Windows.Win32.Graphics.Gdi
- * @version v4.0.30319
  */
-class EMRPOLYTEXTOUTA extends Win32Struct
-{
-    static sizeof => 48
+class EMRPOLYTEXTOUTA extends Win32Struct {
+    static sizeof => 80
 
-    static packingSize => 8
+    static packingSize => 4
 
     /**
      * Base structure for all record types.
      * @type {EMR}
      */
-    emr{
+    emr {
         get {
             if(!this.HasProp("__emr"))
                 this.__emr := EMR(0, this)
@@ -33,7 +32,7 @@ class EMRPOLYTEXTOUTA extends Win32Struct
      * Bounding rectangle, in device units.
      * @type {RECTL}
      */
-    rclBounds{
+    rclBounds {
         get {
             if(!this.HasProp("__rclBounds"))
                 this.__rclBounds := RECTL(8, this)
@@ -79,9 +78,9 @@ class EMRPOLYTEXTOUTA extends Win32Struct
 
     /**
      * <b>EMRTEXT</b> structure, which is followed by the string and the intercharacter spacing array.
-     * @type {Array<EMRTEXT>}
+     * @type {EMRTEXT}
      */
-    aemrtext{
+    aemrtext {
         get {
             if(!this.HasProp("__aemrtextProxyArray"))
                 this.__aemrtextProxyArray := Win32FixedArray(this.ptr + 40, 1, EMRTEXT, "")

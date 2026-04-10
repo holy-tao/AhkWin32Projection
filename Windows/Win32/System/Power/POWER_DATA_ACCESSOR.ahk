@@ -5,9 +5,8 @@
  * Enumeration values used by PowerEnumerate and PowerSettingAccessCheck.
  * @see https://learn.microsoft.com/windows/win32/api/powrprof/ne-powrprof-power_data_accessor
  * @namespace Windows.Win32.System.Power
- * @version v4.0.30319
  */
-class POWER_DATA_ACCESSOR extends Win32Enum{
+class POWER_DATA_ACCESSOR extends Win32Enum {
 
     /**
      * Used with <a href="https://docs.microsoft.com/windows/desktop/api/powrprof/nf-powrprof-powersettingaccesscheck">PowerSettingAccessCheck</a> to 
@@ -24,85 +23,71 @@ class POWER_DATA_ACCESSOR extends Win32Enum{
     static ACCESS_DC_POWER_SETTING_INDEX => 1
 
     /**
-     * 
      * @type {Integer (Int32)}
      */
     static ACCESS_FRIENDLY_NAME => 2
 
     /**
-     * 
      * @type {Integer (Int32)}
      */
     static ACCESS_DESCRIPTION => 3
 
     /**
-     * 
      * @type {Integer (Int32)}
      */
     static ACCESS_POSSIBLE_POWER_SETTING => 4
 
     /**
-     * 
      * @type {Integer (Int32)}
      */
     static ACCESS_POSSIBLE_POWER_SETTING_FRIENDLY_NAME => 5
 
     /**
-     * 
      * @type {Integer (Int32)}
      */
     static ACCESS_POSSIBLE_POWER_SETTING_DESCRIPTION => 6
 
     /**
-     * 
      * @type {Integer (Int32)}
      */
     static ACCESS_DEFAULT_AC_POWER_SETTING => 7
 
     /**
-     * 
      * @type {Integer (Int32)}
      */
     static ACCESS_DEFAULT_DC_POWER_SETTING => 8
 
     /**
-     * 
      * @type {Integer (Int32)}
      */
     static ACCESS_POSSIBLE_VALUE_MIN => 9
 
     /**
-     * 
      * @type {Integer (Int32)}
      */
     static ACCESS_POSSIBLE_VALUE_MAX => 10
 
     /**
-     * 
      * @type {Integer (Int32)}
      */
     static ACCESS_POSSIBLE_VALUE_INCREMENT => 11
 
     /**
-     * 
      * @type {Integer (Int32)}
      */
     static ACCESS_POSSIBLE_VALUE_UNITS => 12
 
     /**
-     * 
      * @type {Integer (Int32)}
      */
     static ACCESS_ICON_RESOURCE => 13
 
     /**
-     * 
      * @type {Integer (Int32)}
      */
     static ACCESS_DEFAULT_SECURITY_DESCRIPTOR => 14
 
     /**
-     * 
      * @type {Integer (Int32)}
      */
     static ACCESS_ATTRIBUTES => 15
@@ -145,37 +130,31 @@ class POWER_DATA_ACCESSOR extends Win32Enum{
     static ACCESS_CREATE_SCHEME => 20
 
     /**
-     * 
      * @type {Integer (Int32)}
      */
     static ACCESS_AC_POWER_SETTING_MAX => 21
 
     /**
-     * 
      * @type {Integer (Int32)}
      */
     static ACCESS_DC_POWER_SETTING_MAX => 22
 
     /**
-     * 
      * @type {Integer (Int32)}
      */
     static ACCESS_AC_POWER_SETTING_MIN => 23
 
     /**
-     * 
      * @type {Integer (Int32)}
      */
     static ACCESS_DC_POWER_SETTING_MIN => 24
 
     /**
-     * 
      * @type {Integer (Int32)}
      */
     static ACCESS_PROFILE => 25
 
     /**
-     * 
      * @type {Integer (Int32)}
      */
     static ACCESS_OVERLAY_SCHEME => 26
@@ -186,7 +165,6 @@ class POWER_DATA_ACCESSOR extends Win32Enum{
     static ACCESS_POWER_MODE => 26
 
     /**
-     * 
      * @type {Integer (Int32)}
      */
     static ACCESS_ACTIVE_OVERLAY_SCHEME => 27

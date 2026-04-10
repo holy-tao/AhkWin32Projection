@@ -3,10 +3,8 @@
 
 /**
  * @namespace Windows.Win32.Media.DirectShow.Tv
- * @version v4.0.30319
  */
-class SpanningEventEmmMessage extends Win32Struct
-{
+class SpanningEventEmmMessage extends Win32Struct {
     static sizeof => 18
 
     static packingSize => 2

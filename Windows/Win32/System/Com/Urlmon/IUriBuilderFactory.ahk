@@ -1,14 +1,13 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\..\Guid.ahk
-#Include ..\IUriBuilder.ahk
 #Include ..\IUnknown.ahk
+#Include ..\IUriBuilder.ahk
 
 /**
  * @namespace Windows.Win32.System.Com.Urlmon
- * @version v4.0.30319
  */
-class IUriBuilderFactory extends IUnknown{
+class IUriBuilderFactory extends IUnknown {
 
     static sizeof => A_PtrSize
     /**

@@ -9,9 +9,8 @@
  * To declare the interface identifier (IID) for this interface, use the <b>__uuidof</b> operator: <c>__uuidof(IMSVidInputDeviceEvent)</c>.
  * @see https://learn.microsoft.com/windows/win32/api/segment/nn-segment-imsvidinputdeviceevent
  * @namespace Windows.Win32.Media.DirectShow.Tv
- * @version v4.0.30319
  */
-class IMSVidInputDeviceEvent extends IDispatch{
+class IMSVidInputDeviceEvent extends IDispatch {
 
     static sizeof => A_PtrSize
     /**

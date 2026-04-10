@@ -5,9 +5,8 @@
 
 /**
  * @namespace Windows.Win32.Web.InternetExplorer
- * @version v4.0.30319
  */
-class IOpenServiceActivityOutputContext extends IUnknown{
+class IOpenServiceActivityOutputContext extends IUnknown {
 
     static sizeof => A_PtrSize
     /**

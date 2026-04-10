@@ -1,16 +1,15 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
-#Include ..\..\Foundation\BSTR.ahk
 #Include ..\..\System\Com\IDispatch.ahk
+#Include ..\..\Foundation\BSTR.ahk
 
 /**
  * The IVideoWindow interface sets properties on the video window.
  * @see https://learn.microsoft.com/windows/win32/api/control/nn-control-ivideowindow
  * @namespace Windows.Win32.Media.DirectShow
- * @version v4.0.30319
  */
-class IVideoWindow extends IDispatch{
+class IVideoWindow extends IDispatch {
 
     static sizeof => A_PtrSize
     /**
@@ -64,7 +63,7 @@ class IVideoWindow extends IDispatch{
     }
 
     /**
-     * @type {Integer} 
+     * @type {SHOW_WINDOW_CMD} 
      */
     WindowState {
         get => this.get_WindowState()
@@ -439,7 +438,7 @@ class IVideoWindow extends IDispatch{
 
     /**
      * The get_WindowState method queries whether the video window is visible, hidden, minimized, or maximized.
-     * @returns {Integer} Receives one of the following flags:
+     * @returns {SHOW_WINDOW_CMD} Receives one of the following flags:
      * 
      * <ul>
      * <li>SW_HIDE</li>
@@ -968,7 +967,7 @@ class IVideoWindow extends IDispatch{
 
     /**
      * The get_BorderColor method retrieves the color that appears around the edges of the destination rectangle.
-     * @returns {Integer} 
+     * @returns {Integer} Receives a <b>COLORREF</b> value.
      * @see https://learn.microsoft.com/windows/win32/api/control/nf-control-ivideowindow-get_bordercolor
      */
     get_BorderColor() {
@@ -980,7 +979,7 @@ class IVideoWindow extends IDispatch{
      * The put_BorderColor method sets the color that appears around the edges of the destination rectangle.
      * @remarks
      * If the destination rectangle is smaller than the client area of the video window, a border is exposed around the edges of the video. The default color is black. Use this method to override the default color. If a palette is in use, a nonsystem color is converted to its closest match.
-     * @param {Integer} _Color 
+     * @param {Integer} _Color The border color, specified as a <b>COLORREF</b> value.
      * @returns {HRESULT} Possible return values include the following:
      * 
      * <table>
@@ -1177,10 +1176,10 @@ class IVideoWindow extends IDispatch{
      * <li>WM_QUERYNEWPALETTE</li>
      * <li>WM_SYSCOLORCHANGE</li>
      * </ul>
-     * @param {Pointer} _hwnd 
+     * @param {Pointer} _hwnd A handle to the window, as an <a href="https://docs.microsoft.com/windows/desktop/DirectShow/oahwnd">OAHWND</a> value.
      * @param {Integer} uMsg Specifies the message.
-     * @param {Pointer} _wParam 
-     * @param {Pointer} _lParam 
+     * @param {Pointer} _wParam Message parameter.
+     * @param {Pointer} _lParam Message parameter.
      * @returns {HRESULT} Possible return values include the following:
      * 
      * <table>
@@ -1553,7 +1552,7 @@ class IVideoWindow extends IDispatch{
 
     /**
      * The HideCursor method shows or hides the cursor when the mouse is positioned over the video window.
-     * @param {Integer} HideCursor 
+     * @param {OA_BOOL} HideCursor 
      * @returns {HRESULT} Possible return values include the following:
      * 
      * <table>

@@ -10,9 +10,8 @@
  * This interface can be implemented by any thumbnail provider that supports <a href="https://docs.microsoft.com/windows/desktop/api/shobjidl_core/nn-shobjidl_core-iextractimage">IExtractImage</a> or <a href="https://docs.microsoft.com/windows/desktop/api/thumbcache/nn-thumbcache-ithumbnailprovider">IThumbnailProvider</a>.
  * @see https://learn.microsoft.com/windows/win32/api/thumbcache/nn-thumbcache-ithumbnailsettings
  * @namespace Windows.Win32.UI.Shell
- * @version v4.0.30319
  */
-class IThumbnailSettings extends IUnknown{
+class IThumbnailSettings extends IUnknown {
 
     static sizeof => A_PtrSize
     /**
@@ -35,7 +34,7 @@ class IThumbnailSettings extends IUnknown{
 
     /**
      * Enables a thumbnail provider to return a thumbnail specific to the user's context.
-     * @param {Integer} dwContext Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/thumbcache/ne-thumbcache-wts_contextflags">WTS_CONTEXTFLAGS</a></b>
+     * @param {WTS_CONTEXTFLAGS} dwContext Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/thumbcache/ne-thumbcache-wts_contextflags">WTS_CONTEXTFLAGS</a></b>
      * 
      * One or more flags that specify the context. This value is based on the <a href="https://docs.microsoft.com/windows/desktop/api/thumbcache/ne-thumbcache-wts_flags">WTS_FLAGS</a> values that are received by the thumbnail provider through the call to <a href="https://docs.microsoft.com/windows/desktop/api/thumbcache/nf-thumbcache-ithumbnailprovider-getthumbnail">IThumbnailProvider::GetThumbnail</a>.
      * @returns {HRESULT} Type: <b>HRESULT</b>

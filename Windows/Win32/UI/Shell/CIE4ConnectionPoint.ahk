@@ -5,9 +5,8 @@
 
 /**
  * @namespace Windows.Win32.UI.Shell
- * @version v4.0.30319
  */
-class CIE4ConnectionPoint extends IConnectionPoint{
+class CIE4ConnectionPoint extends IConnectionPoint {
 
     static sizeof => A_PtrSize
 

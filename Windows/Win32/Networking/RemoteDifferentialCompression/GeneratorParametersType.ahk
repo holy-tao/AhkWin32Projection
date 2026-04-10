@@ -5,9 +5,8 @@
  * Defines the set of supported generator parameters.
  * @see https://learn.microsoft.com/windows/win32/api/msrdc/ne-msrdc-generatorparameterstype
  * @namespace Windows.Win32.Networking.RemoteDifferentialCompression
- * @version v4.0.30319
  */
-class GeneratorParametersType extends Win32Enum{
+class GeneratorParametersType extends Win32Enum {
 
     /**
      * The generator parameters type is unknown.

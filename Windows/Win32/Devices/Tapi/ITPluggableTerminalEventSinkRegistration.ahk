@@ -7,9 +7,8 @@
  * The ITPluggableTerminalEventSinkRegistration (msp.h) interface registers and unregisters a client application for pluggable terminal events.
  * @see https://learn.microsoft.com/windows/win32/api/msp/nn-msp-itpluggableterminaleventsinkregistration
  * @namespace Windows.Win32.Devices.Tapi
- * @version v4.0.30319
  */
-class ITPluggableTerminalEventSinkRegistration extends IUnknown{
+class ITPluggableTerminalEventSinkRegistration extends IUnknown {
 
     static sizeof => A_PtrSize
     /**

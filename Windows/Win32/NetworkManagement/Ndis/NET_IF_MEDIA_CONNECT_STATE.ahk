@@ -13,9 +13,8 @@
  * ```
  * @see https://learn.microsoft.com/windows/win32/api/ifdef/ne-ifdef-net_if_media_connect_state
  * @namespace Windows.Win32.NetworkManagement.Ndis
- * @version v4.0.30319
  */
-class NET_IF_MEDIA_CONNECT_STATE extends Win32Enum{
+class NET_IF_MEDIA_CONNECT_STATE extends Win32Enum {
 
     /**
      * The connection state of the interface is unknown.

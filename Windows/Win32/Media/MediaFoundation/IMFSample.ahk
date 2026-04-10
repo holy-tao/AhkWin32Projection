@@ -1,8 +1,8 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
-#Include .\IMFMediaBuffer.ahk
 #Include .\IMFAttributes.ahk
+#Include .\IMFMediaBuffer.ahk
 
 /**
  * Represents a media sample, which is a container object for media data.
@@ -21,9 +21,8 @@
  * </ul>
  * @see https://learn.microsoft.com/windows/win32/api/mfobjects/nn-mfobjects-imfsample
  * @namespace Windows.Win32.Media.MediaFoundation
- * @version v4.0.30319
  */
-class IMFSample extends IMFAttributes{
+class IMFSample extends IMFAttributes {
 
     static sizeof => A_PtrSize
     /**

@@ -9,9 +9,8 @@
  * To implement this interface use class ID <b>CLSID_SearchFolderItemFactory</b>.
  * @see https://learn.microsoft.com/windows/win32/api/shobjidl_core/nn-shobjidl_core-isearchfolderitemfactory
  * @namespace Windows.Win32.UI.Shell
- * @version v4.0.30319
  */
-class ISearchFolderItemFactory extends IUnknown{
+class ISearchFolderItemFactory extends IUnknown {
 
     static sizeof => A_PtrSize
     /**
@@ -74,7 +73,7 @@ class ISearchFolderItemFactory extends IUnknown{
 
     /**
      * Sets folder logical view mode. The default settings are based on the FolderTypeID which is set by the ISearchFolderItemFactory::SetFolderTypeID method.
-     * @param {Integer} flvm Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/shobjidl_core/ne-shobjidl_core-folderlogicalviewmode">FOLDERLOGICALVIEWMODE</a></b>
+     * @param {FOLDERLOGICALVIEWMODE} flvm Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/shobjidl_core/ne-shobjidl_core-folderlogicalviewmode">FOLDERLOGICALVIEWMODE</a></b>
      * 
      * The <a href="https://docs.microsoft.com/windows/desktop/api/shobjidl_core/ne-shobjidl_core-folderlogicalviewmode">FOLDERLOGICALVIEWMODE</a> value.
      * @returns {HRESULT} Type: <b>HRESULT</b>

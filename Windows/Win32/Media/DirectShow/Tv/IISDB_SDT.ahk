@@ -7,9 +7,8 @@
  * Implements methods that get information from an Integrated Services Digital Broadcasting (ISDB) service description table (SDT). An SDT lists the names and other parameters of the services in an MPEG-2 transport stream.
  * @see https://learn.microsoft.com/windows/win32/api/dvbsiparser/nn-dvbsiparser-iisdb_sdt
  * @namespace Windows.Win32.Media.DirectShow.Tv
- * @version v4.0.30319
  */
-class IISDB_SDT extends IDVB_SDT{
+class IISDB_SDT extends IDVB_SDT {
 
     static sizeof => A_PtrSize
     /**

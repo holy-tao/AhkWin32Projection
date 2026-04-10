@@ -3,9 +3,8 @@
 
 /**
  * @namespace Windows.Win32.Web.MsHtml
- * @version v4.0.30319
  */
-class MARKUP_CONTEXT_TYPE extends Win32Enum{
+class MARKUP_CONTEXT_TYPE extends Win32Enum {
 
     /**
      * @type {Integer (Int32)}

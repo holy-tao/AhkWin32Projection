@@ -9,9 +9,8 @@
  * Because a rendering pass is not required, the interface derives from a transform node. This allows it to be inserted into a graph but does not allow an output buffer to be specified.
  * @see https://learn.microsoft.com/windows/win32/api/d2d1effectauthor/nn-d2d1effectauthor-id2d1offsettransform
  * @namespace Windows.Win32.Graphics.Direct2D
- * @version v4.0.30319
  */
-class ID2D1OffsetTransform extends ID2D1TransformNode{
+class ID2D1OffsetTransform extends ID2D1TransformNode {
 
     static sizeof => A_PtrSize
     /**

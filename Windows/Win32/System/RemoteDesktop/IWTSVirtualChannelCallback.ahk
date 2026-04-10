@@ -7,9 +7,8 @@
  * Receives notifications about channel state changes or data received.
  * @see https://learn.microsoft.com/windows/win32/api/tsvirtualchannels/nn-tsvirtualchannels-iwtsvirtualchannelcallback
  * @namespace Windows.Win32.System.RemoteDesktop
- * @version v4.0.30319
  */
-class IWTSVirtualChannelCallback extends IUnknown{
+class IWTSVirtualChannelCallback extends IUnknown {
 
     static sizeof => A_PtrSize
     /**

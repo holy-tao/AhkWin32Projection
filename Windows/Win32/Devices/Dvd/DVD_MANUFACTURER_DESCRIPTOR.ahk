@@ -3,18 +3,16 @@
 
 /**
  * @namespace Windows.Win32.Devices.Dvd
- * @version v4.0.30319
  */
-class DVD_MANUFACTURER_DESCRIPTOR extends Win32Struct
-{
+class DVD_MANUFACTURER_DESCRIPTOR extends Win32Struct {
     static sizeof => 2048
 
     static packingSize => 1
 
     /**
-     * @type {Array<Byte>}
+     * @type {Array<Integer>}
      */
-    ManufacturingInformation{
+    ManufacturingInformation {
         get {
             if(!this.HasProp("__ManufacturingInformationProxyArray"))
                 this.__ManufacturingInformationProxyArray := Win32FixedArray(this.ptr + 0, 2048, Primitive, "char")

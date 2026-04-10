@@ -1,6 +1,8 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\..\Win32Struct.ahk
+#Include ..\..\Cryptography\CERT_CONTEXT.ahk
 #Include ..\..\Cryptography\HCERTSTORE.ahk
+#Include .\TLS_PARAMETERS.ahk
 
 /**
  * Contains the data for an Schannel credential. (SCH_CREDENTIALS)
@@ -8,10 +10,8 @@
  * To use the SCH_CREDENTIALS structure, define SCHANNEL_USE_BLACKLISTS along with UNICODE_STRING and PUNICODE_STRING. Alternatively, include Ntdef.h, SubAuth.h or Winternl.h.
  * @see https://learn.microsoft.com/windows/win32/api/schannel/ns-schannel-sch_credentials
  * @namespace Windows.Win32.Security.Authentication.Identity
- * @version v4.0.30319
  */
-class SCH_CREDENTIALS extends Win32Struct
-{
+class SCH_CREDENTIALS extends Win32Struct {
     static sizeof => 72
 
     static packingSize => 8
@@ -89,7 +89,7 @@ class SCH_CREDENTIALS extends Win32Struct
      * *Optional.* Valid for server applications only. Handle to a certificate store that contains self-signed root certificates for certification authorities (CAs) trusted by the application. This member is used only by server-side applications that require client authentication.
      * @type {HCERTSTORE}
      */
-    hRootStore{
+    hRootStore {
         get {
             if(!this.HasProp("__hRootStore"))
                 this.__hRootStore := HCERTSTORE(24, this)
@@ -125,7 +125,6 @@ class SCH_CREDENTIALS extends Win32Struct
     }
 
     /**
-     * 
      * @type {Integer}
      */
     dwFlags {

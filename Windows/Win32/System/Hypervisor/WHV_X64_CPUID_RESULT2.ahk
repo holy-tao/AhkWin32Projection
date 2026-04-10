@@ -1,13 +1,12 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
+#Include .\WHV_X64_CPUID_RESULT2_FLAGS.ahk
 #Include .\WHV_CPUID_OUTPUT.ahk
 
 /**
  * @namespace Windows.Win32.System.Hypervisor
- * @version v4.0.30319
  */
-class WHV_X64_CPUID_RESULT2 extends Win32Struct
-{
+class WHV_X64_CPUID_RESULT2 extends Win32Struct {
     static sizeof => 48
 
     static packingSize => 4
@@ -37,7 +36,7 @@ class WHV_X64_CPUID_RESULT2 extends Win32Struct
     }
 
     /**
-     * @type {Integer}
+     * @type {WHV_X64_CPUID_RESULT2_FLAGS}
      */
     Flags {
         get => NumGet(this, 12, "int")
@@ -47,7 +46,7 @@ class WHV_X64_CPUID_RESULT2 extends Win32Struct
     /**
      * @type {WHV_CPUID_OUTPUT}
      */
-    Output{
+    Output {
         get {
             if(!this.HasProp("__Output"))
                 this.__Output := WHV_CPUID_OUTPUT(16, this)
@@ -58,7 +57,7 @@ class WHV_X64_CPUID_RESULT2 extends Win32Struct
     /**
      * @type {WHV_CPUID_OUTPUT}
      */
-    Mask{
+    Mask {
         get {
             if(!this.HasProp("__Mask"))
                 this.__Mask := WHV_CPUID_OUTPUT(32, this)

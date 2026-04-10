@@ -1,5 +1,8 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
+#Include .\D3D12_MESSAGE_CATEGORY.ahk
+#Include .\D3D12_MESSAGE_SEVERITY.ahk
+#Include .\D3D12_MESSAGE_ID.ahk
 
 /**
  * Allow or deny certain types of messages to pass through a filter. (D3D12_INFO_QUEUE_FILTER_DESC)
@@ -7,10 +10,8 @@
  * For use with an <a href="https://docs.microsoft.com/windows/desktop/api/d3d12sdklayers/nn-d3d12sdklayers-id3d12infoqueue">ID3D12InfoQueue</a> Interface.
  * @see https://learn.microsoft.com/windows/win32/api/d3d12sdklayers/ns-d3d12sdklayers-d3d12_info_queue_filter_desc
  * @namespace Windows.Win32.Graphics.Direct3D12
- * @version v4.0.30319
  */
-class D3D12_INFO_QUEUE_FILTER_DESC extends Win32Struct
-{
+class D3D12_INFO_QUEUE_FILTER_DESC extends Win32Struct {
     static sizeof => 48
 
     static packingSize => 8
@@ -26,7 +27,7 @@ class D3D12_INFO_QUEUE_FILTER_DESC extends Win32Struct
 
     /**
      * Array of message categories to allow or deny. Array must have at least <i>NumCategories</i> members (see <a href="https://docs.microsoft.com/windows/desktop/api/d3d12sdklayers/ne-d3d12sdklayers-d3d12_message_category">D3D12_MESSAGE_CATEGORY</a>).
-     * @type {Pointer<Integer>}
+     * @type {Pointer<D3D12_MESSAGE_CATEGORY>}
      */
     pCategoryList {
         get => NumGet(this, 8, "ptr")
@@ -44,7 +45,7 @@ class D3D12_INFO_QUEUE_FILTER_DESC extends Win32Struct
 
     /**
      * Array of message severity levels to allow or deny. Array must have at least <i>NumSeverities</i> members (see <a href="https://docs.microsoft.com/windows/desktop/api/d3d12sdklayers/ne-d3d12sdklayers-d3d12_message_severity">D3D12_MESSAGE_SEVERITY</a>).
-     * @type {Pointer<Integer>}
+     * @type {Pointer<D3D12_MESSAGE_SEVERITY>}
      */
     pSeverityList {
         get => NumGet(this, 24, "ptr")
@@ -62,7 +63,7 @@ class D3D12_INFO_QUEUE_FILTER_DESC extends Win32Struct
 
     /**
      * Array of message IDs to allow or deny. Array must have at least <i>NumIDs</i> members (see <a href="https://docs.microsoft.com/windows/desktop/api/d3d12sdklayers/ne-d3d12sdklayers-d3d12_message_id">D3D12_MESSAGE_ID</a>).
-     * @type {Pointer<Integer>}
+     * @type {Pointer<D3D12_MESSAGE_ID>}
      */
     pIDList {
         get => NumGet(this, 40, "ptr")

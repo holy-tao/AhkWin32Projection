@@ -1,16 +1,15 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
-#Include .\ISCPSession.ahk
 #Include .\ISCPSecureAuthenticate.ahk
+#Include .\ISCPSession.ahk
 
 /**
  * The ISCPSecureAuthenticate2 interface extends ISCPSecureAuthenticate by providing a way to get a session object.
  * @see https://learn.microsoft.com/windows/win32/api/mswmdm/nn-mswmdm-iscpsecureauthenticate2
  * @namespace Windows.Win32.Media.DeviceManager
- * @version v4.0.30319
  */
-class ISCPSecureAuthenticate2 extends ISCPSecureAuthenticate{
+class ISCPSecureAuthenticate2 extends ISCPSecureAuthenticate {
 
     static sizeof => A_PtrSize
     /**

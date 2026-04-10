@@ -1,13 +1,10 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
-#Include .\IO_INTERRUPT_MESSAGE_INFO_ENTRY.ahk
 
 /**
  * @namespace Windows.Wdk.System.SystemServices
- * @version v4.0.30319
  */
-class IO_INTERRUPT_MESSAGE_INFO extends Win32Struct
-{
+class IO_INTERRUPT_MESSAGE_INFO extends Win32Struct {
     static sizeof => 16
 
     static packingSize => 8
@@ -29,9 +26,9 @@ class IO_INTERRUPT_MESSAGE_INFO extends Win32Struct
     }
 
     /**
-     * @type {Array<IO_INTERRUPT_MESSAGE_INFO_ENTRY>}
+     * @type {Array<Pointer>}
      */
-    MessageInfo{
+    MessageInfo {
         get {
             if(!this.HasProp("__MessageInfoProxyArray"))
                 this.__MessageInfoProxyArray := Win32FixedArray(this.ptr + 8, 1, Primitive, "ptr")

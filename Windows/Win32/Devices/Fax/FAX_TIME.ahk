@@ -7,10 +7,8 @@
  * The <a href="https://docs.microsoft.com/windows/desktop/api/winfax/ns-winfax-fax_configurationa">FAX_CONFIGURATION</a> structure includes a <b>FAX_TIME</b> structure to describe the discount period that applies when a fax server is sending fax transmissions.
  * @see https://learn.microsoft.com/windows/win32/api/winfax/ns-winfax-fax_time
  * @namespace Windows.Win32.Devices.Fax
- * @version v4.0.30319
  */
-class FAX_TIME extends Win32Struct
-{
+class FAX_TIME extends Win32Struct {
     static sizeof => 4
 
     static packingSize => 2

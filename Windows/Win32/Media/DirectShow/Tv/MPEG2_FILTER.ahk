@@ -7,10 +7,8 @@
  * The MPEG2_FILTER structure specifies criteria for matching MPEG-2 section headers.
  * @see https://learn.microsoft.com/windows/win32/api/mpeg2structs/ns-mpeg2structs-mpeg2_filter
  * @namespace Windows.Win32.Media.DirectShow.Tv
- * @version v4.0.30319
  */
-class MPEG2_FILTER extends Win32Struct
-{
+class MPEG2_FILTER extends Win32Struct {
     static sizeof => 148
 
     static packingSize => 4
@@ -44,9 +42,9 @@ class MPEG2_FILTER extends Win32Struct
 
     /**
      * Specifies a 16-byte bit mask, which contains the bit values to match in the section header.
-     * @type {Array<Byte>}
+     * @type {Array<Integer>}
      */
-    Filter{
+    Filter {
         get {
             if(!this.HasProp("__FilterProxyArray"))
                 this.__FilterProxyArray := Win32FixedArray(this.ptr + 8, 16, Primitive, "char")
@@ -56,9 +54,9 @@ class MPEG2_FILTER extends Win32Struct
 
     /**
      * Specifies a 16-byte bit mask. Set any "don't care" bits equal to 1, and all other bits to 0. In other words, for each bit, if the value in <b>Mask</b> is 0, the corresponding bit in <b>Filter</b> will be matched against that bit in the section header. If the value in <b>Mask</b> is 1, that bit in the section header is ignored.
-     * @type {Array<Byte>}
+     * @type {Array<Integer>}
      */
-    Mask{
+    Mask {
         get {
             if(!this.HasProp("__MaskProxyArray"))
                 this.__MaskProxyArray := Win32FixedArray(this.ptr + 24, 16, Primitive, "char")
@@ -151,7 +149,7 @@ class MPEG2_FILTER extends Win32Struct
      * Specifies a <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/mpeg2structs/ns-mpeg2structs-dsmcc_filter_options">DSMCC_FILTER_OPTIONS</a> structure that contains additional filtering criteria for the DSM-CC portions of the section header.
      * @type {DSMCC_FILTER_OPTIONS}
      */
-    Dsmcc{
+    Dsmcc {
         get {
             if(!this.HasProp("__Dsmcc"))
                 this.__Dsmcc := DSMCC_FILTER_OPTIONS(76, this)
@@ -172,7 +170,7 @@ class MPEG2_FILTER extends Win32Struct
      * Specifies an <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/mpeg2structs/ns-mpeg2structs-atsc_filter_options">ATSC_FILTER_OPTIONS</a> structure that contains additional filtering criteria.
      * @type {ATSC_FILTER_OPTIONS}
      */
-    Atsc{
+    Atsc {
         get {
             if(!this.HasProp("__Atsc"))
                 this.__Atsc := ATSC_FILTER_OPTIONS(140, this)

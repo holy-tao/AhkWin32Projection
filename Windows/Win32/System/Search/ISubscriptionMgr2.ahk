@@ -1,15 +1,14 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
+#Include .\ISubscriptionMgr.ahk
 #Include .\ISubscriptionItem.ahk
 #Include .\IEnumSubscription.ahk
-#Include .\ISubscriptionMgr.ahk
 
 /**
  * @namespace Windows.Win32.System.Search
- * @version v4.0.30319
  */
-class ISubscriptionMgr2 extends ISubscriptionMgr{
+class ISubscriptionMgr2 extends ISubscriptionMgr {
 
     static sizeof => A_PtrSize
     /**

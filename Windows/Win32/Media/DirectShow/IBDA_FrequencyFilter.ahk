@@ -9,9 +9,8 @@
  * To declare the interface identifier (IID) for this interface, use the <b>__uuidof</b> operator: <c>__uuidof(IBDA_FrequencyFilter)</c>.
  * @see https://learn.microsoft.com/windows/win32/api/bdaiface/nn-bdaiface-ibda_frequencyfilter
  * @namespace Windows.Win32.Media.DirectShow
- * @version v4.0.30319
  */
-class IBDA_FrequencyFilter extends IUnknown{
+class IBDA_FrequencyFilter extends IUnknown {
 
     static sizeof => A_PtrSize
     /**
@@ -33,6 +32,7 @@ class IBDA_FrequencyFilter extends IUnknown{
     static VTableNames => ["put_Autotune", "get_Autotune", "put_Frequency", "get_Frequency", "put_Polarity", "get_Polarity", "put_Range", "get_Range", "put_Bandwidth", "get_Bandwidth", "put_FrequencyMultiplier", "get_FrequencyMultiplier"]
 
     /**
+     * @type {Integer} 
      */
     Autotune {
         get => this.get_Autotune()
@@ -40,6 +40,7 @@ class IBDA_FrequencyFilter extends IUnknown{
     }
 
     /**
+     * @type {Integer} 
      */
     Frequency {
         get => this.get_Frequency()
@@ -47,6 +48,7 @@ class IBDA_FrequencyFilter extends IUnknown{
     }
 
     /**
+     * @type {Polarisation} 
      */
     Polarity {
         get => this.get_Polarity()
@@ -54,6 +56,7 @@ class IBDA_FrequencyFilter extends IUnknown{
     }
 
     /**
+     * @type {Integer} 
      */
     Range {
         get => this.get_Range()
@@ -61,6 +64,7 @@ class IBDA_FrequencyFilter extends IUnknown{
     }
 
     /**
+     * @type {Integer} 
      */
     Bandwidth {
         get => this.get_Bandwidth()
@@ -68,6 +72,7 @@ class IBDA_FrequencyFilter extends IUnknown{
     }
 
     /**
+     * @type {Integer} 
      */
     FrequencyMultiplier {
         get => this.get_FrequencyMultiplier()
@@ -128,7 +133,7 @@ class IBDA_FrequencyFilter extends IUnknown{
 
     /**
      * The put_Polarity method specifies the polarity of the signal.
-     * @param {Integer} Polarity Specifies the polarity as a member of the <a href="https://docs.microsoft.com/previous-versions/windows/desktop/mstv/polarisation">Polarisation</a> enumerated type.
+     * @param {Polarisation} Polarity Specifies the polarity as a member of the <a href="https://docs.microsoft.com/previous-versions/windows/desktop/mstv/polarisation">Polarisation</a> enumerated type.
      * @returns {HRESULT} If the method succeeds, it returns S_OK. If it fails, it returns an error code.
      * @see https://learn.microsoft.com/windows/win32/api/bdaiface/nf-bdaiface-ibda_frequencyfilter-put_polarity
      */
@@ -139,7 +144,7 @@ class IBDA_FrequencyFilter extends IUnknown{
 
     /**
      * The get_Polarity method retrieves the polarity.
-     * @param {Pointer<Integer>} pPolarity Pointer that receives a <a href="https://docs.microsoft.com/previous-versions/windows/desktop/mstv/polarisation">Polarisation</a> variable.
+     * @param {Pointer<Polarisation>} pPolarity Pointer that receives a <a href="https://docs.microsoft.com/previous-versions/windows/desktop/mstv/polarisation">Polarisation</a> variable.
      * @returns {HRESULT} If the method succeeds, it returns S_OK. If it fails, it returns an error code.
      * @see https://learn.microsoft.com/windows/win32/api/bdaiface/nf-bdaiface-ibda_frequencyfilter-get_polarity
      */

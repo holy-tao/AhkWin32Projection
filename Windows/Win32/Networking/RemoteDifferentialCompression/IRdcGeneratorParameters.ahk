@@ -7,9 +7,8 @@
  * Is the generic interface for all types of generator parameters. All generator parameter objects must support this interface.
  * @see https://learn.microsoft.com/windows/win32/api/msrdc/nn-msrdc-irdcgeneratorparameters
  * @namespace Windows.Win32.Networking.RemoteDifferentialCompression
- * @version v4.0.30319
  */
-class IRdcGeneratorParameters extends IUnknown{
+class IRdcGeneratorParameters extends IUnknown {
 
     static sizeof => A_PtrSize
     /**
@@ -38,7 +37,7 @@ class IRdcGeneratorParameters extends IUnknown{
 
     /**
      * Returns the specific type of the parameters.
-     * @returns {Integer} The address of a <a href="https://docs.microsoft.com/windows/win32/api/msrdc/ne-msrdc-generatorparameterstype">GeneratorParametersType</a> that will receive the type of the parameters.
+     * @returns {GeneratorParametersType} The address of a <a href="https://docs.microsoft.com/windows/win32/api/msrdc/ne-msrdc-generatorparameterstype">GeneratorParametersType</a> that will receive the type of the parameters.
      * @see https://learn.microsoft.com/windows/win32/api/msrdc/nf-msrdc-irdcgeneratorparameters-getgeneratorparameterstype
      */
     GetGeneratorParametersType() {
@@ -66,7 +65,8 @@ class IRdcGeneratorParameters extends IUnknown{
 
     /**
      * Returns the size, in bytes, of the serialized parameter data.
-     * @returns {Integer} 
+     * @returns {Integer} Address of a <b>ULONG</b> that on successful completion is filled with the size, in 
+     *       bytes, of the serialized parameter data.
      * @see https://learn.microsoft.com/windows/win32/api/msrdc/nf-msrdc-irdcgeneratorparameters-getserializesize
      */
     GetSerializeSize() {
@@ -76,7 +76,7 @@ class IRdcGeneratorParameters extends IUnknown{
 
     /**
      * Serializes the parameter data into a block of memory.
-     * @param {Integer} _size 
+     * @param {Integer} _size The size of the buffer pointed to by the <i>parametersBlob</i> parameter.
      * @param {Pointer<Integer>} parametersBlob The address of a buffer to receive the serialized parameter data.
      * @param {Pointer<Integer>} bytesWritten Address of a <b>ULONG</b> that on successful completion is filled with the size, in 
      *       bytes, of the serialized parameter data written to the buffer pointed to by the 

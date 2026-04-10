@@ -3,10 +3,8 @@
 
 /**
  * @namespace Windows.Wdk.System.SystemServices
- * @version v4.0.30319
  */
-class POWER_SESSION_TIMEOUTS extends Win32Struct
-{
+class POWER_SESSION_TIMEOUTS extends Win32Struct {
     static sizeof => 8
 
     static packingSize => 4

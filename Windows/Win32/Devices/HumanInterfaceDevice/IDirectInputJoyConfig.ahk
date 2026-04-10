@@ -7,9 +7,8 @@
  * The IDirectInputJoyConfig8::OpenConfigKey method opens IDirectInputJoyConfig the registry key associated with a joystick configuration.
  * @see https://learn.microsoft.com/windows/win32/api/dinputd/nf-dinputd-idirectinputjoyconfig-openconfigkey
  * @namespace Windows.Win32.Devices.HumanInterfaceDevice
- * @version v4.0.30319
  */
-class IDirectInputJoyConfig extends IUnknown{
+class IDirectInputJoyConfig extends IUnknown {
 
     static sizeof => A_PtrSize
     /**

@@ -7,10 +7,8 @@
  * This structure is used as a member of the <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/wmsdkidl/ns-wmsdkidl-drm_play_opl">DRM_PLAY_OPL</a> structure.
  * @see https://learn.microsoft.com/windows/win32/api/wmsdkidl/ns-wmsdkidl-drm_minimum_output_protection_levels
  * @namespace Windows.Win32.Media.WindowsMediaFormat
- * @version v4.0.30319
  */
-class DRM_MINIMUM_OUTPUT_PROTECTION_LEVELS extends Win32Struct
-{
+class DRM_MINIMUM_OUTPUT_PROTECTION_LEVELS extends Win32Struct {
     static sizeof => 10
 
     static packingSize => 2

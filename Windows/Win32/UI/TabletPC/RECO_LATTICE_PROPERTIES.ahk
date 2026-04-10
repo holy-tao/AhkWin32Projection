@@ -1,5 +1,6 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
+#Include .\RECO_LATTICE_PROPERTY.ahk
 
 /**
  * Contains an array of pointers to property structures.
@@ -7,10 +8,8 @@
  * The <i>apProps</i> element contains an array of pointers to properties rather than the structures themselves so that property values can be reused with multiple elements with lower memory usage.
  * @see https://learn.microsoft.com/windows/win32/api/rectypes/ns-rectypes-reco_lattice_properties
  * @namespace Windows.Win32.UI.TabletPC
- * @version v4.0.30319
  */
-class RECO_LATTICE_PROPERTIES extends Win32Struct
-{
+class RECO_LATTICE_PROPERTIES extends Win32Struct {
     static sizeof => 16
 
     static packingSize => 8

@@ -1,10 +1,9 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
-#Include .\ITypeComp.ahk
-#Include .\ITypeInfo.ahk
-#Include ..\..\Foundation\BSTR.ahk
 #Include .\IUnknown.ahk
+#Include .\ITypeComp.ahk
+#Include ..\..\Foundation\BSTR.ahk
 
 /**
  * Used for reading information about objects. (ITypeInfo)
@@ -32,9 +31,8 @@
  * An instance of <b>ITypeInfo</b> provides various information about the type of an object, and is used in different ways. A compiler can use an <b>ITypeInfo</b> to compile references to members of the type. A type interface browser can use it to find information about each member of the type. An <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/oaidl/nn-oaidl-idispatch">IDispatch</a> implementer can use it to provide automatic delegation of <b>IDispatch</b> calls to an interface.
  * @see https://learn.microsoft.com/windows/win32/api/oaidl/nn-oaidl-itypeinfo
  * @namespace Windows.Win32.System.Com
- * @version v4.0.30319
  */
-class ITypeInfo extends IUnknown{
+class ITypeInfo extends IUnknown {
 
     static sizeof => A_PtrSize
     /**
@@ -196,7 +194,7 @@ class ITypeInfo extends IUnknown{
      * @remarks
      * The flags are associated with the act of inheritance, and not with the inherited interface.
      * @param {Integer} index The index of the implemented interface or base interface for which to get the flags.
-     * @returns {Integer} The IMPLTYPEFLAGS enumeration value.
+     * @returns {IMPLTYPEFLAGS} The IMPLTYPEFLAGS enumeration value.
      * @see https://learn.microsoft.com/windows/win32/api/oaidl/nf-oaidl-itypeinfo-getimpltypeflags
      */
     GetImplTypeFlags(index) {
@@ -242,7 +240,7 @@ class ITypeInfo extends IUnknown{
      * If the type description inherits from another type description, this function recurses on the base type description to find the item with the requested member ID.
      * @param {Pointer<Void>} pvInstance An instance of the interface described by this type description.
      * @param {Integer} memid The interface member.
-     * @param {Integer} wFlags Flags describing the context of the invoke call.
+     * @param {DISPATCH_FLAGS} wFlags Flags describing the context of the invoke call.
      * 
      * <table>
      * <tr>
@@ -436,7 +434,7 @@ class ITypeInfo extends IUnknown{
      * 
      * The caller should use <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/oleauto/nf-oleauto-sysfreestring">SysFreeString</a> to free the BSTRs referenced by <i>pBstrName</i> and <i>pBstrDllName</i>.
      * @param {Integer} memid The ID of the member function whose DLL entry description is to be returned.
-     * @param {Integer} invKind The kind of member identified by <i>memid</i>. This is important for properties, because one <i>memid</i> can identify up to three separate functions.
+     * @param {INVOKEKIND} invKind The kind of member identified by <i>memid</i>. This is important for properties, because one <i>memid</i> can identify up to three separate functions.
      * @param {Pointer<BSTR>} pBstrDllName If not null, the function sets <i>pBstrDllName</i> to the name of the DLL.
      * @param {Pointer<BSTR>} pBstrName If not null, the function sets <i>pBstrName</i> to the name of the entry point. If the entry point is specified by an ordinal, this argument is null.
      * @param {Pointer<Integer>} pwOrdinal If not null, and if the function is defined by an ordinal, the function sets <i>pwOrdinal</i> to the ordinal.
@@ -513,7 +511,7 @@ class ITypeInfo extends IUnknown{
      * 
      * If the type description inherits from another type description, this function is recursive to the base type description, if necessary, to find the item with the requested member ID.
      * @param {Integer} memid The member ID of the static member whose address is to be retrieved. The member ID is defined by the DISPID.
-     * @param {Integer} invKind Indicates whether the member is a property, and if so, what kind.
+     * @param {INVOKEKIND} invKind Indicates whether the member is a property, and if so, what kind.
      * @returns {Pointer<Void>} The static member.
      * @see https://learn.microsoft.com/windows/win32/api/oaidl/nf-oaidl-itypeinfo-addressofmember
      */

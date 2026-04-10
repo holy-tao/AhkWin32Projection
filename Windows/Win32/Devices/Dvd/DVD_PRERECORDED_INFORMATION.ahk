@@ -3,10 +3,8 @@
 
 /**
  * @namespace Windows.Win32.Devices.Dvd
- * @version v4.0.30319
  */
-class DVD_PRERECORDED_INFORMATION extends Win32Struct
-{
+class DVD_PRERECORDED_INFORMATION extends Win32Struct {
     static sizeof => 64
 
     static packingSize => 1
@@ -36,9 +34,9 @@ class DVD_PRERECORDED_INFORMATION extends Win32Struct
     }
 
     /**
-     * @type {Array<Byte>}
+     * @type {Array<Integer>}
      */
-    LastAddressOfDataRecordableArea{
+    LastAddressOfDataRecordableArea {
         get {
             if(!this.HasProp("__LastAddressOfDataRecordableAreaProxyArray"))
                 this.__LastAddressOfDataRecordableAreaProxyArray := Win32FixedArray(this.ptr + 3, 3, Primitive, "char")
@@ -106,9 +104,9 @@ class DVD_PRERECORDED_INFORMATION extends Win32Struct
     }
 
     /**
-     * @type {Array<Byte>}
+     * @type {Array<Integer>}
      */
-    WriteStrategyCode{
+    WriteStrategyCode {
         get {
             if(!this.HasProp("__WriteStrategyCodeProxyArray"))
                 this.__WriteStrategyCodeProxyArray := Win32FixedArray(this.ptr + 11, 4, Primitive, "char")
@@ -133,9 +131,9 @@ class DVD_PRERECORDED_INFORMATION extends Win32Struct
     }
 
     /**
-     * @type {Array<Byte>}
+     * @type {Array<Integer>}
      */
-    ManufacturerId_3{
+    ManufacturerId_3 {
         get {
             if(!this.HasProp("__ManufacturerId_3ProxyArray"))
                 this.__ManufacturerId_3ProxyArray := Win32FixedArray(this.ptr + 17, 6, Primitive, "char")
@@ -160,9 +158,9 @@ class DVD_PRERECORDED_INFORMATION extends Win32Struct
     }
 
     /**
-     * @type {Array<Byte>}
+     * @type {Array<Integer>}
      */
-    ManufacturerId_4{
+    ManufacturerId_4 {
         get {
             if(!this.HasProp("__ManufacturerId_4ProxyArray"))
                 this.__ManufacturerId_4ProxyArray := Win32FixedArray(this.ptr + 25, 6, Primitive, "char")
@@ -187,9 +185,9 @@ class DVD_PRERECORDED_INFORMATION extends Win32Struct
     }
 
     /**
-     * @type {Array<Byte>}
+     * @type {Array<Integer>}
      */
-    ManufacturerId_5{
+    ManufacturerId_5 {
         get {
             if(!this.HasProp("__ManufacturerId_5ProxyArray"))
                 this.__ManufacturerId_5ProxyArray := Win32FixedArray(this.ptr + 33, 6, Primitive, "char")
@@ -206,9 +204,9 @@ class DVD_PRERECORDED_INFORMATION extends Win32Struct
     }
 
     /**
-     * @type {Array<Byte>}
+     * @type {Array<Integer>}
      */
-    Reserved99{
+    Reserved99 {
         get {
             if(!this.HasProp("__Reserved99ProxyArray"))
                 this.__Reserved99ProxyArray := Win32FixedArray(this.ptr + 40, 24, Primitive, "char")

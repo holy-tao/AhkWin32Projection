@@ -3,10 +3,8 @@
 
 /**
  * @namespace Windows.Win32.Security.Authentication.Identity
- * @version v4.0.30319
  */
-class POLICY_AUDIT_FULL_SET_INFO extends Win32Struct
-{
+class POLICY_AUDIT_FULL_SET_INFO extends Win32Struct {
     static sizeof => 1
 
     static packingSize => 1

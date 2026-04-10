@@ -1,5 +1,8 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
+#Include .\D3D12_BLEND.ahk
+#Include .\D3D12_BLEND_OP.ahk
+#Include .\D3D12_LOGIC_OP.ahk
 
 /**
  * Describes the blend state for a render target. (D3D12_RENDER_TARGET_BLEND_DESC)
@@ -61,10 +64,8 @@
  * </table>
  * @see https://learn.microsoft.com/windows/win32/api/d3d12/ns-d3d12-d3d12_render_target_blend_desc
  * @namespace Windows.Win32.Graphics.Direct3D12
- * @version v4.0.30319
  */
-class D3D12_RENDER_TARGET_BLEND_DESC extends Win32Struct
-{
+class D3D12_RENDER_TARGET_BLEND_DESC extends Win32Struct {
     static sizeof => 40
 
     static packingSize => 4
@@ -95,7 +96,7 @@ class D3D12_RENDER_TARGET_BLEND_DESC extends Win32Struct
 
     /**
      * A <a href="https://docs.microsoft.com/windows/desktop/api/d3d12/ne-d3d12-d3d12_blend">D3D12_BLEND</a>-typed value that specifies the operation to perform on the RGB value that the pixel shader outputs. The <b>BlendOp</b> member defines how to combine the <b>SrcBlend</b> and <b>DestBlend</b> operations.
-     * @type {Integer}
+     * @type {D3D12_BLEND}
      */
     SrcBlend {
         get => NumGet(this, 8, "int")
@@ -104,7 +105,7 @@ class D3D12_RENDER_TARGET_BLEND_DESC extends Win32Struct
 
     /**
      * A <a href="https://docs.microsoft.com/windows/desktop/api/d3d12/ne-d3d12-d3d12_blend">D3D12_BLEND</a>-typed value that specifies the operation to perform on the current RGB value in the render target. The <b>BlendOp</b> member defines how to combine the <b>SrcBlend</b> and <b>DestBlend</b> operations.
-     * @type {Integer}
+     * @type {D3D12_BLEND}
      */
     DestBlend {
         get => NumGet(this, 12, "int")
@@ -113,7 +114,7 @@ class D3D12_RENDER_TARGET_BLEND_DESC extends Win32Struct
 
     /**
      * A <a href="https://docs.microsoft.com/windows/desktop/api/d3d12/ne-d3d12-d3d12_blend_op">D3D12_BLEND_OP</a>-typed value that defines how to combine the <b>SrcBlend</b> and <b>DestBlend</b> operations.
-     * @type {Integer}
+     * @type {D3D12_BLEND_OP}
      */
     BlendOp {
         get => NumGet(this, 16, "int")
@@ -122,7 +123,7 @@ class D3D12_RENDER_TARGET_BLEND_DESC extends Win32Struct
 
     /**
      * A <a href="https://docs.microsoft.com/windows/desktop/api/d3d12/ne-d3d12-d3d12_blend">D3D12_BLEND</a>-typed value that specifies the operation to perform on the alpha value that the pixel shader outputs. Blend options that end in _COLOR are not allowed. The <b>BlendOpAlpha</b> member defines how to combine the <b>SrcBlendAlpha</b> and <b>DestBlendAlpha</b> operations.
-     * @type {Integer}
+     * @type {D3D12_BLEND}
      */
     SrcBlendAlpha {
         get => NumGet(this, 20, "int")
@@ -131,7 +132,7 @@ class D3D12_RENDER_TARGET_BLEND_DESC extends Win32Struct
 
     /**
      * A <a href="https://docs.microsoft.com/windows/desktop/api/d3d12/ne-d3d12-d3d12_blend">D3D12_BLEND</a>-typed value that specifies the operation to perform on the current alpha value in the render target. Blend options that end in _COLOR are not allowed. The <b>BlendOpAlpha</b> member defines how to combine the <b>SrcBlendAlpha</b> and <b>DestBlendAlpha</b> operations.
-     * @type {Integer}
+     * @type {D3D12_BLEND}
      */
     DestBlendAlpha {
         get => NumGet(this, 24, "int")
@@ -140,7 +141,7 @@ class D3D12_RENDER_TARGET_BLEND_DESC extends Win32Struct
 
     /**
      * A <a href="https://docs.microsoft.com/windows/desktop/api/d3d12/ne-d3d12-d3d12_blend_op">D3D12_BLEND_OP</a>-typed value that defines how to combine the <b>SrcBlendAlpha</b> and <b>DestBlendAlpha</b> operations.
-     * @type {Integer}
+     * @type {D3D12_BLEND_OP}
      */
     BlendOpAlpha {
         get => NumGet(this, 28, "int")
@@ -149,7 +150,7 @@ class D3D12_RENDER_TARGET_BLEND_DESC extends Win32Struct
 
     /**
      * A <a href="https://docs.microsoft.com/windows/desktop/api/d3d12/ne-d3d12-d3d12_logic_op">D3D12_LOGIC_OP</a>-typed value that specifies the logical operation to configure for the render target.
-     * @type {Integer}
+     * @type {D3D12_LOGIC_OP}
      */
     LogicOp {
         get => NumGet(this, 32, "int")

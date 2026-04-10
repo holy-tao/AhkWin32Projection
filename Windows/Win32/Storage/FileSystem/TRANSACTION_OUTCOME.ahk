@@ -5,9 +5,8 @@
  * Defines the outcomes (results) that KTM can assign to a transaction.
  * @see https://learn.microsoft.com/windows/win32/api/winnt/ne-winnt-transaction_outcome
  * @namespace Windows.Win32.Storage.FileSystem
- * @version v4.0.30319
  */
-class TRANSACTION_OUTCOME extends Win32Enum{
+class TRANSACTION_OUTCOME extends Win32Enum {
 
     /**
      * The transaction has not yet been committed or rolled back.

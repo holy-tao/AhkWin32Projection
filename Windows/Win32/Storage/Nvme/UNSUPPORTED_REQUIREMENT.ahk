@@ -3,18 +3,16 @@
 
 /**
  * @namespace Windows.Win32.Storage.Nvme
- * @version v4.0.30319
  */
-class UNSUPPORTED_REQUIREMENT extends Win32Struct
-{
+class UNSUPPORTED_REQUIREMENT extends Win32Struct {
     static sizeof => 16
 
     static packingSize => 1
 
     /**
-     * @type {Array<Byte>}
+     * @type {Array<Integer>}
      */
-    ReqId{
+    ReqId {
         get {
             if(!this.HasProp("__ReqIdProxyArray"))
                 this.__ReqIdProxyArray := Win32FixedArray(this.ptr + 0, 16, Primitive, "char")

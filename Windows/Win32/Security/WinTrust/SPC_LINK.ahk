@@ -1,14 +1,12 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
-#Include ..\Cryptography\CRYPT_INTEGER_BLOB.ahk
 #Include .\SPC_SERIALIZED_OBJECT.ahk
+#Include ..\Cryptography\CRYPT_INTEGER_BLOB.ahk
 
 /**
  * @namespace Windows.Win32.Security.WinTrust
- * @version v4.0.30319
  */
-class SPC_LINK extends Win32Struct
-{
+class SPC_LINK extends Win32Struct {
     static sizeof => 40
 
     static packingSize => 8
@@ -32,7 +30,7 @@ class SPC_LINK extends Win32Struct
     /**
      * @type {SPC_SERIALIZED_OBJECT}
      */
-    Moniker{
+    Moniker {
         get {
             if(!this.HasProp("__Moniker"))
                 this.__Moniker := SPC_SERIALIZED_OBJECT(8, this)

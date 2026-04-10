@@ -3,9 +3,8 @@
 
 /**
  * @namespace Windows.Win32.System.Threading
- * @version v4.0.30319
  */
-class TP_CALLBACK_PRIORITY extends Win32Enum{
+class TP_CALLBACK_PRIORITY extends Win32Enum {
 
     /**
      * @type {Integer (Int32)}

@@ -1,10 +1,11 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
+#Include .\TASK_TRIGGER_TYPE.ahk
+#Include .\TRIGGER_TYPE_UNION.ahk
 #Include .\DAILY.ahk
 #Include .\WEEKLY.ahk
 #Include .\MONTHLYDATE.ahk
 #Include .\MONTHLYDOW.ahk
-#Include .\TRIGGER_TYPE_UNION.ahk
 
 /**
  * Defines the times to run a scheduled work item.
@@ -15,10 +16,8 @@
  * <div> </div>
  * @see https://learn.microsoft.com/windows/win32/api/mstask/ns-mstask-task_trigger
  * @namespace Windows.Win32.System.TaskScheduler
- * @version v4.0.30319
  */
-class TASK_TRIGGER extends Win32Struct
-{
+class TASK_TRIGGER extends Win32Struct {
     static sizeof => 64
 
     static packingSize => 4
@@ -154,7 +153,7 @@ class TASK_TRIGGER extends Win32Struct
      * A 
      * <a href="https://docs.microsoft.com/windows/desktop/api/mstask/ne-mstask-task_trigger_type">TASK_TRIGGER_TYPE</a> enumerated value that specifies the type of trigger. This member is used with <b>Type</b>. The type of trigger specified here determines which fields of the 
      * <a href="https://docs.microsoft.com/windows/desktop/api/mstask/ns-mstask-trigger_type_union">TRIGGER_TYPE_UNION</a> specified in <b>Type</b> member will be used. Trigger type is based on when the trigger will run the task.
-     * @type {Integer}
+     * @type {TASK_TRIGGER_TYPE}
      */
     TriggerType {
         get => NumGet(this, 32, "int")
@@ -166,7 +165,7 @@ class TASK_TRIGGER extends Win32Struct
      * <a href="https://docs.microsoft.com/windows/desktop/api/mstask/ns-mstask-trigger_type_union">TRIGGER_TYPE_UNION</a> structure that specifies details about the trigger. Note that the <b>TriggerType</b> member determines which fields of the TRIGGER_TYPE_UNION union will be used.
      * @type {TRIGGER_TYPE_UNION}
      */
-    Type{
+    Type {
         get {
             if(!this.HasProp("__Type"))
                 this.__Type := TRIGGER_TYPE_UNION(36, this)

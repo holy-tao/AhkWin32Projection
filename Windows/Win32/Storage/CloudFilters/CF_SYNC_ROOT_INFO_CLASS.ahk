@@ -5,9 +5,8 @@
  * Types of sync root information.
  * @see https://learn.microsoft.com/windows/win32/api/cfapi/ne-cfapi-cf_sync_root_info_class
  * @namespace Windows.Win32.Storage.CloudFilters
- * @version v4.0.30319
  */
-class CF_SYNC_ROOT_INFO_CLASS extends Win32Enum{
+class CF_SYNC_ROOT_INFO_CLASS extends Win32Enum {
 
     /**
      * Basic sync root information is provided. See [CF_SYNC_ROOT_BASIC_INFO](ns-cfapi-cf_sync_root_basic_info.md).

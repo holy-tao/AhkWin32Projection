@@ -13,9 +13,8 @@
  * This is a <b>MsftMultisessionSequential</b> object in script.
  * @see https://learn.microsoft.com/windows/win32/api/imapi2/nn-imapi2-imultisessionsequential
  * @namespace Windows.Win32.Storage.Imapi
- * @version v4.0.30319
  */
-class IMultisessionSequential extends IMultisession{
+class IMultisessionSequential extends IMultisession {
 
     static sizeof => A_PtrSize
     /**

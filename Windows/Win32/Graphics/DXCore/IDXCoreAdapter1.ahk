@@ -5,9 +5,8 @@
 
 /**
  * @namespace Windows.Win32.Graphics.DXCore
- * @version v4.0.30319
  */
-class IDXCoreAdapter1 extends IDXCoreAdapter{
+class IDXCoreAdapter1 extends IDXCoreAdapter {
 
     static sizeof => A_PtrSize
     /**
@@ -30,11 +29,11 @@ class IDXCoreAdapter1 extends IDXCoreAdapter{
 
     /**
      * 
-     * @param {Integer} _property 
+     * @param {DXCoreAdapterProperty} _property 
      * @param {Pointer} inputPropertyDetailsSize 
-     * @param {Pointer} inputPropertyDetails 
+     * @param {Integer} inputPropertyDetails 
      * @param {Pointer} outputBufferSize 
-     * @param {Pointer} outputBuffer 
+     * @param {Integer} outputBuffer 
      * @returns {HRESULT} 
      */
     GetPropertyWithInput(_property, inputPropertyDetailsSize, inputPropertyDetails, outputBufferSize, outputBuffer) {

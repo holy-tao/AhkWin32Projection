@@ -5,9 +5,8 @@
 
 /**
  * @namespace Windows.Win32.UI.Shell
- * @version v4.0.30319
  */
-class IHandlerInfo2 extends IHandlerInfo{
+class IHandlerInfo2 extends IHandlerInfo {
 
     static sizeof => A_PtrSize
     /**

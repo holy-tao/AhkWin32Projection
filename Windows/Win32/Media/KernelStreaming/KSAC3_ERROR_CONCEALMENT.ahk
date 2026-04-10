@@ -3,10 +3,8 @@
 
 /**
  * @namespace Windows.Win32.Media.KernelStreaming
- * @version v4.0.30319
  */
-class KSAC3_ERROR_CONCEALMENT extends Win32Struct
-{
+class KSAC3_ERROR_CONCEALMENT extends Win32Struct {
     static sizeof => 8
 
     static packingSize => 4

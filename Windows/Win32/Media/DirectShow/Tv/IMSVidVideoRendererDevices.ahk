@@ -1,9 +1,9 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\..\Guid.ahk
+#Include ..\..\..\System\Com\IDispatch.ahk
 #Include ..\..\..\System\Ole\IEnumVARIANT.ahk
 #Include .\IMSVidVideoRenderer.ahk
-#Include ..\..\..\System\Com\IDispatch.ahk
 
 /**
  * The IMSVidVideoRendererDevices interface represents a collection of video renderers. The MSVidVideoRendererDevices object exposes this method. Applications can use this interface to enumerate the collection.
@@ -11,9 +11,8 @@
  * To declare the interface identifier (IID) for this interface, use the <b>__uuidof</b> operator: <c>__uuidof(IMSVidVideoRendererDevices)</c>.
  * @see https://learn.microsoft.com/windows/win32/api/segment/nn-segment-imsvidvideorendererdevices
  * @namespace Windows.Win32.Media.DirectShow.Tv
- * @version v4.0.30319
  */
-class IMSVidVideoRendererDevices extends IDispatch{
+class IMSVidVideoRendererDevices extends IDispatch {
 
     static sizeof => A_PtrSize
     /**

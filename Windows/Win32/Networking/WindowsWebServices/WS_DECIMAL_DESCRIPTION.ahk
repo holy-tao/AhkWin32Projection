@@ -6,10 +6,8 @@
  * An optional type description used with WS_DECIMAL_TYPE. It is used to specify constraints on the set of values which can be deserialized.
  * @see https://learn.microsoft.com/windows/win32/api/webservices/ns-webservices-ws_decimal_description
  * @namespace Windows.Win32.Networking.WindowsWebServices
- * @version v4.0.30319
  */
-class WS_DECIMAL_DESCRIPTION extends Win32Struct
-{
+class WS_DECIMAL_DESCRIPTION extends Win32Struct {
     static sizeof => 32
 
     static packingSize => 8
@@ -18,7 +16,7 @@ class WS_DECIMAL_DESCRIPTION extends Win32Struct
      * The minimum value.
      * @type {DECIMAL}
      */
-    minValue{
+    minValue {
         get {
             if(!this.HasProp("__minValue"))
                 this.__minValue := DECIMAL(0, this)
@@ -30,7 +28,7 @@ class WS_DECIMAL_DESCRIPTION extends Win32Struct
      * The maximum value.
      * @type {DECIMAL}
      */
-    maxValue{
+    maxValue {
         get {
             if(!this.HasProp("__maxValue"))
                 this.__maxValue := DECIMAL(16, this)

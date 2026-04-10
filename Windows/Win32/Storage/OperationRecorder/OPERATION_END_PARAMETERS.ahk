@@ -1,14 +1,13 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
+#Include .\OPERATION_END_PARAMETERS_FLAGS.ahk
 
 /**
  * This structure is used by the OperationEnd function.
  * @see https://learn.microsoft.com/windows/win32/api/winbase/ns-winbase-operation_end_parameters
  * @namespace Windows.Win32.Storage.OperationRecorder
- * @version v4.0.30319
  */
-class OPERATION_END_PARAMETERS extends Win32Struct
-{
+class OPERATION_END_PARAMETERS extends Win32Struct {
     static sizeof => 12
 
     static packingSize => 4
@@ -50,8 +49,7 @@ class OPERATION_END_PARAMETERS extends Win32Struct
     }
 
     /**
-     * 
-     * @type {Integer}
+     * @type {OPERATION_END_PARAMETERS_FLAGS}
      */
     Flags {
         get => NumGet(this, 8, "uint")

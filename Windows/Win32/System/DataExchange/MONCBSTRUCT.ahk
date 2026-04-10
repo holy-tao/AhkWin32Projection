@@ -4,17 +4,16 @@
 #Include .\HCONV.ahk
 #Include .\HSZ.ahk
 #Include .\HDDEDATA.ahk
-#Include ..\..\Security\SECURITY_QUALITY_OF_SERVICE.ahk
 #Include .\CONVCONTEXT.ahk
+#Include ..\..\Security\SECURITY_QUALITY_OF_SERVICE.ahk
+#Include ..\..\Security\SECURITY_IMPERSONATION_LEVEL.ahk
 
 /**
  * Contains information about the current Dynamic Data Exchange (DDE) transaction. A DDE debugging application can use this structure when monitoring transactions that the system passes to the DDE callback functions of other applications.
  * @see https://learn.microsoft.com/windows/win32/api/ddeml/ns-ddeml-moncbstruct
  * @namespace Windows.Win32.System.DataExchange
- * @version v4.0.30319
  */
-class MONCBSTRUCT extends Win32Struct
-{
+class MONCBSTRUCT extends Win32Struct {
     static sizeof => 152
 
     static packingSize => 8
@@ -47,7 +46,7 @@ class MONCBSTRUCT extends Win32Struct
      * A handle to the task (application instance) containing the DDE callback function that received the transaction.
      * @type {HANDLE}
      */
-    hTask{
+    hTask {
         get {
             if(!this.HasProp("__hTask"))
                 this.__hTask := HANDLE(8, this)
@@ -94,7 +93,7 @@ class MONCBSTRUCT extends Win32Struct
      * A handle to the conversation in which the transaction took place.
      * @type {HCONV}
      */
-    hConv{
+    hConv {
         get {
             if(!this.HasProp("__hConv"))
                 this.__hConv := HCONV(32, this)
@@ -108,7 +107,7 @@ class MONCBSTRUCT extends Win32Struct
      * A handle to a string.
      * @type {HSZ}
      */
-    hsz1{
+    hsz1 {
         get {
             if(!this.HasProp("__hsz1"))
                 this.__hsz1 := HSZ(40, this)
@@ -122,7 +121,7 @@ class MONCBSTRUCT extends Win32Struct
      * A handle to a string.
      * @type {HSZ}
      */
-    hsz2{
+    hsz2 {
         get {
             if(!this.HasProp("__hsz2"))
                 this.__hsz2 := HSZ(48, this)
@@ -136,7 +135,7 @@ class MONCBSTRUCT extends Win32Struct
      * A handle to the data exchanged (if any) during the transaction.
      * @type {HDDEDATA}
      */
-    hData{
+    hData {
         get {
             if(!this.HasProp("__hData"))
                 this.__hData := HDDEDATA(56, this)
@@ -172,7 +171,7 @@ class MONCBSTRUCT extends Win32Struct
      * The language information used to share data in different languages.
      * @type {CONVCONTEXT}
      */
-    cc{
+    cc {
         get {
             if(!this.HasProp("__cc"))
                 this.__cc := CONVCONTEXT(80, this)
@@ -195,9 +194,9 @@ class MONCBSTRUCT extends Win32Struct
      * Type: <b>DWORD[8]</b>
      * 
      * Contains the first 32 bytes of data being passed with the transaction (<c>8 * sizeof(DWORD)</c>).
-     * @type {Array<UInt32>}
+     * @type {Array<Integer>}
      */
-    Data{
+    Data {
         get {
             if(!this.HasProp("__DataProxyArray"))
                 this.__DataProxyArray := Win32FixedArray(this.ptr + 120, 8, Primitive, "uint")

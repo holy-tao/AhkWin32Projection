@@ -7,9 +7,8 @@
  * IDirectDrawSurfaceKernel interface
  * @see https://learn.microsoft.com/windows/win32/api/ddkernel/nn-ddkernel-idirectdrawsurfacekernel
  * @namespace Windows.Win32.Graphics.DirectDraw
- * @version v4.0.30319
  */
-class IDirectDrawSurfaceKernel extends IUnknown{
+class IDirectDrawSurfaceKernel extends IUnknown {
 
     static sizeof => A_PtrSize
     /**

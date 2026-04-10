@@ -16,9 +16,8 @@
  * - **ratSrcIPv6Address**
  * @see https://learn.microsoft.com/windows/win32/api/authif/ne-authif-radius_attribute_type
  * @namespace Windows.Win32.NetworkManagement.NetworkPolicyServer
- * @version v4.0.30319
  */
-class RADIUS_ATTRIBUTE_TYPE extends Win32Enum{
+class RADIUS_ATTRIBUTE_TYPE extends Win32Enum {
 
     /**
      * This value is equal to zero, and used as the null-terminator in any array of [RADIUS_ATTRIBUTE](/windows/win32/api/authif/ns-authif-radius_attribute) structures.

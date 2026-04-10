@@ -1,8 +1,8 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
-#Include ..\..\Foundation\BSTR.ahk
 #Include .\IFsrmRule.ahk
+#Include ..\..\Foundation\BSTR.ahk
 
 /**
  * Defines a classification rule.
@@ -12,9 +12,8 @@
  *     method. You can also schedule the classification process to run on a specified schedule.
  * @see https://learn.microsoft.com/windows/win32/api/fsrmpipeline/nn-fsrmpipeline-ifsrmclassificationrule
  * @namespace Windows.Win32.Storage.FileServerResourceManager
- * @version v4.0.30319
  */
-class IFsrmClassificationRule extends IFsrmRule{
+class IFsrmClassificationRule extends IFsrmRule {
 
     static sizeof => A_PtrSize
     /**
@@ -36,7 +35,7 @@ class IFsrmClassificationRule extends IFsrmRule{
     static VTableNames => ["get_ExecutionOption", "put_ExecutionOption", "get_PropertyAffected", "put_PropertyAffected", "get_Value", "put_Value"]
 
     /**
-     * @type {Integer} 
+     * @type {FsrmExecutionOption} 
      */
     ExecutionOption {
         get => this.get_ExecutionOption()
@@ -61,7 +60,7 @@ class IFsrmClassificationRule extends IFsrmRule{
 
     /**
      * Determines how to apply the rule to the file. (Get)
-     * @returns {Integer} 
+     * @returns {FsrmExecutionOption} 
      * @see https://learn.microsoft.com/windows/win32/api/fsrmpipeline/nf-fsrmpipeline-ifsrmclassificationrule-get_executionoption
      */
     get_ExecutionOption() {
@@ -71,7 +70,7 @@ class IFsrmClassificationRule extends IFsrmRule{
 
     /**
      * Determines how to apply the rule to the file. (Put)
-     * @param {Integer} executionOption 
+     * @param {FsrmExecutionOption} executionOption 
      * @returns {HRESULT} 
      * @see https://learn.microsoft.com/windows/win32/api/fsrmpipeline/nf-fsrmpipeline-ifsrmclassificationrule-put_executionoption
      */

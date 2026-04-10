@@ -1,17 +1,19 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
+#Include .\PIPE_STATE.ahk
+#Include .\PIPE_TERMINATION.ahk
 #Include .\KS_FRAMING_RANGE.ahk
 #Include .\KS_FRAMING_RANGE_WEIGHTED.ahk
 #Include .\KS_COMPRESSION.ahk
-#Include .\PIPE_TERMINATION.ahk
+#Include .\KS_LogicalMemoryType.ahk
+#Include .\PIPE_ALLOCATOR_PLACE.ahk
 #Include .\PIPE_DIMENSIONS.ahk
+#Include .\IKsAllocatorEx.ahk
 
 /**
  * @namespace Windows.Win32.Media.KernelStreaming
- * @version v4.0.30319
  */
-class ALLOCATOR_PROPERTIES_EX extends Win32Struct
-{
+class ALLOCATOR_PROPERTIES_EX extends Win32Struct {
     static sizeof => 248
 
     static packingSize => 8
@@ -49,7 +51,7 @@ class ALLOCATOR_PROPERTIES_EX extends Win32Struct
     }
 
     /**
-     * @type {Pointer<Guid>}
+     * @type {Pointer}
      */
     MemoryType {
         get => NumGet(this, 16, "ptr")
@@ -57,7 +59,7 @@ class ALLOCATOR_PROPERTIES_EX extends Win32Struct
     }
 
     /**
-     * @type {Pointer<Guid>}
+     * @type {Pointer}
      */
     BusType {
         get => NumGet(this, 24, "ptr")
@@ -65,7 +67,7 @@ class ALLOCATOR_PROPERTIES_EX extends Win32Struct
     }
 
     /**
-     * @type {Integer}
+     * @type {PIPE_STATE}
      */
     State {
         get => NumGet(this, 32, "int")
@@ -75,7 +77,7 @@ class ALLOCATOR_PROPERTIES_EX extends Win32Struct
     /**
      * @type {PIPE_TERMINATION}
      */
-    Input{
+    Input {
         get {
             if(!this.HasProp("__Input"))
                 this.__Input := PIPE_TERMINATION(36, this)
@@ -86,7 +88,7 @@ class ALLOCATOR_PROPERTIES_EX extends Win32Struct
     /**
      * @type {PIPE_TERMINATION}
      */
-    Output{
+    Output {
         get {
             if(!this.HasProp("__Output"))
                 this.__Output := PIPE_TERMINATION(92, this)
@@ -119,7 +121,7 @@ class ALLOCATOR_PROPERTIES_EX extends Win32Struct
     }
 
     /**
-     * @type {Integer}
+     * @type {KS_LogicalMemoryType}
      */
     LogicalMemoryType {
         get => NumGet(this, 160, "int")
@@ -127,7 +129,7 @@ class ALLOCATOR_PROPERTIES_EX extends Win32Struct
     }
 
     /**
-     * @type {Integer}
+     * @type {PIPE_ALLOCATOR_PLACE}
      */
     AllocatorPlace {
         get => NumGet(this, 164, "int")
@@ -137,7 +139,7 @@ class ALLOCATOR_PROPERTIES_EX extends Win32Struct
     /**
      * @type {PIPE_DIMENSIONS}
      */
-    Dimensions{
+    Dimensions {
         get {
             if(!this.HasProp("__Dimensions"))
                 this.__Dimensions := PIPE_DIMENSIONS(168, this)
@@ -148,7 +150,7 @@ class ALLOCATOR_PROPERTIES_EX extends Win32Struct
     /**
      * @type {KS_FRAMING_RANGE}
      */
-    PhysicalRange{
+    PhysicalRange {
         get {
             if(!this.HasProp("__PhysicalRange"))
                 this.__PhysicalRange := KS_FRAMING_RANGE(204, this)

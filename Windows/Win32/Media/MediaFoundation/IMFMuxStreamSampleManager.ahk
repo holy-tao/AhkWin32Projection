@@ -1,16 +1,15 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
-#Include .\IMFSample.ahk
 #Include ..\..\System\Com\IUnknown.ahk
+#Include .\IMFSample.ahk
 
 /**
  * Provides the ability to retrieve IMFSample objects for individual substreams within the output of a multiplexed media source.
  * @see https://learn.microsoft.com/windows/win32/api/mfobjects/nn-mfobjects-imfmuxstreamsamplemanager
  * @namespace Windows.Win32.Media.MediaFoundation
- * @version v4.0.30319
  */
-class IMFMuxStreamSampleManager extends IUnknown{
+class IMFMuxStreamSampleManager extends IUnknown {
 
     static sizeof => A_PtrSize
     /**

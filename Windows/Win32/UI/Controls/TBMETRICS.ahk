@@ -11,10 +11,8 @@
  * Although values for <b>cxBarPad</b> and <b>cyBarPad</b> can be set and retrieved they currently have no effect and are not used.
  * @see https://learn.microsoft.com/windows/win32/api/commctrl/ns-commctrl-tbmetrics
  * @namespace Windows.Win32.UI.Controls
- * @version v4.0.30319
  */
-class TBMETRICS extends Win32Struct
-{
+class TBMETRICS extends Win32Struct {
     static sizeof => 32
 
     static packingSize => 4

@@ -1,25 +1,24 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
+#Include .\VSS_MGMT_OBJECT_TYPE.ahk
+#Include .\VSS_MGMT_OBJECT_UNION.ahk
 #Include .\VSS_VOLUME_PROP.ahk
 #Include .\VSS_DIFF_VOLUME_PROP.ahk
 #Include .\VSS_DIFF_AREA_PROP.ahk
-#Include .\VSS_MGMT_OBJECT_UNION.ahk
 
 /**
  * Defines the properties of a volume, shadow copy storage volume, or a shadow copy storage area.
  * @see https://learn.microsoft.com/windows/win32/api/vsmgmt/ns-vsmgmt-vss_mgmt_object_prop
  * @namespace Windows.Win32.Storage.Vss
- * @version v4.0.30319
  */
-class VSS_MGMT_OBJECT_PROP extends Win32Struct
-{
+class VSS_MGMT_OBJECT_PROP extends Win32Struct {
     static sizeof => 96
 
     static packingSize => 8
 
     /**
      * Object type. For more information, see <a href="https://docs.microsoft.com/windows/desktop/api/vsmgmt/ne-vsmgmt-vss_mgmt_object_type">VSS_MGMT_OBJECT_TYPE</a>.
-     * @type {Integer}
+     * @type {VSS_MGMT_OBJECT_TYPE}
      */
     Type {
         get => NumGet(this, 0, "int")
@@ -32,7 +31,7 @@ class VSS_MGMT_OBJECT_PROP extends Win32Struct
      * It contains information for an object of the type specified by the <b>Type</b> member. Management objects can be volumes, shadow copy storage volumes, or shadow copy storage areas.
      * @type {VSS_MGMT_OBJECT_UNION}
      */
-    Obj{
+    Obj {
         get {
             if(!this.HasProp("__Obj"))
                 this.__Obj := VSS_MGMT_OBJECT_UNION(8, this)

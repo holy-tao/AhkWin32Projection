@@ -5,11 +5,9 @@
  * This structure contains information from a .pif file. It is used by PifMgr_GetProperties.
  * @see https://learn.microsoft.com/windows/win32/api/shlobj_core/ns-shlobj_core-propprg
  * @namespace Windows.Win32.UI.Shell.PropertiesSystem
- * @version v4.0.30319
  */
-class PROPPRG extends Win32Struct
-{
-    static sizeof => 1300
+class PROPPRG extends Win32Struct {
+    static sizeof => 660
 
     static packingSize => 4
 
@@ -42,8 +40,8 @@ class PROPPRG extends Win32Struct
      * @type {String}
      */
     achTitle {
-        get => StrGet(this.ptr + 4, 29, "UTF-16")
-        set => StrPut(value, this.ptr + 4, 29, "UTF-16")
+        get => StrGet(this.ptr + 4, 29, "UTF-8")
+        set => StrPut(value, this.ptr + 4, 29, "UTF-8")
     }
 
     /**
@@ -53,8 +51,8 @@ class PROPPRG extends Win32Struct
      * @type {String}
      */
     achCmdLine {
-        get => StrGet(this.ptr + 64, 127, "UTF-16")
-        set => StrPut(value, this.ptr + 64, 127, "UTF-16")
+        get => StrGet(this.ptr + 34, 127, "UTF-8")
+        set => StrPut(value, this.ptr + 34, 127, "UTF-8")
     }
 
     /**
@@ -64,8 +62,8 @@ class PROPPRG extends Win32Struct
      * @type {String}
      */
     achWorkDir {
-        get => StrGet(this.ptr + 320, 63, "UTF-16")
-        set => StrPut(value, this.ptr + 320, 63, "UTF-16")
+        get => StrGet(this.ptr + 162, 63, "UTF-8")
+        set => StrPut(value, this.ptr + 162, 63, "UTF-8")
     }
 
     /**
@@ -75,8 +73,8 @@ class PROPPRG extends Win32Struct
      * @type {Integer}
      */
     wHotKey {
-        get => NumGet(this, 448, "ushort")
-        set => NumPut("ushort", value, this, 448)
+        get => NumGet(this, 226, "ushort")
+        set => NumPut("ushort", value, this, 226)
     }
 
     /**
@@ -86,8 +84,8 @@ class PROPPRG extends Win32Struct
      * @type {String}
      */
     achIconFile {
-        get => StrGet(this.ptr + 450, 79, "UTF-16")
-        set => StrPut(value, this.ptr + 450, 79, "UTF-16")
+        get => StrGet(this.ptr + 228, 79, "UTF-8")
+        set => StrPut(value, this.ptr + 228, 79, "UTF-8")
     }
 
     /**
@@ -97,8 +95,8 @@ class PROPPRG extends Win32Struct
      * @type {Integer}
      */
     wIconIndex {
-        get => NumGet(this, 610, "ushort")
-        set => NumPut("ushort", value, this, 610)
+        get => NumGet(this, 308, "ushort")
+        set => NumPut("ushort", value, this, 308)
     }
 
     /**
@@ -108,8 +106,8 @@ class PROPPRG extends Win32Struct
      * @type {Integer}
      */
     dwEnhModeFlags {
-        get => NumGet(this, 612, "uint")
-        set => NumPut("uint", value, this, 612)
+        get => NumGet(this, 312, "uint")
+        set => NumPut("uint", value, this, 312)
     }
 
     /**
@@ -119,8 +117,8 @@ class PROPPRG extends Win32Struct
      * @type {Integer}
      */
     dwRealModeFlags {
-        get => NumGet(this, 616, "uint")
-        set => NumPut("uint", value, this, 616)
+        get => NumGet(this, 316, "uint")
+        set => NumPut("uint", value, this, 316)
     }
 
     /**
@@ -130,8 +128,8 @@ class PROPPRG extends Win32Struct
      * @type {String}
      */
     achOtherFile {
-        get => StrGet(this.ptr + 620, 79, "UTF-16")
-        set => StrPut(value, this.ptr + 620, 79, "UTF-16")
+        get => StrGet(this.ptr + 320, 79, "UTF-8")
+        set => StrPut(value, this.ptr + 320, 79, "UTF-8")
     }
 
     /**
@@ -141,7 +139,7 @@ class PROPPRG extends Win32Struct
      * @type {String}
      */
     achPIFFile {
-        get => StrGet(this.ptr + 780, 259, "UTF-16")
-        set => StrPut(value, this.ptr + 780, 259, "UTF-16")
+        get => StrGet(this.ptr + 400, 259, "UTF-8")
+        set => StrPut(value, this.ptr + 400, 259, "UTF-8")
     }
 }

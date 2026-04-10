@@ -3,10 +3,8 @@
 
 /**
  * @namespace Windows.Win32.Media.DirectShow.Tv
- * @version v4.0.30319
  */
-class DVBScramblingControlSpanningEvent extends Win32Struct
-{
+class DVBScramblingControlSpanningEvent extends Win32Struct {
     static sizeof => 8
 
     static packingSize => 4

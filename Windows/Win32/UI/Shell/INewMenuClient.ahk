@@ -7,9 +7,8 @@
  * Exposes methods that allow manipulation of items in a Windows 7 menu.
  * @see https://learn.microsoft.com/windows/win32/api/shobjidl_core/nn-shobjidl_core-inewmenuclient
  * @namespace Windows.Win32.UI.Shell
- * @version v4.0.30319
  */
-class INewMenuClient extends IUnknown{
+class INewMenuClient extends IUnknown {
 
     static sizeof => A_PtrSize
     /**

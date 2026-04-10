@@ -1,5 +1,6 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
+#Include .\POWER_REQUEST_CONTEXT_FLAGS.ahk
 #Include ..\..\Foundation\HMODULE.ahk
 
 /**
@@ -8,10 +9,8 @@
  * It is safe to pass read-only strings as the <i>SimpleReasonString</i> or <i>ReasonStrings</i> because the <a href="https://docs.microsoft.com/windows/desktop/api/winbase/nf-winbase-powercreaterequest">PowerCreateRequest</a> and <a href="https://docs.microsoft.com/windows/desktop/api/synchapi/nf-synchapi-setwaitabletimerex">SetWaitableTimerEx</a> functions read from the strings and do not write to them.
  * @see https://learn.microsoft.com/windows/win32/api/minwinbase/ns-minwinbase-reason_context
  * @namespace Windows.Win32.System.Threading
- * @version v4.0.30319
  */
-class REASON_CONTEXT extends Win32Struct
-{
+class REASON_CONTEXT extends Win32Struct {
     static sizeof => 32
 
     static packingSize => 8
@@ -23,18 +22,18 @@ class REASON_CONTEXT extends Win32Struct
         class _Detailed extends Win32Struct {
             static sizeof => 24
             static packingSize => 8
-    
+
             /**
              * @type {HMODULE}
              */
-            LocalizedReasonModule{
+            LocalizedReasonModule {
                 get {
                     if(!this.HasProp("__LocalizedReasonModule"))
                         this.__LocalizedReasonModule := HMODULE(0, this)
                     return this.__LocalizedReasonModule
                 }
             }
-        
+
             /**
              * @type {Integer}
              */
@@ -42,7 +41,7 @@ class REASON_CONTEXT extends Win32Struct
                 get => NumGet(this, 8, "uint")
                 set => NumPut("uint", value, this, 8)
             }
-        
+
             /**
              * @type {Integer}
              */
@@ -50,7 +49,7 @@ class REASON_CONTEXT extends Win32Struct
                 get => NumGet(this, 12, "uint")
                 set => NumPut("uint", value, this, 12)
             }
-        
+
             /**
              * @type {Pointer<PWSTR>}
              */
@@ -58,20 +57,19 @@ class REASON_CONTEXT extends Win32Struct
                 get => NumGet(this, 16, "ptr")
                 set => NumPut("ptr", value, this, 16)
             }
-        
         }
-    
+
         /**
          * @type {_Detailed}
          */
-        Detailed{
+        Detailed {
             get {
                 if(!this.HasProp("__Detailed"))
-                    this.__Detailed := %this.__Class%._Detailed(0, this)
+                    this.__Detailed := REASON_CONTEXT._Reason_e__Union._Detailed(0, this)
                 return this.__Detailed
             }
         }
-    
+
         /**
          * @type {PWSTR}
          */
@@ -79,7 +77,6 @@ class REASON_CONTEXT extends Win32Struct
             get => NumGet(this, 0, "ptr")
             set => NumPut("ptr", value, this, 0)
         }
-    
     }
 
     /**
@@ -93,8 +90,7 @@ class REASON_CONTEXT extends Win32Struct
     }
 
     /**
-     * 
-     * @type {Integer}
+     * @type {POWER_REQUEST_CONTEXT_FLAGS}
      */
     Flags {
         get => NumGet(this, 4, "uint")
@@ -105,10 +101,10 @@ class REASON_CONTEXT extends Win32Struct
      * A union that consists of either a <b>Detailed</b> structure or a string.
      * @type {_Reason_e__Union}
      */
-    Reason{
+    Reason {
         get {
             if(!this.HasProp("__Reason"))
-                this.__Reason := %this.__Class%._Reason_e__Union(8, this)
+                this.__Reason := REASON_CONTEXT._Reason_e__Union(8, this)
             return this.__Reason
         }
     }

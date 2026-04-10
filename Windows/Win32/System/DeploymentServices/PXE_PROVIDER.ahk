@@ -5,10 +5,8 @@
  * Describes a provider.
  * @see https://learn.microsoft.com/windows/win32/api/wdspxe/ns-wdspxe-pxe_provider
  * @namespace Windows.Win32.System.DeploymentServices
- * @version v4.0.30319
  */
-class PXE_PROVIDER extends Win32Struct
-{
+class PXE_PROVIDER extends Win32Struct {
     static sizeof => 32
 
     static packingSize => 8

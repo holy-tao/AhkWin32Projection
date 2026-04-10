@@ -1,10 +1,10 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\..\Guid.ahk
+#Include ..\..\..\System\Com\IDispatch.ahk
 #Include ..\..\..\System\Ole\IEnumVARIANT.ahk
 #Include .\ITuningSpace.ahk
 #Include .\IEnumTuningSpaces.ahk
-#Include ..\..\..\System\Com\IDispatch.ahk
 
 /**
  * The ITuningSpaces interface represents a collection of tuning spaces.
@@ -14,9 +14,8 @@
  * To declare the interface identifier (IID) for this interface, use the <b>__uuidof</b> operator: <c>__uuidof(ITuningSpaces)</c>.
  * @see https://learn.microsoft.com/windows/win32/api/tuner/nn-tuner-ituningspaces
  * @namespace Windows.Win32.Media.DirectShow.Tv
- * @version v4.0.30319
  */
-class ITuningSpaces extends IDispatch{
+class ITuningSpaces extends IDispatch {
 
     static sizeof => A_PtrSize
     /**
@@ -83,7 +82,7 @@ class ITuningSpaces extends IDispatch{
     /**
      * The get_Item method returns the specified item in the collection.
      * @param {VARIANT} varIndex <b>VARIANT</b> type that specifies the ID of the tuning space. The ID uniquely identifies the tuning space within the <b>SystemTuningSpaces</b> object.
-     * @returns {ITuningSpace} 
+     * @returns {ITuningSpace} Address of a variable that receives a pointer to the tuning space's <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/tuner/nn-tuner-ituningspace">ITuningSpace</a> interface. The caller must release the interface.
      * @see https://learn.microsoft.com/windows/win32/api/tuner/nf-tuner-ituningspaces-get_item
      */
     get_Item(varIndex) {

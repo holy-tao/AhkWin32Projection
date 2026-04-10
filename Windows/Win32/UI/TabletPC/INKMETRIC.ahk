@@ -9,10 +9,8 @@
  * Applying italics to a text ink object slants the ink to the right.
  * @see https://learn.microsoft.com/windows/win32/api/msinkaut/ns-msinkaut-inkmetric
  * @namespace Windows.Win32.UI.TabletPC
- * @version v4.0.30319
  */
-class INKMETRIC extends Win32Struct
-{
+class INKMETRIC extends Win32Struct {
     static sizeof => 20
 
     static packingSize => 4

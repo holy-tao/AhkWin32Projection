@@ -1,16 +1,18 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
 #Include Common\D2D_RECT_F.ahk
+#Include .\ID2D1Geometry.ahk
+#Include .\D2D1_ANTIALIAS_MODE.ahk
 #Include Common\D2D_MATRIX_3X2_F.ahk
+#Include .\ID2D1Brush.ahk
+#Include .\D2D1_LAYER_OPTIONS1.ahk
 
 /**
  * Contains the content bounds, mask information, opacity settings, and other options for a layer resource. (D2D1_LAYER_PARAMETERS1)
  * @see https://learn.microsoft.com/windows/win32/api/d2d1_1/ns-d2d1_1-d2d1_layer_parameters1
  * @namespace Windows.Win32.Graphics.Direct2D
- * @version v4.0.30319
  */
-class D2D1_LAYER_PARAMETERS1 extends Win32Struct
-{
+class D2D1_LAYER_PARAMETERS1 extends Win32Struct {
     static sizeof => 72
 
     static packingSize => 8
@@ -21,7 +23,7 @@ class D2D1_LAYER_PARAMETERS1 extends Win32Struct
      * The content bounds of the layer. Content outside these bounds is not guaranteed to render.
      * @type {D2D_RECT_F}
      */
-    contentBounds{
+    contentBounds {
         get {
             if(!this.HasProp("__contentBounds"))
                 this.__contentBounds := D2D_RECT_F(0, this)
@@ -44,7 +46,7 @@ class D2D1_LAYER_PARAMETERS1 extends Win32Struct
      * Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/d2d1/ne-d2d1-d2d1_antialias_mode">D2D1_ANTIALIAS_MODE</a></b>
      * 
      * A value that specifies the antialiasing mode for the geometricMask.
-     * @type {Integer}
+     * @type {D2D1_ANTIALIAS_MODE}
      */
     maskAntialiasMode {
         get => NumGet(this, 24, "int")
@@ -57,7 +59,7 @@ class D2D1_LAYER_PARAMETERS1 extends Win32Struct
      * A value that specifies the transform that is applied to the geometric mask when composing the layer.
      * @type {D2D_MATRIX_3X2_F}
      */
-    maskTransform{
+    maskTransform {
         get {
             if(!this.HasProp("__maskTransform"))
                 this.__maskTransform := D2D_MATRIX_3X2_F(28, this)
@@ -92,7 +94,7 @@ class D2D1_LAYER_PARAMETERS1 extends Win32Struct
      * Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/d2d1_1/ne-d2d1_1-d2d1_layer_options1">D2D1_LAYER_OPTIONS1</a></b>
      * 
      * Additional options for the layer creation.
-     * @type {Integer}
+     * @type {D2D1_LAYER_OPTIONS1}
      */
     layerOptions {
         get => NumGet(this, 64, "int")

@@ -5,9 +5,8 @@
  * Defines values that indicate the type of information to set or query in a Policy object.
  * @see https://learn.microsoft.com/windows/win32/api/ntsecapi/ne-ntsecapi-policy_information_class
  * @namespace Windows.Win32.Security.Authentication.Identity
- * @version v4.0.30319
  */
-class POLICY_INFORMATION_CLASS extends Win32Enum{
+class POLICY_INFORMATION_CLASS extends Win32Enum {
 
     /**
      * This value is obsolete.
@@ -87,19 +86,16 @@ class POLICY_INFORMATION_CLASS extends Win32Enum{
     static PolicyDnsDomainInformation => 12
 
     /**
-     * 
      * @type {Integer (Int32)}
      */
     static PolicyDnsDomainInformationInt => 13
 
     /**
-     * 
      * @type {Integer (Int32)}
      */
     static PolicyLocalAccountDomainInformation => 14
 
     /**
-     * 
      * @type {Integer (Int32)}
      */
     static PolicyMachineAccountInformation => 15
@@ -110,7 +106,6 @@ class POLICY_INFORMATION_CLASS extends Win32Enum{
     static PolicyMachineAccountInformation2 => 16
 
     /**
-     * 
      * @type {Integer (Int32)}
      */
     static PolicyLastEntry => 17

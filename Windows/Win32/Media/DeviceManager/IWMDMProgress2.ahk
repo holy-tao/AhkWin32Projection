@@ -7,9 +7,8 @@
  * The optional, application-implemented IWMDMProgress2 interface extends the IWMDMProgress::End method by providing a status indicator.
  * @see https://learn.microsoft.com/windows/win32/api/mswmdm/nn-mswmdm-iwmdmprogress2
  * @namespace Windows.Win32.Media.DeviceManager
- * @version v4.0.30319
  */
-class IWMDMProgress2 extends IWMDMProgress{
+class IWMDMProgress2 extends IWMDMProgress {
 
     static sizeof => A_PtrSize
     /**

@@ -5,9 +5,8 @@
  * The categories, permissions included in the categories, and the object to which they can be applied.
  * @see https://learn.microsoft.com/windows/win32/api/gpmgmt/ne-gpmgmt-gpmpermissiontype
  * @namespace Windows.Win32.System.GroupPolicy
- * @version v4.0.30319
  */
-class GPMPermissionType extends Win32Enum{
+class GPMPermissionType extends Win32Enum {
 
     /**
      * The trustee can apply the GPO; corresponds to the READ and APPLY Group Policy access rights being set to "Allow" for a user.

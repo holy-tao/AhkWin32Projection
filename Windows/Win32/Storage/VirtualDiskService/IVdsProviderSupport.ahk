@@ -7,9 +7,8 @@
  * The IVdsProviderSupport interface (vdshwprv.h) provides a method to indicate what versions of the VDS interfaces are supported by the provider.
  * @see https://learn.microsoft.com/windows/win32/api/vdshwprv/nn-vdshwprv-ivdsprovidersupport
  * @namespace Windows.Win32.Storage.VirtualDiskService
- * @version v4.0.30319
  */
-class IVdsProviderSupport extends IUnknown{
+class IVdsProviderSupport extends IUnknown {
 
     static sizeof => A_PtrSize
     /**

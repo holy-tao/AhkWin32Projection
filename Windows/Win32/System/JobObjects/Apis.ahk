@@ -4,7 +4,6 @@
 
 /**
  * @namespace Windows.Win32.System.JobObjects
- * @version v4.0.30319
  */
 class JobObjects {
 
@@ -105,7 +104,7 @@ class JobObjects {
 
     /**
      * Frees memory that a function related to job objects allocated. Functions related to job objects that allocate memory include QueryIoRateControlInformationJobObject.
-     * @param {Pointer<Void>} _Buffer 
+     * @param {Pointer<Void>} _Buffer A pointer to the buffer of allocated memory that you want to free.
      * @returns {String} Nothing - always returns an empty string
      * @see https://learn.microsoft.com/windows/win32/api/jobapi2/nf-jobapi2-freememoryjobobject
      * @since windows10.0.10240
@@ -282,8 +281,8 @@ class JobObjects {
      *       <a href="https://docs.microsoft.com/windows/desktop/api/winbase/nf-winbase-openjobobjecta">OpenJobObject</a> function returns this handle. The handle 
      *       must have the <b>JOB_OBJECT_SET_ATTRIBUTES</b> access right. For more information, see 
      *       <a href="https://docs.microsoft.com/windows/desktop/ProcThread/job-object-security-and-access-rights">Job Object Security and Access Rights</a>.
-     * @param {Integer} JobObjectInformationClass 
-     * @param {Pointer} lpJobObjectInformation The limits or job state to be set for the job. The format of this data depends on the value of <i>JobObjectInfoClass</i>.
+     * @param {JOBOBJECTINFOCLASS} JobObjectInformationClass 
+     * @param {Integer} lpJobObjectInformation The limits or job state to be set for the job. The format of this data depends on the value of <i>JobObjectInfoClass</i>.
      * @param {Integer} cbJobObjectInformationLength The size of the job information being set, in bytes.
      * @returns {BOOL} If the function succeeds, the return value is nonzero.
      * 
@@ -350,8 +349,8 @@ class JobObjects {
      * 
      * 
      * If this value is NULL and the calling process is associated with a job, the job associated with the calling process is used. If the job is nested, the immediate job of the calling process is used.
-     * @param {Integer} JobObjectInformationClass 
-     * @param {Pointer} lpJobObjectInformation The limit or job state information. The format of this data depends on the value of the <i>JobObjectInfoClass</i> parameter.
+     * @param {JOBOBJECTINFOCLASS} JobObjectInformationClass 
+     * @param {Integer} lpJobObjectInformation The limit or job state information. The format of this data depends on the value of the <i>JobObjectInfoClass</i> parameter.
      * @param {Integer} cbJobObjectInformationLength The count of the job information being queried, in bytes. This value depends on the value of the <i>JobObjectInfoClass</i> parameter.
      * @param {Pointer<Integer>} lpReturnLength A pointer to a variable that receives the length of data written to the structure pointed to by the <i>lpJobObjectInfo</i> parameter. Specify <b>NULL</b>  to not receive this information.
      * @returns {BOOL} If the function succeeds, the return value is nonzero.

@@ -7,9 +7,8 @@
  * The arithmetic composite effect is used to combine 2 images using a weighted sum of pixels from the input images. (IDCompositionAffineTransform2DEffect)
  * @see https://learn.microsoft.com/windows/win32/api/dcomp/nn-dcomp-idcompositionaffinetransform2deffect
  * @namespace Windows.Win32.Graphics.DirectComposition
- * @version v4.0.30319
  */
-class IDCompositionAffineTransform2DEffect extends IDCompositionFilterEffect{
+class IDCompositionAffineTransform2DEffect extends IDCompositionFilterEffect {
 
     static sizeof => A_PtrSize
     /**
@@ -32,7 +31,9 @@ class IDCompositionAffineTransform2DEffect extends IDCompositionFilterEffect{
 
     /**
      * Sets the interpolation mode of the effect.
-     * @param {Integer} _interpolationMode 
+     * @param {D2D1_2DAFFINETRANSFORM_INTERPOLATION_MODE} _interpolationMode Type: <b><a href="https://docs.microsoft.com/windows/desktop/Direct2D/2d-affine-transform">D2D1_2DAFFINETRANSFORM_INTERPOLATION_MODE</a></b>
+     * 
+     * Specifies the interpolation mode of the effect.
      * @returns {HRESULT} Type: <b><a href="https://docs.microsoft.com/windows/win32/com/structure-of-com-error-codes">HRESULT</a></b>
      * 
      * If this method succeeds, it returns <b>S_OK</b>. Otherwise, it returns an <b>HRESULT</b> error code.
@@ -45,7 +46,7 @@ class IDCompositionAffineTransform2DEffect extends IDCompositionFilterEffect{
 
     /**
      * Sets the border mode to use with the effect.
-     * @param {Integer} borderMode Type: <b><a href="https://docs.microsoft.com/windows/desktop/Direct2D/2d-affine-transform">D2D1_BORDER_MODE</a></b>
+     * @param {D2D1_BORDER_MODE} borderMode Type: <b><a href="https://docs.microsoft.com/windows/desktop/Direct2D/2d-affine-transform">D2D1_BORDER_MODE</a></b>
      * 
      * Specifies the border mode to use with the effect.
      * @returns {HRESULT} Type: <b><a href="https://docs.microsoft.com/windows/win32/com/structure-of-com-error-codes">HRESULT</a></b>
@@ -78,7 +79,9 @@ class IDCompositionAffineTransform2DEffect extends IDCompositionFilterEffect{
      * @param {Integer} row Type: <b>int</b>
      * 
      * The row of the element.
-     * @param {Integer} _column 
+     * @param {Integer} _column Type: <b>int</b>
+     * 
+     * The column of the element.
      * @param {IDCompositionAnimation} animation Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/dcompanimation/nn-dcompanimation-idcompositionanimation">IDCompositionAnimation</a>*</b>
      * 
      * An animation that represents how the element value changes over time. This parameter must not be NULL.
@@ -97,7 +100,9 @@ class IDCompositionAffineTransform2DEffect extends IDCompositionFilterEffect{
      * @param {Integer} row Type: <b>int</b>
      * 
      * The row of the element.
-     * @param {Integer} _column 
+     * @param {Integer} _column Type: <b>int</b>
+     * 
+     * The column of the element.
      * @param {Float} value 
      * @returns {HRESULT} Type: <b><a href="https://docs.microsoft.com/windows/win32/com/structure-of-com-error-codes">HRESULT</a></b>
      * 

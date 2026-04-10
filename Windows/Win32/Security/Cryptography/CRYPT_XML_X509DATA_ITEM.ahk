@@ -1,24 +1,24 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
+#Include .\CRYPT_XML_X509DATA_TYPE.ahk
 #Include .\CRYPT_XML_ISSUER_SERIAL.ahk
 #Include .\CRYPT_XML_DATA_BLOB.ahk
 #Include .\CRYPT_XML_BLOB.ahk
+#Include .\CRYPT_XML_CHARSET.ahk
 
 /**
  * Represents X.509 data that is to be encoded in an X509Data named element.
  * @see https://learn.microsoft.com/windows/win32/api/cryptxml/ns-cryptxml-crypt_xml_x509data_item
  * @namespace Windows.Win32.Security.Cryptography
- * @version v4.0.30319
  */
-class CRYPT_XML_X509DATA_ITEM extends Win32Struct
-{
+class CRYPT_XML_X509DATA_ITEM extends Win32Struct {
     static sizeof => 24
 
     static packingSize => 8
 
     /**
      * Specifies the data item type.
-     * @type {Integer}
+     * @type {CRYPT_XML_X509DATA_TYPE}
      */
     dwType {
         get => NumGet(this, 0, "uint")
@@ -28,7 +28,7 @@ class CRYPT_XML_X509DATA_ITEM extends Win32Struct
     /**
      * @type {CRYPT_XML_ISSUER_SERIAL}
      */
-    IssuerSerial{
+    IssuerSerial {
         get {
             if(!this.HasProp("__IssuerSerial"))
                 this.__IssuerSerial := CRYPT_XML_ISSUER_SERIAL(8, this)
@@ -39,7 +39,7 @@ class CRYPT_XML_X509DATA_ITEM extends Win32Struct
     /**
      * @type {CRYPT_XML_DATA_BLOB}
      */
-    SKI{
+    SKI {
         get {
             if(!this.HasProp("__SKI"))
                 this.__SKI := CRYPT_XML_DATA_BLOB(8, this)
@@ -58,7 +58,7 @@ class CRYPT_XML_X509DATA_ITEM extends Win32Struct
     /**
      * @type {CRYPT_XML_DATA_BLOB}
      */
-    Certificate{
+    Certificate {
         get {
             if(!this.HasProp("__Certificate"))
                 this.__Certificate := CRYPT_XML_DATA_BLOB(8, this)
@@ -69,7 +69,7 @@ class CRYPT_XML_X509DATA_ITEM extends Win32Struct
     /**
      * @type {CRYPT_XML_DATA_BLOB}
      */
-    CRL{
+    CRL {
         get {
             if(!this.HasProp("__CRL"))
                 this.__CRL := CRYPT_XML_DATA_BLOB(8, this)
@@ -80,7 +80,7 @@ class CRYPT_XML_X509DATA_ITEM extends Win32Struct
     /**
      * @type {CRYPT_XML_BLOB}
      */
-    Custom{
+    Custom {
         get {
             if(!this.HasProp("__Custom"))
                 this.__Custom := CRYPT_XML_BLOB(8, this)

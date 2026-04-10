@@ -1,16 +1,15 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
-#Include .\FolderItem.ahk
 #Include .\Folder.ahk
+#Include .\FolderItem.ahk
 
 /**
  * Extends the Folder object to support offline folders.
  * @see https://learn.microsoft.com/windows/win32/shell/folder2-object
  * @namespace Windows.Win32.UI.Shell
- * @version v4.0.30319
  */
-class Folder2 extends Folder{
+class Folder2 extends Folder {
 
     static sizeof => A_PtrSize
     /**

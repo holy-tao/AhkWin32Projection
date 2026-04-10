@@ -5,9 +5,8 @@
  * Specifies whether a public key algorithm is used for signing or for encryption.
  * @see https://learn.microsoft.com/windows/win32/api/certenroll/ne-certenroll-objectidpublickeyflags
  * @namespace Windows.Win32.Security.Cryptography.Certificates
- * @version v4.0.30319
  */
-class ObjectIdPublicKeyFlags extends Win32Enum{
+class ObjectIdPublicKeyFlags extends Win32Enum {
 
     /**
      * The algorithm can be used for signing or encryption.

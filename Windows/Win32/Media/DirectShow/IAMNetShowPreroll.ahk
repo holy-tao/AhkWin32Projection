@@ -11,9 +11,8 @@
  * <pre class="syntax" xml:space="preserve"><code>#include &lt;dshow.h&gt;
  * @see https://learn.microsoft.com/windows/win32/api/qnetwork/nn-qnetwork-iamnetshowpreroll
  * @namespace Windows.Win32.Media.DirectShow
- * @version v4.0.30319
  */
-class IAMNetShowPreroll extends IDispatch{
+class IAMNetShowPreroll extends IDispatch {
 
     static sizeof => A_PtrSize
     /**
@@ -35,6 +34,7 @@ class IAMNetShowPreroll extends IDispatch{
     static VTableNames => ["put_Preroll", "get_Preroll"]
 
     /**
+     * @type {VARIANT_BOOL} 
      */
     Preroll {
         get => this.get_Preroll()

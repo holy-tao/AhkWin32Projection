@@ -5,9 +5,8 @@
 
 /**
  * @namespace Windows.Win32.UI.Shell
- * @version v4.0.30319
  */
-class ILaunchUIContext extends IUnknown{
+class ILaunchUIContext extends IUnknown {
 
     static sizeof => A_PtrSize
     /**

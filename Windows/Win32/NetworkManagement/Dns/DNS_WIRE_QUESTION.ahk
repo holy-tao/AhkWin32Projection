@@ -7,10 +7,8 @@
  * When constructing a DNS message, the question name must precede the <b>DNS_WIRE_QUESTION</b> structure.
  * @see https://learn.microsoft.com/windows/win32/api/windns/ns-windns-dns_wire_question
  * @namespace Windows.Win32.NetworkManagement.Dns
- * @version v4.0.30319
  */
-class DNS_WIRE_QUESTION extends Win32Struct
-{
+class DNS_WIRE_QUESTION extends Win32Struct {
     static sizeof => 4
 
     static packingSize => 2

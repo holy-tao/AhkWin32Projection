@@ -3,9 +3,8 @@
 
 /**
  * @namespace Windows.Win32.Graphics.Direct2D
- * @version v4.0.30319
  */
-class D2D1_CROSSFADE_PROP extends Win32Enum{
+class D2D1_CROSSFADE_PROP extends Win32Enum {
 
     /**
      * @type {Integer (Int32)}

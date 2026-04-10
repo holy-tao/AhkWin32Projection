@@ -5,9 +5,8 @@
 
 /**
  * @namespace Windows.Win32.Media.MediaPlayer
- * @version v4.0.30319
  */
-class IXFeedItem2 extends IXFeedItem{
+class IXFeedItem2 extends IXFeedItem {
 
     static sizeof => A_PtrSize
     /**

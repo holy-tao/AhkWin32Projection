@@ -1,17 +1,15 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\..\Guid.ahk
+#Include .\IXMLDOMNodeList.ahk
 #Include ..\..\..\Foundation\BSTR.ahk
 #Include .\IXMLDOMNode.ahk
-#Include .\IXMLDOMSelection.ahk
 #Include ..\..\..\System\Variant\VARIANT.ahk
-#Include .\IXMLDOMNodeList.ahk
 
 /**
  * @namespace Windows.Win32.Data.Xml.MsXml
- * @version v4.0.30319
  */
-class IXMLDOMSelection extends IXMLDOMNodeList{
+class IXMLDOMSelection extends IXMLDOMNodeList {
 
     static sizeof => A_PtrSize
     /**

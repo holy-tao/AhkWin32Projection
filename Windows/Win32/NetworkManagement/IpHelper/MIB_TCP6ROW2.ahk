@@ -1,6 +1,8 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
 #Include ..\..\Networking\WinSock\IN6_ADDR.ahk
+#Include .\MIB_TCP_STATE.ahk
+#Include .\TCP_CONNECTION_OFFLOAD_STATE.ahk
 
 /**
  * Contains information that describes an IPv6 TCP connection. (MIB_TCP6ROW2)
@@ -26,10 +28,8 @@
  * The <b>LocalAddr</b> and <b>RemoteAddr</b> members are stored in  <a href="https://docs.microsoft.com/windows/desktop/api/winsock2/ns-winsock2-in_addr">in6_addr</a> structures. The <a href="https://docs.microsoft.com/windows/desktop/api/ip2string/nf-ip2string-rtlipv6addresstostringa">RtlIpv6AddressToString</a> or <a href="https://docs.microsoft.com/windows/desktop/api/ip2string/nf-ip2string-rtlipv6addresstostringexw">RtlIpv6AddressToStringEx</a> functions may be used to convert the IPv6 address in the <b>LocalAddr</b> or <b>RemoteAddr</b> members to a string without loading the Windows Sockets DLL.
  * @see https://learn.microsoft.com/windows/win32/api/tcpmib/ns-tcpmib-mib_tcp6row2
  * @namespace Windows.Win32.NetworkManagement.IpHelper
- * @version v4.0.30319
  */
-class MIB_TCP6ROW2 extends Win32Struct
-{
+class MIB_TCP6ROW2 extends Win32Struct {
     static sizeof => 60
 
     static packingSize => 4
@@ -40,7 +40,7 @@ class MIB_TCP6ROW2 extends Win32Struct
      * The local IPv6 address for the TCP connection on the local computer. A value of zero indicates the listener  can accept a connection on any interface.
      * @type {IN6_ADDR}
      */
-    LocalAddr{
+    LocalAddr {
         get {
             if(!this.HasProp("__LocalAddr"))
                 this.__LocalAddr := IN6_ADDR(0, this)
@@ -78,7 +78,7 @@ class MIB_TCP6ROW2 extends Win32Struct
      * The IPv6 address for the TCP connection on the remote computer. When the <b>State</b> member is <b>MIB_TCP_STATE_LISTEN</b>, this value has no meaning.
      * @type {IN6_ADDR}
      */
-    RemoteAddr{
+    RemoteAddr {
         get {
             if(!this.HasProp("__RemoteAddr"))
                 this.__RemoteAddr := IN6_ADDR(24, this)
@@ -270,7 +270,7 @@ class MIB_TCP6ROW2 extends Win32Struct
      * </td>
      * </tr>
      * </table>
-     * @type {Integer}
+     * @type {MIB_TCP_STATE}
      */
     State {
         get => NumGet(this, 48, "int")
@@ -292,7 +292,7 @@ class MIB_TCP6ROW2 extends Win32Struct
      * Type: <b>TCP_CONNECTION_OFFLOAD_STATE</b>
      * 
      * The offload state for this TCP connection. This parameter can be one of the enumeration values for the <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/tcpmib/ne-tcpmib-tcp_connection_offload_state">TCP_CONNECTION_OFFLOAD_STATE</a> defined in the <i>Tcpmib.h</i> header.
-     * @type {Integer}
+     * @type {TCP_CONNECTION_OFFLOAD_STATE}
      */
     dwOffloadState {
         get => NumGet(this, 56, "int")

@@ -15,9 +15,8 @@
  * For the <a href="https://docs.microsoft.com/windows/desktop/api/objidl/nn-objidl-imultiqi">IMultiQI</a> interface, the handler should fill in the interfaces it knows about and then forward the call to the proxy manager to fill in the rest of the interfaces.
  * @see https://learn.microsoft.com/windows/win32/api/objidlbase/nn-objidlbase-iinternalunknown
  * @namespace Windows.Win32.System.Com
- * @version v4.0.30319
  */
-class IInternalUnknown extends IUnknown{
+class IInternalUnknown extends IUnknown {
 
     static sizeof => A_PtrSize
     /**

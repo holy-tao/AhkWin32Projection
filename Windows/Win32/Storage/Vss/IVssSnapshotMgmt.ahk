@@ -12,9 +12,8 @@
  *     remotely using DCOM. The caller must be a member of the local administrators group on the remote machine.
  * @see https://learn.microsoft.com/windows/win32/api/vsmgmt/nn-vsmgmt-ivsssnapshotmgmt
  * @namespace Windows.Win32.Storage.Vss
- * @version v4.0.30319
  */
-class IVssSnapshotMgmt extends IUnknown{
+class IVssSnapshotMgmt extends IUnknown {
 
     static sizeof => A_PtrSize
     /**

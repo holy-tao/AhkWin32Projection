@@ -3,10 +3,8 @@
 
 /**
  * @namespace Windows.Wdk.Storage.FileSystem
- * @version v4.0.30319
  */
-class FSCTL_QUERY_GHOSTED_FILE_EXTENTS_INPUT_RANGE extends Win32Struct
-{
+class FSCTL_QUERY_GHOSTED_FILE_EXTENTS_INPUT_RANGE extends Win32Struct {
     static sizeof => 16
 
     static packingSize => 8

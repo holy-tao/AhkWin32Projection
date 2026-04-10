@@ -3,9 +3,8 @@
 
 /**
  * @namespace Windows.Win32.UI.Input.GameInput
- * @version v4.0.30319
  */
-class GameInputMotionAccuracy extends Win32Enum{
+class GameInputMotionAccuracy extends Win32Enum {
 
     /**
      * @type {Integer (Int32)}

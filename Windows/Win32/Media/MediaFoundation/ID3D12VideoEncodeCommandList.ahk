@@ -5,13 +5,10 @@
 
 /**
  * Encapsulates a list of graphics commands for video encoding, including motion estimation.
- * @remarks
- * 
  * @see https://learn.microsoft.com/windows/win32/api/d3d12video/nn-d3d12video-id3d12videoencodecommandlist
  * @namespace Windows.Win32.Media.MediaFoundation
- * @version v4.0.30319
  */
-class ID3D12VideoEncodeCommandList extends ID3D12CommandList{
+class ID3D12VideoEncodeCommandList extends ID3D12CommandList {
 
     static sizeof => A_PtrSize
     /**
@@ -130,7 +127,7 @@ class ID3D12VideoEncodeCommandList extends ID3D12CommandList{
      * @remarks
      * Some queries do not use **BeginQuery** and only have an **EndQuery**.  See each query type in [D3D12_QUERY_TYPE](/windows/desktop/api/d3d12/ne-d3d12-d3d12_query_type) to determine proper usage.
      * @param {ID3D12QueryHeap} pQueryHeap A pointer to an [ID3D12QueryHeap](/windows/desktop/api/d3d12/nn-d3d12-id3d12queryheap) specifying the storage for this query.
-     * @param {Integer} Type A member of the [D3D12_QUERY_TYPE](/windows/desktop/api/d3d12/ne-d3d12-d3d12_query_type) enumeration specifying the type of the query.
+     * @param {D3D12_QUERY_TYPE} Type A member of the [D3D12_QUERY_TYPE](/windows/desktop/api/d3d12/ne-d3d12-d3d12_query_type) enumeration specifying the type of the query.
      * @param {Integer} Index The index of the query within the query heap.
      * @returns {String} Nothing - always returns an empty string
      * @see https://learn.microsoft.com/windows/win32/api/d3d12video/nf-d3d12video-id3d12videoencodecommandlist-beginquery
@@ -142,7 +139,7 @@ class ID3D12VideoEncodeCommandList extends ID3D12CommandList{
     /**
      * Ends a query. (ID3D12VideoEncodeCommandList::EndQuery)
      * @param {ID3D12QueryHeap} pQueryHeap A pointer to an [ID3D12QueryHeap](/windows/desktop/api/d3d12/nn-d3d12-id3d12queryheap) specifying the storage for this query.
-     * @param {Integer} Type A member of the [D3D12_QUERY_TYPE](/windows/desktop/api/d3d12/ne-d3d12-d3d12_query_type) enumeration specifying the type of the query.
+     * @param {D3D12_QUERY_TYPE} Type A member of the [D3D12_QUERY_TYPE](/windows/desktop/api/d3d12/ne-d3d12-d3d12_query_type) enumeration specifying the type of the query.
      * @param {Integer} Index The index of the query within the query heap.
      * @returns {String} Nothing - always returns an empty string
      * @see https://learn.microsoft.com/windows/win32/api/d3d12video/nf-d3d12video-id3d12videoencodecommandlist-endquery
@@ -154,7 +151,7 @@ class ID3D12VideoEncodeCommandList extends ID3D12CommandList{
     /**
      * Extracts data from a query. (ID3D12VideoEncodeCommandList::ResolveQueryData)
      * @param {ID3D12QueryHeap} pQueryHeap A pointer to an [ID3D12QueryHeap](/windows/desktop/api/d3d12/nn-d3d12-id3d12queryheap) specifying the storage containing the queries to resolve.
-     * @param {Integer} Type A member of the [D3D12_QUERY_TYPE](/windows/desktop/api/d3d12/ne-d3d12-d3d12_query_type) enumeration specifying the type of the query.
+     * @param {D3D12_QUERY_TYPE} Type A member of the [D3D12_QUERY_TYPE](/windows/desktop/api/d3d12/ne-d3d12-d3d12_query_type) enumeration specifying the type of the query.
      * @param {Integer} StartIndex The index of the first query to resolve.
      * @param {Integer} NumQueries The number of queries to resolve.
      * @param {ID3D12Resource} pDestinationBuffer A pointer to an [ID3D12Resource](/windows/desktop/api/d3d12/nn-d3d12-id3d12resource) representing the destination buffer. The resource must be in the state [D3D12_RESOURCE_STATE_COPY_DEST](/windows/desktop/api/d3d12/ne-d3d12-d3d12_resource_states).
@@ -170,7 +167,7 @@ class ID3D12VideoEncodeCommandList extends ID3D12CommandList{
      * Specifies that subsequent commands should not be performed if the predicate value passes the specified operation. (ID3D12VideoEncodeCommandList::SetPredication)
      * @param {ID3D12Resource} pBuffer A pointer to an [ID3D12Resource](/windows/desktop/api/d3d12/nn-d3d12-id3d12resource) representing the buffer from which to read the 64-bit predication value.
      * @param {Integer} AlignedBufferOffset The UINT64-aligned buffer offset.
-     * @param {Integer} Operation A member of the [D3D12_PREDICATION_OP](/windows/desktop/api/d3d12/ne-d3d12-d3d12_predication_op) enumeration specifying the predicate operation.
+     * @param {D3D12_PREDICATION_OP} Operation A member of the [D3D12_PREDICATION_OP](/windows/desktop/api/d3d12/ne-d3d12-d3d12_predication_op) enumeration specifying the predicate operation.
      * @returns {String} Nothing - always returns an empty string
      * @see https://learn.microsoft.com/windows/win32/api/d3d12video/nf-d3d12video-id3d12videoencodecommandlist-setpredication
      */
@@ -181,8 +178,8 @@ class ID3D12VideoEncodeCommandList extends ID3D12CommandList{
     /**
      * For internal use only. Not intended to be called directly. (ID3D12VideoEncodeCommandList::SetMarker)
      * @param {Integer} Metadata Internal.
-     * @param {Pointer} pData Internal.
-     * @param {Integer} _Size 
+     * @param {Integer} pData Internal.
+     * @param {Integer} _Size Internal.
      * @returns {String} Nothing - always returns an empty string
      * @see https://learn.microsoft.com/windows/win32/api/d3d12video/nf-d3d12video-id3d12videoencodecommandlist-setmarker
      */
@@ -193,8 +190,8 @@ class ID3D12VideoEncodeCommandList extends ID3D12CommandList{
     /**
      * For internal use only. Not intended to be called directly. (ID3D12VideoEncodeCommandList::BeginEvent)
      * @param {Integer} Metadata Internal.
-     * @param {Pointer} pData Internal.
-     * @param {Integer} _Size 
+     * @param {Integer} pData Internal.
+     * @param {Integer} _Size Internal.
      * @returns {String} Nothing - always returns an empty string
      * @see https://learn.microsoft.com/windows/win32/api/d3d12video/nf-d3d12video-id3d12videoencodecommandlist-beginevent
      */
@@ -240,7 +237,7 @@ class ID3D12VideoEncodeCommandList extends ID3D12CommandList{
      * The capability for this feature is specified with [D3D12_FEATURE_DATA_D3D12_OPTIONS3::WriteBufferImmediateSupportFlags](../d3d12/ns-d3d12-d3d12_feature_data_d3d12_options3.md)
      * @param {Integer} Count The number of elements in the *pParams* and *pModes* arrays.
      * @param {Pointer<D3D12_WRITEBUFFERIMMEDIATE_PARAMETER>} pParams The address of an array of [D3D12_WRITEBUFFERIMMEDIATE_PARAMETER](/windows/desktop/api/d3d12/ns-d3d12-d3d12_writebufferimmediate_parameter) structures of size *Count*.
-     * @param {Pointer<Integer>} pModes The address of an array of [D3D12_WRITEBUFFERIMMEDIATE_MODE](/windows/desktop/api/d3d12/ne-d3d12-d3d12_writebufferimmediate_mode) structures of size *Count*. The default value is <b>null</b>. Passing <b>null</b> causes the system to write all immediate values using **D3D12_WRITEBUFFERIMMEDIATE_MODE_DEFAULT**.
+     * @param {Pointer<D3D12_WRITEBUFFERIMMEDIATE_MODE>} pModes The address of an array of [D3D12_WRITEBUFFERIMMEDIATE_MODE](/windows/desktop/api/d3d12/ne-d3d12-d3d12_writebufferimmediate_mode) structures of size *Count*. The default value is <b>null</b>. Passing <b>null</b> causes the system to write all immediate values using **D3D12_WRITEBUFFERIMMEDIATE_MODE_DEFAULT**.
      * @returns {String} Nothing - always returns an empty string
      * @see https://learn.microsoft.com/windows/win32/api/d3d12video/nf-d3d12video-id3d12videoencodecommandlist-writebufferimmediate
      */

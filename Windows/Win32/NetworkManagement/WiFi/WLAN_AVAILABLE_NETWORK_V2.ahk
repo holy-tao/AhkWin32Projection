@@ -1,15 +1,17 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
 #Include .\DOT11_SSID.ahk
+#Include .\DOT11_BSS_TYPE.ahk
+#Include .\DOT11_PHY_TYPE.ahk
+#Include .\DOT11_AUTH_ALGORITHM.ahk
+#Include .\DOT11_CIPHER_ALGORITHM.ahk
 #Include .\DOT11_ACCESSNETWORKOPTIONS.ahk
 #Include .\DOT11_VENUEINFO.ahk
 
 /**
  * @namespace Windows.Win32.NetworkManagement.WiFi
- * @version v4.0.30319
  */
-class WLAN_AVAILABLE_NETWORK_V2 extends Win32Struct
-{
+class WLAN_AVAILABLE_NETWORK_V2 extends Win32Struct {
     static sizeof => 644
 
     static packingSize => 4
@@ -25,7 +27,7 @@ class WLAN_AVAILABLE_NETWORK_V2 extends Win32Struct
     /**
      * @type {DOT11_SSID}
      */
-    dot11Ssid{
+    dot11Ssid {
         get {
             if(!this.HasProp("__dot11Ssid"))
                 this.__dot11Ssid := DOT11_SSID(512, this)
@@ -34,7 +36,7 @@ class WLAN_AVAILABLE_NETWORK_V2 extends Win32Struct
     }
 
     /**
-     * @type {Integer}
+     * @type {DOT11_BSS_TYPE}
      */
     dot11BssType {
         get => NumGet(this, 548, "int")
@@ -74,9 +76,9 @@ class WLAN_AVAILABLE_NETWORK_V2 extends Win32Struct
     }
 
     /**
-     * @type {Array<Int32>}
+     * @type {Array<DOT11_PHY_TYPE>}
      */
-    dot11PhyTypes{
+    dot11PhyTypes {
         get {
             if(!this.HasProp("__dot11PhyTypesProxyArray"))
                 this.__dot11PhyTypesProxyArray := Win32FixedArray(this.ptr + 568, 8, Primitive, "int")
@@ -109,7 +111,7 @@ class WLAN_AVAILABLE_NETWORK_V2 extends Win32Struct
     }
 
     /**
-     * @type {Integer}
+     * @type {DOT11_AUTH_ALGORITHM}
      */
     dot11DefaultAuthAlgorithm {
         get => NumGet(this, 612, "int")
@@ -117,7 +119,7 @@ class WLAN_AVAILABLE_NETWORK_V2 extends Win32Struct
     }
 
     /**
-     * @type {Integer}
+     * @type {DOT11_CIPHER_ALGORITHM}
      */
     dot11DefaultCipherAlgorithm {
         get => NumGet(this, 616, "int")
@@ -135,7 +137,7 @@ class WLAN_AVAILABLE_NETWORK_V2 extends Win32Struct
     /**
      * @type {DOT11_ACCESSNETWORKOPTIONS}
      */
-    AccessNetworkOptions{
+    AccessNetworkOptions {
         get {
             if(!this.HasProp("__AccessNetworkOptions"))
                 this.__AccessNetworkOptions := DOT11_ACCESSNETWORKOPTIONS(624, this)
@@ -144,9 +146,9 @@ class WLAN_AVAILABLE_NETWORK_V2 extends Win32Struct
     }
 
     /**
-     * @type {Array<Byte>}
+     * @type {Array<Integer>}
      */
-    dot11HESSID{
+    dot11HESSID {
         get {
             if(!this.HasProp("__dot11HESSIDProxyArray"))
                 this.__dot11HESSIDProxyArray := Win32FixedArray(this.ptr + 629, 6, Primitive, "char")
@@ -157,7 +159,7 @@ class WLAN_AVAILABLE_NETWORK_V2 extends Win32Struct
     /**
      * @type {DOT11_VENUEINFO}
      */
-    VenueInfo{
+    VenueInfo {
         get {
             if(!this.HasProp("__VenueInfo"))
                 this.__VenueInfo := DOT11_VENUEINFO(635, this)

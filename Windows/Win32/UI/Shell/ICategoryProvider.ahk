@@ -1,16 +1,16 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
-#Include ..\..\System\Com\IEnumGUID.ahk
 #Include ..\..\System\Com\IUnknown.ahk
+#Include ..\..\..\..\Guid.ahk
+#Include ..\..\System\Com\IEnumGUID.ahk
 
 /**
  * Exposes a list of categorizers registered on an IShellFolder.
  * @see https://learn.microsoft.com/windows/win32/api/shobjidl_core/nn-shobjidl_core-icategoryprovider
  * @namespace Windows.Win32.UI.Shell
- * @version v4.0.30319
  */
-class ICategoryProvider extends IUnknown{
+class ICategoryProvider extends IUnknown {
 
     static sizeof => A_PtrSize
     /**

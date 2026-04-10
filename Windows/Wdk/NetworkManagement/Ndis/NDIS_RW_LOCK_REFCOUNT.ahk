@@ -3,10 +3,8 @@
 
 /**
  * @namespace Windows.Wdk.NetworkManagement.Ndis
- * @version v4.0.30319
  */
-class NDIS_RW_LOCK_REFCOUNT extends Win32Struct
-{
+class NDIS_RW_LOCK_REFCOUNT extends Win32Struct {
     static sizeof => 20
 
     static packingSize => 4
@@ -20,9 +18,9 @@ class NDIS_RW_LOCK_REFCOUNT extends Win32Struct
     }
 
     /**
-     * @type {Array<Byte>}
+     * @type {Array<Integer>}
      */
-    cacheLine{
+    cacheLine {
         get {
             if(!this.HasProp("__cacheLineProxyArray"))
                 this.__cacheLineProxyArray := Win32FixedArray(this.ptr + 0, 16, Primitive, "char")

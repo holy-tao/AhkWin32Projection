@@ -5,10 +5,8 @@
  * Contains encoding statistics from the Digital Living Network Alliance (DLNA) media sink.
  * @see https://learn.microsoft.com/windows/win32/api/mfmp2dlna/ns-mfmp2dlna-mfmpeg2dlnasinkstats
  * @namespace Windows.Win32.Media.MediaFoundation
- * @version v4.0.30319
  */
-class MFMPEG2DLNASINKSTATS extends Win32Struct
-{
+class MFMPEG2DLNASINKSTATS extends Win32Struct {
     static sizeof => 88
 
     static packingSize => 8

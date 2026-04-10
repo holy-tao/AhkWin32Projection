@@ -7,9 +7,8 @@
  * The IDVEnc interface sets and retrieves properties on the DV Video Encoder filter.
  * @see https://learn.microsoft.com/windows/win32/api/strmif/nn-strmif-idvenc
  * @namespace Windows.Win32.Media.DirectShow
- * @version v4.0.30319
  */
-class IDVEnc extends IUnknown{
+class IDVEnc extends IUnknown {
 
     static sizeof => A_PtrSize
     /**

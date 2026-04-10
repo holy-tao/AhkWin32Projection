@@ -1,7 +1,6 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
-#Include ..\..\Foundation\BSTR.ahk
 #Include .\ITrigger.ahk
 
 /**
@@ -10,9 +9,8 @@
  * When reading or writing your own XML for a task, a session state change trigger is specified using the <a href="https://docs.microsoft.com/windows/desktop/TaskSchd/taskschedulerschema-sessionstatechangetrigger-triggergroup-element">SessionStateChangeTrigger</a> element of the Task Scheduler schema.
  * @see https://learn.microsoft.com/windows/win32/api/taskschd/nn-taskschd-isessionstatechangetrigger
  * @namespace Windows.Win32.System.TaskScheduler
- * @version v4.0.30319
  */
-class ISessionStateChangeTrigger extends ITrigger{
+class ISessionStateChangeTrigger extends ITrigger {
 
     static sizeof => A_PtrSize
     /**
@@ -34,6 +32,7 @@ class ISessionStateChangeTrigger extends ITrigger{
     static VTableNames => ["get_Delay", "put_Delay", "get_UserId", "put_UserId", "get_StateChange", "put_StateChange"]
 
     /**
+     * @type {BSTR} 
      */
     Delay {
         get => this.get_Delay()
@@ -41,6 +40,7 @@ class ISessionStateChangeTrigger extends ITrigger{
     }
 
     /**
+     * @type {BSTR} 
      */
     UserId {
         get => this.get_UserId()
@@ -48,6 +48,7 @@ class ISessionStateChangeTrigger extends ITrigger{
     }
 
     /**
+     * @type {TASK_SESSION_STATE_CHANGE_TYPE} 
      */
     StateChange {
         get => this.get_StateChange()
@@ -104,7 +105,7 @@ class ISessionStateChangeTrigger extends ITrigger{
 
     /**
      * Gets or sets the kind of Terminal Server session change that would trigger a task launch. (Get)
-     * @param {Pointer<Integer>} pType 
+     * @param {Pointer<TASK_SESSION_STATE_CHANGE_TYPE>} pType 
      * @returns {HRESULT} 
      * @see https://learn.microsoft.com/windows/win32/api/taskschd/nf-taskschd-isessionstatechangetrigger-get_statechange
      */
@@ -117,7 +118,7 @@ class ISessionStateChangeTrigger extends ITrigger{
 
     /**
      * Gets or sets the kind of Terminal Server session change that would trigger a task launch. (Put)
-     * @param {Integer} type 
+     * @param {TASK_SESSION_STATE_CHANGE_TYPE} type 
      * @returns {HRESULT} 
      * @see https://learn.microsoft.com/windows/win32/api/taskschd/nf-taskschd-isessionstatechangetrigger-put_statechange
      */

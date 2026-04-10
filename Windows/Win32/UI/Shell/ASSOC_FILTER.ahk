@@ -3,9 +3,8 @@
 
 /**
  * @namespace Windows.Win32.UI.Shell
- * @version v4.0.30319
  */
-class ASSOC_FILTER extends Win32BitflagEnum{
+class ASSOC_FILTER extends Win32BitflagEnum {
 
     /**
      * @type {Integer (Int32)}

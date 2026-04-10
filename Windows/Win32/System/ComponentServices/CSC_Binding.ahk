@@ -9,9 +9,8 @@
  * This enumeration is used only to set the thread pool binding for <a href="https://docs.microsoft.com/windows/desktop/cossdk/cserviceconfig">CServiceConfig</a> when calling <a href="https://docs.microsoft.com/windows/desktop/api/comsvcs/nf-comsvcs-cocreateactivity">CoCreateActivity</a>. An error is returned if you try to set the thread pool binding when calling <a href="https://docs.microsoft.com/windows/desktop/api/comsvcs/nf-comsvcs-coenterservicedomain">CoEnterServiceDomain</a>. The values of this enumeration have no impact upon the MTA.
  * @see https://learn.microsoft.com/windows/win32/api/comsvcs/ne-comsvcs-csc_binding
  * @namespace Windows.Win32.System.ComponentServices
- * @version v4.0.30319
  */
-class CSC_Binding extends Win32Enum{
+class CSC_Binding extends Win32Enum {
 
     /**
      * The work submitted through the activity is not bound to a single STA.

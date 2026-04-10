@@ -4,11 +4,9 @@
 
 /**
  * @namespace Windows.Win32.System.Ioctl
- * @version v4.0.30319
  */
-class SCM_PD_DEVICE_SPECIFIC_INFO extends Win32Struct
-{
-    static sizeof => 24
+class SCM_PD_DEVICE_SPECIFIC_INFO extends Win32Struct {
+    static sizeof => 280
 
     static packingSize => 8
 
@@ -37,9 +35,9 @@ class SCM_PD_DEVICE_SPECIFIC_INFO extends Win32Struct
     }
 
     /**
-     * @type {Array<SCM_PD_DEVICE_SPECIFIC_PROPERTY>}
+     * @type {SCM_PD_DEVICE_SPECIFIC_PROPERTY}
      */
-    DeviceSpecificProperties{
+    DeviceSpecificProperties {
         get {
             if(!this.HasProp("__DeviceSpecificPropertiesProxyArray"))
                 this.__DeviceSpecificPropertiesProxyArray := Win32FixedArray(this.ptr + 16, 1, SCM_PD_DEVICE_SPECIFIC_PROPERTY, "")

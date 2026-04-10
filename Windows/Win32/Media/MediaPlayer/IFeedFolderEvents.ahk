@@ -1,14 +1,12 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
-#Include ..\..\Foundation\BSTR.ahk
 #Include ..\..\System\Com\IDispatch.ahk
 
 /**
  * @namespace Windows.Win32.Media.MediaPlayer
- * @version v4.0.30319
  */
-class IFeedFolderEvents extends IDispatch{
+class IFeedFolderEvents extends IDispatch {
 
     static sizeof => A_PtrSize
     /**
@@ -211,13 +209,13 @@ class IFeedFolderEvents extends IDispatch{
     /**
      * 
      * @param {BSTR} _path 
-     * @param {Integer} error 
+     * @param {FEEDS_DOWNLOAD_ERROR} _error 
      * @returns {HRESULT} 
      */
-    FeedDownloadCompleted(_path, error) {
+    FeedDownloadCompleted(_path, _error) {
         _path := _path is String ? BSTR.Alloc(_path).Value : _path
 
-        result := ComCall(21, this, "ptr", _path, "int", error, "HRESULT")
+        result := ComCall(21, this, "ptr", _path, "int", _error, "HRESULT")
         return result
     }
 

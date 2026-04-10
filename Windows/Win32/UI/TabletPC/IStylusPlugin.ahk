@@ -9,9 +9,8 @@
  * Both the <a href="https://docs.microsoft.com/windows/desktop/api/rtscom/nn-rtscom-istylussyncplugin">IStylusSyncPlugin</a> and <a href="https://docs.microsoft.com/windows/desktop/api/rtscom/nn-rtscom-istylusasyncplugin">IStylusAsyncPlugin</a> interfaces derive from this interface and can be added to <a href="https://docs.microsoft.com/windows/desktop/tablet/realtimestylus-class">RealTimeStylus Class</a> plug-in collections.
  * @see https://learn.microsoft.com/windows/win32/api/rtscom/nn-rtscom-istylusplugin
  * @namespace Windows.Win32.UI.TabletPC
- * @version v4.0.30319
  */
-class IStylusPlugin extends IUnknown{
+class IStylusPlugin extends IUnknown {
 
     static sizeof => A_PtrSize
     /**
@@ -72,7 +71,7 @@ class IStylusPlugin extends IUnknown{
      * The stylus is in range of the digitizer. This is a good place to check if the stylus is inverted and if so, switch to eraser mode.
      * @param {IRealTimeStylus} piRtsSrc The <a href="https://docs.microsoft.com/windows/desktop/tablet/realtimestylus-class">RealTimeStylus Class</a> object that sent the notification.
      * @param {Integer} tcid Tablet context identifier.
-     * @param {Integer} _sid 
+     * @param {Integer} _sid Stylus identifier.
      * @returns {HRESULT} For a description of return values, see <a href="https://docs.microsoft.com/windows/desktop/tablet/realtimestylus-classes-and-interfaces">RealTimeStylus Classes and Interfaces</a>.
      * @see https://learn.microsoft.com/windows/win32/api/rtscom/nf-rtscom-istylusplugin-stylusinrange
      */
@@ -87,7 +86,7 @@ class IStylusPlugin extends IUnknown{
      * The stylus is out of range of the digitizer.
      * @param {IRealTimeStylus} piRtsSrc The <a href="https://docs.microsoft.com/windows/desktop/tablet/realtimestylus-class">RealTimeStylus Class</a> object that sent the notification.
      * @param {Integer} tcid Tablet context identifier.
-     * @param {Integer} _sid 
+     * @param {Integer} _sid Stylus identifier.
      * @returns {HRESULT} For a description of return values, see <a href="https://docs.microsoft.com/windows/desktop/tablet/realtimestylus-classes-and-interfaces">RealTimeStylus Classes and Interfaces</a>.
      * @see https://learn.microsoft.com/windows/win32/api/rtscom/nf-rtscom-istylusplugin-stylusoutofrange
      */
@@ -159,7 +158,7 @@ class IStylusPlugin extends IUnknown{
      * @remarks
      * This notification is used to when the stylus button is down and the stylus is in range of the digitizer.
      * @param {IRealTimeStylus} piRtsSrc The <a href="https://docs.microsoft.com/windows/desktop/tablet/realtimestylus-class">RealTimeStylus Class</a> object that sent the notification.
-     * @param {Integer} _sid 
+     * @param {Integer} _sid Security identifier.
      * @param {Pointer<Guid>} pGuidStylusButton The GUID-type identifier for the stylus button data. The GUID indicates the unique identifier for this data object.
      * @param {Pointer<POINT>} pStylusPos A <a href="https://docs.microsoft.com/windows/desktop/api/rtscom/ns-rtscom-stylusinfo">StylusInfo Structure</a> containing the information about the <a href="https://docs.microsoft.com/windows/desktop/tablet/realtimestylus-class">RealTimeStylus Class</a> object that is associated with the stylus.
      * @returns {HRESULT} For a description of return values, see <a href="https://docs.microsoft.com/windows/desktop/tablet/realtimestylus-classes-and-interfaces">RealTimeStylus Classes and Interfaces</a>.
@@ -175,7 +174,7 @@ class IStylusPlugin extends IUnknown{
      * @remarks
      * The stylus button is no longer down and the stylus is in range of the digitizer.
      * @param {IRealTimeStylus} piRtsSrc The <a href="https://docs.microsoft.com/windows/desktop/tablet/realtimestylus-class">RealTimeStylus Class</a> (RTS) object that sent the notification.
-     * @param {Integer} _sid 
+     * @param {Integer} _sid Security identifier.
      * @param {Pointer<Guid>} pGuidStylusButton The globally unique identifier (GUID) for the stylus button data.
      * @param {Pointer<POINT>} pStylusPos A<a href="https://docs.microsoft.com/windows/desktop/api/rtscom/ns-rtscom-stylusinfo">StylusInfo Structure</a> containing the information about the RTS that is associated with the stylus.
      * @returns {HRESULT} For a description of return values, see <a href="https://docs.microsoft.com/windows/desktop/tablet/realtimestylus-classes-and-interfaces">RealTimeStylus Classes and Interfaces</a>.
@@ -272,7 +271,7 @@ class IStylusPlugin extends IUnknown{
      * Use the <a href="https://docs.microsoft.com/windows/desktop/api/rtscom/nf-rtscom-irealtimestylus-getdesiredpacketdescription">IRealTimeStylus::GetDesiredPacketDescription Method</a> method to determine what packet properties are sent in the events.
      * @param {IRealTimeStylus} piRtsSrc The <a href="https://docs.microsoft.com/windows/desktop/tablet/realtimestylus-class">RealTimeStylus Class</a> (RTS) object that sent the notification.
      * @param {Integer} tcid The tablet context identifier for the event.
-     * @param {Integer} _sid 
+     * @param {Integer} _sid The security identifier.
      * @param {Integer} event The system event sent by the RTS object
      * @param {SYSTEM_EVENT_DATA} eventdata The 
      *               <a href="https://docs.microsoft.com/windows/desktop/api/tpcshrd/ns-tpcshrd-system_event_data">SYSTEM_EVENT_DATA</a> structure containing information about the system event, <i>event</i>.
@@ -318,7 +317,7 @@ class IStylusPlugin extends IUnknown{
      * This method is called when the RTS object has caught an exception.
      * @param {IRealTimeStylus} piRtsSrc The <a href="https://docs.microsoft.com/windows/desktop/tablet/realtimestylus-class">RealTimeStylus Class</a> (RTS) object that sent the notification.
      * @param {IStylusPlugin} piPlugin The <a href="https://docs.microsoft.com/windows/desktop/api/rtscom/nn-rtscom-istylusplugin">IStylusPlugin</a> object that sent the notification.
-     * @param {Integer} dataInterest Identifier of the <a href="https://docs.microsoft.com/windows/desktop/api/rtscom/nn-rtscom-istylusplugin">IStylusPlugin</a> method that generated the error.
+     * @param {RealTimeStylusDataInterest} dataInterest Identifier of the <a href="https://docs.microsoft.com/windows/desktop/api/rtscom/nn-rtscom-istylusplugin">IStylusPlugin</a> method that generated the error.
      * @param {HRESULT} hrErrorCode The <b>HRESULT</b> code for the error that occurred.
      * @param {Pointer<Pointer>} lptrKey Used internally by the system.
      * @returns {HRESULT} For a description of return values, see <a href="https://docs.microsoft.com/windows/desktop/tablet/classes-and-interfaces---ink-analysis">Classes and Interfaces - Ink Analysis</a>.
@@ -352,7 +351,7 @@ class IStylusPlugin extends IUnknown{
      * The default is <b>RTSDI_None</b>.
      * 
      * The <a href="https://docs.microsoft.com/windows/desktop/api/rtscom/ne-rtscom-realtimestylusdatainterest">RealTimeStylusDataInterest Enumeration</a> enumeration bitmask is retrieved every time a plug-in is enabled or disabled. The <b>DataInterest</b> mask of a plug-in is queried by the <a href="https://docs.microsoft.com/windows/desktop/tablet/realtimestylus-class">RealTimeStylus Class</a> object when the plug-in has been added to the plug-in collections.
-     * @returns {Integer} The bitmask indicating the events for which the plug-in is to receive notifications.
+     * @returns {RealTimeStylusDataInterest} The bitmask indicating the events for which the plug-in is to receive notifications.
      * @see https://learn.microsoft.com/windows/win32/api/rtscom/nf-rtscom-istylusplugin-datainterest
      */
     DataInterest() {

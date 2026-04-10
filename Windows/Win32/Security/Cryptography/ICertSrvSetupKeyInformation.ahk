@@ -1,17 +1,16 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
+#Include ..\..\System\Com\IDispatch.ahk
 #Include ..\..\Foundation\BSTR.ahk
 #Include ..\..\System\Variant\VARIANT.ahk
-#Include ..\..\System\Com\IDispatch.ahk
 
 /**
  * Defines a set of private key properties that are used for setup of certification authority (CA) or Microsoft Simple Certificate Enrollment Protocol (SCEP) roles.
  * @see https://learn.microsoft.com/windows/win32/api/casetup/nn-casetup-icertsrvsetupkeyinformation
  * @namespace Windows.Win32.Security.Cryptography
- * @version v4.0.30319
  */
-class ICertSrvSetupKeyInformation extends IDispatch{
+class ICertSrvSetupKeyInformation extends IDispatch {
 
     static sizeof => A_PtrSize
     /**

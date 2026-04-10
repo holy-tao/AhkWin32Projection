@@ -1,13 +1,12 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
-#Include ..\..\Foundation\BSTR.ahk
+#Include ..\Com\IDispatch.ahk
 #Include .\IRegistrationInfo.ahk
 #Include .\ITriggerCollection.ahk
 #Include .\ITaskSettings.ahk
 #Include .\IPrincipal.ahk
 #Include .\IActionCollection.ahk
-#Include ..\Com\IDispatch.ahk
 
 /**
  * Defines all the components of a task, such as the task settings, triggers, actions, and registration information.
@@ -15,9 +14,8 @@
  * When reading or writing your own XML for a task, a task definition is specified using the <a href="https://docs.microsoft.com/windows/desktop/TaskSchd/taskschedulerschema-task-element">Task</a> element of the Task Scheduler schema.
  * @see https://learn.microsoft.com/windows/win32/api/taskschd/nn-taskschd-itaskdefinition
  * @namespace Windows.Win32.System.TaskScheduler
- * @version v4.0.30319
  */
-class ITaskDefinition extends IDispatch{
+class ITaskDefinition extends IDispatch {
 
     static sizeof => A_PtrSize
     /**
@@ -63,6 +61,7 @@ class ITaskDefinition extends IDispatch{
     }
 
     /**
+     * @type {BSTR} 
      */
     Data {
         get => this.get_Data()
@@ -86,6 +85,7 @@ class ITaskDefinition extends IDispatch{
     }
 
     /**
+     * @type {BSTR} 
      */
     XmlText {
         get => this.get_XmlText()

@@ -5,10 +5,8 @@
 
 /**
  * @namespace Windows.Win32.NetworkManagement.Rras
- * @version v4.0.30319
  */
-class VPN_TS_IP_ADDRESS extends Win32Struct
-{
+class VPN_TS_IP_ADDRESS extends Win32Struct {
     static sizeof => 20
 
     static packingSize => 4
@@ -24,7 +22,7 @@ class VPN_TS_IP_ADDRESS extends Win32Struct
     /**
      * @type {IN_ADDR}
      */
-    v4{
+    v4 {
         get {
             if(!this.HasProp("__v4"))
                 this.__v4 := IN_ADDR(4, this)
@@ -35,7 +33,7 @@ class VPN_TS_IP_ADDRESS extends Win32Struct
     /**
      * @type {IN6_ADDR}
      */
-    v6{
+    v6 {
         get {
             if(!this.HasProp("__v6"))
                 this.__v6 := IN6_ADDR(4, this)

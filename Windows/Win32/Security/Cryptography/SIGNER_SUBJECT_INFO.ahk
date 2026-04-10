@@ -1,14 +1,15 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
+#Include .\SIGNER_SUBJECT_CHOICE.ahk
+#Include .\SIGNER_FILE_INFO.ahk
+#Include .\SIGNER_BLOB_INFO.ahk
 
 /**
  * Specifies a subject to sign.
  * @see https://learn.microsoft.com/windows/win32/SecCrypto/signer-subject-info
  * @namespace Windows.Win32.Security.Cryptography
- * @version v4.0.30319
  */
-class SIGNER_SUBJECT_INFO extends Win32Struct
-{
+class SIGNER_SUBJECT_INFO extends Win32Struct {
     static sizeof => 32
 
     static packingSize => 8
@@ -40,7 +41,7 @@ class SIGNER_SUBJECT_INFO extends Win32Struct
      * |-----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|-----------------------------------|
      * | <span id="SIGNER_SUBJECT_BLOB"></span><span id="signer_subject_blob"></span><dl> <dt>**SIGNER\_SUBJECT\_BLOB**</dt> <dt>2 (0x2)</dt> </dl> | The subject is a BLOB.<br/> |
      * | <span id="SIGNER_SUBJECT_FILE"></span><span id="signer_subject_file"></span><dl> <dt>**SIGNER\_SUBJECT\_FILE**</dt> <dt>1 (0x1)</dt> </dl> | The subject is a file.<br/> |
-     * @type {Integer}
+     * @type {SIGNER_SUBJECT_CHOICE}
      */
     dwSubjectChoice {
         get => NumGet(this, 16, "uint")

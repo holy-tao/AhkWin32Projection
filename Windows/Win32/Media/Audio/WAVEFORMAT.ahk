@@ -7,10 +7,8 @@
  * For formats that require additional information, this structure is included as a member in another structure along with the additional information.
  * @see https://learn.microsoft.com/windows/win32/api/mmeapi/ns-mmeapi-waveformat
  * @namespace Windows.Win32.Media.Audio
- * @version v4.0.30319
  */
-class WAVEFORMAT extends Win32Struct
-{
+class WAVEFORMAT extends Win32Struct {
     static sizeof => 16
 
     static packingSize => 4

@@ -6,10 +6,8 @@
  * Contains information about a media sharing device.
  * @see https://learn.microsoft.com/windows/win32/api/mfsharingengine/ns-mfsharingengine-device_info
  * @namespace Windows.Win32.Media.MediaFoundation
- * @version v4.0.30319
  */
-class DEVICE_INFO extends Win32Struct
-{
+class DEVICE_INFO extends Win32Struct {
     static sizeof => 40
 
     static packingSize => 8
@@ -18,7 +16,7 @@ class DEVICE_INFO extends Win32Struct
      * The friendly name of the device.
      * @type {BSTR}
      */
-    pFriendlyDeviceName{
+    pFriendlyDeviceName {
         get {
             if(!this.HasProp("__pFriendlyDeviceName"))
                 this.__pFriendlyDeviceName := BSTR(0, this)
@@ -30,7 +28,7 @@ class DEVICE_INFO extends Win32Struct
      * A string that uniquely identifies the device.
      * @type {BSTR}
      */
-    pUniqueDeviceName{
+    pUniqueDeviceName {
         get {
             if(!this.HasProp("__pUniqueDeviceName"))
                 this.__pUniqueDeviceName := BSTR(8, this)
@@ -42,7 +40,7 @@ class DEVICE_INFO extends Win32Struct
      * The manufacturer name.
      * @type {BSTR}
      */
-    pManufacturerName{
+    pManufacturerName {
         get {
             if(!this.HasProp("__pManufacturerName"))
                 this.__pManufacturerName := BSTR(16, this)
@@ -54,7 +52,7 @@ class DEVICE_INFO extends Win32Struct
      * The model name.
      * @type {BSTR}
      */
-    pModelName{
+    pModelName {
         get {
             if(!this.HasProp("__pModelName"))
                 this.__pModelName := BSTR(24, this)
@@ -66,7 +64,7 @@ class DEVICE_INFO extends Win32Struct
      * The URL of an icon for the device.
      * @type {BSTR}
      */
-    pIconURL{
+    pIconURL {
         get {
             if(!this.HasProp("__pIconURL"))
                 this.__pIconURL := BSTR(32, this)

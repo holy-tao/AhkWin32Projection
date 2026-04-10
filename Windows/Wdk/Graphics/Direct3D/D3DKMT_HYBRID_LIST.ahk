@@ -1,19 +1,18 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
-#Include ..\..\..\Win32\Foundation\LUID.ahk
+#Include .\D3DKMT_GPU_PREFERENCE_QUERY_STATE.ahk
+#Include .\D3DKMT_GPU_PREFERENCE_QUERY_TYPE.ahk
 
 /**
  * @namespace Windows.Wdk.Graphics.Direct3D
- * @version v4.0.30319
  */
-class D3DKMT_HYBRID_LIST extends Win32Struct
-{
-    static sizeof => 20
+class D3DKMT_HYBRID_LIST extends Win32Struct {
+    static sizeof => 24
 
-    static packingSize => 4
+    static packingSize => 8
 
     /**
-     * @type {Integer}
+     * @type {D3DKMT_GPU_PREFERENCE_QUERY_STATE}
      */
     State {
         get => NumGet(this, 0, "int")
@@ -21,29 +20,26 @@ class D3DKMT_HYBRID_LIST extends Win32Struct
     }
 
     /**
-     * @type {LUID}
+     * @type {Pointer}
      */
-    AdapterLuid{
-        get {
-            if(!this.HasProp("__AdapterLuid"))
-                this.__AdapterLuid := LUID(4, this)
-            return this.__AdapterLuid
-        }
+    AdapterLuid {
+        get => NumGet(this, 8, "ptr")
+        set => NumPut("ptr", value, this, 8)
     }
 
     /**
      * @type {BOOL}
      */
     bUserPreferenceQuery {
-        get => NumGet(this, 12, "int")
-        set => NumPut("int", value, this, 12)
+        get => NumGet(this, 16, "int")
+        set => NumPut("int", value, this, 16)
     }
 
     /**
-     * @type {Integer}
+     * @type {D3DKMT_GPU_PREFERENCE_QUERY_TYPE}
      */
     QueryType {
-        get => NumGet(this, 16, "int")
-        set => NumPut("int", value, this, 16)
+        get => NumGet(this, 20, "int")
+        set => NumPut("int", value, this, 20)
     }
 }

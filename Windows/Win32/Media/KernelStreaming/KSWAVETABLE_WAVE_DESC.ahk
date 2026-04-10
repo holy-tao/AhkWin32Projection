@@ -5,10 +5,8 @@
 
 /**
  * @namespace Windows.Win32.Media.KernelStreaming
- * @version v4.0.30319
  */
-class KSWAVETABLE_WAVE_DESC extends Win32Struct
-{
+class KSWAVETABLE_WAVE_DESC extends Win32Struct {
     static sizeof => 80
 
     static packingSize => 8
@@ -16,7 +14,7 @@ class KSWAVETABLE_WAVE_DESC extends Win32Struct
     /**
      * @type {KSIDENTIFIER}
      */
-    Identifier{
+    Identifier {
         get {
             if(!this.HasProp("__Identifier"))
                 this.__Identifier := KSIDENTIFIER(0, this)
@@ -59,7 +57,7 @@ class KSWAVETABLE_WAVE_DESC extends Win32Struct
     /**
      * @type {KSDATAFORMAT}
      */
-    Format{
+    Format {
         get {
             if(!this.HasProp("__Format"))
                 this.__Format := KSDATAFORMAT(32, this)

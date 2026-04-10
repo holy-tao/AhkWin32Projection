@@ -1,9 +1,9 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
+#Include ..\Com\IDispatch.ahk
 #Include ..\..\Foundation\BSTR.ahk
 #Include .\IStringCollection.ahk
-#Include ..\Com\IDispatch.ahk
 
 /**
  * Contains the HTTP proxy settings.
@@ -14,9 +14,8 @@
  * <div> </div>
  * @see https://learn.microsoft.com/windows/win32/api/wuapi/nn-wuapi-iwebproxy
  * @namespace Windows.Win32.System.UpdateAgent
- * @version v4.0.30319
  */
-class IWebProxy extends IDispatch{
+class IWebProxy extends IDispatch {
 
     static sizeof => A_PtrSize
     /**

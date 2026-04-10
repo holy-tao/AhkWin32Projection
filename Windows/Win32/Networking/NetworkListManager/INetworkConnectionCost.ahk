@@ -1,16 +1,15 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
-#Include .\NLM_DATAPLAN_STATUS.ahk
 #Include ..\..\System\Com\IUnknown.ahk
+#Include .\NLM_DATAPLAN_STATUS.ahk
 
 /**
  * To query current network cost and data plan status associated with a connection.
  * @see https://learn.microsoft.com/windows/win32/api/netlistmgr/nn-netlistmgr-inetworkconnectioncost
  * @namespace Windows.Win32.Networking.NetworkListManager
- * @version v4.0.30319
  */
-class INetworkConnectionCost extends IUnknown{
+class INetworkConnectionCost extends IUnknown {
 
     static sizeof => A_PtrSize
     /**

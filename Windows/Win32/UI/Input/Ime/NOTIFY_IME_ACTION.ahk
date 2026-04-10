@@ -3,9 +3,8 @@
 
 /**
  * @namespace Windows.Win32.UI.Input.Ime
- * @version v4.0.30319
  */
-class NOTIFY_IME_ACTION extends Win32Enum{
+class NOTIFY_IME_ACTION extends Win32Enum {
 
     /**
      * @type {Integer (UInt32)}

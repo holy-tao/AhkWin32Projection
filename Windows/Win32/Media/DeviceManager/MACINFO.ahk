@@ -3,10 +3,8 @@
 
 /**
  * @namespace Windows.Win32.Media.DeviceManager
- * @version v4.0.30319
  */
-class MACINFO extends Win32Struct
-{
+class MACINFO extends Win32Struct {
     static sizeof => 40
 
     static packingSize => 4
@@ -20,9 +18,9 @@ class MACINFO extends Win32Struct
     }
 
     /**
-     * @type {Array<Byte>}
+     * @type {Array<Integer>}
      */
-    abMacState{
+    abMacState {
         get {
             if(!this.HasProp("__abMacStateProxyArray"))
                 this.__abMacStateProxyArray := Win32FixedArray(this.ptr + 4, 36, Primitive, "char")

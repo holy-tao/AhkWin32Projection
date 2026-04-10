@@ -1,13 +1,11 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
-#Include .\DEBUG_DEVICE_ADDRESS.ahk
+#Include .\KD_NAMESPACE_ENUM.ahk
 
 /**
  * @namespace Windows.Wdk.System.SystemServices
- * @version v4.0.30319
  */
-class DEBUG_DEVICE_DESCRIPTOR extends Win32Struct
-{
+class DEBUG_DEVICE_DESCRIPTOR extends Win32Struct {
     static sizeof => 136
 
     static packingSize => 8
@@ -155,9 +153,9 @@ class DEBUG_DEVICE_DESCRIPTOR extends Win32Struct
     }
 
     /**
-     * @type {Array<DEBUG_DEVICE_ADDRESS>}
+     * @type {Array<Pointer>}
      */
-    BaseAddress{
+    BaseAddress {
         get {
             if(!this.HasProp("__BaseAddressProxyArray"))
                 this.__BaseAddressProxyArray := Win32FixedArray(this.ptr + 24, 6, Primitive, "ptr")
@@ -166,7 +164,7 @@ class DEBUG_DEVICE_DESCRIPTOR extends Win32Struct
     }
 
     /**
-     * @type {Pointer<DEBUG_MEMORY_REQUIREMENTS>}
+     * @type {Pointer}
      */
     Memory {
         get => NumGet(this, 72, "ptr")
@@ -214,7 +212,7 @@ class DEBUG_DEVICE_DESCRIPTOR extends Win32Struct
     }
 
     /**
-     * @type {Integer}
+     * @type {KD_NAMESPACE_ENUM}
      */
     NameSpace {
         get => NumGet(this, 100, "int")
@@ -246,7 +244,7 @@ class DEBUG_DEVICE_DESCRIPTOR extends Win32Struct
     }
 
     /**
-     * @type {Pointer<DEBUG_TRANSPORT_DATA>}
+     * @type {Pointer}
      */
     TransportData {
         get => NumGet(this, 120, "ptr")
@@ -254,7 +252,7 @@ class DEBUG_DEVICE_DESCRIPTOR extends Win32Struct
     }
 
     /**
-     * @type {Pointer<DEBUG_EFI_IOMMU_DATA>}
+     * @type {Pointer}
      */
     EfiIoMmuData {
         get => NumGet(this, 128, "ptr")

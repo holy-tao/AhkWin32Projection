@@ -5,9 +5,8 @@
  * Specifies the type of authentication used to connect to Remote Desktop Gateway (RD Gateway).
  * @see https://learn.microsoft.com/windows/win32/api/tsgpolicyengine/ne-tsgpolicyengine-aaauthschemes
  * @namespace Windows.Win32.System.RemoteDesktop
- * @version v4.0.30319
  */
-class AAAuthSchemes extends Win32Enum{
+class AAAuthSchemes extends Win32Enum {
 
     /**
      * This value is reserved.
@@ -80,7 +79,6 @@ class AAAuthSchemes extends Win32Enum{
     static AA_AUTH_CONID => 10
 
     /**
-     * 
      * @type {Integer (Int32)}
      */
     static AA_AUTH_SSPI_NTLM => 11

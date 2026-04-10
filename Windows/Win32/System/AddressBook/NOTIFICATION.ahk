@@ -1,8 +1,14 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
 #Include .\ERROR_NOTIFICATION.ahk
+#Include .\ENTRYID.ahk
+#Include .\MAPIERROR.ahk
 #Include .\NEWMAIL_NOTIFICATION.ahk
 #Include .\OBJECT_NOTIFICATION.ahk
+#Include .\SPropTagArray.ahk
+#Include .\TABLE_NOTIFICATION.ahk
+#Include .\SPropValue.ahk
+#Include .\__UPV.ahk
 #Include ..\Com\CY.ahk
 #Include ..\..\Foundation\FILETIME.ahk
 #Include .\SBinary.ahk
@@ -18,10 +24,7 @@
 #Include .\SWStringArray.ahk
 #Include .\SGuidArray.ahk
 #Include .\SLargeIntegerArray.ahk
-#Include .\__UPV.ahk
-#Include .\SPropValue.ahk
 #Include .\SRow.ahk
-#Include .\TABLE_NOTIFICATION.ahk
 #Include .\EXTENDED_NOTIFICATION.ahk
 #Include .\STATUS_OBJECT_NOTIFICATION.ahk
 
@@ -49,10 +52,8 @@
  * |[Supporting Event Notification](supporting-event-notification.md) <br/> |Discussion of how service providers can use the [IMAPISupport](imapisupportiunknown.md) method to generate notifications. |
  * @see https://learn.microsoft.com/office/client-developer/outlook/mapi/notification
  * @namespace Windows.Win32.System.AddressBook
- * @version v4.0.30319
  */
-class NOTIFICATION extends Win32Struct
-{
+class NOTIFICATION extends Win32Struct {
     static sizeof => 680
 
     static packingSize => 8
@@ -64,69 +65,68 @@ class NOTIFICATION extends Win32Struct
         /**
          * @type {ERROR_NOTIFICATION}
          */
-        err{
+        err {
             get {
                 if(!this.HasProp("__err"))
                     this.__err := ERROR_NOTIFICATION(0, this)
                 return this.__err
             }
         }
-    
+
         /**
          * @type {NEWMAIL_NOTIFICATION}
          */
-        newmail{
+        newmail {
             get {
                 if(!this.HasProp("__newmail"))
                     this.__newmail := NEWMAIL_NOTIFICATION(0, this)
                 return this.__newmail
             }
         }
-    
+
         /**
          * @type {OBJECT_NOTIFICATION}
          */
-        obj{
+        obj {
             get {
                 if(!this.HasProp("__obj"))
                     this.__obj := OBJECT_NOTIFICATION(0, this)
                 return this.__obj
             }
         }
-    
+
         /**
          * @type {TABLE_NOTIFICATION}
          */
-        tab{
+        tab {
             get {
                 if(!this.HasProp("__tab"))
                     this.__tab := TABLE_NOTIFICATION(0, this)
                 return this.__tab
             }
         }
-    
+
         /**
          * @type {EXTENDED_NOTIFICATION}
          */
-        ext{
+        ext {
             get {
                 if(!this.HasProp("__ext"))
                     this.__ext := EXTENDED_NOTIFICATION(0, this)
                 return this.__ext
             }
         }
-    
+
         /**
          * @type {STATUS_OBJECT_NOTIFICATION}
          */
-        statobj{
+        statobj {
             get {
                 if(!this.HasProp("__statobj"))
                     this.__statobj := STATUS_OBJECT_NOTIFICATION(0, this)
                 return this.__statobj
             }
         }
-    
     }
 
     /**
@@ -150,10 +150,10 @@ class NOTIFICATION extends Win32Struct
      * > Union of notification structures describing the affected data for a particular type of event. The structure included in the **info** member depends on the value of the **ulEventType** member.
      * @type {_info_e__Union}
      */
-    info{
+    info {
         get {
             if(!this.HasProp("__info"))
-                this.__info := %this.__Class%._info_e__Union(8, this)
+                this.__info := NOTIFICATION._info_e__Union(8, this)
             return this.__info
         }
     }

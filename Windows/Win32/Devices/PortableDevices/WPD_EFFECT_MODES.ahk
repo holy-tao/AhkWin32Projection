@@ -7,9 +7,8 @@
  * This enumeration is used by the [WPD\_STILL\_IMAGE\_EFFECT\_MODE](still-image-properties.md) property.
  * @see https://learn.microsoft.com/windows/win32/wpd_sdk/wpd-effect-modes
  * @namespace Windows.Win32.Devices.PortableDevices
- * @version v4.0.30319
  */
-class WPD_EFFECT_MODES extends Win32Enum{
+class WPD_EFFECT_MODES extends Win32Enum {
 
     /**
      * @type {Integer (Int32)}

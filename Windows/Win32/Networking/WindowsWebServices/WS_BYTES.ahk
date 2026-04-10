@@ -5,16 +5,13 @@
  * Used to serialize and deserialize an array of bytes.
  * @see https://learn.microsoft.com/windows/win32/api/webservices/ns-webservices-ws_bytes
  * @namespace Windows.Win32.Networking.WindowsWebServices
- * @version v4.0.30319
  */
-class WS_BYTES extends Win32Struct
-{
+class WS_BYTES extends Win32Struct {
     static sizeof => 16
 
     static packingSize => 8
 
     /**
-     * 
      * @type {Integer}
      */
     length {
@@ -23,7 +20,6 @@ class WS_BYTES extends Win32Struct
     }
 
     /**
-     * 
      * @type {Pointer<Integer>}
      */
     bytes {

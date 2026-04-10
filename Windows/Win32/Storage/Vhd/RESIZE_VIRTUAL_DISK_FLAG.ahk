@@ -5,9 +5,8 @@
  * Enumerates the available flags for the ResizeVirtualDisk function.
  * @see https://learn.microsoft.com/windows/win32/api/virtdisk/ne-virtdisk-resize_virtual_disk_flag
  * @namespace Windows.Win32.Storage.Vhd
- * @version v4.0.30319
  */
-class RESIZE_VIRTUAL_DISK_FLAG extends Win32BitflagEnum{
+class RESIZE_VIRTUAL_DISK_FLAG extends Win32BitflagEnum {
 
     /**
      * No flags are specified.

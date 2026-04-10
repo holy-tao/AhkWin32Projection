@@ -3,10 +3,8 @@
 
 /**
  * @namespace Windows.Win32.Networking.WinSock
- * @version v4.0.30319
  */
-class ATM_BROADBAND_BEARER_CAPABILITY_IE extends Win32Struct
-{
+class ATM_BROADBAND_BEARER_CAPABILITY_IE extends Win32Struct {
     static sizeof => 5
 
     static packingSize => 1

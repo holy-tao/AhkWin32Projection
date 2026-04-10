@@ -11,10 +11,8 @@
  * The <b>MSAAMENUINFO</b> structure cannot be a member in a class that contains virtual functions because the first member of the class is always a compiler-generated pointer to a table of the virtual functions. To work around this problem, you can implement a structure that contains the <b>MSAAMENUINFO</b> as the first member, and a pointer to the class with the virtual functions as a second member, which contains the owner-drawn item data.
  * @see https://learn.microsoft.com/windows/win32/api/oleacc/ns-oleacc-msaamenuinfo
  * @namespace Windows.Win32.UI.Accessibility
- * @version v4.0.30319
  */
-class MSAAMENUINFO extends Win32Struct
-{
+class MSAAMENUINFO extends Win32Struct {
     static sizeof => 16
 
     static packingSize => 8

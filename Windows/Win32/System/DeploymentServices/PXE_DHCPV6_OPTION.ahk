@@ -5,10 +5,8 @@
  * The PXE_DHCPV6_OPTION structure can be used with the Windows Deployment Services PXE Server API.
  * @see https://learn.microsoft.com/windows/win32/api/wdspxe/ns-wdspxe-pxe_dhcpv6_option
  * @namespace Windows.Win32.System.DeploymentServices
- * @version v4.0.30319
  */
-class PXE_DHCPV6_OPTION extends Win32Struct
-{
+class PXE_DHCPV6_OPTION extends Win32Struct {
     static sizeof => 6
 
     static packingSize => 2
@@ -33,9 +31,9 @@ class PXE_DHCPV6_OPTION extends Win32Struct
 
     /**
      * The option value.
-     * @type {Array<Byte>}
+     * @type {Array<Integer>}
      */
-    Data{
+    Data {
         get {
             if(!this.HasProp("__DataProxyArray"))
                 this.__DataProxyArray := Win32FixedArray(this.ptr + 4, 1, Primitive, "char")

@@ -5,9 +5,8 @@
 
 /**
  * @namespace Windows.Win32.Media.MediaPlayer
- * @version v4.0.30319
  */
-class IWMPNodeWindowless extends IWMPWindowMessageSink{
+class IWMPNodeWindowless extends IWMPWindowMessageSink {
 
     static sizeof => A_PtrSize
     /**

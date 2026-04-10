@@ -84,10 +84,8 @@
  *  Both <b>StandardName</b> and <b>DaylightName</b> are localized according to the current user default UI language.
  * @see https://learn.microsoft.com/windows/win32/api/timezoneapi/ns-timezoneapi-dynamic_time_zone_information
  * @namespace Windows.Win32.System.Time
- * @version v4.0.30319
  */
-class DYNAMIC_TIME_ZONE_INFORMATION extends Win32Struct
-{
+class DYNAMIC_TIME_ZONE_INFORMATION extends Win32Struct {
     static sizeof => 432
 
     static packingSize => 4
@@ -145,7 +143,7 @@ class DYNAMIC_TIME_ZONE_INFORMATION extends Win32Struct
      *        time. Otherwise, it is a relative date that occurs yearly.
      * @type {SYSTEMTIME}
      */
-    StandardDate{
+    StandardDate {
         get {
             if(!this.HasProp("__StandardDate"))
                 this.__StandardDate := SYSTEMTIME(68, this)
@@ -197,7 +195,7 @@ class DYNAMIC_TIME_ZONE_INFORMATION extends Win32Struct
      *        occur one time. Otherwise, it is a relative date that occurs yearly.
      * @type {SYSTEMTIME}
      */
-    DaylightDate{
+    DaylightDate {
         get {
             if(!this.HasProp("__DaylightDate"))
                 this.__DaylightDate := SYSTEMTIME(152, this)

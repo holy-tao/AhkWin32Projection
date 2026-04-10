@@ -3,9 +3,8 @@
 
 /**
  * @namespace Windows.Win32.Devices.WebServicesOnDevices
- * @version v4.0.30319
  */
-class WSDXML_OP extends Win32Enum{
+class WSDXML_OP extends Win32Enum {
 
     /**
      * @type {Integer (Int32)}

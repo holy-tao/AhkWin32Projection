@@ -1,8 +1,8 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\..\Guid.ahk
-#Include ..\..\..\Foundation\BSTR.ahk
 #Include .\ITuneRequest.ahk
+#Include ..\..\..\Foundation\BSTR.ahk
 
 /**
  * Implements methods that support channel requests using a string identifier.
@@ -10,9 +10,8 @@
  * To declare the interface identifier (IID) for this interface, use the <b>__uuidof</b> operator: <c>__uuidof(IChannelIDTuneRequest)</c>.
  * @see https://learn.microsoft.com/windows/win32/api/tuner/nn-tuner-ichannelidtunerequest
  * @namespace Windows.Win32.Media.DirectShow.Tv
- * @version v4.0.30319
  */
-class IChannelIDTuneRequest extends ITuneRequest{
+class IChannelIDTuneRequest extends ITuneRequest {
 
     static sizeof => A_PtrSize
     /**

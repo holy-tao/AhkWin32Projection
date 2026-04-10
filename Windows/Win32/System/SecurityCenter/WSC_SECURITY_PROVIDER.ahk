@@ -8,9 +8,8 @@
  * > [WSC_SECURITY_PROVIDER::WSC_SECURITY_PROVIDER_ANTISPYWARE](/windows/desktop/api/wscapi/ne-wscapi-wsc_security_provider) should be used only in operating systems prior to Windows 10, version 1607. As of Windows 10, version 1607, WSC continues to track the status for antivirus, but not for anti-spyware.
  * @see https://learn.microsoft.com/windows/win32/api/wscapi/ne-wscapi-wsc_security_provider
  * @namespace Windows.Win32.System.SecurityCenter
- * @version v4.0.30319
  */
-class WSC_SECURITY_PROVIDER extends Win32Enum{
+class WSC_SECURITY_PROVIDER extends Win32Enum {
 
     /**
      * The aggregation of all firewalls for this computer.

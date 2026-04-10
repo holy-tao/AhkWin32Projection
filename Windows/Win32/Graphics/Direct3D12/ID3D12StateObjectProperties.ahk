@@ -7,9 +7,8 @@
  * Provides methods for getting and setting the properties of an ID3D12StateObject.
  * @see https://learn.microsoft.com/windows/win32/api/d3d12/nn-d3d12-id3d12stateobjectproperties
  * @namespace Windows.Win32.Graphics.Direct3D12
- * @version v4.0.30319
  */
-class ID3D12StateObjectProperties extends IUnknown{
+class ID3D12StateObjectProperties extends IUnknown {
 
     static sizeof => A_PtrSize
     /**

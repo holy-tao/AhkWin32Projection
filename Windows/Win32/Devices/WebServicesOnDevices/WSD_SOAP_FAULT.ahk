@@ -1,14 +1,15 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
+#Include .\WSD_SOAP_FAULT_CODE.ahk
+#Include .\WSD_SOAP_FAULT_REASON.ahk
+#Include .\WSDXML_ELEMENT.ahk
 
 /**
  * Represents a generated SOAP fault.
  * @see https://learn.microsoft.com/windows/win32/api/wsdtypes/ns-wsdtypes-wsd_soap_fault
  * @namespace Windows.Win32.Devices.WebServicesOnDevices
- * @version v4.0.30319
  */
-class WSD_SOAP_FAULT extends Win32Struct
-{
+class WSD_SOAP_FAULT extends Win32Struct {
     static sizeof => 40
 
     static packingSize => 8

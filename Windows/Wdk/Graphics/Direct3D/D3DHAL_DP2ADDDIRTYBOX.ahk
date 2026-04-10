@@ -1,16 +1,13 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
-#Include ..\..\..\Win32\Graphics\Direct3D9\D3DBOX.ahk
 
 /**
  * @namespace Windows.Wdk.Graphics.Direct3D
- * @version v4.0.30319
  */
-class D3DHAL_DP2ADDDIRTYBOX extends Win32Struct
-{
-    static sizeof => 28
+class D3DHAL_DP2ADDDIRTYBOX extends Win32Struct {
+    static sizeof => 16
 
-    static packingSize => 4
+    static packingSize => 8
 
     /**
      * @type {Integer}
@@ -21,13 +18,10 @@ class D3DHAL_DP2ADDDIRTYBOX extends Win32Struct
     }
 
     /**
-     * @type {D3DBOX}
+     * @type {Pointer}
      */
-    DirtyBox{
-        get {
-            if(!this.HasProp("__DirtyBox"))
-                this.__DirtyBox := D3DBOX(4, this)
-            return this.__DirtyBox
-        }
+    DirtyBox {
+        get => NumGet(this, 8, "ptr")
+        set => NumPut("ptr", value, this, 8)
     }
 }

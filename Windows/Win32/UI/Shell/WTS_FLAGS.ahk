@@ -31,9 +31,8 @@
  * </table>
  * @see https://learn.microsoft.com/windows/win32/api/thumbcache/ne-thumbcache-wts_flags
  * @namespace Windows.Win32.UI.Shell
- * @version v4.0.30319
  */
-class WTS_FLAGS extends Win32BitflagEnum{
+class WTS_FLAGS extends Win32BitflagEnum {
 
     /**
      * 0x00000000. <b>Introduced in Windows 8</b>. None of the following options are set.

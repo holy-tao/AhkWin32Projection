@@ -1,8 +1,8 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
-#Include .\WTS_LICENSE_CAPABILITIES.ahk
 #Include ..\Com\IUnknown.ahk
+#Include .\WTS_LICENSE_CAPABILITIES.ahk
 
 /**
  * Exposes methods used by the Remote Desktop Services service to perform the licensing handshake during a connection sequence.
@@ -10,9 +10,8 @@
  * To avoid a possible deadlock when calling any of the methods on this interface, you should not make any function or method calls that will directly or indirectly result in a Remote Desktop Services API being called. If you need to make any outbound call, you should start a new thread and make the outbound call from the new thread.
  * @see https://learn.microsoft.com/windows/win32/api/wtsprotocol/nn-wtsprotocol-iwrdsprotocollicenseconnection
  * @namespace Windows.Win32.System.RemoteDesktop
- * @version v4.0.30319
  */
-class IWRdsProtocolLicenseConnection extends IUnknown{
+class IWRdsProtocolLicenseConnection extends IUnknown {
 
     static sizeof => A_PtrSize
     /**

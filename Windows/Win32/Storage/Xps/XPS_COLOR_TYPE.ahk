@@ -5,9 +5,8 @@
  * Describes the color type used by the XPS_COLOR structure.
  * @see https://learn.microsoft.com/windows/win32/api/xpsobjectmodel/ne-xpsobjectmodel-xps_color_type
  * @namespace Windows.Win32.Storage.Xps
- * @version v4.0.30319
  */
-class XPS_COLOR_TYPE extends Win32Enum{
+class XPS_COLOR_TYPE extends Win32Enum {
 
     /**
      * The color value is an sRGB value.

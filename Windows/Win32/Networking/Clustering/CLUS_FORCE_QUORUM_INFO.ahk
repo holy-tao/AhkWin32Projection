@@ -5,10 +5,8 @@
  * Specifies information about the list of nodes sufficient to establish quorum in a majority-of-nodes cluster.
  * @see https://learn.microsoft.com/windows/win32/api/clusapi/ns-clusapi-clus_force_quorum_info
  * @namespace Windows.Win32.Networking.Clustering
- * @version v4.0.30319
  */
-class CLUS_FORCE_QUORUM_INFO extends Win32Struct
-{
+class CLUS_FORCE_QUORUM_INFO extends Win32Struct {
     static sizeof => 16
 
     static packingSize => 4

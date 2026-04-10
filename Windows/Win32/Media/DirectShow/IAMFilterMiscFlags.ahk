@@ -7,9 +7,8 @@
  * The IAMFilterMiscFlags interface queries whether a filter is a source filter or a renderer.
  * @see https://learn.microsoft.com/windows/win32/api/strmif/nn-strmif-iamfiltermiscflags
  * @namespace Windows.Win32.Media.DirectShow
- * @version v4.0.30319
  */
-class IAMFilterMiscFlags extends IUnknown{
+class IAMFilterMiscFlags extends IUnknown {
 
     static sizeof => A_PtrSize
     /**

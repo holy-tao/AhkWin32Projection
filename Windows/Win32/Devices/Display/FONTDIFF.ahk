@@ -10,16 +10,13 @@
  * For descriptions of the FSHORT and FWORD data types, see <a href="https://docs.microsoft.com/windows-hardware/drivers/display/gdi-data-types">GDI Data Types</a>.
  * @see https://learn.microsoft.com/windows/win32/api/winddi/ns-winddi-fontdiff
  * @namespace Windows.Win32.Devices.Display
- * @version v4.0.30319
  */
-class FONTDIFF extends Win32Struct
-{
+class FONTDIFF extends Win32Struct {
     static sizeof => 20
 
     static packingSize => 4
 
     /**
-     * 
      * @type {Integer}
      */
     jReserved1 {
@@ -28,7 +25,6 @@ class FONTDIFF extends Win32Struct
     }
 
     /**
-     * 
      * @type {Integer}
      */
     jReserved2 {
@@ -171,7 +167,7 @@ class FONTDIFF extends Win32Struct
      * Specifies a <a href="https://docs.microsoft.com/windows/desktop/api/windef/ns-windef-pointl">POINTL</a> structure that indicates the direction of the ascender direction of the font. For example, the value for a nonitalicized Latin font is (0,1) while an italicized Latin font might specify a value of (2,5).
      * @type {POINTL}
      */
-    ptlCaret{
+    ptlCaret {
         get {
             if(!this.HasProp("__ptlCaret"))
                 this.__ptlCaret := POINTL(12, this)

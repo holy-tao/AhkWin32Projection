@@ -5,10 +5,8 @@
  * Specifies the attributes to be set on a disk device.
  * @see https://learn.microsoft.com/windows/win32/api/winioctl/ns-winioctl-set_disk_attributes
  * @namespace Windows.Win32.System.Ioctl
- * @version v4.0.30319
  */
-class SET_DISK_ATTRIBUTES extends Win32Struct
-{
+class SET_DISK_ATTRIBUTES extends Win32Struct {
     static sizeof => 40
 
     static packingSize => 8
@@ -33,9 +31,9 @@ class SET_DISK_ATTRIBUTES extends Win32Struct
 
     /**
      * Reserved. Must be set to <b>FALSE</b> (0).
-     * @type {Array<Byte>}
+     * @type {Array<Integer>}
      */
-    Reserved1{
+    Reserved1 {
         get {
             if(!this.HasProp("__Reserved1ProxyArray"))
                 this.__Reserved1ProxyArray := Win32FixedArray(this.ptr + 5, 3, Primitive, "char")
@@ -121,9 +119,9 @@ class SET_DISK_ATTRIBUTES extends Win32Struct
 
     /**
      * Reserved. Must be set to 0.
-     * @type {Array<UInt32>}
+     * @type {Array<Integer>}
      */
-    Reserved2{
+    Reserved2 {
         get {
             if(!this.HasProp("__Reserved2ProxyArray"))
                 this.__Reserved2ProxyArray := Win32FixedArray(this.ptr + 24, 4, Primitive, "uint")

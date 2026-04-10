@@ -1,6 +1,8 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
 #Include .\DOT11_SSID.ahk
+#Include .\DOT11_BSS_TYPE.ahk
+#Include .\DOT11_PHY_TYPE.ahk
 #Include .\WLAN_RATE_SET.ahk
 
 /**
@@ -17,10 +19,8 @@
  * Since the information is returned by the access point for an infrastructure BSS network or by the network peer for an independent BSS network (ad hoc network), the information returned should not be trusted. The <b>ulIeOffset</b> and <b>ulIeSize</b>  members in the <b>WLAN_BSS_ENTRY</b> structure should be used to determine the maximum size of the information element data blob in the <b>WLAN_BSS_ENTRY</b> structure, not the data in the information element data blob.
  * @see https://learn.microsoft.com/windows/win32/api/wlanapi/ns-wlanapi-wlan_bss_entry
  * @namespace Windows.Win32.NetworkManagement.WiFi
- * @version v4.0.30319
  */
-class WLAN_BSS_ENTRY extends Win32Struct
-{
+class WLAN_BSS_ENTRY extends Win32Struct {
     static sizeof => 360
 
     static packingSize => 8
@@ -29,7 +29,7 @@ class WLAN_BSS_ENTRY extends Win32Struct
      * The SSID of the access point (AP) or peer station associated with the BSS. The data type for this member is a <a href="https://docs.microsoft.com/windows/desktop/NativeWiFi/dot11-ssid">DOT11_SSID</a> structure.
      * @type {DOT11_SSID}
      */
-    dot11Ssid{
+    dot11Ssid {
         get {
             if(!this.HasProp("__dot11Ssid"))
                 this.__dot11Ssid := DOT11_SSID(0, this)
@@ -48,9 +48,9 @@ class WLAN_BSS_ENTRY extends Win32Struct
 
     /**
      * The media access control (MAC) address of the access point for infrastructure BSS networks or the peer station for independent BSS networks (ad hoc networks) that sent the 802.11 Beacon or Probe Response frame received by the wireless LAN interface while scanning. The data type for this member is a <a href="https://docs.microsoft.com/windows/desktop/NativeWiFi/dot11-mac-address-type">DOT11_MAC_ADDRESS</a> structure.
-     * @type {Array<Byte>}
+     * @type {Array<Integer>}
      */
-    dot11Bssid{
+    dot11Bssid {
         get {
             if(!this.HasProp("__dot11BssidProxyArray"))
                 this.__dot11BssidProxyArray := Win32FixedArray(this.ptr + 40, 6, Primitive, "char")
@@ -60,7 +60,7 @@ class WLAN_BSS_ENTRY extends Win32Struct
 
     /**
      * The BSS network type. The data type for this member is a <a href="https://docs.microsoft.com/windows/desktop/NativeWiFi/dot11-bss-type">DOT11_BSS_TYPE</a> enumeration value.
-     * @type {Integer}
+     * @type {DOT11_BSS_TYPE}
      */
     dot11BssType {
         get => NumGet(this, 48, "int")
@@ -69,7 +69,7 @@ class WLAN_BSS_ENTRY extends Win32Struct
 
     /**
      * The PHY type for this network. The data type for this member is a <a href="https://docs.microsoft.com/windows/desktop/NativeWiFi/dot11-phy-type">DOT11_PHY_TYPE</a> enumeration value.
-     * @type {Integer}
+     * @type {DOT11_PHY_TYPE}
      */
     dot11BssPhyType {
         get => NumGet(this, 52, "int")
@@ -169,7 +169,7 @@ class WLAN_BSS_ENTRY extends Win32Struct
      * A set of data transfer rates supported by the BSS. The data type for this member is a <a href="https://docs.microsoft.com/windows/desktop/api/wlanapi/ns-wlanapi-wlan_rate_set">WLAN_RATE_SET</a> structure.
      * @type {WLAN_RATE_SET}
      */
-    wlanRateSet{
+    wlanRateSet {
         get {
             if(!this.HasProp("__wlanRateSet"))
                 this.__wlanRateSet := WLAN_RATE_SET(96, this)

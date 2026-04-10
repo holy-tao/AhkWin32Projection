@@ -3,9 +3,8 @@
 
 /**
  * @namespace Windows.Win32.NetworkManagement.NetShell
- * @version v4.0.30319
  */
-class NS_MODE_CHANGE extends Win32Enum{
+class NS_MODE_CHANGE extends Win32Enum {
 
     /**
      * @type {Integer (Int32)}

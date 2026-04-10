@@ -4,13 +4,11 @@
 
 /**
  * @namespace Windows.Win32.NetworkManagement.WiFi
- * @version v4.0.30319
  */
-class DOT11EXT_IHV_SSID_LIST extends Win32Struct
-{
-    static sizeof => 16
+class DOT11EXT_IHV_SSID_LIST extends Win32Struct {
+    static sizeof => 40
 
-    static packingSize => 8
+    static packingSize => 4
 
     /**
      * @type {Integer}
@@ -21,12 +19,12 @@ class DOT11EXT_IHV_SSID_LIST extends Win32Struct
     }
 
     /**
-     * @type {Array<DOT11_SSID>}
+     * @type {DOT11_SSID}
      */
-    SSIDs{
+    SSIDs {
         get {
             if(!this.HasProp("__SSIDsProxyArray"))
-                this.__SSIDsProxyArray := Win32FixedArray(this.ptr + 8, 1, DOT11_SSID, "")
+                this.__SSIDsProxyArray := Win32FixedArray(this.ptr + 4, 1, DOT11_SSID, "")
             return this.__SSIDsProxyArray
         }
     }

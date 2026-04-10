@@ -7,9 +7,8 @@
  * Use this interface to receive a success or failure notification when a Windows Connect Now connect session completes.
  * @see https://learn.microsoft.com/windows/win32/api/wcndevice/nn-wcndevice-iwcnconnectnotify
  * @namespace Windows.Win32.NetworkManagement.WindowsConnectNow
- * @version v4.0.30319
  */
-class IWCNConnectNotify extends IUnknown{
+class IWCNConnectNotify extends IUnknown {
 
     static sizeof => A_PtrSize
     /**
