@@ -153,8 +153,8 @@ class GeneratedStructSmokeTests {
             Assert.HasProp(test, "Xmm2", M128A)
             Assert.HasProp(test, "Xmm3", M128A)
 
-            Yunit.Assert((val := NumGet(test, 336, "uint")) == 128, Format("Expected 128 but got {1}", val))
-            Yunit.Assert((val := NumGet(test, 344, "uint")) == 9999, Format("Expected 9999 but got {1}", val))
+            Yunit.Assert((val := NumGet(test, 416, "uint")) == 128, Format("Expected 128 but got {1}", val))
+            Yunit.Assert((val := NumGet(test, 424, "uint")) == 9999, Format("Expected 9999 but got {1}", val))
         }
 
         EmbeddedStructs_InOwnedStructs_InheritOwnershipFromParent(){
