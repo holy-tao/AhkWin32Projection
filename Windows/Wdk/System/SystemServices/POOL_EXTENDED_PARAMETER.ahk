@@ -7,7 +7,7 @@
  * @namespace Windows.Wdk.System.SystemServices
  */
 class POOL_EXTENDED_PARAMETER extends Win32Struct {
-    static sizeof => 24
+    static sizeof => 16
 
     static packingSize => 8
 

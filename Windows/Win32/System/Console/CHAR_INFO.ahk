@@ -7,12 +7,12 @@
  * @namespace Windows.Win32.System.Console
  */
 class CHAR_INFO extends Win32Struct {
-    static sizeof => 6
+    static sizeof => 4
 
     static packingSize => 2
 
     class _Char_e__Union extends Win32Struct {
-        static sizeof => 3
+        static sizeof => 2
         static packingSize => 2
 
         /**
@@ -67,7 +67,7 @@ class CHAR_INFO extends Win32Struct {
      * @type {Integer}
      */
     Attributes {
-        get => NumGet(this, 4, "ushort")
-        set => NumPut("ushort", value, this, 4)
+        get => NumGet(this, 2, "ushort")
+        set => NumPut("ushort", value, this, 2)
     }
 }

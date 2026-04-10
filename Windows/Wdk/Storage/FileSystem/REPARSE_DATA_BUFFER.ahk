@@ -5,7 +5,7 @@
  * @namespace Windows.Wdk.Storage.FileSystem
  */
 class REPARSE_DATA_BUFFER extends Win32Struct {
-    static sizeof => 28
+    static sizeof => 24
 
     static packingSize => 4
 

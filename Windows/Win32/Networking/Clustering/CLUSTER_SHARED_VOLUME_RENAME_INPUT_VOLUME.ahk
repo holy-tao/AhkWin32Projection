@@ -6,7 +6,7 @@
  * @namespace Windows.Win32.Networking.Clustering
  */
 class CLUSTER_SHARED_VOLUME_RENAME_INPUT_VOLUME extends Win32Struct {
-    static sizeof => 536
+    static sizeof => 528
 
     static packingSize => 8
 

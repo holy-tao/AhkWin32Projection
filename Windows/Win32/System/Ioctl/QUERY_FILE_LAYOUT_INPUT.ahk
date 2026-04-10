@@ -9,12 +9,12 @@
  * @namespace Windows.Win32.System.Ioctl
  */
 class QUERY_FILE_LAYOUT_INPUT extends Win32Struct {
-    static sizeof => 40
+    static sizeof => 32
 
     static packingSize => 8
 
     class _Filter_e__Union extends Win32Struct {
-        static sizeof => 20
+        static sizeof => 16
         static packingSize => 8
 
         /**

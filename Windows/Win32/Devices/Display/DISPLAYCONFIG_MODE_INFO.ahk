@@ -19,7 +19,7 @@
  * @namespace Windows.Win32.Devices.Display
  */
 class DISPLAYCONFIG_MODE_INFO extends Win32Struct {
-    static sizeof => 72
+    static sizeof => 64
 
     static packingSize => 8
 

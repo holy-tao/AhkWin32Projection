@@ -7,7 +7,7 @@
  * @namespace Windows.Win32.Devices.Bluetooth
  */
 class BLUETOOTH_ADDRESS extends Win32Struct {
-    static sizeof => 16
+    static sizeof => 8
 
     static packingSize => 8
 

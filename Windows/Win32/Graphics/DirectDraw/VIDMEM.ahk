@@ -7,7 +7,7 @@
  * @namespace Windows.Win32.Graphics.DirectDraw
  */
 class VIDMEM extends Win32Struct {
-    static sizeof => 56
+    static sizeof => 40
 
     static packingSize => 8
 
@@ -49,7 +49,7 @@ class VIDMEM extends Win32Struct {
     ddsCaps {
         get {
             if(!this.HasProp("__ddsCaps"))
-                this.__ddsCaps := DDSCAPS(28, this)
+                this.__ddsCaps := DDSCAPS(24, this)
             return this.__ddsCaps
         }
     }
@@ -60,7 +60,7 @@ class VIDMEM extends Win32Struct {
     ddsCapsAlt {
         get {
             if(!this.HasProp("__ddsCapsAlt"))
-                this.__ddsCapsAlt := DDSCAPS(32, this)
+                this.__ddsCapsAlt := DDSCAPS(28, this)
             return this.__ddsCapsAlt
         }
     }
@@ -69,15 +69,15 @@ class VIDMEM extends Win32Struct {
      * @type {Pointer<VMEMHEAP>}
      */
     lpHeap {
-        get => NumGet(this, 40, "ptr")
-        set => NumPut("ptr", value, this, 40)
+        get => NumGet(this, 32, "ptr")
+        set => NumPut("ptr", value, this, 32)
     }
 
     /**
      * @type {Integer}
      */
     dwHeight {
-        get => NumGet(this, 40, "uint")
-        set => NumPut("uint", value, this, 40)
+        get => NumGet(this, 32, "uint")
+        set => NumPut("uint", value, this, 32)
     }
 }

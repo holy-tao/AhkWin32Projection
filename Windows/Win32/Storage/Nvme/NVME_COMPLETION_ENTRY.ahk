@@ -42,7 +42,7 @@ class NVME_COMPLETION_ENTRY extends Win32Struct {
     }
 
     class _DW3_e__Union extends Win32Struct {
-        static sizeof => 6
+        static sizeof => 8
         static packingSize => 4
 
         /**

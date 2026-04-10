@@ -14,7 +14,7 @@
  * @namespace Windows.Win32.Graphics.Direct3D12
  */
 class D3D12_TEXTURE_COPY_LOCATION extends Win32Struct {
-    static sizeof => 56
+    static sizeof => 48
 
     static packingSize => 8
 

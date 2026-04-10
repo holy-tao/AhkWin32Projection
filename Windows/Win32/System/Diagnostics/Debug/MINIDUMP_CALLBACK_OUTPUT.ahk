@@ -10,7 +10,7 @@
  * @namespace Windows.Win32.System.Diagnostics.Debug
  */
 class MINIDUMP_CALLBACK_OUTPUT extends Win32Struct {
-    static sizeof => 64
+    static sizeof => 56
 
     static packingSize => 8
 

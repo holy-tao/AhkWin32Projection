@@ -6,12 +6,12 @@
  * @namespace Windows.Win32.Devices.Tapi
  */
 class NSID extends Win32Struct {
-    static sizeof => 108
+    static sizeof => 104
 
     static packingSize => 4
 
     class _address_e__Union extends Win32Struct {
-        static sizeof => 79
+        static sizeof => 76
         static packingSize => 4
 
         /**

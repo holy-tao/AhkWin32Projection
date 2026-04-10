@@ -9,12 +9,12 @@
  * @namespace Windows.Win32.Devices.BiometricFramework
  */
 class WINBIO_EXTENDED_ENROLLMENT_STATUS extends Win32Struct {
-    static sizeof => 376
+    static sizeof => 368
 
     static packingSize => 8
 
     class _Specific_e__Union extends Win32Struct {
-        static sizeof => 348
+        static sizeof => 344
         static packingSize => 8
 
         class _FacialFeatures extends Win32Struct {

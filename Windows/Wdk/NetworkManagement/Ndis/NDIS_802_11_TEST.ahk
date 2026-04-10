@@ -5,7 +5,7 @@
  * @namespace Windows.Wdk.NetworkManagement.Ndis
  */
 class NDIS_802_11_TEST extends Win32Struct {
-    static sizeof => 24
+    static sizeof => 16
 
     static packingSize => 8
 

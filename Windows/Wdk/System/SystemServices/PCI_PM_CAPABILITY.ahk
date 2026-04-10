@@ -5,12 +5,12 @@
  * @namespace Windows.Wdk.System.SystemServices
  */
 class PCI_PM_CAPABILITY extends Win32Struct {
-    static sizeof => 56
+    static sizeof => 40
 
     static packingSize => 8
 
     class _PMC_e__Union extends Win32Struct {
-        static sizeof => 14
+        static sizeof => 8
         static packingSize => 8
 
         /**
@@ -31,7 +31,7 @@ class PCI_PM_CAPABILITY extends Win32Struct {
     }
 
     class _PMCSR_e__Union extends Win32Struct {
-        static sizeof => 14
+        static sizeof => 8
         static packingSize => 8
 
         /**
@@ -52,7 +52,7 @@ class PCI_PM_CAPABILITY extends Win32Struct {
     }
 
     class _PMCSR_BSE_e__Union extends Win32Struct {
-        static sizeof => 15
+        static sizeof => 8
         static packingSize => 8
 
         /**
@@ -97,7 +97,7 @@ class PCI_PM_CAPABILITY extends Win32Struct {
     PMCSR {
         get {
             if(!this.HasProp("__PMCSR"))
-                this.__PMCSR := PCI_PM_CAPABILITY._PMCSR_e__Union(24, this)
+                this.__PMCSR := PCI_PM_CAPABILITY._PMCSR_e__Union(16, this)
             return this.__PMCSR
         }
     }
@@ -108,7 +108,7 @@ class PCI_PM_CAPABILITY extends Win32Struct {
     PMCSR_BSE {
         get {
             if(!this.HasProp("__PMCSR_BSE"))
-                this.__PMCSR_BSE := PCI_PM_CAPABILITY._PMCSR_BSE_e__Union(40, this)
+                this.__PMCSR_BSE := PCI_PM_CAPABILITY._PMCSR_BSE_e__Union(24, this)
             return this.__PMCSR_BSE
         }
     }
@@ -117,7 +117,7 @@ class PCI_PM_CAPABILITY extends Win32Struct {
      * @type {Integer}
      */
     Data {
-        get => NumGet(this, 55, "char")
-        set => NumPut("char", value, this, 55)
+        get => NumGet(this, 32, "char")
+        set => NumPut("char", value, this, 32)
     }
 }

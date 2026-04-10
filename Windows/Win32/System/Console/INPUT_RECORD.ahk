@@ -13,12 +13,12 @@
  * @namespace Windows.Win32.System.Console
  */
 class INPUT_RECORD extends Win32Struct {
-    static sizeof => 24
+    static sizeof => 20
 
     static packingSize => 4
 
     class _Event_e__Union extends Win32Struct {
-        static sizeof => 20
+        static sizeof => 16
         static packingSize => 4
 
         /**

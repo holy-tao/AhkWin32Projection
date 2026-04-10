@@ -17,7 +17,7 @@
  * @namespace Windows.Win32.NetworkManagement.P2P
  */
 class PEER_GROUP_EVENT_DATA extends Win32Struct {
-    static sizeof => 56
+    static sizeof => 48
 
     static packingSize => 8
 

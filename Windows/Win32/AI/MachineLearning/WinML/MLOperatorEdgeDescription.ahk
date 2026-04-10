@@ -7,7 +7,7 @@
  * @namespace Windows.Win32.AI.MachineLearning.WinML
  */
 class MLOperatorEdgeDescription extends Win32Struct {
-    static sizeof => 24
+    static sizeof => 16
 
     static packingSize => 8
 

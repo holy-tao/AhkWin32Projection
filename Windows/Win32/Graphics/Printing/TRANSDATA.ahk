@@ -5,12 +5,12 @@
  * @namespace Windows.Win32.Graphics.Printing
  */
 class TRANSDATA extends Win32Struct {
-    static sizeof => 6
+    static sizeof => 4
 
     static packingSize => 2
 
     class _uCode_e__Union extends Win32Struct {
-        static sizeof => 3
+        static sizeof => 2
         static packingSize => 2
 
         /**

@@ -66,7 +66,7 @@ class D3D12_ROOT_PARAMETER extends Win32Struct {
      * @type {D3D12_SHADER_VISIBILITY}
      */
     ShaderVisibility {
-        get => NumGet(this, 28, "int")
-        set => NumPut("int", value, this, 28)
+        get => NumGet(this, 24, "int")
+        set => NumPut("int", value, this, 24)
     }
 }

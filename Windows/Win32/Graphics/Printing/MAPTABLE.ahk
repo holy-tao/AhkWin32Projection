@@ -6,7 +6,7 @@
  * @namespace Windows.Win32.Graphics.Printing
  */
 class MAPTABLE extends Win32Struct {
-    static sizeof => 16
+    static sizeof => 12
 
     static packingSize => 4
 

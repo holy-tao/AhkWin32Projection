@@ -7,12 +7,12 @@
  * @namespace Windows.Wdk.System.SystemServices
  */
 class IO_RESOURCE_DESCRIPTOR extends Win32Struct {
-    static sizeof => 40
+    static sizeof => 32
 
     static packingSize => 8
 
     class _u_e__Union extends Win32Struct {
-        static sizeof => 28
+        static sizeof => 24
         static packingSize => 8
 
         class _Port extends Win32Struct {

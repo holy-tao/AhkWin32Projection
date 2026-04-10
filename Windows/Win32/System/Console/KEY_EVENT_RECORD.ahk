@@ -11,12 +11,12 @@
  * @namespace Windows.Win32.System.Console
  */
 class KEY_EVENT_RECORD extends Win32Struct {
-    static sizeof => 20
+    static sizeof => 16
 
     static packingSize => 4
 
     class _uChar_e__Union extends Win32Struct {
-        static sizeof => 3
+        static sizeof => 2
         static packingSize => 2
 
         /**
@@ -101,7 +101,7 @@ class KEY_EVENT_RECORD extends Win32Struct {
      * @type {Integer}
      */
     dwControlKeyState {
-        get => NumGet(this, 16, "uint")
-        set => NumPut("uint", value, this, 16)
+        get => NumGet(this, 12, "uint")
+        set => NumPut("uint", value, this, 12)
     }
 }

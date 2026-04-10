@@ -456,7 +456,7 @@ class WINBIO_ASYNC_RESULT extends Win32Struct {
         }
 
         class _GetEvent extends Win32Struct {
-            static sizeof => 112
+            static sizeof => 104
             static packingSize => 8
 
             /**

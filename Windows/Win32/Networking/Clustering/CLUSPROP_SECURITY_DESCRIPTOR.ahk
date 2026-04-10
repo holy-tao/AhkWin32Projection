@@ -11,7 +11,7 @@
  * @namespace Windows.Win32.Networking.Clustering
  */
 class CLUSPROP_SECURITY_DESCRIPTOR extends Win32Struct {
-    static sizeof => 36
+    static sizeof => 32
 
     static packingSize => 4
 

@@ -5,7 +5,7 @@
  * @namespace Windows.Wdk.Graphics.Direct3D
  */
 class D3DKMDT_VIDPN_TARGET_MODE extends Win32Struct {
-    static sizeof => 40
+    static sizeof => 32
 
     static packingSize => 8
 
@@ -64,7 +64,7 @@ class D3DKMDT_VIDPN_TARGET_MODE extends Win32Struct {
      * @type {Pointer}
      */
     MinimumVSyncFreq {
-        get => NumGet(this, 32, "ptr")
-        set => NumPut("ptr", value, this, 32)
+        get => NumGet(this, 24, "ptr")
+        set => NumPut("ptr", value, this, 24)
     }
 }

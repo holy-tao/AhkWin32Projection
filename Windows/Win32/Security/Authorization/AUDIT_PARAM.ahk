@@ -11,7 +11,7 @@
  * @namespace Windows.Win32.Security.Authorization
  */
 class AUDIT_PARAM extends Win32Struct {
-    static sizeof => 40
+    static sizeof => 32
 
     static packingSize => 8
 

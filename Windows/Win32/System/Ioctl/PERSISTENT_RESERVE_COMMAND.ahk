@@ -5,7 +5,7 @@
  * @namespace Windows.Win32.System.Ioctl
  */
 class PERSISTENT_RESERVE_COMMAND extends Win32Struct {
-    static sizeof => 16
+    static sizeof => 12
 
     static packingSize => 4
 

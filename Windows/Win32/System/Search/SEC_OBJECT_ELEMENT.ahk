@@ -7,7 +7,7 @@
  * @architecture X64, Arm64
  */
 class SEC_OBJECT_ELEMENT extends Win32Struct {
-    static sizeof => 40
+    static sizeof => 32
 
     static packingSize => 8
 

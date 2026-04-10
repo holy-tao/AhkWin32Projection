@@ -9,7 +9,7 @@
  * @namespace Windows.Win32.Storage.Vhd
  */
 class GET_VIRTUAL_DISK_INFO extends Win32Struct {
-    static sizeof => 40
+    static sizeof => 32
 
     static packingSize => 8
 

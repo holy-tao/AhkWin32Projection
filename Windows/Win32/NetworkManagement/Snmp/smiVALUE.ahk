@@ -25,12 +25,12 @@
  * @namespace Windows.Win32.NetworkManagement.Snmp
  */
 class smiVALUE extends Win32Struct {
-    static sizeof => 32
+    static sizeof => 24
 
     static packingSize => 8
 
     class _value_e__Union extends Win32Struct {
-        static sizeof => 23
+        static sizeof => 16
         static packingSize => 8
 
         /**

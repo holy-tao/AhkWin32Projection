@@ -13,7 +13,7 @@
  * @namespace Windows.Win32.Devices.Bluetooth
  */
 class BLUETOOTH_AUTHENTICATION_CALLBACK_PARAMS extends Win32Struct {
-    static sizeof => 584
+    static sizeof => 576
 
     static packingSize => 8
 
@@ -34,8 +34,8 @@ class BLUETOOTH_AUTHENTICATION_CALLBACK_PARAMS extends Win32Struct {
      * @type {BLUETOOTH_AUTHENTICATION_METHOD}
      */
     authenticationMethod {
-        get => NumGet(this, 568, "int")
-        set => NumPut("int", value, this, 568)
+        get => NumGet(this, 560, "int")
+        set => NumPut("int", value, this, 560)
     }
 
     /**
@@ -43,8 +43,8 @@ class BLUETOOTH_AUTHENTICATION_CALLBACK_PARAMS extends Win32Struct {
      * @type {BLUETOOTH_IO_CAPABILITY}
      */
     ioCapability {
-        get => NumGet(this, 572, "int")
-        set => NumPut("int", value, this, 572)
+        get => NumGet(this, 564, "int")
+        set => NumPut("int", value, this, 564)
     }
 
     /**
@@ -52,23 +52,23 @@ class BLUETOOTH_AUTHENTICATION_CALLBACK_PARAMS extends Win32Struct {
      * @type {BLUETOOTH_AUTHENTICATION_REQUIREMENTS}
      */
     authenticationRequirements {
-        get => NumGet(this, 576, "int")
-        set => NumPut("int", value, this, 576)
+        get => NumGet(this, 568, "int")
+        set => NumPut("int", value, this, 568)
     }
 
     /**
      * @type {Integer}
      */
     Numeric_Value {
-        get => NumGet(this, 580, "uint")
-        set => NumPut("uint", value, this, 580)
+        get => NumGet(this, 572, "uint")
+        set => NumPut("uint", value, this, 572)
     }
 
     /**
      * @type {Integer}
      */
     Passkey {
-        get => NumGet(this, 580, "uint")
-        set => NumPut("uint", value, this, 580)
+        get => NumGet(this, 572, "uint")
+        set => NumPut("uint", value, this, 572)
     }
 }

@@ -13,7 +13,7 @@
  * @namespace Windows.Win32.Devices.Bluetooth
  */
 class BLUETOOTH_AUTHENTICATE_RESPONSE extends Win32Struct {
-    static sizeof => 56
+    static sizeof => 48
 
     static packingSize => 8
 
@@ -40,8 +40,8 @@ class BLUETOOTH_AUTHENTICATE_RESPONSE extends Win32Struct {
      * @type {BLUETOOTH_AUTHENTICATION_METHOD}
      */
     authMethod {
-        get => NumGet(this, 16, "int")
-        set => NumPut("int", value, this, 16)
+        get => NumGet(this, 8, "int")
+        set => NumPut("int", value, this, 8)
     }
 
     /**
@@ -50,7 +50,7 @@ class BLUETOOTH_AUTHENTICATE_RESPONSE extends Win32Struct {
     pinInfo {
         get {
             if(!this.HasProp("__pinInfo"))
-                this.__pinInfo := BLUETOOTH_PIN_INFO(20, this)
+                this.__pinInfo := BLUETOOTH_PIN_INFO(12, this)
             return this.__pinInfo
         }
     }
@@ -61,7 +61,7 @@ class BLUETOOTH_AUTHENTICATE_RESPONSE extends Win32Struct {
     oobInfo {
         get {
             if(!this.HasProp("__oobInfo"))
-                this.__oobInfo := BLUETOOTH_OOB_DATA_INFO(20, this)
+                this.__oobInfo := BLUETOOTH_OOB_DATA_INFO(12, this)
             return this.__oobInfo
         }
     }
@@ -72,7 +72,7 @@ class BLUETOOTH_AUTHENTICATE_RESPONSE extends Win32Struct {
     numericCompInfo {
         get {
             if(!this.HasProp("__numericCompInfo"))
-                this.__numericCompInfo := BLUETOOTH_NUMERIC_COMPARISON_INFO(20, this)
+                this.__numericCompInfo := BLUETOOTH_NUMERIC_COMPARISON_INFO(12, this)
             return this.__numericCompInfo
         }
     }
@@ -83,7 +83,7 @@ class BLUETOOTH_AUTHENTICATE_RESPONSE extends Win32Struct {
     passkeyInfo {
         get {
             if(!this.HasProp("__passkeyInfo"))
-                this.__passkeyInfo := BLUETOOTH_PASSKEY_INFO(20, this)
+                this.__passkeyInfo := BLUETOOTH_PASSKEY_INFO(12, this)
             return this.__passkeyInfo
         }
     }
@@ -93,7 +93,7 @@ class BLUETOOTH_AUTHENTICATE_RESPONSE extends Win32Struct {
      * @type {Integer}
      */
     negativeResponse {
-        get => NumGet(this, 52, "char")
-        set => NumPut("char", value, this, 52)
+        get => NumGet(this, 44, "char")
+        set => NumPut("char", value, this, 44)
     }
 }

@@ -36,12 +36,12 @@
  * @charset ANSI
  */
 class NTMS_OBJECTINFORMATIONA extends Win32Struct {
-    static sizeof => 880
+    static sizeof => 872
 
     static packingSize => 8
 
     class _Info_e__Union extends Win32Struct {
-        static sizeof => 628
+        static sizeof => 624
         static packingSize => 8
 
         /**

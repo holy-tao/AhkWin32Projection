@@ -5,7 +5,7 @@
  * @namespace Windows.Win32.System.SystemServices
  */
 class IMAGE_RESOURCE_DIRECTORY_ENTRY extends Win32Struct {
-    static sizeof => 12
+    static sizeof => 8
 
     static packingSize => 4
 
@@ -56,8 +56,8 @@ class IMAGE_RESOURCE_DIRECTORY_ENTRY extends Win32Struct {
      * @type {Integer}
      */
     OffsetToData {
-        get => NumGet(this, 8, "uint")
-        set => NumPut("uint", value, this, 8)
+        get => NumGet(this, 4, "uint")
+        set => NumPut("uint", value, this, 4)
     }
 
     /**
@@ -67,8 +67,8 @@ class IMAGE_RESOURCE_DIRECTORY_ENTRY extends Win32Struct {
      * @type {Integer}
      */
     _bitfield1 {
-        get => NumGet(this, 8, "uint")
-        set => NumPut("uint", value, this, 8)
+        get => NumGet(this, 4, "uint")
+        set => NumPut("uint", value, this, 4)
     }
 
     /**

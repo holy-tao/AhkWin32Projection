@@ -11,7 +11,7 @@
  * @namespace Windows.Wdk.Foundation
  */
 class IRP extends Win32Struct {
-    static sizeof => 184
+    static sizeof => 176
 
     static packingSize => 8
 
@@ -106,11 +106,11 @@ class IRP extends Win32Struct {
     }
 
     class _Tail_e__Union extends Win32Struct {
-        static sizeof => 80
+        static sizeof => 72
         static packingSize => 8
 
         class _Overlay extends Win32Struct {
-            static sizeof => 80
+            static sizeof => 72
             static packingSize => 8
 
             /**
@@ -176,8 +176,8 @@ class IRP extends Win32Struct {
              * @type {Pointer<FILE_OBJECT>}
              */
             OriginalFileObject {
-                get => NumGet(this, 72, "ptr")
-                set => NumPut("ptr", value, this, 72)
+                get => NumGet(this, 64, "ptr")
+                set => NumPut("ptr", value, this, 64)
             }
         }
 

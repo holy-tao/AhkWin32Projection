@@ -10,12 +10,12 @@
  * @namespace Windows.Win32.Devices.DeviceAndDriverInstallation
  */
 class CM_NOTIFY_EVENT_DATA extends Win32Struct {
-    static sizeof => 40
+    static sizeof => 32
 
     static packingSize => 8
 
     class _u_e__Union extends Win32Struct {
-        static sizeof => 30
+        static sizeof => 24
         static packingSize => 8
 
         class _DeviceInterface extends Win32Struct {

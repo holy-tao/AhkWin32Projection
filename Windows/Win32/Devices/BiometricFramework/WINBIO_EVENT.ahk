@@ -8,12 +8,12 @@
  * @namespace Windows.Win32.Devices.BiometricFramework
  */
 class WINBIO_EVENT extends Win32Struct {
-    static sizeof => 112
+    static sizeof => 104
 
     static packingSize => 8
 
     class _Parameters_e__Union extends Win32Struct {
-        static sizeof => 100
+        static sizeof => 96
         static packingSize => 8
 
         class _Unclaimed extends Win32Struct {

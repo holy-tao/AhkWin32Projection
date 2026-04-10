@@ -7,7 +7,7 @@
  * @architecture X64, Arm64
  */
 class DBCOLUMNACCESS extends Win32Struct {
-    static sizeof => 80
+    static sizeof => 72
 
     static packingSize => 8
 
@@ -34,55 +34,55 @@ class DBCOLUMNACCESS extends Win32Struct {
      * @type {Pointer}
      */
     cbDataLen {
-        get => NumGet(this, 40, "ptr")
-        set => NumPut("ptr", value, this, 40)
+        get => NumGet(this, 32, "ptr")
+        set => NumPut("ptr", value, this, 32)
     }
 
     /**
      * @type {Integer}
      */
     dwStatus {
-        get => NumGet(this, 48, "uint")
-        set => NumPut("uint", value, this, 48)
+        get => NumGet(this, 40, "uint")
+        set => NumPut("uint", value, this, 40)
     }
 
     /**
      * @type {Pointer}
      */
     cbMaxLen {
-        get => NumGet(this, 56, "ptr")
-        set => NumPut("ptr", value, this, 56)
+        get => NumGet(this, 48, "ptr")
+        set => NumPut("ptr", value, this, 48)
     }
 
     /**
      * @type {Pointer}
      */
     dwReserved {
-        get => NumGet(this, 64, "ptr")
-        set => NumPut("ptr", value, this, 64)
+        get => NumGet(this, 56, "ptr")
+        set => NumPut("ptr", value, this, 56)
     }
 
     /**
      * @type {Integer}
      */
     wType {
-        get => NumGet(this, 72, "ushort")
-        set => NumPut("ushort", value, this, 72)
+        get => NumGet(this, 64, "ushort")
+        set => NumPut("ushort", value, this, 64)
     }
 
     /**
      * @type {Integer}
      */
     bPrecision {
-        get => NumGet(this, 74, "char")
-        set => NumPut("char", value, this, 74)
+        get => NumGet(this, 66, "char")
+        set => NumPut("char", value, this, 66)
     }
 
     /**
      * @type {Integer}
      */
     bScale {
-        get => NumGet(this, 75, "char")
-        set => NumPut("char", value, this, 75)
+        get => NumGet(this, 67, "char")
+        set => NumPut("char", value, this, 67)
     }
 }

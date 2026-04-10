@@ -14,7 +14,7 @@
  * @namespace Windows.Win32.System.RemoteManagement
  */
 class WSMAN_RESPONSE_DATA extends Win32Struct {
-    static sizeof => 120
+    static sizeof => 96
 
     static packingSize => 8
 

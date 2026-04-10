@@ -10,7 +10,7 @@ class WINDOWS_IAS_SET extends Win32Struct {
     static packingSize => 4
 
     class _irdaAttribute_e__Union extends Win32Struct {
-        static sizeof => 1026
+        static sizeof => 1028
         static packingSize => 4
 
         class _irdaAttribOctetSeq extends Win32Struct {

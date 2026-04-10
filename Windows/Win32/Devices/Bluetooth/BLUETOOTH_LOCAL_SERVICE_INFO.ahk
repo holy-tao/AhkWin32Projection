@@ -10,7 +10,7 @@
  * @namespace Windows.Win32.Devices.Bluetooth
  */
 class BLUETOOTH_LOCAL_SERVICE_INFO extends Win32Struct {
-    static sizeof => 1048
+    static sizeof => 1040
 
     static packingSize => 8
 
@@ -40,8 +40,8 @@ class BLUETOOTH_LOCAL_SERVICE_INFO extends Win32Struct {
      * @type {String}
      */
     szName {
-        get => StrGet(this.ptr + 24, 255, "UTF-16")
-        set => StrPut(value, this.ptr + 24, 255, "UTF-16")
+        get => StrGet(this.ptr + 16, 255, "UTF-16")
+        set => StrPut(value, this.ptr + 16, 255, "UTF-16")
     }
 
     /**
@@ -49,7 +49,7 @@ class BLUETOOTH_LOCAL_SERVICE_INFO extends Win32Struct {
      * @type {String}
      */
     szDeviceString {
-        get => StrGet(this.ptr + 536, 255, "UTF-16")
-        set => StrPut(value, this.ptr + 536, 255, "UTF-16")
+        get => StrGet(this.ptr + 528, 255, "UTF-16")
+        set => StrPut(value, this.ptr + 528, 255, "UTF-16")
     }
 }

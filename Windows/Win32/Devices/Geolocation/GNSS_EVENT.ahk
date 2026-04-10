@@ -29,7 +29,7 @@
  * @namespace Windows.Win32.Devices.Geolocation
  */
 class GNSS_EVENT extends Win32Struct {
-    static sizeof => 2744
+    static sizeof => 2736
 
     static packingSize => 8
 

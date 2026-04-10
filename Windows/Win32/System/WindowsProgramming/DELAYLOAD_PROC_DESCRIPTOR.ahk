@@ -5,12 +5,12 @@
  * @namespace Windows.Win32.System.WindowsProgramming
  */
 class DELAYLOAD_PROC_DESCRIPTOR extends Win32Struct {
-    static sizeof => 24
+    static sizeof => 16
 
     static packingSize => 8
 
     class _Description_e__Union extends Win32Struct {
-        static sizeof => 12
+        static sizeof => 8
         static packingSize => 8
 
         /**

@@ -16,7 +16,7 @@
  * @architecture X64, Arm64
  */
 class DBPROP extends Win32Struct {
-    static sizeof => 72
+    static sizeof => 64
 
     static packingSize => 8
 
@@ -61,7 +61,7 @@ class DBPROP extends Win32Struct {
     vValue {
         get {
             if(!this.HasProp("__vValue"))
-                this.__vValue := VARIANT(48, this)
+                this.__vValue := VARIANT(40, this)
             return this.__vValue
         }
     }

@@ -6,12 +6,12 @@
  * @namespace Windows.Wdk.System.SystemServices
  */
 class PHYSICAL_COUNTER_RESOURCE_DESCRIPTOR extends Win32Struct {
-    static sizeof => 24
+    static sizeof => 16
 
     static packingSize => 8
 
     class _u_e__Union extends Win32Struct {
-        static sizeof => 12
+        static sizeof => 8
         static packingSize => 8
 
         class _Range extends Win32Struct {

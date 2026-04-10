@@ -8,12 +8,12 @@
  * @namespace Windows.Win32.Storage.FileSystem
  */
 class CLFS_MGMT_POLICY extends Win32Struct {
-    static sizeof => 32
+    static sizeof => 24
 
     static packingSize => 8
 
     class _PolicyParameters_e__Union extends Win32Struct {
-        static sizeof => 12
+        static sizeof => 8
         static packingSize => 8
 
         class _MaximumSize extends Win32Struct {

@@ -7,7 +7,7 @@
  * @namespace Windows.Wdk.Graphics.Direct3D
  */
 class D3DDDI_QUERYREGISTRY_INFO extends Win32Struct {
-    static sizeof => 568
+    static sizeof => 560
 
     static packingSize => 8
 

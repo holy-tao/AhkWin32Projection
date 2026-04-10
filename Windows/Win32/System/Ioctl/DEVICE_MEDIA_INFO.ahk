@@ -9,12 +9,12 @@
  * @namespace Windows.Win32.System.Ioctl
  */
 class DEVICE_MEDIA_INFO extends Win32Struct {
-    static sizeof => 40
+    static sizeof => 32
 
     static packingSize => 8
 
     class _DeviceSpecific_e__Union extends Win32Struct {
-        static sizeof => 36
+        static sizeof => 32
         static packingSize => 8
 
         class _DiskInfo extends Win32Struct {

@@ -14,7 +14,7 @@ class USB_NODE_INFORMATION extends Win32Struct {
     static packingSize => 4
 
     class _u_e__Union extends Win32Struct {
-        static sizeof => 74
+        static sizeof => 76
         static packingSize => 4
 
         /**

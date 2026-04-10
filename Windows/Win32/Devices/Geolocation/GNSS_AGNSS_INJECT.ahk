@@ -12,7 +12,7 @@
  * @namespace Windows.Win32.Devices.Geolocation
  */
 class GNSS_AGNSS_INJECT extends Win32Struct {
-    static sizeof => 672
+    static sizeof => 664
 
     static packingSize => 8
 

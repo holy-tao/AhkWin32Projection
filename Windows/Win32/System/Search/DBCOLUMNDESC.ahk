@@ -9,7 +9,7 @@
  * @architecture X64, Arm64
  */
 class DBCOLUMNDESC extends Win32Struct {
-    static sizeof => 88
+    static sizeof => 80
 
     static packingSize => 8
 
@@ -76,23 +76,23 @@ class DBCOLUMNDESC extends Win32Struct {
      * @type {Integer}
      */
     wType {
-        get => NumGet(this, 80, "ushort")
-        set => NumPut("ushort", value, this, 80)
+        get => NumGet(this, 72, "ushort")
+        set => NumPut("ushort", value, this, 72)
     }
 
     /**
      * @type {Integer}
      */
     bPrecision {
-        get => NumGet(this, 82, "char")
-        set => NumPut("char", value, this, 82)
+        get => NumGet(this, 74, "char")
+        set => NumPut("char", value, this, 74)
     }
 
     /**
      * @type {Integer}
      */
     bScale {
-        get => NumGet(this, 83, "char")
-        set => NumPut("char", value, this, 83)
+        get => NumGet(this, 75, "char")
+        set => NumPut("char", value, this, 75)
     }
 }

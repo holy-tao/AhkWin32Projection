@@ -8,7 +8,7 @@
  * @namespace Windows.Win32.Networking.Clustering
  */
 class CLUSTER_SHARED_VOLUME_RENAME_GUID_INPUT extends Win32Struct {
-    static sizeof => 1160
+    static sizeof => 1152
 
     static packingSize => 8
 
@@ -29,7 +29,7 @@ class CLUSTER_SHARED_VOLUME_RENAME_GUID_INPUT extends Win32Struct {
     Base2 {
         get {
             if(!this.HasProp("__Base2"))
-                this.__Base2 := CLUSTER_SHARED_VOLUME_RENAME_INPUT_GUID_NAME(536, this)
+                this.__Base2 := CLUSTER_SHARED_VOLUME_RENAME_INPUT_GUID_NAME(528, this)
             return this.__Base2
         }
     }

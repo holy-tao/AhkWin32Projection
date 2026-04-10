@@ -9,7 +9,7 @@
  * @architecture X64, Arm64
  */
 class DELAYLOAD_INFO extends Win32Struct {
-    static sizeof => 80
+    static sizeof => 72
 
     static packingSize => 8
 
@@ -60,23 +60,23 @@ class DELAYLOAD_INFO extends Win32Struct {
      * @type {Pointer<Void>}
      */
     TargetModuleBase {
-        get => NumGet(this, 56, "ptr")
-        set => NumPut("ptr", value, this, 56)
+        get => NumGet(this, 48, "ptr")
+        set => NumPut("ptr", value, this, 48)
     }
 
     /**
      * @type {Pointer<Void>}
      */
     Unused {
-        get => NumGet(this, 64, "ptr")
-        set => NumPut("ptr", value, this, 64)
+        get => NumGet(this, 56, "ptr")
+        set => NumPut("ptr", value, this, 56)
     }
 
     /**
      * @type {Integer}
      */
     LastError {
-        get => NumGet(this, 72, "uint")
-        set => NumPut("uint", value, this, 72)
+        get => NumGet(this, 64, "uint")
+        set => NumPut("uint", value, this, 64)
     }
 }

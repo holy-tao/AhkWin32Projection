@@ -11,7 +11,7 @@
  * @namespace Windows.Win32.System.RemoteManagement
  */
 class WSMAN_RECEIVE_DATA_RESULT extends Win32Struct {
-    static sizeof => 56
+    static sizeof => 48
 
     static packingSize => 8
 
@@ -41,8 +41,8 @@ class WSMAN_RECEIVE_DATA_RESULT extends Win32Struct {
      * @type {PWSTR}
      */
     commandState {
-        get => NumGet(this, 40, "ptr")
-        set => NumPut("ptr", value, this, 40)
+        get => NumGet(this, 32, "ptr")
+        set => NumPut("ptr", value, this, 32)
     }
 
     /**
@@ -50,7 +50,7 @@ class WSMAN_RECEIVE_DATA_RESULT extends Win32Struct {
      * @type {Integer}
      */
     exitCode {
-        get => NumGet(this, 48, "uint")
-        set => NumPut("uint", value, this, 48)
+        get => NumGet(this, 40, "uint")
+        set => NumPut("uint", value, this, 40)
     }
 }

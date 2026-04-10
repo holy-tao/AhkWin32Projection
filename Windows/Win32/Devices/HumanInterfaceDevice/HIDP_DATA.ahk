@@ -5,7 +5,7 @@
  * @namespace Windows.Win32.Devices.HumanInterfaceDevice
  */
 class HIDP_DATA extends Win32Struct {
-    static sizeof => 12
+    static sizeof => 8
 
     static packingSize => 4
 

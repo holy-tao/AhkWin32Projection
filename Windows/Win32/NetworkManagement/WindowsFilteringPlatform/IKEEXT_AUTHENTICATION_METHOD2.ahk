@@ -24,7 +24,7 @@
  * @namespace Windows.Win32.NetworkManagement.WindowsFilteringPlatform
  */
 class IKEEXT_AUTHENTICATION_METHOD2 extends Win32Struct {
-    static sizeof => 88
+    static sizeof => 80
 
     static packingSize => 8
 

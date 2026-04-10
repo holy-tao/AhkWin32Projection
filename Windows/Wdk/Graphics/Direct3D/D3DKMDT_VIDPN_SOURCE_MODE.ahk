@@ -7,12 +7,12 @@
  * @namespace Windows.Wdk.Graphics.Direct3D
  */
 class D3DKMDT_VIDPN_SOURCE_MODE extends Win32Struct {
-    static sizeof => 24
+    static sizeof => 16
 
     static packingSize => 8
 
     class _Format_e__Union extends Win32Struct {
-        static sizeof => 12
+        static sizeof => 8
         static packingSize => 8
 
         /**

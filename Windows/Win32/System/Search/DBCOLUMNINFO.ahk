@@ -8,7 +8,7 @@
  * @architecture X64, Arm64
  */
 class DBCOLUMNINFO extends Win32Struct {
-    static sizeof => 80
+    static sizeof => 72
 
     static packingSize => 8
 

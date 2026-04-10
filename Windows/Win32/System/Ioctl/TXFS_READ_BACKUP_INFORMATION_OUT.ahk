@@ -7,7 +7,7 @@
  * @namespace Windows.Win32.System.Ioctl
  */
 class TXFS_READ_BACKUP_INFORMATION_OUT extends Win32Struct {
-    static sizeof => 8
+    static sizeof => 4
 
     static packingSize => 4
 

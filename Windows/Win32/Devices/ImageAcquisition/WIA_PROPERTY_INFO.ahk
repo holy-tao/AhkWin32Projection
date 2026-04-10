@@ -7,12 +7,12 @@
  * @namespace Windows.Win32.Devices.ImageAcquisition
  */
 class WIA_PROPERTY_INFO extends Win32Struct {
-    static sizeof => 48
+    static sizeof => 40
 
     static packingSize => 8
 
     class _ValidVal_e__Union extends Win32Struct {
-        static sizeof => 36
+        static sizeof => 32
         static packingSize => 8
 
         class _Range extends Win32Struct {

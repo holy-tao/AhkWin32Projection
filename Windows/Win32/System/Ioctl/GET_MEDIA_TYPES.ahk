@@ -10,7 +10,7 @@
  * @namespace Windows.Win32.System.Ioctl
  */
 class GET_MEDIA_TYPES extends Win32Struct {
-    static sizeof => 48
+    static sizeof => 40
 
     static packingSize => 8
 

@@ -61,7 +61,7 @@ class CProperty extends Win32Struct {
      * @type {BOOL}
      */
     fPersist {
-        get => NumGet(this, 28, "int")
-        set => NumPut("int", value, this, 28)
+        get => NumGet(this, 24, "int")
+        set => NumPut("int", value, this, 24)
     }
 }

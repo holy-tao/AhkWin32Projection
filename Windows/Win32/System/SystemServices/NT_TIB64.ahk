@@ -5,7 +5,7 @@
  * @namespace Windows.Win32.System.SystemServices
  */
 class NT_TIB64 extends Win32Struct {
-    static sizeof => 64
+    static sizeof => 56
 
     static packingSize => 8
 
@@ -61,15 +61,15 @@ class NT_TIB64 extends Win32Struct {
      * @type {Integer}
      */
     ArbitraryUserPointer {
-        get => NumGet(this, 48, "uint")
-        set => NumPut("uint", value, this, 48)
+        get => NumGet(this, 40, "uint")
+        set => NumPut("uint", value, this, 40)
     }
 
     /**
      * @type {Integer}
      */
     Self {
-        get => NumGet(this, 56, "uint")
-        set => NumPut("uint", value, this, 56)
+        get => NumGet(this, 48, "uint")
+        set => NumPut("uint", value, this, 48)
     }
 }

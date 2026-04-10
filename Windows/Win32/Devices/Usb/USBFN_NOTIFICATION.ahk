@@ -16,7 +16,7 @@ class USBFN_NOTIFICATION extends Win32Struct {
     static packingSize => 4
 
     class _u_e__Union extends Win32Struct {
-        static sizeof => 14
+        static sizeof => 16
         static packingSize => 4
 
         /**
