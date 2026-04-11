@@ -7796,6 +7796,7 @@ class WindowsAndMessaging {
      * > The winuser.h header defines wsprintf as an alias which automatically selects the ANSI or Unicode version of this function based on the definition of the UNICODE preprocessor constant. Mixing usage of the encoding-neutral alias with code that not encoding-neutral can lead to mismatches that result in compilation or runtime errors. For more information, see [Conventions for Function Prototypes](/windows/win32/intl/conventions-for-function-prototypes).
      * @param {PSTR} param0 
      * @param {PSTR} param1 
+     * @param {Any} args* Additional arguments as alternating DllCall type/value pairs (e.g., "int", 42, "str", "hello")
      * @returns {Integer} Type: <b>int</b>
      * 
      * If the function succeeds, the return value is the number of characters stored in the output buffer, not counting the terminating null character.
@@ -7804,13 +7805,16 @@ class WindowsAndMessaging {
      * @see https://learn.microsoft.com/windows/win32/api/winuser/nf-winuser-wsprintfa
      * @since windows5.0
      */
-    static wsprintfA(param0, param1) {
+    static wsprintfA(param0, param1, args*) {
         param0 := param0 is String ? StrPtr(param0) : param0
         param1 := param1 is String ? StrPtr(param1) : param1
 
         A_LastError := 0
 
-        result := DllCall("USER32.dll\wsprintfA", "ptr", param0, "ptr", param1, "CDecl int")
+        varArgs := [args*]
+        varArgs.Push("CDecl int")
+
+        result := DllCall("USER32.dll\wsprintfA", "ptr", param0, "ptr", param1, varArgs*)
         if(A_LastError) {
             throw OSError(A_LastError)
         }
@@ -8001,6 +8005,7 @@ class WindowsAndMessaging {
      * > The winuser.h header defines wsprintf as an alias which automatically selects the ANSI or Unicode version of this function based on the definition of the UNICODE preprocessor constant. Mixing usage of the encoding-neutral alias with code that not encoding-neutral can lead to mismatches that result in compilation or runtime errors. For more information, see [Conventions for Function Prototypes](/windows/win32/intl/conventions-for-function-prototypes).
      * @param {PWSTR} param0 
      * @param {PWSTR} param1 
+     * @param {Any} args* Additional arguments as alternating DllCall type/value pairs (e.g., "int", 42, "str", "hello")
      * @returns {Integer} Type: <b>int</b>
      * 
      * If the function succeeds, the return value is the number of characters stored in the output buffer, not counting the terminating null character.
@@ -8009,13 +8014,16 @@ class WindowsAndMessaging {
      * @see https://learn.microsoft.com/windows/win32/api/winuser/nf-winuser-wsprintfw
      * @since windows5.0
      */
-    static wsprintfW(param0, param1) {
+    static wsprintfW(param0, param1, args*) {
         param0 := param0 is String ? StrPtr(param0) : param0
         param1 := param1 is String ? StrPtr(param1) : param1
 
         A_LastError := 0
 
-        result := DllCall("USER32.dll\wsprintfW", "ptr", param0, "ptr", param1, "CDecl int")
+        varArgs := [args*]
+        varArgs.Push("CDecl int")
+
+        result := DllCall("USER32.dll\wsprintfW", "ptr", param0, "ptr", param1, varArgs*)
         if(A_LastError) {
             throw OSError(A_LastError)
         }

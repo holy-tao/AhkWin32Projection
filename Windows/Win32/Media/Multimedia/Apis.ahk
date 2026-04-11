@@ -27411,14 +27411,18 @@ class Multimedia {
      * @param {Integer} nStreams Number of streams saved in the file.
      * @param {IAVIStream} pfile Pointer to an AVI stream. This parameter is paired with <i>lpOptions</i>. The parameter pair can be repeated as a variable number of arguments.
      * @param {Pointer<AVICOMPRESSOPTIONS>} lpOptions Pointer to an application-defined <a href="https://docs.microsoft.com/windows/desktop/api/vfw/ns-vfw-avicompressoptions">AVICOMPRESSOPTIONS</a> structure containing the compression options for the stream referenced by <i>pavi</i>. This parameter is paired with pavi. The parameter pair can be repeated as a variable number of arguments.
+     * @param {Any} args* Additional arguments as alternating DllCall type/value pairs (e.g., "int", 42, "str", "hello")
      * @returns {HRESULT} Returns AVIERR_OK if successful or an error otherwise.
      * @see https://learn.microsoft.com/windows/win32/api/vfw/nf-vfw-avisavea
      * @since windows5.0
      */
-    static AVISaveA(szFile, pclsidHandler, lpfnCallback, nStreams, pfile, lpOptions) {
+    static AVISaveA(szFile, pclsidHandler, lpfnCallback, nStreams, pfile, lpOptions, args*) {
         szFile := szFile is String ? StrPtr(szFile) : szFile
 
-        result := DllCall("AVIFIL32.dll\AVISaveA", "ptr", szFile, "ptr", pclsidHandler, "ptr", lpfnCallback, "int", nStreams, "ptr", pfile, "ptr", lpOptions, "CDecl HRESULT")
+        varArgs := [args*]
+        varArgs.Push("CDecl HRESULT")
+
+        result := DllCall("AVIFIL32.dll\AVISaveA", "ptr", szFile, "ptr", pclsidHandler, "ptr", lpfnCallback, "int", nStreams, "ptr", pfile, "ptr", lpOptions, varArgs*)
         return result
     }
 
@@ -27491,14 +27495,18 @@ class Multimedia {
      * @param {Integer} nStreams Number of streams saved in the file.
      * @param {IAVIStream} pfile Pointer to an AVI stream. This parameter is paired with <i>lpOptions</i>. The parameter pair can be repeated as a variable number of arguments.
      * @param {Pointer<AVICOMPRESSOPTIONS>} lpOptions Pointer to an application-defined <a href="https://docs.microsoft.com/windows/desktop/api/vfw/ns-vfw-avicompressoptions">AVICOMPRESSOPTIONS</a> structure containing the compression options for the stream referenced by <i>pavi</i>. This parameter is paired with pavi. The parameter pair can be repeated as a variable number of arguments.
+     * @param {Any} args* Additional arguments as alternating DllCall type/value pairs (e.g., "int", 42, "str", "hello")
      * @returns {HRESULT} Returns AVIERR_OK if successful or an error otherwise.
      * @see https://learn.microsoft.com/windows/win32/api/vfw/nf-vfw-avisavew
      * @since windows5.0
      */
-    static AVISaveW(szFile, pclsidHandler, lpfnCallback, nStreams, pfile, lpOptions) {
+    static AVISaveW(szFile, pclsidHandler, lpfnCallback, nStreams, pfile, lpOptions, args*) {
         szFile := szFile is String ? StrPtr(szFile) : szFile
 
-        result := DllCall("AVIFIL32.dll\AVISaveW", "ptr", szFile, "ptr", pclsidHandler, "ptr", lpfnCallback, "int", nStreams, "ptr", pfile, "ptr", lpOptions, "CDecl HRESULT")
+        varArgs := [args*]
+        varArgs.Push("CDecl HRESULT")
+
+        result := DllCall("AVIFIL32.dll\AVISaveW", "ptr", szFile, "ptr", pclsidHandler, "ptr", lpfnCallback, "int", nStreams, "ptr", pfile, "ptr", lpOptions, varArgs*)
         return result
     }
 

@@ -1328,14 +1328,18 @@ class DeploymentServices {
      * </td>
      * </tr>
      * </table>
+     * @param {Any} args* Additional arguments as alternating DllCall type/value pairs (e.g., "int", 42, "str", "hello")
      * @returns {HRESULT} If the function succeeds, the return is <b>S_OK</b>.
      * @see https://learn.microsoft.com/windows/win32/api/wdsclientapi/nf-wdsclientapi-wdsclilog
      * @since windows6.0.6000
      */
-    static WdsCliLog(hSession, ulLogLevel, ulMessageCode) {
+    static WdsCliLog(hSession, ulLogLevel, ulMessageCode, args*) {
         hSession := hSession is Win32Handle ? NumGet(hSession, "ptr") : hSession
 
-        result := DllCall("WDSCLIENTAPI.dll\WdsCliLog", "ptr", hSession, "uint", ulLogLevel, "uint", ulMessageCode, "CDecl HRESULT")
+        varArgs := [args*]
+        varArgs.Push("CDecl HRESULT")
+
+        result := DllCall("WDSCLIENTAPI.dll\WdsCliLog", "ptr", hSession, "uint", ulLogLevel, "uint", ulMessageCode, varArgs*)
         return result
     }
 
@@ -2270,15 +2274,19 @@ class DeploymentServices {
      * </tr>
      * </table>
      * @param {PWSTR} pszFormat Address of a buffer that contains a printf-style format string.
+     * @param {Any} args* Additional arguments as alternating DllCall type/value pairs (e.g., "int", 42, "str", "hello")
      * @returns {Integer} If the function succeeds, the return value is <b>ERROR_SUCCESS</b>.
      * @see https://learn.microsoft.com/windows/win32/api/wdspxe/nf-wdspxe-pxetrace
      * @since windowsserver2008
      */
-    static PxeTrace(_hProvider, Severity, pszFormat) {
+    static PxeTrace(_hProvider, Severity, pszFormat, args*) {
         _hProvider := _hProvider is Win32Handle ? NumGet(_hProvider, "ptr") : _hProvider
         pszFormat := pszFormat is String ? StrPtr(pszFormat) : pszFormat
 
-        result := DllCall("WDSPXE.dll\PxeTrace", "ptr", _hProvider, "uint", Severity, "ptr", pszFormat, "CDecl uint")
+        varArgs := [args*]
+        varArgs.Push("CDecl uint")
+
+        result := DllCall("WDSPXE.dll\PxeTrace", "ptr", _hProvider, "uint", Severity, "ptr", pszFormat, varArgs*)
         return result
     }
 
@@ -3185,15 +3193,19 @@ class DeploymentServices {
      * @param {HANDLE} _hProvider Handle to the provider. This handle was given to the provider in the <a href="https://docs.microsoft.com/windows/desktop/api/wdstpdi/nf-wdstpdi-wdstransportproviderinitialize">WdsTransportProviderInitialize</a> function.
      * @param {Integer} Severity Severity level of the message.
      * @param {PWSTR} pwszFormat A pointer to a null-terminated string value that contains a formatted string.
+     * @param {Any} args* Additional arguments as alternating DllCall type/value pairs (e.g., "int", 42, "str", "hello")
      * @returns {HRESULT} If the function succeeds, the return is <b>S_OK</b>.
      * @see https://learn.microsoft.com/windows/win32/api/wdstpdi/nf-wdstpdi-wdstransportservertrace
      * @since windowsserver2008
      */
-    static WdsTransportServerTrace(_hProvider, Severity, pwszFormat) {
+    static WdsTransportServerTrace(_hProvider, Severity, pwszFormat, args*) {
         _hProvider := _hProvider is Win32Handle ? NumGet(_hProvider, "ptr") : _hProvider
         pwszFormat := pwszFormat is String ? StrPtr(pwszFormat) : pwszFormat
 
-        result := DllCall("WDSMC.dll\WdsTransportServerTrace", "ptr", _hProvider, "uint", Severity, "ptr", pwszFormat, "CDecl HRESULT")
+        varArgs := [args*]
+        varArgs.Push("CDecl HRESULT")
+
+        result := DllCall("WDSMC.dll\WdsTransportServerTrace", "ptr", _hProvider, "uint", Severity, "ptr", pwszFormat, varArgs*)
         return result
     }
 

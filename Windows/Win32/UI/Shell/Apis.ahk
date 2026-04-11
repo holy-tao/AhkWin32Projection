@@ -18814,6 +18814,7 @@ class Shell {
      * @param {MESSAGEBOX_STYLE} fuStyle Type: <b>UINT</b>
      * 
      * Specifies the contents and behavior of the dialog box. For possible values, see <a href="https://docs.microsoft.com/windows/desktop/api/winuser/nf-winuser-messagebox">MessageBox</a>.
+     * @param {Any} args* Additional arguments as alternating DllCall type/value pairs (e.g., "int", 42, "str", "hello")
      * @returns {Integer} Type: <b>int</b>
      * 
      * An integer value indicating a button that was pressed in the message box. For specific values, see <a href="https://docs.microsoft.com/windows/desktop/api/winuser/nf-winuser-messagebox">MessageBox</a>.
@@ -18824,7 +18825,7 @@ class Shell {
      * @see https://learn.microsoft.com/windows/win32/api/shellapi/nf-shellapi-shellmessageboxa
      * @since windows5.1.2600
      */
-    static ShellMessageBoxA(hAppInst, _hWnd, lpcText, lpcTitle, fuStyle) {
+    static ShellMessageBoxA(hAppInst, _hWnd, lpcText, lpcTitle, fuStyle, args*) {
         hAppInst := hAppInst is Win32Handle ? NumGet(hAppInst, "ptr") : hAppInst
         _hWnd := _hWnd is Win32Handle ? NumGet(_hWnd, "ptr") : _hWnd
         lpcText := lpcText is String ? StrPtr(lpcText) : lpcText
@@ -18832,7 +18833,10 @@ class Shell {
 
         A_LastError := 0
 
-        result := DllCall("SHLWAPI.dll\ShellMessageBoxA", "ptr", hAppInst, "ptr", _hWnd, "ptr", lpcText, "ptr", lpcTitle, "uint", fuStyle, "CDecl int")
+        varArgs := [args*]
+        varArgs.Push("CDecl int")
+
+        result := DllCall("SHLWAPI.dll\ShellMessageBoxA", "ptr", hAppInst, "ptr", _hWnd, "ptr", lpcText, "ptr", lpcTitle, "uint", fuStyle, varArgs*)
         if(A_LastError) {
             throw OSError(A_LastError)
         }
@@ -18860,6 +18864,7 @@ class Shell {
      * @param {MESSAGEBOX_STYLE} fuStyle Type: <b>UINT</b>
      * 
      * Specifies the contents and behavior of the dialog box. For possible values, see <a href="https://docs.microsoft.com/windows/desktop/api/winuser/nf-winuser-messagebox">MessageBox</a>.
+     * @param {Any} args* Additional arguments as alternating DllCall type/value pairs (e.g., "int", 42, "str", "hello")
      * @returns {Integer} Type: <b>int</b>
      * 
      * An integer value indicating a button that was pressed in the message box. For specific values, see <a href="https://docs.microsoft.com/windows/desktop/api/winuser/nf-winuser-messagebox">MessageBox</a>.
@@ -18870,7 +18875,7 @@ class Shell {
      * @see https://learn.microsoft.com/windows/win32/api/shellapi/nf-shellapi-shellmessageboxw
      * @since windows5.1.2600
      */
-    static ShellMessageBoxW(hAppInst, _hWnd, lpcText, lpcTitle, fuStyle) {
+    static ShellMessageBoxW(hAppInst, _hWnd, lpcText, lpcTitle, fuStyle, args*) {
         hAppInst := hAppInst is Win32Handle ? NumGet(hAppInst, "ptr") : hAppInst
         _hWnd := _hWnd is Win32Handle ? NumGet(_hWnd, "ptr") : _hWnd
         lpcText := lpcText is String ? StrPtr(lpcText) : lpcText
@@ -18878,7 +18883,10 @@ class Shell {
 
         A_LastError := 0
 
-        result := DllCall("SHLWAPI.dll\ShellMessageBoxW", "ptr", hAppInst, "ptr", _hWnd, "ptr", lpcText, "ptr", lpcTitle, "uint", fuStyle, "CDecl int")
+        varArgs := [args*]
+        varArgs.Push("CDecl int")
+
+        result := DllCall("SHLWAPI.dll\ShellMessageBoxW", "ptr", hAppInst, "ptr", _hWnd, "ptr", lpcText, "ptr", lpcTitle, "uint", fuStyle, varArgs*)
         if(A_LastError) {
             throw OSError(A_LastError)
         }
@@ -21319,17 +21327,21 @@ class Shell {
      * @param {PSTR} pszFmt Type: <b>PCTSTR</b>
      * 
      * A <a href="https://docs.microsoft.com/windows/desktop/direct3dhlsl/printf">printf</a>-style format string. The %s format identifier should never be used in an unbounded form. To avoid potential buffer overruns, always specify a size; for instance "%32s".
+     * @param {Any} args* Additional arguments as alternating DllCall type/value pairs (e.g., "int", 42, "str", "hello")
      * @returns {Integer} Type: <b>int</b>
      * 
      * Returns the number of characters written to the buffer, excluding any terminating <b>NULL</b> characters. A negative value is returned if an error occurs.
      * @see https://learn.microsoft.com/windows/win32/api/shlwapi/nf-shlwapi-wnsprintfa
      * @since windows5.0
      */
-    static wnsprintfA(pszDest, cchDest, pszFmt) {
+    static wnsprintfA(pszDest, cchDest, pszFmt, args*) {
         pszDest := pszDest is String ? StrPtr(pszDest) : pszDest
         pszFmt := pszFmt is String ? StrPtr(pszFmt) : pszFmt
 
-        result := DllCall("SHLWAPI.dll\wnsprintfA", "ptr", pszDest, "int", cchDest, "ptr", pszFmt, "CDecl int")
+        varArgs := [args*]
+        varArgs.Push("CDecl int")
+
+        result := DllCall("SHLWAPI.dll\wnsprintfA", "ptr", pszDest, "int", cchDest, "ptr", pszFmt, varArgs*)
         return result
     }
 
@@ -21354,17 +21366,21 @@ class Shell {
      * @param {PWSTR} pszFmt Type: <b>PCTSTR</b>
      * 
      * A <a href="https://docs.microsoft.com/windows/desktop/direct3dhlsl/printf">printf</a>-style format string. The %s format identifier should never be used in an unbounded form. To avoid potential buffer overruns, always specify a size; for instance "%32s".
+     * @param {Any} args* Additional arguments as alternating DllCall type/value pairs (e.g., "int", 42, "str", "hello")
      * @returns {Integer} Type: <b>int</b>
      * 
      * Returns the number of characters written to the buffer, excluding any terminating <b>NULL</b> characters. A negative value is returned if an error occurs.
      * @see https://learn.microsoft.com/windows/win32/api/shlwapi/nf-shlwapi-wnsprintfw
      * @since windows5.0
      */
-    static wnsprintfW(pszDest, cchDest, pszFmt) {
+    static wnsprintfW(pszDest, cchDest, pszFmt, args*) {
         pszDest := pszDest is String ? StrPtr(pszDest) : pszDest
         pszFmt := pszFmt is String ? StrPtr(pszFmt) : pszFmt
 
-        result := DllCall("SHLWAPI.dll\wnsprintfW", "ptr", pszDest, "int", cchDest, "ptr", pszFmt, "CDecl int")
+        varArgs := [args*]
+        varArgs.Push("CDecl int")
+
+        result := DllCall("SHLWAPI.dll\wnsprintfW", "ptr", pszDest, "int", cchDest, "ptr", pszFmt, varArgs*)
         return result
     }
 

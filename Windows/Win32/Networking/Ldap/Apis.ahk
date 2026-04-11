@@ -7644,7 +7644,7 @@ class Ldap {
     static ldap_perror(ld, _msg) {
         _msg := _msg is String ? StrPtr(_msg) : _msg
 
-        DllCall("WLDAP32.dll\ldap_perror", "ptr", ld, "ptr", _msg, "CDecl ")
+        DllCall("WLDAP32.dll\ldap_perror", "ptr", ld, "ptr", _msg, "CDecl")
     }
 
     /**
@@ -8544,7 +8544,7 @@ class Ldap {
     static ldap_memfreeW(Block) {
         Block := Block is String ? StrPtr(Block) : Block
 
-        DllCall("WLDAP32.dll\ldap_memfreeW", "ptr", Block, "CDecl ")
+        DllCall("WLDAP32.dll\ldap_memfreeW", "ptr", Block, "CDecl")
     }
 
     /**
@@ -8562,7 +8562,7 @@ class Ldap {
     static ldap_memfreeA(Block) {
         Block := Block is String ? StrPtr(Block) : Block
 
-        DllCall("WLDAP32.dll\ldap_memfreeA", "ptr", Block, "CDecl ")
+        DllCall("WLDAP32.dll\ldap_memfreeA", "ptr", Block, "CDecl")
     }
 
     /**
@@ -8575,7 +8575,7 @@ class Ldap {
      * @since windows6.0.6000
      */
     static ber_bvfree(bv) {
-        DllCall("WLDAP32.dll\ber_bvfree", "ptr", bv, "CDecl ")
+        DllCall("WLDAP32.dll\ber_bvfree", "ptr", bv, "CDecl")
     }
 
     /**
@@ -8593,7 +8593,7 @@ class Ldap {
     static ldap_memfree(Block) {
         Block := Block is String ? StrPtr(Block) : Block
 
-        DllCall("WLDAP32.dll\ldap_memfree", "ptr", Block, "CDecl ")
+        DllCall("WLDAP32.dll\ldap_memfree", "ptr", Block, "CDecl")
     }
 
     /**
@@ -8807,7 +8807,7 @@ class Ldap {
      * @returns {String} Nothing - always returns an empty string
      */
     static ldap_set_dbg_routine(DebugPrintRoutine) {
-        DllCall("WLDAP32.dll\ldap_set_dbg_routine", "ptr", DebugPrintRoutine, "CDecl ")
+        DllCall("WLDAP32.dll\ldap_set_dbg_routine", "ptr", DebugPrintRoutine, "CDecl")
     }
 
     /**
@@ -10292,7 +10292,7 @@ class Ldap {
      * @since windows6.0.6000
      */
     static ber_free(pBerElement, fbuf) {
-        DllCall("WLDAP32.dll\ber_free", "ptr", pBerElement, "int", fbuf, "CDecl ")
+        DllCall("WLDAP32.dll\ber_free", "ptr", pBerElement, "int", fbuf, "CDecl")
     }
 
     /**
@@ -10310,7 +10310,7 @@ class Ldap {
     static ber_bvecfree(pBerVal) {
         pBerValMarshal := pBerVal is VarRef ? "ptr*" : "ptr"
 
-        DllCall("WLDAP32.dll\ber_bvecfree", pBerValMarshal, pBerVal, "CDecl ")
+        DllCall("WLDAP32.dll\ber_bvecfree", pBerValMarshal, pBerVal, "CDecl")
     }
 
     /**
@@ -10516,14 +10516,18 @@ class Ldap {
      * Each left brace (<b>{</b>) character must be paired with a right brace (<b>}</b>) character later in the format string, or in the format string of a subsequent call to <b>ber_printf</b> for that specific <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/winldap/ns-winldap-berelement">BerElement</a>. The same applies to the left bracket ([) character and right bracket (]) characters.
      * @param {Pointer<BerElement>} pBerElement A pointer to the encoded <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/winldap/ns-winldap-berelement">BerElement</a> structure.
      * @param {PSTR} fmt An encoding format string. For more information, see Remarks.
+     * @param {Any} args* Additional arguments as alternating DllCall type/value pairs (e.g., "int", 42, "str", "hello")
      * @returns {Integer} If the function succeeds, a non-negative number is returned. If the function fails,  -1 is returned.
      * @see https://learn.microsoft.com/windows/win32/api/winber/nf-winber-ber_printf
      * @since windows6.0.6000
      */
-    static ber_printf(pBerElement, fmt) {
+    static ber_printf(pBerElement, fmt, args*) {
         fmt := fmt is String ? StrPtr(fmt) : fmt
 
-        result := DllCall("WLDAP32.dll\ber_printf", "ptr", pBerElement, "ptr", fmt, "CDecl int")
+        varArgs := [args*]
+        varArgs.Push("CDecl int")
+
+        result := DllCall("WLDAP32.dll\ber_printf", "ptr", pBerElement, "ptr", fmt, varArgs*)
         return result
     }
 
@@ -10605,14 +10609,18 @@ class Ldap {
      * </table>
      * @param {Pointer<BerElement>} pBerElement Pointer to the decoded <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/winldap/ns-winldap-berelement">BerElement</a> structure.
      * @param {PSTR} fmt Encoding format string. For more information, see Remarks section.
+     * @param {Any} args* Additional arguments as alternating DllCall type/value pairs (e.g., "int", 42, "str", "hello")
      * @returns {Integer} On error, the function returns LBER_ERROR.
      * @see https://learn.microsoft.com/windows/win32/api/winber/nf-winber-ber_scanf
      * @since windows6.0.6000
      */
-    static ber_scanf(pBerElement, fmt) {
+    static ber_scanf(pBerElement, fmt, args*) {
         fmt := fmt is String ? StrPtr(fmt) : fmt
 
-        result := DllCall("WLDAP32.dll\ber_scanf", "ptr", pBerElement, "ptr", fmt, "CDecl uint")
+        varArgs := [args*]
+        varArgs.Push("CDecl uint")
+
+        result := DllCall("WLDAP32.dll\ber_scanf", "ptr", pBerElement, "ptr", fmt, varArgs*)
         return result
     }
 

@@ -986,14 +986,18 @@ class Snmp {
      * <a href="https://docs.microsoft.com/windows/desktop/api/snmp/nf-snmp-snmpsvcsetlogtype">SnmpSvcSetLogType</a> function to specify the destination for the debug output.
      * @param {SNMP_LOG} nLogLevel 
      * @param {PSTR} szFormat Pointer to a null-terminated format string that is similar to the standard C library function <b>printf</b> style.
+     * @param {Any} args* Additional arguments as alternating DllCall type/value pairs (e.g., "int", 42, "str", "hello")
      * @returns {String} Nothing - always returns an empty string
      * @see https://learn.microsoft.com/windows/win32/api/snmp/nf-snmp-snmputildbgprint
      * @since windows5.0
      */
-    static SnmpUtilDbgPrint(nLogLevel, szFormat) {
+    static SnmpUtilDbgPrint(nLogLevel, szFormat, args*) {
         szFormat := szFormat is String ? StrPtr(szFormat) : szFormat
 
-        DllCall("snmpapi.dll\SnmpUtilDbgPrint", "int", nLogLevel, "ptr", szFormat, "CDecl ")
+        varArgs := [args*]
+        varArgs.Push("CDecl")
+
+        DllCall("snmpapi.dll\SnmpUtilDbgPrint", "int", nLogLevel, "ptr", szFormat, varArgs*)
     }
 
     /**

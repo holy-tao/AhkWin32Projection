@@ -10330,12 +10330,16 @@ class Ndis {
      * @param {Pointer<Void>} NdisAdapterHandle 
      * @param {Integer} ErrorCode 
      * @param {Integer} NumberOfErrorValues 
+     * @param {Any} args* Additional arguments as alternating DllCall type/value pairs (e.g., "int", 42, "str", "hello")
      * @returns {String} Nothing - always returns an empty string
      */
-    static NdisWriteErrorLogEntry(NdisAdapterHandle, ErrorCode, NumberOfErrorValues) {
+    static NdisWriteErrorLogEntry(NdisAdapterHandle, ErrorCode, NumberOfErrorValues, args*) {
         NdisAdapterHandleMarshal := NdisAdapterHandle is VarRef ? "ptr" : "ptr"
 
-        DllCall("NDIS.sys\NdisWriteErrorLogEntry", NdisAdapterHandleMarshal, NdisAdapterHandle, "uint", ErrorCode, "uint", NumberOfErrorValues, "CDecl ")
+        varArgs := [args*]
+        varArgs.Push("CDecl")
+
+        DllCall("NDIS.sys\NdisWriteErrorLogEntry", NdisAdapterHandleMarshal, NdisAdapterHandle, "uint", ErrorCode, "uint", NumberOfErrorValues, varArgs*)
     }
 
     /**
