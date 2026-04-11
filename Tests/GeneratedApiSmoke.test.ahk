@@ -258,6 +258,31 @@ class GeneratedApiSmokeTests {
             Assert.Equals(type(val), "HSTRING")
         }
     }
+
+    /**
+     * Tests for variadic functions (__arglist). These accept additional arguments
+     * as alternating DllCall type/value pairs via AHK's variadic parameter syntax.
+     */
+    class VariadicFunctions {
+
+        wsprintfW_WithVariadicArgs_FormatsCorrectly() {
+            buf := Buffer(256, 0)
+            nChars := WindowsAndMessaging.wsprintfW(buf, "%d %s", "int", 42, "ptr", StrPtr("hello"))
+            result := StrGet(buf, "UTF-16")
+
+            Yunit.Assert(nChars == 8, Format("Expected 8 chars but got {1}", nChars))
+            Yunit.Assert(result == "42 hello", Format("Expected '42 hello' but got '{1}'", result))
+        }
+
+        wsprintfW_WithNoVariadicArgs_StillWorks() {
+            buf := Buffer(256, 0)
+            nChars := WindowsAndMessaging.wsprintfW(buf, "Hello World")
+            result := StrGet(buf, "UTF-16")
+
+            Yunit.Assert(nChars == 11, Format("Expected 11 chars but got {1}", nChars))
+            Yunit.Assert(result == "Hello World", Format("Expected 'Hello World' but got '{1}'", result))
+        }
+    }
 }
 
 /**
