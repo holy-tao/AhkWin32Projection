@@ -2209,13 +2209,14 @@ class Authorization {
      * @param {PWSTR} szAdditionalInfo String, defined by the Resource Manager, for additional audit information.
      * @param {Pointer<AUTHZ_AUDIT_EVENT_HANDLE>} phAuditEvent Pointer that receives an <b>AUTHZ_AUDIT_EVENT_HANDLE</b> structure.
      * @param {Integer} dwAdditionalParameterCount Must be set to zero.
+     * @param {Any} args* Additional arguments as alternating DllCall type/value pairs (e.g., "int", 42, "str", "hello")
      * @returns {BOOL} If the function succeeds, it returns <b>TRUE</b>.
      * 
      * If the function fails, it returns <b>FALSE</b>. For extended error information, call <a href="https://docs.microsoft.com/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>.
      * @see https://learn.microsoft.com/windows/win32/api/authz/nf-authz-authzinitializeobjectaccessauditevent
      * @since windows5.1.2600
      */
-    static AuthzInitializeObjectAccessAuditEvent(Flags, hAuditEventType, szOperationType, szObjectType, szObjectName, szAdditionalInfo, phAuditEvent, dwAdditionalParameterCount) {
+    static AuthzInitializeObjectAccessAuditEvent(Flags, hAuditEventType, szOperationType, szObjectType, szObjectName, szAdditionalInfo, phAuditEvent, dwAdditionalParameterCount, args*) {
         hAuditEventType := hAuditEventType is Win32Handle ? NumGet(hAuditEventType, "ptr") : hAuditEventType
         szOperationType := szOperationType is String ? StrPtr(szOperationType) : szOperationType
         szObjectType := szObjectType is String ? StrPtr(szObjectType) : szObjectType
@@ -2224,7 +2225,10 @@ class Authorization {
 
         A_LastError := 0
 
-        result := DllCall("AUTHZ.dll\AuthzInitializeObjectAccessAuditEvent", "uint", Flags, "ptr", hAuditEventType, "ptr", szOperationType, "ptr", szObjectType, "ptr", szObjectName, "ptr", szAdditionalInfo, "ptr", phAuditEvent, "uint", dwAdditionalParameterCount, "CDecl int")
+        varArgs := [args*]
+        varArgs.Push("CDecl int")
+
+        result := DllCall("AUTHZ.dll\AuthzInitializeObjectAccessAuditEvent", "uint", Flags, "ptr", hAuditEventType, "ptr", szOperationType, "ptr", szObjectType, "ptr", szObjectName, "ptr", szAdditionalInfo, "ptr", phAuditEvent, "uint", dwAdditionalParameterCount, varArgs*)
         if(!result && A_LastError) {
             throw OSError(A_LastError)
         }
@@ -2280,13 +2284,14 @@ class Authorization {
      * @param {PWSTR} szAdditionalInfo2 Pointer to a string defined by the Resource Manager that contains additional audit information.
      * @param {Pointer<AUTHZ_AUDIT_EVENT_HANDLE>} phAuditEvent A pointer to the returned <b>AUTHZ_AUDIT_EVENT_HANDLE</b> handle.
      * @param {Integer} dwAdditionalParameterCount Must be set to zero.
+     * @param {Any} args* Additional arguments as alternating DllCall type/value pairs (e.g., "int", 42, "str", "hello")
      * @returns {BOOL} If the function succeeds, it returns <b>TRUE</b>.
      * 
      * If the function fails, it returns <b>FALSE</b>. For extended error information, call <a href="https://docs.microsoft.com/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>.
      * @see https://learn.microsoft.com/windows/win32/api/authz/nf-authz-authzinitializeobjectaccessauditevent2
      * @since windowsserver2003
      */
-    static AuthzInitializeObjectAccessAuditEvent2(Flags, hAuditEventType, szOperationType, szObjectType, szObjectName, szAdditionalInfo, szAdditionalInfo2, phAuditEvent, dwAdditionalParameterCount) {
+    static AuthzInitializeObjectAccessAuditEvent2(Flags, hAuditEventType, szOperationType, szObjectType, szObjectName, szAdditionalInfo, szAdditionalInfo2, phAuditEvent, dwAdditionalParameterCount, args*) {
         hAuditEventType := hAuditEventType is Win32Handle ? NumGet(hAuditEventType, "ptr") : hAuditEventType
         szOperationType := szOperationType is String ? StrPtr(szOperationType) : szOperationType
         szObjectType := szObjectType is String ? StrPtr(szObjectType) : szObjectType
@@ -2296,7 +2301,10 @@ class Authorization {
 
         A_LastError := 0
 
-        result := DllCall("AUTHZ.dll\AuthzInitializeObjectAccessAuditEvent2", "uint", Flags, "ptr", hAuditEventType, "ptr", szOperationType, "ptr", szObjectType, "ptr", szObjectName, "ptr", szAdditionalInfo, "ptr", szAdditionalInfo2, "ptr", phAuditEvent, "uint", dwAdditionalParameterCount, "CDecl int")
+        varArgs := [args*]
+        varArgs.Push("CDecl int")
+
+        result := DllCall("AUTHZ.dll\AuthzInitializeObjectAccessAuditEvent2", "uint", Flags, "ptr", hAuditEventType, "ptr", szOperationType, "ptr", szObjectType, "ptr", szObjectName, "ptr", szAdditionalInfo, "ptr", szAdditionalInfo2, "ptr", phAuditEvent, "uint", dwAdditionalParameterCount, varArgs*)
         if(!result && A_LastError) {
             throw OSError(A_LastError)
         }
@@ -2531,18 +2539,22 @@ class Authorization {
      * @param {Integer} dwAuditId The identifier of the audit.
      * @param {PSID} pUserSid A pointer to the <a href="https://docs.microsoft.com/windows/desktop/SecGloss/s-gly">security identifier</a> (SID) that will be listed as the source of the audit in the event log.
      * @param {Integer} dwCount The number of AuditParamFlag  type/value pairs that appear in the variable arguments section that follows this parameter.
+     * @param {Any} args* Additional arguments as alternating DllCall type/value pairs (e.g., "int", 42, "str", "hello")
      * @returns {BOOL} If the function succeeds, the function returns <b>TRUE</b>.
      * 
      * If the function fails, it returns <b>FALSE</b>. For extended error information, call <a href="https://docs.microsoft.com/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>.
      * @see https://learn.microsoft.com/windows/win32/api/authz/nf-authz-authzreportsecurityevent
      * @since windowsserver2003
      */
-    static AuthzReportSecurityEvent(dwFlags, hEventProvider, dwAuditId, pUserSid, dwCount) {
+    static AuthzReportSecurityEvent(dwFlags, hEventProvider, dwAuditId, pUserSid, dwCount, args*) {
         hEventProvider := hEventProvider is Win32Handle ? NumGet(hEventProvider, "ptr") : hEventProvider
 
         A_LastError := 0
 
-        result := DllCall("AUTHZ.dll\AuthzReportSecurityEvent", "uint", dwFlags, "ptr", hEventProvider, "uint", dwAuditId, "ptr", pUserSid, "uint", dwCount, "CDecl int")
+        varArgs := [args*]
+        varArgs.Push("CDecl int")
+
+        result := DllCall("AUTHZ.dll\AuthzReportSecurityEvent", "uint", dwFlags, "ptr", hEventProvider, "uint", dwAuditId, "ptr", pUserSid, "uint", dwCount, varArgs*)
         if(!result && A_LastError) {
             throw OSError(A_LastError)
         }

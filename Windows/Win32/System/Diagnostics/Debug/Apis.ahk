@@ -2470,7 +2470,7 @@ class Debug {
      * @see https://learn.microsoft.com/windows/win32/api/winnt/nf-winnt-rtlrestorecontext
      */
     static RtlRestoreContext(ContextRecord, ExceptionRecord) {
-        DllCall("KERNEL32.dll\RtlRestoreContext", "ptr", ContextRecord, "ptr", ExceptionRecord, "CDecl ")
+        DllCall("KERNEL32.dll\RtlRestoreContext", "ptr", ContextRecord, "ptr", ExceptionRecord, "CDecl")
     }
 
     /**

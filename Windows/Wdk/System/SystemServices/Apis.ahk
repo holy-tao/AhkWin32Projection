@@ -8625,12 +8625,16 @@ class SystemServices {
     /**
      * 
      * @param {PSTR} Format 
+     * @param {Any} args* Additional arguments as alternating DllCall type/value pairs (e.g., "int", 42, "str", "hello")
      * @returns {Integer} 
      */
-    static DbgPrint(Format) {
+    static DbgPrint(Format, args*) {
         Format := Format is String ? StrPtr(Format) : Format
 
-        result := DllCall("ntdll.dll\DbgPrint", "ptr", Format, "CDecl uint")
+        varArgs := [args*]
+        varArgs.Push("CDecl uint")
+
+        result := DllCall("ntdll.dll\DbgPrint", "ptr", Format, varArgs*)
         return result
     }
 
@@ -8639,12 +8643,16 @@ class SystemServices {
      * @param {Integer} ComponentId 
      * @param {Integer} Level 
      * @param {PSTR} Format 
+     * @param {Any} args* Additional arguments as alternating DllCall type/value pairs (e.g., "int", 42, "str", "hello")
      * @returns {Integer} 
      */
-    static DbgPrintEx(ComponentId, Level, Format) {
+    static DbgPrintEx(ComponentId, Level, Format, args*) {
         Format := Format is String ? StrPtr(Format) : Format
 
-        result := DllCall("ntdll.dll\DbgPrintEx", "uint", ComponentId, "uint", Level, "ptr", Format, "CDecl uint")
+        varArgs := [args*]
+        varArgs.Push("CDecl uint")
+
+        result := DllCall("ntdll.dll\DbgPrintEx", "uint", ComponentId, "uint", Level, "ptr", Format, varArgs*)
         return result
     }
 
@@ -8687,12 +8695,16 @@ class SystemServices {
     /**
      * 
      * @param {PSTR} Format 
+     * @param {Any} args* Additional arguments as alternating DllCall type/value pairs (e.g., "int", 42, "str", "hello")
      * @returns {Integer} 
      */
-    static DbgPrintReturnControlC(Format) {
+    static DbgPrintReturnControlC(Format, args*) {
         Format := Format is String ? StrPtr(Format) : Format
 
-        result := DllCall("ntdll.dll\DbgPrintReturnControlC", "ptr", Format, "CDecl uint")
+        varArgs := [args*]
+        varArgs.Push("CDecl uint")
+
+        result := DllCall("ntdll.dll\DbgPrintReturnControlC", "ptr", Format, varArgs*)
         return result
     }
 

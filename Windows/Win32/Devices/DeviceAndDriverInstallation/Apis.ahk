@@ -14004,14 +14004,18 @@ class DeviceAndDriverInstallation {
      * </li>
      * </ul>
      * @param {PSTR} MessageStr A pointer to a NULL-terminated constant string that contains a <b>printf</b>-compatible format string, which specifies the formatted message to include in the log entry. The comma-separated parameter list that follows <i>MessageStr</i> must match the format specifiers in the format string.
+     * @param {Any} args* Additional arguments as alternating DllCall type/value pairs (e.g., "int", 42, "str", "hello")
      * @returns {String} Nothing - always returns an empty string
      * @see https://learn.microsoft.com/windows/win32/api/setupapi/nf-setupapi-setupwritetextlog
      * @since windows6.0.6000
      */
-    static SetupWriteTextLog(LogToken, Category, Flags, MessageStr) {
+    static SetupWriteTextLog(LogToken, Category, Flags, MessageStr, args*) {
         MessageStr := MessageStr is String ? StrPtr(MessageStr) : MessageStr
 
-        DllCall("SETUPAPI.dll\SetupWriteTextLog", "uint", LogToken, "uint", Category, "uint", Flags, "ptr", MessageStr, "CDecl ")
+        varArgs := [args*]
+        varArgs.Push("CDecl")
+
+        DllCall("SETUPAPI.dll\SetupWriteTextLog", "uint", LogToken, "uint", Category, "uint", Flags, "ptr", MessageStr, varArgs*)
     }
 
     /**
@@ -14074,14 +14078,18 @@ class DeviceAndDriverInstallation {
      * </ul>
      * @param {Integer} _Error A SetupAPI-specific error code or a Win32 error code. The SetupAPI-specific error codes are listed in <i>Setupapi.h</i>. The Win32 error codes are listed in <i>Winerror.h</i>.
      * @param {PSTR} MessageStr A pointer to a NULL-terminated constant string that contains a <b>printf</b>-compatible format string, which specifies the formatted message to include in the log entry.
+     * @param {Any} args* Additional arguments as alternating DllCall type/value pairs (e.g., "int", 42, "str", "hello")
      * @returns {String} Nothing - always returns an empty string
      * @see https://learn.microsoft.com/windows/win32/api/setupapi/nf-setupapi-setupwritetextlogerror
      * @since windows6.0.6000
      */
-    static SetupWriteTextLogError(LogToken, Category, LogFlags, _Error, MessageStr) {
+    static SetupWriteTextLogError(LogToken, Category, LogFlags, _Error, MessageStr, args*) {
         MessageStr := MessageStr is String ? StrPtr(MessageStr) : MessageStr
 
-        DllCall("SETUPAPI.dll\SetupWriteTextLogError", "uint", LogToken, "uint", Category, "uint", LogFlags, "uint", _Error, "ptr", MessageStr, "CDecl ")
+        varArgs := [args*]
+        varArgs.Push("CDecl")
+
+        DllCall("SETUPAPI.dll\SetupWriteTextLogError", "uint", LogToken, "uint", Category, "uint", LogFlags, "uint", _Error, "ptr", MessageStr, varArgs*)
     }
 
     /**

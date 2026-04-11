@@ -23903,16 +23903,20 @@ class Rpc {
      * The <b>NdrClientCall2</b> function is used by all <a href="https://docs.microsoft.com/windows/desktop/Midl/-oi">/Oicf</a> mode client-side stubs. The <b>NdrClientCall2</b> function transmits all [in] data to the remote server, and upon receipt of the response packet, returns the [out] value to the client-side application.
      * @param {Pointer<MIDL_STUB_DESC>} pStubDescriptor Pointer to the MIDL-generated <a href="https://docs.microsoft.com/windows/desktop/api/rpcndr/ns-rpcndr-midl_stub_desc">MIDL_STUB_DESC</a> structure that contains information about the description of the remote interface.
      * @param {Pointer<Integer>} pFormat Pointer to the MIDL-generated procedure format string that describes the method and parameters.
+     * @param {Any} args* Additional arguments as alternating DllCall type/value pairs (e.g., "int", 42, "str", "hello")
      * @returns {CLIENT_CALL_RETURN} Return value of the remote call. The maximum size of a return value is equivalent to the register size of the system. MIDL switches to the <a href="https://docs.microsoft.com/windows/desktop/Midl/-os">/Os</a> mode stub if the return value size is larger than the register size.
      * 
      * Depending on the method definition, this function can throw an exception if there is a network or server failure.
      * @see https://learn.microsoft.com/windows/win32/api/rpcndr/nf-rpcndr-ndrclientcall2
      * @since windows5.0
      */
-    static NdrClientCall2(pStubDescriptor, pFormat) {
+    static NdrClientCall2(pStubDescriptor, pFormat, args*) {
         pFormatMarshal := pFormat is VarRef ? "char*" : "ptr"
 
-        result := DllCall("RPCRT4.dll\NdrClientCall2", "ptr", pStubDescriptor, pFormatMarshal, pFormat, "CDecl ptr")
+        varArgs := [args*]
+        varArgs.Push("CDecl ptr")
+
+        result := DllCall("RPCRT4.dll\NdrClientCall2", "ptr", pStubDescriptor, pFormatMarshal, pFormat, varArgs*)
         return result
     }
 
@@ -23920,16 +23924,20 @@ class Rpc {
      * The NdrAsyncClientCall function is the asynchronous client-side entry point for the /Oi and /Oic mode stub.
      * @param {Pointer<MIDL_STUB_DESC>} pStubDescriptor Pointer to the MIDL-generated <a href="https://docs.microsoft.com/windows/desktop/api/rpcndr/ns-rpcndr-midl_stub_desc">MIDL_STUB_DESC</a> structure that contains information about the description of the remote interface.
      * @param {Pointer<Integer>} pFormat Pointer to the MIDL-generated procedure format string that describes the method and parameters.
+     * @param {Any} args* Additional arguments as alternating DllCall type/value pairs (e.g., "int", 42, "str", "hello")
      * @returns {CLIENT_CALL_RETURN} Return value of the remote call. The maximum size of a return value is equivalent to the register size of the system. MIDL switches to the <a href="https://docs.microsoft.com/windows/desktop/Midl/-os">/Os</a> mode stub if the return value size is larger than the register size.
      * 
      * Depending on the method definition, this function can throw an exception if there is a network or server failure.
      * @see https://learn.microsoft.com/windows/win32/api/rpcndr/nf-rpcndr-ndrasyncclientcall
      * @since windows5.0
      */
-    static NdrAsyncClientCall(pStubDescriptor, pFormat) {
+    static NdrAsyncClientCall(pStubDescriptor, pFormat, args*) {
         pFormatMarshal := pFormat is VarRef ? "char*" : "ptr"
 
-        result := DllCall("RPCRT4.dll\NdrAsyncClientCall", "ptr", pStubDescriptor, pFormatMarshal, pFormat, "CDecl ptr")
+        varArgs := [args*]
+        varArgs.Push("CDecl ptr")
+
+        result := DllCall("RPCRT4.dll\NdrAsyncClientCall", "ptr", pStubDescriptor, pFormatMarshal, pFormat, varArgs*)
         return result
     }
 
@@ -23937,14 +23945,18 @@ class Rpc {
      * NdrDcomAsyncClientCall may be altered or unavailable.
      * @param {Pointer<MIDL_STUB_DESC>} pStubDescriptor Reserved.
      * @param {Pointer<Integer>} pFormat Reserved.
+     * @param {Any} args* Additional arguments as alternating DllCall type/value pairs (e.g., "int", 42, "str", "hello")
      * @returns {CLIENT_CALL_RETURN} Reserved.
      * @see https://learn.microsoft.com/windows/win32/api/rpcndr/nf-rpcndr-ndrdcomasyncclientcall
      * @since windows5.0
      */
-    static NdrDcomAsyncClientCall(pStubDescriptor, pFormat) {
+    static NdrDcomAsyncClientCall(pStubDescriptor, pFormat, args*) {
         pFormatMarshal := pFormat is VarRef ? "char*" : "ptr"
 
-        result := DllCall("RPCRT4.dll\NdrDcomAsyncClientCall", "ptr", pStubDescriptor, pFormatMarshal, pFormat, "CDecl ptr")
+        varArgs := [args*]
+        varArgs.Push("CDecl ptr")
+
+        result := DllCall("RPCRT4.dll\NdrDcomAsyncClientCall", "ptr", pStubDescriptor, pFormatMarshal, pFormat, varArgs*)
         return result
     }
 
@@ -25079,14 +25091,18 @@ class Rpc {
      * @param {Pointer<MIDL_STUBLESS_PROXY_INFO>} pProxyInfo Reserved.
      * @param {Integer} nProcNum Reserved.
      * @param {Pointer<Void>} pReturnValue Reserved.
+     * @param {Any} args* Additional arguments as alternating DllCall type/value pairs (e.g., "int", 42, "str", "hello")
      * @returns {CLIENT_CALL_RETURN} Reserved.
      * @see https://learn.microsoft.com/windows/win32/api/rpcndr/nf-rpcndr-ndrclientcall3
      * @since windows5.0
      */
-    static NdrClientCall3(pProxyInfo, nProcNum, pReturnValue) {
+    static NdrClientCall3(pProxyInfo, nProcNum, pReturnValue, args*) {
         pReturnValueMarshal := pReturnValue is VarRef ? "ptr" : "ptr"
 
-        result := DllCall("RPCRT4.dll\NdrClientCall3", "ptr", pProxyInfo, "uint", nProcNum, pReturnValueMarshal, pReturnValue, "CDecl ptr")
+        varArgs := [args*]
+        varArgs.Push("CDecl ptr")
+
+        result := DllCall("RPCRT4.dll\NdrClientCall3", "ptr", pProxyInfo, "uint", nProcNum, pReturnValueMarshal, pReturnValue, varArgs*)
         return result
     }
 
@@ -25095,14 +25111,18 @@ class Rpc {
      * @param {Pointer<MIDL_STUBLESS_PROXY_INFO>} pProxyInfo Reserved.
      * @param {Integer} nProcNum Reserved.
      * @param {Pointer<Void>} pReturnValue Reserved.
+     * @param {Any} args* Additional arguments as alternating DllCall type/value pairs (e.g., "int", 42, "str", "hello")
      * @returns {CLIENT_CALL_RETURN} Reserved.
      * @see https://learn.microsoft.com/windows/win32/api/rpcndr/nf-rpcndr-ndr64asyncclientcall
      * @since windows5.1.2600
      */
-    static Ndr64AsyncClientCall(pProxyInfo, nProcNum, pReturnValue) {
+    static Ndr64AsyncClientCall(pProxyInfo, nProcNum, pReturnValue, args*) {
         pReturnValueMarshal := pReturnValue is VarRef ? "ptr" : "ptr"
 
-        result := DllCall("RPCRT4.dll\Ndr64AsyncClientCall", "ptr", pProxyInfo, "uint", nProcNum, pReturnValueMarshal, pReturnValue, "CDecl ptr")
+        varArgs := [args*]
+        varArgs.Push("CDecl ptr")
+
+        result := DllCall("RPCRT4.dll\Ndr64AsyncClientCall", "ptr", pProxyInfo, "uint", nProcNum, pReturnValueMarshal, pReturnValue, varArgs*)
         return result
     }
 
@@ -25111,12 +25131,16 @@ class Rpc {
      * @param {Pointer<MIDL_STUBLESS_PROXY_INFO>} pProxyInfo 
      * @param {Integer} nProcNum 
      * @param {Pointer<Void>} pReturnValue 
+     * @param {Any} args* Additional arguments as alternating DllCall type/value pairs (e.g., "int", 42, "str", "hello")
      * @returns {CLIENT_CALL_RETURN} 
      */
-    static Ndr64DcomAsyncClientCall(pProxyInfo, nProcNum, pReturnValue) {
+    static Ndr64DcomAsyncClientCall(pProxyInfo, nProcNum, pReturnValue, args*) {
         pReturnValueMarshal := pReturnValue is VarRef ? "ptr" : "ptr"
 
-        result := DllCall("RPCRT4.dll\Ndr64DcomAsyncClientCall", "ptr", pProxyInfo, "uint", nProcNum, pReturnValueMarshal, pReturnValue, "CDecl ptr")
+        varArgs := [args*]
+        varArgs.Push("CDecl ptr")
+
+        result := DllCall("RPCRT4.dll\Ndr64DcomAsyncClientCall", "ptr", pProxyInfo, "uint", nProcNum, pReturnValueMarshal, pReturnValue, varArgs*)
         return result
     }
 
@@ -26056,14 +26080,18 @@ class Rpc {
      * @param {Pointer<Void>} _Handle Reserved.
      * @param {Pointer<MIDL_STUB_DESC>} pStubDesc Reserved.
      * @param {Pointer<Integer>} pFormatString Reserved.
+     * @param {Any} args* Additional arguments as alternating DllCall type/value pairs (e.g., "int", 42, "str", "hello")
      * @returns {String} Nothing - always returns an empty string
      * @see https://learn.microsoft.com/windows/win32/api/midles/nf-midles-ndrmesprocencodedecode2
      */
-    static NdrMesProcEncodeDecode(_Handle, pStubDesc, pFormatString) {
+    static NdrMesProcEncodeDecode(_Handle, pStubDesc, pFormatString, args*) {
         _HandleMarshal := _Handle is VarRef ? "ptr" : "ptr"
         pFormatStringMarshal := pFormatString is VarRef ? "char*" : "ptr"
 
-        DllCall("RPCRT4.dll\NdrMesProcEncodeDecode", _HandleMarshal, _Handle, "ptr", pStubDesc, pFormatStringMarshal, pFormatString, "CDecl ")
+        varArgs := [args*]
+        varArgs.Push("CDecl")
+
+        DllCall("RPCRT4.dll\NdrMesProcEncodeDecode", _HandleMarshal, _Handle, "ptr", pStubDesc, pFormatStringMarshal, pFormatString, varArgs*)
     }
 
     /**
@@ -26071,15 +26099,19 @@ class Rpc {
      * @param {Pointer<Void>} _Handle Reserved.
      * @param {Pointer<MIDL_STUB_DESC>} pStubDesc Reserved.
      * @param {Pointer<Integer>} pFormatString Reserved.
+     * @param {Any} args* Additional arguments as alternating DllCall type/value pairs (e.g., "int", 42, "str", "hello")
      * @returns {CLIENT_CALL_RETURN} Reserved.
      * @see https://learn.microsoft.com/windows/win32/api/midles/nf-midles-ndrmesprocencodedecode2
      * @since windows5.0
      */
-    static NdrMesProcEncodeDecode2(_Handle, pStubDesc, pFormatString) {
+    static NdrMesProcEncodeDecode2(_Handle, pStubDesc, pFormatString, args*) {
         _HandleMarshal := _Handle is VarRef ? "ptr" : "ptr"
         pFormatStringMarshal := pFormatString is VarRef ? "char*" : "ptr"
 
-        result := DllCall("RPCRT4.dll\NdrMesProcEncodeDecode2", _HandleMarshal, _Handle, "ptr", pStubDesc, pFormatStringMarshal, pFormatString, "CDecl ptr")
+        varArgs := [args*]
+        varArgs.Push("CDecl ptr")
+
+        result := DllCall("RPCRT4.dll\NdrMesProcEncodeDecode2", _HandleMarshal, _Handle, "ptr", pStubDesc, pFormatStringMarshal, pFormatString, varArgs*)
         return result
     }
 
@@ -26162,13 +26194,17 @@ class Rpc {
      * @param {Pointer<MIDL_STUBLESS_PROXY_INFO>} pProxyInfo 
      * @param {Integer} nProcNum 
      * @param {Pointer<Void>} pReturnValue 
+     * @param {Any} args* Additional arguments as alternating DllCall type/value pairs (e.g., "int", 42, "str", "hello")
      * @returns {CLIENT_CALL_RETURN} 
      */
-    static NdrMesProcEncodeDecode3(_Handle, pProxyInfo, nProcNum, pReturnValue) {
+    static NdrMesProcEncodeDecode3(_Handle, pProxyInfo, nProcNum, pReturnValue, args*) {
         _HandleMarshal := _Handle is VarRef ? "ptr" : "ptr"
         pReturnValueMarshal := pReturnValue is VarRef ? "ptr" : "ptr"
 
-        result := DllCall("RPCRT4.dll\NdrMesProcEncodeDecode3", _HandleMarshal, _Handle, "ptr", pProxyInfo, "uint", nProcNum, pReturnValueMarshal, pReturnValue, "CDecl ptr")
+        varArgs := [args*]
+        varArgs.Push("CDecl ptr")
+
+        result := DllCall("RPCRT4.dll\NdrMesProcEncodeDecode3", _HandleMarshal, _Handle, "ptr", pProxyInfo, "uint", nProcNum, pReturnValueMarshal, pReturnValue, varArgs*)
         return result
     }
 

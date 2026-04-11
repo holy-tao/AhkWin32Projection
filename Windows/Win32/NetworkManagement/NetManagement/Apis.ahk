@@ -21451,12 +21451,16 @@ class NetManagement {
      * 
      * @param {Integer} dwTraceID 
      * @param {PSTR} lpszFormat 
+     * @param {Any} args* Additional arguments as alternating DllCall type/value pairs (e.g., "int", 42, "str", "hello")
      * @returns {Integer} 
      */
-    static TracePrintfA(dwTraceID, lpszFormat) {
+    static TracePrintfA(dwTraceID, lpszFormat, args*) {
         lpszFormat := lpszFormat is String ? StrPtr(lpszFormat) : lpszFormat
 
-        result := DllCall("rtutils.dll\TracePrintfA", "uint", dwTraceID, "ptr", lpszFormat, "CDecl uint")
+        varArgs := [args*]
+        varArgs.Push("CDecl uint")
+
+        result := DllCall("rtutils.dll\TracePrintfA", "uint", dwTraceID, "ptr", lpszFormat, varArgs*)
         return result
     }
 
@@ -21465,12 +21469,16 @@ class NetManagement {
      * @param {Integer} dwTraceID 
      * @param {Integer} dwFlags 
      * @param {PSTR} lpszFormat 
+     * @param {Any} args* Additional arguments as alternating DllCall type/value pairs (e.g., "int", 42, "str", "hello")
      * @returns {Integer} 
      */
-    static TracePrintfExA(dwTraceID, dwFlags, lpszFormat) {
+    static TracePrintfExA(dwTraceID, dwFlags, lpszFormat, args*) {
         lpszFormat := lpszFormat is String ? StrPtr(lpszFormat) : lpszFormat
 
-        result := DllCall("rtutils.dll\TracePrintfExA", "uint", dwTraceID, "uint", dwFlags, "ptr", lpszFormat, "CDecl uint")
+        varArgs := [args*]
+        varArgs.Push("CDecl uint")
+
+        result := DllCall("rtutils.dll\TracePrintfExA", "uint", dwTraceID, "uint", dwFlags, "ptr", lpszFormat, varArgs*)
         return result
     }
 
@@ -21574,12 +21582,16 @@ class NetManagement {
      * 
      * @param {Integer} dwTraceID 
      * @param {PWSTR} lpszFormat 
+     * @param {Any} args* Additional arguments as alternating DllCall type/value pairs (e.g., "int", 42, "str", "hello")
      * @returns {Integer} 
      */
-    static TracePrintfW(dwTraceID, lpszFormat) {
+    static TracePrintfW(dwTraceID, lpszFormat, args*) {
         lpszFormat := lpszFormat is String ? StrPtr(lpszFormat) : lpszFormat
 
-        result := DllCall("rtutils.dll\TracePrintfW", "uint", dwTraceID, "ptr", lpszFormat, "CDecl uint")
+        varArgs := [args*]
+        varArgs.Push("CDecl uint")
+
+        result := DllCall("rtutils.dll\TracePrintfW", "uint", dwTraceID, "ptr", lpszFormat, varArgs*)
         return result
     }
 
@@ -21588,12 +21600,16 @@ class NetManagement {
      * @param {Integer} dwTraceID 
      * @param {Integer} dwFlags 
      * @param {PWSTR} lpszFormat 
+     * @param {Any} args* Additional arguments as alternating DllCall type/value pairs (e.g., "int", 42, "str", "hello")
      * @returns {Integer} 
      */
-    static TracePrintfExW(dwTraceID, dwFlags, lpszFormat) {
+    static TracePrintfExW(dwTraceID, dwFlags, lpszFormat, args*) {
         lpszFormat := lpszFormat is String ? StrPtr(lpszFormat) : lpszFormat
 
-        result := DllCall("rtutils.dll\TracePrintfExW", "uint", dwTraceID, "uint", dwFlags, "ptr", lpszFormat, "CDecl uint")
+        varArgs := [args*]
+        varArgs.Push("CDecl uint")
+
+        result := DllCall("rtutils.dll\TracePrintfExW", "uint", dwTraceID, "uint", dwFlags, "ptr", lpszFormat, varArgs*)
         return result
     }
 
@@ -21792,13 +21808,17 @@ class NetManagement {
      * @param {Integer} dwErrorCode 
      * @param {Integer} dwMessageId 
      * @param {PSTR} ptszFormat 
+     * @param {Any} args* Additional arguments as alternating DllCall type/value pairs (e.g., "int", 42, "str", "hello")
      * @returns {String} Nothing - always returns an empty string
      */
-    static RouterLogEventExA(hLogHandle, dwEventType, dwErrorCode, dwMessageId, ptszFormat) {
+    static RouterLogEventExA(hLogHandle, dwEventType, dwErrorCode, dwMessageId, ptszFormat, args*) {
         hLogHandle := hLogHandle is Win32Handle ? NumGet(hLogHandle, "ptr") : hLogHandle
         ptszFormat := ptszFormat is String ? StrPtr(ptszFormat) : ptszFormat
 
-        DllCall("rtutils.dll\RouterLogEventExA", "ptr", hLogHandle, "uint", dwEventType, "uint", dwErrorCode, "uint", dwMessageId, "ptr", ptszFormat, "CDecl ")
+        varArgs := [args*]
+        varArgs.Push("CDecl")
+
+        DllCall("rtutils.dll\RouterLogEventExA", "ptr", hLogHandle, "uint", dwEventType, "uint", dwErrorCode, "uint", dwMessageId, "ptr", ptszFormat, varArgs*)
     }
 
     /**
@@ -21921,13 +21941,17 @@ class NetManagement {
      * @param {Integer} dwErrorCode 
      * @param {Integer} dwMessageId 
      * @param {PWSTR} ptszFormat 
+     * @param {Any} args* Additional arguments as alternating DllCall type/value pairs (e.g., "int", 42, "str", "hello")
      * @returns {String} Nothing - always returns an empty string
      */
-    static RouterLogEventExW(hLogHandle, dwEventType, dwErrorCode, dwMessageId, ptszFormat) {
+    static RouterLogEventExW(hLogHandle, dwEventType, dwErrorCode, dwMessageId, ptszFormat, args*) {
         hLogHandle := hLogHandle is Win32Handle ? NumGet(hLogHandle, "ptr") : hLogHandle
         ptszFormat := ptszFormat is String ? StrPtr(ptszFormat) : ptszFormat
 
-        DllCall("rtutils.dll\RouterLogEventExW", "ptr", hLogHandle, "uint", dwEventType, "uint", dwErrorCode, "uint", dwMessageId, "ptr", ptszFormat, "CDecl ")
+        varArgs := [args*]
+        varArgs.Push("CDecl")
+
+        DllCall("rtutils.dll\RouterLogEventExW", "ptr", hLogHandle, "uint", dwEventType, "uint", dwErrorCode, "uint", dwMessageId, "ptr", ptszFormat, varArgs*)
     }
 
     /**
