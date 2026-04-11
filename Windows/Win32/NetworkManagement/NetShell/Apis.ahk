@@ -326,14 +326,18 @@ class NetShell {
      * Displays a system or application error message to the NetShell console.
      * @param {HANDLE} _hModule A handle to the module from which the string should be loaded, or null for system error messages.
      * @param {Integer} dwErrId The identifier of the message to print.
+     * @param {Any} args* Additional arguments as alternating DllCall type/value pairs (e.g., "int", 42, "str", "hello")
      * @returns {Integer} Returns the number of characters printed. Returns zero upon failure.
      * @see https://learn.microsoft.com/windows/win32/api/netsh/nf-netsh-printerror
      * @since windows5.1.2600
      */
-    static PrintError(_hModule, dwErrId) {
+    static PrintError(_hModule, dwErrId, args*) {
         _hModule := _hModule is Win32Handle ? NumGet(_hModule, "ptr") : _hModule
 
-        result := DllCall("NETSH.dll\PrintError", "ptr", _hModule, "uint", dwErrId, "CDecl uint")
+        varArgs := [args*]
+        varArgs.Push("CDecl uint")
+
+        result := DllCall("NETSH.dll\PrintError", "ptr", _hModule, "uint", dwErrId, varArgs*)
         return result
     }
 
@@ -343,14 +347,18 @@ class NetShell {
      * Use this function when the format string, identified by the <i>dwMsgId</i> parameter, must be localized.
      * @param {HANDLE} _hModule A handle to the module from which the string should be loaded.
      * @param {Integer} dwMsgId The identifier  of the message to print.
+     * @param {Any} args* Additional arguments as alternating DllCall type/value pairs (e.g., "int", 42, "str", "hello")
      * @returns {Integer} Returns the number of characters printed. Returns zero upon failure.
      * @see https://learn.microsoft.com/windows/win32/api/netsh/nf-netsh-printmessagefrommodule
      * @since windows5.1.2600
      */
-    static PrintMessageFromModule(_hModule, dwMsgId) {
+    static PrintMessageFromModule(_hModule, dwMsgId, args*) {
         _hModule := _hModule is Win32Handle ? NumGet(_hModule, "ptr") : _hModule
 
-        result := DllCall("NETSH.dll\PrintMessageFromModule", "ptr", _hModule, "uint", dwMsgId, "CDecl uint")
+        varArgs := [args*]
+        varArgs.Push("CDecl uint")
+
+        result := DllCall("NETSH.dll\PrintMessageFromModule", "ptr", _hModule, "uint", dwMsgId, varArgs*)
         return result
     }
 
@@ -360,14 +368,18 @@ class NetShell {
      * Use the 
      * <b>PrintMessage</b> function when the message to be output is not required to be localized.
      * @param {PWSTR} pwszFormat A string to be output to the NetShell console.
+     * @param {Any} args* Additional arguments as alternating DllCall type/value pairs (e.g., "int", 42, "str", "hello")
      * @returns {Integer} Returns the number of characters printed. Returns zero upon failure.
      * @see https://learn.microsoft.com/windows/win32/api/netsh/nf-netsh-printmessage
      * @since windows5.1.2600
      */
-    static PrintMessage(pwszFormat) {
+    static PrintMessage(pwszFormat, args*) {
         pwszFormat := pwszFormat is String ? StrPtr(pwszFormat) : pwszFormat
 
-        result := DllCall("NETSH.dll\PrintMessage", "ptr", pwszFormat, "CDecl uint")
+        varArgs := [args*]
+        varArgs.Push("CDecl uint")
+
+        result := DllCall("NETSH.dll\PrintMessage", "ptr", pwszFormat, varArgs*)
         return result
     }
 

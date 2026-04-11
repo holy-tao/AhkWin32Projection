@@ -15103,7 +15103,7 @@ class Globalization {
 
         versionArrayMarshal := versionArray is VarRef ? "char*" : "ptr"
 
-        DllCall("icuuc.dll\u_versionFromString", versionArrayMarshal, versionArray, "ptr", versionString, "CDecl ")
+        DllCall("icuuc.dll\u_versionFromString", versionArrayMarshal, versionArray, "ptr", versionString, "CDecl")
     }
 
     /**
@@ -15116,7 +15116,7 @@ class Globalization {
         versionArrayMarshal := versionArray is VarRef ? "char*" : "ptr"
         versionStringMarshal := versionString is VarRef ? "ushort*" : "ptr"
 
-        DllCall("icuuc.dll\u_versionFromUString", versionArrayMarshal, versionArray, versionStringMarshal, versionString, "CDecl ")
+        DllCall("icuuc.dll\u_versionFromUString", versionArrayMarshal, versionArray, versionStringMarshal, versionString, "CDecl")
     }
 
     /**
@@ -15130,7 +15130,7 @@ class Globalization {
 
         versionArrayMarshal := versionArray is VarRef ? "char*" : "ptr"
 
-        DllCall("icuuc.dll\u_versionToString", versionArrayMarshal, versionArray, "ptr", versionString, "CDecl ")
+        DllCall("icuuc.dll\u_versionToString", versionArrayMarshal, versionArray, "ptr", versionString, "CDecl")
     }
 
     /**
@@ -15141,7 +15141,7 @@ class Globalization {
     static u_getVersion(versionArray) {
         versionArrayMarshal := versionArray is VarRef ? "char*" : "ptr"
 
-        DllCall("icuuc.dll\u_getVersion", versionArrayMarshal, versionArray, "CDecl ")
+        DllCall("icuuc.dll\u_getVersion", versionArrayMarshal, versionArray, "CDecl")
     }
 
     /**
@@ -15160,7 +15160,7 @@ class Globalization {
      * @returns {String} Nothing - always returns an empty string
      */
     static utrace_setLevel(traceLevel) {
-        DllCall("icuuc.dll\utrace_setLevel", "int", traceLevel, "CDecl ")
+        DllCall("icuuc.dll\utrace_setLevel", "int", traceLevel, "CDecl")
     }
 
     /**
@@ -15183,7 +15183,7 @@ class Globalization {
     static utrace_setFunctions(_context, e, x, d) {
         _contextMarshal := _context is VarRef ? "ptr" : "ptr"
 
-        DllCall("icuuc.dll\utrace_setFunctions", _contextMarshal, _context, "ptr", e, "ptr", x, "ptr", d, "CDecl ")
+        DllCall("icuuc.dll\utrace_setFunctions", _contextMarshal, _context, "ptr", e, "ptr", x, "ptr", d, "CDecl")
     }
 
     /**
@@ -15200,7 +15200,7 @@ class Globalization {
         xMarshal := x is VarRef ? "ptr*" : "ptr"
         dMarshal := d is VarRef ? "ptr*" : "ptr"
 
-        DllCall("icuuc.dll\utrace_getFunctions", _contextMarshal, _context, eMarshal, e, xMarshal, x, dMarshal, d, "CDecl ")
+        DllCall("icuuc.dll\utrace_getFunctions", _contextMarshal, _context, eMarshal, e, xMarshal, x, dMarshal, d, "CDecl")
     }
 
     /**
@@ -15228,13 +15228,17 @@ class Globalization {
      * @param {Integer} capacity 
      * @param {Integer} indent 
      * @param {PSTR} fmt 
+     * @param {Any} args* Additional arguments as alternating DllCall type/value pairs (e.g., "int", 42, "str", "hello")
      * @returns {Integer} 
      */
-    static utrace_format(outBuf, capacity, indent, fmt) {
+    static utrace_format(outBuf, capacity, indent, fmt, args*) {
         outBuf := outBuf is String ? StrPtr(outBuf) : outBuf
         fmt := fmt is String ? StrPtr(fmt) : fmt
 
-        result := DllCall("icuuc.dll\utrace_format", "ptr", outBuf, "int", capacity, "int", indent, "ptr", fmt, "CDecl int")
+        varArgs := [args*]
+        varArgs.Push("CDecl int")
+
+        result := DllCall("icuuc.dll\utrace_format", "ptr", outBuf, "int", capacity, "int", indent, "ptr", fmt, varArgs*)
         return result
     }
 
@@ -15451,7 +15455,7 @@ class Globalization {
     static uiter_setState(iter, state, pErrorCode) {
         pErrorCodeMarshal := pErrorCode is VarRef ? "int*" : "ptr"
 
-        DllCall("icuuc.dll\uiter_setState", "ptr", iter, "uint", state, pErrorCodeMarshal, pErrorCode, "CDecl ")
+        DllCall("icuuc.dll\uiter_setState", "ptr", iter, "uint", state, pErrorCodeMarshal, pErrorCode, "CDecl")
     }
 
     /**
@@ -15464,7 +15468,7 @@ class Globalization {
     static uiter_setString(iter, s, length) {
         sMarshal := s is VarRef ? "ushort*" : "ptr"
 
-        DllCall("icuuc.dll\uiter_setString", "ptr", iter, sMarshal, s, "int", length, "CDecl ")
+        DllCall("icuuc.dll\uiter_setString", "ptr", iter, sMarshal, s, "int", length, "CDecl")
     }
 
     /**
@@ -15477,7 +15481,7 @@ class Globalization {
     static uiter_setUTF16BE(iter, s, length) {
         s := s is String ? StrPtr(s) : s
 
-        DllCall("icuuc.dll\uiter_setUTF16BE", "ptr", iter, "ptr", s, "int", length, "CDecl ")
+        DllCall("icuuc.dll\uiter_setUTF16BE", "ptr", iter, "ptr", s, "int", length, "CDecl")
     }
 
     /**
@@ -15490,7 +15494,7 @@ class Globalization {
     static uiter_setUTF8(iter, s, length) {
         s := s is String ? StrPtr(s) : s
 
-        DllCall("icuuc.dll\uiter_setUTF8", "ptr", iter, "ptr", s, "int", length, "CDecl ")
+        DllCall("icuuc.dll\uiter_setUTF8", "ptr", iter, "ptr", s, "int", length, "CDecl")
     }
 
     /**
@@ -15501,7 +15505,7 @@ class Globalization {
     static uenum_close(en) {
         enMarshal := en is VarRef ? "ptr*" : "ptr"
 
-        DllCall("icuuc.dll\uenum_close", enMarshal, en, "CDecl ")
+        DllCall("icuuc.dll\uenum_close", enMarshal, en, "CDecl")
     }
 
     /**
@@ -15560,7 +15564,7 @@ class Globalization {
         enMarshal := en is VarRef ? "ptr*" : "ptr"
         _statusMarshal := _status is VarRef ? "int*" : "ptr"
 
-        DllCall("icuuc.dll\uenum_reset", enMarshal, en, _statusMarshal, _status, "CDecl ")
+        DllCall("icuuc.dll\uenum_reset", enMarshal, en, _statusMarshal, _status, "CDecl")
     }
 
     /**
@@ -15613,7 +15617,7 @@ class Globalization {
 
         _statusMarshal := _status is VarRef ? "int*" : "ptr"
 
-        DllCall("icuuc.dll\uloc_setDefault", "ptr", localeID, _statusMarshal, _status, "CDecl ")
+        DllCall("icuuc.dll\uloc_setDefault", "ptr", localeID, _statusMarshal, _status, "CDecl")
     }
 
     /**
@@ -16333,7 +16337,7 @@ class Globalization {
     static ures_close(resourceBundle) {
         resourceBundleMarshal := resourceBundle is VarRef ? "ptr*" : "ptr"
 
-        DllCall("icuuc.dll\ures_close", resourceBundleMarshal, resourceBundle, "CDecl ")
+        DllCall("icuuc.dll\ures_close", resourceBundleMarshal, resourceBundle, "CDecl")
     }
 
     /**
@@ -16346,7 +16350,7 @@ class Globalization {
         resBMarshal := resB is VarRef ? "ptr*" : "ptr"
         versionInfoMarshal := versionInfo is VarRef ? "char*" : "ptr"
 
-        DllCall("icuuc.dll\ures_getVersion", resBMarshal, resB, versionInfoMarshal, versionInfo, "CDecl ")
+        DllCall("icuuc.dll\ures_getVersion", resBMarshal, resB, versionInfoMarshal, versionInfo, "CDecl")
     }
 
     /**
@@ -16504,7 +16508,7 @@ class Globalization {
     static ures_resetIterator(resourceBundle) {
         resourceBundleMarshal := resourceBundle is VarRef ? "ptr*" : "ptr"
 
-        DllCall("icuuc.dll\ures_resetIterator", resourceBundleMarshal, resourceBundle, "CDecl ")
+        DllCall("icuuc.dll\ures_resetIterator", resourceBundleMarshal, resourceBundle, "CDecl")
     }
 
     /**
@@ -16707,7 +16711,7 @@ class Globalization {
     static uldn_close(ldn) {
         ldnMarshal := ldn is VarRef ? "ptr*" : "ptr"
 
-        DllCall("icuuc.dll\uldn_close", ldnMarshal, ldn, "CDecl ")
+        DllCall("icuuc.dll\uldn_close", ldnMarshal, ldn, "CDecl")
     }
 
     /**
@@ -17233,7 +17237,7 @@ class Globalization {
      * @returns {String} Nothing - always returns an empty string
      */
     static ucptrie_close(trie) {
-        DllCall("icu.dll\ucptrie_close", "ptr", trie, "CDecl ")
+        DllCall("icu.dll\ucptrie_close", "ptr", trie, "CDecl")
     }
 
     /**
@@ -17379,7 +17383,7 @@ class Globalization {
     static umutablecptrie_close(trie) {
         trieMarshal := trie is VarRef ? "ptr*" : "ptr"
 
-        DllCall("icu.dll\umutablecptrie_close", trieMarshal, trie, "CDecl ")
+        DllCall("icu.dll\umutablecptrie_close", trieMarshal, trie, "CDecl")
     }
 
     /**
@@ -17455,7 +17459,7 @@ class Globalization {
         trieMarshal := trie is VarRef ? "ptr*" : "ptr"
         pErrorCodeMarshal := pErrorCode is VarRef ? "int*" : "ptr"
 
-        DllCall("icu.dll\umutablecptrie_set", trieMarshal, trie, "int", c, "uint", value, pErrorCodeMarshal, pErrorCode, "CDecl ")
+        DllCall("icu.dll\umutablecptrie_set", trieMarshal, trie, "int", c, "uint", value, pErrorCodeMarshal, pErrorCode, "CDecl")
     }
 
     /**
@@ -17471,7 +17475,7 @@ class Globalization {
         trieMarshal := trie is VarRef ? "ptr*" : "ptr"
         pErrorCodeMarshal := pErrorCode is VarRef ? "int*" : "ptr"
 
-        DllCall("icu.dll\umutablecptrie_setRange", trieMarshal, trie, "int", start, "int", end, "uint", value, pErrorCodeMarshal, pErrorCode, "CDecl ")
+        DllCall("icu.dll\umutablecptrie_setRange", trieMarshal, trie, "int", start, "int", end, "uint", value, pErrorCodeMarshal, pErrorCode, "CDecl")
     }
 
     /**
@@ -17506,7 +17510,7 @@ class Globalization {
         codeUnitsMarshal := codeUnits is VarRef ? "ushort*" : "ptr"
         errMarshal := err is VarRef ? "int*" : "ptr"
 
-        DllCall("icuuc.dll\UCNV_FROM_U_CALLBACK_STOP", _contextMarshal, _context, "ptr", fromUArgs, codeUnitsMarshal, codeUnits, "int", length, "int", codePoint, "int", reason, errMarshal, err, "CDecl ")
+        DllCall("icuuc.dll\UCNV_FROM_U_CALLBACK_STOP", _contextMarshal, _context, "ptr", fromUArgs, codeUnitsMarshal, codeUnits, "int", length, "int", codePoint, "int", reason, errMarshal, err, "CDecl")
     }
 
     /**
@@ -17525,7 +17529,7 @@ class Globalization {
         _contextMarshal := _context is VarRef ? "ptr" : "ptr"
         errMarshal := err is VarRef ? "int*" : "ptr"
 
-        DllCall("icuuc.dll\UCNV_TO_U_CALLBACK_STOP", _contextMarshal, _context, "ptr", toUArgs, "ptr", codeUnits, "int", length, "int", reason, errMarshal, err, "CDecl ")
+        DllCall("icuuc.dll\UCNV_TO_U_CALLBACK_STOP", _contextMarshal, _context, "ptr", toUArgs, "ptr", codeUnits, "int", length, "int", reason, errMarshal, err, "CDecl")
     }
 
     /**
@@ -17544,7 +17548,7 @@ class Globalization {
         codeUnitsMarshal := codeUnits is VarRef ? "ushort*" : "ptr"
         errMarshal := err is VarRef ? "int*" : "ptr"
 
-        DllCall("icuuc.dll\UCNV_FROM_U_CALLBACK_SKIP", _contextMarshal, _context, "ptr", fromUArgs, codeUnitsMarshal, codeUnits, "int", length, "int", codePoint, "int", reason, errMarshal, err, "CDecl ")
+        DllCall("icuuc.dll\UCNV_FROM_U_CALLBACK_SKIP", _contextMarshal, _context, "ptr", fromUArgs, codeUnitsMarshal, codeUnits, "int", length, "int", codePoint, "int", reason, errMarshal, err, "CDecl")
     }
 
     /**
@@ -17563,7 +17567,7 @@ class Globalization {
         codeUnitsMarshal := codeUnits is VarRef ? "ushort*" : "ptr"
         errMarshal := err is VarRef ? "int*" : "ptr"
 
-        DllCall("icuuc.dll\UCNV_FROM_U_CALLBACK_SUBSTITUTE", _contextMarshal, _context, "ptr", fromUArgs, codeUnitsMarshal, codeUnits, "int", length, "int", codePoint, "int", reason, errMarshal, err, "CDecl ")
+        DllCall("icuuc.dll\UCNV_FROM_U_CALLBACK_SUBSTITUTE", _contextMarshal, _context, "ptr", fromUArgs, codeUnitsMarshal, codeUnits, "int", length, "int", codePoint, "int", reason, errMarshal, err, "CDecl")
     }
 
     /**
@@ -17582,7 +17586,7 @@ class Globalization {
         codeUnitsMarshal := codeUnits is VarRef ? "ushort*" : "ptr"
         errMarshal := err is VarRef ? "int*" : "ptr"
 
-        DllCall("icuuc.dll\UCNV_FROM_U_CALLBACK_ESCAPE", _contextMarshal, _context, "ptr", fromUArgs, codeUnitsMarshal, codeUnits, "int", length, "int", codePoint, "int", reason, errMarshal, err, "CDecl ")
+        DllCall("icuuc.dll\UCNV_FROM_U_CALLBACK_ESCAPE", _contextMarshal, _context, "ptr", fromUArgs, codeUnitsMarshal, codeUnits, "int", length, "int", codePoint, "int", reason, errMarshal, err, "CDecl")
     }
 
     /**
@@ -17601,7 +17605,7 @@ class Globalization {
         _contextMarshal := _context is VarRef ? "ptr" : "ptr"
         errMarshal := err is VarRef ? "int*" : "ptr"
 
-        DllCall("icuuc.dll\UCNV_TO_U_CALLBACK_SKIP", _contextMarshal, _context, "ptr", toUArgs, "ptr", codeUnits, "int", length, "int", reason, errMarshal, err, "CDecl ")
+        DllCall("icuuc.dll\UCNV_TO_U_CALLBACK_SKIP", _contextMarshal, _context, "ptr", toUArgs, "ptr", codeUnits, "int", length, "int", reason, errMarshal, err, "CDecl")
     }
 
     /**
@@ -17620,7 +17624,7 @@ class Globalization {
         _contextMarshal := _context is VarRef ? "ptr" : "ptr"
         errMarshal := err is VarRef ? "int*" : "ptr"
 
-        DllCall("icuuc.dll\UCNV_TO_U_CALLBACK_SUBSTITUTE", _contextMarshal, _context, "ptr", toUArgs, "ptr", codeUnits, "int", length, "int", reason, errMarshal, err, "CDecl ")
+        DllCall("icuuc.dll\UCNV_TO_U_CALLBACK_SUBSTITUTE", _contextMarshal, _context, "ptr", toUArgs, "ptr", codeUnits, "int", length, "int", reason, errMarshal, err, "CDecl")
     }
 
     /**
@@ -17639,7 +17643,7 @@ class Globalization {
         _contextMarshal := _context is VarRef ? "ptr" : "ptr"
         errMarshal := err is VarRef ? "int*" : "ptr"
 
-        DllCall("icuuc.dll\UCNV_TO_U_CALLBACK_ESCAPE", _contextMarshal, _context, "ptr", toUArgs, "ptr", codeUnits, "int", length, "int", reason, errMarshal, err, "CDecl ")
+        DllCall("icuuc.dll\UCNV_TO_U_CALLBACK_ESCAPE", _contextMarshal, _context, "ptr", toUArgs, "ptr", codeUnits, "int", length, "int", reason, errMarshal, err, "CDecl")
     }
 
     /**
@@ -17756,7 +17760,7 @@ class Globalization {
     static ucnv_close(converter) {
         converterMarshal := converter is VarRef ? "ptr*" : "ptr"
 
-        DllCall("icuuc.dll\ucnv_close", converterMarshal, converter, "CDecl ")
+        DllCall("icuuc.dll\ucnv_close", converterMarshal, converter, "CDecl")
     }
 
     /**
@@ -17774,7 +17778,7 @@ class Globalization {
         lenMarshal := len is VarRef ? "char*" : "ptr"
         errMarshal := err is VarRef ? "int*" : "ptr"
 
-        DllCall("icuuc.dll\ucnv_getSubstChars", converterMarshal, converter, "ptr", subChars, lenMarshal, len, errMarshal, err, "CDecl ")
+        DllCall("icuuc.dll\ucnv_getSubstChars", converterMarshal, converter, "ptr", subChars, lenMarshal, len, errMarshal, err, "CDecl")
     }
 
     /**
@@ -17791,7 +17795,7 @@ class Globalization {
         converterMarshal := converter is VarRef ? "ptr*" : "ptr"
         errMarshal := err is VarRef ? "int*" : "ptr"
 
-        DllCall("icuuc.dll\ucnv_setSubstChars", converterMarshal, converter, "ptr", subChars, "char", len, errMarshal, err, "CDecl ")
+        DllCall("icuuc.dll\ucnv_setSubstChars", converterMarshal, converter, "ptr", subChars, "char", len, errMarshal, err, "CDecl")
     }
 
     /**
@@ -17807,7 +17811,7 @@ class Globalization {
         sMarshal := s is VarRef ? "ushort*" : "ptr"
         errMarshal := err is VarRef ? "int*" : "ptr"
 
-        DllCall("icuuc.dll\ucnv_setSubstString", cnvMarshal, cnv, sMarshal, s, "int", length, errMarshal, err, "CDecl ")
+        DllCall("icuuc.dll\ucnv_setSubstString", cnvMarshal, cnv, sMarshal, s, "int", length, errMarshal, err, "CDecl")
     }
 
     /**
@@ -17825,7 +17829,7 @@ class Globalization {
         lenMarshal := len is VarRef ? "char*" : "ptr"
         errMarshal := err is VarRef ? "int*" : "ptr"
 
-        DllCall("icuuc.dll\ucnv_getInvalidChars", converterMarshal, converter, "ptr", errBytes, lenMarshal, len, errMarshal, err, "CDecl ")
+        DllCall("icuuc.dll\ucnv_getInvalidChars", converterMarshal, converter, "ptr", errBytes, lenMarshal, len, errMarshal, err, "CDecl")
     }
 
     /**
@@ -17842,7 +17846,7 @@ class Globalization {
         lenMarshal := len is VarRef ? "char*" : "ptr"
         errMarshal := err is VarRef ? "int*" : "ptr"
 
-        DllCall("icuuc.dll\ucnv_getInvalidUChars", converterMarshal, converter, errUCharsMarshal, errUChars, lenMarshal, len, errMarshal, err, "CDecl ")
+        DllCall("icuuc.dll\ucnv_getInvalidUChars", converterMarshal, converter, errUCharsMarshal, errUChars, lenMarshal, len, errMarshal, err, "CDecl")
     }
 
     /**
@@ -17853,7 +17857,7 @@ class Globalization {
     static ucnv_reset(converter) {
         converterMarshal := converter is VarRef ? "ptr*" : "ptr"
 
-        DllCall("icuuc.dll\ucnv_reset", converterMarshal, converter, "CDecl ")
+        DllCall("icuuc.dll\ucnv_reset", converterMarshal, converter, "CDecl")
     }
 
     /**
@@ -17864,7 +17868,7 @@ class Globalization {
     static ucnv_resetToUnicode(converter) {
         converterMarshal := converter is VarRef ? "ptr*" : "ptr"
 
-        DllCall("icuuc.dll\ucnv_resetToUnicode", converterMarshal, converter, "CDecl ")
+        DllCall("icuuc.dll\ucnv_resetToUnicode", converterMarshal, converter, "CDecl")
     }
 
     /**
@@ -17875,7 +17879,7 @@ class Globalization {
     static ucnv_resetFromUnicode(converter) {
         converterMarshal := converter is VarRef ? "ptr*" : "ptr"
 
-        DllCall("icuuc.dll\ucnv_resetFromUnicode", converterMarshal, converter, "CDecl ")
+        DllCall("icuuc.dll\ucnv_resetFromUnicode", converterMarshal, converter, "CDecl")
     }
 
     /**
@@ -17988,7 +17992,7 @@ class Globalization {
         startersMarshal := starters is VarRef ? "char*" : "ptr"
         errMarshal := err is VarRef ? "int*" : "ptr"
 
-        DllCall("icuuc.dll\ucnv_getStarters", converterMarshal, converter, startersMarshal, starters, errMarshal, err, "CDecl ")
+        DllCall("icuuc.dll\ucnv_getStarters", converterMarshal, converter, startersMarshal, starters, errMarshal, err, "CDecl")
     }
 
     /**
@@ -18004,7 +18008,7 @@ class Globalization {
         setFillInMarshal := setFillIn is VarRef ? "ptr*" : "ptr"
         pErrorCodeMarshal := pErrorCode is VarRef ? "int*" : "ptr"
 
-        DllCall("icuuc.dll\ucnv_getUnicodeSet", cnvMarshal, cnv, setFillInMarshal, setFillIn, "int", whichSet, pErrorCodeMarshal, pErrorCode, "CDecl ")
+        DllCall("icuuc.dll\ucnv_getUnicodeSet", cnvMarshal, cnv, setFillInMarshal, setFillIn, "int", whichSet, pErrorCodeMarshal, pErrorCode, "CDecl")
     }
 
     /**
@@ -18019,7 +18023,7 @@ class Globalization {
         actionMarshal := action is VarRef ? "ptr*" : "ptr"
         _contextMarshal := _context is VarRef ? "ptr*" : "ptr"
 
-        DllCall("icuuc.dll\ucnv_getToUCallBack", converterMarshal, converter, actionMarshal, action, _contextMarshal, _context, "CDecl ")
+        DllCall("icuuc.dll\ucnv_getToUCallBack", converterMarshal, converter, actionMarshal, action, _contextMarshal, _context, "CDecl")
     }
 
     /**
@@ -18034,7 +18038,7 @@ class Globalization {
         actionMarshal := action is VarRef ? "ptr*" : "ptr"
         _contextMarshal := _context is VarRef ? "ptr*" : "ptr"
 
-        DllCall("icuuc.dll\ucnv_getFromUCallBack", converterMarshal, converter, actionMarshal, action, _contextMarshal, _context, "CDecl ")
+        DllCall("icuuc.dll\ucnv_getFromUCallBack", converterMarshal, converter, actionMarshal, action, _contextMarshal, _context, "CDecl")
     }
 
     /**
@@ -18054,7 +18058,7 @@ class Globalization {
         oldContextMarshal := oldContext is VarRef ? "ptr*" : "ptr"
         errMarshal := err is VarRef ? "int*" : "ptr"
 
-        DllCall("icuuc.dll\ucnv_setToUCallBack", converterMarshal, converter, "ptr", newAction, newContextMarshal, newContext, oldActionMarshal, oldAction, oldContextMarshal, oldContext, errMarshal, err, "CDecl ")
+        DllCall("icuuc.dll\ucnv_setToUCallBack", converterMarshal, converter, "ptr", newAction, newContextMarshal, newContext, oldActionMarshal, oldAction, oldContextMarshal, oldContext, errMarshal, err, "CDecl")
     }
 
     /**
@@ -18074,7 +18078,7 @@ class Globalization {
         oldContextMarshal := oldContext is VarRef ? "ptr*" : "ptr"
         errMarshal := err is VarRef ? "int*" : "ptr"
 
-        DllCall("icuuc.dll\ucnv_setFromUCallBack", converterMarshal, converter, "ptr", newAction, newContextMarshal, newContext, oldActionMarshal, oldAction, oldContextMarshal, oldContext, errMarshal, err, "CDecl ")
+        DllCall("icuuc.dll\ucnv_setFromUCallBack", converterMarshal, converter, "ptr", newAction, newContextMarshal, newContext, oldActionMarshal, oldAction, oldContextMarshal, oldContext, errMarshal, err, "CDecl")
     }
 
     /**
@@ -18099,7 +18103,7 @@ class Globalization {
         offsetsMarshal := offsets is VarRef ? "int*" : "ptr"
         errMarshal := err is VarRef ? "int*" : "ptr"
 
-        DllCall("icuuc.dll\ucnv_fromUnicode", converterMarshal, converter, targetMarshal, target, "ptr", targetLimit, sourceMarshal, source, sourceLimitMarshal, sourceLimit, offsetsMarshal, offsets, "char", flush, errMarshal, err, "CDecl ")
+        DllCall("icuuc.dll\ucnv_fromUnicode", converterMarshal, converter, targetMarshal, target, "ptr", targetLimit, sourceMarshal, source, sourceLimitMarshal, sourceLimit, offsetsMarshal, offsets, "char", flush, errMarshal, err, "CDecl")
     }
 
     /**
@@ -18124,7 +18128,7 @@ class Globalization {
         offsetsMarshal := offsets is VarRef ? "int*" : "ptr"
         errMarshal := err is VarRef ? "int*" : "ptr"
 
-        DllCall("icuuc.dll\ucnv_toUnicode", converterMarshal, converter, targetMarshal, target, targetLimitMarshal, targetLimit, sourceMarshal, source, "ptr", sourceLimit, offsetsMarshal, offsets, "char", flush, errMarshal, err, "CDecl ")
+        DllCall("icuuc.dll\ucnv_toUnicode", converterMarshal, converter, targetMarshal, target, targetLimitMarshal, targetLimit, sourceMarshal, source, "ptr", sourceLimit, offsetsMarshal, offsets, "char", flush, errMarshal, err, "CDecl")
     }
 
     /**
@@ -18219,7 +18223,7 @@ class Globalization {
         pivotLimitMarshal := pivotLimit is VarRef ? "ushort*" : "ptr"
         pErrorCodeMarshal := pErrorCode is VarRef ? "int*" : "ptr"
 
-        DllCall("icuuc.dll\ucnv_convertEx", targetCnvMarshal, targetCnv, sourceCnvMarshal, sourceCnv, targetMarshal, target, "ptr", targetLimit, sourceMarshal, source, "ptr", sourceLimit, pivotStartMarshal, pivotStart, pivotSourceMarshal, pivotSource, pivotTargetMarshal, pivotTarget, pivotLimitMarshal, pivotLimit, "char", reset, "char", flush, pErrorCodeMarshal, pErrorCode, "CDecl ")
+        DllCall("icuuc.dll\ucnv_convertEx", targetCnvMarshal, targetCnv, sourceCnvMarshal, sourceCnv, targetMarshal, target, "ptr", targetLimit, sourceMarshal, source, "ptr", sourceLimit, pivotStartMarshal, pivotStart, pivotSourceMarshal, pivotSource, pivotTargetMarshal, pivotTarget, pivotLimitMarshal, pivotLimit, "char", reset, "char", flush, pErrorCodeMarshal, pErrorCode, "CDecl")
     }
 
     /**
@@ -18373,7 +18377,7 @@ class Globalization {
         aliasesMarshal := aliases is VarRef ? "ptr*" : "ptr"
         pErrorCodeMarshal := pErrorCode is VarRef ? "int*" : "ptr"
 
-        DllCall("icuuc.dll\ucnv_getAliases", "ptr", alias, aliasesMarshal, aliases, pErrorCodeMarshal, pErrorCode, "CDecl ")
+        DllCall("icuuc.dll\ucnv_getAliases", "ptr", alias, aliasesMarshal, aliases, pErrorCodeMarshal, pErrorCode, "CDecl")
     }
 
     /**
@@ -18466,7 +18470,7 @@ class Globalization {
     static ucnv_setDefaultName(name) {
         name := name is String ? StrPtr(name) : name
 
-        DllCall("icuuc.dll\ucnv_setDefaultName", "ptr", name, "CDecl ")
+        DllCall("icuuc.dll\ucnv_setDefaultName", "ptr", name, "CDecl")
     }
 
     /**
@@ -18480,7 +18484,7 @@ class Globalization {
         cnvMarshal := cnv is VarRef ? "ptr*" : "ptr"
         sourceMarshal := source is VarRef ? "ushort*" : "ptr"
 
-        DllCall("icuuc.dll\ucnv_fixFileSeparator", cnvMarshal, cnv, sourceMarshal, source, "int", sourceLen, "CDecl ")
+        DllCall("icuuc.dll\ucnv_fixFileSeparator", cnvMarshal, cnv, sourceMarshal, source, "int", sourceLen, "CDecl")
     }
 
     /**
@@ -18504,7 +18508,7 @@ class Globalization {
     static ucnv_setFallback(cnv, usesFallback) {
         cnvMarshal := cnv is VarRef ? "ptr*" : "ptr"
 
-        DllCall("icuuc.dll\ucnv_setFallback", cnvMarshal, cnv, "char", usesFallback, "CDecl ")
+        DllCall("icuuc.dll\ucnv_setFallback", cnvMarshal, cnv, "char", usesFallback, "CDecl")
     }
 
     /**
@@ -18593,7 +18597,7 @@ class Globalization {
 
         errMarshal := err is VarRef ? "int*" : "ptr"
 
-        DllCall("icuuc.dll\ucnv_cbFromUWriteBytes", "ptr", args, "ptr", source, "int", length, "int", offsetIndex, errMarshal, err, "CDecl ")
+        DllCall("icuuc.dll\ucnv_cbFromUWriteBytes", "ptr", args, "ptr", source, "int", length, "int", offsetIndex, errMarshal, err, "CDecl")
     }
 
     /**
@@ -18606,7 +18610,7 @@ class Globalization {
     static ucnv_cbFromUWriteSub(args, offsetIndex, err) {
         errMarshal := err is VarRef ? "int*" : "ptr"
 
-        DllCall("icuuc.dll\ucnv_cbFromUWriteSub", "ptr", args, "int", offsetIndex, errMarshal, err, "CDecl ")
+        DllCall("icuuc.dll\ucnv_cbFromUWriteSub", "ptr", args, "int", offsetIndex, errMarshal, err, "CDecl")
     }
 
     /**
@@ -18623,7 +18627,7 @@ class Globalization {
         sourceLimitMarshal := sourceLimit is VarRef ? "ushort*" : "ptr"
         errMarshal := err is VarRef ? "int*" : "ptr"
 
-        DllCall("icuuc.dll\ucnv_cbFromUWriteUChars", "ptr", args, sourceMarshal, source, sourceLimitMarshal, sourceLimit, "int", offsetIndex, errMarshal, err, "CDecl ")
+        DllCall("icuuc.dll\ucnv_cbFromUWriteUChars", "ptr", args, sourceMarshal, source, sourceLimitMarshal, sourceLimit, "int", offsetIndex, errMarshal, err, "CDecl")
     }
 
     /**
@@ -18639,7 +18643,7 @@ class Globalization {
         sourceMarshal := source is VarRef ? "ushort*" : "ptr"
         errMarshal := err is VarRef ? "int*" : "ptr"
 
-        DllCall("icuuc.dll\ucnv_cbToUWriteUChars", "ptr", args, sourceMarshal, source, "int", length, "int", offsetIndex, errMarshal, err, "CDecl ")
+        DllCall("icuuc.dll\ucnv_cbToUWriteUChars", "ptr", args, sourceMarshal, source, "int", length, "int", offsetIndex, errMarshal, err, "CDecl")
     }
 
     /**
@@ -18652,7 +18656,7 @@ class Globalization {
     static ucnv_cbToUWriteSub(args, offsetIndex, err) {
         errMarshal := err is VarRef ? "int*" : "ptr"
 
-        DllCall("icuuc.dll\ucnv_cbToUWriteSub", "ptr", args, "int", offsetIndex, errMarshal, err, "CDecl ")
+        DllCall("icuuc.dll\ucnv_cbToUWriteSub", "ptr", args, "int", offsetIndex, errMarshal, err, "CDecl")
     }
 
     /**
@@ -18663,7 +18667,7 @@ class Globalization {
     static u_init(_status) {
         _statusMarshal := _status is VarRef ? "int*" : "ptr"
 
-        DllCall("icuuc.dll\u_init", _statusMarshal, _status, "CDecl ")
+        DllCall("icuuc.dll\u_init", _statusMarshal, _status, "CDecl")
     }
 
     /**
@@ -18671,7 +18675,7 @@ class Globalization {
      * @returns {String} Nothing - always returns an empty string
      */
     static u_cleanup() {
-        DllCall("icuuc.dll\u_cleanup", "CDecl ")
+        DllCall("icuuc.dll\u_cleanup", "CDecl")
     }
 
     /**
@@ -18690,7 +18694,7 @@ class Globalization {
         fMarshal := f is VarRef ? "ptr*" : "ptr"
         _statusMarshal := _status is VarRef ? "int*" : "ptr"
 
-        DllCall("icuuc.dll\u_setMemoryFunctions", _contextMarshal, _context, aMarshal, a, rMarshal, r, fMarshal, f, _statusMarshal, _status, "CDecl ")
+        DllCall("icuuc.dll\u_setMemoryFunctions", _contextMarshal, _context, aMarshal, a, rMarshal, r, fMarshal, f, _statusMarshal, _status, "CDecl")
     }
 
     /**
@@ -18718,7 +18722,7 @@ class Globalization {
     static u_catclose(catd) {
         catdMarshal := catd is VarRef ? "ptr*" : "ptr"
 
-        DllCall("icuuc.dll\u_catclose", catdMarshal, catd, "CDecl ")
+        DllCall("icuuc.dll\u_catclose", catdMarshal, catd, "CDecl")
     }
 
     /**
@@ -19113,7 +19117,7 @@ class Globalization {
         enumRangeMarshal := enumRange is VarRef ? "ptr*" : "ptr"
         _contextMarshal := _context is VarRef ? "ptr" : "ptr"
 
-        DllCall("icuuc.dll\u_enumCharTypes", enumRangeMarshal, enumRange, _contextMarshal, _context, "CDecl ")
+        DllCall("icuuc.dll\u_enumCharTypes", enumRangeMarshal, enumRange, _contextMarshal, _context, "CDecl")
     }
 
     /**
@@ -19195,7 +19199,7 @@ class Globalization {
         _contextMarshal := _context is VarRef ? "ptr" : "ptr"
         pErrorCodeMarshal := pErrorCode is VarRef ? "int*" : "ptr"
 
-        DllCall("icuuc.dll\u_enumCharNames", "int", start, "int", limit, fnMarshal, fn, _contextMarshal, _context, "int", nameChoice, pErrorCodeMarshal, pErrorCode, "CDecl ")
+        DllCall("icuuc.dll\u_enumCharNames", "int", start, "int", limit, fnMarshal, fn, _contextMarshal, _context, "int", nameChoice, pErrorCodeMarshal, pErrorCode, "CDecl")
     }
 
     /**
@@ -19368,7 +19372,7 @@ class Globalization {
     static u_charAge(c, versionArray) {
         versionArrayMarshal := versionArray is VarRef ? "char*" : "ptr"
 
-        DllCall("icuuc.dll\u_charAge", "int", c, versionArrayMarshal, versionArray, "CDecl ")
+        DllCall("icuuc.dll\u_charAge", "int", c, versionArrayMarshal, versionArray, "CDecl")
     }
 
     /**
@@ -19379,7 +19383,7 @@ class Globalization {
     static u_getUnicodeVersion(versionArray) {
         versionArrayMarshal := versionArray is VarRef ? "char*" : "ptr"
 
-        DllCall("icuuc.dll\u_getUnicodeVersion", versionArrayMarshal, versionArray, "CDecl ")
+        DllCall("icuuc.dll\u_getUnicodeVersion", versionArrayMarshal, versionArray, "CDecl")
     }
 
     /**
@@ -19429,7 +19433,7 @@ class Globalization {
     static ubidi_close(pBiDi) {
         pBiDiMarshal := pBiDi is VarRef ? "ptr*" : "ptr"
 
-        DllCall("icuuc.dll\ubidi_close", pBiDiMarshal, pBiDi, "CDecl ")
+        DllCall("icuuc.dll\ubidi_close", pBiDiMarshal, pBiDi, "CDecl")
     }
 
     /**
@@ -19441,7 +19445,7 @@ class Globalization {
     static ubidi_setInverse(pBiDi, isInverse) {
         pBiDiMarshal := pBiDi is VarRef ? "ptr*" : "ptr"
 
-        DllCall("icuuc.dll\ubidi_setInverse", pBiDiMarshal, pBiDi, "char", isInverse, "CDecl ")
+        DllCall("icuuc.dll\ubidi_setInverse", pBiDiMarshal, pBiDi, "char", isInverse, "CDecl")
     }
 
     /**
@@ -19465,7 +19469,7 @@ class Globalization {
     static ubidi_orderParagraphsLTR(pBiDi, orderParagraphsLTR) {
         pBiDiMarshal := pBiDi is VarRef ? "ptr*" : "ptr"
 
-        DllCall("icuuc.dll\ubidi_orderParagraphsLTR", pBiDiMarshal, pBiDi, "char", orderParagraphsLTR, "CDecl ")
+        DllCall("icuuc.dll\ubidi_orderParagraphsLTR", pBiDiMarshal, pBiDi, "char", orderParagraphsLTR, "CDecl")
     }
 
     /**
@@ -19489,7 +19493,7 @@ class Globalization {
     static ubidi_setReorderingMode(pBiDi, reorderingMode) {
         pBiDiMarshal := pBiDi is VarRef ? "ptr*" : "ptr"
 
-        DllCall("icuuc.dll\ubidi_setReorderingMode", pBiDiMarshal, pBiDi, "int", reorderingMode, "CDecl ")
+        DllCall("icuuc.dll\ubidi_setReorderingMode", pBiDiMarshal, pBiDi, "int", reorderingMode, "CDecl")
     }
 
     /**
@@ -19513,7 +19517,7 @@ class Globalization {
     static ubidi_setReorderingOptions(pBiDi, reorderingOptions) {
         pBiDiMarshal := pBiDi is VarRef ? "ptr*" : "ptr"
 
-        DllCall("icuuc.dll\ubidi_setReorderingOptions", pBiDiMarshal, pBiDi, "uint", reorderingOptions, "CDecl ")
+        DllCall("icuuc.dll\ubidi_setReorderingOptions", pBiDiMarshal, pBiDi, "uint", reorderingOptions, "CDecl")
     }
 
     /**
@@ -19544,7 +19548,7 @@ class Globalization {
         epilogueMarshal := epilogue is VarRef ? "ushort*" : "ptr"
         pErrorCodeMarshal := pErrorCode is VarRef ? "int*" : "ptr"
 
-        DllCall("icuuc.dll\ubidi_setContext", pBiDiMarshal, pBiDi, prologueMarshal, prologue, "int", proLength, epilogueMarshal, epilogue, "int", epiLength, pErrorCodeMarshal, pErrorCode, "CDecl ")
+        DllCall("icuuc.dll\ubidi_setContext", pBiDiMarshal, pBiDi, prologueMarshal, prologue, "int", proLength, epilogueMarshal, epilogue, "int", epiLength, pErrorCodeMarshal, pErrorCode, "CDecl")
     }
 
     /**
@@ -19563,7 +19567,7 @@ class Globalization {
         embeddingLevelsMarshal := embeddingLevels is VarRef ? "char*" : "ptr"
         pErrorCodeMarshal := pErrorCode is VarRef ? "int*" : "ptr"
 
-        DllCall("icuuc.dll\ubidi_setPara", pBiDiMarshal, pBiDi, textMarshal, text, "int", length, "char", paraLevel, embeddingLevelsMarshal, embeddingLevels, pErrorCodeMarshal, pErrorCode, "CDecl ")
+        DllCall("icuuc.dll\ubidi_setPara", pBiDiMarshal, pBiDi, textMarshal, text, "int", length, "char", paraLevel, embeddingLevelsMarshal, embeddingLevels, pErrorCodeMarshal, pErrorCode, "CDecl")
     }
 
     /**
@@ -19580,7 +19584,7 @@ class Globalization {
         pLineBiDiMarshal := pLineBiDi is VarRef ? "ptr*" : "ptr"
         pErrorCodeMarshal := pErrorCode is VarRef ? "int*" : "ptr"
 
-        DllCall("icuuc.dll\ubidi_setLine", pParaBiDiMarshal, pParaBiDi, "int", start, "int", limit, pLineBiDiMarshal, pLineBiDi, pErrorCodeMarshal, pErrorCode, "CDecl ")
+        DllCall("icuuc.dll\ubidi_setLine", pParaBiDiMarshal, pParaBiDi, "int", start, "int", limit, pLineBiDiMarshal, pLineBiDi, pErrorCodeMarshal, pErrorCode, "CDecl")
     }
 
     /**
@@ -19694,7 +19698,7 @@ class Globalization {
         pParaLevelMarshal := pParaLevel is VarRef ? "char*" : "ptr"
         pErrorCodeMarshal := pErrorCode is VarRef ? "int*" : "ptr"
 
-        DllCall("icuuc.dll\ubidi_getParagraphByIndex", pBiDiMarshal, pBiDi, "int", paraIndex, pParaStartMarshal, pParaStart, pParaLimitMarshal, pParaLimit, pParaLevelMarshal, pParaLevel, pErrorCodeMarshal, pErrorCode, "CDecl ")
+        DllCall("icuuc.dll\ubidi_getParagraphByIndex", pBiDiMarshal, pBiDi, "int", paraIndex, pParaStartMarshal, pParaStart, pParaLimitMarshal, pParaLimit, pParaLevelMarshal, pParaLevel, pErrorCodeMarshal, pErrorCode, "CDecl")
     }
 
     /**
@@ -19737,7 +19741,7 @@ class Globalization {
         pLogicalLimitMarshal := pLogicalLimit is VarRef ? "int*" : "ptr"
         pLevelMarshal := pLevel is VarRef ? "char*" : "ptr"
 
-        DllCall("icuuc.dll\ubidi_getLogicalRun", pBiDiMarshal, pBiDi, "int", logicalPosition, pLogicalLimitMarshal, pLogicalLimit, pLevelMarshal, pLevel, "CDecl ")
+        DllCall("icuuc.dll\ubidi_getLogicalRun", pBiDiMarshal, pBiDi, "int", logicalPosition, pLogicalLimitMarshal, pLogicalLimit, pLevelMarshal, pLevel, "CDecl")
     }
 
     /**
@@ -19813,7 +19817,7 @@ class Globalization {
         indexMapMarshal := indexMap is VarRef ? "int*" : "ptr"
         pErrorCodeMarshal := pErrorCode is VarRef ? "int*" : "ptr"
 
-        DllCall("icuuc.dll\ubidi_getLogicalMap", pBiDiMarshal, pBiDi, indexMapMarshal, indexMap, pErrorCodeMarshal, pErrorCode, "CDecl ")
+        DllCall("icuuc.dll\ubidi_getLogicalMap", pBiDiMarshal, pBiDi, indexMapMarshal, indexMap, pErrorCodeMarshal, pErrorCode, "CDecl")
     }
 
     /**
@@ -19828,7 +19832,7 @@ class Globalization {
         indexMapMarshal := indexMap is VarRef ? "int*" : "ptr"
         pErrorCodeMarshal := pErrorCode is VarRef ? "int*" : "ptr"
 
-        DllCall("icuuc.dll\ubidi_getVisualMap", pBiDiMarshal, pBiDi, indexMapMarshal, indexMap, pErrorCodeMarshal, pErrorCode, "CDecl ")
+        DllCall("icuuc.dll\ubidi_getVisualMap", pBiDiMarshal, pBiDi, indexMapMarshal, indexMap, pErrorCodeMarshal, pErrorCode, "CDecl")
     }
 
     /**
@@ -19842,7 +19846,7 @@ class Globalization {
         _levelsMarshal := _levels is VarRef ? "char*" : "ptr"
         indexMapMarshal := indexMap is VarRef ? "int*" : "ptr"
 
-        DllCall("icuuc.dll\ubidi_reorderLogical", _levelsMarshal, _levels, "int", length, indexMapMarshal, indexMap, "CDecl ")
+        DllCall("icuuc.dll\ubidi_reorderLogical", _levelsMarshal, _levels, "int", length, indexMapMarshal, indexMap, "CDecl")
     }
 
     /**
@@ -19856,7 +19860,7 @@ class Globalization {
         _levelsMarshal := _levels is VarRef ? "char*" : "ptr"
         indexMapMarshal := indexMap is VarRef ? "int*" : "ptr"
 
-        DllCall("icuuc.dll\ubidi_reorderVisual", _levelsMarshal, _levels, "int", length, indexMapMarshal, indexMap, "CDecl ")
+        DllCall("icuuc.dll\ubidi_reorderVisual", _levelsMarshal, _levels, "int", length, indexMapMarshal, indexMap, "CDecl")
     }
 
     /**
@@ -19870,7 +19874,7 @@ class Globalization {
         srcMapMarshal := srcMap is VarRef ? "int*" : "ptr"
         destMapMarshal := destMap is VarRef ? "int*" : "ptr"
 
-        DllCall("icuuc.dll\ubidi_invertMap", srcMapMarshal, srcMap, destMapMarshal, destMap, "int", length, "CDecl ")
+        DllCall("icuuc.dll\ubidi_invertMap", srcMapMarshal, srcMap, destMapMarshal, destMap, "int", length, "CDecl")
     }
 
     /**
@@ -19927,7 +19931,7 @@ class Globalization {
         oldContextMarshal := oldContext is VarRef ? "ptr*" : "ptr"
         pErrorCodeMarshal := pErrorCode is VarRef ? "int*" : "ptr"
 
-        DllCall("icuuc.dll\ubidi_setClassCallback", pBiDiMarshal, pBiDi, "ptr", newFn, newContextMarshal, newContext, oldFnMarshal, oldFn, oldContextMarshal, oldContext, pErrorCodeMarshal, pErrorCode, "CDecl ")
+        DllCall("icuuc.dll\ubidi_setClassCallback", pBiDiMarshal, pBiDi, "ptr", newFn, newContextMarshal, newContext, oldFnMarshal, oldFn, oldContextMarshal, oldContext, pErrorCodeMarshal, pErrorCode, "CDecl")
     }
 
     /**
@@ -19942,7 +19946,7 @@ class Globalization {
         fnMarshal := fn is VarRef ? "ptr*" : "ptr"
         _contextMarshal := _context is VarRef ? "ptr*" : "ptr"
 
-        DllCall("icuuc.dll\ubidi_getClassCallback", pBiDiMarshal, pBiDi, fnMarshal, fn, _contextMarshal, _context, "CDecl ")
+        DllCall("icuuc.dll\ubidi_getClassCallback", pBiDiMarshal, pBiDi, fnMarshal, fn, _contextMarshal, _context, "CDecl")
     }
 
     /**
@@ -20028,7 +20032,7 @@ class Globalization {
     static ubiditransform_close(pBidiTransform) {
         pBidiTransformMarshal := pBidiTransform is VarRef ? "ptr*" : "ptr"
 
-        DllCall("icuuc.dll\ubiditransform_close", pBidiTransformMarshal, pBidiTransform, "CDecl ")
+        DllCall("icuuc.dll\ubiditransform_close", pBidiTransformMarshal, pBidiTransform, "CDecl")
     }
 
     /**
@@ -20201,7 +20205,7 @@ class Globalization {
      * @returns {String} Nothing - always returns an empty string
      */
     static utext_setNativeIndex(ut, nativeIndex) {
-        DllCall("icuuc.dll\utext_setNativeIndex", "ptr", ut, "int64", nativeIndex, "CDecl ")
+        DllCall("icuuc.dll\utext_setNativeIndex", "ptr", ut, "int64", nativeIndex, "CDecl")
     }
 
     /**
@@ -20294,7 +20298,7 @@ class Globalization {
     static utext_copy(ut, nativeStart, nativeLimit, destIndex, move, _status) {
         _statusMarshal := _status is VarRef ? "int*" : "ptr"
 
-        DllCall("icuuc.dll\utext_copy", "ptr", ut, "int64", nativeStart, "int64", nativeLimit, "int64", destIndex, "char", move, _statusMarshal, _status, "CDecl ")
+        DllCall("icuuc.dll\utext_copy", "ptr", ut, "int64", nativeStart, "int64", nativeLimit, "int64", destIndex, "char", move, _statusMarshal, _status, "CDecl")
     }
 
     /**
@@ -20303,7 +20307,7 @@ class Globalization {
      * @returns {String} Nothing - always returns an empty string
      */
     static utext_freeze(ut) {
-        DllCall("icuuc.dll\utext_freeze", "ptr", ut, "CDecl ")
+        DllCall("icuuc.dll\utext_freeze", "ptr", ut, "CDecl")
     }
 
     /**
@@ -20379,7 +20383,7 @@ class Globalization {
     static uset_close(set) {
         setMarshal := set is VarRef ? "ptr*" : "ptr"
 
-        DllCall("icuuc.dll\uset_close", setMarshal, set, "CDecl ")
+        DllCall("icuuc.dll\uset_close", setMarshal, set, "CDecl")
     }
 
     /**
@@ -20414,7 +20418,7 @@ class Globalization {
     static uset_freeze(set) {
         setMarshal := set is VarRef ? "ptr*" : "ptr"
 
-        DllCall("icuuc.dll\uset_freeze", setMarshal, set, "CDecl ")
+        DllCall("icuuc.dll\uset_freeze", setMarshal, set, "CDecl")
     }
 
     /**
@@ -20439,7 +20443,7 @@ class Globalization {
     static uset_set(set, start, end) {
         setMarshal := set is VarRef ? "ptr*" : "ptr"
 
-        DllCall("icuuc.dll\uset_set", setMarshal, set, "int", start, "int", end, "CDecl ")
+        DllCall("icuuc.dll\uset_set", setMarshal, set, "int", start, "int", end, "CDecl")
     }
 
     /**
@@ -20472,7 +20476,7 @@ class Globalization {
         setMarshal := set is VarRef ? "ptr*" : "ptr"
         ecMarshal := ec is VarRef ? "int*" : "ptr"
 
-        DllCall("icuuc.dll\uset_applyIntPropertyValue", setMarshal, set, "int", prop, "int", value, ecMarshal, ec, "CDecl ")
+        DllCall("icuuc.dll\uset_applyIntPropertyValue", setMarshal, set, "int", prop, "int", value, ecMarshal, ec, "CDecl")
     }
 
     /**
@@ -20491,7 +20495,7 @@ class Globalization {
         valueMarshal := value is VarRef ? "ushort*" : "ptr"
         ecMarshal := ec is VarRef ? "int*" : "ptr"
 
-        DllCall("icuuc.dll\uset_applyPropertyAlias", setMarshal, set, propMarshal, prop, "int", propLength, valueMarshal, value, "int", valueLength, ecMarshal, ec, "CDecl ")
+        DllCall("icuuc.dll\uset_applyPropertyAlias", setMarshal, set, propMarshal, prop, "int", propLength, valueMarshal, value, "int", valueLength, ecMarshal, ec, "CDecl")
     }
 
     /**
@@ -20535,7 +20539,7 @@ class Globalization {
     static uset_add(set, c) {
         setMarshal := set is VarRef ? "ptr*" : "ptr"
 
-        DllCall("icuuc.dll\uset_add", setMarshal, set, "int", c, "CDecl ")
+        DllCall("icuuc.dll\uset_add", setMarshal, set, "int", c, "CDecl")
     }
 
     /**
@@ -20548,7 +20552,7 @@ class Globalization {
         setMarshal := set is VarRef ? "ptr*" : "ptr"
         additionalSetMarshal := additionalSet is VarRef ? "ptr*" : "ptr"
 
-        DllCall("icuuc.dll\uset_addAll", setMarshal, set, additionalSetMarshal, additionalSet, "CDecl ")
+        DllCall("icuuc.dll\uset_addAll", setMarshal, set, additionalSetMarshal, additionalSet, "CDecl")
     }
 
     /**
@@ -20561,7 +20565,7 @@ class Globalization {
     static uset_addRange(set, start, end) {
         setMarshal := set is VarRef ? "ptr*" : "ptr"
 
-        DllCall("icuuc.dll\uset_addRange", setMarshal, set, "int", start, "int", end, "CDecl ")
+        DllCall("icuuc.dll\uset_addRange", setMarshal, set, "int", start, "int", end, "CDecl")
     }
 
     /**
@@ -20575,7 +20579,7 @@ class Globalization {
         setMarshal := set is VarRef ? "ptr*" : "ptr"
         strMarshal := str is VarRef ? "ushort*" : "ptr"
 
-        DllCall("icuuc.dll\uset_addString", setMarshal, set, strMarshal, str, "int", strLen, "CDecl ")
+        DllCall("icuuc.dll\uset_addString", setMarshal, set, strMarshal, str, "int", strLen, "CDecl")
     }
 
     /**
@@ -20589,7 +20593,7 @@ class Globalization {
         setMarshal := set is VarRef ? "ptr*" : "ptr"
         strMarshal := str is VarRef ? "ushort*" : "ptr"
 
-        DllCall("icuuc.dll\uset_addAllCodePoints", setMarshal, set, strMarshal, str, "int", strLen, "CDecl ")
+        DllCall("icuuc.dll\uset_addAllCodePoints", setMarshal, set, strMarshal, str, "int", strLen, "CDecl")
     }
 
     /**
@@ -20601,7 +20605,7 @@ class Globalization {
     static uset_remove(set, c) {
         setMarshal := set is VarRef ? "ptr*" : "ptr"
 
-        DllCall("icuuc.dll\uset_remove", setMarshal, set, "int", c, "CDecl ")
+        DllCall("icuuc.dll\uset_remove", setMarshal, set, "int", c, "CDecl")
     }
 
     /**
@@ -20614,7 +20618,7 @@ class Globalization {
     static uset_removeRange(set, start, end) {
         setMarshal := set is VarRef ? "ptr*" : "ptr"
 
-        DllCall("icuuc.dll\uset_removeRange", setMarshal, set, "int", start, "int", end, "CDecl ")
+        DllCall("icuuc.dll\uset_removeRange", setMarshal, set, "int", start, "int", end, "CDecl")
     }
 
     /**
@@ -20628,7 +20632,7 @@ class Globalization {
         setMarshal := set is VarRef ? "ptr*" : "ptr"
         strMarshal := str is VarRef ? "ushort*" : "ptr"
 
-        DllCall("icuuc.dll\uset_removeString", setMarshal, set, strMarshal, str, "int", strLen, "CDecl ")
+        DllCall("icuuc.dll\uset_removeString", setMarshal, set, strMarshal, str, "int", strLen, "CDecl")
     }
 
     /**
@@ -20642,7 +20646,7 @@ class Globalization {
         setMarshal := set is VarRef ? "ptr*" : "ptr"
         strMarshal := str is VarRef ? "ushort*" : "ptr"
 
-        DllCall("icu.dll\uset_removeAllCodePoints", setMarshal, set, strMarshal, str, "int", length, "CDecl ")
+        DllCall("icu.dll\uset_removeAllCodePoints", setMarshal, set, strMarshal, str, "int", length, "CDecl")
     }
 
     /**
@@ -20655,7 +20659,7 @@ class Globalization {
         setMarshal := set is VarRef ? "ptr*" : "ptr"
         removeSetMarshal := removeSet is VarRef ? "ptr*" : "ptr"
 
-        DllCall("icuuc.dll\uset_removeAll", setMarshal, set, removeSetMarshal, removeSet, "CDecl ")
+        DllCall("icuuc.dll\uset_removeAll", setMarshal, set, removeSetMarshal, removeSet, "CDecl")
     }
 
     /**
@@ -20668,7 +20672,7 @@ class Globalization {
     static uset_retain(set, start, end) {
         setMarshal := set is VarRef ? "ptr*" : "ptr"
 
-        DllCall("icuuc.dll\uset_retain", setMarshal, set, "int", start, "int", end, "CDecl ")
+        DllCall("icuuc.dll\uset_retain", setMarshal, set, "int", start, "int", end, "CDecl")
     }
 
     /**
@@ -20682,7 +20686,7 @@ class Globalization {
         setMarshal := set is VarRef ? "ptr*" : "ptr"
         strMarshal := str is VarRef ? "ushort*" : "ptr"
 
-        DllCall("icu.dll\uset_retainString", setMarshal, set, strMarshal, str, "int", length, "CDecl ")
+        DllCall("icu.dll\uset_retainString", setMarshal, set, strMarshal, str, "int", length, "CDecl")
     }
 
     /**
@@ -20696,7 +20700,7 @@ class Globalization {
         setMarshal := set is VarRef ? "ptr*" : "ptr"
         strMarshal := str is VarRef ? "ushort*" : "ptr"
 
-        DllCall("icu.dll\uset_retainAllCodePoints", setMarshal, set, strMarshal, str, "int", length, "CDecl ")
+        DllCall("icu.dll\uset_retainAllCodePoints", setMarshal, set, strMarshal, str, "int", length, "CDecl")
     }
 
     /**
@@ -20709,7 +20713,7 @@ class Globalization {
         setMarshal := set is VarRef ? "ptr*" : "ptr"
         retainMarshal := retain is VarRef ? "ptr*" : "ptr"
 
-        DllCall("icuuc.dll\uset_retainAll", setMarshal, set, retainMarshal, retain, "CDecl ")
+        DllCall("icuuc.dll\uset_retainAll", setMarshal, set, retainMarshal, retain, "CDecl")
     }
 
     /**
@@ -20720,7 +20724,7 @@ class Globalization {
     static uset_compact(set) {
         setMarshal := set is VarRef ? "ptr*" : "ptr"
 
-        DllCall("icuuc.dll\uset_compact", setMarshal, set, "CDecl ")
+        DllCall("icuuc.dll\uset_compact", setMarshal, set, "CDecl")
     }
 
     /**
@@ -20731,7 +20735,7 @@ class Globalization {
     static uset_complement(set) {
         setMarshal := set is VarRef ? "ptr*" : "ptr"
 
-        DllCall("icuuc.dll\uset_complement", setMarshal, set, "CDecl ")
+        DllCall("icuuc.dll\uset_complement", setMarshal, set, "CDecl")
     }
 
     /**
@@ -20744,7 +20748,7 @@ class Globalization {
     static uset_complementRange(set, start, end) {
         setMarshal := set is VarRef ? "ptr*" : "ptr"
 
-        DllCall("icu.dll\uset_complementRange", setMarshal, set, "int", start, "int", end, "CDecl ")
+        DllCall("icu.dll\uset_complementRange", setMarshal, set, "int", start, "int", end, "CDecl")
     }
 
     /**
@@ -20758,7 +20762,7 @@ class Globalization {
         setMarshal := set is VarRef ? "ptr*" : "ptr"
         strMarshal := str is VarRef ? "ushort*" : "ptr"
 
-        DllCall("icu.dll\uset_complementString", setMarshal, set, strMarshal, str, "int", length, "CDecl ")
+        DllCall("icu.dll\uset_complementString", setMarshal, set, strMarshal, str, "int", length, "CDecl")
     }
 
     /**
@@ -20772,7 +20776,7 @@ class Globalization {
         setMarshal := set is VarRef ? "ptr*" : "ptr"
         strMarshal := str is VarRef ? "ushort*" : "ptr"
 
-        DllCall("icu.dll\uset_complementAllCodePoints", setMarshal, set, strMarshal, str, "int", length, "CDecl ")
+        DllCall("icu.dll\uset_complementAllCodePoints", setMarshal, set, strMarshal, str, "int", length, "CDecl")
     }
 
     /**
@@ -20785,7 +20789,7 @@ class Globalization {
         setMarshal := set is VarRef ? "ptr*" : "ptr"
         complementMarshal := complement is VarRef ? "ptr*" : "ptr"
 
-        DllCall("icuuc.dll\uset_complementAll", setMarshal, set, complementMarshal, complement, "CDecl ")
+        DllCall("icuuc.dll\uset_complementAll", setMarshal, set, complementMarshal, complement, "CDecl")
     }
 
     /**
@@ -20796,7 +20800,7 @@ class Globalization {
     static uset_clear(set) {
         setMarshal := set is VarRef ? "ptr*" : "ptr"
 
-        DllCall("icuuc.dll\uset_clear", setMarshal, set, "CDecl ")
+        DllCall("icuuc.dll\uset_clear", setMarshal, set, "CDecl")
     }
 
     /**
@@ -20808,7 +20812,7 @@ class Globalization {
     static uset_closeOver(set, attributes) {
         setMarshal := set is VarRef ? "ptr*" : "ptr"
 
-        DllCall("icuuc.dll\uset_closeOver", setMarshal, set, "int", attributes, "CDecl ")
+        DllCall("icuuc.dll\uset_closeOver", setMarshal, set, "int", attributes, "CDecl")
     }
 
     /**
@@ -20819,7 +20823,7 @@ class Globalization {
     static uset_removeAllStrings(set) {
         setMarshal := set is VarRef ? "ptr*" : "ptr"
 
-        DllCall("icuuc.dll\uset_removeAllStrings", setMarshal, set, "CDecl ")
+        DllCall("icuuc.dll\uset_removeAllStrings", setMarshal, set, "CDecl")
     }
 
     /**
@@ -21147,7 +21151,7 @@ class Globalization {
      * @returns {String} Nothing - always returns an empty string
      */
     static uset_setSerializedToOne(fillSet, c) {
-        DllCall("icuuc.dll\uset_setSerializedToOne", "ptr", fillSet, "int", c, "CDecl ")
+        DllCall("icuuc.dll\uset_setSerializedToOne", "ptr", fillSet, "int", c, "CDecl")
     }
 
     /**
@@ -21289,7 +21293,7 @@ class Globalization {
     static unorm2_close(norm2) {
         norm2Marshal := norm2 is VarRef ? "ptr*" : "ptr"
 
-        DllCall("icuuc.dll\unorm2_close", norm2Marshal, norm2, "CDecl ")
+        DllCall("icuuc.dll\unorm2_close", norm2Marshal, norm2, "CDecl")
     }
 
     /**
@@ -21552,7 +21556,7 @@ class Globalization {
     static ucnvsel_close(sel) {
         selMarshal := sel is VarRef ? "ptr*" : "ptr"
 
-        DllCall("icuuc.dll\ucnvsel_close", selMarshal, sel, "CDecl ")
+        DllCall("icuuc.dll\ucnvsel_close", selMarshal, sel, "CDecl")
     }
 
     /**
@@ -21634,7 +21638,7 @@ class Globalization {
 
         usMarshal := us is VarRef ? "ushort*" : "ptr"
 
-        DllCall("icuuc.dll\u_charsToUChars", "ptr", cs, usMarshal, us, "int", length, "CDecl ")
+        DllCall("icuuc.dll\u_charsToUChars", "ptr", cs, usMarshal, us, "int", length, "CDecl")
     }
 
     /**
@@ -21649,7 +21653,7 @@ class Globalization {
 
         usMarshal := us is VarRef ? "ushort*" : "ptr"
 
-        DllCall("icuuc.dll\u_UCharsToChars", usMarshal, us, "ptr", cs, "int", length, "CDecl ")
+        DllCall("icuuc.dll\u_UCharsToChars", usMarshal, us, "ptr", cs, "int", length, "CDecl")
     }
 
     /**
@@ -22688,7 +22692,7 @@ class Globalization {
     static ucasemap_close(csm) {
         csmMarshal := csm is VarRef ? "ptr*" : "ptr"
 
-        DllCall("icuuc.dll\ucasemap_close", csmMarshal, csm, "CDecl ")
+        DllCall("icuuc.dll\ucasemap_close", csmMarshal, csm, "CDecl")
     }
 
     /**
@@ -22728,7 +22732,7 @@ class Globalization {
         csmMarshal := csm is VarRef ? "ptr*" : "ptr"
         pErrorCodeMarshal := pErrorCode is VarRef ? "int*" : "ptr"
 
-        DllCall("icuuc.dll\ucasemap_setLocale", csmMarshal, csm, "ptr", locale, pErrorCodeMarshal, pErrorCode, "CDecl ")
+        DllCall("icuuc.dll\ucasemap_setLocale", csmMarshal, csm, "ptr", locale, pErrorCodeMarshal, pErrorCode, "CDecl")
     }
 
     /**
@@ -22742,7 +22746,7 @@ class Globalization {
         csmMarshal := csm is VarRef ? "ptr*" : "ptr"
         pErrorCodeMarshal := pErrorCode is VarRef ? "int*" : "ptr"
 
-        DllCall("icuuc.dll\ucasemap_setOptions", csmMarshal, csm, "uint", options, pErrorCodeMarshal, pErrorCode, "CDecl ")
+        DllCall("icuuc.dll\ucasemap_setOptions", csmMarshal, csm, "uint", options, pErrorCodeMarshal, pErrorCode, "CDecl")
     }
 
     /**
@@ -22769,7 +22773,7 @@ class Globalization {
         iterToAdoptMarshal := iterToAdopt is VarRef ? "ptr*" : "ptr"
         pErrorCodeMarshal := pErrorCode is VarRef ? "int*" : "ptr"
 
-        DllCall("icuuc.dll\ucasemap_setBreakIterator", csmMarshal, csm, iterToAdoptMarshal, iterToAdopt, pErrorCodeMarshal, pErrorCode, "CDecl ")
+        DllCall("icuuc.dll\ucasemap_setBreakIterator", csmMarshal, csm, iterToAdoptMarshal, iterToAdopt, pErrorCodeMarshal, pErrorCode, "CDecl")
     }
 
     /**
@@ -22914,7 +22918,7 @@ class Globalization {
     static usprep_close(_profile) {
         _profileMarshal := _profile is VarRef ? "ptr*" : "ptr"
 
-        DllCall("icuuc.dll\usprep_close", _profileMarshal, _profile, "CDecl ")
+        DllCall("icuuc.dll\usprep_close", _profileMarshal, _profile, "CDecl")
     }
 
     /**
@@ -22960,7 +22964,7 @@ class Globalization {
     static uidna_close(idna) {
         idnaMarshal := idna is VarRef ? "ptr*" : "ptr"
 
-        DllCall("icuuc.dll\uidna_close", idnaMarshal, idna, "CDecl ")
+        DllCall("icuuc.dll\uidna_close", idnaMarshal, idna, "CDecl")
     }
 
     /**
@@ -23231,7 +23235,7 @@ class Globalization {
     static ubrk_close(bi) {
         biMarshal := bi is VarRef ? "ptr*" : "ptr"
 
-        DllCall("icuuc.dll\ubrk_close", biMarshal, bi, "CDecl ")
+        DllCall("icuuc.dll\ubrk_close", biMarshal, bi, "CDecl")
     }
 
     /**
@@ -23247,7 +23251,7 @@ class Globalization {
         textMarshal := text is VarRef ? "ushort*" : "ptr"
         _statusMarshal := _status is VarRef ? "int*" : "ptr"
 
-        DllCall("icuuc.dll\ubrk_setText", biMarshal, bi, textMarshal, text, "int", textLength, _statusMarshal, _status, "CDecl ")
+        DllCall("icuuc.dll\ubrk_setText", biMarshal, bi, textMarshal, text, "int", textLength, _statusMarshal, _status, "CDecl")
     }
 
     /**
@@ -23261,7 +23265,7 @@ class Globalization {
         biMarshal := bi is VarRef ? "ptr*" : "ptr"
         _statusMarshal := _status is VarRef ? "int*" : "ptr"
 
-        DllCall("icuuc.dll\ubrk_setUText", biMarshal, bi, "ptr", text, _statusMarshal, _status, "CDecl ")
+        DllCall("icuuc.dll\ubrk_setUText", biMarshal, bi, "ptr", text, _statusMarshal, _status, "CDecl")
     }
 
     /**
@@ -23437,7 +23441,7 @@ class Globalization {
         biMarshal := bi is VarRef ? "ptr*" : "ptr"
         _statusMarshal := _status is VarRef ? "int*" : "ptr"
 
-        DllCall("icuuc.dll\ubrk_refreshUText", biMarshal, bi, "ptr", text, _statusMarshal, _status, "CDecl ")
+        DllCall("icuuc.dll\ubrk_refreshUText", biMarshal, bi, "ptr", text, _statusMarshal, _status, "CDecl")
     }
 
     /**
@@ -23467,7 +23471,7 @@ class Globalization {
         dataVersionFillinMarshal := dataVersionFillin is VarRef ? "char*" : "ptr"
         _statusMarshal := _status is VarRef ? "int*" : "ptr"
 
-        DllCall("icuuc.dll\u_getDataVersion", dataVersionFillinMarshal, dataVersionFillin, _statusMarshal, _status, "CDecl ")
+        DllCall("icuuc.dll\u_getDataVersion", dataVersionFillinMarshal, dataVersionFillin, _statusMarshal, _status, "CDecl")
     }
 
     /**
@@ -23540,7 +23544,7 @@ class Globalization {
         zoneIDMarshal := zoneID is VarRef ? "ushort*" : "ptr"
         ecMarshal := ec is VarRef ? "int*" : "ptr"
 
-        DllCall("icuin.dll\ucal_setDefaultTimeZone", zoneIDMarshal, zoneID, ecMarshal, ec, "CDecl ")
+        DllCall("icuin.dll\ucal_setDefaultTimeZone", zoneIDMarshal, zoneID, ecMarshal, ec, "CDecl")
     }
 
     /**
@@ -23608,7 +23612,7 @@ class Globalization {
     static ucal_close(_cal) {
         _calMarshal := _cal is VarRef ? "ptr*" : "ptr"
 
-        DllCall("icuin.dll\ucal_close", _calMarshal, _cal, "CDecl ")
+        DllCall("icuin.dll\ucal_close", _calMarshal, _cal, "CDecl")
     }
 
     /**
@@ -23638,7 +23642,7 @@ class Globalization {
         zoneIDMarshal := zoneID is VarRef ? "ushort*" : "ptr"
         _statusMarshal := _status is VarRef ? "int*" : "ptr"
 
-        DllCall("icuin.dll\ucal_setTimeZone", _calMarshal, _cal, zoneIDMarshal, zoneID, "int", len, _statusMarshal, _status, "CDecl ")
+        DllCall("icuin.dll\ucal_setTimeZone", _calMarshal, _cal, zoneIDMarshal, zoneID, "int", len, _statusMarshal, _status, "CDecl")
     }
 
     /**
@@ -23704,7 +23708,7 @@ class Globalization {
         _calMarshal := _cal is VarRef ? "ptr*" : "ptr"
         pErrorCodeMarshal := pErrorCode is VarRef ? "int*" : "ptr"
 
-        DllCall("icuin.dll\ucal_setGregorianChange", _calMarshal, _cal, "double", date, pErrorCodeMarshal, pErrorCode, "CDecl ")
+        DllCall("icuin.dll\ucal_setGregorianChange", _calMarshal, _cal, "double", date, pErrorCodeMarshal, pErrorCode, "CDecl")
     }
 
     /**
@@ -23744,7 +23748,7 @@ class Globalization {
     static ucal_setAttribute(_cal, attr, newValue) {
         _calMarshal := _cal is VarRef ? "ptr*" : "ptr"
 
-        DllCall("icuin.dll\ucal_setAttribute", _calMarshal, _cal, "int", attr, "int", newValue, "CDecl ")
+        DllCall("icuin.dll\ucal_setAttribute", _calMarshal, _cal, "int", attr, "int", newValue, "CDecl")
     }
 
     /**
@@ -23791,7 +23795,7 @@ class Globalization {
         _calMarshal := _cal is VarRef ? "ptr*" : "ptr"
         _statusMarshal := _status is VarRef ? "int*" : "ptr"
 
-        DllCall("icuin.dll\ucal_setMillis", _calMarshal, _cal, "double", _dateTime, _statusMarshal, _status, "CDecl ")
+        DllCall("icuin.dll\ucal_setMillis", _calMarshal, _cal, "double", _dateTime, _statusMarshal, _status, "CDecl")
     }
 
     /**
@@ -23807,7 +23811,7 @@ class Globalization {
         _calMarshal := _cal is VarRef ? "ptr*" : "ptr"
         _statusMarshal := _status is VarRef ? "int*" : "ptr"
 
-        DllCall("icuin.dll\ucal_setDate", _calMarshal, _cal, "int", year, "int", month, "int", date, _statusMarshal, _status, "CDecl ")
+        DllCall("icuin.dll\ucal_setDate", _calMarshal, _cal, "int", year, "int", month, "int", date, _statusMarshal, _status, "CDecl")
     }
 
     /**
@@ -23826,7 +23830,7 @@ class Globalization {
         _calMarshal := _cal is VarRef ? "ptr*" : "ptr"
         _statusMarshal := _status is VarRef ? "int*" : "ptr"
 
-        DllCall("icuin.dll\ucal_setDateTime", _calMarshal, _cal, "int", year, "int", month, "int", date, "int", hour, "int", minute, "int", second, _statusMarshal, _status, "CDecl ")
+        DllCall("icuin.dll\ucal_setDateTime", _calMarshal, _cal, "int", year, "int", month, "int", date, "int", hour, "int", minute, "int", second, _statusMarshal, _status, "CDecl")
     }
 
     /**
@@ -23855,7 +23859,7 @@ class Globalization {
         _calMarshal := _cal is VarRef ? "ptr*" : "ptr"
         _statusMarshal := _status is VarRef ? "int*" : "ptr"
 
-        DllCall("icuin.dll\ucal_add", _calMarshal, _cal, "int", field, "int", amount, _statusMarshal, _status, "CDecl ")
+        DllCall("icuin.dll\ucal_add", _calMarshal, _cal, "int", field, "int", amount, _statusMarshal, _status, "CDecl")
     }
 
     /**
@@ -23870,7 +23874,7 @@ class Globalization {
         _calMarshal := _cal is VarRef ? "ptr*" : "ptr"
         _statusMarshal := _status is VarRef ? "int*" : "ptr"
 
-        DllCall("icuin.dll\ucal_roll", _calMarshal, _cal, "int", field, "int", amount, _statusMarshal, _status, "CDecl ")
+        DllCall("icuin.dll\ucal_roll", _calMarshal, _cal, "int", field, "int", amount, _statusMarshal, _status, "CDecl")
     }
 
     /**
@@ -23898,7 +23902,7 @@ class Globalization {
     static ucal_set(_cal, field, value) {
         _calMarshal := _cal is VarRef ? "ptr*" : "ptr"
 
-        DllCall("icuin.dll\ucal_set", _calMarshal, _cal, "int", field, "int", value, "CDecl ")
+        DllCall("icuin.dll\ucal_set", _calMarshal, _cal, "int", field, "int", value, "CDecl")
     }
 
     /**
@@ -23923,7 +23927,7 @@ class Globalization {
     static ucal_clearField(_cal, field) {
         _calMarshal := _cal is VarRef ? "ptr*" : "ptr"
 
-        DllCall("icuin.dll\ucal_clearField", _calMarshal, _cal, "int", field, "CDecl ")
+        DllCall("icuin.dll\ucal_clearField", _calMarshal, _cal, "int", field, "CDecl")
     }
 
     /**
@@ -23934,7 +23938,7 @@ class Globalization {
     static ucal_clear(calendar) {
         calendarMarshal := calendar is VarRef ? "ptr*" : "ptr"
 
-        DllCall("icuin.dll\ucal_clear", calendarMarshal, calendar, "CDecl ")
+        DllCall("icuin.dll\ucal_clear", calendarMarshal, calendar, "CDecl")
     }
 
     /**
@@ -24165,7 +24169,7 @@ class Globalization {
         dstOffsetMarshal := dstOffset is VarRef ? "int*" : "ptr"
         _statusMarshal := _status is VarRef ? "int*" : "ptr"
 
-        DllCall("icu.dll\ucal_getTimeZoneOffsetFromLocal", _calMarshal, _cal, "int", nonExistingTimeOpt, "int", duplicatedTimeOpt, rawOffsetMarshal, rawOffset, dstOffsetMarshal, dstOffset, _statusMarshal, _status, "CDecl ")
+        DllCall("icu.dll\ucal_getTimeZoneOffsetFromLocal", _calMarshal, _cal, "int", nonExistingTimeOpt, "int", duplicatedTimeOpt, rawOffsetMarshal, rawOffset, dstOffsetMarshal, dstOffset, _statusMarshal, _status, "CDecl")
     }
 
     /**
@@ -24216,7 +24220,7 @@ class Globalization {
         expansionsMarshal := expansions is VarRef ? "ptr*" : "ptr"
         _statusMarshal := _status is VarRef ? "int*" : "ptr"
 
-        DllCall("icuin.dll\ucol_getContractionsAndExpansions", collMarshal, coll, contractionsMarshal, contractions, expansionsMarshal, expansions, "char", addPrefixes, _statusMarshal, _status, "CDecl ")
+        DllCall("icuin.dll\ucol_getContractionsAndExpansions", collMarshal, coll, contractionsMarshal, contractions, expansionsMarshal, expansions, "char", addPrefixes, _statusMarshal, _status, "CDecl")
     }
 
     /**
@@ -24227,7 +24231,7 @@ class Globalization {
     static ucol_close(coll) {
         collMarshal := coll is VarRef ? "ptr*" : "ptr"
 
-        DllCall("icuin.dll\ucol_close", collMarshal, coll, "CDecl ")
+        DllCall("icuin.dll\ucol_close", collMarshal, coll, "CDecl")
     }
 
     /**
@@ -24360,7 +24364,7 @@ class Globalization {
     static ucol_setStrength(coll, strength) {
         collMarshal := coll is VarRef ? "ptr*" : "ptr"
 
-        DllCall("icuin.dll\ucol_setStrength", collMarshal, coll, "int", strength, "CDecl ")
+        DllCall("icuin.dll\ucol_setStrength", collMarshal, coll, "int", strength, "CDecl")
     }
 
     /**
@@ -24393,7 +24397,7 @@ class Globalization {
         reorderCodesMarshal := reorderCodes is VarRef ? "int*" : "ptr"
         pErrorCodeMarshal := pErrorCode is VarRef ? "int*" : "ptr"
 
-        DllCall("icuin.dll\ucol_setReorderCodes", collMarshal, coll, reorderCodesMarshal, reorderCodes, "int", reorderCodesLength, pErrorCodeMarshal, pErrorCode, "CDecl ")
+        DllCall("icuin.dll\ucol_setReorderCodes", collMarshal, coll, reorderCodesMarshal, reorderCodes, "int", reorderCodesLength, pErrorCodeMarshal, pErrorCode, "CDecl")
     }
 
     /**
@@ -24612,7 +24616,7 @@ class Globalization {
         collMarshal := coll is VarRef ? "ptr*" : "ptr"
         infoMarshal := info is VarRef ? "char*" : "ptr"
 
-        DllCall("icuin.dll\ucol_getVersion", collMarshal, coll, infoMarshal, info, "CDecl ")
+        DllCall("icuin.dll\ucol_getVersion", collMarshal, coll, infoMarshal, info, "CDecl")
     }
 
     /**
@@ -24625,7 +24629,7 @@ class Globalization {
         collMarshal := coll is VarRef ? "ptr*" : "ptr"
         infoMarshal := info is VarRef ? "char*" : "ptr"
 
-        DllCall("icuin.dll\ucol_getUCAVersion", collMarshal, coll, infoMarshal, info, "CDecl ")
+        DllCall("icuin.dll\ucol_getUCAVersion", collMarshal, coll, infoMarshal, info, "CDecl")
     }
 
     /**
@@ -24659,7 +24663,7 @@ class Globalization {
         collMarshal := coll is VarRef ? "ptr*" : "ptr"
         _statusMarshal := _status is VarRef ? "int*" : "ptr"
 
-        DllCall("icuin.dll\ucol_setAttribute", collMarshal, coll, "int", attr, "int", value, _statusMarshal, _status, "CDecl ")
+        DllCall("icuin.dll\ucol_setAttribute", collMarshal, coll, "int", attr, "int", value, _statusMarshal, _status, "CDecl")
     }
 
     /**
@@ -24688,7 +24692,7 @@ class Globalization {
         collMarshal := coll is VarRef ? "ptr*" : "ptr"
         pErrorCodeMarshal := pErrorCode is VarRef ? "int*" : "ptr"
 
-        DllCall("icuin.dll\ucol_setMaxVariable", collMarshal, coll, "int", group, pErrorCodeMarshal, pErrorCode, "CDecl ")
+        DllCall("icuin.dll\ucol_setMaxVariable", collMarshal, coll, "int", group, pErrorCodeMarshal, pErrorCode, "CDecl")
     }
 
     /**
@@ -24866,7 +24870,7 @@ class Globalization {
     static ucol_closeElements(elems) {
         elemsMarshal := elems is VarRef ? "ptr*" : "ptr"
 
-        DllCall("icuin.dll\ucol_closeElements", elemsMarshal, elems, "CDecl ")
+        DllCall("icuin.dll\ucol_closeElements", elemsMarshal, elems, "CDecl")
     }
 
     /**
@@ -24877,7 +24881,7 @@ class Globalization {
     static ucol_reset(elems) {
         elemsMarshal := elems is VarRef ? "ptr*" : "ptr"
 
-        DllCall("icuin.dll\ucol_reset", elemsMarshal, elems, "CDecl ")
+        DllCall("icuin.dll\ucol_reset", elemsMarshal, elems, "CDecl")
     }
 
     /**
@@ -24934,7 +24938,7 @@ class Globalization {
         textMarshal := text is VarRef ? "ushort*" : "ptr"
         _statusMarshal := _status is VarRef ? "int*" : "ptr"
 
-        DllCall("icuin.dll\ucol_setText", elemsMarshal, elems, textMarshal, text, "int", textLength, _statusMarshal, _status, "CDecl ")
+        DllCall("icuin.dll\ucol_setText", elemsMarshal, elems, textMarshal, text, "int", textLength, _statusMarshal, _status, "CDecl")
     }
 
     /**
@@ -24960,7 +24964,7 @@ class Globalization {
         elemsMarshal := elems is VarRef ? "ptr*" : "ptr"
         _statusMarshal := _status is VarRef ? "int*" : "ptr"
 
-        DllCall("icuin.dll\ucol_setOffset", elemsMarshal, elems, "int", offset, _statusMarshal, _status, "CDecl ")
+        DllCall("icuin.dll\ucol_setOffset", elemsMarshal, elems, "int", offset, _statusMarshal, _status, "CDecl")
     }
 
     /**
@@ -25013,7 +25017,7 @@ class Globalization {
     static ucsdet_close(ucsd) {
         ucsdMarshal := ucsd is VarRef ? "ptr*" : "ptr"
 
-        DllCall("icuin.dll\ucsdet_close", ucsdMarshal, ucsd, "CDecl ")
+        DllCall("icuin.dll\ucsdet_close", ucsdMarshal, ucsd, "CDecl")
     }
 
     /**
@@ -25030,7 +25034,7 @@ class Globalization {
         ucsdMarshal := ucsd is VarRef ? "ptr*" : "ptr"
         _statusMarshal := _status is VarRef ? "int*" : "ptr"
 
-        DllCall("icuin.dll\ucsdet_setText", ucsdMarshal, ucsd, "ptr", textIn, "int", len, _statusMarshal, _status, "CDecl ")
+        DllCall("icuin.dll\ucsdet_setText", ucsdMarshal, ucsd, "ptr", textIn, "int", len, _statusMarshal, _status, "CDecl")
     }
 
     /**
@@ -25047,7 +25051,7 @@ class Globalization {
         ucsdMarshal := ucsd is VarRef ? "ptr*" : "ptr"
         _statusMarshal := _status is VarRef ? "int*" : "ptr"
 
-        DllCall("icuin.dll\ucsdet_setDeclaredEncoding", ucsdMarshal, ucsd, "ptr", encoding, "int", length, _statusMarshal, _status, "CDecl ")
+        DllCall("icuin.dll\ucsdet_setDeclaredEncoding", ucsdMarshal, ucsd, "ptr", encoding, "int", length, _statusMarshal, _status, "CDecl")
     }
 
     /**
@@ -25198,7 +25202,7 @@ class Globalization {
     static ufieldpositer_close(fpositer) {
         fpositerMarshal := fpositer is VarRef ? "ptr*" : "ptr"
 
-        DllCall("icuin.dll\ufieldpositer_close", fpositerMarshal, fpositer, "CDecl ")
+        DllCall("icuin.dll\ufieldpositer_close", fpositerMarshal, fpositer, "CDecl")
     }
 
     /**
@@ -25237,7 +25241,7 @@ class Globalization {
     static ufmt_close(fmt) {
         fmtMarshal := fmt is VarRef ? "ptr*" : "ptr"
 
-        DllCall("icuin.dll\ufmt_close", fmtMarshal, fmt, "CDecl ")
+        DllCall("icuin.dll\ufmt_close", fmtMarshal, fmt, "CDecl")
     }
 
     /**
@@ -25419,7 +25423,7 @@ class Globalization {
         ucfposMarshal := ucfpos is VarRef ? "ptr*" : "ptr"
         ecMarshal := ec is VarRef ? "int*" : "ptr"
 
-        DllCall("icu.dll\ucfpos_reset", ucfposMarshal, ucfpos, ecMarshal, ec, "CDecl ")
+        DllCall("icu.dll\ucfpos_reset", ucfposMarshal, ucfpos, ecMarshal, ec, "CDecl")
     }
 
     /**
@@ -25430,7 +25434,7 @@ class Globalization {
     static ucfpos_close(ucfpos) {
         ucfposMarshal := ucfpos is VarRef ? "ptr*" : "ptr"
 
-        DllCall("icu.dll\ucfpos_close", ucfposMarshal, ucfpos, "CDecl ")
+        DllCall("icu.dll\ucfpos_close", ucfposMarshal, ucfpos, "CDecl")
     }
 
     /**
@@ -25444,7 +25448,7 @@ class Globalization {
         ucfposMarshal := ucfpos is VarRef ? "ptr*" : "ptr"
         ecMarshal := ec is VarRef ? "int*" : "ptr"
 
-        DllCall("icu.dll\ucfpos_constrainCategory", ucfposMarshal, ucfpos, "int", category, ecMarshal, ec, "CDecl ")
+        DllCall("icu.dll\ucfpos_constrainCategory", ucfposMarshal, ucfpos, "int", category, ecMarshal, ec, "CDecl")
     }
 
     /**
@@ -25459,7 +25463,7 @@ class Globalization {
         ucfposMarshal := ucfpos is VarRef ? "ptr*" : "ptr"
         ecMarshal := ec is VarRef ? "int*" : "ptr"
 
-        DllCall("icu.dll\ucfpos_constrainField", ucfposMarshal, ucfpos, "int", category, "int", field, ecMarshal, ec, "CDecl ")
+        DllCall("icu.dll\ucfpos_constrainField", ucfposMarshal, ucfpos, "int", category, "int", field, ecMarshal, ec, "CDecl")
     }
 
     /**
@@ -25504,7 +25508,7 @@ class Globalization {
         pLimitMarshal := pLimit is VarRef ? "int*" : "ptr"
         ecMarshal := ec is VarRef ? "int*" : "ptr"
 
-        DllCall("icu.dll\ucfpos_getIndexes", ucfposMarshal, ucfpos, pStartMarshal, pStart, pLimitMarshal, pLimit, ecMarshal, ec, "CDecl ")
+        DllCall("icu.dll\ucfpos_getIndexes", ucfposMarshal, ucfpos, pStartMarshal, pStart, pLimitMarshal, pLimit, ecMarshal, ec, "CDecl")
     }
 
     /**
@@ -25532,7 +25536,7 @@ class Globalization {
         ucfposMarshal := ucfpos is VarRef ? "ptr*" : "ptr"
         ecMarshal := ec is VarRef ? "int*" : "ptr"
 
-        DllCall("icu.dll\ucfpos_setInt64IterationContext", ucfposMarshal, ucfpos, "int64", _context, ecMarshal, ec, "CDecl ")
+        DllCall("icu.dll\ucfpos_setInt64IterationContext", ucfposMarshal, ucfpos, "int64", _context, ecMarshal, ec, "CDecl")
     }
 
     /**
@@ -25565,7 +25569,7 @@ class Globalization {
         ucfposMarshal := ucfpos is VarRef ? "ptr*" : "ptr"
         ecMarshal := ec is VarRef ? "int*" : "ptr"
 
-        DllCall("icu.dll\ucfpos_setState", ucfposMarshal, ucfpos, "int", category, "int", field, "int", start, "int", limit, ecMarshal, ec, "CDecl ")
+        DllCall("icu.dll\ucfpos_setState", ucfposMarshal, ucfpos, "int", category, "int", field, "int", start, "int", limit, ecMarshal, ec, "CDecl")
     }
 
     /**
@@ -25629,7 +25633,7 @@ class Globalization {
     static udtitvfmt_close(formatter) {
         formatterMarshal := formatter is VarRef ? "ptr*" : "ptr"
 
-        DllCall("icuin.dll\udtitvfmt_close", formatterMarshal, formatter, "CDecl ")
+        DllCall("icuin.dll\udtitvfmt_close", formatterMarshal, formatter, "CDecl")
     }
 
     /**
@@ -25666,7 +25670,7 @@ class Globalization {
     static udtitvfmt_closeResult(uresult) {
         uresultMarshal := uresult is VarRef ? "ptr*" : "ptr"
 
-        DllCall("icu.dll\udtitvfmt_closeResult", uresultMarshal, uresult, "CDecl ")
+        DllCall("icu.dll\udtitvfmt_closeResult", uresultMarshal, uresult, "CDecl")
     }
 
     /**
@@ -25703,7 +25707,7 @@ class Globalization {
         resultMarshal := result is VarRef ? "ptr*" : "ptr"
         _statusMarshal := _status is VarRef ? "int*" : "ptr"
 
-        DllCall("icu.dll\udtitvfmt_formatToResult", formatterMarshal, formatter, "double", fromDate, "double", toDate, resultMarshal, result, _statusMarshal, _status, "CDecl ")
+        DllCall("icu.dll\udtitvfmt_formatToResult", formatterMarshal, formatter, "double", fromDate, "double", toDate, resultMarshal, result, _statusMarshal, _status, "CDecl")
     }
 
     /**
@@ -25717,7 +25721,7 @@ class Globalization {
         formatterMarshal := formatter is VarRef ? "ptr*" : "ptr"
         _statusMarshal := _status is VarRef ? "int*" : "ptr"
 
-        DllCall("icu.dll\udtitvfmt_setContext", formatterMarshal, formatter, "int", value, _statusMarshal, _status, "CDecl ")
+        DllCall("icu.dll\udtitvfmt_setContext", formatterMarshal, formatter, "int", value, _statusMarshal, _status, "CDecl")
     }
 
     /**
@@ -25807,7 +25811,7 @@ class Globalization {
     static ulistfmt_close(listfmt) {
         listfmtMarshal := listfmt is VarRef ? "ptr*" : "ptr"
 
-        DllCall("icuuc.dll\ulistfmt_close", listfmtMarshal, listfmt, "CDecl ")
+        DllCall("icuuc.dll\ulistfmt_close", listfmtMarshal, listfmt, "CDecl")
     }
 
     /**
@@ -25844,7 +25848,7 @@ class Globalization {
     static ulistfmt_closeResult(uresult) {
         uresultMarshal := uresult is VarRef ? "ptr*" : "ptr"
 
-        DllCall("icu.dll\ulistfmt_closeResult", uresultMarshal, uresult, "CDecl ")
+        DllCall("icu.dll\ulistfmt_closeResult", uresultMarshal, uresult, "CDecl")
     }
 
     /**
@@ -25886,7 +25890,7 @@ class Globalization {
         uresultMarshal := uresult is VarRef ? "ptr*" : "ptr"
         _statusMarshal := _status is VarRef ? "int*" : "ptr"
 
-        DllCall("icu.dll\ulistfmt_formatStringsToResult", listfmtMarshal, listfmt, stringsMarshal, strings, stringLengthsMarshal, stringLengths, "int", stringCount, uresultMarshal, uresult, _statusMarshal, _status, "CDecl ")
+        DllCall("icu.dll\ulistfmt_formatStringsToResult", listfmtMarshal, listfmt, stringsMarshal, strings, stringLengthsMarshal, stringLengths, "int", stringCount, uresultMarshal, uresult, _statusMarshal, _status, "CDecl")
     }
 
     /**
@@ -25912,7 +25916,7 @@ class Globalization {
     static ulocdata_close(uld) {
         uldMarshal := uld is VarRef ? "ptr*" : "ptr"
 
-        DllCall("icuin.dll\ulocdata_close", uldMarshal, uld, "CDecl ")
+        DllCall("icuin.dll\ulocdata_close", uldMarshal, uld, "CDecl")
     }
 
     /**
@@ -25924,7 +25928,7 @@ class Globalization {
     static ulocdata_setNoSubstitute(uld, setting) {
         uldMarshal := uld is VarRef ? "ptr*" : "ptr"
 
-        DllCall("icuin.dll\ulocdata_setNoSubstitute", uldMarshal, uld, "char", setting, "CDecl ")
+        DllCall("icuin.dll\ulocdata_setNoSubstitute", uldMarshal, uld, "char", setting, "CDecl")
     }
 
     /**
@@ -26005,7 +26009,7 @@ class Globalization {
         widthMarshal := width is VarRef ? "int*" : "ptr"
         _statusMarshal := _status is VarRef ? "int*" : "ptr"
 
-        DllCall("icuin.dll\ulocdata_getPaperSize", "ptr", localeID, heightMarshal, height, widthMarshal, width, _statusMarshal, _status, "CDecl ")
+        DllCall("icuin.dll\ulocdata_getPaperSize", "ptr", localeID, heightMarshal, height, widthMarshal, width, _statusMarshal, _status, "CDecl")
     }
 
     /**
@@ -26018,7 +26022,7 @@ class Globalization {
         versionArrayMarshal := versionArray is VarRef ? "char*" : "ptr"
         _statusMarshal := _status is VarRef ? "int*" : "ptr"
 
-        DllCall("icuin.dll\ulocdata_getCLDRVersion", versionArrayMarshal, versionArray, _statusMarshal, _status, "CDecl ")
+        DllCall("icuin.dll\ulocdata_getCLDRVersion", versionArrayMarshal, versionArray, _statusMarshal, _status, "CDecl")
     }
 
     /**
@@ -26063,16 +26067,20 @@ class Globalization {
      * @param {Pointer<Integer>} result 
      * @param {Integer} resultLength 
      * @param {Pointer<UErrorCode>} _status 
+     * @param {Any} args* Additional arguments as alternating DllCall type/value pairs (e.g., "int", 42, "str", "hello")
      * @returns {Integer} 
      */
-    static u_formatMessage(locale, pattern, patternLength, result, resultLength, _status) {
+    static u_formatMessage(locale, pattern, patternLength, result, resultLength, _status, args*) {
         locale := locale is String ? StrPtr(locale) : locale
 
         patternMarshal := pattern is VarRef ? "ushort*" : "ptr"
         resultMarshal := result is VarRef ? "ushort*" : "ptr"
         _statusMarshal := _status is VarRef ? "int*" : "ptr"
 
-        result := DllCall("icuin.dll\u_formatMessage", "ptr", locale, patternMarshal, pattern, "int", patternLength, resultMarshal, result, "int", resultLength, _statusMarshal, _status, "CDecl int")
+        varArgs := [args*]
+        varArgs.Push("CDecl int")
+
+        result := DllCall("icuin.dll\u_formatMessage", "ptr", locale, patternMarshal, pattern, "int", patternLength, resultMarshal, result, "int", resultLength, _statusMarshal, _status, varArgs*)
         return result
     }
 
@@ -26107,16 +26115,20 @@ class Globalization {
      * @param {Pointer<Integer>} source 
      * @param {Integer} sourceLength 
      * @param {Pointer<UErrorCode>} _status 
+     * @param {Any} args* Additional arguments as alternating DllCall type/value pairs (e.g., "int", 42, "str", "hello")
      * @returns {String} Nothing - always returns an empty string
      */
-    static u_parseMessage(locale, pattern, patternLength, source, sourceLength, _status) {
+    static u_parseMessage(locale, pattern, patternLength, source, sourceLength, _status, args*) {
         locale := locale is String ? StrPtr(locale) : locale
 
         patternMarshal := pattern is VarRef ? "ushort*" : "ptr"
         sourceMarshal := source is VarRef ? "ushort*" : "ptr"
         _statusMarshal := _status is VarRef ? "int*" : "ptr"
 
-        DllCall("icuin.dll\u_parseMessage", "ptr", locale, patternMarshal, pattern, "int", patternLength, sourceMarshal, source, "int", sourceLength, _statusMarshal, _status, "CDecl ")
+        varArgs := [args*]
+        varArgs.Push("CDecl")
+
+        DllCall("icuin.dll\u_parseMessage", "ptr", locale, patternMarshal, pattern, "int", patternLength, sourceMarshal, source, "int", sourceLength, _statusMarshal, _status, varArgs*)
     }
 
     /**
@@ -26138,7 +26150,7 @@ class Globalization {
         apMarshal := ap is VarRef ? "char*" : "ptr"
         _statusMarshal := _status is VarRef ? "int*" : "ptr"
 
-        DllCall("icuin.dll\u_vparseMessage", "ptr", locale, patternMarshal, pattern, "int", patternLength, sourceMarshal, source, "int", sourceLength, apMarshal, ap, _statusMarshal, _status, "CDecl ")
+        DllCall("icuin.dll\u_vparseMessage", "ptr", locale, patternMarshal, pattern, "int", patternLength, sourceMarshal, source, "int", sourceLength, apMarshal, ap, _statusMarshal, _status, "CDecl")
     }
 
     /**
@@ -26150,16 +26162,20 @@ class Globalization {
      * @param {Integer} resultLength 
      * @param {Pointer<UParseError>} parseError 
      * @param {Pointer<UErrorCode>} _status 
+     * @param {Any} args* Additional arguments as alternating DllCall type/value pairs (e.g., "int", 42, "str", "hello")
      * @returns {Integer} 
      */
-    static u_formatMessageWithError(locale, pattern, patternLength, result, resultLength, parseError, _status) {
+    static u_formatMessageWithError(locale, pattern, patternLength, result, resultLength, parseError, _status, args*) {
         locale := locale is String ? StrPtr(locale) : locale
 
         patternMarshal := pattern is VarRef ? "ushort*" : "ptr"
         resultMarshal := result is VarRef ? "ushort*" : "ptr"
         _statusMarshal := _status is VarRef ? "int*" : "ptr"
 
-        result := DllCall("icuin.dll\u_formatMessageWithError", "ptr", locale, patternMarshal, pattern, "int", patternLength, resultMarshal, result, "int", resultLength, "ptr", parseError, _statusMarshal, _status, "CDecl int")
+        varArgs := [args*]
+        varArgs.Push("CDecl int")
+
+        result := DllCall("icuin.dll\u_formatMessageWithError", "ptr", locale, patternMarshal, pattern, "int", patternLength, resultMarshal, result, "int", resultLength, "ptr", parseError, _statusMarshal, _status, varArgs*)
         return result
     }
 
@@ -26196,16 +26212,20 @@ class Globalization {
      * @param {Integer} sourceLength 
      * @param {Pointer<UParseError>} parseError 
      * @param {Pointer<UErrorCode>} _status 
+     * @param {Any} args* Additional arguments as alternating DllCall type/value pairs (e.g., "int", 42, "str", "hello")
      * @returns {String} Nothing - always returns an empty string
      */
-    static u_parseMessageWithError(locale, pattern, patternLength, source, sourceLength, parseError, _status) {
+    static u_parseMessageWithError(locale, pattern, patternLength, source, sourceLength, parseError, _status, args*) {
         locale := locale is String ? StrPtr(locale) : locale
 
         patternMarshal := pattern is VarRef ? "ushort*" : "ptr"
         sourceMarshal := source is VarRef ? "ushort*" : "ptr"
         _statusMarshal := _status is VarRef ? "int*" : "ptr"
 
-        DllCall("icuin.dll\u_parseMessageWithError", "ptr", locale, patternMarshal, pattern, "int", patternLength, sourceMarshal, source, "int", sourceLength, "ptr", parseError, _statusMarshal, _status, "CDecl ")
+        varArgs := [args*]
+        varArgs.Push("CDecl")
+
+        DllCall("icuin.dll\u_parseMessageWithError", "ptr", locale, patternMarshal, pattern, "int", patternLength, sourceMarshal, source, "int", sourceLength, "ptr", parseError, _statusMarshal, _status, varArgs*)
     }
 
     /**
@@ -26228,7 +26248,7 @@ class Globalization {
         apMarshal := ap is VarRef ? "char*" : "ptr"
         _statusMarshal := _status is VarRef ? "int*" : "ptr"
 
-        DllCall("icuin.dll\u_vparseMessageWithError", "ptr", locale, patternMarshal, pattern, "int", patternLength, sourceMarshal, source, "int", sourceLength, apMarshal, ap, "ptr", parseError, _statusMarshal, _status, "CDecl ")
+        DllCall("icuin.dll\u_vparseMessageWithError", "ptr", locale, patternMarshal, pattern, "int", patternLength, sourceMarshal, source, "int", sourceLength, apMarshal, ap, "ptr", parseError, _statusMarshal, _status, "CDecl")
     }
 
     /**
@@ -26258,7 +26278,7 @@ class Globalization {
     static umsg_close(format) {
         formatMarshal := format is VarRef ? "ptr*" : "ptr"
 
-        DllCall("icuin.dll\umsg_close", formatMarshal, format, "CDecl ")
+        DllCall("icuin.dll\umsg_close", formatMarshal, format, "CDecl")
     }
 
     /**
@@ -26286,7 +26306,7 @@ class Globalization {
 
         fmtMarshal := fmt is VarRef ? "ptr*" : "ptr"
 
-        DllCall("icuin.dll\umsg_setLocale", fmtMarshal, fmt, "ptr", locale, "CDecl ")
+        DllCall("icuin.dll\umsg_setLocale", fmtMarshal, fmt, "ptr", locale, "CDecl")
     }
 
     /**
@@ -26315,7 +26335,7 @@ class Globalization {
         patternMarshal := pattern is VarRef ? "ushort*" : "ptr"
         _statusMarshal := _status is VarRef ? "int*" : "ptr"
 
-        DllCall("icuin.dll\umsg_applyPattern", fmtMarshal, fmt, patternMarshal, pattern, "int", patternLength, "ptr", parseError, _statusMarshal, _status, "CDecl ")
+        DllCall("icuin.dll\umsg_applyPattern", fmtMarshal, fmt, patternMarshal, pattern, "int", patternLength, "ptr", parseError, _statusMarshal, _status, "CDecl")
     }
 
     /**
@@ -26341,14 +26361,18 @@ class Globalization {
      * @param {Pointer<Integer>} result 
      * @param {Integer} resultLength 
      * @param {Pointer<UErrorCode>} _status 
+     * @param {Any} args* Additional arguments as alternating DllCall type/value pairs (e.g., "int", 42, "str", "hello")
      * @returns {Integer} 
      */
-    static umsg_format(fmt, result, resultLength, _status) {
+    static umsg_format(fmt, result, resultLength, _status, args*) {
         fmtMarshal := fmt is VarRef ? "ptr*" : "ptr"
         resultMarshal := result is VarRef ? "ushort*" : "ptr"
         _statusMarshal := _status is VarRef ? "int*" : "ptr"
 
-        result := DllCall("icuin.dll\umsg_format", fmtMarshal, fmt, resultMarshal, result, "int", resultLength, _statusMarshal, _status, "CDecl int")
+        varArgs := [args*]
+        varArgs.Push("CDecl int")
+
+        result := DllCall("icuin.dll\umsg_format", fmtMarshal, fmt, resultMarshal, result, "int", resultLength, _statusMarshal, _status, varArgs*)
         return result
     }
 
@@ -26378,15 +26402,19 @@ class Globalization {
      * @param {Integer} sourceLength 
      * @param {Pointer<Integer>} count 
      * @param {Pointer<UErrorCode>} _status 
+     * @param {Any} args* Additional arguments as alternating DllCall type/value pairs (e.g., "int", 42, "str", "hello")
      * @returns {String} Nothing - always returns an empty string
      */
-    static umsg_parse(fmt, source, sourceLength, count, _status) {
+    static umsg_parse(fmt, source, sourceLength, count, _status, args*) {
         fmtMarshal := fmt is VarRef ? "ptr*" : "ptr"
         sourceMarshal := source is VarRef ? "ushort*" : "ptr"
         countMarshal := count is VarRef ? "int*" : "ptr"
         _statusMarshal := _status is VarRef ? "int*" : "ptr"
 
-        DllCall("icuin.dll\umsg_parse", fmtMarshal, fmt, sourceMarshal, source, "int", sourceLength, countMarshal, count, _statusMarshal, _status, "CDecl ")
+        varArgs := [args*]
+        varArgs.Push("CDecl")
+
+        DllCall("icuin.dll\umsg_parse", fmtMarshal, fmt, sourceMarshal, source, "int", sourceLength, countMarshal, count, _statusMarshal, _status, varArgs*)
     }
 
     /**
@@ -26406,7 +26434,7 @@ class Globalization {
         apMarshal := ap is VarRef ? "char*" : "ptr"
         _statusMarshal := _status is VarRef ? "int*" : "ptr"
 
-        DllCall("icuin.dll\umsg_vparse", fmtMarshal, fmt, sourceMarshal, source, "int", sourceLength, countMarshal, count, apMarshal, ap, _statusMarshal, _status, "CDecl ")
+        DllCall("icuin.dll\umsg_vparse", fmtMarshal, fmt, sourceMarshal, source, "int", sourceLength, countMarshal, count, apMarshal, ap, _statusMarshal, _status, "CDecl")
     }
 
     /**
@@ -26455,7 +26483,7 @@ class Globalization {
     static unum_close(fmt) {
         fmtMarshal := fmt is VarRef ? "ptr*" : "ptr"
 
-        DllCall("icuin.dll\unum_close", fmtMarshal, fmt, "CDecl ")
+        DllCall("icuin.dll\unum_close", fmtMarshal, fmt, "CDecl")
     }
 
     /**
@@ -26749,7 +26777,7 @@ class Globalization {
         patternMarshal := pattern is VarRef ? "ushort*" : "ptr"
         _statusMarshal := _status is VarRef ? "int*" : "ptr"
 
-        DllCall("icuin.dll\unum_applyPattern", formatMarshal, format, "char", localized, patternMarshal, pattern, "int", patternLength, "ptr", parseError, _statusMarshal, _status, "CDecl ")
+        DllCall("icuin.dll\unum_applyPattern", formatMarshal, format, "char", localized, patternMarshal, pattern, "int", patternLength, "ptr", parseError, _statusMarshal, _status, "CDecl")
     }
 
     /**
@@ -26794,7 +26822,7 @@ class Globalization {
     static unum_setAttribute(fmt, attr, newValue) {
         fmtMarshal := fmt is VarRef ? "ptr*" : "ptr"
 
-        DllCall("icuin.dll\unum_setAttribute", fmtMarshal, fmt, "int", attr, "int", newValue, "CDecl ")
+        DllCall("icuin.dll\unum_setAttribute", fmtMarshal, fmt, "int", attr, "int", newValue, "CDecl")
     }
 
     /**
@@ -26820,7 +26848,7 @@ class Globalization {
     static unum_setDoubleAttribute(fmt, attr, newValue) {
         fmtMarshal := fmt is VarRef ? "ptr*" : "ptr"
 
-        DllCall("icuin.dll\unum_setDoubleAttribute", fmtMarshal, fmt, "int", attr, "double", newValue, "CDecl ")
+        DllCall("icuin.dll\unum_setDoubleAttribute", fmtMarshal, fmt, "int", attr, "double", newValue, "CDecl")
     }
 
     /**
@@ -26855,7 +26883,7 @@ class Globalization {
         newValueMarshal := newValue is VarRef ? "ushort*" : "ptr"
         _statusMarshal := _status is VarRef ? "int*" : "ptr"
 
-        DllCall("icuin.dll\unum_setTextAttribute", fmtMarshal, fmt, "int", tag, newValueMarshal, newValue, "int", newValueLength, _statusMarshal, _status, "CDecl ")
+        DllCall("icuin.dll\unum_setTextAttribute", fmtMarshal, fmt, "int", tag, newValueMarshal, newValue, "int", newValueLength, _statusMarshal, _status, "CDecl")
     }
 
     /**
@@ -26908,7 +26936,7 @@ class Globalization {
         valueMarshal := value is VarRef ? "ushort*" : "ptr"
         _statusMarshal := _status is VarRef ? "int*" : "ptr"
 
-        DllCall("icuin.dll\unum_setSymbol", fmtMarshal, fmt, "int", symbol, valueMarshal, value, "int", length, _statusMarshal, _status, "CDecl ")
+        DllCall("icuin.dll\unum_setSymbol", fmtMarshal, fmt, "int", symbol, valueMarshal, value, "int", length, _statusMarshal, _status, "CDecl")
     }
 
     /**
@@ -26937,7 +26965,7 @@ class Globalization {
         fmtMarshal := fmt is VarRef ? "ptr*" : "ptr"
         _statusMarshal := _status is VarRef ? "int*" : "ptr"
 
-        DllCall("icuin.dll\unum_setContext", fmtMarshal, fmt, "int", value, _statusMarshal, _status, "CDecl ")
+        DllCall("icuin.dll\unum_setContext", fmtMarshal, fmt, "int", value, _statusMarshal, _status, "CDecl")
     }
 
     /**
@@ -26996,7 +27024,7 @@ class Globalization {
     static udat_close(format) {
         formatMarshal := format is VarRef ? "ptr*" : "ptr"
 
-        DllCall("icuin.dll\udat_close", formatMarshal, format, "CDecl ")
+        DllCall("icuin.dll\udat_close", formatMarshal, format, "CDecl")
     }
 
     /**
@@ -27026,7 +27054,7 @@ class Globalization {
         fmtMarshal := fmt is VarRef ? "ptr*" : "ptr"
         _statusMarshal := _status is VarRef ? "int*" : "ptr"
 
-        DllCall("icuin.dll\udat_setBooleanAttribute", fmtMarshal, fmt, "int", attr, "char", newValue, _statusMarshal, _status, "CDecl ")
+        DllCall("icuin.dll\udat_setBooleanAttribute", fmtMarshal, fmt, "int", attr, "char", newValue, _statusMarshal, _status, "CDecl")
     }
 
     /**
@@ -27159,7 +27187,7 @@ class Globalization {
         parsePosMarshal := parsePos is VarRef ? "int*" : "ptr"
         _statusMarshal := _status is VarRef ? "int*" : "ptr"
 
-        DllCall("icuin.dll\udat_parseCalendar", formatMarshal, format, calendarMarshal, calendar, textMarshal, text, "int", textLength, parsePosMarshal, parsePos, _statusMarshal, _status, "CDecl ")
+        DllCall("icuin.dll\udat_parseCalendar", formatMarshal, format, calendarMarshal, calendar, textMarshal, text, "int", textLength, parsePosMarshal, parsePos, _statusMarshal, _status, "CDecl")
     }
 
     /**
@@ -27183,7 +27211,7 @@ class Globalization {
     static udat_setLenient(fmt, isLenient) {
         fmtMarshal := fmt is VarRef ? "ptr*" : "ptr"
 
-        DllCall("icuin.dll\udat_setLenient", fmtMarshal, fmt, "char", isLenient, "CDecl ")
+        DllCall("icuin.dll\udat_setLenient", fmtMarshal, fmt, "char", isLenient, "CDecl")
     }
 
     /**
@@ -27208,7 +27236,7 @@ class Globalization {
         fmtMarshal := fmt is VarRef ? "ptr*" : "ptr"
         calendarToSetMarshal := calendarToSet is VarRef ? "ptr*" : "ptr"
 
-        DllCall("icuin.dll\udat_setCalendar", fmtMarshal, fmt, calendarToSetMarshal, calendarToSet, "CDecl ")
+        DllCall("icuin.dll\udat_setCalendar", fmtMarshal, fmt, calendarToSetMarshal, calendarToSet, "CDecl")
     }
 
     /**
@@ -27250,7 +27278,7 @@ class Globalization {
         numberFormatToSetMarshal := numberFormatToSet is VarRef ? "ptr*" : "ptr"
         _statusMarshal := _status is VarRef ? "int*" : "ptr"
 
-        DllCall("icuin.dll\udat_adoptNumberFormatForFields", fmtMarshal, fmt, fieldsMarshal, fields, numberFormatToSetMarshal, numberFormatToSet, _statusMarshal, _status, "CDecl ")
+        DllCall("icuin.dll\udat_adoptNumberFormatForFields", fmtMarshal, fmt, fieldsMarshal, fields, numberFormatToSetMarshal, numberFormatToSet, _statusMarshal, _status, "CDecl")
     }
 
     /**
@@ -27263,7 +27291,7 @@ class Globalization {
         fmtMarshal := fmt is VarRef ? "ptr*" : "ptr"
         numberFormatToSetMarshal := numberFormatToSet is VarRef ? "ptr*" : "ptr"
 
-        DllCall("icuin.dll\udat_setNumberFormat", fmtMarshal, fmt, numberFormatToSetMarshal, numberFormatToSet, "CDecl ")
+        DllCall("icuin.dll\udat_setNumberFormat", fmtMarshal, fmt, numberFormatToSetMarshal, numberFormatToSet, "CDecl")
     }
 
     /**
@@ -27276,7 +27304,7 @@ class Globalization {
         fmtMarshal := fmt is VarRef ? "ptr*" : "ptr"
         numberFormatToAdoptMarshal := numberFormatToAdopt is VarRef ? "ptr*" : "ptr"
 
-        DllCall("icuin.dll\udat_adoptNumberFormat", fmtMarshal, fmt, numberFormatToAdoptMarshal, numberFormatToAdopt, "CDecl ")
+        DllCall("icuin.dll\udat_adoptNumberFormat", fmtMarshal, fmt, numberFormatToAdoptMarshal, numberFormatToAdopt, "CDecl")
     }
 
     /**
@@ -27323,7 +27351,7 @@ class Globalization {
         fmtMarshal := fmt is VarRef ? "ptr*" : "ptr"
         _statusMarshal := _status is VarRef ? "int*" : "ptr"
 
-        DllCall("icuin.dll\udat_set2DigitYearStart", fmtMarshal, fmt, "double", d, _statusMarshal, _status, "CDecl ")
+        DllCall("icuin.dll\udat_set2DigitYearStart", fmtMarshal, fmt, "double", d, _statusMarshal, _status, "CDecl")
     }
 
     /**
@@ -27356,7 +27384,7 @@ class Globalization {
         formatMarshal := format is VarRef ? "ptr*" : "ptr"
         patternMarshal := pattern is VarRef ? "ushort*" : "ptr"
 
-        DllCall("icuin.dll\udat_applyPattern", formatMarshal, format, "char", localized, patternMarshal, pattern, "int", patternLength, "CDecl ")
+        DllCall("icuin.dll\udat_applyPattern", formatMarshal, format, "char", localized, patternMarshal, pattern, "int", patternLength, "CDecl")
     }
 
     /**
@@ -27406,7 +27434,7 @@ class Globalization {
         valueMarshal := value is VarRef ? "ushort*" : "ptr"
         _statusMarshal := _status is VarRef ? "int*" : "ptr"
 
-        DllCall("icuin.dll\udat_setSymbols", formatMarshal, format, "int", type, "int", symbolIndex, valueMarshal, value, "int", valueLength, _statusMarshal, _status, "CDecl ")
+        DllCall("icuin.dll\udat_setSymbols", formatMarshal, format, "int", type, "int", symbolIndex, valueMarshal, value, "int", valueLength, _statusMarshal, _status, "CDecl")
     }
 
     /**
@@ -27435,7 +27463,7 @@ class Globalization {
         fmtMarshal := fmt is VarRef ? "ptr*" : "ptr"
         _statusMarshal := _status is VarRef ? "int*" : "ptr"
 
-        DllCall("icuin.dll\udat_setContext", fmtMarshal, fmt, "int", value, _statusMarshal, _status, "CDecl ")
+        DllCall("icuin.dll\udat_setContext", fmtMarshal, fmt, "int", value, _statusMarshal, _status, "CDecl")
     }
 
     /**
@@ -27488,7 +27516,7 @@ class Globalization {
     static udatpg_close(dtpg) {
         dtpgMarshal := dtpg is VarRef ? "ptr*" : "ptr"
 
-        DllCall("icuin.dll\udatpg_close", dtpgMarshal, dtpg, "CDecl ")
+        DllCall("icuin.dll\udatpg_close", dtpgMarshal, dtpg, "CDecl")
     }
 
     /**
@@ -27621,7 +27649,7 @@ class Globalization {
         dtpgMarshal := dtpg is VarRef ? "ptr*" : "ptr"
         valueMarshal := value is VarRef ? "ushort*" : "ptr"
 
-        DllCall("icuin.dll\udatpg_setAppendItemFormat", dtpgMarshal, dtpg, "int", field, valueMarshal, value, "int", length, "CDecl ")
+        DllCall("icuin.dll\udatpg_setAppendItemFormat", dtpgMarshal, dtpg, "int", field, valueMarshal, value, "int", length, "CDecl")
     }
 
     /**
@@ -27651,7 +27679,7 @@ class Globalization {
         dtpgMarshal := dtpg is VarRef ? "ptr*" : "ptr"
         valueMarshal := value is VarRef ? "ushort*" : "ptr"
 
-        DllCall("icuin.dll\udatpg_setAppendItemName", dtpgMarshal, dtpg, "int", field, valueMarshal, value, "int", length, "CDecl ")
+        DllCall("icuin.dll\udatpg_setAppendItemName", dtpgMarshal, dtpg, "int", field, valueMarshal, value, "int", length, "CDecl")
     }
 
     /**
@@ -27699,7 +27727,7 @@ class Globalization {
         dtpgMarshal := dtpg is VarRef ? "ptr*" : "ptr"
         dtFormatMarshal := dtFormat is VarRef ? "ushort*" : "ptr"
 
-        DllCall("icuin.dll\udatpg_setDateTimeFormat", dtpgMarshal, dtpg, dtFormatMarshal, dtFormat, "int", length, "CDecl ")
+        DllCall("icuin.dll\udatpg_setDateTimeFormat", dtpgMarshal, dtpg, dtFormatMarshal, dtFormat, "int", length, "CDecl")
     }
 
     /**
@@ -27727,7 +27755,7 @@ class Globalization {
         dtpgMarshal := dtpg is VarRef ? "ptr*" : "ptr"
         _decimalMarshal := _decimal is VarRef ? "ushort*" : "ptr"
 
-        DllCall("icuin.dll\udatpg_setDecimal", dtpgMarshal, dtpg, _decimalMarshal, _decimal, "int", length, "CDecl ")
+        DllCall("icuin.dll\udatpg_setDecimal", dtpgMarshal, dtpg, _decimalMarshal, _decimal, "int", length, "CDecl")
     }
 
     /**
@@ -27912,7 +27940,7 @@ class Globalization {
         uresultMarshal := uresult is VarRef ? "ptr*" : "ptr"
         ecMarshal := ec is VarRef ? "int*" : "ptr"
 
-        DllCall("icu.dll\unumf_formatInt", uformatterMarshal, uformatter, "int64", value, uresultMarshal, uresult, ecMarshal, ec, "CDecl ")
+        DllCall("icu.dll\unumf_formatInt", uformatterMarshal, uformatter, "int64", value, uresultMarshal, uresult, ecMarshal, ec, "CDecl")
     }
 
     /**
@@ -27928,7 +27956,7 @@ class Globalization {
         uresultMarshal := uresult is VarRef ? "ptr*" : "ptr"
         ecMarshal := ec is VarRef ? "int*" : "ptr"
 
-        DllCall("icu.dll\unumf_formatDouble", uformatterMarshal, uformatter, "double", value, uresultMarshal, uresult, ecMarshal, ec, "CDecl ")
+        DllCall("icu.dll\unumf_formatDouble", uformatterMarshal, uformatter, "double", value, uresultMarshal, uresult, ecMarshal, ec, "CDecl")
     }
 
     /**
@@ -27947,7 +27975,7 @@ class Globalization {
         uresultMarshal := uresult is VarRef ? "ptr*" : "ptr"
         ecMarshal := ec is VarRef ? "int*" : "ptr"
 
-        DllCall("icu.dll\unumf_formatDecimal", uformatterMarshal, uformatter, "ptr", value, "int", valueLen, uresultMarshal, uresult, ecMarshal, ec, "CDecl ")
+        DllCall("icu.dll\unumf_formatDecimal", uformatterMarshal, uformatter, "ptr", value, "int", valueLen, uresultMarshal, uresult, ecMarshal, ec, "CDecl")
     }
 
     /**
@@ -28008,7 +28036,7 @@ class Globalization {
         ufpositerMarshal := ufpositer is VarRef ? "ptr*" : "ptr"
         ecMarshal := ec is VarRef ? "int*" : "ptr"
 
-        DllCall("icu.dll\unumf_resultGetAllFieldPositions", uresultMarshal, uresult, ufpositerMarshal, ufpositer, ecMarshal, ec, "CDecl ")
+        DllCall("icu.dll\unumf_resultGetAllFieldPositions", uresultMarshal, uresult, ufpositerMarshal, ufpositer, ecMarshal, ec, "CDecl")
     }
 
     /**
@@ -28037,7 +28065,7 @@ class Globalization {
     static unumf_close(uformatter) {
         uformatterMarshal := uformatter is VarRef ? "ptr*" : "ptr"
 
-        DllCall("icu.dll\unumf_close", uformatterMarshal, uformatter, "CDecl ")
+        DllCall("icu.dll\unumf_close", uformatterMarshal, uformatter, "CDecl")
     }
 
     /**
@@ -28048,7 +28076,7 @@ class Globalization {
     static unumf_closeResult(uresult) {
         uresultMarshal := uresult is VarRef ? "ptr*" : "ptr"
 
-        DllCall("icu.dll\unumf_closeResult", uresultMarshal, uresult, "CDecl ")
+        DllCall("icu.dll\unumf_closeResult", uresultMarshal, uresult, "CDecl")
     }
 
     /**
@@ -28098,7 +28126,7 @@ class Globalization {
         uresultMarshal := uresult is VarRef ? "ptr*" : "ptr"
         ecMarshal := ec is VarRef ? "int*" : "ptr"
 
-        DllCall("icu.dll\unumrf_formatDoubleRange", uformatterMarshal, uformatter, "double", first, "double", second, uresultMarshal, uresult, ecMarshal, ec, "CDecl ")
+        DllCall("icu.dll\unumrf_formatDoubleRange", uformatterMarshal, uformatter, "double", first, "double", second, uresultMarshal, uresult, ecMarshal, ec, "CDecl")
     }
 
     /**
@@ -28120,7 +28148,7 @@ class Globalization {
         uresultMarshal := uresult is VarRef ? "ptr*" : "ptr"
         ecMarshal := ec is VarRef ? "int*" : "ptr"
 
-        DllCall("icu.dll\unumrf_formatDecimalRange", uformatterMarshal, uformatter, "ptr", first, "int", firstLen, "ptr", second, "int", secondLen, uresultMarshal, uresult, ecMarshal, ec, "CDecl ")
+        DllCall("icu.dll\unumrf_formatDecimalRange", uformatterMarshal, uformatter, "ptr", first, "int", firstLen, "ptr", second, "int", secondLen, uresultMarshal, uresult, ecMarshal, ec, "CDecl")
     }
 
     /**
@@ -28195,7 +28223,7 @@ class Globalization {
     static unumrf_close(uformatter) {
         uformatterMarshal := uformatter is VarRef ? "ptr*" : "ptr"
 
-        DllCall("icu.dll\unumrf_close", uformatterMarshal, uformatter, "CDecl ")
+        DllCall("icu.dll\unumrf_close", uformatterMarshal, uformatter, "CDecl")
     }
 
     /**
@@ -28206,7 +28234,7 @@ class Globalization {
     static unumrf_closeResult(uresult) {
         uresultMarshal := uresult is VarRef ? "ptr*" : "ptr"
 
-        DllCall("icu.dll\unumrf_closeResult", uresultMarshal, uresult, "CDecl ")
+        DllCall("icu.dll\unumrf_closeResult", uresultMarshal, uresult, "CDecl")
     }
 
     /**
@@ -28247,7 +28275,7 @@ class Globalization {
     static unumsys_close(unumsys) {
         unumsysMarshal := unumsys is VarRef ? "ptr*" : "ptr"
 
-        DllCall("icuin.dll\unumsys_close", unumsysMarshal, unumsys, "CDecl ")
+        DllCall("icuin.dll\unumsys_close", unumsysMarshal, unumsys, "CDecl")
     }
 
     /**
@@ -28354,7 +28382,7 @@ class Globalization {
     static uplrules_close(uplrules) {
         uplrulesMarshal := uplrules is VarRef ? "ptr*" : "ptr"
 
-        DllCall("icuin.dll\uplrules_close", uplrulesMarshal, uplrules, "CDecl ")
+        DllCall("icuin.dll\uplrules_close", uplrulesMarshal, uplrules, "CDecl")
     }
 
     /**
@@ -28465,7 +28493,7 @@ class Globalization {
     static uregex_close(regexp) {
         regexpMarshal := regexp is VarRef ? "ptr*" : "ptr"
 
-        DllCall("icuin.dll\uregex_close", regexpMarshal, regexp, "CDecl ")
+        DllCall("icuin.dll\uregex_close", regexpMarshal, regexp, "CDecl")
     }
 
     /**
@@ -28539,7 +28567,7 @@ class Globalization {
         textMarshal := text is VarRef ? "ushort*" : "ptr"
         _statusMarshal := _status is VarRef ? "int*" : "ptr"
 
-        DllCall("icuin.dll\uregex_setText", regexpMarshal, regexp, textMarshal, text, "int", textLength, _statusMarshal, _status, "CDecl ")
+        DllCall("icuin.dll\uregex_setText", regexpMarshal, regexp, textMarshal, text, "int", textLength, _statusMarshal, _status, "CDecl")
     }
 
     /**
@@ -28553,7 +28581,7 @@ class Globalization {
         regexpMarshal := regexp is VarRef ? "ptr*" : "ptr"
         _statusMarshal := _status is VarRef ? "int*" : "ptr"
 
-        DllCall("icuin.dll\uregex_setUText", regexpMarshal, regexp, "ptr", text, _statusMarshal, _status, "CDecl ")
+        DllCall("icuin.dll\uregex_setUText", regexpMarshal, regexp, "ptr", text, _statusMarshal, _status, "CDecl")
     }
 
     /**
@@ -28598,7 +28626,7 @@ class Globalization {
         regexpMarshal := regexp is VarRef ? "ptr*" : "ptr"
         _statusMarshal := _status is VarRef ? "int*" : "ptr"
 
-        DllCall("icuin.dll\uregex_refreshUText", regexpMarshal, regexp, "ptr", text, _statusMarshal, _status, "CDecl ")
+        DllCall("icuin.dll\uregex_refreshUText", regexpMarshal, regexp, "ptr", text, _statusMarshal, _status, "CDecl")
     }
 
     /**
@@ -28861,7 +28889,7 @@ class Globalization {
         regexpMarshal := regexp is VarRef ? "ptr*" : "ptr"
         _statusMarshal := _status is VarRef ? "int*" : "ptr"
 
-        DllCall("icuin.dll\uregex_reset", regexpMarshal, regexp, "int", index, _statusMarshal, _status, "CDecl ")
+        DllCall("icuin.dll\uregex_reset", regexpMarshal, regexp, "int", index, _statusMarshal, _status, "CDecl")
     }
 
     /**
@@ -28875,7 +28903,7 @@ class Globalization {
         regexpMarshal := regexp is VarRef ? "ptr*" : "ptr"
         _statusMarshal := _status is VarRef ? "int*" : "ptr"
 
-        DllCall("icuin.dll\uregex_reset64", regexpMarshal, regexp, "int64", index, _statusMarshal, _status, "CDecl ")
+        DllCall("icuin.dll\uregex_reset64", regexpMarshal, regexp, "int64", index, _statusMarshal, _status, "CDecl")
     }
 
     /**
@@ -28890,7 +28918,7 @@ class Globalization {
         regexpMarshal := regexp is VarRef ? "ptr*" : "ptr"
         _statusMarshal := _status is VarRef ? "int*" : "ptr"
 
-        DllCall("icuin.dll\uregex_setRegion", regexpMarshal, regexp, "int", regionStart, "int", regionLimit, _statusMarshal, _status, "CDecl ")
+        DllCall("icuin.dll\uregex_setRegion", regexpMarshal, regexp, "int", regionStart, "int", regionLimit, _statusMarshal, _status, "CDecl")
     }
 
     /**
@@ -28905,7 +28933,7 @@ class Globalization {
         regexpMarshal := regexp is VarRef ? "ptr*" : "ptr"
         _statusMarshal := _status is VarRef ? "int*" : "ptr"
 
-        DllCall("icuin.dll\uregex_setRegion64", regexpMarshal, regexp, "int64", regionStart, "int64", regionLimit, _statusMarshal, _status, "CDecl ")
+        DllCall("icuin.dll\uregex_setRegion64", regexpMarshal, regexp, "int64", regionStart, "int64", regionLimit, _statusMarshal, _status, "CDecl")
     }
 
     /**
@@ -28921,7 +28949,7 @@ class Globalization {
         regexpMarshal := regexp is VarRef ? "ptr*" : "ptr"
         _statusMarshal := _status is VarRef ? "int*" : "ptr"
 
-        DllCall("icuin.dll\uregex_setRegionAndStart", regexpMarshal, regexp, "int64", regionStart, "int64", regionLimit, "int64", startIndex, _statusMarshal, _status, "CDecl ")
+        DllCall("icuin.dll\uregex_setRegionAndStart", regexpMarshal, regexp, "int64", regionStart, "int64", regionLimit, "int64", startIndex, _statusMarshal, _status, "CDecl")
     }
 
     /**
@@ -29005,7 +29033,7 @@ class Globalization {
         regexpMarshal := regexp is VarRef ? "ptr*" : "ptr"
         _statusMarshal := _status is VarRef ? "int*" : "ptr"
 
-        DllCall("icuin.dll\uregex_useTransparentBounds", regexpMarshal, regexp, "char", b, _statusMarshal, _status, "CDecl ")
+        DllCall("icuin.dll\uregex_useTransparentBounds", regexpMarshal, regexp, "char", b, _statusMarshal, _status, "CDecl")
     }
 
     /**
@@ -29033,7 +29061,7 @@ class Globalization {
         regexpMarshal := regexp is VarRef ? "ptr*" : "ptr"
         _statusMarshal := _status is VarRef ? "int*" : "ptr"
 
-        DllCall("icuin.dll\uregex_useAnchoringBounds", regexpMarshal, regexp, "char", b, _statusMarshal, _status, "CDecl ")
+        DllCall("icuin.dll\uregex_useAnchoringBounds", regexpMarshal, regexp, "char", b, _statusMarshal, _status, "CDecl")
     }
 
     /**
@@ -29169,7 +29197,7 @@ class Globalization {
         regexpMarshal := regexp is VarRef ? "ptr*" : "ptr"
         _statusMarshal := _status is VarRef ? "int*" : "ptr"
 
-        DllCall("icuin.dll\uregex_appendReplacementUText", regexpMarshal, regexp, "ptr", replacementText, "ptr", dest, _statusMarshal, _status, "CDecl ")
+        DllCall("icuin.dll\uregex_appendReplacementUText", regexpMarshal, regexp, "ptr", replacementText, "ptr", dest, _statusMarshal, _status, "CDecl")
     }
 
     /**
@@ -29255,7 +29283,7 @@ class Globalization {
         regexpMarshal := regexp is VarRef ? "ptr*" : "ptr"
         _statusMarshal := _status is VarRef ? "int*" : "ptr"
 
-        DllCall("icuin.dll\uregex_setTimeLimit", regexpMarshal, regexp, "int", limit, _statusMarshal, _status, "CDecl ")
+        DllCall("icuin.dll\uregex_setTimeLimit", regexpMarshal, regexp, "int", limit, _statusMarshal, _status, "CDecl")
     }
 
     /**
@@ -29283,7 +29311,7 @@ class Globalization {
         regexpMarshal := regexp is VarRef ? "ptr*" : "ptr"
         _statusMarshal := _status is VarRef ? "int*" : "ptr"
 
-        DllCall("icuin.dll\uregex_setStackLimit", regexpMarshal, regexp, "int", limit, _statusMarshal, _status, "CDecl ")
+        DllCall("icuin.dll\uregex_setStackLimit", regexpMarshal, regexp, "int", limit, _statusMarshal, _status, "CDecl")
     }
 
     /**
@@ -29313,7 +29341,7 @@ class Globalization {
         _contextMarshal := _context is VarRef ? "ptr" : "ptr"
         _statusMarshal := _status is VarRef ? "int*" : "ptr"
 
-        DllCall("icuin.dll\uregex_setMatchCallback", regexpMarshal, regexp, "ptr", callback, _contextMarshal, _context, _statusMarshal, _status, "CDecl ")
+        DllCall("icuin.dll\uregex_setMatchCallback", regexpMarshal, regexp, "ptr", callback, _contextMarshal, _context, _statusMarshal, _status, "CDecl")
     }
 
     /**
@@ -29330,7 +29358,7 @@ class Globalization {
         _contextMarshal := _context is VarRef ? "ptr*" : "ptr"
         _statusMarshal := _status is VarRef ? "int*" : "ptr"
 
-        DllCall("icuin.dll\uregex_getMatchCallback", regexpMarshal, regexp, callbackMarshal, callback, _contextMarshal, _context, _statusMarshal, _status, "CDecl ")
+        DllCall("icuin.dll\uregex_getMatchCallback", regexpMarshal, regexp, callbackMarshal, callback, _contextMarshal, _context, _statusMarshal, _status, "CDecl")
     }
 
     /**
@@ -29346,7 +29374,7 @@ class Globalization {
         _contextMarshal := _context is VarRef ? "ptr" : "ptr"
         _statusMarshal := _status is VarRef ? "int*" : "ptr"
 
-        DllCall("icuin.dll\uregex_setFindProgressCallback", regexpMarshal, regexp, "ptr", callback, _contextMarshal, _context, _statusMarshal, _status, "CDecl ")
+        DllCall("icuin.dll\uregex_setFindProgressCallback", regexpMarshal, regexp, "ptr", callback, _contextMarshal, _context, _statusMarshal, _status, "CDecl")
     }
 
     /**
@@ -29363,7 +29391,7 @@ class Globalization {
         _contextMarshal := _context is VarRef ? "ptr*" : "ptr"
         _statusMarshal := _status is VarRef ? "int*" : "ptr"
 
-        DllCall("icuin.dll\uregex_getFindProgressCallback", regexpMarshal, regexp, callbackMarshal, callback, _contextMarshal, _context, _statusMarshal, _status, "CDecl ")
+        DllCall("icuin.dll\uregex_getFindProgressCallback", regexpMarshal, regexp, callbackMarshal, callback, _contextMarshal, _context, _statusMarshal, _status, "CDecl")
     }
 
     /**
@@ -29566,7 +29594,7 @@ class Globalization {
     static ureldatefmt_close(reldatefmt) {
         reldatefmtMarshal := reldatefmt is VarRef ? "ptr*" : "ptr"
 
-        DllCall("icuin.dll\ureldatefmt_close", reldatefmtMarshal, reldatefmt, "CDecl ")
+        DllCall("icuin.dll\ureldatefmt_close", reldatefmtMarshal, reldatefmt, "CDecl")
     }
 
     /**
@@ -29603,7 +29631,7 @@ class Globalization {
     static ureldatefmt_closeResult(ufrdt) {
         ufrdtMarshal := ufrdt is VarRef ? "ptr*" : "ptr"
 
-        DllCall("icu.dll\ureldatefmt_closeResult", ufrdtMarshal, ufrdt, "CDecl ")
+        DllCall("icu.dll\ureldatefmt_closeResult", ufrdtMarshal, ufrdt, "CDecl")
     }
 
     /**
@@ -29639,7 +29667,7 @@ class Globalization {
         resultMarshal := result is VarRef ? "ptr*" : "ptr"
         _statusMarshal := _status is VarRef ? "int*" : "ptr"
 
-        DllCall("icu.dll\ureldatefmt_formatNumericToResult", reldatefmtMarshal, reldatefmt, "double", offset, "int", _unit, resultMarshal, result, _statusMarshal, _status, "CDecl ")
+        DllCall("icu.dll\ureldatefmt_formatNumericToResult", reldatefmtMarshal, reldatefmt, "double", offset, "int", _unit, resultMarshal, result, _statusMarshal, _status, "CDecl")
     }
 
     /**
@@ -29675,7 +29703,7 @@ class Globalization {
         resultMarshal := result is VarRef ? "ptr*" : "ptr"
         _statusMarshal := _status is VarRef ? "int*" : "ptr"
 
-        DllCall("icu.dll\ureldatefmt_formatToResult", reldatefmtMarshal, reldatefmt, "double", offset, "int", _unit, resultMarshal, result, _statusMarshal, _status, "CDecl ")
+        DllCall("icu.dll\ureldatefmt_formatToResult", reldatefmtMarshal, reldatefmt, "double", offset, "int", _unit, resultMarshal, result, _statusMarshal, _status, "CDecl")
     }
 
     /**
@@ -29754,7 +29782,7 @@ class Globalization {
     static usearch_close(searchiter) {
         searchiterMarshal := searchiter is VarRef ? "ptr*" : "ptr"
 
-        DllCall("icuin.dll\usearch_close", searchiterMarshal, searchiter, "CDecl ")
+        DllCall("icuin.dll\usearch_close", searchiterMarshal, searchiter, "CDecl")
     }
 
     /**
@@ -29768,7 +29796,7 @@ class Globalization {
         strsrchMarshal := strsrch is VarRef ? "ptr*" : "ptr"
         _statusMarshal := _status is VarRef ? "int*" : "ptr"
 
-        DllCall("icuin.dll\usearch_setOffset", strsrchMarshal, strsrch, "int", position, _statusMarshal, _status, "CDecl ")
+        DllCall("icuin.dll\usearch_setOffset", strsrchMarshal, strsrch, "int", position, _statusMarshal, _status, "CDecl")
     }
 
     /**
@@ -29795,7 +29823,7 @@ class Globalization {
         strsrchMarshal := strsrch is VarRef ? "ptr*" : "ptr"
         _statusMarshal := _status is VarRef ? "int*" : "ptr"
 
-        DllCall("icuin.dll\usearch_setAttribute", strsrchMarshal, strsrch, "int", attribute, "int", value, _statusMarshal, _status, "CDecl ")
+        DllCall("icuin.dll\usearch_setAttribute", strsrchMarshal, strsrch, "int", attribute, "int", value, _statusMarshal, _status, "CDecl")
     }
 
     /**
@@ -29864,7 +29892,7 @@ class Globalization {
         breakiterMarshal := breakiter is VarRef ? "ptr*" : "ptr"
         _statusMarshal := _status is VarRef ? "int*" : "ptr"
 
-        DllCall("icuin.dll\usearch_setBreakIterator", strsrchMarshal, strsrch, breakiterMarshal, breakiter, _statusMarshal, _status, "CDecl ")
+        DllCall("icuin.dll\usearch_setBreakIterator", strsrchMarshal, strsrch, breakiterMarshal, breakiter, _statusMarshal, _status, "CDecl")
     }
 
     /**
@@ -29892,7 +29920,7 @@ class Globalization {
         textMarshal := text is VarRef ? "ushort*" : "ptr"
         _statusMarshal := _status is VarRef ? "int*" : "ptr"
 
-        DllCall("icuin.dll\usearch_setText", strsrchMarshal, strsrch, textMarshal, text, "int", textlength, _statusMarshal, _status, "CDecl ")
+        DllCall("icuin.dll\usearch_setText", strsrchMarshal, strsrch, textMarshal, text, "int", textlength, _statusMarshal, _status, "CDecl")
     }
 
     /**
@@ -29933,7 +29961,7 @@ class Globalization {
         collatorMarshal := collator is VarRef ? "ptr*" : "ptr"
         _statusMarshal := _status is VarRef ? "int*" : "ptr"
 
-        DllCall("icuin.dll\usearch_setCollator", strsrchMarshal, strsrch, collatorMarshal, collator, _statusMarshal, _status, "CDecl ")
+        DllCall("icuin.dll\usearch_setCollator", strsrchMarshal, strsrch, collatorMarshal, collator, _statusMarshal, _status, "CDecl")
     }
 
     /**
@@ -29949,7 +29977,7 @@ class Globalization {
         patternMarshal := pattern is VarRef ? "ushort*" : "ptr"
         _statusMarshal := _status is VarRef ? "int*" : "ptr"
 
-        DllCall("icuin.dll\usearch_setPattern", strsrchMarshal, strsrch, patternMarshal, pattern, "int", patternlength, _statusMarshal, _status, "CDecl ")
+        DllCall("icuin.dll\usearch_setPattern", strsrchMarshal, strsrch, patternMarshal, pattern, "int", patternlength, _statusMarshal, _status, "CDecl")
     }
 
     /**
@@ -30060,7 +30088,7 @@ class Globalization {
     static usearch_reset(strsrch) {
         strsrchMarshal := strsrch is VarRef ? "ptr*" : "ptr"
 
-        DllCall("icuin.dll\usearch_reset", strsrchMarshal, strsrch, "CDecl ")
+        DllCall("icuin.dll\usearch_reset", strsrchMarshal, strsrch, "CDecl")
     }
 
     /**
@@ -30122,7 +30150,7 @@ class Globalization {
     static uspoof_close(sc) {
         scMarshal := sc is VarRef ? "ptr*" : "ptr"
 
-        DllCall("icuin.dll\uspoof_close", scMarshal, sc, "CDecl ")
+        DllCall("icuin.dll\uspoof_close", scMarshal, sc, "CDecl")
     }
 
     /**
@@ -30150,7 +30178,7 @@ class Globalization {
         scMarshal := sc is VarRef ? "ptr*" : "ptr"
         _statusMarshal := _status is VarRef ? "int*" : "ptr"
 
-        DllCall("icuin.dll\uspoof_setChecks", scMarshal, sc, "int", checks, _statusMarshal, _status, "CDecl ")
+        DllCall("icuin.dll\uspoof_setChecks", scMarshal, sc, "int", checks, _statusMarshal, _status, "CDecl")
     }
 
     /**
@@ -30176,7 +30204,7 @@ class Globalization {
     static uspoof_setRestrictionLevel(sc, restrictionLevel) {
         scMarshal := sc is VarRef ? "ptr*" : "ptr"
 
-        DllCall("icuin.dll\uspoof_setRestrictionLevel", scMarshal, sc, "int", restrictionLevel, "CDecl ")
+        DllCall("icuin.dll\uspoof_setRestrictionLevel", scMarshal, sc, "int", restrictionLevel, "CDecl")
     }
 
     /**
@@ -30204,7 +30232,7 @@ class Globalization {
         scMarshal := sc is VarRef ? "ptr*" : "ptr"
         _statusMarshal := _status is VarRef ? "int*" : "ptr"
 
-        DllCall("icuin.dll\uspoof_setAllowedLocales", scMarshal, sc, "ptr", localesList, _statusMarshal, _status, "CDecl ")
+        DllCall("icuin.dll\uspoof_setAllowedLocales", scMarshal, sc, "ptr", localesList, _statusMarshal, _status, "CDecl")
     }
 
     /**
@@ -30233,7 +30261,7 @@ class Globalization {
         charsMarshal := chars is VarRef ? "ptr*" : "ptr"
         _statusMarshal := _status is VarRef ? "int*" : "ptr"
 
-        DllCall("icuin.dll\uspoof_setAllowedChars", scMarshal, sc, charsMarshal, chars, _statusMarshal, _status, "CDecl ")
+        DllCall("icuin.dll\uspoof_setAllowedChars", scMarshal, sc, charsMarshal, chars, _statusMarshal, _status, "CDecl")
     }
 
     /**
@@ -30348,7 +30376,7 @@ class Globalization {
     static uspoof_closeCheckResult(checkResult) {
         checkResultMarshal := checkResult is VarRef ? "ptr*" : "ptr"
 
-        DllCall("icuin.dll\uspoof_closeCheckResult", checkResultMarshal, checkResult, "CDecl ")
+        DllCall("icuin.dll\uspoof_closeCheckResult", checkResultMarshal, checkResult, "CDecl")
     }
 
     /**
@@ -30616,7 +30644,7 @@ class Globalization {
     static utrans_close(trans) {
         transMarshal := trans is VarRef ? "ptr*" : "ptr"
 
-        DllCall("icuin.dll\utrans_close", transMarshal, trans, "CDecl ")
+        DllCall("icuin.dll\utrans_close", transMarshal, trans, "CDecl")
     }
 
     /**
@@ -30643,7 +30671,7 @@ class Globalization {
         adoptedTransMarshal := adoptedTrans is VarRef ? "ptr*" : "ptr"
         _statusMarshal := _status is VarRef ? "int*" : "ptr"
 
-        DllCall("icuin.dll\utrans_register", adoptedTransMarshal, adoptedTrans, _statusMarshal, _status, "CDecl ")
+        DllCall("icuin.dll\utrans_register", adoptedTransMarshal, adoptedTrans, _statusMarshal, _status, "CDecl")
     }
 
     /**
@@ -30655,7 +30683,7 @@ class Globalization {
     static utrans_unregisterID(id, idLength) {
         idMarshal := id is VarRef ? "ushort*" : "ptr"
 
-        DllCall("icuin.dll\utrans_unregisterID", idMarshal, id, "int", idLength, "CDecl ")
+        DllCall("icuin.dll\utrans_unregisterID", idMarshal, id, "int", idLength, "CDecl")
     }
 
     /**
@@ -30671,7 +30699,7 @@ class Globalization {
         filterPatternMarshal := filterPattern is VarRef ? "ushort*" : "ptr"
         _statusMarshal := _status is VarRef ? "int*" : "ptr"
 
-        DllCall("icuin.dll\utrans_setFilter", transMarshal, trans, filterPatternMarshal, filterPattern, "int", filterPatternLen, _statusMarshal, _status, "CDecl ")
+        DllCall("icuin.dll\utrans_setFilter", transMarshal, trans, filterPatternMarshal, filterPattern, "int", filterPatternLen, _statusMarshal, _status, "CDecl")
     }
 
     /**
@@ -30711,7 +30739,7 @@ class Globalization {
         limitMarshal := limit is VarRef ? "int*" : "ptr"
         _statusMarshal := _status is VarRef ? "int*" : "ptr"
 
-        DllCall("icuin.dll\utrans_trans", transMarshal, trans, repMarshal, rep, "ptr", repFunc, "int", start, limitMarshal, limit, _statusMarshal, _status, "CDecl ")
+        DllCall("icuin.dll\utrans_trans", transMarshal, trans, repMarshal, rep, "ptr", repFunc, "int", start, limitMarshal, limit, _statusMarshal, _status, "CDecl")
     }
 
     /**
@@ -30728,7 +30756,7 @@ class Globalization {
         repMarshal := rep is VarRef ? "ptr*" : "ptr"
         _statusMarshal := _status is VarRef ? "int*" : "ptr"
 
-        DllCall("icuin.dll\utrans_transIncremental", transMarshal, trans, repMarshal, rep, "ptr", repFunc, "ptr", pos, _statusMarshal, _status, "CDecl ")
+        DllCall("icuin.dll\utrans_transIncremental", transMarshal, trans, repMarshal, rep, "ptr", repFunc, "ptr", pos, _statusMarshal, _status, "CDecl")
     }
 
     /**
@@ -30749,7 +30777,7 @@ class Globalization {
         limitMarshal := limit is VarRef ? "int*" : "ptr"
         _statusMarshal := _status is VarRef ? "int*" : "ptr"
 
-        DllCall("icuin.dll\utrans_transUChars", transMarshal, trans, textMarshal, text, textLengthMarshal, textLength, "int", textCapacity, "int", start, limitMarshal, limit, _statusMarshal, _status, "CDecl ")
+        DllCall("icuin.dll\utrans_transUChars", transMarshal, trans, textMarshal, text, textLengthMarshal, textLength, "int", textCapacity, "int", start, limitMarshal, limit, _statusMarshal, _status, "CDecl")
     }
 
     /**
@@ -30768,7 +30796,7 @@ class Globalization {
         textLengthMarshal := textLength is VarRef ? "int*" : "ptr"
         _statusMarshal := _status is VarRef ? "int*" : "ptr"
 
-        DllCall("icuin.dll\utrans_transIncrementalUChars", transMarshal, trans, textMarshal, text, textLengthMarshal, textLength, "int", textCapacity, "ptr", pos, _statusMarshal, _status, "CDecl ")
+        DllCall("icuin.dll\utrans_transIncrementalUChars", transMarshal, trans, textMarshal, text, textLengthMarshal, textLength, "int", textCapacity, "ptr", pos, _statusMarshal, _status, "CDecl")
     }
 
     /**

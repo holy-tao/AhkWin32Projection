@@ -24157,6 +24157,7 @@ class Ole {
      * > The oledlg.h header defines OleUIPromptUser as an alias which automatically selects the ANSI or Unicode version of this function based on the definition of the UNICODE preprocessor constant. Mixing usage of the encoding-neutral alias with code that not encoding-neutral can lead to mismatches that result in compilation or runtime errors. For more information, see [Conventions for Function Prototypes](/windows/win32/intl/conventions-for-function-prototypes).
      * @param {Integer} nTemplate The resource number of the dialog box to be displayed. See Remarks.
      * @param {HWND} hwndParent The handle to the parent window of the dialog box.
+     * @param {Any} args* Additional arguments as alternating DllCall type/value pairs (e.g., "int", 42, "str", "hello")
      * @returns {Integer} Standard Success/Error Definitions
      * 
      * 
@@ -24451,10 +24452,13 @@ class Ole {
      * @see https://learn.microsoft.com/windows/win32/api/oledlg/nf-oledlg-oleuipromptuserw
      * @since windows5.0
      */
-    static OleUIPromptUserW(nTemplate, hwndParent) {
+    static OleUIPromptUserW(nTemplate, hwndParent, args*) {
         hwndParent := hwndParent is Win32Handle ? NumGet(hwndParent, "ptr") : hwndParent
 
-        result := DllCall("oledlg.dll\OleUIPromptUserW", "int", nTemplate, "ptr", hwndParent, "CDecl int")
+        varArgs := [args*]
+        varArgs.Push("CDecl int")
+
+        result := DllCall("oledlg.dll\OleUIPromptUserW", "int", nTemplate, "ptr", hwndParent, varArgs*)
         return result
     }
 
@@ -24479,6 +24483,7 @@ class Ole {
      * > The oledlg.h header defines OleUIPromptUser as an alias which automatically selects the ANSI or Unicode version of this function based on the definition of the UNICODE preprocessor constant. Mixing usage of the encoding-neutral alias with code that not encoding-neutral can lead to mismatches that result in compilation or runtime errors. For more information, see [Conventions for Function Prototypes](/windows/win32/intl/conventions-for-function-prototypes).
      * @param {Integer} nTemplate The resource number of the dialog box to be displayed. See Remarks.
      * @param {HWND} hwndParent The handle to the parent window of the dialog box.
+     * @param {Any} args* Additional arguments as alternating DllCall type/value pairs (e.g., "int", 42, "str", "hello")
      * @returns {Integer} Standard Success/Error Definitions
      * 
      * 
@@ -24773,10 +24778,13 @@ class Ole {
      * @see https://learn.microsoft.com/windows/win32/api/oledlg/nf-oledlg-oleuipromptusera
      * @since windows5.0
      */
-    static OleUIPromptUserA(nTemplate, hwndParent) {
+    static OleUIPromptUserA(nTemplate, hwndParent, args*) {
         hwndParent := hwndParent is Win32Handle ? NumGet(hwndParent, "ptr") : hwndParent
 
-        result := DllCall("oledlg.dll\OleUIPromptUserA", "int", nTemplate, "ptr", hwndParent, "CDecl int")
+        varArgs := [args*]
+        varArgs.Push("CDecl int")
+
+        result := DllCall("oledlg.dll\OleUIPromptUserA", "int", nTemplate, "ptr", hwndParent, varArgs*)
         return result
     }
 

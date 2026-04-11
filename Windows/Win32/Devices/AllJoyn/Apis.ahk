@@ -444,12 +444,16 @@ class AllJoyn {
     /**
      * 
      * @param {PSTR} signature 
+     * @param {Any} args* Additional arguments as alternating DllCall type/value pairs (e.g., "int", 42, "str", "hello")
      * @returns {alljoyn_msgarg} 
      */
-    static alljoyn_msgarg_create_and_set(signature) {
+    static alljoyn_msgarg_create_and_set(signature, args*) {
         signature := signature is String ? StrPtr(signature) : signature
 
-        result := DllCall("MSAJApi.dll\alljoyn_msgarg_create_and_set", "ptr", signature, "CDecl ptr")
+        varArgs := [args*]
+        varArgs.Push("CDecl ptr")
+
+        result := DllCall("MSAJApi.dll\alljoyn_msgarg_create_and_set", "ptr", signature, varArgs*)
         return result
     }
 
@@ -487,12 +491,16 @@ class AllJoyn {
      * 
      * @param {alljoyn_msgarg} arg 
      * @param {PSTR} signature 
+     * @param {Any} args* Additional arguments as alternating DllCall type/value pairs (e.g., "int", 42, "str", "hello")
      * @returns {QStatus} 
      */
-    static alljoyn_msgarg_set(arg, signature) {
+    static alljoyn_msgarg_set(arg, signature, args*) {
         signature := signature is String ? StrPtr(signature) : signature
 
-        result := DllCall("MSAJApi.dll\alljoyn_msgarg_set", "ptr", arg, "ptr", signature, "CDecl int")
+        varArgs := [args*]
+        varArgs.Push("CDecl int")
+
+        result := DllCall("MSAJApi.dll\alljoyn_msgarg_set", "ptr", arg, "ptr", signature, varArgs*)
         return result
     }
 
@@ -500,12 +508,16 @@ class AllJoyn {
      * 
      * @param {alljoyn_msgarg} arg 
      * @param {PSTR} signature 
+     * @param {Any} args* Additional arguments as alternating DllCall type/value pairs (e.g., "int", 42, "str", "hello")
      * @returns {QStatus} 
      */
-    static alljoyn_msgarg_get(arg, signature) {
+    static alljoyn_msgarg_get(arg, signature, args*) {
         signature := signature is String ? StrPtr(signature) : signature
 
-        result := DllCall("MSAJApi.dll\alljoyn_msgarg_get", "ptr", arg, "ptr", signature, "CDecl int")
+        varArgs := [args*]
+        varArgs.Push("CDecl int")
+
+        result := DllCall("MSAJApi.dll\alljoyn_msgarg_get", "ptr", arg, "ptr", signature, varArgs*)
         return result
     }
 
@@ -545,14 +557,18 @@ class AllJoyn {
      * @param {alljoyn_msgarg} args 
      * @param {Pointer<Pointer>} numArgs 
      * @param {PSTR} signature 
+     * @param {Any} _args* Additional arguments as alternating DllCall type/value pairs (e.g., "int", 42, "str", "hello")
      * @returns {QStatus} 
      */
-    static alljoyn_msgarg_array_set(args, numArgs, signature) {
+    static alljoyn_msgarg_array_set(args, numArgs, signature, _args*) {
         signature := signature is String ? StrPtr(signature) : signature
 
         numArgsMarshal := numArgs is VarRef ? "ptr*" : "ptr"
 
-        result := DllCall("MSAJApi.dll\alljoyn_msgarg_array_set", "ptr", args, numArgsMarshal, numArgs, "ptr", signature, "CDecl int")
+        varArgs := [_args*]
+        varArgs.Push("CDecl int")
+
+        result := DllCall("MSAJApi.dll\alljoyn_msgarg_array_set", "ptr", args, numArgsMarshal, numArgs, "ptr", signature, varArgs*)
         return result
     }
 
@@ -561,12 +577,16 @@ class AllJoyn {
      * @param {alljoyn_msgarg} args 
      * @param {Pointer} numArgs 
      * @param {PSTR} signature 
+     * @param {Any} _args* Additional arguments as alternating DllCall type/value pairs (e.g., "int", 42, "str", "hello")
      * @returns {QStatus} 
      */
-    static alljoyn_msgarg_array_get(args, numArgs, signature) {
+    static alljoyn_msgarg_array_get(args, numArgs, signature, _args*) {
         signature := signature is String ? StrPtr(signature) : signature
 
-        result := DllCall("MSAJApi.dll\alljoyn_msgarg_array_get", "ptr", args, "ptr", numArgs, "ptr", signature, "CDecl int")
+        varArgs := [_args*]
+        varArgs.Push("CDecl int")
+
+        result := DllCall("MSAJApi.dll\alljoyn_msgarg_array_get", "ptr", args, "ptr", numArgs, "ptr", signature, varArgs*)
         return result
     }
 
@@ -647,12 +667,16 @@ class AllJoyn {
      * 
      * @param {alljoyn_msgarg} arg 
      * @param {PSTR} elemSig 
+     * @param {Any} args* Additional arguments as alternating DllCall type/value pairs (e.g., "int", 42, "str", "hello")
      * @returns {QStatus} 
      */
-    static alljoyn_msgarg_getdictelement(arg, elemSig) {
+    static alljoyn_msgarg_getdictelement(arg, elemSig, args*) {
         elemSig := elemSig is String ? StrPtr(elemSig) : elemSig
 
-        result := DllCall("MSAJApi.dll\alljoyn_msgarg_getdictelement", "ptr", arg, "ptr", elemSig, "CDecl int")
+        varArgs := [args*]
+        varArgs.Push("CDecl int")
+
+        result := DllCall("MSAJApi.dll\alljoyn_msgarg_getdictelement", "ptr", arg, "ptr", elemSig, varArgs*)
         return result
     }
 
@@ -690,14 +714,18 @@ class AllJoyn {
      * @param {Pointer} argOffset 
      * @param {Pointer<Pointer>} numArgs 
      * @param {PSTR} signature 
+     * @param {Any} _args* Additional arguments as alternating DllCall type/value pairs (e.g., "int", 42, "str", "hello")
      * @returns {QStatus} 
      */
-    static alljoyn_msgarg_array_set_offset(args, argOffset, numArgs, signature) {
+    static alljoyn_msgarg_array_set_offset(args, argOffset, numArgs, signature, _args*) {
         signature := signature is String ? StrPtr(signature) : signature
 
         numArgsMarshal := numArgs is VarRef ? "ptr*" : "ptr"
 
-        result := DllCall("MSAJApi.dll\alljoyn_msgarg_array_set_offset", "ptr", args, "ptr", argOffset, numArgsMarshal, numArgs, "ptr", signature, "CDecl int")
+        varArgs := [_args*]
+        varArgs.Push("CDecl int")
+
+        result := DllCall("MSAJApi.dll\alljoyn_msgarg_array_set_offset", "ptr", args, "ptr", argOffset, numArgsMarshal, numArgs, "ptr", signature, varArgs*)
         return result
     }
 
@@ -705,12 +733,16 @@ class AllJoyn {
      * 
      * @param {alljoyn_msgarg} arg 
      * @param {PSTR} signature 
+     * @param {Any} args* Additional arguments as alternating DllCall type/value pairs (e.g., "int", 42, "str", "hello")
      * @returns {QStatus} 
      */
-    static alljoyn_msgarg_set_and_stabilize(arg, signature) {
+    static alljoyn_msgarg_set_and_stabilize(arg, signature, args*) {
         signature := signature is String ? StrPtr(signature) : signature
 
-        result := DllCall("MSAJApi.dll\alljoyn_msgarg_set_and_stabilize", "ptr", arg, "ptr", signature, "CDecl int")
+        varArgs := [args*]
+        varArgs.Push("CDecl int")
+
+        result := DllCall("MSAJApi.dll\alljoyn_msgarg_set_and_stabilize", "ptr", arg, "ptr", signature, varArgs*)
         return result
     }
 
@@ -2891,12 +2923,16 @@ class AllJoyn {
      * 
      * @param {alljoyn_message} _msg 
      * @param {PSTR} signature 
+     * @param {Any} args* Additional arguments as alternating DllCall type/value pairs (e.g., "int", 42, "str", "hello")
      * @returns {QStatus} 
      */
-    static alljoyn_message_parseargs(_msg, signature) {
+    static alljoyn_message_parseargs(_msg, signature, args*) {
         signature := signature is String ? StrPtr(signature) : signature
 
-        result := DllCall("MSAJApi.dll\alljoyn_message_parseargs", "ptr", _msg, "ptr", signature, "CDecl int")
+        varArgs := [args*]
+        varArgs.Push("CDecl int")
+
+        result := DllCall("MSAJApi.dll\alljoyn_message_parseargs", "ptr", _msg, "ptr", signature, varArgs*)
         return result
     }
 

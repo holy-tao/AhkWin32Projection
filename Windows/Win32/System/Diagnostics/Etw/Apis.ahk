@@ -6294,6 +6294,7 @@ class Etw {
      * @param {Integer} MessageNumber Number that uniquely identifies each occurrence of the message. You must define
      * the value specified for this parameter; the value should be meaningful to the
      * application.
+     * @param {Any} args* Additional arguments as alternating DllCall type/value pairs (e.g., "int", 42, "str", "hello")
      * @returns {WIN32_ERROR} If the function succeeds, the return value is ERROR_SUCCESS.
      * 
      * If the function fails, the return value is one of the
@@ -6332,8 +6333,11 @@ class Etw {
      * @see https://learn.microsoft.com/windows/win32/api/evntrace/nf-evntrace-tracemessage
      * @since windows5.1.2600
      */
-    static TraceMessage(LoggerHandle, MessageFlags, MessageGuid, MessageNumber) {
-        result := DllCall("ADVAPI32.dll\TraceMessage", "uint", LoggerHandle, "uint", MessageFlags, "ptr", MessageGuid, "ushort", MessageNumber, "CDecl uint")
+    static TraceMessage(LoggerHandle, MessageFlags, MessageGuid, MessageNumber, args*) {
+        varArgs := [args*]
+        varArgs.Push("CDecl uint")
+
+        result := DllCall("ADVAPI32.dll\TraceMessage", "uint", LoggerHandle, "uint", MessageFlags, "ptr", MessageGuid, "ushort", MessageNumber, varArgs*)
         return result
     }
 

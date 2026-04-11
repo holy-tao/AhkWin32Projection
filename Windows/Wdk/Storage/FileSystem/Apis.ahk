@@ -5730,10 +5730,14 @@ class FileSystem {
      * @param {PSID} _Sid 
      * @param {Pointer<SID_IDENTIFIER_AUTHORITY>} IdentifierAuthority 
      * @param {Integer} SubAuthorityCount 
+     * @param {Any} args* Additional arguments as alternating DllCall type/value pairs (e.g., "int", 42, "str", "hello")
      * @returns {NTSTATUS} 
      */
-    static RtlInitializeSidEx(_Sid, IdentifierAuthority, SubAuthorityCount) {
-        result := DllCall("ntdll.dll\RtlInitializeSidEx", "ptr", _Sid, "ptr", IdentifierAuthority, "char", SubAuthorityCount, "CDecl int")
+    static RtlInitializeSidEx(_Sid, IdentifierAuthority, SubAuthorityCount, args*) {
+        varArgs := [args*]
+        varArgs.Push("CDecl int")
+
+        result := DllCall("ntdll.dll\RtlInitializeSidEx", "ptr", _Sid, "ptr", IdentifierAuthority, "char", SubAuthorityCount, varArgs*)
         NTSTATUS.ThrowIfError(result)
         return result
     }
