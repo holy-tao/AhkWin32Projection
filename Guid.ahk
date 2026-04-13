@@ -1,7 +1,7 @@
-#Requires AutoHotkey v2.0
+#Requires AutoHotkey v2.1-alpha.24+ 64-bit
 
-#Include Windows\Win32\System\Com\Apis.ahk
-#Include Win32Struct.ahk
+#Import "Windows\Win32\System\Com\Apis.ahk" as Com
+#Import "Win32Struct.ahk" { Win32Struct }
 
 /**
  * Represents a GUID struct. A GUID is a **G**lobally **U**nique **ID**entifier for some resource. 

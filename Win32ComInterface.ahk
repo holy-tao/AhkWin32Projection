@@ -1,9 +1,9 @@
-#Requires AutoHotkey v2.0 64-bit
-#Include Win32Struct.ahk
-#Include Guid.ahk
+#Requires AutoHotkey v2.1-alpha.24+ 64-bit
+#Import "./Win32Struct" { Win32Struct }
+#Import "./Guid" { Guid }
 
-#Include ./Windows/Win32/System/Com/Apis.ahk
-#Include ./Win32FixedArray.ahk
+#Import  "./Windows/Win32/System/Com/Apis.ahk" as Com
+#Import  "./Win32FixedArray.ahk" { Win32FixedArray }
 
 /**
  * Win32ComInterface is the base class from which all generated COM Interfaces

@@ -1,5 +1,5 @@
-#Requires AutoHotkey v2.0
-#Include Win32Struct.ahk
+#Requires AutoHotkey v2.1-alpha.24+ 64-bit
+#Import  "./Win32Struct.ahk" { Win32Struct }
 
 /**
  * An ArrayList-like data structure. Contains primitive or struct types laid out sequentially

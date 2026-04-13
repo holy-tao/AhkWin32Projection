@@ -1,6 +1,6 @@
-#Requires AutoHotkey v2.0
+#Requires AutoHotkey v2.1-alpha.24+ 64-bit
 
-#Include Win32Struct.ahk
+#Import  "./Win32Struct.ahk" { Win32Struct }
 
 /**
  * Win32Enum is the base class from which all enum types derive, and provides

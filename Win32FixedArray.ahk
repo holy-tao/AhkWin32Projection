@@ -1,5 +1,5 @@
-#Requires AutoHotkey v2.0
-#Include CStyleArray.ahk
+#Requires AutoHotkey v2.1-alpha.24+ 64-bit
+#Import "./CStyleArray" { CStyleArrayList }
 
 /**
  * Win32FixedArray is a helper class used with Win32Struct proxy objects to allow for more
