@@ -1,7 +1,6 @@
 #Requires AutoHotkey v2.1-alpha.24+ 64-bit
 
-#Import "Windows\Win32\System\Com\Apis.ahk" as Com
-#Import "Win32Struct.ahk" { Win32Struct }
+#Import "Windows\Win32\System\Com\Apis.ahk" { CLSIDFromString, CoCreateGuid, StringFromGUID2 }
 
 /**
  * Represents a GUID struct. A GUID is a **G**lobally **U**nique **ID**entifier for some resource. 
@@ -17,37 +16,33 @@
  * 
  * @see https://learn.microsoft.com/en-us/windows/win32/api/guiddef/ns-guiddef-guid
  */
-class Guid extends Win32Struct {
+struct Guid {
+    #StructPack 8
 
-    static sizeof => 16
+    Data1: UInt32
 
-    static packingSize => 8
+    Data2: UInt16
+
+    Data3: UInt16
+
+    Data4: UInt8[8]
 
     /**
      * Initializes as new `Guid` struct
      * 
-     *      myGuid := Guid(0)                                           ; Creates an empty Guid
-     *      myGuid := Guid(myPtr)                                       ; Wraps the Guid at myPtr
-     *      myGuid := Guid("{6B29FC40-CA47-1067-B31D-00DD010662DA}")    ; Creates an initializes a new Guid
+     *      myGuid := Guid("{6B29FC40-CA47-1067-B31D-00DD010662DA}")
+     *      emptyGuid := Guid()
      * 
-     * @param {Integer | String} ptrOrGuidString either a pointer to an existing Guid or a string
-     *          representation of one in the format `{xxxxxxxx-xxxx-xxxx-xxxx-xxxxxxxxxxxx}`. If an
-     *          Integer, the Guid struct is initialized at the pointer and the contents of its memory
-     *          are not modified. If a string, a new Buffer is allocated and populated based on the
-     *          contents of the string
+     * @param {String} ptrOrGuidString a string representation of a Guid in the format 
+     *          `{xxxxxxxx-xxxx-xxxx-xxxx-xxxxxxxxxxxx}` from which to initialize the Guid
      */
-    __New(ptrOrGuidString := 0){
-        if(IsInteger(ptrOrGuidString)){
-            super.__New(ptrOrGuidString)
-            return
-        }
-        else{
-            super.__New()
-            if(!(ptrOrGuidString is String)){
-                throw TypeError("Expected an Integer or String but got a(n) " . Type(ptrOrGuidString), , ptrOrGuidString)
+    __New(guidStr?) {
+        if IsSet(guidStr) {
+            if !(guidStr is String) {
+                throw TypeError("Expected a String but got a(n) " . Type(guidStr), , guidStr)
             }
 
-            Com.CLSIDFromString(ptrOrGuidString, this)
+            CLSIDFromString(guidStr, this)
         }
     }
 
@@ -55,23 +50,20 @@ class Guid extends Win32Struct {
      * Creates and returns a new GUID, a unique 128-bit integer used for CLSIDs and interface identifiers.
      * @returns {Guid} the newly created Guid
      */
-    static Create(){
-        new := Guid(0)
-        Com.CoCreateGuid(new)
+    static Create() {
+        CoCreateGuid(new := Guid())
         return new
     }
 
     /**
-     * Checks whether two Guids are equal or not. Roughly equivalent to `MemoryEquals`, except
-     * that this method invokes type checks `other` if it is not a raw pointer
-     * @param {Guid} other Guid proxy or pointer to a guid structure in memory 
+     * Compares the memory pointed at by this Guid to the memory pointed at by `other` and returns
+     * true if they are equal and false otherwise
+     * @param {Guid | Integer} other Guid or pointer to guid or buffer-like object to compare to 
+     * @returns {Integer} 1 if this equals `other`, 0 otherwise
      */
-    Equals(other){
-        if(IsObject(other) && !(other is Guid)){
-            throw TypeError("Expected a Guid but got a(n) " . other, , other)
-        }
-        
-        return this.MemoryEquals(other)
+    Equals(other) {
+        matching := DllCall("kernel32\RtlCompareMemory", "ptr", this.ptr, "ptr", other, "int", this.size)
+        return matching == this.Size
     }
 
     /**
@@ -82,10 +74,9 @@ class Guid extends Win32Struct {
      * 
      * @returns {String} a string representation of the Guid in the format `{xxxxxxxx-xxxx-xxxx-xxxx-xxxxxxxxxxxx}`
      */
-    ToString(){
+    ToString() {
         ;https://learn.microsoft.com/en-us/windows/win32/api/combaseapi/nf-combaseapi-stringfromguid2
-        strBuf := Buffer(78)
-        Com.StringFromGUID2(this, strBuf, 78)
+        StringFromGUID2(this, strBuf := Buffer(78), 78)
         return StrGet(strBuf, "UTF-16")
     }
 }
