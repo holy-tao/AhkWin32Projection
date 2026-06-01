@@ -3,7 +3,7 @@
 #Include ../Yunit/Yunit.ahk
 #Include ../YunitExtensions/Assert.ahk
 
-#Include ../../Windows/Win32/Foundation/NTSTATUS.ahk
+#Import "../../Windows/Win32/Foundation/NTSTATUS.ahk" { NTSTATUS }
 
 class NTSTATUSExtensionTests {
     GetErrorMessage_GetsErrorMessage() {

@@ -1,20 +1,28 @@
-#Requires AutoHotkey v2.0
+#Requires AutoHotkey v2.1-alpha.30+ 64-bit
 
 #Include ./Yunit/Yunit.ahk
 #Include ./YunitExtensions/Assert.ahk
 
-#Include ../Guid.ahk
-#Include ../Windows/Win32/Foundation/Apis.ahk
-#Include ../Windows/Win32/Foundation/SYSTEMTIME.ahk
-#Include ../Windows/Win32/System/SystemInformation/Apis.ahk
-#Include ../Windows/Win32/UI/WindowsAndMessaging/Apis.ahk
-#include ../Windows/Win32/System/Memory/Apis.ahk
-#include ../Windows/Win32/System/Com/Apis.ahk
-#Include ../Windows/Win32/Networking/WinSock/Apis.ahk
-#Include ../Windows/Win32/System/Com/Urlmon/Apis.ahk
-#Include ../Windows/Win32/Security/Authentication/Identity/Apis.ahk
-#Include ../Windows/Win32/UI/Shell/Apis.ahk
-#Include ../Windows/Win32/System/WinRT/Apis.ahk
+#Import  "../Guid.ahk" { Guid }
+#Import "../Windows/Win32/Foundation/Apis.ahk" { SysAllocString, SysFreeString }
+#Import "../Windows/Win32/Foundation/BSTR.ahk" { BSTR }
+#Import "../Windows/Win32/System/SystemInformation/Apis.ahk" { GetPhysicallyInstalledSystemMemory }
+#Import  "../Windows/Win32/UI/WindowsAndMessaging/Apis.ahk" { 
+    RegisterWindowMessageW, 
+    CharUpperBuffW, 
+    LoadMenuW, 
+    wsprintfW,
+    GetAncestor
+}
+#Import  "../Windows/Win32/System/Memory/Apis.ahk" { GetProcessHeap, HeapAlloc, HeapFree }
+#Import "../Windows/Win32/System/Com/Apis.ahk" { CoGetApartmentType, CoTaskMemFree, CoTaskMemAlloc }
+#Import "../Windows/Win32/Networking/WinSock/Apis.ahk" { WSCUnInstallNameSpace }
+#Import "../Windows/Win32/System/Com/Urlmon/Apis.ahk" { UrlMkSetSessionOption }
+#Import "../Windows/Win32/Security/Authentication/Identity/Apis.ahk" { RtlGenRandom }
+#Import  "../Windows/Win32/UI/Shell/Apis.ahk" { SHGetKnownFolderPath, FileIconInit }
+#Import  "../Windows/Win32/UI/Shell/Constants.ahk" { FOLDERID_Documents }
+#Import "../Windows/Win32/System/WinRT/Apis.ahk" { WindowsCreateString }
+#Import "../Windows/Win32/System/WinRT/HSTRING.ahk" { HSTRING }
 
 class GeneratedApiSmokeTests {
 
@@ -32,13 +40,13 @@ class GeneratedApiSmokeTests {
     class String{
 
         Params_Always_AcceptStringLiterals() {
-            msgNum := WindowsAndMessaging.RegisterWindowMessageW("test window message") ; Shouldn't throw
+            msgNum := RegisterWindowMessageW("test window message") ; Shouldn't throw
             Yunit.Assert(msgNum != 0, "RegisterWindowMessageW with string literal failed")
         }
 
         Params_Always_AcceptStringPointers(){
             ptr := StrPtr("test window message ooglyboogly")
-            msgNum := WindowsAndMessaging.RegisterWindowMessageW(ptr)   ; Shouldn't throw
+            msgNum := RegisterWindowMessageW(ptr)   ; Shouldn't throw
             Yunit.Assert(msgNum != 0, "RegisterWindowMessageW with string pointer failed")
         }
 
@@ -47,7 +55,7 @@ class GeneratedApiSmokeTests {
             StrPut("16-Character Str", buf, 16, "UTF-16")
 
             ; This should not throw
-            charsProcessed := WindowsAndMessaging.CharUpperBuffW(buf, 16)
+            charsProcessed := CharUpperBuffW(buf, 16)
 
             upper := StrGet(buf, 16, "UTF-16")
             
@@ -61,7 +69,7 @@ class GeneratedApiSmokeTests {
             StrPut("16-Character Str", bfLikeObj, 16, "UTF-16")
 
             ; This is the real test - this should not throw
-            charsProcessed := WindowsAndMessaging.CharUpperBuffW(bfLikeObj, 16)
+            charsProcessed := CharUpperBuffW(bfLikeObj, 16)
 
             upper := StrGet(bfLikeObj, 16, "UTF-16")
 
@@ -81,7 +89,7 @@ class GeneratedApiSmokeTests {
          * These are more common in COM interface implementations than native code
          */
         HRESULTReturningMethods_OnError_ThrowOSErrors(){
-            Assert.Throws((*) => Urlmon.UrlMkSetSessionOption(1, 0, -1), OSError)
+            Assert.Throws((*) => UrlMkSetSessionOption(1, 0, -1), OSError)
         }
 
         /**
@@ -90,7 +98,7 @@ class GeneratedApiSmokeTests {
          * or `[CanReturnErrorsAsSuccess]` attribute is present
          */
         LastErrorSettingMethods_OnError_ThrowOSError(){
-            Assert.Throws((*) => WindowsAndMessaging.LoadMenuW(0, 0), OSError)
+            Assert.Throws((*) => LoadMenuW(0, 0), OSError)
         }
 
         ; //TODO test for [CanReturnMultipleSuccessValues] (these are mostly (all)? COM methods)
@@ -102,7 +110,7 @@ class GeneratedApiSmokeTests {
          * errors, even if they fail
          */
         NoPreserveSig_NoSetLastError_Never_ThrowsError(){
-            res := WinSock.WSCUnInstallNameSpace(0)     ; Will fail but should not throw
+            res := WSCUnInstallNameSpace(Guid())     ; Will fail but should not throw
             Yunit.Assert(res != 0)
         }
     }
@@ -112,7 +120,7 @@ class GeneratedApiSmokeTests {
      * a VarRef pass it in such a way that DllCall updates it automatically.
      */
     PrimitivePointerParams_WhenPassedVarRef_UpdateVarRef(){
-        SystemInformation.GetPhysicallyInstalledSystemMemory(&memSize := 0)
+        GetPhysicallyInstalledSystemMemory(&memSize := 0)
 
         ; AHK has no native support for unsigned 64-bit ints so this might not actually be positive
         Yunit.Assert(memSize != 0)  
@@ -120,7 +128,7 @@ class GeneratedApiSmokeTests {
 
     ParamterAndTypeNameConflicts_AreResolved() {
         ; The HWND and hwnd parameter should not conflict here, so no error should be thrown
-        WindowsAndMessaging.GetAncestor(A_ScriptHwnd, 0)
+        GetAncestor(A_ScriptHwnd, 0)
     }
 
     /**
@@ -135,7 +143,7 @@ class GeneratedApiSmokeTests {
          */
         AltName_EntryPoint_Works(){
             testBuf := Buffer(8, 0)
-            result := Identity.RtlGenRandom(testBuf, testBuf.size)
+            result := RtlGenRandom(testBuf, testBuf.size)
 
             Yunit.Assert(result == true)
             Yunit.Assert(NumGet(testBuf, "Int") != 0)
@@ -146,7 +154,7 @@ class GeneratedApiSmokeTests {
          * an ordinal
          */
         Ordinal_EntryPoint_Works(){
-            result := Shell.FileIconInit(true)
+            result := FileIconInit(true)
 
             Yunit.Assert(result == true)
         }
@@ -182,8 +190,8 @@ class GeneratedApiSmokeTests {
      */
     class Handles{
         HandleReturningApis_Always_WrapReturnValues(){
-            nonNullTest := Foundation.SysAllocString("Test string")
-            nullTest := Foundation.SysAllocString(0)
+            nonNullTest := SysAllocString("Test string")
+            nullTest := SysAllocString(0)
 
             Assert.IsType(nonNullTest, BSTR)
             Yunit.Assert(nonNullTest.Value != 0, nonNullTest.Value)
@@ -195,14 +203,14 @@ class GeneratedApiSmokeTests {
         }
 
         ApisWithHandleParams_Always_AcceptAndDereferenceHandles(){
-            str := Foundation.SysAllocString("Test")
-            Foundation.SysFreeString(str)   ; will segfault (exit with code=3221226356) if passed an invalid non-null handle
+            str := SysAllocString("Test")
+            SysFreeString(str)   ; will segfault (exit with code=3221226356) if passed an invalid non-null handle
         }
 
         ApisWithHandleParams_Always_AcceptRawIntegers(){
-            str := Foundation.SysAllocString("Test")
+            str := SysAllocString("Test")
             handleRaw := str.Value
-            Foundation.SysFreeString(handleRaw)   ; will segfault (exit with code=3221226356) if passed an invalid non-null handle
+            SysFreeString(handleRaw)   ; will segfault (exit with code=3221226356) if passed an invalid non-null handle
         }
     }
 
@@ -212,7 +220,7 @@ class GeneratedApiSmokeTests {
      */
     class PrimitivePointerMarshalling {
         PrimitivePtrParams_Always_AcceptVarRefs(){
-            Com.CoGetApartmentType(&aptTyp := 0xFFFFFFFF, &aptQualifier := 0xFFFFFFFF)
+            CoGetApartmentType(&aptTyp := 0xFFFFFFFF, &aptQualifier := 0xFFFFFFFF)
 
             YUnit.Assert(aptTyp != 0xFFFFFFFF)
             YUnit.Assert(aptQualifier != 0xFFFFFFFF)
@@ -222,7 +230,7 @@ class GeneratedApiSmokeTests {
             aptTyp := Buffer(4, 0xFF)
             aptQualifier := Buffer(4, 0xFF)
 
-            Com.CoGetApartmentType(aptTyp, aptQualifier)
+            CoGetApartmentType(aptTyp, aptQualifier)
 
             YUnit.Assert(NumGet(aptTyp, "int") != 0xFFFFFFFF)
             YUnit.Assert(NumGet(aptQualifier, "int") != 0xFFFFFFFF)
@@ -236,26 +244,28 @@ class GeneratedApiSmokeTests {
     class ReturnValueMarshalling {
 
         ComLikeApis_OnSuccess_ReturnLogicalValue(){
-            pFolderPath := Shell.SHGetKnownFolderPath(Shell.FOLDERID_Documents, 0, 0)
-            pFolderStr := StrGet(pFolderPath, , "UTF-16")
+            pFolderPath := SHGetKnownFolderPath(FOLDERID_Documents, 0, 0)
+            pFolderStr := String(pFolderPath)
 
             try{
                 Assert.Equals(pFolderStr, A_MyDocuments)
             }
             finally{
-                Com.CoTaskMemFree(pFolderPath)
+                CoTaskMemFree(pFolderPath)
             }
         }
 
         ComLikeApis_OnFailure_ThrowOSErrors(){
             ; Downside of the logical return value thing is that we now leak the PWSTR on failure
             ; See https://github.com/holy-tao/AhkWin32Projection/issues/58#issuecomment-3494255901
-            Assert.Throws((*) => Shell.SHGetKnownFolderPath(Guid(0), 0, 0), OSError)
+            Assert.Throws((*) => SHGetKnownFolderPath(Guid(), 0, 0), OSError)
         }
 
         ComLikeApis_ThatReturnHandles_ReturnHandles() {
-            val := WinRT.WindowsCreateString(0, 0)
-            Assert.Equals(type(val), "HSTRING")
+            val := WindowsCreateString(0, 0)
+            ; WindowsCreateString transfers ownership, so the handle is boxed as HSTRING.Owned
+            ; (a subclass of HSTRING) which frees itself via WindowsDeleteString.
+            Assert.IsType(val, HSTRING)
         }
     }
 
@@ -267,7 +277,16 @@ class GeneratedApiSmokeTests {
 
         wsprintfW_WithVariadicArgs_FormatsCorrectly() {
             buf := Buffer(256, 0)
-            nChars := WindowsAndMessaging.wsprintfW(buf, "%d %s", "int", 42, "ptr", StrPtr("hello"))
+            nChars := wsprintfW(buf, "%d %s", "int", 42, "ptr", StrPtr("hello"))
+            result := StrGet(buf, "UTF-16")
+
+            Yunit.Assert(nChars == 8, Format("Expected 8 chars but got {1}", nChars))
+            Yunit.Assert(result == "42 hello", Format("Expected '42 hello' but got '{1}'", result))
+        }
+
+        wsprintfW_WithVariadicArgs_AcceptsClassTypeSpecifiers() {
+            buf := Buffer(256, 0)
+            nChars := wsprintfW(buf, "%d %s", Int32, 42, IntPtr, StrPtr("hello"))
             result := StrGet(buf, "UTF-16")
 
             Yunit.Assert(nChars == 8, Format("Expected 8 chars but got {1}", nChars))
@@ -276,7 +295,7 @@ class GeneratedApiSmokeTests {
 
         wsprintfW_WithNoVariadicArgs_StillWorks() {
             buf := Buffer(256, 0)
-            nChars := WindowsAndMessaging.wsprintfW(buf, "Hello World")
+            nChars := wsprintfW(buf, "Hello World")
             result := StrGet(buf, "UTF-16")
 
             Yunit.Assert(nChars == 11, Format("Expected 11 chars but got {1}", nChars))
@@ -290,14 +309,14 @@ class GeneratedApiSmokeTests {
  */
 class BufferLike {
 
-    static hProcHeap := Memory.GetProcessHeap()
+    static hProcHeap := GetProcessHeap()
 
     __New(size){
-        this.ptr := Memory.HeapAlloc(BufferLike.hProcHeap, 0, size)
+        this.ptr := HeapAlloc(BufferLike.hProcHeap, 0, size)
         this.size := size
     }
 
     __Delete(){
-        Memory.HeapFree(BufferLike.hProcHeap, 0, this.ptr)
+        HeapFree(BufferLike.hProcHeap, 0, this.ptr)
     }
 }

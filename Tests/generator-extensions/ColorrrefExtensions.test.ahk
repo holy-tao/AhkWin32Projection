@@ -3,7 +3,7 @@
 #Include ../Yunit/Yunit.ahk
 #Include ../YunitExtensions/Assert.ahk
 
-#Include ../../Windows/Win32/Foundation/COLORREF.ahk
+#Import "../../Windows/Win32/Foundation/COLORREF.ahk" { COLORREF }
 
 class COLROREFExtensionTests {
 

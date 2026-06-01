@@ -25,7 +25,9 @@ class GeneratedComInterfaceTests {
             Assert.Equals(type(uri), "IUri")
 
             domain := uri.GetDomain()
-            Assert.Equals(type(domain), "BSTR")
+            ; GetDomain returns a caller-owned BSTR, now boxed as BSTR.Owned (a BSTR subclass)
+            ; so it frees itself via SysFreeString instead of leaking.
+            Assert.IsType(domain, BSTR)
             Assert.Equals(String(domain), "autohotkey.com")
         }
 
@@ -89,11 +91,11 @@ class GeneratedComInterfaceTests {
             ixmlDoc2.AddRef()
 
             ; Also tests the getter
-            ixmlDoc2.preserveWhiteSpace := Foundation.VARIANT_TRUE
-            Assert.Equals(ixmlDoc2.preserveWhiteSpace, Foundation.VARIANT_TRUE)
+            ixmlDoc2.preserveWhiteSpace := VARIANT_TRUE
+            Assert.Equals(ixmlDoc2.preserveWhiteSpace, VARIANT_TRUE)
 
-            ixmlDoc2.preserveWhiteSpace := False
-            Assert.Equals(ixmlDoc2.preserveWhiteSpace, False)
+            ixmlDoc2.preserveWhiteSpace := false
+            Assert.Equals(ixmlDoc2.preserveWhiteSpace, false)
         }
     }
 }

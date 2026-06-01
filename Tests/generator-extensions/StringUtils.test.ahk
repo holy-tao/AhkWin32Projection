@@ -3,8 +3,8 @@
 #Include ../Yunit/Yunit.ahk
 #Include ../YunitExtensions/Assert.ahk
 
-#Include ../../Windows/Win32/Foundation/PWSTR.ahk
-#Include ../../Windows/Win32/Foundation/PSTR.ahk
+#Import  "../../Windows/Win32/Foundation/PWSTR.ahk" { PWSTR }
+#Import "../../Windows/Win32/Foundation/PSTR.ahk" { PSTR }
 
 class StringUtilExtensionTests {
 

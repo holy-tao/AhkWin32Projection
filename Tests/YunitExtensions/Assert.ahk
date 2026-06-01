@@ -23,6 +23,9 @@ class Assert {
                 return
             }
 
+            if thrown is Error
+                FileAppend(Format("{1}: {2} (specifically: {3})`n{4}`n", Type(thrown), thrown.Message, thrown.extra, thrown.Stack), "*")
+
             throw TypeError(Format("Expected a(n) {1} but got a(n) {2}: {3}", errType.Prototype.__Class, Type(thrown), thrown.Message))
         }
 
@@ -49,7 +52,7 @@ class Assert {
     }
 
     static IsType(obj, expected){
-        if(!obj is expected){
+        if !(obj is expected){
             throw TypeError(Format("Expected a(n) {1} but got a(n) {2}", expected.Prototype.__Class, Type(obj)))
         }
     }

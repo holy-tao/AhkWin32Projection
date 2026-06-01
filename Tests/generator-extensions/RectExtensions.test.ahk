@@ -3,31 +3,43 @@
 #Include ../Yunit/Yunit.ahk
 #Include ../YunitExtensions/Assert.ahk
 
-#Include ../../Windows/Win32/Foundation/RECT.ahk
+#Import  "../../Windows/Win32/Foundation/RECT.ahk" { RECT }
+#Import  "../../Windows/Win32/Foundation/POINT.ahk" { POINT }
 
 class RectExtensionTests {
 
     height_Get_Always_CalculatesHeight(){
-        test := RECT({top: 0, bottom: 10})
+        test := RECT()
+        test.top := 0, test.bottom := 10
 
         Yunit.Assert(test.height == 10)
     }
 
     width_Get_Always_CalculateWidth(){
-        test := RECT({right: 10, left: 0})
+        test := RECT()
+        test.right := 10
 
         Yunit.Assert(test.width == 10)
     }
 
     area_Get_Always_CalculatesArea(){
-        test := RECT({top: 0, bottom: 10, left: 0, right: 10})
+        test := RECT()
+        test.bottom := 10
+        test.right := 10
 
         Yunit.Assert(test.area == 100)
     }
 
     Intersect_WithIntersectingRects_ReturnsIntersection(){
-        test1 := RECT({top: 0, bottom: 10, left: 0, right: 10})
-        test2 := RECT({top: 5, bottom: 15, left: 5, right: 15})
+        test1 := RECT()
+        test1.bottom := 10
+        test1.right := 10
+    
+        test2 := RECT()
+        test2.top := 5
+        test2.bottom := 15
+        test2.left := 5
+        test2.right := 15
 
         intersection := test1.Intersect(test2)
 
@@ -39,8 +51,15 @@ class RectExtensionTests {
     }
 
     Intersect_WithNonIntersectingRects_ReturnsEmptyRect(){
-        test1 := RECT({top: 0, bottom: 5, left: 0, right: 5})
-        test2 := RECT({top: 10, bottom: 15, left: 10, right: 15})
+        test1 := RECT()
+        test1.bottom := 5
+        test1.right := 5
+
+        test2 := RECT()
+        test2.top := 10
+        test2.bottom := 15
+        test2.left := 10
+        test2.right := 15
 
         intersection := test1.Intersect(test2)
 
@@ -52,8 +71,17 @@ class RectExtensionTests {
     }
 
     Union_WithRects_ReturnsUnion(){
-        test1 := RECT({top: 0, bottom: 5, left: 0, right: 5})
-        test2 := RECT({top: 10, bottom: 15, left: 10, right: 15})
+        test1 := RECT()
+        test1.top := 0
+        test1.bottom := 5
+        test1.left := 0
+        test1.right := 5
+
+        test2 := RECT()
+        test2.top := 10
+        test2.bottom := 15
+        test2.left := 10
+        test2.right := 15
 
         union := test1.Union(test2)
 
@@ -66,8 +94,17 @@ class RectExtensionTests {
 
     ; Using the example from the remarks here: https://learn.microsoft.com/en-us/windows/win32/api/winuser/nf-winuser-subtractrect
     Subtract_WithFullyContainedRect_ReturnsDifference(){
-        test1 := RECT({left: 10, top: 10, right: 100, bottom: 100})
-        test2 := RECT({left: 50, top: 10, right: 150, bottom: 150})
+        test1 := RECT()
+        test1.left := 10
+        test1.top := 10
+        test1.right := 100
+        test1.bottom := 100
+
+        test2 := RECT()
+        test2.left := 50
+        test2.top := 10
+        test2.right := 150
+        test2.bottom := 150
 
         diff := test1.Subtract(test2) 
 
@@ -79,34 +116,65 @@ class RectExtensionTests {
     }
 
     Equals_WithEqualRects_ReturnsTrue(){
-        test1 := RECT({left: 10, top: 10, right: 100, bottom: 100})
-        test2 := test1.Clone()
+        test1 := RECT()
+        test1.left := 10
+        test1.top := 10
+        test1.right := 100
+        test1.bottom := 100
+
+        test2 := RECT()
+        test2.left := 10
+        test2.top := 10
+        test2.right := 100
+        test2.bottom := 100
 
         Yunit.Assert(test1.Equals(test2))
     }
 
     Equals_WithNonEqualRects_ReturnsTrue(){
-        test1 := RECT({left: 10, top: 10, right: 100, bottom: 100})
-        test2 := RECT({left: 50, top: 10, right: 150, bottom: 150})
+        test1 := RECT()
+        test1.left := 10
+        test1.top := 10
+        test1.right := 100
+        test1.bottom := 100
+
+        test2 := RECT()
+        test2.left := 50
+        test2.top := 10
+        test2.right := 150
+        test2.bottom := 150
 
         Yunit.Assert(!test1.Equals(test2))
     }
 
     IsEmpty_WithEmptyRect_ReturnsTrue(){
         empty := RECT()
-        empty2 := RECT({left: 10, top: 10, right: 10, bottom: 10})
+        empty2 := RECT()
+        empty2.left := 10
+        empty2.top := 10
+        empty2.right := 10
+        empty2.bottom := 10
 
         Yunit.Assert(empty.isEmpty)
         Yunit.Assert(empty2.isEmpty)
     }
 
     IsEmpty_WithNonEmptyRect_ReturnsFalse(){
-        test1 := RECT({left: 10, top: 10, right: 100, bottom: 100})
-        Yunit.Assert(!test1.isEmpty)
+        test := RECT()
+        test.left := 10
+        test.top := 10
+        test.right := 20
+        test.bottom := 20
+
+        Yunit.Assert(!test.isEmpty)
     }
 
     Offset_Always_OffsetsRect(){
-        test := RECT({left: 10, top: 10, right: 20, bottom: 20})
+        test := RECT()
+        test.left := 10
+        test.top := 10
+        test.right := 20
+        test.bottom := 20
         test.Offset(5, 5)
 
         Yunit.Assert(test.left == 15)
@@ -116,7 +184,11 @@ class RectExtensionTests {
     }
 
     Inflate_Always_InflatesRect(){
-        test := RECT({left: 10, top: 10, right: 20, bottom: 20})
+        test := RECT()
+        test.left := 10
+        test.top := 10
+        test.right := 20
+        test.bottom := 20
         
         test.Inflate(5, 5)
 
@@ -127,33 +199,55 @@ class RectExtensionTests {
     }
 
     HitTest_WithIntersectingPoint_ReturnsTrue(){
-        test := RECT({left: 10, top: 10, right: 20, bottom: 20})
-        pt := POINT({x: 15, y: 15})
+        test := RECT()
+        test.left := 10
+        test.top := 10
+        test.right := 20
+        test.bottom := 20
+        pt := POINT()
+        pt.x := 15
+        pt.y := 15
 
         Yunit.Assert((val := test.HitTest(pt)), "Got " . val)
     }
 
     HitTest_WithNonIntersectingPoint_ReturnsFalse(){
-        test := RECT({left: 10, top: 10, right: 20, bottom: 20})
-        pt := POINT({x: 0, y: 0})
+        test := RECT()
+        test.left := 10
+        test.top := 10
+        test.right := 20
+        test.bottom := 20
+        pt := POINT()
 
         Yunit.Assert((val := !test.HitTest(pt)), "Got " . val)
     }
 
     HitTest_WithIntersectingCoords_ReturnsTrue(){
-        test := RECT({left: 10, top: 10, right: 20, bottom: 20})
+        test := RECT()
+        test.left := 10
+        test.top := 10
+        test.right := 20
+        test.bottom := 20
 
         Yunit.Assert((val := test.HitTest(15, 15)), "Got " . val)
     }
 
     HitTest_WithNonIntersectingCoords_ReturnsFalse(){
-        test := RECT({left: 10, top: 10, right: 20, bottom: 20})
+        test := RECT()
+        test.left := 10
+        test.top := 10
+        test.right := 20
+        test.bottom := 20
 
         Yunit.Assert(!(val := test.HitTest(0, 0)), "Got " . val)
     }
 
     ToString_Always_ReturnsString(){
-        test := RECT({left: 10, top: 10, right: 20, bottom: 20})
+        test := RECT()
+        test.left := 10
+        test.top := 10
+        test.right := 20
+        test.bottom := 20
 
         expected := "(10, 10) - (20, 20)"
         str := String(test)
