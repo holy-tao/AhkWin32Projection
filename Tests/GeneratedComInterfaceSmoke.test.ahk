@@ -1,19 +1,29 @@
-#Requires AutoHotkey v2.0
+#Requires AutoHotkey v2.1-alpha.30+ 64-bit
 
-#Include .\Yunit\Yunit.ahk
-#Include .\YunitExtensions\Assert.ahk
+#Import ".\Yunit\Yunit.ahk" { Yunit}
+#Import ".\YunitExtensions\Assert.ahk" { Assert }
 
-#Include ../Windows/Win32/System/Com/Apis.ahk
-#Include ../Windows/Win32/System/Com/IUri.ahk
-#Include ../Windows/Win32/System/Com/IUriBuilder.ahk
-#Include ../Windows/Win32/Foundation/BSTR.ahk
-#Include ../Windows/Win32/Data/Xml/MsXML/IXMLDOMDocument2.ahk
-#Include ../Windows/Win32/Foundation/Apis.ahk
-#Include ../Guid.ahk
+#Import "../Windows/Win32/System/Com/Apis.ahk" as Com
+#Import "../Windows/Win32/System/Com/COINIT.ahk" { COINIT }
+#Import "../Windows/Win32/System/Com/IUri.ahk" { IUri }
+#Import "../Windows/Win32/System/Com/IUriBuilder.ahk" { IUriBuilder }
+#Import "../Windows/Win32/Foundation/BSTR.ahk" { BSTR }
+#Import "../Windows/Win32/Data/Xml/MsXML/IXMLDOMDocument2.ahk" { IXMLDOMDocument2 }
+#Import "../Windows/Win32/Data/Xml/MsXML/IXMLDOMElement.ahk" { IXMLDOMElement }
+#Import "../Windows/Win32/Foundation/Constants.ahk" { VARIANT_TRUE, VARIANT_FALSE }
+#Import "../Guid.ahk" { Guid }
 
 #DllLoad Urlmon.dll
 
 class GeneratedComInterfaceTests {
+
+    VtblType_IsOverridden() {
+        test := IUriBuilder()
+        ; prevent auto-release in __Delete, which would throw since we have no actual implementation
+        test.owned := true
+        
+        Assert.IsType(test.vtbl, IUriBuilder.Vtbl)
+    }
 
     /**
      * Interface methods which return handles should return the actial handle

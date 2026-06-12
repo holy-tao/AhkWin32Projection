@@ -1,7 +1,7 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 
-#Include ./Yunit/Yunit.ahk
-#Include ./YunitExtensions/Assert.ahk
+#Import "./Yunit/Yunit.ahk" { Yunit }
+#Import "./YunitExtensions/Assert.ahk" { Assert }
 
 ; TYPEDESC and ARRAYDESC are mutually recursive: ARRAYDESC embeds TYPEDESC by value, and
 ; TYPEDESC has a pointer back to ARRAYDESC. Importing either one used to crash at load with

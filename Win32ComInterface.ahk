@@ -2,6 +2,7 @@
 
 #Import "./Guid.ahk" { Guid }
 
+
 /**
  * Base struct for all generated COM interfaces. Holds shared functionality
  * and default implementations of the IUnknown methods.
@@ -18,48 +19,69 @@ struct Win32ComInterface {
     vtbl : IntPtr
 
     /**
-     * Construct either an empty interface to be filled in, or an interface
-     * implemented with some object. Pass a pointer to adopt it.
-     * 
-     * Note that calling `MyInterface.At` creates a boxed pointer which does
-     * not call `__Delete` and thus will not correctly release the interface
-     * pointer. Call `__New` with a pointer to adopt it.
+     * Reference count for script-implemented interfaces. -1 for wrappers around
+     * external pointers (we don't own the lifecycle).
+     */
+    refCount : Int16
+
+    /**
+     * Whether this instance is script-owned (i.e. we allocated the vtable and
+     * installed callbacks). Unowned wrappers leave this false.
+     */
+    owned : Int16
+
+    /**
+     * The interface pointer handed to native code. For script-implemented (or
+     * empty) interfaces this is our own backing memory - its offset 0 holds the
+     * vtbl, so the struct itself *is* a valid interface pointer. For wrappers it
+     * is the adopted external pointer.
+     */
+    comPtr : IntPtr
+
+    /**
+     * Override the intrinsic struct `Ptr` so the wrapper marshals as the real
+     * interface pointer everywhere: `ComCall`, `DllCall "ptr"` arguments and
+     * `StructType.Ptr` parameters all see `comPtr`, while our bookkeeping fields
+     * (`refCount`, `owned`) stay in our own memory, invisible to the callee. This
+     * is what lets a wrapper be passed to native code that knows nothing about
+     * this projection.
+     */
+    Ptr => this.comPtr
+
+    /**
+     * Construct an empty interface to be filled in, an interface implemented with
+     * some object, or a wrapper that adopts an existing interface pointer.
+     *
+     * Unlike `At`, this allocates its own backing memory, so `refCount`/`owned`
+     * never overlap the wrapped object and `__Delete` still runs.
      *
      * @param {Integer|Object} ptrOrImpl impl object or pointer to adopt
      * @param {String} flags CallbackCreate flags when implementing
      */
     __New(ptrOrImpl := 0, flags := "") {
+        this.refCount := -1
+        this.owned := false
+
+        ; By default the struct *is* the object (offset 0 holds the vtbl), so our
+        ; own backing address is the interface pointer. Wrapping overrides this.
+        this.comPtr := ObjGetDataPtr(this)
+
         if IsObject(ptrOrImpl) {
-            DefineProp(this, "refCount", { value: 0 })
-            DefineProp(this, "owned", { get: (_) => true })
+            this.refCount := 0
+            this.owned := true
 
             this.Implement(ptrOrImpl, flags)
             this.AddRef()
         }
         else if IsInteger(ptrOrImpl) && ptrOrImpl != 0 {
-            ; If passed a non-zero integer, treat as a pointer and copy
-            ; the vtable pointer into our own
-            this.vtbl := NumGet(ptrOrImpl, 0, "ptr")
+            ; Adopt an existing interface pointer. Dispatch goes straight to the
+            ; real object through comPtr; we deliberately never touch its memory.
+            this.comPtr := ptrOrImpl
         }
 
-        ; Otherwise do nothing - generated constructor will have set the
-        ; vtable, it'll be zeroed out
+        ; Otherwise (empty) comPtr keeps pointing at our own (zeroed) vtbl slot.
     }
-
-    /**
-     * Whether this instance is script-owned (i.e. we allocated the vtable and
-     * installed callbacks). Unowned wrappers leave this false.
-     * @type {Boolean}
-     */
-    owned => false
-
-    /**
-     * Reference count for script-implemented interfaces. -1 for wrappers around
-     * external pointers (we don't own the lifecycle).
-     * @type {Integer}
-     */
-    refCount => -1
-
+    
     /**
      * Default QueryInterface implementation. Walks the inheritance chain looking
      * for a matching IID, AddRef's and returns S_OK on hit, E_NOINTERFACE on miss,
@@ -68,6 +90,12 @@ struct Win32ComInterface {
     _DefaultQueryInterface(_, riid, comOutPtr) {
         if (comOutPtr == 0)
             return 0x80004003  ; E_POINTER
+
+        if !(riid is Guid) {
+            if !(riid is Integer)
+                throw TypeError("Expected a Guid or an Integer but go a(n) " Type(riid), , riid)
+            riid := Guid.At(riid)
+        }
 
         ; Per-instance IID (e.g. parameterized COM types)
         if (this.Query(riid) || (this.HasProp("IID") && this.IID.Equals(riid))) {

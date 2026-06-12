@@ -1,7 +1,7 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 
-#Include ./Yunit/Yunit.ahk
-#Include ./YunitExtensions/Assert.ahk
+#Import "./Yunit/Yunit.ahk" { Yunit }
+#Import "./YunitExtensions/Assert.ahk" { Assert }
 
 #Import "../Windows/Win32/Devices/Display/Constants.ahk" {
     INDIRECT_DISPLAY_INFO_FLAGS_SUPPORT_FP16,

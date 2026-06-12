@@ -1,7 +1,6 @@
 #Requires AutoHotkey v2.1-alpha.24+ 64-bit
 
 #Import "./CStyleArray.ahk" { CStyleArrayList }
-#Import "./Win32FixedArray.ahk" { Win32FixedArray }
 
 /**
  * A Win32Struct is the base class from which all generated structs are derived. It's a 

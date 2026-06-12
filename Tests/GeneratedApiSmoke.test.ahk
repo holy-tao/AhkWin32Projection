@@ -1,7 +1,7 @@
 #Requires AutoHotkey v2.1-alpha.30+ 64-bit
 
-#Include ./Yunit/Yunit.ahk
-#Include ./YunitExtensions/Assert.ahk
+#Import ".\Yunit\Yunit.ahk" { Yunit}
+#Import ".\YunitExtensions\Assert.ahk" { Assert }
 
 #Import  "../Guid.ahk" { Guid }
 #Import "../Windows/Win32/Foundation/Apis.ahk" { SysAllocString, SysFreeString }
@@ -245,20 +245,20 @@ class GeneratedApiSmokeTests {
 
         ComLikeApis_OnSuccess_ReturnLogicalValue(){
             pFolderPath := SHGetKnownFolderPath(FOLDERID_Documents, 0, 0)
-            pFolderStr := String(pFolderPath)
+            pFolderStr := StrGet(pFolderPath.value, , "UTF-16")
 
             try{
                 Assert.Equals(pFolderStr, A_MyDocuments)
             }
             finally{
-                CoTaskMemFree(pFolderPath)
+                CoTaskMemFree(pFolderPath.value)
             }
         }
 
         ComLikeApis_OnFailure_ThrowOSErrors(){
             ; Downside of the logical return value thing is that we now leak the PWSTR on failure
             ; See https://github.com/holy-tao/AhkWin32Projection/issues/58#issuecomment-3494255901
-            Assert.Throws((*) => SHGetKnownFolderPath(Guid(), 0, 0), OSError)
+            Assert.Throws((*) => SHGetKnownFolderPath(Guid.Create(), 0, 0), OSError)
         }
 
         ComLikeApis_ThatReturnHandles_ReturnHandles() {

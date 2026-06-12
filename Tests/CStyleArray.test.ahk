@@ -1,9 +1,10 @@
 #Requires AutoHotkey v2.0
 
-#Include ../Win32FixedArray.ahk
-#Include ./Yunit/Yunit.ahk
-#Include ./YunitExtensions/Assert.ahk
-#Include ../Windows/Win32/Foundation/RECT.ahk
+#Import "./Yunit/Yunit.ahk" { Yunit }
+#Import "./YunitExtensions/Assert.ahk" { Assert }
+#Import "../Windows/Win32/Foundation/RECT.ahk" { RECT }
+
+#Import "../CStyleArray.ahk" { CStyleArrayList }
 
 class CStyleArrayListTests {
 

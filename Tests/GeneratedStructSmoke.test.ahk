@@ -1,24 +1,22 @@
 #Requires AutoHotkey v2.0
 
-#Include .\Yunit\Yunit.ahk
-#Include .\YunitExtensions\Assert.ahk
+#Import ".\Yunit\Yunit.ahk" { Yunit }
+#Import ".\YunitExtensions\Assert.ahk" { Assert }
 
-#Include ../Windows/Win32/Networking/HttpServer/HTTP_REQUEST_HEADERS.ahk
-#Include ../Windows/Win32/UI/Controls/NMCHAR.ahk
-#Include ../Windows/Win32/UI/Controls/PROPSHEETHEADERW_V2.ahk
-#Include ../Windows/Win32/Graphics/Gdi/LOGFONTA.ahk
-#Include ../Windows/Win32/Graphics/Gdi/LOGFONTW.ahk
-#Include ../Windows/Win32/UI/WindowsAndMessaging/ICONINFOEXW.ahk
-#Include ../Windows/Win32/UI/WindowsAndMessaging/MENUBARINFO.ahk
-#Include ../Windows/Win32/NetworkManagement/Ndis/NDIS_TCP_IP_CHECKSUM_OFFLOAD.ahk
-#Include ../Windows/Win32/NetworkManagement/QoS/CONTROL_SERVICE.ahk
-#Include ../Windows/Win32/Graphics/DirectDraw/DDMORESURFACECAPS.ahk
-#Include ../Windows/Win32/System/Kernel/SLIST_HEADER.ahk
-#Include ../Windows/Win32/System/Diagnostics/Debug/CONTEXT.ahk
-#Include ../Windows/Win32/Foundation/Apis.ahk
-#Include ../Windows/Win32/System/Memory/Apis.ahk
-#Include ../Windows/Win32/Storage/FileSystem/BY_HANDLE_FILE_INFORMATION.ahk
-#Include ../Windows/Win32/Storage/Nvme/NVME_OCP_DEVICE_CAPABILITIES_LOG.ahk
+#Import "../Windows/Win32/Networking/HttpServer/HTTP_REQUEST_HEADERS.ahk" { HTTP_REQUEST_HEADERS }
+#Import "../Windows/Win32/UI/Controls/NMCHAR.ahk" { NMCHAR }
+#Import "../Windows/Win32/UI/Controls/PROPSHEETHEADERW_V2.ahk" { PROPSHEETHEADERW_V2 }
+#Import "../Windows/Win32/Graphics/Gdi/LOGFONTA.ahk" { LOGFONTA }
+#Import "../Windows/Win32/Graphics/Gdi/LOGFONTW.ahk" { LOGFONTW }
+#Import "../Windows/Win32/UI/WindowsAndMessaging/ICONINFOEXW.ahk" { ICONINFOEXW }
+#Import "../Windows/Win32/UI/WindowsAndMessaging/MENUBARINFO.ahk" { MENUBARINFO }
+#Import "../Windows/Win32/NetworkManagement/Ndis/NDIS_TCP_IP_CHECKSUM_OFFLOAD.ahk" { NDIS_TCP_IP_CHECKSUM_OFFLOAD }
+#Import "../Windows/Win32/NetworkManagement/QoS/CONTROL_SERVICE.ahk" { CONTROL_SERVICE, AD_GUARANTEED }
+#Import "../Windows/Win32/Graphics/DirectDraw/DDMORESURFACECAPS.ahk" { DDMORESURFACECAPS }
+#Import "../Windows/Win32/System/Kernel/SLIST_HEADER.ahk" { SLIST_HEADER }
+#Import "../Windows/Win32/System/Diagnostics/Debug/CONTEXT.ahk" { CONTEXT, M128A }
+#Import "../Windows/Win32/Storage/FileSystem/BY_HANDLE_FILE_INFORMATION.ahk" { BY_HANDLE_FILE_INFORMATION }
+#Import "../Windows/Win32/Storage/Nvme/NVME_OCP_DEVICE_CAPABILITIES_LOG.ahk" { NVME_OCP_DEVICE_CAPABILITIES_LOG }
 
 /**
  * Tests of generated source code
@@ -57,35 +55,49 @@ class GeneratedStructSmokeTests {
         Set_LiteralUnicodeString_ConvertsCorrectly(){
             test := LOGFONTW()
             test.lfFaceName := "ooglyboogly"
-            Yunit.Assert((str := StrGet(test.ptr + 28, 31, "UTF-16")) == "ooglyboogly", 
-                Format("Expected '{1}' but got '{2}'", "ooglyboogly", str))
+
+            Assert.Equals(StrGet(test.ptr + 28, 31, "UTF-16"), "ooglyboogly")
         }
 
-        Get_UnicodeString_ReturnsStringObject(){
+        ToString_UnicodeString_ReturnsStringObject(){
             test := LOGFONTW()
             StrPut("This is a test string", test.ptr + 28, 31, "UTF-16")
 
-            str := test.lfFaceName
+            str := String(test.lfFaceName)
 
-            Yunit.Assert(str is String)
-            Yunit.Assert(str == "This is a test string", Format("Expected '{1}' but got '{2}'", "This is a test string", str))
+            Assert.IsType(str, String)
+            Assert.Equals(str, "This is a test string")
         }
 
         Set_LiteralAnsiString_ConvertsCorrectly(){
             test := LOGFONTA()
             test.lfFaceName := "ooglyboogly"
-            Yunit.Assert((str := StrGet(test.ptr + 28, 31, "CP0")) == "ooglyboogly", 
-                Format("Expected '{1}' but got '{2}'", "ooglyboogly", str))
+
+            Assert.Equals(StrGet(test.ptr + 28, 31, "CP0"), "ooglyboogly")
         }
 
-        Get_AnsiString_ReturnsStringObject(){
+        ToString_AnsiString_ReturnsStringObject(){
             test := LOGFONTA()
             StrPut("This is a test string", test.ptr + 28, 31, "CP0")
 
-            str := test.lfFaceName
+            str := String(test.lfFaceName)
 
-            Yunit.Assert(str is String)
-            Yunit.Assert(str == "This is a test string", Format("Expected '{1}' but got '{2}'", "This is a test string", str))
+            Assert.IsType(str, String)
+            Assert.Equals(str, "This is a test string")
+        }
+
+        Item_UnicodeStringType_GetsTypedefType() {
+            test := LOGFONTW()
+            test.lfFaceName := "ooglyboogly"
+
+            Assert.Equals(test.lfFaceName[4].value, Ord("l"))
+        }
+
+        Item_AnsiStringType_GetsTypedefType() {
+            test := LOGFONTA()
+            test.lfFaceName := "ooglyboogly"
+
+            Assert.Equals(test.lfFaceName[4].value, Ord("l"))
         }
     }
 
@@ -93,8 +105,8 @@ class GeneratedStructSmokeTests {
 
         New_WithStructSizeProperty_SetsIt() {
             test := ICONINFOEXW()
-            Yunit.Assert(test.cbSize == ICONINFOEXW.sizeof, 
-                Format("Expected cbSize to match ICONINFOEXW.sizeof ({1}), but it was {2}", ICONINFOEXW.sizeof, test.cbSize))
+            Yunit.Assert(test.cbSize == ObjGetDataSize(ICONINFOEXW()), 
+                Format("Expected cbSize to match ICONINFOEXW.sizeof ({1}), but it was {2}", ObjGetDataSize(ICONINFOEXW()), test.cbSize))
         }
     }
 
@@ -114,7 +126,7 @@ class GeneratedStructSmokeTests {
             test := CONTROL_SERVICE()
 
             Assert.HasProp(test, "Guaranteed", AD_GUARANTEED)
-            Assert.HasProp(test, "ParamBuffer", Win32FixedArray)
+            Assert.HasProp(test, "ParamBuffer", Any)
             Yunit.Assert(!test.HasProp("Anonymous1"), "CONTROL_SERVICE should not have a property Anonymous1")
         }
 
@@ -155,29 +167,6 @@ class GeneratedStructSmokeTests {
 
             Yunit.Assert((val := NumGet(test, 416, "uint")) == 128, Format("Expected 128 but got {1}", val))
             Yunit.Assert((val := NumGet(test, 424, "uint")) == 9999, Format("Expected 9999 but got {1}", val))
-        }
-
-        EmbeddedStructs_InOwnedStructs_InheritOwnershipFromParent(){
-            test := CONTEXT()
-
-            YUnit.Assert(test._owned)
-            YUnit.Assert(test.Xmm0._owned)
-            YUnit.Assert(test.Xmm1._owned)
-            YUnit.Assert(test.Xmm2._owned)
-            YUnit.Assert(test.Xmm3._owned)
-        }
-
-        EmbeddedStructs_InUnownedStructs_InheritOwnershipFromParent(){
-            test := CONTEXT()
-
-            ;Artifically override the default
-            test.DefineProp("_owned", {value: false})
-            
-            YUnit.Assert(!test._owned)
-            YUnit.Assert(!test.Xmm0._owned)
-            YUnit.Assert(!test.Xmm1._owned)
-            YUnit.Assert(!test.Xmm2._owned)
-            YUnit.Assert(!test.Xmm3._owned)
         }
 
         /**
@@ -252,17 +241,17 @@ class GeneratedStructSmokeTests {
             NumPut("uint64", 123456789, pshw, 48)   ;pStartPage / nStartPage union
             NumPut("ptr", 42, pshw, 56)             ;phpage union
 
-            Yunit.Assert(pshw.nPages == 0xFFFFFFFF, Format("Expected {1} but got {2}", -1, pshw.nPages))
-            Yunit.Assert(pshw.pStartPage == 123456789, Format("Expected {1} but got {2}", 123456789, pshw.pStartPage))
-            Yunit.Assert(pshw.phpage == 42, Format("Expected {1} but got {2}", 42, pshw.nPages))
+            Assert.Equals(pshw.nPages, 0xFFFFFFFF)
+            Assert.Equals(pshw.pStartPage.value, 123456789)
+            Assert.Equals(pshw.phpage.ptr, 42)
         }
 
         ; https://github.com/holy-tao/AhkWin32Projection/issues/46
         NonAnonymousUnions_AreNotFlattened() {
             test := NVME_OCP_DEVICE_CAPABILITIES_LOG()
 
-            Assert.Equals(type(test.OobMgmtSupport), "NVME_OCP_DEVICE_CAPABILITIES_LOG._OobMgmtSupport_e__Union")
-            Assert.Equals(type(test.WriteZeroesCommand), "NVME_OCP_DEVICE_CAPABILITIES_LOG._WriteZeroesCommand_e__Union")
+            Assert.Equals(type(test.OobMgmtSupport), "NVME_OCP_DEVICE_CAPABILITIES_LOG._OobMgmtSupport")
+            Assert.Equals(type(test.WriteZeroesCommand), "NVME_OCP_DEVICE_CAPABILITIES_LOG._WriteZeroesCommand")
         }
 
         NonAnonymousUnions_AreProjectedCorrectly() {

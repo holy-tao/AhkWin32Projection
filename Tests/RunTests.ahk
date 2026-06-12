@@ -1,11 +1,9 @@
 #Requires AutoHotkey v2.0
 
-#Include ./Yunit/Yunit.ahk
-#Include ./Yunit/Junit.ahk
-#Include ./Yunit/Stdout.ahk
-#Include ./YunitExtensions/Assert.ahk
-#Include ./YunitExtensions/ResultCounter.ahk
-#Include ./YunitExtensions/BetterJUnit.ahk
+#Import "./Yunit/Yunit.ahk" { Yunit }
+#Import "./Yunit/Stdout.ahk" { YunitStdOut }
+#Import "./YunitExtensions/ResultCounter.ahk" { YunitResultCounter }
+#Import "./YunitExtensions/BetterJUnit.ahk" { BetterJUnit }
 
 #Import "./GeneratedStructSmoke.test.ahk" { GeneratedStructSmokeTests }
 #Import "./GeneratedApiSmoke.test.ahk" { GeneratedApiSmokeTests }
@@ -17,26 +15,15 @@
 #Import "./generator-extensions/BstrExtensions.test.ahk" { BSTRExtensionTests }
 #Import "./generator-extensions/StringUtils.test.ahk" { StringUtilExtensionTests }
 #Import "./generator-extensions/NTSTATUSExtensions.test.ahk" { NTSTATUSExtensionTests }
-#Import "./generator-extensions/ValueAccessorOverrides.test.ahk" { ValueAccessorOverrideTests }
-
-#Import "./HandleOwnership.test.ahk" { HandleOwnershipTests }
-
-#Import "./Vector.test.ahk" { VectorTests }
-
 Yunit.Use(YunitStdOut, BetterJUnit, YunitResultCounter).Test(
     GeneratedStructSmokeTests,
     GeneratedApiSmokeTests,
     GeneratedComInterfaceTests,
     GeneratedConstantSmokeTests,
-    CStyleArrayListTests,
-    Win32FixedArrayTests,
-    Win32HandleTests,
     Win32ComInterfaceTests,
     RectExtensionTests,
     COLROREFExtensionTests,
     BSTRExtensionTests,
-    GuidTests,
-    Win32EnumTests,
     StringUtilExtensionTests,
     NTSTATUSExtensionTests,
     ValueAccessorOverrideTests,

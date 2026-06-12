@@ -157,7 +157,7 @@ struct DummyInterface extends IUnknown {
     }
 
     __New(implObj := 0, flags := "") {
-        if (NumGet(this, 0, "ptr") == 0) {
+        if (NumGet(ObjGetDataPtr(this), 0, "ptr") == 0) {
             this.vtbl := DummyInterface.Vtbl()
         }
         super.__New(implObj, flags)
