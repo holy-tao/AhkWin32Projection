@@ -15,6 +15,9 @@
 #Import "./generator-extensions/BstrExtensions.test.ahk" { BSTRExtensionTests }
 #Import "./generator-extensions/StringUtils.test.ahk" { StringUtilExtensionTests }
 #Import "./generator-extensions/NTSTATUSExtensions.test.ahk" { NTSTATUSExtensionTests }
+
+#Import "./Vector.test.ahk" { VectorTests }
+
 Yunit.Use(YunitStdOut, BetterJUnit, YunitResultCounter).Test(
     GeneratedStructSmokeTests,
     GeneratedApiSmokeTests,
@@ -26,8 +29,6 @@ Yunit.Use(YunitStdOut, BetterJUnit, YunitResultCounter).Test(
     BSTRExtensionTests,
     StringUtilExtensionTests,
     NTSTATUSExtensionTests,
-    ValueAccessorOverrideTests,
-    HandleOwnershipTests,
     VectorTests
 )
 
