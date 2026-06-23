@@ -35,9 +35,9 @@ jobs:
           fetch-depth: 0
 
       - name: Install AutoHotkey V2
-        uses: holy-tao/install-autohotkey@v1
+        uses: holy-tao/install-autohotkey@v2.1.0
         with:
-          version: v2.0.19
+          version: 2.1-latest
 
       - name: Enable AHK validator problem matcher
         run: echo "::add-matcher::.github/problem-matchers/ahk.json"
